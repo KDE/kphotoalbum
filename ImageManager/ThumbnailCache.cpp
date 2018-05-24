@@ -84,7 +84,8 @@ ImageManager::ThumbnailCache::ThumbnailCache()
     m_timer(new QTimer),
     m_needsFullSave(true),
     m_isDirty(false),
-    m_memcache(new QCache<int,ThumbnailMapping>(LRU_SIZE))
+    m_memcache(new QCache<int,ThumbnailMapping>(LRU_SIZE)),
+    m_currentWriter(nullptr)
 {
     const QString dir = thumbnailPath(QString());
     if ( !QFile::exists(dir) )
@@ -108,15 +109,19 @@ ImageManager::ThumbnailCache::~ThumbnailCache()
 
 void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImage& image )
 {
-    QFile file( fileNameForIndex(m_currentFile) );
-    if ( ! file.open(QIODevice::ReadWrite ) )
-    {
-        qCWarning(ImageManagerLog, "Failed to open thumbnail file for inserting");
-        return;
+    m_thumbnailWriterLock.lock();
+    if ( ! m_currentWriter ) {
+        m_currentWriter = new QFile( fileNameForIndex(m_currentFile) );
+        if ( ! m_currentWriter->open(QIODevice::ReadWrite ) ) {
+            qCWarning(ImageManagerLog, "Failed to open thumbnail file for inserting");
+            m_thumbnailWriterLock.unlock();
+            return;
+        }
     }
-    if ( ! file.seek( m_currentOffset ) )
+    if ( ! m_currentWriter->seek( m_currentOffset ) )
     {
         qCWarning(ImageManagerLog, "Failed to seek in thumbnail file");
+        m_thumbnailWriterLock.unlock();
         return;
     }
 
@@ -132,12 +137,17 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
     Q_ASSERT( OK );
 
     const int size = data.size();
-    if ( ! ( file.write( data.data(), size ) == size && file.flush() ) )
+    if ( ! ( m_currentWriter->write( data.data(), size ) == size && m_currentWriter->flush() ) )
     {
         qCWarning(ImageManagerLog, "Failed to write image data to thumbnail file");
         return;
     }
-    file.close();
+    
+    if ( m_currentOffset + size > MAXFILESIZE ) {
+        m_currentWriter->close();
+        m_currentWriter = nullptr;
+    }
+    m_thumbnailWriterLock.unlock();
 
     if ( m_hash.contains(name) ) {
         CacheFileInfo info = m_hash[name];
@@ -236,6 +246,13 @@ QByteArray ImageManager::ThumbnailCache::lookupRawData( const DB::FileName& name
 
 void ImageManager::ThumbnailCache::saveFull() const
 {
+    // First ensure that any dirty thumbnails are written to disk
+    m_thumbnailWriterLock.lock();
+    if ( m_currentWriter ) {
+        m_currentWriter->close();
+        m_currentWriter = nullptr;
+    }
+    m_thumbnailWriterLock.unlock();
     m_dataLock.lock();
     if ( ! m_isDirty ) {
         m_dataLock.unlock();
@@ -291,6 +308,12 @@ void ImageManager::ThumbnailCache::saveFull() const
 // save eventually.
 void ImageManager::ThumbnailCache::saveIncremental() const
 {
+    m_thumbnailWriterLock.lock();
+    if ( m_currentWriter ) {
+        m_currentWriter->close();
+        m_currentWriter = nullptr;
+    }
+    m_thumbnailWriterLock.unlock();
     m_dataLock.lock();
     if ( m_unsavedHash.count() == 0 ) {
         m_dataLock.unlock();

@@ -22,6 +22,7 @@
 #include <QImage>
 #include <DB/FileNameList.h>
 #include <QMutex>
+#include <QFile>
 
 template <class Key, class T>
 class QCache;
@@ -64,6 +65,8 @@ private:
     mutable QMutex m_dataLock;
     /* Prevents multiple saves from happening simultaneously */
     mutable QMutex m_saveLock;
+    /* Protects writing thumbnails to disk */
+    mutable QMutex m_thumbnailWriterLock;
     int m_currentFile;
     int m_currentOffset;
     mutable QTimer* m_timer;
@@ -78,6 +81,7 @@ private:
      * Holds an in-memory cache of thumbnail files.
      */
     mutable QCache<int,ThumbnailMapping> *m_memcache;
+    mutable QFile* m_currentWriter;
 };
 
 }

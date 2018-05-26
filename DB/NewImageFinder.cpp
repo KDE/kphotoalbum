@@ -235,21 +235,29 @@ using namespace DB;
  *
  * C) Scout threads (0, 1, 2, 3)
  *
- * The JPG image set constitutes 9293 images totaling about 55 GB.
- * The RAW image set constitutes 1544 images totaling about 37 GB.
- * The ALL set consists of 10839 or 10840 images totaling about 92 GB.
+ * The JPG image set constitutes 9293 images totaling about 55 GB.  The
+ *   JPEG files are mostly 20 MP high quality files, in the range of
+ *   6-10 MB.
+ * The RAW image set constitutes 1544 images totaling about 37 GB.  The
+ *   RAW files are 20 MP files, in the range of 25 MB.
+ * The ALL set consists of 10839 or 10840 images totaling about 92 GB
+ *   (the above set plus 2 .MOV files and in some cases one additional
+ *   JPEG file).
  * 
  * Times are elapsed times; CPU consumption is approximate user+system
- * CPU consumption.  Numbers in parentheses are with thumbnail building
- * disabled.  Note that in the cases with no scout threads on the SSD the
- * times were reproducibly shorter with thumbnail building enabled
- * (reasons are not determined at this time).
+ * CPU consumption.  Numbers in parentheses are with thumbnail
+ * building disabled.  Note that in the cases with no scout threads on
+ * the SSD the times were reproducibly shorter with thumbnail building
+ * enabled (reasons are not determined at this time).
  * 
- * Cases building RAW thumbnails generally consumed somewhat more system
- * CPU (in the range of 10-15%) than JPEG-only cases.  This may be due to
- * custom I/O routines used for generating thumbnails with JPEG files;
- * RAW files used the I/O provided by libkdcraw, which uses smaller I/O
- * operations.
+ * Cases building RAW thumbnails generally consumed somewhat more
+ * system CPU (in the range of 10-15%) than JPEG-only cases.  This may
+ * be due to custom I/O routines used for generating thumbnails with
+ * JPEG files; RAW files used the I/O provided by libkdcraw, which
+ * uses smaller I/O operations.
+ *
+ * Estimating CPU time for mixed workloads proved very problematic,
+ * as there were significant changes over time.
  * 
  * Elapsed Time
  * ------- ----
@@ -262,14 +270,14 @@ using namespace DB;
  * JPG - 3 scouts                  2:21 (1:58)
  * 
  * ALL - 0 scouts                  6:32 (7:03)            16:01
- * ALL - 1 scout                   4:24 (4:31)            15:01
- * ALL - 2 scouts                  3:40 (3:28)            16:59
- * ALL - 3 scouts                  3:42 (3:15)
+ * ALL - 1 scout                   4:33 (4:33)            15:01
+ * ALL - 2 scouts                  3:37 (3:28)            16:59
+ * ALL - 3 scouts                  3:36 (3:15)
  * 
  * RAW - 0 scouts                  2:18 (2:46)
  * RAW - 1 scout                   1:46 (1:46)
- * RAW - 2 scouts                  1:20 (1:17)
- * RAW - 3 scouts                  1:18 (1:13)
+ * RAW - 2 scouts                  1:17 (1:17)
+ * RAW - 3 scouts                  1:13 (1:13)
  * 
  * User+System CPU
  * ----------- ---
@@ -281,33 +289,30 @@ using namespace DB;
  * JPG - 2 scouts                  85% (15%)
  * JPG - 3 scouts                  85% (15%)
  * 
- * ALL - 0 scouts                  40% (10%)               10%
- * ALL - 1 scout                   65% (18%)               20%
- * ALL - 2 scouts                  70% (15%)                8%
- * ALL - 3 scouts                  75% (15%)
- * 
- * RAW - 0 scouts                  25% (10%)
- * RAW - 1 scout                   50% (25%)
- * RAW - 2 scouts                  65% (15%)
- * RAW - 3 scouts                  60% (15%)
+ * RAW - 0 scouts                  15% (10%)
+ * RAW - 1 scout                   18% (12%)
+ * RAW - 2 scouts                  25% (15%)
+ * RAW - 3 scouts                  25% (15%)
  *
  * I also used kcachegrind to measure CPU consumption on smaller
  * subsets of images (with and without thumbnail creation).  In terms
  * of user CPU consumption, thumbnail creation constitutes the large
- * majority of CPU cycles, followed by MD5 computation, with EXIF
- * parsing lagging far behind.
+ * majority of CPU cycles for processing JPEG files, followed by MD5
+ * computation, with EXIF parsing lagging far behind.  For RAW files,
+ * MD5 computation consumes more cycles, likely in part due to the
+ * larger size of RAW files but possibly also related to the smaller
+ * filesize of embedded thumbnails (on the Canon 7D mkII, the embedded
+ * thumbnail is full size but low quality).
  * 
  * With thumbnail generation:
  * ---- --------- -----------
  * 
  *                                 RAW             JPEG
  * 
- * Thumbnail generation            74%             82%
- *   libjpeg processing              69%             82%
- *   scale/rotate                     2%
- *   convert to RGB                   3%
- * MD5 computation                 23%             13%
- * Read EXIF                        0.5%           1.0%
+ * Thumbnail generation            44%             82%
+ *   libjpeg processing              43%             82%
+ * MD5 computation                 51%             13%
+ * Read EXIF                        1%              1.0%
  * 
  * Without thumbnail generation:
  * ------- --------- -----------

@@ -529,7 +529,7 @@ extern "C"
 
 namespace Utilities
 {
-    static bool loadJPEGInternal(QImage *img, FILE* inputFile, QSize* fullSize, int dim, char *membuf, size_t membuf_size );
+    static bool loadJPEGInternal(QImage *img, FILE* inputFile, QSize* fullSize, int dim, const char *membuf, size_t membuf_size );
 }
 
 bool Utilities::loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim, char *membuf, size_t membufSize)
@@ -539,6 +539,7 @@ bool Utilities::loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* full
     if ( stat( QFile::encodeName(imageFile.absolute()).constData(), &statbuf ) == -1 )
         return false;
     if ( ! membuf || statbuf.st_size > (int) membufSize ) {
+        qDebug() << "loadJPEG (slow path) " << imageFile.relative() << " " << statbuf.st_size << " " << membufSize;
         FILE* inputFile=fopen( QFile::encodeName(imageFile.absolute()).constData(), "rb");
         if(!inputFile)
             return false;
@@ -573,7 +574,12 @@ bool Utilities::loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* full
     return loadJPEG( img, imageFile, fullSize, dim, NULL, 0 );
 }
 
-static bool Utilities::loadJPEGInternal(QImage *img, FILE* inputFile, QSize* fullSize, int dim, char *membuf, size_t membuf_size )
+bool Utilities::loadJPEG(QImage *img, const QByteArray &data, QSize* fullSize, int dim)
+{
+    return loadJPEGInternal(img, nullptr, fullSize, dim, data.data(), data.size());
+}
+
+bool Utilities::loadJPEGInternal(QImage *img, FILE* inputFile, QSize* fullSize, int dim, const char *membuf, size_t membuf_size )
 {
     struct jpeg_decompress_struct    cinfo;
     struct myjpeg_error_mgr jerr;

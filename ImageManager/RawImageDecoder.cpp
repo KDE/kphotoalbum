@@ -21,6 +21,7 @@
 
 #include <DB/FileName.h>
 #include "Settings/SettingsData.h"
+#include <Utilities/Util.h>
 
 #include <QFile>
 #include <QImage>
@@ -39,14 +40,20 @@ bool RAWImageDecoder::_decode( QImage *img, const DB::FileName& imageFile, QSize
     Q_UNUSED( dim );
 
 #ifdef HAVE_KDCRAW
-    if ( !KDcrawIface::KDcraw::loadRawPreview( *img, imageFile.absolute() ) )
+    QByteArray previewData;
+    if ( !KDcrawIface::KDcraw::loadEmbeddedPreview( previewData, imageFile.absolute() ) )
+        return false;
+
+    // Faster than allowing loadRawPreview to do the decode itself
+    if ( ! Utilities::loadJPEG(img, previewData, fullSize, dim ) )
         return false;
 
     // FIXME: The preview data for Canon's image is always returned in its non-rotated form by libkdcraw, ie. KPA should do the rotation.
     // FIXME: This will happen later on.
     if ( Settings::SettingsData::instance()->useRawThumbnail() &&
-         img->width() >= Settings::SettingsData::instance()->useRawThumbnailSize().width() &&
-         img->height() >= Settings::SettingsData::instance()->useRawThumbnailSize().height() )
+         ( ( dim > 0 && img->width() >= dim && img->height() >= dim ) ||
+           ( img->width() >= Settings::SettingsData::instance()->useRawThumbnailSize().width() &&
+             img->height() >= Settings::SettingsData::instance()->useRawThumbnailSize().height() ) ) )
         return true;
 
     KDcrawIface::DcrawInfoContainer metadata;

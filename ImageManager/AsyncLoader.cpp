@@ -134,6 +134,17 @@ void ImageManager::AsyncLoader::loadImage( ImageRequest* request )
         return; // We are currently loading it, calm down and wait please ;-)
     }
 
+    // Try harder to find a pending request.  Unfortunately, we can't simply use
+    // m_currentLoading.contains() because that will compare pointers
+    // when we want to compare values.
+    for (req = m_currentLoading.begin(); req != m_currentLoading.end(); req++) {
+        ImageRequest *r = *req;
+        if (*request == *r) {
+            delete request;
+            return; // We are currently loading it, calm down and wait please ;-)
+        }
+    }
+            
     // if request is "fresh" (not yet pending):
     if (m_loadList.addRequest( request ))
         m_sleepers.wakeOne();

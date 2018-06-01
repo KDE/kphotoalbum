@@ -294,6 +294,7 @@ set(libDB_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/OrCategoryMatcher.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/AndCategoryMatcher.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/FastDir.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/OptimizedFileList.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/FileName.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/FileNameList.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/Logging.cpp

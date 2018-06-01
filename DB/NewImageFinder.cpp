@@ -492,9 +492,6 @@ void NewImageFinder::loadExtraFiles()
 
         if ( dialog.wasCanceled() )
         {
-            // Ask the scout to interrupt first, then do our cleanup, then wait for
-            // the scout thread to finish.  One more line of code, but lets us
-            // overlap the operations.
             m_pendingLoad.clear();
             Exif::Database::instance()->abortInsertTransaction();
             return;

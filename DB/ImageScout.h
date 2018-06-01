@@ -51,6 +51,10 @@ public:
     // May not be called after starting the scout.
     void setMaxSeekAhead(int);
     int getMaxSeekAhead();
+    // Specify how many bytes we read before moving on.
+    // May not be called after starting the scout.
+    void setReadLimit(int);
+    int getReadLimit();
     // Start the scout running
     void start();
 
@@ -58,9 +62,11 @@ private:
     QMutex m_mutex;
     QList<ImageScoutThread *> m_scoutList;
     QAtomicInt m_preloadedCount;
+    QAtomicInt m_skippedCount;
     bool m_isStarted;
     int m_scoutBufSize;
     int m_maxSeekAhead;
+    int m_readLimit;
 };
 }
 

@@ -19,13 +19,10 @@
 
 #include "FastDir.h"
 
-#include <QFile>
-
 extern "C" {
 #include <sys/types.h>
 #include <dirent.h>
 #include <stdio.h>
-}
 
 /*
  * Ideally the order of entries returned by readdir() should be close
@@ -57,14 +54,65 @@ extern "C" {
 #include <sys/vfs.h>
 #include <linux/magic.h>
 #endif  // __linux__
+}
 
+#include <QFile>
+#include <QDebug>
 #include <QMap>
 
-typedef QMap<ino_t, QString> DirMap;
+typedef QMap<ino_t, QString> InodeMap;
+
+typedef QSet<QString> StringSet;
 
 DB::FastDir::FastDir(const QString &path)
   : m_path(path)
 {
+    InodeMap tmpAnswer;
+    DIR *dir;
+    dirent *file;
+    QByteArray bPath(QFile::encodeName(path));
+    dir = opendir( bPath.constData() );
+    if ( !dir )
+        return;
+    bool doSortByInode = sortByInode(bPath);
+    bool doSortByName = sortByName(bPath);
+
+#if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)
+    // ZaJ (2016-03-23): while porting to Qt5/KF5, this code-path is disabled on my system
+    //     I don't want to touch this right now since I can't verify correctness in any way.
+    // rlk 2018-05-20: readdir_r is deprecated as of glibc 2.24; see
+    //     http://man7.org/linux/man-pages/man3/readdir_r.3.html.
+    //     There are problems with MAXNAMLEN/NAME_MAX and friends, that
+    //     can differ from filesystem to filesystem.  It's also expected
+    //     that POSIX will (if it hasn't already) deprecate readdir_r
+    //     and require readdir to be thread safe.
+    union dirent_buf {
+        struct KDE_struct_dirent mt_file;
+        char b[sizeof(struct dirent) + MAXNAMLEN + 1];
+    } *u = new union dirent_buf;
+    while ( readdir_r(dir, &(u->mt_file), &file ) == 0 && file )
+#else
+    // FIXME: use 64bit versions of readdir and dirent?
+    while ( (file = readdir(dir)) )
+#endif // QT_THREAD_SUPPORT && _POSIX_THREAD_SAFE_FUNCTIONS
+    {
+        if ( doSortByInode )
+            tmpAnswer.insert(file->d_ino, QFile::decodeName(file->d_name));
+        else
+            m_sortedList.append(QFile::decodeName(file->d_name));
+    }
+#if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)
+    delete u;
+#endif
+    (void) closedir(dir);
+    
+    if ( doSortByInode ) {
+        for ( InodeMap::iterator it = tmpAnswer.begin(); it != tmpAnswer.end(); ++it ) {
+            m_sortedList << it.value();
+        }
+    } else if ( doSortByName ) {
+        m_sortedList.sort();
+    }
 }
 
 // No currently known filesystems where sort by name is optimal
@@ -91,56 +139,41 @@ bool DB::FastDir::sortByInode(const QByteArray &path)
 #endif  // __linux__
 }
 
-QStringList DB::FastDir::entryList() const
+const QStringList DB::FastDir::entryList() const
+{
+    return m_sortedList;
+}
+
+QStringList DB::FastDir::sortFileList(const StringSet &files) const
 {
     QStringList answer;
-    DirMap tmpAnswer;
-    DIR *dir;
-    dirent *file;
-    QByteArray path = QFile::encodeName(m_path);
-    dir = opendir( path.constData() );
-    if ( !dir )
-        return answer; // cannot read the directory
-    bool doSortByInode = sortByInode(path);
-    bool doSortByName = sortByName(path);
-
-#if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)
-    // ZaJ (2016-03-23): while porting to Qt5/KF5, this code-path is disabled on my system
-    //     I don't want to touch this right now since I can't verify correctness in any way.
-    // rlk 2018-05-20: readdir_r is deprecated as of glibc 2.24; see
-    //     http://man7.org/linux/man-pages/man3/readdir_r.3.html.
-    //     There are problems with MAXNAMLEN/NAME_MAX and friends, that
-    //     can differ from filesystem to filesystem.  It's also expected
-    //     that POSIX will (if it hasn't already) deprecate readdir_r
-    //     and require readdir to be thread safe.
-    union dirent_buf {
-        struct KDE_struct_dirent mt_file;
-        char b[sizeof(struct dirent) + MAXNAMLEN + 1];
-    } *u = new union dirent_buf;
-    while ( readdir_r(dir, &(u->mt_file), &file ) == 0 && file )
-#else
-    // FIXME: use 64bit versions of readdir and dirent?
-    while ( (file = readdir(dir)) )
-#endif // QT_THREAD_SUPPORT && _POSIX_THREAD_SAFE_FUNCTIONS
-    {
-        if ( doSortByInode )
-            tmpAnswer.insert(file->d_ino, QFile::decodeName(file->d_name));
-        else
-            answer.append(QFile::decodeName(file->d_name));
-    }
-#if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)
-    delete u;
-#endif
-    (void) closedir(dir);
-    
-    if ( doSortByInode ) {
-        for ( DirMap::iterator it = tmpAnswer.begin(); it != tmpAnswer.end(); ++it ) {
-            answer << it.value();
+    StringSet tmp(files);
+    for ( const QString &fileName : m_sortedList ) {
+        if ( tmp.contains( fileName ) ) {
+            answer << fileName;
+            tmp.remove( fileName );
+        } else if ( tmp.contains( m_path + fileName ) ) {
+            answer << m_path + fileName;
+            tmp.remove( m_path + fileName );
         }
-    } else if ( doSortByName ) {
-        answer.sort();
+    }
+    if ( tmp.count() > 0 ) {
+        qDebug() << "Files left over after sorting on " << m_path;
+        for ( const QString &fileName : tmp ) {
+            qDebug() << fileName;
+            answer << fileName;
+        }
     }
     return answer;
+}
+
+QStringList DB::FastDir::sortFileList(const QStringList &files) const
+{
+    StringSet tmp;
+    for ( const QString &fileName : files ) {
+        tmp << fileName;
+    }
+    return sortFileList(tmp);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

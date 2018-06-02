@@ -19,6 +19,8 @@
 #include "Logging.h"
 
 #include <Settings/SettingsData.h>
+#include <DB/ImageDB.h>
+#include <DB/FastDir.h>
 
 #include <QBuffer>
 #include <QCache>
@@ -27,6 +29,7 @@
 #include <QTimer>
 #include <QPixmap>
 #include <QFile>
+#include <QElapsedTimer>
 
 // We split the thumbnails into chunks to avoid a huge file changing over and over again, with a bad hit for backups
 const int MAXFILESIZE=32*1024*1024;
@@ -177,9 +180,9 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
     }
 }
 
-QString ImageManager::ThumbnailCache::fileNameForIndex( int index ) const
+QString ImageManager::ThumbnailCache::fileNameForIndex( int index, const QString dir ) const
 {
-    return thumbnailPath(QString::fromLatin1("thumb-") + QString::number(index) );
+    return thumbnailPath(QString::fromLatin1("thumb-") + QString::number(index), dir );
 }
 
 QPixmap ImageManager::ThumbnailCache::lookup( const DB::FileName& name ) const
@@ -208,6 +211,27 @@ QPixmap ImageManager::ThumbnailCache::lookup( const DB::FileName& name ) const
     // Notice the above image is sharing the bits with the file, so I can't just return it as it then will be invalid when the file goes out of scope.
     // PENDING(blackie) Is that still true?
     return QPixmap::fromImage( image );
+}
+
+QByteArray ImageManager::ThumbnailCache::lookupRawData( const DB::FileName& name ) const
+{
+    m_dataLock.lock();
+    CacheFileInfo info = m_hash[name];
+    m_dataLock.unlock();
+
+    ThumbnailMapping *t = m_memcache->object(info.fileIndex);
+    if (!t || !t->isValid())
+    {
+        t = new ThumbnailMapping( fileNameForIndex( info.fileIndex ) );
+        if (!t->isValid())
+        {
+            qCWarning(ImageManagerLog, "Failed to map thumbnail file");
+            return QByteArray();
+        }
+        m_memcache->insert(info.fileIndex,t);
+    }
+    QByteArray array( t->map.mid(info.offset , info.size ) );
+    return array;
 }
 
 void ImageManager::ThumbnailCache::saveFull() const
@@ -331,6 +355,8 @@ void ImageManager::ThumbnailCache::load()
     if ( !file.exists() )
         return;
 
+    QElapsedTimer timer;
+    timer.start();
     file.open(QIODevice::ReadOnly);
     QDataStream stream(&file);
     int version;
@@ -369,6 +395,112 @@ void ImageManager::ThumbnailCache::load()
         count++;
     }
     m_dataLock.unlock();
+    qDebug() << "Loaded thumbnails in " << timer.elapsed() / 1000.0 << " seconds";
+}
+
+void ImageManager::ThumbnailCache::optimizeThumbnails()
+{
+    const QString tmpdir(QString::fromLatin1(".thumbnails.tmp/"));
+    const QString dir = thumbnailPath(QString(), tmpdir);
+    const QString index = thumbnailPath(QString::fromLatin1("thumbnailindex"), tmpdir);
+    QElapsedTimer timer;
+
+    timer.start();
+    int currentInputFile = -1;
+    if ( !QFile::exists(dir) )
+        QDir().mkpath(dir);
+
+    int maxFile = 0;
+    int maxOffset = 0;
+    for ( const DB::FileName& fileName : DB::ImageDB::instance()->images()) {
+        const CacheFileInfo& cacheInfo = m_hash[fileName];
+        if ( cacheInfo.fileIndex > maxFile ) {
+            maxFile = cacheInfo.fileIndex;
+            maxOffset = cacheInfo.offset + cacheInfo.size;
+        } else if ( cacheInfo.fileIndex == maxFile && 
+                    cacheInfo.offset >= maxOffset + cacheInfo.size ) {
+            maxOffset = cacheInfo.offset + cacheInfo.size;
+        }
+    }
+
+    int currentFile = 0;
+    int currentOffset = 0;
+
+    QFile *outFile = nullptr;
+    
+    QFile *inFile = nullptr;
+
+    QFile indexFile( index );
+    if ( ! indexFile.open(QIODevice::ReadWrite ) ) {
+        qCWarning(ImageManagerLog, "Failed to open index file for writing");
+        return;
+    }
+
+    QDataStream stream(&indexFile);
+    stream << FILEVERSION
+           << maxFile
+           << maxOffset
+           << DB::ImageDB::instance()->images().count();
+
+    for ( const DB::FileName& fileName : DB::ImageDB::instance()->images()) {
+        const CacheFileInfo& cacheInfo = m_hash[fileName];
+        if ( cacheInfo.fileIndex != currentInputFile ) {
+            if ( inFile ) {
+                inFile->close();
+                delete inFile;
+            }
+            currentInputFile = cacheInfo.fileIndex;
+            inFile = new QFile( fileNameForIndex(currentInputFile) );
+            if ( ! inFile->open(QIODevice::ReadOnly ) ) {
+                qDebug() << "Failed to open thumbnail file " << fileNameForIndex(currentInputFile) << " for reading";
+                return;
+            }
+        }
+        if ( ! inFile->seek( cacheInfo.offset ) ) {
+            qCWarning(ImageManagerLog, "Failed to seek in input thumbnail file");
+            return;
+        }
+
+        QByteArray data( inFile->read( cacheInfo.size ) );
+        if ( data.size() != cacheInfo.size ) {
+            qCWarning(ImageManagerLog, "Incomplete size!");
+            return;
+        }
+        if ( ! outFile ) {
+            outFile = new QFile( fileNameForIndex( currentFile, tmpdir ) );
+            if ( ! outFile->open(QIODevice::ReadWrite ) ) {
+                qCWarning(ImageManagerLog, "Failed to open thumbnail file for inserting");
+                return;
+            }
+        }
+
+        if ( ! ( outFile->write(data.data(), data.size() ) ) ) {
+            qCWarning(ImageManagerLog, "Failed to write image data to thumbnail file!");
+            return;
+        }
+        stream << fileName.relative()
+               << currentFile
+               << currentOffset
+               << data.size();
+        currentOffset += data.size();
+        if ( currentOffset > MAXFILESIZE ) {
+            outFile->close();
+            delete outFile;
+            outFile = nullptr;
+            currentFile++;
+            currentOffset = 0;
+        }
+    }
+    indexFile.close();
+    if ( inFile ) {
+        inFile->close();
+        delete inFile;
+    }
+    if ( outFile ) {
+        outFile->close();
+        delete outFile;
+    }
+    qDebug() << "Optimized thumbnails in " << timer.elapsed() / 1000.0 << " seconds";
 }
 
 bool ImageManager::ThumbnailCache::contains( const DB::FileName& name ) const
@@ -379,10 +511,9 @@ bool ImageManager::ThumbnailCache::contains( const DB::FileName& name ) const
     return answer;
 }
 
-QString ImageManager::ThumbnailCache::thumbnailPath(const QString& file) const
+QString ImageManager::ThumbnailCache::thumbnailPath(const QString& file, const QString dir) const
 {
-    // Making it static is just an optimization.
-    static QString base = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath( QString::fromLatin1(".thumbnails/") );
+    QString base = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath( dir );
     return  base + file;
 }
 

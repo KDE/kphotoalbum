@@ -40,10 +40,12 @@ public:
     ThumbnailCache();
     void insert( const DB::FileName& name, const QImage& image );
     QPixmap lookup( const DB::FileName& name ) const;
+    QByteArray lookupRawData( const DB::FileName& name ) const;
     bool contains( const DB::FileName& name ) const;
     void load();
     void removeThumbnail( const DB::FileName& );
     void removeThumbnails( const DB::FileNameList& );
+    void optimizeThumbnails();
 
 public slots:
     void save() const;
@@ -54,8 +56,8 @@ signals:
 
 private:
     ~ThumbnailCache();
-    QString fileNameForIndex( int index ) const;
-    QString thumbnailPath( const QString& fileName ) const;
+    QString fileNameForIndex( int index, const QString dir = QString::fromLatin1(".thumbnails/") ) const;
+    QString thumbnailPath( const QString& fileName, const QString dir = QString::fromLatin1(".thumbnails/") ) const;
 
     static ThumbnailCache* s_instance;
     QHash<DB::FileName, CacheFileInfo> m_hash;

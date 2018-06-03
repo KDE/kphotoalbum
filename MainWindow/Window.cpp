@@ -898,10 +898,6 @@ void MainWindow::Window::setupMenuBar()
     a = actionCollection()->addAction( QString::fromLatin1("buildThumbs"), this, SLOT(slotBuildThumbnails()) );
     a->setText( i18n("Build Thumbnails") );
 
-    a = actionCollection()->addAction( QString::fromLatin1("optimizeThumbs"), this, SLOT(slotOptimizeThumbnails()) );
-    a->setText( i18n("Optimize Thumbnails") );
-
-    a = actionCollection()->addAction( QString::fromLatin1("statistics"), this, SLOT(slotStatistics()) );
     a->setText( i18n("Statistics...") );
 
     m_markUntagged = actionCollection()->addAction(QString::fromUtf8("markUntagged"),
@@ -1756,11 +1752,6 @@ void MainWindow::Window::showImage( const DB::FileName& fileName )
 void MainWindow::Window::slotBuildThumbnails()
 {
     ImageManager::ThumbnailBuilder::instance()->buildAll( ImageManager::StartNow );
-}
-
-void MainWindow::Window::slotOptimizeThumbnails()
-{
-    ImageManager::ThumbnailBuilder::instance()->optimizeThumbnails();
 }
 
 void MainWindow::Window::slotBuildThumbnailsIfWanted()

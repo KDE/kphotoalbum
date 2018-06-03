@@ -46,7 +46,6 @@ public:
     void load();
     void removeThumbnail( const DB::FileName& );
     void removeThumbnails( const DB::FileNameList& );
-    void optimizeThumbnails();
 
 public slots:
     void save() const;

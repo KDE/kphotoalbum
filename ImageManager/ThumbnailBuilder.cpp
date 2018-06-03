@@ -63,7 +63,6 @@ void ImageManager::ThumbnailBuilder::cancelRequests()
 void ImageManager::ThumbnailBuilder::terminateScout()
 {
     if (m_scout) {
-        qDebug() << "Terminating scout:" << m_count << m_expectedThumbnails;
         delete m_scout;
         m_scout = nullptr;
     }
@@ -85,7 +84,6 @@ void ImageManager::ThumbnailBuilder::pixmapLoaded(ImageManager::ImageRequest* re
     m_loadedCount++;
     m_statusBar->setProgress( ++m_count );
     if ( m_count >= m_expectedThumbnails ) {
-        qDebug() << "pixmapLoaded terminating scout" << m_count << m_expectedThumbnails;
         terminateScout();
     }
 }
@@ -102,11 +100,6 @@ void ImageManager::ThumbnailBuilder::buildAll( ThumbnailBuildStart when )
         ImageManager::ThumbnailCache::instance()->flush();
         scheduleThumbnailBuild( DB::ImageDB::instance()->images(), when );
     }
-}
-
-void ImageManager::ThumbnailBuilder::optimizeThumbnails()
-{
-    ImageManager::ThumbnailCache::instance()->optimizeThumbnails();
 }
 
 ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::instance()
@@ -198,7 +191,6 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
     m_expectedThumbnails = numberOfThumbnailsToBuild;
     if (numberOfThumbnailsToBuild == 0) {
         m_statusBar->setProgressBarVisible(false);
-        qDebug() << "doThumbnailBuild terminating scout" << m_count << m_expectedThumbnails;
         terminateScout();
     }
 }
@@ -213,7 +205,6 @@ void ImageManager::ThumbnailBuilder::requestCanceled()
     m_statusBar->setProgress( ++m_count );
     m_loadedCount++;
     if ( m_count >= m_expectedThumbnails ) {
-        qDebug() << "requestCanceled terminating scout" << m_count << m_expectedThumbnails;
         terminateScout();
     }
 }

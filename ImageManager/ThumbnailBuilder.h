@@ -46,7 +46,6 @@ public:
 
 public slots:
     void buildAll(ThumbnailBuildStart when=ImageManager::StartDelayed );
-    void optimizeThumbnails();
     void buildMissing();
     void cancelRequests( );
     void scheduleThumbnailBuild( const DB::FileNameList& list, ThumbnailBuildStart when );

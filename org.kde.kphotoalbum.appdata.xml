@@ -32,6 +32,7 @@
   <summary xml:lang="de">KDE-Bildverwaltungssoftware</summary>
   <summary xml:lang="en-GB">KDE image management software</summary>
   <summary xml:lang="es">Software de gestión de imágenes para KDE</summary>
+  <summary xml:lang="fr">Logiciel de gestion d'images KDE</summary>
   <summary xml:lang="gl">Software de xestión de imaxes de KDE</summary>
   <summary xml:lang="id">Perangkat lunak pengelolaan citra KDE</summary>
   <summary xml:lang="it">Software KDE per la gestione delle immagini</summary>
@@ -51,6 +52,7 @@
     <p xml:lang="de">KPhotoalbum ist eine Anwendung zum verschlagworten, verwalten und durchsuchen Ihrer Fotosammlung.</p>
     <p xml:lang="en-GB">KPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.</p>
     <p xml:lang="es">KPhotoAlbum es una aplicación para etiquetar y gestionar una colección de fotografías que permite realizar búsquedas.</p>
+    <p xml:lang="fr">KPhotoAlbum est une application permettant de gérer une collection de photos, en y définissant des balises et en y effectuant des recherches.</p>
     <p xml:lang="gl">KPhotoAlbum é un aplicativo para etiquetar e xestionar unha colección de fotos e permitir buscar nela.</p>
     <p xml:lang="id">KPhotoAlbum adalah sebuah aplikasi untuk penandaan dan pengelolaan sebuah koleksi foto dan membuatnya dapat dicari.</p>
     <p xml:lang="it">KPhotoAlbum è un'applicazione per etichettare e gestire una raccolta di immagini in modo da poter eseguire ricerche al suo interno.</p>
@@ -72,6 +74,7 @@
       <caption xml:lang="ca-valencia">La pantalla principal del KPhotoAlbum</caption>
       <caption xml:lang="en-GB">The main screen screen in KPhotoAlbum</caption>
       <caption xml:lang="es">La ventana principal de KPhotoAlbum</caption>
+      <caption xml:lang="fr">L'écran principal de KPhotoAlbum</caption>
       <caption xml:lang="gl">A pantalla principal de KPhotoAlbum</caption>
       <caption xml:lang="id">Layar layar utama dalam KPhotoAlbum</caption>
       <caption xml:lang="nl">Het hoofdscherm in KPhotoAlbum</caption>

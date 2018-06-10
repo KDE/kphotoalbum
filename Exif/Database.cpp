@@ -327,9 +327,10 @@ void Exif::Database::concludeInsertQuery( QSqlQuery *query )
 
 bool Exif::Database::startInsertTransaction()
 {
+    Q_ASSERT(m_insertTransaction == nullptr);
     m_insertTransaction = getInsertQuery();
     m_db.transaction();
-    return ( m_insertTransaction != NULL );
+    return ( m_insertTransaction != nullptr );
 }
 
 bool Exif::Database::commitInsertTransaction()
@@ -338,7 +339,8 @@ bool Exif::Database::commitInsertTransaction()
         m_db.commit();
         delete m_insertTransaction;
         m_insertTransaction = NULL;
-    }
+    } else
+        qCWarning(ExifLog, "Trying to commit transaction, but no transaction is active!");
     return true;
 }
 
@@ -348,7 +350,8 @@ bool Exif::Database::abortInsertTransaction()
         m_db.rollback();
         delete m_insertTransaction;
         m_insertTransaction = NULL;
-    }
+    } else
+        qCWarning(ExifLog, "Trying to abort transaction, but no transaction is active!");
     return true;
 }
 

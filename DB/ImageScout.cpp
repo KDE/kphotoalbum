@@ -17,10 +17,12 @@
 */
 
 #include "ImageScout.h"
+#include "Logging.h"
+
 #include <QFile>
 #include <QDataStream>
+#include <QMutexLocker>
 #include <QThread>
-#include <QDebug>
 #include <QAtomicInt>
 
 extern "C" {
@@ -30,14 +32,13 @@ extern "C" {
 
 using namespace DB;
 
-#define M_LOCK(l) do { if ( l ) (l)->lock(); } while (0)
-#define M_UNLOCK(l) do { if ( l ) (l)->unlock(); } while (0)
-
-static const int defaultScoutBufSize = 1048576;
+namespace {
+constexpr int defaultScoutBufSize = 1048576; // *sizeof(int) bytes
 // We might want this to be bytes rather than images.
-static const int defaultMaxSeekAhead = 10;
-static const int seekAheadWait = 10; // 10 milliseconds, and retry
-static const int terminationWait = 10; // 10 milliseconds, and retry
+constexpr int defaultMaxSeekAhead = 10;
+constexpr int seekAheadWait = 10; // 10 milliseconds, and retry
+constexpr int terminationWait = 10; // 10 milliseconds, and retry
+}
 
 // 1048576 with a single scout thread empirically yields best performance
 // on a Seagate 2TB 2.5" disk, sustaining throughput in the range of
@@ -94,13 +95,12 @@ ImageScoutThread::ImageScoutThread( ImageScoutQueue &queue, QMutex *mutex,
 void ImageScoutThread::doRun(char *tmpBuf)
 {
     while ( !isInterruptionRequested() ) {
-        M_LOCK(m_mutex);
+        QMutexLocker locker(m_mutex);
         if ( m_queue.isEmpty() ) {
-            M_UNLOCK(m_mutex);
             return;
         }
         DB::FileName fileName = m_queue.dequeue();
-        M_UNLOCK(m_mutex);
+        locker.unlock();
         // If we're behind the reader, move along
         m_preloadedCount++;
         if ( m_loadedCount.load() >= m_preloadedCount.load() ) {
@@ -113,7 +113,7 @@ void ImageScoutThread::doRun(char *tmpBuf)
                    ! isInterruptionRequested()) {
                 QThread::msleep(seekAheadWait);
             }
-            //            qDebug() << ">>>>>Scout: preload" << m_preloadedCount.load() << "load" << m_loadedCount.load() << fileName.relative();
+            // qCDebug(DBImageScoutLog) << ">>>>>Scout: preload" << m_preloadedCount.load() << "load" << m_loadedCount.load() << fileName.relative();
         }
         int inputFD = open( QFile::encodeName( fileName.absolute()).constData(), O_RDONLY );
         int bytesRead = 0;
@@ -208,7 +208,7 @@ ImageScout::~ImageScout()
             delete (*it);
         }
     }
-    qDebug() << "Total files:" << m_preloadedCount << "skipped" << m_skippedCount;
+    qCDebug(DBImageScoutLog) << "Total files:" << m_preloadedCount << "skipped" << m_skippedCount;
 }
 
 void ImageScout::start()

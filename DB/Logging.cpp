@@ -21,3 +21,4 @@
 // only enable warning messages by default
 Q_LOGGING_CATEGORY(DBLog, "kphotoalbum.DB", QtWarningMsg)
 Q_LOGGING_CATEGORY(DBCategoryMatcherLog, "kphotoalbum.DB.CategoryMatcher", QtWarningMsg)
+Q_LOGGING_CATEGORY(DBImageScoutLog, "kphotoalbum.DB.ImageScout", QtWarningMsg)

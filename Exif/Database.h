@@ -124,7 +124,6 @@ private:
     ~Database();
     void init();
     QSqlQuery *getInsertQuery();
-    QSqlQuery *openInsertQuery();
     void concludeInsertQuery(QSqlQuery *);
     static Database* s_instance;
     QString m_queryString;

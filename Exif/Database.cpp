@@ -307,16 +307,6 @@ QSqlQuery *Exif::Database::getInsertQuery()
     return query;
 }
 
-QSqlQuery *Exif::Database::openInsertQuery()
-{
-    if ( m_insertTransaction )
-        return m_insertTransaction;
-    m_db.transaction();
-    QSqlQuery *query = getInsertQuery();
-    m_db.transaction();
-    return query;
-}
-
 void Exif::Database::concludeInsertQuery( QSqlQuery *query )
 {
     if ( m_insertTransaction )

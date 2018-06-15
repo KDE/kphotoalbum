@@ -105,7 +105,7 @@ void RemoteConnection::dataReceived()
             std::unique_ptr<RemoteCommand> command = RemoteCommand::create(static_cast<CommandType>(id));
             command->decode(stream);
             protocolDebug() << qPrintable(QTime::currentTime().toString(QString::fromUtf8("hh:mm:ss.zzz")))
-                               << ": Received " << qPrintable(id);
+                               << ": Received " << id;
 
             emit gotCommand(*command);
         }

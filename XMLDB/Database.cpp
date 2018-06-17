@@ -601,7 +601,6 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
     DB::ImageDate date;
     if ( reader->hasAttribute(_startDate_) ) {
         QDateTime start;
-        QDateTime end;
 
         QString str = reader->attribute(  _startDate_  );
         if ( !str.isEmpty() )
@@ -609,10 +608,9 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
 
         str = reader->attribute(  _endDate_  );
         if ( !str.isEmpty() )
-            end = dateTimeFromString(str);
+            date = DB::ImageDate( start, dateTimeFromString(str) );
         else
-            end = start;
-        date = DB::ImageDate( start, end );
+            date = DB::ImageDate( start );
     }
     else {
         int yearFrom = 0, monthFrom = 0,  dayFrom = 0, yearTo = 0, monthTo = 0,  dayTo = 0, hourFrom = -1, minuteFrom = -1, secondFrom = -1;

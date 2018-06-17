@@ -22,18 +22,14 @@
 DB::MD5::MD5():
     m_isNull(true),
     m_v0(0),
-    m_v1(0),
-    m_v2(0),
-    m_v3(0)
+    m_v1(0)
 {
 }
 
 DB::MD5::MD5(const QString &md5str):
     m_isNull(md5str.isEmpty()),
-    m_v0(md5str.mid(0, 8).toULong(0, 16)),
-    m_v1(md5str.mid(8, 8).toULong(0, 16)),
-    m_v2(md5str.mid(16, 8).toULong(0, 16)),
-    m_v3(md5str.mid(24, 8).toULong(0, 16))
+    m_v0(md5str.left(16).toULongLong(0, 16)),
+    m_v1(md5str.mid(16, 16).toULongLong(0, 16))
 {
 }
 
@@ -49,10 +45,8 @@ DB::MD5 &DB::MD5::operator=(const QString &md5str)
     }
     else {
         m_isNull = false;
-        m_v0 = md5str.mid(0, 8).toULong(0, 16);
-        m_v1 = md5str.mid(8, 8).toULong(0, 16);
-        m_v2 = md5str.mid(16, 8).toULong(0, 16);
-        m_v3 = md5str.mid(24, 8).toULong(0, 16);
+        m_v0 = md5str.left(16).toULongLong(0, 16);
+        m_v1 = md5str.mid(16, 16).toULongLong(0, 16);
     }
     return *this;
 }
@@ -60,11 +54,10 @@ DB::MD5 &DB::MD5::operator=(const QString &md5str)
 QString DB::MD5::toHexString() const
 {
     QString res;
+    static QChar ZERO(QChar::fromLatin1('0'));
     if (!isNull()) {
-        res += QString::number(m_v0, 16).rightJustified(8, QChar::fromLatin1('0'));
-        res += QString::number(m_v1, 16).rightJustified(8, QChar::fromLatin1('0'));
-        res += QString::number(m_v2, 16).rightJustified(8, QChar::fromLatin1('0'));
-        res += QString::number(m_v3, 16).rightJustified(8, QChar::fromLatin1('0'));
+        res += QString::number(m_v0, 16).rightJustified(16, ZERO);
+        res += QString::number(m_v1, 16).rightJustified(16, ZERO);
     }
     return res;
 }
@@ -75,9 +68,7 @@ bool DB::MD5::operator==(const DB::MD5 &other) const
         return isNull() == other.isNull();
 
     return (m_v0 == other.m_v0 &&
-            m_v1 == other.m_v1 &&
-            m_v2 == other.m_v2 &&
-            m_v3 == other.m_v3);
+            m_v1 == other.m_v1);
 }
 
 bool DB::MD5::operator!=(const DB::MD5 &other) const
@@ -93,8 +84,5 @@ bool DB::MD5::operator<(const DB::MD5 &other) const
     return (m_v0 < other.m_v0 ||
             (m_v0 == other.m_v0 &&
              (m_v1 < other.m_v1 ||
-              (m_v1 == other.m_v1 &&
-               (m_v2 < other.m_v2 ||
-                (m_v2 == other.m_v2 &&
-                 m_v3 < other.m_v3))))));
+              (m_v1 == other.m_v1))));
 }

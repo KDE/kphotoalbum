@@ -50,10 +50,8 @@ namespace DB
 
     private:
         bool m_isNull;
-        ulong m_v0;
-        ulong m_v1;
-        ulong m_v2;
-        ulong m_v3;
+        qulonglong m_v0;
+        qulonglong m_v1;
     };
 }
 

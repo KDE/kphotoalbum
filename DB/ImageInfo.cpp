@@ -588,21 +588,23 @@ void DB::ImageInfo::createFolderCategoryItem( DB::CategoryPtr folderCategory, DB
     if ( folderName.isEmpty() )
         return;
 
-    QStringList directories = folderName.split(QString::fromLatin1( "/" ) );
+    if ( ! memberMap.contains( folderCategory->name(), folderName ) ) {
+        QStringList directories = folderName.split(QString::fromLatin1( "/" ) );
 
-    QString curPath;
-    for( QStringList::ConstIterator directoryIt = directories.constBegin(); directoryIt != directories.constEnd(); ++directoryIt ) {
-        if ( curPath.isEmpty() )
-            curPath = *directoryIt;
-        else {
-            QString oldPath = curPath;
-            curPath = curPath + QString::fromLatin1( "/" ) + *directoryIt;
-            memberMap.addMemberToGroup( folderCategory->name(), oldPath, curPath );
+        QString curPath;
+        for( QStringList::ConstIterator directoryIt = directories.constBegin(); directoryIt != directories.constEnd(); ++directoryIt ) {
+            if ( curPath.isEmpty() )
+                curPath = *directoryIt;
+            else {
+                QString oldPath = curPath;
+                curPath = curPath + QString::fromLatin1( "/" ) + *directoryIt;
+                memberMap.addMemberToGroup( folderCategory->name(), oldPath, curPath );
+            }
         }
+        folderCategory->addItem( folderName );
     }
 
     m_categoryInfomation.insert( folderCategory->name() , StringSet() << folderName );
-    folderCategory->addItem( folderName );
 }
 
 void DB::ImageInfo::copyExtraData( const DB::ImageInfo& from, bool copyAngle)

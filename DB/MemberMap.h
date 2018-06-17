@@ -63,6 +63,7 @@ public:
     virtual const QMap<QString, QMap<QString,StringSet> >& memberMap() const { return m_members; }
 
     virtual bool hasPath( const QString& category, const QString& from, const QString& to ) const;
+    virtual bool contains(const QString& category, const QString& item) const;
 
 protected:
     void calculate() const;
@@ -78,9 +79,12 @@ signals:
     void dirty();
 
 private:
+    void doDirty( const QString& category );
+    void regenerateFlatList( const QString& category );
     // This is the primary data structure
     // { category |-> { group |-> [ member ] } } <- VDM syntax ;-)
     QMap<QString, QMap<QString,StringSet> > m_members;
+    mutable QMap<QString, QSet<QString> > m_flatMembers;
 
     // These are the data structures used to develop closures, they are only
     // needed to speed up the program *SIGNIFICANTLY* ;-)

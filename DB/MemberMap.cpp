@@ -34,12 +34,24 @@ QStringList MemberMap::groups( const QString& category ) const
     return QStringList( m_members[ category ].keys() );
 }
 
+bool MemberMap::contains( const QString& category, const QString& item) const
+{
+    return m_flatMembers[category].contains(item);
+}
+
+void MemberMap::doDirty( const QString& category )
+{
+    if ( m_loading )
+        regenerateFlatList( category );
+    else
+        emit dirty();
+}
+
 void MemberMap::deleteGroup( const QString& category, const QString& name )
 {
     m_members[category].remove(name);
     m_dirty = true;
-    if ( !m_loading )
-        emit dirty();
+    doDirty(category);
 }
 
 /**
@@ -66,8 +78,7 @@ void MemberMap::setMembers( const QString& category, const QString& memberGroup,
 
     m_members[category][memberGroup] = allowedMembers;
     m_dirty = true;
-    if ( !m_loading )
-        emit dirty();
+    doDirty( category );
 }
 
 bool MemberMap::isEmpty() const
@@ -155,8 +166,7 @@ void MemberMap::renameGroup( const QString& category, const QString& oldName, co
         return;
 
     m_dirty = true;
-    if ( !m_loading )
-        emit dirty();
+    doDirty( category );
     QMap<QString, StringSet>& groupMap = m_members[category];
     groupMap.insert(newName,m_members[category][oldName] );
     groupMap.remove( oldName );
@@ -181,8 +191,7 @@ void MemberMap::deleteItem( DB::Category* category, const QString& name)
     }
     m_members[category->name()].remove(name);
     m_dirty = true;
-    if ( !m_loading )
-        emit dirty();
+    doDirty( category->name() );
 }
 
 void MemberMap::renameItem( DB::Category* category, const QString& oldName, const QString& newName )
@@ -202,8 +211,7 @@ void MemberMap::renameItem( DB::Category* category, const QString& oldName, cons
         groupMap.remove(oldName);
     }
     m_dirty = true;
-    if ( !m_loading )
-        emit dirty();
+    doDirty( category->name() );
 }
 
 
@@ -216,7 +224,16 @@ MemberMap& MemberMap::operator=( const MemberMap& other )
     return *this;
 }
 
-
+void MemberMap::regenerateFlatList( const QString& category )
+{
+    m_flatMembers[category].clear();
+    for (QMap<QString,StringSet>::const_iterator i = m_members[category].constBegin();
+         i != m_members[category].constEnd(); i++) {
+        for (StringSet::const_iterator j = i.value().constBegin(); j != i.value().constEnd(); j++) {
+            m_flatMembers[category].insert( *j );
+        }
+    }
+}
 
 void MemberMap::addMemberToGroup( const QString& category, const QString& group, const QString& item )
 {
@@ -231,6 +248,7 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
 
 
     m_members[category][group].insert( item );
+    m_flatMembers[category].insert( item );
 
     if (m_loading) {
         m_dirty = true;
@@ -258,6 +276,7 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
             }
     }
 
+    // If we are loading, we do *not* want to regenerate the list!
     if ( !m_loading )
         emit dirty();
 }
@@ -265,11 +284,13 @@ void MemberMap::addMemberToGroup( const QString& category, const QString& group,
 void MemberMap::removeMemberFromGroup( const QString& category, const QString& group, const QString& item )
 {
     Q_ASSERT( m_members.contains(category) );
-    if ( m_members[category].contains( group ) )
+    if ( m_members[category].contains( group ) ) {
         m_members[category][group].remove( item );
-    m_dirty = true;
-    if ( !m_loading )
-        emit dirty();
+        // We shouldn't be doing this very often, so just regenerate
+        // the flat list
+        m_dirty = true;
+        doDirty( category );
+    }
 }
 
 void MemberMap::addGroup( const QString& category, const QString& group )
@@ -277,8 +298,7 @@ void MemberMap::addGroup( const QString& category, const QString& group )
     if ( ! m_members[category].contains( group ) ) {
         m_members[category].insert( group, StringSet() );
     }
-    if ( !m_loading )
-        emit dirty();
+    doDirty( category );
 }
 
 void MemberMap::renameCategory( const QString& oldName, const QString& newName )
@@ -297,8 +317,7 @@ void MemberMap::deleteCategory(const QString &category)
 {
     m_members.remove(category);
     m_closureMembers.remove(category);
-    if ( !m_loading )
-        emit dirty();
+    doDirty( category );
 }
 
 QMap<QString,StringSet> DB::MemberMap::inverseMap( const QString& category ) const

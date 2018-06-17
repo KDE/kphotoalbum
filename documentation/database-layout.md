@@ -425,10 +425,10 @@ KPhotoAlbum
       + ```rating``` (since KPA 3.1)<br/>
         Integer rating ("stars"), between 0 and 10.
       + ```stackId``` (since KPA 3.1)<br/>
-        Numerical stack ID; images with the same stackId are displayed as an image stack.
+        Numerical stack ID; images with the same stackId are displayed as an image stack.  Stack ID starts with 1.
       + ```stackOrder``` (since KPA 3.1)<br/>
         Image position within a stack; only valid when stackId is set.<br/>
-        Unique within the same stack.
+        Unique within the same stack.  Stack order starts with 1.
       + ```startDate```<br/>
         Start date of the image (see fuzzy dates) (```yyyy-mm-dd[Thh:mm:ss]```, second optional part starts with uppercase 'T')
       + ```videoLength```<br/>

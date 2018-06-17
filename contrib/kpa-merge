@@ -77,6 +77,9 @@ Usage: kpa-merge [options] file1 [file2]
 	If only one file is provided, it is processed in the same way.
 	This form can be used to clean up an index.xml file.
 
+	kpa-merge currently handles version 7 and 8 files and writes
+	version 7.
+
 	Options:
 
 		-R|--reject-new-images		Don't load new images from
@@ -260,6 +263,20 @@ sub loadImage($$$) {
     my ($image_already_defined) = defined $images{$file};
     $node->removeAttribute("stackId");
     $node->removeAttribute("stackOrder");
+    # Restore any attributes defaulted in version 8
+    if (! $node->getAttribute("angle")) {
+	$node->setAttribute("angle", 0);
+    }
+    if (! $node->getAttribute("endDate")) {
+	$node->setAttribute("endDate", $node->getAttribute("startDate"));
+    }
+    if (! $node->getAttribute("label")) {
+	my ($label) = $file;
+	$label =~ s,^.*/,,;
+	$label =~ s/\.[^.]*$//;
+	$node->setAttribute("label", $label);
+    }
+
     if (!defined $images{$file}) {
 	# Always load images from the first file.  We might or might not
 	# keep images only found in the second file depending upon what
@@ -409,9 +426,12 @@ sub load_file($$) {
 	$kpa_attributes = $kpa->findnodes("./@*");
     }
 
-    if ($kpa->getAttribute("version") != 7) {
-	die "kpa-merge only works with version 7 files\n";
+    if ($kpa->getAttribute("version") != 7 &&
+	$kpa->getAttribute("version") != 8) {
+	die "kpa-merge only works with version 7 and 8 files\n";
     }
+    # Always write a version 7 file right now.
+    $kpa->setAttribute("version", 7);
 
     my ($compressed) = int $kpa->getAttribute("compressed");
 

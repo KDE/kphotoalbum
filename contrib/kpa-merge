@@ -46,6 +46,8 @@ my (%images);
 my (@image_list);
 my (@stacks_byimage);
 my (@stacks_byid);
+my (%stacks_remap);
+my (%stacks_to_remove);
 # Ordering within stacks does matter (particularly for the first image
 # on the stack).
 my (%stack_order);
@@ -319,12 +321,12 @@ sub loadImage($$$) {
     }
     if ($stack) {
 	$stacks_byimage[$pass]{$file} = $stack;
-	$stacks_byid[$pass][$stack] = [] if (! defined $stacks_byid[$pass][$stack]);
-	if (defined $stacks_byid[$pass][$stack][$stack_order - 1]) {
-	    warn "Duplicate stack/order ($stack, $stack_order) found for $file and $stacks_byid[$pass][$stack][$stack_order - 1], appending.\n";
-	    push @{$stacks_byid[$pass][$stack]}, $file;
+	$stacks_byid[$pass]{$stack} = [] if (! defined $stacks_byid[$pass]{$stack});
+	if (defined $stacks_byid[$pass]{$stack}[$stack_order - 1]) {
+	    warn "Duplicate stack/order ($stack, $stack_order) found for $file and $stacks_byid[$pass]{$stack}[$stack_order - 1], appending.\n";
+	    push @{$stacks_byid[$pass]{$stack}}, $file;
 	} else {
-	    $stacks_byid[$pass][$stack][$stack_order - 1] = $file;
+	    $stacks_byid[$pass]{$stack}[$stack_order - 1] = $file;
 	}
 	if ($pass == $last_pass && $stack > $max_stack_pass1) {
 	    $max_stack_pass1 = $stack;
@@ -348,7 +350,7 @@ sub loadImages($$$) {
     my ($node, $pass, $compressed) = @_;
     my $children = $node->childNodes();
     $stacks_byimage[$pass] = {};
-    $stacks_byid[$pass] = [];
+    $stacks_byid[$pass] = {};
     foreach my $i (1..$children->size()) {
 	my ($child) = $children->get_node($i);
 	next if $node->nodeType() != 1 || !isNode($child, "image");
@@ -479,7 +481,7 @@ sub reconcile_stacks() {
     foreach my $file (sort keys %{$stacks_byimage[0]}) {
 	if (! defined $stacks_byimage[1]{$file}) {
 	    my ($old_stack) = $stacks_byimage[0]{$file};
-	    my ($by_id_0) = $stacks_byid[0][$old_stack];
+	    my ($by_id_0) = $stacks_byid[0]{$old_stack};
 	    my ($found) = -1;
 	    foreach my $ofile (@$by_id_0) {
 		if (defined $stacks_byimage[1]{$ofile}) {
@@ -496,18 +498,27 @@ sub reconcile_stacks() {
 		my ($new_stack) = ++$max_stack_pass1;
 		# Fix up all of the files in the renumbered stack
 		map { $stacks_byimage[1]{$_} = $new_stack; } (@$by_id_0);
-		$stacks_byid[1][$new_stack] = $stacks_byid[0][$old_stack];
+		$stacks_byid[1]{$new_stack} = $stacks_byid[0]{$old_stack};
 	    } else {
 		$stacks_byimage[1]{$file} = $found;
-		push @{$stacks_byid[1][$found]}, $file;
+		push @{$stacks_byid[1]{$found}}, $file;
 	    }
 	}
     }
     # Now, set the stack order for each image
-    foreach my $stack (@{$stacks_byid[1]}) {
+    my ($new_stackid) = 1;
+    foreach my $stackid (sort keys %{$stacks_byid[1]}) {
+	my ($stack) = $stacks_byid[1]{$stackid};
 	my ($order) = 1;
 	foreach my $file (@$stack) {
-	    $stack_order{$file} = $order++;
+	    if (defined $file) {
+		$stack_order{$file} = $order++;
+	    }
+	}
+	if ($order <= 2) {
+	    $stacks_to_remove{$stackid} = 1;
+	} else {
+	    $stacks_remap{$stackid} = $new_stackid++;
 	}
     }
 }
@@ -652,8 +663,10 @@ sub build_images($$) {
 	my ($inode) = addElement($dom, $new_images, 'image');
 	my ($image) = $images{$iname};
 	copy_attributes($inode, $$image{"attributes"}, 1);
-	if (defined $stacks_byimage[1]{$iname}) {
-	    $inode->setAttribute("stackId", $stacks_byimage[1]{$iname});
+	if (defined $stacks_byimage[1]{$iname} &&
+	    ! defined $stacks_to_remove{$stacks_byimage[1]{$iname}}) {
+	    $inode->setAttribute("stackId", 
+				 $stacks_remap{$stacks_byimage[1]{$iname}});
 	    $inode->setAttribute("stackOrder", $stack_order{$iname});
 	}
 	if (defined $$image{"options"}) {

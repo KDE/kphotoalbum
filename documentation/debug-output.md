@@ -35,7 +35,9 @@ E.g. you can start KPhotoAlbum like this on the commandline:
  - ```kphotoalbum.DateBar```
  - ```kphotoalbum.DB```
  - ```kphotoalbum.DB.CategoryMatcher```
+ - ```kphotoalbum.DB.ImageScout```
  - ```kphotoalbum.Exif```
+ - ```kphotoalbum.FastDir```
  - ```kphotoalbum.HTMLGenerator```
  - ```kphotoalbum.ImageManager```
  - ```kphotoalbum.ImportExport```

@@ -52,10 +52,11 @@ public:
 private:
     FastDir();
     const QString m_path;
-    static bool sortByInode(const QByteArray &path);
-    static bool sortByName(const QByteArray &path);
     QStringList m_sortedList;
 };
+
+bool sortByInode(const QByteArray &path);
+constexpr bool sortByName(const QByteArray &path);
 
 }
 

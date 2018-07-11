@@ -18,6 +18,11 @@
 */
 
 #include "FastDir.h"
+#include "Logging.h"
+
+#include <QFile>
+#include <QLoggingCategory>
+#include <QMap>
 
 extern "C" {
 #include <sys/types.h>
@@ -56,10 +61,6 @@ extern "C" {
 #endif  // __linux__
 }
 
-#include <QFile>
-#include <QDebug>
-#include <QMap>
-
 typedef QMap<ino_t, QString> InodeMap;
 
 typedef QSet<QString> StringSet;
@@ -74,8 +75,8 @@ DB::FastDir::FastDir(const QString &path)
     dir = opendir( bPath.constData() );
     if ( !dir )
         return;
-    bool doSortByInode = sortByInode(bPath);
-    bool doSortByName = sortByName(bPath);
+    const bool doSortByInode = sortByInode(bPath);
+    const bool doSortByName = sortByName(bPath);
 
 #if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)
     // ZaJ (2016-03-23): while porting to Qt5/KF5, this code-path is disabled on my system
@@ -116,12 +117,12 @@ DB::FastDir::FastDir(const QString &path)
 }
 
 // No currently known filesystems where sort by name is optimal
-bool DB::FastDir::sortByName(const QByteArray &)
+constexpr bool DB::sortByName(const QByteArray &)
 {
     return false;
 }
 
-bool DB::FastDir::sortByInode(const QByteArray &path)
+bool DB::sortByInode(const QByteArray &path)
 {
 #ifdef __linux__
     struct statfs buf;
@@ -158,9 +159,9 @@ QStringList DB::FastDir::sortFileList(const StringSet &files) const
         }
     }
     if ( tmp.count() > 0 ) {
-        qDebug() << "Files left over after sorting on " << m_path;
+        qCDebug(FastDirLog) << "Files left over after sorting on " << m_path;
         for ( const QString &fileName : tmp ) {
-            qDebug() << fileName;
+            qCDebug(FastDirLog) << fileName;
             answer << fileName;
         }
     }

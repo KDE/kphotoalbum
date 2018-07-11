@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "CategoryItem.h"
+
 #include <QList>
 
 DB::CategoryItem::~CategoryItem()
@@ -32,16 +33,6 @@ DB::CategoryItem* DB::CategoryItem::clone() const
         result->mp_subcategories.append( (*it)->clone() );
     }
     return result;
-}
-
-void DB::CategoryItem::print( int offset ) const
-{
-    QString spaces;
-    spaces.fill( QChar::fromLatin1(' '), offset );
-    qDebug( "%s%s", qPrintable(spaces), qPrintable(mp_name) );
-    Q_FOREACH( const CategoryItem *subcategory, mp_subcategories ) {
-        subcategory->print( offset + 2 );
-    }
 }
 
 bool DB::CategoryItem::isDescendentOf( const QString& child, const QString& parent ) const

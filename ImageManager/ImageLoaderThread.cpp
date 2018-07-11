@@ -47,13 +47,25 @@ namespace ImageManager
     RAWImageDecoder rawdecoder;
 }
 
+ImageManager::ImageLoaderThread::ImageLoaderThread( size_t bufsize )
+    : m_imageLoadBuffer( new char[bufsize] ),
+      m_bufSize( bufsize )
+{
+}
 
+ImageManager::ImageLoaderThread::~ImageLoaderThread()
+{
+    delete[] m_imageLoadBuffer;
+}
 
 void ImageManager::ImageLoaderThread::run()
 {
     while ( true ) {
         ImageRequest* request = AsyncLoader::instance()->next();
         Q_ASSERT( request );
+        if ( request->isExitRequest() ) {
+            return;
+        }
         bool ok;
 
         QImage img = loadImage( request, ok );
@@ -79,7 +91,8 @@ QImage ImageManager::ImageLoaderThread::loadImage( ImageRequest* request, bool& 
 
     QImage img;
     if (Utilities::isJPEG(request->fileSystemFileName())) {
-        ok = Utilities::loadJPEG(&img, request->fileSystemFileName(),  &fullSize, dim);
+      ok = Utilities::loadJPEG( &img, request->fileSystemFileName(),  &fullSize, dim, 
+                                m_imageLoadBuffer, m_bufSize );
         if (ok == true)
             request->setFullSize( fullSize );
     }

@@ -40,24 +40,26 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 
-static const int SCALE_TOP    = 0b00000001;
-static const int SCALE_BOTTOM = 0b00000010;
-static const int SCALE_RIGHT  = 0b00000100;
-static const int SCALE_LEFT   = 0b00001000;
-static const int MOVE         = 0b10000000;
+namespace {
+constexpr int SCALE_TOP    = 0b00000001;
+constexpr int SCALE_BOTTOM = 0b00000010;
+constexpr int SCALE_RIGHT  = 0b00000100;
+constexpr int SCALE_LEFT   = 0b00001000;
+constexpr int MOVE         = 0b10000000;
 
-static const QString STYLE_UNASSOCIATED = QString::fromUtf8(
-    "AnnotationDialog--ResizableFrame { color: rgb(255,0,0); }"
-    "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }"
-);
-static const QString STYLE_PROPOSED = QString::fromUtf8(
-    "AnnotationDialog--ResizableFrame { color: rgb(255,255,0); }"
-    "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }"
-);
-static const QString STYLE_ASSOCIATED = QString::fromUtf8(
-    "AnnotationDialog--ResizableFrame { color: rgb(0,255,0); }"
-    "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }"
-);
+const QString STYLE_UNASSOCIATED = QString::fromUtf8(
+            "AnnotationDialog--ResizableFrame { color: rgb(255,0,0); }"
+            "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }"
+            );
+const QString STYLE_PROPOSED = QString::fromUtf8(
+            "AnnotationDialog--ResizableFrame { color: rgb(255,255,0); }"
+            "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }"
+            );
+const QString STYLE_ASSOCIATED = QString::fromUtf8(
+            "AnnotationDialog--ResizableFrame { color: rgb(0,255,0); }"
+            "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }"
+            );
+}
 
 AnnotationDialog::ResizableFrame::ResizableFrame(QWidget* parent) : QFrame(parent)
 {

@@ -61,6 +61,16 @@ extern "C" {
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <fcntl.h>
+}
+
+namespace {
+// Determined experimentally to yield best results (on Seagate 2TB 2.5" disk,
+// 5400 RPM).  Performance is very similar at 524288.  Above that, performance
+// was significantly worse.  Below that, performance also deteriorated.
+// This assumes use of one image scout thread (see DB/ImageScout.cpp).  Without
+// a scout thread, performance was about 10-15% worse.
+constexpr int MD5_BUFFER_SIZE = 262144;
 }
 
 /**
@@ -521,20 +531,57 @@ extern "C"
 
 namespace Utilities
 {
-    bool loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim );
+    static bool loadJPEGInternal(QImage *img, FILE* inputFile, QSize* fullSize, int dim, const char *membuf, size_t membuf_size );
+}
+
+bool Utilities::loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim, char *membuf, size_t membufSize)
+{
+    bool ok;
+    struct stat statbuf;
+    if ( stat( QFile::encodeName(imageFile.absolute()).constData(), &statbuf ) == -1 )
+        return false;
+    if ( ! membuf || statbuf.st_size > (int) membufSize ) {
+        qCDebug(UtilitiesLog) << "loadJPEG (slow path) " << imageFile.relative() << " " << statbuf.st_size << " " << membufSize;
+        FILE* inputFile=fopen( QFile::encodeName(imageFile.absolute()).constData(), "rb");
+        if(!inputFile)
+            return false;
+        ok = loadJPEGInternal( img, inputFile, fullSize, dim, NULL, 0 );
+        fclose(inputFile);
+    } else {
+        // May be more than is needed, but less likely to fragment memory this
+        // way.
+        int inputFD = open( QFile::encodeName(imageFile.absolute()).constData(), O_RDONLY );
+        if ( inputFD == -1 ) {
+            return false;
+        }
+        unsigned bytesLeft = statbuf.st_size;
+        unsigned offset = 0;
+        while ( bytesLeft > 0 ) {
+            int bytes = read(inputFD, membuf + offset, bytesLeft);
+            if (bytes <= 0) {
+                (void) close(inputFD);
+                return false;
+            }
+            offset += bytes;
+            bytesLeft -= bytes;
+        }
+        ok = loadJPEGInternal( img, NULL, fullSize, dim, membuf, statbuf.st_size );
+        (void) close(inputFD);
+    }
+    return ok;
 }
 
 bool Utilities::loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim)
 {
-    FILE* inputFile=fopen( QFile::encodeName(imageFile.absolute()).constData(), "rb");
-    if(!inputFile)
-        return false;
-    bool ok = loadJPEG( img, inputFile, fullSize, dim );
-    fclose(inputFile);
-    return ok;
+    return loadJPEG( img, imageFile, fullSize, dim, NULL, 0 );
 }
 
-bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim )
+bool Utilities::loadJPEG(QImage *img, const QByteArray &data, QSize* fullSize, int dim)
+{
+    return loadJPEGInternal(img, nullptr, fullSize, dim, data.data(), data.size());
+}
+
+bool Utilities::loadJPEGInternal(QImage *img, FILE* inputFile, QSize* fullSize, int dim, const char *membuf, size_t membuf_size )
 {
     struct jpeg_decompress_struct    cinfo;
     struct myjpeg_error_mgr jerr;
@@ -549,7 +596,10 @@ bool Utilities::loadJPEG(QImage *img, FILE* inputFile, QSize* fullSize, int dim 
     }
 
     jpeg_create_decompress(&cinfo);
-    jpeg_stdio_src(&cinfo, inputFile);
+    if (inputFile)
+        jpeg_stdio_src(&cinfo, inputFile);
+    else
+        jpeg_mem_src(&cinfo, (unsigned char *) membuf, membuf_size);
     jpeg_read_header(&cinfo, TRUE);
     *fullSize = QSize( cinfo.image_width, cinfo.image_height );
 
@@ -776,12 +826,12 @@ DB::MD5 Utilities::MD5Sum( const DB::FileName& fileName )
     if ( file.open( QIODevice::ReadOnly ) )
     {
         QCryptographicHash md5calculator(QCryptographicHash::Md5);
-        if ( md5calculator.addData( &file ) )
-        {
-            checksum = DB::MD5(QString::fromLatin1(md5calculator.result().toHex()));
-        } else {
-            qCWarning(UtilitiesLog) << "Could not compute MD5 sum for file " << fileName.relative();
+        while ( !file.atEnd() ) {
+            QByteArray md5Buffer( file.read( MD5_BUFFER_SIZE ) );
+            md5calculator.addData( md5Buffer );
         }
+        file.close();
+        checksum = DB::MD5(QString::fromLatin1(md5calculator.result().toHex()));
     }
     return checksum;
 }

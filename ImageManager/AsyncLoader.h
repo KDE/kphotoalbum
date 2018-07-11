@@ -22,9 +22,11 @@
 #include <QImage>
 #include <QMutex>
 #include <QWaitCondition>
+#include <QList>
 
 #include "enums.h"
 #include "RequestQueue.h"
+#include "MainWindow/Window.h"
 
 class QEvent;
 
@@ -49,6 +51,7 @@ public:
     // Stop loading all images requested by the given client.
     void stop( ImageClientInterface*, StopAction action = StopAll );
     int activeCount() const;
+    bool isExiting() const;
 
 protected:
     virtual void customEvent( QEvent* ev );
@@ -57,9 +60,12 @@ protected:
 
 private:
     friend class ImageLoaderThread;  // may call 'next()'
+    friend class MainWindow::Window; // may call 'requestExit()'
     void init();
 
     ImageRequest* next();
+
+    void requestExit();
 
     static AsyncLoader* s_instance;
 
@@ -69,6 +75,9 @@ private:
     mutable QMutex m_lock;
     QSet<ImageRequest*> m_currentLoading;
     QImage m_brokenImage;
+    QList<ImageLoaderThread*> m_threadList;
+    bool m_exitRequested;
+    int m_exitRequestsProcessed;
 };
 
 }

@@ -24,6 +24,8 @@
 #include "DB/ImageInfoPtr.h"
 #include "enums.h"
 #include <DB/FileNameList.h>
+#include <QAtomicInt>
+#include <DB/ImageScout.h>
 
 namespace MainWindow { class StatusBar; }
 namespace MainWindow { class Window; }
@@ -47,15 +49,22 @@ public slots:
     void buildMissing();
     void cancelRequests( );
     void scheduleThumbnailBuild( const DB::FileNameList& list, ThumbnailBuildStart when );
+    void buildOneThumbnail( const DB::ImageInfoPtr& fileName );
     void doThumbnailBuild();
+    void save();
 
 private:
     friend class MainWindow::Window;
     static ThumbnailBuilder* s_instance;
     ThumbnailBuilder( MainWindow::StatusBar* statusBar, QObject* parent );
+    void terminateScout();
     MainWindow::StatusBar* m_statusBar;
     int m_count;
+    int m_expectedThumbnails;
     bool m_isBuilding;
+    QAtomicInt m_loadedCount;
+    DB::ImageScoutQueue *m_preloadQueue;
+    DB::ImageScout *m_scout;
     QTimer* m_startBuildTimer;
     DB::FileNameList m_thumbnailsToBuild;
 };

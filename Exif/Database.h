@@ -19,6 +19,7 @@
 #define EXIFDATABASE_H
 
 #include <DB/FileNameList.h>
+#include <DB/FileInfo.h>
 
 #include <QList>
 #include <QPair>
@@ -81,9 +82,10 @@ public:
     /**
      * @brief add a file and its exif data to the database.
      * If the file already exists in the database, the new data replaces the existing data.
-     * @param fileName the file
+     * @param fileInfo the file
      * @return
      */
+    bool add( DB::FileInfo& fileInfo );
     bool add( const DB::FileName& fileName );
     bool add( const DB::FileNameList& list );
     void remove( const DB::FileName& fileName );
@@ -100,6 +102,9 @@ public:
     CameraList cameras() const;
     LensList lenses() const;
     void recreate();
+    bool startInsertTransaction();
+    bool commitInsertTransaction();
+    bool abortInsertTransaction();
 
 protected:
     enum DBSchemaChangeType { SchemaChanged, SchemaAndDataChanged };
@@ -118,8 +123,12 @@ private:
     Database();
     ~Database();
     void init();
+    QSqlQuery *getInsertQuery();
+    void concludeInsertQuery(QSqlQuery *);
     static Database* s_instance;
+    QString m_queryString;
     QSqlDatabase m_db;
+    QSqlQuery *m_insertTransaction;
 };
 
 }

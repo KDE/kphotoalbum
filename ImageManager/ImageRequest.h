@@ -38,6 +38,7 @@ class ImageRequest {
 public:
     ImageRequest( const DB::FileName& fileName, const QSize& size, int angle, ImageClientInterface* client);
     virtual ~ImageRequest() {}
+    ImageRequest( bool requestExit );
 
     bool isNull() const;
 
@@ -80,6 +81,7 @@ public:
 
     void setIsThumbnailRequest( bool );
     bool isThumbnailRequest() const;
+    bool isExitRequest() const;
 
 private:
     bool m_null;
@@ -94,6 +96,7 @@ private:
     bool m_loadedOK;
     bool m_dontUpScale;
     bool m_isThumbnailRequest;
+    bool m_isExitRequest;
 };
 
 inline uint qHash(const ImageRequest& ir)

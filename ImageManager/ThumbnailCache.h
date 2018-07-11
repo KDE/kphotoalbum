@@ -18,9 +18,11 @@
 #ifndef THUMBNAILCACHE_H
 #define THUMBNAILCACHE_H
 #include "CacheFileInfo.h"
-#include <QMap>
+#include <QHash>
 #include <QImage>
 #include <DB/FileNameList.h>
+#include <QMutex>
+#include <QFile>
 
 template <class Key, class T>
 class QCache;
@@ -39,6 +41,7 @@ public:
     ThumbnailCache();
     void insert( const DB::FileName& name, const QImage& image );
     QPixmap lookup( const DB::FileName& name ) const;
+    QByteArray lookupRawData( const DB::FileName& name ) const;
     bool contains( const DB::FileName& name ) const;
     void load();
     void removeThumbnail( const DB::FileName& );
@@ -48,21 +51,38 @@ public slots:
     void save() const;
     void flush();
 
+signals:
+    void doSave() const;
+
 private:
     ~ThumbnailCache();
-    QString fileNameForIndex( int index ) const;
-    QString thumbnailPath( const QString& fileName ) const;
+    QString fileNameForIndex( int index, const QString dir = QString::fromLatin1(".thumbnails/") ) const;
+    QString thumbnailPath( const QString& fileName, const QString dir = QString::fromLatin1(".thumbnails/") ) const;
 
     static ThumbnailCache* s_instance;
-    QMap<DB::FileName, CacheFileInfo> m_map;
+    QHash<DB::FileName, CacheFileInfo> m_hash;
+    mutable QHash<DB::FileName, CacheFileInfo> m_unsavedHash;
+    /* Protects accesses to the data (hash and unsaved hash) */
+    mutable QMutex m_dataLock;
+    /* Prevents multiple saves from happening simultaneously */
+    mutable QMutex m_saveLock;
+    /* Protects writing thumbnails to disk */
+    mutable QMutex m_thumbnailWriterLock;
     int m_currentFile;
     int m_currentOffset;
-    QTimer* m_timer;
-    mutable int m_unsaved;
+    mutable QTimer* m_timer;
+    mutable bool m_needsFullSave;
+    mutable bool m_isDirty;
+    void saveFull() const;
+    void saveIncremental() const;
+    void saveInternal() const;
+    void saveImpl() const;
+
     /**
      * Holds an in-memory cache of thumbnail files.
      */
     mutable QCache<int,ThumbnailMapping> *m_memcache;
+    mutable QFile* m_currentWriter;
 };
 
 }

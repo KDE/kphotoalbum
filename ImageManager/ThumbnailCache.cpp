@@ -24,12 +24,13 @@
 
 #include <QBuffer>
 #include <QCache>
-#include <QTemporaryFile>
 #include <QDir>
-#include <QTimer>
-#include <QPixmap>
-#include <QFile>
 #include <QElapsedTimer>
+#include <QFile>
+#include <QMutexLocker>
+#include <QPixmap>
+#include <QTemporaryFile>
+#include <QTimer>
 
 namespace {
 
@@ -113,23 +114,21 @@ ImageManager::ThumbnailCache::~ThumbnailCache()
 
 void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImage& image )
 {
-    m_thumbnailWriterLock.lock();
+    QMutexLocker thumbnailLocker(&m_thumbnailWriterLock);
     if ( ! m_currentWriter ) {
         m_currentWriter = new QFile( fileNameForIndex(m_currentFile) );
         if ( ! m_currentWriter->open(QIODevice::ReadWrite ) ) {
             qCWarning(ImageManagerLog, "Failed to open thumbnail file for inserting");
-            m_thumbnailWriterLock.unlock();
             return;
         }
     }
     if ( ! m_currentWriter->seek( m_currentOffset ) )
     {
         qCWarning(ImageManagerLog, "Failed to seek in thumbnail file");
-        m_thumbnailWriterLock.unlock();
         return;
     }
 
-    m_dataLock.lock();
+    QMutexLocker dataLocker(&m_dataLock);
     // purge in-memory cache for the current file:
     m_memcache->remove( m_currentFile );
     QByteArray data;
@@ -151,14 +150,14 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
         m_currentWriter->close();
         m_currentWriter = nullptr;
     }
-    m_thumbnailWriterLock.unlock();
+    thumbnailLocker.unlock();
 
     if ( m_hash.contains(name) ) {
         CacheFileInfo info = m_hash[name];
         if ( info.fileIndex == m_currentFile && info.offset == m_currentOffset &&
              info.size == size ) {
             qDebug() << "Found duplicate thumbnail " << name.relative() << "but no change in information";
-            m_dataLock.unlock();
+            dataLocker.unlock();
             return;
         } else {
             // File has moved; incremental save does no good.
@@ -181,7 +180,7 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
         m_currentOffset = 0;
     }
     int unsaved = m_unsavedHash.count();
-    m_dataLock.unlock();
+    dataLocker.unlock();
 
     // Thumbnail building is a lot faster now.  Even on an HDD this corresponds to less
     // than 1 minute of work.
@@ -257,15 +256,14 @@ void ImageManager::ThumbnailCache::saveFull() const
         m_currentWriter = nullptr;
     }
     m_thumbnailWriterLock.unlock();
-    m_dataLock.lock();
+
+    QMutexLocker dataLocker(&m_dataLock);
     if ( ! m_isDirty ) {
-        m_dataLock.unlock();
         return;
     }
     QTemporaryFile file;
     if ( !file.open() ) {
         qCWarning(ImageManagerLog, "Failed to create temporary file");
-        m_dataLock.unlock();
         return;
     }
     QHash<DB::FileName, CacheFileInfo> tempHash = m_hash;
@@ -275,7 +273,7 @@ void ImageManager::ThumbnailCache::saveFull() const
     // Clear the dirty flag early so that we can allow further work to proceed.
     // If the save fails, we'll set the dirty flag again.
     m_isDirty = false;
-    m_dataLock.unlock();
+    dataLocker.unlock();
 
     QDataStream stream(&file);
     stream << THUMBNAIL_FILE_VERSION
@@ -296,10 +294,9 @@ void ImageManager::ThumbnailCache::saveFull() const
     QFile::remove( realFileName );
     if ( !file.copy( realFileName ) ) {
         qCWarning(ImageManagerLog, "Failed to copy the temporary file %s to %s", qPrintable( file.fileName() ), qPrintable( realFileName ) );
-        m_dataLock.lock();
+        dataLocker.relock();
         m_isDirty = true;
         m_needsFullSave = true;
-        m_dataLock.unlock();
     } else {
         QFile realFile( realFileName );
         realFile.open( QIODevice::ReadOnly );
@@ -318,15 +315,13 @@ void ImageManager::ThumbnailCache::saveIncremental() const
         m_currentWriter = nullptr;
     }
     m_thumbnailWriterLock.unlock();
-    m_dataLock.lock();
+    QMutexLocker dataLocker(&m_dataLock);
     if ( m_unsavedHash.count() == 0 ) {
-        m_dataLock.unlock();
         return;
     }
     QHash<DB::FileName, CacheFileInfo> tempUnsavedHash = m_unsavedHash;
     m_unsavedHash.clear();
     m_isDirty = true;
-    m_dataLock.unlock();
 
     const QString realFileName = thumbnailPath(QString::fromLatin1("thumbnailindex"));
     QFile file( realFileName );
@@ -392,7 +387,7 @@ void ImageManager::ThumbnailCache::load()
         return; //Discard cache
 
     // We can't allow anything to modify the structure while we're doing this.
-    m_dataLock.lock();
+    QMutexLocker dataLocker(&m_dataLock);
     int count = 0;
     stream >> m_currentFile
            >> m_currentOffset
@@ -421,15 +416,13 @@ void ImageManager::ThumbnailCache::load()
         }
         count++;
     }
-    m_dataLock.unlock();
     qDebug() << "Loaded thumbnails in " << timer.elapsed() / 1000.0 << " seconds";
 }
 
 bool ImageManager::ThumbnailCache::contains( const DB::FileName& name ) const
 {
-    m_dataLock.lock();
+    QMutexLocker dataLocker(&m_dataLock);
     bool answer = m_hash.contains(name);
-    m_dataLock.unlock();
     return answer;
 }
 
@@ -455,7 +448,7 @@ void ImageManager::ThumbnailCache::deleteInstance()
 
 void ImageManager::ThumbnailCache::flush()
 {
-    m_dataLock.lock();
+    QMutexLocker dataLocker(&m_dataLock);
     for ( int i = 0; i <= m_currentFile; ++i )
         QFile::remove( fileNameForIndex(i) );
     m_currentFile = 0;
@@ -464,26 +457,26 @@ void ImageManager::ThumbnailCache::flush()
     m_hash.clear();
     m_unsavedHash.clear();
     m_memcache->clear();
-    m_dataLock.unlock();
+    dataLocker.unlock();
     save();
 }
 
 void ImageManager::ThumbnailCache::removeThumbnail( const DB::FileName& fileName )
 {
-    m_dataLock.lock();
+    QMutexLocker dataLocker(&m_dataLock);
     m_isDirty = true;
     m_hash.remove( fileName );
-    m_dataLock.unlock();
+    dataLocker.unlock();
     save();
 }
 void ImageManager::ThumbnailCache::removeThumbnails( const DB::FileNameList& files )
 {
-    m_dataLock.lock();
+    QMutexLocker dataLocker(&m_dataLock);
     m_isDirty = true;
     Q_FOREACH(const DB::FileName &fileName, files) {
         m_hash.remove( fileName );
     }
-    m_dataLock.unlock();
+    dataLocker.unlock();
     save();
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

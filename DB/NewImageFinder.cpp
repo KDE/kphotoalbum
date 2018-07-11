@@ -30,6 +30,7 @@
 #include <ImageManager/ThumbnailBuilder.h>
 #include <ImageManager/ThumbnailCache.h>
 #include <MainWindow/FeatureDialog.h>
+#include <MainWindow/Logging.h>
 #include <MainWindow/Window.h>
 #include <Settings/SettingsData.h>
 #include <Utilities/Util.h>
@@ -37,6 +38,7 @@
 #include <QApplication>
 #include <QEventLoop>
 #include <QFileInfo>
+#include <QLoggingCategory>
 #include <QProgressBar>
 #include <QProgressDialog>
 #include <QStringList>
@@ -392,7 +394,7 @@ bool NewImageFinder::findImages()
     int filesToLoad = m_pendingLoad.count();
     loadExtraFiles();
 
-    qDebug() << "Loaded " << filesToLoad << " images in " << timer.elapsed() / 1000.0 << " seconds";
+    qCDebug(TimingLog) << "Loaded " << filesToLoad << " images in " << timer.elapsed() / 1000.0 << " seconds";
 
     // Man this is not super optimal, but will be changed onces the image finder moves to become a background task.
     if ( MainWindow::FeatureDialog::hasVideoThumbnailer() ) {
@@ -516,7 +518,7 @@ void NewImageFinder::loadExtraFiles()
     // database on the fly, but we need to tell the database to
     // commit the changes.
     if ( newImages.count() > 0 ) {
-        qDebug() << "ERROR! " << newImages.count() << " images were left to insert after load";
+        qCWarning(DBLog) << newImages.count() << " images were left to insert after load!";
     }
     DB::ImageDB::instance()->addImages( newImages );
     Exif::Database::instance()->commitInsertTransaction();

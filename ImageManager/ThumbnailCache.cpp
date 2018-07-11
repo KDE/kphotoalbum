@@ -18,9 +18,10 @@
 #include "ThumbnailCache.h"
 #include "Logging.h"
 
-#include <Settings/SettingsData.h>
 #include <DB/ImageDB.h>
 #include <DB/FastDir.h>
+#include <MainWindow/Logging.h>
+#include <Settings/SettingsData.h>
 
 #include <QBuffer>
 #include <QCache>
@@ -156,12 +157,12 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
         CacheFileInfo info = m_hash[name];
         if ( info.fileIndex == m_currentFile && info.offset == m_currentOffset &&
              info.size == size ) {
-            qDebug() << "Found duplicate thumbnail " << name.relative() << "but no change in information";
+            qCDebug(ImageManagerLog) << "Found duplicate thumbnail " << name.relative() << "but no change in information";
             dataLocker.unlock();
             return;
         } else {
             // File has moved; incremental save does no good.
-            qDebug() << "Found duplicate thumbnail " << name.relative() << " at new location, need full save! ";
+            qCDebug(ImageManagerLog) << "Found duplicate thumbnail " << name.relative() << " at new location, need full save! ";
             m_saveLock.lock();
             m_needsFullSave = true;
             m_saveLock.unlock();
@@ -416,7 +417,7 @@ void ImageManager::ThumbnailCache::load()
         }
         count++;
     }
-    qDebug() << "Loaded thumbnails in " << timer.elapsed() / 1000.0 << " seconds";
+    qCDebug(TimingLog) << "Loaded thumbnails in " << timer.elapsed() / 1000.0 << " seconds";
 }
 
 bool ImageManager::ThumbnailCache::contains( const DB::FileName& name ) const

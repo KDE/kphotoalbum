@@ -16,19 +16,22 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "ThumbnailBuilder.h"
-#include <KLocalizedString>
-#include "ImageManager/ThumbnailCache.h"
-#include "MainWindow/StatusBar.h"
-#include "ThumbnailView/CellGeometry.h"
-#include "ImageManager/AsyncLoader.h"
-#include "DB/ImageDB.h"
-#include "DB/OptimizedFileList.h"
+#include "AsyncLoader.h"
 #include "PreloadRequest.h"
-#include <QTimer>
+#include "Logging.h"
+#include "ThumbnailBuilder.h"
+#include "ThumbnailCache.h"
+
+#include <DB/ImageDB.h>
 #include <DB/ImageInfoPtr.h>
+#include <DB/OptimizedFileList.h>
+#include <MainWindow/StatusBar.h>
+#include <ThumbnailView/CellGeometry.h>
+
+#include <KLocalizedString>
+#include <QLoggingCategory>
 #include <QMessageBox>
-#include <QDebug>
+#include <QTimer>
 
 ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::s_instance = nullptr;
 
@@ -149,14 +152,14 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
     int numberOfThumbnailsToBuild = 0;
 
     terminateScout();
-    
+
     m_count = 0;
     m_loadedCount = 0;
     m_preloadQueue = new DB::ImageScoutQueue;
     for (const DB::FileName& fileName : m_thumbnailsToBuild ) {
         m_preloadQueue->enqueue(fileName);
     }
-    qDebug() << "thumbnail builder starting scout";
+    qCDebug(ImageManagerLog) << "thumbnail builder starting scout";
     m_scout = new DB::ImageScout(*m_preloadQueue, m_loadedCount, 1);
     m_scout->setMaxSeekAhead(10);
     m_scout->setReadLimit(10 * 1048576);

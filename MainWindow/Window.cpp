@@ -29,7 +29,6 @@
 #include <QCloseEvent>
 #include <QContextMenuEvent>
 #include <QCursor>
-#include <QDebug>
 #include <QElapsedTimer>
 #include <QDir>
 #include <QFrame>
@@ -1552,7 +1551,7 @@ void MainWindow::Window::plug()
                 batchActions.append( action );
 
             else {
-                qDebug() << "Unknown category\n";
+                qCWarning(MainWindowLog) << "Unknown category\n";
             }
         }
         KConfigGroup group = KSharedConfig::openConfig()->group( QString::fromLatin1("Shortcuts") );

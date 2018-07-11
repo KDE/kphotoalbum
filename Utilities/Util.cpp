@@ -541,7 +541,7 @@ bool Utilities::loadJPEG(QImage *img, const DB::FileName& imageFile, QSize* full
     if ( stat( QFile::encodeName(imageFile.absolute()).constData(), &statbuf ) == -1 )
         return false;
     if ( ! membuf || statbuf.st_size > (int) membufSize ) {
-        qDebug() << "loadJPEG (slow path) " << imageFile.relative() << " " << statbuf.st_size << " " << membufSize;
+        qCDebug(UtilitiesLog) << "loadJPEG (slow path) " << imageFile.relative() << " " << statbuf.st_size << " " << membufSize;
         FILE* inputFile=fopen( QFile::encodeName(imageFile.absolute()).constData(), "rb");
         if(!inputFile)
             return false;

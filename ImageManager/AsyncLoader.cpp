@@ -188,9 +188,10 @@ void ImageManager::AsyncLoader::requestExit()
 {
     m_exitRequested = true;
     ImageManager::ThumbnailBuilder::instance()->cancelRequests();
-    for (int i = 0; i < m_threadList.count(); i++) {
-        m_sleepers.wakeOne();
-    }
+    m_sleepers.wakeAll();
+
+    // TODO(jzarl): check if we can just connect the finished() signal of the threads to deleteLater()
+    //              and exit this function without waiting
     for (QList<ImageLoaderThread*>::iterator it = m_threadList.begin(); it != m_threadList.end(); ++it ) {
         while (! (*it)->isFinished()) {
             QThread::msleep(10);

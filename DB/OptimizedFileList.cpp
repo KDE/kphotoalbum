@@ -22,7 +22,16 @@
 extern "C" {
 #include <sys/types.h>
 #include <dirent.h>
-#include <sys/vfs.h>
+
+// Note: on FreeBSD, __linux__ is also defined
+#ifdef __BSD__
+# include <sys/param.h>
+# include <sys/mount.h>
+#else
+#ifdef __linux__
+# include <sys/vfs.h>
+#endif  // __linux__
+#endif
 }
 
 #include <QFile>

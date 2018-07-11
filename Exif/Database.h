@@ -82,7 +82,7 @@ public:
     /**
      * @brief add a file and its exif data to the database.
      * If the file already exists in the database, the new data replaces the existing data.
-     * @param fileName the file
+     * @param fileInfo the file
      * @return
      */
     bool add( DB::FileInfo& fileInfo );

@@ -24,17 +24,16 @@
 #include <QMutex>
 #include <QList>
 
-/**
- * Scout thread for image loading: preload images from disk to have them in
- * RAM to mask I/O latency.
- */
-
 namespace DB
 {
 
 typedef QQueue<DB::FileName> ImageScoutQueue;
 class ImageScoutThread;
 
+/**
+ * Scout thread for image loading: preload images from disk to have them in
+ * RAM to mask I/O latency.
+ */
 class ImageScout {
 public:
     // count is an atomic variable containing the number of images

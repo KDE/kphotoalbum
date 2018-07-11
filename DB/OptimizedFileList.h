@@ -23,18 +23,18 @@
 #include <QSet>
 #include <DB/FileNameList.h>
 
-/*
- * Provide a list of files optimized by filesystem.
- * File names are interleaved across all filesystems
- * with files belonging to them.
- */
-
 namespace DB
 {
 typedef QSet<QString> StringSet;
 typedef QMap<QString, StringSet> DirMap;
 // Key is MD5 hash of the (opaque) contents of f_fsid
 typedef QMap<QString, QStringList> FSMap;
+
+/**
+ * Provide a list of files optimized by filesystem.
+ * File names are interleaved across all filesystems
+ * with files belonging to them.
+ */
 class OptimizedFileList
 {
 public:

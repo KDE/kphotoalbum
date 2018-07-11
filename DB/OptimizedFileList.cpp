@@ -26,7 +26,6 @@ extern "C" {
 }
 
 #include <QFile>
-#include <QDebug>
 #include <QCryptographicHash>
 
 DB::OptimizedFileList::OptimizedFileList(const QStringList &files)

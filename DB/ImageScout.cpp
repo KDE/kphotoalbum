@@ -33,11 +33,11 @@ extern "C" {
 using namespace DB;
 
 namespace {
-constexpr int defaultScoutBufSize = 1048576; // *sizeof(int) bytes
+constexpr int DEFAULT_SCOUT_BUFFER_SIZE = 1048576; // *sizeof(int) bytes
 // We might want this to be bytes rather than images.
-constexpr int defaultMaxSeekAhead = 10;
-constexpr int seekAheadWait = 10; // 10 milliseconds, and retry
-constexpr int terminationWait = 10; // 10 milliseconds, and retry
+constexpr int DEFAULT_MAX_SEEKAHEAD_IMAGES = 10;
+constexpr int SEEKAHEAD_WAIT_MS = 10; // 10 milliseconds, and retry
+constexpr int TERMINATION_WAIT_MS = 10; // 10 milliseconds, and retry
 }
 
 // 1048576 with a single scout thread empirically yields best performance
@@ -84,8 +84,8 @@ ImageScoutThread::ImageScoutThread( ImageScoutQueue &queue, QMutex *mutex,
     m_loadedCount(count),
     m_preloadedCount(preloadedCount),
     m_skippedCount(skippedCount),
-    m_scoutBufSize(defaultScoutBufSize),
-    m_maxSeekAhead(defaultMaxSeekAhead),
+    m_scoutBufSize(DEFAULT_SCOUT_BUFFER_SIZE),
+    m_maxSeekAhead(DEFAULT_MAX_SEEKAHEAD_IMAGES),
     m_readLimit(-1),
     m_index(index),
     m_isStarted(false)
@@ -111,7 +111,7 @@ void ImageScoutThread::doRun(char *tmpBuf)
             // TODO: wait on something rather than polling
             while (m_preloadedCount.load() >= m_loadedCount.load() + m_maxSeekAhead &&
                    ! isInterruptionRequested()) {
-                QThread::msleep(seekAheadWait);
+                QThread::msleep(SEEKAHEAD_WAIT_MS);
             }
             // qCDebug(DBImageScoutLog) << ">>>>>Scout: preload" << m_preloadedCount.load() << "load" << m_loadedCount.load() << fileName.relative();
         }
@@ -175,8 +175,8 @@ ImageScout::ImageScout(ImageScoutQueue &images,
     : m_preloadedCount(0),
       m_skippedCount(0),
       m_isStarted(false),
-      m_scoutBufSize(defaultScoutBufSize),
-      m_maxSeekAhead(defaultMaxSeekAhead),
+      m_scoutBufSize(DEFAULT_SCOUT_BUFFER_SIZE),
+      m_maxSeekAhead(DEFAULT_MAX_SEEKAHEAD_IMAGES),
       m_readLimit(-1)
 {
     if (threads > 0) {
@@ -202,7 +202,7 @@ ImageScout::~ImageScout()
                 if ( ! (*it)->isFinished() ) {
                     (*it)->requestInterruption();
                     while ( ! (*it)->isFinished() )
-                        QThread::msleep(terminationWait);
+                        QThread::msleep(TERMINATION_WAIT_MS);
                 }
             }
             delete (*it);

@@ -364,10 +364,12 @@ using namespace DB;
  *
  *****************************************************************/
 
-// Number of scout threads for preloading images.  More than one scout thread
+namespace {
+// Number of scout threads for preloading images. More than one scout thread
 // yields about 10% less performance with higher IO/sec but lower I/O throughput,
 // most probably due to thrashing.
-static const int imageScoutCount = 1;
+constexpr int IMAGE_SCOUT_THREAD_COUNT = 1;
+}
 
 bool NewImageFinder::findImages()
 {
@@ -481,7 +483,7 @@ void NewImageFinder::loadExtraFiles()
         asyncPreloadQueue.enqueue((*it).first);
     }
 
-    ImageScout scout(asyncPreloadQueue, loadedCount, imageScoutCount);
+    ImageScout scout(asyncPreloadQueue, loadedCount, IMAGE_SCOUT_THREAD_COUNT);
     scout.start();
 
     Exif::Database::instance()->startInsertTransaction();

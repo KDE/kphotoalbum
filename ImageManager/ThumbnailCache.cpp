@@ -31,13 +31,17 @@
 #include <QFile>
 #include <QElapsedTimer>
 
-// We split the thumbnails into chunks to avoid a huge file changing over and over again, with a bad hit for backups
-const int MAXFILESIZE=32*1024*1024;
-const int FILEVERSION=4;
-// We map some thumbnail files into memory and manage them in a least-recently-used fashion
-const size_t LRU_SIZE=2;
+namespace {
 
-const int thumbnailCacheSaveIntervalMS = (5 * 1000);
+// We split the thumbnails into chunks to avoid a huge file changing over and over again, with a bad hit for backups
+constexpr int MAX_FILE_SIZE=32*1024*1024;
+constexpr int THUMBNAIL_FILE_VERSION=4;
+// We map some thumbnail files into memory and manage them in a least-recently-used fashion
+constexpr size_t LRU_SIZE=2;
+
+constexpr int THUMBNAIL_CACHE_SAVE_INTERNAL_MS = (5 * 1000);
+
+}
 
 namespace ImageManager {
 /**
@@ -94,9 +98,9 @@ ImageManager::ThumbnailCache::ThumbnailCache()
     load();
     connect(this, &ImageManager::ThumbnailCache::doSave, this, &ImageManager::ThumbnailCache::saveImpl);
     connect(m_timer, &QTimer::timeout, this, &ImageManager::ThumbnailCache::saveImpl);
-    m_timer->setInterval(thumbnailCacheSaveIntervalMS);
+    m_timer->setInterval(THUMBNAIL_CACHE_SAVE_INTERNAL_MS);
     m_timer->setSingleShot(true);
-    m_timer->start(thumbnailCacheSaveIntervalMS);
+    m_timer->start(THUMBNAIL_CACHE_SAVE_INTERNAL_MS);
 }
 
 ImageManager::ThumbnailCache::~ThumbnailCache()
@@ -143,7 +147,7 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
         return;
     }
     
-    if ( m_currentOffset + size > MAXFILESIZE ) {
+    if ( m_currentOffset + size > MAX_FILE_SIZE ) {
         m_currentWriter->close();
         m_currentWriter = nullptr;
     }
@@ -172,7 +176,7 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
 
     // Update offset
     m_currentOffset += size;
-    if ( m_currentOffset > MAXFILESIZE ) {
+    if ( m_currentOffset > MAX_FILE_SIZE ) {
         m_currentFile++;
         m_currentOffset = 0;
     }
@@ -274,7 +278,7 @@ void ImageManager::ThumbnailCache::saveFull() const
     m_dataLock.unlock();
 
     QDataStream stream(&file);
-    stream << FILEVERSION
+    stream << THUMBNAIL_FILE_VERSION
            << m_currentFile
            << m_currentOffset
            << m_hash.count();
@@ -359,9 +363,9 @@ void ImageManager::ThumbnailCache::saveImpl() const
 {
     m_timer->stop();
     saveInternal();
-    m_timer->setInterval(thumbnailCacheSaveIntervalMS);
+    m_timer->setInterval(THUMBNAIL_CACHE_SAVE_INTERNAL_MS);
     m_timer->setSingleShot(true);
-    m_timer->start(thumbnailCacheSaveIntervalMS);
+    m_timer->start(THUMBNAIL_CACHE_SAVE_INTERNAL_MS);
 }
 
 void ImageManager::ThumbnailCache::save() const
@@ -384,7 +388,7 @@ void ImageManager::ThumbnailCache::load()
     QDataStream stream(&file);
     int version;
     stream >> version;
-    if ( version != FILEVERSION )
+    if ( version != THUMBNAIL_FILE_VERSION )
         return; //Discard cache
 
     // We can't allow anything to modify the structure while we're doing this.
@@ -411,7 +415,7 @@ void ImageManager::ThumbnailCache::load()
         } else if (fileIndex == m_currentFile && offset + size > m_currentOffset) {
             m_currentOffset = offset + size;
         }
-        if ( m_currentOffset > MAXFILESIZE ) {
+        if ( m_currentOffset > MAX_FILE_SIZE ) {
             m_currentFile++;
             m_currentOffset = 0;
         }

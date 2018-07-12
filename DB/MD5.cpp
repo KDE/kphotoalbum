@@ -83,6 +83,5 @@ bool DB::MD5::operator<(const DB::MD5 &other) const
 
     return (m_v0 < other.m_v0 ||
             (m_v0 == other.m_v0 &&
-             (m_v1 < other.m_v1 ||
-              (m_v1 == other.m_v1))));
+             (m_v1 < other.m_v1)));
 }

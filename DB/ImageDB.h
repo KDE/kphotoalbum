@@ -87,6 +87,7 @@ public: // Methods that must be overridden
     virtual QMap<QString,uint> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask ) = 0;
     virtual FileNameList images() = 0;
     virtual void addImages( const ImageInfoList& images, bool doUpdate=true ) = 0;
+    virtual void clearDelayedImages() = 0;
     /** @short Update file name stored in the DB */
     virtual void renameImage( const ImageInfoPtr info, const DB::FileName& newName ) = 0;
 

@@ -30,13 +30,24 @@ FileInfo FileInfo::read( const DB::FileName& fileName, DB::ExifMode mode )
 }
 
 DB::FileInfo::FileInfo( const DB::FileName& fileName, DB::ExifMode mode )
-    : m_angle(0)
+    : m_angle(0),
+      m_fileName(fileName)
 {
     parseEXIV2( fileName );
 
 
     if ( updateDataFromFileTimeStamp(fileName,mode))
         m_date = QFileInfo( fileName.absolute() ).lastModified();
+}
+
+Exiv2::ExifData& DB::FileInfo::getExifData()
+{
+    return m_exifMap;
+}
+
+const DB::FileName& DB::FileInfo::getFileName() const
+{
+    return m_fileName;
 }
 
 bool DB::FileInfo::updateDataFromFileTimeStamp(const DB::FileName& fileName, DB::ExifMode mode)
@@ -64,19 +75,19 @@ bool DB::FileInfo::updateDataFromFileTimeStamp(const DB::FileName& fileName, DB:
 
 void DB::FileInfo::parseEXIV2( const DB::FileName& fileName )
 {
-    Exiv2::ExifData map = Exif::Info::instance()->metadata( fileName ).exif;
+    m_exifMap = Exif::Info::instance()->metadata( fileName ).exif;
 
     // Date
-    m_date = fetchEXIV2Date( map, "Exif.Photo.DateTimeOriginal" );
+    m_date = fetchEXIV2Date( m_exifMap, "Exif.Photo.DateTimeOriginal" );
     if ( !m_date.isValid() ) {
-        m_date = fetchEXIV2Date( map, "Exif.Photo.DateTimeDigitized" );
+        m_date = fetchEXIV2Date( m_exifMap, "Exif.Photo.DateTimeDigitized" );
         if ( !m_date.isValid() )
-            m_date = fetchEXIV2Date( map, "Exif.Image.DateTime" );
+            m_date = fetchEXIV2Date( m_exifMap, "Exif.Image.DateTime" );
     }
 
     // Angle
-    if ( map.findKey( Exiv2::ExifKey( "Exif.Image.Orientation" ) ) != map.end() ) {
-        const Exiv2::Exifdatum& datum = map["Exif.Image.Orientation"];
+    if ( m_exifMap.findKey( Exiv2::ExifKey( "Exif.Image.Orientation" ) ) != m_exifMap.end() ) {
+        const Exiv2::Exifdatum& datum = m_exifMap["Exif.Image.Orientation"];
 
         int orientation = 0;
         if (datum.count() > 0)
@@ -85,8 +96,8 @@ void DB::FileInfo::parseEXIV2( const DB::FileName& fileName )
     }
 
     // Description
-    if( map.findKey( Exiv2::ExifKey( "Exif.Image.ImageDescription" ) ) != map.end() ) {
-        const Exiv2::Exifdatum& datum = map["Exif.Image.ImageDescription"];
+    if( m_exifMap.findKey( Exiv2::ExifKey( "Exif.Image.ImageDescription" ) ) != m_exifMap.end() ) {
+        const Exiv2::Exifdatum& datum = m_exifMap["Exif.Image.ImageDescription"];
         m_description = QString::fromLocal8Bit( datum.toString().c_str() ).trimmed();
         // some cameras seem to add control characters. Remove them:
         m_description.remove(QRegularExpression(QString::fromLatin1("\\p{Cc}")));

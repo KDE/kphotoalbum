@@ -475,8 +475,7 @@ void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
 
     // Database update
     if ( mode & EXIFMODE_DATABASE_UPDATE ) {
-        Exif::Database::instance()->remove( fullPath );
-        Exif::Database::instance()->add( fullPath );
+        Exif::Database::instance()->add( exifInfo );
 #ifdef HAVE_KGEOMAP
         // GPS coords might have changed...
         m_coordsIsSet = false;

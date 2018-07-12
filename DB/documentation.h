@@ -54,7 +54,7 @@
   In KPhotoAlbum lingo, such an inexact date is called a fuzzy date.
 
   The two classes \ref ImageDateCollection and \ref ImageCount work together to support the date bar in its counting of images.
-  See \ref XMLImageDateCollection::count for a detailed description of this.
+  See \ref XMLDB::XMLImageDateCollection::count for a detailed description of this.
 
   <h2>Undocumented classes</h2>
 

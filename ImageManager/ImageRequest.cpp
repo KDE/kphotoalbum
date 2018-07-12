@@ -29,8 +29,19 @@ ImageManager::ImageRequest::ImageRequest( const DB::FileName& fileName,
       m_priority( ThumbnailVisible ),
       m_loadedOK( false ),
       m_dontUpScale( false ),
-      m_isThumbnailRequest(false)
+      m_isThumbnailRequest(false),
+      m_isExitRequest(false)
 {
+}
+
+ImageManager::ImageRequest::ImageRequest( bool requestExit )
+    : m_isExitRequest( requestExit )
+{
+}
+
+bool ImageManager::ImageRequest::isExitRequest() const
+{
+    return m_isExitRequest;
 }
 
 bool ImageManager::ImageRequest::loadedOK() const

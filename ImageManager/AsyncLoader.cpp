@@ -31,6 +31,7 @@
 #include "ImageEvent.h"
 #include "ImageLoaderThread.h"
 #include "ThumbnailCache.h"
+#include "ThumbnailBuilder.h"
 
 ImageManager::AsyncLoader* ImageManager::AsyncLoader::s_instance = nullptr;
 
@@ -55,26 +56,41 @@ void ImageManager::AsyncLoader::init()
     // likely will make it less efficient due to three cores hitting the harddisk at the same time.
     // This might limit the throughput on SSD systems, but we likely have a few years before people
     // put all of their pictures on SSDs.
+    // rlk 20180515: with improvements to the thumbnail generation code, I've conducted
+    // experiments demonstrating benefit even at 2x the number of hyperthreads, even on
+    // an HDD.  However, we need to reserve a thread for the UI or it gets very sluggish
     // We need one more core in the computer for the GUI thread, but we won't dedicate it to GUI,
     // as that'd mean that a dual-core box would only have one core decoding images, which would be
     // suboptimal.
     // In case of only one core in the computer, use one core for thumbnail generation
     // TODO(isilmendil): It seems that many people have their images on NFS-mounts.
     //                   Should we somehow detect this and allocate less threads there?
-    const int cores = qMax( 1, qMin( 3, QThread::idealThreadCount() ) );
+    //                   rlk 20180515: IMO no; if anything, we need more threads to hide
+    //                   the latency of NFS.
+    const int cores = qMax( 1, qMin( 16, QThread::idealThreadCount() - 1 ) );
+    m_exitRequested = false;
 
     for ( int i = 0; i < cores; ++i) {
         ImageLoaderThread* imageLoader = new ImageLoaderThread();
         // The thread is set to the lowest priority to ensure that it doesn't starve the GUI thread.
+        m_threadList << imageLoader;
         imageLoader->start( QThread::IdlePriority );
     }
 }
 
 bool ImageManager::AsyncLoader::load( ImageRequest* request )
 {
-    // silently ignore images not (currently) on disk:
-    if ( ! request->fileSystemFileName().exists() )
+    if (m_exitRequested)
         return false;
+
+    // rlk 2018-05-15: Skip this check here.  Even if the check
+    // succeeds at this point, it may fail later, and if we're suddenly
+    // processing a lot of requests (e. g. a thumbnail build),
+    // this may be very I/O-intensive since it actually has to
+    // read the inode.
+    // silently ignore images not (currently) on disk:
+    // if ( ! request->fileSystemFileName().exists() )
+    //    return false;
 
     if ( Utilities::isVideo( request->fileSystemFileName() ) ) {
         if (!loadVideo( request ))
@@ -87,6 +103,9 @@ bool ImageManager::AsyncLoader::load( ImageRequest* request )
 
 bool ImageManager::AsyncLoader::loadVideo( ImageRequest* request)
 {
+    if (m_exitRequested)
+        return false;
+
     if ( ! MainWindow::FeatureDialog::hasVideoThumbnailer() )
         return false;
 
@@ -103,6 +122,8 @@ bool ImageManager::AsyncLoader::loadVideo( ImageRequest* request)
 void ImageManager::AsyncLoader::loadImage( ImageRequest* request )
 {
     QMutexLocker dummy( &m_lock );
+    if (m_exitRequested)
+        return;
     QSet<ImageRequest*>::const_iterator req = m_currentLoading.find( request );
     if ( req != m_currentLoading.end() && m_loadList.isRequestStillValid( request ) ) {
         // The last part of the test above is needed to not fail on a race condition from AnnotationDialog::ImagePreview, where the preview
@@ -113,6 +134,17 @@ void ImageManager::AsyncLoader::loadImage( ImageRequest* request )
         return; // We are currently loading it, calm down and wait please ;-)
     }
 
+    // Try harder to find a pending request.  Unfortunately, we can't simply use
+    // m_currentLoading.contains() because that will compare pointers
+    // when we want to compare values.
+    for (req = m_currentLoading.begin(); req != m_currentLoading.end(); req++) {
+        ImageRequest *r = *req;
+        if (*request == *r) {
+            delete request;
+            return; // We are currently loading it, calm down and wait please ;-)
+        }
+    }
+            
     // if request is "fresh" (not yet pending):
     if (m_loadList.addRequest( request ))
         m_sleepers.wakeOne();
@@ -136,6 +168,11 @@ int ImageManager::AsyncLoader::activeCount() const
     return m_currentLoading.count();
 }
 
+bool ImageManager::AsyncLoader::isExiting() const
+{
+    return m_exitRequested;
+}
+
 ImageManager::ImageRequest* ImageManager::AsyncLoader::next()
 {
     QMutexLocker dummy( &m_lock );
@@ -145,6 +182,22 @@ ImageManager::ImageRequest* ImageManager::AsyncLoader::next()
     m_currentLoading.insert( request );
 
     return request;
+}
+
+void ImageManager::AsyncLoader::requestExit()
+{
+    m_exitRequested = true;
+    ImageManager::ThumbnailBuilder::instance()->cancelRequests();
+    m_sleepers.wakeAll();
+
+    // TODO(jzarl): check if we can just connect the finished() signal of the threads to deleteLater()
+    //              and exit this function without waiting
+    for (QList<ImageLoaderThread*>::iterator it = m_threadList.begin(); it != m_threadList.end(); ++it ) {
+        while (! (*it)->isFinished()) {
+            QThread::msleep(10);
+        }
+        delete (*it);
+    }
 }
 
 void ImageManager::AsyncLoader::customEvent( QEvent* ev )

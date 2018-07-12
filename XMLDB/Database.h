@@ -52,6 +52,7 @@ namespace XMLDB {
         QMap<QString,uint> classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask ) override;
         DB::FileNameList images() override;
         void addImages( const DB::ImageInfoList& images, bool doUpdate ) override;
+        void clearDelayedImages() override;
         void renameImage( DB::ImageInfoPtr info, const DB::FileName& newName ) override;
 
         void addToBlockList(const DB::FileNameList& list) override;
@@ -115,6 +116,8 @@ namespace XMLDB {
         typedef QMap<DB::StackID, DB::FileNameList> StackMap;
         mutable  StackMap m_stackMap;
         DB::ImageInfoList m_delayedUpdate;
+	mutable QHash<const QString, DB::ImageInfoPtr> m_imageCache;
+	mutable QHash<const QString, DB::ImageInfoPtr> m_delayedCache;
 
         // used for checking if any images are without image attribute from the database.
         static bool s_anyImageWithEmptySize;

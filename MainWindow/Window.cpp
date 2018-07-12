@@ -29,7 +29,6 @@
 #include <QCloseEvent>
 #include <QContextMenuEvent>
 #include <QCursor>
-#include <QDebug>
 #include <QElapsedTimer>
 #include <QDir>
 #include <QFrame>
@@ -85,6 +84,7 @@
 #include <Exif/Info.h>
 #include <Exif/ReReadDialog.h>
 #include <HTMLGenerator/HTMLDialog.h>
+#include <ImageManager/AsyncLoader.h>
 #include <ImageManager/ThumbnailBuilder.h>
 #include <ImageManager/ThumbnailCache.h>
 #include <ImportExport/Export.h>
@@ -246,7 +246,7 @@ void MainWindow::Window::delayedInit()
 
 
     if ( Settings::SettingsData::instance()->searchForImagesOnStart() ||
-	 Options::the()->searchForImagesOnStart() ) {
+         Options::the()->searchForImagesOnStart() ) {
         splash->message( i18n("Searching for New Files") );
         qApp->processEvents();
         DB::ImageDB::instance()->slotRescan();
@@ -325,8 +325,11 @@ bool MainWindow::Window::slotExit()
             QDir().remove( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
         }
     }
+    // Flush any remaining thumbnails
+    ImageManager::ThumbnailCache::instance()->save();
 
 doQuit:
+    ImageManager::AsyncLoader::instance()->requestExit();
     qApp->quit();
     return true;
 }
@@ -487,6 +490,7 @@ void MainWindow::Window::slotSave()
     Utilities::ShowBusyCursor dummy;
     m_statusBar->showMessage(i18n("Saving..."), 5000 );
     DB::ImageDB::instance()->save( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("index.xml"), false );
+    ImageManager::ThumbnailCache::instance()->save();
     m_statusBar->mp_dirtyIndicator->saved();
     QDir().remove( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml") );
     m_statusBar->showMessage(i18n("Saving... Done"), 5000 );
@@ -893,7 +897,6 @@ void MainWindow::Window::setupMenuBar()
     a = actionCollection()->addAction( QString::fromLatin1("buildThumbs"), this, SLOT(slotBuildThumbnails()) );
     a->setText( i18n("Build Thumbnails") );
 
-    a = actionCollection()->addAction( QString::fromLatin1("statistics"), this, SLOT(slotStatistics()) );
     a->setText( i18n("Statistics...") );
 
     m_markUntagged = actionCollection()->addAction(QString::fromUtf8("markUntagged"),
@@ -994,6 +997,7 @@ void MainWindow::Window::slotAutoSave()
         Utilities::ShowBusyCursor dummy;
         m_statusBar->showMessage(i18n("Auto saving...."));
         DB::ImageDB::instance()->save( Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"), true );
+        ImageManager::ThumbnailCache::instance()->save();
         m_statusBar->showMessage(i18n("Auto saving.... Done"), 5000);
         m_statusBar->mp_dirtyIndicator->autoSaved();
     }
@@ -1547,7 +1551,7 @@ void MainWindow::Window::plug()
                 batchActions.append( action );
 
             else {
-                qDebug() << "Unknown category\n";
+                qCWarning(MainWindowLog) << "Unknown category\n";
             }
         }
         KConfigGroup group = KSharedConfig::openConfig()->group( QString::fromLatin1("Shortcuts") );

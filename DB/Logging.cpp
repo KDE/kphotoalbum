@@ -21,3 +21,6 @@
 // only enable warning messages by default
 Q_LOGGING_CATEGORY(DBLog, "kphotoalbum.DB", QtWarningMsg)
 Q_LOGGING_CATEGORY(DBCategoryMatcherLog, "kphotoalbum.DB.CategoryMatcher", QtWarningMsg)
+Q_LOGGING_CATEGORY(DBImageScoutLog, "kphotoalbum.DB.ImageScout", QtWarningMsg)
+// I'm calling this FastDirLog (and not DBFastDirLog) because FastDir is independent of the rest of DB
+Q_LOGGING_CATEGORY(FastDirLog, "kphotoalbum.FastDir", QtWarningMsg)

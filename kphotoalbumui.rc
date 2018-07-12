@@ -65,6 +65,7 @@
       <Separator/>
       <Action name="removeAllThumbs"/>
       <Action name="buildThumbs"/>
+      <Action name="optimizeThumbs"/>
       <Separator/>
       <Action name="markUntagged"/>
       <Separator/>

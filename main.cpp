@@ -1,4 +1,5 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2010-2018 The KPhotoAlbum development team
+   Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -81,8 +82,8 @@ int main( int argc, char** argv ) {
     aboutData.addAuthor( i18n("Henner Zeller"),i18n("Development"), QStringLiteral("h.zeller@acm.org"));
     aboutData.addAuthor( i18n("Andreas Neustifter"),i18n("Development"), QStringLiteral("andreas.neustifter@gmail.com"));
     aboutData.addAuthor( i18n("Johannes Zarl-Zierl"),i18n("Development"), QStringLiteral("johannes@zarl-zierl.at"));
-    aboutData.addAuthor( i18n("Tobias Leupold"),i18n("Development"), QStringLiteral("tobias.leupold@web.de"));
-
+    aboutData.addAuthor( i18n("Tobias Leupold"),i18n("Development"), QStringLiteral("tobias.leupold@gmx.de"));
+    aboutData.addAuthor( i18n("Robert Krawitz"),i18n("Development"), QStringLiteral("rlk@alum.mit.edu"));
 
     aboutData.addCredit( i18n("Will Stephenson"), i18n("Developing an Icon for KPhotoAlbum"), QStringLiteral("will@stevello.free-online.co.uk") );
     aboutData.addCredit( i18n("Teemu Rytilahti"),

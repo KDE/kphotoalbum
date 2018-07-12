@@ -17,9 +17,11 @@
 */
 
 #include "MapView.h"
+#include "Logging.h"
 
 // Qt includes
 #include <QLabel>
+#include <QLoggingCategory>
 #include <QPixmap>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -79,7 +81,7 @@ Map::MapView::MapView(QWidget* parent, UsageType type) : QWidget(parent)
     if (backends.contains(defaultBackend)) {
         m_mapWidget->setBackend(defaultBackend);
     } else {
-        qDebug() << "AnnotationMap: using backend " << backends[0];
+        qCDebug(MapLog) << "AnnotationMap: using backend " << backends[0];
         m_mapWidget->setBackend(backends[0]);
     }
 

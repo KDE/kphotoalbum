@@ -33,7 +33,6 @@ public:
     bool isDescendentOf( const QString& child, const QString& parent ) const;
 
 protected:
-    void print( int offset ) const;
     bool hasChild( const QString& child ) const;
 
 public:

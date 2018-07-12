@@ -51,8 +51,7 @@ class DB::ImageScoutThread :public QThread {
     friend class DB::ImageScout;
 public:
     ImageScoutThread( ImageScoutQueue &, QMutex *, QAtomicInt &count,
-                      QAtomicInt &preloadCount, QAtomicInt &skippedCount,
-                      int index );
+                      QAtomicInt &preloadCount, QAtomicInt &skippedCount );
 protected:
     virtual void run();
     void setBufSize(int);
@@ -71,14 +70,13 @@ private:
     int m_scoutBufSize;
     int m_maxSeekAhead;
     int m_readLimit;
-    int m_index;
     bool m_isStarted;
 };
 
 ImageScoutThread::ImageScoutThread( ImageScoutQueue &queue, QMutex *mutex,
                                     QAtomicInt &count, 
                                     QAtomicInt &preloadedCount, 
-                                    QAtomicInt &skippedCount, int index )
+                                    QAtomicInt &skippedCount )
   : m_queue(queue),
     m_mutex(mutex),
     m_loadedCount(count),
@@ -87,7 +85,6 @@ ImageScoutThread::ImageScoutThread( ImageScoutQueue &queue, QMutex *mutex,
     m_scoutBufSize(DEFAULT_SCOUT_BUFFER_SIZE),
     m_maxSeekAhead(DEFAULT_MAX_SEEKAHEAD_IMAGES),
     m_readLimit(-1),
-    m_index(index),
     m_isStarted(false)
 {
 }
@@ -186,8 +183,7 @@ ImageScout::ImageScout(ImageScoutQueue &images,
                                       threads > 1 ? &m_mutex : nullptr,
                                       count,
                                       m_preloadedCount,
-                                      m_skippedCount,
-                                      i);
+                                      m_skippedCount );
             m_scoutList.append( t );
         }
     }

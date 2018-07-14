@@ -70,6 +70,12 @@
     <screenshot type="default">
       <image width="853" height="659">https://www.kphotoalbum.org/kphotoalbum_big.jpg</image>
       <caption>The main screen in KPhotoAlbum</caption>
+      <caption xml:lang="ca">La pantalla principal del KPhotoAlbum</caption>
+      <caption xml:lang="nl">Het hoofdscherm in KPhotoAlbum</caption>
+      <caption xml:lang="pt">O ecrã principal no KPhotoAlbum</caption>
+      <caption xml:lang="sv">Huvudskärmen i Kfotoalbum</caption>
+      <caption xml:lang="uk">Знімок головного вікна KPhotoAlbum</caption>
+      <caption xml:lang="x-test">xxThe main screen in KPhotoAlbumxx</caption>
     </screenshot>
   </screenshots>
   <url type="homepage">http://kphotoalbum.org</url>

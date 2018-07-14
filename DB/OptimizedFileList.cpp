@@ -22,7 +22,17 @@
 extern "C" {
 #include <sys/types.h>
 #include <dirent.h>
-#include <sys/vfs.h>
+
+#ifdef __linux__
+# include <sys/vfs.h>
+#else
+#ifdef __FreeBSD__
+# include <sys/param.h>
+# include <sys/mount.h>
+#else
+#warning "Unsupported platform. Please file a bug report or send a patch!"
+#endif
+#endif
 }
 
 #include <QFile>

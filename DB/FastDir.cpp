@@ -55,17 +55,10 @@ extern "C" {
  * We could do even better by sorting by block position, but that would
  * greatly increase complexity.
  */
-
-// Note: on FreeBSD, __linux__ is also defined
-#ifdef __BSD__
-# include <sys/param.h>
-# include <sys/mount.h>
-#else
 #ifdef __linux__
-# include <sys/vfs.h>
-# include <linux/magic.h>
+#include <sys/vfs.h>
+#include <linux/magic.h>
 #endif  // __linux__
-#endif
 }
 
 typedef QMap<ino_t, QString> InodeMap;

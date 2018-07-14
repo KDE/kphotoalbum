@@ -56,8 +56,19 @@ extern "C" {
  * greatly increase complexity.
  */
 #ifdef __linux__
-#include <sys/vfs.h>
-#include <linux/magic.h>
+#  include <sys/vfs.h>
+#  include <linux/magic.h>
+#  define HAVE_STATFS
+#  define STATFS_FSTYPE_EXT2 EXT2_SUPER_MAGIC  // Includes EXT3_SUPER_MAGIC, EXT4_SUPER_MAGIC
+#else
+#ifdef __FreeBSD__
+#  include <sys/param.h>
+#  include <sys/mount.h>
+#  include <sys/disklabel.h>
+#  define HAVE_STATFS
+#  define STATFS_FSTYPE_EXT2 FS_EXT2FS
+#endif
+// other platforms fall back to known-safe (but slower) implementation
 #endif  // __linux__
 }
 
@@ -124,21 +135,21 @@ constexpr bool DB::sortByName(const QByteArray &)
 
 bool DB::sortByInode(const QByteArray &path)
 {
-#ifdef __linux__
+#ifdef HAVE_STATFS
     struct statfs buf;
     if ( statfs( path.constData(), &buf ) == -1 )
         return -1;
     // Add other filesystems as appropriate
     switch ( buf.f_type ) {
-        case EXT2_SUPER_MAGIC:  // Includes EXT3_SUPER_MAGIC, EXT4_SUPER_MAGIC
+        case STATFS_FSTYPE_EXT2:
             return true;
         default:
             return false;
     }
-#else   // __linux__
+#else   // HAVE_STATFS
     Q_UNUSED(path);
     return false;
-#endif  // __linux__
+#endif  // HAVE_STATFS
 }
 
 const QStringList DB::FastDir::entryList() const

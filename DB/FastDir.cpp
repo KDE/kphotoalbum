@@ -136,6 +136,7 @@ bool DB::sortByInode(const QByteArray &path)
             return false;
     }
 #else   // __linux__
+    Q_UNUSED(path);
     return false;
 #endif  // __linux__
 }

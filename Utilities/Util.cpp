@@ -655,7 +655,7 @@ bool Utilities::loadJPEGInternal(QImage *img, FILE* inputFile, QSize* fullSize, 
     if ( cinfo.output_components == 3 ) {
         for (uint j=0; j<cinfo.output_height; j++) {
             uchar *in = img->scanLine(j) + cinfo.output_width*3;
-            QRgb *out = (QRgb*)( img->scanLine(j) );
+            QRgb *out = reinterpret_cast<QRgb*>( img->scanLine(j) );
 
             for (uint i=cinfo.output_width; i--; ) {
                 in-=3;

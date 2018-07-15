@@ -50,7 +50,6 @@ private:
     mutable QStringList m_optimizedList;
     mutable bool m_haveOptimizedFiles;
     mutable FSMap m_fsMap;
-    static DB::FileNameList dbListFromStrings(const QStringList &files);
     static QString getDirName(const QString &);
 };
 

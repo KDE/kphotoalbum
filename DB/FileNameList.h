@@ -33,6 +33,11 @@ class FileNameList : public QList<DB::FileName>
 public:
     FileNameList() {}
     explicit FileNameList( const QList<DB::FileName>& );
+    /**
+     * @brief Create a FileNameList from a list of absolute filenames.
+     * @param files
+     */
+    explicit FileNameList(const QStringList &files);
     QStringList toStringList(DB::PathType) const;
     FileNameList& operator<<(const DB::FileName& );
     FileNameList reversed() const;

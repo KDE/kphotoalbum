@@ -130,17 +130,9 @@ const QStringList DB::OptimizedFileList::optimizedFiles() const
     return m_optimizedList;
 }
 
-DB::FileNameList DB::OptimizedFileList::dbListFromStrings(const QStringList &files)
-{
-    DB::FileNameList answer;
-    for (QString fileName : files)
-        answer << DB::FileName::fromAbsolutePath(fileName);
-    return answer;
-}
-
 const DB::FileNameList DB::OptimizedFileList::optimizedDbFiles() const
 {
-    return dbListFromStrings(m_optimizedList);
+    return FileNameList(m_optimizedList);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

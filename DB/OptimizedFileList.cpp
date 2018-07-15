@@ -17,6 +17,7 @@
 */
 
 #include "FastDir.h"
+#include "Logging.h"
 #include "OptimizedFileList.h"
 
 extern "C" {
@@ -25,18 +26,19 @@ extern "C" {
 
 #ifdef __linux__
 # include <sys/vfs.h>
+# define HAVE_STATFS
 #else
 #ifdef __FreeBSD__
 # include <sys/param.h>
 # include <sys/mount.h>
-#else
-#warning "Unsupported platform. Please file a bug report or send a patch!"
+# define HAVE_STATFS
 #endif
 #endif
 }
 
-#include <QFile>
 #include <QCryptographicHash>
+#include <QFile>
+#include <QLoggingCategory>
 
 DB::OptimizedFileList::OptimizedFileList(const QStringList &files)
     : m_fileList(files),
@@ -66,6 +68,7 @@ void DB::OptimizedFileList::optimizeFiles() const
 {
     if ( m_haveOptimizedFiles )
         return;
+#ifdef HAVE_STATFS
     DirMap dirMap;
     QStringList dirList;
     // Map files to directories
@@ -114,6 +117,11 @@ void DB::OptimizedFileList::optimizeFiles() const
         QStringList &remainder(tmpFsMap.last());
         m_optimizedList += remainder;
     }
+#else
+    qCWarning(FastDirLog) << "Platform does not support statfs for optimized file lists."
+                             " Thumbnail building may be slower than on other platforms.";
+    m_optimizedList = m_fileList;
+#endif
     m_haveOptimizedFiles = true;
 }
 
@@ -133,27 +141,6 @@ DB::FileNameList DB::OptimizedFileList::dbListFromStrings(const QStringList &fil
 const DB::FileNameList DB::OptimizedFileList::optimizedDbFiles() const
 {
     return dbListFromStrings(m_optimizedList);
-}
-
-const QStringList DB::OptimizedFileList::getFilesystemIDs() const
-{
-    return m_fsMap.keys();
-}
-
-const QStringList DB::OptimizedFileList::getFilesByFilesystem(const QString &id) const
-{
-    if ( m_fsMap.contains( id ) )
-        return m_fsMap[id];
-    else
-        return QStringList();
-}
-
-const DB::FileNameList DB::OptimizedFileList::getDbFilesByFilesystem(const QString &id) const
-{
-    if ( m_fsMap.contains( id ) )
-        return dbListFromStrings(m_fsMap[id]);
-    else
-        return DB::FileNameList();
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

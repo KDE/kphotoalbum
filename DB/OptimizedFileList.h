@@ -42,10 +42,6 @@ public:
     explicit OptimizedFileList(const QStringList &files);
     const QStringList optimizedFiles() const;
     const DB::FileNameList optimizedDbFiles() const;
-    /* Opaque filesystem IDs */
-    const QStringList getFilesystemIDs() const;
-    const QStringList getFilesByFilesystem(const QString &id) const;
-    const DB::FileNameList getDbFilesByFilesystem(const QString &id) const;
 
 private:
     OptimizedFileList();

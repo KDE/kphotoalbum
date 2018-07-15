@@ -72,7 +72,7 @@ void DB::OptimizedFileList::optimizeFiles() const
     DirMap dirMap;
     QStringList dirList;
     // Map files to directories
-    for ( const QString fileName : m_fileList ) {
+    for ( const QString &fileName : m_fileList ) {
         QString dir = getDirName(fileName);
         if (! dirMap.contains( dir ) ) {
             StringSet newDir;
@@ -82,7 +82,7 @@ void DB::OptimizedFileList::optimizeFiles() const
         dirMap[ dir ] << fileName;
     }
     struct statfs statbuf;
-    for ( QString dirName : dirList ) {
+    for ( const QString &dirName : dirList ) {
         const StringSet &files(dirMap[dirName]);
         FastDir dir(dirName);
         QStringList sortedList = dir.sortFileList(files);
@@ -109,7 +109,7 @@ void DB::OptimizedFileList::optimizeFiles() const
                 filesystemsToRemove << it.key();
             }
         }
-        for (QString fs : filesystemsToRemove) {
+        for (const QString &fs : filesystemsToRemove) {
             tmpFsMap.remove( fs );
         }
     }

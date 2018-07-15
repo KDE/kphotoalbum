@@ -34,14 +34,17 @@ typedef QMap<QString, QStringList> FSMap;
  * Provide a list of files optimized by filesystem.
  * File names are interleaved across all filesystems
  * with files belonging to them.
+ *
+ * In other words, you can put in a list of files, and get
+ * back a list that is optimized for read performance.
  */
 class OptimizedFileList
 {
 public:
     explicit OptimizedFileList(const DB::FileNameList &files);
     explicit OptimizedFileList(const QStringList &files);
-    const QStringList optimizedFiles() const;
-    const DB::FileNameList optimizedDbFiles() const;
+    QStringList optimizedFiles() const;
+    DB::FileNameList optimizedDbFiles() const;
 
 private:
     OptimizedFileList();

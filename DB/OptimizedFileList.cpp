@@ -125,12 +125,12 @@ void DB::OptimizedFileList::optimizeFiles() const
     m_haveOptimizedFiles = true;
 }
 
-const QStringList DB::OptimizedFileList::optimizedFiles() const
+QStringList DB::OptimizedFileList::optimizedFiles() const
 {
     return m_optimizedList;
 }
 
-const DB::FileNameList DB::OptimizedFileList::optimizedDbFiles() const
+DB::FileNameList DB::OptimizedFileList::optimizedDbFiles() const
 {
     return FileNameList(m_optimizedList);
 }

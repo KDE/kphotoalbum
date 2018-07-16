@@ -22,18 +22,9 @@
 
 extern "C" {
 #include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 #include <dirent.h>
-
-#ifdef __linux__
-# include <sys/vfs.h>
-# define HAVE_STATFS
-#else
-#ifdef __FreeBSD__
-# include <sys/param.h>
-# include <sys/mount.h>
-# define HAVE_STATFS
-#endif
-#endif
 }
 
 #include <QCryptographicHash>
@@ -68,7 +59,6 @@ void DB::OptimizedFileList::optimizeFiles() const
 {
     if ( m_haveOptimizedFiles )
         return;
-#ifdef HAVE_STATFS
     DirMap dirMap;
     QStringList dirList;
     // Map files to directories
@@ -81,15 +71,15 @@ void DB::OptimizedFileList::optimizeFiles() const
         }
         dirMap[ dir ] << fileName;
     }
-    struct statfs statbuf;
+    struct stat statbuf;
     for ( const QString &dirName : dirList ) {
         const StringSet &files(dirMap[dirName]);
         FastDir dir(dirName);
         QStringList sortedList = dir.sortFileList(files);
         QString fsName( QString::fromLatin1( "NULLFS" ) );
-        if ( statfs( QByteArray(QFile::encodeName(dirName)).constData(), &statbuf ) == 0 ) {
+        if ( stat( QByteArray(QFile::encodeName(dirName)).constData(), &statbuf ) == 0 ) {
             QCryptographicHash md5calculator(QCryptographicHash::Md5);
-            QByteArray md5Buffer((const char *) &(statbuf.f_fsid), sizeof(statbuf.f_fsid));
+            QByteArray md5Buffer((const char *) &(statbuf.st_dev), sizeof(statbuf.st_dev));
             md5calculator.addData(md5Buffer);
             fsName = QString::fromLatin1(md5calculator.result().toHex());
         }
@@ -117,11 +107,9 @@ void DB::OptimizedFileList::optimizeFiles() const
         QStringList &remainder(tmpFsMap.last());
         m_optimizedList += remainder;
     }
-#else
-    qCWarning(FastDirLog) << "Platform does not support statfs for optimized file lists."
-                             " Thumbnail building may be slower than on other platforms.";
-    m_optimizedList = m_fileList;
-#endif
+    //    for (QStringList::iterator it = m_optimizedList.begin(); it != m_optimizedList.end(); ++it) {
+    //        qDebug() << *it;
+    //    }
     m_haveOptimizedFiles = true;
 }
 

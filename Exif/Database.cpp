@@ -606,7 +606,7 @@ void Exif::Database::recreate()
     dialog.setLabelText(i18n("Rereading EXIF information from all images"));
     dialog.setMaximum(allImages.size());
     // using a transaction here removes a *huge* overhead on the insert statements
-    m_db.transaction();
+    startInsertTransaction();
     int i = 0;
     for (const DB::FileName& fileName : allImages) {
         const DB::ImageInfoPtr info = fileName.info();
@@ -622,14 +622,14 @@ void Exif::Database::recreate()
 
     // PENDING(blackie) We should count the amount of files that did not succeeded and warn the user.
     if (dialog.wasCanceled()) {
-        m_db.rollback();
+        abortInsertTransaction();
         m_db.close();
         QDir().remove(exifDBFile());
         QDir().rename(origBackup, exifDBFile());
         init();
     }
     else {
-        m_db.commit();
+        commitInsertTransaction();
         QDir().remove(origBackup);
     }
 }

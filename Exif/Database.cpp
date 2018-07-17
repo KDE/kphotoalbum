@@ -288,7 +288,7 @@ void Exif::Database::remove( const DB::FileNameList& list )
 QSqlQuery *Exif::Database::getInsertQuery()
 {
     if ( !isUsable() )
-        return NULL;
+        return nullptr;
     if ( m_insertTransaction )
         return m_insertTransaction;
     if (m_queryString.isEmpty())
@@ -328,7 +328,7 @@ bool Exif::Database::commitInsertTransaction()
     if (m_insertTransaction) {
         m_db.commit();
         delete m_insertTransaction;
-        m_insertTransaction = NULL;
+        m_insertTransaction = nullptr;
     } else
         qCWarning(ExifLog, "Trying to commit transaction, but no transaction is active!");
     return true;
@@ -339,7 +339,7 @@ bool Exif::Database::abortInsertTransaction()
     if (m_insertTransaction) {
         m_db.rollback();
         delete m_insertTransaction;
-        m_insertTransaction = NULL;
+        m_insertTransaction = nullptr;
     } else
         qCWarning(ExifLog, "Trying to abort transaction, but no transaction is active!");
     return true;
@@ -573,7 +573,7 @@ void Exif::Database::init()
     if ( !isAvailable() )
         return;
 
-    m_insertTransaction = NULL;
+    m_insertTransaction = nullptr;
     bool dbExists = QFile::exists( exifDBFile() );
 
     openDatabase();

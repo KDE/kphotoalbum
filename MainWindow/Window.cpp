@@ -216,17 +216,17 @@ MainWindow::Window::Window( QWidget* parent )
     connect( m_browser, SIGNAL(imageCount(uint)), m_statusBar->mp_partial, SLOT(showBrowserMatches(uint)) );
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::selectionChanged, this, &Window::updateContextMenuFromSelectionSize);
 
+    checkIfMplayerIsInstalled();
+    executeStartupActions();
+
+    qCInfo(TimingLog) << "MainWindow: executeStartupActions " << timer.restart() << "ms.";
     QTimer::singleShot( 0, this, SLOT(delayedInit()) );
     updateContextMenuFromSelectionSize(0);
 
     // Automatically save toolbar settings
     setAutoSaveSettings();
 
-    checkIfMplayerIsInstalled();
-
     qCInfo(TimingLog) << "MainWindow: misc setup time: " << timer.restart() << "ms.";
-    executeStartupActions();
-    qCInfo(TimingLog) << "MainWindow: executeStartupActions " << timer.restart() << "ms.";
 }
 
 MainWindow::Window::~Window()

@@ -26,7 +26,6 @@
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <QDialogButtonBox>
-#include <QPushButton>
 #include "DB/ImageDB.h"
 #include "DB/CategoryCollection.h"
 #include "DB/Category.h"

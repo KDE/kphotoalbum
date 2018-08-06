@@ -34,7 +34,6 @@
 #include <QLayout>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QPushButton>
 #include <QStandardPaths>
 #include <QVBoxLayout>
 

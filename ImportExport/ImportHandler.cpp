@@ -26,7 +26,6 @@
 #include <KJobWidgets>
 #include <KJobUiDelegate>
 #include <kmessagebox.h>
-#include <QProgressDialog>
 #include <KConfigGroup>
 
 #include "Utilities/Util.h"
@@ -127,7 +126,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
         QUrl src (url);
         src.setPath(src.path() + fileName.relative() );
 
-        std::unique_ptr<KIO::StatJob> statJob { KIO::stat(src, KIO::StatJob::SourceSide, 0 /* just query for existance */ ) };
+        std::unique_ptr<KIO::StatJob> statJob { KIO::stat(src, KIO::StatJob::SourceSide, 0 /* just query for existence */ ) };
         KJobWidgets::setWindow(statJob.get(), MainWindow::Window::theMainWindow());
         if ( statJob->exec() )
         {

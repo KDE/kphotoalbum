@@ -42,7 +42,6 @@
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <QPushButton>
-#include <QFileDialog>
 
 #include "XMLHandler.h"
 

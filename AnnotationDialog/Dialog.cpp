@@ -390,7 +390,7 @@ QWidget* AnnotationDialog::Dialog::createDateWidget(ShortCutManager& shortCutMan
     lay9->addWidget( m_ratingSearchLabel );
 
     m_ratingSearchMode = new KComboBox( lay9 );
-    m_ratingSearchMode->addItems( QStringList() << i18n("==") << i18n("&gt;=") << i18n("&lt;=") << i18n("!=") );
+    m_ratingSearchMode->addItems( QStringList() << i18n("==") << i18n(">=") << i18n("<=") << i18n("!=") );
     m_ratingSearchLabel->setBuddy( m_ratingSearchMode );
     lay9->addWidget( m_ratingSearchMode );
 

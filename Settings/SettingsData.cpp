@@ -151,7 +151,7 @@ property_copy( searchForImagesOnStart, setSearchForImagesOnStart, bool          
 property_copy( ignoreFileExtension   , setIgnoreFileExtension   , bool          , General, false                      )
 property_copy( skipSymlinks,           setSkipSymlinks          , bool          , General, false                      )
 property_copy( skipRawIfOtherMatches , setSkipRawIfOtherMatches , bool          , General, false                      )
-property_copy( useRawThumbnail       , setUseRawThumbnail       , bool          , General, false                      )
+property_copy( useRawThumbnail       , setUseRawThumbnail       , bool          , General, true                       )
 property_copy( useRawThumbnailSize   , setUseRawThumbnailSize   , QSize         , General, QSize(1024,768)            )
 property_copy( useCompressedIndexXML , setUseCompressedIndexXML , bool          , General, false                      )
 property_copy( compressBackup        , setCompressBackup        , bool          , General, true                       )

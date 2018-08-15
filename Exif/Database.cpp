@@ -619,6 +619,7 @@ void Exif::Database::init()
     if ( !isAvailable() )
         return;
 
+    m_isFailed = false;
     m_insertTransaction = nullptr;
     bool dbExists = QFile::exists( exifDBFile() );
 

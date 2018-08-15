@@ -275,10 +275,7 @@ void MainWindow::Window::delayedInit()
         KTipDialog::showTip( this );
     }
 
-    Exif::Database* exifDB = Exif::Database::instance(); // Load the database
-    if ( exifDB->isAvailable() && !exifDB->isOpen() ) {
-        KMessageBox::sorry( this, i18n("EXIF database cannot be opened. Check that the image root directory is writable.") );
-    }
+    Exif::Database::instance(); // Load the database
     qCInfo(TimingLog) << "MainWindow: Loading EXIF DB:" << timer.restart() << "ms.";
 
     if (!Options::the()->listen().isNull())

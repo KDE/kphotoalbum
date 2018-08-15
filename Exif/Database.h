@@ -118,8 +118,11 @@ protected:
     bool insert( QList<DBExifInfo> );
 
 private:
+    void showErrorAndFail( QSqlQuery &query ) const;
+    void showErrorAndFail(const QString &errorMessage , const QString &technicalInfo) const;
     bool m_isOpen;
     bool m_doUTF8Conversion;
+    mutable bool m_isFailed;
     Database();
     ~Database();
     void init();

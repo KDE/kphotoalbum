@@ -19,7 +19,6 @@
 
 #include <QFileDialog>
 #include <QTemporaryFile>
-#include <QFileDialog>
 
 #include <KIO/Job>
 #include <KIO/JobUiDelegate>

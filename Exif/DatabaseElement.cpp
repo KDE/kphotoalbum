@@ -137,14 +137,12 @@ QVariant Exif::RationalExifElement::valueFromExif(Exiv2::ExifData &data) const
         {
             value = 0.0;
             double divisor = 1.0;
-            // hour / minute / second:
-            for (int i=0 ; i < 4 ; i++ )
+            // degree / minute / second:
+            for (int i=0 ; i < 3 ; i++ )
             {
                 double nom = tagDatum.toRational(i).first;
                 double denom = tagDatum.toRational(i).second;
-                if ( denom == 0 )
-                    value += 0;
-                else
+                if ( denom != 0 )
                     value += (nom / denom)/ divisor;
                 divisor *= 60.0;
             }

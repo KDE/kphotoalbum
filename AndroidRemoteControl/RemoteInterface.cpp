@@ -238,7 +238,7 @@ QString RemoteInterface::networkAddress() const
 
 QStringList RemoteInterface::tokens() const
 {
-    // FIXME: in KPA the tokens category is now retreived using categoryForSpecial
+    // FIXME: in KPA the tokens category is now retrieved using categoryForSpecial
     return ImageDetails::instance().itemsOfCategory(QStringLiteral("Tokens"));
 }
 

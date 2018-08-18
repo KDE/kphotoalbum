@@ -24,6 +24,12 @@ DB::FileNameList::FileNameList(const QList<DB::FileName>& other )
     QList<DB::FileName>::operator=(other);
 }
 
+DB::FileNameList::FileNameList(const QStringList &files)
+{
+    for (const QString& file: files)
+        append(DB::FileName::fromAbsolutePath(file));
+}
+
 QStringList DB::FileNameList::toStringList(DB::PathType type) const
 {
     QStringList res;

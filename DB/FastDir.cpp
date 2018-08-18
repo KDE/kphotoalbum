@@ -55,17 +55,21 @@ extern "C" {
  * We could do even better by sorting by block position, but that would
  * greatly increase complexity.
  */
-
-// Note: on FreeBSD, __linux__ is also defined
-#ifdef __BSD__
-# include <sys/param.h>
-# include <sys/mount.h>
-#else
 #ifdef __linux__
-# include <sys/vfs.h>
-# include <linux/magic.h>
-#endif  // __linux__
+#  include <sys/vfs.h>
+#  include <linux/magic.h>
+#  define HAVE_STATFS
+#  define STATFS_FSTYPE_EXT2 EXT2_SUPER_MAGIC  // Includes EXT3_SUPER_MAGIC, EXT4_SUPER_MAGIC
+#else
+#ifdef __FreeBSD__
+#  include <sys/param.h>
+#  include <sys/mount.h>
+#  include <sys/disklabel.h>
+#  define HAVE_STATFS
+#  define STATFS_FSTYPE_EXT2 FS_EXT2FS
 #endif
+// other platforms fall back to known-safe (but slower) implementation
+#endif  // __linux__
 }
 
 typedef QMap<ino_t, QString> InodeMap;
@@ -131,20 +135,21 @@ constexpr bool DB::sortByName(const QByteArray &)
 
 bool DB::sortByInode(const QByteArray &path)
 {
-#ifdef __linux__
+#ifdef HAVE_STATFS
     struct statfs buf;
     if ( statfs( path.constData(), &buf ) == -1 )
         return -1;
     // Add other filesystems as appropriate
     switch ( buf.f_type ) {
-        case EXT2_SUPER_MAGIC:  // Includes EXT3_SUPER_MAGIC, EXT4_SUPER_MAGIC
+        case STATFS_FSTYPE_EXT2:
             return true;
         default:
             return false;
     }
-#else   // __linux__
+#else   // HAVE_STATFS
+    Q_UNUSED(path);
     return false;
-#endif  // __linux__
+#endif  // HAVE_STATFS
 }
 
 const QStringList DB::FastDir::entryList() const

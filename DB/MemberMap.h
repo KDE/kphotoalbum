@@ -79,7 +79,7 @@ signals:
     void dirty();
 
 private:
-    void doDirty( const QString& category );
+    void markDirty( const QString& category );
     void regenerateFlatList( const QString& category );
     // This is the primary data structure
     // { category |-> { group |-> [ member ] } } <- VDM syntax ;-)

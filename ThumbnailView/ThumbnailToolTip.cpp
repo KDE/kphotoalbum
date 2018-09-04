@@ -21,6 +21,7 @@
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QCursor>
+#include <QScreen>
 
 #include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
@@ -86,7 +87,10 @@ void ThumbnailView::ThumbnailToolTip::placeWindow()
     if ( m_heightInverse )
         pos.setY( pos.y() - 30 - height() );
 
-    QRect geom = qApp->desktop()->screenGeometry( QCursor::pos() );
+    QScreen *screen = qApp->screenAt( QCursor::pos());
+    if (!screen)
+        return;
+    QRect geom = screen->geometry();
 
     // Now test whether the window moved outside the screen
     if ( m_widthInverse ) {

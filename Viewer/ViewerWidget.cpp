@@ -1000,11 +1000,6 @@ bool Viewer::ViewerWidget::showingFullScreen() const
 void Viewer::ViewerWidget::setShowFullScreen( bool on )
 {
     if ( on ) {
-        // To avoid that the image is first loaded in a small size and the reloaded when scaled up, we need to resize the window right away.
-        // (this results in odd behaviour (the image
-        // 'jumps' because fullscreen > fullwindow) and should be
-        // reconsidered. Henner.)
-        resize( qApp->desktop()->screenGeometry().size() );
         setWindowState( windowState() | Qt::WindowFullScreen ); // set
         moveInfoBox();
     }

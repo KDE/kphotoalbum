@@ -2,6 +2,16 @@
 /**
 \page coding-standards Coding Standards
 
+<h2>Compatibility</h2>
+
+Not every distro ships the latest version of Qt. As a rule of thumb, we aim for compatibility with the latest Ubuntu LTS release.
+
+<h3>Why Ubuntu?</h3>
+
+\li It is one of the more popular distros
+\li The release life cycle is very regular
+\li Package information is readily available <a href='https://packages.ubuntu.com/libqt5gui' alt='Ubuntu package search'>online</a>
+
 <h2>General conventions</h2>
 
 Here are a few pointers regarding coding standards in KPhotoAlbum. Please do stick to them, so the

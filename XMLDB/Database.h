@@ -52,6 +52,7 @@ namespace XMLDB {
         QMap<QString,uint> classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask ) override;
         DB::FileNameList images() override;
         void addImages( const DB::ImageInfoList& images, bool doUpdate ) override;
+        void commitDelayedImages() override;
         void clearDelayedImages() override;
         void renameImage( DB::ImageInfoPtr info, const DB::FileName& newName ) override;
 

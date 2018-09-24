@@ -478,7 +478,6 @@ void NewImageFinder::loadExtraFiles()
     setupFileVersionDetection();
 
     int count = 0;
-    ImageInfoList newImages;
 
     ImageScoutQueue asyncPreloadQueue;
     for( LoadList::Iterator it = m_pendingLoad.begin(); it != m_pendingLoad.end(); ++it ) {
@@ -502,35 +501,19 @@ void NewImageFinder::loadExtraFiles()
         }
         // (*it).first: DB::FileName
         // (*it).second: DB::MediaType
-        ImageInfoPtr info = loadExtraFile( (*it).first, (*it).second );
+        loadExtraFile( (*it).first, (*it).second );
         loadedCount++;          // Atomic
-        if ( info ) {
-            markUnTagged(info);
-            newImages.append(info);
-        }
         if ( timeSinceProgressUpdate.elapsed() >= 1000 ) {
             dialog.setValue( count );
             timeSinceProgressUpdate.restart();
         }
     }
     dialog.setValue( count );
-    // loadExtraFile() should have inserted all images into the
-    // database on the fly, but we need to tell the database to
-    // commit the changes.
-    if ( newImages.count() > 0 ) {
-        qCWarning(DBLog) << newImages.count() << " images were left to insert after load!";
-    }
-    DB::ImageDB::instance()->addImages( newImages );
+    // loadExtraFile() has already inserted all images into the
+    // database, but without committing the changes
+    DB::ImageDB::instance()->commitDelayedImages();
     Exif::Database::instance()->commitInsertTransaction();
 
-    // I would have loved to do this in loadExtraFile, but the image has not been added to the database yet
-    if ( MainWindow::FeatureDialog::hasVideoThumbnailer() ) {
-        Q_FOREACH( const ImageInfoPtr& info, newImages ) {
-            if ( info->isVideo() )
-                BackgroundTaskManager::JobManager::instance()->addJob(
-                        new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
-        }
-    }
     ImageManager::ThumbnailBuilder::instance()->save();
 }
 
@@ -643,10 +626,18 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
 
         // ordering: XXX we ideally want to place the new image right
         // after the older one in the list.
-    }
-    ImageManager::ThumbnailBuilder::instance()->buildOneThumbnail( info );
 
-    info = nullptr;  // we already added it, so don't process again
+        // no post-processing is needed in loadExtraFiles()
+        info = nullptr;
+    }
+
+    markUnTagged(info);
+    ImageManager::ThumbnailBuilder::instance()->buildOneThumbnail( info );
+    if ( info->isVideo() && MainWindow::FeatureDialog::hasVideoThumbnailer() ) {
+        // needs to be done *after* insertion into database
+        BackgroundTaskManager::JobManager::instance()->addJob(
+                    new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
+    }
     return info;
 }
 

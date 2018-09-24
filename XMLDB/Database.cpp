@@ -240,18 +240,23 @@ void XMLDB::Database::addImages( const DB::ImageInfoList& images,
         m_delayedUpdate << info;
     }
     if ( doUpdate ) {
-        uint imagesAdded = m_delayedUpdate.count();
-        if ( imagesAdded > 0 ) {
-            forceUpdate(m_delayedUpdate);
-            m_delayedCache.clear();
-            m_delayedUpdate.clear();
-            // It's the responsility of the caller to add the EXIF information.
-            // It's more efficient from an I/O perspective to minimize the number
-            // of passes over the images, and with the ability to add the EXIF
-            // data in a transaction, there's no longer any need to read it here.
-            emit totalChanged( m_images.count() );
-            emit dirty();
-        }
+        commitDelayedImages();
+    }
+}
+
+void XMLDB::Database::commitDelayedImages()
+{
+    uint imagesAdded = m_delayedUpdate.count();
+    if ( imagesAdded > 0 ) {
+        forceUpdate(m_delayedUpdate);
+        m_delayedCache.clear();
+        m_delayedUpdate.clear();
+        // It's the responsibility of the caller to add the EXIF information.
+        // It's more efficient from an I/O perspective to minimize the number
+        // of passes over the images, and with the ability to add the EXIF
+        // data in a transaction, there's no longer any need to read it here.
+        emit totalChanged( m_images.count() );
+        emit dirty();
     }
 }
 

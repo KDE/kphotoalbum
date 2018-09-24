@@ -86,7 +86,16 @@ public: // Methods that must be overridden
 
     virtual QMap<QString,uint> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask ) = 0;
     virtual FileNameList images() = 0;
+    /**
+     * @brief addImages to the database.
+     * The parameter \p doUpdate decides whether all bookkeeping should be done right away
+     * (\c true; the "normal" use-case), or if it should be deferred until later(\c false).
+     * If doUpdate is deferred, either commitDelayedImages() or clearDelayedImages() needs to be called afterwards.
+     * @param images
+     * @param doUpdate
+     */
     virtual void addImages( const ImageInfoList& images, bool doUpdate=true ) = 0;
+    virtual void commitDelayedImages() = 0;
     virtual void clearDelayedImages() = 0;
     /** @short Update file name stored in the DB */
     virtual void renameImage( const ImageInfoPtr info, const DB::FileName& newName ) = 0;

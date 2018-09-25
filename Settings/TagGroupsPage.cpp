@@ -461,25 +461,12 @@ void Settings::TagGroupsPage::slotRenameGroup()
         }
     }
 
-    // reject existing group names:
-//    KStringListValidator validator(groups);
-//    QString newSubCategoryName = KInputDialog::getText(i18nc("@title:window","Rename Group"),
-//            i18nc("@label:textbox","New group name:"),
-//            m_currentSubCategory,
-//            &ok,
-//            this /*parent*/,
-//            &validator,
-//            QString() /*mask*/,
-//            QString() /*WhatsThis*/,
-//            tags /*completion*/
-//            );
-    // FIXME: KF5-port: QInputDialog does not accept a validator,
-    // and KInputDialog was removed in KF5. -> Reimplement input validation using other stuff
+    // FIXME: reject existing group names
     QString newSubCategoryName = QInputDialog::getText(this,
                                                    i18nc("@title:window","Rename Group"),
                                                    i18nc("@label:textbox","New group name:"),
                                                    QLineEdit::Normal,
-                                                   m_currentCategory,
+                                                   m_currentSubCategory,
                                                    &ok
                                                    );
     // workaround until validation with GUI support is reimplemented:

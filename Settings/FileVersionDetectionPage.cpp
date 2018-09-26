@@ -27,14 +27,14 @@
 Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
     : QWidget( parent )
 {
-    QVBoxLayout* topLayout = new QVBoxLayout( this );
+    auto* topLayout = new QVBoxLayout( this );
     QString txt;
 
     // General file searching
     {
         QGroupBox* generalBox = new QGroupBox( i18n("New File Searches"), this );
         topLayout->addWidget( generalBox );
-        QVBoxLayout* layout = new QVBoxLayout(generalBox);
+        auto* layout = new QVBoxLayout(generalBox);
 
         // Search for images on startup
         m_searchForImagesOnStart = new QCheckBox( i18n("Search for new images and videos on startup"), generalBox );
@@ -90,7 +90,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
     {
         QGroupBox* modifiedBox = new QGroupBox( i18n("File Version Detection Settings"), this );
         topLayout->addWidget( modifiedBox );
-        QVBoxLayout* layout = new QVBoxLayout(modifiedBox);
+        auto* layout = new QVBoxLayout(modifiedBox);
 
         m_detectModifiedFiles = new QCheckBox(i18n("Try to detect multiple versions of files"), modifiedBox);
         layout->addWidget(m_detectModifiedFiles);
@@ -150,7 +150,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
     {
         QGroupBox* copyBox = new QGroupBox( i18nc("Configure the feature to make a copy of a file first and then open the copied file with an external application", "Copy File and Open with an External Application"), this );
         topLayout->addWidget( copyBox );
-        QVBoxLayout* layout = new QVBoxLayout(copyBox);
+        auto* layout = new QVBoxLayout(copyBox);
 
         QLabel* copyFileComponentLabel = new QLabel( i18n("Copy file search regexp:" ), copyBox );
         layout->addWidget(copyFileComponentLabel);

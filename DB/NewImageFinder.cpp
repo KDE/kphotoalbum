@@ -526,11 +526,11 @@ void NewImageFinder::setupFileVersionDetection() {
     m_originalFileComponents = m_originalFileComponents.at(0).split(QString::fromLatin1(";"));
 }
 
-ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB::MediaType type )
+void NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB::MediaType type )
 {
     MD5 sum = Utilities::MD5Sum( newFileName );
     if ( handleIfImageHasBeenMoved(newFileName, sum) )
-        return DB::ImageInfoPtr();
+        return;
 
     // check to see if this is a new version of a previous image
     // We'll get the EXIF data later, when we get the MD5 checksum.
@@ -626,9 +626,6 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
 
         // ordering: XXX we ideally want to place the new image right
         // after the older one in the list.
-
-        // no post-processing is needed in loadExtraFiles()
-        info = nullptr;
     }
 
     markUnTagged(info);
@@ -638,7 +635,6 @@ ImageInfoPtr NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB:
         BackgroundTaskManager::JobManager::instance()->addJob(
                     new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
     }
-    return info;
 }
 
 bool NewImageFinder::handleIfImageHasBeenMoved(const FileName &newFileName, const MD5& sum)

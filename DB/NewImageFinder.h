@@ -37,7 +37,7 @@ protected:
     void searchForNewFiles( const DB::FileNameSet& loadedFiles, QString directory );
     void setupFileVersionDetection();
     void loadExtraFiles();
-    ImageInfoPtr loadExtraFile( const DB::FileName& name, DB::MediaType type );
+    void loadExtraFile( const DB::FileName& name, DB::MediaType type );
     void markUnTagged( ImageInfoPtr info );
     bool handleIfImageHasBeenMoved( const DB::FileName& newFileName, const MD5& sum );
 

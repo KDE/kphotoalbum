@@ -90,7 +90,9 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
     {
         QGroupBox* modifiedBox = new QGroupBox( i18n("File Version Detection Settings"), this );
         topLayout->addWidget( modifiedBox );
-        auto* layout = new QVBoxLayout(modifiedBox);
+        auto* columnLayout = new QHBoxLayout(modifiedBox);
+        auto* layout = new QVBoxLayout();
+        columnLayout->addLayout(layout);
 
         m_detectModifiedFiles = new QCheckBox(i18n("Try to detect multiple versions of files"), modifiedBox);
         layout->addWidget(m_detectModifiedFiles);
@@ -100,12 +102,14 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
 
         m_modifiedFileComponent = new QLineEdit(modifiedBox);
         layout->addWidget(m_modifiedFileComponent);
+        connect(m_modifiedFileComponent,&QLineEdit::textChanged,this,&FileVersionDetectionPage::updateExampleBox);
 
         QLabel* originalFileComponentLabel = new QLabel( i18n("Original file replacement text:" ), modifiedBox );
         layout->addWidget(originalFileComponentLabel);
 
         m_originalFileComponent = new QLineEdit(modifiedBox);
         layout->addWidget(m_originalFileComponent);
+        connect(m_originalFileComponent,&QLineEdit::textChanged,this,&FileVersionDetectionPage::updateExampleBox);
 
         m_moveOriginalContents = new QCheckBox(i18n("Move meta-data (i.e. delete tags from the original):"), modifiedBox);
         layout->addWidget(m_moveOriginalContents);
@@ -144,6 +148,27 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
                     "and placed to the top of the stack. This way the new image is shown when the "
                     "stack is in collapsed state - the default state in KPhotoAlbum.</p>" );
         m_autoStackNewFiles->setWhatsThis( txt );
+
+        // "Example" box
+        auto* layout2 = new QVBoxLayout();
+        columnLayout->addLayout(layout2);
+
+        QLabel* originalFileLabel = new QLabel( i18n("Enter example file name" ), modifiedBox );
+        layout2->addWidget(originalFileLabel);
+
+        m_originalFilename = new QLineEdit( modifiedBox );
+        layout2->addWidget(m_originalFilename);
+        connect(m_originalFilename,&QLineEdit::textChanged,this,&FileVersionDetectionPage::updateExampleBox);
+
+        QLabel* modifiedFileLabel = new QLabel( i18n("Enter modified file name" ), modifiedBox );
+        layout2->addWidget(modifiedFileLabel);
+
+        m_modifiedFilename = new QLineEdit( modifiedBox );
+        layout2->addWidget(m_modifiedFilename);
+        connect(m_modifiedFilename,&QLineEdit::textChanged,this,&FileVersionDetectionPage::updateExampleBox);
+
+        m_exampleLabel = new QLabel( modifiedBox );
+        layout2->addWidget(m_exampleLabel);
     }
 
     // Copy File Support
@@ -220,5 +245,23 @@ void Settings::FileVersionDetectionPage::saveSettings( Settings::SettingsData* o
     opt->setAutoStackNewFiles( m_autoStackNewFiles->isChecked() );
     opt->setCopyFileComponent( m_copyFileComponent->text() );
     opt->setCopyFileReplacementComponent( m_copyFileReplacementComponent->text() );
+}
+
+void Settings::FileVersionDetectionPage::updateExampleBox()
+{
+    QRegExp modifiedFileComponent(m_modifiedFileComponent->text());
+
+    for( const auto originalFileComponent: m_originalFileComponent->text().split(QString::fromLatin1(";")) )
+    {
+        QString tmp = m_modifiedFilename->text();
+        tmp.replace(modifiedFileComponent, originalFileComponent);
+
+        if (tmp == m_originalFilename->text())
+        {
+            m_exampleLabel->setText(i18n("Modified filename matches expression <tt>%1</tt>.", originalFileComponent));
+            return;
+        }
+    }
+    m_exampleLabel->setText(i18n("Modified filename does not match original filename."));
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

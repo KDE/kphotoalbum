@@ -24,6 +24,7 @@ class QLineEdit;
 class QSpinBox;
 class QComboBox;
 class QCheckBox;
+class QLabel;
 namespace Settings
 {
 class SettingsData;
@@ -49,6 +50,13 @@ private:
     QCheckBox* m_autoStackNewFiles;
     QLineEdit* m_copyFileComponent;
     QLineEdit* m_copyFileReplacementComponent;
+
+    QLineEdit* m_originalFilename;
+    QLineEdit* m_modifiedFilename;
+    QLabel* m_exampleLabel;
+
+private slots:
+    void updateExampleBox();
 };
 
 

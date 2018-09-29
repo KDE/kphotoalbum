@@ -153,7 +153,7 @@ property_copy( skipSymlinks,           setSkipSymlinks          , bool          
 property_copy( skipRawIfOtherMatches , setSkipRawIfOtherMatches , bool          , General, false                      )
 property_copy( useRawThumbnail       , setUseRawThumbnail       , bool          , General, true                       )
 property_copy( useRawThumbnailSize   , setUseRawThumbnailSize   , QSize         , General, QSize(1024,768)            )
-property_copy( useCompressedIndexXML , setUseCompressedIndexXML , bool          , General, false                      )
+property_copy( useCompressedIndexXML , setUseCompressedIndexXML , bool          , General, true                       )
 property_copy( compressBackup        , setCompressBackup        , bool          , General, true                       )
 property_copy( showSplashScreen      , setShowSplashScreen      , bool          , General, true                       )
 property_copy( showHistogram         , setShowHistogram         , bool          , General, true                       )
@@ -225,9 +225,9 @@ bool SettingsData::trustTimeStamps()
 //// File Version Detection ////
 ////////////////////////////////
 
-property_copy( detectModifiedFiles   , setDetectModifiedFiles   , bool          , FileVersionDetection, false               )
-property_copy( modifiedFileComponent , setModifiedFileComponent , QString       , FileVersionDetection, QString()           )
-property_copy( originalFileComponent , setOriginalFileComponent , QString       , FileVersionDetection, QString()           )
+property_copy( detectModifiedFiles   , setDetectModifiedFiles   , bool          , FileVersionDetection, true                )
+property_copy( modifiedFileComponent , setModifiedFileComponent , QString       , FileVersionDetection, "^(.*)-edited.([^.]+)$")
+property_copy( originalFileComponent , setOriginalFileComponent , QString       , FileVersionDetection, "\1.\2"             )
 property_copy( moveOriginalContents  , setMoveOriginalContents  , bool          , FileVersionDetection, false               )
 property_copy( autoStackNewFiles     , setAutoStackNewFiles     , bool          , FileVersionDetection, true                )
 property_copy( copyFileComponent     , setCopyFileComponent     , QString       , FileVersionDetection, "(.[^.]+)$"         )
@@ -239,7 +239,7 @@ property_copy( copyFileReplacementComponent , setCopyFileReplacementComponent , 
 
 property_copy( displayLabels           , setDisplayLabels          , bool                , Thumbnails, true       )
 property_copy( displayCategories       , setDisplayCategories      , bool                , Thumbnails, false      )
-property_copy( autoShowThumbnailView   , setAutoShowThumbnailView  , int                 , Thumbnails, 0          )
+property_copy( autoShowThumbnailView   , setAutoShowThumbnailView  , int                 , Thumbnails, 20         )
 property_copy( showNewestThumbnailFirst, setShowNewestFirst        , bool                , Thumbnails, false      )
 property_copy( thumbnailDisplayGrid    , setThumbnailDisplayGrid   , bool                , Thumbnails, false      )
 property_copy( previewSize             , setPreviewSize            , int                 , Thumbnails, 256        )
@@ -247,12 +247,12 @@ property_copy( thumbnailSpace          , setThumbnailSpace         , int        
 // not available via GUI, but should be consistent (and maybe confgurable for powerusers):
 property_copy( minimumThumbnailSize    , setMinimumThumbnailSize   , int                 , Thumbnails, 32         )
 property_copy( maximumThumbnailSize    , setMaximumThumbnailSize   , int                 , Thumbnails, 4096       )
-property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio, Thumbnails, Aspect_4_3 )
+property_enum( thumbnailAspectRatio    , setThumbnailAspectRatio   , ThumbnailAspectRatio, Thumbnails, Aspect_3_2 )
 property_ref(  backgroundColor         , setBackgroundColor        , QString             , Thumbnails, QColor(Qt::darkGray).name() )
 property_copy( incrementalThumbnails   , setIncrementalThumbnails  , bool                , Thumbnails, true       )
 
 // database specific so that changing it doesn't invalidate the thumbnail cache for other databases:
-getValueFunc_( int, thumbnailSize, groupForDatabase("Thumbnails"), "thumbSize", 150)
+getValueFunc_( int, thumbnailSize, groupForDatabase("Thumbnails"), "thumbSize", 256)
 
 void SettingsData::setThumbnailSize( int value )
 {
@@ -296,7 +296,7 @@ void SettingsData::setActualThumbnailSize( int value )
 property_ref ( viewerSize               , setViewerSize               , QSize           , Viewer, QSize(1024,768) )
 property_ref ( slideShowSize            , setSlideShowSize            , QSize           , Viewer, QSize(1024,768) )
 property_copy( launchViewerFullScreen   , setLaunchViewerFullScreen   , bool            , Viewer, false          )
-property_copy( launchSlideShowFullScreen, setLaunchSlideShowFullScreen, bool            , Viewer, false          )
+property_copy( launchSlideShowFullScreen, setLaunchSlideShowFullScreen, bool            , Viewer, true           )
 property_copy( showInfoBox              , setShowInfoBox              , bool            , Viewer, true           )
 property_copy( showLabel                , setShowLabel                , bool            , Viewer, true           )
 property_copy( showDescription          , setShowDescription          , bool            , Viewer, true           )

@@ -75,10 +75,10 @@ void MainWindow::CopyPopup::slotCopy(QAction *action)
     if (copyAction == CopyCurrent || copyAction == LinkCurrent) {
 
         if (copyAction == CopyCurrent) {
-            dialog.setWindowTitle(i18nc("@title:window", "Copy image to..."));
+            dialog.setWindowTitle(i18nc("@title:window", "Copy Image to..."));
             dialog.setLabelText(QFileDialog::Accept, i18nc("@action:button", "Copy"));
         } else if (copyAction == LinkCurrent) {
-            dialog.setWindowTitle(i18nc("@title:window", "Link image to..."));
+            dialog.setWindowTitle(i18nc("@title:window", "Link Image to..."));
             dialog.setLabelText(QFileDialog::Accept, i18nc("@action:button", "Link"));
         }
         dialog.setDirectory(m_lastTarget);

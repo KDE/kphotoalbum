@@ -251,9 +251,9 @@ void XMLDB::Database::commitDelayedImages()
         forceUpdate(m_delayedUpdate);
         m_delayedCache.clear();
         m_delayedUpdate.clear();
-        // It's the responsibility of the caller to add the EXIF information.
+        // It's the responsibility of the caller to add the Exif information.
         // It's more efficient from an I/O perspective to minimize the number
-        // of passes over the images, and with the ability to add the EXIF
+        // of passes over the images, and with the ability to add the Exif
         // data in a transaction, there's no longer any need to read it here.
         emit totalChanged( m_images.count() );
         emit dirty();

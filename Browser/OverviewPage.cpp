@@ -277,7 +277,7 @@ Browser::BrowserPage* Browser::OverviewPage::activateExivAction()
         return nullptr;
     }
 
-    return new OverviewPage( Breadcrumb( i18n("EXIF Search")), info, browser() );
+    return new OverviewPage( Breadcrumb( i18n("Exif Search")), info, browser() );
 }
 
 Browser::BrowserPage* Browser::OverviewPage::activateSearchAction()

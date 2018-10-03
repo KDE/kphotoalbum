@@ -38,7 +38,7 @@ using Utilities::StringSet;
 
 Exif::InfoDialog::InfoDialog(const DB::FileName& fileName, QWidget* parent) : QDialog(parent)
 {
-    setWindowTitle( i18n("EXIF Information") );
+    setWindowTitle( i18nc("@title:window", "Exif Information") );
 
     setAttribute(Qt::WA_DeleteOnClose);
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Close);
@@ -72,7 +72,7 @@ Exif::InfoDialog::InfoDialog(const DB::FileName& fileName, QWidget* parent) : QD
     hlay = new QHBoxLayout;
     vlay->addLayout(hlay);
 
-    QLabel* searchLabel = new QLabel( i18n( "EXIF Label Search: "), top );
+    QLabel* searchLabel = new QLabel( i18n( "Exif label search: "), top );
     hlay->addWidget( searchLabel );
     m_searchBox = new QLineEdit( top );
     hlay->addWidget( m_searchBox );

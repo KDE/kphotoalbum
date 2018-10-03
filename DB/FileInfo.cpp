@@ -52,7 +52,7 @@ const DB::FileName& DB::FileInfo::getFileName() const
 
 bool DB::FileInfo::updateDataFromFileTimeStamp(const DB::FileName& fileName, DB::ExifMode mode)
 {
-    // If the date is valid from EXIF reading, then we should not use the time stamp from the file.
+    // If the date is valid from Exif reading, then we should not use the time stamp from the file.
     if ( m_date.isValid() )
         return false;
 

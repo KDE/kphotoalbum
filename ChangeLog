@@ -151,7 +151,7 @@
 * Bugfix: Fix crash on i386 due to an uninitialized static variable (Thanks to Matthias Heukäufer
   for reporting the bug!).
 
-* Enhancement: Various improvements on the EXIF DB.
+* Enhancement: Various improvements on the Exif DB.
 
 ====================== KPhotoalbum 4.7 released  (19.01.2016) ======================
 
@@ -194,8 +194,8 @@
 
 * Enhancement: Add python script to show birthday info. Also Bugfixes.
 
-* Enhancement: Enable exif search for lens data. Also various enhancements in the general handling
-  of EXIF lens data (esp. better lens info for generic canon lenses).
+* Enhancement: Enable Exif search for lens data. Also various enhancements in the general handling
+  of Exif lens data (esp. better lens info for generic canon lenses).
 
 * Enhancement: Display the image's aspect ratio in the ctrl-i image overlay.
 
@@ -290,8 +290,8 @@
 
 * Enhancement: Implement file copy dialog in the Viewer.
 
-* Enhancement: Added option to ignore specific EXIF comments.
-  (Some digital cameras set a non-configurable EXIF comment in each image.
+* Enhancement: Added option to ignore specific Exif comments.
+  (Some digital cameras set a non-configurable Exif comment in each image.
   With this option you can specify which comments should be ignored.)
 
 * Bugfix (#254641): The current image is now highlighted when selecting images
@@ -437,12 +437,12 @@ Other changes done since 4.1.1
 
 2011-05-30  Jesper K. Pedersen  <blackie@kde.org>
 
-	* Improvement: If you start the exif viewer from the image viewer,
+	* Improvement: If you start the Exif viewer from the image viewer,
 	then going to the next image in the image viewer, will update the
-	data shown in the exif viewer.
+	data shown in the Exif viewer.
 
-	If you want to show two exif viewers for two different files, then
-	simply start two exif viewer on an image, only the latest one
+	If you want to show two Exif viewers for two different files, then
+	simply start two Exif viewer on an image, only the latest one
 	started will update when the image changes.
 
 2011-05-15  Miika Turkia <miika.turkia@gmail.com>
@@ -455,7 +455,7 @@ Other changes done since 4.1.1
 
 2010-12-22  Miika Turkia <miika.turkia@gmail.com>
 
-	* Fixed bugs #255286 and #237889, crashes on missing exif information
+	* Fixed bugs #255286 and #237889, crashes on missing Exif information
 
 2010-10-22  Jesper K. Pedersen  <blackie@kde.org>
 
@@ -516,7 +516,7 @@ Other changes done since 4.1.1
 
 2010-07-03  Jesper K. Pedersen  <blackie@kde.org>
 
-	* Continue reading info exif from files even if some fails. Thanks
+	* Continue reading info Exif from files even if some fails. Thanks
 	for patch from Robert Krawitz.
 
 	* Disable screensaver when running a slideshow. Thanks to
@@ -659,7 +659,7 @@ Other changes done since 4.1.1
 
 2009-11-25 Hassan Ibraheem <hasan.ibraheem@gmail.com>
 
-	* fixed bug #211907: Fix EXIF support dialog at startup. Thanks to Olivier Berger
+	* fixed bug #211907: Fix Exif support dialog at startup. Thanks to Olivier Berger
 
 2009-11-19 Hassan Ibraheem <hasan.ibraheem@gmail.com>
 
@@ -854,7 +854,7 @@ Other changes done since 4.1.1
 
 2009-06-08  Jesper K. Pedersen  <blackie@kde.org>
 
-	* New images was not correctly inserted into the exif database
+	* New images was not correctly inserted into the Exif database
 	(thanks to Bart Visscher for a patch that fixes this.)
 	Please rerun "Maintainance->Recreate Exif Search Database" to
 	ensure your database it working again.
@@ -1116,7 +1116,7 @@ Previous changes
 
 2008-03-15  Jan Kundrat  <jkt@gentoo.org>
 
-	* Support different charsets when displaying EXIF/IPTC metadata
+	* Support different charsets when displaying Exif/IPTC metadata
 
 2008-02-20  Jan Kundrat  <jkt@gentoo.org>
 
@@ -1477,7 +1477,7 @@ Previous changes
 
 2006-10-22  Jesper K. Pedersen  <blackie@kde.org>
 
-	* It is now possible to bring up the exif dialog from the viewer.
+	* It is now possible to bring up the Exif dialog from the viewer.
 
 	* Bugfix: The numbered backup had by accident included the
 	extension .zip for the index.xml file inside the zip file. (Thanks
@@ -1503,7 +1503,7 @@ Previous changes
 
 2006-09-25  Jesper K. Pederse  <blackie@kde.org>
 
-	* Use alternate EXIF reading code in case EXIV2 is not installed.
+	* Use alternate Exif reading code in case EXIV2 is not installed.
 
 ====================== Snapshot Sunday 24/9-2006  ===================================
 
@@ -1789,8 +1789,8 @@ Previous changes
 
 2005-11-27  Jesper K. Pedersen  <blackie@kde.org>
 
-	* Added an EXIF dialog (available from the browser), plus the
-	possibilities to see EXIF tags in the viewer. Set of EXIF tokens
+	* Added an Exif dialog (available from the browser), plus the
+	possibilities to see Exif tags in the viewer. Set of Exif tokens
 	shown is configurable in the settings dialog.
 
 2005-09-23  Jesper K. Pedersen  <blackie@kde.org>
@@ -1933,11 +1933,11 @@ Previous changes
 
 2005-01-09  Jesper K. Pedersen  <blackie@kde.org>
 
-	* Improves handling of EXIF data, in particular in the "Read EXIF
+	* Improves handling of Exif data, in particular in the "Read Exif
 	Data" dialog.  It does not overwrite the time, date, orientation,
-	or comment data unless the EXIF data is actually present.  It also
+	or comment data unless the Exif data is actually present.  It also
 	adds two new options that do overwrite the time and date
-	information with the file modification date/time if the EXIF data
+	information with the file modification date/time if the Exif data
 	isn't present. Thanks to Robert L Krawitz <rlk@alum.mit.edu>
 
 	* BUGFIX: The date parser was not previous translated, while the
@@ -1958,7 +1958,7 @@ Previous changes
 	around SUSE's max image size - due to Robert, it obviously didn't
 	work.
 
-	* Read EXIF info out of .thm files (patch from Robert L Krawitz <rlk@alum.mit.edu>)
+	* Read Exif info out of .thm files (patch from Robert L Krawitz <rlk@alum.mit.edu>)
 
 2004-12-30  Jesper K. Pedersen  <blackie@kde.org>
 
@@ -2181,7 +2181,7 @@ Previous changes
 	* Added the filename to the caption of the viewer.
 
 	* Thanks to Marco Caldarelli <caldarel@yahoo.it> for a patch to
-	reread EXIF info, available from a dialog in the menu.
+	reread Exif info, available from a dialog in the menu.
 
 2004-06-13  Jesper K. Pedersen  <blackie@kde.org>
 
@@ -2257,7 +2257,7 @@ Previous changes
 	offer to remove it. This fixes the problem where it would instead
 	just be put in a subdirectory.
 
-	* Loading descriptions from EXIF information can now be disabled
+	* Loading descriptions from Exif information can now be disabled
 
 	* BUGFIX: when exporting the image loader also saved the large
 	images (like 1024x768) to tumbnails dir. Please remove all
@@ -2447,14 +2447,14 @@ Previous changes
 	the imageinfo clas as this will make KPhotoAlbum ask whether date
 	should be trusted.
 
-	* Added a configuration option for whether EXIF rotation
+	* Added a configuration option for whether Exif rotation
 	information should be used or not.
 
 2004-01-23  Jesper K. Pedersen  <blackie@kde.org>
 
 	* BUGFIX: It was not possible to generate HTML more than once per session.
 
-	* Read date, orientation and description out of EXIF data.
+	* Read date, orientation and description out of Exif data.
 
 2004-01-21  Jesper K. Pedersen  <blackie@kde.org>
 

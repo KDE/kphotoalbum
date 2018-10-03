@@ -107,7 +107,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage( QWidget* parent )
         m_originalFileComponent = new QLineEdit(modifiedBox);
         layout->addWidget(m_originalFileComponent);
 
-        m_moveOriginalContents = new QCheckBox(i18n("Move meta-data (i.e. delete tags from the original):"), modifiedBox);
+        m_moveOriginalContents = new QCheckBox(i18n("Move meta-data (i.e. delete tags from the original)"), modifiedBox);
         layout->addWidget(m_moveOriginalContents);
 
         m_autoStackNewFiles = new QCheckBox(i18n("Automatically stack new versions of images"), modifiedBox);

@@ -90,9 +90,9 @@ int main( int argc, char** argv ) {
                          i18n("Sending patches implementing (.) the \"Set As Wallpaper\" menu in the viewer."
                          "(.) Theme support for HTML generation"), QStringLiteral("teemu.rytilahti@kde-fi.org") );
     aboutData.addCredit( i18n("Reimar Imhof"), i18n("Patch to sort items in option listboxes"), QStringLiteral("Reimar.Imhof@netCologne.de") );
-    aboutData.addCredit( i18n("Thomas Schwarzgruber"), i18n("Patch to sort images in the thumbnail view, plus reading time info out of EXIF images for existing images"), QStringLiteral("possebaer@gmx.at") );
+    aboutData.addCredit( i18n("Thomas Schwarzgruber"), i18n("Patch to sort images in the thumbnail view, plus reading time info out of Exif images for existing images"), QStringLiteral("possebaer@gmx.at") );
     aboutData.addCredit( i18n("Marcel Wiesweg"), i18n("Patch which speed up loading of thumbnails plus preview in image property dialog."), QStringLiteral("marcel.wiesweg@gmx.de") );
-    aboutData.addCredit( i18n("Marco Caldarelli"), i18n("Patch for making it possible to reread EXIF info using a nice dialog."), QStringLiteral("caldarel@yahoo.it") );
+    aboutData.addCredit( i18n("Marco Caldarelli"), i18n("Patch for making it possible to reread Exif info using a nice dialog."), QStringLiteral("caldarel@yahoo.it") );
     aboutData.addCredit( i18n("Jean-Michel FAYARD"), i18n("(.) Patch with directory info made available through the browser. (.) Patch for adding a check box for \"and/or\" searches in the search page."), QStringLiteral("jmfayard@gmail.com") );
     aboutData.addCredit( i18n("Robert L Krawitz"), i18n("Numerous patches plus profiling KPhotoAlbum again and again."), QStringLiteral("rlk@alum.mit.edu") );
     aboutData.addCredit( i18n("Christoph Moseler"), i18n("Numerous patches for lots of bugs plus patches for a few new features"), QStringLiteral("forums@moseler.net") );

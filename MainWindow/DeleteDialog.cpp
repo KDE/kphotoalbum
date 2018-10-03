@@ -33,7 +33,7 @@ DeleteDialog::DeleteDialog( QWidget* parent )
     : QDialog(parent)
     , m_list()
 {
-    setWindowTitle( i18n("Removing items") );
+    setWindowTitle( i18nc("@title:window", "Removing Items") );
     QVBoxLayout *mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
 

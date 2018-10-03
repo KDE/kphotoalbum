@@ -36,10 +36,10 @@ Settings::ExifPage::ExifPage( QWidget* parent )
     vlay->addLayout( hlay1 );
     vlay->addLayout( hlay2 );
 
-    m_exifForViewer = new Exif::TreeView( i18n( "EXIF/IPTC info to show in the Viewer" ), this );
+    m_exifForViewer = new Exif::TreeView( i18n( "Exif/IPTC info to show in the viewer" ), this );
     hlay1->addWidget( m_exifForViewer );
 
-    m_exifForDialog = new Exif::TreeView( i18n("EXIF/IPTC info to show in the EXIF dialog"), this );
+    m_exifForDialog = new Exif::TreeView( i18n("Exif/IPTC info to show in the Exif dialog"), this );
     hlay1->addWidget( m_exifForDialog );
 
     QLabel* iptcCharsetLabel = new QLabel( i18n("Character set for image metadata:"), this );

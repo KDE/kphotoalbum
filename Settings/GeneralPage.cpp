@@ -53,14 +53,14 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     lay->addWidget( timeStampLabel, row, 0 );
     lay->addWidget( m_trustTimeStamps, row, 1, 1, 3 );
 
-    // Do EXIF rotate
+    // Do Exif rotate
     row++;
-    m_useEXIFRotate = new QCheckBox( i18n( "Use EXIF orientation information" ), box );
+    m_useEXIFRotate = new QCheckBox( i18n( "Use Exif orientation information" ), box );
     lay->addWidget( m_useEXIFRotate, row, 0, 1, 4 );
 
-    // Use EXIF description
+    // Use Exif description
     row++;
-    m_useEXIFComments = new QCheckBox( i18n( "Use EXIF description" ), box );
+    m_useEXIFComments = new QCheckBox( i18n( "Use Exif description" ), box );
     lay->addWidget( m_useEXIFComments, row, 0, 1, 4 );
     connect(m_useEXIFComments, &QCheckBox::stateChanged, this, &GeneralPage::useEXIFCommentsChanged);
 
@@ -150,7 +150,7 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     // Whats This
     QString txt;
 
-    txt = i18n( "<p>KPhotoAlbum will try to read the image date from EXIF information in the image. "
+    txt = i18n( "<p>KPhotoAlbum will try to read the image date from Exif information in the image. "
                 "If that fails it will try to get the date from the file's time stamp.</p>"
                 "<p>However, this information will be wrong if the image was scanned in (you want the date the image "
                 "was taken, not the date of the scan).</p>"

@@ -650,7 +650,7 @@ void Exif::Database::recreate()
     const DB::FileNameList allImages = DB::ImageDB::instance()->images();
     QProgressDialog dialog;
     dialog.setModal(true);
-    dialog.setLabelText(i18n("Rereading EXIF information from all images"));
+    dialog.setLabelText(i18n("Rereading Exif information from all images"));
     dialog.setMaximum(allImages.size());
     // using a transaction here removes a *huge* overhead on the insert statements
     startInsertTransaction();

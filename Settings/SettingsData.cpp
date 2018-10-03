@@ -130,7 +130,7 @@ SettingsData::SettingsData( const QString& imageDirectory )
 
     _smoothScale = value( "Viewer", "smoothScale", true );
 
-    // Split the list of EXIF comments that should be stripped automatically to a list
+    // Split the list of Exif comments that should be stripped automatically to a list
 
     QStringList commentsToStrip = value( "General", "commentsToStrip", QString::fromLatin1("") ).split(QString::fromLatin1("-,-"), QString::SkipEmptyParts );
     for (QString &comment : commentsToStrip )
@@ -203,7 +203,7 @@ bool SettingsData::trustTimeStamps()
     else {
         if (!m_hasAskedAboutTimeStamps ) {
             QApplication::setOverrideCursor( Qt::ArrowCursor );
-            QString txt = i18n("When reading time information of images, their EXIF info is used. "
+            QString txt = i18n("When reading time information of images, their Exif info is used. "
                                "Exif info may, however, not be supported by your KPhotoAlbum installation, "
                                "or no valid information may be in the file. "
                                "As a backup, KPhotoAlbum may use the timestamp of the image - this may, "

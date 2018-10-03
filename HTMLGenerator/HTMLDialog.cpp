@@ -60,7 +60,7 @@ HTMLDialog::HTMLDialog( QWidget* parent )
    : KPageDialog(parent)
    , m_list()
 {
-    setWindowTitle( i18n("HTML Export") );
+    setWindowTitle( i18nc("@title:window", "HTML Export") );
     QWidget *mainWidget = new QWidget(this);
     this->layout()->addWidget(mainWidget);
 

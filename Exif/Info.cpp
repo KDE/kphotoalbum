@@ -205,7 +205,7 @@ void Exif::Info::writeInfoToFile( const DB::FileName& srcName, const QString& de
 }
 
 /**
- * Some Canon cameras stores EXIF info in files ending in .thm, so we need to use those files for fetching EXIF info
+ * Some Canon cameras stores Exif info in files ending in .thm, so we need to use those files for fetching Exif info
  * if they exists.
  */
 DB::FileName Exif::Info::exifInfoFile( const DB::FileName& fileName )

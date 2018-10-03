@@ -74,7 +74,7 @@ Settings::ViewerPage::ViewerPage( QWidget* parent )
            "otherwise it will be shrunk to fit the viewer.</p>");
     m_viewerStandardSize->setWhatsThis( txt);
 
-    QLabel* scalingLabel = new QLabel( i18n("Scaling Algorithm"), this );
+    QLabel* scalingLabel = new QLabel( i18n("Scaling algorithm:"), this );
     m_smoothScale = new KComboBox( this );
     m_smoothScale->addItems( QStringList() << i18n("Fastest" ) << i18n("Best")  );
     scalingLabel->setBuddy( m_smoothScale );

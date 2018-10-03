@@ -39,7 +39,7 @@ using namespace MainWindow;
 FeatureDialog::FeatureDialog( QWidget* parent )
     :QDialog( parent )
 {
-    setWindowTitle( i18n("KPhotoAlbum Feature Status") );
+    setWindowTitle( i18nc("@title:window", "Feature Status") );
 
     QTextBrowser* browser = new QTextBrowser( this );
 
@@ -76,9 +76,9 @@ FeatureDialog::FeatureDialog( QWidget* parent )
                   "<a href=\"http://userbase.kde.org/KIPI\">KDE Userbase Wiki</a></p>" );
 
     text += i18n( "<h1><a name=\"database\">SQLite database support</a></h1>"
-                  "<p>KPhotoAlbum allows you to search using a certain number of EXIF tags. For this KPhotoAlbum "
-                  "needs an Sqlite database. "
-                  "In addition the qt package for sqlite (e.g.qt-sql-sqlite) must be installed.</p>");
+                  "<p>KPhotoAlbum allows you to search using a certain number of Exif tags. For this KPhotoAlbum "
+                  "needs an SQLite database. "
+                  "In addition the Qt package for SQLite (e.g. qt-sql-sqlite) must be installed.</p>");
 
     text += i18n("<h1><a name=\"geomap\">Map view for geotagged images</a></h1>"
                  "<p>If KPhotoAlbum has been built with support for libkgeomap, "
@@ -213,7 +213,7 @@ QString MainWindow::FeatureDialog::featureString()
 {
     QList<Data> features;
     features << Data( i18n("Plug-ins available"), QString::fromLatin1("#kipi"),  hasKIPISupport() );
-    features << Data( i18n( "Sqlite database support (used for EXIF searches)" ), QString::fromLatin1("#database"), hasEXIV2DBSupport() );
+    features << Data( i18n( "SQLite database support (used for Exif searches)" ), QString::fromLatin1("#database"), hasEXIV2DBSupport() );
     features << Data( i18n( "Map view for geotagged images." ), QString::fromLatin1("#geomap"),  hasGeoMapSupport() );
     features << Data( i18n( "Video support" ), QString::fromLatin1("#video"),  !supportedVideoMimeTypes().isEmpty() );
 

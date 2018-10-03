@@ -80,7 +80,7 @@ void Export::imageExport(const DB::FileNameList& list)
 // PENDING(blackie) add warning if images are to be copied into a non empty directory.
 ExportConfig::ExportConfig()
 {
-    setWindowTitle( i18n("Export Configuration / Copy Images") );
+    setWindowTitle( i18nc("@title:window", "Export Configuration / Copy Images") );
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::Help);
     QWidget *mainWidget = new QWidget(this);
     QVBoxLayout *mainLayout = new QVBoxLayout;

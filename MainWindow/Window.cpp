@@ -276,7 +276,7 @@ void MainWindow::Window::delayedInit()
     }
 
     Exif::Database::instance(); // Load the database
-    qCInfo(TimingLog) << "MainWindow: Loading EXIF DB:" << timer.restart() << "ms.";
+    qCInfo(TimingLog) << "MainWindow: Loading Exif DB:" << timer.restart() << "ms.";
 
     if (!Options::the()->listen().isNull())
         RemoteControl::RemoteInterface::instance().listen(Options::the()->listen());
@@ -882,7 +882,7 @@ void MainWindow::Window::setupMenuBar()
     recreateExif->setText( i18n("Recreate Exif Search Database") );
 
     QAction* rereadExif = actionCollection()->addAction( QString::fromLatin1("reReadExifInfo"), this, SLOT(slotReReadExifInfo()) );
-    rereadExif->setText( i18n("Read EXIF Info From Files...") );
+    rereadExif->setText( i18n("Read Exif Info from Files...") );
 
     m_sortAllByDateAndTime = actionCollection()->addAction( QString::fromLatin1("sortAllImages"), this, SLOT(slotSortAllByDateAndTime()) );
     m_sortAllByDateAndTime->setText( i18n("Sort All by Date && Time") );

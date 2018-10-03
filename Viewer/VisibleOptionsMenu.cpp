@@ -69,7 +69,7 @@ Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget* parent, KActionCollectio
     addAction( m_showFileName );
 
     m_showExif = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-exif") );
-    m_showExif->setText( i18n("Show EXIF") );
+    m_showExif->setText( i18n("Show Exif") );
     connect(m_showExif, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowEXIF);
     addAction( m_showExif );
 

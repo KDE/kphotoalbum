@@ -40,7 +40,7 @@ using namespace MainWindow;
 InvalidDateFinder::InvalidDateFinder( QWidget* parent )
     :QDialog( parent )
 {
-    setWindowTitle( i18n("Search for Images and Videos with Missing Dates" ) );
+    setWindowTitle( i18nc("@title:window", "Search for Images and Videos with Missing Dates" ) );
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
     QWidget *mainWidget = new QWidget(this);
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -77,7 +77,7 @@ void InvalidDateFinder::accept()
     QDialog* info = new QDialog;
     QVBoxLayout *mainLayout = new QVBoxLayout;
     info->setLayout(mainLayout);
-    info->setWindowTitle( i18n("Image Info" ) );
+    info->setWindowTitle( i18nc("@title:window", "Image Info" ) );
 
     KTextEdit* edit = new KTextEdit( info );
     mainLayout->addWidget( edit );
@@ -95,7 +95,7 @@ void InvalidDateFinder::accept()
     const DB::FileNameList list = DB::ImageDB::instance()->images();
     DB::FileNameList toBeShown;
     QProgressDialog dialog( nullptr);
-    dialog.setWindowTitle(i18n("Reading file properties"));
+    dialog.setWindowTitle(i18nc("@title:window", "Reading File Properties"));
     dialog.setMaximum(list.size());
     dialog.setValue(0);
     int progress = 0;

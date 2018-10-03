@@ -139,7 +139,7 @@ using namespace DB;
  *
  * 1) Compute the MD5 checksum
  *
- * 2) Extract the EXIF metadata
+ * 2) Extract the Exif metadata
  *
  * 3) Generate a thumbnail
  *
@@ -175,7 +175,7 @@ using namespace DB;
  *    necessary; if an image will belong to a stack, we'll either know
  *    it now or when other images that can be stacked are loaded.
  *
- * 4) The EXIF metadata extraction is now done only once; previously
+ * 4) The Exif metadata extraction is now done only once; previously
  *    it was performed several times at different stages of the loading
  *    process.
  *
@@ -300,7 +300,7 @@ using namespace DB;
  * subsets of images (with and without thumbnail creation).  In terms
  * of user CPU consumption, thumbnail creation constitutes the large
  * majority of CPU cycles for processing JPEG files, followed by MD5
- * computation, with EXIF parsing lagging far behind.  For RAW files,
+ * computation, with Exif parsing lagging far behind.  For RAW files,
  * MD5 computation consumes more cycles, likely in part due to the
  * larger size of RAW files but possibly also related to the smaller
  * filesize of embedded thumbnails (on the Canon 7D mkII, the embedded
@@ -314,7 +314,7 @@ using namespace DB;
  * Thumbnail generation            44%             82%
  *   libjpeg processing              43%             82%
  * MD5 computation                 51%             13%
- * Read EXIF                        1%              1.0%
+ * Read Exif                        1%              1.0%
  * 
  * Without thumbnail generation:
  * ------- --------- -----------
@@ -322,7 +322,7 @@ using namespace DB;
  *                                 RAW             JPEG
  * 
  * MD5 computation                 92%             80%
- * Read EXIF                        4%             10%
+ * Read Exif                        4%             10%
  *
  *
  * CONCLUSIONS
@@ -533,7 +533,7 @@ void NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB::MediaTy
         return;
 
     // check to see if this is a new version of a previous image
-    // We'll get the EXIF data later, when we get the MD5 checksum.
+    // We'll get the Exif data later, when we get the MD5 checksum.
     ImageInfoPtr info = ImageInfoPtr(new ImageInfo( newFileName, type, false, false ));
     ImageInfoPtr originalInfo;
     DB::FileName originalFileName;

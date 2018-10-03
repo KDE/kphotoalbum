@@ -38,14 +38,14 @@
 
 Exif::ReReadDialog::ReReadDialog(QWidget* parent) : QDialog(parent)
 {
-    setWindowTitle( i18n("Read EXIF info from files") );
+    setWindowTitle( i18nc("@title:window", "Read Exif Info from Files") );
 
     QWidget* top = new QWidget;
     QVBoxLayout* lay1 = new QVBoxLayout( top );
     setLayout(lay1);
     lay1->addWidget(top);
 
-    m_exifDB = new QCheckBox( i18n( "Update EXIF search database" ), top );
+    m_exifDB = new QCheckBox( i18n( "Update Exif search database" ), top );
     lay1->addWidget( m_exifDB );
     if ( !Exif::Database::instance()->isUsable() ) {
         m_exifDB->hide();
@@ -54,13 +54,13 @@ Exif::ReReadDialog::ReReadDialog(QWidget* parent) : QDialog(parent)
     m_date = new QCheckBox( i18n( "Update image date" ), top );
     lay1->addWidget( m_date );
 
-    m_force_date = new QCheckBox( i18n( "Use modification date if EXIF not found" ), top );
+    m_force_date = new QCheckBox( i18n( "Use modification date if Exif not found" ), top );
     lay1->addWidget( m_force_date );
 
-    m_orientation = new QCheckBox( i18n( "Update image orientation from EXIF information" ), top );
+    m_orientation = new QCheckBox( i18n( "Update image orientation from Exif information" ), top );
     lay1->addWidget( m_orientation );
 
-    m_description = new QCheckBox( i18n( "Update image description from EXIF information" ), top );
+    m_description = new QCheckBox( i18n( "Update image description from Exif information" ), top );
     lay1->addWidget( m_description );
 
     QGroupBox* box = new QGroupBox( i18n("Affected Files") );
@@ -135,7 +135,7 @@ void Exif::ReReadDialog::warnAboutDates( bool b )
     if ( !b )
         return;
 
-    int ret = KMessageBox::warningContinueCancel( this, i18n("<p>Be aware that setting the data from EXIF may "
+    int ret = KMessageBox::warningContinueCancel( this, i18n("<p>Be aware that setting the data from Exif may "
                                                     "<b>overwrite</b> data you have previously entered "
                                                     "manually using the image configuration dialog.</p>" ),
                                          i18n( "Override image dates" ) );

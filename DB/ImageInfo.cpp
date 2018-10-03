@@ -55,7 +55,7 @@ ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExi
 
     setFileName(fileName);
 
-    // Read EXIF information
+    // Read Exif information
     if ( readExifInfo ) {
         ExifMode mode = EXIFMODE_INIT;
         if ( ! storeExifInfo)

@@ -91,7 +91,7 @@ void ImportExport::ImportHandler::copyFromExternal()
     m_pendingCopies = m_settings.selectedImages();
     m_totalCopied = 0;
     m_progress = new QProgressDialog( MainWindow::Window::theMainWindow());
-    m_progress->setWindowTitle(i18n("Copying Images") );
+    m_progress->setWindowTitle(i18nc("@title:window", "Copying Images") );
     m_progress->setMinimum( 0 );
     m_progress->setMaximum( 2 * m_pendingCopies.count() );
     m_progress->show();
@@ -150,7 +150,7 @@ bool ImportExport::ImportHandler::copyFilesFromZipFile()
 
     m_totalCopied = 0;
     m_progress = new QProgressDialog( MainWindow::Window::theMainWindow());
-    m_progress->setWindowTitle(i18n("Copying Images") );
+    m_progress->setWindowTitle(i18nc("@title:window", "Copying Images") );
     m_progress->setMinimum( 0 );
     m_progress->setMaximum( 2 * m_pendingCopies.count() );
     m_progress->show();

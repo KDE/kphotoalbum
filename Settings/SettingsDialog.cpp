@@ -78,8 +78,8 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
         { i18n("Plugins" ), "plugins", m_pluginsPage },
 #endif
 
-        { i18n("EXIF/IPTC Information" ), "document-properties", m_exifPage },
-        { i18n("Database backend"), "document-save", m_databaseBackendPage },
+        { i18n("Exif/IPTC Information" ), "document-properties", m_exifPage },
+        { i18n("Database Backend"), "document-save", m_databaseBackendPage },
         { QString(), "", 0 }
     };
 
@@ -100,7 +100,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
             this, &SettingsDialog::slotMyOK);
     connect(this, &QDialog::rejected, m_birthdayPage, &Settings::BirthdayPage::discardChanges);
 
-    setWindowTitle( i18n( "Settings" ) );
+    setWindowTitle( i18nc("@title:window", "Settings" ) );
 
     connect(m_categoryPage, &Settings::CategoryPage::categoryChangesPending,
             m_tagGroupsPage, &Settings::TagGroupsPage::categoryChangesPending);

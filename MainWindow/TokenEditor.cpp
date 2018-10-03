@@ -37,7 +37,7 @@ using namespace MainWindow;
 TokenEditor::TokenEditor( QWidget* parent )
     :QDialog( parent )
 {
-    setWindowTitle( i18n( "Remove Tokens" ) );
+    setWindowTitle( i18nc("@title:window", "Remove Tokens" ) );
     QVBoxLayout *dialogLayout = new QVBoxLayout(this);
 
     QWidget* mainContents = new QWidget;

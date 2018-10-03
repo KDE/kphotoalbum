@@ -30,7 +30,7 @@
 
 BackgroundTaskManager::JobViewer::JobViewer(QWidget *parent) : QDialog(parent), m_model(nullptr)
 {
-    setWindowTitle(i18n("Background Job Viewer"));
+    setWindowTitle(i18nc("@title:window", "Background Job Viewer"));
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
     setLayout(mainLayout);

@@ -152,11 +152,11 @@ void Viewer::ViewerWidget::setupContextMenu()
     m_popup->addAction( m_setStackHead );
 
     m_showExifViewer = m_actions->addAction( QString::fromLatin1("viewer-show-exif-viewer"), this, SLOT(showExifViewer()) );
-    m_showExifViewer->setText( i18nc("@action:inmenu","Show EXIF Viewer") );
+    m_showExifViewer->setText( i18nc("@action:inmenu","Show Exif Viewer") );
     m_popup->addAction( m_showExifViewer );
 
     m_copyTo = m_actions->addAction( QString::fromLatin1("viewer-copy-to"), this, SLOT(copyTo()) );
-    m_copyTo->setText( i18nc("@action:inmenu","Copy image to...") );
+    m_copyTo->setText( i18nc("@action:inmenu","Copy Image to...") );
     m_copyTo->setShortcut( Qt::Key_F7 );
     m_popup->addAction( m_copyTo );
 
@@ -491,9 +491,9 @@ void Viewer::ViewerWidget::load()
 }
 
 void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
-    setWindowTitle( QString::fromLatin1( "KPhotoAlbum - %1 %2" )
-                    .arg( currentInfo()->fileName().absolute() )
-                    .arg( detail ) );
+    setWindowTitle( i18nc("@title:window %1 is the filename, %2 it's detail info", "%1 %2",
+                          currentInfo()->fileName().absolute(),
+                          detail ) );
 }
 
 void Viewer::ViewerWidget::contextMenuEvent( QContextMenuEvent * e )
@@ -1512,7 +1512,7 @@ void Viewer::ViewerWidget::copyTo()
     }
 
     QFileDialog dialog( this );
-    dialog.setWindowTitle( i18nc("@title:window", "Copy image to...") );
+    dialog.setWindowTitle( i18nc("@title:window", "Copy Image to...") );
     // use directory of src as start-location:
     dialog.setDirectory(m_lastCopyToTarget);
     dialog.selectFile(src.fileName());

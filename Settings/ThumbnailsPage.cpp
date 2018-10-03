@@ -57,7 +57,7 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
 
     // Thumbnail aspect ratio
     ++row;
-    QLabel* thumbnailAspectRatioLabel = new QLabel( i18n("Thumbnail table cells aspect ratio") );
+    QLabel* thumbnailAspectRatioLabel = new QLabel( i18n("Thumbnail table cells aspect ratio:") );
     m_thumbnailAspectRatio = new KComboBox( this );
     m_thumbnailAspectRatio->addItems( QStringList() << i18n("1:1") << i18n("4:3")
         << i18n("3:2") << i18n("16:9") << i18n("3:4") << i18n("2:3") << i18n("9:16"));
@@ -66,7 +66,7 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
 
     // Space around cells
     ++row;
-    QLabel* thumbnailSpaceLabel = new QLabel( i18n("Space around cells") );
+    QLabel* thumbnailSpaceLabel = new QLabel( i18n("Space around cells:") );
     m_thumbnailSpace = new QSpinBox;
     m_thumbnailSpace->setRange( 0, 20 );
     lay->addWidget( thumbnailSpaceLabel, row, 0 );
@@ -74,7 +74,7 @@ Settings::ThumbnailsPage::ThumbnailsPage( QWidget* parent )
 
     // Background color
     ++row;
-    QLabel* backgroundColorLabel = new QLabel( i18n("Background Color") );
+    QLabel* backgroundColorLabel = new QLabel( i18n("Background color:") );
     m_backgroundColor = new KColorButton;
     lay->addWidget( backgroundColorLabel, row, 0 );
     lay->addWidget( m_backgroundColor, row, 1 );

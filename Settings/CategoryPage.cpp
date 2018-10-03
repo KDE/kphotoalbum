@@ -138,7 +138,7 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     row++;
 
     // Thumbnail size
-    m_thumbnailSizeInCategoryLabel = new QLabel(i18n("Thumbnail Size:"));
+    m_thumbnailSizeInCategoryLabel = new QLabel(i18n("Thumbnail size:"));
     settingsLayout->addWidget(m_thumbnailSizeInCategoryLabel, row, 0);
     m_thumbnailSizeInCategory = new QSpinBox;
     m_thumbnailSizeInCategory->setRange(32, 512);
@@ -545,7 +545,7 @@ void Settings::CategoryPage::listWidgetEditEnd(QWidget*, QAbstractItemDelegate::
 
 void Settings::CategoryPage::resetCategoryLabel()
 {
-    m_categoryLabel->setText(i18n("<i>choose a category to edit it</i>"));
+    m_categoryLabel->setText(i18n("<i>Choose a category to edit it</i>"));
 }
 
 void Settings::CategoryPage::saveDbNow()

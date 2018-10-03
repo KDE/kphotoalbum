@@ -37,7 +37,7 @@ using namespace Exif;
 Exif::SearchDialog::SearchDialog( QWidget* parent )
     : KPageDialog( parent )
 {
-    setWindowTitle( i18n("EXIF Search") );
+    setWindowTitle( i18nc("@title:window", "Exif Search") );
     setFaceType( Tabbed );
 
     QWidget* settings = new QWidget;
@@ -410,7 +410,7 @@ QWidget* Exif::SearchDialog::makeLens()
     {
         QLabel* label = new QLabel(
                     i18n("Not all images in the database have lens information. "
-                         "<note>Recreate the EXIF search database to ensure lens data for all images.</note>") );
+                         "<note>Recreate the Exif search database to ensure lens data for all images.</note>") );
         layout->addWidget(label);
     }
 

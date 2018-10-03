@@ -122,9 +122,9 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     m_description->setTabChangesFocus( true ); // this allows tabbing to the next item in the tab order.
     m_description->setWhatsThis( i18nc( "@info:whatsthis",
                 "<para>A descriptive text of the image.</para>"
-                "<para>If <emphasis>Use EXIF description</emphasis> is enabled under "
+                "<para>If <emphasis>Use Exif description</emphasis> is enabled under "
                 "<interface>Settings|Configure KPhotoAlbum...|General</interface>, a description "
-                "embedded in the image EXIF information is imported to this field if available.</para>"
+                "embedded in the image Exif information is imported to this field if available.</para>"
                 ));
 
     m_descriptionDock = createDock( i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, m_description );
@@ -162,7 +162,7 @@ AnnotationDialog::Dialog::Dialog( QWidget* parent )
     );
     shortCutManager.addDock(m_mapDock, m_annotationMapContainer);
     connect(m_mapDock, SIGNAL(visibilityChanged(bool)), this, SLOT(annotationMapVisibilityChanged(bool)));
-    m_mapDock->setWhatsThis( i18nc( "@info:whatsthis", "The map widget allows you to view the location of images if GPS coordinates are found in the EXIF information." ));
+    m_mapDock->setWhatsThis( i18nc( "@info:whatsthis", "The map widget allows you to view the location of images if GPS coordinates are found in the Exif information." ));
 #endif
 
     // -------------------------------------------------- Categories
@@ -599,7 +599,9 @@ void AnnotationDialog::Dialog::load()
     }
 
     if (m_setup == InputSingleImageConfigMode) {
-        setWindowTitle(i18n("KPhotoAlbum Annotations (%1/%2)", m_current + 1, m_origList.count()));
+        setWindowTitle(i18nc("@title:window image %1 of %2 images", "Annotations (%1/%2)",
+                             m_current + 1,
+                             m_origList.count()));
         m_preview->canCreateAreas(
             m_setup == InputSingleImageConfigMode && ! info.isVideo() && m_positionableCategories
         );
@@ -831,7 +833,7 @@ void AnnotationDialog::Dialog::setup()
         m_revertBut->show();
         m_preview->setSearchMode(false);
         m_preview->setToggleFullscreenPreviewEnabled(m_setup == InputSingleImageConfigMode);
-        setWindowTitle( i18n("Annotations") );
+        setWindowTitle( i18nc("@title:window", "Annotations") );
     }
 
     Q_FOREACH( ListSelect *ls, m_optionList ) {
@@ -864,7 +866,7 @@ void AnnotationDialog::Dialog::slotOptions()
     QMenu* menu = new QMenu( this );
     QMenu* dockMenu =m_dockWindow->createPopupMenu();
     menu->addMenu( dockMenu )
-        ->setText( i18n( "Configure window layout..." ) );
+        ->setText( i18n( "Configure Window Layout..." ) );
     QAction* saveCurrent = dockMenu->addAction( i18n("Save Current Window Setup") );
     QAction* reset = dockMenu->addAction( i18n( "Reset layout" ) );
 
@@ -881,7 +883,7 @@ void AnnotationDialog::Dialog::slotOptions()
             sortTypes );
     QAction* dateSort = new QAction(
             SmallIcon( QString::fromLatin1( "x-office-calendar" ) ),
-            i18n("Sort by date"),
+            i18n("Sort by Date"),
             sortTypes );
     alphaTreeSort->setCheckable( true );
     alphaFlatSort->setCheckable( true );
@@ -897,9 +899,9 @@ void AnnotationDialog::Dialog::slotOptions()
     // create MatchType entries
     menu->addSeparator();
     QActionGroup* matchTypes = new QActionGroup( menu );
-    QAction* matchFromBeginning = new QAction( i18n( "Match tags from the first character."), matchTypes );
-    QAction* matchFromWordStart = new QAction( i18n( "Match tags from word boundaries." ), matchTypes );
-    QAction* matchAnywhere = new QAction( i18n( "Match tags anywhere."),matchTypes );
+    QAction* matchFromBeginning = new QAction( i18n( "Match Tags from the First Character"), matchTypes );
+    QAction* matchFromWordStart = new QAction( i18n( "Match Tags from Word Boundaries"), matchTypes );
+    QAction* matchAnywhere = new QAction( i18n( "Match Tags Anywhere"), matchTypes );
     matchFromBeginning->setCheckable( true );
     matchFromWordStart->setCheckable( true );
     matchAnywhere->setCheckable( true );
@@ -917,7 +919,7 @@ void AnnotationDialog::Dialog::slotOptions()
         menu->addSeparator();
         QAction* showSelectedOnly = new QAction(
                 SmallIcon( QString::fromLatin1( "view-filter" ) ),
-                i18n("Show only selected Ctrl+S"),
+                i18n("Show Only Selected Ctrl+S"),
                 menu );
         showSelectedOnly->setCheckable( true );
         showSelectedOnly->setChecked( ShowSelectionOnlyManager::instance().selectionIsLimited() );

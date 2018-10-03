@@ -491,7 +491,7 @@ void Viewer::ViewerWidget::load()
 }
 
 void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
-    setWindowTitle( i18nc("@title:window %1 is the filename, %2 it's detail info", "%1 %2",
+    setWindowTitle( i18nc("@title:window %1 is the filename, %2 its detail info", "%1 %2",
                           currentInfo()->fileName().absolute(),
                           detail ) );
 }

@@ -26,7 +26,7 @@ export LC_ALL=C
 myname=`basename "$0"`
 mydir=`dirname "$0"`
 
-DEPS="kphotoalbum convert exiftool kdialog"
+DEPS="kphotoalbum convert exiv2 kdialog"
 # basic kphotoalbumrc options to make testing less annoying (i.e. prevent some pop-ups):
 BASE_RC="\n[Thumbnails]\ndisplayCategories=true\n[Notification Messages]\nimage_config_typein_show_help=false\n[TipOfDay]\nRunOnStart=false"
 TEMPDIR=
@@ -127,7 +127,7 @@ do_list()
 	for check in "${!_checks[@]}"
 	do
 		echo "$check"
-	done
+	done | sort
 }
 
 do_print()
@@ -135,7 +135,7 @@ do_print()
 	for check in "${!_checks[@]}"
 	do
 		echo "$check -- ${_checks[$check]}"
-	done
+	done | sort
 }
 
 do_checks()

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <KPhotoAlbum version="7" compressed="0">
     <Categories>
-        <Category name="Keywords" icon="dialog-password" show="1" viewtype="0" thumbnailsize="32" positionable="0">
+        <Category name="Events" icon="dialog-password" show="1" viewtype="0" thumbnailsize="32" positionable="0">
             <value value="scanned in" id="1"/>
             <value value="scenic" id="2"/>
             <value value="desktop" id="3"/>
             <value value="new wave" id="4"/>
             <value value="fun" id="5"/>
+            <value value="untagged" id="6"/>
         </Category>
         <Category name="Places" icon="applications-internet" show="1" viewtype="0" thumbnailsize="32" positionable="0">
             <value value="Grand Canyon" id="1"/>
@@ -61,7 +62,7 @@
     <images>
         <image file="new_wave_2.jpg" label="new_wave" description="Back when I was a young boy I considered myself a new waver. This involved always being dressed in black, and listening to bands like Depeche Mode, The Cure, Front 242 and Nitzer Ebb." startDate="1988-01-01T00:00:00" endDate="1990-12-31T23:59:59" angle="0" md5sum="49c8843ab493b03d3fb172a5113c5c4d" width="800" height="549">
             <options>
-                <option name="Keywords">
+                <option name="Events">
                     <value value="new wave"/>
                     <value value="scanned in"/>
                 </option>
@@ -75,7 +76,7 @@
         </image>
         <image file="new_wave_1.jpg" label="new_wave" description="Notice I scanned this image in, so I don't know exactly when it was taken. Fortunately KPhotoAlbum allows to just specify the date as a range. By the way, have a look at http://www.kphotoalbum.org/ where you may find some introduction videos about KPhotoAlbum." startDate="1989-01-01T00:00:00" endDate="1990-12-31T23:59:59" angle="90" md5sum="6b75faa6ba62e81ac73dff71794b9bd4" width="549" height="800">
             <options>
-                <option name="Keywords">
+                <option name="Events">
                     <value value="new wave"/>
                     <value value="scanned in"/>
                     <value value="fun"/>
@@ -90,7 +91,7 @@
         </image>
         <image file="blackie.jpg" label="blackie" description="My nick name on the internet is &quot;blackie&quot;. The reason for this is that when I got my first login to a UNIX machine, I had an electric eel named blackie." startDate="1990-01-01T00:00:00" endDate="1991-12-31T23:59:59" angle="0" md5sum="db9b08c49bacd727e10069965955aff1" width="800" height="549">
             <options>
-                <option name="Keywords">
+                <option name="Events">
                     <value value="scanned in"/>
                 </option>
                 <option name="People">
@@ -103,7 +104,7 @@
         </image>
         <image file="spiff_2.jpg" label="spiff" description="I've always loved animals. This was my beer eating pet named Spiff." startDate="1995-01-01T00:00:00" endDate="1995-12-31T23:59:59" angle="0" md5sum="8878a22a439fdfabcdc1a6b356944bd7" width="800" height="550">
             <options>
-                <option name="Keywords">
+                <option name="Events">
                     <value value="scanned in"/>
                     <value value="fun"/>
                 </option>
@@ -117,7 +118,7 @@
         </image>
         <image file="spiff.jpg" label="spiff" startDate="1998-01-01T00:00:00" endDate="1998-12-31T23:59:59" angle="0" md5sum="0303db70b6c9f0035d24dec3cf05bf25" width="800" height="551">
             <options>
-                <option name="Keywords">
+                <option name="Events">
                     <value value="scanned in"/>
                 </option>
                 <option name="People">
@@ -130,7 +131,7 @@
         </image>
         <image file="qt-logo.jpg" label="qt-logo" description="KDE is build on top of the toolkit called Qt. In my daytime job I teach Qt programming. I once gave a course to these two guys, which later turned into a very strong friendship. The tattoo is the Qt logo." startDate="2002-01-01T00:00:00" endDate="2003-12-31T23:59:59" angle="0" md5sum="70318ab9389e641408d0c8540e7746f4" width="800" height="542">
             <options>
-                <option name="Keywords">
+                <option name="Events">
                     <value value="scanned in"/>
                 </option>
                 <option name="People">
@@ -145,7 +146,7 @@
         </image>
         <image file="grand_canyon_1.jpg" label="grand_canyon" startDate="2003-01-02T00:00:00" endDate="2003-01-02T23:59:59" angle="180" md5sum="5886c561a36aa0515a4f63b76ae95c15" width="800" height="535">
             <options>
-                <option name="Keywords">
+                <option name="Events">
                     <value value="scanned in"/>
                     <value value="scenic"/>
                 </option>
@@ -170,7 +171,7 @@
         </image>
         <image file="grand_canyon_3.jpg" label="grand_canyon" startDate="2003-01-02T15:31:00" endDate="2003-01-02T15:31:00" angle="0" md5sum="6d51889b41436c4503698ca2293435dd" width="800" height="600">
             <options>
-                <option name="Keywords">
+                <option name="Events">
                     <value value="scenic"/>
                 </option>
                 <option name="Places">
@@ -215,7 +216,7 @@
         </image>
         <image file="skagen_2.jpg" label="skagen" description="This is skagen, the northern part of Denmark." startDate="2005-06-24T18:38:48" endDate="2005-06-24T18:38:48" angle="0" md5sum="9da8aee389f3a8a35e17acb537ff85dc" width="800" height="600">
             <options>
-                <option name="Keywords">
+                <option name="Events">
                     <value value="scenic"/>
                 </option>
                 <option name="Places">
@@ -225,7 +226,7 @@
         </image>
         <image file="skagen.jpg" label="skagen" startDate="2005-07-28T11:09:07" endDate="2005-07-28T11:09:07" angle="0" md5sum="01627ffc81e9136c4b904b36394c949f" width="800" height="533">
             <options>
-                <option name="Keywords">
+                <option name="Events">
                     <value value="scenic"/>
                     <value value="desktop"/>
                 </option>
@@ -256,7 +257,7 @@
         </image>
         <image file="sunset.jpg" label="sunset" startDate="2005-11-25T16:23:10" endDate="2005-11-25T16:23:10" angle="0" md5sum="b56041b354f8f7d1166bd2fe7f723aeb" width="800" height="532">
             <options>
-                <option name="Keywords">
+                <option name="Events">
                     <value value="scenic"/>
                     <value value="desktop"/>
                 </option>
@@ -274,7 +275,7 @@
         </image>
         <image file="donna.jpg" label="donna" startDate="2005-12-26T14:58:01" endDate="2005-12-26T14:58:01" angle="0" md5sum="78729cd615a7647deae3cd066f5c867b" width="800" height="532">
             <options>
-                <option name="Keywords">
+                <option name="Events">
                     <value value="desktop"/>
                 </option>
                 <option name="People">
@@ -313,7 +314,7 @@
         </image>
         <image file="snow.jpg" label="snow" startDate="2006-02-12T18:10:17" endDate="2006-02-12T18:10:17" angle="0" md5sum="b8a254e7fd2b7b4d7c49073ffd8eabe8" width="800" height="600">
             <options>
-                <option name="Keywords">
+                <option name="Events">
                     <value value="desktop"/>
                 </option>
                 <option name="Places">

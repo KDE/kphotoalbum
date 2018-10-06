@@ -132,7 +132,7 @@ SettingsData::SettingsData( const QString& imageDirectory )
 
     // Split the list of Exif comments that should be stripped automatically to a list
 
-    QStringList commentsToStrip = value( "General", "commentsToStrip", QString::fromLatin1("") ).split(QString::fromLatin1("-,-"), QString::SkipEmptyParts );
+    QStringList commentsToStrip = value( "General", "commentsToStrip", QString::fromLatin1("Exif_JPEG_PICTURE-,-OLYMPUS DIGITAL CAMERA-,-JENOPTIK DIGITAL CAMERA-,-") ).split(QString::fromLatin1("-,-"), QString::SkipEmptyParts );
     for (QString &comment : commentsToStrip )
         comment.replace( QString::fromLatin1(",,"), QString::fromLatin1(",") );
 
@@ -145,8 +145,8 @@ SettingsData::SettingsData( const QString& imageDirectory )
 
 property_copy( useEXIFRotate         , setUseEXIFRotate         , bool          , General, true                       )
 property_copy( useEXIFComments       , setUseEXIFComments       , bool          , General, true                       )
-property_copy( stripEXIFComments     , setStripEXIFComments     , bool          , General, false                      )
-property_copy( commentsToStrip       , setCommentsToStrip       , QString       , General, QString::fromLatin1("")    )
+property_copy( stripEXIFComments     , setStripEXIFComments     , bool          , General, true                       )
+property_copy( commentsToStrip       , setCommentsToStrip       , QString       , General, "" /* see constructor */   )
 property_copy( searchForImagesOnStart, setSearchForImagesOnStart, bool          , General, true                       )
 property_copy( ignoreFileExtension   , setIgnoreFileExtension   , bool          , General, false                      )
 property_copy( skipSymlinks,           setSkipSymlinks          , bool          , General, false                      )

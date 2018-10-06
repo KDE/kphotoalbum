@@ -227,7 +227,7 @@ bool SettingsData::trustTimeStamps()
 
 property_copy( detectModifiedFiles   , setDetectModifiedFiles   , bool          , FileVersionDetection, true                )
 property_copy( modifiedFileComponent , setModifiedFileComponent , QString       , FileVersionDetection, "^(.*)-edited.([^.]+)$")
-property_copy( originalFileComponent , setOriginalFileComponent , QString       , FileVersionDetection, "\1.\2"             )
+property_copy( originalFileComponent , setOriginalFileComponent , QString       , FileVersionDetection, "\\1.\\2"             )
 property_copy( moveOriginalContents  , setMoveOriginalContents  , bool          , FileVersionDetection, false               )
 property_copy( autoStackNewFiles     , setAutoStackNewFiles     , bool          , FileVersionDetection, true                )
 property_copy( copyFileComponent     , setCopyFileComponent     , QString       , FileVersionDetection, "(.[^.]+)$"         )

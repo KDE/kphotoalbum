@@ -16,11 +16,14 @@
    Boston, MA 02110-1301, USA.
 */
 #include "FileInfo.h"
+
+#include <Exif/Info.h>
 #include <QRegularExpression>
-#include <qdatetime.h>
-#include <qfileinfo.h>
-#include "Utilities/Util.h"
-#include "Exif/Info.h"
+#include <Settings/SettingsData.h>
+#include <Utilities/Util.h>
+
+#include <QDateTime>
+#include <QFileInfo>
 
 using namespace DB;
 

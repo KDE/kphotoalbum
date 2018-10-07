@@ -38,6 +38,7 @@
 #include <DB/ImageInfo.h>
 #include <DB/MD5Map.h>
 #include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
 #include <Utilities/ShowBusyCursor.h>
 #include <Utilities/Util.h>
 

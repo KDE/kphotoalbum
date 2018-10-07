@@ -18,20 +18,16 @@
 
 #ifndef UTIL_H
 #define UTIL_H
-#include <qmap.h>
-#include <qset.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qimage.h>
-#include "Settings/SettingsData.h"
-#include "DB/ImageInfoList.h"
-#include <stdio.h>
+#include "DB/CategoryPtr.h"
+#include "DB/FileName.h"
+#include "DB/ImageInfoPtr.h"
 #include "DB/MD5.h"
 
-namespace DB
-{
-class ImageInfo;
-}
+#include <QImage>
+#include <QMap>
+#include <QSet>
+#include <QString>
+#include <QStringList>
 
 namespace Utilities
 {

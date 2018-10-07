@@ -21,14 +21,12 @@
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
-#include <DB/ImageInfo.h>
 #include <Exif/Info.h>
 #include <ImageManager/ImageDecoder.h>
 #include <ImageManager/RawImageDecoder.h>
 #include <MainWindow/Window.h>
 #include <Settings/SettingsData.h>
 
-#include <KCodecs>
 #include <KJob>
 #include <KJobWidgets>
 #include <KLocalizedString>
@@ -45,21 +43,12 @@
 #include <QList>
 #include <QMimeDatabase>
 #include <QMimeType>
-#include <QRegExp>
 #include <QStandardPaths>
 #include <QTextCodec>
 #include <QUrl>
-#include <QVector>
 
 extern "C" {
-#include <limits.h>
-#include <setjmp.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 #include <unistd.h>
-#include <fcntl.h>
 }
 
 namespace {

@@ -18,9 +18,13 @@
 */
 
 #include "FileName.h"
-#include <Utilities/Util.h>
-#include <QFile>
 #include "ImageDB.h"
+
+#include <DB/ImageInfoList.h>
+#include <Utilities/Util.h>
+#include <Settings/SettingsData.h>
+
+#include <QFile>
 
 DB::FileName::FileName()
     : m_isNull(true)

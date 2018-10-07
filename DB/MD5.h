@@ -28,33 +28,33 @@ namespace DB
 {
 class FileName;
 
-    class MD5
-    {
-    public:
-        MD5();
+class MD5
+{
+public:
+    MD5();
 
-        explicit MD5(const QString& md5str);
+    explicit MD5(const QString& md5str);
 
-        bool isNull() const;
+    bool isNull() const;
 
-        MD5& operator=(const QString& md5str);
+    MD5& operator=(const QString& md5str);
 
-        /** Get hex string representation of this.
-         * If this->isNull(), returns null string.
-         */
-        QString toHexString() const;
+    /** Get hex string representation of this.
+     * If this->isNull(), returns null string.
+     */
+    QString toHexString() const;
 
-        bool operator==(const MD5 &other) const;
+    bool operator==(const MD5 &other) const;
 
-        bool operator!=(const MD5& other) const;
+    bool operator!=(const MD5& other) const;
 
-        bool operator<(const MD5& other) const;
+    bool operator<(const MD5& other) const;
 
-    private:
-        bool m_isNull;
-        qulonglong m_v0;
-        qulonglong m_v1;
-    };
+private:
+    bool m_isNull;
+    qulonglong m_v0;
+    qulonglong m_v1;
+};
 
 DB::MD5 MD5Sum( const DB::FileName& fileName );
 

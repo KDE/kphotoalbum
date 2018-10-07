@@ -216,6 +216,7 @@ set(libUtilities_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/JpeglibWithFix.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/QStr.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/StringSet.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/FastJpeg.cpp
     )
 
 set(libMainWindow_SRCS

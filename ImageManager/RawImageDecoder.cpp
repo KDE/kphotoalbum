@@ -21,7 +21,7 @@
 
 #include <DB/FileName.h>
 #include "Settings/SettingsData.h"
-#include <Utilities/Util.h>
+#include <Utilities/FastJpeg.h>
 
 #include <QFile>
 #include <QImage>

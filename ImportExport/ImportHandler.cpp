@@ -28,12 +28,12 @@
 #include <kmessagebox.h>
 #include <KConfigGroup>
 
-#include "Utilities/Util.h"
 #include "KimFileReader.h"
 #include "ImportSettings.h"
 #include "MainWindow/Window.h"
 #include "DB/ImageDB.h"
 #include "Browser/BrowserWidget.h"
+#include "DB/MD5.h"
 #include "DB/MD5Map.h"
 #include "DB/Category.h"
 #include "DB/CategoryCollection.h"
@@ -317,7 +317,7 @@ void ImportExport::ImportHandler::addNewRecord( DB::ImageInfoPtr info )
     updateInfo->setDescription( info->description() );
     updateInfo->setDate( info->date() );
     updateInfo->setAngle( info->angle() );
-    updateInfo->setMD5Sum( Utilities::MD5Sum( updateInfo->fileName() ) );
+    updateInfo->setMD5Sum( DB::MD5Sum( updateInfo->fileName() ) );
 
 
     DB::ImageInfoList list;

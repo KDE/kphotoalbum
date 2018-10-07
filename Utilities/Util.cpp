@@ -35,7 +35,6 @@
 #include <KIO/DeleteJob>
 
 #include <QApplication>
-#include <QCryptographicHash>
 #include <QDir>
 #include <QDirIterator>
 #include <QFileInfo>
@@ -49,15 +48,6 @@
 
 extern "C" {
 #include <unistd.h>
-}
-
-namespace {
-// Determined experimentally to yield best results (on Seagate 2TB 2.5" disk,
-// 5400 RPM).  Performance is very similar at 524288.  Above that, performance
-// was significantly worse.  Below that, performance also deteriorated.
-// This assumes use of one image scout thread (see DB/ImageScout.cpp).  Without
-// a scout thread, performance was about 10-15% worse.
-constexpr int MD5_BUFFER_SIZE = 262144;
 }
 
 /**
@@ -634,23 +624,6 @@ QString Utilities::cStringWithEncoding( const char *c_str, const QString& charse
     if (!codec)
         codec = QTextCodec::codecForLocale();
     return codec->toUnicode( c_str );
-}
-
-DB::MD5 Utilities::MD5Sum( const DB::FileName& fileName )
-{
-    DB::MD5 checksum;
-    QFile file( fileName.absolute() );
-    if ( file.open( QIODevice::ReadOnly ) )
-    {
-        QCryptographicHash md5calculator(QCryptographicHash::Md5);
-        while ( !file.atEnd() ) {
-            QByteArray md5Buffer( file.read( MD5_BUFFER_SIZE ) );
-            md5calculator.addData( md5Buffer );
-        }
-        file.close();
-        checksum = DB::MD5(QString::fromLatin1(md5calculator.result().toHex()));
-    }
-    return checksum;
 }
 
 QColor Utilities::contrastColor( const QColor& col )

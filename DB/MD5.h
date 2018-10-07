@@ -26,6 +26,8 @@
 
 namespace DB
 {
+class FileName;
+
     class MD5
     {
     public:
@@ -53,6 +55,9 @@ namespace DB
         qulonglong m_v0;
         qulonglong m_v1;
     };
+
+DB::MD5 MD5Sum( const DB::FileName& fileName );
+
 }
 
 #endif /* DB_MD5_H */

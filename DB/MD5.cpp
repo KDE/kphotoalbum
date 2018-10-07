@@ -19,6 +19,12 @@
 
 #include "MD5.h"
 
+#include "FileName.h"
+
+#include <QCryptographicHash>
+#include <QFile>
+#include <QIODevice>
+
 DB::MD5::MD5():
     m_isNull(true),
     m_v0(0),
@@ -84,4 +90,30 @@ bool DB::MD5::operator<(const DB::MD5 &other) const
     return (m_v0 < other.m_v0 ||
             (m_v0 == other.m_v0 &&
              (m_v1 < other.m_v1)));
+}
+
+namespace {
+// Determined experimentally to yield best results (on Seagate 2TB 2.5" disk,
+// 5400 RPM).  Performance is very similar at 524288.  Above that, performance
+// was significantly worse.  Below that, performance also deteriorated.
+// This assumes use of one image scout thread (see DB/ImageScout.cpp).  Without
+// a scout thread, performance was about 10-15% worse.
+constexpr int MD5_BUFFER_SIZE = 262144;
+}
+
+DB::MD5 DB::MD5Sum( const DB::FileName& fileName )
+{
+    DB::MD5 checksum;
+    QFile file( fileName.absolute() );
+    if ( file.open( QIODevice::ReadOnly ) )
+    {
+        QCryptographicHash md5calculator(QCryptographicHash::Md5);
+        while ( !file.atEnd() ) {
+            QByteArray md5Buffer( file.read( MD5_BUFFER_SIZE ) );
+            md5calculator.addData( md5Buffer );
+        }
+        file.close();
+        checksum = DB::MD5(QString::fromLatin1(md5calculator.result().toHex()));
+    }
+    return checksum;
 }

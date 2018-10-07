@@ -21,7 +21,6 @@
 #include "DB/CategoryPtr.h"
 #include "DB/FileName.h"
 #include "DB/ImageInfoPtr.h"
-#include "DB/MD5.h"
 
 #include <QImage>
 #include <QMap>
@@ -59,8 +58,6 @@ QImage scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode=Qt
 QImage scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
 
 QString cStringWithEncoding( const char *c_str, const QString& charset );
-
-DB::MD5 MD5Sum( const DB::FileName& fileName );
 
 QColor contrastColor( const QColor& );
 

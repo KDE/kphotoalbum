@@ -540,7 +540,7 @@ void MainWindow::Window::slotPasteInformation()
     // fail silent if there is no file.
     if (fileName.isNull()) return;
 
-    MD5 originalSum = Utilities::MD5Sum( fileName );
+    MD5 originalSum = MD5Sum( fileName );
     ImageInfoPtr originalInfo;
     if ( DB::ImageDB::instance()->md5Map()->contains( originalSum ) ) {
         originalInfo = DB::ImageDB::instance()->info( fileName );
@@ -1589,7 +1589,7 @@ void MainWindow::Window::slotImagesChanged( const QList<QUrl>& urls )
             // This seems to be the case with the border image plugin, which reports the destination image
             ImageManager::ThumbnailCache::instance()->removeThumbnail( fileName );
             // update MD5sum:
-            MD5 md5sum = Utilities::MD5Sum( fileName );
+            MD5 md5sum = MD5Sum( fileName );
             fileName.info()->setMD5Sum( md5sum );
         }
     }

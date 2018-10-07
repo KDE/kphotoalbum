@@ -528,7 +528,7 @@ void NewImageFinder::setupFileVersionDetection() {
 
 void NewImageFinder::loadExtraFile( const DB::FileName& newFileName, DB::MediaType type )
 {
-    MD5 sum = Utilities::MD5Sum( newFileName );
+    MD5 sum = MD5Sum( newFileName );
     if ( handleIfImageHasBeenMoved(newFileName, sum) )
         return;
 
@@ -704,7 +704,7 @@ bool  NewImageFinder::calculateMD5sums(
             }
         }
 
-        MD5 md5 = Utilities::MD5Sum( fileName );
+        MD5 md5 = MD5Sum( fileName );
         if (md5.isNull()) {
             cantRead << fileName;
             continue;

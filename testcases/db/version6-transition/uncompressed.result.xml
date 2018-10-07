@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KPhotoAlbum version="6" compressed="0">
+<KPhotoAlbum version="8" compressed="0">
     <Categories>
-        <Category name="Places" icon="applications-internet" show="1" viewtype="1" thumbnailsize="32" positionable="0">
+        <Category name="Locations" icon="applications-internet" show="1" viewtype="1" thumbnailsize="32" positionable="0">
             <value value="Place 1" id="1"/>
             <value value="Place 2" id="2"/>
             <value value="Country 1" id="3"/>
             <value value="Otherplace" id="4"/>
         </Category>
-        <Category name="People" icon="system-users" show="1" viewtype="1" thumbnailsize="32" positionable="0">
+        <Category name="Persons" icon="system-users" show="1" viewtype="1" thumbnailsize="32" positionable="0">
             <value value="Persons 1" id="1"/>
             <value value="Persons 2" id="2"/>
             <value value="Persons 3" id="3"/>
         </Category>
-        <Category name="Folder" icon="folder" show="0" viewtype="0" thumbnailsize="32" positionable="0"/>
-        <Category name="Media Type" icon="video" show="0" viewtype="0" thumbnailsize="32" positionable="0"/>
-        <Category name="Tokens" icon="flag-blue" show="1" viewtype="0" thumbnailsize="32" positionable="0">
+        <Category name="Tokens" icon="flag-blue" show="1" viewtype="0" thumbnailsize="32" positionable="0" meta="tokens">
+            <value value="Z" id="26"/>
             <value value="Y" id="1"/>
             <value value="X" id="2"/>
             <value value="W" id="3"/>
@@ -43,44 +42,44 @@
         </Category>
     </Categories>
     <images>
-        <image file="1.jpg" label="0805106186" startDate="2008-05-10T13:44:51" endDate="2008-05-10T13:44:51" angle="0" md5sum="00273ab34b2b2755a6eed480c7d04a16" width="3072" height="2048">
+        <image file="1.jpg" label="0805106186" startDate="2008-05-10T13:44:51" md5sum="00273ab34b2b2755a6eed480c7d04a16" width="3072" height="2048">
             <options>
-                <option name="Places">
+                <option name="Locations">
                     <value value="Place 1"/>
                 </option>
             </options>
         </image>
-        <image file="2.jpg" label="0805106186" startDate="2008-05-10T13:44:51" endDate="2008-05-10T13:44:51" angle="0" md5sum="00273ab34b2b2755a6eed480c7d04a16" width="3072" height="2048">
+        <image file="2.jpg" label="0805106186" startDate="2008-05-10T13:44:51" md5sum="00273ab34b2b2755a6eed480c7d04a16" width="3072" height="2048">
             <options>
-                <option name="Places">
+                <option name="Locations">
                     <value value="Place 2"/>
                 </option>
             </options>
         </image>
-        <image file="3.jpg" label="" startDate="2008-05-10T13:44:51" endDate="2008-05-10T13:44:51" angle="0" md5sum="00273ab34b2b2755a6eed480c7d04a16" width="3072" height="2048">
+        <image file="3.jpg" label="" startDate="2008-05-10T13:44:51" md5sum="00273ab34b2b2755a6eed480c7d04a16" width="3072" height="2048">
             <options>
-                <option name="People">
+                <option name="Locations">
+                    <value value="Place 1"/>
+                </option>
+                <option name="Persons">
                     <value value="Persons 1"/>
                 </option>
-                <option name="Places">
-                    <value value="Place 1"/>
-                </option>
             </options>
         </image>
-        <image file="4.jpg" label="" startDate="2008-05-10T13:44:51" endDate="2008-05-10T13:44:51" angle="0" md5sum="00273ab34b2b2755a6eed480c7d04a16" width="3072" height="2048">
+        <image file="4.jpg" label="" startDate="2008-05-10T13:44:51" md5sum="00273ab34b2b2755a6eed480c7d04a16" width="3072" height="2048">
             <options>
-                <option name="People">
-                    <value value="Persons 2"/>
-                </option>
-                <option name="Places">
+                <option name="Locations">
                     <value value="Place 2"/>
+                </option>
+                <option name="Persons">
+                    <value value="Persons 2"/>
                 </option>
             </options>
         </image>
     </images>
     <blocklist/>
     <member-groups>
-        <member category="Places" group-name="Country 1" member="Place 1"/>
-        <member category="Places" group-name="Country 1" member="Place 2"/>
+        <member category="Locations" group-name="Country 1" member="Place 1"/>
+        <member category="Locations" group-name="Country 1" member="Place 2"/>
     </member-groups>
 </KPhotoAlbum>

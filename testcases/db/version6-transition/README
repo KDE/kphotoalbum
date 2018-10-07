@@ -13,7 +13,5 @@ old standard names.
 To make matters more complex, some versions of KPhotoAlbum stored the localized
 names of the standard categories into the database.
 
-Beginning with database format version 6, the old names (except "Keywords") are
-automatically translated on startup and then stored by their new names.  After
-the one-time rename operation, the old names loose their "special" meaning and
-are handled just like every other user-created category.
+Beginning with database format version 6, the old names loose their "special"
+meaning and are handled just like every other user-created category.

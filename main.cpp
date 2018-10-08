@@ -110,25 +110,22 @@ int main( int argc, char** argv ) {
 
     new MainWindow::SplashScreen();
 
+    // a KXmlGuiWindow per-default is created with the Qt::WA_DeleteOnClose attribute set
+    // -> don't delete the view directly!
     MainWindow::Window *view = nullptr;
     try {
-        view = new MainWindow::Window( 0 );
+        view = new MainWindow::Window( nullptr );
     }
     catch (int retVal) {
         // MainWindow ctor throws if no config is loaded
         return retVal;
     }
 
-    // qApp->setMainWidget( view );
     view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );
 
     (void) RemoteControl::RemoteInterface::instance();
 
-    int code = app.exec();
-    // I've heard multiple people complain about a crash in this line.
-    // unfortunately valgrind doesn't tell me why that should be, and I haven't seen it myself.
-    // Anyway, the line is really only needed when searching for memory leaks.
-    // delete view;
+    int code = QApplication::exec();
     return code;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

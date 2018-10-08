@@ -1,49 +1,56 @@
 * Update/Bugfix: Various l10n fixes concerning capitalization and contexts.
 
-* Update: Review default values for Settings, pre-define contemporary ones.
+* Update: Review default values for Settings, pre-define contemporary ones:
+	- Ignore common auto-generated Exif comments by default.
+	- The database file is now optimized for speed by default
+	  (old default value: optimized for human readability)
+	- If less than 20 images are matched, the thumbnail view is shown
+	  (old default value: 0)
+	- The thumbnail grid is now optimized for a 3:2 aspect ratio
+	  (old default value: 4:3)
+	- The size of thumbnails is now 256x256 pixels
+	  (old default value: 150)
+	- When starting a slideshow, it is now shown in fullscreen by default
+	  (old default value: 800x600px)
+	- Detect edited images by default
+	  (old default value: feature was not configured)
+	  This means that images that have been edited using the "create a copy and
+	  open" feature now are recognized by default. The tags of the original
+	  image are copied and both images are automatically stacked.
 
 * Bugfix: Use the correct initial value when renaming tag groups using the settings page.
 
 * Enhancement: Improve startup 10-15% by eliding unnecessary category creation.
 
-* Bugfixes: Don't continue accessing the exif db if unusable, reset failed state when recreating db.
+* Bugfixes: Don't continue accessing the Exif db if unusable, reset failed state when recreating db.
 
-* Bugfix: Fix "<=" and ">=" rating options in search dialog.
+* Bugfix: Fix display of "<=" and ">=" rating options in search dialog.
 
-* Bugfix: Fix overflow in parsing GPS information from EXIF, leading to false coordiantes.
+* Bugfix: Fix overflow in parsing GPS information from Exif, leading to false coordinates.
 
-* Bugfix: Fixed compilation for FreeBSD (concerning statfs usage), added a platform-independent
-  fallback.
+* Enhancement: Add FreeBSD as supported platform
 
-* Update/Bugfix: Fixed build with Qt 5.11, allow compilation with Qt < 5.10.
+* Bugfix: Fixed build with Qt 5.11, replace deprecated API usage.
 
 * Enhancement: Do not write unnecessary data to index.xml by using defaults.
 
 * Enhancements: Improved thumbnail generation:
     - Improve thumbnail generation speed and efficiency.
     - Overlap thumbnail create with image load.
-    - Fix the threading logic and add locks where needed.
-    - Add incremental saving.
     - Generate new thumbnails for moved images detected during load.
-    - Don't open/close the thumbnail file for each thumbnail saved.
+
+* Bugfix: More reliable auto-stacking of images.
 
 * Enhancements: Improved speed of loading/removing new images:
-    - Insert EXIF data for each loaded image as it's loaded, but within a transaction.
-    - Add an image hash to the XMLDB, to allow fast lookup by name.
-    - Add a filename->MD5 map in addition to MD5->filename map to allow duplicate detection without
-      having to compute the MD5 checksum on possible duplicate files
-    - Add image scout thread during load, to read files in from disk ahead of the loader and
-      reducing or eliminating time the new image loader waits on I/O.
+    - Insert Exif data for each loaded image as it's loaded, but within a transaction.
+    - Elide unnecessary MD5 computations.
+    - Reduce I/O wait time of image loader by introducing a scout thread.
     - Improve I/O efficiency for MD5 calculation.
-    - Fetch EXIF data only once during load.
+    - Fetch Exif data only once during load.
     - Improve efficiency of loading previews from RAW images.
+    - Ignore more sidecar files to improve performance (.xmp, .pp3, and .pto).
 
-* Update: Removed depreceated function calls (QDate::longDayName(), QDate::monthName()), reworked
-  their use respecting Locales.
-
-* Enhancement/Bugfix: Scale the date bar appropriately upon exposure, add Add one minute scaler.
-
-* Enhancement: Ignore more sidecar files to improve performance (.xmp, .pp3, and .pto).
+* Enhancement/Bugfix: Scale the date bar appropriately upon exposure, add one minute scaler.
 
 * Update: Make Android app compilable with C++14 and later.
 
@@ -153,7 +160,7 @@
 
 * Overall changes (there were lots and lots of them):
 
-  Ported KPA to Qt 5 and KF5, including updating all depreceated code. We also do not depend on the
+  Ported KPA to Qt 5 and KF5, including updating all deprecated code. We also do not depend on the
   KDE4LibsSupport compatibility class.
 
   Cleaned up includes and stray references, dropped some legacy compatibility code.

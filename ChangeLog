@@ -1,3 +1,5 @@
+* Change: Database file now uses version 8 format.
+
 * Update/Bugfix: Various l10n fixes concerning capitalization and contexts.
 
 * Update: Review default values for Settings, pre-define contemporary ones:

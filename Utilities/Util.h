@@ -35,11 +35,8 @@ QString formatAge(DB::CategoryPtr category,const QString& item, DB::ImageInfoPtr
 void checkForBackupFile( const QString& fileName, const QString& message = QString() );
 bool ctrlKeyDown();
 bool copy( const QString& from, const QString& to );
-void copyList( const QStringList& from, const QString& directoryTo );
 bool makeSymbolicLink( const QString& from, const QString& to );
 bool makeHardLink( const QString& from, const QString& to );
-void deleteDemo();
-QString setupDemo();
 bool canReadImage( const DB::FileName& fileName );
 const QSet<QString>& supportedVideoExtensions();
 bool isVideo( const DB::FileName& fileName );

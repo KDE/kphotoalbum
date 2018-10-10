@@ -97,6 +97,7 @@
 #include <Settings/SettingsDialog.h>
 #include <ThumbnailView/enums.h>
 #include <ThumbnailView/ThumbnailFacade.h>
+#include <Utilities/DemoUtil.h>
 #include <Utilities/List.h>
 #include <Utilities/ShowBusyCursor.h>
 #include <Utilities/Util.h>

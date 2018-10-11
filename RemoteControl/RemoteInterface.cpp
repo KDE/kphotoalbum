@@ -40,7 +40,7 @@
 #include "DB/ImageSearchInfo.h"
 #include "ImageManager/AsyncLoader.h"
 #include "MainWindow/DirtyIndicator.h"
-#include "Utilities/Util.h"
+#include "Utilities/DescriptionUtil.h"
 
 #include "RemoteCommand.h"
 #include "RemoteImageRequest.h"

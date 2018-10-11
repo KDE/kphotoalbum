@@ -23,7 +23,7 @@
 #include "ImageManager/ImageRequest.h"
 #include "ImageManager/AsyncLoader.h"
 #include <QTemporaryFile>
-#include "Utilities/Util.h"
+#include "Utilities/DescriptionUtil.h"
 
 namespace Utilities {
 

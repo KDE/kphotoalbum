@@ -15,16 +15,22 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#ifndef IMAGEINFOPTR_H
-#define IMAGEINFOPTR_H
-#include <QExplicitlySharedDataPointer>
 
-namespace DB
+#ifndef TEXTUTIL_H
+#define TEXTUTIL_H
+#include "DB/CategoryPtr.h"
+#include "DB/ImageInfoPtr.h"
+
+#include <QMap>
+#include <QPair>
+#include <QString>
+
+namespace Utilities
 {
-    class ImageInfo;
-    using ImageInfoPtr = QExplicitlySharedDataPointer<ImageInfo>;
+QString createInfoText( DB::ImageInfoPtr info, QMap<int, QPair<QString,QString> >* );
+QString formatAge(DB::CategoryPtr category,const QString& item, DB::ImageInfoPtr info);
 }
 
-#endif /* IMAGEINFOPTR_H */
+#endif /* TEXTUTIL_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

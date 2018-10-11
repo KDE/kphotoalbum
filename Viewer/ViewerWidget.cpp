@@ -52,6 +52,7 @@
 #include <MainWindow/ExternalPopup.h>
 #include <MainWindow/Window.h>
 #include <Utilities/Util.h>
+#include <Utilities/DescriptionUtil.h>
 
 #include "CategoryImageConfig.h"
 #include "ImageDisplay.h"

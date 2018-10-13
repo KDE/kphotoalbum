@@ -180,7 +180,8 @@ void Browser::BrowserWidget::load( const QString& category, const QString& value
 
     DB::MediaCount counts = DB::ImageDB::instance()->count( info );
     bool loadImages = (counts.total() < Settings::SettingsData::instance()->autoShowThumbnailView());
-    if ( Utilities::ctrlKeyDown() ) loadImages = !loadImages;
+    if ( QGuiApplication::keyboardModifiers().testFlag(Qt::ControlModifier) )
+        loadImages = !loadImages;
 
     if ( loadImages )
         addAction( new ImageViewPage( info, this ) );

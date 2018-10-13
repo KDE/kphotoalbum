@@ -86,11 +86,6 @@ void Utilities::checkForBackupFile( const QString& fileName, const QString& mess
         exit(-1);
 }
 
-bool Utilities::ctrlKeyDown()
-{
-    return QApplication::keyboardModifiers() & Qt::ControlModifier;
-}
-
 bool Utilities::copy( const QString& from, const QString& to )
 {
     if ( QFileInfo(to).exists())

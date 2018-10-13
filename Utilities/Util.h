@@ -31,7 +31,6 @@
 namespace Utilities
 {
 void checkForBackupFile( const QString& fileName, const QString& message = QString() );
-bool ctrlKeyDown();
 bool copy( const QString& from, const QString& to );
 bool makeSymbolicLink( const QString& from, const QString& to );
 bool makeHardLink( const QString& from, const QString& to );

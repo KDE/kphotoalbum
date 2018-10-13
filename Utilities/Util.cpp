@@ -205,15 +205,6 @@ QString Utilities::imageFileNameToAbsolute( const QString& fileName )
         return absoluteImageFileName( fileName );
 }
 
-bool operator>( const QPoint& p1, const QPoint& p2)
-{
-    return p1.y() > p2.y() || (p1.y() == p2.y() && p1.x() > p2.x() );
-}
-
-bool operator<( const QPoint& p1, const QPoint& p2)
-{
-    return p1.y() < p2.y() || ( p1.y() == p2.y() && p1.x() < p2.x() );
-}
 
 const QSet<QString>& Utilities::supportedVideoExtensions()
 {

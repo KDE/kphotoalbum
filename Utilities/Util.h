@@ -59,8 +59,6 @@ QColor contrastColor( const QColor& );
 void saveImage( const DB::FileName& fileName, const QImage& image, const char* format );
 }
 
-bool operator>( const QPoint&, const QPoint& );
-bool operator<( const QPoint&, const QPoint& );
 
 #endif /* UTIL_H */
 

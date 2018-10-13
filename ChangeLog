@@ -1,24 +1,26 @@
+====================== KPhotoalbum 5.4 released (13.10.2018) ======================
+
 * Change: Database file now uses version 8 format.
 
 * Update/Bugfix: Various l10n fixes concerning capitalization and contexts.
 
 * Update: Review default values for Settings, pre-define contemporary ones:
-	- Ignore common auto-generated Exif comments by default.
-	- The database file is now optimized for speed by default
-	  (old default value: optimized for human readability)
-	- If less than 20 images are matched, the thumbnail view is shown
-	  (old default value: 0)
-	- The thumbnail grid is now optimized for a 3:2 aspect ratio
-	  (old default value: 4:3)
-	- The size of thumbnails is now 256x256 pixels
-	  (old default value: 150)
-	- When starting a slideshow, it is now shown in fullscreen by default
-	  (old default value: 800x600px)
-	- Detect edited images by default
-	  (old default value: feature was not configured)
-	  This means that images that have been edited using the "create a copy and
-	  open" feature now are recognized by default. The tags of the original
-	  image are copied and both images are automatically stacked.
+    - Ignore common auto-generated Exif comments by default.
+    - The database file is now optimized for speed by default
+      (old default value: optimized for human readability)
+    - If less than 20 images are matched, the thumbnail view is shown
+      (old default value: 0)
+    - The thumbnail grid is now optimized for a 3:2 aspect ratio
+      (old default value: 4:3)
+    - The size of thumbnails is now 256x256 pixels
+      (old default value: 150)
+    - When starting a slideshow, it is now shown in fullscreen by default
+      (old default value: 800x600px)
+    - Detect edited images by default
+      (old default value: feature was not configured)
+      This means that images that have been edited using the "create a copy and open" feature now
+      are recognized by default. The tags of the original image are copied and both images are
+      automatically stacked.
 
 * Bugfix: Use the correct initial value when renaming tag groups using the settings page.
 

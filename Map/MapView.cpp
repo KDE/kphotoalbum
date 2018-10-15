@@ -23,6 +23,7 @@
 
 // Marble includes
 #include <marble/MarbleWidget.h>
+#include <marble/RenderPlugin.h>
 
 // Qt includes
 #include <QLabel>
@@ -31,6 +32,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QDebug>
+#include <QAction>
 
 // KDE includes
 #include <KConfigGroup>
@@ -70,32 +72,6 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     controlLayout->addWidget( saveButton );
     connect(saveButton, &QPushButton::clicked, this, &MapView::saveSettings);
 
-    QPushButton* showOverviewMap = new QPushButton;
-    showOverviewMap->setIcon( QPixmap( SmallIcon( QString::fromUtf8( "view-preview" ) ) ) );
-    showOverviewMap->setToolTip( i18n( "Show the overview map" ) );
-    showOverviewMap->setCheckable( true );
-    showOverviewMap->setChecked( true );
-    controlLayout->addWidget( showOverviewMap );
-    connect( showOverviewMap, &QPushButton::clicked,
-             m_mapWidget, &Marble::MarbleWidget::setShowOverviewMap );
-
-    QPushButton* showCompass = new QPushButton;
-    showCompass->setIcon( QPixmap( SmallIcon( QString::fromUtf8( "compass" ) ) ) );
-    showCompass->setToolTip( i18n( "Show the compass" ) );
-    showCompass->setCheckable( true );
-    showCompass->setChecked( true );
-    controlLayout->addWidget( showCompass );
-    connect( showCompass, &QPushButton::clicked, m_mapWidget, &Marble::MarbleWidget::setShowCompass );
-
-    QPushButton* showScaleBar = new QPushButton;
-    showScaleBar->setIcon( QPixmap( SmallIcon( QString::fromUtf8( "insert-horizontal-rule" ) ) ) );
-    showScaleBar->setToolTip( i18n( "Show the scale bar" ) );
-    showScaleBar->setCheckable( true );
-    showScaleBar->setChecked( true );
-    controlLayout->addWidget( showScaleBar );
-    connect( showScaleBar, &QPushButton::clicked,
-             m_mapWidget, &Marble::MarbleWidget::setShowScaleBar );
-
     m_setLastCenterButton = new QPushButton;
     m_setLastCenterButton->setIcon( QPixmap( SmallIcon( QString::fromUtf8( "go-first" ) ) ) );
     m_setLastCenterButton->setToolTip(i18n("Go to last map position"));
@@ -103,6 +79,28 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     connect(m_setLastCenterButton, &QPushButton::clicked, this, &MapView::setLastCenter);
 
     controlLayout->addStretch();
+
+    for (const Marble::RenderPlugin *plugin : m_mapWidget->renderPlugins()) {
+        if (plugin->renderType() != Marble::RenderPlugin::PanelRenderType) {
+            continue;
+        }
+
+        QPushButton *button = new QPushButton;
+        button->setCheckable(true);
+        button->setChecked(plugin->action()->isChecked());
+        button->setToolTip(plugin->description());
+
+        QPixmap icon = plugin->action()->icon().pixmap(QSize(20, 20));
+        if (icon.isNull()) {
+            icon = QPixmap(20, 20);
+            icon.fill(Qt::white);
+        }
+        button->setIcon(icon);
+
+        connect(plugin->action(), &QAction::toggled, button, &QPushButton::setChecked);
+        connect(button, &QPushButton::toggled, plugin->action(), &QAction::setChecked);
+        controlLayout->addWidget( button );
+    }
 }
 
 Map::MapView::~MapView()

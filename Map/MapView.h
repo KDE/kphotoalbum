@@ -126,6 +126,7 @@ private: // Variables
     QLabel *m_statusLabel;
     QPushButton *m_setLastCenterButton;
     GeoCoordinates m_lastCenter;
+    QWidget *m_floaters;
 
 };
 

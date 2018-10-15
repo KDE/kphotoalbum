@@ -41,6 +41,10 @@
 #include <KMessageBox>
 #include <KSharedConfig>
 
+namespace {
+const QString FLOATER_VISIBLE_CONFIG_PREFIX = QStringLiteral( "MarbleFloaterVisible " );
+}
+
 Map::MapView::MapView(QWidget *parent, UsageType type)
     : QWidget(parent)
 {
@@ -66,19 +70,35 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     QHBoxLayout *controlLayout = new QHBoxLayout;
     layout->addLayout(controlLayout);
 
+    // KPA's control buttons
+
+    QWidget* kpaButtons = new QWidget;
+    QHBoxLayout* kpaButtonsLayout = new QHBoxLayout( kpaButtons );
+    controlLayout->addWidget( kpaButtons );
+
     QPushButton *saveButton = new QPushButton;
+    saveButton->setFlat(true);
     saveButton->setIcon(QPixmap(SmallIcon(QString::fromUtf8("media-floppy"))));
     saveButton->setToolTip(i18n("Save the current map settings"));
-    controlLayout->addWidget( saveButton );
+    kpaButtonsLayout->addWidget(saveButton);
     connect(saveButton, &QPushButton::clicked, this, &MapView::saveSettings);
 
     m_setLastCenterButton = new QPushButton;
+    m_setLastCenterButton->setFlat(true);
     m_setLastCenterButton->setIcon( QPixmap( SmallIcon( QString::fromUtf8( "go-first" ) ) ) );
     m_setLastCenterButton->setToolTip(i18n("Go to last map position"));
-    controlLayout->addWidget( m_setLastCenterButton );
+    kpaButtonsLayout->addWidget(m_setLastCenterButton);
     connect(m_setLastCenterButton, &QPushButton::clicked, this, &MapView::setLastCenter);
 
+    // Marble floater control buttons
+
+    m_floaters = new QWidget;
+    QHBoxLayout *floatersLayout = new QHBoxLayout(m_floaters);
     controlLayout->addStretch();
+    controlLayout->addWidget(m_floaters);
+
+    KSharedConfigPtr config = KSharedConfig::openConfig();
+    KConfigGroup group = config->group(QStringLiteral("MapView"));
 
     for (const Marble::RenderPlugin *plugin : m_mapWidget->renderPlugins()) {
         if (plugin->renderType() != Marble::RenderPlugin::PanelRenderType) {
@@ -87,8 +107,11 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
 
         QPushButton *button = new QPushButton;
         button->setCheckable(true);
+        button->setFlat(true);
         button->setChecked(plugin->action()->isChecked());
         button->setToolTip(plugin->description());
+        const QString name = plugin->name();
+        button->setProperty("floater", name);
 
         QPixmap icon = plugin->action()->icon().pixmap(QSize(20, 20));
         if (icon.isNull()) {
@@ -99,7 +122,12 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
 
         connect(plugin->action(), &QAction::toggled, button, &QPushButton::setChecked);
         connect(button, &QPushButton::toggled, plugin->action(), &QAction::setChecked);
-        controlLayout->addWidget( button );
+        floatersLayout->addWidget(button);
+
+        const QString value = group.readEntry( FLOATER_VISIBLE_CONFIG_PREFIX + name );
+        if (! value.isEmpty()) {
+            button->setChecked(value == QStringLiteral("true") ? true : false);
+        }
     }
 }
 
@@ -143,7 +171,14 @@ void Map::MapView::setCenter(const DB::ImageInfoPtr image)
 
 void Map::MapView::saveSettings()
 {
-    qDebug() << ">>> Implement me! Map::MapView::saveSettings()";
+    KSharedConfigPtr config = KSharedConfig::openConfig();
+    KConfigGroup group = config->group(QStringLiteral("MapView"));
+    for (const QPushButton *button : m_floaters->findChildren<QPushButton *>()) {
+        group.writeEntry( FLOATER_VISIBLE_CONFIG_PREFIX + button->property( "floater" ).toString(),
+                          button->isChecked() );
+    }
+    config->sync();
+    QMessageBox::information(this, i18n("Map view"), i18n("Settings saved!"));
 }
 
 void Map::MapView::setShowThumbnails(bool state)

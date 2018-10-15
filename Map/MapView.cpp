@@ -160,13 +160,13 @@ void Map::MapView::zoomToMarkers()
 void Map::MapView::setCenter(const DB::ImageInfo &image)
 {
     m_lastCenter = image.coordinates();
-    qDebug() << ">>> Implement me! Map::MapView::setCenter(const DB::ImageInfo &image)";
+    setLastCenter();
 }
 
 void Map::MapView::setCenter(const DB::ImageInfoPtr image)
 {
     m_lastCenter = image->coordinates();
-    qDebug() << ">>> Implement me! Map::MapView::setCenter(const DB::ImageInfoPtr image)";
+    setLastCenter();
 }
 
 void Map::MapView::saveSettings()
@@ -254,7 +254,7 @@ void Map::MapView::displayStatus(MapStatus status)
 
 void Map::MapView::setLastCenter()
 {
-    qDebug() << ">>> Implement me! Map::MapView::setLastCenter()";
+    m_mapWidget->centerOn(m_lastCenter.lon(), m_lastCenter.lat());
 }
 
 Map::GeoCoordinates::Pair Map::MapView::getRegionSelection() const

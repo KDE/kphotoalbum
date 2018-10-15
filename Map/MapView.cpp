@@ -62,8 +62,13 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     layout->addWidget(m_statusLabel);
 
     m_mapWidget = new Marble::MarbleWidget;
+    m_mapWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_mapWidget->setProjection(Marble::Mercator);
     m_mapWidget->setMapThemeId( QString::fromUtf8( "earth/openstreetmap/openstreetmap.dgml" ) );
+
+    m_markerLayer = new MarkerLayer;
+    m_mapWidget->addLayer( m_markerLayer );
+
     layout->addWidget(m_mapWidget);
     m_mapWidget->show();
 
@@ -142,14 +147,14 @@ void Map::MapView::clear()
 
 void Map::MapView::addImage(const DB::ImageInfo &image)
 {
-    Q_UNUSED( image );
-    qDebug() << ">>> Implement me! Map::MapView::addImage(const DB::ImageInfo& image)";
+    GeoCoordinates coordinates = image.coordinates();
+    m_markerLayer->addMarker( coordinates.lon(), coordinates.lat() );
 }
 
 void Map::MapView::addImage( const DB::ImageInfoPtr image )
 {
-    Q_UNUSED( image )
-    qDebug() << ">>> Implement me! Map::MapView::addImage(const DB::ImageInfoPtr image)";
+    GeoCoordinates coordinates = image->coordinates();
+    m_markerLayer->addMarker( coordinates.lon(), coordinates.lat() );
 }
 
 void Map::MapView::zoomToMarkers()

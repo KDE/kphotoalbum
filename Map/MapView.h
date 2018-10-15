@@ -21,6 +21,8 @@
 
 // Local includes
 #include "GeoCoordinates.h"
+#include "MarkerLayer.h"
+
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
 
@@ -127,7 +129,7 @@ private: // Variables
     QPushButton *m_setLastCenterButton;
     GeoCoordinates m_lastCenter;
     QWidget *m_floaters;
-
+    MarkerLayer* m_markerLayer;
 };
 
 }

@@ -82,6 +82,7 @@ QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, c
         noMatchInfo.setCategoryMatchText( category, DB::ImageDB::NONE() );
     else
         noMatchInfo.setCategoryMatchText( category, QString::fromLatin1( "%1 & %2" ).arg(currentMatchTxt).arg(DB::ImageDB::NONE()) );
+    noMatchInfo.setCacheable( false );
 
     // Iterate through the whole database of images.
     for( DB::ImageInfoListConstIterator it = m_images.constBegin(); it != m_images.constEnd(); ++it ) {

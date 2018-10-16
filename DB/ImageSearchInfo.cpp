@@ -48,14 +48,14 @@ static int nextGeneration()
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
                                   const QString& label, const QString& description )
-    : m_date( date), m_label( label ), m_description( description ), m_rating( -1 ), m_megapixel( 0 ), m_max_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( false ), m_compiled( false ), m_matchGeneration(nextGeneration())
+    : m_date( date), m_label( label ), m_description( description ), m_rating( -1 ), m_megapixel( 0 ), m_max_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( false ), m_isCacheable( true ), m_compiled( false ), m_matchGeneration(nextGeneration())
 {
 }
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
                                   const QString& label, const QString& description,
                   const QString& fnPattern )
-    : m_date( date), m_label( label ), m_description( description ), m_fnPattern( fnPattern ), m_rating( -1 ), m_megapixel( 0 ), m_max_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( false ), m_compiled( false ), m_matchGeneration(nextGeneration())
+    : m_date( date), m_label( label ), m_description( description ), m_fnPattern( fnPattern ), m_rating( -1 ), m_megapixel( 0 ), m_max_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( false ), m_isCacheable( true ), m_compiled( false ), m_matchGeneration(nextGeneration())
 {
 }
 
@@ -75,7 +75,7 @@ QString ImageSearchInfo::description() const
 }
 
 ImageSearchInfo::ImageSearchInfo()
-    : m_rating( -1 ), m_megapixel( 0 ), m_max_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( true ), m_compiled( false ), m_matchGeneration(nextGeneration())
+    : m_rating( -1 ), m_megapixel( 0 ), m_max_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( true ), m_isCacheable( true ), m_compiled( false ), m_matchGeneration(nextGeneration())
 {
 }
 
@@ -84,12 +84,22 @@ bool ImageSearchInfo::isNull() const
     return m_isNull;
 }
 
+bool ImageSearchInfo::isCacheable() const
+{
+    return m_isCacheable;
+}
+
+void ImageSearchInfo::setCacheable(bool cacheable)
+{
+    m_isCacheable = cacheable;
+}
+
 bool ImageSearchInfo::match( ImageInfoPtr info ) const
 {
     if ( m_isNull )
         return true;
 
-    if ( info->matchGeneration() == m_matchGeneration )
+    if (  m_isCacheable && info->matchGeneration() == m_matchGeneration )
         return info->isMatched();
 
     if ( !m_compiled )
@@ -200,8 +210,10 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     }
 #endif
 
-    info->setMatchGeneration(m_matchGeneration);
-    info->setIsMatched(ok);
+    if ( m_isCacheable ) {
+        info->setMatchGeneration(m_matchGeneration);
+        info->setIsMatched(ok);
+    }
     return ok;
 }
 
@@ -355,6 +367,7 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
     m_searchRAW = other.m_searchRAW;
     m_exifSearchInfo = other.m_exifSearchInfo;
     m_matchGeneration = other.m_matchGeneration;
+    m_isCacheable = other.m_isCacheable;
 #ifdef HAVE_KGEOMAP
     m_regionSelection = other.m_regionSelection;
 #endif

@@ -82,6 +82,12 @@ public:
 
     void addExifSearchInfo( const Exif::SearchInfo info );
 
+    // By default, an ImageSearchInfo is cacheable, but only one search
+    // is cached per image.  For a search that's only going to be
+    // performed once, don't try to cache the result.
+    void setCacheable( bool cacheable );
+    bool isCacheable() const;
+
 #ifdef HAVE_KGEOMAP
     KGeoMap::GeoCoordinates::Pair regionSelection() const;
     void setRegionSelection(const KGeoMap::GeoCoordinates::Pair& actRegionSelection);
@@ -106,6 +112,7 @@ private:
     int m_ratingSearchMode;
     bool m_searchRAW;
     bool m_isNull;
+    bool m_isCacheable;
     mutable bool m_compiled;
     mutable QList<CategoryMatcher*> m_categoryMatchers;
 

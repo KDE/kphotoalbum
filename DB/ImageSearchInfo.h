@@ -111,6 +111,8 @@ private:
 
     Exif::SearchInfo m_exifSearchInfo;
 
+    int m_matchGeneration;
+
 #ifdef HAVE_KGEOMAP
     KGeoMap::GeoCoordinates::Pair m_regionSelection;
     mutable bool m_usingRegionSelection = false;

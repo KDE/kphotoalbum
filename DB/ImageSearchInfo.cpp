@@ -40,16 +40,22 @@
 
 using namespace DB;
 
+static QAtomicInt s_matchGeneration;
+static int nextGeneration()
+{
+    return s_matchGeneration++;
+}
+
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
                                   const QString& label, const QString& description )
-    : m_date( date), m_label( label ), m_description( description ), m_rating( -1 ), m_megapixel( 0 ), m_max_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( false ), m_compiled( false )
+    : m_date( date), m_label( label ), m_description( description ), m_rating( -1 ), m_megapixel( 0 ), m_max_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( false ), m_compiled( false ), m_matchGeneration(nextGeneration())
 {
 }
 
 ImageSearchInfo::ImageSearchInfo( const ImageDate& date,
                                   const QString& label, const QString& description,
                   const QString& fnPattern )
-    : m_date( date), m_label( label ), m_description( description ), m_fnPattern( fnPattern ), m_rating( -1 ), m_megapixel( 0 ), m_max_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( false ), m_compiled( false )
+    : m_date( date), m_label( label ), m_description( description ), m_fnPattern( fnPattern ), m_rating( -1 ), m_megapixel( 0 ), m_max_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( false ), m_compiled( false ), m_matchGeneration(nextGeneration())
 {
 }
 
@@ -69,7 +75,7 @@ QString ImageSearchInfo::description() const
 }
 
 ImageSearchInfo::ImageSearchInfo()
-    : m_rating( -1 ), m_megapixel( 0 ), m_max_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( true ), m_compiled( false )
+    : m_rating( -1 ), m_megapixel( 0 ), m_max_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( true ), m_compiled( false ), m_matchGeneration(nextGeneration())
 {
 }
 
@@ -82,6 +88,9 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
 {
     if ( m_isNull )
         return true;
+
+    if ( info->matchGeneration() == m_matchGeneration )
+        return info->isMatched();
 
     if ( !m_compiled )
         compile();
@@ -191,6 +200,8 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     }
 #endif
 
+    info->setMatchGeneration(m_matchGeneration);
+    info->setIsMatched(ok);
     return ok;
 }
 
@@ -205,6 +216,7 @@ void ImageSearchInfo::setCategoryMatchText( const QString& name, const QString& 
     m_categoryMatchText[name] = value;
     m_isNull = false;
     m_compiled = false;
+    m_matchGeneration = nextGeneration();
 }
 
 void ImageSearchInfo::addAnd( const QString& category, const QString& value )
@@ -222,6 +234,7 @@ void ImageSearchInfo::addAnd( const QString& category, const QString& value )
     setCategoryMatchText( category, val );
     m_isNull = false;
     m_compiled = false;
+    m_matchGeneration = nextGeneration();
 }
 
 void ImageSearchInfo::setRating( short rating )
@@ -229,26 +242,31 @@ void ImageSearchInfo::setRating( short rating )
   m_rating = rating;
   m_isNull = false;
   m_compiled = false;
+  m_matchGeneration = nextGeneration();
 }
 
 void ImageSearchInfo::setMegaPixel( short megapixel )
 {
   m_megapixel = megapixel;
+  m_matchGeneration = nextGeneration();
 }
 
 void ImageSearchInfo::setMaxMegaPixel( short max_megapixel )
 {
   m_max_megapixel = max_megapixel;
+  m_matchGeneration = nextGeneration();
 }
 
 void ImageSearchInfo::setSearchMode(int index)
 {
   m_ratingSearchMode = index;
+  m_matchGeneration = nextGeneration();
 }
 
 void ImageSearchInfo::setSearchRAW( bool searchRAW )
 {
   m_searchRAW = searchRAW;
+  m_matchGeneration = nextGeneration();
 }
 
 
@@ -336,6 +354,7 @@ ImageSearchInfo::ImageSearchInfo( const ImageSearchInfo& other )
     m_max_megapixel = other.m_max_megapixel;
     m_searchRAW = other.m_searchRAW;
     m_exifSearchInfo = other.m_exifSearchInfo;
+    m_matchGeneration = other.m_matchGeneration;
 #ifdef HAVE_KGEOMAP
     m_regionSelection = other.m_regionSelection;
 #endif

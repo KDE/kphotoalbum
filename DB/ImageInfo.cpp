@@ -38,6 +38,7 @@ using namespace DB;
 
 ImageInfo::ImageInfo() :m_null( true ), m_rating(-1), m_stackId(0), m_stackOrder(0)
     , m_videoLength(-1)
+    , m_isMatched( false ), m_matchGeneration( -1 )
     , m_locked( false ), m_dirty( false ), m_delaySaving( false )
 {
 }
@@ -47,6 +48,7 @@ ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExi
     :  m_imageOnDisk( YesOnDisk ), m_null( false ), m_size( -1, -1 ), m_type( type )
       , m_rating(-1), m_stackId(0), m_stackOrder(0)
       , m_videoLength(-1)
+      , m_isMatched( false ), m_matchGeneration( -1 )
       , m_locked(false), m_delaySaving( true )
 {
     QFileInfo fi( fileName.absolute() );
@@ -65,6 +67,26 @@ ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExi
 
     m_dirty = false;
     m_delaySaving = false;
+}
+
+void ImageInfo::setIsMatched(bool isMatched)
+{
+    m_isMatched = isMatched;
+}
+
+bool ImageInfo::isMatched() const
+{
+    return m_isMatched;
+}
+
+void ImageInfo::setMatchGeneration(int matchGeneration)
+{
+    m_matchGeneration = matchGeneration;
+}
+
+int ImageInfo::matchGeneration() const
+{
+    return m_matchGeneration;
 }
 
 /** Change delaying of saving changes.

@@ -19,12 +19,15 @@
 #ifndef MD5MAP_H
 #define MD5MAP_H
 #include <qstring.h>
-#include <qmap.h>
+#include <qhash.h>
 #include "MD5.h"
 #include <DB/FileName.h>
 
 namespace DB
 {
+    typedef QHash<MD5, DB::FileName> MD5FileMap;
+    typedef QHash<DB::FileName, MD5> FileMD5Map;
+
 /**
    This class may be overridden by a which wants to store md5 information
    directly in a database, rather than in a map in memory.
@@ -42,8 +45,8 @@ public:
     virtual DB::FileNameSet diff( const MD5Map& other ) const;
 
 private:
-    QMap<MD5, DB::FileName> m_map;
-    QMap<DB::FileName, MD5> m_i_map;
+    MD5FileMap m_map;
+    FileMD5Map m_i_map;
 };
 
 }

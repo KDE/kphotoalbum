@@ -56,7 +56,7 @@ DB::FileNameSet DB::MD5Map::diff( const MD5Map& other ) const
 {
     DB::FileNameSet res;
 
-    for( QMap<MD5, DB::FileName>::ConstIterator it = m_map.begin(); it != m_map.end(); ++it ) {
+    for( MD5FileMap::ConstIterator it = m_map.begin(); it != m_map.end(); ++it ) {
         if ( other.lookup( it.key() ) != it.value() )
             res.insert( it.value() );
     }

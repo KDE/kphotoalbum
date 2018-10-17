@@ -50,11 +50,18 @@ public:
 
     bool operator<(const MD5& other) const;
 
+    inline uint hash() const { return (uint) m_v0 ^ m_v1; }
+
 private:
     bool m_isNull;
     qulonglong m_v0;
     qulonglong m_v1;
 };
+
+inline uint qHash(const MD5 &key)
+{
+    return key.hash();
+}
 
 DB::MD5 MD5Sum( const DB::FileName& fileName );
 

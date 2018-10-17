@@ -133,14 +133,7 @@ bool ImageInfo::hasCategoryInfo( const QString& key, const QString& value ) cons
 
 bool DB::ImageInfo::hasCategoryInfo( const QString& key, const StringSet& values ) const
 {
-    // OpenSuse leap 42.1 still ships with Qt 5.5
-    // TODO: remove this version check once we don't care about Qt 5.6 anymore...
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
     return values.intersects( m_categoryInfomation[key] );
-#else
-    StringSet tmp = values;
-    return ! tmp.intersect( m_categoryInfomation[key] ).isEmpty();
-#endif
 }
 
 

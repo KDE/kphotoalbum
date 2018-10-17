@@ -1254,15 +1254,11 @@ void AnnotationDialog::Dialog::loadWindowLayout()
         // create default layout
         // label/date/rating in a visual block with description:
         m_dockWindow->splitDockWidget(m_generalDock, m_descriptionDock, Qt::Vertical);
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-        // This conditional block is added to still be compatible with distributions shipping
-        // older Qt versions. TODO: remove the check for Qt 5.6 as soon as it's reasonable
 
         // more space for description:
         m_dockWindow->resizeDocks({m_generalDock, m_descriptionDock},{60,100}, Qt::Vertical);
         // more space for preview:
         m_dockWindow->resizeDocks({m_generalDock, m_descriptionDock, m_previewDock},{200,200,800}, Qt::Horizontal);
-#endif
 #ifdef HAVE_KGEOMAP
         // group the map with the preview
         m_dockWindow->tabifyDockWidget(m_previewDock, m_mapDock);

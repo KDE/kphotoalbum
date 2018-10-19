@@ -1634,8 +1634,9 @@ void AnnotationDialog::Dialog::updateMapForCurrentImage()
         return;
     }
 
-    if ( m_editList[m_current].coordinates().hasCoordinates() ) {
-        m_annotationMap->setCenter( m_editList[m_current] );
+    // we can use the coordinates of the original images here, because the are never changed by the annotation dialog
+    if (m_origList[m_current]->coordinates().hasCoordinates()) {
+        m_annotationMap->setCenter(m_origList[m_current]);
         m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasCoordinates);
     } else {
         m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasNoCoordinates);
@@ -1663,20 +1664,21 @@ void AnnotationDialog::Dialog::populateMap()
     }
     m_annotationMap->displayStatus(Map::MapView::MapStatus::Loading);
     m_cancelMapLoading = false;
-    m_mapLoadingProgress->setMaximum( m_editList.count() );
+    m_mapLoadingProgress->setMaximum(m_origList.count());
     m_mapLoadingProgress->show();
     m_cancelMapLoadingButton->show();
 
     int processedImages = 0;
     int imagesWithCoordinates = 0;
 
-    foreach ( DB::ImageInfo info, m_editList ) {
+    // we can use the coordinates of the original images here, because the are never changed by the annotation dialog
+    foreach (const DB::ImageInfoPtr info, m_origList) {
         processedImages++;
         m_mapLoadingProgress->setValue(processedImages);
         // keep things responsive by processing events manually:
         QApplication::processEvents();
 
-        if ( info.coordinates().hasCoordinates() ) {
+        if (info->coordinates().hasCoordinates()) {
             m_annotationMap->addImage(info);
             imagesWithCoordinates++;
         }

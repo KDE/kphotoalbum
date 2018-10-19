@@ -21,13 +21,16 @@
 
 // Local includes
 #include "GeoCoordinates.h"
-#include "MarkerLayer.h"
-
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
 
 // Qt includes
+#include <QList>
 #include <QWidget>
+
+// Marble includes
+#include <marble/GeoDataCoordinates.h>
+#include <marble/LayerInterface.h>
 
 // Marble classes
 namespace Marble
@@ -46,7 +49,9 @@ class QPushButton;
 namespace Map
 {
 
-class MapView : public QWidget
+class MapView
+        : public QWidget
+        , public Marble::LayerInterface
 {
     Q_OBJECT
 
@@ -74,8 +79,8 @@ public:
         SearchCoordinates
     };
 
-    explicit MapView(QWidget *parent = 0, UsageType type = InlineMapView);
-    ~MapView() override;
+    explicit MapView(QWidget *parent = nullptr, UsageType type = InlineMapView);
+    ~MapView() override = default;
 
     /**
      * Removes all images from the map.
@@ -85,8 +90,7 @@ public:
     /**
      * Add an image to the map.
      */
-    void addImage(const DB::ImageInfo &image);
-    void addImage(const DB::ImageInfoPtr image);
+    void addImage(DB::ImageInfoPtr image);
 
     /**
      * Sets the map's zoom so that all images on the map are visible.
@@ -108,6 +112,25 @@ public:
     GeoCoordinates::Pair getRegionSelection() const;
     bool regionSelected() const;
 
+    // LayerInterface:
+    /**
+     * @brief renderPosition tells the LayerManager what layers we (currently) want to paint on.
+     * Part of the LayerInterface; called by the LayerManager.
+     * @return
+     */
+    QStringList renderPosition() const override;
+    /**
+     * @brief Render all markers onto the marbleWidget.
+     * Part of the LayerInterface; called by the LayerManager.
+     * @param painter the painter used by the LayerManager
+     * @param viewport
+     * @param renderPos the layer name
+     * @param layer always \c nullptr
+     * @return \c true (return value is discarded by LayerManager::renderLayers())
+     */
+    bool render( Marble::GeoPainter* painter, Marble::ViewportParams* viewport,
+                 const QString& renderPos, Marble::GeoSceneLayer* layer ) override;
+
 Q_SIGNALS:
     void signalRegionSelectionChanged();
     void displayStatusChanged(MapStatus);
@@ -116,7 +139,6 @@ public slots:
     /**
      * Centers the map on the coordinates of the given image.
      */
-    void setCenter(const DB::ImageInfo &image);
     void setCenter(const DB::ImageInfoPtr image);
 
 private slots:
@@ -129,7 +151,11 @@ private: // Variables
     QPushButton *m_setLastCenterButton;
     GeoCoordinates m_lastCenter;
     QWidget *m_floaters;
-    MarkerLayer* m_markerLayer;
+
+    // FIXME(jzarl): dirty hack to get it working
+    // if this should work efficiently with a large number of images,
+    // some spatially aware data structure probably needs to be used (e.g. binning images by location)
+    QList<DB::ImageInfoPtr> m_images;
 };
 
 }

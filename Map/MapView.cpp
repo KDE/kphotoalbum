@@ -22,6 +22,7 @@
 #include "Logging.h"
 
 // Marble includes
+#include <marble/GeoPainter.h>
 #include <marble/MarbleWidget.h>
 #include <marble/RenderPlugin.h>
 
@@ -66,8 +67,7 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     m_mapWidget->setProjection(Marble::Mercator);
     m_mapWidget->setMapThemeId( QString::fromUtf8( "earth/openstreetmap/openstreetmap.dgml" ) );
 
-    m_markerLayer = new MarkerLayer;
-    m_mapWidget->addLayer( m_markerLayer );
+    m_mapWidget->addLayer(this);
 
     layout->addWidget(m_mapWidget);
     m_mapWidget->show();
@@ -136,36 +136,23 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     }
 }
 
-Map::MapView::~MapView()
-{
-}
-
 void Map::MapView::clear()
 {
-    qDebug() << ">>> Implement me! Map::MapView::clear()";
+    m_images.clear();
 }
 
-void Map::MapView::addImage(const DB::ImageInfo &image)
+void Map::MapView::addImage(DB::ImageInfoPtr image)
 {
-    GeoCoordinates coordinates = image.coordinates();
-    m_markerLayer->addMarker( coordinates.lon(), coordinates.lat() );
-}
-
-void Map::MapView::addImage( const DB::ImageInfoPtr image )
-{
-    GeoCoordinates coordinates = image->coordinates();
-    m_markerLayer->addMarker( coordinates.lon(), coordinates.lat() );
+    if ( image->coordinates().hasCoordinates() ) {
+        qCDebug( MapLog ) << "Adding image" << image->label();
+        m_images.append( image );
+    } else
+        qCDebug( MapLog ) << "Image" << image->label() << "has no geo coordinates";
 }
 
 void Map::MapView::zoomToMarkers()
 {
     qDebug() << ">>> Implement me! Map::MapView::zoomToMarkers()";
-}
-
-void Map::MapView::setCenter(const DB::ImageInfo &image)
-{
-    m_lastCenter = image.coordinates();
-    setLastCenter();
 }
 
 void Map::MapView::setCenter(const DB::ImageInfoPtr image)
@@ -272,6 +259,31 @@ bool Map::MapView::regionSelected() const
 {
     qDebug() << ">>> Implement me! Map::MapView::regionSelected()";
     return false;
+}
+
+QStringList Map::MapView::renderPosition() const
+{
+    // we only ever paint on the same layer:
+    return QStringList( { QStringLiteral( "HOVER_ABOVE_SURFACE" ) } );
+}
+
+bool Map::MapView::render( Marble::GeoPainter* painter, Marble::ViewportParams* viewport, const QString& renderPos, Marble::GeoSceneLayer* layer )
+{
+    Q_UNUSED( viewport );
+    Q_UNUSED( renderPos );
+    Q_UNUSED( layer );
+    Q_ASSERT(renderPos == renderPosition().first());
+
+    painter->setRenderHint( QPainter::Antialiasing, true );
+    painter->setPen( QPen( QBrush( QColor::fromRgb( 255, 0, 0 ) ), 3.0, Qt::SolidLine, Qt::RoundCap ) );
+
+    for ( const auto& image : m_images ) {
+        auto pos = Marble::GeoDataCoordinates( image->coordinates().lon(), image->coordinates().lat() );
+        painter->drawAnnotation( pos, image->label() );
+        qCDebug( MapLog ) << "Drawing image annotation at" << pos.toString() << "for image" << image->label();
+    }
+
+    return true;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

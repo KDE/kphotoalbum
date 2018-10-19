@@ -449,7 +449,6 @@ if(Marble_FOUND)
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapView.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/Logging.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/GeoCoordinates.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Map/MarkerLayer.cpp
         )
 endif()
 

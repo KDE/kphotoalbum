@@ -112,7 +112,7 @@ protected:
     void unbusy();
     bool isImageZoomed( const Settings::StandardViewSize type, const QSize& imgSize );
     void updateZoomPoints( const Settings::StandardViewSize type, const QSize& imgSize );
-    void potentialyLoadFullSize();
+    void potentiallyLoadFullSize();
     double sizeRatio( const QSize& baseSize, const QSize& newSize ) const;
 
 private:

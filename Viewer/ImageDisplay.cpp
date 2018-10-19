@@ -66,7 +66,7 @@
      redo step.
    - Finally in paintEvent _croppedAndScaledImg is drawn to the screen.
 
-   The aboce might very likely be simplified. Back in the old days it needed to be that
+   The above might very likely be simplified. Back in the old days it needed to be that
    complex to allow drawing on images.
 
    To propagate the cache, we need to know which direction the
@@ -200,7 +200,7 @@ void Viewer::ImageDisplay::resizeEvent( QResizeEvent* event )
     if ( m_info ) {
         cropAndScale();
         if ( event->size().width() > 1.5*this->m_loadedImage.size().width() || event->size().height() > 1.5*this->m_loadedImage.size().height() )
-            potentialyLoadFullSize(); // Only do if we scale much bigger.
+            potentiallyLoadFullSize(); // Only do if we scale much bigger.
     }
     updatePreload();
 }
@@ -243,7 +243,7 @@ void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
 
     m_zStart = p1;
     m_zEnd = p2;
-    potentialyLoadFullSize();
+    potentiallyLoadFullSize();
     cropAndScale();
 }
 
@@ -550,8 +550,8 @@ void Viewer::ImageDisplay::pixmapLoaded(ImageManager::ImageRequest* request, con
             updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), image.size() );
         else {
             // See documentation for zoomPixelForPixel for details.
-            // We just loaded a likel much larger image, so the zoom points
-            // need to be scaled. Notice _loadedImage is the size of the
+            // We just loaded a likely much larger image, so the zoom points
+            // need to be scaled. Notice m_loadedImage is the size of the
             // old image.
             double ratio = sizeRatio( m_loadedImage.size(), m_info->size() );
 
@@ -694,7 +694,7 @@ void Viewer::ImageDisplay::zoomPixelForPixel()
     m_zEnd /= ratio;
     qCDebug(ViewerLog) << "zoomPixelForPixel(): Zoom region changed to" << m_zStart <<"-"<<m_zEnd;
     cropAndScale();
-    potentialyLoadFullSize();
+    potentiallyLoadFullSize();
 }
 
 void Viewer::ImageDisplay::updateZoomPoints( const Settings::StandardViewSize type, const QSize& imgSize )
@@ -714,7 +714,7 @@ void Viewer::ImageDisplay::updateZoomPoints( const Settings::StandardViewSize ty
     }
 }
 
-void Viewer::ImageDisplay::potentialyLoadFullSize()
+void Viewer::ImageDisplay::potentiallyLoadFullSize()
 {
     if ( m_info->size() != m_loadedImage.size() ) {
         qCDebug(ViewerLog) << "Loading full size image for " << m_info->fileName().relative();

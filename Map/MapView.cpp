@@ -264,7 +264,7 @@ bool Map::MapView::regionSelected() const
 QStringList Map::MapView::renderPosition() const
 {
     // we only ever paint on the same layer:
-    return QStringList( { QStringLiteral( "HOVERS_ON_SURFACE" ) } );
+    return QStringList( { QStringLiteral( "HOVERS_ABOVE_SURFACE" ) } );
 }
 
 bool Map::MapView::render( Marble::GeoPainter* painter, Marble::ViewportParams* viewport, const QString& renderPos, Marble::GeoSceneLayer* layer )

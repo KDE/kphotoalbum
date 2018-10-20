@@ -278,9 +278,8 @@ bool Map::MapView::render( Marble::GeoPainter* painter, Marble::ViewportParams* 
     painter->setPen( QPen( QBrush( QColor::fromRgb( 255, 0, 0 ) ), 3.0, Qt::SolidLine, Qt::RoundCap ) );
 
     for ( const auto& image : m_images ) {
-        auto pos = Marble::GeoDataCoordinates( image->coordinates().lon(), image->coordinates().lat() );
+        auto pos = Marble::GeoDataCoordinates( image->coordinates().lon(), image->coordinates().lat(), image->coordinates().alt(), Marble::GeoDataCoordinates::Degree );
         painter->drawAnnotation( pos, image->label() );
-        qCDebug( MapLog ) << "Drawing image annotation at" << pos.toString() << "for image" << image->label();
     }
 
     return true;

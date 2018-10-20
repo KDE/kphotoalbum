@@ -1,4 +1,4 @@
-/* Copyright (C) 2018 Tobias Leupold <tobias.leupold@gmx.de>
+/* Copyright (C) 2018 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -69,7 +69,7 @@ Map::GeoCoordinates::Pair Map::GeoCoordinates::makePair(const double lat1, const
 
 Map::GeoCoordinates::operator QString() const
 {
-    return QString::fromLatin1( "(%1, %2)" ).arg( m_lon ).arg( m_lat );
+    return QStringLiteral("(%1, %2)").arg(m_lon).arg(m_lat);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

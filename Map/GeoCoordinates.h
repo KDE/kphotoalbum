@@ -1,4 +1,4 @@
-/* Copyright (C) 2018 Tobias Leupold <tobias.leupold@gmx.de>
+/* Copyright (C) 2018 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -44,6 +44,7 @@ public:
                          const double lat2, const double lon2);
 
     operator QString() const;
+
 private: // Variables
     double m_lat;
     double m_lon;

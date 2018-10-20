@@ -1,3 +1,12 @@
+* Change: More detailed debug output.
+
+* Deprecation: Removed compatibility with Qt versions < 5.9.
+
+* Enhancement: Smaller perfornance improvements during startup.
+
+* Bugfix: Fix zooming for raw images.
+	Thanks to Angel Lopez for the bug report and help in finding the root cause!
+
 ====================== KPhotoalbum 5.4 released (13.10.2018) ======================
 
 * Change: Database file now uses version 8 format.

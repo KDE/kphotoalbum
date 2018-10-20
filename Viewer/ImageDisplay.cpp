@@ -553,8 +553,12 @@ void Viewer::ImageDisplay::pixmapLoaded(ImageManager::ImageRequest* request, con
             // We just loaded a likely much larger image, so the zoom points
             // need to be scaled. Notice m_loadedImage is the size of the
             // old image.
-            double ratio = sizeRatio( m_loadedImage.size(), m_info->size() );
+            // when using raw images, the decoded image may be a preview
+            // and have a size different from m_info->size(). Therefore, use fullSize here:
+            double ratio = sizeRatio( m_loadedImage.size(), fullSize );
 
+            qCDebug(ViewerLog) << "Old size:" << m_loadedImage.size() << "; new size:" << m_info->size();
+            qCDebug(ViewerLog) << "Req size:" << imgSize << "fullsize:" << fullSize;
             qCDebug(ViewerLog) << "pixmapLoaded(): Zoom region was" << m_zStart <<"-"<<m_zEnd;
             m_zStart *= ratio;
             m_zEnd *= ratio;

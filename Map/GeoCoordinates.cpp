@@ -67,4 +67,9 @@ Map::GeoCoordinates::Pair Map::GeoCoordinates::makePair(const double lat1, const
     return Pair(coordinates1, coordinates2);
 }
 
+Map::GeoCoordinates::operator QString() const
+{
+    return QString::fromLatin1( "(%1, %2)" ).arg( m_lon ).arg( m_lat );
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

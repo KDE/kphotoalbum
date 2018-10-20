@@ -22,6 +22,7 @@
 
 #include <QPair>
 #include <QMetaType>
+#include <QString>
 
 namespace Map
 {
@@ -42,6 +43,7 @@ public:
     static Pair makePair(const double lat1, const double lon1,
                          const double lat2, const double lon2);
 
+    operator QString() const;
 private: // Variables
     double m_lat;
     double m_lon;

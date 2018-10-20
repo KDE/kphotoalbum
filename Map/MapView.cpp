@@ -141,21 +141,44 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
 void Map::MapView::clear()
 {
     m_images.clear();
+    m_markersBox.clear();
 }
 
 void Map::MapView::addImage(DB::ImageInfoPtr image)
 {
-    if ( image->coordinates().hasCoordinates() ) {
-        qCDebug( MapLog ) << "Adding image" << image->label();
-        m_images.append( image );
-    } else {
+    if ( !image->coordinates().hasCoordinates() ) {
         qCDebug( MapLog ) << "Image" << image->label() << "has no geo coordinates";
+        return;
+    }
+
+    qCDebug(MapLog) << "Adding image" << image->label();
+    m_images.append(image);
+
+    // Update the viewport for zoomToMarkers()
+    if (m_markersBox.isEmpty()) {
+        m_markersBox.setEast(image->coordinates().lon(), Marble::GeoDataCoordinates::Degree);
+        m_markersBox.setWest(image->coordinates().lon(), Marble::GeoDataCoordinates::Degree);
+        m_markersBox.setNorth(image->coordinates().lat(), Marble::GeoDataCoordinates::Degree);
+        m_markersBox.setSouth(image->coordinates().lat(), Marble::GeoDataCoordinates::Degree);
+    } else {
+        if (m_markersBox.east(Marble::GeoDataCoordinates::Degree) < image->coordinates().lon()) {
+            m_markersBox.setEast(image->coordinates().lon(), Marble::GeoDataCoordinates::Degree);
+        }
+        if (m_markersBox.west(Marble::GeoDataCoordinates::Degree) > image->coordinates().lon()) {
+            m_markersBox.setWest(image->coordinates().lon(), Marble::GeoDataCoordinates::Degree);
+        }
+        if (m_markersBox.north(Marble::GeoDataCoordinates::Degree) < image->coordinates().lat()) {
+            m_markersBox.setNorth(image->coordinates().lat(), Marble::GeoDataCoordinates::Degree);
+        }
+        if (m_markersBox.south(Marble::GeoDataCoordinates::Degree) > image->coordinates().lat()) {
+            m_markersBox.setSouth(image->coordinates().lat(), Marble::GeoDataCoordinates::Degree);
+        }
     }
 }
 
 void Map::MapView::zoomToMarkers()
 {
-    qDebug() << ">>> Implement me! Map::MapView::zoomToMarkers()";
+    m_mapWidget->centerOn(m_markersBox);
 }
 
 void Map::MapView::setCenter(const DB::ImageInfoPtr image)

@@ -30,8 +30,9 @@
 #include <QWidget>
 
 // Marble includes
-#include <marble/GeoDataCoordinates.h>
 #include <marble/LayerInterface.h>
+#include <marble/GeoDataCoordinates.h>
+#include <marble/GeoDataLatLonBox.h>
 
 // Marble classes
 namespace Marble
@@ -158,6 +159,8 @@ private: // Variables
     // some spatially aware data structure probably needs to be used
     // (e.g. binning images by location)
     QList<DB::ImageInfoPtr> m_images;
+
+    Marble::GeoDataLatLonBox m_markersBox;
 };
 
 }

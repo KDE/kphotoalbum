@@ -24,7 +24,6 @@
 namespace DB
 {
 class MD5Map;
-class IdList;
 class FileNameList;
 
 class NewImageFinder

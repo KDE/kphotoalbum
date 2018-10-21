@@ -32,7 +32,7 @@ class FileNameList : public QList<DB::FileName>
 {
 public:
     FileNameList() {}
-    explicit FileNameList( const QList<DB::FileName>& );
+    FileNameList( const QList<DB::FileName>& );
     /**
      * @brief Create a FileNameList from a list of absolute filenames.
      * @param files

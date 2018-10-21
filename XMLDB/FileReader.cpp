@@ -268,8 +268,32 @@ void XMLDB::FileReader::loadImages( ReaderPtr reader )
         const DB::FileName dbFileName = DB::FileName::fromRelativePath(fileNameStr);
 
         DB::ImageInfoPtr info = load( dbFileName, reader );
-        m_db->m_images.append(info);
-        m_db->m_md5map.insert( info->MD5Sum(), dbFileName );
+        if ( m_db->md5Map()->containsFile(dbFileName))
+        {
+            if (m_db->md5Map()->contains(info->MD5Sum()))
+            {
+                qCWarning(XMLDBLog) << "Merging duplicate entry for file" << dbFileName.relative();
+                DB::ImageInfoPtr existingInfo = m_db->info(dbFileName);
+                existingInfo->merge(*info);
+            } else {
+                qCCritical(XMLDBLog).nospace() << "Conflicting information for file " << dbFileName.relative()
+                                  << ": duplicate entry with different MD5 sum! Bailing out...";
+                KMessageBox::error( messageParent(),
+                            i18n( "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum.</p>"
+                                  "<p>Manual repair required!</p>",
+                                  reader->lineNumber(),
+                                  reader->columnNumber(),
+                                  dbFileName.relative()
+                                  ),
+                            i18n("Error in database file"));
+                exit(-1);
+            }
+        }
+        else
+        {
+            m_db->m_images.append(info);
+            m_db->m_md5map.insert( info->MD5Sum(), dbFileName );
+        }
     }
 
 }

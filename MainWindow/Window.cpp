@@ -184,7 +184,7 @@ MainWindow::Window::Window( QWidget* parent )
     qCInfo(TimingLog) << "MainWindow: Loading MainWindow: " << timer.restart() << "ms.";
     setupMenuBar();
     qCInfo(TimingLog) << "MainWindow: setupMenuBar: " << timer.restart() << "ms.";
-    createSarchBar();
+    createSearchBar();
     qCInfo(TimingLog) << "MainWindow: createSearchBar: " << timer.restart() << "ms.";
     setupStatusBar();
     qCInfo(TimingLog) << "MainWindow: setupStatusBar: " << timer.restart() << "ms.";
@@ -1437,7 +1437,7 @@ void MainWindow::Window::slotConfigureToolbars()
 void MainWindow::Window::slotNewToolbarConfig()
 {
     createGUI();
-    createSarchBar();
+    createSearchBar();
 }
 
 void MainWindow::Window::slotImport()
@@ -1861,7 +1861,7 @@ void MainWindow::Window::slotThumbnailSizeChanged()
     m_statusBar->showMessage( thumbnailSizeMsg, 4000);
 }
 
-void MainWindow::Window::createSarchBar()
+void MainWindow::Window::createSearchBar()
 {
     // Set up the search tool bar
     SearchBar* bar = new SearchBar( this );

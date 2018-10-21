@@ -879,6 +879,7 @@ void MainWindow::Window::setupMenuBar()
     a->setText( i18n("Recalculate Checksum") );
 
     a = actionCollection()->addAction( QString::fromLatin1("rescan"), DB::ImageDB::instance(), SLOT(slotRescan()) );
+    a->setIcon(QIcon::fromTheme( QString::fromLatin1( "document-import" ) ));
     a->setText( i18n("Rescan for Images and Videos") );
 
     QAction* recreateExif = actionCollection()->addAction( QString::fromLatin1( "recreateExifDB" ), this, SLOT(slotRecreateExifDB()) );

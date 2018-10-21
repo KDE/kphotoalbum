@@ -1330,9 +1330,14 @@ void AnnotationDialog::Dialog::setupActions()
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Space );
 
     foreach (QAction* action, m_actions->actions()) {
-      action->setShortcutContext(Qt::WindowShortcut);
-      addAction(action);
-  }
+        action->setShortcutContext(Qt::WindowShortcut);
+        addAction(action);
+    }
+
+    // the annotation dialog is created when it's first used;
+    // therefore, its actions are registered well after the MainWindow sets up its actionCollection,
+    // and it has to read the shortcuts here, after they are set up:
+    //m_actions->readSettings();
 }
 
 KActionCollection* AnnotationDialog::Dialog::actions()

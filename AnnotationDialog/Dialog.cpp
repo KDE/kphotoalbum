@@ -1281,7 +1281,7 @@ void AnnotationDialog::Dialog::setupActions()
     QAction * action = nullptr;
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-sort-alphatree"), m_optionList.at(0), SLOT(slotSortAlphaTree()) );
     action->setText( i18n("Sort Alphabetically (Tree)") );
-    action->setShortcut(Qt::CTRL+Qt::Key_F4);
+    m_actions->setDefaultShortcut(action, Qt::CTRL+Qt::Key_F4);
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-sort-alphaflat"), m_optionList.at(0), SLOT(slotSortAlphaFlat()) );
     action->setText( i18n("Sort Alphabetically (Flat)") );
@@ -1291,33 +1291,33 @@ void AnnotationDialog::Dialog::setupActions()
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-toggle-sort"),  m_optionList.at(0), SLOT(toggleSortType()) );
     action->setText( i18n("Toggle Sorting") );
-    action->setShortcut( Qt::CTRL+Qt::Key_T );
+    m_actions->setDefaultShortcut(action, Qt::CTRL+Qt::Key_T );
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-toggle-showing-selected-only"),
                                   &ShowSelectionOnlyManager::instance(), SLOT(toggle()) );
     action->setText( i18n("Toggle Showing Selected Items Only") );
-    action->setShortcut( Qt::CTRL+Qt::Key_S );
+    m_actions->setDefaultShortcut(action, Qt::CTRL+Qt::Key_S );
 
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-next-image"),  m_preview, SLOT(slotNext()) );
     action->setText(  i18n("Annotate Next") );
-    action->setShortcut(  Qt::Key_PageDown );
+    m_actions->setDefaultShortcut(action,  Qt::Key_PageDown );
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-prev-image"),  m_preview, SLOT(slotPrev()) );
     action->setText(  i18n("Annotate Previous") );
-    action->setShortcut(  Qt::Key_PageUp );
+    m_actions->setDefaultShortcut(action,  Qt::Key_PageUp );
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-OK-dialog"),  this, SLOT(doneTagging()) );
     action->setText(  i18n("OK dialog") );
-    action->setShortcut(  Qt::CTRL+Qt::Key_Return );
+    m_actions->setDefaultShortcut(action,  Qt::CTRL+Qt::Key_Return );
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-delete-image"),  this, SLOT(slotDeleteImage()) );
     action->setText(  i18n("Delete") );
-    action->setShortcut(  Qt::CTRL+Qt::Key_Delete );
+    m_actions->setDefaultShortcut(action,  Qt::CTRL+Qt::Key_Delete );
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-copy-previous"),  this, SLOT(slotCopyPrevious()) );
     action->setText(  i18n("Copy tags from previous image") );
-    action->setShortcut(  Qt::ALT+Qt::Key_Insert );
+    m_actions->setDefaultShortcut(action,  Qt::ALT+Qt::Key_Insert );
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-rotate-left"),  m_preview, SLOT(rotateLeft()) );
     action->setText(  i18n("Rotate counterclockwise") );
@@ -1327,7 +1327,7 @@ void AnnotationDialog::Dialog::setupActions()
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-toggle-viewer"), this, SLOT(togglePreview()) );
     action->setText( i18n("Toggle fullscreen preview") );
-    action->setShortcut( Qt::CTRL + Qt::Key_Space );
+    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Space );
 
     foreach (QAction* action, m_actions->actions()) {
       action->setShortcutContext(Qt::WindowShortcut);

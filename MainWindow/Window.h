@@ -239,6 +239,7 @@ private:
     QAction* m_deleteSelected;
     QAction* m_limitToMarked;
     QAction* m_selectAll;
+    QAction* m_clearSelection;
     QAction* m_runSlideShow;
     QAction* m_runRandomSlideShow;
     Plugins::Interface* m_pluginInterface;

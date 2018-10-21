@@ -108,6 +108,11 @@ void ThumbnailView::ThumbnailFacade::selectAll()
     m_widget->selectAll();
 }
 
+void ThumbnailView::ThumbnailFacade::clearSelection()
+{
+    m_widget->clearSelection();
+}
+
 void ThumbnailView::ThumbnailFacade::showToolTipsOnImages( bool on )
 {
     m_toolTip->setActive( on );

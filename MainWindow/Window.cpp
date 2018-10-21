@@ -748,6 +748,8 @@ void MainWindow::Window::setupMenuBar()
     m_paste = KStandardAction::paste( this, SLOT(slotPasteInformation()), actionCollection() );
     m_paste->setEnabled(false);
     m_selectAll = KStandardAction::selectAll( m_thumbnailView, SLOT(selectAll()), actionCollection() );
+    m_clearSelection = KStandardAction::deselect( m_thumbnailView, SLOT(clearSelection()), actionCollection() );
+    m_clearSelection->setEnabled(false);
     KStandardAction::find( this, SLOT(slotSearch()), actionCollection() );
 
     m_deleteSelected = actionCollection()->addAction(QString::fromLatin1("deleteSelected"));
@@ -1328,6 +1330,7 @@ void MainWindow::Window::updateContextMenuFromSelectionSize(int selectionSize)
     m_AutoStackImages->setEnabled(selectionSize > 1);
     m_markUntagged->setEnabled(selectionSize >= 1);
     m_statusBar->mp_selected->setSelectionCount( selectionSize );
+    m_clearSelection->setEnabled(selectionSize > 0);
 }
 
 void MainWindow::Window::rotateSelected( int angle )

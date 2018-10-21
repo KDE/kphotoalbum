@@ -54,6 +54,7 @@ public:
 public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );
     void selectAll();
+    void clearSelection();
     void showToolTipsOnImages( bool b );
     void toggleStackExpansion(const DB::FileName& id);
     void collapseAllStacks();

@@ -1,3 +1,5 @@
+* Enhancement: Add "clear selection" menu item.
+
 * Change: More detailed debug output.
 
 * Deprecation: Removed compatibility with Qt versions < 5.9.

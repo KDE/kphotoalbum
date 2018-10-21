@@ -1337,7 +1337,7 @@ void AnnotationDialog::Dialog::setupActions()
     // the annotation dialog is created when it's first used;
     // therefore, its actions are registered well after the MainWindow sets up its actionCollection,
     // and it has to read the shortcuts here, after they are set up:
-    //m_actions->readSettings();
+    m_actions->readSettings();
 }
 
 KActionCollection* AnnotationDialog::Dialog::actions()

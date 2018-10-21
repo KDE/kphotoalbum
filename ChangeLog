@@ -1,3 +1,5 @@
+* Bugfix: Fix loading of user shortcuts for the annotation dialog.
+
 * Enhancement: Add "clear selection" menu item.
 
 * Change: More detailed debug output.

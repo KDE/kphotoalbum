@@ -136,7 +136,6 @@ void Viewer::ViewerWidget::setupContextMenu()
     createRotateMenu();
     createSkipMenu();
     createShowContextMenu();
-    createWallPaperMenu();
     createInvokeExternalMenu();
     createVideoMenu();
     createCategoryImageMenu();
@@ -182,45 +181,6 @@ void Viewer::ViewerWidget::createShowContextMenu()
     VisibleOptionsMenu* menu = new VisibleOptionsMenu( this, m_actions );
     connect(menu, &VisibleOptionsMenu::visibleOptionsChanged, this, &ViewerWidget::updateInfoBox);
     m_popup->addMenu( menu );
-}
-
-void Viewer::ViewerWidget::createWallPaperMenu()
-{
-    // Setting wallpaper has still not yet been ported to KPA4
-#ifndef DOES_STILL_NOT_WORK_IN_KPA4
-    m_wallpaperMenu = new QMenu( m_popup );
-    m_wallpaperMenu->setTitle( i18nc("@title:inmenu","Set as Wallpaper") );
-
-    QAction * action = m_actions->addAction( QString::fromLatin1("viewer-centered"), this, SLOT(slotSetWallpaperC()) );
-    action->setText( i18nc("@action:inmenu","Centered") );
-    m_wallpaperMenu->addAction(action);
-
-    action = m_actions->addAction( QString::fromLatin1("viewer-tiled"), this, SLOT(slotSetWallpaperT()) );
-    action->setText( i18nc("@action:inmenu","Tiled") );
-    m_wallpaperMenu->addAction( action );
-
-    action = m_actions->addAction( QString::fromLatin1("viewer-center-tiled"), this, SLOT(slotSetWallpaperCT()) );
-    action->setText( i18nc("@action:inmenu","Center Tiled") );
-    m_wallpaperMenu->addAction( action );
-
-    action = m_actions->addAction( QString::fromLatin1("viewer-centered-maxspect"), this, SLOT(slotSetWallpaperCM()) );
-    action->setText( i18nc("@action:inmenu","Centered Maxpect") );
-    m_wallpaperMenu->addAction( action );
-
-    action = m_actions->addAction( QString::fromLatin1("viewer-tiled-maxpect"), this, SLOT(slotSetWallpaperTM()) );
-    action->setText( i18nc("@action:inmenu","Tiled Maxpect") );
-    m_wallpaperMenu->addAction( action );
-
-    action = m_actions->addAction( QString::fromLatin1("viewer-scaled"), this, SLOT(slotSetWallpaperS()) );
-    action->setText( i18nc("@action:inmenu","Scaled") );
-    m_wallpaperMenu->addAction( action );
-
-    action = m_actions->addAction( QString::fromLatin1("viewer-centered-auto-fit"), this, SLOT(slotSetWallpaperCAF()) );
-    action->setText( i18nc("@action:inmenu","Centered Auto Fit") );
-    m_wallpaperMenu->addAction( action );
-
-    m_popup->addMenu( m_wallpaperMenu );
-#endif // DOES_STILL_NOT_WORK_IN_KPA4
 }
 
 
@@ -460,7 +420,6 @@ void Viewer::ViewerWidget::load()
     m_infoBox->raise();
 
     m_rotateMenu->setEnabled( !isVideo );
-    m_wallpaperMenu->setEnabled( !isVideo );
     m_categoryImagePopup->setEnabled( !isVideo );
     m_filterMenu->setEnabled( !isVideo );
     m_showExifViewer->setEnabled( !isVideo );
@@ -654,50 +613,6 @@ void Viewer::ViewerWidget::showFirst()
 void Viewer::ViewerWidget::showLast()
 {
     showNextN(m_list.count());
-}
-
-void Viewer::ViewerWidget::slotSetWallpaperC()
-{
-    setAsWallpaper(1);
-}
-
-void Viewer::ViewerWidget::slotSetWallpaperT()
-{
-    setAsWallpaper(2);
-}
-
-void Viewer::ViewerWidget::slotSetWallpaperCT()
-{
-    setAsWallpaper(3);
-}
-
-void Viewer::ViewerWidget::slotSetWallpaperCM()
-{
-    setAsWallpaper(4);
-}
-
-void Viewer::ViewerWidget::slotSetWallpaperTM()
-{
-    setAsWallpaper(5);
-}
-
-void Viewer::ViewerWidget::slotSetWallpaperS()
-{
-    setAsWallpaper(6);
-}
-
-void Viewer::ViewerWidget::slotSetWallpaperCAF()
-{
-    setAsWallpaper(7);
-}
-
-void Viewer::ViewerWidget::setAsWallpaper(int /*mode*/)
-{
-#ifdef DOES_STILL_NOT_WORK_IN_KPA4
-    if(mode>7 || mode<1) return;
-    DCOPRef kdesktop("kdesktop","KBackgroundIface");
-    kdesktop.send("setWallpaper(QString,int)",currentInfo()->fileName(0),mode);
-#endif
 }
 
 bool Viewer::ViewerWidget::close( bool alsoDelete)

@@ -25,14 +25,15 @@
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
 
-// Qt includes
-#include <QList>
-#include <QWidget>
-
 // Marble includes
 #include <marble/LayerInterface.h>
 #include <marble/GeoDataCoordinates.h>
 #include <marble/GeoDataLatLonBox.h>
+
+// Qt includes
+#include <QList>
+#include <QWidget>
+#include <QPixmap>
 
 // Marble classes
 namespace Marble
@@ -152,6 +153,7 @@ private: // Variables
     QLabel *m_statusLabel;
     QPushButton *m_setLastCenterButton;
     GeoCoordinates m_lastCenter;
+    QWidget *m_kpaButtons;
     QWidget *m_floaters;
 
     // FIXME(jzarl): dirty hack to get it working
@@ -161,6 +163,9 @@ private: // Variables
     QList<DB::ImageInfoPtr> m_images;
 
     Marble::GeoDataLatLonBox m_markersBox;
+    bool m_showThumbnails;
+    QPixmap m_pin;
+
 };
 
 }

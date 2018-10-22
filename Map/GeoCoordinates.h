@@ -49,8 +49,9 @@ private: // Variables
     double m_lat;
     double m_lon;
     double m_alt;
-    bool m_hasCoordinates;
-    bool m_hasAlt;
+    bool m_hasCoordinates = false;
+    bool m_hasAlt = false;
+
 };
 
 }

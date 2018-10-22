@@ -22,6 +22,9 @@
 
 #include "Logging.h"
 
+#include "ImageManager/ThumbnailCache.h"
+#include "Utilities/Util.h"
+
 // Marble includes
 #include <marble/GeoPainter.h>
 #include <marble/MarbleWidget.h>
@@ -60,7 +63,7 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
 
     m_statusLabel = new QLabel;
     m_statusLabel->setAlignment(Qt::AlignCenter);
-    m_statusLabel->setSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum );
+    m_statusLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_statusLabel->hide();
     layout->addWidget(m_statusLabel);
 
@@ -79,9 +82,9 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
 
     // KPA's control buttons
 
-    QWidget* kpaButtons = new QWidget;
-    QHBoxLayout* kpaButtonsLayout = new QHBoxLayout( kpaButtons );
-    controlLayout->addWidget( kpaButtons );
+    m_kpaButtons = new QWidget;
+    QHBoxLayout *kpaButtonsLayout = new QHBoxLayout(m_kpaButtons);
+    controlLayout->addWidget(m_kpaButtons);
 
     QPushButton *saveButton = new QPushButton;
     saveButton->setFlat(true);
@@ -96,6 +99,16 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     m_setLastCenterButton->setToolTip(i18n("Go to last map position"));
     kpaButtonsLayout->addWidget(m_setLastCenterButton);
     connect(m_setLastCenterButton, &QPushButton::clicked, this, &MapView::setLastCenter);
+
+    QPushButton *showThumbnails = new QPushButton;
+    showThumbnails->setFlat(true);
+    showThumbnails->setIcon(QPixmap(SmallIcon(QStringLiteral("view-preview"))));
+    showThumbnails->setToolTip(i18n("Show thumbnails"));
+    kpaButtonsLayout->addWidget(showThumbnails);
+    m_showThumbnails = true;
+    showThumbnails->setCheckable(true);
+    showThumbnails->setChecked(true);
+    connect(showThumbnails, &QPushButton::clicked, this, &MapView::setShowThumbnails);
 
     // Marble floater control buttons
 
@@ -136,6 +149,8 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
             button->setChecked(value == QStringLiteral("true") ? true : false);
         }
     }
+
+    m_pin = QPixmap( Utilities::locateDataFile( QStringLiteral( "pics/pin.png" ) ) );
 }
 
 void Map::MapView::clear()
@@ -146,11 +161,6 @@ void Map::MapView::clear()
 
 void Map::MapView::addImage(DB::ImageInfoPtr image)
 {
-    if ( !image->coordinates().hasCoordinates() ) {
-        qCDebug( MapLog ) << "Image" << image->label() << "has no geo coordinates";
-        return;
-    }
-
     qCDebug(MapLog) << "Adding image" << image->label();
     m_images.append(image);
 
@@ -201,8 +211,8 @@ void Map::MapView::saveSettings()
 
 void Map::MapView::setShowThumbnails(bool state)
 {
-    Q_UNUSED( state );
-    qDebug() << ">>> Implement me! Map::MapView::setShowThumbnails(bool state)";
+    m_showThumbnails = state;
+    m_mapWidget->reloadMap();
 }
 
 void Map::MapView::displayStatus(MapStatus status)
@@ -255,7 +265,7 @@ void Map::MapView::displayStatus(MapStatus status)
         //                                  | KGeoMap::MouseModeRegionSelection);
         //m_mapWidget->setMouseMode(KGeoMap::MouseModeRegionSelectionFromIcon);
         m_mapWidget->show();
-        //m_mapWidget->setCenter(KGeoMap::GeoCoordinates());
+        m_mapWidget->centerOn(0.0, 0.0);
         m_setLastCenterButton->hide();
         break;
     case MapStatus::NoImagesHaveNoCoordinates:
@@ -298,14 +308,18 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *,
 {
     Q_ASSERT(renderPos == renderPosition().first());
 
-    painter->setRenderHint( QPainter::Antialiasing, true );
-    painter->setPen( QPen( QBrush( QColor::fromRgb( 255, 0, 0 ) ), 3.0, Qt::SolidLine, Qt::RoundCap ) );
-
     for (const DB::ImageInfoPtr &image: m_images) {
         const Marble::GeoDataCoordinates pos(image->coordinates().lon(), image->coordinates().lat(),
                                              image->coordinates().alt(),
                                              Marble::GeoDataCoordinates::Degree);
-        painter->drawAnnotation( pos, image->label() );
+        if (m_showThumbnails) {
+            // FIXME(l3u) Maybe we should cache the scaled thumbnails?
+            painter->drawPixmap(pos, ImageManager::ThumbnailCache::instance()->lookup(
+                                         image->fileName()).scaled(QSize(40, 40),
+                                                                   Qt::KeepAspectRatio));
+        } else {
+            painter->drawPixmap(pos, m_pin);
+        }
     }
 
     return true;

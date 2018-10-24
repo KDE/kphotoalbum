@@ -147,6 +147,7 @@ public slots:
 private slots:
     void saveSettings();
     void setLastCenter();
+    void updateRegionSelection(const Marble::GeoDataLatLonBox &selection);
 
 private: // Variables
     Marble::MarbleWidget *m_mapWidget;
@@ -165,6 +166,8 @@ private: // Variables
     Marble::GeoDataLatLonBox m_markersBox;
     bool m_showThumbnails;
     QPixmap m_pin;
+    Marble::GeoDataLatLonBox m_regionSelection;
+    bool m_regionSelected = false;
 
 };
 

@@ -71,6 +71,8 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     m_mapWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_mapWidget->setProjection(Marble::Mercator);
     m_mapWidget->setMapThemeId(QStringLiteral("earth/openstreetmap/openstreetmap.dgml"));
+    connect(m_mapWidget, &Marble::MarbleWidget::regionSelected,
+            this, &Map::MapView::updateRegionSelection);
 
     m_mapWidget->addLayer(this);
 
@@ -157,6 +159,7 @@ void Map::MapView::clear()
 {
     m_images.clear();
     m_markersBox.clear();
+    m_regionSelected = false;
 }
 
 void Map::MapView::addImage(DB::ImageInfoPtr image)
@@ -222,15 +225,12 @@ void Map::MapView::displayStatus(MapStatus status)
         m_statusLabel->setText(i18n("<i>Loading coordinates from the images ...</i>"));
         m_statusLabel->show();
         m_mapWidget->hide();
-        //m_mapWidget->clearRegionSelection();
+        m_regionSelected = false;
         m_setLastCenterButton->setEnabled(false);
         break;
     case MapStatus::ImageHasCoordinates:
         m_statusLabel->hide();
-        //m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan);
-        //m_mapWidget->setVisibleMouseModes(0);
-        //m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
-        //m_mapWidget->clearRegionSelection();
+        m_regionSelected = false;
         m_mapWidget->show();
         m_setLastCenterButton->show();
         m_setLastCenterButton->setEnabled(true);
@@ -246,10 +246,7 @@ void Map::MapView::displayStatus(MapStatus status)
         m_statusLabel->setText(i18n("<i>Some of the selected images do not contain geographic "
                                     "coordinates.</i>"));
         m_statusLabel->show();
-        //m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan);
-        //m_mapWidget->setVisibleMouseModes(0);
-        //m_mapWidget->setMouseMode(KGeoMap::MouseModePan);
-        //m_mapWidget->clearRegionSelection();
+        m_regionSelected = false;
         m_mapWidget->show();
         m_setLastCenterButton->show();
         m_setLastCenterButton->setEnabled(true);
@@ -257,13 +254,6 @@ void Map::MapView::displayStatus(MapStatus status)
     case MapStatus::SearchCoordinates:
         m_statusLabel->setText(i18n("<i>Search for geographic coordinates.</i>"));
         m_statusLabel->show();
-        //m_mapWidget->setAvailableMouseModes(KGeoMap::MouseModePan
-        //                                    | KGeoMap::MouseModeRegionSelectionFromIcon
-        //                                    | KGeoMap::MouseModeRegionSelection);
-        //m_mapWidget->setVisibleMouseModes(KGeoMap::MouseModePan
-        //                                  | KGeoMap::MouseModeRegionSelectionFromIcon
-        //                                  | KGeoMap::MouseModeRegionSelection);
-        //m_mapWidget->setMouseMode(KGeoMap::MouseModeRegionSelectionFromIcon);
         m_mapWidget->show();
         m_mapWidget->centerOn(0.0, 0.0);
         m_setLastCenterButton->hide();
@@ -285,16 +275,24 @@ void Map::MapView::setLastCenter()
     m_mapWidget->centerOn(m_lastCenter.lon(), m_lastCenter.lat());
 }
 
+void Map::MapView::updateRegionSelection(const Marble::GeoDataLatLonBox &selection)
+{
+    m_regionSelected = true;
+    m_regionSelection = selection;
+    emit signalRegionSelectionChanged();
+}
+
 Map::GeoCoordinates::Pair Map::MapView::getRegionSelection() const
 {
-    qDebug() << ">>> Implement me! Map::MapView::getRegionSelection()";
-    return GeoCoordinates::makePair( 0, 0, 0, 0 );
+    return GeoCoordinates::makePair(m_regionSelection.west(Marble::GeoDataCoordinates::Degree),
+                                    m_regionSelection.north(Marble::GeoDataCoordinates::Degree),
+                                    m_regionSelection.east(Marble::GeoDataCoordinates::Degree),
+                                    m_regionSelection.south(Marble::GeoDataCoordinates::Degree));
 }
 
 bool Map::MapView::regionSelected() const
 {
-    qDebug() << ">>> Implement me! Map::MapView::regionSelected()";
-    return false;
+    return m_regionSelected;
 }
 
 QStringList Map::MapView::renderPosition() const

@@ -18,6 +18,8 @@
 #ifndef CATEGORY_H
 #define CATEGORY_H
 
+#include "ImageDate.h"
+
 #include <QDate>
 #include <QExplicitlySharedDataPointer>
 #include <QObject>
@@ -30,6 +32,11 @@ class QPixmap;
 namespace DB
 {
 class CategoryItem;
+
+struct CategoryClassification {
+    uint count = 0;
+    ImageDate range {};
+};
 
 
 /**

@@ -135,9 +135,9 @@ void RemoteInterface::sendCategoryNames(const SearchRequest& search)
     for (const DB::CategoryPtr& category : DB::ImageDB::instance()->categoryCollection()->categories()) {
         if (category->type() == DB::Category::MediaTypeCategory)
             continue;
-        QMap<QString, uint> images = DB::ImageDB::instance()->classify( dbSearchInfo, category->name(), DB::Image );
+        QMap<QString, DB::CategoryClassification> images = DB::ImageDB::instance()->classify( dbSearchInfo, category->name(), DB::Image );
 
-        QMap<QString, uint> videos = DB::ImageDB::instance()->classify( dbSearchInfo, category->name(), DB::Video );
+        QMap<QString, DB::CategoryClassification> videos = DB::ImageDB::instance()->classify( dbSearchInfo, category->name(), DB::Video );
         const bool enabled = (images.count() /*+ videos.count()*/ > 1);
         CategoryViewType type =
                 (category->viewType() == DB::Category::IconView || category->viewType() == DB::Category::ThumbedIconView)

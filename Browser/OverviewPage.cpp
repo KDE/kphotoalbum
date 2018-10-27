@@ -317,7 +317,7 @@ void Browser::OverviewPage::updateImageCount()
     timer.start();
     int row = 0;
     for (const DB::CategoryPtr& category : categories() ) {
-        QMap<QString, uint> items = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::anyMediaType );
+        QMap<QString, DB::CategoryClassification> items = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::anyMediaType );
         m_count[row] = items.count();
         ++row;
     }

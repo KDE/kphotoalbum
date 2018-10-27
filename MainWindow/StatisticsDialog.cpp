@@ -209,12 +209,12 @@ void MainWindow::StatisticsDialog::populateSubTree( const DB::ImageSearchInfo& i
             continue;
         }
 
-        const QMap<QString,uint> tags = DB::ImageDB::instance()->classify( info, category->name(), DB::anyMediaType );
+        const QMap<QString, DB::CategoryClassification> tags = DB::ImageDB::instance()->classify( info, category->name(), DB::anyMediaType );
         int total = 0;
-        for( QMap<QString,uint>::ConstIterator tagIt = tags.constBegin(); tagIt != tags.constEnd(); ++tagIt ) {
+        for( auto tagIt = tags.constBegin(); tagIt != tags.constEnd(); ++tagIt ) {
             // Don't count the NONE tag, and the OK tag
             if ( tagIt.key() != DB::ImageDB::NONE() && ( category->name() != m_category->currentText() || tagIt.key() != m_tag->currentText() ) )
-                total += tagIt.value();
+                total += tagIt.value().count;
         }
 
 

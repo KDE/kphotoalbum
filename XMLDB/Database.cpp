@@ -70,9 +70,9 @@ uint XMLDB::Database::totalCount() const
  * imageInfo is of the right type, and as a match can't be both, this really
  * would buy me nothing.
  */
-QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask )
+QMap<QString, DB::CategoryClassification> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask )
 {
-    QMap<QString, uint> map;
+    QMap<QString, DB::CategoryClassification> map;
     DB::GroupCounter counter( category );
     Utilities::StringSet alreadyMatched = info.findAlreadyMatched( category );
 
@@ -95,18 +95,22 @@ QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, c
             counter.count( items );
             for( StringSet::const_iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
                 if ( !alreadyMatched.contains(*it2) ) // We do not want to match "Jesper & Jesper"
-                    map[*it2]++;
+                {
+                    map[*it2].count++;
+                    map[*it2].range.extendTo((*it)->date());
+                }
             }
 
             // Find those with no other matches
             if ( noMatchInfo.match( *it ) )
-                map[DB::ImageDB::NONE()]++;
+                map[DB::ImageDB::NONE()].count++;
         }
     }
 
     QMap<QString,uint> groups = counter.result();
     for( QMap<QString,uint>::iterator it= groups.begin(); it != groups.end(); ++it ) {
-        map[it.key()] = it.value();
+        map[it.key()].count = it.value();
+        map[it.key()].range = DB::ImageDate();
     }
 
     return map;

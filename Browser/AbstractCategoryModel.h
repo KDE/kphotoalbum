@@ -20,6 +20,7 @@
 #define ABSTRACTCATEGORYMODEL_H
 #include <QAbstractItemModel>
 #include <DB/ImageSearchInfo.h>
+#include <DB/Category.h>
 #include <DB/CategoryPtr.h>
 
 namespace Browser
@@ -49,8 +50,8 @@ protected:
 
     DB::CategoryPtr m_category;
     DB::ImageSearchInfo m_info;
-    QMap<QString, uint> m_images;
-    QMap<QString, uint> m_videos;
+    QMap<QString, DB::CategoryClassification> m_images;
+    QMap<QString, DB::CategoryClassification> m_videos;
 
 };
 

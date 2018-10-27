@@ -21,6 +21,7 @@
 
 #include <QObject>
 
+#include <DB/Category.h>
 #include <DB/FileNameList.h>
 #include <DB/ImageInfoList.h>
 #include <DB/ImageInfoPtr.h>
@@ -84,7 +85,7 @@ public: // Methods that must be overridden
 
     virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
 
-    virtual QMap<QString,uint> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask ) = 0;
+    virtual QMap<QString, CategoryClassification> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask ) = 0;
     virtual FileNameList images() = 0;
     /**
      * @brief addImages to the database.

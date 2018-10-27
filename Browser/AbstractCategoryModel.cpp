@@ -34,8 +34,8 @@ Browser::AbstractCategoryModel::AbstractCategoryModel( const DB::CategoryPtr& ca
 
 bool Browser::AbstractCategoryModel::hasNoneEntry() const
 {
-    int imageCount = m_images[DB::ImageDB::NONE()];
-    int videoCount = m_videos[DB::ImageDB::NONE()];
+    int imageCount = m_images[DB::ImageDB::NONE()].count;
+    int videoCount = m_videos[DB::ImageDB::NONE()].count;
     return (imageCount + videoCount != 0);
 }
 
@@ -93,8 +93,13 @@ QVariant Browser::AbstractCategoryModel::data( const QModelIndex & index, int ro
     if ( role == Qt::DisplayRole ) {
         switch( column ) {
         case 0: return text(name);
-        case 1: return i18ncp("@item:intable number of images with a specific tag.","1 image", "%1 images", m_images[name]);
-        case 2: return i18ncp("@item:intable number of videos with a specific tag.","1 video", "%1 videos", m_videos[name]);
+        case 1: return i18ncp("@item:intable number of images with a specific tag.","1 image", "%1 images", m_images[name].count);
+        case 2: return i18ncp("@item:intable number of videos with a specific tag.","1 video", "%1 videos", m_videos[name].count);
+        case 3: {
+            DB::ImageDate range = m_images[name].range;
+            range.extendTo(m_videos[name].range);
+            return range.toString(false);
+        }
         }
     }
 
@@ -111,8 +116,13 @@ QVariant Browser::AbstractCategoryModel::data( const QModelIndex & index, int ro
     else if ( role == ValueRole ) {
         switch ( column ) {
         case 0: return name; // Notice we sort by **None** rather than None, which makes it show up at the top for less than searches.
-        case 1: return m_images[name];
-        case 2: return m_videos[name];
+        case 1: return m_images[name].count;
+        case 2: return m_videos[name].count;
+        case 3: {
+            DB::ImageDate range = m_images[name].range;
+            range.extendTo(m_videos[name].range);
+            return range.start().toSecsSinceEpoch();
+        }
         }
     }
 
@@ -133,6 +143,7 @@ QVariant Browser::AbstractCategoryModel::headerData( int section, Qt::Orientatio
     case 0: return m_category->name();
     case 1: return i18n("Images");
     case 2: return i18n("Videos");
+    case 3: return i18n("Date range");
     }
 
     return QVariant();

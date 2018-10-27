@@ -114,10 +114,10 @@ QStringList TokenEditor::tokensInUse()
 {
     QStringList res;
     DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
-    QMap<QString,uint> map =
+    QMap<QString, DB::CategoryClassification> map =
         DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), tokensCategory->name(), DB::anyMediaType );
-    for( QMap<QString,uint>::Iterator it = map.begin(); it != map.end(); ++it ) {
-        if ( it.value() > 0 )
+    for( auto it = map.constBegin(); it != map.constEnd(); ++it ) {
+        if ( it.value().count > 0 )
             res.append( it.key() );
     }
     return res;

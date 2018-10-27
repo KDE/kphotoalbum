@@ -116,7 +116,7 @@ QString ImageDate::toString( bool withTime ) const
         }
     }
 
-    if ( isFirstSecOfDay( m_start ) && isLastSecOfDay( m_end ) ) {
+    if ( !withTime || (isFirstSecOfDay( m_start ) && isLastSecOfDay( m_end )) ) {
         if (m_start.date() == m_end.date() ) {
             // A whole day
             return m_start.toString( QString::fromLatin1( "d. MMM yyyy" ) );

@@ -54,6 +54,8 @@ public:
     MatchType isIncludedIn( const ImageDate& searchRange ) const;
     bool includes( const QDateTime& date ) const;
 
+    void extendTo( const ImageDate& other);
+
 protected:
     static QStringList monthNames();
     static QString formatRegexp();

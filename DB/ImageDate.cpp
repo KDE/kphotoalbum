@@ -337,6 +337,25 @@ bool ImageDate::includes( const QDateTime& date ) const
     return ImageDate( date ).isIncludedIn( *this ) == ExactMatch;
 }
 
+void ImageDate::extendTo(const ImageDate &other)
+{
+    if (other.isNull())
+        return;
+
+    if (isNull())
+    {
+        m_start = other.m_start;
+        m_end = other.m_end;
+    }
+    else
+    {
+        if (other.m_start < m_start)
+            m_start = other.m_start;
+        if (other.m_end > m_end)
+            m_end = other.m_end;
+    }
+}
+
 QStringList DB::ImageDate::monthNames()
 {
     static QStringList res;

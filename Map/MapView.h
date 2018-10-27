@@ -148,6 +148,7 @@ private slots:
     void saveSettings();
     void setLastCenter();
     void updateRegionSelection(const Marble::GeoDataLatLonBox &selection);
+    void updateRegionSelectionOld(const QList<double> &selection);
 
 private: // Variables
     Marble::MarbleWidget *m_mapWidget;

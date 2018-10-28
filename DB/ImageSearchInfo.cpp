@@ -102,11 +102,22 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     if (  m_isCacheable && info->matchGeneration() == m_matchGeneration )
         return info->isMatched();
 
+    bool ok = doMatch( info );
+
+    if ( m_isCacheable ) {
+        info->setMatchGeneration(m_matchGeneration);
+        info->setIsMatched(ok);
+    }
+    return ok;
+}
+
+bool ImageSearchInfo::doMatch( ImageInfoPtr info ) const
+{
     if ( !m_compiled )
         compile();
 
-    bool ok = true;
-    ok = m_exifSearchInfo.matches( info->fileName() );
+    if ( ! m_exifSearchInfo.matches( info->fileName() ) )
+        return false;
 
     QDateTime actualStart = info->date().start();
     QDateTime actualEnd = info->date().end();
@@ -119,19 +130,15 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     if ( !m_date.start().isNull() ) {
         // Date
         // the search date matches the actual date if:
-        // actual.start <= search.start <= actuel.end or
-        // actual.start <= search.end <=actuel.end or
+        // actual.start <= search.start <= actual.end or
+        // actual.start <= search.end <= actual.end or
         // search.start <= actual.start and actual.end <= search.end
 
-        bool b1 =( actualStart <= m_date.start() && m_date.start() <= actualEnd );
-        bool b2 =( actualStart <= m_date.end() && m_date.end() <= actualEnd );
-        bool b3 = ( m_date.start() <= actualStart && ( actualEnd <= m_date.end() || m_date.end().isNull() ) );
-
-        ok = ok && ( ( b1 || b2 || b3 ) );
-    } else if ( !m_date.end().isNull() ) {
-        bool b1 = ( actualStart <= m_date.end() && m_date.end() <= actualEnd );
-        bool b2 = ( actualEnd <= m_date.end() );
-        ok = ok && ( ( b1 || b2 ) );
+        if ( actualEnd < m_date.start() ||
+             ( !m_date.end().isNull() && actualStart > m_date.end() ) )
+            return false;
+    } else if ( !m_date.end().isNull() && actualStart > m_date.end() ) {
+        return false;
     }
 
     // -------------------------------------------------- Options
@@ -139,82 +146,88 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     // Jesper & None
     QMap<QString, StringSet> alreadyMatched;
     for (CategoryMatcher* optionMatcher : m_categoryMatchers) {
-        ok = ok && optionMatcher->eval(info, alreadyMatched);
+        if ( ! optionMatcher->eval(info, alreadyMatched) )
+            return false;
     }
 
-
     // -------------------------------------------------- Label
-    ok = ok && ( m_label.isEmpty() || info->label().indexOf(m_label) != -1 );
+    if ( m_label.isEmpty() && info->label().indexOf(m_label) == -1 )
+        return false;
 
     // -------------------------------------------------- RAW
-    ok = ok && ( m_searchRAW == false || ImageManager::RAWImageDecoder::isRAW( info->fileName()) );
+    if ( m_searchRAW && !ImageManager::RAWImageDecoder::isRAW( info->fileName()) )
+        return false;
 
     // -------------------------------------------------- Rating
 
     //ok = ok && (_rating == -1 ) || ( _rating == info->rating() );
     if (m_rating != -1) {
-    switch( m_ratingSearchMode ) {
+        switch( m_ratingSearchMode ) {
         case 1:
-        // Image rating at least selected
-        ok = ok && ( m_rating <= info->rating() );
-        break;
+            // Image rating at least selected
+            if ( m_rating > info->rating() )
+                return false;
+            break;
         case 2:
-        // Image rating less than selected
-        ok = ok && ( m_rating >= info->rating() );
-        break;
+            // Image rating less than selected
+            if ( m_rating < info->rating() )
+                return false;
+            break;
         case 3:
-        // Image rating not equal
-        ok = ok && ( m_rating != info->rating() );
-        break;
+            // Image rating not equal
+            if ( m_rating == info->rating() )
+                return false;
+            break;
         default:
-            ok = ok && ((m_rating == -1 ) || ( m_rating == info->rating() ));
-        break;
-    }
+            if ( m_rating != info->rating() )
+                return false;
+            break;
+        }
     }
 
 
     // -------------------------------------------------- Resolution
-    if ( m_megapixel )
-        ok = ok && ( m_megapixel * 1000000 <= info->size().width() * info->size().height() );
+    if ( m_megapixel && 
+         ( m_megapixel * 1000000 > info->size().width() * info->size().height() ) )
+        return false;
 
-    if ( m_max_megapixel && m_max_megapixel > m_megapixel )
-        ok = ok && ( m_max_megapixel * 1000000 > info->size().width() * info->size().height() );
+    if ( m_max_megapixel && m_max_megapixel < m_megapixel &&
+         ( m_max_megapixel * 1000000 < info->size().width() * info->size().height() ) )
+        return false;
 
     // -------------------------------------------------- Text
-    QString txt = info->description();
     if ( !m_description.isEmpty() ) {
+        const QString &txt(info->description());
         QStringList list = m_description.split(QChar::fromLatin1(' '), QString::SkipEmptyParts);
         Q_FOREACH( const QString &word, list ) {
-            ok = ok && ( txt.indexOf( word, 0, Qt::CaseInsensitive ) != -1 );
+            if ( txt.indexOf( word, 0, Qt::CaseInsensitive ) == -1 )
+                return false;
         }
     }
 
     // -------------------------------------------------- File name pattern
-    ok = ok && ( m_fnPattern.isEmpty() ||
-        m_fnPattern.indexIn( info->fileName().relative() ) != -1 );
+    if ( !m_fnPattern.isEmpty() &&
+         m_fnPattern.indexIn( info->fileName().relative() ) == -1 )
+        return false;
 
 
 #ifdef HAVE_KGEOMAP
     // Search for GPS Position
-    if (ok && m_usingRegionSelection) {
-        ok = ok && info->coordinates().hasCoordinates();
-        if (ok) {
-            float infoLat = info->coordinates().lat();
-            float infoLon = info->coordinates().lon();
-            ok = ok
-                 && m_regionSelectionMinLat <= infoLat
-                 && infoLat                 <= m_regionSelectionMaxLat
-                 && m_regionSelectionMinLon <= infoLon
-                 && infoLon                 <= m_regionSelectionMaxLon;
-        }
+    if (m_usingRegionSelection) {
+        if ( !info->coordinates().hasCoordinates() )
+            return false;
+        float infoLat = info->coordinates().lat();
+        if ( m_regionSelectionMinLat > infoLat || 
+             m_regionSelectionMaxLat < infoLat )
+            return false;
+        float infoLon = info->coordinates().lon();
+        if ( m_regionSelectionMinLon > infoLon ||
+             m_regionSelectionMaxLon < infoLon )
+            return false;
     }
 #endif
 
-    if ( m_isCacheable ) {
-        info->setMatchGeneration(m_matchGeneration);
-        info->setIsMatched(ok);
-    }
-    return ok;
+    return true;
 }
 
 

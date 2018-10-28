@@ -119,6 +119,7 @@ private:
     Exif::SearchInfo m_exifSearchInfo;
 
     int m_matchGeneration;
+    bool doMatch( ImageInfoPtr ) const;
 
 #ifdef HAVE_KGEOMAP
     KGeoMap::GeoCoordinates::Pair m_regionSelection;

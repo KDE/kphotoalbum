@@ -1254,15 +1254,11 @@ void AnnotationDialog::Dialog::loadWindowLayout()
         // create default layout
         // label/date/rating in a visual block with description:
         m_dockWindow->splitDockWidget(m_generalDock, m_descriptionDock, Qt::Vertical);
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
-        // This conditional block is added to still be compatible with distributions shipping
-        // older Qt versions. TODO: remove the check for Qt 5.6 as soon as it's reasonable
 
         // more space for description:
         m_dockWindow->resizeDocks({m_generalDock, m_descriptionDock},{60,100}, Qt::Vertical);
         // more space for preview:
         m_dockWindow->resizeDocks({m_generalDock, m_descriptionDock, m_previewDock},{200,200,800}, Qt::Horizontal);
-#endif
 #ifdef HAVE_KGEOMAP
         // group the map with the preview
         m_dockWindow->tabifyDockWidget(m_previewDock, m_mapDock);
@@ -1285,7 +1281,7 @@ void AnnotationDialog::Dialog::setupActions()
     QAction * action = nullptr;
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-sort-alphatree"), m_optionList.at(0), SLOT(slotSortAlphaTree()) );
     action->setText( i18n("Sort Alphabetically (Tree)") );
-    action->setShortcut(Qt::CTRL+Qt::Key_F4);
+    m_actions->setDefaultShortcut(action, Qt::CTRL+Qt::Key_F4);
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-sort-alphaflat"), m_optionList.at(0), SLOT(slotSortAlphaFlat()) );
     action->setText( i18n("Sort Alphabetically (Flat)") );
@@ -1295,33 +1291,33 @@ void AnnotationDialog::Dialog::setupActions()
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-toggle-sort"),  m_optionList.at(0), SLOT(toggleSortType()) );
     action->setText( i18n("Toggle Sorting") );
-    action->setShortcut( Qt::CTRL+Qt::Key_T );
+    m_actions->setDefaultShortcut(action, Qt::CTRL+Qt::Key_T );
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-toggle-showing-selected-only"),
                                   &ShowSelectionOnlyManager::instance(), SLOT(toggle()) );
     action->setText( i18n("Toggle Showing Selected Items Only") );
-    action->setShortcut( Qt::CTRL+Qt::Key_S );
+    m_actions->setDefaultShortcut(action, Qt::CTRL+Qt::Key_S );
 
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-next-image"),  m_preview, SLOT(slotNext()) );
     action->setText(  i18n("Annotate Next") );
-    action->setShortcut(  Qt::Key_PageDown );
+    m_actions->setDefaultShortcut(action,  Qt::Key_PageDown );
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-prev-image"),  m_preview, SLOT(slotPrev()) );
     action->setText(  i18n("Annotate Previous") );
-    action->setShortcut(  Qt::Key_PageUp );
+    m_actions->setDefaultShortcut(action,  Qt::Key_PageUp );
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-OK-dialog"),  this, SLOT(doneTagging()) );
     action->setText(  i18n("OK dialog") );
-    action->setShortcut(  Qt::CTRL+Qt::Key_Return );
+    m_actions->setDefaultShortcut(action,  Qt::CTRL+Qt::Key_Return );
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-delete-image"),  this, SLOT(slotDeleteImage()) );
     action->setText(  i18n("Delete") );
-    action->setShortcut(  Qt::CTRL+Qt::Key_Delete );
+    m_actions->setDefaultShortcut(action,  Qt::CTRL+Qt::Key_Delete );
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-copy-previous"),  this, SLOT(slotCopyPrevious()) );
     action->setText(  i18n("Copy tags from previous image") );
-    action->setShortcut(  Qt::ALT+Qt::Key_Insert );
+    m_actions->setDefaultShortcut(action,  Qt::ALT+Qt::Key_Insert );
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-rotate-left"),  m_preview, SLOT(rotateLeft()) );
     action->setText(  i18n("Rotate counterclockwise") );
@@ -1331,12 +1327,17 @@ void AnnotationDialog::Dialog::setupActions()
 
     action = m_actions->addAction( QString::fromLatin1("annotationdialog-toggle-viewer"), this, SLOT(togglePreview()) );
     action->setText( i18n("Toggle fullscreen preview") );
-    action->setShortcut( Qt::CTRL + Qt::Key_Space );
+    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Space );
 
     foreach (QAction* action, m_actions->actions()) {
-      action->setShortcutContext(Qt::WindowShortcut);
-      addAction(action);
-  }
+        action->setShortcutContext(Qt::WindowShortcut);
+        addAction(action);
+    }
+
+    // the annotation dialog is created when it's first used;
+    // therefore, its actions are registered well after the MainWindow sets up its actionCollection,
+    // and it has to read the shortcuts here, after they are set up:
+    m_actions->readSettings();
 }
 
 KActionCollection* AnnotationDialog::Dialog::actions()

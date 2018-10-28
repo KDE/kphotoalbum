@@ -107,12 +107,11 @@ protected:
     void zoom( QPoint p1, QPoint p2 );
     void normalize( QPoint& p1, QPoint& p2 );
     void pan( const QPoint& );
-    void retryZoom();
     void busy();
     void unbusy();
     bool isImageZoomed( const Settings::StandardViewSize type, const QSize& imgSize );
     void updateZoomPoints( const Settings::StandardViewSize type, const QSize& imgSize );
-    void potentialyLoadFullSize();
+    void potentiallyLoadFullSize();
     double sizeRatio( const QSize& baseSize, const QSize& newSize ) const;
 
 private:

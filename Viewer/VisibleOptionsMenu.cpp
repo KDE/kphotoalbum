@@ -35,20 +35,18 @@ Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget* parent, KActionCollectio
 
     m_showInfoBox = actions->add<KToggleAction>( QString::fromLatin1("viewer-show-infobox") );
     m_showInfoBox->setText( i18n("Show Info Box") );
-    m_showInfoBox->setShortcut( Qt::CTRL+Qt::Key_I );
+    actions->setDefaultShortcut(m_showInfoBox, Qt::CTRL+Qt::Key_I );
     m_showInfoBox->setChecked(Settings::SettingsData::instance()->showInfoBox());
     connect(m_showInfoBox, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowInfoBox);
     addAction( m_showInfoBox );
 
     m_showLabel = actions->add<KToggleAction>( QString::fromLatin1("viewer-show-label") );
     m_showLabel->setText( i18n("Show Label") );
-    m_showLabel->setShortcut( 0 );
     connect(m_showLabel, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowLabel);
     addAction( m_showLabel );
 
     m_showDescription = actions->add<KToggleAction>( QString::fromLatin1("viewer-show-description") );
     m_showDescription->setText( i18n("Show Description") );
-    m_showDescription->setShortcut( 0 );
     connect(m_showDescription, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowDescription);
     addAction( m_showDescription );
 

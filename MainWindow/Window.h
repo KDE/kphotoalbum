@@ -192,7 +192,7 @@ protected:
     void launchViewer(const DB::FileNameList& mediaList, bool reuse, bool slideShow, bool random);
     void setupStatusBar();
     void setPluginMenuState( const char* name, const QList<QAction*>& actions );
-    void createSarchBar();
+    void createSearchBar();
     void executeStartupActions();
     void checkIfMplayerIsInstalled();
     bool anyVideosSelected() const;
@@ -239,6 +239,7 @@ private:
     QAction* m_deleteSelected;
     QAction* m_limitToMarked;
     QAction* m_selectAll;
+    QAction* m_clearSelection;
     QAction* m_runSlideShow;
     QAction* m_runRandomSlideShow;
     Plugins::Interface* m_pluginInterface;

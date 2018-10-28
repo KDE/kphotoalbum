@@ -112,13 +112,7 @@ QHostAddress MainWindow::Options::listen() const
         else
             address = QHostAddress(value);
     }
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
     if (address.isMulticast() || address == QHostAddress::Broadcast)
-#else
-    // OpenSuse leap 42.1 still ships with Qt 5.5
-    // TODO: remove this once we don't care about Qt 5.5 anymore...
-    if (address == QHostAddress::Broadcast)
-#endif
     {
         qCWarning(MainWindowLog) << "Won't bind to address"<<address;
         address = QHostAddress::Null;
@@ -136,11 +130,7 @@ MainWindow::Options::Options()
 {
     d->parser.addVersionOption();
     d->parser.addHelpOption();
-    // OpenSuse leap 42.1 still ships with Qt 5.5
-    // TODO: remove this version check once we don't care about Qt 5.5-5.7 anymore...
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 8, 0))
     d->configFile.setFlags(QCommandLineOption::HiddenFromHelp);
-#endif
     d->parser.addOptions(
                 QList<QCommandLineOption>()
                 << d->configFile

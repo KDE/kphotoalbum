@@ -66,7 +66,7 @@
      redo step.
    - Finally in paintEvent _croppedAndScaledImg is drawn to the screen.
 
-   The aboce might very likely be simplified. Back in the old days it needed to be that
+   The above might very likely be simplified. Back in the old days it needed to be that
    complex to allow drawing on images.
 
    To propagate the cache, we need to know which direction the
@@ -163,6 +163,7 @@ void Viewer::ImageDisplay::mouseReleaseEvent( QMouseEvent* event )
 
 bool Viewer::ImageDisplay::setImage( DB::ImageInfoPtr info, bool forward )
 {
+    qCDebug(ViewerLog) << "setImage(" << info->fileName().relative() << "," << forward <<")";
     m_info = info;
     m_loadedImage = QImage();
 
@@ -199,7 +200,7 @@ void Viewer::ImageDisplay::resizeEvent( QResizeEvent* event )
     if ( m_info ) {
         cropAndScale();
         if ( event->size().width() > 1.5*this->m_loadedImage.size().width() || event->size().height() > 1.5*this->m_loadedImage.size().height() )
-            potentialyLoadFullSize(); // Only do if we scale much bigger.
+            potentiallyLoadFullSize(); // Only do if we scale much bigger.
     }
     updatePreload();
 }
@@ -227,6 +228,7 @@ QPoint Viewer::ImageDisplay::offset( int logicalWidth, int logicalHeight, int ph
 
 void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
 {
+    qCDebug(ViewerLog, "zoom(%d,%d, %d,%d)",p1.x(),p1.y(),p2.x(),p2.y());
     m_cache.remove( m_curIndex );
     normalize( p1, p2 );
 
@@ -241,7 +243,7 @@ void Viewer::ImageDisplay::zoom( QPoint p1, QPoint p2 )
 
     m_zStart = p1;
     m_zEnd = p2;
-    potentialyLoadFullSize();
+    potentiallyLoadFullSize();
     cropAndScale();
 }
 
@@ -266,6 +268,7 @@ void Viewer::ImageDisplay::xformPainter( QPainter* p )
 
 void Viewer::ImageDisplay::zoomIn()
 {
+    qCDebug(ViewerLog, "zoomIn()");
     QPoint size = (m_zEnd-m_zStart);
     QPoint p1 = m_zStart + size*(0.2/2);
     QPoint p2 = m_zEnd - size*(0.2/2);
@@ -274,6 +277,7 @@ void Viewer::ImageDisplay::zoomIn()
 
 void Viewer::ImageDisplay::zoomOut()
 {
+    qCDebug(ViewerLog, "zoomOut()");
     QPoint size = (m_zEnd-m_zStart);
 
     //Bug 150971, Qt tries to render bigger and bigger images (10000x10000), hence running out of memory.
@@ -287,6 +291,7 @@ void Viewer::ImageDisplay::zoomOut()
 
 void Viewer::ImageDisplay::zoomFull()
 {
+    qCDebug(ViewerLog, "zoomFull()");
     m_zStart = QPoint(0,0);
     m_zEnd = QPoint( m_loadedImage.width(), m_loadedImage.height() );
     zoom( QPoint(0,0), QPoint( m_loadedImage.width(), m_loadedImage.height() ) );
@@ -317,15 +322,24 @@ void Viewer::ImageDisplay::cropAndScale()
     }
 
     if ( m_zStart != QPoint(0,0) || m_zEnd != QPoint( m_loadedImage.width(), m_loadedImage.height() ) ) {
+        qCDebug(ViewerLog) << "cropAndScale(): using cropped image" << m_zStart << "-" << m_zEnd;
         m_croppedAndScaledImg = m_loadedImage.copy( m_zStart.x(), m_zStart.y(), m_zEnd.x() - m_zStart.x(), m_zEnd.y() - m_zStart.y() );
     }
     else
+    {
+        qCDebug(ViewerLog) << "cropAndScale(): using full image.";
         m_croppedAndScaledImg = m_loadedImage;
+    }
 
     updateZoomCaption();
 
     if ( !m_croppedAndScaledImg.isNull() ) // I don't know how this can happen, but it seems not to be dangerous.
+    {
+        qCDebug(ViewerLog) << "cropAndScale(): scaling image to" << width() <<"x"<< height();
         m_croppedAndScaledImg = m_croppedAndScaledImg.scaled( width(), height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    } else {
+        qCDebug(ViewerLog) << "cropAndScale(): image is null.";
+    }
 
     update();
 
@@ -536,13 +550,19 @@ void Viewer::ImageDisplay::pixmapLoaded(ImageManager::ImageRequest* request, con
             updateZoomPoints( Settings::SettingsData::instance()->viewerStandardSize(), image.size() );
         else {
             // See documentation for zoomPixelForPixel for details.
-            // We just loaded a likel much larger image, so the zoom points
-            // need to be scaled. Notice _loadedImage is the size of the
+            // We just loaded a likely much larger image, so the zoom points
+            // need to be scaled. Notice m_loadedImage is the size of the
             // old image.
-            double ratio = sizeRatio( m_loadedImage.size(), m_info->size() );
+            // when using raw images, the decoded image may be a preview
+            // and have a size different from m_info->size(). Therefore, use fullSize here:
+            double ratio = sizeRatio( m_loadedImage.size(), fullSize );
 
+            qCDebug(ViewerLog) << "Old size:" << m_loadedImage.size() << "; new size:" << m_info->size();
+            qCDebug(ViewerLog) << "Req size:" << imgSize << "fullsize:" << fullSize;
+            qCDebug(ViewerLog) << "pixmapLoaded(): Zoom region was" << m_zStart <<"-"<<m_zEnd;
             m_zStart *= ratio;
             m_zEnd *= ratio;
+            qCDebug(ViewerLog) << "pixmapLoaded(): Zoom region changed to" << m_zStart <<"-"<<m_zEnd;
 
             m_reloadImageInProgress = false;
         }
@@ -658,6 +678,7 @@ void Viewer::ImageDisplay::unbusy()
 
 void Viewer::ImageDisplay::zoomPixelForPixel()
 {
+    qCDebug(ViewerLog, "zoomPixelForPixel()");
     // This is rather tricky.
     // We want to zoom to a pixel level for the real image, which we might
     // or might not have loaded yet.
@@ -672,10 +693,12 @@ void Viewer::ImageDisplay::zoomPixelForPixel()
     // as this image might be be only view size large. We therefore need
     // to scale the coordinates.
     double ratio = sizeRatio( m_loadedImage.size(), m_info->size() );
+    qCDebug(ViewerLog) << "zoomPixelForPixel(): Zoom region was" << m_zStart <<"-"<<m_zEnd;
     m_zStart /= ratio;
     m_zEnd /= ratio;
+    qCDebug(ViewerLog) << "zoomPixelForPixel(): Zoom region changed to" << m_zStart <<"-"<<m_zEnd;
     cropAndScale();
-    potentialyLoadFullSize();
+    potentiallyLoadFullSize();
 }
 
 void Viewer::ImageDisplay::updateZoomPoints( const Settings::StandardViewSize type, const QSize& imgSize )
@@ -686,16 +709,19 @@ void Viewer::ImageDisplay::updateZoomPoints( const Settings::StandardViewSize ty
     if ( isImageZoomed( type,  imgSize ) ) {
         m_zStart=QPoint( 0, 0 );
         m_zEnd=QPoint(  iw, ih );
+        qCDebug(ViewerLog) << "updateZoomPoints(): Zoom region reset to" << m_zStart <<"-"<<m_zEnd;
     }
     else {
         m_zStart = QPoint( - ( width()-iw ) / 2, -(height()-ih)/2);
         m_zEnd = QPoint( iw + (width()-iw)/2, ih+(height()-ih)/2);
+        qCDebug(ViewerLog) << "updateZoomPoints(): Zoom region set to" << m_zStart <<"-"<<m_zEnd;
     }
 }
 
-void Viewer::ImageDisplay::potentialyLoadFullSize()
+void Viewer::ImageDisplay::potentiallyLoadFullSize()
 {
     if ( m_info->size() != m_loadedImage.size() ) {
+        qCDebug(ViewerLog) << "Loading full size image for " << m_info->fileName().relative();
         ImageManager::ImageRequest* request = new ImageManager::ImageRequest( m_info->fileName(), QSize(-1,-1), m_info->angle(), this );
         request->setPriority( ImageManager::Viewer );
         ImageManager::AsyncLoader::instance()->load( request );

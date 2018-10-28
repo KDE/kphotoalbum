@@ -184,7 +184,7 @@ MainWindow::Window::Window( QWidget* parent )
     qCInfo(TimingLog) << "MainWindow: Loading MainWindow: " << timer.restart() << "ms.";
     setupMenuBar();
     qCInfo(TimingLog) << "MainWindow: setupMenuBar: " << timer.restart() << "ms.";
-    createSarchBar();
+    createSearchBar();
     qCInfo(TimingLog) << "MainWindow: createSearchBar: " << timer.restart() << "ms.";
     setupStatusBar();
     qCInfo(TimingLog) << "MainWindow: setupStatusBar: " << timer.restart() << "ms.";
@@ -748,6 +748,8 @@ void MainWindow::Window::setupMenuBar()
     m_paste = KStandardAction::paste( this, SLOT(slotPasteInformation()), actionCollection() );
     m_paste->setEnabled(false);
     m_selectAll = KStandardAction::selectAll( m_thumbnailView, SLOT(selectAll()), actionCollection() );
+    m_clearSelection = KStandardAction::deselect( m_thumbnailView, SLOT(clearSelection()), actionCollection() );
+    m_clearSelection->setEnabled(false);
     KStandardAction::find( this, SLOT(slotSearch()), actionCollection() );
 
     m_deleteSelected = actionCollection()->addAction(QString::fromLatin1("deleteSelected"));
@@ -877,6 +879,7 @@ void MainWindow::Window::setupMenuBar()
     a->setText( i18n("Recalculate Checksum") );
 
     a = actionCollection()->addAction( QString::fromLatin1("rescan"), DB::ImageDB::instance(), SLOT(slotRescan()) );
+    a->setIcon(QIcon::fromTheme( QString::fromLatin1( "document-import" ) ));
     a->setText( i18n("Rescan for Images and Videos") );
 
     QAction* recreateExif = actionCollection()->addAction( QString::fromLatin1( "recreateExifDB" ), this, SLOT(slotRecreateExifDB()) );
@@ -1328,6 +1331,7 @@ void MainWindow::Window::updateContextMenuFromSelectionSize(int selectionSize)
     m_AutoStackImages->setEnabled(selectionSize > 1);
     m_markUntagged->setEnabled(selectionSize >= 1);
     m_statusBar->mp_selected->setSelectionCount( selectionSize );
+    m_clearSelection->setEnabled(selectionSize > 0);
 }
 
 void MainWindow::Window::rotateSelected( int angle )
@@ -1433,7 +1437,7 @@ void MainWindow::Window::slotConfigureToolbars()
 void MainWindow::Window::slotNewToolbarConfig()
 {
     createGUI();
-    createSarchBar();
+    createSearchBar();
 }
 
 void MainWindow::Window::slotImport()
@@ -1857,7 +1861,7 @@ void MainWindow::Window::slotThumbnailSizeChanged()
     m_statusBar->showMessage( thumbnailSizeMsg, 4000);
 }
 
-void MainWindow::Window::createSarchBar()
+void MainWindow::Window::createSearchBar()
 {
     // Set up the search tool bar
     SearchBar* bar = new SearchBar( this );

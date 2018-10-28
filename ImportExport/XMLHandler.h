@@ -28,7 +28,6 @@
 #include "Export.h" // ImageFileLocation
 
 namespace Utilities { class UniqFilenameMapper; }
-namespace DB { class IdList; }
 
 namespace ImportExport
 {

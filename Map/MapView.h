@@ -21,6 +21,7 @@
 #define MAPVIEW_H
 
 // Local includes
+#include "config-kpa-marble.h"
 #include "GeoCoordinates.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
@@ -148,7 +149,10 @@ private slots:
     void saveSettings();
     void setLastCenter();
     void updateRegionSelection(const Marble::GeoDataLatLonBox &selection);
+#ifndef MARBLE_HAS_regionSelected_NEW
+    // remove once we don't care about Marble v17.12.3 and older anymore
     void updateRegionSelectionOld(const QList<double> &selection);
+#endif
 
 private: // Variables
     Marble::MarbleWidget *m_mapWidget;

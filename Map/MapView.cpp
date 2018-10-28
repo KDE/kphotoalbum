@@ -71,8 +71,6 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     m_mapWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_mapWidget->setProjection(Marble::Mercator);
     m_mapWidget->setMapThemeId(QStringLiteral("earth/openstreetmap/openstreetmap.dgml"));
-    // TODO(jzarl): implement a feature check:
-#define MARBLE_HAS_regionSelected_NEW
 #ifdef MARBLE_HAS_regionSelected_NEW
     connect(m_mapWidget, &Marble::MarbleWidget::regionSelected,
             this, &Map::MapView::updateRegionSelection);
@@ -289,6 +287,7 @@ void Map::MapView::updateRegionSelection(const Marble::GeoDataLatLonBox &selecti
     emit signalRegionSelectionChanged();
 }
 
+#ifndef MARBLE_HAS_regionSelected_NEW
 void Map::MapView::updateRegionSelectionOld(const QList<double> &selection)
 {
     Q_ASSERT(selection.length()==4);
@@ -296,6 +295,7 @@ void Map::MapView::updateRegionSelectionOld(const QList<double> &selection)
     Marble::GeoDataLatLonBox sel {selection.at(1),selection.at(3),selection.at(2),selection.at(0), Marble::GeoDataCoordinates::Degree };
     updateRegionSelection(sel);
 }
+#endif
 
 Map::GeoCoordinates::Pair Map::MapView::getRegionSelection() const
 {

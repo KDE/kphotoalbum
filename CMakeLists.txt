@@ -87,6 +87,9 @@ set_package_properties(Marble
     PURPOSE "Enables support for geographic map location using embedded GPS information."
     )
 set(HAVE_MARBLE ${Marble_FOUND})
+if(Marble_FOUND)
+    include(MarbleChecks)
+endif()
 
 add_custom_target(
     UpdateVersion ALL

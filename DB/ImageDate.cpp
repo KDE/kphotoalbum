@@ -183,12 +183,13 @@ bool ImageDate::operator<( const ImageDate& other ) const
 
 ImageDate::ImageDate( const QDateTime& start, const QDateTime& end )
 {
-    m_start = start;
-    m_end = end;
-    if (m_start > m_end) {
-        QDateTime tmp(m_start);
-        m_start = m_end;
-        m_end = tmp;
+    if (start <= end)
+    {
+        m_start = start;
+        m_end = end;
+    } else {
+        m_start = end;
+        m_end = start;
     }
 }
 

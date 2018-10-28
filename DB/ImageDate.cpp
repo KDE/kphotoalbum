@@ -185,6 +185,11 @@ ImageDate::ImageDate( const QDateTime& start, const QDateTime& end )
 {
     m_start = start;
     m_end = end;
+    if (m_start > m_end) {
+        QDateTime tmp(m_start);
+        m_start = m_end;
+        m_end = tmp;
+    }
 }
 
 static QDate addMonth( int year, int month )
@@ -244,6 +249,8 @@ ImageDate::ImageDate( int yearFrom, int monthFrom, int dayFrom, int yearTo, int 
                     m_end = QDateTime( QDate( yearTo, monthTo, dayTo ).addDays(1) ).addSecs(-1);
             }
         }
+        // It should not be possible here for m_end < m_start.
+        Q_ASSERT( m_start <= m_end );
     }
 }
 
@@ -316,8 +323,13 @@ ImageDate::ImageDate( const QDate& start, QDate end, const QTime& time )
         m_end = m_start;
     }
     else {
-        m_start = QDateTime( start, QTime( 0,0,0 ) );
-        m_end = QDateTime( end, QTime( 23, 59, 59 ) );
+        if (start > end) {
+            m_end = QDateTime( start, QTime( 0,0,0 ) );
+            m_start = QDateTime( end, QTime( 23, 59, 59 ) );
+        } else {
+            m_start = QDateTime( start, QTime( 0,0,0 ) );
+            m_end = QDateTime( end, QTime( 23, 59, 59 ) );
+        }
     }
 }
 

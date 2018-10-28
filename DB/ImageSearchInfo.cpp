@@ -99,7 +99,7 @@ bool ImageSearchInfo::match( ImageInfoPtr info ) const
     if ( m_isNull )
         return true;
 
-    if (  m_isCacheable && info->matchGeneration() == m_matchGeneration )
+    if ( m_isCacheable && info->matchGeneration() == m_matchGeneration )
         return info->isMatched();
 
     bool ok = doMatch( info );
@@ -115,48 +115,6 @@ bool ImageSearchInfo::doMatch( ImageInfoPtr info ) const
 {
     if ( !m_compiled )
         compile();
-
-    if ( ! m_exifSearchInfo.matches( info->fileName() ) )
-        return false;
-
-    QDateTime actualStart = info->date().start();
-    QDateTime actualEnd = info->date().end();
-    if ( actualEnd <= actualStart )  {
-        QDateTime tmp = actualStart;
-        actualStart = actualEnd;
-        actualEnd = tmp;
-    }
-
-    if ( !m_date.start().isNull() ) {
-        // Date
-        // the search date matches the actual date if:
-        // actual.start <= search.start <= actual.end or
-        // actual.start <= search.end <= actual.end or
-        // search.start <= actual.start and actual.end <= search.end
-
-        if ( actualEnd < m_date.start() ||
-             ( !m_date.end().isNull() && actualStart > m_date.end() ) )
-            return false;
-    } else if ( !m_date.end().isNull() && actualStart > m_date.end() ) {
-        return false;
-    }
-
-    // -------------------------------------------------- Options
-    // alreadyMatched map is used to make it possible to search for
-    // Jesper & None
-    QMap<QString, StringSet> alreadyMatched;
-    for (CategoryMatcher* optionMatcher : m_categoryMatchers) {
-        if ( ! optionMatcher->eval(info, alreadyMatched) )
-            return false;
-    }
-
-    // -------------------------------------------------- Label
-    if ( m_label.isEmpty() && info->label().indexOf(m_label) == -1 )
-        return false;
-
-    // -------------------------------------------------- RAW
-    if ( m_searchRAW && !ImageManager::RAWImageDecoder::isRAW( info->fileName()) )
-        return false;
 
     // -------------------------------------------------- Rating
 
@@ -195,19 +153,25 @@ bool ImageSearchInfo::doMatch( ImageInfoPtr info ) const
          ( m_max_megapixel * 1000000 < info->size().width() * info->size().height() ) )
         return false;
 
-    // -------------------------------------------------- Text
-    if ( !m_description.isEmpty() ) {
-        const QString &txt(info->description());
-        QStringList list = m_description.split(QChar::fromLatin1(' '), QString::SkipEmptyParts);
-        Q_FOREACH( const QString &word, list ) {
-            if ( txt.indexOf( word, 0, Qt::CaseInsensitive ) == -1 )
-                return false;
-        }
+
+    // -------------------------------------------------- Date
+    QDateTime actualStart = info->date().start();
+    QDateTime actualEnd = info->date().end();
+
+    if ( !m_date.start().isNull() ) {
+        if ( actualEnd < m_date.start() ||
+             ( !m_date.end().isNull() && actualStart > m_date.end() ) )
+            return false;
+    } else if ( !m_date.end().isNull() && actualStart > m_date.end() ) {
+        return false;
     }
 
-    // -------------------------------------------------- File name pattern
-    if ( !m_fnPattern.isEmpty() &&
-         m_fnPattern.indexIn( info->fileName().relative() ) == -1 )
+    // -------------------------------------------------- Label
+    if ( m_label.isEmpty() && info->label().indexOf(m_label) == -1 )
+        return false;
+
+    // -------------------------------------------------- RAW
+    if ( m_searchRAW && !ImageManager::RAWImageDecoder::isRAW( info->fileName()) )
         return false;
 
 
@@ -226,6 +190,34 @@ bool ImageSearchInfo::doMatch( ImageInfoPtr info ) const
             return false;
     }
 #endif
+
+    // -------------------------------------------------- File name pattern
+    if ( !m_fnPattern.isEmpty() &&
+         m_fnPattern.indexIn( info->fileName().relative() ) == -1 )
+        return false;
+
+    // -------------------------------------------------- Options
+    // alreadyMatched map is used to make it possible to search for
+    // Jesper & None
+    QMap<QString, StringSet> alreadyMatched;
+    for (CategoryMatcher* optionMatcher : m_categoryMatchers) {
+        if ( ! optionMatcher->eval(info, alreadyMatched) )
+            return false;
+    }
+
+    // -------------------------------------------------- Text
+    if ( !m_description.isEmpty() ) {
+        const QString &txt(info->description());
+        QStringList list = m_description.split(QChar::fromLatin1(' '), QString::SkipEmptyParts);
+        Q_FOREACH( const QString &word, list ) {
+            if ( txt.indexOf( word, 0, Qt::CaseInsensitive ) == -1 )
+                return false;
+        }
+    }
+
+    // -------------------------------------------------- EXIF
+    if ( ! m_exifSearchInfo.matches( info->fileName() ) )
+        return false;
 
     return true;
 }

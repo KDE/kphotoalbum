@@ -38,6 +38,7 @@ my (%member_groups);
 my (%group_members);
 # $category_images{category}{member} = is_referenced
 my (%categories_used);
+my ($compress_output);
 
 # Order matters here; sort by date and then filename
 my (%images_seq);
@@ -57,8 +58,12 @@ my ($opt_keep_blocked_images) = 0;
 my ($opt_no_output) = 0;
 my ($opt_clean_unused_labels) = 0;
 my ($opt_replace_categories) = 0;
+my ($opt_force_compressed_output) = 0;
+my ($opt_force_uncompressed_output) = 0;
 my ($last_pass) = 1;
 my (%warned_idx0) = ();
+my ($opt_output_version) = 0;
+my ($output_version) = 0;
 
 sub usage() {
     my ($usage) = << 'FINIS';
@@ -79,8 +84,11 @@ Usage: kpa-merge [options] file1 [file2]
 	If only one file is provided, it is processed in the same way.
 	This form can be used to clean up an index.xml file.
 
-	kpa-merge currently handles version 7 and 8 files and writes
-	version 7.
+	kpa-merge currently handles version 7 and 8 files and by default
+	writes the version of the first input file.
+
+	kpa-merge can write either compressed or uncompressed output;
+	by default it uses the compression of the first input file.
 
 	Options:
 
@@ -96,6 +104,10 @@ Usage: kpa-merge [options] file1 [file2]
 						the first (rather than merging)
 		-c|--clean-unused-labels	Purge unused labels (useful
 						for one file usage)
+		-C|--compressed-output		Force compressed output
+		-N|--no-compressed-output	Force uncompressed output
+		-V|--version			Force specified output
+						version (7 or 8).
 FINIS
     print STDERR $usage;
     exit(1);
@@ -265,18 +277,37 @@ sub loadImage($$$) {
     my ($image_already_defined) = defined $images{$file};
     $node->removeAttribute("stackId");
     $node->removeAttribute("stackOrder");
-    # Restore any attributes defaulted in version 8
-    if (! $node->getAttribute("angle")) {
-	$node->setAttribute("angle", 0);
-    }
-    if (! $node->getAttribute("endDate")) {
-	$node->setAttribute("endDate", $node->getAttribute("startDate"));
-    }
-    if (! $node->getAttribute("label")) {
-	my ($label) = $file;
-	$label =~ s,^.*/,,;
-	$label =~ s/\.[^.]*$//;
-	$node->setAttribute("label", $label);
+    if ($output_version == 7) {
+	# Restore any attributes defaulted in version 8
+	if (! $node->hasAttribute("angle")) {
+	    $node->setAttribute("angle", 0);
+	}
+	if (! $node->hasAttribute("endDate")) {
+	    $node->setAttribute("endDate", $node->getAttribute("startDate"));
+	}
+	if (! $node->hasAttribute("label")) {
+	    my ($label) = $file;
+	    $label =~ s,^.*/,,;
+	    $label =~ s/\.[^.]*$//;
+	    $node->setAttribute("label", $label);
+	}
+    } else {
+	if ($node->hasAttribute("angle") && 
+	    $node->getAttribute("angle") eq "0") {
+	    $node->removeAttribute("angle");
+	}
+	if ($node->hasAttribute("endDate") &&
+	    $node->getAttribute("endDate") eq $node->getAttribute("startDate")) {
+	    $node->removeAttribute("endDate");
+	}
+	if ($node->hasAttribute("label")) {
+	    my ($label) = $file;
+	    $label =~ s,^.*/,,;
+	    $label =~ s/\.[^.]*$//;
+	    if ($node->getAttribute("label") eq $label) {
+		$node->removeAttribute("label");
+	    }
+	}
     }
 
     if (!defined $images{$file}) {
@@ -428,14 +459,38 @@ sub load_file($$) {
 	$kpa_attributes = $kpa->findnodes("./@*");
     }
 
+    if ($pass == 0) {
+	if ($opt_output_version != 0 &&
+	    $opt_output_version != 7 &&
+	    $opt_output_version != 8) {
+	    print STDERR "Output version must be 7 or 8";
+	    usage();
+	}
+    }
     if ($kpa->getAttribute("version") != 7 &&
 	$kpa->getAttribute("version") != 8) {
 	die "kpa-merge only works with version 7 and 8 files\n";
     }
-    # Always write a version 7 file right now.
-    $kpa->setAttribute("version", 7);
+    if ($pass == 0) {
+	if ($opt_output_version) {
+	    $output_version = $opt_output_version;
+	} else {
+	    $output_version = $kpa->getAttribute("version");
+	}
+    }
+    # Always write a version 8 file right now.
+    $kpa->setAttribute("version", $output_version);
 
     my ($compressed) = int $kpa->getAttribute("compressed");
+    if ($pass == 0) {
+	if ($opt_force_compressed_output) {
+	    $compress_output = 1;
+	} elsif ($opt_force_uncompressed_output) {
+	    $compress_output = 0;
+	} else {
+	    $compress_output = $compressed;
+	}
+    }
 
     my $children = $kpa->childNodes();
 
@@ -478,12 +533,15 @@ sub reconcile_stacks() {
     # We only need to look at stacks in the first file.  If a stack exists
     # in the second file but not the first, it won't be disturbed by this,
     # as intended.
+    print STDERR "image stacks...";
     foreach my $file (sort keys %{$stacks_byimage[0]}) {
 	if (! defined $stacks_byimage[1]{$file}) {
 	    my ($old_stack) = $stacks_byimage[0]{$file};
 	    my ($by_id_0) = $stacks_byid[0]{$old_stack};
 	    my ($found) = -1;
 	    foreach my $ofile (@$by_id_0) {
+		# Gaps in stack indices
+		next if (! defined $ofile);
 		if (defined $stacks_byimage[1]{$ofile}) {
 		    if ($found == -1) {
 			$found = $stacks_byimage[1]{$ofile};
@@ -497,7 +555,7 @@ sub reconcile_stacks() {
 	    if ($found == -1) {
 		my ($new_stack) = ++$max_stack_pass1;
 		# Fix up all of the files in the renumbered stack
-		map { $stacks_byimage[1]{$_} = $new_stack; } (@$by_id_0);
+		map { $stacks_byimage[1]{$_} = $new_stack; } (grep { defined $_ } @$by_id_0);
 		$stacks_byid[1]{$new_stack} = $stacks_byid[0]{$old_stack};
 	    } else {
 		$stacks_byimage[1]{$file} = $found;
@@ -524,9 +582,6 @@ sub reconcile_stacks() {
 }
 
 sub reconcile_images() {
-    print STDERR "Reconciling image stacks...";
-    reconcile_stacks();
-
     # Now, stitch the two image sequences together.
     print STDERR "image sequences...";
     my (%invert_images) = reverse %images_seq;
@@ -544,7 +599,7 @@ sub clean_unused_labels_pass(\%) {
     my ($categories_in_use) = @_;
     my ($removed_something) = 0;
 
-    foreach my $category (keys %{$categories{"members"}}) {
+    foreach my $category (sort keys %{$categories{"members"}}) {
 	next if $category eq "Tokens";
 	print STDERR "  Category $category...\n";
 	my ($members) = $categories{"members"}{$category}{"members"};
@@ -630,22 +685,26 @@ sub build_categories($$) {
     my ($new_categories) = addElement($dom, $new_kpa, 'Categories');
     copy_attributes($new_categories, $categories{"attributes"});
     my ($members) = $categories{"members"};
+    %category_map = ();
 
     foreach my $cat (sort keys %$members) {
+	my %cmap;
 	my ($cnode) = addElement($dom, $new_categories, "Category");
 	my ($cat_data) = $$members{$cat};
 	copy_attributes($cnode, $$cat_data{"attributes"});
 	my ($count) = 1;
 	foreach my $value (sort keys %{$$cat_data{"members"}}) {
 	    my ($vnode) = addElement($dom, $cnode, "value");
+	    $cmap{$value} = $count;
 	    $vnode->setAttribute("value", $value);
 	    $vnode->setAttribute("id", $count++);
 	}
+	$category_map{$cat} = \%cmap;
     }
 }
 
-sub build_image_options($$$) {
-    my ($dom, $onode, $options) = @_;
+sub build_image_options($$$$) {
+    my ($dom, $onode, $options, $iname) = @_;
     foreach my $option (sort keys %$options) {
 	my ($oonode) = addElement($dom, $onode, "option");
 	$oonode->setAttribute("name", $option);
@@ -659,6 +718,7 @@ sub build_image_options($$$) {
 sub build_images($$) {
     my ($dom, $new_kpa) = @_;
     my ($new_images) = addElement($dom, $new_kpa, 'images');
+    my ($compressed) = int $new_kpa->getAttribute("compressed");
     foreach my $iname (@image_list) {
 	my ($inode) = addElement($dom, $new_images, 'image');
 	my ($image) = $images{$iname};
@@ -670,8 +730,15 @@ sub build_images($$) {
 	    $inode->setAttribute("stackOrder", $stack_order{$iname});
 	}
 	if (defined $$image{"options"}) {
-	    my ($onode) = addElement($dom, $inode, 'options');
-	    build_image_options($dom, $onode, $$image{"options"});
+	    if ($compressed) {
+		foreach my $option (sort keys %{$$image{"options"}}) {
+		    my ($val) = join(",", sort {$a <=> $b} map { $category_map{$option}{$_} } keys %{$$image{"options"}{$option}});
+		    $inode->setAttribute($option, $val);
+		}
+	    } else {
+		my ($onode) = addElement($dom, $inode, 'options');
+		build_image_options($dom, $onode, $$image{"options"}, $iname);
+	    }
 	}
     }
 }
@@ -688,15 +755,29 @@ sub build_blocklist($$) {
 sub build_member_groups($$) {
     my ($dom, $new_kpa) = @_;
     my ($new_member_groups) = addElement($dom, $new_kpa, 'member-groups');
+    my ($compressed) = int $new_kpa->getAttribute("compressed");
 
-    foreach my $cat (sort keys %member_groups) {
-	my ($clist) = $member_groups{$cat};
-	foreach my $member (sort keys %$clist) {
-	    my ($groupname) = $$clist{$member};
-	    my ($mnode) = addElement($dom, $new_member_groups, "member");
-	    $mnode->setAttribute("category", $cat);
-	    $mnode->setAttribute("group-name", $groupname);
-	    $mnode->setAttribute("member", $member);
+    if ($compressed) {
+	foreach my $cat (sort keys %group_members) {
+	    my ($groups) = $group_members{$cat};
+	    foreach my $group (sort keys %$groups) {
+		my ($val) = join(",", sort {$a <=> $b} map {$category_map{$cat}{$_}} keys %{$$groups{$group}});
+		my ($mnode) = addElement($dom, $new_member_groups, "member");
+		$mnode->setAttribute("category", $cat);
+		$mnode->setAttribute("group-name", $group);
+		$mnode->setAttribute("members", $val);
+	    }
+	}
+    } else {
+	foreach my $cat (sort keys %member_groups) {
+	    my ($clist) = $member_groups{$cat};
+	    foreach my $member (sort keys %$clist) {
+		my ($groupname) = $$clist{$member};
+		my ($mnode) = addElement($dom, $new_member_groups, "member");
+		$mnode->setAttribute("category", $cat);
+		$mnode->setAttribute("group-name", $groupname);
+		$mnode->setAttribute("member", $member);
+	    }
 	}
     }
 }
@@ -707,7 +788,7 @@ sub build_new_doc() {
     my ($new_kpa) = $dom->createElement('KPhotoAlbum');
     $dom->setDocumentElement($new_kpa);
     copy_attributes($new_kpa, $kpa_attributes);
-    $new_kpa->setAttribute("compressed", 0);
+    $new_kpa->setAttribute("compressed", $compress_output);
     print STDERR "categories...";
     build_categories($dom, $new_kpa);
     print STDERR "images...";
@@ -732,10 +813,16 @@ my (%options) = ("R"                   => \$opt_reject_new_images,
 		 "keep-blocked-images" => \$opt_keep_blocked_images,
 		 "n"                   => \$opt_no_output,
 		 "no-output"           => \$opt_no_output,
+		 "N"                   => \$opt_force_uncompressed_output,
+		 "no-compressed-output"=> \$opt_force_uncompressed_output,
 		 "c"                   => \$opt_clean_unused_labels,
 		 "clean-unused-labels" => \$opt_clean_unused_labels,
+		 "C"                   => \$opt_force_compressed_output,
+		 "compressed-output"   => \$opt_force_compressed_output,
 		 "r"		       => \$opt_replace_categories,
-		 "replace-categories"  => \$opt_replace_categories
+		 "replace-categories"  => \$opt_replace_categories,
+		 "V:i"		       => \$opt_output_version,
+		 "version:i"	       => \$opt_output_version,
     );
 
 Getopt::Long::Configure("bundling", "require_order");
@@ -758,7 +845,10 @@ if ($#ARGV == 1) {
 load_file($src, 0);
 load_file($merge, 1) if ($merge);
 
+print STDERR "Reconciling ";
 clean_unused_labels() if ($opt_clean_unused_labels);
+
+reconcile_stacks();
 
 reconcile_images();
 

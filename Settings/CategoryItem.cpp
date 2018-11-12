@@ -93,7 +93,7 @@ void Settings::CategoryItem::submit(DB::MemberMap* memberMap)
 
     m_categoryOrig = m_category;
     m_iconOrig = m_icon;
-    m_typeOrig = m_typeOrig;
+    m_typeOrig = m_type;
     m_thumbnailSizeOrig = m_thumbnailSize;
     m_positionableOrig = m_positionable;
 }

@@ -1,3 +1,6 @@
+* Bugfix: Restore correct behaviour for "Statistics..." action.
+	Thanks to Andreas Schleth for finding and fixing the issue!
+
 * Bugfix: Fix loading of user shortcuts for the annotation dialog.
 
 * Enhancement: Add "clear selection" menu item.

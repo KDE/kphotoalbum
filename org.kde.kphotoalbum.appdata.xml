@@ -25,6 +25,7 @@
   <name xml:lang="uk">KPhotoAlbum</name>
   <name xml:lang="x-test">xxKPhotoAlbumxx</name>
   <name xml:lang="zh-CN">KPhotoAlbum</name>
+  <name xml:lang="zh-TW">KPhotoAlbum</name>
   <summary>KDE image management software</summary>
   <summary xml:lang="ca">Programari per a gestionar les imatges al KDE</summary>
   <summary xml:lang="ca-valencia">Programari per a gestionar les imatges al KDE</summary>
@@ -44,6 +45,7 @@
   <summary xml:lang="tr">KDE resim yönetim yazılımı</summary>
   <summary xml:lang="uk">Програма для керування зображеннями у KDE</summary>
   <summary xml:lang="x-test">xxKDE image management softwarexx</summary>
+  <summary xml:lang="zh-TW">KDE 圖片管理軟體</summary>
   <description>
     <p>KPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.</p>
     <p xml:lang="ca">El KPhotoAlbum és una aplicació per etiquetar i gestionar una col·lecció de fotografies i fer-les fàcils de trobar.</p>
@@ -64,6 +66,7 @@
     <p xml:lang="tr">KPhotoAlbum resim koleksiyonunu etiketlemek ve yöneten ve onu aranabilir yapan için bir uygulamadır.</p>
     <p xml:lang="uk">KPhotoAlbum — програма для створення міток у збірці фотографій та керування збіркою із можливостями пошуку зображень.</p>
     <p xml:lang="x-test">xxKPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.xx</p>
+    <p xml:lang="zh-TW">KPhotoAlbum 是個能標籤和管理圖片集合和讓圖片集合能被搜尋的應用程式。</p>
   </description>
   <screenshots>
     <screenshot type="default">
@@ -83,6 +86,7 @@
       <caption xml:lang="sv">Huvudskärmen i Kfotoalbum</caption>
       <caption xml:lang="uk">Знімок головного вікна KPhotoAlbum</caption>
       <caption xml:lang="x-test">xxThe main screen in KPhotoAlbumxx</caption>
+      <caption xml:lang="zh-TW">KPhotoAlbum 中的主螢幕</caption>
     </screenshot>
   </screenshots>
   <url type="homepage">http://kphotoalbum.org</url>

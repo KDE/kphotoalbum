@@ -241,6 +241,7 @@ void DateBar::DateBarWidget::setViewHandlerForType( ViewType tp )
     case WeekView: m_currentHandler = &m_weekViewHandler; break;
     case DayView: m_currentHandler = &m_dayViewHandler; break;
     case HourView: m_currentHandler = &m_hourViewHandler; break;
+    case TenMinuteView: m_currentHandler = &m_tenMinuteViewHandler; break;
     case MinuteView: m_currentHandler = &m_minuteViewHandler; break;
     }
 }

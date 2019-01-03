@@ -779,8 +779,8 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
     showHelpDialog( SearchMode );
     int ok = exec();
     if ( ok == QDialog::Accepted )  {
-        const QDateTime start = m_startDate->date().isNull() ? QDateTime() : QDateTime(m_startDate->date());
-        const QDateTime end = m_endDate->date().isNull() ? QDateTime() : QDateTime( m_endDate->date() );
+        const QDate start = m_startDate->date();
+        const QDate end = m_endDate->date();
         m_oldSearch = DB::ImageSearchInfo( DB::ImageDate( start, end ),
                       m_imageLabel->text(), m_description->toPlainText(),
                       m_imageFilePattern->text());

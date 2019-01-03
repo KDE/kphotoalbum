@@ -1,3 +1,7 @@
+* Change: Instead of having "increase/decrease thumbnail storage size
+	buttons", show a "Thumbnail settings" button in the status bar.
+	(Fixes: #357239)
+
 * Bugfix: Restore correct behaviour for "Statistics..." action.
 	Thanks to Andreas Schleth for finding and fixing the issue!
 

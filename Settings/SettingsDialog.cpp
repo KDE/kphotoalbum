@@ -40,6 +40,7 @@
 
 struct Data
 {
+    Settings::SettingsPage page;
     QString title;
     const char* icon;
     QWidget* widget;
@@ -67,20 +68,20 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
 
 
     Data data[] = {
-        { i18n("General"), "configure-shortcuts", m_generalPage },
-        { i18n("File Searching & Versions"), "system-search", m_fileVersionDetectionPage },
-        { i18n("Thumbnail View" ), "view-preview", m_thumbnailsPage },
-        { i18n("Categories"), "edit-group", m_categoryPage },
-        { i18n("Birthdays"), "view-calendar-birthday", m_birthdayPage },
-        { i18n("Tag Groups" ), "view-group", m_tagGroupsPage },
-        { i18n("Viewer" ), "document-preview", m_viewerPage },
+        { SettingsPage::GeneralPage ,i18n("General"), "configure-shortcuts", m_generalPage },
+        { SettingsPage::FileVersionDetectionPage ,i18n("File Searching & Versions"), "system-search", m_fileVersionDetectionPage },
+        { SettingsPage::ThumbnailsPage ,i18n("Thumbnail View" ), "view-preview", m_thumbnailsPage },
+        { SettingsPage::CategoryPage ,i18n("Categories"), "edit-group", m_categoryPage },
+        { SettingsPage::BirthdayPage ,i18n("Birthdays"), "view-calendar-birthday", m_birthdayPage },
+        { SettingsPage::TagGroupsPage ,i18n("Tag Groups" ), "view-group", m_tagGroupsPage },
+        { SettingsPage::ViewerPage ,i18n("Viewer" ), "document-preview", m_viewerPage },
 #ifdef HASKIPI
-        { i18n("Plugins" ), "plugins", m_pluginsPage },
+        { SettingsPage::PluginsPage ,i18n("Plugins" ), "plugins", m_pluginsPage },
 #endif
 
-        { i18n("Exif/IPTC Information" ), "document-properties", m_exifPage },
-        { i18n("Database Backend"), "document-save", m_databaseBackendPage },
-        { QString(), "", 0 }
+        { SettingsPage::ExifPage ,i18n("Exif/IPTC Information" ), "document-properties", m_exifPage },
+        { SettingsPage::DatabaseBackendPage ,i18n("Database Backend"), "document-save", m_databaseBackendPage },
+        { SettingsPage::GeneralPage, QString(), "", 0 }
     };
 
     int i = 0;
@@ -89,6 +90,7 @@ Settings::SettingsDialog::SettingsDialog( QWidget* parent)
         page->setHeader( data[i].title );
         page->setIcon( QIcon::fromTheme( QString::fromLatin1( data[i].icon ) ) );
         addPage( page );
+        m_pages[data[i].page] = page;
         ++i;
     }
 
@@ -141,6 +143,13 @@ void Settings::SettingsDialog::show()
     QDialog::show();
 }
 
+void Settings::SettingsDialog::activatePage(Settings::SettingsPage pageId)
+{
+    auto page = m_pages.value(pageId, nullptr);
+    if (page)
+        setCurrentPage(page);
+}
+
 // QDialog has a slotOK which we do not want to override.
 void Settings::SettingsDialog::slotMyOK()
 {
@@ -168,11 +177,6 @@ void Settings::SettingsDialog::slotMyOK()
 
     emit changed();
     KSharedConfig::openConfig()->sync();
-}
-
-void Settings::SettingsDialog::showBackendPage()
-{
-    setCurrentPage(m_backendPage);
 }
 
 void Settings::SettingsDialog::keyPressEvent(QKeyEvent*)

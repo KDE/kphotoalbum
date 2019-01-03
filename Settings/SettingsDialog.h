@@ -40,6 +40,24 @@ class ExifPage;
 class DatabaseBackendPage;
 class BirthdayPage;
 
+/**
+ * @brief The SettingsPage enum has a value for every settings sub-page.
+ * It is used for SettingsDialog::setPage().
+ */
+enum class SettingsPage
+{
+    BirthdayPage
+    , CategoryPage
+    , DatabaseBackendPage
+    , ExifPage
+    , FileVersionDetectionPage
+    , GeneralPage
+    , PluginsPage
+    , TagGroupsPage
+    , ThumbnailsPage
+    , ViewerPage
+};
+
 class SettingsDialog :public KPageDialog {
     Q_OBJECT
 
@@ -48,7 +66,7 @@ public:
     virtual void show();
 
 public slots:
-    void showBackendPage();
+    void activatePage(SettingsPage pageId);
 
 signals:
     void changed();
@@ -68,7 +86,7 @@ private:
     Settings::ExifPage* m_exifPage;
     Settings::DatabaseBackendPage* m_databaseBackendPage;
     Settings::BirthdayPage* m_birthdayPage;
-    KPageWidgetItem* m_backendPage;
+    QMap<SettingsPage, KPageWidgetItem*> m_pages;
 
     void keyPressEvent(QKeyEvent*);
 };

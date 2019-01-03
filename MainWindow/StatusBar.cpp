@@ -109,25 +109,12 @@ void MainWindow::StatusBar::setupGUI()
     m_thumbnailSizeSlider->setMinimumSize( m_thumbnailSizeSlider->size());
     m_thumbnailSizeSlider->hide();
 
-    m_thumbnailsSmaller = new QToolButton;
-    m_thumbnailsSmaller->setIcon(QIcon::fromTheme(QString::fromUtf8("zoom-out")));
-    m_thumbnailsSmaller->setToolTip(i18n("Decrease thumbnail storage size"));
-    addPermanentWidget(m_thumbnailsSmaller, 0);
-    m_thumbnailsSmaller->setEnabled(false);
-    m_thumbnailsSmaller->hide();
-
-    m_thumbnailsBigger = new QToolButton;
-    m_thumbnailsBigger->setIcon(QIcon::fromTheme(QString::fromUtf8("zoom-in")));
-    m_thumbnailsBigger->setToolTip(i18n("Increase thumbnail storage size"));
-    addPermanentWidget(m_thumbnailsBigger, 0);
-    m_thumbnailsBigger->setEnabled(false);
-    m_thumbnailsBigger->hide();
-
-    connect(m_thumbnailSizeSlider, &QSlider::valueChanged, this, &StatusBar::checkSliderValue);
-    connect(m_thumbnailsSmaller, SIGNAL(clicked()),
-            m_thumbnailSizeSlider, SLOT(decreaseThumbnailSize()));
-    connect(m_thumbnailsBigger, SIGNAL(clicked()),
-            m_thumbnailSizeSlider, SLOT(increaseThumbnailSize()));
+    m_thumbnailSettings = new QToolButton;
+    m_thumbnailSettings->setIcon(QIcon::fromTheme(QString::fromUtf8("settings-configure")));
+    m_thumbnailSettings->setToolTip(i18n("Thumbnail settings..."));
+    addPermanentWidget(m_thumbnailSettings, 0);
+    m_thumbnailSettings->hide();
+    connect(m_thumbnailSettings, &QToolButton::clicked, this, &StatusBar::thumbnailSettingsRequested);
 }
 
 void MainWindow::StatusBar::setLocked( bool locked )
@@ -172,16 +159,13 @@ void MainWindow::StatusBar::setProgressBarVisible( bool show )
 void MainWindow::StatusBar::showThumbnailSlider()
 {
     m_thumbnailSizeSlider->setVisible( true );
-    m_thumbnailsBigger->show();
-    m_thumbnailsSmaller->show();
-    checkSliderValue(0);
+    m_thumbnailSettings->show();
 }
 
 void MainWindow::StatusBar::hideThumbnailSlider()
 {
     m_thumbnailSizeSlider->setVisible( false );
-    m_thumbnailsBigger->hide();
-    m_thumbnailsSmaller->hide();
+    m_thumbnailSettings->hide();
 }
 
 void MainWindow::StatusBar::enterEvent(QEvent *)
@@ -199,13 +183,6 @@ void MainWindow::StatusBar::hideStatusBar()
 void MainWindow::StatusBar::showStatusBar()
 {
     setProgressBarVisible( true );
-}
-
-void MainWindow::StatusBar::checkSliderValue(int)
-{
-    bool visible = m_thumbnailSizeSlider->value() == m_thumbnailSizeSlider->maximum();
-    m_thumbnailsSmaller->setEnabled(visible);
-    m_thumbnailsBigger->setEnabled(visible);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

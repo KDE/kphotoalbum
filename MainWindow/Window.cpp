@@ -1828,6 +1828,11 @@ void MainWindow::Window::setupStatusBar()
     m_statusBar = new MainWindow::StatusBar;
     setStatusBar( m_statusBar );
     setLocked( Settings::SettingsData::instance()->locked(), true, false );
+    connect(m_statusBar, &StatusBar::thumbnailSettingsRequested
+            , [this](){
+        this->slotOptions();
+        m_settingsDialog->activatePage(Settings::SettingsPage::ThumbnailsPage);
+    });
 }
 
 void MainWindow::Window::slotRecreateExifDB()

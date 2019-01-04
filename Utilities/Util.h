@@ -39,7 +39,6 @@ const QSet<QString>& supportedVideoExtensions();
 bool isVideo( const DB::FileName& fileName );
 bool isRAW( const DB::FileName& fileName );
 QString locateDataFile(const QString& fileName);
-QString readFile( const QString& fileName );
 
 QString stripEndingForwardSlash( const QString& fileName );
 

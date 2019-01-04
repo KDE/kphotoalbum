@@ -49,6 +49,28 @@
 #include "Setup.h"
 #include "MainWindow/Window.h"
 
+namespace {
+QString readFile( const QString& fileName )
+{
+    if ( fileName.isEmpty() ) {
+        KMessageBox::error( nullptr, i18n("<p>No file name given!</p>") );
+        return QString();
+    }
+
+    QFile file( fileName );
+    if ( !file.open( QIODevice::ReadOnly ) ) {
+        //KMessageBox::error( nullptr, i18n("Could not open file %1").arg( fileName ) );
+        return QString();
+    }
+
+    QTextStream stream( &file );
+    QString content = stream.readAll();
+    file.close();
+
+    return content;
+}
+} //namespace
+
 HTMLGenerator::Generator::Generator( const Setup& setup, QWidget* parent )
     : QProgressDialog( parent )
     , m_tempDirHandle()
@@ -181,7 +203,7 @@ bool HTMLGenerator::Generator::generateIndexPage( int width, int height )
 {
     QString themeDir, themeAuthor, themeName;
     getThemeInfo( &themeDir, &themeName, &themeAuthor );
-    QString content = Utilities::readFile( QString::fromLatin1( "%1mainpage.html" ).arg( themeDir ) );
+    QString content = readFile( QString::fromLatin1( "%1mainpage.html" ).arg( themeDir ) );
     if ( content.isEmpty() )
         return false;
 
@@ -392,7 +414,7 @@ bool HTMLGenerator::Generator::generateContentPage( int width, int height,
 {
     QString themeDir, themeAuthor, themeName;
     getThemeInfo( &themeDir, &themeName, &themeAuthor );
-    QString content = Utilities::readFile( QString::fromLatin1( "%1imagepage.html" ).arg( themeDir ));
+    QString content = readFile( QString::fromLatin1( "%1imagepage.html" ).arg( themeDir ));
     if ( content.isEmpty() )
         return false;
 

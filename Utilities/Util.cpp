@@ -126,26 +126,6 @@ QString Utilities::locateDataFile(const QString& fileName)
     return QStandardPaths::locate(QStandardPaths::DataLocation, fileName);
 }
 
-QString Utilities::readFile( const QString& fileName )
-{
-    if ( fileName.isEmpty() ) {
-        KMessageBox::error( nullptr, i18n("<p>No file name given!</p>") );
-        return QString();
-    }
-
-    QFile file( fileName );
-    if ( !file.open( QIODevice::ReadOnly ) ) {
-        //KMessageBox::error( nullptr, i18n("Could not open file %1").arg( fileName ) );
-        return QString();
-    }
-
-    QTextStream stream( &file );
-    QString content = stream.readAll();
-    file.close();
-
-    return content;
-}
-
 namespace Utilities
 {
 QString normalizedFileName( const QString& fileName )

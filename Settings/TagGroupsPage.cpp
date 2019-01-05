@@ -52,7 +52,7 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget* parent) : QWidget(parent)
     m_categoryTreeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
     layout->addWidget(m_categoryTreeWidget, 1, 0);
     connect(m_categoryTreeWidget, &CategoriesGroupsWidget::customContextMenuRequested, this, &TagGroupsPage::showTreeContextMenu);
-    connect(m_categoryTreeWidget, &CategoriesGroupsWidget::itemActivated, this, &TagGroupsPage::slotGroupSelected);
+    connect(m_categoryTreeWidget, &CategoriesGroupsWidget::itemClicked, this, &TagGroupsPage::slotGroupSelected);
 
     // The member list
     m_selectGroupToAddTags = i18nc("@label/rich","<strong>Select a group on the left side to add tags to it</strong>");

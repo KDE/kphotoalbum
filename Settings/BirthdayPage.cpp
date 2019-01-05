@@ -82,7 +82,7 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
     m_dataView->verticalHeader()->hide();
     m_dataView->setShowGrid(false);
     itemsLayout->addWidget(m_dataView);
-    connect(m_dataView, &QTableWidget::cellActivated, this, &BirthdayPage::editDate);
+    connect(m_dataView, &QTableWidget::cellClicked, this, &BirthdayPage::editDate);
 
     QVBoxLayout* calendarLayout = new QVBoxLayout;
     dataLayout->addLayout(calendarLayout);

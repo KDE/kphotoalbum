@@ -307,7 +307,7 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
 {
     if ( m_curView ) {
         m_curView->setModel(0);
-        disconnect( m_curView, &QAbstractItemView::activated, this, &BrowserWidget::itemClicked);
+        disconnect( m_curView, &QAbstractItemView::clicked, this, &BrowserWidget::itemClicked);
     }
 
     if ( type == DB::Category::TreeView || type == DB::Category::ThumbedTreeView ) {
@@ -331,7 +331,7 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
 
     // Hook up the new view
     m_curView->setModel( m_filterProxy );
-    connect( m_curView, &QAbstractItemView::activated, this, &BrowserWidget::itemClicked);
+    connect( m_curView, &QAbstractItemView::clicked, this, &BrowserWidget::itemClicked);
 
 
     m_stack->setCurrentWidget( m_curView );

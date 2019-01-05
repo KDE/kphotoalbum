@@ -38,6 +38,7 @@
 #include <DB/FileNameList.h>
 #include <DB/ImageInfo.h>
 #include <ImageManager/AsyncLoader.h>
+#include <ImageManager/RawImageDecoder.h>
 #include <Utilities/Util.h>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
@@ -46,6 +47,13 @@
 #include "XMLHandler.h"
 
 using namespace ImportExport;
+
+namespace {
+bool isRAW( const DB::FileName& fileName )
+{
+    return ImageManager::RAWImageDecoder::isRAW( fileName );
+}
+} //namespace
 
 void Export::imageExport(const DB::FileNameList& list)
 {
@@ -304,7 +312,7 @@ void Export::copyImages(const DB::FileNameList& list)
         QString file = fileName.absolute();
         QString zippedName = m_filenameMapper.uniqNameFor(fileName);
 
-        if ( m_maxSize == -1 || Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) {
+        if ( m_maxSize == -1 || Utilities::isVideo( fileName ) || isRAW( fileName )) {
             if ( QFileInfo( file ).isSymLink() )
                 file = QFileInfo(file).readLink();
 
@@ -348,7 +356,7 @@ void Export::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& ima
     if ( !request->loadedOK() )
         return;
 
-    const QString ext = (Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) ? QString::fromLatin1( "jpg" ) : QFileInfo( m_filenameMapper.uniqNameFor(fileName) ).completeSuffix();
+    const QString ext = (Utilities::isVideo( fileName ) || isRAW( fileName )) ? QString::fromLatin1( "jpg" ) : QFileInfo( m_filenameMapper.uniqNameFor(fileName) ).completeSuffix();
 
     // Add the file to the zip archive
     QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Utilities::stripEndingForwardSlash(m_subdir))

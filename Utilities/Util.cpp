@@ -223,12 +223,6 @@ bool Utilities::isVideo( const DB::FileName& fileName )
     return supportedVideoExtensions().contains( ext );
 }
 
-bool Utilities::isRAW( const DB::FileName& fileName )
-{
-    return ImageManager::RAWImageDecoder::isRAW( fileName );
-}
-
-
 QImage Utilities::scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode )
 {
     return image.scaled( w, h, mode, Settings::SettingsData::instance()->smoothScale() ? Qt::SmoothTransformation : Qt::FastTransformation );

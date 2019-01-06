@@ -196,7 +196,6 @@ protected:
     void executeStartupActions();
     void checkIfMplayerIsInstalled();
     bool anyVideosSelected() const;
-    void announceAndroidVersion();
 #ifdef HAVE_KGEOMAP
     Browser::PositionBrowserWidget* createPositionBrowser();
 #endif

@@ -32,8 +32,6 @@ bool makeHardLink( const QString& from, const QString& to );
 bool canReadImage( const DB::FileName& fileName );
 QString locateDataFile(const QString& fileName);
 
-QString cStringWithEncoding( const char *c_str, const QString& charset );
-
 QColor contrastColor( const QColor& );
 
 }

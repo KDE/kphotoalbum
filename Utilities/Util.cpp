@@ -122,14 +122,6 @@ QString Utilities::locateDataFile(const QString& fileName)
     return QStandardPaths::locate(QStandardPaths::DataLocation, fileName);
 }
 
-QString Utilities::cStringWithEncoding( const char *c_str, const QString& charset )
-{
-    QTextCodec* codec = QTextCodec::codecForName( charset.toLatin1() );
-    if (!codec)
-        codec = QTextCodec::codecForLocale();
-    return codec->toUnicode( c_str );
-}
-
 QColor Utilities::contrastColor( const QColor& col )
 {
     if ( col.red() < 127 && col.green() < 127 && col.blue() < 127 )

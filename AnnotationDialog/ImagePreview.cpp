@@ -22,7 +22,7 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <ImageManager/AsyncLoader.h>
-#include <Utilities/Util.h>
+#include <Utilities/ImageUtil.h>
 
 #include "ResizableFrame.h"
 

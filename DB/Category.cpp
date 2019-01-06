@@ -29,7 +29,7 @@
 #include "CategoryItem.h"
 #include <QPixmap>
 #include <QIcon>
-#include <Utilities/Util.h>
+#include <Utilities/ImageUtil.h>
 
 using Utilities::StringSet;
 

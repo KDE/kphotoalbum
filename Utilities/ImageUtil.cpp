@@ -16,29 +16,24 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef UTIL_H
-#define UTIL_H
-#include "DB/FileName.h"
+#include "ImageUtil.h"
 
-#include <QImage>
-#include <QString>
+#include <Settings/SettingsData.h>
 
-namespace Utilities
+#include <QDir>
+#include <QFileInfo>
+
+
+QImage Utilities::scaleImage(const QImage &image, const QSize& size, Qt::AspectRatioMode mode )
 {
-void checkForBackupFile( const QString& fileName, const QString& message = QString() );
-bool copy( const QString& from, const QString& to );
-bool makeSymbolicLink( const QString& from, const QString& to );
-bool makeHardLink( const QString& from, const QString& to );
-bool canReadImage( const DB::FileName& fileName );
-QString locateDataFile(const QString& fileName);
-
-QString cStringWithEncoding( const char *c_str, const QString& charset );
-
-QColor contrastColor( const QColor& );
-
+    return image.scaled( size, mode, Settings::SettingsData::instance()->smoothScale() ? Qt::SmoothTransformation : Qt::FastTransformation );
 }
 
-
-#endif /* UTIL_H */
-
+void Utilities::saveImage( const DB::FileName& fileName, const QImage& image, const char* format )
+{
+    const QFileInfo info(fileName.absolute());
+    QDir().mkpath(info.path());
+     const bool ok = image.save(fileName.absolute(),format);
+    Q_ASSERT(ok); Q_UNUSED(ok);
+}
 // vi:expandtab:tabstop=4 shiftwidth=4:

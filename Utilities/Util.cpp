@@ -21,10 +21,8 @@
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
-#include <Exif/Info.h>
 #include <ImageManager/ImageDecoder.h>
 #include <ImageManager/RawImageDecoder.h>
-#include <MainWindow/Window.h>
 #include <Settings/SettingsData.h>
 
 #include <KLocalizedString>
@@ -34,12 +32,10 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QImageReader>
-#include <QList>
 #include <QMimeDatabase>
 #include <QMimeType>
 #include <QStandardPaths>
 #include <QTextCodec>
-#include <QUrl>
 
 extern "C" {
 #include <unistd.h>
@@ -126,11 +122,6 @@ QString Utilities::locateDataFile(const QString& fileName)
     return QStandardPaths::locate(QStandardPaths::DataLocation, fileName);
 }
 
-QImage Utilities::scaleImage(const QImage &image, const QSize& size, Qt::AspectRatioMode mode )
-{
-    return image.scaled( size, mode, Settings::SettingsData::instance()->smoothScale() ? Qt::SmoothTransformation : Qt::FastTransformation );
-}
-
 QString Utilities::cStringWithEncoding( const char *c_str, const QString& charset )
 {
     QTextCodec* codec = QTextCodec::codecForName( charset.toLatin1() );
@@ -147,11 +138,4 @@ QColor Utilities::contrastColor( const QColor& col )
         return Qt::black;
 }
 
-void Utilities::saveImage( const DB::FileName& fileName, const QImage& image, const char* format )
-{
-    const QFileInfo info(fileName.absolute());
-    QDir().mkpath(info.path());
-     const bool ok = image.save(fileName.absolute(),format);
-    Q_ASSERT(ok); Q_UNUSED(ok);
-}
 // vi:expandtab:tabstop=4 shiftwidth=4:

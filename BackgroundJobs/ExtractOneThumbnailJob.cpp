@@ -22,7 +22,7 @@
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <ImageManager/ExtractOneVideoFrame.h>
 #include <QImage>
-#include <Utilities/Util.h>
+#include <Utilities/ImageUtil.h>
 #include <DB/ImageDB.h>
 #include <QPainter>
 #include <QFile>

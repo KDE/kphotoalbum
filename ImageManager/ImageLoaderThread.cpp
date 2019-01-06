@@ -23,7 +23,7 @@
 #include "AsyncLoader.h"
 #include "RawImageDecoder.h"
 #include "Utilities/FastJpeg.h"
-#include "Utilities/Util.h"
+#include "Utilities/ImageUtil.h"
 
 #include <qapplication.h>
 #include <qfileinfo.h>

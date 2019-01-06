@@ -32,13 +32,25 @@ bool makeHardLink( const QString& from, const QString& to );
 bool canReadImage( const DB::FileName& fileName );
 QString locateDataFile(const QString& fileName);
 
-QImage scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
-QImage scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
+/**
+ * @brief scaleImage returns the scaled image, honoring the settings for smooth scaling.
+ * @param image
+ * @param size
+ * @param mode aspect ratio mode
+ * @return a scaled image
+ */
+QImage scaleImage(const QImage &image, const QSize& size, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
 
 QString cStringWithEncoding( const char *c_str, const QString& charset );
 
 QColor contrastColor( const QColor& );
 
+/**
+ * @brief saveImage saves a QImage to a FileName, making sure that the directory exists.
+ * @param fileName
+ * @param image
+ * @param format the storage format for QImage::save(), usually "JPEG"
+ */
 void saveImage( const DB::FileName& fileName, const QImage& image, const char* format );
 }
 

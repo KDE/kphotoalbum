@@ -126,14 +126,9 @@ QString Utilities::locateDataFile(const QString& fileName)
     return QStandardPaths::locate(QStandardPaths::DataLocation, fileName);
 }
 
-QImage Utilities::scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode )
+QImage Utilities::scaleImage(const QImage &image, const QSize& size, Qt::AspectRatioMode mode )
 {
-    return image.scaled( w, h, mode, Settings::SettingsData::instance()->smoothScale() ? Qt::SmoothTransformation : Qt::FastTransformation );
-}
-
-QImage Utilities::scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode )
-{
-    return scaleImage( image, s.width(), s.height(), mode );
+    return image.scaled( size, mode, Settings::SettingsData::instance()->smoothScale() ? Qt::SmoothTransformation : Qt::FastTransformation );
 }
 
 QString Utilities::cStringWithEncoding( const char *c_str, const QString& charset )

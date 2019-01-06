@@ -138,7 +138,7 @@ QImage ImageManager::ImageLoaderThread::scaleAndRotate( ImageRequest* request, Q
 
     // If we are looking for a scaled version, then scale
     if ( shouldImageBeScale( img, request ) )
-        img = Utilities::scaleImage(img, request->width(), request->height(), Qt::KeepAspectRatio );
+        img = Utilities::scaleImage(img, request->size(), Qt::KeepAspectRatio );
 
     return img;
 }

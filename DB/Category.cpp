@@ -148,7 +148,7 @@ QPixmap DB::Category::categoryImage( const QString& category, QString member, in
         else
             img = icon( qMax(width,height) ).toImage();
     }
-    res = QPixmap::fromImage( Utilities::scaleImage(img, width, height, Qt::KeepAspectRatio) );
+    res = QPixmap::fromImage( Utilities::scaleImage(img, QSize(width, height), Qt::KeepAspectRatio) );
 
     QPixmapCache::insert( key, res );
     return res;

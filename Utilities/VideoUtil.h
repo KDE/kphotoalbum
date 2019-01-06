@@ -16,33 +16,20 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef UTIL_H
-#define UTIL_H
+#ifndef VIDEO_UTIL_H
+#define VIDEO_UTIL_H
 #include "DB/FileName.h"
 
-#include <QImage>
+#include <QSet>
 #include <QString>
 
 namespace Utilities
 {
-void checkForBackupFile( const QString& fileName, const QString& message = QString() );
-bool copy( const QString& from, const QString& to );
-bool makeSymbolicLink( const QString& from, const QString& to );
-bool makeHardLink( const QString& from, const QString& to );
-bool canReadImage( const DB::FileName& fileName );
-QString locateDataFile(const QString& fileName);
-
-QImage scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
-QImage scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
-
-QString cStringWithEncoding( const char *c_str, const QString& charset );
-
-QColor contrastColor( const QColor& );
-
-void saveImage( const DB::FileName& fileName, const QImage& image, const char* format );
+const QSet<QString>& supportedVideoExtensions();
+bool isVideo( const DB::FileName& fileName );
 }
 
 
-#endif /* UTIL_H */
+#endif /* VIDEO_UTIL_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -229,6 +229,8 @@ set(libUtilities_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/FastJpeg.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DemoUtil.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DescriptionUtil.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/FileNameUtil.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/VideoUtil.cpp
     )
 
 set(libMainWindow_SRCS

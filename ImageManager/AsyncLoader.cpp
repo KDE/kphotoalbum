@@ -25,7 +25,7 @@
 #include <BackgroundTaskManager/JobManager.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <MainWindow/FeatureDialog.h>
-#include <Utilities/Util.h>
+#include <Utilities/VideoUtil.h>
 
 #include "CancelEvent.h"
 #include "ImageEvent.h"

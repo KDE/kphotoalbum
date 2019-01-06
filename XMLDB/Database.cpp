@@ -21,6 +21,7 @@
 #include <kmessagebox.h>
 #include <KLocalizedString>
 #include "Utilities/Util.h"
+#include "Utilities/VideoUtil.h"
 #include "DB/GroupCounter.h"
 #include "Browser/BrowserWidget.h"
 #include "DB/ImageInfo.h"

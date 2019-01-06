@@ -34,6 +34,8 @@
 #include <MainWindow/Window.h>
 #include <Settings/SettingsData.h>
 #include <Utilities/Util.h>
+#include <Utilities/FileNameUtil.h>
+#include <Utilities/VideoUtil.h>
 
 #include <QApplication>
 #include <QEventLoop>

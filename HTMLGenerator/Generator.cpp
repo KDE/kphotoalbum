@@ -44,6 +44,7 @@
 #include <ImageManager/AsyncLoader.h>
 #include <ImportExport/Export.h>
 #include <Utilities/Util.h>
+#include <Utilities/VideoUtil.h>
 
 #include "ImageSizeCheckBox.h"
 #include "Setup.h"

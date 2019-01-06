@@ -19,6 +19,7 @@
 
 #include "UpdateVideoThumbnail.h"
 #include <Utilities/Util.h>
+#include <Utilities/VideoUtil.h>
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <ImageManager/ThumbnailCache.h>
 #include "Window.h"

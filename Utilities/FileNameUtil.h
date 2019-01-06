@@ -16,33 +16,22 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef UTIL_H
-#define UTIL_H
-#include "DB/FileName.h"
+#ifndef FILENAME_UTIL_H
+#define FILENAME_UTIL_H
 
-#include <QImage>
 #include <QString>
 
 namespace Utilities
 {
-void checkForBackupFile( const QString& fileName, const QString& message = QString() );
-bool copy( const QString& from, const QString& to );
-bool makeSymbolicLink( const QString& from, const QString& to );
-bool makeHardLink( const QString& from, const QString& to );
-bool canReadImage( const DB::FileName& fileName );
-QString locateDataFile(const QString& fileName);
+QString stripEndingForwardSlash( const QString& fileName );
 
-QImage scaleImage(const QImage &image, int w, int h, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
-QImage scaleImage(const QImage &image, const QSize& s, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
+QString absoluteImageFileName( const QString& relativeName );
+QString imageFileNameToAbsolute( const QString& fileName );
 
-QString cStringWithEncoding( const char *c_str, const QString& charset );
-
-QColor contrastColor( const QColor& );
-
-void saveImage( const DB::FileName& fileName, const QImage& image, const char* format );
+QString relativeFolderName( const QString& fileName);
 }
 
 
-#endif /* UTIL_H */
+#endif /* FILENAME_UTIL_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

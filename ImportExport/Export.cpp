@@ -40,6 +40,8 @@
 #include <ImageManager/AsyncLoader.h>
 #include <ImageManager/RawImageDecoder.h>
 #include <Utilities/Util.h>
+#include <Utilities/FileNameUtil.h>
+#include <Utilities/VideoUtil.h>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <QPushButton>

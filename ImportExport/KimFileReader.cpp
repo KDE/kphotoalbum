@@ -20,7 +20,8 @@
 #include <KLocalizedString>
 #include <kmessagebox.h>
 #include <kzip.h>
-#include "Utilities/Util.h"
+#include <Utilities/FileNameUtil.h>
+#include <Utilities/VideoUtil.h>
 
 ImportExport::KimFileReader::KimFileReader()
     :m_zip(nullptr)

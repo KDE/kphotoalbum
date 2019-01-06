@@ -98,9 +98,10 @@
 #include <ThumbnailView/enums.h>
 #include <ThumbnailView/ThumbnailFacade.h>
 #include <Utilities/DemoUtil.h>
+#include <Utilities/FileNameUtil.h>
 #include <Utilities/List.h>
 #include <Utilities/ShowBusyCursor.h>
-#include <Utilities/Util.h>
+#include <Utilities/VideoUtil.h>
 #include <Viewer/ViewerWidget.h>
 
 #include "AutoStackImages.h"

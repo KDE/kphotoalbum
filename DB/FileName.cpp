@@ -21,7 +21,7 @@
 #include "ImageDB.h"
 
 #include <DB/ImageInfoList.h>
-#include <Utilities/Util.h>
+#include <Utilities/FileNameUtil.h>
 #include <Settings/SettingsData.h>
 
 #include <QFile>

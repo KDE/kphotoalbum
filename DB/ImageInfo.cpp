@@ -28,7 +28,7 @@
 #include <Exif/Database.h>
 #include <Settings/SettingsData.h>
 #include <Utilities/StringSet.h>
-#include <Utilities/Util.h>
+#include <Utilities/FileNameUtil.h>
 
 #include <QFile>
 #include <QFileInfo>

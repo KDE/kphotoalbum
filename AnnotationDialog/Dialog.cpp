@@ -34,7 +34,6 @@
 #include <MainWindow/DirtyIndicator.h>
 #include <Settings/SettingsData.h>
 #include <Utilities/ShowBusyCursor.h>
-#include <Utilities/Util.h>
 #include <Viewer/ViewerWidget.h>
 
 #include <KAcceleratorManager>
@@ -64,8 +63,10 @@
 #include <QPushButton>
 #include <QSpinBox>
 #include <QStackedWidget>
+#include <QStandardPaths>
 #include <QTimeEdit>
 #include <QVBoxLayout>
+
 #ifdef HAVE_KGEOMAP
 #include <Map/MapView.h>
 #include <QProgressBar>
@@ -773,7 +774,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search( DB::ImageSearchInfo* searc
 
     setup();
 
-    m_preview->setImage(Utilities::locateDataFile(QString::fromLatin1("pics/search.jpg")));
+    m_preview->setImage(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("pics/search.jpg")));
 
     m_ratingChanged = false ;
     showHelpDialog( SearchMode );

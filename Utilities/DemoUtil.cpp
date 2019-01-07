@@ -67,7 +67,7 @@ QString Utilities::setupDemo()
     }
 
     // index.xml
-    const QString demoDB = locateDataFile(QString::fromLatin1("demo/index.xml"));
+    const QString demoDB = QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("demo/index.xml"));
     if ( demoDB.isEmpty() )
     {
         qCDebug(UtilitiesLog) << "No demo database in standard locations:" << QStandardPaths::standardLocations(QStandardPaths::DataLocation);

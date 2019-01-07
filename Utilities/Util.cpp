@@ -116,12 +116,6 @@ bool Utilities::canReadImage( const DB::FileName& fileName )
             || ImageManager::ImageDecoder::mightDecode( fileName );
 }
 
-
-QString Utilities::locateDataFile(const QString& fileName)
-{
-    return QStandardPaths::locate(QStandardPaths::DataLocation, fileName);
-}
-
 QColor Utilities::contrastColor( const QColor& col )
 {
     if ( col.red() < 127 && col.green() < 127 && col.blue() < 127 )

@@ -30,7 +30,6 @@ bool copy( const QString& from, const QString& to );
 bool makeSymbolicLink( const QString& from, const QString& to );
 bool makeHardLink( const QString& from, const QString& to );
 bool canReadImage( const DB::FileName& fileName );
-QString locateDataFile(const QString& fileName);
 
 QColor contrastColor( const QColor& );
 

@@ -26,7 +26,6 @@
 #include <DB/MD5Map.h>
 #include <MainWindow/DirtyIndicator.h>
 #include <MainWindow/Window.h>
-#include <Utilities/Util.h>
 
 // KDE includes
 #include <KLocalizedString>
@@ -37,6 +36,7 @@
 #include <QHash>
 #include <QLocale>
 #include <QRegExp>
+#include <QStandardPaths>
 #include <QTextCodec>
 #include <QTextStream>
 
@@ -453,7 +453,7 @@ XMLDB::ReaderPtr XMLDB::FileReader::readConfigFile( const QString& configFile )
     QFile file( configFile );
     if ( !file.exists() ) {
         // Load a default setup
-        QFile file(Utilities::locateDataFile(QString::fromLatin1("default-setup")));
+        QFile file(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("default-setup")));
         if ( !file.open( QIODevice::ReadOnly ) ) {
             KMessageBox::information( messageParent(),
                                       i18n( "<p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"

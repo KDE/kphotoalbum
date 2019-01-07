@@ -19,7 +19,6 @@
 #include "WelcomeDialog.h"
 #include "FeatureDialog.h"
 #include "Window.h"
-#include <Utilities/Util.h>
 
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -50,7 +49,7 @@ WelcomeDialog::WelcomeDialog( QWidget* parent )
     QLabel* image = new QLabel( this );
     image->setMinimumSize( QSize( 273, 204 ) );
     image->setMaximumSize( QSize( 273, 204 ) );
-    image->setPixmap(Utilities::locateDataFile(QString::fromLatin1("pics/splash.png")));
+    image->setPixmap(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("pics/splash.png")));
     lay2->addWidget( image );
 
     QLabel* textLabel2 = new QLabel( this );

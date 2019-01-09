@@ -18,9 +18,8 @@
 
 #ifndef UTIL_H
 #define UTIL_H
-#include "DB/FileName.h"
 
-#include <QImage>
+#include <QColor>
 #include <QString>
 
 namespace Utilities
@@ -28,7 +27,6 @@ namespace Utilities
 bool copy( const QString& from, const QString& to );
 bool makeSymbolicLink( const QString& from, const QString& to );
 bool makeHardLink( const QString& from, const QString& to );
-bool canReadImage( const DB::FileName& fileName );
 
 QColor contrastColor( const QColor& );
 

@@ -17,25 +17,9 @@
 */
 
 #include "Util.h"
-#include "Logging.h"
 
-#include <DB/CategoryCollection.h>
-#include <DB/ImageDB.h>
-#include <ImageManager/ImageDecoder.h>
-#include <ImageManager/RawImageDecoder.h>
-#include <Settings/SettingsData.h>
-
-#include <KLocalizedString>
-#include <KMessageBox>
-
-#include <QApplication>
 #include <QDir>
 #include <QFileInfo>
-#include <QImageReader>
-#include <QMimeDatabase>
-#include <QMimeType>
-#include <QStandardPaths>
-#include <QTextCodec>
 
 extern "C" {
 #include <unistd.h>

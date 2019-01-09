@@ -41,31 +41,18 @@
 using Utilities::StringSet;
 
 namespace {
-void checkForBackupFile( const QString& fileName, const QString& message )
+void checkForBackupFile( const QString& fileName)
 {
     QString backupName = QFileInfo( fileName ).absolutePath() + QString::fromLatin1("/.#") + QFileInfo( fileName ).fileName();
     QFileInfo backUpFile( backupName);
     QFileInfo indexFile( fileName );
 
     if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() || backUpFile.size() == 0 )
-        if ( !( backUpFile.exists() && !message.isNull() ) )
-            return;
+        return;
 
-    int code;
-    if ( message.isNull() )
-        code = KMessageBox::questionYesNo( nullptr, i18n("Autosave file '%1' exists (size %3 KB) and is newer than '%2'. "
-                                                         "Should the autosave file be used?", backupName, fileName, backUpFile.size() >> 10 ),
-                                           i18n("Found Autosave File") );
-    else if ( backUpFile.size() > 0 )
-        code = KMessageBox::warningYesNo( nullptr,i18n( "<p>Error: Cannot use current database file '%1':</p><p>%2</p>"
-                                                        "<p>Do you want to use autosave (%3 - size %4 KB) instead of exiting?</p>"
-                                                        "<p><small>(Manually verifying and copying the file might be a good idea)</small></p>", fileName, message, backupName, backUpFile.size() >> 10 ),
-                                          i18n("Recover from Autosave?") );
-    else {
-        KMessageBox::error( nullptr, i18n( "<p>Error: %1</p><p>Also autosave file is empty, check manually "
-                                           "if numbered backup files exist and can be used to restore index.xml.</p>", message ) );
-        exit(-1);
-    }
+    int code = KMessageBox::questionYesNo( nullptr, i18n("Autosave file '%1' exists (size %3 KB) and is newer than '%2'. "
+                                                     "Should the autosave file be used?", backupName, fileName, backUpFile.size() >> 10 ),
+                                       i18n("Found Autosave File") );
 
     if ( code == KMessageBox::Yes ) {
         QFile in( backupName );
@@ -78,8 +65,7 @@ void checkForBackupFile( const QString& fileName, const QString& message )
                     out.write( data, len );
             }
         }
-    } else if ( !message.isNull() )
-        exit(-1);
+    }
 }
 } // namespace
 
@@ -87,7 +73,7 @@ bool XMLDB::Database::s_anyImageWithEmptySize = false;
 XMLDB::Database::Database( const QString& configFile ):
     m_fileName(configFile)
 {
-    checkForBackupFile( configFile, QString() );
+    checkForBackupFile( configFile );
     FileReader reader( this );
     reader.read( configFile );
     m_nextStackId = reader.nextStackId();

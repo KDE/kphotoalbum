@@ -41,46 +41,6 @@ extern "C" {
 #include <unistd.h>
 }
 
-void Utilities::checkForBackupFile( const QString& fileName, const QString& message )
-{
-    QString backupName = QFileInfo( fileName ).absolutePath() + QString::fromLatin1("/.#") + QFileInfo( fileName ).fileName();
-    QFileInfo backUpFile( backupName);
-    QFileInfo indexFile( fileName );
-
-    if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() || backUpFile.size() == 0 )
-        if ( !( backUpFile.exists() && !message.isNull() ) )
-            return;
-
-    int code;
-    if ( message.isNull() )
-        code = KMessageBox::questionYesNo( nullptr, i18n("Autosave file '%1' exists (size %3 KB) and is newer than '%2'. "
-                "Should the autosave file be used?", backupName, fileName, backUpFile.size() >> 10 ),
-                i18n("Found Autosave File") );
-    else if ( backUpFile.size() > 0 )
-        code = KMessageBox::warningYesNo( nullptr,i18n( "<p>Error: Cannot use current database file '%1':</p><p>%2</p>"
-                "<p>Do you want to use autosave (%3 - size %4 KB) instead of exiting?</p>"
-                "<p><small>(Manually verifying and copying the file might be a good idea)</small></p>", fileName, message, backupName, backUpFile.size() >> 10 ),
-                i18n("Recover from Autosave?") );
-    else {
-        KMessageBox::error( nullptr, i18n( "<p>Error: %1</p><p>Also autosave file is empty, check manually "
-                        "if numbered backup files exist and can be used to restore index.xml.</p>", message ) );
-        exit(-1);
-    }
-
-    if ( code == KMessageBox::Yes ) {
-        QFile in( backupName );
-        if ( in.open( QIODevice::ReadOnly ) ) {
-            QFile out( fileName );
-            if (out.open( QIODevice::WriteOnly ) ) {
-                char data[1024];
-                int len;
-                while ( (len = in.read( data, 1024 ) ) )
-                    out.write( data, len );
-            }
-        }
-    } else if ( !message.isNull() )
-        exit(-1);
-}
 
 bool Utilities::copy( const QString& from, const QString& to )
 {

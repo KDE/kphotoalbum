@@ -17,32 +17,77 @@
 */
 
 #include "Database.h"
-#include "Settings/SettingsData.h"
-#include <kmessagebox.h>
-#include <KLocalizedString>
-#include "Utilities/Util.h"
-#include "Utilities/VideoUtil.h"
-#include "DB/GroupCounter.h"
-#include "Browser/BrowserWidget.h"
-#include "DB/ImageInfo.h"
-#include "DB/ImageInfoPtr.h"
-#include "DB/CategoryCollection.h"
-#include "XMLCategory.h"
-#include <QExplicitlySharedDataPointer>
-#include <QFileInfo>
-#include "XMLImageDateCollection.h"
+
 #include "FileReader.h"
 #include "FileWriter.h"
-#include "Exif/Database.h"
+#include "XMLCategory.h"
+#include "XMLImageDateCollection.h"
+
+#include <Browser/BrowserWidget.h>
+#include <DB/CategoryCollection.h>
 #include <DB/FileName.h>
+#include <DB/GroupCounter.h>
+#include <DB/ImageInfo.h>
+#include <DB/ImageInfoPtr.h>
+#include <Exif/Database.h>
+#include <Settings/SettingsData.h>
+#include <Utilities/VideoUtil.h>
+
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <QExplicitlySharedDataPointer>
+#include <QFileInfo>
 
 using Utilities::StringSet;
+
+namespace {
+void checkForBackupFile( const QString& fileName, const QString& message )
+{
+    QString backupName = QFileInfo( fileName ).absolutePath() + QString::fromLatin1("/.#") + QFileInfo( fileName ).fileName();
+    QFileInfo backUpFile( backupName);
+    QFileInfo indexFile( fileName );
+
+    if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() || backUpFile.size() == 0 )
+        if ( !( backUpFile.exists() && !message.isNull() ) )
+            return;
+
+    int code;
+    if ( message.isNull() )
+        code = KMessageBox::questionYesNo( nullptr, i18n("Autosave file '%1' exists (size %3 KB) and is newer than '%2'. "
+                                                         "Should the autosave file be used?", backupName, fileName, backUpFile.size() >> 10 ),
+                                           i18n("Found Autosave File") );
+    else if ( backUpFile.size() > 0 )
+        code = KMessageBox::warningYesNo( nullptr,i18n( "<p>Error: Cannot use current database file '%1':</p><p>%2</p>"
+                                                        "<p>Do you want to use autosave (%3 - size %4 KB) instead of exiting?</p>"
+                                                        "<p><small>(Manually verifying and copying the file might be a good idea)</small></p>", fileName, message, backupName, backUpFile.size() >> 10 ),
+                                          i18n("Recover from Autosave?") );
+    else {
+        KMessageBox::error( nullptr, i18n( "<p>Error: %1</p><p>Also autosave file is empty, check manually "
+                                           "if numbered backup files exist and can be used to restore index.xml.</p>", message ) );
+        exit(-1);
+    }
+
+    if ( code == KMessageBox::Yes ) {
+        QFile in( backupName );
+        if ( in.open( QIODevice::ReadOnly ) ) {
+            QFile out( fileName );
+            if (out.open( QIODevice::WriteOnly ) ) {
+                char data[1024];
+                int len;
+                while ( (len = in.read( data, 1024 ) ) )
+                    out.write( data, len );
+            }
+        }
+    } else if ( !message.isNull() )
+        exit(-1);
+}
+} // namespace
 
 bool XMLDB::Database::s_anyImageWithEmptySize = false;
 XMLDB::Database::Database( const QString& configFile ):
     m_fileName(configFile)
 {
-    Utilities::checkForBackupFile( configFile );
+    checkForBackupFile( configFile, QString() );
     FileReader reader( this );
     reader.read( configFile );
     m_nextStackId = reader.nextStackId();

@@ -38,18 +38,20 @@
 #include <Utilities/VideoUtil.h>
 
 #include <QApplication>
+#include <QDataStream>
+#include <QElapsedTimer>
 #include <QEventLoop>
+#include <QFile>
 #include <QFileInfo>
+#include <QImageReader>
 #include <QLoggingCategory>
+#include <QMimeDatabase>
 #include <QProgressBar>
 #include <QProgressDialog>
 #include <QStringList>
 
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <QDataStream>
-#include <QFile>
-#include <QElapsedTimer>
 
 using namespace DB;
 
@@ -373,6 +375,18 @@ namespace {
 // yields about 10% less performance with higher IO/sec but lower I/O throughput,
 // most probably due to thrashing.
 constexpr int IMAGE_SCOUT_THREAD_COUNT = 1;
+
+
+bool canReadImage( const DB::FileName& fileName )
+{
+    bool fastMode = !Settings::SettingsData::instance()->ignoreFileExtension();
+    QMimeDatabase::MatchMode mode = fastMode ? QMimeDatabase::MatchExtension : QMimeDatabase::MatchDefault;
+    QMimeDatabase db;
+    QMimeType mimeType = db.mimeTypeForFile( fileName.absolute(), mode );
+
+    return QImageReader::supportedMimeTypes().contains( mimeType.name().toUtf8() )
+            || ImageManager::ImageDecoder::mightDecode( fileName );
+}
 }
 
 bool NewImageFinder::findImages()
@@ -448,7 +462,7 @@ void NewImageFinder::searchForNewFiles( const DB::FileNameSet& loadedFiles, QStr
 
         if ( fi.isFile() ) {
             if ( ! DB::ImageDB::instance()->isBlocking( file ) ) {
-                if ( Utilities::canReadImage(file) )
+                if ( canReadImage(file) )
                     m_pendingLoad.append( qMakePair( file, DB::Image ) );
                 else if ( Utilities::isVideo( file ) )
                     m_pendingLoad.append( qMakePair( file, DB::Video ) );

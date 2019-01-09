@@ -65,16 +65,6 @@ bool Utilities::makeSymbolicLink( const QString& from, const QString& to )
         return true;
 }
 
-bool Utilities::canReadImage( const DB::FileName& fileName )
-{
-    bool fastMode = !Settings::SettingsData::instance()->ignoreFileExtension();
-    QMimeDatabase::MatchMode mode = fastMode ? QMimeDatabase::MatchExtension : QMimeDatabase::MatchDefault;
-    QMimeDatabase db;
-    QMimeType mimeType = db.mimeTypeForFile( fileName.absolute(), mode );
-
-    return QImageReader::supportedMimeTypes().contains( mimeType.name().toUtf8() )
-            || ImageManager::ImageDecoder::mightDecode( fileName );
-}
 
 QColor Utilities::contrastColor( const QColor& col )
 {

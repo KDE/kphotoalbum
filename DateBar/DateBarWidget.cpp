@@ -107,6 +107,8 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
             "<item>Clicking on the timeline sets the <emphasis>focus</emphasis> for the thumbnail view, i.e. jumps to the first thumbnail of the time unit in focus.</item>"
             "</list></para>") );
     setToolTip( whatsThis() );
+
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::histogramScaleChanged, this, &DateBarWidget::redraw);
 }
 
 QSize DateBar::DateBarWidget::sizeHint() const

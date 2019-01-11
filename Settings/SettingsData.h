@@ -228,6 +228,7 @@ signals:
     void histogramSizeChanged( const QSize& );
     void thumbnailSizeChanged( int );
     void actualThumbnailSizeChanged( int );
+    void histogramScaleChanged();
 
 private:
     SettingsData( const QString& imageDirectory  );

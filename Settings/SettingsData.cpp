@@ -157,7 +157,6 @@ property_copy( useCompressedIndexXML , setUseCompressedIndexXML , bool          
 property_copy( compressBackup        , setCompressBackup        , bool          , General, true                       )
 property_copy( showSplashScreen      , setShowSplashScreen      , bool          , General, true                       )
 property_copy( showHistogram         , setShowHistogram         , bool          , General, true                       )
-property_copy( histogramUseLogScale  , setHistogramUseLogScale  , bool          , General, true                       )
 property_copy( autoSave              , setAutoSave              , int           , General, 5                          )
 property_copy( backupCount           , setBackupCount           , int           , General, 5                          )
 property_enum( tTimeStamps           , setTTimeStamps           , TimeStampTrust, General, Always                     )
@@ -168,6 +167,16 @@ property_copy( listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnSta
 getValueFunc( QSize,histogramSize,  General,QSize(15,30) )
 getValueFunc( ViewSortType,viewSortType,  General,(int)SortLastUse )
 getValueFunc( AnnotationDialog::MatchType, matchType,  General,(int)AnnotationDialog::MatchFromWordStart )
+getValueFunc( bool, histogramUseLogScale, General, true)
+
+void SettingsData::setHistogramUseLogScale( const bool useLogScale)
+{
+    if ( useLogScale == histogramUseLogScale() )
+        return;
+
+    setValue( "General", "histogramUseLogScale", useLogScale);
+    emit histogramScaleChanged();
+}
 
 void SettingsData::setHistogramSize( const QSize& size )
 {

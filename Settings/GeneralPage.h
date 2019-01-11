@@ -39,6 +39,7 @@ public:
     QSize useRawThumbnailSize();
 
 private slots:
+    void histogramScaleChanged( int state ) const;
     void showHistogramChanged( int state ) const;
     void useEXIFCommentsChanged(int state);
     void stripEXIFCommentsChanged(int state);
@@ -53,6 +54,7 @@ private:
     QSpinBox* m_useRawThumbnailWidth;
     QSpinBox* m_useRawThumbnailHeight;
     QCheckBox* m_showHistogram;
+    QCheckBox* m_histogramUseLogScale;
     QSpinBox* m_barWidth;
     QSpinBox* m_barHeight;
     QCheckBox* m_showSplashScreen;

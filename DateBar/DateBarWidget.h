@@ -44,6 +44,20 @@ class FocusItemDragHandler;
 class BarDragHandler;
 class SelectionHandler;
 
+/**
+ * @brief The DateBarWidget class provides a histogram-like depiction of the image distribution over time.
+ * Both exact and fuzzy dates are taken into account and shown in different style (currently yellow and green).
+ * If enough space is available, the number of images within each time period is printed inside each box.
+ *
+ * ## "unit" concept
+ * A central concept in the widget design is that of a time \c unit.
+ * Units are an integer offset into the number of available "boxes".
+ * The number of units (or boxes) is calculated according to the available space (see \ref numberOfUnits()).
+ * Each unit corresponds to a time period at the current resolution and offset.
+ *
+ * The time resulution is represented by the \c ViewHandler, and the offset is stored in \c m_currentDate.
+ *
+ */
 class DateBarWidget :public QWidget {
     Q_OBJECT
 
@@ -92,6 +106,14 @@ protected:
     virtual void focusOutEvent( QFocusEvent* );
     virtual void wheelEvent( QWheelEvent * e );
 
+    /**
+     * @brief redraw the widget
+     * This method creates a QPainter and then uses the draw* methods to draw the different parts of the widget.
+     * \see drawTickMarks
+     * \see drawHistograms
+     * \see drawFocusRectangle
+     * \see drawResolutionIndicator
+     */
     void redraw();
     void drawTickMarks( QPainter& p, const QRect& textRect );
     void drawHistograms( QPainter& p );

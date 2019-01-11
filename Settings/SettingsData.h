@@ -78,6 +78,7 @@ public:
     property_copy( compressBackup        , setCompressBackup        , bool );
     property_copy( showSplashScreen      , setShowSplashScreen      , bool );
     property_copy( showHistogram         , setShowHistogram         , bool );
+    property_copy( histogramUseLogScale  , setHistogramUseLogScale  , bool );
     property_copy( autoSave              , setAutoSave              , int );
     property_copy( backupCount           , setBackupCount           , int );
     property_copy( viewSortType          , setViewSortType          , ViewSortType   );

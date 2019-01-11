@@ -327,23 +327,37 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
     }
 
     int unit = 0;
+    const bool logScale = Settings::SettingsData::instance()->histogramUseLogScale();
     for ( int x = rect.x(); x  + m_barWidth < rect.right(); x+=m_barWidth, unit += 1 ) {
-        DB::ImageCount count = m_dates->count( rangeForUnit(unit) );
-        int exact = 0;
+        const DB::ImageCount count = m_dates->count( rangeForUnit(unit) );
+        int exactPx = 0;
+        int rangePx = 0;
         if ( max != 0 )
-            exact = (int) ((double) (rect.height()-2) * count.mp_exact / max );
-        int range = 0;
-        if ( m_includeFuzzyCounts && max != 0 )
-            range = (int) ((double) (rect.height()-2) * count.mp_rangeMatch / max );
+        {
+            double exactScaled;
+            double rangeScaled;
+            if (logScale)
+            {
+                exactScaled = log10(1+count.mp_exact) / log10(1+max);
+                rangeScaled = log10(1+count.mp_rangeMatch) / log10(1+max);
+            } else {
+                exactScaled = (double)count.mp_exact / max;
+                rangeScaled = (double)count.mp_rangeMatch / max;
+            }
+            // convert to pixels:
+            exactPx = (int) ((double) (rect.height()-2) * exactScaled );
+            if ( m_includeFuzzyCounts )
+                rangePx = (int) ((double) (rect.height()-2) * rangeScaled );
+        }
 
         Qt::BrushStyle style = Qt::SolidPattern;
         if ( !isUnitSelected( unit ) && hasSelection() )
             style= Qt::Dense5Pattern;
 
         p.setBrush( QBrush( Qt::yellow, style ) );
-        p.drawRect( x+1, rect.bottom()-range, m_barWidth-2, range );
+        p.drawRect( x+1, rect.bottom()-rangePx, m_barWidth-2, rangePx );
         p.setBrush( QBrush( Qt::green, style ) );
-        p.drawRect( x+1, rect.bottom()-range-exact, m_barWidth-2, exact );
+        p.drawRect( x+1, rect.bottom()-rangePx-exactPx, m_barWidth-2, exactPx );
 
         // Draw the numbers, if they fit.
         if (fontFound) {
@@ -354,7 +368,7 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
             p.translate( x+m_barWidth-3, rect.bottom()-2 );
             p.rotate( -90 );
             int w = QFontMetrics(f).width( QString::number( tot ) );
-            if ( w < exact+range-2 ) {
+            if ( w < exactPx+rangePx-2 ) {
                 p.setPen( Qt::black );
                 p.drawText( 0,0, QString::number( tot ) );
             }

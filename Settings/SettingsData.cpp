@@ -157,6 +157,7 @@ property_copy( useCompressedIndexXML , setUseCompressedIndexXML , bool          
 property_copy( compressBackup        , setCompressBackup        , bool          , General, true                       )
 property_copy( showSplashScreen      , setShowSplashScreen      , bool          , General, true                       )
 property_copy( showHistogram         , setShowHistogram         , bool          , General, true                       )
+property_copy( histogramUseLogScale  , setHistogramUseLogScale  , bool          , General, true                       )
 property_copy( autoSave              , setAutoSave              , int           , General, 5                          )
 property_copy( backupCount           , setBackupCount           , int           , General, 5                          )
 property_enum( tTimeStamps           , setTTimeStamps           , TimeStampTrust, General, Always                     )

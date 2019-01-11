@@ -165,7 +165,7 @@ void DateBar::DateBarWidget::redraw()
 
     drawTickMarks( p, rect );
     drawHistograms( p );
-    drawFocusRectagle( p );
+    drawFocusRectangle( p );
     updateArrowState();
     repaint();
 }
@@ -387,7 +387,7 @@ void DateBar::DateBarWidget::scroll( int units )
     emit dateSelected( currentDateRange(), includeFuzzyCounts() );
 }
 
-void DateBar::DateBarWidget::drawFocusRectagle( QPainter& p)
+void DateBar::DateBarWidget::drawFocusRectangle( QPainter& p)
 {
     QRect rect = barAreaGeometry();
     p.save();

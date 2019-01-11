@@ -117,7 +117,7 @@ protected:
     void redraw();
     void drawTickMarks( QPainter& p, const QRect& textRect );
     void drawHistograms( QPainter& p );
-    void drawFocusRectagle( QPainter& p );
+    void drawFocusRectangle( QPainter& p );
     void drawResolutionIndicator( QPainter& p, int* leftEdge );
     void zoom( int );
     QRect barAreaGeometry() const;

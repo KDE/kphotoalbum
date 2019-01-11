@@ -451,9 +451,9 @@ void DateBar::DateBarWidget::zoomOut()
     zoom(-1);
 }
 
-void DateBar::DateBarWidget::zoom( int factor )
+void DateBar::DateBarWidget::zoom(int steps )
 {
-    ViewType tp = (ViewType) (m_tp+factor);
+    ViewType tp = (ViewType) (m_tp+steps);
     setViewType( tp );
     emit canZoomIn( tp != MinuteView );
     emit canZoomOut( tp != DecadeView );
@@ -791,6 +791,8 @@ void DateBar::DateBarWidget::focusOutEvent( QFocusEvent* )
 
 int DateBar::DateBarWidget::unitAtPos( int x ) const
 {
+    Q_ASSERT_X( x - barAreaGeometry().left() >= 0, "DateBarWidget::unitAtPos", "horizontal offset cannot be negative!");
+    Q_ASSERT_X( x - barAreaGeometry().left() <= m_barWidth, "DateBarWidget::unitAtPos", "horizontal offset larger than m_barWidth!");
     return ( x  - barAreaGeometry().left() )/m_barWidth;
 }
 

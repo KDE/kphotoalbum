@@ -119,7 +119,12 @@ protected:
     void drawHistograms( QPainter& p );
     void drawFocusRectangle( QPainter& p );
     void drawResolutionIndicator( QPainter& p, int* leftEdge );
-    void zoom( int );
+    /**
+     * @brief zoom in or out by a number of steps.
+     * One steps corresponds to one step in the ViewType.
+     * @param steps positive steps to increase temporal resolution, negative to decrease.
+     */
+    void zoom( int steps);
     QRect barAreaGeometry() const;
     QRect tickMarkGeometry() const;
     QRect dateAreaGeometry() const;
@@ -131,8 +136,18 @@ protected:
     DB::ImageDate rangeAt( const QPoint& );
     DB::ImageDate rangeForUnit( int unit );
     void placeAndSizeButtons();
+    /**
+     * @brief unitAtPos maps horizontal screen coordinates to units.
+     * @param x a valid pixel offset in the histogram area
+     * @return a unit index between 0 and numberOfUnits
+     */
     int unitAtPos( int x ) const;
     QDateTime dateForUnit( int unit, const QDateTime& offset = QDateTime() ) const;
+    /**
+     * @brief unitForDate return the unit index corresponding to the date/time.
+     * @param date a valid QDateTime.
+     * @return An integer greater or equal to 0 if \p date is in view, -1 otherwise.
+     */
     int unitForDate( const QDateTime& date ) const;
     bool isUnitSelected( int unit ) const;
     bool hasSelection() const;

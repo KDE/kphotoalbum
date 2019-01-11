@@ -302,9 +302,10 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
     p.setClipRect( rect );
     p.setPen( Qt::NoPen );
 
-    int unit = 0;
+    // determine maximum image count within visible units
     int max = 0;
-    for ( int x = rect.x(); x + m_barWidth < rect.right(); x+=m_barWidth, unit += 1 ) {
+    for ( int unit=0; unit <= numberOfUnits(); unit++)
+    {
         DB::ImageCount count = m_dates->count( rangeForUnit(unit) );
         int cnt = count.mp_exact;
         if ( m_includeFuzzyCounts )
@@ -325,7 +326,7 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
         }
     }
 
-    unit = 0;
+    int unit = 0;
     for ( int x = rect.x(); x  + m_barWidth < rect.right(); x+=m_barWidth, unit += 1 ) {
         DB::ImageCount count = m_dates->count( rangeForUnit(unit) );
         int exact = 0;

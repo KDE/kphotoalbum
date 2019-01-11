@@ -46,7 +46,8 @@ class SelectionHandler;
 
 /**
  * @brief The DateBarWidget class provides a histogram-like depiction of the image distribution over time.
- * Both exact and fuzzy dates are taken into account and shown in different style (currently yellow and green).
+ * If \ref includeFuzzyCounts() is \c true,
+ * then both exact and fuzzy dates are taken into account and shown in different style (currently yellow and green).
  * If enough space is available, the number of images within each time period is printed inside each box.
  *
  * ## "unit" concept
@@ -64,6 +65,11 @@ class DateBarWidget :public QWidget {
 public:
     explicit DateBarWidget( QWidget* parent );
     enum ViewType { DecadeView, YearView, MonthView, WeekView, DayView, HourView, TenMinuteView, MinuteView };
+    /**
+     * @brief includeFuzzyCounts
+     * @return \c true if date ranges are shown, \c false otherwise.
+     * @see setIncludeFuzzyCounts
+     */
     bool includeFuzzyCounts() const;
 
 public slots:
@@ -78,7 +84,18 @@ public slots:
     void zoomOut();
     void setHistogramBarSize( const QSize& size );
     void setIncludeFuzzyCounts( bool );
+    /**
+     * @brief setShowResolutionIndicator
+     * If set to \c true, an indicator is shown to indicate the current ViewType.
+     * The indicator indicates the size of one unit / histogram box alongside a text
+     * indicating the respective temporal resolution (e.g. "10 minutes").
+     */
     void setShowResolutionIndicator( bool );
+    /**
+     * @brief setAutomaticRangeAdjustment
+     * If set to \c true, the ViewType and range is adjusted automatically to best
+     * match the current set of images.
+     */
     void setAutomaticRangeAdjustment( bool );
 
 signals:

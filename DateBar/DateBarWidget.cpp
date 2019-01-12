@@ -329,7 +329,7 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
     }
 
     int unit = 0;
-    const bool logScale = Settings::SettingsData::instance()->histogramUseLogScale();
+    const bool linearScale = Settings::SettingsData::instance()->histogramUseLinearScale();
     for ( int x = rect.x(); x  + m_barWidth < rect.right(); x+=m_barWidth, unit += 1 ) {
         const DB::ImageCount count = m_dates->count( rangeForUnit(unit) );
         int exactPx = 0;
@@ -338,13 +338,13 @@ void DateBar::DateBarWidget::drawHistograms( QPainter& p)
         {
             double exactScaled;
             double rangeScaled;
-            if (logScale)
+            if (linearScale)
             {
-                exactScaled = log10(1+count.mp_exact) / log10(1+max);
-                rangeScaled = log10(1+count.mp_rangeMatch) / log10(1+max);
-            } else {
                 exactScaled = (double)count.mp_exact / max;
                 rangeScaled = (double)count.mp_rangeMatch / max;
+            } else {
+                exactScaled = sqrt(count.mp_exact) / sqrt(max);
+                rangeScaled = sqrt(count.mp_rangeMatch) / sqrt(max);
             }
             // convert to pixels:
             exactPx = (int) ((double) (rect.height()-2) * exactScaled );

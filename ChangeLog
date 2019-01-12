@@ -1,4 +1,4 @@
-* Change: Use logarithmic scaling for DateBar (implements: #356810)
+* Change: Use non-linear scaling for DateBar by default(implements: #356810)
 
 * Change: Instead of having "increase/decrease thumbnail storage size
 	buttons", show a "Thumbnail settings" button in the status bar.

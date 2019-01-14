@@ -1,0 +1,31 @@
+#!/bin/bash
+###
+# Check all added or modified files that have a copyright line
+# for an up-to-date copyright year.
+# e.g. "Copyright (C) 2018-2019 The KPhotoAlbum Development Team"
+###
+
+set -e
+
+year=$(date +%Y)
+IFS=$'\n'
+for line in $(git status -s)
+do
+	# if the file is added or modified
+	if [[ $line == A* || $line == M* ]]
+	then
+		if head -n5 "${line:3}" | grep -q -i copyright
+		then
+			if ! head -n5 "${line:3}" | grep -q -i "copyright.*[ -]$year"
+			then
+				missing_year="$missing_year\n${line:3}"
+			fi
+		fi
+	fi
+done
+
+if [ -n "$missing_year" ]
+then
+	echo -e "Please update copyright year for the following files:$missing_year"
+	exit 1
+fi

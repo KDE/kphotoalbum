@@ -1,6 +1,18 @@
-# Development tools to support KPhotoAlbum development
+Development tools to support KPhotoAlbum development
+====================================================
 
-## githooks
+
+dev/scripts
+-----------
+
+This directory contains scripts useful for developing kphotoalbum.
+
+Scripts that are also useful to power users should usually go to the top level
+scripts directory (e.g. kpa-backup.sh).
+
+
+dev/githooks
+------------
 
 You can enable these hooks using the following command:
 
@@ -8,7 +20,7 @@ You can enable these hooks using the following command:
 	git config core.hooksPath ./dev/githooks/
 ````
 
-Alternatively, you can copy the hooks into .git/hooks and manually keep them
+Alternatively, you can copy the hooks into `.git/hooks` and manually keep them
 updated if needed.
 
 About the hooks:

@@ -7,21 +7,6 @@ BreakBeforeBraces: Linux
 ColumnLimit: 0
 CommentPragmas:  '^ (FALLTHROUGH|krazy:) '
 Standard:        Cpp11
-IncludeBlocks: Regroup
-IncludeCategories:
-# include order:
-# 1. "config-kpa-xxx.h"
-# 2. "MAIN_HEADER.h"
-# 3. KPA-includes
-# 4. other includes
-  - Regex:           '^"(DB|Utilities|ThumbnailView|AnnotationDialog|BackgroundJobs|BackgroundTaskManager|Browser|CategoryListView|DateBar|Exif|HTMLGenerator|ImageManager|ImportExport|MainWindow|MainWindow/DuplicateMerger|Plugins|Settings|Viewer|XMLDB)/'
-    Priority:        2
-  - Regex:           '^(</)'
-    Priority:        3
-  - Regex:           '^"config-kpa'
-    Priority:        -1
-  - Regex:           '^"'
-    Priority:        1
 IndentWidth:     4
 TabWidth:        4
 UseTab:          Never
@@ -33,3 +18,19 @@ SpacesInCStyleCastParentheses: false
 SpaceAfterControlStatementKeyword: true
 SpaceBeforeAssignmentOperators: true
 ContinuationIndentWidth: 4
+## jzarl: let's enable this as a second wave of reformatting - reordering headers can uncover hidden bugs
+#IncludeBlocks: Regroup
+#IncludeCategories:
+## include order:
+## 1. "config-kpa-xxx.h"
+## 2. "MAIN_HEADER.h"
+## 3. KPA-includes
+## 4. other includes
+#  - Regex:           '^"(DB|Utilities|ThumbnailView|AnnotationDialog|BackgroundJobs|BackgroundTaskManager|Browser|CategoryListView|DateBar|Exif|HTMLGenerator|ImageManager|ImportExport|MainWindow|MainWindow/DuplicateMerger|Plugins|Settings|Viewer|XMLDB)/'
+#    Priority:        2
+#  - Regex:           '^(</)'
+#    Priority:        3
+#  - Regex:           '^"config-kpa'
+#    Priority:        -1
+#  - Regex:           '^"'
+#    Priority:        1

@@ -1,0 +1,25 @@
+#!/bin/bash
+###
+# Check for untracked C++ source files.
+###
+
+set -e
+
+if [[ -z "$CHECK_UNTRACKED" ]]
+then
+	CHECK_UNTRACKED=$(git config --default true --type bool --get kpa.checkUntracked)
+fi
+if [[ "$CHECK_UNTRACKED" == false ]]
+then
+	exit 0
+fi
+
+retval=0
+untracked_files=$(git status -s | grep '^?? ' | grep '\.\(cpp\|h\)' | sed 's/^.../   /')
+if [[ -n "$untracked_files" ]]
+then
+	printf "Untracked files:\n$untracked_files\n"
+	printf "** You can suppress this check by setting 'git config kpa.checkUntracked false'\n"
+	printf "** or by setting the environment variable CHECK_UNTRACKED=false\n"
+	exit 1
+fi

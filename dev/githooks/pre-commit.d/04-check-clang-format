@@ -1,0 +1,42 @@
+#!/bin/bash
+###
+# Check all added or modified C++ source files for correct formatting
+###
+
+set -e
+
+if ! which clang-format >/dev/null 2>&1
+then
+	echo "Please install clang-format!"
+fi
+
+check_format()
+# check_format FILE
+# return 0 iff FILE is formatted correctly
+{
+	[[ $(clang-format -style=file -output-replacements-xml "$1" | wc -l) -eq 3 ]]
+}
+
+reformat_files=
+IFS=$'\n'
+for line in $(git status -s)
+do
+	# if the file is added or modified
+	if [[ "$line" == A* || "$line" == M* ]]
+	then
+		if [[ "$line" == *.cpp || "$line" == *.h ]]
+		then
+			if ! check_format "${line:3}"
+			then
+				reformat_files="$reformat_files\n   ${line:3}"
+			fi
+		fi
+	fi
+done
+
+if [[ -n "$reformat_files" ]]
+then
+	printf "Incorrect coding style:$reformat_files\n"
+	printf "** Run \"git clang-format\" to reformat all staged changes..."
+	exit 1
+fi

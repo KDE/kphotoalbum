@@ -10,10 +10,9 @@ Standard:        Cpp11
 IndentWidth:     4
 TabWidth:        4
 UseTab:          Never
-PointerAlignment: Left
-SpacesInParentheses: true
+PointerAlignment: Right
+SpacesInParentheses: false
 SpacesInAngles:  false
-SpaceInEmptyParentheses: false
 SpacesInCStyleCastParentheses: false
 SpaceAfterControlStatementKeyword: true
 SpaceBeforeAssignmentOperators: true

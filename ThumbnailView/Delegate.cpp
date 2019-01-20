@@ -167,9 +167,9 @@ void ThumbnailView::Delegate::paintBoundingRect( QPainter* painter, const QRect&
             double alpha = (0.5 - 0.1*i);
             double inverseAlpha = 1 - alpha;
 
-            color = QColor( foreground.red() * alpha + backround.red() * inverseAlpha,
-                            foreground.green() * alpha + backround.green() * inverseAlpha,
-                            foreground.blue() * alpha + backround.blue() * inverseAlpha );
+            color = QColor( int(foreground.red() * alpha + backround.red() * inverseAlpha),
+                            int(foreground.green() * alpha + backround.green() * inverseAlpha),
+                            int(foreground.blue() * alpha + backround.blue() * inverseAlpha) );
         }
 
         QPen pen( color );

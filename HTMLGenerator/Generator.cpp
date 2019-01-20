@@ -43,7 +43,7 @@
 #include <Exif/Info.h>
 #include <ImageManager/AsyncLoader.h>
 #include <ImportExport/Export.h>
-#include <Utilities/Util.h>
+#include <Utilities/FileUtil.h>
 #include <Utilities/VideoUtil.h>
 
 #include "ImageSizeCheckBox.h"

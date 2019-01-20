@@ -217,7 +217,7 @@ set(libUtilities_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ShowBusyCursor.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/List.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/UniqFilenameMapper.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Util.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/FileUtil.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/BooleanGuard.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Process.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DeleteFiles.cpp

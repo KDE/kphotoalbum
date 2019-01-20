@@ -22,7 +22,7 @@
 #include <KLocalizedString>
 #include <qregexp.h>
 #include <qdir.h>
-#include "Utilities/Util.h"
+#include "Utilities/FileUtil.h"
 
 void XMLDB::NumberedBackup::makeNumberedBackup()
 {

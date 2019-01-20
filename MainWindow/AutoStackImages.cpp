@@ -1,4 +1,4 @@
-/* Copyright (C) 2010-2018 Miika Turkia <miika.turkia@gmail.com>
+/* Copyright (C) 2010-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -40,7 +40,7 @@
 #include <MainWindow/Window.h>
 #include <Settings/SettingsData.h>
 #include <Utilities/ShowBusyCursor.h>
-#include <Utilities/Util.h>
+#include <Utilities/FileUtil.h>
 
 using namespace MainWindow;
 

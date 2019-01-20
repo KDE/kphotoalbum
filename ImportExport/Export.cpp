@@ -39,7 +39,7 @@
 #include <DB/ImageInfo.h>
 #include <ImageManager/AsyncLoader.h>
 #include <ImageManager/RawImageDecoder.h>
-#include <Utilities/Util.h>
+#include <Utilities/FileUtil.h>
 #include <Utilities/FileNameUtil.h>
 #include <Utilities/VideoUtil.h>
 #include <KConfigGroup>

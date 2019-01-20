@@ -16,20 +16,37 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef UTIL_H
-#define UTIL_H
+#include "FileUtil.h"
 
-#include <QString>
+#include <QDir>
+#include <QFileInfo>
 
-namespace Utilities
-{
-bool copyOrOverwrite( const QString& from, const QString& to );
-bool makeSymbolicLink( const QString& from, const QString& to );
-bool makeHardLink( const QString& from, const QString& to );
-
+extern "C" {
+#include <unistd.h>
 }
 
 
-#endif /* UTIL_H */
+bool Utilities::copyOrOverwrite( const QString& from, const QString& to )
+{
+    if ( QFileInfo(to).exists())
+        QDir().remove(to);
+    return QFile::copy(from,to);
+}
+
+bool Utilities::makeHardLink( const QString& from, const QString& to )
+{
+    if (link(from.toLocal8Bit().constData(), to.toLocal8Bit().constData()) != 0)
+        return false;
+    else
+        return true;
+}
+
+bool Utilities::makeSymbolicLink( const QString& from, const QString& to )
+{
+    if (symlink(from.toLocal8Bit().constData(), to.toLocal8Bit().constData()) != 0)
+        return false;
+    else
+        return true;
+}
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

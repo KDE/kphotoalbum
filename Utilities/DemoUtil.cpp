@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -42,7 +42,7 @@ void copyList( const QStringList& from, const QString& directoryTo )
     for( QStringList::ConstIterator it = from.constBegin(); it != from.constEnd(); ++it ) {
         const QString destFile = directoryTo + QString::fromLatin1( "/" ) + QFileInfo(*it).fileName();
         if ( ! QFileInfo( destFile ).exists() ) {
-            const bool ok = Utilities::copy( *it, destFile );
+            const bool ok = Utilities::copyOrOverwrite( *it, destFile );
             if ( !ok ) {
                 KMessageBox::error( nullptr, i18n("Unable to copy '%1' to '%2'.", *it , destFile ), i18n("Error Running Demo") );
                 exit(-1);
@@ -74,7 +74,7 @@ QString Utilities::setupDemo()
         exit(-1);
     }
     const QString configFile = demoDir + QString::fromLatin1( "/index.xml" );
-    copy(demoDB, configFile);
+    copyOrOverwrite(demoDB, configFile);
 
     // Images
     const QStringList kpaDemoDirs = QStandardPaths::locateAll(

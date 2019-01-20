@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -182,7 +182,7 @@ void HTMLGenerator::Generator::generate()
             *it == QString::fromLatin1("imagepage.html")) continue;
         QString from = QString::fromLatin1("%1%2").arg( themeDir ).arg(*it);
         QString to = m_tempDir.filePath(*it);
-        ok = Utilities::copy( from, to );
+        ok = Utilities::copyOrOverwrite( from, to );
         if ( !ok ) {
             KMessageBox::error( this, i18n("Error copying %1 to %2", from , to ) );
             return;
@@ -623,7 +623,7 @@ QString HTMLGenerator::Generator::createVideo( const DB::FileName& fileName )
                 .arg( destName.replace( QRegExp( QString::fromLatin1("\\..*") ), QString::fromLatin1(".ogg") ) )
                 .arg( QString::fromLatin1( "320" ) ).arg( fileName.absolute() ), MainWindow::Window::theMainWindow() );
         } else
-            Utilities::copy( fileName.absolute(), destName );
+            Utilities::copyOrOverwrite( fileName.absolute(), destName );
         m_copiedVideos.insert( fileName );
     }
     return baseName;
@@ -673,7 +673,7 @@ bool HTMLGenerator::Generator::linkIndexFile()
                        .arg(resolution->text(true));
     fromFile = m_tempDir.filePath(fromFile);
     QString destFile = m_tempDir.filePath( QString::fromLatin1("index.html") );
-    bool ok = Utilities::copy( fromFile, destFile );
+    bool ok = Utilities::copyOrOverwrite( fromFile, destFile );
     if ( !ok ) {
         KMessageBox::error( this, i18n("<p>Unable to copy %1 to %2</p>"
                             , fromFile , destFile ) );

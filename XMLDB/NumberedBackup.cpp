@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -52,7 +52,7 @@ void XMLDB::NumberedBackup::makeNumberedBackup()
         zip.close();
     }
     else {
-        Utilities::copy( QString::fromLatin1( "%1/index.xml" ).arg( Settings::SettingsData::instance()->imageDirectory() ),
+        Utilities::copyOrOverwrite( QString::fromLatin1( "%1/index.xml" ).arg( Settings::SettingsData::instance()->imageDirectory() ),
                     QString::fromLatin1( "%1/%2" ).arg( Settings::SettingsData::instance()->imageDirectory() ).arg( fileName ) );
     }
 }

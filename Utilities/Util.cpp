@@ -26,7 +26,7 @@ extern "C" {
 }
 
 
-bool Utilities::copy( const QString& from, const QString& to )
+bool Utilities::copyOrOverwrite( const QString& from, const QString& to )
 {
     if ( QFileInfo(to).exists())
         QDir().remove(to);

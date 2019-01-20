@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -321,7 +321,7 @@ void Export::copyImages(const DB::FileNameList& list)
             if ( m_location == Inline )
                 m_zip->addLocalFile( file, QString::fromLatin1( "Images/" ) + zippedName );
             else if ( m_location == AutoCopy )
-                Utilities::copy( file, m_destdir + QString::fromLatin1( "/" ) + zippedName );
+                Utilities::copyOrOverwrite( file, m_destdir + QString::fromLatin1( "/" ) + zippedName );
             else if ( m_location == Link )
                 Utilities::makeHardLink( file, m_destdir + QString::fromLatin1( "/" ) + zippedName );
             else if ( m_location == Symlink )

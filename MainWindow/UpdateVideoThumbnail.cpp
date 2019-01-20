@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
   
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -63,7 +63,7 @@ void UpdateVideoThumbnail::update(const DB::FileName &fileName, int direction)
 
     const DB::FileName newImageName = nextExistingImage(fileName, frame, direction);
 
-    Utilities::copy(newImageName.absolute(),baseImageName.absolute());
+    Utilities::copyOrOverwrite(newImageName.absolute(),baseImageName.absolute());
 
     QImage image = QImage(newImageName.absolute()).scaled(ThumbnailView::CellGeometry::preferredIconSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation );
     ImageManager::ThumbnailCache::instance()->insert(fileName,image);

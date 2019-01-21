@@ -37,7 +37,7 @@ class VideoLengthExtractor : public QObject
 public:
     explicit VideoLengthExtractor(QObject *parent = nullptr);
     void extract(const DB::FileName& fileName );
-    
+
 signals:
     void lengthFound(int length);
     void unableToDetermineLength();

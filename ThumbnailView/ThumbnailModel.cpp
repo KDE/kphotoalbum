@@ -186,7 +186,7 @@ int ThumbnailView::ThumbnailModel::indexOf(const DB::FileName& fileName)
     Q_ASSERT( !fileName.isNull() );
     if ( !m_fileNameToIndex.contains(fileName) )
         m_fileNameToIndex.insert(fileName, m_displayList.indexOf(fileName));
-    
+
     return m_fileNameToIndex[fileName];
 }
 
@@ -195,7 +195,7 @@ int ThumbnailView::ThumbnailModel::indexOf(const DB::FileName& fileName) const
     Q_ASSERT( !fileName.isNull() );
     if ( !m_fileNameToIndex.contains(fileName) )
         return -1;
-    
+
     return m_fileNameToIndex[fileName];
 }
 

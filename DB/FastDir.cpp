@@ -117,7 +117,7 @@ DB::FastDir::FastDir(const QString &path)
     delete u;
 #endif
     (void) closedir(dir);
-    
+
     if ( doSortByInode ) {
         for ( InodeMap::iterator it = tmpAnswer.begin(); it != tmpAnswer.end(); ++it ) {
             m_sortedList << it.value();

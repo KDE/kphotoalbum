@@ -36,7 +36,7 @@
 ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::s_instance = nullptr;
 
 ImageManager::ThumbnailBuilder::ThumbnailBuilder( MainWindow::StatusBar* statusBar, QObject* parent )
-    :QObject( parent ), 
+    :QObject( parent ),
      m_statusBar( statusBar ),
      m_count( 0 ),
      m_isBuilding( false ),

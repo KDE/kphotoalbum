@@ -62,7 +62,7 @@ ImageInfoList ImageInfoList::sort() const
     }
 
     std::sort(vec.begin(),vec.end());
-    
+
     ImageInfoList res;
     for( QVector<SortableImageInfo>::ConstIterator mapIt = vec.constBegin(); mapIt != vec.constEnd(); ++mapIt ) {
          res.append(mapIt->ImageInfo());

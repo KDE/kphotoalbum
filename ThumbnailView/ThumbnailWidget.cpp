@@ -384,14 +384,14 @@ DB::FileNameList ThumbnailView::ThumbnailWidget::selection( ThumbnailView::Selec
                     // imply that all images in the stack are selected:
                     DB::ImageInfoPtr imageInfo = currFileName.info();
                     if ( imageInfo && imageInfo->isStacked()
-                            && ( includeAllStacks || ! model()->isItemInExpandedStack( imageInfo->stackId() ) ) 
+                            && ( includeAllStacks || ! model()->isItemInExpandedStack( imageInfo->stackId() ) )
                             )
                     {
                         // add all images in the same stack
                         res.append(DB::ImageDB::instance()->getStackFor(currFileName));
                     } else
                         res.append(currFileName);
-                } 
+                }
                 break;
             case NoExpandCollapsedStacks:
                 res.append(currFileName);

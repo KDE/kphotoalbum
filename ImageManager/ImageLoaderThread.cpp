@@ -92,7 +92,7 @@ QImage ImageManager::ImageLoaderThread::loadImage( ImageRequest* request, bool& 
 
     QImage img;
     if (Utilities::isJPEG(request->fileSystemFileName())) {
-      ok = Utilities::loadJPEG( &img, request->fileSystemFileName(),  &fullSize, dim, 
+      ok = Utilities::loadJPEG( &img, request->fileSystemFileName(),  &fullSize, dim,
                                 m_imageLoadBuffer, m_bufSize );
         if (ok == true)
             request->setFullSize( fullSize );

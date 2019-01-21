@@ -145,7 +145,7 @@ bool ImageSearchInfo::doMatch( ImageInfoPtr info ) const
 
 
     // -------------------------------------------------- Resolution
-    if ( m_megapixel && 
+    if ( m_megapixel &&
          ( m_megapixel * 1000000 > info->size().width() * info->size().height() ) )
         return false;
 
@@ -181,7 +181,7 @@ bool ImageSearchInfo::doMatch( ImageInfoPtr info ) const
         if ( !info->coordinates().hasCoordinates() )
             return false;
         float infoLat = info->coordinates().lat();
-        if ( m_regionSelectionMinLat > infoLat || 
+        if ( m_regionSelectionMinLat > infoLat ||
              m_regionSelectionMaxLat < infoLat )
             return false;
         float infoLon = info->coordinates().lon();

@@ -28,7 +28,7 @@ enum VisibleState { FullyVisible, PartlyVisible };
 enum SelectionUpdateMethod { ClearSelection, MaintainSelection };
 /** @short Operation mode of selection in ThumbnailView.
  *
- * The SelectionMode determines how collapsed stacks and partially 
+ * The SelectionMode determines how collapsed stacks and partially
  * selected stacks are handled when determining which images to include
  * in the selection.
  */

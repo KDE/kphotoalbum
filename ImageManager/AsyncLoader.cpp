@@ -144,7 +144,7 @@ void ImageManager::AsyncLoader::loadImage( ImageRequest* request )
             return; // We are currently loading it, calm down and wait please ;-)
         }
     }
-            
+
     // if request is "fresh" (not yet pending):
     if (m_loadList.addRequest( request ))
         m_sleepers.wakeOne();

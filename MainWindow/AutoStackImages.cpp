@@ -68,7 +68,7 @@ AutoStackImages::AutoStackImages( QWidget* parent, const DB::FileNameList& list 
     m_matchingFile = new QCheckBox( i18n( "Stack images based on file version detection") );
     m_matchingFile->setChecked( true );
     hlayFile->addWidget( m_matchingFile );
- 
+
     m_origTop = new QCheckBox( i18n( "Original to top") );
     m_origTop ->setChecked( false );
     hlayFile->addWidget( m_origTop );
@@ -184,7 +184,7 @@ void AutoStackImages::matchingFile( DB::FileNameList& toBeShown )
     QString modifiedFileCompString;
     QRegExp modifiedFileComponent;
     QStringList originalFileComponents;
- 
+
     modifiedFileCompString = Settings::SettingsData::instance()->modifiedFileComponent();
     modifiedFileComponent = QRegExp( modifiedFileCompString );
 
@@ -220,7 +220,7 @@ void AutoStackImages::matchingFile( DB::FileNameList& toBeShown )
             }
         }
     }
-    
+
     // Then add images to stack (depending on configuration options)
     for( QMap<DB::MD5, DB::FileNameList >::ConstIterator it = tostack.constBegin(); it != tostack.constEnd(); ++it ) {
         if ( tostack[it.key()].count() > 1 ) {

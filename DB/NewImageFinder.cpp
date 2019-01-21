@@ -227,7 +227,7 @@ using namespace DB;
  * Note also that hdparm does a single stream read from the device.
  * It does not take advantage of the ability to queue multiple
  * requests.
- * 
+ *
  *
  * ANALYSIS OF KPHOTOALBUM LOAD PERFORMANCE
  * -------- -- ----------- ---- -----------
@@ -249,13 +249,13 @@ using namespace DB;
  * The ALL set consists of 10839 or 10840 images totaling about 92 GB
  *   (the above set plus 2 .MOV files and in some cases one additional
  *   JPEG file).
- * 
+ *
  * Times are elapsed times; CPU consumption is approximate user+system
  * CPU consumption.  Numbers in parentheses are with thumbnail
  * building disabled.  Note that in the cases with no scout threads on
  * the SSD the times were reproducibly shorter with thumbnail building
  * enabled (reasons are not determined at this time).
- * 
+ *
  * Cases building RAW thumbnails generally consumed somewhat more
  * system CPU (in the range of 10-15%) than JPEG-only cases.  This may
  * be due to custom I/O routines used for generating thumbnails with
@@ -264,37 +264,37 @@ using namespace DB;
  *
  * Estimating CPU time for mixed workloads proved very problematic,
  * as there were significant changes over time.
- * 
+ *
  * Elapsed Time
  * ------- ----
- * 
+ *
  *                                 SSD                     HDD
- * 
+ *
  * JPG - 0 scouts                  4:03 (3:59)
  * JPG - 1 scout                   2:46 (2:44)
  * JPG - 2 scouts                  2:20 (2:07)
  * JPG - 3 scouts                  2:21 (1:58)
- * 
+ *
  * ALL - 0 scouts                  6:32 (7:03)            16:01
  * ALL - 1 scout                   4:33 (4:33)            15:01
  * ALL - 2 scouts                  3:37 (3:28)            16:59
  * ALL - 3 scouts                  3:36 (3:15)
- * 
+ *
  * RAW - 0 scouts                  2:18 (2:46)
  * RAW - 1 scout                   1:46 (1:46)
  * RAW - 2 scouts                  1:17 (1:17)
  * RAW - 3 scouts                  1:13 (1:13)
- * 
+ *
  * User+System CPU
  * ----------- ---
- * 
+ *
  *                                 SSD                     HDD
- * 
+ *
  * JPG - 0 scouts                  40% (12%)
  * JPG - 1 scout                   70% (20%)
  * JPG - 2 scouts                  85% (15%)
  * JPG - 3 scouts                  85% (15%)
- * 
+ *
  * RAW - 0 scouts                  15% (10%)
  * RAW - 1 scout                   18% (12%)
  * RAW - 2 scouts                  25% (15%)
@@ -309,22 +309,22 @@ using namespace DB;
  * larger size of RAW files but possibly also related to the smaller
  * filesize of embedded thumbnails (on the Canon 7D mkII, the embedded
  * thumbnail is full size but low quality).
- * 
+ *
  * With thumbnail generation:
  * ---- --------- -----------
- * 
+ *
  *                                 RAW             JPEG
- * 
+ *
  * Thumbnail generation            44%             82%
  *   libjpeg processing              43%             82%
  * MD5 computation                 51%             13%
  * Read Exif                        1%              1.0%
- * 
+ *
  * Without thumbnail generation:
  * ------- --------- -----------
- * 
+ *
  *                                 RAW             JPEG
- * 
+ *
  * MD5 computation                 92%             80%
  * Read Exif                        4%             10%
  *

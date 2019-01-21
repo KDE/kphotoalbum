@@ -1,7 +1,7 @@
 //krazy:skip
 /**
   \namespace Exif
-  \brief 
+  \brief
 
 **/
 // vi:expandtab:tabstop=4 shiftwidth=4:

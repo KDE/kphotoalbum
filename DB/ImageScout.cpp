@@ -74,8 +74,8 @@ private:
 };
 
 ImageScoutThread::ImageScoutThread( ImageScoutQueue &queue, QMutex *mutex,
-                                    QAtomicInt &count, 
-                                    QAtomicInt &preloadedCount, 
+                                    QAtomicInt &count,
+                                    QAtomicInt &preloadedCount,
                                     QAtomicInt &skippedCount )
   : m_queue(queue),
     m_mutex(mutex),
@@ -178,7 +178,7 @@ ImageScout::ImageScout(ImageScoutQueue &images,
 {
     if (threads > 0) {
         for (int i = 0; i < threads; i++) {
-            ImageScoutThread *t =  
+            ImageScoutThread *t =
                 new ImageScoutThread( images,
                                       threads > 1 ? &m_mutex : nullptr,
                                       count,

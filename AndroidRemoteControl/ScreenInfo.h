@@ -48,7 +48,7 @@ public:
     int overviewSpacing() const;
 
 signals:
-    void overviewIconSizeChanged();    
+    void overviewIconSizeChanged();
     void overviewColumnCountChanged();
     void overviewSpacingChanged();
     void viewWidthChanged();

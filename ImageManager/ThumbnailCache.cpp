@@ -146,7 +146,7 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
         qCWarning(ImageManagerLog, "Failed to write image data to thumbnail file");
         return;
     }
-    
+
     if ( m_currentOffset + size > MAX_FILE_SIZE ) {
         m_currentWriter->close();
         m_currentWriter = nullptr;

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -1163,10 +1163,12 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         if (!info && selected().isEmpty())
             action->setEnabled( false );
 
-        QUrl selectedFile = QUrl::fromLocalFile(info->fileName().absolute());
+        QUrl selectedFile;
+        if (info)
+            selectedFile = QUrl::fromLocalFile(info->fileName().absolute());
         QList<QUrl> allSelectedFiles;
-        for (const QString &selectedFile : selected().toStringList(DB::AbsolutePath)) {
-            allSelectedFiles << QUrl::fromLocalFile(selectedFile);
+        for (const QString &selectedPath : selected().toStringList(DB::AbsolutePath)) {
+            allSelectedFiles << QUrl::fromLocalFile(selectedPath);
         }
 
         // "Copy image(s) to ..."

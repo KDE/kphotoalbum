@@ -7,6 +7,8 @@
    \li \ref coding-standards
    \li \ref phrase-book
    \li \ref videothumbnails
+   \li \ref debug-output - Logging categories used by KPhotoAlbum
+   \li \ref database-layout - Documentation for on-disk file formats (index.xml, thumbnail storage, etc.)
 
    KPhotoAlbum is split into a number of modules, each module is a directory of its own on the hard disk and a namespace in the source code.
    The following is a list of modules:
@@ -28,8 +30,8 @@
 
 
    <h2>Database backend</h2>
-   \li \ref DB The abstract interface for the database backend.
-   \li \ref XMLDB The XML based database backend.
+   \li \ref DB - The abstract interface for the database backend.
+   \li \ref XMLDB - The XML based database backend.
 
    <h2>Backend</h2>
    \li \ref ImageManager - Thumbnail loader

@@ -1,4 +1,4 @@
-Image database overview for KPhotoAlbum
+Image database overview for KPhotoAlbum {#database-layout}
 =======================================
 
 Concepts

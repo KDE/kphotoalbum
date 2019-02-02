@@ -1,4 +1,4 @@
-# Getting KPhotoAlbum to print debug output
+# Getting KPhotoAlbum to print debug output {#debug-output}
 
 KPhotoAlbum uses categorized logging.  By default, only warning messages but no
 debug messages are emitted.  To enable addditional output, you can either

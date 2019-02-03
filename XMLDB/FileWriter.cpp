@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -489,8 +489,13 @@ bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
 }
 
 /**
- * Escape problematic characters in a string that forms an XML attribute name.
+ * @brief Escape problematic characters in a string that forms an XML attribute name.
+ *
  * N.B.: Attribute values do not need to be escaped!
+ * @see XMLDB::FileReader::unescape
+ *
+ * @param str the string to be escaped
+ * @return the escaped string
  */
 QString XMLDB::FileWriter::escape( const QString& str )
 {

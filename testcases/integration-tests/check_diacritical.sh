@@ -2,7 +2,7 @@ _checks[check_diacritical]="Compatibility: Diacritical characters in v7 database
 _context[check_diacritical]="<h2>What this test will do:</h2>
 <p><ul>
 <li>This test checks whether a version 7 database file with diacritical characters in categories and tags is properly handled. </li>
-<li>After you close this dialog, KPhotoAlbum will be started 3 times in a row.</li>
+<li>After you close this dialog, KPhotoAlbum will be started 4 times in a row.</li>
 <li>This test case was inspired by <a href=\"https://bugs.kde.org/show_bug.cgi?id=403668\">Bug #403668</a></li>
 </ul>
 </p>
@@ -21,13 +21,13 @@ check_diacritical()
 
 	kdialog --msgbox "<h1>$check_name</h1>${_context[$check_name]}"
 
-	for subcheck in compressed uncompressed uncompressed-to-compressed
+	for subcheck in compressed uncompressed uncompressed-to-compressed compressed-to-uncompressed
 	do
 		local subcheck_dir="$check_dir/$subcheck"
 		mkdir "$subcheck_dir" || return $result_err_setup
 
 		local add_rc="[General]\nuntaggedCategory=\nuntaggedTag=\n"
-		if [[ "$subcheck" == "uncompressed" ]]
+		if [[ "$subcheck" == "uncompressed" || "$subcheck" == "compressed-to-uncompressed" ]]
 		then
 			add_rc="$add_rc\nuseCompressedIndexXML=false\n"
 		fi

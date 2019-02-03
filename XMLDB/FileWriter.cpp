@@ -499,9 +499,13 @@ bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
  */
 QString XMLDB::FileWriter::escape( const QString& str )
 {
-    static QHash<QString,QString> cache;
-    if ( cache.contains(str) )
-        return cache[str];
+    static bool hashUsesCompressedFormat = useCompressedFileFormat();
+    static QHash<QString,QString> s_cache;
+    if (hashUsesCompressedFormat != useCompressedFileFormat())
+        s_cache.clear();
+
+    if ( s_cache.contains(str) )
+        return s_cache[str];
 
     QString tmp( str );
     // Regex to match characters that are not allowed to start XML attribute names
@@ -519,7 +523,7 @@ QString XMLDB::FileWriter::escape( const QString& str )
         }
     } else
         tmp.replace( QString::fromLatin1( " " ), QString::fromLatin1( "_" ) );
-    cache.insert(str,tmp);
+    s_cache.insert(str,tmp);
     return tmp;
 }
 

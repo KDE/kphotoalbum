@@ -511,9 +511,12 @@ XMLDB::ReaderPtr XMLDB::FileReader::readConfigFile( const QString& configFile )
  */
 QString XMLDB::FileReader::unescape( const QString& str )
 {
-    static QHash<QString,QString> cache;
-    if ( cache.contains(str) )
-        return cache[str];
+    static bool hashUsesCompressedFormat = useCompressedFileFormat();
+    static QHash<QString,QString> s_cache;
+    if (hashUsesCompressedFormat != useCompressedFileFormat())
+        s_cache.clear();
+    if ( s_cache.contains(str) )
+        return s_cache[str];
 
     QString tmp( str );
     // Matches encoded characters in attribute names
@@ -531,7 +534,7 @@ QString XMLDB::FileReader::unescape( const QString& str )
     } else
         tmp.replace( QString::fromLatin1( "_" ), QString::fromLatin1( " " ) );
 
-    cache.insert(str,tmp);
+    s_cache.insert(str,tmp);
     return tmp;
 }
 

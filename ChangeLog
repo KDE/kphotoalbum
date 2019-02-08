@@ -1,10 +1,3 @@
-* Bugfix(#403668): Prevent loss of tagging data when upgrading from v5.3 or older
-	If a user used an uncompressed database with non-ASCII category names, the
-	tagging data for those categories would be lost when switching to the
-	compressed file format. Upgrading to v5.4 automatically switches to the
-	compressed file format as new default, triggering said bug.
-
-* Bugfix(#403721): Fix crash when right-clicking in thumbnail view
 
 * Change: Use non-linear scaling for DateBar by default(implements: #356810)
 
@@ -27,6 +20,19 @@
 
 * Bugfix: Fix zooming for raw images.
 	Thanks to Angel Lopez for the bug report and help in finding the root cause!
+
+====================== KPhotoalbum 5.4.2 released (05.02.2019) ======================
+
+* Where's 5.4.1?: We messed it up. A wrong tarball hit the mirrors, we had to withdraw it, and
+	increase the version number for consistency. Version 5.4.1 does not exist
+
+* Bugfix(#403668): Prevent loss of tagging data when upgrading from v5.3 or older
+	If a user used an uncompressed database with non-ASCII category names, the
+	tagging data for those categories would be lost when switching to the
+	compressed file format. Upgrading to v5.4 automatically switches to the
+	compressed file format as new default, triggering said bug.
+
+* Bugfix(#403721): Fix crash when right-clicking in thumbnail view
 
 ====================== KPhotoalbum 5.4 released (13.10.2018) ======================
 

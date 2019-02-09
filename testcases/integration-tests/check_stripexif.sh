@@ -5,18 +5,24 @@ _context[check_stripexif]="<h2>What this test will do:</h2>
 <li>The filter for stripping camera generated default descriptions is also tested.</li>
 <li>After you close this dialog, KPhotoAlbum will be started and it will search for new images.</li>
 </ul>
-<h2>What you have to do:</h2>
+<h2>How you can check manually</h2>
 <ol>
 <li>Go to <em>Untagged Images</em> and check that two new images show up.</li>
 <li>Check if the image with text <em>DEFAULT_DESCRIPTION</em> has an empty description field.</li>
 <li>Check if the image with text <em>NO DEFAULT_DESCRIPTION</em> has the description \"NO DEFAULT DESCRIPTION\".</li>
+</ol>
+<h2>What you have to do:</h2>
+<ol>
+<li>When KPhotoAlbum starts, save the database and exit KPhotoAlbum.</li>
 </ol>"
+_check_db_file[check_stripexif]=integration-tests/check_stripexif.result.xml
 
 check_stripexif_exifhelper()
 # generate an image with exiv description
 {
 	convert -size 700x460  label:"$1" "$check_dir/db/$1.jpg"
 	exiv2 -M"set Exif.Image.ImageDescription $1" "$check_dir/db/$1.jpg"
+	exiv2 -M"set Exif.Photo.DateTimeOriginal '2000-01-01 00:00:00'" "$check_dir/db/$1.jpg"
 }
 
 prepare_check_stripexif()

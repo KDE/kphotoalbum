@@ -79,6 +79,7 @@
 #include <DB/ImageInfo.h>
 #include <DB/MD5.h>
 #include <DB/MD5Map.h>
+#include <DB/UIDelegate.h>
 #include <Exif/Database.h>
 #include <Exif/InfoDialog.h>
 #include <Exif/Info.h>
@@ -1111,7 +1112,8 @@ bool MainWindow::Window::load()
         }
         configFile = fi.absoluteFilePath();
     }
-    DB::ImageDB::setupXMLDB( configFile );
+    auto delegate = new DB::DummyUIDelegate; // FIXME: leaks memory for now
+    DB::ImageDB::setupXMLDB( configFile, *delegate );
 
     // some sanity checks:
     if ( ! Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -23,6 +23,7 @@
 #include "DB/CategoryCollection.h"
 #include <qapplication.h>
 #include "NewImageFinder.h"
+#include "UIDelegate.h"
 #include <DB/MediaCount.h>
 #include <QProgressDialog>
 #include <DB/FileName.h>
@@ -38,11 +39,11 @@ ImageDB* DB::ImageDB::instance()
     return s_instance;
 }
 
-void ImageDB::setupXMLDB( const QString& configFile )
+void ImageDB::setupXMLDB(const QString &configFile, UIDelegate &delegate )
 {
     if (s_instance)
         qFatal("ImageDB::setupXMLDB: Setup must be called only once.");
-    s_instance = new XMLDB::Database( configFile );
+    s_instance = new XMLDB::Database( configFile, delegate );
     connectSlots();
 }
 
@@ -120,8 +121,14 @@ DB::FileNameSet DB::ImageDB::imagesWithMD5Changed()
     return md5Map()->diff( map );
 }
 
+UIDelegate &DB::ImageDB::uiDelegate() const
+{
+    return m_UI;
+}
 
-ImageDB::ImageDB()
+
+ImageDB::ImageDB(UIDelegate &delegate)
+    : m_UI(delegate)
 {
 }
 

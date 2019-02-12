@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -70,8 +70,9 @@ void checkForBackupFile( const QString& fileName)
 } // namespace
 
 bool XMLDB::Database::s_anyImageWithEmptySize = false;
-XMLDB::Database::Database( const QString& configFile ):
-    m_fileName(configFile)
+XMLDB::Database::Database(const QString& configFile , DB::UIDelegate &delegate)
+    : ImageDB(delegate)
+    , m_fileName(configFile)
 {
     checkForBackupFile( configFile );
     FileReader reader( this );

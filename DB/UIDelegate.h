@@ -66,14 +66,14 @@ public:
      */
     void information(const QString &msg, const QString &title, const QString &logMessage);
     /**
-     * @brief Displays a warning message to the user.
+     * @brief Displays a message to the user indicating something went wrong.
      *
      * Additionally, a non-localized logMessage is logged within the DB log category.
      * @param msg a localized message
      * @param title a localized title for a possible message window
      * @param logMessage a non-localized log message
      */
-    void warning(const QString &msg, const QString &title, const QString &logMessage);
+    void sorry(const QString &msg, const QString &title, const QString &logMessage);
     /**
      * @brief Displays an error message to the user.
      *
@@ -88,7 +88,7 @@ protected:
 
     virtual UIFeedback warningContinueCancel(const QString &msg, const QString &title) = 0;
     virtual void information(const QString &msg, const QString &title) = 0;
-    virtual void warning(const QString &msg, const QString &title) = 0;
+    virtual void sorry(const QString &msg, const QString &title) = 0;
     virtual void error(const QString &msg, const QString &title) = 0;
 };
 
@@ -100,7 +100,7 @@ class DummyUIDelegate : public UIDelegate
 protected:
     virtual UIFeedback warningContinueCancel(const QString &, const QString &) override {return UIFeedback::DefaultAction; }
     virtual void information(const QString &, const QString &) override {}
-    virtual void warning(const QString &, const QString &) override {}
+    virtual void sorry(const QString &, const QString &) override {}
     virtual void error(const QString &, const QString &) override {}
 };
 

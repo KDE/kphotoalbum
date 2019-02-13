@@ -33,10 +33,10 @@ void DB::UIDelegate::information(const QString &msg, const QString &title, const
     information(msg, title);
 }
 
-void DB::UIDelegate::warning(const QString &msg, const QString &title, const QString &logMessage)
+void DB::UIDelegate::sorry(const QString &msg, const QString &title, const QString &logMessage)
 {
     qCWarning(DBLog) << logMessage;
-    warning(msg, title);
+    sorry(msg, title);
 }
 
 void DB::UIDelegate::error(const QString &msg, const QString &title, const QString &logMessage)

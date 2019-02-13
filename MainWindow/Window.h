@@ -77,7 +77,7 @@ class Window :public KXmlGuiWindow
 
 public:
     explicit Window( QWidget* parent );
-    ~Window();
+    ~Window() override;
     static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
     static Window* theMainWindow();
     DB::FileNameList selected( ThumbnailView::SelectionMode mode = ThumbnailView::ExpandCollapsedStacks ) const;
@@ -189,13 +189,13 @@ protected slots:
 protected:
     void configureImages( bool oneAtATime );
     QString welcome();
-    virtual void closeEvent( QCloseEvent* e );
-    virtual void resizeEvent( QResizeEvent* );
-    virtual void moveEvent ( QMoveEvent * );
+    virtual void closeEvent( QCloseEvent* e ) override;
+    virtual void resizeEvent( QResizeEvent* ) override;
+    virtual void moveEvent ( QMoveEvent * ) override;
     void setupMenuBar();
     void createAnnotationDialog();
     bool load();
-    virtual void contextMenuEvent( QContextMenuEvent* e );
+    virtual void contextMenuEvent( QContextMenuEvent* e ) override;
     void setLocked( bool b, bool force, bool recount=true );
     void configImages( const DB::ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );

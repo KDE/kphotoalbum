@@ -1112,8 +1112,7 @@ bool MainWindow::Window::load()
         }
         configFile = fi.absoluteFilePath();
     }
-    auto delegate = new DB::DummyUIDelegate; // FIXME: leaks memory for now
-    DB::ImageDB::setupXMLDB( configFile, *delegate );
+    DB::ImageDB::setupXMLDB( configFile, *this );
 
     // some sanity checks:
     if ( ! Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
@@ -1974,6 +1973,27 @@ Browser::PositionBrowserWidget* MainWindow::Window::positionBrowserWidget()
         m_positionBrowser = createPositionBrowser();
     }
     return m_positionBrowser;
+}
+
+UIFeedback MainWindow::Window::warningContinueCancel(const QString &msg, const QString &title)
+{
+    auto answer = KMessageBox::warningContinueCancel(this, msg, title);
+    return (answer==KMessageBox::Continue) ? UIFeedback::Continue : UIFeedback::Cancel;
+}
+
+void MainWindow::Window::information(const QString &msg, const QString &title)
+{
+    KMessageBox::information(this, msg, title);
+}
+
+void MainWindow::Window::sorry(const QString &msg, const QString &title)
+{
+    KMessageBox::sorry(this, msg, title);
+}
+
+void MainWindow::Window::error(const QString &msg, const QString &title)
+{
+    KMessageBox::error(this, msg, title);
 }
 
 Browser::PositionBrowserWidget* MainWindow::Window::createPositionBrowser()

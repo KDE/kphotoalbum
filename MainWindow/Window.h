@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -29,6 +29,7 @@
 #include <DB/Category.h>
 #include <DB/FileNameList.h>
 #include <DB/ImageSearchInfo.h>
+#include <DB/UIDelegate.h>
 #include <ThumbnailView/enums.h>
 #ifdef HAVE_KGEOMAP
 #include <Browser/PositionBrowserWidget.h>
@@ -70,6 +71,7 @@ class StatusBar;
 class TokenEditor;
 
 class Window :public KXmlGuiWindow
+        , public DB::UIDelegate
 {
     Q_OBJECT
 
@@ -88,6 +90,16 @@ public:
     void showPositionBrowser();
     Browser::PositionBrowserWidget* positionBrowserWidget();
 #endif
+
+    // implement UI delegate interface
+    // Note(jzarl): we just could create a UIDelegate class that takes a QWidget,
+    // implementing the same messageParent approach that we took before.
+    // For now, I don't see anything wrong with directly implementing the interface instead.
+    // I may change my mind later and I'm ready to convinced of the errors of my way, though...
+    virtual DB::UIFeedback warningContinueCancel(const QString &msg, const QString &title) override;
+    virtual void information(const QString &msg, const QString &title) override;
+    virtual void sorry(const QString &msg, const QString &title) override;
+    virtual void error(const QString &msg, const QString &title) override;
 
 public slots:
     void showThumbNails(const DB::FileNameList& items);

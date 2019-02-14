@@ -52,9 +52,10 @@ public:
      * @param msg a localized message
      * @param title a localized title for a possible message window
      * @param logMessage a non-localized log message
+     * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      * @return the user choice in form of a UIFeedback
      */
-    UIFeedback warningContinueCancel(const QString &msg, const QString &title, const QString &logMessage);
+    UIFeedback warningContinueCancel(const QString &msg, const QString &title, const QString &logMessage, const QString &dialogId = QString());
 
     /**
      * @brief Displays an informational message to the user.
@@ -62,34 +63,37 @@ public:
      * Additionally, a non-localized logMessage is logged within the DB log category.
      * @param msg a localized message
      * @param title a localized title for a possible message window
+     * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      * @param logMessage a non-localized log message
      */
-    void information(const QString &msg, const QString &title, const QString &logMessage);
+    void information(const QString &msg, const QString &title, const QString &logMessage, const QString &dialogId = QString());
     /**
      * @brief Displays a message to the user indicating something went wrong.
      *
      * Additionally, a non-localized logMessage is logged within the DB log category.
      * @param msg a localized message
      * @param title a localized title for a possible message window
+     * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      * @param logMessage a non-localized log message
      */
-    void sorry(const QString &msg, const QString &title, const QString &logMessage);
+    void sorry(const QString &msg, const QString &title, const QString &logMessage, const QString &dialogId = QString());
     /**
      * @brief Displays an error message to the user.
      *
      * Additionally, a non-localized logMessage is logged within the DB log category.
      * @param msg a localized message
      * @param title a localized title for a possible message window
+     * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      * @param logMessage a non-localized log message
      */
-    void error(const QString &msg, const QString &title, const QString &logMessage);
+    void error(const QString &msg, const QString &title, const QString &logMessage, const QString &dialogId = QString());
 protected:
     virtual ~UIDelegate() = default;
 
-    virtual UIFeedback warningContinueCancel(const QString &msg, const QString &title) = 0;
-    virtual void information(const QString &msg, const QString &title) = 0;
-    virtual void sorry(const QString &msg, const QString &title) = 0;
-    virtual void error(const QString &msg, const QString &title) = 0;
+    virtual UIFeedback askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId) = 0;
+    virtual void showInformation(const QString &msg, const QString &title, const QString &dialogId) = 0;
+    virtual void showSorry(const QString &msg, const QString &title, const QString &dialogId) = 0;
+    virtual void showError(const QString &msg, const QString &title, const QString &dialogId) = 0;
 };
 
 /**
@@ -98,10 +102,10 @@ protected:
 class DummyUIDelegate : public UIDelegate
 {
 protected:
-    virtual UIFeedback warningContinueCancel(const QString &, const QString &) override {return UIFeedback::DefaultAction; }
-    virtual void information(const QString &, const QString &) override {}
-    virtual void sorry(const QString &, const QString &) override {}
-    virtual void error(const QString &, const QString &) override {}
+    virtual UIFeedback askWarningContinueCancel(const QString &, const QString &, const QString &) override {return UIFeedback::DefaultAction; }
+    virtual void showInformation(const QString &, const QString &, const QString &) override {}
+    virtual void showSorry(const QString &, const QString &, const QString &) override {}
+    virtual void showError(const QString &, const QString &, const QString &) override {}
 };
 
 } // namespace DB

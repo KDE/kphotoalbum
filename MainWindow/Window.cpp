@@ -1975,23 +1975,23 @@ Browser::PositionBrowserWidget* MainWindow::Window::positionBrowserWidget()
     return m_positionBrowser;
 }
 
-UIFeedback MainWindow::Window::warningContinueCancel(const QString &msg, const QString &title)
+UIFeedback MainWindow::Window::askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId)
 {
-    auto answer = KMessageBox::warningContinueCancel(this, msg, title);
+    auto answer = KMessageBox::warningContinueCancel(this, msg, title, KStandardGuiItem::cont(), KStandardGuiItem::cancel(), dialogId);
     return (answer==KMessageBox::Continue) ? UIFeedback::Continue : UIFeedback::Cancel;
 }
 
-void MainWindow::Window::information(const QString &msg, const QString &title)
+void MainWindow::Window::showInformation(const QString &msg, const QString &title, const QString &dialogId)
 {
-    KMessageBox::information(this, msg, title);
+    KMessageBox::information(this, msg, title, dialogId);
 }
 
-void MainWindow::Window::sorry(const QString &msg, const QString &title)
+void MainWindow::Window::showSorry(const QString &msg, const QString &title, const QString &)
 {
     KMessageBox::sorry(this, msg, title);
 }
 
-void MainWindow::Window::error(const QString &msg, const QString &title)
+void MainWindow::Window::showError(const QString &msg, const QString &title, const QString &)
 {
     KMessageBox::error(this, msg, title);
 }

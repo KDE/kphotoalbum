@@ -96,10 +96,10 @@ public:
     // implementing the same messageParent approach that we took before.
     // For now, I don't see anything wrong with directly implementing the interface instead.
     // I may change my mind later and I'm ready to convinced of the errors of my way, though...
-    virtual DB::UIFeedback warningContinueCancel(const QString &msg, const QString &title) override;
-    virtual void information(const QString &msg, const QString &title) override;
-    virtual void sorry(const QString &msg, const QString &title) override;
-    virtual void error(const QString &msg, const QString &title) override;
+    virtual DB::UIFeedback askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId) override;
+    virtual void showInformation(const QString &msg, const QString &title, const QString &dialogId) override;
+    virtual void showSorry(const QString &msg, const QString &title, const QString &) override;
+    virtual void showError(const QString &msg, const QString &title, const QString &) override;
 
 public slots:
     void showThumbNails(const DB::FileNameList& items);

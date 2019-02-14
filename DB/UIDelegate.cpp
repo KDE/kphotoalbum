@@ -21,26 +21,26 @@
 
 #include <QLoggingCategory>
 
-DB::UIFeedback DB::UIDelegate::warningContinueCancel(const QString &msg, const QString &title, const QString &logMessage)
+DB::UIFeedback DB::UIDelegate::warningContinueCancel(const QString &msg, const QString &title, const QString &logMessage, const QString &dialogId)
 {
     qCWarning(DBLog) << logMessage;
-    return warningContinueCancel(msg, title);
+    return askWarningContinueCancel(msg, title, dialogId);
 }
 
-void DB::UIDelegate::information(const QString &msg, const QString &title, const QString &logMessage)
+void DB::UIDelegate::information(const QString &msg, const QString &title, const QString &logMessage, const QString &dialogId )
 {
     qCInfo(DBLog) << logMessage;
-    information(msg, title);
+    showInformation(msg, title, dialogId);
 }
 
-void DB::UIDelegate::sorry(const QString &msg, const QString &title, const QString &logMessage)
+void DB::UIDelegate::sorry(const QString &msg, const QString &title, const QString &logMessage, const QString &dialogId )
 {
     qCWarning(DBLog) << logMessage;
-    sorry(msg, title);
+    showSorry(msg, title, dialogId);
 }
 
-void DB::UIDelegate::error(const QString &msg, const QString &title, const QString &logMessage)
+void DB::UIDelegate::error(const QString &msg, const QString &title, const QString &logMessage, const QString &dialogId )
 {
     qCCritical(DBLog) << logMessage;
-    error(msg, title);
+    showError(msg, title, dialogId);
 }

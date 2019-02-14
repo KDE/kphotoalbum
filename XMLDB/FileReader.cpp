@@ -192,7 +192,6 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
                                      categoryName
                                      )
                             , i18n("Error in database file"));
-                // FIXME(jzarl): code review for logic errors
                 if ( choice == DB::UIFeedback::Continue )
                     repairMode = true;
                 else

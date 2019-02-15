@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -25,7 +25,6 @@
 #include <QtAlgorithms>
 #include <QDateTime>
 
-#include <KMessageBox>
 #include <KLocalizedString>
 using namespace DB;
 

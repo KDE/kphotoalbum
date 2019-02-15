@@ -49,6 +49,7 @@ public:
     static void deleteInstance();
 
     DB::FileNameSet imagesWithMD5Changed();
+    UIDelegate& uiDelegate() const;
 
 public slots:
     void setDateRange( const ImageDate&, bool includeFuzzyCounts );
@@ -70,7 +71,6 @@ private:
 
 protected:
     ImageDB( UIDelegate &delegate);
-    UIDelegate& uiDelegate() const;
 
 public:
     static QString NONE();

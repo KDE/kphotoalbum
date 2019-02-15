@@ -1975,6 +1975,14 @@ Browser::PositionBrowserWidget* MainWindow::Window::positionBrowserWidget()
     return m_positionBrowser;
 }
 
+Browser::PositionBrowserWidget* MainWindow::Window::createPositionBrowser()
+{
+    Browser::PositionBrowserWidget* widget = new Browser::PositionBrowserWidget(m_stack);
+    m_stack->addWidget(widget);
+    return widget;
+}
+#endif
+
 UIFeedback MainWindow::Window::askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId)
 {
     auto answer = KMessageBox::warningContinueCancel(this, msg, title, KStandardGuiItem::cont(), KStandardGuiItem::cancel(), dialogId);
@@ -2003,13 +2011,5 @@ bool MainWindow::Window::isDialogDisabled(const QString &dialogId)
     // If that ever changes, we can still update our implementation - until then I won't just copy a stupid API...
     return !KMessageBox::shouldBeShownContinue(dialogId);
 }
-
-Browser::PositionBrowserWidget* MainWindow::Window::createPositionBrowser()
-{
-    Browser::PositionBrowserWidget* widget = new Browser::PositionBrowserWidget(m_stack);
-    m_stack->addWidget(widget);
-    return widget;
-}
-#endif
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

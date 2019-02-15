@@ -18,7 +18,6 @@
 #ifndef XMLDB_FILEREADER_H
 #define XMLDB_FILEREADER_H
 
-#include <qdom.h>
 #include "DB/ImageInfoPtr.h"
 #include "DB/ImageInfo.h"
 #include <QSharedPointer>
@@ -54,9 +53,6 @@ protected:
 
     void checkIfImagesAreSorted();
     void checkIfAllImagesHaveSizeAttributes();
-
-    // The parent widget information dialogs are displayed in.
-    QWidget *messageParent();
 
 private:
     Database* const m_db;

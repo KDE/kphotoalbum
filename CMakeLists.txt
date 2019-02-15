@@ -322,6 +322,7 @@ set(libDB_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/MediaCount.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/RawId.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DB/SimpleCategoryMatcher.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DB/UIDelegate.cpp
     )
 
 set(libImportExport_SRCS

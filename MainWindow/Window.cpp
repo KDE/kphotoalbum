@@ -79,6 +79,7 @@
 #include <DB/ImageInfo.h>
 #include <DB/MD5.h>
 #include <DB/MD5Map.h>
+#include <DB/UIDelegate.h>
 #include <Exif/Database.h>
 #include <Exif/InfoDialog.h>
 #include <Exif/Info.h>
@@ -1111,7 +1112,7 @@ bool MainWindow::Window::load()
         }
         configFile = fi.absoluteFilePath();
     }
-    DB::ImageDB::setupXMLDB( configFile );
+    DB::ImageDB::setupXMLDB( configFile, *this );
 
     // some sanity checks:
     if ( ! Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
@@ -1972,6 +1973,35 @@ Browser::PositionBrowserWidget* MainWindow::Window::positionBrowserWidget()
         m_positionBrowser = createPositionBrowser();
     }
     return m_positionBrowser;
+}
+
+UIFeedback MainWindow::Window::askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId)
+{
+    auto answer = KMessageBox::warningContinueCancel(this, msg, title, KStandardGuiItem::cont(), KStandardGuiItem::cancel(), dialogId);
+    return (answer==KMessageBox::Continue) ? UIFeedback::Continue : UIFeedback::Cancel;
+}
+
+void MainWindow::Window::showInformation(const QString &msg, const QString &title, const QString &dialogId)
+{
+    KMessageBox::information(this, msg, title, dialogId);
+}
+
+void MainWindow::Window::showSorry(const QString &msg, const QString &title, const QString &)
+{
+    KMessageBox::sorry(this, msg, title);
+}
+
+void MainWindow::Window::showError(const QString &msg, const QString &title, const QString &)
+{
+    KMessageBox::error(this, msg, title);
+}
+
+bool MainWindow::Window::isDialogDisabled(const QString &dialogId)
+{
+    // Note(jzarl): there are different methods for different kinds of dialogs.
+    // However, all these methods share exactly the same code in KMessageBox.
+    // If that ever changes, we can still update our implementation - until then I won't just copy a stupid API...
+    return !KMessageBox::shouldBeShownContinue(dialogId);
 }
 
 Browser::PositionBrowserWidget* MainWindow::Window::createPositionBrowser()

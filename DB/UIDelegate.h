@@ -55,7 +55,7 @@ public:
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      * @return the user choice in form of a UIFeedback
      */
-    UIFeedback warningContinueCancel(const QString &msg, const QString &title, const QString &logMessage, const QString &dialogId = QString());
+    UIFeedback warningContinueCancel(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
 
     /**
      * @brief Displays an informational message to the user.
@@ -66,7 +66,7 @@ public:
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      * @param logMessage a non-localized log message
      */
-    void information(const QString &msg, const QString &title, const QString &logMessage, const QString &dialogId = QString());
+    void information(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
     /**
      * @brief Displays a message to the user indicating something went wrong.
      *
@@ -76,7 +76,7 @@ public:
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      * @param logMessage a non-localized log message
      */
-    void sorry(const QString &msg, const QString &title, const QString &logMessage, const QString &dialogId = QString());
+    void sorry(const QString &msg, const QString &logMessage, const QString &title, const QString &dialogId = QString());
     /**
      * @brief Displays an error message to the user.
      *
@@ -86,7 +86,7 @@ public:
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      * @param logMessage a non-localized log message
      */
-    void error(const QString &msg, const QString &title, const QString &logMessage, const QString &dialogId = QString());
+    void error(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
 
     /**
      * @brief isDialogDisabled checks whether the user disabled display of a dialog.

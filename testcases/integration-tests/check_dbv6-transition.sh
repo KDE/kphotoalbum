@@ -33,6 +33,8 @@ check_dbv6-transition()
 		fi
 		echo -e "$add_rc$BASE_RC" > "$subcheck_dir/kphotoalbumrc" || return $result_err_setup
 
+		# set logging rules:
+		cp -a "$check_dir/QtProject" "$subcheck_dir"
 		# prepare database:
 		cp "$data_dir/$subcheck.orig.xml" "$subcheck_dir/index.xml" || return $result_err_setup
 
@@ -41,6 +43,11 @@ check_dbv6-transition()
 
 		if ! diff -u "$data_dir/$subcheck.result.xml" "$subcheck_dir/index.xml"
 		then
+			return $result_failed
+		fi
+		if ! grep -q '^kphotoalbum.DB: "Standard category names are no longer used since index.xml version 7. Standard categories will be left untranslated from now on."$' "$subcheck_dir/log"
+		then
+			log warn "$check_name/$subcheck: Missing expected log message!"
 			return $result_failed
 		fi
 	done

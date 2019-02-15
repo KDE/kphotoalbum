@@ -33,6 +33,8 @@ check_diacritical()
 		fi
 		echo -e "$add_rc$BASE_RC" > "$subcheck_dir/kphotoalbumrc" || return $result_err_setup
 
+		# set logging rules:
+		cp -a "$check_dir/QtProject" "$subcheck_dir"
 		# prepare database:
 		cp "$data_dir/$subcheck.orig.xml" "$subcheck_dir/index.xml" || return $result_err_setup
 

@@ -1996,6 +1996,14 @@ void MainWindow::Window::showError(const QString &msg, const QString &title, con
     KMessageBox::error(this, msg, title);
 }
 
+bool MainWindow::Window::isDialogDisabled(const QString &dialogId)
+{
+    // Note(jzarl): there are different methods for different kinds of dialogs.
+    // However, all these methods share exactly the same code in KMessageBox.
+    // If that ever changes, we can still update our implementation - until then I won't just copy a stupid API...
+    return !KMessageBox::shouldBeShownContinue(dialogId);
+}
+
 Browser::PositionBrowserWidget* MainWindow::Window::createPositionBrowser()
 {
     Browser::PositionBrowserWidget* widget = new Browser::PositionBrowserWidget(m_stack);

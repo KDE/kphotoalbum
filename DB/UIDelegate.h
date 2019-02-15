@@ -87,6 +87,13 @@ public:
      * @param logMessage a non-localized log message
      */
     void error(const QString &msg, const QString &title, const QString &logMessage, const QString &dialogId = QString());
+
+    /**
+     * @brief isDialogDisabled checks whether the user disabled display of a dialog.
+     * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
+     * @return \c true, if the dialog was disabled by the user, \c false otherwise.
+     */
+    virtual bool isDialogDisabled(const QString &dialogId) = 0;
 protected:
     virtual ~UIDelegate() = default;
 
@@ -102,10 +109,13 @@ protected:
 class DummyUIDelegate : public UIDelegate
 {
 protected:
-    virtual UIFeedback askWarningContinueCancel(const QString &, const QString &, const QString &) override {return UIFeedback::DefaultAction; }
-    virtual void showInformation(const QString &, const QString &, const QString &) override {}
-    virtual void showSorry(const QString &, const QString &, const QString &) override {}
-    virtual void showError(const QString &, const QString &, const QString &) override {}
+    UIFeedback askWarningContinueCancel(const QString &, const QString &, const QString &) override {return UIFeedback::DefaultAction; }
+    void showInformation(const QString &, const QString &, const QString &) override {}
+    void showSorry(const QString &, const QString &, const QString &) override {}
+    void showError(const QString &, const QString &, const QString &) override {}
+
+public:
+    bool isDialogDisabled(const QString &) override { return false; }
 };
 
 } // namespace DB

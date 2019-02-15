@@ -28,7 +28,6 @@
 
 // KDE includes
 #include <KLocalizedString>
-#include <KMessageBox>
 
 // Qt includes
 #include <QFile>
@@ -392,7 +391,7 @@ void XMLDB::FileReader::loadSettings(ReaderPtr reader)
 
 void XMLDB::FileReader::checkIfImagesAreSorted()
 {
-    if ( !KMessageBox::shouldBeShownContinue( QString::fromLatin1( "checkWhetherImagesAreSorted" ) ) )
+    if ( m_db->uiDelegate().isDialogDisabled( QString::fromLatin1( "checkWhetherImagesAreSorted" ) ) )
         return;
 
     QDateTime last( QDate( 1900, 1, 1 ) );
@@ -425,7 +424,7 @@ void XMLDB::FileReader::checkIfAllImagesHaveSizeAttributes()
 {
     QTime time;
     time.start();
-    if ( !KMessageBox::shouldBeShownContinue( QString::fromLatin1( "checkWhetherAllImagesIncludesSize" ) ) )
+    if ( m_db->uiDelegate().isDialogDisabled( QString::fromLatin1( "checkWhetherAllImagesIncludesSize" ) ) )
         return;
 
     if ( m_db->s_anyImageWithEmptySize ) {

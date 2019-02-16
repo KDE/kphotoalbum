@@ -1989,6 +1989,12 @@ UIFeedback MainWindow::Window::askWarningContinueCancel(const QString &msg, cons
     return (answer==KMessageBox::Continue) ? UIFeedback::Continue : UIFeedback::Cancel;
 }
 
+UIFeedback MainWindow::Window::askQuestionYesNo(const QString &msg, const QString &title, const QString &dialogId)
+{
+    auto answer = KMessageBox::questionYesNo(this, msg, title, KStandardGuiItem::yes(), KStandardGuiItem::no(), dialogId);
+    return (answer==KMessageBox::Yes) ? UIFeedback::Continue : UIFeedback::Cancel;
+}
+
 void MainWindow::Window::showInformation(const QString &msg, const QString &title, const QString &dialogId)
 {
     KMessageBox::information(this, msg, title, dialogId);

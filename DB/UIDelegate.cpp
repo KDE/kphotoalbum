@@ -27,6 +27,12 @@ DB::UIFeedback DB::UIDelegate::warningContinueCancel(const QString &logMessage, 
     return askWarningContinueCancel(msg, title, dialogId);
 }
 
+DB::UIFeedback DB::UIDelegate::questionYesNo(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId)
+{
+    qCInfo(DBLog) << logMessage;
+    return askQuestionYesNo(msg, title, dialogId);
+}
+
 void DB::UIDelegate::information(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId )
 {
     qCInfo(DBLog) << logMessage;

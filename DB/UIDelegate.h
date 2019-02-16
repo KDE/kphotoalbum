@@ -49,42 +49,52 @@ public:
      * @brief Similar to KMessageBox::warningContinueCancel, this method displays a message and prompts the user to continue or cancel.
      *
      * Additionally, a non-localized logMessage is logged within the DB log category.
+     * @param logMessage a non-localized log message
      * @param msg a localized message
      * @param title a localized title for a possible message window
-     * @param logMessage a non-localized log message
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      * @return the user choice in form of a UIFeedback
      */
     UIFeedback warningContinueCancel(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
 
     /**
-     * @brief Displays an informational message to the user.
-     *
-     * Additionally, a non-localized logMessage is logged within the DB log category.
+     * @brief Similar to KMessageBox::questionYesNo, this method displays a message and prompts the user for a yes/no answer.
+     * @param logMessage a non-localized log message
      * @param msg a localized message
      * @param title a localized title for a possible message window
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
+     * @return the user choice in form of a UIFeedback
+     */
+    UIFeedback questionYesNo(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
+
+    /**
+     * @brief Displays an informational message to the user.
+     *
+     * Additionally, a non-localized logMessage is logged within the DB log category.
      * @param logMessage a non-localized log message
+     * @param msg a localized message
+     * @param title a localized title for a possible message window
+     * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      */
     void information(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
     /**
      * @brief Displays a message to the user indicating something went wrong.
      *
      * Additionally, a non-localized logMessage is logged within the DB log category.
+     * @param logMessage a non-localized log message
      * @param msg a localized message
      * @param title a localized title for a possible message window
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
-     * @param logMessage a non-localized log message
      */
     void sorry(const QString &msg, const QString &logMessage, const QString &title, const QString &dialogId = QString());
     /**
      * @brief Displays an error message to the user.
      *
      * Additionally, a non-localized logMessage is logged within the DB log category.
+     * @param logMessage a non-localized log message
      * @param msg a localized message
      * @param title a localized title for a possible message window
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
-     * @param logMessage a non-localized log message
      */
     void error(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
 
@@ -98,6 +108,7 @@ protected:
     virtual ~UIDelegate() = default;
 
     virtual UIFeedback askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId) = 0;
+    virtual UIFeedback askQuestionYesNo(const QString &msg, const QString &title, const QString &dialogId) = 0;
     virtual void showInformation(const QString &msg, const QString &title, const QString &dialogId) = 0;
     virtual void showSorry(const QString &msg, const QString &title, const QString &dialogId) = 0;
     virtual void showError(const QString &msg, const QString &title, const QString &dialogId) = 0;
@@ -110,6 +121,7 @@ class DummyUIDelegate : public UIDelegate
 {
 protected:
     UIFeedback askWarningContinueCancel(const QString &, const QString &, const QString &) override {return UIFeedback::DefaultAction; }
+    UIFeedback askQuestionYesNo(const QString &, const QString &, const QString &) override {return UIFeedback::DefaultAction; }
     void showInformation(const QString &, const QString &, const QString &) override {}
     void showSorry(const QString &, const QString &, const QString &) override {}
     void showError(const QString &, const QString &, const QString &) override {}

@@ -61,7 +61,7 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
     setUseCompressedFileFormat( Settings::SettingsData::instance()->useCompressedIndexXML() );
 
     if ( !isAutoSave )
-        NumberedBackup().makeNumberedBackup();
+        NumberedBackup(m_db->uiDelegate()).makeNumberedBackup();
 
     // prepare XML document for saving:
     m_db->m_categoryCollection.initIdMap();

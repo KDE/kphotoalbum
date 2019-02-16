@@ -16,13 +16,20 @@
    Boston, MA 02110-1301, USA.
 */
 #include "NumberedBackup.h"
-#include "Settings/SettingsData.h"
-#include <kzip.h>
-#include <kmessagebox.h>
+
+#include <DB/UIDelegate.h>
+#include <Utilities/FileUtil.h>
+#include <Settings/SettingsData.h>
+
 #include <KLocalizedString>
-#include <qregexp.h>
-#include <qdir.h>
-#include "Utilities/FileUtil.h"
+#include <KZip>
+#include <QDir>
+#include <QRegExp>
+
+XMLDB::NumberedBackup::NumberedBackup(DB::UIDelegate &ui)
+    : m_ui(ui)
+{
+}
 
 void XMLDB::NumberedBackup::makeNumberedBackup()
 {
@@ -41,13 +48,19 @@ void XMLDB::NumberedBackup::makeNumberedBackup()
         QString fileAndDir = QString::fromLatin1( "%1/%2" ).arg(Settings::SettingsData::instance()->imageDirectory() ).arg(fileNameWithExt);
         KZip zip( fileAndDir );
         if ( ! zip.open( QIODevice::WriteOnly ) ) {
-            KMessageBox::error( nullptr, i18n("Error creating zip file %1",fileAndDir) );
+            m_ui.error( QString::fromUtf8("Error creating zip file %1").arg(fileAndDir)
+                        , i18n("Error creating zip file %1",fileAndDir)
+                        , i18n("Error Making Numbered Backup")
+                        );
             return;
         }
 
         if ( !zip.addLocalFile( QString::fromLatin1( "%1/index.xml" ).arg( Settings::SettingsData::instance()->imageDirectory() ), fileName ) )
         {
-            KMessageBox::error( nullptr, i18n("Error writing file %1 to zip file %2", fileName, fileAndDir) );
+            m_ui.error( QString::fromUtf8("Error writing file %1 to zip file %2").arg(fileName).arg(fileAndDir)
+                        , i18n("Error writing file %1 to zip file %2", fileName, fileAndDir)
+                        , i18n("Error Making Numbered Backup")
+                        );
         }
         zip.close();
     }

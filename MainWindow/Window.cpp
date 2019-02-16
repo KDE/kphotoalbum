@@ -1983,16 +1983,16 @@ Browser::PositionBrowserWidget* MainWindow::Window::createPositionBrowser()
 }
 #endif
 
-UIFeedback MainWindow::Window::askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId)
+UserFeedback MainWindow::Window::askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId)
 {
     auto answer = KMessageBox::warningContinueCancel(this, msg, title, KStandardGuiItem::cont(), KStandardGuiItem::cancel(), dialogId);
-    return (answer==KMessageBox::Continue) ? UIFeedback::Continue : UIFeedback::Cancel;
+    return (answer==KMessageBox::Continue) ? UserFeedback::Confirm : UserFeedback::Deny;
 }
 
-UIFeedback MainWindow::Window::askQuestionYesNo(const QString &msg, const QString &title, const QString &dialogId)
+UserFeedback MainWindow::Window::askQuestionYesNo(const QString &msg, const QString &title, const QString &dialogId)
 {
     auto answer = KMessageBox::questionYesNo(this, msg, title, KStandardGuiItem::yes(), KStandardGuiItem::no(), dialogId);
-    return (answer==KMessageBox::Yes) ? UIFeedback::Continue : UIFeedback::Cancel;
+    return (answer==KMessageBox::Yes) ? UserFeedback::Confirm : UserFeedback::Deny;
 }
 
 void MainWindow::Window::showInformation(const QString &msg, const QString &title, const QString &dialogId)

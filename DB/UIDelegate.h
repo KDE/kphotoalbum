@@ -25,12 +25,12 @@
 namespace DB {
 
 /**
- * @brief The UIFeedback enum enumerates all possible results of a user interaction.
+ * @brief The UserFeedback enum enumerates all possible results of a user interaction.
  */
-enum class UIFeedback {
-    Continue ///< The user accepts the dialog, wanting to continue with the action.
-    , Cancel ///< The user cancels the dialog, not wanting to continue with the action.
-    , DefaultAction ///< The user did not take a choice (maybe there was no user to interact with in the current context). Usually this should mean the same as Cancel, not doing any permanent changes.
+enum class UserFeedback {
+    Confirm ///< The user accepts the dialog, wanting to continue with the action or to say "yes".
+    , Deny ///< The user cancels the dialog, not wanting to continue with the action or to say "no".
+    , SafeDefaultAction ///< The user did not take a choice (maybe there was no user to interact with in the current context, maybe the user closed the dialog). Most often this should mean the same as Demy, not doing any permanent changes.
 };
 
 /**
@@ -53,9 +53,9 @@ public:
      * @param msg a localized message
      * @param title a localized title for a possible message window
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
-     * @return the user choice in form of a UIFeedback
+     * @return the user choice in form of a UserFeedback
      */
-    UIFeedback warningContinueCancel(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
+    UserFeedback warningContinueCancel(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
 
     /**
      * @brief Similar to KMessageBox::questionYesNo, this method displays a message and prompts the user for a yes/no answer.
@@ -63,9 +63,9 @@ public:
      * @param msg a localized message
      * @param title a localized title for a possible message window
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
-     * @return the user choice in form of a UIFeedback
+     * @return the user choice in form of a UserFeedback
      */
-    UIFeedback questionYesNo(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
+    UserFeedback questionYesNo(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
 
     /**
      * @brief Displays an informational message to the user.
@@ -107,21 +107,21 @@ public:
 protected:
     virtual ~UIDelegate() = default;
 
-    virtual UIFeedback askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId) = 0;
-    virtual UIFeedback askQuestionYesNo(const QString &msg, const QString &title, const QString &dialogId) = 0;
+    virtual UserFeedback askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId) = 0;
+    virtual UserFeedback askQuestionYesNo(const QString &msg, const QString &title, const QString &dialogId) = 0;
     virtual void showInformation(const QString &msg, const QString &title, const QString &dialogId) = 0;
     virtual void showSorry(const QString &msg, const QString &title, const QString &dialogId) = 0;
     virtual void showError(const QString &msg, const QString &title, const QString &dialogId) = 0;
 };
 
 /**
- * @brief The DummyUIDelegate class does nothing except returning UIFeedback::DefaultAction on questions.
+ * @brief The DummyUIDelegate class does nothing except returning UserFeedback::DefaultAction on questions.
  */
 class DummyUIDelegate : public UIDelegate
 {
 protected:
-    UIFeedback askWarningContinueCancel(const QString &, const QString &, const QString &) override {return UIFeedback::DefaultAction; }
-    UIFeedback askQuestionYesNo(const QString &, const QString &, const QString &) override {return UIFeedback::DefaultAction; }
+    UserFeedback askWarningContinueCancel(const QString &, const QString &, const QString &) override {return UserFeedback::SafeDefaultAction; }
+    UserFeedback askQuestionYesNo(const QString &, const QString &, const QString &) override {return UserFeedback::SafeDefaultAction; }
     void showInformation(const QString &, const QString &, const QString &) override {}
     void showSorry(const QString &, const QString &, const QString &) override {}
     void showError(const QString &, const QString &, const QString &) override {}

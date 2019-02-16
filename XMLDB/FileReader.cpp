@@ -52,14 +52,14 @@ void XMLDB::FileReader::read( const QString& configFile )
     m_fileVersion = reader->attribute( versionString, QString::fromLatin1( "1" ) ).toInt();
 
     if ( m_fileVersion > Database::fileVersion() ) {
-        DB::UIFeedback ret = m_db->uiDelegate().warningContinueCancel(
+        DB::UserFeedback ret = m_db->uiDelegate().warningContinueCancel(
                     QString::fromLatin1("index.xml version %1 is newer than %2!").arg(m_fileVersion).arg(Database::fileVersion())
                     , i18n("<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</p>"
                            "<p>Chances are you will be able to read this file, but when writing it back, "
                            "information saved in the newer version will be lost</p>")
                     , i18n("index.xml version mismatch")
                     , QString::fromLatin1( "checkDatabaseFileVersion" ) );
-        if (ret != DB::UIFeedback::Continue)
+        if (ret != DB::UserFeedback::Confirm)
             exit(-1);
     }
 
@@ -180,7 +180,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
             bool repairMode = false;
             if (cat)
             {
-                DB::UIFeedback choice = m_db->uiDelegate().warningContinueCancel(
+                DB::UserFeedback choice = m_db->uiDelegate().warningContinueCancel(
                             QString::fromUtf8("Line %1, column %2: duplicate category '%3'")
                             .arg(reader->lineNumber()).arg(reader->columnNumber()).arg(categoryName)
                             ,  i18n( "<p>Line %1, column %2: duplicate category '%3'</p>"
@@ -191,7 +191,7 @@ void XMLDB::FileReader::loadCategories( ReaderPtr reader )
                                      categoryName
                                      )
                             , i18n("Error in database file"));
-                if ( choice == DB::UIFeedback::Continue )
+                if ( choice == DB::UserFeedback::Confirm )
                     repairMode = true;
                 else
                     exit(-1);

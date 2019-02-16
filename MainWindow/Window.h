@@ -96,8 +96,8 @@ public:
     // implementing the same messageParent approach that we took before.
     // For now, I don't see anything wrong with directly implementing the interface instead.
     // I may change my mind later and I'm ready to convinced of the errors of my way, though...
-    DB::UIFeedback askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId) override;
-    DB::UIFeedback askQuestionYesNo(const QString &msg, const QString &title, const QString &dialogId) override;
+    DB::UserFeedback askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId) override;
+    DB::UserFeedback askQuestionYesNo(const QString &msg, const QString &title, const QString &dialogId) override;
     void showInformation(const QString &msg, const QString &title, const QString &dialogId) override;
     void showSorry(const QString &msg, const QString &title, const QString &) override;
     void showError(const QString &msg, const QString &title, const QString &) override;

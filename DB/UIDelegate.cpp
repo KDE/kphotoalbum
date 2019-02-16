@@ -21,13 +21,13 @@
 
 #include <QLoggingCategory>
 
-DB::UIFeedback DB::UIDelegate::warningContinueCancel(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId)
+DB::UserFeedback DB::UIDelegate::warningContinueCancel(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId)
 {
     qCWarning(DBLog) << logMessage;
     return askWarningContinueCancel(msg, title, dialogId);
 }
 
-DB::UIFeedback DB::UIDelegate::questionYesNo(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId)
+DB::UserFeedback DB::UIDelegate::questionYesNo(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId)
 {
     qCInfo(DBLog) << logMessage;
     return askQuestionYesNo(msg, title, dialogId);

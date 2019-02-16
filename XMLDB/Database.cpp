@@ -22,6 +22,7 @@
 #include "FileWriter.h"
 #include "XMLCategory.h"
 #include "XMLImageDateCollection.h"
+#include "Logging.h"
 
 #include <Browser/BrowserWidget.h>
 #include <DB/CategoryCollection.h>
@@ -29,19 +30,19 @@
 #include <DB/GroupCounter.h>
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
+#include <DB/UIDelegate.h>
 #include <Exif/Database.h>
 #include <Settings/SettingsData.h>
 #include <Utilities/VideoUtil.h>
 
 #include <KLocalizedString>
-#include <KMessageBox>
 #include <QExplicitlySharedDataPointer>
 #include <QFileInfo>
 
 using Utilities::StringSet;
 
 namespace {
-void checkForBackupFile( const QString& fileName)
+void checkForBackupFile( const QString& fileName, DB::UIDelegate &ui)
 {
     QString backupName = QFileInfo( fileName ).absolutePath() + QString::fromLatin1("/.#") + QFileInfo( fileName ).fileName();
     QFileInfo backUpFile( backupName);
@@ -50,11 +51,16 @@ void checkForBackupFile( const QString& fileName)
     if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() || backUpFile.size() == 0 )
         return;
 
-    int code = KMessageBox::questionYesNo( nullptr, i18n("Autosave file '%1' exists (size %3 KB) and is newer than '%2'. "
-                                                     "Should the autosave file be used?", backupName, fileName, backUpFile.size() >> 10 ),
-                                       i18n("Found Autosave File") );
+    const long backupSizeKB = backUpFile.size() >> 10;
+    const DB::UserFeedback choice = ui.questionYesNo(
+                QString::fromUtf8("Autosave file found: '%1', %2KB.").arg(backupName).arg(backupSizeKB)
+                , i18n("Autosave file '%1' exists (size %3 KB) and is newer than '%2'. "
+                       "Should the autosave file be used?", backupName, fileName, backupSizeKB)
+                , i18n("Found Autosave File")
+                );
 
-    if ( code == KMessageBox::Yes ) {
+    if ( choice == DB::UserFeedback::Confirm ) {
+        qCInfo(XMLDBLog) << "Using autosave file:" << backupName;
         QFile in( backupName );
         if ( in.open( QIODevice::ReadOnly ) ) {
             QFile out( fileName );
@@ -74,7 +80,7 @@ XMLDB::Database::Database(const QString& configFile , DB::UIDelegate &delegate)
     : ImageDB(delegate)
     , m_fileName(configFile)
 {
-    checkForBackupFile( configFile );
+    checkForBackupFile( configFile, uiDelegate() );
     FileReader reader( this );
     reader.read( configFile );
     m_nextStackId = reader.nextStackId();

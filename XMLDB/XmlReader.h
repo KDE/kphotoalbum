@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2013-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,6 +22,10 @@
 #include <QXmlStreamReader>
 #include <QSharedPointer>
 
+namespace DB {
+class UIDelegate;
+}
+
 namespace XMLDB {
 
 struct ElementInfo {
@@ -37,7 +41,7 @@ struct ElementInfo {
 class XmlReader : public QXmlStreamReader
 {
 public:
-    explicit XmlReader();
+    explicit XmlReader(DB::UIDelegate &ui);
 
     QString attribute(const QString &name, const QString& defaultValue = QString() );
     ElementInfo readNextStartOrStopElement(const QString &expectedStart);
@@ -59,6 +63,7 @@ private:
     QString tokenToString(TokenType);
     TokenType readNextInternal();
 
+    DB::UIDelegate &m_ui;
     ElementInfo m_peek;
 };
 

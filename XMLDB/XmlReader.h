@@ -56,10 +56,10 @@ public:
     void readEndElement(bool readNextElement = true);
     bool hasAttribute(const QString& name);
     ElementInfo peekNext();
-    void complainStartElementExpected(const QString& name);
+    [[noreturn]] void complainStartElementExpected(const QString& name);
 
 private:
-    void reportError(const QString&);
+    [[noreturn]] void reportError(const QString&);
     QString tokenToString(TokenType);
     TokenType readNextInternal();
 

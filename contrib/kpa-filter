@@ -1,0 +1,462 @@
+#!/usr/bin/perl
+# Copyright 2019 Robert Krawitz <rlk@alum.mit.edu>
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public
+# License as published by the Free Software Foundation; either
+# version 2 of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; see the file COPYING.  If not, write to
+# the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+# Boston, MA 02110-1301, USA.
+
+# Maintain KPhotoAlbum index.xml files
+
+use strict;
+use warnings;
+
+use XML::LibXML;
+use Getopt::Long;
+use Carp("cluck");
+
+my (%categories);
+# Map between category name and ID for compressed files
+my (%category_map);
+my (@category_names);
+# This is stored as {category}{member}{groupname}, as members can only be
+# members of one group.  Weird, huh?  But this way, when we overlay the new
+my (%member_groups);
+# $group_closure{$category}{value}{values...}
+my (%group_closure);
+
+# Global image (for filtering)
+my (%current_image);
+
+my ($opt_config_file);
+
+my ($opt_list_type);
+
+# Needs to be kept up to date with XMLDB/Database.cpp
+my (@standard_vars) = (
+    "file",
+    "label",
+    "description",
+    "startDate",
+    "endDate",
+    "yearFrom",
+    "monthFrom",
+    "dayFrom",
+    "hourFrom",
+    "minuteFrom",
+    "secondFrom",
+    "yearTo",
+    "monthTo",
+    "dayTo",
+    "angle",
+    "md5sum",
+    "width",
+    "height",
+    "rating",
+    "stackId",
+    "stackOrder",
+    "gpsPrec",
+    "gpsLon",
+    "gpsLat",
+    "gpsAlt",
+    "videoLength");
+
+my (@all_vars) = (
+    @standard_vars,
+    "mediaType");
+
+sub usage() {
+    my ($known_vars) = join("\n		", sort map {my $a = $_; $a =~ s/ //g; "    $a"} @all_vars);
+    my ($usage) = << "FINIS";
+Usage: $0 [--db filename] [--list-values category] [filter]
+
+	Filter a KPhotoAlbum database file for either images files or
+	category values.
+
+	If --list-values is not specified, kpa-filter extracts files
+	from the database that match the specified criteria.
+	Currently only attributes listed in the index.xml file are
+	supported; EXIF data is not utilized.
+
+	If --list-values is specified, along with the name of a
+	category (e. g. Keywords), all values of the specified
+	category that are assigned to any member of the selected set
+	(including those assigned hierarchically) are reported.
+
+	Filters are Perl expressions.  Variable names are generated
+	from the attributes.  The supported variables are:
+
+		$known_vars
+
+	In addition, the following functions are provided to match on
+	categoried information:
+
+		hasKeyword(\$value)
+		hasPerson(\$value)
+		hasPlace(\$value)
+		hasToken(\$value)
+	        hasAttribute(\$category, \$value)
+		matchesKeyword(\$pattern)
+		matchesPerson(\$pattern)
+		matchesPlace(\$pattern)
+		matchesToken(\$pattern)
+	        matchesAttribute(\$category, \$pattern)
+
+	The "matches" functions accept Perl regular expressions (see
+	perlre(1)).
+FINIS
+    print STDERR $usage;
+    exit(1);
+}
+
+################################################################
+################################################################
+# Load files ###################################################
+################################################################
+################################################################
+
+
+################################################################
+# Utilities
+################################################################
+
+sub isNode($$) {
+    my ($node, $name) = @_;
+    return ($node->nodeType() == 1 && lc $node->nodeName() eq $name);
+}
+
+sub computeClosure($\@) {
+    my ($category, $members) = @_;
+    my (%answer);
+    foreach my $value (@$members) {
+	map { $answer{$_} = 1;} keys %{$group_closure{$category}{$value}};
+    }
+    return sort keys %answer;
+}
+
+################################################################
+# Categories
+################################################################
+
+sub loadCategories($$) {
+    my ($node, $compressed) = @_;
+    foreach my $child($node->childNodes()) {
+	next if !isNode($child, "category");
+	my ($category) = $child->getAttribute("name");
+	$categories{$category} = {};
+	$category_map{$category} = [];
+	$member_groups{$category} = {};
+	$group_closure{$category} = {};
+	my (@members);
+	foreach my $grandchild ($child->childNodes()) {
+	    next if !isNode($grandchild, "value");
+	    my ($value) = $grandchild->getAttribute("value");
+	    # This works for both compact and original file format
+	    $categories{$category}{$value} = 1;
+	    $category_map{$category}[$grandchild->getAttribute("id")] = $value;
+	    $group_closure{$category}{$value} = {};
+	    $group_closure{$category}{$value}{$value} = 1;
+	}
+    }
+    @category_names = sort keys %category_map;
+}
+
+################################################################
+# Images
+################################################################
+
+# Image options and values for uncompressed files.
+
+sub loadUncompressedOptions(\%) {
+    my ($image) = @_;
+    my (%options);
+    my ($node) = $$image{"__node"};
+    foreach my $child ($node->childNodes()) {
+	next if !isNode($child, "options");
+	my (@members);
+	foreach my $grandchild ($child->childNodes()) {
+	    next if !isNode($grandchild, "option");
+	    my ($category) = $grandchild->getAttribute("name");
+	    foreach my $greatgrandchild ($grandchild->childNodes()) {
+		next if !isNode($greatgrandchild, "value");
+		my ($val) = $greatgrandchild->getAttribute("value");
+		push @members, $val;
+	    }
+	    map { $options{$category}{$_} = 1; } computeClosure($category, @members);
+	}
+    }
+    return \%options;
+}
+
+# Compressed XML files are simpler to parse; there's simply an attribute
+# for each category
+
+sub loadCompressedOptions(\%) {
+    my ($image) = @_;
+    my (%options);
+    foreach my $category (@category_names) {
+	my ($members) = $$image{$category};
+	my (@members);
+	if (defined $members && $members ne '') {
+	    my ($map) = $category_map{$category};
+	    @members = map {$$map[$_]} split(/,/, $members);
+	}
+	$options{$category} = {};
+	map { $options{$category}{$_} = 1; } computeClosure($category, @members);
+    }
+    return \%options;
+}
+
+sub loadOptions() {
+    if (! defined $current_image{"options"}) {
+	if ($current_image{"__compressed"}) {
+	    $current_image{"options"} = loadCompressedOptions(%current_image);
+	} else {
+	    $current_image{"options"} = return loadUnCompressedOptions(%current_image);
+	}
+    }
+}
+
+sub hasAttribute($$) {
+    my ($category, $value) = @_;
+    loadOptions();
+    return defined $current_image{"options"}{$category}{$value};
+}
+
+sub hasKeyword($) {
+    my ($value) = @_;
+    return hasAttribute("Keywords", $value);
+}
+
+sub hasPerson($) {
+    my ($value) = @_;
+    return hasAttribute("People", $value);
+}
+
+sub hasPlace($) {
+    my ($value) = @_;
+    return hasAttribute("Places", $value);
+}
+
+sub hasToken($) {
+    my ($value) = @_;
+    return hasAttribute("Token", $value);
+}
+
+sub matchesAttribute($$) {
+    my ($category, $value) = @_;
+    loadOptions();
+    return grep(/$value/, keys %{$current_image{"options"}{$category}}) > 0;
+}
+
+sub matchesKeyword($) {
+    my ($value) = @_;
+    return matchesAttribute("Keywords", $value);
+}
+
+sub matchesPerson($) {
+    my ($value) = @_;
+    return matchesAttribute("People", $value);
+}
+
+sub matchesPlace($) {
+    my ($value) = @_;
+    return matchesAttribute("Places", $value);
+}
+
+sub matchesToken($) {
+    my ($value) = @_;
+    return matchesAttribute("Token", $value);
+}
+
+sub makeVarcode($) {
+    my ($identifier) = @_;
+    my ($varname) = $identifier;
+    $varname =~ s/ //g;
+    return "            my (\$$varname) = \$current_image{\"$identifier\"};";
+}
+
+sub loadImages($$$) {
+    my ($node, $compressed, $filter) = @_;
+    if (! $filter || $filter eq '') {
+	$filter = '1';
+    }
+    my ($varcode) = join("\n", map {makeVarcode($_)} @standard_vars);
+    my ($code) = << 'EOF';
+    {
+	no warnings "uninitialized";
+	no warnings "numeric";
+        my %items_found;
+	foreach my $child ($node->childNodes()) {
+	    next if !isNode($child, "image");
+	    %current_image=();
+	    $current_image{"__node"} = $child;
+	    $current_image{"__compressed"} = $compressed;
+	    map { $current_image{$_->nodeName} = $_->value } $child->attributes();
+EOF
+    $code .= $varcode;
+    $code .= << 'EOF';
+
+	    my ($mediaType) = defined $videoLength ? "Video" : "Image";
+
+	    # Restore any attributes defaulted in version 8
+	    $current_image{"angle"} = 0 if (! defined $current_image{"angle"});
+	    $current_image{"endDate"} = $current_image{"startDate"} if (! defined $current_image{"endDate"});
+	    if (! defined $current_image{"label"}) {
+		my ($label) = $file;
+		$label =~ s,^.*/(.*)\.[^.]*$,$1,;
+		$current_image{"label"} = $label;
+	    }
+EOF
+    $code .= "            if ($filter) {\n";
+    $code .= << 'EOF';
+	        if ($opt_list_type) {
+                    loadOptions();
+                    map { $items_found{$_} = 1; } keys %{$current_image{"options"}{$opt_list_type}};
+                } else {
+		    print "$file\n";
+                }
+	    }
+	}
+        if ($opt_list_type) {
+            print join("\n", sort keys %items_found), "\n";
+        }
+    }
+EOF
+    eval $code;
+    if ($@) {
+	my $known_vars = join("\n", sort map {my $a = $_; $a =~ s/ //g; "    $a"} @all_vars);
+	die "Filter $filter failed:\n\n$@\n";
+
+    }
+}
+
+################################################################
+# Member groups
+################################################################
+
+sub loadMemberGroups($$) {
+    my ($node, $compressed) = @_;
+    foreach my $child ($node->childNodes()) {
+	next if !isNode($child, "member");
+	my ($category) = $child->getAttribute("category");
+	my ($groupname) = $child->getAttribute("group-name");
+	if ($compressed) {
+	    my ($members) = $child->getAttribute("members");
+	    if ($members) {
+		my ($map) = $category_map{$category};
+		my (@members) = grep { ! $_ == 0 } split(/,/, $members);
+		map {
+		    $member_groups{$category}{$$map[$_]} = $groupname;
+		} @members;
+	    }
+	} else {
+	    my ($member) = $child->getAttribute("member");
+	    $member_groups{$category}{$member} = $groupname;
+	}
+    }
+    foreach my $category (sort keys %member_groups) {
+	foreach my $member (keys %{$member_groups{$category}}) {
+	    my ($parent) = $member_groups{$category}{$member};
+	    do {
+		$group_closure{$category}{$member}{$parent} = 1;
+	    } while (defined ($parent = $member_groups{$category}{$parent}));
+	}
+    }
+}
+
+################################################################
+# Top level file loader
+################################################################
+
+sub load_file($$) {
+    my ($file, $filter) = @_;
+    my $doc = XML::LibXML->load_xml(location => $file);
+    if (! $doc) {
+	usage();
+    }
+
+    my $kpa = ${$doc->findnodes('KPhotoAlbum')}[0];
+    if (! $kpa) {
+	die "$file is not a KPhotoAlbum database\n";
+    } elsif ($kpa->getAttribute("version") != 7 &&
+	$kpa->getAttribute("version") != 8) {
+	die "kpa-list-images only works with version 7 and 8 files\n";
+    }
+
+    my ($compressed) = int $kpa->getAttribute("compressed");
+
+    my ($images);
+
+    foreach my $topcn ($kpa->childNodes()) {
+	if (isNode($topcn, "categories")) {
+	    loadCategories($topcn, $compressed);
+	    if ($opt_list_type && (!defined $filter || $filter eq '')) {
+		print join("\n", sort grep(defined $_, @{$category_map{$opt_list_type}})), "\n";
+		exit;
+	    }
+	} elsif (isNode($topcn, "images")) {
+	    $images = $topcn;
+	} elsif (isNode($topcn, "member-groups")) {
+	    loadMemberGroups($topcn, $compressed);
+	} elsif (isNode($topcn, "blocklist")) {
+	} elsif ($topcn->nodeType() == 1) {
+	    warn "Found unknown node " . $topcn->nodeName() . "\n";
+	}
+    }
+    # Load images last so that we can stream them through.
+    loadImages($images, $compressed, $filter);
+}
+
+sub get_standard_kpa_config_file() {
+    my ($kpa_config) = $ENV{"HOME"} . "/.config/kphotoalbumrc";
+    open KPACONFIG, "<", "$kpa_config" or return "";
+    my ($imageDBFile) = "";
+    while (<KPACONFIG>) {
+	if (/^imageDBFile=(.*)$/) {
+	    $imageDBFile = $1;
+	    last;
+	}
+    }
+    close KPACONFIG;
+    return $imageDBFile;
+}	
+
+sub main($) {
+    my ($filter) = @_;
+    my ($config_file);
+    if ($opt_config_file) {
+	$config_file = $opt_config_file;
+    } else {
+	$config_file = get_standard_kpa_config_file();
+    }
+    load_file($config_file, $filter);
+}
+
+my ($do_help);
+
+my (%options) = ("f"             => \$opt_config_file,
+		 "db"            => \$opt_config_file,
+		 "l=s"           => \$opt_list_type,
+		 "list=s"        => \$opt_list_type,
+		 "list-values=s" => \$opt_list_type,
+		 "h"             => \$do_help,
+		 "help"          => \$do_help,
+    );
+
+Getopt::Long::Configure("bundling", "require_order");
+if (!Getopt::Long::GetOptions(%options) || $do_help) {
+    usage();
+}
+
+main($ARGV[0]);

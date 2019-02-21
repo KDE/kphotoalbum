@@ -22,6 +22,8 @@ use strict;
 use warnings;
 
 use XML::LibXML;
+use DBI;
+use DBD::SQLite::Constants qw/:file_open/;
 use Getopt::Long;
 use Carp("cluck");
 
@@ -38,9 +40,13 @@ my (%group_closure);
 # Global image (for filtering)
 my (%current_image);
 
-my ($opt_config_file);
+my (%exif_data);
 
+my ($opt_config_file);
 my ($opt_list_type);
+my ($opt_use_exif) = 1;
+my ($opt_print_count);
+my ($opt_dryrun);
 
 # Needs to be kept up to date with XMLDB/Database.cpp
 my (@standard_vars) = (
@@ -65,20 +71,51 @@ my (@standard_vars) = (
     "rating",
     "stackId",
     "stackOrder",
-    "gpsPrec",
-    "gpsLon",
-    "gpsLat",
-    "gpsAlt",
     "videoLength");
+
+my ($rootdir);
+
+my (@exif_vars) = (
+    "Exif_Photo_FocalLength",
+    "Exif_Photo_ExposureTime",
+    "Exif_Photo_ApertureValue",
+    "Exif_Photo_FNumber",
+    "Exif_Photo_Flash",
+    "Exif_Photo_Contrast",
+    "Exif_Photo_Sharpness",
+    "Exif_Photo_Saturation",
+    "Exif_Image_Orientation",
+    "Exif_Photo_MeteringMode",
+    "Exif_Photo_ISOSpeedRatings",
+    "Exif_Photo_ExposureProgram",
+    "Exif_Image_Make",
+    "Exif_Image_Model",
+    "Exif_GPSInfo_GPSVersionID",
+    "Exif_GPSInfo_GPSAltitude",
+    "Exif_GPSInfo_GPSAltitudeRef",
+    "Exif_GPSInfo_GPSMeasureMode",
+    "Exif_GPSInfo_GPSDOP",
+    "Exif_GPSInfo_GPSImgDirection",
+    "Exif_GPSInfo_GPSLatitude",
+    "Exif_GPSInfo_GPSLatitudeRef",
+    "Exif_GPSInfo_GPSLongitude",
+    "Exif_GPSInfo_GPSLongitudeRef",
+    "Exif_GPSInfo_GPSTimeStamp",
+    "Exif_Photo_LensModel"
+    );
+
+my ($querystr) = 'SELECT ' . join(', ', "filename", @exif_vars) . " FROM exif";
+my ($exif_query);
 
 my (@all_vars) = (
     @standard_vars,
     "mediaType");
 
 sub usage() {
-    my ($known_vars) = join("\n		", sort map {my $a = $_; $a =~ s/ //g; "    $a"} @all_vars);
+    my ($known_vars) = join("\n		", sort map {my $a = $_; $a =~ s/ //g; "\$$a"} @all_vars);
+    my ($exif_vars) = join("\n		", sort map {"\$$_"} @exif_vars);
     my ($usage) = << "FINIS";
-Usage: $0 [--db filename] [--list-values category] [filter]
+Usage: $0 [--db filename] [--list-values category] [-exif|-no-exif] [filter]
 
 	Filter a KPhotoAlbum database file for either images files or
 	category values.
@@ -93,10 +130,17 @@ Usage: $0 [--db filename] [--list-values category] [filter]
 	category that are assigned to any member of the selected set
 	(including those assigned hierarchically) are reported.
 
+	If --no-exif is specified, EXIF data is not searched.  This
+	improves performance if that is not needed.
+
 	Filters are Perl expressions.  Variable names are generated
 	from the attributes.  The supported variables are:
 
 		$known_vars
+
+	The following EXIF attributes may be specified in the same way:
+
+		$exif_vars
 
 	In addition, the following functions are provided to match on
 	categoried information:
@@ -283,56 +327,84 @@ sub makeVarcode($) {
     my ($identifier) = @_;
     my ($varname) = $identifier;
     $varname =~ s/ //g;
-    return "            my (\$$varname) = \$current_image{\"$identifier\"};";
+    return "        my (\$$varname) = \$current_image{\"$identifier\"};";
 }
 
 sub loadImages($$$) {
     my ($node, $compressed, $filter) = @_;
-    if (! $filter || $filter eq '') {
-	$filter = '1';
-    }
     my ($varcode) = join("\n", map {makeVarcode($_)} @standard_vars);
+    if (! defined $filter) {
+	$filter = 'true';
+    }
     my ($code) = << 'EOF';
-    {
-	no warnings "uninitialized";
-	no warnings "numeric";
-        my %items_found;
-	foreach my $child ($node->childNodes()) {
-	    next if !isNode($child, "image");
-	    %current_image=();
-	    $current_image{"__node"} = $child;
-	    $current_image{"__compressed"} = $compressed;
-	    map { $current_image{$_->nodeName} = $_->value } $child->attributes();
+{
+    no warnings "uninitialized";
+    no warnings "numeric";
+    my %items_found;
+    foreach my $child ($node->childNodes()) {
+	next if !isNode($child, "image");
+	%current_image=();
+	$current_image{"__node"} = $child;
+	$current_image{"__compressed"} = $compressed;
+	map { $current_image{$_->nodeName} = $_->value } $child->attributes();
 EOF
-    $code .= $varcode;
+    $code .= "$varcode\n";
     $code .= << 'EOF';
-
-	    my ($mediaType) = defined $videoLength ? "Video" : "Image";
-
-	    # Restore any attributes defaulted in version 8
-	    $current_image{"angle"} = 0 if (! defined $current_image{"angle"});
-	    $current_image{"endDate"} = $current_image{"startDate"} if (! defined $current_image{"endDate"});
-	    if (! defined $current_image{"label"}) {
-		my ($label) = $file;
-		$label =~ s,^.*/(.*)\.[^.]*$,$1,;
-		$current_image{"label"} = $label;
-	    }
-EOF
-    $code .= "            if ($filter) {\n";
-    $code .= << 'EOF';
-	        if ($opt_list_type) {
-                    loadOptions();
-                    map { $items_found{$_} = 1; } keys %{$current_image{"options"}{$opt_list_type}};
-                } else {
-		    print "$file\n";
-                }
-	    }
+	# Restore any attributes defaulted in version 8
+	$current_image{"angle"} = 0 if (! defined $current_image{"angle"});
+	$current_image{"endDate"} = $current_image{"startDate"} if (! defined $current_image{"endDate"});
+	if (! defined $current_image{"label"}) {
+	    my ($label) = $file;
+	    $label =~ s,^.*/(.*)\.[^.]*$,$1,;
+	    $current_image{"label"} = $label;
 	}
-        if ($opt_list_type) {
-            print join("\n", sort keys %items_found), "\n";
+EOF
+    $code .= << 'EOF';
+	my ($mediaType) = defined $videoLength ? "Video" : "Image";
+EOF
+    if ($opt_use_exif) {
+	my ($exifdecl) = join("\n        ", map {"my (\$$_);"} @exif_vars);
+	my ($exifcode) = join("\n	    ", map {"\$$exif_vars[$_] = \$\$row[$_];"} (0..$#exif_vars));
+	$code .= << "EOF";
+	$exifdecl;
+	if (my \$row = \$exif_data{"\$rootdir\$file"}) {
+	    $exifcode
+	}
+EOF
+    }
+    $code .= "        if ($filter) {\n";
+    if ($opt_list_type) {
+	if ($opt_list_type =~ /cat(egory)?:(.*)/) {
+	    $code .= << "EOF"
+	    loadOptions();
+	    map { \$items_found{\$_}++; } keys \%{\$current_image{"options"}{"$2"}};
+EOF
+	} else {
+	    $code .= "            \$items_found{\$$opt_list_type}++;\n";
+	}
+	$code .= << 'EOF';
+	}
+    }
+EOF
+	if ($opt_print_count) {
+	    $code .= '    print join("\n", map {sprintf("%7d %s", $items_found{$_}, $_);} sort keys %items_found), "\n"'."\n";
+	} else {
+	    $code .= << 'EOF'
+    print join("\n", sort keys %items_found), "\n";
+EOF
+	}
+    } else {
+	$code .= << 'EOF';
+            print "$file\n";
         }
     }
 EOF
+    }
+    $code .= "}\n";
+    if ($opt_dryrun) {
+	print STDERR $code;
+	exit;
+    }
     eval $code;
     if ($@) {
 	my $known_vars = join("\n", sort map {my $a = $_; $a =~ s/ //g; "    $a"} @all_vars);
@@ -381,27 +453,56 @@ sub loadMemberGroups($$) {
 
 sub load_file($$) {
     my ($file, $filter) = @_;
+    my ($images);
+
+    if ($opt_dryrun) {
+	loadImages($images, 1, $filter);
+	exit;
+    }
+
     my $doc = XML::LibXML->load_xml(location => $file);
     if (! $doc) {
-	usage();
+	die "Can't open $file as a KPhotoAlbum database.\n";
     }
 
     my $kpa = ${$doc->findnodes('KPhotoAlbum')}[0];
     if (! $kpa) {
-	die "$file is not a KPhotoAlbum database\n";
+	die "$file is not a KPhotoAlbum database.\n";
     } elsif ($kpa->getAttribute("version") != 7 &&
 	$kpa->getAttribute("version") != 8) {
-	die "kpa-list-images only works with version 7 and 8 files\n";
+	die "kpa-list-images only works with version 7 and 8 files.\n";
     }
 
-    my ($compressed) = int $kpa->getAttribute("compressed");
+    $rootdir = $file;
+    $rootdir =~ s,[^/]*$,,;
+    if ($opt_use_exif) {
+	my $exif_db .= "${rootdir}exif-info.db";
 
-    my ($images);
+	if (! -f $exif_db) {
+	    die "Expected EXIF database at $exif_db, but can't find it.\n"
+	}
+	my $EXIF_DB = DBI->connect("dbi:SQLite:$exif_db", undef, undef, {
+	    sqlite_open_flags => SQLITE_OPEN_READONLY,
+				   });
+	if (! defined $EXIF_DB) {
+	    die "Can't open EXIF database $exif_db.\n"
+	}
+	$exif_query = $EXIF_DB->prepare($querystr);
+	$exif_query->execute();
+	# This is measured to be considerably (about 15% total,
+	# considerably more for EXIF database alone) than individual
+	# lookups on a prepared query.
+	while (my @row = $exif_query->fetchrow_array) {
+	    my ($filename) = shift @row;
+	    $exif_data{$filename} = \@row;
+	}
+    }
+    my ($compressed) = int $kpa->getAttribute("compressed");
 
     foreach my $topcn ($kpa->childNodes()) {
 	if (isNode($topcn, "categories")) {
 	    loadCategories($topcn, $compressed);
-	    if ($opt_list_type && (!defined $filter || $filter eq '')) {
+	    if ($opt_list_type && !defined $filter)) {
 		print join("\n", sort grep(defined $_, @{$category_map{$opt_list_type}})), "\n";
 		exit;
 	    }
@@ -430,7 +531,7 @@ sub get_standard_kpa_config_file() {
     }
     close KPACONFIG;
     return $imageDBFile;
-}	
+}
 
 sub main($) {
     my ($filter) = @_;
@@ -450,6 +551,11 @@ my (%options) = ("f"             => \$opt_config_file,
 		 "l=s"           => \$opt_list_type,
 		 "list=s"        => \$opt_list_type,
 		 "list-values=s" => \$opt_list_type,
+		 "exif!"         => \$opt_use_exif,
+		 "c"             => \$opt_print_count,
+		 "count!"        => \$opt_print_count,
+		 "dryrun!"       => \$opt_dryrun,
+		 "dry-run!"      => \$opt_dryrun,
 		 "h"             => \$do_help,
 		 "help"          => \$do_help,
     );

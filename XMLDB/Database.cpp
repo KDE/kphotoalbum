@@ -627,10 +627,6 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
     static QString _rating_ = QString::fromUtf8("rating");
     static QString _stackId_ = QString::fromUtf8("stackId");
     static QString _stackOrder_ = QString::fromUtf8("stackOrder");
-    static QString _gpsPrec_ = QString::fromUtf8("gpsPrec");
-    static QString _gpsLon_ = QString::fromUtf8("gpsLon");
-    static QString _gpsLat_ = QString::fromUtf8("gpsLat");
-    static QString _gpsAlt_ = QString::fromUtf8("gpsAlt");
     static QString _videoLength_ = QString::fromUtf8("videoLength");
     static QString _options_ = QString::fromUtf8("options");
     static QString _0_ = QString::fromUtf8("0");

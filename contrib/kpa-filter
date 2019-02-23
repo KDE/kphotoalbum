@@ -44,9 +44,10 @@ my (%exif_data);
 
 my ($opt_config_file);
 my ($opt_list_type);
-my ($opt_use_exif) = 1;
+my ($opt_use_exif);
 my ($opt_print_count);
 my ($opt_dryrun);
+my (@opt_exif_vars);
 
 # Needs to be kept up to date with XMLDB/Database.cpp
 my (@standard_vars) = (
@@ -104,9 +105,6 @@ my (@exif_vars) = (
     "Exif_Photo_LensModel"
     );
 
-my ($querystr) = 'SELECT ' . join(', ', "filename", @exif_vars) . " FROM exif";
-my ($exif_query);
-
 my (@all_vars) = (
     @standard_vars,
     "mediaType");
@@ -115,26 +113,14 @@ sub usage() {
     my ($known_vars) = join("\n		", sort map {my $a = $_; $a =~ s/ //g; "\$$a"} @all_vars);
     my ($exif_vars) = join("\n		", sort map {"\$$_"} @exif_vars);
     my ($usage) = << "FINIS";
-Usage: $0 [--db filename] [--list-values category] [-exif|-no-exif] [filter]
+Usage: $0 [options...] [filter]
 
 	Filter a KPhotoAlbum database file for either images files or
 	category values.
 
-	If --list-values is not specified, kpa-filter extracts files
-	from the database that match the specified criteria.
-	Currently only attributes listed in the index.xml file are
-	supported; EXIF data is not utilized.
-
-	If --list-values is specified, along with the name of a
-	category (e. g. Keywords), all values of the specified
-	category that are assigned to any member of the selected set
-	(including those assigned hierarchically) are reported.
-
-	If --no-exif is specified, EXIF data is not searched.  This
-	improves performance if that is not needed.
-
-	Filters are Perl expressions.  Variable names are generated
-	from the attributes.  The supported variables are:
+	<filter> is a filter, written as a Perl expressions.  Variable
+	names are generated from the attributes.  The supported
+	variables are:
 
 		$known_vars
 
@@ -158,6 +144,34 @@ Usage: $0 [--db filename] [--list-values category] [-exif|-no-exif] [filter]
 
 	The "matches" functions accept Perl regular expressions (see
 	perlre(1)).
+
+	The following options are available:
+
+	-f|--db filename	Location of the index file.  Defaults to your
+			        normal KPhotoAlbum database file.  If you
+			        use EXIF filtering, the EXIF data is
+			        extracted from exif-info.db.
+	-l|--list attribute     Rather than listing matching files,
+			        this lists all values of the specified
+			        attribute.  If you want to use
+			        a category such as keywords for this
+			        specify ``cat:Keywords'' as appropriate.
+	-c|--count		In combination with --list, prints the
+			        number of matching images for each
+			        value (histogram).
+	--exif			Extract EXIF data in addition to index
+				file information.  Enabled if the filter
+				expression appears to require it.  Normally
+			        not needed.  You can specify --no-exif if
+				you know you don't need EXIF data; this
+				improves performance.
+	--exif-vars=var,...	List of EXIF variables to extract.
+				See above for available variables.
+				Restricting the extracted variables may
+			        improve performance.
+	--dry-run		Print a dry run of the filtering loop,
+				for debugging.
+	-h|--help		Print this message.
 FINIS
     print STDERR $usage;
     exit(1);
@@ -341,6 +355,7 @@ sub loadImages($$$) {
     no warnings "uninitialized";
     no warnings "numeric";
     my %items_found;
+    my $matched_count = 0;
     foreach my $child ($node->childNodes()) {
 	next if !isNode($child, "image");
 	%current_image=();
@@ -372,7 +387,10 @@ EOF
 	}
 EOF
     }
-    $code .= "        if ($filter) {\n";
+    $code .= << "EOF";
+        if ($filter) {
+	    \$matched_count++;
+EOF
     if ($opt_list_type) {
 	if ($opt_list_type =~ /cat(egory)?:(.*)/) {
 	    $code .= << "EOF"
@@ -387,7 +405,10 @@ EOF
     }
 EOF
 	if ($opt_print_count) {
-	    $code .= '    print join("\n", map {sprintf("%7d %s", $items_found{$_}, $_);} sort keys %items_found), "\n"'."\n";
+	    $code .= << 'EOF'
+    print join("\n", map {sprintf("%7d %s", $items_found{$_}, $_);} sort keys %items_found), "\n";
+    printf("%7d Total\n", $matched_count);
+EOF
 	} else {
 	    $code .= << 'EOF'
     print join("\n", sort keys %items_found), "\n";
@@ -454,6 +475,16 @@ sub loadMemberGroups($$) {
 sub load_file($$) {
     my ($file, $filter) = @_;
     my ($images);
+    if ($opt_use_exif && @opt_exif_vars) {
+	my (%exif_keys);
+	my (%known_exif_keys);
+	map {$known_exif_keys{$_} = 1;} @exif_vars;
+	foreach my $exif (@opt_exif_vars) {
+	    map { $exif_keys{$_} = 1; } grep {defined $known_exif_keys{$_}}split(/[ ,]+/, $exif);
+	}
+	delete $exif_keys{"filename"};
+	@exif_vars = ("filename", keys %exif_keys);
+    }
 
     if ($opt_dryrun) {
 	loadImages($images, 1, $filter);
@@ -476,6 +507,8 @@ sub load_file($$) {
     $rootdir = $file;
     $rootdir =~ s,[^/]*$,,;
     if ($opt_use_exif) {
+	my ($querystr) = 'SELECT ' . join(', ', "filename", @exif_vars) . " FROM exif";
+
 	my $exif_db .= "${rootdir}exif-info.db";
 
 	if (! -f $exif_db) {
@@ -487,7 +520,7 @@ sub load_file($$) {
 	if (! defined $EXIF_DB) {
 	    die "Can't open EXIF database $exif_db.\n"
 	}
-	$exif_query = $EXIF_DB->prepare($querystr);
+	my $exif_query = $EXIF_DB->prepare($querystr);
 	$exif_query->execute();
 	# This is measured to be considerably (about 15% total,
 	# considerably more for EXIF database alone) than individual
@@ -502,7 +535,7 @@ sub load_file($$) {
     foreach my $topcn ($kpa->childNodes()) {
 	if (isNode($topcn, "categories")) {
 	    loadCategories($topcn, $compressed);
-	    if ($opt_list_type && !defined $filter)) {
+	    if ($opt_list_type && !defined $filter) {
 		print join("\n", sort grep(defined $_, @{$category_map{$opt_list_type}})), "\n";
 		exit;
 	    }
@@ -535,6 +568,14 @@ sub get_standard_kpa_config_file() {
 
 sub main($) {
     my ($filter) = @_;
+    if (! defined $opt_use_exif) {
+	if ((defined $filter && $filter =~ /Exif_/) || 
+	    (defined $opt_list_type && $opt_list_type =~ /Exif_/)) {
+	    $opt_use_exif = 1;
+	} else {
+	    $opt_use_exif = 0;
+	}
+    }
     my ($config_file);
     if ($opt_config_file) {
 	$config_file = $opt_config_file;
@@ -552,6 +593,7 @@ my (%options) = ("f"             => \$opt_config_file,
 		 "list=s"        => \$opt_list_type,
 		 "list-values=s" => \$opt_list_type,
 		 "exif!"         => \$opt_use_exif,
+		 "exif-vars=s"   => \@opt_exif_vars,
 		 "c"             => \$opt_print_count,
 		 "count!"        => \$opt_print_count,
 		 "dryrun!"       => \$opt_dryrun,

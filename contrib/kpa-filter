@@ -535,7 +535,7 @@ sub load_file($$) {
     foreach my $topcn ($kpa->childNodes()) {
 	if (isNode($topcn, "categories")) {
 	    loadCategories($topcn, $compressed);
-	    if ($opt_list_type && $opt_list_type =~ /^cat(egory)?:(.*)/ && !defined $filter) {
+	    if (! $opt_print_count && $opt_list_type && $opt_list_type =~ /^cat(egory)?:(.*)/ && !defined $filter) {
 		$opt_list_type = $2;
 		print join("\n", sort grep(defined $_, @{$category_map{$opt_list_type}})), "\n";
 		exit;
@@ -588,8 +588,8 @@ sub main($) {
 
 my ($do_help);
 
-my (%options) = ("f"             => \$opt_config_file,
-		 "db"            => \$opt_config_file,
+my (%options) = ("f=s"           => \$opt_config_file,
+		 "db=s"          => \$opt_config_file,
 		 "l=s"           => \$opt_list_type,
 		 "list=s"        => \$opt_list_type,
 		 "list-values=s" => \$opt_list_type,

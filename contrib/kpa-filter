@@ -348,7 +348,7 @@ sub loadImages($$$) {
     my ($node, $compressed, $filter) = @_;
     my ($varcode) = join("\n", map {makeVarcode($_)} @standard_vars);
     if (! defined $filter) {
-	$filter = 'true';
+	$filter = '1';
     }
     my ($code) = << 'EOF';
 {
@@ -535,7 +535,8 @@ sub load_file($$) {
     foreach my $topcn ($kpa->childNodes()) {
 	if (isNode($topcn, "categories")) {
 	    loadCategories($topcn, $compressed);
-	    if ($opt_list_type && !defined $filter) {
+	    if ($opt_list_type && $opt_list_type =~ /^cat(egory)?:(.*)/ && !defined $filter) {
+		$opt_list_type = $2;
 		print join("\n", sort grep(defined $_, @{$category_map{$opt_list_type}})), "\n";
 		exit;
 	    }

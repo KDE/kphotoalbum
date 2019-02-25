@@ -42,12 +42,14 @@ my (%current_image);
 
 my (%exif_data);
 
-my ($opt_config_file);
+my ($opt_index_file);
+my ($opt_filter_file);
 my ($opt_list_type);
 my ($opt_use_exif);
 my ($opt_print_count);
 my ($opt_dryrun);
 my (@opt_exif_vars);
+our ($kpa_filter);
 
 # Needs to be kept up to date with XMLDB/Database.cpp
 my (@standard_vars) = (
@@ -147,10 +149,13 @@ Usage: $0 [options...] [filter]
 
 	The following options are available:
 
-	-f|--db filename	Location of the index file.  Defaults to your
-			        normal KPhotoAlbum database file.  If you
-			        use EXIF filtering, the EXIF data is
-			        extracted from exif-info.db.
+	-f|--filter-file file	Location of file defining the filter.
+				The filter-file is a Perl fragment; at
+			     	a minimum, it must define `\$kpa_filter'.
+	-d|--db filename	Location of the index file.  Defaults to
+				your normal KPhotoAlbum database file.
+				If you use EXIF filtering, the EXIF data
+				is extracted from exif-info.db.
 	-l|--list attribute     Rather than listing matching files,
 			        this lists all values of the specified
 			        attribute.  If you want to use
@@ -344,11 +349,11 @@ sub makeVarcode($) {
     return "        my (\$$varname) = \$current_image{\"$identifier\"};";
 }
 
-sub loadImages($$$) {
-    my ($node, $compressed, $filter) = @_;
+sub loadImages($$) {
+    my ($node, $compressed) = @_;
     my ($varcode) = join("\n", map {makeVarcode($_)} @standard_vars);
-    if (! defined $filter) {
-	$filter = '1';
+    if (! defined $kpa_filter) {
+	$kpa_filter = '1';
     }
     my ($code) = << 'EOF';
 {
@@ -388,7 +393,7 @@ EOF
 EOF
     }
     $code .= << "EOF";
-        if ($filter) {
+        if ($kpa_filter) {
 	    \$matched_count++;
 EOF
     if ($opt_list_type) {
@@ -429,7 +434,7 @@ EOF
     eval $code;
     if ($@) {
 	my $known_vars = join("\n", sort map {my $a = $_; $a =~ s/ //g; "    $a"} @all_vars);
-	die "Filter $filter failed:\n\n$@\n";
+	die "Filter $kpa_filter failed:\n\n$@\n";
 
     }
 }
@@ -472,8 +477,8 @@ sub loadMemberGroups($$) {
 # Top level file loader
 ################################################################
 
-sub load_file($$) {
-    my ($file, $filter) = @_;
+sub load_file($) {
+    my ($file) = @_;
     my ($images);
     if ($opt_use_exif && @opt_exif_vars) {
 	my (%exif_keys);
@@ -487,7 +492,7 @@ sub load_file($$) {
     }
 
     if ($opt_dryrun) {
-	loadImages($images, 1, $filter);
+	loadImages($images, 1);
 	exit;
     }
 
@@ -535,7 +540,7 @@ sub load_file($$) {
     foreach my $topcn ($kpa->childNodes()) {
 	if (isNode($topcn, "categories")) {
 	    loadCategories($topcn, $compressed);
-	    if (! $opt_print_count && $opt_list_type && $opt_list_type =~ /^cat(egory)?:(.*)/ && !defined $filter) {
+	    if (! $opt_print_count && $opt_list_type && $opt_list_type =~ /^cat(egory)?:(.*)/ && !defined $kpa_filter) {
 		$opt_list_type = $2;
 		print join("\n", sort grep(defined $_, @{$category_map{$opt_list_type}})), "\n";
 		exit;
@@ -550,10 +555,10 @@ sub load_file($$) {
 	}
     }
     # Load images last so that we can stream them through.
-    loadImages($images, $compressed, $filter);
+    loadImages($images, $compressed);
 }
 
-sub get_standard_kpa_config_file() {
+sub get_standard_kpa_index_file() {
     my ($kpa_config) = $ENV{"HOME"} . "/.config/kphotoalbumrc";
     open KPACONFIG, "<", "$kpa_config" or return "";
     my ($imageDBFile) = "";
@@ -567,29 +572,12 @@ sub get_standard_kpa_config_file() {
     return $imageDBFile;
 }
 
-sub main($) {
-    my ($filter) = @_;
-    if (! defined $opt_use_exif) {
-	if ((defined $filter && $filter =~ /Exif_/) || 
-	    (defined $opt_list_type && $opt_list_type =~ /Exif_/)) {
-	    $opt_use_exif = 1;
-	} else {
-	    $opt_use_exif = 0;
-	}
-    }
-    my ($config_file);
-    if ($opt_config_file) {
-	$config_file = $opt_config_file;
-    } else {
-	$config_file = get_standard_kpa_config_file();
-    }
-    load_file($config_file, $filter);
-}
-
 my ($do_help);
 
-my (%options) = ("f=s"           => \$opt_config_file,
-		 "db=s"          => \$opt_config_file,
+my (%options) = ("f=s"           => \$opt_filter_file,
+		 "filter-file=s" => \$opt_filter_file,
+		 "d=s"           => \$opt_index_file,
+		 "db=s"          => \$opt_index_file,
 		 "l=s"           => \$opt_list_type,
 		 "list=s"        => \$opt_list_type,
 		 "list-values=s" => \$opt_list_type,
@@ -608,4 +596,33 @@ if (!Getopt::Long::GetOptions(%options) || $do_help) {
     usage();
 }
 
-main($ARGV[0]);
+if ($opt_filter_file) {
+    if (!($opt_filter_file =~ m,/,)) {
+	$opt_filter_file = "./$opt_filter_file";
+    }
+    my $retval = do $opt_filter_file;
+    if ($@) {
+	die "Cannot process filter file $opt_filter_file: $@\n";
+    } elsif (! defined $retval) {
+	die "Cannot read filter file $opt_filter_file: $!\n";
+    } elsif (! defined $kpa_filter) {
+	die "Filter file $opt_filter_file does not define \$kpa_filter.\n"
+    }
+} elsif ($#ARGV >= 0) {
+    $kpa_filter = $ARGV[0];
+}
+if (! defined $opt_use_exif) {
+    if ((defined $kpa_filter && $kpa_filter =~ /Exif_/) || 
+	(defined $opt_list_type && $opt_list_type =~ /Exif_/)) {
+	$opt_use_exif = 1;
+    } else {
+	$opt_use_exif = 0;
+    }
+}
+my ($index_file);
+if ($opt_index_file) {
+    $index_file = $opt_index_file;
+} else {
+    $index_file = get_standard_kpa_index_file();
+}
+load_file($index_file);

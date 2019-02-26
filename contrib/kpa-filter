@@ -32,7 +32,7 @@ my (%categories);
 my (%category_map);
 my (@category_names);
 # This is stored as {category}{member}{groupname}, as members can only be
-# members of one group.  Weird, huh?  But this way, when we overlay the new
+# members of one group.
 my (%member_groups);
 # $group_closure{$category}{value}{values...}
 my (%group_closure);
@@ -58,15 +58,6 @@ my (@standard_vars) = (
     "description",
     "startDate",
     "endDate",
-    "yearFrom",
-    "monthFrom",
-    "dayFrom",
-    "hourFrom",
-    "minuteFrom",
-    "secondFrom",
-    "yearTo",
-    "monthTo",
-    "dayTo",
     "angle",
     "md5sum",
     "width",
@@ -285,7 +276,7 @@ sub loadOptions() {
 	if ($current_image{"__compressed"}) {
 	    $current_image{"options"} = loadCompressedOptions(%current_image);
 	} else {
-	    $current_image{"options"} = return loadUnCompressedOptions(%current_image);
+	    $current_image{"options"} = return loadUncompressedOptions(%current_image);
 	}
     }
 }

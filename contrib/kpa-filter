@@ -26,6 +26,7 @@ use DBI;
 use DBD::SQLite::Constants qw/:file_open/;
 use Getopt::Long;
 use Carp("cluck");
+use POSIX;
 
 my (%categories);
 # Map between category name and ID for compressed files
@@ -102,9 +103,50 @@ my (@all_vars) = (
     @standard_vars,
     "mediaType");
 
+sub max_width(\@) {
+    my ($strings) = @_;
+    my ($answer) = 0;
+    map { $answer = length if (length > $answer); } @$strings;
+    return $answer;
+}
+
+sub cols(\@) {
+    my ($strings) = @_;
+    my ($width) = max_width(@$strings) + 2;
+    my ($answer) = floor((80 - 12)/$width);
+    $answer = 1 if ($answer == 0);
+    return $answer;
+}
+
+sub rows(\@) {
+    my ($strings) = @_;
+    my ($cols) = cols(@$strings);
+    return ceil(scalar @$strings / $cols);
+}
+
+sub generate_vars(\@) {
+    my ($strings) = @_;
+    my (@strings) = sort sort map {my $a = $_; $a =~ s/ //g; "\$$a"} @$strings;
+    my ($count) = scalar @strings;
+    my ($width) = max_width(@strings);
+    my ($cols) = cols(@strings);
+    my ($pcols) = $cols;
+    my ($rows) = rows(@strings);
+    my ($full_rows) = $count % $rows;
+    $full_rows = $rows if ($full_rows == 0);
+    my ($answer) = "";
+    foreach my $i (0..$rows - 1) {
+	$pcols-- if ($i == $full_rows);
+	my ($fmt) = "            " . join(" ", map {sprintf("%%-%ds", $width)} (1..$pcols));
+	my (@pvars) = map { $strings[$_]} grep { $_ % $rows == $i; } (0..$count - 1);
+	$answer .= sprintf("$fmt\n", @pvars);
+    }
+    return $answer;
+}
+
 sub usage() {
-    my ($known_vars) = join("\n		", sort map {my $a = $_; $a =~ s/ //g; "\$$a"} @all_vars);
-    my ($exif_vars) = join("\n		", sort map {"\$$_"} @exif_vars);
+    my ($known_vars) = generate_vars(@all_vars);
+    my ($exif_vars) = generate_vars(@exif_vars);
     my ($usage) = << "FINIS";
 Usage: $0 [options...] [filter]
 
@@ -115,25 +157,23 @@ Usage: $0 [options...] [filter]
 	names are generated from the attributes.  The supported
 	variables are:
 
-		$known_vars
-
+$known_vars
 	The following EXIF attributes may be specified in the same way:
 
-		$exif_vars
-
+$exif_vars
 	In addition, the following functions are provided to match on
 	categoried information:
 
-		hasKeyword(\$value)
-		hasPerson(\$value)
-		hasPlace(\$value)
-		hasToken(\$value)
-	        hasAttribute(\$category, \$value)
-		matchesKeyword(\$pattern)
-		matchesPerson(\$pattern)
-		matchesPlace(\$pattern)
-		matchesToken(\$pattern)
-	        matchesAttribute(\$category, \$pattern)
+	    hasKeyword(\$value)
+	    hasPerson(\$value)
+	    hasPlace(\$value)
+	    hasToken(\$value)
+	    hasAttribute(\$category, \$value)
+	    matchesKeyword(\$pattern)
+	    matchesPerson(\$pattern)
+	    matchesPlace(\$pattern)
+	    matchesToken(\$pattern)
+	    matchesAttribute(\$category, \$pattern)
 
 	The "matches" functions accept Perl regular expressions (see
 	perlre(1)).

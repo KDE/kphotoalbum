@@ -71,6 +71,7 @@ void ConnectionIndicator::mouseReleaseEvent(QMouseEvent*)
     }
 }
 
+namespace {
 class IPValidator :public QValidator
 {
 protected:
@@ -91,6 +92,7 @@ protected:
         return Acceptable;
     }
 };
+} //namespace
 
 
 void ConnectionIndicator::contextMenuEvent(QContextMenuEvent*)

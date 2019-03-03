@@ -1,4 +1,4 @@
-/* Copyright (C) 2014 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2014-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -74,7 +74,7 @@ void ConnectionIndicator::mouseReleaseEvent(QMouseEvent*)
 class IPValidator :public QValidator
 {
 protected:
-    virtual State validate ( QString& input, int& ) const {
+    State validate ( QString& input, int& ) const override {
         for ( int pos = 0; pos<15;pos+=4 ) {
             bool ok1;
             int i = input.mid(pos,1).toInt(&ok1);

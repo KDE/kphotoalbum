@@ -446,7 +446,11 @@ sub loadMemberGroups($$) {
 		my ($map) = $category_map{$category};
 		my (@members) = grep { ! $_ == 0 } split(/,/, $members);
 		map {
-		    $member_groups{$category}{$$map[$_]} = $groupname;
+		    if (defined $$map[$_]) {
+			$member_groups{$category}{$$map[$_]} = $groupname;
+		    } else {
+			warn "Unknown keyword ID $_ in group $groupname\n";
+		    }
 		} @members;
 	    }
 	} else {
@@ -457,8 +461,17 @@ sub loadMemberGroups($$) {
     foreach my $category (sort keys %member_groups) {
 	foreach my $member (keys %{$member_groups{$category}}) {
 	    my ($parent) = $member_groups{$category}{$member};
+	    # Break up any circular member groups
+	    my (%seen_parents);
+	    my ($parentid) = 1;
 	    do {
+		if (defined $seen_parents{$parent}) {
+		    my (%reverse_parents) = reverse %seen_parents;
+		    warn "Circular member group found, members: " . join(" <= ", map { $reverse_parents{$_}} sort keys %reverse_parents) . "\n";
+		    last;
+		}
 		$group_closure{$category}{$member}{$parent} = 1;
+		$seen_parents{$parent} = $parentid++;
 	    } while (defined ($parent = $member_groups{$category}{$parent}));
 	}
     }

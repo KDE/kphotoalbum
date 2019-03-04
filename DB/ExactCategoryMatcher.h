@@ -43,7 +43,7 @@ class ExactCategoryMatcher :public CategoryMatcher
 {
 public:
     explicit ExactCategoryMatcher( const QString category );
-    virtual ~ExactCategoryMatcher();
+    ~ExactCategoryMatcher() override;
     void setMatcher( CategoryMatcher * subMatcher );
     bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) override;
     void debug( int level ) const override;

@@ -43,87 +43,87 @@ protected:
 class DecadeViewHandler :public ViewHandler
 {
 public:
-    virtual void init( const QDateTime& startDate );
-    virtual bool isMajorUnit( int unit );
-    virtual bool isMidUnit( int unit );
-    virtual QString text( int unit );
-    virtual QDateTime date(int unit, QDateTime reference = QDateTime() );
-    virtual QString unitText() const;
+    void init( const QDateTime& startDate ) override;
+    bool isMajorUnit( int unit ) override;
+    bool isMidUnit( int unit ) override;
+    QString text( int unit ) override;
+    QDateTime date(int unit, QDateTime reference = QDateTime() ) override;
+    QString unitText() const override;
 };
 
 class YearViewHandler :public ViewHandler
 {
 public:
-    virtual void init( const QDateTime& startDate );
-    virtual bool isMajorUnit( int unit );
-    virtual bool isMidUnit( int unit );
-    virtual QString text( int unit );
-    virtual QDateTime date(int unit, QDateTime reference = QDateTime() );
-    virtual QString unitText() const;
+    void init( const QDateTime& startDate ) override;
+    bool isMajorUnit( int unit ) override;
+    bool isMidUnit( int unit ) override;
+    QString text( int unit ) override;
+    QDateTime date(int unit, QDateTime reference = QDateTime() ) override;
+    QString unitText() const override;
 };
 
 class MonthViewHandler :public ViewHandler
 {
 public:
-    virtual void init( const QDateTime& startDate );
-    virtual bool isMajorUnit( int unit );
-    virtual QString text( int unit );
-    virtual QDateTime date(int unit, QDateTime reference = QDateTime() );
-    virtual QString unitText() const;
+    void init( const QDateTime& startDate ) override;
+    bool isMajorUnit( int unit ) override;
+    QString text( int unit ) override;
+    QDateTime date(int unit, QDateTime reference = QDateTime() ) override;
+    QString unitText() const override;
 };
 
 class WeekViewHandler :public ViewHandler
 {
 public:
-    virtual void init( const QDateTime& startDate );
-    virtual bool isMajorUnit( int unit );
-    virtual QString text( int unit );
-    virtual QDateTime date(int unit, QDateTime reference = QDateTime() );
-    virtual QString unitText() const;
+    void init( const QDateTime& startDate ) override;
+    bool isMajorUnit( int unit ) override;
+    QString text( int unit ) override;
+    QDateTime date(int unit, QDateTime reference = QDateTime() ) override;
+    QString unitText() const override;
 };
 
 class DayViewHandler :public ViewHandler
 {
 public:
-    virtual void init( const QDateTime& startDate );
-    virtual bool isMajorUnit( int unit );
-    virtual bool isMidUnit( int unit );
-    virtual QString text( int unit );
-    virtual QDateTime date(int unit, QDateTime reference = QDateTime() );
-    virtual QString unitText() const;
+    void init( const QDateTime& startDate ) override;
+    bool isMajorUnit( int unit ) override;
+    bool isMidUnit( int unit ) override;
+    QString text( int unit ) override;
+    QDateTime date(int unit, QDateTime reference = QDateTime() ) override;
+    QString unitText() const override;
 };
 
 class HourViewHandler :public ViewHandler
 {
 public:
-    virtual void init( const QDateTime& startDate );
-    virtual bool isMajorUnit( int unit );
-    virtual bool isMidUnit( int unit );
-    virtual QString text( int unit );
-    virtual QDateTime date(int unit, QDateTime reference = QDateTime() );
-    virtual QString unitText() const;
+    void init( const QDateTime& startDate ) override;
+    bool isMajorUnit( int unit ) override;
+    bool isMidUnit( int unit ) override;
+    QString text( int unit ) override;
+    QDateTime date(int unit, QDateTime reference = QDateTime() ) override;
+    QString unitText() const override;
 };
 
 class TenMinuteViewHandler :public ViewHandler
 {
 public:
-    virtual void init( const QDateTime& startDate );
-    virtual bool isMajorUnit( int unit );
-    virtual bool isMidUnit( int unit );
-    virtual QString text( int unit );
-    virtual QDateTime date(int unit, QDateTime reference = QDateTime() );
-    virtual QString unitText() const;
+    void init( const QDateTime& startDate ) override;
+    bool isMajorUnit( int unit ) override;
+    bool isMidUnit( int unit ) override;
+    QString text( int unit ) override;
+    QDateTime date(int unit, QDateTime reference = QDateTime() ) override;
+    QString unitText() const override;
 };
 
 class MinuteViewHandler :public ViewHandler
 {
 public:
-    virtual void init( const QDateTime& startDate );
-    virtual bool isMajorUnit( int unit );
-    virtual bool isMidUnit( int unit );
-    virtual QString text( int unit );
-    virtual QDateTime date(int unit, QDateTime reference = QDateTime() );
-    virtual QString unitText() const;
+    void init( const QDateTime& startDate ) override;
+    bool isMajorUnit( int unit ) override;
+    bool isMidUnit( int unit ) override;
+    QString text( int unit ) override;
+    QDateTime date(int unit, QDateTime reference = QDateTime() ) override;
+    QString unitText() const override;
 };
 
 }

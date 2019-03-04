@@ -36,7 +36,7 @@ public:
 protected slots:
     void selectAll();
     void selectNone();
-    virtual void accept();
+    void accept() override;
 
 
 private:

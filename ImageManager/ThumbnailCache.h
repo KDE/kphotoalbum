@@ -55,7 +55,7 @@ signals:
     void doSave() const;
 
 private:
-    ~ThumbnailCache();
+    ~ThumbnailCache() override;
     QString fileNameForIndex( int index, const QString dir = QString::fromLatin1(".thumbnails/") ) const;
     QString thumbnailPath( const QString& fileName, const QString dir = QString::fromLatin1(".thumbnails/") ) const;
 

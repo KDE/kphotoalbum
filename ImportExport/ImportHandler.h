@@ -40,7 +40,7 @@ class ImportHandler :public QObject
 
 public:
     ImportHandler();
-    ~ImportHandler();
+    ~ImportHandler() override;
     bool exec( const ImportSettings& settings, KimFileReader* kimFileReader );
 
 private:

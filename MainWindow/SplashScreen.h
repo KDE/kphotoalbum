@@ -33,7 +33,7 @@ public:
     void message( const QString& message );
 
 protected:
-    void drawContents ( QPainter * painter );
+    void drawContents ( QPainter * painter ) override;
 
 private:
     static SplashScreen* s_instance;

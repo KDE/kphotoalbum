@@ -63,7 +63,7 @@ class TreeCategoryModel : public AbstractCategoryModel
 
 public:
     TreeCategoryModel(const DB::CategoryPtr& category, const DB::ImageSearchInfo& info);
-    ~TreeCategoryModel();
+    ~TreeCategoryModel() override;
 
     int rowCount(const QModelIndex&) const override;
     int columnCount(const QModelIndex&) const override;

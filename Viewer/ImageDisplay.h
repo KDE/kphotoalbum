@@ -86,11 +86,11 @@ signals:
     void viewGeometryChanged(QSize viewSize, QRect zoomWindow, double sizeRatio);
 
 protected:
-    virtual void mousePressEvent( QMouseEvent* event ) override;
-    virtual void mouseMoveEvent( QMouseEvent* event ) override;
-    virtual void mouseReleaseEvent( QMouseEvent* event ) override;
-    virtual void resizeEvent( QResizeEvent* event ) override;
-    virtual void paintEvent( QPaintEvent* event ) override;
+    void mousePressEvent( QMouseEvent* event ) override;
+    void mouseMoveEvent( QMouseEvent* event ) override;
+    void mouseReleaseEvent( QMouseEvent* event ) override;
+    void resizeEvent( QResizeEvent* event ) override;
+    void paintEvent( QPaintEvent* event ) override;
     void hideEvent(QHideEvent* ) override;
     QPoint mapPos( QPoint );
     QPoint offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio );

@@ -29,34 +29,34 @@ namespace XMLDB {
     public:
         XMLCategory( const QString& name, const QString& icon, ViewType type, int thumbnailSize, bool show, bool positionable=false );
 
-        virtual QString name() const override;
-        virtual void setName( const QString& name ) override;
+        QString name() const override;
+        void setName( const QString& name ) override;
 
-        virtual void setPositionable( bool ) override;
-        virtual bool positionable() const override;
+        void setPositionable( bool ) override;
+        bool positionable() const override;
 
-        virtual QString iconName() const override;
-        virtual void setIconName( const QString& name ) override;
+        QString iconName() const override;
+        void setIconName( const QString& name ) override;
 
-        virtual void setViewType( ViewType type ) override;
-        virtual ViewType viewType() const override;
+        void setViewType( ViewType type ) override;
+        ViewType viewType() const override;
 
-        virtual void setThumbnailSize( int ) override;
-        virtual int thumbnailSize() const override;
+        void setThumbnailSize( int ) override;
+        int thumbnailSize() const override;
 
-        virtual void setDoShow( bool b ) override;
-        virtual bool doShow() const override;
+        void setDoShow( bool b ) override;
+        bool doShow() const override;
 
-        virtual void setType( DB::Category::CategoryType t ) override;
-        virtual CategoryType type() const override;
-        virtual bool isSpecialCategory() const override;
+        void setType( DB::Category::CategoryType t ) override;
+        CategoryType type() const override;
+        bool isSpecialCategory() const override;
 
-        virtual void addOrReorderItems( const QStringList& items ) override;
-        virtual void setItems( const QStringList& items ) override;
-        virtual void removeItem( const QString& item ) override;
-        virtual void renameItem( const QString& oldValue, const QString& newValue ) override;
-        virtual void addItem( const QString& item ) override;
-        virtual QStringList items() const override;
+        void addOrReorderItems( const QStringList& items ) override;
+        void setItems( const QStringList& items ) override;
+        void removeItem( const QString& item ) override;
+        void renameItem( const QString& oldValue, const QString& newValue ) override;
+        void addItem( const QString& item ) override;
+        QStringList items() const override;
         int idForName( const QString& name ) const;
         void initIdMap();
         void setIdMapping( const QString& name, int id );

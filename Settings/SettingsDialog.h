@@ -88,7 +88,7 @@ private:
     Settings::BirthdayPage* m_birthdayPage;
     QMap<SettingsPage, KPageWidgetItem*> m_pages;
 
-    void keyPressEvent(QKeyEvent*);
+    void keyPressEvent(QKeyEvent*) override;
 };
 
 }

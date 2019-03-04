@@ -33,8 +33,8 @@ public:
     QString name() override;
 
     QUrl uploadUrl() override;
-    virtual QUrl uploadRootUrl() override;
-    virtual QString uploadRootName() override;
+    QUrl uploadRootUrl() override;
+    QString uploadRootName() override;
 
 private:
     QString m_path;

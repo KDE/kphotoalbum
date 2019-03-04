@@ -34,12 +34,12 @@ class CategoriesGroupsWidget : public QTreeWidget
 
 public:
     explicit CategoriesGroupsWidget(QWidget* parent = 0);
-    ~CategoriesGroupsWidget();
+    ~CategoriesGroupsWidget() override;
 
 private: // Functions
-    void mousePressEvent(QMouseEvent* event);
-    void dragMoveEvent(QDragMoveEvent* event);
-    void dropEvent(QDropEvent* event);
+    void mousePressEvent(QMouseEvent* event) override;
+    void dragMoveEvent(QDragMoveEvent* event) override;
+    void dropEvent(QDropEvent* event) override;
     void updateHighlight(QTreeWidgetItem* target);
 
 private: // Variables

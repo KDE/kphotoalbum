@@ -42,8 +42,8 @@ private slots:
     void requestToolTip();
 
 private:
-    virtual bool eventFilter( QObject*, QEvent* e );
-    void placeWindow();
+    bool eventFilter( QObject*, QEvent* e ) override;
+    void placeWindow() override;
 
 private:
     ThumbnailWidget* m_view;

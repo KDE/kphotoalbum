@@ -49,7 +49,7 @@ private:
 
 private:
     Import();
-    ~Import();
+    ~Import() override;
     QTemporaryFile* m_tmp;
     QUrl m_kimFileUrl;
 };

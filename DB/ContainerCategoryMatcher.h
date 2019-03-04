@@ -28,7 +28,7 @@ class ContainerCategoryMatcher :public CategoryMatcher
 {
 public:
     void addElement( CategoryMatcher* );
-    ~ContainerCategoryMatcher();
+    ~ContainerCategoryMatcher() override;
     void debug( int level ) const override;
     void setShouldCreateMatchedSet(bool) override;
 

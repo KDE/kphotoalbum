@@ -58,7 +58,7 @@ public:
 
     ViewerWidget( UsageType type = ViewerWindow,
                   QMap<Qt::Key, QPair<QString,QString> > *macroStore = nullptr);
-    ~ViewerWidget();
+    ~ViewerWidget() override;
     static ViewerWidget* latest();
     void load( const DB::FileNameList& list, int index = 0 );
     void infoBoxMove();

@@ -39,7 +39,7 @@ public:
     void resetCache();
 
 protected:
-    virtual bool filterAcceptsRow ( int source_row, const QModelIndex & source_parent ) const;
+    bool filterAcceptsRow ( int source_row, const QModelIndex & source_parent ) const override;
 
     mutable QMap<QModelIndex,bool> m_matchedMap;
 };

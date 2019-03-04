@@ -40,7 +40,7 @@ class MiniViewer :public QDialog
 
 public:
     static void show( QImage img, DB::ImageInfoPtr info, QWidget* parent = nullptr );
-    virtual void closeEvent( QCloseEvent* event );
+    void closeEvent( QCloseEvent* event ) override;
 
 protected slots:
     void slotClose();

@@ -191,13 +191,13 @@ protected slots:
 protected:
     void configureImages( bool oneAtATime );
     QString welcome();
-    virtual void closeEvent( QCloseEvent* e ) override;
-    virtual void resizeEvent( QResizeEvent* ) override;
-    virtual void moveEvent ( QMoveEvent * ) override;
+    void closeEvent( QCloseEvent* e ) override;
+    void resizeEvent( QResizeEvent* ) override;
+    void moveEvent ( QMoveEvent * ) override;
     void setupMenuBar();
     void createAnnotationDialog();
     bool load();
-    virtual void contextMenuEvent( QContextMenuEvent* e ) override;
+    void contextMenuEvent( QContextMenuEvent* e ) override;
     void setLocked( bool b, bool force, bool recount=true );
     void configImages( const DB::ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );

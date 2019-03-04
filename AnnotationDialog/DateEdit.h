@@ -50,7 +50,7 @@ class DateEdit : public QComboBox
     Q_OBJECT
 public:
     explicit DateEdit( bool isStartEdit, QWidget *parent=nullptr );
-    virtual ~DateEdit();
+    ~DateEdit() override;
 
     /** @return True if the date in the text edit is valid,
      * false otherwise. This will not modify the display of the date,
@@ -107,7 +107,7 @@ public:
      */
     virtual bool validate(const QDate &newDate);
 
-    virtual void showPopup();
+    void showPopup() override;
 
 signals:
     /** This signal is emitted whenever the user modifies the date. This
@@ -126,11 +126,11 @@ protected slots:
     void dateEntered(QDate);
     void lineEnterPressed();
     void slotTextChanged(const QString &);
-    virtual void mousePressEvent(QMouseEvent *);
+    void mousePressEvent(QMouseEvent *) override;
 
 private:
-    void keyPressEvent( QKeyEvent *event );
-    virtual bool eventFilter(QObject *o, QEvent *e);
+    void keyPressEvent( QKeyEvent *event ) override;
+    bool eventFilter(QObject *o, QEvent *e) override;
     bool readDate(QDate& result, QDate* end) const;
 
     /** Maps the text that the user can enter to the offset in days from

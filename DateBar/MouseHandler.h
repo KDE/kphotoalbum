@@ -54,8 +54,8 @@ class DateBarWidget;
     {
     public:
         explicit FocusItemDragHandler( DateBarWidget* dateBar );
-        void mousePressEvent( int x );
-        void mouseMoveEvent( int x );
+        void mousePressEvent( int x ) override;
+        void mouseMoveEvent( int x ) override;
     };
 
 
@@ -64,8 +64,8 @@ class DateBarWidget;
     {
     public:
         explicit BarDragHandler( DateBarWidget* );
-        void mousePressEvent( int x );
-        void mouseMoveEvent(  int x );
+        void mousePressEvent( int x ) override;
+        void mouseMoveEvent(  int x ) override;
     private:
         int m_movementOffset;
     };
@@ -76,9 +76,9 @@ class DateBarWidget;
     {
     public:
         explicit SelectionHandler( DateBarWidget* );
-        void mousePressEvent( int x );
-        void mouseMoveEvent( int x );
-        virtual void mouseReleaseEvent();
+        void mousePressEvent( int x ) override;
+        void mouseMoveEvent( int x ) override;
+        void mouseReleaseEvent() override;
         QDateTime min() const;
         QDateTime max() const;
         DB::ImageDate dateRange() const;

@@ -29,16 +29,16 @@ namespace XMLDB {
         Q_OBJECT
 
     public:
-        virtual DB::CategoryPtr categoryForName( const QString& name ) const;
+        DB::CategoryPtr categoryForName( const QString& name ) const override;
         void addCategory( DB::CategoryPtr );
-        virtual QStringList categoryNames() const;
-        virtual QStringList categoryTexts() const;
-        virtual void removeCategory( const QString& name );
-        virtual void rename( const QString& oldName, const QString& newName );
-        virtual QList<DB::CategoryPtr> categories() const;
-        virtual void addCategory( const QString& text, const QString& icon, DB::Category::ViewType type,
-                                  int thumbnailSize, bool show, bool positionable=false );
-        virtual DB::CategoryPtr categoryForSpecial( const DB::Category::CategoryType type) const;
+        QStringList categoryNames() const override;
+        QStringList categoryTexts() const override;
+        void removeCategory( const QString& name ) override;
+        void rename( const QString& oldName, const QString& newName ) override;
+        QList<DB::CategoryPtr> categories() const override;
+        void addCategory( const QString& text, const QString& icon, DB::Category::ViewType type,
+                                  int thumbnailSize, bool show, bool positionable=false ) override;
+        DB::CategoryPtr categoryForSpecial( const DB::Category::CategoryType type) const override;
 
         void initIdMap();
 

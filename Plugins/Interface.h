@@ -47,30 +47,30 @@ class Interface :public KIPI::Interface
 public:
     explicit Interface( QObject *parent, QString name=QString());
 
-    virtual KIPI::ImageCollection currentAlbum() override;
-    virtual KIPI::ImageCollection currentSelection() override;
-    virtual QList<KIPI::ImageCollection> allAlbums() override;
+    KIPI::ImageCollection currentAlbum() override;
+    KIPI::ImageCollection currentSelection() override;
+    QList<KIPI::ImageCollection> allAlbums() override;
 
-    virtual KIPI::ImageInfo info( const QUrl& ) override;
-    virtual bool addImage( const QUrl&, QString& errmsg ) override;
-    virtual void delImage( const QUrl& ) override;
-    virtual void refreshImages( const QList<QUrl>& urls ) override;
+    KIPI::ImageInfo info( const QUrl& ) override;
+    bool addImage( const QUrl&, QString& errmsg ) override;
+    void delImage( const QUrl& ) override;
+    void refreshImages( const QList<QUrl>& urls ) override;
 
-    virtual void thumbnail(const QUrl &url, int size) override;
-    virtual void thumbnails(const QList<QUrl> &list, int size) override;
+    void thumbnail(const QUrl &url, int size) override;
+    void thumbnails(const QList<QUrl> &list, int size) override;
 
-    virtual KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent) override;
-    virtual KIPI::UploadWidget* uploadWidget(QWidget *parent) override;
-    virtual QAbstractItemModel * getTagTree() const override;
+    KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent) override;
+    KIPI::UploadWidget* uploadWidget(QWidget *parent) override;
+    QAbstractItemModel * getTagTree() const override;
 
     // these two methods are only here because of a libkipi api error
     // either remove them when they are no longer pure virtual in KIPI::Interface,
     // or implement them and update features() accordingly:
     // FIXME: this can be safely removed if/when libkipi 5.1.0 is no longer supported
-    virtual KIPI::FileReadWriteLock* createReadWriteLock(const QUrl&) const override;
-    virtual KIPI::MetadataProcessor* createMetadataProcessor() const override;
+    KIPI::FileReadWriteLock* createReadWriteLock(const QUrl&) const override;
+    KIPI::MetadataProcessor* createMetadataProcessor() const override;
 
-    virtual int features() const override;
+    int features() const override;
 
 public slots:
     void slotSelectionChanged( bool );

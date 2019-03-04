@@ -35,8 +35,8 @@ class ImagePreview :public QLabel, public ImageManager::ImageClientInterface {
     Q_OBJECT
 public:
     explicit ImagePreview( QWidget* parent );
-    virtual int heightForWidth( int width ) const override;
-    virtual QSize sizeHint() const override;
+    int heightForWidth( int width ) const override;
+    QSize sizeHint() const override;
     void rotate(int angle);
     void setImage( const DB::ImageInfo& info );
     void setImage( const QString& fileName );
@@ -58,10 +58,10 @@ signals:
     void proposedTagSelected(QString category, QString tag);
 
 protected:
-    virtual void resizeEvent( QResizeEvent* ) override;
-    virtual void mousePressEvent(QMouseEvent *event) override;
-    virtual void mouseMoveEvent(QMouseEvent *event) override;
-    virtual void mouseReleaseEvent(QMouseEvent *event) override;
+    void resizeEvent( QResizeEvent* ) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
     void reload();
     void setCurrentImage(const QImage &image);
     QImage rotateAndScale( QImage, int width, int height, int angle ) const;

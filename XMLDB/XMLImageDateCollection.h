@@ -31,9 +31,9 @@ public:
     explicit XMLImageDateCollection(const DB::FileNameList&);
 
 public:
-    virtual DB::ImageCount count( const DB::ImageDate& range );
-    virtual QDateTime lowerLimit() const;
-    virtual QDateTime upperLimit() const;
+    DB::ImageCount count( const DB::ImageDate& range ) override;
+    QDateTime lowerLimit() const override;
+    QDateTime upperLimit() const override;
 
 private:
     typedef QMap<QDateTime, DB::ImageDate> StartIndexMap;

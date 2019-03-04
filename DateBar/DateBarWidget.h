@@ -108,20 +108,20 @@ signals:
 
 public:
     // Overridden methods for internal purpose
-    virtual QSize sizeHint() const;
-    virtual QSize minimumSizeHint() const;
+    QSize sizeHint() const override;
+    QSize minimumSizeHint() const override;
 
 protected:
-    virtual void paintEvent( QPaintEvent* event );
-    virtual void resizeEvent( QResizeEvent* event );
-    virtual void mousePressEvent( QMouseEvent* event );
-    virtual void mouseMoveEvent( QMouseEvent* event );
-    virtual void mouseReleaseEvent( QMouseEvent* event );
-    virtual void contextMenuEvent( QContextMenuEvent* );
-    virtual void keyPressEvent( QKeyEvent* event );
-    virtual void focusInEvent( QFocusEvent* );
-    virtual void focusOutEvent( QFocusEvent* );
-    virtual void wheelEvent( QWheelEvent * e );
+    void paintEvent( QPaintEvent* event ) override;
+    void resizeEvent( QResizeEvent* event ) override;
+    void mousePressEvent( QMouseEvent* event ) override;
+    void mouseMoveEvent( QMouseEvent* event ) override;
+    void mouseReleaseEvent( QMouseEvent* event ) override;
+    void contextMenuEvent( QContextMenuEvent* ) override;
+    void keyPressEvent( QKeyEvent* event ) override;
+    void focusInEvent( QFocusEvent* ) override;
+    void focusOutEvent( QFocusEvent* ) override;
+    void wheelEvent( QWheelEvent * e ) override;
 
     /**
      * @brief redraw the widget

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -218,10 +218,14 @@ void AnnotationDialog::CompletableLineEdit::selectPrevNextMatch( bool next )
         return;
     QTreeWidgetItem *baseItem = item;
 
-    if ( next )
-        item = m_listView->itemBelow(item);
-    else
-        item = m_listView->itemAbove(item);
+    // only go to the next item, if there was a "previous" selected item:
+    if (!selectedItems.isEmpty())
+    {
+        if ( next )
+            item = m_listView->itemBelow(item);
+        else
+            item = m_listView->itemAbove(item);
+    }
 
     // select current item if there is no next/prev item:
     if (!item) {

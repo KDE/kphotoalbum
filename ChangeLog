@@ -1,3 +1,6 @@
+* Change: More intuitive handling of down button in annotation dialog.
+	Pressing the "down" button in a ListSelect in the annotation dialog
+	now selects the first item, not the second one.
 
 * Change: Use non-linear scaling for DateBar by default(implements: #356810)
 

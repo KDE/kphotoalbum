@@ -512,10 +512,10 @@ void DateBar::DateBarWidget::mouseReleaseEvent( QMouseEvent* )
 
 void DateBar::DateBarWidget::mouseMoveEvent( QMouseEvent* event )
 {
+    showStatusBarTip( event->pos() );
+
     if ( m_currentMouseHandler == nullptr)
         return;
-
-    showStatusBarTip( event->pos() );
 
     if ( (event->buttons() & ( Qt::MidButton | Qt::LeftButton)) == 0 )
         return;

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -89,7 +89,8 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
     m_cancelSelection->setIcon( QIcon( QStringLiteral( "dialog-close" ) ) );
     connect( m_cancelSelection, SIGNAL(clicked()), this, SLOT(clearSelection()) );
     m_cancelSelection->setEnabled( false );
-    m_cancelSelection->setToolTip( i18n("Widen selection to include all images and videos again") );
+    m_cancelSelection->setToolTip( i18nc("The button clears the selection of a date range in the date bar."
+                                         , "Clear date selection") );
 
     placeAndSizeButtons();
 

@@ -86,7 +86,7 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
     connect( this, SIGNAL(canZoomOut(bool)), m_zoomOut, SLOT(setEnabled(bool)) );
 
     m_cancelSelection = new QToolButton( this );
-    m_cancelSelection->setIcon( QIcon( QStringLiteral( "dialog-close" ) ) );
+    m_cancelSelection->setIcon( QIcon::fromTheme( QStringLiteral( "edit-clear" ) ) );
     connect( m_cancelSelection, SIGNAL(clicked()), this, SLOT(clearSelection()) );
     m_cancelSelection->setEnabled( false );
     m_cancelSelection->setToolTip( i18nc("The button clears the selection of a date range in the date bar."

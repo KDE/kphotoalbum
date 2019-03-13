@@ -77,11 +77,13 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
 
     m_zoomIn = new QToolButton( this );
     m_zoomIn->setIcon( QIcon::fromTheme( QStringLiteral( "zoom-in" ) ) );
+    m_zoomIn->setToolTip( i18n("Zoom in"));
     connect( m_zoomIn, SIGNAL(clicked()), this, SLOT(zoomIn()) );
     connect( this, SIGNAL(canZoomIn(bool)), m_zoomIn, SLOT(setEnabled(bool)) );
 
     m_zoomOut = new QToolButton( this );
     m_zoomOut->setIcon(  QIcon::fromTheme( QStringLiteral( "zoom-out" ) ) );
+    m_zoomOut->setToolTip( i18n("Zoom out"));
     connect( m_zoomOut, SIGNAL(clicked()), this, SLOT(zoomOut()) );
     connect( this, SIGNAL(canZoomOut(bool)), m_zoomOut, SLOT(setEnabled(bool)) );
 

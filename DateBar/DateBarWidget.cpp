@@ -100,15 +100,13 @@ DateBar::DateBarWidget::DateBarWidget( QWidget* parent )
     m_barDragHandler = new BarDragHandler( this );
     m_selectionHandler = new SelectionHandler( this );
 
-    setWhatsThis( i18nc( "@info", "<title>The date bar</title>"
-            "<para>The date bar gives you an overview of the approximate number of images taken in a given time frame."
-            "Time units are shown on the <emphasis>timeline</emphasis>. Above it, a histogram indicates the number of images for that time range.</para>"
-            "<para>You can interact with the date bar in several ways:<list>"
-            "<item>Zoom in or out by using the +/- buttons or Ctrl + scrollwheel.</item>"
-            "<item>Scroll the timeline either by using the arrow buttons or the scroll wheel, or by dragging it using the middle mouse button.</item>"
-            "<item>Restrict the current view to a given time frame by clicking below the timeline and marking the time frame.</item>"
-            "<item>Clicking on the timeline sets the <emphasis>focus</emphasis> for the thumbnail view, i.e. jumps to the first thumbnail of the time unit in focus.</item>"
-            "</list></para>") );
+    setWhatsThis( xi18nc( "@info", "<title>The date bar</title>"
+                                   "<para><list>"
+                                   "<item>Scroll using the arrow buttons, the scrollwheel, or the middle mouse button.</item>"
+                                   "<item>Zoom using the +/- buttons or Ctrl + scrollwheel.</item>"
+                                   "<item>Restrict the view to a date range selection: Click/drag below the timeline.</item>"
+                                   "<item>Jump to a date by clicking on the histogram bar.</item>"
+                                   "</list></para>") );
     setToolTip( whatsThis() );
 
     connect(Settings::SettingsData::instance(), &Settings::SettingsData::histogramScaleChanged, this, &DateBarWidget::redraw);

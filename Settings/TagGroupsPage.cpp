@@ -469,15 +469,12 @@ void Settings::TagGroupsPage::slotRenameGroup()
                                                    m_currentSubCategory,
                                                    &ok
                                                    );
-    // workaround until validation with GUI support is reimplemented:
-    if (groups.contains(newSubCategoryName))
-        return;
 
     if (! ok || m_currentSubCategory == newSubCategoryName) {
         return;
     }
 
-    if (m_memberMap.groups(m_currentCategory).contains(newSubCategoryName)) {
+    if (groups.contains(newSubCategoryName)) {
         // (with the validator working correctly, we should not get to this point)
         KMessageBox::sorry(this,
                             xi18nc("@info","<para>Cannot rename group \"%1\" to \"%2\": "

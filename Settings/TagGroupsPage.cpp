@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -480,7 +480,7 @@ void Settings::TagGroupsPage::slotRenameGroup()
     if (m_memberMap.groups(m_currentCategory).contains(newSubCategoryName)) {
         // (with the validator working correctly, we should not get to this point)
         KMessageBox::sorry(this,
-                            i18nc("@info","<para>Cannot rename group \"%1\" to \"%2\": "
+                            xi18nc("@info","<para>Cannot rename group \"%1\" to \"%2\": "
                                 "\"%2\" already exists in category \"%3\"</para>",
                                  m_currentSubCategory,
                                  newSubCategoryName,
@@ -542,13 +542,13 @@ void Settings::TagGroupsPage::slotDeleteGroup()
     QString title;
 
     if (currentItem->childCount() > 0) {
-        message = i18nc("@info","<para>Really delete group \"%1\"?</para>"
+        message = xi18nc("@info","<para>Really delete group \"%1\"?</para>"
                 "<para>Sub-categories of this group will be moved to the super category of \"%1\" (\"%2\").<nl/> "
                 "All other memberships of the sub-categories will stay intact.</para>",
                 m_currentSubCategory,
                 m_currentSuperCategory);
     } else {
-        message = i18nc("@info","<para>Really delete group \"%1\"?</para>", m_currentSubCategory);
+        message = xi18nc("@info","<para>Really delete group \"%1\"?</para>", m_currentSubCategory);
     }
 
     int res = KMessageBox::warningContinueCancel(this,
@@ -794,7 +794,7 @@ void Settings::TagGroupsPage::slotDeleteMember()
     } else {
         // The item to delete is a normal tag
         int res = KMessageBox::warningContinueCancel(this,
-            i18nc("@info","<para>Do you really want to delete \"%1\"?</para>"
+            xi18nc("@info","<para>Do you really want to delete \"%1\"?</para>"
                  "<para>Deleting the item will remove any information "
                  "about it from any image containing the item.</para>",
                  memberToDelete),

@@ -214,6 +214,7 @@ void ExportConfig::showHelp()
 
 Export::~Export()
 {
+    delete m_zip;
     delete m_eventLoop;
 }
 
@@ -252,7 +253,7 @@ Export::Export(
       total += list.size();
 
     m_steps = 0;
-    m_progressDialog = new QProgressDialog;
+    m_progressDialog = new QProgressDialog(MainWindow::Window::theMainWindow());
     m_progressDialog->setCancelButtonText(i18n("&Cancel"));
     m_progressDialog->setMaximum(total);
 

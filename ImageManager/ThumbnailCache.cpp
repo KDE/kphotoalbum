@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -111,6 +111,8 @@ ImageManager::ThumbnailCache::~ThumbnailCache()
     saveInternal();
     delete m_memcache;
     delete m_timer;
+    if (m_currentWriter)
+        delete m_currentWriter;
 }
 
 void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImage& image )
@@ -148,7 +150,7 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
     }
 
     if ( m_currentOffset + size > MAX_FILE_SIZE ) {
-        m_currentWriter->close();
+        delete m_currentWriter;
         m_currentWriter = nullptr;
     }
     thumbnailLocker.unlock();
@@ -253,7 +255,7 @@ void ImageManager::ThumbnailCache::saveFull() const
     // First ensure that any dirty thumbnails are written to disk
     m_thumbnailWriterLock.lock();
     if ( m_currentWriter ) {
-        m_currentWriter->close();
+        delete m_currentWriter;
         m_currentWriter = nullptr;
     }
     m_thumbnailWriterLock.unlock();
@@ -312,7 +314,7 @@ void ImageManager::ThumbnailCache::saveIncremental() const
 {
     m_thumbnailWriterLock.lock();
     if ( m_currentWriter ) {
-        m_currentWriter->close();
+        delete m_currentWriter;
         m_currentWriter = nullptr;
     }
     m_thumbnailWriterLock.unlock();

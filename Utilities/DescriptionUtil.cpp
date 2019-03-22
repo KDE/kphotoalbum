@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -83,10 +83,11 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
                     ,QString::number(megapix, 'f', 1));
             }
             const double aspect = (double) imageSize.width() / (double) imageSize.height();
-            if (aspect > 1)
+            // 0.995 - 1.005 can still be considered quadratic
+            if (aspect > 1.005)
                 info += i18nc("aspect ratio"," (%1:1)"
                               ,QLocale::system().toString(aspect, 'f', 2));
-            else if (aspect >= 0.995 && aspect < 1.005)
+            else if (aspect >= 0.995)
                 info += i18nc("aspect ratio"," (1:1)");
             else
                 info += i18nc("aspect ratio"," (1:%1)"

@@ -33,10 +33,7 @@ class SortableImageInfo
 public:
     SortableImageInfo(const QDateTime& datetime, const QString& string, const ImageInfoPtr &info)
         : m_dt(datetime), m_st(string), m_in(info) {}
-    SortableImageInfo(const SortableImageInfo& in)
-        : m_dt(in.m_dt), m_st(in.m_st), m_in(in.m_in) {}
-    SortableImageInfo() {}
-    ~SortableImageInfo() {}
+    SortableImageInfo() = default;
     const QDateTime& DateTime(void) const { return m_dt; }
     const QString& String(void) const { return m_st; }
     const ImageInfoPtr& ImageInfo(void) const { return m_in; }
@@ -87,10 +84,6 @@ void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
         insertIt = insert( insertIt, *it );
         ++insertIt;
     }
-}
-
-ImageInfoList::~ImageInfoList()
-{
 }
 
 void ImageInfoList::appendList( ImageInfoList& list )

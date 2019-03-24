@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -58,8 +58,6 @@ private:
     class ImageRequestReference {
     public:
         ImageRequestReference() : m_ptr(nullptr) {}
-        ImageRequestReference(const ImageRequestReference& other)
-            : m_ptr(other.m_ptr) {}
         explicit ImageRequestReference(const ImageRequest* ptr) : m_ptr(ptr) {}
 
         bool operator<(const ImageRequestReference &other) const {

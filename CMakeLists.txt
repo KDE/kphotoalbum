@@ -64,6 +64,13 @@ set_package_properties(KF5Kipi
     )
 set(HASKIPI ${KF5Kipi_FOUND})
 
+find_package(KF5Purpose)
+set_package_properties(KF5Purpose
+    PROPERTIES
+    TYPE RECOMMENDED
+    PURPOSE "Enables integration with KDE Purpose plugins, which provide image sharing and similar functionality."
+    )
+
 find_package(KF5KDcraw)
 set_package_properties(KF5KDcraw
     PROPERTIES
@@ -506,6 +513,9 @@ target_link_libraries(kphotoalbum
 
 if(KF5Kipi_FOUND)
     target_link_libraries(kphotoalbum KF5::Kipi)
+endif()
+if(KF5Purpose_FOUND)
+    target_link_libraries(kphotoalbum KF5::Purpose)
 endif()
 
 if(KF5KDcraw_FOUND)

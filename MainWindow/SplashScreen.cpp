@@ -20,16 +20,15 @@
 
 #include <QPainter>
 #include <QRegExp>
+#include <QStandardPaths>
 
 #include <KAboutData>
 #include <KLocalizedString>
 
-#include <Utilities/Util.h>
-
 MainWindow::SplashScreen* MainWindow::SplashScreen::s_instance = nullptr;
 
 MainWindow::SplashScreen::SplashScreen()
-    :QSplashScreen(Utilities::locateDataFile(QString::fromLatin1("pics/splash-large.png")))
+    :QSplashScreen(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("pics/splash-large.png")))
 {
     s_instance = this;
 }

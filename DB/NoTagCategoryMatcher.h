@@ -31,7 +31,7 @@ class NoTagCategoryMatcher :public CategoryMatcher
 {
 public:
     explicit NoTagCategoryMatcher(const QString& category);
-    virtual ~NoTagCategoryMatcher();
+    ~NoTagCategoryMatcher() override;
     bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) override;
     void debug( int level ) const override;
 

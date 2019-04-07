@@ -22,7 +22,7 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <ImageManager/AsyncLoader.h>
-#include <Utilities/Util.h>
+#include <Utilities/ImageUtil.h>
 
 #include "ResizableFrame.h"
 
@@ -283,7 +283,7 @@ QImage ImagePreview::rotateAndScale(QImage img, int width, int height, int angle
         matrix.rotate( angle );
         img = img.transformed( matrix );
     }
-    img = Utilities::scaleImage(img, width, height, Qt::KeepAspectRatio );
+    img = Utilities::scaleImage(img, QSize(width, height), Qt::KeepAspectRatio );
     return img;
 }
 

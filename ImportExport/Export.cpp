@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -38,7 +38,10 @@
 #include <DB/FileNameList.h>
 #include <DB/ImageInfo.h>
 #include <ImageManager/AsyncLoader.h>
-#include <Utilities/Util.h>
+#include <ImageManager/RawImageDecoder.h>
+#include <Utilities/FileUtil.h>
+#include <Utilities/FileNameUtil.h>
+#include <Utilities/VideoUtil.h>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <QPushButton>
@@ -46,6 +49,13 @@
 #include "XMLHandler.h"
 
 using namespace ImportExport;
+
+namespace {
+bool isRAW( const DB::FileName& fileName )
+{
+    return ImageManager::RAWImageDecoder::isRAW( fileName );
+}
+} //namespace
 
 void Export::imageExport(const DB::FileNameList& list)
 {
@@ -204,6 +214,7 @@ void ExportConfig::showHelp()
 
 Export::~Export()
 {
+    delete m_zip;
     delete m_eventLoop;
 }
 
@@ -242,7 +253,7 @@ Export::Export(
       total += list.size();
 
     m_steps = 0;
-    m_progressDialog = new QProgressDialog;
+    m_progressDialog = new QProgressDialog(MainWindow::Window::theMainWindow());
     m_progressDialog->setCancelButtonText(i18n("&Cancel"));
     m_progressDialog->setMaximum(total);
 
@@ -304,14 +315,14 @@ void Export::copyImages(const DB::FileNameList& list)
         QString file = fileName.absolute();
         QString zippedName = m_filenameMapper.uniqNameFor(fileName);
 
-        if ( m_maxSize == -1 || Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) {
+        if ( m_maxSize == -1 || Utilities::isVideo( fileName ) || isRAW( fileName )) {
             if ( QFileInfo( file ).isSymLink() )
                 file = QFileInfo(file).readLink();
 
             if ( m_location == Inline )
                 m_zip->addLocalFile( file, QString::fromLatin1( "Images/" ) + zippedName );
             else if ( m_location == AutoCopy )
-                Utilities::copy( file, m_destdir + QString::fromLatin1( "/" ) + zippedName );
+                Utilities::copyOrOverwrite( file, m_destdir + QString::fromLatin1( "/" ) + zippedName );
             else if ( m_location == Link )
                 Utilities::makeHardLink( file, m_destdir + QString::fromLatin1( "/" ) + zippedName );
             else if ( m_location == Symlink )
@@ -348,7 +359,7 @@ void Export::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& ima
     if ( !request->loadedOK() )
         return;
 
-    const QString ext = (Utilities::isVideo( fileName ) || Utilities::isRAW( fileName )) ? QString::fromLatin1( "jpg" ) : QFileInfo( m_filenameMapper.uniqNameFor(fileName) ).completeSuffix();
+    const QString ext = (Utilities::isVideo( fileName ) || isRAW( fileName )) ? QString::fromLatin1( "jpg" ) : QFileInfo( m_filenameMapper.uniqNameFor(fileName) ).completeSuffix();
 
     // Add the file to the zip archive
     QString zipFileName = QString::fromLatin1( "%1/%2.%3" ).arg( Utilities::stripEndingForwardSlash(m_subdir))

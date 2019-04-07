@@ -1,3 +1,16 @@
+* Change: More intuitive handling of down button in annotation dialog.
+	Pressing the "down" button in a ListSelect in the annotation dialog
+	now selects the first item, not the second one.
+
+* Change: Use non-linear scaling for DateBar by default(implements: #356810)
+
+* Change: Instead of having "increase/decrease thumbnail storage size
+	buttons", show a "Thumbnail settings" button in the status bar.
+	(Fixes: #357239)
+
+* Bugfix: Restore correct behaviour for "Statistics..." action.
+	Thanks to Andreas Schleth for finding and fixing the issue!
+
 * Bugfix: Fix loading of user shortcuts for the annotation dialog.
 
 * Enhancement: Add "clear selection" menu item.
@@ -10,6 +23,19 @@
 
 * Bugfix: Fix zooming for raw images.
 	Thanks to Angel Lopez for the bug report and help in finding the root cause!
+
+====================== KPhotoalbum 5.4.2 released (05.02.2019) ======================
+
+* Where's 5.4.1?: We messed it up. A wrong tarball hit the mirrors, we had to withdraw it, and
+	increase the version number for consistency. Version 5.4.1 does not exist
+
+* Bugfix(#403668): Prevent loss of tagging data when upgrading from v5.3 or older
+	If a user used an uncompressed database with non-ASCII category names, the
+	tagging data for those categories would be lost when switching to the
+	compressed file format. Upgrading to v5.4 automatically switches to the
+	compressed file format as new default, triggering said bug.
+
+* Bugfix(#403721): Fix crash when right-clicking in thumbnail view
 
 ====================== KPhotoalbum 5.4 released (13.10.2018) ======================
 

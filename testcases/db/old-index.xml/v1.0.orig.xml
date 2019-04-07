@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<KimDaBa>
+ <config ensureImageWindowsOnScreen="1" showDrawings="1" htmlBaseURL="file:///home/blackie/public_html" thumbSize="128" showInfoBox="1" viewerHeight_1280="450" trustTimeStamps="0" infoBoxPosition="6" showDate="1" imageDirectory="/packages/kde-src/kdeextragear-2/kimdaba/demo" autoSave="5" version="1" viewerWidth_1280="600" showDescription="1" maxImages="100" htmlBaseDir="/home/blackie/public_html" />
+ <options>
+  <option icon="password" name="Keywords" show="1" text="Keywords" >
+   <value value="beers" />
+   <value value="holiday" />
+   <value value="new wave" />
+   <value value="silo falls over" />
+   <value value="Anne Helene's 30 years birthday" />
+  </option>
+  <option icon="network" name="Locations" show="1" text="Locations" >
+   <value value="Santa Clara" />
+   <value value="Mallorca" />
+   <value value="Grand Canyon" />
+   <value value="Pool Club" />
+   <value value="Chicago" />
+   <value value="Rhodos" />
+   <value value="Esbjerg" />
+  </option>
+  <option icon="personal" name="Persons" show="1" text="Persons" >
+   <value value="Spiff" />
+   <value value="Anne Helene" />
+   <value value="Jesper" />
+   <value value="Donna" />
+  </option>
+ </options>
+ <configWindowSetup>
+  <dock>
+   <name>Label and Dates</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </dock>
+  <dock>
+   <name>Image Preview</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </dock>
+  <dock>
+   <name>Description</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </dock>
+  <dock>
+   <name>Keywords</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </dock>
+  <dock>
+   <name>Locations</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </dock>
+  <dock>
+   <name>Persons</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </dock>
+  <splitGroup>
+   <firstName>Label and Dates</firstName>
+   <secondName>Description</secondName>
+   <orientation>0</orientation>
+   <separatorPos>31</separatorPos>
+   <name>Label and Dates,Description</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </splitGroup>
+  <splitGroup>
+   <firstName>Label and Dates,Description</firstName>
+   <secondName>Image Preview</secondName>
+   <orientation>1</orientation>
+   <separatorPos>70</separatorPos>
+   <name>Label and Dates,Description,Image Preview</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </splitGroup>
+  <splitGroup>
+   <firstName>Locations</firstName>
+   <secondName>Keywords</secondName>
+   <orientation>1</orientation>
+   <separatorPos>50</separatorPos>
+   <name>Locations,Keywords</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </splitGroup>
+  <splitGroup>
+   <firstName>Persons</firstName>
+   <secondName>Locations,Keywords</secondName>
+   <orientation>1</orientation>
+   <separatorPos>34</separatorPos>
+   <name>Persons,Locations,Keywords</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </splitGroup>
+  <splitGroup>
+   <firstName>Label and Dates,Description,Image Preview</firstName>
+   <secondName>Persons,Locations,Keywords</secondName>
+   <orientation>0</orientation>
+   <separatorPos>0</separatorPos>
+   <name>Label and Dates,Description,Image Preview,Persons,Locations,Keywords</name>
+   <hasParent>true</hasParent>
+   <dragEnabled>true</dragEnabled>
+  </splitGroup>
+  <centralWidget>Label and Dates,Description,Image Preview,Persons,Locations,Keywords</centralWidget>
+  <mainDockWidget>Label and Dates</mainDockWidget>
+  <geometry>
+   <x>6</x>
+   <y>6</y>
+   <width>930</width>
+   <height>492</height>
+  </geometry>
+ </configWindowSetup>
+ <member-groups>
+  <member group-name="Denmark" option-group="Locations" member="Esbjerg" />
+  <member group-name="Denmark" option-group="Locations" member="Pool Club" />
+  <member group-name="USA" option-group="Locations" member="Chicago" />
+  <member group-name="USA" option-group="Locations" member="Grand Canyon" />
+  <member group-name="USA" option-group="Locations" member="Santa Clara" />
+  <member group-name="Pets" option-group="Persons" member="Donna" />
+  <member group-name="Pets" option-group="Persons" member="Spiff" />
+ </member-groups>
+ <images>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img001.jpg" label="img001" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="Anne Helene's 30 years birthday" />
+    </option>
+    <option name="Locations" >
+     <value value="Esbjerg" />
+    </option>
+    <option name="Persons" >
+     <value value="Donna" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img002.jpg" label="img002" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="Anne Helene's 30 years birthday" />
+    </option>
+    <option name="Locations" >
+     <value value="Esbjerg" />
+    </option>
+    <option name="Persons" >
+     <value value="Donna" />
+    </option>
+   </options>
+   <drawings>
+    <Line _lastPos.x="415" _lastPos.y="261" _startPos.x="773" _startPos.y="36" />
+    <Line _lastPos.x="411" _lastPos.y="304" _startPos.x="802" _startPos.y="574" />
+    <Line _lastPos.x="347" _lastPos.y="245" _startPos.x="36" _startPos.y="53" />
+    <Line _lastPos.x="361" _lastPos.y="308" _startPos.x="41" _startPos.y="573" />
+   </drawings>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img003.jpg" label="img003" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="Anne Helene's 30 years birthday" />
+    </option>
+    <option name="Locations" >
+     <value value="Pool Club" />
+    </option>
+    <option name="Persons" >
+     <value value="Jesper" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img004.jpg" label="img004" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="Anne Helene's 30 years birthday" />
+    </option>
+    <option name="Locations" >
+     <value value="Pool Club" />
+    </option>
+    <option name="Persons" >
+     <value value="Jesper" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img005.jpg" label="img005" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Locations" >
+     <value value="Chicago" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img006.jpg" label="img006" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Locations" >
+     <value value="Chicago" />
+    </option>
+    <option name="Persons" >
+     <value value="Jesper" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img007.jpg" label="img007" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="silo falls over" />
+    </option>
+    <option name="Locations" >
+     <value value="Esbjerg" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img008.jpg" label="img008" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="silo falls over" />
+    </option>
+    <option name="Locations" >
+     <value value="Esbjerg" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img009.jpg" label="img009" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="silo falls over" />
+    </option>
+    <option name="Locations" >
+     <value value="Esbjerg" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img010.jpg" label="img010" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="holiday" />
+    </option>
+    <option name="Persons" >
+     <value value="Jesper" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img011.jpg" label="img011" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="holiday" />
+    </option>
+    <option name="Locations" >
+     <value value="Mallorca" />
+    </option>
+    <option name="Persons" >
+     <value value="Jesper" />
+     <value value="Anne Helene" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img012.jpg" label="img012" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="holiday" />
+    </option>
+    <option name="Locations" >
+     <value value="Mallorca" />
+    </option>
+    <option name="Persons" >
+     <value value="Jesper" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img013.jpg" label="img013" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="holiday" />
+    </option>
+    <option name="Locations" >
+     <value value="Grand Canyon" />
+    </option>
+    <option name="Persons" >
+     <value value="Jesper" />
+     <value value="Anne Helene" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img014.jpg" label="img014" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="holiday" />
+    </option>
+    <option name="Locations" >
+     <value value="Grand Canyon" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img015.jpg" label="img015" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="holiday" />
+    </option>
+    <option name="Locations" >
+     <value value="Grand Canyon" />
+    </option>
+    <option name="Persons" >
+     <value value="Anne Helene" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="0" dayFrom="0" yearTo="0" monthTo="0" file="img016.jpg" label="img016" angle="0" dayTo="0" yearFrom="1985" description="" >
+   <options>
+    <option name="Persons" >
+     <value value="Jesper" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="0" dayFrom="0" yearTo="1990" monthTo="0" file="img017.jpg" label="img017" angle="0" dayTo="0" yearFrom="1988" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="new wave" />
+    </option>
+    <option name="Persons" >
+     <value value="Jesper" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="0" dayFrom="0" yearTo="1990" monthTo="0" file="img018.jpg" label="img018" angle="0" dayTo="0" yearFrom="1988" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="new wave" />
+    </option>
+    <option name="Persons" >
+     <value value="Jesper" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="0" dayFrom="0" yearTo="2000" monthTo="0" file="img019.jpg" label="img019" angle="0" dayTo="0" yearFrom="1998" description="Spiff is enjoying a box of beers, or rather a beer box ;-)" >
+   <options>
+    <option name="Keywords" >
+     <value value="beers" />
+    </option>
+    <option name="Persons" >
+     <value value="Spiff" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="0" dayFrom="0" yearTo="2000" monthTo="0" file="img020.jpg" label="img020" angle="0" dayTo="0" yearFrom="1998" description="" >
+   <options>
+    <option name="Persons" >
+     <value value="Spiff" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="0" dayFrom="0" yearTo="2000" monthTo="0" file="img021.jpg" label="img021" angle="0" dayTo="0" yearFrom="1998" description="" >
+   <options>
+    <option name="Persons" >
+     <value value="Spiff" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img022.jpg" label="img022" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Persons" >
+     <value value="Donna" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="8" dayFrom="31" yearTo="0" monthTo="0" file="img023.jpg" label="img023" angle="0" dayTo="0" yearFrom="2003" description="" >
+   <options>
+    <option name="Keywords" >
+     <value value="holiday" />
+     <value value="beers" />
+    </option>
+    <option name="Locations" >
+     <value value="Rhodos" />
+    </option>
+    <option name="Persons" >
+     <value value="Anne Helene" />
+    </option>
+   </options>
+  </image>
+  <image monthFrom="9" dayFrom="2" yearTo="0" monthTo="0" file="img024.jpg" label="img024" angle="0" dayTo="0" yearFrom="2003" description="Just in case you haven't figure out what this is - its sugar ;-)" >
+   <options>
+    <option name="Keywords" >
+     <value value="holiday" />
+    </option>
+    <option name="Locations" >
+     <value value="Santa Clara" />
+    </option>
+    <option name="Persons" >
+     <value value="Anne Helene" />
+    </option>
+   </options>
+  </image>
+ </images>
+</KimDaBa>

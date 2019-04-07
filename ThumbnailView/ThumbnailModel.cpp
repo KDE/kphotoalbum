@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -26,7 +26,7 @@
 #include <ImageManager/AsyncLoader.h>
 #include <ImageManager/ThumbnailCache.h>
 #include <Settings/SettingsData.h>
-#include <Utilities/Util.h>
+#include <Utilities/FileUtil.h>
 
 #include "CellGeometry.h"
 #include "ThumbnailRequest.h"
@@ -186,7 +186,7 @@ int ThumbnailView::ThumbnailModel::indexOf(const DB::FileName& fileName)
     Q_ASSERT( !fileName.isNull() );
     if ( !m_fileNameToIndex.contains(fileName) )
         m_fileNameToIndex.insert(fileName, m_displayList.indexOf(fileName));
-    
+
     return m_fileNameToIndex[fileName];
 }
 
@@ -195,7 +195,7 @@ int ThumbnailView::ThumbnailModel::indexOf(const DB::FileName& fileName) const
     Q_ASSERT( !fileName.isNull() );
     if ( !m_fileNameToIndex.contains(fileName) )
         return -1;
-    
+
     return m_fileNameToIndex[fileName];
 }
 

@@ -54,7 +54,7 @@ public:
     bool isExiting() const;
 
 protected:
-    virtual void customEvent( QEvent* ev );
+    void customEvent( QEvent* ev ) override;
     bool loadVideo( ImageRequest* );
     void loadImage( ImageRequest* );
 

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -36,7 +36,7 @@
 ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::s_instance = nullptr;
 
 ImageManager::ThumbnailBuilder::ThumbnailBuilder( MainWindow::StatusBar* statusBar, QObject* parent )
-    :QObject( parent ), 
+    :QObject( parent ),
      m_statusBar( statusBar ),
      m_count( 0 ),
      m_isBuilding( false ),
@@ -109,6 +109,11 @@ ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::instance()
 {
     Q_ASSERT( s_instance );
     return s_instance;
+}
+
+ImageManager::ThumbnailBuilder::~ThumbnailBuilder()
+{
+    terminateScout();
 }
 
 void ImageManager::ThumbnailBuilder::buildMissing()

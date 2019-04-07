@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -38,7 +38,7 @@
 #include <Plugins/ImageCollection.h>
 #include <Plugins/ImageCollectionSelector.h>
 #include <Plugins/ImageInfo.h>
-#include "Utilities/Util.h"
+#include "Utilities/FileUtil.h"
 
 #include "UploadWidget.h"
 namespace KIPI { class UploadWidget; }

@@ -101,11 +101,15 @@ Settings::GeneralPage::GeneralPage( QWidget* parent )
     lay->setSpacing( 6 );
     row = 0;
 
-    m_showHistogram = new QCheckBox( i18n("Show histogram:"), box);
+    m_showHistogram = new QCheckBox( i18n("Show histogram"), box);
     lay->addWidget( m_showHistogram, row, 0 );
+    row++;
     connect(m_showHistogram, &QCheckBox::stateChanged, this, &GeneralPage::showHistogramChanged);
 
+    m_histogramUseLinearScale = new QCheckBox( i18n("Use linear scale for histogram"));
+    lay->addWidget( m_histogramUseLinearScale, row, 0);
     row++;
+
     label = new QLabel( i18n("Size of histogram columns in date bar:"), box );
     m_barWidth = new QSpinBox;
     m_barWidth->setRange( 1, 100 );
@@ -230,6 +234,7 @@ void Settings::GeneralPage::loadSettings( Settings::SettingsData* opt )
     m_barWidth->setValue( opt->histogramSize().width() );
     m_barHeight->setValue( opt->histogramSize().height() );
     m_showHistogram->setChecked( opt->showHistogram() );
+    m_histogramUseLinearScale->setChecked( opt->histogramUseLinearScale() );
     m_showSplashScreen->setChecked( opt->showSplashScreen() );
     m_listenForAndroidDevicesOnStartup->setChecked(opt->listenForAndroidDevicesOnStartup());
     DB::CategoryPtr cat = DB::ImageDB::instance()->categoryCollection()->categoryForName( opt->albumCategory() );
@@ -264,6 +269,7 @@ void Settings::GeneralPage::saveSettings( Settings::SettingsData* opt )
     opt->setUseRawThumbnail( m_useRawThumbnail->isChecked() );
     opt->setUseRawThumbnailSize(QSize(useRawThumbnailSize()));
     opt->setShowHistogram( m_showHistogram->isChecked() );
+    opt->setHistogramUseLinearScale( m_histogramUseLinearScale->isChecked() );
     opt->setShowSplashScreen( m_showSplashScreen->isChecked() );
     opt->setListenForAndroidDevicesOnStartup(m_listenForAndroidDevicesOnStartup->isChecked());
 
@@ -289,7 +295,11 @@ QSize Settings::GeneralPage::useRawThumbnailSize()
 
 void Settings::GeneralPage::showHistogramChanged( int state ) const
 {
-    MainWindow::Window::theMainWindow()->setHistogramVisibilty( state == Qt::Checked );
+    const bool checked = state == Qt::Checked;
+    m_histogramUseLinearScale->setChecked( checked );
+    m_barHeight->setEnabled( checked );
+    m_barWidth->setEnabled( checked );
+    MainWindow::Window::theMainWindow()->setHistogramVisibilty(  checked );
 }
 
 void Settings::GeneralPage::useEXIFCommentsChanged(int state)

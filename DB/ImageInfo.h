@@ -182,6 +182,10 @@ public:
      * @return the associated area, or <code>QRect()</code> if no association exists.
      */
     QRect areaForTag(QString category, QString tag) const;
+    void setIsMatched(bool isMatched);
+    bool isMatched() const;
+    void setMatchGeneration(int matchGeneration);
+    int matchGeneration() const;
 #ifdef HAVE_KGEOMAP
     KGeoMap::GeoCoordinates coordinates() const;
 #endif
@@ -221,6 +225,8 @@ private:
     StackID m_stackId;
     unsigned int m_stackOrder;
     int m_videoLength;
+    bool m_isMatched;
+    int m_matchGeneration;
 #ifdef HAVE_KGEOMAP
     mutable KGeoMap::GeoCoordinates m_coordinates;
     mutable bool m_coordsIsSet = false;

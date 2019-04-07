@@ -33,9 +33,9 @@ static const int maxJPEGMemorySize = (20 * 1024 * 1024);
 class ImageLoaderThread :public QThread {
 public:
     ImageLoaderThread( size_t bufsize = maxJPEGMemorySize );
-    ~ImageLoaderThread();
+    ~ImageLoaderThread() override;
 protected:
-    virtual void run();
+    void run() override;
     QImage loadImage( ImageRequest* request, bool& ok );
     static int calcLoadSize( ImageRequest* request );
     QImage scaleAndRotate( ImageRequest* request, QImage img );

@@ -56,12 +56,12 @@ class InfoBox : public QTextBrowser {
 
 public:
     explicit InfoBox(ViewerWidget* parent);
-    virtual void setSource(const QUrl& source) override;
+    void setSource(const QUrl& source) override;
     void setInfo(const QString& text, const QMap<int, QPair<QString,QString>>& linkMap);
     void setSize();
 
 protected:
-    virtual QVariant loadResource(int type, const QUrl& name) override;
+    QVariant loadResource(int type, const QUrl& name) override;
     void mouseMoveEvent(QMouseEvent*) override;
     void mousePressEvent(QMouseEvent*) override;
     void mouseReleaseEvent(QMouseEvent*) override;

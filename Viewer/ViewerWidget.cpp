@@ -51,7 +51,7 @@
 #include <MainWindow/DirtyIndicator.h>
 #include <MainWindow/ExternalPopup.h>
 #include <MainWindow/Window.h>
-#include <Utilities/Util.h>
+#include <Utilities/VideoUtil.h>
 #include <Utilities/DescriptionUtil.h>
 
 #include "CategoryImageConfig.h"

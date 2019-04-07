@@ -31,7 +31,7 @@ class CancelEvent : public QEvent
 {
 public:
     explicit CancelEvent( ImageRequest* request );
-    ~CancelEvent();
+    ~CancelEvent() override;
     ImageRequest* request() const;
 
 private:

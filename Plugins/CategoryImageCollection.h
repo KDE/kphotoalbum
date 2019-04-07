@@ -30,8 +30,8 @@ class CategoryImageCollection :public Plugins::ImageCollection {
 public:
     CategoryImageCollection( const DB::ImageSearchInfo& context, const QString& category, const QString& value );
 
-    virtual QString name() override;
-    virtual QList<QUrl> images() override;
+    QString name() override;
+    QList<QUrl> images() override;
 
 private:
     DB::ImageSearchInfo m_context;

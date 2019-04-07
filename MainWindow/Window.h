@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -29,6 +29,7 @@
 #include <DB/Category.h>
 #include <DB/FileNameList.h>
 #include <DB/ImageSearchInfo.h>
+#include <DB/UIDelegate.h>
 #include <ThumbnailView/enums.h>
 #ifdef HAVE_KGEOMAP
 #include <Browser/PositionBrowserWidget.h>
@@ -70,12 +71,13 @@ class StatusBar;
 class TokenEditor;
 
 class Window :public KXmlGuiWindow
+        , public DB::UIDelegate
 {
     Q_OBJECT
 
 public:
     explicit Window( QWidget* parent );
-    ~Window();
+    ~Window() override;
     static void configureImages( const DB::ImageInfoList& list, bool oneAtATime );
     static Window* theMainWindow();
     DB::FileNameList selected( ThumbnailView::SelectionMode mode = ThumbnailView::ExpandCollapsedStacks ) const;
@@ -88,6 +90,18 @@ public:
     void showPositionBrowser();
     Browser::PositionBrowserWidget* positionBrowserWidget();
 #endif
+
+    // implement UI delegate interface
+    // Note(jzarl): we just could create a UIDelegate class that takes a QWidget,
+    // implementing the same messageParent approach that we took before.
+    // For now, I don't see anything wrong with directly implementing the interface instead.
+    // I may change my mind later and I'm ready to convinced of the errors of my way, though...
+    DB::UserFeedback askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId) override;
+    DB::UserFeedback askQuestionYesNo(const QString &msg, const QString &title, const QString &dialogId) override;
+    void showInformation(const QString &msg, const QString &title, const QString &dialogId) override;
+    void showSorry(const QString &msg, const QString &title, const QString &) override;
+    void showError(const QString &msg, const QString &title, const QString &) override;
+    bool isDialogDisabled(const QString &dialogId) override;
 
 public slots:
     void showThumbNails(const DB::FileNameList& items);
@@ -177,13 +191,13 @@ protected slots:
 protected:
     void configureImages( bool oneAtATime );
     QString welcome();
-    virtual void closeEvent( QCloseEvent* e );
-    virtual void resizeEvent( QResizeEvent* );
-    virtual void moveEvent ( QMoveEvent * );
+    void closeEvent( QCloseEvent* e ) override;
+    void resizeEvent( QResizeEvent* ) override;
+    void moveEvent ( QMoveEvent * ) override;
     void setupMenuBar();
     void createAnnotationDialog();
     bool load();
-    virtual void contextMenuEvent( QContextMenuEvent* e );
+    void contextMenuEvent( QContextMenuEvent* e ) override;
     void setLocked( bool b, bool force, bool recount=true );
     void configImages( const DB::ImageInfoList& list, bool oneAtATime );
     void updateStates( bool thumbNailView );
@@ -196,7 +210,6 @@ protected:
     void executeStartupActions();
     void checkIfMplayerIsInstalled();
     bool anyVideosSelected() const;
-    void announceAndroidVersion();
 #ifdef HAVE_KGEOMAP
     Browser::PositionBrowserWidget* createPositionBrowser();
 #endif

@@ -42,7 +42,7 @@ class DuplicateMerger : public QDialog
 
 public:
     explicit DuplicateMerger(QWidget *parent = nullptr);
-    ~DuplicateMerger();
+    ~DuplicateMerger() override;
 
 private slots:
     void selectAll();

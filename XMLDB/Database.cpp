@@ -17,31 +17,70 @@
 */
 
 #include "Database.h"
-#include "Settings/SettingsData.h"
-#include <kmessagebox.h>
-#include <KLocalizedString>
-#include "Utilities/Util.h"
-#include "DB/GroupCounter.h"
-#include "Browser/BrowserWidget.h"
-#include "DB/ImageInfo.h"
-#include "DB/ImageInfoPtr.h"
-#include "DB/CategoryCollection.h"
-#include "XMLCategory.h"
-#include <QExplicitlySharedDataPointer>
-#include <QFileInfo>
-#include "XMLImageDateCollection.h"
+
 #include "FileReader.h"
 #include "FileWriter.h"
-#include "Exif/Database.h"
+#include "XMLCategory.h"
+#include "XMLImageDateCollection.h"
+#include "Logging.h"
+
+#include <Browser/BrowserWidget.h>
+#include <DB/CategoryCollection.h>
 #include <DB/FileName.h>
+#include <DB/GroupCounter.h>
+#include <DB/ImageInfo.h>
+#include <DB/ImageInfoPtr.h>
+#include <DB/UIDelegate.h>
+#include <Exif/Database.h>
+#include <Settings/SettingsData.h>
+#include <Utilities/VideoUtil.h>
+
+#include <KLocalizedString>
+#include <QExplicitlySharedDataPointer>
+#include <QFileInfo>
 
 using Utilities::StringSet;
 
-bool XMLDB::Database::s_anyImageWithEmptySize = false;
-XMLDB::Database::Database( const QString& configFile ):
-    m_fileName(configFile)
+namespace {
+void checkForBackupFile( const QString& fileName, DB::UIDelegate &ui)
 {
-    Utilities::checkForBackupFile( configFile );
+    QString backupName = QFileInfo( fileName ).absolutePath() + QString::fromLatin1("/.#") + QFileInfo( fileName ).fileName();
+    QFileInfo backUpFile( backupName);
+    QFileInfo indexFile( fileName );
+
+    if ( !backUpFile.exists() || indexFile.lastModified() > backUpFile.lastModified() || backUpFile.size() == 0 )
+        return;
+
+    const long backupSizeKB = backUpFile.size() >> 10;
+    const DB::UserFeedback choice = ui.questionYesNo(
+                QString::fromUtf8("Autosave file found: '%1', %2KB.").arg(backupName).arg(backupSizeKB)
+                , i18n("Autosave file '%1' exists (size %3 KB) and is newer than '%2'. "
+                       "Should the autosave file be used?", backupName, fileName, backupSizeKB)
+                , i18n("Found Autosave File")
+                );
+
+    if ( choice == DB::UserFeedback::Confirm ) {
+        qCInfo(XMLDBLog) << "Using autosave file:" << backupName;
+        QFile in( backupName );
+        if ( in.open( QIODevice::ReadOnly ) ) {
+            QFile out( fileName );
+            if (out.open( QIODevice::WriteOnly ) ) {
+                char data[1024];
+                int len;
+                while ( (len = in.read( data, 1024 ) ) )
+                    out.write( data, len );
+            }
+        }
+    }
+}
+} // namespace
+
+bool XMLDB::Database::s_anyImageWithEmptySize = false;
+XMLDB::Database::Database(const QString& configFile , DB::UIDelegate &delegate)
+    : ImageDB(delegate)
+    , m_fileName(configFile)
+{
+    checkForBackupFile( configFile, uiDelegate() );
     FileReader reader( this );
     reader.read( configFile );
     m_nextStackId = reader.nextStackId();
@@ -82,6 +121,7 @@ QMap<QString, DB::CategoryClassification> XMLDB::Database::classify( const DB::I
         noMatchInfo.setCategoryMatchText( category, DB::ImageDB::NONE() );
     else
         noMatchInfo.setCategoryMatchText( category, QString::fromLatin1( "%1 & %2" ).arg(currentMatchTxt).arg(DB::ImageDB::NONE()) );
+    noMatchInfo.setCacheable( false );
 
     // Iterate through the whole database of images.
     for (const auto &imageInfo : m_images)
@@ -593,10 +633,6 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo( const DB::FileName& fileName,
     static QString _rating_ = QString::fromUtf8("rating");
     static QString _stackId_ = QString::fromUtf8("stackId");
     static QString _stackOrder_ = QString::fromUtf8("stackOrder");
-    static QString _gpsPrec_ = QString::fromUtf8("gpsPrec");
-    static QString _gpsLon_ = QString::fromUtf8("gpsLon");
-    static QString _gpsLat_ = QString::fromUtf8("gpsLat");
-    static QString _gpsAlt_ = QString::fromUtf8("gpsAlt");
     static QString _videoLength_ = QString::fromUtf8("videoLength");
     static QString _options_ = QString::fromUtf8("options");
     static QString _0_ = QString::fromUtf8("0");

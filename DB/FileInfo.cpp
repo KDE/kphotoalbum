@@ -20,7 +20,7 @@
 #include <Exif/Info.h>
 #include <QRegularExpression>
 #include <Settings/SettingsData.h>
-#include <Utilities/Util.h>
+#include <Utilities/VideoUtil.h>
 
 #include <QDateTime>
 #include <QFileInfo>

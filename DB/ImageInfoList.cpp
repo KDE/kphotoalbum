@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -25,7 +25,6 @@
 #include <QtAlgorithms>
 #include <QDateTime>
 
-#include <KMessageBox>
 #include <KLocalizedString>
 using namespace DB;
 
@@ -34,10 +33,7 @@ class SortableImageInfo
 public:
     SortableImageInfo(const QDateTime& datetime, const QString& string, const ImageInfoPtr &info)
         : m_dt(datetime), m_st(string), m_in(info) {}
-    SortableImageInfo(const SortableImageInfo& in)
-        : m_dt(in.m_dt), m_st(in.m_st), m_in(in.m_in) {}
-    SortableImageInfo() {}
-    ~SortableImageInfo() {}
+    SortableImageInfo() = default;
     const QDateTime& DateTime(void) const { return m_dt; }
     const QString& String(void) const { return m_st; }
     const ImageInfoPtr& ImageInfo(void) const { return m_in; }
@@ -62,7 +58,7 @@ ImageInfoList ImageInfoList::sort() const
     }
 
     std::sort(vec.begin(),vec.end());
-    
+
     ImageInfoList res;
     for( QVector<SortableImageInfo>::ConstIterator mapIt = vec.constBegin(); mapIt != vec.constEnd(); ++mapIt ) {
          res.append(mapIt->ImageInfo());
@@ -88,10 +84,6 @@ void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
         insertIt = insert( insertIt, *it );
         ++insertIt;
     }
-}
-
-ImageInfoList::~ImageInfoList()
-{
 }
 
 void ImageInfoList::appendList( ImageInfoList& list )

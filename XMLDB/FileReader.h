@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -18,7 +18,6 @@
 #ifndef XMLDB_FILEREADER_H
 #define XMLDB_FILEREADER_H
 
-#include <qdom.h>
 #include "DB/ImageInfoPtr.h"
 #include "DB/ImageInfo.h"
 #include <QSharedPointer>
@@ -38,7 +37,7 @@ public:
     FileReader( Database* db ) : m_db( db ), m_nextStackId(1) {}
     void read( const QString& configFile );
     static QString unescape( const QString& );
-    DB::StackID nextStackId() const { return m_nextStackId; };
+    DB::StackID nextStackId() const { return m_nextStackId; }
 
 protected:
     void loadCategories( ReaderPtr reader );
@@ -54,9 +53,6 @@ protected:
 
     void checkIfImagesAreSorted();
     void checkIfAllImagesHaveSizeAttributes();
-
-    // The parent widget information dialogs are displayed in.
-    QWidget *messageParent();
 
 private:
     Database* const m_db;

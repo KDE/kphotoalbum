@@ -44,12 +44,32 @@ class FocusItemDragHandler;
 class BarDragHandler;
 class SelectionHandler;
 
+/**
+ * @brief The DateBarWidget class provides a histogram-like depiction of the image distribution over time.
+ * If \ref includeFuzzyCounts() is \c true,
+ * then both exact and fuzzy dates are taken into account and shown in different style (currently yellow and green).
+ * If enough space is available, the number of images within each time period is printed inside each box.
+ *
+ * ## "unit" concept
+ * A central concept in the widget design is that of a time \c unit.
+ * Units are an integer offset into the number of available "boxes".
+ * The number of units (or boxes) is calculated according to the available space (see \ref numberOfUnits()).
+ * Each unit corresponds to a time period at the current resolution and offset.
+ *
+ * The time resulution is represented by the \c ViewHandler, and the offset is stored in \c m_currentDate.
+ *
+ */
 class DateBarWidget :public QWidget {
     Q_OBJECT
 
 public:
     explicit DateBarWidget( QWidget* parent );
-    enum ViewType { DecadeView, YearView, MonthView, WeekView, DayView, HourView, MinuteView };
+    enum ViewType { DecadeView, YearView, MonthView, WeekView, DayView, HourView, TenMinuteView, MinuteView };
+    /**
+     * @brief includeFuzzyCounts
+     * @return \c true if date ranges are shown, \c false otherwise.
+     * @see setIncludeFuzzyCounts
+     */
     bool includeFuzzyCounts() const;
 
 public slots:
@@ -64,7 +84,18 @@ public slots:
     void zoomOut();
     void setHistogramBarSize( const QSize& size );
     void setIncludeFuzzyCounts( bool );
+    /**
+     * @brief setShowResolutionIndicator
+     * If set to \c true, an indicator is shown to indicate the current ViewType.
+     * The indicator indicates the size of one unit / histogram box alongside a text
+     * indicating the respective temporal resolution (e.g. "10 minutes").
+     */
     void setShowResolutionIndicator( bool );
+    /**
+     * @brief setAutomaticRangeAdjustment
+     * If set to \c true, the ViewType and range is adjusted automatically to best
+     * match the current set of images.
+     */
     void setAutomaticRangeAdjustment( bool );
 
 signals:
@@ -77,27 +108,40 @@ signals:
 
 public:
     // Overridden methods for internal purpose
-    virtual QSize sizeHint() const;
-    virtual QSize minimumSizeHint() const;
+    QSize sizeHint() const override;
+    QSize minimumSizeHint() const override;
 
 protected:
-    virtual void paintEvent( QPaintEvent* event );
-    virtual void resizeEvent( QResizeEvent* event );
-    virtual void mousePressEvent( QMouseEvent* event );
-    virtual void mouseMoveEvent( QMouseEvent* event );
-    virtual void mouseReleaseEvent( QMouseEvent* event );
-    virtual void contextMenuEvent( QContextMenuEvent* );
-    virtual void keyPressEvent( QKeyEvent* event );
-    virtual void focusInEvent( QFocusEvent* );
-    virtual void focusOutEvent( QFocusEvent* );
-    virtual void wheelEvent( QWheelEvent * e );
+    void paintEvent( QPaintEvent* event ) override;
+    void resizeEvent( QResizeEvent* event ) override;
+    void mousePressEvent( QMouseEvent* event ) override;
+    void mouseMoveEvent( QMouseEvent* event ) override;
+    void mouseReleaseEvent( QMouseEvent* event ) override;
+    void contextMenuEvent( QContextMenuEvent* ) override;
+    void keyPressEvent( QKeyEvent* event ) override;
+    void focusInEvent( QFocusEvent* ) override;
+    void focusOutEvent( QFocusEvent* ) override;
+    void wheelEvent( QWheelEvent * e ) override;
 
+    /**
+     * @brief redraw the widget
+     * This method creates a QPainter and then uses the draw* methods to draw the different parts of the widget.
+     * \see drawTickMarks
+     * \see drawHistograms
+     * \see drawFocusRectangle
+     * \see drawResolutionIndicator
+     */
     void redraw();
     void drawTickMarks( QPainter& p, const QRect& textRect );
     void drawHistograms( QPainter& p );
-    void drawFocusRectagle( QPainter& p );
+    void drawFocusRectangle( QPainter& p );
     void drawResolutionIndicator( QPainter& p, int* leftEdge );
-    void zoom( int );
+    /**
+     * @brief zoom in or out by a number of steps.
+     * One steps corresponds to one step in the ViewType.
+     * @param steps positive steps to increase temporal resolution, negative to decrease.
+     */
+    void zoom( int steps);
     QRect barAreaGeometry() const;
     QRect tickMarkGeometry() const;
     QRect dateAreaGeometry() const;
@@ -109,8 +153,18 @@ protected:
     DB::ImageDate rangeAt( const QPoint& );
     DB::ImageDate rangeForUnit( int unit );
     void placeAndSizeButtons();
+    /**
+     * @brief unitAtPos maps horizontal screen coordinates to units.
+     * @param x a valid pixel offset in the histogram area
+     * @return a unit index between 0 and numberOfUnits
+     */
     int unitAtPos( int x ) const;
     QDateTime dateForUnit( int unit, const QDateTime& offset = QDateTime() ) const;
+    /**
+     * @brief unitForDate return the unit index corresponding to the date/time.
+     * @param date a valid QDateTime.
+     * @return An integer greater or equal to 0 if \p date is in view, -1 otherwise.
+     */
     int unitForDate( const QDateTime& date ) const;
     bool isUnitSelected( int unit ) const;
     bool hasSelection() const;
@@ -130,6 +184,7 @@ private:
     WeekViewHandler m_weekViewHandler;
     DayViewHandler m_dayViewHandler;
     HourViewHandler m_hourViewHandler;
+    TenMinuteViewHandler m_tenMinuteViewHandler;
     MinuteViewHandler m_minuteViewHandler;
     ViewHandler* m_currentHandler;
     ViewType m_tp;

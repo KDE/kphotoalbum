@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -34,7 +34,7 @@
 #include "Settings/SettingsData.h"
 #include <qtimer.h>
 #include <QHBoxLayout>
-#include "Utilities/Util.h"
+#include "Utilities/FileUtil.h"
 #include "Utilities/ShowBusyCursor.h"
 #include <QStackedWidget>
 #include "DB/CategoryCollection.h"
@@ -307,7 +307,7 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
 {
     if ( m_curView ) {
         m_curView->setModel(0);
-        disconnect( m_curView, &QAbstractItemView::activated, this, &BrowserWidget::itemClicked);
+        disconnect( m_curView, &QAbstractItemView::clicked, this, &BrowserWidget::itemClicked);
     }
 
     if ( type == DB::Category::TreeView || type == DB::Category::ThumbedTreeView ) {
@@ -331,7 +331,7 @@ void Browser::BrowserWidget::switchToViewType( DB::Category::ViewType type )
 
     // Hook up the new view
     m_curView->setModel( m_filterProxy );
-    connect( m_curView, &QAbstractItemView::activated, this, &BrowserWidget::itemClicked);
+    connect( m_curView, &QAbstractItemView::clicked, this, &BrowserWidget::itemClicked);
 
 
     m_stack->setCurrentWidget( m_curView );

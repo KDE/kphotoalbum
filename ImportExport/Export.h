@@ -49,7 +49,7 @@ public:
             ImageFileLocation, const QString& baseUrl,
             bool generateThumbnails,
             bool *ok);
-    ~Export();
+    ~Export() override;
 
     static void showUsageDialog();
 

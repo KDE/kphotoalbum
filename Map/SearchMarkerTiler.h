@@ -46,12 +46,12 @@ class SearchMarkerTiler : public KGeoMap::ItemMarkerTiler
 {
 public:
    SearchMarkerTiler(KGeoMap::ModelHelper *const modelHelper, QObject *const parent=0);
-   virtual ~SearchMarkerTiler();
+   ~SearchMarkerTiler() override;
    /**
     * @brief getGlobalGroupState
     * @return KGeoMap::ItemMarkerTiler::getGlobalGroupState() | KGeoMapRegionSelectedAll.
     */
-   virtual KGeoMap::GroupState getGlobalGroupState() override;
+   KGeoMap::GroupState getGlobalGroupState() override;
 
 private: // Variables
     MapView* m_mapView;

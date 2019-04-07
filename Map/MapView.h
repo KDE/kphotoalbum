@@ -73,7 +73,7 @@ public:
     };
 
     explicit MapView( QWidget* parent = 0, UsageType type = InlineMapView);
-    ~MapView();
+    ~MapView() override;
 
     /**
      * Removes all images from the map.

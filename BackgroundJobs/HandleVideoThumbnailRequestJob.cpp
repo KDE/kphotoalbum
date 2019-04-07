@@ -34,7 +34,7 @@
 #include <MainWindow/FeatureDialog.h>
 #include <Settings/SettingsData.h>
 #include <ThumbnailView/CellGeometry.h>
-#include <Utilities/Util.h>
+#include <Utilities/ImageUtil.h>
 
 namespace BackgroundJobs {
 

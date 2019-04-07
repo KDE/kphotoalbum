@@ -28,7 +28,7 @@ class TaggedArea : public QFrame
 
 public:
     explicit TaggedArea(QWidget *parent = 0);
-    ~TaggedArea();
+    ~TaggedArea() override;
     void setTagInfo(QString category, QString localizedCategory, QString tag);
     void setActualGeometry(QRect geometry);
     QRect actualGeometry() const;

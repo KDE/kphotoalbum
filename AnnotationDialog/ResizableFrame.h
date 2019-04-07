@@ -42,7 +42,7 @@ class ResizableFrame : public QFrame
 
 public:
     explicit ResizableFrame(QWidget* parent = 0);
-    ~ResizableFrame();
+    ~ResizableFrame() override;
 
     void setActualCoordinates(QRect actualCoordinates);
     QRect actualCoordinates() const;
@@ -68,10 +68,10 @@ public:
     bool isTidied() const;
 
 protected:
-    void mousePressEvent(QMouseEvent* event);
-    void mouseMoveEvent(QMouseEvent* event);
-    void mouseReleaseEvent(QMouseEvent* event);
-    void contextMenuEvent(QContextMenuEvent *);
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
+    void contextMenuEvent(QContextMenuEvent *) override;
 
 private slots:
     void associateTag();

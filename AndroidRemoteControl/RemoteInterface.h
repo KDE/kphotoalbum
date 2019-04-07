@@ -86,7 +86,7 @@ signals:
     void connectionChanged();
     void categoriesChanged();
     void homeImageChanged();
-    void kphotoalbumImageChange();    
+    void kphotoalbumImageChange();
     void categoryItemsChanged();
     void currentPageChanged();
     void thumbnailModelChanged();

@@ -31,7 +31,7 @@ class PositionBrowserWidget : public QWidget {
 
 public:
     PositionBrowserWidget( QWidget* parent );
-    virtual ~PositionBrowserWidget();
+    ~PositionBrowserWidget() override;
     virtual void showImages( const DB::ImageSearchInfo& searchInfo );
     virtual void clearImages();
 

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -36,7 +36,6 @@
 #include "DB/ImageDB.h"
 #include "DB/ImageInfoPtr.h"
 #include "Settings/SettingsData.h"
-#include "Utilities/Util.h"
 #include "SelectionMaintainer.h"
 
 /**
@@ -330,7 +329,7 @@ void ThumbnailView::ThumbnailWidget::updatePalette()
 {
     QPalette pal = palette();
     pal.setBrush( QPalette::Base, QColor(Settings::SettingsData::instance()->backgroundColor()) );
-    pal.setBrush( QPalette::Text, Utilities::contrastColor( QColor(Settings::SettingsData::instance()->backgroundColor() ) ) );
+    pal.setBrush( QPalette::Text, contrastColor( QColor(Settings::SettingsData::instance()->backgroundColor() ) ) );
     setPalette( pal );
 }
 
@@ -385,14 +384,14 @@ DB::FileNameList ThumbnailView::ThumbnailWidget::selection( ThumbnailView::Selec
                     // imply that all images in the stack are selected:
                     DB::ImageInfoPtr imageInfo = currFileName.info();
                     if ( imageInfo && imageInfo->isStacked()
-                            && ( includeAllStacks || ! model()->isItemInExpandedStack( imageInfo->stackId() ) ) 
+                            && ( includeAllStacks || ! model()->isItemInExpandedStack( imageInfo->stackId() ) )
                             )
                     {
                         // add all images in the same stack
                         res.append(DB::ImageDB::instance()->getStackFor(currFileName));
                     } else
                         res.append(currFileName);
-                } 
+                }
                 break;
             case NoExpandCollapsedStacks:
                 res.append(currFileName);
@@ -430,6 +429,14 @@ void ThumbnailView::ThumbnailWidget::select(const DB::FileNameList& items )
 bool ThumbnailView::ThumbnailWidget::isItemUnderCursorSelected() const
 {
     return widget()->selection(ExpandCollapsedStacks).contains(mediaIdUnderCursor());
+}
+
+QColor ThumbnailView::contrastColor(const QColor &color)
+{
+    if ( color.red() < 127 && color.green() < 127 && color.blue() < 127 )
+        return Qt::white;
+    else
+        return Qt::black;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

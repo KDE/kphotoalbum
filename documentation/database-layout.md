@@ -1,4 +1,4 @@
-Image database overview for KPhotoAlbum
+Image database overview for KPhotoAlbum {#database-layout}
 =======================================
 
 Concepts
@@ -471,3 +471,13 @@ KPhotoAlbum
         A single tag name.
       + ```members``` (compressed format)<br/>
         Numerical tag ids, separated by comma.
+
+#### Encoding of category names ####
+
+In the compressed format, category names are used as attributes to the images.
+In this context, the allowed character set is restricted by the rules for [XML attribute syntax](https://www.w3.org/TR/xml/#NT-NameStartChar),
+and category names therefore need to be escaped.
+
+The details for character escaping can be seen here:
+ * [XMLDB::FileWriter::escape()](@ref XMLDB::FileWriter::escape)
+ * [XMLDB::FileReader::unescape()](@ref XMLDB::FileReader::unescape)

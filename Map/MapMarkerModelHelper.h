@@ -55,7 +55,7 @@ class MapMarkerModelHelper : public KGeoMap::ModelHelper
 
 public:
     MapMarkerModelHelper();
-    virtual ~MapMarkerModelHelper();
+    ~MapMarkerModelHelper() override;
 
     /**
      * This adds an item to the map

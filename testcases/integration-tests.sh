@@ -31,7 +31,7 @@ DEPS="kphotoalbum convert exiv2 kdialog"
 BASE_RC="\n[Thumbnails]\ndisplayCategories=true\n[Notification Messages]\nimage_config_typein_show_help=false\n[TipOfDay]\nRunOnStart=false"
 TEMPDIR=
 KEEP_TEMPDIR=0
-declare -A _checks _context
+declare -A _checks _context _check_db_file
 
 result_ok=0
 result_failed=1
@@ -202,6 +202,14 @@ generic_check()
 	export XDG_CONFIG_HOME="$check_dir"
 	prepare_$check_name "$check_dir"
 	call_$check_name "$check_dir" > "$check_dir/log" 2>&1 || return $result_err_crash
+	local check_db_file="$mydir/${_check_db_file[$check_name]}"
+	if [[ -n "$check_db_file" ]]
+	then
+		test -f "$check_db_file" || echo "$check_db_file does not exist!"
+		diff -u "$check_db_file" "$check_dir/db/index.xml"
+		return $?
+	fi
+	# fallback: ask the user to verify
 	if kdialog --yesno "<h1>$check_name &mdash; Did KPhotoAlbum pass the test?</h1><p>As a reminder what you should check:</p><hr/><div style='text-size=small'>${_context[$check_name]}</div>"
 	then
 		return $result_ok

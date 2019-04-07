@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -239,11 +239,14 @@ void MemberMap::regenerateFlatList( const QString& category )
 void MemberMap::addMemberToGroup( const QString& category, const QString& group, const QString& item )
 {
     // Only test for cycles after database is already loaded
-    if (!m_loading && !canAddMemberToGroup(category, group, item))
+    if (!m_loading && !canAddMemberToGroup(category, group, item)) {
+        qCWarning(DBLog, "Inserting item %s into group %s/%s would create a cycle. Ignoring..."
+                  , qPrintable(item), qPrintable(category), qPrintable(group));
         return;
+    }
 
     if ( item.isEmpty() ) {
-        qCWarning(DBLog, "Null item tried inserted into group %s", qPrintable(group));
+        qCWarning(DBLog, "Tried to insert null item into group %s/%s. Ignoring...", qPrintable(category), qPrintable(group));
         return;
     }
 

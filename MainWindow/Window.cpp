@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -79,6 +79,7 @@
 #include <DB/ImageInfo.h>
 #include <DB/MD5.h>
 #include <DB/MD5Map.h>
+#include <DB/UIDelegate.h>
 #include <Exif/Database.h>
 #include <Exif/InfoDialog.h>
 #include <Exif/Info.h>
@@ -98,9 +99,10 @@
 #include <ThumbnailView/enums.h>
 #include <ThumbnailView/ThumbnailFacade.h>
 #include <Utilities/DemoUtil.h>
+#include <Utilities/FileNameUtil.h>
 #include <Utilities/List.h>
 #include <Utilities/ShowBusyCursor.h>
-#include <Utilities/Util.h>
+#include <Utilities/VideoUtil.h>
 #include <Viewer/ViewerWidget.h>
 
 #include "AutoStackImages.h"
@@ -283,8 +285,6 @@ void MainWindow::Window::delayedInit()
         RemoteControl::RemoteInterface::instance().listen(Options::the()->listen());
     else if ( Settings::SettingsData::instance()->listenForAndroidDevicesOnStartup())
         RemoteControl::RemoteInterface::instance().listen();
-
-    announceAndroidVersion();
 }
 
 
@@ -898,6 +898,7 @@ void MainWindow::Window::setupMenuBar()
     a = actionCollection()->addAction( QString::fromLatin1("buildThumbs"), this, SLOT(slotBuildThumbnails()) );
     a->setText( i18n("Build Thumbnails") );
 
+    a = actionCollection()->addAction( QString::fromLatin1("statistics"), this, SLOT(slotStatistics()) );
     a->setText( i18n("Statistics...") );
 
     m_markUntagged = actionCollection()->addAction(QString::fromUtf8("markUntagged"),
@@ -1111,7 +1112,7 @@ bool MainWindow::Window::load()
         }
         configFile = fi.absoluteFilePath();
     }
-    DB::ImageDB::setupXMLDB( configFile );
+    DB::ImageDB::setupXMLDB( configFile, *this );
 
     // some sanity checks:
     if ( ! Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
@@ -1167,10 +1168,12 @@ void MainWindow::Window::contextMenuEvent( QContextMenuEvent* e )
         if (!info && selected().isEmpty())
             action->setEnabled( false );
 
-        QUrl selectedFile = QUrl::fromLocalFile(info->fileName().absolute());
+        QUrl selectedFile;
+        if (info)
+            selectedFile = QUrl::fromLocalFile(info->fileName().absolute());
         QList<QUrl> allSelectedFiles;
-        for (const QString &selectedFile : selected().toStringList(DB::AbsolutePath)) {
-            allSelectedFiles << QUrl::fromLocalFile(selectedFile);
+        for (const QString &selectedPath : selected().toStringList(DB::AbsolutePath)) {
+            allSelectedFiles << QUrl::fromLocalFile(selectedPath);
         }
 
         // "Copy image(s) to ..."
@@ -1827,6 +1830,11 @@ void MainWindow::Window::setupStatusBar()
     m_statusBar = new MainWindow::StatusBar;
     setStatusBar( m_statusBar );
     setLocked( Settings::SettingsData::instance()->locked(), true, false );
+    connect(m_statusBar, &StatusBar::thumbnailSettingsRequested
+            , [this](){
+        this->slotOptions();
+        m_settingsDialog->activatePage(Settings::SettingsPage::ThumbnailsPage);
+    });
 }
 
 void MainWindow::Window::slotRecreateExifDB()
@@ -1925,20 +1933,6 @@ bool MainWindow::Window::anyVideosSelected() const
     return false;
 }
 
-void MainWindow::Window::announceAndroidVersion()
-{
-    // Don't bother people with this information when they are starting KPA the first time
-    if (DB::ImageDB::instance()->totalCount() < 100)
-        return;
-
-    const QString doNotShowKey = QString::fromLatin1( "announce_android_version_key" );
-    const QString txt = i18n("<p>Did you know that there is an Android client for KPhotoAlbum?<br/>"
-                             "With the Android client you can view your images from your desktop.</p>"
-                             "<p><a href=\"https://www.youtube.com/results?search_query=kphotoalbum+on+android\">See youtube video</a> or "
-                             "<a href=\"https://play.google.com/store/apps/details?id=org.kde.kphotoalbum\">install from google play</a></p>" );
-    KMessageBox::information( this, txt, QString(), doNotShowKey, KMessageBox::AllowLink );
-}
-
 void MainWindow::Window::setHistogramVisibilty( bool visible ) const
 {
     if (visible)
@@ -1988,5 +1982,40 @@ Browser::PositionBrowserWidget* MainWindow::Window::createPositionBrowser()
     return widget;
 }
 #endif
+
+UserFeedback MainWindow::Window::askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId)
+{
+    auto answer = KMessageBox::warningContinueCancel(this, msg, title, KStandardGuiItem::cont(), KStandardGuiItem::cancel(), dialogId);
+    return (answer==KMessageBox::Continue) ? UserFeedback::Confirm : UserFeedback::Deny;
+}
+
+UserFeedback MainWindow::Window::askQuestionYesNo(const QString &msg, const QString &title, const QString &dialogId)
+{
+    auto answer = KMessageBox::questionYesNo(this, msg, title, KStandardGuiItem::yes(), KStandardGuiItem::no(), dialogId);
+    return (answer==KMessageBox::Yes) ? UserFeedback::Confirm : UserFeedback::Deny;
+}
+
+void MainWindow::Window::showInformation(const QString &msg, const QString &title, const QString &dialogId)
+{
+    KMessageBox::information(this, msg, title, dialogId);
+}
+
+void MainWindow::Window::showSorry(const QString &msg, const QString &title, const QString &)
+{
+    KMessageBox::sorry(this, msg, title);
+}
+
+void MainWindow::Window::showError(const QString &msg, const QString &title, const QString &)
+{
+    KMessageBox::error(this, msg, title);
+}
+
+bool MainWindow::Window::isDialogDisabled(const QString &dialogId)
+{
+    // Note(jzarl): there are different methods for different kinds of dialogs.
+    // However, all these methods share exactly the same code in KMessageBox.
+    // If that ever changes, we can still update our implementation - until then I won't just copy a stupid API...
+    return !KMessageBox::shouldBeShownContinue(dialogId);
+}
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

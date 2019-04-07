@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -24,13 +24,12 @@
 #include "NumberedBackup.h"
 #include "XMLCategory.h"
 
+#include <DB/UIDelegate.h>
 #include <MainWindow/Logging.h>
-#include <MainWindow/Window.h>
 #include <Settings/SettingsData.h>
 #include <Utilities/List.h>
 
 #include <KLocalizedString>
-#include <KMessageBox>
 
 #include <QFile>
 #include <QXmlStreamWriter>
@@ -62,17 +61,19 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
     setUseCompressedFileFormat( Settings::SettingsData::instance()->useCompressedIndexXML() );
 
     if ( !isAutoSave )
-        NumberedBackup().makeNumberedBackup();
+        NumberedBackup(m_db->uiDelegate()).makeNumberedBackup();
 
     // prepare XML document for saving:
     m_db->m_categoryCollection.initIdMap();
     QFile out(fileName + QString::fromLatin1(".tmp"));
     if ( !out.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        KMessageBox::sorry( messageParent(),
-                            i18n("<p>Could not save the image database to XML.</p>"
-                                 "File %1 could not be opened because of the following error: %2"
-                                 , out.fileName(), out.errorString() )
-                            );
+        m_db->uiDelegate().sorry(
+                    QString::fromUtf8("Error saving to file '%1': %2").arg(out.fileName()).arg(out.errorString())
+                    , i18n("<p>Could not save the image database to XML.</p>"
+                           "File %1 could not be opened because of the following error: %2"
+                           , out.fileName(), out.errorString() )
+                    , i18n("Error while saving...")
+                    );
         return;
     }
     QTime t;
@@ -101,21 +102,25 @@ void XMLDB::FileWriter::save( const QString& fileName, bool isAutoSave )
     // original file can be safely deleted
     if ( ( ! QFile::remove( fileName ) ) && QFile::exists( fileName ) )
     {
-        KMessageBox::sorry( messageParent(),
-                            i18n("<p>Failed to remove old version of image database.</p>"
-                                 "<p>Please try again or replace the file %1 with file %2 manually!</p>",
-                                 fileName, out.fileName() )
-                            );
+        m_db->uiDelegate().sorry(
+                    QString::fromUtf8("Removal of file '%1' failed.").arg(fileName)
+                    , i18n("<p>Failed to remove old version of image database.</p>"
+                           "<p>Please try again or replace the file %1 with file %2 manually!</p>",
+                           fileName, out.fileName() )
+                    , i18n("Error while saving...")
+                    );
         return;
     }
     // State: index.xml doesn't exist, index.xml.tmp has the current version.
     if ( ! out.rename( fileName ) )
     {
-        KMessageBox::sorry( messageParent(),
-                            i18n("<p>Failed to move temporary XML file to permanent location.</p>"
-                                 "<p>Please try again or rename file %1 to %2 manually!</p>",
-                                 out.fileName(), fileName )
-                            );
+        m_db->uiDelegate().sorry(
+                    QString::fromUtf8("Renaming index.xml to '%1' failed.").arg(out.fileName())
+                    , i18n("<p>Failed to move temporary XML file to permanent location.</p>"
+                           "<p>Please try again or rename file %1 to %2 manually!</p>",
+                           out.fileName(), fileName )
+                    , i18n("Error while saving...")
+                    );
         // State: index.xml.tmp has the current version.
         return;
     }
@@ -462,14 +467,23 @@ bool XMLDB::FileWriter::shouldSaveCategory( const QString& categoryName ) const
 }
 
 /**
- * Escape problematic characters in a string that forms an XML attribute name.
+ * @brief Escape problematic characters in a string that forms an XML attribute name.
+ *
  * N.B.: Attribute values do not need to be escaped!
+ * @see XMLDB::FileReader::unescape
+ *
+ * @param str the string to be escaped
+ * @return the escaped string
  */
 QString XMLDB::FileWriter::escape( const QString& str )
 {
-    static QHash<QString,QString> cache;
-    if ( cache.contains(str) )
-        return cache[str];
+    static bool hashUsesCompressedFormat = useCompressedFileFormat();
+    static QHash<QString,QString> s_cache;
+    if (hashUsesCompressedFormat != useCompressedFileFormat())
+        s_cache.clear();
+
+    if ( s_cache.contains(str) )
+        return s_cache[str];
 
     QString tmp( str );
     // Regex to match characters that are not allowed to start XML attribute names
@@ -487,14 +501,8 @@ QString XMLDB::FileWriter::escape( const QString& str )
         }
     } else
         tmp.replace( QString::fromLatin1( " " ), QString::fromLatin1( "_" ) );
-    cache.insert(str,tmp);
+    s_cache.insert(str,tmp);
     return tmp;
-}
-
-// TODO(hzeller): DEPENDENCY This pulls in the whole MainWindow dependency into the database backend.
-QWidget *XMLDB::FileWriter::messageParent()
-{
-    return MainWindow::Window::theMainWindow();
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

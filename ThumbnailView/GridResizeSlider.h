@@ -40,7 +40,7 @@ class GridResizeSlider : public QSlider, private ThumbnailComponent {
     Q_OBJECT
 public:
     explicit GridResizeSlider( ThumbnailFactory* factory );
-    ~GridResizeSlider();
+    ~GridResizeSlider() override;
 
 public slots:
     void increaseThumbnailSize();

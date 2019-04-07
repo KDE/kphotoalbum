@@ -79,7 +79,7 @@ class Dialog :public QDialog {
     Q_OBJECT
 public:
     explicit Dialog( QWidget* parent );
-    ~Dialog();
+    ~Dialog() override;
     int configure( DB::ImageInfoList list,  bool oneAtATime );
     DB::ImageSearchInfo search( DB::ImageSearchInfo* search = nullptr );
     KActionCollection* actions();
@@ -107,7 +107,7 @@ protected slots:
     void slotSaveWindowSetup();
     void slotDeleteOption( DB::Category*, const QString& );
     void slotRenameOption( DB::Category* , const QString& , const QString&  );
-    virtual void reject();
+    void reject() override;
     void rotate( int angle );
     void slotSetFuzzyDate();
     void slotDeleteImage();
@@ -141,14 +141,14 @@ protected:
     void writeToInfo();
     void setup();
     void loadInfo( const DB::ImageSearchInfo& );
-    int exec();
-    virtual void closeEvent( QCloseEvent* );
+    int exec() override;
+    void closeEvent( QCloseEvent* ) override;
     void showTornOfWindows();
     void hideTornOfWindows();
     bool hasChanges();
     void showHelpDialog( UsageMode );
-    virtual void resizeEvent( QResizeEvent* );
-    virtual void moveEvent ( QMoveEvent * );
+    void resizeEvent( QResizeEvent* ) override;
+    void moveEvent ( QMoveEvent * ) override;
     void setupFocus();
     void closeDialog();
     void loadWindowLayout();

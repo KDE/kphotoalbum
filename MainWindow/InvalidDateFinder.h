@@ -33,7 +33,7 @@ public:
     explicit InvalidDateFinder( QWidget* parent );
 
 protected slots:
-    virtual void accept();
+    void accept() override;
 
 private:
     QRadioButton* m_dateNotTime;

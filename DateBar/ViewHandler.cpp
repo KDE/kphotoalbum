@@ -314,6 +314,42 @@ QString HourViewHandler::unitText() const
 
 
 
+void TenMinuteViewHandler::init( const QDateTime& startDate)
+{
+    ViewHandler::init( QDateTime( startDate.date(),
+                                      QTime( startDate.time().hour(), 10 * (int) floor(startDate.time().minute()/10.0), 0 ) ) );
+}
+
+bool TenMinuteViewHandler::isMajorUnit( int unit )
+{
+    return (date(unit).time().minute() % 10) == 0;
+}
+
+bool TenMinuteViewHandler::isMidUnit( int unit )
+{
+    int min = date(unit).time().minute();
+    return (min % 10) == 5;
+}
+
+QString TenMinuteViewHandler::text( int unit )
+{
+    return date(unit).toString( QString::fromLatin1( "h:mm" ) );
+}
+
+QDateTime TenMinuteViewHandler::date(int unit, QDateTime reference )
+{
+    if ( reference.isNull() ) reference = m_startDate;
+    return reference.addSecs( 60 * unit );
+}
+
+QString TenMinuteViewHandler::unitText() const
+{
+    return i18n("1 Minute");
+}
+
+
+
+
 void MinuteViewHandler::init( const QDateTime& startDate)
 {
     ViewHandler::init( QDateTime( startDate.date(),

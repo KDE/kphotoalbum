@@ -29,7 +29,7 @@ class DateTableWidgetItem : public QTableWidgetItem
 {
 public:
     DateTableWidgetItem(const QString& text);
-    bool operator < (const QTableWidgetItem& other) const;
+    bool operator < (const QTableWidgetItem& other) const override;
 };
 
 }

@@ -71,7 +71,7 @@ protected:
 protected slots:
     void slotEditDestination();
     void updateNextButtonState();
-    virtual void next();
+    void next() override;
     void slotSelectAll();
     void slotSelectNone();
     void slotHelp();

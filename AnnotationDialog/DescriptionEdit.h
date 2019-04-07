@@ -30,13 +30,13 @@ class DescriptionEdit : public KTextEdit
 
 public:
     explicit DescriptionEdit(QWidget *parent = 0);
-    ~DescriptionEdit();
+    ~DescriptionEdit() override;
 
 signals:
     void pageUpDownPressed(QKeyEvent *event);
 
 private:
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
 
 };
 

@@ -40,7 +40,7 @@ class Generator :public QProgressDialog, private ImageManager::ImageClientInterf
 
 public:
     Generator( const Setup& setup,  QWidget* parent );
-    ~Generator();
+    ~Generator() override;
     void generate();
 
 protected slots:

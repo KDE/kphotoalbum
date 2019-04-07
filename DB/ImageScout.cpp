@@ -1,4 +1,4 @@
-/* Copyright (C) 2018 Robert Krawitz <rlk@alum.mit.edu>
+/* Copyright (C) 2018-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -53,7 +53,7 @@ public:
     ImageScoutThread( ImageScoutQueue &, QMutex *, QAtomicInt &count,
                       QAtomicInt &preloadCount, QAtomicInt &skippedCount );
 protected:
-    virtual void run();
+    void run() override;
     void setBufSize(int);
     int getBufSize();
     void setMaxSeekAhead(int);
@@ -74,8 +74,8 @@ private:
 };
 
 ImageScoutThread::ImageScoutThread( ImageScoutQueue &queue, QMutex *mutex,
-                                    QAtomicInt &count, 
-                                    QAtomicInt &preloadedCount, 
+                                    QAtomicInt &count,
+                                    QAtomicInt &preloadedCount,
                                     QAtomicInt &skippedCount )
   : m_queue(queue),
     m_mutex(mutex),
@@ -178,7 +178,7 @@ ImageScout::ImageScout(ImageScoutQueue &images,
 {
     if (threads > 0) {
         for (int i = 0; i < threads; i++) {
-            ImageScoutThread *t =  
+            ImageScoutThread *t =
                 new ImageScoutThread( images,
                                       threads > 1 ? &m_mutex : nullptr,
                                       count,

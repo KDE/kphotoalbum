@@ -32,7 +32,7 @@ public:
     explicit SearchBar( KMainWindow* parent );
 
 protected:
-    virtual bool eventFilter( QObject* watched, QEvent* e );
+    bool eventFilter( QObject* watched, QEvent* e ) override;
 
 public slots:
     void reset();

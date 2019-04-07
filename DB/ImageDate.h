@@ -29,6 +29,7 @@ namespace DB
 class ImageDate {
 public:
     ImageDate();
+    ImageDate( const QDate& start, const QDate& end );
     ImageDate( const QDateTime& start, const QDateTime& end );
     ImageDate( int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int hourFrom, int minuteFrom, int secondFrom );
     explicit ImageDate( const QDate& );

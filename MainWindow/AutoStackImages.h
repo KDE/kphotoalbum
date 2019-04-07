@@ -37,7 +37,7 @@ public:
     AutoStackImages( QWidget* parent, const DB::FileNameList& list );
 
 protected slots:
-    virtual void accept();
+    void accept() override;
 
 private:
     QCheckBox* m_matchingMD5;

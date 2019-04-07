@@ -1,7 +1,7 @@
 //krazy:skip
 /**
   \namespace CategoryListView
-  \brief 
+  \brief
 
 **/
 // vi:expandtab:tabstop=4 shiftwidth=4:

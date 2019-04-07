@@ -167,6 +167,16 @@ property_copy( listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnSta
 getValueFunc( QSize,histogramSize,  General,QSize(15,30) )
 getValueFunc( ViewSortType,viewSortType,  General,(int)SortLastUse )
 getValueFunc( AnnotationDialog::MatchType, matchType,  General,(int)AnnotationDialog::MatchFromWordStart )
+getValueFunc( bool, histogramUseLinearScale, General, false)
+
+void SettingsData::setHistogramUseLinearScale( const bool useLinearScale)
+{
+    if ( useLinearScale == histogramUseLinearScale() )
+        return;
+
+    setValue( "General", "histogramUseLinearScale", useLinearScale);
+    emit histogramScaleChanged();
+}
 
 void SettingsData::setHistogramSize( const QSize& size )
 {

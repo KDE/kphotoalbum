@@ -42,11 +42,11 @@ class ImageCollectionSelector :public KIPI::ImageCollectionSelector
 {
 public:
     ImageCollectionSelector(QWidget *parent, Interface *interface);
-    virtual QList<KIPI::ImageCollection> selectedImageCollections() const override;
+    QList<KIPI::ImageCollection> selectedImageCollections() const override;
 
 protected:
     // just fake a selectionChanged event when first shown to make export plugin happy:
-    virtual void showEvent(QShowEvent *event) override;
+    void showEvent(QShowEvent *event) override;
 
 private:
     Interface *m_interface;

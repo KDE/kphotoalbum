@@ -1,0 +1,672 @@
+#!/usr/bin/perl
+# Copyright 2019 Robert Krawitz <rlk@alum.mit.edu>
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public
+# License as published by the Free Software Foundation; either
+# version 2 of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; see the file COPYING.  If not, write to
+# the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+# Boston, MA 02110-1301, USA.
+
+# Maintain KPhotoAlbum index.xml files
+
+use strict;
+use warnings;
+
+use XML::LibXML;
+use DBI;
+use DBD::SQLite::Constants qw/:file_open/;
+use Getopt::Long;
+use Carp("cluck");
+use POSIX;
+
+my (%categories);
+# Map between category name and ID for compressed files
+my (%category_map);
+my (@category_names);
+# This is stored as {category}{member}{groupname}, as members can only be
+# members of one group.
+my (%member_groups);
+# $group_closure{$category}{value}{values...}
+my (%group_closure);
+
+# Global image (for filtering)
+my (%current_image);
+
+my (%exif_data);
+
+my ($opt_index_file);
+my ($opt_filter_file);
+my ($opt_list_type);
+my ($opt_use_exif);
+my ($opt_print_count);
+my ($opt_dryrun);
+my (@opt_exif_vars);
+our ($kpa_filter);
+
+# Needs to be kept up to date with XMLDB/Database.cpp
+my (@standard_vars) = (
+    "file",
+    "label",
+    "description",
+    "startDate",
+    "endDate",
+    "angle",
+    "md5sum",
+    "width",
+    "height",
+    "rating",
+    "stackId",
+    "stackOrder",
+    "videoLength");
+
+my ($rootdir);
+
+my (@exif_vars) = (
+    "Exif_Photo_FocalLength",
+    "Exif_Photo_ExposureTime",
+    "Exif_Photo_ApertureValue",
+    "Exif_Photo_FNumber",
+    "Exif_Photo_Flash",
+    "Exif_Photo_Contrast",
+    "Exif_Photo_Sharpness",
+    "Exif_Photo_Saturation",
+    "Exif_Image_Orientation",
+    "Exif_Photo_MeteringMode",
+    "Exif_Photo_ISOSpeedRatings",
+    "Exif_Photo_ExposureProgram",
+    "Exif_Image_Make",
+    "Exif_Image_Model",
+    "Exif_GPSInfo_GPSVersionID",
+    "Exif_GPSInfo_GPSAltitude",
+    "Exif_GPSInfo_GPSAltitudeRef",
+    "Exif_GPSInfo_GPSMeasureMode",
+    "Exif_GPSInfo_GPSDOP",
+    "Exif_GPSInfo_GPSImgDirection",
+    "Exif_GPSInfo_GPSLatitude",
+    "Exif_GPSInfo_GPSLatitudeRef",
+    "Exif_GPSInfo_GPSLongitude",
+    "Exif_GPSInfo_GPSLongitudeRef",
+    "Exif_GPSInfo_GPSTimeStamp",
+    "Exif_Photo_LensModel"
+    );
+
+my (@all_vars) = (
+    @standard_vars,
+    "mediaType");
+
+sub max_width(\@) {
+    my ($strings) = @_;
+    my ($answer) = 0;
+    map { $answer = length if (length > $answer); } @$strings;
+    return $answer;
+}
+
+sub cols(\@) {
+    my ($strings) = @_;
+    my ($width) = max_width(@$strings) + 2;
+    my ($answer) = floor((80 - 12)/$width);
+    $answer = 1 if ($answer == 0);
+    return $answer;
+}
+
+sub rows(\@) {
+    my ($strings) = @_;
+    my ($cols) = cols(@$strings);
+    return ceil(scalar @$strings / $cols);
+}
+
+sub generate_vars(\@) {
+    my ($strings) = @_;
+    my (@strings) = sort sort map {my $a = $_; $a =~ s/ //g; "\$$a"} @$strings;
+    my ($count) = scalar @strings;
+    my ($width) = max_width(@strings);
+    my ($cols) = cols(@strings);
+    my ($pcols) = $cols;
+    my ($rows) = rows(@strings);
+    my ($full_rows) = $count % $rows;
+    $full_rows = $rows if ($full_rows == 0);
+    my ($answer) = "";
+    foreach my $i (0..$rows - 1) {
+	$pcols-- if ($i == $full_rows);
+	my ($fmt) = "            " . join(" ", map {sprintf("%%-%ds", $width)} (1..$pcols));
+	my (@pvars) = map { $strings[$_]} grep { $_ % $rows == $i; } (0..$count - 1);
+	$answer .= sprintf("$fmt\n", @pvars);
+    }
+    return $answer;
+}
+
+sub usage() {
+    my ($known_vars) = generate_vars(@all_vars);
+    my ($exif_vars) = generate_vars(@exif_vars);
+    my ($usage) = << "FINIS";
+Usage: $0 [options...] [filter]
+
+	Filter a KPhotoAlbum database file for either images files or
+	category values.
+
+	<filter> is a filter, written as a Perl expressions.  Variable
+	names are generated from the attributes.  The supported
+	variables are:
+
+$known_vars
+	The following EXIF attributes may be specified in the same way:
+
+$exif_vars
+	In addition, the following functions are provided to match on
+	categoried information:
+
+	    hasKeyword(\$value)
+	    hasPerson(\$value)
+	    hasPlace(\$value)
+	    hasToken(\$value)
+	    hasAttribute(\$category, \$value)
+	    matchesKeyword(\$pattern)
+	    matchesPerson(\$pattern)
+	    matchesPlace(\$pattern)
+	    matchesToken(\$pattern)
+	    matchesAttribute(\$category, \$pattern)
+
+	The "matches" functions accept Perl regular expressions (see
+	perlre(1)).
+
+	The following options are available:
+
+	-f|--filter-file file	Location of file defining the filter.
+				The filter-file is a Perl fragment; at
+			     	a minimum, it must define `\$kpa_filter'.
+	-d|--db filename	Location of the index file.  Defaults to
+				your normal KPhotoAlbum database file.
+				If you use EXIF filtering, the EXIF data
+				is extracted from exif-info.db.
+	-l|--list attribute     Rather than listing matching files,
+			        this lists all values of the specified
+			        attribute.  If you want to use
+			        a category such as keywords for this
+			        specify ``cat:Keywords'' as appropriate.
+	-c|--count		In combination with --list, prints the
+			        number of matching images for each
+			        value (histogram).
+	--exif			Extract EXIF data in addition to index
+				file information.  Enabled if the filter
+				expression appears to require it.  Normally
+			        not needed.  You can specify --no-exif if
+				you know you don't need EXIF data; this
+				improves performance.
+	--exif-vars=var,...	List of EXIF variables to extract.
+				See above for available variables.
+				Restricting the extracted variables may
+			        improve performance.
+	--dry-run		Print a dry run of the filtering loop,
+				for debugging.
+	-h|--help		Print this message.
+FINIS
+    print STDERR $usage;
+    exit(1);
+}
+
+################################################################
+################################################################
+# Load files ###################################################
+################################################################
+################################################################
+
+
+################################################################
+# Utilities
+################################################################
+
+sub isNode($$) {
+    my ($node, $name) = @_;
+    return ($node->nodeType() == 1 && lc $node->nodeName() eq $name);
+}
+
+sub computeClosure($\@) {
+    my ($category, $members) = @_;
+    my (%answer);
+    foreach my $value (@$members) {
+	map { $answer{$_} = 1;} keys %{$group_closure{$category}{$value}};
+    }
+    return sort keys %answer;
+}
+
+################################################################
+# Categories
+################################################################
+
+sub loadCategories($$) {
+    my ($node, $compressed) = @_;
+    foreach my $child($node->childNodes()) {
+	next if !isNode($child, "category");
+	my ($category) = $child->getAttribute("name");
+	$categories{$category} = {};
+	$category_map{$category} = [];
+	$member_groups{$category} = {};
+	$group_closure{$category} = {};
+	my (@members);
+	foreach my $grandchild ($child->childNodes()) {
+	    next if !isNode($grandchild, "value");
+	    my ($value) = $grandchild->getAttribute("value");
+	    # This works for both compact and original file format
+	    $categories{$category}{$value} = 1;
+	    $category_map{$category}[$grandchild->getAttribute("id")] = $value;
+	    $group_closure{$category}{$value} = {};
+	    $group_closure{$category}{$value}{$value} = 1;
+	}
+    }
+    @category_names = sort keys %category_map;
+}
+
+################################################################
+# Images
+################################################################
+
+# Image options and values for uncompressed files.
+
+sub loadUncompressedOptions(\%) {
+    my ($image) = @_;
+    my (%options);
+    my ($node) = $$image{"__node"};
+    foreach my $child ($node->childNodes()) {
+	next if !isNode($child, "options");
+	my (@members);
+	foreach my $grandchild ($child->childNodes()) {
+	    next if !isNode($grandchild, "option");
+	    my ($category) = $grandchild->getAttribute("name");
+	    foreach my $greatgrandchild ($grandchild->childNodes()) {
+		next if !isNode($greatgrandchild, "value");
+		my ($val) = $greatgrandchild->getAttribute("value");
+		push @members, $val;
+	    }
+	    map { $options{$category}{$_} = 1; } computeClosure($category, @members);
+	}
+    }
+    return \%options;
+}
+
+# Compressed XML files are simpler to parse; there's simply an attribute
+# for each category
+
+sub loadCompressedOptions(\%) {
+    my ($image) = @_;
+    my (%options);
+    foreach my $category (@category_names) {
+	my ($members) = $$image{$category};
+	my (@members);
+	if (defined $members && $members ne '') {
+	    my ($map) = $category_map{$category};
+	    @members = map {$$map[$_]} split(/,/, $members);
+	}
+	$options{$category} = {};
+	map { $options{$category}{$_} = 1; } computeClosure($category, @members);
+    }
+    return \%options;
+}
+
+sub loadOptions() {
+    if (! defined $current_image{"options"}) {
+	if ($current_image{"__compressed"}) {
+	    $current_image{"options"} = loadCompressedOptions(%current_image);
+	} else {
+	    $current_image{"options"} = return loadUncompressedOptions(%current_image);
+	}
+    }
+}
+
+sub hasAttribute($$) {
+    my ($category, $value) = @_;
+    loadOptions();
+    return defined $current_image{"options"}{$category}{$value};
+}
+
+sub hasKeyword($) {
+    my ($value) = @_;
+    return hasAttribute("Keywords", $value);
+}
+
+sub hasPerson($) {
+    my ($value) = @_;
+    return hasAttribute("People", $value);
+}
+
+sub hasPlace($) {
+    my ($value) = @_;
+    return hasAttribute("Places", $value);
+}
+
+sub hasToken($) {
+    my ($value) = @_;
+    return hasAttribute("Token", $value);
+}
+
+sub matchesAttribute($$) {
+    my ($category, $value) = @_;
+    loadOptions();
+    return grep(/$value/, keys %{$current_image{"options"}{$category}}) > 0;
+}
+
+sub matchesKeyword($) {
+    my ($value) = @_;
+    return matchesAttribute("Keywords", $value);
+}
+
+sub matchesPerson($) {
+    my ($value) = @_;
+    return matchesAttribute("People", $value);
+}
+
+sub matchesPlace($) {
+    my ($value) = @_;
+    return matchesAttribute("Places", $value);
+}
+
+sub matchesToken($) {
+    my ($value) = @_;
+    return matchesAttribute("Token", $value);
+}
+
+sub makeVarcode($) {
+    my ($identifier) = @_;
+    my ($varname) = $identifier;
+    $varname =~ s/ //g;
+    return "        my (\$$varname) = \$current_image{\"$identifier\"};";
+}
+
+sub loadImages($$) {
+    my ($node, $compressed) = @_;
+    my ($varcode) = join("\n", map {makeVarcode($_)} @standard_vars);
+    if (! defined $kpa_filter) {
+	$kpa_filter = '1';
+    }
+    my ($code) = << 'EOF';
+{
+    no warnings "uninitialized";
+    no warnings "numeric";
+    my %items_found;
+    my $matched_count = 0;
+    foreach my $child ($node->childNodes()) {
+	next if !isNode($child, "image");
+	%current_image=();
+	$current_image{"__node"} = $child;
+	$current_image{"__compressed"} = $compressed;
+	map { $current_image{$_->nodeName} = $_->value } $child->attributes();
+EOF
+    $code .= "$varcode\n";
+    $code .= << 'EOF';
+	# Restore any attributes defaulted in version 8
+	$current_image{"angle"} = 0 if (! defined $current_image{"angle"});
+	$current_image{"endDate"} = $current_image{"startDate"} if (! defined $current_image{"endDate"});
+	if (! defined $current_image{"label"}) {
+	    my ($label) = $file;
+	    $label =~ s,^.*/(.*)\.[^.]*$,$1,;
+	    $current_image{"label"} = $label;
+	}
+EOF
+    $code .= << 'EOF';
+	my ($mediaType) = defined $videoLength ? "Video" : "Image";
+EOF
+    if ($opt_use_exif) {
+	my ($exifdecl) = join("\n        ", map {"my (\$$_);"} @exif_vars);
+	my ($exifcode) = join("\n	    ", map {"\$$exif_vars[$_] = \$\$row[$_];"} (0..$#exif_vars));
+	$code .= << "EOF";
+	$exifdecl;
+	if (my \$row = \$exif_data{"\$rootdir\$file"}) {
+	    $exifcode
+	}
+EOF
+    }
+    $code .= << "EOF";
+        if ($kpa_filter) {
+	    \$matched_count++;
+EOF
+    if ($opt_list_type) {
+	if ($opt_list_type =~ /cat(egory)?:(.*)/) {
+	    $code .= << "EOF"
+	    loadOptions();
+	    map { \$items_found{\$_}++; } keys \%{\$current_image{"options"}{"$2"}};
+EOF
+	} else {
+	    $code .= "            \$items_found{\$$opt_list_type}++;\n";
+	}
+	$code .= << 'EOF';
+	}
+    }
+EOF
+	if ($opt_print_count) {
+	    $code .= << 'EOF'
+    print join("\n", map {sprintf("%7d %s", $items_found{$_}, $_);} sort keys %items_found), "\n";
+    printf("%7d Total\n", $matched_count);
+EOF
+	} else {
+	    $code .= << 'EOF'
+    print join("\n", sort keys %items_found), "\n";
+EOF
+	}
+    } else {
+	$code .= << 'EOF';
+            print "$file\n";
+        }
+    }
+EOF
+    }
+    $code .= "}\n";
+    if ($opt_dryrun) {
+	print STDERR $code;
+	exit;
+    }
+    eval $code;
+    if ($@) {
+	my $known_vars = join("\n", sort map {my $a = $_; $a =~ s/ //g; "    $a"} @all_vars);
+	die "Filter $kpa_filter failed:\n\n$@\n";
+
+    }
+}
+
+################################################################
+# Member groups
+################################################################
+
+sub loadMemberGroups($$) {
+    my ($node, $compressed) = @_;
+    foreach my $child ($node->childNodes()) {
+	next if !isNode($child, "member");
+	my ($category) = $child->getAttribute("category");
+	my ($groupname) = $child->getAttribute("group-name");
+	if ($compressed) {
+	    my ($members) = $child->getAttribute("members");
+	    if ($members) {
+		my ($map) = $category_map{$category};
+		my (@members) = grep { ! $_ == 0 } split(/,/, $members);
+		map {
+		    if (defined $$map[$_]) {
+			$member_groups{$category}{$$map[$_]} = $groupname;
+		    } else {
+			warn "Unknown keyword ID $_ in group $groupname\n";
+		    }
+		} @members;
+	    }
+	} else {
+	    my ($member) = $child->getAttribute("member");
+	    $member_groups{$category}{$member} = $groupname;
+	}
+    }
+    foreach my $category (sort keys %member_groups) {
+	foreach my $member (keys %{$member_groups{$category}}) {
+	    my ($parent) = $member_groups{$category}{$member};
+	    # Break up any circular member groups
+	    my (%seen_parents);
+	    my ($parentid) = 1;
+	    do {
+		if (defined $seen_parents{$parent}) {
+		    my (%reverse_parents) = reverse %seen_parents;
+		    warn "Circular member group found, members: " . join(" <= ", map { $reverse_parents{$_}} sort keys %reverse_parents) . "\n";
+		    last;
+		}
+		$group_closure{$category}{$member}{$parent} = 1;
+		$seen_parents{$parent} = $parentid++;
+	    } while (defined ($parent = $member_groups{$category}{$parent}));
+	}
+    }
+}
+
+################################################################
+# Top level file loader
+################################################################
+
+sub load_file($) {
+    my ($file) = @_;
+    my ($images);
+    if ($opt_use_exif && @opt_exif_vars) {
+	my (%exif_keys);
+	my (%known_exif_keys);
+	map {$known_exif_keys{$_} = 1;} @exif_vars;
+	foreach my $exif (@opt_exif_vars) {
+	    map { $exif_keys{$_} = 1; } grep {defined $known_exif_keys{$_}}split(/[ ,]+/, $exif);
+	}
+	delete $exif_keys{"filename"};
+	@exif_vars = ("filename", keys %exif_keys);
+    }
+
+    if ($opt_dryrun) {
+	loadImages($images, 1);
+	exit;
+    }
+
+    my $doc = XML::LibXML->load_xml(location => $file);
+    if (! $doc) {
+	die "Can't open $file as a KPhotoAlbum database.\n";
+    }
+
+    my $kpa = ${$doc->findnodes('KPhotoAlbum')}[0];
+    if (! $kpa) {
+	die "$file is not a KPhotoAlbum database.\n";
+    } elsif ($kpa->getAttribute("version") != 7 &&
+	$kpa->getAttribute("version") != 8) {
+	die "kpa-list-images only works with version 7 and 8 files.\n";
+    }
+
+    $rootdir = $file;
+    $rootdir =~ s,[^/]*$,,;
+    if ($opt_use_exif) {
+	my ($querystr) = 'SELECT ' . join(', ', "filename", @exif_vars) . " FROM exif";
+
+	my $exif_db .= "${rootdir}exif-info.db";
+
+	if (! -f $exif_db) {
+	    die "Expected EXIF database at $exif_db, but can't find it.\n"
+	}
+	my $EXIF_DB = DBI->connect("dbi:SQLite:$exif_db", undef, undef, {
+	    sqlite_open_flags => SQLITE_OPEN_READONLY,
+				   });
+	if (! defined $EXIF_DB) {
+	    die "Can't open EXIF database $exif_db.\n"
+	}
+	my $exif_query = $EXIF_DB->prepare($querystr);
+	$exif_query->execute();
+	# This is measured to be considerably (about 15% total,
+	# considerably more for EXIF database alone) than individual
+	# lookups on a prepared query.
+	while (my @row = $exif_query->fetchrow_array) {
+	    my ($filename) = shift @row;
+	    $exif_data{$filename} = \@row;
+	}
+    }
+    my ($compressed) = int $kpa->getAttribute("compressed");
+
+    foreach my $topcn ($kpa->childNodes()) {
+	if (isNode($topcn, "categories")) {
+	    loadCategories($topcn, $compressed);
+	    if (! $opt_print_count && $opt_list_type && $opt_list_type =~ /^cat(egory)?:(.*)/ && !defined $kpa_filter) {
+		$opt_list_type = $2;
+		print join("\n", sort grep(defined $_, @{$category_map{$opt_list_type}})), "\n";
+		exit;
+	    }
+	} elsif (isNode($topcn, "images")) {
+	    $images = $topcn;
+	} elsif (isNode($topcn, "member-groups")) {
+	    loadMemberGroups($topcn, $compressed);
+	} elsif (isNode($topcn, "blocklist")) {
+	} elsif ($topcn->nodeType() == 1) {
+	    warn "Found unknown node " . $topcn->nodeName() . "\n";
+	}
+    }
+    # Load images last so that we can stream them through.
+    loadImages($images, $compressed);
+}
+
+sub get_standard_kpa_index_file() {
+    my ($kpa_config) = $ENV{"HOME"} . "/.config/kphotoalbumrc";
+    open KPACONFIG, "<", "$kpa_config" or return "";
+    my ($imageDBFile) = "";
+    while (<KPACONFIG>) {
+	if (/^imageDBFile=(.*)$/) {
+	    $imageDBFile = $1;
+	    last;
+	}
+    }
+    close KPACONFIG;
+    return $imageDBFile;
+}
+
+my ($do_help);
+
+my (%options) = ("f=s"           => \$opt_filter_file,
+		 "filter-file=s" => \$opt_filter_file,
+		 "d=s"           => \$opt_index_file,
+		 "db=s"          => \$opt_index_file,
+		 "l=s"           => \$opt_list_type,
+		 "list=s"        => \$opt_list_type,
+		 "list-values=s" => \$opt_list_type,
+		 "exif!"         => \$opt_use_exif,
+		 "exif-vars=s"   => \@opt_exif_vars,
+		 "c"             => \$opt_print_count,
+		 "count!"        => \$opt_print_count,
+		 "dryrun!"       => \$opt_dryrun,
+		 "dry-run!"      => \$opt_dryrun,
+		 "h"             => \$do_help,
+		 "help"          => \$do_help,
+    );
+
+Getopt::Long::Configure("bundling", "require_order");
+if (!Getopt::Long::GetOptions(%options) || $do_help) {
+    usage();
+}
+
+if ($opt_filter_file) {
+    if (!($opt_filter_file =~ m,/,)) {
+	$opt_filter_file = "./$opt_filter_file";
+    }
+    my $retval = do $opt_filter_file;
+    if ($@) {
+	die "Cannot process filter file $opt_filter_file: $@\n";
+    } elsif (! defined $retval) {
+	die "Cannot read filter file $opt_filter_file: $!\n";
+    } elsif (! defined $kpa_filter) {
+	die "Filter file $opt_filter_file does not define \$kpa_filter.\n"
+    }
+} elsif ($#ARGV >= 0) {
+    $kpa_filter = $ARGV[0];
+}
+if (! defined $opt_use_exif) {
+    if ((defined $kpa_filter && $kpa_filter =~ /Exif_/) || 
+	(defined $opt_list_type && $opt_list_type =~ /Exif_/)) {
+	$opt_use_exif = 1;
+    } else {
+	$opt_use_exif = 0;
+    }
+}
+my ($index_file);
+if ($opt_index_file) {
+    $index_file = $opt_index_file;
+} else {
+    $index_file = get_standard_kpa_index_file();
+}
+load_file($index_file);

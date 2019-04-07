@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -39,16 +39,18 @@ class MD5Map;
 class MemberMap;
 class ImageSearchInfo;
 class FileName;
+class UIDelegate;
 
 class ImageDB  :public QObject {
     Q_OBJECT
 
 public:
     static ImageDB* instance();
-    static void setupXMLDB( const QString& configFile );
+    static void setupXMLDB( const QString &configFile, UIDelegate &delegate );
     static void deleteInstance();
 
     DB::FileNameSet imagesWithMD5Changed();
+    UIDelegate& uiDelegate() const;
 
 public slots:
     void setDateRange( const ImageDate&, bool includeFuzzyCounts );
@@ -62,13 +64,14 @@ protected:
     ImageDate m_selectionRange;
     bool m_includeFuzzyCounts;
     ImageInfoList m_clipboard;
+    UIDelegate &m_UI;
 
 private:
     static void connectSlots();
     static ImageDB* s_instance;
 
 protected:
-    ImageDB();
+    ImageDB( UIDelegate &delegate);
 
 public:
     static QString NONE();

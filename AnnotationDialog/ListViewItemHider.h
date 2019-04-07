@@ -41,7 +41,7 @@ public:
     ListViewTextMatchHider( const QString& text, const MatchType mt, QTreeWidget* listView );
 
 protected:
-    virtual bool shouldItemBeShown( QTreeWidgetItem* );
+    bool shouldItemBeShown( QTreeWidgetItem* ) override;
 
 private:
     QString m_text;
@@ -54,7 +54,7 @@ public:
     explicit ListViewCheckedHider( QTreeWidget* );
 
 protected:
-    virtual bool shouldItemBeShown( QTreeWidgetItem* );
+    bool shouldItemBeShown( QTreeWidgetItem* ) override;
 };
 
 }

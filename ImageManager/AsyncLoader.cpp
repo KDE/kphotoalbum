@@ -25,7 +25,7 @@
 #include <BackgroundTaskManager/JobManager.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <MainWindow/FeatureDialog.h>
-#include <Utilities/Util.h>
+#include <Utilities/VideoUtil.h>
 
 #include "CancelEvent.h"
 #include "ImageEvent.h"
@@ -144,7 +144,7 @@ void ImageManager::AsyncLoader::loadImage( ImageRequest* request )
             return; // We are currently loading it, calm down and wait please ;-)
         }
     }
-            
+
     // if request is "fresh" (not yet pending):
     if (m_loadList.addRequest( request ))
         m_sleepers.wakeOne();

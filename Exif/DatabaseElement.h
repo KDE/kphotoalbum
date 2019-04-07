@@ -68,10 +68,10 @@ class StringExifElement :public DatabaseElement
 {
 public:
     explicit StringExifElement( const char* tag );
-    virtual QString columnName() const override;
+    QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    virtual QVariant valueFromExif( Exiv2::ExifData& data ) const override;
+    QVariant valueFromExif( Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;
@@ -81,10 +81,10 @@ class IntExifElement :public DatabaseElement
 {
 public:
     explicit IntExifElement( const char* tag );
-    virtual QString columnName() const override;
+    QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    virtual QVariant valueFromExif( Exiv2::ExifData& data ) const override;
+    QVariant valueFromExif( Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;
@@ -103,10 +103,10 @@ class RationalExifElement :public DatabaseElement
 {
 public:
     explicit RationalExifElement( const char* tag );
-    virtual QString columnName() const override;
+    QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    virtual QVariant valueFromExif( Exiv2::ExifData& data ) const override;
+    QVariant valueFromExif( Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;
@@ -122,10 +122,10 @@ class LensExifElement :public DatabaseElement
 {
 public:
     explicit LensExifElement();
-    virtual QString columnName() const override;
+    QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    virtual QVariant valueFromExif( Exiv2::ExifData& data ) const override;
+    QVariant valueFromExif( Exiv2::ExifData& data ) const override;
 
 private:
     const char* m_tag;

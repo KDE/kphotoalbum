@@ -1,5 +1,5 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
-  
+/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
+
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
    published by the Free Software Foundation; either version 2 of
@@ -7,18 +7,19 @@
    accepted by the membership of KDE e.V. (or its successor approved
    by the membership of KDE e.V.), which shall act as a proxy
    defined in Section 14 of version 3 of the license.
-   
+
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "UpdateVideoThumbnail.h"
-#include <Utilities/Util.h>
+#include <Utilities/FileUtil.h>
+#include <Utilities/VideoUtil.h>
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <ImageManager/ThumbnailCache.h>
 #include "Window.h"
@@ -62,7 +63,7 @@ void UpdateVideoThumbnail::update(const DB::FileName &fileName, int direction)
 
     const DB::FileName newImageName = nextExistingImage(fileName, frame, direction);
 
-    Utilities::copy(newImageName.absolute(),baseImageName.absolute());
+    Utilities::copyOrOverwrite(newImageName.absolute(),baseImageName.absolute());
 
     QImage image = QImage(newImageName.absolute()).scaled(ThumbnailView::CellGeometry::preferredIconSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation );
     ImageManager::ThumbnailCache::instance()->insert(fileName,image);

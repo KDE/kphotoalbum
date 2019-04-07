@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -16,7 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Delegate.h"
-#include "Utilities/Util.h"
 #include "Settings/SettingsData.h"
 #include "ThumbnailWidget.h"
 #include "CellGeometry.h"
@@ -46,7 +45,7 @@ void ThumbnailView::Delegate::paintCellBackground( QPainter* painter, const QRec
     painter->fillRect( rect, QColor(Settings::SettingsData::instance()->backgroundColor()) );
 
     if (widget()->isGridResizing() || Settings::SettingsData::instance()->thumbnailDisplayGrid()) {
-        painter->setPen( Utilities::contrastColor( Settings::SettingsData::instance()->backgroundColor() ) );
+        painter->setPen( contrastColor( Settings::SettingsData::instance()->backgroundColor() ) );
         // left and right of frame
         painter->drawLine( rect.right(), rect.top(), rect.right(), rect.bottom() );
 
@@ -113,7 +112,7 @@ void ThumbnailView::Delegate::paintCellText( QPainter* painter, const QStyleOpti
 
     QString title = index.data( Qt::DisplayRole ).value<QString>();
     QRect rect = cellGeometryInfo()->cellTextGeometry();
-    painter->setPen( Utilities::contrastColor( Settings::SettingsData::instance()->backgroundColor() ) );
+    painter->setPen( contrastColor( Settings::SettingsData::instance()->backgroundColor() ) );
 
     //Qt::TextWordWrap just in case, if the text's width is wider than the cell's width
     painter->drawText( rect.translated( option.rect.topLeft() ), Qt::AlignCenter | Qt::TextWordWrap, title );
@@ -168,9 +167,9 @@ void ThumbnailView::Delegate::paintBoundingRect( QPainter* painter, const QRect&
             double alpha = (0.5 - 0.1*i);
             double inverseAlpha = 1 - alpha;
 
-            color = QColor( foreground.red() * alpha + backround.red() * inverseAlpha,
-                            foreground.green() * alpha + backround.green() * inverseAlpha,
-                            foreground.blue() * alpha + backround.blue() * inverseAlpha );
+            color = QColor( int(foreground.red() * alpha + backround.red() * inverseAlpha),
+                            int(foreground.green() * alpha + backround.green() * inverseAlpha),
+                            int(foreground.blue() * alpha + backround.blue() * inverseAlpha) );
         }
 
         QPen pen( color );

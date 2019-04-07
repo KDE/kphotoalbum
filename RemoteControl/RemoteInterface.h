@@ -37,7 +37,7 @@ class RemoteInterface : public QObject, public ImageManager::ImageClientInterfac
     Q_OBJECT
 public:
     static RemoteInterface& instance();
-    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image);
+    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
     bool requestStillNeeded(const DB::FileName& fileName);
     void listen(QHostAddress address=QHostAddress::Any);
     void stopListening();

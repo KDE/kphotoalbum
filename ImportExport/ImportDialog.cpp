@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -83,7 +83,7 @@ bool ImportDialog::exec( KimFileReader* kimFileReader, const QUrl &kimFileURL )
 
 bool ImportDialog::readFile(const QByteArray& data)
 {
-    XMLDB::ReaderPtr reader = XMLDB::ReaderPtr(new XMLDB::XmlReader);
+    XMLDB::ReaderPtr reader = XMLDB::ReaderPtr(new XMLDB::XmlReader(DB::ImageDB::instance()->uiDelegate()));
     reader->addData(data);
 
     XMLDB::ElementInfo info = reader->readNextStartOrStopElement(QString::fromUtf8("KimDaBa-export"));

@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2013-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -16,12 +16,14 @@
    Boston, MA 02110-1301, USA.
 */
 #include "XmlReader.h"
+
+#include <DB/UIDelegate.h>
 #include <KLocalizedString>
-#include <KMessageBox>
 
 namespace XMLDB {
 
-XmlReader::XmlReader()
+XmlReader::XmlReader(DB::UIDelegate &ui)
+    : m_ui(ui)
 {
 }
 
@@ -92,7 +94,11 @@ void XmlReader::reportError(const QString & text)
     if ( hasError() )
         message += i18n("<p>Additional error information:<nl/><message>%1</message></p>",errorString());
 
-    KMessageBox::error(nullptr, message, i18n( "Error while reading database file" ));
+    m_ui.error( QString::fromUtf8("XmlReader: error in line %1, column %2 (%3)")
+                .arg(lineNumber()).arg(columnNumber()).arg(errorString())
+                , message
+                , i18n("Error while reading database file")
+                );
     exit(-1);
 }
 

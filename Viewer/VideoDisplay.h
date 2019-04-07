@@ -36,8 +36,8 @@ class VideoDisplay :public Viewer::AbstractDisplay
 
 public:
     explicit VideoDisplay( QWidget* parent );
-    ~VideoDisplay();
-    virtual bool setImage( DB::ImageInfoPtr info, bool forward ) override;
+    ~VideoDisplay() override;
+    bool setImage( DB::ImageInfoPtr info, bool forward ) override;
     bool isPaused() const;
     bool isPlaying() const;
     QImage screenShoot();

@@ -31,15 +31,15 @@ class TextDisplay :public Viewer::AbstractDisplay {
 Q_OBJECT
 public:
     explicit TextDisplay( QWidget* parent );
-    bool setImage( DB::ImageInfoPtr info, bool forward );
+    bool setImage( DB::ImageInfoPtr info, bool forward ) override;
     void setText( const QString text );
 
 public slots:
     /* zooming doesn't make sense for textual display */
-    void zoomIn() {}
-    void zoomOut() {}
-    void zoomFull() {}
-    void zoomPixelForPixel() {}
+    void zoomIn() override {}
+    void zoomOut() override {}
+    void zoomFull() override {}
+    void zoomPixelForPixel() override {}
 
 private:
     QLabel *m_text;

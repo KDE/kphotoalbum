@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -101,7 +101,7 @@ namespace XMLDB {
         friend class FileReader;
         friend class FileWriter;
 
-        Database( const QString& configFile );
+        Database(const QString &configFile, DB::UIDelegate &delegate );
         void forceUpdate( const DB::ImageInfoList& );
 
         QString m_fileName;

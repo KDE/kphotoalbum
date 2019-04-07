@@ -53,6 +53,7 @@ private:
     QSpinBox* m_useRawThumbnailWidth;
     QSpinBox* m_useRawThumbnailHeight;
     QCheckBox* m_showHistogram;
+    QCheckBox* m_histogramUseLinearScale;
     QSpinBox* m_barWidth;
     QSpinBox* m_barHeight;
     QCheckBox* m_showSplashScreen;

@@ -40,7 +40,7 @@ public:
     explicit CompletableLineEdit( ListSelect* ls, QWidget *parent );
     void setListView( QTreeWidget* );
     void setMode( UsageMode mode );
-    virtual void keyPressEvent( QKeyEvent* ev );
+    void keyPressEvent( QKeyEvent* ev ) override;
 
 protected:
     QTreeWidgetItem* findItemInListView( const QString& startWith );

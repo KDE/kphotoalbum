@@ -28,7 +28,7 @@
 #include <Exif/Database.h>
 #include <Settings/SettingsData.h>
 #include <Utilities/StringSet.h>
-#include <Utilities/Util.h>
+#include <Utilities/FileNameUtil.h>
 
 #include <QFile>
 #include <QFileInfo>
@@ -38,6 +38,7 @@ using namespace DB;
 
 ImageInfo::ImageInfo() :m_null( true ), m_rating(-1), m_stackId(0), m_stackOrder(0)
     , m_videoLength(-1)
+    , m_isMatched( false ), m_matchGeneration( -1 )
     , m_locked( false ), m_dirty( false ), m_delaySaving( false )
 {
 }
@@ -47,6 +48,7 @@ ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExi
     :  m_imageOnDisk( YesOnDisk ), m_null( false ), m_size( -1, -1 ), m_type( type )
       , m_rating(-1), m_stackId(0), m_stackOrder(0)
       , m_videoLength(-1)
+      , m_isMatched( false ), m_matchGeneration( -1 )
       , m_locked(false), m_delaySaving( true )
 {
     QFileInfo fi( fileName.absolute() );
@@ -65,6 +67,26 @@ ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExi
 
     m_dirty = false;
     m_delaySaving = false;
+}
+
+void ImageInfo::setIsMatched(bool isMatched)
+{
+    m_isMatched = isMatched;
+}
+
+bool ImageInfo::isMatched() const
+{
+    return m_isMatched;
+}
+
+void ImageInfo::setMatchGeneration(int matchGeneration)
+{
+    m_matchGeneration = matchGeneration;
+}
+
+int ImageInfo::matchGeneration() const
+{
+    return m_matchGeneration;
 }
 
 /** Change delaying of saving changes.
@@ -620,6 +642,27 @@ void DB::ImageInfo::removeExtraData ()
 
 void ImageInfo::merge(const ImageInfo &other)
 {
+    // Merge date
+    if ( other.date() != m_date)
+    {
+        // a fuzzy date has been set by the user and therefore "wins" over an exact date.
+        // two fuzzy dates can be merged
+        // two exact dates should ideally be cross-checked with Exif information in the file.
+        // Nevertheless, we merge them into a fuzzy date to avoid the complexity of checking the file.
+        if (other.date().isFuzzy())
+        {
+            if (m_date.isFuzzy())
+                m_date.extendTo(other.date());
+            else
+                m_date = other.date();
+        }
+        else if (!m_date.isFuzzy())
+        {
+            m_date.extendTo(other.date());
+        }
+        // else: keep m_date
+    }
+
     // Merge description
     if ( !other.description().isEmpty() ) {
         if ( m_description.isEmpty() )
@@ -628,7 +671,7 @@ void ImageInfo::merge(const ImageInfo &other)
             m_description += QString::fromUtf8("\n-----------\n") + other.m_description;
     }
 
-    // Clear untagged tag if one of the images was untagged
+    // Clear untagged tag if only one of the images was untagged
     const QString untaggedCategory = Settings::SettingsData::instance()->untaggedCategory();
     const QString untaggedTag = Settings::SettingsData::instance()->untaggedTag();
     const bool isCompleted = !m_categoryInfomation[untaggedCategory].contains(untaggedTag) || !other.m_categoryInfomation[untaggedCategory].contains(untaggedTag);
@@ -640,7 +683,7 @@ void ImageInfo::merge(const ImageInfo &other)
         m_categoryInfomation[key].unite(other.m_categoryInfomation[key]);
     }
 
-    // Clear untagged tag if one of the images was untagged
+    // Clear untagged tag if only one of the images was untagged
     if (isCompleted)
         m_categoryInfomation[untaggedCategory].remove(untaggedTag);
 

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -17,18 +17,25 @@
 */
 #ifndef NUMBEREDBACKUP_H
 #define NUMBEREDBACKUP_H
-#include <qstringlist.h>
+#include <QStringList>
+
+namespace DB {
+class UIDelegate;
+}
 
 namespace XMLDB {
     class NumberedBackup
     {
     public:
+        explicit NumberedBackup( DB::UIDelegate &ui );
         void makeNumberedBackup();
     protected:
         int getMaxId() const;
         QStringList backupFiles() const;
         int idForFile( const QString& fileName, bool& OK ) const;
         void deleteOldBackupFiles();
+    private:
+        DB::UIDelegate &m_ui;
     };
 }
 

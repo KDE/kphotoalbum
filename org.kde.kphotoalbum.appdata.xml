@@ -10,6 +10,8 @@
   <name xml:lang="de">KPhotoAlbum</name>
   <name xml:lang="en-GB">KPhotoAlbum</name>
   <name xml:lang="es">KPhotoAlbum</name>
+  <name xml:lang="eu">KPhotoAlbum</name>
+  <name xml:lang="fi">KPhotoAlbum</name>
   <name xml:lang="fr">KPhotoAlbum</name>
   <name xml:lang="gl">KPhotoAlbum</name>
   <name xml:lang="id">KPhotoAlbum</name>
@@ -25,15 +27,18 @@
   <name xml:lang="uk">KPhotoAlbum</name>
   <name xml:lang="x-test">xxKPhotoAlbumxx</name>
   <name xml:lang="zh-CN">KPhotoAlbum</name>
+  <name xml:lang="zh-TW">KPhotoAlbum</name>
   <summary>KDE image management software</summary>
   <summary xml:lang="ca">Programari per a gestionar les imatges al KDE</summary>
   <summary xml:lang="ca-valencia">Programari per a gestionar les imatges al KDE</summary>
   <summary xml:lang="de">KDE-Bildverwaltungssoftware</summary>
   <summary xml:lang="en-GB">KDE image management software</summary>
   <summary xml:lang="es">Software de gestión de imágenes para KDE</summary>
+  <summary xml:lang="eu">KDEn irudiak kudeatzeko softwarea</summary>
+  <summary xml:lang="fi">KDE:n kuvanhallintaohjelma</summary>
   <summary xml:lang="fr">Logiciel de gestion d'images KDE</summary>
   <summary xml:lang="gl">Software de xestión de imaxes de KDE</summary>
-  <summary xml:lang="id">Perangkat lunak pengelolaan image KDE</summary>
+  <summary xml:lang="id">Software pengelolaan image KDE</summary>
   <summary xml:lang="it">Software KDE per la gestione delle immagini</summary>
   <summary xml:lang="nl">Software voor beheer van afbeeldingen</summary>
   <summary xml:lang="pl">Oprogramowanie do zarządzania obrazami w KDE</summary>
@@ -44,6 +49,7 @@
   <summary xml:lang="tr">KDE resim yönetim yazılımı</summary>
   <summary xml:lang="uk">Програма для керування зображеннями у KDE</summary>
   <summary xml:lang="x-test">xxKDE image management softwarexx</summary>
+  <summary xml:lang="zh-TW">KDE 圖片管理軟體</summary>
   <description>
     <p>KPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.</p>
     <p xml:lang="ca">El KPhotoAlbum és una aplicació per etiquetar i gestionar una col·lecció de fotografies i fer-les fàcils de trobar.</p>
@@ -51,6 +57,8 @@
     <p xml:lang="de">KPhotoalbum ist eine Anwendung zum verschlagworten, verwalten und durchsuchen Ihrer Fotosammlung.</p>
     <p xml:lang="en-GB">KPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.</p>
     <p xml:lang="es">KPhotoAlbum es una aplicación para etiquetar y gestionar una colección de fotografías que permite realizar búsquedas.</p>
+    <p xml:lang="eu">KPhotoAlbum argazki bilduma bat etiketatu, kudeatu eta bilagarri egiteko aplikazio bat da.</p>
+    <p xml:lang="fi">KPhotoAlbum on sovellus valokuvakokoelmien tunnistetietojen hallintaan ja etsimiseen.</p>
     <p xml:lang="fr">KPhotoAlbum est une application permettant de gérer une collection de photos, en y définissant des balises et en y effectuant des recherches.</p>
     <p xml:lang="gl">KPhotoAlbum é un aplicativo para etiquetar e xestionar unha colección de fotos e permitir buscar nela.</p>
     <p xml:lang="id">KPhotoAlbum adalah sebuah aplikasi untuk penandaan dan pengelolaan sebuah koleksi foto dan membuatnya dapat dicari.</p>
@@ -64,6 +72,7 @@
     <p xml:lang="tr">KPhotoAlbum resim koleksiyonunu etiketlemek ve yöneten ve onu aranabilir yapan için bir uygulamadır.</p>
     <p xml:lang="uk">KPhotoAlbum — програма для створення міток у збірці фотографій та керування збіркою із можливостями пошуку зображень.</p>
     <p xml:lang="x-test">xxKPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.xx</p>
+    <p xml:lang="zh-TW">KPhotoAlbum 是個能標籤和管理圖片集合和讓圖片集合能被搜尋的應用程式。</p>
   </description>
   <screenshots>
     <screenshot type="default">
@@ -74,14 +83,20 @@
       <caption xml:lang="cs">Hlavní obrazovka pro KPhotoAlbum</caption>
       <caption xml:lang="en-GB">The main screen in KPhotoAlbum</caption>
       <caption xml:lang="es">La ventana principal de KPhotoAlbum</caption>
+      <caption xml:lang="eu">KPhotoAlbum: pantaila nagusia</caption>
+      <caption xml:lang="fi">KPhotoAlbumin päänäkymä</caption>
       <caption xml:lang="fr">L'écran principal de KPhotoAlbum</caption>
+      <caption xml:lang="gl">A pantalla principal de KPhotoAlbum</caption>
+      <caption xml:lang="id">Layar utama di KPhotoAlbum</caption>
       <caption xml:lang="it">La schermata principale in KPhotoAlbum</caption>
       <caption xml:lang="nl">Het hoofdscherm in KPhotoAlbum</caption>
+      <caption xml:lang="pl">Ekran główny w KPhotoAlbum</caption>
       <caption xml:lang="pt">O ecrã principal no KPhotoAlbum</caption>
       <caption xml:lang="pt-BR">A tela principal do KPhotoAlbum</caption>
       <caption xml:lang="sv">Huvudskärmen i Kfotoalbum</caption>
       <caption xml:lang="uk">Знімок головного вікна KPhotoAlbum</caption>
       <caption xml:lang="x-test">xxThe main screen in KPhotoAlbumxx</caption>
+      <caption xml:lang="zh-TW">KPhotoAlbum 中的主螢幕</caption>
     </screenshot>
   </screenshots>
   <url type="homepage">http://kphotoalbum.org</url>

@@ -30,7 +30,7 @@ class JobInterface : public JobInfo
     Q_OBJECT
 public:
     explicit JobInterface(BackgroundTaskManager::Priority);
-    virtual ~JobInterface();
+    ~JobInterface() override;
     void start();
     void addDependency(JobInterface* job);
 

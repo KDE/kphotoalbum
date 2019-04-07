@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -17,7 +17,6 @@
 */
 
 #include "Category.h"
-#include <kmessagebox.h>
 #include <QDir>
 #include <QFileInfo>
 #include <Settings/SettingsData.h>
@@ -26,10 +25,11 @@
 #include <KLocalizedString>
 #include "DB/ImageDB.h"
 #include "DB/MemberMap.h"
+#include <DB/UIDelegate.h>
 #include "CategoryItem.h"
 #include <QPixmap>
 #include <QIcon>
-#include <Utilities/Util.h>
+#include <Utilities/ImageUtil.h>
 
 using Utilities::StringSet;
 
@@ -148,7 +148,7 @@ QPixmap DB::Category::categoryImage( const QString& category, QString member, in
         else
             img = icon( qMax(width,height) ).toImage();
     }
-    res = QPixmap::fromImage( Utilities::scaleImage(img, width, height, Qt::KeepAspectRatio) );
+    res = QPixmap::fromImage( Utilities::scaleImage(img, QSize(width, height), Qt::KeepAspectRatio) );
 
     QPixmapCache::insert( key, res );
     return res;
@@ -164,14 +164,22 @@ void DB::Category::setCategoryImage( const QString& category, QString member, co
     if ( !fi.exists() ) {
         bool ok = QDir().mkdir( dir );
         if ( !ok ) {
-            KMessageBox::error( nullptr, i18n("Unable to create directory '%1'.", dir ), i18n("Unable to Create Directory") );
+            DB::ImageDB::instance()->uiDelegate().error(
+                        QString::fromLatin1("Unable to create CategoryImages directory!")
+                        , i18n("Unable to create directory '%1'.", dir )
+                        , i18n("Unable to Create Directory")
+                        );
             return;
         }
     }
     QString fileName = fileForCategoryImage( category, member );
     ok = image.save( fileName, "JPEG" );
     if ( !ok ) {
-        KMessageBox::error( nullptr, i18n("Error when saving image '%1'.",fileName), i18n("Error Saving Image") );
+        DB::ImageDB::instance()->uiDelegate().error(
+                    QString::fromLatin1("Unable to save category image '%1'!").arg(fileName)
+                    , i18n("Error when saving image '%1'.",fileName)
+                    , i18n("Error Saving Image")
+                    );
         return;
     }
 

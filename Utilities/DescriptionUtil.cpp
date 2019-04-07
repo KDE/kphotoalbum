@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -36,13 +36,13 @@
  * If the result already contains something, a HTML newline is added first.
  * To be used in createInfoText().
  */
-static void AddNonEmptyInfo(const QString &label, const QString &info,
+static void AddNonEmptyInfo(const QString &label, const QString &infoText,
                             QString *result) {
-    if (info.isEmpty())
+    if (infoText.isEmpty())
         return;
     if (!result->isEmpty())
         *result += QString::fromLatin1("<br/>");
-    result->append(label).append(info);
+    result->append(label).append(infoText);
 }
 
 /**
@@ -75,23 +75,24 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         // Do not add -1 x -1 text
         if (imageSize.width() >= 0 && imageSize.height() >= 0) {
             const double megapix = imageSize.width() * imageSize.height() / 1000000.0;
-            QString info = i18nc("width x height","%1x%2"
+            QString infoText = i18nc("width x height","%1x%2"
                 ,QString::number(imageSize.width())
                 ,QString::number(imageSize.height()));
             if (megapix > 0.05) {
-                info += i18nc("short for: x megapixels"," (%1MP)"
+                infoText += i18nc("short for: x megapixels"," (%1MP)"
                     ,QString::number(megapix, 'f', 1));
             }
             const double aspect = (double) imageSize.width() / (double) imageSize.height();
-            if (aspect > 1)
-                info += i18nc("aspect ratio"," (%1:1)"
+            // 0.995 - 1.005 can still be considered quadratic
+            if (aspect > 1.005)
+                infoText += i18nc("aspect ratio"," (%1:1)"
                               ,QLocale::system().toString(aspect, 'f', 2));
-            else if (aspect >= 0.995 && aspect < 1.005)
-                info += i18nc("aspect ratio"," (1:1)");
+            else if (aspect >= 0.995)
+                infoText += i18nc("aspect ratio"," (1:1)");
             else
-                info += i18nc("aspect ratio"," (1:%1)"
+                infoText += i18nc("aspect ratio"," (1:%1)"
                               ,QLocale::system().toString(1.0/aspect, 'f', 2));
-            AddNonEmptyInfo(i18n("<b>Image Size: </b> "), info, &result);
+            AddNonEmptyInfo(i18n("<b>Image Size: </b> "), infoText, &result);
         }
     }
 

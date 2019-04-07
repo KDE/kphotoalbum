@@ -22,15 +22,27 @@
 #include "DB/ImageInfo.h"
 #include "Settings/SettingsData.h"
 #include "Utilities/StringSet.h"
-#include "Utilities/Util.h"
 
 #include <QFileInfo>
 #include <QFile>
+#include <QTextCodec>
 
 #include <exiv2/image.hpp>
-#include <exiv2/exif.hpp>
+#include <exiv2/exv_conf.h>
+#include <exiv2/version.hpp>
 
 using namespace Exif;
+
+namespace {
+QString cStringWithEncoding( const char *c_str, const QString& charset )
+{
+    QTextCodec* codec = QTextCodec::codecForName( charset.toLatin1() );
+    if (!codec)
+        codec = QTextCodec::codecForLocale();
+    return codec->toUnicode( c_str );
+}
+
+} // namespace
 
 Info* Info::s_instance = nullptr;
 
@@ -52,7 +64,7 @@ QMap<QString, QStringList> Info::info( const DB::FileName& fileName, StringSet w
 
                 std::ostringstream stream;
                 stream << *i;
-                QString str( Utilities::cStringWithEncoding( stream.str().c_str(), charset ) );
+                QString str( cStringWithEncoding( stream.str().c_str(), charset ) );
                 result[ text ] += str;
             }
         }
@@ -68,7 +80,7 @@ QMap<QString, QStringList> Info::info( const DB::FileName& fileName, StringSet w
 
                 std::ostringstream stream;
                 stream << *i;
-                QString str( Utilities::cStringWithEncoding( stream.str().c_str(), charset ) );
+                QString str( cStringWithEncoding( stream.str().c_str(), charset ) );
                 result[ text ] += str;
             }
         }

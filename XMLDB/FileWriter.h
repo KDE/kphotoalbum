@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -23,7 +23,6 @@
 
 #include <DB/ImageInfoPtr.h>
 
-class QWidget;
 class QXmlStreamWriter;
 
 namespace XMLDB
@@ -49,9 +48,6 @@ protected:
     //void saveSettings(QXmlStreamWriter&);
 
 private:
-    // The parent widget information dialogs are displayed in.
-    QWidget *messageParent();
-
     Database* const m_db;
     QString areaToString(QRect area) const;
 };

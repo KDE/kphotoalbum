@@ -35,15 +35,15 @@ public:
 
     explicit ImageCollection( Type tp );
 
-    virtual QString name() override;
-    virtual QList<QUrl> images() override;
+    QString name() override;
+    QList<QUrl> images() override;
 
     // FIXME: url() should not called unless isDirectory() is true
     //        therefore, we should also to implement isDirectory
-    virtual QUrl url() override;
-    virtual QUrl uploadUrl() override;
-    virtual QUrl uploadRootUrl() override;
-    virtual QString uploadRootName() override;
+    QUrl url() override;
+    QUrl uploadUrl() override;
+    QUrl uploadRootUrl() override;
+    QString uploadRootName() override;
     // isDirectory
 
 protected:

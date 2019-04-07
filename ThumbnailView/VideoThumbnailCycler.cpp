@@ -20,7 +20,7 @@
 #include "VideoThumbnailCycler.h"
 #include <DB/ImageInfoPtr.h>
 #include <DB/ImageInfo.h>
-#include <Utilities/Util.h>
+#include <Utilities/VideoUtil.h>
 #include <QTimer>
 #include <ImageManager/VideoThumbnails.h>
 #include "ThumbnailModel.h"

@@ -32,7 +32,7 @@ class JobModel : public QAbstractTableModel
     Q_OBJECT
 public:
     explicit JobModel(QObject *parent = nullptr);
-    ~JobModel();
+    ~JobModel() override;
     int rowCount(const QModelIndex&) const override;
     int columnCount(const QModelIndex&) const override;
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;

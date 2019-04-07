@@ -29,7 +29,7 @@ class RemoteImageRequest : public ImageManager::ImageRequest
 {
 public:
     RemoteImageRequest(const DB::FileName& fileName, const QSize& size, int angle, ViewType type, RemoteInterface* client);
-    virtual bool stillNeeded() const;
+    bool stillNeeded() const override;
     ViewType type() const;
 
 private:

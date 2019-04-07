@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -84,25 +84,27 @@ QMap<QString, DB::CategoryClassification> XMLDB::Database::classify( const DB::I
         noMatchInfo.setCategoryMatchText( category, QString::fromLatin1( "%1 & %2" ).arg(currentMatchTxt).arg(DB::ImageDB::NONE()) );
 
     // Iterate through the whole database of images.
-    for( DB::ImageInfoListConstIterator it = m_images.constBegin(); it != m_images.constEnd(); ++it ) {
-        bool match = ( (*it)->mediaType() & typemask ) && !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
+    for (const auto &imageInfo : m_images)
+    {
+        bool match = ( (imageInfo)->mediaType() & typemask ) && !(imageInfo)->isLocked() && info.match( imageInfo ) && rangeInclude( imageInfo );
         if ( match ) { // If the given image is currently matched.
 
             // Now iterate through all the categories the current image
             // contains, and increase them in the map mapping from category
             // to count.
-            StringSet items = (*it)->itemsOfCategory(category);
+            StringSet items = (imageInfo)->itemsOfCategory(category);
             counter.count( items );
-            for( StringSet::const_iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
-                if ( !alreadyMatched.contains(*it2) ) // We do not want to match "Jesper & Jesper"
+            for (const auto &categoryName: items)
+            {
+                if ( !alreadyMatched.contains(categoryName) ) // We do not want to match "Jesper & Jesper"
                 {
-                    map[*it2].count++;
-                    map[*it2].range.extendTo((*it)->date());
+                    map[categoryName].count++;
+                    map[categoryName].range.extendTo((imageInfo)->date());
                 }
             }
 
             // Find those with no other matches
-            if ( noMatchInfo.match( *it ) )
+            if ( noMatchInfo.match( imageInfo ) )
                 map[DB::ImageDB::NONE()].count++;
         }
     }

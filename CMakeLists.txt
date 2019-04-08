@@ -166,10 +166,12 @@ set(libThumbnailView_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/enums.cpp
     )
 
-set(libPlugins_SRCS)
+set(libPlugins_SRCS
+    ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/documentation.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/Logging.cpp
+    )
 if(KF5Kipi_FOUND)
-    set(libPlugins_SRCS
-        ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/documentation.h
+    set(libPlugins_SRCS ${libPlugins_SRCS}
         ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/Interface.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageCollection.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageInfo.cpp
@@ -178,7 +180,11 @@ if(KF5Kipi_FOUND)
         ${CMAKE_CURRENT_SOURCE_DIR}/Settings/PluginsPage.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/UploadWidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/UploadImageCollection.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/Logging.cpp
+        )
+endif()
+if(KF5Purpose_FOUND)
+    set(libPlugins_SRCS ${libPlugins_SRCS}
+        ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/PurposeMenu.cpp
         )
 endif()
 
@@ -515,7 +521,7 @@ if(KF5Kipi_FOUND)
     target_link_libraries(kphotoalbum KF5::Kipi)
 endif()
 if(KF5Purpose_FOUND)
-    target_link_libraries(kphotoalbum KF5::Purpose)
+    target_link_libraries(kphotoalbum KF5::Purpose KF5::PurposeWidgets)
 endif()
 
 if(KF5KDcraw_FOUND)

@@ -93,6 +93,9 @@
 #ifdef HASKIPI
 #  include <Plugins/Interface.h>
 #endif
+#ifdef KF5Purpose_FOUND
+#  include <Plugins/PurposeMenu.h>
+#endif
 #include <RemoteControl/RemoteInterface.h>
 #include <Settings/SettingsData.h>
 #include <Settings/SettingsDialog.h>
@@ -1471,6 +1474,11 @@ void MainWindow::Window::setupPluginMenu()
         return; // This is no good, but lets try and continue.
     }
 
+#ifdef KF5Purpose_FOUND
+    Plugins::PurposeMenu *purposeMenu = new Plugins::PurposeMenu(menu);
+    connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::selectionChanged,
+            purposeMenu, &Plugins::PurposeMenu::slotSelectionChanged);
+#endif
 
 #ifdef HASKIPI
     connect(menu, &QMenu::aboutToShow, this, &Window::loadPlugins);

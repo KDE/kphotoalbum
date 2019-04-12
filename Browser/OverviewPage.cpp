@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2016 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -317,7 +317,7 @@ void Browser::OverviewPage::updateImageCount()
     timer.start();
     int row = 0;
     for (const DB::CategoryPtr& category : categories() ) {
-        QMap<QString, DB::CategoryClassification> items = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::anyMediaType );
+        QMap<QString, DB::CountWithRange> items = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::anyMediaType );
         m_count[row] = items.count();
         ++row;
     }

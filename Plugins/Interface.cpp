@@ -70,7 +70,7 @@ QList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
     if ( category.isNull() )
         category = Settings::SettingsData::instance()->albumCategory();
 
-    QMap<QString, DB::CategoryClassification> categories = DB::ImageDB::instance()->classify( context, category, DB::Image );
+    QMap<QString, DB::CountWithRange> categories = DB::ImageDB::instance()->classify( context, category, DB::Image );
 
     for( auto it = categories.constBegin(); it != categories.constEnd(); ++it ) {
         auto* col = new CategoryImageCollection( context, category, it.key() );

@@ -88,7 +88,7 @@ public: // Methods that must be overridden
 
     virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
 
-    virtual QMap<QString, CategoryClassification> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask ) = 0;
+    virtual QMap<QString, CountWithRange> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask ) = 0;
     virtual FileNameList images() = 0;
     /**
      * @brief addImages to the database.

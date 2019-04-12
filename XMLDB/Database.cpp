@@ -32,10 +32,12 @@
 #include <DB/ImageInfoPtr.h>
 #include <DB/UIDelegate.h>
 #include <Exif/Database.h>
+#include <MainWindow/Logging.h>
 #include <Settings/SettingsData.h>
 #include <Utilities/VideoUtil.h>
 
 #include <KLocalizedString>
+#include <QElapsedTimer>
 #include <QExplicitlySharedDataPointer>
 #include <QFileInfo>
 
@@ -109,9 +111,11 @@ uint XMLDB::Database::totalCount() const
  * imageInfo is of the right type, and as a match can't be both, this really
  * would buy me nothing.
  */
-QMap<QString, DB::CategoryClassification> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask )
+QMap<QString, DB::CountWithRange> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask )
 {
-    QMap<QString, DB::CategoryClassification> map;
+    QElapsedTimer timer;
+    timer.start();
+    QMap<QString, DB::CountWithRange> map;
     DB::GroupCounter counter( category );
     Utilities::StringSet alreadyMatched = info.findAlreadyMatched( category );
 
@@ -133,14 +137,11 @@ QMap<QString, DB::CategoryClassification> XMLDB::Database::classify( const DB::I
             // contains, and increase them in the map mapping from category
             // to count.
             StringSet items = (imageInfo)->itemsOfCategory(category);
-            counter.count( items );
+            counter.count( items, imageInfo->date() );
             for (const auto &categoryName: items)
             {
                 if ( !alreadyMatched.contains(categoryName) ) // We do not want to match "Jesper & Jesper"
-                {
-                    map[categoryName].count++;
-                    map[categoryName].range.extendTo((imageInfo)->date());
-                }
+                    map[categoryName].add(imageInfo->date());
             }
 
             // Find those with no other matches
@@ -149,12 +150,12 @@ QMap<QString, DB::CategoryClassification> XMLDB::Database::classify( const DB::I
         }
     }
 
-    QMap<QString,uint> groups = counter.result();
-    for( QMap<QString,uint>::iterator it= groups.begin(); it != groups.end(); ++it ) {
-        map[it.key()].count = it.value();
-        map[it.key()].range = DB::ImageDate();
+    QMap<QString,DB::CountWithRange> groups = counter.result();
+    for( QMap<QString,DB::CountWithRange>::iterator it= groups.begin(); it != groups.end(); ++it ) {
+        map[it.key()] = it.value();
     }
 
+    qCInfo(TimingLog) << "Database::classify: " << timer.restart() << "ms.";
     return map;
 }
 

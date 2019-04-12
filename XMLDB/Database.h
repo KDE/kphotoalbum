@@ -49,7 +49,7 @@ namespace XMLDB {
             bool requireOnDisk=false) const override;
         void renameCategory( const QString& oldName, const QString newName ) override;
 
-        QMap<QString, DB::CategoryClassification> classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask ) override;
+        QMap<QString, DB::CountWithRange> classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask ) override;
         DB::FileNameList images() override;
         void addImages( const DB::ImageInfoList& images, bool doUpdate ) override;
         void commitDelayedImages() override;

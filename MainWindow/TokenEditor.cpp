@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -114,7 +114,7 @@ QStringList TokenEditor::tokensInUse()
 {
     QStringList res;
     DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
-    QMap<QString, DB::CategoryClassification> map =
+    QMap<QString, DB::CountWithRange> map =
         DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), tokensCategory->name(), DB::anyMediaType );
     for( auto it = map.constBegin(); it != map.constEnd(); ++it ) {
         if ( it.value().count > 0 )

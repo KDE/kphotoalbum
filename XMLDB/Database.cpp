@@ -151,7 +151,10 @@ QMap<QString, DB::CountWithRange> XMLDB::Database::classify(const DB::ImageSearc
             // this is a shortcut for the browser overview page,
             // where we are only interested whether there are sub-categories to a category
             if (mode == DB::ClassificationMode::PartialCount && map.size()>1)
-                break;
+            {
+                qCInfo(TimingLog) << "Database::classify(partial): " << timer.restart() << "ms.";
+                return map;
+            }
         }
     }
 
@@ -160,7 +163,7 @@ QMap<QString, DB::CountWithRange> XMLDB::Database::classify(const DB::ImageSearc
         map[it.key()] = it.value();
     }
 
-    qCInfo(TimingLog) << "Database::classify: " << timer.restart() << "ms.";
+    qCInfo(TimingLog) << "Database::classify(): " << timer.restart() << "ms.";
     return map;
 }
 

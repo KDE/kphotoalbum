@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -81,7 +81,7 @@ private:
     BrowserPage* activateUntaggedImagesAction();
 
 private:
-    QMap<int,int> m_count;
+    QMap<int,bool> m_rowHasSubcategories;
     static AnnotationDialog::Dialog* s_config;
     Breadcrumb m_breadcrumb;
 };

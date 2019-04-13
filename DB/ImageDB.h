@@ -41,6 +41,12 @@ class ImageSearchInfo;
 class FileName;
 class UIDelegate;
 
+enum class ClassificationMode
+{
+    FullCount
+    , PartialCount ///< @brief Count until at least 2 categories are found
+};
+
 class ImageDB  :public QObject {
     Q_OBJECT
 
@@ -88,7 +94,7 @@ public: // Methods that must be overridden
 
     virtual void renameCategory( const QString& oldName, const QString newName ) = 0;
 
-    virtual QMap<QString, CountWithRange> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask ) = 0;
+    virtual QMap<QString, CountWithRange> classify( const ImageSearchInfo& info, const QString & category, MediaType typemask, ClassificationMode mode=ClassificationMode::FullCount ) = 0;
     virtual FileNameList images() = 0;
     /**
      * @brief addImages to the database.

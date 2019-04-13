@@ -111,7 +111,7 @@ uint XMLDB::Database::totalCount() const
  * imageInfo is of the right type, and as a match can't be both, this really
  * would buy me nothing.
  */
-QMap<QString, DB::CountWithRange> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask )
+QMap<QString, DB::CountWithRange> XMLDB::Database::classify(const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask , DB::ClassificationMode mode)
 {
     QElapsedTimer timer;
     timer.start();
@@ -147,6 +147,11 @@ QMap<QString, DB::CountWithRange> XMLDB::Database::classify( const DB::ImageSear
             // Find those with no other matches
             if ( noMatchInfo.match( imageInfo ) )
                 map[DB::ImageDB::NONE()].count++;
+
+            // this is a shortcut for the browser overview page,
+            // where we are only interested whether there are sub-categories to a category
+            if (mode == DB::ClassificationMode::PartialCount && map.size()>1)
+                break;
         }
     }
 

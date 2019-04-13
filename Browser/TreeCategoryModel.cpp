@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -71,7 +71,7 @@ int Browser::TreeCategoryModel::rowCount(const QModelIndex& index) const
 
 int Browser::TreeCategoryModel::columnCount(const QModelIndex&) const
 {
-    return 4;
+    return 5;
 }
 
 QModelIndex Browser::TreeCategoryModel::index(int row, int column, const QModelIndex& parent) const

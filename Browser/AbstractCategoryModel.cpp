@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -98,7 +98,12 @@ QVariant Browser::AbstractCategoryModel::data( const QModelIndex & index, int ro
         case 3: {
             DB::ImageDate range = m_images[name].range;
             range.extendTo(m_videos[name].range);
-            return range.toString(false);
+            return DB::ImageDate(range.start()).toString(false);
+        }
+        case 4: {
+            DB::ImageDate range = m_images[name].range;
+            range.extendTo(m_videos[name].range);
+            return DB::ImageDate(range.end()).toString(false);
         }
         }
     }
@@ -123,6 +128,11 @@ QVariant Browser::AbstractCategoryModel::data( const QModelIndex & index, int ro
             range.extendTo(m_videos[name].range);
             return range.start().toSecsSinceEpoch();
         }
+        case 4: {
+            DB::ImageDate range = m_images[name].range;
+            range.extendTo(m_videos[name].range);
+            return range.end().toSecsSinceEpoch();
+        }
         }
     }
 
@@ -143,7 +153,8 @@ QVariant Browser::AbstractCategoryModel::headerData( int section, Qt::Orientatio
     case 0: return m_category->name();
     case 1: return i18n("Images");
     case 2: return i18n("Videos");
-    case 3: return i18n("Date range");
+    case 3: return i18n("Start Date");
+    case 4: return i18n("End Date");
     }
 
     return QVariant();

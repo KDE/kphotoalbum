@@ -55,9 +55,13 @@ void Plugins::PurposeMenu::loadPurposeMenu()
     // set up the callback signal
     connect(m_purposeMenu, &Purpose::Menu::finished, this, [this](const QJsonObject &output, int error, const QString &message) {
         if (error) {
+            qCDebug(PluginsLog) << "Failed to share image:" << message;
             emit imageSharingFailed(message);
         } else {
             auto filename = DB::FileName::fromAbsolutePath(output[QStringLiteral("url")].toString());
+            qCDebug(PluginsLog) << "Image shared successfully: " << filename.relative();
+            qCDebug(PluginsLog) << "Raw url: " << output[QStringLiteral("url")].toString();
+            qCDebug(PluginsLog) << "Raw json data: " << output;
             emit imageShared(filename);
         }
     });
@@ -75,8 +79,10 @@ void Plugins::PurposeMenu::loadPurposeItems()
     DB::FileNameList images = MainWindow::Window::theMainWindow()->selected(ThumbnailView::NoExpandCollapsedStacks);
 
     m_menuUpdateNeeded = false;
+    // "image/jpeg" is certainly not always true, but the interface does not allow a mimeType list
+    // and the plugins likely won't care...
     m_purposeMenu->model()->setInputData(QJsonObject {
-        {  QStringLiteral("mimeType"), QStringLiteral("image") },
+        {  QStringLiteral("mimeType"), QStringLiteral("image/jpeg") },
         { QStringLiteral("urls"), QJsonArray::fromStringList(images.toStringList(DB::AbsolutePath)) }
     });
     m_purposeMenu->model()->setPluginType(QStringLiteral("Export"));

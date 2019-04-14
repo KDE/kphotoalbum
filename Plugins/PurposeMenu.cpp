@@ -76,9 +76,9 @@ void Plugins::PurposeMenu::loadPurposeItems()
     if (!m_menuUpdateNeeded) {
         return;
     }
-    DB::FileNameList images = MainWindow::Window::theMainWindow()->selected(ThumbnailView::NoExpandCollapsedStacks);
-
     m_menuUpdateNeeded = false;
+
+    const DB::FileNameList images = MainWindow::Window::theMainWindow()->selected(ThumbnailView::NoExpandCollapsedStacks);
     // "image/jpeg" is certainly not always true, but the interface does not allow a mimeType list
     // and the plugins likely won't care...
     m_purposeMenu->model()->setInputData(QJsonObject {

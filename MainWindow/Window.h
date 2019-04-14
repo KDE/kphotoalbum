@@ -208,7 +208,7 @@ protected:
     void setPluginMenuState( const char* name, const QList<QAction*>& actions );
     void createSearchBar();
     void executeStartupActions();
-    void checkIfMplayerIsInstalled();
+    void checkIfVideoThumbnailerIsInstalled();
     bool anyVideosSelected() const;
 #ifdef HAVE_KGEOMAP
     Browser::PositionBrowserWidget* createPositionBrowser();

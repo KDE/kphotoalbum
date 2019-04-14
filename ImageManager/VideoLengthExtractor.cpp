@@ -1,4 +1,4 @@
-/* Copyright 2012-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -51,23 +51,15 @@ void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
     m_process->setWorkingDirectory(QDir::tempPath());
     connect( m_process, SIGNAL(finished(int)), this, SLOT(processEnded()));
 
-    if (MainWindow::FeatureDialog::ffmpegBinary().isEmpty())
-    {
-        QStringList arguments;
-        arguments << STR("-identify") << STR("-frames") << STR("0") << STR("-vc") << STR("null")
-                  << STR("-vo") << STR("null") << STR("-ao") << STR("null") <<  fileName.absolute();
+    Q_ASSERT( MainWindow::FeatureDialog::hasVideoProber() );
+    QStringList arguments;
+    // Just look at the length of the container. Some videos have streams without duration entry
+    arguments << STR("-v") << STR("0") << STR("-show_entries") << STR("format=duration")
+              << STR("-of") << STR("default=noprint_wrappers=1:nokey=1")
+              <<  fileName.absolute();
 
-        m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
-    } else {
-        QStringList arguments;
-        // Just look at the length of the container. Some videos have streams without duration entry
-        arguments << STR("-v") << STR("0") << STR("-show_entries") << STR("format=duration")
-                  << STR("-of") << STR("default=noprint_wrappers=1:nokey=1")
-                  <<  fileName.absolute();
-
-        qCDebug(ImageManagerLog, "%s %s", qPrintable(MainWindow::FeatureDialog::ffprobeBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
-        m_process->start(MainWindow::FeatureDialog::ffprobeBinary(), arguments);
-    }
+    qCDebug(ImageManagerLog, "%s %s", qPrintable(MainWindow::FeatureDialog::ffprobeBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
+    m_process->start(MainWindow::FeatureDialog::ffprobeBinary(), arguments);
 }
 
 void ImageManager::VideoLengthExtractor::processEnded()
@@ -75,41 +67,16 @@ void ImageManager::VideoLengthExtractor::processEnded()
     if ( !m_process->stdErr().isEmpty() )
         qCDebug(ImageManagerLog) << m_process->stdErr();
 
-    QString lenStr;
-    if (MainWindow::FeatureDialog::ffmpegBinary().isEmpty())
-    {
-        QStringList list = m_process->stdOut().split(QChar::fromLatin1('\n'));
-        list = list.filter(STR("ID_LENGTH="));
-        if ( list.count() == 0 ) {
-            qCWarning(ImageManagerLog) << "Unable to find ID_LENGTH in output from MPlayer for file " << m_fileName.absolute() << "\n"
-                       << "Output was:\n"
-                       << m_process->stdOut();
-            emit unableToDetermineLength();
-            return;
-        }
-
-        const QString match = list[0];
-        const QRegExp regexp(STR("ID_LENGTH=([0-9.]+)"));
-        if (!regexp.exactMatch(match))
-        {
-            qCWarning(ImageManagerLog) << STR("Unable to match regexp for string: %1 (for file %2)").arg(match).arg(m_fileName.absolute());
-            emit unableToDetermineLength();
-            return;
-        }
-
-        lenStr = regexp.cap(1);
-    } else {
-        QStringList list = m_process->stdOut().split(QChar::fromLatin1('\n'));
-        // ffprobe -v 0 just prints one line, except if panicking
-        if ( list.count() < 1 ) {
-            qCWarning(ImageManagerLog) << "Unable to parse video length from ffprobe output!"
-                       << "Output was:\n"
-                       << m_process->stdOut();
-            emit unableToDetermineLength();
-            return;
-        }
-        lenStr = list[0].trimmed();
+    const QStringList list = m_process->stdOut().split(QChar::fromLatin1('\n'));
+    // ffprobe -v 0 just prints one line, except if panicking
+    if ( list.count() < 1 ) {
+        qCWarning(ImageManagerLog) << "Unable to parse video length from ffprobe output!"
+                                   << "Output was:\n"
+                                   << m_process->stdOut();
+        emit unableToDetermineLength();
+        return;
     }
+    const QString lenStr = list[0].trimmed();
 
     bool ok = false;
     const double length = lenStr.toDouble(&ok);
@@ -125,7 +92,7 @@ void ImageManager::VideoLengthExtractor::processEnded()
         return;
     }
 
-    emit lengthFound(length);
+    emit lengthFound(int(length));
     m_process->deleteLater();
     m_process = nullptr;
 }

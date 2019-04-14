@@ -12,7 +12,7 @@
 
 
   <h2>Extracing Thumbnails</h2>
-  The class ImageManager::ExtractOneVideoFrame is the class which does the actual extraction by calling mplayer.
+  The class ImageManager::ExtractOneVideoFrame is the class which does the actual extraction by calling ffmpeg.
   Its main interface is the method \ref ImageManager::ExtractOneVideoFrame::extract "extract(filename,offset,receiver,slot)".
   The callback is done using the slot provided. The offset is seconds from the beginning of the video.
 

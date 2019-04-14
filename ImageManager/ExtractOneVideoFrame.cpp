@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -58,25 +58,16 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
     connect( m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(handleError(QProcess::ProcessError)));
     connect( this, SIGNAL(result(QImage)), receiver, slot);
 
-    if (MainWindow::FeatureDialog::ffmpegBinary().isEmpty())
-    {
-        QStringList arguments;
-        arguments << STR("-nosound") << STR("-ss") << QString::number(offset,'f',4) << STR("-vf")
-                  << STR("screenshot") << STR("-frames") << STR("20") << STR("-vo") << STR("png:z=9") << fileName.absolute();
-        qCDebug(ImageManagerLog, "%s %s", qPrintable(MainWindow::FeatureDialog::mplayerBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
+    Q_ASSERT( MainWindow::FeatureDialog::hasVideoThumbnailer() );
+    QStringList arguments;
+    // analyzeduration is for videos where the videostream starts later than the sound
+    arguments << STR("-ss") << QString::number(offset, 'f', 4) << STR("-analyzeduration")
+              << STR("200M") << STR("-i") << fileName.absolute() << STR("-vf") << STR("thumbnail")
+              << STR("-vframes") << STR("20") << m_workingDirectory + STR("/000000%02d.png");
 
-        m_process->start(MainWindow::FeatureDialog::mplayerBinary(), arguments);
-    } else {
-        QStringList arguments;
-        // analyzeduration is for videos where the videostream starts later than the sound
-        arguments << STR("-ss") << QString::number(offset, 'f', 4) << STR("-analyzeduration")
-                  << STR("200M") << STR("-i") << fileName.absolute() << STR("-vf") << STR("thumbnail")
-                  << STR("-vframes") << STR("20") << m_workingDirectory + STR("/000000%02d.png");
+    qCDebug(ImageManagerLog, "%s %s", qPrintable(MainWindow::FeatureDialog::ffmpegBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
 
-        qCDebug(ImageManagerLog, "%s %s", qPrintable(MainWindow::FeatureDialog::ffmpegBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
-
-        m_process->start(MainWindow::FeatureDialog::ffmpegBinary(), arguments);
-    }
+    m_process->start(MainWindow::FeatureDialog::ffmpegBinary(), arguments);
 }
 
 void ExtractOneVideoFrame::frameFetched()

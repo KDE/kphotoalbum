@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -36,8 +36,6 @@ public:
     static bool hasAllFeaturesAvailable();
     static QString featureString();
     static QStringList supportedVideoMimeTypes();
-    static QString mplayerBinary();
-    static bool isMplayer2();
     static QString ffmpegBinary();
     static QString ffprobeBinary();
     /**

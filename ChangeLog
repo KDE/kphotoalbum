@@ -29,6 +29,9 @@
 
 * Deprecation: Removed compatibility with Qt versions < 5.9.
 
+* Deprecation: Removed support for MPlayer
+	For video thumbails, only ffmpeg is supported.
+
 * Enhancement: Smaller perfornance improvements during startup.
 
 * Bugfix: Fix zooming for raw images.

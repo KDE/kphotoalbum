@@ -219,7 +219,7 @@ MainWindow::Window::Window( QWidget* parent )
     connect( m_browser, SIGNAL(imageCount(uint)), m_statusBar->mp_partial, SLOT(showBrowserMatches(uint)) );
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::selectionChanged, this, &Window::updateContextMenuFromSelectionSize);
 
-    checkIfMplayerIsInstalled();
+    checkIfVideoThumbnailerIsInstalled();
     executeStartupActions();
 
     qCInfo(TimingLog) << "MainWindow: executeStartupActions " << timer.restart() << "ms.";
@@ -1899,28 +1899,17 @@ void MainWindow::Window::executeStartupActions()
     }
 }
 
-void MainWindow::Window::checkIfMplayerIsInstalled()
+void MainWindow::Window::checkIfVideoThumbnailerIsInstalled()
 {
     if (Options::the()->demoMode())
         return;
 
     if ( !FeatureDialog::hasVideoThumbnailer() ) {
         KMessageBox::information( this,
-                                  i18n("<p>Unable to find ffmpeg or MPlayer on the system.</p>"
-                                       "<p>Without either of these, KPhotoAlbum will not be able to display video thumbnails and video lengths. "
-                                       "Please install the ffmpeg or MPlayer package</p>"),
-                                  i18n("Video thumbnails are not available"), QString::fromLatin1("mplayerNotInstalled"));
-    } else {
-        KMessageBox::enableMessage( QString::fromLatin1("mplayerNotInstalled") );
-
-        if ( FeatureDialog::ffmpegBinary().isEmpty() && !FeatureDialog::isMplayer2() ) {
-            KMessageBox::information( this,
-                                      i18n("<p>You have MPlayer installed on your system, but it is unfortunately not version 2. "
-                                           "MPlayer2 is on most systems a separate package, please install that if at all possible, "
-                                           "as that version has much better support for extracting thumbnails from videos.</p>"),
-                                      i18n("MPlayer is too old"), QString::fromLatin1("mplayerVersionTooOld"));
-        } else
-            KMessageBox::enableMessage( QString::fromLatin1("mplayerVersionTooOld") );
+                                  i18n("<p>Unable to find ffmpeg on the system.</p>"
+                                       "<p>Without it, KPhotoAlbum will not be able to display video thumbnails and video lengths. "
+                                       "Please install the ffmpeg package</p>"),
+                                  i18n("Video thumbnails are not available"), QString::fromLatin1("VideoThumbnailerNotInstalled"));
     }
 }
 

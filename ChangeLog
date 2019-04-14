@@ -1,3 +1,13 @@
+* Enhancement: Display dates when browsing categories.
+	When browsing categories, two columns "Start Date" and "End Date" have been
+	added. These columns correspond to the time range of the images tagged with
+	that particular tag.
+
+* Enhancement: Faster display of browser overview page.
+	Depending on the current context, the overview should now be displayed
+	significantly faster (on my particular system the time to display the
+	"Home" page dropped from 500ms to 25ms).
+
 * Change: More intuitive handling of down button in annotation dialog.
 	Pressing the "down" button in a ListSelect in the annotation dialog
 	now selects the first item, not the second one.

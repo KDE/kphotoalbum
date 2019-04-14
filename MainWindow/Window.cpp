@@ -1484,7 +1484,9 @@ void MainWindow::Window::setupPluginMenu()
     connect(menu, &QMenu::aboutToShow, this, &Window::loadKipiPlugins);
     m_hasLoadedKipiPlugins = false;
 #else
+#ifndef KF5Purpose_FOUND
     menu->setEnabled(false);
+#endif
     m_hasLoadedKipiPlugins = true;
 #endif
 }

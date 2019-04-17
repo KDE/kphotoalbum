@@ -44,6 +44,7 @@
 #include <QStackedWidget>
 #include <QTimer>
 #include <QVBoxLayout>
+#include <QDesktopServices>
 
 #include <KActionCollection>
 #include <KActionMenu>
@@ -54,7 +55,6 @@
 #include <KMessageBox>
 #include <KPasswordDialog>
 #include <KProcess>
-#include <KRun>
 #include <KSharedConfig>
 #include <KShortcutsDialog>
 #include <KStandardAction>
@@ -1777,20 +1777,8 @@ void MainWindow::Window::slotOrderDecr()
 
 void MainWindow::Window::showVideos()
 {
-#if (KIO_VERSION >= ((5<<16)|(31<<8)|(0)))
-    KRun::runUrl(QUrl(QString::fromLatin1("http://www.kphotoalbum.org/index.php?page=videos"))
-                 , QString::fromLatin1( "text/html" )
-                 , this
-                 , KRun::RunFlags()
-                 );
-#else
-    // this signature is deprecated in newer kio versions
-    // TODO: remove this when we don't support Ubuntu 16.04 LTS anymore
-    KRun::runUrl(QUrl(QString::fromLatin1("http://www.kphotoalbum.org/index.php?page=videos"))
-                 , QString::fromLatin1( "text/html" )
-                 , this
-                 );
-#endif
+    QDesktopServices::openUrl(QUrl(
+        QStringLiteral("http://www.kphotoalbum.org/documentation/videos/")));
 }
 
 void MainWindow::Window::slotStatistics()

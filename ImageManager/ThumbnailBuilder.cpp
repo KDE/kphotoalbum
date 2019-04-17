@@ -94,8 +94,8 @@ void ImageManager::ThumbnailBuilder::pixmapLoaded(ImageManager::ImageRequest* re
 void ImageManager::ThumbnailBuilder::buildAll( ThumbnailBuildStart when )
 {
     QMessageBox msgBox;
-    msgBox.setText(QString::fromLatin1("Buliding all thumbnails may take a long time."));
-    msgBox.setInformativeText(QString::fromLatin1("Do you want to rebuild all of your thumbnails?"));
+    msgBox.setText(i18n("Building all thumbnails may take a long time."));
+    msgBox.setInformativeText(i18n("Do you want to rebuild all of your thumbnails?"));
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::No);
     int ret = msgBox.exec();

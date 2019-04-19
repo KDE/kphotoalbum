@@ -1478,6 +1478,23 @@ void MainWindow::Window::setupPluginMenu()
     Plugins::PurposeMenu *purposeMenu = new Plugins::PurposeMenu(menu);
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::selectionChanged,
             purposeMenu, &Plugins::PurposeMenu::slotSelectionChanged);
+    connect(purposeMenu, &Plugins::PurposeMenu::imageShared
+            , [this](QUrl shareLocation) {
+        QString message;
+        if (shareLocation.isValid())
+        {
+            message = i18n("Successfully shared image(s). Copying location to clipboard...");
+            QGuiApplication::clipboard()->setText(shareLocation.toString());
+        } else {
+            message = i18n("Successfully shared image(s).");
+        }
+        m_statusBar->showMessage(message);
+    });
+    connect(purposeMenu, &Plugins::PurposeMenu::imageSharingFailed
+            , [this](QString errorMessage){
+        QString message = i18n("Image sharing failed with mesage: %1", errorMessage);
+        m_statusBar->showMessage(message);
+    });
 #endif
 
 #ifdef HASKIPI

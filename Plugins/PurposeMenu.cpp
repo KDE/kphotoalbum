@@ -58,11 +58,11 @@ void Plugins::PurposeMenu::loadPurposeMenu()
             qCDebug(PluginsLog) << "Failed to share image:" << message;
             emit imageSharingFailed(message);
         } else {
-            auto filename = DB::FileName::fromAbsolutePath(output[QStringLiteral("url")].toString());
-            qCDebug(PluginsLog) << "Image shared successfully: " << filename.relative();
-            qCDebug(PluginsLog) << "Raw url: " << output[QStringLiteral("url")].toString();
+            // Note: most plugins don't seem to actually return anything in the url field...
+            const QUrl returnUrl = QUrl(output[QStringLiteral("url")].toString(), QUrl::ParsingMode::StrictMode);
+            qCDebug(PluginsLog) << "Image shared successfully.";
             qCDebug(PluginsLog) << "Raw json data: " << output;
-            emit imageShared(filename);
+            emit imageShared(returnUrl);
         }
     });
 

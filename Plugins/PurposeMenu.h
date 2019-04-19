@@ -21,10 +21,10 @@
 #define KPHOTOALBUM_PURPOSEMENU_H
 
 #include <config-kpa-kipi.h>
-#include <DB/FileName.h>
 
 #include <QObject>
 #include <QString>
+#include <QUrl>
 
 class QMenu;
 
@@ -45,7 +45,12 @@ public slots:
     void slotSelectionChanged();
 
 signals:
-    void imageShared(DB::FileName);
+    /**
+     * @brief imageShared is emitted when an image was shared successfully.
+     * The url contains the optional location of the shared data
+     * (e.g. for plugins that upload to a remote location).
+     */
+    void imageShared(QUrl);
     void imageSharingFailed(QString message);
 
 private:

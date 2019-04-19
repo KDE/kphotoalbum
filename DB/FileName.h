@@ -22,6 +22,7 @@
 
 #include <QString>
 #include <QSet>
+#include <QUrl>
 #include "ImageInfoPtr.h"
 #include <QtCore/qmetatype.h>
 
@@ -42,6 +43,11 @@ public:
     bool operator<( const FileName& other ) const;
     bool exists() const;
     ImageInfoPtr info() const;
+
+    /**
+     * @brief Conversion to absolute local file url.
+     */
+    explicit operator QUrl() const;
 
 private:
     // During previous profilation it showed that converting between absolute and relative took quite some time,

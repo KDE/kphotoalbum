@@ -79,11 +79,17 @@ void Plugins::PurposeMenu::loadPurposeItems()
     m_menuUpdateNeeded = false;
 
     const DB::FileNameList images = MainWindow::Window::theMainWindow()->selected(ThumbnailView::NoExpandCollapsedStacks);
+    QJsonArray urls;
+    for (const auto &image : images)
+    {
+        urls.append(QUrl(image).toString());
+    }
+
     // "image/jpeg" is certainly not always true, but the interface does not allow a mimeType list
     // and the plugins likely won't care...
     m_purposeMenu->model()->setInputData(QJsonObject {
         {  QStringLiteral("mimeType"), QStringLiteral("image/jpeg") },
-        { QStringLiteral("urls"), QJsonArray::fromStringList(images.toStringList(DB::AbsolutePath)) }
+        { QStringLiteral("urls"), urls }
     });
     m_purposeMenu->model()->setPluginType(QStringLiteral("Export"));
     m_purposeMenu->reload();

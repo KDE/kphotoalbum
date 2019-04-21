@@ -68,6 +68,11 @@ ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExi
     m_dirty = false;
 }
 
+ImageInfo::ImageInfo(const ImageInfo &other)
+{
+    *this = other;
+}
+
 void ImageInfo::setIsMatched(bool isMatched)
 {
     m_isMatched = isMatched;
@@ -511,6 +516,9 @@ ImageInfo::ImageInfo( const DB::FileName& fileName,
     m_videoLength= -1;
 }
 
+// Note: we need this operator because the base class QSharedData hides
+// its copy operator to make exclude the reference counting from being
+// copied.
 ImageInfo& ImageInfo::operator=( const ImageInfo& other )
 {
     m_fileName = other.m_fileName;
@@ -525,11 +533,18 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
     m_null = other.m_null;
     m_size = other.m_size;
     m_type = other.m_type;
-    m_dirty = other.m_dirty;
     m_rating = other.m_rating;
     m_stackId = other.m_stackId;
     m_stackOrder = other.m_stackOrder;
     m_videoLength = other.m_videoLength;
+    m_isMatched = other.m_isMatched;
+    m_matchGeneration = other.m_matchGeneration;
+#ifdef HAVE_KGEOMAP
+    m_coordinates = other.m_coordinates;
+    m_coordsIsSet = other.m_coordsIsSet;
+#endif
+    m_locked = other.m_locked;
+    m_dirty = other.m_dirty;
 
     return *this;
 }

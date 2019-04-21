@@ -79,6 +79,7 @@ public:
                short rating = -1,
                StackID stackId = 0,
                unsigned int stackOrder = 0 );
+    ImageInfo( const ImageInfo& other );
 
     FileName fileName() const;
     void setFileName( const DB::FileName& relativeFileName );

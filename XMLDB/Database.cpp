@@ -317,7 +317,6 @@ void XMLDB::Database::commitDelayedImages()
 
 void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const DB::FileName& newName )
 {
-    info->delaySavingChanges(false);
     info->setFileName(newName);
 }
 

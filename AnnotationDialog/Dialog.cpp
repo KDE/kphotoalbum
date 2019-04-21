@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -1411,7 +1411,6 @@ void AnnotationDialog::Dialog::saveAndClose()
 
         for( DB::ImageInfoListConstIterator it = m_origList.constBegin(); it != m_origList.constEnd(); ++it ) {
             DB::ImageInfoPtr info = *it;
-            info->delaySavingChanges(true);
             if ( !m_startDate->date().isNull() )
                 info->setDate( DB::ImageDate( m_startDate->date(), m_endDate->date(), m_time->time() ) );
 
@@ -1434,7 +1433,6 @@ void AnnotationDialog::Dialog::saveAndClose()
               info->setRating( m_rating->rating() );
             }
 
-            info->delaySavingChanges(false);
         }
         m_ratingChanged = false;
     }

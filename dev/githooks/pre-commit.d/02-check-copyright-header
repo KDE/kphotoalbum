@@ -27,5 +27,10 @@ done
 if [ -n "$missing_year" ]
 then
 	echo -e "Please update copyright year for the following files:$missing_year"
+	# also check if the Copyright statement in main.cpp is ok:
+	if ! grep -q -i "i18n(\"Copyright (C) 2003-$year " main.cpp
+	then
+		echo "...and also update the copyright statement in main.cpp!"
+	fi
 	exit 1
 fi

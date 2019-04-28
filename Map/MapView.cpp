@@ -1,4 +1,4 @@
-/* Copyright (C) 2014-2018 The KPhotoAlbum Development Team
+/* Copyright (C) 2014-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -19,11 +19,8 @@
 
 // Local includes
 #include "MapView.h"
-
 #include "Logging.h"
-
 #include "ImageManager/ThumbnailCache.h"
-#include "Utilities/Util.h"
 
 // Marble includes
 #include <marble/GeoPainter.h>
@@ -157,7 +154,7 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
         }
     }
 
-    m_pin = QPixmap( Utilities::locateDataFile( QStringLiteral( "pics/pin.png" ) ) );
+    m_pin = QPixmap(QStandardPaths::locate(QStandardPaths::DataLocation, QStringLiteral("pics/pin.png")));
 }
 
 void Map::MapView::clear()

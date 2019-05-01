@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2.0)
-project(kphotoalbum VERSION 5.4)
+project(kphotoalbum VERSION 5.5)
 
 if(POLICY CMP0063)
     cmake_policy(SET CMP0063 NEW)
@@ -237,7 +237,6 @@ set(libUtilities_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ToolTip.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Logging.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/JpeglibWithFix.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/QStr.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/StringSet.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/FastJpeg.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DemoUtil.cpp

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -79,7 +79,7 @@ public:
                short rating = -1,
                StackID stackId = 0,
                unsigned int stackOrder = 0 );
-    virtual ~ImageInfo() { saveChanges(); }
+    ImageInfo( const ImageInfo& other );
 
     FileName fileName() const;
     void setFileName( const DB::FileName& relativeFileName );
@@ -146,6 +146,7 @@ public:
     bool operator==( const ImageInfo& other ) const;
     ImageInfo& operator=( const ImageInfo& other );
 
+
     static bool imageOnDisk( const DB::FileName& fileName );
 
     const MD5& MD5Sum() const { return m_md5sum; }
@@ -159,12 +160,10 @@ public:
     void setSize( const QSize& size );
 
     MediaType mediaType() const;
-    void setMediaType( MediaType type ) { if (type != m_type) m_dirty = true; m_type = type; saveChangesIfNotDelayed(); }
+    void setMediaType( MediaType type ) { if (type != m_type) m_dirty = true; m_type = type; }
     bool isVideo() const;
 
     void createFolderCategoryItem( DB::CategoryPtr, DB::MemberMap& memberMap );
-
-    void delaySavingChanges(bool b=true);
 
     void copyExtraData( const ImageInfo& from, bool copyAngle = true);
     void removeExtraData();
@@ -191,15 +190,6 @@ public:
 #endif
 
 protected:
-    /** Save changes to database.
-     *
-     * Back-ends, which need changes to be instantly in database,
-     * should override this.
-     */
-    virtual void saveChanges() {}
-
-    void saveChangesIfNotDelayed() { if (!m_delaySaving) saveChanges(); }
-
     void setIsNull(bool b) { m_null = b; }
     bool isDirty() const { return m_dirty; }
     void setIsDirty(bool b)  { m_dirty = b; }
@@ -237,8 +227,6 @@ private:
 
     // Will be set to true after every change
     bool m_dirty;
-
-    bool m_delaySaving;
 };
 
 }

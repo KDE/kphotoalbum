@@ -30,8 +30,8 @@ Browser::FlatCategoryModel::FlatCategoryModel( const DB::CategoryPtr& category, 
     items.sort();
 
     Q_FOREACH( const QString &name, items ) {
-        const int imageCount = m_images.contains(name) ? m_images[name] : 0;
-        const int videoCount = m_videos.contains(name) ? m_videos[name] : 0;
+        const int imageCount = m_images.contains(name) ? m_images[name].count : 0;
+        const int videoCount = m_videos.contains(name) ? m_videos[name].count : 0;
 
         if ( imageCount + videoCount > 0 )
             m_items.append( name );

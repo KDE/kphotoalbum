@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2016 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -236,7 +236,7 @@ void Browser::OverviewPage::activate()
 
 Qt::ItemFlags Browser::OverviewPage::flags( const QModelIndex & index ) const
 {
-    if ( isCategoryIndex(index.row() ) && m_count[index.row()] <= 1 )
+    if ( isCategoryIndex(index.row() ) && !m_rowHasSubcategories[index.row()] )
         return QAbstractListModel::flags(index) & ~Qt::ItemIsEnabled;
     else
         return QAbstractListModel::flags(index);
@@ -317,8 +317,8 @@ void Browser::OverviewPage::updateImageCount()
     timer.start();
     int row = 0;
     for (const DB::CategoryPtr& category : categories() ) {
-        QMap<QString, uint> items = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::anyMediaType );
-        m_count[row] = items.count();
+        QMap<QString, DB::CountWithRange> items = DB::ImageDB::instance()->classify( BrowserPage::searchInfo(), category->name(), DB::anyMediaType, DB::ClassificationMode::PartialCount );
+        m_rowHasSubcategories[row] = items.count()>1;
         ++row;
     }
     qCDebug(TimingLog) << "Browser::Overview::updateImageCount(): " << timer.elapsed() << "ms.";

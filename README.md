@@ -6,13 +6,11 @@ major changes, see the ChangeLog file. A full list of changes is in GIT
 log available also on-line:
 https://commits.kde.org/kphotoalbum
 
-[Build Status](https://build.kde.org/job/kphotoalbum%20master%20kf5-qt5)
-
 Home Page
 =========
 
 For information about KPhotoAlbum, see the home page at
-http://www.kphotoalbum.org/
+https://www.kphotoalbum.org/
 
 You may also want to check out the phabricator page at
 https://phabricator.kde.org/project/profile/255/
@@ -22,7 +20,7 @@ Mailing List
 
 KPhotoAlbum has a mailing list at
 
-    http://mail.kdab.com/mailman/listinfo/kphotoalbum
+    https://mail.kdab.com/mailman/listinfo/kphotoalbum
 
 where you might find answers to common questions, plus get information
 about KPhotoAlbum development, plus of course ask questions.
@@ -30,9 +28,13 @@ about KPhotoAlbum development, plus of course ask questions.
 WIKI
 ====
 
-KPhotoAlbum has a wiki at
+KPhotoAlbum has a user wiki at
 
-    http://userbase.kde.org/KPhotoAlbum
+    https://userbase.kde.org/KPhotoAlbum
+
+For developer topics, there also is a developer-centric wiki at
+
+    https://community.kde.org/KPhotoAlbum
 
 Kind Regards
 

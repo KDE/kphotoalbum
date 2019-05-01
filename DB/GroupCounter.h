@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -18,6 +18,7 @@
 
 #ifndef GROUPCOUNTER_H
 #define GROUPCOUNTER_H
+#include "Category.h"
 #include "Settings/SettingsData.h"
 #include <QHash>
 
@@ -29,12 +30,12 @@ class GroupCounter
 {
 public:
     explicit GroupCounter( const QString& category );
-    void count(const StringSet& );
-    QMap<QString,uint> result();
+    void count(const StringSet& , const ImageDate &date);
+    QMap<QString,CountWithRange> result();
 
 private:
     QHash<QString,QStringList> m_memberToGroup;
-    QHash<QString,uint> m_groupCount;
+    QHash<QString,CountWithRange> m_groupCount;
 
 };
 

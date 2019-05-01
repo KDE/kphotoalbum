@@ -32,10 +32,12 @@
 #include <DB/ImageInfoPtr.h>
 #include <DB/UIDelegate.h>
 #include <Exif/Database.h>
+#include <MainWindow/Logging.h>
 #include <Settings/SettingsData.h>
 #include <Utilities/VideoUtil.h>
 
 #include <KLocalizedString>
+#include <QElapsedTimer>
 #include <QExplicitlySharedDataPointer>
 #include <QFileInfo>
 
@@ -109,9 +111,11 @@ uint XMLDB::Database::totalCount() const
  * imageInfo is of the right type, and as a match can't be both, this really
  * would buy me nothing.
  */
-QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask )
+QMap<QString, DB::CountWithRange> XMLDB::Database::classify(const DB::ImageSearchInfo& info, const QString &category, DB::MediaType typemask , DB::ClassificationMode mode)
 {
-    QMap<QString, uint> map;
+    QElapsedTimer timer;
+    timer.start();
+    QMap<QString, DB::CountWithRange> map;
     DB::GroupCounter counter( category );
     Utilities::StringSet alreadyMatched = info.findAlreadyMatched( category );
 
@@ -124,31 +128,42 @@ QMap<QString,uint> XMLDB::Database::classify( const DB::ImageSearchInfo& info, c
     noMatchInfo.setCacheable( false );
 
     // Iterate through the whole database of images.
-    for( DB::ImageInfoListConstIterator it = m_images.constBegin(); it != m_images.constEnd(); ++it ) {
-        bool match = ( (*it)->mediaType() & typemask ) && !(*it)->isLocked() && info.match( *it ) && rangeInclude( *it );
+    for (const auto &imageInfo : m_images)
+    {
+        bool match = ( (imageInfo)->mediaType() & typemask ) && !(imageInfo)->isLocked() && info.match( imageInfo ) && rangeInclude( imageInfo );
         if ( match ) { // If the given image is currently matched.
 
             // Now iterate through all the categories the current image
             // contains, and increase them in the map mapping from category
             // to count.
-            StringSet items = (*it)->itemsOfCategory(category);
-            counter.count( items );
-            for( StringSet::const_iterator it2 = items.begin(); it2 != items.end(); ++it2 ) {
-                if ( !alreadyMatched.contains(*it2) ) // We do not want to match "Jesper & Jesper"
-                    map[*it2]++;
+            StringSet items = (imageInfo)->itemsOfCategory(category);
+            counter.count( items, imageInfo->date() );
+            for (const auto &categoryName: items)
+            {
+                if ( !alreadyMatched.contains(categoryName) ) // We do not want to match "Jesper & Jesper"
+                    map[categoryName].add(imageInfo->date());
             }
 
             // Find those with no other matches
-            if ( noMatchInfo.match( *it ) )
-                map[DB::ImageDB::NONE()]++;
+            if ( noMatchInfo.match( imageInfo ) )
+                map[DB::ImageDB::NONE()].count++;
+
+            // this is a shortcut for the browser overview page,
+            // where we are only interested whether there are sub-categories to a category
+            if (mode == DB::ClassificationMode::PartialCount && map.size()>1)
+            {
+                qCInfo(TimingLog) << "Database::classify(partial): " << timer.restart() << "ms.";
+                return map;
+            }
         }
     }
 
-    QMap<QString,uint> groups = counter.result();
-    for( QMap<QString,uint>::iterator it= groups.begin(); it != groups.end(); ++it ) {
+    QMap<QString,DB::CountWithRange> groups = counter.result();
+    for( QMap<QString,DB::CountWithRange>::iterator it= groups.begin(); it != groups.end(); ++it ) {
         map[it.key()] = it.value();
     }
 
+    qCInfo(TimingLog) << "Database::classify(): " << timer.restart() << "ms.";
     return map;
 }
 
@@ -302,7 +317,6 @@ void XMLDB::Database::commitDelayedImages()
 
 void XMLDB::Database::renameImage( DB::ImageInfoPtr info, const DB::FileName& newName )
 {
-    info->delaySavingChanges(false);
     info->setFileName(newName);
 }
 

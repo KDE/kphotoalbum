@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -39,7 +39,7 @@ using namespace DB;
 ImageInfo::ImageInfo() :m_null( true ), m_rating(-1), m_stackId(0), m_stackOrder(0)
     , m_videoLength(-1)
     , m_isMatched( false ), m_matchGeneration( -1 )
-    , m_locked( false ), m_dirty( false ), m_delaySaving( false )
+    , m_locked( false ), m_dirty( false )
 {
 }
 
@@ -49,7 +49,7 @@ ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExi
       , m_rating(-1), m_stackId(0), m_stackOrder(0)
       , m_videoLength(-1)
       , m_isMatched( false ), m_matchGeneration( -1 )
-      , m_locked(false), m_delaySaving( true )
+      , m_locked(false)
 {
     QFileInfo fi( fileName.absolute() );
     m_label = fi.completeBaseName();
@@ -66,7 +66,11 @@ ImageInfo::ImageInfo( const DB::FileName& fileName, MediaType type, bool readExi
     }
 
     m_dirty = false;
-    m_delaySaving = false;
+}
+
+ImageInfo::ImageInfo(const ImageInfo &other)
+{
+    *this = other;
 }
 
 void ImageInfo::setIsMatched(bool isMatched)
@@ -89,36 +93,11 @@ int ImageInfo::matchGeneration() const
     return m_matchGeneration;
 }
 
-/** Change delaying of saving changes.
- *
- * Will save changes when set to false.
- *
- * Use this method to set multiple attributes with only one
- * database operation.
- *
- * Example:
- * \code
- * info.delaySavingChanges(true);
- * info.setLabel("Hello");
- * info.setDescription("Hello world");
- * info.delaySavingChanges(false);
- * \endcode
- *
- * \see saveChanges()
- */
-void ImageInfo::delaySavingChanges(bool b)
-{
-    m_delaySaving = b;
-    if (!b)
-        saveChanges();
-}
-
 void ImageInfo::setLabel( const QString& desc )
 {
     if (desc != m_label)
         m_dirty = true;
     m_label = desc;
-    saveChangesIfNotDelayed();
 }
 
 QString ImageInfo::label() const
@@ -131,7 +110,6 @@ void ImageInfo::setDescription( const QString& desc )
     if (desc != m_description)
         m_dirty = true;
     m_description = desc.trimmed();
-    saveChangesIfNotDelayed();
 }
 
 QString ImageInfo::description() const
@@ -145,7 +123,6 @@ void ImageInfo::setCategoryInfo( const QString& key, const StringSet& value )
     // Don't check if really changed, because it's too slow.
     m_dirty = true;
     m_categoryInfomation[key] = value;
-    saveChangesIfNotDelayed();
 }
 
 bool ImageInfo::hasCategoryInfo( const QString& key, const QString& value ) const
@@ -180,7 +157,6 @@ void ImageInfo::renameItem( const QString& category, const QString& oldValue, co
         m_dirty = true;
         set.erase( it );
         set.insert( newValue );
-        saveChangesIfNotDelayed();
     }
 }
 
@@ -203,7 +179,6 @@ void ImageInfo::setFileName( const DB::FileName& fileName )
         createFolderCategoryItem( folderCategory, map );
         //ImageDB::instance()->setMemberMap( map );
     }
-    saveChangesIfNotDelayed();
 }
 
 
@@ -271,7 +246,6 @@ void ImageInfo::rotate( int degrees, RotationMode mode )
         }
     }
 
-    saveChangesIfNotDelayed();
 }
 
 int ImageInfo::angle() const
@@ -284,7 +258,6 @@ void ImageInfo::setAngle( int angle )
     if (angle != m_angle)
         m_dirty = true;
     m_angle = angle;
-    saveChangesIfNotDelayed();
 }
 
 short ImageInfo::rating() const
@@ -304,7 +277,6 @@ void ImageInfo::setRating( short rating )
         m_dirty = true;
 
     m_rating = rating;
-    saveChangesIfNotDelayed();
 }
 
 DB::StackID ImageInfo::stackId() const
@@ -317,7 +289,6 @@ void ImageInfo::setStackId( const DB::StackID stackId )
     if ( stackId != m_stackId )
         m_dirty = true;
     m_stackId = stackId;
-    saveChangesIfNotDelayed();
 }
 
 unsigned int ImageInfo::stackOrder() const
@@ -330,7 +301,6 @@ void ImageInfo::setStackOrder( const unsigned int stackOrder )
     if ( stackOrder != m_stackOrder )
         m_dirty = true;
     m_stackOrder = stackOrder;
-    saveChangesIfNotDelayed();
 }
 
 void ImageInfo::setVideoLength(int length)
@@ -338,7 +308,6 @@ void ImageInfo::setVideoLength(int length)
     if ( m_videoLength != length )
         m_dirty = true;
     m_videoLength = length;
-    saveChangesIfNotDelayed();
 }
 
 int ImageInfo::videoLength() const
@@ -351,7 +320,6 @@ void ImageInfo::setDate( const ImageDate& date )
     if (date != m_date)
         m_dirty = true;
     m_date = date;
-    saveChangesIfNotDelayed();
 }
 
 ImageDate& ImageInfo::date()
@@ -400,7 +368,6 @@ void ImageInfo::renameCategory( const QString& oldName, const QString& newName )
     m_taggedAreas[newName] = m_taggedAreas[oldName];
     m_taggedAreas.remove(oldName);
 
-    saveChangesIfNotDelayed();
 }
 
 void ImageInfo::setMD5Sum( const MD5& sum, bool storeEXIF )
@@ -433,7 +400,6 @@ void ImageInfo::setMD5Sum( const MD5& sum, bool storeEXIF )
         m_dirty = true;
     }
     m_md5sum = sum;
-    saveChangesIfNotDelayed();
 }
 
 void ImageInfo::setLocked( bool locked )
@@ -449,9 +415,6 @@ bool ImageInfo::isLocked() const
 void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
 {
     DB::FileInfo exifInfo = DB::FileInfo::read( fullPath, mode );
-
-    bool oldDelaySaving = m_delaySaving;
-    delaySavingChanges(true);
 
     // Date
     if ( updateDateInformation(mode) ) {
@@ -485,9 +448,6 @@ void ImageInfo::readExif(const DB::FileName& fullPath, DB::ExifMode mode)
         }
     }
 
-    delaySavingChanges(false);
-    m_delaySaving = oldDelaySaving;
-
     // Database update
     if ( mode & EXIFMODE_DATABASE_UPDATE ) {
         Exif::Database::instance()->add( exifInfo );
@@ -514,7 +474,6 @@ void ImageInfo::setSize( const QSize& size )
     if (size != m_size)
         m_dirty = true;
     m_size = size;
-    saveChangesIfNotDelayed();
 }
 
 bool ImageInfo::imageOnDisk( const DB::FileName& fileName )
@@ -534,7 +493,6 @@ ImageInfo::ImageInfo( const DB::FileName& fileName,
                       unsigned int stackId,
                       unsigned int stackOrder )
 {
-    m_delaySaving = true;
     m_fileName = fileName;
     m_label =label;
     m_description =description;
@@ -547,7 +505,6 @@ ImageInfo::ImageInfo( const DB::FileName& fileName,
     m_null = false;
     m_type = type;
     m_dirty = true;
-    delaySavingChanges(false);
 
     if ( rating > 10 )
         rating = 10;
@@ -559,10 +516,9 @@ ImageInfo::ImageInfo( const DB::FileName& fileName,
     m_videoLength= -1;
 }
 
-// TODO: we should get rid of this operator. It seems only be necessary
-// because of the 'delaySavings' field that gets a special value.
-// ImageInfo should just be a dumb data object holder and not incorporate
-// storing strategies.
+// Note: we need this operator because the base class QSharedData hides
+// its copy operator to make exclude the reference counting from being
+// copied.
 ImageInfo& ImageInfo::operator=( const ImageInfo& other )
 {
     m_fileName = other.m_fileName;
@@ -577,12 +533,18 @@ ImageInfo& ImageInfo::operator=( const ImageInfo& other )
     m_null = other.m_null;
     m_size = other.m_size;
     m_type = other.m_type;
-    m_dirty = other.m_dirty;
     m_rating = other.m_rating;
     m_stackId = other.m_stackId;
     m_stackOrder = other.m_stackOrder;
     m_videoLength = other.m_videoLength;
-    delaySavingChanges(false);
+    m_isMatched = other.m_isMatched;
+    m_matchGeneration = other.m_matchGeneration;
+#ifdef HAVE_KGEOMAP
+    m_coordinates = other.m_coordinates;
+    m_coordsIsSet = other.m_coordsIsSet;
+#endif
+    m_locked = other.m_locked;
+    m_dirty = other.m_dirty;
 
     return *this;
 }
@@ -711,7 +673,6 @@ void DB::ImageInfo::addCategoryInfo( const QString& category, const StringSet& v
             m_categoryInfomation[category].insert( *valueIt );
         }
     }
-    saveChangesIfNotDelayed();
 }
 
 void DB::ImageInfo::clearAllCategoryInfo()
@@ -729,7 +690,6 @@ void DB::ImageInfo::removeCategoryInfo( const QString& category, const StringSet
             m_taggedAreas[category].remove(*valueIt);
         }
     }
-    saveChangesIfNotDelayed();
 }
 
 void DB::ImageInfo::addCategoryInfo( const QString& category, const QString& value, const QRect& area )
@@ -742,7 +702,6 @@ void DB::ImageInfo::addCategoryInfo( const QString& category, const QString& val
             m_taggedAreas[category][value] = area;
         }
     }
-    saveChangesIfNotDelayed();
 }
 
 void DB::ImageInfo::removeCategoryInfo( const QString& category, const QString& value )
@@ -752,14 +711,12 @@ void DB::ImageInfo::removeCategoryInfo( const QString& category, const QString& 
         m_categoryInfomation[category].remove( value );
         m_taggedAreas[category].remove( value );
     }
-    saveChangesIfNotDelayed();
 }
 
 void DB::ImageInfo::setPositionedTags(const QString& category, const QMap<QString, QRect> &positionedTags)
 {
     m_dirty = true;
     m_taggedAreas[category] = positionedTags;
-    saveChangesIfNotDelayed();
 }
 
 bool DB::ImageInfo::updateDateInformation( int mode ) const

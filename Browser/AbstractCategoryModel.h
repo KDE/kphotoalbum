@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -20,6 +20,7 @@
 #define ABSTRACTCATEGORYMODEL_H
 #include <QAbstractItemModel>
 #include <DB/ImageSearchInfo.h>
+#include <DB/Category.h>
 #include <DB/CategoryPtr.h>
 
 namespace Browser
@@ -49,8 +50,8 @@ protected:
 
     DB::CategoryPtr m_category;
     DB::ImageSearchInfo m_info;
-    QMap<QString, uint> m_images;
-    QMap<QString, uint> m_videos;
+    QMap<QString, DB::CountWithRange> m_images;
+    QMap<QString, DB::CountWithRange> m_videos;
 
 };
 

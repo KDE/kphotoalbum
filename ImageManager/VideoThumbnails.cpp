@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -38,7 +38,7 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
     if ( loadFramesFromCache(fileName) )
         return;
 
-    // no video thumbnails without mplayer:
+    // no video thumbnails without ffmpeg:
     if (!MainWindow::FeatureDialog::hasVideoThumbnailer())
         return;
 

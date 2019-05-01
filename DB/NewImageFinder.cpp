@@ -665,7 +665,6 @@ bool NewImageFinder::handleIfImageHasBeenMoved(const FileName &newFileName, cons
             if ( !info )
                 qCWarning(DBLog, "How did that happen? We couldn't find info for the images %s", qPrintable(matchedFileName.relative()));
             else {
-                info->delaySavingChanges(true);
                 fi = QFileInfo ( matchedFileName.relative() );
                 if ( info->label() == fi.completeBaseName() ) {
                     fi = QFileInfo( newFileName.absolute() );

@@ -1,15 +1,25 @@
-* Change: More intuitive handling of down button in annotation dialog.
-	Pressing the "down" button in a ListSelect in the annotation dialog
-	now selects the first item, not the second one.
+====================== KPhotoalbum 5.5 released (27.04.2019) ======================
 
-* Change: Use non-linear scaling for DateBar by default(implements: #356810)
+* Bugfix: Fix compilation with exiv2 0.27.
 
-* Change: Instead of having "increase/decrease thumbnail storage size
-	buttons", show a "Thumbnail settings" button in the status bar.
-	(Fixes: #357239)
+* Enhancement: Display dates when browsing categories. When browsing categories, two columns "Start
+  Date" and "End Date" have been added. These columns correspond to the time range of the images
+  tagged with that particular tag.
 
-* Bugfix: Restore correct behaviour for "Statistics..." action.
-	Thanks to Andreas Schleth for finding and fixing the issue!
+* Enhancement: Faster display of browser overview page. Depending on the current context, the
+  overview should now be displayed significantly faster (on my particular system the time to display
+  the "Home" page dropped from 500ms to 25ms).
+
+* Change: More intuitive handling of down button in annotation dialog. Pressing the "down" button in
+  a ListSelect in the annotation dialog now selects the first item, not the second one.
+
+* Change: Use non-linear scaling for DateBar by default. (Implements #356810)
+
+* Change: Instead of having "increase/decrease thumbnail storage size buttons", show a "Thumbnail
+  settings" button in the status bar. (Fixes #357239)
+
+* Bugfix: Restore correct behaviour for "Statistics..." action. Thanks to Andreas Schleth for
+  finding and fixing the issue!
 
 * Bugfix: Fix loading of user shortcuts for the annotation dialog.
 
@@ -19,21 +29,22 @@
 
 * Deprecation: Removed compatibility with Qt versions < 5.9.
 
+* Deprecation: Removed support for MPlayer. For video thumbails, only ffmpeg is supported.
+
 * Enhancement: Smaller perfornance improvements during startup.
 
-* Bugfix: Fix zooming for raw images.
-	Thanks to Angel Lopez for the bug report and help in finding the root cause!
+* Bugfix: Fix zooming for raw images. Thanks to Angel Lopez for the bug report and help in finding
+  the root cause!
 
 ====================== KPhotoalbum 5.4.2 released (05.02.2019) ======================
 
 * Where's 5.4.1?: We messed it up. A wrong tarball hit the mirrors, we had to withdraw it, and
-	increase the version number for consistency. Version 5.4.1 does not exist
+  increase the version number for consistency. Version 5.4.1 does not exist.
 
-* Bugfix(#403668): Prevent loss of tagging data when upgrading from v5.3 or older
-	If a user used an uncompressed database with non-ASCII category names, the
-	tagging data for those categories would be lost when switching to the
-	compressed file format. Upgrading to v5.4 automatically switches to the
-	compressed file format as new default, triggering said bug.
+* Bugfix(#403668): Prevent loss of tagging data when upgrading from v5.3 or older. If a user used
+  an uncompressed database with non-ASCII category names, the tagging data for those categories
+  would be lost when switching to the compressed file format. Upgrading to v5.4 automatically
+  switches to the compressed file format as new default, triggering said bug.
 
 * Bugfix(#403721): Fix crash when right-clicking in thumbnail view
 

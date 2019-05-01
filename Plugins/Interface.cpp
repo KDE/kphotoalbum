@@ -70,10 +70,10 @@ QList<KIPI::ImageCollection> Plugins::Interface::allAlbums()
     if ( category.isNull() )
         category = Settings::SettingsData::instance()->albumCategory();
 
-    QMap<QString,uint> categories = DB::ImageDB::instance()->classify( context, category, DB::Image );
+    QMap<QString, DB::CountWithRange> categories = DB::ImageDB::instance()->classify( context, category, DB::Image );
 
-    for( QMap<QString,uint>::iterator it = categories.begin(); it != categories.end(); ++it ) {
-        CategoryImageCollection* col = new CategoryImageCollection( context, category, it.key() );
+    for( auto it = categories.constBegin(); it != categories.constEnd(); ++it ) {
+        auto* col = new CategoryImageCollection( context, category, it.key() );
         result.append( KIPI::ImageCollection( col ) );
     }
 

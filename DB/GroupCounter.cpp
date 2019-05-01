@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -68,7 +68,7 @@ GroupCounter::GroupCounter( const QString& category )
         Q_FOREACH( const auto &member, members ) {
             m_memberToGroup[member].append( group );
         }
-        m_groupCount.insert( group, 0 );
+        m_groupCount.insert( group, CountWithRange() );
     }
 }
 
@@ -80,7 +80,7 @@ GroupCounter::GroupCounter( const QString& category )
  * The tricky part is to avoid increasing it by more than 1 per image, that is what the countedGroupDict is
  * used for.
  */
-void GroupCounter::count( const StringSet& categories )
+void GroupCounter::count( const StringSet& categories, const ImageDate &date )
 {
     static StringSet countedGroupDict;
 
@@ -91,24 +91,24 @@ void GroupCounter::count( const StringSet& categories )
             for ( const QString& group : groups ) {
                 if ( !countedGroupDict.contains( group ) ) {
                     countedGroupDict.insert( group );
-                    (m_groupCount[group])++;
+                    m_groupCount[group].add(date);
                 }
             }
         }
         // The item Nevada should itself go into the group Nevada.
         if ( !countedGroupDict.contains( *categoryIt ) && m_groupCount.contains( *categoryIt ) ) {
              countedGroupDict.insert( *categoryIt);
-             (m_groupCount[*categoryIt])++;
+             m_groupCount[*categoryIt].add(date);
         }
     }
 }
 
-QMap<QString,uint> GroupCounter::result()
+QMap<QString, CountWithRange> GroupCounter::result()
 {
-    QMap<QString,uint> res;
+    QMap<QString,CountWithRange> res;
 
-    for( QHash<QString,uint>::const_iterator it = m_groupCount.constBegin(); it != m_groupCount.constEnd(); ++it) {
-        if ( it.value() != 0 )
+    for( QHash<QString,CountWithRange>::const_iterator it = m_groupCount.constBegin(); it != m_groupCount.constEnd(); ++it) {
+        if ( it.value().count != 0 )
             res.insert( it.key(), it.value() );
     }
     return res;

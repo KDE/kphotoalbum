@@ -22,8 +22,8 @@
 
 namespace XMLDB {
 
-XmlReader::XmlReader(DB::UIDelegate &ui)
-    : m_ui(ui)
+XmlReader::XmlReader(DB::UIDelegate &ui, const QString &friendlyStreamName)
+    : m_ui(ui), m_streamName(friendlyStreamName)
 {
 }
 
@@ -93,6 +93,7 @@ void XmlReader::reportError(const QString & text)
             "<message>%3</message></p>",lineNumber(),columnNumber(),text);
     if ( hasError() )
         message += i18n("<p>Additional error information:<nl/><message>%1</message></p>",errorString());
+    message += xi18n("<p>Database path: <filename>%1</filename></p>", m_streamName);
 
     m_ui.error( QString::fromUtf8("XmlReader: error in line %1, column %2 (%3)")
                 .arg(lineNumber()).arg(columnNumber()).arg(errorString())

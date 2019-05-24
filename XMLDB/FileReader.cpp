@@ -451,7 +451,7 @@ DB::ImageInfoPtr XMLDB::FileReader::load( const DB::FileName& fileName, ReaderPt
 
 XMLDB::ReaderPtr XMLDB::FileReader::readConfigFile( const QString& configFile )
 {
-    ReaderPtr reader = ReaderPtr(new XmlReader(m_db->uiDelegate()));
+    ReaderPtr reader = ReaderPtr(new XmlReader(m_db->uiDelegate(), configFile));
     QFile file( configFile );
     if ( !file.exists() ) {
         // Load a default setup

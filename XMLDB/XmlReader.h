@@ -41,7 +41,12 @@ struct ElementInfo {
 class XmlReader : public QXmlStreamReader
 {
 public:
-    explicit XmlReader(DB::UIDelegate &ui);
+    /**
+     * @brief XmlReader
+     * @param ui the UIDelegate for error messages
+     * @param friendlyStreamName a stream/file name to be displayed in messages
+     */
+    explicit XmlReader(DB::UIDelegate &ui, const QString &friendlyStreamName);
 
     QString attribute(const QString &name, const QString& defaultValue = QString() );
     ElementInfo readNextStartOrStopElement(const QString &expectedStart);
@@ -65,6 +70,7 @@ private:
 
     DB::UIDelegate &m_ui;
     ElementInfo m_peek;
+    const QString m_streamName;
 };
 
 typedef QSharedPointer<XmlReader> ReaderPtr;

@@ -96,6 +96,11 @@ DB::ImageInfoPtr DB::FileName::info() const
     return ImageDB::instance()->info(*this);
 }
 
+DB::FileName::operator QUrl() const
+{
+    return QUrl::fromLocalFile(absolute());
+}
+
 uint DB::qHash( const DB::FileName& fileName )
 {
     return qHash(fileName.relative());

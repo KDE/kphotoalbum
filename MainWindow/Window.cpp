@@ -93,6 +93,9 @@
 #ifdef HASKIPI
 #  include <Plugins/Interface.h>
 #endif
+#ifdef KF5Purpose_FOUND
+#  include <Plugins/PurposeMenu.h>
+#endif
 #include <RemoteControl/RemoteInterface.h>
 #include <Settings/SettingsData.h>
 #include <Settings/SettingsDialog.h>
@@ -258,7 +261,7 @@ void MainWindow::Window::delayedInit()
 
     if ( !Settings::SettingsData::instance()->delayLoadingPlugins() ) {
         splash->message( i18n( "Loading Plug-ins" ) );
-        loadPlugins();
+        loadKipiPlugins();
         qCInfo(TimingLog) << "MainWindow: Loading Plug-ins: " << timer.restart() << "ms.";
     }
 
@@ -1289,7 +1292,7 @@ void MainWindow::Window::slotConfigureKeyBindings()
     dialog->addCollection( viewer->actions(), i18n("Viewer") );
 
 #ifdef HASKIPI
-    loadPlugins();
+    loadKipiPlugins();
     Q_FOREACH( const KIPI::PluginLoader::Info *pluginInfo, m_pluginLoader->pluginList() ) {
         KIPI::Plugin* plugin = pluginInfo->plugin();
         if ( plugin )
@@ -1467,25 +1470,49 @@ void MainWindow::Window::setupPluginMenu()
     QMenu* menu = findChild<QMenu*>( QString::fromLatin1("plugins") );
     if ( !menu ) {
         KMessageBox::error( this, i18n("<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::Window::setupPluginMenu). This indicate that you forgot to do a make install. If you did compile KPhotoAlbum yourself, then please run make install. If not, please report this as a bug.</p><p>KPhotoAlbum will continue execution, but it is not entirely unlikely that it will crash later on due to the missing make install.</p>" ), i18n("Internal Error") );
-        m_hasLoadedPlugins = true;
+        m_hasLoadedKipiPlugins = true;
         return; // This is no good, but lets try and continue.
     }
 
+#ifdef KF5Purpose_FOUND
+    Plugins::PurposeMenu *purposeMenu = new Plugins::PurposeMenu(menu);
+    connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::selectionChanged,
+            purposeMenu, &Plugins::PurposeMenu::slotSelectionChanged);
+    connect(purposeMenu, &Plugins::PurposeMenu::imageShared
+            , [this](QUrl shareLocation) {
+        QString message;
+        if (shareLocation.isValid())
+        {
+            message = i18n("Successfully shared image(s). Copying location to clipboard...");
+            QGuiApplication::clipboard()->setText(shareLocation.toString());
+        } else {
+            message = i18n("Successfully shared image(s).");
+        }
+        m_statusBar->showMessage(message);
+    });
+    connect(purposeMenu, &Plugins::PurposeMenu::imageSharingFailed
+            , [this](QString errorMessage){
+        QString message = i18n("Image sharing failed with mesage: %1", errorMessage);
+        m_statusBar->showMessage(message);
+    });
+#endif
 
 #ifdef HASKIPI
-    connect(menu, &QMenu::aboutToShow, this, &Window::loadPlugins);
-    m_hasLoadedPlugins = false;
+    connect(menu, &QMenu::aboutToShow, this, &Window::loadKipiPlugins);
+    m_hasLoadedKipiPlugins = false;
 #else
+#ifndef KF5Purpose_FOUND
     menu->setEnabled(false);
-    m_hasLoadedPlugins = true;
+#endif
+    m_hasLoadedKipiPlugins = true;
 #endif
 }
 
-void MainWindow::Window::loadPlugins()
+void MainWindow::Window::loadKipiPlugins()
 {
 #ifdef HASKIPI
     Utilities::ShowBusyCursor dummy;
-    if ( m_hasLoadedPlugins )
+    if ( m_hasLoadedKipiPlugins )
         return;
 
     m_pluginInterface = new Plugins::Interface( this, QString::fromLatin1("KPhotoAlbum kipi interface") );
@@ -1504,7 +1531,7 @@ void MainWindow::Window::loadPlugins()
 
     // Setup signals
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::selectionChanged, this, &Window::slotSelectionChanged);
-    m_hasLoadedPlugins = true;
+    m_hasLoadedKipiPlugins = true;
 
     // Make sure selection is updated also when plugin loading is
     // delayed. This is needed, because selection might already be

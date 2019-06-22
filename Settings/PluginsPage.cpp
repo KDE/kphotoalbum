@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -36,7 +36,7 @@ Settings::PluginsPage::PluginsPage( QWidget* parent )
     : QWidget(parent)
 {
     // TODO: DEPENDENCY: the circular dependency on mainwindow is unfortunate.
-    ::MainWindow::Window::theMainWindow()->loadPlugins();
+    ::MainWindow::Window::theMainWindow()->loadKipiPlugins();
     QVBoxLayout* lay1 = new QVBoxLayout( this );
 
     QLabel* label = new QLabel( i18n("Choose Plugins to load:"), this );

@@ -105,7 +105,7 @@ public:
 
 public slots:
     void showThumbNails(const DB::FileNameList& items);
-    void loadPlugins();
+    void loadKipiPlugins();
     void reloadThumbnails( ThumbnailView::SelectionUpdateMethod method = ThumbnailView::MaintainSelection );
     void runDemo();
     void slotImageRotated(const DB::FileName& fileName);
@@ -267,7 +267,7 @@ private:
     TokenEditor* m_tokenEditor;
     DateBar::DateBarWidget* m_dateBar;
     QFrame* m_dateBarLine;
-    bool m_hasLoadedPlugins;
+    bool m_hasLoadedKipiPlugins;
     QMap<Qt::Key, QPair<QString,QString> > m_viewerInputMacros;
     MainWindow::StatusBar* m_statusBar;
     QString m_lastTarget;

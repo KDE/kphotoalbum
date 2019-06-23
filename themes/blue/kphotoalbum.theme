@@ -1,4 +1,10 @@
 [theme]
 Name=KPhotoAlbum Blue
+Name[sv]=Kfotoalbum blå
+Name[uk]=Синя KPhotoAlbum
+Name[x-test]=xxKPhotoAlbum Bluexx
 Author=Teemu Rytilahti
 Description=Straight lines, square boxes and two fresh crisp shades of blue.
+Description[sv]=Räta linjer, fyrkantiga rutor och två friska spröda toner av blå.
+Description[uk]=Прямі лінії, прямокутні блоки і два свіжих яскравих тони синього.
+Description[x-test]=xxStraight lines, square boxes and two fresh crisp shades of blue.xx

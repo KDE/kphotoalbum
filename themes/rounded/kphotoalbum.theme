@@ -1,4 +1,10 @@
 [theme]
 Name=Rounded
+Name[sv]=Avrundat
+Name[uk]=Заокруглена
+Name[x-test]=xxRoundedxx
 Author=Teemu Rytilahti
 Description=This theme uses rounded boxes with a non-intrusive pastel pink background. Descriptions are centered below the image.
+Description[sv]=Temat använder avrundade rutor med en icke störande pastellrosa bakgrund. Beskrivningar är centrerade under bilderna.
+Description[uk]=У цій темі використовуються заокруглені блоки та ненав'язлише пастельне рожеве тло. Описи розташовуються за центром під зображенням.
+Description[x-test]=xxThis theme uses rounded boxes with a non-intrusive pastel pink background. Descriptions are centered below the image.xx

@@ -1,4 +1,8 @@
 [theme]
 Name=Dark v1.0.1
+Name[sv]=Mörk v1.0.1
+Name[uk]=Темна 1.0.1
+Name[x-test]=xxDark v1.0.1xx
 Author=Miika Turkia
 Description=This theme uses darkish colors and provides basic gallery quite similar to other themes in KPhotoAlbum. Possibility to navigate images with keyboard is added if JavaScript support is enabled.
+Description[uk]=У цій темі використано темні кольори. Надаються базові можливості галереї, подібні до інших тем у KPhotoAlbum. Передбачено можливість навігації зображеннями за допомогою клавіатури, якщо увімкнено підтримку JavaScript.

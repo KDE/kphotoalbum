@@ -1,5 +1,9 @@
 [theme]
 Name=Dark JavaScript v1.3.0
+Name[sv]=Mörk Javascript v1.3.0
+Name[uk]=Темний JavaScript v1.3.0
+Name[x-test]=xxDark JavaScript v1.3.0xx
 Author=Miika Turkia
 Default=true
 Description=This theme uses JavaScript heavily to provide smooth photo gallery. Naturally images can be navigated without JavaScript support similarly as with the dark theme. The main window provides a thumbnail view with smallest image (by default) on right. The largest generated images can be viewed either with manual navigation or slide show. This theme works best with rather small images that can fully fit to the screen.
+Description[uk]=У цій темі для забезпечення плавної роботи фотогалереї широко використовується JavaScript. Звичайно ж, навігацію зображеннями можна здійснювати і без підтримки JavaScript, подібно до темної теми. У головному вікні буде показано таблицю мініатюр, у якій найменше зображення (типово) буде розташовано праворуч. Найбільші створені зображення можна буде переглянути або за допомогою навігації вручну, або у режимі показу слайдів. Ця тема найкраще працює із доволі малими зображеннями, які повністю вписуються у екран.

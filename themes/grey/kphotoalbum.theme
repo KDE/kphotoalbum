@@ -1,4 +1,10 @@
 [theme]
 Name=KPhotoAlbum Grey
+Name[sv]=Kfotoalbum grå
+Name[uk]=Сіра KPhotoAlbum
+Name[x-test]=xxKPhotoAlbum Greyxx
 Author=Nick Ryan
 Description=Clean theme with square boxes and two shades of dark grey which keeps the emphasis on your pictures.
+Description[sv]=Rent tema med fyrkantiga rutor och två nyanser av mörkgrått, som låter själva bilderna betonas.
+Description[uk]=Елегантна тема із прямокутними блоками і двома тонами сірого, які надають змогу зосередити увагу глядача на ваших зображеннях.
+Description[x-test]=xxClean theme with square boxes and two shades of dark grey which keeps the emphasis on your pictures.xx

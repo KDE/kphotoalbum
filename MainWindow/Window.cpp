@@ -1492,7 +1492,7 @@ void MainWindow::Window::setupPluginMenu()
     });
     connect(purposeMenu, &Plugins::PurposeMenu::imageSharingFailed
             , [this](QString errorMessage){
-        QString message = i18n("Image sharing failed with mesage: %1", errorMessage);
+        QString message = i18n("Image sharing failed with message: %1", errorMessage);
         m_statusBar->showMessage(message);
     });
 #endif

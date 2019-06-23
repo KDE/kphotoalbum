@@ -2,4 +2,4 @@
 Name=Dark JavaScript v1.3.0
 Author=Miika Turkia
 Default=true
-Description=This theme uses JavaScript heavily to provide smooth photo gallery. Naturally images can be navigated without JavaScript support similarily as with the dark theme. The main window provides a thumbnail view with smallest image (by default) on right. The largest generated images can be viewed either with manual navigation or slide show. This theme works best with rather small images that can fully fit to the screen.
+Description=This theme uses JavaScript heavily to provide smooth photo gallery. Naturally images can be navigated without JavaScript support similarly as with the dark theme. The main window provides a thumbnail view with smallest image (by default) on right. The largest generated images can be viewed either with manual navigation or slide show. This theme works best with rather small images that can fully fit to the screen.

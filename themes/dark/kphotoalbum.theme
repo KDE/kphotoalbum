@@ -1,8 +1,15 @@
 [theme]
 Name=Dark v1.0.1
+Name[ca]=Fosc v1.0.1
+Name[nl]=Dark v1.0.1
+Name[pt]=Escuro v1.0.1
 Name[sv]=Mörk v1.0.1
 Name[uk]=Темна 1.0.1
 Name[x-test]=xxDark v1.0.1xx
 Author=Miika Turkia
 Description=This theme uses darkish colors and provides basic gallery quite similar to other themes in KPhotoAlbum. Possibility to navigate images with keyboard is added if JavaScript support is enabled.
+Description[ca]=Aquest tema usa colors foscos i proporciona una galeria bàsica força semblant a altres temes del KPhotoAlbum. Possibilita navegar per les imatges amb el teclat si s'ha activat el suport del JavaScript.
+Description[nl]=Dit themea gebruikt donkerder kleuren en biedt als basis galerij iets wat redelijk gelijk is aan andere thema's in KPhotoAlbum. De mogelijkheid om door afbeeldingen te navigeren met het toetsenbord is toegevoegd als ondersteuning voor JavaScript is ingeschakeld.
+Description[pt]=Este tema usa cores escuras e oferece uma galeria básica muito semelhante aos outros temas no KPhotoAlbum. A possibilidade de navegar pelas imagens com o teclado será adicionada se activar o suporte para JavaScript.
 Description[uk]=У цій темі використано темні кольори. Надаються базові можливості галереї, подібні до інших тем у KPhotoAlbum. Передбачено можливість навігації зображеннями за допомогою клавіатури, якщо увімкнено підтримку JavaScript.
+Description[x-test]=xxThis theme uses darkish colors and provides basic gallery quite similar to other themes in KPhotoAlbum. Possibility to navigate images with keyboard is added if JavaScript support is enabled.xx

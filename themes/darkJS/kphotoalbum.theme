@@ -1,9 +1,16 @@
 [theme]
 Name=Dark JavaScript v1.3.0
+Name[ca]=JavaScript Fosc v1.3.0
+Name[nl]=Dark JavaScript v1.3.0
+Name[pt]=JavaScript Escuro v1.3.0
 Name[sv]=Mörk Javascript v1.3.0
 Name[uk]=Темний JavaScript v1.3.0
 Name[x-test]=xxDark JavaScript v1.3.0xx
 Author=Miika Turkia
 Default=true
 Description=This theme uses JavaScript heavily to provide smooth photo gallery. Naturally images can be navigated without JavaScript support similarly as with the dark theme. The main window provides a thumbnail view with smallest image (by default) on right. The largest generated images can be viewed either with manual navigation or slide show. This theme works best with rather small images that can fully fit to the screen.
+Description[ca]=Aquest tema usa intensament el JavaScript per proporcionar una galeria de fotos suau. Naturalment es pot navegar per les imatges sense el suport del JavaScript de manera semblant al tema fosc. La finestra principal proporciona una vista de miniatures amb les imatges més petites a la dreta (predeterminat). Les imatges generades més grans es poden veure amb la navegació manual o bé amb un passi de diapositives. Aquest tema funciona millora amb imatges bastant petites que poden encaixar completament a la pantalla.
+Description[nl]=Dit thema is een groot gebruiker van JavaScript om een gladde fotogalerij te leveren. Natuurlijk kunnen door afbeeldingen genavigeerd worden zonder gelijktijdige ondersteuning van JavaScript zoals met het donkere thema. Het hoofdvenster biedt een miniatuurweergave met de kleinste afbeelding (standaard) rechts. De grootste gegenereerde afbeeldingen kunnen bekeken worden ofwel met handmatige navigatie of diashow. Dit thema werkt het beste met tamelijke kleine afbeeldingen die geheel op het scherm kunnen passen.
+Description[pt]=Este tema usa intensivamente o JavaScript para oferecer uma galeria de fotografias suave. Naturalmente, poderá navegar de forma similar sem JavaScript, tal como acontece no tema escuro. A janela principal oferece uma área de miniaturas com uma imagem mais pequena (por omissão) à direita. As imagens maiores poderão ser visualizadas com a navegação manual ou numa apresentação. Este tema funciona melhor com imagens relativamente pequenas que possam caber por completo no ecrã.
 Description[uk]=У цій темі для забезпечення плавної роботи фотогалереї широко використовується JavaScript. Звичайно ж, навігацію зображеннями можна здійснювати і без підтримки JavaScript, подібно до темної теми. У головному вікні буде показано таблицю мініатюр, у якій найменше зображення (типово) буде розташовано праворуч. Найбільші створені зображення можна буде переглянути або за допомогою навігації вручну, або у режимі показу слайдів. Ця тема найкраще працює із доволі малими зображеннями, які повністю вписуються у екран.
+Description[x-test]=xxThis theme uses JavaScript heavily to provide smooth photo gallery. Naturally images can be navigated without JavaScript support similarly as with the dark theme. The main window provides a thumbnail view with smallest image (by default) on right. The largest generated images can be viewed either with manual navigation or slide show. This theme works best with rather small images that can fully fit to the screen.xx

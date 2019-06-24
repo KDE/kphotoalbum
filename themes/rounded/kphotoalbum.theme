@@ -1,10 +1,16 @@
 [theme]
 Name=Rounded
+Name[ca]=Arrodonit
+Name[nl]=Afgerond
+Name[pt]=Arredondado
 Name[sv]=Avrundat
 Name[uk]=Заокруглена
 Name[x-test]=xxRoundedxx
 Author=Teemu Rytilahti
 Description=This theme uses rounded boxes with a non-intrusive pastel pink background. Descriptions are centered below the image.
+Description[ca]=Aquest tema usa quadres arrodonits amb un fons rosa pastís no intrusiu. Les descripcions estan centrades sota la imatge.
+Description[nl]=Dit thema gebruikt afgeronde vakken met een niet-indringt pastel roze achtergrond. Beschrijvingen zijn gecentreerd onder de afbeelding.
+Description[pt]=Este tema usa caixas arredondadas com um fundo rosa-pastel não-intrusivo. As descrições ficam centradas por baixo da imagem.
 Description[sv]=Temat använder avrundade rutor med en icke störande pastellrosa bakgrund. Beskrivningar är centrerade under bilderna.
 Description[uk]=У цій темі використовуються заокруглені блоки та ненав'язлише пастельне рожеве тло. Описи розташовуються за центром під зображенням.
 Description[x-test]=xxThis theme uses rounded boxes with a non-intrusive pastel pink background. Descriptions are centered below the image.xx

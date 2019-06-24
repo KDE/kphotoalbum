@@ -1,10 +1,16 @@
 [theme]
 Name=KPhotoAlbum Grey
+Name[ca]=KPhotoAlbum Gris
+Name[nl]=KPhotoAlbum Grijs
+Name[pt]=Cinzento do KPhotoAlbum
 Name[sv]=Kfotoalbum grå
 Name[uk]=Сіра KPhotoAlbum
 Name[x-test]=xxKPhotoAlbum Greyxx
 Author=Nick Ryan
 Description=Clean theme with square boxes and two shades of dark grey which keeps the emphasis on your pictures.
+Description[ca]=Tema net amb quadres rectangulars i dos tons de gris fosc que manté l'èmfasi a les imatges.
+Description[nl]=Helder thema met vierkante vakken en twee tinten donker grijs die uw afbeeldingen goed laten uitkomen.
+Description[pt]=Tema limpo com caixas quadradas e dois tons de cinzento escuro que mantêm a ênfase nas suas imagens.
 Description[sv]=Rent tema med fyrkantiga rutor och två nyanser av mörkgrått, som låter själva bilderna betonas.
 Description[uk]=Елегантна тема із прямокутними блоками і двома тонами сірого, які надають змогу зосередити увагу глядача на ваших зображеннях.
 Description[x-test]=xxClean theme with square boxes and two shades of dark grey which keeps the emphasis on your pictures.xx

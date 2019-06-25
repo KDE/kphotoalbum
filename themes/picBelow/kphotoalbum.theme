@@ -1,6 +1,7 @@
 [theme]
 Name=PicBelow v1
 Name[ca]=PicBelow v1
+Name[es]=PicBelow v1
 Name[nl]=PicBelow v1
 Name[pt]=Imagem Abaixo v1
 Name[sv]=PicBelow v1
@@ -9,6 +10,7 @@ Name[x-test]=xxPicBelow v1xx
 Author=Steffen Jost
 Description=PicBelow has all its description texts above the image, ensuring that this info is not missed by those who cannot scroll.\n This theme is based upon Dark v1.0.1 by Miika Turkia and similarly allows keyboard navigation.\n Colors are grey on a deep dark red background.
 Description[ca]=El PicBelow té tots els textos de les descripcions sota la imatge, assegurant que aquesta informació no es perd quan no es pot usar el desplaçament.\n Aquest tema està basat en el Dark v1.0.1 del Miika Turkia i de manera semblant permet la navegació amb el teclat.\n El color és gris sobre un fons vermell fosc.
+Description[es]=PicBelow sitúa todos los textos descriptivos encima de la imagen, asegurando que esta información no se pierde cuando resulta imposible desplazarla.\nEste tema está basado en Oscuro v1.0.1, creado por Miika Turkia, y también permite navegación por teclado.\n Los colores son grises sobre un fondo rojo oscuro.
 Description[nl]=PicBelow heeft zijn gehele beschrijvende teksten boven de afbeelding, waarbij wordt gezorgd dat deze informatie hier niet bij ontbreekt als ze niet verschoven kunnen worden.\n Dit thema is gebaseerd op Dark v1.0.1 door Miika Turkia en staat tegelijkertijd navigatie met het toetsenbord toe.\n Kleuren zijn grijs op een diep donkerrode achtergrond.
 Description[pt]=O Imagem Abaixo tem todos os seus textos de descrição por cima da imagem, garantindo que essa informação não se perde com aquelas pessoas que não consigam deslizar para baixo.\nEste tema baseia-se no Escuro v1.0.1 de Miika Turkia e, da mesma forma, permite a navegação com o teclado.\n As cores são cinzentas no fundo vermelho escuro profundo.
 Description[sv]=PicBelow har alla sina beskrivande texter ovanför bilden, vilket säkerställer att informationen inte missas av de som inte kan rulla.\n Temat är baserat på Mörk v1.0.1 av Miika Turkia och tillåter tangentbordsnavigering på liknande sätt.\n Färger är grå på en djupt mörkröd bakgrund.

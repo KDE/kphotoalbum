@@ -56,7 +56,7 @@
     <p>KPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.</p>
     <p xml:lang="ca">El KPhotoAlbum és una aplicació per etiquetar i gestionar una col·lecció de fotografies i fer-les fàcils de trobar.</p>
     <p xml:lang="ca-valencia">El KPhotoAlbum és una aplicació per etiquetar i gestionar una col·lecció de fotografies i fer-les fàcils de trobar.</p>
-    <p xml:lang="de">KPhotoalbum ist eine Anwendung zum verschlagworten, verwalten und durchsuchen Ihrer Fotosammlung.</p>
+    <p xml:lang="de">KPhotoAlbum ist eine Anwendung zum Verschlagworten, Verwalten und Durchsuchen Ihrer Fotosammlung.</p>
     <p xml:lang="en-GB">KPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.</p>
     <p xml:lang="es">KPhotoAlbum es una aplicación para etiquetar y gestionar una colección de fotografías que permite realizar búsquedas.</p>
     <p xml:lang="eu">KPhotoAlbum argazki bilduma bat etiketatu, kudeatu eta bilagarri egiteko aplikazio bat da.</p>
@@ -84,6 +84,7 @@
       <caption xml:lang="ca">La pantalla principal del KPhotoAlbum</caption>
       <caption xml:lang="ca-valencia">La pantalla principal del KPhotoAlbum</caption>
       <caption xml:lang="cs">Hlavní obrazovka pro KPhotoAlbum</caption>
+      <caption xml:lang="de">Das Hauptfenster von KPhotoAlbum</caption>
       <caption xml:lang="en-GB">The main screen in KPhotoAlbum</caption>
       <caption xml:lang="es">La ventana principal de KPhotoAlbum</caption>
       <caption xml:lang="eu">KPhotoAlbum: pantaila nagusia</caption>

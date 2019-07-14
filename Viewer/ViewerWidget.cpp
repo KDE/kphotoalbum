@@ -458,7 +458,7 @@ void Viewer::ViewerWidget::load()
         updateInfoBox();
 
     // Add all tagged areas
-    setTaggedAreas();
+    setTaggedAreasFromImage();
 }
 
 void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
@@ -1337,19 +1337,24 @@ void Viewer::ViewerWidget::invalidateThumbnail() const
     ImageManager::ThumbnailCache::instance()->removeThumbnail( currentInfo()->fileName() );
 }
 
-void Viewer::ViewerWidget::setTaggedAreas()
-{
-    QMap<QString, QMap<QString, QRect>> taggedAreas = currentInfo()->taggedAreas();
-    setTaggedAreas(taggedAreas);
-}
-
-void Viewer::ViewerWidget::setTaggedAreas(QMap<QString, QMap<QString, QRect>> taggedAreas)
+void Viewer::ViewerWidget::setTaggedAreasFromImage()
 {
     // Clean all areas we probably already have
     foreach (TaggedArea *area, findChildren<TaggedArea *>()) {
         area->deleteLater();
     }
 
+    QMap<QString, QMap<QString, QRect>> taggedAreas = currentInfo()->taggedAreas();
+    addTaggedAreas(taggedAreas, AreaType::Standard);
+}
+
+void Viewer::ViewerWidget::addAdditionalTaggedAreas(QMap<QString, QMap<QString, QRect> > taggedAreas)
+{
+    addTaggedAreas(taggedAreas, AreaType::Highlighted);
+}
+
+void Viewer::ViewerWidget::addTaggedAreas(QMap<QString, QMap<QString, QRect>> taggedAreas, AreaType type)
+{
     QMapIterator<QString, QMap<QString, QRect>> areasInCategory(taggedAreas);
     QString category;
     QString tag;
@@ -1367,6 +1372,7 @@ void Viewer::ViewerWidget::setTaggedAreas(QMap<QString, QMap<QString, QRect>> ta
             TaggedArea *newArea = new TaggedArea(this);
             newArea->setTagInfo(category, category, tag);
             newArea->setActualGeometry(areaData.value());
+            newArea->setHighlighted(type==AreaType::Highlighted);
             newArea->show();
 
             connect(m_infoBox, &InfoBox::tagHovered, newArea, &TaggedArea::checkIsSelected);

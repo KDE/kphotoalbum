@@ -67,6 +67,17 @@ public:
     void show( bool slideShow );
     KActionCollection* actions();
 
+    /**
+     * @brief setTaggedAreasFromImage
+     * Clear existing areas and set them based on the currentInfo().
+     */
+    void setTaggedAreasFromImage();
+    /**
+     * @brief addAdditionalTaggedAreas adds additional areas and marks them as highlighted.
+     * @param taggedAreas
+     */
+    void addAdditionalTaggedAreas(QMap<QString, QMap<QString, QRect>> taggedAreas);
+
 public slots:
     bool close(bool alsoDelete = false );
     void updateInfoBox();
@@ -88,6 +99,12 @@ protected:
 
     void moveInfoBox();
 
+    enum class AreaType { Standard, Highlighted };
+    /**
+     * @brief addTaggedAreas adds tagged areas to the viewer.
+     * @param taggedAreas
+     */
+    void addTaggedAreas(QMap<QString, QMap<QString, QRect>> taggedAreas, AreaType type);
     void load();
     void setupContextMenu();
     void createShowContextMenu();
@@ -231,9 +248,6 @@ private:
     QString m_lastCategory;
     QMap<Qt::Key, QPair<QString,QString> >* m_inputMacros;
     QMap<Qt::Key, QPair<QString,QString> >* m_myInputMacros;
-
-    void setTaggedAreas();
-    void setTaggedAreas(QMap<QString, QMap<QString, QRect>> taggedAreas);
 
     QString m_lastCopyToTarget;
 };

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -95,6 +95,14 @@ public:
      * @return A list of all ResizableFrame objects on the current image
      */
     QList<ResizableFrame*> areas() const;
+    /**
+     * @brief taggedAreas creates a map of all the currently tagged areas.
+     * This is different from areas(), which also contains untagged areas.
+     * This is different from \begincode m_editList[m_current].areas()\endcode, which
+     * does not include newly added (or deleted) areas.
+     * @return a map of currently tagged areas
+     */
+    QMap<QString, QMap<QString, QRect>> taggedAreas() const;
     ListSelect* listSelectForCategory( const QString &category);
 
 protected slots:

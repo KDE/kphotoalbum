@@ -641,17 +641,7 @@ void AnnotationDialog::Dialog::writeToInfo()
 
     // Generate a list of all tagged areas
 
-    QMap<QString, QMap<QString, QRect>> taggedAreas;
-    QPair<QString, QString> tagData;
-
-    foreach (ResizableFrame *area, areas())
-    {
-        tagData = area->tagData();
-
-        if ( !tagData.first.isEmpty() ) {
-            taggedAreas[tagData.first][tagData.second] = area->actualCoordinates();
-        }
-    }
+    QMap<QString, QMap<QString, QRect>> areas = taggedAreas();
 
     info.setLabel( m_imageLabel->text() );
     info.setDescription( m_description->toPlainText() );
@@ -659,7 +649,7 @@ void AnnotationDialog::Dialog::writeToInfo()
     Q_FOREACH( ListSelect *ls, m_optionList ) {
         info.setCategoryInfo( ls->category(), ls->itemsOn() );
         if (ls->positionable()) {
-            info.setPositionedTags(ls->category(), taggedAreas[ls->category()]);
+            info.setPositionedTags(ls->category(), areas[ls->category()]);
         }
     }
 
@@ -688,6 +678,20 @@ void AnnotationDialog::Dialog::ShowHideSearch( bool show )
 QList<AnnotationDialog::ResizableFrame *> AnnotationDialog::Dialog::areas() const
 {
     return m_preview->preview()->findChildren<ResizableFrame *>();
+}
+
+QMap<QString, QMap<QString, QRect> > AnnotationDialog::Dialog::taggedAreas() const
+{
+    QMap<QString, QMap<QString, QRect>> taggedAreas;
+
+    foreach (ResizableFrame *area, areas())
+    {
+        QPair<QString, QString> tagData = area->tagData();
+        if ( !tagData.first.isEmpty() ) {
+            taggedAreas[tagData.first][tagData.second] = area->actualCoordinates();
+        }
+    }
+    return taggedAreas;
 }
 
 
@@ -1459,8 +1463,32 @@ void AnnotationDialog::Dialog::togglePreview()
             m_fullScreenPreview->stopPlayback();
         }
         else {
+            DB::ImageInfo currentInfo = m_editList[m_current];
             m_stack->setCurrentWidget( m_fullScreenPreview );
-            m_fullScreenPreview->load( DB::FileNameList() << m_editList[ m_current].fileName() );
+            m_fullScreenPreview->load( DB::FileNameList() << currentInfo.fileName() );
+
+            // compute altered tags by removing existing tags from full set:
+            const QMap<QString, QMap<QString, QRect>> existingAreas = currentInfo.taggedAreas();
+            QMap<QString, QMap<QString, QRect>> alteredAreas = taggedAreas();
+            for (auto catIt = existingAreas.constBegin(); catIt != existingAreas.constEnd(); ++catIt)
+            {
+                const QString &categoryName = catIt.key();
+                const QMap<QString, QRect> &tags = catIt.value();
+                for (auto tagIt = tags.cbegin(); tagIt != tags.constEnd(); ++tagIt)
+                {
+                    const QString &tagName = tagIt.key();
+                    const QRect &area = tagIt.value();
+
+                    // remove unchanged areas
+                    if (area == alteredAreas[categoryName][tagName])
+                    {
+                        alteredAreas[categoryName].remove(tagName);
+                        if (alteredAreas[categoryName].empty())
+                            alteredAreas.remove(categoryName);
+                    }
+                }
+            }
+            m_fullScreenPreview->addAdditionalTaggedAreas(alteredAreas);
         }
     }
 }

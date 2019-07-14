@@ -1369,8 +1369,8 @@ void Viewer::ViewerWidget::setTaggedAreas(QMap<QString, QMap<QString, QRect>> ta
             newArea->setActualGeometry(areaData.value());
             newArea->show();
 
-            connect(m_infoBox, &InfoBox::tagHovered, newArea, &TaggedArea::checkShowArea);
-            connect(m_infoBox, &InfoBox::noTagHovered, newArea, &TaggedArea::resetViewStyle);
+            connect(m_infoBox, &InfoBox::tagHovered, newArea, &TaggedArea::checkIsSelected);
+            connect(m_infoBox, &InfoBox::noTagHovered, newArea, &TaggedArea::deselect);
         }
     }
 

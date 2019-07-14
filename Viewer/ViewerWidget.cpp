@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -458,7 +458,7 @@ void Viewer::ViewerWidget::load()
         updateInfoBox();
 
     // Add all tagged areas
-    addTaggedAreas();
+    setTaggedAreas();
 }
 
 void Viewer::ViewerWidget::setCaptionWithDetail( const QString& detail ) {
@@ -1337,14 +1337,19 @@ void Viewer::ViewerWidget::invalidateThumbnail() const
     ImageManager::ThumbnailCache::instance()->removeThumbnail( currentInfo()->fileName() );
 }
 
-void Viewer::ViewerWidget::addTaggedAreas()
+void Viewer::ViewerWidget::setTaggedAreas()
+{
+    QMap<QString, QMap<QString, QRect>> taggedAreas = currentInfo()->taggedAreas();
+    setTaggedAreas(taggedAreas);
+}
+
+void Viewer::ViewerWidget::setTaggedAreas(QMap<QString, QMap<QString, QRect>> taggedAreas)
 {
     // Clean all areas we probably already have
     foreach (TaggedArea *area, findChildren<TaggedArea *>()) {
         area->deleteLater();
     }
 
-    QMap<QString, QMap<QString, QRect>> taggedAreas = currentInfo()->taggedAreas();
     QMapIterator<QString, QMap<QString, QRect>> areasInCategory(taggedAreas);
     QString category;
     QString tag;

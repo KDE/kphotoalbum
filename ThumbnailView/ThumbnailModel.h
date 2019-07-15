@@ -85,11 +85,36 @@ public:
     void setSortDirection( SortDirection );
     QPixmap pixmap( const DB::FileName& fileName ) const;
 
+    /**
+     * @brief isFiltered
+     * @return \c true, if the filter is currently active, \c false otherwise.
+     */
+    bool isFiltered() const;
+
 public slots:
     void updateVisibleRowInfo();
 
+    /**
+     * @brief clearFilter clears the filter so that all images in the current view are displayed.
+     */
     void clearFilter();
     void setFilter(DB::ImageSearchInfo filter);
+    /**
+     * @brief filterByRating sets the filter to only show images with the given rating.
+     * @param rating a number between 0 and 10
+     */
+    void filterByRating(short rating);
+    /**
+     * @brief filterByCategory sets the filter to only show images with the given tag.
+     * Calling this method again for the same category will overwrite the previous filter
+     * for that category.
+     * You can use '&' and '|' in the tag text to match several tags at once.
+     * @param category
+     * @param tag
+     *
+     * @see DB::ImageSearchinfo::setCategoryMatchText()
+     */
+    void filterByCategory(const QString &category, const QString &tag);
 
 signals:
     void collapseAllStacksEnabled(bool enabled);

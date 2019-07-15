@@ -18,6 +18,7 @@
 #include "ThumbnailModel.h"
 
 #include <QIcon>
+#include <QLoggingCategory>
 
 #include <KLocalizedString>
 
@@ -29,6 +30,7 @@
 #include <Utilities/FileUtil.h>
 
 #include "CellGeometry.h"
+#include "Logging.h"
 #include "ThumbnailRequest.h"
 #include "ThumbnailWidget.h"
 #include "SelectionMaintainer.h"
@@ -43,6 +45,7 @@ ThumbnailView::ThumbnailModel::ThumbnailModel( ThumbnailFactory* factory)
     m_ImagePlaceholder = QIcon::fromTheme( QLatin1String("image-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
     m_VideoPlaceholder = QIcon::fromTheme( QLatin1String("video-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
     m_filter.setSearchMode(0);
+    connect( this, &ThumbnailModel::filterChanged, this, &ThumbnailModel::updateDisplayModel);
 }
 
 static bool stackOrderComparator(const DB::FileName& a, const DB::FileName& b) {
@@ -434,6 +437,11 @@ QPixmap ThumbnailView::ThumbnailModel::pixmap( const DB::FileName& fileName ) co
         return m_ImagePlaceholder;
 }
 
+bool ThumbnailView::ThumbnailModel::isFiltered() const
+{
+    return !m_filter.isNull();
+}
+
 bool ThumbnailView::ThumbnailModel::thumbnailStillNeeded( int row ) const
 {
     return ( row >= m_firstVisibleRow && row <= m_lastVisibleRow );
@@ -455,6 +463,7 @@ void ThumbnailView::ThumbnailModel::clearFilter()
 {
     if (!m_filter.isNull())
     {
+        qCDebug(ThumbnailViewLog) << "Filter cleared.";
         m_filter = DB::ImageSearchInfo();
         emit filterChanged();
     }
@@ -462,7 +471,22 @@ void ThumbnailView::ThumbnailModel::clearFilter()
 
 void ThumbnailView::ThumbnailModel::setFilter(DB::ImageSearchInfo filter)
 {
+    qCDebug(ThumbnailViewLog) << "Filter set.";
     m_filter = filter;
+    emit filterChanged();
+}
+
+void ThumbnailView::ThumbnailModel::filterByRating(short rating)
+{
+    qCDebug(ThumbnailViewLog) << "Filter added: rating(" << rating << ")";
+    m_filter.setRating(rating);
+    emit filterChanged();
+}
+
+void ThumbnailView::ThumbnailModel::filterByCategory(const QString &category, const QString &tag)
+{
+    qCDebug(ThumbnailViewLog) << "Filter added: category(" << category << "," << tag << ")";
+    m_filter.setCategoryMatchText(category, tag);
     emit filterChanged();
 }
 

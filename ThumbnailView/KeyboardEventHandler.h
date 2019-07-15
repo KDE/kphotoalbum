@@ -36,6 +36,8 @@ namespace ThumbnailView
  *  - Setting the rating for images (1-5)
  *  - Stopping video thumbnail cycling when Control is pressed
  *  - Showing the Viewer when Enter is pressed.
+ *  - Applying filters for tokens and ratings.
+ *  - Clearing the current filter
  */
 class KeyboardEventHandler :public QObject, public ThumbnailComponent
 {

@@ -23,6 +23,7 @@
 
 #include <DB/FileNameList.h>
 #include <DB/ImageInfo.h>
+#include <DB/ImageSearchInfo.h>
 #include <ImageManager/enums.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <ThumbnailView/enums.h>
@@ -87,10 +88,14 @@ public:
 public slots:
     void updateVisibleRowInfo();
 
+    void clearFilter();
+    void setFilter(DB::ImageSearchInfo filter);
+
 signals:
     void collapseAllStacksEnabled(bool enabled);
     void expandAllStacksEnabled(bool enabled);
     void selectionChanged(int numberOfItemsSelected);
+    void filterChanged();
 
 
 private: // Methods
@@ -149,6 +154,8 @@ private: // Instance variables.
     // placeholder pixmaps to be displayed before thumbnails are loaded:
     QPixmap m_ImagePlaceholder;
     QPixmap m_VideoPlaceholder;
+
+    DB::ImageSearchInfo m_filter;
 };
 
 }

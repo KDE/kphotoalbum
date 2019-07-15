@@ -20,6 +20,7 @@
 #include "ThumbnailFactory.h"
 #include "ThumbnailWidget.h"
 #include <DB/FileNameList.h>
+#include <DB/ImageSearchInfo.h>
 
 class QSlider;
 
@@ -62,6 +63,9 @@ public slots:
     void updateDisplayModel();
     void changeSingleSelection(const DB::FileName& fileName);
     void slotRecreateThumbnail();
+
+    void clearFilter();
+    void setFilter(DB::ImageSearchInfo setFilter);
 
 signals:
     void showImage( const DB::FileName& id );

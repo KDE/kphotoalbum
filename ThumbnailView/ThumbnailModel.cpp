@@ -42,6 +42,7 @@ ThumbnailView::ThumbnailModel::ThumbnailModel( ThumbnailFactory* factory)
     connect( DB::ImageDB::instance(), SIGNAL(imagesDeleted(DB::FileNameList)), this, SLOT(imagesDeletedFromDB(DB::FileNameList)) );
     m_ImagePlaceholder = QIcon::fromTheme( QLatin1String("image-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
     m_VideoPlaceholder = QIcon::fromTheme( QLatin1String("video-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
+    m_filter.setSearchMode(0);
 }
 
 static bool stackOrderComparator(const DB::FileName& a, const DB::FileName& b) {
@@ -88,6 +89,8 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     QSet<DB::StackID> alreadyShownStacks;
     Q_FOREACH( const DB::FileName& fileName, m_imageList) {
         DB::ImageInfoPtr imageInfo = fileName.info();
+        if (!m_filter.match(imageInfo))
+            continue;
         if ( imageInfo && imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
             if (alreadyShownStacks.contains(stackid))
@@ -446,6 +449,21 @@ void ThumbnailView::ThumbnailModel::updateVisibleRowInfo()
     // the cellGeometry has changed -> update placeholders
     m_ImagePlaceholder = QIcon::fromTheme( QLatin1String("image-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
     m_VideoPlaceholder = QIcon::fromTheme( QLatin1String("video-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
+}
+
+void ThumbnailView::ThumbnailModel::clearFilter()
+{
+    if (!m_filter.isNull())
+    {
+        m_filter = DB::ImageSearchInfo();
+        emit filterChanged();
+    }
+}
+
+void ThumbnailView::ThumbnailModel::setFilter(DB::ImageSearchInfo filter)
+{
+    m_filter = filter;
+    emit filterChanged();
 }
 
 void ThumbnailView::ThumbnailModel::preloadThumbnails()

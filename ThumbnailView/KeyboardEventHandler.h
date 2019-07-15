@@ -28,6 +28,15 @@ class ThumbnailFactory;
 
 namespace ThumbnailView
 {
+/**
+ * @brief The KeyboardEventHandler class handles keyboard input for the thumbnail widget.
+ *
+ * Specifically, the following keyboard interactions are handled:
+ *  - Setting and unsetting tokens on images (a-z)
+ *  - Setting the rating for images (1-5)
+ *  - Stopping video thumbnail cycling when Control is pressed
+ *  - Showing the Viewer when Enter is pressed.
+ */
 class KeyboardEventHandler :public QObject, public ThumbnailComponent
 {
     Q_OBJECT

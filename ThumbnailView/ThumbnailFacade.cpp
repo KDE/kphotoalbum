@@ -183,10 +183,4 @@ void ThumbnailView::ThumbnailFacade::clearFilter()
     m_model->clearFilter();
 }
 
-void ThumbnailView::ThumbnailFacade::setFilter(DB::ImageSearchInfo filter)
-{
-    Q_ASSERT( m_model );
-    m_model->setFilter(filter);
-}
-
 // vi:expandtab:tabstop=4 shiftwidth=4:

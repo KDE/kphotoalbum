@@ -469,13 +469,6 @@ void ThumbnailView::ThumbnailModel::clearFilter()
     }
 }
 
-void ThumbnailView::ThumbnailModel::setFilter(DB::ImageSearchInfo filter)
-{
-    qCDebug(ThumbnailViewLog) << "Filter set.";
-    m_filter = filter;
-    emit filterChanged();
-}
-
 void ThumbnailView::ThumbnailModel::filterByRating(short rating)
 {
     qCDebug(ThumbnailViewLog) << "Filter added: rating(" << rating << ")";

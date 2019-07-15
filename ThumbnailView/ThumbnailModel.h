@@ -98,7 +98,6 @@ public slots:
      * @brief clearFilter clears the filter so that all images in the current view are displayed.
      */
     void clearFilter();
-    void setFilter(DB::ImageSearchInfo filter);
     /**
      * @brief filterByRating sets the filter to only show images with the given rating.
      * @param rating a number between 0 and 10

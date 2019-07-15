@@ -65,7 +65,6 @@ public slots:
     void slotRecreateThumbnail();
 
     void clearFilter();
-    void setFilter(DB::ImageSearchInfo setFilter);
 
 signals:
     void showImage( const DB::FileName& id );

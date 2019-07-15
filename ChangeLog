@@ -2,6 +2,8 @@
 
 * Feature: Support for using purpose plugins
 
+* Feature: Show newly added tagged areas in the annotation dialog's fullscreen preview.
+
 ====================== KPhotoalbum 5.5 released (27.04.2019) ======================
 
 * Bugfix: Fix compilation with exiv2 0.27.

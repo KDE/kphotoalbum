@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -77,7 +77,6 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
         }
         if ( event->modifiers() == Qt::ControlModifier) {
             // filter view
-            qDebug() << "filter by category";
             const QString tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory)->name();
             model()->filterByCategory(tokensCategory, token);
             return true;
@@ -99,11 +98,6 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
                     info->setRating(rating);
                 }
                 MainWindow::DirtyIndicator::markDirty();
-                return true;
-            }
-            if ( event->modifiers() == Qt::ControlModifier) {
-                // filter view
-                model()->filterByRating(rating);
                 return true;
             }
         }

@@ -497,14 +497,18 @@ void ThumbnailView::ThumbnailModel::filterByCategory(const QString &category, co
 void ThumbnailView::ThumbnailModel::toggleCategoryFilter(const QString &category, const QString &tag)
 {
     auto tags = m_filter.categoryMatchText(category).split(QString::fromLatin1("&"),QString::SkipEmptyParts);
-    if (tags.contains(tag))
+    for (const auto &existingTag : tags)
     {
-        qCDebug(ThumbnailViewLog) << "Filter removed: category(" << category << "," << tag << ")";
-        tags.removeOne(tag);
-        m_filter.setCategoryMatchText(category,tags.join(QString::fromLatin1(" & ")));
-    } else {
-        filterByCategory(category, tag);
+        if (tag == existingTag.trimmed())
+        {
+            qCDebug(ThumbnailViewLog) << "Filter removed: category(" << category << "," << tag << ")";
+            tags.removeOne(existingTag);
+            m_filter.setCategoryMatchText(category,tags.join(QString::fromLatin1(" & ")));
+            emit filterChanged();
+            return;
+        }
     }
+    filterByCategory(category, tag);
 }
 
 void ThumbnailView::ThumbnailModel::preloadThumbnails()

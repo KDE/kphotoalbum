@@ -471,16 +471,40 @@ void ThumbnailView::ThumbnailModel::clearFilter()
 
 void ThumbnailView::ThumbnailModel::filterByRating(short rating)
 {
-    qCDebug(ThumbnailViewLog) << "Filter added: rating(" << rating << ")";
+    qCDebug(ThumbnailViewLog) << "Filter set: rating(" << rating << ")";
     m_filter.setRating(rating);
     emit filterChanged();
+}
+
+void ThumbnailView::ThumbnailModel::toggleRatingFilter(short rating)
+{
+    if (m_filter.rating() == rating)
+    {
+        filterByRating(rating);
+    } else {
+        filterByRating(-1);
+    }
 }
 
 void ThumbnailView::ThumbnailModel::filterByCategory(const QString &category, const QString &tag)
 {
     qCDebug(ThumbnailViewLog) << "Filter added: category(" << category << "," << tag << ")";
-    m_filter.setCategoryMatchText(category, tag);
+
+    m_filter.addAnd(category, tag);
     emit filterChanged();
+}
+
+void ThumbnailView::ThumbnailModel::toggleCategoryFilter(const QString &category, const QString &tag)
+{
+    auto tags = m_filter.categoryMatchText(category).split(QString::fromLatin1("&"),QString::SkipEmptyParts);
+    if (tags.contains(tag))
+    {
+        qCDebug(ThumbnailViewLog) << "Filter removed: category(" << category << "," << tag << ")";
+        tags.removeOne(tag);
+        m_filter.setCategoryMatchText(category,tags.join(QString::fromLatin1(" & ")));
+    } else {
+        filterByCategory(category, tag);
+    }
 }
 
 void ThumbnailView::ThumbnailModel::preloadThumbnails()

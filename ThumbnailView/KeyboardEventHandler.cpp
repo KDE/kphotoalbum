@@ -75,10 +75,10 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
             MainWindow::DirtyIndicator::markDirty();
             return true;
         }
-        if ( event->modifiers() == Qt::ControlModifier) {
+        if ( event->modifiers() == (Qt::AltModifier|Qt::ShiftModifier)) {
             // filter view
             const QString tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory)->name();
-            model()->filterByCategory(tokensCategory, token);
+            model()->toggleCategoryFilter(tokensCategory, token);
             return true;
         }
     }

@@ -74,6 +74,22 @@ QString ImageSearchInfo::description() const
     return m_description;
 }
 
+void ImageSearchInfo::checkIfNull()
+{
+    if (m_compiled || isNull() )
+        return;
+    if (m_date.isNull() && m_label.isEmpty() && m_description.isEmpty()
+            && m_rating == -1 && m_megapixel == 0 && m_exifSearchInfo.isNull()
+            && m_categoryMatchText.isEmpty()
+        #ifdef HAVE_KGEOMAP
+            && !m_regionSelection.first.hasCoordinates() && !m_regionSelection.second.hasCoordinates()
+        #endif
+            )
+    {
+        m_isNull = true;
+    }
+}
+
 ImageSearchInfo::ImageSearchInfo()
     : m_rating( -1 ), m_megapixel( 0 ), m_max_megapixel( 0 ), m_ratingSearchMode( 0 ), m_searchRAW( false ), m_isNull( true ), m_isCacheable( true ), m_compiled( false ), m_matchGeneration(nextGeneration())
 {
@@ -230,7 +246,12 @@ QString ImageSearchInfo::categoryMatchText( const QString& name ) const
 
 void ImageSearchInfo::setCategoryMatchText( const QString& name, const QString& value )
 {
-    m_categoryMatchText[name] = value;
+    if (value.isEmpty())
+    {
+        m_categoryMatchText.remove(name);
+    } else {
+        m_categoryMatchText[name] = value;
+    }
     m_isNull = false;
     m_compiled = false;
     m_matchGeneration = nextGeneration();

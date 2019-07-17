@@ -60,6 +60,14 @@ public:
     QRegExp fnPattern() const;
     QString description() const;
 
+    /**
+     * @brief checkIfNull evaluates whether the filter is indeed empty and
+     * sets isNull() to \c true if that is the case.
+     * You only need to call this if you re-use an existing ImageSearchInfo
+     * and set/reset search parameters.
+     * @see ThumbnailView::toggleRatingFilter
+     */
+    void checkIfNull();
     bool isNull() const;
     bool match( ImageInfoPtr ) const;
     QList<QList<SimpleCategoryMatcher*> > query() const;

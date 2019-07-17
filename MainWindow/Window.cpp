@@ -101,6 +101,7 @@
 #include <Settings/SettingsDialog.h>
 #include <ThumbnailView/enums.h>
 #include <ThumbnailView/ThumbnailFacade.h>
+#include <ThumbnailView/FilterWidget.h>
 #include <Utilities/DemoUtil.h>
 #include <Utilities/FileNameUtil.h>
 #include <Utilities/List.h>
@@ -1843,6 +1844,7 @@ void MainWindow::Window::slotMarkUntagged()
 void MainWindow::Window::setupStatusBar()
 {
     m_statusBar = new MainWindow::StatusBar;
+    m_statusBar->addWidget(m_thumbnailView->createFilterWidget());
     setStatusBar( m_statusBar );
     setLocked( Settings::SettingsData::instance()->locked(), true, false );
     connect(m_statusBar, &StatusBar::thumbnailSettingsRequested

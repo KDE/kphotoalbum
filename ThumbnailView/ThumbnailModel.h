@@ -32,6 +32,7 @@
 namespace ThumbnailView
 {
 class ThumbnailFactory;
+class FilterWidget;
 
 class ThumbnailModel :public QAbstractListModel, public ImageManager::ImageClientInterface, private ThumbnailComponent
 {
@@ -91,6 +92,8 @@ public:
      */
     bool isFiltered() const;
 
+    FilterWidget *createFilterWidget(QWidget *parent=nullptr);
+
 public slots:
     void updateVisibleRowInfo();
 
@@ -132,7 +135,7 @@ signals:
     void collapseAllStacksEnabled(bool enabled);
     void expandAllStacksEnabled(bool enabled);
     void selectionChanged(int numberOfItemsSelected);
-    void filterChanged();
+    void filterChanged(const DB::ImageSearchInfo &filter);
 
 
 private: // Methods

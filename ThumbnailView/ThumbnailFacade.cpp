@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -101,6 +101,11 @@ void ThumbnailView::ThumbnailFacade::setSortDirection( SortDirection direction )
 QSlider* ThumbnailView::ThumbnailFacade::createResizeSlider()
 {
     return new GridResizeSlider( this );
+}
+
+ThumbnailView::FilterWidget *ThumbnailView::ThumbnailFacade::createFilterWidget(QWidget *parent)
+{
+    return model()->createFilterWidget(parent);
 }
 
 void ThumbnailView::ThumbnailFacade::selectAll()

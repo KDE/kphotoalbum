@@ -34,6 +34,7 @@
 #include "ThumbnailRequest.h"
 #include "ThumbnailWidget.h"
 #include "SelectionMaintainer.h"
+#include "FilterWidget.h"
 
 ThumbnailView::ThumbnailModel::ThumbnailModel( ThumbnailFactory* factory)
     : ThumbnailComponent( factory )
@@ -442,6 +443,14 @@ bool ThumbnailView::ThumbnailModel::isFiltered() const
     return !m_filter.isNull();
 }
 
+ThumbnailView::FilterWidget *ThumbnailView::ThumbnailModel::createFilterWidget(QWidget *parent)
+{
+    auto widget = new FilterWidget(parent);
+    connect(this, &ThumbnailModel::filterChanged, widget, &FilterWidget::setFilter);
+    connect(widget, &FilterWidget::ratingChanged, this, &ThumbnailModel::filterByRating);
+    return widget;
+}
+
 bool ThumbnailView::ThumbnailModel::thumbnailStillNeeded( int row ) const
 {
     return ( row >= m_firstVisibleRow && row <= m_lastVisibleRow );
@@ -465,15 +474,16 @@ void ThumbnailView::ThumbnailModel::clearFilter()
     {
         qCDebug(ThumbnailViewLog) << "Filter cleared.";
         m_filter = DB::ImageSearchInfo();
-        emit filterChanged();
+        emit filterChanged(m_filter);
     }
 }
 
 void ThumbnailView::ThumbnailModel::filterByRating(short rating)
 {
+    Q_ASSERT(-1 <= rating && rating <= 10);
     qCDebug(ThumbnailViewLog) << "Filter set: rating(" << rating << ")";
     m_filter.setRating(rating);
-    emit filterChanged();
+    emit filterChanged(m_filter);
 }
 
 void ThumbnailView::ThumbnailModel::toggleRatingFilter(short rating)
@@ -491,7 +501,7 @@ void ThumbnailView::ThumbnailModel::filterByCategory(const QString &category, co
     qCDebug(ThumbnailViewLog) << "Filter added: category(" << category << "," << tag << ")";
 
     m_filter.addAnd(category, tag);
-    emit filterChanged();
+    emit filterChanged(m_filter);
 }
 
 void ThumbnailView::ThumbnailModel::toggleCategoryFilter(const QString &category, const QString &tag)
@@ -504,7 +514,7 @@ void ThumbnailView::ThumbnailModel::toggleCategoryFilter(const QString &category
             qCDebug(ThumbnailViewLog) << "Filter removed: category(" << category << "," << tag << ")";
             tags.removeOne(existingTag);
             m_filter.setCategoryMatchText(category,tags.join(QString::fromLatin1(" & ")));
-            emit filterChanged();
+            emit filterChanged(m_filter);
             return;
         }
     }

@@ -1844,7 +1844,6 @@ void MainWindow::Window::slotMarkUntagged()
 void MainWindow::Window::setupStatusBar()
 {
     m_statusBar = new MainWindow::StatusBar;
-    m_statusBar->addWidget(m_thumbnailView->createFilterWidget());
     setStatusBar( m_statusBar );
     setLocked( Settings::SettingsData::instance()->locked(), true, false );
     connect(m_statusBar, &StatusBar::thumbnailSettingsRequested
@@ -1898,6 +1897,12 @@ void MainWindow::Window::createSearchBar()
     connect(bar, &SearchBar::keyPressed, m_browser, &Browser::BrowserWidget::scrollKeyPressed);
     connect(m_browser, &Browser::BrowserWidget::viewChanged, bar, &SearchBar::reset);
     connect(m_browser, &Browser::BrowserWidget::isSearchable, bar, &SearchBar::setLineEditEnabled);
+
+    ThumbnailView::FilterWidget *filter = m_thumbnailView->createFilterWidget(this);
+    filter->setObjectName(QString::fromUtf8("filterBar"));
+    connect(m_browser, &Browser::BrowserWidget::viewChanged,
+            ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);
+    connect(m_browser, &Browser::BrowserWidget::isFilterable, filter, &ThumbnailView::FilterWidget::setEnabled);
 }
 
 void MainWindow::Window::executeStartupActions()

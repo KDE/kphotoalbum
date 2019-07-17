@@ -97,6 +97,7 @@ public:
 public slots:
     void updateVisibleRowInfo();
 
+    void toggleFilter(bool enable);
     /**
      * @brief clearFilter clears the filter so that all images in the current view are displayed.
      */
@@ -196,6 +197,7 @@ private: // Instance variables.
     QPixmap m_VideoPlaceholder;
 
     DB::ImageSearchInfo m_filter;
+    DB::ImageSearchInfo m_previousFilter;
 };
 
 }

@@ -20,35 +20,46 @@
 #ifndef FILTERWIDGET_H
 #define FILTERWIDGET_H
 
-#include <QWidget>
+#include <KToolBar>
 
 #include <DB/ImageSearchInfo.h>
 
 class KRatingWidget;
+class QAction;
 class QLabel;
+class QWidget;
 
 namespace ThumbnailView
 {
 /**
- * @brief The FilterWidget class provides a widget to interact with the thumbnail filter.
+ * @brief The FilterWidget class provides a KToolBar widget to interact with the thumbnail filter.
  * You can use it to set the rating filter, and it gives some visual feedback when the filter changes.
  */
-class FilterWidget : public QWidget
+class FilterWidget : public KToolBar
 {
     Q_OBJECT
 public:
     explicit FilterWidget(QWidget *parent = nullptr);
 
 signals:
+    void filterToggled(bool enabled);
     void ratingChanged(short rating);
 
 public slots:
     void setFilter(const DB::ImageSearchInfo &filter);
+    /**
+     * @brief setEnabled enables or disables the filter controls.
+     * If the ThumbnailView is not active, setEnable should be set to \c false.
+     * @param enabled
+     */
+    void setEnabled(bool enabled);
 
 protected slots:
     void slotRatingChanged(int rating);
+    void resetLabelText();
 
 private:
+    QAction *m_toggleFilter;
     KRatingWidget *m_rating;
     QLabel *m_label;
 };

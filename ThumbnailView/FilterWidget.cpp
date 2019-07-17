@@ -25,17 +25,21 @@
 
 
 ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
-    : QWidget(parent)
+    : KToolBar (parent)
 {
-    auto *layout = new QHBoxLayout;
-    setLayout(layout);
-
+    m_toggleFilter = addAction(
+                QIcon::fromTheme( QLatin1String("view-filter")),
+                i18nc("The action enables/disables filtering of images in the thumbnail view.", "Toggle filter")
+                );
+    m_toggleFilter->setCheckable(true);
+    m_toggleFilter->setToolTip(xi18n("Press <shortcut>Escape</shortcut> to clear filter."));
+    connect(m_toggleFilter, &QAction::toggled, this, &FilterWidget::filterToggled);
     m_rating = new KRatingWidget;
-    layout->addWidget(m_rating);
+    addWidget(m_rating);
 
     m_label = new QLabel;
-    m_label->setText(i18n("Tip: Use Alt+Shift+Token to toggle a filter for that token."));
-    layout->addWidget(m_label);
+    resetLabelText();
+    addWidget(m_label);
 
     // Note(jzarl): new style connect seems to be confused by overloaded signal in KRatingWidget
     // -> fall back to old-style
@@ -48,12 +52,36 @@ void ThumbnailView::FilterWidget::setFilter(const DB::ImageSearchInfo &filter)
     // prevent ratingChanged signal when the filter has changed
     blockSignals(true);
     m_rating->setRating(filter.rating());
+    if (filter.isNull())
+    {
+        m_toggleFilter->setChecked(false);
+        resetLabelText();
+    }
+    else {
+        m_toggleFilter->setChecked(true);
+        m_label->setText(i18nc("The label gives a textual description of the active filter"
+                               , "Filter: %1",filter.toString()));
+    }
     blockSignals(false);
-    m_label->setText(filter.toString());
+}
+
+void ThumbnailView::FilterWidget::setEnabled(bool enabled)
+{
+    m_toggleFilter->setEnabled(enabled);
+    m_rating->setEnabled(enabled);
+    if (enabled)
+        resetLabelText();
+    else
+        m_label->clear();
 }
 
 void ThumbnailView::FilterWidget::slotRatingChanged(int rating)
 {
     Q_ASSERT(-1 <= rating && rating <= 10);
     emit ratingChanged((short)rating);
+}
+
+void ThumbnailView::FilterWidget::resetLabelText()
+{
+    m_label->setText(xi18n("Tip: Use <shortcut>Alt+Shift+<placeholder>A-Z</placeholder></shortcut> to toggle a filter for that token."));
 }

@@ -448,6 +448,7 @@ ThumbnailView::FilterWidget *ThumbnailView::ThumbnailModel::createFilterWidget(Q
     auto widget = new FilterWidget(parent);
     connect(this, &ThumbnailModel::filterChanged, widget, &FilterWidget::setFilter);
     connect(widget, &FilterWidget::ratingChanged, this, &ThumbnailModel::filterByRating);
+    connect(widget, &FilterWidget::filterToggled, this, &ThumbnailModel::toggleFilter);
     return widget;
 }
 
@@ -468,11 +469,22 @@ void ThumbnailView::ThumbnailModel::updateVisibleRowInfo()
     m_VideoPlaceholder = QIcon::fromTheme( QLatin1String("video-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
 }
 
+void ThumbnailView::ThumbnailModel::toggleFilter(bool enable)
+{
+    if (!enable)
+        clearFilter();
+    else if (m_filter.isNull()) {
+        std::swap(m_filter,m_previousFilter);
+        emit filterChanged(m_filter);
+    }
+}
+
 void ThumbnailView::ThumbnailModel::clearFilter()
 {
     if (!m_filter.isNull())
     {
         qCDebug(ThumbnailViewLog) << "Filter cleared.";
+        m_previousFilter = m_filter;
         m_filter = DB::ImageSearchInfo();
         emit filterChanged(m_filter);
     }
@@ -493,6 +505,10 @@ void ThumbnailView::ThumbnailModel::toggleRatingFilter(short rating)
         filterByRating(rating);
     } else {
         filterByRating(-1);
+        qCDebug(ThumbnailViewLog) << "Filter removed: rating";
+        m_filter.setRating(-1);
+        m_filter.checkIfNull();
+        emit filterChanged(m_filter);
     }
 }
 
@@ -512,8 +528,9 @@ void ThumbnailView::ThumbnailModel::toggleCategoryFilter(const QString &category
         if (tag == existingTag.trimmed())
         {
             qCDebug(ThumbnailViewLog) << "Filter removed: category(" << category << "," << tag << ")";
-            tags.removeOne(existingTag);
+            tags.removeAll(existingTag);
             m_filter.setCategoryMatchText(category,tags.join(QString::fromLatin1(" & ")));
+            m_filter.checkIfNull();
             emit filterChanged(m_filter);
             return;
         }

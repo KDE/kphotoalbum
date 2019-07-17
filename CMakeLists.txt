@@ -144,6 +144,7 @@ set(libxmldb_SRCS
 
 set(libThumbnailView_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/documentation.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/FilterWidget.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailRequest.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailToolTip.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/ThumbnailWidget.cpp

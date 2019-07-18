@@ -98,7 +98,7 @@ public:
     /**
      * @brief taggedAreas creates a map of all the currently tagged areas.
      * This is different from areas(), which also contains untagged areas.
-     * This is different from \begincode m_editList[m_current].areas()\endcode, which
+     * This is different from \code m_editList[m_current].areas()\endcode, which
      * does not include newly added (or deleted) areas.
      * @return a map of currently tagged areas
      */

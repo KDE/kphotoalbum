@@ -102,7 +102,8 @@ protected:
     enum class AreaType { Standard, Highlighted };
     /**
      * @brief addTaggedAreas adds tagged areas to the viewer.
-     * @param taggedAreas
+     * @param taggedAreas Map(category -> Map(tagname, area))
+     * @param type AreaType::Standard is for areas that are part of the Image; AreaType::Highlight is for additional areas
      */
     void addTaggedAreas(QMap<QString, QMap<QString, QRect>> taggedAreas, AreaType type);
     void load();

@@ -1,0 +1,10 @@
+#!/bin/sh -e
+hooksdir=$(dirname "$0")
+
+for f in "$hooksdir"/pre-commit.d/*
+do
+	if [ -x "$f" ]
+	then
+		"$f" || exit "$?"
+	fi
+done

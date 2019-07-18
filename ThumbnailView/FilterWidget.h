@@ -34,6 +34,8 @@ namespace ThumbnailView
 /**
  * @brief The FilterWidget class provides a KToolBar widget to interact with the thumbnail filter.
  * You can use it to set the rating filter, and it gives some visual feedback when the filter changes.
+ *
+ * \image html FilterWidget.png "FilterWidget when no filter is set"
  */
 class FilterWidget : public KToolBar
 {

@@ -51,7 +51,7 @@ void ThumbnailView::FilterWidget::setFilter(const DB::ImageSearchInfo &filter)
 {
     // prevent ratingChanged signal when the filter has changed
     blockSignals(true);
-    m_rating->setRating(filter.rating());
+    m_rating->setRating( qMax( static_cast<short int>(0), filter.rating() ));
     if (filter.isNull())
     {
         m_toggleFilter->setChecked(false);

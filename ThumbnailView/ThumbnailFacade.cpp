@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -103,6 +103,11 @@ QSlider* ThumbnailView::ThumbnailFacade::createResizeSlider()
     return new GridResizeSlider( this );
 }
 
+ThumbnailView::FilterWidget *ThumbnailView::ThumbnailFacade::createFilterWidget(QWidget *parent)
+{
+    return model()->createFilterWidget(parent);
+}
+
 void ThumbnailView::ThumbnailFacade::selectAll()
 {
     m_widget->selectAll();
@@ -175,6 +180,12 @@ void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
         BackgroundJobs::HandleVideoThumbnailRequestJob::removeFullScaleFrame(fileName);
         m_model->updateCell(fileName);
     }
+}
+
+void ThumbnailView::ThumbnailFacade::clearFilter()
+{
+    Q_ASSERT( m_model );
+    m_model->clearFilter();
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

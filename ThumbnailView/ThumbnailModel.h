@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -23,6 +23,7 @@
 
 #include <DB/FileNameList.h>
 #include <DB/ImageInfo.h>
+#include <DB/ImageSearchInfo.h>
 #include <ImageManager/enums.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <ThumbnailView/enums.h>
@@ -31,6 +32,7 @@
 namespace ThumbnailView
 {
 class ThumbnailFactory;
+class FilterWidget;
 
 class ThumbnailModel :public QAbstractListModel, public ImageManager::ImageClientInterface, private ThumbnailComponent
 {
@@ -84,13 +86,57 @@ public:
     void setSortDirection( SortDirection );
     QPixmap pixmap( const DB::FileName& fileName ) const;
 
+    /**
+     * @brief isFiltered
+     * @return \c true, if the filter is currently active, \c false otherwise.
+     */
+    bool isFiltered() const;
+
+    FilterWidget *createFilterWidget(QWidget *parent=nullptr);
+
 public slots:
     void updateVisibleRowInfo();
+
+    void toggleFilter(bool enable);
+    /**
+     * @brief clearFilter clears the filter so that all images in the current view are displayed.
+     */
+    void clearFilter();
+    /**
+     * @brief filterByRating sets the filter to only show images with the given rating.
+     * @param rating a number between 0 and 10 (or -1 to disable)
+     */
+    void filterByRating(short rating);
+    /**
+     * @brief toggleRatingFilter sets the filter to only show images with the given rating,
+     * if no rating filter is active. If the rating filter is already set to the given rating,
+     * clear the rating filter.
+     * @param rating a number between 0 and 10
+     */
+    void toggleRatingFilter(short rating);
+    /**
+     * @brief filterByCategory sets the filter to only show images with the given tag.
+     * Calling this method again for the same category will overwrite the previous filter
+     * for that category.
+     * @param category
+     * @param tag
+     *
+     * @see DB::ImageSearchinfo::setCategoryMatchText()
+     */
+    void filterByCategory(const QString &category, const QString &tag);
+    /**
+     * @brief toggleCategoryFilter is similar to filterByCategory(), except resets the
+     * category filter if called again with the same value.
+     * @param category
+     * @param tag
+     */
+    void toggleCategoryFilter(const QString &category, const QString &tag);
 
 signals:
     void collapseAllStacksEnabled(bool enabled);
     void expandAllStacksEnabled(bool enabled);
     void selectionChanged(int numberOfItemsSelected);
+    void filterChanged(const DB::ImageSearchInfo &filter);
 
 
 private: // Methods
@@ -149,6 +195,9 @@ private: // Instance variables.
     // placeholder pixmaps to be displayed before thumbnails are loaded:
     QPixmap m_ImagePlaceholder;
     QPixmap m_VideoPlaceholder;
+
+    DB::ImageSearchInfo m_filter;
+    DB::ImageSearchInfo m_previousFilter;
 };
 
 }

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -83,6 +83,7 @@ signals:
     void showingOverview();
     void pathChanged( const Browser::BreadcrumbList& );
     void isSearchable( bool );
+    void isFilterable( bool );
     void isViewChangeable( bool );
     void currentViewTypeChanged( DB::Category::ViewType );
     void viewChanged();

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -27,6 +27,7 @@ namespace ThumbnailView
 {
 class ThumbnailModel;
 class CellGeometry;
+class FilterWidget;
 class ThumbnailPainter;
 class ThumbnailToolTip;
 
@@ -51,6 +52,14 @@ public:
      */
     QSlider* createResizeSlider();
 
+    /**
+     * @brief createFilterWidget that is connected to the ThumbnailModel.
+     * It will reflect changes in the filter and can be used to set the filter.
+     * @param parent
+     * @return a new FilterWidget with the given parent.
+     */
+    FilterWidget* createFilterWidget(QWidget *parent=nullptr);
+
 public slots:
     void gotoDate( const DB::ImageDate& date, bool includeRanges );
     void selectAll();
@@ -62,6 +71,8 @@ public slots:
     void updateDisplayModel();
     void changeSingleSelection(const DB::FileName& fileName);
     void slotRecreateThumbnail();
+
+    void clearFilter();
 
 signals:
     void showImage( const DB::FileName& id );

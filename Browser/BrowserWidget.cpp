@@ -141,6 +141,7 @@ void Browser::BrowserWidget::emitSignals()
         emit showingOverview();
 
     emit isSearchable( currentAction()->isSearchable() );
+    emit isFilterable( currentAction()->viewer() == ShowImageViewer );
     emit isViewChangeable( currentAction()->isViewChangeable() );
 
     bool isCategoryAction = (dynamic_cast<CategoryPage*>( currentAction() ) != 0);

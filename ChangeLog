@@ -4,6 +4,8 @@
 
 * Feature: Show newly added tagged areas in the annotation dialog's fullscreen preview.
 
+* Feature: Add filter to thumbnail view, allowing filteringy by token or rating.
+
 ====================== KPhotoalbum 5.5 released (27.04.2019) ======================
 
 * Bugfix: Fix compilation with exiv2 0.27.

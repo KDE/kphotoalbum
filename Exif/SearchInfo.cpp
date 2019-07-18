@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -151,6 +151,11 @@ bool Exif::SearchInfo::matches( const DB::FileName& fileName ) const
         return true;
 
     return m_matches.contains( fileName );
+}
+
+bool Exif::SearchInfo::isNull() const
+{
+    return buildQuery().isEmpty();
 }
 
 void Exif::SearchInfo::addCamera( const CameraList& list )

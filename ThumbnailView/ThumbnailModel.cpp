@@ -18,6 +18,7 @@
 #include "ThumbnailModel.h"
 
 #include <QIcon>
+#include <QLoggingCategory>
 
 #include <KLocalizedString>
 
@@ -29,9 +30,11 @@
 #include <Utilities/FileUtil.h>
 
 #include "CellGeometry.h"
+#include "Logging.h"
 #include "ThumbnailRequest.h"
 #include "ThumbnailWidget.h"
 #include "SelectionMaintainer.h"
+#include "FilterWidget.h"
 
 ThumbnailView::ThumbnailModel::ThumbnailModel( ThumbnailFactory* factory)
     : ThumbnailComponent( factory )
@@ -42,6 +45,8 @@ ThumbnailView::ThumbnailModel::ThumbnailModel( ThumbnailFactory* factory)
     connect( DB::ImageDB::instance(), SIGNAL(imagesDeleted(DB::FileNameList)), this, SLOT(imagesDeletedFromDB(DB::FileNameList)) );
     m_ImagePlaceholder = QIcon::fromTheme( QLatin1String("image-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
     m_VideoPlaceholder = QIcon::fromTheme( QLatin1String("video-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
+    m_filter.setSearchMode(0);
+    connect( this, &ThumbnailModel::filterChanged, this, &ThumbnailModel::updateDisplayModel);
 }
 
 static bool stackOrderComparator(const DB::FileName& a, const DB::FileName& b) {
@@ -88,6 +93,8 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     QSet<DB::StackID> alreadyShownStacks;
     Q_FOREACH( const DB::FileName& fileName, m_imageList) {
         DB::ImageInfoPtr imageInfo = fileName.info();
+        if (!m_filter.match(imageInfo))
+            continue;
         if ( imageInfo && imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
             if (alreadyShownStacks.contains(stackid))
@@ -431,6 +438,20 @@ QPixmap ThumbnailView::ThumbnailModel::pixmap( const DB::FileName& fileName ) co
         return m_ImagePlaceholder;
 }
 
+bool ThumbnailView::ThumbnailModel::isFiltered() const
+{
+    return !m_filter.isNull();
+}
+
+ThumbnailView::FilterWidget *ThumbnailView::ThumbnailModel::createFilterWidget(QWidget *parent)
+{
+    auto widget = new FilterWidget(parent);
+    connect(this, &ThumbnailModel::filterChanged, widget, &FilterWidget::setFilter);
+    connect(widget, &FilterWidget::ratingChanged, this, &ThumbnailModel::filterByRating);
+    connect(widget, &FilterWidget::filterToggled, this, &ThumbnailModel::toggleFilter);
+    return widget;
+}
+
 bool ThumbnailView::ThumbnailModel::thumbnailStillNeeded( int row ) const
 {
     return ( row >= m_firstVisibleRow && row <= m_lastVisibleRow );
@@ -446,6 +467,75 @@ void ThumbnailView::ThumbnailModel::updateVisibleRowInfo()
     // the cellGeometry has changed -> update placeholders
     m_ImagePlaceholder = QIcon::fromTheme( QLatin1String("image-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
     m_VideoPlaceholder = QIcon::fromTheme( QLatin1String("video-x-generic") ).pixmap( cellGeometryInfo()->preferredIconSize() );
+}
+
+void ThumbnailView::ThumbnailModel::toggleFilter(bool enable)
+{
+    if (!enable)
+        clearFilter();
+    else if (m_filter.isNull()) {
+        std::swap(m_filter,m_previousFilter);
+        emit filterChanged(m_filter);
+    }
+}
+
+void ThumbnailView::ThumbnailModel::clearFilter()
+{
+    if (!m_filter.isNull())
+    {
+        qCDebug(ThumbnailViewLog) << "Filter cleared.";
+        m_previousFilter = m_filter;
+        m_filter = DB::ImageSearchInfo();
+        emit filterChanged(m_filter);
+    }
+}
+
+void ThumbnailView::ThumbnailModel::filterByRating(short rating)
+{
+    Q_ASSERT(-1 <= rating && rating <= 10);
+    qCDebug(ThumbnailViewLog) << "Filter set: rating(" << rating << ")";
+    m_filter.setRating(rating);
+    emit filterChanged(m_filter);
+}
+
+void ThumbnailView::ThumbnailModel::toggleRatingFilter(short rating)
+{
+    if (m_filter.rating() == rating)
+    {
+        filterByRating(rating);
+    } else {
+        filterByRating(-1);
+        qCDebug(ThumbnailViewLog) << "Filter removed: rating";
+        m_filter.setRating(-1);
+        m_filter.checkIfNull();
+        emit filterChanged(m_filter);
+    }
+}
+
+void ThumbnailView::ThumbnailModel::filterByCategory(const QString &category, const QString &tag)
+{
+    qCDebug(ThumbnailViewLog) << "Filter added: category(" << category << "," << tag << ")";
+
+    m_filter.addAnd(category, tag);
+    emit filterChanged(m_filter);
+}
+
+void ThumbnailView::ThumbnailModel::toggleCategoryFilter(const QString &category, const QString &tag)
+{
+    auto tags = m_filter.categoryMatchText(category).split(QString::fromLatin1("&"),QString::SkipEmptyParts);
+    for (const auto &existingTag : tags)
+    {
+        if (tag == existingTag.trimmed())
+        {
+            qCDebug(ThumbnailViewLog) << "Filter removed: category(" << category << "," << tag << ")";
+            tags.removeAll(existingTag);
+            m_filter.setCategoryMatchText(category,tags.join(QString::fromLatin1(" & ")));
+            m_filter.checkIfNull();
+            emit filterChanged(m_filter);
+            return;
+        }
+    }
+    filterByCategory(category, tag);
 }
 
 void ThumbnailView::ThumbnailModel::preloadThumbnails()

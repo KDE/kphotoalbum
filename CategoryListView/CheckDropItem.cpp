@@ -16,60 +16,62 @@
    Boston, MA 02110-1301, USA.
 */
 #include "CheckDropItem.h"
-#include <DB/MemberMap.h>
-#include <DB/ImageDB.h>
-#include "DragableTreeWidget.h"
-#include "DragItemInfo.h"
-#include <KLocalizedString>
-#include <kmessagebox.h>
-#include <QDropEvent>
-#include "DB/CategoryItem.h"
 #include "DB/Category.h"
+#include "DB/CategoryItem.h"
+#include "DragItemInfo.h"
+#include "DragableTreeWidget.h"
+#include <DB/ImageDB.h>
+#include <DB/MemberMap.h>
+#include <KLocalizedString>
+#include <QDropEvent>
+#include <kmessagebox.h>
 
-CategoryListView::CheckDropItem::CheckDropItem( DragableTreeWidget* parent, const QString& column1,
-                                                const QString& column2 )
-    : QTreeWidgetItem( parent ), m_listView( parent )
+CategoryListView::CheckDropItem::CheckDropItem(DragableTreeWidget *parent, const QString &column1,
+                                               const QString &column2)
+    : QTreeWidgetItem(parent)
+    , m_listView(parent)
 {
     setCheckState(0, Qt::Unchecked);
-    setText( 0, column1 );
-    setText( 1, column2 );
+    setText(0, column1);
+    setText(1, column2);
 }
 
-CategoryListView::CheckDropItem::CheckDropItem( DragableTreeWidget* listView, QTreeWidgetItem* parent, const QString& column1,
-                                                const QString& column2 )
-    : QTreeWidgetItem( parent ), m_listView( listView )
+CategoryListView::CheckDropItem::CheckDropItem(DragableTreeWidget *listView, QTreeWidgetItem *parent, const QString &column1,
+                                               const QString &column2)
+    : QTreeWidgetItem(parent)
+    , m_listView(listView)
 {
     setCheckState(0, Qt::Unchecked);
-    setText( 0, column1 );
-    setText( 1, column2 );
+    setText(0, column1);
+    setText(1, column2);
 }
 
-CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData( const QMimeData* data) const
+CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData(const QMimeData *data) const
 {
     DragItemInfoSet items;
     QByteArray array = data->data(QString::fromUtf8("x-kphotoalbum/x-categorydrag"));
-    QDataStream stream( array );
+    QDataStream stream(array);
     stream >> items;
 
     return items;
 }
 
-bool CategoryListView::CheckDropItem::dataDropped( const QMimeData* data )
+bool CategoryListView::CheckDropItem::dataDropped(const QMimeData *data)
 {
-    DragItemInfoSet items = extractData( data );
+    DragItemInfoSet items = extractData(data);
     const QString newParent = text(0);
-    if ( !verifyDropWasIntended( newParent, items ) )
+    if (!verifyDropWasIntended(newParent, items))
         return false;
 
-    DB::MemberMap& memberMap = DB::ImageDB::instance()->memberMap();
-    memberMap.addGroup( m_listView->category()->name(), newParent );
+    DB::MemberMap &memberMap = DB::ImageDB::instance()->memberMap();
+    memberMap.addGroup(m_listView->category()->name(), newParent);
 
-    for( DragItemInfoSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
+    for (DragItemInfoSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt) {
         const QString oldParent = (*itemIt).parent();
         const QString child = (*itemIt).child();
 
-        memberMap.addMemberToGroup( m_listView->category()->name(), newParent, child );
-        memberMap.removeMemberFromGroup( m_listView->category()->name(), oldParent, child );
+        memberMap.addMemberToGroup(m_listView->category()->name(), newParent, child);
+        memberMap.removeMemberFromGroup(m_listView->category()->name(), oldParent, child);
     }
 
     //DB::ImageDB::instance()->setMemberMap( memberMap );
@@ -84,8 +86,8 @@ bool CategoryListView::CheckDropItem::isSelfDrop(const QMimeData *data) const
     const DragItemInfoSet children = extractData(data);
     const DB::CategoryItemPtr categoryInfo = m_listView->category()->itemsCategories();
 
-    for( DragItemInfoSet::const_iterator childIt = children.begin(); childIt != children.end(); ++childIt ) {
-        if ( thisCategory == (*childIt).child() || categoryInfo->isDescendentOf( thisCategory, (*childIt).child() ) )
+    for (DragItemInfoSet::const_iterator childIt = children.begin(); childIt != children.end(); ++childIt) {
+        if (thisCategory == (*childIt).child() || categoryInfo->isDescendentOf(thisCategory, (*childIt).child()))
             return true;
     }
     return false;
@@ -94,16 +96,16 @@ bool CategoryListView::CheckDropItem::isSelfDrop(const QMimeData *data) const
 void CategoryListView::CheckDropItem::setTristate(bool b)
 {
     if (b)
-        setFlags(flags() | Qt::ItemIsTristate );
+        setFlags(flags() | Qt::ItemIsTristate);
     else
         setFlags(flags() & ~Qt::ItemIsTristate);
 }
 
-bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& parent, const DragItemInfoSet& items )
+bool CategoryListView::CheckDropItem::verifyDropWasIntended(const QString &parent, const DragItemInfoSet &items)
 {
     QStringList children;
-    for( DragItemInfoSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt ) {
-        children.append( (*itemIt).child() );
+    for (DragItemInfoSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt) {
+        children.append((*itemIt).child());
     }
 
     QString allChildren;
@@ -147,20 +149,19 @@ bool CategoryListView::CheckDropItem::verifyDropWasIntended( const QString& pare
         "Was it really your intention to make \"%3\" a tag group and add %2 as members?"
         "</p>",
 
-        children.size(), allChildren, parent
-    );
+        children.size(), allChildren, parent);
 
-    const int answer = KMessageBox::warningContinueCancel( nullptr, msg, i18n("Move Items"), KStandardGuiItem::cont(),
-                                                           KStandardGuiItem::cancel(),
-                                                           QString::fromLatin1( "DoYouReallyWantToMessWithMemberGroups" ) );
+    const int answer = KMessageBox::warningContinueCancel(nullptr, msg, i18n("Move Items"), KStandardGuiItem::cont(),
+                                                          KStandardGuiItem::cancel(),
+                                                          QString::fromLatin1("DoYouReallyWantToMessWithMemberGroups"));
     return answer == KMessageBox::Continue;
 }
 
-void CategoryListView::CheckDropItem::setDNDEnabled( const bool b )
+void CategoryListView::CheckDropItem::setDNDEnabled(const bool b)
 {
-    if ( b )
-        setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled| flags());
+    if (b)
+        setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | flags());
     else
-        setFlags(flags() & ~Qt::ItemIsDragEnabled & ~Qt::ItemIsDropEnabled );
+        setFlags(flags() & ~Qt::ItemIsDragEnabled & ~Qt::ItemIsDropEnabled);
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

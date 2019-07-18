@@ -18,30 +18,30 @@
 #include "InfoBoxResizer.h"
 #include "InfoBox.h"
 
-Viewer::InfoBoxResizer::InfoBoxResizer( Viewer::InfoBox* infoBox )
-    :m_infoBox( infoBox )
+Viewer::InfoBoxResizer::InfoBoxResizer(Viewer::InfoBox *infoBox)
+    : m_infoBox(infoBox)
 {
 }
 
-void Viewer::InfoBoxResizer::setPos(  QPoint pos )
+void Viewer::InfoBoxResizer::setPos(QPoint pos)
 {
     QRect rect = m_infoBox->geometry();
-    pos = m_infoBox->mapToParent( pos );
+    pos = m_infoBox->mapToParent(pos);
 
-    if ( m_left )
-        rect.setLeft( pos.x() );
+    if (m_left)
+        rect.setLeft(pos.x());
     if (m_right)
         rect.setRight(pos.x());
-    if ( m_top )
-        rect.setTop( pos.y() );
-    if ( m_bottom )
-        rect.setBottom( pos.y() );
+    if (m_top)
+        rect.setTop(pos.y());
+    if (m_bottom)
+        rect.setBottom(pos.y());
 
-    if ( rect.width() > 100 && rect.height() > 50 )
-        m_infoBox->setGeometry( rect );
+    if (rect.width() > 100 && rect.height() > 50)
+        m_infoBox->setGeometry(rect);
 }
 
-void Viewer::InfoBoxResizer::setup( bool left, bool right, bool top, bool bottom )
+void Viewer::InfoBoxResizer::setup(bool left, bool right, bool top, bool bottom)
 {
     m_left = left;
     m_right = right;

@@ -17,17 +17,18 @@
 */
 
 #include "XMLImageDateCollection.h"
-#include "DB/ImageDB.h"
 #include "DB/FileNameList.h"
+#include "DB/ImageDB.h"
 
-void XMLDB::XMLImageDateCollection::add( const DB::ImageDate& date )
+void XMLDB::XMLImageDateCollection::add(const DB::ImageDate &date)
 {
     m_startIndex.insertMulti(date.start(), date);
 }
 
-void XMLDB::XMLImageDateCollection::buildIndex() {
+void XMLDB::XMLImageDateCollection::buildIndex()
+{
     StartIndexMap::ConstIterator startSearch = m_startIndex.constBegin();
-    QDateTime biggestEnd = QDateTime( QDate( 1900, 1, 1 ) );
+    QDateTime biggestEnd = QDateTime(QDate(1900, 1, 1));
     for (StartIndexMap::ConstIterator it = m_startIndex.constBegin();
          it != m_startIndex.constEnd();
          ++it) {
@@ -72,9 +73,9 @@ void XMLDB::XMLImageDateCollection::buildIndex() {
    The above uses the fact that a QMap::constIterator iterates the map in
    sorted order.
 **/
-DB::ImageCount XMLDB::XMLImageDateCollection::count( const DB::ImageDate& range )
+DB::ImageCount XMLDB::XMLImageDateCollection::count(const DB::ImageDate &range)
 {
-    if ( m_cache.contains( range ) )
+    if (m_cache.contains(range))
         return m_cache[range];
 
     int exact = 0, rangeMatch = 0;
@@ -84,20 +85,25 @@ DB::ImageCount XMLDB::XMLImageDateCollection::count( const DB::ImageDate& range 
     EndIndexMap::Iterator endSearch = m_endIndex.lowerBound(range.start());
 
     if (endSearch != m_endIndex.end()) {
-        for ( StartIndexMap::ConstIterator it = endSearch.value();
-              it != m_startIndex.constEnd() && it.key() < range.end();
-              ++it) {
-            DB::ImageDate::MatchType tp = it.value().isIncludedIn( range );
+        for (StartIndexMap::ConstIterator it = endSearch.value();
+             it != m_startIndex.constEnd() && it.key() < range.end();
+             ++it) {
+            DB::ImageDate::MatchType tp = it.value().isIncludedIn(range);
             switch (tp) {
-            case DB::ImageDate::ExactMatch: exact++;break;
-            case DB::ImageDate::RangeMatch: rangeMatch++; break;
-            case DB::ImageDate::DontMatch: break;
+            case DB::ImageDate::ExactMatch:
+                exact++;
+                break;
+            case DB::ImageDate::RangeMatch:
+                rangeMatch++;
+                break;
+            case DB::ImageDate::DontMatch:
+                break;
             }
         }
     }
 
-    DB::ImageCount res( exact, rangeMatch );
-    m_cache.insert( range, res );  // TODO(hzeller) this might go now
+    DB::ImageCount res(exact, rangeMatch);
+    m_cache.insert(range, res); // TODO(hzeller) this might go now
     return res;
 }
 
@@ -105,15 +111,12 @@ QDateTime XMLDB::XMLImageDateCollection::lowerLimit() const
 {
     if (!m_startIndex.empty()) {
         // skip null dates:
-        for ( StartIndexMap::ConstIterator it = m_startIndex.constBegin()
-              ; it != m_startIndex.constEnd()
-              ; ++it )
-        {
+        for (StartIndexMap::ConstIterator it = m_startIndex.constBegin(); it != m_startIndex.constEnd(); ++it) {
             if (it.key().isValid())
                 return it.key();
         }
     }
-    return QDateTime( QDate( 1900, 1, 1 ) );
+    return QDateTime(QDate(1900, 1, 1));
 }
 
 QDateTime XMLDB::XMLImageDateCollection::upperLimit() const
@@ -123,12 +126,12 @@ QDateTime XMLDB::XMLImageDateCollection::upperLimit() const
         --highest;
         return highest.key();
     }
-    return QDateTime( QDate( 2100, 1, 1 ) );
+    return QDateTime(QDate(2100, 1, 1));
 }
 
-XMLDB::XMLImageDateCollection::XMLImageDateCollection(const DB::FileNameList& list)
+XMLDB::XMLImageDateCollection::XMLImageDateCollection(const DB::FileNameList &list)
 {
-    Q_FOREACH(const DB::FileName& fileName, list) {
+    Q_FOREACH (const DB::FileName &fileName, list) {
         add(fileName.info()->date());
     }
     buildIndex();

@@ -19,36 +19,36 @@
 #ifndef MINIVIEWER_H
 #define MINIVIEWER_H
 
+#include "DB/ImageInfoPtr.h"
 #include <qdialog.h>
 #include <qimage.h>
-#include "DB/ImageInfoPtr.h"
 
 class QCloseEvent;
 class QLabel;
 
 namespace DB
 {
-    class ImageInfo;
+class ImageInfo;
 }
 
 namespace ImportExport
 {
 
-class MiniViewer :public QDialog
+class MiniViewer : public QDialog
 {
     Q_OBJECT
 
 public:
-    static void show( QImage img, DB::ImageInfoPtr info, QWidget* parent = nullptr );
-    void closeEvent( QCloseEvent* event ) override;
+    static void show(QImage img, DB::ImageInfoPtr info, QWidget *parent = nullptr);
+    void closeEvent(QCloseEvent *event) override;
 
 protected slots:
     void slotClose();
 
 private:
-    explicit MiniViewer( QWidget* parent = nullptr );
-    static MiniViewer* s_instance;
-    QLabel* m_pixmap;
+    explicit MiniViewer(QWidget *parent = nullptr);
+    static MiniViewer *s_instance;
+    QLabel *m_pixmap;
 };
 
 }

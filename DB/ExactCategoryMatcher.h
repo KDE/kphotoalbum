@@ -39,14 +39,14 @@ namespace DB
 
    This is a replacement for the NoOtherItemsCategoryMatcher.
 */
-class ExactCategoryMatcher :public CategoryMatcher
+class ExactCategoryMatcher : public CategoryMatcher
 {
 public:
-    explicit ExactCategoryMatcher( const QString category );
+    explicit ExactCategoryMatcher(const QString category);
     ~ExactCategoryMatcher() override;
-    void setMatcher( CategoryMatcher * subMatcher );
-    bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) override;
-    void debug( int level ) const override;
+    void setMatcher(CategoryMatcher *subMatcher);
+    bool eval(ImageInfoPtr, QMap<QString, StringSet> &alreadyMatched) override;
+    void debug(int level) const override;
     /// shouldCreateMatchedSet is _always_ set for the sub-matcher of ExactCategoryMatcher.
     void setShouldCreateMatchedSet(bool) override;
 

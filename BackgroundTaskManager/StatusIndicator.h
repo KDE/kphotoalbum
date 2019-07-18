@@ -25,7 +25,8 @@
 class QTimer;
 class QHelpEvent;
 
-namespace BackgroundTaskManager {
+namespace BackgroundTaskManager
+{
 class JobViewer;
 
 class StatusIndicator : public KLed
@@ -33,11 +34,11 @@ class StatusIndicator : public KLed
     Q_OBJECT
 
 public:
-    explicit StatusIndicator( QWidget* parent );
-    bool event(QEvent* event) override;
+    explicit StatusIndicator(QWidget *parent);
+    bool event(QEvent *event) override;
 
 protected:
-    void mouseReleaseEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
 
 private slots:
     void flicker();
@@ -45,9 +46,9 @@ private slots:
 
 private:
     QColor currentColor() const;
-    void showToolTip(QHelpEvent* event);
-    QTimer* m_timer;
-    JobViewer* m_jobViewer;
+    void showToolTip(QHelpEvent *event);
+    QTimer *m_timer;
+    JobViewer *m_jobViewer;
 };
 
 } // namespace BackgroundTaskManager

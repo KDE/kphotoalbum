@@ -19,18 +19,18 @@
 
 #include "List.h"
 #include "DB/RawId.h"
-#include <QTime>
-#include <QList>
-#include <stdlib.h> // rand
-#include <algorithm> // std::swap
-#include <QStringList>
 #include <DB/FileName.h>
+#include <QList>
+#include <QStringList>
+#include <QTime>
+#include <algorithm> // std::swap
+#include <stdlib.h> // rand
 
 template <class T>
-QList<T> Utilities::mergeListsUniqly(const QList<T>& l1, const QList<T>& l2)
+QList<T> Utilities::mergeListsUniqly(const QList<T> &l1, const QList<T> &l2)
 {
     QList<T> r = l1;
-    Q_FOREACH(const T& x, l2)
+    Q_FOREACH (const T &x, l2)
         if (!r.contains(x))
             r.append(x);
     return r;
@@ -38,32 +38,36 @@ QList<T> Utilities::mergeListsUniqly(const QList<T>& l1, const QList<T>& l2)
 
 namespace
 {
-    template <class T>
-    class AutoDeletedArray
+template <class T>
+class AutoDeletedArray
+{
+public:
+    AutoDeletedArray(uint size)
+        : m_ptr(new T[size])
     {
-    public:
-        AutoDeletedArray(uint size): m_ptr(new T[size]) {}
-        operator T*() const { return m_ptr; }
-        ~AutoDeletedArray() { delete[] m_ptr; }
-    private:
-        T* m_ptr;
-    };
+    }
+    operator T *() const { return m_ptr; }
+    ~AutoDeletedArray() { delete[] m_ptr; }
+
+private:
+    T *m_ptr;
+};
 }
 
 template <class T>
-QList<T> Utilities::shuffleList(const QList<T>& list)
+QList<T> Utilities::shuffleList(const QList<T> &list)
 {
     static bool init = false;
-    if ( !init ) {
-        QTime midnight( 0, 0, 0 );
-        srand( midnight.secsTo(QTime::currentTime()) );
+    if (!init) {
+        QTime midnight(0, 0, 0);
+        srand(midnight.secsTo(QTime::currentTime()));
         init = true;
     }
 
     // Take pointers from input list to an array for shuffling
     uint N = list.size();
-    AutoDeletedArray<const T*> deck(N);
-    const T** p = deck;
+    AutoDeletedArray<const T *> deck(N);
+    const T **p = deck;
     for (typename QList<T>::const_iterator i = list.begin();
          i != list.end(); ++i) {
         *p = &(*i);
@@ -72,14 +76,13 @@ QList<T> Utilities::shuffleList(const QList<T>& list)
 
     // Shuffle the array of pointers
     for (uint i = 0; i < N; i++) {
-        uint r = i + static_cast<uint>(static_cast<double>(N - i) * rand() /
-                                       static_cast<double>(RAND_MAX));
+        uint r = i + static_cast<uint>(static_cast<double>(N - i) * rand() / static_cast<double>(RAND_MAX));
         std::swap(deck[r], deck[i]);
     }
 
     // Create new list from the array
     QList<T> result;
-    const T** const onePastLast = deck + N;
+    const T **const onePastLast = deck + N;
     for (p = deck; p != onePastLast; ++p)
         result.push_back(**p);
 
@@ -87,12 +90,10 @@ QList<T> Utilities::shuffleList(const QList<T>& list)
 }
 
 #define INSTANTIATE_MERGELISTSUNIQLY(T) \
-template \
-QList<T> Utilities::mergeListsUniqly(const QList<T>& l1, const QList<T>& l2)
+    template QList<T> Utilities::mergeListsUniqly(const QList<T> &l1, const QList<T> &l2)
 
 #define INSTANTIATE_SHUFFLELIST(T) \
-template \
-QList<T> Utilities::shuffleList(const QList<T>& list)
+    template QList<T> Utilities::shuffleList(const QList<T> &list)
 
 INSTANTIATE_MERGELISTSUNIQLY(DB::RawId);
 INSTANTIATE_MERGELISTSUNIQLY(QString);

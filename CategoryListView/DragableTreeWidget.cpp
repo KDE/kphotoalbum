@@ -17,12 +17,13 @@
 */
 
 #include "DragableTreeWidget.h"
-#include "DB/Category.h"
 #include "CheckDropItem.h"
+#include "DB/Category.h"
 #include <QDragMoveEvent>
 
-CategoryListView::DragableTreeWidget::DragableTreeWidget( const DB::CategoryPtr& category, QWidget* parent )
-    :QTreeWidget( parent ), m_category( category )
+CategoryListView::DragableTreeWidget::DragableTreeWidget(const DB::CategoryPtr &category, QWidget *parent)
+    : QTreeWidget(parent)
+    , m_category(category)
 {
     setDragEnabled(true);
     setDragDropMode(DragDrop);
@@ -44,17 +45,17 @@ void CategoryListView::DragableTreeWidget::emitItemsChanged()
 QMimeData *CategoryListView::DragableTreeWidget::mimeData(const QList<QTreeWidgetItem *> items) const
 {
     CategoryListView::DragItemInfoSet selected;
-    for( QTreeWidgetItem* item: items ) {
-        QTreeWidgetItem* parent = item->parent();
+    for (QTreeWidgetItem *item : items) {
+        QTreeWidgetItem *parent = item->parent();
         QString parentText = parent ? parent->text(0) : QString();
-        selected.insert( CategoryListView::DragItemInfo( parentText, item->text(0) ) );
+        selected.insert(CategoryListView::DragItemInfo(parentText, item->text(0)));
     }
 
     QByteArray data;
-    QDataStream stream( &data, QIODevice::WriteOnly );
+    QDataStream stream(&data, QIODevice::WriteOnly);
     stream << selected;
 
-    QMimeData* mime = new QMimeData;
+    QMimeData *mime = new QMimeData;
     mime->setData(QString::fromUtf8("x-kphotoalbum/x-categorydrag"), data);
     return mime;
 }
@@ -64,9 +65,9 @@ QStringList CategoryListView::DragableTreeWidget::mimeTypes() const
     return QStringList(QString::fromUtf8("x-kphotoalbum/x-categorydrag"));
 }
 
-bool CategoryListView::DragableTreeWidget::dropMimeData(QTreeWidgetItem *parent, int, const QMimeData *data, Qt::DropAction )
+bool CategoryListView::DragableTreeWidget::dropMimeData(QTreeWidgetItem *parent, int, const QMimeData *data, Qt::DropAction)
 {
-    CheckDropItem* targetItem = static_cast<CheckDropItem*>(parent);
+    CheckDropItem *targetItem = static_cast<CheckDropItem *>(parent);
     if (targetItem == nullptr) {
         // This can happen when an item is dropped between two other items and not
         // onto an item, which leads to a crash when calling dataDropped(data).
@@ -81,11 +82,11 @@ void CategoryListView::DragableTreeWidget::dragMoveEvent(QDragMoveEvent *event)
     // Call super class in any case as it may scroll, which we want even if we reject
     QTreeWidget::dragMoveEvent(event);
 
-    if ( event->source() != this )
+    if (event->source() != this)
         event->ignore();
 
-    QTreeWidgetItem* item = itemAt(event->pos());
-    if ( item && static_cast<CheckDropItem*>(item)->isSelfDrop(event->mimeData()))
+    QTreeWidgetItem *item = itemAt(event->pos());
+    if (item && static_cast<CheckDropItem *>(item)->isSelfDrop(event->mimeData()))
         event->ignore();
 }
 

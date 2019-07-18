@@ -21,9 +21,9 @@
 
 #include "config-kpa-kgeomap.h"
 
-#include "enums.h"
 #include "ImagePreviewWidget.h"
 #include "ListSelect.h"
+#include "enums.h"
 
 #include "DB/Category.h"
 #include "DB/ImageInfoList.h"
@@ -34,7 +34,6 @@
 #include <QDialog>
 #include <QList>
 #include <QSpinBox>
-
 
 class DockWidget;
 class KActionCollection;
@@ -55,17 +54,17 @@ class QTimeEdit;
 
 namespace Viewer
 {
-    class ViewerWidget;
+class ViewerWidget;
 }
 
 namespace DB
 {
-    class ImageInfo;
+class ImageInfo;
 }
 
 namespace Map
 {
-    class MapView;
+class MapView;
 }
 
 namespace AnnotationDialog
@@ -75,14 +74,15 @@ class DateEdit;
 class ShortCutManager;
 class ResizableFrame;
 
-class Dialog :public QDialog {
+class Dialog : public QDialog
+{
     Q_OBJECT
 public:
-    explicit Dialog( QWidget* parent );
+    explicit Dialog(QWidget *parent);
     ~Dialog() override;
-    int configure( DB::ImageInfoList list,  bool oneAtATime );
-    DB::ImageSearchInfo search( DB::ImageSearchInfo* search = nullptr );
-    KActionCollection* actions();
+    int configure(DB::ImageInfoList list, bool oneAtATime);
+    DB::ImageSearchInfo search(DB::ImageSearchInfo *search = nullptr);
+    KActionCollection *actions();
     QPair<QString, QString> lastSelectedPositionableTag() const;
     QList<QPair<QString, QString>> positionableTagCandidates() const;
     void addTagToCandidateList(QString category, QString tag);
@@ -94,7 +94,7 @@ public:
     /**
      * @return A list of all ResizableFrame objects on the current image
      */
-    QList<ResizableFrame*> areas() const;
+    QList<ResizableFrame *> areas() const;
     /**
      * @brief taggedAreas creates a map of all the currently tagged areas.
      * This is different from areas(), which also contains untagged areas.
@@ -103,27 +103,27 @@ public:
      * @return a map of currently tagged areas
      */
     QMap<QString, QMap<QString, QRect>> taggedAreas() const;
-    ListSelect* listSelectForCategory( const QString &category);
+    ListSelect *listSelectForCategory(const QString &category);
 
 protected slots:
     void slotRevert();
-    void slotIndexChanged( int index );
+    void slotIndexChanged(int index);
     void doneTagging();
     void continueLater();
     void slotClear();
     void slotOptions();
     void slotSaveWindowSetup();
-    void slotDeleteOption( DB::Category*, const QString& );
-    void slotRenameOption( DB::Category* , const QString& , const QString&  );
+    void slotDeleteOption(DB::Category *, const QString &);
+    void slotRenameOption(DB::Category *, const QString &, const QString &);
     void reject() override;
-    void rotate( int angle );
+    void rotate(int angle);
     void slotSetFuzzyDate();
     void slotDeleteImage();
     void slotResetLayout();
-    void slotStartDateChanged( const DB::ImageDate& );
+    void slotStartDateChanged(const DB::ImageDate &);
     void slotCopyPrevious();
     void slotShowAreas(bool showAreas);
-    void slotRatingChanged( unsigned int );
+    void slotRatingChanged(unsigned int);
     void togglePreview();
     void descriptionPageUpDownPressed(QKeyEvent *event);
     void slotNewArea(ResizableFrame *area);
@@ -137,82 +137,82 @@ protected slots:
 #endif
 
 signals:
-    void imageRotated(const DB::FileName& id);
+    void imageRotated(const DB::FileName &id);
 
 protected:
-    QDockWidget* createDock( const QString& title, const QString& name, Qt::DockWidgetArea location, QWidget* widget );
-    QWidget* createDateWidget(ShortCutManager& shortCutManager);
-    QWidget* createPreviewWidget();
-    ListSelect* createListSel( const DB::CategoryPtr& category );
+    QDockWidget *createDock(const QString &title, const QString &name, Qt::DockWidgetArea location, QWidget *widget);
+    QWidget *createDateWidget(ShortCutManager &shortCutManager);
+    QWidget *createPreviewWidget();
+    ListSelect *createListSel(const DB::CategoryPtr &category);
 
     void load();
     void writeToInfo();
     void setup();
-    void loadInfo( const DB::ImageSearchInfo& );
+    void loadInfo(const DB::ImageSearchInfo &);
     int exec() override;
-    void closeEvent( QCloseEvent* ) override;
+    void closeEvent(QCloseEvent *) override;
     void showTornOfWindows();
     void hideTornOfWindows();
     bool hasChanges();
-    void showHelpDialog( UsageMode );
-    void resizeEvent( QResizeEvent* ) override;
-    void moveEvent ( QMoveEvent * ) override;
+    void showHelpDialog(UsageMode);
+    void resizeEvent(QResizeEvent *) override;
+    void moveEvent(QMoveEvent *) override;
     void setupFocus();
     void closeDialog();
     void loadWindowLayout();
     void setupActions();
-    void setUpCategoryListBoxForMultiImageSelection( ListSelect*, const DB::ImageInfoList& images );
-    std::tuple<Utilities::StringSet, Utilities::StringSet> selectionForMultiSelect( ListSelect*, const DB::ImageInfoList& images );
+    void setUpCategoryListBoxForMultiImageSelection(ListSelect *, const DB::ImageInfoList &images);
+    std::tuple<Utilities::StringSet, Utilities::StringSet> selectionForMultiSelect(ListSelect *, const DB::ImageInfoList &images);
     void saveAndClose();
-    void ShowHideSearch( bool show );
+    void ShowHideSearch(bool show);
 
 private:
-    QStackedWidget* m_stack;
-    Viewer::ViewerWidget* m_fullScreenPreview;
+    QStackedWidget *m_stack;
+    Viewer::ViewerWidget *m_fullScreenPreview;
     DB::ImageInfoList m_origList;
     QList<DB::ImageInfo> m_editList;
     int m_current;
     UsageMode m_setup;
-    QList< ListSelect* > m_optionList;
+    QList<ListSelect *> m_optionList;
     DB::ImageSearchInfo m_oldSearch;
     int m_accept;
-    QList<QDockWidget*> m_dockWidgets;
+    QList<QDockWidget *> m_dockWidgets;
     // "special" named dockWidgets (used to set default layout):
     QDockWidget *m_generalDock;
     QDockWidget *m_previewDock;
     QDockWidget *m_descriptionDock;
 
     // Widgets
-    QMainWindow* m_dockWindow;
-    KLineEdit* m_imageLabel;
-    DateEdit* m_startDate;
-    DateEdit* m_endDate;
-    QLabel* m_endDateLabel;
-    QLabel* m_imageFilePatternLabel;
-    KLineEdit* m_imageFilePattern;
+    QMainWindow *m_dockWindow;
+    KLineEdit *m_imageLabel;
+    DateEdit *m_startDate;
+    DateEdit *m_endDate;
+    QLabel *m_endDateLabel;
+    QLabel *m_imageFilePatternLabel;
+    KLineEdit *m_imageFilePattern;
 
-    ImagePreviewWidget* m_preview;
-    QPushButton* m_revertBut;
-    QPushButton* m_clearBut;
-    QPushButton* m_okBut;
-    QPushButton* m_continueLaterBut;
-    KTextEdit* m_description;
-    QTimeEdit* m_time;
-    QLabel* m_timeLabel;
-    QCheckBox* m_isFuzzyDate;
-    KRatingWidget* m_rating;
-    KComboBox* m_ratingSearchMode;
-    QLabel* m_ratingSearchLabel;
+    ImagePreviewWidget *m_preview;
+    QPushButton *m_revertBut;
+    QPushButton *m_clearBut;
+    QPushButton *m_okBut;
+    QPushButton *m_continueLaterBut;
+    KTextEdit *m_description;
+    QTimeEdit *m_time;
+    QLabel *m_timeLabel;
+    QCheckBox *m_isFuzzyDate;
+    KRatingWidget *m_rating;
+    KComboBox *m_ratingSearchMode;
+    QLabel *m_ratingSearchLabel;
     bool m_ratingChanged;
-    QSpinBox* m_megapixel;
-    QLabel* m_megapixelLabel;
-    QSpinBox* m_max_megapixel;
-    QLabel* m_max_megapixelLabel;
-    QCheckBox* m_searchRAW;
+    QSpinBox *m_megapixel;
+    QLabel *m_megapixelLabel;
+    QSpinBox *m_max_megapixel;
+    QLabel *m_max_megapixelLabel;
+    QCheckBox *m_searchRAW;
     QString m_conflictText;
     QString m_firstDescription;
 
-    KActionCollection* m_actions;
+    KActionCollection *m_actions;
 
     /** Clean state of the dock window.
      *
@@ -222,7 +222,7 @@ private:
     void tidyAreas();
     QPair<QString, QString> m_lastSelectedPositionableTag;
     QList<QPair<QString, QString>> m_positionableTagCandidates;
-    QMap<QString, ListSelect*> m_listSelectList;
+    QMap<QString, ListSelect *> m_listSelectList;
 
     bool m_positionableCategories;
     bool m_areasChanged;
@@ -239,7 +239,6 @@ private:
     bool m_mapIsPopulated;
 #endif
 };
-
 }
 
 #endif /* ANNOTATIONDIALOG_DIALOG_H */

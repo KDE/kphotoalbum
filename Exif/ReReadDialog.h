@@ -30,29 +30,29 @@ class QListWidget;
 namespace Exif
 {
 
-class ReReadDialog : public QDialog {
+class ReReadDialog : public QDialog
+{
     Q_OBJECT
 
 public:
-    explicit ReReadDialog( QWidget* parent );
+    explicit ReReadDialog(QWidget *parent);
     // prevent hiding of base class method:
     using QDialog::exec;
-    int exec( const DB::FileNameList& );
+    int exec(const DB::FileNameList &);
 
 protected slots:
     void readInfo();
-    void warnAboutDates( bool );
+    void warnAboutDates(bool);
 
 private:
     DB::FileNameList m_list;
-    QCheckBox* m_exifDB;
-    QCheckBox* m_date;
-    QCheckBox* m_orientation;
-    QCheckBox* m_description;
-    QCheckBox* m_force_date;
-    QListWidget* m_fileList;
+    QCheckBox *m_exifDB;
+    QCheckBox *m_date;
+    QCheckBox *m_orientation;
+    QCheckBox *m_description;
+    QCheckBox *m_force_date;
+    QListWidget *m_fileList;
 };
-
 }
 
 #endif /* REREADDIALOG_H */

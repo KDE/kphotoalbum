@@ -17,17 +17,17 @@
 */
 
 #include "GeoPositionPage.h"
-#include "OverviewPage.h"
 #include "BrowserWidget.h"
-#include "enums.h"
 #include "DB/ImageDB.h"
 #include "ImageViewPage.h"
 #include "MainWindow/Window.h"
+#include "OverviewPage.h"
+#include "enums.h"
 
 #include <KLocalizedString>
 
-Browser::GeoPositionPage::GeoPositionPage( const DB::ImageSearchInfo& info, BrowserWidget* browser )
-    : BrowserPage( info, browser )
+Browser::GeoPositionPage::GeoPositionPage(const DB::ImageSearchInfo &info, BrowserWidget *browser)
+    : BrowserPage(info, browser)
 {
     active = false;
 }
@@ -36,7 +36,7 @@ void Browser::GeoPositionPage::activate()
 {
     if (!active) {
         MainWindow::Window::theMainWindow()->showPositionBrowser();
-        Browser::PositionBrowserWidget* positionBrowserWidget = MainWindow::Window::theMainWindow()->positionBrowserWidget();
+        Browser::PositionBrowserWidget *positionBrowserWidget = MainWindow::Window::theMainWindow()->positionBrowserWidget();
         positionBrowserWidget->showImages(searchInfo());
 
         connect(positionBrowserWidget, &Browser::PositionBrowserWidget::signalNewRegionSelected,
@@ -49,7 +49,7 @@ void Browser::GeoPositionPage::deactivate()
 {
     if (active) {
         active = false;
-        Browser::PositionBrowserWidget* positionBrowserWidget = MainWindow::Window::theMainWindow()->positionBrowserWidget();
+        Browser::PositionBrowserWidget *positionBrowserWidget = MainWindow::Window::theMainWindow()->positionBrowserWidget();
         positionBrowserWidget->clearImages();
 
         disconnect(positionBrowserWidget, 0, this, 0);
@@ -63,9 +63,9 @@ void Browser::GeoPositionPage::slotNewRegionSelected(KGeoMap::GeoCoordinates::Pa
 
     info.setRegionSelection(coordinates);
 
-    browser()->addAction( new Browser::OverviewPage( Breadcrumb(name), info, browser() ) );
+    browser()->addAction(new Browser::OverviewPage(Breadcrumb(name), info, browser()));
     if (DB::ImageDB::instance()->search(info).size() <= Settings::SettingsData::instance()->autoShowThumbnailView()) {
-        browser()->addAction( new ImageViewPage( info, browser() ) );
+        browser()->addAction(new ImageViewPage(info, browser()));
     }
 }
 

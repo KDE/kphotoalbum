@@ -54,20 +54,19 @@
    </pre>
 **/
 
-Utilities::BooleanGuard::BooleanGuard( bool& guard )
-    : m_guard( guard )
+Utilities::BooleanGuard::BooleanGuard(bool &guard)
+    : m_guard(guard)
 {
-    if ( m_guard == false ) {
-        m_iLockedIt =true;
+    if (m_guard == false) {
+        m_iLockedIt = true;
         m_guard = true;
-    }
-    else
+    } else
         m_iLockedIt = false;
 }
 
 Utilities::BooleanGuard::~BooleanGuard()
 {
-    if ( m_iLockedIt )
+    if (m_iLockedIt)
         m_guard = false;
 }
 

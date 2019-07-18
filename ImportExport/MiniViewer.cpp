@@ -17,38 +17,38 @@
 */
 
 #include "MiniViewer.h"
-#include <KLocalizedString>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qimage.h>
 #include "DB/ImageInfo.h"
-#include <qmatrix.h>
+#include <KLocalizedString>
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <qimage.h>
+#include <qlabel.h>
+#include <qlayout.h>
+#include <qmatrix.h>
 
 using namespace ImportExport;
 
-MiniViewer* MiniViewer::s_instance = nullptr;
+MiniViewer *MiniViewer::s_instance = nullptr;
 
-void MiniViewer::show( QImage img, DB::ImageInfoPtr info, QWidget* parent )
+void MiniViewer::show(QImage img, DB::ImageInfoPtr info, QWidget *parent)
 {
-    if ( !s_instance )
-        s_instance = new MiniViewer( parent );
+    if (!s_instance)
+        s_instance = new MiniViewer(parent);
 
-    if ( info->angle() != 0 ) {
+    if (info->angle() != 0) {
         QMatrix matrix;
-        matrix.rotate( info->angle() );
-        img = img.transformed( matrix );
+        matrix.rotate(info->angle());
+        img = img.transformed(matrix);
     }
-    if ( img.width() > 800 || img.height() > 600 )
-        img = img.scaled( 800, 600, Qt::KeepAspectRatio );
+    if (img.width() > 800 || img.height() > 600)
+        img = img.scaled(800, 600, Qt::KeepAspectRatio);
 
-    s_instance->m_pixmap->setPixmap( QPixmap::fromImage(img) );
+    s_instance->m_pixmap->setPixmap(QPixmap::fromImage(img));
     s_instance->QDialog::show();
     s_instance->raise();
 }
 
-void MiniViewer::closeEvent( QCloseEvent* )
+void MiniViewer::closeEvent(QCloseEvent *)
 {
     slotClose();
 }
@@ -59,15 +59,16 @@ void MiniViewer::slotClose()
     deleteLater();
 }
 
-MiniViewer::MiniViewer( QWidget* parent ): QDialog( parent )
+MiniViewer::MiniViewer(QWidget *parent)
+    : QDialog(parent)
 {
-    QVBoxLayout* vlay = new QVBoxLayout( this );
-    m_pixmap = new QLabel( this );
-    vlay->addWidget( m_pixmap );
-    QDialogButtonBox* box = new QDialogButtonBox( QDialogButtonBox::Close, this );
+    QVBoxLayout *vlay = new QVBoxLayout(this);
+    m_pixmap = new QLabel(this);
+    vlay->addWidget(m_pixmap);
+    QDialogButtonBox *box = new QDialogButtonBox(QDialogButtonBox::Close, this);
     box->button(QDialogButtonBox::Close)->setShortcut(Qt::CTRL | Qt::Key_Return);
     connect(box, &QDialogButtonBox::rejected, this, &MiniViewer::slotClose);
-    vlay->addWidget( box );
+    vlay->addWidget(box);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

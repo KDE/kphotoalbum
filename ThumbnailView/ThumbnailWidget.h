@@ -18,20 +18,24 @@
 #ifndef THUMBNAILVIEW_THUMBNAILWIDGET_H
 #define THUMBNAILVIEW_THUMBNAILWIDGET_H
 
-#include <QListView>
-#include "ThumbnailComponent.h"
 #include "GridResizeInteraction.h"
 #include "MouseTrackingInteraction.h"
 #include "SelectionInteraction.h"
+#include "ThumbnailComponent.h"
 #include "ThumbnailView/enums.h"
-#include <QScopedPointer>
 #include "VideoThumbnailCycler.h"
+#include <QListView>
+#include <QScopedPointer>
 
 class QTimer;
 class QDateTime;
 
-namespace DB { class ImageDate; class Id; class FileNameList;}
-
+namespace DB
+{
+class ImageDate;
+class Id;
+class FileNameList;
+}
 
 namespace ThumbnailView
 {
@@ -42,61 +46,62 @@ class ThumbnailFactory;
 class KeyboardEventHandler;
 class ThumbnailDND;
 
-class ThumbnailWidget : public QListView, private ThumbnailComponent {
+class ThumbnailWidget : public QListView, private ThumbnailComponent
+{
     Q_OBJECT
 
 public:
-    explicit ThumbnailWidget( ThumbnailFactory* factory );
+    explicit ThumbnailWidget(ThumbnailFactory *factory);
 
-    void reload( SelectionUpdateMethod method );
+    void reload(SelectionUpdateMethod method);
     DB::FileName mediaIdUnderCursor() const;
     QModelIndex indexUnderCursor() const;
 
-    bool isMouseOverStackIndicator( const QPoint& point );
+    bool isMouseOverStackIndicator(const QPoint &point);
     bool isGridResizing() const;
-    void setCurrentItem(  const DB::FileName& fileName );
+    void setCurrentItem(const DB::FileName &fileName);
     DB::FileName currentItem() const;
-    void changeSingleSelection(const DB::FileName& fileName);
+    void changeSingleSelection(const DB::FileName &fileName);
 
     // Misc
     int cellWidth() const;
-    void showEvent( QShowEvent* ) override;
-    DB::FileNameList selection( ThumbnailView::SelectionMode mode ) const;
-    bool isSelected( const DB::FileName& id ) const;
-    void select( const DB::FileNameList& );
+    void showEvent(QShowEvent *) override;
+    DB::FileNameList selection(ThumbnailView::SelectionMode mode) const;
+    bool isSelected(const DB::FileName &id) const;
+    void select(const DB::FileNameList &);
     bool isItemUnderCursorSelected() const;
 
 public slots:
-    void gotoDate( const DB::ImageDate& date, bool includeRanges );
+    void gotoDate(const DB::ImageDate &date, bool includeRanges);
     /**
      * @brief setExternallyResizing
      * Used by the GridResizeSlider to indicate that the grid is being resized.
      * @param state true, if the grid is being resized by an external widget, false if not
      */
-    void setExternallyResizing( bool state );
+    void setExternallyResizing(bool state);
 
 signals:
-    void showImage( const DB::FileName& id );
+    void showImage(const DB::FileName &id);
     void showSelection();
-    void fileIdUnderCursorChanged( const DB::FileName& id );
-    void currentDateChanged( const QDateTime& );
-    void selectionCountChanged(int numberOfItemsSelected );
+    void fileIdUnderCursorChanged(const DB::FileName &id);
+    void currentDateChanged(const QDateTime &);
+    void selectionCountChanged(int numberOfItemsSelected);
 
 protected:
     // event handlers
-    void keyPressEvent( QKeyEvent* ) override;
-    void keyReleaseEvent( QKeyEvent* ) override;
-    void mousePressEvent( QMouseEvent* ) override;
-    void mouseMoveEvent( QMouseEvent* ) override;
-    void mouseReleaseEvent( QMouseEvent* ) override;
-    void mouseDoubleClickEvent ( QMouseEvent* ) override;
-    void wheelEvent( QWheelEvent* ) override;
+    void keyPressEvent(QKeyEvent *) override;
+    void keyReleaseEvent(QKeyEvent *) override;
+    void mousePressEvent(QMouseEvent *) override;
+    void mouseMoveEvent(QMouseEvent *) override;
+    void mouseReleaseEvent(QMouseEvent *) override;
+    void mouseDoubleClickEvent(QMouseEvent *) override;
+    void wheelEvent(QWheelEvent *) override;
 
     // Drag and drop
-    void dragEnterEvent ( QDragEnterEvent * event ) override;
-    void dragMoveEvent ( QDragMoveEvent * ) override;
-    void dragLeaveEvent ( QDragLeaveEvent * ) override;
-    void dropEvent ( QDropEvent * ) override;
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dragMoveEvent(QDragMoveEvent *) override;
+    void dragLeaveEvent(QDragLeaveEvent *) override;
+    void dropEvent(QDropEvent *) override;
 
 private slots:
     void emitDateChange();
@@ -105,8 +110,8 @@ private slots:
 
 private:
     friend class GridResizeInteraction;
-    inline ThumbnailModel* model() { return ThumbnailComponent::model(); }
-    inline const ThumbnailModel* model() const { return ThumbnailComponent::model(); }
+    inline ThumbnailModel *model() { return ThumbnailComponent::model(); }
+    inline const ThumbnailModel *model() const { return ThumbnailComponent::model(); }
     void updatePalette();
     void setupDateChangeTimer();
 
@@ -125,29 +130,27 @@ private:
      */
     bool m_isSettingDate;
 
-
     GridResizeInteraction m_gridResizeInteraction;
     bool m_wheelResizing;
     bool m_externallyResizing;
     SelectionInteraction m_selectionInteraction;
     MouseTrackingInteraction m_mouseTrackingHandler;
-    MouseInteraction* m_mouseHandler;
-    ThumbnailDND* m_dndHandler;
+    MouseInteraction *m_mouseHandler;
+    ThumbnailDND *m_dndHandler;
     bool m_pressOnStackIndicator;
 
-    QTimer* m_dateChangedTimer;
+    QTimer *m_dateChangedTimer;
 
     friend class SelectionInteraction;
     friend class KeyboardEventHandler;
     friend class ThumbnailDND;
     friend class ThumbnailModel;
-    KeyboardEventHandler* m_keyboardHandler;
+    KeyboardEventHandler *m_keyboardHandler;
     QScopedPointer<VideoThumbnailCycler> m_videoThumbnailCycler;
 };
 
-QColor contrastColor( const QColor &color);
+QColor contrastColor(const QColor &color);
 }
-
 
 #endif /* THUMBNAILVIEW_THUMBNAILWIDGET_H */
 

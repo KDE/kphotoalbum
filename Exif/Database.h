@@ -18,17 +18,20 @@
 #ifndef EXIFDATABASE_H
 #define EXIFDATABASE_H
 
-#include <DB/FileNameList.h>
 #include <DB/FileInfo.h>
+#include <DB/FileNameList.h>
 
 #include <QList>
 #include <QPair>
 #include <QSqlDatabase>
 #include <QString>
 
-namespace Exiv2 { class ExifData; }
+namespace Exiv2
+{
+class ExifData;
+}
 
-typedef QPair<int,int> Rational;
+typedef QPair<int, int> Rational;
 typedef QList<Rational> RationalList;
 typedef QPair<DB::FileName, Exiv2::ExifData> DBExifInfo;
 
@@ -42,16 +45,17 @@ class DatabaseElement;
 //
 // It is the resposibility of the methods in here to bail out in case database
 // support is not available ( !isAvailable() ). This is to simplify client code.
-class Database {
+class Database
+{
 
 public:
-    typedef QList<DatabaseElement*> ElementList;
+    typedef QList<DatabaseElement *> ElementList;
     typedef QPair<QString, QString> Camera;
     typedef QList<Camera> CameraList;
     typedef QString Lens;
     typedef QList<Lens> LensList;
 
-    static Database* instance();
+    static Database *instance();
     static void deleteInstance();
     static bool isAvailable();
     /**
@@ -85,11 +89,11 @@ public:
      * @param fileInfo the file
      * @return
      */
-    bool add( DB::FileInfo& fileInfo );
-    bool add( const DB::FileName& fileName );
-    bool add( const DB::FileNameList& list );
-    void remove( const DB::FileName& fileName );
-    void remove( const DB::FileNameList& list );
+    bool add(DB::FileInfo &fileInfo);
+    bool add(const DB::FileName &fileName);
+    bool add(const DB::FileNameList &list);
+    void remove(const DB::FileName &fileName);
+    void remove(const DB::FileNameList &list);
     /**
      * @brief readFields searches the exif database for a given file and fills the element list with values.
      * If the query fails or has no result, the ElementList is not changed.
@@ -97,8 +101,8 @@ public:
      * @param fields a list of the DatabaseElements that you want to read.
      * @return true, if the fileName is found in the database, false otherwise.
      */
-    bool readFields( const DB::FileName& fileName, ElementList &fields) const;
-    DB::FileNameSet filesMatchingQuery( const QString& query ) const;
+    bool readFields(const DB::FileName &fileName, ElementList &fields) const;
+    DB::FileNameSet filesMatchingQuery(const QString &query) const;
     CameraList cameras() const;
     LensList lenses() const;
     void recreate();
@@ -107,19 +111,20 @@ public:
     bool abortInsertTransaction();
 
 protected:
-    enum DBSchemaChangeType { SchemaChanged, SchemaAndDataChanged };
+    enum DBSchemaChangeType { SchemaChanged,
+                              SchemaAndDataChanged };
     static QString exifDBFile();
     void openDatabase();
     void populateDatabase();
     void updateDatabase();
     void createMetadataTable(DBSchemaChangeType change);
     static QString connectionName();
-    bool insert( const DB::FileName& filename, Exiv2::ExifData );
-    bool insert( QList<DBExifInfo> );
+    bool insert(const DB::FileName &filename, Exiv2::ExifData);
+    bool insert(QList<DBExifInfo>);
 
 private:
-    void showErrorAndFail( QSqlQuery &query ) const;
-    void showErrorAndFail(const QString &errorMessage , const QString &technicalInfo) const;
+    void showErrorAndFail(QSqlQuery &query) const;
+    void showErrorAndFail(const QString &errorMessage, const QString &technicalInfo) const;
     bool m_isOpen;
     bool m_doUTF8Conversion;
     mutable bool m_isFailed;
@@ -128,12 +133,11 @@ private:
     void init();
     QSqlQuery *getInsertQuery();
     void concludeInsertQuery(QSqlQuery *);
-    static Database* s_instance;
+    static Database *s_instance;
     QString m_queryString;
     QSqlDatabase m_db;
     QSqlQuery *m_insertTransaction;
 };
-
 }
 
 #endif /* EXIFDATABASE_H */

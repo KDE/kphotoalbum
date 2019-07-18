@@ -21,8 +21,8 @@
 
 #include <QCryptographicHash>
 #include <QDir>
-#include <QImage>
 #include <QIcon>
+#include <QImage>
 
 #include <KCodecs>
 #include <KLocalizedString>
@@ -36,10 +36,12 @@
 #include <ThumbnailView/CellGeometry.h>
 #include <Utilities/ImageUtil.h>
 
-namespace BackgroundJobs {
+namespace BackgroundJobs
+{
 
-HandleVideoThumbnailRequestJob::HandleVideoThumbnailRequestJob(ImageManager::ImageRequest* request, BackgroundTaskManager::Priority priority) :
-    BackgroundTaskManager::JobInterface(priority), m_request(request)
+HandleVideoThumbnailRequestJob::HandleVideoThumbnailRequestJob(ImageManager::ImageRequest *request, BackgroundTaskManager::Priority priority)
+    : BackgroundTaskManager::JobInterface(priority)
+    , m_request(request)
 {
 }
 
@@ -55,23 +57,23 @@ QString HandleVideoThumbnailRequestJob::details() const
 
 void HandleVideoThumbnailRequestJob::execute()
 {
-    QImage image( pathForRequest(m_request->fileSystemFileName()).absolute());
+    QImage image(pathForRequest(m_request->fileSystemFileName()).absolute());
     if (!image.isNull())
         frameLoaded(image);
     else
         ImageManager::ExtractOneVideoFrame::extract(m_request->fileSystemFileName(), 0, this, SLOT(frameLoaded(QImage)));
 }
 
-void HandleVideoThumbnailRequestJob::frameLoaded(QImage image )
+void HandleVideoThumbnailRequestJob::frameLoaded(QImage image)
 {
-    if ( image.isNull() )
+    if (image.isNull())
         image = brokenImage();
     saveFullScaleFrame(m_request->databaseFileName(), image);
     sendResult(image);
     emit completed();
 }
 
-void HandleVideoThumbnailRequestJob::saveFullScaleFrame(const DB::FileName& fileName, const QImage &image)
+void HandleVideoThumbnailRequestJob::saveFullScaleFrame(const DB::FileName &fileName, const QImage &image)
 {
     Utilities::saveImage(pathForRequest(fileName), image, "JPEG");
 }
@@ -85,7 +87,7 @@ DB::FileName HandleVideoThumbnailRequestJob::pathForRequest(const DB::FileName &
 
 DB::FileName HandleVideoThumbnailRequestJob::frameName(const DB::FileName &videoName, int frameNumber)
 {
-    return DB::FileName::fromRelativePath( pathForRequest(videoName).relative() + QLatin1String("-") + QString::number(frameNumber));
+    return DB::FileName::fromRelativePath(pathForRequest(videoName).relative() + QLatin1String("-") + QString::number(frameNumber));
 }
 
 void HandleVideoThumbnailRequestJob::removeFullScaleFrame(const DB::FileName &fileName)
@@ -96,18 +98,17 @@ void HandleVideoThumbnailRequestJob::removeFullScaleFrame(const DB::FileName &fi
 void HandleVideoThumbnailRequestJob::sendResult(QImage image)
 {
     //if ( m_request->isRequestStillValid(m_request) ) {
-        image = image.scaled( QSize(m_request->width(), m_request->height()), Qt::KeepAspectRatio, Qt::SmoothTransformation );
-        if ( m_request->isThumbnailRequest() )
-            ImageManager::ThumbnailCache::instance()->insert( m_request->databaseFileName(), image );
-        m_request->setLoadedOK(!image.isNull());
-        m_request->client()->pixmapLoaded( m_request, image);
-        //}
+    image = image.scaled(QSize(m_request->width(), m_request->height()), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    if (m_request->isThumbnailRequest())
+        ImageManager::ThumbnailCache::instance()->insert(m_request->databaseFileName(), image);
+    m_request->setLoadedOK(!image.isNull());
+    m_request->client()->pixmapLoaded(m_request, image);
+    //}
 }
 
 QImage HandleVideoThumbnailRequestJob::brokenImage() const
 {
-    return QIcon::fromTheme(QString::fromUtf8("applications-multimedia")).pixmap(
-        ThumbnailView::CellGeometry::preferredIconSize()).toImage();
+    return QIcon::fromTheme(QString::fromUtf8("applications-multimedia")).pixmap(ThumbnailView::CellGeometry::preferredIconSize()).toImage();
 }
 
 } // namespace BackgroundJobs

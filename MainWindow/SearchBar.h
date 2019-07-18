@@ -17,38 +17,37 @@
 */
 #ifndef SEARCHBAR_H
 #define SEARCHBAR_H
-#include <ktoolbar.h>
 #include <QEvent>
+#include <ktoolbar.h>
 class QLineEdit;
 class KMainWindow;
 
 namespace MainWindow
 {
 
-class SearchBar :public KToolBar {
+class SearchBar : public KToolBar
+{
     Q_OBJECT
 
 public:
-    explicit SearchBar( KMainWindow* parent );
+    explicit SearchBar(KMainWindow *parent);
 
 protected:
-    bool eventFilter( QObject* watched, QEvent* e ) override;
+    bool eventFilter(QObject *watched, QEvent *e) override;
 
 public slots:
     void reset();
     void setLineEditEnabled(bool b);
 
 signals:
-    void textChanged( const QString& );
+    void textChanged(const QString &);
     void returnPressed();
-    void keyPressed( QKeyEvent* );
+    void keyPressed(QKeyEvent *);
 
 private:
-    QLineEdit* m_edit;
+    QLineEdit *m_edit;
 };
-
 }
-
 
 #endif /* SEARCHBAR_H */
 

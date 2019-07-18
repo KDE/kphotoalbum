@@ -17,94 +17,94 @@
 */
 #include "CenteringIconView.h"
 #include "Settings/SettingsData.h"
+#include "Utilities/FileUtil.h"
 #include <QApplication>
 #include <Utilities/BooleanGuard.h>
-#include "Utilities/FileUtil.h"
 #include <cmath>
 
 const int CELLWIDTH = 200;
 const int CELLHEIGHT = 150;
 
-Browser::CenteringIconView::CenteringIconView( QWidget* parent )
-    : QListView( parent ), m_viewMode( NormalIconView )
+Browser::CenteringIconView::CenteringIconView(QWidget *parent)
+    : QListView(parent)
+    , m_viewMode(NormalIconView)
 {
     QPalette pal = palette();
-    pal.setBrush( QPalette::Base, QApplication::palette().color( QPalette::Base ) );
-    setPalette( pal );
+    pal.setBrush(QPalette::Base, QApplication::palette().color(QPalette::Base));
+    setPalette(pal);
 
-    setGridSize( QSize(CELLWIDTH, CELLHEIGHT) );
+    setGridSize(QSize(CELLWIDTH, CELLHEIGHT));
     viewport()->setAutoFillBackground(false);
 
-    QListView::setViewMode( QListView::IconMode );
+    QListView::setViewMode(QListView::IconMode);
 }
 
-void Browser::CenteringIconView::setViewMode( ViewMode viewMode )
+void Browser::CenteringIconView::setViewMode(ViewMode viewMode)
 {
     m_viewMode = viewMode;
-    if ( viewMode == CenterView ) {
-        setGridSize( QSize(200,150) );
+    if (viewMode == CenterView) {
+        setGridSize(QSize(200, 150));
         setupMargins();
-    }
-    else {
-        setGridSize( QSize() );
-        setViewportMargins ( 0,0,0,0 );
+    } else {
+        setGridSize(QSize());
+        setViewportMargins(0, 0, 0, 0);
     }
 }
 
 void Browser::CenteringIconView::setupMargins()
 {
-    if ( m_viewMode == NormalIconView || !model() || !viewport())
+    if (m_viewMode == NormalIconView || !model() || !viewport())
         return;
 
     // In this code I'll call resize, which calls resizeEvent, which calls
     // this code. So I need to break that loop, which I do here.
     static bool inAction = false;
-    Utilities::BooleanGuard guard( inAction );
-    if ( !guard.canContinue() )
+    Utilities::BooleanGuard guard(inAction);
+    if (!guard.canContinue())
         return;
 
     const int count = model()->rowCount();
-    if ( count == 0 )
+    if (count == 0)
         return;
 
-    const int columns = columnCount( count );
-    const int rows = std::ceil(1.0*count/columns);
+    const int columns = columnCount(count);
+    const int rows = std::ceil(1.0 * count / columns);
 
-    const int xMargin = (availableWidth()-columns*CELLWIDTH)/2;
-    const int yMargin = qMax( 0, (int) (availableHeight()-rows*CELLHEIGHT )/2);
+    const int xMargin = (availableWidth() - columns * CELLWIDTH) / 2;
+    const int yMargin = qMax(0, (int)(availableHeight() - rows * CELLHEIGHT) / 2);
 
-    setViewportMargins ( xMargin, yMargin, xMargin, yMargin );
+    setViewportMargins(xMargin, yMargin, xMargin, yMargin);
 }
 
-void Browser::CenteringIconView::resizeEvent( QResizeEvent* event )
+void Browser::CenteringIconView::resizeEvent(QResizeEvent *event)
 {
-    QListView::resizeEvent( event );
+    QListView::resizeEvent(event);
     setupMargins();
 }
 
-void Browser::CenteringIconView::setModel( QAbstractItemModel* model )
+void Browser::CenteringIconView::setModel(QAbstractItemModel *model)
 {
-    QListView::setModel( model );
+    QListView::setModel(model);
     setupMargins();
 }
 
-void Browser::CenteringIconView::showEvent( QShowEvent* event )
+void Browser::CenteringIconView::showEvent(QShowEvent *event)
 {
     setupMargins();
     QListView::showEvent(event);
 }
 
-int Browser::CenteringIconView::columnCount( int elementCount ) const
+int Browser::CenteringIconView::columnCount(int elementCount) const
 {
-    const int preferredCount = std::ceil( std::sqrt( elementCount ) );
-    const int maxVisibleColumnsPossible = availableWidth()/CELLWIDTH;
-    const int maxVisibleRowsPossible = qMax(1, availableHeight()/CELLHEIGHT);
-    const int colCountToMakeAllRowVisible = std::ceil( 1.0*elementCount / maxVisibleRowsPossible);
+    const int preferredCount = std::ceil(std::sqrt(elementCount));
+    const int maxVisibleColumnsPossible = availableWidth() / CELLWIDTH;
+    const int maxVisibleRowsPossible = qMax(1, availableHeight() / CELLHEIGHT);
+    const int colCountToMakeAllRowVisible = std::ceil(1.0 * elementCount / maxVisibleRowsPossible);
 
     int res = preferredCount;
-    res = qMax( res, colCountToMakeAllRowVisible ); // Should we go for more due to limited row count?
-    res = qMin( res, maxVisibleColumnsPossible ); // No more than maximal visible count
-    res = qMax( res, 1 ); // at least 1
+    res = qMax(res, colCountToMakeAllRowVisible); // Should we go for more due to limited row count?
+    res = qMin(res, maxVisibleColumnsPossible); // No more than maximal visible count
+    res = qMax(res, 1); // at least 1
     return res;
 }
 
@@ -117,7 +117,7 @@ int Browser::CenteringIconView::availableWidth() const
 
 int Browser::CenteringIconView::availableHeight() const
 {
-    return height()-10;
+    return height() - 10;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -21,8 +21,8 @@
 
 namespace DB
 {
-    class Category;
-    typedef QExplicitlySharedDataPointer<Category> CategoryPtr;
+class Category;
+typedef QExplicitlySharedDataPointer<Category> CategoryPtr;
 }
 
 #endif /* CATEGORYPTR_H */

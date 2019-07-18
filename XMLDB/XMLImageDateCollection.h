@@ -18,20 +18,23 @@
 #ifndef XMLIMAGEDATECOLLECTION_H
 #define XMLIMAGEDATECOLLECTION_H
 
-#include <QMap>
 #include "DB/ImageDateCollection.h"
+#include <QMap>
 
-namespace DB { class FileNameList; }
+namespace DB
+{
+class FileNameList;
+}
 
 namespace XMLDB
 {
-class XMLImageDateCollection :public DB::ImageDateCollection
+class XMLImageDateCollection : public DB::ImageDateCollection
 {
 public:
-    explicit XMLImageDateCollection(const DB::FileNameList&);
+    explicit XMLImageDateCollection(const DB::FileNameList &);
 
 public:
-    DB::ImageCount count( const DB::ImageDate& range ) override;
+    DB::ImageCount count(const DB::ImageDate &range) override;
     QDateTime lowerLimit() const override;
     QDateTime upperLimit() const override;
 
@@ -39,7 +42,7 @@ private:
     typedef QMap<QDateTime, DB::ImageDate> StartIndexMap;
     typedef QMap<QDateTime, StartIndexMap::ConstIterator> EndIndexMap;
 
-    void add( const DB::ImageDate& );
+    void add(const DB::ImageDate &);
 
     // Build index, after all elements have been added.
     void buildIndex();

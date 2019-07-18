@@ -25,35 +25,38 @@ class QCheckBox;
 class QSpinBox;
 class QRadioButton;
 
-namespace DB { class FileNameList; }
+namespace DB
+{
+class FileNameList;
+}
 
 namespace MainWindow
 {
 
-class AutoStackImages :public QDialog {
+class AutoStackImages : public QDialog
+{
     Q_OBJECT
 
 public:
-    AutoStackImages( QWidget* parent, const DB::FileNameList& list );
+    AutoStackImages(QWidget *parent, const DB::FileNameList &list);
 
 protected slots:
     void accept() override;
 
 private:
-    QCheckBox* m_matchingMD5;
-    QCheckBox* m_matchingFile;
-    QCheckBox* m_origTop;
-    QCheckBox* m_continuousShooting;
-    QRadioButton* m_autostackUnstack;
-    QRadioButton* m_autostackSkip;
-    QRadioButton* m_autostackDefault;
-    QSpinBox* m_continuousThreshold;
-    const DB::FileNameList& m_list;
-    virtual void matchingMD5( DB::FileNameList &toBeShown );
-    virtual void matchingFile( DB::FileNameList &toBeShown );
-    virtual void continuousShooting( DB::FileNameList &toBeShown );
+    QCheckBox *m_matchingMD5;
+    QCheckBox *m_matchingFile;
+    QCheckBox *m_origTop;
+    QCheckBox *m_continuousShooting;
+    QRadioButton *m_autostackUnstack;
+    QRadioButton *m_autostackSkip;
+    QRadioButton *m_autostackDefault;
+    QSpinBox *m_continuousThreshold;
+    const DB::FileNameList &m_list;
+    virtual void matchingMD5(DB::FileNameList &toBeShown);
+    virtual void matchingFile(DB::FileNameList &toBeShown);
+    virtual void continuousShooting(DB::FileNameList &toBeShown);
 };
-
 }
 
 #endif /* AUTOSTACKIMAGES_H */

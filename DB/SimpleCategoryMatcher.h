@@ -24,7 +24,7 @@
 namespace DB
 {
 
-class SimpleCategoryMatcher :public CategoryMatcher
+class SimpleCategoryMatcher : public CategoryMatcher
 {
 public:
     QString m_category;

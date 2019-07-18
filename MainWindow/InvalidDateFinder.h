@@ -22,27 +22,25 @@
 #include <QDialog>
 class QRadioButton;
 
-
 namespace MainWindow
 {
 
-class InvalidDateFinder :public QDialog {
+class InvalidDateFinder : public QDialog
+{
     Q_OBJECT
 
 public:
-    explicit InvalidDateFinder( QWidget* parent );
+    explicit InvalidDateFinder(QWidget *parent);
 
 protected slots:
     void accept() override;
 
 private:
-    QRadioButton* m_dateNotTime;
-    QRadioButton* m_missingDate;
-    QRadioButton* m_partialDate;
+    QRadioButton *m_dateNotTime;
+    QRadioButton *m_missingDate;
+    QRadioButton *m_partialDate;
 };
-
 }
-
 
 #endif /* INVALIDDATEFINDER_H */
 

@@ -21,7 +21,8 @@
 
 #include <QEvent>
 
-namespace ImageManager {
+namespace ImageManager
+{
 
 class ImageRequest;
 
@@ -30,12 +31,12 @@ const int CANCELEVENTID = 1002;
 class CancelEvent : public QEvent
 {
 public:
-    explicit CancelEvent( ImageRequest* request );
+    explicit CancelEvent(ImageRequest *request);
     ~CancelEvent() override;
-    ImageRequest* request() const;
+    ImageRequest *request() const;
 
 private:
-    ImageRequest* m_request;
+    ImageRequest *m_request;
 };
 
 }

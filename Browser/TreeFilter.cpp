@@ -18,42 +18,39 @@
 
 #include "TreeFilter.h"
 
-Browser::TreeFilter::TreeFilter( QObject* parent)
+Browser::TreeFilter::TreeFilter(QObject *parent)
     : QSortFilterProxyModel(parent)
 {
-
 }
 
-bool Browser::TreeFilter::filterAcceptsRow( int row, const QModelIndex & parent ) const
+bool Browser::TreeFilter::filterAcceptsRow(int row, const QModelIndex &parent) const
 {
     bool match = false;
     bool openAllChildren = false;
 
     // If parent is open then child should be included.
-    if ( m_matchedMap[parent] ) {
-        match = true;
-        openAllChildren = true;
-     }
-
-    // check if the item itself matches
-    else if ( QSortFilterProxyModel::filterAcceptsRow( row, parent ) ) {
+    if (m_matchedMap[parent]) {
         match = true;
         openAllChildren = true;
     }
-    else {
+
+    // check if the item itself matches
+    else if (QSortFilterProxyModel::filterAcceptsRow(row, parent)) {
+        match = true;
+        openAllChildren = true;
+    } else {
         // Check if any children matches
-        const QModelIndex myModelIndex = sourceModel()->index( row, 0, parent );
-        const int childCount = sourceModel()->rowCount( myModelIndex );
-        for ( int i = 0; i < childCount; ++ i ) {
-            if ( filterAcceptsRow( i, myModelIndex ) ) {
+        const QModelIndex myModelIndex = sourceModel()->index(row, 0, parent);
+        const int childCount = sourceModel()->rowCount(myModelIndex);
+        for (int i = 0; i < childCount; ++i) {
+            if (filterAcceptsRow(i, myModelIndex)) {
                 match = true;
                 break;
             }
         }
     }
 
-
-    m_matchedMap[sourceModel()->index( row, 0, parent )] = openAllChildren;
+    m_matchedMap[sourceModel()->index(row, 0, parent)] = openAllChildren;
     return match;
 }
 

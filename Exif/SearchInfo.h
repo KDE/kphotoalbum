@@ -18,15 +18,17 @@
 #ifndef EXIFSEARCHINFO_H
 #define EXIFSEARCHINFO_H
 
-#include <QList>
-#include <QStringList>
-#include <QPair>
 #include "Exif/Database.h"
 #include <DB/FileName.h>
+#include <QList>
+#include <QPair>
+#include <QStringList>
 
-namespace Exif {
+namespace Exif
+{
 
-class SearchInfo  {
+class SearchInfo
+{
 public:
     typedef Database::CameraList CameraList;
     typedef Database::Camera Camera;
@@ -38,19 +40,19 @@ public:
     {
     public:
         Range() {}
-        explicit Range( const QString& key );
+        explicit Range(const QString &key);
         bool isLowerMin, isLowerMax, isUpperMin, isUpperMax;
         double min, max;
         QString key;
     };
 
-    void addSearchKey( const QString& key, const IntList& values );
-    void addRangeKey( const Range& range );
-    void addCamera( const CameraList& list);
-    void addLens( const LensList& list);
+    void addSearchKey(const QString &key, const IntList &values);
+    void addRangeKey(const Range &range);
+    void addCamera(const CameraList &list);
+    void addLens(const LensList &list);
 
     void search() const;
-    bool matches( const DB::FileName& fileName ) const;
+    bool matches(const DB::FileName &fileName) const;
 
     bool isNull() const;
 
@@ -60,10 +62,10 @@ protected:
     QStringList buildRangeQuery() const;
     QString buildCameraSearchQuery() const;
     QString buildLensSearchQuery() const;
-    QString sqlForOneRangeItem( const Range& ) const;
+    QString sqlForOneRangeItem(const Range &) const;
 
 private:
-    typedef QList< QPair<QString, IntList> > IntKeyList;
+    typedef QList<QPair<QString, IntList>> IntKeyList;
     IntKeyList m_intKeys;
     QList<Range> m_rangeKeys;
     CameraList m_cameras;
@@ -73,7 +75,6 @@ private:
 };
 
 }
-
 
 #endif /* EXIFSEARCHINFO_H */
 

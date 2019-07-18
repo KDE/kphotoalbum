@@ -18,8 +18,8 @@
 #include "ThumbnailCache.h"
 #include "Logging.h"
 
-#include <DB/ImageDB.h>
 #include <DB/FastDir.h>
+#include <DB/ImageDB.h>
 #include <MainWindow/Logging.h>
 #include <Settings/SettingsData.h>
 
@@ -33,19 +33,21 @@
 #include <QTemporaryFile>
 #include <QTimer>
 
-namespace {
+namespace
+{
 
 // We split the thumbnails into chunks to avoid a huge file changing over and over again, with a bad hit for backups
-constexpr int MAX_FILE_SIZE=32*1024*1024;
-constexpr int THUMBNAIL_FILE_VERSION=4;
+constexpr int MAX_FILE_SIZE = 32 * 1024 * 1024;
+constexpr int THUMBNAIL_FILE_VERSION = 4;
 // We map some thumbnail files into memory and manage them in a least-recently-used fashion
-constexpr size_t LRU_SIZE=2;
+constexpr size_t LRU_SIZE = 2;
 
 constexpr int THUMBNAIL_CACHE_SAVE_INTERNAL_MS = (5 * 1000);
 
 }
 
-namespace ImageManager {
+namespace ImageManager
+{
 /**
  * The ThumbnailMapping wraps the memory-mapped data of a QFile.
  * Upon initialization with a file name, the corresponding file is opened
@@ -57,19 +59,17 @@ class ThumbnailMapping
 {
 public:
     ThumbnailMapping(const QString &filename)
-        : file(filename),map(nullptr)
+        : file(filename)
+        , map(nullptr)
     {
-        if ( !file.open( QIODevice::ReadOnly ) )
+        if (!file.open(QIODevice::ReadOnly))
             qCWarning(ImageManagerLog, "Failed to open thumbnail file");
 
-        uchar * data = file.map( 0, file.size() );
-        if ( !data || QFile::NoError != file.error() )
-        {
+        uchar *data = file.map(0, file.size());
+        if (!data || QFile::NoError != file.error()) {
             qCWarning(ImageManagerLog, "Failed to map thumbnail file");
-        }
-        else
-        {
-            map = QByteArray::fromRawData( reinterpret_cast<const char*>(data), file.size() );
+        } else {
+            map = QByteArray::fromRawData(reinterpret_cast<const char *>(data), file.size());
         }
     }
     bool isValid()
@@ -82,19 +82,19 @@ public:
 };
 }
 
-ImageManager::ThumbnailCache* ImageManager::ThumbnailCache::s_instance = nullptr;
+ImageManager::ThumbnailCache *ImageManager::ThumbnailCache::s_instance = nullptr;
 
 ImageManager::ThumbnailCache::ThumbnailCache()
-  : m_currentFile(0),
-    m_currentOffset(0),
-    m_timer(new QTimer),
-    m_needsFullSave(true),
-    m_isDirty(false),
-    m_memcache(new QCache<int,ThumbnailMapping>(LRU_SIZE)),
-    m_currentWriter(nullptr)
+    : m_currentFile(0)
+    , m_currentOffset(0)
+    , m_timer(new QTimer)
+    , m_needsFullSave(true)
+    , m_isDirty(false)
+    , m_memcache(new QCache<int, ThumbnailMapping>(LRU_SIZE))
+    , m_currentWriter(nullptr)
 {
     const QString dir = thumbnailPath(QString());
-    if ( !QFile::exists(dir) )
+    if (!QFile::exists(dir))
         QDir().mkpath(dir);
 
     load();
@@ -115,50 +115,48 @@ ImageManager::ThumbnailCache::~ThumbnailCache()
         delete m_currentWriter;
 }
 
-void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImage& image )
+void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QImage &image)
 {
     QMutexLocker thumbnailLocker(&m_thumbnailWriterLock);
-    if ( ! m_currentWriter ) {
-        m_currentWriter = new QFile( fileNameForIndex(m_currentFile) );
-        if ( ! m_currentWriter->open(QIODevice::ReadWrite ) ) {
+    if (!m_currentWriter) {
+        m_currentWriter = new QFile(fileNameForIndex(m_currentFile));
+        if (!m_currentWriter->open(QIODevice::ReadWrite)) {
             qCWarning(ImageManagerLog, "Failed to open thumbnail file for inserting");
             return;
         }
     }
-    if ( ! m_currentWriter->seek( m_currentOffset ) )
-    {
+    if (!m_currentWriter->seek(m_currentOffset)) {
         qCWarning(ImageManagerLog, "Failed to seek in thumbnail file");
         return;
     }
 
     QMutexLocker dataLocker(&m_dataLock);
     // purge in-memory cache for the current file:
-    m_memcache->remove( m_currentFile );
+    m_memcache->remove(m_currentFile);
     QByteArray data;
-    QBuffer buffer( &data );
-    bool OK = buffer.open( QIODevice::WriteOnly );
-    Q_ASSERT(OK); Q_UNUSED(OK);
+    QBuffer buffer(&data);
+    bool OK = buffer.open(QIODevice::WriteOnly);
+    Q_ASSERT(OK);
+    Q_UNUSED(OK);
 
-    OK = image.save( &buffer, "JPG" );
-    Q_ASSERT( OK );
+    OK = image.save(&buffer, "JPG");
+    Q_ASSERT(OK);
 
     const int size = data.size();
-    if ( ! ( m_currentWriter->write( data.data(), size ) == size && m_currentWriter->flush() ) )
-    {
+    if (!(m_currentWriter->write(data.data(), size) == size && m_currentWriter->flush())) {
         qCWarning(ImageManagerLog, "Failed to write image data to thumbnail file");
         return;
     }
 
-    if ( m_currentOffset + size > MAX_FILE_SIZE ) {
+    if (m_currentOffset + size > MAX_FILE_SIZE) {
         delete m_currentWriter;
         m_currentWriter = nullptr;
     }
     thumbnailLocker.unlock();
 
-    if ( m_hash.contains(name) ) {
+    if (m_hash.contains(name)) {
         CacheFileInfo info = m_hash[name];
-        if ( info.fileIndex == m_currentFile && info.offset == m_currentOffset &&
-             info.size == size ) {
+        if (info.fileIndex == m_currentFile && info.offset == m_currentOffset && info.size == size) {
             qCDebug(ImageManagerLog) << "Found duplicate thumbnail " << name.relative() << "but no change in information";
             dataLocker.unlock();
             return;
@@ -171,14 +169,14 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
         }
     }
 
-    m_hash.insert( name, CacheFileInfo( m_currentFile, m_currentOffset, size ) );
+    m_hash.insert(name, CacheFileInfo(m_currentFile, m_currentOffset, size));
     m_isDirty = true;
 
-    m_unsavedHash.insert( name, CacheFileInfo( m_currentFile, m_currentOffset, size ) );
+    m_unsavedHash.insert(name, CacheFileInfo(m_currentFile, m_currentOffset, size));
 
     // Update offset
     m_currentOffset += size;
-    if ( m_currentOffset > MAX_FILE_SIZE ) {
+    if (m_currentOffset > MAX_FILE_SIZE) {
         m_currentFile++;
         m_currentOffset = 0;
     }
@@ -191,62 +189,58 @@ void ImageManager::ThumbnailCache::insert( const DB::FileName& name, const QImag
     // We need to call the internal version that does not interact with the timer.
     // We can't simply signal from here because if we're in the middle of loading new
     // images the signal won't get invoked until we return to the main application loop.
-    if ( unsaved >= 100 ) {
+    if (unsaved >= 100) {
         saveInternal();
     }
 }
 
-QString ImageManager::ThumbnailCache::fileNameForIndex( int index, const QString dir ) const
+QString ImageManager::ThumbnailCache::fileNameForIndex(int index, const QString dir) const
 {
-    return thumbnailPath(QString::fromLatin1("thumb-") + QString::number(index), dir );
+    return thumbnailPath(QString::fromLatin1("thumb-") + QString::number(index), dir);
 }
 
-QPixmap ImageManager::ThumbnailCache::lookup( const DB::FileName& name ) const
+QPixmap ImageManager::ThumbnailCache::lookup(const DB::FileName &name) const
 {
     m_dataLock.lock();
     CacheFileInfo info = m_hash[name];
     m_dataLock.unlock();
 
     ThumbnailMapping *t = m_memcache->object(info.fileIndex);
-    if (!t || !t->isValid())
-    {
-        t = new ThumbnailMapping( fileNameForIndex( info.fileIndex ) );
-        if (!t->isValid())
-        {
+    if (!t || !t->isValid()) {
+        t = new ThumbnailMapping(fileNameForIndex(info.fileIndex));
+        if (!t->isValid()) {
             qCWarning(ImageManagerLog, "Failed to map thumbnail file");
             return QPixmap();
         }
-        m_memcache->insert(info.fileIndex,t);
+        m_memcache->insert(info.fileIndex, t);
     }
-    QByteArray array( t->map.mid(info.offset , info.size ) );
-    QBuffer buffer( &array );
-    buffer.open( QIODevice::ReadOnly );
+    QByteArray array(t->map.mid(info.offset, info.size));
+    QBuffer buffer(&array);
+    buffer.open(QIODevice::ReadOnly);
     QImage image;
-    image.load( &buffer, "JPG");
+    image.load(&buffer, "JPG");
 
     // Notice the above image is sharing the bits with the file, so I can't just return it as it then will be invalid when the file goes out of scope.
     // PENDING(blackie) Is that still true?
-    return QPixmap::fromImage( image );
+    return QPixmap::fromImage(image);
 }
 
-QByteArray ImageManager::ThumbnailCache::lookupRawData( const DB::FileName& name ) const
+QByteArray ImageManager::ThumbnailCache::lookupRawData(const DB::FileName &name) const
 {
     m_dataLock.lock();
     CacheFileInfo info = m_hash[name];
     m_dataLock.unlock();
 
     ThumbnailMapping *t = m_memcache->object(info.fileIndex);
-    if (!t || !t->isValid())
-    {
-        t = new ThumbnailMapping( fileNameForIndex( info.fileIndex ) );
-        if (!t->isValid())
-        {
+    if (!t || !t->isValid()) {
+        t = new ThumbnailMapping(fileNameForIndex(info.fileIndex));
+        if (!t->isValid()) {
             qCWarning(ImageManagerLog, "Failed to map thumbnail file");
             return QByteArray();
         }
-        m_memcache->insert(info.fileIndex,t);
+        m_memcache->insert(info.fileIndex, t);
     }
-    QByteArray array( t->map.mid(info.offset , info.size ) );
+    QByteArray array(t->map.mid(info.offset, info.size));
     return array;
 }
 
@@ -254,18 +248,18 @@ void ImageManager::ThumbnailCache::saveFull() const
 {
     // First ensure that any dirty thumbnails are written to disk
     m_thumbnailWriterLock.lock();
-    if ( m_currentWriter ) {
+    if (m_currentWriter) {
         delete m_currentWriter;
         m_currentWriter = nullptr;
     }
     m_thumbnailWriterLock.unlock();
 
     QMutexLocker dataLocker(&m_dataLock);
-    if ( ! m_isDirty ) {
+    if (!m_isDirty) {
         return;
     }
     QTemporaryFile file;
-    if ( !file.open() ) {
+    if (!file.open()) {
         qCWarning(ImageManagerLog, "Failed to create temporary file");
         return;
     }
@@ -284,8 +278,8 @@ void ImageManager::ThumbnailCache::saveFull() const
            << m_currentOffset
            << m_hash.count();
 
-    for( QHash<DB::FileName,CacheFileInfo>::ConstIterator it = tempHash.begin(); it != tempHash.end(); ++it ) {
-        const CacheFileInfo& cacheInfo = it.value();
+    for (QHash<DB::FileName, CacheFileInfo>::ConstIterator it = tempHash.begin(); it != tempHash.end(); ++it) {
+        const CacheFileInfo &cacheInfo = it.value();
         stream << it.key().relative()
                << cacheInfo.fileIndex
                << cacheInfo.offset
@@ -294,16 +288,16 @@ void ImageManager::ThumbnailCache::saveFull() const
     file.close();
 
     const QString realFileName = thumbnailPath(QString::fromLatin1("thumbnailindex"));
-    QFile::remove( realFileName );
-    if ( !file.copy( realFileName ) ) {
-        qCWarning(ImageManagerLog, "Failed to copy the temporary file %s to %s", qPrintable( file.fileName() ), qPrintable( realFileName ) );
+    QFile::remove(realFileName);
+    if (!file.copy(realFileName)) {
+        qCWarning(ImageManagerLog, "Failed to copy the temporary file %s to %s", qPrintable(file.fileName()), qPrintable(realFileName));
         dataLocker.relock();
         m_isDirty = true;
         m_needsFullSave = true;
     } else {
-        QFile realFile( realFileName );
-        realFile.open( QIODevice::ReadOnly );
-        realFile.setPermissions( QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup | QFile::ReadOther );
+        QFile realFile(realFileName);
+        realFile.open(QIODevice::ReadOnly);
+        realFile.setPermissions(QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup | QFile::ReadOther);
         realFile.close();
     }
 }
@@ -313,13 +307,13 @@ void ImageManager::ThumbnailCache::saveFull() const
 void ImageManager::ThumbnailCache::saveIncremental() const
 {
     m_thumbnailWriterLock.lock();
-    if ( m_currentWriter ) {
+    if (m_currentWriter) {
         delete m_currentWriter;
         m_currentWriter = nullptr;
     }
     m_thumbnailWriterLock.unlock();
     QMutexLocker dataLocker(&m_dataLock);
-    if ( m_unsavedHash.count() == 0 ) {
+    if (m_unsavedHash.count() == 0) {
         return;
     }
     QHash<DB::FileName, CacheFileInfo> tempUnsavedHash = m_unsavedHash;
@@ -327,15 +321,15 @@ void ImageManager::ThumbnailCache::saveIncremental() const
     m_isDirty = true;
 
     const QString realFileName = thumbnailPath(QString::fromLatin1("thumbnailindex"));
-    QFile file( realFileName );
-    if ( ! file.open( QIODevice::WriteOnly | QIODevice::Append ) ) {
+    QFile file(realFileName);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Append)) {
         qCWarning(ImageManagerLog, "Failed to open thumbnail cache for appending");
         m_needsFullSave = true;
         return;
     }
     QDataStream stream(&file);
-    for( QHash<DB::FileName,CacheFileInfo>::ConstIterator it = tempUnsavedHash.begin(); it != tempUnsavedHash.end(); ++it ) {
-        const CacheFileInfo& cacheInfo = it.value();
+    for (QHash<DB::FileName, CacheFileInfo>::ConstIterator it = tempUnsavedHash.begin(); it != tempUnsavedHash.end(); ++it) {
+        const CacheFileInfo &cacheInfo = it.value();
         stream << it.key().relative()
                << cacheInfo.fileIndex
                << cacheInfo.offset
@@ -349,7 +343,7 @@ void ImageManager::ThumbnailCache::saveInternal() const
     m_saveLock.lock();
     const QString realFileName = thumbnailPath(QString::fromLatin1("thumbnailindex"));
     // If something has asked for a full save, do it!
-    if ( m_needsFullSave || ! QFile( realFileName ).exists() ) {
+    if (m_needsFullSave || !QFile(realFileName).exists()) {
         saveFull();
     } else {
         saveIncremental();
@@ -376,8 +370,8 @@ void ImageManager::ThumbnailCache::save() const
 
 void ImageManager::ThumbnailCache::load()
 {
-    QFile file( thumbnailPath( QString::fromLatin1("thumbnailindex")) );
-    if ( !file.exists() )
+    QFile file(thumbnailPath(QString::fromLatin1("thumbnailindex")));
+    if (!file.exists())
         return;
 
     QElapsedTimer timer;
@@ -386,34 +380,34 @@ void ImageManager::ThumbnailCache::load()
     QDataStream stream(&file);
     int version;
     stream >> version;
-    if ( version != THUMBNAIL_FILE_VERSION )
+    if (version != THUMBNAIL_FILE_VERSION)
         return; //Discard cache
 
     // We can't allow anything to modify the structure while we're doing this.
     QMutexLocker dataLocker(&m_dataLock);
     int count = 0;
     stream >> m_currentFile
-           >> m_currentOffset
-           >> count;
+        >> m_currentOffset
+        >> count;
 
-    while ( ! stream.atEnd() ) {
+    while (!stream.atEnd()) {
         QString name;
         int fileIndex;
         int offset;
         int size;
         stream >> name
-               >> fileIndex
-               >> offset
-               >> size;
+            >> fileIndex
+            >> offset
+            >> size;
 
-        m_hash.insert( DB::FileName::fromRelativePath(name), CacheFileInfo( fileIndex, offset, size ) );
-        if ( fileIndex > m_currentFile ) {
+        m_hash.insert(DB::FileName::fromRelativePath(name), CacheFileInfo(fileIndex, offset, size));
+        if (fileIndex > m_currentFile) {
             m_currentFile = fileIndex;
             m_currentOffset = offset + size;
         } else if (fileIndex == m_currentFile && offset + size > m_currentOffset) {
             m_currentOffset = offset + size;
         }
-        if ( m_currentOffset > MAX_FILE_SIZE ) {
+        if (m_currentOffset > MAX_FILE_SIZE) {
             m_currentFile++;
             m_currentOffset = 0;
         }
@@ -422,20 +416,20 @@ void ImageManager::ThumbnailCache::load()
     qCDebug(TimingLog) << "Loaded thumbnails in " << timer.elapsed() / 1000.0 << " seconds";
 }
 
-bool ImageManager::ThumbnailCache::contains( const DB::FileName& name ) const
+bool ImageManager::ThumbnailCache::contains(const DB::FileName &name) const
 {
     QMutexLocker dataLocker(&m_dataLock);
     bool answer = m_hash.contains(name);
     return answer;
 }
 
-QString ImageManager::ThumbnailCache::thumbnailPath(const QString& file, const QString dir) const
+QString ImageManager::ThumbnailCache::thumbnailPath(const QString &file, const QString dir) const
 {
-    QString base = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath( dir );
-    return  base + file;
+    QString base = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath(dir);
+    return base + file;
 }
 
-ImageManager::ThumbnailCache* ImageManager::ThumbnailCache::instance()
+ImageManager::ThumbnailCache *ImageManager::ThumbnailCache::instance()
 {
     if (!s_instance) {
         s_instance = new ThumbnailCache;
@@ -452,8 +446,8 @@ void ImageManager::ThumbnailCache::deleteInstance()
 void ImageManager::ThumbnailCache::flush()
 {
     QMutexLocker dataLocker(&m_dataLock);
-    for ( int i = 0; i <= m_currentFile; ++i )
-        QFile::remove( fileNameForIndex(i) );
+    for (int i = 0; i <= m_currentFile; ++i)
+        QFile::remove(fileNameForIndex(i));
     m_currentFile = 0;
     m_currentOffset = 0;
     m_isDirty = true;
@@ -464,20 +458,20 @@ void ImageManager::ThumbnailCache::flush()
     save();
 }
 
-void ImageManager::ThumbnailCache::removeThumbnail( const DB::FileName& fileName )
+void ImageManager::ThumbnailCache::removeThumbnail(const DB::FileName &fileName)
 {
     QMutexLocker dataLocker(&m_dataLock);
     m_isDirty = true;
-    m_hash.remove( fileName );
+    m_hash.remove(fileName);
     dataLocker.unlock();
     save();
 }
-void ImageManager::ThumbnailCache::removeThumbnails( const DB::FileNameList& files )
+void ImageManager::ThumbnailCache::removeThumbnails(const DB::FileNameList &files)
 {
     QMutexLocker dataLocker(&m_dataLock);
     m_isDirty = true;
-    Q_FOREACH(const DB::FileName &fileName, files) {
-        m_hash.remove( fileName );
+    Q_FOREACH (const DB::FileName &fileName, files) {
+        m_hash.remove(fileName);
     }
     dataLocker.unlock();
     save();

@@ -22,7 +22,10 @@
 #include <DB/Category.h>
 #include <DB/ImageSearchInfo.h>
 
-namespace RemoteControl { class RemoteInterface; }
+namespace RemoteControl
+{
+class RemoteInterface;
+}
 namespace Browser
 {
 
@@ -31,17 +34,17 @@ namespace Browser
  *
  * See \ref Browser for a detailed description of how this fits in with the rest of the classes in this module
  */
-class FlatCategoryModel :public AbstractCategoryModel
+class FlatCategoryModel : public AbstractCategoryModel
 {
 public:
-    FlatCategoryModel( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info );
-    int rowCount( const QModelIndex& index ) const override;
+    FlatCategoryModel(const DB::CategoryPtr &category, const DB::ImageSearchInfo &info);
+    int rowCount(const QModelIndex &index) const override;
 
-    int columnCount( const QModelIndex& ) const override;
-    QModelIndex index ( int row, int column, const QModelIndex & parent = QModelIndex() ) const override;
-    QModelIndex parent ( const QModelIndex & index ) const override;
+    int columnCount(const QModelIndex &) const override;
+    QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const override;
+    QModelIndex parent(const QModelIndex &index) const override;
 
-    QString indexToName(const QModelIndex& ) const override;
+    QString indexToName(const QModelIndex &) const override;
 
 private:
     friend class RemoteControl::RemoteInterface;

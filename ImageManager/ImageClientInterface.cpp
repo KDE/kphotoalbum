@@ -21,6 +21,6 @@
 
 ImageManager::ImageClientInterface::~ImageClientInterface()
 {
-    AsyncLoader::instance()->stop( this );
+    AsyncLoader::instance()->stop(this);
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

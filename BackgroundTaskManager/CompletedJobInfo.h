@@ -21,12 +21,13 @@
 #define BACKGROUNDTASKS_COMPLETEDJOBINFO_H
 
 #include "JobInfo.h"
-namespace BackgroundTaskManager {
+namespace BackgroundTaskManager
+{
 
 class CompletedJobInfo : public JobInfo
 {
 public:
-    explicit CompletedJobInfo(JobInfo* other);
+    explicit CompletedJobInfo(JobInfo *other);
     QString title() const override;
     QString details() const override;
 

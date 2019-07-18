@@ -28,32 +28,30 @@ namespace Settings
 {
 class SettingsData;
 
-class FileVersionDetectionPage :public QWidget
+class FileVersionDetectionPage : public QWidget
 {
 public:
-    explicit FileVersionDetectionPage( QWidget* parent );
+    explicit FileVersionDetectionPage(QWidget *parent);
     ~FileVersionDetectionPage() override;
-    void loadSettings( Settings::SettingsData* );
-    void saveSettings( Settings::SettingsData* );
+    void loadSettings(Settings::SettingsData *);
+    void saveSettings(Settings::SettingsData *);
 
 private:
-    QCheckBox* m_searchForImagesOnStart;
-    QCheckBox* m_ignoreFileExtension;
-    QCheckBox* m_skipSymlinks;
-    QCheckBox* m_skipRawIfOtherMatches;
-    QLineEdit* m_excludeDirectories; // Directories to exclude
-    QCheckBox* m_detectModifiedFiles;
-    QLineEdit* m_modifiedFileComponent;
-    QLineEdit* m_originalFileComponent;
-    QCheckBox* m_moveOriginalContents;
-    QCheckBox* m_autoStackNewFiles;
-    QLineEdit* m_copyFileComponent;
-    QLineEdit* m_copyFileReplacementComponent;
+    QCheckBox *m_searchForImagesOnStart;
+    QCheckBox *m_ignoreFileExtension;
+    QCheckBox *m_skipSymlinks;
+    QCheckBox *m_skipRawIfOtherMatches;
+    QLineEdit *m_excludeDirectories; // Directories to exclude
+    QCheckBox *m_detectModifiedFiles;
+    QLineEdit *m_modifiedFileComponent;
+    QLineEdit *m_originalFileComponent;
+    QCheckBox *m_moveOriginalContents;
+    QCheckBox *m_autoStackNewFiles;
+    QLineEdit *m_copyFileComponent;
+    QLineEdit *m_copyFileReplacementComponent;
 };
 
-
 }
-
 
 #endif /* FILEVERSIONDETECTIONPAGE_H */
 

@@ -31,26 +31,26 @@ class FilterWidget;
 class ThumbnailPainter;
 class ThumbnailToolTip;
 
-class ThumbnailFacade :public QObject, public ThumbnailFactory
+class ThumbnailFacade : public QObject, public ThumbnailFactory
 {
     Q_OBJECT
 public:
-    static ThumbnailFacade* instance();
+    static ThumbnailFacade *instance();
     ThumbnailFacade();
-    QWidget* gui();
-    void setCurrentItem( const DB::FileName& fileName );
-    void reload( SelectionUpdateMethod method );
-    DB::FileNameList selection( ThumbnailView::SelectionMode mode = ExpandCollapsedStacks ) const;
+    QWidget *gui();
+    void setCurrentItem(const DB::FileName &fileName);
+    void reload(SelectionUpdateMethod method);
+    DB::FileNameList selection(ThumbnailView::SelectionMode mode = ExpandCollapsedStacks) const;
     DB::FileNameList imageList(Order) const;
     DB::FileName mediaIdUnderCursor() const;
     DB::FileName currentItem() const;
-    void setImageList(const DB::FileNameList& list);
-    void setSortDirection( SortDirection );
+    void setImageList(const DB::FileNameList &list);
+    void setSortDirection(SortDirection);
     /**
      * @brief createResizeSlider returns a QSlider that can be used to resize the thumbnail grid.
      * @return a (horizontal) QSlider
      */
-    QSlider* createResizeSlider();
+    QSlider *createResizeSlider();
 
     /**
      * @brief createFilterWidget that is connected to the ThumbnailModel.
@@ -58,43 +58,43 @@ public:
      * @param parent
      * @return a new FilterWidget with the given parent.
      */
-    FilterWidget* createFilterWidget(QWidget *parent=nullptr);
+    FilterWidget *createFilterWidget(QWidget *parent = nullptr);
 
 public slots:
-    void gotoDate( const DB::ImageDate& date, bool includeRanges );
+    void gotoDate(const DB::ImageDate &date, bool includeRanges);
     void selectAll();
     void clearSelection();
-    void showToolTipsOnImages( bool b );
-    void toggleStackExpansion(const DB::FileName& id);
+    void showToolTipsOnImages(bool b);
+    void toggleStackExpansion(const DB::FileName &id);
     void collapseAllStacks();
     void expandAllStacks();
     void updateDisplayModel();
-    void changeSingleSelection(const DB::FileName& fileName);
+    void changeSingleSelection(const DB::FileName &fileName);
     void slotRecreateThumbnail();
 
     void clearFilter();
 
 signals:
-    void showImage( const DB::FileName& id );
+    void showImage(const DB::FileName &id);
     void showSelection();
-    void fileIdUnderCursorChanged( const DB::FileName& id );
-    void currentDateChanged( const QDateTime& );
-    void selectionChanged(int numberOfItemsSelected );
+    void fileIdUnderCursorChanged(const DB::FileName &id);
+    void currentDateChanged(const QDateTime &);
+    void selectionChanged(int numberOfItemsSelected);
     void collapseAllStacksEnabled(bool enabled);
     void expandAllStacksEnabled(bool enabled);
 
 private:
-    ThumbnailModel* model() override;
-    CellGeometry* cellGeometry() override;
-    ThumbnailWidget* widget() override;
+    ThumbnailModel *model() override;
+    CellGeometry *cellGeometry() override;
+    ThumbnailWidget *widget() override;
 
 private:
-    static ThumbnailFacade* s_instance;
-    CellGeometry* m_cellGeometry;
-    ThumbnailModel* m_model;
-    ThumbnailWidget* m_widget;
-    ThumbnailPainter* m_painter;
-    ThumbnailToolTip* m_toolTip;
+    static ThumbnailFacade *s_instance;
+    CellGeometry *m_cellGeometry;
+    ThumbnailModel *m_model;
+    ThumbnailWidget *m_widget;
+    ThumbnailPainter *m_painter;
+    ThumbnailToolTip *m_toolTip;
 };
 }
 

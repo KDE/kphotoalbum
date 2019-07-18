@@ -25,12 +25,13 @@
 #include "DB/Category.h"
 #include "TagGroupsPage.h"
 
-Settings::CategoriesGroupsWidget::CategoriesGroupsWidget(QWidget* parent) : QTreeWidget(parent)
+Settings::CategoriesGroupsWidget::CategoriesGroupsWidget(QWidget *parent)
+    : QTreeWidget(parent)
 {
     setDragEnabled(true);
     setAcceptDrops(true);
 
-    m_tagGroupsPage = dynamic_cast<TagGroupsPage*>(parentWidget());
+    m_tagGroupsPage = dynamic_cast<TagGroupsPage *>(parentWidget());
     m_oldTarget = nullptr;
 }
 
@@ -38,7 +39,7 @@ Settings::CategoriesGroupsWidget::~CategoriesGroupsWidget()
 {
 }
 
-void Settings::CategoriesGroupsWidget::mousePressEvent(QMouseEvent* event)
+void Settings::CategoriesGroupsWidget::mousePressEvent(QMouseEvent *event)
 {
     m_draggedItem = itemAt(event->pos());
 
@@ -54,9 +55,9 @@ void Settings::CategoriesGroupsWidget::mousePressEvent(QMouseEvent* event)
     QTreeWidget::mousePressEvent(event);
 }
 
-void Settings::CategoriesGroupsWidget::dragMoveEvent(QDragMoveEvent* event)
+void Settings::CategoriesGroupsWidget::dragMoveEvent(QDragMoveEvent *event)
 {
-    QTreeWidgetItem* target = itemAt(event->pos());
+    QTreeWidgetItem *target = itemAt(event->pos());
 
     if (target == nullptr) {
         // We don't have a target, so we don't allow a drop.
@@ -72,7 +73,8 @@ void Settings::CategoriesGroupsWidget::dragMoveEvent(QDragMoveEvent* event)
         }
     } else {
         // The target is another group. It has to be in the same category as the dragged group.
-        QTreeWidgetItem* parent = target->parent();;
+        QTreeWidgetItem *parent = target->parent();
+        ;
         while (parent->parent() != nullptr) {
             parent = parent->parent();
         }
@@ -86,7 +88,7 @@ void Settings::CategoriesGroupsWidget::dragMoveEvent(QDragMoveEvent* event)
     }
 }
 
-void Settings::CategoriesGroupsWidget::updateHighlight(QTreeWidgetItem* target)
+void Settings::CategoriesGroupsWidget::updateHighlight(QTreeWidgetItem *target)
 {
     if (target == m_oldTarget) {
         return;
@@ -101,9 +103,9 @@ void Settings::CategoriesGroupsWidget::updateHighlight(QTreeWidgetItem* target)
     m_oldTarget = target;
 }
 
-void Settings::CategoriesGroupsWidget::dropEvent(QDropEvent* event)
+void Settings::CategoriesGroupsWidget::dropEvent(QDropEvent *event)
 {
-    QTreeWidgetItem* target = itemAt(event->pos());
+    QTreeWidgetItem *target = itemAt(event->pos());
     target->setBackground(0, m_backgroundNoTarget);
 
     if (m_draggedItem != target) {

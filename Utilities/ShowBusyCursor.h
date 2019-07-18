@@ -44,18 +44,17 @@ namespace Utilities
    </pre>
 **/
 
-
-
-class ShowBusyCursor {
+class ShowBusyCursor
+{
 
 public:
-    explicit ShowBusyCursor(Qt::CursorShape shape = Qt::WaitCursor );
+    explicit ShowBusyCursor(Qt::CursorShape shape = Qt::WaitCursor);
     ~ShowBusyCursor();
     void stop();
+
 private:
     bool m_active;
 };
-
 }
 
 #endif /* SHOWBUSYCURSOR_H */

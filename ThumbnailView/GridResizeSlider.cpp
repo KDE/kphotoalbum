@@ -31,33 +31,34 @@
 
 #include "CellGeometry.h"
 #include "GridResizeSlider.h"
+#include "Logging.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
-#include "Logging.h"
 
-ThumbnailView::GridResizeSlider::GridResizeSlider( ThumbnailFactory* factory )
-    : QSlider( Qt::Horizontal ), ThumbnailComponent( factory )
+ThumbnailView::GridResizeSlider::GridResizeSlider(ThumbnailFactory *factory)
+    : QSlider(Qt::Horizontal)
+    , ThumbnailComponent(factory)
 {
     Settings::SettingsData *settings = Settings::SettingsData::instance();
-    setMinimum( settings->minimumThumbnailSize() );
-    setMaximum( settings->thumbnailSize() );
-    setValue( settings->actualThumbnailSize() );
+    setMinimum(settings->minimumThumbnailSize());
+    setMaximum(settings->thumbnailSize());
+    setValue(settings->actualThumbnailSize());
 
     // timer for event-timeout:
-    m_timer = new QTimer( this );
+    m_timer = new QTimer(this);
     m_timer->setSingleShot(true);
 
     // we have no definitive leave event when using the mousewheel -> use a timeout
     connect(m_timer, &QTimer::timeout, this, &GridResizeSlider::leaveGridResizingMode);
 
-    connect( settings, SIGNAL(actualThumbnailSizeChanged(int)), this , SLOT(setValue(int)) );
+    connect(settings, SIGNAL(actualThumbnailSizeChanged(int)), this, SLOT(setValue(int)));
     connect(settings, &Settings::SettingsData::thumbnailSizeChanged, this, &GridResizeSlider::setMaximum);
 
     connect(this, &GridResizeSlider::sliderPressed, this, &GridResizeSlider::enterGridResizingMode);
     connect(this, &GridResizeSlider::valueChanged, this, &GridResizeSlider::setCellSize);
 
     // disable drawing of thumbnails while resizing:
-    connect( this, SIGNAL(isResizing(bool)), widget(), SLOT(setExternallyResizing(bool)) );
+    connect(this, SIGNAL(isResizing(bool)), widget(), SLOT(setExternallyResizing(bool)));
 }
 
 ThumbnailView::GridResizeSlider::~GridResizeSlider()
@@ -65,21 +66,21 @@ ThumbnailView::GridResizeSlider::~GridResizeSlider()
     delete m_timer;
 }
 
-void ThumbnailView::GridResizeSlider::mousePressEvent( QMouseEvent* event)
+void ThumbnailView::GridResizeSlider::mousePressEvent(QMouseEvent *event)
 {
     qCDebug(ThumbnailViewLog) << "Mouse pressed";
     enterGridResizingMode();
-    QSlider::mousePressEvent( event );
+    QSlider::mousePressEvent(event);
 }
 
-void ThumbnailView::GridResizeSlider::mouseReleaseEvent( QMouseEvent* event)
+void ThumbnailView::GridResizeSlider::mouseReleaseEvent(QMouseEvent *event)
 {
     qCDebug(ThumbnailViewLog) << "Mouse released";
     leaveGridResizingMode();
-    QSlider::mouseReleaseEvent( event );
+    QSlider::mouseReleaseEvent(event);
 }
 
-void ThumbnailView::GridResizeSlider::wheelEvent( QWheelEvent* event)
+void ThumbnailView::GridResizeSlider::wheelEvent(QWheelEvent *event)
 {
     // set (or reset) the timer to leave resizing mode:
     m_timer->start(200);
@@ -87,7 +88,7 @@ void ThumbnailView::GridResizeSlider::wheelEvent( QWheelEvent* event)
     if (!m_resizing) {
         enterGridResizingMode();
     }
-    QSlider::wheelEvent( event );
+    QSlider::wheelEvent(event);
 }
 
 void ThumbnailView::GridResizeSlider::enterGridResizingMode()
@@ -98,7 +99,7 @@ void ThumbnailView::GridResizeSlider::enterGridResizingMode()
 
     qCDebug(ThumbnailViewLog) << "Entering grid resizing mode";
     ImageManager::ThumbnailBuilder::instance()->cancelRequests();
-    emit isResizing( true );
+    emit isResizing(true);
 }
 
 void ThumbnailView::GridResizeSlider::leaveGridResizingMode()
@@ -112,13 +113,13 @@ void ThumbnailView::GridResizeSlider::leaveGridResizingMode()
     cellGeometryInfo()->flushCache();
     model()->endResetModel();
     model()->updateVisibleRowInfo();
-    emit isResizing( false );
+    emit isResizing(false);
 }
 
 void ThumbnailView::GridResizeSlider::setCellSize(int size)
 {
     blockSignals(true);
-    Settings::SettingsData::instance()->setActualThumbnailSize( size );
+    Settings::SettingsData::instance()->setActualThumbnailSize(size);
     blockSignals(false);
 
     model()->beginResetModel();
@@ -144,15 +145,14 @@ void ThumbnailView::GridResizeSlider::decreaseThumbnailSize()
 
 void ThumbnailView::GridResizeSlider::calculateNewThumbnailSize(int perRowDifference)
 {
-    if (! Settings::SettingsData::instance()->incrementalThumbnails()) {
+    if (!Settings::SettingsData::instance()->incrementalThumbnails()) {
         int code = KMessageBox::questionYesNo(
             MainWindow::Window::theMainWindow(),
             i18n("Really resize the stored thumbnail size? It will result in all thumbnails being "
-                "regenerated!"),
+                 "regenerated!"),
             i18n("Really resize the thumbnails?"),
             KStandardGuiItem::yes(), KStandardGuiItem::no(),
-            QLatin1String("resizeGrid")
-        );
+            QLatin1String("resizeGrid"));
 
         if (code == KMessageBox::Yes) {
             KSharedConfig::openConfig()->sync();

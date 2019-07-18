@@ -24,67 +24,66 @@
 #include <DB/FileNameList.h>
 #include <DB/ImageInfo.h>
 #include <DB/ImageSearchInfo.h>
-#include <ImageManager/enums.h>
 #include <ImageManager/ImageClientInterface.h>
-#include <ThumbnailView/enums.h>
+#include <ImageManager/enums.h>
 #include <ThumbnailView/ThumbnailComponent.h>
+#include <ThumbnailView/enums.h>
 
 namespace ThumbnailView
 {
 class ThumbnailFactory;
 class FilterWidget;
 
-class ThumbnailModel :public QAbstractListModel, public ImageManager::ImageClientInterface, private ThumbnailComponent
+class ThumbnailModel : public QAbstractListModel, public ImageManager::ImageClientInterface, private ThumbnailComponent
 {
     Q_OBJECT
 
 public:
-    explicit ThumbnailModel( ThumbnailFactory* factory );
+    explicit ThumbnailModel(ThumbnailFactory *factory);
 
     // -------------------------------------------------- QAbstractListModel
     using QAbstractListModel::beginResetModel;
     using QAbstractListModel::endResetModel;
-    int rowCount(const QModelIndex&) const override;
-    QVariant data(const QModelIndex&, int) const override;
-    QString thumbnailText( const QModelIndex& index ) const;
-    void updateCell( int row );
-    void updateCell( const QModelIndex& index );
-    void updateCell( const DB::FileName& id );
+    int rowCount(const QModelIndex &) const override;
+    QVariant data(const QModelIndex &, int) const override;
+    QString thumbnailText(const QModelIndex &index) const;
+    void updateCell(int row);
+    void updateCell(const QModelIndex &index);
+    void updateCell(const DB::FileName &id);
 
     // -------------------------------------------------- ImageClient API
-    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
-    bool thumbnailStillNeeded( int row ) const;
-
+    void pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image) override;
+    bool thumbnailStillNeeded(int row) const;
 
     //-------------------------------------------------- Drag and Drop of items
     DB::FileName rightDropItem() const;
-    void setRightDropItem( const DB::FileName& item );
+    void setRightDropItem(const DB::FileName &item);
     DB::FileName leftDropItem() const;
-    void setLeftDropItem( const DB::FileName& item );
+    void setLeftDropItem(const DB::FileName &item);
 
     //-------------------------------------------------- Stack
-    void toggleStackExpansion(const DB::FileName& id);
+    void toggleStackExpansion(const DB::FileName &id);
     void collapseAllStacks();
     void expandAllStacks();
-    bool isItemInExpandedStack( const DB::StackID& id ) const;
+    bool isItemInExpandedStack(const DB::StackID &id) const;
 
     //-------------------------------------------------- Position Information
-    DB::FileName imageAt( int index ) const;
-    int indexOf(const DB::FileName& fileName ) const;
-    int indexOf( const DB::FileName& fileName );
-    QModelIndex fileNameToIndex( const DB::FileName& fileName ) const;
+    DB::FileName imageAt(int index) const;
+    int indexOf(const DB::FileName &fileName) const;
+    int indexOf(const DB::FileName &fileName);
+    QModelIndex fileNameToIndex(const DB::FileName &fileName) const;
 
     //-------------------------------------------------- Images
-    void setImageList(const DB::FileNameList& list);
+    void setImageList(const DB::FileNameList &list);
     DB::FileNameList imageList(Order) const;
     int imageCount() const;
-    void setOverrideImage( const DB::FileName& fileName, const QPixmap& pixmap );
+    void setOverrideImage(const DB::FileName &fileName, const QPixmap &pixmap);
 
     //-------------------------------------------------- Misc.
     void updateDisplayModel();
     void updateIndexCache();
-    void setSortDirection( SortDirection );
-    QPixmap pixmap( const DB::FileName& fileName ) const;
+    void setSortDirection(SortDirection);
+    QPixmap pixmap(const DB::FileName &fileName) const;
 
     /**
      * @brief isFiltered
@@ -92,7 +91,7 @@ public:
      */
     bool isFiltered() const;
 
-    FilterWidget *createFilterWidget(QWidget *parent=nullptr);
+    FilterWidget *createFilterWidget(QWidget *parent = nullptr);
 
 public slots:
     void updateVisibleRowInfo();
@@ -138,14 +137,12 @@ signals:
     void selectionChanged(int numberOfItemsSelected);
     void filterChanged(const DB::ImageSearchInfo &filter);
 
-
 private: // Methods
-    void requestThumbnail( const DB::FileName& mediaId, const ImageManager::Priority priority );
+    void requestThumbnail(const DB::FileName &mediaId, const ImageManager::Priority priority);
     void preloadThumbnails();
 
 private slots:
-    void imagesDeletedFromDB( const DB::FileNameList& );
-
+    void imagesDeletedFromDB(const DB::FileNameList &);
 
 private: // Instance variables.
     /**
@@ -185,7 +182,7 @@ private: // Instance variables.
     /**
      * A map mapping from Id to its index in m_displayList.
      */
-    QMap<DB::FileName,int> m_fileNameToIndex;
+    QMap<DB::FileName, int> m_fileNameToIndex;
 
     int m_firstVisibleRow;
     int m_lastVisibleRow;

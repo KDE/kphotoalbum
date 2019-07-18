@@ -19,10 +19,10 @@
 #include "ImageInfo.h"
 #include "Logging.h"
 
-    DB::NegationCategoryMatcher::NegationCategoryMatcher(CategoryMatcher* child)
-: m_child(child)
+DB::NegationCategoryMatcher::NegationCategoryMatcher(CategoryMatcher *child)
+    : m_child(child)
 {
-    Q_ASSERT( m_child );
+    Q_ASSERT(m_child);
 }
 
 DB::NegationCategoryMatcher::~NegationCategoryMatcher()
@@ -31,18 +31,18 @@ DB::NegationCategoryMatcher::~NegationCategoryMatcher()
 }
 void DB::NegationCategoryMatcher::setShouldCreateMatchedSet(bool b)
 {
-    m_child->setShouldCreateMatchedSet( b );
+    m_child->setShouldCreateMatchedSet(b);
 }
 
-bool DB::NegationCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
+bool DB::NegationCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet> &alreadyMatched)
 {
-    return ! m_child->eval( info, alreadyMatched);
+    return !m_child->eval(info, alreadyMatched);
 }
 
-void DB::NegationCategoryMatcher::debug( int level ) const
+void DB::NegationCategoryMatcher::debug(int level) const
 {
-    qCDebug(DBCategoryMatcherLog, "%sNOT:", qPrintable(spaces(level)) );
-    m_child->debug( level + 1 );
+    qCDebug(DBCategoryMatcherLog, "%sNOT:", qPrintable(spaces(level)));
+    m_child->debug(level + 1);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

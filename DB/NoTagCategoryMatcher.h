@@ -27,13 +27,13 @@ namespace DB
 /**
    \brief Match pictures with no tags set for a certain category.
 */
-class NoTagCategoryMatcher :public CategoryMatcher
+class NoTagCategoryMatcher : public CategoryMatcher
 {
 public:
-    explicit NoTagCategoryMatcher(const QString& category);
+    explicit NoTagCategoryMatcher(const QString &category);
     ~NoTagCategoryMatcher() override;
-    bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) override;
-    void debug( int level ) const override;
+    bool eval(ImageInfoPtr, QMap<QString, StringSet> &alreadyMatched) override;
+    void debug(int level) const override;
 
 private:
     const QString m_category;

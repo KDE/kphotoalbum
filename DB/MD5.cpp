@@ -25,17 +25,17 @@
 #include <QFile>
 #include <QIODevice>
 
-DB::MD5::MD5():
-    m_isNull(true),
-    m_v0(0),
-    m_v1(0)
+DB::MD5::MD5()
+    : m_isNull(true)
+    , m_v0(0)
+    , m_v1(0)
 {
 }
 
-DB::MD5::MD5(const QString &md5str):
-    m_isNull(md5str.isEmpty()),
-    m_v0(md5str.left(16).toULongLong(0, 16)),
-    m_v1(md5str.mid(16, 16).toULongLong(0, 16))
+DB::MD5::MD5(const QString &md5str)
+    : m_isNull(md5str.isEmpty())
+    , m_v0(md5str.left(16).toULongLong(0, 16))
+    , m_v1(md5str.mid(16, 16).toULongLong(0, 16))
 {
 }
 
@@ -48,8 +48,7 @@ DB::MD5 &DB::MD5::operator=(const QString &md5str)
 {
     if (md5str.isEmpty()) {
         m_isNull = true;
-    }
-    else {
+    } else {
         m_isNull = false;
         m_v0 = md5str.left(16).toULongLong(0, 16);
         m_v1 = md5str.mid(16, 16).toULongLong(0, 16);
@@ -73,8 +72,7 @@ bool DB::MD5::operator==(const DB::MD5 &other) const
     if (isNull() || other.isNull())
         return isNull() == other.isNull();
 
-    return (m_v0 == other.m_v0 &&
-            m_v1 == other.m_v1);
+    return (m_v0 == other.m_v0 && m_v1 == other.m_v1);
 }
 
 bool DB::MD5::operator!=(const DB::MD5 &other) const
@@ -87,12 +85,11 @@ bool DB::MD5::operator<(const DB::MD5 &other) const
     if (isNull() || other.isNull())
         return isNull() && !other.isNull();
 
-    return (m_v0 < other.m_v0 ||
-            (m_v0 == other.m_v0 &&
-             (m_v1 < other.m_v1)));
+    return (m_v0 < other.m_v0 || (m_v0 == other.m_v0 && (m_v1 < other.m_v1)));
 }
 
-namespace {
+namespace
+{
 // Determined experimentally to yield best results (on Seagate 2TB 2.5" disk,
 // 5400 RPM).  Performance is very similar at 524288.  Above that, performance
 // was significantly worse.  Below that, performance also deteriorated.
@@ -101,16 +98,15 @@ namespace {
 constexpr int MD5_BUFFER_SIZE = 262144;
 }
 
-DB::MD5 DB::MD5Sum( const DB::FileName& fileName )
+DB::MD5 DB::MD5Sum(const DB::FileName &fileName)
 {
     DB::MD5 checksum;
-    QFile file( fileName.absolute() );
-    if ( file.open( QIODevice::ReadOnly ) )
-    {
+    QFile file(fileName.absolute());
+    if (file.open(QIODevice::ReadOnly)) {
         QCryptographicHash md5calculator(QCryptographicHash::Md5);
-        while ( !file.atEnd() ) {
-            QByteArray md5Buffer( file.read( MD5_BUFFER_SIZE ) );
-            md5calculator.addData( md5Buffer );
+        while (!file.atEnd()) {
+            QByteArray md5Buffer(file.read(MD5_BUFFER_SIZE));
+            md5calculator.addData(md5Buffer);
         }
         file.close();
         checksum = DB::MD5(QString::fromLatin1(md5calculator.result().toHex()));

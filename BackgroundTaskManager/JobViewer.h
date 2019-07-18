@@ -25,7 +25,8 @@
 class QTreeView;
 class QPushButton;
 
-namespace BackgroundTaskManager {
+namespace BackgroundTaskManager
+{
 
 class JobModel;
 
@@ -42,9 +43,9 @@ private slots:
 
 private:
     void updatePauseButton();
-    JobModel* m_model;
-    QTreeView* m_treeView;
-    QPushButton* m_pauseButton;
+    JobModel *m_model;
+    QTreeView *m_treeView;
+    QPushButton *m_pauseButton;
 };
 
 } // namespace BackgroundTaskManager

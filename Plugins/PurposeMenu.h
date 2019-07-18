@@ -28,18 +28,19 @@
 
 class QMenu;
 
-namespace Purpose {
+namespace Purpose
+{
 class Menu;
 }
 
 namespace Plugins
 {
 
-class PurposeMenu: public QObject
+class PurposeMenu : public QObject
 {
     Q_OBJECT
 public:
-    explicit PurposeMenu( QMenu *parent);
+    explicit PurposeMenu(QMenu *parent);
 
 public slots:
     void slotSelectionChanged();
@@ -69,7 +70,6 @@ private:
 };
 
 }
-
 
 #endif /* PURPOSEMENU_H */
 

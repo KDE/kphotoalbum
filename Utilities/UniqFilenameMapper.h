@@ -20,12 +20,13 @@
 #ifndef UTILITIES_UNIQ_FILENAME_MAPPER_H
 #define UTILITIES_UNIQ_FILENAME_MAPPER_H
 
+#include <DB/FileName.h>
 #include <QMap>
 #include <QSet>
 #include <QString>
-#include <DB/FileName.h>
 
-namespace Utilities {
+namespace Utilities
+{
 
 /**
  * The UniqFilenameMapper creates flat filenames from arbitrary input filenames
@@ -39,7 +40,8 @@ namespace Utilities {
  * uniqNameFor("cd3/file.jpg")     -> file-1.jpg
  * uniqNameFor("cd1/abc/file.jpg") -> file.jpg    // file from above.
  */
-class UniqFilenameMapper {
+class UniqFilenameMapper
+{
 public:
     UniqFilenameMapper();
 
@@ -52,15 +54,15 @@ public:
     // Create a unique, flat filename for the target directory. If this method
     // has been called before with the same argument, the unique name that has
     // been created before is returned (see example above).
-    QString uniqNameFor(const DB::FileName& filename);
+    QString uniqNameFor(const DB::FileName &filename);
 
     // Reset all mappings.
     void reset();
 
 private:
-    UniqFilenameMapper(const UniqFilenameMapper&);  // don't copy.
+    UniqFilenameMapper(const UniqFilenameMapper &); // don't copy.
 
-    bool fileClashes(const QString& file);
+    bool fileClashes(const QString &file);
 
     const QString m_targetDirectory;
     typedef QMap<DB::FileName, QString> FileNameMap;

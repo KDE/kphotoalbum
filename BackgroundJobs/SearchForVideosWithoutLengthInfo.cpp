@@ -17,12 +17,12 @@
 */
 
 #include "SearchForVideosWithoutLengthInfo.h"
+#include "ReadVideoLengthJob.h"
+#include <BackgroundTaskManager/JobInfo.h>
+#include <BackgroundTaskManager/JobManager.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
-#include <BackgroundTaskManager/JobManager.h>
-#include "ReadVideoLengthJob.h"
 #include <KLocalizedString>
-#include <BackgroundTaskManager/JobInfo.h>
 
 /**
   \class BackgroundJobs::SearchForVideosWithoutLengthInfo
@@ -30,24 +30,24 @@
 */
 
 BackgroundJobs::SearchForVideosWithoutLengthInfo::SearchForVideosWithoutLengthInfo()
-    :BackgroundTaskManager::JobInterface(BackgroundTaskManager::BackgroundVideoInfoRequest)
+    : BackgroundTaskManager::JobInterface(BackgroundTaskManager::BackgroundVideoInfoRequest)
 {
 }
 
 void BackgroundJobs::SearchForVideosWithoutLengthInfo::execute()
 {
     const DB::FileNameList images = DB::ImageDB::instance()->images();
-    for ( const DB::FileName& image :  images ) {
+    for (const DB::FileName &image : images) {
         const DB::ImageInfoPtr info = image.info();
-        if ( !info->isVideo() )
+        if (!info->isVideo())
             continue;
         // silently ignore videos not (currently) on disk:
-        if ( ! info->fileName().exists() )
+        if (!info->fileName().exists())
             continue;
         int length = info->videoLength();
-        if ( length == -1 ) {
+        if (length == -1) {
             BackgroundTaskManager::JobManager::instance()->addJob(
-                        new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
+                new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest));
         }
     }
     emit completed();

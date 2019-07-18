@@ -29,12 +29,14 @@
 
 const int FileNameRole = Qt::UserRole + 1;
 
-Map::MapMarkerModelHelper::MapMarkerModelHelper() : m_itemModel(0), m_itemSelectionModel(0)
+Map::MapMarkerModelHelper::MapMarkerModelHelper()
+    : m_itemModel(0)
+    , m_itemSelectionModel(0)
 {
     m_itemModel = new QStandardItemModel(1, 1);
     m_itemSelectionModel = new QItemSelectionModel(m_itemModel);
-    connect(m_itemModel, SIGNAL(dataChanged(QModelIndex,QModelIndex)),
-            this, SLOT(slotDataChanged(QModelIndex,QModelIndex)));
+    connect(m_itemModel, SIGNAL(dataChanged(QModelIndex, QModelIndex)),
+            this, SLOT(slotDataChanged(QModelIndex, QModelIndex)));
 }
 
 Map::MapMarkerModelHelper::~MapMarkerModelHelper()
@@ -48,10 +50,10 @@ void Map::MapMarkerModelHelper::clearItems()
     m_itemModel->clear();
 }
 
-void Map::MapMarkerModelHelper::addImage(const DB::ImageInfo& image)
+void Map::MapMarkerModelHelper::addImage(const DB::ImageInfo &image)
 {
     qCDebug(MapLog) << "Adding marker for image " << image.label();
-    QStandardItem* const newItem = new QStandardItem(image.label());
+    QStandardItem *const newItem = new QStandardItem(image.label());
 
     newItem->setToolTip(image.label());
     newItem->setData(QVariant::fromValue(image.fileName()), FileNameRole);
@@ -63,15 +65,15 @@ void Map::MapMarkerModelHelper::addImage(const DB::ImageInfoPtr image)
     addImage(*image);
 }
 
-void Map::MapMarkerModelHelper::slotDataChanged(const QModelIndex&, const QModelIndex&)
+void Map::MapMarkerModelHelper::slotDataChanged(const QModelIndex &, const QModelIndex &)
 {
     emit(signalModelChangedDrastically());
 }
 
-bool Map::MapMarkerModelHelper::itemCoordinates(const QModelIndex& index,
-                                                KGeoMap::GeoCoordinates* const coordinates) const
+bool Map::MapMarkerModelHelper::itemCoordinates(const QModelIndex &index,
+                                                KGeoMap::GeoCoordinates *const coordinates) const
 {
-    if (! index.data(FileNameRole).canConvert<DB::FileName>()) {
+    if (!index.data(FileNameRole).canConvert<DB::FileName>()) {
         return false;
     }
 
@@ -83,12 +85,12 @@ bool Map::MapMarkerModelHelper::itemCoordinates(const QModelIndex& index,
     return true;
 }
 
-QAbstractItemModel* Map::MapMarkerModelHelper::model() const
+QAbstractItemModel *Map::MapMarkerModelHelper::model() const
 {
     return m_itemModel;
 }
 
-QItemSelectionModel* Map::MapMarkerModelHelper::selectionModel() const
+QItemSelectionModel *Map::MapMarkerModelHelper::selectionModel() const
 {
     return m_itemSelectionModel;
 }
@@ -100,7 +102,7 @@ KGeoMap::ModelHelper::Flags Map::MapMarkerModelHelper::modelFlags() const
 
 KGeoMap::ModelHelper::Flags Map::MapMarkerModelHelper::itemFlags(const QModelIndex &index) const
 {
-    if (! index.data(FileNameRole).canConvert<DB::FileName>()) {
+    if (!index.data(FileNameRole).canConvert<DB::FileName>()) {
         return FlagNull;
     }
 
@@ -108,19 +110,19 @@ KGeoMap::ModelHelper::Flags Map::MapMarkerModelHelper::itemFlags(const QModelInd
 }
 
 // FIXME: for some reason, itemIcon is never called -> no thumbnails
-bool Map::MapMarkerModelHelper::itemIcon(const QModelIndex& index,
-                                         QPoint* const offset,
-                                         QSize* const,
-                                         QPixmap* const pixmap,
-                                         QUrl* const) const
+bool Map::MapMarkerModelHelper::itemIcon(const QModelIndex &index,
+                                         QPoint *const offset,
+                                         QSize *const,
+                                         QPixmap *const pixmap,
+                                         QUrl *const) const
 {
-    if (! index.data(FileNameRole).canConvert<DB::FileName>()) {
+    if (!index.data(FileNameRole).canConvert<DB::FileName>()) {
         return false;
     }
 
     const DB::FileName filename = index.data(FileNameRole).value<DB::FileName>();
-    *pixmap = ImageManager::ThumbnailCache::instance()->lookup( filename );
-    *offset = QPoint(pixmap->width()/2, pixmap->height()/2);
+    *pixmap = ImageManager::ThumbnailCache::instance()->lookup(filename);
+    *offset = QPoint(pixmap->width() / 2, pixmap->height() / 2);
     qCDebug(MapLog) << "Map icon for " << filename.relative() << (pixmap->isNull() ? " missing." : " found.");
     return !pixmap->isNull();
 }

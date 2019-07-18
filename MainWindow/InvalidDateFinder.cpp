@@ -17,48 +17,48 @@
 */
 
 #include "InvalidDateFinder.h"
-#include <qlayout.h>
-#include <qradiobutton.h>
-#include <KLocalizedString>
-#include "DB/ImageInfo.h"
+#include "DB/FileInfo.h"
 #include "DB/ImageDB.h"
 #include "DB/ImageDate.h"
-#include "DB/FileInfo.h"
+#include "DB/ImageInfo.h"
 #include "MainWindow/Window.h"
-#include <qapplication.h>
-#include <qeventloop.h>
 #include "Utilities/ShowBusyCursor.h"
-#include <QGroupBox>
+#include <KLocalizedString>
 #include <KTextEdit>
-#include <QProgressDialog>
 #include <QDialogButtonBox>
+#include <QGroupBox>
+#include <QProgressDialog>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <qapplication.h>
+#include <qeventloop.h>
+#include <qlayout.h>
+#include <qradiobutton.h>
 
 using namespace MainWindow;
 
-InvalidDateFinder::InvalidDateFinder( QWidget* parent )
-    :QDialog( parent )
+InvalidDateFinder::InvalidDateFinder(QWidget *parent)
+    : QDialog(parent)
 {
-    setWindowTitle( i18nc("@title:window", "Search for Images and Videos with Missing Dates" ) );
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    setWindowTitle(i18nc("@title:window", "Search for Images and Videos with Missing Dates"));
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     QWidget *mainWidget = new QWidget(this);
     QVBoxLayout *mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
     mainLayout->addWidget(mainWidget);
 
-    QGroupBox* grp = new QGroupBox( i18n("Which Images and Videos to Display") );
-    QVBoxLayout* grpLay = new QVBoxLayout( grp );
-    mainLayout->addWidget( grp );
+    QGroupBox *grp = new QGroupBox(i18n("Which Images and Videos to Display"));
+    QVBoxLayout *grpLay = new QVBoxLayout(grp);
+    mainLayout->addWidget(grp);
 
-    m_dateNotTime = new QRadioButton( i18n( "Search for images and videos with a valid date but an invalid time stamp") );
-    m_missingDate = new QRadioButton( i18n( "Search for images and videos missing date and time" ) );
-    m_partialDate = new QRadioButton( i18n( "Search for images and videos with only partial dates (like 1971 vs. 11/7-1971)") );
-    m_dateNotTime->setChecked( true );
+    m_dateNotTime = new QRadioButton(i18n("Search for images and videos with a valid date but an invalid time stamp"));
+    m_missingDate = new QRadioButton(i18n("Search for images and videos missing date and time"));
+    m_partialDate = new QRadioButton(i18n("Search for images and videos with only partial dates (like 1971 vs. 11/7-1971)"));
+    m_dateNotTime->setChecked(true);
 
-    grpLay->addWidget( m_dateNotTime );
-    grpLay->addWidget( m_missingDate );
-    grpLay->addWidget( m_partialDate );
+    grpLay->addWidget(m_dateNotTime);
+    grpLay->addWidget(m_missingDate);
+    grpLay->addWidget(m_partialDate);
 
     QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
     okButton->setDefault(true);
@@ -74,14 +74,14 @@ void InvalidDateFinder::accept()
     Utilities::ShowBusyCursor dummy;
 
     // create the info dialog
-    QDialog* info = new QDialog;
+    QDialog *info = new QDialog;
     QVBoxLayout *mainLayout = new QVBoxLayout;
     info->setLayout(mainLayout);
-    info->setWindowTitle( i18nc("@title:window", "Image Info" ) );
+    info->setWindowTitle(i18nc("@title:window", "Image Info"));
 
-    KTextEdit* edit = new KTextEdit( info );
-    mainLayout->addWidget( edit );
-    edit->setText( i18n("<h1>Here you may see the date changes for the displayed items.</h1>") );
+    KTextEdit *edit = new KTextEdit(info);
+    mainLayout->addWidget(edit);
+    edit->setText(i18n("<h1>Here you may see the date changes for the displayed items.</h1>"));
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
     QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
@@ -94,56 +94,53 @@ void InvalidDateFinder::accept()
     // Now search for the images.
     const DB::FileNameList list = DB::ImageDB::instance()->images();
     DB::FileNameList toBeShown;
-    QProgressDialog dialog( nullptr);
+    QProgressDialog dialog(nullptr);
     dialog.setWindowTitle(i18nc("@title:window", "Reading File Properties"));
     dialog.setMaximum(list.size());
     dialog.setValue(0);
     int progress = 0;
 
-    Q_FOREACH(const DB::FileName& fileName, list) {
-        dialog.setValue( ++progress );
-        qApp->processEvents( QEventLoop::AllEvents );
-        if ( dialog.wasCanceled() )
+    Q_FOREACH (const DB::FileName &fileName, list) {
+        dialog.setValue(++progress);
+        qApp->processEvents(QEventLoop::AllEvents);
+        if (dialog.wasCanceled())
             break;
-        if ( fileName.info()->isNull() )
+        if (fileName.info()->isNull())
             continue;
 
         DB::ImageDate date = fileName.info()->date();
         bool show = false;
-        if ( m_dateNotTime->isChecked() ) {
-            DB::FileInfo fi = DB::FileInfo::read( fileName, DB::EXIFMODE_DATE );
-            if ( fi.dateTime().date() == date.start().date() )
-                show = ( fi.dateTime().time() != date.start().time() );
-            if ( show ) {
-                edit->append( QString::fromLatin1("%1:<br/>existing = %2<br>new..... = %3" )
-                              .arg(fileName.relative())
-                              .arg(date.start().toString())
-                              .arg(fi.dateTime().toString()) );
+        if (m_dateNotTime->isChecked()) {
+            DB::FileInfo fi = DB::FileInfo::read(fileName, DB::EXIFMODE_DATE);
+            if (fi.dateTime().date() == date.start().date())
+                show = (fi.dateTime().time() != date.start().time());
+            if (show) {
+                edit->append(QString::fromLatin1("%1:<br/>existing = %2<br>new..... = %3")
+                                 .arg(fileName.relative())
+                                 .arg(date.start().toString())
+                                 .arg(fi.dateTime().toString()));
             }
-        }
-        else if ( m_missingDate->isChecked() ) {
+        } else if (m_missingDate->isChecked()) {
             show = !date.start().isValid();
-        }
-        else if ( m_partialDate->isChecked() ) {
-            show = ( date.start() != date.end() );
+        } else if (m_partialDate->isChecked()) {
+            show = (date.start() != date.end());
         }
 
-        if ( show )
+        if (show)
             toBeShown.append(fileName);
     }
 
-    if ( m_dateNotTime->isChecked() ) {
-        info->resize( 800, 600 );
-        edit->setReadOnly( true );
+    if (m_dateNotTime->isChecked()) {
+        info->resize(800, 600);
+        edit->setReadOnly(true);
         QFont f = edit->font();
-        f.setFamily( QString::fromLatin1( "fixed" ) );
-        edit->setFont( f );
+        f.setFamily(QString::fromLatin1("fixed"));
+        edit->setFont(f);
         info->show();
-    }
-    else
+    } else
         delete info;
 
-    Window::theMainWindow()->showThumbNails( toBeShown );
+    Window::theMainWindow()->showThumbNails(toBeShown);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

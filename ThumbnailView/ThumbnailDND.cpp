@@ -20,22 +20,22 @@
 #include <QMimeData>
 #include <QTimer>
 
-#include <KMessageBox>
 #include <KLocalizedString>
+#include <KMessageBox>
 
-#include <Browser/BrowserWidget.h>
-#include <DB/ImageDB.h>
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
+#include <Browser/BrowserWidget.h>
+#include <DB/ImageDB.h>
 
-ThumbnailView::ThumbnailDND::ThumbnailDND( ThumbnailFactory* factory )
-    : ThumbnailComponent( factory )
+ThumbnailView::ThumbnailDND::ThumbnailDND(ThumbnailFactory *factory)
+    : ThumbnailComponent(factory)
 {
 }
 
-void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
+void ThumbnailView::ThumbnailDND::contentsDragMoveEvent(QDragMoveEvent *event)
 {
-    if ( event->mimeData()->hasUrls() && widget()->m_selectionInteraction.isDragging() )
+    if (event->mimeData()->hasUrls() && widget()->m_selectionInteraction.isDragging())
         event->accept();
     else {
         event->ignore();
@@ -45,23 +45,22 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
     removeDropIndications();
 
     const DB::FileName fileName = widget()->mediaIdUnderCursor();
-    if (fileName.isNull())
-    {
+    if (fileName.isNull()) {
         // cursor not in drop zone (e.g. empty space right/below of the thumbnails)
         return;
     }
 
-    const QRect rect = widget()->visualRect( widget()->indexUnderCursor() );
+    const QRect rect = widget()->visualRect(widget()->indexUnderCursor());
 
-    if ( ( event->pos().y() < 10 ) )
-        widget()->scrollTo( widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter );
-    if ( ( event->pos().y() > widget()->viewport()->visibleRegion().cbegin()->height() - 10 ) )
-        widget()->scrollTo( widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter );
-    bool left = ( event->pos().x() - rect.x() < rect.width()/2 );
-    if ( left ) {
+    if ((event->pos().y() < 10))
+        widget()->scrollTo(widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter);
+    if ((event->pos().y() > widget()->viewport()->visibleRegion().cbegin()->height() - 10))
+        widget()->scrollTo(widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter);
+    bool left = (event->pos().x() - rect.x() < rect.width() / 2);
+    if (left) {
         model()->setLeftDropItem(fileName);
         const int index = model()->indexOf(fileName) - 1;
-        if ( index != -1 )
+        if (index != -1)
             model()->setRightDropItem(model()->imageAt(index));
     }
 
@@ -76,20 +75,19 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent( QDragMoveEvent* event )
     model()->updateCell(model()->rightDropItem());
 }
 
-void ThumbnailView::ThumbnailDND::contentsDragLeaveEvent( QDragLeaveEvent* )
+void ThumbnailView::ThumbnailDND::contentsDragLeaveEvent(QDragLeaveEvent *)
 {
     removeDropIndications();
 }
 
 void ThumbnailView::ThumbnailDND::contentsDropEvent(QDropEvent *event)
 {
-    if (model()->leftDropItem().isNull() && model()->rightDropItem().isNull())
-    {
+    if (model()->leftDropItem().isNull() && model()->rightDropItem().isNull()) {
         // drop outside drop zone
         removeDropIndications();
         event->ignore();
     } else {
-        QTimer::singleShot( 0, this, SLOT(realDropEvent()) );
+        QTimer::singleShot(0, this, SLOT(realDropEvent()));
     }
 }
 
@@ -100,27 +98,25 @@ void ThumbnailView::ThumbnailDND::contentsDropEvent(QDropEvent *event)
  */
 void ThumbnailView::ThumbnailDND::realDropEvent()
 {
-    QString msg =
-        i18n( "<p><b>Really reorder thumbnails?</b></p>"
-              "<p>By dragging images around in the thumbnail viewer, you actually reorder them. "
-              "This is very useful where you do not know the exact date for the images. On the other hand, "
-              "if the images have valid timestamps, you should use "
-              "<b>Maintenance -&gt; Sort All By Date and Time</b> or "
-              "<b>View -&gt; Sort Selected By Date and Time</b>.</p>" );
+    QString msg = i18n("<p><b>Really reorder thumbnails?</b></p>"
+                       "<p>By dragging images around in the thumbnail viewer, you actually reorder them. "
+                       "This is very useful where you do not know the exact date for the images. On the other hand, "
+                       "if the images have valid timestamps, you should use "
+                       "<b>Maintenance -&gt; Sort All By Date and Time</b> or "
+                       "<b>View -&gt; Sort Selected By Date and Time</b>.</p>");
 
-    if ( KMessageBox::questionYesNo( widget(), msg, i18n("Reorder Thumbnails") , KStandardGuiItem::yes(), KStandardGuiItem::no(),
-                                     QString::fromLatin1( "reorder_images" ) ) == KMessageBox::Yes )
-    {
+    if (KMessageBox::questionYesNo(widget(), msg, i18n("Reorder Thumbnails"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
+                                   QString::fromLatin1("reorder_images"))
+        == KMessageBox::Yes) {
         // expand selection so that stacks are always selected as a whole:
         const DB::FileNameList selected = widget()->selection(IncludeAllStacks);
 
         // protect against self drop
-        if ( selected.indexOf(model()->leftDropItem()) == -1 && selected.indexOf(model()->rightDropItem()) == -1 ) {
-            if ( model()->rightDropItem().isNull() ) {
+        if (selected.indexOf(model()->leftDropItem()) == -1 && selected.indexOf(model()->rightDropItem()) == -1) {
+            if (model()->rightDropItem().isNull()) {
                 // We dropped onto the first image.
                 DB::ImageDB::instance()->reorder(model()->leftDropItem(), selected, false);
-            }
-            else
+            } else
                 DB::ImageDB::instance()->reorder(model()->rightDropItem(), selected, true);
 
             Browser::BrowserWidget::instance()->reload();
@@ -133,8 +129,8 @@ void ThumbnailView::ThumbnailDND::removeDropIndications()
 {
     const DB::FileName left = model()->leftDropItem();
     const DB::FileName right = model()->rightDropItem();
-    model()->setLeftDropItem( DB::FileName() );
-    model()->setRightDropItem( DB::FileName() );
+    model()->setLeftDropItem(DB::FileName());
+    model()->setRightDropItem(DB::FileName());
 
     if (!left.isNull())
         model()->updateCell(left);
@@ -142,9 +138,9 @@ void ThumbnailView::ThumbnailDND::removeDropIndications()
         model()->updateCell(right);
 }
 
-void ThumbnailView::ThumbnailDND::contentsDragEnterEvent( QDragEnterEvent * event )
+void ThumbnailView::ThumbnailDND::contentsDragEnterEvent(QDragEnterEvent *event)
 {
-    if ( event->mimeData()->hasUrls() && widget()->m_selectionInteraction.isDragging() )
+    if (event->mimeData()->hasUrls() && widget()->m_selectionInteraction.isDragging())
         event->accept();
     else
         event->ignore();

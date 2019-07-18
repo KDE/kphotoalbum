@@ -33,8 +33,8 @@ public:
     bool isConnected() const override;
     void listen(QHostAddress address);
     void stopListening();
-    QTcpSocket* socket() override;
-    void connectToTcpServer(const QHostAddress& address);
+    QTcpSocket *socket() override;
+    void connectToTcpServer(const QHostAddress &address);
 
 signals:
     void connected();
@@ -47,8 +47,8 @@ private slots:
     void lostConnection();
 
 private:
-    QUdpSocket* m_socket = nullptr;
-    QTcpSocket* m_tcpSocket = nullptr;
+    QUdpSocket *m_socket = nullptr;
+    QTcpSocket *m_tcpSocket = nullptr;
     bool m_isConnected = false;
 };
 

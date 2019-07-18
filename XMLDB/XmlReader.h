@@ -19,19 +19,28 @@
 #ifndef XMLREADER_H
 #define XMLREADER_H
 
-#include <QXmlStreamReader>
 #include <QSharedPointer>
+#include <QXmlStreamReader>
 
-namespace DB {
+namespace DB
+{
 class UIDelegate;
 }
 
-namespace XMLDB {
+namespace XMLDB
+{
 
 struct ElementInfo {
-    ElementInfo(bool isStartToken, const QString& tokenName )
-        : isValid(true), isStartToken(isStartToken),tokenName(tokenName) {}
-    ElementInfo() : isValid(false) {}
+    ElementInfo(bool isStartToken, const QString &tokenName)
+        : isValid(true)
+        , isStartToken(isStartToken)
+        , tokenName(tokenName)
+    {
+    }
+    ElementInfo()
+        : isValid(false)
+    {
+    }
 
     bool isValid;
     bool isStartToken;
@@ -48,7 +57,7 @@ public:
      */
     explicit XmlReader(DB::UIDelegate &ui, const QString &friendlyStreamName);
 
-    QString attribute(const QString &name, const QString& defaultValue = QString() );
+    QString attribute(const QString &name, const QString &defaultValue = QString());
     ElementInfo readNextStartOrStopElement(const QString &expectedStart);
     /**
      * Read the next element and ensure that it's an EndElement.
@@ -59,12 +68,12 @@ public:
      * @param readNextElement if set to false, don't read the next element.
      */
     void readEndElement(bool readNextElement = true);
-    bool hasAttribute(const QString& name);
+    bool hasAttribute(const QString &name);
     ElementInfo peekNext();
-    [[noreturn]] void complainStartElementExpected(const QString& name);
+    [[noreturn]] void complainStartElementExpected(const QString &name);
 
 private:
-    [[noreturn]] void reportError(const QString&);
+    [[noreturn]] void reportError(const QString &);
     QString tokenToString(TokenType);
     TokenType readNextInternal();
 

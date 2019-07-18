@@ -22,30 +22,31 @@
 #include <QList>
 #include <QMap>
 
-namespace XMLDB {
+namespace XMLDB
+{
 
-    class XMLCategoryCollection :public DB::CategoryCollection
-    {
-        Q_OBJECT
+class XMLCategoryCollection : public DB::CategoryCollection
+{
+    Q_OBJECT
 
-    public:
-        DB::CategoryPtr categoryForName( const QString& name ) const override;
-        void addCategory( DB::CategoryPtr );
-        QStringList categoryNames() const override;
-        QStringList categoryTexts() const override;
-        void removeCategory( const QString& name ) override;
-        void rename( const QString& oldName, const QString& newName ) override;
-        QList<DB::CategoryPtr> categories() const override;
-        void addCategory( const QString& text, const QString& icon, DB::Category::ViewType type,
-                                  int thumbnailSize, bool show, bool positionable=false ) override;
-        DB::CategoryPtr categoryForSpecial( const DB::Category::CategoryType type) const override;
+public:
+    DB::CategoryPtr categoryForName(const QString &name) const override;
+    void addCategory(DB::CategoryPtr);
+    QStringList categoryNames() const override;
+    QStringList categoryTexts() const override;
+    void removeCategory(const QString &name) override;
+    void rename(const QString &oldName, const QString &newName) override;
+    QList<DB::CategoryPtr> categories() const override;
+    void addCategory(const QString &text, const QString &icon, DB::Category::ViewType type,
+                     int thumbnailSize, bool show, bool positionable = false) override;
+    DB::CategoryPtr categoryForSpecial(const DB::Category::CategoryType type) const override;
 
-        void initIdMap();
+    void initIdMap();
 
-    private:
-        QList<DB::CategoryPtr> m_categories;
-        QMap<DB::Category::CategoryType,DB::CategoryPtr> m_specialCategories;
-    };
+private:
+    QList<DB::CategoryPtr> m_categories;
+    QMap<DB::Category::CategoryType, DB::CategoryPtr> m_specialCategories;
+};
 }
 
 #endif /* XMLCATEGORYCOLLECTION_H */

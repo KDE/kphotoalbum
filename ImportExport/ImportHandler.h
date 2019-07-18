@@ -18,30 +18,37 @@
 #ifndef IMPORTHANDLER_H
 #define IMPORTHANDLER_H
 
+#include "DB/ImageInfoPtr.h"
 #include "ImportSettings.h"
 #include <QEventLoop>
 #include <QPointer>
-#include "DB/ImageInfoPtr.h"
 
-namespace KIO { class FileCopyJob; }
+namespace KIO
+{
+class FileCopyJob;
+}
 class KJob;
-namespace Utilities { class UniqFilenameMapper; }
+namespace Utilities
+{
+class UniqFilenameMapper;
+}
 class QProgressDialog;
 
-namespace ImportExport {
+namespace ImportExport
+{
 class KimFileReader;
 
 /**
  * This class contains the business logic for the import process
  */
-class ImportHandler :public QObject
+class ImportHandler : public QObject
 {
     Q_OBJECT
 
 public:
     ImportHandler();
     ~ImportHandler() override;
-    bool exec( const ImportSettings& settings, KimFileReader* kimFileReader );
+    bool exec(const ImportSettings &settings, KimFileReader *kimFileReader);
 
 private:
     void copyFromExternal();
@@ -51,27 +58,27 @@ private:
 
 private slots:
     void stopCopyingImages();
-    void aCopyFailed( QStringList files );
-    void aCopyJobCompleted( KJob* );
+    void aCopyFailed(QStringList files);
+    void aCopyJobCompleted(KJob *);
 
 private:
-    bool isImageAlreadyInDB( const DB::ImageInfoPtr& info );
-    DB::ImageInfoPtr matchingInfoFromDB( const DB::ImageInfoPtr& info );
-    void updateInfo( DB::ImageInfoPtr dbInfo, DB::ImageInfoPtr newInfo );
-    void addNewRecord( DB::ImageInfoPtr newInfo );
-    void updateCategories( DB::ImageInfoPtr XMLInfo, DB::ImageInfoPtr DBInfo, bool forceReplace );
+    bool isImageAlreadyInDB(const DB::ImageInfoPtr &info);
+    DB::ImageInfoPtr matchingInfoFromDB(const DB::ImageInfoPtr &info);
+    void updateInfo(DB::ImageInfoPtr dbInfo, DB::ImageInfoPtr newInfo);
+    void addNewRecord(DB::ImageInfoPtr newInfo);
+    void updateCategories(DB::ImageInfoPtr XMLInfo, DB::ImageInfoPtr DBInfo, bool forceReplace);
 
 private:
-    Utilities::UniqFilenameMapper* m_fileMapper;
+    Utilities::UniqFilenameMapper *m_fileMapper;
     bool m_finishedPressed;
     DB::ImageInfoList m_pendingCopies;
-    QProgressDialog* m_progress;
+    QProgressDialog *m_progress;
     int m_totalCopied;
-    KIO::FileCopyJob* m_job;
+    KIO::FileCopyJob *m_job;
     bool m_reportUnreadableFiles;
     QPointer<QEventLoop> m_eventLoop;
     ImportSettings m_settings;
-    KimFileReader* m_kimFileReader;
+    KimFileReader *m_kimFileReader;
 };
 
 }

@@ -19,21 +19,23 @@
 #ifndef IMAGEEVENT_H
 #define IMAGEEVENT_H
 
-#include <QImage>
 #include <QEvent>
+#include <QImage>
 
-namespace ImageManager {
+namespace ImageManager
+{
 
 class ImageRequest;
 
-class ImageEvent :public QEvent {
+class ImageEvent : public QEvent
+{
 public:
-    ImageEvent( ImageRequest* request, const QImage& image );
-    ImageRequest* loadInfo();
+    ImageEvent(ImageRequest *request, const QImage &image);
+    ImageRequest *loadInfo();
     QImage image();
 
 private:
-    ImageRequest* m_request;
+    ImageRequest *m_request;
     QImage m_image;
 };
 

@@ -17,11 +17,12 @@
 */
 
 #include "AbstractDisplay.h"
-#include <Settings/SettingsData.h>
 #include <DB/ImageInfo.h>
+#include <Settings/SettingsData.h>
 
-Viewer::AbstractDisplay::AbstractDisplay( QWidget* parent )
-    :QWidget( parent ), m_info( nullptr )
+Viewer::AbstractDisplay::AbstractDisplay(QWidget *parent)
+    : QWidget(parent)
+    , m_info(nullptr)
 {
 }
 

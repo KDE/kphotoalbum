@@ -28,9 +28,9 @@ class ThumbnailFactory
 {
 public:
     virtual ~ThumbnailFactory() {};
-    virtual ThumbnailModel* model() = 0;
-    virtual CellGeometry* cellGeometry() = 0;
-    virtual ThumbnailWidget* widget() = 0;
+    virtual ThumbnailModel *model() = 0;
+    virtual CellGeometry *cellGeometry() = 0;
+    virtual ThumbnailWidget *widget() = 0;
 };
 
 }

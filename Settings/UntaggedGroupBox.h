@@ -25,13 +25,13 @@ namespace Settings
 {
 class SettingsData;
 
-class UntaggedGroupBox :public QGroupBox
+class UntaggedGroupBox : public QGroupBox
 {
     Q_OBJECT
 public:
-    explicit UntaggedGroupBox( QWidget* parent = 0);
-    void loadSettings( Settings::SettingsData* opt );
-    void saveSettings( Settings::SettingsData* opt );
+    explicit UntaggedGroupBox(QWidget *parent = 0);
+    void loadSettings(Settings::SettingsData *opt);
+    void saveSettings(Settings::SettingsData *opt);
     void categoryDeleted(QString categoryName);
     void categoryRenamed(QString oldCategoryName, QString newCategoryName);
 
@@ -40,9 +40,9 @@ private slots:
     void populateTagsCombo();
 
 private:
-    QComboBox* m_category;
-    QComboBox* m_tag;
-    QCheckBox* m_showUntaggedImagesTag;
+    QComboBox *m_category;
+    QComboBox *m_tag;
+    QCheckBox *m_showUntaggedImagesTag;
 };
 
 }

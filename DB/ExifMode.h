@@ -20,7 +20,8 @@
 
 #include <QFlags>
 
-namespace DB {
+namespace DB
+{
 
 enum EXIFMODE_FLAG {
     EXIFMODE_DATE = 0x01,

@@ -18,18 +18,20 @@
 */
 
 #include "VideoThumbnailCycler.h"
-#include <DB/ImageInfoPtr.h>
-#include <DB/ImageInfo.h>
-#include <Utilities/VideoUtil.h>
-#include <QTimer>
-#include <ImageManager/VideoThumbnails.h>
 #include "ThumbnailModel.h"
+#include <DB/ImageInfo.h>
+#include <DB/ImageInfoPtr.h>
+#include <ImageManager/VideoThumbnails.h>
+#include <QTimer>
 #include <ThumbnailView/CellGeometry.h>
+#include <Utilities/VideoUtil.h>
 
-ThumbnailView::VideoThumbnailCycler* ThumbnailView::VideoThumbnailCycler::s_instance = nullptr;
+ThumbnailView::VideoThumbnailCycler *ThumbnailView::VideoThumbnailCycler::s_instance = nullptr;
 
-ThumbnailView::VideoThumbnailCycler::VideoThumbnailCycler(ThumbnailModel* model, QObject *parent) :
-    QObject(parent), m_thumbnails( new ImageManager::VideoThumbnails(this)), m_model(model)
+ThumbnailView::VideoThumbnailCycler::VideoThumbnailCycler(ThumbnailModel *model, QObject *parent)
+    : QObject(parent)
+    , m_thumbnails(new ImageManager::VideoThumbnails(this))
+    , m_model(model)
 {
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, m_thumbnails, &ImageManager::VideoThumbnails::requestNext);
@@ -46,16 +48,15 @@ ThumbnailView::VideoThumbnailCycler *ThumbnailView::VideoThumbnailCycler::instan
 
 void ThumbnailView::VideoThumbnailCycler::setActive(const DB::FileName &fileName)
 {
-    if ( m_fileName == fileName )
+    if (m_fileName == fileName)
         return;
 
     stopCycle();
 
     m_fileName = fileName;
-    if ( !m_fileName.isNull() && isVideo(m_fileName))
+    if (!m_fileName.isNull() && isVideo(m_fileName))
         startCycle();
 }
-
 
 void ThumbnailView::VideoThumbnailCycler::gotFrame(const QImage &image)
 {
@@ -65,15 +66,15 @@ void ThumbnailView::VideoThumbnailCycler::gotFrame(const QImage &image)
 
 void ThumbnailView::VideoThumbnailCycler::resetPreviousThumbail()
 {
-    if ( m_fileName.isNull() || !isVideo(m_fileName) )
+    if (m_fileName.isNull() || !isVideo(m_fileName))
         return;
 
-    m_model->setOverrideImage(m_fileName,QPixmap());
+    m_model->setOverrideImage(m_fileName, QPixmap());
 }
 
 bool ThumbnailView::VideoThumbnailCycler::isVideo(const DB::FileName &fileName) const
 {
-    if ( !fileName.isNull() )
+    if (!fileName.isNull())
         return Utilities::isVideo(fileName);
     else
         return false;

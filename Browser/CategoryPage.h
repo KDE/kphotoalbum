@@ -19,15 +19,16 @@
 #ifndef CATEGORYPAGE_H
 #define CATEGORYPAGE_H
 #include "BrowserPage.h"
+#include "DB/CategoryPtr.h"
 #include <DB/Category.h>
 #include <DB/ImageSearchInfo.h>
-#include "DB/CategoryPtr.h"
 
 class QAbstractItemModel;
 class FlatCategoryModel;
 class BrowserWidget;
 
-namespace Browser {
+namespace Browser
+{
 
 /**
  * \brief The Browser page for categories.
@@ -35,12 +36,12 @@ namespace Browser {
  * See \ref Browser for a detailed description of how this fits in with the rest of the classes in this module
  *
  */
-class CategoryPage :public BrowserPage
+class CategoryPage : public BrowserPage
 {
 public:
-    CategoryPage( const DB::CategoryPtr& category, const DB::ImageSearchInfo& info, BrowserWidget* browser );
+    CategoryPage(const DB::CategoryPtr &category, const DB::ImageSearchInfo &info, BrowserWidget *browser);
     void activate() override;
-    BrowserPage* activateChild( const QModelIndex& ) override;
+    BrowserPage *activateChild(const QModelIndex &) override;
     DB::Category::ViewType viewType() const override;
     bool isViewChangeable() const override;
 
@@ -48,7 +49,7 @@ public:
 
 private:
     const DB::CategoryPtr m_category;
-    QAbstractItemModel* m_model;
+    QAbstractItemModel *m_model;
 };
 
 }

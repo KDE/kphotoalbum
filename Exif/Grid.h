@@ -18,46 +18,47 @@
 #ifndef EXIF_GRID_H
 #define EXIF_GRID_H
 
-#include <QScrollArea>
 #include <DB/FileName.h>
-#include <Utilities/StringSet.h>
 #include <QMap>
+#include <QScrollArea>
+#include <Utilities/StringSet.h>
 
 class QLabel;
 
 using Utilities::StringSet;
 
-namespace Exif {
+namespace Exif
+{
 
-class Grid :public QScrollArea
+class Grid : public QScrollArea
 {
     Q_OBJECT
 
 public:
-    explicit Grid( QWidget* parent );
-    void setFileName( const DB::FileName& fileName );
+    explicit Grid(QWidget *parent);
+    void setFileName(const DB::FileName &fileName);
 
 public slots:
-    void updateSearchString( const QString& );
+    void updateSearchString(const QString &);
 
 private:
-    void keyPressEvent( QKeyEvent* ) override;
-    bool eventFilter(QObject*, QEvent*) override;
+    void keyPressEvent(QKeyEvent *) override;
+    bool eventFilter(QObject *, QEvent *) override;
 
-    StringSet exifGroups( const QMap<QString, QStringList>& exifInfo );
-    QMap<QString,QStringList> itemsForGroup( const QString& group, const QMap<QString, QStringList>& exifInfo );
-    QString groupName( const QString& exifName );
-    QString exifNameNoGroup( const QString& fullName );
+    StringSet exifGroups(const QMap<QString, QStringList> &exifInfo);
+    QMap<QString, QStringList> itemsForGroup(const QString &group, const QMap<QString, QStringList> &exifInfo);
+    QString groupName(const QString &exifName);
+    QString exifNameNoGroup(const QString &fullName);
     void scroll(int dy);
-    QLabel* headerLabel(const QString& title);
-    QPair<QLabel*,QLabel*> infoLabelPair(const QString& title, const QString& value, const QColor& color);
+    QLabel *headerLabel(const QString &title);
+    QPair<QLabel *, QLabel *> infoLabelPair(const QString &title, const QString &value, const QColor &color);
 
 private slots:
-    void setupUI( const QString& charset );
+    void setupUI(const QString &charset);
     void updateWidgetSize();
 
 private:
-    QList< QPair<QLabel*,QLabel*> > m_labels;
+    QList<QPair<QLabel *, QLabel *>> m_labels;
     int m_maxKeyWidth;
     DB::FileName m_fileName;
 };

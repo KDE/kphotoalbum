@@ -19,30 +19,30 @@
 #ifndef IMAGEDATECOLLECTION_H
 #define IMAGEDATECOLLECTION_H
 #include "DB/ImageDate.h"
-#include <qmap.h>
 #include <QExplicitlySharedDataPointer>
+#include <qmap.h>
 namespace DB
 {
 
 class ImageCount
 {
 public:
-    ImageCount( int exact, int rangeMatch )
-        : mp_exact( exact ), mp_rangeMatch( rangeMatch )
-        {
-        }
+    ImageCount(int exact, int rangeMatch)
+        : mp_exact(exact)
+        , mp_rangeMatch(rangeMatch)
+    {
+    }
     ImageCount() {}
 
     int mp_exact;
     int mp_rangeMatch;
 };
 
-
-class ImageDateCollection :public QSharedData
+class ImageDateCollection : public QSharedData
 {
 public:
     virtual ~ImageDateCollection() {}
-    virtual ImageCount count( const ImageDate& range ) = 0;
+    virtual ImageCount count(const ImageDate &range) = 0;
     virtual QDateTime lowerLimit() const = 0;
     virtual QDateTime upperLimit() const = 0;
 };

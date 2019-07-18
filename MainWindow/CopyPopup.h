@@ -20,8 +20,8 @@
 #define COPYPOPUP_H
 
 // Qt includes
-#include <QMenu>
 #include <QList>
+#include <QMenu>
 #include <QUrl>
 
 namespace MainWindow

@@ -25,10 +25,9 @@
 
 namespace Utilities
 {
-const QSet<QString>& supportedVideoExtensions();
-bool isVideo( const DB::FileName& fileName );
+const QSet<QString> &supportedVideoExtensions();
+bool isVideo(const DB::FileName &fileName);
 }
-
 
 #endif /* VIDEO_UTIL_H */
 

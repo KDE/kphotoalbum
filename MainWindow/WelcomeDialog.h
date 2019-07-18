@@ -31,7 +31,7 @@ class WelcomeDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit WelcomeDialog( QWidget* parent = nullptr );
+    explicit WelcomeDialog(QWidget *parent = nullptr);
     QString configFileName() const;
 
 protected slots:
@@ -43,17 +43,17 @@ private:
     QString m_configFile;
 };
 
-
 class FileDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit FileDialog( QWidget* parent );
+    explicit FileDialog(QWidget *parent);
     QString getFileName();
 protected slots:
     void slotBrowseForDirecory();
+
 private:
-    QLineEdit* m_lineEdit;
+    QLineEdit *m_lineEdit;
 };
 
 }

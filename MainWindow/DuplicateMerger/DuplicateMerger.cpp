@@ -17,43 +17,45 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QDebug>
+#include <QDialogButtonBox>
+#include <QLabel>
+#include <QPushButton>
+#include <QRadioButton>
 #include <QScrollArea>
 #include <QVBoxLayout>
-#include <QLabel>
-#include <QRadioButton>
-#include <QDialogButtonBox>
-#include <QPushButton>
-#include <QDebug>
 
 #include <KLocalizedString>
 
-#include "DuplicateMerger.h"
-#include "DuplicateMatch.h"
-#include "MergeToolTip.h"
-#include "Utilities/ShowBusyCursor.h"
-#include "Utilities/DeleteFiles.h"
-#include "DB/ImageDB.h"
 #include "DB/FileName.h"
 #include "DB/FileNameList.h"
+#include "DB/ImageDB.h"
 #include "DB/ImageInfo.h"
 #include "DB/MD5.h"
+#include "DuplicateMatch.h"
+#include "DuplicateMerger.h"
+#include "MergeToolTip.h"
+#include "Utilities/DeleteFiles.h"
+#include "Utilities/ShowBusyCursor.h"
 
-namespace MainWindow {
+namespace MainWindow
+{
 
-DuplicateMerger::DuplicateMerger(QWidget *parent) : QDialog(parent)
+DuplicateMerger::DuplicateMerger(QWidget *parent)
+    : QDialog(parent)
 {
     setAttribute(Qt::WA_DeleteOnClose);
-    resize(800,600);
+    resize(800, 600);
 
-    QWidget* top = new QWidget(this);
-    QVBoxLayout* topLayout = new QVBoxLayout(top);
+    QWidget *top = new QWidget(this);
+    QVBoxLayout *topLayout = new QVBoxLayout(top);
     setLayout(topLayout);
     topLayout->addWidget(top);
 
     QString txt = i18n("<p>Below is a list of all images that are duplicate in your database.<br/>"
                        "Select which you want merged, and which of the duplicates should be kept.<br/>"
                        "The tag and description from the deleted images will be transferred to the kept image</p>");
-    QLabel* label = new QLabel(txt);
+    QLabel *label = new QLabel(txt);
     QFont fnt = font();
     fnt.setPixelSize(18);
     label->setFont(fnt);
@@ -61,7 +63,7 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) : QDialog(parent)
 
     m_trash = new QRadioButton(i18n("Move to &trash"));
     m_deleteFromDisk = new QRadioButton(i18n("&Delete from disk"));
-    QRadioButton* blockFromDB = new QRadioButton(i18n("&Block from database"));
+    QRadioButton *blockFromDB = new QRadioButton(i18n("&Block from database"));
     m_trash->setChecked(true);
 
     topLayout->addSpacing(10);
@@ -70,7 +72,7 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) : QDialog(parent)
     topLayout->addWidget(blockFromDB);
     topLayout->addSpacing(10);
 
-    QScrollArea* scrollArea = new QScrollArea;
+    QScrollArea *scrollArea = new QScrollArea;
     topLayout->addWidget(scrollArea);
     scrollArea->setWidgetResizable(true);
 
@@ -81,7 +83,7 @@ DuplicateMerger::DuplicateMerger(QWidget *parent) : QDialog(parent)
     m_selectionCount = new QLabel;
     topLayout->addWidget(m_selectionCount);
 
-    QDialogButtonBox* buttonBox = new QDialogButtonBox();
+    QDialogButtonBox *buttonBox = new QDialogButtonBox();
 
     m_selectAllButton = buttonBox->addButton(i18n("Select &All"), QDialogButtonBox::YesRole);
     m_selectNoneButton = buttonBox->addButton(i18n("Select &None"), QDialogButtonBox::NoRole);
@@ -123,7 +125,7 @@ void DuplicateMerger::go()
         method = Utilities::DeleteFromDisk;
     }
 
-    Q_FOREACH( DuplicateMatch* selector, m_selectors) {
+    Q_FOREACH (DuplicateMatch *selector, m_selectors) {
         selector->execute(method);
     }
 
@@ -135,7 +137,7 @@ void DuplicateMerger::updateSelectionCount()
     int total = 0;
     int selected = 0;
 
-    Q_FOREACH( DuplicateMatch* selector, m_selectors) {
+    Q_FOREACH (DuplicateMatch *selector, m_selectors) {
         ++total;
         if (selector->selected())
             ++selected;
@@ -149,7 +151,7 @@ void DuplicateMerger::findDuplicates()
 {
     Utilities::ShowBusyCursor dummy;
 
-    Q_FOREACH( const DB::FileName& fileName, DB::ImageDB::instance()->images() ) {
+    Q_FOREACH (const DB::FileName &fileName, DB::ImageDB::instance()->images()) {
         const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
         const DB::MD5 md5 = info->MD5Sum();
         m_matches[md5].append(fileName);
@@ -157,15 +159,14 @@ void DuplicateMerger::findDuplicates()
 
     bool anyFound = false;
     for (QMap<DB::MD5, DB::FileNameList>::const_iterator it = m_matches.constBegin();
-         it != m_matches.constEnd(); ++it)
-    {
+         it != m_matches.constEnd(); ++it) {
         if (it.value().count() > 1) {
             addRow(it.key());
             anyFound = true;
         }
     }
 
-    if (! anyFound) {
+    if (!anyFound) {
         tellThatNoDuplicatesWereFound();
     }
 
@@ -174,22 +175,22 @@ void DuplicateMerger::findDuplicates()
 
 void DuplicateMerger::addRow(const DB::MD5 &md5)
 {
-    DuplicateMatch* match = new DuplicateMatch( m_matches[md5]);
-    connect( match, SIGNAL(selectionChanged()), this, SLOT(updateSelectionCount()));
+    DuplicateMatch *match = new DuplicateMatch(m_matches[md5]);
+    connect(match, SIGNAL(selectionChanged()), this, SLOT(updateSelectionCount()));
     m_scrollLayout->addWidget(match);
     m_selectors.append(match);
 }
 
 void DuplicateMerger::selectAll(bool b)
 {
-    Q_FOREACH( DuplicateMatch* selector, m_selectors) {
+    Q_FOREACH (DuplicateMatch *selector, m_selectors) {
         selector->setSelected(b);
     }
 }
 
 void DuplicateMerger::tellThatNoDuplicatesWereFound()
 {
-    QLabel* label = new QLabel(i18n("No duplicates found"));
+    QLabel *label = new QLabel(i18n("No duplicates found"));
     QFont fnt = font();
     fnt.setPixelSize(30);
     label->setFont(fnt);

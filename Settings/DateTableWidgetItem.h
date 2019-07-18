@@ -28,8 +28,8 @@ namespace Settings
 class DateTableWidgetItem : public QTableWidgetItem
 {
 public:
-    DateTableWidgetItem(const QString& text);
-    bool operator < (const QTableWidgetItem& other) const override;
+    DateTableWidgetItem(const QString &text);
+    bool operator<(const QTableWidgetItem &other) const override;
 };
 
 }

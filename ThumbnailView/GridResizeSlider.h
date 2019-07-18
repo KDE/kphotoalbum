@@ -36,10 +36,11 @@ class ThumbnailWidget;
  * thumbnail size in the SettingsData reflects on the slider.
  * Changes in SettingsData::thumbnailSize() are reflected in the maximum slider value.
  */
-class GridResizeSlider : public QSlider, private ThumbnailComponent {
+class GridResizeSlider : public QSlider, private ThumbnailComponent
+{
     Q_OBJECT
 public:
-    explicit GridResizeSlider( ThumbnailFactory* factory );
+    explicit GridResizeSlider(ThumbnailFactory *factory);
     ~GridResizeSlider() override;
 
 public slots:
@@ -47,12 +48,12 @@ public slots:
     void decreaseThumbnailSize();
 
 signals:
-    void isResizing( bool );
+    void isResizing(bool);
 
 protected:
-    void mousePressEvent( QMouseEvent* ) override;
-    void mouseReleaseEvent( QMouseEvent* ) override;
-    void wheelEvent( QWheelEvent* ) override;
+    void mousePressEvent(QMouseEvent *) override;
+    void mouseReleaseEvent(QMouseEvent *) override;
+    void wheelEvent(QWheelEvent *) override;
 
 private slots:
     void enterGridResizingMode();
@@ -65,9 +66,7 @@ private:
     QTimer *m_timer;
     void calculateNewThumbnailSize(int perRowDifference);
 };
-
 }
-
 
 #endif /* GRIDRESIZESLIDER_H */
 

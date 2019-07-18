@@ -19,31 +19,34 @@
 #define DB_CATEGORYITEMS_H
 
 #include <QExplicitlySharedDataPointer>
-#include <qstring.h>
 #include <QList>
+#include <qstring.h>
 
 namespace DB
 {
-class CategoryItem :public QSharedData
+class CategoryItem : public QSharedData
 {
 public:
-    explicit CategoryItem( const QString& name, bool isTop = false ) : mp_name( name ), mp_isTop( isTop ) {}
+    explicit CategoryItem(const QString &name, bool isTop = false)
+        : mp_name(name)
+        , mp_isTop(isTop)
+    {
+    }
     ~CategoryItem();
-    CategoryItem* clone() const;
-    bool isDescendentOf( const QString& child, const QString& parent ) const;
+    CategoryItem *clone() const;
+    bool isDescendentOf(const QString &child, const QString &parent) const;
 
 protected:
-    bool hasChild( const QString& child ) const;
+    bool hasChild(const QString &child) const;
 
 public:
     QString mp_name;
-    QList< CategoryItem* > mp_subcategories;
+    QList<CategoryItem *> mp_subcategories;
     bool mp_isTop;
 };
 
 typedef QExplicitlySharedDataPointer<CategoryItem> CategoryItemPtr;
 }
-
 
 #endif /* DB_CATEGORYITEMS_H */
 

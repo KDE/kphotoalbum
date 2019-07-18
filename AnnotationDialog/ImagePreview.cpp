@@ -38,15 +38,15 @@
 
 using namespace AnnotationDialog;
 
-ImagePreview::ImagePreview( QWidget* parent )
-    : QLabel( parent )
+ImagePreview::ImagePreview(QWidget *parent)
+    : QLabel(parent)
     , m_selectionRect(0)
     , m_aspectRatio(1)
-    , m_reloadTimer( new QTimer(this) )
-    , m_areaCreationEnabled( false )
+    , m_reloadTimer(new QTimer(this))
+    , m_areaCreationEnabled(false)
 {
-    setAlignment( Qt::AlignCenter );
-    setMinimumSize( 64, 64 );
+    setAlignment(Qt::AlignCenter);
+    setMinimumSize(64, 64);
     // "the widget can make use of extra space, so it should get as much space as possible"
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 
@@ -54,11 +54,11 @@ ImagePreview::ImagePreview( QWidget* parent )
     connect(m_reloadTimer, &QTimer::timeout, this, &ImagePreview::resizeFinished);
 }
 
-void ImagePreview::resizeEvent( QResizeEvent* ev )
+void ImagePreview::resizeEvent(QResizeEvent *ev)
 {
-    qCDebug(AnnotationDialogLog) << "Resizing from" << ev->oldSize() <<"to"<<ev->size();
+    qCDebug(AnnotationDialogLog) << "Resizing from" << ev->oldSize() << "to" << ev->size();
     // during resizing, a scaled image will do
-    QImage scaledImage = m_currentImage.getImage().scaled(size(),Qt::KeepAspectRatio);
+    QImage scaledImage = m_currentImage.getImage().scaled(size(), Qt::KeepAspectRatio);
     setPixmap(QPixmap::fromImage(scaledImage));
     updateScaleFactors();
 
@@ -83,22 +83,22 @@ QSize ImagePreview::sizeHint() const
 
 void ImagePreview::rotate(int angle)
 {
-    if (! m_info.isNull()) {
-        m_currentImage.setAngle( m_info.angle() );
-        m_info.rotate( angle, DB::RotateImageInfoOnly );
+    if (!m_info.isNull()) {
+        m_currentImage.setAngle(m_info.angle());
+        m_info.rotate(angle, DB::RotateImageInfoOnly);
     } else {
         // Can this really happen?
-         m_angle += angle;
+        m_angle += angle;
     }
 
-     m_preloader.cancelPreload();
-     m_lastImage.reset();
-     reload();
+    m_preloader.cancelPreload();
+    m_lastImage.reset();
+    reload();
 
     rotateAreas(angle);
 }
 
-void ImagePreview::setImage( const DB::ImageInfo& info )
+void ImagePreview::setImage(const DB::ImageInfo &info)
 {
     m_info = info;
     reload();
@@ -108,22 +108,21 @@ void ImagePreview::setImage( const DB::ImageInfo& info )
    This method should only be used for the non-user images. Currently this includes
    two images: the search image and the configure several images at a time image.
 */
-void ImagePreview::setImage( const QString& fileName )
+void ImagePreview::setImage(const QString &fileName)
 {
     m_fileName = fileName;
     m_info = DB::ImageInfo();
     m_angle = 0;
     // Set the current angle that will be passed to m_lastImage
-    m_currentImage.setAngle( m_info.angle() );
+    m_currentImage.setAngle(m_info.angle());
     reload();
 }
 
 void ImagePreview::reload()
 {
     m_aspectRatio = 1;
-    if ( !m_info.isNull() ) {
-        if (m_preloader.has(m_info.fileName(), m_info.angle()))
-        {
+    if (!m_info.isNull()) {
+        if (m_preloader.has(m_info.fileName(), m_info.angle())) {
             qCDebug(AnnotationDialogLog) << "reload(): set preloader image";
             setCurrentImage(m_preloader.getImage());
         } else if (m_lastImage.has(m_info.fileName(), m_info.angle())) {
@@ -132,8 +131,7 @@ void ImagePreview::reload()
             //see setCurrentImage for the reason (where m_lastImage is changed...)
             setCurrentImage(QImage(m_lastImage.getImage()));
         } else {
-            if (!m_currentImage.has(m_info.fileName(), m_info.angle()))
-            {
+            if (!m_currentImage.has(m_info.fileName(), m_info.angle())) {
                 // erase old image to prevent a laggy feel,
                 // but only erase old image if it is a different image
                 // (otherwise we get flicker when resizing)
@@ -141,27 +139,27 @@ void ImagePreview::reload()
             }
             qCDebug(AnnotationDialogLog) << "reload(): set another image";
             ImageManager::AsyncLoader::instance()->stop(this);
-            ImageManager::ImageRequest* request = new ImageManager::ImageRequest( m_info.fileName(), size(), m_info.angle(), this );
-            request->setPriority( ImageManager::Viewer );
-            ImageManager::AsyncLoader::instance()->load( request );
+            ImageManager::ImageRequest *request = new ImageManager::ImageRequest(m_info.fileName(), size(), m_info.angle(), this);
+            request->setPriority(ImageManager::Viewer);
+            ImageManager::AsyncLoader::instance()->load(request);
         }
     } else {
         qCDebug(AnnotationDialogLog) << "reload(): set image from file";
-        QImage img( m_fileName );
-        img = rotateAndScale( img, width(), height(), m_angle );
-        setPixmap( QPixmap::fromImage(img) );
+        QImage img(m_fileName);
+        img = rotateAndScale(img, width(), height(), m_angle);
+        setPixmap(QPixmap::fromImage(img));
     }
 }
 
 int ImagePreview::angle() const
 {
-    Q_ASSERT( !m_info.isNull() );
+    Q_ASSERT(!m_info.isNull());
     return m_angle;
 }
 
 QSize ImagePreview::getActualImageSize()
 {
-    if (! m_info.size().isValid()) {
+    if (!m_info.size().isValid()) {
         // We have to fetch the size from the image
         m_info.setSize(QImageReader(m_info.fileName().absolute()).size());
         m_aspectRatio = m_info.size().height() / m_info.size().width();
@@ -186,39 +184,39 @@ void ImagePreview::setCurrentImage(const QImage &image)
     m_fullSizeImage = QImage();
 }
 
-void ImagePreview::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image)
+void ImagePreview::pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image)
 {
     const DB::FileName fileName = request->databaseFileName();
     const bool loadedOK = request->loadedOK();
 
-    if ( loadedOK && !m_info.isNull() ) {
+    if (loadedOK && !m_info.isNull()) {
         if (m_info.fileName() == fileName)
             setCurrentImage(image);
     }
 }
 
-void ImagePreview::anticipate(DB::ImageInfo &info1) {
+void ImagePreview::anticipate(DB::ImageInfo &info1)
+{
     //We cannot call m_preloader.preloadImage right here:
     //this function is called before reload(), so if we preload here,
     //the preloader will always be loading the image after the next image.
     m_anticipated.set(info1.fileName(), info1.angle());
 }
 
-
-ImagePreview::PreloadInfo::PreloadInfo() : m_angle(0)
+ImagePreview::PreloadInfo::PreloadInfo()
+    : m_angle(0)
 {
 }
 
-void ImagePreview::PreloadInfo::set(const DB::FileName& fileName, int angle)
+void ImagePreview::PreloadInfo::set(const DB::FileName &fileName, int angle)
 {
-    m_fileName=fileName;
-    m_angle=angle;
+    m_fileName = fileName;
+    m_angle = angle;
 }
-
 
 bool ImagePreview::PreviewImage::has(const DB::FileName &fileName, int angle) const
- {
-    return fileName==m_fileName && !m_image.isNull() && angle==m_angle;
+{
+    return fileName == m_fileName && !m_image.isNull() && angle == m_angle;
 }
 
 QImage &ImagePreview::PreviewImage::getImage()
@@ -227,7 +225,7 @@ QImage &ImagePreview::PreviewImage::getImage()
 }
 
 void ImagePreview::PreviewImage::set(const DB::FileName &fileName, const QImage &image, int angle)
- {
+{
     m_fileName = fileName;
     m_image = image;
     m_angle = angle;
@@ -240,7 +238,7 @@ void ImagePreview::PreviewImage::set(const PreviewImage &other)
     m_angle = other.m_angle;
 }
 
-void ImagePreview::PreviewImage::setAngle( int angle )
+void ImagePreview::PreviewImage::setAngle(int angle)
 {
     m_angle = angle;
 }
@@ -248,15 +246,14 @@ void ImagePreview::PreviewImage::setAngle( int angle )
 void ImagePreview::PreviewImage::reset()
 {
     m_fileName = DB::FileName();
-    m_image=QImage();
+    m_image = QImage();
 }
 
-void ImagePreview::PreviewLoader::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image)
+void ImagePreview::PreviewLoader::pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image)
 {
-    if ( request->loadedOK() )
-    {
+    if (request->loadedOK()) {
         const DB::FileName fileName = request->databaseFileName();
-        set( fileName, image, request->angle() );
+        set(fileName, image, request->angle());
     }
 }
 
@@ -265,9 +262,9 @@ void ImagePreview::PreviewLoader::preloadImage(const DB::FileName &fileName, int
     //no need to worry about concurrent access: everything happens in the event loop thread
     reset();
     ImageManager::AsyncLoader::instance()->stop(this);
-    ImageManager::ImageRequest* request = new ImageManager::ImageRequest( fileName, QSize( width, height ), angle, this );
-    request->setPriority( ImageManager::ViewerPreload );
-    ImageManager::AsyncLoader::instance()->load( request );
+    ImageManager::ImageRequest *request = new ImageManager::ImageRequest(fileName, QSize(width, height), angle, this);
+    request->setPriority(ImageManager::ViewerPreload);
+    ImageManager::AsyncLoader::instance()->load(request);
 }
 
 void ImagePreview::PreviewLoader::cancelPreload()
@@ -278,12 +275,12 @@ void ImagePreview::PreviewLoader::cancelPreload()
 
 QImage ImagePreview::rotateAndScale(QImage img, int width, int height, int angle) const
 {
-    if ( angle != 0 )  {
+    if (angle != 0) {
         QMatrix matrix;
-        matrix.rotate( angle );
-        img = img.transformed( matrix );
+        matrix.rotate(angle);
+        img = img.transformed(matrix);
     }
-    img = Utilities::scaleImage(img, QSize(width, height), Qt::KeepAspectRatio );
+    img = Utilities::scaleImage(img, QSize(width, height), Qt::KeepAspectRatio);
     return img;
 }
 
@@ -314,18 +311,17 @@ void ImagePreview::updateScaleFactors()
 
 void ImagePreview::mousePressEvent(QMouseEvent *event)
 {
-    if (! m_areaCreationEnabled) {
+    if (!m_areaCreationEnabled) {
         return;
     }
 
     if (event->button() & Qt::LeftButton) {
-        if (! m_selectionRect) {
+        if (!m_selectionRect) {
             m_selectionRect = new QRubberBand(QRubberBand::Rectangle, this);
         }
 
         m_areaStart = event->pos();
-        if (m_areaStart.x() < m_minX || m_areaStart.x() > m_maxX ||
-            m_areaStart.y() < m_minY || m_areaStart.y() > m_maxY) {
+        if (m_areaStart.x() < m_minX || m_areaStart.x() > m_maxX || m_areaStart.y() < m_minY || m_areaStart.y() > m_maxY) {
             // Dragging started outside of the preview image
             return;
         }
@@ -337,7 +333,7 @@ void ImagePreview::mousePressEvent(QMouseEvent *event)
 
 void ImagePreview::mouseMoveEvent(QMouseEvent *event)
 {
-    if (! m_areaCreationEnabled) {
+    if (!m_areaCreationEnabled) {
         return;
     }
 
@@ -358,13 +354,13 @@ void ImagePreview::mouseMoveEvent(QMouseEvent *event)
             m_currentPos.setY(m_maxY);
         }
 
-        m_selectionRect->setGeometry(QRect( m_areaStart, m_currentPos ).normalized());
+        m_selectionRect->setGeometry(QRect(m_areaStart, m_currentPos).normalized());
     }
 }
 
 void ImagePreview::mouseReleaseEvent(QMouseEvent *event)
 {
-    if (! m_areaCreationEnabled) {
+    if (!m_areaCreationEnabled) {
         return;
     }
 
@@ -455,13 +451,11 @@ QRect ImagePreview::rotateArea(QRect originalAreaGeometry, int angle)
     if (angle == 90) {
         rotatedAreaGeometry.moveTo(
             unrotatedOriginalImageSize.height() - (originalAreaGeometry.height() + originalAreaGeometry.y()),
-            originalAreaGeometry.x()
-        );
+            originalAreaGeometry.x());
     } else {
         rotatedAreaGeometry.moveTo(
             originalAreaGeometry.y(),
-            unrotatedOriginalImageSize.width() - (originalAreaGeometry.width() + originalAreaGeometry.x())
-        );
+            unrotatedOriginalImageSize.width() - (originalAreaGeometry.width() + originalAreaGeometry.x()));
     }
 
     return rotatedAreaGeometry;
@@ -531,18 +525,16 @@ void ImagePreview::acceptProposedTag(QPair<QString, QString> tagData, ResizableF
     // have to handle it.
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for(QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.constBegin();
-        categoryIt != categories.constEnd(); ++categoryIt) {
+    for (QList<DB::CategoryPtr>::ConstIterator categoryIt = categories.constBegin();
+         categoryIt != categories.constEnd(); ++categoryIt) {
         if ((*categoryIt)->name() == tagData.first) {
-            if (! (*categoryIt)->positionable()) {
-                KMessageBox::sorry(this, i18n(
-                    "<p><b>Can't associate tag \"%2\"</b></p>"
-                    "<p>The category \"%1\" the tag \"%2\" belongs to is not positionable.</p>"
-                    "<p>If you want to use this tag, change this in the settings dialog. "
-                    "If this tag shouldn't be in the recognition database anymore, it can "
-                    "be deleted in the settings.</p>",
-                    tagData.first, tagData.second
-                ));
+            if (!(*categoryIt)->positionable()) {
+                KMessageBox::sorry(this, i18n("<p><b>Can't associate tag \"%2\"</b></p>"
+                                              "<p>The category \"%1\" the tag \"%2\" belongs to is not positionable.</p>"
+                                              "<p>If you want to use this tag, change this in the settings dialog. "
+                                              "If this tag shouldn't be in the recognition database anymore, it can "
+                                              "be deleted in the settings.</p>",
+                                              tagData.first, tagData.second));
                 return;
             }
             categoryFound = true;
@@ -550,15 +542,13 @@ void ImagePreview::acceptProposedTag(QPair<QString, QString> tagData, ResizableF
         }
     }
 
-    if (! categoryFound) {
-        KMessageBox::sorry(this, i18n(
-            "<p><b>Can't associate tag \"%2\"</b></p>"
-            "<p>The category \"%1\" the tag \"%2\" belongs to does not exist.</p>"
-            "<p>If you want to use this tag, add this category and mark it as positionable. "
-            "If this tag shouldn't be in the recognition database anymore, it can "
-            "be deleted in the settings dialog.</p>",
-            tagData.first, tagData.second
-        ));
+    if (!categoryFound) {
+        KMessageBox::sorry(this, i18n("<p><b>Can't associate tag \"%2\"</b></p>"
+                                      "<p>The category \"%1\" the tag \"%2\" belongs to does not exist.</p>"
+                                      "<p>If you want to use this tag, add this category and mark it as positionable. "
+                                      "If this tag shouldn't be in the recognition database anymore, it can "
+                                      "be deleted in the settings dialog.</p>",
+                                      tagData.first, tagData.second));
         return;
     }
 
@@ -577,11 +567,7 @@ bool ImagePreview::fuzzyAreaExists(QList<QRect> &existingAreas, QRect area)
         // maximumDeviation is 15% of the mean value of the width and height of each area
         maximumDeviation = float(existingAreas.at(i).width() + existingAreas.at(i).height()) * 0.075;
         if (
-            distance(existingAreas.at(i).topLeft(), area.topLeft()) < maximumDeviation &&
-            distance(existingAreas.at(i).topRight(), area.topRight()) < maximumDeviation &&
-            distance(existingAreas.at(i).bottomLeft(), area.bottomLeft()) < maximumDeviation &&
-            distance(existingAreas.at(i).bottomRight(), area.bottomRight()) < maximumDeviation
-        ) {
+            distance(existingAreas.at(i).topLeft(), area.topLeft()) < maximumDeviation && distance(existingAreas.at(i).topRight(), area.topRight()) < maximumDeviation && distance(existingAreas.at(i).bottomLeft(), area.bottomLeft()) < maximumDeviation && distance(existingAreas.at(i).bottomRight(), area.bottomRight()) < maximumDeviation) {
             return true;
         }
     }

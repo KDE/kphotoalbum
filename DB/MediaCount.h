@@ -25,8 +25,18 @@ namespace DB
 class MediaCount
 {
 public:
-    MediaCount() : m_null(true), m_images(0), m_videos(0)  {}
-    MediaCount( int images, int videos ) : m_null(false), m_images( images ), m_videos( videos ) {}
+    MediaCount()
+        : m_null(true)
+        , m_images(0)
+        , m_videos(0)
+    {
+    }
+    MediaCount(int images, int videos)
+        : m_null(false)
+        , m_images(images)
+        , m_videos(videos)
+    {
+    }
     bool isNull() const { return m_null; }
     int images() const { return m_images; }
     int videos() const { return m_videos; }

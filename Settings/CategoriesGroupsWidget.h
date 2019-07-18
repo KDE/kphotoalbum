@@ -33,20 +33,20 @@ class CategoriesGroupsWidget : public QTreeWidget
     Q_OBJECT
 
 public:
-    explicit CategoriesGroupsWidget(QWidget* parent = 0);
+    explicit CategoriesGroupsWidget(QWidget *parent = 0);
     ~CategoriesGroupsWidget() override;
 
 private: // Functions
-    void mousePressEvent(QMouseEvent* event) override;
-    void dragMoveEvent(QDragMoveEvent* event) override;
-    void dropEvent(QDropEvent* event) override;
-    void updateHighlight(QTreeWidgetItem* target);
+    void mousePressEvent(QMouseEvent *event) override;
+    void dragMoveEvent(QDragMoveEvent *event) override;
+    void dropEvent(QDropEvent *event) override;
+    void updateHighlight(QTreeWidgetItem *target);
 
 private: // Variables
-    TagGroupsPage* m_tagGroupsPage;
-    QTreeWidgetItem* m_draggedItem;
+    TagGroupsPage *m_tagGroupsPage;
+    QTreeWidgetItem *m_draggedItem;
     QString m_draggedItemCategory;
-    QTreeWidgetItem* m_oldTarget;
+    QTreeWidgetItem *m_oldTarget;
     QBrush m_backgroundNoTarget;
 };
 

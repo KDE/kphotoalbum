@@ -20,36 +20,35 @@
 
 #include <QList>
 
-#include <DB/ImageDB.h>
 #include "XMLCategory.h"
+#include <DB/ImageDB.h>
 
-DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForName( const QString& name ) const
+DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForName(const QString &name) const
 {
-    for( QList<DB::CategoryPtr>::ConstIterator it = m_categories.begin(); it != m_categories.end(); ++it ) {
+    for (QList<DB::CategoryPtr>::ConstIterator it = m_categories.begin(); it != m_categories.end(); ++it) {
         if ((*it)->name() == name)
             return *it;
     }
     return DB::CategoryPtr();
 }
 
-void XMLDB::XMLCategoryCollection::addCategory( DB::CategoryPtr category )
+void XMLDB::XMLCategoryCollection::addCategory(DB::CategoryPtr category)
 {
-    m_categories.append( category );
-    if (category->isSpecialCategory())
-    {
+    m_categories.append(category);
+    if (category->isSpecialCategory()) {
         m_specialCategories[category->type()] = category;
     }
-    connect( category.data(), SIGNAL(changed()), this, SIGNAL(categoryCollectionChanged()) );
-    connect( category.data(), SIGNAL(itemRemoved(QString)), this, SLOT(itemRemoved(QString)) );
-    connect( category.data(), SIGNAL(itemRenamed(QString,QString)), this, SLOT(itemRenamed(QString,QString)) );
+    connect(category.data(), SIGNAL(changed()), this, SIGNAL(categoryCollectionChanged()));
+    connect(category.data(), SIGNAL(itemRemoved(QString)), this, SLOT(itemRemoved(QString)));
+    connect(category.data(), SIGNAL(itemRenamed(QString, QString)), this, SLOT(itemRenamed(QString, QString)));
     emit categoryCollectionChanged();
 }
 
 QStringList XMLDB::XMLCategoryCollection::categoryNames() const
 {
     QStringList res;
-    for( QList<DB::CategoryPtr>::ConstIterator it = m_categories.begin(); it != m_categories.end(); ++it ) {
-        res.append( (*it)->name() );
+    for (QList<DB::CategoryPtr>::ConstIterator it = m_categories.begin(); it != m_categories.end(); ++it) {
+        res.append((*it)->name());
     }
     return res;
 }
@@ -57,31 +56,30 @@ QStringList XMLDB::XMLCategoryCollection::categoryNames() const
 QStringList XMLDB::XMLCategoryCollection::categoryTexts() const
 {
     QStringList res;
-    for( QList<DB::CategoryPtr>::ConstIterator it = m_categories.begin(); it != m_categories.end(); ++it ) {
+    for (QList<DB::CategoryPtr>::ConstIterator it = m_categories.begin(); it != m_categories.end(); ++it) {
         res.append((*it)->name());
     }
     return res;
 }
 
-void XMLDB::XMLCategoryCollection::removeCategory( const QString& name )
+void XMLDB::XMLCategoryCollection::removeCategory(const QString &name)
 {
-    for( QList<DB::CategoryPtr>::iterator it = m_categories.begin(); it != m_categories.end(); ++it ) {
-        if ( (*it)->name() == name ) {
+    for (QList<DB::CategoryPtr>::iterator it = m_categories.begin(); it != m_categories.end(); ++it) {
+        if ((*it)->name() == name) {
             m_categories.erase(it);
             emit categoryRemoved(name);
             emit categoryCollectionChanged();
             return;
         }
     }
-    Q_ASSERT_X( false, "removeCategory", "trying to remove non-existing category" );
+    Q_ASSERT_X(false, "removeCategory", "trying to remove non-existing category");
 }
 
-void XMLDB::XMLCategoryCollection::rename( const QString& oldName, const QString& newName )
+void XMLDB::XMLCategoryCollection::rename(const QString &oldName, const QString &newName)
 {
     categoryForName(oldName)->setName(newName);
-    DB::ImageDB::instance()->renameCategory( oldName, newName );
+    DB::ImageDB::instance()->renameCategory(oldName, newName);
     emit categoryCollectionChanged();
-
 }
 
 QList<DB::CategoryPtr> XMLDB::XMLCategoryCollection::categories() const
@@ -89,10 +87,10 @@ QList<DB::CategoryPtr> XMLDB::XMLCategoryCollection::categories() const
     return m_categories;
 }
 
-void XMLDB::XMLCategoryCollection::addCategory( const QString& text, const QString& icon,
-                                                DB::Category::ViewType type, int thumbnailSize, bool show, bool positionable )
+void XMLDB::XMLCategoryCollection::addCategory(const QString &text, const QString &icon,
+                                               DB::Category::ViewType type, int thumbnailSize, bool show, bool positionable)
 {
-    addCategory( DB::CategoryPtr( new XMLCategory( text, icon, type, thumbnailSize, show, positionable ) ) );
+    addCategory(DB::CategoryPtr(new XMLCategory(text, icon, type, thumbnailSize, show, positionable)));
 }
 
 DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForSpecial(const DB::Category::CategoryType type) const
@@ -102,8 +100,8 @@ DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForSpecial(const DB::Categ
 
 void XMLDB::XMLCategoryCollection::initIdMap()
 {
-    Q_FOREACH( DB::CategoryPtr categoryPtr, m_categories ) {
-        static_cast<XMLCategory*>(categoryPtr.data())->initIdMap();
+    Q_FOREACH (DB::CategoryPtr categoryPtr, m_categories) {
+        static_cast<XMLCategory *>(categoryPtr.data())->initIdMap();
     }
 }
 

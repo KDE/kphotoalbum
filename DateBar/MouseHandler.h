@@ -17,77 +17,77 @@
 */
 #ifndef DATEBARMOUSEHANDLER_H
 #define DATEBARMOUSEHANDLER_H
+#include "DB/ImageDate.h"
 #include <QObject>
 #include <qdatetime.h>
-#include "DB/ImageDate.h"
 
-namespace DB { class ImageDate; }
+namespace DB
+{
+class ImageDate;
+}
 
 class QTimer;
-namespace DateBar {
+namespace DateBar
+{
 class DateBarWidget;
 
-    class MouseHandler : public QObject
-    {
-        Q_OBJECT
-    public:
-        explicit MouseHandler( DateBarWidget* dateBar );
-        virtual void mousePressEvent( int x ) = 0;
-        virtual void mouseMoveEvent( int x ) = 0;
-        virtual void mouseReleaseEvent() {};
-        void startAutoScroll();
-        void endAutoScroll();
+class MouseHandler : public QObject
+{
+    Q_OBJECT
+public:
+    explicit MouseHandler(DateBarWidget *dateBar);
+    virtual void mousePressEvent(int x) = 0;
+    virtual void mouseMoveEvent(int x) = 0;
+    virtual void mouseReleaseEvent() {};
+    void startAutoScroll();
+    void endAutoScroll();
 
-    protected slots:
-        void autoScroll();
+protected slots:
+    void autoScroll();
 
-    protected:
-        DateBarWidget* m_dateBar;
+protected:
+    DateBarWidget *m_dateBar;
 
-    private:
-        QTimer* m_autoScrollTimer;
-    };
+private:
+    QTimer *m_autoScrollTimer;
+};
 
+class FocusItemDragHandler : public MouseHandler
+{
+public:
+    explicit FocusItemDragHandler(DateBarWidget *dateBar);
+    void mousePressEvent(int x) override;
+    void mouseMoveEvent(int x) override;
+};
 
+class BarDragHandler : public MouseHandler
+{
+public:
+    explicit BarDragHandler(DateBarWidget *);
+    void mousePressEvent(int x) override;
+    void mouseMoveEvent(int x) override;
 
-    class FocusItemDragHandler : public MouseHandler
-    {
-    public:
-        explicit FocusItemDragHandler( DateBarWidget* dateBar );
-        void mousePressEvent( int x ) override;
-        void mouseMoveEvent( int x ) override;
-    };
+private:
+    int m_movementOffset;
+};
 
+class SelectionHandler : public MouseHandler
+{
+public:
+    explicit SelectionHandler(DateBarWidget *);
+    void mousePressEvent(int x) override;
+    void mouseMoveEvent(int x) override;
+    void mouseReleaseEvent() override;
+    QDateTime min() const;
+    QDateTime max() const;
+    DB::ImageDate dateRange() const;
+    void clearSelection();
+    bool hasSelection() const;
 
-
-    class BarDragHandler : public MouseHandler
-    {
-    public:
-        explicit BarDragHandler( DateBarWidget* );
-        void mousePressEvent( int x ) override;
-        void mouseMoveEvent(  int x ) override;
-    private:
-        int m_movementOffset;
-    };
-
-
-
-    class SelectionHandler : public MouseHandler
-    {
-    public:
-        explicit SelectionHandler( DateBarWidget* );
-        void mousePressEvent( int x ) override;
-        void mouseMoveEvent( int x ) override;
-        void mouseReleaseEvent() override;
-        QDateTime min() const;
-        QDateTime max() const;
-        DB::ImageDate dateRange() const;
-        void clearSelection();
-        bool hasSelection() const;
-    private:
-        QDateTime m_start;
-        QDateTime m_end;
-    };
+private:
+    QDateTime m_start;
+    QDateTime m_end;
+};
 }
 
 #endif /* DATEBARMOUSEHANDLER_H */

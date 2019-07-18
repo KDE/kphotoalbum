@@ -24,18 +24,16 @@ namespace Utilities
 class BooleanGuard
 {
 public:
-    explicit BooleanGuard( bool& guard );
+    explicit BooleanGuard(bool &guard);
     ~BooleanGuard();
     bool canContinue();
 
 private:
-    bool& m_guard;
+    bool &m_guard;
     bool m_iLockedIt;
 };
 
-
 }
-
 
 #endif /* BOOLEANGUARD_H */
 

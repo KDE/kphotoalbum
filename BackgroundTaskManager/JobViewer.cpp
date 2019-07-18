@@ -17,28 +17,30 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <QLayout>
-#include <QTreeView>
 #include <QDialogButtonBox>
+#include <QLayout>
 #include <QPushButton>
+#include <QTreeView>
 
 #include <KLocalizedString>
 
-#include "JobViewer.h"
-#include "JobModel.h"
 #include "JobManager.h"
+#include "JobModel.h"
+#include "JobViewer.h"
 
-BackgroundTaskManager::JobViewer::JobViewer(QWidget *parent) : QDialog(parent), m_model(nullptr)
+BackgroundTaskManager::JobViewer::JobViewer(QWidget *parent)
+    : QDialog(parent)
+    , m_model(nullptr)
 {
     setWindowTitle(i18nc("@title:window", "Background Job Viewer"));
 
-    QVBoxLayout* mainLayout = new QVBoxLayout;
+    QVBoxLayout *mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
 
     m_treeView = new QTreeView;
     mainLayout->addWidget(m_treeView);
 
-    QDialogButtonBox* buttonBox = new QDialogButtonBox;
+    QDialogButtonBox *buttonBox = new QDialogButtonBox;
     m_pauseButton = buttonBox->addButton(i18n("Pause"), QDialogButtonBox::YesRole);
     buttonBox->addButton(QDialogButtonBox::Close);
 

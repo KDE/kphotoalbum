@@ -22,7 +22,7 @@
 
 Utilities::ShowBusyCursor::ShowBusyCursor(Qt::CursorShape shape)
 {
-    qApp->setOverrideCursor( QCursor( shape ) );
+    qApp->setOverrideCursor(QCursor(shape));
     m_active = true;
 }
 
@@ -33,9 +33,9 @@ Utilities::ShowBusyCursor::~ShowBusyCursor()
 
 void Utilities::ShowBusyCursor::stop()
 {
-    if ( m_active ) {
+    if (m_active) {
         qApp->restoreOverrideCursor();
-        m_active=false;
+        m_active = false;
     }
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -20,8 +20,8 @@
 #define IMAGEPREVIEWWIDGET_H
 
 // Qt includes
-#include <QWidget>
 #include <QList>
+#include <QWidget>
 
 // Local includes
 #include "DB/ImageInfo.h"
@@ -34,18 +34,19 @@ class QComboBox;
 namespace AnnotationDialog
 {
 
-class ImagePreviewWidget :public QWidget{
+class ImagePreviewWidget : public QWidget
+{
     Q_OBJECT
 public:
     ImagePreviewWidget();
-    void rotate(int angle) ;
-    void setImage( const DB::ImageInfo& info );
-    void setImage( const QString& fileName );
-    void setImage( const int index );
-    void configure( QList<DB::ImageInfo>* imageList, bool singleEdit );
+    void rotate(int angle);
+    void setImage(const DB::ImageInfo &info);
+    void setImage(const QString &fileName);
+    void setImage(const int index);
+    void configure(QList<DB::ImageInfo> *imageList, bool singleEdit);
     int angle() const;
     void anticipate(DB::ImageInfo &info1);
-    const QString& lastImage();
+    const QString &lastImage();
     ImagePreview *preview() const;
     bool showAreas() const;
     void canCreateAreas(bool state);
@@ -65,10 +66,10 @@ public slots:
     void slotShowAreas(bool show);
 
 signals:
-    void imageDeleted( const DB::ImageInfo& deletedImage );
-    void imageRotated( int angle);
-    void imageChanged( const DB::ImageInfo& newImage );
-    void indexChanged( int newIndex );
+    void imageDeleted(const DB::ImageInfo &deletedImage);
+    void imageRotated(int angle);
+    void imageChanged(const DB::ImageInfo &newImage);
+    void indexChanged(int newIndex);
     void copyPrevClicked();
     void areaVisibilityChanged(bool visible);
     void togglePreview();
@@ -81,24 +82,23 @@ private: // Functions
     void toggleFullscreenPreview();
 
 private: // Variables
-    ImagePreview* m_preview;
-    QPushButton* m_prevBut;
-    QPushButton* m_nextBut;
+    ImagePreview *m_preview;
+    QPushButton *m_prevBut;
+    QPushButton *m_nextBut;
     QPushButton *m_toggleFullscreenPreview;
-    QPushButton* m_rotateLeft;
-    QPushButton* m_rotateRight;
-    QPushButton* m_delBut;
-    QPushButton* m_copyPreviousBut;
+    QPushButton *m_rotateLeft;
+    QPushButton *m_rotateRight;
+    QPushButton *m_delBut;
+    QPushButton *m_copyPreviousBut;
     QPushButton *m_facedetectBut;
     QPushButton *m_toggleAreasBut;
-    QList<DB::ImageInfo>* m_imageList;
+    QList<DB::ImageInfo> *m_imageList;
     int m_current;
     bool m_singleEdit;
-    QLabel* m_defaultAreaCategoryLabel;
-    QComboBox* m_defaultAreaCategory;
-    QWidget* m_controlWidget;
+    QLabel *m_defaultAreaCategoryLabel;
+    QComboBox *m_defaultAreaCategory;
+    QWidget *m_controlWidget;
 };
-
 }
 
 #endif /* IMAGEPREVIEWWIDGET_H */

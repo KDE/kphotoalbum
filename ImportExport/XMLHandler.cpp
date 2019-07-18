@@ -36,88 +36,86 @@ using Utilities::StringSet;
  * separate from the normal index.xml file, which might change with KPhotoAlbum versions to e.g. support compression.
  */
 QByteArray ImportExport::XMLHandler::createIndexXML(
-    const DB::FileNameList& images,
-    const QString& baseUrl,
+    const DB::FileNameList &images,
+    const QString &baseUrl,
     ImageFileLocation location,
-    Utilities::UniqFilenameMapper* nameMap)
+    Utilities::UniqFilenameMapper *nameMap)
 {
     QDomDocument doc;
-    doc.appendChild( doc.createProcessingInstruction( QString::fromLatin1("xml"),
-                                                      QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"") ) );
+    doc.appendChild(doc.createProcessingInstruction(QString::fromLatin1("xml"),
+                                                    QString::fromLatin1("version=\"1.0\" encoding=\"UTF-8\"")));
 
-    QDomElement top = doc.createElement( QString::fromLatin1( "KimDaBa-export" ) ); // Don't change, as this will make the files unreadable for KimDaBa 2.1 and back.
-    top.setAttribute( QString::fromLatin1( "location" ),
-                      location == Inline ? QString::fromLatin1( "inline" ) : QString::fromLatin1( "external" ) );
-    if ( !baseUrl.isEmpty() )
-        top.setAttribute( QString::fromLatin1( "baseurl" ), baseUrl );
-    doc.appendChild( top );
+    QDomElement top = doc.createElement(QString::fromLatin1("KimDaBa-export")); // Don't change, as this will make the files unreadable for KimDaBa 2.1 and back.
+    top.setAttribute(QString::fromLatin1("location"),
+                     location == Inline ? QString::fromLatin1("inline") : QString::fromLatin1("external"));
+    if (!baseUrl.isEmpty())
+        top.setAttribute(QString::fromLatin1("baseurl"), baseUrl);
+    doc.appendChild(top);
 
-
-    Q_FOREACH(const DB::FileName& fileName, images) {
+    Q_FOREACH (const DB::FileName &fileName, images) {
         const QString mappedFile = nameMap->uniqNameFor(fileName);
         QDomElement elm = save(doc, fileName.info());
-        elm.setAttribute( QString::fromLatin1( "file" ), mappedFile );
-        top.appendChild( elm );
+        elm.setAttribute(QString::fromLatin1("file"), mappedFile);
+        top.appendChild(elm);
     }
     return doc.toByteArray();
 }
 
-QDomElement ImportExport::XMLHandler::save( QDomDocument doc, const DB::ImageInfoPtr& info )
+QDomElement ImportExport::XMLHandler::save(QDomDocument doc, const DB::ImageInfoPtr &info)
 {
-    QDomElement elm = doc.createElement( QString::fromLatin1("image") );
-    elm.setAttribute( QString::fromLatin1("label"),  info->label() );
-    elm.setAttribute( QString::fromLatin1("description"), info->description() );
+    QDomElement elm = doc.createElement(QString::fromLatin1("image"));
+    elm.setAttribute(QString::fromLatin1("label"), info->label());
+    elm.setAttribute(QString::fromLatin1("description"), info->description());
 
     DB::ImageDate date = info->date();
     QDateTime start = date.start();
     QDateTime end = date.end();
 
-    elm.setAttribute( QString::fromLatin1("yearFrom"), start.date().year() );
-    elm.setAttribute( QString::fromLatin1("monthFrom"),  start.date().month() );
-    elm.setAttribute( QString::fromLatin1("dayFrom"),  start.date().day() );
-    elm.setAttribute( QString::fromLatin1("hourFrom"), start.time().hour() );
-    elm.setAttribute( QString::fromLatin1("minuteFrom"), start.time().minute() );
-    elm.setAttribute( QString::fromLatin1("secondFrom"), start.time().second() );
+    elm.setAttribute(QString::fromLatin1("yearFrom"), start.date().year());
+    elm.setAttribute(QString::fromLatin1("monthFrom"), start.date().month());
+    elm.setAttribute(QString::fromLatin1("dayFrom"), start.date().day());
+    elm.setAttribute(QString::fromLatin1("hourFrom"), start.time().hour());
+    elm.setAttribute(QString::fromLatin1("minuteFrom"), start.time().minute());
+    elm.setAttribute(QString::fromLatin1("secondFrom"), start.time().second());
 
-    elm.setAttribute( QString::fromLatin1("yearTo"), end.date().year() );
-    elm.setAttribute( QString::fromLatin1("monthTo"),  end.date().month() );
-    elm.setAttribute( QString::fromLatin1("dayTo"),  end.date().day() );
+    elm.setAttribute(QString::fromLatin1("yearTo"), end.date().year());
+    elm.setAttribute(QString::fromLatin1("monthTo"), end.date().month());
+    elm.setAttribute(QString::fromLatin1("dayTo"), end.date().day());
 
-    elm.setAttribute( QString::fromLatin1( "width" ), info->size().width() );
-    elm.setAttribute( QString::fromLatin1( "height" ), info->size().height() );
-    elm.setAttribute( QString::fromLatin1( "md5sum" ), info->MD5Sum().toHexString() );
-    elm.setAttribute( QString::fromLatin1( "angle" ), info->angle() );
+    elm.setAttribute(QString::fromLatin1("width"), info->size().width());
+    elm.setAttribute(QString::fromLatin1("height"), info->size().height());
+    elm.setAttribute(QString::fromLatin1("md5sum"), info->MD5Sum().toHexString());
+    elm.setAttribute(QString::fromLatin1("angle"), info->angle());
 
-    writeCategories( doc, elm, info );
+    writeCategories(doc, elm, info);
 
     return elm;
 }
 
-
-void ImportExport::XMLHandler::writeCategories( QDomDocument doc, QDomElement root, const DB::ImageInfoPtr& info )
+void ImportExport::XMLHandler::writeCategories(QDomDocument doc, QDomElement root, const DB::ImageInfoPtr &info)
 {
-    QDomElement elm = doc.createElement( QString::fromLatin1("options") );
+    QDomElement elm = doc.createElement(QString::fromLatin1("options"));
 
     bool anyAtAll = false;
     QStringList grps = info->availableCategories();
-    Q_FOREACH(const QString &name, grps ) {
-        QDomElement opt = doc.createElement( QString::fromLatin1("option") );
-        opt.setAttribute( QString::fromLatin1("name"),  name );
+    Q_FOREACH (const QString &name, grps) {
+        QDomElement opt = doc.createElement(QString::fromLatin1("option"));
+        opt.setAttribute(QString::fromLatin1("name"), name);
 
         StringSet items = info->itemsOfCategory(name);
         bool any = false;
-        Q_FOREACH( const QString &item, items ) {
-            QDomElement val = doc.createElement( QString::fromLatin1("value") );
-            val.setAttribute( QString::fromLatin1("value"), item );
-            opt.appendChild( val );
+        Q_FOREACH (const QString &item, items) {
+            QDomElement val = doc.createElement(QString::fromLatin1("value"));
+            val.setAttribute(QString::fromLatin1("value"), item);
+            opt.appendChild(val);
             any = true;
             anyAtAll = true;
         }
-        if ( any )
-            elm.appendChild( opt );
+        if (any)
+            elm.appendChild(opt);
     }
 
-    if ( anyAtAll )
-        root.appendChild( elm );
+    if (anyAtAll)
+        root.appendChild(elm);
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

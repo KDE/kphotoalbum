@@ -32,28 +32,30 @@ class Database;
 class FileWriter
 {
 public:
-    explicit FileWriter( Database* db ) :m_db(db) {}
-    void save( const QString& fileName, bool isAutoSave );
-    static QString escape( const QString& );
+    explicit FileWriter(Database *db)
+        : m_db(db)
+    {
+    }
+    void save(const QString &fileName, bool isAutoSave);
+    static QString escape(const QString &);
 
 protected:
-    void saveCategories( QXmlStreamWriter& );
-    void saveImages( QXmlStreamWriter& );
-    void saveBlockList( QXmlStreamWriter& );
-    void saveMemberGroups( QXmlStreamWriter& );
-    void save( QXmlStreamWriter& writer, const DB::ImageInfoPtr& info );
-    void writeCategories( QXmlStreamWriter&, const DB::ImageInfoPtr& info );
-    void writeCategoriesCompressed( QXmlStreamWriter&, const DB::ImageInfoPtr& info );
-    bool shouldSaveCategory( const QString& categoryName ) const;
+    void saveCategories(QXmlStreamWriter &);
+    void saveImages(QXmlStreamWriter &);
+    void saveBlockList(QXmlStreamWriter &);
+    void saveMemberGroups(QXmlStreamWriter &);
+    void save(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info);
+    void writeCategories(QXmlStreamWriter &, const DB::ImageInfoPtr &info);
+    void writeCategoriesCompressed(QXmlStreamWriter &, const DB::ImageInfoPtr &info);
+    bool shouldSaveCategory(const QString &categoryName) const;
     //void saveSettings(QXmlStreamWriter&);
 
 private:
-    Database* const m_db;
+    Database *const m_db;
     QString areaToString(QRect area) const;
 };
 
 }
-
 
 #endif /* XMLDB_FILEWRITER_H */
 

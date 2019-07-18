@@ -28,34 +28,34 @@
 #include "ImageCollection.h"
 #include "UploadImageCollection.h"
 
-namespace Plugins {
-
-UploadWidget::UploadWidget( QWidget* parent )
-    : KIPI::UploadWidget( parent )
+namespace Plugins
 {
-    QTreeView* listView = new QTreeView(this);
-    QHBoxLayout* layout = new QHBoxLayout(this);
+
+UploadWidget::UploadWidget(QWidget *parent)
+    : KIPI::UploadWidget(parent)
+{
+    QTreeView *listView = new QTreeView(this);
+    QHBoxLayout *layout = new QHBoxLayout(this);
     layout->addWidget(listView);
 
     m_model = new QFileSystemModel(this);
-    m_model->setFilter( QDir::Dirs | QDir::NoDotDot);
+    m_model->setFilter(QDir::Dirs | QDir::NoDotDot);
     listView->setModel(m_model);
     m_path = Settings::SettingsData::instance()->imageDirectory();
-    const QModelIndex index = m_model->setRootPath( m_path );
+    const QModelIndex index = m_model->setRootPath(m_path);
     listView->setRootIndex(index);
     connect(listView, &QTreeView::activated, this, &UploadWidget::newIndexSelected);
 }
 
 KIPI::ImageCollection UploadWidget::selectedImageCollection() const
 {
-    return KIPI::ImageCollection( new Plugins::UploadImageCollection( m_path ) );
+    return KIPI::ImageCollection(new Plugins::UploadImageCollection(m_path));
 }
 
-void UploadWidget::newIndexSelected(const QModelIndex& index )
+void UploadWidget::newIndexSelected(const QModelIndex &index)
 {
     m_path = m_model->filePath(index);
 }
-
 
 } // namespace Plugins
 // vi:expandtab:tabstop=4 shiftwidth=4:

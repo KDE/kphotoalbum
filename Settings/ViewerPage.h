@@ -27,25 +27,23 @@ namespace Settings
 class SettingsData;
 class ViewerSizeConfig;
 
-class ViewerPage :public QWidget
+class ViewerPage : public QWidget
 {
 public:
-    explicit ViewerPage( QWidget* parent );
-    void loadSettings( Settings::SettingsData* );
-    void saveSettings( Settings::SettingsData* );
+    explicit ViewerPage(QWidget *parent);
+    void loadSettings(Settings::SettingsData *);
+    void saveSettings(Settings::SettingsData *);
 
 private:
-    Settings::ViewerSizeConfig* m_slideShowSetup;
-    Settings::ViewerSizeConfig* m_viewImageSetup;
-    QComboBox* m_smoothScale;
-    QSpinBox* m_slideShowInterval;
-    QSpinBox* m_cacheSize;
-    KComboBox* m_viewerStandardSize;
+    Settings::ViewerSizeConfig *m_slideShowSetup;
+    Settings::ViewerSizeConfig *m_viewImageSetup;
+    QComboBox *m_smoothScale;
+    QSpinBox *m_slideShowInterval;
+    QSpinBox *m_cacheSize;
+    KComboBox *m_viewerStandardSize;
 };
 
-
 }
-
 
 #endif /* VIEWERPAGE_H */
 

@@ -22,7 +22,8 @@
 #include <QLabel>
 class QTimer;
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
 class ConnectionIndicator : public QLabel
 {
@@ -39,9 +40,11 @@ private slots:
     void waitingAnimation();
 
 private:
-    enum State {Off, Connecting, On};
+    enum State { Off,
+                 Connecting,
+                 On };
     State m_state;
-    QTimer* m_timer;
+    QTimer *m_timer;
 };
 
 } // namespace RemoteControl

@@ -17,64 +17,66 @@
 */
 #include "Grid.h"
 #include "Info.h"
-#include <QResizeEvent>
-#include <QPainter>
-#include <QTimer>
+#include <QColor>
 #include <QGridLayout>
 #include <QLabel>
-#include <Settings/SettingsData.h>
-#include <QColor>
+#include <QPainter>
+#include <QResizeEvent>
 #include <QScrollBar>
+#include <QTimer>
+#include <Settings/SettingsData.h>
 
-Exif::Grid::Grid( QWidget* parent )
-    :QScrollArea( parent )
+Exif::Grid::Grid(QWidget *parent)
+    : QScrollArea(parent)
 {
-    setFocusPolicy( Qt::WheelFocus );
+    setFocusPolicy(Qt::WheelFocus);
     setWidgetResizable(true);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     viewport()->installEventFilter(this);
-    setMinimumSize(800,400);
+    setMinimumSize(800, 400);
 }
 
-class Background :public QWidget {
+class Background : public QWidget
+{
 protected:
-    void paintEvent(QPaintEvent* event) override {
+    void paintEvent(QPaintEvent *event) override
+    {
         QPainter painter(this);
-        painter.fillRect( event->rect(), QColor(Qt::white));
+        painter.fillRect(event->rect(), QColor(Qt::white));
     };
 };
 
-void Exif::Grid::setupUI( const QString& charset )
+void Exif::Grid::setupUI(const QString &charset)
 {
     delete this->widget();
     m_labels.clear();
-    Background* widget = new Background;
+    Background *widget = new Background;
 
-    QGridLayout* layout = new QGridLayout(widget);
+    QGridLayout *layout = new QGridLayout(widget);
     layout->setSpacing(0);
     int row = 0;
 
-    const QMap<QString,QStringList> map = Exif::Info::instance()->infoForDialog( m_fileName, charset );
-    const StringSet groups = exifGroups( map );
+    const QMap<QString, QStringList> map = Exif::Info::instance()->infoForDialog(m_fileName, charset);
+    const StringSet groups = exifGroups(map);
 
-    for ( const QString& group : groups ) {
-        layout->addWidget(headerLabel(group),row++,0,1,4);
+    for (const QString &group : groups) {
+        layout->addWidget(headerLabel(group), row++, 0, 1, 4);
 
         // Items of group
-        const QMap<QString,QStringList> items = itemsForGroup( group, map );
+        const QMap<QString, QStringList> items = itemsForGroup(group, map);
         QStringList sorted = items.keys();
         sorted.sort();
         int elements = sorted.size();
         int perCol = (elements + 1) / 2;
         int count = 0;
-        for ( const QString& key : sorted ) {
+        for (const QString &key : sorted) {
             const int subrow = (count % perCol);
-            const QColor color  = (subrow & 1) ? Qt::white : QColor(226, 235, 250);
-            QPair<QLabel*, QLabel*> pair = infoLabelPair( exifNameNoGroup( key ), items[key].join( QLatin1String(", ")), color );
+            const QColor color = (subrow & 1) ? Qt::white : QColor(226, 235, 250);
+            QPair<QLabel *, QLabel *> pair = infoLabelPair(exifNameNoGroup(key), items[key].join(QLatin1String(", ")), color);
 
             int col = (count / perCol) * 2;
-            layout->addWidget(pair.first, row+subrow, col);
-            layout->addWidget(pair.second,row+subrow,col+1);
+            layout->addWidget(pair.first, row + subrow, col);
+            layout->addWidget(pair.second, row + subrow, col + 1);
             count++;
         }
         row += perCol;
@@ -87,7 +89,7 @@ void Exif::Grid::setupUI( const QString& charset )
 
 QLabel *Exif::Grid::headerLabel(const QString &title)
 {
-    QLabel* label = new QLabel(title);
+    QLabel *label = new QLabel(title);
 
     QPalette pal;
     pal.setBrush(QPalette::Background, Qt::lightGray);
@@ -100,8 +102,8 @@ QLabel *Exif::Grid::headerLabel(const QString &title)
 
 QPair<QLabel *, QLabel *> Exif::Grid::infoLabelPair(const QString &title, const QString &value, const QColor &color)
 {
-    QLabel* keyLabel = new QLabel( title );
-    QLabel* valueLabel = new QLabel( value );
+    QLabel *keyLabel = new QLabel(title);
+    QLabel *valueLabel = new QLabel(value);
 
     QPalette pal;
     pal.setBrush(QPalette::Background, color);
@@ -109,8 +111,8 @@ QPair<QLabel *, QLabel *> Exif::Grid::infoLabelPair(const QString &title, const 
     valueLabel->setPalette(pal);
     keyLabel->setAutoFillBackground(true);
     valueLabel->setAutoFillBackground(true);
-    m_labels.append( qMakePair(keyLabel,valueLabel));
-    return qMakePair(keyLabel,valueLabel);
+    m_labels.append(qMakePair(keyLabel, valueLabel));
+    return qMakePair(keyLabel, valueLabel);
 }
 
 void Exif::Grid::updateWidgetSize()
@@ -118,46 +120,46 @@ void Exif::Grid::updateWidgetSize()
     widget()->setFixedSize(viewport()->width(), widget()->height());
 }
 
-StringSet Exif::Grid::exifGroups( const QMap<QString,QStringList>& exifInfo )
+StringSet Exif::Grid::exifGroups(const QMap<QString, QStringList> &exifInfo)
 {
     StringSet result;
-    for( QMap<QString,QStringList>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
-        result.insert( groupName( it.key() ) );
+    for (QMap<QString, QStringList>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it) {
+        result.insert(groupName(it.key()));
     }
     return result;
 }
 
-QMap<QString,QStringList> Exif::Grid::itemsForGroup( const QString& group, const QMap<QString, QStringList>& exifInfo )
+QMap<QString, QStringList> Exif::Grid::itemsForGroup(const QString &group, const QMap<QString, QStringList> &exifInfo)
 {
-    QMap<QString,QStringList> result;
-    for( QMap<QString,QStringList>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it ) {
-        if ( groupName( it.key() ) == group )
-            result.insert( it.key(), it.value() );
+    QMap<QString, QStringList> result;
+    for (QMap<QString, QStringList>::ConstIterator it = exifInfo.begin(); it != exifInfo.end(); ++it) {
+        if (groupName(it.key()) == group)
+            result.insert(it.key(), it.value());
     }
     return result;
 }
 
-QString Exif::Grid::groupName( const QString& exifName )
+QString Exif::Grid::groupName(const QString &exifName)
 {
     QStringList list = exifName.split(QString::fromLatin1("."));
     list.pop_back();
-    return list.join( QString::fromLatin1(".") );
+    return list.join(QString::fromLatin1("."));
 }
 
-QString Exif::Grid::exifNameNoGroup( const QString& fullName )
+QString Exif::Grid::exifNameNoGroup(const QString &fullName)
 {
     return fullName.split(QString::fromLatin1(".")).last();
 }
 
 void Exif::Grid::scroll(int dy)
 {
-    verticalScrollBar()->setValue(verticalScrollBar()->value()+dy);
+    verticalScrollBar()->setValue(verticalScrollBar()->value() + dy);
 }
 
 void Exif::Grid::updateSearchString(const QString &search)
 {
-    for ( QPair<QLabel*,QLabel*> tuple : m_labels ) {
-        const bool matches = tuple.first->text().contains( search, Qt::CaseInsensitive ) && search.length() != 0;
+    for (QPair<QLabel *, QLabel *> tuple : m_labels) {
+        const bool matches = tuple.first->text().contains(search, Qt::CaseInsensitive) && search.length() != 0;
         QPalette pal = tuple.first->palette();
         pal.setBrush(QPalette::Foreground, matches ? Qt::red : Qt::black);
         tuple.first->setPalette(pal);
@@ -169,31 +171,31 @@ void Exif::Grid::updateSearchString(const QString &search)
     }
 }
 
-void Exif::Grid::keyPressEvent( QKeyEvent* e )
+void Exif::Grid::keyPressEvent(QKeyEvent *e)
 {
-    switch ( e->key() ) {
+    switch (e->key()) {
     case Qt::Key_Down:
-        scroll( 20 );
+        scroll(20);
         return;
     case Qt::Key_Up:
-        scroll( -20 );
+        scroll(-20);
         return;
     case Qt::Key_PageDown:
-        scroll( viewport()->height() - 20);
+        scroll(viewport()->height() - 20);
         return;
     case Qt::Key_PageUp:
-        scroll(-(viewport()->height()- 20));
+        scroll(-(viewport()->height() - 20));
         return;
     case Qt::Key_Escape:
-        QScrollArea::keyPressEvent( e ); // Propagate to close dialog.
+        QScrollArea::keyPressEvent(e); // Propagate to close dialog.
         return;
     }
 }
 
-bool Exif::Grid::eventFilter(QObject* object, QEvent* event)
+bool Exif::Grid::eventFilter(QObject *object, QEvent *event)
 {
-    if ( object == viewport() && event->type() == QEvent::Resize) {
-        QResizeEvent* re = static_cast<QResizeEvent*>(event);
+    if (object == viewport() && event->type() == QEvent::Resize) {
+        QResizeEvent *re = static_cast<QResizeEvent *>(event);
         widget()->setFixedSize(re->size().width(), widget()->height());
     }
     return false;
@@ -202,6 +204,6 @@ bool Exif::Grid::eventFilter(QObject* object, QEvent* event)
 void Exif::Grid::setFileName(const DB::FileName &fileName)
 {
     m_fileName = fileName;
-    setupUI( Settings::SettingsData::instance()->iptcCharset() );
+    setupUI(Settings::SettingsData::instance()->iptcCharset());
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -19,14 +19,14 @@
 
 using namespace DB;
 
-void CategoryCollection::itemRenamed( const QString& oldName, const QString& newName )
+void CategoryCollection::itemRenamed(const QString &oldName, const QString &newName)
 {
-    emit itemRenamed( static_cast<Category*>( const_cast<QObject*>( sender() ) ), oldName, newName );
+    emit itemRenamed(static_cast<Category *>(const_cast<QObject *>(sender())), oldName, newName);
 }
 
-void CategoryCollection::itemRemoved( const QString& item )
+void CategoryCollection::itemRemoved(const QString &item)
 {
-    emit itemRemoved( static_cast<Category*>( const_cast<QObject*>( sender() ) ), item );
+    emit itemRemoved(static_cast<Category *>(const_cast<QObject *>(sender())), item);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

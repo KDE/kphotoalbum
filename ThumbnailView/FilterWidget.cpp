@@ -20,17 +20,15 @@
 #include "FilterWidget.h"
 #include <KLocalizedString>
 #include <KRatingWidget>
-#include <QLabel>
 #include <QHBoxLayout>
-
+#include <QLabel>
 
 ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
-    : KToolBar (parent)
+    : KToolBar(parent)
 {
     m_toggleFilter = addAction(
-                QIcon::fromTheme( QLatin1String("view-filter")),
-                i18nc("The action enables/disables filtering of images in the thumbnail view.", "Toggle filter")
-                );
+        QIcon::fromTheme(QLatin1String("view-filter")),
+        i18nc("The action enables/disables filtering of images in the thumbnail view.", "Toggle filter"));
     m_toggleFilter->setCheckable(true);
     m_toggleFilter->setToolTip(xi18n("Press <shortcut>Escape</shortcut> to clear filter."));
     connect(m_toggleFilter, &QAction::toggled, this, &FilterWidget::filterToggled);
@@ -46,21 +44,17 @@ ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
     connect(m_rating, SIGNAL(ratingChanged(int)), this, SLOT(slotRatingChanged(int)));
 }
 
-
 void ThumbnailView::FilterWidget::setFilter(const DB::ImageSearchInfo &filter)
 {
     // prevent ratingChanged signal when the filter has changed
     blockSignals(true);
-    m_rating->setRating( qMax( static_cast<short int>(0), filter.rating() ));
-    if (filter.isNull())
-    {
+    m_rating->setRating(qMax(static_cast<short int>(0), filter.rating()));
+    if (filter.isNull()) {
         m_toggleFilter->setChecked(false);
         resetLabelText();
-    }
-    else {
+    } else {
         m_toggleFilter->setChecked(true);
-        m_label->setText(i18nc("The label gives a textual description of the active filter"
-                               , "Filter: %1",filter.toString()));
+        m_label->setText(i18nc("The label gives a textual description of the active filter", "Filter: %1", filter.toString()));
     }
     blockSignals(false);
 }

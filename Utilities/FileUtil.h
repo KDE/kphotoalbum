@@ -29,12 +29,10 @@
 
 namespace Utilities
 {
-bool copyOrOverwrite( const QString& from, const QString& to );
-bool makeSymbolicLink( const QString& from, const QString& to );
-bool makeHardLink( const QString& from, const QString& to );
-
+bool copyOrOverwrite(const QString &from, const QString &to);
+bool makeSymbolicLink(const QString &from, const QString &to);
+bool makeHardLink(const QString &from, const QString &to);
 }
-
 
 #endif /* UTIL_H */
 

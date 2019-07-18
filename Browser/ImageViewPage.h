@@ -19,27 +19,27 @@
 #ifndef IMAGEVIEWPAGE_H
 #define IMAGEVIEWPAGE_H
 #include "BrowserPage.h"
-#include <DB/ImageSearchInfo.h>
 #include <DB/FileName.h>
+#include <DB/ImageSearchInfo.h>
 
-namespace Browser {
+namespace Browser
+{
 
 /**
  * \brief The page showing the actual images.
  *
  * See \ref Browser for a detailed description of how this fits in with the rest of the classes in this module
  */
-class ImageViewPage :public BrowserPage
+class ImageViewPage : public BrowserPage
 {
 public:
-    ImageViewPage( const DB::ImageSearchInfo& info, BrowserWidget* browser );
-    ImageViewPage( const DB::FileName& context, BrowserWidget* browser );
+    ImageViewPage(const DB::ImageSearchInfo &info, BrowserWidget *browser);
+    ImageViewPage(const DB::FileName &context, BrowserWidget *browser);
     void activate() override;
     Viewer viewer() override;
     bool isSearchable() const override;
     bool showDuringMovement() const override;
     Breadcrumb breadcrumb() const override;
-
 
 private:
     DB::FileName m_context;

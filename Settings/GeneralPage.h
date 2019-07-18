@@ -28,40 +28,39 @@ namespace Settings
 {
 class SettingsData;
 
-class GeneralPage :public QWidget
+class GeneralPage : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GeneralPage( QWidget* parent );
-    void loadSettings( Settings::SettingsData* );
-    void saveSettings( Settings::SettingsData* );
-    void setUseRawThumbnailSize( const QSize& size );
+    explicit GeneralPage(QWidget *parent);
+    void loadSettings(Settings::SettingsData *);
+    void saveSettings(Settings::SettingsData *);
+    void setUseRawThumbnailSize(const QSize &size);
     QSize useRawThumbnailSize();
 
 private slots:
-    void showHistogramChanged( int state ) const;
+    void showHistogramChanged(int state) const;
     void useEXIFCommentsChanged(int state);
     void stripEXIFCommentsChanged(int state);
 
 private:
-    KComboBox* m_trustTimeStamps;
-    QCheckBox* m_useEXIFRotate;
-    QCheckBox* m_useEXIFComments;
-    QTextEdit* m_commentsToStrip;
-    QCheckBox* m_stripEXIFComments;
-    QCheckBox* m_useRawThumbnail;
-    QSpinBox* m_useRawThumbnailWidth;
-    QSpinBox* m_useRawThumbnailHeight;
-    QCheckBox* m_showHistogram;
-    QCheckBox* m_histogramUseLinearScale;
-    QSpinBox* m_barWidth;
-    QSpinBox* m_barHeight;
-    QCheckBox* m_showSplashScreen;
-    QComboBox* m_albumCategory;
-    QCheckBox* m_listenForAndroidDevicesOnStartup;
+    KComboBox *m_trustTimeStamps;
+    QCheckBox *m_useEXIFRotate;
+    QCheckBox *m_useEXIFComments;
+    QTextEdit *m_commentsToStrip;
+    QCheckBox *m_stripEXIFComments;
+    QCheckBox *m_useRawThumbnail;
+    QSpinBox *m_useRawThumbnailWidth;
+    QSpinBox *m_useRawThumbnailHeight;
+    QCheckBox *m_showHistogram;
+    QCheckBox *m_histogramUseLinearScale;
+    QSpinBox *m_barWidth;
+    QSpinBox *m_barHeight;
+    QCheckBox *m_showSplashScreen;
+    QComboBox *m_albumCategory;
+    QCheckBox *m_listenForAndroidDevicesOnStartup;
 };
 }
-
 
 #endif /* GENERALPAGE_H */
 

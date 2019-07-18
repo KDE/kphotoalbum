@@ -18,28 +18,29 @@
 */
 
 #include "UpdateVideoThumbnail.h"
-#include <Utilities/FileUtil.h>
-#include <Utilities/VideoUtil.h>
+#include "Window.h"
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <ImageManager/ThumbnailCache.h>
-#include "Window.h"
 #include <ThumbnailView/CellGeometry.h>
+#include <Utilities/FileUtil.h>
+#include <Utilities/VideoUtil.h>
 
-namespace MainWindow {
-
-void UpdateVideoThumbnail::useNext(const DB::FileNameList& list)
+namespace MainWindow
 {
-    update(list,+1);
+
+void UpdateVideoThumbnail::useNext(const DB::FileNameList &list)
+{
+    update(list, +1);
 }
 
-void UpdateVideoThumbnail::usePrevious(const DB::FileNameList& list)
+void UpdateVideoThumbnail::usePrevious(const DB::FileNameList &list)
 {
     update(list, -1);
 }
 
-void UpdateVideoThumbnail::update(const DB::FileNameList& list, int direction)
+void UpdateVideoThumbnail::update(const DB::FileNameList &list, int direction)
 {
-    Q_FOREACH(const DB::FileName& fileName, list) {
+    Q_FOREACH (const DB::FileName &fileName, list) {
         if (Utilities::isVideo(fileName))
             update(fileName, direction);
     }
@@ -56,26 +57,26 @@ void UpdateVideoThumbnail::update(const DB::FileName &fileName, int direction)
         QImage frameImage(frameFile.absolute());
         if (frameImage.isNull())
             continue;
-        if ( baseImage == frameImage ) {
+        if (baseImage == frameImage) {
             break;
         }
     }
 
     const DB::FileName newImageName = nextExistingImage(fileName, frame, direction);
 
-    Utilities::copyOrOverwrite(newImageName.absolute(),baseImageName.absolute());
+    Utilities::copyOrOverwrite(newImageName.absolute(), baseImageName.absolute());
 
-    QImage image = QImage(newImageName.absolute()).scaled(ThumbnailView::CellGeometry::preferredIconSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation );
-    ImageManager::ThumbnailCache::instance()->insert(fileName,image);
+    QImage image = QImage(newImageName.absolute()).scaled(ThumbnailView::CellGeometry::preferredIconSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    ImageManager::ThumbnailCache::instance()->insert(fileName, image);
     MainWindow::Window::theMainWindow()->reloadThumbnails();
 }
 
 DB::FileName UpdateVideoThumbnail::nextExistingImage(const DB::FileName &fileName, int frame, int direction)
 {
-    for (int i = 1; i <10; ++i) {
-        const int nextIndex = (frame + 10 + direction*i) % 10;
+    for (int i = 1; i < 10; ++i) {
+        const int nextIndex = (frame + 10 + direction * i) % 10;
         const DB::FileName file = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(fileName, nextIndex);
-        if ( file.exists() )
+        if (file.exists())
             return file;
     }
     Q_ASSERT(false && "We should always find at least the current frame");

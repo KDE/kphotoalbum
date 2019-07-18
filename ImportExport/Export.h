@@ -32,41 +32,49 @@ class QCheckBox;
 class KZip;
 class QProgressDialog;
 
-namespace DB { class FileNameList; }
+namespace DB
+{
+class FileNameList;
+}
 
 namespace ImportExport
 {
 
-enum ImageFileLocation { Inline, ManualCopy, AutoCopy, Link, Symlink };
+enum ImageFileLocation { Inline,
+                         ManualCopy,
+                         AutoCopy,
+                         Link,
+                         Symlink };
 
-class Export :public ImageManager::ImageClientInterface {
+class Export : public ImageManager::ImageClientInterface
+{
 
 public:
-    static void imageExport(const DB::FileNameList& list);
+    static void imageExport(const DB::FileNameList &list);
 
-    Export( const DB::FileNameList& list, const QString& zipFile,
-            bool compress, int maxSize,
-            ImageFileLocation, const QString& baseUrl,
-            bool generateThumbnails,
-            bool *ok);
+    Export(const DB::FileNameList &list, const QString &zipFile,
+           bool compress, int maxSize,
+           ImageFileLocation, const QString &baseUrl,
+           bool generateThumbnails,
+           bool *ok);
     ~Export() override;
 
     static void showUsageDialog();
 
     // ImageManager::ImageClient callback.
-    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
+    void pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image) override;
 
 protected:
-    void generateThumbnails(const DB::FileNameList& list);
-    void copyImages(const DB::FileNameList& list);
+    void generateThumbnails(const DB::FileNameList &list);
+    void copyImages(const DB::FileNameList &list);
 
 private:
     bool m_internalOk; // used in case m_ok is null
-    bool* m_ok;
+    bool *m_ok;
     int m_filesRemaining;
     int m_steps;
-    QProgressDialog* m_progressDialog;
-    KZip* m_zip;
+    QProgressDialog *m_progressDialog;
+    KZip *m_zip;
     int m_maxSize;
     QString m_subdir;
     bool m_loopEntered;
@@ -74,34 +82,33 @@ private:
     Utilities::UniqFilenameMapper m_filenameMapper;
     bool m_copyingFiles;
     QString m_destdir;
-    const QPointer <QEventLoop> m_eventLoop;
+    const QPointer<QEventLoop> m_eventLoop;
 };
 
-class ExportConfig :public QDialog {
+class ExportConfig : public QDialog
+{
     Q_OBJECT
 
 public:
     ExportConfig();
-    QCheckBox* mp_compress;
-    QCheckBox* mp_generateThumbnails;
-    QCheckBox* mp_enforeMaxSize;
-    QSpinBox* mp_maxSize;
+    QCheckBox *mp_compress;
+    QCheckBox *mp_generateThumbnails;
+    QCheckBox *mp_enforeMaxSize;
+    QSpinBox *mp_maxSize;
 
     ImageFileLocation imageFileLocation() const;
 
 private:
-    QRadioButton* m_include;
-    QRadioButton* m_manually;
-    QRadioButton* m_link;
-    QRadioButton* m_symlink;
-    QRadioButton* m_auto;
+    QRadioButton *m_include;
+    QRadioButton *m_manually;
+    QRadioButton *m_link;
+    QRadioButton *m_symlink;
+    QRadioButton *m_auto;
 
 private slots:
     void showHelp();
 };
-
 }
-
 
 #endif /* IMPORTEXPORT_H */
 

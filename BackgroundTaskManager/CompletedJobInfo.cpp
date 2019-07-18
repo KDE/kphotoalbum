@@ -19,10 +19,11 @@
 
 #include "CompletedJobInfo.h"
 
-namespace BackgroundTaskManager {
+namespace BackgroundTaskManager
+{
 
 CompletedJobInfo::CompletedJobInfo(JobInfo *other)
-    :JobInfo(other)
+    : JobInfo(other)
 {
     m_title = other->title();
     m_details = other->details();

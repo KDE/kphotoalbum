@@ -26,7 +26,8 @@
 // Qt classes
 class QMimeData;
 
-namespace DB {
+namespace DB
+{
 
 class CategoryItem;
 
@@ -62,23 +63,23 @@ class TreeCategoryModel : public AbstractCategoryModel
     Q_OBJECT
 
 public:
-    TreeCategoryModel(const DB::CategoryPtr& category, const DB::ImageSearchInfo& info);
+    TreeCategoryModel(const DB::CategoryPtr &category, const DB::ImageSearchInfo &info);
     ~TreeCategoryModel() override;
 
-    int rowCount(const QModelIndex&) const override;
-    int columnCount(const QModelIndex&) const override;
+    int rowCount(const QModelIndex &) const override;
+    int columnCount(const QModelIndex &) const override;
     QModelIndex index(int row, int column,
-                      const QModelIndex& parent = QModelIndex()) const override;
-    QModelIndex parent(const QModelIndex& index) const override;
+                      const QModelIndex &parent = QModelIndex()) const override;
+    QModelIndex parent(const QModelIndex &index) const override;
 
-    QString indexToName(const QModelIndex&) const override;
+    QString indexToName(const QModelIndex &) const override;
 
     Qt::DropActions supportedDropActions() const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
     QStringList mimeTypes() const override;
-    QMimeData* mimeData(const QModelIndexList& indexes) const override;
-    bool dropMimeData(const QMimeData* data, Qt::DropAction action,
-                      int row, int column, const QModelIndex& parent) override;
+    QMimeData *mimeData(const QModelIndexList &indexes) const override;
+    bool dropMimeData(const QMimeData *data, Qt::DropAction action,
+                      int row, int column, const QModelIndex &parent) override;
 
     struct tagData {
         QString tagName;
@@ -90,12 +91,12 @@ signals:
 
 private: // Functions
     struct Data;
-    bool createData(DB::CategoryItem* parentCategoryItem, Data* parent);
-    Data* indexToData(const QModelIndex& index) const;
-    TreeCategoryModel::tagData getDroppedTagData(QByteArray& encodedData);
+    bool createData(DB::CategoryItem *parentCategoryItem, Data *parent);
+    Data *indexToData(const QModelIndex &index) const;
+    TreeCategoryModel::tagData getDroppedTagData(QByteArray &encodedData);
 
 private: // Variables
-    Data* m_data;
+    Data *m_data;
     DB::MemberMap m_memberMap;
 };
 

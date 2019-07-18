@@ -26,22 +26,22 @@ class QSpinBox;
 namespace Settings
 {
 
-class ViewerSizeConfig :public QGroupBox {
+class ViewerSizeConfig : public QGroupBox
+{
     Q_OBJECT
 
 public:
-    ViewerSizeConfig( const QString& title, QWidget* parent );
-    void setSize( const QSize& size );
+    ViewerSizeConfig(const QString &title, QWidget *parent);
+    void setSize(const QSize &size);
     QSize size();
-    void setLaunchFullScreen( bool b );
+    void setLaunchFullScreen(bool b);
     bool launchFullScreen() const;
 
 private:
-    QCheckBox* m_fullScreen;
-    QSpinBox* m_width;
-    QSpinBox* m_height;
+    QCheckBox *m_fullScreen;
+    QSpinBox *m_width;
+    QSpinBox *m_height;
 };
-
 }
 
 #endif /* VIEWERSIZECONFIG_H */

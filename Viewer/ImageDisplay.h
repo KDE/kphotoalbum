@@ -19,21 +19,21 @@
 #ifndef IMAGEDISPLAY_H
 #define IMAGEDISPLAY_H
 
-#include <qpixmap.h>
-#include <QResizeEvent>
-#include <QMouseEvent>
-#include <QPaintEvent>
-#include "ImageManager/ImageClientInterface.h"
-#include <qimage.h>
-#include "DB/ImageInfoPtr.h"
 #include "AbstractDisplay.h"
+#include "DB/ImageInfoPtr.h"
+#include "ImageManager/ImageClientInterface.h"
 #include "Settings/SettingsData.h"
 #include <DB/FileNameList.h>
+#include <QMouseEvent>
+#include <QPaintEvent>
+#include <QResizeEvent>
+#include <qimage.h>
+#include <qpixmap.h>
 class QTimer;
 
 namespace DB
 {
-    class ImageInfo;
+class ImageInfo;
 }
 
 namespace Viewer
@@ -41,24 +41,28 @@ namespace Viewer
 class ViewHandler;
 class ViewerWidget;
 
-struct ViewPreloadInfo
-{
-    ViewPreloadInfo()  {}
-    ViewPreloadInfo( const QImage& img, const QSize& size, int angle )
-        : img(img), size(size), angle(angle) {}
+struct ViewPreloadInfo {
+    ViewPreloadInfo() {}
+    ViewPreloadInfo(const QImage &img, const QSize &size, int angle)
+        : img(img)
+        , size(size)
+        , angle(angle)
+    {
+    }
     QImage img;
     QSize size;
     int angle;
 };
 
-class ImageDisplay :public Viewer::AbstractDisplay, public ImageManager::ImageClientInterface {
-Q_OBJECT
+class ImageDisplay : public Viewer::AbstractDisplay, public ImageManager::ImageClientInterface
+{
+    Q_OBJECT
 public:
-    explicit ImageDisplay( QWidget* parent );
-    bool setImage( DB::ImageInfoPtr info, bool forward ) override;
+    explicit ImageDisplay(QWidget *parent);
+    bool setImage(DB::ImageInfoPtr info, bool forward) override;
     QImage currentViewAsThumbnail() const;
-    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
-    void setImageList( const DB::FileNameList& list );
+    void pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image) override;
+    void setImageList(const DB::FileNameList &list);
 
     void filterNone();
     void filterSelected();
@@ -82,63 +86,61 @@ protected slots:
 signals:
     void possibleChange();
     void imageReady();
-    void setCaptionInfo(const QString& info);
+    void setCaptionInfo(const QString &info);
     void viewGeometryChanged(QSize viewSize, QRect zoomWindow, double sizeRatio);
 
 protected:
-    void mousePressEvent( QMouseEvent* event ) override;
-    void mouseMoveEvent( QMouseEvent* event ) override;
-    void mouseReleaseEvent( QMouseEvent* event ) override;
-    void resizeEvent( QResizeEvent* event ) override;
-    void paintEvent( QPaintEvent* event ) override;
-    void hideEvent(QHideEvent* ) override;
-    QPoint mapPos( QPoint );
-    QPoint offset( int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double* ratio );
-    void xformPainter( QPainter* );
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+    void hideEvent(QHideEvent *) override;
+    QPoint mapPos(QPoint);
+    QPoint offset(int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double *ratio);
+    void xformPainter(QPainter *);
     void cropAndScale();
     void updatePreload();
-    int indexOf( const DB::FileName& fileName );
-    void requestImage( const DB::ImageInfoPtr& info, bool priority = false );
+    int indexOf(const DB::FileName &fileName);
+    void requestImage(const DB::ImageInfoPtr &info, bool priority = false);
 
     /** display zoom factor in title of display window */
     void updateZoomCaption();
 
     friend class ViewHandler;
-    void zoom( QPoint p1, QPoint p2 );
-    void normalize( QPoint& p1, QPoint& p2 );
-    void pan( const QPoint& );
+    void zoom(QPoint p1, QPoint p2);
+    void normalize(QPoint &p1, QPoint &p2);
+    void pan(const QPoint &);
     void busy();
     void unbusy();
-    bool isImageZoomed( const Settings::StandardViewSize type, const QSize& imgSize );
-    void updateZoomPoints( const Settings::StandardViewSize type, const QSize& imgSize );
+    bool isImageZoomed(const Settings::StandardViewSize type, const QSize &imgSize);
+    void updateZoomPoints(const Settings::StandardViewSize type, const QSize &imgSize);
     void potentiallyLoadFullSize();
-    double sizeRatio( const QSize& baseSize, const QSize& newSize ) const;
+    double sizeRatio(const QSize &baseSize, const QSize &newSize) const;
 
 private:
     QImage m_loadedImage;
     QImage m_croppedAndScaledImg;
 
-    ViewHandler* m_viewHandler;
+    ViewHandler *m_viewHandler;
 
     // zoom points in the coordinate system of the image.
     QPoint m_zStart;
     QPoint m_zEnd;
 
-    QMap<int,ViewPreloadInfo> m_cache;
+    QMap<int, ViewPreloadInfo> m_cache;
     DB::FileNameList m_imageList;
     QMap<QString, DB::ImageInfoPtr> m_loadMap;
     bool m_reloadImageInProgress;
     int m_forward;
     int m_curIndex;
     bool m_busy;
-    ViewerWidget* m_viewer;
+    ViewerWidget *m_viewer;
 
-    QTimer* m_cursorTimer;
+    QTimer *m_cursorTimer;
     bool m_cursorHiding;
 };
-
 }
-
 
 #endif /* IMAGEDISPLAY_H */
 

@@ -33,13 +33,13 @@
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
 
-ThumbnailView::SelectionInteraction::SelectionInteraction( ThumbnailFactory* factory )
-    : ThumbnailComponent( factory ), m_dragInProgress( false )
+ThumbnailView::SelectionInteraction::SelectionInteraction(ThumbnailFactory *factory)
+    : ThumbnailComponent(factory)
+    , m_dragInProgress(false)
 {
 }
 
-
-bool ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
+bool ThumbnailView::SelectionInteraction::mousePressEvent(QMouseEvent *event)
 {
     m_mousePressPos = event->pos();
     const DB::FileName fileName = widget()->mediaIdUnderCursor();
@@ -47,29 +47,27 @@ bool ThumbnailView::SelectionInteraction::mousePressEvent( QMouseEvent* event )
     return m_isMouseDragOperation;
 }
 
-
-bool ThumbnailView::SelectionInteraction::mouseMoveEvent( QMouseEvent* event )
+bool ThumbnailView::SelectionInteraction::mouseMoveEvent(QMouseEvent *event)
 {
-    if ( m_isMouseDragOperation ) {
-        if ( (m_mousePressPos - event->pos()).manhattanLength() > QApplication::startDragDistance() )
+    if (m_isMouseDragOperation) {
+        if ((m_mousePressPos - event->pos()).manhattanLength() > QApplication::startDragDistance())
             startDrag();
         return true;
     }
     return false;
 }
 
-
 void ThumbnailView::SelectionInteraction::startDrag()
 {
     m_dragInProgress = true;
     QList<QUrl> urls;
-    Q_FOREACH(const DB::FileName& fileName, widget()->selection( NoExpandCollapsedStacks )) {
-        urls.append( QUrl::fromLocalFile(fileName.absolute()) );
+    Q_FOREACH (const DB::FileName &fileName, widget()->selection(NoExpandCollapsedStacks)) {
+        urls.append(QUrl::fromLocalFile(fileName.absolute()));
     }
-    QDrag* drag = new QDrag( MainWindow::Window::theMainWindow() );
-    QMimeData* data = new QMimeData;
+    QDrag *drag = new QDrag(MainWindow::Window::theMainWindow());
+    QMimeData *data = new QMimeData;
     data->setUrls(urls);
-    drag->setMimeData( data );
+    drag->setMimeData(data);
 
     drag->exec(Qt::ActionMask);
 

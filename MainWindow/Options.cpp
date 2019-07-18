@@ -24,42 +24,44 @@
 
 #include <KLocalizedString>
 
-MainWindow::Options* MainWindow::Options::s_instance = nullptr;
+MainWindow::Options *MainWindow::Options::s_instance = nullptr;
 
-namespace MainWindow {
-class Options::OptionsPrivate {
+namespace MainWindow
+{
+class Options::OptionsPrivate
+{
 public:
     QCommandLineParser parser;
 
     // legacy option: "-c <imageDirectory>"
     QCommandLineOption configFile {
         QLatin1String("c"),
-                i18n("Use <databaseFile> instead of the default. Deprecated - use '--db <databaseFile>' instead."),
-                i18n("databaseFile")
+        i18n("Use <databaseFile> instead of the default. Deprecated - use '--db <databaseFile>' instead."),
+        i18n("databaseFile")
     };
     QCommandLineOption dbFile {
         QLatin1String("db"),
-                i18n("Use <databaseFile> instead of the default."),
-                i18n("databaseFile")
+        i18n("Use <databaseFile> instead of the default."),
+        i18n("databaseFile")
     };
-    QCommandLineOption demoOption {QLatin1String("demo"), i18n( "Starts KPhotoAlbum with a prebuilt set of demo images." )};
+    QCommandLineOption demoOption { QLatin1String("demo"), i18n("Starts KPhotoAlbum with a prebuilt set of demo images.") };
     QCommandLineOption importFile {
         QLatin1String("import"),
-                i18n( "Import file." ),
-                i18n("file.kim")
+        i18n("Import file."),
+        i18n("file.kim")
     };
     // QCommandLineParser doesn't support optional values.
     // therefore, we need two separate options:
     QCommandLineOption listen {
         QLatin1String("listen"),
-                i18n("Listen for network connections.")
+        i18n("Listen for network connections.")
     };
     QCommandLineOption listenAddress {
         QLatin1String("listen-address"),
-                i18n("Listen for network connections on address <interface_address>."),
-                i18n("interface_address")
+        i18n("Listen for network connections on address <interface_address>."),
+        i18n("interface_address")
     };
-    QCommandLineOption searchOnStartup {QLatin1String("search"), i18n( "Search for new images on startup." )};
+    QCommandLineOption searchOnStartup { QLatin1String("search"), i18n("Search for new images on startup.") };
 };
 }
 
@@ -78,43 +80,39 @@ QCommandLineParser *MainWindow::Options::parser() const
 QUrl MainWindow::Options::dbFile() const
 {
     QUrl db;
-    if (d->parser.isSet( d->dbFile))
-    {
-        db = QUrl::fromLocalFile(d->parser.value( d->dbFile));
-    } else if (d->parser.isSet( d->configFile))
-    {
+    if (d->parser.isSet(d->dbFile)) {
+        db = QUrl::fromLocalFile(d->parser.value(d->dbFile));
+    } else if (d->parser.isSet(d->configFile)) {
         // support for legacy option
-        db = QUrl::fromLocalFile( d->parser.value( d->configFile ));
+        db = QUrl::fromLocalFile(d->parser.value(d->configFile));
     }
     return db;
 }
 
 bool MainWindow::Options::demoMode() const
 {
-    return d->parser.isSet( d->demoOption );
+    return d->parser.isSet(d->demoOption);
 }
 
 QUrl MainWindow::Options::importFile() const
 {
-    if (d->parser.isSet( d->importFile))
-        return QUrl::fromLocalFile( d->parser.value( d->importFile ));
+    if (d->parser.isSet(d->importFile))
+        return QUrl::fromLocalFile(d->parser.value(d->importFile));
     return QUrl();
 }
 
 QHostAddress MainWindow::Options::listen() const
 {
     QHostAddress address;
-    QString value = d->parser.value( d->listenAddress);
-    if ( d->parser.isSet(d->listen) || !value.isEmpty())
-    {
+    QString value = d->parser.value(d->listenAddress);
+    if (d->parser.isSet(d->listen) || !value.isEmpty()) {
         if (value.isEmpty())
             address = QHostAddress::Any;
         else
             address = QHostAddress(value);
     }
-    if (address.isMulticast() || address == QHostAddress::Broadcast)
-    {
-        qCWarning(MainWindowLog) << "Won't bind to address"<<address;
+    if (address.isMulticast() || address == QHostAddress::Broadcast) {
+        qCWarning(MainWindowLog) << "Won't bind to address" << address;
         address = QHostAddress::Null;
     }
     return address;
@@ -122,7 +120,7 @@ QHostAddress MainWindow::Options::listen() const
 
 bool MainWindow::Options::searchForImagesOnStart() const
 {
-    return d->parser.isSet( d->searchOnStartup );
+    return d->parser.isSet(d->searchOnStartup);
 }
 
 MainWindow::Options::Options()
@@ -132,16 +130,14 @@ MainWindow::Options::Options()
     d->parser.addHelpOption();
     d->configFile.setFlags(QCommandLineOption::HiddenFromHelp);
     d->parser.addOptions(
-                QList<QCommandLineOption>()
-                << d->configFile
-                << d->dbFile
-                << d->demoOption
-                << d->importFile
-                << d->listen
-                << d->listenAddress
-                << d->searchOnStartup
-                );
+        QList<QCommandLineOption>()
+        << d->configFile
+        << d->dbFile
+        << d->demoOption
+        << d->importFile
+        << d->listen
+        << d->listenAddress
+        << d->searchOnStartup);
 }
-
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

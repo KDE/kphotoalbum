@@ -31,7 +31,8 @@ class QLabel;
 class QCheckBox;
 class QRadioButton;
 
-namespace MainWindow {
+namespace MainWindow
+{
 
 class MergeToolTip;
 
@@ -40,8 +41,8 @@ class DuplicateMatch : public QWidget, ImageManager::ImageClientInterface
     Q_OBJECT
 
 public:
-    explicit DuplicateMatch(const DB::FileNameList& files);
-    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
+    explicit DuplicateMatch(const DB::FileNameList &files);
+    void pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image) override;
     void setSelected(bool);
     bool selected() const;
     void execute(Utilities::DeleteMethod);
@@ -51,9 +52,9 @@ signals:
     void selectionChanged();
 
 private:
-    QLabel* m_image;
-    QCheckBox* m_merge;
-    QList<QRadioButton*> m_buttons;
+    QLabel *m_image;
+    QCheckBox *m_merge;
+    QList<QRadioButton *> m_buttons;
 };
 
 } // namespace MainWindow

@@ -20,23 +20,25 @@
 #include <DB/UIDelegate.h>
 #include <KLocalizedString>
 
-namespace XMLDB {
+namespace XMLDB
+{
 
 XmlReader::XmlReader(DB::UIDelegate &ui, const QString &friendlyStreamName)
-    : m_ui(ui), m_streamName(friendlyStreamName)
+    : m_ui(ui)
+    , m_streamName(friendlyStreamName)
 {
 }
 
-QString XmlReader::attribute( const QString& name, const QString& defaultValue )
+QString XmlReader::attribute(const QString &name, const QString &defaultValue)
 {
     QStringRef ref = attributes().value(name);
-    if ( ref.isNull() )
+    if (ref.isNull())
         return defaultValue;
     else
         return ref.toString();
 }
 
-ElementInfo XmlReader::readNextStartOrStopElement(const QString& expectedStart)
+ElementInfo XmlReader::readNextStartOrStopElement(const QString &expectedStart)
 {
     if (m_peek.isValid) {
         m_peek.isValid = false;
@@ -45,16 +47,16 @@ ElementInfo XmlReader::readNextStartOrStopElement(const QString& expectedStart)
 
     TokenType type = readNextInternal();
 
-    if ( hasError() )
+    if (hasError())
         reportError(i18n("Error reading next element"));
 
-    if ( type != StartElement && type != EndElement )
-        reportError(i18n("Expected to read a start or stop element, but read %1",tokenString()));
+    if (type != StartElement && type != EndElement)
+        reportError(i18n("Expected to read a start or stop element, but read %1", tokenString()));
 
     const QString elementName = name().toString();
-    if ( type == StartElement ) {
-        if ( !expectedStart.isNull() && elementName != expectedStart)
-            reportError(i18n("Expected to read %1, but read %2",expectedStart,elementName));
+    if (type == StartElement) {
+        if (!expectedStart.isNull() && elementName != expectedStart)
+            reportError(i18n("Expected to read %1, but read %2", expectedStart, elementName));
     }
 
     return ElementInfo(type == StartElement, elementName);
@@ -62,10 +64,10 @@ ElementInfo XmlReader::readNextStartOrStopElement(const QString& expectedStart)
 
 void XmlReader::readEndElement(bool readNextElement)
 {
-    if ( readNextElement )
+    if (readNextElement)
         readNextInternal();
-    if ( tokenType() != EndElement )
-        reportError(i18n("Expected to read an end element but read %1",tokenString()));
+    if (tokenType() != EndElement)
+        reportError(i18n("Expected to read an end element but read %1", tokenString()));
 }
 
 bool XmlReader::hasAttribute(const QString &name)
@@ -83,37 +85,38 @@ ElementInfo XmlReader::peekNext()
 
 void XmlReader::complainStartElementExpected(const QString &name)
 {
-    reportError(i18n("Expected to read start element '%1'",name));
+    reportError(i18n("Expected to read start element '%1'", name));
 }
 
-void XmlReader::reportError(const QString & text)
+void XmlReader::reportError(const QString &text)
 {
     QString message = i18n(
-            "<p>An error was encountered on line %1, column %2:<nl/>"
-            "<message>%3</message></p>",lineNumber(),columnNumber(),text);
-    if ( hasError() )
-        message += i18n("<p>Additional error information:<nl/><message>%1</message></p>",errorString());
+        "<p>An error was encountered on line %1, column %2:<nl/>"
+        "<message>%3</message></p>",
+        lineNumber(), columnNumber(), text);
+    if (hasError())
+        message += i18n("<p>Additional error information:<nl/><message>%1</message></p>", errorString());
     message += xi18n("<p>Database path: <filename>%1</filename></p>", m_streamName);
 
-    m_ui.error( QString::fromUtf8("XmlReader: error in line %1, column %2 (%3)")
-                .arg(lineNumber()).arg(columnNumber()).arg(errorString())
-                , message
-                , i18n("Error while reading database file")
-                );
+    m_ui.error(QString::fromUtf8("XmlReader: error in line %1, column %2 (%3)")
+                   .arg(lineNumber())
+                   .arg(columnNumber())
+                   .arg(errorString()),
+               message, i18n("Error while reading database file"));
     exit(-1);
 }
 
 QXmlStreamReader::TokenType XmlReader::readNextInternal()
 {
-    forever {
+    forever
+    {
         TokenType type = readNext();
         if (type == Comment || type == StartDocument)
             continue;
-        else if (type == Characters ) {
+        else if (type == Characters) {
             if (isWhitespace())
                 continue;
-        }
-        else
+        } else
             return type;
     }
 }

@@ -18,10 +18,13 @@
 
 #include "RemoteImageRequest.h"
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
-RemoteImageRequest::RemoteImageRequest(const DB::FileName& fileName, const QSize& size, int angle, ViewType type, RemoteInterface* client)
-    : ImageManager::ImageRequest(fileName, size, angle,client), m_interface(client), m_type(type)
+RemoteImageRequest::RemoteImageRequest(const DB::FileName &fileName, const QSize &size, int angle, ViewType type, RemoteInterface *client)
+    : ImageManager::ImageRequest(fileName, size, angle, client)
+    , m_interface(client)
+    , m_type(type)
 {
 }
 

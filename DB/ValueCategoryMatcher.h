@@ -24,12 +24,12 @@
 namespace DB
 {
 
-class ValueCategoryMatcher :public SimpleCategoryMatcher
+class ValueCategoryMatcher : public SimpleCategoryMatcher
 {
 public:
-    ValueCategoryMatcher( const QString& category, const QString& value );
-    bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) override;
-    void debug( int level ) const override;
+    ValueCategoryMatcher(const QString &category, const QString &value);
+    bool eval(ImageInfoPtr, QMap<QString, StringSet> &alreadyMatched) override;
+    void debug(int level) const override;
 
     QString m_option;
     StringSet m_members;

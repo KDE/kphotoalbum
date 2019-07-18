@@ -19,11 +19,11 @@
 #include "ImageScout.h"
 #include "Logging.h"
 
-#include <QFile>
+#include <QAtomicInt>
 #include <QDataStream>
+#include <QFile>
 #include <QMutexLocker>
 #include <QThread>
-#include <QAtomicInt>
 
 extern "C" {
 #include <fcntl.h>
@@ -32,7 +32,8 @@ extern "C" {
 
 using namespace DB;
 
-namespace {
+namespace
+{
 constexpr int DEFAULT_SCOUT_BUFFER_SIZE = 1048576; // *sizeof(int) bytes
 // We might want this to be bytes rather than images.
 constexpr int DEFAULT_MAX_SEEKAHEAD_IMAGES = 10;
@@ -47,11 +48,14 @@ constexpr int TERMINATION_WAIT_MS = 10; // 10 milliseconds, and retry
 // I/O size and scout thread, achieving about 340 MB/sec with high CPU
 // utilization.
 
-class DB::ImageScoutThread :public QThread {
+class DB::ImageScoutThread : public QThread
+{
     friend class DB::ImageScout;
+
 public:
-    ImageScoutThread( ImageScoutQueue &, QMutex *, QAtomicInt &count,
-                      QAtomicInt &preloadCount, QAtomicInt &skippedCount );
+    ImageScoutThread(ImageScoutQueue &, QMutex *, QAtomicInt &count,
+                     QAtomicInt &preloadCount, QAtomicInt &skippedCount);
+
 protected:
     void run() override;
     void setBufSize(int);
@@ -60,74 +64,71 @@ protected:
     int getMaxSeekAhead();
     void setReadLimit(int);
     int getReadLimit();
+
 private:
     void doRun(char *);
-    ImageScoutQueue& m_queue;
+    ImageScoutQueue &m_queue;
     QMutex *m_mutex;
-    QAtomicInt& m_loadedCount;
-    QAtomicInt& m_preloadedCount;
-    QAtomicInt& m_skippedCount;
+    QAtomicInt &m_loadedCount;
+    QAtomicInt &m_preloadedCount;
+    QAtomicInt &m_skippedCount;
     int m_scoutBufSize;
     int m_maxSeekAhead;
     int m_readLimit;
     bool m_isStarted;
 };
 
-ImageScoutThread::ImageScoutThread( ImageScoutQueue &queue, QMutex *mutex,
-                                    QAtomicInt &count,
-                                    QAtomicInt &preloadedCount,
-                                    QAtomicInt &skippedCount )
-  : m_queue(queue),
-    m_mutex(mutex),
-    m_loadedCount(count),
-    m_preloadedCount(preloadedCount),
-    m_skippedCount(skippedCount),
-    m_scoutBufSize(DEFAULT_SCOUT_BUFFER_SIZE),
-    m_maxSeekAhead(DEFAULT_MAX_SEEKAHEAD_IMAGES),
-    m_readLimit(-1),
-    m_isStarted(false)
+ImageScoutThread::ImageScoutThread(ImageScoutQueue &queue, QMutex *mutex,
+                                   QAtomicInt &count,
+                                   QAtomicInt &preloadedCount,
+                                   QAtomicInt &skippedCount)
+    : m_queue(queue)
+    , m_mutex(mutex)
+    , m_loadedCount(count)
+    , m_preloadedCount(preloadedCount)
+    , m_skippedCount(skippedCount)
+    , m_scoutBufSize(DEFAULT_SCOUT_BUFFER_SIZE)
+    , m_maxSeekAhead(DEFAULT_MAX_SEEKAHEAD_IMAGES)
+    , m_readLimit(-1)
+    , m_isStarted(false)
 {
 }
 
 void ImageScoutThread::doRun(char *tmpBuf)
 {
-    while ( !isInterruptionRequested() ) {
+    while (!isInterruptionRequested()) {
         QMutexLocker locker(m_mutex);
-        if ( m_queue.isEmpty() ) {
+        if (m_queue.isEmpty()) {
             return;
         }
         DB::FileName fileName = m_queue.dequeue();
         locker.unlock();
         // If we're behind the reader, move along
         m_preloadedCount++;
-        if ( m_loadedCount.load() >= m_preloadedCount.load() ) {
+        if (m_loadedCount.load() >= m_preloadedCount.load()) {
             m_skippedCount++;
             continue;
         } else {
             // Don't get too far ahead of the loader, or we just waste memory
             // TODO: wait on something rather than polling
-            while (m_preloadedCount.load() >= m_loadedCount.load() + m_maxSeekAhead &&
-                   ! isInterruptionRequested()) {
+            while (m_preloadedCount.load() >= m_loadedCount.load() + m_maxSeekAhead && !isInterruptionRequested()) {
                 QThread::msleep(SEEKAHEAD_WAIT_MS);
             }
             // qCDebug(DBImageScoutLog) << ">>>>>Scout: preload" << m_preloadedCount.load() << "load" << m_loadedCount.load() << fileName.relative();
         }
-        int inputFD = open( QFile::encodeName( fileName.absolute()).constData(), O_RDONLY );
+        int inputFD = open(QFile::encodeName(fileName.absolute()).constData(), O_RDONLY);
         int bytesRead = 0;
-        if ( inputFD >= 0 ) {
-            while ( read( inputFD, tmpBuf, m_scoutBufSize ) &&
-                    ( m_readLimit < 0 ||
-                      ( (bytesRead += m_scoutBufSize) < m_readLimit ) ) &&
-                    ! isInterruptionRequested() ) {
+        if (inputFD >= 0) {
+            while (read(inputFD, tmpBuf, m_scoutBufSize) && (m_readLimit < 0 || ((bytesRead += m_scoutBufSize) < m_readLimit)) && !isInterruptionRequested()) {
             }
-            (void) close( inputFD );
+            (void)close(inputFD);
         }
     }
 }
 
 void ImageScoutThread::setBufSize(int bufSize)
 {
-    if ( ! m_isStarted )
+    if (!m_isStarted)
         m_scoutBufSize = bufSize;
 }
 
@@ -138,7 +139,7 @@ int ImageScoutThread::getBufSize()
 
 void ImageScoutThread::setMaxSeekAhead(int maxSeekAhead)
 {
-    if ( ! m_isStarted )
+    if (!m_isStarted)
         m_maxSeekAhead = maxSeekAhead;
 }
 
@@ -149,7 +150,7 @@ int ImageScoutThread::getMaxSeekAhead()
 
 void ImageScoutThread::setReadLimit(int readLimit)
 {
-    if ( ! m_isStarted )
+    if (!m_isStarted)
         m_readLimit = readLimit;
 }
 
@@ -162,42 +163,41 @@ void ImageScoutThread::run()
 {
     m_isStarted = true;
     char *tmpBuf = new char[m_scoutBufSize];
-    doRun( tmpBuf );
+    doRun(tmpBuf);
     delete[] tmpBuf;
 }
 
 ImageScout::ImageScout(ImageScoutQueue &images,
                        QAtomicInt &count,
                        int threads)
-    : m_preloadedCount(0),
-      m_skippedCount(0),
-      m_isStarted(false),
-      m_scoutBufSize(DEFAULT_SCOUT_BUFFER_SIZE),
-      m_maxSeekAhead(DEFAULT_MAX_SEEKAHEAD_IMAGES),
-      m_readLimit(-1)
+    : m_preloadedCount(0)
+    , m_skippedCount(0)
+    , m_isStarted(false)
+    , m_scoutBufSize(DEFAULT_SCOUT_BUFFER_SIZE)
+    , m_maxSeekAhead(DEFAULT_MAX_SEEKAHEAD_IMAGES)
+    , m_readLimit(-1)
 {
     if (threads > 0) {
         for (int i = 0; i < threads; i++) {
-            ImageScoutThread *t =
-                new ImageScoutThread( images,
-                                      threads > 1 ? &m_mutex : nullptr,
-                                      count,
-                                      m_preloadedCount,
-                                      m_skippedCount );
-            m_scoutList.append( t );
+            ImageScoutThread *t = new ImageScoutThread(images,
+                                                       threads > 1 ? &m_mutex : nullptr,
+                                                       count,
+                                                       m_preloadedCount,
+                                                       m_skippedCount);
+            m_scoutList.append(t);
         }
     }
 }
 
 ImageScout::~ImageScout()
 {
-    if ( m_scoutList.count() > 0 ) {
-        for ( QList<ImageScoutThread *>::iterator it = m_scoutList.begin();
-              it != m_scoutList.end(); ++it ) {
+    if (m_scoutList.count() > 0) {
+        for (QList<ImageScoutThread *>::iterator it = m_scoutList.begin();
+             it != m_scoutList.end(); ++it) {
             if (m_isStarted) {
-                if ( ! (*it)->isFinished() ) {
+                if (!(*it)->isFinished()) {
                     (*it)->requestInterruption();
-                    while ( ! (*it)->isFinished() )
+                    while (!(*it)->isFinished())
                         QThread::msleep(TERMINATION_WAIT_MS);
                 }
             }
@@ -211,10 +211,10 @@ void ImageScout::start()
 {
     // Yes, there's a race condition here between isStartd and setting
     // the buf size or seek ahead...but this isn't a hot code path!
-    if ( ! m_isStarted && m_scoutList.count() > 0 ) {
+    if (!m_isStarted && m_scoutList.count() > 0) {
         m_isStarted = true;
-        for ( QList<ImageScoutThread *>::iterator it = m_scoutList.begin();
-              it != m_scoutList.end(); ++it ) {
+        for (QList<ImageScoutThread *>::iterator it = m_scoutList.begin();
+             it != m_scoutList.end(); ++it) {
             (*it)->start();
         }
     }
@@ -222,11 +222,11 @@ void ImageScout::start()
 
 void ImageScout::setBufSize(int bufSize)
 {
-    if ( ! m_isStarted && bufSize > 0 ) {
+    if (!m_isStarted && bufSize > 0) {
         m_scoutBufSize = bufSize;
-        for ( QList<ImageScoutThread *>::iterator it = m_scoutList.begin();
-              it != m_scoutList.end(); ++it ) {
-            (*it)->setBufSize( m_scoutBufSize );
+        for (QList<ImageScoutThread *>::iterator it = m_scoutList.begin();
+             it != m_scoutList.end(); ++it) {
+            (*it)->setBufSize(m_scoutBufSize);
         }
     }
 }
@@ -238,11 +238,11 @@ int ImageScout::getBufSize()
 
 void ImageScout::setMaxSeekAhead(int maxSeekAhead)
 {
-    if ( ! m_isStarted && maxSeekAhead > 0 ) {
+    if (!m_isStarted && maxSeekAhead > 0) {
         m_maxSeekAhead = maxSeekAhead;
-        for ( QList<ImageScoutThread *>::iterator it = m_scoutList.begin();
-              it != m_scoutList.end(); ++it ) {
-            (*it)->setMaxSeekAhead( m_maxSeekAhead );
+        for (QList<ImageScoutThread *>::iterator it = m_scoutList.begin();
+             it != m_scoutList.end(); ++it) {
+            (*it)->setMaxSeekAhead(m_maxSeekAhead);
         }
     }
 }
@@ -254,11 +254,11 @@ int ImageScout::getMaxSeekAhead()
 
 void ImageScout::setReadLimit(int readLimit)
 {
-    if ( ! m_isStarted && readLimit > 0 ) {
+    if (!m_isStarted && readLimit > 0) {
         m_readLimit = readLimit;
-        for ( QList<ImageScoutThread *>::iterator it = m_scoutList.begin();
-              it != m_scoutList.end(); ++it ) {
-            (*it)->setReadLimit( m_readLimit );
+        for (QList<ImageScoutThread *>::iterator it = m_scoutList.begin();
+             it != m_scoutList.end(); ++it) {
+            (*it)->setReadLimit(m_readLimit);
         }
     }
 }

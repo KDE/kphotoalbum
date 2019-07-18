@@ -24,13 +24,24 @@
 namespace RemoteControl
 {
 
-class Types {
+class Types
+{
     Q_GADGET
 
 public:
-    enum Page {Startup, UnconnectedPage, OverviewPage, CategoryItemsPage, CategoryListPage, ThumbnailsPage, ImageViewerPage, DiscoverPage};
-    enum class ViewType { CategoryItems, Thumbnails, Images };
-    enum CategoryViewType { CategoryListView, CategoryIconView };
+    enum Page { Startup,
+                UnconnectedPage,
+                OverviewPage,
+                CategoryItemsPage,
+                CategoryListPage,
+                ThumbnailsPage,
+                ImageViewerPage,
+                DiscoverPage };
+    enum class ViewType { CategoryItems,
+                          Thumbnails,
+                          Images };
+    enum CategoryViewType { CategoryListView,
+                            CategoryIconView };
     Q_ENUMS(Page)
     Q_ENUMS(ViewType)
     Q_ENUMS(CategoryViewType)
@@ -40,7 +51,9 @@ using Page = Types::Page;
 using ViewType = Types::ViewType;
 using CategoryViewType = Types::CategoryViewType;
 
-enum class SearchType { Categories, CategoryItems, Images };
+enum class SearchType { Categories,
+                        CategoryItems,
+                        Images };
 
 using ImageId = int;
 

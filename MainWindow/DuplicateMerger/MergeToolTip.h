@@ -22,21 +22,22 @@
 
 #include "Utilities/ToolTip.h"
 
-namespace MainWindow {
+namespace MainWindow
+{
 
 class MergeToolTip : public Utilities::ToolTip
 {
     Q_OBJECT
 
 public:
-    static MergeToolTip* instance();
+    static MergeToolTip *instance();
     static void destroy();
 
 protected:
     void placeWindow() override;
 
 private:
-    static MergeToolTip* s_instance;
+    static MergeToolTip *s_instance;
     explicit MergeToolTip(QWidget *parent = nullptr);
 };
 

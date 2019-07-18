@@ -31,7 +31,7 @@ class QLineEdit;
 
 namespace DB
 {
-    class ImageInfo;
+class ImageInfo;
 }
 
 namespace ImportExport
@@ -44,27 +44,28 @@ class MD5CheckPage;
 /**
  * This is the wizard that configures the import process
  */
-class ImportDialog :public KAssistantDialog {
+class ImportDialog : public KAssistantDialog
+{
     Q_OBJECT
 
 public:
-    explicit ImportDialog( QWidget* parent );
+    explicit ImportDialog(QWidget *parent);
     // prevent hiding of base class method:
     using KAssistantDialog::exec;
-    bool exec( KimFileReader* kimFileReader, const QUrl &kimFilePath );
+    bool exec(KimFileReader *kimFileReader, const QUrl &kimFilePath);
     ImportSettings settings();
 
 protected:
     friend class ImageRow;
 
     void setupPages();
-    bool readFile(const QByteArray& data);
+    bool readFile(const QByteArray &data);
     void createIntroduction();
     void createImagesPage();
     void createDestination();
     void createCategoryPages();
-    ImportMatcher* createCategoryPage( const QString& myCategory, const QString& otherCategory );
-    void selectImage( bool on );
+    ImportMatcher *createCategoryPage(const QString &myCategory, const QString &otherCategory);
+    void selectImage(bool on);
     DB::ImageInfoList selectedImages() const;
     void possiblyAddMD5CheckPage();
 
@@ -77,28 +78,26 @@ protected slots:
     void slotHelp();
 
 signals:
-    void failedToCopy( QStringList files );
+    void failedToCopy(QStringList files);
 
 private:
     DB::ImageInfoList m_images;
-    QLineEdit* m_destinationEdit;
-    KPageWidgetItem* m_destinationPage;
-    KPageWidgetItem* m_categoryMatcherPage;
-    KPageWidgetItem* m_dummy;
-    ImportMatcher* m_categoryMatcher;
+    QLineEdit *m_destinationEdit;
+    KPageWidgetItem *m_destinationPage;
+    KPageWidgetItem *m_categoryMatcherPage;
+    KPageWidgetItem *m_dummy;
+    ImportMatcher *m_categoryMatcher;
     ImportMatchers m_matchers;
-    QList< ImageRow* > m_imagesSelect;
-    QTemporaryFile* m_tmp;
+    QList<ImageRow *> m_imagesSelect;
+    QTemporaryFile *m_tmp;
     bool m_externalSource;
     QUrl m_kimFile;
     bool m_hasFilled;
     QUrl m_baseUrl;
-    KimFileReader* m_kimFileReader;
-    MD5CheckPage* m_md5CheckPage;
+    KimFileReader *m_kimFileReader;
+    MD5CheckPage *m_md5CheckPage;
 };
-
 }
-
 
 #endif /* IMPORT_H */
 

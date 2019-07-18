@@ -22,25 +22,25 @@
 #include "Utilities/StringSet.h"
 #include <QTreeWidget>
 
-namespace Exif {
+namespace Exif
+{
 using Utilities::StringSet;
 
-class TreeView : public QTreeWidget {
+class TreeView : public QTreeWidget
+{
     Q_OBJECT
 
 public:
-    TreeView( const QString& title, QWidget* parent );
+    TreeView(const QString &title, QWidget *parent);
     StringSet selected();
-    void setSelectedExif( const StringSet& selected );
+    void setSelectedExif(const StringSet &selected);
     void reload();
 
 protected slots:
-    void toggleChildren( QTreeWidgetItem* );
+    void toggleChildren(QTreeWidgetItem *);
 };
 
 }
-
-
 
 #endif /* EXIFTREEVIEW_H */
 

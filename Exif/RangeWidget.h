@@ -18,15 +18,17 @@
 #ifndef RANGEWIDGET_H
 #define RANGEWIDGET_H
 
-#include <qobject.h>
-#include <QList>
 #include "Exif/SearchInfo.h"
+#include <QList>
+#include <qobject.h>
 class QGridLayout;
 class QComboBox;
 
-namespace Exif{
+namespace Exif
+{
 
-class RangeWidget :public QObject{
+class RangeWidget : public QObject
+{
     Q_OBJECT
 
 public:
@@ -34,26 +36,30 @@ public:
     {
     public:
         Value() {}
-        Value( double value, const QString& text ) :value( value ), text( text ) {}
+        Value(double value, const QString &text)
+            : value(value)
+            , text(text)
+        {
+        }
         double value;
         QString text;
     };
 
-    typedef QList<Value> ValueList ;
+    typedef QList<Value> ValueList;
 
-    RangeWidget( const QString& text, const QString& searchTag, const ValueList& list, QGridLayout* layout, int row);
+    RangeWidget(const QString &text, const QString &searchTag, const ValueList &list, QGridLayout *layout, int row);
     Exif::SearchInfo::Range range() const;
 
 protected slots:
-    void slotUpdateTo( int index );
+    void slotUpdateTo(int index);
 
 protected:
-    QString tagToLabel( const QString& tag );
+    QString tagToLabel(const QString &tag);
 
 private:
     QString m_searchTag;
-    QComboBox* m_from;
-    QComboBox* m_to;
+    QComboBox *m_from;
+    QComboBox *m_to;
     ValueList m_list;
 };
 

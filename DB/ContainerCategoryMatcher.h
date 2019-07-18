@@ -24,15 +24,15 @@
 namespace DB
 {
 
-class ContainerCategoryMatcher :public CategoryMatcher
+class ContainerCategoryMatcher : public CategoryMatcher
 {
 public:
-    void addElement( CategoryMatcher* );
+    void addElement(CategoryMatcher *);
     ~ContainerCategoryMatcher() override;
-    void debug( int level ) const override;
+    void debug(int level) const override;
     void setShouldCreateMatchedSet(bool) override;
 
-    QList<CategoryMatcher*> mp_elements;
+    QList<CategoryMatcher *> mp_elements;
 };
 
 }

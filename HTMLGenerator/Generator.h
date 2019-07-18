@@ -18,10 +18,10 @@
 #ifndef HTMLGENERATOR_GENERATOR_H
 #define HTMLGENERATOR_GENERATOR_H
 
+#include "Setup.h"
 #include <DB/CategoryPtr.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <Utilities/UniqFilenameMapper.h>
-#include "Setup.h"
 
 #include <QEventLoop>
 #include <QPointer>
@@ -29,17 +29,20 @@
 #include <QString>
 #include <QTemporaryDir>
 
-namespace DB { class Id; }
+namespace DB
+{
+class Id;
+}
 
 namespace HTMLGenerator
 {
 
-class Generator :public QProgressDialog, private ImageManager::ImageClientInterface
+class Generator : public QProgressDialog, private ImageManager::ImageClientInterface
 {
     Q_OBJECT
 
 public:
-    Generator( const Setup& setup,  QWidget* parent );
+    Generator(const Setup &setup, QWidget *parent);
     ~Generator() override;
     void generate();
 
@@ -48,29 +51,28 @@ protected slots:
     void showBrowser();
 
 protected:
-    bool generateIndexPage( int width, int height );
-    bool generateContentPage( int width, int height,
-                              const DB::FileName& prevInfo, const DB::FileName& current, const DB::FileName& nextInfo );
+    bool generateIndexPage(int width, int height);
+    bool generateContentPage(int width, int height,
+                             const DB::FileName &prevInfo, const DB::FileName &current, const DB::FileName &nextInfo);
     bool linkIndexFile();
-    QString populateDescription( QList<DB::CategoryPtr> categories, const DB::ImageInfoPtr info );
+    QString populateDescription(QList<DB::CategoryPtr> categories, const DB::ImageInfoPtr info);
 
 public:
-    QString namePage( int width, int height, const DB::FileName& fileName );
-    QString nameImage( const DB::FileName& fileName, int size );
+    QString namePage(int width, int height, const DB::FileName &fileName);
+    QString nameImage(const DB::FileName &fileName, int size);
 
-    QString createImage( const DB::FileName& id, int size );
-    QString createVideo( const DB::FileName& fileName );
+    QString createImage(const DB::FileName &id, int size);
+    QString createVideo(const DB::FileName &fileName);
 
-    QString kimFileName( bool relative );
-    bool writeToFile( const QString& fileName, const QString& str );
-    QString translateToHTML( const QString& );
+    QString kimFileName(bool relative);
+    bool writeToFile(const QString &fileName, const QString &str);
+    QString translateToHTML(const QString &);
     int calculateSteps();
-    void getThemeInfo( QString* baseDir, QString* name, QString* author );
+    void getThemeInfo(QString *baseDir, QString *name, QString *author);
 
-
-    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
+    void pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image) override;
     int maxImageSize();
-    void minImageSize( int& width, int& height);
+    void minImageSize(int &width, int &height);
 
 private:
     Setup m_setup;
@@ -79,7 +81,7 @@ private:
     QTemporaryDir m_tempDirHandle;
     QDir m_tempDir;
     Utilities::UniqFilenameMapper m_filenameMapper;
-    QSet< QPair<DB::FileName,int> > m_generatedFiles;
+    QSet<QPair<DB::FileName, int>> m_generatedFiles;
     DB::FileNameSet m_copiedVideos;
     bool m_hasEnteredLoop;
     QPointer<QEventLoop> m_eventLoop;
@@ -87,8 +89,6 @@ private:
 };
 
 }
-
-
 
 #endif /* HTMLGENERATOR_GENERATOR_H */
 

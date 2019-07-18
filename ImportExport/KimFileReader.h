@@ -22,23 +22,23 @@
 class KArchiveDirectory;
 class KZip;
 
-namespace ImportExport {
+namespace ImportExport
+{
 
 class KimFileReader
 {
 public:
     KimFileReader();
     ~KimFileReader();
-    bool open(const QString& fileName);
+    bool open(const QString &fileName);
     QByteArray indexXML();
-    QPixmap loadThumbnail( QString fileName );
-    QByteArray loadImage( const QString& fileName );
-
+    QPixmap loadThumbnail(QString fileName);
+    QByteArray loadImage(const QString &fileName);
 
 private:
     QString m_fileName;
-    KZip* m_zip;
-    const KArchiveDirectory* m_dir;
+    KZip *m_zip;
+    const KArchiveDirectory *m_dir;
 };
 
 }

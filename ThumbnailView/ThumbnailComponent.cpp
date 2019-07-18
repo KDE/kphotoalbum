@@ -18,37 +18,37 @@
 #include "ThumbnailComponent.h"
 #include "ThumbnailFactory.h"
 
-ThumbnailView::ThumbnailComponent::ThumbnailComponent( ThumbnailFactory* factory )
-    :m_factory( factory )
+ThumbnailView::ThumbnailComponent::ThumbnailComponent(ThumbnailFactory *factory)
+    : m_factory(factory)
 {
 }
 
-ThumbnailView::ThumbnailModel* ThumbnailView::ThumbnailComponent::model()
+ThumbnailView::ThumbnailModel *ThumbnailView::ThumbnailComponent::model()
 {
     return m_factory->model();
 }
 
-ThumbnailView::CellGeometry* ThumbnailView::ThumbnailComponent::cellGeometryInfo()
+ThumbnailView::CellGeometry *ThumbnailView::ThumbnailComponent::cellGeometryInfo()
 {
     return m_factory->cellGeometry();
 }
 
-ThumbnailView::ThumbnailWidget* ThumbnailView::ThumbnailComponent::widget()
+ThumbnailView::ThumbnailWidget *ThumbnailView::ThumbnailComponent::widget()
 {
     return m_factory->widget();
 }
 
-const ThumbnailView::ThumbnailModel* ThumbnailView::ThumbnailComponent::model() const
+const ThumbnailView::ThumbnailModel *ThumbnailView::ThumbnailComponent::model() const
 {
     return m_factory->model();
 }
 
-const ThumbnailView::CellGeometry* ThumbnailView::ThumbnailComponent::cellGeometryInfo() const
+const ThumbnailView::CellGeometry *ThumbnailView::ThumbnailComponent::cellGeometryInfo() const
 {
     return m_factory->cellGeometry();
 }
 
-const ThumbnailView::ThumbnailWidget* ThumbnailView::ThumbnailComponent::widget() const
+const ThumbnailView::ThumbnailWidget *ThumbnailView::ThumbnailComponent::widget() const
 {
     return m_factory->widget();
 }

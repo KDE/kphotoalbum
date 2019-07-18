@@ -18,8 +18,8 @@
 #ifndef CATEGORYCOLLECTION_H
 #define CATEGORYCOLLECTION_H
 
-#include "DB/CategoryPtr.h"
 #include "DB/Category.h"
+#include "DB/CategoryPtr.h"
 #include <QList>
 
 namespace DB
@@ -30,30 +30,31 @@ namespace DB
    This class is the collection of categories. It is the basic anchor point to categories.
 */
 
-class CategoryCollection :public QObject
+class CategoryCollection : public QObject
 {
     Q_OBJECT
 
 public:
-    virtual CategoryPtr categoryForName( const QString& name ) const = 0;
+    virtual CategoryPtr categoryForName(const QString &name) const = 0;
     virtual QStringList categoryNames() const = 0;
     virtual QStringList categoryTexts() const = 0;
-    virtual void removeCategory( const QString& name ) = 0;
-    virtual void rename( const QString& oldName, const QString& newName ) = 0;
+    virtual void removeCategory(const QString &name) = 0;
+    virtual void rename(const QString &oldName, const QString &newName) = 0;
     virtual QList<CategoryPtr> categories() const = 0;
-    virtual void addCategory( const QString& text, const QString& icon, Category::ViewType type,
-                              int thumbnailSize, bool show, bool positionable=false ) = 0;
-    virtual CategoryPtr categoryForSpecial( const Category::CategoryType type) const = 0;
+    virtual void addCategory(const QString &text, const QString &icon, Category::ViewType type,
+                             int thumbnailSize, bool show, bool positionable = false)
+        = 0;
+    virtual CategoryPtr categoryForSpecial(const Category::CategoryType type) const = 0;
 
 signals:
     void categoryCollectionChanged();
-    void categoryRemoved( const QString& categoryName );
-    void itemRenamed( DB::Category* category, const QString& oldName, const QString& newName );
-    void itemRemoved( DB::Category* category, const QString& name );
+    void categoryRemoved(const QString &categoryName);
+    void itemRenamed(DB::Category *category, const QString &oldName, const QString &newName);
+    void itemRemoved(DB::Category *category, const QString &name);
 
 protected slots:
-    void itemRenamed( const QString& oldName, const QString& newName );
-    void itemRemoved( const QString& item );
+    void itemRenamed(const QString &oldName, const QString &newName);
+    void itemRemoved(const QString &item);
 };
 
 }

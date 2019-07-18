@@ -16,109 +16,110 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Delegate.h"
-#include "Settings/SettingsData.h"
-#include "ThumbnailWidget.h"
 #include "CellGeometry.h"
-#include <QPainter>
+#include "Settings/SettingsData.h"
 #include "ThumbnailModel.h"
+#include "ThumbnailWidget.h"
 #include <KLocalizedString>
-ThumbnailView::Delegate::Delegate(ThumbnailFactory* factory , QObject *parent)
-    :QStyledItemDelegate(parent), ThumbnailComponent( factory )
+#include <QPainter>
+ThumbnailView::Delegate::Delegate(ThumbnailFactory *factory, QObject *parent)
+    : QStyledItemDelegate(parent)
+    , ThumbnailComponent(factory)
 {
 }
 
-void ThumbnailView::Delegate::paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
+void ThumbnailView::Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    paintCellBackground( painter, option.rect );
-    if ( widget()->isGridResizing())
+    paintCellBackground(painter, option.rect);
+    if (widget()->isGridResizing())
         return;
 
-    if ( index.data( Qt::DecorationRole ).value<QPixmap>().isNull() )
+    if (index.data(Qt::DecorationRole).value<QPixmap>().isNull())
         return;
 
-    paintCellPixmap( painter, option, index );
-    paintCellText( painter, option, index );
+    paintCellPixmap(painter, option, index);
+    paintCellText(painter, option, index);
 }
 
-void ThumbnailView::Delegate::paintCellBackground( QPainter* painter, const QRect& rect ) const
+void ThumbnailView::Delegate::paintCellBackground(QPainter *painter, const QRect &rect) const
 {
-    painter->fillRect( rect, QColor(Settings::SettingsData::instance()->backgroundColor()) );
+    painter->fillRect(rect, QColor(Settings::SettingsData::instance()->backgroundColor()));
 
     if (widget()->isGridResizing() || Settings::SettingsData::instance()->thumbnailDisplayGrid()) {
-        painter->setPen( contrastColor( Settings::SettingsData::instance()->backgroundColor() ) );
+        painter->setPen(contrastColor(Settings::SettingsData::instance()->backgroundColor()));
         // left and right of frame
-        painter->drawLine( rect.right(), rect.top(), rect.right(), rect.bottom() );
+        painter->drawLine(rect.right(), rect.top(), rect.right(), rect.bottom());
 
         // bottom line
-        painter->drawLine( rect.left(), rect.bottom(), rect.right(), rect.bottom() );
+        painter->drawLine(rect.left(), rect.bottom(), rect.right(), rect.bottom());
     }
 }
 
-void ThumbnailView::Delegate::paintCellPixmap( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
+void ThumbnailView::Delegate::paintCellPixmap(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    const QPixmap pixmap = index.data( Qt::DecorationRole ).value<QPixmap>();
+    const QPixmap pixmap = index.data(Qt::DecorationRole).value<QPixmap>();
 
-    const QRect pixmapRect = cellGeometryInfo()->iconGeometry( pixmap ).translated(option.rect.topLeft());
-    paintBoundingRect( painter, pixmapRect, index );
-    painter->drawPixmap( pixmapRect, pixmap );
-    paintVideoInfo(painter, pixmapRect, index );
-    paintDropIndicator( painter, option.rect, index );
+    const QRect pixmapRect = cellGeometryInfo()->iconGeometry(pixmap).translated(option.rect.topLeft());
+    paintBoundingRect(painter, pixmapRect, index);
+    painter->drawPixmap(pixmapRect, pixmap);
+    paintVideoInfo(painter, pixmapRect, index);
+    paintDropIndicator(painter, option.rect, index);
     paintStackedIndicator(painter, pixmapRect, index);
 
     // Paint transparent pixels over the widget for selection.
     const QItemSelectionModel *selectionModel = widget()->selectionModel();
-    if ( selectionModel->isSelected( index ) )
-        painter->fillRect( option.rect, QColor(58,98,134, 127) );
-    else if ( selectionModel->hasSelection() && selectionModel->currentIndex() == index )
-        painter->fillRect( option.rect, QColor(58,98,134, 127) );
+    if (selectionModel->isSelected(index))
+        painter->fillRect(option.rect, QColor(58, 98, 134, 127));
+    else if (selectionModel->hasSelection() && selectionModel->currentIndex() == index)
+        painter->fillRect(option.rect, QColor(58, 98, 134, 127));
 }
 
-void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect& pixmapRect, const QModelIndex &index) const
+void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect &pixmapRect, const QModelIndex &index) const
 {
     DB::ImageInfoPtr imageInfo = model()->imageAt(index.row()).info();
-    if (!imageInfo || imageInfo->mediaType() != DB::Video )
+    if (!imageInfo || imageInfo->mediaType() != DB::Video)
         return;
 
     const QString text = videoLengthText(imageInfo);
     const QRect metricsRect = painter->fontMetrics().boundingRect(text);
 
     const int margin = 3;
-    const QRect textRect = QRect(pixmapRect.right()-metricsRect.width()-margin,
-                                 pixmapRect.bottom()-metricsRect.height()-margin,
+    const QRect textRect = QRect(pixmapRect.right() - metricsRect.width() - margin,
+                                 pixmapRect.bottom() - metricsRect.height() - margin,
                                  metricsRect.width(), metricsRect.height());
-    const QRect backgroundRect =  textRect.adjusted(-margin,-margin, margin, margin);
+    const QRect backgroundRect = textRect.adjusted(-margin, -margin, margin, margin);
 
-    if ( backgroundRect.width() > pixmapRect.width()/2  ) {
+    if (backgroundRect.width() > pixmapRect.width() / 2) {
         // Don't show the time if the box would fill more than half the thumbnail
         return;
     }
 
     painter->save();
-    painter->fillRect(backgroundRect, QBrush( QColor(0,0,0,128)));
+    painter->fillRect(backgroundRect, QBrush(QColor(0, 0, 0, 128)));
     painter->setPen(Qt::white);
     painter->drawText(textRect, text);
     painter->restore();
 }
 
-void ThumbnailView::Delegate::paintCellText( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
+void ThumbnailView::Delegate::paintCellText(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     // Optimization based on result from KCacheGrind
-    if ( !Settings::SettingsData::instance()->displayLabels() && !Settings::SettingsData::instance()->displayCategories() )
+    if (!Settings::SettingsData::instance()->displayLabels() && !Settings::SettingsData::instance()->displayCategories())
         return;
 
-    DB::FileName fileName = model()->imageAt( index.row() );
-    if ( fileName.isNull() )
+    DB::FileName fileName = model()->imageAt(index.row());
+    if (fileName.isNull())
         return;
 
-    QString title = index.data( Qt::DisplayRole ).value<QString>();
+    QString title = index.data(Qt::DisplayRole).value<QString>();
     QRect rect = cellGeometryInfo()->cellTextGeometry();
-    painter->setPen( contrastColor( Settings::SettingsData::instance()->backgroundColor() ) );
+    painter->setPen(contrastColor(Settings::SettingsData::instance()->backgroundColor()));
 
     //Qt::TextWordWrap just in case, if the text's width is wider than the cell's width
-    painter->drawText( rect.translated( option.rect.topLeft() ), Qt::AlignCenter | Qt::TextWordWrap, title );
+    painter->drawText(rect.translated(option.rect.topLeft()), Qt::AlignCenter | Qt::TextWordWrap, title);
 }
 
-QSize ThumbnailView::Delegate::sizeHint( const QStyleOptionViewItem& /*option*/, const QModelIndex& /*index*/ ) const
+QSize ThumbnailView::Delegate::sizeHint(const QStyleOptionViewItem & /*option*/, const QModelIndex & /*index*/) const
 {
     return cellGeometryInfo()->cellSize();
 }
@@ -129,14 +130,14 @@ QSize ThumbnailView::Delegate::sizeHint( const QStyleOptionViewItem& /*option*/,
    The colors are fetched from looking at the Gwenview. I tried to see if I
    could figure out from the code how it was drawn, but failed at doing so.
 */
-void ThumbnailView::Delegate::paintBoundingRect( QPainter* painter, const QRect& pixmapRect, const QModelIndex& index ) const
+void ThumbnailView::Delegate::paintBoundingRect(QPainter *painter, const QRect &pixmapRect, const QModelIndex &index) const
 {
     QRect rect = pixmapRect;
-    rect.adjust(-5,-5,4,4);
-    for ( int i = 4; i >= 0; --i ) {
+    rect.adjust(-5, -5, 4, 4);
+    for (int i = 4; i >= 0; --i) {
         QColor color;
-        if ( widget()->selectionModel()->isSelected( index ) ) {
-            static QColor selectionColors[] = { QColor(58,98,134), QColor(96,161,221), QColor(93,165,228), QColor(132,186,237), QColor(62,95,128)};
+        if (widget()->selectionModel()->isSelected(index)) {
+            static QColor selectionColors[] = { QColor(58, 98, 134), QColor(96, 161, 221), QColor(93, 165, 228), QColor(132, 186, 237), QColor(62, 95, 128) };
             color = selectionColors[i];
         }
 
@@ -164,93 +165,87 @@ void ThumbnailView::Delegate::paintBoundingRect( QPainter* painter, const QRect&
             const QColor foreground = Qt::black;
             const QColor backround = QColor(Settings::SettingsData::instance()->backgroundColor());
 
-            double alpha = (0.5 - 0.1*i);
+            double alpha = (0.5 - 0.1 * i);
             double inverseAlpha = 1 - alpha;
 
-            color = QColor( int(foreground.red() * alpha + backround.red() * inverseAlpha),
-                            int(foreground.green() * alpha + backround.green() * inverseAlpha),
-                            int(foreground.blue() * alpha + backround.blue() * inverseAlpha) );
+            color = QColor(int(foreground.red() * alpha + backround.red() * inverseAlpha),
+                           int(foreground.green() * alpha + backround.green() * inverseAlpha),
+                           int(foreground.blue() * alpha + backround.blue() * inverseAlpha));
         }
 
-        QPen pen( color );
+        QPen pen(color);
         painter->setPen(pen);
-        painter->fillRect(rect, QBrush( color ) );
-        rect.adjust(1,1,-1,-1 );
+        painter->fillRect(rect, QBrush(color));
+        rect.adjust(1, 1, -1, -1);
     }
 }
 
-static DB::StackID getStackId(const DB::FileName& fileName)
+static DB::StackID getStackId(const DB::FileName &fileName)
 {
     return fileName.info()->stackId();
 }
 
-void ThumbnailView::Delegate::paintStackedIndicator( QPainter* painter, const QRect &pixmapRect, const QModelIndex& index ) const
+void ThumbnailView::Delegate::paintStackedIndicator(QPainter *painter, const QRect &pixmapRect, const QModelIndex &index) const
 {
     DB::ImageInfoPtr imageInfo = model()->imageAt(index.row()).info();
     if (!imageInfo || !imageInfo->isStacked())
         return;
 
-    const QRect cellRect = widget()->visualRect( index );
+    const QRect cellRect = widget()->visualRect(index);
 
     // Calculate the three points for the bottom most/right most lines
     int leftX = cellRect.left();
     int rightX = cellRect.right() + 5; // 5 for the 3D effect
 
-    if ( isFirst( index.row() ) )
-        leftX = pixmapRect.left() + pixmapRect.width()/2;
+    if (isFirst(index.row()))
+        leftX = pixmapRect.left() + pixmapRect.width() / 2;
 
-    if ( isLast( index.row() ) )
+    if (isLast(index.row()))
         rightX = pixmapRect.right();
 
-    QPoint bottomLeftPoint( leftX, pixmapRect.bottom() );
-    QPoint bottomRightPoint( rightX, pixmapRect.bottom() );
-    QPoint topPoint = isLast( index.row() ) ? QPoint( rightX, pixmapRect.top() + pixmapRect.height()/2 ) : QPoint();
+    QPoint bottomLeftPoint(leftX, pixmapRect.bottom());
+    QPoint bottomRightPoint(rightX, pixmapRect.bottom());
+    QPoint topPoint = isLast(index.row()) ? QPoint(rightX, pixmapRect.top() + pixmapRect.height() / 2) : QPoint();
 
     // Paint the lines.
     painter->save();
-    for ( int i=0; i < 8; ++i ) {
-        painter->setPen( QPen(i % 2 == 0 ? Qt::black : Qt::white) );
+    for (int i = 0; i < 8; ++i) {
+        painter->setPen(QPen(i % 2 == 0 ? Qt::black : Qt::white));
 
-        painter->drawLine(bottomLeftPoint,bottomRightPoint);
-        if ( topPoint != QPoint() ) {
-            painter->drawLine( bottomRightPoint, topPoint );
-            topPoint -= QPoint(1,1);
+        painter->drawLine(bottomLeftPoint, bottomRightPoint);
+        if (topPoint != QPoint()) {
+            painter->drawLine(bottomRightPoint, topPoint);
+            topPoint -= QPoint(1, 1);
         }
 
-        bottomLeftPoint -= QPoint( isFirst( index.row()) ? 1 : 0, 1 );
-        bottomRightPoint -= QPoint( isLast( index.row()) ? 1 : 0, 1);
+        bottomLeftPoint -= QPoint(isFirst(index.row()) ? 1 : 0, 1);
+        bottomRightPoint -= QPoint(isLast(index.row()) ? 1 : 0, 1);
     }
     painter->restore();
 }
 
-bool ThumbnailView::Delegate::isFirst( int row ) const
+bool ThumbnailView::Delegate::isFirst(int row) const
 {
     const DB::StackID curId = getStackId(model()->imageAt(row));
 
-    return
-            !model()->isItemInExpandedStack(curId) ||
-            row == 0 ||
-            getStackId(model()->imageAt(row-1)) != curId;
+    return !model()->isItemInExpandedStack(curId) || row == 0 || getStackId(model()->imageAt(row - 1)) != curId;
 }
 
-bool ThumbnailView::Delegate::isLast( int row ) const
+bool ThumbnailView::Delegate::isLast(int row) const
 {
     const DB::StackID curId = getStackId(model()->imageAt(row));
 
-    return
-            !model()->isItemInExpandedStack(curId) ||
-            row == model()->imageCount() -1 ||
-            getStackId(model()->imageAt(row+1)) != curId;
+    return !model()->isItemInExpandedStack(curId) || row == model()->imageCount() - 1 || getStackId(model()->imageAt(row + 1)) != curId;
 }
 
 QString ThumbnailView::Delegate::videoLengthText(const DB::ImageInfoPtr &imageInfo) const
 {
     const int length = imageInfo->videoLength();
-    if ( length < 0 )
-        return i18nc("No video length could be determined, so we just display 'video' instead of the video length.","video");
+    if (length < 0)
+        return i18nc("No video length could be determined, so we just display 'video' instead of the video length.", "video");
 
-    const int hours = length/60/60;
-    const int minutes = (length/60)%60;
+    const int hours = length / 60 / 60;
+    const int minutes = (length / 60) % 60;
     const int secs = length % 60;
 
     QString res;
@@ -271,17 +266,15 @@ QString ThumbnailView::Delegate::videoLengthText(const DB::ImageInfoPtr &imageIn
     return res;
 }
 
-
-void ThumbnailView::Delegate::paintDropIndicator( QPainter* painter, const QRect& rect, const QModelIndex& index ) const
+void ThumbnailView::Delegate::paintDropIndicator(QPainter *painter, const QRect &rect, const QModelIndex &index) const
 {
-    const DB::FileName fileName = model()->imageAt( index.row() );
+    const DB::FileName fileName = model()->imageAt(index.row());
 
-    if ( model()->leftDropItem() == fileName )
-        painter->fillRect( rect.left(), rect.top(), 3, rect.height(), QBrush( Qt::red ) );
+    if (model()->leftDropItem() == fileName)
+        painter->fillRect(rect.left(), rect.top(), 3, rect.height(), QBrush(Qt::red));
 
-    else if ( model()->rightDropItem() == fileName )
-        painter->fillRect( rect.right() -2, rect.top(), 3, rect.height(), QBrush( Qt::red ) );
+    else if (model()->rightDropItem() == fileName)
+        painter->fillRect(rect.right() - 2, rect.top(), 3, rect.height(), QBrush(Qt::red));
 }
-
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

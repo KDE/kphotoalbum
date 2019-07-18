@@ -18,71 +18,72 @@
 #ifndef XMLCATEGORY_H
 #define XMLCATEGORY_H
 #include "DB/Category.h"
-#include <qstringlist.h>
 #include <QMap>
+#include <qstringlist.h>
 
-namespace XMLDB {
-    class XMLCategory :public DB::Category
-    {
-        Q_OBJECT
+namespace XMLDB
+{
+class XMLCategory : public DB::Category
+{
+    Q_OBJECT
 
-    public:
-        XMLCategory( const QString& name, const QString& icon, ViewType type, int thumbnailSize, bool show, bool positionable=false );
+public:
+    XMLCategory(const QString &name, const QString &icon, ViewType type, int thumbnailSize, bool show, bool positionable = false);
 
-        QString name() const override;
-        void setName( const QString& name ) override;
+    QString name() const override;
+    void setName(const QString &name) override;
 
-        void setPositionable( bool ) override;
-        bool positionable() const override;
+    void setPositionable(bool) override;
+    bool positionable() const override;
 
-        QString iconName() const override;
-        void setIconName( const QString& name ) override;
+    QString iconName() const override;
+    void setIconName(const QString &name) override;
 
-        void setViewType( ViewType type ) override;
-        ViewType viewType() const override;
+    void setViewType(ViewType type) override;
+    ViewType viewType() const override;
 
-        void setThumbnailSize( int ) override;
-        int thumbnailSize() const override;
+    void setThumbnailSize(int) override;
+    int thumbnailSize() const override;
 
-        void setDoShow( bool b ) override;
-        bool doShow() const override;
+    void setDoShow(bool b) override;
+    bool doShow() const override;
 
-        void setType( DB::Category::CategoryType t ) override;
-        CategoryType type() const override;
-        bool isSpecialCategory() const override;
+    void setType(DB::Category::CategoryType t) override;
+    CategoryType type() const override;
+    bool isSpecialCategory() const override;
 
-        void addOrReorderItems( const QStringList& items ) override;
-        void setItems( const QStringList& items ) override;
-        void removeItem( const QString& item ) override;
-        void renameItem( const QString& oldValue, const QString& newValue ) override;
-        void addItem( const QString& item ) override;
-        QStringList items() const override;
-        int idForName( const QString& name ) const;
-        void initIdMap();
-        void setIdMapping( const QString& name, int id );
-        QString nameForId( int id ) const;
+    void addOrReorderItems(const QStringList &items) override;
+    void setItems(const QStringList &items) override;
+    void removeItem(const QString &item) override;
+    void renameItem(const QString &oldValue, const QString &newValue) override;
+    void addItem(const QString &item) override;
+    QStringList items() const override;
+    int idForName(const QString &name) const;
+    void initIdMap();
+    void setIdMapping(const QString &name, int id);
+    QString nameForId(int id) const;
 
-        bool shouldSave();
-        void setShouldSave( bool b);
-        void setBirthDate(const QString& item, const QDate& birthDate) override;
-        QDate birthDate(const QString& item) const override;
+    bool shouldSave();
+    void setShouldSave(bool b);
+    void setBirthDate(const QString &item, const QDate &birthDate) override;
+    QDate birthDate(const QString &item) const override;
 
-    private:
-        QString m_name;
-        QString m_icon;
-        bool m_show;
-        ViewType m_type;
-        int m_thumbnailSize;
-        bool m_positionable;
+private:
+    QString m_name;
+    QString m_icon;
+    bool m_show;
+    ViewType m_type;
+    int m_thumbnailSize;
+    bool m_positionable;
 
-        CategoryType m_categoryType;
-        QStringList m_items;
-        QMap<QString,int> m_idMap;
-        QMap<int,QString> m_nameMap;
-        QMap<QString,QDate> m_birthDates;
+    CategoryType m_categoryType;
+    QStringList m_items;
+    QMap<QString, int> m_idMap;
+    QMap<int, QString> m_nameMap;
+    QMap<QString, QDate> m_birthDates;
 
-        bool m_shouldSave;
-    };
+    bool m_shouldSave;
+};
 }
 
 #endif /* XMLCATEGORY_H */

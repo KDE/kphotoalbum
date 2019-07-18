@@ -22,22 +22,23 @@
 #include "AbstractDisplay.h"
 #include <QResizeEvent>
 #include <phonon/mediaobject.h>
-namespace Phonon {
-   class VideoWidget;
-   class SeekSlider;
+namespace Phonon
+{
+class VideoWidget;
+class SeekSlider;
 }
 
 namespace Viewer
 {
 
-class VideoDisplay :public Viewer::AbstractDisplay
+class VideoDisplay : public Viewer::AbstractDisplay
 {
     Q_OBJECT
 
 public:
-    explicit VideoDisplay( QWidget* parent );
+    explicit VideoDisplay(QWidget *parent);
     ~VideoDisplay() override;
-    bool setImage( DB::ImageInfoPtr info, bool forward ) override;
+    bool setImage(DB::ImageInfoPtr info, bool forward) override;
     bool isPaused() const;
     bool isPlaying() const;
     QImage screenShoot();
@@ -59,17 +60,19 @@ private slots:
     void phononStateChanged(Phonon::State, Phonon::State);
 
 protected:
-    void resize( double factor );
-    void resizeEvent( QResizeEvent* ) override;
+    void resize(double factor);
+    void resizeEvent(QResizeEvent *) override;
     void setup();
     void setVideoWidgetSize();
 
-    enum ZoomType { FullZoom, PixelForPixelZoom, FixedZoom };
+    enum ZoomType { FullZoom,
+                    PixelForPixelZoom,
+                    FixedZoom };
 
 private:
-    Phonon::MediaObject* m_mediaObject;
-    Phonon::VideoWidget* m_videoWidget;
-    Phonon::SeekSlider* m_slider;
+    Phonon::MediaObject *m_mediaObject;
+    Phonon::VideoWidget *m_videoWidget;
+    Phonon::SeekSlider *m_slider;
     ZoomType m_zoomType;
     double m_zoomFactor;
 };

@@ -19,21 +19,25 @@
 #define INFOBOXRESIZER_H
 
 #include <QPoint>
-namespace Viewer {class InfoBox;}
+namespace Viewer
+{
+class InfoBox;
+}
 
-namespace Viewer {
+namespace Viewer
+{
 
 class InfoBoxResizer
 {
 public:
-    explicit InfoBoxResizer( Viewer::InfoBox* infoBox );
-    void setup( bool left, bool right, bool top, bool bottom );
-    void setPos( QPoint pos );
+    explicit InfoBoxResizer(Viewer::InfoBox *infoBox);
+    void setup(bool left, bool right, bool top, bool bottom);
+    void setPos(QPoint pos);
     void deactivate();
     bool isActive() const;
 
 private:
-    InfoBox* m_infoBox;
+    InfoBox *m_infoBox;
     bool m_left;
     bool m_right;
     bool m_top;

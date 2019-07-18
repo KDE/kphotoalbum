@@ -22,12 +22,12 @@
 
 namespace AnnotationDialog
 {
-class ShowSelectionOnlyManager :public QObject
+class ShowSelectionOnlyManager : public QObject
 {
     Q_OBJECT
 
 public:
-    static ShowSelectionOnlyManager& instance();
+    static ShowSelectionOnlyManager &instance();
     bool selectionIsLimited() const;
 
 public slots:
@@ -41,7 +41,6 @@ signals:
 private:
     ShowSelectionOnlyManager();
     bool m_limit;
-
 };
 
 }

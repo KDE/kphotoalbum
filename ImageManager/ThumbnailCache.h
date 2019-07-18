@@ -18,34 +18,35 @@
 #ifndef THUMBNAILCACHE_H
 #define THUMBNAILCACHE_H
 #include "CacheFileInfo.h"
+#include <DB/FileNameList.h>
+#include <QFile>
 #include <QHash>
 #include <QImage>
-#include <DB/FileNameList.h>
 #include <QMutex>
-#include <QFile>
 
 template <class Key, class T>
 class QCache;
 
-namespace ImageManager {
+namespace ImageManager
+{
 
 class ThumbnailMapping;
 
-class ThumbnailCache :public QObject
+class ThumbnailCache : public QObject
 {
     Q_OBJECT
 
 public:
-    static ThumbnailCache* instance();
+    static ThumbnailCache *instance();
     static void deleteInstance();
     ThumbnailCache();
-    void insert( const DB::FileName& name, const QImage& image );
-    QPixmap lookup( const DB::FileName& name ) const;
-    QByteArray lookupRawData( const DB::FileName& name ) const;
-    bool contains( const DB::FileName& name ) const;
+    void insert(const DB::FileName &name, const QImage &image);
+    QPixmap lookup(const DB::FileName &name) const;
+    QByteArray lookupRawData(const DB::FileName &name) const;
+    bool contains(const DB::FileName &name) const;
     void load();
-    void removeThumbnail( const DB::FileName& );
-    void removeThumbnails( const DB::FileNameList& );
+    void removeThumbnail(const DB::FileName &);
+    void removeThumbnails(const DB::FileNameList &);
 
 public slots:
     void save() const;
@@ -56,10 +57,10 @@ signals:
 
 private:
     ~ThumbnailCache() override;
-    QString fileNameForIndex( int index, const QString dir = QString::fromLatin1(".thumbnails/") ) const;
-    QString thumbnailPath( const QString& fileName, const QString dir = QString::fromLatin1(".thumbnails/") ) const;
+    QString fileNameForIndex(int index, const QString dir = QString::fromLatin1(".thumbnails/")) const;
+    QString thumbnailPath(const QString &fileName, const QString dir = QString::fromLatin1(".thumbnails/")) const;
 
-    static ThumbnailCache* s_instance;
+    static ThumbnailCache *s_instance;
     QHash<DB::FileName, CacheFileInfo> m_hash;
     mutable QHash<DB::FileName, CacheFileInfo> m_unsavedHash;
     /* Protects accesses to the data (hash and unsaved hash) */
@@ -70,7 +71,7 @@ private:
     mutable QMutex m_thumbnailWriterLock;
     int m_currentFile;
     int m_currentOffset;
-    mutable QTimer* m_timer;
+    mutable QTimer *m_timer;
     mutable bool m_needsFullSave;
     mutable bool m_isDirty;
     void saveFull() const;
@@ -81,8 +82,8 @@ private:
     /**
      * Holds an in-memory cache of thumbnail files.
      */
-    mutable QCache<int,ThumbnailMapping> *m_memcache;
-    mutable QFile* m_currentWriter;
+    mutable QCache<int, ThumbnailMapping> *m_memcache;
+    mutable QFile *m_currentWriter;
 };
 
 }

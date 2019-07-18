@@ -25,9 +25,9 @@
 #include <QMap>
 
 extern "C" {
-#include <sys/types.h>
 #include <dirent.h>
 #include <stdio.h>
+#include <sys/types.h>
 
 /*
  * Ideally the order of entries returned by readdir() should be close
@@ -56,20 +56,20 @@ extern "C" {
  * greatly increase complexity.
  */
 #ifdef __linux__
-#  include <sys/vfs.h>
-#  include <linux/magic.h>
-#  define HAVE_STATFS
-#  define STATFS_FSTYPE_EXT2 EXT2_SUPER_MAGIC  // Includes EXT3_SUPER_MAGIC, EXT4_SUPER_MAGIC
+#include <linux/magic.h>
+#include <sys/vfs.h>
+#define HAVE_STATFS
+#define STATFS_FSTYPE_EXT2 EXT2_SUPER_MAGIC // Includes EXT3_SUPER_MAGIC, EXT4_SUPER_MAGIC
 #else
 #ifdef __FreeBSD__
-#  include <sys/param.h>
-#  include <sys/mount.h>
-#  include <sys/disklabel.h>
-#  define HAVE_STATFS
-#  define STATFS_FSTYPE_EXT2 FS_EXT2FS
+#include <sys/disklabel.h>
+#include <sys/mount.h>
+#include <sys/param.h>
+#define HAVE_STATFS
+#define STATFS_FSTYPE_EXT2 FS_EXT2FS
 #endif
 // other platforms fall back to known-safe (but slower) implementation
-#endif  // __linux__
+#endif // __linux__
 }
 
 typedef QMap<ino_t, QString> InodeMap;
@@ -77,14 +77,14 @@ typedef QMap<ino_t, QString> InodeMap;
 typedef QSet<QString> StringSet;
 
 DB::FastDir::FastDir(const QString &path)
-  : m_path(path)
+    : m_path(path)
 {
     InodeMap tmpAnswer;
     DIR *dir;
     dirent *file;
     QByteArray bPath(QFile::encodeName(path));
-    dir = opendir( bPath.constData() );
-    if ( !dir )
+    dir = opendir(bPath.constData());
+    if (!dir)
         return;
     const bool doSortByInode = sortByInode(bPath);
     const bool doSortByName = sortByName(bPath);
@@ -102,13 +102,13 @@ DB::FastDir::FastDir(const QString &path)
         struct KDE_struct_dirent mt_file;
         char b[sizeof(struct dirent) + MAXNAMLEN + 1];
     } *u = new union dirent_buf;
-    while ( readdir_r(dir, &(u->mt_file), &file ) == 0 && file )
+    while (readdir_r(dir, &(u->mt_file), &file) == 0 && file)
 #else
     // FIXME: use 64bit versions of readdir and dirent?
-    while ( (file = readdir(dir)) )
+    while ((file = readdir(dir)))
 #endif // QT_THREAD_SUPPORT && _POSIX_THREAD_SAFE_FUNCTIONS
     {
-        if ( doSortByInode )
+        if (doSortByInode)
             tmpAnswer.insert(file->d_ino, QFile::decodeName(file->d_name));
         else
             m_sortedList.append(QFile::decodeName(file->d_name));
@@ -116,13 +116,13 @@ DB::FastDir::FastDir(const QString &path)
 #if defined(QT_THREAD_SUPPORT) && defined(_POSIX_THREAD_SAFE_FUNCTIONS) && !defined(Q_OS_CYGWIN)
     delete u;
 #endif
-    (void) closedir(dir);
+    (void)closedir(dir);
 
-    if ( doSortByInode ) {
-        for ( InodeMap::iterator it = tmpAnswer.begin(); it != tmpAnswer.end(); ++it ) {
+    if (doSortByInode) {
+        for (InodeMap::iterator it = tmpAnswer.begin(); it != tmpAnswer.end(); ++it) {
             m_sortedList << it.value();
         }
-    } else if ( doSortByName ) {
+    } else if (doSortByName) {
         m_sortedList.sort();
     }
 }
@@ -137,19 +137,19 @@ bool DB::sortByInode(const QByteArray &path)
 {
 #ifdef HAVE_STATFS
     struct statfs buf;
-    if ( statfs( path.constData(), &buf ) == -1 )
+    if (statfs(path.constData(), &buf) == -1)
         return -1;
     // Add other filesystems as appropriate
-    switch ( buf.f_type ) {
-        case STATFS_FSTYPE_EXT2:
-            return true;
-        default:
-            return false;
+    switch (buf.f_type) {
+    case STATFS_FSTYPE_EXT2:
+        return true;
+    default:
+        return false;
     }
-#else   // HAVE_STATFS
+#else // HAVE_STATFS
     Q_UNUSED(path);
     return false;
-#endif  // HAVE_STATFS
+#endif // HAVE_STATFS
 }
 
 const QStringList DB::FastDir::entryList() const
@@ -161,18 +161,18 @@ QStringList DB::FastDir::sortFileList(const StringSet &files) const
 {
     QStringList answer;
     StringSet tmp(files);
-    for ( const QString &fileName : m_sortedList ) {
-        if ( tmp.contains( fileName ) ) {
+    for (const QString &fileName : m_sortedList) {
+        if (tmp.contains(fileName)) {
             answer << fileName;
-            tmp.remove( fileName );
-        } else if ( tmp.contains( m_path + fileName ) ) {
+            tmp.remove(fileName);
+        } else if (tmp.contains(m_path + fileName)) {
             answer << m_path + fileName;
-            tmp.remove( m_path + fileName );
+            tmp.remove(m_path + fileName);
         }
     }
-    if ( tmp.count() > 0 ) {
+    if (tmp.count() > 0) {
         qCDebug(FastDirLog) << "Files left over after sorting on " << m_path;
-        for ( const QString &fileName : tmp ) {
+        for (const QString &fileName : tmp) {
             qCDebug(FastDirLog) << fileName;
             answer << fileName;
         }
@@ -183,7 +183,7 @@ QStringList DB::FastDir::sortFileList(const StringSet &files) const
 QStringList DB::FastDir::sortFileList(const QStringList &files) const
 {
     StringSet tmp;
-    for ( const QString &fileName : files ) {
+    for (const QString &fileName : files) {
         tmp << fileName;
     }
     return sortFileList(tmp);

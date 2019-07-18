@@ -20,12 +20,12 @@
 #define SEARCHMARKERTILER_H
 
 // Libkgeomap includes
-#include <KGeoMap/ItemMarkerTiler>
 #include <KGeoMap/GroupState>
+#include <KGeoMap/ItemMarkerTiler>
 
 namespace KGeoMap
 {
-   class ModelHelper;
+class ModelHelper;
 }
 
 namespace Map
@@ -45,16 +45,16 @@ class MapView;
 class SearchMarkerTiler : public KGeoMap::ItemMarkerTiler
 {
 public:
-   SearchMarkerTiler(KGeoMap::ModelHelper *const modelHelper, QObject *const parent=0);
-   ~SearchMarkerTiler() override;
-   /**
+    SearchMarkerTiler(KGeoMap::ModelHelper *const modelHelper, QObject *const parent = 0);
+    ~SearchMarkerTiler() override;
+    /**
     * @brief getGlobalGroupState
     * @return KGeoMap::ItemMarkerTiler::getGlobalGroupState() | KGeoMapRegionSelectedAll.
     */
-   KGeoMap::GroupState getGlobalGroupState() override;
+    KGeoMap::GroupState getGlobalGroupState() override;
 
 private: // Variables
-    MapView* m_mapView;
+    MapView *m_mapView;
 };
 
 }

@@ -17,28 +17,30 @@
 */
 
 #include "CategoryImageCollection.h"
-#include <KLocalizedString>
 #include "DB/ImageDB.h"
-Plugins::CategoryImageCollection::CategoryImageCollection( const DB::ImageSearchInfo& context, const QString& category,
-                                                  const QString& value )
-    : Plugins::ImageCollection( CategoryImageCollection::SubClass ), m_context( context ), m_category( category ),
-      m_value( value )
+#include <KLocalizedString>
+Plugins::CategoryImageCollection::CategoryImageCollection(const DB::ImageSearchInfo &context, const QString &category,
+                                                          const QString &value)
+    : Plugins::ImageCollection(CategoryImageCollection::SubClass)
+    , m_context(context)
+    , m_category(category)
+    , m_value(value)
 {
 }
 
 QString Plugins::CategoryImageCollection::name()
 {
-    if ( m_value == QString::fromLatin1( "**NONE**" ) )
-        return i18nc("The 'name' of an unnamed image collection.", "None" );
+    if (m_value == QString::fromLatin1("**NONE**"))
+        return i18nc("The 'name' of an unnamed image collection.", "None");
     else
         return m_value;
 }
 
 QList<QUrl> Plugins::CategoryImageCollection::images()
 {
-    DB::ImageSearchInfo context( m_context );
-    context.addAnd( m_category, m_value );
-    QStringList list = DB::ImageDB::instance()->search( context, true ).toStringList(DB::AbsolutePath);
-    return stringListToUrlList( list );
+    DB::ImageSearchInfo context(m_context);
+    context.addAnd(m_category, m_value);
+    QStringList list = DB::ImageDB::instance()->search(context, true).toStringList(DB::AbsolutePath);
+    return stringListToUrlList(list);
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -19,19 +19,19 @@
 #include "ImageInfo.h"
 #include "Logging.h"
 
-bool DB::OrCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet>& alreadyMatched)
+bool DB::OrCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet> &alreadyMatched)
 {
-    Q_FOREACH( CategoryMatcher *subMatcher, mp_elements ) {
+    Q_FOREACH (CategoryMatcher *subMatcher, mp_elements) {
         if (subMatcher->eval(info, alreadyMatched))
             return true;
     }
     return false;
 }
 
-void DB::OrCategoryMatcher::debug( int level ) const
+void DB::OrCategoryMatcher::debug(int level) const
 {
-    qCDebug(DBCategoryMatcherLog, "%sOR:", qPrintable(spaces(level)) );
-    ContainerCategoryMatcher::debug( level + 1 );
+    qCDebug(DBCategoryMatcherLog, "%sOR:", qPrintable(spaces(level)));
+    ContainerCategoryMatcher::debug(level + 1);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

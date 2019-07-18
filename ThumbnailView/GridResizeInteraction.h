@@ -17,20 +17,21 @@
 */
 #ifndef GRIDRESIZEINTERACTION_H
 #define GRIDRESIZEINTERACTION_H
-#include "ThumbnailComponent.h"
 #include "MouseInteraction.h"
+#include "ThumbnailComponent.h"
 #include <QMouseEvent>
 
 namespace ThumbnailView
 {
 class ThumbnailWidget;
 
-class GridResizeInteraction : public MouseInteraction, private ThumbnailComponent {
+class GridResizeInteraction : public MouseInteraction, private ThumbnailComponent
+{
 public:
-    explicit GridResizeInteraction( ThumbnailFactory* factory );
-    bool mousePressEvent( QMouseEvent* ) override;
-    bool mouseMoveEvent( QMouseEvent* ) override;
-    bool mouseReleaseEvent( QMouseEvent* ) override;
+    explicit GridResizeInteraction(ThumbnailFactory *factory);
+    bool mousePressEvent(QMouseEvent *) override;
+    bool mouseMoveEvent(QMouseEvent *) override;
+    bool mouseReleaseEvent(QMouseEvent *) override;
     bool isResizingGrid() override;
     void enterGridResizingMode();
     void leaveGridResizingMode();
@@ -52,9 +53,7 @@ private:
     bool m_resizing;
     int m_currentRow;
 };
-
 }
-
 
 #endif /* GRIDRESIZEINTERACTION_H */
 

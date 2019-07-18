@@ -33,58 +33,58 @@ class Setup
 public:
     Setup();
 
-    void setTitle( const QString& title );
+    void setTitle(const QString &title);
     QString title() const;
 
-    void setBaseDir( const QString& baseDir );
+    void setBaseDir(const QString &baseDir);
     QString baseDir() const;
 
-    void setBaseURL( const QString& baseURL );
+    void setBaseURL(const QString &baseURL);
     QString baseURL() const;
 
-    void setDestURL( const QString& destURL );
+    void setDestURL(const QString &destURL);
     QString destURL() const;
 
-    void setOutputDir( const QString& outputDir );
+    void setOutputDir(const QString &outputDir);
     QString outputDir() const;
 
-    void setThumbSize( int thumbSize );
+    void setThumbSize(int thumbSize);
     int thumbSize() const;
 
-    void setCopyright( const QString& copyright );
+    void setCopyright(const QString &copyright);
     QString copyright() const;
 
-    void setDate( bool date );
+    void setDate(bool date);
     bool date() const;
 
-    void setDescription( const QString& description );
+    void setDescription(const QString &description);
     QString description() const;
 
-    void setNumOfCols( int numOfCols );
+    void setNumOfCols(int numOfCols);
     int numOfCols() const;
 
-    void setGenerateKimFile( bool generateKimFile );
+    void setGenerateKimFile(bool generateKimFile);
     bool generateKimFile() const;
 
-    void setThemePath( const QString& theme );
+    void setThemePath(const QString &theme);
     QString themePath() const;
 
-    void setIncludeCategory( const QString& category, bool include );
-    bool includeCategory( const QString& category ) const;
+    void setIncludeCategory(const QString &category, bool include);
+    bool includeCategory(const QString &category) const;
 
-     void setResolutions( const QList<ImageSizeCheckBox*>& sizes );
-     const QList<HTMLGenerator::ImageSizeCheckBox*>& activeResolutions() const;
+    void setResolutions(const QList<ImageSizeCheckBox *> &sizes);
+    const QList<HTMLGenerator::ImageSizeCheckBox *> &activeResolutions() const;
 
-    void setImageList(const DB::FileNameList& files);
+    void setImageList(const DB::FileNameList &files);
     DB::FileNameList imageList() const;
 
-    void setInlineMovies( bool inlineMovie );
+    void setInlineMovies(bool inlineMovie);
     bool inlineMovies() const;
 
-    void setHtml5Video( bool html5Video );
+    void setHtml5Video(bool html5Video);
     bool html5Video() const;
 
-    void setHtml5VideoGenerate( bool html5VideoGenerate );
+    void setHtml5VideoGenerate(bool html5VideoGenerate);
     bool html5VideoGenerate() const;
 
 private:
@@ -100,8 +100,8 @@ private:
     int m_numOfCols;
     bool m_generateKimFile;
     QString m_theme;
-    QMap<QString,bool> m_includeCategory;
-    QList<ImageSizeCheckBox*> m_resolutions;
+    QMap<QString, bool> m_includeCategory;
+    QList<ImageSizeCheckBox *> m_resolutions;
     DB::FileNameList m_images;
     bool m_inlineMovies;
     bool m_html5Video;

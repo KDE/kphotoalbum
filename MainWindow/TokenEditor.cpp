@@ -17,61 +17,61 @@
 */
 
 #include "TokenEditor.h"
-#include <qlayout.h>
-#include <QGridLayout>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <KLocalizedString>
-#include <QPushButton>
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <QDialogButtonBox>
-#include "DB/ImageDB.h"
-#include "DB/CategoryCollection.h"
 #include "DB/Category.h"
+#include "DB/CategoryCollection.h"
+#include "DB/ImageDB.h"
 #include "DB/ImageSearchInfo.h"
 #include "Settings/SettingsData.h"
+#include <KLocalizedString>
+#include <QDialogButtonBox>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <qcheckbox.h>
+#include <qlabel.h>
+#include <qlayout.h>
 
 using namespace MainWindow;
 
-TokenEditor::TokenEditor( QWidget* parent )
-    :QDialog( parent )
+TokenEditor::TokenEditor(QWidget *parent)
+    : QDialog(parent)
 {
-    setWindowTitle( i18nc("@title:window", "Remove Tokens" ) );
+    setWindowTitle(i18nc("@title:window", "Remove Tokens"));
     QVBoxLayout *dialogLayout = new QVBoxLayout(this);
 
-    QWidget* mainContents = new QWidget;
-    QVBoxLayout* vlay = new QVBoxLayout( mainContents );
+    QWidget *mainContents = new QWidget;
+    QVBoxLayout *vlay = new QVBoxLayout(mainContents);
 
-    QLabel* label = new QLabel( i18n("Select tokens to remove from all images and videos:") );
-    vlay->addWidget( label );
+    QLabel *label = new QLabel(i18n("Select tokens to remove from all images and videos:"));
+    vlay->addWidget(label);
 
-    QGridLayout* grid = new QGridLayout;
-    vlay->addLayout( grid );
+    QGridLayout *grid = new QGridLayout;
+    vlay->addLayout(grid);
 
     int index = 0;
-    for ( int ch = 'A'; ch <= 'Z'; ch++, index++ ) {
-        QChar token = QChar::fromLatin1( (char) ch );
-        QCheckBox* box = new QCheckBox( token );
-        grid->addWidget( box, index/5, index % 5 );
-        m_checkBoxes.append( box );
+    for (int ch = 'A'; ch <= 'Z'; ch++, index++) {
+        QChar token = QChar::fromLatin1((char)ch);
+        QCheckBox *box = new QCheckBox(token);
+        grid->addWidget(box, index / 5, index % 5);
+        m_checkBoxes.append(box);
     }
 
-    QHBoxLayout* hlay = new QHBoxLayout;
-    vlay->addLayout( hlay );
+    QHBoxLayout *hlay = new QHBoxLayout;
+    vlay->addLayout(hlay);
 
-    hlay->addStretch( 1 );
-    QPushButton* selectAll = new QPushButton( i18n("Select All") );
-    QPushButton* selectNone = new QPushButton( i18n("Select None") );
-    hlay->addWidget( selectAll );
-    hlay->addWidget( selectNone );
+    hlay->addStretch(1);
+    QPushButton *selectAll = new QPushButton(i18n("Select All"));
+    QPushButton *selectNone = new QPushButton(i18n("Select None"));
+    hlay->addWidget(selectAll);
+    hlay->addWidget(selectNone);
 
     connect(selectAll, &QPushButton::clicked, this, &TokenEditor::selectAll);
     connect(selectNone, &QPushButton::clicked, this, &TokenEditor::selectNone);
 
     dialogLayout->addWidget(mainContents);
 
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     buttonBox->button(QDialogButtonBox::Ok)->setShortcut(Qt::CTRL | Qt::Key_Return);
     connect(buttonBox, &QDialogButtonBox::accepted, this, &TokenEditor::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &TokenEditor::reject);
@@ -82,28 +82,27 @@ void TokenEditor::show()
 {
     QStringList tokens = tokensInUse();
 
-    Q_FOREACH( QCheckBox *box, m_checkBoxes ) {
-        box->setChecked( false );
-        QString txt = box->text().remove( QString::fromLatin1("&") );
-        box->setEnabled( tokens.contains( txt ) );
+    Q_FOREACH (QCheckBox *box, m_checkBoxes) {
+        box->setChecked(false);
+        QString txt = box->text().remove(QString::fromLatin1("&"));
+        box->setEnabled(tokens.contains(txt));
     }
     QDialog::show();
 }
 
 void TokenEditor::selectAll()
 {
-    Q_FOREACH( QCheckBox *box, m_checkBoxes ) {
-        box->setChecked( true );
+    Q_FOREACH (QCheckBox *box, m_checkBoxes) {
+        box->setChecked(true);
     }
 }
 
 void TokenEditor::selectNone()
 {
-    Q_FOREACH( QCheckBox *box, m_checkBoxes ) {
-        box->setChecked( false );
+    Q_FOREACH (QCheckBox *box, m_checkBoxes) {
+        box->setChecked(false);
     }
 }
-
 
 /**
    I would love to use Settings::optionValue, but that method does not
@@ -114,11 +113,10 @@ QStringList TokenEditor::tokensInUse()
 {
     QStringList res;
     DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
-    QMap<QString, DB::CountWithRange> map =
-        DB::ImageDB::instance()->classify( DB::ImageSearchInfo(), tokensCategory->name(), DB::anyMediaType );
-    for( auto it = map.constBegin(); it != map.constEnd(); ++it ) {
-        if ( it.value().count > 0 )
-            res.append( it.key() );
+    QMap<QString, DB::CountWithRange> map = DB::ImageDB::instance()->classify(DB::ImageSearchInfo(), tokensCategory->name(), DB::anyMediaType);
+    for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
+        if (it.value().count > 0)
+            res.append(it.key());
     }
     return res;
 }
@@ -126,10 +124,10 @@ QStringList TokenEditor::tokensInUse()
 void TokenEditor::accept()
 {
     DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
-    Q_FOREACH( const QCheckBox *box, m_checkBoxes ) {
-        if ( box->isChecked() && box->isEnabled() ) {
-            QString txt = box->text().remove( QString::fromLatin1("&") );
-            tokensCategory->removeItem( txt );
+    Q_FOREACH (const QCheckBox *box, m_checkBoxes) {
+        if (box->isChecked() && box->isEnabled()) {
+            QString txt = box->text().remove(QString::fromLatin1("&"));
+            tokensCategory->removeItem(txt);
         }
     }
     QDialog::accept();

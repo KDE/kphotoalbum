@@ -24,23 +24,30 @@
 
 #include <BackgroundTaskManager/JobInterface.h>
 
-namespace ImageManager { class ImageRequest; }
-namespace DB { class FileName; }
+namespace ImageManager
+{
+class ImageRequest;
+}
+namespace DB
+{
+class FileName;
+}
 class QImage;
 
-namespace BackgroundJobs {
+namespace BackgroundJobs
+{
 
 class HandleVideoThumbnailRequestJob : public BackgroundTaskManager::JobInterface
 {
     Q_OBJECT
 public:
-    explicit HandleVideoThumbnailRequestJob(ImageManager::ImageRequest* request, BackgroundTaskManager::Priority priority);
+    explicit HandleVideoThumbnailRequestJob(ImageManager::ImageRequest *request, BackgroundTaskManager::Priority priority);
     QString title() const override;
     QString details() const override;
-    static void saveFullScaleFrame( const DB::FileName& fileName, const QImage& image );
-    static DB::FileName pathForRequest( const DB::FileName& fileName  );
-    static DB::FileName frameName(const DB::FileName& videoName, int frameNumber );
-    static void removeFullScaleFrame( const DB::FileName& fileName );
+    static void saveFullScaleFrame(const DB::FileName &fileName, const QImage &image);
+    static DB::FileName pathForRequest(const DB::FileName &fileName);
+    static DB::FileName frameName(const DB::FileName &videoName, int frameNumber);
+    static void removeFullScaleFrame(const DB::FileName &fileName);
 
 protected:
     void execute() override;
@@ -49,10 +56,10 @@ private slots:
     void frameLoaded(QImage);
 
 private:
-    void sendResult( QImage image );
+    void sendResult(QImage image);
     QImage brokenImage() const;
 
-    ImageManager::ImageRequest* m_request;
+    ImageManager::ImageRequest *m_request;
 };
 
 } // namespace BackgroundJobs

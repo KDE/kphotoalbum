@@ -31,7 +31,7 @@ namespace Utilities
  * @param mode aspect ratio mode
  * @return a scaled image
  */
-QImage scaleImage(const QImage &image, const QSize& size, Qt::AspectRatioMode mode=Qt::IgnoreAspectRatio );
+QImage scaleImage(const QImage &image, const QSize &size, Qt::AspectRatioMode mode = Qt::IgnoreAspectRatio);
 
 /**
  * @brief saveImage saves a QImage to a FileName, making sure that the directory exists.
@@ -39,9 +39,8 @@ QImage scaleImage(const QImage &image, const QSize& size, Qt::AspectRatioMode mo
  * @param image
  * @param format the storage format for QImage::save(), usually "JPEG"
  */
-void saveImage( const DB::FileName& fileName, const QImage& image, const char* format );
+void saveImage(const DB::FileName &fileName, const QImage &image, const char *format);
 }
-
 
 #endif /* IMAGE_UTIL_H */
 

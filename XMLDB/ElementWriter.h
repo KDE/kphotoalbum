@@ -27,12 +27,12 @@ namespace XMLDB
 class ElementWriter
 {
 public:
-    ElementWriter(QXmlStreamWriter& writer, const QString& elementName, bool writeAtOnce = true );
+    ElementWriter(QXmlStreamWriter &writer, const QString &elementName, bool writeAtOnce = true);
     void writeStartElement();
     ~ElementWriter();
 
 private:
-    QXmlStreamWriter& m_writer;
+    QXmlStreamWriter &m_writer;
     QString m_elementName;
     bool m_haveWrittenStartTag;
 };

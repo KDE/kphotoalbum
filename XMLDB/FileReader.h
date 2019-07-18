@@ -18,11 +18,10 @@
 #ifndef XMLDB_FILEREADER_H
 #define XMLDB_FILEREADER_H
 
-#include "DB/ImageInfoPtr.h"
 #include "DB/ImageInfo.h"
-#include <QSharedPointer>
+#include "DB/ImageInfoPtr.h"
 #include "XmlReader.h"
-
+#include <QSharedPointer>
 
 class QXmlStreamReader;
 
@@ -34,20 +33,24 @@ class FileReader
 {
 
 public:
-    FileReader( Database* db ) : m_db( db ), m_nextStackId(1) {}
-    void read( const QString& configFile );
-    static QString unescape( const QString& );
+    FileReader(Database *db)
+        : m_db(db)
+        , m_nextStackId(1)
+    {
+    }
+    void read(const QString &configFile);
+    static QString unescape(const QString &);
     DB::StackID nextStackId() const { return m_nextStackId; }
 
 protected:
-    void loadCategories( ReaderPtr reader );
-    void loadImages( ReaderPtr reader );
-    void loadBlockList( ReaderPtr reader );
-    void loadMemberGroups( ReaderPtr reader );
+    void loadCategories(ReaderPtr reader);
+    void loadImages(ReaderPtr reader);
+    void loadBlockList(ReaderPtr reader);
+    void loadMemberGroups(ReaderPtr reader);
     //void loadSettings(ReaderPtr reader);
 
-    DB::ImageInfoPtr load( const DB::FileName& filename, ReaderPtr reader );
-    ReaderPtr readConfigFile( const QString& configFile );
+    DB::ImageInfoPtr load(const DB::FileName &filename, ReaderPtr reader);
+    ReaderPtr readConfigFile(const QString &configFile);
 
     void createSpecialCategories();
 
@@ -55,7 +58,7 @@ protected:
     void checkIfAllImagesHaveSizeAttributes();
 
 private:
-    Database* const m_db;
+    Database *const m_db;
     int m_fileVersion;
     DB::StackID m_nextStackId;
 

@@ -25,7 +25,8 @@
 // Local includes
 #include "DB/Category.h"
 
-namespace DB {
+namespace DB
+{
 
 // Local classes
 class MemberMap;
@@ -41,16 +42,15 @@ class CategoryItem : public QObject, public QListWidgetItem
 
 public:
     CategoryItem(
-        const QString& category,
-        const QString& icon,
+        const QString &category,
+        const QString &icon,
         DB::Category::ViewType type,
         int thumbnailSize,
-        QListWidget* parent,
-        bool positionable = false
-    );
-    void setLabel(const QString& label);
+        QListWidget *parent,
+        bool positionable = false);
+    void setLabel(const QString &label);
     void setPositionable(bool positionable);
-    void submit(DB::MemberMap* memberMap);
+    void submit(DB::MemberMap *memberMap);
     void removeFromDatabase();
     bool positionable() const;
     int thumbnailSize() const;
@@ -58,12 +58,12 @@ public:
     void setThumbnailSize(int size);
     void setViewType(DB::Category::ViewType type);
     QString icon() const;
-    void setIcon(const QString& icon);
+    void setIcon(const QString &icon);
     QString originalName() const;
     void markAsNewCategory();
 
 protected:
-    void renameCategory(DB::MemberMap* memberMap);
+    void renameCategory(DB::MemberMap *memberMap);
 
 private: // Variables
     QString m_categoryOrig;

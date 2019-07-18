@@ -20,12 +20,16 @@
 #include "JobInfo.h"
 #include <KLocalizedString>
 
-namespace BackgroundTaskManager {
+namespace BackgroundTaskManager
+{
 
 int JobInfo::s_jobCounter = 0;
 
 JobInfo::JobInfo(BackgroundTaskManager::Priority priority)
-    : state(NotStarted), m_priority(priority), m_elapsed(0), m_jobIndex(++s_jobCounter)
+    : state(NotStarted)
+    , m_priority(priority)
+    , m_elapsed(0)
+    , m_jobIndex(++s_jobCounter)
 {
 }
 
@@ -64,7 +68,7 @@ QString JobInfo::elapsed() const
         return i18n("Not Started");
 
     qint64 time = m_timer.elapsed();
-    if ( state == Completed )
+    if (state == Completed)
         time = m_elapsed;
 
     const int secs = time / 1000;

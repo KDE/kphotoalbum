@@ -17,8 +17,8 @@
 */
 #include "ImageCollectionSelector.h"
 
-Plugins::ImageCollectionSelector::ImageCollectionSelector( QWidget *parent, Interface *interface )
-    : KIPI::ImageCollectionSelector( parent )
+Plugins::ImageCollectionSelector::ImageCollectionSelector(QWidget *parent, Interface *interface)
+    : KIPI::ImageCollectionSelector(parent)
 {
     m_interface = interface;
     m_firstTimeVisible = true;
@@ -26,7 +26,7 @@ Plugins::ImageCollectionSelector::ImageCollectionSelector( QWidget *parent, Inte
 
 QList<KIPI::ImageCollection> Plugins::ImageCollectionSelector::selectedImageCollections() const
 {
-    if ( m_interface ) {
+    if (m_interface) {
         KIPI::ImageCollection collection = m_interface->currentSelection();
         if (!collection.isValid()) {
             collection = m_interface->currentAlbum();
@@ -42,7 +42,8 @@ QList<KIPI::ImageCollection> Plugins::ImageCollectionSelector::selectedImageColl
     return QList<KIPI::ImageCollection>();
 }
 
-void Plugins::ImageCollectionSelector::showEvent(QShowEvent *event) {
+void Plugins::ImageCollectionSelector::showEvent(QShowEvent *event)
+{
     KIPI::ImageCollectionSelector::showEvent(event);
     if (m_firstTimeVisible) {
         // fake one selection change to make HTML Export Plugin believe there really is a selection:

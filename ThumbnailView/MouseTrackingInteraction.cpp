@@ -18,19 +18,19 @@
 #include "MouseTrackingInteraction.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
-#include <QMouseEvent>
 #include "VideoThumbnailCycler.h"
 #include <DB/FileName.h>
+#include <QMouseEvent>
 
-ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction( ThumbnailFactory* factory )
-    : ThumbnailComponent( factory ),
-      m_cursorWasAtStackIcon(false)
+ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction(ThumbnailFactory *factory)
+    : ThumbnailComponent(factory)
+    , m_cursorWasAtStackIcon(false)
 {
 }
 
-bool ThumbnailView::MouseTrackingInteraction::mouseMoveEvent( QMouseEvent* event )
+bool ThumbnailView::MouseTrackingInteraction::mouseMoveEvent(QMouseEvent *event)
 {
-    updateStackingIndication( event );
+    updateStackingIndication(event);
     handleCursorOverNewIcon();
 
     if ((event->modifiers() & Qt::ControlModifier) != 0 && widget()->isItemUnderCursorSelected())
@@ -40,17 +40,16 @@ bool ThumbnailView::MouseTrackingInteraction::mouseMoveEvent( QMouseEvent* event
     return false;
 }
 
-void ThumbnailView::MouseTrackingInteraction::updateStackingIndication( QMouseEvent* event )
+void ThumbnailView::MouseTrackingInteraction::updateStackingIndication(QMouseEvent *event)
 {
-    bool interestingArea = widget()->isMouseOverStackIndicator( event->pos() );
-    if ( interestingArea && ! m_cursorWasAtStackIcon ) {
-        widget()->setCursor( Qt::PointingHandCursor );
+    bool interestingArea = widget()->isMouseOverStackIndicator(event->pos());
+    if (interestingArea && !m_cursorWasAtStackIcon) {
+        widget()->setCursor(Qt::PointingHandCursor);
         m_cursorWasAtStackIcon = true;
-    } else if ( ! interestingArea && m_cursorWasAtStackIcon ) {
+    } else if (!interestingArea && m_cursorWasAtStackIcon) {
         widget()->unsetCursor();
         m_cursorWasAtStackIcon = false;
     }
-
 }
 
 void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon()
@@ -58,9 +57,8 @@ void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon()
     static DB::FileName lastFileNameUnderCursor;
     const DB::FileName fileName = widget()->mediaIdUnderCursor();
 
-    if ( fileName != lastFileNameUnderCursor ) {
-        if ( !fileName.isNull() && !lastFileNameUnderCursor.isNull() )
-        {
+    if (fileName != lastFileNameUnderCursor) {
+        if (!fileName.isNull() && !lastFileNameUnderCursor.isNull()) {
             emit fileIdUnderCursorChanged(fileName);
             model()->updateCell(lastFileNameUnderCursor);
             model()->updateCell(fileName);

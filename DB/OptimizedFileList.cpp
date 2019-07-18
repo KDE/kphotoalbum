@@ -16,15 +16,15 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "OptimizedFileList.h"
 #include "FastDir.h"
 #include "Logging.h"
-#include "OptimizedFileList.h"
 
 extern "C" {
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
 #include <dirent.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 }
 
 #include <QCryptographicHash>
@@ -32,20 +32,20 @@ extern "C" {
 #include <QLoggingCategory>
 
 DB::OptimizedFileList::OptimizedFileList(const QStringList &files)
-    : m_fileList(files),
-      m_haveOptimizedFiles(false)
+    : m_fileList(files)
+    , m_haveOptimizedFiles(false)
 {
     optimizeFiles();
 }
 
 DB::OptimizedFileList::OptimizedFileList(const DB::FileNameList &files)
-    : m_fileList(files.toStringList(DB::AbsolutePath)),
-      m_haveOptimizedFiles(false)
+    : m_fileList(files.toStringList(DB::AbsolutePath))
+    , m_haveOptimizedFiles(false)
 {
     optimizeFiles();
 }
 
-QString DB::OptimizedFileList::getDirName(const QString& path)
+QString DB::OptimizedFileList::getDirName(const QString &path)
 {
     static const QString pathSep(QString::fromLatin1("/"));
     int lastChar = path.lastIndexOf(pathSep);
@@ -57,53 +57,53 @@ QString DB::OptimizedFileList::getDirName(const QString& path)
 
 void DB::OptimizedFileList::optimizeFiles() const
 {
-    if ( m_haveOptimizedFiles )
+    if (m_haveOptimizedFiles)
         return;
     DirMap dirMap;
     QStringList dirList;
     // Map files to directories
-    for ( const QString &fileName : m_fileList ) {
+    for (const QString &fileName : m_fileList) {
         QString dir = getDirName(fileName);
-        if (! dirMap.contains( dir ) ) {
+        if (!dirMap.contains(dir)) {
             StringSet newDir;
             dirMap.insert(dir, newDir);
             dirList << dir;
         }
-        dirMap[ dir ] << fileName;
+        dirMap[dir] << fileName;
     }
     struct stat statbuf;
-    for ( const QString &dirName : dirList ) {
+    for (const QString &dirName : dirList) {
         const StringSet &files(dirMap[dirName]);
         FastDir dir(dirName);
         QStringList sortedList = dir.sortFileList(files);
-        QString fsName( QString::fromLatin1( "NULLFS" ) );
-        if ( stat( QByteArray(QFile::encodeName(dirName)).constData(), &statbuf ) == 0 ) {
+        QString fsName(QString::fromLatin1("NULLFS"));
+        if (stat(QByteArray(QFile::encodeName(dirName)).constData(), &statbuf) == 0) {
             QCryptographicHash md5calculator(QCryptographicHash::Md5);
-            QByteArray md5Buffer((const char *) &(statbuf.st_dev), sizeof(statbuf.st_dev));
+            QByteArray md5Buffer((const char *)&(statbuf.st_dev), sizeof(statbuf.st_dev));
             md5calculator.addData(md5Buffer);
             fsName = QString::fromLatin1(md5calculator.result().toHex());
         }
-        if ( ! m_fsMap.contains( fsName ) ) {
+        if (!m_fsMap.contains(fsName)) {
             QStringList newList;
             m_fsMap.insert(fsName, newList);
         }
-        m_fsMap[ fsName ] += sortedList;
+        m_fsMap[fsName] += sortedList;
     }
     FSMap tmpFsMap(m_fsMap);
-    while ( tmpFsMap.size() > 1 ) {
+    while (tmpFsMap.size() > 1) {
         QStringList filesystemsToRemove;
         for (FSMap::iterator it = tmpFsMap.begin(); it != tmpFsMap.end(); ++it) {
-            if ( it.value().length() > 0 ) {
+            if (it.value().length() > 0) {
                 m_optimizedList.append(it.value().takeFirst());
             } else {
                 filesystemsToRemove << it.key();
             }
         }
         for (const QString &fs : filesystemsToRemove) {
-            tmpFsMap.remove( fs );
+            tmpFsMap.remove(fs);
         }
     }
-    if ( tmpFsMap.size() > 0 ) {
+    if (tmpFsMap.size() > 0) {
         QStringList &remainder(tmpFsMap.last());
         m_optimizedList += remainder;
     }

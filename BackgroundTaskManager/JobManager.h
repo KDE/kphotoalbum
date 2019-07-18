@@ -30,19 +30,19 @@ class JobManager : public QObject
 {
     Q_OBJECT
 public:
-    void addJob(JobInterface* job);
-    static JobManager* instance();
+    void addJob(JobInterface *job);
+    static JobManager *instance();
     int activeJobCount() const;
-    JobInfo* activeJob(int index) const;
+    JobInfo *activeJob(int index) const;
     int futureJobCount() const;
-    JobInfo* futureJob(int index) const;
+    JobInfo *futureJob(int index) const;
     bool isPaused() const;
     bool hasActiveJobs() const;
     void togglePaused();
 
 signals:
-    void jobStarted(JobInterface* job);
-    void jobEnded(JobInterface* job);
+    void jobStarted(JobInterface *job);
+    void jobEnded(JobInterface *job);
 
 private slots:
     void execute();
@@ -50,13 +50,13 @@ private slots:
 
 private:
     JobManager();
-    static JobManager* s_instance;
+    static JobManager *s_instance;
     bool shouldExecute() const;
 
     int maxJobCount() const;
 
     bool m_isRunning;
-    QList<JobInterface*> m_active;
+    QList<JobInterface *> m_active;
     PriorityQueue m_queue;
     bool m_isPaused;
 };

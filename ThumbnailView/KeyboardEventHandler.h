@@ -39,18 +39,17 @@ namespace ThumbnailView
  *  - Applying filters for tokens and ratings.
  *  - Clearing the current filter
  */
-class KeyboardEventHandler :public QObject, public ThumbnailComponent
+class KeyboardEventHandler : public QObject, public ThumbnailComponent
 {
     Q_OBJECT
 
 public:
-    explicit KeyboardEventHandler( ThumbnailFactory* factory );
-    bool keyPressEvent( QKeyEvent* event );
-    bool keyReleaseEvent( QKeyEvent* );
+    explicit KeyboardEventHandler(ThumbnailFactory *factory);
+    bool keyPressEvent(QKeyEvent *event);
+    bool keyReleaseEvent(QKeyEvent *);
 
 signals:
     void showSelection();
-
 
 private:
 };

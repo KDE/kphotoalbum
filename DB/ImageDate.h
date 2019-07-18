@@ -18,44 +18,46 @@
 
 #ifndef IMAGEDATE_H
 #define IMAGEDATE_H
-#include <qstring.h>
 #include <qdatetime.h>
+#include <qstring.h>
 #include <qstringlist.h>
 
 namespace DB
 {
 
-
-class ImageDate {
+class ImageDate
+{
 public:
     ImageDate();
-    ImageDate( const QDate& start, const QDate& end );
-    ImageDate( const QDateTime& start, const QDateTime& end );
-    ImageDate( int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int hourFrom, int minuteFrom, int secondFrom );
-    explicit ImageDate( const QDate& );
-    explicit ImageDate( const QDateTime& );
-    ImageDate( const QDate& start, QDate end, const QTime& time );
+    ImageDate(const QDate &start, const QDate &end);
+    ImageDate(const QDateTime &start, const QDateTime &end);
+    ImageDate(int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int hourFrom, int minuteFrom, int secondFrom);
+    explicit ImageDate(const QDate &);
+    explicit ImageDate(const QDateTime &);
+    ImageDate(const QDate &start, QDate end, const QTime &time);
 
     QDateTime start() const;
     QDateTime end() const;
-    static QDate parseDate( const QString& date, bool startDate );
+    static QDate parseDate(const QString &date, bool startDate);
 
-    bool operator<( const ImageDate& other ) const;
-    bool operator<=( const ImageDate& other ) const;
-    bool operator==( const ImageDate& other ) const;
-    bool operator!=( const ImageDate& other ) const;
+    bool operator<(const ImageDate &other) const;
+    bool operator<=(const ImageDate &other) const;
+    bool operator==(const ImageDate &other) const;
+    bool operator!=(const ImageDate &other) const;
 
     bool isValid() const { return !isNull(); }
     bool isNull() const;
     bool isFuzzy() const;
-    QString toString( bool withTime = true ) const;
+    QString toString(bool withTime = true) const;
     bool hasValidTime() const;
 
-    enum MatchType { DontMatch, ExactMatch, RangeMatch };
-    MatchType isIncludedIn( const ImageDate& searchRange ) const;
-    bool includes( const QDateTime& date ) const;
+    enum MatchType { DontMatch,
+                     ExactMatch,
+                     RangeMatch };
+    MatchType isIncludedIn(const ImageDate &searchRange) const;
+    bool includes(const QDateTime &date) const;
 
-    void extendTo( const ImageDate& other);
+    void extendTo(const ImageDate &other);
 
 protected:
     static QStringList monthNames();
@@ -64,7 +66,6 @@ protected:
 private:
     QDateTime m_start, m_end;
 };
-
 }
 
 #endif /* IMAGEDATE_H */

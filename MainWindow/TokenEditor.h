@@ -25,11 +25,12 @@ class QCheckBox;
 namespace MainWindow
 {
 
-class TokenEditor :public QDialog {
+class TokenEditor : public QDialog
+{
     Q_OBJECT
 
 public:
-    explicit TokenEditor( QWidget* parent );
+    explicit TokenEditor(QWidget *parent);
     virtual void show();
     static QStringList tokensInUse();
 
@@ -38,11 +39,9 @@ protected slots:
     void selectNone();
     void accept() override;
 
-
 private:
-     QList<QCheckBox*> m_checkBoxes;
+    QList<QCheckBox *> m_checkBoxes;
 };
-
 }
 
 #endif /* TOKENEDITOR_H */

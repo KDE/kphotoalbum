@@ -19,17 +19,17 @@
 #ifndef IMAGEINFO_H
 #define IMAGEINFO_H
 
+#include "DB/CategoryPtr.h"
+#include "ExifMode.h"
+#include "FileName.h"
+#include "ImageDate.h"
+#include "MD5.h"
+#include "Utilities/StringSet.h"
+#include <QRect>
+#include <QSize>
+#include <qmap.h>
 #include <qstring.h>
 #include <qstringlist.h>
-#include <qmap.h>
-#include "ImageDate.h"
-#include "Utilities/StringSet.h"
-#include "MD5.h"
-#include "ExifMode.h"
-#include "DB/CategoryPtr.h"
-#include <QSize>
-#include <QRect>
-#include "FileName.h"
 
 #include "config-kpa-kgeomap.h"
 #ifdef HAVE_KGEOMAP
@@ -38,10 +38,11 @@
 
 namespace Plugins
 {
-     class ImageInfo;
+class ImageInfo;
 }
 
-namespace XMLDB {
+namespace XMLDB
+{
 class Database;
 }
 
@@ -59,60 +60,62 @@ enum RotationMode {
 using Utilities::StringSet;
 class MemberMap;
 
-enum MediaType { Image = 0x01, Video = 0x02 };
+enum MediaType { Image = 0x01,
+                 Video = 0x02 };
 const MediaType anyMediaType = MediaType(Image | Video);
 typedef unsigned int StackID;
 
-class ImageInfo :public QSharedData {
+class ImageInfo : public QSharedData
+{
 
 public:
     ImageInfo();
-    explicit ImageInfo( const DB::FileName& fileName, MediaType type = Image, bool readExifInfo = true, bool storeExifInfo = true);
-    ImageInfo( const DB::FileName& fileName,
-               const QString& label,
-               const QString& description,
-               const ImageDate& date,
-               int angle,
-               const MD5& md5sum,
-               const QSize& size,
-               MediaType type,
-               short rating = -1,
-               StackID stackId = 0,
-               unsigned int stackOrder = 0 );
-    ImageInfo( const ImageInfo& other );
+    explicit ImageInfo(const DB::FileName &fileName, MediaType type = Image, bool readExifInfo = true, bool storeExifInfo = true);
+    ImageInfo(const DB::FileName &fileName,
+              const QString &label,
+              const QString &description,
+              const ImageDate &date,
+              int angle,
+              const MD5 &md5sum,
+              const QSize &size,
+              MediaType type,
+              short rating = -1,
+              StackID stackId = 0,
+              unsigned int stackOrder = 0);
+    ImageInfo(const ImageInfo &other);
 
     FileName fileName() const;
-    void setFileName( const DB::FileName& relativeFileName );
+    void setFileName(const DB::FileName &relativeFileName);
 
-    void setLabel( const QString& );
+    void setLabel(const QString &);
     QString label() const;
 
-    void setDescription( const QString& );
+    void setDescription(const QString &);
     QString description() const;
 
-    void setDate( const ImageDate& );
+    void setDate(const ImageDate &);
     ImageDate date() const;
-    ImageDate& date();
-    void readExif(const DB::FileName& fullPath, DB::ExifMode mode);
+    ImageDate &date();
+    void readExif(const DB::FileName &fullPath, DB::ExifMode mode);
 
-    void rotate( int degrees, RotationMode mode=RotateImageInfoAndAreas );
+    void rotate(int degrees, RotationMode mode = RotateImageInfoAndAreas);
     int angle() const;
-    void setAngle( int angle );
+    void setAngle(int angle);
 
     short rating() const;
-    void setRating( short rating );
+    void setRating(short rating);
 
     bool isStacked() const { return m_stackId != 0; }
     StackID stackId() const;
 
     unsigned int stackOrder() const;
-    void setStackOrder( const unsigned int stackOrder );
+    void setStackOrder(const unsigned int stackOrder);
 
     void setVideoLength(int seconds);
     int videoLength() const;
 
-    void setCategoryInfo( const QString& key,  const StringSet& value );
-    void addCategoryInfo( const QString& category, const StringSet& values );
+    void setCategoryInfo(const QString &key, const StringSet &value);
+    void addCategoryInfo(const QString &category, const StringSet &values);
     /**
      * Enable a tag within a category for this image.
      * Optionally, the tag's position can be given (for positionable categories).
@@ -120,10 +123,10 @@ public:
      * @param value the tag name
      * @param area the image region that the tag applies to.
      */
-    void addCategoryInfo(const QString& category, const QString& value, const QRect& area = QRect());
+    void addCategoryInfo(const QString &category, const QString &value, const QRect &area = QRect());
     void clearAllCategoryInfo();
-    void removeCategoryInfo( const QString& category, const StringSet& values );
-    void removeCategoryInfo( const QString& category, const QString& value );
+    void removeCategoryInfo(const QString &category, const StringSet &values);
+    void removeCategoryInfo(const QString &category, const QString &value);
     /**
      * Set the tagged areas for the image.
      * It is assumed that the positioned tags have already been set to the ImageInfo
@@ -132,46 +135,50 @@ public:
      * @param category the category name.
      * @param positionedTags a mapping of tag names to image areas.
      */
-    void setPositionedTags(const QString& category, const QMap<QString, QRect> &positionedTags);
+    void setPositionedTags(const QString &category, const QMap<QString, QRect> &positionedTags);
 
-    bool hasCategoryInfo( const QString& key,  const QString& value ) const;
-    bool hasCategoryInfo( const QString& key,  const StringSet& values ) const;
+    bool hasCategoryInfo(const QString &key, const QString &value) const;
+    bool hasCategoryInfo(const QString &key, const StringSet &values) const;
 
     QStringList availableCategories() const;
-    StringSet itemsOfCategory( const QString& category ) const;
-    void renameItem( const QString& key, const QString& oldValue, const QString& newValue );
-    void renameCategory( const QString& oldName, const QString& newName );
+    StringSet itemsOfCategory(const QString &category) const;
+    void renameItem(const QString &key, const QString &oldValue, const QString &newValue);
+    void renameCategory(const QString &oldName, const QString &newName);
 
-    bool operator!=( const ImageInfo& other ) const;
-    bool operator==( const ImageInfo& other ) const;
-    ImageInfo& operator=( const ImageInfo& other );
+    bool operator!=(const ImageInfo &other) const;
+    bool operator==(const ImageInfo &other) const;
+    ImageInfo &operator=(const ImageInfo &other);
 
+    static bool imageOnDisk(const DB::FileName &fileName);
 
-    static bool imageOnDisk( const DB::FileName& fileName );
+    const MD5 &MD5Sum() const { return m_md5sum; }
+    void setMD5Sum(const MD5 &sum, bool storeEXIF = true);
 
-    const MD5& MD5Sum() const { return m_md5sum; }
-    void setMD5Sum( const MD5& sum, bool storeEXIF=true );
-
-    void setLocked( bool );
+    void setLocked(bool);
     bool isLocked() const;
 
     bool isNull() const { return m_null; }
     QSize size() const;
-    void setSize( const QSize& size );
+    void setSize(const QSize &size);
 
     MediaType mediaType() const;
-    void setMediaType( MediaType type ) { if (type != m_type) m_dirty = true; m_type = type; }
+    void setMediaType(MediaType type)
+    {
+        if (type != m_type)
+            m_dirty = true;
+        m_type = type;
+    }
     bool isVideo() const;
 
-    void createFolderCategoryItem( DB::CategoryPtr, DB::MemberMap& memberMap );
+    void createFolderCategoryItem(DB::CategoryPtr, DB::MemberMap &memberMap);
 
-    void copyExtraData( const ImageInfo& from, bool copyAngle = true);
+    void copyExtraData(const ImageInfo &from, bool copyAngle = true);
     void removeExtraData();
     /**
      * Merge another ImageInfo into this one.
      * The other ImageInfo is not altered in any way or removed.
      */
-    void merge(const ImageInfo& other);
+    void merge(const ImageInfo &other);
 
     QMap<QString, QMap<QString, QRect>> taggedAreas() const;
     /**
@@ -192,11 +199,12 @@ public:
 protected:
     void setIsNull(bool b) { m_null = b; }
     bool isDirty() const { return m_dirty; }
-    void setIsDirty(bool b)  { m_dirty = b; }
-    bool updateDateInformation( int mode ) const;
+    void setIsDirty(bool b) { m_dirty = b; }
+    bool updateDateInformation(int mode) const;
 
-    void setStackId( const StackID stackId );
+    void setStackId(const StackID stackId);
     friend class XMLDB::Database;
+
 private:
     DB::FileName m_fileName;
     QString m_label;
@@ -205,7 +213,9 @@ private:
     QMap<QString, StringSet> m_categoryInfomation;
     QMap<QString, QMap<QString, QRect>> m_taggedAreas;
     int m_angle;
-    enum OnDisk { YesOnDisk, NoNotOnDisk, Unchecked };
+    enum OnDisk { YesOnDisk,
+                  NoNotOnDisk,
+                  Unchecked };
     mutable OnDisk m_imageOnDisk;
     MD5 m_md5sum;
     bool m_null;
@@ -228,7 +238,6 @@ private:
     // Will be set to true after every change
     bool m_dirty;
 };
-
 }
 
 #endif /* IMAGEINFO_H */

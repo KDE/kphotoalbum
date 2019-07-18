@@ -22,8 +22,8 @@
 #include <config-kpa-kipi.h>
 
 #include <QList>
-#include <QVariant>
 #include <QUrl>
+#include <QVariant>
 
 #include <KIPI/ImageCollection>
 #include <KIPI/ImageCollectionSelector>
@@ -33,59 +33,59 @@
 class QPixmap;
 class KFileItem;
 
-namespace Browser {
+namespace Browser
+{
 class BreadcrumbList;
 }
 
 namespace Plugins
 {
 
-class Interface :public KIPI::Interface
+class Interface : public KIPI::Interface
 {
     Q_OBJECT
 
 public:
-    explicit Interface( QObject *parent, QString name=QString());
+    explicit Interface(QObject *parent, QString name = QString());
 
     KIPI::ImageCollection currentAlbum() override;
     KIPI::ImageCollection currentSelection() override;
     QList<KIPI::ImageCollection> allAlbums() override;
 
-    KIPI::ImageInfo info( const QUrl& ) override;
-    bool addImage( const QUrl&, QString& errmsg ) override;
-    void delImage( const QUrl& ) override;
-    void refreshImages( const QList<QUrl>& urls ) override;
+    KIPI::ImageInfo info(const QUrl &) override;
+    bool addImage(const QUrl &, QString &errmsg) override;
+    void delImage(const QUrl &) override;
+    void refreshImages(const QList<QUrl> &urls) override;
 
     void thumbnail(const QUrl &url, int size) override;
     void thumbnails(const QList<QUrl> &list, int size) override;
 
-    KIPI::ImageCollectionSelector* imageCollectionSelector(QWidget *parent) override;
-    KIPI::UploadWidget* uploadWidget(QWidget *parent) override;
-    QAbstractItemModel * getTagTree() const override;
+    KIPI::ImageCollectionSelector *imageCollectionSelector(QWidget *parent) override;
+    KIPI::UploadWidget *uploadWidget(QWidget *parent) override;
+    QAbstractItemModel *getTagTree() const override;
 
     // these two methods are only here because of a libkipi api error
     // either remove them when they are no longer pure virtual in KIPI::Interface,
     // or implement them and update features() accordingly:
     // FIXME: this can be safely removed if/when libkipi 5.1.0 is no longer supported
-    KIPI::FileReadWriteLock* createReadWriteLock(const QUrl&) const override;
-    KIPI::MetadataProcessor* createMetadataProcessor() const override;
+    KIPI::FileReadWriteLock *createReadWriteLock(const QUrl &) const override;
+    KIPI::MetadataProcessor *createMetadataProcessor() const override;
 
     int features() const override;
 
 public slots:
-    void slotSelectionChanged( bool );
-    void pathChanged( const Browser::BreadcrumbList& path );
+    void slotSelectionChanged(bool);
+    void pathChanged(const Browser::BreadcrumbList &path);
 
 private slots:
-    void gotKDEPreview(const KFileItem& item, const QPixmap& pix);
-    void failedKDEPreview(const KFileItem& item);
+    void gotKDEPreview(const KFileItem &item, const QPixmap &pix);
+    void failedKDEPreview(const KFileItem &item);
 
 signals:
-    void imagesChanged( const QList<QUrl>& );
+    void imagesChanged(const QList<QUrl> &);
 };
 
 }
-
 
 #endif /* PLUGININTERFACE_H */
 

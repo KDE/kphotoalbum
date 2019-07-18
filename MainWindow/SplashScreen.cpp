@@ -25,15 +25,15 @@
 #include <KAboutData>
 #include <KLocalizedString>
 
-MainWindow::SplashScreen* MainWindow::SplashScreen::s_instance = nullptr;
+MainWindow::SplashScreen *MainWindow::SplashScreen::s_instance = nullptr;
 
 MainWindow::SplashScreen::SplashScreen()
-    :QSplashScreen(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("pics/splash-large.png")))
+    : QSplashScreen(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("pics/splash-large.png")))
 {
     s_instance = this;
 }
 
-MainWindow::SplashScreen* MainWindow::SplashScreen::instance()
+MainWindow::SplashScreen *MainWindow::SplashScreen::instance()
 {
     return s_instance;
 }
@@ -41,32 +41,32 @@ MainWindow::SplashScreen* MainWindow::SplashScreen::instance()
 void MainWindow::SplashScreen::done()
 {
     s_instance = nullptr;
-    (void) close();
+    (void)close();
     deleteLater();
 }
 
-void MainWindow::SplashScreen::message( const QString& message )
+void MainWindow::SplashScreen::message(const QString &message)
 {
     m_message = message;
     repaint();
 }
 
-void MainWindow::SplashScreen::drawContents( QPainter * painter )
+void MainWindow::SplashScreen::drawContents(QPainter *painter)
 {
     painter->save();
     QFont font = painter->font();
-    font.setPointSize( 10 );
-    painter->setFont( font );
-    QRect r = QRect( QPoint(20, 265), QSize( 360, 25 ));
+    font.setPointSize(10);
+    painter->setFont(font);
+    QRect r = QRect(QPoint(20, 265), QSize(360, 25));
 
     // Version String
     QString txt;
     QString version = KAboutData::applicationData().version();
-    txt = i18n( "%1" , version );
-    painter->drawText( r, Qt::AlignRight | Qt::AlignTop, txt );
+    txt = i18n("%1", version);
+    painter->drawText(r, Qt::AlignRight | Qt::AlignTop, txt);
 
     // Message
-    painter->drawText( r, Qt::AlignLeft | Qt::AlignTop, m_message );
+    painter->drawText(r, Qt::AlignLeft | Qt::AlignTop, m_message);
     painter->restore();
 }
 

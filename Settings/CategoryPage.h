@@ -20,9 +20,9 @@
 #define CATEGORYPAGE_H
 
 // Qt includes
+#include <QAbstractItemDelegate>
 #include <QLabel>
 #include <QWidget>
-#include <QAbstractItemDelegate>
 
 // Local includes
 #include "SettingsData.h"
@@ -39,7 +39,8 @@ class QGroupBox;
 // KDE classes
 class KIconButton;
 
-namespace DB {
+namespace DB
+{
 
 // Local classes
 class MemberMap;
@@ -60,10 +61,10 @@ class CategoryPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit CategoryPage(QWidget* parent);
+    explicit CategoryPage(QWidget *parent);
     void enableDisable(bool);
-    void saveSettings(Settings::SettingsData* opt, DB::MemberMap* memberMap);
-    void loadSettings(Settings::SettingsData* opt);
+    void saveSettings(Settings::SettingsData *opt, DB::MemberMap *memberMap);
+    void loadSettings(Settings::SettingsData *opt);
     void resetInterface();
     void resetCategoryNamesChanged();
 
@@ -75,45 +76,45 @@ protected slots:
 
 private slots:
     void editSelectedCategory();
-    void editCategory(QListWidgetItem*);
+    void editCategory(QListWidgetItem *);
     void positionableChanged(bool);
-    void iconChanged(const QString& icon);
+    void iconChanged(const QString &icon);
     void thumbnailSizeChanged(int);
     void preferredViewChanged(int);
     void newCategory();
     void deleteCurrentCategory();
     void renameCurrentCategory();
-    void categoryNameChanged(QListWidgetItem* item);
-    void categoryDoubleClicked(QListWidgetItem*);
-    void listWidgetEditEnd(QWidget*, QAbstractItemDelegate::EndEditHint);
+    void categoryNameChanged(QListWidgetItem *item);
+    void categoryDoubleClicked(QListWidgetItem *);
+    void listWidgetEditEnd(QWidget *, QAbstractItemDelegate::EndEditHint);
     void saveDbNow();
 
 private: // Functions
-    void resetCategory(QListWidgetItem* item);
+    void resetCategory(QListWidgetItem *item);
 
 private: // Variables
-    QListWidget* m_categoriesListWidget;
-    QLabel* m_categoryLabel;
-    QLabel* m_renameLabel;
-    QLabel* m_positionableLabel;
-    QCheckBox* m_positionable;
-    QLabel* m_iconLabel;
-    KIconButton* m_icon;
-    QLabel* m_thumbnailSizeInCategoryLabel;
-    QSpinBox* m_thumbnailSizeInCategory;
-    QLabel* m_preferredViewLabel;
-    QComboBox* m_preferredView;
-    QPushButton* m_delItem;
-    QPushButton* m_renameItem;
-    Settings::CategoryItem* m_currentCategory;
-    QList<CategoryItem*> m_deletedCategories;
-    UntaggedGroupBox* m_untaggedBox;
+    QListWidget *m_categoriesListWidget;
+    QLabel *m_categoryLabel;
+    QLabel *m_renameLabel;
+    QLabel *m_positionableLabel;
+    QCheckBox *m_positionable;
+    QLabel *m_iconLabel;
+    KIconButton *m_icon;
+    QLabel *m_thumbnailSizeInCategoryLabel;
+    QSpinBox *m_thumbnailSizeInCategory;
+    QLabel *m_preferredViewLabel;
+    QComboBox *m_preferredView;
+    QPushButton *m_delItem;
+    QPushButton *m_renameItem;
+    Settings::CategoryItem *m_currentCategory;
+    QList<CategoryItem *> m_deletedCategories;
+    UntaggedGroupBox *m_untaggedBox;
     QString m_categoryNameBeforeEdit;
     bool m_editorOpen;
-    QLabel* m_dbNotSavedLabel;
-    QPushButton* m_saveDbNowButton;
+    QLabel *m_dbNotSavedLabel;
+    QPushButton *m_saveDbNowButton;
     bool m_categoryNamesChanged;
-    QPushButton* m_newCategoryButton;
+    QPushButton *m_newCategoryButton;
 };
 
 }

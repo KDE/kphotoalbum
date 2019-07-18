@@ -21,16 +21,18 @@
 
 #include <QString>
 
-
-namespace DB {
+namespace DB
+{
 
 /**
  * @brief The UserFeedback enum enumerates all possible results of a user interaction.
  */
 enum class UserFeedback {
     Confirm ///< The user accepts the dialog, wanting to continue with the action or to say "yes".
-    , Deny ///< The user cancels the dialog, not wanting to continue with the action or to say "no".
-    , SafeDefaultAction ///< The user did not take a choice (maybe there was no user to interact with in the current context, maybe the user closed the dialog). Most often this should mean the same as Demy, not doing any permanent changes.
+    ,
+    Deny ///< The user cancels the dialog, not wanting to continue with the action or to say "no".
+    ,
+    SafeDefaultAction ///< The user did not take a choice (maybe there was no user to interact with in the current context, maybe the user closed the dialog). Most often this should mean the same as Demy, not doing any permanent changes.
 };
 
 /**
@@ -104,6 +106,7 @@ public:
      * @return \c true, if the dialog was disabled by the user, \c false otherwise.
      */
     virtual bool isDialogDisabled(const QString &dialogId) = 0;
+
 protected:
     virtual ~UIDelegate() = default;
 
@@ -120,8 +123,8 @@ protected:
 class DummyUIDelegate : public UIDelegate
 {
 protected:
-    UserFeedback askWarningContinueCancel(const QString &, const QString &, const QString &) override {return UserFeedback::SafeDefaultAction; }
-    UserFeedback askQuestionYesNo(const QString &, const QString &, const QString &) override {return UserFeedback::SafeDefaultAction; }
+    UserFeedback askWarningContinueCancel(const QString &, const QString &, const QString &) override { return UserFeedback::SafeDefaultAction; }
+    UserFeedback askQuestionYesNo(const QString &, const QString &, const QString &) override { return UserFeedback::SafeDefaultAction; }
     void showInformation(const QString &, const QString &, const QString &) override {}
     void showSorry(const QString &, const QString &, const QString &) override {}
     void showError(const QString &, const QString &, const QString &) override {}

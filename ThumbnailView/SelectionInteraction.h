@@ -22,22 +22,23 @@
 
 #include <DB/FileName.h>
 
-#include "enums.h"
 #include "MouseInteraction.h"
 #include "ThumbnailComponent.h"
+#include "enums.h"
 
 class QMouseEvent;
 namespace ThumbnailView
 {
 class ThumbnailFactory;
 
-class SelectionInteraction : public QObject, public MouseInteraction, private ThumbnailComponent {
+class SelectionInteraction : public QObject, public MouseInteraction, private ThumbnailComponent
+{
     Q_OBJECT
 
 public:
-    explicit SelectionInteraction( ThumbnailFactory* factory );
-    bool mousePressEvent( QMouseEvent* ) override;
-    bool mouseMoveEvent( QMouseEvent* ) override;
+    explicit SelectionInteraction(ThumbnailFactory *factory);
+    bool mousePressEvent(QMouseEvent *) override;
+    bool mouseMoveEvent(QMouseEvent *) override;
     bool isDragging() const;
 
 protected:
@@ -59,7 +60,6 @@ private:
     DB::FileNameSet m_originalSelectionBeforeDragStart;
     bool m_dragInProgress;
 };
-
 }
 
 #endif /* SELECTIONINTERACTION_H */

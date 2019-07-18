@@ -23,25 +23,24 @@
 namespace MainWindow
 {
 
-class SplashScreen :public QSplashScreen {
+class SplashScreen : public QSplashScreen
+{
     Q_OBJECT
 
 public:
     SplashScreen();
-    static SplashScreen* instance();
+    static SplashScreen *instance();
     void done();
-    void message( const QString& message );
+    void message(const QString &message);
 
 protected:
-    void drawContents ( QPainter * painter ) override;
+    void drawContents(QPainter *painter) override;
 
 private:
-    static SplashScreen* s_instance;
+    static SplashScreen *s_instance;
     QString m_message;
 };
-
 }
-
 
 #endif /* SPLASHSCREEN_H */
 

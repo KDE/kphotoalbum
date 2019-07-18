@@ -19,29 +19,31 @@
 #include "RemoteConnection.h"
 #include "RemoteCommand.h"
 
+#include <QApplication>
 #include <QBuffer>
 #include <QTcpSocket>
-#include <QApplication>
 #include <QThread>
 #include <QTime>
 
 #if 0
-#  define protocolDebug qDebug
+#define protocolDebug qDebug
 #else
-#  define protocolDebug if (false) qDebug
+#define protocolDebug \
+    if (false)        \
+    qDebug
 #endif
 
 using namespace RemoteControl;
 
-RemoteConnection::RemoteConnection(QObject *parent) :
-    QObject(parent)
+RemoteConnection::RemoteConnection(QObject *parent)
+    : QObject(parent)
 {
 }
 
-void RemoteConnection::sendCommand(const RemoteCommand& command)
+void RemoteConnection::sendCommand(const RemoteCommand &command)
 {
     protocolDebug() << qPrintable(QTime::currentTime().toString(QString::fromUtf8("hh:mm:ss.zzz")))
-                    << ": Sending " << QString::number((int) command.commandType());
+                    << ": Sending " << QString::number((int)command.commandType());
     Q_ASSERT(QThread::currentThread() == qApp->thread());
 
     if (!isConnected())
@@ -55,15 +57,15 @@ void RemoteConnection::sendCommand(const RemoteCommand& command)
     QDataStream stream(&buffer);
 
     // stream a placeholder for the length
-    stream << (qint32) 0;
+    stream << (qint32)0;
 
     // Steam the id and the data
-    stream << (qint32) command.commandType();
+    stream << (qint32)command.commandType();
     command.encode(stream);
 
     // Wind back and stream the length
     stream.device()->seek(0);
-    stream << (qint32) buffer.size();
+    stream << (qint32)buffer.size();
 
     // Send the data.
     socket()->write(buffer.data());
@@ -72,7 +74,7 @@ void RemoteConnection::sendCommand(const RemoteCommand& command)
 
 void RemoteConnection::dataReceived()
 {
-    QTcpSocket* socket = this->socket();
+    QTcpSocket *socket = this->socket();
     if (!socket)
         return;
 
@@ -80,7 +82,7 @@ void RemoteConnection::dataReceived()
 
     while (socket->bytesAvailable()) {
         if (m_state == WaitingForLength) {
-            if (socket->bytesAvailable() < (qint64) sizeof(qint32))
+            if (socket->bytesAvailable() < (qint64)sizeof(qint32))
                 return;
 
             stream >> m_length;
@@ -105,15 +107,9 @@ void RemoteConnection::dataReceived()
             std::unique_ptr<RemoteCommand> command = RemoteCommand::create(static_cast<CommandType>(id));
             command->decode(stream);
             protocolDebug() << qPrintable(QTime::currentTime().toString(QString::fromUtf8("hh:mm:ss.zzz")))
-                               << ": Received " << id;
+                            << ": Received " << id;
 
             emit gotCommand(*command);
         }
     }
 }
-
-
-
-
-
-

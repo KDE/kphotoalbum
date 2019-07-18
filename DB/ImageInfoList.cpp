@@ -21,9 +21,9 @@
 
 #include <DB/FileNameList.h>
 
+#include <QDateTime>
 #include <QVector>
 #include <QtAlgorithms>
-#include <QDateTime>
 
 #include <KLocalizedString>
 using namespace DB;
@@ -31,18 +31,36 @@ using namespace DB;
 class SortableImageInfo
 {
 public:
-    SortableImageInfo(const QDateTime& datetime, const QString& string, const ImageInfoPtr &info)
-        : m_dt(datetime), m_st(string), m_in(info) {}
+    SortableImageInfo(const QDateTime &datetime, const QString &string, const ImageInfoPtr &info)
+        : m_dt(datetime)
+        , m_st(string)
+        , m_in(info)
+    {
+    }
     SortableImageInfo() = default;
-    const QDateTime& DateTime(void) const { return m_dt; }
-    const QString& String(void) const { return m_st; }
-    const ImageInfoPtr& ImageInfo(void) const { return m_in; }
-    bool operator== (const SortableImageInfo& other) const { return m_dt == other.m_dt && m_st == other.m_st; }
-    bool operator!= (const SortableImageInfo& other) const { return m_dt != other.m_dt || m_st != other.m_st; }
-    bool operator> (const SortableImageInfo& other) const { if (m_dt != other.m_dt) { return m_dt > other.m_dt; } else { return m_st > other.m_st; }}
-    bool operator< (const SortableImageInfo& other) const { if (m_dt != other.m_dt) { return m_dt < other.m_dt; } else { return m_st < other.m_st; }}
-    bool operator>= (const SortableImageInfo& other) const { return *this == other || *this > other; }
-    bool operator<= (const SortableImageInfo& other) const { return *this == other || *this < other; }
+    const QDateTime &DateTime(void) const { return m_dt; }
+    const QString &String(void) const { return m_st; }
+    const ImageInfoPtr &ImageInfo(void) const { return m_in; }
+    bool operator==(const SortableImageInfo &other) const { return m_dt == other.m_dt && m_st == other.m_st; }
+    bool operator!=(const SortableImageInfo &other) const { return m_dt != other.m_dt || m_st != other.m_st; }
+    bool operator>(const SortableImageInfo &other) const
+    {
+        if (m_dt != other.m_dt) {
+            return m_dt > other.m_dt;
+        } else {
+            return m_st > other.m_st;
+        }
+    }
+    bool operator<(const SortableImageInfo &other) const
+    {
+        if (m_dt != other.m_dt) {
+            return m_dt < other.m_dt;
+        } else {
+            return m_st < other.m_st;
+        }
+    }
+    bool operator>=(const SortableImageInfo &other) const { return *this == other || *this > other; }
+    bool operator<=(const SortableImageInfo &other) const { return *this == other || *this < other; }
 
 private:
     QDateTime m_dt;
@@ -53,20 +71,20 @@ private:
 ImageInfoList ImageInfoList::sort() const
 {
     QVector<SortableImageInfo> vec;
-    for( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
-        vec.append(SortableImageInfo((*it)->date().start(),(*it)->fileName().absolute(), *it));
+    for (ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it) {
+        vec.append(SortableImageInfo((*it)->date().start(), (*it)->fileName().absolute(), *it));
     }
 
-    std::sort(vec.begin(),vec.end());
+    std::sort(vec.begin(), vec.end());
 
     ImageInfoList res;
-    for( QVector<SortableImageInfo>::ConstIterator mapIt = vec.constBegin(); mapIt != vec.constEnd(); ++mapIt ) {
-         res.append(mapIt->ImageInfo());
+    for (QVector<SortableImageInfo>::ConstIterator mapIt = vec.constBegin(); mapIt != vec.constEnd(); ++mapIt) {
+        res.append(mapIt->ImageInfo());
     }
     return res;
 }
 
-void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
+void ImageInfoList::sortAndMergeBackIn(ImageInfoList &subListToSort)
 {
     ImageInfoList sorted = subListToSort.sort();
 
@@ -74,44 +92,43 @@ void ImageInfoList::sortAndMergeBackIn( ImageInfoList& subListToSort )
     Q_ASSERT(insertIndex >= 0);
 
     // Delete the items we will merge in.
-    for( ImageInfoListIterator it = sorted.begin(); it != sorted.end(); ++it )
-        remove( *it );
+    for (ImageInfoListIterator it = sorted.begin(); it != sorted.end(); ++it)
+        remove(*it);
 
     ImageInfoListIterator insertIt = begin() + insertIndex;
 
     // Now merge in the items
-    for( ImageInfoListIterator it = sorted.begin(); it != sorted.end(); ++it ) {
-        insertIt = insert( insertIt, *it );
+    for (ImageInfoListIterator it = sorted.begin(); it != sorted.end(); ++it) {
+        insertIt = insert(insertIt, *it);
         ++insertIt;
     }
 }
 
-void ImageInfoList::appendList( ImageInfoList& list )
+void ImageInfoList::appendList(ImageInfoList &list)
 {
-    for ( ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it ) {
-        append( *it );
+    for (ImageInfoListConstIterator it = list.constBegin(); it != list.constEnd(); ++it) {
+        append(*it);
     }
 }
 
 void ImageInfoList::printItems()
 {
-    for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
+    for (ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it) {
         qCDebug(DBLog) << (*it)->fileName().absolute();
     }
 }
 
 bool ImageInfoList::isSorted()
 {
-    if ( count() == 0 )
+    if (count() == 0)
         return true;
 
     QDateTime prev = first()->date().start();
     QString prevFile = first()->fileName().absolute();
-    for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
+    for (ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it) {
         QDateTime cur = (*it)->date().start();
         QString curFile = (*it)->fileName().absolute();
-        if ( prev > cur ||
-             ( prev == cur && prevFile > curFile ) )
+        if (prev > cur || (prev == cur && prevFile > curFile))
             return false;
         prev = cur;
         prevFile = curFile;
@@ -119,34 +136,32 @@ bool ImageInfoList::isSorted()
     return true;
 }
 
-void ImageInfoList::mergeIn( ImageInfoList other)
+void ImageInfoList::mergeIn(ImageInfoList other)
 {
     ImageInfoList tmp;
 
-    for ( ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it ) {
+    for (ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it) {
         QDateTime thisDate = (*it)->date().start();
         QString thisFileName = (*it)->fileName().absolute();
-        while ( other.count() != 0 ) {
+        while (other.count() != 0) {
             QDateTime otherDate = other.first()->date().start();
             QString otherFileName = other.first()->fileName().absolute();
-            if ( otherDate < thisDate ||
-                 ( otherDate == thisDate && otherFileName < thisFileName ) ) {
-                tmp.append( other[0] );
+            if (otherDate < thisDate || (otherDate == thisDate && otherFileName < thisFileName)) {
+                tmp.append(other[0]);
                 other.pop_front();
-            }
-            else
+            } else
                 break;
         }
-        tmp.append( *it );
+        tmp.append(*it);
     }
-    tmp.appendList( other );
+    tmp.appendList(other);
     *this = tmp;
 }
 
-void ImageInfoList::remove( const ImageInfoPtr& info )
+void ImageInfoList::remove(const ImageInfoPtr &info)
 {
-    for( ImageInfoListIterator it = begin(); it != end(); ++it ) {
-        if ( (*(*it)) == *info ) {
+    for (ImageInfoListIterator it = begin(); it != end(); ++it) {
+        if ((*(*it)) == *info) {
             QList<ImageInfoPtr>::erase(it);
             return;
         }
@@ -156,7 +171,7 @@ void ImageInfoList::remove( const ImageInfoPtr& info )
 DB::FileNameList ImageInfoList::files() const
 {
     DB::FileNameList res;
-    for ( const ImageInfoPtr& info : *this)
+    for (const ImageInfoPtr &info : *this)
         res.append(info->fileName());
     return res;
 }

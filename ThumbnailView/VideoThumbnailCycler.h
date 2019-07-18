@@ -20,16 +20,23 @@
 #ifndef VIDEOTHUMBNAILCYCLER_H
 #define VIDEOTHUMBNAILCYCLER_H
 
-#include <QObject>
 #include <DB/FileName.h>
+#include <QObject>
 
 class QTimer;
 class QImage;
 
-namespace DB { class FileName; }
-namespace ImageManager { class VideoThumbnails; }
+namespace DB
+{
+class FileName;
+}
+namespace ImageManager
+{
+class VideoThumbnails;
+}
 
-namespace ThumbnailView {
+namespace ThumbnailView
+{
 
 class ThumbnailModel;
 
@@ -41,24 +48,24 @@ class VideoThumbnailCycler : public QObject
 {
     Q_OBJECT
 public:
-    explicit VideoThumbnailCycler(ThumbnailModel* model, QObject *parent = nullptr);
-    static VideoThumbnailCycler* instance();
-    void setActive( const DB::FileName& id );
+    explicit VideoThumbnailCycler(ThumbnailModel *model, QObject *parent = nullptr);
+    static VideoThumbnailCycler *instance();
+    void setActive(const DB::FileName &id);
     void stopCycle();
 
 private slots:
-    void gotFrame(const QImage& image );
+    void gotFrame(const QImage &image);
 
 private:
     void resetPreviousThumbail();
-    bool isVideo( const DB::FileName& fileName ) const;
+    bool isVideo(const DB::FileName &fileName) const;
     void startCycle();
 
-    static VideoThumbnailCycler* s_instance;
+    static VideoThumbnailCycler *s_instance;
     DB::FileName m_fileName;
-    QTimer* m_timer;
+    QTimer *m_timer;
     ImageManager::VideoThumbnails *m_thumbnails;
-    ThumbnailModel* m_model;
+    ThumbnailModel *m_model;
 };
 
 }

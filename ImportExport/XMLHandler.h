@@ -18,8 +18,8 @@
 #ifndef XMLHANDLER_H
 #define XMLHANDLER_H
 
-#include <QDomElement>
 #include <QDomDocument>
+#include <QDomElement>
 #include <QString>
 
 #include <DB/FileNameList.h>
@@ -27,7 +27,10 @@
 
 #include "Export.h" // ImageFileLocation
 
-namespace Utilities { class UniqFilenameMapper; }
+namespace Utilities
+{
+class UniqFilenameMapper;
+}
 
 namespace ImportExport
 {
@@ -35,14 +38,14 @@ class XMLHandler
 {
 public:
     QByteArray createIndexXML(
-        const DB::FileNameList& images,
-        const QString& baseUrl,
+        const DB::FileNameList &images,
+        const QString &baseUrl,
         ImageFileLocation location,
-        Utilities::UniqFilenameMapper* nameMap);
+        Utilities::UniqFilenameMapper *nameMap);
 
 protected:
-    QDomElement save( QDomDocument doc, const DB::ImageInfoPtr& info );
-    void writeCategories( QDomDocument doc, QDomElement elm, const DB::ImageInfoPtr& info );
+    QDomElement save(QDomDocument doc, const DB::ImageInfoPtr &info);
+    void writeCategories(QDomDocument doc, QDomElement elm, const DB::ImageInfoPtr &info);
 };
 
 }

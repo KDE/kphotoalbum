@@ -22,8 +22,14 @@
 // KDE includes
 #include <KPageDialog>
 
-namespace KIPI { class ConfigWidget; }
-namespace Exif { class TreeView; }
+namespace KIPI
+{
+class ConfigWidget;
+}
+namespace Exif
+{
+class TreeView;
+}
 
 namespace Settings
 {
@@ -44,25 +50,25 @@ class BirthdayPage;
  * @brief The SettingsPage enum has a value for every settings sub-page.
  * It is used for SettingsDialog::setPage().
  */
-enum class SettingsPage
-{
-    BirthdayPage
-    , CategoryPage
-    , DatabaseBackendPage
-    , ExifPage
-    , FileVersionDetectionPage
-    , GeneralPage
-    , PluginsPage
-    , TagGroupsPage
-    , ThumbnailsPage
-    , ViewerPage
+enum class SettingsPage {
+    BirthdayPage,
+    CategoryPage,
+    DatabaseBackendPage,
+    ExifPage,
+    FileVersionDetectionPage,
+    GeneralPage,
+    PluginsPage,
+    TagGroupsPage,
+    ThumbnailsPage,
+    ViewerPage
 };
 
-class SettingsDialog :public KPageDialog {
+class SettingsDialog : public KPageDialog
+{
     Q_OBJECT
 
 public:
-    explicit SettingsDialog( QWidget* parent );
+    explicit SettingsDialog(QWidget *parent);
     virtual void show();
 
 public slots:
@@ -76,21 +82,20 @@ protected slots:
     void slotMyOK();
 
 private:
-    Settings::GeneralPage* m_generalPage;
-    Settings::FileVersionDetectionPage* m_fileVersionDetectionPage;
-    Settings::ThumbnailsPage* m_thumbnailsPage;
-    Settings::CategoryPage* m_categoryPage;
-    Settings::TagGroupsPage* m_tagGroupsPage;
-    Settings::ViewerPage* m_viewerPage;
-    Settings::PluginsPage* m_pluginsPage;
-    Settings::ExifPage* m_exifPage;
-    Settings::DatabaseBackendPage* m_databaseBackendPage;
-    Settings::BirthdayPage* m_birthdayPage;
-    QMap<SettingsPage, KPageWidgetItem*> m_pages;
+    Settings::GeneralPage *m_generalPage;
+    Settings::FileVersionDetectionPage *m_fileVersionDetectionPage;
+    Settings::ThumbnailsPage *m_thumbnailsPage;
+    Settings::CategoryPage *m_categoryPage;
+    Settings::TagGroupsPage *m_tagGroupsPage;
+    Settings::ViewerPage *m_viewerPage;
+    Settings::PluginsPage *m_pluginsPage;
+    Settings::ExifPage *m_exifPage;
+    Settings::DatabaseBackendPage *m_databaseBackendPage;
+    Settings::BirthdayPage *m_birthdayPage;
+    QMap<SettingsPage, KPageWidgetItem *> m_pages;
 
-    void keyPressEvent(QKeyEvent*) override;
+    void keyPressEvent(QKeyEvent *) override;
 };
-
 }
 
 #endif /* SETTINGSDIALOG_H */

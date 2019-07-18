@@ -25,7 +25,7 @@ namespace MainWindow
 {
 class Window;
 
-class DirtyIndicator :public QLabel
+class DirtyIndicator : public QLabel
 {
     Q_OBJECT
 
@@ -42,7 +42,7 @@ signals:
 private:
     friend class StatusBar;
     friend class Window;
-    DirtyIndicator( QWidget* parent );
+    DirtyIndicator(QWidget *parent);
     void autoSaved();
     void saved();
     bool isSaveDirty() const;

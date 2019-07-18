@@ -20,11 +20,14 @@
 
 namespace ImageManager
 {
-struct CacheFileInfo
-{
+struct CacheFileInfo {
     CacheFileInfo() {}
-    CacheFileInfo( int fileIndex, int offset, int size)
-        : fileIndex( fileIndex ), offset( offset ), size( size ) {}
+    CacheFileInfo(int fileIndex, int offset, int size)
+        : fileIndex(fileIndex)
+        , offset(offset)
+        , size(size)
+    {
+    }
 
     int fileIndex;
     int offset;

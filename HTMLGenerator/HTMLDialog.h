@@ -37,14 +37,15 @@ class ImageSizeCheckBox;
 class Generator;
 class Setup;
 
-class HTMLDialog :public KPageDialog {
+class HTMLDialog : public KPageDialog
+{
     Q_OBJECT
 
 public:
-    explicit HTMLDialog( QWidget* parent );
+    explicit HTMLDialog(QWidget *parent);
     // prevent hiding of base class method:
     using KPageDialog::exec;
-    int exec(const DB::FileNameList& list);
+    int exec(const DB::FileNameList &list);
 
 protected slots:
     void slotOk();
@@ -56,7 +57,7 @@ protected slots:
 protected:
     bool checkVars();
     Setup setup() const;
-    QList<ImageSizeCheckBox*> activeResolutions() const;
+    QList<ImageSizeCheckBox *> activeResolutions() const;
     QString activeSizes() const;
     QString includeSelections() const;
     void populateThemesCombo();
@@ -65,32 +66,31 @@ protected:
     void createDestinationPage();
 
 private:
-    QLineEdit* m_title;
-    QLineEdit* m_baseDir;
-    QLineEdit* m_baseURL;
-    QLineEdit* m_destURL;
-    QLineEdit* m_outputDir;
+    QLineEdit *m_title;
+    QLineEdit *m_baseDir;
+    QLineEdit *m_baseURL;
+    QLineEdit *m_destURL;
+    QLineEdit *m_outputDir;
     QLabel *m_outputLabel;
     QCheckBox *m_openInBrowser;
-    QLineEdit* m_copyright;
-    QCheckBox* m_date;
-    QSpinBox* m_thumbSize;
-    QTextEdit* m_description;
-    QSpinBox* m_numOfCols;
-    QCheckBox* m_generateKimFile;
-    QCheckBox* m_inlineMovies;
-    QCheckBox* m_html5Video;
-    QCheckBox* m_html5VideoGenerate;
-    QMap<int,QString> m_themes;
-    KComboBox* m_themeBox;
-    QLabel* m_themeInfo;
+    QLineEdit *m_copyright;
+    QCheckBox *m_date;
+    QSpinBox *m_thumbSize;
+    QTextEdit *m_description;
+    QSpinBox *m_numOfCols;
+    QCheckBox *m_generateKimFile;
+    QCheckBox *m_inlineMovies;
+    QCheckBox *m_html5Video;
+    QCheckBox *m_html5VideoGenerate;
+    QMap<int, QString> m_themes;
+    KComboBox *m_themeBox;
+    QLabel *m_themeInfo;
     QStringList m_themeAuthors;
     QStringList m_themeDescriptions;
-    QMap< QString, QCheckBox* > m_whatToIncludeMap;
-    QList<ImageSizeCheckBox*> m_sizeCheckBoxes;
+    QMap<QString, QCheckBox *> m_whatToIncludeMap;
+    QList<ImageSizeCheckBox *> m_sizeCheckBoxes;
     DB::FileNameList m_list;
 };
-
 }
 
 #endif /* HTMLGENERATOR_HTMLDIALOG_H */

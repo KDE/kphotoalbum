@@ -22,7 +22,8 @@
 
 class QKeyEvent;
 
-namespace AnnotationDialog {
+namespace AnnotationDialog
+{
 
 class DescriptionEdit : public KTextEdit
 {
@@ -37,7 +38,6 @@ signals:
 
 private:
     void keyPressEvent(QKeyEvent *event) override;
-
 };
 
 }

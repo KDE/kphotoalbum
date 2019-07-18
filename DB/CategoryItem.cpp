@@ -21,47 +21,44 @@
 
 DB::CategoryItem::~CategoryItem()
 {
-     for( QList<CategoryItem*>::ConstIterator it = mp_subcategories.constBegin(); it != mp_subcategories.constEnd(); ++it ) {
+    for (QList<CategoryItem *>::ConstIterator it = mp_subcategories.constBegin(); it != mp_subcategories.constEnd(); ++it) {
         delete *it;
     }
 }
 
-DB::CategoryItem* DB::CategoryItem::clone() const
+DB::CategoryItem *DB::CategoryItem::clone() const
 {
-    CategoryItem* result = new CategoryItem( mp_name );
-     for( QList<CategoryItem*>::ConstIterator it = mp_subcategories.constBegin(); it != mp_subcategories.constEnd(); ++it ) {
-        result->mp_subcategories.append( (*it)->clone() );
+    CategoryItem *result = new CategoryItem(mp_name);
+    for (QList<CategoryItem *>::ConstIterator it = mp_subcategories.constBegin(); it != mp_subcategories.constEnd(); ++it) {
+        result->mp_subcategories.append((*it)->clone());
     }
     return result;
 }
 
-bool DB::CategoryItem::isDescendentOf( const QString& child, const QString& parent ) const
+bool DB::CategoryItem::isDescendentOf(const QString &child, const QString &parent) const
 {
-    for( QList< CategoryItem* >::ConstIterator it = mp_subcategories.begin(); it != mp_subcategories.end(); ++it ) {
-        if ( mp_name == parent ) {
-            if ( (*it)->hasChild( child ) )
+    for (QList<CategoryItem *>::ConstIterator it = mp_subcategories.begin(); it != mp_subcategories.end(); ++it) {
+        if (mp_name == parent) {
+            if ((*it)->hasChild(child))
                 return true;
-        }
-        else {
-            if ( (*it)->isDescendentOf( child, parent ) )
+        } else {
+            if ((*it)->isDescendentOf(child, parent))
                 return true;
         }
     }
     return false;
 }
 
-bool DB::CategoryItem::hasChild( const QString& child ) const
+bool DB::CategoryItem::hasChild(const QString &child) const
 {
-    if ( mp_name == child )
+    if (mp_name == child)
         return true;
 
-    Q_FOREACH( const CategoryItem *subcategory, mp_subcategories ) {
-        if ( subcategory->hasChild( child ) )
+    Q_FOREACH (const CategoryItem *subcategory, mp_subcategories) {
+        if (subcategory->hasChild(child))
             return true;
     }
     return false;
 }
-
-
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

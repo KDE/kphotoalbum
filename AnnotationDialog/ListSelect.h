@@ -18,10 +18,10 @@
 
 #ifndef LISTSELECT_H
 #define LISTSELECT_H
-#include <QLabel>
-#include "enums.h"
-#include "Settings/SettingsData.h"
 #include "DB/CategoryPtr.h"
+#include "Settings/SettingsData.h"
+#include "enums.h"
+#include <QLabel>
 #include <QList>
 
 class QTreeWidgetItem;
@@ -31,9 +31,18 @@ class QEvent;
 class QRadioButton;
 class QLabel;
 
-namespace DB { class ImageInfo; }
-namespace CategoryListView { class DragableTreeWidget; }
-namespace CategoryListView { class CheckDropItem; }
+namespace DB
+{
+class ImageInfo;
+}
+namespace CategoryListView
+{
+class DragableTreeWidget;
+}
+namespace CategoryListView
+{
+class CheckDropItem;
+}
 
 namespace AnnotationDialog
 {
@@ -42,26 +51,27 @@ using Utilities::StringSet;
 
 class CompletableLineEdit;
 
-class ListSelect :public QWidget {
+class ListSelect : public QWidget
+{
     Q_OBJECT
 
 public:
-    ListSelect( const DB::CategoryPtr& category, QWidget* parent );
+    ListSelect(const DB::CategoryPtr &category, QWidget *parent);
     QString category() const;
     QString text() const;
-    void setText( const QString& );
-    void setSelection( const StringSet& on, const StringSet& partiallyOn = StringSet() );
+    void setText(const QString &);
+    void setSelection(const StringSet &on, const StringSet &partiallyOn = StringSet());
     StringSet itemsOn() const;
     StringSet itemsOff() const;
     StringSet itemsUnchanged() const;
 
     bool isAND() const;
-    void setMode( UsageMode );
+    void setMode(UsageMode);
 
     void populate();
 
-    void showOnlyItemsMatching( const QString& text );
-    QWidget* lineEdit() const;
+    void showOnlyItemsMatching(const QString &text);
+    QWidget *lineEdit() const;
     void setPositionable(bool positionableState);
     bool positionable() const;
     bool tagIsChecked(QString tag) const;
@@ -72,7 +82,7 @@ public:
 
 public slots:
     void slotReturn();
-    void slotExternalReturn(const QString& text);
+    void slotExternalReturn(const QString &text);
     void slotSortDate();
     void slotSortAlphaTree();
     void slotSortAlphaFlat();
@@ -90,44 +100,43 @@ signals:
     void positionableTagRenamed(const QString category, const QString oldTag, const QString newTag);
 
 protected slots:
-    void itemSelected( QTreeWidgetItem* );
-    void showContextMenu(const QPoint& );
-    void setViewSortType( Settings::ViewSortType );
+    void itemSelected(QTreeWidgetItem *);
+    void showContextMenu(const QPoint &);
+    void setViewSortType(Settings::ViewSortType);
     void limitToSelection();
     void showAllChildren();
     void updateSelectionCount();
 
 protected:
-    void addItems( DB::CategoryItem* item, QTreeWidgetItem* parent );
+    void addItems(DB::CategoryItem *item, QTreeWidgetItem *parent);
     void populateAlphaTree();
     void populateAlphaFlat();
     void populateMRU();
-    void configureItem( CategoryListView::CheckDropItem* item );
+    void configureItem(CategoryListView::CheckDropItem *item);
     bool isInputMode() const;
-    StringSet itemsOfState( Qt::CheckState state ) const;
-    void checkItem( const QString itemText, bool );
-    void ensureAllInstancesAreStateChanged( QTreeWidgetItem* item );
+    StringSet itemsOfState(Qt::CheckState state) const;
+    void checkItem(const QString itemText, bool);
+    void ensureAllInstancesAreStateChanged(QTreeWidgetItem *item);
 
 private: // Functions
     bool searchForUntaggedImagesTagNeeded();
     void hideUntaggedImagesTag();
-    QTreeWidgetItem* getUntaggedImagesTag();
+    QTreeWidgetItem *getUntaggedImagesTag();
 
 private: // Variables
     DB::CategoryPtr m_category;
-    CompletableLineEdit* m_lineEdit;
-    CategoryListView::DragableTreeWidget* m_treeWidget;
-    QRadioButton* m_or;
-    QRadioButton* m_and;
+    CompletableLineEdit *m_lineEdit;
+    CategoryListView::DragableTreeWidget *m_treeWidget;
+    QRadioButton *m_or;
+    QRadioButton *m_and;
     UsageMode m_mode;
-    QToolButton* m_alphaTreeSort;
-    QToolButton* m_alphaFlatSort;
-    QToolButton* m_dateSort;
-    QToolButton* m_showSelectedOnly;
+    QToolButton *m_alphaTreeSort;
+    QToolButton *m_alphaFlatSort;
+    QToolButton *m_dateSort;
+    QToolButton *m_showSelectedOnly;
     QString m_baseTitle;
     bool m_positionable;
 };
-
 }
 
 #endif /* LISTSELECT_H */

@@ -17,24 +17,24 @@
 */
 
 #include "DirtyIndicator.h"
-#include <kiconloader.h>
-#include <QPixmap>
 #include <QLabel>
+#include <QPixmap>
+#include <kiconloader.h>
 
-static MainWindow::DirtyIndicator* s_instance = nullptr;
+static MainWindow::DirtyIndicator *s_instance = nullptr;
 bool MainWindow::DirtyIndicator::s_autoSaveDirty = false;
 bool MainWindow::DirtyIndicator::s_saveDirty = false;
 bool MainWindow::DirtyIndicator::s_suppressMarkDirty = false;
 
-MainWindow::DirtyIndicator::DirtyIndicator( QWidget* parent )
-    :QLabel( parent )
+MainWindow::DirtyIndicator::DirtyIndicator(QWidget *parent)
+    : QLabel(parent)
 {
-    m_dirtyPix = QPixmap( SmallIcon( QString::fromLatin1( "media-floppy" ) ) );
-    setFixedWidth( m_dirtyPix.width() + 10);
+    m_dirtyPix = QPixmap(SmallIcon(QString::fromLatin1("media-floppy")));
+    setFixedWidth(m_dirtyPix.width() + 10);
     s_instance = this;
 
     // Might have been marked dirty even before the indicator had been created, by the database searching during loading.
-    if ( s_saveDirty )
+    if (s_saveDirty)
         markDirty();
 }
 
@@ -49,7 +49,7 @@ void MainWindow::DirtyIndicator::markDirty()
         return;
     }
 
-    if ( s_instance ) {
+    if (s_instance) {
         s_instance->markDirtySlot();
     } else {
         s_saveDirty = true;
@@ -57,27 +57,28 @@ void MainWindow::DirtyIndicator::markDirty()
     }
 }
 
-void MainWindow::DirtyIndicator::markDirtySlot() {
+void MainWindow::DirtyIndicator::markDirtySlot()
+{
     if (MainWindow::DirtyIndicator::s_suppressMarkDirty) {
         return;
     }
 
     s_saveDirty = true;
     s_autoSaveDirty = true;
-    setPixmap( m_dirtyPix );
+    setPixmap(m_dirtyPix);
     emit dirty();
 }
 
 void MainWindow::DirtyIndicator::autoSaved()
 {
-    s_autoSaveDirty= false;
+    s_autoSaveDirty = false;
 }
 
 void MainWindow::DirtyIndicator::saved()
 {
     s_autoSaveDirty = false;
     s_saveDirty = false;
-    setPixmap( QPixmap() );
+    setPixmap(QPixmap());
 }
 
 bool MainWindow::DirtyIndicator::isSaveDirty() const

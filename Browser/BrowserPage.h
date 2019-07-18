@@ -19,15 +19,17 @@
 #ifndef BROWSERPAGE_H
 #define BROWSERPAGE_H
 #include "Breadcrumb.h"
-#include <DB/ImageSearchInfo.h>
 #include <DB/Category.h>
+#include <DB/ImageSearchInfo.h>
 
 class QModelIndex;
 namespace Browser
 {
 class BrowserWidget;
 
-enum Viewer { ShowBrowser, ShowImageViewer, ShowGeoPositionViewer };
+enum Viewer { ShowBrowser,
+              ShowImageViewer,
+              ShowGeoPositionViewer };
 
 /**
  * \brief Information about a single page in the browser
@@ -37,19 +39,19 @@ enum Viewer { ShowBrowser, ShowImageViewer, ShowGeoPositionViewer };
  * This interface represent a single page in the browser (one that you can go
  * back/forward to using the back/forward buttons in the toolbar).
  */
-class BrowserPage: public QObject
+class BrowserPage : public QObject
 {
     Q_OBJECT
 public:
-     BrowserPage( const DB::ImageSearchInfo& info, BrowserWidget* browser );
-     ~BrowserPage() override {}
+    BrowserPage(const DB::ImageSearchInfo &info, BrowserWidget *browser);
+    ~BrowserPage() override {}
 
     /**
      * Construct the page. Result of activation may be to call \ref BrowserWidget::addAction.
      */
     virtual void activate() = 0;
     virtual void deactivate();
-    virtual BrowserPage* activateChild( const QModelIndex &);
+    virtual BrowserPage *activateChild(const QModelIndex &);
     virtual Viewer viewer();
     virtual DB::Category::ViewType viewType() const;
     virtual bool isSearchable() const;
@@ -58,15 +60,14 @@ public:
     virtual bool showDuringMovement() const;
 
     DB::ImageSearchInfo searchInfo() const;
-    BrowserWidget* browser() const;
+    BrowserWidget *browser() const;
 
 private:
     DB::ImageSearchInfo m_info;
-    BrowserWidget* m_browser;
+    BrowserWidget *m_browser;
 };
 
 }
-
 
 #endif /* BROWSERPAGE_H */
 

@@ -17,15 +17,15 @@
 */
 
 #include "SearchForVideosWithoutVideoThumbnailsJob.h"
-#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
-#include <DB/ImageDB.h>
-#include <DB/ImageInfo.h>
-#include <QFile>
-#include <BackgroundTaskManager/JobManager.h>
-#include <KLocalizedString>
-#include <BackgroundTaskManager/JobInfo.h>
 #include "ExtractOneThumbnailJob.h"
 #include "ReadVideoLengthJob.h"
+#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
+#include <BackgroundTaskManager/JobInfo.h>
+#include <BackgroundTaskManager/JobManager.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <KLocalizedString>
+#include <QFile>
 
 using namespace BackgroundJobs;
 
@@ -33,27 +33,27 @@ void BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::execute()
 {
     const DB::FileNameList images = DB::ImageDB::instance()->images();
 
-    for( const DB::FileName& image : images ) {
+    for (const DB::FileName &image : images) {
         const DB::ImageInfoPtr info = image.info();
-        if ( !info->isVideo() )
+        if (!info->isVideo())
             continue;
 
         // silently ignore videos not (currently) on disk:
-        if ( ! info->fileName().exists() )
+        if (!info->fileName().exists())
             continue;
 
-        const DB::FileName thumbnailName = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(info->fileName(),9);
-        if ( thumbnailName.exists() )
+        const DB::FileName thumbnailName = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(info->fileName(), 9);
+        if (thumbnailName.exists())
             continue;
 
-        BackgroundJobs::ReadVideoLengthJob* readVideoLengthJob = new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest);
+        BackgroundJobs::ReadVideoLengthJob *readVideoLengthJob = new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest);
 
-        for (int i=0; i<10;++i) {
-            ExtractOneThumbnailJob* extractJob = new ExtractOneThumbnailJob( info->fileName(), i, BackgroundTaskManager::BackgroundVideoPreviewRequest );
+        for (int i = 0; i < 10; ++i) {
+            ExtractOneThumbnailJob *extractJob = new ExtractOneThumbnailJob(info->fileName(), i, BackgroundTaskManager::BackgroundVideoPreviewRequest);
             extractJob->addDependency(readVideoLengthJob);
         }
 
-        BackgroundTaskManager::JobManager::instance()->addJob( readVideoLengthJob);
+        BackgroundTaskManager::JobManager::instance()->addJob(readVideoLengthJob);
     }
     emit completed();
 }

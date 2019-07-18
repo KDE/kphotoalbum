@@ -33,7 +33,8 @@
 class QLabel;
 class QPushButton;
 
-namespace KGeoMap {
+namespace KGeoMap
+{
 class MapWidget;
 class ItemMarkerTiler;
 }
@@ -72,7 +73,7 @@ public:
         SearchCoordinates
     };
 
-    explicit MapView( QWidget* parent = 0, UsageType type = InlineMapView);
+    explicit MapView(QWidget *parent = 0, UsageType type = InlineMapView);
     ~MapView() override;
 
     /**
@@ -83,7 +84,7 @@ public:
     /**
      * Add an image to the map.
      */
-    void addImage(const DB::ImageInfo& image);
+    void addImage(const DB::ImageInfo &image);
     void addImage(const DB::ImageInfoPtr image);
 
     /**
@@ -114,7 +115,7 @@ public slots:
     /**
      * Centers the map on the coordinates of the given image.
      */
-    void setCenter(const DB::ImageInfo& image);
+    void setCenter(const DB::ImageInfo &image);
     void setCenter(const DB::ImageInfoPtr image);
 
 private slots:
@@ -122,11 +123,11 @@ private slots:
     void setLastCenter();
 
 private: // Variables
-    KGeoMap::MapWidget* m_mapWidget;
-    KGeoMap::ItemMarkerTiler* m_itemMarkerTiler;
-    MapMarkerModelHelper* m_modelHelper;
-    QLabel* m_statusLabel;
-    QPushButton* m_setLastCenterButton;
+    KGeoMap::MapWidget *m_mapWidget;
+    KGeoMap::ItemMarkerTiler *m_itemMarkerTiler;
+    MapMarkerModelHelper *m_modelHelper;
+    QLabel *m_statusLabel;
+    QPushButton *m_setLastCenterButton;
     KGeoMap::GeoCoordinates m_lastCenter;
 };
 

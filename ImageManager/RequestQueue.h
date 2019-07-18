@@ -18,10 +18,10 @@
 #ifndef REQUESTQUEUE_H
 #define REQUESTQUEUE_H
 
+#include "ImageManager/ImageRequest.h"
+#include "enums.h"
 #include <QQueue>
 #include <QSet>
-#include "enums.h"
-#include "ImageManager/ImageRequest.h"
 
 namespace ImageManager
 {
@@ -37,43 +37,54 @@ public:
 
     // Add a new request to the input queue in the right priority level.
     // @return 'true', if this is not a request already pending.
-    bool addRequest( ImageRequest* request );
+    bool addRequest(ImageRequest *request);
 
     // Return the next needed ImageRequest from the queue or nullptr if there
     // is none. The ownership is returned back to the caller so it has to
     // delete it.
-    ImageRequest* popNext();
+    ImageRequest *popNext();
 
     // Remove all pending requests from the given client.
-    void cancelRequests( ImageClientInterface* client, StopAction action );
+    void cancelRequests(ImageClientInterface *client, StopAction action);
 
-    bool isRequestStillValid( ImageRequest* request );
-    void removeRequest( ImageRequest* );
+    bool isRequestStillValid(ImageRequest *request);
+    void removeRequest(ImageRequest *);
 
 private:
     // A Reference to a ImageRequest with value semantic.
     // This only stores the pointer to an ImageRequest object but behaves
     // regarding the less-than and equals-operator like the object.
     // This allows to store ImageRequests with value-semantic in a Set.
-    class ImageRequestReference {
+    class ImageRequestReference
+    {
     public:
-        ImageRequestReference() : m_ptr(nullptr) {}
-        explicit ImageRequestReference(const ImageRequest* ptr) : m_ptr(ptr) {}
+        ImageRequestReference()
+            : m_ptr(nullptr)
+        {
+        }
+        explicit ImageRequestReference(const ImageRequest *ptr)
+            : m_ptr(ptr)
+        {
+        }
 
-        bool operator<(const ImageRequestReference &other) const {
+        bool operator<(const ImageRequestReference &other) const
+        {
             return *m_ptr < *other.m_ptr;
         }
-        bool operator==(const ImageRequestReference &other) const {
+        bool operator==(const ImageRequestReference &other) const
+        {
             return *m_ptr == *other.m_ptr;
         }
-        operator const ImageRequest&() const {
+        operator const ImageRequest &() const
+        {
             return *m_ptr;
         }
+
     private:
-        const ImageRequest* m_ptr;
+        const ImageRequest *m_ptr;
     };
 
-    typedef QList<QQueue<ImageRequest*> > QueueType;
+    typedef QList<QQueue<ImageRequest *>> QueueType;
 
     /** @short Priotized list of queues (= 1 priority queue) of image requests
      * that are waiting for processing
@@ -90,7 +101,7 @@ private:
     QSet<ImageRequestReference> m_uniquePending;
 
     // All active requests that have a client
-    QSet<ImageRequest*> m_activeRequests;
+    QSet<ImageRequest *> m_activeRequests;
 };
 
 }

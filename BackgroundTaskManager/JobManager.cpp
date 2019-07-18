@@ -33,10 +33,10 @@
   indicate that that is a possibility.
 */
 
-BackgroundTaskManager::JobManager* BackgroundTaskManager::JobManager::s_instance = nullptr;
+BackgroundTaskManager::JobManager *BackgroundTaskManager::JobManager::s_instance = nullptr;
 
-BackgroundTaskManager::JobManager::JobManager() :
-    m_isPaused(false)
+BackgroundTaskManager::JobManager::JobManager()
+    : m_isPaused(false)
 {
 }
 
@@ -50,29 +50,29 @@ int BackgroundTaskManager::JobManager::maxJobCount() const
     // See comment in ImageManager::AsyncLoader::init()
     // We will at least have one active background task at the time, as some of them
     // currently aren't that much for background stuff. The key example of this is generating video thumbnails.
-    const int max = qMin( 3, QThread::idealThreadCount() );
-    int count = qMax( 1, max - ImageManager::AsyncLoader::instance()->activeCount() - 1 );
+    const int max = qMin(3, QThread::idealThreadCount());
+    int count = qMax(1, max - ImageManager::AsyncLoader::instance()->activeCount() - 1);
     return count;
 }
 
 void BackgroundTaskManager::JobManager::execute()
 {
-    if ( m_queue.isEmpty() )
+    if (m_queue.isEmpty())
         return;
 
-    if ( !shouldExecute() )
+    if (!shouldExecute())
         return;
 
-    while ( m_active.count() < maxJobCount() &&  !m_queue.isEmpty() ) {
-        JobInterface* job = m_queue.dequeue();
-        connect(job,SIGNAL(completed()), this, SLOT(jobCompleted()));
+    while (m_active.count() < maxJobCount() && !m_queue.isEmpty()) {
+        JobInterface *job = m_queue.dequeue();
+        connect(job, SIGNAL(completed()), this, SLOT(jobCompleted()));
         m_active.append(job);
         emit jobStarted(job);
         job->start();
     }
 }
 
-void BackgroundTaskManager::JobManager::addJob(BackgroundTaskManager::JobInterface* job )
+void BackgroundTaskManager::JobManager::addJob(BackgroundTaskManager::JobInterface *job)
 {
     m_queue.enqueue(job, job->priority());
     execute();
@@ -80,7 +80,7 @@ void BackgroundTaskManager::JobManager::addJob(BackgroundTaskManager::JobInterfa
 
 BackgroundTaskManager::JobManager *BackgroundTaskManager::JobManager::instance()
 {
-    if ( !s_instance )
+    if (!s_instance)
         s_instance = new JobManager;
     return s_instance;
 }
@@ -90,9 +90,9 @@ int BackgroundTaskManager::JobManager::activeJobCount() const
     return m_active.count();
 }
 
-BackgroundTaskManager::JobInfo* BackgroundTaskManager::JobManager::activeJob(int index) const
+BackgroundTaskManager::JobInfo *BackgroundTaskManager::JobManager::activeJob(int index) const
 {
-    if ( index < m_active.count())
+    if (index < m_active.count())
         return m_active[index];
     return nullptr;
 }
@@ -102,7 +102,7 @@ int BackgroundTaskManager::JobManager::futureJobCount() const
     return m_queue.count();
 }
 
-BackgroundTaskManager::JobInfo* BackgroundTaskManager::JobManager::futureJob(int index) const
+BackgroundTaskManager::JobInfo *BackgroundTaskManager::JobManager::futureJob(int index) const
 {
     return m_queue.peek(index);
 }
@@ -119,7 +119,7 @@ bool BackgroundTaskManager::JobManager::hasActiveJobs() const
 
 void BackgroundTaskManager::JobManager::jobCompleted()
 {
-    JobInterface* job = qobject_cast<JobInterface*>(sender());
+    JobInterface *job = qobject_cast<JobInterface *>(sender());
     Q_ASSERT(job);
     emit jobEnded(job);
     m_active.removeAll(job);

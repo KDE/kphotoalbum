@@ -21,16 +21,16 @@
 
 #include "SearchInfo.h"
 
-#include <QString>
+#include "Types.h"
+#include <QBuffer>
 #include <QDataStream>
 #include <QImage>
-#include <QBuffer>
-#include <QStringList>
-#include <QPair>
-#include "Types.h"
 #include <QMap>
-#include <memory>
 #include <QPainter>
+#include <QPair>
+#include <QString>
+#include <QStringList>
+#include <memory>
 
 namespace RemoteControl
 {
@@ -54,28 +54,27 @@ enum class CommandType {
     ToggleTokenRequest
 };
 
-
 class RemoteCommand
 {
 public:
     RemoteCommand(CommandType type);
     virtual ~RemoteCommand();
-    virtual void encode(QDataStream&) const;
-    virtual void decode(QDataStream&);
+    virtual void encode(QDataStream &) const;
+    virtual void decode(QDataStream &);
     CommandType commandType() const;
 
-    void addSerializer(SerializerInterface* serializer);
+    void addSerializer(SerializerInterface *serializer);
     static std::unique_ptr<RemoteCommand> create(CommandType commandType);
 
 private:
-    QList<SerializerInterface*> m_serializers;
+    QList<SerializerInterface *> m_serializers;
     CommandType m_type;
 };
 
-class ThumbnailResult :public RemoteCommand
+class ThumbnailResult : public RemoteCommand
 {
 public:
-    ThumbnailResult(ImageId imageId = {}, const QString& label = {}, const QImage& image = QImage(), ViewType type = {});
+    ThumbnailResult(ImageId imageId = {}, const QString &label = {}, const QImage &image = QImage(), ViewType type = {});
     ImageId imageId;
     QString label;
     QImage image;
@@ -89,40 +88,40 @@ struct Category {
     CategoryViewType viewType;
 };
 
-class CategoryListResult :public RemoteCommand
+class CategoryListResult : public RemoteCommand
 {
 public:
     CategoryListResult();
     QList<Category> categories;
 };
 
-class SearchRequest :public RemoteCommand
+class SearchRequest : public RemoteCommand
 {
 public:
-    SearchRequest(SearchType type = {}, const SearchInfo& searchInfo = {}, int size = {});
+    SearchRequest(SearchType type = {}, const SearchInfo &searchInfo = {}, int size = {});
     SearchType type;
     SearchInfo searchInfo;
     int size; // Only used for SearchType::Categories
 };
 
-class SearchResult :public RemoteCommand
+class SearchResult : public RemoteCommand
 {
 public:
-    SearchResult(SearchType type = {}, const QList<int>& result = {});
+    SearchResult(SearchType type = {}, const QList<int> &result = {});
     SearchType type;
     QList<int> result;
 };
 
-class ThumbnailRequest :public RemoteCommand
+class ThumbnailRequest : public RemoteCommand
 {
 public:
-    ThumbnailRequest(ImageId imageId = {}, const QSize& size = {}, ViewType type = {});
+    ThumbnailRequest(ImageId imageId = {}, const QSize &size = {}, ViewType type = {});
     ImageId imageId;
     QSize size;
     ViewType type;
 };
 
-class ThumbnailCancelRequest :public RemoteCommand
+class ThumbnailCancelRequest : public RemoteCommand
 {
 public:
     ThumbnailCancelRequest(ImageId imageId = {}, ViewType type = {});
@@ -130,15 +129,15 @@ public:
     ViewType type;
 };
 
-class TimeCommand :public RemoteCommand
+class TimeCommand : public RemoteCommand
 {
 public:
     TimeCommand();
-    void encode(QDataStream& stream) const override;
-    void decode(QDataStream& stream) override;
+    void encode(QDataStream &stream) const override;
+    void decode(QDataStream &stream) override;
 };
 
-class ImageDetailsRequest :public RemoteCommand
+class ImageDetailsRequest : public RemoteCommand
 {
 public:
     ImageDetailsRequest(ImageId imageId = {});
@@ -146,52 +145,56 @@ public:
 };
 
 struct CategoryItemDetails {
-    CategoryItemDetails(const QString& name = {}, const QString& age = {})
-        : name(name), age(age) {}
+    CategoryItemDetails(const QString &name = {}, const QString &age = {})
+        : name(name)
+        , age(age)
+    {
+    }
     QString name;
     QString age;
 };
 
 using CategoryItemDetailsList = QList<CategoryItemDetails>;
 
-class ImageDetailsResult :public RemoteCommand
+class ImageDetailsResult : public RemoteCommand
 {
 public:
     ImageDetailsResult();
     QString fileName;
     QString date;
     QString description;
-    QMap<QString,CategoryItemDetailsList> categories;
+    QMap<QString, CategoryItemDetailsList> categories;
 };
 
-class CategoryItemsResult :public RemoteCommand
+class CategoryItemsResult : public RemoteCommand
 {
 public:
-    CategoryItemsResult(const QStringList& items = {});
+    CategoryItemsResult(const QStringList &items = {});
     QStringList items;
 };
 
-class StaticImageRequest :public RemoteCommand
+class StaticImageRequest : public RemoteCommand
 {
 public:
     StaticImageRequest(int size = {});
     int size;
 };
 
-class StaticImageResult :public RemoteCommand
+class StaticImageResult : public RemoteCommand
 {
 public:
-    StaticImageResult(const QImage& homeIcon = {}, const QImage& kphotoalbumIcon = {}, const QImage& discoverIcon = {});
+    StaticImageResult(const QImage &homeIcon = {}, const QImage &kphotoalbumIcon = {}, const QImage &discoverIcon = {});
     QImage homeIcon;
     QImage kphotoalbumIcon;
     QImage discoverIcon;
 };
 
-class ToggleTokenRequest :public RemoteCommand
+class ToggleTokenRequest : public RemoteCommand
 {
 public:
-    enum State {On, Off};
-    ToggleTokenRequest(ImageId imageId = {}, const QString& token = {}, State state = {});
+    enum State { On,
+                 Off };
+    ToggleTokenRequest(ImageId imageId = {}, const QString &token = {}, State state = {});
     ImageId imageId;
     QString token;
     State state;

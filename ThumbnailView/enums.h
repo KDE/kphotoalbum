@@ -20,12 +20,17 @@
 
 namespace ThumbnailView
 {
-enum SortDirection { NewestFirst, OldestFirst };
-enum Order { ViewOrder, SortedOrder };
-enum CoordinateSystem {ViewportCoordinates, ContentsCoordinates };
-enum VisibleState { FullyVisible, PartlyVisible };
+enum SortDirection { NewestFirst,
+                     OldestFirst };
+enum Order { ViewOrder,
+             SortedOrder };
+enum CoordinateSystem { ViewportCoordinates,
+                        ContentsCoordinates };
+enum VisibleState { FullyVisible,
+                    PartlyVisible };
 
-enum SelectionUpdateMethod { ClearSelection, MaintainSelection };
+enum SelectionUpdateMethod { ClearSelection,
+                             MaintainSelection };
 /** @short Operation mode of selection in ThumbnailView.
  *
  * The SelectionMode determines how collapsed stacks and partially

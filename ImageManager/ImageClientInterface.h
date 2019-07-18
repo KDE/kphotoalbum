@@ -22,27 +22,30 @@ class QSize;
 class QImage;
 class QString;
 
-namespace DB { class FileName; }
+namespace DB
+{
+class FileName;
+}
 
 namespace ImageManager
 {
-    class ImageRequest;
+class ImageRequest;
 
 /**
  * An ImageClient is part of the ImageRequest and is called back when
  * an image has been loaded.
  */
-class ImageClientInterface {
+class ImageClientInterface
+{
 public:
     virtual ~ImageClientInterface();
 
     /**
      * Callback on loaded image.
      */
-    virtual void pixmapLoaded(ImageRequest* request, const QImage& image) = 0;
+    virtual void pixmapLoaded(ImageRequest *request, const QImage &image) = 0;
     virtual void requestCanceled() {}
 };
-
 }
 
 #endif /* IMAGECLIENTINTERFACE_H */

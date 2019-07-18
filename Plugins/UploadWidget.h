@@ -26,21 +26,22 @@
 class QFileSystemModel;
 class QModelIndex;
 
-namespace Plugins {
+namespace Plugins
+{
 
 class UploadWidget : public KIPI::UploadWidget
 {
     Q_OBJECT
 
 public:
-    explicit UploadWidget(QWidget* parent);
+    explicit UploadWidget(QWidget *parent);
     KIPI::ImageCollection selectedImageCollection() const override;
 
 private slots:
-    void newIndexSelected(const QModelIndex& index);
+    void newIndexSelected(const QModelIndex &index);
 
 private:
-    QFileSystemModel* m_model;
+    QFileSystemModel *m_model;
     QString m_path;
 };
 

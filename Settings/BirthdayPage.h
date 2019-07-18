@@ -45,7 +45,7 @@ class BirthdayPage : public QWidget
     Q_OBJECT
 
 public slots:
-    void pageChange(KPageWidgetItem* page);
+    void pageChange(KPageWidgetItem *page);
     void discardChanges();
     void saveSettings();
 
@@ -56,30 +56,30 @@ private slots:
     QDate parseDate(QString date);
     void checkDateInput(QString date);
     void checkDate();
-    void setDate(const QDate& date);
+    void setDate(const QDate &date);
     void removeDate();
 
 public:
-    BirthdayPage(QWidget* parent);
+    BirthdayPage(QWidget *parent);
     void reload();
 
 private: // Functions
-    QString textForDate(const QDate& date) const;
+    QString textForDate(const QDate &date) const;
     void disableCalendar();
 
 private: // Variables
-    QLineEdit* m_filter;
-    QComboBox* m_categoryBox;
-    QTableWidget* m_dataView;
-    QTableWidgetItem* m_lastItem = nullptr;
+    QLineEdit *m_filter;
+    QComboBox *m_categoryBox;
+    QTableWidget *m_dataView;
+    QTableWidgetItem *m_lastItem = nullptr;
     QFont m_font;
     QFont m_boldFont;
-    QLineEdit* m_dateInput;
-    QCalendarWidget* m_calendar;
-    QPushButton* m_unsetButton;
+    QLineEdit *m_dateInput;
+    QCalendarWidget *m_calendar;
+    QPushButton *m_unsetButton;
     QString m_noDateString;
     QMap<QString, QMap<QString, QDate>> m_changedData;
-    QLabel* m_birthdayOfLabel;
+    QLabel *m_birthdayOfLabel;
     QStringList m_dateFormats;
 };
 

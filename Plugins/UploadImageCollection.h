@@ -22,12 +22,13 @@
 
 #include <KIPI/ImageCollectionShared>
 
-namespace Plugins {
+namespace Plugins
+{
 
 class UploadImageCollection : public KIPI::ImageCollectionShared
 {
 public:
-    explicit UploadImageCollection(const QString& path);
+    explicit UploadImageCollection(const QString &path);
 
     QList<QUrl> images() override;
     QString name() override;

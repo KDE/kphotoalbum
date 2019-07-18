@@ -19,7 +19,6 @@
 
 #ifndef UTILITIES_JPEGLIBWITHFIX_H
 #define UTILITIES_JPEGLIBWITHFIX_H
-
 // FIXME: Hacky work-around for HAVE_STDLIB_H redifiniton warning.
 
 // Some systems (like mine) have HAVE_STDLIB_H defined in jconfig.h
@@ -29,21 +28,23 @@
 // know.  -- Tuomas
 
 #ifdef HAVE_STDLIB_H
-# undef HAVE_STDLIB_H
-# define HAVE_STDLIB_H_WAS_DEFINED
+#undef HAVE_STDLIB_H
+#define HAVE_STDLIB_H_WAS_DEFINED
 #endif
 
+// clang-format off
 extern "C" {
 #define XMD_H // prevent INT32 clash from jpeglib
 #include <stdlib.h>
 #include <stdio.h>
 #include <jpeglib.h>
 }
+// clang-format on
 
 #ifdef HAVE_STDLIB_H_WAS_DEFINED
-# ifndef HAVE_STDLIB_H
-#  define HAVE_STDLIB_H
-# endif
+#ifndef HAVE_STDLIB_H
+#define HAVE_STDLIB_H
+#endif
 #endif
 
 #undef HAVE_STDLIB_H_WAS_DEFINED

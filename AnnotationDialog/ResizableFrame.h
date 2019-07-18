@@ -28,20 +28,21 @@
 #include <QTreeWidgetItem>
 
 // Local includes
-#include "enums.h"
 #include "Dialog.h"
 #include "ListSelect.h"
+#include "enums.h"
 
 class QMouseEvent;
 
-namespace AnnotationDialog {
+namespace AnnotationDialog
+{
 
 class ResizableFrame : public QFrame
 {
     Q_OBJECT
 
 public:
-    explicit ResizableFrame(QWidget* parent = 0);
+    explicit ResizableFrame(QWidget *parent = 0);
     ~ResizableFrame() override;
 
     void setActualCoordinates(QRect actualCoordinates);
@@ -50,7 +51,7 @@ public:
     void checkGeometry();
     void showContextMenu();
 
-    void setDialog(Dialog* dialog);
+    void setDialog(Dialog *dialog);
     QPair<QString, QString> tagData() const;
     void removeTagData();
     void setTagData(QString category, QString tag, ChangeOrigin changeOrigin = ManualChange);
@@ -68,35 +69,34 @@ public:
     bool isTidied() const;
 
 protected:
-    void mousePressEvent(QMouseEvent* event) override;
-    void mouseMoveEvent(QMouseEvent* event) override;
-    void mouseReleaseEvent(QMouseEvent* event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
     void contextMenuEvent(QContextMenuEvent *) override;
 
 private slots:
     void associateTag();
-    void associateTag(QAction* action);
+    void associateTag(QAction *action);
     void remove();
     void removeTag();
 
 private: // Functions
     void getMinMaxCoordinates();
-    QAction* createAssociateTagAction(
-        const QPair<QString, QString>& tag, QString prefix = QString()
-    );
+    QAction *createAssociateTagAction(
+        const QPair<QString, QString> &tag, QString prefix = QString());
 
 private: // Variables
     QPoint m_dragStartPosition;
     QRect m_dragStartGeometry;
     QRect m_minMaxCoordinates;
     QRect m_actualCoordinates;
-    QAction* m_removeAct;
-    QAction* m_removeTagAct;
-    Dialog* m_dialog;
+    QAction *m_removeAct;
+    QAction *m_removeTagAct;
+    Dialog *m_dialog;
     QPair<QString, QString> m_tagData;
     QPair<QString, QString> m_proposedTagData;
-    ImagePreview* m_preview;
-    ImagePreviewWidget* m_previewWidget;
+    ImagePreview *m_preview;
+    ImagePreviewWidget *m_previewWidget;
     bool m_tidied = false;
 };
 

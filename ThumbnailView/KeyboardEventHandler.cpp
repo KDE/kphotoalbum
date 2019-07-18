@@ -23,50 +23,45 @@
 #include <Settings/SettingsData.h>
 
 #include "CellGeometry.h"
-#include "enums.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
 #include "VideoThumbnailCycler.h"
+#include "enums.h"
 
-ThumbnailView::KeyboardEventHandler::KeyboardEventHandler( ThumbnailFactory* factory )
-    : ThumbnailComponent( factory )
+ThumbnailView::KeyboardEventHandler::KeyboardEventHandler(ThumbnailFactory *factory)
+    : ThumbnailComponent(factory)
 {
-
 }
 
-bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
+bool ThumbnailView::KeyboardEventHandler::keyPressEvent(QKeyEvent *event)
 {
-    if (event->modifiers() == Qt::NoModifier && event->key() == Qt::Key_Escape)
-    {
-        if (model()->isFiltered())
-        {
+    if (event->modifiers() == Qt::NoModifier && event->key() == Qt::Key_Escape) {
+        if (model()->isFiltered()) {
             model()->clearFilter();
             return true;
         }
     }
     // tokens
-    if ( event->key() >= Qt::Key_A && event->key() <= Qt::Key_Z )
-    {
+    if (event->key() >= Qt::Key_A && event->key() <= Qt::Key_Z) {
         const QString token = event->text().toUpper().left(1);
-        if ( event->modifiers() == Qt::NoModifier || event->modifiers() == Qt::ShiftModifier )
-        {
+        if (event->modifiers() == Qt::NoModifier || event->modifiers() == Qt::ShiftModifier) {
             // toggle tokens
             bool mustRemoveToken = false;
-            bool hadHit          = false;
+            bool hadHit = false;
 
-            const DB::FileNameList selection = widget()->selection( event->modifiers() == Qt::NoModifier ? NoExpandCollapsedStacks : IncludeAllStacks );
+            const DB::FileNameList selection = widget()->selection(event->modifiers() == Qt::NoModifier ? NoExpandCollapsedStacks : IncludeAllStacks);
             DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
-            Q_FOREACH( const DB::FileName& fileName, selection ) {
+            Q_FOREACH (const DB::FileName &fileName, selection) {
                 DB::ImageInfoPtr info = fileName.info();
-                if ( ! hadHit ) {
-                    mustRemoveToken = info->hasCategoryInfo(tokensCategory->name(), token );
+                if (!hadHit) {
+                    mustRemoveToken = info->hasCategoryInfo(tokensCategory->name(), token);
                     hadHit = true;
                 }
 
-                if ( mustRemoveToken )
-                    info->removeCategoryInfo(tokensCategory->name(), token );
+                if (mustRemoveToken)
+                    info->removeCategoryInfo(tokensCategory->name(), token);
                 else
-                    info->addCategoryInfo(tokensCategory->name(), token );
+                    info->addCategoryInfo(tokensCategory->name(), token);
 
                 model()->updateCell(fileName);
             }
@@ -75,7 +70,7 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
             MainWindow::DirtyIndicator::markDirty();
             return true;
         }
-        if ( event->modifiers() == (Qt::AltModifier|Qt::ShiftModifier)) {
+        if (event->modifiers() == (Qt::AltModifier | Qt::ShiftModifier)) {
             // filter view
             const QString tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory)->name();
             model()->toggleCategoryFilter(tokensCategory, token);
@@ -84,16 +79,14 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
     }
 
     // rating
-    if ( event->key() >= Qt::Key_0 && event->key() <= Qt::Key_5 )
-    {
+    if (event->key() >= Qt::Key_0 && event->key() <= Qt::Key_5) {
         bool ok;
         const short rating = 2 * event->text().left(1).toShort(&ok, 10);
         if (ok) {
-            if ( event->modifiers() == Qt::NoModifier || event->modifiers() == Qt::ShiftModifier )
-            {
+            if (event->modifiers() == Qt::NoModifier || event->modifiers() == Qt::ShiftModifier) {
                 // set rating
-                const DB::FileNameList selection = widget()->selection( event->modifiers() == Qt::NoModifier ? NoExpandCollapsedStacks : IncludeAllStacks );
-                Q_FOREACH( const DB::FileName& fileName, selection ) {
+                const DB::FileNameList selection = widget()->selection(event->modifiers() == Qt::NoModifier ? NoExpandCollapsedStacks : IncludeAllStacks);
+                Q_FOREACH (const DB::FileName &fileName, selection) {
                     DB::ImageInfoPtr info = fileName.info();
                     info->setRating(rating);
                 }
@@ -106,7 +99,7 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
     if (event->key() == Qt::Key_Control && widget()->isItemUnderCursorSelected())
         VideoThumbnailCycler::instance()->stopCycle();
 
-    if ( event->key() == Qt::Key_Return ) {
+    if (event->key() == Qt::Key_Return) {
         emit showSelection();
         return true;
     }
@@ -118,9 +111,9 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent( QKeyEvent* event )
    Handle key release event.
    \return true if the event should propagate
 */
-bool ThumbnailView::KeyboardEventHandler::keyReleaseEvent( QKeyEvent* event )
+bool ThumbnailView::KeyboardEventHandler::keyReleaseEvent(QKeyEvent *event)
 {
-    if ( widget()->m_wheelResizing && event->key() == Qt::Key_Control ) {
+    if (widget()->m_wheelResizing && event->key() == Qt::Key_Control) {
         widget()->m_gridResizeInteraction.leaveGridResizingMode();
         widget()->m_wheelResizing = false;
 
@@ -132,7 +125,5 @@ bool ThumbnailView::KeyboardEventHandler::keyReleaseEvent( QKeyEvent* event )
 
     return true;
 }
-
-
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

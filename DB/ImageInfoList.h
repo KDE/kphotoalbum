@@ -17,24 +17,24 @@
 */
 #ifndef IMAGEINFOLIST_H
 #define IMAGEINFOLIST_H
-#include <QList>
-#include "DB/ImageInfoPtr.h"
 #include "DB/ImageInfo.h"
+#include "DB/ImageInfoPtr.h"
+#include <QList>
 
 namespace DB
 {
 class FileNameList;
 
-class ImageInfoList :public QList<ImageInfoPtr>
+class ImageInfoList : public QList<ImageInfoPtr>
 {
 public:
-    void sortAndMergeBackIn( ImageInfoList& subListToSort );
+    void sortAndMergeBackIn(ImageInfoList &subListToSort);
     ImageInfoList sort() const;
-    void appendList( ImageInfoList& other );
+    void appendList(ImageInfoList &other);
     void printItems();
     bool isSorted();
-    void mergeIn( ImageInfoList list );
-    void remove( const ImageInfoPtr& info );
+    void mergeIn(ImageInfoList list);
+    void remove(const ImageInfoPtr &info);
     DB::FileNameList files() const;
 };
 

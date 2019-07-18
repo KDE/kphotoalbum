@@ -27,12 +27,13 @@ class QHBoxLayout;
 namespace Viewer
 {
 
-class SpeedDisplay :public QLabel {
+class SpeedDisplay : public QLabel
+{
     Q_OBJECT
 
 public:
-    explicit SpeedDisplay( QWidget* parent );
-    void display( int );
+    explicit SpeedDisplay(QWidget *parent);
+    void display(int);
     void start();
     void end();
     void go();
@@ -42,10 +43,9 @@ private slots:
     void setAlphaChannel(int background, int label);
 
 private:
-    QTimer* m_timer;
-    QTimeLine* m_timeLine;
+    QTimer *m_timer;
+    QTimeLine *m_timeLine;
 };
-
 }
 
 #endif /* SPEEDDISPLAY_H */

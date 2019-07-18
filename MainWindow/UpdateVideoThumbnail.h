@@ -22,17 +22,19 @@
 
 #include <DB/FileNameList.h>
 
-namespace MainWindow {
+namespace MainWindow
+{
 
 class UpdateVideoThumbnail
 {
 public:
-    static void useNext(const DB::FileNameList& );
-    static void usePrevious( const DB::FileNameList& );
+    static void useNext(const DB::FileNameList &);
+    static void usePrevious(const DB::FileNameList &);
+
 private:
-    static void update(const DB::FileNameList&, int direction);
-    static void update(const DB::FileName& fileName, int direction);
-    static DB::FileName nextExistingImage(const DB::FileName& fileName, int frame, int direction);
+    static void update(const DB::FileNameList &, int direction);
+    static void update(const DB::FileName &fileName, int direction);
+    static DB::FileName nextExistingImage(const DB::FileName &fileName, int frame, int direction);
 };
 
 } // namespace MainWindow

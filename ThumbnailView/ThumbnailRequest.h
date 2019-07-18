@@ -26,14 +26,13 @@ class ThumbnailModel;
 class ThumbnailRequest : public ImageManager::ImageRequest
 {
 public:
-    ThumbnailRequest( int row, const DB::FileName& fileName, const QSize& size, int angle, ThumbnailModel* client);
+    ThumbnailRequest(int row, const DB::FileName &fileName, const QSize &size, int angle, ThumbnailModel *client);
     bool stillNeeded() const override;
 
 private:
-    const ThumbnailModel* const m_thumbnailModel;
+    const ThumbnailModel *const m_thumbnailModel;
     int m_row;
 };
-
 
 }
 

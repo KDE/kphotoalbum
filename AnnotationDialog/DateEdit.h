@@ -33,11 +33,11 @@
 #ifndef ANNOTATIONDIALOG_DATEEDIT_H
 #define ANNOTATIONDIALOG_DATEEDIT_H
 
+#include "DB/ImageDate.h"
 #include <QComboBox>
-#include <qmap.h>
 #include <QEvent>
 #include <QMouseEvent>
-#include "DB/ImageDate.h"
+#include <qmap.h>
 
 class QEvent;
 class KDatePicker;
@@ -49,7 +49,7 @@ class DateEdit : public QComboBox
 {
     Q_OBJECT
 public:
-    explicit DateEdit( bool isStartEdit, QWidget *parent=nullptr );
+    explicit DateEdit(bool isStartEdit, QWidget *parent = nullptr);
     ~DateEdit() override;
 
     /** @return True if the date in the text edit is valid,
@@ -68,7 +68,7 @@ public:
      * @param date The new date to display. This date must be valid or
      * it will not be displayed.
      */
-    void setDate(const QDate& date);
+    void setDate(const QDate &date);
 
     /** @return The default date used if no valid date has been set or entered.
      */
@@ -78,7 +78,7 @@ public:
      * If no default date has been set, the current date is used as the default.
      * @param date The default date.
      */
-    void setDefaultDate(const QDate& date);
+    void setDefaultDate(const QDate &date);
 
     /** @param handleInvalid If true the date edit accepts invalid dates
      * and displays them as the empty ("") string. It also returns an invalid date.
@@ -115,7 +115,7 @@ signals:
      * focus leaves the widget (i.e. the user confirms their selection).
      */
     void dateChanged(QDate);
-    void dateChanged( const DB::ImageDate& );
+    void dateChanged(const DB::ImageDate &);
 
     /** This signal is emitted whenever the user enters an invalid date.
      */
@@ -129,9 +129,9 @@ protected slots:
     void mousePressEvent(QMouseEvent *) override;
 
 private:
-    void keyPressEvent( QKeyEvent *event ) override;
+    void keyPressEvent(QKeyEvent *event) override;
     bool eventFilter(QObject *o, QEvent *e) override;
-    bool readDate(QDate& result, QDate* end) const;
+    bool readDate(QDate &result, QDate *end) const;
 
     /** Maps the text that the user can enter to the offset in days from
      * today. For example, the text 'tomorrow' is mapped to +1.
@@ -142,11 +142,11 @@ private:
 
     KDatePicker *m_DatePicker;
     QFrame *m_DateFrame;
-    QDate  m_defaultValue;
-    QDate  m_value;
-    bool   m_ReadOnly;
-    bool   m_DiscardNextMousePress;
-    bool   m_IsStartEdit;
+    QDate m_defaultValue;
+    QDate m_value;
+    bool m_ReadOnly;
+    bool m_DiscardNextMousePress;
+    bool m_IsStartEdit;
 };
 
 }

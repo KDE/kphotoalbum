@@ -36,14 +36,14 @@
 
 #include <cstdlib>
 
-
-namespace ImageManager {
+namespace ImageManager
+{
 QString ExtractOneVideoFrame::s_tokenForShortVideos;
 
 #define STR(x) QString::fromUtf8(x)
-void ExtractOneVideoFrame::extract(const DB::FileName &fileName, double offset, QObject* receiver, const char* slot)
+void ExtractOneVideoFrame::extract(const DB::FileName &fileName, double offset, QObject *receiver, const char *slot)
 {
-    if ( MainWindow::FeatureDialog::hasVideoThumbnailer())
+    if (MainWindow::FeatureDialog::hasVideoThumbnailer())
         new ExtractOneVideoFrame(fileName, offset, receiver, slot);
 }
 
@@ -54,11 +54,11 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
     setupWorkingDirectory();
     m_process->setWorkingDirectory(m_workingDirectory);
 
-    connect( m_process, SIGNAL(finished(int)), this, SLOT(frameFetched()));
-    connect( m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(handleError(QProcess::ProcessError)));
-    connect( this, SIGNAL(result(QImage)), receiver, slot);
+    connect(m_process, SIGNAL(finished(int)), this, SLOT(frameFetched()));
+    connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(handleError(QProcess::ProcessError)));
+    connect(this, SIGNAL(result(QImage)), receiver, slot);
 
-    Q_ASSERT( MainWindow::FeatureDialog::hasVideoThumbnailer() );
+    Q_ASSERT(MainWindow::FeatureDialog::hasVideoThumbnailer());
     QStringList arguments;
     // analyzeduration is for videos where the videostream starts later than the sound
     arguments << STR("-ss") << QString::number(offset, 'f', 4) << STR("-analyzeduration")
@@ -76,10 +76,9 @@ void ExtractOneVideoFrame::frameFetched()
         markShortVideo(m_fileName);
 
     QString name;
-    for (int i = 20; i>0; --i) {
-        name = m_workingDirectory +STR("/000000%1.png").arg(i,2, 10, QChar::fromLatin1('0'));
-        if (QFile::exists(name))
-        {
+    for (int i = 20; i > 0; --i) {
+        name = m_workingDirectory + STR("/000000%1.png").arg(i, 2, 10, QChar::fromLatin1('0'));
+        if (QFile::exists(name)) {
             qCDebug(ImageManagerLog) << "Using video frame " << i;
             break;
         }
@@ -95,17 +94,29 @@ void ExtractOneVideoFrame::handleError(QProcess::ProcessError error)
 {
     QString message;
     switch (error) {
-    case QProcess::FailedToStart: message = i18n("Failed to start"); break;
-    case QProcess::Crashed: message = i18n("Crashed"); break;
-    case QProcess::Timedout: message = i18n("Timedout"); break;
-    case QProcess::ReadError: message = i18n("Read error"); break;
-    case QProcess::WriteError: message = i18n("Write error"); break;
-    case QProcess::UnknownError: message = i18n("Unknown error"); break;
+    case QProcess::FailedToStart:
+        message = i18n("Failed to start");
+        break;
+    case QProcess::Crashed:
+        message = i18n("Crashed");
+        break;
+    case QProcess::Timedout:
+        message = i18n("Timedout");
+        break;
+    case QProcess::ReadError:
+        message = i18n("Read error");
+        break;
+    case QProcess::WriteError:
+        message = i18n("Write error");
+        break;
+    case QProcess::UnknownError:
+        message = i18n("Unknown error");
+        break;
     }
 
-    KMessageBox::information( MainWindow::Window::theMainWindow(),
-            i18n("<p>Error when extracting video thumbnails.<br/>Error was: %1</p>" , message ),
-            QString(), QLatin1String("errorWhenRunningQProcessFromExtractOneVideoFrame"));
+    KMessageBox::information(MainWindow::Window::theMainWindow(),
+                             i18n("<p>Error when extracting video thumbnails.<br/>Error was: %1</p>", message),
+                             QString(), QLatin1String("errorWhenRunningQProcessFromExtractOneVideoFrame"));
     emit result(QImage());
     deleteLater();
 }
@@ -120,7 +131,7 @@ void ExtractOneVideoFrame::deleteWorkingDirectory()
 {
     QDir dir(m_workingDirectory);
     QStringList files = dir.entryList(QDir::Files);
-    for ( const QString& file : files )
+    for (const QString &file : files)
         dir.remove(file);
 
     dir.rmdir(m_workingDirectory);
@@ -130,8 +141,8 @@ void ExtractOneVideoFrame::markShortVideo(const DB::FileName &fileName)
 {
     if (s_tokenForShortVideos.isNull()) {
         Utilities::StringSet usedTokens = MainWindow::TokenEditor::tokensInUse().toSet();
-        for ( int ch = 'A'; ch <= 'Z'; ++ch ) {
-            QString token = QChar::fromLatin1( (char) ch );
+        for (int ch = 'A'; ch <= 'Z'; ++ch) {
+            QString token = QChar::fromLatin1((char)ch);
             if (!usedTokens.contains(token)) {
                 s_tokenForShortVideos = token;
                 break;

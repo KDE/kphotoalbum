@@ -26,11 +26,11 @@
   \brief QProcess subclass which collects stdout and print stderr
 */
 
-Utilities::Process::Process(QObject *parent) :
-    QProcess(parent)
+Utilities::Process::Process(QObject *parent)
+    : QProcess(parent)
 {
-    connect( this, SIGNAL(readyReadStandardError()), this, SLOT(readStandardError()));
-    connect( this, SIGNAL(readyReadStandardOutput()), this, SLOT(readStandardOutput()));
+    connect(this, SIGNAL(readyReadStandardError()), this, SLOT(readStandardError()));
+    connect(this, SIGNAL(readyReadStandardOutput()), this, SLOT(readStandardOutput()));
 }
 
 QString Utilities::Process::stdOut() const

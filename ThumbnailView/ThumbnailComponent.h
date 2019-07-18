@@ -18,7 +18,10 @@
 #ifndef THUMBNAILCOMPONENT_H
 #define THUMBNAILCOMPONENT_H
 
-namespace DB {class Id; }
+namespace DB
+{
+class Id;
+}
 
 namespace ThumbnailView
 {
@@ -31,19 +34,19 @@ class ThumbnailModel;
 class ThumbnailComponent
 {
 public:
-    explicit ThumbnailComponent( ThumbnailFactory* factory );
+    explicit ThumbnailComponent(ThumbnailFactory *factory);
 
-    ThumbnailModel* model();
-    const ThumbnailModel* model() const;
+    ThumbnailModel *model();
+    const ThumbnailModel *model() const;
 
-    CellGeometry* cellGeometryInfo();
-    const CellGeometry* cellGeometryInfo() const;
+    CellGeometry *cellGeometryInfo();
+    const CellGeometry *cellGeometryInfo() const;
 
-    ThumbnailWidget* widget();
-    const ThumbnailWidget* widget() const;
+    ThumbnailWidget *widget();
+    const ThumbnailWidget *widget() const;
 
 private:
-    ThumbnailFactory* m_factory;
+    ThumbnailFactory *m_factory;
 };
 
 }

@@ -20,28 +20,29 @@
 #ifndef RUNDIALOG_H
 #define RUNDIALOG_H
 
+#include <DB/FileNameList.h>
 #include <QDialog>
 #include <QLineEdit>
-#include <DB/FileNameList.h>
 
 namespace MainWindow
 {
 
-class RunDialog :public QDialog {
+class RunDialog : public QDialog
+{
     Q_OBJECT
 
-      public:
-        explicit RunDialog( QWidget* parent );
-        void setImageList( const DB::FileNameList& fileList );
-        void show();
+public:
+    explicit RunDialog(QWidget *parent);
+    void setImageList(const DB::FileNameList &fileList);
+    void show();
 
-      protected slots:
-        void slotMarkGo( );
+protected slots:
+    void slotMarkGo();
 
-      private:
-        bool* m_ok;
-        QLineEdit* m_cmd;
-        DB::FileNameList m_fileList;
+private:
+    bool *m_ok;
+    QLineEdit *m_cmd;
+    DB::FileNameList m_fileList;
 };
 }
 

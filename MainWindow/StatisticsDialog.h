@@ -26,34 +26,38 @@ class KComboBox;
 class QTreeWidgetItem;
 class QTreeWidget;
 
-namespace DB { class ImageSearchInfo; }
-namespace MainWindow {
+namespace DB
+{
+class ImageSearchInfo;
+}
+namespace MainWindow
+{
 
-class StatisticsDialog :public QDialog
+class StatisticsDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit StatisticsDialog( QWidget* parent );
+    explicit StatisticsDialog(QWidget *parent);
     QSize sizeHint() const override;
     void show();
 
 private:
-    QTreeWidgetItem* addRow( const QString& title, int noOfTags, int tagCount, int imageCount, QTreeWidgetItem* parent );
-    void highlightTotalRow( QTreeWidgetItem* item );
-    QGroupBox* createAnnotatedGroupBox();
-    void populateSubTree( const DB::ImageSearchInfo& info, int imageCount, QTreeWidgetItem* top );
+    QTreeWidgetItem *addRow(const QString &title, int noOfTags, int tagCount, int imageCount, QTreeWidgetItem *parent);
+    void highlightTotalRow(QTreeWidgetItem *item);
+    QGroupBox *createAnnotatedGroupBox();
+    void populateSubTree(const DB::ImageSearchInfo &info, int imageCount, QTreeWidgetItem *top);
 
 private slots:
     void categoryChanged(int);
     void populate();
 
 private:
-    QTreeWidget* m_treeWidget;
-    KComboBox* m_category;
-    QLabel* m_tagLabel;
-    KComboBox* m_tag;
-    QGridLayout* m_boxLayout;
+    QTreeWidget *m_treeWidget;
+    KComboBox *m_category;
+    QLabel *m_tagLabel;
+    KComboBox *m_tag;
+    QGridLayout *m_boxLayout;
 };
 
 }

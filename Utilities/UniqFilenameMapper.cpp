@@ -20,27 +20,31 @@
 
 #include <QFileInfo>
 
-Utilities::UniqFilenameMapper::UniqFilenameMapper() {
+Utilities::UniqFilenameMapper::UniqFilenameMapper()
+{
     /* nop */
 }
 
 Utilities::UniqFilenameMapper::UniqFilenameMapper(const QString &target)
-    : m_targetDirectory(target) {
+    : m_targetDirectory(target)
+{
     /* nop */
 }
 
-
-void Utilities::UniqFilenameMapper::reset() {
+void Utilities::UniqFilenameMapper::reset()
+{
     m_uniqFiles.clear();
     m_origToUniq.clear();
 }
 
-bool Utilities::UniqFilenameMapper::fileClashes(const QString &file) {
+bool Utilities::UniqFilenameMapper::fileClashes(const QString &file)
+{
     return m_uniqFiles.contains(file)
         || (!m_targetDirectory.isNull() && QFileInfo(file).exists());
 }
 
-QString Utilities::UniqFilenameMapper::uniqNameFor(const DB::FileName& filename) {
+QString Utilities::UniqFilenameMapper::uniqNameFor(const DB::FileName &filename)
+{
     if (m_origToUniq.contains(filename))
         return m_origToUniq[filename];
 
@@ -48,7 +52,8 @@ QString Utilities::UniqFilenameMapper::uniqNameFor(const DB::FileName& filename)
     QString base = QFileInfo(filename.absolute()).baseName();
     if (!m_targetDirectory.isNull()) {
         base = QString::fromUtf8("%1/%2")
-            .arg(m_targetDirectory).arg(base);
+                   .arg(m_targetDirectory)
+                   .arg(base);
     }
 
     QString uniqFile;
@@ -58,8 +63,7 @@ QString Utilities::UniqFilenameMapper::uniqNameFor(const DB::FileName& filename)
             ? QString::fromUtf8("%1.%2").arg(base).arg(extension)
             : QString::fromUtf8("%1-%2.%3").arg(base).arg(i).arg(extension);
         ++i;
-    }
-    while (fileClashes(uniqFile));
+    } while (fileClashes(uniqFile));
 
     m_origToUniq.insert(filename, uniqFile);
     m_uniqFiles.insert(uniqFile);

@@ -20,12 +20,13 @@
 #ifndef DB_RAWID_H
 #define DB_RAWID_H
 
-#include <QVariant>
 #include <QDebug>
+#include <QVariant>
 
 #ifndef DB_RAWID_IS_PLAIN_INTEGER
 
-namespace DB {
+namespace DB
+{
 class RawId;
 }
 
@@ -33,7 +34,8 @@ inline int toInt(const DB::RawId rawId);
 
 inline unsigned int qHash(const DB::RawId rawId);
 
-namespace DB {
+namespace DB
+{
 
 class RawId
 {
@@ -99,7 +101,8 @@ inline QDebug operator<<(QDebug d, const DB::RawId rawId)
 
 #else
 
-namespace DB {
+namespace DB
+{
 
 typedef int RawId;
 

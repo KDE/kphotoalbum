@@ -33,19 +33,19 @@ DB::UserFeedback DB::UIDelegate::questionYesNo(const QString &logMessage, const 
     return askQuestionYesNo(msg, title, dialogId);
 }
 
-void DB::UIDelegate::information(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId )
+void DB::UIDelegate::information(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId)
 {
     qCInfo(DBLog) << logMessage;
     showInformation(msg, title, dialogId);
 }
 
-void DB::UIDelegate::sorry(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId )
+void DB::UIDelegate::sorry(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId)
 {
     qCWarning(DBLog) << logMessage;
     showSorry(msg, title, dialogId);
 }
 
-void DB::UIDelegate::error(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId )
+void DB::UIDelegate::error(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId)
 {
     qCCritical(DBLog) << logMessage;
     showError(msg, title, dialogId);

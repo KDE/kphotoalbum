@@ -17,11 +17,11 @@
 */
 #ifndef IMAGEREQUEST_H
 #define IMAGEREQUEST_H
-#include <qstring.h>
-#include <qsize.h>
-#include <QHash>
 #include "enums.h"
 #include <DB/FileName.h>
+#include <QHash>
+#include <qsize.h>
+#include <qstring.h>
 
 // WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
 //
@@ -34,11 +34,12 @@ namespace ImageManager
 {
 class ImageClientInterface;
 
-class ImageRequest {
+class ImageRequest
+{
 public:
-    ImageRequest( const DB::FileName& fileName, const QSize& size, int angle, ImageClientInterface* client);
+    ImageRequest(const DB::FileName &fileName, const QSize &size, int angle, ImageClientInterface *client);
     virtual ~ImageRequest() {}
-    ImageRequest( bool requestExit );
+    ImageRequest(bool requestExit);
 
     bool isNull() const;
 
@@ -61,25 +62,25 @@ public:
     QSize size() const;
     int angle() const;
 
-    ImageClientInterface* client() const;
+    ImageClientInterface *client() const;
 
     QSize fullSize() const;
-    void setFullSize( const QSize& );
-    void setLoadedOK( bool ok );
+    void setFullSize(const QSize &);
+    void setLoadedOK(bool ok);
     bool loadedOK() const;
 
-    void setPriority( const Priority prio );
+    void setPriority(const Priority prio);
     Priority priority() const;
 
-    bool operator<( const ImageRequest& other ) const;
-    bool operator==( const ImageRequest& other ) const;
+    bool operator<(const ImageRequest &other) const;
+    bool operator==(const ImageRequest &other) const;
 
     virtual bool stillNeeded() const;
 
     bool doUpScale() const;
-    void setUpScale( bool b );
+    void setUpScale(bool b);
 
-    void setIsThumbnailRequest( bool );
+    void setIsThumbnailRequest(bool);
     bool isThumbnailRequest() const;
     bool isExitRequest() const;
 
@@ -89,7 +90,7 @@ private:
 
     int m_width;
     int m_height;
-    ImageClientInterface* m_client;
+    ImageClientInterface *m_client;
     int m_angle;
     QSize m_fullSize;
     Priority m_priority;
@@ -99,7 +100,7 @@ private:
     bool m_isExitRequest;
 };
 
-inline uint qHash(const ImageRequest& ir)
+inline uint qHash(const ImageRequest &ir)
 {
     return DB::qHash(ir.databaseFileName()) ^ ::qHash(ir.width()) ^ ::qHash(ir.angle());
 }

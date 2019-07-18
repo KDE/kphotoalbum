@@ -30,8 +30,8 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-MainWindow::RunDialog::RunDialog( QWidget* parent )
-    : QDialog( parent )
+MainWindow::RunDialog::RunDialog(QWidget *parent)
+    : QDialog(parent)
 {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     setLayout(mainLayout);
@@ -39,7 +39,7 @@ MainWindow::RunDialog::RunDialog( QWidget* parent )
     // xgettext: no-c-format
     QString txt = i18n("<p>Enter your command to run below:</p>"
                        "<p><i>%all will be replaced with a file list</i></p>");
-    QLabel* label = new QLabel(txt);
+    QLabel *label = new QLabel(txt);
     mainLayout->addWidget(label);
 
     m_cmd = new QLineEdit();
@@ -63,25 +63,25 @@ MainWindow::RunDialog::RunDialog( QWidget* parent )
 
     connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
-    connect(this,&QDialog::accepted, this, &RunDialog::slotMarkGo);
+    connect(this, &QDialog::accepted, this, &RunDialog::slotMarkGo);
 }
 
-void MainWindow::RunDialog::setImageList( const DB::FileNameList& fileList )
+void MainWindow::RunDialog::setImageList(const DB::FileNameList &fileList)
 {
     m_fileList = fileList;
 }
 
-void MainWindow::RunDialog::slotMarkGo( )
+void MainWindow::RunDialog::slotMarkGo()
 {
     QString cmdString = m_cmd->text();
     // xgettext: no-c-format
-    QRegExp replaceall = QRegExp(i18nc("As in 'Execute a command and replace any occurrence of %all with the filenames of all selected files'","%all"));
+    QRegExp replaceall = QRegExp(i18nc("As in 'Execute a command and replace any occurrence of %all with the filenames of all selected files'", "%all"));
     // xgettext: no-c-format
-    QRegExp replaceeach = QRegExp(i18nc("As in 'Execute a command for each selected file in turn and replace any occurrence of %each with the filename ","%each"));
+    QRegExp replaceeach = QRegExp(i18nc("As in 'Execute a command for each selected file in turn and replace any occurrence of %each with the filename ", "%each"));
 
     // Replace the %all argument first
     QStringList fileList;
-    Q_FOREACH( const DB::FileName& fileName, m_fileList )
+    Q_FOREACH (const DB::FileName &fileName, m_fileList)
         fileList.append(fileName.absolute());
 
     cmdString.replace(replaceall, KShell::joinArgs(fileList));
@@ -89,7 +89,7 @@ void MainWindow::RunDialog::slotMarkGo( )
     if (cmdString.contains(replaceeach)) {
         // cmdString should be run multiple times, once per "each"
         QString cmdOnce;
-        Q_FOREACH( const DB::FileName &filename, m_fileList ) {
+        Q_FOREACH (const DB::FileName &filename, m_fileList) {
             cmdOnce = cmdString;
             cmdOnce.replace(replaceeach, filename.absolute());
             KRun::runCommand(cmdOnce, MainWindow::Window::theMainWindow());
@@ -98,7 +98,6 @@ void MainWindow::RunDialog::slotMarkGo( )
         KRun::runCommand(cmdString, MainWindow::Window::theMainWindow());
     }
 }
-
 
 void MainWindow::RunDialog::show()
 {

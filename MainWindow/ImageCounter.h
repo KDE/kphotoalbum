@@ -23,19 +23,19 @@
 namespace MainWindow
 {
 
-class ImageCounter :public QLabel {
+class ImageCounter : public QLabel
+{
     Q_OBJECT
 
 public:
-    explicit ImageCounter( QWidget* parent );
+    explicit ImageCounter(QWidget *parent);
 
 public slots:
-    void setMatchCount( uint matches );
-    void setSelectionCount( uint selected );
-    void setTotal( uint );
-    void showBrowserMatches(uint matches );
+    void setMatchCount(uint matches);
+    void setSelectionCount(uint selected);
+    void setTotal(uint);
+    void showBrowserMatches(uint matches);
 };
-
 }
 
 #endif /* IMAGECOUNTER_H */

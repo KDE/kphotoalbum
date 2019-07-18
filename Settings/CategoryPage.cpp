@@ -36,29 +36,30 @@
 #include <KMessageBox>
 
 // Local includes
-#include "DB/ImageDB.h"
-#include "DB/CategoryCollection.h"
-#include "DB/MemberMap.h"
-#include "MainWindow/Window.h"
-#include "MainWindow/DirtyIndicator.h"
-#include "UntaggedGroupBox.h"
-#include "SettingsDialog.h"
 #include "CategoryItem.h"
+#include "DB/CategoryCollection.h"
+#include "DB/ImageDB.h"
+#include "DB/MemberMap.h"
+#include "MainWindow/DirtyIndicator.h"
+#include "MainWindow/Window.h"
+#include "SettingsDialog.h"
+#include "UntaggedGroupBox.h"
 
-Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
+Settings::CategoryPage::CategoryPage(QWidget *parent)
+    : QWidget(parent)
 {
-    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
     // The category settings
 
-    QGroupBox* categoryGroupBox = new QGroupBox;
+    QGroupBox *categoryGroupBox = new QGroupBox;
     mainLayout->addWidget(categoryGroupBox);
     categoryGroupBox->setTitle(i18n("Category Settings"));
-    QHBoxLayout* categoryLayout = new QHBoxLayout(categoryGroupBox);
+    QHBoxLayout *categoryLayout = new QHBoxLayout(categoryGroupBox);
 
     // Category list
 
-    QVBoxLayout* categorySideLayout = new QVBoxLayout;
+    QVBoxLayout *categorySideLayout = new QVBoxLayout;
     categoryLayout->addLayout(categorySideLayout);
 
     m_categoriesListWidget = new QListWidget;
@@ -69,14 +70,14 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
 
     // This is needed to fix some odd behavior if the "New" button is double clicked
     connect(m_categoriesListWidget, &QListWidget::itemDoubleClicked, this, &CategoryPage::categoryDoubleClicked);
-    connect(m_categoriesListWidget->itemDelegate(), SIGNAL(closeEditor(QWidget*,QAbstractItemDelegate::EndEditHint)),
-            this, SLOT(listWidgetEditEnd(QWidget*,QAbstractItemDelegate::EndEditHint)));
+    connect(m_categoriesListWidget->itemDelegate(), SIGNAL(closeEditor(QWidget *, QAbstractItemDelegate::EndEditHint)),
+            this, SLOT(listWidgetEditEnd(QWidget *, QAbstractItemDelegate::EndEditHint)));
 
     categorySideLayout->addWidget(m_categoriesListWidget);
 
     // New, Delete, and buttons
 
-    QHBoxLayout* newDeleteRenameLayout = new QHBoxLayout;
+    QHBoxLayout *newDeleteRenameLayout = new QHBoxLayout;
     categorySideLayout->addLayout(newDeleteRenameLayout);
 
     m_newCategoryButton = new QPushButton(i18n("New"));
@@ -93,7 +94,7 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
 
     // Category settings
 
-    QVBoxLayout* rightSideLayout = new QVBoxLayout;
+    QVBoxLayout *rightSideLayout = new QVBoxLayout;
     categoryLayout->addLayout(rightSideLayout);
 
     // Header
@@ -105,16 +106,16 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
     m_renameLabel = new QLabel;
     m_renameLabel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     rightSideLayout->addWidget(m_renameLabel);
-    QDialog *parentDialog = qobject_cast<QDialog*>(parent);
-    connect( parentDialog, &QDialog::rejected, m_renameLabel, &QLabel::clear);
+    QDialog *parentDialog = qobject_cast<QDialog *>(parent);
+    connect(parentDialog, &QDialog::rejected, m_renameLabel, &QLabel::clear);
 
     // Some space looks better here :-)
-    QLabel* spacer = new QLabel;
+    QLabel *spacer = new QLabel;
     rightSideLayout->addWidget(spacer);
 
     // Here we start with the actual settings
 
-    QGridLayout* settingsLayout = new QGridLayout;
+    QGridLayout *settingsLayout = new QGridLayout;
     rightSideLayout->addLayout(settingsLayout);
 
     int row = 0;
@@ -163,14 +164,14 @@ Settings::CategoryPage::CategoryPage(QWidget* parent) : QWidget(parent)
 
     // Info about the database not being saved
 
-    QHBoxLayout* dbNotSavedLayout = new QHBoxLayout;
+    QHBoxLayout *dbNotSavedLayout = new QHBoxLayout;
     mainLayout->addLayout(dbNotSavedLayout);
 
-    m_dbNotSavedLabel = new QLabel( i18n("<font color='red'>"
-                                         "The database has unsaved changes. As long as those are "
-                                         "not saved,<br/>the names of categories can't be changed "
-                                         "and new ones can't be added."
-                                         "</font>"));
+    m_dbNotSavedLabel = new QLabel(i18n("<font color='red'>"
+                                        "The database has unsaved changes. As long as those are "
+                                        "not saved,<br/>the names of categories can't be changed "
+                                        "and new ones can't be added."
+                                        "</font>"));
     m_dbNotSavedLabel->setWordWrap(true);
     dbNotSavedLayout->addWidget(m_dbNotSavedLabel);
 
@@ -201,11 +202,12 @@ void Settings::CategoryPage::resetInterface()
     m_renameLabel->hide();
 }
 
-void Settings::CategoryPage::editSelectedCategory() {
+void Settings::CategoryPage::editSelectedCategory()
+{
     editCategory(m_categoriesListWidget->currentItem());
 }
 
-void Settings::CategoryPage::editCategory(QListWidgetItem* i)
+void Settings::CategoryPage::editCategory(QListWidgetItem *i)
 {
     if (i == 0) {
         return;
@@ -213,7 +215,7 @@ void Settings::CategoryPage::editCategory(QListWidgetItem* i)
 
     m_categoryNameBeforeEdit = i->text();
 
-    Settings::CategoryItem* item = static_cast<Settings::CategoryItem*>(i);
+    Settings::CategoryItem *item = static_cast<Settings::CategoryItem *>(i);
     m_currentCategory = item;
     m_categoryLabel->setText(i18n("Settings for category <b>%1</b>", item->originalName()));
 
@@ -233,8 +235,7 @@ void Settings::CategoryPage::editCategory(QListWidgetItem* i)
     enableDisable(true);
 
     if (item->originalName()
-        == DB::ImageDB::instance()->categoryCollection()
-                                  ->categoryForSpecial(DB::Category::TokensCategory)->name()) {
+        == DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory)->name()) {
 
         m_delItem->setEnabled(false);
         m_positionableLabel->setEnabled(false);
@@ -246,7 +247,7 @@ void Settings::CategoryPage::editCategory(QListWidgetItem* i)
     }
 }
 
-void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
+void Settings::CategoryPage::categoryNameChanged(QListWidgetItem *item)
 {
     QString newCategoryName = item->text().simplified();
     m_categoriesListWidget->blockSignals(true);
@@ -294,7 +295,7 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
 
     // Let's see if we have any pending name changes that would cause collisions.
     for (int i = 0; i < m_categoriesListWidget->count(); i++) {
-       Settings::CategoryItem* cat = static_cast<Settings::CategoryItem*>(m_categoriesListWidget->item(i));
+        Settings::CategoryItem *cat = static_cast<Settings::CategoryItem *>(m_categoriesListWidget->item(i));
         if (cat == m_currentCategory) {
             continue;
         }
@@ -323,7 +324,7 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem* item)
     m_categoryNamesChanged = true;
 }
 
-void Settings::CategoryPage::resetCategory(QListWidgetItem* item)
+void Settings::CategoryPage::resetCategory(QListWidgetItem *item)
 {
     m_categoriesListWidget->blockSignals(true);
     item->setText(m_categoryNameBeforeEdit);
@@ -332,11 +333,11 @@ void Settings::CategoryPage::resetCategory(QListWidgetItem* item)
 
 void Settings::CategoryPage::positionableChanged(bool positionable)
 {
-    if (! m_currentCategory) {
+    if (!m_currentCategory) {
         return;
     }
 
-    if (! positionable) {
+    if (!positionable) {
         int answer = KMessageBox::questionYesNo(this,
                                                 i18n("<p>Do you really want to make \"%1\" "
                                                      "non-positionable?</p>"
@@ -352,9 +353,9 @@ void Settings::CategoryPage::positionableChanged(bool positionable)
     m_currentCategory->setPositionable(positionable);
 }
 
-void Settings::CategoryPage::iconChanged(const QString& icon)
+void Settings::CategoryPage::iconChanged(const QString &icon)
 {
-    if(m_currentCategory) {
+    if (m_currentCategory) {
         m_currentCategory->setIcon(icon);
     }
 }
@@ -417,7 +418,7 @@ void Settings::CategoryPage::deleteCurrentCategory()
 {
     int answer = KMessageBox::questionYesNo(this,
                                             i18n("<p>Really delete category \"%1\"?</p>",
-                                            m_currentCategory->text()));
+                                                 m_currentCategory->text()));
     if (answer == KMessageBox::No) {
         return;
     }
@@ -465,7 +466,7 @@ void Settings::CategoryPage::enableDisable(bool b)
         m_newCategoryButton->setEnabled(false);
 
         for (int i = 0; i < m_categoriesListWidget->count(); i++) {
-            QListWidgetItem* currentItem = m_categoriesListWidget->item(i);
+            QListWidgetItem *currentItem = m_categoriesListWidget->item(i);
             currentItem->setFlags(currentItem->flags() & ~Qt::ItemIsEditable);
         }
     } else {
@@ -475,7 +476,7 @@ void Settings::CategoryPage::enableDisable(bool b)
         m_newCategoryButton->setEnabled(true);
 
         for (int i = 0; i < m_categoriesListWidget->count(); i++) {
-            QListWidgetItem* currentItem = m_categoriesListWidget->item(i);
+            QListWidgetItem *currentItem = m_categoriesListWidget->item(i);
             currentItem->setFlags(currentItem->flags() | Qt::ItemIsEditable);
         }
     }
@@ -483,16 +484,16 @@ void Settings::CategoryPage::enableDisable(bool b)
     m_categoriesListWidget->blockSignals(false);
 }
 
-void Settings::CategoryPage::saveSettings(Settings::SettingsData* opt, DB::MemberMap* memberMap)
+void Settings::CategoryPage::saveSettings(Settings::SettingsData *opt, DB::MemberMap *memberMap)
 {
     // Delete items
-    Q_FOREACH( CategoryItem *item, m_deletedCategories ) {
+    Q_FOREACH (CategoryItem *item, m_deletedCategories) {
         item->removeFromDatabase();
     }
 
     // Created or Modified items
     for (int i = 0; i < m_categoriesListWidget->count(); ++i) {
-        CategoryItem* item = static_cast<CategoryItem*>(m_categoriesListWidget->item(i));
+        CategoryItem *item = static_cast<CategoryItem *>(m_categoriesListWidget->item(i));
         item->submit(memberMap);
     }
 
@@ -507,13 +508,13 @@ void Settings::CategoryPage::saveSettings(Settings::SettingsData* opt, DB::Membe
     }
 }
 
-void Settings::CategoryPage::loadSettings(Settings::SettingsData* opt)
+void Settings::CategoryPage::loadSettings(Settings::SettingsData *opt)
 {
     m_categoriesListWidget->blockSignals(true);
     m_categoriesListWidget->clear();
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    Q_FOREACH( const DB::CategoryPtr category, categories ) {
+    Q_FOREACH (const DB::CategoryPtr category, categories) {
         if (category->type() == DB::Category::PlainCategory
             || category->type() == DB::Category::TokensCategory) {
             Settings::CategoryItem *item = new CategoryItem(category->name(),
@@ -531,13 +532,13 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData* opt)
     m_untaggedBox->loadSettings(opt);
 }
 
-void Settings::CategoryPage::categoryDoubleClicked(QListWidgetItem*)
+void Settings::CategoryPage::categoryDoubleClicked(QListWidgetItem *)
 {
     // This is needed to fix some odd behavior if the "New" button is double clicked
     m_editorOpen = true;
 }
 
-void Settings::CategoryPage::listWidgetEditEnd(QWidget*, QAbstractItemDelegate::EndEditHint)
+void Settings::CategoryPage::listWidgetEditEnd(QWidget *, QAbstractItemDelegate::EndEditHint)
 {
     // This is needed to fix some odd behavior if the "New" button is double clicked
     m_editorOpen = false;

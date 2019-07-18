@@ -23,9 +23,9 @@
 #include <Map/MapView.h>
 
 Map::SearchMarkerTiler::SearchMarkerTiler(KGeoMap::ModelHelper *const modelHelper, QObject *const parent)
-    : ItemMarkerTiler(modelHelper,parent)
+    : ItemMarkerTiler(modelHelper, parent)
 {
-    m_mapView = dynamic_cast<MapView*>(parent);
+    m_mapView = dynamic_cast<MapView *>(parent);
 }
 
 Map::SearchMarkerTiler::~SearchMarkerTiler()

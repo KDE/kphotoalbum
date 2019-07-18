@@ -30,18 +30,18 @@ class NewImageFinder
 {
 public:
     bool findImages();
-    bool calculateMD5sums(const DB::FileNameList& list, DB::MD5Map* map, bool* wasCanceled=nullptr);
+    bool calculateMD5sums(const DB::FileNameList &list, DB::MD5Map *map, bool *wasCanceled = nullptr);
 
 protected:
-    void searchForNewFiles( const DB::FileNameSet& loadedFiles, QString directory );
+    void searchForNewFiles(const DB::FileNameSet &loadedFiles, QString directory);
     void setupFileVersionDetection();
     void loadExtraFiles();
-    void loadExtraFile( const DB::FileName& name, DB::MediaType type );
-    void markUnTagged( ImageInfoPtr info );
-    bool handleIfImageHasBeenMoved( const DB::FileName& newFileName, const MD5& sum );
+    void loadExtraFile(const DB::FileName &name, DB::MediaType type);
+    void markUnTagged(ImageInfoPtr info);
+    bool handleIfImageHasBeenMoved(const DB::FileName &newFileName, const MD5 &sum);
 
 private:
-    typedef QList< QPair< DB::FileName, DB::MediaType > > LoadList;
+    typedef QList<QPair<DB::FileName, DB::MediaType>> LoadList;
     LoadList m_pendingLoad;
 
     QString m_modifiedFileCompString;

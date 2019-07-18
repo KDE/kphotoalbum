@@ -39,74 +39,75 @@
 #include "DirtyIndicator.h"
 #include "ImageCounter.h"
 
-MainWindow::StatusBar::StatusBar() : QStatusBar()
+MainWindow::StatusBar::StatusBar()
+    : QStatusBar()
 {
     QPalette pal = palette();
-    pal.setBrush( QPalette::Base, QApplication::palette().color( QPalette::Background ) );
-    pal.setBrush( QPalette::Background, QApplication::palette().color( QPalette::Background ) );
-    setPalette( pal );
+    pal.setBrush(QPalette::Base, QApplication::palette().color(QPalette::Background));
+    pal.setBrush(QPalette::Background, QApplication::palette().color(QPalette::Background));
+    setPalette(pal);
 
     setupGUI();
     m_pendingShowTimer = new QTimer(this);
-    m_pendingShowTimer->setSingleShot( true );
+    m_pendingShowTimer->setSingleShot(true);
     connect(m_pendingShowTimer, &QTimer::timeout, this, &StatusBar::showStatusBar);
 }
 
 void MainWindow::StatusBar::setupGUI()
 {
-    setContentsMargins(7,2,7,2);
+    setContentsMargins(7, 2, 7, 2);
 
-    QWidget* indicators = new QWidget( this );
+    QWidget *indicators = new QWidget(this);
     QHBoxLayout *indicatorsHBoxLayout = new QHBoxLayout(indicators);
     indicatorsHBoxLayout->setMargin(0);
     indicatorsHBoxLayout->setSpacing(10);
-    mp_dirtyIndicator = new DirtyIndicator( indicators );
+    mp_dirtyIndicator = new DirtyIndicator(indicators);
     indicatorsHBoxLayout->addWidget(mp_dirtyIndicator);
-    connect( DB::ImageDB::instance(), SIGNAL(dirty()), mp_dirtyIndicator, SLOT(markDirtySlot()) );
+    connect(DB::ImageDB::instance(), SIGNAL(dirty()), mp_dirtyIndicator, SLOT(markDirtySlot()));
 
     auto *remoteIndicator = new RemoteControl::ConnectionIndicator(indicators);
-    indicatorsHBoxLayout->addWidget( remoteIndicator );
+    indicatorsHBoxLayout->addWidget(remoteIndicator);
 
-    auto *jobIndicator = new BackgroundTaskManager::StatusIndicator( indicators );
-    indicatorsHBoxLayout->addWidget( jobIndicator );
+    auto *jobIndicator = new BackgroundTaskManager::StatusIndicator(indicators);
+    indicatorsHBoxLayout->addWidget(jobIndicator);
 
-    m_progressBar = new QProgressBar( this );
-    m_progressBar->setMinimumWidth( 400 );
-    addPermanentWidget( m_progressBar, 0 );
+    m_progressBar = new QProgressBar(this);
+    m_progressBar->setMinimumWidth(400);
+    addPermanentWidget(m_progressBar, 0);
 
-    m_cancel = new QToolButton( this );
-    m_cancel->setIcon( QIcon::fromTheme( QString::fromLatin1( "dialog-close" ) ) );
-    m_cancel->setShortcut( Qt::Key_Escape );
-    addPermanentWidget( m_cancel, 0 );
+    m_cancel = new QToolButton(this);
+    m_cancel->setIcon(QIcon::fromTheme(QString::fromLatin1("dialog-close")));
+    m_cancel->setShortcut(Qt::Key_Escape);
+    addPermanentWidget(m_cancel, 0);
     connect(m_cancel, &QToolButton::clicked, this, &StatusBar::cancelRequest);
     connect(m_cancel, &QToolButton::clicked, this, &StatusBar::hideStatusBar);
 
-    m_lockedIndicator = new QLabel( indicators );
+    m_lockedIndicator = new QLabel(indicators);
     indicatorsHBoxLayout->addWidget(m_lockedIndicator);
 
-    addPermanentWidget( indicators, 0 );
+    addPermanentWidget(indicators, 0);
 
-    mp_partial = new ImageCounter( this );
-    addPermanentWidget( mp_partial, 0 );
+    mp_partial = new ImageCounter(this);
+    addPermanentWidget(mp_partial, 0);
 
-    mp_selected = new ImageCounter( this );
-    addPermanentWidget( mp_selected, 0);
+    mp_selected = new ImageCounter(this);
+    addPermanentWidget(mp_selected, 0);
 
-    ImageCounter* total = new ImageCounter( this );
-    addPermanentWidget( total, 0 );
-    total->setTotal( DB::ImageDB::instance()->totalCount() );
-    connect( DB::ImageDB::instance(), SIGNAL(totalChanged(uint)), total, SLOT(setTotal(uint)) );
+    ImageCounter *total = new ImageCounter(this);
+    addPermanentWidget(total, 0);
+    total->setTotal(DB::ImageDB::instance()->totalCount());
+    connect(DB::ImageDB::instance(), SIGNAL(totalChanged(uint)), total, SLOT(setTotal(uint)));
 
     mp_pathIndicator = new BreadcrumbViewer;
-    addWidget( mp_pathIndicator, 1 );
+    addWidget(mp_pathIndicator, 1);
 
-    setProgressBarVisible( false );
+    setProgressBarVisible(false);
 
     m_thumbnailSizeSlider = ThumbnailView::ThumbnailFacade::instance()->createResizeSlider();
-    addPermanentWidget( m_thumbnailSizeSlider, 0 );
+    addPermanentWidget(m_thumbnailSizeSlider, 0);
     // prevent stretching:
-    m_thumbnailSizeSlider->setMaximumSize( m_thumbnailSizeSlider->size());
-    m_thumbnailSizeSlider->setMinimumSize( m_thumbnailSizeSlider->size());
+    m_thumbnailSizeSlider->setMaximumSize(m_thumbnailSizeSlider->size());
+    m_thumbnailSizeSlider->setMinimumSize(m_thumbnailSizeSlider->size());
     m_thumbnailSizeSlider->hide();
 
     m_thumbnailSettings = new QToolButton;
@@ -117,40 +118,39 @@ void MainWindow::StatusBar::setupGUI()
     connect(m_thumbnailSettings, &QToolButton::clicked, this, &StatusBar::thumbnailSettingsRequested);
 }
 
-void MainWindow::StatusBar::setLocked( bool locked )
+void MainWindow::StatusBar::setLocked(bool locked)
 {
-    static QPixmap* lockedPix = new QPixmap( SmallIcon( QString::fromLatin1( "object-locked" ) ) );
-    m_lockedIndicator->setFixedWidth( lockedPix->width() );
+    static QPixmap *lockedPix = new QPixmap(SmallIcon(QString::fromLatin1("object-locked")));
+    m_lockedIndicator->setFixedWidth(lockedPix->width());
 
-    if ( locked )
-        m_lockedIndicator->setPixmap( *lockedPix );
+    if (locked)
+        m_lockedIndicator->setPixmap(*lockedPix);
     else
-        m_lockedIndicator->setPixmap( QPixmap() );
-
+        m_lockedIndicator->setPixmap(QPixmap());
 }
 
-void MainWindow::StatusBar::startProgress( const QString& text, int total )
+void MainWindow::StatusBar::startProgress(const QString &text, int total)
 {
-    m_progressBar->setFormat( text + QString::fromLatin1( ": %p%" ) );
-    m_progressBar->setMaximum( total );
+    m_progressBar->setFormat(text + QString::fromLatin1(": %p%"));
+    m_progressBar->setMaximum(total);
     m_progressBar->setValue(0);
-    m_pendingShowTimer->start( 1000 ); // To avoid flicker we will only show the statusbar after 1 second.
+    m_pendingShowTimer->start(1000); // To avoid flicker we will only show the statusbar after 1 second.
 }
 
-void MainWindow::StatusBar::setProgress( int progress )
+void MainWindow::StatusBar::setProgress(int progress)
 {
-    if ( progress == m_progressBar->maximum() )
+    if (progress == m_progressBar->maximum())
         hideStatusBar();
 
     // If progress comes in to fast, then the UI will freeze from all time spent on updating the progressbar.
     static QTime time;
-    if ( time.isNull() || time.elapsed() > 200 ) {
-        m_progressBar->setValue( progress );
+    if (time.isNull() || time.elapsed() > 200) {
+        m_progressBar->setValue(progress);
         time.restart();
     }
 }
 
-void MainWindow::StatusBar::setProgressBarVisible( bool show )
+void MainWindow::StatusBar::setProgressBarVisible(bool show)
 {
     m_progressBar->setVisible(show);
     m_cancel->setVisible(show);
@@ -158,13 +158,13 @@ void MainWindow::StatusBar::setProgressBarVisible( bool show )
 
 void MainWindow::StatusBar::showThumbnailSlider()
 {
-    m_thumbnailSizeSlider->setVisible( true );
+    m_thumbnailSizeSlider->setVisible(true);
     m_thumbnailSettings->show();
 }
 
 void MainWindow::StatusBar::hideThumbnailSlider()
 {
-    m_thumbnailSizeSlider->setVisible( false );
+    m_thumbnailSizeSlider->setVisible(false);
     m_thumbnailSettings->hide();
 }
 
@@ -176,13 +176,13 @@ void MainWindow::StatusBar::enterEvent(QEvent *)
 
 void MainWindow::StatusBar::hideStatusBar()
 {
-    setProgressBarVisible( false );
+    setProgressBarVisible(false);
     m_pendingShowTimer->stop();
 }
 
 void MainWindow::StatusBar::showStatusBar()
 {
-    setProgressBarVisible( true );
+    setProgressBarVisible(true);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -29,34 +29,34 @@ namespace AnnotationDialog
 class ListSelect;
 class ResizableFrame;
 
-class CompletableLineEdit :public KLineEdit {
+class CompletableLineEdit : public KLineEdit
+{
 
 public:
     /**
      * @brief This is just a convenience constructor for the common use-case when the lineEdit is inside a ListSelect.
      * @param parent
      */
-    explicit CompletableLineEdit( ListSelect* parent );
-    explicit CompletableLineEdit( ListSelect* ls, QWidget *parent );
-    void setListView( QTreeWidget* );
-    void setMode( UsageMode mode );
-    void keyPressEvent( QKeyEvent* ev ) override;
+    explicit CompletableLineEdit(ListSelect *parent);
+    explicit CompletableLineEdit(ListSelect *ls, QWidget *parent);
+    void setListView(QTreeWidget *);
+    void setMode(UsageMode mode);
+    void keyPressEvent(QKeyEvent *ev) override;
 
 protected:
-    QTreeWidgetItem* findItemInListView( const QString& startWith );
-    bool isSpecialKey( QKeyEvent* );
-    void handleSpecialKeysInSearch( QKeyEvent* );
-    bool itemMatchesText( QTreeWidgetItem* item, const QString& text );
-    void selectPrevNextMatch( bool next );
-    void selectItemAndUpdateLineEdit( QTreeWidgetItem* item, int itemStart, const QString& inputText );
+    QTreeWidgetItem *findItemInListView(const QString &startWith);
+    bool isSpecialKey(QKeyEvent *);
+    void handleSpecialKeysInSearch(QKeyEvent *);
+    bool itemMatchesText(QTreeWidgetItem *item, const QString &text);
+    void selectPrevNextMatch(bool next);
+    void selectItemAndUpdateLineEdit(QTreeWidgetItem *item, int itemStart, const QString &inputText);
     void mergePreviousImageSelection();
 
 private:
-    QTreeWidget* m_listView;
+    QTreeWidget *m_listView;
     UsageMode m_mode;
-    ListSelect* m_listSelect;
+    ListSelect *m_listSelect;
 };
-
 }
 
 #endif /* ANNOTATIONDIALOG_COMPLETABLELINEEDIT_H */

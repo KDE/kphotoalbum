@@ -22,32 +22,40 @@
 
 namespace HTMLGenerator
 {
-class ImageSizeCheckBox :public QCheckBox {
+class ImageSizeCheckBox : public QCheckBox
+{
 
 public:
-    ImageSizeCheckBox( int width, int height, QWidget* parent )
-        :QCheckBox( QString::fromLatin1("%1x%2").arg(width).arg(height), parent ),
-         m_width( width ), m_height( height )
-        {
-        }
+    ImageSizeCheckBox(int width, int height, QWidget *parent)
+        : QCheckBox(QString::fromLatin1("%1x%2").arg(width).arg(height), parent)
+        , m_width(width)
+        , m_height(height)
+    {
+    }
 
-    ImageSizeCheckBox( const QString& text, QWidget* parent )
-        :QCheckBox( text, parent ), m_width( -1 ), m_height( -1 )
-        {
-        }
+    ImageSizeCheckBox(const QString &text, QWidget *parent)
+        : QCheckBox(text, parent)
+        , m_width(-1)
+        , m_height(-1)
+    {
+    }
 
-    int width() const {
+    int width() const
+    {
         return m_width;
     }
-    int height() const {
+    int height() const
+    {
         return m_height;
     }
-    QString text( bool withOutSpaces ) const {
-        return text( m_width, m_height, withOutSpaces );
+    QString text(bool withOutSpaces) const
+    {
+        return text(m_width, m_height, withOutSpaces);
     }
-    static QString text( int width, int height, bool withOutSpaces ) {
-        if ( width == -1 )
-            if ( withOutSpaces )
+    static QString text(int width, int height, bool withOutSpaces)
+    {
+        if (width == -1)
+            if (withOutSpaces)
                 return QString::fromLatin1("fullsize");
             else
                 return QString::fromLatin1("full size");
@@ -56,19 +64,16 @@ public:
             return QString::fromLatin1("%1x%2").arg(width).arg(height);
     }
 
-    bool operator<( const ImageSizeCheckBox& other ) const
+    bool operator<(const ImageSizeCheckBox &other) const
     {
         return m_width < other.width();
     }
-
 
 private:
     int m_width;
     int m_height;
 };
-
 }
-
 
 #endif /* HTMLGENERATOR_IMAGESIZECHECKBOX_H */
 

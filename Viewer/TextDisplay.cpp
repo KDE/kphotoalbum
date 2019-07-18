@@ -17,40 +17,40 @@
 */
 
 #include "TextDisplay.h"
-#include <qlabel.h>
-#include <qlayout.h>
+#include "DB/ImageDB.h"
+#include "ImageDisplay.h"
 #include <QLabel>
 #include <QVBoxLayout>
-#include "ImageDisplay.h"
-#include "DB/ImageDB.h"
+#include <qlabel.h>
+#include <qlayout.h>
 
 /**
  * Display a text instead of actual image/video data.
  */
 
-Viewer::TextDisplay::TextDisplay( QWidget* parent )
-    :AbstractDisplay( parent )
+Viewer::TextDisplay::TextDisplay(QWidget *parent)
+    : AbstractDisplay(parent)
 {
-    QVBoxLayout *lay = new QVBoxLayout( this );
-    m_text = new QLabel( this );
-    lay->addWidget( m_text );
-    m_text->setAlignment( Qt::AlignCenter );
+    QVBoxLayout *lay = new QVBoxLayout(this);
+    m_text = new QLabel(this);
+    lay->addWidget(m_text);
+    m_text->setAlignment(Qt::AlignCenter);
 
     QPalette pal = m_text->palette();
-    pal.setColor( QPalette::Background, Qt::white );
-    m_text->setPalette( pal );
+    pal.setColor(QPalette::Background, Qt::white);
+    m_text->setPalette(pal);
 }
 
-bool Viewer::TextDisplay::setImage( DB::ImageInfoPtr info, bool forward )
+bool Viewer::TextDisplay::setImage(DB::ImageInfoPtr info, bool forward)
 {
-    Q_UNUSED( info );
-    Q_UNUSED( forward );
+    Q_UNUSED(info);
+    Q_UNUSED(forward);
     return true;
 }
 
-void Viewer::TextDisplay::setText( const QString text )
+void Viewer::TextDisplay::setText(const QString text)
 {
-    m_text->setText( text );
+    m_text->setText(text);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

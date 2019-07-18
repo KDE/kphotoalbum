@@ -42,12 +42,12 @@ public:
     static Breadcrumb home();
     static Breadcrumb view();
 
-    explicit Breadcrumb( const QString& text, bool isBeginning = false );
+    explicit Breadcrumb(const QString &text, bool isBeginning = false);
     QString text() const;
     bool isBeginning() const;
     bool isView() const;
-    bool operator==( const Breadcrumb& other ) const;
-    bool operator!=( const Breadcrumb& other ) const;
+    bool operator==(const Breadcrumb &other) const;
+    bool operator!=(const Breadcrumb &other) const;
 
 private:
     int m_index;

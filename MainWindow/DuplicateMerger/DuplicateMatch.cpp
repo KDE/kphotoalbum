@@ -38,18 +38,19 @@
 
 #include "MergeToolTip.h"
 
-namespace MainWindow {
-
-DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
+namespace MainWindow
 {
-    QVBoxLayout* topLayout = new QVBoxLayout(this);
 
-    QHBoxLayout* horizontalLayout = new QHBoxLayout;
+DuplicateMatch::DuplicateMatch(const DB::FileNameList &files)
+{
+    QVBoxLayout *topLayout = new QVBoxLayout(this);
+
+    QHBoxLayout *horizontalLayout = new QHBoxLayout;
     topLayout->addLayout(horizontalLayout);
     m_image = new QLabel;
     horizontalLayout->addWidget(m_image);
 
-    QVBoxLayout* rightSideLayout = new QVBoxLayout;
+    QVBoxLayout *rightSideLayout = new QVBoxLayout;
     horizontalLayout->addSpacing(20);
     horizontalLayout->addLayout(rightSideLayout);
     horizontalLayout->addStretch(1);
@@ -58,47 +59,47 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList& files )
     m_merge = new QCheckBox(i18n("Merge these images"));
     rightSideLayout->addWidget(m_merge);
     m_merge->setChecked(false);
-    connect( m_merge, SIGNAL(toggled(bool)), this, SIGNAL(selectionChanged()));
+    connect(m_merge, SIGNAL(toggled(bool)), this, SIGNAL(selectionChanged()));
 
-    QWidget* options = new QWidget;
+    QWidget *options = new QWidget;
     rightSideLayout->addWidget(options);
-    QVBoxLayout* optionsLayout = new QVBoxLayout(options);
-    connect( m_merge, SIGNAL(toggled(bool)),options, SLOT(setEnabled(bool)));
+    QVBoxLayout *optionsLayout = new QVBoxLayout(options);
+    connect(m_merge, SIGNAL(toggled(bool)), options, SLOT(setEnabled(bool)));
 
-    QLabel* label = new QLabel(i18n("Select target:"));
+    QLabel *label = new QLabel(i18n("Select target:"));
     optionsLayout->addWidget(label);
 
     bool first = true;
-    Q_FOREACH(const DB::FileName& fileName, files) {
-        QHBoxLayout* lay = new QHBoxLayout;
+    Q_FOREACH (const DB::FileName &fileName, files) {
+        QHBoxLayout *lay = new QHBoxLayout;
         optionsLayout->addLayout(lay);
-        QRadioButton* button = new QRadioButton(fileName.relative());
-        button->setProperty("data",QVariant::fromValue(fileName));
+        QRadioButton *button = new QRadioButton(fileName.relative());
+        button->setProperty("data", QVariant::fromValue(fileName));
         lay->addWidget(button);
-        if ( first ) {
+        if (first) {
             button->setChecked(true);
             first = false;
         }
-        QToolButton* details = new QToolButton;
-        details->setText(i18nc("i for info","i"));
+        QToolButton *details = new QToolButton;
+        details->setText(i18nc("i for info", "i"));
         details->installEventFilter(this);
-        details->setProperty("data",QVariant::fromValue(fileName));
+        details->setProperty("data", QVariant::fromValue(fileName));
         lay->addWidget(details);
         m_buttons.append(button);
     }
     rightSideLayout->addStretch(1);
 
-    QFrame* line = new QFrame;
+    QFrame *line = new QFrame;
     line->setFrameStyle(QFrame::HLine);
     topLayout->addWidget(line);
 
     const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(files.first());
     const int angle = info->angle();
-    ImageManager::ImageRequest* request = new ImageManager::ImageRequest(files.first(), QSize(300,300), angle, this);
+    ImageManager::ImageRequest *request = new ImageManager::ImageRequest(files.first(), QSize(300, 300), angle, this);
     ImageManager::AsyncLoader::instance()->load(request);
 }
 
-void DuplicateMatch::pixmapLoaded(ImageManager::ImageRequest* /*request*/, const QImage& image)
+void DuplicateMatch::pixmapLoaded(ImageManager::ImageRequest * /*request*/, const QImage &image)
 {
     m_image->setPixmap(QPixmap::fromImage(image));
 }
@@ -119,21 +120,21 @@ void DuplicateMatch::execute(Utilities::DeleteMethod method)
         return;
 
     DB::FileName destination;
-    Q_FOREACH( QRadioButton* button, m_buttons ) {
-        if ( button->isChecked() ) {
+    Q_FOREACH (QRadioButton *button, m_buttons) {
+        if (button->isChecked()) {
             destination = button->property("data").value<DB::FileName>();
             break;
         }
     }
 
     DB::FileNameList deleteList, dupList;
-    Q_FOREACH( QRadioButton* button, m_buttons ) {
+    Q_FOREACH (QRadioButton *button, m_buttons) {
         if (button->isChecked())
             continue;
         DB::FileName fileName = button->property("data").value<DB::FileName>();
         DB::ImageDB::instance()->copyData(fileName, destination);
         // can we safely delete the file?
-        if ( fileName != destination )
+        if (fileName != destination)
             deleteList.append(fileName);
         else
             dupList.append(fileName);
@@ -144,13 +145,13 @@ void DuplicateMatch::execute(Utilities::DeleteMethod method)
     DB::ImageDB::instance()->deleteList(dupList);
 }
 
-bool DuplicateMatch::eventFilter(QObject* obj, QEvent* event)
+bool DuplicateMatch::eventFilter(QObject *obj, QEvent *event)
 {
-    if ( event->type() != QEvent::Enter )
+    if (event->type() != QEvent::Enter)
         return false;
 
-    QToolButton* but;
-    if ( !(but = qobject_cast<QToolButton*>(obj)) )
+    QToolButton *but;
+    if (!(but = qobject_cast<QToolButton *>(obj)))
         return false;
 
     const DB::FileName fileName = but->property("data").value<DB::FileName>();

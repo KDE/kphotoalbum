@@ -37,7 +37,8 @@
  * To be used in createInfoText().
  */
 static void AddNonEmptyInfo(const QString &label, const QString &infoText,
-                            QString *result) {
+                            QString *result)
+{
     if (infoText.isEmpty())
         return;
     if (!result->isEmpty())
@@ -55,69 +56,64 @@ static void AddNonEmptyInfo(const QString &label, const QString &infoText,
  * (categoryName, categoryItem). This linkMap is used when the user selects
  * one of the hyberlinks.
  */
-QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QString,QString> >* linkMap )
+QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString, QString>> *linkMap)
 {
-    Q_ASSERT( info );
+    Q_ASSERT(info);
 
     QString result;
-    if ( Settings::SettingsData::instance()->showFilename() ) {
+    if (Settings::SettingsData::instance()->showFilename()) {
         AddNonEmptyInfo(i18n("<b>File Name: </b> "), info->fileName().relative(), &result);
     }
 
-    if ( Settings::SettingsData::instance()->showDate() )  {
-        AddNonEmptyInfo(i18n("<b>Date: </b> "), info->date().toString( Settings::SettingsData::instance()->showTime() ? true : false ),
+    if (Settings::SettingsData::instance()->showDate()) {
+        AddNonEmptyInfo(i18n("<b>Date: </b> "), info->date().toString(Settings::SettingsData::instance()->showTime() ? true : false),
                         &result);
     }
 
     /* XXX */
-    if ( Settings::SettingsData::instance()->showImageSize() && info->mediaType() == DB::Image)  {
+    if (Settings::SettingsData::instance()->showImageSize() && info->mediaType() == DB::Image) {
         const QSize imageSize = info->size();
         // Do not add -1 x -1 text
         if (imageSize.width() >= 0 && imageSize.height() >= 0) {
             const double megapix = imageSize.width() * imageSize.height() / 1000000.0;
-            QString infoText = i18nc("width x height","%1x%2"
-                ,QString::number(imageSize.width())
-                ,QString::number(imageSize.height()));
+            QString infoText = i18nc("width x height", "%1x%2", QString::number(imageSize.width()), QString::number(imageSize.height()));
             if (megapix > 0.05) {
-                infoText += i18nc("short for: x megapixels"," (%1MP)"
-                    ,QString::number(megapix, 'f', 1));
+                infoText += i18nc("short for: x megapixels", " (%1MP)", QString::number(megapix, 'f', 1));
             }
-            const double aspect = (double) imageSize.width() / (double) imageSize.height();
+            const double aspect = (double)imageSize.width() / (double)imageSize.height();
             // 0.995 - 1.005 can still be considered quadratic
             if (aspect > 1.005)
-                infoText += i18nc("aspect ratio"," (%1:1)"
-                              ,QLocale::system().toString(aspect, 'f', 2));
+                infoText += i18nc("aspect ratio", " (%1:1)", QLocale::system().toString(aspect, 'f', 2));
             else if (aspect >= 0.995)
-                infoText += i18nc("aspect ratio"," (1:1)");
+                infoText += i18nc("aspect ratio", " (1:1)");
             else
-                infoText += i18nc("aspect ratio"," (1:%1)"
-                              ,QLocale::system().toString(1.0/aspect, 'f', 2));
+                infoText += i18nc("aspect ratio", " (1:%1)", QLocale::system().toString(1.0 / aspect, 'f', 2));
             AddNonEmptyInfo(i18n("<b>Image Size: </b> "), infoText, &result);
         }
     }
 
-    if ( Settings::SettingsData::instance()->showRating() ) {
-        if ( info->rating() != -1 ) {
-            if ( ! result.isEmpty() )
+    if (Settings::SettingsData::instance()->showRating()) {
+        if (info->rating() != -1) {
+            if (!result.isEmpty())
                 result += QString::fromLatin1("<br/>");
             QUrl rating;
             rating.setScheme(QString::fromLatin1("kratingwidget"));
             // we don't use the host part, but if we don't set it, we can't use port:
             rating.setHost(QString::fromLatin1("int"));
-            rating.setPort(qMin( qMax( static_cast<short int>(0), info->rating() ), static_cast<short int>(10)));
-            result += QString::fromLatin1("<img src=\"%1\"/>").arg( rating.toString(QUrl::None) );
+            rating.setPort(qMin(qMax(static_cast<short int>(0), info->rating()), static_cast<short int>(10)));
+            result += QString::fromLatin1("<img src=\"%1\"/>").arg(rating.toString(QUrl::None));
         }
     }
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int link = 0;
-    Q_FOREACH( const DB::CategoryPtr category, categories ) {
+    Q_FOREACH (const DB::CategoryPtr category, categories) {
         const QString categoryName = category->name();
-        if ( category->doShow() ) {
-            StringSet items = info->itemsOfCategory( categoryName );
+        if (category->doShow()) {
+            StringSet items = info->itemsOfCategory(categoryName);
 
             if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
-                    && ! Settings::SettingsData::instance()->untaggedImagesTagVisible()) {
+                && !Settings::SettingsData::instance()->untaggedImagesTagVisible()) {
 
                 if (categoryName == Settings::SettingsData::instance()->untaggedCategory()) {
                     if (items.contains(Settings::SettingsData::instance()->untaggedTag())) {
@@ -130,19 +126,18 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
                 QString title = QString::fromUtf8("<b>%1: </b> ").arg(category->name());
                 QString infoText;
                 bool first = true;
-                Q_FOREACH( const QString &item, items) {
-                    if ( first )
+                Q_FOREACH (const QString &item, items) {
+                    if (first)
                         first = false;
                     else
-                        infoText += QString::fromLatin1( ", " );
+                        infoText += QString::fromLatin1(", ");
 
-                    if ( linkMap ) {
+                    if (linkMap) {
                         ++link;
-                        (*linkMap)[link] = QPair<QString,QString>( categoryName, item );
-                        infoText += QString::fromLatin1( "<a href=\"%1\">%2</a>").arg( link ).arg( item );
+                        (*linkMap)[link] = QPair<QString, QString>(categoryName, item);
+                        infoText += QString::fromLatin1("<a href=\"%1\">%2</a>").arg(link).arg(item);
                         infoText += formatAge(category, item, info);
-                    }
-                    else
+                    } else
                         infoText += item;
                 }
                 AddNonEmptyInfo(title, infoText, &result);
@@ -150,57 +145,57 @@ QString Utilities::createInfoText( DB::ImageInfoPtr info, QMap< int,QPair<QStrin
         }
     }
 
-    if ( Settings::SettingsData::instance()->showLabel()) {
+    if (Settings::SettingsData::instance()->showLabel()) {
         AddNonEmptyInfo(i18n("<b>Label: </b> "), info->label(), &result);
     }
 
-    if ( Settings::SettingsData::instance()->showDescription() && !info->description().trimmed().isEmpty() )  {
+    if (Settings::SettingsData::instance()->showDescription() && !info->description().trimmed().isEmpty()) {
         AddNonEmptyInfo(i18n("<b>Description: </b> "), info->description(),
                         &result);
     }
 
     QString exifText;
-    if ( Settings::SettingsData::instance()->showEXIF() ) {
-        typedef QMap<QString,QStringList> ExifMap;
+    if (Settings::SettingsData::instance()->showEXIF()) {
+        typedef QMap<QString, QStringList> ExifMap;
         typedef ExifMap::const_iterator ExifMapIterator;
-        ExifMap exifMap = Exif::Info::instance()->infoForViewer( info->fileName(), Settings::SettingsData::instance()->iptcCharset() );
+        ExifMap exifMap = Exif::Info::instance()->infoForViewer(info->fileName(), Settings::SettingsData::instance()->iptcCharset());
 
-        for( ExifMapIterator exifIt = exifMap.constBegin(); exifIt != exifMap.constEnd(); ++exifIt ) {
-            if ( exifIt.key().startsWith( QString::fromLatin1( "Exif." ) ) )
-                for ( QStringList::const_iterator valuesIt = exifIt.value().constBegin(); valuesIt != exifIt.value().constEnd(); ++valuesIt ) {
-                    QString exifName = exifIt.key().split( QChar::fromLatin1('.') ).last();
-                    AddNonEmptyInfo(QString::fromLatin1( "<b>%1: </b> ").arg(exifName),
+        for (ExifMapIterator exifIt = exifMap.constBegin(); exifIt != exifMap.constEnd(); ++exifIt) {
+            if (exifIt.key().startsWith(QString::fromLatin1("Exif.")))
+                for (QStringList::const_iterator valuesIt = exifIt.value().constBegin(); valuesIt != exifIt.value().constEnd(); ++valuesIt) {
+                    QString exifName = exifIt.key().split(QChar::fromLatin1('.')).last();
+                    AddNonEmptyInfo(QString::fromLatin1("<b>%1: </b> ").arg(exifName),
                                     *valuesIt, &exifText);
                 }
         }
 
         QString iptcText;
-        for( ExifMapIterator exifIt = exifMap.constBegin(); exifIt != exifMap.constEnd(); ++exifIt ) {
-            if ( !exifIt.key().startsWith( QString::fromLatin1( "Exif." ) ) )
-                for ( QStringList::const_iterator valuesIt = exifIt.value().constBegin(); valuesIt != exifIt.value().constEnd(); ++valuesIt ) {
-                    QString iptcName = exifIt.key().split( QChar::fromLatin1('.') ).last();
-                    AddNonEmptyInfo(QString::fromLatin1( "<b>%1: </b> ").arg(iptcName),
+        for (ExifMapIterator exifIt = exifMap.constBegin(); exifIt != exifMap.constEnd(); ++exifIt) {
+            if (!exifIt.key().startsWith(QString::fromLatin1("Exif.")))
+                for (QStringList::const_iterator valuesIt = exifIt.value().constBegin(); valuesIt != exifIt.value().constEnd(); ++valuesIt) {
+                    QString iptcName = exifIt.key().split(QChar::fromLatin1('.')).last();
+                    AddNonEmptyInfo(QString::fromLatin1("<b>%1: </b> ").arg(iptcName),
                                     *valuesIt, &iptcText);
                 }
         }
 
-        if ( !iptcText.isEmpty() ) {
-            if ( exifText.isEmpty() )
+        if (!iptcText.isEmpty()) {
+            if (exifText.isEmpty())
                 exifText = iptcText;
             else
-                exifText += QString::fromLatin1( "<hr>" ) + iptcText;
+                exifText += QString::fromLatin1("<hr>") + iptcText;
         }
     }
 
-    if ( !result.isEmpty() && !exifText.isEmpty() )
-        result += QString::fromLatin1( "<hr>" );
+    if (!result.isEmpty() && !exifText.isEmpty())
+        result += QString::fromLatin1("<hr>");
     result += exifText;
 
     return result;
 }
 
 using DateSpec = QPair<int, char>;
-DateSpec dateDiff(const QDate& birthDate, const QDate& imageDate)
+DateSpec dateDiff(const QDate &birthDate, const QDate &imageDate)
 {
     const int bday = birthDate.day();
     const int iday = imageDate.day();
@@ -217,17 +212,17 @@ DateSpec dateDiff(const QDate& birthDate, const QDate& imageDate)
     if (diff < 31)
         return qMakePair(diff, 'D');
 
-    int months = (iyear-byear)*12;
-    months += (imonth-bmonth);
+    int months = (iyear - byear) * 12;
+    months += (imonth - bmonth);
     months += (iday >= bday) ? 0 : -1;
 
-    if ( months < 24)
+    if (months < 24)
         return qMakePair(months, 'M');
     else
-        return qMakePair(months/12, 'Y');
+        return qMakePair(months / 12, 'Y');
 }
 
-QString formatDate(const DateSpec& date)
+QString formatDate(const DateSpec &date)
 {
     if (date.second == 'I')
         return {};
@@ -241,20 +236,20 @@ QString formatDate(const DateSpec& date)
 
 void test()
 {
-    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1971,7,11))) == QString::fromLatin1("0 days"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1971,8,10))) == QString::fromLatin1("30 days"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1971,8,11))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1971,8,12))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1971,9,10))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1971,9,11))) == QString::fromLatin1("2 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1972,6,10))) == QString::fromLatin1("10 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1972,6,11))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1972,6,12))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1972,7,10))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1972,7,11))) == QString::fromLatin1("12 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1972,7,12))) == QString::fromLatin1("12 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1972,12,11))) == QString::fromLatin1("17 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971,7,11), QDate(1973,7,11))) == QString::fromLatin1("2 years"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 7, 11))) == QString::fromLatin1("0 days"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 8, 10))) == QString::fromLatin1("30 days"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 8, 11))) == QString::fromLatin1("1 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 8, 12))) == QString::fromLatin1("1 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 9, 10))) == QString::fromLatin1("1 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 9, 11))) == QString::fromLatin1("2 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 6, 10))) == QString::fromLatin1("10 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 6, 11))) == QString::fromLatin1("11 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 6, 12))) == QString::fromLatin1("11 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 7, 10))) == QString::fromLatin1("11 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 7, 11))) == QString::fromLatin1("12 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 7, 12))) == QString::fromLatin1("12 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 12, 11))) == QString::fromLatin1("17 month"));
+    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1973, 7, 11))) == QString::fromLatin1("2 years"));
 }
 
 QString Utilities::formatAge(DB::CategoryPtr category, const QString &item, DB::ImageInfoPtr info)
@@ -267,11 +262,11 @@ QString Utilities::formatAge(DB::CategoryPtr category, const QString &item, DB::
     if (birthDate.isNull() || start.isNull())
         return {};
 
-    if ( start == end)
+    if (start == end)
         return QString::fromUtf8(" (%1)").arg(formatDate(dateDiff(birthDate, start)));
     else {
-        DateSpec lower = dateDiff(birthDate,start);
-        DateSpec upper = dateDiff(birthDate,end);
+        DateSpec lower = dateDiff(birthDate, start);
+        DateSpec upper = dateDiff(birthDate, end);
         if (lower == upper)
             return QString::fromUtf8(" (%1)").arg(formatDate(lower));
         else if (lower.second == 'I')

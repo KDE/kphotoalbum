@@ -20,41 +20,39 @@
 
 #include <Settings/SettingsData.h>
 
-
-QString Utilities::stripEndingForwardSlash( const QString& fileName )
+QString Utilities::stripEndingForwardSlash(const QString &fileName)
 {
     static QString slash = QString::fromLatin1("/");
-    if ( fileName.endsWith( slash ) )
-        return fileName.left( fileName.length()-1);
+    if (fileName.endsWith(slash))
+        return fileName.left(fileName.length() - 1);
     else
         return fileName;
 }
 
-QString Utilities::relativeFolderName( const QString& fileName)
+QString Utilities::relativeFolderName(const QString &fileName)
 {
-    int index= fileName.lastIndexOf( QChar::fromLatin1('/'), -1);
+    int index = fileName.lastIndexOf(QChar::fromLatin1('/'), -1);
     if (index == -1)
         return QString();
     else
-        return fileName.left( index );
+        return fileName.left(index);
 }
 
-QString Utilities::absoluteImageFileName( const QString& relativeName )
+QString Utilities::absoluteImageFileName(const QString &relativeName)
 {
-    return stripEndingForwardSlash( Settings::SettingsData::instance()->imageDirectory() ) + QString::fromLatin1( "/" ) + relativeName;
+    return stripEndingForwardSlash(Settings::SettingsData::instance()->imageDirectory()) + QString::fromLatin1("/") + relativeName;
 }
 
-QString Utilities::imageFileNameToAbsolute( const QString& fileName )
+QString Utilities::imageFileNameToAbsolute(const QString &fileName)
 {
-    if ( fileName.startsWith( Settings::SettingsData::instance()->imageDirectory() ) )
+    if (fileName.startsWith(Settings::SettingsData::instance()->imageDirectory()))
         return fileName;
-    else if ( fileName.startsWith( QString::fromLatin1("file://") ) )
-        return imageFileNameToAbsolute( fileName.mid( 7 ) ); // 7 == length("file://")
-    else if ( fileName.startsWith( QString::fromLatin1("/") ) )
+    else if (fileName.startsWith(QString::fromLatin1("file://")))
+        return imageFileNameToAbsolute(fileName.mid(7)); // 7 == length("file://")
+    else if (fileName.startsWith(QString::fromLatin1("/")))
         return QString(); // Not within our image root
     else
-        return absoluteImageFileName( fileName );
+        return absoluteImageFileName(fileName);
 }
-
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -19,27 +19,29 @@
 #define PLUGINSPAGE_H
 #include <QWidget>
 
-namespace KIPI { class ConfigWidget; }
+namespace KIPI
+{
+class ConfigWidget;
+}
 
 class QCheckBox;
 namespace Settings
 {
 class SettingsData;
 
-class PluginsPage :public QWidget
+class PluginsPage : public QWidget
 {
 public:
-    explicit PluginsPage( QWidget* parent );
-    void loadSettings( Settings::SettingsData* );
-    void saveSettings( Settings::SettingsData* );
+    explicit PluginsPage(QWidget *parent);
+    void loadSettings(Settings::SettingsData *);
+    void saveSettings(Settings::SettingsData *);
 
 private:
-    KIPI::ConfigWidget* m_pluginConfig;
-    QCheckBox* m_delayLoadingPlugins;
+    KIPI::ConfigWidget *m_pluginConfig;
+    QCheckBox *m_delayLoadingPlugins;
 };
 
 }
-
 
 #endif /* PLUGINSPAGE_H */
 

@@ -17,12 +17,12 @@
 */
 #ifndef BREADCRUMBVIEWER_H
 #define BREADCRUMBVIEWER_H
-#include <QLabel>
 #include <Browser/BreadcrumbList.h>
+#include <QLabel>
 
 namespace MainWindow
 {
-class BreadcrumbViewer :public QLabel
+class BreadcrumbViewer : public QLabel
 {
     Q_OBJECT
 
@@ -31,16 +31,16 @@ public:
     QSize minimumSizeHint() const override;
 
 public slots:
-    void setBreadcrumbs( const Browser::BreadcrumbList& list );
+    void setBreadcrumbs(const Browser::BreadcrumbList &list);
 
 signals:
-    void widenToBreadcrumb( const Browser::Breadcrumb& );
+    void widenToBreadcrumb(const Browser::Breadcrumb &);
 
 protected:
-    void resizeEvent( QResizeEvent* event ) override;
+    void resizeEvent(QResizeEvent *event) override;
 
 private slots:
-    void linkClicked( const QString& link );
+    void linkClicked(const QString &link);
 
 private:
     void updateText();

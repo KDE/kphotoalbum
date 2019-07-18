@@ -21,8 +21,8 @@
 #ifndef DB_MD5_H
 #define DB_MD5_H
 
-#include <qglobal.h>
 #include <QString>
+#include <qglobal.h>
 
 namespace DB
 {
@@ -33,11 +33,11 @@ class MD5
 public:
     MD5();
 
-    explicit MD5(const QString& md5str);
+    explicit MD5(const QString &md5str);
 
     bool isNull() const;
 
-    MD5& operator=(const QString& md5str);
+    MD5 &operator=(const QString &md5str);
 
     /** Get hex string representation of this.
      * If this->isNull(), returns null string.
@@ -46,11 +46,11 @@ public:
 
     bool operator==(const MD5 &other) const;
 
-    bool operator!=(const MD5& other) const;
+    bool operator!=(const MD5 &other) const;
 
-    bool operator<(const MD5& other) const;
+    bool operator<(const MD5 &other) const;
 
-    inline uint hash() const { return (uint) m_v0 ^ m_v1; }
+    inline uint hash() const { return (uint)m_v0 ^ m_v1; }
 
 private:
     bool m_isNull;
@@ -63,8 +63,7 @@ inline uint qHash(const MD5 &key)
     return key.hash();
 }
 
-DB::MD5 MD5Sum( const DB::FileName& fileName );
-
+DB::MD5 MD5Sum(const DB::FileName &fileName);
 }
 
 #endif /* DB_MD5_H */

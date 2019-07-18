@@ -23,10 +23,11 @@
 
 namespace Exiv2
 {
-    class ExifData;
+class ExifData;
 }
 
-namespace Exif {
+namespace Exif
+{
 
 class DatabaseElement
 {
@@ -50,46 +51,47 @@ public:
      * @param data
      * @return The converted value, or an empty QVariant if the necessary data is not available.
      */
-    virtual QVariant valueFromExif( Exiv2::ExifData& data ) const = 0;
+    virtual QVariant valueFromExif(Exiv2::ExifData &data) const = 0;
     /**
      * @brief value
      * @see Database::readFields
      * @return The bound value, or an empty QVariant if setValue was never called.
      */
     QVariant value() const;
-    void setValue( QVariant val );
+    void setValue(QVariant val);
+
 protected:
     DatabaseElement();
+
 private:
     QVariant m_value;
 };
 
-class StringExifElement :public DatabaseElement
+class StringExifElement : public DatabaseElement
 {
 public:
-    explicit StringExifElement( const char* tag );
+    explicit StringExifElement(const char *tag);
     QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    QVariant valueFromExif( Exiv2::ExifData& data ) const override;
+    QVariant valueFromExif(Exiv2::ExifData &data) const override;
 
 private:
-    const char* m_tag;
+    const char *m_tag;
 };
 
-class IntExifElement :public DatabaseElement
+class IntExifElement : public DatabaseElement
 {
 public:
-    explicit IntExifElement( const char* tag );
+    explicit IntExifElement(const char *tag);
     QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    QVariant valueFromExif( Exiv2::ExifData& data ) const override;
+    QVariant valueFromExif(Exiv2::ExifData &data) const override;
 
 private:
-    const char* m_tag;
+    const char *m_tag;
 };
-
 
 /**
  * @brief The RationalExifElement class
@@ -99,17 +101,17 @@ private:
  * the 3-component rationals used for GPS data (hour-minute-second)
  * are supported.
  */
-class RationalExifElement :public DatabaseElement
+class RationalExifElement : public DatabaseElement
 {
 public:
-    explicit RationalExifElement( const char* tag );
+    explicit RationalExifElement(const char *tag);
     QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    QVariant valueFromExif( Exiv2::ExifData& data ) const override;
+    QVariant valueFromExif(Exiv2::ExifData &data) const override;
 
 private:
-    const char* m_tag;
+    const char *m_tag;
 };
 
 /**
@@ -118,23 +120,20 @@ private:
  * Besides this tag, there are several other legacy exif tags with similar information.
  * This class transparently falls back to a legacy tag when the LensModel is not available.
  */
-class LensExifElement :public DatabaseElement
+class LensExifElement : public DatabaseElement
 {
 public:
     explicit LensExifElement();
     QString columnName() const override;
     QString createString() const override;
     QString queryString() const override;
-    QVariant valueFromExif( Exiv2::ExifData& data ) const override;
+    QVariant valueFromExif(Exiv2::ExifData &data) const override;
 
 private:
-    const char* m_tag;
+    const char *m_tag;
 };
 
-
 }
-
-
 
 #endif /* DATABASEELEMENT_H */
 

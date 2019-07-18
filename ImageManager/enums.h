@@ -19,7 +19,8 @@
 #ifndef IMAGEMANAGER_ENUMS_H
 #define IMAGEMANAGER_ENUMS_H
 
-namespace ImageManager {
+namespace ImageManager
+{
 /** @short Priority of an image request
  *
  * The higher the priority, the sooner the image is expected to be decoded
@@ -38,12 +39,13 @@ enum Priority {
     LastPriority /**< @short Boundary for list of queues */
 };
 
-enum ThumbnailBuildStart { StartNow, StartDelayed };
+enum ThumbnailBuildStart { StartNow,
+                           StartDelayed };
 
-enum StopAction { StopAll, StopOnlyNonPriorityLoads };
+enum StopAction { StopAll,
+                  StopOnlyNonPriorityLoads };
 
 }
-
 
 #endif // IMAGEMANAGER_ENUMS_H
 // vi:expandtab:tabstop=4 shiftwidth=4:

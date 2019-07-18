@@ -20,13 +20,18 @@
 
 namespace AnnotationDialog
 {
-    enum UsageMode { InputSingleImageConfigMode, InputMultiImageConfigMode, SearchMode };
-    enum MatchType { MatchFromBeginning, MatchFromWordStart, MatchAnywhere };
-    // @short Distinguishes between user-induced changes to ResizableFrame and automatic ones.
-    //
-    // Manual changes are any ones that are in some way conscious by the user (e.g. setting the tag data).
-    // Automatic changes suppress some signals (e.g. when setting a transient value).
-    enum ChangeOrigin { ManualChange, AutomatedChange };
+enum UsageMode { InputSingleImageConfigMode,
+                 InputMultiImageConfigMode,
+                 SearchMode };
+enum MatchType { MatchFromBeginning,
+                 MatchFromWordStart,
+                 MatchAnywhere };
+// @short Distinguishes between user-induced changes to ResizableFrame and automatic ones.
+//
+// Manual changes are any ones that are in some way conscious by the user (e.g. setting the tag data).
+// Automatic changes suppress some signals (e.g. when setting a transient value).
+enum ChangeOrigin { ManualChange,
+                    AutomatedChange };
 }
 
 #endif /* ENUMS_H */

@@ -25,11 +25,12 @@
 namespace MainWindow
 {
 
-class FeatureDialog : public QDialog {
+class FeatureDialog : public QDialog
+{
     Q_OBJECT
 
 public:
-    explicit FeatureDialog( QWidget* parent );
+    explicit FeatureDialog(QWidget *parent);
 
     QSize sizeHint() const override;
 
@@ -55,8 +56,6 @@ protected:
     static bool hasEXIV2DBSupport();
     static bool hasGeoMapSupport();
 };
-
-
 }
 
 #endif /* FEATUREDIALOG_H */

@@ -18,8 +18,10 @@
 
 #include "ImageEvent.h"
 
-ImageManager::ImageEvent::ImageEvent( ImageRequest* request, const QImage& image )
-    : QEvent( static_cast<QEvent::Type>(ImageEventID) ), m_request( request ),  m_image( image )
+ImageManager::ImageEvent::ImageEvent(ImageRequest *request, const QImage &image)
+    : QEvent(static_cast<QEvent::Type>(ImageEventID))
+    , m_request(request)
+    , m_image(image)
 {
     // PENDING(blackie): Investigate if this is still needed with Qt4.
     // We would like to use QDeepCopy, but that results in multiple
@@ -28,7 +30,7 @@ ImageManager::ImageEvent::ImageEvent( ImageRequest* request, const QImage& image
     m_image.detach();
 }
 
-ImageManager::ImageRequest* ImageManager::ImageEvent::loadInfo()
+ImageManager::ImageRequest *ImageManager::ImageEvent::loadInfo()
 {
     return m_request;
 }

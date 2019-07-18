@@ -26,81 +26,79 @@
 
 #include <KAboutData>
 #include <KConfigGroup>
-#include <Kdelibs4ConfigMigrator>
 #include <KLocalizedString>
 #include <KSharedConfig>
+#include <Kdelibs4ConfigMigrator>
 
+#include "version.h"
 #include <MainWindow/Options.h>
 #include <MainWindow/SplashScreen.h>
 #include <MainWindow/Window.h>
 #include <RemoteControl/RemoteInterface.h>
 #include <Settings/SettingsData.h>
-#include "version.h"
 
 void migrateKDE4Config()
 {
     Kdelibs4ConfigMigrator migrator(QStringLiteral("kphotoalbum")); // the same name defined in the aboutData
     migrator.setConfigFiles(QStringList() << QStringLiteral("kphotoalbumrc"));
     migrator.setUiFiles(QStringList() << QStringLiteral("kphotoalbumui.rc"));
-    if (migrator.migrate())
-    {
+    if (migrator.migrate()) {
         KConfigGroup unnamedConfig = KSharedConfig::openConfig()->group(QString());
-        if ( unnamedConfig.hasKey( QString::fromLatin1("configfile") ) )
-        {
+        if (unnamedConfig.hasKey(QString::fromLatin1("configfile"))) {
             // rename config file entry on update
             KConfigGroup generalConfig = KSharedConfig::openConfig()->group(QString::fromUtf8("General"));
-            generalConfig.writeEntry( QString::fromLatin1("imageDBFile"),
-                                      unnamedConfig.readEntry( QString::fromLatin1("configfile")));
-            unnamedConfig.deleteEntry( QString::fromLatin1("configfile") );
+            generalConfig.writeEntry(QString::fromLatin1("imageDBFile"),
+                                     unnamedConfig.readEntry(QString::fromLatin1("configfile")));
+            unnamedConfig.deleteEntry(QString::fromLatin1("configfile"));
             qWarning() << "Renamed config entry configfile to General.imageDBFile.";
         }
-
     }
 }
 
-int main( int argc, char** argv ) {
+int main(int argc, char **argv)
+{
     KLocalizedString::setApplicationDomain("kphotoalbum");
     QApplication app(argc, argv);
     migrateKDE4Config();
 
     KAboutData aboutData(
-            QStringLiteral("kphotoalbum"), //component name
-            i18n("KPhotoAlbum"), // display name
-            QStringLiteral(KPA_VERSION),
-            i18n("KDE Photo Album"), // short description
-            KAboutLicense::GPL,
-            i18n("Copyright (C) 2003-2019 The KPhotoAlbum Development Team"),  // copyright statement
-            QString(),  // other text
-            QStringLiteral("https://www.kphotoalbum.org") // homepage
-            );
+        QStringLiteral("kphotoalbum"), //component name
+        i18n("KPhotoAlbum"), // display name
+        QStringLiteral(KPA_VERSION),
+        i18n("KDE Photo Album"), // short description
+        KAboutLicense::GPL,
+        i18n("Copyright (C) 2003-2019 The KPhotoAlbum Development Team"), // copyright statement
+        QString(), // other text
+        QStringLiteral("https://www.kphotoalbum.org") // homepage
+    );
     aboutData.setOrganizationDomain("kde.org");
     // maintainer is expected to be the first entry
     // Note: I like to sort by name, grouped by active/inactive;
     //       Jesper gets ranked with the active authors for obvious reasons
-    aboutData.addAuthor( i18n("Johannes Zarl-Zierl"),i18n("Development, Maintainer"), QStringLiteral("johannes@zarl-zierl.at"));
-    aboutData.addAuthor( i18n("Robert Krawitz"),i18n("Development, Optimization"), QStringLiteral("rlk@alum.mit.edu"));
-    aboutData.addAuthor( i18n("Tobias Leupold"),i18n("Development, Releases, Website"), QStringLiteral("tobias.leupold@gmx.de"));
-    aboutData.addAuthor( i18n("Jesper K. Pedersen"), i18n("Former Maintainer, Project Creator"), QStringLiteral("blackie@kde.org") );
+    aboutData.addAuthor(i18n("Johannes Zarl-Zierl"), i18n("Development, Maintainer"), QStringLiteral("johannes@zarl-zierl.at"));
+    aboutData.addAuthor(i18n("Robert Krawitz"), i18n("Development, Optimization"), QStringLiteral("rlk@alum.mit.edu"));
+    aboutData.addAuthor(i18n("Tobias Leupold"), i18n("Development, Releases, Website"), QStringLiteral("tobias.leupold@gmx.de"));
+    aboutData.addAuthor(i18n("Jesper K. Pedersen"), i18n("Former Maintainer, Project Creator"), QStringLiteral("blackie@kde.org"));
     // not currently active:
-    aboutData.addAuthor( i18n("Hassan Ibraheem"),QString(), QStringLiteral("hasan.ibraheem@gmail.com"));
-    aboutData.addAuthor( i18n("Jan Kundr&aacute;t"), QString(), QStringLiteral("jkt@gentoo.org"));
-    aboutData.addAuthor( i18n("Andreas Neustifter"),QString(), QStringLiteral("andreas.neustifter@gmail.com"));
-    aboutData.addAuthor( i18n("Tuomas Suutari"), QString(), QStringLiteral("thsuut@utu.fi") );
-    aboutData.addAuthor( i18n("Miika Turkia"),QString(), QStringLiteral("miika.turkia@gmail.com"));
-    aboutData.addAuthor( i18n("Henner Zeller"),QString(), QStringLiteral("h.zeller@acm.org"));
+    aboutData.addAuthor(i18n("Hassan Ibraheem"), QString(), QStringLiteral("hasan.ibraheem@gmail.com"));
+    aboutData.addAuthor(i18n("Jan Kundr&aacute;t"), QString(), QStringLiteral("jkt@gentoo.org"));
+    aboutData.addAuthor(i18n("Andreas Neustifter"), QString(), QStringLiteral("andreas.neustifter@gmail.com"));
+    aboutData.addAuthor(i18n("Tuomas Suutari"), QString(), QStringLiteral("thsuut@utu.fi"));
+    aboutData.addAuthor(i18n("Miika Turkia"), QString(), QStringLiteral("miika.turkia@gmail.com"));
+    aboutData.addAuthor(i18n("Henner Zeller"), QString(), QStringLiteral("h.zeller@acm.org"));
 
     // sort alphabetically:
-    aboutData.addCredit( i18n("Marco Caldarelli"), i18n("Patch for making it possible to reread Exif info using a nice dialog."), QStringLiteral("caldarel@yahoo.it") );
-    aboutData.addCredit( i18n("Jean-Michel FAYARD"), i18n("(.) Patch with directory info made available through the browser. (.) Patch for adding a check box for \"and/or\" searches in the search page."), QStringLiteral("jmfayard@gmail.com") );
-    aboutData.addCredit( i18n("Wes Hardaker"),i18n("Some very useful features to improve workflow"), QStringLiteral("kpa@capturedonearth.com"));
-    aboutData.addCredit( i18n("Reimar Imhof"), i18n("Patch to sort items in option listboxes"), QStringLiteral("Reimar.Imhof@netCologne.de") );
-    aboutData.addCredit( i18n("Christoph Moseler"), i18n("Numerous patches for lots of bugs plus patches for a few new features"), QStringLiteral("forums@moseler.net") );
-    aboutData.addCredit( i18n("Teemu Rytilahti"),
-                         i18n("Theme support for HTML generation"), QStringLiteral("teemu.rytilahti@kde-fi.org") );
-    aboutData.addCredit( i18n("Thomas Schwarzgruber"), i18n("Patch to sort images in the thumbnail view, plus reading time info out of Exif images for existing images"), QStringLiteral("possebaer@gmx.at") );
-    aboutData.addCredit( i18n("Clytie Siddall"), i18n("Tremendous help with the English text in the application."), QStringLiteral("clytie@riverland.net.au") );
-    aboutData.addCredit( i18n("Will Stephenson"), i18n("Developing an Icon for KPhotoAlbum"), QStringLiteral("will@stevello.free-online.co.uk") );
-    aboutData.addCredit( i18n("Marcel Wiesweg"), i18n("Patch which speed up loading of thumbnails plus preview in image property dialog."), QStringLiteral("marcel.wiesweg@gmx.de") );
+    aboutData.addCredit(i18n("Marco Caldarelli"), i18n("Patch for making it possible to reread Exif info using a nice dialog."), QStringLiteral("caldarel@yahoo.it"));
+    aboutData.addCredit(i18n("Jean-Michel FAYARD"), i18n("(.) Patch with directory info made available through the browser. (.) Patch for adding a check box for \"and/or\" searches in the search page."), QStringLiteral("jmfayard@gmail.com"));
+    aboutData.addCredit(i18n("Wes Hardaker"), i18n("Some very useful features to improve workflow"), QStringLiteral("kpa@capturedonearth.com"));
+    aboutData.addCredit(i18n("Reimar Imhof"), i18n("Patch to sort items in option listboxes"), QStringLiteral("Reimar.Imhof@netCologne.de"));
+    aboutData.addCredit(i18n("Christoph Moseler"), i18n("Numerous patches for lots of bugs plus patches for a few new features"), QStringLiteral("forums@moseler.net"));
+    aboutData.addCredit(i18n("Teemu Rytilahti"),
+                        i18n("Theme support for HTML generation"), QStringLiteral("teemu.rytilahti@kde-fi.org"));
+    aboutData.addCredit(i18n("Thomas Schwarzgruber"), i18n("Patch to sort images in the thumbnail view, plus reading time info out of Exif images for existing images"), QStringLiteral("possebaer@gmx.at"));
+    aboutData.addCredit(i18n("Clytie Siddall"), i18n("Tremendous help with the English text in the application."), QStringLiteral("clytie@riverland.net.au"));
+    aboutData.addCredit(i18n("Will Stephenson"), i18n("Developing an Icon for KPhotoAlbum"), QStringLiteral("will@stevello.free-online.co.uk"));
+    aboutData.addCredit(i18n("Marcel Wiesweg"), i18n("Patch which speed up loading of thumbnails plus preview in image property dialog."), QStringLiteral("marcel.wiesweg@gmx.de"));
 
     // initialize the commandline parser
     QCommandLineParser *parser = MainWindow::Options::the()->parser();
@@ -117,16 +115,15 @@ int main( int argc, char** argv ) {
     // -> don't delete the view directly!
     MainWindow::Window *view = nullptr;
     try {
-        view = new MainWindow::Window( nullptr );
-    }
-    catch (int retVal) {
+        view = new MainWindow::Window(nullptr);
+    } catch (int retVal) {
         // MainWindow ctor throws if no config is loaded
         return retVal;
     }
 
-    view->setGeometry( Settings::SettingsData::instance()->windowGeometry( Settings::MainWindow ) );
+    view->setGeometry(Settings::SettingsData::instance()->windowGeometry(Settings::MainWindow));
 
-    (void) RemoteControl::RemoteInterface::instance();
+    (void)RemoteControl::RemoteInterface::instance();
 
     int code = QApplication::exec();
     return code;

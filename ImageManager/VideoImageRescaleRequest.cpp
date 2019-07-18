@@ -17,9 +17,10 @@
 */
 #include "VideoImageRescaleRequest.h"
 
-ImageManager::VideoImageRescaleRequest::VideoImageRescaleRequest( ImageRequest* originalRequest, const DB::FileName& path )
-    : ImageRequest( originalRequest->databaseFileName(), originalRequest->size(), originalRequest->angle(), originalRequest->client() ),
-      m_originalRequest( originalRequest ), m_path(path)
+ImageManager::VideoImageRescaleRequest::VideoImageRescaleRequest(ImageRequest *originalRequest, const DB::FileName &path)
+    : ImageRequest(originalRequest->databaseFileName(), originalRequest->size(), originalRequest->angle(), originalRequest->client())
+    , m_originalRequest(originalRequest)
+    , m_path(path)
 {
     setIsThumbnailRequest(originalRequest->isThumbnailRequest());
 }

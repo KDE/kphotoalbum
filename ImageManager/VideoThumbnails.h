@@ -19,14 +19,18 @@
 #ifndef IMAGEMANAGER_VIDEOTHUMBNAILS_H
 #define IMAGEMANAGER_VIDEOTHUMBNAILS_H
 
-#include <QObject>
-#include <QImage>
 #include <DB/FileName.h>
+#include <QImage>
+#include <QObject>
 #include <QPointer>
 
-namespace BackgroundJobs { class ExtractOneThumbnailJob; }
+namespace BackgroundJobs
+{
+class ExtractOneThumbnailJob;
+}
 
-namespace ImageManager {
+namespace ImageManager
+{
 
 class VideoThumbnailsExtractor;
 class VideoLengthExtractor;
@@ -40,25 +44,25 @@ class VideoThumbnails : public QObject
     Q_OBJECT
 public:
     explicit VideoThumbnails(QObject *parent = nullptr);
-    void setVideoFile( const DB::FileName& fileName );
+    void setVideoFile(const DB::FileName &fileName);
 
 public slots:
     void requestNext();
 
 signals:
-    void frameLoaded( const QImage& );
+    void frameLoaded(const QImage &);
 
 private slots:
     void gotFrame();
 
 private:
-    bool loadFramesFromCache(const DB::FileName& fileName);
+    bool loadFramesFromCache(const DB::FileName &fileName);
     void cancelPreviousJobs();
 
     DB::FileName m_videoFile;
     QVector<QImage> m_cache;
     bool m_pendingRequest;
-    QVector< QPointer<BackgroundJobs::ExtractOneThumbnailJob> > m_activeRequests;
+    QVector<QPointer<BackgroundJobs::ExtractOneThumbnailJob>> m_activeRequests;
     int m_index;
 };
 

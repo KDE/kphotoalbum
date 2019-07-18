@@ -16,10 +16,10 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "AsyncLoader.h"
-#include "PreloadRequest.h"
-#include "Logging.h"
 #include "ThumbnailBuilder.h"
+#include "AsyncLoader.h"
+#include "Logging.h"
+#include "PreloadRequest.h"
 #include "ThumbnailCache.h"
 
 #include <DB/ImageDB.h>
@@ -33,19 +33,19 @@
 #include <QMessageBox>
 #include <QTimer>
 
-ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::s_instance = nullptr;
+ImageManager::ThumbnailBuilder *ImageManager::ThumbnailBuilder::s_instance = nullptr;
 
-ImageManager::ThumbnailBuilder::ThumbnailBuilder( MainWindow::StatusBar* statusBar, QObject* parent )
-    :QObject( parent ),
-     m_statusBar( statusBar ),
-     m_count( 0 ),
-     m_isBuilding( false ),
-     m_loadedCount( 0 ),
-     m_preloadQueue( nullptr ),
-     m_scout( nullptr )
+ImageManager::ThumbnailBuilder::ThumbnailBuilder(MainWindow::StatusBar *statusBar, QObject *parent)
+    : QObject(parent)
+    , m_statusBar(statusBar)
+    , m_count(0)
+    , m_isBuilding(false)
+    , m_loadedCount(0)
+    , m_preloadQueue(nullptr)
+    , m_scout(nullptr)
 {
     connect(m_statusBar, &MainWindow::StatusBar::cancelRequest, this, &ThumbnailBuilder::cancelRequests);
-    s_instance =  this;
+    s_instance = this;
 
     // Make sure that this is created early, in the main thread, so it
     // can receive signals.
@@ -57,7 +57,7 @@ ImageManager::ThumbnailBuilder::ThumbnailBuilder( MainWindow::StatusBar* statusB
 
 void ImageManager::ThumbnailBuilder::cancelRequests()
 {
-    ImageManager::AsyncLoader::instance()->stop( this, ImageManager::StopAll );
+    ImageManager::AsyncLoader::instance()->stop(this, ImageManager::StopAll);
     m_isBuilding = false;
     m_statusBar->setProgressBarVisible(false);
     m_startBuildTimer->stop();
@@ -75,23 +75,23 @@ void ImageManager::ThumbnailBuilder::terminateScout()
     }
 }
 
-void ImageManager::ThumbnailBuilder::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& /*image*/)
+void ImageManager::ThumbnailBuilder::pixmapLoaded(ImageManager::ImageRequest *request, const QImage & /*image*/)
 {
     const DB::FileName fileName = request->databaseFileName();
     const QSize fullSize = request->fullSize();
 
-    if ( fullSize.width() != -1 ) {
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info( fileName );
-        info->setSize( fullSize );
+    if (fullSize.width() != -1) {
+        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
+        info->setSize(fullSize);
     }
     m_loadedCount++;
-    m_statusBar->setProgress( ++m_count );
-    if ( m_count >= m_expectedThumbnails ) {
+    m_statusBar->setProgress(++m_count);
+    if (m_count >= m_expectedThumbnails) {
         terminateScout();
     }
 }
 
-void ImageManager::ThumbnailBuilder::buildAll( ThumbnailBuildStart when )
+void ImageManager::ThumbnailBuilder::buildAll(ThumbnailBuildStart when)
 {
     QMessageBox msgBox;
     msgBox.setText(i18n("Building all thumbnails may take a long time."));
@@ -99,15 +99,15 @@ void ImageManager::ThumbnailBuilder::buildAll( ThumbnailBuildStart when )
     msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
     msgBox.setDefaultButton(QMessageBox::No);
     int ret = msgBox.exec();
-    if ( ret == QMessageBox::Yes ) {
+    if (ret == QMessageBox::Yes) {
         ImageManager::ThumbnailCache::instance()->flush();
-        scheduleThumbnailBuild( DB::ImageDB::instance()->images(), when );
+        scheduleThumbnailBuild(DB::ImageDB::instance()->images(), when);
     }
 }
 
-ImageManager::ThumbnailBuilder* ImageManager::ThumbnailBuilder::instance()
+ImageManager::ThumbnailBuilder *ImageManager::ThumbnailBuilder::instance()
 {
-    Q_ASSERT( s_instance );
+    Q_ASSERT(s_instance);
     return s_instance;
 }
 
@@ -120,35 +120,35 @@ void ImageManager::ThumbnailBuilder::buildMissing()
 {
     const DB::FileNameList images = DB::ImageDB::instance()->images();
     DB::FileNameList needed;
-    for ( const DB::FileName& fileName : images ) {
-        if ( ! ImageManager::ThumbnailCache::instance()->contains( fileName ) )
-            needed.append( fileName );
+    for (const DB::FileName &fileName : images) {
+        if (!ImageManager::ThumbnailCache::instance()->contains(fileName))
+            needed.append(fileName);
     }
-    scheduleThumbnailBuild( needed, StartDelayed );
+    scheduleThumbnailBuild(needed, StartDelayed);
 }
 
-void ImageManager::ThumbnailBuilder::scheduleThumbnailBuild( const DB::FileNameList& list, ThumbnailBuildStart when )
+void ImageManager::ThumbnailBuilder::scheduleThumbnailBuild(const DB::FileNameList &list, ThumbnailBuildStart when)
 {
-    if ( list.count() == 0 )
+    if (list.count() == 0)
         return;
 
-    if ( m_isBuilding )
+    if (m_isBuilding)
         cancelRequests();
 
     DB::OptimizedFileList files(list);
     m_thumbnailsToBuild = files.optimizedDbFiles();
-    m_startBuildTimer->start( when == StartNow ? 0 : 5000 );
+    m_startBuildTimer->start(when == StartNow ? 0 : 5000);
 }
 
-void ImageManager::ThumbnailBuilder::buildOneThumbnail( const DB::ImageInfoPtr& info )
+void ImageManager::ThumbnailBuilder::buildOneThumbnail(const DB::ImageInfoPtr &info)
 {
-    ImageManager::ImageRequest* request
-        = new ImageManager::PreloadRequest( info->fileName(),
-                                          ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
-                                          this );
+    ImageManager::ImageRequest *request
+        = new ImageManager::PreloadRequest(info->fileName(),
+                                           ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
+                                           this);
     request->setIsThumbnailRequest(true);
-    request->setPriority( ImageManager::BuildThumbnails );
-    ImageManager::AsyncLoader::instance()->load( request );
+    request->setPriority(ImageManager::BuildThumbnails);
+    ImageManager::AsyncLoader::instance()->load(request);
 }
 
 void ImageManager::ThumbnailBuilder::doThumbnailBuild()
@@ -161,7 +161,7 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
     m_count = 0;
     m_loadedCount = 0;
     m_preloadQueue = new DB::ImageScoutQueue;
-    for (const DB::FileName& fileName : m_thumbnailsToBuild ) {
+    for (const DB::FileName &fileName : m_thumbnailsToBuild) {
         m_preloadQueue->enqueue(fileName);
     }
     qCDebug(ImageManagerLog) << "thumbnail builder starting scout";
@@ -169,31 +169,30 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
     m_scout->setMaxSeekAhead(10);
     m_scout->setReadLimit(10 * 1048576);
     m_scout->start();
-    m_statusBar->startProgress( i18n("Building thumbnails"), qMax( m_thumbnailsToBuild.size() - 1, 1 ) );
+    m_statusBar->startProgress(i18n("Building thumbnails"), qMax(m_thumbnailsToBuild.size() - 1, 1));
     // We'll update this later.  Meanwhile, we want to make sure that the scout
     // isn't prematurely terminated because the expected number of thumbnails
     // is less than (i. e. zero) the number of thumbnails actually built.
     m_expectedThumbnails = m_thumbnailsToBuild.size();
-    for (const DB::FileName& fileName : m_thumbnailsToBuild ) {
+    for (const DB::FileName &fileName : m_thumbnailsToBuild) {
         DB::ImageInfoPtr info = fileName.info();
-        if ( ImageManager::AsyncLoader::instance()->isExiting() ) {
+        if (ImageManager::AsyncLoader::instance()->isExiting()) {
             cancelRequests();
             break;
         }
-        if ( info->isNull())
-        {
+        if (info->isNull()) {
             m_loadedCount++;
             m_count++;
             continue;
         }
 
-        ImageManager::ImageRequest* request
-            = new ImageManager::PreloadRequest( fileName,
-                                              ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
-                                              this );
+        ImageManager::ImageRequest *request
+            = new ImageManager::PreloadRequest(fileName,
+                                               ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
+                                               this);
         request->setIsThumbnailRequest(true);
-        request->setPriority( ImageManager::BuildThumbnails );
-        if (ImageManager::AsyncLoader::instance()->load( request ))
+        request->setPriority(ImageManager::BuildThumbnails);
+        if (ImageManager::AsyncLoader::instance()->load(request))
             ++numberOfThumbnailsToBuild;
     }
     m_expectedThumbnails = numberOfThumbnailsToBuild;
@@ -210,9 +209,9 @@ void ImageManager::ThumbnailBuilder::save()
 
 void ImageManager::ThumbnailBuilder::requestCanceled()
 {
-    m_statusBar->setProgress( ++m_count );
+    m_statusBar->setProgress(++m_count);
     m_loadedCount++;
-    if ( m_count >= m_expectedThumbnails ) {
+    if (m_count >= m_expectedThumbnails) {
         terminateScout();
     }
 }

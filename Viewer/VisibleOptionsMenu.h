@@ -23,41 +23,42 @@
 class KToggleAction;
 class KActionCollection;
 
-namespace Viewer {
-
-class VisibleOptionsMenu :public QMenu
+namespace Viewer
 {
-Q_OBJECT
+
+class VisibleOptionsMenu : public QMenu
+{
+    Q_OBJECT
 public:
-    VisibleOptionsMenu( QWidget* parent, KActionCollection* actions);
+    VisibleOptionsMenu(QWidget *parent, KActionCollection *actions);
 
 signals:
     void visibleOptionsChanged();
 
 private slots:
     void updateState();
-    void toggleShowInfoBox( bool );
-    void toggleShowCategory( bool );
-    void toggleShowLabel( bool );
-    void toggleShowDescription( bool );
-    void toggleShowDate( bool );
-    void toggleShowTime( bool );
-    void toggleShowFilename( bool );
-    void toggleShowEXIF( bool );
-    void toggleShowImageSize( bool );
-    void toggleShowRating( bool );
+    void toggleShowInfoBox(bool);
+    void toggleShowCategory(bool);
+    void toggleShowLabel(bool);
+    void toggleShowDescription(bool);
+    void toggleShowDate(bool);
+    void toggleShowTime(bool);
+    void toggleShowFilename(bool);
+    void toggleShowEXIF(bool);
+    void toggleShowImageSize(bool);
+    void toggleShowRating(bool);
 
 private:
-    KToggleAction* m_showInfoBox;
-    KToggleAction* m_showLabel;
-    KToggleAction* m_showDescription;
-    KToggleAction* m_showDate;
-    KToggleAction* m_showTime;
-    KToggleAction* m_showFileName;
-    KToggleAction* m_showExif;
-    KToggleAction* m_showImageSize;
-    KToggleAction* m_showRating;
-    QList<KToggleAction*> m_actionList;
+    KToggleAction *m_showInfoBox;
+    KToggleAction *m_showLabel;
+    KToggleAction *m_showDescription;
+    KToggleAction *m_showDate;
+    KToggleAction *m_showTime;
+    KToggleAction *m_showFileName;
+    KToggleAction *m_showExif;
+    KToggleAction *m_showImageSize;
+    KToggleAction *m_showRating;
+    QList<KToggleAction *> m_actionList;
 };
 
 }

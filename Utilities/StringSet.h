@@ -21,17 +21,16 @@
 #ifndef UTILITIES_STRINGSET_H
 #define UTILITIES_STRINGSET_H
 
-#include <QString>
 #include <QSet>
+#include <QString>
 
 namespace Utilities
 {
-    /* there is no Set<> anymore since QSet<> is now provided by Qt.
+/* there is no Set<> anymore since QSet<> is now provided by Qt.
      * For backwards compatibility we still use a useful typedef, the StringSet
      */
-    typedef QSet<QString> StringSet;
+typedef QSet<QString> StringSet;
 }
-
 
 #endif /* UTILITIES_STRINGSET_H */
 // vi:expandtab:tabstop=4 shiftwidth=4:

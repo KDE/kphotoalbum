@@ -25,7 +25,8 @@
 
 class QImage;
 
-namespace BackgroundJobs {
+namespace BackgroundJobs
+{
 
 /**
   \brief \ref BackgroundTaskManager::JobInterface "background job" for extracting the length of a video file.
@@ -36,7 +37,7 @@ class ExtractOneThumbnailJob : public BackgroundTaskManager::JobInterface
     Q_OBJECT
 
 public:
-    ExtractOneThumbnailJob(const DB::FileName& fileName, int index, BackgroundTaskManager::Priority priority);
+    ExtractOneThumbnailJob(const DB::FileName &fileName, int index, BackgroundTaskManager::Priority priority);
     void execute() override;
     QString title() const override;
     QString details() const override;
@@ -44,7 +45,7 @@ public:
     void cancel();
 
 private slots:
-    void frameLoaded(const QImage& );
+    void frameLoaded(const QImage &);
 
 private:
     DB::FileName frameName() const;

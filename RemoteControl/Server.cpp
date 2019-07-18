@@ -18,16 +18,16 @@
 
 #include "Server.h"
 
-#include <QUdpSocket>
-#include <QTcpSocket>
-#include <QMessageBox>
 #include "RemoteCommand.h"
 #include <KLocalizedString>
+#include <QMessageBox>
+#include <QTcpSocket>
+#include <QUdpSocket>
 
 using namespace RemoteControl;
 
-Server::Server(QObject *parent) :
-    RemoteConnection(parent)
+Server::Server(QObject *parent)
+    : RemoteConnection(parent)
 {
 }
 
@@ -59,7 +59,7 @@ void Server::stopListening()
     emit stoppedListening();
 }
 
-QTcpSocket*Server::socket()
+QTcpSocket *Server::socket()
 {
     return m_tcpSocket;
 }
@@ -70,7 +70,7 @@ void Server::readIncommingUDP()
     char data[1000];
 
     QHostAddress address;
-    qint64 len = m_socket->readDatagram(data,1000, &address);
+    qint64 len = m_socket->readDatagram(data, 1000, &address);
     QString string = QString::fromUtf8(data).left(len);
     QStringList list = string.split(QChar::fromLatin1(' '));
     if (list[0] != QString::fromUtf8("KPhotoAlbum")) {
@@ -81,8 +81,8 @@ void Server::readIncommingUDP()
                               i18n("Version mismatch between Remote Client and KPhotoAlbum on the desktop.\n"
                                    "Desktop protocol version: %1\n"
                                    "Remote Control protocol version: %2",
-											  RemoteControl::VERSION,
-											  list[1]));
+                                   RemoteControl::VERSION,
+                                   list[1]));
         stopListening();
         return;
     }
@@ -90,7 +90,7 @@ void Server::readIncommingUDP()
     connectToTcpServer(address);
 }
 
-void Server::connectToTcpServer(const QHostAddress& address)
+void Server::connectToTcpServer(const QHostAddress &address)
 {
     m_tcpSocket = new QTcpSocket;
     connect(m_tcpSocket, SIGNAL(connected()), this, SLOT(gotConnected()));

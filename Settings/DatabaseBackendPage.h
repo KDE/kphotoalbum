@@ -25,22 +25,22 @@ namespace Settings
 {
 class SettingsData;
 
-class DatabaseBackendPage :public QWidget
+class DatabaseBackendPage : public QWidget
 {
     Q_OBJECT
 public:
-    explicit DatabaseBackendPage( QWidget* parent );
-    void loadSettings( Settings::SettingsData* );
-    void saveSettings( Settings::SettingsData* );
+    explicit DatabaseBackendPage(QWidget *parent);
+    void loadSettings(Settings::SettingsData *);
+    void saveSettings(Settings::SettingsData *);
 
 private slots:
     void markDirty();
 
 private:
-    QSpinBox* m_autosave;
-    QSpinBox* m_backupCount;
-    QCheckBox* m_compressBackup;
-    QCheckBox* m_compressedIndexXML;
+    QSpinBox *m_autosave;
+    QSpinBox *m_backupCount;
+    QCheckBox *m_compressBackup;
+    QCheckBox *m_compressedIndexXML;
 };
 
 }

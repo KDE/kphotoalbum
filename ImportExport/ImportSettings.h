@@ -18,22 +18,24 @@
 #ifndef IMPORTSETTINGS_H
 #define IMPORTSETTINGS_H
 
-#include <QUrl>
 #include "DB/ImageInfoList.h"
+#include <QUrl>
 namespace ImportExport
 {
-
 
 class CategoryMatchSetting
 {
 public:
-    CategoryMatchSetting( const QString& DBCategoryName, const QString& XMLFileCategoryName )
-        : m_XMLCategoryName( XMLFileCategoryName ), m_DBCategoryName(DBCategoryName ) {}
-    void add( const QString& DBFileNameItem, const QString& XMLFileNameItem );
+    CategoryMatchSetting(const QString &DBCategoryName, const QString &XMLFileCategoryName)
+        : m_XMLCategoryName(XMLFileCategoryName)
+        , m_DBCategoryName(DBCategoryName)
+    {
+    }
+    void add(const QString &DBFileNameItem, const QString &XMLFileNameItem);
 
     QString XMLCategoryName() const;
     QString DBCategoryName() const;
-    const QMap<QString, QString>& XMLtoDB() const;
+    const QMap<QString, QString> &XMLtoDB() const;
 
 private:
     QString m_XMLCategoryName;
@@ -49,27 +51,29 @@ private:
 class ImportSettings
 {
 public:
-    enum ImportAction { Replace = 1, Keep = 2, Merge = 3 };
+    enum ImportAction { Replace = 1,
+                        Keep = 2,
+                        Merge = 3 };
 
-    void setSelectedImages( const DB::ImageInfoList& );
+    void setSelectedImages(const DB::ImageInfoList &);
     DB::ImageInfoList selectedImages() const;
 
-    void setDestination( const QString& );
+    void setDestination(const QString &);
     QString destination() const;
 
-    void setExternalSource( bool b );
+    void setExternalSource(bool b);
     bool externalSource() const;
 
-    void setKimFile( const QUrl &kimFile );
+    void setKimFile(const QUrl &kimFile);
     QUrl kimFile() const;
 
-    void setBaseURL( const QUrl &url );
+    void setBaseURL(const QUrl &url);
     QUrl baseURL() const;
 
-    void setImportActions( const QMap<QString, ImportAction>& actions );
-    ImportAction importAction( const QString& item );
+    void setImportActions(const QMap<QString, ImportAction> &actions);
+    ImportAction importAction(const QString &item);
 
-    void addCategoryMatchSetting( const CategoryMatchSetting& );
+    void addCategoryMatchSetting(const CategoryMatchSetting &);
     QList<CategoryMatchSetting> categoryMatchSetting() const;
 
 private:

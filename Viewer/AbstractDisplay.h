@@ -19,18 +19,18 @@
 #ifndef ABSTRACTDISPLAY_H
 #define ABSTRACTDISPLAY_H
 
-#include <qwidget.h>
 #include <DB/ImageInfoPtr.h>
+#include <qwidget.h>
 
 namespace Viewer
 {
-class AbstractDisplay :public QWidget
+class AbstractDisplay : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit AbstractDisplay( QWidget* parent );
-    virtual bool setImage( DB::ImageInfoPtr info, bool forward ) = 0;
+    explicit AbstractDisplay(QWidget *parent);
+    virtual bool setImage(DB::ImageInfoPtr info, bool forward) = 0;
 
 public slots:
     virtual void zoomIn() = 0;

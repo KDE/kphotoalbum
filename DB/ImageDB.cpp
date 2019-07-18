@@ -16,34 +16,34 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImageDB.h"
-#include "XMLDB/Database.h"
-#include <KLocalizedString>
-#include <qfileinfo.h>
 #include "Browser/BrowserWidget.h"
 #include "DB/CategoryCollection.h"
-#include <qapplication.h>
 #include "NewImageFinder.h"
 #include "UIDelegate.h"
-#include <DB/MediaCount.h>
-#include <QProgressDialog>
+#include "XMLDB/Database.h"
 #include <DB/FileName.h>
+#include <DB/MediaCount.h>
+#include <KLocalizedString>
+#include <QProgressDialog>
+#include <qapplication.h>
+#include <qfileinfo.h>
 
 using namespace DB;
 
-ImageDB* ImageDB::s_instance = nullptr;
+ImageDB *ImageDB::s_instance = nullptr;
 
-ImageDB* DB::ImageDB::instance()
+ImageDB *DB::ImageDB::instance()
 {
-    if ( s_instance == nullptr )
+    if (s_instance == nullptr)
         exit(0); // Either we are closing down or ImageDB::instance was called before ImageDB::setup
     return s_instance;
 }
 
-void ImageDB::setupXMLDB(const QString &configFile, UIDelegate &delegate )
+void ImageDB::setupXMLDB(const QString &configFile, UIDelegate &delegate)
 {
     if (s_instance)
         qFatal("ImageDB::setupXMLDB: Setup must be called only once.");
-    s_instance = new XMLDB::Database( configFile, delegate );
+    s_instance = new XMLDB::Database(configFile, delegate);
     connectSlots();
 }
 
@@ -55,8 +55,8 @@ void ImageDB::deleteInstance()
 
 void ImageDB::connectSlots()
 {
-    connect( Settings::SettingsData::instance(), SIGNAL(locked(bool,bool)), s_instance, SLOT(lockDB(bool,bool)) );
-    connect( &s_instance->memberMap(), SIGNAL(dirty()), s_instance, SLOT(markDirty()));
+    connect(Settings::SettingsData::instance(), SIGNAL(locked(bool, bool)), s_instance, SLOT(lockDB(bool, bool)));
+    connect(&s_instance->memberMap(), SIGNAL(dirty()), s_instance, SLOT(markDirty()));
 }
 
 QString ImageDB::NONE()
@@ -67,7 +67,7 @@ QString ImageDB::NONE()
 
 DB::FileNameList ImageDB::currentScope(bool requireOnDisk) const
 {
-    return search( Browser::BrowserWidget::instance()->currentContext(), requireOnDisk );
+    return search(Browser::BrowserWidget::instance()->currentContext(), requireOnDisk);
 }
 
 void ImageDB::markDirty()
@@ -75,7 +75,7 @@ void ImageDB::markDirty()
     emit dirty();
 }
 
-void ImageDB::setDateRange( const ImageDate& range, bool includeFuzzyCounts )
+void ImageDB::setDateRange(const ImageDate &range, bool includeFuzzyCounts)
 {
     m_selectionRange = range;
     m_includeFuzzyCounts = includeFuzzyCounts;
@@ -89,13 +89,13 @@ void ImageDB::clearDateRange()
 void ImageDB::slotRescan()
 {
     bool newImages = NewImageFinder().findImages();
-    if ( newImages )
+    if (newImages)
         markDirty();
 
-    emit totalChanged( totalCount() );
+    emit totalChanged(totalCount());
 }
 
-void ImageDB::slotRecalcCheckSums(const DB::FileNameList& inputList)
+void ImageDB::slotRecalcCheckSums(const DB::FileNameList &inputList)
 {
     DB::FileNameList list = inputList;
     if (list.isEmpty()) {
@@ -103,11 +103,11 @@ void ImageDB::slotRecalcCheckSums(const DB::FileNameList& inputList)
         md5Map()->clear();
     }
 
-    bool d = NewImageFinder().calculateMD5sums( list, md5Map() );
-    if ( d )
+    bool d = NewImageFinder().calculateMD5sums(list, md5Map());
+    if (d)
         markDirty();
 
-    emit totalChanged( totalCount() );
+    emit totalChanged(totalCount());
 }
 
 DB::FileNameSet DB::ImageDB::imagesWithMD5Changed()
@@ -115,10 +115,10 @@ DB::FileNameSet DB::ImageDB::imagesWithMD5Changed()
     MD5Map map;
     bool wasCanceled;
     NewImageFinder().calculateMD5sums(images(), &map, &wasCanceled);
-    if ( wasCanceled )
+    if (wasCanceled)
         return DB::FileNameSet();
 
-    return md5Map()->diff( map );
+    return md5Map()->diff(map);
 }
 
 UIDelegate &DB::ImageDB::uiDelegate() const
@@ -126,42 +126,41 @@ UIDelegate &DB::ImageDB::uiDelegate() const
     return m_UI;
 }
 
-
 ImageDB::ImageDB(UIDelegate &delegate)
     : m_UI(delegate)
 {
 }
 
-DB::MediaCount ImageDB::count( const ImageSearchInfo& searchInfo )
+DB::MediaCount ImageDB::count(const ImageSearchInfo &searchInfo)
 {
     uint images = 0;
     uint videos = 0;
-    for (const DB::FileName& fileName : search(searchInfo)) {
-        if ( info(fileName)->mediaType() == Image )
+    for (const DB::FileName &fileName : search(searchInfo)) {
+        if (info(fileName)->mediaType() == Image)
             ++images;
         else
             ++videos;
     }
-    return MediaCount( images, videos );
+    return MediaCount(images, videos);
 }
 
-void ImageDB::slotReread( const DB::FileNameList& list, DB::ExifMode mode)
+void ImageDB::slotReread(const DB::FileNameList &list, DB::ExifMode mode)
 {
-// Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
-    QProgressDialog  dialog( i18n("Loading information from images"),
-                             i18n("Cancel"), 0, list.count() );
+    // Do here a reread of the exif info and change the info correctly in the database without loss of previous added data
+    QProgressDialog dialog(i18n("Loading information from images"),
+                           i18n("Cancel"), 0, list.count());
 
-    uint count=0;
-    for( DB::FileNameList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count  ) {
-        if ( count % 10 == 0 ) {
-            dialog.setValue( count ); // ensure to call setProgress(0)
-            qApp->processEvents( QEventLoop::AllEvents );
+    uint count = 0;
+    for (DB::FileNameList::ConstIterator it = list.begin(); it != list.end(); ++it, ++count) {
+        if (count % 10 == 0) {
+            dialog.setValue(count); // ensure to call setProgress(0)
+            qApp->processEvents(QEventLoop::AllEvents);
 
-            if ( dialog.wasCanceled() )
+            if (dialog.wasCanceled())
                 return;
         }
 
-        QFileInfo fi( (*it).absolute() );
+        QFileInfo fi((*it).absolute());
 
         if (fi.exists())
             info(*it)->readExif(*it, mode);
@@ -169,20 +168,18 @@ void ImageDB::slotReread( const DB::FileNameList& list, DB::ExifMode mode)
     }
 }
 
-DB::FileName ImageDB::findFirstItemInRange(const DB::FileNameList& images,
-                                           const ImageDate& range,
+DB::FileName ImageDB::findFirstItemInRange(const DB::FileNameList &images,
+                                           const ImageDate &range,
                                            bool includeRanges) const
 {
     DB::FileName candidate;
     QDateTime candidateDateStart;
-    for (const DB::FileName& fileName : images) {
+    for (const DB::FileName &fileName : images) {
         ImageInfoPtr iInfo = info(fileName);
 
         ImageDate::MatchType match = iInfo->date().isIncludedIn(range);
-        if (match == DB::ImageDate::ExactMatch ||
-            (includeRanges && match == DB::ImageDate::RangeMatch)) {
-            if (candidate.isNull() ||
-                iInfo->date().start() < candidateDateStart) {
+        if (match == DB::ImageDate::ExactMatch || (includeRanges && match == DB::ImageDate::RangeMatch)) {
+            if (candidate.isNull() || iInfo->date().start() < candidateDateStart) {
                 candidate = fileName;
                 // Looking at this, can't this just be iInfo->date().start()?
                 // Just in the middle of refactoring other stuff, so leaving

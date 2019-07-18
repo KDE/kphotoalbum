@@ -34,21 +34,22 @@
 
 #include <QUrl>
 
-namespace Utilities {
+namespace Utilities
+{
 
-DeleteFiles* DeleteFiles::s_instance;
+DeleteFiles *DeleteFiles::s_instance;
 
-bool DeleteFiles::deleteFiles( const DB::FileNameList& files, DeleteMethod method )
+bool DeleteFiles::deleteFiles(const DB::FileNameList &files, DeleteMethod method)
 {
     if (!s_instance)
         s_instance = new DeleteFiles;
-    return s_instance->deleteFilesPrivate(files,method);
+    return s_instance->deleteFilesPrivate(files, method);
 }
 
-void DeleteFiles::slotKIOJobCompleted(KJob* job)
+void DeleteFiles::slotKIOJobCompleted(KJob *job)
 {
-    if ( job->error() )
-        KMessageBox::error( MainWindow::Window::theMainWindow(), job->errorString(), i18n( "Error Deleting Files" ) );
+    if (job->error())
+        KMessageBox::error(MainWindow::Window::theMainWindow(), job->errorString(), i18n("Error Deleting Files"));
 }
 
 bool DeleteFiles::deleteFilesPrivate(const DB::FileNameList &files, DeleteMethod method)
@@ -58,43 +59,40 @@ bool DeleteFiles::deleteFilesPrivate(const DB::FileNameList &files, DeleteMethod
     DB::FileNameList filenamesToRemove;
     QList<QUrl> filesToDelete;
 
-    Q_FOREACH(const DB::FileName &fileName, files) {
+    Q_FOREACH (const DB::FileName &fileName, files) {
 
-        if ( DB::ImageInfo::imageOnDisk( fileName ) ) {
-            if ( method == DeleteFromDisk || method == MoveToTrash ){
-                filesToDelete.append( QUrl::fromLocalFile( fileName.absolute()) );
+        if (DB::ImageInfo::imageOnDisk(fileName)) {
+            if (method == DeleteFromDisk || method == MoveToTrash) {
+                filesToDelete.append(QUrl::fromLocalFile(fileName.absolute()));
                 filenamesToRemove.append(fileName);
             } else {
                 filenamesToRemove.append(fileName);
             }
-        }
-        else
+        } else
             filenamesToRemove.append(fileName);
     }
 
-    ImageManager::ThumbnailCache::instance()->removeThumbnails( files );
+    ImageManager::ThumbnailCache::instance()->removeThumbnails(files);
 
-    if ( method == DeleteFromDisk || method == MoveToTrash ) {
-        KJob* job;
-        if ( method == MoveToTrash )
-            job = KIO::trash( filesToDelete );
+    if (method == DeleteFromDisk || method == MoveToTrash) {
+        KJob *job;
+        if (method == MoveToTrash)
+            job = KIO::trash(filesToDelete);
         else
-            job = KIO::del( filesToDelete );
-        connect( job, SIGNAL(result(KJob*)), this, SLOT(slotKIOJobCompleted(KJob*)) );
+            job = KIO::del(filesToDelete);
+        connect(job, SIGNAL(result(KJob *)), this, SLOT(slotKIOJobCompleted(KJob *)));
     }
 
-    if(!filenamesToRemove.isEmpty()) {
-        if ( method == MoveToTrash || method == DeleteFromDisk )
-            DB::ImageDB::instance()->deleteList( filenamesToRemove );
+    if (!filenamesToRemove.isEmpty()) {
+        if (method == MoveToTrash || method == DeleteFromDisk)
+            DB::ImageDB::instance()->deleteList(filenamesToRemove);
         else
-            DB::ImageDB::instance()->addToBlockList( filenamesToRemove );
+            DB::ImageDB::instance()->addToBlockList(filenamesToRemove);
         MainWindow::DirtyIndicator::markDirty();
         return true;
-    }
-    else
+    } else
         return false;
 }
-
 
 } // namespace Utilities
 // vi:expandtab:tabstop=4 shiftwidth=4:

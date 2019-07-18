@@ -27,8 +27,8 @@
 
 namespace Utilities
 {
-QString createInfoText( DB::ImageInfoPtr info, QMap<int, QPair<QString,QString> >* );
-QString formatAge(DB::CategoryPtr category,const QString& item, DB::ImageInfoPtr info);
+QString createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString, QString>> *);
+QString formatAge(DB::CategoryPtr category, const QString &item, DB::ImageInfoPtr info);
 }
 
 #endif /* TEXTUTIL_H */

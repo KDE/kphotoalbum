@@ -35,26 +35,27 @@
 
 // Local includes
 #include "BirthdayPage.h"
-#include "DB/ImageDB.h"
-#include "DB/CategoryCollection.h"
 #include "DB/Category.h"
-#include "MainWindow/DirtyIndicator.h"
+#include "DB/CategoryCollection.h"
+#include "DB/ImageDB.h"
 #include "DateTableWidgetItem.h"
+#include "MainWindow/DirtyIndicator.h"
 
-Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
+Settings::BirthdayPage::BirthdayPage(QWidget *parent)
+    : QWidget(parent)
 {
-    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
-    QHBoxLayout* dataLayout = new QHBoxLayout;
+    QHBoxLayout *dataLayout = new QHBoxLayout;
     mainLayout->addLayout(dataLayout);
 
-    QVBoxLayout* itemsLayout = new QVBoxLayout;
+    QVBoxLayout *itemsLayout = new QVBoxLayout;
     dataLayout->addLayout(itemsLayout);
 
-    QHBoxLayout* itemsHeaderLayout = new QHBoxLayout;
+    QHBoxLayout *itemsHeaderLayout = new QHBoxLayout;
     itemsLayout->addLayout(itemsHeaderLayout);
 
-    QLabel* categoryText = new QLabel(i18n("Category:"));
+    QLabel *categoryText = new QLabel(i18n("Category:"));
     itemsHeaderLayout->addWidget(categoryText);
 
     m_categoryBox = new QComboBox;
@@ -70,9 +71,7 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
     if (QLocale().dateFormat(QLocale::ShortFormat).contains(QString::fromUtf8("yyyy"))) {
         m_dateFormats << QLocale().dateFormat(QLocale::ShortFormat);
     } else {
-        m_dateFormats << QLocale().dateFormat(QLocale::ShortFormat).replace(
-            QString::fromUtf8("yy"),
-            QString::fromUtf8("yyyy"));
+        m_dateFormats << QLocale().dateFormat(QLocale::ShortFormat).replace(QString::fromUtf8("yy"), QString::fromUtf8("yyyy"));
     }
     m_dateFormats << QLocale().dateFormat(QLocale::ShortFormat)
                   << QLocale().dateFormat(QLocale::LongFormat);
@@ -84,7 +83,7 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
     itemsLayout->addWidget(m_dataView);
     connect(m_dataView, &QTableWidget::cellClicked, this, &BirthdayPage::editDate);
 
-    QVBoxLayout* calendarLayout = new QVBoxLayout;
+    QVBoxLayout *calendarLayout = new QVBoxLayout;
     dataLayout->addLayout(calendarLayout);
 
     calendarLayout->addStretch();
@@ -107,7 +106,7 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
 
     calendarLayout->addStretch();
 
-    QLabel* info = new QLabel(i18n("Set the date of birth for items (say people) here, "
+    QLabel *info = new QLabel(i18n("Set the date of birth for items (say people) here, "
                                    "and then see their age when viewing the images."));
     mainLayout->addWidget(info);
 
@@ -117,7 +116,7 @@ Settings::BirthdayPage::BirthdayPage(QWidget* parent) : QWidget(parent)
     disableCalendar();
 }
 
-void Settings::BirthdayPage::pageChange(KPageWidgetItem* page)
+void Settings::BirthdayPage::pageChange(KPageWidgetItem *page)
 {
     if (page->widget() == this) {
         m_lastItem = nullptr;
@@ -138,7 +137,7 @@ void Settings::BirthdayPage::reload()
     int defaultIndex = 0;
     int index = 0;
 
-    for (const DB::CategoryPtr& category: DB::ImageDB::instance()->categoryCollection()->categories()) {
+    for (const DB::CategoryPtr &category : DB::ImageDB::instance()->categoryCollection()->categories()) {
         if (category->isSpecialCategory()) {
             continue;
         }
@@ -174,14 +173,14 @@ void Settings::BirthdayPage::changeCategory(int index)
     m_dataView->setRowCount(items.count());
     int row = 0;
 
-    for (const QString& text : items) {
-        if (! m_filter->text().isEmpty()
+    for (const QString &text : items) {
+        if (!m_filter->text().isEmpty()
             && text.indexOf(m_filter->text(), 0, Qt::CaseInsensitive) == -1) {
             m_dataView->setRowCount(m_dataView->rowCount() - 1);
             continue;
         }
 
-        QTableWidgetItem* nameItem = new QTableWidgetItem(text);
+        QTableWidgetItem *nameItem = new QTableWidgetItem(text);
         nameItem->setFlags(nameItem->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
         m_dataView->setItem(row, 0, nameItem);
 
@@ -196,7 +195,7 @@ void Settings::BirthdayPage::changeCategory(int index)
             dateForItem = category->birthDate(text);
         }
 
-        DateTableWidgetItem* dateItem = new DateTableWidgetItem(textForDate(dateForItem));
+        DateTableWidgetItem *dateItem = new DateTableWidgetItem(textForDate(dateForItem));
         dateItem->setData(Qt::UserRole, dateForItem);
         dateItem->setFlags(dateItem->flags() & ~Qt::ItemIsEditable & ~Qt::ItemIsSelectable);
         m_dataView->setItem(row, 1, dateItem);
@@ -210,7 +209,7 @@ void Settings::BirthdayPage::changeCategory(int index)
     disableCalendar();
 }
 
-QString Settings::BirthdayPage::textForDate(const QDate& date) const
+QString Settings::BirthdayPage::textForDate(const QDate &date) const
 {
     if (date.isNull()) {
         return m_noDateString;
@@ -241,7 +240,7 @@ void Settings::BirthdayPage::editDate(int row, int)
         m_calendar->setSelectedDate(m_dataView->item(row, 1)->data(Qt::UserRole).toDate());
     } else {
         m_dateInput->setText(QString());
-        m_dateInput->setPlaceholderText( i18n("Enter a date..."));
+        m_dateInput->setPlaceholderText(i18n("Enter a date..."));
         m_calendar->setSelectedDate(QDate::currentDate());
     }
 
@@ -279,10 +278,10 @@ void Settings::BirthdayPage::checkDate()
     }
 }
 
-void Settings::BirthdayPage::setDate(const QDate& date)
+void Settings::BirthdayPage::setDate(const QDate &date)
 {
     const QString currentCategory = m_categoryBox->currentText();
-    if (! m_changedData.contains(currentCategory)) {
+    if (!m_changedData.contains(currentCategory)) {
         m_changedData[currentCategory] = QMap<QString, QDate>();
     }
 
@@ -313,8 +312,7 @@ void Settings::BirthdayPage::saveSettings()
     QMapIterator<QString, QMap<QString, QDate>> changedCategory(m_changedData);
     while (changedCategory.hasNext()) {
         changedCategory.next();
-        DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()
-                                                          ->categoryForName(changedCategory.key());
+        DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(changedCategory.key());
 
         QMapIterator<QString, QDate> changedItem(changedCategory.value());
         while (changedItem.hasNext()) {

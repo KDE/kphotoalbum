@@ -29,7 +29,8 @@
 class QLabel;
 class QPaintEvent;
 
-namespace AnnotationDialog {
+namespace AnnotationDialog
+{
 
 class Dialog;
 class ListSelect;
@@ -44,17 +45,17 @@ class AreaTagSelectDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit AreaTagSelectDialog(ResizableFrame* area,
-                                 ListSelect* ls,
+    explicit AreaTagSelectDialog(ResizableFrame *area,
+                                 ListSelect *ls,
                                  QPixmap areaImage,
                                  Dialog *dialog);
     void moveToArea(QPoint areaTopLeft);
 
 protected:
-    void paintEvent(QPaintEvent*) override;
+    void paintEvent(QPaintEvent *) override;
 
 private slots:
-    void slotSetTag(const QString& tag);
+    void slotSetTag(const QString &tag);
     void slotValidateTag(const QString &tag);
     void slotFinished();
 

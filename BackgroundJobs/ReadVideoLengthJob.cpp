@@ -18,19 +18,20 @@
 
 #include "ReadVideoLengthJob.h"
 #include "ImageManager/VideoLengthExtractor.h"
-#include <DB/ImageDB.h>
-#include <MainWindow/DirtyIndicator.h>
-#include <KLocalizedString>
 #include <BackgroundTaskManager/JobInfo.h>
+#include <DB/ImageDB.h>
+#include <KLocalizedString>
+#include <MainWindow/DirtyIndicator.h>
 
-BackgroundJobs::ReadVideoLengthJob::ReadVideoLengthJob(const DB::FileName &fileName,BackgroundTaskManager::Priority priority)
-    : JobInterface(priority), m_fileName(fileName)
+BackgroundJobs::ReadVideoLengthJob::ReadVideoLengthJob(const DB::FileName &fileName, BackgroundTaskManager::Priority priority)
+    : JobInterface(priority)
+    , m_fileName(fileName)
 {
 }
 
 void BackgroundJobs::ReadVideoLengthJob::execute()
 {
-    ImageManager::VideoLengthExtractor* extractor = new ImageManager::VideoLengthExtractor(this);
+    ImageManager::VideoLengthExtractor *extractor = new ImageManager::VideoLengthExtractor(this);
     extractor->extract(m_fileName);
     connect(extractor, SIGNAL(lengthFound(int)), this, SLOT(lengthFound(int)));
     connect(extractor, SIGNAL(unableToDetermineLength()), this, SLOT(unableToDetermineLength()));

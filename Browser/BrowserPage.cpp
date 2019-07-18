@@ -18,8 +18,9 @@
 
 #include "BrowserPage.h"
 
-Browser::BrowserPage::BrowserPage( const DB::ImageSearchInfo& info, BrowserWidget* browser )
-    : m_info(info), m_browser(browser)
+Browser::BrowserPage::BrowserPage(const DB::ImageSearchInfo &info, BrowserWidget *browser)
+    : m_info(info)
+    , m_browser(browser)
 {
 }
 
@@ -34,7 +35,7 @@ void Browser::BrowserPage::deactivate()
  * \return the associated \ref BrowserWidget. This instance is needed when
  * the action is creating new actions for a child aciton.
  */
-Browser::BrowserWidget* Browser::BrowserPage::browser() const
+Browser::BrowserWidget *Browser::BrowserPage::browser() const
 {
     return m_browser;
 }
@@ -44,7 +45,7 @@ Browser::BrowserWidget* Browser::BrowserPage::browser() const
  * activation doesn't result in a new page, simply return nullptr (This is for
  * example the case if a search is executed, but canceled).
  */
-Browser::BrowserPage* Browser::BrowserPage::activateChild( const QModelIndex &)
+Browser::BrowserPage *Browser::BrowserPage::activateChild(const QModelIndex &)
 {
     return nullptr;
 }

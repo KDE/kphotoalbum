@@ -60,7 +60,7 @@ public:
     /**
      * This adds an item to the map
      */
-    void addImage(const DB::ImageInfo& image);
+    void addImage(const DB::ImageInfo &image);
     void addImage(const DB::ImageInfoPtr image);
     /**
      * This clears the map
@@ -70,22 +70,22 @@ public:
     // ------------------------------ ModelHelper API
     bool itemCoordinates(const QModelIndex &index,
                          KGeoMap::GeoCoordinates *const coordinates) const override;
-    QAbstractItemModel* model() const override;
-    QItemSelectionModel* selectionModel() const override;
+    QAbstractItemModel *model() const override;
+    QItemSelectionModel *selectionModel() const override;
     KGeoMap::ModelHelper::Flags modelFlags() const override;
-    KGeoMap::ModelHelper::Flags itemFlags(const QModelIndex& index) const override;
-    bool itemIcon(const QModelIndex& index,
-                  QPoint* const offset,
-                  QSize* const size,
-                  QPixmap* const pixmap,
-                  QUrl* const url) const override;
+    KGeoMap::ModelHelper::Flags itemFlags(const QModelIndex &index) const override;
+    bool itemIcon(const QModelIndex &index,
+                  QPoint *const offset,
+                  QSize *const size,
+                  QPixmap *const pixmap,
+                  QUrl *const url) const override;
 
 private: // Variables
-    QStandardItemModel* m_itemModel;
-    QItemSelectionModel* m_itemSelectionModel;
+    QStandardItemModel *m_itemModel;
+    QItemSelectionModel *m_itemSelectionModel;
 
 private slots:
-    void slotDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
+    void slotDataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);
 };
 
 }

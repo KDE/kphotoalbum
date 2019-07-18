@@ -37,9 +37,20 @@ class QResizeEvent;
 class QStackedWidget;
 class QWheelEvent;
 
-namespace DB { class ImageInfo; class Id; }
-namespace MainWindow { class ExternalPopup; class CategoryImagePopup; }
-namespace Exif { class InfoDialog; }
+namespace DB
+{
+class ImageInfo;
+class Id;
+}
+namespace MainWindow
+{
+class ExternalPopup;
+class CategoryImagePopup;
+}
+namespace Exif
+{
+class InfoDialog;
+}
 namespace Viewer
 {
 class AbstractDisplay;
@@ -50,22 +61,23 @@ class TextDisplay;
 class VideoDisplay;
 class VideoShooter;
 
-class ViewerWidget :public QStackedWidget
+class ViewerWidget : public QStackedWidget
 {
     Q_OBJECT
 public:
-    enum UsageType { InlineViewer, ViewerWindow };
+    enum UsageType { InlineViewer,
+                     ViewerWindow };
 
-    ViewerWidget( UsageType type = ViewerWindow,
-                  QMap<Qt::Key, QPair<QString,QString> > *macroStore = nullptr);
+    ViewerWidget(UsageType type = ViewerWindow,
+                 QMap<Qt::Key, QPair<QString, QString>> *macroStore = nullptr);
     ~ViewerWidget() override;
-    static ViewerWidget* latest();
-    void load( const DB::FileNameList& list, int index = 0 );
+    static ViewerWidget *latest();
+    void load(const DB::FileNameList &list, int index = 0);
     void infoBoxMove();
     bool showingFullScreen() const;
-    void setShowFullScreen( bool on );
-    void show( bool slideShow );
-    KActionCollection* actions();
+    void setShowFullScreen(bool on);
+    void show(bool slideShow);
+    KActionCollection *actions();
 
     /**
      * @brief setTaggedAreasFromImage
@@ -79,27 +91,28 @@ public:
     void addAdditionalTaggedAreas(QMap<QString, QMap<QString, QRect>> taggedAreas);
 
 public slots:
-    bool close(bool alsoDelete = false );
+    bool close(bool alsoDelete = false);
     void updateInfoBox();
     void test();
-    void moveInfoBox( int );
+    void moveInfoBox(int);
     void stopPlayback();
     void remapAreas(QSize viewSize, QRect zoomWindow, double sizeRatio);
     void copyTo();
 
 signals:
-    void soughtTo( const DB::FileName& id );
-    void imageRotated(const DB::FileName& id);
+    void soughtTo(const DB::FileName &id);
+    void imageRotated(const DB::FileName &id);
 
 protected:
-    void contextMenuEvent ( QContextMenuEvent * e ) override;
-    void resizeEvent( QResizeEvent* ) override;
-    void keyPressEvent( QKeyEvent* ) override;
-    void wheelEvent( QWheelEvent* event ) override;
+    void contextMenuEvent(QContextMenuEvent *e) override;
+    void resizeEvent(QResizeEvent *) override;
+    void keyPressEvent(QKeyEvent *) override;
+    void wheelEvent(QWheelEvent *event) override;
 
     void moveInfoBox();
 
-    enum class AreaType { Standard, Highlighted };
+    enum class AreaType { Standard,
+                          Highlighted };
     /**
      * @brief addTaggedAreas adds tagged areas to the viewer.
      * @param taggedAreas Map(category -> Map(tagname, area))
@@ -117,20 +130,20 @@ protected:
     void createVideoMenu();
     void createCategoryImageMenu();
     void createFilterMenu();
-    void changeSlideShowInterval( int delta );
+    void changeSlideShowInterval(int delta);
     void createVideoViewer();
-    void inhibitScreenSaver( bool inhibit );
+    void inhibitScreenSaver(bool inhibit);
     DB::ImageInfoPtr currentInfo() const;
     friend class InfoBox;
 
 private:
     void showNextN(int);
     void showPrevN(int);
-    int  find_tag_in_list(const QStringList &list, QString &namefound);
+    int find_tag_in_list(const QStringList &list, QString &namefound);
     void invalidateThumbnail() const;
-    enum RemoveAction { RemoveImageFromDatabase, OnlyRemoveFromViewer };
-    void removeOrDeleteCurrent( RemoveAction );
-
+    enum RemoveAction { RemoveImageFromDatabase,
+                        OnlyRemoveFromViewer };
+    void removeOrDeleteCurrent(RemoveAction);
 
 protected slots:
     void showNext();
@@ -174,71 +187,72 @@ protected slots:
     void makeThumbnailImage();
 
     /** Set the current window title (filename) and add the given detail */
-    void setCaptionWithDetail( const QString& detail );
+    void setCaptionWithDetail(const QString &detail);
 
 private:
-    static ViewerWidget* s_latest;
+    static ViewerWidget *s_latest;
     friend class VideoShooter;
 
     QList<QAction *> m_forwardActions;
     QList<QAction *> m_backwardActions;
 
-    QAction * m_startStopSlideShow;
-    QAction * m_slideShowRunFaster;
-    QAction * m_slideShowRunSlower;
-    QAction * m_setStackHead;
-    QAction * m_filterNone;
-    QAction * m_filterSelected;
-    QAction * m_filterBW;
-    QAction * m_filterContrastStretch;
-    QAction * m_filterHistogramEqualization;
-    QAction * m_filterMono;
+    QAction *m_startStopSlideShow;
+    QAction *m_slideShowRunFaster;
+    QAction *m_slideShowRunSlower;
+    QAction *m_setStackHead;
+    QAction *m_filterNone;
+    QAction *m_filterSelected;
+    QAction *m_filterBW;
+    QAction *m_filterContrastStretch;
+    QAction *m_filterHistogramEqualization;
+    QAction *m_filterMono;
 
-    AbstractDisplay* m_display;
-    ImageDisplay* m_imageDisplay;
-    VideoDisplay* m_videoDisplay;
-    TextDisplay* m_textDisplay;
+    AbstractDisplay *m_display;
+    ImageDisplay *m_imageDisplay;
+    VideoDisplay *m_videoDisplay;
+    TextDisplay *m_textDisplay;
 
     int m_screenSaverCookie;
     DB::FileNameList m_list;
     DB::FileNameList m_removed;
     int m_current;
     QRect m_textRect;
-    QMenu* m_popup;
-    QMenu* m_rotateMenu;
-    QMenu* m_filterMenu;
-    MainWindow::ExternalPopup* m_externalPopup;
-    MainWindow::CategoryImagePopup* m_categoryImagePopup;
+    QMenu *m_popup;
+    QMenu *m_rotateMenu;
+    QMenu *m_filterMenu;
+    MainWindow::ExternalPopup *m_externalPopup;
+    MainWindow::CategoryImagePopup *m_categoryImagePopup;
     int m_width;
     int m_height;
     QPixmap m_pixmap;
 
-    QAction * m_delete;
-    QAction * m_showExifViewer;
+    QAction *m_delete;
+    QAction *m_showExifViewer;
     QPointer<Exif::InfoDialog> m_exifViewer;
 
-    QAction * m_copyTo;
+    QAction *m_copyTo;
 
-    InfoBox* m_infoBox;
+    InfoBox *m_infoBox;
     QImage m_currentImage;
 
     bool m_showingFullScreen;
 
     int m_slideShowPause;
-    SpeedDisplay* m_speedDisplay;
-    KActionCollection* m_actions;
+    SpeedDisplay *m_speedDisplay;
+    KActionCollection *m_actions;
     bool m_forward;
-    QTimer* m_slideShowTimer;
+    QTimer *m_slideShowTimer;
     bool m_isRunningSlideShow;
 
-    QList<QAction*> m_videoActions;
-    QAction * m_stop;
-    QAction * m_playPause;
-    QAction * m_makeThumbnailImage;
+    QList<QAction *> m_videoActions;
+    QAction *m_stop;
+    QAction *m_playPause;
+    QAction *m_makeThumbnailImage;
     bool m_videoPlayerStoppedManually;
     UsageType m_type;
 
-    enum InputMode { InACategory, AlwaysStartWithCategory };
+    enum InputMode { InACategory,
+                     AlwaysStartWithCategory };
 
     InputMode m_currentInputMode;
     QString m_currentInput;
@@ -247,8 +261,8 @@ private:
 
     QString m_lastFound;
     QString m_lastCategory;
-    QMap<Qt::Key, QPair<QString,QString> >* m_inputMacros;
-    QMap<Qt::Key, QPair<QString,QString> >* m_myInputMacros;
+    QMap<Qt::Key, QPair<QString, QString>> *m_inputMacros;
+    QMap<Qt::Key, QPair<QString, QString>> *m_myInputMacros;
 
     QString m_lastCopyToTarget;
 };

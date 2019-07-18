@@ -20,7 +20,8 @@
 
 static bool _useCompress;
 
-void setUseCompressedFileFormat(bool b){
+void setUseCompressedFileFormat(bool b)
+{
     _useCompress = b;
 }
 

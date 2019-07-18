@@ -24,11 +24,11 @@
 namespace DB
 {
 
-class OrCategoryMatcher :public ContainerCategoryMatcher
+class OrCategoryMatcher : public ContainerCategoryMatcher
 {
 public:
-    bool eval(ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched) override;
-    void debug( int level ) const override;
+    bool eval(ImageInfoPtr, QMap<QString, StringSet> &alreadyMatched) override;
+    void debug(int level) const override;
 };
 
 }

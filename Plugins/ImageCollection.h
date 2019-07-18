@@ -28,12 +28,14 @@
 namespace Plugins
 {
 
-class ImageCollection :public KIPI::ImageCollectionShared
+class ImageCollection : public KIPI::ImageCollectionShared
 {
 public:
-    enum Type { CurrentAlbum, CurrentSelection, SubClass };
+    enum Type { CurrentAlbum,
+                CurrentSelection,
+                SubClass };
 
-    explicit ImageCollection( Type tp );
+    explicit ImageCollection(Type tp);
 
     QString name() override;
     QList<QUrl> images() override;
@@ -47,8 +49,8 @@ public:
     // isDirectory
 
 protected:
-    QList<QUrl> imageListToUrlList( const DB::ImageInfoList& list );
-    QList<QUrl> stringListToUrlList( const QStringList& list );
+    QList<QUrl> imageListToUrlList(const DB::ImageInfoList &list);
+    QList<QUrl> stringListToUrlList(const QStringList &list);
     QUrl commonRoot();
 
 private:

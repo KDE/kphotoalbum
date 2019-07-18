@@ -19,9 +19,9 @@
 #ifndef FILEINFO_H
 #define FILEINFO_H
 
-#include <qstring.h>
-#include <qdatetime.h>
 #include "Exif/Info.h"
+#include <qdatetime.h>
+#include <qstring.h>
 
 #include "ExifMode.h"
 
@@ -32,27 +32,27 @@ class FileName;
 class FileInfo
 {
 public:
-    static FileInfo read( const DB::FileName& fileName, DB::ExifMode mode );
+    static FileInfo read(const DB::FileName &fileName, DB::ExifMode mode);
     QDateTime dateTime() { return m_date; }
     int angle() { return m_angle; }
-    QString description() {return m_description; }
-    Exiv2::ExifData& getExifData();
-    const DB::FileName& getFileName() const;
+    QString description() { return m_description; }
+    Exiv2::ExifData &getExifData();
+    const DB::FileName &getFileName() const;
 
 protected:
-    void parseEXIV2( const DB::FileName& fileName );
-    QDateTime fetchEXIV2Date( Exiv2::ExifData& map, const char* key );
+    void parseEXIV2(const DB::FileName &fileName);
+    QDateTime fetchEXIV2Date(Exiv2::ExifData &map, const char *key);
 
-    int orientationToAngle( int orientation );
+    int orientationToAngle(int orientation);
 
 private:
-    FileInfo( const DB::FileName& fileName, DB::ExifMode mode );
-    bool updateDataFromFileTimeStamp( const DB::FileName& fileName, DB::ExifMode mode);
+    FileInfo(const DB::FileName &fileName, DB::ExifMode mode);
+    bool updateDataFromFileTimeStamp(const DB::FileName &fileName, DB::ExifMode mode);
     QDateTime m_date;
     int m_angle;
     QString m_description;
     Exiv2::ExifData m_exifMap;
-    const DB::FileName& m_fileName;
+    const DB::FileName &m_fileName;
 };
 
 }

@@ -23,14 +23,13 @@
 
 namespace Utilities
 {
-QString stripEndingForwardSlash( const QString& fileName );
+QString stripEndingForwardSlash(const QString &fileName);
 
-QString absoluteImageFileName( const QString& relativeName );
-QString imageFileNameToAbsolute( const QString& fileName );
+QString absoluteImageFileName(const QString &relativeName);
+QString imageFileNameToAbsolute(const QString &fileName);
 
-QString relativeFolderName( const QString& fileName);
+QString relativeFolderName(const QString &fileName);
 }
-
 
 #endif /* FILENAME_UTIL_H */
 

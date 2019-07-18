@@ -17,18 +17,21 @@
 */
 #ifndef EXIF_INFO_H
 #define EXIF_INFO_H
-#include <qmap.h>
-#include <qstringlist.h>
 #include "Utilities/StringSet.h"
 #include <exiv2/exif.hpp>
 #include <exiv2/iptc.hpp>
+#include <qmap.h>
+#include <qstringlist.h>
 
-namespace DB { class FileName; }
+namespace DB
+{
+class FileName;
+}
 
-namespace Exif {
+namespace Exif
+{
 
 using Utilities::StringSet;
-
 
 struct Metadata {
     Exiv2::ExifData exif;
@@ -36,23 +39,24 @@ struct Metadata {
     std::string comment;
 };
 
-class Info {
+class Info
+{
 public:
     Info();
-    static Info* instance();
-    QMap<QString, QStringList> info( const DB::FileName& fileName, StringSet wantedKeys, bool returnFullExifName, const QString& charset );
-    QMap<QString, QStringList> infoForViewer( const DB::FileName& fileName, const QString& charset );
-    QMap<QString, QStringList> infoForDialog( const DB::FileName& fileName, const QString& charset );
+    static Info *instance();
+    QMap<QString, QStringList> info(const DB::FileName &fileName, StringSet wantedKeys, bool returnFullExifName, const QString &charset);
+    QMap<QString, QStringList> infoForViewer(const DB::FileName &fileName, const QString &charset);
+    QMap<QString, QStringList> infoForDialog(const DB::FileName &fileName, const QString &charset);
     StringSet availableKeys();
     StringSet standardKeys();
-    void writeInfoToFile( const DB::FileName& srcName, const QString& destName );
-    Metadata metadata( const DB::FileName& fileName );
+    void writeInfoToFile(const DB::FileName &srcName, const QString &destName);
+    Metadata metadata(const DB::FileName &fileName);
 
 protected:
-    DB::FileName exifInfoFile( const DB::FileName& fileName );
+    DB::FileName exifInfoFile(const DB::FileName &fileName);
 
 private:
-    static Info* s_instance;
+    static Info *s_instance;
     StringSet m_keys;
 };
 

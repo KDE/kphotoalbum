@@ -18,9 +18,9 @@
 #ifndef EXIFSEARCHDIALOG_H
 #define EXIFSEARCHDIALOG_H
 
-#include "Exif/SearchInfo.h"
-#include "Exif/SearchDialogSettings.h"
 #include "Exif/RangeWidget.h"
+#include "Exif/SearchDialogSettings.h"
+#include "Exif/SearchInfo.h"
 #include <KPageDialog>
 
 class QSpinBox;
@@ -29,35 +29,36 @@ class QGridLayout;
 namespace Exif
 {
 
-class SearchDialog : public KPageDialog {
+class SearchDialog : public KPageDialog
+{
     Q_OBJECT
 
 public:
-    explicit SearchDialog( QWidget* parent );
+    explicit SearchDialog(QWidget *parent);
     Exif::SearchInfo info();
 
 protected:
-    void makeISO( QGridLayout* layout );
-    QWidget* makeExposureProgram( QWidget* parent );
-    QWidget* makeOrientation( QWidget* parent );
-    QWidget* makeMeteringMode( QWidget* parent );
-    QWidget* makeContrast( QWidget* parent );
-    QWidget* makeSharpness( QWidget* parent );
-    QWidget* makeSaturation( QWidget* parent );
-    void makeExposureTime( QGridLayout* layout );
-    RangeWidget* makeApertureOrFNumber( const QString& text, const QString& key, QGridLayout* layout, int row );
-    QWidget* makeCamera();
-    QWidget* makeLens();
+    void makeISO(QGridLayout *layout);
+    QWidget *makeExposureProgram(QWidget *parent);
+    QWidget *makeOrientation(QWidget *parent);
+    QWidget *makeMeteringMode(QWidget *parent);
+    QWidget *makeContrast(QWidget *parent);
+    QWidget *makeSharpness(QWidget *parent);
+    QWidget *makeSaturation(QWidget *parent);
+    void makeExposureTime(QGridLayout *layout);
+    RangeWidget *makeApertureOrFNumber(const QString &text, const QString &key, QGridLayout *layout, int row);
+    QWidget *makeCamera();
+    QWidget *makeLens();
 
 protected slots:
-    void fromFocalLengthChanged( int );
-    void toFocalLengthChanged( int );
+    void fromFocalLengthChanged(int);
+    void toFocalLengthChanged(int);
 
 private:
-    Exif::RangeWidget* m_iso;
-    Exif::RangeWidget* m_exposureTime;
-    Exif::RangeWidget* m_apertureValue;
-    Exif::RangeWidget* m_fNumber;
+    Exif::RangeWidget *m_iso;
+    Exif::RangeWidget *m_exposureTime;
+    Exif::RangeWidget *m_apertureValue;
+    Exif::RangeWidget *m_fNumber;
     Settings<int> m_exposureProgram;
     Settings<int> m_orientation;
     Settings<int> m_meteringMode;
@@ -66,10 +67,9 @@ private:
     Settings<int> m_saturation;
     Settings<Database::Camera> m_cameras;
     Settings<Database::Lens> m_lenses;
-    QSpinBox* m_fromFocalLength;
-    QSpinBox* m_toFocalLength;
+    QSpinBox *m_fromFocalLength;
+    QSpinBox *m_toFocalLength;
 };
-
 }
 
 #endif /* EXIFSEARCHDIALOG_H */

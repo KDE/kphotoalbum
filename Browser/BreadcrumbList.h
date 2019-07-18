@@ -18,8 +18,8 @@
 
 #ifndef BREADCRUMBLIST_H
 #define BREADCRUMBLIST_H
-#include <QList>
 #include "Breadcrumb.h"
+#include <QList>
 
 namespace Browser
 {
@@ -29,7 +29,7 @@ namespace Browser
  *
  * See \ref Browser for a detailed description of how this fits in with the rest of the classes in this module
  */
-class BreadcrumbList :public QList<Breadcrumb>
+class BreadcrumbList : public QList<Breadcrumb>
 {
 public:
     BreadcrumbList latest() const;

@@ -18,8 +18,8 @@
 
 #include "RemoteInterface.h"
 
-#include <tuple>
 #include <algorithm>
+#include <tuple>
 
 #include <QBuffer>
 #include <QDataStream>
@@ -27,8 +27,8 @@
 #include <QPainter>
 #include <QTcpSocket>
 
-#include <kiconloader.h>
 #include <KLocalizedString>
+#include <kiconloader.h>
 
 #include "Browser/FlatCategoryModel.h"
 #include "DB/Category.h"
@@ -49,14 +49,15 @@
 
 using namespace RemoteControl;
 
-RemoteInterface& RemoteInterface::instance()
+RemoteInterface &RemoteInterface::instance()
 {
     static RemoteInterface instance;
     return instance;
 }
 
-RemoteInterface::RemoteInterface(QObject *parent) :
-    QObject(parent), m_connection(new Server(this))
+RemoteInterface::RemoteInterface(QObject *parent)
+    : QObject(parent)
+    , m_connection(new Server(this))
 {
     connect(m_connection, SIGNAL(gotCommand(RemoteCommand)), this, SLOT(handleCommand(RemoteCommand)));
     connect(m_connection, SIGNAL(connected()), this, SIGNAL(connected()));
@@ -64,7 +65,7 @@ RemoteInterface::RemoteInterface(QObject *parent) :
     connect(m_connection, SIGNAL(stoppedListening()), this, SIGNAL(stoppedListening()));
 }
 
-DB::ImageSearchInfo RemoteInterface::convert(const SearchInfo& searchInfo) const
+DB::ImageSearchInfo RemoteInterface::convert(const SearchInfo &searchInfo) const
 {
     DB::ImageSearchInfo dbSearchInfo;
     QString category;
@@ -76,13 +77,13 @@ DB::ImageSearchInfo RemoteInterface::convert(const SearchInfo& searchInfo) const
     return dbSearchInfo;
 }
 
-void RemoteInterface::pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image)
+void RemoteInterface::pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image)
 {
     m_connection->sendCommand(ThumbnailResult(m_imageNameStore[request->databaseFileName()], QString(),
-                              image, static_cast<RemoteImageRequest*>(request)->type()));
+                                              image, static_cast<RemoteImageRequest *>(request)->type()));
 }
 
-bool RemoteInterface::requestStillNeeded(const DB::FileName& fileName)
+bool RemoteInterface::requestStillNeeded(const DB::FileName &fileName)
 {
     return m_activeReuqest.contains(fileName);
 }
@@ -98,58 +99,56 @@ void RemoteInterface::stopListening()
     m_connection->stopListening();
 }
 
-void RemoteInterface::connectTo(const QHostAddress& address)
+void RemoteInterface::connectTo(const QHostAddress &address)
 {
     m_connection->connectToTcpServer(address);
 }
 
-void RemoteInterface::handleCommand(const RemoteCommand& command)
+void RemoteInterface::handleCommand(const RemoteCommand &command)
 {
     if (command.commandType() == CommandType::SearchRequest) {
-        const SearchRequest& searchCommand = static_cast<const SearchRequest&>(command);
+        const SearchRequest &searchCommand = static_cast<const SearchRequest &>(command);
         if (searchCommand.type == SearchType::Categories)
             sendCategoryNames(searchCommand);
         else if (searchCommand.type == SearchType::CategoryItems)
             sendCategoryValues(searchCommand);
         else
             sendImageSearchResult(searchCommand.searchInfo);
-    }
-    else if (command.commandType() == CommandType::ThumbnailRequest)
-        requestThumbnail(static_cast<const ThumbnailRequest&>(command));
+    } else if (command.commandType() == CommandType::ThumbnailRequest)
+        requestThumbnail(static_cast<const ThumbnailRequest &>(command));
     else if (command.commandType() == CommandType::ThumbnailCancelRequest)
-        cancelRequest(static_cast<const ThumbnailCancelRequest&>(command));
+        cancelRequest(static_cast<const ThumbnailCancelRequest &>(command));
     else if (command.commandType() == CommandType::ImageDetailsRequest)
-        sendImageDetails(static_cast<const ImageDetailsRequest&>(command));
+        sendImageDetails(static_cast<const ImageDetailsRequest &>(command));
     else if (command.commandType() == CommandType::StaticImageRequest)
-        sendHomePageImages(static_cast<const StaticImageRequest&>(command));
+        sendHomePageImages(static_cast<const StaticImageRequest &>(command));
     else if (command.commandType() == CommandType::ToggleTokenRequest)
-        setToken(static_cast<const ToggleTokenRequest&>(command));
+        setToken(static_cast<const ToggleTokenRequest &>(command));
 }
 
-
-void RemoteInterface::sendCategoryNames(const SearchRequest& search)
+void RemoteInterface::sendCategoryNames(const SearchRequest &search)
 {
     const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
 
     CategoryListResult command;
-    for (const DB::CategoryPtr& category : DB::ImageDB::instance()->categoryCollection()->categories()) {
+    for (const DB::CategoryPtr &category : DB::ImageDB::instance()->categoryCollection()->categories()) {
         if (category->type() == DB::Category::MediaTypeCategory)
             continue;
-        QMap<QString, DB::CountWithRange> images = DB::ImageDB::instance()->classify( dbSearchInfo, category->name(), DB::Image );
+        QMap<QString, DB::CountWithRange> images = DB::ImageDB::instance()->classify(dbSearchInfo, category->name(), DB::Image);
 
-        QMap<QString, DB::CountWithRange> videos = DB::ImageDB::instance()->classify( dbSearchInfo, category->name(), DB::Video );
+        QMap<QString, DB::CountWithRange> videos = DB::ImageDB::instance()->classify(dbSearchInfo, category->name(), DB::Video);
         const bool enabled = (images.count() /*+ videos.count()*/ > 1);
-        CategoryViewType type =
-                (category->viewType() == DB::Category::IconView || category->viewType() == DB::Category::ThumbedIconView)
-                ? Types::CategoryIconView : Types::CategoryListView;
+        CategoryViewType type = (category->viewType() == DB::Category::IconView || category->viewType() == DB::Category::ThumbedIconView)
+            ? Types::CategoryIconView
+            : Types::CategoryListView;
 
         const QImage icon = category->icon(search.size, enabled ? KIconLoader::DefaultState : KIconLoader::DisabledState).toImage();
-        command.categories.append({category->name(), icon, enabled, type});
+        command.categories.append({ category->name(), icon, enabled, type });
     }
     m_connection->sendCommand(command);
 }
 
-void RemoteInterface::sendCategoryValues(const SearchRequest& search)
+void RemoteInterface::sendCategoryValues(const SearchRequest &search)
 {
     const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
     const QString categoryName = search.searchInfo.currentCategory();
@@ -160,40 +159,38 @@ void RemoteInterface::sendCategoryValues(const SearchRequest& search)
 
     if (category->viewType() == DB::Category::IconView || category->viewType() == DB::Category::ThumbedIconView) {
         QList<int> result;
-        std::transform( model.m_items.begin(), model.m_items.end(), std::back_inserter(result),
-                        [this,categoryName] (const QString itemName) {
-            return m_imageNameStore.idForCategory(categoryName,itemName);
-        });
+        std::transform(model.m_items.begin(), model.m_items.end(), std::back_inserter(result),
+                       [this, categoryName](const QString itemName) {
+                           return m_imageNameStore.idForCategory(categoryName, itemName);
+                       });
         m_connection->sendCommand(SearchResult(SearchType::CategoryItems, result));
-    }
-    else {
+    } else {
         m_connection->sendCommand(CategoryItemsResult(model.m_items));
     }
 }
 
-void RemoteInterface::sendImageSearchResult(const SearchInfo& search)
+void RemoteInterface::sendImageSearchResult(const SearchInfo &search)
 {
     const DB::FileNameList files = DB::ImageDB::instance()->search(convert(search), true /* Require on disk */);
     DB::FileNameList stacksRemoved;
     QList<int> result;
 
     std::remove_copy_if(files.begin(), files.end(), std::back_inserter(stacksRemoved),
-                        [] (const DB::FileName& file) {
-        // Only include unstacked images, and the top of stacked images.
-        // And also exclude videos
-        return DB::ImageDB::instance()->info(file)->stackOrder() > 1 ||
-                DB::ImageDB::instance()->info(file)->isVideo();
-    });
+                        [](const DB::FileName &file) {
+                            // Only include unstacked images, and the top of stacked images.
+                            // And also exclude videos
+                            return DB::ImageDB::instance()->info(file)->stackOrder() > 1 || DB::ImageDB::instance()->info(file)->isVideo();
+                        });
 
     std::transform(stacksRemoved.begin(), stacksRemoved.end(), std::back_inserter(result),
-                   [this](const DB::FileName& fileName) {
-        return m_imageNameStore[fileName];
-    });
+                   [this](const DB::FileName &fileName) {
+                       return m_imageNameStore[fileName];
+                   });
 
     m_connection->sendCommand(SearchResult(SearchType::Images, result));
 }
 
-void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
+void RemoteInterface::requestThumbnail(const ThumbnailRequest &command)
 {
     if (command.type == ViewType::CategoryItems) {
         auto tuple = m_imageNameStore.categoryForId(command.imageId);
@@ -201,10 +198,9 @@ void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
         QString itemName = tuple.second;
 
         const DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(categoryName);
-        QImage image = category->categoryImage( categoryName, itemName, command.size.width(), command.size.height()).toImage();
-        m_connection->sendCommand(ThumbnailResult(command.imageId, itemName, image,ViewType::CategoryItems));
-    }
-    else {
+        QImage image = category->categoryImage(categoryName, itemName, command.size.width(), command.size.height()).toImage();
+        m_connection->sendCommand(ThumbnailResult(command.imageId, itemName, image, ViewType::CategoryItems));
+    } else {
         const DB::FileName fileName = m_imageNameStore[command.imageId];
         const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
         const int angle = info->angle();
@@ -216,19 +212,19 @@ void RemoteInterface::requestThumbnail(const ThumbnailRequest& command)
             // Request for full screen image.
             size = info->size();
         }
-        RemoteImageRequest* request
-                = new RemoteImageRequest(fileName, size, angle, command.type, this);
+        RemoteImageRequest *request
+            = new RemoteImageRequest(fileName, size, angle, command.type, this);
 
         ImageManager::AsyncLoader::instance()->load(request);
     }
 }
 
-void RemoteInterface::cancelRequest(const ThumbnailCancelRequest& command)
+void RemoteInterface::cancelRequest(const ThumbnailCancelRequest &command)
 {
     m_activeReuqest.remove(m_imageNameStore[command.imageId]);
 }
 
-void RemoteInterface::sendImageDetails(const ImageDetailsRequest& command)
+void RemoteInterface::sendImageDetails(const ImageDetailsRequest &command)
 {
     const DB::FileName fileName = m_imageNameStore[command.imageId];
     const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
@@ -237,10 +233,10 @@ void RemoteInterface::sendImageDetails(const ImageDetailsRequest& command)
     result.date = info->date().toString();
     result.description = info->description();
     result.categories.clear();
-    for (const QString& categoryName : info->availableCategories()) {
+    for (const QString &categoryName : info->availableCategories()) {
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(categoryName);
         CategoryItemDetailsList list;
-        for ( const QString& item : info->itemsOfCategory(categoryName) ) {
+        for (const QString &item : info->itemsOfCategory(categoryName)) {
             const QString age = Utilities::formatAge(category, item, info);
             list.append(CategoryItemDetails(item, age));
         }
@@ -250,18 +246,18 @@ void RemoteInterface::sendImageDetails(const ImageDetailsRequest& command)
     m_connection->sendCommand(result);
 }
 
-void RemoteInterface::sendHomePageImages(const StaticImageRequest& command)
+void RemoteInterface::sendHomePageImages(const StaticImageRequest &command)
 {
     const int size = command.size;
 
-    QPixmap homeIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("go-home"), KIconLoader::Desktop, size);
-    QPixmap kphotoalbumIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("kphotoalbum"), KIconLoader::Desktop, size);
-    QPixmap discoverIcon = KIconLoader::global()->loadIcon( QString::fromUtf8("edit-find"), KIconLoader::Desktop, size);
+    QPixmap homeIcon = KIconLoader::global()->loadIcon(QString::fromUtf8("go-home"), KIconLoader::Desktop, size);
+    QPixmap kphotoalbumIcon = KIconLoader::global()->loadIcon(QString::fromUtf8("kphotoalbum"), KIconLoader::Desktop, size);
+    QPixmap discoverIcon = KIconLoader::global()->loadIcon(QString::fromUtf8("edit-find"), KIconLoader::Desktop, size);
 
     m_connection->sendCommand(StaticImageResult(homeIcon.toImage(), kphotoalbumIcon.toImage(), discoverIcon.toImage()));
 }
 
-void RemoteInterface::setToken(const ToggleTokenRequest& command)
+void RemoteInterface::setToken(const ToggleTokenRequest &command)
 {
     const DB::FileName fileName = m_imageNameStore[command.imageId];
     DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);

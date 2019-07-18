@@ -19,8 +19,8 @@
 #ifndef IMAGELOADERTHREAD_H
 #define IMAGELOADERTHREAD_H
 
-#include <qthread.h>
 #include <QImage>
+#include <qthread.h>
 
 namespace ImageManager
 {
@@ -30,21 +30,23 @@ class ThumbnailStorage;
 
 static const int maxJPEGMemorySize = (20 * 1024 * 1024);
 
-class ImageLoaderThread :public QThread {
+class ImageLoaderThread : public QThread
+{
 public:
-    ImageLoaderThread( size_t bufsize = maxJPEGMemorySize );
+    ImageLoaderThread(size_t bufsize = maxJPEGMemorySize);
     ~ImageLoaderThread() override;
+
 protected:
     void run() override;
-    QImage loadImage( ImageRequest* request, bool& ok );
-    static int calcLoadSize( ImageRequest* request );
-    QImage scaleAndRotate( ImageRequest* request, QImage img );
-    bool shouldImageBeScale( const QImage& img, ImageRequest* request );
+    QImage loadImage(ImageRequest *request, bool &ok);
+    static int calcLoadSize(ImageRequest *request);
+    QImage scaleAndRotate(ImageRequest *request, QImage img);
+    bool shouldImageBeScale(const QImage &img, ImageRequest *request);
+
 private:
     char *m_imageLoadBuffer;
     size_t m_bufSize;
 };
-
 }
 
 #endif /* IMAGELOADERTHREAD_H */

@@ -25,15 +25,14 @@ extern "C" {
 #include <unistd.h>
 }
 
-
-bool Utilities::copyOrOverwrite( const QString& from, const QString& to )
+bool Utilities::copyOrOverwrite(const QString &from, const QString &to)
 {
-    if ( QFileInfo(to).exists())
+    if (QFileInfo(to).exists())
         QDir().remove(to);
-    return QFile::copy(from,to);
+    return QFile::copy(from, to);
 }
 
-bool Utilities::makeHardLink( const QString& from, const QString& to )
+bool Utilities::makeHardLink(const QString &from, const QString &to)
 {
     if (link(from.toLocal8Bit().constData(), to.toLocal8Bit().constData()) != 0)
         return false;
@@ -41,7 +40,7 @@ bool Utilities::makeHardLink( const QString& from, const QString& to )
         return true;
 }
 
-bool Utilities::makeSymbolicLink( const QString& from, const QString& to )
+bool Utilities::makeSymbolicLink(const QString &from, const QString &to)
 {
     if (symlink(from.toLocal8Bit().constData(), to.toLocal8Bit().constData()) != 0)
         return false;

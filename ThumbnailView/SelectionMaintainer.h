@@ -22,19 +22,19 @@
 #include "ThumbnailWidget.h"
 #include <DB/FileNameList.h>
 
-namespace ThumbnailView {
+namespace ThumbnailView
+{
 
 class SelectionMaintainer
 {
 public:
-    SelectionMaintainer( ThumbnailWidget* widget, ThumbnailModel* model );
+    SelectionMaintainer(ThumbnailWidget *widget, ThumbnailModel *model);
     ~SelectionMaintainer();
     void disable();
 
-
 private:
-    ThumbnailWidget* m_widget;
-    ThumbnailModel* m_model;
+    ThumbnailWidget *m_widget;
+    ThumbnailModel *m_model;
     DB::FileName m_currentItem;
     int m_currentRow;
     DB::FileNameList m_selectedItems;
@@ -43,7 +43,6 @@ private:
 };
 
 }
-
 
 #endif // SELECTIONMAINTAINER_H
 // vi:expandtab:tabstop=4 shiftwidth=4:

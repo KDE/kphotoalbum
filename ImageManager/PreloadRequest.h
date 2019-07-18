@@ -20,12 +20,13 @@
 #define IMAGEMANAGER_PRELOADREQUEST_H
 #include "ImageRequest.h"
 
-namespace ImageManager {
+namespace ImageManager
+{
 
 class PreloadRequest : public ImageRequest
 {
 public:
-    explicit PreloadRequest( const DB::FileName& fileName, const QSize& size, int angle, ImageClientInterface* client);
+    explicit PreloadRequest(const DB::FileName &fileName, const QSize &size, int angle, ImageClientInterface *client);
     bool stillNeeded() const override;
 };
 

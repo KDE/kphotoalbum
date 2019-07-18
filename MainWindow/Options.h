@@ -19,8 +19,8 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
-#include <QScopedPointer>
 #include <QHostAddress>
+#include <QScopedPointer>
 #include <QUrl>
 class QCommandLineParser;
 
@@ -33,14 +33,14 @@ namespace MainWindow
 class Options
 {
 public:
-    static Options* the();
+    static Options *the();
 
     /**
      * @brief Gives direct access to the QCommandLineParser object.
      * This is for main().
      * @return
      */
-    QCommandLineParser* parser() const;
+    QCommandLineParser *parser() const;
 
     QUrl dbFile() const;
     /**
@@ -64,11 +64,12 @@ public:
      * @return true, if we want to search for images on startup
      */
     bool searchForImagesOnStart() const;
+
 private:
     class OptionsPrivate;
     Options();
 
-    static Options* s_instance;
+    static Options *s_instance;
     const QScopedPointer<OptionsPrivate> d;
 };
 

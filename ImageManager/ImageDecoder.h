@@ -23,25 +23,29 @@
 class QSize;
 class QImage;
 
-namespace DB { class FileName; }
+namespace DB
+{
+class FileName;
+}
 
 namespace ImageManager
 {
 
-class ImageDecoder {
+class ImageDecoder
+{
 public:
-    static bool decode( QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim=-1 );
-    static bool mightDecode( const DB::FileName& imageFile );
+    static bool decode(QImage *img, const DB::FileName &imageFile, QSize *fullSize, int dim = -1);
+    static bool mightDecode(const DB::FileName &imageFile);
 
     virtual ~ImageDecoder();
 
 protected:
     ImageDecoder();
-    virtual bool _decode( QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim=-1 ) = 0;
-    virtual bool _mightDecode( const DB::FileName& imageFile ) = 0;
+    virtual bool _decode(QImage *img, const DB::FileName &imageFile, QSize *fullSize, int dim = -1) = 0;
+    virtual bool _mightDecode(const DB::FileName &imageFile) = 0;
 
 private:
-    static QList<ImageDecoder*>* decoders();
+    static QList<ImageDecoder *> *decoders();
 };
 }
 

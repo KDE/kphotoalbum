@@ -19,57 +19,63 @@
 #ifndef THUMBNAILBUILDER_H
 #define THUMBNAILBUILDER_H
 
-#include <QImage>
-#include "ImageManager/ImageClientInterface.h"
 #include "DB/ImageInfoPtr.h"
+#include "ImageManager/ImageClientInterface.h"
 #include "enums.h"
 #include <DB/FileNameList.h>
-#include <QAtomicInt>
 #include <DB/ImageScout.h>
+#include <QAtomicInt>
+#include <QImage>
 
-namespace MainWindow { class StatusBar; }
-namespace MainWindow { class Window; }
+namespace MainWindow
+{
+class StatusBar;
+}
+namespace MainWindow
+{
+class Window;
+}
 
 class QTimer;
 
 namespace ImageManager
 {
 
-class ThumbnailBuilder :public QObject, public ImageManager::ImageClientInterface {
+class ThumbnailBuilder : public QObject, public ImageManager::ImageClientInterface
+{
     Q_OBJECT
 
 public:
-    static ThumbnailBuilder* instance();
+    static ThumbnailBuilder *instance();
 
     ~ThumbnailBuilder() override;
-    void pixmapLoaded(ImageRequest* request, const QImage& image) override;
+    void pixmapLoaded(ImageRequest *request, const QImage &image) override;
     void requestCanceled() override;
 
 public slots:
-    void buildAll(ThumbnailBuildStart when=ImageManager::StartDelayed );
+    void buildAll(ThumbnailBuildStart when = ImageManager::StartDelayed);
     void buildMissing();
-    void cancelRequests( );
-    void scheduleThumbnailBuild( const DB::FileNameList& list, ThumbnailBuildStart when );
-    void buildOneThumbnail( const DB::ImageInfoPtr& fileName );
+    void cancelRequests();
+    void scheduleThumbnailBuild(const DB::FileNameList &list, ThumbnailBuildStart when);
+    void buildOneThumbnail(const DB::ImageInfoPtr &fileName);
     void doThumbnailBuild();
     void save();
 
 private:
     friend class MainWindow::Window;
-    static ThumbnailBuilder* s_instance;
-    ThumbnailBuilder( MainWindow::StatusBar* statusBar, QObject* parent );
+    static ThumbnailBuilder *s_instance;
+    ThumbnailBuilder(MainWindow::StatusBar *statusBar, QObject *parent);
     void terminateScout();
-    MainWindow::StatusBar* m_statusBar;
+    MainWindow::StatusBar *m_statusBar;
     int m_count;
     int m_expectedThumbnails;
     bool m_isBuilding;
     QAtomicInt m_loadedCount;
     DB::ImageScoutQueue *m_preloadQueue;
     DB::ImageScout *m_scout;
-    QTimer* m_startBuildTimer;
+    QTimer *m_startBuildTimer;
     DB::FileNameList m_thumbnailsToBuild;
 };
-
 }
 
 #endif /* THUMBNAILBUILDER_H */

@@ -31,33 +31,32 @@ namespace Browser
  * centered at the middle of the screen. This class has the capability to
  * do that when \ref setViewMode is called with \ref CenterView as argument.
  */
-class CenteringIconView :public QListView
+class CenteringIconView : public QListView
 {
     Q_OBJECT
 public:
-    enum ViewMode {CenterView, NormalIconView };
+    enum ViewMode { CenterView,
+                    NormalIconView };
 
-    explicit CenteringIconView( QWidget* parent );
-    void setViewMode( ViewMode );
-    void setModel( QAbstractItemModel* ) override;
-    void showEvent( QShowEvent* ) override;
+    explicit CenteringIconView(QWidget *parent);
+    void setViewMode(ViewMode);
+    void setModel(QAbstractItemModel *) override;
+    void showEvent(QShowEvent *) override;
 
 protected:
-    void resizeEvent( QResizeEvent* ) override;
+    void resizeEvent(QResizeEvent *) override;
 
 private:
     void setupMargins();
-    int columnCount( int elementCount ) const;
+    int columnCount(int elementCount) const;
     int availableWidth() const;
     int availableHeight() const;
-
 
 private:
     ViewMode m_viewMode;
 };
 
 }
-
 
 #endif /* CENTERINGICONVIEW_H */
 

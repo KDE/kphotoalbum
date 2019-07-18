@@ -39,7 +39,7 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
                                                            ListSelect *ls,
                                                            QPixmap areaImage,
                                                            Dialog *dialog)
-    :QDialog(area)
+    : QDialog(area)
     , m_area(area)
     , m_listSelect(ls)
     , m_dialog(dialog)
@@ -57,7 +57,7 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
     // span 2 rows:
     mainLayout->addWidget(m_areaImageLabel, 0, 0, 2, 1);
 
-    CompletableLineEdit* tagSelect = new CompletableLineEdit(ls, this);
+    CompletableLineEdit *tagSelect = new CompletableLineEdit(ls, this);
     ls->connectLineEdit(tagSelect);
     tagSelect->setAlignment(Qt::AlignTop);
     mainLayout->addWidget(tagSelect, 0, 1);
@@ -73,18 +73,16 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
 
     connect(tagSelect, &KLineEdit::returnPressed, this, &AreaTagSelectDialog::slotSetTag);
     connect(tagSelect, &QLineEdit::textChanged, this, &AreaTagSelectDialog::slotValidateTag);
-    connect(this, &QDialog::finished,  this, &AreaTagSelectDialog::slotFinished);
+    connect(this, &QDialog::finished, this, &AreaTagSelectDialog::slotFinished);
 }
 
 void AnnotationDialog::AreaTagSelectDialog::slotSetTag(const QString &tag)
 {
     QString enteredText = tag.trimmed();
-    if (m_dialog->positionableTagAvailable(m_listSelect->category(), enteredText))
-    {
+    if (m_dialog->positionableTagAvailable(m_listSelect->category(), enteredText)) {
         const auto currentTagData = m_area->tagData();
         // was there already a tag associated?
-        if( !currentTagData.first.isEmpty())
-        {
+        if (!currentTagData.first.isEmpty()) {
             // Deselect the tag
             m_dialog->listSelectForCategory(currentTagData.first)->deselectTag(currentTagData.second);
             m_area->removeTagData();
@@ -96,7 +94,7 @@ void AnnotationDialog::AreaTagSelectDialog::slotSetTag(const QString &tag)
 
 void AnnotationDialog::AreaTagSelectDialog::slotValidateTag(const QString &tag)
 {
-    if(m_usedTags.contains(tag.trimmed())) {
+    if (m_usedTags.contains(tag.trimmed())) {
         m_messageLabel->show();
         m_messageLabel->setText(i18n("Tag is already used for another area"));
         adjustSize();
@@ -109,10 +107,10 @@ void AnnotationDialog::AreaTagSelectDialog::slotValidateTag(const QString &tag)
 void AnnotationDialog::AreaTagSelectDialog::slotFinished()
 {
     // remove filter from listSelect
-    m_listSelect->showOnlyItemsMatching( QString() );
+    m_listSelect->showOnlyItemsMatching(QString());
 }
 
-void AnnotationDialog::AreaTagSelectDialog::paintEvent(QPaintEvent*)
+void AnnotationDialog::AreaTagSelectDialog::paintEvent(QPaintEvent *)
 {
     QColor backgroundColor = Qt::white;
     backgroundColor.setAlpha(160);

@@ -23,17 +23,18 @@
 #include "RemoteInterface.h"
 #include "Types.h"
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
 class RemoteImageRequest : public ImageManager::ImageRequest
 {
 public:
-    RemoteImageRequest(const DB::FileName& fileName, const QSize& size, int angle, ViewType type, RemoteInterface* client);
+    RemoteImageRequest(const DB::FileName &fileName, const QSize &size, int angle, ViewType type, RemoteInterface *client);
     bool stillNeeded() const override;
     ViewType type() const;
 
 private:
-    RemoteInterface* m_interface;
+    RemoteInterface *m_interface;
     ViewType m_type;
 };
 

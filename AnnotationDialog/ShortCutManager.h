@@ -18,17 +18,18 @@
 #ifndef SHORTCUTMANAGER_H
 #define SHORTCUTMANAGER_H
 
-#include <QSet>
 #include <QList>
 #include <QPair>
+#include <QSet>
 
 class QDockWidget;
 class QLabel;
 class QWidget;
 
-namespace AnnotationDialog {
+namespace AnnotationDialog
+{
 
-typedef QPair<QDockWidget*, QWidget*> DockPair;
+typedef QPair<QDockWidget *, QWidget *> DockPair;
 
 /**
  * This class is to help set up the right shortcuts for the annotation dialog.
@@ -45,14 +46,14 @@ typedef QPair<QDockWidget*, QWidget*> DockPair;
 class ShortCutManager
 {
 public:
-    void addDock( QDockWidget* dock, QWidget* buddy );
-    void addLabel( QLabel* label );
+    void addDock(QDockWidget *dock, QWidget *buddy);
+    void addLabel(QLabel *label);
     void setupShortCuts();
-    void addTaken( const QString& );
+    void addTaken(const QString &);
 
 private:
-    QList< DockPair > m_docks;
-    QList< QLabel* > m_labelWidgets;
+    QList<DockPair> m_docks;
+    QList<QLabel *> m_labelWidgets;
     QSet<QChar> m_taken;
 };
 

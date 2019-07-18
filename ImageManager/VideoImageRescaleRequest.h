@@ -19,8 +19,8 @@
 #ifndef VIDEOIMAGERESCALEREQUEST_H
 #define VIDEOIMAGERESCALEREQUEST_H
 
-#include "ImageRequest.h"
 #include "ImageClientInterface.h"
+#include "ImageRequest.h"
 
 namespace ImageManager
 {
@@ -28,12 +28,12 @@ namespace ImageManager
 class VideoImageRescaleRequest : public ImageRequest
 {
 public:
-    VideoImageRescaleRequest( ImageRequest* originalRequest, const DB::FileName& path );
+    VideoImageRescaleRequest(ImageRequest *originalRequest, const DB::FileName &path);
     ~VideoImageRescaleRequest() override;
     DB::FileName fileSystemFileName() const override;
 
 private:
-    ImageRequest* m_originalRequest;
+    ImageRequest *m_originalRequest;
     DB::FileName m_path;
 };
 

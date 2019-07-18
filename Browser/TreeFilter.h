@@ -32,16 +32,16 @@ namespace Browser
  * doesn't match the filter criteria, even if child items actually do match
  * the filter criteria. This class overcomes this shortcoming.
  */
-class TreeFilter :public QSortFilterProxyModel
+class TreeFilter : public QSortFilterProxyModel
 {
 public:
-    explicit TreeFilter( QObject* parent = nullptr );
+    explicit TreeFilter(QObject *parent = nullptr);
     void resetCache();
 
 protected:
-    bool filterAcceptsRow ( int source_row, const QModelIndex & source_parent ) const override;
+    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
 
-    mutable QMap<QModelIndex,bool> m_matchedMap;
+    mutable QMap<QModelIndex, bool> m_matchedMap;
 };
 }
 

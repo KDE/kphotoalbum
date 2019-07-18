@@ -17,11 +17,10 @@
 */
 
 #include "GroupCounter.h"
-#include "DB/MemberMap.h"
 #include "DB/ImageDB.h"
+#include "DB/MemberMap.h"
 #include "Utilities/StringSet.h"
 using namespace DB;
-
 
 /**
  * \class DB::GroupCounter
@@ -49,26 +48,23 @@ using namespace DB;
  *    Los Angeless |-> [ California ] }
  * \endcode
  */
-GroupCounter::GroupCounter( const QString& category )
+GroupCounter::GroupCounter(const QString &category)
 {
     const MemberMap map = DB::ImageDB::instance()->memberMap();
-    QMap<QString,StringSet> groupToMemberMap = map.groupMap(category);
+    QMap<QString, StringSet> groupToMemberMap = map.groupMap(category);
 
-    m_memberToGroup.reserve( 2729 /* A large prime */ );
-    m_groupCount.reserve( 2729 /* A large prime */ );
+    m_memberToGroup.reserve(2729 /* A large prime */);
+    m_groupCount.reserve(2729 /* A large prime */);
 
     // Populate the m_memberToGroup map
-    for( QMap<QString,StringSet>::Iterator groupToMemberIt= groupToMemberMap.begin()
-         ; groupToMemberIt != groupToMemberMap.end()
-         ; ++groupToMemberIt )
-    {
+    for (QMap<QString, StringSet>::Iterator groupToMemberIt = groupToMemberMap.begin(); groupToMemberIt != groupToMemberMap.end(); ++groupToMemberIt) {
         StringSet members = groupToMemberIt.value();
         QString group = groupToMemberIt.key();
 
-        Q_FOREACH( const auto &member, members ) {
-            m_memberToGroup[member].append( group );
+        Q_FOREACH (const auto &member, members) {
+            m_memberToGroup[member].append(group);
         }
-        m_groupCount.insert( group, CountWithRange() );
+        m_groupCount.insert(group, CountWithRange());
     }
 }
 
@@ -80,36 +76,36 @@ GroupCounter::GroupCounter( const QString& category )
  * The tricky part is to avoid increasing it by more than 1 per image, that is what the countedGroupDict is
  * used for.
  */
-void GroupCounter::count( const StringSet& categories, const ImageDate &date )
+void GroupCounter::count(const StringSet &categories, const ImageDate &date)
 {
     static StringSet countedGroupDict;
 
     countedGroupDict.clear();
-    for( StringSet::const_iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt ) {
-        if ( m_memberToGroup.contains(*categoryIt)) {
+    for (StringSet::const_iterator categoryIt = categories.begin(); categoryIt != categories.end(); ++categoryIt) {
+        if (m_memberToGroup.contains(*categoryIt)) {
             const QStringList groups = m_memberToGroup[*categoryIt];
-            for ( const QString& group : groups ) {
-                if ( !countedGroupDict.contains( group ) ) {
-                    countedGroupDict.insert( group );
+            for (const QString &group : groups) {
+                if (!countedGroupDict.contains(group)) {
+                    countedGroupDict.insert(group);
                     m_groupCount[group].add(date);
                 }
             }
         }
         // The item Nevada should itself go into the group Nevada.
-        if ( !countedGroupDict.contains( *categoryIt ) && m_groupCount.contains( *categoryIt ) ) {
-             countedGroupDict.insert( *categoryIt);
-             m_groupCount[*categoryIt].add(date);
+        if (!countedGroupDict.contains(*categoryIt) && m_groupCount.contains(*categoryIt)) {
+            countedGroupDict.insert(*categoryIt);
+            m_groupCount[*categoryIt].add(date);
         }
     }
 }
 
 QMap<QString, CountWithRange> GroupCounter::result()
 {
-    QMap<QString,CountWithRange> res;
+    QMap<QString, CountWithRange> res;
 
-    for( QHash<QString,CountWithRange>::const_iterator it = m_groupCount.constBegin(); it != m_groupCount.constEnd(); ++it) {
-        if ( it.value().count != 0 )
-            res.insert( it.key(), it.value() );
+    for (QHash<QString, CountWithRange>::const_iterator it = m_groupCount.constBegin(); it != m_groupCount.constEnd(); ++it) {
+        if (it.value().count != 0)
+            res.insert(it.key(), it.value());
     }
     return res;
 }

@@ -22,10 +22,11 @@
 
 #include <KLocalizedString>
 
-namespace Plugins {
+namespace Plugins
+{
 
-UploadImageCollection::UploadImageCollection(const QString& path)
-    :m_path(path)
+UploadImageCollection::UploadImageCollection(const QString &path)
+    : m_path(path)
 {
 }
 
@@ -46,7 +47,7 @@ QUrl UploadImageCollection::uploadUrl()
 
 QUrl UploadImageCollection::uploadRootUrl()
 {
-    QUrl url = QUrl::fromLocalFile(Settings::SettingsData::instance()->imageDirectory() );
+    QUrl url = QUrl::fromLocalFile(Settings::SettingsData::instance()->imageDirectory());
     return url;
 }
 

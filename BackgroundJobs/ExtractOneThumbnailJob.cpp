@@ -18,31 +18,35 @@
 */
 
 #include "ExtractOneThumbnailJob.h"
-#include <KLocalizedString>
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
-#include <ImageManager/ExtractOneVideoFrame.h>
-#include <QImage>
-#include <Utilities/ImageUtil.h>
 #include <DB/ImageDB.h>
-#include <QPainter>
+#include <ImageManager/ExtractOneVideoFrame.h>
+#include <KLocalizedString>
 #include <QFile>
+#include <QImage>
+#include <QPainter>
+#include <Utilities/ImageUtil.h>
 
-namespace BackgroundJobs {
-
-ExtractOneThumbnailJob::ExtractOneThumbnailJob(const DB::FileName& fileName, int index, BackgroundTaskManager::Priority priority)
-    : JobInterface(priority), m_fileName(fileName), m_index(index), m_wasCanceled(false)
+namespace BackgroundJobs
 {
-    Q_ASSERT( index >= 0 && index <= 9 );
+
+ExtractOneThumbnailJob::ExtractOneThumbnailJob(const DB::FileName &fileName, int index, BackgroundTaskManager::Priority priority)
+    : JobInterface(priority)
+    , m_fileName(fileName)
+    , m_index(index)
+    , m_wasCanceled(false)
+{
+    Q_ASSERT(index >= 0 && index <= 9);
 }
 
 void ExtractOneThumbnailJob::execute()
 {
-    if ( m_wasCanceled || frameName().exists() )
+    if (m_wasCanceled || frameName().exists())
         emit completed();
     else {
         DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName);
         const int length = info->videoLength();
-        ImageManager::ExtractOneVideoFrame::extract(m_fileName, length*m_index/10.0, this, SLOT(frameLoaded(QImage)));
+        ImageManager::ExtractOneVideoFrame::extract(m_fileName, length * m_index / 10.0, this, SLOT(frameLoaded(QImage)));
     }
 }
 
@@ -66,9 +70,9 @@ void ExtractOneThumbnailJob::cancel()
     m_wasCanceled = true;
 }
 
-void ExtractOneThumbnailJob::frameLoaded(const QImage& image)
+void ExtractOneThumbnailJob::frameLoaded(const QImage &image)
 {
-    if ( !image.isNull() ) {
+    if (!image.isNull()) {
 #if 0
         QImage img = image;
         {
@@ -80,8 +84,7 @@ void ExtractOneThumbnailJob::frameLoaded(const QImage& image)
         }
 #endif
         Utilities::saveImage(frameName(), image, "JPEG");
-    }
-    else {
+    } else {
         // Create empty file to avoid that we recheck at next start up.
         QFile file(frameName().absolute());
         file.open(QFile::WriteOnly);

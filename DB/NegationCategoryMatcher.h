@@ -24,23 +24,23 @@
 namespace DB
 {
 
-    /**
+/**
      * NegationCategoryMatcher matches, if (and only if) its child matcher does not match.
      *
      * This is not a standard ContainerCategoryMatcher, because it always has exactly one child.
      */
-    class NegationCategoryMatcher :public CategoryMatcher
-    {
-        public:
-            explicit NegationCategoryMatcher( CategoryMatcher *child );
-            ~NegationCategoryMatcher() override;
-            bool eval( ImageInfoPtr, QMap<QString, StringSet>& alreadyMatched ) override;
-            void debug( int level ) const override;
-            void setShouldCreateMatchedSet( bool b ) override;
-        private:
-            CategoryMatcher *m_child;
-    };
+class NegationCategoryMatcher : public CategoryMatcher
+{
+public:
+    explicit NegationCategoryMatcher(CategoryMatcher *child);
+    ~NegationCategoryMatcher() override;
+    bool eval(ImageInfoPtr, QMap<QString, StringSet> &alreadyMatched) override;
+    void debug(int level) const override;
+    void setShouldCreateMatchedSet(bool b) override;
 
+private:
+    CategoryMatcher *m_child;
+};
 }
 
 #endif // NEGATIONCATEGORYMATCHER_H

@@ -27,111 +27,106 @@
 
 using namespace DB;
 
-FileInfo FileInfo::read( const DB::FileName& fileName, DB::ExifMode mode )
+FileInfo FileInfo::read(const DB::FileName &fileName, DB::ExifMode mode)
 {
-    return FileInfo( fileName, mode );
+    return FileInfo(fileName, mode);
 }
 
-DB::FileInfo::FileInfo( const DB::FileName& fileName, DB::ExifMode mode )
-    : m_angle(0),
-      m_fileName(fileName)
+DB::FileInfo::FileInfo(const DB::FileName &fileName, DB::ExifMode mode)
+    : m_angle(0)
+    , m_fileName(fileName)
 {
-    parseEXIV2( fileName );
+    parseEXIV2(fileName);
 
-
-    if ( updateDataFromFileTimeStamp(fileName,mode))
-        m_date = QFileInfo( fileName.absolute() ).lastModified();
+    if (updateDataFromFileTimeStamp(fileName, mode))
+        m_date = QFileInfo(fileName.absolute()).lastModified();
 }
 
-Exiv2::ExifData& DB::FileInfo::getExifData()
+Exiv2::ExifData &DB::FileInfo::getExifData()
 {
     return m_exifMap;
 }
 
-const DB::FileName& DB::FileInfo::getFileName() const
+const DB::FileName &DB::FileInfo::getFileName() const
 {
     return m_fileName;
 }
 
-bool DB::FileInfo::updateDataFromFileTimeStamp(const DB::FileName& fileName, DB::ExifMode mode)
+bool DB::FileInfo::updateDataFromFileTimeStamp(const DB::FileName &fileName, DB::ExifMode mode)
 {
     // If the date is valid from Exif reading, then we should not use the time stamp from the file.
-    if ( m_date.isValid() )
+    if (m_date.isValid())
         return false;
 
     // If we are not setting date, then we should of course not set the date
-    if ( (mode & EXIFMODE_DATE) == 0 )
+    if ((mode & EXIFMODE_DATE) == 0)
         return false;
 
     // If we are we already have specifies that we want to sent the date (from the ReReadExif dialog), then we of course should.
-    if ( (mode & EXIFMODE_USE_IMAGE_DATE_IF_INVALID_EXIF_DATE ) != 0)
+    if ((mode & EXIFMODE_USE_IMAGE_DATE_IF_INVALID_EXIF_DATE) != 0)
         return true;
 
     // Always trust for videos (this is a way to say that we should not trust for scaned in images - which makes no sense for videos)
-    if ( Utilities::isVideo(fileName) )
+    if (Utilities::isVideo(fileName))
         return true;
 
     // Finally use the info from the settings dialog
     return Settings::SettingsData::instance()->trustTimeStamps();
-
 }
 
-void DB::FileInfo::parseEXIV2( const DB::FileName& fileName )
+void DB::FileInfo::parseEXIV2(const DB::FileName &fileName)
 {
-    m_exifMap = Exif::Info::instance()->metadata( fileName ).exif;
+    m_exifMap = Exif::Info::instance()->metadata(fileName).exif;
 
     // Date
-    m_date = fetchEXIV2Date( m_exifMap, "Exif.Photo.DateTimeOriginal" );
-    if ( !m_date.isValid() ) {
-        m_date = fetchEXIV2Date( m_exifMap, "Exif.Photo.DateTimeDigitized" );
-        if ( !m_date.isValid() )
-            m_date = fetchEXIV2Date( m_exifMap, "Exif.Image.DateTime" );
+    m_date = fetchEXIV2Date(m_exifMap, "Exif.Photo.DateTimeOriginal");
+    if (!m_date.isValid()) {
+        m_date = fetchEXIV2Date(m_exifMap, "Exif.Photo.DateTimeDigitized");
+        if (!m_date.isValid())
+            m_date = fetchEXIV2Date(m_exifMap, "Exif.Image.DateTime");
     }
 
     // Angle
-    if ( m_exifMap.findKey( Exiv2::ExifKey( "Exif.Image.Orientation" ) ) != m_exifMap.end() ) {
-        const Exiv2::Exifdatum& datum = m_exifMap["Exif.Image.Orientation"];
+    if (m_exifMap.findKey(Exiv2::ExifKey("Exif.Image.Orientation")) != m_exifMap.end()) {
+        const Exiv2::Exifdatum &datum = m_exifMap["Exif.Image.Orientation"];
 
         int orientation = 0;
         if (datum.count() > 0)
-            orientation =  datum.toLong();
-        m_angle = orientationToAngle( orientation );
+            orientation = datum.toLong();
+        m_angle = orientationToAngle(orientation);
     }
 
     // Description
-    if( m_exifMap.findKey( Exiv2::ExifKey( "Exif.Image.ImageDescription" ) ) != m_exifMap.end() ) {
-        const Exiv2::Exifdatum& datum = m_exifMap["Exif.Image.ImageDescription"];
-        m_description = QString::fromLocal8Bit( datum.toString().c_str() ).trimmed();
+    if (m_exifMap.findKey(Exiv2::ExifKey("Exif.Image.ImageDescription")) != m_exifMap.end()) {
+        const Exiv2::Exifdatum &datum = m_exifMap["Exif.Image.ImageDescription"];
+        m_description = QString::fromLocal8Bit(datum.toString().c_str()).trimmed();
         // some cameras seem to add control characters. Remove them:
         m_description.remove(QRegularExpression(QString::fromLatin1("\\p{Cc}")));
     }
 }
 
-QDateTime FileInfo::fetchEXIV2Date( Exiv2::ExifData& map, const char* key )
+QDateTime FileInfo::fetchEXIV2Date(Exiv2::ExifData &map, const char *key)
 {
-    try
-    {
-        if ( map.findKey( Exiv2::ExifKey( key ) ) != map.end() ) {
-            const Exiv2::Exifdatum& datum = map[key ];
-            return QDateTime::fromString( QString::fromLatin1(datum.toString().c_str()), Qt::ISODate );
+    try {
+        if (map.findKey(Exiv2::ExifKey(key)) != map.end()) {
+            const Exiv2::Exifdatum &datum = map[key];
+            return QDateTime::fromString(QString::fromLatin1(datum.toString().c_str()), Qt::ISODate);
         }
-    }
-    catch (...)
-    {
+    } catch (...) {
     }
 
     return QDateTime();
 }
 
-int DB::FileInfo::orientationToAngle( int orientation )
+int DB::FileInfo::orientationToAngle(int orientation)
 {
-    if ( orientation == 1 || orientation == 2 )
+    if (orientation == 1 || orientation == 2)
         return 0;
-    else if ( orientation == 3 || orientation == 4 )
+    else if (orientation == 3 || orientation == 4)
         return 180;
-    else if ( orientation == 5 || orientation == 8 )
+    else if (orientation == 5 || orientation == 8)
         return 270;
-    else if ( orientation == 6 || orientation == 7 )
+    else if (orientation == 6 || orientation == 7)
         return 90;
 
     return 0;

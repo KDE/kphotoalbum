@@ -30,7 +30,8 @@ class QLabel;
 class QKeyEvent;
 class QResizeEvent;
 
-namespace DB {
+namespace DB
+{
 
 class Id;
 
@@ -41,28 +42,27 @@ namespace Exif
 
 class Grid;
 
-class InfoDialog : public QDialog, public ImageManager::ImageClientInterface {
+class InfoDialog : public QDialog, public ImageManager::ImageClientInterface
+{
     Q_OBJECT
 
 public:
-    InfoDialog( const DB::FileName& fileName, QWidget* parent );
-    void setImage( const DB::FileName& fileName );
+    InfoDialog(const DB::FileName &fileName, QWidget *parent);
+    void setImage(const DB::FileName &fileName);
 
     QSize sizeHint() const override;
-    void enterEvent( QEvent* ) override;
+    void enterEvent(QEvent *) override;
 
     // ImageManager::ImageClient interface.
-    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
+    void pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image) override;
 
 private:
-    QLineEdit* m_searchBox;
-    QLabel* m_pix;
-    QComboBox* m_iptcCharset;
-    Grid* m_grid;
-    QLabel* m_fileNameLabel;
-
+    QLineEdit *m_searchBox;
+    QLabel *m_pix;
+    QComboBox *m_iptcCharset;
+    Grid *m_grid;
+    QLabel *m_fileNameLabel;
 };
-
 }
 
 #endif /* INFODIALOG_H */

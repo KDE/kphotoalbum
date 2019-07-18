@@ -20,19 +20,20 @@
 #ifndef MAINWINDOW_DUPLICATEMERGER_H
 #define MAINWINDOW_DUPLICATEMERGER_H
 
-#include <QWidget>
 #include <QDialog>
 #include <QMap>
+#include <QWidget>
 
-#include <DB/MD5.h>
 #include <DB/FileNameList.h>
+#include <DB/MD5.h>
 
 class QVBoxLayout;
 class QRadioButton;
 class QLabel;
 class QPushButton;
 
-namespace MainWindow {
+namespace MainWindow
+{
 
 class DuplicateMatch;
 
@@ -52,23 +53,23 @@ private slots:
 
 private:
     void findDuplicates();
-    void addRow(const DB::MD5&);
+    void addRow(const DB::MD5 &);
     void selectAll(bool b);
     void tellThatNoDuplicatesWereFound();
 
     QMap<DB::MD5, DB::FileNameList> m_matches;
 
-    QWidget* m_container;
-    QVBoxLayout* m_scrollLayout;
-    QList<DuplicateMatch*> m_selectors;
-    QRadioButton* m_trash;
+    QWidget *m_container;
+    QVBoxLayout *m_scrollLayout;
+    QList<DuplicateMatch *> m_selectors;
+    QRadioButton *m_trash;
     QRadioButton *m_deleteFromDisk;
-    QLabel* m_selectionCount;
+    QLabel *m_selectionCount;
 
-    QPushButton* m_selectAllButton;
-    QPushButton* m_selectNoneButton;
-    QPushButton* m_okButton;
-    QPushButton* m_cancelButton;
+    QPushButton *m_selectAllButton;
+    QPushButton *m_selectNoneButton;
+    QPushButton *m_okButton;
+    QPushButton *m_cancelButton;
 };
 
 } // namespace MainWindow

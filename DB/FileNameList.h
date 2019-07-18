@@ -20,10 +20,10 @@
 #ifndef FILENAMELIST_H
 #define FILENAMELIST_H
 
-#include <QStringList>
-#include <QList>
 #include "FileName.h"
 #include "ImageInfo.h"
+#include <QList>
+#include <QStringList>
 
 namespace DB
 {
@@ -32,14 +32,14 @@ class FileNameList : public QList<DB::FileName>
 {
 public:
     FileNameList() {}
-    FileNameList( const QList<DB::FileName>& );
+    FileNameList(const QList<DB::FileName> &);
     /**
      * @brief Create a FileNameList from a list of absolute filenames.
      * @param files
      */
     explicit FileNameList(const QStringList &files);
     QStringList toStringList(DB::PathType) const;
-    FileNameList& operator<<(const DB::FileName& );
+    FileNameList &operator<<(const DB::FileName &);
     FileNameList reversed() const;
 };
 

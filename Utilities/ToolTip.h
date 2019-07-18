@@ -20,29 +20,30 @@
 #ifndef UTILITIES_TOOLTIP_H
 #define UTILITIES_TOOLTIP_H
 
-#include <QLabel>
 #include "DB/FileName.h"
 #include "ImageManager/ImageClientInterface.h"
+#include <QLabel>
 class QTemporaryFile;
 
-namespace Utilities {
+namespace Utilities
+{
 
 class ToolTip : public QLabel, public ImageManager::ImageClientInterface
 {
     Q_OBJECT
 public:
-    explicit ToolTip(QWidget *parent = nullptr, Qt::WindowFlags f=0);
-    void pixmapLoaded(ImageManager::ImageRequest* request, const QImage& image) override;
-    void requestToolTip( const DB::FileName& fileName );
+    explicit ToolTip(QWidget *parent = nullptr, Qt::WindowFlags f = 0);
+    void pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image) override;
+    void requestToolTip(const DB::FileName &fileName);
 
 protected:
     virtual void placeWindow() = 0;
 
 private:
     void renderToolTip();
-    void requestImage( const DB::FileName& fileName );
+    void requestImage(const DB::FileName &fileName);
     DB::FileName m_currentFileName;
-    QTemporaryFile* m_tmpFileForThumbnailView;
+    QTemporaryFile *m_tmpFileForThumbnailView;
 };
 
 } // namespace Utilities

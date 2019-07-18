@@ -21,7 +21,8 @@
 
 #include <BackgroundTaskManager/JobInterface.h>
 
-namespace BackgroundJobs {
+namespace BackgroundJobs
+{
 
 /**
   \brief Search for videos for which the database still has no length information

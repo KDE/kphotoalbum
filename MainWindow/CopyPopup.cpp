@@ -32,39 +32,38 @@ MainWindow::CopyPopup::CopyPopup(QWidget *parent,
                                  QList<QUrl> &allSelectedFiles,
                                  QString &lastTarget,
                                  CopyType copyType)
-    : QMenu(parent),
-    m_selectedFile(selectedFile),
-    m_allSelectedFiles(allSelectedFiles),
-    m_lastTarget(lastTarget)
+    : QMenu(parent)
+    , m_selectedFile(selectedFile)
+    , m_allSelectedFiles(allSelectedFiles)
+    , m_lastTarget(lastTarget)
 {
     connect(this, &CopyPopup::triggered, this, &CopyPopup::slotCopy);
     QAction *action;
 
     bool haveSeveralFiles = m_allSelectedFiles.size() > 1;
     switch (copyType) {
-        case Copy:
-            setTitle(i18n("Copy image(s) to..."));
-            action = addAction(i18n("Copy currently selected image to..."));
-            action->setData(CopyAction::CopyCurrent);
-            if (m_selectedFile.isEmpty())
-                action->setEnabled(false);
-            action = addAction(i18n("Copy all selected images to..."));
-            action->setData(CopyAction::CopyAll);
-            action->setEnabled(haveSeveralFiles);
-            break;
+    case Copy:
+        setTitle(i18n("Copy image(s) to..."));
+        action = addAction(i18n("Copy currently selected image to..."));
+        action->setData(CopyAction::CopyCurrent);
+        if (m_selectedFile.isEmpty())
+            action->setEnabled(false);
+        action = addAction(i18n("Copy all selected images to..."));
+        action->setData(CopyAction::CopyAll);
+        action->setEnabled(haveSeveralFiles);
+        break;
 
-        case Link:
-            action = addAction(i18n("Link currently selected image to..."));
-            setTitle(i18n("Link image(s) to..."));
-            action->setData(CopyAction::LinkCurrent);
-            if (m_selectedFile.isEmpty())
-                action->setEnabled(false);
-            action = addAction(i18n("Link all selected images to..."));
-            action->setData(CopyAction::LinkAll);
-            action->setEnabled(haveSeveralFiles);
-            break;
+    case Link:
+        action = addAction(i18n("Link currently selected image to..."));
+        setTitle(i18n("Link image(s) to..."));
+        action->setData(CopyAction::LinkCurrent);
+        if (m_selectedFile.isEmpty())
+            action->setEnabled(false);
+        action = addAction(i18n("Link all selected images to..."));
+        action->setData(CopyAction::LinkAll);
+        action->setEnabled(haveSeveralFiles);
+        break;
     }
-
 }
 
 void MainWindow::CopyPopup::slotCopy(QAction *action)
@@ -114,7 +113,7 @@ void MainWindow::CopyPopup::slotCopy(QAction *action)
         QString target = QFileDialog::getExistingDirectory(this, title, m_lastTarget,
                                                            QFileDialog::ShowDirsOnly);
 
-        if (! target.isEmpty()) {
+        if (!target.isEmpty()) {
             m_lastTarget = target;
             QUrl targetUrl = QUrl::fromLocalFile(target);
 
@@ -127,7 +126,6 @@ void MainWindow::CopyPopup::slotCopy(QAction *action)
             connect(job, &KIO::CopyJob::finished, job, &QObject::deleteLater);
         }
     }
-
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

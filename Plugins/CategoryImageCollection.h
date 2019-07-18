@@ -19,16 +19,17 @@
 #ifndef CATEGORYIMAGECOLLECTION_H
 #define CATEGORYIMAGECOLLECTION_H
 
-#include <config-kpa-kipi.h>
-#include "Plugins/ImageCollection.h"
 #include "DB/ImageSearchInfo.h"
+#include "Plugins/ImageCollection.h"
+#include <config-kpa-kipi.h>
 namespace Plugins
 {
 
-class CategoryImageCollection :public Plugins::ImageCollection {
+class CategoryImageCollection : public Plugins::ImageCollection
+{
 
 public:
-    CategoryImageCollection( const DB::ImageSearchInfo& context, const QString& category, const QString& value );
+    CategoryImageCollection(const DB::ImageSearchInfo &context, const QString &category, const QString &value);
 
     QString name() override;
     QList<QUrl> images() override;
@@ -38,9 +39,7 @@ private:
     const QString m_category;
     const QString m_value;
 };
-
 }
-
 
 #endif /* CATEGORYIMAGECOLLECTION_H */
 

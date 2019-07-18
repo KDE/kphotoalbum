@@ -19,20 +19,22 @@
 #ifndef POSITIONBROWSERWIDGET_H_
 #define POSITIONBROWSERWIDGET_H_
 
-#include "qwidget.h"
 #include "DB/FileNameList.h"
 #include "DB/ImageSearchInfo.h"
 #include "Map/MapView.h"
+#include "qwidget.h"
 
-namespace Browser {
+namespace Browser
+{
 
-class PositionBrowserWidget : public QWidget {
+class PositionBrowserWidget : public QWidget
+{
     Q_OBJECT
 
 public:
-    PositionBrowserWidget( QWidget* parent );
+    PositionBrowserWidget(QWidget *parent);
     ~PositionBrowserWidget() override;
-    virtual void showImages( const DB::ImageSearchInfo& searchInfo );
+    virtual void showImages(const DB::ImageSearchInfo &searchInfo);
     virtual void clearImages();
 
 Q_SIGNALS:

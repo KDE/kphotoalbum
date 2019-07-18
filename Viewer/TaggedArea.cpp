@@ -18,14 +18,14 @@
 #include "TaggedArea.h"
 #include <KLocalizedString>
 
-Viewer::TaggedArea::TaggedArea(QWidget *parent) : QFrame(parent)
+Viewer::TaggedArea::TaggedArea(QWidget *parent)
+    : QFrame(parent)
 {
     setFrameShape(QFrame::Box);
     setStyleSheet(QString::fromLatin1(
         "Viewer--TaggedArea { border: none; background-color: none; }"
         "Viewer--TaggedArea:hover, Viewer--TaggedArea[selected=\"true\"]{ border: 1px solid rgb(0,255,0,99); background-color: rgb(255,255,255,30); }"
-        "Viewer--TaggedArea[highlighted=\"true\"]{ border: 1px solid rgb(255,128,0,99); background-color: rgb(255,255,255,30); }"
-    ));
+        "Viewer--TaggedArea[highlighted=\"true\"]{ border: 1px solid rgb(255,128,0,99); background-color: rgb(255,255,255,30); }"));
 }
 
 Viewer::TaggedArea::~TaggedArea()

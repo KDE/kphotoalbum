@@ -30,16 +30,16 @@
 #include "CancelEvent.h"
 #include "ImageEvent.h"
 #include "ImageLoaderThread.h"
-#include "ThumbnailCache.h"
 #include "ThumbnailBuilder.h"
+#include "ThumbnailCache.h"
 
-ImageManager::AsyncLoader* ImageManager::AsyncLoader::s_instance = nullptr;
+ImageManager::AsyncLoader *ImageManager::AsyncLoader::s_instance = nullptr;
 
 // -- Manager --
 
-ImageManager::AsyncLoader* ImageManager::AsyncLoader::instance()
+ImageManager::AsyncLoader *ImageManager::AsyncLoader::instance()
 {
-    if ( !s_instance )  {
+    if (!s_instance) {
         s_instance = new AsyncLoader;
         s_instance->init();
     }
@@ -67,18 +67,18 @@ void ImageManager::AsyncLoader::init()
     //                   Should we somehow detect this and allocate less threads there?
     //                   rlk 20180515: IMO no; if anything, we need more threads to hide
     //                   the latency of NFS.
-    const int cores = qMax( 1, qMin( 16, QThread::idealThreadCount() - 1 ) );
+    const int cores = qMax(1, qMin(16, QThread::idealThreadCount() - 1));
     m_exitRequested = false;
 
-    for ( int i = 0; i < cores; ++i) {
-        ImageLoaderThread* imageLoader = new ImageLoaderThread();
+    for (int i = 0; i < cores; ++i) {
+        ImageLoaderThread *imageLoader = new ImageLoaderThread();
         // The thread is set to the lowest priority to ensure that it doesn't starve the GUI thread.
         m_threadList << imageLoader;
-        imageLoader->start( QThread::IdlePriority );
+        imageLoader->start(QThread::IdlePriority);
     }
 }
 
-bool ImageManager::AsyncLoader::load( ImageRequest* request )
+bool ImageManager::AsyncLoader::load(ImageRequest *request)
 {
     if (m_exitRequested)
         return false;
@@ -92,43 +92,42 @@ bool ImageManager::AsyncLoader::load( ImageRequest* request )
     // if ( ! request->fileSystemFileName().exists() )
     //    return false;
 
-    if ( Utilities::isVideo( request->fileSystemFileName() ) ) {
-        if (!loadVideo( request ))
+    if (Utilities::isVideo(request->fileSystemFileName())) {
+        if (!loadVideo(request))
             return false;
     } else {
-        loadImage( request );
+        loadImage(request);
     }
     return true;
 }
 
-bool ImageManager::AsyncLoader::loadVideo( ImageRequest* request)
+bool ImageManager::AsyncLoader::loadVideo(ImageRequest *request)
 {
     if (m_exitRequested)
         return false;
 
-    if ( ! MainWindow::FeatureDialog::hasVideoThumbnailer() )
+    if (!MainWindow::FeatureDialog::hasVideoThumbnailer())
         return false;
 
-    BackgroundTaskManager::Priority priority =
-            (request->priority() > ThumbnailInvisible)
-            ?  BackgroundTaskManager::ForegroundThumbnailRequest
-             : BackgroundTaskManager::BackgroundVideoThumbnailRequest;
+    BackgroundTaskManager::Priority priority = (request->priority() > ThumbnailInvisible)
+        ? BackgroundTaskManager::ForegroundThumbnailRequest
+        : BackgroundTaskManager::BackgroundVideoThumbnailRequest;
 
     BackgroundTaskManager::JobManager::instance()->addJob(
-                new BackgroundJobs::HandleVideoThumbnailRequestJob(request,priority));
+        new BackgroundJobs::HandleVideoThumbnailRequestJob(request, priority));
     return true;
 }
 
-void ImageManager::AsyncLoader::loadImage( ImageRequest* request )
+void ImageManager::AsyncLoader::loadImage(ImageRequest *request)
 {
-    QMutexLocker dummy( &m_lock );
+    QMutexLocker dummy(&m_lock);
     if (m_exitRequested)
         return;
-    QSet<ImageRequest*>::const_iterator req = m_currentLoading.find( request );
-    if ( req != m_currentLoading.end() && m_loadList.isRequestStillValid( request ) ) {
+    QSet<ImageRequest *>::const_iterator req = m_currentLoading.find(request);
+    if (req != m_currentLoading.end() && m_loadList.isRequestStillValid(request)) {
         // The last part of the test above is needed to not fail on a race condition from AnnotationDialog::ImagePreview, where the preview
         // at startup request the same image numerous time (likely from resize event).
-        Q_ASSERT ( *req != request);
+        Q_ASSERT(*req != request);
         delete request;
 
         return; // We are currently loading it, calm down and wait please ;-)
@@ -146,15 +145,15 @@ void ImageManager::AsyncLoader::loadImage( ImageRequest* request )
     }
 
     // if request is "fresh" (not yet pending):
-    if (m_loadList.addRequest( request ))
+    if (m_loadList.addRequest(request))
         m_sleepers.wakeOne();
 }
 
-void ImageManager::AsyncLoader::stop( ImageClientInterface* client, StopAction action )
+void ImageManager::AsyncLoader::stop(ImageClientInterface *client, StopAction action)
 {
     // remove from pending map.
-    QMutexLocker requestLocker( &m_lock );
-    m_loadList.cancelRequests( client, action );
+    QMutexLocker requestLocker(&m_lock);
+    m_loadList.cancelRequests(client, action);
 
     // PENDING(blackie) Reintroduce this
     // VideoManager::instance().stop( client, action );
@@ -164,7 +163,7 @@ void ImageManager::AsyncLoader::stop( ImageClientInterface* client, StopAction a
 
 int ImageManager::AsyncLoader::activeCount() const
 {
-    QMutexLocker dummy( &m_lock );
+    QMutexLocker dummy(&m_lock);
     return m_currentLoading.count();
 }
 
@@ -173,13 +172,13 @@ bool ImageManager::AsyncLoader::isExiting() const
     return m_exitRequested;
 }
 
-ImageManager::ImageRequest* ImageManager::AsyncLoader::next()
+ImageManager::ImageRequest *ImageManager::AsyncLoader::next()
 {
-    QMutexLocker dummy( &m_lock );
-    ImageRequest* request = nullptr;
-    while ( !( request = m_loadList.popNext() ) )
-        m_sleepers.wait( &m_lock );
-    m_currentLoading.insert( request );
+    QMutexLocker dummy(&m_lock);
+    ImageRequest *request = nullptr;
+    while (!(request = m_loadList.popNext()))
+        m_sleepers.wait(&m_lock);
+    m_currentLoading.insert(request);
 
     return request;
 }
@@ -192,56 +191,54 @@ void ImageManager::AsyncLoader::requestExit()
 
     // TODO(jzarl): check if we can just connect the finished() signal of the threads to deleteLater()
     //              and exit this function without waiting
-    for (QList<ImageLoaderThread*>::iterator it = m_threadList.begin(); it != m_threadList.end(); ++it ) {
-        while (! (*it)->isFinished()) {
+    for (QList<ImageLoaderThread *>::iterator it = m_threadList.begin(); it != m_threadList.end(); ++it) {
+        while (!(*it)->isFinished()) {
             QThread::msleep(10);
         }
         delete (*it);
     }
 }
 
-void ImageManager::AsyncLoader::customEvent( QEvent* ev )
+void ImageManager::AsyncLoader::customEvent(QEvent *ev)
 {
-    if ( ev->type() == ImageEventID )  {
-        ImageEvent* iev = dynamic_cast<ImageEvent*>( ev );
-        if ( !iev )  {
-            Q_ASSERT( iev );
+    if (ev->type() == ImageEventID) {
+        ImageEvent *iev = dynamic_cast<ImageEvent *>(ev);
+        if (!iev) {
+            Q_ASSERT(iev);
             return;
         }
 
-        ImageRequest* request = iev->loadInfo();
+        ImageRequest *request = iev->loadInfo();
 
-        QMutexLocker requestLocker( &m_lock );
-        const bool requestStillNeeded = m_loadList.isRequestStillValid( request );
+        QMutexLocker requestLocker(&m_lock);
+        const bool requestStillNeeded = m_loadList.isRequestStillValid(request);
         m_loadList.removeRequest(request);
-        m_currentLoading.remove( request );
+        m_currentLoading.remove(request);
         requestLocker.unlock();
 
         QImage image = iev->image();
-        if ( !request->loadedOK() ) {
-            if ( m_brokenImage.size() != request->size() ) {
+        if (!request->loadedOK()) {
+            if (m_brokenImage.size() != request->size()) {
                 // we can ignore the krazy warning here because we have a valid fallback
-                QIcon brokenFileIcon = QIcon::fromTheme( QLatin1String("file-broken") ); // krazy:exclude=iconnames
-                if ( brokenFileIcon.isNull() ) {
-                    brokenFileIcon = QIcon::fromTheme( QLatin1String("image-x-generic") );
+                QIcon brokenFileIcon = QIcon::fromTheme(QLatin1String("file-broken")); // krazy:exclude=iconnames
+                if (brokenFileIcon.isNull()) {
+                    brokenFileIcon = QIcon::fromTheme(QLatin1String("image-x-generic"));
                 }
-                m_brokenImage = brokenFileIcon.pixmap( request->size() ).toImage();
+                m_brokenImage = brokenFileIcon.pixmap(request->size()).toImage();
             }
 
             image = m_brokenImage;
         }
 
-        if ( request->isThumbnailRequest() )
-            ImageManager::ThumbnailCache::instance()->insert( request->databaseFileName(), image );
+        if (request->isThumbnailRequest())
+            ImageManager::ThumbnailCache::instance()->insert(request->databaseFileName(), image);
 
-
-        if ( requestStillNeeded && request->client() ) {
+        if (requestStillNeeded && request->client()) {
             request->client()->pixmapLoaded(request, image);
         }
         delete request;
-    }
-    else if ( ev->type() == CANCELEVENTID ) {
-        CancelEvent* cancelEvent = dynamic_cast<CancelEvent*>(ev);
+    } else if (ev->type() == CANCELEVENTID) {
+        CancelEvent *cancelEvent = dynamic_cast<CancelEvent *>(ev);
         cancelEvent->request()->client()->requestCanceled();
     }
 }

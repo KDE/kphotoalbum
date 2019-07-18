@@ -20,7 +20,7 @@
 
 QList<ImageManager::ImageDecoder *> *ImageManager::ImageDecoder::decoders()
 {
-    static QList<ImageDecoder*> s_decoders;
+    static QList<ImageDecoder *> s_decoders;
     return &s_decoders;
 }
 
@@ -34,7 +34,7 @@ ImageManager::ImageDecoder::~ImageDecoder()
     decoders()->removeOne(this);
 }
 
-bool ImageManager::ImageDecoder::decode(QImage *img, const DB::FileName& imageFile, QSize* fullSize, int dim)
+bool ImageManager::ImageDecoder::decode(QImage *img, const DB::FileName &imageFile, QSize *fullSize, int dim)
 {
     for (ImageDecoder *decoder : *decoders()) {
         if (decoder->_decode(img, imageFile, fullSize, dim))
@@ -43,7 +43,7 @@ bool ImageManager::ImageDecoder::decode(QImage *img, const DB::FileName& imageFi
     return false;
 }
 
-bool ImageManager::ImageDecoder::mightDecode( const DB::FileName& imageFile )
+bool ImageManager::ImageDecoder::mightDecode(const DB::FileName &imageFile)
 {
     for (ImageDecoder *decoder : *decoders()) {
         if (decoder->_mightDecode(imageFile))

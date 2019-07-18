@@ -20,7 +20,8 @@
 
 #include <QFrame>
 
-namespace Viewer {
+namespace Viewer
+{
 
 class TaggedArea : public QFrame
 {

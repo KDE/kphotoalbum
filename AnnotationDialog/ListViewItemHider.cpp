@@ -22,8 +22,8 @@
 #include <QTreeWidgetItemIterator>
 
 // Local includes
-#include "ListViewItemHider.h"
 #include "ListSelect.h"
+#include "ListViewItemHider.h"
 
 using namespace Utilities;
 
@@ -48,83 +48,80 @@ using namespace Utilities;
  * \brief Helper class for only showing items that are selected.
  */
 
-bool AnnotationDialog::ListViewItemHider::setItemsVisible( QTreeWidgetItem* parentItem )
+bool AnnotationDialog::ListViewItemHider::setItemsVisible(QTreeWidgetItem *parentItem)
 {
     bool anyChildrenVisible = false;
-    for (int i = 0; i < parentItem->childCount(); ++i ) {
-        QTreeWidgetItem* item = parentItem->child(i);
-        bool anySubChildrenVisible = setItemsVisible( item );
-        bool itemVisible = anySubChildrenVisible || shouldItemBeShown( item );
-        item->setHidden( !itemVisible );
+    for (int i = 0; i < parentItem->childCount(); ++i) {
+        QTreeWidgetItem *item = parentItem->child(i);
+        bool anySubChildrenVisible = setItemsVisible(item);
+        bool itemVisible = anySubChildrenVisible || shouldItemBeShown(item);
+        item->setHidden(!itemVisible);
         anyChildrenVisible |= itemVisible;
     }
     return anyChildrenVisible;
 }
 
-AnnotationDialog::ListViewTextMatchHider::ListViewTextMatchHider(const QString& text, const AnnotationDialog::MatchType mt, QTreeWidget *listView )
-    :m_text( text ), m_matchType( mt )
+AnnotationDialog::ListViewTextMatchHider::ListViewTextMatchHider(const QString &text, const AnnotationDialog::MatchType mt, QTreeWidget *listView)
+    : m_text(text)
+    , m_matchType(mt)
 {
-    setItemsVisible( listView->invisibleRootItem() );
+    setItemsVisible(listView->invisibleRootItem());
 }
 
-bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown(QTreeWidgetItem *item )
+bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown(QTreeWidgetItem *item)
 {
     // Be sure not to display the "untagged image" tag if configured
     if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
-            && !Settings::SettingsData::instance()->untaggedImagesTagVisible() ) {
+        && !Settings::SettingsData::instance()->untaggedImagesTagVisible()) {
         if (Settings::SettingsData::instance()->untaggedCategory()
-            == dynamic_cast<ListSelect*>(item->treeWidget()->parent())->category()) {
+            == dynamic_cast<ListSelect *>(item->treeWidget()->parent())->category()) {
             if (item->text(0) == Settings::SettingsData::instance()->untaggedTag()) {
                 return false;
             }
         }
     }
 
-    switch ( m_matchType )
-    {
-        case AnnotationDialog::MatchFromBeginning:
-            return item->text(0).toLower().startsWith( m_text.toLower() );
-        case AnnotationDialog::MatchFromWordStart: {
-            QStringList itemWords = item->text(0).toLower().split(QRegExp(QString::fromUtf8("\\W+")),
-                                                                          QString::SkipEmptyParts);
-            QStringList searchWords = m_text.toLower().split(QRegExp(QString::fromUtf8("\\W+")),
-                                                                    QString::SkipEmptyParts);
+    switch (m_matchType) {
+    case AnnotationDialog::MatchFromBeginning:
+        return item->text(0).toLower().startsWith(m_text.toLower());
+    case AnnotationDialog::MatchFromWordStart: {
+        QStringList itemWords = item->text(0).toLower().split(QRegExp(QString::fromUtf8("\\W+")),
+                                                              QString::SkipEmptyParts);
+        QStringList searchWords = m_text.toLower().split(QRegExp(QString::fromUtf8("\\W+")),
+                                                         QString::SkipEmptyParts);
 
-            // all search words ...
-            Q_FOREACH( const auto searchWord, searchWords )
-            {
-                bool found = false;
-                // ... must match at least one word of the item
-                Q_FOREACH( const auto itemWord, itemWords )
-                {
-                    if (itemWord.startsWith(searchWord))
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    return false;
+        // all search words ...
+        Q_FOREACH (const auto searchWord, searchWords) {
+            bool found = false;
+            // ... must match at least one word of the item
+            Q_FOREACH (const auto itemWord, itemWords) {
+                if (itemWord.startsWith(searchWord)) {
+                    found = true;
+                    break;
                 }
             }
-            return true;
+            if (!found) {
+                return false;
+            }
         }
-        case AnnotationDialog::MatchAnywhere:
-            return item->text(0).toLower().contains( m_text.toLower() );
+        return true;
+    }
+    case AnnotationDialog::MatchAnywhere:
+        return item->text(0).toLower().contains(m_text.toLower());
     }
     // gcc believes this could be reached
-    Q_ASSERT( false );
+    Q_ASSERT(false);
     return false;
 }
 
-bool AnnotationDialog::ListViewCheckedHider::shouldItemBeShown(QTreeWidgetItem *item )
+bool AnnotationDialog::ListViewCheckedHider::shouldItemBeShown(QTreeWidgetItem *item)
 {
     return item->checkState(0) != Qt::Unchecked;
 }
 
-AnnotationDialog::ListViewCheckedHider::ListViewCheckedHider(QTreeWidget *listView )
+AnnotationDialog::ListViewCheckedHider::ListViewCheckedHider(QTreeWidget *listView)
 {
-    setItemsVisible( listView->invisibleRootItem() );
+    setItemsVisible(listView->invisibleRootItem());
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

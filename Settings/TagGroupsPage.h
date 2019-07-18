@@ -23,8 +23,8 @@
 #include <QWidget>
 
 // Local includes
-#include <DB/MemberMap.h>
 #include <DB/ImageDB.h>
+#include <DB/MemberMap.h>
 
 // Qt classes
 class QListWidget;
@@ -52,12 +52,12 @@ class TagGroupsPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit TagGroupsPage(QWidget* parent);
+    explicit TagGroupsPage(QWidget *parent);
     void saveSettings();
     void loadSettings();
-    DB::MemberMap* memberMap();
-    QString getCategory(QTreeWidgetItem* currentItem);
-    void processDrop(QTreeWidgetItem* draggedItem, QTreeWidgetItem* targetItem);
+    DB::MemberMap *memberMap();
+    QString getCategory(QTreeWidgetItem *currentItem);
+    void processDrop(QTreeWidgetItem *draggedItem, QTreeWidgetItem *targetItem);
 
 public slots:
     void categoryChangesPending();
@@ -70,42 +70,42 @@ private slots:
     void slotRenameGroup();
     void showTreeContextMenu(QPoint point);
     void showMembersContextMenu(QPoint point);
-    void slotGroupSelected(QTreeWidgetItem* item);
-    void checkItemSelection(QListWidgetItem*);
+    void slotGroupSelected(QTreeWidgetItem *item);
+    void checkItemSelection(QListWidgetItem *);
     void slotRenameMember();
     void slotDeleteMember();
 
 private: // Functions
-    void categoryChanged(const QString& name);
+    void categoryChanged(const QString &name);
     void saveOldGroup();
-    void selectMembers(const QString& group);
-    void renameAllSubCategories(QTreeWidgetItem* categoryItem, QString oldName, QString newName);
+    void selectMembers(const QString &group);
+    void renameAllSubCategories(QTreeWidgetItem *categoryItem, QString oldName, QString newName);
     void updateCategoryTree();
-    void addSubCategories(QTreeWidgetItem* superCategory,
-                          QMap<QString, QStringList>& membersForGroup,
-                          QStringList& allGroups);
-    void addNewSubItem(QString& name, QTreeWidgetItem* parentItem);
-    QTreeWidgetItem* findCategoryItem(QString category);
+    void addSubCategories(QTreeWidgetItem *superCategory,
+                          QMap<QString, QStringList> &membersForGroup,
+                          QStringList &allGroups);
+    void addNewSubItem(QString &name, QTreeWidgetItem *parentItem);
+    QTreeWidgetItem *findCategoryItem(QString category);
     DB::CategoryPtr getCategoryObject(QString category) const;
 
 private: // Variables
     DB::MemberMap m_memberMap;
-    QListWidget* m_membersListWidget;
-    CategoriesGroupsWidget* m_categoryTreeWidget;
+    QListWidget *m_membersListWidget;
+    CategoriesGroupsWidget *m_categoryTreeWidget;
     QString m_currentCategory;
     QString m_currentGroup;
     QString m_currentSubCategory;
     QString m_currentSuperCategory;
     QString m_selectGroupToAddTags;
-    QAction* m_newGroupAction;
-    QAction* m_renameAction;
-    QAction* m_deleteAction;
-    QAction* m_deleteMemberAction;
-    QAction* m_renameMemberAction;
-    QLabel* m_tagsInGroupLabel;
+    QAction *m_newGroupAction;
+    QAction *m_renameAction;
+    QAction *m_deleteAction;
+    QAction *m_deleteMemberAction;
+    QAction *m_renameMemberAction;
+    QLabel *m_tagsInGroupLabel;
     bool m_dataChanged;
     QList<QMap<CategoryEdit, QString>> m_categoryChanges;
-    QLabel* m_pendingChangesLabel;
+    QLabel *m_pendingChangesLabel;
 };
 
 }

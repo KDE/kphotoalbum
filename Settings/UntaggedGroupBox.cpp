@@ -16,52 +16,52 @@
    Boston, MA 02110-1301, USA.
 */
 #include "UntaggedGroupBox.h"
-#include "SettingsData.h"
-#include <KLocalizedString>
-#include <QComboBox>
-#include <QLabel>
-#include <QGridLayout>
-#include <DB/ImageDB.h>
 #include "DB/CategoryCollection.h"
-#include <QMessageBox>
+#include "SettingsData.h"
+#include <DB/ImageDB.h>
+#include <KLocalizedString>
 #include <QCheckBox>
+#include <QComboBox>
+#include <QGridLayout>
+#include <QLabel>
+#include <QMessageBox>
 
-Settings::UntaggedGroupBox::UntaggedGroupBox( QWidget* parent )
-    : QGroupBox( i18n("Untagged Images"), parent )
+Settings::UntaggedGroupBox::UntaggedGroupBox(QWidget *parent)
+    : QGroupBox(i18n("Untagged Images"), parent)
 {
     setWhatsThis(i18n("If a tag is selected here, it will be added to new (untagged) images "
                       "automatically, so that they can be easily found. It will be removed as "
                       "soon as the image has been annotated."));
 
-    QGridLayout* grid = new QGridLayout(this);
+    QGridLayout *grid = new QGridLayout(this);
     int row = -1;
 
-    QLabel* label = new QLabel( i18n("Category:" ) );
-    grid->addWidget( label, ++row, 0 );
+    QLabel *label = new QLabel(i18n("Category:"));
+    grid->addWidget(label, ++row, 0);
 
     m_category = new QComboBox;
-    grid->addWidget( m_category, row, 1 );
+    grid->addWidget(m_category, row, 1);
     connect(m_category, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &UntaggedGroupBox::populateTagsCombo);
 
-    label = new QLabel( i18n("Tag:") );
-    grid->addWidget( label, ++row, 0 );
+    label = new QLabel(i18n("Tag:"));
+    grid->addWidget(label, ++row, 0);
 
     m_tag = new QComboBox;
-    grid->addWidget( m_tag, row, 1 );
+    grid->addWidget(m_tag, row, 1);
     m_tag->setEditable(true);
 
     m_showUntaggedImagesTag = new QCheckBox(i18n("Show the untagged images tag as a normal tag"));
     grid->addWidget(m_showUntaggedImagesTag, ++row, 0, 1, 2);
 
-    grid->setColumnStretch(1,1);
+    grid->setColumnStretch(1, 1);
 }
 
 void Settings::UntaggedGroupBox::populateCategoryComboBox()
 {
     m_category->clear();
-    m_category->addItem( i18n("None Selected") );
-    Q_FOREACH( DB::CategoryPtr category, DB::ImageDB::instance()->categoryCollection()->categories() ) {
-        if (!category->isSpecialCategory() )
+    m_category->addItem(i18n("None Selected"));
+    Q_FOREACH (DB::CategoryPtr category, DB::ImageDB::instance()->categoryCollection()->categories()) {
+        if (!category->isSpecialCategory())
             m_category->addItem(category->name(), category->name());
     }
 }
@@ -69,61 +69,61 @@ void Settings::UntaggedGroupBox::populateCategoryComboBox()
 void Settings::UntaggedGroupBox::populateTagsCombo()
 {
     m_tag->clear();
-     const QString currentCategory = m_category->itemData(m_category->currentIndex() ).value<QString>();
-    if ( currentCategory.isEmpty() )
+    const QString currentCategory = m_category->itemData(m_category->currentIndex()).value<QString>();
+    if (currentCategory.isEmpty())
         m_tag->setEnabled(false);
     else {
         m_tag->setEnabled(true);
-        const QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName( currentCategory )->items();
-        m_tag->addItems( items );
+        const QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName(currentCategory)->items();
+        m_tag->addItems(items);
     }
 }
 
-void Settings::UntaggedGroupBox::loadSettings( Settings::SettingsData* opt )
+void Settings::UntaggedGroupBox::loadSettings(Settings::SettingsData *opt)
 {
     populateCategoryComboBox();
 
     const QString category = opt->untaggedCategory();
     const QString tag = opt->untaggedTag();
 
-    int categoryIndex = m_category->findData( category );
-    if ( categoryIndex == -1 )
+    int categoryIndex = m_category->findData(category);
+    if (categoryIndex == -1)
         categoryIndex = 0;
 
-    m_category->setCurrentIndex( categoryIndex );
+    m_category->setCurrentIndex(categoryIndex);
     populateTagsCombo();
 
-    if ( categoryIndex != 0 ) {
-        int tagIndex = m_tag->findText( tag );
-        if ( tagIndex == -1 ) {
-            m_tag->addItem( tag );
-            tagIndex = m_tag->findText( tag );
-            Q_ASSERT( tagIndex != -1 );
+    if (categoryIndex != 0) {
+        int tagIndex = m_tag->findText(tag);
+        if (tagIndex == -1) {
+            m_tag->addItem(tag);
+            tagIndex = m_tag->findText(tag);
+            Q_ASSERT(tagIndex != -1);
         }
-        m_tag->setCurrentIndex( tagIndex );
+        m_tag->setCurrentIndex(tagIndex);
     }
 
     m_showUntaggedImagesTag->setChecked(opt->untaggedImagesTagVisible());
 }
 
-void Settings::UntaggedGroupBox::saveSettings( Settings::SettingsData* opt )
+void Settings::UntaggedGroupBox::saveSettings(Settings::SettingsData *opt)
 {
-    const QString category = m_category->itemData(m_category->currentIndex() ).value<QString>();
+    const QString category = m_category->itemData(m_category->currentIndex()).value<QString>();
     QString untaggedTag = m_tag->currentText().simplified();
 
-    if (! category.isEmpty()) {
+    if (!category.isEmpty()) {
         // Add a new tag if the entered one is not in the DB yet
         DB::CategoryPtr categoryPointer = DB::ImageDB::instance()->categoryCollection()->categoryForName(category);
-        if (! categoryPointer->items().contains(untaggedTag)) {
+        if (!categoryPointer->items().contains(untaggedTag)) {
             categoryPointer->addItem(untaggedTag);
             QMessageBox::information(this,
-                i18n("New tag added"),
-                i18n("<p>The new tag \"%1\" has been added to the category \"%2\" and will be used "
-                     "for untagged images now.</p>"
-                     "<p>Please save now, so that this tag will be stored in the database. "
-                     "Otherwise, it will be lost, and you will get an error about this tag being "
-                     "not present on the next start.</p>",
-                     untaggedTag, category));
+                                     i18n("New tag added"),
+                                     i18n("<p>The new tag \"%1\" has been added to the category \"%2\" and will be used "
+                                          "for untagged images now.</p>"
+                                          "<p>Please save now, so that this tag will be stored in the database. "
+                                          "Otherwise, it will be lost, and you will get an error about this tag being "
+                                          "not present on the next start.</p>",
+                                          untaggedTag, category));
         }
 
         opt->setUntaggedCategory(category);

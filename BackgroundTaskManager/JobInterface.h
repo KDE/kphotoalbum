@@ -19,8 +19,8 @@
 #ifndef JOBINTERFACE_H
 #define JOBINTERFACE_H
 
-#include <QObject>
 #include "JobInfo.h"
+#include <QObject>
 
 namespace BackgroundTaskManager
 {
@@ -32,7 +32,7 @@ public:
     explicit JobInterface(BackgroundTaskManager::Priority);
     ~JobInterface() override;
     void start();
-    void addDependency(JobInterface* job);
+    void addDependency(JobInterface *job);
 
 protected:
     virtual void execute() = 0;

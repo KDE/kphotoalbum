@@ -19,13 +19,14 @@
 
 #include "MergeToolTip.h"
 
-namespace MainWindow {
+namespace MainWindow
+{
 
-MergeToolTip* MergeToolTip::s_instance = nullptr;
+MergeToolTip *MergeToolTip::s_instance = nullptr;
 
 MainWindow::MergeToolTip *MainWindow::MergeToolTip::instance()
 {
-    if ( !s_instance )
+    if (!s_instance)
         s_instance = new MergeToolTip;
     return s_instance;
 }
@@ -36,8 +37,8 @@ void MergeToolTip::destroy()
     s_instance = nullptr;
 }
 
-MergeToolTip::MergeToolTip(QWidget *parent) :
-    Utilities::ToolTip(parent, Qt::Window)
+MergeToolTip::MergeToolTip(QWidget *parent)
+    : Utilities::ToolTip(parent, Qt::Window)
 {
 }
 

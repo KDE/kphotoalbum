@@ -27,24 +27,23 @@
 
 namespace DB
 {
-    class ImageInfo;
+class ImageInfo;
 }
 
 namespace Plugins
 {
 
-class ImageInfo :public KIPI::ImageInfoShared
+class ImageInfo : public KIPI::ImageInfoShared
 {
 public:
-    ImageInfo( KIPI::Interface* interface, const QUrl &url );
+    ImageInfo(KIPI::Interface *interface, const QUrl &url);
 
-    QMap<QString,QVariant> attributes() override;
+    QMap<QString, QVariant> attributes() override;
     void clearAttributes() override;
-    void addAttributes( const QMap<QString,QVariant>& ) override;
-    void delAttributes( const QStringList& ) override;
+    void addAttributes(const QMap<QString, QVariant> &) override;
+    void delAttributes(const QStringList &) override;
 
-    void cloneData( ImageInfoShared* const other) override;
-
+    void cloneData(ImageInfoShared *const other) override;
 
 private:
     DB::ImageInfoPtr m_info;

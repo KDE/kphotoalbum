@@ -17,56 +17,47 @@
 */
 
 #include "SearchBar.h"
-#include <QLineEdit>
-#include <kmainwindow.h>
-#include <qlabel.h>
-#include <QKeyEvent>
-#include <QEvent>
 #include <KLocalizedString>
-#include <qapplication.h>
+#include <QEvent>
+#include <QKeyEvent>
+#include <QLineEdit>
 #include <kactioncollection.h>
+#include <kmainwindow.h>
+#include <qapplication.h>
+#include <qlabel.h>
 
-MainWindow::SearchBar::SearchBar( KMainWindow* parent )
-    : KToolBar( parent )
+MainWindow::SearchBar::SearchBar(KMainWindow *parent)
+    : KToolBar(parent)
 {
-    QLabel* label = new QLabel( i18nc("@label:textbox label on the search bar","Search:") + QString::fromLatin1(" ") );
-    addWidget( label );
+    QLabel *label = new QLabel(i18nc("@label:textbox label on the search bar", "Search:") + QString::fromLatin1(" "));
+    addWidget(label);
 
-    m_edit = new QLineEdit( this );
+    m_edit = new QLineEdit(this);
     m_edit->setClearButtonEnabled(true);
-    label->setBuddy( m_edit );
+    label->setBuddy(m_edit);
 
-    addWidget( m_edit );
+    addWidget(m_edit);
     connect(m_edit, &QLineEdit::textChanged, this, &SearchBar::textChanged);
     connect(m_edit, &QLineEdit::returnPressed, this, &SearchBar::returnPressed);
 
-    m_edit->installEventFilter( this );
+    m_edit->installEventFilter(this);
 }
 
-bool MainWindow::SearchBar::eventFilter( QObject* , QEvent* e )
+bool MainWindow::SearchBar::eventFilter(QObject *, QEvent *e)
 {
-    if ( e->type() == QEvent::KeyPress ) {
-        QKeyEvent* ke = static_cast<QKeyEvent*>( e );
-        if ( ke->key() == Qt::Key_Up ||
-             ke->key() == Qt::Key_Down ||
-             ke->key() == Qt::Key_Left ||
-             ke->key() == Qt::Key_Right ||
-             ke->key() == Qt::Key_PageDown ||
-             ke->key() == Qt::Key_PageUp ||
-             ke->key() == Qt::Key_Home ||
-             ke->key() == Qt::Key_End ) {
-            emit keyPressed( ke );
+    if (e->type() == QEvent::KeyPress) {
+        QKeyEvent *ke = static_cast<QKeyEvent *>(e);
+        if (ke->key() == Qt::Key_Up || ke->key() == Qt::Key_Down || ke->key() == Qt::Key_Left || ke->key() == Qt::Key_Right || ke->key() == Qt::Key_PageDown || ke->key() == Qt::Key_PageUp || ke->key() == Qt::Key_Home || ke->key() == Qt::Key_End) {
+            emit keyPressed(ke);
             return true;
-        }
-        else if ( ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return ) {
+        } else if (ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return) {
             // If I don't interpret return and enter here, but simply rely
             // on QLineEdit itself to emit the signal, then  it will
             // propagate to the main window, and from there be delivered to
             // the central widget.
             emit returnPressed();
             return true;
-        }
-        else if ( ke->key() == Qt::Key_Escape )
+        } else if (ke->key() == Qt::Key_Escape)
             reset();
     }
     return false;

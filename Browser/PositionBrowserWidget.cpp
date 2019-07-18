@@ -20,16 +20,16 @@
 #include <QProgressBar>
 #include <QVBoxLayout>
 #include <qdom.h>
-#include <qurl.h>
 #include <qlabel.h>
+#include <qurl.h>
 
 #include <KLocalizedString>
 
-#include "DB/ImageInfo.h"
 #include "DB/ImageDB.h"
+#include "DB/ImageInfo.h"
 
-Browser::PositionBrowserWidget::PositionBrowserWidget( QWidget* parent )
-    :QWidget(parent)
+Browser::PositionBrowserWidget::PositionBrowserWidget(QWidget *parent)
+    : QWidget(parent)
 {
     m_mapView = new Map::MapView(this);
     m_mapView->displayStatus(Map::MapView::MapStatus::Loading);
@@ -43,7 +43,7 @@ Browser::PositionBrowserWidget::~PositionBrowserWidget()
 {
 }
 
-void Browser::PositionBrowserWidget::showImages( const DB::ImageSearchInfo& searchInfo )
+void Browser::PositionBrowserWidget::showImages(const DB::ImageSearchInfo &searchInfo)
 {
     m_mapView->displayStatus(Map::MapView::MapStatus::Loading);
     m_mapView->clear();

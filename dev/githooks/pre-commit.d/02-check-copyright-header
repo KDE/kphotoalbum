@@ -7,6 +7,15 @@
 
 set -e
 
+if [[ -z "$CHECK_COPYRIGHT_HEADER" ]]
+then
+	CHECK_COPYRIGHT_HEADER=$(git config --default true --type bool --get kpa.checkCopyrightHeader)
+fi
+if [[ "$CHECK_COPYRIGHT_HEADER" == false ]]
+then
+	exit 0
+fi
+
 year=$(date +%Y)
 IFS=$'\n'
 for line in $(git status -s)
@@ -26,11 +35,13 @@ done
 
 if [ -n "$missing_year" ]
 then
-	echo -e "Please update copyright year for the following files:$missing_year"
+	printf "Please update copyright year for the following files:$missing_year\n"
 	# also check if the Copyright statement in main.cpp is ok:
 	if ! grep -q -i "i18n(\"Copyright (C) 2003-$year " main.cpp
 	then
-		echo "...and also update the copyright statement in main.cpp!"
+		printf "...and also update the copyright statement in main.cpp!\n"
 	fi
+	printf "** You can suppress this check by setting 'git config kpa.checkCopyrightHeader false'\n"
+	printf "** or by setting the environment variable CHECK_COPYRIGHT_HEADER=false\n"
 	exit 1
 fi

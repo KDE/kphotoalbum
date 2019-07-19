@@ -84,9 +84,9 @@ void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect &pix
     const QRect metricsRect = painter->fontMetrics().boundingRect(text);
 
     const int margin = 3;
-    const QRect textRect = QRect(pixmapRect.right() - metricsRect.width() - margin,
+    const QRect textRect = QRect(pixmapRect.right() - metricsRect.width() - 2 * margin,
                                  pixmapRect.bottom() - metricsRect.height() - margin,
-                                 metricsRect.width(), metricsRect.height());
+                                 metricsRect.width() + margin, metricsRect.height());
     const QRect backgroundRect = textRect.adjusted(-margin, -margin, margin, margin);
 
     if (backgroundRect.width() > pixmapRect.width() / 2) {
@@ -97,7 +97,7 @@ void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect &pix
     painter->save();
     painter->fillRect(backgroundRect, QBrush(QColor(0, 0, 0, 128)));
     painter->setPen(Qt::white);
-    painter->drawText(textRect, text);
+    painter->drawText(textRect, Qt::TextDontClip, text);
     painter->restore();
 }
 

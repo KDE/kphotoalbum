@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Apply clang-format in-place to all source files
 # Note: AndroidRemoteControl is excluded for now:
 

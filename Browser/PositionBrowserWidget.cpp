@@ -1,4 +1,5 @@
-/* Copyright (C) 2016-2017 Matthias Füssel <matthias.fuessel@gmx.net>
+/* Copyright (C) 2016-2019 The KPhotoAlbum Development Team
+   Copyright (C) 2016-2017 Matthias Füssel <matthias.fuessel@gmx.net>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -48,7 +49,7 @@ void Browser::PositionBrowserWidget::showImages(const DB::ImageSearchInfo &searc
     m_mapView->displayStatus(Map::MapView::MapStatus::Loading);
     m_mapView->clear();
     DB::FileNameList images = DB::ImageDB::instance()->search(searchInfo);
-    for (DB::FileNameList::const_iterator imageIter = images.begin(); imageIter < images.end(); ++imageIter) {
+    for (DB::FileNameList::const_iterator imageIter = images.constBegin(); imageIter < images.constEnd(); ++imageIter) {
         DB::ImageInfoPtr image = imageIter->info();
         if (image->coordinates().hasCoordinates()) {
             m_mapView->addImage(image);

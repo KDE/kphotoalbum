@@ -278,7 +278,7 @@ void ImageManager::ThumbnailCache::saveFull() const
            << m_currentOffset
            << m_hash.count();
 
-    for (QHash<DB::FileName, CacheFileInfo>::ConstIterator it = tempHash.begin(); it != tempHash.end(); ++it) {
+    for (auto it = tempHash.constBegin(); it != tempHash.constEnd(); ++it) {
         const CacheFileInfo &cacheInfo = it.value();
         stream << it.key().relative()
                << cacheInfo.fileIndex
@@ -328,7 +328,7 @@ void ImageManager::ThumbnailCache::saveIncremental() const
         return;
     }
     QDataStream stream(&file);
-    for (QHash<DB::FileName, CacheFileInfo>::ConstIterator it = tempUnsavedHash.begin(); it != tempUnsavedHash.end(); ++it) {
+    for (auto it = tempUnsavedHash.constBegin(); it != tempUnsavedHash.constEnd(); ++it) {
         const CacheFileInfo &cacheInfo = it.value();
         stream << it.key().relative()
                << cacheInfo.fileIndex

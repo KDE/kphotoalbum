@@ -189,8 +189,8 @@ QString FileDialog::getFileName()
 void MainWindow::WelcomeDialog::checkFeatures()
 {
     if (!FeatureDialog::hasAllFeaturesAvailable()) {
-        const QString msg = i18n("<p>KPhotoAlbum does not seem to be build with support for all its features. The following is a list "
-                                 "indicating to you what you may miss:<ul>%1</ul></p>"
+        const QString msg = i18n("<p>KPhotoAlbum does not seem to be built with support for all its features. The following is a list "
+                                 "indicating what you may be missing:<ul>%1</ul></p>"
                                  "<p>For details on how to solve this problem, please choose <b>Help</b>|<b>KPhotoAlbum Feature Status</b> "
                                  "from the menus.</p>",
                                  FeatureDialog::featureString());

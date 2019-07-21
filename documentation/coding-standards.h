@@ -12,6 +12,10 @@ Not every distro ships the latest version of Qt. As a rule of thumb, we aim for 
 \li The release life cycle is very regular
 \li Package information is readily available <a href='https://packages.ubuntu.com/libqt5gui' alt='Ubuntu package search'>online</a>
 
+<h2>Code formatting</h2>
+
+We use clang-format to change our code. Please do use our commit-hooks that are described in `dev/README-dev.txt`.
+
 <h2>General conventions</h2>
 
 Here are a few pointers regarding coding standards in KPhotoAlbum. Please do stick to them, so the
@@ -31,6 +35,13 @@ code is easier to get into for new people, and easier to maintain for everyone.
     You can then enable the code by setting the environment variable QT_LOGGING_RULES="kphotoalbum.*=true".
 
 <h2>Include files and forward declarations</h2>
+
+The order of include statements should always be the following:
+
+\li "config-kpa-xxx.h" includes
+\li file-specific header file
+\li KPA-includes
+\li other includes
 
 To speed up compilation and make things easier to understand, you should be careful about what you
 include, and when cleaning up code, please check whether you need all the include files.

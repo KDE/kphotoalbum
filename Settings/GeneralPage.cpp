@@ -16,11 +16,14 @@
    Boston, MA 02110-1301, USA.
 */
 #include "GeneralPage.h"
-#include "DB/CategoryCollection.h"
-#include "MainWindow/Window.h"
+
 #include "SettingsData.h"
+
 #include <DB/Category.h>
+#include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
+#include <MainWindow/Window.h>
+
 #include <KComboBox>
 #include <KLocalizedString>
 #include <QCheckBox>

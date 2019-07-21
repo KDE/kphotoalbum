@@ -20,6 +20,7 @@
 #define VIDEOSHOOTER_H
 
 #include <DB/ImageInfoPtr.h>
+
 #include <QObject>
 
 namespace Viewer

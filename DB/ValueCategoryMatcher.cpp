@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ValueCategoryMatcher.h"
+
 #include "ImageDB.h"
 #include "Logging.h"
 #include "MemberMap.h"

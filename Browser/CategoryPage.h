@@ -19,8 +19,9 @@
 #ifndef CATEGORYPAGE_H
 #define CATEGORYPAGE_H
 #include "BrowserPage.h"
-#include "DB/CategoryPtr.h"
+
 #include <DB/Category.h>
+#include <DB/CategoryPtr.h>
 #include <DB/ImageSearchInfo.h>
 
 class QAbstractItemModel;

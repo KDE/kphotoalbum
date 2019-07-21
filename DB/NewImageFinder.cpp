@@ -16,15 +16,16 @@
    Boston, MA 02110-1301, USA.
 */
 #include "NewImageFinder.h"
+
 #include "FastDir.h"
+#include "ImageDB.h"
 #include "ImageScout.h"
 #include "Logging.h"
+#include "MD5Map.h"
 
 #include <BackgroundJobs/ReadVideoLengthJob.h>
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
 #include <BackgroundTaskManager/JobManager.h>
-#include <DB/ImageDB.h>
-#include <DB/MD5Map.h>
 #include <Exif/Database.h>
 #include <ImageManager/RawImageDecoder.h>
 #include <ImageManager/ThumbnailBuilder.h>
@@ -37,6 +38,8 @@
 #include <Utilities/FileUtil.h>
 #include <Utilities/VideoUtil.h>
 
+#include <KLocalizedString>
+#include <KMessageBox>
 #include <QApplication>
 #include <QDataStream>
 #include <QElapsedTimer>
@@ -49,9 +52,6 @@
 #include <QProgressBar>
 #include <QProgressDialog>
 #include <QStringList>
-
-#include <KLocalizedString>
-#include <KMessageBox>
 
 using namespace DB;
 

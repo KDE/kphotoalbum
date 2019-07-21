@@ -18,16 +18,15 @@
 */
 #include "PositionBrowserWidget.h"
 
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+
+#include <KLocalizedString>
 #include <QProgressBar>
 #include <QVBoxLayout>
 #include <qdom.h>
 #include <qlabel.h>
 #include <qurl.h>
-
-#include <KLocalizedString>
-
-#include "DB/ImageDB.h"
-#include "DB/ImageInfo.h"
 
 Browser::PositionBrowserWidget::PositionBrowserWidget(QWidget *parent)
     : QWidget(parent)

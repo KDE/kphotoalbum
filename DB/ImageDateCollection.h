@@ -18,7 +18,8 @@
 
 #ifndef IMAGEDATECOLLECTION_H
 #define IMAGEDATECOLLECTION_H
-#include "DB/ImageDate.h"
+#include "ImageDate.h"
+
 #include <QExplicitlySharedDataPointer>
 #include <qmap.h>
 namespace DB

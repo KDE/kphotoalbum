@@ -17,11 +17,13 @@
 */
 
 #include "TokenEditor.h"
-#include "DB/Category.h"
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
-#include "DB/ImageSearchInfo.h"
-#include "Settings/SettingsData.h"
+
+#include <DB/Category.h>
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageSearchInfo.h>
+#include <Settings/SettingsData.h>
+
 #include <KLocalizedString>
 #include <QDialogButtonBox>
 #include <QGridLayout>

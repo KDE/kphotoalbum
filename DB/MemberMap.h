@@ -18,7 +18,8 @@
 
 #ifndef MEMBERMAP_H
 #define MEMBERMAP_H
-#include "Utilities/StringSet.h"
+#include <Utilities/StringSet.h>
+
 #include <qmap.h>
 #include <qobject.h>
 #include <qstringlist.h>

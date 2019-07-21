@@ -18,7 +18,8 @@
 
 #ifndef CATEGORYIMAGEPOPUP_H
 #define CATEGORYIMAGEPOPUP_H
-#include "DB/ImageDB.h"
+#include <DB/ImageDB.h>
+
 #include <QImage>
 #include <QMenu>
 

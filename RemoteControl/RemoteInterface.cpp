@@ -18,34 +18,32 @@
 
 #include "RemoteInterface.h"
 
-#include <algorithm>
-#include <tuple>
+#include "RemoteCommand.h"
+#include "RemoteImageRequest.h"
+#include "Server.h"
+#include "Types.h"
 
+#include <Browser/FlatCategoryModel.h>
+#include <DB/Category.h>
+#include <DB/CategoryCollection.h>
+#include <DB/CategoryPtr.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <DB/ImageInfoPtr.h>
+#include <DB/ImageSearchInfo.h>
+#include <ImageManager/AsyncLoader.h>
+#include <MainWindow/DirtyIndicator.h>
+#include <Utilities/DescriptionUtil.h>
+
+#include <KLocalizedString>
 #include <QBuffer>
 #include <QDataStream>
 #include <QImage>
 #include <QPainter>
 #include <QTcpSocket>
-
-#include <KLocalizedString>
+#include <algorithm>
 #include <kiconloader.h>
-
-#include "Browser/FlatCategoryModel.h"
-#include "DB/Category.h"
-#include "DB/CategoryCollection.h"
-#include "DB/CategoryPtr.h"
-#include "DB/ImageDB.h"
-#include "DB/ImageInfo.h"
-#include "DB/ImageInfoPtr.h"
-#include "DB/ImageSearchInfo.h"
-#include "ImageManager/AsyncLoader.h"
-#include "MainWindow/DirtyIndicator.h"
-#include "Utilities/DescriptionUtil.h"
-
-#include "RemoteCommand.h"
-#include "RemoteImageRequest.h"
-#include "Server.h"
-#include "Types.h"
+#include <tuple>
 
 using namespace RemoteControl;
 

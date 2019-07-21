@@ -18,6 +18,7 @@
 
 // Local includes
 #include "FileReader.h"
+
 #include "CompressFileInfo.h"
 #include "Database.h"
 #include "Logging.h"

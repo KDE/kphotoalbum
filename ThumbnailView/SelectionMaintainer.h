@@ -20,6 +20,7 @@
 
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
+
 #include <DB/FileNameList.h>
 
 namespace ThumbnailView

@@ -16,13 +16,16 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImageDB.h"
-#include "Browser/BrowserWidget.h"
-#include "DB/CategoryCollection.h"
+
+#include "CategoryCollection.h"
+#include "FileName.h"
+#include "MediaCount.h"
 #include "NewImageFinder.h"
 #include "UIDelegate.h"
-#include "XMLDB/Database.h"
-#include <DB/FileName.h>
-#include <DB/MediaCount.h>
+
+#include <Browser/BrowserWidget.h>
+#include <XMLDB/Database.h>
+
 #include <KLocalizedString>
 #include <QProgressDialog>
 #include <qapplication.h>

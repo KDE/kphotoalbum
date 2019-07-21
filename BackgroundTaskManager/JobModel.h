@@ -23,6 +23,7 @@
 #include "CompletedJobInfo.h"
 #include "JobInfo.h"
 #include "JobInterface.h"
+
 #include <QAbstractTableModel>
 
 namespace BackgroundTaskManager

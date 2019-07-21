@@ -18,6 +18,7 @@
 */
 
 #include "FastDir.h"
+
 #include "Logging.h"
 
 #include <QFile>

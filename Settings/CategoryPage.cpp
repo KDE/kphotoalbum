@@ -37,13 +37,14 @@
 
 // Local includes
 #include "CategoryItem.h"
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
-#include "DB/MemberMap.h"
-#include "MainWindow/DirtyIndicator.h"
-#include "MainWindow/Window.h"
 #include "SettingsDialog.h"
 #include "UntaggedGroupBox.h"
+
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/MemberMap.h>
+#include <MainWindow/DirtyIndicator.h>
+#include <MainWindow/Window.h>
 
 Settings::CategoryPage::CategoryPage(QWidget *parent)
     : QWidget(parent)

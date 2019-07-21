@@ -17,6 +17,20 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "DuplicateMerger.h"
+
+#include "DuplicateMatch.h"
+#include "MergeToolTip.h"
+
+#include <DB/FileName.h>
+#include <DB/FileNameList.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <DB/MD5.h>
+#include <Utilities/DeleteFiles.h>
+#include <Utilities/ShowBusyCursor.h>
+
+#include <KLocalizedString>
 #include <QDebug>
 #include <QDialogButtonBox>
 #include <QLabel>
@@ -24,19 +38,6 @@
 #include <QRadioButton>
 #include <QScrollArea>
 #include <QVBoxLayout>
-
-#include <KLocalizedString>
-
-#include "DB/FileName.h"
-#include "DB/FileNameList.h"
-#include "DB/ImageDB.h"
-#include "DB/ImageInfo.h"
-#include "DB/MD5.h"
-#include "DuplicateMatch.h"
-#include "DuplicateMerger.h"
-#include "MergeToolTip.h"
-#include "Utilities/DeleteFiles.h"
-#include "Utilities/ShowBusyCursor.h"
 
 namespace MainWindow
 {

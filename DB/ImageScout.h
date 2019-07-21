@@ -18,7 +18,8 @@
 
 #ifndef IMAGESCOUT_H
 #define IMAGESCOUT_H
-#include "DB/FileName.h"
+#include "FileName.h"
+
 #include <QAtomicInt>
 #include <QList>
 #include <QMutex>

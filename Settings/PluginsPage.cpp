@@ -16,21 +16,21 @@
    Boston, MA 02110-1301, USA.
 */
 #include "PluginsPage.h"
-#include <config-kpa-kipi.h>
 
+#include <KLocalizedString>
 #include <QCheckBox>
 #include <QLabel>
 #include <QVBoxLayout>
-
-#include <KLocalizedString>
+#include <config-kpa-kipi.h>
 
 #ifdef HASKIPI
 #include <KIPI/ConfigWidget>
 #include <KIPI/PluginLoader>
 #endif
 
+#include "SettingsData.h"
+
 #include <MainWindow/Window.h>
-#include <Settings/SettingsData.h>
 
 Settings::PluginsPage::PluginsPage(QWidget *parent)
     : QWidget(parent)

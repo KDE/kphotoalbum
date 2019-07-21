@@ -19,14 +19,15 @@
 #ifndef IMAGEMANAGER_ASYNCLOADER_H
 #define IMAGEMANAGER_ASYNCLOADER_H
 
+#include "RequestQueue.h"
+#include "enums.h"
+
+#include <MainWindow/Window.h>
+
 #include <QImage>
 #include <QList>
 #include <QMutex>
 #include <QWaitCondition>
-
-#include "MainWindow/Window.h"
-#include "RequestQueue.h"
-#include "enums.h"
 
 class QEvent;
 

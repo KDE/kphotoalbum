@@ -17,7 +17,8 @@
 */
 #ifndef DATEBARMOUSEHANDLER_H
 #define DATEBARMOUSEHANDLER_H
-#include "DB/ImageDate.h"
+#include <DB/ImageDate.h>
+
 #include <QObject>
 #include <qdatetime.h>
 

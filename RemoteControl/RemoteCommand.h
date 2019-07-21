@@ -20,8 +20,8 @@
 #define REMOTECOMMAND_H
 
 #include "SearchInfo.h"
-
 #include "Types.h"
+
 #include <QBuffer>
 #include <QDataStream>
 #include <QImage>

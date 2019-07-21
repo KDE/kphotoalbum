@@ -18,12 +18,12 @@
 
 #include "ImageInfo.h"
 
+#include "CategoryCollection.h"
 #include "FileInfo.h"
+#include "ImageDB.h"
 #include "Logging.h"
+#include "MemberMap.h"
 
-#include <DB/CategoryCollection.h>
-#include <DB/ImageDB.h>
-#include <DB/MemberMap.h>
 #include <Exif/Database.h>
 #include <Exif/DatabaseElement.h>
 #include <Settings/SettingsData.h>

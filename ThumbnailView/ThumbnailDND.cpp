@@ -17,16 +17,16 @@
 */
 #include "ThumbnailDND.h"
 
-#include <QMimeData>
-#include <QTimer>
+#include "ThumbnailModel.h"
+#include "ThumbnailWidget.h"
+
+#include <Browser/BrowserWidget.h>
+#include <DB/ImageDB.h>
 
 #include <KLocalizedString>
 #include <KMessageBox>
-
-#include "ThumbnailModel.h"
-#include "ThumbnailWidget.h"
-#include <Browser/BrowserWidget.h>
-#include <DB/ImageDB.h>
+#include <QMimeData>
+#include <QTimer>
 
 ThumbnailView::ThumbnailDND::ThumbnailDND(ThumbnailFactory *factory)
     : ThumbnailComponent(factory)

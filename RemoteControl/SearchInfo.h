@@ -22,7 +22,6 @@
 #include <QDataStream>
 #include <QStack>
 #include <QString>
-
 #include <tuple>
 
 namespace RemoteControl

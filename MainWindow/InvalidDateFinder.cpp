@@ -17,12 +17,15 @@
 */
 
 #include "InvalidDateFinder.h"
-#include "DB/FileInfo.h"
-#include "DB/ImageDB.h"
-#include "DB/ImageDate.h"
-#include "DB/ImageInfo.h"
-#include "MainWindow/Window.h"
-#include "Utilities/ShowBusyCursor.h"
+
+#include "Window.h"
+
+#include <DB/FileInfo.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageDate.h>
+#include <DB/ImageInfo.h>
+#include <Utilities/ShowBusyCursor.h>
+
 #include <KLocalizedString>
 #include <KTextEdit>
 #include <QDialogButtonBox>

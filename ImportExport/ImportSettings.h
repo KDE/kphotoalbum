@@ -18,7 +18,8 @@
 #ifndef IMPORTSETTINGS_H
 #define IMPORTSETTINGS_H
 
-#include "DB/ImageInfoList.h"
+#include <DB/ImageInfoList.h>
+
 #include <QUrl>
 namespace ImportExport
 {

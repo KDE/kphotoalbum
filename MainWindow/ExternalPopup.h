@@ -18,11 +18,12 @@
 
 #ifndef EXTERNALPOPUP_H
 #define EXTERNALPOPUP_H
-#include "DB/ImageInfoList.h"
 #include <DB/FileNameList.h>
+#include <DB/ImageInfoList.h>
+#include <Utilities/StringSet.h>
+
 #include <QMenu>
 #include <QPixmap>
-#include <Utilities/StringSet.h>
 #include <qpair.h>
 
 namespace DB

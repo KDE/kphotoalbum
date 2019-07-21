@@ -18,20 +18,18 @@
 
 #include "SettingsData.h"
 
-#include <stdlib.h>
-
-#include <QApplication>
-#include <QPixmapCache>
-#include <QStringList>
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
 
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KSharedConfig>
-
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
+#include <QApplication>
+#include <QPixmapCache>
+#include <QStringList>
+#include <stdlib.h>
 
 #define STR(x) QString::fromLatin1(x)
 

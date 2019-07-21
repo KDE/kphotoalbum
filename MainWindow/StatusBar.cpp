@@ -17,6 +17,16 @@
 */
 #include "StatusBar.h"
 
+#include "DirtyIndicator.h"
+#include "ImageCounter.h"
+
+#include <BackgroundTaskManager/StatusIndicator.h>
+#include <DB/ImageDB.h>
+#include <Settings/SettingsData.h>
+#include <ThumbnailView/ThumbnailFacade.h>
+
+#include <KIconLoader>
+#include <KLocalizedString>
 #include <QApplication>
 #include <QHBoxLayout>
 #include <QIcon>
@@ -26,18 +36,7 @@
 #include <QTimer>
 #include <QToolButton>
 #include <QVBoxLayout>
-
-#include <KIconLoader>
-#include <KLocalizedString>
-
-#include <BackgroundTaskManager/StatusIndicator.h>
-#include <DB/ImageDB.h>
 #include <RemoteControl/ConnectionIndicator.h>
-#include <Settings/SettingsData.h>
-#include <ThumbnailView/ThumbnailFacade.h>
-
-#include "DirtyIndicator.h"
-#include "ImageCounter.h"
 
 MainWindow::StatusBar::StatusBar()
     : QStatusBar()

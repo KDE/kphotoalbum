@@ -19,11 +19,11 @@
 #ifndef CATEGORYIMAGECONFIG_H
 #define CATEGORYIMAGECONFIG_H
 
+#include <DB/ImageInfoPtr.h>
+
 #include <QDialog>
 #include <QImage>
 #include <QLabel>
-
-#include <DB/ImageInfoPtr.h>
 
 class QComboBox;
 class QLabel;

@@ -17,6 +17,7 @@
 */
 
 #include "ImageClientInterface.h"
+
 #include "AsyncLoader.h"
 
 ImageManager::ImageClientInterface::~ImageClientInterface()

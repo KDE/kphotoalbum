@@ -20,7 +20,9 @@
 #define OVERVIEWPAGE_H
 #include "Breadcrumb.h"
 #include "BrowserPage.h"
+
 #include <DB/CategoryPtr.h>
+
 #include <QAbstractListModel>
 
 namespace AnnotationDialog

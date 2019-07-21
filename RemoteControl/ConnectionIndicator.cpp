@@ -17,7 +17,9 @@
 */
 
 #include "ConnectionIndicator.h"
+
 #include "RemoteInterface.h"
+
 #include <MainWindow/Options.h>
 #include <Settings/SettingsData.h>
 

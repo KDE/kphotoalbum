@@ -16,8 +16,10 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ViewerPage.h"
+
 #include "SettingsData.h"
 #include "ViewerSizeConfig.h"
+
 #include <KComboBox>
 #include <KLocalizedString>
 #include <QGridLayout>

@@ -17,7 +17,7 @@
 */
 #ifndef THUMBNAILREQUEST_H
 #define THUMBNAILREQUEST_H
-#include "ImageManager/ImageRequest.h"
+#include <ImageManager/ImageRequest.h>
 
 namespace ThumbnailView
 {

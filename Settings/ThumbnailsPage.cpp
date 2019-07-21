@@ -16,7 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailsPage.h"
+
 #include "SettingsData.h"
+
 #include <KColorButton>
 #include <KComboBox>
 #include <KLocalizedString>

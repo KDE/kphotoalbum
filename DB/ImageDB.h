@@ -19,14 +19,14 @@
 #ifndef IMAGEDB_H
 #define IMAGEDB_H
 
-#include <QObject>
+#include "Category.h"
+#include "FileNameList.h"
+#include "ImageDateCollection.h"
+#include "ImageInfoList.h"
+#include "ImageInfoPtr.h"
+#include "MediaCount.h"
 
-#include <DB/Category.h>
-#include <DB/FileNameList.h>
-#include <DB/ImageDateCollection.h>
-#include <DB/ImageInfoList.h>
-#include <DB/ImageInfoPtr.h>
-#include <DB/MediaCount.h>
+#include <QObject>
 
 class QProgressBar;
 

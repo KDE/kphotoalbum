@@ -19,16 +19,14 @@
 #ifndef KPHOTOALBUM_PLUGININTERFACE_H
 #define KPHOTOALBUM_PLUGININTERFACE_H
 
-#include <config-kpa-kipi.h>
-
-#include <QList>
-#include <QUrl>
-#include <QVariant>
-
 #include <KIPI/ImageCollection>
 #include <KIPI/ImageCollectionSelector>
 #include <KIPI/ImageInfo>
 #include <KIPI/Interface>
+#include <QList>
+#include <QUrl>
+#include <QVariant>
+#include <config-kpa-kipi.h>
 
 class QPixmap;
 class KFileItem;

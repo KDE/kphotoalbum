@@ -21,6 +21,7 @@
 #define VIDEOTHUMBNAILCYCLER_H
 
 #include <DB/FileName.h>
+
 #include <QObject>
 
 class QTimer;

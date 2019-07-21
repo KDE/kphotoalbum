@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailRequest.h"
+
 #include "ThumbnailModel.h"
 
 ThumbnailView::ThumbnailRequest::ThumbnailRequest(int row, const DB::FileName &fileName, const QSize &size, int angle, ThumbnailModel *client)

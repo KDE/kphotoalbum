@@ -18,9 +18,10 @@
 */
 
 #include "FileName.h"
-#include "ImageDB.h"
 
-#include <DB/ImageInfoList.h>
+#include "ImageDB.h"
+#include "ImageInfoList.h"
+
 #include <Settings/SettingsData.h>
 #include <Utilities/FileNameUtil.h>
 

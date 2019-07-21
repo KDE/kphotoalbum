@@ -16,8 +16,10 @@
    Boston, MA 02110-1301, USA.
 */
 #include "CompletableLineEdit.h"
+
 #include "ListSelect.h"
 #include "ResizableFrame.h"
+
 #include <QKeyEvent>
 #include <QRegExp>
 #include <QTreeWidgetItem>

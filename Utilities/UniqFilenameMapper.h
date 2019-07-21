@@ -21,6 +21,7 @@
 #define UTILITIES_UNIQ_FILENAME_MAPPER_H
 
 #include <DB/FileName.h>
+
 #include <QMap>
 #include <QSet>
 #include <QString>

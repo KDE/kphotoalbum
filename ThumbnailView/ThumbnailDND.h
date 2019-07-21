@@ -18,9 +18,9 @@
 #ifndef THUMBNAILDND_H
 #define THUMBNAILDND_H
 
-#include <QObject>
-
 #include "ThumbnailComponent.h"
+
+#include <QObject>
 
 class QDragEnterEvent;
 class QDropEvent;

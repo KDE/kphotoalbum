@@ -18,7 +18,8 @@
 #ifndef RANGEWIDGET_H
 #define RANGEWIDGET_H
 
-#include "Exif/SearchInfo.h"
+#include "SearchInfo.h"
+
 #include <QList>
 #include <qobject.h>
 class QGridLayout;

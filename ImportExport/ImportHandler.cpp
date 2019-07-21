@@ -16,7 +16,19 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImportHandler.h"
+
+#include "ImportSettings.h"
+#include "KimFileReader.h"
 #include "Logging.h"
+
+#include <Browser/BrowserWidget.h>
+#include <DB/Category.h>
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/MD5.h>
+#include <DB/MD5Map.h>
+#include <MainWindow/Window.h>
+#include <Utilities/UniqFilenameMapper.h>
 
 #include <KConfigGroup>
 #include <KIO/StatJob>
@@ -26,20 +38,8 @@
 #include <QApplication>
 #include <QFile>
 #include <QProgressDialog>
+#include <kio/job.h>
 #include <kmessagebox.h>
-
-#include "Browser/BrowserWidget.h"
-#include "DB/Category.h"
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
-#include "DB/MD5.h"
-#include "DB/MD5Map.h"
-#include "ImportSettings.h"
-#include "KimFileReader.h"
-#include "MainWindow/Window.h"
-#include "Utilities/UniqFilenameMapper.h"
-#include "kio/job.h"
-
 #include <memory>
 
 using namespace ImportExport;

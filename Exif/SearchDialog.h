@@ -18,9 +18,10 @@
 #ifndef EXIFSEARCHDIALOG_H
 #define EXIFSEARCHDIALOG_H
 
-#include "Exif/RangeWidget.h"
-#include "Exif/SearchDialogSettings.h"
-#include "Exif/SearchInfo.h"
+#include "RangeWidget.h"
+#include "SearchDialogSettings.h"
+#include "SearchInfo.h"
+
 #include <KPageDialog>
 
 class QSpinBox;

@@ -17,19 +17,18 @@
 */
 #include "Import.h"
 
-#include <QFileDialog>
-#include <QTemporaryFile>
+#include "ImportDialog.h"
+#include "ImportHandler.h"
+#include "KimFileReader.h"
+
+#include <MainWindow/Window.h>
 
 #include <KIO/Job>
 #include <KIO/JobUiDelegate>
 #include <KLocalizedString>
 #include <KMessageBox>
-
-#include <MainWindow/Window.h>
-
-#include "ImportDialog.h"
-#include "ImportHandler.h"
-#include "KimFileReader.h"
+#include <QFileDialog>
+#include <QTemporaryFile>
 
 using namespace ImportExport;
 

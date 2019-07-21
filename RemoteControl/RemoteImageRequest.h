@@ -19,9 +19,10 @@
 #ifndef REMOTECONTROL_REMOTEIMAGEREQUEST_H
 #define REMOTECONTROL_REMOTEIMAGEREQUEST_H
 
-#include "ImageManager/ImageRequest.h"
 #include "RemoteInterface.h"
 #include "Types.h"
+
+#include <ImageManager/ImageRequest.h>
 
 namespace RemoteControl
 {

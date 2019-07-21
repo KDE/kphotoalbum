@@ -21,12 +21,11 @@
 #include "JpeglibWithFix.h"
 #include "Logging.h"
 
-#include "DB/FileName.h"
+#include <DB/FileName.h>
 
 #include <QFileInfo>
 #include <QImageReader>
 #include <QVector>
-
 #include <csetjmp>
 extern "C" {
 #include <fcntl.h>

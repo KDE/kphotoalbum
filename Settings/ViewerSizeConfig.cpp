@@ -17,6 +17,7 @@
 */
 
 #include "ViewerSizeConfig.h"
+
 #include <KLocalizedString>
 #include <qcheckbox.h>
 #include <qlabel.h>

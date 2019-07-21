@@ -18,8 +18,9 @@
 #ifndef REQUESTQUEUE_H
 #define REQUESTQUEUE_H
 
-#include "ImageManager/ImageRequest.h"
+#include "ImageRequest.h"
 #include "enums.h"
+
 #include <QQueue>
 #include <QSet>
 

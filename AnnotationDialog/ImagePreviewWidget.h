@@ -24,8 +24,9 @@
 #include <QWidget>
 
 // Local includes
-#include "DB/ImageInfo.h"
 #include "ImagePreview.h"
+
+#include <DB/ImageInfo.h>
 
 class QCheckBox;
 class QPushButton;

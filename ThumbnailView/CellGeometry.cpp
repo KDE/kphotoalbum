@@ -17,11 +17,12 @@
 */
 #include "CellGeometry.h"
 
-#include <KLocalizedString>
-
-#include "Settings/SettingsData.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
+
+#include <Settings/SettingsData.h>
+
+#include <KLocalizedString>
 
 using Utilities::StringSet;
 

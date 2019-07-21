@@ -19,7 +19,9 @@
 #define RAWIMAGEDECODER_H
 
 #include "ImageDecoder.h"
+
 #include <DB/FileName.h>
+
 #include <QStringList>
 
 namespace ImageManager

@@ -19,7 +19,8 @@
 
 #ifndef FASTDIR_H
 #define FASTDIR_H
-#include <DB/FileNameList.h>
+#include "FileNameList.h"
+
 #include <QSet>
 #include <QString>
 #include <QStringList>

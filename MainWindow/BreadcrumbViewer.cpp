@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "BreadcrumbViewer.h"
+
 #include <QTextDocument>
 
 void MainWindow::BreadcrumbViewer::setBreadcrumbs(const Browser::BreadcrumbList &list)

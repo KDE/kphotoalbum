@@ -30,7 +30,6 @@
 #include <Utilities/List.h>
 
 #include <KLocalizedString>
-
 #include <QFile>
 #include <QFileInfo>
 #include <QXmlStreamWriter>

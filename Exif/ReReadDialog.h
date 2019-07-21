@@ -19,9 +19,9 @@
 #ifndef REREADDIALOG_H
 #define REREADDIALOG_H
 
-#include <QDialog>
-
 #include <DB/FileNameList.h>
+
+#include <QDialog>
 
 class QCheckBox;
 class QLabel;

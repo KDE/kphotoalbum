@@ -23,7 +23,7 @@
 #include <QListWidgetItem>
 
 // Local includes
-#include "DB/Category.h"
+#include <DB/Category.h>
 
 namespace DB
 {

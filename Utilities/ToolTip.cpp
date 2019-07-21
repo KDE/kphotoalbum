@@ -18,11 +18,14 @@
 */
 
 #include "ToolTip.h"
-#include "DB/ImageDB.h"
-#include "ImageManager/AsyncLoader.h"
-#include "ImageManager/ImageRequest.h"
-#include "Settings/SettingsData.h"
-#include "Utilities/DescriptionUtil.h"
+
+#include "DescriptionUtil.h"
+
+#include <DB/ImageDB.h>
+#include <ImageManager/AsyncLoader.h>
+#include <ImageManager/ImageRequest.h>
+#include <Settings/SettingsData.h>
+
 #include <QTemporaryFile>
 
 namespace Utilities

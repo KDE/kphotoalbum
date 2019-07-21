@@ -19,14 +19,6 @@
 
 #include "HandleVideoThumbnailRequestJob.h"
 
-#include <QCryptographicHash>
-#include <QDir>
-#include <QIcon>
-#include <QImage>
-
-#include <KCodecs>
-#include <KLocalizedString>
-
 #include <ImageManager/ExtractOneVideoFrame.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <ImageManager/ImageRequest.h>
@@ -35,6 +27,13 @@
 #include <Settings/SettingsData.h>
 #include <ThumbnailView/CellGeometry.h>
 #include <Utilities/ImageUtil.h>
+
+#include <KCodecs>
+#include <KLocalizedString>
+#include <QCryptographicHash>
+#include <QDir>
+#include <QIcon>
+#include <QImage>
 
 namespace BackgroundJobs
 {

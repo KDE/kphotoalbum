@@ -17,6 +17,7 @@
 */
 
 #include "PreloadRequest.h"
+
 #include "ThumbnailCache.h"
 
 ImageManager::PreloadRequest::PreloadRequest(const DB::FileName &fileName, const QSize &size, int angle, ImageClientInterface *client)

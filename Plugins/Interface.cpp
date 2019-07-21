@@ -18,16 +18,12 @@
 
 #include "Interface.h"
 
-#include <QByteArray>
-#include <QImageReader>
-#include <QList>
+#include "CategoryImageCollection.h"
+#include "ImageCollection.h"
+#include "ImageCollectionSelector.h"
+#include "ImageInfo.h"
+#include "UploadWidget.h"
 
-#include <KFileItem>
-#include <KIO/PreviewJob>
-#include <KIPI/ImageCollection>
-#include <KLocalizedString>
-
-#include "Utilities/FileUtil.h"
 #include <Browser/BrowserWidget.h>
 #include <Browser/TreeCategoryModel.h>
 #include <DB/CategoryCollection.h>
@@ -35,12 +31,15 @@
 #include <DB/ImageInfo.h>
 #include <ImageManager/ThumbnailCache.h>
 #include <MainWindow/Window.h>
-#include <Plugins/CategoryImageCollection.h>
-#include <Plugins/ImageCollection.h>
-#include <Plugins/ImageCollectionSelector.h>
-#include <Plugins/ImageInfo.h>
+#include <Utilities/FileUtil.h>
 
-#include "UploadWidget.h"
+#include <KFileItem>
+#include <KIO/PreviewJob>
+#include <KIPI/ImageCollection>
+#include <KLocalizedString>
+#include <QByteArray>
+#include <QImageReader>
+#include <QList>
 namespace KIPI
 {
 class UploadWidget;

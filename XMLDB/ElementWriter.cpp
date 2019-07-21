@@ -17,6 +17,7 @@
 */
 
 #include "ElementWriter.h"
+
 #include <QXmlStreamWriter>
 
 XMLDB::ElementWriter::ElementWriter(QXmlStreamWriter &writer, const QString &elementName, bool writeAtOnce)

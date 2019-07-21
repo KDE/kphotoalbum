@@ -19,11 +19,10 @@
 #ifndef MYIMAGEINFO_H
 #define MYIMAGEINFO_H
 
-#include <config-kpa-kipi.h>
+#include <DB/ImageInfoPtr.h>
 
 #include <KIPI/ImageInfoShared>
-
-#include <DB/ImageInfoPtr.h>
+#include <config-kpa-kipi.h>
 
 namespace DB
 {

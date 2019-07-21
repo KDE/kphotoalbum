@@ -21,6 +21,7 @@
 #define BACKGROUNDTASKMANAGER_PRIORITYQUEUE_H
 
 #include "Priority.h"
+
 #include <QQueue>
 #include <QVector>
 

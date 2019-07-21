@@ -17,6 +17,7 @@
 */
 
 #include "DescriptionUtil.h"
+
 #include "Logging.h"
 
 #include <DB/CategoryCollection.h>
@@ -25,7 +26,6 @@
 #include <Settings/SettingsData.h>
 
 #include <KLocalizedString>
-
 #include <QDate>
 #include <QList>
 #include <QTextCodec>

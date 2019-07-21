@@ -17,10 +17,10 @@
 */
 #include "ShortCutManager.h"
 
+#include "ListSelect.h"
+
 #include <QDockWidget>
 #include <QShortcut>
-
-#include "ListSelect.h"
 
 /**
  * Register the dock widget for getting a shortcut. its buddy will get the

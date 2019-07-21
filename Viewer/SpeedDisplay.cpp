@@ -18,12 +18,11 @@
 
 #include "SpeedDisplay.h"
 
+#include <KLocalizedString>
 #include <QLabel>
 #include <QLayout>
 #include <QTimeLine>
 #include <QTimer>
-
-#include <KLocalizedString>
 
 Viewer::SpeedDisplay::SpeedDisplay(QWidget *parent)
     : QLabel(parent)

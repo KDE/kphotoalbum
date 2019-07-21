@@ -18,14 +18,17 @@
 */
 
 #include "ExtractOneThumbnailJob.h"
-#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
+
+#include "HandleVideoThumbnailRequestJob.h"
+
 #include <DB/ImageDB.h>
 #include <ImageManager/ExtractOneVideoFrame.h>
+#include <Utilities/ImageUtil.h>
+
 #include <KLocalizedString>
 #include <QFile>
 #include <QImage>
 #include <QPainter>
-#include <Utilities/ImageUtil.h>
 
 namespace BackgroundJobs
 {

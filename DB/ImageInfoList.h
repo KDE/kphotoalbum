@@ -17,8 +17,9 @@
 */
 #ifndef IMAGEINFOLIST_H
 #define IMAGEINFOLIST_H
-#include "DB/ImageInfo.h"
-#include "DB/ImageInfoPtr.h"
+#include "ImageInfo.h"
+#include "ImageInfoPtr.h"
+
 #include <QList>
 
 namespace DB

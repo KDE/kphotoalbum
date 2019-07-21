@@ -17,13 +17,16 @@
 */
 
 #include "CategoryPage.h"
+
 #include "BrowserWidget.h"
 #include "FlatCategoryModel.h"
 #include "ImageViewPage.h"
 #include "OverviewPage.h"
 #include "TreeCategoryModel.h"
 #include "enums.h"
+
 #include <DB/ImageDB.h>
+
 #include <KLocalizedString>
 
 Browser::CategoryPage::CategoryPage(const DB::CategoryPtr &category, const DB::ImageSearchInfo &info, BrowserWidget *browser)

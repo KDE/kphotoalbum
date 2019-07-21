@@ -16,7 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 #include "FileVersionDetectionPage.h"
+
 #include "SettingsData.h"
+
 #include <KLocalizedString>
 #include <QCheckBox>
 #include <QGroupBox>

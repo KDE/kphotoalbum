@@ -19,8 +19,10 @@
 #ifndef CATEGORYIMAGECOLLECTION_H
 #define CATEGORYIMAGECOLLECTION_H
 
-#include "DB/ImageSearchInfo.h"
-#include "Plugins/ImageCollection.h"
+#include "ImageCollection.h"
+
+#include <DB/ImageSearchInfo.h>
+
 #include <config-kpa-kipi.h>
 namespace Plugins
 {

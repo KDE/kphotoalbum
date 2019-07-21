@@ -18,6 +18,7 @@
 #ifndef STATUSBAR_H
 #define STATUSBAR_H
 #include "BreadcrumbViewer.h"
+
 #include <QStatusBar>
 class QToolButton;
 class QTimer;

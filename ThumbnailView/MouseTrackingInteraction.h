@@ -20,6 +20,7 @@
 
 #include "MouseInteraction.h"
 #include "ThumbnailComponent.h"
+
 #include <QMouseEvent>
 
 namespace DB

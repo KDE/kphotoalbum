@@ -17,6 +17,7 @@
 */
 
 #include "RangeWidget.h"
+
 #include <KComboBox>
 #include <QGridLayout>
 #include <qlabel.h>

@@ -17,6 +17,7 @@
 */
 
 #include "ImageScout.h"
+
 #include "Logging.h"
 
 #include <QAtomicInt>

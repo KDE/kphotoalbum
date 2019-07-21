@@ -16,8 +16,10 @@
    Boston, MA 02110-1301, USA.
 */
 #include "MD5CheckPage.h"
-#include "DB/ImageDB.h"
-#include "DB/MD5Map.h"
+
+#include <DB/ImageDB.h>
+#include <DB/MD5Map.h>
+
 #include <KLocalizedString>
 #include <QButtonGroup>
 #include <QFrame>

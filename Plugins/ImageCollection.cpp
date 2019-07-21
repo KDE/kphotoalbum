@@ -17,6 +17,7 @@
 */
 
 #include "ImageCollection.h"
+
 #include "Logging.h"
 
 #include <DB/ImageDB.h>
@@ -25,9 +26,8 @@
 #include <MainWindow/Window.h>
 #include <Settings/SettingsData.h>
 
-#include <QFileInfo>
-
 #include <KLocalizedString>
+#include <QFileInfo>
 
 Plugins::ImageCollection::ImageCollection(Type tp)
     : m_type(tp)

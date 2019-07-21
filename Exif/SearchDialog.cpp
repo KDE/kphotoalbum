@@ -17,7 +17,9 @@
 */
 
 #include "SearchDialog.h"
-#include "Exif/Database.h"
+
+#include "Database.h"
+
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <QDialogButtonBox>

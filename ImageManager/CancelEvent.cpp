@@ -17,6 +17,7 @@
 */
 
 #include "CancelEvent.h"
+
 #include "ImageRequest.h"
 ImageManager::CancelEvent::CancelEvent(ImageRequest *request)
     : QEvent(static_cast<QEvent::Type>(CANCELEVENTID))

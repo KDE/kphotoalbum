@@ -18,7 +18,8 @@
 #ifndef XMLIMAGEDATECOLLECTION_H
 #define XMLIMAGEDATECOLLECTION_H
 
-#include "DB/ImageDateCollection.h"
+#include <DB/ImageDateCollection.h>
+
 #include <QMap>
 
 namespace DB

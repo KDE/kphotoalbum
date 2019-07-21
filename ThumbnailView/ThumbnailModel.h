@@ -18,16 +18,17 @@
 #ifndef THUMBNAILMODEL_H
 #define THUMBNAILMODEL_H
 
-#include <QAbstractListModel>
-#include <QPixmap>
+#include "ThumbnailComponent.h"
+#include "enums.h"
 
 #include <DB/FileNameList.h>
 #include <DB/ImageInfo.h>
 #include <DB/ImageSearchInfo.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <ImageManager/enums.h>
-#include <ThumbnailView/ThumbnailComponent.h>
-#include <ThumbnailView/enums.h>
+
+#include <QAbstractListModel>
+#include <QPixmap>
 
 namespace ThumbnailView
 {

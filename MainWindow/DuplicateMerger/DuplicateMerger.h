@@ -20,12 +20,12 @@
 #ifndef MAINWINDOW_DUPLICATEMERGER_H
 #define MAINWINDOW_DUPLICATEMERGER_H
 
+#include <DB/FileNameList.h>
+#include <DB/MD5.h>
+
 #include <QDialog>
 #include <QMap>
 #include <QWidget>
-
-#include <DB/FileNameList.h>
-#include <DB/MD5.h>
 
 class QVBoxLayout;
 class QRadioButton;

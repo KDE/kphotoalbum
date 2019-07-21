@@ -19,10 +19,10 @@
 #ifndef INFODIALOG_H
 #define INFODIALOG_H
 
-#include <QDialog>
+#include <DB/FileName.h>
+#include <ImageManager/ImageClientInterface.h>
 
-#include "DB/FileName.h"
-#include "ImageManager/ImageClientInterface.h"
+#include <QDialog>
 
 class QComboBox;
 class QLineEdit;

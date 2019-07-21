@@ -16,15 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "SettingsDialog.h"
 #include "config-kpa-kipi.h"
 
-#include <QDialogButtonBox>
-#include <QPushButton>
-#include <QVBoxLayout>
-
-#include <KLocalizedString>
-#include <KSharedConfig>
+#include "SettingsDialog.h"
 
 #include "BirthdayPage.h"
 #include "CategoryPage.h"
@@ -36,7 +30,14 @@
 #include "TagGroupsPage.h"
 #include "ThumbnailsPage.h"
 #include "ViewerPage.h"
+
 #include <Utilities/ShowBusyCursor.h>
+
+#include <KLocalizedString>
+#include <KSharedConfig>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 struct Data {
     Settings::SettingsPage page;

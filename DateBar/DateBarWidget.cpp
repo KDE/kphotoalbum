@@ -18,8 +18,12 @@
 
 #include "DateBarWidget.h"
 
-#include <math.h>
+#include "MouseHandler.h"
 
+#include <DB/ImageDateCollection.h>
+#include <Settings/SettingsData.h>
+
+#include <KLocalizedString>
 #include <QAction>
 #include <QContextMenuEvent>
 #include <QDateTime>
@@ -30,12 +34,7 @@
 #include <QMenu>
 #include <QPainter>
 #include <QToolButton>
-
-#include <KLocalizedString>
-
-#include "MouseHandler.h"
-#include "Settings/SettingsData.h"
-#include <DB/ImageDateCollection.h>
+#include <math.h>
 
 namespace
 {

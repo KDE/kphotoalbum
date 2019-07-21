@@ -18,6 +18,7 @@
   */
 
 #include "FilterWidget.h"
+
 #include <KLocalizedString>
 #include <KRatingWidget>
 #include <QHBoxLayout>

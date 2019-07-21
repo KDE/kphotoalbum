@@ -18,7 +18,8 @@
 
 #include "DeleteDialog.h"
 
-#include "Utilities/DeleteFiles.h"
+#include <Utilities/DeleteFiles.h>
+
 #include <KLocalizedString>
 #include <QDialogButtonBox>
 #include <QPushButton>

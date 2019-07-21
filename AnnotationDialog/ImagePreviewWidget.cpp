@@ -17,6 +17,11 @@
 */
 #include "ImagePreviewWidget.h"
 
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <MainWindow/DeleteDialog.h>
+
+#include <KLocalizedString>
 #include <QApplication>
 #include <QCheckBox>
 #include <QComboBox>
@@ -24,12 +29,6 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
-
-#include <KLocalizedString>
-
-#include <DB/ImageDB.h>
-#include <DB/ImageInfo.h>
-#include <MainWindow/DeleteDialog.h>
 
 using namespace AnnotationDialog;
 

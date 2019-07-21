@@ -21,6 +21,7 @@
 #define RUNDIALOG_H
 
 #include <DB/FileNameList.h>
+
 #include <QDialog>
 #include <QLineEdit>
 

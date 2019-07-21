@@ -18,7 +18,8 @@
 #ifndef XMLCATEGORYCOLLECTION_H
 #define XMLCATEGORYCOLLECTION_H
 
-#include "DB/CategoryCollection.h"
+#include <DB/CategoryCollection.h>
+
 #include <QList>
 #include <QMap>
 

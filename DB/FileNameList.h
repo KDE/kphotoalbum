@@ -22,6 +22,7 @@
 
 #include "FileName.h"
 #include "ImageInfo.h"
+
 #include <QList>
 #include <QStringList>
 

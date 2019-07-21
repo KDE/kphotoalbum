@@ -17,7 +17,8 @@
 */
 #ifndef EXIF_INFO_H
 #define EXIF_INFO_H
-#include "Utilities/StringSet.h"
+#include <Utilities/StringSet.h>
+
 #include <exiv2/exif.hpp>
 #include <exiv2/iptc.hpp>
 #include <qmap.h>

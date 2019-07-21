@@ -17,7 +17,9 @@
 */
 
 #include "ImportMatcher.h"
+
 #include "ImportSettings.h"
+
 #include <KLocalizedString>
 #include <QGridLayout>
 #include <QVBoxLayout>

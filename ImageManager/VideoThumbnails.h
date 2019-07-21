@@ -20,6 +20,7 @@
 #define IMAGEMANAGER_VIDEOTHUMBNAILS_H
 
 #include <DB/FileName.h>
+
 #include <QImage>
 #include <QObject>
 #include <QPointer>

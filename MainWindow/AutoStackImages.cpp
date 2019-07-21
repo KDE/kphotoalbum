@@ -18,6 +18,18 @@
 
 #include "AutoStackImages.h"
 
+#include "Window.h"
+
+#include <DB/FileInfo.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageDate.h>
+#include <DB/ImageInfo.h>
+#include <DB/MD5Map.h>
+#include <Settings/SettingsData.h>
+#include <Utilities/FileUtil.h>
+#include <Utilities/ShowBusyCursor.h>
+
+#include <KLocalizedString>
 #include <QApplication>
 #include <QCheckBox>
 #include <QDialogButtonBox>
@@ -29,18 +41,6 @@
 #include <QRadioButton>
 #include <QSpinBox>
 #include <QVBoxLayout>
-
-#include <KLocalizedString>
-
-#include <DB/FileInfo.h>
-#include <DB/ImageDB.h>
-#include <DB/ImageDate.h>
-#include <DB/ImageInfo.h>
-#include <DB/MD5Map.h>
-#include <MainWindow/Window.h>
-#include <Settings/SettingsData.h>
-#include <Utilities/FileUtil.h>
-#include <Utilities/ShowBusyCursor.h>
 
 using namespace MainWindow;
 

@@ -17,6 +17,7 @@
 */
 
 #include "ShowBusyCursor.h"
+
 #include <qapplication.h>
 #include <qcursor.h>
 

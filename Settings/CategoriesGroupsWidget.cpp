@@ -22,8 +22,9 @@
 #include <QDropEvent>
 
 // Local includes
-#include "DB/Category.h"
 #include "TagGroupsPage.h"
+
+#include <DB/Category.h>
 
 Settings::CategoriesGroupsWidget::CategoriesGroupsWidget(QWidget *parent)
     : QTreeWidget(parent)

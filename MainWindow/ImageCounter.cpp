@@ -17,6 +17,7 @@
 */
 
 #include "ImageCounter.h"
+
 #include <KLocalizedString>
 #include <QLabel>
 

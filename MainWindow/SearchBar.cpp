@@ -17,6 +17,7 @@
 */
 
 #include "SearchBar.h"
+
 #include <KLocalizedString>
 #include <QEvent>
 #include <QKeyEvent>

@@ -19,6 +19,7 @@
 #ifndef VIEWHANDLER_H
 #define VIEWHANDLER_H
 #include "ImageDisplay.h"
+
 #include <QMouseEvent>
 #include <qpoint.h>
 

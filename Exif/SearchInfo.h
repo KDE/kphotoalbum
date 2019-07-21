@@ -18,8 +18,10 @@
 #ifndef EXIFSEARCHINFO_H
 #define EXIFSEARCHINFO_H
 
-#include "Exif/Database.h"
+#include "Database.h"
+
 #include <DB/FileName.h>
+
 #include <QList>
 #include <QPair>
 #include <QStringList>

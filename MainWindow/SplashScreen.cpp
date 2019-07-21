@@ -18,12 +18,11 @@
 
 #include "SplashScreen.h"
 
+#include <KAboutData>
+#include <KLocalizedString>
 #include <QPainter>
 #include <QRegExp>
 #include <QStandardPaths>
-
-#include <KAboutData>
-#include <KLocalizedString>
 
 MainWindow::SplashScreen *MainWindow::SplashScreen::s_instance = nullptr;
 

@@ -18,8 +18,8 @@
 
 #ifndef IMAGEPREVIEW_H
 #define IMAGEPREVIEW_H
-#include "DB/ImageInfo.h"
-#include "ImageManager/ImageClientInterface.h"
+#include <DB/ImageInfo.h>
+#include <ImageManager/ImageClientInterface.h>
 
 #include <QLabel>
 #include <QTimer>

@@ -21,7 +21,8 @@
 
 // Local includes
 #include "AbstractCategoryModel.h"
-#include "DB/MemberMap.h"
+
+#include <DB/MemberMap.h>
 
 // Qt classes
 class QMimeData;

@@ -17,6 +17,7 @@
 */
 
 #include "JobInterface.h"
+
 #include "JobManager.h"
 #include "Logging.h"
 

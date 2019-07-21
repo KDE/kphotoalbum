@@ -17,11 +17,13 @@
 */
 
 #include "ReadVideoLengthJob.h"
-#include "ImageManager/VideoLengthExtractor.h"
+
 #include <BackgroundTaskManager/JobInfo.h>
 #include <DB/ImageDB.h>
-#include <KLocalizedString>
+#include <ImageManager/VideoLengthExtractor.h>
 #include <MainWindow/DirtyIndicator.h>
+
+#include <KLocalizedString>
 
 BackgroundJobs::ReadVideoLengthJob::ReadVideoLengthJob(const DB::FileName &fileName, BackgroundTaskManager::Priority priority)
     : JobInterface(priority)

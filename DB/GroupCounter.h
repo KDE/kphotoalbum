@@ -19,7 +19,9 @@
 #ifndef GROUPCOUNTER_H
 #define GROUPCOUNTER_H
 #include "Category.h"
-#include "Settings/SettingsData.h"
+
+#include <Settings/SettingsData.h>
+
 #include <QHash>
 
 namespace DB

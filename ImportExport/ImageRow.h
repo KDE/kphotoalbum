@@ -18,7 +18,8 @@
 #ifndef IMAGEROW_H
 #define IMAGEROW_H
 
-#include "DB/ImageInfoPtr.h"
+#include <DB/ImageInfoPtr.h>
+
 #include <QObject>
 
 class QCheckBox;

@@ -18,7 +18,9 @@
 #ifndef DELEGATE_H
 #define DELEGATE_H
 #include "ThumbnailComponent.h"
+
 #include <DB/ImageInfoPtr.h>
+
 #include <QStyledItemDelegate>
 
 namespace ThumbnailView

@@ -19,7 +19,9 @@
 #define MD5CHECKPAGE_H
 
 #include "ImportSettings.h"
-#include "Utilities/StringSet.h"
+
+#include <Utilities/StringSet.h>
+
 #include <QGridLayout>
 #include <QWidget>
 class QButtonGroup;

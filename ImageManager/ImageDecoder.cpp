@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImageDecoder.h"
+
 #include <DB/FileName.h>
 
 QList<ImageManager::ImageDecoder *> *ImageManager::ImageDecoder::decoders()

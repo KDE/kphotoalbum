@@ -17,6 +17,7 @@
 */
 
 #include "OptimizedFileList.h"
+
 #include "FastDir.h"
 #include "Logging.h"
 

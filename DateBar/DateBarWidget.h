@@ -18,12 +18,12 @@
 
 #ifndef DATEBAR_H
 #define DATEBAR_H
+#include "ViewHandler.h"
+
 #include <QDateTime>
 #include <QExplicitlySharedDataPointer>
 #include <QPixmap>
 #include <QWidget>
-
-#include <DateBar/ViewHandler.h>
 
 class QMenu;
 class QKeyEvent;

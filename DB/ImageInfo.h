@@ -19,19 +19,21 @@
 #ifndef IMAGEINFO_H
 #define IMAGEINFO_H
 
-#include "DB/CategoryPtr.h"
+#include "config-kpa-kgeomap.h"
+
+#include "CategoryPtr.h"
 #include "ExifMode.h"
 #include "FileName.h"
 #include "ImageDate.h"
 #include "MD5.h"
-#include "Utilities/StringSet.h"
+
+#include <Utilities/StringSet.h>
+
 #include <QRect>
 #include <QSize>
 #include <qmap.h>
 #include <qstring.h>
 #include <qstringlist.h>
-
-#include "config-kpa-kgeomap.h"
 #ifdef HAVE_KGEOMAP
 #include <KGeoMap/GeoCoordinates>
 #endif

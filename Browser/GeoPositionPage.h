@@ -19,8 +19,9 @@
 #ifndef GEOPOSITIONPAGE_H
 #define GEOPOSITIONPAGE_H
 #include "BrowserPage.h"
-#include "DB/CategoryPtr.h"
+
 #include <DB/Category.h>
+#include <DB/CategoryPtr.h>
 #include <DB/ImageSearchInfo.h>
 
 class QAbstractItemModel;

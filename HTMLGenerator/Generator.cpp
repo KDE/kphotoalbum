@@ -17,25 +17,10 @@
 */
 
 #include "Generator.h"
+
+#include "ImageSizeCheckBox.h"
 #include "Logging.h"
-
-#include <sys/types.h>
-#include <sys/wait.h>
-
-#include <QApplication>
-#include <QDir>
-#include <QDomDocument>
-#include <QFile>
-#include <QList>
-#include <QMimeDatabase>
-#include <QStandardPaths>
-
-#include <KConfig>
-#include <KConfigGroup>
-#include <KIO/CopyJob>
-#include <KLocalizedString>
-#include <KMessageBox>
-#include <KRun>
+#include "Setup.h"
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
@@ -43,12 +28,25 @@
 #include <Exif/Info.h>
 #include <ImageManager/AsyncLoader.h>
 #include <ImportExport/Export.h>
+#include <MainWindow/Window.h>
 #include <Utilities/FileUtil.h>
 #include <Utilities/VideoUtil.h>
 
-#include "ImageSizeCheckBox.h"
-#include "MainWindow/Window.h"
-#include "Setup.h"
+#include <KConfig>
+#include <KConfigGroup>
+#include <KIO/CopyJob>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KRun>
+#include <QApplication>
+#include <QDir>
+#include <QDomDocument>
+#include <QFile>
+#include <QList>
+#include <QMimeDatabase>
+#include <QStandardPaths>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 namespace
 {

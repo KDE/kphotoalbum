@@ -20,9 +20,9 @@
 #ifndef UTILITIES_DELETEFILES_H
 #define UTILITIES_DELETEFILES_H
 
-#include <QObject>
+#include <DB/FileNameList.h>
 
-#include "DB/FileNameList.h"
+#include <QObject>
 class KJob;
 
 namespace Utilities

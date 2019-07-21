@@ -19,12 +19,12 @@
 #ifndef IMPORTEXPORT_H
 #define IMPORTEXPORT_H
 
+#include <ImageManager/ImageClientInterface.h>
+#include <Utilities/UniqFilenameMapper.h>
+
 #include <QDialog>
 #include <QEventLoop>
 #include <QPointer>
-
-#include <ImageManager/ImageClientInterface.h>
-#include <Utilities/UniqFilenameMapper.h>
 
 class QRadioButton;
 class QSpinBox;

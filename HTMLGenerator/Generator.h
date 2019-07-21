@@ -19,6 +19,7 @@
 #define HTMLGENERATOR_GENERATOR_H
 
 #include "Setup.h"
+
 #include <DB/CategoryPtr.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <Utilities/UniqFilenameMapper.h>

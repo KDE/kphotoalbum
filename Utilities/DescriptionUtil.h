@@ -18,8 +18,8 @@
 
 #ifndef TEXTUTIL_H
 #define TEXTUTIL_H
-#include "DB/CategoryPtr.h"
-#include "DB/ImageInfoPtr.h"
+#include <DB/CategoryPtr.h>
+#include <DB/ImageInfoPtr.h>
 
 #include <QMap>
 #include <QPair>

@@ -20,16 +20,15 @@
 #include "ImportDialog.h"
 #include "KimFileReader.h"
 #include "Logging.h"
-#include "MainWindow/Window.h"
 #include "MiniViewer.h"
+
+#include <MainWindow/Window.h>
 
 #include <KIO/StoredTransferJob>
 #include <KJobUiDelegate>
 #include <KJobWidgets>
-
 #include <QCheckBox>
 #include <QImage>
-
 #include <memory>
 
 using namespace ImportExport;

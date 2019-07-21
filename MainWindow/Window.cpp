@@ -17,13 +17,26 @@
 */
 
 #include "Window.h"
-#include <config-kpa-kipi.h>
 
+#include <config-kpa-kipi.h>
 #include <stdexcept>
 #ifdef HAVE_STDLIB_H
 #include <stdlib.h>
 #endif
 
+#include <KActionCollection>
+#include <KActionMenu>
+#include <KConfigGroup>
+#include <KEditToolBar>
+#include <KIconLoader>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KPasswordDialog>
+#include <KProcess>
+#include <KSharedConfig>
+#include <KShortcutsDialog>
+#include <KStandardAction>
+#include <KToggleAction>
 #include <QApplication>
 #include <QClipboard>
 #include <QCloseEvent>
@@ -45,20 +58,6 @@
 #include <QStackedWidget>
 #include <QTimer>
 #include <QVBoxLayout>
-
-#include <KActionCollection>
-#include <KActionMenu>
-#include <KConfigGroup>
-#include <KEditToolBar>
-#include <KIconLoader>
-#include <KLocalizedString>
-#include <KMessageBox>
-#include <KPasswordDialog>
-#include <KProcess>
-#include <KSharedConfig>
-#include <KShortcutsDialog>
-#include <KStandardAction>
-#include <KToggleAction>
 #include <kio_version.h> // for #if KIO_VERSION...
 #include <ktip.h>
 
@@ -96,19 +95,6 @@
 #ifdef KF5Purpose_FOUND
 #include <Plugins/PurposeMenu.h>
 #endif
-#include <RemoteControl/RemoteInterface.h>
-#include <Settings/SettingsData.h>
-#include <Settings/SettingsDialog.h>
-#include <ThumbnailView/FilterWidget.h>
-#include <ThumbnailView/ThumbnailFacade.h>
-#include <ThumbnailView/enums.h>
-#include <Utilities/DemoUtil.h>
-#include <Utilities/FileNameUtil.h>
-#include <Utilities/List.h>
-#include <Utilities/ShowBusyCursor.h>
-#include <Utilities/VideoUtil.h>
-#include <Viewer/ViewerWidget.h>
-
 #include "AutoStackImages.h"
 #include "BreadcrumbViewer.h"
 #include "CopyPopup.h"
@@ -128,6 +114,20 @@
 #include "TokenEditor.h"
 #include "UpdateVideoThumbnail.h"
 #include "WelcomeDialog.h"
+
+#include <Settings/SettingsData.h>
+#include <Settings/SettingsDialog.h>
+#include <ThumbnailView/FilterWidget.h>
+#include <ThumbnailView/ThumbnailFacade.h>
+#include <ThumbnailView/enums.h>
+#include <Utilities/DemoUtil.h>
+#include <Utilities/FileNameUtil.h>
+#include <Utilities/List.h>
+#include <Utilities/ShowBusyCursor.h>
+#include <Utilities/VideoUtil.h>
+#include <Viewer/ViewerWidget.h>
+
+#include <RemoteControl/RemoteInterface.h>
 
 using namespace DB;
 

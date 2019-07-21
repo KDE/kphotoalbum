@@ -33,7 +33,6 @@
 #include <KIO/CopyJob>
 #include <KLocalizedString>
 #include <KMessageBox>
-
 #include <QButtonGroup>
 #include <QHeaderView>
 #include <QInputDialog>

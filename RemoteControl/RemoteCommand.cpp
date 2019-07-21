@@ -19,6 +19,7 @@
 #include "RemoteCommand.h"
 
 #include "Serializer.h"
+
 #include <QDebug>
 #include <QElapsedTimer>
 #include <QMap>

@@ -18,14 +18,14 @@
 #ifndef XMLHANDLER_H
 #define XMLHANDLER_H
 
-#include <QDomDocument>
-#include <QDomElement>
-#include <QString>
+#include "Export.h" // ImageFileLocation
 
 #include <DB/FileNameList.h>
 #include <DB/ImageInfoPtr.h>
 
-#include "Export.h" // ImageFileLocation
+#include <QDomDocument>
+#include <QDomElement>
+#include <QString>
 
 namespace Utilities
 {

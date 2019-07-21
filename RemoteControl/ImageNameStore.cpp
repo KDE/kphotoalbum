@@ -17,7 +17,8 @@
 */
 
 #include "ImageNameStore.h"
-#include "DB/ImageDB.h"
+
+#include <DB/ImageDB.h>
 
 namespace RemoteControl
 {

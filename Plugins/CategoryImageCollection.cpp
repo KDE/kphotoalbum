@@ -17,7 +17,9 @@
 */
 
 #include "CategoryImageCollection.h"
-#include "DB/ImageDB.h"
+
+#include <DB/ImageDB.h>
+
 #include <KLocalizedString>
 Plugins::CategoryImageCollection::CategoryImageCollection(const DB::ImageSearchInfo &context, const QString &category,
                                                           const QString &value)

@@ -16,16 +16,18 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ExifPage.h"
+
 #include "SettingsData.h"
+
+#include <Exif/Info.h>
+#include <Exif/TreeView.h>
+
 #include <KComboBox>
 #include <KLocalizedString>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QTextCodec>
 #include <QVBoxLayout>
-
-#include "Exif/Info.h"
-#include "Exif/TreeView.h"
 
 Settings::ExifPage::ExifPage(QWidget *parent)
     : QWidget(parent)

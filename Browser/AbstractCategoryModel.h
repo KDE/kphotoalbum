@@ -21,6 +21,7 @@
 #include <DB/Category.h>
 #include <DB/CategoryPtr.h>
 #include <DB/ImageSearchInfo.h>
+
 #include <QAbstractItemModel>
 
 namespace Browser

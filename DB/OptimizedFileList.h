@@ -18,7 +18,8 @@
 
 #ifndef OPTIMIZEDFILELIST_H
 #define OPTIMIZEDFILELIST_H
-#include <DB/FileNameList.h>
+#include "FileNameList.h"
+
 #include <QSet>
 #include <QString>
 #include <QStringList>

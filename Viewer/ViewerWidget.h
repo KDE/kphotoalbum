@@ -19,14 +19,14 @@
 #ifndef VIEWER_H
 #define VIEWER_H
 
+#include <DB/FileNameList.h>
+#include <DB/ImageInfoPtr.h>
+
 #include <QImage>
 #include <QMap>
 #include <QPixmap>
 #include <QPointer>
 #include <QStackedWidget>
-
-#include <DB/FileNameList.h>
-#include <DB/ImageInfoPtr.h>
 
 class KActionCollection;
 class QAction;

@@ -17,6 +17,7 @@
 */
 
 #include "DescriptionEdit.h"
+
 #include <QKeyEvent>
 
 AnnotationDialog::DescriptionEdit::DescriptionEdit(QWidget *parent)

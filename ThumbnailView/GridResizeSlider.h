@@ -18,9 +18,9 @@
 #ifndef GRIDRESIZESLIDER_H
 #define GRIDRESIZESLIDER_H
 
-#include <QSlider>
-
 #include "ThumbnailComponent.h"
+
+#include <QSlider>
 class QTimer;
 
 namespace ThumbnailView

@@ -18,6 +18,15 @@
 
 #include "CategoryImageConfig.h"
 
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <DB/MemberMap.h>
+#include <Settings/SettingsData.h>
+#include <Utilities/FileUtil.h>
+
+#include <KComboBox>
+#include <KLocalizedString>
 #include <QDialogButtonBox>
 #include <QGridLayout>
 #include <QLabel>
@@ -26,16 +35,6 @@
 #include <QPixmap>
 #include <QPushButton>
 #include <QVBoxLayout>
-
-#include <KComboBox>
-#include <KLocalizedString>
-
-#include <DB/CategoryCollection.h>
-#include <DB/ImageDB.h>
-#include <DB/ImageInfo.h>
-#include <DB/MemberMap.h>
-#include <Settings/SettingsData.h>
-#include <Utilities/FileUtil.h>
 
 using Utilities::StringSet;
 

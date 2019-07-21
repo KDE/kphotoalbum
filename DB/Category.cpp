@@ -17,18 +17,21 @@
 */
 
 #include "Category.h"
+
 #include "CategoryItem.h"
-#include "DB/ImageDB.h"
-#include "DB/MemberMap.h"
-#include <DB/UIDelegate.h>
+#include "ImageDB.h"
+#include "MemberMap.h"
+#include "UIDelegate.h"
+
+#include <Settings/SettingsData.h>
+#include <Utilities/ImageUtil.h>
+
 #include <KLocalizedString>
 #include <QDir>
 #include <QFileInfo>
 #include <QIcon>
 #include <QPixmap>
 #include <QPixmapCache>
-#include <Settings/SettingsData.h>
-#include <Utilities/ImageUtil.h>
 #include <kiconloader.h>
 
 using Utilities::StringSet;

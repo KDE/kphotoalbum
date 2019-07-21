@@ -35,11 +35,12 @@
 
 // Local includes
 #include "BirthdayPage.h"
-#include "DB/Category.h"
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
 #include "DateTableWidgetItem.h"
-#include "MainWindow/DirtyIndicator.h"
+
+#include <DB/Category.h>
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <MainWindow/DirtyIndicator.h>
 
 Settings::BirthdayPage::BirthdayPage(QWidget *parent)
     : QWidget(parent)

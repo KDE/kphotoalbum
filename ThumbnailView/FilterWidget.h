@@ -20,9 +20,9 @@
 #ifndef FILTERWIDGET_H
 #define FILTERWIDGET_H
 
-#include <KToolBar>
-
 #include <DB/ImageSearchInfo.h>
+
+#include <KToolBar>
 
 class KRatingWidget;
 class QAction;

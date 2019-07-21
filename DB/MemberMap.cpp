@@ -17,7 +17,8 @@
 */
 
 #include "MemberMap.h"
-#include "DB/Category.h"
+
+#include "Category.h"
 #include "Logging.h"
 
 using namespace DB;

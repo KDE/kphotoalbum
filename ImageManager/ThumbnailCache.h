@@ -18,7 +18,9 @@
 #ifndef THUMBNAILCACHE_H
 #define THUMBNAILCACHE_H
 #include "CacheFileInfo.h"
+
 #include <DB/FileNameList.h>
+
 #include <QFile>
 #include <QHash>
 #include <QImage>

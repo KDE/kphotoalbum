@@ -20,11 +20,10 @@
 #ifndef KPHOTOALBUM_PURPOSEMENU_H
 #define KPHOTOALBUM_PURPOSEMENU_H
 
-#include <config-kpa-kipi.h>
-
 #include <QObject>
 #include <QString>
 #include <QUrl>
+#include <config-kpa-kipi.h>
 
 class QMenu;
 

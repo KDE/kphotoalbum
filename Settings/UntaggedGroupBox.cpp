@@ -16,9 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 #include "UntaggedGroupBox.h"
-#include "DB/CategoryCollection.h"
+
 #include "SettingsData.h"
+
+#include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
+
 #include <KLocalizedString>
 #include <QCheckBox>
 #include <QComboBox>

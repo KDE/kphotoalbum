@@ -19,6 +19,7 @@
 #ifndef FLATCATEGORYMODEL_H
 #define FLATCATEGORYMODEL_H
 #include "AbstractCategoryModel.h"
+
 #include <DB/Category.h>
 #include <DB/ImageSearchInfo.h>
 

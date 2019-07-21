@@ -20,11 +20,12 @@
 #include <QMimeData>
 
 // Local includes
-#include "DB/Category.h"
-#include "DB/CategoryItem.h"
-#include "DB/ImageDB.h"
-#include "MainWindow/DirtyIndicator.h"
 #include "TreeCategoryModel.h"
+
+#include <DB/Category.h>
+#include <DB/CategoryItem.h>
+#include <DB/ImageDB.h>
+#include <MainWindow/DirtyIndicator.h>
 
 struct Browser::TreeCategoryModel::Data {
     Data(const QString &name)

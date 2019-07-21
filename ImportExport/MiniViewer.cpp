@@ -17,7 +17,9 @@
 */
 
 #include "MiniViewer.h"
-#include "DB/ImageInfo.h"
+
+#include <DB/ImageInfo.h>
+
 #include <KLocalizedString>
 #include <QDialogButtonBox>
 #include <QPushButton>

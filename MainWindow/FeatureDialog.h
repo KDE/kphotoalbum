@@ -19,7 +19,6 @@
 #define FEATUREDIALOG_H
 
 #include <QDialog>
-
 #include <QTextBrowser>
 
 namespace MainWindow

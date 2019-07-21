@@ -16,15 +16,16 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailFacade.h"
-#include "ImageManager/ThumbnailCache.h"
-#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 
 #include "CellGeometry.h"
 #include "GridResizeSlider.h"
-#include "Settings/SettingsData.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailToolTip.h"
 #include "ThumbnailWidget.h"
+
+#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
+#include <ImageManager/ThumbnailCache.h>
+#include <Settings/SettingsData.h>
 
 ThumbnailView::ThumbnailFacade *ThumbnailView::ThumbnailFacade::s_instance = nullptr;
 ThumbnailView::ThumbnailFacade::ThumbnailFacade()

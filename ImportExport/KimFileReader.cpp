@@ -16,10 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 #include "KimFileReader.h"
-#include <KLocalizedString>
-#include <QFileInfo>
+
 #include <Utilities/FileNameUtil.h>
 #include <Utilities/VideoUtil.h>
+
+#include <KLocalizedString>
+#include <QFileInfo>
 #include <kmessagebox.h>
 #include <kzip.h>
 

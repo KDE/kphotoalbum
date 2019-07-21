@@ -19,11 +19,10 @@
 #ifndef MYIMAGECOLLECTION_H
 #define MYIMAGECOLLECTION_H
 
-#include <config-kpa-kipi.h>
+#include <DB/ImageInfoList.h>
 
 #include <KIPI/ImageCollectionShared>
-
-#include <DB/ImageInfoList.h>
+#include <config-kpa-kipi.h>
 
 namespace Plugins
 {

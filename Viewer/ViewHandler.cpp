@@ -16,7 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "Viewer/ViewHandler.h"
+#include "ViewHandler.h"
+
 #include <QMouseEvent>
 #include <QRubberBand>
 #include <qapplication.h>

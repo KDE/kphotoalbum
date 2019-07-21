@@ -19,7 +19,8 @@
 #ifndef CATEGORYMATCHER_H
 #define CATEGORYMATCHER_H
 
-#include <DB/ImageInfoPtr.h>
+#include "ImageInfoPtr.h"
+
 #include <Utilities/StringSet.h>
 
 #include <QMap>

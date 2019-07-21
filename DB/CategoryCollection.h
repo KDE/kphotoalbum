@@ -18,8 +18,9 @@
 #ifndef CATEGORYCOLLECTION_H
 #define CATEGORYCOLLECTION_H
 
-#include "DB/Category.h"
-#include "DB/CategoryPtr.h"
+#include "Category.h"
+#include "CategoryPtr.h"
+
 #include <QList>
 
 namespace DB

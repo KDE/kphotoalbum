@@ -17,23 +17,21 @@
 */
 
 #include "ImagePreview.h"
+
 #include "Logging.h"
+#include "ResizableFrame.h"
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <ImageManager/AsyncLoader.h>
 #include <Utilities/ImageUtil.h>
 
-#include "ResizableFrame.h"
-
+#include <KLocalizedString>
+#include <KMessageBox>
 #include <QImageReader>
 #include <QMouseEvent>
 #include <QRubberBand>
 #include <QTimer>
-
-#include <KLocalizedString>
-#include <KMessageBox>
-
 #include <math.h>
 
 using namespace AnnotationDialog;

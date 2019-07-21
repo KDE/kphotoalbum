@@ -20,12 +20,12 @@
 #ifndef MAINWINDOW_DUPLICATEMATCH_H
 #define MAINWINDOW_DUPLICATEMATCH_H
 
+#include <DB/FileNameList.h>
+#include <ImageManager/ImageClientInterface.h>
+#include <Utilities/DeleteFiles.h>
+
 #include <QList>
 #include <QWidget>
-
-#include "DB/FileNameList.h"
-#include "ImageManager/ImageClientInterface.h"
-#include "Utilities/DeleteFiles.h"
 
 class QLabel;
 class QCheckBox;

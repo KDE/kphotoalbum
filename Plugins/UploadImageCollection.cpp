@@ -18,6 +18,7 @@
 */
 
 #include "UploadImageCollection.h"
+
 #include <Settings/SettingsData.h>
 
 #include <KLocalizedString>

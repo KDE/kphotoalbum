@@ -21,6 +21,7 @@
 #define VIDEOLENGTHEXTRACTOR_H
 
 #include <DB/FileName.h>
+
 #include <QObject>
 
 namespace Utilities

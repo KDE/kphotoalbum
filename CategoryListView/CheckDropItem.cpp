@@ -16,12 +16,15 @@
    Boston, MA 02110-1301, USA.
 */
 #include "CheckDropItem.h"
-#include "DB/Category.h"
-#include "DB/CategoryItem.h"
+
 #include "DragItemInfo.h"
 #include "DragableTreeWidget.h"
+
+#include <DB/Category.h>
+#include <DB/CategoryItem.h>
 #include <DB/ImageDB.h>
 #include <DB/MemberMap.h>
+
 #include <KLocalizedString>
 #include <QDropEvent>
 #include <kmessagebox.h>

@@ -16,7 +16,11 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Grid.h"
+
 #include "Info.h"
+
+#include <Settings/SettingsData.h>
+
 #include <QColor>
 #include <QGridLayout>
 #include <QLabel>
@@ -24,7 +28,6 @@
 #include <QResizeEvent>
 #include <QScrollBar>
 #include <QTimer>
-#include <Settings/SettingsData.h>
 
 Exif::Grid::Grid(QWidget *parent)
     : QScrollArea(parent)

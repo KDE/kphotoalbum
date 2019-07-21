@@ -18,8 +18,9 @@
 
 #ifndef MD5MAP_H
 #define MD5MAP_H
+#include "FileName.h"
 #include "MD5.h"
-#include <DB/FileName.h>
+
 #include <qhash.h>
 #include <qstring.h>
 

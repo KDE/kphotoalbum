@@ -19,7 +19,8 @@
 #ifndef EXIFTREEVIEW_H
 #define EXIFTREEVIEW_H
 
-#include "Utilities/StringSet.h"
+#include <Utilities/StringSet.h>
+
 #include <QTreeWidget>
 
 namespace Exif

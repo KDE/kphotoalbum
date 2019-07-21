@@ -19,10 +19,12 @@
 #ifndef REMOTEINTERFACE_H
 #define REMOTEINTERFACE_H
 
-#include "DB/ImageSearchInfo.h"
-#include "ImageManager/ImageClientInterface.h"
 #include "ImageNameStore.h"
 #include "RemoteCommand.h"
+
+#include <DB/ImageSearchInfo.h>
+#include <ImageManager/ImageClientInterface.h>
+
 #include <QHostAddress>
 #include <QObject>
 

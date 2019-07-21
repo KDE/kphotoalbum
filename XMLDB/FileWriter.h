@@ -18,10 +18,10 @@
 #ifndef XMLDB_FILEWRITER_H
 #define XMLDB_FILEWRITER_H
 
+#include <DB/ImageInfoPtr.h>
+
 #include <QRect>
 #include <QString>
-
-#include <DB/ImageInfoPtr.h>
 
 class QXmlStreamWriter;
 

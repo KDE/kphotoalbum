@@ -19,7 +19,8 @@
 #ifndef REMOTECONTROL_IMAGENAMESTORE_H
 #define REMOTECONTROL_IMAGENAMESTORE_H
 
-#include "DB/FileName.h"
+#include <DB/FileName.h>
+
 #include <QHash>
 #include <QPair>
 

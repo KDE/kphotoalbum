@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ThumbnailCache.h"
+
 #include "Logging.h"
 
 #include <DB/FastDir.h>

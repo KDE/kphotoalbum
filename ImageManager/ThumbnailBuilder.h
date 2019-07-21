@@ -19,11 +19,13 @@
 #ifndef THUMBNAILBUILDER_H
 #define THUMBNAILBUILDER_H
 
-#include "DB/ImageInfoPtr.h"
-#include "ImageManager/ImageClientInterface.h"
+#include "ImageClientInterface.h"
 #include "enums.h"
+
 #include <DB/FileNameList.h>
+#include <DB/ImageInfoPtr.h>
 #include <DB/ImageScout.h>
+
 #include <QAtomicInt>
 #include <QImage>
 

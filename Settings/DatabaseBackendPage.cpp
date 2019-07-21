@@ -16,8 +16,11 @@
    Boston, MA 02110-1301, USA.
 */
 #include "DatabaseBackendPage.h"
-#include "MainWindow/DirtyIndicator.h"
+
 #include "SettingsData.h"
+
+#include <MainWindow/DirtyIndicator.h>
+
 #include <KLocalizedString>
 #include <QCheckBox>
 #include <QHBoxLayout>

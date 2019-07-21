@@ -17,6 +17,7 @@
 */
 
 #include "WelcomeDialog.h"
+
 #include "FeatureDialog.h"
 #include "Window.h"
 
@@ -25,7 +26,6 @@
 #include <KMessageBox>
 #include <KSharedConfig>
 #include <KShell>
-
 #include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QHBoxLayout>

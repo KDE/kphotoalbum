@@ -17,9 +17,11 @@
 */
 
 #include "GroupCounter.h"
-#include "DB/ImageDB.h"
-#include "DB/MemberMap.h"
-#include "Utilities/StringSet.h"
+
+#include "ImageDB.h"
+#include "MemberMap.h"
+
+#include <Utilities/StringSet.h>
 using namespace DB;
 
 /**

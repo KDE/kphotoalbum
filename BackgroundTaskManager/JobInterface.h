@@ -20,6 +20,7 @@
 #define JOBINTERFACE_H
 
 #include "JobInfo.h"
+
 #include <QObject>
 
 namespace BackgroundTaskManager

@@ -19,6 +19,7 @@
 #ifndef DELETEDIALOG_H
 #define DELETEDIALOG_H
 #include <DB/FileNameList.h>
+
 #include <QDialog>
 #include <QLabel>
 #include <kjob.h>

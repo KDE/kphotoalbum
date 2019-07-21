@@ -25,18 +25,17 @@
 
 #include <AnnotationDialog/Dialog.h>
 #ifdef HAVE_KGEOMAP
-#include <Browser/GeoPositionPage.h>
+#include "GeoPositionPage.h"
 #endif
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <Exif/SearchDialog.h>
 #include <MainWindow/Logging.h>
+#include <MainWindow/Window.h>
 #include <Utilities/ShowBusyCursor.h>
 
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <MainWindow/Window.h>
-
 #include <QElapsedTimer>
 #include <QIcon>
 #include <QPixmap>

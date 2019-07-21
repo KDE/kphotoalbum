@@ -17,7 +17,9 @@
 */
 
 #include "VideoThumbnails.h"
+
 #include "VideoLengthExtractor.h"
+
 #include <BackgroundJobs/ExtractOneThumbnailJob.h>
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <BackgroundJobs/ReadVideoLengthJob.h>

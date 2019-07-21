@@ -16,16 +16,15 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ImageInfoList.h"
+
+#include "FileNameList.h"
 #include "ImageInfo.h"
 #include "Logging.h"
 
-#include <DB/FileNameList.h>
-
+#include <KLocalizedString>
 #include <QDateTime>
 #include <QVector>
 #include <QtAlgorithms>
-
-#include <KLocalizedString>
 using namespace DB;
 
 class SortableImageInfo

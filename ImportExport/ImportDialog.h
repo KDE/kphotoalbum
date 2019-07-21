@@ -19,12 +19,11 @@
 #ifndef IMPORT_H
 #define IMPORT_H
 
-#include <QUrl>
-
-#include <KAssistantDialog>
-
 #include "ImportMatcher.h"
 #include "ImportSettings.h"
+
+#include <KAssistantDialog>
+#include <QUrl>
 
 class QTemporaryFile;
 class QLineEdit;

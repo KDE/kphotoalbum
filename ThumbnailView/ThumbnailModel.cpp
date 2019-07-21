@@ -17,10 +17,12 @@
 */
 #include "ThumbnailModel.h"
 
-#include <QIcon>
-#include <QLoggingCategory>
-
-#include <KLocalizedString>
+#include "CellGeometry.h"
+#include "FilterWidget.h"
+#include "Logging.h"
+#include "SelectionMaintainer.h"
+#include "ThumbnailRequest.h"
+#include "ThumbnailWidget.h"
 
 #include <DB/FileName.h>
 #include <DB/ImageDB.h>
@@ -29,12 +31,9 @@
 #include <Settings/SettingsData.h>
 #include <Utilities/FileUtil.h>
 
-#include "CellGeometry.h"
-#include "FilterWidget.h"
-#include "Logging.h"
-#include "SelectionMaintainer.h"
-#include "ThumbnailRequest.h"
-#include "ThumbnailWidget.h"
+#include <KLocalizedString>
+#include <QIcon>
+#include <QLoggingCategory>
 
 ThumbnailView::ThumbnailModel::ThumbnailModel(ThumbnailFactory *factory)
     : ThumbnailComponent(factory)

@@ -17,18 +17,17 @@
 */
 
 #include "DemoUtil.h"
+
 #include "FileUtil.h"
 #include "Logging.h"
 
 #include <MainWindow/Window.h>
 
+#include <KIO/DeleteJob>
 #include <KJob>
 #include <KJobWidgets>
 #include <KLocalizedString>
 #include <KMessageBox>
-
-#include <KIO/DeleteJob>
-
 #include <QDir>
 #include <QDirIterator>
 #include <QFileInfo>

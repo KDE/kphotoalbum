@@ -17,6 +17,7 @@
 */
 
 #include "ImageDate.h"
+
 #include <KLocalizedString>
 #include <QLocale>
 #include <qregexp.h>

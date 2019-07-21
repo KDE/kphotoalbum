@@ -17,8 +17,11 @@
 */
 
 #include "DragableTreeWidget.h"
+
 #include "CheckDropItem.h"
-#include "DB/Category.h"
+
+#include <DB/Category.h>
+
 #include <QDragMoveEvent>
 
 CategoryListView::DragableTreeWidget::DragableTreeWidget(const DB::CategoryPtr &category, QWidget *parent)

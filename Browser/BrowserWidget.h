@@ -20,7 +20,9 @@
 #define BROWSER_H
 #include "BreadcrumbList.h"
 #include "CenteringIconView.h"
-#include "Settings/SettingsData.h"
+
+#include <Settings/SettingsData.h>
+
 #include <QListView>
 
 class CenteringIconView;

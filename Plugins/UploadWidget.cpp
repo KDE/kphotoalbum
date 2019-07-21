@@ -19,14 +19,14 @@
 
 #include "UploadWidget.h"
 
-#include <QFileSystemModel>
-#include <QHBoxLayout>
-#include <QTreeView>
+#include "ImageCollection.h"
+#include "UploadImageCollection.h"
 
 #include <Settings/SettingsData.h>
 
-#include "ImageCollection.h"
-#include "UploadImageCollection.h"
+#include <QFileSystemModel>
+#include <QHBoxLayout>
+#include <QTreeView>
 
 namespace Plugins
 {

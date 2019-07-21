@@ -19,7 +19,8 @@
 #ifndef VIEWER_TEXTDISPLAY_H
 #define VIEWER_TEXTDISPLAY_H
 #include "AbstractDisplay.h"
-#include "DB/ImageInfoPtr.h"
+
+#include <DB/ImageInfoPtr.h>
 
 class QWidget;
 class QLabel;

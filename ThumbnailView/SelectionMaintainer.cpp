@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "SelectionMaintainer.h"
+
 #include <DB/FileNameList.h>
 
 ThumbnailView::SelectionMaintainer::SelectionMaintainer(ThumbnailWidget *widget, ThumbnailModel *model)

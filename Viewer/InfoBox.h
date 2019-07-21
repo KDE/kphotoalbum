@@ -31,6 +31,7 @@
 // Local includes
 #include "InfoBoxResizer.h"
 #include "ViewerWidget.h"
+
 #include <Settings/SettingsData.h>
 
 // Qt classes

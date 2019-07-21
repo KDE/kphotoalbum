@@ -18,8 +18,10 @@
 */
 
 #include "StatusIndicator.h"
+
 #include "JobManager.h"
 #include "JobViewer.h"
+
 #include <KLocalizedString>
 #include <QApplication>
 #include <QHelpEvent>

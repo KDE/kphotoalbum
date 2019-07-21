@@ -19,10 +19,12 @@
 #ifndef POSITIONBROWSERWIDGET_H_
 #define POSITIONBROWSERWIDGET_H_
 
-#include "DB/FileNameList.h"
-#include "DB/ImageSearchInfo.h"
-#include "Map/MapView.h"
 #include "qwidget.h"
+
+#include <DB/FileNameList.h>
+#include <DB/ImageSearchInfo.h>
+
+#include <Map/MapView.h>
 
 namespace Browser
 {

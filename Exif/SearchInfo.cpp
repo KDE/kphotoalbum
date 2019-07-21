@@ -17,10 +17,12 @@
 */
 
 #include "SearchInfo.h"
-#include <KLocalizedString>
 
-#include "Exif/Database.h"
+#include "Database.h"
+
 #include <DB/FileName.h>
+
+#include <KLocalizedString>
 
 /**
  * \class Exif::SearchInfo

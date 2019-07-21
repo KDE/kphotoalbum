@@ -19,6 +19,15 @@
 
 #include "DuplicateMatch.h"
 
+#include "MergeToolTip.h"
+
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <DB/ImageInfoPtr.h>
+#include <ImageManager/AsyncLoader.h>
+#include <Utilities/DeleteFiles.h>
+
+#include <KLocalizedString>
 #include <QCheckBox>
 #include <QEvent>
 #include <QImage>
@@ -27,16 +36,6 @@
 #include <QToolButton>
 #include <QVBoxLayout>
 #include <QVariant>
-
-#include <KLocalizedString>
-
-#include <DB/ImageDB.h>
-#include <DB/ImageInfo.h>
-#include <DB/ImageInfoPtr.h>
-#include <ImageManager/AsyncLoader.h>
-#include <Utilities/DeleteFiles.h>
-
-#include "MergeToolTip.h"
 
 namespace MainWindow
 {

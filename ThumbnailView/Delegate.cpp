@@ -16,10 +16,13 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Delegate.h"
+
 #include "CellGeometry.h"
-#include "Settings/SettingsData.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
+
+#include <Settings/SettingsData.h>
+
 #include <KLocalizedString>
 #include <QPainter>
 ThumbnailView::Delegate::Delegate(ThumbnailFactory *factory, QObject *parent)

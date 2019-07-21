@@ -20,7 +20,7 @@
 #ifndef MAINWINDOW_MERGETOOLTIP_H
 #define MAINWINDOW_MERGETOOLTIP_H
 
-#include "Utilities/ToolTip.h"
+#include <Utilities/ToolTip.h>
 
 namespace MainWindow
 {

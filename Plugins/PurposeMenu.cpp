@@ -18,6 +18,7 @@
 */
 
 #include "PurposeMenu.h"
+
 #include "Logging.h"
 
 #include <MainWindow/Window.h>

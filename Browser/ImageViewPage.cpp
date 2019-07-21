@@ -17,9 +17,10 @@
 */
 
 #include "ImageViewPage.h"
-#include "ThumbnailView/ThumbnailFacade.h"
+
 #include <DB/ImageDB.h>
 #include <MainWindow/Window.h>
+#include <ThumbnailView/ThumbnailFacade.h>
 
 Browser::ImageViewPage::ImageViewPage(const DB::ImageSearchInfo &info, BrowserWidget *browser)
     : BrowserPage(info, browser)

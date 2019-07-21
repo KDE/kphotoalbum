@@ -18,6 +18,7 @@
 */
 
 #include "VideoLengthExtractor.h"
+
 #include "Logging.h"
 
 #include <MainWindow/FeatureDialog.h>

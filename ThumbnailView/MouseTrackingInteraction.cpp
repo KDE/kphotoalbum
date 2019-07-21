@@ -16,10 +16,13 @@
    Boston, MA 02110-1301, USA.
 */
 #include "MouseTrackingInteraction.h"
+
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
 #include "VideoThumbnailCycler.h"
+
 #include <DB/FileName.h>
+
 #include <QMouseEvent>
 
 ThumbnailView::MouseTrackingInteraction::MouseTrackingInteraction(ThumbnailFactory *factory)

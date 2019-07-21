@@ -17,10 +17,13 @@
 */
 
 #include "AbstractCategoryModel.h"
+
 #include "BrowserWidget.h"
 #include "enums.h"
+
 #include <DB/ImageDB.h>
 #include <DB/MemberMap.h>
+
 #include <KLocalizedString>
 #include <QApplication>
 #include <QIcon>

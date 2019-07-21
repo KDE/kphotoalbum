@@ -19,7 +19,8 @@
 #ifndef MINIVIEWER_H
 #define MINIVIEWER_H
 
-#include "DB/ImageInfoPtr.h"
+#include <DB/ImageInfoPtr.h>
+
 #include <qdialog.h>
 #include <qimage.h>
 

@@ -17,8 +17,11 @@
 */
 
 #include "TextDisplay.h"
-#include "DB/ImageDB.h"
+
 #include "ImageDisplay.h"
+
+#include <DB/ImageDB.h>
+
 #include <QLabel>
 #include <QVBoxLayout>
 #include <qlabel.h>

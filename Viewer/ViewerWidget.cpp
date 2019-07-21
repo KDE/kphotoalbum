@@ -18,6 +18,32 @@
 
 #include "ViewerWidget.h"
 
+#include "CategoryImageConfig.h"
+#include "ImageDisplay.h"
+#include "InfoBox.h"
+#include "SpeedDisplay.h"
+#include "TaggedArea.h"
+#include "TextDisplay.h"
+#include "VideoDisplay.h"
+#include "VideoShooter.h"
+#include "VisibleOptionsMenu.h"
+
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <Exif/InfoDialog.h>
+#include <ImageManager/ThumbnailCache.h>
+#include <MainWindow/CategoryImagePopup.h>
+#include <MainWindow/DeleteDialog.h>
+#include <MainWindow/DirtyIndicator.h>
+#include <MainWindow/ExternalPopup.h>
+#include <MainWindow/Window.h>
+#include <Utilities/DescriptionUtil.h>
+#include <Utilities/VideoUtil.h>
+
+#include <KActionCollection>
+#include <KIO/CopyJob>
+#include <KIconLoader>
+#include <KLocalizedString>
 #include <QAction>
 #include <QApplication>
 #include <QContextMenuEvent>
@@ -36,33 +62,6 @@
 #include <QTimer>
 #include <QWheelEvent>
 #include <qglobal.h>
-
-#include <KActionCollection>
-#include <KIO/CopyJob>
-#include <KIconLoader>
-#include <KLocalizedString>
-
-#include <DB/CategoryCollection.h>
-#include <DB/ImageDB.h>
-#include <Exif/InfoDialog.h>
-#include <ImageManager/ThumbnailCache.h>
-#include <MainWindow/CategoryImagePopup.h>
-#include <MainWindow/DeleteDialog.h>
-#include <MainWindow/DirtyIndicator.h>
-#include <MainWindow/ExternalPopup.h>
-#include <MainWindow/Window.h>
-#include <Utilities/DescriptionUtil.h>
-#include <Utilities/VideoUtil.h>
-
-#include "CategoryImageConfig.h"
-#include "ImageDisplay.h"
-#include "InfoBox.h"
-#include "SpeedDisplay.h"
-#include "TaggedArea.h"
-#include "TextDisplay.h"
-#include "VideoDisplay.h"
-#include "VideoShooter.h"
-#include "VisibleOptionsMenu.h"
 
 Viewer::ViewerWidget *Viewer::ViewerWidget::s_latest = nullptr;
 

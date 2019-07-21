@@ -17,7 +17,8 @@
 */
 #ifndef CATEGORYLISTVIEW_DragableTreeWidget_H
 #define CATEGORYLISTVIEW_DragableTreeWidget_H
-#include "DB/CategoryPtr.h"
+#include <DB/CategoryPtr.h>
+
 #include <QTreeWidget>
 
 namespace CategoryListView

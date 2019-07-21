@@ -17,16 +17,16 @@
 */
 #include "KeyboardEventHandler.h"
 
-#include <DB/CategoryCollection.h>
-#include <DB/ImageDB.h>
-#include <MainWindow/DirtyIndicator.h>
-#include <Settings/SettingsData.h>
-
 #include "CellGeometry.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
 #include "VideoThumbnailCycler.h"
 #include "enums.h"
+
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <MainWindow/DirtyIndicator.h>
+#include <Settings/SettingsData.h>
 
 ThumbnailView::KeyboardEventHandler::KeyboardEventHandler(ThumbnailFactory *factory)
     : ThumbnailComponent(factory)

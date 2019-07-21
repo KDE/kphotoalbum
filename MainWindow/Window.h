@@ -18,19 +18,17 @@
 
 #ifndef MAINWINDOW_WINDOW_H
 #define MAINWINDOW_WINDOW_H
-#include <config-kpa-kipi.h>
-
-#include <QList>
-#include <QPointer>
-#include <QUrl>
-
-#include <KXmlGuiWindow>
-
 #include <DB/Category.h>
 #include <DB/FileNameList.h>
 #include <DB/ImageSearchInfo.h>
 #include <DB/UIDelegate.h>
 #include <ThumbnailView/enums.h>
+
+#include <KXmlGuiWindow>
+#include <QList>
+#include <QPointer>
+#include <QUrl>
+#include <config-kpa-kipi.h>
 #ifdef HAVE_KGEOMAP
 #include <Browser/PositionBrowserWidget.h>
 #endif

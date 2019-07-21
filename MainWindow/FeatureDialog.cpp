@@ -17,9 +17,10 @@
 */
 
 #include "FeatureDialog.h"
-#include <config-kpa-kgeomap.h>
-#include <config-kpa-kipi.h>
 
+#include <Exif/Database.h>
+
+#include <KLocalizedString>
 #include <QDialogButtonBox>
 #include <QLayout>
 #include <QList>
@@ -28,11 +29,9 @@
 #include <QStandardPaths>
 #include <QTextBrowser>
 #include <QVBoxLayout>
-
-#include <KLocalizedString>
+#include <config-kpa-kgeomap.h>
+#include <config-kpa-kipi.h>
 #include <phonon/backendcapabilities.h>
-
-#include "Exif/Database.h"
 
 using namespace MainWindow;
 

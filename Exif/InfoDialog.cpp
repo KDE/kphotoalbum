@@ -16,6 +16,17 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "InfoDialog.h"
+
+#include "Grid.h"
+#include "Info.h"
+
+#include <DB/ImageDB.h>
+#include <ImageManager/AsyncLoader.h>
+#include <ImageManager/ImageRequest.h>
+#include <Settings/SettingsData.h>
+
+#include <KLocalizedString>
 #include <QComboBox>
 #include <QDialogButtonBox>
 #include <QLabel>
@@ -23,16 +34,6 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QTextCodec>
-
-#include <KLocalizedString>
-
-#include "DB/ImageDB.h"
-#include "Exif/Info.h"
-#include "Exif/InfoDialog.h"
-#include "Grid.h"
-#include "ImageManager/AsyncLoader.h"
-#include "ImageManager/ImageRequest.h"
-#include "Settings/SettingsData.h"
 
 using Utilities::StringSet;
 

@@ -17,12 +17,15 @@
 */
 
 #include "VideoShooter.h"
+
 #include "InfoBox.h"
 #include "VideoDisplay.h"
 #include "ViewerWidget.h"
+
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <DB/ImageInfo.h>
 #include <ImageManager/ThumbnailCache.h>
+
 #include <QApplication>
 #include <QTimer>
 

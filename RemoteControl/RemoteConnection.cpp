@@ -17,6 +17,7 @@
 */
 
 #include "RemoteConnection.h"
+
 #include "RemoteCommand.h"
 
 #include <QApplication>

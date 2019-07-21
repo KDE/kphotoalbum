@@ -19,6 +19,7 @@
 #ifndef IMAGEVIEWPAGE_H
 #define IMAGEVIEWPAGE_H
 #include "BrowserPage.h"
+
 #include <DB/FileName.h>
 #include <DB/ImageSearchInfo.h>
 

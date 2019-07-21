@@ -36,7 +36,6 @@
 
 #include <KDatePicker>
 #include <KLocalizedString>
-
 #include <QApplication>
 #include <QDate>
 #include <QDesktopWidget>

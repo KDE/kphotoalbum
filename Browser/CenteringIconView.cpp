@@ -16,10 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 #include "CenteringIconView.h"
-#include "Settings/SettingsData.h"
-#include "Utilities/FileUtil.h"
-#include <QApplication>
+
+#include <Settings/SettingsData.h>
 #include <Utilities/BooleanGuard.h>
+#include <Utilities/FileUtil.h>
+
+#include <QApplication>
 #include <cmath>
 
 const int CELLWIDTH = 200;

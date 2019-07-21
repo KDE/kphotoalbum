@@ -17,6 +17,7 @@
 */
 
 #include "ImageSearchInfo.h"
+
 #include "AndCategoryMatcher.h"
 #include "CategoryMatcher.h"
 #include "ContainerCategoryMatcher.h"
@@ -34,7 +35,6 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
-
 #include <QApplication>
 #include <QRegExp>
 

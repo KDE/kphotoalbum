@@ -18,11 +18,9 @@
 
 #include "ViewHandler.h"
 
-#include <math.h>
-
-#include <QLocale>
-
 #include <KLocalizedString>
+#include <QLocale>
+#include <math.h>
 
 using namespace DateBar;
 

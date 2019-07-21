@@ -18,7 +18,9 @@
 */
 
 #include "UpdateVideoThumbnail.h"
+
 #include "Window.h"
+
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <ImageManager/ThumbnailCache.h>
 #include <ThumbnailView/CellGeometry.h>

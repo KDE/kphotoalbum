@@ -17,29 +17,30 @@
 */
 
 #include "BrowserWidget.h"
+
 #include "CategoryPage.h"
 #include "ImageViewPage.h"
 #include "OverviewPage.h"
+#include "TreeCategoryModel.h"
 #include "TreeFilter.h"
 #include "enums.h"
+
+#include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageSearchInfo.h>
+#include <Settings/SettingsData.h>
+#include <Utilities/FileUtil.h>
+#include <Utilities/ShowBusyCursor.h>
+
+#include <KLocalizedString>
 #include <QApplication>
+#include <QHBoxLayout>
 #include <QHeaderView>
 #include <QKeyEvent>
 #include <QMouseEvent>
-#include <QTreeView>
-
-#include "DB/CategoryCollection.h"
-#include "Settings/SettingsData.h"
-#include "Utilities/FileUtil.h"
-#include "Utilities/ShowBusyCursor.h"
-#include <KLocalizedString>
-#include <QHBoxLayout>
 #include <QStackedWidget>
+#include <QTreeView>
 #include <qtimer.h>
-
-#include "TreeCategoryModel.h"
 
 Browser::BrowserWidget *Browser::BrowserWidget::s_instance = nullptr;
 bool Browser::BrowserWidget::s_isResizing = false;

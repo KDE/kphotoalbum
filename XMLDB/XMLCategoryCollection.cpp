@@ -18,10 +18,11 @@
 
 #include "XMLCategoryCollection.h"
 
-#include <QList>
-
 #include "XMLCategory.h"
+
 #include <DB/ImageDB.h>
+
+#include <QList>
 
 DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForName(const QString &name) const
 {

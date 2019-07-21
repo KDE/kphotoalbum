@@ -17,18 +17,18 @@
 */
 
 #include "RunDialog.h"
-#include <MainWindow/Window.h>
+
+#include "Window.h"
 
 #include <KLocalizedString>
-#include <krun.h>
-#include <kshell.h>
-
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QLabel>
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <krun.h>
+#include <kshell.h>
 
 MainWindow::RunDialog::RunDialog(QWidget *parent)
     : QDialog(parent)

@@ -20,6 +20,7 @@
 #define ABSTRACTDISPLAY_H
 
 #include <DB/ImageInfoPtr.h>
+
 #include <qwidget.h>
 
 namespace Viewer

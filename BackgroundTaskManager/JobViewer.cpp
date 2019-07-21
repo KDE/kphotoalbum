@@ -17,16 +17,16 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "JobViewer.h"
+
+#include "JobManager.h"
+#include "JobModel.h"
+
+#include <KLocalizedString>
 #include <QDialogButtonBox>
 #include <QLayout>
 #include <QPushButton>
 #include <QTreeView>
-
-#include <KLocalizedString>
-
-#include "JobManager.h"
-#include "JobModel.h"
-#include "JobViewer.h"
 
 BackgroundTaskManager::JobViewer::JobViewer(QWidget *parent)
     : QDialog(parent)

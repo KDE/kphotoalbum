@@ -16,9 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "Exif/TreeView.h"
-#include "Exif/Info.h"
-#include "Utilities/StringSet.h"
+#include "TreeView.h"
+
+#include "Info.h"
+
+#include <Utilities/StringSet.h>
+
 #include <qmap.h>
 #include <qstringlist.h>
 

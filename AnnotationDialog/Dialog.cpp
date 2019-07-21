@@ -45,7 +45,6 @@
 #include <KMessageBox>
 #include <KRatingWidget>
 #include <KTextEdit>
-
 #include <QAction>
 #include <QApplication>
 #include <QCloseEvent>

@@ -16,10 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 #include "VisibleOptionsMenu.h"
-#include "DB/Category.h"
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
-#include "Settings/SettingsData.h"
+
+#include <DB/Category.h>
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <Settings/SettingsData.h>
+
 #include <KActionCollection>
 #include <KLocalizedString>
 #include <KToggleAction>

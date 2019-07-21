@@ -16,17 +16,17 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Info.h"
+
 #include "Logging.h"
 
-#include "DB/ImageDB.h"
-#include "DB/ImageInfo.h"
-#include "Settings/SettingsData.h"
-#include "Utilities/StringSet.h"
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <Settings/SettingsData.h>
+#include <Utilities/StringSet.h>
 
 #include <QFile>
 #include <QFileInfo>
 #include <QTextCodec>
-
 #include <exiv2/exv_conf.h>
 #include <exiv2/image.hpp>
 #include <exiv2/version.hpp>

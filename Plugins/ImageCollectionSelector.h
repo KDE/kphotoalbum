@@ -18,8 +18,9 @@
 #ifndef MYIMAGECOLLECTIONSELECTOR_H
 #define MYIMAGECOLLECTIONSELECTOR_H
 
-#include "Plugins/ImageCollection.h"
-#include "Plugins/Interface.h"
+#include "ImageCollection.h"
+#include "Interface.h"
+
 #include <config-kpa-kipi.h>
 
 namespace Plugins

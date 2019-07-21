@@ -18,6 +18,7 @@
 #include "XmlReader.h"
 
 #include <DB/UIDelegate.h>
+
 #include <KLocalizedString>
 
 namespace XMLDB

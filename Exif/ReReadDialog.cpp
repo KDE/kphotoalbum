@@ -18,6 +18,15 @@
 
 #include "ReReadDialog.h"
 
+#include "Database.h"
+
+#include <DB/ImageDB.h>
+#include <Settings/SettingsData.h>
+
+#include <KConfigGroup>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KSharedConfig>
 #include <QCheckBox>
 #include <QDialogButtonBox>
 #include <QGroupBox>
@@ -25,15 +34,6 @@
 #include <QListWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
-
-#include <KConfigGroup>
-#include <KLocalizedString>
-#include <KMessageBox>
-#include <KSharedConfig>
-
-#include <DB/ImageDB.h>
-#include <Exif/Database.h>
-#include <Settings/SettingsData.h>
 
 Exif::ReReadDialog::ReReadDialog(QWidget *parent)
     : QDialog(parent)

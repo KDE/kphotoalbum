@@ -18,20 +18,20 @@
 
 #include "AsyncLoader.h"
 
-#include <QIcon>
-#include <QPixmapCache>
-
-#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
-#include <BackgroundTaskManager/JobManager.h>
-#include <ImageManager/ImageClientInterface.h>
-#include <MainWindow/FeatureDialog.h>
-#include <Utilities/VideoUtil.h>
-
 #include "CancelEvent.h"
+#include "ImageClientInterface.h"
 #include "ImageEvent.h"
 #include "ImageLoaderThread.h"
 #include "ThumbnailBuilder.h"
 #include "ThumbnailCache.h"
+
+#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
+#include <BackgroundTaskManager/JobManager.h>
+#include <MainWindow/FeatureDialog.h>
+#include <Utilities/VideoUtil.h>
+
+#include <QIcon>
+#include <QPixmapCache>
 
 ImageManager::AsyncLoader *ImageManager::AsyncLoader::s_instance = nullptr;
 

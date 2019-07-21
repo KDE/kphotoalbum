@@ -17,13 +17,14 @@
 */
 
 #include "ImageLoaderThread.h"
-#include "ThumbnailCache.h"
 
 #include "AsyncLoader.h"
 #include "ImageDecoder.h"
 #include "RawImageDecoder.h"
-#include "Utilities/FastJpeg.h"
-#include "Utilities/ImageUtil.h"
+#include "ThumbnailCache.h"
+
+#include <Utilities/FastJpeg.h>
+#include <Utilities/ImageUtil.h>
 
 #include <qapplication.h>
 #include <qfileinfo.h>
@@ -39,6 +40,7 @@ extern "C" {
 }
 
 #include "ImageEvent.h"
+
 #include <kcodecs.h>
 #include <qmatrix.h>
 

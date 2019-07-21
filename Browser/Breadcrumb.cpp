@@ -17,6 +17,7 @@
 */
 
 #include "Breadcrumb.h"
+
 #include <KLocalizedString>
 
 int Browser::Breadcrumb::s_count = 0;

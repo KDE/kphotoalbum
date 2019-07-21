@@ -18,9 +18,11 @@
 */
 
 #include "JobModel.h"
+
 #include "CompletedJobInfo.h"
 #include "JobInfo.h"
 #include "JobManager.h"
+
 #include <KLed>
 #include <KLocalizedString>
 #include <QPainter>

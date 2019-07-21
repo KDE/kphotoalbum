@@ -20,10 +20,10 @@
 #ifndef IMAGEMANAGER_EXTRACTONEVIDEOFRAME_H
 #define IMAGEMANAGER_EXTRACTONEVIDEOFRAME_H
 
+#include <DB/FileName.h>
+
 #include <QObject>
 #include <QProcess>
-
-#include <DB/FileName.h>
 
 class QImage;
 

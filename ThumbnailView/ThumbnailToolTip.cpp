@@ -18,16 +18,17 @@
 
 #include "ThumbnailToolTip.h"
 
+#include "ThumbnailWidget.h"
+
+#include <DB/ImageDB.h>
+#include <DB/ImageInfo.h>
+#include <Settings/SettingsData.h>
+#include <Utilities/FileUtil.h>
+
 #include <QApplication>
 #include <QCursor>
 #include <QDesktopWidget>
 #include <QScreen>
-
-#include "DB/ImageDB.h"
-#include "DB/ImageInfo.h"
-#include "Settings/SettingsData.h"
-#include "ThumbnailWidget.h"
-#include "Utilities/FileUtil.h"
 
 /**
    \class ThumbnailToolTip

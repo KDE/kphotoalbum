@@ -17,6 +17,7 @@
    */
 
 #include "MapMarkerModelHelper.h"
+
 #include "Logging.h"
 
 // Qt includes

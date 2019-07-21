@@ -18,6 +18,18 @@
 
 #include "ImportDialog.h"
 
+#include "ImageRow.h"
+#include "ImportMatcher.h"
+#include "KimFileReader.h"
+#include "MD5CheckPage.h"
+
+#include <DB/ImageInfo.h>
+#include <Settings/SettingsData.h>
+#include <XMLDB/Database.h>
+
+#include <KHelpClient>
+#include <KLocalizedString>
+#include <KMessageBox>
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDir>
@@ -29,19 +41,6 @@
 #include <QPixmap>
 #include <QPushButton>
 #include <QScrollArea>
-
-#include <KHelpClient>
-#include <KLocalizedString>
-#include <KMessageBox>
-
-#include <DB/ImageInfo.h>
-#include <Settings/SettingsData.h>
-#include <XMLDB/Database.h>
-
-#include "ImageRow.h"
-#include "ImportMatcher.h"
-#include "KimFileReader.h"
-#include "MD5CheckPage.h"
 
 using Utilities::StringSet;
 

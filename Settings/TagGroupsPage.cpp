@@ -37,9 +37,10 @@
 
 // Local includes
 #include "CategoriesGroupsWidget.h"
-#include "DB/CategoryCollection.h"
-#include "MainWindow/DirtyIndicator.h"
-#include "Settings/SettingsData.h"
+#include "SettingsData.h"
+
+#include <DB/CategoryCollection.h>
+#include <MainWindow/DirtyIndicator.h>
 
 Settings::TagGroupsPage::TagGroupsPage(QWidget *parent)
     : QWidget(parent)

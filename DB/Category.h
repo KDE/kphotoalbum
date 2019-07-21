@@ -20,12 +20,11 @@
 
 #include "ImageDate.h"
 
+#include <KIconLoader>
 #include <QDate>
 #include <QExplicitlySharedDataPointer>
 #include <QObject>
 #include <QString>
-
-#include <KIconLoader>
 
 class QImage;
 class QPixmap;

@@ -18,6 +18,7 @@
 #ifndef BREADCRUMBVIEWER_H
 #define BREADCRUMBVIEWER_H
 #include <Browser/BreadcrumbList.h>
+
 #include <QLabel>
 
 namespace MainWindow

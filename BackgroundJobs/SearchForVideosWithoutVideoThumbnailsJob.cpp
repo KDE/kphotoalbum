@@ -17,13 +17,16 @@
 */
 
 #include "SearchForVideosWithoutVideoThumbnailsJob.h"
+
 #include "ExtractOneThumbnailJob.h"
+#include "HandleVideoThumbnailRequestJob.h"
 #include "ReadVideoLengthJob.h"
-#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
+
 #include <BackgroundTaskManager/JobInfo.h>
 #include <BackgroundTaskManager/JobManager.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
+
 #include <KLocalizedString>
 #include <QFile>
 

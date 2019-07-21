@@ -17,6 +17,7 @@
 */
 
 #include "BreadcrumbList.h"
+
 #include <QStringList>
 
 Browser::BreadcrumbList Browser::BreadcrumbList::latest() const

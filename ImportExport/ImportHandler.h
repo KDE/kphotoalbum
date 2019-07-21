@@ -18,8 +18,10 @@
 #ifndef IMPORTHANDLER_H
 #define IMPORTHANDLER_H
 
-#include "DB/ImageInfoPtr.h"
 #include "ImportSettings.h"
+
+#include <DB/ImageInfoPtr.h>
+
 #include <QEventLoop>
 #include <QPointer>
 

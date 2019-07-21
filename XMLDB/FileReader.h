@@ -18,9 +18,11 @@
 #ifndef XMLDB_FILEREADER_H
 #define XMLDB_FILEREADER_H
 
-#include "DB/ImageInfo.h"
-#include "DB/ImageInfoPtr.h"
 #include "XmlReader.h"
+
+#include <DB/ImageInfo.h>
+#include <DB/ImageInfoPtr.h>
+
 #include <QSharedPointer>
 
 class QXmlStreamReader;

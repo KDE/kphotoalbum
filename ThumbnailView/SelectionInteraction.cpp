@@ -18,20 +18,19 @@
 
 #include "SelectionInteraction.h"
 
-#include <QApplication>
-#include <QDrag>
-#include <QMimeData>
-#include <QMouseEvent>
-
-#include <QUrl>
-
-#include <DB/FileNameList.h>
-#include <MainWindow/Window.h>
-
 #include "CellGeometry.h"
 #include "ThumbnailFactory.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
+
+#include <DB/FileNameList.h>
+#include <MainWindow/Window.h>
+
+#include <QApplication>
+#include <QDrag>
+#include <QMimeData>
+#include <QMouseEvent>
+#include <QUrl>
 
 ThumbnailView::SelectionInteraction::SelectionInteraction(ThumbnailFactory *factory)
     : ThumbnailComponent(factory)

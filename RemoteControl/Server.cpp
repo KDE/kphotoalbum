@@ -19,6 +19,7 @@
 #include "Server.h"
 
 #include "RemoteCommand.h"
+
 #include <KLocalizedString>
 #include <QMessageBox>
 #include <QTcpSocket>

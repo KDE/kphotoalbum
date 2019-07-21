@@ -16,9 +16,10 @@
    Boston, MA 02110-1301, USA.
 */
 #include "XMLCategory.h"
-#include "DB/ImageDB.h"
-#include "DB/MemberMap.h"
-#include "Utilities/List.h"
+
+#include <DB/ImageDB.h>
+#include <DB/MemberMap.h>
+#include <Utilities/List.h>
 
 XMLDB::XMLCategory::XMLCategory(const QString &name, const QString &icon, ViewType type, int thumbnailSize, bool show, bool positionable)
     : m_name(name)

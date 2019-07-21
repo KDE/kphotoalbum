@@ -20,6 +20,7 @@
 #ifndef JOBINFO_H
 #define JOBINFO_H
 #include "Priority.h"
+
 #include <QElapsedTimer>
 #include <QObject>
 #include <QString>

@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "ExactCategoryMatcher.h"
+
 #include "ImageInfo.h"
 #include "Logging.h"
 

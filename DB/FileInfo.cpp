@@ -18,12 +18,12 @@
 #include "FileInfo.h"
 
 #include <Exif/Info.h>
-#include <QRegularExpression>
 #include <Settings/SettingsData.h>
 #include <Utilities/VideoUtil.h>
 
 #include <QDateTime>
 #include <QFileInfo>
+#include <QRegularExpression>
 
 using namespace DB;
 

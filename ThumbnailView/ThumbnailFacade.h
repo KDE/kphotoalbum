@@ -19,6 +19,7 @@
 #define THUMBNAILFACADE_H
 #include "ThumbnailFactory.h"
 #include "ThumbnailWidget.h"
+
 #include <DB/FileNameList.h>
 
 class QSlider;

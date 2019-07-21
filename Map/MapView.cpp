@@ -17,6 +17,7 @@
 */
 
 #include "MapView.h"
+
 #include "Logging.h"
 
 // Qt includes

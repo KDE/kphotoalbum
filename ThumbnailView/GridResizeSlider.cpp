@@ -25,15 +25,15 @@
 #include <KSharedConfig>
 
 // Local includes
-#include <ImageManager/ThumbnailBuilder.h>
-#include <MainWindow/Window.h>
-#include <Settings/SettingsData.h>
-
 #include "CellGeometry.h"
 #include "GridResizeSlider.h"
 #include "Logging.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
+
+#include <ImageManager/ThumbnailBuilder.h>
+#include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
 
 ThumbnailView::GridResizeSlider::GridResizeSlider(ThumbnailFactory *factory)
     : QSlider(Qt::Horizontal)

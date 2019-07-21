@@ -22,8 +22,9 @@
 #include "MouseTrackingInteraction.h"
 #include "SelectionInteraction.h"
 #include "ThumbnailComponent.h"
-#include "ThumbnailView/enums.h"
 #include "VideoThumbnailCycler.h"
+#include "enums.h"
+
 #include <QListView>
 #include <QScopedPointer>
 

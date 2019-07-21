@@ -17,7 +17,8 @@
 */
 #ifndef XMLCATEGORY_H
 #define XMLCATEGORY_H
-#include "DB/Category.h"
+#include <DB/Category.h>
+
 #include <QMap>
 #include <qstringlist.h>
 

@@ -20,7 +20,7 @@
 // libkgeomap includes
 
 // Local includes
-#include <Map/MapView.h>
+#include "MapView.h"
 
 Map::SearchMarkerTiler::SearchMarkerTiler(KGeoMap::ModelHelper *const modelHelper, QObject *const parent)
     : ItemMarkerTiler(modelHelper, parent)

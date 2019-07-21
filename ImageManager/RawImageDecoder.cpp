@@ -16,15 +16,16 @@
    Boston, MA 02110-1301, USA.
 */
 #include "RawImageDecoder.h"
-#include "Logging.h"
-#include <config-kpa-kdcraw.h>
 
-#include "Settings/SettingsData.h"
+#include "Logging.h"
+
 #include <DB/FileName.h>
+#include <Settings/SettingsData.h>
 #include <Utilities/FastJpeg.h>
 
 #include <QFile>
 #include <QImage>
+#include <config-kpa-kdcraw.h>
 #ifdef HAVE_KDCRAW
 #include <KDCRAW/KDcraw>
 #include <KDCRAW/RawFiles>

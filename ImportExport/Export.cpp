@@ -18,35 +18,34 @@
 
 #include "Export.h"
 
-#include <QApplication>
-#include <QBuffer>
-#include <QCheckBox>
-#include <QFileDialog>
-#include <QFileInfo>
-#include <QGroupBox>
-#include <QLayout>
-#include <QProgressDialog>
-#include <QRadioButton>
-#include <QSpinBox>
-#include <QVBoxLayout>
-
-#include <KHelpClient>
-#include <KLocalizedString>
-#include <KMessageBox>
-#include <KZip>
+#include "XMLHandler.h"
 
 #include <DB/FileNameList.h>
 #include <DB/ImageInfo.h>
 #include <ImageManager/AsyncLoader.h>
 #include <ImageManager/RawImageDecoder.h>
-#include <KConfigGroup>
-#include <QDialogButtonBox>
-#include <QPushButton>
 #include <Utilities/FileNameUtil.h>
 #include <Utilities/FileUtil.h>
 #include <Utilities/VideoUtil.h>
 
-#include "XMLHandler.h"
+#include <KConfigGroup>
+#include <KHelpClient>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KZip>
+#include <QApplication>
+#include <QBuffer>
+#include <QCheckBox>
+#include <QDialogButtonBox>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QGroupBox>
+#include <QLayout>
+#include <QProgressDialog>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSpinBox>
+#include <QVBoxLayout>
 
 using namespace ImportExport;
 

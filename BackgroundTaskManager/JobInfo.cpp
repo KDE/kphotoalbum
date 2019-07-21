@@ -18,6 +18,7 @@
 */
 
 #include "JobInfo.h"
+
 #include <KLocalizedString>
 
 namespace BackgroundTaskManager

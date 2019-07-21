@@ -17,11 +17,14 @@
 */
 
 #include "CategoryImagePopup.h"
-#include "DB/CategoryCollection.h"
-#include "Viewer/CategoryImageConfig.h"
+
 #include "Window.h"
-#include <KLocalizedString>
+
+#include <DB/CategoryCollection.h>
 #include <Utilities/StringSet.h>
+#include <Viewer/CategoryImageConfig.h>
+
+#include <KLocalizedString>
 #include <qstringlist.h>
 
 void MainWindow::CategoryImagePopup::populate(const QImage &image, const DB::FileName &imageName)

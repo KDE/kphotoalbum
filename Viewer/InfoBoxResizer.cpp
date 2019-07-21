@@ -16,6 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 #include "InfoBoxResizer.h"
+
 #include "InfoBox.h"
 
 Viewer::InfoBoxResizer::InfoBoxResizer(Viewer::InfoBox *infoBox)

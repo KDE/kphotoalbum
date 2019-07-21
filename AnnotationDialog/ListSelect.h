@@ -18,9 +18,11 @@
 
 #ifndef LISTSELECT_H
 #define LISTSELECT_H
-#include "DB/CategoryPtr.h"
-#include "Settings/SettingsData.h"
 #include "enums.h"
+
+#include <DB/CategoryPtr.h>
+#include <Settings/SettingsData.h>
+
 #include <QLabel>
 #include <QList>
 

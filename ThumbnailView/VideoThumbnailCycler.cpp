@@ -18,13 +18,16 @@
 */
 
 #include "VideoThumbnailCycler.h"
+
+#include "CellGeometry.h"
 #include "ThumbnailModel.h"
+
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
 #include <ImageManager/VideoThumbnails.h>
-#include <QTimer>
-#include <ThumbnailView/CellGeometry.h>
 #include <Utilities/VideoUtil.h>
+
+#include <QTimer>
 
 ThumbnailView::VideoThumbnailCycler *ThumbnailView::VideoThumbnailCycler::s_instance = nullptr;
 

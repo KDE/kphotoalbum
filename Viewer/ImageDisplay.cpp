@@ -17,8 +17,16 @@
 */
 
 #include "ImageDisplay.h"
-#include "Logging.h"
 
+#include "Logging.h"
+#include "ViewHandler.h"
+
+#include <DB/ImageDB.h>
+#include <ImageManager/AsyncLoader.h>
+#include <Settings/SettingsData.h>
+
+#include <KLocalizedString>
+#include <KMessageBox>
 #include <QApplication>
 #include <QCursor>
 #include <QMouseEvent>
@@ -26,15 +34,6 @@
 #include <QPainter>
 #include <QResizeEvent>
 #include <QTimer>
-
-#include <KLocalizedString>
-#include <KMessageBox>
-
-#include "DB/ImageDB.h"
-#include "ImageManager/AsyncLoader.h"
-#include "Settings/SettingsData.h"
-#include "Viewer/ViewHandler.h"
-
 #include <cmath>
 
 /**

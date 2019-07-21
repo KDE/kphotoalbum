@@ -17,8 +17,11 @@
 */
 
 #include "MouseHandler.h"
+
 #include "DateBarWidget.h"
+
 #include <DB/ImageDateCollection.h>
+
 #include <math.h>
 #include <qcursor.h>
 #include <qtimer.h>

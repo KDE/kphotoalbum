@@ -17,10 +17,8 @@
 */
 
 #include "ImageInfo.h"
-#include "Logging.h"
 
-#include <QFileInfo>
-#include <QList>
+#include "Logging.h"
 
 #include <DB/Category.h>
 #include <DB/CategoryCollection.h>
@@ -29,6 +27,9 @@
 #include <DB/ImageInfo.h>
 #include <DB/MemberMap.h>
 #include <MainWindow/DirtyIndicator.h>
+
+#include <QFileInfo>
+#include <QList>
 
 #define KEXIV_ORIENTATION_UNSPECIFIED 0
 #define KEXIV_ORIENTATION_NORMAL 1

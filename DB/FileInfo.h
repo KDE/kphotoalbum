@@ -19,11 +19,12 @@
 #ifndef FILEINFO_H
 #define FILEINFO_H
 
-#include "Exif/Info.h"
+#include "ExifMode.h"
+
+#include <Exif/Info.h>
+
 #include <qdatetime.h>
 #include <qstring.h>
-
-#include "ExifMode.h"
 
 namespace DB
 {

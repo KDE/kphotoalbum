@@ -17,8 +17,26 @@
 */
 
 #include "HTMLDialog.h"
+
+#include "Generator.h"
+#include "ImageSizeCheckBox.h"
 #include "Logging.h"
 
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
+
+#include <KConfig>
+#include <KConfigGroup>
+#include <KFileItem>
+#include <KIO/DeleteJob>
+#include <KIO/StatJob>
+#include <KJob>
+#include <KJobWidgets>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KTextEdit>
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDialogButtonBox>
@@ -34,25 +52,6 @@
 #include <QStandardPaths>
 #include <QStringMatcher>
 #include <QVBoxLayout>
-
-#include <KConfig>
-#include <KConfigGroup>
-#include <KFileItem>
-#include <KIO/DeleteJob>
-#include <KIO/StatJob>
-#include <KJob>
-#include <KJobWidgets>
-#include <KLocalizedString>
-#include <KMessageBox>
-#include <KTextEdit>
-
-#include <DB/CategoryCollection.h>
-#include <DB/ImageDB.h>
-#include <MainWindow/Window.h>
-#include <Settings/SettingsData.h>
-
-#include "Generator.h"
-#include "ImageSizeCheckBox.h"
 
 using namespace HTMLGenerator;
 

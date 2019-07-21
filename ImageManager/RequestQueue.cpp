@@ -16,10 +16,12 @@
    Boston, MA 02110-1301, USA.
 */
 #include "RequestQueue.h"
+
 #include "AsyncLoader.h"
 #include "CancelEvent.h"
 #include "ImageClientInterface.h"
 #include "ImageRequest.h"
+
 #include <QApplication>
 
 bool ImageManager::RequestQueue::addRequest(ImageRequest *request)

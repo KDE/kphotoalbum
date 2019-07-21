@@ -17,8 +17,9 @@
 */
 
 #include "XMLImageDateCollection.h"
-#include "DB/FileNameList.h"
-#include "DB/ImageDB.h"
+
+#include <DB/FileNameList.h>
+#include <DB/ImageDB.h>
 
 void XMLDB::XMLImageDateCollection::add(const DB::ImageDate &date)
 {

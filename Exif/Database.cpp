@@ -16,19 +16,15 @@
    Boston, MA 02110-1301, USA.
 */
 #include "Database.h"
+
+#include "DatabaseElement.h"
 #include "Logging.h"
 
-#include "DB/ImageDB.h"
-#include "Exif/DatabaseElement.h"
-#include "MainWindow/Window.h"
-#include "Settings/SettingsData.h"
-
-#include <exiv2/exif.hpp>
-#include <exiv2/image.hpp>
+#include <DB/ImageDB.h>
+#include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
 
 #include <KLocalizedString>
-#include <kmessagebox.h>
-
 #include <QApplication>
 #include <QDir>
 #include <QFile>
@@ -37,6 +33,9 @@
 #include <QSqlDriver>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <exiv2/exif.hpp>
+#include <exiv2/image.hpp>
+#include <kmessagebox.h>
 
 using namespace Exif;
 

@@ -17,6 +17,7 @@
 */
 
 #include "DirtyIndicator.h"
+
 #include <QLabel>
 #include <QPixmap>
 #include <kiconloader.h>

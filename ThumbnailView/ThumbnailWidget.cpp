@@ -17,26 +17,27 @@
 */
 
 #include "ThumbnailWidget.h"
+
 #include "CellGeometry.h"
 #include "Delegate.h"
 #include "KeyboardEventHandler.h"
+#include "SelectionMaintainer.h"
 #include "ThumbnailDND.h"
 #include "ThumbnailFactory.h"
 #include "ThumbnailModel.h"
+
+#include <Browser/BrowserWidget.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageInfoPtr.h>
+#include <Settings/SettingsData.h>
+
+#include <KLocalizedString>
 #include <QScrollBar>
 #include <QTimer>
 #include <math.h>
-
-#include <KLocalizedString>
 #include <qcursor.h>
 #include <qfontmetrics.h>
 #include <qpainter.h>
-
-#include "Browser/BrowserWidget.h"
-#include "DB/ImageDB.h"
-#include "DB/ImageInfoPtr.h"
-#include "SelectionMaintainer.h"
-#include "Settings/SettingsData.h"
 
 /**
  * \class ThumbnailView::ThumbnailWidget

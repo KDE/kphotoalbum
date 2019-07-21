@@ -26,6 +26,12 @@
 #include <DB/ImageInfo.h>
 #include <Settings/SettingsData.h>
 
+#include <KFileItem>
+#include <KLocalizedString>
+#include <KMimeTypeTrader>
+#include <KRun>
+#include <KService>
+#include <KShell>
 #include <QFile>
 #include <QIcon>
 #include <QLabel>
@@ -33,13 +39,6 @@
 #include <QPixmap>
 #include <QStringList>
 #include <QUrl>
-
-#include <KFileItem>
-#include <KLocalizedString>
-#include <KMimeTypeTrader>
-#include <KRun>
-#include <KService>
-#include <KShell>
 
 void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::FileNameList &imageList)
 {

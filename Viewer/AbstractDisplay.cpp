@@ -17,6 +17,7 @@
 */
 
 #include "AbstractDisplay.h"
+
 #include <DB/ImageInfo.h>
 #include <Settings/SettingsData.h>
 

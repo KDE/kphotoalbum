@@ -17,12 +17,14 @@
 */
 
 #include "GeoPositionPage.h"
+
 #include "BrowserWidget.h"
-#include "DB/ImageDB.h"
 #include "ImageViewPage.h"
-#include "MainWindow/Window.h"
 #include "OverviewPage.h"
 #include "enums.h"
+
+#include <DB/ImageDB.h>
+#include <MainWindow/Window.h>
 
 #include <KLocalizedString>
 

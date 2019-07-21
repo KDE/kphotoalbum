@@ -17,6 +17,7 @@
 */
 
 #include "ThumbnailBuilder.h"
+
 #include "AsyncLoader.h"
 #include "Logging.h"
 #include "PreloadRequest.h"

@@ -17,8 +17,11 @@
 */
 
 #include "JobManager.h"
+
 #include "JobInfo.h"
+
 #include <ImageManager/AsyncLoader.h>
+
 #include <QThread>
 
 /**

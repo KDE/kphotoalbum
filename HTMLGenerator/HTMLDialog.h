@@ -19,10 +19,10 @@
 #ifndef HTMLGENERATOR_HTMLDIALOG_H
 #define HTMLGENERATOR_HTMLDIALOG_H
 
+#include <DB/FileNameList.h>
+
 #include <KComboBox>
 #include <KPageDialog>
-
-#include <DB/FileNameList.h>
 
 class QCheckBox;
 class QComboBox;

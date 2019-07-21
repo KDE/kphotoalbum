@@ -17,10 +17,12 @@
 */
 
 #include "VideoDisplay.h"
+
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
-#include <KLocalizedString>
 #include <MainWindow/FeatureDialog.h>
+
+#include <KLocalizedString>
 #include <QAction>
 #include <QResizeEvent>
 #include <kmessagebox.h>

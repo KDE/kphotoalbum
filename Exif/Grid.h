@@ -19,9 +19,10 @@
 #define EXIF_GRID_H
 
 #include <DB/FileName.h>
+#include <Utilities/StringSet.h>
+
 #include <QMap>
 #include <QScrollArea>
-#include <Utilities/StringSet.h>
 
 class QLabel;
 

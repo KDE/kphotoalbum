@@ -33,7 +33,8 @@
 #ifndef ANNOTATIONDIALOG_DATEEDIT_H
 #define ANNOTATIONDIALOG_DATEEDIT_H
 
-#include "DB/ImageDate.h"
+#include <DB/ImageDate.h>
+
 #include <QComboBox>
 #include <QEvent>
 #include <QMouseEvent>

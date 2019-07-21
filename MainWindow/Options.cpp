@@ -17,12 +17,12 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "Options.h"
+
 #include "Logging.h"
 
+#include <KLocalizedString>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
-
-#include <KLocalizedString>
 
 MainWindow::Options *MainWindow::Options::s_instance = nullptr;
 

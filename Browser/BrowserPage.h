@@ -19,6 +19,7 @@
 #ifndef BROWSERPAGE_H
 #define BROWSERPAGE_H
 #include "Breadcrumb.h"
+
 #include <DB/Category.h>
 #include <DB/ImageSearchInfo.h>
 

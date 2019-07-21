@@ -19,6 +19,7 @@
 #define ANNOTATIONDIALOG_COMPLETABLELINEEDIT_H
 
 #include "enums.h"
+
 #include <KLineEdit>
 class QKeyEvent;
 class QTreeWidget;

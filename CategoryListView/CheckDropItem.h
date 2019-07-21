@@ -19,6 +19,7 @@
 #define CATEGORYLISTVIEW_CHECKDROPITEM_H
 
 #include "DragItemInfo.h"
+
 #include <QMimeData>
 #include <QTreeWidgetItem>
 

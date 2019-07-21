@@ -17,15 +17,14 @@
 */
 #include "StatisticsDialog.h"
 
-#include "DB/Category.h"
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
-#include "DB/ImageSearchInfo.h"
-#include "Utilities/ShowBusyCursor.h"
+#include <DB/Category.h>
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageSearchInfo.h>
+#include <Utilities/ShowBusyCursor.h>
 
 #include <KComboBox>
 #include <KLocalizedString>
-
 #include <QDialogButtonBox>
 #include <QGroupBox>
 #include <QHeaderView>

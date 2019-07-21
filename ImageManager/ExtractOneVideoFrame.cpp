@@ -18,6 +18,7 @@
 */
 
 #include "ExtractOneVideoFrame.h"
+
 #include "Logging.h"
 
 #include <DB/CategoryCollection.h>
@@ -31,9 +32,7 @@
 
 #include <KLocalizedString>
 #include <KMessageBox>
-
 #include <QDir>
-
 #include <cstdlib>
 
 namespace ImageManager

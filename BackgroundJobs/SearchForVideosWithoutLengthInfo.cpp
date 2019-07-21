@@ -17,11 +17,14 @@
 */
 
 #include "SearchForVideosWithoutLengthInfo.h"
+
 #include "ReadVideoLengthJob.h"
+
 #include <BackgroundTaskManager/JobInfo.h>
 #include <BackgroundTaskManager/JobManager.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
+
 #include <KLocalizedString>
 
 /**

@@ -18,6 +18,7 @@
 #ifndef CELLGEOMETRY_H
 #define CELLGEOMETRY_H
 #include "ThumbnailComponent.h"
+
 #include <QRect>
 #include <QSize>
 

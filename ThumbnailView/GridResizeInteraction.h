@@ -19,6 +19,7 @@
 #define GRIDRESIZEINTERACTION_H
 #include "MouseInteraction.h"
 #include "ThumbnailComponent.h"
+
 #include <QMouseEvent>
 
 namespace ThumbnailView

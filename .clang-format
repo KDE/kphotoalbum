@@ -17,7 +17,7 @@ SpacesInCStyleCastParentheses: false
 SpaceAfterControlStatementKeyword: true
 SpaceBeforeAssignmentOperators: true
 ContinuationIndentWidth: 4
-IncludeBlocks: Regroup
+#IncludeBlocks: Regroup
 IncludeCategories:
 # include order:
 # 1. "config-kpa-xxx.h"

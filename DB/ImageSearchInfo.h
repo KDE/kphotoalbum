@@ -74,6 +74,12 @@ public:
     void addAnd(const QString &category, const QString &value);
     short rating() const;
     void setRating(short rating);
+    /**
+     * @brief toString generates a description of the ImageSearchInfo.
+     * The idea is not to give a complete description, but rather something
+     * useful for the breadcrumbs at the bottom of the main window.
+     * @return a textual description of the ImageSearchInfo
+     */
     QString toString() const;
 
     void setMegaPixel(short megapixel);

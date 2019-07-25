@@ -86,6 +86,7 @@ class SettingsDialog;
 namespace ThumbnailView
 {
 class ThumbnailFacade;
+class FilterWidget;
 }
 
 class BreadcrumbViewer;
@@ -243,6 +244,7 @@ private:
     static Window *s_instance;
 
     ThumbnailView::ThumbnailFacade *m_thumbnailView;
+    ThumbnailView::FilterWidget *m_filterWidget;
     Settings::SettingsDialog *m_settingsDialog;
     QPointer<AnnotationDialog::Dialog> m_annotationDialog;
     QStackedWidget *m_stack;

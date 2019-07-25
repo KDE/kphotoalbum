@@ -24,6 +24,7 @@
 
 #include <KToolBar>
 
+class KActionCollection;
 class KRatingWidget;
 class QAction;
 class QLabel;
@@ -43,6 +44,8 @@ class FilterWidget : public KToolBar
 public:
     explicit FilterWidget(QWidget *parent = nullptr);
 
+    KActionCollection *actions() const;
+
 signals:
     void filterToggled(bool enabled);
     void ratingChanged(short rating);
@@ -61,6 +64,7 @@ protected slots:
     void resetLabelText();
 
 private:
+    KActionCollection *m_actions;
     QAction *m_toggleFilter;
     KRatingWidget *m_rating;
     QLabel *m_label;

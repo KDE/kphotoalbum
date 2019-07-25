@@ -1288,6 +1288,7 @@ void MainWindow::Window::slotConfigureKeyBindings()
 
     createAnnotationDialog();
     dialog->addCollection(m_annotationDialog->actions(), i18n("Annotation Dialog"));
+    dialog->addCollection(m_filterWidget->actions(), i18n("Thumbnail View"));
 
     dialog->configure();
 
@@ -1866,11 +1867,11 @@ void MainWindow::Window::createSearchBar()
     connect(m_browser, &Browser::BrowserWidget::viewChanged, bar, &SearchBar::reset);
     connect(m_browser, &Browser::BrowserWidget::isSearchable, bar, &SearchBar::setLineEditEnabled);
 
-    ThumbnailView::FilterWidget *filter = m_thumbnailView->createFilterWidget(this);
-    filter->setObjectName(QString::fromUtf8("filterBar"));
+    m_filterWidget = m_thumbnailView->createFilterWidget(this);
+    m_filterWidget->setObjectName(QString::fromUtf8("filterBar"));
     connect(m_browser, &Browser::BrowserWidget::viewChanged,
             ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);
-    connect(m_browser, &Browser::BrowserWidget::isFilterable, filter, &ThumbnailView::FilterWidget::setEnabled);
+    connect(m_browser, &Browser::BrowserWidget::isFilterable, m_filterWidget, &ThumbnailView::FilterWidget::setEnabled);
 }
 
 void MainWindow::Window::executeStartupActions()

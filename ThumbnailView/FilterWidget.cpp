@@ -19,9 +19,9 @@
 
 #include "FilterWidget.h"
 
+#include <KActionCollection>
 #include <KLocalizedString>
 #include <KRatingWidget>
-#include <KActionCollection>
 #include <QLabel>
 
 ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
@@ -37,11 +37,15 @@ ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
 
     m_rating = new KRatingWidget;
     addWidget(m_rating);
-    for (int i=1; i<=5; i++)
-    {
-        QAction *ratingAction = m_actions->addAction(i18nc("Filter view by rating: %1 star","Filter view by rating: %1 stars",i));
-        m_actions->setDefaultShortcut(ratingAction,Qt::ALT + (Qt::Key_0+i));
-        connect(ratingAction,&QAction::triggered,m_rating,[=](){m_rating->setRating(2*i);});
+    for (short i = 1; i <= 5; i++) {
+        QAction *ratingAction = m_actions->addAction(i18nc("Filter view by rating: %1 star", "Filter view by rating: %1 stars", i));
+        m_actions->setDefaultShortcut(ratingAction, Qt::ALT + (Qt::Key_0 + i));
+        connect(ratingAction, &QAction::triggered, this, [=]() {
+            short rating = i * 2;
+            if (static_cast<short>(m_rating->rating()) == rating)
+                rating = -1;
+            emit ratingChanged(rating);
+        });
     }
 
     m_label = new QLabel;

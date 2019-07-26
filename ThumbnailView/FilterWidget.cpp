@@ -48,13 +48,13 @@ ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
                 rating = -1;
             emit ratingChanged(rating);
         });
+        m_rating->addAction(ratingAction);
     }
 
     m_label = new QLabel;
     resetLabelText();
     addWidget(m_label);
 
-    addActions(m_actions->actions());
     // Note(jzarl): new style connect seems to be confused by overloaded signal in KRatingWidget
     // -> fall back to old-style
     connect(m_rating, SIGNAL(ratingChanged(int)), this, SLOT(slotRatingChanged(int)));

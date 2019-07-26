@@ -34,6 +34,7 @@ ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
     m_toggleFilter->setCheckable(true);
     m_toggleFilter->setToolTip(xi18n("Press <shortcut>Escape</shortcut> to clear filter."));
     connect(m_toggleFilter, &QAction::toggled, this, &FilterWidget::filterToggled);
+    m_actions->addAction(QString::fromLatin1("FilterWidget/toggle"), m_toggleFilter);
 
     m_rating = new KRatingWidget;
     addWidget(m_rating);

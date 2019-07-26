@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -59,9 +59,11 @@ Viewer::InfoBox::InfoBox(Viewer::ViewerWidget *viewer)
     setAutoFillBackground(false);
 
     QPalette p = palette();
+    // we want a transparent background, not the default widget grey
     p.setColor(QPalette::Base, QColor(0, 0, 0, 170)); // r, g, b, A
+    // adapt other colors as necessary
     p.setColor(QPalette::Text, Qt::white);
-    p.setColor(QPalette::Link, QColor(Qt::blue).light());
+    p.setColor(QPalette::Link, p.color(QPalette::Link).lighter());
     setPalette(p);
 
     m_jumpToContext = new QToolButton(this);
@@ -82,7 +84,7 @@ Viewer::InfoBox::InfoBox(Viewer::ViewerWidget *viewer)
     connect(m_viewer, &ViewerWidget::soughtTo, this, &InfoBox::updateMapForCurrentImage);
 #endif
 
-    KRatingWidget *rating = new KRatingWidget(nullptr);
+    KRatingWidget *rating = new KRatingWidget;
 
     // Unfortunately, the KRatingWidget now thinks that it has some absurdly big
     // dimensions. This call will persuade it to stay reasonably small.
@@ -125,7 +127,7 @@ void Viewer::InfoBox::setInfo(const QString &text, const QMap<int, QPair<QString
     m_linkMap = linkMap;
     setText(text);
 
-    hackLinkColorForQt44();
+    hackLinkColorForQt52();
 
 #ifdef HAVE_KGEOMAP
     if (m_viewer->currentInfo()->coordinates().hasCoordinates()) {
@@ -286,14 +288,22 @@ void Viewer::InfoBox::resizeEvent(QResizeEvent *)
 #endif
 }
 
-void Viewer::InfoBox::hackLinkColorForQt44()
+/**
+ * @brief override the color of links because the one in the palette isn't used.
+ * As can be seen in the referenced links, QTextBrowser uses the global palette for setting the link color.
+ * Until it uses the widget palette, we have to do this workaround.
+ * @see https://bugreports.qt.io/browse/QTBUG-28998
+ * @see https://codereview.qt-project.org/c/qt/qtbase/+/68874/2/src/gui/text/qtexthtmlparser.cpp
+ */
+void Viewer::InfoBox::hackLinkColorForQt52()
 {
     QTextCursor cursor(document());
+    QBrush linkColor = palette().link();
     Q_FOREVER
     {
         QTextCharFormat f = cursor.charFormat();
         if (f.isAnchor()) {
-            f.setForeground(QColor(Qt::blue).light());
+            f.setForeground(linkColor);
             QTextCursor c2 = cursor;
             c2.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
             c2.setCharFormat(f);

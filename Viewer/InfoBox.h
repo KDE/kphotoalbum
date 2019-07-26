@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -73,7 +73,7 @@ protected:
     bool atBlackoutPos(bool left, bool right, bool top, bool bottom, Settings::Position windowPos) const;
     void showBrowser();
     void possiblyStartResize(const QPoint &pos);
-    void hackLinkColorForQt44();
+    void hackLinkColorForQt52();
 
 protected slots:
     void jumpToContext();

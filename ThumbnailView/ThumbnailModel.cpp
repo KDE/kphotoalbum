@@ -44,8 +44,14 @@ ThumbnailView::ThumbnailModel::ThumbnailModel(ThumbnailFactory *factory)
     connect(DB::ImageDB::instance(), SIGNAL(imagesDeleted(DB::FileNameList)), this, SLOT(imagesDeletedFromDB(DB::FileNameList)));
     m_ImagePlaceholder = QIcon::fromTheme(QLatin1String("image-x-generic")).pixmap(cellGeometryInfo()->preferredIconSize());
     m_VideoPlaceholder = QIcon::fromTheme(QLatin1String("video-x-generic")).pixmap(cellGeometryInfo()->preferredIconSize());
+
     m_filter.setSearchMode(0);
     connect(this, &ThumbnailModel::filterChanged, this, &ThumbnailModel::updateDisplayModel);
+
+    m_filterWidget = new FilterWidget;
+    connect(this, &ThumbnailModel::filterChanged, m_filterWidget, &FilterWidget::setFilter);
+    connect(m_filterWidget, &FilterWidget::ratingChanged, this, &ThumbnailModel::filterByRating);
+    connect(m_filterWidget, &FilterWidget::filterToggled, this, &ThumbnailModel::toggleFilter);
 }
 
 static bool stackOrderComparator(const DB::FileName &a, const DB::FileName &b)
@@ -439,13 +445,9 @@ bool ThumbnailView::ThumbnailModel::isFiltered() const
     return !m_filter.isNull();
 }
 
-ThumbnailView::FilterWidget *ThumbnailView::ThumbnailModel::createFilterWidget(QWidget *parent)
+ThumbnailView::FilterWidget *ThumbnailView::ThumbnailModel::filterWidget()
 {
-    auto widget = new FilterWidget(parent);
-    connect(this, &ThumbnailModel::filterChanged, widget, &FilterWidget::setFilter);
-    connect(widget, &FilterWidget::ratingChanged, this, &ThumbnailModel::filterByRating);
-    connect(widget, &FilterWidget::filterToggled, this, &ThumbnailModel::toggleFilter);
-    return widget;
+    return m_filterWidget;
 }
 
 bool ThumbnailView::ThumbnailModel::thumbnailStillNeeded(int row) const

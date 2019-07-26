@@ -92,7 +92,7 @@ public:
      */
     bool isFiltered() const;
 
-    FilterWidget *createFilterWidget(QWidget *parent = nullptr);
+    FilterWidget *filterWidget();
 
 public slots:
     void updateVisibleRowInfo();
@@ -196,6 +196,7 @@ private: // Instance variables.
 
     DB::ImageSearchInfo m_filter;
     DB::ImageSearchInfo m_previousFilter;
+    FilterWidget *m_filterWidget;
 };
 
 }

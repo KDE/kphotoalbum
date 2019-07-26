@@ -44,6 +44,11 @@ class FilterWidget : public KToolBar
 public:
     explicit FilterWidget(QWidget *parent = nullptr);
 
+    /**
+     * @brief actions contains shortcut actions for setting the rating filter.
+     * @see ThumbnailFacade::actions()
+     * @return the QActions for this widget.
+     */
     KActionCollection *actions() const;
 
 signals:

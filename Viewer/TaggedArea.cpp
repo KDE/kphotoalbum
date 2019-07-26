@@ -18,6 +18,8 @@
 #include "TaggedArea.h"
 
 #include <KLocalizedString>
+#include <QDebug>
+#include <QStyle>
 
 Viewer::TaggedArea::TaggedArea(QWidget *parent)
     : QFrame(parent)
@@ -25,7 +27,9 @@ Viewer::TaggedArea::TaggedArea(QWidget *parent)
     setFrameShape(QFrame::Box);
     setStyleSheet(QString::fromLatin1(
         "Viewer--TaggedArea { border: none; background-color: none; }"
-        "Viewer--TaggedArea:hover, Viewer--TaggedArea[selected=\"true\"]{ border: 1px solid rgb(0,255,0,99); background-color: rgb(255,255,255,30); }"
+        "Viewer--TaggedArea:hover, Viewer--TaggedArea[selected=\"true\"] {"
+        " border: 1px solid rgb(0,255,0,99); background-color: rgb(255,255,255,30);"
+        " }"
         "Viewer--TaggedArea[highlighted=\"true\"]{ border: 1px solid rgb(255,128,0,99); background-color: rgb(255,255,255,30); }"));
 }
 
@@ -52,6 +56,7 @@ QRect Viewer::TaggedArea::actualGeometry() const
 void Viewer::TaggedArea::setSelected(bool selected)
 {
     m_selected = selected;
+    repolish();
 }
 
 bool Viewer::TaggedArea::selected() const
@@ -66,7 +71,14 @@ void Viewer::TaggedArea::deselect()
 
 void Viewer::TaggedArea::checkIsSelected(QPair<QString, QString> tagData)
 {
-    m_selected = (tagData == m_tagInfo);
+    setSelected(tagData == m_tagInfo);
+}
+
+void Viewer::TaggedArea::repolish()
+{
+    style()->unpolish(this);
+    style()->polish(this);
+    update();
 }
 
 bool Viewer::TaggedArea::highlighted() const
@@ -77,6 +89,7 @@ bool Viewer::TaggedArea::highlighted() const
 void Viewer::TaggedArea::setHighlighted(bool highlighted)
 {
     m_highlighted = highlighted;
+    repolish();
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

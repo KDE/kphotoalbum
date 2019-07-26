@@ -70,7 +70,9 @@ Viewer::InfoBox::InfoBox(Viewer::ViewerWidget *viewer)
     m_jumpToContext->setIcon(QIcon::fromTheme(QString::fromUtf8("kphotoalbum")));
     m_jumpToContext->setFixedSize(16, 16);
     connect(m_jumpToContext, &QToolButton::clicked, this, &InfoBox::jumpToContext);
-    connect(this, SIGNAL(highlighted(QString)), SLOT(linkHovered(QString)));
+    // overloaded signal requires explicit cast:
+    void (InfoBox::*highlighted)(const QString &) = &InfoBox::highlighted;
+    connect(this, highlighted, this, &InfoBox::linkHovered);
 
 #ifdef HAVE_KGEOMAP
     m_showOnMap = new QToolButton(this);

@@ -64,11 +64,18 @@ public slots:
      */
     void checkIsSelected(QPair<QString, QString> tagData);
 
+protected:
+    /**
+     * @brief repolish tells the widget to reevaluate its style.
+     * This required when the style is dynamically changed because a property changed.
+     */
+    void repolish();
+
 private:
     QPair<QString, QString> m_tagInfo;
     QRect m_actualGeometry;
-    bool m_selected;
-    bool m_highlighted;
+    bool m_selected = false;
+    bool m_highlighted = false;
 };
 
 }

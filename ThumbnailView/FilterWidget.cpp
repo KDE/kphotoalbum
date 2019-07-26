@@ -38,7 +38,8 @@ ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
     m_rating = new KRatingWidget;
     addWidget(m_rating);
     for (short i = 1; i <= 5; i++) {
-        QAction *ratingAction = m_actions->addAction(i18np("Filter view by rating: %1 star", "Filter view by rating: %1 stars", i));
+        QAction *ratingAction = new QAction(i18np("Filter view by rating: %1 star", "Filter view by rating: %1 stars", i));
+        m_actions->addAction(QString::fromLatin1("FilterWidget/rating/%1").arg(i), ratingAction);
         m_actions->setDefaultShortcut(ratingAction, Qt::ALT + (Qt::Key_0 + i));
         connect(ratingAction, &QAction::triggered, this, [=]() {
             short rating = i * 2;

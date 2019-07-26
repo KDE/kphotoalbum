@@ -21,25 +21,34 @@
 
 #include <KLocalizedString>
 #include <KRatingWidget>
-#include <QHBoxLayout>
+#include <KActionCollection>
 #include <QLabel>
 
 ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
     : KToolBar(parent)
 {
+    m_actions = new KActionCollection(this);
     m_toggleFilter = addAction(
         QIcon::fromTheme(QLatin1String("view-filter")),
         i18nc("The action enables/disables filtering of images in the thumbnail view.", "Toggle filter"));
     m_toggleFilter->setCheckable(true);
     m_toggleFilter->setToolTip(xi18n("Press <shortcut>Escape</shortcut> to clear filter."));
     connect(m_toggleFilter, &QAction::toggled, this, &FilterWidget::filterToggled);
+
     m_rating = new KRatingWidget;
     addWidget(m_rating);
+    for (int i=1; i<=5; i++)
+    {
+        QAction *ratingAction = m_actions->addAction(i18nc("Filter view by rating: %1 star","Filter view by rating: %1 stars",i));
+        m_actions->setDefaultShortcut(ratingAction,Qt::ALT + (Qt::Key_0+i));
+        connect(ratingAction,&QAction::triggered,m_rating,[=](){m_rating->setRating(2*i);});
+    }
 
     m_label = new QLabel;
     resetLabelText();
     addWidget(m_label);
 
+    addActions(m_actions->actions());
     // Note(jzarl): new style connect seems to be confused by overloaded signal in KRatingWidget
     // -> fall back to old-style
     connect(m_rating, SIGNAL(ratingChanged(int)), this, SLOT(slotRatingChanged(int)));
@@ -79,4 +88,9 @@ void ThumbnailView::FilterWidget::slotRatingChanged(int rating)
 void ThumbnailView::FilterWidget::resetLabelText()
 {
     m_label->setText(xi18n("Tip: Use <shortcut>Alt+Shift+<placeholder>A-Z</placeholder></shortcut> to toggle a filter for that token."));
+}
+
+KActionCollection *ThumbnailView::FilterWidget::actions() const
+{
+    return m_actions;
 }

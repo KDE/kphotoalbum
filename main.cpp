@@ -17,25 +17,25 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <QApplication>
-#include <QCommandLineOption>
-#include <QCommandLineParser>
-#include <QDebug>
-#include <QLocale>
-#include <QTemporaryFile>
+#include "version.h"
+
+#include <MainWindow/Options.h>
+#include <MainWindow/SplashScreen.h>
+#include <MainWindow/Window.h>
+#include <Settings/SettingsData.h>
 
 #include <KAboutData>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
 #include <Kdelibs4ConfigMigrator>
-
-#include "version.h"
-#include <MainWindow/Options.h>
-#include <MainWindow/SplashScreen.h>
-#include <MainWindow/Window.h>
+#include <QApplication>
+#include <QCommandLineOption>
+#include <QCommandLineParser>
+#include <QDebug>
+#include <QLocale>
+#include <QTemporaryFile>
 #include <RemoteControl/RemoteInterface.h>
-#include <Settings/SettingsData.h>
 
 void migrateKDE4Config()
 {

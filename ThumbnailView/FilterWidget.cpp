@@ -50,6 +50,7 @@ ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
         });
         m_rating->addAction(ratingAction);
     }
+    m_actions->readSettings();
 
     m_label = new QLabel;
     resetLabelText();

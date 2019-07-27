@@ -1,17 +1,15 @@
 #!/bin/bash
 # Apply clang-format in-place to all source files
-# Note: AndroidRemoteControl is excluded for now:
+# Note: AndroidRemoteControl is excluded for now because clang-format would butcher the symlinks.
 
-clang-format -i \
-	DB/*.{cpp,h} \
-	Utilities/*.{cpp,h} \
-	ThumbnailView/*.{cpp,h} \
+clang-format -style=file -i \
 	AnnotationDialog/*.{cpp,h} \
 	BackgroundJobs/*.{cpp,h} \
 	BackgroundTaskManager/*.{cpp,h} \
 	Browser/*.{cpp,h} \
 	CategoryListView/*.{cpp,h} \
 	DateBar/*.{cpp,h} \
+	DB/*.{cpp,h} \
 	Exif/*.{cpp,h} \
 	HTMLGenerator/*.{cpp,h} \
 	ImageManager/*.{cpp,h} \
@@ -22,5 +20,8 @@ clang-format -i \
 	Plugins/*.{cpp,h} \
 	RemoteControl/*.{cpp,h} \
 	Settings/*.{cpp,h} \
+	ThumbnailView/*.{cpp,h} \
+	Utilities/*.{cpp,h} \
 	Viewer/*.{cpp,h} \
-	XMLDB/*.{cpp,h}
+	XMLDB/*.{cpp,h} \
+	main.cpp

@@ -17,7 +17,12 @@ SpacesInCStyleCastParentheses: false
 SpaceAfterControlStatementKeyword: true
 SpaceBeforeAssignmentOperators: true
 ContinuationIndentWidth: 4
-#IncludeBlocks: Regroup
+SortIncludes: true
+
+# IncludeBlocks:
+#  I'd like to set this to "Regroup", but that leads some false-positives in the commit-hook.
+#  See: https://bugs.llvm.org/show_bug.cgi?id=39327
+IncludeBlocks: Preserve
 IncludeCategories:
 # include order:
 # 1. "config-kpa-xxx.h"

@@ -915,7 +915,6 @@ void MainWindow::Window::setupMenuBar()
 
     m_viewMenu = actionCollection()->add<KActionMenu>(QString::fromLatin1("configureView"));
     m_viewMenu->setText(i18n("Configure Current View"));
-
     m_viewMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("view-list-details")));
     m_viewMenu->setDelayed(false);
 
@@ -938,15 +937,25 @@ void MainWindow::Window::setupMenuBar()
     m_largeIconView->setActionGroup(viewGrp);
 
     connect(m_browser, &Browser::BrowserWidget::isViewChangeable, viewGrp, &QActionGroup::setEnabled);
-
     connect(m_browser, &Browser::BrowserWidget::currentViewTypeChanged, this, &Window::slotUpdateViewMenu);
-    // The help menu
-    KStandardAction::tipOfDay(this, SLOT(showTipOfDay()), actionCollection());
 
     a = actionCollection()->add<KToggleAction>(QString::fromLatin1("showToolTipOnImages"));
     a->setText(i18n("Show Tooltips in Thumbnails Window"));
     actionCollection()->setDefaultShortcut(a, Qt::CTRL + Qt::Key_T);
     connect(a, &QAction::toggled, m_thumbnailView, &ThumbnailView::ThumbnailFacade::showToolTipsOnImages);
+
+    QAction *toggleFilterToolbar = actionCollection()->add<KToggleAction>(QString::fromLatin1("toggleFilterToolbar"));
+    toggleFilterToolbar->setText(i18n("Show filter toolbar"));
+    toggleFilterToolbar->setIcon(QIcon::fromTheme(QString::fromLatin1("view-filter")));
+    // connections are done in createSearchBar()
+
+    QAction *toggleSearchBar = actionCollection()->add<KToggleAction>(QString::fromLatin1("toggleSearchBar"));
+    toggleSearchBar->setText(i18n("Show search bar"));
+    toggleSearchBar->setIcon(QIcon::fromTheme(QString::fromLatin1("search")));
+    // connections are done in createSearchBar()
+
+    // The help menu
+    KStandardAction::tipOfDay(this, SLOT(showTipOfDay()), actionCollection());
 
     a = actionCollection()->addAction(QString::fromLatin1("runDemo"), this, SLOT(runDemo()));
     a->setText(i18n("Run KPhotoAlbum Demo"));
@@ -1857,15 +1866,19 @@ void MainWindow::Window::slotThumbnailSizeChanged()
 void MainWindow::Window::createSearchBar()
 {
     // Set up the search tool bar
-    SearchBar *bar = new SearchBar(this);
-    bar->setLineEditEnabled(false);
-    bar->setObjectName(QString::fromUtf8("searchBar"));
+    SearchBar *searchBar = new SearchBar(this);
+    searchBar->setLineEditEnabled(false);
+    searchBar->setObjectName(QString::fromUtf8("searchBar"));
 
-    connect(bar, &SearchBar::textChanged, m_browser, &Browser::BrowserWidget::slotLimitToMatch);
-    connect(bar, &SearchBar::returnPressed, m_browser, &Browser::BrowserWidget::slotInvokeSeleted);
-    connect(bar, &SearchBar::keyPressed, m_browser, &Browser::BrowserWidget::scrollKeyPressed);
-    connect(m_browser, &Browser::BrowserWidget::viewChanged, bar, &SearchBar::reset);
-    connect(m_browser, &Browser::BrowserWidget::isSearchable, bar, &SearchBar::setLineEditEnabled);
+    connect(searchBar, &SearchBar::textChanged, m_browser, &Browser::BrowserWidget::slotLimitToMatch);
+    connect(searchBar, &SearchBar::returnPressed, m_browser, &Browser::BrowserWidget::slotInvokeSeleted);
+    connect(searchBar, &SearchBar::keyPressed, m_browser, &Browser::BrowserWidget::scrollKeyPressed);
+    connect(m_browser, &Browser::BrowserWidget::viewChanged, searchBar, &SearchBar::reset);
+    connect(m_browser, &Browser::BrowserWidget::isSearchable, searchBar, &SearchBar::setLineEditEnabled);
+    QAction *toggleSearchBar = actionCollection()->action(QString::fromLatin1("toggleSearchBar"));
+    Q_ASSERT(toggleSearchBar);
+    connect(toggleSearchBar, &QAction::triggered, searchBar, &SearchBar::setVisible);
+    connect(searchBar, &SearchBar::visibilityChanged, toggleSearchBar, &QAction::setChecked);
 
     auto filterWidget = m_thumbnailView->filterWidget();
     addToolBar(filterWidget);
@@ -1873,6 +1886,10 @@ void MainWindow::Window::createSearchBar()
     connect(m_browser, &Browser::BrowserWidget::viewChanged,
             ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);
     connect(m_browser, &Browser::BrowserWidget::isFilterable, filterWidget, &ThumbnailView::FilterWidget::setEnabled);
+    QAction *toggleFilterToolbar = actionCollection()->action(QString::fromLatin1("toggleFilterToolbar"));
+    Q_ASSERT(toggleFilterToolbar);
+    connect(toggleFilterToolbar, &QAction::triggered, filterWidget, &ThumbnailView::FilterWidget::setVisible);
+    connect(filterWidget, &ThumbnailView::FilterWidget::visibilityChanged, toggleFilterToolbar, &QAction::setChecked);
 }
 
 void MainWindow::Window::executeStartupActions()

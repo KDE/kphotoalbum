@@ -24,7 +24,7 @@
    <h2>Other GUI components</h2>
    \li \ref ImportExport - Import/Export dialog and asscociated classes.
    \li \ref Settings - The Settings dialog and backend classes.
-   \li \ref HTMLGenerator - The buildin HTML generator.
+   \li \ref HTMLGenerator - The builtin HTML generator.
    \li \ref CategoryListView - This is the tree view used in the annotation dialog.
    \li \ref Exif - Exif related dialog and backend classes
 

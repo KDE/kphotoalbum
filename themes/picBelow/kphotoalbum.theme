@@ -1,7 +1,9 @@
 [theme]
 Name=PicBelow v1
 Name[ca]=PicBelow v1
+Name[en_GB]=PicBelow v1
 Name[es]=PicBelow v1
+Name[gl]=FotoAbaixo v1
 Name[it]=PicBelow v1
 Name[nl]=PicBelow v1
 Name[nn]=PicBelow v1
@@ -14,7 +16,9 @@ Name[zh_TW]=PicBelow v1
 Author=Steffen Jost
 Description=PicBelow has all its description texts above the image, ensuring that this info is not missed by those who cannot scroll.\n This theme is based upon Dark v1.0.1 by Miika Turkia and similarly allows keyboard navigation.\n Colors are grey on a deep dark red background.
 Description[ca]=El PicBelow té tots els textos de les descripcions sota la imatge, assegurant que aquesta informació no es perd quan no es pot usar el desplaçament.\n Aquest tema està basat en el Dark v1.0.1 del Miika Turkia i de manera semblant permet la navegació amb el teclat.\n El color és gris sobre un fons vermell fosc.
+Description[en_GB]=PicBelow has all its description texts above the image, ensuring that this info is not missed by those who cannot scroll.\n This theme is based upon Dark v1.0.1 by Miika Turkia and similarly allows keyboard navigation.\n Colours are grey on a deep dark red background.
 Description[es]=PicBelow sitúa todos los textos descriptivos encima de la imagen, asegurando que esta información no se pierde cuando resulta imposible desplazarla.\nEste tema está basado en Oscuro v1.0.1, creado por Miika Turkia, y también permite navegación por teclado.\n Los colores son grises sobre un fondo rojo oscuro.
+Description[gl]=FotoAbaixo ten todos os textos de descrición sobre as imaxes, para que quen non poida desprazar non perda acceso.\nO tema está baseado en Escuro v1.0.1 de Miika Turkia e tamén permite navegación co teclado.\nAs cores son gris sobre un fondo profundo vermello escuro.
 Description[it]=PicBelow dispone tutti i testi descrittivi sopra l'immagine, in modo che le informazioni non vengano perdute dagli utenti che non hanno la possibilità di scorrere.\n Questo tema si basa su Dark v1.0.1 di Miika Turkia e consente, in modo simile, la navigazione tramite tastiera.\n I colori sono grigi su uno sfondo rosso scuro.
 Description[nl]=PicBelow heeft zijn gehele beschrijvende teksten boven de afbeelding, waarbij wordt gezorgd dat deze informatie hier niet bij ontbreekt als ze niet verschoven kunnen worden.\n Dit thema is gebaseerd op Dark v1.0.1 door Miika Turkia en staat tegelijkertijd navigatie met het toetsenbord toe.\n Kleuren zijn grijs op een diep donkerrode achtergrond.
 Description[pl]=PicBelow ma wszystkie swoje opisy nad obrazem, dbając o to, aby żadne dane nie umknęły tym, który nie mogą przewijać.\n Wygląd ten jest oparty na wyglądzie Ciemny v1.0.1 autorstwa Miika Turkia i podobnie umożliwia przemieszczanie się przy użyciu klawiatury.\n Kolory są szare na ciemnoczerwonym tle.

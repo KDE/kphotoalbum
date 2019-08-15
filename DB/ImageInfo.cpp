@@ -81,6 +81,7 @@ ImageInfo::ImageInfo(const DB::FileName &fileName, MediaType type, bool readExif
 }
 
 ImageInfo::ImageInfo(const ImageInfo &other)
+    : QSharedData(other)
 {
     *this = other;
 }

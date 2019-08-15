@@ -146,6 +146,7 @@ SettingsData::SettingsData(const QString &imageDirectory)
 //// General ////
 /////////////////
 
+// clang-format off
 property_copy(useEXIFRotate, setUseEXIFRotate, bool, General, true)
 property_copy(useEXIFComments, setUseEXIFComments, bool, General, true)
 property_copy(stripEXIFComments, setStripEXIFComments, bool, General, true)
@@ -172,7 +173,8 @@ getValueFunc(ViewSortType, viewSortType, General, (int)SortLastUse)
 getValueFunc(AnnotationDialog::MatchType, matchType, General, (int)AnnotationDialog::MatchFromWordStart)
 getValueFunc(bool, histogramUseLinearScale, General, false)
 
-void SettingsData::setHistogramUseLinearScale(const bool useLinearScale)
+    // clang-format on
+    void SettingsData::setHistogramUseLinearScale(const bool useLinearScale)
 {
     if (useLinearScale == histogramUseLinearScale())
         return;
@@ -238,6 +240,7 @@ bool SettingsData::trustTimeStamps()
 //// File Version Detection ////
 ////////////////////////////////
 
+// clang-format off
 property_copy(detectModifiedFiles, setDetectModifiedFiles, bool, FileVersionDetection, true)
 property_copy(modifiedFileComponent, setModifiedFileComponent, QString, FileVersionDetection, "^(.*)-edited.([^.]+)$")
 property_copy(originalFileComponent, setOriginalFileComponent, QString, FileVersionDetection, "\\1.\\2")
@@ -245,29 +248,32 @@ property_copy(moveOriginalContents, setMoveOriginalContents, bool, FileVersionDe
 property_copy(autoStackNewFiles, setAutoStackNewFiles, bool, FileVersionDetection, true)
 property_copy(copyFileComponent, setCopyFileComponent, QString, FileVersionDetection, "(.[^.]+)$")
 property_copy(copyFileReplacementComponent, setCopyFileReplacementComponent, QString, FileVersionDetection, "-edited\\1")
+    // clang-format on
 
     ////////////////////
     //// Thumbnails ////
     ////////////////////
 
-    property_copy(displayLabels, setDisplayLabels, bool, Thumbnails, true)
-        property_copy(displayCategories, setDisplayCategories, bool, Thumbnails, false)
-            property_copy(autoShowThumbnailView, setAutoShowThumbnailView, int, Thumbnails, 20)
-                property_copy(showNewestThumbnailFirst, setShowNewestFirst, bool, Thumbnails, false)
-                    property_copy(thumbnailDisplayGrid, setThumbnailDisplayGrid, bool, Thumbnails, false)
-                        property_copy(previewSize, setPreviewSize, int, Thumbnails, 256)
-                            property_copy(thumbnailSpace, setThumbnailSpace, int, Thumbnails, 4)
-    // not available via GUI, but should be consistent (and maybe confgurable for powerusers):
-    property_copy(minimumThumbnailSize, setMinimumThumbnailSize, int, Thumbnails, 32)
-        property_copy(maximumThumbnailSize, setMaximumThumbnailSize, int, Thumbnails, 4096)
-            property_enum(thumbnailAspectRatio, setThumbnailAspectRatio, ThumbnailAspectRatio, Thumbnails, Aspect_3_2)
-                property_ref(backgroundColor, setBackgroundColor, QString, Thumbnails, QColor(Qt::darkGray).name())
-                    property_copy(incrementalThumbnails, setIncrementalThumbnails, bool, Thumbnails, true)
+    // clang-format off
+property_copy(displayLabels, setDisplayLabels, bool, Thumbnails, true)
+property_copy(displayCategories, setDisplayCategories, bool, Thumbnails, false)
+property_copy(autoShowThumbnailView, setAutoShowThumbnailView, int, Thumbnails, 20)
+property_copy(showNewestThumbnailFirst, setShowNewestFirst, bool, Thumbnails, false)
+property_copy(thumbnailDisplayGrid, setThumbnailDisplayGrid, bool, Thumbnails, false)
+property_copy(previewSize, setPreviewSize, int, Thumbnails, 256)
+property_copy(thumbnailSpace, setThumbnailSpace, int, Thumbnails, 4)
+// not available via GUI, but should be consistent (and maybe confgurable for powerusers):
+property_copy(minimumThumbnailSize, setMinimumThumbnailSize, int, Thumbnails, 32)
+property_copy(maximumThumbnailSize, setMaximumThumbnailSize, int, Thumbnails, 4096)
+property_enum(thumbnailAspectRatio, setThumbnailAspectRatio, ThumbnailAspectRatio, Thumbnails, Aspect_3_2)
+property_ref(backgroundColor, setBackgroundColor, QString, Thumbnails, QColor(Qt::darkGray).name())
+property_copy(incrementalThumbnails, setIncrementalThumbnails, bool, Thumbnails, true)
 
-    // database specific so that changing it doesn't invalidate the thumbnail cache for other databases:
-    getValueFunc_(int, thumbnailSize, groupForDatabase("Thumbnails"), "thumbSize", 256)
+// database specific so that changing it doesn't invalidate the thumbnail cache for other databases:
+getValueFunc_(int, thumbnailSize, groupForDatabase("Thumbnails"), "thumbSize", 256)
+    // clang-format on
 
-        void SettingsData::setThumbnailSize(int value)
+    void SettingsData::setThumbnailSize(int value)
 {
     // enforce limits:
     value = qBound(minimumThumbnailSize(), value, maximumThumbnailSize());
@@ -304,6 +310,7 @@ void SettingsData::setActualThumbnailSize(int value)
 //// Viewer ////
 ////////////////
 
+// clang-format off
 property_ref(viewerSize, setViewerSize, QSize, Viewer, QSize(1024, 768))
 property_ref(slideShowSize, setSlideShowSize, QSize, Viewer, QSize(1024, 768))
 property_copy(launchViewerFullScreen, setLaunchViewerFullScreen, bool, Viewer, false)
@@ -323,8 +330,9 @@ property_copy(infoBoxWidth, setInfoBoxWidth, int, Viewer, 400)
 property_copy(infoBoxHeight, setInfoBoxHeight, int, Viewer, 300)
 property_enum(infoBoxPosition, setInfoBoxPosition, Position, Viewer, Bottom)
 property_enum(viewerStandardSize, setViewerStandardSize, StandardViewSize, Viewer, FullSize)
+    // clang-format on
 
-bool SettingsData::smoothScale() const
+    bool SettingsData::smoothScale() const
 {
     return _smoothScale;
 }
@@ -353,81 +361,59 @@ setValueFunc(setAlbumCategory, QString &, General, albumCategory)
     return category;
 }
 
+// clang-format off
 property_ref(untaggedCategory, setUntaggedCategory, QString, General, i18n("Events"))
-    property_ref(untaggedTag, setUntaggedTag, QString, General, i18n("untagged"))
-        property_copy(untaggedImagesTagVisible, setUntaggedImagesTagVisible, bool, General, false)
+property_ref(untaggedTag, setUntaggedTag, QString, General, i18n("untagged"))
+property_copy(untaggedImagesTagVisible, setUntaggedImagesTagVisible, bool, General, false)
+    // clang-format on
 
     //////////////
     //// Exif ////
     //////////////
 
-    property_sset(exifForViewer, setExifForViewer, Exif, StringSet())
-        property_sset(exifForDialog, setExifForDialog, Exif, Exif::Info::instance()->standardKeys())
-            property_ref(iptcCharset, setIptcCharset, QString, Exif, QString())
+    // clang-format off
+property_sset(exifForViewer, setExifForViewer, Exif, StringSet())
+property_sset(exifForDialog, setExifForDialog, Exif, Exif::Info::instance()->standardKeys())
+property_ref(iptcCharset, setIptcCharset, QString, Exif, QString())
+    // clang-format on
 
     /////////////////////
     //// Exif Import ////
     /////////////////////
 
-    property_copy(updateExifData, setUpdateExifData, bool, ExifImport, true)
-        property_copy(updateImageDate, setUpdateImageDate, bool, ExifImport, false)
-            property_copy(useModDateIfNoExif, setUseModDateIfNoExif, bool, ExifImport, true)
-                property_copy(updateOrientation, setUpdateOrientation, bool, ExifImport, false)
-                    property_copy(updateDescription, setUpdateDescription, bool, ExifImport, false)
+    // clang-format off
+property_copy(updateExifData, setUpdateExifData, bool, ExifImport, true)
+property_copy(updateImageDate, setUpdateImageDate, bool, ExifImport, false)
+property_copy(useModDateIfNoExif, setUseModDateIfNoExif, bool, ExifImport, true)
+property_copy(updateOrientation, setUpdateOrientation, bool, ExifImport, false)
+property_copy(updateDescription, setUpdateDescription, bool, ExifImport, false)
+    // clang-format on
 
     ///////////////////////
     //// Miscellaneous ////
     ///////////////////////
 
-    property_copy(delayLoadingPlugins, setDelayLoadingPlugins, bool, Plug - ins, true)
+    // clang-format off
+property_copy(delayLoadingPlugins, setDelayLoadingPlugins, bool, Plug - ins, true)
 
-    property_ref_(HTMLBaseDir, setHTMLBaseDir, QString,
-                  groupForDatabase("HTML Settings"),
-                  QString::fromLocal8Bit(qgetenv("HOME")) + STR("/public_html"))
-    property_ref_(HTMLBaseURL, setHTMLBaseURL, QString,
-                  groupForDatabase("HTML Settings"),
-                  STR("file://") + HTMLBaseDir())
-    property_ref_(HTMLDestURL, setHTMLDestURL, QString,
-                  groupForDatabase("HTML Settings"),
-                  STR("file://") + HTMLBaseDir())
-    property_ref_(HTMLCopyright, setHTMLCopyright, QString,
-                  groupForDatabase("HTML Settings"),
-                  STR(""))
-    property_ref_(HTMLDate, setHTMLDate, int,
-                  groupForDatabase("HTML Settings"),
-                  true)
-    property_ref_(HTMLTheme, setHTMLTheme, int,
-                  groupForDatabase("HTML Settings"),
-                  -1)
-    property_ref_(HTMLKimFile, setHTMLKimFile, int,
-                  groupForDatabase("HTML Settings"),
-                  true)
-    property_ref_(HTMLInlineMovies, setHTMLInlineMovies, int,
-                  groupForDatabase("HTML Settings"),
-                  true)
-    property_ref_(HTML5Video, setHTML5Video, int,
-                  groupForDatabase("HTML Settings"),
-                  true)
-    property_ref_(HTML5VideoGenerate, setHTML5VideoGenerate, int,
-                  groupForDatabase("HTML Settings"),
-                  true)
-    property_ref_(HTMLThumbSize, setHTMLThumbSize, int,
-                  groupForDatabase("HTML Settings"),
-                  128)
-    property_ref_(HTMLNumOfCols, setHTMLNumOfCols, int,
-                  groupForDatabase("HTML Settings"),
-                  5)
-    property_ref_(HTMLSizes, setHTMLSizes, QString,
-                  groupForDatabase("HTML Settings"),
-                  STR(""))
-    property_ref_(HTMLIncludeSelections, setHTMLIncludeSelections, QString,
-                  groupForDatabase("HTML Settings"),
-                  STR(""))
-    property_ref_(password, setPassword, QString,
-                  groupForDatabase("Privacy Settings"),
-                  STR(""))
+property_ref_(HTMLBaseDir, setHTMLBaseDir, QString, groupForDatabase("HTML Settings"), QString::fromLocal8Bit(qgetenv("HOME")) + STR("/public_html"))
+property_ref_(HTMLBaseURL, setHTMLBaseURL, QString, groupForDatabase("HTML Settings"), STR("file://") + HTMLBaseDir())
+property_ref_(HTMLDestURL, setHTMLDestURL, QString, groupForDatabase("HTML Settings"), STR("file://") + HTMLBaseDir())
+property_ref_(HTMLCopyright, setHTMLCopyright, QString, groupForDatabase("HTML Settings"), STR(""))
+property_ref_(HTMLDate, setHTMLDate, int, groupForDatabase("HTML Settings"), true)
+property_ref_(HTMLTheme, setHTMLTheme, int, groupForDatabase("HTML Settings"), -1)
+property_ref_(HTMLKimFile, setHTMLKimFile, int, groupForDatabase("HTML Settings"), true)
+property_ref_(HTMLInlineMovies, setHTMLInlineMovies, int, groupForDatabase("HTML Settings"), true)
+property_ref_(HTML5Video, setHTML5Video, int, groupForDatabase("HTML Settings"), true)
+property_ref_(HTML5VideoGenerate, setHTML5VideoGenerate, int, groupForDatabase("HTML Settings"), true)
+property_ref_(HTMLThumbSize, setHTMLThumbSize, int, groupForDatabase("HTML Settings"), 128)
+property_ref_(HTMLNumOfCols, setHTMLNumOfCols, int, groupForDatabase("HTML Settings"), 5)
+property_ref_(HTMLSizes, setHTMLSizes, QString, groupForDatabase("HTML Settings"), STR(""))
+property_ref_(HTMLIncludeSelections, setHTMLIncludeSelections, QString, groupForDatabase("HTML Settings"), STR(""))
+property_ref_(password, setPassword, QString, groupForDatabase("Privacy Settings"), STR(""))
+    // clang-format on
 
-QDate SettingsData::fromDate() const
+    QDate SettingsData::fromDate() const
 {
     QString date = value("Miscellaneous", "fromDate", STR(""));
     return date.isEmpty() ? QDate(QDate::currentDate().year(), 1, 1) : QDate::fromString(date, Qt::ISODate);

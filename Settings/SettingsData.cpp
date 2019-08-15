@@ -1,19 +1,20 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
+   modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation; either version 2 of
+   the License or (at your option) version 3 or any later version
+   accepted by the membership of KDE e. V. (or its successor approved
+   by the membership of KDE e. V.), which shall act as a proxy
+   defined in Section 14 of version 3 of the license.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; see the file COPYING.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+   along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "SettingsData.h"
@@ -146,32 +147,32 @@ SettingsData::SettingsData(const QString &imageDirectory)
 /////////////////
 
 property_copy(useEXIFRotate, setUseEXIFRotate, bool, General, true)
-    property_copy(useEXIFComments, setUseEXIFComments, bool, General, true)
-        property_copy(stripEXIFComments, setStripEXIFComments, bool, General, true)
-            property_copy(commentsToStrip, setCommentsToStrip, QString, General, "" /* see constructor */)
-                property_copy(searchForImagesOnStart, setSearchForImagesOnStart, bool, General, true)
-                    property_copy(ignoreFileExtension, setIgnoreFileExtension, bool, General, false)
-                        property_copy(skipSymlinks, setSkipSymlinks, bool, General, false)
-                            property_copy(skipRawIfOtherMatches, setSkipRawIfOtherMatches, bool, General, false)
-                                property_copy(useRawThumbnail, setUseRawThumbnail, bool, General, true)
-                                    property_copy(useRawThumbnailSize, setUseRawThumbnailSize, QSize, General, QSize(1024, 768))
-                                        property_copy(useCompressedIndexXML, setUseCompressedIndexXML, bool, General, true)
-                                            property_copy(compressBackup, setCompressBackup, bool, General, true)
-                                                property_copy(showSplashScreen, setShowSplashScreen, bool, General, true)
-                                                    property_copy(showHistogram, setShowHistogram, bool, General, true)
-                                                        property_copy(autoSave, setAutoSave, int, General, 5)
-                                                            property_copy(backupCount, setBackupCount, int, General, 5)
-                                                                property_enum(tTimeStamps, setTTimeStamps, TimeStampTrust, General, Always)
-                                                                    property_copy(excludeDirectories, setExcludeDirectories, QString, General, QString::fromLatin1("xml,ThumbNails,.thumbs"))
-                                                                        property_copy(recentAndroidAddress, setRecentAndroidAddress, QString, General, QString())
-                                                                            property_copy(listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnStartup, bool, General, false)
+property_copy(useEXIFComments, setUseEXIFComments, bool, General, true)
+property_copy(stripEXIFComments, setStripEXIFComments, bool, General, true)
+property_copy(commentsToStrip, setCommentsToStrip, QString, General, "" /* see constructor */)
+property_copy(searchForImagesOnStart, setSearchForImagesOnStart, bool, General, true)
+property_copy(ignoreFileExtension, setIgnoreFileExtension, bool, General, false)
+property_copy(skipSymlinks, setSkipSymlinks, bool, General, false)
+property_copy(skipRawIfOtherMatches, setSkipRawIfOtherMatches, bool, General, false)
+property_copy(useRawThumbnail, setUseRawThumbnail, bool, General, true)
+property_copy(useRawThumbnailSize, setUseRawThumbnailSize, QSize, General, QSize(1024, 768))
+property_copy(useCompressedIndexXML, setUseCompressedIndexXML, bool, General, true)
+property_copy(compressBackup, setCompressBackup, bool, General, true)
+property_copy(showSplashScreen, setShowSplashScreen, bool, General, true)
+property_copy(showHistogram, setShowHistogram, bool, General, true)
+property_copy(autoSave, setAutoSave, int, General, 5)
+property_copy(backupCount, setBackupCount, int, General, 5)
+property_enum(tTimeStamps, setTTimeStamps, TimeStampTrust, General, Always)
+property_copy(excludeDirectories, setExcludeDirectories, QString, General, QString::fromLatin1("xml,ThumbNails,.thumbs"))
+property_copy(recentAndroidAddress, setRecentAndroidAddress, QString, General, QString())
+property_copy(listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnStartup, bool, General, false)
 
-                                                                                getValueFunc(QSize, histogramSize, General, QSize(15, 30))
-                                                                                    getValueFunc(ViewSortType, viewSortType, General, (int)SortLastUse)
-                                                                                        getValueFunc(AnnotationDialog::MatchType, matchType, General, (int)AnnotationDialog::MatchFromWordStart)
-                                                                                            getValueFunc(bool, histogramUseLinearScale, General, false)
+getValueFunc(QSize, histogramSize, General, QSize(15, 30))
+getValueFunc(ViewSortType, viewSortType, General, (int)SortLastUse)
+getValueFunc(AnnotationDialog::MatchType, matchType, General, (int)AnnotationDialog::MatchFromWordStart)
+getValueFunc(bool, histogramUseLinearScale, General, false)
 
-                                                                                                void SettingsData::setHistogramUseLinearScale(const bool useLinearScale)
+void SettingsData::setHistogramUseLinearScale(const bool useLinearScale)
 {
     if (useLinearScale == histogramUseLinearScale())
         return;
@@ -238,12 +239,12 @@ bool SettingsData::trustTimeStamps()
 ////////////////////////////////
 
 property_copy(detectModifiedFiles, setDetectModifiedFiles, bool, FileVersionDetection, true)
-    property_copy(modifiedFileComponent, setModifiedFileComponent, QString, FileVersionDetection, "^(.*)-edited.([^.]+)$")
-        property_copy(originalFileComponent, setOriginalFileComponent, QString, FileVersionDetection, "\\1.\\2")
-            property_copy(moveOriginalContents, setMoveOriginalContents, bool, FileVersionDetection, false)
-                property_copy(autoStackNewFiles, setAutoStackNewFiles, bool, FileVersionDetection, true)
-                    property_copy(copyFileComponent, setCopyFileComponent, QString, FileVersionDetection, "(.[^.]+)$")
-                        property_copy(copyFileReplacementComponent, setCopyFileReplacementComponent, QString, FileVersionDetection, "-edited\\1")
+property_copy(modifiedFileComponent, setModifiedFileComponent, QString, FileVersionDetection, "^(.*)-edited.([^.]+)$")
+property_copy(originalFileComponent, setOriginalFileComponent, QString, FileVersionDetection, "\\1.\\2")
+property_copy(moveOriginalContents, setMoveOriginalContents, bool, FileVersionDetection, false)
+property_copy(autoStackNewFiles, setAutoStackNewFiles, bool, FileVersionDetection, true)
+property_copy(copyFileComponent, setCopyFileComponent, QString, FileVersionDetection, "(.[^.]+)$")
+property_copy(copyFileReplacementComponent, setCopyFileReplacementComponent, QString, FileVersionDetection, "-edited\\1")
 
     ////////////////////
     //// Thumbnails ////
@@ -304,26 +305,26 @@ void SettingsData::setActualThumbnailSize(int value)
 ////////////////
 
 property_ref(viewerSize, setViewerSize, QSize, Viewer, QSize(1024, 768))
-    property_ref(slideShowSize, setSlideShowSize, QSize, Viewer, QSize(1024, 768))
-        property_copy(launchViewerFullScreen, setLaunchViewerFullScreen, bool, Viewer, false)
-            property_copy(launchSlideShowFullScreen, setLaunchSlideShowFullScreen, bool, Viewer, true)
-                property_copy(showInfoBox, setShowInfoBox, bool, Viewer, true)
-                    property_copy(showLabel, setShowLabel, bool, Viewer, true)
-                        property_copy(showDescription, setShowDescription, bool, Viewer, true)
-                            property_copy(showDate, setShowDate, bool, Viewer, true)
-                                property_copy(showImageSize, setShowImageSize, bool, Viewer, true)
-                                    property_copy(showRating, setShowRating, bool, Viewer, true)
-                                        property_copy(showTime, setShowTime, bool, Viewer, true)
-                                            property_copy(showFilename, setShowFilename, bool, Viewer, false)
-                                                property_copy(showEXIF, setShowEXIF, bool, Viewer, true)
-                                                    property_copy(slideShowInterval, setSlideShowInterval, int, Viewer, 5)
-                                                        property_copy(viewerCacheSize, setViewerCacheSize, int, Viewer, 195)
-                                                            property_copy(infoBoxWidth, setInfoBoxWidth, int, Viewer, 400)
-                                                                property_copy(infoBoxHeight, setInfoBoxHeight, int, Viewer, 300)
-                                                                    property_enum(infoBoxPosition, setInfoBoxPosition, Position, Viewer, Bottom)
-                                                                        property_enum(viewerStandardSize, setViewerStandardSize, StandardViewSize, Viewer, FullSize)
+property_ref(slideShowSize, setSlideShowSize, QSize, Viewer, QSize(1024, 768))
+property_copy(launchViewerFullScreen, setLaunchViewerFullScreen, bool, Viewer, false)
+property_copy(launchSlideShowFullScreen, setLaunchSlideShowFullScreen, bool, Viewer, true)
+property_copy(showInfoBox, setShowInfoBox, bool, Viewer, true)
+property_copy(showLabel, setShowLabel, bool, Viewer, true)
+property_copy(showDescription, setShowDescription, bool, Viewer, true)
+property_copy(showDate, setShowDate, bool, Viewer, true)
+property_copy(showImageSize, setShowImageSize, bool, Viewer, true)
+property_copy(showRating, setShowRating, bool, Viewer, true)
+property_copy(showTime, setShowTime, bool, Viewer, true)
+property_copy(showFilename, setShowFilename, bool, Viewer, false)
+property_copy(showEXIF, setShowEXIF, bool, Viewer, true)
+property_copy(slideShowInterval, setSlideShowInterval, int, Viewer, 5)
+property_copy(viewerCacheSize, setViewerCacheSize, int, Viewer, 195)
+property_copy(infoBoxWidth, setInfoBoxWidth, int, Viewer, 400)
+property_copy(infoBoxHeight, setInfoBoxHeight, int, Viewer, 300)
+property_enum(infoBoxPosition, setInfoBoxPosition, Position, Viewer, Bottom)
+property_enum(viewerStandardSize, setViewerStandardSize, StandardViewSize, Viewer, FullSize)
 
-                                                                            bool SettingsData::smoothScale() const
+bool SettingsData::smoothScale() const
 {
     return _smoothScale;
 }
@@ -380,66 +381,53 @@ property_ref(untaggedCategory, setUntaggedCategory, QString, General, i18n("Even
 
     property_copy(delayLoadingPlugins, setDelayLoadingPlugins, bool, Plug - ins, true)
 
-        property_ref_(
-            HTMLBaseDir, setHTMLBaseDir, QString,
-            groupForDatabase("HTML Settings"),
-            QString::fromLocal8Bit(qgetenv("HOME")) + STR("/public_html"))
-            property_ref_(
-                HTMLBaseURL, setHTMLBaseURL, QString,
-                groupForDatabase("HTML Settings"),
-                STR("file://") + HTMLBaseDir())
-                property_ref_(
-                    HTMLDestURL, setHTMLDestURL, QString,
-                    groupForDatabase("HTML Settings"),
-                    STR("file://") + HTMLBaseDir())
-                    property_ref_(
-                        HTMLCopyright, setHTMLCopyright, QString,
-                        groupForDatabase("HTML Settings"),
-                        STR(""))
-                        property_ref_(
-                            HTMLDate, setHTMLDate, int,
-                            groupForDatabase("HTML Settings"),
-                            true)
-                            property_ref_(
-                                HTMLTheme, setHTMLTheme, int,
-                                groupForDatabase("HTML Settings"),
-                                -1)
-                                property_ref_(
-                                    HTMLKimFile, setHTMLKimFile, int,
-                                    groupForDatabase("HTML Settings"),
-                                    true)
-                                    property_ref_(
-                                        HTMLInlineMovies, setHTMLInlineMovies, int,
-                                        groupForDatabase("HTML Settings"),
-                                        true)
-                                        property_ref_(
-                                            HTML5Video, setHTML5Video, int,
-                                            groupForDatabase("HTML Settings"),
-                                            true)
-                                            property_ref_(
-                                                HTML5VideoGenerate, setHTML5VideoGenerate, int,
-                                                groupForDatabase("HTML Settings"),
-                                                true)
-                                                property_ref_(
-                                                    HTMLThumbSize, setHTMLThumbSize, int,
-                                                    groupForDatabase("HTML Settings"),
-                                                    128)
-                                                    property_ref_(
-                                                        HTMLNumOfCols, setHTMLNumOfCols, int,
-                                                        groupForDatabase("HTML Settings"),
-                                                        5)
-                                                        property_ref_(
-                                                            HTMLSizes, setHTMLSizes, QString,
-                                                            groupForDatabase("HTML Settings"),
-                                                            STR(""))
-                                                            property_ref_(
-                                                                HTMLIncludeSelections, setHTMLIncludeSelections, QString,
-                                                                groupForDatabase("HTML Settings"),
-                                                                STR(""))
+    property_ref_(HTMLBaseDir, setHTMLBaseDir, QString,
+                  groupForDatabase("HTML Settings"),
+                  QString::fromLocal8Bit(qgetenv("HOME")) + STR("/public_html"))
+    property_ref_(HTMLBaseURL, setHTMLBaseURL, QString,
+                  groupForDatabase("HTML Settings"),
+                  STR("file://") + HTMLBaseDir())
+    property_ref_(HTMLDestURL, setHTMLDestURL, QString,
+                  groupForDatabase("HTML Settings"),
+                  STR("file://") + HTMLBaseDir())
+    property_ref_(HTMLCopyright, setHTMLCopyright, QString,
+                  groupForDatabase("HTML Settings"),
+                  STR(""))
+    property_ref_(HTMLDate, setHTMLDate, int,
+                  groupForDatabase("HTML Settings"),
+                  true)
+    property_ref_(HTMLTheme, setHTMLTheme, int,
+                  groupForDatabase("HTML Settings"),
+                  -1)
+    property_ref_(HTMLKimFile, setHTMLKimFile, int,
+                  groupForDatabase("HTML Settings"),
+                  true)
+    property_ref_(HTMLInlineMovies, setHTMLInlineMovies, int,
+                  groupForDatabase("HTML Settings"),
+                  true)
+    property_ref_(HTML5Video, setHTML5Video, int,
+                  groupForDatabase("HTML Settings"),
+                  true)
+    property_ref_(HTML5VideoGenerate, setHTML5VideoGenerate, int,
+                  groupForDatabase("HTML Settings"),
+                  true)
+    property_ref_(HTMLThumbSize, setHTMLThumbSize, int,
+                  groupForDatabase("HTML Settings"),
+                  128)
+    property_ref_(HTMLNumOfCols, setHTMLNumOfCols, int,
+                  groupForDatabase("HTML Settings"),
+                  5)
+    property_ref_(HTMLSizes, setHTMLSizes, QString,
+                  groupForDatabase("HTML Settings"),
+                  STR(""))
+    property_ref_(HTMLIncludeSelections, setHTMLIncludeSelections, QString,
+                  groupForDatabase("HTML Settings"),
+                  STR(""))
+    property_ref_(password, setPassword, QString,
+                  groupForDatabase("Privacy Settings"),
+                  STR(""))
 
-                                                                property_ref_(password, setPassword, QString, groupForDatabase("Privacy Settings"), STR(""))
-
-                                                                    QDate SettingsData::fromDate() const
+QDate SettingsData::fromDate() const
 {
     QString date = value("Miscellaneous", "fromDate", STR(""));
     return date.isEmpty() ? QDate(QDate::currentDate().year(), 1, 1) : QDate::fromString(date, Qt::ISODate);

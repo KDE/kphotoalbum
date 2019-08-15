@@ -9,6 +9,13 @@ if ! which clang-format >/dev/null 2>&1
 then
 	echo "Please install clang-format!"
 fi
+if [[ "$CHECK_CLANG_FORMAT" == false ]]
+then
+	printf "Remember, this is not for checking in unformatted changes!\n"
+	printf "It's YOUR responsability to run clang-format on your changes!\n"
+	sleep 3
+	exit 0
+fi
 
 check_format()
 # check_format FILE
@@ -37,6 +44,7 @@ done
 if [[ -n "$reformat_files" ]]
 then
 	printf "Incorrect coding style:$reformat_files\n"
-	printf "** Run \"git clang-format\" to reformat all staged changes..."
+	printf "** Run \"git clang-format\" to reformat all staged changes, or\n"
+	printf "** run \"dev/scripts/clang-format-all.sh\" to reformat all source files...\n"
 	exit 1
 fi

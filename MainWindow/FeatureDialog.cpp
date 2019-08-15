@@ -16,9 +16,9 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "FeatureDialog.h"
 #include <config-kpa-kipi.h>
 #include <config-kpa-marble.h>
-#include "FeatureDialog.h"
 
 #include <Exif/Database.h>
 

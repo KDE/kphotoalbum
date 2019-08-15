@@ -21,9 +21,9 @@
 
 #include "config-kpa-marble.h"
 
-#include "enums.h"
 #include "ImagePreviewWidget.h"
 #include "ListSelect.h"
+#include "enums.h"
 
 #include <DB/Category.h>
 #include <DB/ImageInfoList.h>
@@ -34,7 +34,6 @@
 #include <QDialog>
 #include <QList>
 #include <QSpinBox>
-
 
 class DockWidget;
 class KActionCollection;

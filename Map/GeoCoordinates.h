@@ -1,4 +1,4 @@
-/* Copyright (C) 2018 The KPhotoAlbum Development Team
+/* Copyright (C) 2018-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -20,8 +20,8 @@
 #ifndef GEOCOORDINATES_H
 #define GEOCOORDINATES_H
 
-#include <QPair>
 #include <QMetaType>
+#include <QPair>
 #include <QString>
 
 namespace Map
@@ -51,7 +51,6 @@ private: // Variables
     double m_alt;
     bool m_hasCoordinates = false;
     bool m_hasAlt = false;
-
 };
 
 }

@@ -103,9 +103,9 @@ bool Browser::OverviewPage::isGeoPositionIndex(int row) const
 bool Browser::OverviewPage::isExivIndex(int row) const
 {
     int exivRow = categories().count();
-    #ifdef HAVE_MARBLE
-        exivRow++;
-    #endif
+#ifdef HAVE_MARBLE
+    exivRow++;
+#endif
     return row == exivRow;
 }
 

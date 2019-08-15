@@ -1,4 +1,4 @@
-/* Copyright (C) 2014-2018 The KPhotoAlbum Development Team
+/* Copyright (C) 2014-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -22,19 +22,19 @@
 
 // Local includes
 #include "config-kpa-marble.h"
-#include "GeoCoordinates.h"
 #include "DB/ImageInfo.h"
 #include "DB/ImageInfoPtr.h"
+#include "GeoCoordinates.h"
 
 // Marble includes
-#include <marble/LayerInterface.h>
 #include <marble/GeoDataCoordinates.h>
 #include <marble/GeoDataLatLonBox.h>
+#include <marble/LayerInterface.h>
 
 // Qt includes
 #include <QList>
-#include <QWidget>
 #include <QPixmap>
+#include <QWidget>
 
 // Marble classes
 namespace Marble
@@ -42,9 +42,9 @@ namespace Marble
 class MarbleWidget;
 }
 // Local includes
+#include "GeoCoordinates.h"
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
-#include "GeoCoordinates.h"
 
 // Qt classes
 class QLabel;
@@ -54,8 +54,8 @@ namespace Map
 {
 
 class MapView
-        : public QWidget
-        , public Marble::LayerInterface
+    : public QWidget,
+      public Marble::LayerInterface
 {
     Q_OBJECT
 
@@ -173,7 +173,6 @@ private: // Variables
     QPixmap m_pin;
     Marble::GeoDataLatLonBox m_regionSelection;
     bool m_regionSelected = false;
-
 };
 
 }

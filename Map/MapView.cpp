@@ -19,8 +19,8 @@
 
 // Local includes
 #include "MapView.h"
-#include "Logging.h"
 #include "ImageManager/ThumbnailCache.h"
+#include "Logging.h"
 
 // Marble includes
 #include <marble/GeoPainter.h>
@@ -28,13 +28,13 @@
 #include <marble/RenderPlugin.h>
 
 // Qt includes
+#include <QAction>
+#include <QDebug>
 #include <QLabel>
 #include <QLoggingCategory>
 #include <QPixmap>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include <QDebug>
-#include <QAction>
 
 // KDE includes
 #include <KConfigGroup>
@@ -43,9 +43,10 @@
 #include <KMessageBox>
 #include <KSharedConfig>
 
-namespace {
+namespace
+{
 const QString MAPVIEW_FLOATER_VISIBLE_CONFIG_PREFIX = QStringLiteral("MarbleFloaterVisible ");
-const QStringList MAPVIEW_RENDER_POSITION({QStringLiteral("HOVERS_ABOVE_SURFACE")});
+const QStringList MAPVIEW_RENDER_POSITION({ QStringLiteral("HOVERS_ABOVE_SURFACE") });
 }
 
 Map::MapView::MapView(QWidget *parent, UsageType type)
@@ -149,7 +150,7 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
         floatersLayout->addWidget(button);
 
         const QString value = group.readEntry(MAPVIEW_FLOATER_VISIBLE_CONFIG_PREFIX + name);
-        if (! value.isEmpty()) {
+        if (!value.isEmpty()) {
             button->setChecked(value == QStringLiteral("true") ? true : false);
         }
     }
@@ -208,7 +209,8 @@ void Map::MapView::saveSettings()
     KConfigGroup group = config->group(QStringLiteral("MapView"));
     for (const QPushButton *button : m_floaters->findChildren<QPushButton *>()) {
         group.writeEntry(MAPVIEW_FLOATER_VISIBLE_CONFIG_PREFIX
-                         + button->property("floater").toString(), button->isChecked());
+                             + button->property("floater").toString(),
+                         button->isChecked());
     }
     config->sync();
     QMessageBox::information(this, i18n("Map view"), i18n("Settings saved!"));
@@ -287,9 +289,9 @@ void Map::MapView::updateRegionSelection(const Marble::GeoDataLatLonBox &selecti
 #ifndef MARBLE_HAS_regionSelected_NEW
 void Map::MapView::updateRegionSelectionOld(const QList<double> &selection)
 {
-    Q_ASSERT(selection.length()==4);
+    Q_ASSERT(selection.length() == 4);
     // see also: https://cgit.kde.org/marble.git/commit/?id=ec1f7f554e9f6ca248b4a3b01dbf08507870687e
-    Marble::GeoDataLatLonBox sel {selection.at(1),selection.at(3),selection.at(2),selection.at(0), Marble::GeoDataCoordinates::Degree };
+    Marble::GeoDataLatLonBox sel { selection.at(1), selection.at(3), selection.at(2), selection.at(0), Marble::GeoDataCoordinates::Degree };
     updateRegionSelection(sel);
 }
 #endif
@@ -318,15 +320,13 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *,
 {
     Q_ASSERT(renderPos == renderPosition().first());
 
-    for (const DB::ImageInfoPtr &image: m_images) {
+    for (const DB::ImageInfoPtr &image : m_images) {
         const Marble::GeoDataCoordinates pos(image->coordinates().lon(), image->coordinates().lat(),
                                              image->coordinates().alt(),
                                              Marble::GeoDataCoordinates::Degree);
         if (m_showThumbnails) {
             // FIXME(l3u) Maybe we should cache the scaled thumbnails?
-            painter->drawPixmap(pos, ImageManager::ThumbnailCache::instance()->lookup(
-                                         image->fileName()).scaled(QSize(40, 40),
-                                                                   Qt::KeepAspectRatio));
+            painter->drawPixmap(pos, ImageManager::ThumbnailCache::instance()->lookup(image->fileName()).scaled(QSize(40, 40), Qt::KeepAspectRatio));
         } else {
             painter->drawPixmap(pos, m_pin);
         }

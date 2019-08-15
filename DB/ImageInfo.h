@@ -25,8 +25,8 @@
 #include "ExifMode.h"
 #include "FileName.h"
 #include "ImageDate.h"
-#include "Utilities/StringSet.h"
 #include "MD5.h"
+#include "Utilities/StringSet.h"
 
 #ifdef HAVE_MARBLE
 #include <Map/GeoCoordinates.h>

@@ -67,10 +67,10 @@
 #include <QVBoxLayout>
 
 #ifdef HAVE_MARBLE
+#include "Map/GeoCoordinates.h"
 #include <Map/MapView.h>
 #include <QProgressBar>
 #include <QTimer>
-#include "Map/GeoCoordinates.h"
 #endif
 
 #include <KConfigGroup>

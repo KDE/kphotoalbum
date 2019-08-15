@@ -215,7 +215,6 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
     if (m_searchRAW && !ImageManager::RAWImageDecoder::isRAW(info->fileName()))
         return false;
 
-
 #ifdef HAVE_MARBLE
     // Search for GPS Position
     if (m_usingRegionSelection) {
@@ -652,7 +651,7 @@ Map::GeoCoordinates::Pair ImageSearchInfo::regionSelection() const
     return m_regionSelection;
 }
 
-void ImageSearchInfo::setRegionSelection(const Map::GeoCoordinates::Pair& actRegionSelection)
+void ImageSearchInfo::setRegionSelection(const Map::GeoCoordinates::Pair &actRegionSelection)
 {
     m_regionSelection = actRegionSelection;
     m_compiled = false;

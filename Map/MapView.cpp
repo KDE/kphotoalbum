@@ -47,6 +47,10 @@ namespace
 {
 const QString MAPVIEW_FLOATER_VISIBLE_CONFIG_PREFIX = QStringLiteral("MarbleFloaterVisible ");
 const QStringList MAPVIEW_RENDER_POSITION({ QStringLiteral("HOVERS_ABOVE_SURFACE") });
+const QVector<QString> WANTED_FLOATERS { QStringLiteral("Compass"),
+                                         QStringLiteral("Scale Bar"),
+                                         QStringLiteral("Navigation"),
+                                         QStringLiteral("Overview Map") };
 }
 
 Map::MapView::MapView(QWidget *parent, UsageType type)
@@ -130,12 +134,16 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
             continue;
         }
 
+        const QString name = plugin->name();
+        if (!WANTED_FLOATERS.contains(name)) {
+            continue;
+        }
+
         QPushButton *button = new QPushButton;
         button->setCheckable(true);
         button->setFlat(true);
         button->setChecked(plugin->action()->isChecked());
         button->setToolTip(plugin->description());
-        const QString name = plugin->name();
         button->setProperty("floater", name);
 
         QPixmap icon = plugin->action()->icon().pixmap(QSize(20, 20));

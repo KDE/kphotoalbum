@@ -116,7 +116,7 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     kpaButtonsLayout->addWidget(showThumbnails);
     m_showThumbnails = true;
     showThumbnails->setCheckable(true);
-    showThumbnails->setChecked(true);
+    showThumbnails->setChecked(false);
     connect(showThumbnails, &QPushButton::clicked, this, &MapView::setShowThumbnails);
 
     // Marble floater control buttons

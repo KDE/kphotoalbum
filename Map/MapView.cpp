@@ -156,11 +156,9 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
         connect(plugin->action(), &QAction::toggled, button, &QPushButton::setChecked);
         connect(button, &QPushButton::toggled, plugin->action(), &QAction::setChecked);
         floatersLayout->addWidget(button);
-
-        const QString value = group.readEntry(MAPVIEW_FLOATER_VISIBLE_CONFIG_PREFIX + name);
-        if (!value.isEmpty()) {
-            button->setChecked(value == QStringLiteral("true") ? true : false);
-        }
+        const QVariant checked = group.readEntry(MAPVIEW_FLOATER_VISIBLE_CONFIG_PREFIX + name,
+                                                 true);
+        button->setChecked(checked.toBool());
     }
 
     m_pin = QPixmap(QStandardPaths::locate(QStandardPaths::DataLocation, QStringLiteral("pics/pin.png")));

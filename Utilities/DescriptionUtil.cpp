@@ -330,7 +330,12 @@ QString Utilities::timeAgo(const QDate &date)
     if (daysPassed < 365) {
         // Less than a year --> display the (approximate) months
         // We take 30.44 days per month, as this is the result of 365.25 / 12
-        return i18np("1 month", "%1 months", qRound64((double)daysPassed / 30.44));
+        const int months = qRound64((double)daysPassed / 30.44);
+        if (months == 12) {
+            return i18np("1 year", "%1 years", 1);
+        } else {
+            return i18np("1 month", "%1 months", months);
+        }
     }
 
     if (daysPassed < 1826) {

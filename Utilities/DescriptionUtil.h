@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -18,9 +18,13 @@
 
 #ifndef TEXTUTIL_H
 #define TEXTUTIL_H
-#include <DB/CategoryPtr.h>
-#include <DB/ImageInfoPtr.h>
 
+// Local includes
+#include "DB/CategoryPtr.h"
+#include "DB/ImageInfoPtr.h"
+
+// Qt includes
+#include <QDate>
 #include <QMap>
 #include <QPair>
 #include <QString>
@@ -29,6 +33,8 @@ namespace Utilities
 {
 QString createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString, QString>> *);
 QString formatAge(DB::CategoryPtr category, const QString &item, DB::ImageInfoPtr info);
+QString timeAgo(const DB::ImageInfoPtr info);
+QString timeAgo(const QDate &date);
 }
 
 #endif /* TEXTUTIL_H */

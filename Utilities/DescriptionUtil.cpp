@@ -297,7 +297,13 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
     if (startDate == endDate) {
         return i18n("%1 ago").arg(timeAgo(startDate));
     } else {
-        return i18n("%1 to %2 ago").arg(timeAgo(startDate), timeAgo(endDate));
+        const QString startTimeAgo = timeAgo(startDate);
+        const QString endTimeAgo = timeAgo(endDate);
+        if (startTimeAgo == endTimeAgo) {
+            return i18n("%1 ago").arg(startTimeAgo);
+        } else {
+            return i18n("%1 to %2 ago").arg(startTimeAgo, endTimeAgo);
+        }
     }
 }
 

@@ -204,88 +204,24 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
     return result;
 }
 
-using DateSpec = QPair<int, char>;
-DateSpec dateDiff(const QDate &birthDate, const QDate &imageDate)
-{
-    const int bday = birthDate.day();
-    const int iday = imageDate.day();
-    const int bmonth = birthDate.month();
-    const int imonth = imageDate.month();
-    const int byear = birthDate.year();
-    const int iyear = imageDate.year();
-
-    // Image before birth
-    const int diff = birthDate.daysTo(imageDate);
-    if (diff < 0)
-        return qMakePair(0, 'I');
-
-    if (diff < 31)
-        return qMakePair(diff, 'D');
-
-    int months = (iyear - byear) * 12;
-    months += (imonth - bmonth);
-    months += (iday >= bday) ? 0 : -1;
-
-    if (months < 24)
-        return qMakePair(months, 'M');
-    else
-        return qMakePair(months / 12, 'Y');
-}
-
-QString formatDate(const DateSpec &date)
-{
-    if (date.second == 'I')
-        return {};
-    else if (date.second == 'D')
-        return i18np("1 day", "%1 days", date.first);
-    else if (date.second == 'M')
-        return i18np("1 month", "%1 months", date.first);
-    else
-        return i18np("1 year", "%1 years", date.first);
-}
-
-void test()
-{
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 7, 11))) == QString::fromLatin1("0 days"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 8, 10))) == QString::fromLatin1("30 days"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 8, 11))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 8, 12))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 9, 10))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 9, 11))) == QString::fromLatin1("2 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 6, 10))) == QString::fromLatin1("10 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 6, 11))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 6, 12))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 7, 10))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 7, 11))) == QString::fromLatin1("12 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 7, 12))) == QString::fromLatin1("12 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 12, 11))) == QString::fromLatin1("17 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1973, 7, 11))) == QString::fromLatin1("2 years"));
-}
-
 QString Utilities::formatAge(DB::CategoryPtr category, const QString &item, DB::ImageInfoPtr info)
 {
-    // test(); // I wish I could get my act together to set up a test suite.
     const QDate birthDate = category->birthDate(item);
-    const QDate start = info->date().start().date();
-    const QDate end = info->date().end().date();
+    const QDate startDate = info->date().start().date();
+    const QDate endDate = info->date().end().date();
+    if (birthDate.isNull() || birthDate.isNull()) {
+        return QString();
+    }
 
-    if (birthDate.isNull() || start.isNull())
-        return {};
-
-    if (start == end)
-        return QString::fromUtf8(" (%1)").arg(formatDate(dateDiff(birthDate, start)));
-    else {
-        DateSpec lower = dateDiff(birthDate, start);
-        DateSpec upper = dateDiff(birthDate, end);
-        if (lower == upper)
-            return QString::fromUtf8(" (%1)").arg(formatDate(lower));
-        else if (lower.second == 'I')
-            return QString::fromUtf8(" (&lt; %1)").arg(formatDate(upper));
-        else {
-            if (lower.second == upper.second)
-                return QString::fromUtf8(" (%1-%2)").arg(lower.first).arg(formatDate(upper));
-            else
-                return QString::fromUtf8(" (%1-%2)").arg(formatDate(lower)).arg(formatDate(upper));
+    if (startDate == endDate) {
+        return i18n(" (%1)").arg(dateDifference(birthDate, startDate));
+    } else {
+        const QString startTimespan = dateDifference(birthDate, startDate);
+        const QString endTimespan = dateDifference(birthDate, endDate);
+        if (startTimespan == endTimespan) {
+            return i18n(" (%1)").arg(startTimespan);
+        } else {
+            return i18n(" (%1 to %2)").arg(startTimespan, endTimespan);
         }
     }
 }
@@ -295,10 +231,10 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
     const QDate startDate = info->date().start().date();
     const QDate endDate = info->date().end().date();
     if (startDate == endDate) {
-        return i18n("%1 ago").arg(timeAgo(startDate));
+        return i18n("%1 ago").arg(dateDifference(startDate));
     } else {
-        const QString startTimeAgo = timeAgo(startDate);
-        const QString endTimeAgo = timeAgo(endDate);
+        const QString startTimeAgo = dateDifference(startDate);
+        const QString endTimeAgo = dateDifference(endDate);
         if (startTimeAgo == endTimeAgo) {
             return i18n("%1 ago").arg(startTimeAgo);
         } else {
@@ -307,50 +243,60 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
     }
 }
 
-QString Utilities::timeAgo(const QDate &date)
+QString Utilities::dateDifference(const QDate &date, QDate reference)
 {
-    const QDate today = QDate::currentDate();
-    const qint64 daysPassed = today.toJulianDay() - date.toJulianDay();
+    if (!reference.isValid()) {
+        reference = QDate::currentDate();
+    }
 
-    if (daysPassed <= 0) {
-        // The photo has been taken today or has a date in the future
+    if (!date.isValid() || date > reference) {
         return QString();
     }
 
-    if (daysPassed < 7) {
-        // Less than a week --> display the days
-        return i18np("1 day", "%1 days", daysPassed);
+    int years = reference.year() - date.year();
+    int months = reference.month() - date.month();
+    if (reference.month() < date.month()
+        || ((reference.month() == date.month()) && (reference.day() < date.day()))) {
+        years--;
+        months += 12;
+    }
+    if (reference.day() < date.day()) {
+        months--;
     }
 
-    if (daysPassed < 30) {
-        // Less than a month --> display the (approximate) weeks
-        return i18np("1 week", "%1 weeks", qRound64((double)daysPassed / 7.0));
+    int remainderMonth = reference.month() - (reference.day() < date.day());
+    int remainderYear = reference.year();
+    if (remainderMonth == 0) {
+        remainderMonth = 12;
+        remainderYear--;
     }
+    int days = reference.toJulianDay() - QDate(remainderYear, remainderMonth, date.day()).toJulianDay();
 
-    if (daysPassed < 365) {
-        // Less than a year --> display the (approximate) months
-        // We take 30.44 days per month, as this is the result of 365.25 / 12
-        const int months = qRound64((double)daysPassed / 30.44);
-        if (months == 12) {
-            return i18np("1 year", "%1 years", 1);
-        } else {
+    if (years == 0 && months == 0 && days <= 6) {
+        // Less than a week --> display days
+        return i18np("1 day", "%1 days", days);
+    } else if (years == 0 && months == 0 && days > 6) {
+        // Less than a month --> display weeks
+        return i18np("1 week", "%1 weeks", days / 7);
+    } else if (years == 0 && months > 0 && months <= 4) {
+        // Less than four months --> display months and weeks
+        const int weeks = days / 7;
+        if (weeks == 0) {
             return i18np("1 month", "%1 months", months);
+        } else {
+            return i18n("%1 and %2").arg(i18np("1 month", "%1 months", months), i18np("1 week", "%1 weeks", weeks));
         }
-    }
-
-    if (daysPassed < 1826) {
-        // Less than five years --> display years and months
-        const int years = today.year() - date.year();
-        const int months = today.month() - date.month();
-        if (months == 0) {
+    } else if (years < 5) {
+        // Less than five years --> we display years and months
+        if (months == 0 && years != 0) {
             return i18np("1 year", "%1 years", years);
-        }
-        if (months > 0) {
+        } else if (months != 0 && years == 0) {
+            return i18np("1 month", "%1 months", months);
+        } else {
             return i18n("%1 and %2").arg(i18np("1 year", "%1 years", years), i18np("1 month", "%1 months", months));
         }
-        return i18n("%1 and %2").arg(i18np("1 year", "%1 years", years - 1), i18np("1 month", "%1 months", 12 + months));
+    } else {
+        // Five years and more --> we only display years
+        return i18np("1 year", "%1 years", years);
     }
-
-    // More than five years --> display only the years
-    return i18np("1 year", "%1 years", today.year() - date.year());
 }

@@ -34,7 +34,7 @@ namespace Utilities
 QString createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString, QString>> *);
 QString formatAge(DB::CategoryPtr category, const QString &item, DB::ImageInfoPtr info);
 QString timeAgo(const DB::ImageInfoPtr info);
-QString timeAgo(const QDate &date);
+QString dateDifference(const QDate &date, QDate reference = QDate());
 }
 
 #endif /* TEXTUTIL_H */

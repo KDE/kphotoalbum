@@ -270,7 +270,7 @@ QString Utilities::dateDifference(const QDate &date, QDate reference)
         remainderMonth = 12;
         remainderYear--;
     }
-    int days = reference.toJulianDay() - QDate(remainderYear, remainderMonth, date.day()).toJulianDay();
+    int days = QDate(remainderYear, remainderMonth, date.day()).daysTo(reference);
 
     if (years == 0 && months == 0 && days <= 6) {
         // Less than a week --> display days

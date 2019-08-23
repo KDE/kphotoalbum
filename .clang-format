@@ -3,6 +3,7 @@ Language:        Cpp
 AlignAfterOpenBracket: true
 AlwaysBreakTemplateDeclarations: true
 AllowShortFunctionsOnASingleLine: Inline
+# Note(jzarl): apparently, on clang-format 6.x "BreakBeforeBraces: Linux" behaves as if BraceWrapping.AfterClass was set to false)
 BreakBeforeBraces: Linux
 ColumnLimit: 0
 CommentPragmas:  '^ (FALLTHROUGH|krazy:) '
@@ -16,6 +17,9 @@ SpacesInAngles:  false
 SpacesInCStyleCastParentheses: false
 SpaceAfterControlStatementKeyword: true
 SpaceBeforeAssignmentOperators: true
+# Note(jzarl): SpaceBeforeCpp11BracedList was apparently introduced in 7.0.0 (and set by default in style Webkit)
+# TODO: decide whether we set this to false, or if we require clang-format >= 7.0.0 for devs
+# SpaceBeforeCpp11BracedList: true
 ContinuationIndentWidth: 4
 SortIncludes: true
 

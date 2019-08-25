@@ -216,12 +216,12 @@ QString Utilities::formatAge(DB::CategoryPtr category, const QString &item, DB::
     if (startDate == endDate) {
         return i18n(" (%1)").arg(dateDifference(birthDate, startDate));
     } else {
-        const QString startTimespan = dateDifference(birthDate, startDate);
-        const QString endTimespan = dateDifference(birthDate, endDate);
-        if (startTimespan == endTimespan) {
-            return i18n(" (%1)").arg(startTimespan);
+        const QString startAge = dateDifference(birthDate, startDate);
+        const QString endAge = dateDifference(birthDate, endDate);
+        if (startAge == endAge) {
+            return i18n(" (%1)").arg(startAge);
         } else {
-            return i18n(" (%1 to %2)").arg(startTimespan, endTimespan);
+            return i18nc("minimum age to maximum age", " (%1 to %2)", startAge, endAge);
         }
     }
 }
@@ -238,7 +238,7 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
         if (startTimeAgo == endTimeAgo) {
             return i18n("%1 ago").arg(startTimeAgo);
         } else {
-            return i18n("%1 to %2 ago").arg(startTimeAgo, endTimeAgo);
+            return i18nc("Start time range to end time range", "%1 to %2 ago", startTimeAgo, endTimeAgo);
         }
     }
 }
@@ -284,7 +284,7 @@ QString Utilities::dateDifference(const QDate &date, QDate reference)
         if (weeks == 0) {
             return i18np("1 month", "%1 months", months);
         } else {
-            return i18n("%1 and %2").arg(i18np("1 month", "%1 months", months), i18np("1 week", "%1 weeks", weeks));
+            return i18nc("months and weeks", "%1 and %2", i18np("1 month", "%1 months", months), i18np("1 week", "%1 weeks", weeks));
         }
     } else if (years < 5) {
         // Less than five years --> we display years and months
@@ -293,7 +293,7 @@ QString Utilities::dateDifference(const QDate &date, QDate reference)
         } else if (months != 0 && years == 0) {
             return i18np("1 month", "%1 months", months);
         } else {
-            return i18n("%1 and %2").arg(i18np("1 year", "%1 years", years), i18np("1 month", "%1 months", months));
+            return i18nc("years and months", "%1 and %2", i18np("1 year", "%1 years", years), i18np("1 month", "%1 months", months));
         }
     } else {
         // Five years and more --> we only display years

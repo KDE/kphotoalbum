@@ -75,7 +75,7 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
     if (Settings::SettingsData::instance()->showDate()) {
         QString dateString = info->date().toString(Settings::SettingsData::instance()->showTime() ? true : false);
         if (!dateString.isEmpty()) {
-            dateString.append(i18n(" (%1)").arg(timeAgo(info)));
+            dateString.append(i18n(" (%1)", timeAgo(info)));
         }
         AddNonEmptyInfo(i18n("<b>Date: </b> "), dateString, &result);
     }
@@ -295,14 +295,14 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
     const QDate startDate = info->date().start().date();
     const QDate endDate = info->date().end().date();
     if (startDate == endDate) {
-        return i18n("%1 ago").arg(timeAgo(startDate));
+        return i18n("%1 ago", timeAgo(startDate));
     } else {
         const QString startTimeAgo = timeAgo(startDate);
         const QString endTimeAgo = timeAgo(endDate);
         if (startTimeAgo == endTimeAgo) {
-            return i18n("%1 ago").arg(startTimeAgo);
+            return i18n("%1 ago", startTimeAgo);
         } else {
-            return i18n("%1 to %2 ago").arg(startTimeAgo, endTimeAgo);
+            return i18n("%1 to %2 ago", startTimeAgo, endTimeAgo);
         }
     }
 }
@@ -346,9 +346,9 @@ QString Utilities::timeAgo(const QDate &date)
             return i18np("1 year", "%1 years", years);
         }
         if (months > 0) {
-            return i18n("%1 and %2").arg(i18np("1 year", "%1 years", years), i18np("1 month", "%1 months", months));
+            return i18n("%1 and %2", i18np("1 year", "%1 years", years), i18np("1 month", "%1 months", months));
         }
-        return i18n("%1 and %2").arg(i18np("1 year", "%1 years", years - 1), i18np("1 month", "%1 months", 12 + months));
+        return i18n("%1 and %2", i18np("1 year", "%1 years", years - 1), i18np("1 month", "%1 months", 12 + months));
     }
 
     // More than five years --> display only the years

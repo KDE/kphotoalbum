@@ -207,26 +207,36 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
 namespace
 {
 using DateSpec = QPair<int, char>;
-DateSpec dateDifference(const QDate &birthDate, const QDate &imageDate)
+
+/**
+ * @brief dateDifference computes the difference between two dates with an appropriate unit.
+ * It can be used to generate human readable date differences,
+ * e.g. "6 months" instead of "0.5 years".
+ *
+ * @param priorDate
+ * @param laterDate
+ * @return a DateSpec with appropriate scale.
+ */
+DateSpec dateDifference(const QDate &priorDate, const QDate &laterDate)
 {
-    const int bday = birthDate.day();
-    const int iday = imageDate.day();
-    const int bmonth = birthDate.month();
-    const int imonth = imageDate.month();
-    const int byear = birthDate.year();
-    const int iyear = imageDate.year();
+    const int priorDay = priorDate.day();
+    const int laterDay = laterDate.day();
+    const int priorMonth = priorDate.month();
+    const int laterMonth = laterDate.month();
+    const int priorYear = priorDate.year();
+    const int laterYear = laterDate.year();
 
     // Image before birth
-    const int diff = birthDate.daysTo(imageDate);
-    if (diff < 0)
+    const int days = priorDate.daysTo(laterDate);
+    if (days < 0)
         return qMakePair(0, 'I');
 
-    if (diff < 31)
-        return qMakePair(diff, 'D');
+    if (days < 31)
+        return qMakePair(days, 'D');
 
-    int months = (iyear - byear) * 12;
-    months += (imonth - bmonth);
-    months += (iday >= bday) ? 0 : -1;
+    int months = (laterYear - priorYear) * 12;
+    months += (laterMonth - priorMonth);
+    months += (laterDay >= priorDay) ? 0 : -1;
 
     if (months < 24)
         return qMakePair(months, 'M');

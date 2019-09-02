@@ -204,8 +204,10 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
     return result;
 }
 
+namespace
+{
 using DateSpec = QPair<int, char>;
-DateSpec dateDiff(const QDate &birthDate, const QDate &imageDate)
+DateSpec dateDifference(const QDate &birthDate, const QDate &imageDate)
 {
     const int bday = birthDate.day();
     const int iday = imageDate.day();
@@ -244,27 +246,30 @@ QString formatDate(const DateSpec &date)
         return i18np("1 year", "%1 years", date.first);
 }
 
-void test()
+void testDateDifference()
 {
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 7, 11))) == QString::fromLatin1("0 days"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 8, 10))) == QString::fromLatin1("30 days"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 8, 11))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 8, 12))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 9, 10))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 9, 11))) == QString::fromLatin1("2 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 6, 10))) == QString::fromLatin1("10 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 6, 11))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 6, 12))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 7, 10))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 7, 11))) == QString::fromLatin1("12 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 7, 12))) == QString::fromLatin1("12 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 12, 11))) == QString::fromLatin1("17 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1973, 7, 11))) == QString::fromLatin1("2 years"));
+    using namespace Utilities;
+    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1971, 7, 11))) == QString::fromLatin1("0 days"));
+    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 10))) == QString::fromLatin1("30 days"));
+    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 11))) == QString::fromLatin1("1 month"));
+    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 12))) == QString::fromLatin1("1 month"));
+    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 10))) == QString::fromLatin1("1 month"));
+    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 11))) == QString::fromLatin1("2 month"));
+    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 10))) == QString::fromLatin1("10 month"));
+    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 11))) == QString::fromLatin1("11 month"));
+    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 12))) == QString::fromLatin1("11 month"));
+    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 10))) == QString::fromLatin1("11 month"));
+    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 11))) == QString::fromLatin1("12 month"));
+    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 12))) == QString::fromLatin1("12 month"));
+    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1972, 12, 11))) == QString::fromLatin1("17 month"));
+    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1973, 7, 11))) == QString::fromLatin1("2 years"));
+    qDebug() << "Tested formatDate and dateDifference without problems.";
+}
 }
 
 QString Utilities::formatAge(DB::CategoryPtr category, const QString &item, DB::ImageInfoPtr info)
 {
-    // test(); // I wish I could get my act together to set up a test suite.
+    testDateDifference(); // I wish I could get my act together to set up a test suite.
     const QDate birthDate = category->birthDate(item);
     const QDate start = info->date().start().date();
     const QDate end = info->date().end().date();
@@ -273,10 +278,10 @@ QString Utilities::formatAge(DB::CategoryPtr category, const QString &item, DB::
         return {};
 
     if (start == end)
-        return QString::fromUtf8(" (%1)").arg(formatDate(dateDiff(birthDate, start)));
+        return QString::fromUtf8(" (%1)").arg(formatDate(dateDifference(birthDate, start)));
     else {
-        DateSpec lower = dateDiff(birthDate, start);
-        DateSpec upper = dateDiff(birthDate, end);
+        DateSpec lower = dateDifference(birthDate, start);
+        DateSpec upper = dateDifference(birthDate, end);
         if (lower == upper)
             return QString::fromUtf8(" (%1)").arg(formatDate(lower));
         else if (lower.second == 'I')
@@ -296,10 +301,10 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
     const QDate endDate = info->date().end().date();
     const QDate today = QDate::currentDate();
     if (startDate == endDate) {
-        return i18n("%1 ago", formatDate(dateDiff(startDate, today)));
+        return i18n("%1 ago", formatDate(dateDifference(startDate, today)));
     } else {
-        const DateSpec minTimeAgo = dateDiff(startDate, today);
-        const DateSpec maxTimeAgo = dateDiff(endDate, today);
+        const DateSpec minTimeAgo = dateDifference(startDate, today);
+        const DateSpec maxTimeAgo = dateDifference(endDate, today);
         if (minTimeAgo.second == 'I') {
             // startDate is in the future
             return QString();

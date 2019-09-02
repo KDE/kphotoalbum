@@ -313,9 +313,9 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
             return i18n("%1 ago", formatDate(minTimeAgo));
         } else {
             if (minTimeAgo.second == maxTimeAgo.second)
-                return i18n("%1-%2 ago", minTimeAgo.first, formatDate(maxTimeAgo));
+                return i18n("%1-%2 ago", maxTimeAgo.first, formatDate(minTimeAgo));
             else
-                return i18n("%1-%2 ago", formatDate(minTimeAgo), formatDate(maxTimeAgo));
+                return i18n("%1-%2 ago", formatDate(maxTimeAgo), formatDate(minTimeAgo));
         }
     }
 }

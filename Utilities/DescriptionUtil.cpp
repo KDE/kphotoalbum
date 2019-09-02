@@ -294,63 +294,23 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
 {
     const QDate startDate = info->date().start().date();
     const QDate endDate = info->date().end().date();
-    if (startDate == endDate) {
-        return i18n("%1 ago", timeAgo(startDate));
-    } else {
-        const QString startTimeAgo = timeAgo(startDate);
-        const QString endTimeAgo = timeAgo(endDate);
-        if (startTimeAgo == endTimeAgo) {
-            return i18n("%1 ago", startTimeAgo);
-        } else {
-            return i18n("%1 to %2 ago", startTimeAgo, endTimeAgo);
-        }
-    }
-}
-
-QString Utilities::timeAgo(const QDate &date)
-{
     const QDate today = QDate::currentDate();
-    const qint64 daysPassed = today.toJulianDay() - date.toJulianDay();
-
-    if (daysPassed <= 0) {
-        // The photo has been taken today or has a date in the future
-        return QString();
-    }
-
-    if (daysPassed < 7) {
-        // Less than a week --> display the days
-        return i18np("1 day", "%1 days", daysPassed);
-    }
-
-    if (daysPassed < 30) {
-        // Less than a month --> display the (approximate) weeks
-        return i18np("1 week", "%1 weeks", qRound64((double)daysPassed / 7.0));
-    }
-
-    if (daysPassed < 365) {
-        // Less than a year --> display the (approximate) months
-        // We take 30.44 days per month, as this is the result of 365.25 / 12
-        const int months = qRound64((double)daysPassed / 30.44);
-        if (months == 12) {
-            return i18np("1 year", "%1 years", 1);
+    if (startDate == endDate) {
+        return i18n("%1 ago", formatDate(dateDiff(startDate, today)));
+    } else {
+        const DateSpec minTimeAgo = dateDiff(startDate, today);
+        const DateSpec maxTimeAgo = dateDiff(endDate, today);
+        if (minTimeAgo.second == 'I') {
+            // startDate is in the future
+            return QString();
+        }
+        if (minTimeAgo == maxTimeAgo) {
+            return i18n("%1 ago", formatDate(minTimeAgo));
         } else {
-            return i18np("1 month", "%1 months", months);
+            if (minTimeAgo.second == maxTimeAgo.second)
+                return i18n("%1-%2 ago", minTimeAgo.first, formatDate(maxTimeAgo));
+            else
+                return i18n("%1-%2 ago", formatDate(minTimeAgo), formatDate(maxTimeAgo));
         }
     }
-
-    if (daysPassed < 1826) {
-        // Less than five years --> display years and months
-        const int years = today.year() - date.year();
-        const int months = today.month() - date.month();
-        if (months == 0) {
-            return i18np("1 year", "%1 years", years);
-        }
-        if (months > 0) {
-            return i18n("%1 and %2", i18np("1 year", "%1 years", years), i18np("1 month", "%1 months", months));
-        }
-        return i18n("%1 and %2", i18np("1 year", "%1 years", years - 1), i18np("1 month", "%1 months", 12 + months));
-    }
-
-    // More than five years --> display only the years
-    return i18np("1 year", "%1 years", today.year() - date.year());
 }

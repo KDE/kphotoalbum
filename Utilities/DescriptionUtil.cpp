@@ -206,7 +206,51 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
 
 namespace
 {
-using DateSpec = QPair<int, char>;
+enum class TimeUnit {
+    /** Denotes a negative age. */
+    Invalid,
+    Days,
+    Months,
+    Years
+};
+class AgeSpec
+{
+public:
+    int age; ///< The number of \c units, e.g. the "5" in "5 days"
+    TimeUnit unit;
+
+    AgeSpec();
+    AgeSpec(int age, TimeUnit unit);
+
+    /**
+     * @brief isValid
+     * @return \c true, if the AgeSpec contains a valid age that is not negative. \c false otherwise.
+     */
+    bool isValid() const;
+    bool operator==(const AgeSpec &other) const;
+};
+
+AgeSpec::AgeSpec()
+    : age(70)
+    , unit(TimeUnit::Invalid)
+{
+}
+
+AgeSpec::AgeSpec(int age, TimeUnit unit)
+    : age(age)
+    , unit(unit)
+{
+}
+
+bool AgeSpec::isValid() const
+{
+    return unit != TimeUnit::Invalid;
+}
+
+bool AgeSpec::operator==(const AgeSpec &other) const
+{
+    return (age == other.age && unit == other.unit);
+}
 
 /**
  * @brief dateDifference computes the difference between two dates with an appropriate unit.
@@ -217,7 +261,7 @@ using DateSpec = QPair<int, char>;
  * @param laterDate
  * @return a DateSpec with appropriate scale.
  */
-DateSpec dateDifference(const QDate &priorDate, const QDate &laterDate)
+AgeSpec dateDifference(const QDate &priorDate, const QDate &laterDate)
 {
     const int priorDay = priorDate.day();
     const int laterDay = laterDate.day();
@@ -229,31 +273,31 @@ DateSpec dateDifference(const QDate &priorDate, const QDate &laterDate)
     // Image before birth
     const int days = priorDate.daysTo(laterDate);
     if (days < 0)
-        return qMakePair(0, 'I');
+        return {};
 
     if (days < 31)
-        return qMakePair(days, 'D');
+        return { days, TimeUnit::Days };
 
     int months = (laterYear - priorYear) * 12;
     months += (laterMonth - priorMonth);
     months += (laterDay >= priorDay) ? 0 : -1;
 
     if (months < 24)
-        return qMakePair(months, 'M');
+        return { months, TimeUnit::Months };
     else
-        return qMakePair(months / 12, 'Y');
+        return { months / 12, TimeUnit::Years };
 }
 
-QString formatDate(const DateSpec &date)
+QString formatDate(const AgeSpec &date)
 {
-    if (date.second == 'I')
+    if (!date.isValid())
         return {};
-    else if (date.second == 'D')
-        return i18np("1 day", "%1 days", date.first);
-    else if (date.second == 'M')
-        return i18np("1 month", "%1 months", date.first);
+    else if (date.unit == TimeUnit::Days)
+        return i18np("1 day", "%1 days", date.age);
+    else if (date.unit == TimeUnit::Months)
+        return i18np("1 month", "%1 months", date.age);
     else
-        return i18np("1 year", "%1 years", date.first);
+        return i18np("1 year", "%1 years", date.age);
 }
 
 void testDateDifference()
@@ -290,15 +334,15 @@ QString Utilities::formatAge(DB::CategoryPtr category, const QString &item, DB::
     if (start == end)
         return QString::fromUtf8(" (%1)").arg(formatDate(dateDifference(birthDate, start)));
     else {
-        DateSpec lower = dateDifference(birthDate, start);
-        DateSpec upper = dateDifference(birthDate, end);
+        const AgeSpec lower = dateDifference(birthDate, start);
+        const AgeSpec upper = dateDifference(birthDate, end);
         if (lower == upper)
             return QString::fromUtf8(" (%1)").arg(formatDate(lower));
-        else if (lower.second == 'I')
+        else if (!lower.isValid())
             return QString::fromUtf8(" (&lt; %1)").arg(formatDate(upper));
         else {
-            if (lower.second == upper.second)
-                return QString::fromUtf8(" (%1-%2)").arg(lower.first).arg(formatDate(upper));
+            if (lower.unit == upper.unit)
+                return QString::fromUtf8(" (%1-%2)").arg(lower.age).arg(formatDate(upper));
             else
                 return QString::fromUtf8(" (%1-%2)").arg(formatDate(lower)).arg(formatDate(upper));
         }
@@ -313,17 +357,17 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
     if (startDate == endDate) {
         return i18n("%1 ago", formatDate(dateDifference(startDate, today)));
     } else {
-        const DateSpec minTimeAgo = dateDifference(startDate, today);
-        const DateSpec maxTimeAgo = dateDifference(endDate, today);
-        if (minTimeAgo.second == 'I') {
+        const AgeSpec minTimeAgo = dateDifference(startDate, today);
+        const AgeSpec maxTimeAgo = dateDifference(endDate, today);
+        if (!minTimeAgo.isValid()) {
             // startDate is in the future
             return QString();
         }
         if (minTimeAgo == maxTimeAgo) {
             return i18n("%1 ago", formatDate(minTimeAgo));
         } else {
-            if (minTimeAgo.second == maxTimeAgo.second)
-                return i18n("%1-%2 ago", maxTimeAgo.first, formatDate(minTimeAgo));
+            if (minTimeAgo.unit == maxTimeAgo.unit)
+                return i18n("%1-%2 ago", maxTimeAgo.age, formatDate(minTimeAgo));
             else
                 return i18n("%1-%2 ago", formatDate(maxTimeAgo), formatDate(minTimeAgo));
         }

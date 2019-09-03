@@ -382,8 +382,8 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
     if (!info->date().isValid())
         return {};
 
-    const AgeSpec minTimeAgo = dateDifference(startDate, today);
-    const AgeSpec maxTimeAgo = dateDifference(endDate, today);
+    const AgeSpec minTimeAgo = dateDifference(endDate, today);
+    const AgeSpec maxTimeAgo = dateDifference(startDate, today);
     if (!minTimeAgo.isValid()) {
         return {};
     }

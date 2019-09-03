@@ -223,6 +223,11 @@ public:
     AgeSpec(int age, TimeUnit unit);
 
     /**
+     * @brief format
+     * @return a localized string describing the time range.
+     */
+    QString format() const;
+    /**
      * @brief isValid
      * @return \c true, if the AgeSpec contains a valid age that is not negative. \c false otherwise.
      */
@@ -240,6 +245,20 @@ AgeSpec::AgeSpec(int age, TimeUnit unit)
     : age(age)
     , unit(unit)
 {
+}
+
+QString AgeSpec::format() const
+{
+    switch (unit) {
+    case TimeUnit::Invalid:
+        return {};
+    case TimeUnit::Days:
+        return i18np("1 day", "%1 days", age);
+    case TimeUnit::Months:
+        return i18np("1 month", "%1 months", age);
+    case TimeUnit::Years:
+        return i18np("1 year", "%1 years", age);
+    }
 }
 
 bool AgeSpec::isValid() const
@@ -288,36 +307,24 @@ AgeSpec dateDifference(const QDate &priorDate, const QDate &laterDate)
         return { months / 12, TimeUnit::Years };
 }
 
-QString formatDate(const AgeSpec &date)
-{
-    if (!date.isValid())
-        return {};
-    else if (date.unit == TimeUnit::Days)
-        return i18np("1 day", "%1 days", date.age);
-    else if (date.unit == TimeUnit::Months)
-        return i18np("1 month", "%1 months", date.age);
-    else
-        return i18np("1 year", "%1 years", date.age);
-}
-
 void testDateDifference()
 {
     using namespace Utilities;
-    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1971, 7, 11))) == QString::fromLatin1("0 days"));
-    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 10))) == QString::fromLatin1("30 days"));
-    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 11))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 12))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 10))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 11))) == QString::fromLatin1("2 month"));
-    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 10))) == QString::fromLatin1("10 month"));
-    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 11))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 12))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 10))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 11))) == QString::fromLatin1("12 month"));
-    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 12))) == QString::fromLatin1("12 month"));
-    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1972, 12, 11))) == QString::fromLatin1("17 month"));
-    Q_ASSERT(formatDate(dateDifference(QDate(1971, 7, 11), QDate(1973, 7, 11))) == QString::fromLatin1("2 years"));
-    qDebug() << "Tested formatDate and dateDifference without problems.";
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 7, 11)).format() == QString::fromLatin1("0 days"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 10)).format() == QString::fromLatin1("30 days"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 11)).format() == QString::fromLatin1("1 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 12)).format() == QString::fromLatin1("1 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 10)).format() == QString::fromLatin1("1 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 11)).format() == QString::fromLatin1("2 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 10)).format() == QString::fromLatin1("10 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 11)).format() == QString::fromLatin1("11 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 12)).format() == QString::fromLatin1("11 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 10)).format() == QString::fromLatin1("11 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 11)).format() == QString::fromLatin1("12 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 12)).format() == QString::fromLatin1("12 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 12, 11)).format() == QString::fromLatin1("17 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1973, 7, 11)).format() == QString::fromLatin1("2 years"));
+    qDebug() << "Tested dateDifference without problems.";
 }
 }
 
@@ -332,19 +339,19 @@ QString Utilities::formatAge(DB::CategoryPtr category, const QString &item, DB::
         return {};
 
     if (start == end)
-        return QString::fromUtf8(" (%1)").arg(formatDate(dateDifference(birthDate, start)));
+        return QString::fromUtf8(" (%1)").arg(dateDifference(birthDate, start).format());
     else {
         const AgeSpec lower = dateDifference(birthDate, start);
         const AgeSpec upper = dateDifference(birthDate, end);
         if (lower == upper)
-            return QString::fromUtf8(" (%1)").arg(formatDate(lower));
+            return QString::fromUtf8(" (%1)").arg(lower.format());
         else if (!lower.isValid())
-            return QString::fromUtf8(" (&lt; %1)").arg(formatDate(upper));
+            return QString::fromUtf8(" (&lt; %1)").arg(upper.format());
         else {
             if (lower.unit == upper.unit)
-                return QString::fromUtf8(" (%1-%2)").arg(lower.age).arg(formatDate(upper));
+                return QString::fromUtf8(" (%1-%2)").arg(lower.age).arg(upper.format());
             else
-                return QString::fromUtf8(" (%1-%2)").arg(formatDate(lower)).arg(formatDate(upper));
+                return QString::fromUtf8(" (%1-%2)").arg(lower.format()).arg(upper.format());
         }
     }
 }
@@ -355,7 +362,7 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
     const QDate endDate = info->date().end().date();
     const QDate today = QDate::currentDate();
     if (startDate == endDate) {
-        return i18n("%1 ago", formatDate(dateDifference(startDate, today)));
+        return i18n("%1 ago", dateDifference(startDate, today).format());
     } else {
         const AgeSpec minTimeAgo = dateDifference(startDate, today);
         const AgeSpec maxTimeAgo = dateDifference(endDate, today);
@@ -364,12 +371,12 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
             return QString();
         }
         if (minTimeAgo == maxTimeAgo) {
-            return i18n("%1 ago", formatDate(minTimeAgo));
+            return i18n("%1 ago", minTimeAgo.format());
         } else {
             if (minTimeAgo.unit == maxTimeAgo.unit)
-                return i18n("%1-%2 ago", maxTimeAgo.age, formatDate(minTimeAgo));
+                return i18n("%1-%2 ago", maxTimeAgo.age, minTimeAgo.format());
             else
-                return i18n("%1-%2 ago", formatDate(maxTimeAgo), formatDate(minTimeAgo));
+                return i18n("%1-%2 ago", maxTimeAgo.format(), minTimeAgo.format());
         }
     }
 }

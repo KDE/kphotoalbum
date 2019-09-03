@@ -74,9 +74,7 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
 
     if (Settings::SettingsData::instance()->showDate()) {
         QString dateString = info->date().toString(Settings::SettingsData::instance()->showTime() ? true : false);
-        if (!dateString.isEmpty()) {
-            dateString.append(i18n(" (%1)", timeAgo(info)));
-        }
+        dateString.append(timeAgo(info));
         AddNonEmptyInfo(i18n("<b>Date: </b> "), dateString, &result);
     }
 
@@ -216,6 +214,15 @@ enum class TimeUnit {
 class AgeSpec
 {
 public:
+    /**
+     * @brief The I18nContext enum determines how an age is displayed.
+     */
+    enum class I18nContext {
+        /// For birthdays, e.g. "Jesper was 30 years in this image".
+        Birthday,
+        /// For ages of events, e.g. "This image was taken 30 years ago".
+        Anniversary
+    };
     int age; ///< The number of \c units, e.g. the "5" in "5 days"
     TimeUnit unit;
 
@@ -224,9 +231,10 @@ public:
 
     /**
      * @brief format
+     * @param context the context where the formatted age is used.
      * @return a localized string describing the time range.
      */
-    QString format() const;
+    QString format(I18nContext context) const;
     /**
      * @brief isValid
      * @return \c true, if the AgeSpec contains a valid age that is not negative. \c false otherwise.
@@ -247,17 +255,26 @@ AgeSpec::AgeSpec(int age, TimeUnit unit)
 {
 }
 
-QString AgeSpec::format() const
+QString AgeSpec::format(I18nContext context) const
 {
     switch (unit) {
     case TimeUnit::Invalid:
         return {};
     case TimeUnit::Days:
-        return i18np("1 day", "%1 days", age);
+        if (context == I18nContext::Birthday)
+            return i18ncp("As in 'The baby is 1 day old'", "1 day", "%1 days", age);
+        else
+            return i18ncp("As in 'This happened 1 day ago'", "1 day ago", "%1 days ago", age);
     case TimeUnit::Months:
-        return i18np("1 month", "%1 months", age);
+        if (context == I18nContext::Birthday)
+            return i18ncp("As in 'The baby is 1 month old'", "1 month", "%1 months", age);
+        else
+            return i18ncp("As in 'This happened 1 month ago'", "1 month ago", "%1 months ago", age);
     case TimeUnit::Years:
-        return i18np("1 year", "%1 years", age);
+        if (context == I18nContext::Birthday)
+            return i18ncp("As in 'The baby is 1 year old'", "1 year", "%1 years", age);
+        else
+            return i18ncp("As in 'This happened 1 year ago'", "1 year ago", "%1 years ago", age);
     }
 }
 
@@ -310,20 +327,20 @@ AgeSpec dateDifference(const QDate &priorDate, const QDate &laterDate)
 void testDateDifference()
 {
     using namespace Utilities;
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 7, 11)).format() == QString::fromLatin1("0 days"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 10)).format() == QString::fromLatin1("30 days"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 11)).format() == QString::fromLatin1("1 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 12)).format() == QString::fromLatin1("1 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 10)).format() == QString::fromLatin1("1 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 11)).format() == QString::fromLatin1("2 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 10)).format() == QString::fromLatin1("10 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 11)).format() == QString::fromLatin1("11 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 12)).format() == QString::fromLatin1("11 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 10)).format() == QString::fromLatin1("11 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 11)).format() == QString::fromLatin1("12 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 12)).format() == QString::fromLatin1("12 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 12, 11)).format() == QString::fromLatin1("17 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1973, 7, 11)).format() == QString::fromLatin1("2 years"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 7, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("0 days"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 10)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("30 days"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("1 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 12)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("1 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 10)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("1 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("2 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 10)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("10 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("11 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 12)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("11 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 10)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("11 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("12 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 12)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("12 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 12, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("17 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1973, 7, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("2 years"));
     qDebug() << "Tested dateDifference without problems.";
 }
 }
@@ -339,19 +356,19 @@ QString Utilities::formatAge(DB::CategoryPtr category, const QString &item, DB::
         return {};
 
     if (start == end)
-        return QString::fromUtf8(" (%1)").arg(dateDifference(birthDate, start).format());
+        return QString::fromUtf8(" (%1)").arg(dateDifference(birthDate, start).format(AgeSpec::I18nContext::Birthday));
     else {
         const AgeSpec lower = dateDifference(birthDate, start);
         const AgeSpec upper = dateDifference(birthDate, end);
         if (lower == upper)
-            return QString::fromUtf8(" (%1)").arg(lower.format());
+            return QString::fromUtf8(" (%1)").arg(lower.format(AgeSpec::I18nContext::Birthday));
         else if (!lower.isValid())
-            return QString::fromUtf8(" (&lt; %1)").arg(upper.format());
+            return QString::fromUtf8(" (&lt; %1)").arg(upper.format(AgeSpec::I18nContext::Birthday));
         else {
             if (lower.unit == upper.unit)
-                return QString::fromUtf8(" (%1-%2)").arg(lower.age).arg(upper.format());
+                return QString::fromUtf8(" (%1-%2)").arg(lower.age).arg(upper.format(AgeSpec::I18nContext::Birthday));
             else
-                return QString::fromUtf8(" (%1-%2)").arg(lower.format()).arg(upper.format());
+                return QString::fromUtf8(" (%1-%2)").arg(lower.format(AgeSpec::I18nContext::Birthday)).arg(upper.format(AgeSpec::I18nContext::Birthday));
         }
     }
 }
@@ -362,7 +379,7 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
     const QDate endDate = info->date().end().date();
     const QDate today = QDate::currentDate();
     if (startDate == endDate) {
-        return i18n("%1 ago", dateDifference(startDate, today).format());
+        return i18n(" (%1)", dateDifference(startDate, today).format(AgeSpec::I18nContext::Anniversary));
     } else {
         const AgeSpec minTimeAgo = dateDifference(startDate, today);
         const AgeSpec maxTimeAgo = dateDifference(endDate, today);
@@ -371,12 +388,12 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
             return QString();
         }
         if (minTimeAgo == maxTimeAgo) {
-            return i18n("%1 ago", minTimeAgo.format());
+            return i18n(" (%1)", minTimeAgo.format(AgeSpec::I18nContext::Anniversary));
         } else {
             if (minTimeAgo.unit == maxTimeAgo.unit)
-                return i18n("%1-%2 ago", maxTimeAgo.age, minTimeAgo.format());
+                return i18n(" (%1-%2)", maxTimeAgo.age, minTimeAgo.format(AgeSpec::I18nContext::Anniversary));
             else
-                return i18n("%1-%2 ago", maxTimeAgo.format(), minTimeAgo.format());
+                return i18n(" (%1-%2)", maxTimeAgo.format(AgeSpec::I18nContext::Anniversary), minTimeAgo.format(AgeSpec::I18nContext::Anniversary));
         }
     }
 }

@@ -324,6 +324,7 @@ AgeSpec dateDifference(const QDate &priorDate, const QDate &laterDate)
         return { months / 12, TimeUnit::Years };
 }
 
+#ifdef TEST_DATEDIFF
 void testDateDifference()
 {
     using namespace Utilities;
@@ -343,11 +344,14 @@ void testDateDifference()
     Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1973, 7, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("2 years"));
     qDebug() << "Tested dateDifference without problems.";
 }
+#endif
 }
 
 QString Utilities::formatAge(DB::CategoryPtr category, const QString &item, DB::ImageInfoPtr info)
 {
+#ifdef TEST_DATEDIFF
     testDateDifference(); // I wish I could get my act together to set up a test suite.
+#endif
     const QDate birthDate = category->birthDate(item);
     const QDate start = info->date().start().date();
     const QDate end = info->date().end().date();

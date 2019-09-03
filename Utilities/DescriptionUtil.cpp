@@ -352,24 +352,20 @@ QString Utilities::formatAge(DB::CategoryPtr category, const QString &item, DB::
     const QDate start = info->date().start().date();
     const QDate end = info->date().end().date();
 
-    if (birthDate.isNull() || start.isNull())
+    if (birthDate.isNull() || !info->date().isValid())
         return {};
 
-    if (start == end)
-        return QString::fromUtf8(" (%1)").arg(dateDifference(birthDate, start).format(AgeSpec::I18nContext::Birthday));
+    const AgeSpec minAge = dateDifference(birthDate, start);
+    const AgeSpec maxAge = dateDifference(birthDate, end);
+    if (minAge == maxAge)
+        return i18n(" (%1)", minAge.format(AgeSpec::I18nContext::Birthday));
+    else if (!minAge.isValid())
+        return i18n(" (&lt; %1)", maxAge.format(AgeSpec::I18nContext::Birthday));
     else {
-        const AgeSpec lower = dateDifference(birthDate, start);
-        const AgeSpec upper = dateDifference(birthDate, end);
-        if (lower == upper)
-            return QString::fromUtf8(" (%1)").arg(lower.format(AgeSpec::I18nContext::Birthday));
-        else if (!lower.isValid())
-            return QString::fromUtf8(" (&lt; %1)").arg(upper.format(AgeSpec::I18nContext::Birthday));
-        else {
-            if (lower.unit == upper.unit)
-                return QString::fromUtf8(" (%1-%2)").arg(lower.age).arg(upper.format(AgeSpec::I18nContext::Birthday));
-            else
-                return QString::fromUtf8(" (%1-%2)").arg(lower.format(AgeSpec::I18nContext::Birthday)).arg(upper.format(AgeSpec::I18nContext::Birthday));
-        }
+        if (minAge.unit == maxAge.unit)
+            return i18nc("E.g. ' (1-2 years)'", " (%1-%2)", minAge.age, maxAge.format(AgeSpec::I18nContext::Birthday));
+        else
+            return i18nc("E.g. ' (7 months-1 year)'", " (%1-%2)", minAge.format(AgeSpec::I18nContext::Birthday), maxAge.format(AgeSpec::I18nContext::Birthday));
     }
 }
 
@@ -378,22 +374,21 @@ QString Utilities::timeAgo(const DB::ImageInfoPtr info)
     const QDate startDate = info->date().start().date();
     const QDate endDate = info->date().end().date();
     const QDate today = QDate::currentDate();
-    if (startDate == endDate) {
-        return i18n(" (%1)", dateDifference(startDate, today).format(AgeSpec::I18nContext::Anniversary));
+
+    if (!info->date().isValid())
+        return {};
+
+    const AgeSpec minTimeAgo = dateDifference(startDate, today);
+    const AgeSpec maxTimeAgo = dateDifference(endDate, today);
+    if (!minTimeAgo.isValid()) {
+        return {};
+    }
+    if (minTimeAgo == maxTimeAgo) {
+        return i18n(" (%1)", minTimeAgo.format(AgeSpec::I18nContext::Anniversary));
     } else {
-        const AgeSpec minTimeAgo = dateDifference(startDate, today);
-        const AgeSpec maxTimeAgo = dateDifference(endDate, today);
-        if (!minTimeAgo.isValid()) {
-            // startDate is in the future
-            return QString();
-        }
-        if (minTimeAgo == maxTimeAgo) {
-            return i18n(" (%1)", minTimeAgo.format(AgeSpec::I18nContext::Anniversary));
-        } else {
-            if (minTimeAgo.unit == maxTimeAgo.unit)
-                return i18n(" (%1-%2)", maxTimeAgo.age, minTimeAgo.format(AgeSpec::I18nContext::Anniversary));
-            else
-                return i18n(" (%1-%2)", maxTimeAgo.format(AgeSpec::I18nContext::Anniversary), minTimeAgo.format(AgeSpec::I18nContext::Anniversary));
-        }
+        if (minTimeAgo.unit == maxTimeAgo.unit)
+            return i18nc("E.g. ' (1-2 years ago)'", " (%1-%2)", minTimeAgo.age, maxTimeAgo.format(AgeSpec::I18nContext::Anniversary));
+        else
+            return i18nc("E.g. '(7 months ago-1 year ago)'", " (%1-%2)", minTimeAgo.format(AgeSpec::I18nContext::Anniversary), maxTimeAgo.format(AgeSpec::I18nContext::Anniversary));
     }
 }

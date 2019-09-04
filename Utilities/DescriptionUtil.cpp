@@ -276,6 +276,8 @@ QString AgeSpec::format(I18nContext context) const
         else
             return i18ncp("As in 'This happened 1 year ago'", "1 year ago", "%1 years ago", age);
     }
+    Q_ASSERT(false);
+    return {};
 }
 
 bool AgeSpec::isValid() const

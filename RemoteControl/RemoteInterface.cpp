@@ -57,10 +57,10 @@ RemoteInterface::RemoteInterface(QObject *parent)
     : QObject(parent)
     , m_connection(new Server(this))
 {
-    connect(m_connection, SIGNAL(gotCommand(RemoteCommand)), this, SLOT(handleCommand(RemoteCommand)));
-    connect(m_connection, SIGNAL(connected()), this, SIGNAL(connected()));
-    connect(m_connection, SIGNAL(disConnected()), this, SIGNAL(disConnected()));
-    connect(m_connection, SIGNAL(stoppedListening()), this, SIGNAL(stoppedListening()));
+    connect(m_connection, &Server::gotCommand, this, &RemoteInterface::handleCommand);
+    connect(m_connection, &Server::connected, this, &RemoteInterface::connected);
+    connect(m_connection, &Server::disConnected, this, &RemoteInterface::disConnected);
+    connect(m_connection, &Server::stoppedListening, this, &RemoteInterface::stoppedListening);
 }
 
 DB::ImageSearchInfo RemoteInterface::convert(const SearchInfo &searchInfo) const

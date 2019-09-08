@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -38,7 +38,7 @@ ImagePreviewWidget::ImagePreviewWidget()
     QVBoxLayout *layout = new QVBoxLayout(this);
     m_preview = new ImagePreview(this);
     layout->addWidget(m_preview, 1);
-    connect(this, SIGNAL(areaVisibilityChanged(bool)), m_preview, SLOT(setAreaCreationEnabled(bool)));
+    connect(this, &ImagePreviewWidget::areaVisibilityChanged, m_preview, &ImagePreview::setAreaCreationEnabled);
 
     m_controlWidget = new QWidget;
     layout->addWidget(m_controlWidget);
@@ -66,8 +66,7 @@ ImagePreviewWidget::ImagePreviewWidget()
     m_toggleFullscreenPreview->setFixedWidth(40);
     m_toggleFullscreenPreview->setToolTip(i18n("Toggle full-screen preview (CTRL+Space)"));
     controlButtonsLayout->addWidget(m_toggleFullscreenPreview);
-    connect(m_toggleFullscreenPreview, &QPushButton::clicked,
-            this, &ImagePreviewWidget::toggleFullscreenPreview);
+    connect(m_toggleFullscreenPreview, &QPushButton::clicked, this, &ImagePreviewWidget::toggleFullscreenPreview);
 
     m_rotateLeft = new QPushButton(this);
     controlButtonsLayout->addWidget(m_rotateLeft);
@@ -105,13 +104,13 @@ ImagePreviewWidget::ImagePreviewWidget()
 
     controlButtonsLayout->addStretch(1);
 
-    connect(m_copyPreviousBut, SIGNAL(clicked()), this, SLOT(slotCopyPrevious()));
-    connect(m_delBut, SIGNAL(clicked()), this, SLOT(slotDeleteImage()));
-    connect(m_nextBut, SIGNAL(clicked()), this, SLOT(slotNext()));
-    connect(m_prevBut, SIGNAL(clicked()), this, SLOT(slotPrev()));
-    connect(m_rotateLeft, SIGNAL(clicked()), this, SLOT(rotateLeft()));
-    connect(m_rotateRight, SIGNAL(clicked()), this, SLOT(rotateRight()));
-    connect(m_toggleAreasBut, SIGNAL(clicked(bool)), this, SLOT(slotShowAreas(bool)));
+    connect(m_copyPreviousBut, &QPushButton::clicked, this, &ImagePreviewWidget::slotCopyPrevious);
+    connect(m_delBut, &QPushButton::clicked, this, &ImagePreviewWidget::slotDeleteImage);
+    connect(m_nextBut, &QPushButton::clicked, this, &ImagePreviewWidget::slotNext);
+    connect(m_prevBut, &QPushButton::clicked, this, &ImagePreviewWidget::slotPrev);
+    connect(m_rotateLeft, &QPushButton::clicked, this, &ImagePreviewWidget::rotateLeft);
+    connect(m_rotateRight, &QPushButton::clicked, this, &ImagePreviewWidget::rotateRight);
+    connect(m_toggleAreasBut, &QPushButton::clicked, this, &ImagePreviewWidget::slotShowAreas);
 
     QHBoxLayout *defaultAreaCategoryLayout = new QHBoxLayout;
     controlLayout->addLayout(defaultAreaCategoryLayout);

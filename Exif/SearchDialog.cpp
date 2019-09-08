@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -96,8 +96,8 @@ Exif::SearchDialog::SearchDialog(QWidget *parent)
     m_fromFocalLength->setSuffix(suffix);
     m_toFocalLength->setSuffix(suffix);
 
-    connect(m_fromFocalLength, SIGNAL(valueChanged(int)), this, SLOT(fromFocalLengthChanged(int)));
-    connect(m_toFocalLength, SIGNAL(valueChanged(int)), this, SLOT(toFocalLengthChanged(int)));
+    connect(m_fromFocalLength, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &SearchDialog::fromFocalLengthChanged);
+    connect(m_toFocalLength, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &SearchDialog::toFocalLengthChanged);
 
     // exposure program and Metring mode
     hlay = new QHBoxLayout;

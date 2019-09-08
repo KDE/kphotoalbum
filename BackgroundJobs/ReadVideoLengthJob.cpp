@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -35,8 +35,8 @@ void BackgroundJobs::ReadVideoLengthJob::execute()
 {
     ImageManager::VideoLengthExtractor *extractor = new ImageManager::VideoLengthExtractor(this);
     extractor->extract(m_fileName);
-    connect(extractor, SIGNAL(lengthFound(int)), this, SLOT(lengthFound(int)));
-    connect(extractor, SIGNAL(unableToDetermineLength()), this, SLOT(unableToDetermineLength()));
+    connect(extractor, &ImageManager::VideoLengthExtractor::lengthFound, this, &ReadVideoLengthJob::lengthFound);
+    connect(extractor, &ImageManager::VideoLengthExtractor::unableToDetermineLength, this, &ReadVideoLengthJob::unableToDetermineLength);
 }
 
 QString BackgroundJobs::ReadVideoLengthJob::title() const

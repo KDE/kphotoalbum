@@ -75,28 +75,28 @@ DateBar::DateBarWidget::DateBarWidget(QWidget *parent)
     m_rightArrow = new QToolButton(this);
     m_rightArrow->setArrowType(Qt::RightArrow);
     m_rightArrow->setAutoRepeat(true);
-    connect(m_rightArrow, SIGNAL(clicked()), this, SLOT(scrollRight()));
+    connect(m_rightArrow, &QToolButton::clicked, this, &DateBarWidget::scrollRight);
 
     m_leftArrow = new QToolButton(this);
     m_leftArrow->setArrowType(Qt::LeftArrow);
     m_leftArrow->setAutoRepeat(true);
-    connect(m_leftArrow, SIGNAL(clicked()), this, SLOT(scrollLeft()));
+    connect(m_leftArrow, &QToolButton::clicked, this, &DateBarWidget::scrollLeft);
 
     m_zoomIn = new QToolButton(this);
     m_zoomIn->setIcon(QIcon::fromTheme(QStringLiteral("zoom-in")));
     m_zoomIn->setToolTip(i18n("Zoom in"));
-    connect(m_zoomIn, SIGNAL(clicked()), this, SLOT(zoomIn()));
-    connect(this, SIGNAL(canZoomIn(bool)), m_zoomIn, SLOT(setEnabled(bool)));
+    connect(m_zoomIn, &QToolButton::clicked, this, &DateBarWidget::zoomIn);
+    connect(this, &DateBarWidget::canZoomIn, m_zoomIn, &QToolButton::setEnabled);
 
     m_zoomOut = new QToolButton(this);
     m_zoomOut->setIcon(QIcon::fromTheme(QStringLiteral("zoom-out")));
     m_zoomOut->setToolTip(i18n("Zoom out"));
-    connect(m_zoomOut, SIGNAL(clicked()), this, SLOT(zoomOut()));
-    connect(this, SIGNAL(canZoomOut(bool)), m_zoomOut, SLOT(setEnabled(bool)));
+    connect(m_zoomOut, &QToolButton::clicked, this, &DateBarWidget::zoomOut);
+    connect(this, &DateBarWidget::canZoomOut, m_zoomOut, &QToolButton::setEnabled);
 
     m_cancelSelection = new QToolButton(this);
     m_cancelSelection->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear")));
-    connect(m_cancelSelection, SIGNAL(clicked()), this, SLOT(clearSelection()));
+    connect(m_cancelSelection, &QToolButton::clicked, this, &DateBarWidget::clearSelection);
     m_cancelSelection->setEnabled(false);
     m_cancelSelection->setToolTip(i18nc("The button clears the selection of a date range in the date bar.", "Clear date selection"));
 
@@ -603,13 +603,13 @@ void DateBar::DateBarWidget::contextMenuEvent(QContextMenuEvent *event)
         action->setCheckable(true);
         m_contextMenu->addAction(action);
         action->setChecked(m_includeFuzzyCounts);
-        connect(action, SIGNAL(toggled(bool)), this, SLOT(setIncludeFuzzyCounts(bool)));
+        connect(action, &QAction::toggled, this, &DateBarWidget::setIncludeFuzzyCounts);
 
         action = new QAction(i18n("Show Resolution Indicator"), this);
         action->setCheckable(true);
         m_contextMenu->addAction(action);
         action->setChecked(m_showResolutionIndicator);
-        connect(action, SIGNAL(toggled(bool)), this, SLOT(setShowResolutionIndicator(bool)));
+        connect(action, &QAction::toggled, this, &DateBarWidget::setShowResolutionIndicator);
     }
 
     m_contextMenu->exec(event->globalPos());

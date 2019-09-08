@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -43,7 +43,7 @@ JobModel::JobModel(QObject *parent)
     // Make the current task blink
     QTimer *timer = new QTimer(this);
     timer->start(500);
-    connect(timer, SIGNAL(timeout()), this, SLOT(heartbeat()));
+    connect(timer, &QTimer::timeout, this, &JobModel::heartbeat);
 }
 
 JobModel::~JobModel()

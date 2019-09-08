@@ -1,4 +1,4 @@
-/* Copyright (C) 2015-2018 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+/* Copyright (C) 2015-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -51,7 +51,7 @@ ThumbnailView::GridResizeSlider::GridResizeSlider(ThumbnailFactory *factory)
     // we have no definitive leave event when using the mousewheel -> use a timeout
     connect(m_timer, &QTimer::timeout, this, &GridResizeSlider::leaveGridResizingMode);
 
-    connect(settings, SIGNAL(actualThumbnailSizeChanged(int)), this, SLOT(setValue(int)));
+    connect(settings, &Settings::SettingsData::actualThumbnailSizeChanged, this, &GridResizeSlider::setValue);
     connect(settings, &Settings::SettingsData::thumbnailSizeChanged, this, &GridResizeSlider::setMaximum);
 
     connect(this, &GridResizeSlider::sliderPressed, this, &GridResizeSlider::enterGridResizingMode);

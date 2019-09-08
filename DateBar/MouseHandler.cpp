@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -56,7 +56,7 @@ DateBar::MouseHandler::MouseHandler(DateBarWidget *dateBar)
     , m_dateBar(dateBar)
 {
     m_autoScrollTimer = new QTimer(this);
-    connect(m_autoScrollTimer, SIGNAL(timeout()), this, SLOT(autoScroll()));
+    connect(m_autoScrollTimer, &QTimer::timeout, this, &SelectionHandler::autoScroll);
 }
 
 void DateBar::MouseHandler::autoScroll()

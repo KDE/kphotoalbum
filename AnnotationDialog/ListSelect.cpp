@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -64,12 +64,11 @@ AnnotationDialog::ListSelect::ListSelect(const DB::CategoryPtr &category, QWidge
     m_treeWidget = new CategoryListView::DragableTreeWidget(m_category, this);
     m_treeWidget->setHeaderLabel(QString::fromLatin1("items"));
     m_treeWidget->header()->hide();
-    connect(m_treeWidget, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(itemSelected(QTreeWidgetItem *)));
+    connect(m_treeWidget, &CategoryListView::DragableTreeWidget::itemClicked, this, &ListSelect::itemSelected);
     m_treeWidget->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(m_treeWidget, SIGNAL(customContextMenuRequested(QPoint)),
-            this, SLOT(showContextMenu(QPoint)));
-    connect(m_treeWidget, SIGNAL(itemsChanged()), this, SLOT(rePopulate()));
-    connect(m_treeWidget, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(updateSelectionCount()));
+    connect(m_treeWidget, &CategoryListView::DragableTreeWidget::customContextMenuRequested, this, &ListSelect::showContextMenu);
+    connect(m_treeWidget, &CategoryListView::DragableTreeWidget::itemsChanged, this, &ListSelect::rePopulate);
+    connect(m_treeWidget, &CategoryListView::DragableTreeWidget::itemClicked, this, &ListSelect::updateSelectionCount);
 
     layout->addWidget(m_treeWidget);
 
@@ -114,9 +113,9 @@ AnnotationDialog::ListSelect::ListSelect(const DB::CategoryPtr &category, QWidge
     m_alphaTreeSort->setChecked(Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree);
     m_alphaFlatSort->setChecked(Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaFlat);
     m_dateSort->setChecked(Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse);
-    connect(m_dateSort, SIGNAL(clicked()), this, SLOT(slotSortDate()));
-    connect(m_alphaTreeSort, SIGNAL(clicked()), this, SLOT(slotSortAlphaTree()));
-    connect(m_alphaFlatSort, SIGNAL(clicked()), this, SLOT(slotSortAlphaFlat()));
+    connect(m_dateSort, &QToolButton::clicked, this, &ListSelect::slotSortDate);
+    connect(m_alphaTreeSort, &QToolButton::clicked, this, &ListSelect::slotSortAlphaTree);
+    connect(m_alphaFlatSort, &QToolButton::clicked, this, &ListSelect::slotSortAlphaFlat);
     connect(m_showSelectedOnly, SIGNAL(clicked()), &ShowSelectionOnlyManager::instance(), SLOT(toggle()));
 
     lay2->addWidget(m_alphaTreeSort);

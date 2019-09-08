@@ -56,9 +56,7 @@ ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
     resetLabelText();
     addWidget(m_label);
 
-    // Note(jzarl): new style connect seems to be confused by overloaded signal in KRatingWidget
-    // -> fall back to old-style
-    connect(m_rating, SIGNAL(ratingChanged(int)), this, SLOT(slotRatingChanged(int)));
+    connect(m_rating, QOverload<int>::of(&KRatingWidget::ratingChanged), this, &FilterWidget::slotRatingChanged);
 }
 
 void ThumbnailView::FilterWidget::setFilter(const DB::ImageSearchInfo &filter)

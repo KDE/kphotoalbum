@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -71,8 +71,8 @@ Exif::ReReadDialog::ReReadDialog(QWidget *parent)
     m_fileList->setSelectionMode(QAbstractItemView::NoSelection);
     boxLayout->addWidget(m_fileList);
 
-    connect(m_date, SIGNAL(toggled(bool)), m_force_date, SLOT(setEnabled(bool)));
-    connect(m_date, SIGNAL(toggled(bool)), this, SLOT(warnAboutDates(bool)));
+    connect(m_date, &QCheckBox::toggled, m_force_date, &QCheckBox::setEnabled);
+    connect(m_date, &QCheckBox::toggled, this, &ReReadDialog::warnAboutDates);
 
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
     buttonBox->button(QDialogButtonBox::Ok)->setShortcut(Qt::CTRL | Qt::Key_Return);

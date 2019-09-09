@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -41,6 +41,13 @@ public:
 
 public slots:
     void updateSearchString(const QString &);
+    /**
+     * @brief setupUI sets up the scroll area for the given charset.
+     * Usually, this slot is only indirectly called through the setFileName function,
+     * but calling it directly can be used to change the display character set without changing the file name.
+     * @param charset
+     */
+    void setupUI(const QString &charset);
 
 private:
     void keyPressEvent(QKeyEvent *) override;
@@ -55,7 +62,6 @@ private:
     QPair<QLabel *, QLabel *> infoLabelPair(const QString &title, const QString &value, const QColor &color);
 
 private slots:
-    void setupUI(const QString &charset);
     void updateWidgetSize();
 
 private:

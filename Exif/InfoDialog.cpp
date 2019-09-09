@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -91,8 +91,8 @@ Exif::InfoDialog::InfoDialog(const DB::FileName &fileName, QWidget *parent)
     hlay->addWidget(iptcLabel);
     hlay->addWidget(m_iptcCharset);
 
-    connect(m_searchBox, SIGNAL(textChanged(QString)), m_grid, SLOT(updateSearchString(QString)));
-    connect(m_iptcCharset, SIGNAL(activated(QString)), m_grid, SLOT(setupUI(QString)));
+    connect(m_searchBox, &QLineEdit::textChanged, m_grid, &Grid::updateSearchString);
+    connect(m_iptcCharset, static_cast<void (QComboBox::*)(const QString &)>(&QComboBox::activated), m_grid, &Grid::setupUI);
     setImage(fileName);
 
     vlay->addWidget(buttonBox);

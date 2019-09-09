@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -46,7 +46,7 @@ protected:
     {
         QPainter painter(this);
         painter.fillRect(event->rect(), QColor(Qt::white));
-    };
+    }
 };
 
 void Exif::Grid::setupUI(const QString &charset)

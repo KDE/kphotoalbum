@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -39,9 +39,9 @@ void XMLDB::XMLCategoryCollection::addCategory(DB::CategoryPtr category)
     if (category->isSpecialCategory()) {
         m_specialCategories[category->type()] = category;
     }
-    connect(category.data(), SIGNAL(changed()), this, SIGNAL(categoryCollectionChanged()));
-    connect(category.data(), SIGNAL(itemRemoved(QString)), this, SLOT(itemRemoved(QString)));
-    connect(category.data(), SIGNAL(itemRenamed(QString, QString)), this, SLOT(itemRenamed(QString, QString)));
+    connect(category.data(), &DB::Category::changed, this, &XMLCategoryCollection::categoryCollectionChanged);
+    connect(category.data(), &DB::Category::itemRemoved, this, &XMLCategoryCollection::slotItemRemoved);
+    connect(category.data(), &DB::Category::itemRenamed, this, &XMLCategoryCollection::slotItemRenamed);
     emit categoryCollectionChanged();
 }
 

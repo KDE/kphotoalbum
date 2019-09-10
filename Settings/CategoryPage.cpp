@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -187,7 +187,7 @@ Settings::CategoryPage::CategoryPage(QWidget *parent)
     m_untaggedBox = new UntaggedGroupBox;
     mainLayout->addWidget(m_untaggedBox);
 
-    m_currentCategory = 0;
+    m_currentCategory = nullptr;
 
     // This is needed to fix some odd behavior if the "New" button is double clicked
     m_editorOpen = false;
@@ -210,7 +210,7 @@ void Settings::CategoryPage::editSelectedCategory()
 
 void Settings::CategoryPage::editCategory(QListWidgetItem *i)
 {
-    if (i == 0) {
+    if (i == nullptr) {
         return;
     }
 
@@ -427,7 +427,7 @@ void Settings::CategoryPage::deleteCurrentCategory()
     m_untaggedBox->categoryDeleted(m_currentCategory->text());
     m_deletedCategories.append(m_currentCategory);
     m_categoriesListWidget->takeItem(m_categoriesListWidget->row(m_currentCategory));
-    m_currentCategory = 0;
+    m_currentCategory = nullptr;
     m_positionable->setChecked(false);
     m_icon->setIcon(QIcon());
     m_thumbnailSizeInCategory->setValue(64);

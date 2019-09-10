@@ -90,14 +90,14 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget *parent)
 
     m_memberMap = DB::ImageDB::instance()->memberMap();
 
-    connect(DB::ImageDB::instance()->categoryCollection(), SIGNAL(itemRemoved(DB::Category *, QString)),
-            &m_memberMap, SLOT(deleteItem(DB::Category *, QString)));
+    connect(DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::itemRemoved,
+            &m_memberMap, &DB::MemberMap::deleteItem);
 
-    connect(DB::ImageDB::instance()->categoryCollection(), SIGNAL(itemRenamed(DB::Category *, QString, QString)),
-            &m_memberMap, SLOT(renameItem(DB::Category *, QString, QString)));
+    connect(DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::itemRenamed,
+            &m_memberMap, &DB::MemberMap::renameItem);
 
-    connect(DB::ImageDB::instance()->categoryCollection(), SIGNAL(categoryRemoved(QString)),
-            &m_memberMap, SLOT(deleteCategory(QString)));
+    connect(DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::categoryRemoved,
+            &m_memberMap, &DB::MemberMap::deleteCategory);
 
     m_dataChanged = false;
 }

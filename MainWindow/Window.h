@@ -151,7 +151,9 @@ protected slots:
     void slotReReadExifInfo();
     void slotAutoStackImages();
     void slotSearch();
-    void slotView(bool reuse = true, bool slideShow = false, bool random = false);
+    // FIXME(jzarl): improve this function signature:
+    void slotView(bool reuse, bool slideShow = false, bool random = false);
+    void slotView();
     void slotViewNewWindow();
     void slotSortByDateAndTime();
     void slotSortAllByDateAndTime();

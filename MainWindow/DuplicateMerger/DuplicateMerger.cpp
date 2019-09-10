@@ -1,4 +1,4 @@
-/* Copyright 2012-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -91,10 +91,10 @@ DuplicateMerger::DuplicateMerger(QWidget *parent)
     m_okButton = buttonBox->addButton(QDialogButtonBox::Ok);
     m_cancelButton = buttonBox->addButton(QDialogButtonBox::Cancel);
 
-    connect(m_selectAllButton, SIGNAL(clicked()), this, SLOT(selectAll()));
-    connect(m_selectNoneButton, SIGNAL(clicked()), this, SLOT(selectNone()));
-    connect(m_okButton, SIGNAL(clicked()), this, SLOT(go()));
-    connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(m_selectAllButton, &QPushButton::clicked, this, QOverload<bool>::of(&DuplicateMerger::selectAll));
+    connect(m_selectNoneButton, &QPushButton::clicked, this, &DuplicateMerger::selectNone);
+    connect(m_okButton, &QPushButton::clicked, this, &DuplicateMerger::go);
+    connect(m_cancelButton, &QPushButton::clicked, this, &DuplicateMerger::reject);
 
     topLayout->addWidget(buttonBox);
 
@@ -177,7 +177,7 @@ void DuplicateMerger::findDuplicates()
 void DuplicateMerger::addRow(const DB::MD5 &md5)
 {
     DuplicateMatch *match = new DuplicateMatch(m_matches[md5]);
-    connect(match, SIGNAL(selectionChanged()), this, SLOT(updateSelectionCount()));
+    connect(match, &DuplicateMatch::selectionChanged, this, &DuplicateMerger::updateSelectionCount);
     m_scrollLayout->addWidget(match);
     m_selectors.append(match);
 }

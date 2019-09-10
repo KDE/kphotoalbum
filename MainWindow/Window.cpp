@@ -203,27 +203,36 @@ MainWindow::Window::Window(QWidget *parent)
     connect(m_autoSaveTimer, &QTimer::timeout, this, &Window::slotAutoSave);
     startAutoSaveTimer();
 
-    connect(m_browser, &Browser::BrowserWidget::showingOverview, this, &Window::showBrowser);
-    connect(m_browser, SIGNAL(pathChanged(Browser::BreadcrumbList)), m_statusBar->mp_pathIndicator, SLOT(setBreadcrumbs(Browser::BreadcrumbList)));
-    connect(m_statusBar->mp_pathIndicator, SIGNAL(widenToBreadcrumb(Browser::Breadcrumb)), m_browser, SLOT(widenToBreadcrumb(Browser::Breadcrumb)));
-    connect(m_browser, SIGNAL(pathChanged(Browser::BreadcrumbList)), this, SLOT(updateDateBar(Browser::BreadcrumbList)));
+    connect(m_browser, &Browser::BrowserWidget::showingOverview,
+            this, &Window::showBrowser);
+    connect(m_browser, &Browser::BrowserWidget::pathChanged,
+            m_statusBar->mp_pathIndicator, &BreadcrumbViewer::setBreadcrumbs);
+    connect(m_statusBar->mp_pathIndicator, &BreadcrumbViewer::widenToBreadcrumb,
+            m_browser, &Browser::BrowserWidget::widenToBreadcrumb);
+    connect(m_browser, &Browser::BrowserWidget::pathChanged,
+            this, QOverload<const Browser::BreadcrumbList &>::of(&Window::updateDateBar));
 
-    connect(m_dateBar, &DateBar::DateBarWidget::dateSelected, m_thumbnailView, &ThumbnailView::ThumbnailFacade::gotoDate);
+    connect(m_dateBar, &DateBar::DateBarWidget::dateSelected,
+            m_thumbnailView, &ThumbnailView::ThumbnailFacade::gotoDate);
     connect(m_dateBar, &DateBar::DateBarWidget::toolTipInfo, this, &Window::showDateBarTip);
-    connect(Settings::SettingsData::instance(), SIGNAL(histogramSizeChanged(QSize)), m_dateBar, SLOT(setHistogramBarSize(QSize)));
-    connect(Settings::SettingsData::instance(), SIGNAL(actualThumbnailSizeChanged(int)), this, SLOT(slotThumbnailSizeChanged()));
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::histogramSizeChanged,
+            m_dateBar, &DateBar::DateBarWidget::setHistogramBarSize);
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::actualThumbnailSizeChanged,
+            this, &Window::slotThumbnailSizeChanged);
 
     connect(m_dateBar, &DateBar::DateBarWidget::dateRangeChange, this, &Window::setDateRange);
     connect(m_dateBar, &DateBar::DateBarWidget::dateRangeCleared, this, &Window::clearDateRange);
-    connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::currentDateChanged, m_dateBar, &DateBar::DateBarWidget::setDate);
+    connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::currentDateChanged,
+            m_dateBar, &DateBar::DateBarWidget::setDate);
 
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::showImage, this, &Window::showImage);
-    connect(m_thumbnailView, SIGNAL(showSelection()), this, SLOT(slotView()));
+    connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::showSelection, this, QOverload<>::of(&Window::slotView));
 
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::fileIdUnderCursorChanged, this, &Window::slotSetFileName);
-    connect(DB::ImageDB::instance(), SIGNAL(totalChanged(uint)), this, SLOT(updateDateBar()));
-    connect(DB::ImageDB::instance()->categoryCollection(), SIGNAL(categoryCollectionChanged()), this, SLOT(slotOptionGroupChanged()));
-    connect(m_browser, SIGNAL(imageCount(uint)), m_statusBar->mp_partial, SLOT(showBrowserMatches(uint)));
+    connect(DB::ImageDB::instance(), &DB::ImageDB::totalChanged, this, QOverload<>::of(&Window::updateDateBar));
+    connect(DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::categoryCollectionChanged,
+            this, &Window::slotOptionGroupChanged);
+    connect(m_browser, &Browser::BrowserWidget::imageCount, m_statusBar->mp_partial, &ImageCounter::showBrowserMatches);
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::selectionChanged, this, &Window::updateContextMenuFromSelectionSize);
 
     checkIfVideoThumbnailerIsInstalled();
@@ -338,7 +347,8 @@ void MainWindow::Window::slotOptions()
 {
     if (!m_settingsDialog) {
         m_settingsDialog = new Settings::SettingsDialog(this);
-        connect(m_settingsDialog, SIGNAL(changed()), this, SLOT(reloadThumbnails()));
+        // lambda expression because because reloadThumbnails has default parameters:
+        connect(m_settingsDialog, &Settings::SettingsDialog::changed, this, [=]() { this->reloadThumbnails(); });
         connect(m_settingsDialog, &Settings::SettingsDialog::changed, this, &Window::startAutoSaveTimer);
         connect(m_settingsDialog, &Settings::SettingsDialog::changed, m_browser, &Browser::BrowserWidget::reload);
     }
@@ -627,6 +637,11 @@ DB::FileNameList MainWindow::Window::selectedOnDisk()
 void MainWindow::Window::slotView(bool reuse, bool slideShow, bool random)
 {
     launchViewer(selected(ThumbnailView::NoExpandCollapsedStacks), reuse, slideShow, random);
+}
+
+void MainWindow::Window::slotView()
+{
+    slotView(true, false, false);
 }
 
 void MainWindow::Window::launchViewer(const DB::FileNameList &inputMediaList, bool reuse, bool slideShow, bool random)
@@ -1427,8 +1442,8 @@ MainWindow::Window *MainWindow::Window::theMainWindow()
 void MainWindow::Window::slotConfigureToolbars()
 {
     QPointer<KEditToolBar> dlg = new KEditToolBar(guiFactory());
-    connect(dlg, SIGNAL(newToolbarConfig()),
-            SLOT(slotNewToolbarConfig()));
+    connect(dlg, &KEditToolBar::newToolbarConfig,
+            this, &Window::slotNewToolbarConfig);
     dlg->exec();
     delete dlg;
 }
@@ -1826,10 +1841,7 @@ void MainWindow::Window::setupStatusBar()
     m_statusBar = new MainWindow::StatusBar;
     setStatusBar(m_statusBar);
     setLocked(Settings::SettingsData::instance()->locked(), true, false);
-    connect(m_statusBar, &StatusBar::thumbnailSettingsRequested, [this]() {
-        this->slotOptions();
-        m_settingsDialog->activatePage(Settings::SettingsPage::ThumbnailsPage);
-    });
+    connect(m_statusBar, &StatusBar::thumbnailSettingsRequested, [this]() { this->slotOptions(); m_settingsDialog->activatePage(Settings::SettingsPage::ThumbnailsPage); });
 }
 
 void MainWindow::Window::slotRecreateExifDB()
@@ -1883,8 +1895,7 @@ void MainWindow::Window::createSearchBar()
     auto filterWidget = m_thumbnailView->filterWidget();
     addToolBar(filterWidget);
     filterWidget->setObjectName(QString::fromUtf8("filterBar"));
-    connect(m_browser, &Browser::BrowserWidget::viewChanged,
-            ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);
+    connect(m_browser, &Browser::BrowserWidget::viewChanged, ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);
     connect(m_browser, &Browser::BrowserWidget::isFilterable, filterWidget, &ThumbnailView::FilterWidget::setEnabled);
     QAction *toggleFilterToolbar = actionCollection()->action(QString::fromLatin1("toggleFilterToolbar"));
     Q_ASSERT(toggleFilterToolbar);
@@ -1897,7 +1908,8 @@ void MainWindow::Window::executeStartupActions()
     new ImageManager::ThumbnailBuilder(m_statusBar, this);
     if (!Settings::SettingsData::instance()->incrementalThumbnails())
         ImageManager::ThumbnailBuilder::instance()->buildMissing();
-    connect(Settings::SettingsData::instance(), SIGNAL(thumbnailSizeChanged(int)), this, SLOT(slotBuildThumbnailsIfWanted()));
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::thumbnailSizeChanged,
+            this, &Window::slotBuildThumbnailsIfWanted);
 
     if (!FeatureDialog::hasVideoThumbnailer()) {
         BackgroundTaskManager::JobManager::instance()->addJob(

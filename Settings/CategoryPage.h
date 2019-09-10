@@ -86,8 +86,6 @@ private slots:
     void deleteCurrentCategory();
     void renameCurrentCategory();
     void categoryNameChanged(QListWidgetItem *item);
-    void categoryDoubleClicked(QListWidgetItem *);
-    void listWidgetEditEnd(QWidget *, QAbstractItemDelegate::EndEditHint);
     void saveDbNow();
 
 private: // Functions
@@ -111,7 +109,6 @@ private: // Variables
     QList<CategoryItem *> m_deletedCategories;
     UntaggedGroupBox *m_untaggedBox;
     QString m_categoryNameBeforeEdit;
-    bool m_editorOpen;
     QLabel *m_dbNotSavedLabel;
     QPushButton *m_saveDbNowButton;
     bool m_categoryNamesChanged;

@@ -105,7 +105,6 @@ Settings::SettingsDialog::SettingsDialog(QWidget *parent)
     connect(this, &SettingsDialog::currentPageChanged, m_tagGroupsPage, &Settings::TagGroupsPage::slotPageChange);
     connect(this, &SettingsDialog::currentPageChanged, m_birthdayPage, &Settings::BirthdayPage::pageChange);
 
-    // slot is protected -> use old style connect:
     connect(this, &SettingsDialog::rejected, m_categoryPage, &Settings::CategoryPage::resetCategoryLabel);
 }
 

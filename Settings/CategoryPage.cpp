@@ -69,11 +69,6 @@ Settings::CategoryPage::CategoryPage(QWidget *parent)
     connect(m_categoriesListWidget, &QListWidget::itemSelectionChanged, this, &CategoryPage::editSelectedCategory);
     connect(m_categoriesListWidget, &QListWidget::itemChanged, this, &CategoryPage::categoryNameChanged);
 
-    // This is needed to fix some odd behavior if the "New" button is double clicked
-    connect(m_categoriesListWidget, &QListWidget::itemDoubleClicked, this, &CategoryPage::categoryDoubleClicked);
-    connect(m_categoriesListWidget->itemDelegate(), SIGNAL(closeEditor(QWidget *, QAbstractItemDelegate::EndEditHint)),
-            this, SLOT(listWidgetEditEnd(QWidget *, QAbstractItemDelegate::EndEditHint)));
-
     categorySideLayout->addWidget(m_categoriesListWidget);
 
     // New, Delete, and buttons
@@ -188,9 +183,6 @@ Settings::CategoryPage::CategoryPage(QWidget *parent)
     mainLayout->addWidget(m_untaggedBox);
 
     m_currentCategory = nullptr;
-
-    // This is needed to fix some odd behavior if the "New" button is double clicked
-    m_editorOpen = false;
 
     m_categoryNamesChanged = false;
 }
@@ -377,13 +369,6 @@ void Settings::CategoryPage::preferredViewChanged(int i)
 
 void Settings::CategoryPage::newCategory()
 {
-    // This is needed to fix some odd behavior if the "New" button is double clicked
-    if (m_editorOpen) {
-        return;
-    } else {
-        m_editorOpen = true;
-    }
-
     // Here starts the real function
 
     QString newCategory = i18n("New category");
@@ -440,9 +425,6 @@ void Settings::CategoryPage::deleteCurrentCategory()
 
 void Settings::CategoryPage::renameCurrentCategory()
 {
-    // This is needed to fix some odd behavior if the "New" button is double clicked
-    m_editorOpen = true;
-
     m_categoriesListWidget->editItem(m_currentCategory);
 }
 
@@ -531,18 +513,6 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData *opt)
     m_categoriesListWidget->blockSignals(false);
 
     m_untaggedBox->loadSettings(opt);
-}
-
-void Settings::CategoryPage::categoryDoubleClicked(QListWidgetItem *)
-{
-    // This is needed to fix some odd behavior if the "New" button is double clicked
-    m_editorOpen = true;
-}
-
-void Settings::CategoryPage::listWidgetEditEnd(QWidget *, QAbstractItemDelegate::EndEditHint)
-{
-    // This is needed to fix some odd behavior if the "New" button is double clicked
-    m_editorOpen = false;
 }
 
 void Settings::CategoryPage::resetCategoryLabel()

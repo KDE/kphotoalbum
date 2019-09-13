@@ -1505,6 +1505,7 @@ void MainWindow::Window::setupPluginMenu()
     connect(menu, &QMenu::aboutToShow, this, &Window::loadKipiPlugins);
     m_hasLoadedKipiPlugins = false;
 #else
+    setPluginMenuState("kipiplugins", {});
 #ifndef KF5Purpose_FOUND
     menu->setEnabled(false);
 #endif
@@ -1547,17 +1548,9 @@ void MainWindow::Window::loadKipiPlugins()
 void MainWindow::Window::plug()
 {
 #ifdef HASKIPI
-    unplugActionList(QString::fromLatin1("import_actions"));
-    unplugActionList(QString::fromLatin1("export_actions"));
-    unplugActionList(QString::fromLatin1("image_actions"));
-    unplugActionList(QString::fromLatin1("tool_actions"));
-    unplugActionList(QString::fromLatin1("batch_actions"));
+    unplugActionList(QString::fromLatin1("kipi_actions"));
 
-    QList<QAction *> importActions;
-    QList<QAction *> exportActions;
-    QList<QAction *> imageActions;
-    QList<QAction *> toolsActions;
-    QList<QAction *> batchActions;
+    QList<QAction *> kipiActions;
 
     KIPI::PluginLoader::PluginList list = m_pluginLoader->pluginList();
     Q_FOREACH (const KIPI::PluginLoader::Info *pluginInfo, list) {
@@ -1569,42 +1562,16 @@ void MainWindow::Window::plug()
 
         QList<QAction *> actions = plugin->actions();
         Q_FOREACH (QAction *action, actions) {
-            KIPI::Category category = plugin->category(action);
-            if (category == KIPI::ImagesPlugin || category == KIPI::CollectionsPlugin)
-                imageActions.append(action);
-
-            else if (category == KIPI::ImportPlugin)
-                importActions.append(action);
-
-            else if (category == KIPI::ExportPlugin)
-                exportActions.append(action);
-
-            else if (category == KIPI::ToolsPlugin)
-                toolsActions.append(action);
-
-            else if (category == KIPI::BatchPlugin)
-                batchActions.append(action);
-
-            else {
-                qCWarning(MainWindowLog) << "Unknown category\n";
-            }
+            kipiActions.append(action);
         }
         KConfigGroup group = KSharedConfig::openConfig()->group(QString::fromLatin1("Shortcuts"));
         plugin->actionCollection()->importGlobalShortcuts(&group);
     }
 
-    setPluginMenuState("importplugin", importActions);
-    setPluginMenuState("exportplugin", exportActions);
-    setPluginMenuState("imagesplugins", imageActions);
-    setPluginMenuState("batch_plugins", batchActions);
-    setPluginMenuState("tool_plugins", toolsActions);
+    setPluginMenuState("kipiplugins", kipiActions);
 
     // For this to work I need to pass false as second arg for createGUI
-    plugActionList(QString::fromLatin1("import_actions"), importActions);
-    plugActionList(QString::fromLatin1("export_actions"), exportActions);
-    plugActionList(QString::fromLatin1("image_actions"), imageActions);
-    plugActionList(QString::fromLatin1("tool_actions"), toolsActions);
-    plugActionList(QString::fromLatin1("batch_actions"), batchActions);
+    plugActionList(QString::fromLatin1("kipi_actions"), kipiActions);
 #endif
 }
 
@@ -1647,7 +1614,7 @@ void MainWindow::Window::slotSelectionChanged(int count)
 #ifdef HASKIPI
     m_pluginInterface->slotSelectionChanged(count != 0);
 #else
-    Q_UNUSED(count);
+    Q_UNUSED(count)
 #endif
 }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kphotoalbum" version="45">
+<kpartgui name="kphotoalbum" version="46">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -74,25 +74,9 @@
     </Menu>
     <Menu name="plugins">
       <text>Plugins</text>
-      <Menu name="exportplugin">
-        <text>Export</text>
-        <ActionList name="export_actions"/>
-      </Menu>
-      <Menu name="importplugin">
-        <text>Import</text>
-        <ActionList name="import_actions"/>
-      </Menu>
-      <Menu name="imagesplugins">
-      <text>Images</text>
-         <ActionList name="image_actions"/>
-      </Menu>
-      <Menu name="batch_plugins">
-        <text>Batch Plugins</text>
-        <ActionList name="batch_actions"/>
-      </Menu>
-      <Menu name="tool_plugins">
-        <text>Tools</text>
-        <ActionList name="tool_actions"/>
+      <Menu name="kipiplugins">
+        <text>Legacy Plugins (KIPI)</text>
+        <ActionList name="kipi_actions"/>
       </Menu>
    </Menu>
    <Menu name="settings">

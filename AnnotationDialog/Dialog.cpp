@@ -129,7 +129,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     m_descriptionDock = createDock(i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, m_description);
     shortCutManager.addDock(m_descriptionDock, m_description);
 
-    connect(m_description, SIGNAL(pageUpDownPressed(QKeyEvent *)), this, SLOT(descriptionPageUpDownPressed(QKeyEvent *)));
+    connect(m_description, &DescriptionEdit::pageUpDownPressed, this, &Dialog::descriptionPageUpDownPressed);
 
 #ifdef HAVE_KGEOMAP
     // -------------------------------------------------- Map representation
@@ -150,7 +150,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     m_cancelMapLoadingButton = new QPushButton(i18n("Cancel"));
     mapLoadingProgressLayout->addWidget(m_cancelMapLoadingButton);
     m_cancelMapLoadingButton->hide();
-    connect(m_cancelMapLoadingButton, SIGNAL(clicked()), this, SLOT(setCancelMapLoading()));
+    connect(m_cancelMapLoadingButton, &QPushButton::clicked, this, &Dialog::setCancelMapLoading);
 
     m_annotationMapContainer->setObjectName(i18n("Map"));
     m_mapDock = createDock(
@@ -159,7 +159,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
         Qt::LeftDockWidgetArea,
         m_annotationMapContainer);
     shortCutManager.addDock(m_mapDock, m_annotationMapContainer);
-    connect(m_mapDock, SIGNAL(visibilityChanged(bool)), this, SLOT(annotationMapVisibilityChanged(bool)));
+    connect(m_mapDock, &QDockWidget::visibilityChanged, this, &Dialog::annotationMapVisibilityChanged);
     m_mapDock->setWhatsThis(i18nc("@info:whatsthis", "The map widget allows you to view the location of images if GPS coordinates are found in the Exif information."));
 #endif
 
@@ -189,9 +189,9 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
         sel->setPositionable((*categoryIt)->positionable());
 
         if (sel->positionable()) {
-            connect(sel, SIGNAL(positionableTagSelected(QString, QString)), this, SLOT(positionableTagSelected(QString, QString)));
-            connect(sel, SIGNAL(positionableTagDeselected(QString, QString)), this, SLOT(positionableTagDeselected(QString, QString)));
-            connect(sel, SIGNAL(positionableTagRenamed(QString, QString, QString)), this, SLOT(positionableTagRenamed(QString, QString, QString)));
+            connect(sel, &ListSelect::positionableTagSelected, this, &Dialog::positionableTagSelected);
+            connect(sel, &ListSelect::positionableTagDeselected, this, &Dialog::positionableTagDeselected);
+            connect(sel, &ListSelect::positionableTagRenamed, this, &Dialog::positionableTagRenamed);
 
             connect(m_preview->preview(), SIGNAL(proposedTagSelected(QString, QString)), sel, SLOT(ensureTagIsSelected(QString, QString)));
 
@@ -203,8 +203,8 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     // -------------------------------------------------- The buttons.
     // don't use default buttons (Ok, Cancel):
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::NoButton);
-    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &Dialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &Dialog::reject);
     QHBoxLayout *lay1 = new QHBoxLayout;
     layout->addLayout(lay1);
 
@@ -240,18 +240,18 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     shortCutManager.addTaken(m_continueLaterBut->text());
     shortCutManager.addTaken(cancelBut->text());
 
-    connect(m_revertBut, SIGNAL(clicked()), this, SLOT(slotRevert()));
-    connect(m_okBut, SIGNAL(clicked()), this, SLOT(doneTagging()));
-    connect(m_continueLaterBut, SIGNAL(clicked()), this, SLOT(continueLater()));
-    connect(cancelBut, SIGNAL(clicked()), this, SLOT(reject()));
-    connect(m_clearBut, SIGNAL(clicked()), this, SLOT(slotClear()));
-    connect(optionsBut, SIGNAL(clicked()), this, SLOT(slotOptions()));
+    connect(m_revertBut, &QPushButton::clicked, this, &Dialog::slotRevert);
+    connect(m_okBut, &QPushButton::clicked, this, &Dialog::doneTagging);
+    connect(m_continueLaterBut, &QPushButton::clicked, this, &Dialog::continueLater);
+    connect(cancelBut, &QPushButton::clicked, this, &Dialog::reject);
+    connect(m_clearBut, &QPushButton::clicked, this, &Dialog::slotClear);
+    connect(optionsBut, &QPushButton::clicked, this, &Dialog::slotOptions);
 
-    connect(m_preview, SIGNAL(imageRotated(int)), this, SLOT(rotate(int)));
-    connect(m_preview, SIGNAL(indexChanged(int)), this, SLOT(slotIndexChanged(int)));
-    connect(m_preview, SIGNAL(imageDeleted(DB::ImageInfo)), this, SLOT(slotDeleteImage()));
-    connect(m_preview, SIGNAL(copyPrevClicked()), this, SLOT(slotCopyPrevious()));
-    connect(m_preview, SIGNAL(areaVisibilityChanged(bool)), this, SLOT(slotShowAreas(bool)));
+    connect(m_preview, &ImagePreviewWidget::imageRotated, this, &Dialog::rotate);
+    connect(m_preview, &ImagePreviewWidget::indexChanged, this, &Dialog::slotIndexChanged);
+    connect(m_preview, &ImagePreviewWidget::imageDeleted, this, &Dialog::slotDeleteImage);
+    connect(m_preview, &ImagePreviewWidget::copyPrevClicked, this, &Dialog::slotCopyPrevious);
+    connect(m_preview, &ImagePreviewWidget::areaVisibilityChanged, this, &Dialog::slotShowAreas);
     connect(m_preview->preview(), SIGNAL(areaCreated(ResizableFrame *)), this, SLOT(slotNewArea(ResizableFrame *)));
 
     // Disable so no button accept return (which would break with the line edits)
@@ -317,7 +317,7 @@ QWidget *AnnotationDialog::Dialog::createDateWidget(ShortCutManager &shortCutMan
 
     m_startDate = new ::AnnotationDialog::DateEdit(true);
     lay4->addWidget(m_startDate, 1);
-    connect(m_startDate, SIGNAL(dateChanged(DB::ImageDate)), this, SLOT(slotStartDateChanged(DB::ImageDate)));
+    connect(m_startDate, QOverload<const DB::ImageDate &>::of(&DateEdit::dateChanged), this, &Dialog::slotStartDateChanged);
     shortCutManager.addLabel(label);
     label->setBuddy(m_startDate);
 
@@ -346,7 +346,7 @@ QWidget *AnnotationDialog::Dialog::createDateWidget(ShortCutManager &shortCutMan
     m_isFuzzyDate->setToolTip(m_isFuzzyDate->whatsThis());
     lay4->addWidget(m_isFuzzyDate);
     lay4->addStretch(1);
-    connect(m_isFuzzyDate, SIGNAL(stateChanged(int)), this, SLOT(slotSetFuzzyDate()));
+    connect(m_isFuzzyDate, &QCheckBox::stateChanged, this, &Dialog::slotSetFuzzyDate);
 
     QHBoxLayout *lay8 = new QHBoxLayout;
     lay2->addLayout(lay8);
@@ -379,7 +379,7 @@ QWidget *AnnotationDialog::Dialog::createDateWidget(ShortCutManager &shortCutMan
     m_rating = new KRatingWidget;
     m_rating->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     lay9->addWidget(m_rating, 0, Qt::AlignCenter);
-    connect(m_rating, SIGNAL(ratingChanged(uint)), this, SLOT(slotRatingChanged(uint)));
+    connect(m_rating, static_cast<void (KRatingWidget::*)(uint)>(&KRatingWidget::ratingChanged), this, &Dialog::slotRatingChanged);
 
     m_ratingSearchLabel = new QLabel(i18n("Rating search mode:"));
     lay9->addWidget(m_ratingSearchLabel);

@@ -71,6 +71,7 @@ namespace AnnotationDialog
 {
 class ImagePreview;
 class DateEdit;
+class DescriptionEdit;
 class ShortCutManager;
 class ResizableFrame;
 
@@ -196,7 +197,7 @@ private:
     QPushButton *m_clearBut;
     QPushButton *m_okBut;
     QPushButton *m_continueLaterBut;
-    KTextEdit *m_description;
+    DescriptionEdit *m_description;
     QTimeEdit *m_time;
     QLabel *m_timeLabel;
     QCheckBox *m_isFuzzyDate;

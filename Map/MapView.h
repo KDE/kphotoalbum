@@ -53,6 +53,29 @@ class QPushButton;
 namespace Map
 {
 
+/**
+ * UsageType: determines whether the widget is used as a standalone widget
+ * or within another widget (e.g. the AnnotationDialog).
+ * @see Viewer::ViewerWidget::UsageType
+ */
+enum class UsageType {
+    InlineMapView,
+    MapViewWindow
+};
+
+/**
+ * MapStatus: determines the visibility and text of the status label and the visibility of the
+ * map, depending on the availability of coordinates of the image(s) that are displayed.
+ */
+enum class MapStatus {
+    Loading,
+    ImageHasCoordinates,
+    ImageHasNoCoordinates,
+    NoImagesHaveNoCoordinates,
+    SomeImagesHaveNoCoordinates,
+    SearchCoordinates
+};
+
 class MapView
     : public QWidget,
       public Marble::LayerInterface
@@ -60,30 +83,7 @@ class MapView
     Q_OBJECT
 
 public:
-    /**
-     * UsageType: determines whether the widget is used as a standalone widget
-     * or within another widget (e.g. the AnnotationDialog).
-     * @see Viewer::ViewerWidget::UsageType
-     */
-    enum UsageType {
-        InlineMapView,
-        MapViewWindow
-    };
-
-    /**
-     * MapStatus: determines the visibility and text of the status label and the visibility of the
-     * map, depending on the availability of coordinates of the image(s) that are displayed.
-     */
-    enum MapStatus {
-        Loading,
-        ImageHasCoordinates,
-        ImageHasNoCoordinates,
-        NoImagesHaveNoCoordinates,
-        SomeImagesHaveNoCoordinates,
-        SearchCoordinates
-    };
-
-    explicit MapView(QWidget *parent = nullptr, UsageType type = InlineMapView);
+    explicit MapView(QWidget *parent = nullptr, UsageType type = UsageType::InlineMapView);
     ~MapView() override = default;
 
     /**

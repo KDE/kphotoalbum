@@ -1637,9 +1637,9 @@ void AnnotationDialog::Dialog::updateMapForCurrentImage()
     // we can use the coordinates of the original images here, because the are never changed by the annotation dialog
     if (m_origList[m_current]->coordinates().hasCoordinates()) {
         m_annotationMap->setCenter(m_origList[m_current]);
-        m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasCoordinates);
+        m_annotationMap->displayStatus(Map::MapStatus::ImageHasCoordinates);
     } else {
-        m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasNoCoordinates);
+        m_annotationMap->displayStatus(Map::MapStatus::ImageHasNoCoordinates);
     }
 }
 
@@ -1662,7 +1662,7 @@ void AnnotationDialog::Dialog::populateMap()
     if (m_mapIsPopulated) {
         return;
     }
-    m_annotationMap->displayStatus(Map::MapView::MapStatus::Loading);
+    m_annotationMap->displayStatus(Map::MapStatus::Loading);
     m_cancelMapLoading = false;
     m_mapLoadingProgress->setMaximum(m_origList.count());
     m_mapLoadingProgress->show();
@@ -1706,19 +1706,19 @@ void AnnotationDialog::Dialog::mapLoadingFinished(bool mapHasImages, bool allIma
     m_cancelMapLoadingButton->hide();
 
     if (m_setup == InputSingleImageConfigMode) {
-        m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasNoCoordinates);
+        m_annotationMap->displayStatus(Map::MapStatus::ImageHasNoCoordinates);
     } else {
         if (m_setup == SearchMode) {
-            m_annotationMap->displayStatus(Map::MapView::MapStatus::SearchCoordinates);
+            m_annotationMap->displayStatus(Map::MapStatus::SearchCoordinates);
         } else {
             if (mapHasImages) {
                 if (!allImagesHaveCoordinates) {
-                    m_annotationMap->displayStatus(Map::MapView::MapStatus::SomeImagesHaveNoCoordinates);
+                    m_annotationMap->displayStatus(Map::MapStatus::SomeImagesHaveNoCoordinates);
                 } else {
-                    m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasCoordinates);
+                    m_annotationMap->displayStatus(Map::MapStatus::ImageHasCoordinates);
                 }
             } else {
-                m_annotationMap->displayStatus(Map::MapView::MapStatus::NoImagesHaveNoCoordinates);
+                m_annotationMap->displayStatus(Map::MapStatus::NoImagesHaveNoCoordinates);
             }
         }
     }

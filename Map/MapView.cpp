@@ -56,7 +56,7 @@ const QVector<QString> WANTED_FLOATERS { QStringLiteral("Compass"),
 Map::MapView::MapView(QWidget *parent, UsageType type)
     : QWidget(parent)
 {
-    if (type == MapViewWindow) {
+    if (type == UsageType::MapViewWindow) {
         setWindowFlags(Qt::Window);
         setAttribute(Qt::WA_DeleteOnClose);
     }

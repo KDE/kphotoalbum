@@ -32,7 +32,7 @@ Browser::PositionBrowserWidget::PositionBrowserWidget(QWidget *parent)
     : QWidget(parent)
 {
     m_mapView = new Map::MapView(this);
-    m_mapView->displayStatus(Map::MapView::MapStatus::Loading);
+    m_mapView->displayStatus(Map::MapStatus::Loading);
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(m_mapView);
     connect(m_mapView, &Map::MapView::signalRegionSelectionChanged,
@@ -45,7 +45,7 @@ Browser::PositionBrowserWidget::~PositionBrowserWidget()
 
 void Browser::PositionBrowserWidget::showImages(const DB::ImageSearchInfo &searchInfo)
 {
-    m_mapView->displayStatus(Map::MapView::MapStatus::Loading);
+    m_mapView->displayStatus(Map::MapStatus::Loading);
     m_mapView->clear();
     DB::FileNameList images = DB::ImageDB::instance()->search(searchInfo);
     for (DB::FileNameList::const_iterator imageIter = images.constBegin(); imageIter < images.constEnd(); ++imageIter) {
@@ -54,7 +54,7 @@ void Browser::PositionBrowserWidget::showImages(const DB::ImageSearchInfo &searc
             m_mapView->addImage(image);
         }
     }
-    m_mapView->displayStatus(Map::MapView::MapStatus::SearchCoordinates);
+    m_mapView->displayStatus(Map::MapStatus::SearchCoordinates);
     m_mapView->zoomToMarkers();
 }
 

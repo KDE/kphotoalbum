@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -318,7 +318,7 @@ void Viewer::InfoBox::contextMenuEvent(QContextMenuEvent *event)
 void Viewer::InfoBox::launchMapView()
 {
     if (!m_map) {
-        m_map = new Map::MapView(m_viewer, Map::MapView::MapViewWindow);
+        m_map = new Map::MapView(m_viewer, Map::UsageType::MapViewWindow);
     }
 
     m_map->addImage(m_viewer->currentInfo());
@@ -335,12 +335,12 @@ void Viewer::InfoBox::updateMapForCurrentImage(DB::FileName)
     }
 
     if (m_viewer->currentInfo()->coordinates().hasCoordinates()) {
-        m_map->displayStatus(Map::MapView::MapStatus::ImageHasCoordinates);
+        m_map->displayStatus(Map::MapStatus::ImageHasCoordinates);
         m_map->clear();
         m_map->addImage(m_viewer->currentInfo());
         m_map->setCenter(m_viewer->currentInfo());
     } else {
-        m_map->displayStatus(Map::MapView::MapStatus::ImageHasNoCoordinates);
+        m_map->displayStatus(Map::MapStatus::ImageHasNoCoordinates);
     }
 }
 #endif

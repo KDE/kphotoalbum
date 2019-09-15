@@ -20,8 +20,10 @@
 
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
+#include <MainWindow/Logging.h>
 
 #include <KLocalizedString>
+#include <QElapsedTimer>
 #include <QProgressBar>
 #include <QVBoxLayout>
 #include <qdom.h>
@@ -45,17 +47,22 @@ Browser::PositionBrowserWidget::~PositionBrowserWidget()
 
 void Browser::PositionBrowserWidget::showImages(const DB::ImageSearchInfo &searchInfo)
 {
+    QElapsedTimer timer;
+    timer.start();
     m_mapView->displayStatus(Map::MapStatus::Loading);
     m_mapView->clear();
     DB::FileNameList images = DB::ImageDB::instance()->search(searchInfo);
+    int count = 0;
     for (DB::FileNameList::const_iterator imageIter = images.constBegin(); imageIter < images.constEnd(); ++imageIter) {
         DB::ImageInfoPtr image = imageIter->info();
         if (image->coordinates().hasCoordinates()) {
+            count++;
             m_mapView->addImage(image);
         }
     }
     m_mapView->displayStatus(Map::MapStatus::SearchCoordinates);
     m_mapView->zoomToMarkers();
+    qCDebug(TimingLog) << "Browser::PositionBrowserWidget::showImages(): added" << count << "images in" << timer.elapsed() << "ms.";
 }
 
 void Browser::PositionBrowserWidget::clearImages()

@@ -161,7 +161,6 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
         m_annotationMapContainer);
     shortCutManager.addDock(m_mapDock, m_annotationMapContainer);
     connect(m_mapDock, SIGNAL(visibilityChanged(bool)), this, SLOT(annotationMapVisibilityChanged(bool)));
-    m_mapDock->setWhatsThis(i18nc("@info:whatsthis", "The map widget allows you to view the location of images if GPS coordinates are found in the Exif information."));
 #endif
 
     // -------------------------------------------------- Categories

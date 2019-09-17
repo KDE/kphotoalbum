@@ -62,7 +62,7 @@ void Browser::GeoPositionPage::deactivate()
 
 void Browser::GeoPositionPage::slotNewRegionSelected(Map::GeoCoordinates::Pair coordinates)
 {
-    const QString name = i18n("Geo position");
+    const QString name = i18n("Geo Position");
     DB::ImageSearchInfo info = searchInfo();
 
     info.setRegionSelection(coordinates);

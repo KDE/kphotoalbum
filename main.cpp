@@ -34,8 +34,8 @@
 #include <MainWindow/Options.h>
 #include <MainWindow/SplashScreen.h>
 #include <MainWindow/Window.h>
-#include <RemoteControl/RemoteInterface.h>
 #include <Settings/SettingsData.h>
+#include <RemoteControl/RemoteInterface.h>
 
 void migrateKDE4Config()
 {
@@ -90,6 +90,7 @@ int main(int argc, char **argv)
     // sort alphabetically:
     aboutData.addCredit(i18n("Marco Caldarelli"), i18n("Patch for making it possible to reread Exif info using a nice dialog."), QStringLiteral("caldarel@yahoo.it"));
     aboutData.addCredit(i18n("Jean-Michel FAYARD"), i18n("(.) Patch with directory info made available through the browser. (.) Patch for adding a check box for \"and/or\" searches in the search page."), QStringLiteral("jmfayard@gmail.com"));
+    aboutData.addCredit(i18n("Matthias Füssel"), i18n("Geo Position page in browser and various bug fixes"), QStringLiteral("matthias.fuessel@gmx.net"));
     aboutData.addCredit(i18n("Wes Hardaker"), i18n("Some very useful features to improve workflow"), QStringLiteral("kpa@capturedonearth.com"));
     aboutData.addCredit(i18n("Reimar Imhof"), i18n("Patch to sort items in option listboxes"), QStringLiteral("Reimar.Imhof@netCologne.de"));
     aboutData.addCredit(i18n("Christoph Moseler"), i18n("Numerous patches for lots of bugs plus patches for a few new features"), QStringLiteral("forums@moseler.net"));

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -32,26 +32,26 @@
 Browser::GeoPositionPage::GeoPositionPage(const DB::ImageSearchInfo &info, BrowserWidget *browser)
     : BrowserPage(info, browser)
 {
-    active = false;
+    m_active = false;
 }
 
 void Browser::GeoPositionPage::activate()
 {
-    if (!active) {
+    if (!m_active) {
         MainWindow::Window::theMainWindow()->showPositionBrowser();
         Browser::PositionBrowserWidget *positionBrowserWidget = MainWindow::Window::theMainWindow()->positionBrowserWidget();
         positionBrowserWidget->showImages(searchInfo());
 
         connect(positionBrowserWidget, &Browser::PositionBrowserWidget::signalNewRegionSelected,
                 this, &GeoPositionPage::slotNewRegionSelected);
-        active = true;
+        m_active = true;
     }
 }
 
 void Browser::GeoPositionPage::deactivate()
 {
-    if (active) {
-        active = false;
+    if (m_active) {
+        m_active = false;
         Browser::PositionBrowserWidget *positionBrowserWidget = MainWindow::Window::theMainWindow()->positionBrowserWidget();
         positionBrowserWidget->clearImages();
 

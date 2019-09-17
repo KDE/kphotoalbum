@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -52,7 +52,7 @@ public slots:
     void slotNewRegionSelected(Map::GeoCoordinates::Pair coordinates);
 
 private:
-    bool active;
+    bool m_active;
 };
 
 }

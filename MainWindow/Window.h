@@ -236,9 +236,6 @@ protected:
     void executeStartupActions();
     void checkIfVideoThumbnailerIsInstalled();
     bool anyVideosSelected() const;
-#ifdef HAVE_MARBLE
-    Browser::PositionBrowserWidget *createPositionBrowser();
-#endif
 
 private:
     static Window *s_instance;

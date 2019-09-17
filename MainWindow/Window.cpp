@@ -1945,17 +1945,11 @@ void MainWindow::Window::showPositionBrowser()
 
 Browser::PositionBrowserWidget *MainWindow::Window::positionBrowserWidget()
 {
-    if (m_positionBrowser == 0) {
-        m_positionBrowser = createPositionBrowser();
+    if (!m_positionBrowser) {
+        m_positionBrowser = new Browser::PositionBrowserWidget(m_stack);
+        m_stack->addWidget(m_positionBrowser);
     }
     return m_positionBrowser;
-}
-
-Browser::PositionBrowserWidget *MainWindow::Window::createPositionBrowser()
-{
-    Browser::PositionBrowserWidget *widget = new Browser::PositionBrowserWidget(m_stack);
-    m_stack->addWidget(widget);
-    return widget;
 }
 #endif
 

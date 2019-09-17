@@ -55,7 +55,7 @@ void Browser::GeoPositionPage::deactivate()
         Browser::PositionBrowserWidget *positionBrowserWidget = MainWindow::Window::theMainWindow()->positionBrowserWidget();
         positionBrowserWidget->clearImages();
 
-        disconnect(positionBrowserWidget, 0, this, 0);
+        positionBrowserWidget->disconnect(this);
     }
 }
 

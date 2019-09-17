@@ -65,7 +65,6 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
 
     m_statusLabel = new QLabel;
     m_statusLabel->setAlignment(Qt::AlignCenter);
-    m_statusLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_statusLabel->hide();
     layout->addWidget(m_statusLabel);
 
@@ -254,6 +253,7 @@ void Map::MapView::displayStatus(MapStatus status)
     switch (status) {
     case MapStatus::Loading:
         m_statusLabel->setText(i18n("<i>Loading coordinates from the images ...</i>"));
+        m_statusLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         m_statusLabel->show();
         m_mapWidget->hide();
         m_regionSelected = false;
@@ -262,6 +262,7 @@ void Map::MapView::displayStatus(MapStatus status)
     case MapStatus::ImageHasCoordinates:
         m_statusLabel->hide();
         m_regionSelected = false;
+        m_statusLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         m_mapWidget->show();
         m_setLastCenterButton->show();
         m_setLastCenterButton->setEnabled(true);
@@ -269,6 +270,7 @@ void Map::MapView::displayStatus(MapStatus status)
     case MapStatus::ImageHasNoCoordinates:
         m_statusLabel->setText(i18n("<i>This image does not contain geographic coordinates.</i>"));
         m_statusLabel->show();
+        m_statusLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         m_mapWidget->hide();
         m_setLastCenterButton->show();
         m_setLastCenterButton->setEnabled(false);
@@ -276,6 +278,7 @@ void Map::MapView::displayStatus(MapStatus status)
     case MapStatus::SomeImagesHaveNoCoordinates:
         m_statusLabel->setText(i18n("<i>Some of the selected images do not contain geographic "
                                     "coordinates.</i>"));
+        m_statusLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         m_statusLabel->show();
         m_regionSelected = false;
         m_mapWidget->show();
@@ -284,6 +287,7 @@ void Map::MapView::displayStatus(MapStatus status)
         break;
     case MapStatus::SearchCoordinates:
         m_statusLabel->setText(i18n("<i>Search for geographic coordinates.</i>"));
+        m_statusLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         m_statusLabel->show();
         m_mapWidget->show();
         m_mapWidget->centerOn(0.0, 0.0);
@@ -292,6 +296,7 @@ void Map::MapView::displayStatus(MapStatus status)
     case MapStatus::NoImagesHaveNoCoordinates:
         m_statusLabel->setText(i18n("<i>None of the selected images contain geographic "
                                     "coordinates.</i>"));
+        m_statusLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         m_statusLabel->show();
         m_mapWidget->hide();
         m_setLastCenterButton->show();

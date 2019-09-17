@@ -33,13 +33,15 @@
 #include <marble/GeoDataLatLonBox.h>
 #include <marble/LayerInterface.h>
 
-// Marble classes
+namespace DB
+{
+class ImageSearchInfo;
+}
 namespace Marble
 {
 class MarbleWidget;
 }
 
-// Qt classes
 class QLabel;
 class QPushButton;
 
@@ -88,6 +90,12 @@ public:
      * Add an image to the map.
      */
     void addImage(DB::ImageInfoPtr image);
+
+    /**
+     * @brief addImages adds images matching a search info to the map.
+     * @param searchInfo
+     */
+    void addImages(const DB::ImageSearchInfo &searchInfo);
 
     /**
      * Sets the map's zoom so that all images on the map are visible.

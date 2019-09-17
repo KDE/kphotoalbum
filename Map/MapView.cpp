@@ -19,29 +19,29 @@
 
 // Local includes
 #include "MapView.h"
-#include "ImageManager/ThumbnailCache.h"
 #include "Logging.h"
 
-// Marble includes
-#include <marble/GeoPainter.h>
-#include <marble/MarbleWidget.h>
-#include <marble/RenderPlugin.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageSearchInfo.h>
+#include <ImageManager/ThumbnailCache.h>
+#include <MainWindow/Logging.h>
 
-// Qt includes
-#include <QAction>
-#include <QDebug>
-#include <QLabel>
-#include <QLoggingCategory>
-#include <QPixmap>
-#include <QPushButton>
-#include <QVBoxLayout>
-
-// KDE includes
 #include <KConfigGroup>
 #include <KIconLoader>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KSharedConfig>
+#include <QAction>
+#include <QDebug>
+#include <QElapsedTimer>
+#include <QLabel>
+#include <QLoggingCategory>
+#include <QPixmap>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <marble/GeoPainter.h>
+#include <marble/MarbleWidget.h>
+#include <marble/RenderPlugin.h>
 
 namespace
 {
@@ -196,6 +196,27 @@ void Map::MapView::addImage(DB::ImageInfoPtr image)
             m_markersBox.setSouth(image->coordinates().lat(), Marble::GeoDataCoordinates::Degree);
         }
     }
+}
+
+void Map::MapView::addImages(const DB::ImageSearchInfo &searchInfo)
+{
+    QElapsedTimer timer;
+    timer.start();
+    displayStatus(MapStatus::Loading);
+    DB::FileNameList images = DB::ImageDB::instance()->search(searchInfo);
+    int count = 0;
+    int total = 0;
+    for (const auto &imageInfo : images) {
+        DB::ImageInfoPtr image = imageInfo.info();
+        total++;
+        if (image->coordinates().hasCoordinates()) {
+            count++;
+            addImage(image);
+        }
+    }
+    displayStatus(MapStatus::SearchCoordinates);
+    qCDebug(TimingLog) << "MapView::addImages(): added" << count << "of" << total << "images in"
+                       << timer.elapsed() << "ms.";
 }
 
 void Map::MapView::zoomToMarkers()

@@ -137,7 +137,7 @@ public:
                 const QString &renderPos, Marble::GeoSceneLayer *) override;
 
 Q_SIGNALS:
-    void signalRegionSelectionChanged();
+    void newRegionSelected(Map::GeoCoordinates::Pair coordinates);
     void displayStatusChanged(MapStatus);
 
 public slots:

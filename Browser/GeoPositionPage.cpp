@@ -26,6 +26,7 @@
 #include <DB/ImageDB.h>
 #include <MainWindow/Window.h>
 #include <Map/GeoCoordinates.h>
+#include <Map/MapView.h>
 
 #include <KLocalizedString>
 
@@ -39,11 +40,12 @@ void Browser::GeoPositionPage::activate()
 {
     if (!m_active) {
         MainWindow::Window::theMainWindow()->showPositionBrowser();
-        Browser::PositionBrowserWidget *positionBrowserWidget = MainWindow::Window::theMainWindow()->positionBrowserWidget();
-        positionBrowserWidget->showImages(searchInfo());
+        auto map = MainWindow::Window::theMainWindow()->positionBrowserWidget();
+        map->clear();
+        map->addImages(searchInfo());
+        map->zoomToMarkers();
 
-        connect(positionBrowserWidget, &Browser::PositionBrowserWidget::signalNewRegionSelected,
-                this, &GeoPositionPage::slotNewRegionSelected);
+        connect(map, &Map::MapView::newRegionSelected, this, &GeoPositionPage::slotNewRegionSelected);
         m_active = true;
     }
 }
@@ -52,10 +54,9 @@ void Browser::GeoPositionPage::deactivate()
 {
     if (m_active) {
         m_active = false;
-        Browser::PositionBrowserWidget *positionBrowserWidget = MainWindow::Window::theMainWindow()->positionBrowserWidget();
-        positionBrowserWidget->clearImages();
-
-        positionBrowserWidget->disconnect(this);
+        auto map = MainWindow::Window::theMainWindow()->positionBrowserWidget();
+        map->clear();
+        map->disconnect(this);
     }
 }
 

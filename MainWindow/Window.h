@@ -18,15 +18,12 @@
 
 #ifndef MAINWINDOW_WINDOW_H
 #define MAINWINDOW_WINDOW_H
-#include <config-kpa-marble.h>
-#ifdef HAVE_MARBLE
-#include <Browser/PositionBrowserWidget.h>
-#endif
 #include <DB/Category.h>
 #include <DB/FileNameList.h>
 #include <DB/ImageSearchInfo.h>
 #include <DB/UIDelegate.h>
 #include <ThumbnailView/enums.h>
+#include <config-kpa-marble.h>
 
 #include <KXmlGuiWindow>
 #include <QList>
@@ -52,6 +49,12 @@ class KToggleAction;
 namespace KIPI
 {
 class PluginLoader;
+}
+#endif
+#ifdef HAVE_MARBLE
+namespace Map
+{
+class MapView;
 }
 #endif
 
@@ -114,7 +117,7 @@ public:
     bool dbIsDirty() const;
 #ifdef HAVE_MARBLE
     void showPositionBrowser();
-    Browser::PositionBrowserWidget *positionBrowserWidget();
+    Map::MapView *positionBrowserWidget();
 #endif
 
     // implement UI delegate interface
@@ -295,7 +298,7 @@ private:
     MainWindow::StatusBar *m_statusBar;
     QString m_lastTarget;
 #ifdef HAVE_MARBLE
-    Browser::PositionBrowserWidget *m_positionBrowser;
+    Map::MapView *m_positionBrowser;
 #endif
 };
 

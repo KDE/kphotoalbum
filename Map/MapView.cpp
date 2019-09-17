@@ -310,7 +310,7 @@ void Map::MapView::updateRegionSelection(const Marble::GeoDataLatLonBox &selecti
 {
     m_regionSelected = true;
     m_regionSelection = selection;
-    emit signalRegionSelectionChanged();
+    emit newRegionSelected(getRegionSelection());
 }
 
 #ifndef MARBLE_HAS_regionSelected_NEW

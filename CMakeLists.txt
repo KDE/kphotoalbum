@@ -448,7 +448,6 @@ set(libMap_SRCS)
 if(Marble_FOUND)
     set(libMap_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/Browser/GeoPositionPage.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Browser/PositionBrowserWidget.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapView.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/Logging.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/GeoCoordinates.cpp

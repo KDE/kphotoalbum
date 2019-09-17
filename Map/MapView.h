@@ -20,31 +20,24 @@
 #ifndef MAPVIEW_H
 #define MAPVIEW_H
 
-// Local includes
 #include "config-kpa-marble.h"
-#include "DB/ImageInfo.h"
-#include "DB/ImageInfoPtr.h"
 #include "GeoCoordinates.h"
 
-// Marble includes
-#include <marble/GeoDataCoordinates.h>
-#include <marble/GeoDataLatLonBox.h>
-#include <marble/LayerInterface.h>
+#include <DB/ImageInfo.h>
+#include <DB/ImageInfoPtr.h>
 
-// Qt includes
 #include <QList>
 #include <QPixmap>
 #include <QWidget>
+#include <marble/GeoDataCoordinates.h>
+#include <marble/GeoDataLatLonBox.h>
+#include <marble/LayerInterface.h>
 
 // Marble classes
 namespace Marble
 {
 class MarbleWidget;
 }
-// Local includes
-#include "GeoCoordinates.h"
-#include <DB/ImageInfo.h>
-#include <DB/ImageInfoPtr.h>
 
 // Qt classes
 class QLabel;

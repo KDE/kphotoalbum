@@ -432,7 +432,7 @@ void NewImageFinder::searchForNewFiles(const DB::FileNameSet &loadedFiles, QStri
 
     FastDir dir(directory);
     const QStringList dirList = dir.entryList();
-    ImageManager::RAWImageDecoder dec;
+    ImageManager::RAWImageDecoder rawDec;
     QStringList excluded;
     excluded << Settings::SettingsData::instance()->excludeDirectories();
     excluded = excluded.at(0).split(QString::fromLatin1(","));
@@ -445,7 +445,10 @@ void NewImageFinder::searchForNewFiles(const DB::FileNameSet &loadedFiles, QStri
 
     for (QStringList::const_iterator it = dirList.constBegin(); it != dirList.constEnd(); ++it) {
         const DB::FileName file = DB::FileName::fromAbsolutePath(directory + QString::fromLatin1("/") + *it);
-        if ((*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..") || excluded.contains((*it)) || loadedFiles.contains(file) || dec._skipThisFile(loadedFiles, file) || (*it) == QString::fromLatin1("CategoryImages"))
+        if ((*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..")
+            || excluded.contains((*it)) || loadedFiles.contains(file)
+            || rawDec.fileCanBeSkipped(loadedFiles, file)
+            || (*it) == QString::fromLatin1("CategoryImages"))
             continue;
 
         QFileInfo fi(file.absolute());

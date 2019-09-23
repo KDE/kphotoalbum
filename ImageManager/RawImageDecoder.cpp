@@ -51,7 +51,10 @@ bool RAWImageDecoder::_decode(QImage *img, const DB::FileName &imageFile, QSize 
 
     // FIXME: The preview data for Canon's image is always returned in its non-rotated form by libkdcraw, ie. KPA should do the rotation.
     // FIXME: This will happen later on.
-    if (Settings::SettingsData::instance()->useRawThumbnail() && ((dim > 0 && img->width() >= dim && img->height() >= dim) || (img->width() >= Settings::SettingsData::instance()->useRawThumbnailSize().width() && img->height() >= Settings::SettingsData::instance()->useRawThumbnailSize().height())))
+    if (Settings::SettingsData::instance()->useRawThumbnail()
+        && ((dim > 0 && img->width() >= dim && img->height() >= dim)
+            || (img->width() >= Settings::SettingsData::instance()->useRawThumbnailSize().width()
+                && img->height() >= Settings::SettingsData::instance()->useRawThumbnailSize().height())))
         return true;
 
     KDcrawIface::DcrawInfoContainer metadata;

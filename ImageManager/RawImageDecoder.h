@@ -44,7 +44,7 @@ public:
     static QStringList rawExtensions();
 
 protected:
-    bool _decode(QImage *img, const DB::FileName &imageFile, QSize *fullSize, int dim = -1) override;
+    bool _decode(QImage *img, ImageRequest *request, QSize *fullSize, int dim = -1) override;
     bool _mightDecode(const DB::FileName &imageFile) override;
 };
 }

@@ -17,6 +17,7 @@
 */
 #include "RawImageDecoder.h"
 
+#include "ImageRequest.h"
 #include "Logging.h"
 
 #include <DB/FileName.h>
@@ -35,12 +36,13 @@
 namespace ImageManager
 {
 
-bool RAWImageDecoder::_decode(QImage *img, const DB::FileName &imageFile, QSize *fullSize, int dim)
+bool RAWImageDecoder::_decode(QImage *img, ImageRequest *request, QSize *fullSize, int dim)
 {
     /* width and height seem to be only hints, ignore */
     Q_UNUSED(dim)
 
 #ifdef HAVE_KDCRAW
+    const DB::FileName &imageFile = request->fileSystemFileName();
     QByteArray previewData;
     if (!KDcrawIface::KDcraw::loadEmbeddedPreview(previewData, imageFile.absolute()))
         return false;
@@ -48,11 +50,6 @@ bool RAWImageDecoder::_decode(QImage *img, const DB::FileName &imageFile, QSize 
     // Faster than allowing loadRawPreview to do the decode itself
     if (!Utilities::loadJPEG(img, previewData, fullSize, dim))
         return false;
-
-    // FIXME: The preview data for Canon's image is always returned in its non-rotated form by libkdcraw, ie. KPA should do the rotation.
-    // FIXME: This will happen later on.
-    // The preview data for raw images is always returned in its non-rotated form by libkdcraw,
-    // but the raw image itself is returned in its rotated form.
 
     qCDebug(ImageManagerLog) << "Got embedded preview for raw file" << imageFile.relative();
     qCDebug(ImageManagerLog) << "  Preview size:" << img->width() << "x" << img->height();
@@ -104,6 +101,11 @@ bool RAWImageDecoder::_decode(QImage *img, const DB::FileName &imageFile, QSize 
                 data[3] = 0xff; // alpha
             }
         }
+        // The preview data for raw images is always returned in its non-rotated form by libkdcraw,
+        // but the raw image itself is returned in its rotated form.
+        // For decoded raw images, we therefore need to tell the ImageLoaderThread not to rotate the image a second time.
+        request->setImageIsPreRotated(true);
+
     } else
         qCDebug(ImageManagerLog) << "Embedded raw thumbnail is sufficient...";
 

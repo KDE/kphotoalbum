@@ -106,7 +106,7 @@ QImage ImageManager::ImageLoaderThread::loadImage(ImageRequest *request, bool &o
         // At first, we have to give our RAW decoders a try. If we allowed
         // QImage's load() method, it'd for example load a tiny thumbnail from
         // NEF files, which is not what we want.
-        ok = ImageDecoder::decode(&img, request->fileSystemFileName(), &fullSize, dim);
+        ok = ImageDecoder::decode(&img, request, &fullSize, dim);
         if (ok)
             request->setFullSize(img.size());
     }
@@ -128,7 +128,7 @@ int ImageManager::ImageLoaderThread::calcLoadSize(ImageRequest *request)
 
 QImage ImageManager::ImageLoaderThread::scaleAndRotate(ImageRequest *request, QImage img)
 {
-    if (request->angle() != 0) {
+    if (request->angle() != 0 && !request->imageIsPreRotated()) {
         QMatrix matrix;
         matrix.rotate(request->angle());
         img = img.transformed(matrix);

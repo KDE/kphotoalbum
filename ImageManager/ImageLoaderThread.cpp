@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -20,14 +20,16 @@
 
 #include "AsyncLoader.h"
 #include "ImageDecoder.h"
+#include "Logging.h"
 #include "RawImageDecoder.h"
 #include "ThumbnailCache.h"
 
 #include <Utilities/FastJpeg.h>
 #include <Utilities/ImageUtil.h>
 
-#include <qapplication.h>
-#include <qfileinfo.h>
+#include <QApplication>
+#include <QFileInfo>
+#include <QLoggingCategory>
 
 extern "C" {
 #include <limits.h>
@@ -132,6 +134,7 @@ QImage ImageManager::ImageLoaderThread::scaleAndRotate(ImageRequest *request, QI
         img = img.transformed(matrix);
         int angle = (request->angle() + 360) % 360;
         Q_ASSERT(angle >= 0 && angle <= 360);
+        qCDebug(ImageManagerLog) << "Rotating image to" << angle << "degrees:" << request->fileSystemFileName().relative();
         if (angle == 90 || angle == 270)
             request->setFullSize(QSize(request->fullSize().height(), request->fullSize().width()));
     }

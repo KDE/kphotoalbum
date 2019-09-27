@@ -51,18 +51,32 @@ bool RAWImageDecoder::_decode(QImage *img, const DB::FileName &imageFile, QSize 
 
     // FIXME: The preview data for Canon's image is always returned in its non-rotated form by libkdcraw, ie. KPA should do the rotation.
     // FIXME: This will happen later on.
+    // The preview data for raw images is always returned in its non-rotated form by libkdcraw,
+    // but the raw image itself is returned in its rotated form.
+
+    qCDebug(ImageManagerLog) << "Got embedded preview for raw file" << imageFile.relative();
+    qCDebug(ImageManagerLog) << "  Preview size:" << img->width() << "x" << img->height();
+    qCDebug(ImageManagerLog) << "  Requested dimension:" << dim;
+    qCDebug(ImageManagerLog) << "  Image orientation:" << imageFile.info()->angle() << "degrees";
+    qCDebug(ImageManagerLog) << "  useRawThumbnail:" << Settings::SettingsData::instance()->useRawThumbnail();
+    qCDebug(ImageManagerLog) << "  useRawThumbnailSize:" << Settings::SettingsData::instance()->useRawThumbnailSize();
+
     if (Settings::SettingsData::instance()->useRawThumbnail()
         && ((dim > 0 && img->width() >= dim && img->height() >= dim)
             || (img->width() >= Settings::SettingsData::instance()->useRawThumbnailSize().width()
-                && img->height() >= Settings::SettingsData::instance()->useRawThumbnailSize().height())))
+                && img->height() >= Settings::SettingsData::instance()->useRawThumbnailSize().height()))) {
+        qCDebug(ImageManagerLog) << "Preferring embedded raw thumbnail...";
         return true;
+    }
 
     KDcrawIface::DcrawInfoContainer metadata;
     if (!KDcrawIface::KDcraw::rawFileIdentify(metadata, imageFile.absolute()))
         return false;
-
+    qCDebug(ImageManagerLog) << "  Raw image size:" << metadata.imageSize;
+    qCDebug(ImageManagerLog) << "  Raw image orientation enum:" << metadata.orientation;
     if ((img->width() < metadata.imageSize.width() * 0.8) || (img->height() < metadata.imageSize.height() * 0.8)) {
 
+        qCDebug(ImageManagerLog) << "Decoding the raw image is required...";
         // let's try to get a better resolution
         KDcrawIface::KDcraw decoder;
         KDcrawIface::RawDecodingSettings rawDecodingSettings;
@@ -90,7 +104,8 @@ bool RAWImageDecoder::_decode(QImage *img, const DB::FileName &imageFile, QSize 
                 data[3] = 0xff; // alpha
             }
         }
-    }
+    } else
+        qCDebug(ImageManagerLog) << "Embedded raw thumbnail is sufficient...";
 
     if (fullSize)
         *fullSize = img->size();

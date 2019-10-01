@@ -128,12 +128,12 @@ public:
      * @brief Render all markers onto the marbleWidget.
      * Part of the LayerInterface; called by the LayerManager.
      * @param painter the painter used by the LayerManager
-     * @param viewport
+     * @param viewport information about the region being in view
      * @param renderPos the layer name
      * @param layer always \c nullptr
      * @return \c true (return value is discarded by LayerManager::renderLayers())
      */
-    bool render(Marble::GeoPainter *painter, Marble::ViewportParams *,
+    bool render(Marble::GeoPainter *painter, Marble::ViewportParams *viewPortParams,
                 const QString &renderPos, Marble::GeoSceneLayer *) override;
 
 Q_SIGNALS:

@@ -39,9 +39,11 @@
 #include <QPixmap>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <marble/GeoDataLatLonAltBox.h>
 #include <marble/GeoPainter.h>
 #include <marble/MarbleWidget.h>
 #include <marble/RenderPlugin.h>
+#include <marble/ViewportParams.h>
 
 namespace
 {
@@ -346,26 +348,33 @@ QStringList Map::MapView::renderPosition() const
     return MAPVIEW_RENDER_POSITION;
 }
 
-bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *,
+bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *viewPortParams,
                           const QString &renderPos, Marble::GeoSceneLayer *)
 {
     Q_ASSERT(renderPos == renderPosition().first());
+    Q_ASSERT(viewPortParams != nullptr);
     QElapsedTimer timer;
     timer.start();
+    int numDisplayed = 0;
+
+    const auto viewPort = viewPortParams->viewLatLonAltBox();
 
     for (const DB::ImageInfoPtr &image : m_images) {
         const Marble::GeoDataCoordinates pos(image->coordinates().lon(), image->coordinates().lat(),
                                              image->coordinates().alt(),
                                              Marble::GeoDataCoordinates::Degree);
-        if (m_showThumbnails) {
-            // FIXME(l3u) Maybe we should cache the scaled thumbnails?
-            painter->drawPixmap(pos, ImageManager::ThumbnailCache::instance()->lookup(image->fileName()).scaled(QSize(40, 40), Qt::KeepAspectRatio));
-        } else {
-            painter->drawPixmap(pos, m_pin);
+        if (viewPort.contains(pos)) {
+            numDisplayed++;
+            if (m_showThumbnails) {
+                // FIXME(l3u) Maybe we should cache the scaled thumbnails?
+                painter->drawPixmap(pos, ImageManager::ThumbnailCache::instance()->lookup(image->fileName()).scaled(QSize(40, 40), Qt::KeepAspectRatio));
+            } else {
+                painter->drawPixmap(pos, m_pin);
+            }
         }
     }
 
-    qCDebug(TimingLog) << "Map rendered " << m_images.size() << (m_showThumbnails ? "thumbnails in" : "pins in")
+    qCDebug(TimingLog) << "Map rendered " << numDisplayed << (m_showThumbnails ? "thumbnails in" : "pins in")
                        << timer.elapsed() << "ms.";
     return true;
 }

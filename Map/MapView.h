@@ -170,7 +170,7 @@ private: // Variables
     QList<DB::ImageInfoPtr> m_images;
 
     Marble::GeoDataLatLonBox m_markersBox;
-    bool m_showThumbnails;
+    bool m_showThumbnails = false;
     QPixmap m_pin;
     Marble::GeoDataLatLonBox m_regionSelection;
     bool m_regionSelected = false;

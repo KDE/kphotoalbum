@@ -113,9 +113,8 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     showThumbnails->setIcon(QPixmap(SmallIcon(QStringLiteral("view-preview"))));
     showThumbnails->setToolTip(i18n("Show thumbnails"));
     kpaButtonsLayout->addWidget(showThumbnails);
-    m_showThumbnails = true;
     showThumbnails->setCheckable(true);
-    showThumbnails->setChecked(false);
+    showThumbnails->setChecked(m_showThumbnails);
     connect(showThumbnails, &QPushButton::clicked, this, &MapView::setShowThumbnails);
 
     // Marble floater control buttons
@@ -351,6 +350,8 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *,
                           const QString &renderPos, Marble::GeoSceneLayer *)
 {
     Q_ASSERT(renderPos == renderPosition().first());
+    QElapsedTimer timer;
+    timer.start();
 
     for (const DB::ImageInfoPtr &image : m_images) {
         const Marble::GeoDataCoordinates pos(image->coordinates().lon(), image->coordinates().lat(),
@@ -364,6 +365,8 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *,
         }
     }
 
+    qCDebug(TimingLog) << "Map rendered " << m_images.size() << (m_showThumbnails ? "thumbnails in" : "pins in")
+                       << timer.elapsed() << "ms.";
     return true;
 }
 

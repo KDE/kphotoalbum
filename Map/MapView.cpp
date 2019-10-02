@@ -53,6 +53,53 @@ const QVector<QString> WANTED_FLOATERS { QStringLiteral("Compass"),
                                          QStringLiteral("Scale Bar"),
                                          QStringLiteral("Navigation"),
                                          QStringLiteral("Overview Map") };
+
+/**
+ * @brief computeBinAddress calculates a "bin" for grouping coordinates that are near each other.
+ * Using a signed 32-bit integer value allows for 2 decimal places of either coordinate part,
+ * which is roughly equivalent to a spatial resolution of 1 km.
+ * @param coords (more or less) precise coordinates
+ * @return imprecise coordinates
+ */
+Map::GeoBinAddress computeBinAddress(const Map::GeoCoordinates &coords)
+{
+    qint64 lat = qRound(coords.lat() * 100);
+    qint64 lon = qRound(coords.lon() * 100);
+    return static_cast<quint64>((lat << 32) + lon);
+}
+}
+
+void Map::GeoBin::addImage(DB::ImageInfoPtr image)
+{
+    m_images.append(image);
+}
+
+Map::GeoCoordinates Map::GeoBin::center() const
+{
+    // FIXME(jzarl): this is just a STUB until the clustering works
+    return m_images.first()->coordinates();
+}
+
+void Map::GeoBin::render(Marble::GeoPainter *painter, const Marble::GeoDataLatLonAltBox &viewPort, const QPixmap &alternatePixmap, MapStyle style) const
+{
+    for (const DB::ImageInfoPtr &image : m_images) {
+        const Marble::GeoDataCoordinates pos(image->coordinates().lon(), image->coordinates().lat(),
+                                             image->coordinates().alt(),
+                                             Marble::GeoDataCoordinates::Degree);
+        if (viewPort.contains(pos)) {
+            if (style == MapStyle::ShowPins) {
+                painter->drawPixmap(pos, alternatePixmap);
+            } else {
+                // FIXME(l3u) Maybe we should cache the scaled thumbnails?
+                painter->drawPixmap(pos, ImageManager::ThumbnailCache::instance()->lookup(image->fileName()).scaled(QSize(40, 40), Qt::KeepAspectRatio));
+            }
+        }
+    }
+}
+
+int Map::GeoBin::size() const
+{
+    return m_images.size();
 }
 
 Map::MapView::MapView(QWidget *parent, UsageType type)
@@ -166,7 +213,7 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
 
 void Map::MapView::clear()
 {
-    m_images.clear();
+    m_geoBins.clear();
     m_markersBox.clear();
     m_regionSelected = false;
 }
@@ -174,7 +221,8 @@ void Map::MapView::clear()
 void Map::MapView::addImage(DB::ImageInfoPtr image)
 {
     qCDebug(MapLog) << "Adding image" << image->label();
-    m_images.append(image);
+    const GeoBinAddress binAddress = computeBinAddress(image->coordinates());
+    m_geoBins[binAddress].addImage(image);
 
     // Update the viewport for zoomToMarkers()
     if (m_markersBox.isEmpty()) {
@@ -356,25 +404,17 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *v
     QElapsedTimer timer;
     timer.start();
     int numDisplayed = 0;
+    int numBins = 0;
 
     const auto viewPort = viewPortParams->viewLatLonAltBox();
 
-    for (const DB::ImageInfoPtr &image : m_images) {
-        const Marble::GeoDataCoordinates pos(image->coordinates().lon(), image->coordinates().lat(),
-                                             image->coordinates().alt(),
-                                             Marble::GeoDataCoordinates::Degree);
-        if (viewPort.contains(pos)) {
-            numDisplayed++;
-            if (m_showThumbnails) {
-                // FIXME(l3u) Maybe we should cache the scaled thumbnails?
-                painter->drawPixmap(pos, ImageManager::ThumbnailCache::instance()->lookup(image->fileName()).scaled(QSize(40, 40), Qt::KeepAspectRatio));
-            } else {
-                painter->drawPixmap(pos, m_pin);
-            }
-        }
+    for (const auto &bin : m_geoBins) {
+        numBins++;
+        numDisplayed += bin.size();
+        bin.render(painter, viewPort, m_pin, m_showThumbnails ? MapStyle::ShowThumbnails : MapStyle::ShowPins);
     }
 
-    qCDebug(TimingLog) << "Map rendered " << numDisplayed << (m_showThumbnails ? "thumbnails in" : "pins in")
+    qCDebug(TimingLog) << "Map rendered" << numBins << "bins containing" << numDisplayed << "images in"
                        << timer.elapsed() << "ms.";
     return true;
 }

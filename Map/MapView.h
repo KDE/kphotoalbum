@@ -40,6 +40,7 @@ class ImageSearchInfo;
 namespace Marble
 {
 class MarbleWidget;
+class GeoDataLatLonAltBox;
 }
 
 class QLabel;
@@ -70,6 +71,32 @@ enum class MapStatus {
     SomeImagesHaveNoCoordinates,
     SearchCoordinates
 };
+
+enum class MapStyle {
+    ShowPins,
+    ShowThumbnails
+};
+
+/**
+ * @brief The GeoBin class holds a number of images that are grouped into the same bin.
+ * I.e. they are in the direct vicinity of each other.
+ */
+class GeoBin
+{
+public:
+    void addImage(DB::ImageInfoPtr image);
+    GeoCoordinates center() const;
+    void render(Marble::GeoPainter *painter, const Marble::GeoDataLatLonAltBox &viewPort, const QPixmap &alternatePixmap, MapStyle style) const;
+    int size() const;
+
+private:
+    QList<DB::ImageInfoPtr> m_images;
+};
+
+/**
+ * \brief A conveniently 64bit word-sized type that holds an imprecise representation of a GeoCoordinate.
+ */
+using GeoBinAddress = quint64;
 
 class MapView
     : public QWidget,
@@ -163,11 +190,7 @@ private: // Variables
     QWidget *m_kpaButtons;
     QWidget *m_floaters;
 
-    // FIXME(jzarl): dirty hack to get it working
-    // if this should work efficiently with a large number of images,
-    // some spatially aware data structure probably needs to be used
-    // (e.g. binning images by location)
-    QList<DB::ImageInfoPtr> m_images;
+    QMap<GeoBinAddress, GeoBin> m_geoBins;
 
     Marble::GeoDataLatLonBox m_markersBox;
     bool m_showThumbnails = false;

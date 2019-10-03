@@ -195,7 +195,7 @@ private: // Variables
     QMap<GeoBinAddress, GeoBin> m_geoBins;
 
     Marble::GeoDataLatLonBox m_markersBox;
-    bool m_showThumbnails = false;
+    bool m_showThumbnails = true;
     QPixmap m_pin;
     Marble::GeoDataLatLonBox m_regionSelection;
     bool m_regionSelected = false;

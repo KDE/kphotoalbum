@@ -85,12 +85,14 @@ class GeoBin
 {
 public:
     void addImage(DB::ImageInfoPtr image);
-    GeoCoordinates center() const;
-    void render(Marble::GeoPainter *painter, const Marble::GeoDataLatLonAltBox &viewPort, const QPixmap &alternatePixmap, MapStyle style) const;
+    Marble::GeoDataLatLonBox boundingRegion() const;
+    Marble::GeoDataCoordinates center() const;
+    void render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPort, const QPixmap &alternatePixmap, MapStyle style) const;
     int size() const;
 
 private:
     QList<DB::ImageInfoPtr> m_images;
+    Marble::GeoDataLatLonBox m_boundingRegion;
 };
 
 /**

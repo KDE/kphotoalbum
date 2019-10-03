@@ -54,6 +54,11 @@ const QVector<QString> WANTED_FLOATERS { QStringLiteral("Compass"),
                                          QStringLiteral("Navigation"),
                                          QStringLiteral("Overview Map") };
 
+// when the angular resolution is smaller than fineResolution, all details should be shown
+constexpr qreal fineResolution = 0.000001;
+// size of the markers in screen coordinates (pixel)
+constexpr qreal markerSizePx = 40;
+
 /**
  * @brief computeBinAddress calculates a "bin" for grouping coordinates that are near each other.
  * Using a signed 32-bit integer value allows for 2 decimal places of either coordinate part,
@@ -67,32 +72,84 @@ Map::GeoBinAddress computeBinAddress(const Map::GeoCoordinates &coords)
     qint64 lon = qRound(coords.lon() * 100);
     return static_cast<quint64>((lat << 32) + lon);
 }
+
+/**
+ * @brief extendGeoDataLatLonBox extend the given GeoDataLatLonBox to encompass the given coordinates.
+ * @param box
+ * @param coords
+ */
+void extendGeoDataLatLonBox(Marble::GeoDataLatLonBox &box, const Map::GeoCoordinates &coords)
+{
+    if (box.isEmpty()) {
+        box.setEast(coords.lon(), Marble::GeoDataCoordinates::Degree);
+        box.setWest(coords.lon(), Marble::GeoDataCoordinates::Degree);
+        box.setNorth(coords.lat(), Marble::GeoDataCoordinates::Degree);
+        box.setSouth(coords.lat(), Marble::GeoDataCoordinates::Degree);
+    } else {
+        if (box.east(Marble::GeoDataCoordinates::Degree) < coords.lon()) {
+            box.setEast(coords.lon(), Marble::GeoDataCoordinates::Degree);
+        }
+        if (box.west(Marble::GeoDataCoordinates::Degree) > coords.lon()) {
+            box.setWest(coords.lon(), Marble::GeoDataCoordinates::Degree);
+        }
+        if (box.north(Marble::GeoDataCoordinates::Degree) < coords.lat()) {
+            box.setNorth(coords.lat(), Marble::GeoDataCoordinates::Degree);
+        }
+        if (box.south(Marble::GeoDataCoordinates::Degree) > coords.lat()) {
+            box.setSouth(coords.lat(), Marble::GeoDataCoordinates::Degree);
+        }
+    }
+}
 }
 
 void Map::GeoBin::addImage(DB::ImageInfoPtr image)
 {
     m_images.append(image);
+    extendGeoDataLatLonBox(m_boundingRegion, image->coordinates());
 }
 
-Map::GeoCoordinates Map::GeoBin::center() const
+Marble::GeoDataLatLonBox Map::GeoBin::boundingRegion() const
 {
-    // FIXME(jzarl): this is just a STUB until the clustering works
-    return m_images.first()->coordinates();
+    return m_boundingRegion;
 }
 
-void Map::GeoBin::render(Marble::GeoPainter *painter, const Marble::GeoDataLatLonAltBox &viewPort, const QPixmap &alternatePixmap, MapStyle style) const
+Marble::GeoDataCoordinates Map::GeoBin::center() const
 {
-    for (const DB::ImageInfoPtr &image : m_images) {
-        const Marble::GeoDataCoordinates pos(image->coordinates().lon(), image->coordinates().lat(),
-                                             image->coordinates().alt(),
-                                             Marble::GeoDataCoordinates::Degree);
-        if (viewPort.contains(pos)) {
-            if (style == MapStyle::ShowPins) {
-                painter->drawPixmap(pos, alternatePixmap);
-            } else {
-                // FIXME(l3u) Maybe we should cache the scaled thumbnails?
-                painter->drawPixmap(pos, ImageManager::ThumbnailCache::instance()->lookup(image->fileName()).scaled(QSize(40, 40), Qt::KeepAspectRatio));
+    // TODO(jzarl): check how this compares to e.g. the center of all coordinates instead:
+    return m_boundingRegion.center();
+}
+
+void Map::GeoBin::render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const
+{
+    const auto viewPort = viewPortParams.viewLatLonAltBox();
+
+    if (viewPortParams.resolves(boundingRegion(), markerSizePx)
+        || (boundingRegion().isNull() && viewPortParams.angularResolution() < fineResolution)) {
+        for (const DB::ImageInfoPtr &image : m_images) {
+            const Marble::GeoDataCoordinates pos(image->coordinates().lon(), image->coordinates().lat(),
+                                                 image->coordinates().alt(),
+                                                 Marble::GeoDataCoordinates::Degree);
+            if (viewPort.contains(pos)) {
+                if (style == MapStyle::ShowPins) {
+                    painter->drawPixmap(pos, alternatePixmap);
+                } else {
+                    // FIXME(l3u) Maybe we should cache the scaled thumbnails?
+                    painter->drawPixmap(pos, ImageManager::ThumbnailCache::instance()->lookup(image->fileName()).scaled(QSize(markerSizePx, markerSizePx), Qt::KeepAspectRatio));
+                }
             }
+        }
+    } else {
+        if (viewPort.contains(center())) {
+            painter->setOpacity(0.5);
+            if (viewPortParams.angularResolution() < fineResolution) {
+                // the size was empirically determined
+                qreal sizeDeg = 1.5 * (boundingRegion().width(Marble::GeoDataCoordinates::Degree) + boundingRegion().height(Marble::GeoDataCoordinates::Degree));
+                // true -> size is in degree, not screen coordinates
+                painter->drawEllipse(center(), sizeDeg, sizeDeg, true);
+            } else {
+                painter->drawEllipse(center(), markerSizePx, markerSizePx);
+            }
+            painter->setOpacity(1);
         }
     }
 }
@@ -225,25 +282,7 @@ void Map::MapView::addImage(DB::ImageInfoPtr image)
     m_geoBins[binAddress].addImage(image);
 
     // Update the viewport for zoomToMarkers()
-    if (m_markersBox.isEmpty()) {
-        m_markersBox.setEast(image->coordinates().lon(), Marble::GeoDataCoordinates::Degree);
-        m_markersBox.setWest(image->coordinates().lon(), Marble::GeoDataCoordinates::Degree);
-        m_markersBox.setNorth(image->coordinates().lat(), Marble::GeoDataCoordinates::Degree);
-        m_markersBox.setSouth(image->coordinates().lat(), Marble::GeoDataCoordinates::Degree);
-    } else {
-        if (m_markersBox.east(Marble::GeoDataCoordinates::Degree) < image->coordinates().lon()) {
-            m_markersBox.setEast(image->coordinates().lon(), Marble::GeoDataCoordinates::Degree);
-        }
-        if (m_markersBox.west(Marble::GeoDataCoordinates::Degree) > image->coordinates().lon()) {
-            m_markersBox.setWest(image->coordinates().lon(), Marble::GeoDataCoordinates::Degree);
-        }
-        if (m_markersBox.north(Marble::GeoDataCoordinates::Degree) < image->coordinates().lat()) {
-            m_markersBox.setNorth(image->coordinates().lat(), Marble::GeoDataCoordinates::Degree);
-        }
-        if (m_markersBox.south(Marble::GeoDataCoordinates::Degree) > image->coordinates().lat()) {
-            m_markersBox.setSouth(image->coordinates().lat(), Marble::GeoDataCoordinates::Degree);
-        }
-    }
+    extendGeoDataLatLonBox(m_markersBox, image->coordinates());
 }
 
 void Map::MapView::addImages(const DB::ImageSearchInfo &searchInfo)
@@ -406,12 +445,12 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *v
     int numDisplayed = 0;
     int numBins = 0;
 
-    const auto viewPort = viewPortParams->viewLatLonAltBox();
-
+    painter->setBrush(QBrush(QColor(Qt::red).lighter()));
+    painter->setPen(QColor(Qt::red));
     for (const auto &bin : m_geoBins) {
         numBins++;
         numDisplayed += bin.size();
-        bin.render(painter, viewPort, m_pin, m_showThumbnails ? MapStyle::ShowThumbnails : MapStyle::ShowPins);
+        bin.render(painter, *viewPortParams, m_pin, m_showThumbnails ? MapStyle::ShowThumbnails : MapStyle::ShowPins);
     }
 
     qCDebug(TimingLog) << "Map rendered" << numBins << "bins containing" << numDisplayed << "images in"

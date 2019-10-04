@@ -57,7 +57,7 @@ const QVector<QString> WANTED_FLOATERS { QStringLiteral("Compass"),
 // when the angular resolution is smaller than fineResolution, all details should be shown
 constexpr qreal fineResolution = 0.000001;
 // size of the markers in screen coordinates (pixel)
-constexpr qreal markerSizePx = 40;
+constexpr int markerSizePx = 40;
 
 /**
  * @brief computeBinAddress calculates a "bin" for grouping coordinates that are near each other.

@@ -156,6 +156,10 @@ void Map::GeoBin::render(Marble::GeoPainter *painter, const Marble::ViewportPara
             painter->drawEllipse(center(), markerSizePx, markerSizePx);
         }
         painter->setOpacity(1);
+        QPen pen = painter->pen();
+        painter->setPen(QPen(Qt::black));
+        painter->drawText(center(), i18nc("The number of images in an area of the map", "%1", size()), -0.5 * markerSizePx, 0.5 * markerSizePx, markerSizePx, markerSizePx, QTextOption(Qt::AlignCenter));
+        painter->setPen(pen);
     }
 }
 

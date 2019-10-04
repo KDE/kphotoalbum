@@ -20,7 +20,6 @@
 #ifndef GEOCOORDINATES_H
 #define GEOCOORDINATES_H
 
-#include <QPair>
 #include <QString>
 
 namespace Map

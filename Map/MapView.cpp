@@ -125,6 +125,9 @@ void Map::GeoBin::render(Marble::GeoPainter *painter, const Marble::ViewportPara
 
     if (viewPortParams.resolves(boundingRegion(), markerSizePx)
         || (boundingRegion().isNull() && viewPortParams.angularResolution() < fineResolution)) {
+        // if the region takes up enough screen space, we should display the images.
+        // if all images have the same coordinates (null bounding region), this will never happen
+        // -> in this case, show the images when we're zoomed in enough
         for (const DB::ImageInfoPtr &image : m_images) {
             const Marble::GeoDataCoordinates pos(image->coordinates().lon(), image->coordinates().lat(),
                                                  image->coordinates().alt(),
@@ -139,20 +142,20 @@ void Map::GeoBin::render(Marble::GeoPainter *painter, const Marble::ViewportPara
             }
         }
     } else {
-        if (viewPort.contains(center())) {
-            painter->setOpacity(0.5);
-            if (viewPortParams.angularResolution() < fineResolution) {
-                // the size was empirically determined
-                qreal sizeDeg = 1.5 * (boundingRegion().width(Marble::GeoDataCoordinates::Degree) + boundingRegion().height(Marble::GeoDataCoordinates::Degree));
-                // sometimes, the boundingRegion is much smaller than the 40px circle
-                sizeDeg = qMax(sizeDeg, fineResolution);
-                // true -> size is in degree, not screen coordinates
-                painter->drawEllipse(center(), sizeDeg, sizeDeg, true);
-            } else {
-                painter->drawEllipse(center(), markerSizePx, markerSizePx);
-            }
-            painter->setOpacity(1);
+        painter->setOpacity(0.5);
+        if (viewPortParams.angularResolution() < fineResolution) {
+            // high resolution -> draw in geo coordinates to represent the area of the images
+            // the size was empirically determined
+            qreal sizeDeg = 1.5 * (boundingRegion().width(Marble::GeoDataCoordinates::Degree) + boundingRegion().height(Marble::GeoDataCoordinates::Degree));
+            // sometimes, the boundingRegion is much smaller than the 40px circle
+            sizeDeg = qMax(sizeDeg, fineResolution);
+            // true -> size is in degree, not screen coordinates
+            painter->drawEllipse(center(), sizeDeg, sizeDeg, true);
+        } else {
+            // low resolution -> draw in screen coordinates to keep the region visible
+            painter->drawEllipse(center(), markerSizePx, markerSizePx);
         }
+        painter->setOpacity(1);
     }
 }
 

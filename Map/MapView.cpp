@@ -144,6 +144,8 @@ void Map::GeoBin::render(Marble::GeoPainter *painter, const Marble::ViewportPara
             if (viewPortParams.angularResolution() < fineResolution) {
                 // the size was empirically determined
                 qreal sizeDeg = 1.5 * (boundingRegion().width(Marble::GeoDataCoordinates::Degree) + boundingRegion().height(Marble::GeoDataCoordinates::Degree));
+                // sometimes, the boundingRegion is much smaller than the 40px circle
+                sizeDeg = qMax(sizeDeg, fineResolution);
                 // true -> size is in degree, not screen coordinates
                 painter->drawEllipse(center(), sizeDeg, sizeDeg, true);
             } else {

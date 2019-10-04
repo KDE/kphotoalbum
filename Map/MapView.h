@@ -143,7 +143,7 @@ public:
      */
     void displayStatus(MapStatus status);
 
-    GeoCoordinates::Pair getRegionSelection() const;
+    GeoCoordinates::LatLonBox getRegionSelection() const;
     bool regionSelected() const;
 
     // LayerInterface:
@@ -166,7 +166,7 @@ public:
                 const QString &renderPos, Marble::GeoSceneLayer *) override;
 
 Q_SIGNALS:
-    void newRegionSelected(Map::GeoCoordinates::Pair coordinates);
+    void newRegionSelected(Map::GeoCoordinates::LatLonBox coordinates);
     void displayStatusChanged(MapStatus);
 
 public slots:

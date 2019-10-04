@@ -20,7 +20,6 @@
 #ifndef GEOCOORDINATES_H
 #define GEOCOORDINATES_H
 
-#include <QMetaType>
 #include <QPair>
 #include <QString>
 
@@ -39,9 +38,16 @@ public:
     void setLatLon(const double lat, const double lon);
     void setAlt(const double alt);
 
-    typedef QPair<GeoCoordinates, GeoCoordinates> Pair;
-    static Pair makePair(const double lat1, const double lon1,
-                         const double lat2, const double lon2);
+    struct LatLonBox {
+        LatLonBox() = default;
+        LatLonBox(double north, double south, double east, double west);
+        bool isNull() const;
+        operator QString() const;
+        double north = 0;
+        double south = 0;
+        double east = 0;
+        double west = 0;
+    };
 
     operator QString() const;
 
@@ -54,8 +60,6 @@ private: // Variables
 };
 
 }
-
-Q_DECLARE_METATYPE(Map::GeoCoordinates::Pair)
 
 #endif // GEOCOORDINATES_H
 

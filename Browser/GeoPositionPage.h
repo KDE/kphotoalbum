@@ -49,7 +49,7 @@ public:
     bool showDuringMovement() const override;
 
 public slots:
-    void slotNewRegionSelected(Map::GeoCoordinates::Pair coordinates);
+    void slotNewRegionSelected(Map::GeoCoordinates::LatLonBox coordinates);
 
 private:
     bool m_active;

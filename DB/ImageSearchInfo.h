@@ -97,8 +97,8 @@ public:
     bool isCacheable() const;
 
 #ifdef HAVE_MARBLE
-    Map::GeoCoordinates::Pair regionSelection() const;
-    void setRegionSelection(const Map::GeoCoordinates::Pair &actRegionSelection);
+    Map::GeoCoordinates::LatLonBox regionSelection() const;
+    void setRegionSelection(const Map::GeoCoordinates::LatLonBox &actRegionSelection);
 #endif
 
 protected:
@@ -130,12 +130,7 @@ private:
     bool doMatch(ImageInfoPtr) const;
 
 #ifdef HAVE_MARBLE
-    Map::GeoCoordinates::Pair m_regionSelection;
-    mutable bool m_usingRegionSelection = false;
-    mutable float m_regionSelectionMinLat;
-    mutable float m_regionSelectionMaxLat;
-    mutable float m_regionSelectionMinLon;
-    mutable float m_regionSelectionMaxLon;
+    Map::GeoCoordinates::LatLonBox m_regionSelection;
 #endif
     // When adding new instance variable, please notice that this class as an explicit written copy constructor.
 };

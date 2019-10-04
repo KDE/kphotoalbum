@@ -282,7 +282,6 @@ void Map::MapView::clear()
 
 void Map::MapView::addImage(DB::ImageInfoPtr image)
 {
-    qCDebug(MapLog) << "Adding image" << image->label();
     const GeoBinAddress binAddress = computeBinAddress(image->coordinates());
     m_geoBins[binAddress].addImage(image);
 
@@ -421,12 +420,13 @@ void Map::MapView::updateRegionSelectionOld(const QList<double> &selection)
 }
 #endif
 
-Map::GeoCoordinates::Pair Map::MapView::getRegionSelection() const
+Map::GeoCoordinates::LatLonBox Map::MapView::getRegionSelection() const
 {
-    return GeoCoordinates::makePair(m_regionSelection.west(Marble::GeoDataCoordinates::Degree),
-                                    m_regionSelection.north(Marble::GeoDataCoordinates::Degree),
-                                    m_regionSelection.east(Marble::GeoDataCoordinates::Degree),
-                                    m_regionSelection.south(Marble::GeoDataCoordinates::Degree));
+    return GeoCoordinates::LatLonBox(
+        m_regionSelection.north(Marble::GeoDataCoordinates::Degree),
+        m_regionSelection.south(Marble::GeoDataCoordinates::Degree),
+        m_regionSelection.east(Marble::GeoDataCoordinates::Degree),
+        m_regionSelection.west(Marble::GeoDataCoordinates::Degree));
 }
 
 bool Map::MapView::regionSelected() const

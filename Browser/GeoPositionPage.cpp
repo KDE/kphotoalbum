@@ -61,7 +61,7 @@ void Browser::GeoPositionPage::deactivate()
     }
 }
 
-void Browser::GeoPositionPage::slotNewRegionSelected(Map::GeoCoordinates::Pair coordinates)
+void Browser::GeoPositionPage::slotNewRegionSelected(Map::GeoCoordinates::LatLonBox coordinates)
 {
     const QString name = i18n("Geo Position");
     DB::ImageSearchInfo info = searchInfo();

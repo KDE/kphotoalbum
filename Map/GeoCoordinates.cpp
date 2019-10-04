@@ -1,4 +1,4 @@
-/* Copyright (C) 2018 The KPhotoAlbum Development Team
+/* Copyright (C) 2018-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -57,19 +57,26 @@ void Map::GeoCoordinates::setAlt(const double alt)
     m_hasAlt = true;
 }
 
-Map::GeoCoordinates::Pair Map::GeoCoordinates::makePair(const double lat1, const double lon1,
-                                                        const double lat2, const double lon2)
-{
-    Map::GeoCoordinates coordinates1;
-    coordinates1.setLatLon(lat1, lon1);
-    Map::GeoCoordinates coordinates2;
-    coordinates2.setLatLon(lat2, lon2);
-    return Pair(coordinates1, coordinates2);
-}
-
 Map::GeoCoordinates::operator QString() const
 {
     return QStringLiteral("(%1, %2)").arg(m_lon).arg(m_lat);
+}
+
+Map::GeoCoordinates::LatLonBox::LatLonBox(double north, double south, double east, double west)
+    : north(north)
+    , south(south)
+    , east(east)
+    , west(west)
+{
+}
+
+bool Map::GeoCoordinates::LatLonBox::isNull() const
+{
+    return north == 0 && south == 0 && east == 0 && west == 0;
+}
+Map::GeoCoordinates::LatLonBox::operator QString() const
+{
+    return QStringLiteral("(N%1, S%2, E%3, W%4)").arg(north).arg(south).arg(east).arg(west);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

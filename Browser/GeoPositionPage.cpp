@@ -20,6 +20,7 @@
 
 #include "BrowserWidget.h"
 #include "ImageViewPage.h"
+#include "Logging.h"
 #include "OverviewPage.h"
 #include "enums.h"
 
@@ -68,7 +69,9 @@ void Browser::GeoPositionPage::slotNewRegionSelected(Map::GeoCoordinates::Pair c
     info.setRegionSelection(coordinates);
 
     browser()->addAction(new Browser::OverviewPage(Breadcrumb(name), info, browser()));
-    if (DB::ImageDB::instance()->search(info).size() <= Settings::SettingsData::instance()->autoShowThumbnailView()) {
+    const int numSelected = DB::ImageDB::instance()->search(info).size();
+    qCDebug(BrowserLog) << "Selected region" << coordinates << "with" << numSelected << "images.";
+    if (numSelected <= Settings::SettingsData::instance()->autoShowThumbnailView()) {
         browser()->addAction(new ImageViewPage(info, browser()));
     }
 }

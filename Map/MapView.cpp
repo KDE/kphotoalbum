@@ -405,11 +405,24 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
 void Map::MapView::clear()
 {
     m_markersBox.clear();
+    m_baseBins.clear();
+    m_geoClusters.clear();
     m_regionSelected = false;
 }
 
-void Map::MapView::addImage(DB::ImageInfoPtr image)
+bool Map::MapView::addImage(DB::ImageInfoPtr image)
 {
+    if (image->coordinates().hasCoordinates()) {
+        const GeoBinAddress binAddress = computeBinAddress(image->coordinates());
+        if (!m_baseBins.contains(binAddress)) {
+            m_baseBins.insert(binAddress, new GeoBin());
+        }
+        m_baseBins[binAddress]->addImage(image);
+        // Update the viewport for zoomToMarkers()
+        extendGeoDataLatLonBox(m_markersBox, image->coordinates());
+        return true;
+    }
+    return false;
 }
 
 void Map::MapView::addImages(const DB::ImageSearchInfo &searchInfo)
@@ -420,30 +433,25 @@ void Map::MapView::addImages(const DB::ImageSearchInfo &searchInfo)
     DB::FileNameList images = DB::ImageDB::instance()->search(searchInfo);
     int count = 0;
     int total = 0;
-    QHash<GeoBinAddress, GeoBin *> baseBins;
     // put images in bins
     for (const auto &imageInfo : images) {
-        DB::ImageInfoPtr image = imageInfo.info();
         total++;
-        if (image->coordinates().hasCoordinates()) {
+        if (addImage(imageInfo.info()))
             count++;
-            const GeoBinAddress binAddress = computeBinAddress(image->coordinates());
-            if (!baseBins.contains(binAddress)) {
-                baseBins.insert(binAddress, new GeoBin());
-            }
-            baseBins[binAddress]->addImage(image);
-            // Update the viewport for zoomToMarkers()
-            extendGeoDataLatLonBox(m_markersBox, image->coordinates());
-        }
     }
+    buildImageClusters();
     displayStatus(MapStatus::SearchCoordinates);
-    qCInfo(TimingLog) << "MapView::addImages(): added" << count << "of" << total << "images in"
-                      << timer.elapsed() << "ms.";
+    qCInfo(TimingLog) << "MapView::addImages(): added" << count << "of" << total << "images in" << timer.elapsed() << "ms.";
+}
 
-    timer.restart();
+void Map::MapView::buildImageClusters()
+{
+    QElapsedTimer timer;
+    timer.start();
     QVector<QHash<GeoBinAddress, GeoCluster *>> clusters { MAP_CLUSTER_LEVELS };
+    int count = 0;
     // aggregate bins to clusters
-    for (auto it = baseBins.constBegin(); it != baseBins.constEnd(); ++it) {
+    for (auto it = m_baseBins.constBegin(); it != m_baseBins.constEnd(); ++it) {
         buildClusterMap(clusters, it.key(), it.value());
         count++;
     }

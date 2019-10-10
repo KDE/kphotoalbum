@@ -152,8 +152,10 @@ public:
 
     /**
      * Add an image to the map.
+     * If you fill the Map using this method, don't forget to call buildImageClusters() afterwards.
+     * @return \c true, if the image has coordinates and was added, \c false otherwise.
      */
-    void addImage(DB::ImageInfoPtr image);
+    bool addImage(DB::ImageInfoPtr image);
 
     /**
      * @brief addImages adds images matching a search info to the map.
@@ -161,6 +163,12 @@ public:
      */
     void addImages(const DB::ImageSearchInfo &searchInfo);
 
+    /**
+     * @brief buildImageClusters creates the GeoClusters that are used to group images that are close to each other.
+     * This function is automatically called by addImages(),
+     * but you need to call it yourself when adding individual images using addImage().
+     */
+    void buildImageClusters();
     /**
      * Sets the map's zoom so that all images on the map are visible.
      * If no images have been added, the zoom is not altered.
@@ -227,6 +235,8 @@ private: // Variables
     QWidget *m_kpaButtons;
     QWidget *m_floaters;
 
+    // filled by addImage()
+    QHash<GeoBinAddress, GeoBin *> m_baseBins;
     QHash<GeoBinAddress, GeoCluster *> m_geoClusters;
 
     Marble::GeoDataLatLonBox m_markersBox;

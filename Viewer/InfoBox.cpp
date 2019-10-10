@@ -322,6 +322,7 @@ void Viewer::InfoBox::launchMapView()
     }
 
     m_map->addImage(m_viewer->currentInfo());
+    m_map->buildImageClusters();
     m_map->setShowThumbnails(false);
     m_map->zoomToMarkers();
     m_map->show();
@@ -338,6 +339,7 @@ void Viewer::InfoBox::updateMapForCurrentImage(DB::FileName)
         m_map->displayStatus(Map::MapStatus::ImageHasCoordinates);
         m_map->clear();
         m_map->addImage(m_viewer->currentInfo());
+        m_map->buildImageClusters();
         m_map->setCenter(m_viewer->currentInfo());
     } else {
         m_map->displayStatus(Map::MapStatus::ImageHasNoCoordinates);

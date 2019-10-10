@@ -1677,8 +1677,7 @@ void AnnotationDialog::Dialog::populateMap()
         // keep things responsive by processing events manually:
         QApplication::processEvents();
 
-        if (info->coordinates().hasCoordinates()) {
-            m_annotationMap->addImage(info);
+        if (m_annotationMap->addImage(info)) {
             imagesWithCoordinates++;
         }
 
@@ -1688,7 +1687,7 @@ void AnnotationDialog::Dialog::populateMap()
             break;
         }
     }
-
+    m_annotationMap->buildImageClusters();
     // at this point either we canceled loading or the map is populated:
     m_mapIsPopulated = !m_cancelMapLoading;
     mapLoadingFinished(imagesWithCoordinates > 0, imagesWithCoordinates == processedImages);

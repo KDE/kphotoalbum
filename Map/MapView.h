@@ -30,7 +30,7 @@
 #include <QPixmap>
 #include <QWidget>
 #include <marble/GeoDataCoordinates.h>
-#include <marble/GeoDataLatLonBox.h>
+#include <marble/GeoDataLatLonAltBox.h>
 #include <marble/LayerInterface.h>
 
 namespace DB
@@ -40,7 +40,6 @@ class ImageSearchInfo;
 namespace Marble
 {
 class MarbleWidget;
-class GeoDataLatLonAltBox;
 }
 
 class QLabel;
@@ -77,26 +76,62 @@ enum class MapStyle {
     ShowThumbnails
 };
 
+class GeoCluster
+{
+public:
+    explicit GeoCluster(int lvl);
+    virtual ~GeoCluster() = default;
+
+    void addSubCluster(const GeoCluster *subCluster);
+    /**
+     * @brief boundingRegion computes the bounding region for the GeoCluster
+     * The result is only computed once at the first call to the method.
+     * @return a GeoDataLatLonBox containing all images in all sub-clusters.
+     */
+    virtual Marble::GeoDataLatLonAltBox boundingRegion() const;
+    /**
+     * @brief center
+     * @return the approximate geographical center of the GeoCluster
+     */
+    virtual Marble::GeoDataCoordinates center() const;
+    virtual void render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const;
+    /**
+     * @brief size
+     * The result is only computed once at the first call to the method.
+     * @return the number of images in all sub-clusters
+     */
+    virtual int size() const;
+
+private:
+    mutable int m_size = 0;
+    qreal m_resolution;
+    QList<const GeoCluster *> m_subClusters;
+
+protected:
+    mutable Marble::GeoDataLatLonAltBox m_boundingRegion;
+};
+
 /**
  * @brief The GeoBin class holds a number of images that are grouped into the same bin.
  * I.e. they are in the direct vicinity of each other.
  */
-class GeoBin
+class GeoBin : public GeoCluster
 {
 public:
+    GeoBin();
     void addImage(DB::ImageInfoPtr image);
-    Marble::GeoDataLatLonBox boundingRegion() const;
-    Marble::GeoDataCoordinates center() const;
-    void render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPort, const QPixmap &alternatePixmap, MapStyle style) const;
-    int size() const;
+    Marble::GeoDataLatLonAltBox boundingRegion() const override;
+    void render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const override;
+    int size() const override;
 
 private:
     QList<DB::ImageInfoPtr> m_images;
-    Marble::GeoDataLatLonBox m_boundingRegion;
 };
 
 /**
  * \brief A conveniently 64bit word-sized type that holds an imprecise representation of a GeoCoordinate.
+ * 64 bit allow for enough precision to represent the lat/lon part of the GeoCoordinate of a GeoBin,
+ * while also having nice properties for being used as a key to a hashmap lookup.
  */
 using GeoBinAddress = quint64;
 
@@ -157,7 +192,7 @@ public:
      * @brief Render all markers onto the marbleWidget.
      * Part of the LayerInterface; called by the LayerManager.
      * @param painter the painter used by the LayerManager
-     * @param viewport information about the region being in view
+     * @param viewPortParams information about the region being in view
      * @param renderPos the layer name
      * @param layer always \c nullptr
      * @return \c true (return value is discarded by LayerManager::renderLayers())
@@ -192,7 +227,7 @@ private: // Variables
     QWidget *m_kpaButtons;
     QWidget *m_floaters;
 
-    QMap<GeoBinAddress, GeoBin> m_geoBins;
+    QHash<GeoBinAddress, GeoCluster *> m_geoClusters;
 
     Marble::GeoDataLatLonBox m_markersBox;
     bool m_showThumbnails = true;

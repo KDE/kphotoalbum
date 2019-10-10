@@ -55,9 +55,13 @@ const QVector<QString> WANTED_FLOATERS { QStringLiteral("Compass"),
                                          QStringLiteral("Overview Map") };
 
 // when the angular resolution is smaller than fineResolution, all details should be shown
-constexpr qreal fineResolution = 0.000001;
+constexpr qreal FINE_RESOLUTION = 0.000001;
 // size of the markers in screen coordinates (pixel)
-constexpr int markerSizePx = 40;
+constexpr int MARKER_SIZE_PX = 40;
+// levels of clustering for geo coordinates
+constexpr int MAP_CLUSTER_LEVELS = 10;
+static_assert(MAP_CLUSTER_LEVELS > 0, "At least one level of clustering is needed for the map.");
+static_assert(MAP_CLUSTER_LEVELS < 32, "See coarsenBinAddress to know why this is a bad idea.");
 
 /**
  * @brief computeBinAddress calculates a "bin" for grouping coordinates that are near each other.
@@ -71,6 +75,48 @@ Map::GeoBinAddress computeBinAddress(const Map::GeoCoordinates &coords)
     qint64 lat = qRound(coords.lat() * 100);
     qint64 lon = qRound(coords.lon() * 100);
     return static_cast<quint64>((lat << 32) + lon);
+}
+
+/**
+ * @brief coarsenBinAddress takes A GeoBinAddress and reduces its precision.
+ * @param addr the address to be reduced in accuracy
+ * @param level how many binary digits should be nulled out
+ * @return
+ */
+Map::GeoBinAddress coarsenBinAddress(Map::GeoBinAddress addr, int level)
+{
+    // zero out the rightmost bits
+    quint64 mask = 0xffffffffffffffff << level;
+    // duplicate the mask onto the higher 32 bits
+    mask = ((mask << 32) & mask);
+    // apply mask
+    return addr & mask;
+}
+
+/**
+ * @brief buildClusterMap fills the lodMap by putting the GeoBin in GeoClusters
+ * of decreasing levels of detail.
+ * @param lodMap a vector containing a <GeoBinAddress, GeoCluster*> map for each level of detail
+ * @param binAddress the GeoBinAddress for the newly added GeoBin
+ * @param bin the GeoBin to add to the lodMap
+ */
+void buildClusterMap(QVector<QHash<Map::GeoBinAddress, Map::GeoCluster *>> &lodMap,
+                     Map::GeoBinAddress binAddress, const Map::GeoBin *bin)
+{
+    const Map::GeoCluster *cluster = bin;
+    for (int lvl = 1; lvl <= MAP_CLUSTER_LEVELS; lvl++) {
+        QHash<Map::GeoBinAddress, Map::GeoCluster *> &map = lodMap[lvl - 1];
+        binAddress = coarsenBinAddress(binAddress, lvl);
+        qCDebug(MapLog) << "adding GeoCluster with address" << binAddress << "at level" << lvl;
+        if (map.contains(binAddress)) {
+            map[binAddress]->addSubCluster(cluster);
+            break;
+        } else {
+            map.insert(binAddress, new Map::GeoCluster(lvl));
+            map[binAddress]->addSubCluster(cluster);
+            cluster = map[binAddress];
+        }
+    }
 }
 
 /**
@@ -102,29 +148,106 @@ void extendGeoDataLatLonBox(Marble::GeoDataLatLonBox &box, const Map::GeoCoordin
 }
 }
 
+Marble::GeoDataLatLonAltBox Map::GeoCluster::boundingRegion() const
+{
+    if (m_boundingRegion.isEmpty()) {
+        for (const auto &subCluster : m_subClusters) {
+            m_boundingRegion |= subCluster->boundingRegion();
+        }
+    }
+    return m_boundingRegion;
+}
+
+Marble::GeoDataCoordinates Map::GeoCluster::center() const
+{
+    // TODO(jzarl): check how this compares to e.g. the center of all coordinates instead:
+    return boundingRegion().center();
+}
+
+void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, Map::MapStyle style) const
+{
+    const auto viewPort = viewPortParams.viewLatLonAltBox();
+
+    if (!viewPort.contains(boundingRegion()))
+        return;
+
+    if (viewPortParams.resolves(boundingRegion(), MARKER_SIZE_PX)
+        || (boundingRegion().isNull() && viewPortParams.angularResolution() < m_resolution)) {
+        // if the region takes up enough screen space, we should display the subclusters individually.
+        // if all images have the same coordinates (null bounding region), this will never happen
+        // -> in this case, show the images when we're zoomed in enough
+        for (const auto &subCluster : m_subClusters) {
+            subCluster->render(painter, viewPortParams, alternatePixmap, style);
+        }
+    } else {
+        qCDebug(MapLog) << "GeoCluster at" << center().toString() << "has" << size() << "images.";
+        painter->setOpacity(0.5);
+        if (viewPortParams.angularResolution() < m_resolution) {
+            qCDebug(MapLog) << "GeoCluster: drawing area";
+            // high resolution -> draw in geo coordinates to represent the area of the images
+            // the size was empirically determined
+            qreal sizeDeg = 1.5 * (boundingRegion().width(Marble::GeoDataCoordinates::Degree) + boundingRegion().height(Marble::GeoDataCoordinates::Degree));
+            // sometimes, the boundingRegion is much smaller than the 40px circle
+            sizeDeg = qMax(sizeDeg, m_resolution);
+            // true -> size is in degree, not screen coordinates
+            painter->drawEllipse(center(), sizeDeg, sizeDeg, true);
+        } else {
+            qCDebug(MapLog) << "GeoCluster: drawing marker";
+            // low resolution -> draw in screen coordinates to keep the region visible
+            painter->drawEllipse(center(), MARKER_SIZE_PX, MARKER_SIZE_PX);
+        }
+        painter->setOpacity(1);
+        QPen pen = painter->pen();
+        painter->setPen(QPen(Qt::black));
+        painter->drawText(center(), i18nc("The number of images in an area of the map", "%1", size()), -0.5 * MARKER_SIZE_PX, 0.5 * MARKER_SIZE_PX, MARKER_SIZE_PX, MARKER_SIZE_PX, QTextOption(Qt::AlignCenter));
+        painter->setPen(pen);
+    }
+}
+
+int Map::GeoCluster::size() const
+{
+    if (m_size == 0) {
+        for (const auto &subCluster : m_subClusters) {
+            m_size += subCluster->size();
+        }
+    }
+    return m_size;
+}
+
+Map::GeoCluster::GeoCluster(int lvl)
+    : m_resolution(FINE_RESOLUTION * (2 << lvl))
+{
+}
+
+void Map::GeoCluster::addSubCluster(const Map::GeoCluster *subCluster)
+{
+    m_subClusters.append(subCluster);
+}
+
+Map::GeoBin::GeoBin()
+    : GeoCluster(0)
+{
+}
+
 void Map::GeoBin::addImage(DB::ImageInfoPtr image)
 {
     m_images.append(image);
     extendGeoDataLatLonBox(m_boundingRegion, image->coordinates());
 }
 
-Marble::GeoDataLatLonBox Map::GeoBin::boundingRegion() const
+Marble::GeoDataLatLonAltBox Map::GeoBin::boundingRegion() const
 {
     return m_boundingRegion;
-}
-
-Marble::GeoDataCoordinates Map::GeoBin::center() const
-{
-    // TODO(jzarl): check how this compares to e.g. the center of all coordinates instead:
-    return m_boundingRegion.center();
 }
 
 void Map::GeoBin::render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const
 {
     const auto viewPort = viewPortParams.viewLatLonAltBox();
 
-    if (viewPortParams.resolves(boundingRegion(), markerSizePx)
-        || (boundingRegion().isNull() && viewPortParams.angularResolution() < fineResolution)) {
+    qCDebug(MapLog) << "GeoBin at" << center().toString() << "has" << size() << "images.";
+    if (viewPortParams.resolves(boundingRegion(), MARKER_SIZE_PX)
+        || (boundingRegion().isNull() && viewPortParams.angularResolution() < FINE_RESOLUTION)) {
+        qCDebug(MapLog) << "GeoBin: drawing individual images";
         // if the region takes up enough screen space, we should display the images.
         // if all images have the same coordinates (null bounding region), this will never happen
         // -> in this case, show the images when we're zoomed in enough
@@ -137,28 +260,30 @@ void Map::GeoBin::render(Marble::GeoPainter *painter, const Marble::ViewportPara
                     painter->drawPixmap(pos, alternatePixmap);
                 } else {
                     // FIXME(l3u) Maybe we should cache the scaled thumbnails?
-                    painter->drawPixmap(pos, ImageManager::ThumbnailCache::instance()->lookup(image->fileName()).scaled(QSize(markerSizePx, markerSizePx), Qt::KeepAspectRatio));
+                    painter->drawPixmap(pos, ImageManager::ThumbnailCache::instance()->lookup(image->fileName()).scaled(QSize(MARKER_SIZE_PX, MARKER_SIZE_PX), Qt::KeepAspectRatio));
                 }
             }
         }
     } else {
         painter->setOpacity(0.5);
-        if (viewPortParams.angularResolution() < fineResolution) {
+        if (viewPortParams.angularResolution() < FINE_RESOLUTION) {
+            qCDebug(MapLog) << "GeoBin: drawing area";
             // high resolution -> draw in geo coordinates to represent the area of the images
             // the size was empirically determined
             qreal sizeDeg = 1.5 * (boundingRegion().width(Marble::GeoDataCoordinates::Degree) + boundingRegion().height(Marble::GeoDataCoordinates::Degree));
             // sometimes, the boundingRegion is much smaller than the 40px circle
-            sizeDeg = qMax(sizeDeg, fineResolution);
+            sizeDeg = qMax(sizeDeg, FINE_RESOLUTION);
             // true -> size is in degree, not screen coordinates
             painter->drawEllipse(center(), sizeDeg, sizeDeg, true);
         } else {
+            qCDebug(MapLog) << "GeoBin: drawing marker";
             // low resolution -> draw in screen coordinates to keep the region visible
-            painter->drawEllipse(center(), markerSizePx, markerSizePx);
+            painter->drawEllipse(center(), MARKER_SIZE_PX, MARKER_SIZE_PX);
         }
         painter->setOpacity(1);
         QPen pen = painter->pen();
         painter->setPen(QPen(Qt::black));
-        painter->drawText(center(), i18nc("The number of images in an area of the map", "%1", size()), -0.5 * markerSizePx, 0.5 * markerSizePx, markerSizePx, markerSizePx, QTextOption(Qt::AlignCenter));
+        painter->drawText(center(), i18nc("The number of images in an area of the map", "%1", size()), -0.5 * MARKER_SIZE_PX, 0.5 * MARKER_SIZE_PX, MARKER_SIZE_PX, MARKER_SIZE_PX, QTextOption(Qt::AlignCenter));
         painter->setPen(pen);
     }
 }
@@ -279,18 +404,12 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
 
 void Map::MapView::clear()
 {
-    m_geoBins.clear();
     m_markersBox.clear();
     m_regionSelected = false;
 }
 
 void Map::MapView::addImage(DB::ImageInfoPtr image)
 {
-    const GeoBinAddress binAddress = computeBinAddress(image->coordinates());
-    m_geoBins[binAddress].addImage(image);
-
-    // Update the viewport for zoomToMarkers()
-    extendGeoDataLatLonBox(m_markersBox, image->coordinates());
 }
 
 void Map::MapView::addImages(const DB::ImageSearchInfo &searchInfo)
@@ -301,17 +420,39 @@ void Map::MapView::addImages(const DB::ImageSearchInfo &searchInfo)
     DB::FileNameList images = DB::ImageDB::instance()->search(searchInfo);
     int count = 0;
     int total = 0;
+    QHash<GeoBinAddress, GeoBin *> baseBins;
+    // put images in bins
     for (const auto &imageInfo : images) {
         DB::ImageInfoPtr image = imageInfo.info();
         total++;
         if (image->coordinates().hasCoordinates()) {
             count++;
-            addImage(image);
+            const GeoBinAddress binAddress = computeBinAddress(image->coordinates());
+            if (!baseBins.contains(binAddress)) {
+                baseBins.insert(binAddress, new GeoBin());
+            }
+            baseBins[binAddress]->addImage(image);
+            // Update the viewport for zoomToMarkers()
+            extendGeoDataLatLonBox(m_markersBox, image->coordinates());
         }
     }
     displayStatus(MapStatus::SearchCoordinates);
-    qCDebug(TimingLog) << "MapView::addImages(): added" << count << "of" << total << "images in"
-                       << timer.elapsed() << "ms.";
+    qCInfo(TimingLog) << "MapView::addImages(): added" << count << "of" << total << "images in"
+                      << timer.elapsed() << "ms.";
+
+    timer.restart();
+    QVector<QHash<GeoBinAddress, GeoCluster *>> clusters { MAP_CLUSTER_LEVELS };
+    // aggregate bins to clusters
+    for (auto it = baseBins.constBegin(); it != baseBins.constEnd(); ++it) {
+        buildClusterMap(clusters, it.key(), it.value());
+        count++;
+    }
+    Q_ASSERT(clusters[MAP_CLUSTER_LEVELS - 1].size() > 0);
+    for (int lvl = 0; lvl < MAP_CLUSTER_LEVELS; lvl++) {
+        qCInfo(MapLog) << "MapView:" << clusters[lvl].size() << "clusters on level" << lvl;
+    }
+    m_geoClusters = clusters[MAP_CLUSTER_LEVELS - 1];
+    qCDebug(TimingLog) << "MapView::addImages(): aggregated" << count << "GeoClusters in" << timer.elapsed() << "ms.";
 }
 
 void Map::MapView::zoomToMarkers()
@@ -451,19 +592,14 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *v
     Q_ASSERT(viewPortParams != nullptr);
     QElapsedTimer timer;
     timer.start();
-    int numDisplayed = 0;
-    int numBins = 0;
 
     painter->setBrush(QBrush(QColor(Qt::red).lighter()));
     painter->setPen(QColor(Qt::red));
-    for (const auto &bin : m_geoBins) {
-        numBins++;
-        numDisplayed += bin.size();
-        bin.render(painter, *viewPortParams, m_pin, m_showThumbnails ? MapStyle::ShowThumbnails : MapStyle::ShowPins);
+    for (const auto *bin : m_geoClusters) {
+        bin->render(painter, *viewPortParams, m_pin, m_showThumbnails ? MapStyle::ShowThumbnails : MapStyle::ShowPins);
     }
 
-    qCDebug(TimingLog) << "Map rendered" << numBins << "bins containing" << numDisplayed << "images in"
-                       << timer.elapsed() << "ms.";
+    qCDebug(TimingLog) << "Map rendered in" << timer.elapsed() << "ms.";
     return true;
 }
 

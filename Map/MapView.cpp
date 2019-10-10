@@ -168,30 +168,28 @@ void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::Viewport
 {
     const auto viewPort = viewPortParams.viewLatLonAltBox();
 
-    if (viewPortParams.resolves(boundingRegion(), MARKER_SIZE_PX)
+    if (viewPortParams.resolves(boundingRegion(), 0.5 * MARKER_SIZE_PX) || size() == 1
         || (boundingRegion().isNull() && viewPortParams.angularResolution() < m_resolution)) {
         // if the region takes up enough screen space, we should display the subclusters individually.
         // if all images have the same coordinates (null bounding region), this will never happen
         // -> in this case, show the images when we're zoomed in enough
-        for (const auto &subCluster : m_subClusters) {
-            subCluster->render(painter, viewPortParams, alternatePixmap, style);
-        }
+        renderSubItems(painter, viewPortParams, alternatePixmap, style);
     } else {
-        qCDebug(MapLog) << "GeoCluster at" << center().toString() << "has" << size() << "images.";
+        qCDebug(MapLog) << "GeoCluster has" << size() << "images.";
         painter->setOpacity(0.5);
         if (viewPortParams.angularResolution() < m_resolution) {
             qCDebug(MapLog) << "GeoCluster: drawing area";
             // high resolution -> draw in geo coordinates to represent the area of the images
             // the size was empirically determined
-            qreal sizeDeg = 1.5 * (boundingRegion().width(Marble::GeoDataCoordinates::Degree) + boundingRegion().height(Marble::GeoDataCoordinates::Degree));
-            // sometimes, the boundingRegion is much smaller than the 40px circle
-            sizeDeg = qMax(sizeDeg, m_resolution);
-            // true -> size is in degree, not screen coordinates
-            painter->drawEllipse(center(), sizeDeg, sizeDeg, true);
+            qreal hsize = 2 * boundingRegion().width(Marble::GeoDataCoordinates::Degree);
+            qreal vsize = 2 * boundingRegion().height(Marble::GeoDataCoordinates::Degree);
+            hsize = qMax(hsize, m_resolution * MARKER_SIZE_PX);
+            vsize = qMax(vsize, m_resolution * MARKER_SIZE_PX);
+            painter->drawRect(center(), hsize, vsize, true);
         } else {
             qCDebug(MapLog) << "GeoCluster: drawing marker";
             // low resolution -> draw in screen coordinates to keep the region visible
-            painter->drawEllipse(center(), MARKER_SIZE_PX, MARKER_SIZE_PX);
+            painter->drawEllipse(center(), 0.5 * MARKER_SIZE_PX, 0.5 * MARKER_SIZE_PX);
         }
         painter->setOpacity(1);
         QPen pen = painter->pen();
@@ -211,8 +209,16 @@ int Map::GeoCluster::size() const
     return m_size;
 }
 
+void Map::GeoCluster::renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, Map::MapStyle style) const
+{
+    for (const auto &subCluster : m_subClusters) {
+        subCluster->render(painter, viewPortParams, alternatePixmap, style);
+    }
+}
+
 Map::GeoCluster::GeoCluster(int lvl)
     : m_resolution(FINE_RESOLUTION * (2 << lvl))
+    , m_level(lvl)
 {
 }
 
@@ -237,57 +243,28 @@ Marble::GeoDataLatLonAltBox Map::GeoBin::boundingRegion() const
     return m_boundingRegion;
 }
 
-void Map::GeoBin::render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const
-{
-    const auto viewPort = viewPortParams.viewLatLonAltBox();
-
-    qCDebug(MapLog) << "GeoBin at" << center().toString() << "has" << size() << "images.";
-    if (viewPortParams.resolves(boundingRegion(), MARKER_SIZE_PX)
-        || (boundingRegion().isNull() && viewPortParams.angularResolution() < FINE_RESOLUTION)) {
-        qCDebug(MapLog) << "GeoBin: drawing individual images";
-        // if the region takes up enough screen space, we should display the images.
-        // if all images have the same coordinates (null bounding region), this will never happen
-        // -> in this case, show the images when we're zoomed in enough
-        for (const DB::ImageInfoPtr &image : m_images) {
-            const Marble::GeoDataCoordinates pos(image->coordinates().lon(), image->coordinates().lat(),
-                                                 image->coordinates().alt(),
-                                                 Marble::GeoDataCoordinates::Degree);
-            if (viewPort.contains(pos)) {
-                if (style == MapStyle::ShowPins) {
-                    painter->drawPixmap(pos, alternatePixmap);
-                } else {
-                    // FIXME(l3u) Maybe we should cache the scaled thumbnails?
-                    painter->drawPixmap(pos, ImageManager::ThumbnailCache::instance()->lookup(image->fileName()).scaled(QSize(MARKER_SIZE_PX, MARKER_SIZE_PX), Qt::KeepAspectRatio));
-                }
-            }
-        }
-    } else {
-        painter->setOpacity(0.5);
-        if (viewPortParams.angularResolution() < FINE_RESOLUTION) {
-            qCDebug(MapLog) << "GeoBin: drawing area";
-            // high resolution -> draw in geo coordinates to represent the area of the images
-            // the size was empirically determined
-            qreal sizeDeg = 1.5 * (boundingRegion().width(Marble::GeoDataCoordinates::Degree) + boundingRegion().height(Marble::GeoDataCoordinates::Degree));
-            // sometimes, the boundingRegion is much smaller than the 40px circle
-            sizeDeg = qMax(sizeDeg, FINE_RESOLUTION);
-            // true -> size is in degree, not screen coordinates
-            painter->drawEllipse(center(), sizeDeg, sizeDeg, true);
-        } else {
-            qCDebug(MapLog) << "GeoBin: drawing marker";
-            // low resolution -> draw in screen coordinates to keep the region visible
-            painter->drawEllipse(center(), MARKER_SIZE_PX, MARKER_SIZE_PX);
-        }
-        painter->setOpacity(1);
-        QPen pen = painter->pen();
-        painter->setPen(QPen(Qt::black));
-        painter->drawText(center(), i18nc("The number of images in an area of the map", "%1", size()), -0.5 * MARKER_SIZE_PX, 0.5 * MARKER_SIZE_PX, MARKER_SIZE_PX, MARKER_SIZE_PX, QTextOption(Qt::AlignCenter));
-        painter->setPen(pen);
-    }
-}
-
 int Map::GeoBin::size() const
 {
     return m_images.size();
+}
+
+void Map::GeoBin::renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, Map::MapStyle style) const
+{
+    const auto viewPort = viewPortParams.viewLatLonAltBox();
+    qCDebug(MapLog) << "GeoBin: drawing individual images";
+    for (const DB::ImageInfoPtr &image : m_images) {
+        const Marble::GeoDataCoordinates pos(image->coordinates().lon(), image->coordinates().lat(),
+                                             image->coordinates().alt(),
+                                             Marble::GeoDataCoordinates::Degree);
+        if (viewPort.contains(pos)) {
+            if (style == MapStyle::ShowPins) {
+                painter->drawPixmap(pos, alternatePixmap);
+            } else {
+                // FIXME(l3u) Maybe we should cache the scaled thumbnails?
+                painter->drawPixmap(pos, ImageManager::ThumbnailCache::instance()->lookup(image->fileName()).scaled(QSize(MARKER_SIZE_PX, MARKER_SIZE_PX), Qt::KeepAspectRatio));
+            }
+        }
+    }
 }
 
 Map::MapView::MapView(QWidget *parent, UsageType type)

@@ -94,7 +94,7 @@ public:
      * @return the approximate geographical center of the GeoCluster
      */
     virtual Marble::GeoDataCoordinates center() const;
-    virtual void render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const;
+    void render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const;
     /**
      * @brief size
      * The result is only computed once at the first call to the method.
@@ -104,11 +104,20 @@ public:
 
 private:
     mutable int m_size = 0;
-    qreal m_resolution;
     QList<const GeoCluster *> m_subClusters;
 
 protected:
     mutable Marble::GeoDataLatLonAltBox m_boundingRegion;
+    const qreal m_resolution;
+    const int m_level;
+    /**
+     * @brief renderSubItems renders the sub-items of this GeoCluster.
+     * @param painter
+     * @param viewPortParams
+     * @param alternatePixmap
+     * @param style
+     */
+    virtual void renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const;
 };
 
 /**
@@ -121,11 +130,13 @@ public:
     GeoBin();
     void addImage(DB::ImageInfoPtr image);
     Marble::GeoDataLatLonAltBox boundingRegion() const override;
-    void render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const override;
     int size() const override;
 
 private:
     QList<DB::ImageInfoPtr> m_images;
+
+protected:
+    void renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const override;
 };
 
 /**

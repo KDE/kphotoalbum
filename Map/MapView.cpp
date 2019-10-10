@@ -168,9 +168,6 @@ void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::Viewport
 {
     const auto viewPort = viewPortParams.viewLatLonAltBox();
 
-    if (!viewPort.contains(boundingRegion()))
-        return;
-
     if (viewPortParams.resolves(boundingRegion(), MARKER_SIZE_PX)
         || (boundingRegion().isNull() && viewPortParams.angularResolution() < m_resolution)) {
         // if the region takes up enough screen space, we should display the subclusters individually.

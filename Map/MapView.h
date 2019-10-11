@@ -29,7 +29,6 @@
 #include <QList>
 #include <QPixmap>
 #include <QWidget>
-#include <marble/GeoDataCoordinates.h>
 #include <marble/GeoDataLatLonAltBox.h>
 #include <marble/LayerInterface.h>
 
@@ -47,6 +46,8 @@ class QPushButton;
 
 namespace Map
 {
+class GeoBin;
+class GeoCluster;
 
 /**
  * UsageType: determines whether the widget is used as a standalone widget
@@ -69,75 +70,6 @@ enum class MapStatus {
     NoImagesHaveNoCoordinates,
     SomeImagesHaveNoCoordinates,
     SearchCoordinates
-};
-
-enum class MapStyle {
-    ShowPins,
-    ShowThumbnails
-};
-
-class GeoCluster
-{
-public:
-    explicit GeoCluster(int lvl);
-    virtual ~GeoCluster() = default;
-
-    void addSubCluster(const GeoCluster *subCluster);
-    /**
-     * @brief boundingRegion computes the bounding region for the GeoCluster
-     * All images in the GeoCluster are within the boundingRegion.
-     * The result is only computed once at the first call to the method.
-     * @return a GeoDataLatLonBox containing all images in all sub-clusters.
-     */
-    virtual Marble::GeoDataLatLonAltBox boundingRegion() const;
-    /**
-     * @brief center
-     * @return the center of the boundingRegion
-     */
-    virtual Marble::GeoDataCoordinates center() const;
-    void render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const;
-    /**
-     * @brief size
-     * The result is only computed once at the first call to the method.
-     * @return the number of images in all sub-clusters
-     */
-    virtual int size() const;
-
-private:
-    mutable int m_size = 0;
-    QList<const GeoCluster *> m_subClusters;
-
-protected:
-    mutable Marble::GeoDataLatLonAltBox m_boundingRegion;
-    const qreal m_resolution;
-    const int m_level;
-    /**
-     * @brief renderSubItems renders the sub-items of this GeoCluster.
-     * @param painter
-     * @param viewPortParams
-     * @param alternatePixmap
-     * @param style
-     */
-    virtual void renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const;
-};
-
-/**
- * @brief The GeoBin class holds a number of images that are grouped into the same bin.
- * I.e. they are in the direct vicinity of each other.
- */
-class GeoBin : public GeoCluster
-{
-public:
-    GeoBin();
-    void addImage(DB::ImageInfoPtr image);
-    Marble::GeoDataLatLonAltBox boundingRegion() const override;
-    int size() const override;
-
-private:
-    QList<DB::ImageInfoPtr> m_images;
-
-protected:
-    void renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const override;
 };
 
 /**

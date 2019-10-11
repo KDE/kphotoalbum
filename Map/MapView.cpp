@@ -85,10 +85,12 @@ Map::GeoBinAddress computeBinAddress(const Map::GeoCoordinates &coords)
  */
 Map::GeoBinAddress coarsenBinAddress(Map::GeoBinAddress addr, int level)
 {
+    constexpr quint64 LO = 0x00000000ffffffff;
+    constexpr quint64 HI = 0xffffffff00000000;
     // zero out the rightmost bits
     quint64 mask = 0xffffffffffffffff << level;
     // duplicate the mask onto the higher 32 bits
-    mask = ((mask << 32) & mask);
+    mask = (HI & (mask << 32)) | (LO & mask);
     // apply mask
     return addr & mask;
 }

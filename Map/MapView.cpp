@@ -189,7 +189,7 @@ void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::Viewport
         } else {
             qCDebug(MapLog) << "GeoCluster: drawing marker";
             // low resolution -> draw in screen coordinates to keep the region visible
-            painter->drawEllipse(center(), 0.5 * MARKER_SIZE_PX, 0.5 * MARKER_SIZE_PX);
+            painter->drawEllipse(center(), MARKER_SIZE_PX, MARKER_SIZE_PX);
         }
         painter->setOpacity(1);
         QPen pen = painter->pen();

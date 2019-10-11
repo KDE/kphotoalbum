@@ -236,8 +236,7 @@ void Map::GeoCluster::renderSubItems(Marble::GeoPainter *painter, const Marble::
 }
 
 Map::GeoCluster::GeoCluster(int lvl)
-    : m_resolution(FINE_RESOLUTION * (2 << lvl))
-    , m_level(lvl)
+    : m_level(lvl)
 {
 }
 

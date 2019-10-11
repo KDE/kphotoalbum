@@ -154,19 +154,22 @@ void extendGeoDataLatLonBox(Marble::GeoDataLatLonBox &box, const Map::GeoCoordin
  * @param box the geographical region
  * @return the size in pixels, or a null size
  */
-QSizeF screenSize(const Marble::ViewportParams &viewPortParams, const Marble::GeoDataLatLonBox &box)
+QSizeF screenSize(const Marble::ViewportParams &viewPortParams, const Marble::GeoDataLatLonBox &box, bool debug = false)
 {
     qreal NE_x;
     qreal NE_y;
     qreal SW_x;
     qreal SW_y;
     bool valid;
-    valid = viewPortParams.screenCoordinates(box.east(Marble::GeoDataCoordinates::Degree),
-                                             box.north(Marble::GeoDataCoordinates::Degree),
+    valid = viewPortParams.screenCoordinates(box.east(Marble::GeoDataCoordinates::Radian),
+                                             box.north(Marble::GeoDataCoordinates::Radian),
                                              NE_x, NE_y);
-    valid &= viewPortParams.screenCoordinates(box.west(Marble::GeoDataCoordinates::Degree),
-                                              box.south(Marble::GeoDataCoordinates::Degree),
+    valid &= viewPortParams.screenCoordinates(box.west(Marble::GeoDataCoordinates::Radian),
+                                              box.south(Marble::GeoDataCoordinates::Radian),
                                               SW_x, SW_y);
+    if (debug) {
+        qCDebug(MapLog) << "coordinates" << NE_x << "-" << SW_x << "," << NE_y << "-" << SW_y << "are" << (valid ? "valid" : "invalid");
+    }
     if (!valid)
         return QSizeF();
     return QSizeF { qAbs(NE_x - SW_x), qAbs(NE_y - SW_y) };
@@ -201,13 +204,9 @@ void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::Viewport
         qCDebug(MapLog) << "GeoCluster has" << size() << "images.";
         painter->setOpacity(0.5);
         const QSizeF areaSizePx = screenSize(viewPortParams, boundingRegion());
-        const qreal heightPx = qMax(areaSizePx.height(), (qreal)MARKER_SIZE_PX);
-        const qreal widthPx = qMax(areaSizePx.width(), (qreal)MARKER_SIZE_PX);
-        //        if (size() == 33)
-        //        {
-        //            qDebug() << "Drawing cluster:" << heightPx << "x" << widthPx;
-        //            qDebug() << "Area is:" << areaSizePx;
-        //        }
+        // doubling the area size gets nicer results on average:
+        const qreal heightPx = qMax(2 * areaSizePx.height(), (qreal)MARKER_SIZE_PX);
+        const qreal widthPx = qMax(2 * areaSizePx.width(), (qreal)MARKER_SIZE_PX);
         painter->drawRect(center(), heightPx, widthPx);
         painter->setOpacity(1);
         QPen pen = painter->pen();

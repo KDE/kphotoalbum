@@ -146,6 +146,31 @@ void extendGeoDataLatLonBox(Marble::GeoDataLatLonBox &box, const Map::GeoCoordin
         }
     }
 }
+
+/**
+ * @brief screenSize computes the screen size of a geographical region in pixels.
+ * If one of the bounding box edges is not visible, a null QizeF is retunred.
+ * @param viewPortParams the parameters of the current view port
+ * @param box the geographical region
+ * @return the size in pixels, or a null size
+ */
+QSizeF screenSize(const Marble::ViewportParams &viewPortParams, const Marble::GeoDataLatLonBox &box)
+{
+    qreal NE_x;
+    qreal NE_y;
+    qreal SW_x;
+    qreal SW_y;
+    bool valid;
+    valid = viewPortParams.screenCoordinates(box.east(Marble::GeoDataCoordinates::Degree),
+                                             box.north(Marble::GeoDataCoordinates::Degree),
+                                             NE_x, NE_y);
+    valid &= viewPortParams.screenCoordinates(box.west(Marble::GeoDataCoordinates::Degree),
+                                              box.south(Marble::GeoDataCoordinates::Degree),
+                                              SW_x, SW_y);
+    if (!valid)
+        return QSizeF();
+    return QSizeF{qAbs(NE_x-SW_x),qAbs(NE_y-SW_y)};
+}
 }
 
 Marble::GeoDataLatLonAltBox Map::GeoCluster::boundingRegion() const
@@ -166,9 +191,7 @@ Marble::GeoDataCoordinates Map::GeoCluster::center() const
 
 void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, Map::MapStyle style) const
 {
-    const auto viewPort = viewPortParams.viewLatLonAltBox();
-
-    if (viewPortParams.resolves(boundingRegion(), 0.5 * MARKER_SIZE_PX) || size() == 1
+    if (viewPortParams.resolves(boundingRegion(), 2 * MARKER_SIZE_PX) || size() == 1
         || (boundingRegion().isNull() && viewPortParams.angularResolution() < m_resolution)) {
         // if the region takes up enough screen space, we should display the subclusters individually.
         // if all images have the same coordinates (null bounding region), this will never happen
@@ -177,20 +200,15 @@ void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::Viewport
     } else {
         qCDebug(MapLog) << "GeoCluster has" << size() << "images.";
         painter->setOpacity(0.5);
-        if (viewPortParams.angularResolution() < m_resolution) {
-            qCDebug(MapLog) << "GeoCluster: drawing area";
-            // high resolution -> draw in geo coordinates to represent the area of the images
-            // the size was empirically determined
-            qreal hsize = 2 * boundingRegion().width(Marble::GeoDataCoordinates::Degree);
-            qreal vsize = 2 * boundingRegion().height(Marble::GeoDataCoordinates::Degree);
-            hsize = qMax(hsize, m_resolution * MARKER_SIZE_PX);
-            vsize = qMax(vsize, m_resolution * MARKER_SIZE_PX);
-            painter->drawRect(center(), hsize, vsize, true);
-        } else {
-            qCDebug(MapLog) << "GeoCluster: drawing marker";
-            // low resolution -> draw in screen coordinates to keep the region visible
-            painter->drawEllipse(center(), MARKER_SIZE_PX, MARKER_SIZE_PX);
-        }
+        const QSizeF areaSizePx = screenSize(viewPortParams, boundingRegion());
+        const qreal heightPx = qMax(areaSizePx.height(), (qreal)MARKER_SIZE_PX);
+        const qreal widthPx = qMax(areaSizePx.width(), (qreal)MARKER_SIZE_PX);
+//        if (size() == 33)
+//        {
+//            qDebug() << "Drawing cluster:" << heightPx << "x" << widthPx;
+//            qDebug() << "Area is:" << areaSizePx;
+//        }
+        painter->drawRect(center(), heightPx, widthPx);
         painter->setOpacity(1);
         QPen pen = painter->pen();
         painter->setPen(QPen(Qt::black));

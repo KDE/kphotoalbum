@@ -197,7 +197,7 @@ Marble::GeoDataCoordinates Map::GeoCluster::center() const
 void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, Map::MapStyle style) const
 {
     if (viewPortParams.resolves(boundingRegion(), 2 * MARKER_SIZE_PX) || size() == 1
-        || (boundingRegion().isNull() && viewPortParams.angularResolution() < m_resolution)) {
+        || (viewPortParams.angularResolution() < FINE_RESOLUTION)) {
         // if the region takes up enough screen space, we should display the subclusters individually.
         // if all images have the same coordinates (null bounding region), this will never happen
         // -> in this case, show the images when we're zoomed in enough

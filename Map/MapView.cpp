@@ -169,7 +169,7 @@ QSizeF screenSize(const Marble::ViewportParams &viewPortParams, const Marble::Ge
                                               SW_x, SW_y);
     if (!valid)
         return QSizeF();
-    return QSizeF{qAbs(NE_x-SW_x),qAbs(NE_y-SW_y)};
+    return QSizeF { qAbs(NE_x - SW_x), qAbs(NE_y - SW_y) };
 }
 }
 
@@ -203,11 +203,11 @@ void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::Viewport
         const QSizeF areaSizePx = screenSize(viewPortParams, boundingRegion());
         const qreal heightPx = qMax(areaSizePx.height(), (qreal)MARKER_SIZE_PX);
         const qreal widthPx = qMax(areaSizePx.width(), (qreal)MARKER_SIZE_PX);
-//        if (size() == 33)
-//        {
-//            qDebug() << "Drawing cluster:" << heightPx << "x" << widthPx;
-//            qDebug() << "Area is:" << areaSizePx;
-//        }
+        //        if (size() == 33)
+        //        {
+        //            qDebug() << "Drawing cluster:" << heightPx << "x" << widthPx;
+        //            qDebug() << "Area is:" << areaSizePx;
+        //        }
         painter->drawRect(center(), heightPx, widthPx);
         painter->setOpacity(1);
         QPen pen = painter->pen();

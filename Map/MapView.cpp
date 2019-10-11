@@ -24,7 +24,6 @@
 
 #include <DB/ImageDB.h>
 #include <DB/ImageSearchInfo.h>
-#include <ImageManager/ThumbnailCache.h>
 #include <MainWindow/Logging.h>
 
 #include <KConfigGroup>
@@ -40,7 +39,6 @@
 #include <QPixmap>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include <marble/GeoDataLatLonAltBox.h>
 #include <marble/GeoPainter.h>
 #include <marble/MarbleWidget.h>
 #include <marble/RenderPlugin.h>

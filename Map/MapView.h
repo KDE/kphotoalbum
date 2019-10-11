@@ -85,13 +85,14 @@ public:
     void addSubCluster(const GeoCluster *subCluster);
     /**
      * @brief boundingRegion computes the bounding region for the GeoCluster
+     * All images in the GeoCluster are within the boundingRegion.
      * The result is only computed once at the first call to the method.
      * @return a GeoDataLatLonBox containing all images in all sub-clusters.
      */
     virtual Marble::GeoDataLatLonAltBox boundingRegion() const;
     /**
      * @brief center
-     * @return the approximate geographical center of the GeoCluster
+     * @return the center of the boundingRegion
      */
     virtual Marble::GeoDataCoordinates center() const;
     void render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const;

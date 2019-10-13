@@ -347,6 +347,7 @@ property_copy(infoBoxWidth, setInfoBoxWidth, int, Viewer, 400)
 property_copy(infoBoxHeight, setInfoBoxHeight, int, Viewer, 300)
 property_enum(infoBoxPosition, setInfoBoxPosition, Position, Viewer, Bottom)
 property_enum(viewerStandardSize, setViewerStandardSize, StandardViewSize, Viewer, FullSize)
+property_copy(useExternalViewer, setUseExternalViewer, bool, Viewer, false)
     // clang-format on
 
     bool SettingsData::smoothScale() const

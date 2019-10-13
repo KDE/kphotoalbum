@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,6 +22,7 @@
 
 #include <KComboBox>
 #include <KLocalizedString>
+#include <QCheckBox>
 #include <QGridLayout>
 #include <QLabel>
 #include <QSpinBox>
@@ -87,6 +88,14 @@ Settings::ViewerPage::ViewerPage(QWidget *parent)
                "If this option is not set, KPhotoAlbum will use a faster but less smooth scaling method.</p>");
     scalingLabel->setWhatsThis(txt);
     m_smoothScale->setWhatsThis(txt);
+
+    m_useExternalViewer = new QCheckBox(i18n("Use external viewer for videos"));
+    glay->addWidget(m_useExternalViewer, 4, 0, 1, 2);
+    txt = i18n("<p>If you are using KPhotoAlbum via a virtual machine then you will undoubtfully have noticed that video playback, is to say the least, a bit jerky. "
+               "KPhotoAlbum fortunately comes with a solution to this problem. On your host machine, lets say Windows 10, you will run a small application, "
+               "which will communicate with your KPHotoAlbum running in your virtual machine. KPhotoAlbum will tell this small application to load the video locally."
+               "The sources for the application you need to run on your windows machine is located in the subdirectory RemoteVideoPlayer.</p>");
+    m_useExternalViewer->setWhatsThis(txt);
 }
 
 void Settings::ViewerPage::loadSettings(Settings::SettingsData *opt)
@@ -99,6 +108,7 @@ void Settings::ViewerPage::loadSettings(Settings::SettingsData *opt)
     m_cacheSize->setValue(opt->viewerCacheSize());
     m_smoothScale->setCurrentIndex(opt->smoothScale());
     m_viewerStandardSize->setCurrentIndex(opt->viewerStandardSize());
+    m_useExternalViewer->setChecked(opt->useExternalViewer());
 }
 
 void Settings::ViewerPage::saveSettings(Settings::SettingsData *opt)
@@ -111,5 +121,6 @@ void Settings::ViewerPage::saveSettings(Settings::SettingsData *opt)
     opt->setViewerStandardSize((StandardViewSize)m_viewerStandardSize->currentIndex());
     opt->setSlideShowSize(m_slideShowSetup->size());
     opt->setLaunchSlideShowFullScreen(m_slideShowSetup->launchFullScreen());
+    opt->setUseExternalViewer(m_useExternalViewer->isChecked());
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

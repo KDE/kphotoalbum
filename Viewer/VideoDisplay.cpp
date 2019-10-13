@@ -17,14 +17,17 @@
 */
 
 #include "VideoDisplay.h"
-
+#include "RemoteVideoDisplayController.h"
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
 #include <MainWindow/FeatureDialog.h>
 
+#include <Settings/SettingsData.h>
 #include <KLocalizedString>
 #include <QAction>
 #include <QGuiApplication>
+#include <QLabel>
+#include <QPushButton>
 #include <QResizeEvent>
 #include <QScreen>
 #include <kmessagebox.h>
@@ -77,13 +80,19 @@ void Viewer::VideoDisplay::setup()
 
 bool Viewer::VideoDisplay::setImage(DB::ImageInfoPtr info, bool /*forward*/)
 {
-    if (!m_mediaObject)
-        setup();
-
     m_info = info;
-    m_mediaObject->setCurrentSource(QUrl::fromLocalFile(info->fileName().absolute()));
-    m_mediaObject->play();
 
+    if (Settings::SettingsData::instance()->useExternalViewer() && !m_showNextVideoLocally) {
+        m_showNextVideoLocally = false;
+        setupRemoteDisplayInfo();
+        RemoteVideoDisplayController::instance().display(info);
+    } else {
+        if (!m_mediaObject)
+            setup();
+
+        m_mediaObject->setCurrentSource(QUrl::fromLocalFile(info->fileName().absolute()));
+        m_mediaObject->play();
+    }
     return true;
 }
 
@@ -218,6 +227,53 @@ void Viewer::VideoDisplay::setVideoWidgetSize()
 
     m_slider->move(0, height() - m_slider->sizeHint().height());
     m_slider->resize(width(), m_slider->sizeHint().height());
+}
+
+void Viewer::VideoDisplay::setupRemoteDisplayInfo()
+{
+    // Center top in the screen
+    auto vlay = new QVBoxLayout(this);
+    vlay->addStretch(1);
+    auto hlay = new QHBoxLayout;
+    vlay->addLayout(hlay);
+    vlay->addStretch(1);
+
+    hlay->addStretch(1);
+    auto top = new QWidget;
+    hlay->addWidget(top);
+    hlay->addStretch(1);
+
+    auto pal = top->palette();
+    pal.setColor(QPalette::Background, Qt::green);
+    top->setPalette(pal);
+    top->setAutoFillBackground(true);
+
+    vlay = new QVBoxLayout(top);
+    auto label = new QLabel(i18n("Video is being displayed remotely"));
+    auto font = label->font();
+    font.setPointSize(20);
+    label->setFont(font);
+
+    vlay->addWidget(label);
+
+    hlay = new QHBoxLayout;
+    vlay->addLayout(hlay);
+
+    auto button = new QPushButton(i18n("Turn this feature off"));
+    hlay->addWidget(button);
+    connect(button, &QPushButton::clicked, [this] {
+        Settings::SettingsData::instance()->setUseExternalViewer(false);
+        setImage(m_info, false);
+    });
+
+    hlay->addStretch(1);
+
+    button = new QPushButton(i18n("Show locally"));
+    hlay->addWidget(button);
+    connect(button, &QPushButton::clicked, [this] {
+        m_showNextVideoLocally = true;
+        setImage(m_info, false);
+    });
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

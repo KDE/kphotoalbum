@@ -178,6 +178,7 @@ public:
     property_copy(infoBoxHeight, setInfoBoxHeight, int);
     property_copy(infoBoxPosition, setInfoBoxPosition, Position);
     property_copy(viewerStandardSize, setViewerStandardSize, StandardViewSize);
+    property_copy(useExternalViewer, setUseExternalViewer, bool);
 
     ////////////////////
     //// Categories ////

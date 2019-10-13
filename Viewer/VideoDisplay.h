@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -65,6 +65,7 @@ protected:
     void resizeEvent(QResizeEvent *) override;
     void setup();
     void setVideoWidgetSize();
+    void setupRemoteDisplayInfo();
 
     enum ZoomType { FullZoom,
                     PixelForPixelZoom,
@@ -76,6 +77,7 @@ private:
     Phonon::SeekSlider *m_slider;
     ZoomType m_zoomType;
     double m_zoomFactor;
+    bool m_showNextVideoLocally = false;
 };
 
 }

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,6 +22,7 @@
 class KComboBox;
 class QSpinBox;
 class QComboBox;
+class QCheckBox;
 namespace Settings
 {
 class SettingsData;
@@ -41,6 +42,7 @@ private:
     QSpinBox *m_slideShowInterval;
     QSpinBox *m_cacheSize;
     KComboBox *m_viewerStandardSize;
+    QCheckBox *m_useExternalViewer;
 };
 
 }

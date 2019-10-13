@@ -186,6 +186,7 @@ set(libViewer_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VideoShooter.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/TaggedArea.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/Logging.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/RemoteVideoDisplayController.cpp"
     )
 
 set(libCategoryListView_SRCS

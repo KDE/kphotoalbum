@@ -1,7 +1,6 @@
 Development tools to support KPhotoAlbum development
 ====================================================
 
-
 dev/scripts
 -----------
 
@@ -28,3 +27,9 @@ About the hooks:
  - 02-check-copyright-header will remind you to update copyright headers
  - 03-check-untracked_source_files will try to warn you about files that you forgot to add to git
  - 04-check-clang-format will complain if your commit isn't formatted properly
+
+
+Additional resources
+--------------------
+
+ - https://techbase.kde.org/Development/Git/Configuration

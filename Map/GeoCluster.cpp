@@ -95,9 +95,9 @@ void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::Viewport
         qCDebug(MapLog) << "GeoCluster has" << size() << "images.";
         painter->setOpacity(0.5);
         const QSizeF areaSizePx = screenSize(viewPortParams, boundingRegion());
-        // doubling the area size gets nicer results on average:
-        const qreal heightPx = qMax(2 * areaSizePx.height(), (qreal)MARKER_SIZE_PX);
-        const qreal widthPx = qMax(2 * areaSizePx.width(), (qreal)MARKER_SIZE_PX);
+        // drawing a larger area gets nicer results on average:
+        const qreal heightPx = qMax(1.2 * areaSizePx.height(), (qreal)MARKER_SIZE_PX);
+        const qreal widthPx = qMax(1.2 * areaSizePx.width(), (qreal)MARKER_SIZE_PX);
         painter->drawRect(center(), heightPx, widthPx);
         painter->setOpacity(1);
         QPen pen = painter->pen();

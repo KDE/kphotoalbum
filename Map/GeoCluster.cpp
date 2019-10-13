@@ -176,23 +176,7 @@ void Map::GeoBin::renderSubItems(Marble::GeoPainter *painter, const Marble::View
 
 void Map::extendGeoDataLatLonBox(Marble::GeoDataLatLonBox &box, const Map::GeoCoordinates &coords)
 {
-    if (box.isEmpty()) {
-        box.setEast(coords.lon(), Marble::GeoDataCoordinates::Degree);
-        box.setWest(coords.lon(), Marble::GeoDataCoordinates::Degree);
-        box.setNorth(coords.lat(), Marble::GeoDataCoordinates::Degree);
-        box.setSouth(coords.lat(), Marble::GeoDataCoordinates::Degree);
-    } else {
-        if (box.east(Marble::GeoDataCoordinates::Degree) < coords.lon()) {
-            box.setEast(coords.lon(), Marble::GeoDataCoordinates::Degree);
-        }
-        if (box.west(Marble::GeoDataCoordinates::Degree) > coords.lon()) {
-            box.setWest(coords.lon(), Marble::GeoDataCoordinates::Degree);
-        }
-        if (box.north(Marble::GeoDataCoordinates::Degree) < coords.lat()) {
-            box.setNorth(coords.lat(), Marble::GeoDataCoordinates::Degree);
-        }
-        if (box.south(Marble::GeoDataCoordinates::Degree) > coords.lat()) {
-            box.setSouth(coords.lat(), Marble::GeoDataCoordinates::Degree);
-        }
-    }
+    Marble::GeoDataLatLonBox addition { coords.lat(), coords.lat(), coords.lon(), coords.lon(), Marble::GeoDataCoordinates::Degree };
+    // let GeoDataLatLonBox::united() take care of the edge cases
+    box |= addition;
 }

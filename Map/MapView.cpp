@@ -280,6 +280,13 @@ void Map::MapView::buildImageClusters()
         buildClusterMap(clusters, it.key(), it.value());
         count++;
     }
+    // alternative proposal:
+    // 1. sort clusters by size
+    // 2. take biggest cluster and compute distance to other clusters
+    // 3. create new aggregate cluster of biggest cluster with all clusters nearer than 1km*2^level
+    //    remove aggregated clusters from set of eligible clusters
+    // 4. with remaining clusters, continue at 2.
+
     Q_ASSERT(clusters[MAP_CLUSTER_LEVELS - 1].size() > 0);
     for (int lvl = 0; lvl < MAP_CLUSTER_LEVELS; lvl++) {
         qCInfo(MapLog) << "MapView:" << clusters[lvl].size() << "clusters on level" << lvl;

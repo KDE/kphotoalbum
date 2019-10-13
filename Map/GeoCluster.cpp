@@ -51,6 +51,8 @@ QSizeF screenSize(const Marble::ViewportParams &viewPortParams, const Marble::Ge
     qreal NE_y;
     qreal SW_x;
     qreal SW_y;
+    // if a point is not visible on screen, screenCoordinates() returns false
+    // the result is still usable, though
     bool valid;
     valid = viewPortParams.screenCoordinates(box.east(Marble::GeoDataCoordinates::Radian),
                                              box.north(Marble::GeoDataCoordinates::Radian),
@@ -61,8 +63,6 @@ QSizeF screenSize(const Marble::ViewportParams &viewPortParams, const Marble::Ge
     if (debug) {
         qCDebug(MapLog) << "coordinates" << NE_x << "-" << SW_x << "," << NE_y << "-" << SW_y << "are" << (valid ? "valid" : "invalid");
     }
-    if (!valid)
-        return QSizeF();
     return QSizeF { qAbs(NE_x - SW_x), qAbs(NE_y - SW_y) };
 }
 } //namespace

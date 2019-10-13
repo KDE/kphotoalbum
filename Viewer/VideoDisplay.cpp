@@ -268,6 +268,16 @@ void Viewer::VideoDisplay::setupRemoteDisplayInfo()
 
     hlay->addStretch(1);
 
+    button = new QPushButton(i18n("Close"));
+    hlay->addWidget(button);
+    connect(button, &QPushButton::clicked, [this] {
+        QWidget *w = this;
+        while (w && !w->isTopLevel())
+            w = w->parentWidget();
+        if (w)
+            w->close();
+    });
+
     button = new QPushButton(i18n("Show locally"));
     hlay->addWidget(button);
     connect(button, &QPushButton::clicked, [this] {

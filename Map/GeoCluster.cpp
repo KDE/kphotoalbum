@@ -47,23 +47,23 @@ constexpr int MARKER_SIZE_PX = 40;
  */
 QSizeF screenSize(const Marble::ViewportParams &viewPortParams, const Marble::GeoDataLatLonBox &box, bool debug = false)
 {
-    qreal NE_x;
-    qreal NE_y;
-    qreal SW_x;
-    qreal SW_y;
+    qreal east;
+    qreal north;
+    qreal west;
+    qreal south;
     // if a point is not visible on screen, screenCoordinates() returns false
     // the result is still usable, though
-    bool valid;
-    valid = viewPortParams.screenCoordinates(box.east(Marble::GeoDataCoordinates::Radian),
-                                             box.north(Marble::GeoDataCoordinates::Radian),
-                                             NE_x, NE_y);
-    valid &= viewPortParams.screenCoordinates(box.west(Marble::GeoDataCoordinates::Radian),
-                                              box.south(Marble::GeoDataCoordinates::Radian),
-                                              SW_x, SW_y);
+    bool onScreen;
+    onScreen = viewPortParams.screenCoordinates(box.east(Marble::GeoDataCoordinates::Radian),
+                                                box.north(Marble::GeoDataCoordinates::Radian),
+                                                east, north);
+    onScreen &= viewPortParams.screenCoordinates(box.west(Marble::GeoDataCoordinates::Radian),
+                                                 box.south(Marble::GeoDataCoordinates::Radian),
+                                                 west, south);
     if (debug) {
-        qCDebug(MapLog) << "coordinates" << NE_x << "-" << SW_x << "," << NE_y << "-" << SW_y << "are" << (valid ? "valid" : "invalid");
+        qCDebug(MapLog) << "coordinates" << east << "-" << west << "," << north << "-" << south << "are" << (onScreen ? "on screen" : "not (fully) on screen");
     }
-    return QSizeF { qAbs(NE_x - SW_x), qAbs(NE_y - SW_y) };
+    return QSizeF { qAbs(east - west), qAbs(north - south) };
 }
 } //namespace
 

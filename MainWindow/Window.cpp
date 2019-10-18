@@ -115,6 +115,9 @@
 #include "UpdateVideoThumbnail.h"
 #include "WelcomeDialog.h"
 
+#ifdef KPA_ENABLE_REMOTECONTROL
+#include <RemoteControl/RemoteInterface.h>
+#endif
 #include <Settings/SettingsData.h>
 #include <Settings/SettingsDialog.h>
 #include <ThumbnailView/FilterWidget.h>
@@ -126,8 +129,6 @@
 #include <Utilities/ShowBusyCursor.h>
 #include <Utilities/VideoUtil.h>
 #include <Viewer/ViewerWidget.h>
-
-#include <RemoteControl/RemoteInterface.h>
 
 using namespace DB;
 
@@ -294,10 +295,12 @@ void MainWindow::Window::delayedInit()
     Exif::Database::instance(); // Load the database
     qCInfo(TimingLog) << "MainWindow: Loading Exif DB:" << timer.restart() << "ms.";
 
+#ifdef KPA_ENABLE_REMOTECONTROL
     if (!Options::the()->listen().isNull())
         RemoteControl::RemoteInterface::instance().listen(Options::the()->listen());
     else if (Settings::SettingsData::instance()->listenForAndroidDevicesOnStartup())
         RemoteControl::RemoteInterface::instance().listen();
+#endif
 }
 
 bool MainWindow::Window::slotExit()

@@ -22,6 +22,9 @@
 
 #include <BackgroundTaskManager/StatusIndicator.h>
 #include <DB/ImageDB.h>
+#ifdef KPA_ENABLE_REMOTECONTROL
+#include <RemoteControl/ConnectionIndicator.h>
+#endif
 #include <Settings/SettingsData.h>
 #include <ThumbnailView/ThumbnailFacade.h>
 
@@ -36,7 +39,6 @@
 #include <QTimer>
 #include <QToolButton>
 #include <QVBoxLayout>
-#include <RemoteControl/ConnectionIndicator.h>
 
 MainWindow::StatusBar::StatusBar()
     : QStatusBar()
@@ -64,8 +66,10 @@ void MainWindow::StatusBar::setupGUI()
     indicatorsHBoxLayout->addWidget(mp_dirtyIndicator);
     connect(DB::ImageDB::instance(), &DB::ImageDB::dirty, mp_dirtyIndicator, &DirtyIndicator::markDirtySlot);
 
+#ifdef KPA_ENABLE_REMOTECONTROL
     auto *remoteIndicator = new RemoteControl::ConnectionIndicator(indicators);
     indicatorsHBoxLayout->addWidget(remoteIndicator);
+#endif
 
     auto *jobIndicator = new BackgroundTaskManager::StatusIndicator(indicators);
     indicatorsHBoxLayout->addWidget(jobIndicator);

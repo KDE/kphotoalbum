@@ -1,4 +1,4 @@
-/* Copyright (C) 2016 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+/* Copyright (C) 2016-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -50,6 +50,7 @@ public:
         i18n("Import file."),
         i18n("file.kim")
     };
+#ifdef KPA_ENABLE_REMOTECONTROL
     // QCommandLineParser doesn't support optional values.
     // therefore, we need two separate options:
     QCommandLineOption listen {
@@ -61,6 +62,7 @@ public:
         i18n("Listen for network connections on address <interface_address>."),
         i18n("interface_address")
     };
+#endif
     QCommandLineOption searchOnStartup { QLatin1String("search"), i18n("Search for new images on startup.") };
 };
 }
@@ -103,6 +105,7 @@ QUrl MainWindow::Options::importFile() const
 
 QHostAddress MainWindow::Options::listen() const
 {
+#ifdef KPA_ENABLE_REMOTECONTROL
     QHostAddress address;
     QString value = d->parser.value(d->listenAddress);
     if (d->parser.isSet(d->listen) || !value.isEmpty()) {
@@ -116,6 +119,9 @@ QHostAddress MainWindow::Options::listen() const
         address = QHostAddress::Null;
     }
     return address;
+#else
+    return {};
+#endif
 }
 
 bool MainWindow::Options::searchForImagesOnStart() const
@@ -135,8 +141,10 @@ MainWindow::Options::Options()
         << d->dbFile
         << d->demoOption
         << d->importFile
+#ifdef KPA_ENABLE_REMOTECONTROL
         << d->listen
         << d->listenAddress
+#endif
         << d->searchOnStartup);
 }
 

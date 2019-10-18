@@ -429,17 +429,22 @@ set(libBackgroundJobs_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/ExtractOneThumbnailJob.cpp
     )
 
-set(libRemoteControl_SRCS
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteCommand.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteConnection.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Server.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteInterface.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/SearchInfo.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteImageRequest.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ImageNameStore.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ConnectionIndicator.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Logging.cpp
-    )
+option(KPA_ENABLE_REMOTECONTROL "Build with support for companion Android/QML app." OFF)
+set(libRemoteControl_SRCS)
+if(KPA_ENABLE_REMOTECONTROL)
+    add_compile_definitions(KPA_ENABLE_REMOTECONTROL)
+    set(libRemoteControl_SRCS
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteCommand.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteConnection.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Server.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteInterface.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/SearchInfo.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteImageRequest.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ImageNameStore.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ConnectionIndicator.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Logging.cpp
+        )
+endif()
 
 set(libMap_SRCS)
 if(KF5KGeoMap_FOUND)

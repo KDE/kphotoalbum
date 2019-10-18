@@ -35,7 +35,9 @@
 #include <QDebug>
 #include <QLocale>
 #include <QTemporaryFile>
+#ifdef KPA_ENABLE_REMOTECONTROL
 #include <RemoteControl/RemoteInterface.h>
+#endif
 
 void migrateKDE4Config()
 {
@@ -123,7 +125,9 @@ int main(int argc, char **argv)
 
     view->setGeometry(Settings::SettingsData::instance()->windowGeometry(Settings::MainWindow));
 
+#ifdef KPA_ENABLE_REMOTECONTROL
     (void)RemoteControl::RemoteInterface::instance();
+#endif
 
     int code = QApplication::exec();
     return code;

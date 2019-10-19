@@ -93,6 +93,8 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     Utilities::ShowBusyCursor dummy;
     ShortCutManager shortCutManager;
 
+    m_actions = new KActionCollection(this);
+
     // The widget stack
     QWidget *mainWidget = new QWidget(this);
     QVBoxLayout *layout = new QVBoxLayout(mainWidget);
@@ -412,7 +414,7 @@ QWidget *AnnotationDialog::Dialog::createDateWidget(ShortCutManager &shortCutMan
 
 QWidget *AnnotationDialog::Dialog::createPreviewWidget()
 {
-    m_preview = new ImagePreviewWidget();
+    m_preview = new ImagePreviewWidget(m_actions);
     connect(m_preview, &ImagePreviewWidget::togglePreview, this, &Dialog::togglePreview);
     return m_preview;
 }
@@ -1245,8 +1247,6 @@ void AnnotationDialog::Dialog::loadWindowLayout()
 
 void AnnotationDialog::Dialog::setupActions()
 {
-    m_actions = new KActionCollection(this);
-
     QAction *action = nullptr;
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-sort-alphatree"), m_optionList.at(0), SLOT(slotSortAlphaTree()));
     action->setText(i18n("Sort Alphabetically (Tree)"));

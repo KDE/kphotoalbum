@@ -376,6 +376,7 @@ namespace
 // yields about 10% less performance with higher IO/sec but lower I/O throughput,
 // most probably due to thrashing.
 constexpr int IMAGE_SCOUT_THREAD_COUNT = 4;
+constexpr int PRELOAD_MD5 = 1;
 
 bool canReadImage(const DB::FileName &fileName)
 {
@@ -499,7 +500,8 @@ void NewImageFinder::loadExtraFiles()
     }
 
     ImageScout scout(asyncPreloadQueue, loadedCount, IMAGE_SCOUT_THREAD_COUNT);
-    scout.setPreloadFunc(DB::PreloadMD5Sum);
+    if (PRELOAD_MD5)
+        scout.setPreloadFunc(DB::PreloadMD5Sum);
     scout.start();
 
     Exif::Database::instance()->startInsertTransaction();

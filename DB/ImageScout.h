@@ -29,6 +29,7 @@ namespace DB
 {
 
 typedef QQueue<DB::FileName> ImageScoutQueue;
+typedef void (*PreloadFunc)(const DB::FileName&);
 class ImageScoutThread;
 
 /**
@@ -56,6 +57,12 @@ public:
     // May not be called after starting the scout.
     void setReadLimit(int);
     int getReadLimit();
+    // Specify an alternate function to preload the file.
+    // This function may perform useful work.  Note that this is not
+    // guaranteed to be called, so anything using this must be
+    // prepared to do the work later.
+    void setPreloadFunc(PreloadFunc);
+    PreloadFunc getPreloadFunc();
     // Start the scout running
     void start();
 
@@ -68,6 +75,7 @@ private:
     int m_scoutBufSize;
     int m_maxSeekAhead;
     int m_readLimit;
+    PreloadFunc m_preloadFunc;
 };
 }
 

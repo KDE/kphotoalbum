@@ -24,6 +24,11 @@
 #include <QCryptographicHash>
 #include <QFile>
 #include <QIODevice>
+#include <QHash>
+#include <QMutex>
+
+static QMutex s_MD5CacheMutex;
+static QHash<DB::FileName, DB::MD5> s_MD5Cache;
 
 DB::MD5::MD5()
     : m_isNull(true)
@@ -88,6 +93,12 @@ bool DB::MD5::operator<(const DB::MD5 &other) const
     return (m_v0 < other.m_v0 || (m_v0 == other.m_v0 && (m_v1 < other.m_v1)));
 }
 
+void DB::MD5::resetMD5Cache()
+{
+    QMutexLocker locker(&s_MD5CacheMutex);
+    s_MD5Cache.clear();
+}
+
 namespace
 {
 // Determined experimentally to yield best results (on Seagate 2TB 2.5" disk,
@@ -100,6 +111,16 @@ constexpr int MD5_BUFFER_SIZE = 262144;
 
 DB::MD5 DB::MD5Sum(const DB::FileName &fileName)
 {
+    QMutexLocker locker(&s_MD5CacheMutex);
+    if (s_MD5Cache.contains(fileName)) {
+        return s_MD5Cache[fileName];
+    }
+    locker.unlock();
+    // It's possible that the checksum will be added between now
+    // and when we add it, but as long as the file contents don't change
+    // during that interval, the checksums will match.
+    // Holding the lock while the checksum is being computed will
+    // defeat the whole purpose.
     DB::MD5 checksum;
     QFile file(fileName.absolute());
     if (file.open(QIODevice::ReadOnly)) {
@@ -111,5 +132,12 @@ DB::MD5 DB::MD5Sum(const DB::FileName &fileName)
         file.close();
         checksum = DB::MD5(QString::fromLatin1(md5calculator.result().toHex()));
     }
+    locker.relock();
+    s_MD5Cache[fileName] = checksum;
     return checksum;
+}
+
+void DB::PreloadMD5Sum(const DB::FileName &fileName)
+{
+    (void) MD5Sum(fileName);
 }

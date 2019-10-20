@@ -52,6 +52,8 @@ public:
 
     inline uint hash() const { return (uint)m_v0 ^ m_v1; }
 
+    static void resetMD5Cache();
+
 private:
     bool m_isNull;
     qulonglong m_v0;
@@ -64,6 +66,7 @@ inline uint qHash(const MD5 &key)
 }
 
 DB::MD5 MD5Sum(const DB::FileName &fileName);
+void PreloadMD5Sum(const DB::FileName &fileName);
 }
 
 #endif /* DB_MD5_H */

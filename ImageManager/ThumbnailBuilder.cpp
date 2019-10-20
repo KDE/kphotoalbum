@@ -80,9 +80,13 @@ void ImageManager::ThumbnailBuilder::pixmapLoaded(ImageManager::ImageRequest *re
 {
     const DB::FileName fileName = request->databaseFileName();
     const QSize fullSize = request->fullSize();
+    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
 
-    if (fullSize.width() != -1) {
-        DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
+    // We probably shouldn't do this at all, since the "full size"
+    // of the request could be the size of the embedded thumbnail
+    // or even a scaled-down such.  But if this hasn't been
+    // set orrectly earlier, we have nothing else to go on.
+    if (fullSize.width() != -1 && info->size().width() == -1) {
         info->setSize(fullSize);
     }
     m_loadedCount++;

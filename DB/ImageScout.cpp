@@ -65,6 +65,8 @@ protected:
     int getMaxSeekAhead();
     void setReadLimit(int);
     int getReadLimit();
+    void setPreloadFunc(PreloadFunc);
+    PreloadFunc getPreloadFunc();
 
 private:
     void doRun(char *);
@@ -76,6 +78,7 @@ private:
     int m_scoutBufSize;
     int m_maxSeekAhead;
     int m_readLimit;
+    PreloadFunc m_preloadFunc;
     bool m_isStarted;
 };
 
@@ -91,6 +94,7 @@ ImageScoutThread::ImageScoutThread(ImageScoutQueue &queue, QMutex *mutex,
     , m_scoutBufSize(DEFAULT_SCOUT_BUFFER_SIZE)
     , m_maxSeekAhead(DEFAULT_MAX_SEEKAHEAD_IMAGES)
     , m_readLimit(-1)
+    , m_preloadFunc(NULL)
     , m_isStarted(false)
 {
 }
@@ -117,12 +121,16 @@ void ImageScoutThread::doRun(char *tmpBuf)
             }
             // qCDebug(DBImageScoutLog) << ">>>>>Scout: preload" << m_preloadedCount.load() << "load" << m_loadedCount.load() << fileName.relative();
         }
-        int inputFD = open(QFile::encodeName(fileName.absolute()).constData(), O_RDONLY);
-        int bytesRead = 0;
-        if (inputFD >= 0) {
-            while (read(inputFD, tmpBuf, m_scoutBufSize) && (m_readLimit < 0 || ((bytesRead += m_scoutBufSize) < m_readLimit)) && !isInterruptionRequested()) {
+        if (m_preloadFunc) {
+            (*m_preloadFunc)(fileName);
+        } else {
+            int inputFD = open(QFile::encodeName(fileName.absolute()).constData(), O_RDONLY);
+            int bytesRead = 0;
+            if (inputFD >= 0) {
+                while (read(inputFD, tmpBuf, m_scoutBufSize) && (m_readLimit < 0 || ((bytesRead += m_scoutBufSize) < m_readLimit)) && !isInterruptionRequested()) {
+                }
+                (void)close(inputFD);
             }
-            (void)close(inputFD);
         }
     }
 }
@@ -160,6 +168,17 @@ int ImageScoutThread::getReadLimit()
     return m_readLimit;
 }
 
+void ImageScoutThread::setPreloadFunc(PreloadFunc scoutFunc)
+{
+    if (!m_isStarted)
+        m_preloadFunc = scoutFunc;
+}
+
+PreloadFunc ImageScoutThread::getPreloadFunc()
+{
+    return m_preloadFunc;
+}
+
 void ImageScoutThread::run()
 {
     m_isStarted = true;
@@ -177,6 +196,7 @@ ImageScout::ImageScout(ImageScoutQueue &images,
     , m_scoutBufSize(DEFAULT_SCOUT_BUFFER_SIZE)
     , m_maxSeekAhead(DEFAULT_MAX_SEEKAHEAD_IMAGES)
     , m_readLimit(-1)
+    , m_preloadFunc(NULL)
 {
     if (threads > 0) {
         for (int i = 0; i < threads; i++) {
@@ -267,6 +287,22 @@ void ImageScout::setReadLimit(int readLimit)
 int ImageScout::getReadLimit()
 {
     return m_readLimit;
+}
+
+void ImageScout::setPreloadFunc(PreloadFunc scoutFunc)
+{
+    if (!m_isStarted) {
+        m_preloadFunc = scoutFunc;
+        for (QList<ImageScoutThread *>::iterator it = m_scoutList.begin();
+             it != m_scoutList.end(); ++it) {
+            (*it)->setPreloadFunc(m_preloadFunc);
+        }
+    }
+}
+
+PreloadFunc ImageScout::getPreloadFunc()
+{
+    return m_preloadFunc;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

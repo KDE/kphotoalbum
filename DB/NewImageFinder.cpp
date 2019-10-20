@@ -375,7 +375,7 @@ namespace
 // Number of scout threads for preloading images. More than one scout thread
 // yields about 10% less performance with higher IO/sec but lower I/O throughput,
 // most probably due to thrashing.
-constexpr int IMAGE_SCOUT_THREAD_COUNT = 1;
+constexpr int IMAGE_SCOUT_THREAD_COUNT = 4;
 
 bool canReadImage(const DB::FileName &fileName)
 {
@@ -492,12 +492,14 @@ void NewImageFinder::loadExtraFiles()
 
     int count = 0;
 
+    MD5::resetMD5Cache();
     ImageScoutQueue asyncPreloadQueue;
     for (LoadList::Iterator it = m_pendingLoad.begin(); it != m_pendingLoad.end(); ++it) {
         asyncPreloadQueue.enqueue((*it).first);
     }
 
     ImageScout scout(asyncPreloadQueue, loadedCount, IMAGE_SCOUT_THREAD_COUNT);
+    scout.setPreloadFunc(DB::PreloadMD5Sum);
     scout.start();
 
     Exif::Database::instance()->startInsertTransaction();

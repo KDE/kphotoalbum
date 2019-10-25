@@ -49,6 +49,11 @@ private:
     QCheckBox *m_autoStackNewFiles;
     QLineEdit *m_copyFileComponent;
     QLineEdit *m_copyFileReplacementComponent;
+    KComboBox *m_loadOptimizationPreset;
+    QCheckBox *m_overlapLoadMD5;
+    QSpinBox  *m_preloadThreadCount;
+    QSpinBox  *m_thumbnailPreloadThreadCount;
+    QSpinBox  *m_thumbnailBuilderThreadCount;
 };
 
 }

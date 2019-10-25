@@ -65,6 +65,12 @@ enum ThumbnailAspectRatio { Aspect_1_1,
                             Aspect_3_4,
                             Aspect_2_3,
                             Aspect_9_16 };
+enum LoadOptimizationPreset { LoadOptimizationHardDisk,
+                              LoadOptimizationNetwork,
+                              LoadOptimizationSataSSD,
+                              LoadOptimizationSlowNVME,
+                              LoadOptimizationFastNVME,
+                              LoadOptimizationManual };
 
 typedef const char *WindowType;
 extern const WindowType MainWindow, AnnotationDialog;
@@ -120,6 +126,11 @@ public:
     property_copy(autoStackNewFiles, setAutoStackNewFiles, bool);
     property_copy(copyFileComponent, setCopyFileComponent, QString);
     property_copy(copyFileReplacementComponent, setCopyFileReplacementComponent, QString);
+    property_copy(loadOptimizationPreset, setLoadOptimizationPreset, int);
+    property_copy(overlapLoadMD5, setOverlapLoadMD5, bool);
+    property_copy(preloadThreadCount, setPreloadThreadCount, int);
+    property_copy(thumbnailPreloadThreadCount, setThumbnailPreloadThreadCount, int);
+    property_copy(thumbnailBuilderThreadCount, setThumbnailBuilderThreadCount, int);
 
     bool trustTimeStamps();
 
@@ -241,6 +252,11 @@ public:
 
     QStringList EXIFCommentsToStrip();
     void setEXIFCommentsToStrip(QStringList EXIFCommentsToStrip);
+
+    bool getOverlapLoadMD5() const;
+    int getPreloadThreadCount() const;
+    int getThumbnailPreloadThreadCount() const;
+    int getThumbnailBuilderThreadCount() const;
 
 signals:
     void locked(bool lock, bool exclude);

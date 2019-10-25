@@ -27,6 +27,7 @@
 #include <DB/ImageInfoPtr.h>
 #include <DB/OptimizedFileList.h>
 #include <MainWindow/StatusBar.h>
+#include <Settings/SettingsData.h>
 #include <ThumbnailView/CellGeometry.h>
 
 #include <KLocalizedString>
@@ -170,7 +171,7 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
         m_preloadQueue->enqueue(fileName);
     }
     qCDebug(ImageManagerLog) << "thumbnail builder starting scout";
-    m_scout = new DB::ImageScout(*m_preloadQueue, m_loadedCount, 1);
+    m_scout = new DB::ImageScout(*m_preloadQueue, m_loadedCount, Settings::SettingsData::instance()->getThumbnailPreloadThreadCount());
     m_scout->setMaxSeekAhead(10);
     m_scout->setReadLimit(10 * 1048576);
     m_scout->start();

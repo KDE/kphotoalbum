@@ -372,11 +372,6 @@ using namespace DB;
 
 namespace
 {
-// Number of scout threads for preloading images. More than one scout thread
-// yields about 10% less performance with higher IO/sec but lower I/O throughput,
-// most probably due to thrashing.
-constexpr int IMAGE_SCOUT_THREAD_COUNT = 4;
-constexpr int PRELOAD_MD5 = 1;
 
 bool canReadImage(const DB::FileName &fileName)
 {
@@ -499,8 +494,8 @@ void NewImageFinder::loadExtraFiles()
         asyncPreloadQueue.enqueue((*it).first);
     }
 
-    ImageScout scout(asyncPreloadQueue, loadedCount, IMAGE_SCOUT_THREAD_COUNT);
-    if (PRELOAD_MD5)
+    ImageScout scout(asyncPreloadQueue, loadedCount, Settings::SettingsData::instance()->getPreloadThreadCount());
+    if (Settings::SettingsData::instance()->getOverlapLoadMD5())
         scout.setPreloadFunc(DB::PreloadMD5Sum);
     scout.start();
 

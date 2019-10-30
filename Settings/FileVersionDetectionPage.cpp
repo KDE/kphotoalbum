@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -190,17 +190,18 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage(QWidget *parent)
 
         m_loadOptimizationPreset = new KComboBox;
         m_loadOptimizationPreset->addItems(QStringList() << i18n("Hard Disk")
-                                           << i18n("Network") 
-                                           << i18n("SATA SSD") 
-                                           << i18n("Slow PCIe/NVMe")
-                                           << i18n("Fast PCIe/NVMe")
-                                           << i18n("Manual Settings"));
+                                                         << i18n("Network")
+                                                         << i18n("SATA SSD")
+                                                         << i18n("Slow PCIe/NVMe")
+                                                         << i18n("Fast PCIe/NVMe")
+                                                         << i18n("Manual Settings")); // manual is expected to be the last item
         layout->addWidget(m_loadOptimizationPreset, row, 1);
 
         txt = i18n("<p>Tune image loading for best performance based on the type of storage your image database resides on.  If your image database resides on multiple media, choose the slowet media type used.</p>"
                    "<p>Use Manual Settings to configure details of how the loading is performed.</p>");
         loadOptimizationPresetLabel->setWhatsThis(txt);
         m_loadOptimizationPreset->setWhatsThis(txt);
+        connect(m_loadOptimizationPreset, QOverload<int>::of(&QComboBox::activated), this, &FileVersionDetectionPage::slotUpdateOptimizationUI);
 
         // Overlap load with MD5 computation
         ++row;
@@ -298,6 +299,7 @@ void Settings::FileVersionDetectionPage::loadSettings(Settings::SettingsData *op
     m_preloadThreadCount->setValue(opt->preloadThreadCount());
     m_thumbnailPreloadThreadCount->setValue(opt->thumbnailPreloadThreadCount());
     m_thumbnailBuilderThreadCount->setValue(opt->thumbnailBuilderThreadCount());
+    slotUpdateOptimizationUI();
 }
 
 void Settings::FileVersionDetectionPage::saveSettings(Settings::SettingsData *opt)
@@ -318,5 +320,14 @@ void Settings::FileVersionDetectionPage::saveSettings(Settings::SettingsData *op
     opt->setPreloadThreadCount(m_preloadThreadCount->value());
     opt->setThumbnailPreloadThreadCount(m_thumbnailPreloadThreadCount->value());
     opt->setThumbnailBuilderThreadCount(m_thumbnailBuilderThreadCount->value());
+}
+
+void Settings::FileVersionDetectionPage::slotUpdateOptimizationUI()
+{
+    const bool manualModeIsSelected = (m_loadOptimizationPreset->currentIndex() + 1 == m_loadOptimizationPreset->count());
+    m_overlapLoadMD5->setEnabled(manualModeIsSelected);
+    m_preloadThreadCount->setEnabled(manualModeIsSelected);
+    m_thumbnailPreloadThreadCount->setEnabled(manualModeIsSelected);
+    m_thumbnailBuilderThreadCount->setEnabled(manualModeIsSelected);
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

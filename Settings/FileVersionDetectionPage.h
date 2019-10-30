@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -36,6 +36,13 @@ public:
     void loadSettings(Settings::SettingsData *);
     void saveSettings(Settings::SettingsData *);
 
+private slots:
+    /**
+     * @brief Enable/disable UI elements for manual optimization settings based on
+     * the active m_loadOptimizationPreset combobox value.
+     */
+    void slotUpdateOptimizationUI();
+
 private:
     QCheckBox *m_searchForImagesOnStart;
     QCheckBox *m_ignoreFileExtension;
@@ -51,9 +58,9 @@ private:
     QLineEdit *m_copyFileReplacementComponent;
     KComboBox *m_loadOptimizationPreset;
     QCheckBox *m_overlapLoadMD5;
-    QSpinBox  *m_preloadThreadCount;
-    QSpinBox  *m_thumbnailPreloadThreadCount;
-    QSpinBox  *m_thumbnailBuilderThreadCount;
+    QSpinBox *m_preloadThreadCount;
+    QSpinBox *m_thumbnailPreloadThreadCount;
+    QSpinBox *m_thumbnailBuilderThreadCount;
 };
 
 }

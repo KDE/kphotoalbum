@@ -658,6 +658,7 @@ void ImageSearchInfo::setRegionSelection(const KGeoMap::GeoCoordinates::Pair &ac
     if (m_regionSelection.first.hasCoordinates() && m_regionSelection.second.hasCoordinates()) {
         m_isNull = false;
     }
+    m_matchGeneration = nextGeneration();
 }
 #endif
 

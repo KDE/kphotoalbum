@@ -653,6 +653,7 @@ void ImageSearchInfo::setRegionSelection(const Map::GeoCoordinates::LatLonBox &a
     if (!m_regionSelection.isNull()) {
         m_isNull = false;
     }
+    m_matchGeneration = nextGeneration();
 }
 #endif
 

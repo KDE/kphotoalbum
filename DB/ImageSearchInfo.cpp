@@ -636,6 +636,7 @@ void ImageSearchInfo::addExifSearchInfo(const Exif::SearchInfo info)
 {
     m_exifSearchInfo = info;
     m_isNull = false;
+    m_matchGeneration = nextGeneration();
 }
 
 void DB::ImageSearchInfo::renameCategory(const QString &oldName, const QString &newName)
@@ -643,6 +644,7 @@ void DB::ImageSearchInfo::renameCategory(const QString &oldName, const QString &
     m_categoryMatchText[newName] = m_categoryMatchText[oldName];
     m_categoryMatchText.remove(oldName);
     m_compiled = false;
+    m_matchGeneration = nextGeneration();
 }
 
 #ifdef HAVE_KGEOMAP

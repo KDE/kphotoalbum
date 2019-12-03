@@ -48,7 +48,7 @@ Exif::SearchDialog::SearchDialog(QWidget *parent)
     addPage(page);
     QVBoxLayout *vlay = new QVBoxLayout(settings);
 
-    // Iso, Exposure, Aperture, FNumber
+    // Iso, Exposure, FNumber
     QHBoxLayout *hlay = new QHBoxLayout;
     vlay->addLayout(hlay);
     QGridLayout *gridLayout = new QGridLayout;
@@ -64,8 +64,7 @@ Exif::SearchDialog::SearchDialog(QWidget *parent)
     gridLayout->setSpacing(6);
     hlay->addLayout(gridLayout);
     hlay->addStretch(1);
-    m_apertureValue = makeApertureOrFNumber(i18n("Aperture Value"), QString::fromLatin1("Exif_Photo_ApertureValue"), gridLayout, 0);
-    m_fNumber = makeApertureOrFNumber(i18n("F Number"), QString::fromLatin1("Exif_Photo_FNumber"), gridLayout, 1);
+    m_fNumber = makeFNumber(i18n("Aperture (F Number)"), QString::fromLatin1("Exif_Photo_FNumber"), gridLayout, 1);
 
     hlay->addSpacing(30);
 
@@ -207,7 +206,7 @@ void Exif::SearchDialog::makeExposureTime(QGridLayout *layout)
     m_exposureTime = new RangeWidget(i18n("Exposure time"), QString::fromLatin1("Exif_Photo_ExposureTime"), list, layout, 1);
 }
 
-RangeWidget *Exif::SearchDialog::makeApertureOrFNumber(const QString &text, const QString &key, QGridLayout *layout, int row)
+RangeWidget *Exif::SearchDialog::makeFNumber(const QString &text, const QString &key, QGridLayout *layout, int row)
 {
     Exif::RangeWidget::ValueList list;
     list
@@ -344,7 +343,6 @@ Exif::SearchInfo Exif::SearchDialog::info()
     result.addLens(m_lenses.selected());
     result.addRangeKey(m_iso->range());
     result.addRangeKey(m_exposureTime->range());
-    result.addRangeKey(m_apertureValue->range());
     result.addRangeKey(m_fNumber->range());
 
     SearchInfo::Range focalRange(QString::fromLatin1("Exif_Photo_FocalLength"));

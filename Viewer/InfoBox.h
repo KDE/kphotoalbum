@@ -84,7 +84,7 @@ protected slots:
 #endif
 
 signals:
-    void tagHovered(QPair<QString, QString> &tagData);
+    void tagHovered(const QPair<QString, QString> &tagData);
     void noTagHovered();
 
 private: // Variables

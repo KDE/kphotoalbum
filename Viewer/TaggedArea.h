@@ -61,7 +61,7 @@ public slots:
      * @brief checkIsSelected set the \c selected property if tagData matches the tag.
      * @param tagData
      */
-    void checkIsSelected(QPair<QString, QString> &tagData);
+    void checkIsSelected(const QPair<QString, QString> &tagData);
 
 protected:
     /**

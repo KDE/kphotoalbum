@@ -65,7 +65,7 @@ void Viewer::TaggedArea::deselect()
     setSelected(false);
 }
 
-void Viewer::TaggedArea::checkIsSelected(QPair<QString, QString> &tagData)
+void Viewer::TaggedArea::checkIsSelected(const QPair<QString, QString> &tagData)
 {
     setSelected(tagData == m_tagInfo);
 }

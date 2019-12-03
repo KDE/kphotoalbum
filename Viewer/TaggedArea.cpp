@@ -25,16 +25,12 @@ Viewer::TaggedArea::TaggedArea(QWidget *parent)
     : QFrame(parent)
 {
     setFrameShape(QFrame::Box);
-    setStyleSheet(QString::fromLatin1(
+    setStyleSheet(QStringLiteral(
         "Viewer--TaggedArea { border: none; background-color: none; }"
         "Viewer--TaggedArea:hover, Viewer--TaggedArea[selected=\"true\"] {"
         " border: 1px solid rgb(0,255,0,99); background-color: rgb(255,255,255,30);"
         " }"
         "Viewer--TaggedArea[highlighted=\"true\"]{ border: 1px solid rgb(255,128,0,99); background-color: rgb(255,255,255,30); }"));
-}
-
-Viewer::TaggedArea::~TaggedArea()
-{
 }
 
 void Viewer::TaggedArea::setTagInfo(QString category, QString localizedCategory, QString tag)
@@ -69,7 +65,7 @@ void Viewer::TaggedArea::deselect()
     setSelected(false);
 }
 
-void Viewer::TaggedArea::checkIsSelected(QPair<QString, QString> tagData)
+void Viewer::TaggedArea::checkIsSelected(QPair<QString, QString> &tagData)
 {
     setSelected(tagData == m_tagInfo);
 }

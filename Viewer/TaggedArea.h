@@ -30,8 +30,7 @@ class TaggedArea : public QFrame
     Q_PROPERTY(bool highlighted MEMBER m_highlighted READ highlighted WRITE setHighlighted)
 
 public:
-    explicit TaggedArea(QWidget *parent = 0);
-    ~TaggedArea() override;
+    explicit TaggedArea(QWidget *parent = nullptr);
     void setTagInfo(QString category, QString localizedCategory, QString tag);
     void setActualGeometry(QRect geometry);
     QRect actualGeometry() const;
@@ -62,7 +61,7 @@ public slots:
      * @brief checkIsSelected set the \c selected property if tagData matches the tag.
      * @param tagData
      */
-    void checkIsSelected(QPair<QString, QString> tagData);
+    void checkIsSelected(QPair<QString, QString> &tagData);
 
 protected:
     /**

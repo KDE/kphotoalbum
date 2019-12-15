@@ -38,6 +38,16 @@ my (%member_groups);
 my (%group_members);
 # $category_images{category}{member} = is_referenced
 my (%categories_used);
+# $orphans{category}{member} = 1
+my (%orphans);
+# $category_remappings{$category}{$item}{"old"|"new"}
+# If there's only one category 0, we can safely remap it if it shows
+# up in a member group.  If there are more than one (indicated by a value
+# of -1 here), there's nothing we can do.
+my (%category_remappings);
+# $category_remappings{$id} = new_id
+my (%category_id_remap);
+
 my ($compress_output);
 
 # Order matters here; sort by date and then filename
@@ -167,11 +177,14 @@ sub isNode($$) {
 # Categories
 ################################################################
 
-sub loadCategory($$) {
-    my ($node, $pass) = @_;
+sub loadCategory($$$) {
+    my ($node, $pass, $compressed) = @_;
     my ($name) = $node->getAttribute("name");
     $categories{"members"}{$name} = {} if (! defined $categories{"members"}{$name});
+    $orphans{$name} = {};
+    $category_remappings{$name} = {};
     $category_map{$name} = [];
+    $category_id_remap{$name} = {};
     my ($category) = $categories{"members"}{$name};
     if ($pass == $last_pass) {
 	$$category{"attributes"} = getAttributes($node);
@@ -179,12 +192,44 @@ sub loadCategory($$) {
     $$category{"members"} = {} if (! defined $$category{"members"});
     my (@members);
     my $children = $node->childNodes();
+    my ($category_max_id) = 0;
+    my %items_to_remap;
     foreach my $i (1..$children->size()) {
 	my ($child) = $children->get_node($i);
 	next if $node->nodeType() != 1 || !isNode($child, "value");
 	my ($value) = $child->getAttribute("value");
+	my ($id) = $child->getAttribute("id");
+	if ($id == 0) {
+	    print STDERR "Warning: $name:$value has id 0, will remap\n";
+	    $items_to_remap{$value} = $id;
+	} elsif (defined $category_map{$name}[$id]) { 
+	    print STDERR "Warning: duplicate ID for $name:$id!\n";
+	    $items_to_remap{$value} = $id;
+	}
 	$$category{"members"}{$value} = 1;
-	$category_map{$name}[$child->getAttribute("id")] = $value;
+	$category_map{$name}[$id] = $value;
+	if ($id > $category_max_id) {
+	    $category_max_id = $id;
+	}
+    }
+    foreach my $remap (keys %items_to_remap) {
+	$category_max_id++;
+	print STDERR "Remapping $remap from $items_to_remap{$remap} to $category_max_id\n";
+	$category_map{$remap}{$category_max_id} = $category_max_id;
+	# Uncompressed databases don't have any problem with remapping,
+	# since items are stored uncompressed.
+	if ($compressed) {
+	    my ($id) = $items_to_remap{$remap};
+	    $category_remappings{$name}{$remap}{"old"} = $id;
+	    $category_remappings{$name}{$remap}{"new"} = $category_max_id;
+	    if (defined $category_id_remap{$id}) {
+		print STDERR "*** Non-unique category remap for $id.\n";
+		print STDERR "*** Will remove member-group mappins for this id!";
+		$category_id_remap{$id} = -1;
+	    } else {
+		$category_id_remap{$id} = $category_max_id;
+	    }
+	}
     }
 }
 
@@ -201,7 +246,7 @@ sub loadCategories($$$) {
     foreach my $i (1..$children->size()) {
 	my ($child) = $children->get_node($i);
 	next if $node->nodeType() != 1 || !isNode($child, "category");
-	loadCategory($child, $pass);
+	loadCategory($child, $pass, $compressed);
     }
 }
 
@@ -255,9 +300,18 @@ sub loadCompressedOptions($$$) {
 	my ($members) = $node->getAttribute($category);
 	if (defined $members && $members ne '') {
 	    my ($map) = $category_map{$category};
-	    my (@members) = split(/,/, $members);
-	    if (scalar grep { $_ == 0 } @members) {
-		$warned_idx0{$category}++;
+	    my (@members);
+	    my (@old_members) = split(/,/, $members);
+	    foreach my $id (@old_members) {
+		if (defined $category_id_remap{$id}) {
+		    if ($category_id_remap{$id} > 0) {
+			push @members, $category_id_remap{$id};
+		    } else {
+			print STDERR "*** Cannot remap non-unique id $id on file $file\n";
+		    }
+		} else {
+		    push @members, $id;
+		}
 	    }
 	    $images{$file}{"options"} = {} if ($opt_replace_categories || ! defined $images{$file}{"options"});
 	    $images{$file}{"options"}{$category} = {} if (! defined $images{$file}{"options"}{$category});
@@ -411,6 +465,17 @@ sub loadMemberGroup($$) {
     my ($node, $compressed) = @_;
     my ($category) = $node->getAttribute("category");
     my ($groupname) = $node->getAttribute("group-name");
+    if (! defined $categories{"members"}{$category}{"members"}{$groupname}) {
+	if (! defined $orphans{$category}) {
+	    $orphans{$category}{$groupname} = 1;
+	}
+	if ($compressed && $node->hasAttribute("members") && $node->getAttribute("members") ne "") {
+	    printf STDERR "WARNING: Orphan group $category:$groupname has children %s!\n", $node->getAttribute("members");
+	} else {
+	    print STDERR "Removing orphaned member-group $category:$groupname\n";
+	    return;
+	}
+    }
     $member_groups{$category} = {} if (! defined $member_groups{$category});
     $group_members{$category} = {} if (! defined $group_members{$category});
     $group_members{$category}{$groupname} = {} if (! defined $group_members{$category}{$groupname});
@@ -418,7 +483,19 @@ sub loadMemberGroup($$) {
 	my ($members) = $node->getAttribute("members");
 	if ($members) {
 	    my ($map) = $category_map{$category};
-	    my (@members) = grep { ! $_ == 0 } split(/,/, $members);
+	    my (@old_members) = grep { ! $_ == 0 } split(/,/, $members);
+	    my (@members);
+	    foreach my $id (@old_members) {
+		if (defined $category_id_remap{$id}) {
+		    if ($category_id_remap{$id} > 0) {
+			push @members, $category_id_remap{$id};
+		    } else {
+			print STDERR "*** Cannot remap non-unique id $id for member-group $category:$groupname\n";
+		    }
+		} else {
+		    push @members, $id;
+		}
+	    }
 	    map {
 		$member_groups{$category}{$$map[$_]} = $groupname;
 		$group_members{$category}{$groupname}{$$map[$_]} = 1;
@@ -615,6 +692,14 @@ sub clean_unused_labels_pass(\%) {
 		# Remove this group membership
 		my ($group) = $member_groups{$category}{$member};
 		delete $member_groups{$category}{$member};
+		if (defined $group_members{$category}{$member}) {
+		    if (scalar %{$group_members{$category}{$member}} > 0) {
+			print STDERR "      WARNING: $member still has sub-members! Not deleting.\n";
+		    } else {
+			print STDERR "      Deleting empty member-group $member\n";
+			delete $group_members{$category}{$member};
+		    }
+		}
 		# And remove it from any group it's a member of.
 		if (defined $group) {
 		    print STDERR "    Removing $member from\n";
@@ -622,7 +707,7 @@ sub clean_unused_labels_pass(\%) {
 		    delete $group_members{$category}{$group}{$member};
 		    # Prune any groups in which this was the last member,
 		    # which may allow us to do more work in the next pass.
-		    if (scalar $group_members{$category}{$group} == 0) {
+		    if (scalar %{$group_members{$category}{$group}} == 0) {
 			print STDERR "    Removed last member from $group\n";
 			delete $group_members{$category}{$group};
 		    }
@@ -635,7 +720,7 @@ sub clean_unused_labels_pass(\%) {
 }
 
 sub clean_unused_labels() {
-    print STDERR "Cleaning unused labels...\n";
+    print STDERR "\nCleaning unused labels...\n";
     my %categories_in_use;
 
     foreach my $category (keys %{$categories{"members"}}) {

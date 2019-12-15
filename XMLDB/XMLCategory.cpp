@@ -20,6 +20,7 @@
 #include <DB/ImageDB.h>
 #include <DB/MemberMap.h>
 #include <Utilities/List.h>
+#include "Logging.h"
 
 XMLDB::XMLCategory::XMLCategory(const QString &name, const QString &icon, ViewType type, int thumbnailSize, bool show, bool positionable)
     : m_name(name)
@@ -130,7 +131,8 @@ void XMLDB::XMLCategory::renameItem(const QString &oldValue, const QString &newV
     m_idMap.remove(oldValue);
 
     addItem(newValue);
-    setIdMapping(newValue, id);
+    if ( id > 0)
+        setIdMapping(newValue, id);
     emit itemRenamed(oldValue, newValue);
 }
 
@@ -179,8 +181,12 @@ void XMLDB::XMLCategory::initIdMap()
 
 void XMLDB::XMLCategory::setIdMapping(const QString &name, int id)
 {
-    m_nameMap.insert(id, name);
-    m_idMap.insert(name, id);
+    if (id <= 0) {
+        qCWarning(XMLDBLog, "XMLDB::XMLCategory::setIdMapping attempting to set id for %s to invalid value %d", qPrintable(name), id);
+    } else {
+        m_nameMap.insert(id, name);
+        m_idMap.insert(name, id);
+    }
 }
 
 QString XMLDB::XMLCategory::nameForId(int id) const

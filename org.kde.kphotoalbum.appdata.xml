@@ -10,6 +10,7 @@
   <name xml:lang="de">KPhotoAlbum</name>
   <name xml:lang="en-GB">KPhotoAlbum</name>
   <name xml:lang="es">KPhotoAlbum</name>
+  <name xml:lang="et">KPhotoAlbum</name>
   <name xml:lang="eu">KPhotoAlbum</name>
   <name xml:lang="fi">KPhotoAlbum</name>
   <name xml:lang="fr">KPhotoAlbum</name>
@@ -36,6 +37,7 @@
   <summary xml:lang="de">KDE-Bildverwaltungssoftware</summary>
   <summary xml:lang="en-GB">KDE image management software</summary>
   <summary xml:lang="es">Software de gestión de imágenes para KDE</summary>
+  <summary xml:lang="et">KDE pildihalduse tarkvara</summary>
   <summary xml:lang="eu">KDEn irudiak kudeatzeko softwarea</summary>
   <summary xml:lang="fi">KDE:n kuvanhallintaohjelma</summary>
   <summary xml:lang="fr">Logiciel de gestion d'images KDE</summary>
@@ -61,6 +63,7 @@
     <p xml:lang="de">KPhotoAlbum ist eine Anwendung zum Verschlagworten, Verwalten und Durchsuchen Ihrer Fotosammlung.</p>
     <p xml:lang="en-GB">KPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.</p>
     <p xml:lang="es">KPhotoAlbum es una aplicación para etiquetar y gestionar una colección de fotografías que permite realizar búsquedas.</p>
+    <p xml:lang="et">KPhotoAlbum on rakendus fotokogu sildistamiseks ja haldamiseks ning selle muutmiseks otsitavaks.</p>
     <p xml:lang="eu">KPhotoAlbum argazki bilduma bat etiketatu, kudeatu eta bilagarri egiteko aplikazio bat da.</p>
     <p xml:lang="fi">KPhotoAlbum on sovellus valokuvakokoelmien tunnistetietojen hallintaan ja etsimiseen.</p>
     <p xml:lang="fr">KPhotoAlbum est une application permettant de gérer une collection de photos, en y définissant des balises et en y effectuant des recherches.</p>
@@ -90,6 +93,7 @@
       <caption xml:lang="de">Das Hauptfenster von KPhotoAlbum</caption>
       <caption xml:lang="en-GB">The main screen in KPhotoAlbum</caption>
       <caption xml:lang="es">La ventana principal de KPhotoAlbum</caption>
+      <caption xml:lang="et">KPhotoAlbumi peaaken</caption>
       <caption xml:lang="eu">KPhotoAlbum: pantaila nagusia</caption>
       <caption xml:lang="fi">KPhotoAlbumin päänäkymä</caption>
       <caption xml:lang="fr">L'écran principal de KPhotoAlbum</caption>

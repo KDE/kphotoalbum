@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -34,6 +34,7 @@ class QPaintEvent;
 class QWheelEvent;
 class QContextMenuEvent;
 class QToolButton;
+class QFontMetrics;
 
 namespace DB
 {
@@ -186,6 +187,7 @@ protected:
 
 private:
     void setViewHandlerForType(ViewType tp);
+    int stringWidth(const QFontMetrics &fontMetrics, const QString &text) const;
     QPixmap m_buffer;
     friend class DateBarTip;
 

@@ -768,8 +768,26 @@ void XMLDB::Database::possibleLoadCompressedCategories(ReaderPtr reader, DB::Ima
             QStringList list = str.split(QString::fromLatin1(","), QString::SkipEmptyParts);
             Q_FOREACH (const QString &tagString, list) {
                 int id = tagString.toInt();
-                QString name = static_cast<const XMLCategory *>(categoryPtr.data())->nameForId(id);
-                info->addCategoryInfo(categoryName, name);
+                if (id != 0 || categoryPtr->isSpecialCategory()) {
+                    const QString name = static_cast<const XMLCategory *>(categoryPtr.data())->nameForId(id);
+                    info->addCategoryInfo(categoryName, name);
+                } else {
+                    QStringList tags = static_cast<const XMLCategory *>(categoryPtr.data())->namesForId(id);
+                    if (tags.size() == 1) {
+                        qCInfo(XMLDBLog) << "Fixing tag " << categoryName << "/" << tags[0] << "with id=0 for image" << info->fileName().relative();
+                    } else {
+                        // insert marker category
+                        QString markerTag = i18n("KPhotoAlbum - manual repair needed (%1)",
+                                                 tags.join(i18nc("Separator in a list of tags", ", ")));
+                        categoryPtr->addItem(markerTag);
+                        info->addCategoryInfo(categoryName, markerTag);
+                        qCWarning(XMLDBLog) << "Manual fix required for image" << info->fileName().relative();
+                        qCWarning(XMLDBLog) << "Image was marked with tag " << categoryName << "/" << markerTag;
+                    }
+                    for (const auto &name : tags) {
+                        info->addCategoryInfo(categoryName, name);
+                    }
+                }
             }
         }
     }

@@ -59,6 +59,17 @@ protected:
     void checkIfImagesAreSorted();
     void checkIfAllImagesHaveSizeAttributes();
 
+    /**
+     * @brief Repair the database if an issue was flagged for repair.
+     * DB repairs that only require local knowledge are usually done in the respective
+     * load* method. This method is called after the database file was loaded.
+     *
+     * Currently, this tries to fix the following issues:
+     *
+     * - Bug #415415 - Renaming tag groups can produce tags with id=0
+     */
+    void repairDB();
+
 private:
     Database *const m_db;
     int m_fileVersion;
@@ -66,6 +77,8 @@ private:
 
     // During profilation I found that it was rather expensive to look this up over and over again (once for each image)
     DB::CategoryPtr m_folderCategory;
+    /// Flag indicating that repair is necessary
+    bool m_repairTagsWithNullIds = false;
 };
 
 }

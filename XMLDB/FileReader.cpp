@@ -72,6 +72,8 @@ void XMLDB::FileReader::read(const QString &configFile)
     loadMemberGroups(reader);
     //loadSettings(reader);
 
+    repairDB();
+
     m_db->m_members.setLoading(false);
 
     checkIfImagesAreSorted();
@@ -205,7 +207,13 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
                 QString value = reader->attribute(valueString);
                 if (reader->hasAttribute(idString)) {
                     int id = reader->attribute(idString).toInt();
-                    static_cast<XMLCategory *>(cat.data())->setIdMapping(value, id);
+                    if (id != 0) {
+                        static_cast<XMLCategory *>(cat.data())->setIdMapping(value, id);
+                    } else {
+                        qCWarning(XMLDBLog) << "Tag" << categoryName << "/" << value << "has id=0!";
+                        m_repairTagsWithNullIds = true;
+                        static_cast<XMLCategory *>(cat.data())->setIdMapping(value, id, XMLCategory::IdMapping::UnsafeMapping);
+                    }
                 }
                 if (reader->hasAttribute(birthDateString))
                     cat->setBirthDate(value, QDate::fromString(reader->attribute(birthDateString), Qt::ISODate));
@@ -419,6 +427,22 @@ void XMLDB::FileReader::checkIfAllImagesHaveSizeAttributes()
                                                                                   "<p>Not doing so will result in extra space around images in the thumbnail view - that is all - so "
                                                                                   "there is no urgency in doing it.</p>"),
             i18n("Not All Images Have Size Information"), QString::fromLatin1("checkWhetherAllImagesIncludesSize"));
+    }
+}
+
+void XMLDB::FileReader::repairDB()
+{
+    if (m_repairTagsWithNullIds) {
+        // the m_repairTagsWithNullIds is set in loadCategories()
+        // -> care is taken so that multiple tags with id=0 all end up in the IdMap
+        // afterwards, loadImages() applies fixes to the affected images
+        // -> this happens in XMLDB::Database::possibleLoadCompressedCategories()
+        // i.e. the zero ids still require cleanup:
+        qCInfo(XMLDBLog) << "Database contained tags with id=0 (possibly related to bug #415415). Assigning new ids for affected categories...";
+        for (auto category : m_db->categoryCollection()->categories()) {
+            XMLCategory *xmlCategory = static_cast<XMLCategory *>(category.data());
+            xmlCategory->clearNullIds();
+        }
     }
 }
 

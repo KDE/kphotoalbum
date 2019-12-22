@@ -168,6 +168,8 @@ private: // Instance variables.
      */
     DB::FileName m_rightDrop;
 
+    int stringWidth(const QString &text) const;
+
     SortDirection m_sortDirection;
 
     /**

@@ -345,7 +345,7 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
 
     if (Settings::SettingsData::instance()->displayLabels()) {
         QString line = fileName.info()->label();
-        if (QFontMetrics(widget()->font()).width(line) > thumbnailWidth) {
+        if (stringWidth(line) > thumbnailWidth) {
             line = line.left(maxCharacters);
             line += QString::fromLatin1(" ...");
         }
@@ -380,7 +380,7 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
                             line += QString::fromLatin1(", ");
                         line += item;
                     }
-                    if (QFontMetrics(widget()->font()).width(line) > thumbnailWidth) {
+                    if (stringWidth(line) > thumbnailWidth) {
                         line = line.left(maxCharacters);
                         line += QString::fromLatin1(" ...");
                     }
@@ -544,6 +544,19 @@ void ThumbnailView::ThumbnailModel::preloadThumbnails()
             continue;
         const_cast<ThumbnailView::ThumbnailModel *>(this)->requestThumbnail(fileName, ImageManager::ThumbnailInvisible);
     }
+}
+
+int ThumbnailView::ThumbnailModel::stringWidth(const QString &text) const
+{
+    // This is a workaround for the deprecation warnings emerged with Qt 5.13.
+    // QFontMetrics::horizontalAdvance wasn't introduced until Qt 5.11. As soon as we drop support
+    // for Qt versions before 5.11, this can be removed in favor of calling horizontalAdvance
+    // directly.
+#if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
+    return QFontMetrics(widget()->font()).width(text);
+#else
+    return QFontMetrics(widget()->font()).horizontalAdvance(text);
+#endif
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

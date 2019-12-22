@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -24,7 +24,9 @@
 
 #include <KLocalizedString>
 #include <QAction>
+#include <QGuiApplication>
 #include <QResizeEvent>
+#include <QScreen>
 #include <kmessagebox.h>
 #include <ktoolbar.h>
 #include <ktoolinvocation.h>
@@ -148,7 +150,7 @@ void Viewer::VideoDisplay::playPause()
 
 QImage Viewer::VideoDisplay::screenShoot()
 {
-    return QPixmap::grabWindow(m_videoWidget->winId()).toImage();
+    return QGuiApplication::primaryScreen()->grabWindow(m_videoWidget->winId()).toImage();
 }
 
 void Viewer::VideoDisplay::restart()

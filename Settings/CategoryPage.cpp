@@ -190,7 +190,7 @@ Settings::CategoryPage::CategoryPage(QWidget *parent)
 void Settings::CategoryPage::resetInterface()
 {
     enableDisable(false);
-    m_categoriesListWidget->setItemSelected(m_categoriesListWidget->currentItem(), false);
+    m_categoriesListWidget->currentItem()->setSelected(false);
     resetCategoryLabel();
     m_renameLabel->hide();
 }

@@ -314,9 +314,10 @@ void Export::copyImages(const DB::FileNameList &list)
         QString zippedName = m_filenameMapper.uniqNameFor(fileName);
 
         if (m_maxSize == -1 || Utilities::isVideo(fileName) || isRAW(fileName)) {
-            if (QFileInfo(file).isSymLink())
-                file = QFileInfo(file).readLink();
-
+            const QFileInfo fileInfo(file);
+            if (fileInfo.isSymLink()) {
+                file = fileInfo.symLinkTarget();
+            }
             if (m_location == Inline)
                 m_zip->addLocalFile(file, QString::fromLatin1("Images/") + zippedName);
             else if (m_location == AutoCopy)

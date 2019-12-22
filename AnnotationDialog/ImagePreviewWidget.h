@@ -77,7 +77,7 @@ signals:
     void togglePreview();
 
 protected:
-    void showEvent(QShowEvent *event) override;
+    void showEvent(QShowEvent *) override;
 
 private: // Functions
     /**

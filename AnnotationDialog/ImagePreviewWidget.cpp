@@ -353,7 +353,7 @@ void ImagePreviewWidget::setToggleFullscreenPreviewEnabled(bool state)
     m_toggleFullscreenPreview->setEnabled(state);
 }
 
-void AnnotationDialog::ImagePreviewWidget::showEvent(QShowEvent *event)
+void AnnotationDialog::ImagePreviewWidget::showEvent(QShowEvent *)
 {
     auto setToolTip = [this](QWidget *widget, QString tooltip, const char *key) {
         QKeySequence shortcut = m_actions->action(QString::fromLatin1(key))->shortcut();

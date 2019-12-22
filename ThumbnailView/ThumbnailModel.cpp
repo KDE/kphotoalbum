@@ -347,9 +347,9 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
         QString line = fileName.info()->label();
         if (stringWidth(line) > thumbnailWidth) {
             line = line.left(maxCharacters);
-            line += QString::fromLatin1(" ...");
+            line += QLatin1String(" ...");
         }
-        text += line + QString::fromLatin1("\n");
+        text += line + QLatin1String("\n");
     }
 
     if (Settings::SettingsData::instance()->displayCategories()) {
@@ -377,21 +377,18 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
                         if (first)
                             first = false;
                         else
-                            line += QString::fromLatin1(", ");
+                            line += QLatin1String(", ");
                         line += item;
                     }
                     if (stringWidth(line) > thumbnailWidth) {
                         line = line.left(maxCharacters);
-                        line += QString::fromLatin1(" ...");
+                        line += QLatin1String(" ...");
                     }
-                    text += line + QString::fromLatin1("\n");
+                    text += line + QLatin1String("\n");
                 }
             }
         }
     }
-
-    if (text.isEmpty())
-        text = QString::fromLatin1("");
 
     return text.trimmed();
 }
@@ -518,12 +515,12 @@ void ThumbnailView::ThumbnailModel::filterByCategory(const QString &category, co
 
 void ThumbnailView::ThumbnailModel::toggleCategoryFilter(const QString &category, const QString &tag)
 {
-    auto tags = m_filter.categoryMatchText(category).split(QString::fromLatin1("&"), QString::SkipEmptyParts);
+    auto tags = m_filter.categoryMatchText(category).split(QLatin1String("&"), QString::SkipEmptyParts);
     for (const auto &existingTag : tags) {
         if (tag == existingTag.trimmed()) {
             qCDebug(ThumbnailViewLog) << "Filter removed: category(" << category << "," << tag << ")";
             tags.removeAll(existingTag);
-            m_filter.setCategoryMatchText(category, tags.join(QString::fromLatin1(" & ")));
+            m_filter.setCategoryMatchText(category, tags.join(QLatin1String(" & ")));
             m_filter.checkIfNull();
             emit filterChanged(m_filter);
             return;

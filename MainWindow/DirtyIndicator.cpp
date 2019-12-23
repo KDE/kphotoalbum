@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -18,6 +18,7 @@
 
 #include "DirtyIndicator.h"
 
+#include <QIcon>
 #include <QLabel>
 #include <QPixmap>
 #include <kiconloader.h>
@@ -30,7 +31,8 @@ bool MainWindow::DirtyIndicator::s_suppressMarkDirty = false;
 MainWindow::DirtyIndicator::DirtyIndicator(QWidget *parent)
     : QLabel(parent)
 {
-    m_dirtyPix = QPixmap(SmallIcon(QString::fromLatin1("media-floppy")));
+    m_dirtyPix = QIcon::fromTheme(QString::fromLatin1("media-floppy"))
+                     .pixmap(KIconLoader::StdSizes::SizeSmall);
     setFixedWidth(m_dirtyPix.width() + 10);
     s_instance = this;
 

@@ -78,6 +78,14 @@
 #include <algorithm>
 #include <tuple>
 
+namespace
+{
+inline QPixmap smallIcon(const QString &iconName)
+{
+    return QIcon::fromTheme(iconName).pixmap(KIconLoader::StdSizes::SizeSmall);
+}
+}
+
 using Utilities::StringSet;
 
 /**
@@ -861,15 +869,15 @@ void AnnotationDialog::Dialog::slotOptions()
     menu->addSeparator();
     QActionGroup *sortTypes = new QActionGroup(menu);
     QAction *alphaTreeSort = new QAction(
-        SmallIcon(QString::fromLatin1("view-list-tree")),
+        smallIcon(QString::fromLatin1("view-list-tree")),
         i18n("Sort Alphabetically (Tree)"),
         sortTypes);
     QAction *alphaFlatSort = new QAction(
-        SmallIcon(QString::fromLatin1("draw-text")),
+        smallIcon(QString::fromLatin1("draw-text")),
         i18n("Sort Alphabetically (Flat)"),
         sortTypes);
     QAction *dateSort = new QAction(
-        SmallIcon(QString::fromLatin1("x-office-calendar")),
+        smallIcon(QString::fromLatin1("x-office-calendar")),
         i18n("Sort by Date"),
         sortTypes);
     alphaTreeSort->setCheckable(true);
@@ -904,7 +912,7 @@ void AnnotationDialog::Dialog::slotOptions()
     if (m_setup != SearchMode) {
         menu->addSeparator();
         QAction *showSelectedOnly = new QAction(
-            SmallIcon(QString::fromLatin1("view-filter")),
+            smallIcon(QString::fromLatin1("view-filter")),
             i18n("Show Only Selected Ctrl+S"),
             menu);
         showSelectedOnly->setCheckable(true);

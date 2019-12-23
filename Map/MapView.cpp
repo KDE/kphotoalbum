@@ -1,4 +1,4 @@
-/* Copyright (C) 2014-2015 Tobias Leupold <tobias.leupold@web.de>
+/* Copyright (C) 2014-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -41,6 +41,14 @@
 #include "MapMarkerModelHelper.h"
 #include "SearchMarkerTiler.h"
 
+namespace
+{
+inline QPixmap smallIcon(const QString &iconName)
+{
+    return QIcon::fromTheme(iconName).pixmap(KIconLoader::StdSizes::SizeSmall);
+}
+}
+
 Map::MapView::MapView(QWidget *parent, UsageType type)
     : QWidget(parent)
 {
@@ -66,13 +74,13 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     m_mapWidget->setActive(true);
 
     QPushButton *saveButton = new QPushButton;
-    saveButton->setIcon(QPixmap(SmallIcon(QString::fromUtf8("media-floppy"))));
+    saveButton->setIcon(QPixmap(smallIcon(QString::fromUtf8("media-floppy"))));
     saveButton->setToolTip(i18n("Save the current map settings"));
     m_mapWidget->addWidgetToControlWidget(saveButton);
     connect(saveButton, &QPushButton::clicked, this, &MapView::saveSettings);
 
     m_setLastCenterButton = new QPushButton;
-    m_setLastCenterButton->setIcon(QPixmap(SmallIcon(QString::fromUtf8("go-first"))));
+    m_setLastCenterButton->setIcon(QPixmap(smallIcon(QString::fromUtf8("go-first"))));
     m_setLastCenterButton->setToolTip(i18n("Go to last map position"));
     m_mapWidget->addWidgetToControlWidget(m_setLastCenterButton);
     connect(m_setLastCenterButton, &QPushButton::clicked, this, &MapView::setLastCenter);

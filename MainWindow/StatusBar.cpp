@@ -123,11 +123,12 @@ void MainWindow::StatusBar::setupGUI()
 
 void MainWindow::StatusBar::setLocked(bool locked)
 {
-    static QPixmap *lockedPix = new QPixmap(SmallIcon(QString::fromLatin1("object-locked")));
-    m_lockedIndicator->setFixedWidth(lockedPix->width());
+    static QPixmap lockedPix = QIcon::fromTheme(QString::fromLatin1("object-locked"))
+                                   .pixmap(KIconLoader::StdSizes::SizeSmall);
+    m_lockedIndicator->setFixedWidth(lockedPix.width());
 
     if (locked)
-        m_lockedIndicator->setPixmap(*lockedPix);
+        m_lockedIndicator->setPixmap(lockedPix);
     else
         m_lockedIndicator->setPixmap(QPixmap());
 }

@@ -1175,7 +1175,7 @@ void MainWindow::Window::contextMenuEvent(QContextMenuEvent *e)
 
         // "Invoke external program"
 
-        ExternalPopup externalCommands { &menu };
+        ExternalPopup externalCommands{ &menu };
         DB::ImageInfoPtr info = m_thumbnailView->mediaIdUnderCursor().info();
 
         externalCommands.populate(info, selected());
@@ -1445,7 +1445,7 @@ MainWindow::Window *MainWindow::Window::theMainWindow()
 void MainWindow::Window::slotConfigureToolbars()
 {
     QPointer<KEditToolBar> dlg = new KEditToolBar(guiFactory());
-    connect(dlg, &KEditToolBar::newToolbarConfig,
+    connect(dlg, &KEditToolBar::newToolBarConfig,
             this, &Window::slotNewToolbarConfig);
     dlg->exec();
     delete dlg;

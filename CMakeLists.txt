@@ -432,6 +432,7 @@ set(libBackgroundJobs_SRCS
 option(KPA_ENABLE_REMOTECONTROL "Build with support for companion Android/QML app." OFF)
 set(libRemoteControl_SRCS)
 if(KPA_ENABLE_REMOTECONTROL)
+    # requires cmake 3.12
     add_compile_definitions(KPA_ENABLE_REMOTECONTROL)
     set(libRemoteControl_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteCommand.cpp

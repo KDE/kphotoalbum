@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -51,14 +51,7 @@ ImageSearchInfo::ImageSearchInfo(const ImageDate &date,
     : m_date(date)
     , m_label(label)
     , m_description(description)
-    , m_rating(-1)
-    , m_megapixel(0)
-    , m_max_megapixel(0)
-    , m_ratingSearchMode(0)
-    , m_searchRAW(false)
     , m_isNull(false)
-    , m_isCacheable(true)
-    , m_compiled(false)
     , m_matchGeneration(nextGeneration())
 {
 }
@@ -70,14 +63,7 @@ ImageSearchInfo::ImageSearchInfo(const ImageDate &date,
     , m_label(label)
     , m_description(description)
     , m_fnPattern(fnPattern)
-    , m_rating(-1)
-    , m_megapixel(0)
-    , m_max_megapixel(0)
-    , m_ratingSearchMode(0)
-    , m_searchRAW(false)
     , m_isNull(false)
-    , m_isCacheable(true)
-    , m_compiled(false)
     , m_matchGeneration(nextGeneration())
 {
 }
@@ -113,15 +99,7 @@ void ImageSearchInfo::checkIfNull()
 }
 
 ImageSearchInfo::ImageSearchInfo()
-    : m_rating(-1)
-    , m_megapixel(0)
-    , m_max_megapixel(0)
-    , m_ratingSearchMode(0)
-    , m_searchRAW(false)
-    , m_isNull(true)
-    , m_isCacheable(true)
-    , m_compiled(false)
-    , m_matchGeneration(nextGeneration())
+    : m_matchGeneration(nextGeneration())
 {
 }
 

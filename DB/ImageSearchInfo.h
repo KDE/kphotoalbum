@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -120,14 +120,14 @@ private:
     QString m_label;
     QString m_description;
     QRegExp m_fnPattern;
-    short m_rating;
-    short m_megapixel;
-    short m_max_megapixel;
-    int m_ratingSearchMode;
-    bool m_searchRAW;
-    bool m_isNull;
-    bool m_isCacheable;
-    mutable bool m_compiled;
+    short m_rating = -1;
+    short m_megapixel = 0;
+    short m_max_megapixel = 0;
+    int m_ratingSearchMode = 0;
+    bool m_searchRAW = false;
+    bool m_isNull = true;
+    bool m_isCacheable = true;
+    mutable bool m_compiled = false;
     mutable QList<CategoryMatcher *> m_categoryMatchers;
 
     Exif::SearchInfo m_exifSearchInfo;
@@ -143,7 +143,7 @@ private:
     mutable float m_regionSelectionMinLon;
     mutable float m_regionSelectionMaxLon;
 #endif
-    // When adding new instance variable, please notice that this class as an explicit written copy constructor.
+    // When adding new instance variable, please notice that this class has an explicit written copy constructor.
 };
 }
 

@@ -41,13 +41,11 @@ class ImageSearchInfo
 {
 public:
     ImageSearchInfo();
-    ~ImageSearchInfo();
     ImageSearchInfo(const ImageDate &date,
                     const QString &label, const QString &description);
     ImageSearchInfo(const ImageDate &date,
                     const QString &label, const QString &description,
                     const QString &fnPattern);
-    ImageSearchInfo(const ImageSearchInfo &other);
 
     ImageDate date() const;
 
@@ -109,12 +107,27 @@ public:
 
 protected:
     void compile() const;
-    void deleteMatchers() const;
 
     QList<SimpleCategoryMatcher *> extractAndMatcher(CategoryMatcher *andMatcher) const;
     QList<QList<SimpleCategoryMatcher *>> convertMatcher(CategoryMatcher *) const;
 
 private:
+    /**
+     * @brief The CompiledDataPrivate struct encapsulates the non-copyable data members of the ImageSearchInfo.
+     * Its copy constructor and copy operator invalidate the object,
+     * This allows the ImageSearchInfo to just use the default copy/move constructors/operators.
+     */
+    struct CompiledDataPrivate {
+        CompiledDataPrivate() = default;
+        CompiledDataPrivate(const CompiledDataPrivate &other);
+        CompiledDataPrivate(CompiledDataPrivate &&other) = default;
+        ~CompiledDataPrivate();
+        CompiledDataPrivate &operator=(const CompiledDataPrivate &other);
+        CompiledDataPrivate &operator=(CompiledDataPrivate &&other) = default;
+
+        bool valid = false;
+        QList<CategoryMatcher *> categoryMatchers;
+    };
     ImageDate m_date;
     QMap<QString, QString> m_categoryMatchText;
     QString m_label;
@@ -127,8 +140,7 @@ private:
     bool m_searchRAW = false;
     bool m_isNull = true;
     bool m_isCacheable = true;
-    mutable bool m_compiled = false;
-    mutable QList<CategoryMatcher *> m_categoryMatchers;
+    mutable CompiledDataPrivate m_compiled;
 
     Exif::SearchInfo m_exifSearchInfo;
 

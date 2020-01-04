@@ -66,8 +66,8 @@
         <image file="blackie.jpg" description="My nick name on the internet is &quot;blackie&quot;. The reason for this is that when I got my first login to a UNIX machine, I had an electric eel named blackie." startDate="1990-01-01T00:00:00" endDate="1991-12-31T23:59:59" md5sum="db9b08c49bacd727e10069965955aff1" width="800" height="549" Events="1" Places="8" People="7"/>
         <image file="spiff_2.jpg" label="spiff" description="I've always loved animals. This was my beer eating pet named Spiff." startDate="1995-01-01T00:00:00" endDate="1995-12-31T23:59:59" md5sum="8878a22a439fdfabcdc1a6b356944bd7" width="800" height="550" Events="1,5" Places="8" People="8"/>
         <image file="spiff.jpg" startDate="1998-01-01T00:00:00" endDate="1998-12-31T23:59:59" md5sum="0303db70b6c9f0035d24dec3cf05bf25" width="800" height="551" Events="1" Places="8" People="8"/>
-        <image file="grand_canyon_1-edited-unrelated.jpg" startDate="2000-01-01T00:00:00" md5sum="4da0d11297ea5485c44b7c8ce5a4be8d" width="700" height="460" Events="6"/>
-        <image file="grand_canyon_1-edited.jpg" startDate="2000-01-01T00:00:00" md5sum="fcbe2d388a04d9927a951417e74986d8" width="800" height="535" stackId="1" stackOrder="1" Events="1,2,6" Places="1" People="2,6"/>
+        <image file="grand_canyon_1-edited-unrelated.jpg" startDate="2000-01-01T00:00:00" md5sum="18e8e67eac3121cc81b7d7d8df7880b5" width="700" height="460" Events="6"/>
+        <image file="grand_canyon_1-edited.jpg" startDate="2000-01-01T00:00:00" md5sum="09d0342ee91acbbb78925edf6456a1e1" width="800" height="535" stackId="1" stackOrder="1" Events="1,2,6" Places="1" People="2,6"/>
         <image file="qt-logo.jpg" description="KDE is build on top of the toolkit called Qt. In my daytime job I teach Qt programming. I once gave a course to these two guys, which later turned into a very strong friendship. The tattoo is the Qt logo." startDate="2002-01-01T00:00:00" endDate="2003-12-31T23:59:59" md5sum="70318ab9389e641408d0c8540e7746f4" width="800" height="542" Events="1" Places="3">
             <options>
                 <option name="People">
@@ -102,7 +102,7 @@
         <image file="bar55_2.jpg" label="bar55" startDate="2006-02-10T21:33:29" md5sum="6e54f8727945a5b132bf991be6c50d00" width="800" height="600" Places="6" People="2,6"/>
         <image file="bar55.jpg" startDate="2006-02-10T22:22:11" md5sum="261e9e97b97771f62f170ac45a0cf85a" width="800" height="600" Places="6" People="2,6"/>
         <image file="snow.jpg" startDate="2006-02-12T18:10:17" md5sum="b8a254e7fd2b7b4d7c49073ffd8eabe8" width="800" height="600" Events="3" Places="7"/>
-        <image file="movie.avi" description="In the very early days when installing your sounds card under Linux, you would hear Linus Torvalds say &quot;Hi my name is Linus, and I pronounce it Linus&quot;. So what better phrase to use for demoing KPhotoAlbums video support? :-)" startDate="2006-10-29T19:53:58" md5sum="89704e0ca8c7ec91d487d76f8b9c4c92" width="97" height="72" videoLength="4" Places="9" People="2" Tokens="25"/>
+        <image file="movie.avi" description="In the very early days when installing your sounds card under Linux, you would hear Linus Torvalds say &quot;Hi my name is Linus, and I pronounce it Linus&quot;. So what better phrase to use for demoing KPhotoAlbums video support? :-)" startDate="2006-10-29T19:53:58" md5sum="89704e0ca8c7ec91d487d76f8b9c4c92" width="97" height="72" videoLength="4" Places="9" People="2"/>
     </images>
     <blocklist/>
     <member-groups>

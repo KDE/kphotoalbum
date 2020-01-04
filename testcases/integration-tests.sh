@@ -114,8 +114,10 @@ setup_check()
 kphotoalbum.*=true
 EOF
 
-	# copy demo database
-	if ! cp -r "$mydir/../demo/"* "$check_dir/db"
+	# copy demo database (except movie.avi)
+	# ... movie.avi often makes problems with thumbnailing, causing kphotoalbum to add a token.
+	# ... Since this does not happen reproducibly for all platforms, better not add the movie file as long as it isn't required for a test.
+	if ! cp -r "$mydir/../demo/"*.jpg "$mydir/../demo/index.xml" "$check_dir/db"
 	then
 		log err "Could not copy demo database to '$check_dir/db'!"
 		return 1

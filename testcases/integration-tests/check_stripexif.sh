@@ -32,8 +32,13 @@ prepare_check_stripexif()
 	# stripEXIFComments contains several descriptions, line by line
 	# make sure there's more than one line so that escaping is also checked:
 	echo -e "[General]\nstripEXIFComments=true\ncommentsToStrip=SOME DEFAULT-,-DEFAULT_DESCRIPTION-,-OTHER-,-\n$BASE_RC" > "$check_dir/kphotoalbumrc"
-	check_stripexif_exifhelper "DEFAULT_DESCRIPTION"
-	check_stripexif_exifhelper "NO DEFAULT_DESCRIPTION"
+
+	# instead of generating the files on the fly, copy a pre-generated version instead:
+	#check_stripexif_exifhelper "DEFAULT_DESCRIPTION"
+	#check_stripexif_exifhelper "NO DEFAULT_DESCRIPTION"
+	# ...this way, we are guaranteed to get the same md5 sum every time:
+	cp -a "$mydir/integration-tests/check_stripexif/DEFAULT_DESCRIPTION.jpg" "$check_dir/db/"
+	cp -a "$mydir/integration-tests/check_stripexif/NO DEFAULT_DESCRIPTION.jpg" "$check_dir/db/"
 }
 call_check_stripexif()
 {

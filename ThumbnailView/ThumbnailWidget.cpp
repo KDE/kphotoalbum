@@ -34,6 +34,8 @@
 #include <KLocalizedString>
 #include <QScrollBar>
 #include <QTimer>
+#include <QItemSelection>
+#include <QItemSelectionRange>
 #include <math.h>
 #include <qcursor.h>
 #include <qfontmetrics.h>
@@ -410,8 +412,28 @@ void ThumbnailView::ThumbnailWidget::changeSingleSelection(const DB::FileName &f
 
 void ThumbnailView::ThumbnailWidget::select(const DB::FileNameList &items)
 {
-    Q_FOREACH (const DB::FileName &fileName, items)
-        selectionModel()->select(model()->fileNameToIndex(fileName), QItemSelectionModel::Select);
+    QItemSelection selection;
+    QModelIndex start;
+    QModelIndex end;
+    int count = 0;
+    Q_FOREACH (const DB::FileName &fileName, items) {
+        QModelIndex index = model()->fileNameToIndex(fileName);
+        if (count == 0) {
+            start = index;
+            end = index;
+        } else if (index.row() == end.row() + 1) {
+            end = index;
+        } else {
+            selection.merge(QItemSelection(start, end), QItemSelectionModel::Select);
+            start = index;
+            end = index;
+        }
+        count++;
+    }
+    if (count > 0) {
+        selection.merge(QItemSelection(start, end), QItemSelectionModel::Select);
+    }
+    selectionModel()->select(selection, QItemSelectionModel::Select);
 }
 
 bool ThumbnailView::ThumbnailWidget::isItemUnderCursorSelected() const

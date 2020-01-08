@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -439,9 +439,33 @@ void XMLDB::FileReader::repairDB()
         // -> this happens in XMLDB::Database::possibleLoadCompressedCategories()
         // i.e. the zero ids still require cleanup:
         qCInfo(XMLDBLog) << "Database contained tags with id=0 (possibly related to bug #415415). Assigning new ids for affected categories...";
+        QString message = i18nc("repair merged tags",
+                                "<p>Inconsistencies were found and repaired in your database."
+                                "Some categories now contain tags that were merged during the repair.</p>"
+                                "<p>The following tags require manual inspection:"
+                                "<ul>");
+        QString logSummary = QString::fromLatin1("List of tags where manual inspection is required:\n");
+        bool manualRepairNeeded = false;
         for (auto category : m_db->categoryCollection()->categories()) {
             XMLCategory *xmlCategory = static_cast<XMLCategory *>(category.data());
+            QStringList tags = xmlCategory->namesForId(0);
+            if (tags.size() > 1) {
+                manualRepairNeeded = true;
+                message += i18nc("repair merged tags", "<li>%1:<br/>", category->name());
+                for (auto tagName : tags) {
+                    message += i18nc("repair merged tags", "%1<br/>", tagName);
+                    logSummary += QString::fromLatin1("%1/%2\n").arg(category->name(), tagName);
+                }
+                message += i18nc("repair merged tags", "</li>");
+            }
             xmlCategory->clearNullIds();
+        }
+        message += i18nc("repair merged tags",
+                         "</ul></p>"
+                         "<p>All affected images have also been marked with a tag "
+                         "<em>KPhotoAlbum - manual repair needed</em>.</p>");
+        if (manualRepairNeeded) {
+            m_db->uiDelegate().information(logSummary, message, i18n("Database repair required"));
         }
     }
 }

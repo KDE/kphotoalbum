@@ -440,7 +440,7 @@ void XMLDB::FileReader::repairDB()
         // i.e. the zero ids still require cleanup:
         qCInfo(XMLDBLog) << "Database contained tags with id=0 (possibly related to bug #415415). Assigning new ids for affected categories...";
         QString message = i18nc("repair merged tags",
-                                "<p>Inconsistencies were found and repaired in your database."
+                                "<p>Inconsistencies were found and repaired in your database. "
                                 "Some categories now contain tags that were merged during the repair.</p>"
                                 "<p>The following tags require manual inspection:"
                                 "<ul>");

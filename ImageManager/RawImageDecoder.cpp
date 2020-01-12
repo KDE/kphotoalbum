@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -114,9 +114,9 @@ bool RAWImageDecoder::_decode(QImage *img, ImageRequest *request, QSize *fullSiz
 
     return true;
 #else /* HAVE_KDCRAW */
-    Q_UNUSED(img);
-    Q_UNUSED(imageFile);
-    Q_UNUSED(fullSize);
+    Q_UNUSED(img)
+    Q_UNUSED(fullSize)
+    Q_UNUSED(request)
     return false;
 #endif /* HAVE_KDCRAW */
 }

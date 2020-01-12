@@ -5,6 +5,11 @@
 
 * Bugfix: Make theme files translatable (Fixes #406144).
 
+* Bugfix: Prevent invalid tag id in index.xml when renaming tags under some
+  circumstances. When invalid ids already are present in an index.xml file,
+  automatically repair if possible, or alert the user that manual repair is
+  needed. (Fixes #415415)
+
 * Feature: Support for using purpose plugins
 
 * Feature: Show newly added tagged areas in the annotation dialog's fullscreen preview.

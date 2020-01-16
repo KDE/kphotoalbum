@@ -10,6 +10,10 @@
   automatically repair if possible, or alert the user that manual repair is
   needed. (Fixes #415415)
 
+* Enhancement: Huge performance improvements when tagging a large number of images
+
+* Enhancement: Performance improvements for thumbnail view
+
 * Feature: Support for using purpose plugins
 
 * Feature: Show newly added tagged areas in the annotation dialog's fullscreen preview.

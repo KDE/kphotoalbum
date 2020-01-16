@@ -183,9 +183,10 @@ private: // Instance variables.
     QSet<DB::StackID> m_allStacks;
 
     /**
-     * A map mapping from Id to its index in m_displayList.
+     * A hash mapping from Id to its index in m_displayList.
+     * The structure is not iterated over, so order doesn't matter.
      */
-    QMap<DB::FileName, int> m_fileNameToIndex;
+    QHash<DB::FileName, int> m_fileNameToIndex;
 
     int m_firstVisibleRow;
     int m_lastVisibleRow;

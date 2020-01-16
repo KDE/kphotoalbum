@@ -1043,33 +1043,41 @@ void AnnotationDialog::Dialog::closeDialog()
     QDialog::reject();
 }
 
-bool AnnotationDialog::Dialog::hasChanges()
+StringSet AnnotationDialog::Dialog::changedOptions(ListSelect *ls)
 {
-    bool changed = false;
+    StringSet on, partialOn, off, changes;
+    std::tie(on, partialOn, off) = selectionForMultiSelect(ls, m_origList);
+    changes += (ls->itemsOn() - on);
+    changes += (on - ls->itemsOn());
+    changes += (ls->itemsOff() - off);
+    changes += (off - ls->itemsOff());
+    return changes;
+}
+
+bool AnnotationDialog::Dialog::hasChanges(bool checkOptions)
+{
     if (m_setup == InputSingleImageConfigMode) {
         writeToInfo();
         for (int i = 0; i < m_editList.count(); ++i) {
-            changed |= (*(m_origList[i]) != m_editList[i]);
+            if (*(m_origList[i]) != m_editList[i])
+                return true;
         }
-        changed |= m_areasChanged;
-    }
-
-    else if (m_setup == InputMultiImageConfigMode) {
-        changed |= (!m_startDate->date().isNull());
-        changed |= (!m_endDate->date().isNull());
-
-        Q_FOREACH (ListSelect *ls, m_optionList) {
-            StringSet on, partialOn;
-            std::tie(on, partialOn) = selectionForMultiSelect(ls, m_origList);
-            changed |= (on != ls->itemsOn());
-            changed |= (partialOn != ls->itemsUnchanged());
+        return m_areasChanged;
+    } else if (m_setup == InputMultiImageConfigMode) {
+        bool changed = (!m_startDate->date().isNull()) ||
+            (!m_endDate->date().isNull()) ||
+            (!m_imageLabel->text().isEmpty()) ||
+            (m_description->toPlainText() != m_firstDescription) ||
+            m_ratingChanged;
+        if (checkOptions) {
+            Q_FOREACH (ListSelect *ls, m_optionList) {
+                if (!(changedOptions(ls).isEmpty()))
+                    return true;
+            }
         }
-
-        changed |= (!m_imageLabel->text().isEmpty());
-        changed |= (m_description->toPlainText() != m_firstDescription);
-        changed |= m_ratingChanged;
+        return changed;
     }
-    return changed;
+    return false;
 }
 
 void AnnotationDialog::Dialog::rotate(int angle)
@@ -1323,28 +1331,41 @@ KActionCollection *AnnotationDialog::Dialog::actions()
 
 void AnnotationDialog::Dialog::setUpCategoryListBoxForMultiImageSelection(ListSelect *listSel, const DB::ImageInfoList &images)
 {
-    StringSet on, partialOn;
-    std::tie(on, partialOn) = selectionForMultiSelect(listSel, images);
+    StringSet on, partialOn, off;
+    std::tie(on, partialOn, off) = selectionForMultiSelect(listSel, images);
     listSel->setSelection(on, partialOn);
 }
 
-std::tuple<StringSet, StringSet> AnnotationDialog::Dialog::selectionForMultiSelect(ListSelect *listSel, const DB::ImageInfoList &images)
+std::tuple<StringSet, StringSet, StringSet> AnnotationDialog::Dialog::selectionForMultiSelect(ListSelect *listSel, const DB::ImageInfoList &images)
 {
     const QString category = listSel->category();
     const StringSet allItems = DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->itemsInclCategories().toSet();
-    StringSet itemsNotSelectedOnAllImages;
     StringSet itemsOnSomeImages;
+    StringSet itemsOnAllImages;
+    bool firstImage = true;
 
     for (DB::ImageInfoList::ConstIterator imageIt = images.begin(); imageIt != images.end(); ++imageIt) {
         const StringSet itemsOnThisImage = (*imageIt)->itemsOfCategory(category);
-        itemsNotSelectedOnAllImages += (allItems - itemsOnThisImage);
-        itemsOnSomeImages += itemsOnThisImage;
+        if (firstImage) {
+            itemsOnAllImages = itemsOnThisImage;
+            firstImage = false;
+        } else {
+            foreach (const QString &item, itemsOnThisImage) {
+                if (! itemsOnAllImages.contains(item) &&
+                    ! itemsOnSomeImages.contains(item)) {
+                    itemsOnSomeImages += item;
+                }
+            }
+            foreach (const QString &item, itemsOnAllImages) {
+                if (! itemsOnThisImage.contains(item)) {
+                    itemsOnAllImages -= item;
+                }
+            }
+        }
     }
+    const StringSet itemsOnNoImages = allItems - itemsOnSomeImages - itemsOnAllImages;
 
-    const StringSet itemsOnAllImages = allItems - itemsNotSelectedOnAllImages;
-    const StringSet itemsPartiallyOn = itemsOnSomeImages - itemsOnAllImages;
-
-    return std::make_tuple(itemsOnAllImages, itemsPartiallyOn);
+    return std::make_tuple(itemsOnAllImages, itemsOnSomeImages, itemsOnNoImages);
 }
 
 void AnnotationDialog::Dialog::slotRatingChanged(unsigned int)
@@ -1369,9 +1390,10 @@ void AnnotationDialog::Dialog::saveAndClose()
         return;
     }
 
-    // I need to check for the changes first, as the case for m_setup == InputSingleImageConfigMode, saves to the m_origList,
-    // and we can thus not check for changes anymore
-    const bool anyChanges = hasChanges();
+    // I need to check for the changes first, as the case for m_setup
+    // == InputSingleImageConfigMode, saves to the m_origList, and we
+    // can thus not check for changes anymore
+    bool anyChanges = hasChanges(m_setup == InputSingleImageConfigMode);
 
     if (m_setup == InputSingleImageConfigMode) {
         writeToInfo();
@@ -1383,15 +1405,23 @@ void AnnotationDialog::Dialog::saveAndClose()
             ls->slotReturn();
         }
 
+        Q_FOREACH(ListSelect *ls, m_optionList) {
+            StringSet changes = changedOptions(ls);
+            if (!(changes.isEmpty())) {
+                anyChanges = true;
+                StringSet newItemsOn = ls->itemsOn() & changes;
+                StringSet newItemsOff = ls->itemsOff() & changes;
+                for (DB::ImageInfoListConstIterator it = m_origList.constBegin(); it != m_origList.constEnd(); ++it) {
+                    DB::ImageInfoPtr info = *it;
+                    info->addCategoryInfo(ls->category(), newItemsOn);
+                    info->removeCategoryInfo(ls->category(), newItemsOff);
+                }
+            }
+        }
         for (DB::ImageInfoListConstIterator it = m_origList.constBegin(); it != m_origList.constEnd(); ++it) {
             DB::ImageInfoPtr info = *it;
             if (!m_startDate->date().isNull())
                 info->setDate(DB::ImageDate(m_startDate->date(), m_endDate->date(), m_time->time()));
-
-            Q_FOREACH (ListSelect *ls, m_optionList) {
-                info->addCategoryInfo(ls->category(), ls->itemsOn());
-                info->removeCategoryInfo(ls->category(), ls->itemsOff());
-            }
 
             if (!m_imageLabel->text().isEmpty()) {
                 info->setLabel(m_imageLabel->text());
@@ -1406,13 +1436,13 @@ void AnnotationDialog::Dialog::saveAndClose()
             }
         }
         m_ratingChanged = false;
+
     }
     m_accept = QDialog::Accepted;
 
     if (anyChanges) {
         MainWindow::DirtyIndicator::markDirty();
     }
-
     QDialog::accept();
 }
 

@@ -154,7 +154,8 @@ protected:
     void closeEvent(QCloseEvent *) override;
     void showTornOfWindows();
     void hideTornOfWindows();
-    bool hasChanges();
+    bool hasChanges(bool checkOptions = true);
+    StringSet changedOptions(ListSelect *);
     void showHelpDialog(UsageMode);
     void resizeEvent(QResizeEvent *) override;
     void moveEvent(QMoveEvent *) override;
@@ -163,7 +164,7 @@ protected:
     void loadWindowLayout();
     void setupActions();
     void setUpCategoryListBoxForMultiImageSelection(ListSelect *, const DB::ImageInfoList &images);
-    std::tuple<Utilities::StringSet, Utilities::StringSet> selectionForMultiSelect(ListSelect *, const DB::ImageInfoList &images);
+    std::tuple<Utilities::StringSet, Utilities::StringSet, Utilities::StringSet> selectionForMultiSelect(ListSelect *, const DB::ImageInfoList &images);
     void saveAndClose();
     void ShowHideSearch(bool show);
 

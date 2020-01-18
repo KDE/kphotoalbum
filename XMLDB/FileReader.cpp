@@ -210,9 +210,12 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
                     if (id != 0) {
                         static_cast<XMLCategory *>(cat.data())->setIdMapping(value, id);
                     } else {
-                        qCWarning(XMLDBLog) << "Tag" << categoryName << "/" << value << "has id=0!";
-                        m_repairTagsWithNullIds = true;
-                        static_cast<XMLCategory *>(cat.data())->setIdMapping(value, id, XMLCategory::IdMapping::UnsafeMapping);
+                        if (useCompressedFileFormat()) {
+                            qCWarning(XMLDBLog) << "Tag" << categoryName << "/" << value << "has id=0!";
+                            m_repairTagsWithNullIds = true;
+                            static_cast<XMLCategory *>(cat.data())->setIdMapping(value, id, XMLCategory::IdMapping::UnsafeMapping);
+                        }
+                        // else just don't set the id mapping so that a new id gets assigned
                     }
                 }
                 if (reader->hasAttribute(birthDateString))

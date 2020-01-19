@@ -40,7 +40,7 @@ check_recover-from-duplicates()
 
 		if ! diff -u "$data_dir/$subcheck.result.xml" "$subcheck_dir/index.xml"
 		then
-			log info "$check_name/$subcheck: Mismatch in index.xml!"
+			log notice "$check_name/$subcheck: Mismatch in index.xml!"
 			return $result_failed
 		fi
 	done

@@ -42,13 +42,13 @@ check_recover-from-idzero()
 
 		if ! diff -u "$data_dir/$subcheck.result.xml" "$subcheck_dir/index.xml"
 		then
-			log info "$check_name/$subcheck: Mismatch in index.xml!"
+			log notice "$check_name/$subcheck: Mismatch in index.xml!"
 			return $result_failed
 		fi
 
 		if ! diff -u "$data_dir/$subcheck.expected.log" "$subcheck_dir/log"
 		then
-			log info "$check_name/$subcheck: Mismatch in log messages!"
+			log notice "$check_name/$subcheck: Mismatch in log messages!"
 			return $result_failed
 		fi
 	done

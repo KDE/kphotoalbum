@@ -227,7 +227,7 @@ generic_check()
 		test -f "$check_db_file" || echo "$check_db_file does not exist!"
 		if ! diff -u "$check_db_file" "$check_dir/db/index.xml"
 		then
-			log info "$check_name: Mismatch in index.xml!"
+			log notice "$check_name: Mismatch in index.xml!"
 			return $result_failed
 		else
 			return $result_ok
@@ -238,7 +238,7 @@ generic_check()
 	then
 		return $result_ok
 	else
-		log info "$check_name: Failed test as determined by user."
+		log notice "$check_name: Failed test as determined by user."
 		return $result_failed
 	fi
 }

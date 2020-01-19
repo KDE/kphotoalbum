@@ -43,6 +43,11 @@ check_recover-from-duplicates()
 			log notice "$check_name/$subcheck: Mismatch in index.xml!"
 			return $result_failed
 		fi
+		if ! grep -q '^kphotoalbum.XMLDB: Merging duplicate entry for file "4.jpg"$' "$subcheck_dir/log"
+		then
+			log notice "$check_name/$subcheck: Missing expected log message!"
+			return $result_failed
+		fi
 	done
 	return $result_ok
 }

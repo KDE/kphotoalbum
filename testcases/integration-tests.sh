@@ -225,7 +225,7 @@ generic_check()
 	if [[ -n "$check_db_file" ]]
 	then
 		test -f "$check_db_file" || echo "$check_db_file does not exist!"
-		if diff -u "$check_db_file" "$check_dir/db/index.xml"
+		if ! diff -u "$check_db_file" "$check_dir/db/index.xml"
 		then
 			log info "$check_name: Mismatch in index.xml!"
 			return $result_failed

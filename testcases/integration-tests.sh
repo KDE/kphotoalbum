@@ -250,7 +250,6 @@ do
 done
 
 version=`kphotoalbum --version 2>&1`
-log info "Using $version (`which kphotoalbum`)..."
 
 TEMP=`getopt -o clhp --long "all,check,help,keep-tempdir,list,log-level:,print,tempdir:" -n "$myname" -- "$@"`
 if [ $? != 0 ] ; then log err "Terminating..." ; exit 1 ; fi
@@ -273,6 +272,7 @@ while true ; do
 		*) echo "Internal error!" ; exit 1 ;;
 	esac
 done
+log info "Using $version (`which kphotoalbum`)..."
 
 if [ -z "$TEMPDIR" ]
 then

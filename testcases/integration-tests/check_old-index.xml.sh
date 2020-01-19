@@ -38,6 +38,7 @@ check_old-index.xml()
 
 		if ! diff -u "$data_dir/$subcheck.result.xml" "$subcheck_dir/index.xml"
 		then
+			log info "$check_name/$subcheck: Mismatch in index.xml!"
 			return $result_failed
 		fi
 	done

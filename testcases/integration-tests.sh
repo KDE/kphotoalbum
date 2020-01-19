@@ -225,14 +225,20 @@ generic_check()
 	if [[ -n "$check_db_file" ]]
 	then
 		test -f "$check_db_file" || echo "$check_db_file does not exist!"
-		diff -u "$check_db_file" "$check_dir/db/index.xml"
-		return $?
+		if diff -u "$check_db_file" "$check_dir/db/index.xml"
+		then
+			log info "$check_name: Mismatch in index.xml!"
+			return $result_failed
+		else
+			return $result_ok
+		fi
 	fi
 	# fallback: ask the user to verify
 	if kdialog --yesno "<h1>$check_name &mdash; Did KPhotoAlbum pass the test?</h1><p>As a reminder what you should check:</p><hr/><div style='text-size=small'>${_context[$check_name]}</div>"
 	then
 		return $result_ok
 	else
+		log info "$check_name: Failed test as determined by user."
 		return $result_failed
 	fi
 }

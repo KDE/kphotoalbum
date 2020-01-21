@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -190,7 +190,8 @@ Settings::CategoryPage::CategoryPage(QWidget *parent)
 void Settings::CategoryPage::resetInterface()
 {
     enableDisable(false);
-    m_categoriesListWidget->currentItem()->setSelected(false);
+    if (m_categoriesListWidget->currentItem())
+        m_categoriesListWidget->currentItem()->setSelected(false);
     resetCategoryLabel();
     m_renameLabel->hide();
 }

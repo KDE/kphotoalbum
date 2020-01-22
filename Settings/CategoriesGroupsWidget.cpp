@@ -63,19 +63,10 @@ void Settings::CategoriesGroupsWidget::dragMoveEvent(QDragMoveEvent *event)
     if (target == nullptr) {
         // We don't have a target, so we don't allow a drop.
         event->setDropAction(Qt::IgnoreAction);
-    } else if (target->parent() == nullptr) {
-        // The target is a category. It has to be the same one as dragged group's category,
-        if (target->text(0) != m_draggedItemCategory) {
-            event->setDropAction(Qt::IgnoreAction);
-        } else {
-            updateHighlight(target);
-            event->setDropAction(Qt::MoveAction);
-            event->accept();
-        }
     } else {
-        // The target is another group. It has to be in the same category as the dragged group.
-        QTreeWidgetItem *parent = target->parent();
-        ;
+        // The target has to be in the same category as the dragged group.
+        QTreeWidgetItem *parent = target;
+        // the category is the root item:
         while (parent->parent() != nullptr) {
             parent = parent->parent();
         }

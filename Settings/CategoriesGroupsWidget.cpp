@@ -69,6 +69,10 @@ void Settings::CategoriesGroupsWidget::dragMoveEvent(QDragMoveEvent *event)
         // the category is the root item:
         while (parent->parent() != nullptr) {
             parent = parent->parent();
+            if (parent == m_draggedItem) {
+                event->setDropAction(Qt::IgnoreAction);
+                return;
+            }
         }
         if (parent->text(0) != m_draggedItemCategory) {
             event->setDropAction(Qt::IgnoreAction);

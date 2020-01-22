@@ -1,4 +1,4 @@
-/* Copyright (C) 2014 Tobias Leupold <tobias.leupold@web.de>
+/* Copyright (C) 2014-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -108,6 +108,7 @@ void Settings::CategoriesGroupsWidget::dropEvent(QDropEvent *event)
 {
     QTreeWidgetItem *target = itemAt(event->pos());
     target->setBackground(0, m_backgroundNoTarget);
+    m_oldTarget = nullptr;
 
     if (m_draggedItem != target) {
         m_tagGroupsPage->processDrop(m_draggedItem, target);

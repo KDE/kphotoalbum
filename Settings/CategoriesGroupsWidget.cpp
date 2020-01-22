@@ -28,6 +28,7 @@
 
 Settings::CategoriesGroupsWidget::CategoriesGroupsWidget(QWidget *parent)
     : QTreeWidget(parent)
+    , m_backgroundHiglightTarget(Qt::lightGray)
 {
     setDragEnabled(true);
     setAcceptDrops(true);
@@ -45,7 +46,6 @@ void Settings::CategoriesGroupsWidget::mousePressEvent(QMouseEvent *event)
     m_draggedItem = itemAt(event->pos());
 
     if (m_draggedItem != nullptr) {
-        m_backgroundNoTarget = m_draggedItem->background(0);
         if (m_draggedItem->parent() != nullptr) {
             m_draggedItemCategory = m_tagGroupsPage->getCategory(m_draggedItem);
         }
@@ -91,6 +91,7 @@ void Settings::CategoriesGroupsWidget::dragMoveEvent(QDragMoveEvent *event)
 
 void Settings::CategoriesGroupsWidget::updateHighlight(QTreeWidgetItem *target)
 {
+    Q_ASSERT(target != nullptr);
     if (target == m_oldTarget) {
         return;
     }
@@ -99,7 +100,8 @@ void Settings::CategoriesGroupsWidget::updateHighlight(QTreeWidgetItem *target)
         m_oldTarget->setBackground(0, m_backgroundNoTarget);
     }
 
-    target->setBackground(0, *(new QBrush(Qt::lightGray)));
+    m_backgroundNoTarget = target->background(0);
+    target->setBackground(0, m_backgroundHiglightTarget);
 
     m_oldTarget = target;
 }

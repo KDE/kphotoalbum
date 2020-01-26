@@ -109,12 +109,11 @@ void Settings::TagGroupsPage::updateCategoryTree()
     QTreeWidgetItemIterator it(m_categoryTreeWidget);
     while (*it) {
         if ((*it)->isExpanded()) {
-            if ((*it)->parent() == nullptr) {
-                expandedItems.append(QPair<QString, QString>((*it)->text(0), QString()));
-            } else {
-                expandedItems.append(
-                    QPair<QString, QString>((*it)->text(0), (*it)->parent()->text(0)));
+            QString parentName;
+            if ((*it)->parent() != nullptr) {
+                parentName = (*it)->parent()->text(0);
             }
+            expandedItems.append(QPair<QString, QString>((*it)->text(0), parentName));
         }
         ++it;
     }
@@ -169,14 +168,12 @@ void Settings::TagGroupsPage::updateCategoryTree()
     // Re-expand all previously expanded items
     QTreeWidgetItemIterator it2(m_categoryTreeWidget);
     while (*it2) {
-        if ((*it2)->parent() == nullptr) {
-            if (expandedItems.contains(QPair<QString, QString>((*it2)->text(0), QString()))) {
-                (*it2)->setExpanded(true);
-            }
-        } else {
-            if (expandedItems.contains(QPair<QString, QString>((*it2)->text(0), (*it2)->parent()->text(0)))) {
-                (*it2)->setExpanded(true);
-            }
+        QString parentName;
+        if ((*it2)->parent() != nullptr) {
+            parentName = (*it2)->parent()->text(0);
+        }
+        if (expandedItems.contains(QPair<QString, QString>((*it2)->text(0), parentName))) {
+            (*it2)->setExpanded(true);
         }
         ++it2;
     }

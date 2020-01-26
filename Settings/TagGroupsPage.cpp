@@ -147,15 +147,7 @@ void Settings::TagGroupsPage::updateCategoryTree()
             }
 
             QStringList allMembers = m_memberMap.members(category->name(), group, true);
-            foreach (const QString &member, allMembers) {
-                membersForGroup[group] << member;
-            }
-
-            // We add an empty member placeholder if the group currently has no members.
-            // Otherwise, it won't be added.
-            if (!membersForGroup.contains(group)) {
-                membersForGroup[group] = QStringList();
-            }
+            membersForGroup[group] = allMembers;
         }
 
         // Add all groups (their sub-groups will be added recursively)

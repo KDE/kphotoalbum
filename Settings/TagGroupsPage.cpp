@@ -106,8 +106,7 @@ void Settings::TagGroupsPage::updateCategoryTree()
 {
     // Store all expanded items so that they can be expanded after reload
     QList<QPair<QString, QString>> expandedItems = QList<QPair<QString, QString>>();
-    QTreeWidgetItemIterator it(m_categoryTreeWidget);
-    while (*it) {
+    for (QTreeWidgetItemIterator it { m_categoryTreeWidget }; *it; ++it) {
         if ((*it)->isExpanded()) {
             QString parentName;
             if ((*it)->parent() != nullptr) {
@@ -115,7 +114,6 @@ void Settings::TagGroupsPage::updateCategoryTree()
             }
             expandedItems.append(QPair<QString, QString>((*it)->text(0), parentName));
         }
-        ++it;
     }
 
     m_categoryTreeWidget->clear();
@@ -158,16 +156,14 @@ void Settings::TagGroupsPage::updateCategoryTree()
     m_categoryTreeWidget->sortItems(0, Qt::AscendingOrder);
 
     // Re-expand all previously expanded items
-    QTreeWidgetItemIterator it2(m_categoryTreeWidget);
-    while (*it2) {
+    for (QTreeWidgetItemIterator it { m_categoryTreeWidget }; *it; ++it) {
         QString parentName;
-        if ((*it2)->parent() != nullptr) {
-            parentName = (*it2)->parent()->text(0);
+        if ((*it)->parent() != nullptr) {
+            parentName = (*it)->parent()->text(0);
         }
-        if (expandedItems.contains(QPair<QString, QString>((*it2)->text(0), parentName))) {
-            (*it2)->setExpanded(true);
+        if (expandedItems.contains(QPair<QString, QString>((*it)->text(0), parentName))) {
+            (*it)->setExpanded(true);
         }
-        ++it2;
     }
 }
 

@@ -10,6 +10,9 @@
   automatically repair if possible, or alert the user that manual repair is
   needed. (Fixes #415415)
 
+* Bugfix: Deeply nested tag groups are now displayed correctly in the tag groups
+  settings page.
+
 * Enhancement: Huge performance improvements when tagging a large number of images
 
 * Enhancement: Performance improvements for thumbnail view

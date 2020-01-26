@@ -180,16 +180,16 @@ void Settings::TagGroupsPage::updateCategoryTree()
 }
 
 void Settings::TagGroupsPage::addSubCategories(QTreeWidgetItem *superCategory,
-                                               QMap<QString, QStringList> &membersForGroup,
+                                               const QMap<QString, QStringList> &membersForGroup,
                                                const QStringList &allGroups)
 {
     // Process all group members
-    QMap<QString, QStringList>::iterator memIt1;
+    QMap<QString, QStringList>::const_iterator memIt1;
     for (memIt1 = membersForGroup.begin(); memIt1 != membersForGroup.end(); ++memIt1) {
         bool isSubGroup = false;
 
         // Search for a membership in another group for the current group
-        QMap<QString, QStringList>::iterator memIt2;
+        QMap<QString, QStringList>::const_iterator memIt2;
         for (memIt2 = membersForGroup.begin(); memIt2 != membersForGroup.end(); ++memIt2) {
             if (memIt2.value().contains(memIt1.key())) {
                 isSubGroup = true;

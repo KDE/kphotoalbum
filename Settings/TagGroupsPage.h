@@ -82,7 +82,7 @@ private: // Functions
     void renameAllSubCategories(QTreeWidgetItem *categoryItem, QString oldName, QString newName);
     void updateCategoryTree();
     void addSubCategories(QTreeWidgetItem *superCategory,
-                          QMap<QString, QStringList> &membersForGroup,
+                          const QMap<QString, QStringList> &membersForGroup,
                           const QStringList &allGroups);
     void addNewSubItem(QString &name, QTreeWidgetItem *parentItem);
     QTreeWidgetItem *findCategoryItem(QString category);

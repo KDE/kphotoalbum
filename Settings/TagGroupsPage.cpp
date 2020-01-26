@@ -146,7 +146,7 @@ void Settings::TagGroupsPage::updateCategoryTree()
                 continue;
             }
 
-            QStringList allMembers = m_memberMap.members(category->name(), group, false);
+            QStringList allMembers = m_memberMap.members(category->name(), group, true);
             foreach (const QString &member, allMembers) {
                 membersForGroup[group] << member;
             }

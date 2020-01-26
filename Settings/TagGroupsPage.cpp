@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -140,7 +140,7 @@ void Settings::TagGroupsPage::updateCategoryTree()
 
         // Build a map with all members for each group
         QMap<QString, QStringList> membersForGroup;
-        QStringList allGroups = m_memberMap.groups(category->name());
+        const QStringList allGroups = m_memberMap.groups(category->name());
         foreach (const QString &group, allGroups) {
             // FIXME: Why does the member map return an empty category?!
             if (group.isEmpty()) {
@@ -184,7 +184,7 @@ void Settings::TagGroupsPage::updateCategoryTree()
 
 void Settings::TagGroupsPage::addSubCategories(QTreeWidgetItem *superCategory,
                                                QMap<QString, QStringList> &membersForGroup,
-                                               QStringList &allGroups)
+                                               const QStringList &allGroups)
 {
     // Process all group members
     QMap<QString, QStringList>::iterator memIt1;
@@ -397,7 +397,6 @@ void Settings::TagGroupsPage::slotAddGroup()
     categoryChange[CategoryEdit::Category] = m_currentCategory;
     categoryChange[CategoryEdit::Add] = newSubCategory;
     m_categoryChanges.append(categoryChange);
-    m_dataChanged = true;
 
     // Add the group
     m_memberMap.addGroup(m_currentCategory, newSubCategory);

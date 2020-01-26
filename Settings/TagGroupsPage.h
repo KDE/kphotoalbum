@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -83,7 +83,7 @@ private: // Functions
     void updateCategoryTree();
     void addSubCategories(QTreeWidgetItem *superCategory,
                           QMap<QString, QStringList> &membersForGroup,
-                          QStringList &allGroups);
+                          const QStringList &allGroups);
     void addNewSubItem(QString &name, QTreeWidgetItem *parentItem);
     QTreeWidgetItem *findCategoryItem(QString category);
     DB::CategoryPtr getCategoryObject(QString category) const;

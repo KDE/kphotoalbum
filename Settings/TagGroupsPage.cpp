@@ -172,14 +172,13 @@ void Settings::TagGroupsPage::addSubCategories(QTreeWidgetItem *superCategory,
                                                const QStringList &allGroups)
 {
     // Process all group members
-    QMap<QString, QStringList>::const_iterator memIt1;
-    for (memIt1 = membersForGroup.begin(); memIt1 != membersForGroup.end(); ++memIt1) {
+    for (auto memIt = membersForGroup.constBegin(); memIt != membersForGroup.constEnd(); ++memIt) {
+        const QString &group = memIt.key();
         bool isSubGroup = false;
 
         // Search for a membership in another group for the current group
-        QMap<QString, QStringList>::const_iterator memIt2;
-        for (memIt2 = membersForGroup.begin(); memIt2 != membersForGroup.end(); ++memIt2) {
-            if (memIt2.value().contains(memIt1.key())) {
+        for (const QStringList &members : membersForGroup) {
+            if (members.contains(group)) {
                 isSubGroup = true;
                 break;
             }
@@ -187,21 +186,21 @@ void Settings::TagGroupsPage::addSubCategories(QTreeWidgetItem *superCategory,
 
         // Add the group if it's not member of another group
         if (!isSubGroup) {
-            QTreeWidgetItem *group = new QTreeWidgetItem;
-            group->setText(0, memIt1.key());
-            superCategory->addChild(group);
+            QTreeWidgetItem *groupItem = new QTreeWidgetItem;
+            groupItem->setText(0, group);
+            superCategory->addChild(groupItem);
 
             // Search the member list for other groups
             QMap<QString, QStringList> subGroups;
             foreach (const QString &groupName, allGroups) {
-                if (membersForGroup[memIt1.key()].contains(groupName)) {
+                if (membersForGroup[group].contains(groupName)) {
                     subGroups[groupName] = membersForGroup[groupName];
                 }
             }
 
             // If the list contains other groups, add them recursively
             if (subGroups.count() > 0) {
-                addSubCategories(group, subGroups, allGroups);
+                addSubCategories(groupItem, subGroups, allGroups);
             }
         }
     }

@@ -1,6 +1,7 @@
 [theme]
 Name=KPhotoAlbum Blue
 Name[ca]=KPhotoAlbum Blau
+Name[ca@valencia]=KPhotoAlbum Blau
 Name[de]=KPhotoAlbum-Blau
 Name[en_GB]=KPhotoAlbum Blue
 Name[es]=KPhotoAlbum azul
@@ -20,6 +21,7 @@ Name[zh_TW]=藍色 KPhotoAlbum
 Author=Teemu Rytilahti
 Description=Straight lines, square boxes and two fresh crisp shades of blue.
 Description[ca]=Línies rectes, quadres rectangulars i dos tons frescos de blau.
+Description[ca@valencia]=Línies rectes, quadres rectangulars i dos tons frescos de blau.
 Description[en_GB]=Straight lines, square boxes and two fresh crisp shades of blue.
 Description[es]=Líneas rectas, rectángulo cuadrados y dos nítidas sombras azules.
 Description[gl]=Liñas rectas, caixas cadradas e dúas refrescantes tonalidades de azul.

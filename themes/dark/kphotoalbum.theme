@@ -1,6 +1,7 @@
 [theme]
 Name=Dark v1.0.1
 Name[ca]=Fosc v1.0.1
+Name[ca@valencia]=Fosc v1.0.1
 Name[cs]=Dark v1.0.1
 Name[de]=Dunkel v1.0.1
 Name[en_GB]=Dark v1.0.1
@@ -21,6 +22,7 @@ Name[zh_TW]=Dark v1.0.1
 Author=Miika Turkia
 Description=This theme uses darkish colors and provides basic gallery quite similar to other themes in KPhotoAlbum. Possibility to navigate images with keyboard is added if JavaScript support is enabled.
 Description[ca]=Aquest tema usa colors foscos i proporciona una galeria bàsica força semblant a altres temes del KPhotoAlbum. Possibilita navegar per les imatges amb el teclat si s'ha activat el suport del JavaScript.
+Description[ca@valencia]=Aquest tema usa colors foscos i proporciona una galeria bàsica força semblant a altres temes del KPhotoAlbum. Possibilita navegar per les imatges amb el teclat si s'ha activat el suport del JavaScript.
 Description[en_GB]=This theme uses darkish colours and provides basic gallery quite similar to other themes in KPhotoAlbum. Possibility to navigate images with keyboard is added if JavaScript support is enabled.
 Description[es]=Este tema usa colores oscuros y proporciona una galería básica bastante similar a las de otros temas de KPhotoAlbum. Existe la posibilidad de navegar por las imágenes con el teclado si está activado el uso de JavaScript.
 Description[et]=See teema kasutab tumedamaid värve ja pakub lihtsat galeriid nagu teisedki KPhotoAlbumi teemad. Kui JavaScripti toetus on lubatud, saab piltide vahel liikuda ka klaviatuuri abil.

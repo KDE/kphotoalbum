@@ -337,7 +337,7 @@ QAction *AnnotationDialog::ResizableFrame::createAssociateTagAction(
 
 void AnnotationDialog::ResizableFrame::associateTag()
 {
-    QAction *action = dynamic_cast<QAction *>(sender());
+    QAction *action = qobject_cast<QAction *>(sender());
     Q_ASSERT(action != nullptr);
     associateTag(action);
 }

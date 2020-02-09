@@ -71,6 +71,7 @@ namespace AnnotationDialog
 {
 class ImagePreview;
 class DateEdit;
+class DescriptionEdit;
 class ShortCutManager;
 class ResizableFrame;
 
@@ -153,7 +154,8 @@ protected:
     void closeEvent(QCloseEvent *) override;
     void showTornOfWindows();
     void hideTornOfWindows();
-    bool hasChanges();
+    bool hasChanges(bool checkOptions = true);
+    StringSet changedOptions(ListSelect *);
     void showHelpDialog(UsageMode);
     void resizeEvent(QResizeEvent *) override;
     void moveEvent(QMoveEvent *) override;
@@ -162,7 +164,7 @@ protected:
     void loadWindowLayout();
     void setupActions();
     void setUpCategoryListBoxForMultiImageSelection(ListSelect *, const DB::ImageInfoList &images);
-    std::tuple<Utilities::StringSet, Utilities::StringSet> selectionForMultiSelect(ListSelect *, const DB::ImageInfoList &images);
+    std::tuple<Utilities::StringSet, Utilities::StringSet, Utilities::StringSet> selectionForMultiSelect(ListSelect *, const DB::ImageInfoList &images);
     void saveAndClose();
     void ShowHideSearch(bool show);
 
@@ -196,7 +198,7 @@ private:
     QPushButton *m_clearBut;
     QPushButton *m_okBut;
     QPushButton *m_continueLaterBut;
-    KTextEdit *m_description;
+    DescriptionEdit *m_description;
     QTimeEdit *m_time;
     QLabel *m_timeLabel;
     QCheckBox *m_isFuzzyDate;

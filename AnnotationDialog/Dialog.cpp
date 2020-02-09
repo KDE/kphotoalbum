@@ -79,6 +79,14 @@
 #include <algorithm>
 #include <tuple>
 
+namespace
+{
+inline QPixmap smallIcon(const QString &iconName)
+{
+    return QIcon::fromTheme(iconName).pixmap(KIconLoader::StdSizes::SizeSmall);
+}
+}
+
 using Utilities::StringSet;
 
 /**
@@ -93,6 +101,8 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
 {
     Utilities::ShowBusyCursor dummy;
     ShortCutManager shortCutManager;
+
+    m_actions = new KActionCollection(this);
 
     // The widget stack
     QWidget *mainWidget = new QWidget(this);
@@ -130,7 +140,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     m_descriptionDock = createDock(i18n("Description"), QString::fromLatin1("description"), Qt::LeftDockWidgetArea, m_description);
     shortCutManager.addDock(m_descriptionDock, m_description);
 
-    connect(m_description, SIGNAL(pageUpDownPressed(QKeyEvent *)), this, SLOT(descriptionPageUpDownPressed(QKeyEvent *)));
+    connect(m_description, &DescriptionEdit::pageUpDownPressed, this, &Dialog::descriptionPageUpDownPressed);
 
 #ifdef HAVE_MARBLE
     // -------------------------------------------------- Map representation
@@ -151,7 +161,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     m_cancelMapLoadingButton = new QPushButton(i18n("Cancel"));
     mapLoadingProgressLayout->addWidget(m_cancelMapLoadingButton);
     m_cancelMapLoadingButton->hide();
-    connect(m_cancelMapLoadingButton, SIGNAL(clicked()), this, SLOT(setCancelMapLoading()));
+    connect(m_cancelMapLoadingButton, &QPushButton::clicked, this, &Dialog::setCancelMapLoading);
 
     m_annotationMapContainer->setObjectName(i18n("Map"));
     m_mapDock = createDock(
@@ -160,7 +170,8 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
         Qt::LeftDockWidgetArea,
         m_annotationMapContainer);
     shortCutManager.addDock(m_mapDock, m_annotationMapContainer);
-    connect(m_mapDock, SIGNAL(visibilityChanged(bool)), this, SLOT(annotationMapVisibilityChanged(bool)));
+    connect(m_mapDock, &QDockWidget::visibilityChanged, this, &Dialog::annotationMapVisibilityChanged);
+    m_mapDock->setWhatsThis(i18nc("@info:whatsthis", "The map widget allows you to view the location of images if GPS coordinates are found in the Exif information."));
 #endif
 
     // -------------------------------------------------- Categories
@@ -189,9 +200,9 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
         sel->setPositionable((*categoryIt)->positionable());
 
         if (sel->positionable()) {
-            connect(sel, SIGNAL(positionableTagSelected(QString, QString)), this, SLOT(positionableTagSelected(QString, QString)));
-            connect(sel, SIGNAL(positionableTagDeselected(QString, QString)), this, SLOT(positionableTagDeselected(QString, QString)));
-            connect(sel, SIGNAL(positionableTagRenamed(QString, QString, QString)), this, SLOT(positionableTagRenamed(QString, QString, QString)));
+            connect(sel, &ListSelect::positionableTagSelected, this, &Dialog::positionableTagSelected);
+            connect(sel, &ListSelect::positionableTagDeselected, this, &Dialog::positionableTagDeselected);
+            connect(sel, &ListSelect::positionableTagRenamed, this, &Dialog::positionableTagRenamed);
 
             connect(m_preview->preview(), SIGNAL(proposedTagSelected(QString, QString)), sel, SLOT(ensureTagIsSelected(QString, QString)));
 
@@ -203,8 +214,8 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     // -------------------------------------------------- The buttons.
     // don't use default buttons (Ok, Cancel):
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::NoButton);
-    connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
-    connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &Dialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &Dialog::reject);
     QHBoxLayout *lay1 = new QHBoxLayout;
     layout->addLayout(lay1);
 
@@ -240,18 +251,18 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     shortCutManager.addTaken(m_continueLaterBut->text());
     shortCutManager.addTaken(cancelBut->text());
 
-    connect(m_revertBut, SIGNAL(clicked()), this, SLOT(slotRevert()));
-    connect(m_okBut, SIGNAL(clicked()), this, SLOT(doneTagging()));
-    connect(m_continueLaterBut, SIGNAL(clicked()), this, SLOT(continueLater()));
-    connect(cancelBut, SIGNAL(clicked()), this, SLOT(reject()));
-    connect(m_clearBut, SIGNAL(clicked()), this, SLOT(slotClear()));
-    connect(optionsBut, SIGNAL(clicked()), this, SLOT(slotOptions()));
+    connect(m_revertBut, &QPushButton::clicked, this, &Dialog::slotRevert);
+    connect(m_okBut, &QPushButton::clicked, this, &Dialog::doneTagging);
+    connect(m_continueLaterBut, &QPushButton::clicked, this, &Dialog::continueLater);
+    connect(cancelBut, &QPushButton::clicked, this, &Dialog::reject);
+    connect(m_clearBut, &QPushButton::clicked, this, &Dialog::slotClear);
+    connect(optionsBut, &QPushButton::clicked, this, &Dialog::slotOptions);
 
-    connect(m_preview, SIGNAL(imageRotated(int)), this, SLOT(rotate(int)));
-    connect(m_preview, SIGNAL(indexChanged(int)), this, SLOT(slotIndexChanged(int)));
-    connect(m_preview, SIGNAL(imageDeleted(DB::ImageInfo)), this, SLOT(slotDeleteImage()));
-    connect(m_preview, SIGNAL(copyPrevClicked()), this, SLOT(slotCopyPrevious()));
-    connect(m_preview, SIGNAL(areaVisibilityChanged(bool)), this, SLOT(slotShowAreas(bool)));
+    connect(m_preview, &ImagePreviewWidget::imageRotated, this, &Dialog::rotate);
+    connect(m_preview, &ImagePreviewWidget::indexChanged, this, &Dialog::slotIndexChanged);
+    connect(m_preview, &ImagePreviewWidget::imageDeleted, this, &Dialog::slotDeleteImage);
+    connect(m_preview, &ImagePreviewWidget::copyPrevClicked, this, &Dialog::slotCopyPrevious);
+    connect(m_preview, &ImagePreviewWidget::areaVisibilityChanged, this, &Dialog::slotShowAreas);
     connect(m_preview->preview(), SIGNAL(areaCreated(ResizableFrame *)), this, SLOT(slotNewArea(ResizableFrame *)));
 
     // Disable so no button accept return (which would break with the line edits)
@@ -317,7 +328,7 @@ QWidget *AnnotationDialog::Dialog::createDateWidget(ShortCutManager &shortCutMan
 
     m_startDate = new ::AnnotationDialog::DateEdit(true);
     lay4->addWidget(m_startDate, 1);
-    connect(m_startDate, SIGNAL(dateChanged(DB::ImageDate)), this, SLOT(slotStartDateChanged(DB::ImageDate)));
+    connect(m_startDate, QOverload<const DB::ImageDate &>::of(&DateEdit::dateChanged), this, &Dialog::slotStartDateChanged);
     shortCutManager.addLabel(label);
     label->setBuddy(m_startDate);
 
@@ -346,7 +357,7 @@ QWidget *AnnotationDialog::Dialog::createDateWidget(ShortCutManager &shortCutMan
     m_isFuzzyDate->setToolTip(m_isFuzzyDate->whatsThis());
     lay4->addWidget(m_isFuzzyDate);
     lay4->addStretch(1);
-    connect(m_isFuzzyDate, SIGNAL(stateChanged(int)), this, SLOT(slotSetFuzzyDate()));
+    connect(m_isFuzzyDate, &QCheckBox::stateChanged, this, &Dialog::slotSetFuzzyDate);
 
     QHBoxLayout *lay8 = new QHBoxLayout;
     lay2->addLayout(lay8);
@@ -379,7 +390,7 @@ QWidget *AnnotationDialog::Dialog::createDateWidget(ShortCutManager &shortCutMan
     m_rating = new KRatingWidget;
     m_rating->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     lay9->addWidget(m_rating, 0, Qt::AlignCenter);
-    connect(m_rating, SIGNAL(ratingChanged(uint)), this, SLOT(slotRatingChanged(uint)));
+    connect(m_rating, static_cast<void (KRatingWidget::*)(uint)>(&KRatingWidget::ratingChanged), this, &Dialog::slotRatingChanged);
 
     m_ratingSearchLabel = new QLabel(i18n("Rating search mode:"));
     lay9->addWidget(m_ratingSearchLabel);
@@ -412,7 +423,7 @@ QWidget *AnnotationDialog::Dialog::createDateWidget(ShortCutManager &shortCutMan
 
 QWidget *AnnotationDialog::Dialog::createPreviewWidget()
 {
-    m_preview = new ImagePreviewWidget();
+    m_preview = new ImagePreviewWidget(m_actions);
     connect(m_preview, &ImagePreviewWidget::togglePreview, this, &Dialog::togglePreview);
     return m_preview;
 }
@@ -859,15 +870,15 @@ void AnnotationDialog::Dialog::slotOptions()
     menu->addSeparator();
     QActionGroup *sortTypes = new QActionGroup(menu);
     QAction *alphaTreeSort = new QAction(
-        SmallIcon(QString::fromLatin1("view-list-tree")),
+        smallIcon(QString::fromLatin1("view-list-tree")),
         i18n("Sort Alphabetically (Tree)"),
         sortTypes);
     QAction *alphaFlatSort = new QAction(
-        SmallIcon(QString::fromLatin1("draw-text")),
+        smallIcon(QString::fromLatin1("draw-text")),
         i18n("Sort Alphabetically (Flat)"),
         sortTypes);
     QAction *dateSort = new QAction(
-        SmallIcon(QString::fromLatin1("x-office-calendar")),
+        smallIcon(QString::fromLatin1("x-office-calendar")),
         i18n("Sort by Date"),
         sortTypes);
     alphaTreeSort->setCheckable(true);
@@ -902,7 +913,7 @@ void AnnotationDialog::Dialog::slotOptions()
     if (m_setup != SearchMode) {
         menu->addSeparator();
         QAction *showSelectedOnly = new QAction(
-            SmallIcon(QString::fromLatin1("view-filter")),
+            smallIcon(QString::fromLatin1("view-filter")),
             i18n("Show Only Selected Ctrl+S"),
             menu);
         showSelectedOnly->setCheckable(true);
@@ -1033,33 +1044,37 @@ void AnnotationDialog::Dialog::closeDialog()
     QDialog::reject();
 }
 
-bool AnnotationDialog::Dialog::hasChanges()
+StringSet AnnotationDialog::Dialog::changedOptions(ListSelect *ls)
 {
-    bool changed = false;
+    StringSet on, partialOn, off, changes;
+    std::tie(on, partialOn, off) = selectionForMultiSelect(ls, m_origList);
+    changes += (ls->itemsOn() - on);
+    changes += (on - ls->itemsOn());
+    changes += (ls->itemsOff() - off);
+    changes += (off - ls->itemsOff());
+    return changes;
+}
+
+bool AnnotationDialog::Dialog::hasChanges(bool checkOptions)
+{
     if (m_setup == InputSingleImageConfigMode) {
         writeToInfo();
         for (int i = 0; i < m_editList.count(); ++i) {
-            changed |= (*(m_origList[i]) != m_editList[i]);
+            if (*(m_origList[i]) != m_editList[i])
+                return true;
         }
-        changed |= m_areasChanged;
-    }
-
-    else if (m_setup == InputMultiImageConfigMode) {
-        changed |= (!m_startDate->date().isNull());
-        changed |= (!m_endDate->date().isNull());
-
-        Q_FOREACH (ListSelect *ls, m_optionList) {
-            StringSet on, partialOn;
-            std::tie(on, partialOn) = selectionForMultiSelect(ls, m_origList);
-            changed |= (on != ls->itemsOn());
-            changed |= (partialOn != ls->itemsUnchanged());
+        return m_areasChanged;
+    } else if (m_setup == InputMultiImageConfigMode) {
+        bool changed = (!m_startDate->date().isNull()) || (!m_endDate->date().isNull()) || (!m_imageLabel->text().isEmpty()) || (m_description->toPlainText() != m_firstDescription) || m_ratingChanged;
+        if (checkOptions) {
+            Q_FOREACH (ListSelect *ls, m_optionList) {
+                if (!(changedOptions(ls).isEmpty()))
+                    return true;
+            }
         }
-
-        changed |= (!m_imageLabel->text().isEmpty());
-        changed |= (m_description->toPlainText() != m_firstDescription);
-        changed |= m_ratingChanged;
+        return changed;
     }
-    return changed;
+    return false;
 }
 
 void AnnotationDialog::Dialog::rotate(int angle)
@@ -1245,8 +1260,6 @@ void AnnotationDialog::Dialog::loadWindowLayout()
 
 void AnnotationDialog::Dialog::setupActions()
 {
-    m_actions = new KActionCollection(this);
-
     QAction *action = nullptr;
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-sort-alphatree"), m_optionList.at(0), SLOT(slotSortAlphaTree()));
     action->setText(i18n("Sort Alphabetically (Tree)"));
@@ -1315,28 +1328,40 @@ KActionCollection *AnnotationDialog::Dialog::actions()
 
 void AnnotationDialog::Dialog::setUpCategoryListBoxForMultiImageSelection(ListSelect *listSel, const DB::ImageInfoList &images)
 {
-    StringSet on, partialOn;
-    std::tie(on, partialOn) = selectionForMultiSelect(listSel, images);
+    StringSet on, partialOn, off;
+    std::tie(on, partialOn, off) = selectionForMultiSelect(listSel, images);
     listSel->setSelection(on, partialOn);
 }
 
-std::tuple<StringSet, StringSet> AnnotationDialog::Dialog::selectionForMultiSelect(ListSelect *listSel, const DB::ImageInfoList &images)
+std::tuple<StringSet, StringSet, StringSet> AnnotationDialog::Dialog::selectionForMultiSelect(ListSelect *listSel, const DB::ImageInfoList &images)
 {
     const QString category = listSel->category();
     const StringSet allItems = DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->itemsInclCategories().toSet();
-    StringSet itemsNotSelectedOnAllImages;
     StringSet itemsOnSomeImages;
+    StringSet itemsOnAllImages;
+    bool firstImage = true;
 
     for (DB::ImageInfoList::ConstIterator imageIt = images.begin(); imageIt != images.end(); ++imageIt) {
         const StringSet itemsOnThisImage = (*imageIt)->itemsOfCategory(category);
-        itemsNotSelectedOnAllImages += (allItems - itemsOnThisImage);
-        itemsOnSomeImages += itemsOnThisImage;
+        if (firstImage) {
+            itemsOnAllImages = itemsOnThisImage;
+            firstImage = false;
+        } else {
+            foreach (const QString &item, itemsOnThisImage) {
+                if (!itemsOnAllImages.contains(item) && !itemsOnSomeImages.contains(item)) {
+                    itemsOnSomeImages += item;
+                }
+            }
+            foreach (const QString &item, itemsOnAllImages) {
+                if (!itemsOnThisImage.contains(item)) {
+                    itemsOnAllImages -= item;
+                }
+            }
+        }
     }
+    const StringSet itemsOnNoImages = allItems - itemsOnSomeImages - itemsOnAllImages;
 
-    const StringSet itemsOnAllImages = allItems - itemsNotSelectedOnAllImages;
-    const StringSet itemsPartiallyOn = itemsOnSomeImages - itemsOnAllImages;
-
-    return std::make_tuple(itemsOnAllImages, itemsPartiallyOn);
+    return std::make_tuple(itemsOnAllImages, itemsOnSomeImages, itemsOnNoImages);
 }
 
 void AnnotationDialog::Dialog::slotRatingChanged(unsigned int)
@@ -1361,9 +1386,10 @@ void AnnotationDialog::Dialog::saveAndClose()
         return;
     }
 
-    // I need to check for the changes first, as the case for m_setup == InputSingleImageConfigMode, saves to the m_origList,
-    // and we can thus not check for changes anymore
-    const bool anyChanges = hasChanges();
+    // I need to check for the changes first, as the case for m_setup
+    // == InputSingleImageConfigMode, saves to the m_origList, and we
+    // can thus not check for changes anymore
+    bool anyChanges = hasChanges(m_setup == InputSingleImageConfigMode);
 
     if (m_setup == InputSingleImageConfigMode) {
         writeToInfo();
@@ -1375,15 +1401,23 @@ void AnnotationDialog::Dialog::saveAndClose()
             ls->slotReturn();
         }
 
+        Q_FOREACH (ListSelect *ls, m_optionList) {
+            StringSet changes = changedOptions(ls);
+            if (!(changes.isEmpty())) {
+                anyChanges = true;
+                StringSet newItemsOn = ls->itemsOn() & changes;
+                StringSet newItemsOff = ls->itemsOff() & changes;
+                for (DB::ImageInfoListConstIterator it = m_origList.constBegin(); it != m_origList.constEnd(); ++it) {
+                    DB::ImageInfoPtr info = *it;
+                    info->addCategoryInfo(ls->category(), newItemsOn);
+                    info->removeCategoryInfo(ls->category(), newItemsOff);
+                }
+            }
+        }
         for (DB::ImageInfoListConstIterator it = m_origList.constBegin(); it != m_origList.constEnd(); ++it) {
             DB::ImageInfoPtr info = *it;
             if (!m_startDate->date().isNull())
                 info->setDate(DB::ImageDate(m_startDate->date(), m_endDate->date(), m_time->time()));
-
-            Q_FOREACH (ListSelect *ls, m_optionList) {
-                info->addCategoryInfo(ls->category(), ls->itemsOn());
-                info->removeCategoryInfo(ls->category(), ls->itemsOff());
-            }
 
             if (!m_imageLabel->text().isEmpty()) {
                 info->setLabel(m_imageLabel->text());
@@ -1404,7 +1438,6 @@ void AnnotationDialog::Dialog::saveAndClose()
     if (anyChanges) {
         MainWindow::DirtyIndicator::markDirty();
     }
-
     QDialog::accept();
 }
 

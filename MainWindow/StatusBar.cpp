@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,6 +22,9 @@
 
 #include <BackgroundTaskManager/StatusIndicator.h>
 #include <DB/ImageDB.h>
+#ifdef KPA_ENABLE_REMOTECONTROL
+#include <RemoteControl/ConnectionIndicator.h>
+#endif
 #include <Settings/SettingsData.h>
 #include <ThumbnailView/ThumbnailFacade.h>
 
@@ -36,7 +39,6 @@
 #include <QTimer>
 #include <QToolButton>
 #include <QVBoxLayout>
-#include <RemoteControl/ConnectionIndicator.h>
 
 MainWindow::StatusBar::StatusBar()
     : QStatusBar()
@@ -62,10 +64,12 @@ void MainWindow::StatusBar::setupGUI()
     indicatorsHBoxLayout->setSpacing(10);
     mp_dirtyIndicator = new DirtyIndicator(indicators);
     indicatorsHBoxLayout->addWidget(mp_dirtyIndicator);
-    connect(DB::ImageDB::instance(), SIGNAL(dirty()), mp_dirtyIndicator, SLOT(markDirtySlot()));
+    connect(DB::ImageDB::instance(), &DB::ImageDB::dirty, mp_dirtyIndicator, &DirtyIndicator::markDirtySlot);
 
+#ifdef KPA_ENABLE_REMOTECONTROL
     auto *remoteIndicator = new RemoteControl::ConnectionIndicator(indicators);
     indicatorsHBoxLayout->addWidget(remoteIndicator);
+#endif
 
     auto *jobIndicator = new BackgroundTaskManager::StatusIndicator(indicators);
     indicatorsHBoxLayout->addWidget(jobIndicator);
@@ -95,7 +99,7 @@ void MainWindow::StatusBar::setupGUI()
     ImageCounter *total = new ImageCounter(this);
     addPermanentWidget(total, 0);
     total->setTotal(DB::ImageDB::instance()->totalCount());
-    connect(DB::ImageDB::instance(), SIGNAL(totalChanged(uint)), total, SLOT(setTotal(uint)));
+    connect(DB::ImageDB::instance(), &DB::ImageDB::totalChanged, total, &ImageCounter::setTotal);
 
     mp_pathIndicator = new BreadcrumbViewer;
     addWidget(mp_pathIndicator, 1);
@@ -119,11 +123,12 @@ void MainWindow::StatusBar::setupGUI()
 
 void MainWindow::StatusBar::setLocked(bool locked)
 {
-    static QPixmap *lockedPix = new QPixmap(SmallIcon(QString::fromLatin1("object-locked")));
-    m_lockedIndicator->setFixedWidth(lockedPix->width());
+    static QPixmap lockedPix = QIcon::fromTheme(QString::fromLatin1("object-locked"))
+                                   .pixmap(KIconLoader::StdSizes::SizeSmall);
+    m_lockedIndicator->setFixedWidth(lockedPix.width());
 
     if (locked)
-        m_lockedIndicator->setPixmap(*lockedPix);
+        m_lockedIndicator->setPixmap(lockedPix);
     else
         m_lockedIndicator->setPixmap(QPixmap());
 }

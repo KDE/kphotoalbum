@@ -9,7 +9,7 @@ set -e
 
 if [[ -z "$CHECK_COPYRIGHT_HEADER" ]]
 then
-	CHECK_COPYRIGHT_HEADER=$(git config --default true --type bool --get kpa.checkCopyrightHeader)
+	CHECK_COPYRIGHT_HEADER=$(git config --bool --get kpa.checkCopyrightHeader || echo true)
 fi
 if [[ "$CHECK_COPYRIGHT_HEADER" == false ]]
 then

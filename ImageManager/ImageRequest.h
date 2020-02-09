@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -86,6 +86,14 @@ public:
     bool isThumbnailRequest() const;
     bool isExitRequest() const;
 
+    /**
+     * @brief imageIsPreRotated is set when the loaded image is already rotated correctly.
+     * This is usually the case for decoded raw images.
+     * @return \c true, if the image is already rotated and does not need additional rotation, \c false otherwise
+     */
+    bool imageIsPreRotated() const;
+    void setImageIsPreRotated(bool imageIsPreRotated);
+
 private:
     bool m_null;
     DB::FileName m_fileName;
@@ -100,6 +108,7 @@ private:
     bool m_dontUpScale;
     bool m_isThumbnailRequest;
     bool m_isExitRequest;
+    bool m_imageIsPreRotated;
 };
 
 inline uint qHash(const ImageRequest &ir)

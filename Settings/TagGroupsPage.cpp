@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -90,14 +90,14 @@ Settings::TagGroupsPage::TagGroupsPage(QWidget *parent)
 
     m_memberMap = DB::ImageDB::instance()->memberMap();
 
-    connect(DB::ImageDB::instance()->categoryCollection(), SIGNAL(itemRemoved(DB::Category *, QString)),
-            &m_memberMap, SLOT(deleteItem(DB::Category *, QString)));
+    connect(DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::itemRemoved,
+            &m_memberMap, &DB::MemberMap::deleteItem);
 
-    connect(DB::ImageDB::instance()->categoryCollection(), SIGNAL(itemRenamed(DB::Category *, QString, QString)),
-            &m_memberMap, SLOT(renameItem(DB::Category *, QString, QString)));
+    connect(DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::itemRenamed,
+            &m_memberMap, &DB::MemberMap::renameItem);
 
-    connect(DB::ImageDB::instance()->categoryCollection(), SIGNAL(categoryRemoved(QString)),
-            &m_memberMap, SLOT(deleteCategory(QString)));
+    connect(DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::categoryRemoved,
+            &m_memberMap, &DB::MemberMap::deleteCategory);
 
     m_dataChanged = false;
 }
@@ -106,17 +106,14 @@ void Settings::TagGroupsPage::updateCategoryTree()
 {
     // Store all expanded items so that they can be expanded after reload
     QList<QPair<QString, QString>> expandedItems = QList<QPair<QString, QString>>();
-    QTreeWidgetItemIterator it(m_categoryTreeWidget);
-    while (*it) {
+    for (QTreeWidgetItemIterator it { m_categoryTreeWidget }; *it; ++it) {
         if ((*it)->isExpanded()) {
-            if ((*it)->parent() == nullptr) {
-                expandedItems.append(QPair<QString, QString>((*it)->text(0), QString()));
-            } else {
-                expandedItems.append(
-                    QPair<QString, QString>((*it)->text(0), (*it)->parent()->text(0)));
+            QString parentName;
+            if ((*it)->parent() != nullptr) {
+                parentName = (*it)->parent()->text(0);
             }
+            expandedItems.append(QPair<QString, QString>((*it)->text(0), parentName));
         }
-        ++it;
     }
 
     m_categoryTreeWidget->clear();
@@ -140,23 +137,15 @@ void Settings::TagGroupsPage::updateCategoryTree()
 
         // Build a map with all members for each group
         QMap<QString, QStringList> membersForGroup;
-        QStringList allGroups = m_memberMap.groups(category->name());
+        const QStringList allGroups = m_memberMap.groups(category->name());
         foreach (const QString &group, allGroups) {
             // FIXME: Why does the member map return an empty category?!
             if (group.isEmpty()) {
                 continue;
             }
 
-            QStringList allMembers = m_memberMap.members(category->name(), group, false);
-            foreach (const QString &member, allMembers) {
-                membersForGroup[group] << member;
-            }
-
-            // We add an empty member placeholder if the group currently has no members.
-            // Otherwise, it won't be added.
-            if (!membersForGroup.contains(group)) {
-                membersForGroup[group] = QStringList();
-            }
+            QStringList allMembers = m_memberMap.members(category->name(), group, true);
+            membersForGroup[group] = allMembers;
         }
 
         // Add all groups (their sub-groups will be added recursively)
@@ -167,34 +156,29 @@ void Settings::TagGroupsPage::updateCategoryTree()
     m_categoryTreeWidget->sortItems(0, Qt::AscendingOrder);
 
     // Re-expand all previously expanded items
-    QTreeWidgetItemIterator it2(m_categoryTreeWidget);
-    while (*it2) {
-        if ((*it2)->parent() == nullptr) {
-            if (expandedItems.contains(QPair<QString, QString>((*it2)->text(0), QString()))) {
-                (*it2)->setExpanded(true);
-            }
-        } else {
-            if (expandedItems.contains(QPair<QString, QString>((*it2)->text(0), (*it2)->parent()->text(0)))) {
-                (*it2)->setExpanded(true);
-            }
+    for (QTreeWidgetItemIterator it { m_categoryTreeWidget }; *it; ++it) {
+        QString parentName;
+        if ((*it)->parent() != nullptr) {
+            parentName = (*it)->parent()->text(0);
         }
-        ++it2;
+        if (expandedItems.contains(QPair<QString, QString>((*it)->text(0), parentName))) {
+            (*it)->setExpanded(true);
+        }
     }
 }
 
 void Settings::TagGroupsPage::addSubCategories(QTreeWidgetItem *superCategory,
-                                               QMap<QString, QStringList> &membersForGroup,
-                                               QStringList &allGroups)
+                                               const QMap<QString, QStringList> &membersForGroup,
+                                               const QStringList &allGroups)
 {
     // Process all group members
-    QMap<QString, QStringList>::iterator memIt1;
-    for (memIt1 = membersForGroup.begin(); memIt1 != membersForGroup.end(); ++memIt1) {
+    for (auto memIt = membersForGroup.constBegin(); memIt != membersForGroup.constEnd(); ++memIt) {
+        const QString &group = memIt.key();
         bool isSubGroup = false;
 
         // Search for a membership in another group for the current group
-        QMap<QString, QStringList>::iterator memIt2;
-        for (memIt2 = membersForGroup.begin(); memIt2 != membersForGroup.end(); ++memIt2) {
-            if (memIt2.value().contains(memIt1.key())) {
+        for (const QStringList &members : membersForGroup) {
+            if (members.contains(group)) {
                 isSubGroup = true;
                 break;
             }
@@ -202,21 +186,21 @@ void Settings::TagGroupsPage::addSubCategories(QTreeWidgetItem *superCategory,
 
         // Add the group if it's not member of another group
         if (!isSubGroup) {
-            QTreeWidgetItem *group = new QTreeWidgetItem;
-            group->setText(0, memIt1.key());
-            superCategory->addChild(group);
+            QTreeWidgetItem *groupItem = new QTreeWidgetItem;
+            groupItem->setText(0, group);
+            superCategory->addChild(groupItem);
 
             // Search the member list for other groups
             QMap<QString, QStringList> subGroups;
             foreach (const QString &groupName, allGroups) {
-                if (membersForGroup[memIt1.key()].contains(groupName)) {
+                if (membersForGroup[group].contains(groupName)) {
                     subGroups[groupName] = membersForGroup[groupName];
                 }
             }
 
             // If the list contains other groups, add them recursively
             if (subGroups.count() > 0) {
-                addSubCategories(group, subGroups, allGroups);
+                addSubCategories(groupItem, subGroups, allGroups);
             }
         }
     }
@@ -397,7 +381,6 @@ void Settings::TagGroupsPage::slotAddGroup()
     categoryChange[CategoryEdit::Category] = m_currentCategory;
     categoryChange[CategoryEdit::Add] = newSubCategory;
     m_categoryChanges.append(categoryChange);
-    m_dataChanged = true;
 
     // Add the group
     m_memberMap.addGroup(m_currentCategory, newSubCategory);

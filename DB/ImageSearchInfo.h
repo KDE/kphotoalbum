@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -41,13 +41,11 @@ class ImageSearchInfo
 {
 public:
     ImageSearchInfo();
-    ~ImageSearchInfo();
     ImageSearchInfo(const ImageDate &date,
                     const QString &label, const QString &description);
     ImageSearchInfo(const ImageDate &date,
                     const QString &label, const QString &description,
                     const QString &fnPattern);
-    ImageSearchInfo(const ImageSearchInfo &other);
 
     ImageDate date() const;
 
@@ -74,6 +72,12 @@ public:
     void addAnd(const QString &category, const QString &value);
     short rating() const;
     void setRating(short rating);
+    /**
+     * @brief toString generates a description of the ImageSearchInfo.
+     * The idea is not to give a complete description, but rather something
+     * useful for the breadcrumbs at the bottom of the main window.
+     * @return a textual description of the ImageSearchInfo
+     */
     QString toString() const;
 
     void setMegaPixel(short megapixel);
@@ -103,26 +107,40 @@ public:
 
 protected:
     void compile() const;
-    void deleteMatchers() const;
 
     QList<SimpleCategoryMatcher *> extractAndMatcher(CategoryMatcher *andMatcher) const;
     QList<QList<SimpleCategoryMatcher *>> convertMatcher(CategoryMatcher *) const;
 
 private:
+    /**
+     * @brief The CompiledDataPrivate struct encapsulates the non-copyable data members of the ImageSearchInfo.
+     * Its copy constructor and copy operator invalidate the object,
+     * This allows the ImageSearchInfo to just use the default copy/move constructors/operators.
+     */
+    struct CompiledDataPrivate {
+        CompiledDataPrivate() = default;
+        CompiledDataPrivate(const CompiledDataPrivate &other);
+        CompiledDataPrivate(CompiledDataPrivate &&other) = default;
+        ~CompiledDataPrivate();
+        CompiledDataPrivate &operator=(const CompiledDataPrivate &other);
+        CompiledDataPrivate &operator=(CompiledDataPrivate &&other) = default;
+
+        bool valid = false;
+        QList<CategoryMatcher *> categoryMatchers;
+    };
     ImageDate m_date;
     QMap<QString, QString> m_categoryMatchText;
     QString m_label;
     QString m_description;
     QRegExp m_fnPattern;
-    short m_rating;
-    short m_megapixel;
-    short m_max_megapixel;
-    int m_ratingSearchMode;
-    bool m_searchRAW;
-    bool m_isNull;
-    bool m_isCacheable;
-    mutable bool m_compiled;
-    mutable QList<CategoryMatcher *> m_categoryMatchers;
+    short m_rating = -1;
+    short m_megapixel = 0;
+    short m_max_megapixel = 0;
+    int m_ratingSearchMode = 0;
+    bool m_searchRAW = false;
+    bool m_isNull = true;
+    bool m_isCacheable = true;
+    mutable CompiledDataPrivate m_compiled;
 
     Exif::SearchInfo m_exifSearchInfo;
 
@@ -132,7 +150,7 @@ private:
 #ifdef HAVE_MARBLE
     Map::GeoCoordinates::LatLonBox m_regionSelection;
 #endif
-    // When adding new instance variable, please notice that this class as an explicit written copy constructor.
+    // When adding new instance variable, please notice that this class has an explicit written copy constructor.
 };
 }
 

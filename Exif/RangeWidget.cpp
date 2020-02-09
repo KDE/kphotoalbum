@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -58,7 +58,7 @@ Exif::RangeWidget::RangeWidget(const QString &text, const QString &searchTag, co
     slotUpdateTo(0);
     m_to->setCurrentIndex(m_to->count() - 1); // set range to be min->max
 
-    connect(m_from, SIGNAL(activated(int)), this, SLOT(slotUpdateTo(int)));
+    connect(m_from, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &RangeWidget::slotUpdateTo);
 }
 
 void Exif::RangeWidget::slotUpdateTo(int fromIndex)

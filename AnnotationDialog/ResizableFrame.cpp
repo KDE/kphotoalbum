@@ -1,4 +1,4 @@
-/* Copyright (C) 2014 Tobias Leupold <tobias.leupold@web.de>
+/* Copyright (C) 2014-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -73,10 +73,10 @@ AnnotationDialog::ResizableFrame::ResizableFrame(QWidget *parent)
         i18nc("area of an image; rectangle that is overlayed upon the image",
               "Remove area"),
         this);
-    connect(m_removeAct, SIGNAL(triggered()), this, SLOT(remove()));
+    connect(m_removeAct, &QAction::triggered, this, &ResizableFrame::remove);
 
     m_removeTagAct = new QAction(this);
-    connect(m_removeTagAct, SIGNAL(triggered()), this, SLOT(removeTag()));
+    connect(m_removeTagAct, &QAction::triggered, this, &ResizableFrame::removeTag);
 }
 
 AnnotationDialog::ResizableFrame::~ResizableFrame()
@@ -486,7 +486,8 @@ void AnnotationDialog::ResizableFrame::addTagActions(QMenu *menu)
             QAction *associateLastSelectedTagAction = createAssociateTagAction(
                 lastSelectedPositionableTag,
                 i18n("Associate with"));
-            connect(associateLastSelectedTagAction, SIGNAL(triggered()), this, SLOT(associateTag()));
+            connect(associateLastSelectedTagAction, &QAction::triggered,
+                    this, QOverload<>::of(&ResizableFrame::associateTag));
             menu->addAction(associateLastSelectedTagAction);
         }
 
@@ -507,7 +508,8 @@ void AnnotationDialog::ResizableFrame::addTagActions(QMenu *menu)
                     i18nc("As in: associate [this marked area of the image] with one of the "
                           "following choices/menu items",
                           "Associate with"));
-                connect(associateOnlyCandidateAction, SIGNAL(triggered()), this, SLOT(associateTag()));
+                connect(associateOnlyCandidateAction, &QAction::triggered,
+                        this, QOverload<>::of(&ResizableFrame::associateTag));
                 menu->addAction(associateOnlyCandidateAction);
             } else {
                 // Create a new menu for all other tags
@@ -520,7 +522,7 @@ void AnnotationDialog::ResizableFrame::addTagActions(QMenu *menu)
                     submenu->addAction(createAssociateTagAction(tag));
                 }
 
-                connect(submenu, SIGNAL(triggered(QAction *)), this, SLOT(associateTag(QAction *)));
+                connect(submenu, &QMenu::triggered, this, QOverload<>::of(&ResizableFrame::associateTag));
             }
         }
     }

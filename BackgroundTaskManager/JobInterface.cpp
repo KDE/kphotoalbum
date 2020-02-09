@@ -1,4 +1,4 @@
-/* Copyright (C) 2012-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -34,7 +34,7 @@ BackgroundTaskManager::JobInterface::JobInterface(BackgroundTaskManager::Priorit
     , m_dependencies(0)
 {
     qCDebug(BackgroundTaskManagerLog) << "Created Job #" << jobIndex();
-    connect(this, SIGNAL(completed()), this, SLOT(stop()));
+    connect(this, &JobInterface::completed, this, &JobInterface::stop);
 }
 
 BackgroundTaskManager::JobInterface::~JobInterface()

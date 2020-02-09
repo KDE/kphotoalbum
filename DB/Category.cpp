@@ -145,7 +145,7 @@ QPixmap DB::Category::categoryImage(const QString &category, QString member, int
     QString fileName = fileForCategoryImage(category, member);
     QString key = QString::fromLatin1("%1-%2").arg(width).arg(fileName);
     QPixmap res;
-    if (QPixmapCache::find(key, res))
+    if (QPixmapCache::find(key, &res))
         return res;
 
     QImage img;

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -71,6 +71,8 @@ void XMLDB::FileReader::read(const QString &configFile)
     loadBlockList(reader);
     loadMemberGroups(reader);
     //loadSettings(reader);
+
+    repairDB();
 
     m_db->m_members.setLoading(false);
 
@@ -205,7 +207,16 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
                 QString value = reader->attribute(valueString);
                 if (reader->hasAttribute(idString)) {
                     int id = reader->attribute(idString).toInt();
-                    static_cast<XMLCategory *>(cat.data())->setIdMapping(value, id);
+                    if (id != 0) {
+                        static_cast<XMLCategory *>(cat.data())->setIdMapping(value, id);
+                    } else {
+                        if (useCompressedFileFormat()) {
+                            qCWarning(XMLDBLog) << "Tag" << categoryName << "/" << value << "has id=0!";
+                            m_repairTagsWithNullIds = true;
+                            static_cast<XMLCategory *>(cat.data())->setIdMapping(value, id, XMLCategory::IdMapping::UnsafeMapping);
+                        }
+                        // else just don't set the id mapping so that a new id gets assigned
+                    }
                 }
                 if (reader->hasAttribute(birthDateString))
                     cat->setBirthDate(value, QDate::fromString(reader->attribute(birthDateString), Qt::ISODate));
@@ -419,6 +430,46 @@ void XMLDB::FileReader::checkIfAllImagesHaveSizeAttributes()
                                                                                   "<p>Not doing so will result in extra space around images in the thumbnail view - that is all - so "
                                                                                   "there is no urgency in doing it.</p>"),
             i18n("Not All Images Have Size Information"), QString::fromLatin1("checkWhetherAllImagesIncludesSize"));
+    }
+}
+
+void XMLDB::FileReader::repairDB()
+{
+    if (m_repairTagsWithNullIds) {
+        // the m_repairTagsWithNullIds is set in loadCategories()
+        // -> care is taken so that multiple tags with id=0 all end up in the IdMap
+        // afterwards, loadImages() applies fixes to the affected images
+        // -> this happens in XMLDB::Database::possibleLoadCompressedCategories()
+        // i.e. the zero ids still require cleanup:
+        qCInfo(XMLDBLog) << "Database contained tags with id=0 (possibly related to bug #415415). Assigning new ids for affected categories...";
+        QString message = i18nc("repair merged tags",
+                                "<p>Inconsistencies were found and repaired in your database. "
+                                "Some categories now contain tags that were merged during the repair.</p>"
+                                "<p>The following tags require manual inspection:"
+                                "<ul>");
+        QString logSummary = QString::fromLatin1("List of tags where manual inspection is required:\n");
+        bool manualRepairNeeded = false;
+        for (auto category : m_db->categoryCollection()->categories()) {
+            XMLCategory *xmlCategory = static_cast<XMLCategory *>(category.data());
+            QStringList tags = xmlCategory->namesForId(0);
+            if (tags.size() > 1) {
+                manualRepairNeeded = true;
+                message += i18nc("repair merged tags", "<li>%1:<br/>", category->name());
+                for (auto tagName : tags) {
+                    message += i18nc("repair merged tags", "%1<br/>", tagName);
+                    logSummary += QString::fromLatin1("%1/%2\n").arg(category->name(), tagName);
+                }
+                message += i18nc("repair merged tags", "</li>");
+            }
+            xmlCategory->clearNullIds();
+        }
+        message += i18nc("repair merged tags",
+                         "</ul></p>"
+                         "<p>All affected images have also been marked with a tag "
+                         "<em>KPhotoAlbum - manual repair needed</em>.</p>");
+        if (manualRepairNeeded) {
+            m_db->uiDelegate().information(logSummary, message, i18n("Database repair required"));
+        }
     }
 }
 

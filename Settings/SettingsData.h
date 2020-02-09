@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -104,8 +104,10 @@ public:
     property_copy(matchType, setMatchType, AnnotationDialog::MatchType);
     property_copy(tTimeStamps, setTTimeStamps, TimeStampTrust);
     property_copy(excludeDirectories, setExcludeDirectories, QString);
+#ifdef KPA_ENABLE_REMOTECONTROL
     property_copy(recentAndroidAddress, setRecentAndroidAddress, QString);
     property_copy(listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnStartup, bool);
+#endif
 
     ////////////////////////////////
     //// File Version Detection ////

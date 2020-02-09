@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -30,18 +30,18 @@ class FileName;
 
 namespace ImageManager
 {
-
+class ImageRequest;
 class ImageDecoder
 {
 public:
-    static bool decode(QImage *img, const DB::FileName &imageFile, QSize *fullSize, int dim = -1);
+    static bool decode(QImage *img, ImageRequest *request, QSize *fullSize, int dim = -1);
     static bool mightDecode(const DB::FileName &imageFile);
 
     virtual ~ImageDecoder();
 
 protected:
     ImageDecoder();
-    virtual bool _decode(QImage *img, const DB::FileName &imageFile, QSize *fullSize, int dim = -1) = 0;
+    virtual bool _decode(QImage *img, ImageRequest *request, QSize *fullSize, int dim = -1) = 0;
     virtual bool _mightDecode(const DB::FileName &imageFile) = 0;
 
 private:

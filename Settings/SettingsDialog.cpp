@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -95,24 +95,17 @@ Settings::SettingsDialog::SettingsDialog(QWidget *parent)
 
     setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel | QDialogButtonBox::Apply);
     button(QDialogButtonBox::Ok)->setShortcut(Qt::CTRL | Qt::Key_Return);
-    connect(this, &QDialog::accepted,
-            this, &SettingsDialog::slotMyOK);
-    connect(button(QDialogButtonBox::Apply), &QPushButton::clicked,
-            this, &SettingsDialog::slotMyOK);
+    connect(this, &QDialog::accepted, this, &SettingsDialog::slotMyOK);
+    connect(button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &SettingsDialog::slotMyOK);
     connect(this, &QDialog::rejected, m_birthdayPage, &Settings::BirthdayPage::discardChanges);
 
     setWindowTitle(i18nc("@title:window", "Settings"));
 
-    connect(m_categoryPage, &Settings::CategoryPage::categoryChangesPending,
-            m_tagGroupsPage, &Settings::TagGroupsPage::categoryChangesPending);
-    connect(this, &SettingsDialog::currentPageChanged,
-            m_tagGroupsPage, &Settings::TagGroupsPage::slotPageChange);
-    connect(this, &SettingsDialog::currentPageChanged,
-            m_birthdayPage, &Settings::BirthdayPage::pageChange);
+    connect(m_categoryPage, &Settings::CategoryPage::categoryChangesPending, m_tagGroupsPage, &Settings::TagGroupsPage::categoryChangesPending);
+    connect(this, &SettingsDialog::currentPageChanged, m_tagGroupsPage, &Settings::TagGroupsPage::slotPageChange);
+    connect(this, &SettingsDialog::currentPageChanged, m_birthdayPage, &Settings::BirthdayPage::pageChange);
 
-    // slot is protected -> use old style connect:
-    connect(this, SIGNAL(rejected()),
-            m_categoryPage, SLOT(resetCategoryLabel()));
+    connect(this, &SettingsDialog::rejected, m_categoryPage, &Settings::CategoryPage::resetCategoryLabel);
 }
 
 void Settings::SettingsDialog::show()

@@ -16,33 +16,40 @@
    Boston, MA 02110-1301, USA.
 */
 
+// Local includes
 #include "DescriptionUtil.h"
-
+#include "DB/CategoryCollection.h"
+#include "DB/ImageDB.h"
+#include "Exif/Info.h"
 #include "Logging.h"
+#include "Settings/SettingsData.h"
 
-#include <DB/CategoryCollection.h>
-#include <DB/ImageDB.h>
-#include <Exif/Info.h>
-#include <Settings/SettingsData.h>
-
+// KDE includes
 #include <KLocalizedString>
-#include <QDate>
+
+// Qt includes
 #include <QList>
 #include <QTextCodec>
 #include <QUrl>
+
+namespace
+{
+const QLatin1String LINE_BREAK("<br/>");
+}
 
 /**
  * Add a line label + info text to the result text if info is not empty.
  * If the result already contains something, a HTML newline is added first.
  * To be used in createInfoText().
  */
-static void AddNonEmptyInfo(const QString &label, const QString &infoText,
-                            QString *result)
+static void AddNonEmptyInfo(const QString &label, const QString &infoText, QString *result)
 {
-    if (infoText.isEmpty())
+    if (infoText.isEmpty()) {
         return;
-    if (!result->isEmpty())
-        *result += QString::fromLatin1("<br/>");
+    }
+    if (!result->isEmpty()) {
+        *result += LINE_BREAK;
+    }
     result->append(label).append(infoText);
 }
 
@@ -66,8 +73,9 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
     }
 
     if (Settings::SettingsData::instance()->showDate()) {
-        AddNonEmptyInfo(i18n("<b>Date: </b> "), info->date().toString(Settings::SettingsData::instance()->showTime() ? true : false),
-                        &result);
+        QString dateString = info->date().toString(Settings::SettingsData::instance()->showTime() ? true : false);
+        dateString.append(timeAgo(info));
+        AddNonEmptyInfo(i18n("<b>Date: </b> "), dateString, &result);
     }
 
     /* XXX */
@@ -194,88 +202,199 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
     return result;
 }
 
-using DateSpec = QPair<int, char>;
-DateSpec dateDiff(const QDate &birthDate, const QDate &imageDate)
+namespace
 {
-    const int bday = birthDate.day();
-    const int iday = imageDate.day();
-    const int bmonth = birthDate.month();
-    const int imonth = imageDate.month();
-    const int byear = birthDate.year();
-    const int iyear = imageDate.year();
+enum class TimeUnit {
+    /** Denotes a negative age. */
+    Invalid,
+    Days,
+    Months,
+    Years
+};
+class AgeSpec
+{
+public:
+    /**
+     * @brief The I18nContext enum determines how an age is displayed.
+     */
+    enum class I18nContext {
+        /// For birthdays, e.g. "Jesper was 30 years in this image".
+        Birthday,
+        /// For ages of events, e.g. "This image was taken 30 years ago".
+        Anniversary
+    };
+    int age; ///< The number of \c units, e.g. the "5" in "5 days"
+    TimeUnit unit;
+
+    AgeSpec();
+    AgeSpec(int age, TimeUnit unit);
+
+    /**
+     * @brief format
+     * @param context the context where the formatted age is used.
+     * @return a localized string describing the time range.
+     */
+    QString format(I18nContext context) const;
+    /**
+     * @brief isValid
+     * @return \c true, if the AgeSpec contains a valid age that is not negative. \c false otherwise.
+     */
+    bool isValid() const;
+    bool operator==(const AgeSpec &other) const;
+};
+
+AgeSpec::AgeSpec()
+    : age(70)
+    , unit(TimeUnit::Invalid)
+{
+}
+
+AgeSpec::AgeSpec(int age, TimeUnit unit)
+    : age(age)
+    , unit(unit)
+{
+}
+
+QString AgeSpec::format(I18nContext context) const
+{
+    switch (unit) {
+    case TimeUnit::Invalid:
+        return {};
+    case TimeUnit::Days:
+        if (context == I18nContext::Birthday)
+            return i18ncp("As in 'The baby is 1 day old'", "1 day", "%1 days", age);
+        else
+            return i18ncp("As in 'This happened 1 day ago'", "1 day ago", "%1 days ago", age);
+    case TimeUnit::Months:
+        if (context == I18nContext::Birthday)
+            return i18ncp("As in 'The baby is 1 month old'", "1 month", "%1 months", age);
+        else
+            return i18ncp("As in 'This happened 1 month ago'", "1 month ago", "%1 months ago", age);
+    case TimeUnit::Years:
+        if (context == I18nContext::Birthday)
+            return i18ncp("As in 'The baby is 1 year old'", "1 year", "%1 years", age);
+        else
+            return i18ncp("As in 'This happened 1 year ago'", "1 year ago", "%1 years ago", age);
+    }
+    Q_ASSERT(false);
+    return {};
+}
+
+bool AgeSpec::isValid() const
+{
+    return unit != TimeUnit::Invalid;
+}
+
+bool AgeSpec::operator==(const AgeSpec &other) const
+{
+    return (age == other.age && unit == other.unit);
+}
+
+/**
+ * @brief dateDifference computes the difference between two dates with an appropriate unit.
+ * It can be used to generate human readable date differences,
+ * e.g. "6 months" instead of "0.5 years".
+ *
+ * @param priorDate
+ * @param laterDate
+ * @return a DateSpec with appropriate scale.
+ */
+AgeSpec dateDifference(const QDate &priorDate, const QDate &laterDate)
+{
+    const int priorDay = priorDate.day();
+    const int laterDay = laterDate.day();
+    const int priorMonth = priorDate.month();
+    const int laterMonth = laterDate.month();
+    const int priorYear = priorDate.year();
+    const int laterYear = laterDate.year();
 
     // Image before birth
-    const int diff = birthDate.daysTo(imageDate);
-    if (diff < 0)
-        return qMakePair(0, 'I');
+    const int days = priorDate.daysTo(laterDate);
+    if (days < 0)
+        return {};
 
-    if (diff < 31)
-        return qMakePair(diff, 'D');
+    if (days < 31)
+        return { days, TimeUnit::Days };
 
-    int months = (iyear - byear) * 12;
-    months += (imonth - bmonth);
-    months += (iday >= bday) ? 0 : -1;
+    int months = (laterYear - priorYear) * 12;
+    months += (laterMonth - priorMonth);
+    months += (laterDay >= priorDay) ? 0 : -1;
 
     if (months < 24)
-        return qMakePair(months, 'M');
+        return { months, TimeUnit::Months };
     else
-        return qMakePair(months / 12, 'Y');
+        return { months / 12, TimeUnit::Years };
 }
 
-QString formatDate(const DateSpec &date)
+#ifdef TEST_DATEDIFF
+void testDateDifference()
 {
-    if (date.second == 'I')
-        return {};
-    else if (date.second == 'D')
-        return i18np("1 day", "%1 days", date.first);
-    else if (date.second == 'M')
-        return i18np("1 month", "%1 months", date.first);
-    else
-        return i18np("1 year", "%1 years", date.first);
+    using namespace Utilities;
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 7, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("0 days"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 10)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("30 days"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("1 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 12)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("1 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 10)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("1 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("2 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 10)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("10 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("11 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 12)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("11 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 10)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("11 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("12 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 12)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("12 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 12, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("17 month"));
+    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1973, 7, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("2 years"));
+    qDebug() << "Tested dateDifference without problems.";
 }
-
-void test()
-{
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 7, 11))) == QString::fromLatin1("0 days"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 8, 10))) == QString::fromLatin1("30 days"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 8, 11))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 8, 12))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 9, 10))) == QString::fromLatin1("1 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1971, 9, 11))) == QString::fromLatin1("2 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 6, 10))) == QString::fromLatin1("10 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 6, 11))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 6, 12))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 7, 10))) == QString::fromLatin1("11 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 7, 11))) == QString::fromLatin1("12 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 7, 12))) == QString::fromLatin1("12 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1972, 12, 11))) == QString::fromLatin1("17 month"));
-    Q_ASSERT(formatDate(dateDiff(QDate(1971, 7, 11), QDate(1973, 7, 11))) == QString::fromLatin1("2 years"));
+#endif
 }
 
 QString Utilities::formatAge(DB::CategoryPtr category, const QString &item, DB::ImageInfoPtr info)
 {
-    // test(); // I wish I could get my act together to set up a test suite.
+#ifdef TEST_DATEDIFF
+    testDateDifference(); // I wish I could get my act together to set up a test suite.
+#endif
     const QDate birthDate = category->birthDate(item);
     const QDate start = info->date().start().date();
     const QDate end = info->date().end().date();
 
-    if (birthDate.isNull() || start.isNull())
+    if (birthDate.isNull() || !info->date().isValid())
         return {};
 
-    if (start == end)
-        return QString::fromUtf8(" (%1)").arg(formatDate(dateDiff(birthDate, start)));
+    const AgeSpec minAge = dateDifference(birthDate, start);
+    const AgeSpec maxAge = dateDifference(birthDate, end);
+    if (minAge == maxAge)
+        return i18n(" (%1)", minAge.format(AgeSpec::I18nContext::Birthday));
+    else if (!minAge.isValid())
+        return i18n(" (&lt; %1)", maxAge.format(AgeSpec::I18nContext::Birthday));
     else {
-        DateSpec lower = dateDiff(birthDate, start);
-        DateSpec upper = dateDiff(birthDate, end);
-        if (lower == upper)
-            return QString::fromUtf8(" (%1)").arg(formatDate(lower));
-        else if (lower.second == 'I')
-            return QString::fromUtf8(" (&lt; %1)").arg(formatDate(upper));
-        else {
-            if (lower.second == upper.second)
-                return QString::fromUtf8(" (%1-%2)").arg(lower.first).arg(formatDate(upper));
-            else
-                return QString::fromUtf8(" (%1-%2)").arg(formatDate(lower)).arg(formatDate(upper));
-        }
+        if (minAge.unit == maxAge.unit)
+            return i18nc("E.g. ' (1-2 years)'", " (%1-%2)", minAge.age, maxAge.format(AgeSpec::I18nContext::Birthday));
+        else
+            return i18nc("E.g. ' (7 months-1 year)'", " (%1-%2)", minAge.format(AgeSpec::I18nContext::Birthday), maxAge.format(AgeSpec::I18nContext::Birthday));
+    }
+}
+
+QString Utilities::timeAgo(const DB::ImageInfoPtr info)
+{
+    const QDate startDate = info->date().start().date();
+    const QDate endDate = info->date().end().date();
+    const QDate today = QDate::currentDate();
+
+    if (!info->date().isValid())
+        return {};
+
+    const AgeSpec minTimeAgo = dateDifference(endDate, today);
+    const AgeSpec maxTimeAgo = dateDifference(startDate, today);
+    if (!minTimeAgo.isValid()) {
+        return {};
+    }
+    if (minTimeAgo == maxTimeAgo) {
+        return i18n(" (%1)", minTimeAgo.format(AgeSpec::I18nContext::Anniversary));
+    } else {
+        if (minTimeAgo.unit == maxTimeAgo.unit)
+            return i18nc("E.g. ' (1-2 years ago)'", " (%1-%2)", minTimeAgo.age, maxTimeAgo.format(AgeSpec::I18nContext::Anniversary));
+        else
+            return i18nc("E.g. '(7 months ago-1 year ago)'", " (%1-%2)", minTimeAgo.format(AgeSpec::I18nContext::Anniversary), maxTimeAgo.format(AgeSpec::I18nContext::Anniversary));
     }
 }

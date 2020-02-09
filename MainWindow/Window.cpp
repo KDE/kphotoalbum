@@ -118,6 +118,9 @@
 #ifdef HAVE_MARBLE
 #include <Map/MapView.h>
 #endif
+#ifdef KPA_ENABLE_REMOTECONTROL
+#include <RemoteControl/RemoteInterface.h>
+#endif
 #include <Settings/SettingsData.h>
 #include <Settings/SettingsDialog.h>
 #include <ThumbnailView/FilterWidget.h>
@@ -129,8 +132,6 @@
 #include <Utilities/ShowBusyCursor.h>
 #include <Utilities/VideoUtil.h>
 #include <Viewer/ViewerWidget.h>
-
-#include <RemoteControl/RemoteInterface.h>
 
 using namespace DB;
 
@@ -205,27 +206,36 @@ MainWindow::Window::Window(QWidget *parent)
     connect(m_autoSaveTimer, &QTimer::timeout, this, &Window::slotAutoSave);
     startAutoSaveTimer();
 
-    connect(m_browser, &Browser::BrowserWidget::showingOverview, this, &Window::showBrowser);
-    connect(m_browser, SIGNAL(pathChanged(Browser::BreadcrumbList)), m_statusBar->mp_pathIndicator, SLOT(setBreadcrumbs(Browser::BreadcrumbList)));
-    connect(m_statusBar->mp_pathIndicator, SIGNAL(widenToBreadcrumb(Browser::Breadcrumb)), m_browser, SLOT(widenToBreadcrumb(Browser::Breadcrumb)));
-    connect(m_browser, SIGNAL(pathChanged(Browser::BreadcrumbList)), this, SLOT(updateDateBar(Browser::BreadcrumbList)));
+    connect(m_browser, &Browser::BrowserWidget::showingOverview,
+            this, &Window::showBrowser);
+    connect(m_browser, &Browser::BrowserWidget::pathChanged,
+            m_statusBar->mp_pathIndicator, &BreadcrumbViewer::setBreadcrumbs);
+    connect(m_statusBar->mp_pathIndicator, &BreadcrumbViewer::widenToBreadcrumb,
+            m_browser, &Browser::BrowserWidget::widenToBreadcrumb);
+    connect(m_browser, &Browser::BrowserWidget::pathChanged,
+            this, QOverload<const Browser::BreadcrumbList &>::of(&Window::updateDateBar));
 
-    connect(m_dateBar, &DateBar::DateBarWidget::dateSelected, m_thumbnailView, &ThumbnailView::ThumbnailFacade::gotoDate);
+    connect(m_dateBar, &DateBar::DateBarWidget::dateSelected,
+            m_thumbnailView, &ThumbnailView::ThumbnailFacade::gotoDate);
     connect(m_dateBar, &DateBar::DateBarWidget::toolTipInfo, this, &Window::showDateBarTip);
-    connect(Settings::SettingsData::instance(), SIGNAL(histogramSizeChanged(QSize)), m_dateBar, SLOT(setHistogramBarSize(QSize)));
-    connect(Settings::SettingsData::instance(), SIGNAL(actualThumbnailSizeChanged(int)), this, SLOT(slotThumbnailSizeChanged()));
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::histogramSizeChanged,
+            m_dateBar, &DateBar::DateBarWidget::setHistogramBarSize);
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::actualThumbnailSizeChanged,
+            this, &Window::slotThumbnailSizeChanged);
 
     connect(m_dateBar, &DateBar::DateBarWidget::dateRangeChange, this, &Window::setDateRange);
     connect(m_dateBar, &DateBar::DateBarWidget::dateRangeCleared, this, &Window::clearDateRange);
-    connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::currentDateChanged, m_dateBar, &DateBar::DateBarWidget::setDate);
+    connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::currentDateChanged,
+            m_dateBar, &DateBar::DateBarWidget::setDate);
 
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::showImage, this, &Window::showImage);
-    connect(m_thumbnailView, SIGNAL(showSelection()), this, SLOT(slotView()));
+    connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::showSelection, this, QOverload<>::of(&Window::slotView));
 
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::fileIdUnderCursorChanged, this, &Window::slotSetFileName);
-    connect(DB::ImageDB::instance(), SIGNAL(totalChanged(uint)), this, SLOT(updateDateBar()));
-    connect(DB::ImageDB::instance()->categoryCollection(), SIGNAL(categoryCollectionChanged()), this, SLOT(slotOptionGroupChanged()));
-    connect(m_browser, SIGNAL(imageCount(uint)), m_statusBar->mp_partial, SLOT(showBrowserMatches(uint)));
+    connect(DB::ImageDB::instance(), &DB::ImageDB::totalChanged, this, QOverload<>::of(&Window::updateDateBar));
+    connect(DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::categoryCollectionChanged,
+            this, &Window::slotOptionGroupChanged);
+    connect(m_browser, &Browser::BrowserWidget::imageCount, m_statusBar->mp_partial, &ImageCounter::showBrowserMatches);
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::selectionChanged, this, &Window::updateContextMenuFromSelectionSize);
 
     checkIfVideoThumbnailerIsInstalled();
@@ -287,10 +297,12 @@ void MainWindow::Window::delayedInit()
     Exif::Database::instance(); // Load the database
     qCInfo(TimingLog) << "MainWindow: Loading Exif DB:" << timer.restart() << "ms.";
 
+#ifdef KPA_ENABLE_REMOTECONTROL
     if (!Options::the()->listen().isNull())
         RemoteControl::RemoteInterface::instance().listen(Options::the()->listen());
     else if (Settings::SettingsData::instance()->listenForAndroidDevicesOnStartup())
         RemoteControl::RemoteInterface::instance().listen();
+#endif
 }
 
 bool MainWindow::Window::slotExit()
@@ -340,7 +352,8 @@ void MainWindow::Window::slotOptions()
 {
     if (!m_settingsDialog) {
         m_settingsDialog = new Settings::SettingsDialog(this);
-        connect(m_settingsDialog, SIGNAL(changed()), this, SLOT(reloadThumbnails()));
+        // lambda expression because because reloadThumbnails has default parameters:
+        connect(m_settingsDialog, &Settings::SettingsDialog::changed, this, [=]() { this->reloadThumbnails(); });
         connect(m_settingsDialog, &Settings::SettingsDialog::changed, this, &Window::startAutoSaveTimer);
         connect(m_settingsDialog, &Settings::SettingsDialog::changed, m_browser, &Browser::BrowserWidget::reload);
     }
@@ -631,6 +644,11 @@ void MainWindow::Window::slotView(bool reuse, bool slideShow, bool random)
     launchViewer(selected(ThumbnailView::NoExpandCollapsedStacks), reuse, slideShow, random);
 }
 
+void MainWindow::Window::slotView()
+{
+    slotView(true, false, false);
+}
+
 void MainWindow::Window::launchViewer(const DB::FileNameList &inputMediaList, bool reuse, bool slideShow, bool random)
 {
     DB::FileNameList mediaList = inputMediaList;
@@ -917,7 +935,6 @@ void MainWindow::Window::setupMenuBar()
 
     m_viewMenu = actionCollection()->add<KActionMenu>(QString::fromLatin1("configureView"));
     m_viewMenu->setText(i18n("Configure Current View"));
-
     m_viewMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("view-list-details")));
     m_viewMenu->setDelayed(false);
 
@@ -940,15 +957,25 @@ void MainWindow::Window::setupMenuBar()
     m_largeIconView->setActionGroup(viewGrp);
 
     connect(m_browser, &Browser::BrowserWidget::isViewChangeable, viewGrp, &QActionGroup::setEnabled);
-
     connect(m_browser, &Browser::BrowserWidget::currentViewTypeChanged, this, &Window::slotUpdateViewMenu);
-    // The help menu
-    KStandardAction::tipOfDay(this, SLOT(showTipOfDay()), actionCollection());
 
     a = actionCollection()->add<KToggleAction>(QString::fromLatin1("showToolTipOnImages"));
     a->setText(i18n("Show Tooltips in Thumbnails Window"));
     actionCollection()->setDefaultShortcut(a, Qt::CTRL + Qt::Key_T);
     connect(a, &QAction::toggled, m_thumbnailView, &ThumbnailView::ThumbnailFacade::showToolTipsOnImages);
+
+    QAction *toggleFilterToolbar = actionCollection()->add<KToggleAction>(QString::fromLatin1("toggleFilterToolbar"));
+    toggleFilterToolbar->setText(i18n("Show filter toolbar"));
+    toggleFilterToolbar->setIcon(QIcon::fromTheme(QString::fromLatin1("view-filter")));
+    // connections are done in createSearchBar()
+
+    QAction *toggleSearchBar = actionCollection()->add<KToggleAction>(QString::fromLatin1("toggleSearchBar"));
+    toggleSearchBar->setText(i18n("Show search bar"));
+    toggleSearchBar->setIcon(QIcon::fromTheme(QString::fromLatin1("search")));
+    // connections are done in createSearchBar()
+
+    // The help menu
+    KStandardAction::tipOfDay(this, SLOT(showTipOfDay()), actionCollection());
 
     a = actionCollection()->addAction(QString::fromLatin1("runDemo"), this, SLOT(runDemo()));
     a->setText(i18n("Run KPhotoAlbum Demo"));
@@ -1290,6 +1317,7 @@ void MainWindow::Window::slotConfigureKeyBindings()
 
     createAnnotationDialog();
     dialog->addCollection(m_annotationDialog->actions(), i18n("Annotation Dialog"));
+    dialog->addCollection(m_thumbnailView->actions(), i18n("Thumbnail View"));
 
     dialog->configure();
 
@@ -1419,8 +1447,8 @@ MainWindow::Window *MainWindow::Window::theMainWindow()
 void MainWindow::Window::slotConfigureToolbars()
 {
     QPointer<KEditToolBar> dlg = new KEditToolBar(guiFactory());
-    connect(dlg, SIGNAL(newToolbarConfig()),
-            SLOT(slotNewToolbarConfig()));
+    connect(dlg, &KEditToolBar::newToolBarConfig,
+            this, &Window::slotNewToolbarConfig);
     dlg->exec();
     delete dlg;
 }
@@ -1482,6 +1510,7 @@ void MainWindow::Window::setupPluginMenu()
     connect(menu, &QMenu::aboutToShow, this, &Window::loadKipiPlugins);
     m_hasLoadedKipiPlugins = false;
 #else
+    setPluginMenuState("kipiplugins", {});
 #ifndef KF5Purpose_FOUND
     menu->setEnabled(false);
 #endif
@@ -1524,17 +1553,9 @@ void MainWindow::Window::loadKipiPlugins()
 void MainWindow::Window::plug()
 {
 #ifdef HASKIPI
-    unplugActionList(QString::fromLatin1("import_actions"));
-    unplugActionList(QString::fromLatin1("export_actions"));
-    unplugActionList(QString::fromLatin1("image_actions"));
-    unplugActionList(QString::fromLatin1("tool_actions"));
-    unplugActionList(QString::fromLatin1("batch_actions"));
+    unplugActionList(QString::fromLatin1("kipi_actions"));
 
-    QList<QAction *> importActions;
-    QList<QAction *> exportActions;
-    QList<QAction *> imageActions;
-    QList<QAction *> toolsActions;
-    QList<QAction *> batchActions;
+    QList<QAction *> kipiActions;
 
     KIPI::PluginLoader::PluginList list = m_pluginLoader->pluginList();
     Q_FOREACH (const KIPI::PluginLoader::Info *pluginInfo, list) {
@@ -1546,42 +1567,16 @@ void MainWindow::Window::plug()
 
         QList<QAction *> actions = plugin->actions();
         Q_FOREACH (QAction *action, actions) {
-            KIPI::Category category = plugin->category(action);
-            if (category == KIPI::ImagesPlugin || category == KIPI::CollectionsPlugin)
-                imageActions.append(action);
-
-            else if (category == KIPI::ImportPlugin)
-                importActions.append(action);
-
-            else if (category == KIPI::ExportPlugin)
-                exportActions.append(action);
-
-            else if (category == KIPI::ToolsPlugin)
-                toolsActions.append(action);
-
-            else if (category == KIPI::BatchPlugin)
-                batchActions.append(action);
-
-            else {
-                qCWarning(MainWindowLog) << "Unknown category\n";
-            }
+            kipiActions.append(action);
         }
         KConfigGroup group = KSharedConfig::openConfig()->group(QString::fromLatin1("Shortcuts"));
         plugin->actionCollection()->importGlobalShortcuts(&group);
     }
 
-    setPluginMenuState("importplugin", importActions);
-    setPluginMenuState("exportplugin", exportActions);
-    setPluginMenuState("imagesplugins", imageActions);
-    setPluginMenuState("batch_plugins", batchActions);
-    setPluginMenuState("tool_plugins", toolsActions);
+    setPluginMenuState("kipiplugins", kipiActions);
 
     // For this to work I need to pass false as second arg for createGUI
-    plugActionList(QString::fromLatin1("import_actions"), importActions);
-    plugActionList(QString::fromLatin1("export_actions"), exportActions);
-    plugActionList(QString::fromLatin1("image_actions"), imageActions);
-    plugActionList(QString::fromLatin1("tool_actions"), toolsActions);
-    plugActionList(QString::fromLatin1("batch_actions"), batchActions);
+    plugActionList(QString::fromLatin1("kipi_actions"), kipiActions);
 #endif
 }
 
@@ -1624,7 +1619,7 @@ void MainWindow::Window::slotSelectionChanged(int count)
 #ifdef HASKIPI
     m_pluginInterface->slotSelectionChanged(count != 0);
 #else
-    Q_UNUSED(count);
+    Q_UNUSED(count)
 #endif
 }
 
@@ -1818,10 +1813,7 @@ void MainWindow::Window::setupStatusBar()
     m_statusBar = new MainWindow::StatusBar;
     setStatusBar(m_statusBar);
     setLocked(Settings::SettingsData::instance()->locked(), true, false);
-    connect(m_statusBar, &StatusBar::thumbnailSettingsRequested, [this]() {
-        this->slotOptions();
-        m_settingsDialog->activatePage(Settings::SettingsPage::ThumbnailsPage);
-    });
+    connect(m_statusBar, &StatusBar::thumbnailSettingsRequested, [this]() { this->slotOptions(); m_settingsDialog->activatePage(Settings::SettingsPage::ThumbnailsPage); });
 }
 
 void MainWindow::Window::slotRecreateExifDB()
@@ -1858,21 +1850,29 @@ void MainWindow::Window::slotThumbnailSizeChanged()
 void MainWindow::Window::createSearchBar()
 {
     // Set up the search tool bar
-    SearchBar *bar = new SearchBar(this);
-    bar->setLineEditEnabled(false);
-    bar->setObjectName(QString::fromUtf8("searchBar"));
+    SearchBar *searchBar = new SearchBar(this);
+    searchBar->setLineEditEnabled(false);
+    searchBar->setObjectName(QString::fromUtf8("searchBar"));
 
-    connect(bar, &SearchBar::textChanged, m_browser, &Browser::BrowserWidget::slotLimitToMatch);
-    connect(bar, &SearchBar::returnPressed, m_browser, &Browser::BrowserWidget::slotInvokeSeleted);
-    connect(bar, &SearchBar::keyPressed, m_browser, &Browser::BrowserWidget::scrollKeyPressed);
-    connect(m_browser, &Browser::BrowserWidget::viewChanged, bar, &SearchBar::reset);
-    connect(m_browser, &Browser::BrowserWidget::isSearchable, bar, &SearchBar::setLineEditEnabled);
+    connect(searchBar, &SearchBar::textChanged, m_browser, &Browser::BrowserWidget::slotLimitToMatch);
+    connect(searchBar, &SearchBar::returnPressed, m_browser, &Browser::BrowserWidget::slotInvokeSeleted);
+    connect(searchBar, &SearchBar::keyPressed, m_browser, &Browser::BrowserWidget::scrollKeyPressed);
+    connect(m_browser, &Browser::BrowserWidget::viewChanged, searchBar, &SearchBar::reset);
+    connect(m_browser, &Browser::BrowserWidget::isSearchable, searchBar, &SearchBar::setLineEditEnabled);
+    QAction *toggleSearchBar = actionCollection()->action(QString::fromLatin1("toggleSearchBar"));
+    Q_ASSERT(toggleSearchBar);
+    connect(toggleSearchBar, &QAction::triggered, searchBar, &SearchBar::setVisible);
+    connect(searchBar, &SearchBar::visibilityChanged, toggleSearchBar, &QAction::setChecked);
 
-    ThumbnailView::FilterWidget *filter = m_thumbnailView->createFilterWidget(this);
-    filter->setObjectName(QString::fromUtf8("filterBar"));
-    connect(m_browser, &Browser::BrowserWidget::viewChanged,
-            ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);
-    connect(m_browser, &Browser::BrowserWidget::isFilterable, filter, &ThumbnailView::FilterWidget::setEnabled);
+    auto filterWidget = m_thumbnailView->filterWidget();
+    addToolBar(filterWidget);
+    filterWidget->setObjectName(QString::fromUtf8("filterBar"));
+    connect(m_browser, &Browser::BrowserWidget::viewChanged, ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);
+    connect(m_browser, &Browser::BrowserWidget::isFilterable, filterWidget, &ThumbnailView::FilterWidget::setEnabled);
+    QAction *toggleFilterToolbar = actionCollection()->action(QString::fromLatin1("toggleFilterToolbar"));
+    Q_ASSERT(toggleFilterToolbar);
+    connect(toggleFilterToolbar, &QAction::triggered, filterWidget, &ThumbnailView::FilterWidget::setVisible);
+    connect(filterWidget, &ThumbnailView::FilterWidget::visibilityChanged, toggleFilterToolbar, &QAction::setChecked);
 }
 
 void MainWindow::Window::executeStartupActions()
@@ -1880,7 +1880,8 @@ void MainWindow::Window::executeStartupActions()
     new ImageManager::ThumbnailBuilder(m_statusBar, this);
     if (!Settings::SettingsData::instance()->incrementalThumbnails())
         ImageManager::ThumbnailBuilder::instance()->buildMissing();
-    connect(Settings::SettingsData::instance(), SIGNAL(thumbnailSizeChanged(int)), this, SLOT(slotBuildThumbnailsIfWanted()));
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::thumbnailSizeChanged,
+            this, &Window::slotBuildThumbnailsIfWanted);
 
     if (!FeatureDialog::hasVideoThumbnailer()) {
         BackgroundTaskManager::JobManager::instance()->addJob(

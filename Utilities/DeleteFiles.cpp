@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -79,7 +79,7 @@ bool DeleteFiles::deleteFilesPrivate(const DB::FileNameList &files, DeleteMethod
             job = KIO::trash(filesToDelete);
         else
             job = KIO::del(filesToDelete);
-        connect(job, SIGNAL(result(KJob *)), this, SLOT(slotKIOJobCompleted(KJob *)));
+        connect(job, &KJob::result, this, &DeleteFiles::slotKIOJobCompleted);
     }
 
     if (!filenamesToRemove.isEmpty()) {

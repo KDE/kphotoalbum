@@ -68,22 +68,17 @@ QRect ThumbnailView::CellGeometry::iconGeometry(const QPixmap &pixmap) const
 }
 
 /**
- * return the number of categories with valies in for the given image.
+ * return the number of categories with values in for the given image.
  */
 static int noOfCategoriesForImage(const DB::FileName &image)
 {
-    int catsInText = 0;
-    QStringList grps = image.info()->availableCategories();
-    for (QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it) {
-        QString category = *it;
-        if (category != i18n("Folder") && category != i18n("Media Type")) {
-            StringSet items = image.info()->itemsOfCategory(category);
-            if (!items.empty()) {
-                catsInText++;
-            }
-        }
-    }
-    return catsInText;
+    static const QString folder(i18n("Folder"));
+    DB::ImageInfoPtr info = image.info();
+    int grps = info->availableCategories().length();
+    if (info->itemsOfCategory(folder).empty())
+        return grps - 1;
+    else
+        return grps - 2; // Exclude folder and media type
 }
 
 /**

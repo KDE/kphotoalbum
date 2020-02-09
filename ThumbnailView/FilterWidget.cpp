@@ -19,30 +19,44 @@
 
 #include "FilterWidget.h"
 
+#include <KActionCollection>
 #include <KLocalizedString>
 #include <KRatingWidget>
-#include <QHBoxLayout>
 #include <QLabel>
 
 ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
     : KToolBar(parent)
 {
+    m_actions = new KActionCollection(this);
     m_toggleFilter = addAction(
         QIcon::fromTheme(QLatin1String("view-filter")),
         i18nc("The action enables/disables filtering of images in the thumbnail view.", "Toggle filter"));
     m_toggleFilter->setCheckable(true);
     m_toggleFilter->setToolTip(xi18n("Press <shortcut>Escape</shortcut> to clear filter."));
     connect(m_toggleFilter, &QAction::toggled, this, &FilterWidget::filterToggled);
+    m_actions->addAction(QString::fromLatin1("FilterWidget/toggle"), m_toggleFilter);
+
     m_rating = new KRatingWidget;
     addWidget(m_rating);
+    for (short i = 1; i <= 5; i++) {
+        QAction *ratingAction = new QAction(i18np("Filter view by rating: %1 star", "Filter view by rating: %1 stars", i));
+        m_actions->addAction(QString::fromLatin1("FilterWidget/rating/%1").arg(i), ratingAction);
+        m_actions->setDefaultShortcut(ratingAction, Qt::ALT + (Qt::Key_0 + i));
+        connect(ratingAction, &QAction::triggered, this, [=]() {
+            short rating = i * 2;
+            if (static_cast<short>(m_rating->rating()) == rating)
+                rating = -1;
+            emit ratingChanged(rating);
+        });
+        m_rating->addAction(ratingAction);
+    }
+    m_actions->readSettings();
 
     m_label = new QLabel;
     resetLabelText();
     addWidget(m_label);
 
-    // Note(jzarl): new style connect seems to be confused by overloaded signal in KRatingWidget
-    // -> fall back to old-style
-    connect(m_rating, SIGNAL(ratingChanged(int)), this, SLOT(slotRatingChanged(int)));
+    connect(m_rating, QOverload<int>::of(&KRatingWidget::ratingChanged), this, &FilterWidget::slotRatingChanged);
 }
 
 void ThumbnailView::FilterWidget::setFilter(const DB::ImageSearchInfo &filter)
@@ -79,4 +93,9 @@ void ThumbnailView::FilterWidget::slotRatingChanged(int rating)
 void ThumbnailView::FilterWidget::resetLabelText()
 {
     m_label->setText(xi18n("Tip: Use <shortcut>Alt+Shift+<placeholder>A-Z</placeholder></shortcut> to toggle a filter for that token."));
+}
+
+KActionCollection *ThumbnailView::FilterWidget::actions() const
+{
+    return m_actions;
 }

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -30,17 +30,22 @@ namespace ImageManager
 class RAWImageDecoder : public ImageDecoder
 {
 public:
-    bool _decode(QImage *img, const DB::FileName &imageFile, QSize *fullSize, int dim = -1) override;
-    bool _mightDecode(const DB::FileName &imageFile) override;
-    virtual bool _skipThisFile(const DB::FileNameSet &loadedFiles, const DB::FileName &imageFile) const;
+    /**
+     * @brief fileCanBeSkipped determines whether the file is of interest to KPhotoAlbum or not.
+     * It takes into account known skippable suffixes (e.g. thumbnail files) and the
+     * configuration on when to skip raw files (i.e. `skipRawIfOtherMatches`).
+     *
+     * @param loadedFiles a set of file names that are already loaded.
+     * @param imageFile the image file
+     * @return \c true, if the file can be skipped, \c false otherwise.
+     */
+    bool fileCanBeSkipped(const DB::FileNameSet &loadedFiles, const DB::FileName &imageFile) const;
     static bool isRAW(const DB::FileName &imageFile);
     static QStringList rawExtensions();
 
-private:
-    bool _fileExistsWithExtensions(const DB::FileName &fileName, const QStringList &extensionList) const;
-    static bool _fileEndsWithExtensions(const DB::FileName &fileName, const QStringList &extensionList);
-    bool _fileIsKnownWithExtensions(const DB::FileNameSet &files, const DB::FileName &fileName, const QStringList &extensionList) const;
-    static void _initializeExtensionLists(QStringList &rawExtensions, QStringList &standardExtensions, QStringList &ignoredExtensions);
+protected:
+    bool _decode(QImage *img, ImageRequest *request, QSize *fullSize, int dim = -1) override;
+    bool _mightDecode(const DB::FileName &imageFile) override;
 };
 }
 

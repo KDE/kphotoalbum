@@ -75,28 +75,28 @@ DateBar::DateBarWidget::DateBarWidget(QWidget *parent)
     m_rightArrow = new QToolButton(this);
     m_rightArrow->setArrowType(Qt::RightArrow);
     m_rightArrow->setAutoRepeat(true);
-    connect(m_rightArrow, SIGNAL(clicked()), this, SLOT(scrollRight()));
+    connect(m_rightArrow, &QToolButton::clicked, this, &DateBarWidget::scrollRight);
 
     m_leftArrow = new QToolButton(this);
     m_leftArrow->setArrowType(Qt::LeftArrow);
     m_leftArrow->setAutoRepeat(true);
-    connect(m_leftArrow, SIGNAL(clicked()), this, SLOT(scrollLeft()));
+    connect(m_leftArrow, &QToolButton::clicked, this, &DateBarWidget::scrollLeft);
 
     m_zoomIn = new QToolButton(this);
     m_zoomIn->setIcon(QIcon::fromTheme(QStringLiteral("zoom-in")));
     m_zoomIn->setToolTip(i18n("Zoom in"));
-    connect(m_zoomIn, SIGNAL(clicked()), this, SLOT(zoomIn()));
-    connect(this, SIGNAL(canZoomIn(bool)), m_zoomIn, SLOT(setEnabled(bool)));
+    connect(m_zoomIn, &QToolButton::clicked, this, &DateBarWidget::zoomIn);
+    connect(this, &DateBarWidget::canZoomIn, m_zoomIn, &QToolButton::setEnabled);
 
     m_zoomOut = new QToolButton(this);
     m_zoomOut->setIcon(QIcon::fromTheme(QStringLiteral("zoom-out")));
     m_zoomOut->setToolTip(i18n("Zoom out"));
-    connect(m_zoomOut, SIGNAL(clicked()), this, SLOT(zoomOut()));
-    connect(this, SIGNAL(canZoomOut(bool)), m_zoomOut, SLOT(setEnabled(bool)));
+    connect(m_zoomOut, &QToolButton::clicked, this, &DateBarWidget::zoomOut);
+    connect(this, &DateBarWidget::canZoomOut, m_zoomOut, &QToolButton::setEnabled);
 
     m_cancelSelection = new QToolButton(this);
     m_cancelSelection->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear")));
-    connect(m_cancelSelection, SIGNAL(clicked()), this, SLOT(clearSelection()));
+    connect(m_cancelSelection, &QToolButton::clicked, this, &DateBarWidget::clearSelection);
     m_cancelSelection->setEnabled(false);
     m_cancelSelection->setToolTip(i18nc("The button clears the selection of a date range in the date bar.", "Clear date selection"));
 
@@ -217,7 +217,7 @@ void DateBar::DateBarWidget::drawTickMarks(QPainter &p, const QRect &textRect)
         int h = rect.height();
         if (m_currentHandler->isMajorUnit(unit)) {
             QString text = m_currentHandler->text(unit);
-            int w = fm.width(text);
+            int w = stringWidth(fm, text);
             p.setFont(f);
             if (textRect.right() > x + w / 2 && textRect.left() < x - w / 2)
                 p.drawText(x - w / 2, textRect.top(), w, fontHeight, Qt::TextSingleLine, text);
@@ -337,7 +337,8 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
     bool fontFound = false;
     for (int i = f.pointSize(); i >= 6; i -= 2) {
         f.setPointSize(i);
-        int w = QFontMetrics(f).width(QString::number(max));
+        QFontMetrics fontMetrics(f);
+        int w = stringWidth(fontMetrics, QString::number(max));
         if (w < rect.height() - 6) {
             p.setFont(f);
             fontFound = true;
@@ -384,7 +385,8 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
             p.save();
             p.translate(x + m_barWidth - 3, rect.bottom() - 2);
             p.rotate(-90);
-            int w = QFontMetrics(f).width(QString::number(tot));
+            QFontMetrics fontMetrics(f);
+            int w = stringWidth(fontMetrics, QString::number(tot));
             if (w < exactPx + rangePx - 2) {
                 p.setPen(Qt::black);
                 p.drawText(0, 0, QString::number(tot));
@@ -603,13 +605,13 @@ void DateBar::DateBarWidget::contextMenuEvent(QContextMenuEvent *event)
         action->setCheckable(true);
         m_contextMenu->addAction(action);
         action->setChecked(m_includeFuzzyCounts);
-        connect(action, SIGNAL(toggled(bool)), this, SLOT(setIncludeFuzzyCounts(bool)));
+        connect(action, &QAction::toggled, this, &DateBarWidget::setIncludeFuzzyCounts);
 
         action = new QAction(i18n("Show Resolution Indicator"), this);
         action->setCheckable(true);
         m_contextMenu->addAction(action);
         action->setChecked(m_showResolutionIndicator);
-        connect(action, SIGNAL(toggled(bool)), this, SLOT(setShowResolutionIndicator(bool)));
+        connect(action, &QAction::toggled, this, &DateBarWidget::setShowResolutionIndicator);
     }
 
     m_contextMenu->exec(event->globalPos());
@@ -636,8 +638,9 @@ void DateBar::DateBarWidget::drawResolutionIndicator(QPainter &p, int *leftEdge)
     }
 
     QString text = m_currentHandler->unitText();
-    int textWidth = QFontMetrics(font()).width(text);
-    int height = QFontMetrics(font()).height();
+    QFontMetrics fontMetrics(font());
+    int textWidth = stringWidth(fontMetrics, text);
+    int height = fontMetrics.height();
 
     int endUnitPos = rect.right() - textWidth - ARROW_LENGTH - 3;
     // Round to nearest unit mark
@@ -656,7 +659,7 @@ void DateBar::DateBarWidget::drawResolutionIndicator(QPainter &p, int *leftEdge)
 
     // draw text
     QFontMetrics fm(font());
-    p.drawText(endUnitPos + ARROW_LENGTH + 3, rect.top(), fm.width(text), fm.height(), Qt::TextSingleLine, text);
+    p.drawText(endUnitPos + ARROW_LENGTH + 3, rect.top(), stringWidth(fm, text), fm.height(), Qt::TextSingleLine, text);
     p.restore();
 
     *leftEdge = startUnitPos - ARROW_LENGTH - 3;
@@ -887,6 +890,19 @@ void DateBar::DateBarWidget::wheelEvent(QWheelEvent *e)
     if (e->modifiers() & Qt::ShiftModifier)
         scrollAmount *= SCROLL_ACCELERATION;
     scroll(scrollAmount);
+}
+
+int DateBar::DateBarWidget::stringWidth(const QFontMetrics &fontMetrics, const QString &text) const
+{
+    // This is a workaround for the deprecation warnings emerged with Qt 5.13.
+    // QFontMetrics::horizontalAdvance wasn't introduced until Qt 5.11. As soon as we drop support
+    // for Qt versions before 5.11, this can be removed in favor of calling horizontalAdvance
+    // directly.
+#if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
+    return fontMetrics.width(text);
+#else
+    return fontMetrics.horizontalAdvance(text);
+#endif
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

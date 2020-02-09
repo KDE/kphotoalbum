@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -72,6 +72,7 @@ signals:
     void categoryChangesPending();
 
 protected slots:
+    friend class SettingsDialog;
     void resetCategoryLabel();
 
 private slots:
@@ -85,8 +86,6 @@ private slots:
     void deleteCurrentCategory();
     void renameCurrentCategory();
     void categoryNameChanged(QListWidgetItem *item);
-    void categoryDoubleClicked(QListWidgetItem *);
-    void listWidgetEditEnd(QWidget *, QAbstractItemDelegate::EndEditHint);
     void saveDbNow();
 
 private: // Functions
@@ -110,7 +109,6 @@ private: // Variables
     QList<CategoryItem *> m_deletedCategories;
     UntaggedGroupBox *m_untaggedBox;
     QString m_categoryNameBeforeEdit;
-    bool m_editorOpen;
     QLabel *m_dbNotSavedLabel;
     QPushButton *m_saveDbNowButton;
     bool m_categoryNamesChanged;

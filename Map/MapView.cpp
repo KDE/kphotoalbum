@@ -118,6 +118,14 @@ void buildClusterMap(QVector<QHash<Map::GeoBinAddress, Map::GeoCluster *>> &lodM
 
 }
 
+namespace
+{
+inline QPixmap smallIcon(const QString &iconName)
+{
+    return QIcon::fromTheme(iconName).pixmap(KIconLoader::StdSizes::SizeSmall);
+}
+}
+
 Map::MapView::MapView(QWidget *parent, UsageType type)
     : QWidget(parent)
 {
@@ -161,21 +169,21 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
 
     QPushButton *saveButton = new QPushButton;
     saveButton->setFlat(true);
-    saveButton->setIcon(QPixmap(SmallIcon(QStringLiteral("media-floppy"))));
+    saveButton->setIcon(QPixmap(smallIcon(QStringLiteral("media-floppy"))));
     saveButton->setToolTip(i18n("Save the current map settings"));
     kpaButtonsLayout->addWidget(saveButton);
     connect(saveButton, &QPushButton::clicked, this, &MapView::saveSettings);
 
     m_setLastCenterButton = new QPushButton;
     m_setLastCenterButton->setFlat(true);
-    m_setLastCenterButton->setIcon(QPixmap(SmallIcon(QStringLiteral("go-first"))));
+    m_setLastCenterButton->setIcon(QPixmap(smallIcon(QStringLiteral("go-first"))));
     m_setLastCenterButton->setToolTip(i18n("Go to last map position"));
     kpaButtonsLayout->addWidget(m_setLastCenterButton);
     connect(m_setLastCenterButton, &QPushButton::clicked, this, &MapView::setLastCenter);
 
     QPushButton *showThumbnails = new QPushButton;
     showThumbnails->setFlat(true);
-    showThumbnails->setIcon(QPixmap(SmallIcon(QStringLiteral("view-preview"))));
+    showThumbnails->setIcon(QPixmap(smallIcon(QStringLiteral("view-preview"))));
     showThumbnails->setToolTip(i18n("Show thumbnails"));
     kpaButtonsLayout->addWidget(showThumbnails);
     showThumbnails->setCheckable(true);

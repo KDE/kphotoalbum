@@ -81,6 +81,7 @@ ImageInfo::ImageInfo(const DB::FileName &fileName, MediaType type, bool readExif
 }
 
 ImageInfo::ImageInfo(const ImageInfo &other)
+    : QSharedData(other)
 {
     *this = other;
 }
@@ -500,6 +501,7 @@ ImageInfo::ImageInfo(const DB::FileName &fileName,
     m_stackId = stackId;
     m_stackOrder = stackOrder;
     m_videoLength = -1;
+    m_matchGeneration = -1;
 }
 
 // Note: we need this operator because the base class QSharedData hides

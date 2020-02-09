@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -36,7 +36,7 @@ StatusIndicator::StatusIndicator(QWidget *parent)
     , m_timer(new QTimer(this))
     , m_jobViewer(nullptr)
 {
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(flicker()));
+    connect(m_timer, &QTimer::timeout, this, &StatusIndicator::flicker);
     setCursor(Qt::PointingHandCursor);
     connect(JobManager::instance(), SIGNAL(jobStarted(JobInterface *)), this, SLOT(maybeStartFlicker()));
 }

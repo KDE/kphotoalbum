@@ -26,6 +26,13 @@ class KActionCollection;
 namespace Viewer
 {
 
+/**
+ * @brief The VisibleOptionsMenu lets the user choose what kind of information is shown in the InfoBox.
+ * It is used in the context menu of the viewer.
+ *
+ * If any option is changed, visibleOptionsChanged() is emitted.
+ * Changes are written directly to the global application settings.
+ */
 class VisibleOptionsMenu : public QMenu
 {
     Q_OBJECT

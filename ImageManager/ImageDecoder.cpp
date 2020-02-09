@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -35,10 +35,10 @@ ImageManager::ImageDecoder::~ImageDecoder()
     decoders()->removeOne(this);
 }
 
-bool ImageManager::ImageDecoder::decode(QImage *img, const DB::FileName &imageFile, QSize *fullSize, int dim)
+bool ImageManager::ImageDecoder::decode(QImage *img, ImageRequest *request, QSize *fullSize, int dim)
 {
     for (ImageDecoder *decoder : *decoders()) {
-        if (decoder->_decode(img, imageFile, fullSize, dim))
+        if (decoder->_decode(img, request, fullSize, dim))
             return true;
     }
     return false;

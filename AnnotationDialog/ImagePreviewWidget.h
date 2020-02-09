@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -31,6 +31,7 @@
 class QCheckBox;
 class QPushButton;
 class QComboBox;
+class KActionCollection;
 
 namespace AnnotationDialog
 {
@@ -39,7 +40,7 @@ class ImagePreviewWidget : public QWidget
 {
     Q_OBJECT
 public:
-    ImagePreviewWidget();
+    ImagePreviewWidget(KActionCollection *actions);
     void rotate(int angle);
     void setImage(const DB::ImageInfo &info);
     void setImage(const QString &fileName);
@@ -75,6 +76,9 @@ signals:
     void areaVisibilityChanged(bool visible);
     void togglePreview();
 
+protected:
+    void showEvent(QShowEvent *) override;
+
 private: // Functions
     /**
      * Update labels and tooltip texts when canCreateAreas() changes.
@@ -99,6 +103,7 @@ private: // Variables
     QLabel *m_defaultAreaCategoryLabel;
     QComboBox *m_defaultAreaCategory;
     QWidget *m_controlWidget;
+    KActionCollection *m_actions;
 };
 }
 

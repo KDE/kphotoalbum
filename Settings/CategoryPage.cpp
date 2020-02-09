@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -68,11 +68,6 @@ Settings::CategoryPage::CategoryPage(QWidget *parent)
     connect(m_categoriesListWidget, &QListWidget::itemClicked, this, &CategoryPage::editCategory);
     connect(m_categoriesListWidget, &QListWidget::itemSelectionChanged, this, &CategoryPage::editSelectedCategory);
     connect(m_categoriesListWidget, &QListWidget::itemChanged, this, &CategoryPage::categoryNameChanged);
-
-    // This is needed to fix some odd behavior if the "New" button is double clicked
-    connect(m_categoriesListWidget, &QListWidget::itemDoubleClicked, this, &CategoryPage::categoryDoubleClicked);
-    connect(m_categoriesListWidget->itemDelegate(), SIGNAL(closeEditor(QWidget *, QAbstractItemDelegate::EndEditHint)),
-            this, SLOT(listWidgetEditEnd(QWidget *, QAbstractItemDelegate::EndEditHint)));
 
     categorySideLayout->addWidget(m_categoriesListWidget);
 
@@ -187,10 +182,7 @@ Settings::CategoryPage::CategoryPage(QWidget *parent)
     m_untaggedBox = new UntaggedGroupBox;
     mainLayout->addWidget(m_untaggedBox);
 
-    m_currentCategory = 0;
-
-    // This is needed to fix some odd behavior if the "New" button is double clicked
-    m_editorOpen = false;
+    m_currentCategory = nullptr;
 
     m_categoryNamesChanged = false;
 }
@@ -198,7 +190,8 @@ Settings::CategoryPage::CategoryPage(QWidget *parent)
 void Settings::CategoryPage::resetInterface()
 {
     enableDisable(false);
-    m_categoriesListWidget->setItemSelected(m_categoriesListWidget->currentItem(), false);
+    if (m_categoriesListWidget->currentItem())
+        m_categoriesListWidget->currentItem()->setSelected(false);
     resetCategoryLabel();
     m_renameLabel->hide();
 }
@@ -210,7 +203,7 @@ void Settings::CategoryPage::editSelectedCategory()
 
 void Settings::CategoryPage::editCategory(QListWidgetItem *i)
 {
-    if (i == 0) {
+    if (i == nullptr) {
         return;
     }
 
@@ -377,13 +370,6 @@ void Settings::CategoryPage::preferredViewChanged(int i)
 
 void Settings::CategoryPage::newCategory()
 {
-    // This is needed to fix some odd behavior if the "New" button is double clicked
-    if (m_editorOpen) {
-        return;
-    } else {
-        m_editorOpen = true;
-    }
-
     // Here starts the real function
 
     QString newCategory = i18n("New category");
@@ -427,7 +413,7 @@ void Settings::CategoryPage::deleteCurrentCategory()
     m_untaggedBox->categoryDeleted(m_currentCategory->text());
     m_deletedCategories.append(m_currentCategory);
     m_categoriesListWidget->takeItem(m_categoriesListWidget->row(m_currentCategory));
-    m_currentCategory = 0;
+    m_currentCategory = nullptr;
     m_positionable->setChecked(false);
     m_icon->setIcon(QIcon());
     m_thumbnailSizeInCategory->setValue(64);
@@ -440,9 +426,6 @@ void Settings::CategoryPage::deleteCurrentCategory()
 
 void Settings::CategoryPage::renameCurrentCategory()
 {
-    // This is needed to fix some odd behavior if the "New" button is double clicked
-    m_editorOpen = true;
-
     m_categoriesListWidget->editItem(m_currentCategory);
 }
 
@@ -531,18 +514,6 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData *opt)
     m_categoriesListWidget->blockSignals(false);
 
     m_untaggedBox->loadSettings(opt);
-}
-
-void Settings::CategoryPage::categoryDoubleClicked(QListWidgetItem *)
-{
-    // This is needed to fix some odd behavior if the "New" button is double clicked
-    m_editorOpen = true;
-}
-
-void Settings::CategoryPage::listWidgetEditEnd(QWidget *, QAbstractItemDelegate::EndEditHint)
-{
-    // This is needed to fix some odd behavior if the "New" button is double clicked
-    m_editorOpen = false;
 }
 
 void Settings::CategoryPage::resetCategoryLabel()

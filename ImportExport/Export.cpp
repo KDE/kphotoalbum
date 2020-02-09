@@ -72,14 +72,13 @@ void Export::imageExport(const DB::FileNameList &list)
         nullptr, /* parent */
         i18n("Save an export file"), /* caption */
         QString(), /* directory */
-        i18n("KPhotoAlbum import files") + QString::fromLatin1("(*.kim)") /*filter*/
+        i18n("KPhotoAlbum import files") + QLatin1String("(*.kim)") /*filter*/
     );
     if (zipFile.isNull())
         return;
 
     bool ok;
-    Export *exp = new Export(list, zipFile, config.mp_compress->isChecked(), maxSize, config.imageFileLocation(),
-                             QString::fromLatin1(""), config.mp_generateThumbnails->isChecked(), &ok);
+    Export *exp = new Export(list, zipFile, config.mp_compress->isChecked(), maxSize, config.imageFileLocation(), QString(), config.mp_generateThumbnails->isChecked(), &ok);
     delete exp; // It will not return before done - we still need a class to connect slots etc.
 
     if (ok)
@@ -208,7 +207,7 @@ ImageFileLocation ExportConfig::imageFileLocation() const
 
 void ExportConfig::showHelp()
 {
-    KHelpClient::invokeHelp(QString::fromLatin1("chp-importExport"));
+    KHelpClient::invokeHelp(QStringLiteral("chp-importExport"));
 }
 
 Export::~Export()
@@ -274,7 +273,7 @@ Export::Export(
         // Create the index.xml file
         m_progressDialog->setLabelText(i18n("Creating index file"));
         QByteArray indexml = XMLHandler().createIndexXML(list, baseUrl, m_location, &m_filenameMapper);
-        m_zip->writeFile(QString::fromLatin1("index.xml"), indexml.data());
+        m_zip->writeFile(QStringLiteral("index.xml"), indexml.data());
 
         m_steps++;
         m_progressDialog->setValue(m_steps);
@@ -286,7 +285,7 @@ void Export::generateThumbnails(const DB::FileNameList &list)
 {
     m_progressDialog->setLabelText(i18n("Creating thumbnails"));
     m_loopEntered = false;
-    m_subdir = QString::fromLatin1("Thumbnails/");
+    m_subdir = QLatin1String("Thumbnails/");
     m_filesRemaining = list.size(); // Used to break the event loop.
     for (const DB::FileName &fileName : list) {
         ImageManager::ImageRequest *request = new ImageManager::ImageRequest(fileName, QSize(128, 128), fileName.info()->angle(), this);
@@ -304,7 +303,7 @@ void Export::copyImages(const DB::FileNameList &list)
     Q_ASSERT(m_location != ManualCopy);
 
     m_loopEntered = false;
-    m_subdir = QString::fromLatin1("Images/");
+    m_subdir = QLatin1String("Images/");
 
     m_progressDialog->setLabelText(i18n("Copying image files"));
 
@@ -314,17 +313,18 @@ void Export::copyImages(const DB::FileNameList &list)
         QString zippedName = m_filenameMapper.uniqNameFor(fileName);
 
         if (m_maxSize == -1 || Utilities::isVideo(fileName) || isRAW(fileName)) {
-            if (QFileInfo(file).isSymLink())
-                file = QFileInfo(file).readLink();
-
+            const QFileInfo fileInfo(file);
+            if (fileInfo.isSymLink()) {
+                file = fileInfo.symLinkTarget();
+            }
             if (m_location == Inline)
-                m_zip->addLocalFile(file, QString::fromLatin1("Images/") + zippedName);
+                m_zip->addLocalFile(file, QStringLiteral("Images/") + zippedName);
             else if (m_location == AutoCopy)
-                Utilities::copyOrOverwrite(file, m_destdir + QString::fromLatin1("/") + zippedName);
+                Utilities::copyOrOverwrite(file, m_destdir + QLatin1String("/") + zippedName);
             else if (m_location == Link)
-                Utilities::makeHardLink(file, m_destdir + QString::fromLatin1("/") + zippedName);
+                Utilities::makeHardLink(file, m_destdir + QLatin1String("/") + zippedName);
             else if (m_location == Symlink)
-                Utilities::makeSymbolicLink(file, m_destdir + QString::fromLatin1("/") + zippedName);
+                Utilities::makeSymbolicLink(file, m_destdir + QLatin1String("/") + zippedName);
 
             m_steps++;
             m_progressDialog->setValue(m_steps);
@@ -355,10 +355,10 @@ void Export::pixmapLoaded(ImageManager::ImageRequest *request, const QImage &ima
     if (!request->loadedOK())
         return;
 
-    const QString ext = (Utilities::isVideo(fileName) || isRAW(fileName)) ? QString::fromLatin1("jpg") : QFileInfo(m_filenameMapper.uniqNameFor(fileName)).completeSuffix();
+    const QString ext = (Utilities::isVideo(fileName) || isRAW(fileName)) ? QStringLiteral("jpg") : QFileInfo(m_filenameMapper.uniqNameFor(fileName)).completeSuffix();
 
     // Add the file to the zip archive
-    QString zipFileName = QString::fromLatin1("%1/%2.%3").arg(Utilities::stripEndingForwardSlash(m_subdir)).arg(QFileInfo(m_filenameMapper.uniqNameFor(fileName)).baseName()).arg(ext);
+    QString zipFileName = QStringLiteral("%1/%2.%3").arg(Utilities::stripEndingForwardSlash(m_subdir)).arg(QFileInfo(m_filenameMapper.uniqNameFor(fileName)).baseName()).arg(ext);
     QByteArray data;
     QBuffer buffer(&data);
     buffer.open(QIODevice::WriteOnly);
@@ -367,7 +367,7 @@ void Export::pixmapLoaded(ImageManager::ImageRequest *request, const QImage &ima
     if (m_location == Inline || !m_copyingFiles)
         m_zip->writeFile(zipFileName, data.constData());
     else {
-        QString file = m_destdir + QString::fromLatin1("/") + m_filenameMapper.uniqNameFor(fileName);
+        QString file = m_destdir + QLatin1String("/") + m_filenameMapper.uniqNameFor(fileName);
         QFile out(file);
         if (!out.open(QIODevice::WriteOnly)) {
             KMessageBox::error(nullptr, i18n("Error writing file %1", file));
@@ -407,7 +407,7 @@ void Export::showUsageDialog()
                        "This will make your web server tell konqueror that it is a KPhotoAlbum file when clicking on the link, "
                        "otherwise the web server will just tell konqueror that it is a plain text file.</p>");
 
-    KMessageBox::information(nullptr, txt, i18n("How to Use the Export File"), QString::fromLatin1("export_how_to_use_the_export_file"));
+    KMessageBox::information(nullptr, txt, i18n("How to Use the Export File"), QStringLiteral("export_how_to_use_the_export_file"));
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

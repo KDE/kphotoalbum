@@ -44,8 +44,14 @@ ThumbnailView::ThumbnailModel::ThumbnailModel(ThumbnailFactory *factory)
     connect(DB::ImageDB::instance(), SIGNAL(imagesDeleted(DB::FileNameList)), this, SLOT(imagesDeletedFromDB(DB::FileNameList)));
     m_ImagePlaceholder = QIcon::fromTheme(QLatin1String("image-x-generic")).pixmap(cellGeometryInfo()->preferredIconSize());
     m_VideoPlaceholder = QIcon::fromTheme(QLatin1String("video-x-generic")).pixmap(cellGeometryInfo()->preferredIconSize());
+
     m_filter.setSearchMode(0);
     connect(this, &ThumbnailModel::filterChanged, this, &ThumbnailModel::updateDisplayModel);
+
+    m_filterWidget = new FilterWidget;
+    connect(this, &ThumbnailModel::filterChanged, m_filterWidget, &FilterWidget::setFilter);
+    connect(m_filterWidget, &FilterWidget::ratingChanged, this, &ThumbnailModel::filterByRating);
+    connect(m_filterWidget, &FilterWidget::filterToggled, this, &ThumbnailModel::toggleFilter);
 }
 
 static bool stackOrderComparator(const DB::FileName &a, const DB::FileName &b)
@@ -339,11 +345,11 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
 
     if (Settings::SettingsData::instance()->displayLabels()) {
         QString line = fileName.info()->label();
-        if (QFontMetrics(widget()->font()).width(line) > thumbnailWidth) {
+        if (stringWidth(line) > thumbnailWidth) {
             line = line.left(maxCharacters);
-            line += QString::fromLatin1(" ...");
+            line += QLatin1String(" ...");
         }
-        text += line + QString::fromLatin1("\n");
+        text += line + QLatin1String("\n");
     }
 
     if (Settings::SettingsData::instance()->displayCategories()) {
@@ -371,21 +377,18 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
                         if (first)
                             first = false;
                         else
-                            line += QString::fromLatin1(", ");
+                            line += QLatin1String(", ");
                         line += item;
                     }
-                    if (QFontMetrics(widget()->font()).width(line) > thumbnailWidth) {
+                    if (stringWidth(line) > thumbnailWidth) {
                         line = line.left(maxCharacters);
-                        line += QString::fromLatin1(" ...");
+                        line += QLatin1String(" ...");
                     }
-                    text += line + QString::fromLatin1("\n");
+                    text += line + QLatin1String("\n");
                 }
             }
         }
     }
-
-    if (text.isEmpty())
-        text = QString::fromLatin1("");
 
     return text.trimmed();
 }
@@ -439,13 +442,9 @@ bool ThumbnailView::ThumbnailModel::isFiltered() const
     return !m_filter.isNull();
 }
 
-ThumbnailView::FilterWidget *ThumbnailView::ThumbnailModel::createFilterWidget(QWidget *parent)
+ThumbnailView::FilterWidget *ThumbnailView::ThumbnailModel::filterWidget()
 {
-    auto widget = new FilterWidget(parent);
-    connect(this, &ThumbnailModel::filterChanged, widget, &FilterWidget::setFilter);
-    connect(widget, &FilterWidget::ratingChanged, this, &ThumbnailModel::filterByRating);
-    connect(widget, &FilterWidget::filterToggled, this, &ThumbnailModel::toggleFilter);
-    return widget;
+    return m_filterWidget;
 }
 
 bool ThumbnailView::ThumbnailModel::thumbnailStillNeeded(int row) const
@@ -516,12 +515,12 @@ void ThumbnailView::ThumbnailModel::filterByCategory(const QString &category, co
 
 void ThumbnailView::ThumbnailModel::toggleCategoryFilter(const QString &category, const QString &tag)
 {
-    auto tags = m_filter.categoryMatchText(category).split(QString::fromLatin1("&"), QString::SkipEmptyParts);
+    auto tags = m_filter.categoryMatchText(category).split(QLatin1String("&"), QString::SkipEmptyParts);
     for (const auto &existingTag : tags) {
         if (tag == existingTag.trimmed()) {
             qCDebug(ThumbnailViewLog) << "Filter removed: category(" << category << "," << tag << ")";
             tags.removeAll(existingTag);
-            m_filter.setCategoryMatchText(category, tags.join(QString::fromLatin1(" & ")));
+            m_filter.setCategoryMatchText(category, tags.join(QLatin1String(" & ")));
             m_filter.checkIfNull();
             emit filterChanged(m_filter);
             return;
@@ -542,6 +541,19 @@ void ThumbnailView::ThumbnailModel::preloadThumbnails()
             continue;
         const_cast<ThumbnailView::ThumbnailModel *>(this)->requestThumbnail(fileName, ImageManager::ThumbnailInvisible);
     }
+}
+
+int ThumbnailView::ThumbnailModel::stringWidth(const QString &text) const
+{
+    // This is a workaround for the deprecation warnings emerged with Qt 5.13.
+    // QFontMetrics::horizontalAdvance wasn't introduced until Qt 5.11. As soon as we drop support
+    // for Qt versions before 5.11, this can be removed in favor of calling horizontalAdvance
+    // directly.
+#if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
+    return QFontMetrics(widget()->font()).width(text);
+#else
+    return QFontMetrics(widget()->font()).horizontalAdvance(text);
+#endif
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

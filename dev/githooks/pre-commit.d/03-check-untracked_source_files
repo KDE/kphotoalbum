@@ -7,7 +7,7 @@ set -e
 
 if [[ -z "$CHECK_UNTRACKED" ]]
 then
-	CHECK_UNTRACKED=$(git config --default true --type bool --get kpa.checkUntracked)
+	CHECK_UNTRACKED=$(git config --bool --get kpa.checkUntracked || echo true)
 fi
 if [[ "$CHECK_UNTRACKED" == false ]]
 then

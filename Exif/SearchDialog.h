@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -47,7 +47,7 @@ protected:
     QWidget *makeSharpness(QWidget *parent);
     QWidget *makeSaturation(QWidget *parent);
     void makeExposureTime(QGridLayout *layout);
-    RangeWidget *makeApertureOrFNumber(const QString &text, const QString &key, QGridLayout *layout, int row);
+    RangeWidget *makeFNumber(const QString &text, const QString &key, QGridLayout *layout, int row);
     QWidget *makeCamera();
     QWidget *makeLens();
 
@@ -58,7 +58,6 @@ protected slots:
 private:
     Exif::RangeWidget *m_iso;
     Exif::RangeWidget *m_exposureTime;
-    Exif::RangeWidget *m_apertureValue;
     Exif::RangeWidget *m_fNumber;
     Settings<int> m_exposureProgram;
     Settings<int> m_orientation;

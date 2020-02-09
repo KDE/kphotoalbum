@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -149,8 +149,10 @@ Settings::GeneralPage::GeneralPage(QWidget *parent)
         m_albumCategory->addItem(category->name());
     }
 
+#ifdef KPA_ENABLE_REMOTECONTROL
     m_listenForAndroidDevicesOnStartup = new QCheckBox(i18n("Listen for Android devices on startup"));
     lay->addWidget(m_listenForAndroidDevicesOnStartup);
+#endif
 
     lay1->addStretch(1);
 
@@ -198,11 +200,13 @@ Settings::GeneralPage::GeneralPage(QWidget *parent)
     txt = i18n("Show the KPhotoAlbum splash screen on start up");
     m_showSplashScreen->setWhatsThis(txt);
 
+#ifdef KPA_ENABLE_REMOTECONTROL
     txt = i18n("<p>KPhotoAlbum is capable of showing your images on android devices. KPhotoAlbum will automatically pair with the app from "
                "android. This, however, requires that KPhotoAlbum on your desktop is listening for multicast messages. "
                "Checking this checkbox will make KPhotoAlbum do so automatically on start up. "
                "Alternatively, you can click the connection icon in the status bar to start listening.");
     m_listenForAndroidDevicesOnStartup->setWhatsThis(txt);
+#endif
 
     txt = i18n("<p>Some cameras automatically store generic comments in each image. "
                "These comments can be ignored automatically.</p>"
@@ -239,7 +243,9 @@ void Settings::GeneralPage::loadSettings(Settings::SettingsData *opt)
     m_showHistogram->setChecked(opt->showHistogram());
     m_histogramUseLinearScale->setChecked(opt->histogramUseLinearScale());
     m_showSplashScreen->setChecked(opt->showSplashScreen());
+#ifdef KPA_ENABLE_REMOTECONTROL
     m_listenForAndroidDevicesOnStartup->setChecked(opt->listenForAndroidDevicesOnStartup());
+#endif
     DB::CategoryPtr cat = DB::ImageDB::instance()->categoryCollection()->categoryForName(opt->albumCategory());
     if (!cat)
         cat = DB::ImageDB::instance()->categoryCollection()->categories()[0];
@@ -273,7 +279,9 @@ void Settings::GeneralPage::saveSettings(Settings::SettingsData *opt)
     opt->setShowHistogram(m_showHistogram->isChecked());
     opt->setHistogramUseLinearScale(m_histogramUseLinearScale->isChecked());
     opt->setShowSplashScreen(m_showSplashScreen->isChecked());
+#ifdef KPA_ENABLE_REMOTECONTROL
     opt->setListenForAndroidDevicesOnStartup(m_listenForAndroidDevicesOnStartup->isChecked());
+#endif
 
     QString name = m_albumCategory->currentText();
     if (name.isNull()) {

@@ -52,7 +52,7 @@ ConnectionIndicator::ConnectionIndicator(QWidget *parent)
     connect(&RemoteInterface::instance(), SIGNAL(stoppedListening()), this, SLOT(off()));
 
     m_timer = new QTimer(this);
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(waitingAnimation()));
+    connect(m_timer, &QTimer::timeout, this, &ConnectionIndicator::waitingAnimation);
 
     off();
 }
@@ -111,7 +111,7 @@ void ConnectionIndicator::contextMenuEvent(QContextMenuEvent *)
     layout.addWidget(&label);
     layout.addWidget(&edit);
 
-    connect(&edit, SIGNAL(returnPressed()), &dialog, SLOT(accept()));
+    connect(&edit, &QLineEdit::returnPressed, &dialog, &QDialog::accept);
     int code = dialog.exec();
 
     if (code == QDialog::Accepted) {

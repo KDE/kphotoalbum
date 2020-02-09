@@ -18,6 +18,7 @@
 #include "ThumbnailFacade.h"
 
 #include "CellGeometry.h"
+#include "FilterWidget.h"
 #include "GridResizeSlider.h"
 #include "ThumbnailModel.h"
 #include "ThumbnailToolTip.h"
@@ -106,9 +107,14 @@ QSlider *ThumbnailView::ThumbnailFacade::createResizeSlider()
     return new GridResizeSlider(this);
 }
 
-ThumbnailView::FilterWidget *ThumbnailView::ThumbnailFacade::createFilterWidget(QWidget *parent)
+ThumbnailView::FilterWidget *ThumbnailView::ThumbnailFacade::filterWidget()
 {
-    return model()->createFilterWidget(parent);
+    return model()->filterWidget();
+}
+
+KActionCollection *ThumbnailView::ThumbnailFacade::actions()
+{
+    return filterWidget()->actions();
 }
 
 void ThumbnailView::ThumbnailFacade::selectAll()

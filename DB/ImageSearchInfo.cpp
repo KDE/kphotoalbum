@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -46,19 +46,17 @@ static int nextGeneration()
     return s_matchGeneration++;
 }
 
+ImageSearchInfo::ImageSearchInfo()
+    : m_matchGeneration(nextGeneration())
+{
+}
+
 ImageSearchInfo::ImageSearchInfo(const ImageDate &date,
                                  const QString &label, const QString &description)
     : m_date(date)
     , m_label(label)
     , m_description(description)
-    , m_rating(-1)
-    , m_megapixel(0)
-    , m_max_megapixel(0)
-    , m_ratingSearchMode(0)
-    , m_searchRAW(false)
     , m_isNull(false)
-    , m_isCacheable(true)
-    , m_compiled(false)
     , m_matchGeneration(nextGeneration())
 {
 }
@@ -70,14 +68,7 @@ ImageSearchInfo::ImageSearchInfo(const ImageDate &date,
     , m_label(label)
     , m_description(description)
     , m_fnPattern(fnPattern)
-    , m_rating(-1)
-    , m_megapixel(0)
-    , m_max_megapixel(0)
-    , m_ratingSearchMode(0)
-    , m_searchRAW(false)
     , m_isNull(false)
-    , m_isCacheable(true)
-    , m_compiled(false)
     , m_matchGeneration(nextGeneration())
 {
 }
@@ -99,7 +90,7 @@ QString ImageSearchInfo::description() const
 
 void ImageSearchInfo::checkIfNull()
 {
-    if (m_compiled || isNull())
+    if (m_compiled.valid || isNull())
         return;
     if (m_date.isNull() && m_label.isEmpty() && m_description.isEmpty()
         && m_rating == -1 && m_megapixel == 0 && m_exifSearchInfo.isNull()
@@ -110,19 +101,6 @@ void ImageSearchInfo::checkIfNull()
     ) {
         m_isNull = true;
     }
-}
-
-ImageSearchInfo::ImageSearchInfo()
-    : m_rating(-1)
-    , m_megapixel(0)
-    , m_max_megapixel(0)
-    , m_ratingSearchMode(0)
-    , m_searchRAW(false)
-    , m_isNull(true)
-    , m_isCacheable(true)
-    , m_compiled(false)
-    , m_matchGeneration(nextGeneration())
-{
 }
 
 bool ImageSearchInfo::isNull() const
@@ -159,7 +137,7 @@ bool ImageSearchInfo::match(ImageInfoPtr info) const
 
 bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
 {
-    if (!m_compiled)
+    if (!m_compiled.valid)
         compile();
 
     // -------------------------------------------------- Rating
@@ -243,7 +221,7 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
     // alreadyMatched map is used to make it possible to search for
     // Jesper & None
     QMap<QString, StringSet> alreadyMatched;
-    for (CategoryMatcher *optionMatcher : m_categoryMatchers) {
+    for (CategoryMatcher *optionMatcher : m_compiled.categoryMatchers) {
         if (!optionMatcher->eval(info, alreadyMatched))
             return false;
     }
@@ -278,7 +256,7 @@ void ImageSearchInfo::setCategoryMatchText(const QString &name, const QString &v
         m_categoryMatchText[name] = value;
     }
     m_isNull = false;
-    m_compiled = false;
+    m_compiled.valid = false;
     m_matchGeneration = nextGeneration();
 }
 
@@ -296,7 +274,7 @@ void ImageSearchInfo::addAnd(const QString &category, const QString &value)
 
     setCategoryMatchText(category, val);
     m_isNull = false;
-    m_compiled = false;
+    m_compiled.valid = false;
     m_matchGeneration = nextGeneration();
 }
 
@@ -304,7 +282,7 @@ void ImageSearchInfo::setRating(short rating)
 {
     m_rating = rating;
     m_isNull = false;
-    m_compiled = false;
+    m_compiled.valid = false;
     m_matchGeneration = nextGeneration();
 }
 
@@ -403,34 +381,12 @@ ImageSearchInfo ImageSearchInfo::loadLock()
     return info;
 }
 
-ImageSearchInfo::ImageSearchInfo(const ImageSearchInfo &other)
-{
-    m_date = other.m_date;
-    m_categoryMatchText = other.m_categoryMatchText;
-    m_label = other.m_label;
-    m_description = other.m_description;
-    m_fnPattern = other.m_fnPattern;
-    m_isNull = other.m_isNull;
-    m_compiled = false;
-    m_rating = other.m_rating;
-    m_ratingSearchMode = other.m_ratingSearchMode;
-    m_megapixel = other.m_megapixel;
-    m_max_megapixel = other.m_max_megapixel;
-    m_searchRAW = other.m_searchRAW;
-    m_exifSearchInfo = other.m_exifSearchInfo;
-    m_matchGeneration = other.m_matchGeneration;
-    m_isCacheable = other.m_isCacheable;
-#ifdef HAVE_MARBLE
-    m_regionSelection = other.m_regionSelection;
-#endif
-}
-
 void ImageSearchInfo::compile() const
 {
     qCDebug(DBCategoryMatcherLog) << "Compiling search info...";
     m_exifSearchInfo.search();
 
-    deleteMatchers();
+    CompiledDataPrivate compiledData;
 
     for (QMap<QString, QString>::ConstIterator it = m_categoryMatchText.begin(); it != m_categoryMatchText.end(); ++it) {
         QString category = it.key();
@@ -495,7 +451,7 @@ void ImageSearchInfo::compile() const
             matcher = orMatcher;
 
         if (matcher) {
-            m_categoryMatchers.append(matcher);
+            compiledData.categoryMatchers.append(matcher);
             if (DBCategoryMatcherLog().isDebugEnabled()) {
                 qCDebug(DBCategoryMatcherLog) << "Matching text '" << matchText << "' in category " << category << ":";
                 matcher->debug(0);
@@ -503,42 +459,38 @@ void ImageSearchInfo::compile() const
             }
         }
     }
-    m_compiled = true;
-}
-
-ImageSearchInfo::~ImageSearchInfo()
-{
-    deleteMatchers();
+    compiledData.valid = true;
+    std::swap(m_compiled, compiledData);
 }
 
 void ImageSearchInfo::debugMatcher() const
 {
-    if (!m_compiled)
+    if (!m_compiled.valid)
         compile();
 
     qCDebug(DBCategoryMatcherLog, "And:");
-    for (CategoryMatcher *optionMatcher : m_categoryMatchers) {
+    for (CategoryMatcher *optionMatcher : m_compiled.categoryMatchers) {
         optionMatcher->debug(1);
     }
 }
 
 QList<QList<SimpleCategoryMatcher *>> ImageSearchInfo::query() const
 {
-    if (!m_compiled)
+    if (!m_compiled.valid)
         compile();
 
     // Combine _optionMachers to one list of lists in Disjunctive
     // Normal Form and return it.
 
-    QList<CategoryMatcher *>::Iterator it = m_categoryMatchers.begin();
+    QList<CategoryMatcher *>::Iterator it = m_compiled.categoryMatchers.begin();
     QList<QList<SimpleCategoryMatcher *>> result;
-    if (it == m_categoryMatchers.end())
+    if (it == m_compiled.categoryMatchers.end())
         return result;
 
     result = convertMatcher(*it);
     ++it;
 
-    for (; it != m_categoryMatchers.end(); ++it) {
+    for (; it != m_compiled.categoryMatchers.end(); ++it) {
         QList<QList<SimpleCategoryMatcher *>> current = convertMatcher(*it);
         QList<QList<SimpleCategoryMatcher *>> oldResult = result;
         result.clear();
@@ -570,12 +522,6 @@ Utilities::StringSet ImageSearchInfo::findAlreadyMatched(const QString &group) c
             result.insert(nm);
     }
     return result;
-}
-
-void ImageSearchInfo::deleteMatchers() const
-{
-    qDeleteAll(m_categoryMatchers);
-    m_categoryMatchers.clear();
 }
 
 QList<SimpleCategoryMatcher *> ImageSearchInfo::extractAndMatcher(CategoryMatcher *matcher) const
@@ -631,13 +577,15 @@ void ImageSearchInfo::addExifSearchInfo(const Exif::SearchInfo info)
 {
     m_exifSearchInfo = info;
     m_isNull = false;
+    m_matchGeneration = nextGeneration();
 }
 
 void DB::ImageSearchInfo::renameCategory(const QString &oldName, const QString &newName)
 {
     m_categoryMatchText[newName] = m_categoryMatchText[oldName];
     m_categoryMatchText.remove(oldName);
-    m_compiled = false;
+    m_compiled.valid = false;
+    m_matchGeneration = nextGeneration();
 }
 
 #ifdef HAVE_MARBLE
@@ -649,12 +597,31 @@ Map::GeoCoordinates::LatLonBox ImageSearchInfo::regionSelection() const
 void ImageSearchInfo::setRegionSelection(const Map::GeoCoordinates::LatLonBox &actRegionSelection)
 {
     m_regionSelection = actRegionSelection;
-    m_compiled = false;
+    m_compiled.valid = false;
     if (!m_regionSelection.isNull()) {
         m_isNull = false;
     }
     m_matchGeneration = nextGeneration();
 }
 #endif
+
+ImageSearchInfo::CompiledDataPrivate::CompiledDataPrivate(const ImageSearchInfo::CompiledDataPrivate &)
+{
+    // copying invalidates the compiled data
+    valid = false;
+}
+
+ImageSearchInfo::CompiledDataPrivate::~CompiledDataPrivate()
+{
+    qDeleteAll(categoryMatchers);
+    categoryMatchers.clear();
+}
+
+ImageSearchInfo::CompiledDataPrivate &ImageSearchInfo::CompiledDataPrivate::operator=(const ImageSearchInfo::CompiledDataPrivate &)
+{
+    // copying invalidates the compiled data
+    valid = false;
+    return *this;
+}
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -68,7 +68,7 @@ void BackgroundTaskManager::JobManager::execute()
 
     while (m_active.count() < maxJobCount() && !m_queue.isEmpty()) {
         JobInterface *job = m_queue.dequeue();
-        connect(job, SIGNAL(completed()), this, SLOT(jobCompleted()));
+        connect(job, &JobInterface::completed, this, &JobManager::jobCompleted);
         m_active.append(job);
         emit jobStarted(job);
         job->start();

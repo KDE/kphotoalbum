@@ -22,6 +22,7 @@
 
 #include <DB/FileNameList.h>
 
+class KActionCollection;
 class QSlider;
 
 namespace ThumbnailView
@@ -54,12 +55,20 @@ public:
     QSlider *createResizeSlider();
 
     /**
-     * @brief createFilterWidget that is connected to the ThumbnailModel.
-     * It will reflect changes in the filter and can be used to set the filter.
-     * @param parent
-     * @return a new FilterWidget with the given parent.
+     * @brief filterWidget provides a FilterWidget that is connected to the ThumbnailModel.
+     * If called multiple times, the same FilterWidget will be returned.
+     * Keyboard shortcuts for the widget are included in ThumbnailFacade::actions().
+     * The widget will reflect changes in the filter and can be used to set the filter.
+     * @return a FilterWidget
      */
-    FilterWidget *createFilterWidget(QWidget *parent = nullptr);
+    FilterWidget *filterWidget();
+
+    /**
+     * @brief a collection of all QActions for the ThumbnailView component.
+     * Currently, this only contains the filterWidget actions.
+     * @return the QActions for the whole thumbnail view component.
+     */
+    KActionCollection *actions();
 
 public slots:
     void gotoDate(const DB::ImageDate &date, bool includeRanges);

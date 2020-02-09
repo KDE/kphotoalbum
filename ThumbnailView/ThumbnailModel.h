@@ -92,7 +92,7 @@ public:
      */
     bool isFiltered() const;
 
-    FilterWidget *createFilterWidget(QWidget *parent = nullptr);
+    FilterWidget *filterWidget();
 
 public slots:
     void updateVisibleRowInfo();
@@ -168,6 +168,8 @@ private: // Instance variables.
      */
     DB::FileName m_rightDrop;
 
+    int stringWidth(const QString &text) const;
+
     SortDirection m_sortDirection;
 
     /**
@@ -181,9 +183,10 @@ private: // Instance variables.
     QSet<DB::StackID> m_allStacks;
 
     /**
-     * A map mapping from Id to its index in m_displayList.
+     * A hash mapping from Id to its index in m_displayList.
+     * The structure is not iterated over, so order doesn't matter.
      */
-    QMap<DB::FileName, int> m_fileNameToIndex;
+    QHash<DB::FileName, int> m_fileNameToIndex;
 
     int m_firstVisibleRow;
     int m_lastVisibleRow;
@@ -196,6 +199,7 @@ private: // Instance variables.
 
     DB::ImageSearchInfo m_filter;
     DB::ImageSearchInfo m_previousFilter;
+    FilterWidget *m_filterWidget;
 };
 
 }

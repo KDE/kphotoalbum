@@ -87,17 +87,17 @@ XMLDB::Database::Database(const QString &configFile, DB::UIDelegate &delegate)
     reader.read(configFile);
     m_nextStackId = reader.nextStackId();
 
-    connect(categoryCollection(), SIGNAL(itemRemoved(DB::Category *, QString)),
-            this, SLOT(deleteItem(DB::Category *, QString)));
-    connect(categoryCollection(), SIGNAL(itemRenamed(DB::Category *, QString, QString)),
-            this, SLOT(renameItem(DB::Category *, QString, QString)));
+    connect(categoryCollection(), &DB::CategoryCollection::itemRemoved,
+            this, &Database::deleteItem);
+    connect(categoryCollection(), &DB::CategoryCollection::itemRenamed,
+            this, &Database::renameItem);
 
-    connect(categoryCollection(), SIGNAL(itemRemoved(DB::Category *, QString)),
-            &m_members, SLOT(deleteItem(DB::Category *, QString)));
-    connect(categoryCollection(), SIGNAL(itemRenamed(DB::Category *, QString, QString)),
-            &m_members, SLOT(renameItem(DB::Category *, QString, QString)));
-    connect(categoryCollection(), SIGNAL(categoryRemoved(QString)),
-            &m_members, SLOT(deleteCategory(QString)));
+    connect(categoryCollection(), &DB::CategoryCollection::itemRemoved,
+            &m_members, &DB::MemberMap::deleteItem);
+    connect(categoryCollection(), &DB::CategoryCollection::itemRenamed,
+            &m_members, &DB::MemberMap::renameItem);
+    connect(categoryCollection(), &DB::CategoryCollection::categoryRemoved,
+            &m_members, &DB::MemberMap::deleteCategory);
 }
 
 uint XMLDB::Database::totalCount() const
@@ -768,8 +768,26 @@ void XMLDB::Database::possibleLoadCompressedCategories(ReaderPtr reader, DB::Ima
             QStringList list = str.split(QString::fromLatin1(","), QString::SkipEmptyParts);
             Q_FOREACH (const QString &tagString, list) {
                 int id = tagString.toInt();
-                QString name = static_cast<const XMLCategory *>(categoryPtr.data())->nameForId(id);
-                info->addCategoryInfo(categoryName, name);
+                if (id != 0 || categoryPtr->isSpecialCategory()) {
+                    const QString name = static_cast<const XMLCategory *>(categoryPtr.data())->nameForId(id);
+                    info->addCategoryInfo(categoryName, name);
+                } else {
+                    QStringList tags = static_cast<const XMLCategory *>(categoryPtr.data())->namesForId(id);
+                    if (tags.size() == 1) {
+                        qCInfo(XMLDBLog) << "Fixing tag " << categoryName << "/" << tags[0] << "with id=0 for image" << info->fileName().relative();
+                    } else {
+                        // insert marker category
+                        QString markerTag = i18n("KPhotoAlbum - manual repair needed (%1)",
+                                                 tags.join(i18nc("Separator in a list of tags", ", ")));
+                        categoryPtr->addItem(markerTag);
+                        info->addCategoryInfo(categoryName, markerTag);
+                        qCWarning(XMLDBLog) << "Manual fix required for image" << info->fileName().relative();
+                        qCWarning(XMLDBLog) << "Image was marked with tag " << categoryName << "/" << markerTag;
+                    }
+                    for (const auto &name : tags) {
+                        info->addCategoryInfo(categoryName, name);
+                    }
+                }
             }
         }
     }

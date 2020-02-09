@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -20,14 +20,16 @@
 
 #include "AsyncLoader.h"
 #include "ImageDecoder.h"
+#include "Logging.h"
 #include "RawImageDecoder.h"
 #include "ThumbnailCache.h"
 
 #include <Utilities/FastJpeg.h>
 #include <Utilities/ImageUtil.h>
 
-#include <qapplication.h>
-#include <qfileinfo.h>
+#include <QApplication>
+#include <QFileInfo>
+#include <QLoggingCategory>
 
 extern "C" {
 #include <limits.h>
@@ -104,7 +106,7 @@ QImage ImageManager::ImageLoaderThread::loadImage(ImageRequest *request, bool &o
         // At first, we have to give our RAW decoders a try. If we allowed
         // QImage's load() method, it'd for example load a tiny thumbnail from
         // NEF files, which is not what we want.
-        ok = ImageDecoder::decode(&img, request->fileSystemFileName(), &fullSize, dim);
+        ok = ImageDecoder::decode(&img, request, &fullSize, dim);
         if (ok)
             request->setFullSize(img.size());
     }
@@ -126,12 +128,13 @@ int ImageManager::ImageLoaderThread::calcLoadSize(ImageRequest *request)
 
 QImage ImageManager::ImageLoaderThread::scaleAndRotate(ImageRequest *request, QImage img)
 {
-    if (request->angle() != 0) {
+    if (request->angle() != 0 && !request->imageIsPreRotated()) {
         QMatrix matrix;
         matrix.rotate(request->angle());
         img = img.transformed(matrix);
         int angle = (request->angle() + 360) % 360;
         Q_ASSERT(angle >= 0 && angle <= 360);
+        qCDebug(ImageManagerLog) << "Rotating image to" << angle << "degrees:" << request->fileSystemFileName().relative();
         if (angle == 90 || angle == 270)
             request->setFullSize(QSize(request->fullSize().height(), request->fullSize().width()));
     }

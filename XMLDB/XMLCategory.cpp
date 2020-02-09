@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -17,6 +17,7 @@
 */
 #include "XMLCategory.h"
 
+#include "Logging.h"
 #include <DB/ImageDB.h>
 #include <DB/MemberMap.h>
 #include <Utilities/List.h>
@@ -130,7 +131,8 @@ void XMLDB::XMLCategory::renameItem(const QString &oldValue, const QString &newV
     m_idMap.remove(oldValue);
 
     addItem(newValue);
-    setIdMapping(newValue, id);
+    if (id > 0)
+        setIdMapping(newValue, id);
     emit itemRenamed(oldValue, newValue);
 }
 
@@ -149,6 +151,7 @@ QStringList XMLDB::XMLCategory::items() const
 
 int XMLDB::XMLCategory::idForName(const QString &name) const
 {
+    Q_ASSERT(m_idMap.count(name) <= 1);
     return m_idMap[name];
 }
 
@@ -177,15 +180,38 @@ void XMLDB::XMLCategory::initIdMap()
     }
 }
 
-void XMLDB::XMLCategory::setIdMapping(const QString &name, int id)
+void XMLDB::XMLCategory::setIdMapping(const QString &name, int id, IdMapping mode)
 {
-    m_nameMap.insert(id, name);
-    m_idMap.insert(name, id);
+    if (id <= 0) {
+        if (mode == IdMapping::SafeMapping) {
+            qCWarning(XMLDBLog, "XMLDB::XMLCategory::setIdMapping attempting to set id for %s to invalid value %d", qPrintable(name), id);
+        } else {
+            m_nameMap.insertMulti(id, name);
+            m_idMap.insertMulti(name, id);
+        }
+    } else {
+        m_nameMap.insert(id, name);
+        m_idMap.insert(name, id);
+    }
 }
 
 QString XMLDB::XMLCategory::nameForId(int id) const
 {
+    Q_ASSERT(m_nameMap.count(id) <= 1);
     return m_nameMap[id];
+}
+
+QStringList XMLDB::XMLCategory::namesForId(int id) const
+{
+    return m_nameMap.values(id);
+}
+
+void XMLDB::XMLCategory::clearNullIds()
+{
+    for (const auto &tag : namesForId(0)) {
+        m_idMap.remove(tag);
+    }
+    m_nameMap.remove(0);
 }
 
 void XMLDB::XMLCategory::setThumbnailSize(int size)

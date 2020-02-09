@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -21,6 +21,7 @@
 #include <DB/ImageInfo.h>
 #include <MainWindow/DeleteDialog.h>
 
+#include <KActionCollection>
 #include <KLocalizedString>
 #include <QApplication>
 #include <QCheckBox>
@@ -32,13 +33,14 @@
 
 using namespace AnnotationDialog;
 
-ImagePreviewWidget::ImagePreviewWidget()
+ImagePreviewWidget::ImagePreviewWidget(KActionCollection *actions)
     : QWidget()
+    , m_actions(actions)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
     m_preview = new ImagePreview(this);
     layout->addWidget(m_preview, 1);
-    connect(this, SIGNAL(areaVisibilityChanged(bool)), m_preview, SLOT(setAreaCreationEnabled(bool)));
+    connect(this, &ImagePreviewWidget::areaVisibilityChanged, m_preview, &ImagePreview::setAreaCreationEnabled);
 
     m_controlWidget = new QWidget;
     layout->addWidget(m_controlWidget);
@@ -51,41 +53,37 @@ ImagePreviewWidget::ImagePreviewWidget()
     m_prevBut->setIcon(QIcon::fromTheme(QString::fromLatin1("arrow-left")));
     m_prevBut->setFixedWidth(40);
     controlButtonsLayout->addWidget(m_prevBut);
-    m_prevBut->setToolTip(i18n("Annotate previous image"));
+    m_prevBut->setToolTip(i18n("Annotate previous image (Page Up)"));
 
     m_nextBut = new QPushButton(this);
     m_nextBut->setIcon(QIcon::fromTheme(QString::fromLatin1("arrow-right")));
     m_nextBut->setFixedWidth(40);
     controlButtonsLayout->addWidget(m_nextBut);
-    m_nextBut->setToolTip(i18n("Annotate next image"));
+    m_nextBut->setToolTip(i18n("Annotate next image (Page Down)"));
 
     controlButtonsLayout->addStretch(1);
 
     m_toggleFullscreenPreview = new QPushButton;
     m_toggleFullscreenPreview->setIcon(QIcon::fromTheme(QString::fromUtf8("file-zoom-in")));
     m_toggleFullscreenPreview->setFixedWidth(40);
-    m_toggleFullscreenPreview->setToolTip(i18n("Toggle full-screen preview (CTRL+Space)"));
+
     controlButtonsLayout->addWidget(m_toggleFullscreenPreview);
-    connect(m_toggleFullscreenPreview, &QPushButton::clicked,
-            this, &ImagePreviewWidget::toggleFullscreenPreview);
+    connect(m_toggleFullscreenPreview, &QPushButton::clicked, this, &ImagePreviewWidget::toggleFullscreenPreview);
 
     m_rotateLeft = new QPushButton(this);
     controlButtonsLayout->addWidget(m_rotateLeft);
     m_rotateLeft->setIcon(QIcon::fromTheme(QString::fromLatin1("object-rotate-left")));
     m_rotateLeft->setFixedWidth(40);
-    m_rotateLeft->setToolTip(i18n("Rotate counterclockwise"));
 
     m_rotateRight = new QPushButton(this);
     controlButtonsLayout->addWidget(m_rotateRight);
     m_rotateRight->setIcon(QIcon::fromTheme(QString::fromLatin1("object-rotate-right")));
     m_rotateRight->setFixedWidth(40);
-    m_rotateRight->setToolTip(i18n("Rotate clockwise"));
 
     m_copyPreviousBut = new QPushButton(this);
     controlButtonsLayout->addWidget(m_copyPreviousBut);
     m_copyPreviousBut->setIcon(QIcon::fromTheme(QString::fromLatin1("go-bottom")));
     m_copyPreviousBut->setFixedWidth(40);
-    m_copyPreviousBut->setToolTip(i18n("Copy tags from previously tagged image"));
     m_copyPreviousBut->setWhatsThis(i18nc("@info:whatsthis", "<para>Set the same tags on this image than on the previous one. The image date, label, rating, and description are left unchanged.</para>"));
 
     m_toggleAreasBut = new QPushButton(this);
@@ -100,18 +98,17 @@ ImagePreviewWidget::ImagePreviewWidget()
     m_delBut = new QPushButton(this);
     m_delBut->setIcon(QIcon::fromTheme(QString::fromLatin1("edit-delete")));
     controlButtonsLayout->addWidget(m_delBut);
-    m_delBut->setToolTip(i18n("Delete image"));
     m_delBut->setAutoDefault(false);
 
     controlButtonsLayout->addStretch(1);
 
-    connect(m_copyPreviousBut, SIGNAL(clicked()), this, SLOT(slotCopyPrevious()));
-    connect(m_delBut, SIGNAL(clicked()), this, SLOT(slotDeleteImage()));
-    connect(m_nextBut, SIGNAL(clicked()), this, SLOT(slotNext()));
-    connect(m_prevBut, SIGNAL(clicked()), this, SLOT(slotPrev()));
-    connect(m_rotateLeft, SIGNAL(clicked()), this, SLOT(rotateLeft()));
-    connect(m_rotateRight, SIGNAL(clicked()), this, SLOT(rotateRight()));
-    connect(m_toggleAreasBut, SIGNAL(clicked(bool)), this, SLOT(slotShowAreas(bool)));
+    connect(m_copyPreviousBut, &QPushButton::clicked, this, &ImagePreviewWidget::slotCopyPrevious);
+    connect(m_delBut, &QPushButton::clicked, this, &ImagePreviewWidget::slotDeleteImage);
+    connect(m_nextBut, &QPushButton::clicked, this, &ImagePreviewWidget::slotNext);
+    connect(m_prevBut, &QPushButton::clicked, this, &ImagePreviewWidget::slotPrev);
+    connect(m_rotateLeft, &QPushButton::clicked, this, &ImagePreviewWidget::rotateLeft);
+    connect(m_rotateRight, &QPushButton::clicked, this, &ImagePreviewWidget::rotateRight);
+    connect(m_toggleAreasBut, &QPushButton::clicked, this, &ImagePreviewWidget::slotShowAreas);
 
     QHBoxLayout *defaultAreaCategoryLayout = new QHBoxLayout;
     controlLayout->addLayout(defaultAreaCategoryLayout);
@@ -356,4 +353,19 @@ void ImagePreviewWidget::setToggleFullscreenPreviewEnabled(bool state)
     m_toggleFullscreenPreview->setEnabled(state);
 }
 
+void AnnotationDialog::ImagePreviewWidget::showEvent(QShowEvent *)
+{
+    auto setToolTip = [this](QWidget *widget, QString tooltip, const char *key) {
+        QKeySequence shortcut = m_actions->action(QString::fromLatin1(key))->shortcut();
+        if (!shortcut.isEmpty())
+            tooltip += QString::fromLatin1(" (%1)").arg(shortcut.toString());
+        widget->setToolTip(tooltip);
+    };
+
+    setToolTip(m_toggleFullscreenPreview, i18nc("@info:tooltip", "Toggle full-screen preview"), "annotationdialog-toggle-viewer");
+    setToolTip(m_rotateLeft, i18nc("@info:tooltip", "Rotate counterclockwise"), "annotationdialog-rotate-left");
+    setToolTip(m_rotateRight, i18nc("@info:tooltip", "Rotate clockwise"), "annotationdialog-rotate-right");
+    setToolTip(m_copyPreviousBut, i18nc("@info:tooltip", "Copy tags from previously tagged image"), "annotationdialog-copy-previous");
+    setToolTip(m_delBut, i18nc("@info:tooltip", "Delete image"), "annotationdialog-delete-image");
+}
 // vi:expandtab:tabstop=4 shiftwidth=4:

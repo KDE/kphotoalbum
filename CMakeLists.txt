@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2.0)
-project(kphotoalbum VERSION 5.5)
+project(kphotoalbum VERSION 5.6)
 
 if(POLICY CMP0063)
     cmake_policy(SET CMP0063 NEW)
@@ -31,7 +31,7 @@ add_definitions(
     )
 
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_REQUIRED TRUE)
 
 ########### dependencies  ###############
@@ -432,17 +432,23 @@ set(libBackgroundJobs_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/BackgroundJobs/ExtractOneThumbnailJob.cpp
     )
 
-set(libRemoteControl_SRCS
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteCommand.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteConnection.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Server.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteInterface.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/SearchInfo.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteImageRequest.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ImageNameStore.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ConnectionIndicator.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Logging.cpp
-    )
+option(KPA_ENABLE_REMOTECONTROL "Build with support for companion Android/QML app." OFF)
+set(libRemoteControl_SRCS)
+if(KPA_ENABLE_REMOTECONTROL)
+    # requires cmake 3.12
+    add_compile_definitions(KPA_ENABLE_REMOTECONTROL)
+    set(libRemoteControl_SRCS
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteCommand.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteConnection.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Server.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteInterface.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/SearchInfo.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteImageRequest.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ImageNameStore.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ConnectionIndicator.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Logging.cpp
+        )
+endif()
 
 set(libMap_SRCS)
 if(Marble_FOUND)

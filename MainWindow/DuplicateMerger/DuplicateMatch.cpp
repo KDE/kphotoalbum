@@ -1,4 +1,4 @@
-/* Copyright 2012-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
   
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -58,12 +58,12 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList &files)
     m_merge = new QCheckBox(i18n("Merge these images"));
     rightSideLayout->addWidget(m_merge);
     m_merge->setChecked(false);
-    connect(m_merge, SIGNAL(toggled(bool)), this, SIGNAL(selectionChanged()));
+    connect(m_merge, &QCheckBox::toggled, this, &DuplicateMatch::selectionChanged);
 
     QWidget *options = new QWidget;
     rightSideLayout->addWidget(options);
     QVBoxLayout *optionsLayout = new QVBoxLayout(options);
-    connect(m_merge, SIGNAL(toggled(bool)), options, SLOT(setEnabled(bool)));
+    connect(m_merge, &QCheckBox::toggled, options, &QWidget::setEnabled);
 
     QLabel *label = new QLabel(i18n("Select target:"));
     optionsLayout->addWidget(label);

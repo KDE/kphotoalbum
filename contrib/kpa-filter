@@ -164,11 +164,11 @@ $exif_vars
 	In addition, the following functions are provided to match on
 	categoried information:
 
-	    hasKeyword(\$value)
-	    hasPerson(\$value)
-	    hasPlace(\$value)
-	    hasToken(\$value)
-	    hasAttribute(\$category, \$value)
+	    hasKeyword([\$value])
+	    hasPerson([\$value])
+	    hasPlace([\$value])
+	    hasToken([\$value])
+	    hasAttribute(\$category, [\$value])
 	    matchesKeyword(\$pattern)
 	    matchesPerson(\$pattern)
 	    matchesPlace(\$pattern)
@@ -176,7 +176,9 @@ $exif_vars
 	    matchesAttribute(\$category, \$pattern)
 
 	The "matches" functions accept Perl regular expressions (see
-	perlre(1)).
+	perlre(1)).  The "has" functions take the value as an optional
+	argument; if not provided, they search for images that have any
+	value of the specified category.
 
 	The following options are available:
 
@@ -304,9 +306,9 @@ sub loadCompressedOptions(\%) {
 	if (defined $members && $members ne '') {
 	    my ($map) = $category_map{$category};
 	    @members = map {$$map[$_]} split(/,/, $members);
+	    $options{$category} = {};
+	    map { $options{$category}{$_} = 1; } computeClosure($category, @members);
 	}
-	$options{$category} = {};
-	map { $options{$category}{$_} = 1; } computeClosure($category, @members);
     }
     return \%options;
 }
@@ -321,28 +323,32 @@ sub loadOptions() {
     }
 }
 
-sub hasAttribute($$) {
+sub hasAttribute($;$) {
     my ($category, $value) = @_;
     loadOptions();
-    return defined $current_image{"options"}{$category}{$value};
+    if (defined $value) {
+	return defined $current_image{"options"}{$category}{$value};
+    } else {
+	return defined $current_image{"options"}{$category};
+    }
 }
 
-sub hasKeyword($) {
+sub hasKeyword(;$) {
     my ($value) = @_;
     return hasAttribute("Keywords", $value);
 }
 
-sub hasPerson($) {
+sub hasPerson(;$) {
     my ($value) = @_;
     return hasAttribute("People", $value);
 }
 
-sub hasPlace($) {
+sub hasPlace(;$) {
     my ($value) = @_;
     return hasAttribute("Places", $value);
 }
 
-sub hasToken($) {
+sub hasToken(;$) {
     my ($value) = @_;
     return hasAttribute("Token", $value);
 }
@@ -656,7 +662,7 @@ if ($opt_filter_file) {
     $kpa_filter = $ARGV[0];
 }
 if (! defined $opt_use_exif) {
-    if ((defined $kpa_filter && $kpa_filter =~ /Exif_/) || 
+    if ((defined $kpa_filter && $kpa_filter =~ /Exif_/) ||
 	(defined $opt_list_type && $opt_list_type =~ /Exif_/)) {
 	$opt_use_exif = 1;
     } else {

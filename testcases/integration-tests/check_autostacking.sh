@@ -18,9 +18,13 @@ prepare_check_autostacking()
 {
 	local check_dir="$1"
 	echo -e "$BASE_RC" > "$check_dir/kphotoalbumrc"
-	convert "$check_dir/db/grand_canyon_1.jpg" -pointsize 60 -draw "gravity center fill red text 0,0 'EDITED - Autostacked'" "$check_dir/db/grand_canyon_1-edited.jpg"
-	convert -size 700x460  label:"NOT STACKED" "$check_dir/db/grand_canyon_1-edited-unrelated.jpg"
-	exiv2 -M"set Exif.Photo.DateTimeOriginal '2000-01-01 00:00:00'" "$check_dir/db/grand_canyon_1-edited.jpg" "$check_dir/db/grand_canyon_1-edited-unrelated.jpg"
+	# The two images were originally created using these commands:
+	#convert "$check_dir/db/grand_canyon_1.jpg" -pointsize 60 -draw "gravity center fill red text 0,0 'EDITED - Autostacked'" "$check_dir/db/grand_canyon_1-edited.jpg"
+	#convert -size 700x460  label:"NOT STACKED" "$check_dir/db/grand_canyon_1-edited-unrelated.jpg"
+	#exiv2 -M"set Exif.Photo.DateTimeOriginal '2000-01-01 00:00:00'" "$check_dir/db/grand_canyon_1-edited.jpg" "$check_dir/db/grand_canyon_1-edited-unrelated.jpg"
+	# ... but to get the same md5 sums every time we just copy them:
+	cp -a "$mydir/integration-tests/check_autostacking/grand_canyon_1-edited-unrelated.jpg" "$check_dir/db/"
+	cp -a "$mydir/integration-tests/check_autostacking/grand_canyon_1-edited.jpg" "$check_dir/db/"
 }
 call_check_autostacking()
 {

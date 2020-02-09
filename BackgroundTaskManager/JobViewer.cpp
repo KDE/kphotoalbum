@@ -1,4 +1,4 @@
-/* Copyright 2012-2016 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -44,7 +44,7 @@ BackgroundTaskManager::JobViewer::JobViewer(QWidget *parent)
     m_pauseButton = buttonBox->addButton(i18n("Pause"), QDialogButtonBox::YesRole);
     buttonBox->addButton(QDialogButtonBox::Close);
 
-    connect(m_pauseButton, SIGNAL(clicked()), this, SLOT(togglePause()));
+    connect(m_pauseButton, &QPushButton::clicked, this, &JobViewer::togglePause);
     connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::accept);
 
     mainLayout->addWidget(buttonBox);

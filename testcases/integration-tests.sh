@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2018 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# Copyright 2018-2020 The KPhotoAlbum Development Team
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -114,8 +114,10 @@ setup_check()
 kphotoalbum.*=true
 EOF
 
-	# copy demo database
-	if ! cp -r "$mydir/../demo/"* "$check_dir/db"
+	# copy demo database (except movie.avi)
+	# ... movie.avi often makes problems with thumbnailing, causing kphotoalbum to add a token.
+	# ... Since this does not happen reproducibly for all platforms, better not add the movie file as long as it isn't required for a test.
+	if ! cp -r "$mydir/../demo/"*.jpg "$mydir/../demo/index.xml" "$check_dir/db"
 	then
 		log err "Could not copy demo database to '$check_dir/db'!"
 		return 1
@@ -145,6 +147,9 @@ do_checks()
 	let num_failed=0
 	let num_err_crash=0
 	let num_err_setup=0
+	local names_failed=
+	local names_err_crash=
+	local names_err_setup=
 
 	for name
 	do
@@ -158,14 +163,17 @@ do_checks()
 			$result_failed)
 				log info "$name: FAILED"
 				let num_failed++
+				names_failed="$names_failed $name"
 				;;
 			$result_err_crash)
 				log info "$name: ERROR (crash)"
 				let num_err_crash++
+				names_err_crash="$names_err_crash $name"
 				;;
 			$result_err_setup)
 				log info "$name: ERROR (setup failed)"
 				let num_err_setup++
+				names_err_setup="$names_err_setup $name"
 				;;
 			*)
 				log err "Internal error: invalid return code while running '$name'!"
@@ -174,6 +182,9 @@ do_checks()
 	done
 
 	log notice "Summary: $num_ok of $num_total OK, $num_failed failed, $(( num_err_crash + num_err_setup)) errors."
+	log notice "Failed: $names_failed"
+	log notice "Crashed: $names_err_crash"
+	log notice "Setup error: $names_err_setup"
 
 	# return ok if no test failed:
 	test "$num_total" -eq "$num_ok"
@@ -194,6 +205,14 @@ do_check()
 }
 
 generic_check()
+# generic_check TESTNAME
+# Runs the generic check workflow:
+# 1. Prepare files for the test (setup_check, prepare_TESTNAME)
+# 2. Execute kphotoalbum via call_TESTNAME
+# 3. Check index.xml against reference, if available
+# 4. Otherwise ask the user to verify manually.
+#
+# generic_check expects the prepare_TESTNAME and call_TESTNAME functions to be defined.
 {
 	local check_name="$1"
 	local check_dir="$TEMPDIR/$check_name"
@@ -206,14 +225,20 @@ generic_check()
 	if [[ -n "$check_db_file" ]]
 	then
 		test -f "$check_db_file" || echo "$check_db_file does not exist!"
-		diff -u "$check_db_file" "$check_dir/db/index.xml"
-		return $?
+		if ! diff -u "$check_db_file" "$check_dir/db/index.xml"
+		then
+			log notice "$check_name: Mismatch in index.xml!"
+			return $result_failed
+		else
+			return $result_ok
+		fi
 	fi
 	# fallback: ask the user to verify
 	if kdialog --yesno "<h1>$check_name &mdash; Did KPhotoAlbum pass the test?</h1><p>As a reminder what you should check:</p><hr/><div style='text-size=small'>${_context[$check_name]}</div>"
 	then
 		return $result_ok
 	else
+		log notice "$check_name: Failed test as determined by user."
 		return $result_failed
 	fi
 }
@@ -231,7 +256,6 @@ do
 done
 
 version=`kphotoalbum --version 2>&1`
-log info "Using $version (`which kphotoalbum`)..."
 
 TEMP=`getopt -o clhp --long "all,check,help,keep-tempdir,list,log-level:,print,tempdir:" -n "$myname" -- "$@"`
 if [ $? != 0 ] ; then log err "Terminating..." ; exit 1 ; fi
@@ -254,6 +278,7 @@ while true ; do
 		*) echo "Internal error!" ; exit 1 ;;
 	esac
 done
+log info "Using $version (`which kphotoalbum`)..."
 
 if [ -z "$TEMPDIR" ]
 then

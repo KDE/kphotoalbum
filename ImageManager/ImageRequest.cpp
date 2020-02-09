@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -31,6 +31,7 @@ ImageManager::ImageRequest::ImageRequest(const DB::FileName &fileName,
     , m_dontUpScale(false)
     , m_isThumbnailRequest(false)
     , m_isExitRequest(false)
+    , m_imageIsPreRotated(false)
 {
 }
 
@@ -42,6 +43,16 @@ ImageManager::ImageRequest::ImageRequest(bool requestExit)
 bool ImageManager::ImageRequest::isExitRequest() const
 {
     return m_isExitRequest;
+}
+
+bool ImageManager::ImageRequest::imageIsPreRotated() const
+{
+    return m_imageIsPreRotated;
+}
+
+void ImageManager::ImageRequest::setImageIsPreRotated(bool imageIsPreRotated)
+{
+    m_imageIsPreRotated = imageIsPreRotated;
 }
 
 bool ImageManager::ImageRequest::loadedOK() const

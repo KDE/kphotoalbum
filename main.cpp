@@ -17,25 +17,27 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <QApplication>
-#include <QCommandLineOption>
-#include <QCommandLineParser>
-#include <QDebug>
-#include <QLocale>
-#include <QTemporaryFile>
+#include "version.h"
+
+#include <MainWindow/Options.h>
+#include <MainWindow/SplashScreen.h>
+#include <MainWindow/Window.h>
+#ifdef KPA_ENABLE_REMOTECONTROL
+#include <RemoteControl/RemoteInterface.h>
+#endif
+#include <Settings/SettingsData.h>
 
 #include <KAboutData>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
 #include <Kdelibs4ConfigMigrator>
-
-#include "version.h"
-#include <MainWindow/Options.h>
-#include <MainWindow/SplashScreen.h>
-#include <MainWindow/Window.h>
-#include <Settings/SettingsData.h>
-#include <RemoteControl/RemoteInterface.h>
+#include <QApplication>
+#include <QCommandLineOption>
+#include <QCommandLineParser>
+#include <QDebug>
+#include <QLocale>
+#include <QTemporaryFile>
 
 void migrateKDE4Config()
 {
@@ -124,7 +126,9 @@ int main(int argc, char **argv)
 
     view->setGeometry(Settings::SettingsData::instance()->windowGeometry(Settings::MainWindow));
 
+#ifdef KPA_ENABLE_REMOTECONTROL
     (void)RemoteControl::RemoteInterface::instance();
+#endif
 
     int code = QApplication::exec();
     return code;

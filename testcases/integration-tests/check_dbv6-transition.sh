@@ -43,11 +43,12 @@ check_dbv6-transition()
 
 		if ! diff -u "$data_dir/$subcheck.result.xml" "$subcheck_dir/index.xml"
 		then
+			log notice "$check_name/$subcheck: Mismatch in index.xml!"
 			return $result_failed
 		fi
 		if ! grep -q '^kphotoalbum.DB: "Standard category names are no longer used since index.xml version 7. Standard categories will be left untranslated from now on."$' "$subcheck_dir/log"
 		then
-			log warn "$check_name/$subcheck: Missing expected log message!"
+			log notice "$check_name/$subcheck: Missing expected log message!"
 			return $result_failed
 		fi
 	done

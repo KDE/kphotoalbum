@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -61,8 +61,26 @@ public:
     QStringList items() const override;
     int idForName(const QString &name) const;
     void initIdMap();
-    void setIdMapping(const QString &name, int id);
+    enum class IdMapping { SafeMapping,
+                           UnsafeMapping };
+    void setIdMapping(const QString &name, int id, IdMapping mode = IdMapping::SafeMapping);
     QString nameForId(int id) const;
+    /**
+     * @brief namesForId returns multiple names for an id.
+     * Obviously, this is not how ids usually work.
+     * Multiple names for the same id can be forced by using the IdMapping::UnsafeMapping parameter
+     * when calling setIdMapping().
+     * The only place where this makes sense is when reading a damaged index.xml file that is to be repaired.
+     * After loading the database is complete, the mapping between id and name is always 1:1!
+     * @param id
+     * @return
+     */
+    QStringList namesForId(int id) const;
+    /**
+     * @brief clearNullIds clears the IdMapping for tags with id=0.
+     * This can only happen when loading a corrupted database file.
+     */
+    void clearNullIds();
 
     bool shouldSave();
     void setShouldSave(bool b);

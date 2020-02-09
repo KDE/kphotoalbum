@@ -1,3 +1,5 @@
+* Bugfix: Fix crash when associating tags with image areas Fixes #417360).
+
 ====================== KPhotoalbum 5.6 released (08.02.2020) ======================
 
 * Change: Don't build with remote interface by default.

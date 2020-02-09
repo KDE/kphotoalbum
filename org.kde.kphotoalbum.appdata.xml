@@ -112,7 +112,7 @@
       <caption xml:lang="zh-TW">KPhotoAlbum 中的主螢幕</caption>
     </screenshot>
   </screenshots>
-  <url type="homepage">http://kphotoalbum.org</url>
+  <url type="homepage">https://kphotoalbum.org</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kphotoalbum</url>
   <update_contact>kphotoalbum@mail.kdab.com</update_contact>
   <project_group>KDE</project_group>

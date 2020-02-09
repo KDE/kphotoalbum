@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -210,9 +210,9 @@ bool HTMLGenerator::Generator::generateIndexPage(int width, int height)
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     position = rx.indexIn(content);
     if ((position += rx.matchedLength()) < 0)
-        content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName).arg(themeAuthor) + content;
+        content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName).arg(themeAuthor) + content;
     else
-        content.insert(position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName).arg(themeAuthor));
+        content.insert(position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName).arg(themeAuthor));
 
     content.replace(QString::fromLatin1("**DESCRIPTION**"), m_setup.description());
     content.replace(QString::fromLatin1("**TITLE**"), m_setup.title());
@@ -417,9 +417,9 @@ bool HTMLGenerator::Generator::generateContentPage(int width, int height,
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     position = rx.indexIn(content);
     if ((position += rx.matchedLength()) < 0)
-        content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName).arg(themeAuthor) + content;
+        content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName).arg(themeAuthor) + content;
     else
-        content.insert(position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (http://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName).arg(themeAuthor));
+        content.insert(position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName).arg(themeAuthor));
 
     // TODO: Hardcoded non-standard category names is not good practice
     QString title = QString::fromLatin1("");

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -1175,7 +1175,7 @@ void MainWindow::Window::contextMenuEvent(QContextMenuEvent *e)
 
         // "Invoke external program"
 
-        ExternalPopup externalCommands{ &menu };
+        ExternalPopup externalCommands { &menu };
         DB::ImageInfoPtr info = m_thumbnailView->mediaIdUnderCursor().info();
 
         externalCommands.populate(info, selected());
@@ -1772,7 +1772,7 @@ void MainWindow::Window::slotOrderDecr()
 void MainWindow::Window::showVideos()
 {
     QDesktopServices::openUrl(QUrl(
-        QStringLiteral("http://www.kphotoalbum.org/documentation/videos/")));
+        QStringLiteral("https://www.kphotoalbum.org/documentation/videos/")));
 }
 
 void MainWindow::Window::slotStatistics()

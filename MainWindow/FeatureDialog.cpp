@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -54,9 +54,9 @@ FeatureDialog::FeatureDialog(QWidget *parent)
 
                  "<p>In case you are missing a feature and you did not compile KPhotoAlbum yourself, please do consider doing so. "
                  "It really is not that hard. If you need help compiling KPhotoAlbum, feel free to ask on the "
-                 "<a href=\"http://mail.kdab.com/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p>"
+                 "<a href=\"https://mail.kdab.com/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p>"
 
-                 "<p>The steps to compile KPhotoAlbum can be seen on <a href=\"http://www.kphotoalbum.org/index.php?page=compile\">"
+                 "<p>The steps to compile KPhotoAlbum can be seen on <a href=\"https://community.kde.org/KPhotoAlbum/build_instructions\">"
                  "the KPhotoAlbum home page</a>. If you have never compiled a KDE application, then please ensure that "
                  "you have the developer packages installed, in most distributions they go under names like kdelibs<i>-devel</i></p>");
 
@@ -71,7 +71,8 @@ FeatureDialog::FeatureDialog(QWidget *parent)
                  "</ul></p>"
 
                  "<p>The plug-in library is called KIPI, and may be downloaded from the "
-                 "<a href=\"http://userbase.kde.org/KIPI\">KDE Userbase Wiki</a></p>");
+                 "<a href=\"https://userbase.kde.org/KIPI\">KDE Userbase Wiki</a></p>");
+    // FIXME(jzarl): put purpose here!
 
     text += i18n("<h1><a name=\"database\">SQLite database support</a></h1>"
                  "<p>KPhotoAlbum allows you to search using a certain number of Exif tags. For this KPhotoAlbum "
@@ -86,7 +87,7 @@ FeatureDialog::FeatureDialog(QWidget *parent)
     text += i18n("<h1><a name=\"video\">Video support</a></h1>"
                  "<p>KPhotoAlbum relies on Qt's Phonon architecture for displaying videos; this in turn relies on GStreamer. "
                  "If this feature is not enabled for you, have a look at the "
-                 "<a href=\"http://userbase.kde.org/KPhotoAlbum#Video_Support\">KPhotoAlbum wiki article on video support</a>.</p>");
+                 "<a href=\"https://userbase.kde.org/KPhotoAlbum#Video_Support\">KPhotoAlbum wiki article on video support</a>.</p>");
 
     QStringList mimeTypes = supportedVideoMimeTypes();
     mimeTypes.sort();

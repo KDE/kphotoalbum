@@ -1,4 +1,4 @@
-/* Copyright (C) 2014-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2014-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -522,7 +522,7 @@ void AnnotationDialog::ResizableFrame::addTagActions(QMenu *menu)
                     submenu->addAction(createAssociateTagAction(tag));
                 }
 
-                connect(submenu, &QMenu::triggered, this, QOverload<>::of(&ResizableFrame::associateTag));
+                connect(submenu, &QMenu::triggered, this, QOverload<QAction *>::of(&ResizableFrame::associateTag));
             }
         }
     }

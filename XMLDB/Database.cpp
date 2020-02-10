@@ -1,19 +1,20 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
+   modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation; either version 2 of
+   the License or (at your option) version 3 or any later version
+   accepted by the membership of KDE e. V. (or its successor approved
+   by the membership of KDE e. V.), which shall act as a proxy
+   defined in Section 14 of version 3 of the license.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; see the file COPYING.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+   along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "Database.h"
@@ -173,7 +174,7 @@ void XMLDB::Database::renameCategory(const QString &oldName, const QString newNa
 
 void XMLDB::Database::addToBlockList(const DB::FileNameList &list)
 {
-    Q_FOREACH (const DB::FileName &fileName, list) {
+    for (const DB::FileName &fileName : list) {
         m_blockList.insert(fileName);
     }
     deleteList(list);
@@ -181,19 +182,19 @@ void XMLDB::Database::addToBlockList(const DB::FileNameList &list)
 
 void XMLDB::Database::deleteList(const DB::FileNameList &list)
 {
-    Q_FOREACH (const DB::FileName &fileName, list) {
+    for (const DB::FileName &fileName : list) {
         DB::ImageInfoPtr inf = fileName.info();
         StackMap::iterator found = m_stackMap.find(inf->stackId());
         if (inf->isStacked() && found != m_stackMap.end()) {
             const DB::FileNameList origCache = found.value();
             DB::FileNameList newCache;
-            Q_FOREACH (const DB::FileName &cacheName, origCache) {
+            for (const DB::FileName &cacheName : origCache) {
                 if (fileName != cacheName)
                     newCache.append(cacheName);
             }
             if (newCache.size() <= 1) {
                 // we're destroying a stack
-                Q_FOREACH (const DB::FileName &cacheName, newCache) {
+                for (const DB::FileName &cacheName : newCache) {
                     DB::ImageInfoPtr cacheInf = cacheName.info();
                     cacheInf->setStackId(0);
                     cacheInf->setStackOrder(0);
@@ -252,7 +253,7 @@ void XMLDB::Database::forceUpdate(const DB::ImageInfoList &images)
     DB::ImageInfoList newImages = images.sort();
     if (m_images.count() == 0) {
         // case 1: The existing imagelist is empty.
-        Q_FOREACH (const DB::ImageInfoPtr &imageInfo, newImages)
+        for (const DB::ImageInfoPtr &imageInfo : newImages)
             m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
         m_images = newImages;
     } else if (newImages.count() == 0) {
@@ -260,17 +261,17 @@ void XMLDB::Database::forceUpdate(const DB::ImageInfoList &images)
         return;
     } else if (newImages.first()->date().start() > m_images.last()->date().start()) {
         // case 2: The new list is later than the existsing
-        Q_FOREACH (const DB::ImageInfoPtr &imageInfo, newImages)
+        for (const DB::ImageInfoPtr &imageInfo : newImages)
             m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
         m_images.appendList(newImages);
     } else if (m_images.isSorted()) {
         // case 3: The lists overlaps, and the existsing list is sorted
-        Q_FOREACH (const DB::ImageInfoPtr &imageInfo, newImages)
+        for (const DB::ImageInfoPtr &imageInfo : newImages)
             m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
         m_images.mergeIn(newImages);
     } else {
         // case 4: The lists overlaps, and the existsing list is not sorted in the overlapping range.
-        Q_FOREACH (const DB::ImageInfoPtr &imageInfo, newImages)
+        for (const DB::ImageInfoPtr &imageInfo : newImages)
             m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
         m_images.appendList(newImages);
     }
@@ -279,7 +280,7 @@ void XMLDB::Database::forceUpdate(const DB::ImageInfoList &images)
 void XMLDB::Database::addImages(const DB::ImageInfoList &images,
                                 bool doUpdate)
 {
-    Q_FOREACH (const DB::ImageInfoPtr &info, images) {
+    for (const DB::ImageInfoPtr &info : images) {
         info->addCategoryInfo(i18n("Media Type"),
                               info->mediaType() == DB::Image ? i18n("Image") : i18n("Video"));
         m_delayedCache.insert(info->fileName().absolute(), info);
@@ -324,7 +325,7 @@ DB::ImageInfoPtr XMLDB::Database::info(const DB::FileName &fileName) const
     if (m_delayedCache.contains(name))
         return m_delayedCache[name];
 
-    Q_FOREACH (const DB::ImageInfoPtr &imageInfo, m_images)
+    for (const DB::ImageInfoPtr &imageInfo : m_images)
         m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
 
     if (m_imageCache.contains(name)) {
@@ -400,7 +401,7 @@ DB::FileNameList XMLDB::Database::searchPrivate(
 void XMLDB::Database::sortAndMergeBackIn(const DB::FileNameList &fileNameList)
 {
     DB::ImageInfoList infoList;
-    Q_FOREACH (const DB::FileName &fileName, fileNameList)
+    for (const DB::FileName &fileName : fileNameList)
         infoList.append(fileName.info());
     m_images.sortAndMergeBackIn(infoList);
 }
@@ -494,7 +495,7 @@ bool XMLDB::Database::stack(const DB::FileNameList &items)
     QList<DB::ImageInfoPtr> images;
     unsigned int stackOrder = 1;
 
-    Q_FOREACH (const DB::FileName &fileName, items) {
+    for (const DB::FileName &fileName : items) {
         DB::ImageInfoPtr imgInfo = fileName.info();
         Q_ASSERT(imgInfo);
         if (imgInfo->isStacked()) {
@@ -509,7 +510,7 @@ bool XMLDB::Database::stack(const DB::FileNameList &items)
         return false; // images already in different stacks -> can't stack
 
     DB::StackID stackId = (stacks.size() == 1) ? *(stacks.begin()) : m_nextStackId++;
-    Q_FOREACH (DB::ImageInfoPtr info, images) {
+    for (DB::ImageInfoPtr info : images) {
         info->setStackOrder(stackOrder);
         info->setStackId(stackId);
         m_stackMap[stackId].append(info->fileName());
@@ -525,11 +526,11 @@ bool XMLDB::Database::stack(const DB::FileNameList &items)
 
 void XMLDB::Database::unstack(const DB::FileNameList &items)
 {
-    Q_FOREACH (const DB::FileName &fileName, items) {
+    for (const DB::FileName &fileName : items) {
         DB::FileNameList allInStack = getStackFor(fileName);
         if (allInStack.size() <= 2) {
             // we're destroying stack here
-            Q_FOREACH (const DB::FileName &stackFileName, allInStack) {
+            for (const DB::FileName &stackFileName : allInStack) {
                 DB::ImageInfoPtr imgInfo = stackFileName.info();
                 Q_ASSERT(imgInfo);
                 if (imgInfo->isStacked()) {
@@ -754,7 +755,7 @@ void XMLDB::Database::possibleLoadCompressedCategories(ReaderPtr reader, DB::Ima
     if (db == nullptr)
         return;
 
-    Q_FOREACH (const DB::CategoryPtr categoryPtr, db->m_categoryCollection.categories()) {
+    for (const DB::CategoryPtr categoryPtr : db->m_categoryCollection.categories()) {
         QString categoryName = categoryPtr->name();
         QString oldCategoryName;
         if (newToOldCategory) {
@@ -766,7 +767,7 @@ void XMLDB::Database::possibleLoadCompressedCategories(ReaderPtr reader, DB::Ima
         QString str = reader->attribute(FileWriter::escape(oldCategoryName));
         if (!str.isEmpty()) {
             QStringList list = str.split(QString::fromLatin1(","), QString::SkipEmptyParts);
-            Q_FOREACH (const QString &tagString, list) {
+            for (const QString &tagString : list) {
                 int id = tagString.toInt();
                 if (id != 0 || categoryPtr->isSpecialCategory()) {
                     const QString name = static_cast<const XMLCategory *>(categoryPtr.data())->nameForId(id);

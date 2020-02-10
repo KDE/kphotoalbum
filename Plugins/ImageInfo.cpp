@@ -1,19 +1,20 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
+   modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation; either version 2 of
+   the License or (at your option) version 3 or any later version
+   accepted by the membership of KDE e. V. (or its successor approved
+   by the membership of KDE e. V.), which shall act as a proxy
+   defined in Section 14 of version 3 of the license.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; see the file COPYING.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+   along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "ImageInfo.h"
@@ -132,14 +133,14 @@ QMap<QString, QVariant> Plugins::ImageInfo::attributes()
     QStringList tags;
     QStringList tagspath;
     const QLatin1String sep("/");
-    Q_FOREACH (const DB::CategoryPtr category, categories) {
+    for (const DB::CategoryPtr category : categories) {
         QString categoryName = category->name();
         if (category->isSpecialCategory())
             continue;
         // I don't know why any categories except the above should be excluded
         //if ( category->doShow() ) {
         Utilities::StringSet items = m_info->itemsOfCategory(categoryName);
-        Q_FOREACH (const QString &tag, items) {
+        for (const QString &tag : items) {
             tags.append(tag);
             // digikam compatible tag path:
             // note: this produces a semi-flattened hierarchy.
@@ -233,7 +234,7 @@ void Plugins::ImageInfo::addAttributes(const QMap<QString, QVariant> &amap)
             const QStringList tagspaths = map[QLatin1String("tagspath")].toStringList();
             const DB::CategoryCollection *categories = DB::ImageDB::instance()->categoryCollection();
             DB::MemberMap &memberMap = DB::ImageDB::instance()->memberMap();
-            Q_FOREACH (const QString &path, tagspaths) {
+            for (const QString &path : tagspaths) {
                 qCDebug(PluginsLog) << "Adding tags: " << path;
                 QStringList tagpath = path.split(QLatin1String("/"), QString::SkipEmptyParts);
                 // Note: maybe tagspaths with only one component or with unknown first component
@@ -250,7 +251,7 @@ void Plugins::ImageInfo::addAttributes(const QMap<QString, QVariant> &amap)
                     QString previousTag;
                     // last component is the tag:
                     // others define hierarchy:
-                    Q_FOREACH (const QString &currentTag, tagpath) {
+                    for (const QString &currentTag : tagpath) {
                         if (!cat->items().contains(currentTag)) {
                             qCDebug(PluginsLog) << "Adding tag " << currentTag << " to category " << categoryName;
                             // before we can use a tag, we have to add it

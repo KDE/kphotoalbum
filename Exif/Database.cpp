@@ -1,20 +1,22 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
+   modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation; either version 2 of
+   the License or (at your option) version 3 or any later version
+   accepted by the membership of KDE e. V. (or its successor approved
+   by the membership of KDE e. V.), which shall act as a proxy
+   defined in Section 14 of version 3 of the license.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; see the file COPYING.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+   along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+
 #include "Database.h"
 
 #include "DatabaseElement.h"
@@ -173,7 +175,7 @@ void Exif::Database::populateDatabase()
 {
     createMetadataTable(SchemaAndDataChanged);
     QStringList attributes;
-    Q_FOREACH (DatabaseElement *element, elements()) {
+    for (DatabaseElement *element : elements()) {
         attributes.append(element->createString());
     }
 
@@ -267,7 +269,7 @@ bool Exif::Database::add(const DB::FileNameList &list)
 
     QList<DBExifInfo> map;
 
-    Q_FOREACH (const DB::FileName &fileName, list) {
+    for (const DB::FileName &fileName : list) {
         try {
             Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.absolute().toLocal8Bit().data());
             Q_ASSERT(image.get() != nullptr);
@@ -301,7 +303,7 @@ void Exif::Database::remove(const DB::FileNameList &list)
     m_db.transaction();
     QSqlQuery query(m_db);
     query.prepare(QString::fromLatin1("DELETE FROM exif WHERE fileName=?"));
-    Q_FOREACH (const DB::FileName &fileName, list) {
+    for (const DB::FileName &fileName : list) {
         query.bindValue(0, fileName.absolute());
         if (!query.exec()) {
             m_db.rollback();
@@ -396,7 +398,7 @@ bool Exif::Database::insert(QList<DBExifInfo> map)
 
     QSqlQuery *query = getInsertQuery();
     // not a const reference because DatabaseElement::valueFromExif uses operator[] on the exif datum
-    Q_FOREACH (DBExifInfo elt, map) {
+    for (DBExifInfo elt : map) {
         query->bindValue(0, elt.first.absolute());
         int i = 1;
         for (const DatabaseElement *e : elements()) {

@@ -1,20 +1,22 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
+   modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation; either version 2 of
+   the License or (at your option) version 3 or any later version
+   accepted by the membership of KDE e. V. (or its successor approved
+   by the membership of KDE e. V.), which shall act as a proxy
+   defined in Section 14 of version 3 of the license.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; see the file COPYING.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+   along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+
 #include "MD5CheckPage.h"
 
 #include <DB/ImageDB.h>
@@ -102,13 +104,13 @@ int ImportExport::MD5CheckPage::countOfMD5Matches(const ImportSettings &settings
 ImportExport::ClashInfo ImportExport::MD5CheckPage::clashes(const ImportSettings &settings)
 {
     QStringList myCategories;
-    Q_FOREACH (const CategoryMatchSetting &matcher, settings.categoryMatchSetting()) {
+    for (const CategoryMatchSetting &matcher : settings.categoryMatchSetting()) {
         myCategories.append(matcher.DBCategoryName());
     }
 
     ClashInfo res(myCategories);
     DB::ImageInfoList list = settings.selectedImages();
-    Q_FOREACH (DB::ImageInfoPtr info, list) {
+    for (DB::ImageInfoPtr info : list) {
         if (!DB::ImageDB::instance()->md5Map()->contains(info->MD5Sum()))
             continue;
 
@@ -125,7 +127,7 @@ ImportExport::ClashInfo ImportExport::MD5CheckPage::clashes(const ImportSettings
         if (info->date() != other->date())
             res.date = true;
 
-        Q_FOREACH (const CategoryMatchSetting &matcher, settings.categoryMatchSetting()) {
+        for (const CategoryMatchSetting &matcher : settings.categoryMatchSetting()) {
             const QString XMLFileCategory = matcher.XMLCategoryName();
             const QString DBCategory = matcher.DBCategoryName();
             if (mapCategoriesToDB(matcher, info->itemsOfCategory(XMLFileCategory)) != other->itemsOfCategory(DBCategory))
@@ -180,7 +182,7 @@ Utilities::StringSet ImportExport::MD5CheckPage::mapCategoriesToDB(const Categor
 {
     Utilities::StringSet res;
 
-    Q_FOREACH (const QString &item, items) {
+    for (const QString &item : items) {
         if (matcher.XMLtoDB().contains(item))
             res.insert(matcher.XMLtoDB()[item]);
     }

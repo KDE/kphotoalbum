@@ -1,4 +1,6 @@
-* Bugfix: Fix crash when associating tags with image areas Fixes #417360).
+====================== KPhotoalbum 5.6.1 released (10.02.2020) ======================
+
+* Bugfix: Fix crash when associating tags with image areas (Fixes #417360).
 
 ====================== KPhotoalbum 5.6 released (08.02.2020) ======================
 

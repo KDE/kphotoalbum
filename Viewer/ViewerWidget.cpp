@@ -1,20 +1,19 @@
-/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of
-   the License or (at your option) version 3 or any later version
-   accepted by the membership of KDE e. V. (or its successor approved
-   by the membership of KDE e. V.), which shall act as a proxy
-   defined in Section 14 of version 3 of the license.
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-   GNU General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program. If not, see <http://www.gnu.org/licenses/>.
+   along with this program; see the file COPYING.  If not, write to
+   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.
 */
 
 #include "ViewerWidget.h"
@@ -174,7 +173,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     m_popup->addAction(action);
     m_actions->readSettings();
 
-    for (QAction *action : m_actions->actions()) {
+    Q_FOREACH (QAction *action, m_actions->actions()) {
         action->setShortcutContext(Qt::WindowShortcut);
         addAction(action);
     }
@@ -425,7 +424,7 @@ void Viewer::ViewerWidget::load()
     if (m_exifViewer)
         m_exifViewer->setImage(currentInfo()->fileName());
 
-    for (QAction *videoAction : m_videoActions) {
+    Q_FOREACH (QAction *videoAction, m_videoActions) {
         videoAction->setVisible(isVideo);
     }
 
@@ -1198,7 +1197,7 @@ void Viewer::ViewerWidget::createVideoMenu()
          << SeekInfo(i18nc("@action:inmenu", "10 minutes forward"), "seek+10-minute", 600000, QKeySequence(QString::fromLatin1("Ctrl+Right")));
 
     int count = 0;
-    for (const SeekInfo &info : list) {
+    Q_FOREACH (const SeekInfo &info, list) {
         if (count++ == 5) {
             QAction *sep = new QAction(menu);
             sep->setSeparator(true);
@@ -1401,7 +1400,7 @@ void Viewer::ViewerWidget::remapAreas(QSize viewSize, QRect zoomWindow, double s
     int innerOffsetLeft = -zoomWindow.left() * scaleWidth;
     int innerOffsetTop = -zoomWindow.top() * scaleHeight;
 
-    for (TaggedArea *area : findChildren<TaggedArea *>()) {
+    Q_FOREACH (TaggedArea *area, findChildren<TaggedArea *>()) {
         QRect actualGeometry = area->actualGeometry();
         QRect screenGeometry;
 

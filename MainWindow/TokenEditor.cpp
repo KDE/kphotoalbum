@@ -1,20 +1,19 @@
-/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of
-   the License or (at your option) version 3 or any later version
-   accepted by the membership of KDE e. V. (or its successor approved
-   by the membership of KDE e. V.), which shall act as a proxy
-   defined in Section 14 of version 3 of the license.
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-   GNU General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program. If not, see <http://www.gnu.org/licenses/>.
+   along with this program; see the file COPYING.  If not, write to
+   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.
 */
 
 #include "TokenEditor.h"
@@ -85,7 +84,7 @@ void TokenEditor::show()
 {
     QStringList tokens = tokensInUse();
 
-    for (QCheckBox *box : m_checkBoxes) {
+    Q_FOREACH (QCheckBox *box, m_checkBoxes) {
         box->setChecked(false);
         QString txt = box->text().remove(QString::fromLatin1("&"));
         box->setEnabled(tokens.contains(txt));
@@ -95,14 +94,14 @@ void TokenEditor::show()
 
 void TokenEditor::selectAll()
 {
-    for (QCheckBox *box : m_checkBoxes) {
+    Q_FOREACH (QCheckBox *box, m_checkBoxes) {
         box->setChecked(true);
     }
 }
 
 void TokenEditor::selectNone()
 {
-    for (QCheckBox *box : m_checkBoxes) {
+    Q_FOREACH (QCheckBox *box, m_checkBoxes) {
         box->setChecked(false);
     }
 }
@@ -127,7 +126,7 @@ QStringList TokenEditor::tokensInUse()
 void TokenEditor::accept()
 {
     DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
-    for (const QCheckBox *box : m_checkBoxes) {
+    Q_FOREACH (const QCheckBox *box, m_checkBoxes) {
         if (box->isChecked() && box->isEnabled()) {
             QString txt = box->text().remove(QString::fromLatin1("&"));
             tokensCategory->removeItem(txt);

@@ -1,20 +1,20 @@
-/* Copyright (C) 2012-2020 The KPhotoAlbum Development Team
+/* Copyright 2012-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
    published by the Free Software Foundation; either version 2 of
    the License or (at your option) version 3 or any later version
-   accepted by the membership of KDE e. V. (or its successor approved
-   by the membership of KDE e. V.), which shall act as a proxy
+   accepted by the membership of KDE e.V. (or its successor approved
+   by the membership of KDE e.V.), which shall act as a proxy
    defined in Section 14 of version 3 of the license.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program. If not, see <http://www.gnu.org/licenses/>.
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "DuplicateMerger.h"
@@ -126,7 +126,7 @@ void DuplicateMerger::go()
         method = Utilities::DeleteFromDisk;
     }
 
-    for (DuplicateMatch *selector : m_selectors) {
+    Q_FOREACH (DuplicateMatch *selector, m_selectors) {
         selector->execute(method);
     }
 
@@ -138,7 +138,7 @@ void DuplicateMerger::updateSelectionCount()
     int total = 0;
     int selected = 0;
 
-    for (DuplicateMatch *selector : m_selectors) {
+    Q_FOREACH (DuplicateMatch *selector, m_selectors) {
         ++total;
         if (selector->selected())
             ++selected;
@@ -152,7 +152,7 @@ void DuplicateMerger::findDuplicates()
 {
     Utilities::ShowBusyCursor dummy;
 
-    for (const DB::FileName &fileName : DB::ImageDB::instance()->images()) {
+    Q_FOREACH (const DB::FileName &fileName, DB::ImageDB::instance()->images()) {
         const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
         const DB::MD5 md5 = info->MD5Sum();
         m_matches[md5].append(fileName);
@@ -184,7 +184,7 @@ void DuplicateMerger::addRow(const DB::MD5 &md5)
 
 void DuplicateMerger::selectAll(bool b)
 {
-    for (DuplicateMatch *selector : m_selectors) {
+    Q_FOREACH (DuplicateMatch *selector, m_selectors) {
         selector->setSelected(b);
     }
 }

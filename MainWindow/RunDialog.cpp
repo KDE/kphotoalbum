@@ -1,20 +1,19 @@
-/* Copyright (C) 2009-2020 The KPhotoAlbum Development Team
+/* Copyright (C) 2009-2010 Wes Hardaker <kpa@capturedonearth.com>
 
    This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of
-   the License or (at your option) version 3 or any later version
-   accepted by the membership of KDE e. V. (or its successor approved
-   by the membership of KDE e. V.), which shall act as a proxy
-   defined in Section 14 of version 3 of the license.
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-   GNU General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program. If not, see <http://www.gnu.org/licenses/>.
+   along with this program; see the file COPYING.  If not, write to
+   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.
 */
 
 #include "RunDialog.h"
@@ -82,7 +81,7 @@ void MainWindow::RunDialog::slotMarkGo()
 
     // Replace the %all argument first
     QStringList fileList;
-    for (const DB::FileName &fileName : m_fileList)
+    Q_FOREACH (const DB::FileName &fileName, m_fileList)
         fileList.append(fileName.absolute());
 
     cmdString.replace(replaceall, KShell::joinArgs(fileList));
@@ -90,7 +89,7 @@ void MainWindow::RunDialog::slotMarkGo()
     if (cmdString.contains(replaceeach)) {
         // cmdString should be run multiple times, once per "each"
         QString cmdOnce;
-        for (const DB::FileName &filename : m_fileList) {
+        Q_FOREACH (const DB::FileName &filename, m_fileList) {
             cmdOnce = cmdString;
             cmdOnce.replace(replaceeach, filename.absolute());
             KRun::runCommand(cmdOnce, MainWindow::Window::theMainWindow());

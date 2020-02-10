@@ -1,20 +1,19 @@
-/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of
-   the License or (at your option) version 3 or any later version
-   accepted by the membership of KDE e. V. (or its successor approved
-   by the membership of KDE e. V.), which shall act as a proxy
-   defined in Section 14 of version 3 of the license.
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-   GNU General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program. If not, see <http://www.gnu.org/licenses/>.
+   along with this program; see the file COPYING.  If not, write to
+   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.
 */
 
 #include "ThumbnailWidget.h"
@@ -33,10 +32,10 @@
 #include <Settings/SettingsData.h>
 
 #include <KLocalizedString>
-#include <QItemSelection>
-#include <QItemSelectionRange>
 #include <QScrollBar>
 #include <QTimer>
+#include <QItemSelection>
+#include <QItemSelectionRange>
 #include <math.h>
 #include <qcursor.h>
 #include <qfontmetrics.h>
@@ -366,7 +365,7 @@ void ThumbnailView::ThumbnailWidget::showEvent(QShowEvent *event)
 DB::FileNameList ThumbnailView::ThumbnailWidget::selection(ThumbnailView::SelectionMode mode) const
 {
     DB::FileNameList res;
-    for (const QModelIndex &index : selectedIndexes()) {
+    Q_FOREACH (const QModelIndex &index, selectedIndexes()) {
         DB::FileName currFileName = model()->imageAt(index.row());
         bool includeAllStacks = false;
         switch (mode) {
@@ -417,7 +416,7 @@ void ThumbnailView::ThumbnailWidget::select(const DB::FileNameList &items)
     QModelIndex start;
     QModelIndex end;
     int count = 0;
-    for (const DB::FileName &fileName : items) {
+    Q_FOREACH (const DB::FileName &fileName, items) {
         QModelIndex index = model()->fileNameToIndex(fileName);
         if (count == 0) {
             start = index;

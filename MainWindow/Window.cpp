@@ -1,20 +1,19 @@
 /* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of
-   the License or (at your option) version 3 or any later version
-   accepted by the membership of KDE e. V. (or its successor approved
-   by the membership of KDE e. V.), which shall act as a proxy
-   defined in Section 14 of version 3 of the license.
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-   GNU General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program. If not, see <http://www.gnu.org/licenses/>.
+   along with this program; see the file COPYING.  If not, write to
+   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.
 */
 
 #include "Window.h"
@@ -419,7 +418,7 @@ void MainWindow::Window::setStackHead(const DB::FileName &image)
     unsigned int oldOrder = image.info()->stackOrder();
 
     DB::FileNameList others = DB::ImageDB::instance()->getStackFor(image);
-    for (const DB::FileName &current : others) {
+    Q_FOREACH (const DB::FileName &current, others) {
         if (current == image) {
             current.info()->setStackOrder(1);
         } else if (current.info()->stackOrder() < oldOrder) {
@@ -459,7 +458,7 @@ void MainWindow::Window::configureImages(bool oneAtATime)
         KMessageBox::sorry(this, i18n("No item is selected."), i18n("No Selection"));
     } else {
         DB::ImageInfoList images;
-        for (const DB::FileName &fileName : list) {
+        Q_FOREACH (const DB::FileName &fileName, list) {
             images.append(fileName.info());
         }
         configureImages(images, oneAtATime);
@@ -523,7 +522,7 @@ void MainWindow::Window::slotCopySelectedURLs()
 {
     QList<QUrl> urls;
     int urlcount = 0;
-    for (const DB::FileName &fileName : selected()) {
+    Q_FOREACH (const DB::FileName &fileName, selected()) {
         urls.append(QUrl::fromLocalFile(fileName.absolute()));
         urlcount++;
     }
@@ -573,7 +572,7 @@ void MainWindow::Window::slotPasteInformation()
     if (!originalInfo)
         return;
 
-    for (const DB::FileName &newFile : selected()) {
+    Q_FOREACH (const DB::FileName &newFile, selected()) {
         newFile.info()->copyExtraData(*originalInfo, false);
     }
     DirtyIndicator::markDirty();
@@ -630,7 +629,7 @@ DB::FileNameList MainWindow::Window::selectedOnDisk()
     const DB::FileNameList list = selected(ThumbnailView::NoExpandCollapsedStacks);
 
     DB::FileNameList listOnDisk;
-    for (const DB::FileName &fileName : list) {
+    Q_FOREACH (const DB::FileName &fileName, list) {
         if (DB::ImageInfo::imageOnDisk(fileName))
             listOnDisk.append(fileName);
     }
@@ -1306,7 +1305,7 @@ void MainWindow::Window::slotConfigureKeyBindings()
 
 #ifdef HASKIPI
     loadKipiPlugins();
-    for (const KIPI::PluginLoader::Info *pluginInfo : m_pluginLoader->pluginList()) {
+    Q_FOREACH (const KIPI::PluginLoader::Info *pluginInfo, m_pluginLoader->pluginList()) {
         KIPI::Plugin *plugin = pluginInfo->plugin();
         if (plugin)
             dialog->addCollection(plugin->actionCollection(),
@@ -1361,7 +1360,7 @@ void MainWindow::Window::rotateSelected(int angle)
         KMessageBox::sorry(this, i18n("No item is selected."),
                            i18n("No Selection"));
     } else {
-        for (const DB::FileName &fileName : list) {
+        Q_FOREACH (const DB::FileName &fileName, list) {
             fileName.info()->rotate(angle);
             ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
         }
@@ -1400,7 +1399,7 @@ void MainWindow::Window::slotUpdateViewMenu(DB::Category::ViewType type)
 void MainWindow::Window::slotShowNotOnDisk()
 {
     DB::FileNameList notOnDisk;
-    for (const DB::FileName &fileName : DB::ImageDB::instance()->images()) {
+    Q_FOREACH (const DB::FileName &fileName, DB::ImageDB::instance()->images()) {
         if (!fileName.exists())
             notOnDisk.append(fileName);
     }
@@ -1557,7 +1556,7 @@ void MainWindow::Window::plug()
     QList<QAction *> kipiActions;
 
     KIPI::PluginLoader::PluginList list = m_pluginLoader->pluginList();
-    for (const KIPI::PluginLoader::Info *pluginInfo : list) {
+    Q_FOREACH (const KIPI::PluginLoader::Info *pluginInfo, list) {
         KIPI::Plugin *plugin = pluginInfo->plugin();
         if (!plugin || !pluginInfo->shouldLoad())
             continue;
@@ -1565,7 +1564,7 @@ void MainWindow::Window::plug()
         plugin->setup(this);
 
         QList<QAction *> actions = plugin->actions();
-        for (QAction *action : actions) {
+        Q_FOREACH (QAction *action, actions) {
             kipiActions.append(action);
         }
         KConfigGroup group = KSharedConfig::openConfig()->group(QString::fromLatin1("Shortcuts"));
@@ -1907,7 +1906,7 @@ void MainWindow::Window::checkIfVideoThumbnailerIsInstalled()
 
 bool MainWindow::Window::anyVideosSelected() const
 {
-    for (const DB::FileName &fileName : selected()) {
+    Q_FOREACH (const DB::FileName &fileName, selected()) {
         if (Utilities::isVideo(fileName))
             return true;
     }

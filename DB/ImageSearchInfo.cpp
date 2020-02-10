@@ -1,20 +1,19 @@
 /* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of
-   the License or (at your option) version 3 or any later version
-   accepted by the membership of KDE e. V. (or its successor approved
-   by the membership of KDE e. V.), which shall act as a proxy
-   defined in Section 14 of version 3 of the license.
+   modify it under the terms of the GNU General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-   GNU General Public License for more details.
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program. If not, see <http://www.gnu.org/licenses/>.
+   along with this program; see the file COPYING.  If not, write to
+   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.
 */
 
 #include "ImageSearchInfo.h"
@@ -225,7 +224,7 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
     if (!m_description.isEmpty()) {
         const QString &txt(info->description());
         QStringList list = m_description.split(QChar::fromLatin1(' '), QString::SkipEmptyParts);
-        for (const QString &word : list) {
+        Q_FOREACH (const QString &word, list) {
             if (txt.indexOf(word, 0, Qt::CaseInsensitive) == -1)
                 return false;
         }
@@ -401,7 +400,7 @@ void ImageSearchInfo::compile() const
         QStringList orParts = matchText.split(QString::fromLatin1("|"), QString::SkipEmptyParts);
         DB::ContainerCategoryMatcher *orMatcher = new DB::OrCategoryMatcher;
 
-        for (QString orPart : orParts) {
+        Q_FOREACH (QString orPart, orParts) {
             // Split by " & ", not only by "&", so that the doubled "&"s won't be used as a split point
             QStringList andParts = orPart.split(QString::fromLatin1(" & "), QString::SkipEmptyParts);
 
@@ -410,7 +409,7 @@ void ImageSearchInfo::compile() const
             bool negate = false;
             andMatcher = new DB::AndCategoryMatcher;
 
-            for (QString str : andParts) {
+            Q_FOREACH (QString str, andParts) {
                 static QRegExp regexp(QString::fromLatin1("^\\s*!\\s*(.*)$"));
                 if (regexp.exactMatch(str)) { // str is preceded with NOT
                     negate = true;
@@ -522,7 +521,7 @@ Utilities::StringSet ImageSearchInfo::findAlreadyMatched(const QString &group) c
     }
 
     QStringList list = str.split(QString::fromLatin1("&"), QString::SkipEmptyParts);
-    for (QString part : list) {
+    Q_FOREACH (QString part, list) {
         QString nm = part.trimmed();
         if (!nm.contains(QString::fromLatin1("!")))
             result.insert(nm);

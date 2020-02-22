@@ -66,7 +66,8 @@
 #include <QTimeEdit>
 #include <QVBoxLayout>
 
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
+#include "Map/GeoCoordinates.h"
 #include <Map/MapView.h>
 #include <QProgressBar>
 #include <QTimer>
@@ -141,7 +142,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
 
     connect(m_description, &DescriptionEdit::pageUpDownPressed, this, &Dialog::descriptionPageUpDownPressed);
 
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     // -------------------------------------------------- Map representation
 
     m_annotationMapContainer = new QWidget(this);
@@ -605,7 +606,7 @@ void AnnotationDialog::Dialog::load()
                              m_origList.count()));
         m_preview->canCreateAreas(
             m_setup == InputSingleImageConfigMode && !info.isVideo() && m_positionableCategories);
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
         updateMapForCurrentImage();
 #endif
     }
@@ -707,7 +708,7 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
         m_preview->updatePositionableCategories();
     }
 
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     m_mapIsPopulated = false;
     m_annotationMap->clear();
 #endif
@@ -761,7 +762,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search(DB::ImageSearchInfo *search
 {
     ShowHideSearch(true);
 
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     m_mapIsPopulated = false;
     m_annotationMap->clear();
 #endif
@@ -796,8 +797,8 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search(DB::ImageSearchInfo *search
         m_oldSearch.setMegaPixel(m_megapixel->value());
         m_oldSearch.setMaxMegaPixel(m_max_megapixel->value());
         m_oldSearch.setSearchRAW(m_searchRAW->isChecked());
-#ifdef HAVE_KGEOMAP
-        const KGeoMap::GeoCoordinates::Pair regionSelection = m_annotationMap->getRegionSelection();
+#ifdef HAVE_MARBLE
+        const Map::GeoCoordinates::LatLonBox regionSelection = m_annotationMap->getRegionSelection();
         m_oldSearch.setRegionSelection(regionSelection);
 #endif
         return m_oldSearch;
@@ -1064,11 +1065,7 @@ bool AnnotationDialog::Dialog::hasChanges(bool checkOptions)
         }
         return m_areasChanged;
     } else if (m_setup == InputMultiImageConfigMode) {
-        bool changed = (!m_startDate->date().isNull()) ||
-            (!m_endDate->date().isNull()) ||
-            (!m_imageLabel->text().isEmpty()) ||
-            (m_description->toPlainText() != m_firstDescription) ||
-            m_ratingChanged;
+        bool changed = (!m_startDate->date().isNull()) || (!m_endDate->date().isNull()) || (!m_imageLabel->text().isEmpty()) || (m_description->toPlainText() != m_firstDescription) || m_ratingChanged;
         if (checkOptions) {
             Q_FOREACH (ListSelect *ls, m_optionList) {
                 if (!(changedOptions(ls).isEmpty()))
@@ -1246,7 +1243,7 @@ void AnnotationDialog::Dialog::loadWindowLayout()
         m_dockWindow->resizeDocks({ m_generalDock, m_descriptionDock }, { 60, 100 }, Qt::Vertical);
         // more space for preview:
         m_dockWindow->resizeDocks({ m_generalDock, m_descriptionDock, m_previewDock }, { 200, 200, 800 }, Qt::Horizontal);
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
         // group the map with the preview
         m_dockWindow->tabifyDockWidget(m_previewDock, m_mapDock);
         // make sure the preview tab is active:
@@ -1351,13 +1348,12 @@ std::tuple<StringSet, StringSet, StringSet> AnnotationDialog::Dialog::selectionF
             firstImage = false;
         } else {
             foreach (const QString &item, itemsOnThisImage) {
-                if (! itemsOnAllImages.contains(item) &&
-                    ! itemsOnSomeImages.contains(item)) {
+                if (!itemsOnAllImages.contains(item) && !itemsOnSomeImages.contains(item)) {
                     itemsOnSomeImages += item;
                 }
             }
             foreach (const QString &item, itemsOnAllImages) {
-                if (! itemsOnThisImage.contains(item)) {
+                if (!itemsOnThisImage.contains(item)) {
                     itemsOnAllImages -= item;
                 }
             }
@@ -1405,7 +1401,7 @@ void AnnotationDialog::Dialog::saveAndClose()
             ls->slotReturn();
         }
 
-        Q_FOREACH(ListSelect *ls, m_optionList) {
+        Q_FOREACH (ListSelect *ls, m_optionList) {
             StringSet changes = changedOptions(ls);
             if (!(changes.isEmpty())) {
                 anyChanges = true;
@@ -1436,7 +1432,6 @@ void AnnotationDialog::Dialog::saveAndClose()
             }
         }
         m_ratingChanged = false;
-
     }
     m_accept = QDialog::Accepted;
 
@@ -1664,18 +1659,19 @@ AnnotationDialog::ListSelect *AnnotationDialog::Dialog::listSelectForCategory(co
     return m_listSelectList.value(category, nullptr);
 }
 
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
 void AnnotationDialog::Dialog::updateMapForCurrentImage()
 {
     if (m_setup != InputSingleImageConfigMode) {
         return;
     }
 
-    if (m_editList[m_current].coordinates().hasCoordinates()) {
-        m_annotationMap->setCenter(m_editList[m_current]);
-        m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasCoordinates);
+    // we can use the coordinates of the original images here, because the are never changed by the annotation dialog
+    if (m_origList[m_current]->coordinates().hasCoordinates()) {
+        m_annotationMap->setCenter(m_origList[m_current]);
+        m_annotationMap->displayStatus(Map::MapStatus::ImageHasCoordinates);
     } else {
-        m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasNoCoordinates);
+        m_annotationMap->displayStatus(Map::MapStatus::ImageHasNoCoordinates);
     }
 }
 
@@ -1698,23 +1694,23 @@ void AnnotationDialog::Dialog::populateMap()
     if (m_mapIsPopulated) {
         return;
     }
-    m_annotationMap->displayStatus(Map::MapView::MapStatus::Loading);
+    m_annotationMap->displayStatus(Map::MapStatus::Loading);
     m_cancelMapLoading = false;
-    m_mapLoadingProgress->setMaximum(m_editList.count());
+    m_mapLoadingProgress->setMaximum(m_origList.count());
     m_mapLoadingProgress->show();
     m_cancelMapLoadingButton->show();
 
     int processedImages = 0;
     int imagesWithCoordinates = 0;
 
-    foreach (DB::ImageInfo info, m_editList) {
+    // we can use the coordinates of the original images here, because the are never changed by the annotation dialog
+    foreach (const DB::ImageInfoPtr info, m_origList) {
         processedImages++;
         m_mapLoadingProgress->setValue(processedImages);
         // keep things responsive by processing events manually:
         QApplication::processEvents();
 
-        if (info.coordinates().hasCoordinates()) {
-            m_annotationMap->addImage(info);
+        if (m_annotationMap->addImage(info)) {
             imagesWithCoordinates++;
         }
 
@@ -1724,7 +1720,7 @@ void AnnotationDialog::Dialog::populateMap()
             break;
         }
     }
-
+    m_annotationMap->buildImageClusters();
     // at this point either we canceled loading or the map is populated:
     m_mapIsPopulated = !m_cancelMapLoading;
     mapLoadingFinished(imagesWithCoordinates > 0, imagesWithCoordinates == processedImages);
@@ -1741,19 +1737,19 @@ void AnnotationDialog::Dialog::mapLoadingFinished(bool mapHasImages, bool allIma
     m_cancelMapLoadingButton->hide();
 
     if (m_setup == InputSingleImageConfigMode) {
-        m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasNoCoordinates);
+        m_annotationMap->displayStatus(Map::MapStatus::ImageHasNoCoordinates);
     } else {
         if (m_setup == SearchMode) {
-            m_annotationMap->displayStatus(Map::MapView::MapStatus::SearchCoordinates);
+            m_annotationMap->displayStatus(Map::MapStatus::SearchCoordinates);
         } else {
             if (mapHasImages) {
                 if (!allImagesHaveCoordinates) {
-                    m_annotationMap->displayStatus(Map::MapView::MapStatus::SomeImagesHaveNoCoordinates);
+                    m_annotationMap->displayStatus(Map::MapStatus::SomeImagesHaveNoCoordinates);
                 } else {
-                    m_annotationMap->displayStatus(Map::MapView::MapStatus::ImageHasCoordinates);
+                    m_annotationMap->displayStatus(Map::MapStatus::ImageHasCoordinates);
                 }
             } else {
-                m_annotationMap->displayStatus(Map::MapView::MapStatus::NoImagesHaveNoCoordinates);
+                m_annotationMap->displayStatus(Map::MapStatus::NoImagesHaveNoCoordinates);
             }
         }
     }

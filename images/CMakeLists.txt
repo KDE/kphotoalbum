@@ -5,6 +5,7 @@ install(
     splash.png
     splash-large.png
     movie-clip.png
+    pin.png
     DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum/pics
     )
 

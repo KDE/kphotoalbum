@@ -115,6 +115,9 @@
 #include "UpdateVideoThumbnail.h"
 #include "WelcomeDialog.h"
 
+#ifdef HAVE_MARBLE
+#include <Map/MapView.h>
+#endif
 #ifdef KPA_ENABLE_REMOTECONTROL
 #include <RemoteControl/RemoteInterface.h>
 #endif
@@ -140,11 +143,10 @@ MainWindow::Window::Window(QWidget *parent)
     , m_deleteDialog(nullptr)
     , m_htmlDialog(nullptr)
     , m_tokenEditor(nullptr)
-{
-#ifdef HAVE_KGEOMAP
-    m_positionBrowser = 0;
+#ifdef HAVE_MARBLE
+    , m_positionBrowser(nullptr)
 #endif
-
+{
     qCDebug(MainWindowLog) << "Using icon theme: " << QIcon::themeName();
     qCDebug(MainWindowLog) << "Icon search paths: " << QIcon::themeSearchPaths();
     QElapsedTimer timer;
@@ -1936,27 +1938,21 @@ bool MainWindow::Window::dbIsDirty() const
     return m_statusBar->mp_dirtyIndicator->isSaveDirty();
 }
 
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
 void MainWindow::Window::showPositionBrowser()
 {
-    Browser::PositionBrowserWidget *positionBrowser = positionBrowserWidget();
+    auto positionBrowser = positionBrowserWidget();
     m_stack->setCurrentWidget(positionBrowser);
     updateStates(false);
 }
 
-Browser::PositionBrowserWidget *MainWindow::Window::positionBrowserWidget()
+Map::MapView *MainWindow::Window::positionBrowserWidget()
 {
-    if (m_positionBrowser == 0) {
-        m_positionBrowser = createPositionBrowser();
+    if (!m_positionBrowser) {
+        m_positionBrowser = new Map::MapView(m_stack);
+        m_stack->addWidget(m_positionBrowser);
     }
     return m_positionBrowser;
-}
-
-Browser::PositionBrowserWidget *MainWindow::Window::createPositionBrowser()
-{
-    Browser::PositionBrowserWidget *widget = new Browser::PositionBrowserWidget(m_stack);
-    m_stack->addWidget(widget);
-    return widget;
 }
 #endif
 

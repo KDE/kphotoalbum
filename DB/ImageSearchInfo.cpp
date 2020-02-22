@@ -193,17 +193,23 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
     if (m_searchRAW && !ImageManager::RAWImageDecoder::isRAW(info->fileName()))
         return false;
 
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     // Search for GPS Position
-    if (m_usingRegionSelection) {
+    if (!m_regionSelection.isNull()) {
         if (!info->coordinates().hasCoordinates())
             return false;
-        float infoLat = info->coordinates().lat();
-        if (m_regionSelectionMinLat > infoLat || m_regionSelectionMaxLat < infoLat)
+        double infoLat = info->coordinates().lat();
+        if (infoLat < m_regionSelection.south || infoLat > m_regionSelection.north) {
             return false;
-        float infoLon = info->coordinates().lon();
-        if (m_regionSelectionMinLon > infoLon || m_regionSelectionMaxLon < infoLon)
+        }
+        double infoLon = info->coordinates().lon();
+        // copied from Marble::GeoDataLatLonBox:
+        if (((infoLon < m_regionSelection.west || infoLon > m_regionSelection.east)
+             && (m_regionSelection.west < m_regionSelection.east))
+            || ((infoLon < m_regionSelection.west && infoLon > m_regionSelection.east)
+                && (m_regionSelection.east > m_regionSelection.west))) {
             return false;
+        }
     }
 #endif
 
@@ -377,19 +383,8 @@ ImageSearchInfo ImageSearchInfo::loadLock()
 
 void ImageSearchInfo::compile() const
 {
+    qCDebug(DBCategoryMatcherLog) << "Compiling search info...";
     m_exifSearchInfo.search();
-#ifdef HAVE_KGEOMAP
-    // Prepare Search for GPS Position
-    m_usingRegionSelection = m_regionSelection.first.hasCoordinates() && m_regionSelection.second.hasCoordinates();
-    if (m_usingRegionSelection) {
-        using std::max;
-        using std::min;
-        m_regionSelectionMinLat = min(m_regionSelection.first.lat(), m_regionSelection.second.lat());
-        m_regionSelectionMaxLat = max(m_regionSelection.first.lat(), m_regionSelection.second.lat());
-        m_regionSelectionMinLon = min(m_regionSelection.first.lon(), m_regionSelection.second.lon());
-        m_regionSelectionMaxLon = max(m_regionSelection.first.lon(), m_regionSelection.second.lon());
-    }
-#endif
 
     CompiledDataPrivate compiledData;
 
@@ -593,17 +588,17 @@ void DB::ImageSearchInfo::renameCategory(const QString &oldName, const QString &
     m_matchGeneration = nextGeneration();
 }
 
-#ifdef HAVE_KGEOMAP
-KGeoMap::GeoCoordinates::Pair ImageSearchInfo::regionSelection() const
+#ifdef HAVE_MARBLE
+Map::GeoCoordinates::LatLonBox ImageSearchInfo::regionSelection() const
 {
     return m_regionSelection;
 }
 
-void ImageSearchInfo::setRegionSelection(const KGeoMap::GeoCoordinates::Pair &actRegionSelection)
+void ImageSearchInfo::setRegionSelection(const Map::GeoCoordinates::LatLonBox &actRegionSelection)
 {
     m_regionSelection = actRegionSelection;
     m_compiled.valid = false;
-    if (m_regionSelection.first.hasCoordinates() && m_regionSelection.second.hasCoordinates()) {
+    if (!m_regionSelection.isNull()) {
         m_isNull = false;
     }
     m_matchGeneration = nextGeneration();

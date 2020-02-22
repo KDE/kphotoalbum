@@ -19,14 +19,18 @@
 #ifndef IMAGEINFO_H
 #define IMAGEINFO_H
 
-#include "config-kpa-kgeomap.h"
+#include "config-kpa-marble.h"
 
 #include "CategoryPtr.h"
 #include "ExifMode.h"
 #include "FileName.h"
 #include "ImageDate.h"
 #include "MD5.h"
+#include "Utilities/StringSet.h"
 
+#ifdef HAVE_MARBLE
+#include <Map/GeoCoordinates.h>
+#endif
 #include <Utilities/StringSet.h>
 
 #include <QRect>
@@ -34,9 +38,6 @@
 #include <qmap.h>
 #include <qstring.h>
 #include <qstringlist.h>
-#ifdef HAVE_KGEOMAP
-#include <KGeoMap/GeoCoordinates>
-#endif
 
 namespace Plugins
 {
@@ -194,8 +195,8 @@ public:
     bool isMatched() const;
     void setMatchGeneration(int matchGeneration);
     int matchGeneration() const;
-#ifdef HAVE_KGEOMAP
-    KGeoMap::GeoCoordinates coordinates() const;
+#ifdef HAVE_MARBLE
+    Map::GeoCoordinates coordinates() const;
 #endif
 
 protected:
@@ -229,8 +230,8 @@ private:
     int m_videoLength;
     bool m_isMatched;
     int m_matchGeneration;
-#ifdef HAVE_KGEOMAP
-    mutable KGeoMap::GeoCoordinates m_coordinates;
+#ifdef HAVE_MARBLE
+    mutable Map::GeoCoordinates m_coordinates;
     mutable bool m_coordsIsSet = false;
 #endif
 

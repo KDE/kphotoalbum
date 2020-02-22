@@ -119,4 +119,5 @@
   <provides>
     <binary>kphotoalbum</binary>
   </provides>
+  <launchable type="desktop-id">org.kde.kphotoalbum.desktop</launchable>
 </component>

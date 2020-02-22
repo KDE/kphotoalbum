@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -20,53 +20,58 @@
 
 #include "BrowserWidget.h"
 #include "ImageViewPage.h"
+#include "Logging.h"
 #include "OverviewPage.h"
 #include "enums.h"
 
 #include <DB/ImageDB.h>
 #include <MainWindow/Window.h>
+#include <Map/GeoCoordinates.h>
+#include <Map/MapView.h>
 
 #include <KLocalizedString>
 
 Browser::GeoPositionPage::GeoPositionPage(const DB::ImageSearchInfo &info, BrowserWidget *browser)
     : BrowserPage(info, browser)
 {
-    active = false;
+    m_active = false;
 }
 
 void Browser::GeoPositionPage::activate()
 {
-    if (!active) {
+    if (!m_active) {
         MainWindow::Window::theMainWindow()->showPositionBrowser();
-        Browser::PositionBrowserWidget *positionBrowserWidget = MainWindow::Window::theMainWindow()->positionBrowserWidget();
-        positionBrowserWidget->showImages(searchInfo());
+        auto map = MainWindow::Window::theMainWindow()->positionBrowserWidget();
+        map->clear();
+        map->addImages(searchInfo());
+        map->zoomToMarkers();
 
-        connect(positionBrowserWidget, &Browser::PositionBrowserWidget::signalNewRegionSelected,
-                this, &GeoPositionPage::slotNewRegionSelected);
-        active = true;
+        connect(map, &Map::MapView::newRegionSelected, this, &GeoPositionPage::slotNewRegionSelected);
+        m_active = true;
     }
 }
 
 void Browser::GeoPositionPage::deactivate()
 {
-    if (active) {
-        active = false;
-        Browser::PositionBrowserWidget *positionBrowserWidget = MainWindow::Window::theMainWindow()->positionBrowserWidget();
-        positionBrowserWidget->clearImages();
-
-        disconnect(positionBrowserWidget, 0, this, 0);
+    if (m_active) {
+        m_active = false;
+        auto map = MainWindow::Window::theMainWindow()->positionBrowserWidget();
+        map->clear();
+        map->disconnect(this);
     }
 }
 
-void Browser::GeoPositionPage::slotNewRegionSelected(KGeoMap::GeoCoordinates::Pair coordinates)
+void Browser::GeoPositionPage::slotNewRegionSelected(Map::GeoCoordinates::LatLonBox coordinates)
 {
-    const QString name = i18n("Geo position");
+    const QString name = i18n("Geo Position");
     DB::ImageSearchInfo info = searchInfo();
 
     info.setRegionSelection(coordinates);
 
     browser()->addAction(new Browser::OverviewPage(Breadcrumb(name), info, browser()));
-    if (DB::ImageDB::instance()->search(info).size() <= Settings::SettingsData::instance()->autoShowThumbnailView()) {
+    const int numSelected = DB::ImageDB::instance()->search(info).size();
+    qCDebug(BrowserLog) << "Selected region" << coordinates << "with" << numSelected << "images.";
+    if (numSelected <= Settings::SettingsData::instance()->autoShowThumbnailView()) {
         browser()->addAction(new ImageViewPage(info, browser()));
     }
 }

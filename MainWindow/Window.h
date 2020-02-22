@@ -23,15 +23,13 @@
 #include <DB/ImageSearchInfo.h>
 #include <DB/UIDelegate.h>
 #include <ThumbnailView/enums.h>
+#include <config-kpa-marble.h>
 
 #include <KXmlGuiWindow>
 #include <QList>
 #include <QPointer>
 #include <QUrl>
 #include <config-kpa-kipi.h>
-#ifdef HAVE_KGEOMAP
-#include <Browser/PositionBrowserWidget.h>
-#endif
 
 class QAction;
 class QCloseEvent;
@@ -51,6 +49,12 @@ class KToggleAction;
 namespace KIPI
 {
 class PluginLoader;
+}
+#endif
+#ifdef HAVE_MARBLE
+namespace Map
+{
+class MapView;
 }
 #endif
 
@@ -111,9 +115,9 @@ public:
     void setStackHead(const DB::FileName &image);
     void setHistogramVisibilty(bool visible) const;
     bool dbIsDirty() const;
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     void showPositionBrowser();
-    Browser::PositionBrowserWidget *positionBrowserWidget();
+    Map::MapView *positionBrowserWidget();
 #endif
 
     // implement UI delegate interface
@@ -237,9 +241,6 @@ protected:
     void executeStartupActions();
     void checkIfVideoThumbnailerIsInstalled();
     bool anyVideosSelected() const;
-#ifdef HAVE_KGEOMAP
-    Browser::PositionBrowserWidget *createPositionBrowser();
-#endif
 
 private:
     static Window *s_instance;
@@ -298,8 +299,8 @@ private:
     QMap<Qt::Key, QPair<QString, QString>> m_viewerInputMacros;
     MainWindow::StatusBar *m_statusBar;
     QString m_lastTarget;
-#ifdef HAVE_KGEOMAP
-    Browser::PositionBrowserWidget *m_positionBrowser;
+#ifdef HAVE_MARBLE
+    Map::MapView *m_positionBrowser;
 #endif
 };
 

@@ -19,7 +19,7 @@
 #ifndef ANNOTATIONDIALOG_DIALOG_H
 #define ANNOTATIONDIALOG_DIALOG_H
 
-#include "config-kpa-kgeomap.h"
+#include "config-kpa-marble.h"
 
 #include "ImagePreviewWidget.h"
 #include "ListSelect.h"
@@ -131,7 +131,7 @@ protected slots:
     void positionableTagSelected(QString category, QString tag);
     void positionableTagDeselected(QString category, QString tag);
     void positionableTagRenamed(QString category, QString oldTag, QString newTag);
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     void setCancelMapLoading();
     void annotationMapVisibilityChanged(bool visible);
     void populateMap();
@@ -229,7 +229,7 @@ private:
     bool m_positionableCategories;
     bool m_areasChanged;
 
-#ifdef HAVE_KGEOMAP
+#ifdef HAVE_MARBLE
     QDockWidget *m_mapDock;
     QWidget *m_annotationMapContainer;
     Map::MapView *m_annotationMap;

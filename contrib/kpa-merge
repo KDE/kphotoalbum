@@ -202,7 +202,7 @@ sub loadCategory($$$) {
 	if ($id == 0) {
 	    print STDERR "Warning: $name:$value has id 0, will remap\n";
 	    $items_to_remap{$value} = $id;
-	} elsif (defined $category_map{$name}[$id]) { 
+	} elsif (defined $category_map{$name}[$id]) {
 	    print STDERR "Warning: duplicate ID for $name:$id!\n";
 	    $items_to_remap{$value} = $id;
 	}

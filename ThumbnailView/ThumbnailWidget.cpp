@@ -32,10 +32,10 @@
 #include <Settings/SettingsData.h>
 
 #include <KLocalizedString>
-#include <QScrollBar>
-#include <QTimer>
 #include <QItemSelection>
 #include <QItemSelectionRange>
+#include <QScrollBar>
+#include <QTimer>
 #include <math.h>
 #include <qcursor.h>
 #include <qfontmetrics.h>

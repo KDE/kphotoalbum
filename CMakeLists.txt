@@ -80,13 +80,16 @@ set_package_properties(KF5KDcraw
     )
 set(HAVE_KDCRAW ${KF5KDcraw_FOUND} )
 
-find_package(KF5KGeoMap)
-set_package_properties(KF5KGeoMap
+find_package(Marble)
+set_package_properties(Marble
     PROPERTIES
     TYPE OPTIONAL
     PURPOSE "Enables support for geographic map location using embedded GPS information."
     )
-set(HAVE_KGEOMAP ${KF5KGeoMap_FOUND})
+set(HAVE_MARBLE ${Marble_FOUND})
+if(Marble_FOUND)
+    include(MarbleChecks)
+endif()
 
 add_custom_target(
     UpdateVersion ALL
@@ -448,14 +451,13 @@ if(KPA_ENABLE_REMOTECONTROL)
 endif()
 
 set(libMap_SRCS)
-if(KF5KGeoMap_FOUND)
+if(Marble_FOUND)
     set(libMap_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/Browser/GeoPositionPage.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Browser/PositionBrowserWidget.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Map/GeoCluster.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapView.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Map/MapMarkerModelHelper.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Map/SearchMarkerTiler.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Map/Logging.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Map/GeoCoordinates.cpp
         )
 endif()
 
@@ -535,8 +537,8 @@ if(KF5KDcraw_FOUND)
     target_link_libraries(kphotoalbum KF5::KDcraw)
 endif()
 
-if(KF5KGeoMap_FOUND)
-    target_link_libraries(kphotoalbum KF5::KGeoMap )
+if(Marble_FOUND)
+    target_link_libraries(kphotoalbum Marble)
 endif()
 
 install(TARGETS kphotoalbum ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
@@ -551,7 +553,7 @@ install(FILES org.kde.kphotoalbum.appdata.xml DESTINATION ${KDE_INSTALL_METAINFO
 
 configure_file(config-kpa-kdcraw.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kdcraw.h)
 configure_file(config-kpa-kipi.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kipi.h)
-configure_file(config-kpa-kgeomap.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kgeomap.h)
+configure_file(config-kpa-marble.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-marble.h)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

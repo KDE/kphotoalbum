@@ -1055,24 +1055,23 @@ StringSet AnnotationDialog::Dialog::changedOptions(ListSelect *ls)
     return changes;
 }
 
-bool AnnotationDialog::Dialog::hasChanges(bool checkOptions)
+bool AnnotationDialog::Dialog::hasChanges()
 {
     if (m_setup == InputSingleImageConfigMode) {
         writeToInfo();
+        if (m_areasChanged)
+            return true;
         for (int i = 0; i < m_editList.count(); ++i) {
             if (*(m_origList[i]) != m_editList[i])
                 return true;
         }
-        return m_areasChanged;
     } else if (m_setup == InputMultiImageConfigMode) {
-        bool changed = (!m_startDate->date().isNull()) || (!m_endDate->date().isNull()) || (!m_imageLabel->text().isEmpty()) || (m_description->toPlainText() != m_firstDescription) || m_ratingChanged;
-        if (checkOptions) {
-            Q_FOREACH (ListSelect *ls, m_optionList) {
-                if (!(changedOptions(ls).isEmpty()))
-                    return true;
-            }
+        if ((!m_startDate->date().isNull()) || (!m_endDate->date().isNull()) || (!m_imageLabel->text().isEmpty()) || (m_description->toPlainText() != m_firstDescription) || m_ratingChanged)
+            return true;
+        Q_FOREACH (ListSelect *ls, m_optionList) {
+            if (!(changedOptions(ls).isEmpty()))
+                return true;
         }
-        return changed;
     }
     return false;
 }
@@ -1389,7 +1388,7 @@ void AnnotationDialog::Dialog::saveAndClose()
     // I need to check for the changes first, as the case for m_setup
     // == InputSingleImageConfigMode, saves to the m_origList, and we
     // can thus not check for changes anymore
-    bool anyChanges = hasChanges(m_setup == InputSingleImageConfigMode);
+    bool anyChanges = hasChanges();
 
     if (m_setup == InputSingleImageConfigMode) {
         writeToInfo();

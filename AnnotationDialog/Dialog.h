@@ -154,7 +154,7 @@ protected:
     void closeEvent(QCloseEvent *) override;
     void showTornOfWindows();
     void hideTornOfWindows();
-    bool hasChanges(bool checkOptions = true);
+    bool hasChanges();
     StringSet changedOptions(ListSelect *);
     void showHelpDialog(UsageMode);
     void resizeEvent(QResizeEvent *) override;

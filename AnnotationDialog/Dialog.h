@@ -103,7 +103,7 @@ public:
      * does not include newly added (or deleted) areas.
      * @return a map of currently tagged areas
      */
-    QMap<QString, QMap<QString, QRect>> taggedAreas() const;
+    DB::TaggedAreas taggedAreas() const;
     ListSelect *listSelectForCategory(const QString &category);
 
 protected slots:

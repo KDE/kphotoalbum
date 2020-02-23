@@ -35,9 +35,9 @@
 
 #include <QRect>
 #include <QSize>
-#include <qmap.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QMap>
+#include <QString>
+#include <QStringList>
 
 namespace Plugins
 {
@@ -67,6 +67,12 @@ enum MediaType { Image = 0x01,
                  Video = 0x02 };
 const MediaType anyMediaType = MediaType(Image | Video);
 typedef unsigned int StackID;
+
+typedef QMap<QString, QRect> PositionTags;
+typedef QMapIterator<QString, QRect> PositionTagsIterator;
+typedef QMap<QString, PositionTags> TaggedAreas;
+typedef QMapIterator<QString, PositionTags> TaggedAreasIterator;
+typedef QMap<QString, StringSet> CategoryInformation;
 
 class ImageInfo : public QSharedData
 {
@@ -138,7 +144,7 @@ public:
      * @param category the category name.
      * @param positionedTags a mapping of tag names to image areas.
      */
-    void setPositionedTags(const QString &category, const QMap<QString, QRect> &positionedTags);
+    void setPositionedTags(const QString &category, const PositionTags &positionedTags);
 
     bool hasCategoryInfo(const QString &key, const QString &value) const;
     bool hasCategoryInfo(const QString &key, const StringSet &values) const;
@@ -183,7 +189,7 @@ public:
      */
     void merge(const ImageInfo &other);
 
-    QMap<QString, QMap<QString, QRect>> taggedAreas() const;
+    TaggedAreas taggedAreas() const;
     /**
      * Return the area associated with a tag.
      * @param category the category name
@@ -213,8 +219,8 @@ private:
     QString m_label;
     QString m_description;
     ImageDate m_date;
-    QMap<QString, StringSet> m_categoryInfomation;
-    QMap<QString, QMap<QString, QRect>> m_taggedAreas;
+    CategoryInformation m_categoryInfomation;
+    TaggedAreas m_taggedAreas;
     int m_angle;
     enum OnDisk { YesOnDisk,
                   NoNotOnDisk,

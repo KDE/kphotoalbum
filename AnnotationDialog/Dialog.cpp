@@ -572,8 +572,8 @@ void AnnotationDialog::Dialog::load()
 
     // Create all tagged areas
 
-    QMap<QString, QMap<QString, QRect>> taggedAreas = info.taggedAreas();
-    QMapIterator<QString, QMap<QString, QRect>> areasInCategory(taggedAreas);
+    DB::TaggedAreas taggedAreas = info.taggedAreas();
+    DB::TaggedAreasIterator areasInCategory(taggedAreas);
 
     while (areasInCategory.hasNext()) {
         areasInCategory.next();
@@ -583,7 +583,7 @@ void AnnotationDialog::Dialog::load()
         // (operator[] will insert an empty item if the category has been deleted
         // and is thus missing in the QMap, but the respective key won't be true)
         if (categoryIsPositionable[category]) {
-            QMapIterator<QString, QRect> areaData(areasInCategory.value());
+            DB::PositionTagsIterator areaData(areasInCategory.value());
             while (areaData.hasNext()) {
                 areaData.next();
                 QString tag = areaData.key();
@@ -640,7 +640,7 @@ void AnnotationDialog::Dialog::writeToInfo()
 
     // Generate a list of all tagged areas
 
-    QMap<QString, QMap<QString, QRect>> areas = taggedAreas();
+    DB::TaggedAreas areas = taggedAreas();
 
     info.setLabel(m_imageLabel->text());
     info.setDescription(m_description->toPlainText());
@@ -679,9 +679,9 @@ QList<AnnotationDialog::ResizableFrame *> AnnotationDialog::Dialog::areas() cons
     return m_preview->preview()->findChildren<ResizableFrame *>();
 }
 
-QMap<QString, QMap<QString, QRect>> AnnotationDialog::Dialog::taggedAreas() const
+DB::TaggedAreas AnnotationDialog::Dialog::taggedAreas() const
 {
-    QMap<QString, QMap<QString, QRect>> taggedAreas;
+    DB::TaggedAreas taggedAreas;
 
     foreach (ResizableFrame *area, areas()) {
         QPair<QString, QString> tagData = area->tagData();
@@ -1458,11 +1458,11 @@ void AnnotationDialog::Dialog::togglePreview()
             m_fullScreenPreview->load(DB::FileNameList() << currentInfo.fileName());
 
             // compute altered tags by removing existing tags from full set:
-            const QMap<QString, QMap<QString, QRect>> existingAreas = currentInfo.taggedAreas();
-            QMap<QString, QMap<QString, QRect>> alteredAreas = taggedAreas();
+            const DB::TaggedAreas existingAreas = currentInfo.taggedAreas();
+            DB::TaggedAreas alteredAreas = taggedAreas();
             for (auto catIt = existingAreas.constBegin(); catIt != existingAreas.constEnd(); ++catIt) {
                 const QString &categoryName = catIt.key();
-                const QMap<QString, QRect> &tags = catIt.value();
+                const DB::PositionTags &tags = catIt.value();
                 for (auto tagIt = tags.cbegin(); tagIt != tags.constEnd(); ++tagIt) {
                     const QString &tagName = tagIt.key();
                     const QRect &area = tagIt.value();

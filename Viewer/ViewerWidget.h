@@ -88,7 +88,7 @@ public:
      * @brief addAdditionalTaggedAreas adds additional areas and marks them as highlighted.
      * @param taggedAreas
      */
-    void addAdditionalTaggedAreas(QMap<QString, QMap<QString, QRect>> taggedAreas);
+    void addAdditionalTaggedAreas(DB::TaggedAreas taggedAreas);
 
 public slots:
     bool close(bool alsoDelete = false);
@@ -118,7 +118,7 @@ protected:
      * @param taggedAreas Map(category -> Map(tagname, area))
      * @param type AreaType::Standard is for areas that are part of the Image; AreaType::Highlight is for additional areas
      */
-    void addTaggedAreas(QMap<QString, QMap<QString, QRect>> taggedAreas, AreaType type);
+    void addTaggedAreas(DB::TaggedAreas taggedAreas, AreaType type);
     void load();
     void setupContextMenu();
     void createShowContextMenu();

@@ -696,7 +696,7 @@ void DB::ImageInfo::removeCategoryInfo(const QString &category, const QString &v
     }
 }
 
-void DB::ImageInfo::setPositionedTags(const QString &category, const QMap<QString, QRect> &positionedTags)
+void DB::ImageInfo::setPositionedTags(const QString &category, const PositionTags &positionedTags)
 {
     m_dirty = true;
     m_taggedAreas[category] = positionedTags;
@@ -713,7 +713,7 @@ bool DB::ImageInfo::updateDateInformation(int mode) const
     return true;
 }
 
-QMap<QString, QMap<QString, QRect>> DB::ImageInfo::taggedAreas() const
+TaggedAreas DB::ImageInfo::taggedAreas() const
 {
     return m_taggedAreas;
 }

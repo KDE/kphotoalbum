@@ -1320,18 +1320,18 @@ void Viewer::ViewerWidget::setTaggedAreasFromImage()
         area->deleteLater();
     }
 
-    QMap<QString, QMap<QString, QRect>> taggedAreas = currentInfo()->taggedAreas();
+    DB::TaggedAreas taggedAreas = currentInfo()->taggedAreas();
     addTaggedAreas(taggedAreas, AreaType::Standard);
 }
 
-void Viewer::ViewerWidget::addAdditionalTaggedAreas(QMap<QString, QMap<QString, QRect>> taggedAreas)
+void Viewer::ViewerWidget::addAdditionalTaggedAreas(DB::TaggedAreas taggedAreas)
 {
     addTaggedAreas(taggedAreas, AreaType::Highlighted);
 }
 
-void Viewer::ViewerWidget::addTaggedAreas(QMap<QString, QMap<QString, QRect>> taggedAreas, AreaType type)
+void Viewer::ViewerWidget::addTaggedAreas(DB::TaggedAreas taggedAreas, AreaType type)
 {
-    QMapIterator<QString, QMap<QString, QRect>> areasInCategory(taggedAreas);
+    DB::TaggedAreasIterator areasInCategory(taggedAreas);
     QString category;
     QString tag;
 
@@ -1339,7 +1339,7 @@ void Viewer::ViewerWidget::addTaggedAreas(QMap<QString, QMap<QString, QRect>> ta
         areasInCategory.next();
         category = areasInCategory.key();
 
-        QMapIterator<QString, QRect> areaData(areasInCategory.value());
+        DB::PositionTagsIterator areaData(areasInCategory.value());
         while (areaData.hasNext()) {
             areaData.next();
             tag = areaData.key();

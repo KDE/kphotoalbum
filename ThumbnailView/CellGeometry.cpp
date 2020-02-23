@@ -68,20 +68,6 @@ QRect ThumbnailView::CellGeometry::iconGeometry(const QPixmap &pixmap) const
 }
 
 /**
- * return the number of categories with values in for the given image.
- */
-static int noOfCategoriesForImage(const DB::FileName &image)
-{
-    static const QString folder(i18n("Folder"));
-    DB::ImageInfoPtr info = image.info();
-    int grps = info->availableCategories().length();
-    if (info->itemsOfCategory(folder).empty())
-        return grps - 1;
-    else
-        return grps - 2; // Exclude folder and media type
-}
-
-/**
  * Return the height of the text under the thumbnails.
  */
 int ThumbnailView::CellGeometry::textHeight() const
@@ -116,6 +102,7 @@ void ThumbnailView::CellGeometry::flushCache()
 
 void ThumbnailView::CellGeometry::calculateTextHeight()
 {
+    static const QString folder(i18n("Folder"));
     m_textHeight = 0;
 
     const int charHeight = QFontMetrics(widget()->font()).height();
@@ -125,7 +112,15 @@ void ThumbnailView::CellGeometry::calculateTextHeight()
     if (Settings::SettingsData::instance()->displayCategories()) {
         int maxCatsInText = 0;
         Q_FOREACH (const DB::FileName &fileName, model()->imageList(ViewOrder)) {
-            maxCatsInText = qMax(noOfCategoriesForImage(fileName), maxCatsInText);
+            DB::ImageInfoPtr info = fileName.info();
+            int grps = info->availableCategories().length();
+            if (grps > maxCatsInText - 2) {
+                if (info->itemsOfCategory(folder).empty()) {
+                    if (grps > maxCatsInText - 1)
+                        maxCatsInText = grps - 1;
+                } else
+                    maxCatsInText = grps - 2;
+            }
         }
 
         m_textHeight += charHeight * maxCatsInText + 5;

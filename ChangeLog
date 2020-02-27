@@ -1,3 +1,5 @@
+* Bugfix: Fix crash when dragging an image beyond the last thumbnail (Fixes #418251)
+
 ====================== KPhotoalbum 5.6.1 released (10.02.2020) ======================
 
 * Bugfix: Fix crash when associating tags with image areas (Fixes #417360).

@@ -115,11 +115,9 @@ void ThumbnailView::CellGeometry::calculateTextHeight()
             DB::ImageInfoPtr info = fileName.info();
             int grps = info->availableCategories().length();
             if (grps > maxCatsInText - 2) {
-                if (info->itemsOfCategory(folder).empty()) {
-                    if (grps > maxCatsInText - 1)
-                        maxCatsInText = grps - 1;
-                } else
-                    maxCatsInText = grps - 2;
+                grps -= info->itemsOfCategory(folder).empty() ? 1 : 2;
+                if (grps > maxCatsInText)
+                    maxCatsInText = grps;
             }
         }
 

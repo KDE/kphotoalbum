@@ -1,3 +1,5 @@
+* Enhancement: Experimental: offer options for image search tuning.
+
 * Change: Don't build with remote interface by default.
   The companion app has not been available for Android for a while now.
   This feature will either be removed in the future, or the Android app will

@@ -20,6 +20,7 @@
 #define OPTIMIZEDFILELIST_H
 #include "FileNameList.h"
 
+#include <QMap>
 #include <QSet>
 #include <QString>
 #include <QStringList>

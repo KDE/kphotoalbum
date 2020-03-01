@@ -20,6 +20,7 @@
 
 #include <DB/ImageInfoList.h>
 
+#include <QMap>
 #include <QUrl>
 namespace ImportExport
 {

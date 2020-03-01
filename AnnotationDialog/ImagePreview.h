@@ -130,7 +130,6 @@ private:
     void createNewArea(QRect geometry, QRect actualGeometry);
     QRect rotateArea(QRect originalAreaGeometry, int angle);
     bool m_areaCreationEnabled;
-    QMap<QString, QPair<int, QSize>> m_imageSizes;
     QImage m_fullSizeImage;
     void fetchFullSizeImage();
     bool fuzzyAreaExists(QList<QRect> &existingAreas, QRect area);

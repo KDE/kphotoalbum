@@ -309,6 +309,8 @@ sub loadCompressedOptions($$$) {
 		    } else {
 			print STDERR "*** Cannot remap non-unique id $id on file $file\n";
 		    }
+		} elsif ($id <= 0) {
+		    print STDERR "*** Invalid option ID 0 found category '$category' in $file; omitting\n";
 		} else {
 		    push @members, $id;
 		}
@@ -346,7 +348,7 @@ sub loadImage($$$) {
 	    $node->setAttribute("label", $label);
 	}
     } else {
-	if ($node->hasAttribute("angle") && 
+	if ($node->hasAttribute("angle") &&
 	    $node->getAttribute("angle") eq "0") {
 	    $node->removeAttribute("angle");
 	}
@@ -470,7 +472,8 @@ sub loadMemberGroup($$) {
 	    $orphans{$category}{$groupname} = 1;
 	}
 	if ($compressed && $node->hasAttribute("members") && $node->getAttribute("members") ne "") {
-	    printf STDERR "WARNING: Orphan group $category:$groupname has children %s!\n", $node->getAttribute("members");
+	    my $suffix = (! $node->getAttribute("members") =~ /,/) ? 'ren' : '';
+	    printf STDERR "WARNING: Orphan group $category:$groupname has child$suffix %s!\n", $node->getAttribute("members");
 	} else {
 	    print STDERR "Removing orphaned member-group $category:$groupname\n";
 	    return;
@@ -810,7 +813,7 @@ sub build_images($$) {
 	copy_attributes($inode, $$image{"attributes"}, 1);
 	if (defined $stacks_byimage[1]{$iname} &&
 	    ! defined $stacks_to_remove{$stacks_byimage[1]{$iname}}) {
-	    $inode->setAttribute("stackId", 
+	    $inode->setAttribute("stackId",
 				 $stacks_remap{$stacks_byimage[1]{$iname}});
 	    $inode->setAttribute("stackOrder", $stack_order{$iname});
 	}

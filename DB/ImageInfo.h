@@ -35,7 +35,7 @@
 
 #include <QRect>
 #include <QSize>
-#include <QMap>
+#include <QHash>
 #include <QString>
 #include <QStringList>
 
@@ -68,11 +68,11 @@ enum MediaType { Image = 0x01,
 const MediaType anyMediaType = MediaType(Image | Video);
 typedef unsigned int StackID;
 
-typedef QMap<QString, QRect> PositionTags;
-typedef QMapIterator<QString, QRect> PositionTagsIterator;
-typedef QMap<QString, PositionTags> TaggedAreas;
-typedef QMapIterator<QString, PositionTags> TaggedAreasIterator;
-typedef QMap<QString, StringSet> CategoryInformation;
+typedef QHash<QString, QRect> PositionTags;
+typedef QHashIterator<QString, QRect> PositionTagsIterator;
+typedef QHash<QString, PositionTags> TaggedAreas;
+typedef QHashIterator<QString, PositionTags> TaggedAreasIterator;
+typedef QHash<QString, StringSet> CategoryInformation;
 
 class ImageInfo : public QSharedData
 {

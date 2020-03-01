@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -19,11 +19,13 @@
 
 #include "SettingsData.h"
 
+#include <KComboBox>
 #include <KLocalizedString>
 #include <QCheckBox>
 #include <QGroupBox>
 #include <QLabel>
 #include <QLineEdit>
+#include <QSpinBox>
 #include <QVBoxLayout>
 
 Settings::FileVersionDetectionPage::FileVersionDetectionPage(QWidget *parent)
@@ -173,6 +175,88 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage(QWidget *parent)
         copyFileReplacementComponentLabel->setWhatsThis(txt);
         m_copyFileReplacementComponent->setWhatsThis(txt);
     }
+
+    // Loader Optimization Setting (prototype)
+    {
+        QGroupBox *loadOptimizationBox = new QGroupBox(i18n("EXPERIMENTAL: Tune new image loading for best performance."), this);
+        topLayout->addWidget(loadOptimizationBox);
+        QGridLayout *layout = new QGridLayout(loadOptimizationBox);
+        int row = 0;
+
+        // Loader preset
+        QLabel *loadOptimizationPresetLabel = new QLabel(i18n("Type of media on which your images are stored."));
+        layout->addWidget(loadOptimizationPresetLabel, row, 0);
+        layout->setColumnStretch(0, 1);
+
+        m_loadOptimizationPreset = new KComboBox;
+        m_loadOptimizationPreset->addItems(QStringList() << i18n("Hard Disk")
+                                                         << i18n("Network")
+                                                         << i18n("SATA SSD")
+                                                         << i18n("Slow PCIe/NVMe")
+                                                         << i18n("Fast PCIe/NVMe")
+                                                         << i18n("Manual Settings")); // manual is expected to be the last item
+        layout->addWidget(m_loadOptimizationPreset, row, 1);
+
+        txt = i18n("<p>Tune image loading for best performance based on the type of storage your image database resides on.  If your image database resides on multiple media, choose the slowet media type used.</p>"
+                   "<p>Use Manual Settings to configure details of how the loading is performed.</p>");
+        loadOptimizationPresetLabel->setWhatsThis(txt);
+        m_loadOptimizationPreset->setWhatsThis(txt);
+        connect(m_loadOptimizationPreset, QOverload<int>::of(&QComboBox::activated), this, &FileVersionDetectionPage::slotUpdateOptimizationUI);
+
+        // Overlap load with MD5 computation
+        ++row;
+        QLabel *overlapLoadMD5Label = new QLabel(i18n("Calculate MD5 checksum while images are being preloaded"));
+        layout->addWidget(overlapLoadMD5Label, row, 0);
+        m_overlapLoadMD5 = new QCheckBox;
+        layout->addWidget(m_overlapLoadMD5, row, 1);
+
+        txt = i18n("<p>Calculate MD5 checksums while images are being preloaded.  This works well if the storage is very fast, such as an NVMe drive.  If the storage is slow, this degrades performance as the checksum calculation has to wait longer for the images to be preloaded.</p>");
+        overlapLoadMD5Label->setWhatsThis(txt);
+        m_overlapLoadMD5->setWhatsThis(txt);
+
+        // Threads for preload
+        ++row;
+        QLabel *preloadThreadCountLabel = new QLabel(i18n("Number of threads to use for preloading (scouting) images"));
+        layout->addWidget(preloadThreadCountLabel, row, 0);
+
+        m_preloadThreadCount = new QSpinBox;
+        m_preloadThreadCount->setRange(1, 16);
+        m_preloadThreadCount->setSingleStep(1);
+        layout->addWidget(m_preloadThreadCount, row, 1);
+
+        txt = i18n("<p>Number of threads to use for preloading images to have them in memory when their checksums are calculated.  This should generally be set higher for faster storage, but not more than the number of cores in your CPU.<.  Default is 1, which works well for mechanical hard disks./p>");
+        preloadThreadCountLabel->setWhatsThis(txt);
+        m_preloadThreadCount->setWhatsThis(txt);
+
+        // Threads for thumbnailPreload
+        ++row;
+        QLabel *thumbnailPreloadThreadCountLabel = new QLabel(i18n("Number of threads to use for thumbnailPreloading (scouting) images"));
+        layout->addWidget(thumbnailPreloadThreadCountLabel, row, 0);
+
+        m_thumbnailPreloadThreadCount = new QSpinBox;
+        m_thumbnailPreloadThreadCount->setRange(1, 16);
+        m_thumbnailPreloadThreadCount->setSingleStep(1);
+        layout->addWidget(m_thumbnailPreloadThreadCount, row, 1);
+
+        txt = i18n("<p>Number of threads to use for preloading images prior to building thumbnails.  Normally this should be set to 1; the exception might be if you have very fast storage.</p>");
+        thumbnailPreloadThreadCountLabel->setWhatsThis(txt);
+        m_thumbnailPreloadThreadCount->setWhatsThis(txt);
+
+        // Threads for thumbnailBuilder
+        ++row;
+        QLabel *thumbnailBuilderThreadCountLabel = new QLabel(i18n("Number of threads to use for building thumbnails"));
+        layout->addWidget(thumbnailBuilderThreadCountLabel, row, 0);
+
+        m_thumbnailBuilderThreadCount = new QSpinBox(loadOptimizationBox);
+        m_thumbnailBuilderThreadCount->setRange(0, 16);
+        m_thumbnailBuilderThreadCount->setSingleStep(1);
+        layout->addWidget(m_thumbnailBuilderThreadCount, row, 1);
+
+        txt = i18n("<p>Number of threads to use for building thumbnails.  If set to 0 this will be set automatically one less than the number of cores, at least one and no more than three.  If you have fast storage and a CPU with many cores, you may see benefit from setting this to a larger value.</p>"
+                   "<p>KPhotoAlbum must be restarted for changes to take effect.</p>");
+        thumbnailBuilderThreadCountLabel->setWhatsThis(txt);
+        m_thumbnailBuilderThreadCount->setWhatsThis(txt);
+    }
 }
 
 Settings::FileVersionDetectionPage::~FileVersionDetectionPage()
@@ -189,6 +273,11 @@ Settings::FileVersionDetectionPage::~FileVersionDetectionPage()
     delete m_autoStackNewFiles;
     delete m_copyFileComponent;
     delete m_copyFileReplacementComponent;
+    delete m_loadOptimizationPreset;
+    delete m_overlapLoadMD5;
+    delete m_preloadThreadCount;
+    delete m_thumbnailPreloadThreadCount;
+    delete m_thumbnailBuilderThreadCount;
 }
 
 void Settings::FileVersionDetectionPage::loadSettings(Settings::SettingsData *opt)
@@ -205,6 +294,12 @@ void Settings::FileVersionDetectionPage::loadSettings(Settings::SettingsData *op
     m_autoStackNewFiles->setChecked(opt->autoStackNewFiles());
     m_copyFileComponent->setText(opt->copyFileComponent());
     m_copyFileReplacementComponent->setText(opt->copyFileReplacementComponent());
+    m_loadOptimizationPreset->setCurrentIndex(opt->loadOptimizationPreset());
+    m_overlapLoadMD5->setChecked(opt->overlapLoadMD5());
+    m_preloadThreadCount->setValue(opt->preloadThreadCount());
+    m_thumbnailPreloadThreadCount->setValue(opt->thumbnailPreloadThreadCount());
+    m_thumbnailBuilderThreadCount->setValue(opt->thumbnailBuilderThreadCount());
+    slotUpdateOptimizationUI();
 }
 
 void Settings::FileVersionDetectionPage::saveSettings(Settings::SettingsData *opt)
@@ -220,5 +315,19 @@ void Settings::FileVersionDetectionPage::saveSettings(Settings::SettingsData *op
     opt->setAutoStackNewFiles(m_autoStackNewFiles->isChecked());
     opt->setCopyFileComponent(m_copyFileComponent->text());
     opt->setCopyFileReplacementComponent(m_copyFileReplacementComponent->text());
+    opt->setLoadOptimizationPreset(m_loadOptimizationPreset->currentIndex());
+    opt->setOverlapLoadMD5(m_overlapLoadMD5->isChecked());
+    opt->setPreloadThreadCount(m_preloadThreadCount->value());
+    opt->setThumbnailPreloadThreadCount(m_thumbnailPreloadThreadCount->value());
+    opt->setThumbnailBuilderThreadCount(m_thumbnailBuilderThreadCount->value());
+}
+
+void Settings::FileVersionDetectionPage::slotUpdateOptimizationUI()
+{
+    const bool manualModeIsSelected = (m_loadOptimizationPreset->currentIndex() + 1 == m_loadOptimizationPreset->count());
+    m_overlapLoadMD5->setEnabled(manualModeIsSelected);
+    m_preloadThreadCount->setEnabled(manualModeIsSelected);
+    m_thumbnailPreloadThreadCount->setEnabled(manualModeIsSelected);
+    m_thumbnailBuilderThreadCount->setEnabled(manualModeIsSelected);
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

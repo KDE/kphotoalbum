@@ -30,6 +30,7 @@
 #include <QApplication>
 #include <QPixmapCache>
 #include <QStringList>
+#include <QThread>
 #include <stdlib.h>
 
 #define STR(x) QString::fromLatin1(x)
@@ -250,6 +251,11 @@ property_copy(moveOriginalContents, setMoveOriginalContents, bool, FileVersionDe
 property_copy(autoStackNewFiles, setAutoStackNewFiles, bool, FileVersionDetection, true)
 property_copy(copyFileComponent, setCopyFileComponent, QString, FileVersionDetection, "(.[^.]+)$")
 property_copy(copyFileReplacementComponent, setCopyFileReplacementComponent, QString, FileVersionDetection, "-edited\\1")
+property_copy(loadOptimizationPreset, setLoadOptimizationPreset, int, FileVersionDetection, 0)
+property_copy(overlapLoadMD5, setOverlapLoadMD5, bool, FileVersionDetection, false)
+property_copy(preloadThreadCount, setPreloadThreadCount, int, FileVersionDetection, 1)
+property_copy(thumbnailPreloadThreadCount, setThumbnailPreloadThreadCount, int, FileVersionDetection, 1)
+property_copy(thumbnailBuilderThreadCount, setThumbnailBuilderThreadCount, int, FileVersionDetection, 0)
     // clang-format on
 
     ////////////////////
@@ -529,6 +535,80 @@ QStringList Settings::SettingsData::EXIFCommentsToStrip()
 void Settings::SettingsData::setEXIFCommentsToStrip(QStringList EXIFCommentsToStrip)
 {
     m_EXIFCommentsToStrip = EXIFCommentsToStrip;
+}
+
+bool Settings::SettingsData::getOverlapLoadMD5() const
+{
+    switch (Settings::SettingsData::instance()->loadOptimizationPreset()) {
+    case Settings::LoadOptimizationSlowNVME:
+    case Settings::LoadOptimizationFastNVME:
+        return true;
+        break;
+    case Settings::LoadOptimizationManual:
+        return Settings::SettingsData::instance()->overlapLoadMD5();
+        break;
+    case Settings::LoadOptimizationHardDisk:
+    case Settings::LoadOptimizationNetwork:
+    case Settings::LoadOptimizationSataSSD:
+    default:
+        return false;
+        break;
+    }
+}
+
+int Settings::SettingsData::getPreloadThreadCount() const
+{
+    switch (Settings::SettingsData::instance()->loadOptimizationPreset()) {
+    case Settings::LoadOptimizationManual:
+        return Settings::SettingsData::instance()->preloadThreadCount();
+        break;
+    case Settings::LoadOptimizationSlowNVME:
+    case Settings::LoadOptimizationFastNVME:
+    case Settings::LoadOptimizationSataSSD:
+        return qMax(1, qMin(16, QThread::idealThreadCount()));
+        break;
+    case Settings::LoadOptimizationHardDisk:
+    case Settings::LoadOptimizationNetwork:
+    default:
+        return 1;
+        break;
+    }
+}
+
+int Settings::SettingsData::getThumbnailPreloadThreadCount() const
+{
+    switch (Settings::SettingsData::instance()->loadOptimizationPreset()) {
+    case Settings::LoadOptimizationManual:
+        return Settings::SettingsData::instance()->thumbnailPreloadThreadCount();
+        break;
+    case Settings::LoadOptimizationSlowNVME:
+    case Settings::LoadOptimizationFastNVME:
+    case Settings::LoadOptimizationSataSSD:
+        return qMax(1, qMin(16, QThread::idealThreadCount() / 2));
+        break;
+    case Settings::LoadOptimizationHardDisk:
+    case Settings::LoadOptimizationNetwork:
+    default:
+        return 1;
+        break;
+    }
+}
+
+int Settings::SettingsData::getThumbnailBuilderThreadCount() const
+{
+    switch (Settings::SettingsData::instance()->loadOptimizationPreset()) {
+    case Settings::LoadOptimizationManual:
+        return Settings::SettingsData::instance()->thumbnailBuilderThreadCount();
+        break;
+    case Settings::LoadOptimizationSlowNVME:
+    case Settings::LoadOptimizationFastNVME:
+    case Settings::LoadOptimizationSataSSD:
+    case Settings::LoadOptimizationHardDisk:
+    case Settings::LoadOptimizationNetwork:
+    default:
+        return qMax(1, qMin(16, QThread::idealThreadCount() - 1));
+        break;
+    }
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

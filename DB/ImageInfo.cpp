@@ -33,6 +33,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QStringList>
+#include <QImageReader>
 
 using namespace DB;
 
@@ -380,6 +381,16 @@ void ImageInfo::setMD5Sum(const MD5 &sum, bool storeEXIF)
         if (!storeEXIF)
             mode &= ~EXIFMODE_DATABASE_UPDATE;
         readExif(fileName(), mode);
+        if (storeEXIF) {
+            // Size isn't really EXIF, but this is the most obvious
+            // place to extract it
+            QImageReader reader(m_fileName.absolute());
+            if (reader.canRead()) {
+                m_size = reader.size();
+                if (m_angle == 90 || m_angle == 270)
+                    m_size.transpose();
+            }
+        }
 
         // FIXME (ZaJ): it *should* make sense to set the ImageDB::md5Map() from here, but I want
         //              to make sure I fully understand everything first...

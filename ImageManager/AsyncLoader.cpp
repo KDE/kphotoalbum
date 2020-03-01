@@ -28,6 +28,7 @@
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <BackgroundTaskManager/JobManager.h>
 #include <MainWindow/FeatureDialog.h>
+#include <Settings/SettingsData.h>
 #include <Utilities/VideoUtil.h>
 
 #include <QIcon>
@@ -67,10 +68,13 @@ void ImageManager::AsyncLoader::init()
     //                   Should we somehow detect this and allocate less threads there?
     //                   rlk 20180515: IMO no; if anything, we need more threads to hide
     //                   the latency of NFS.
-    const int cores = qMax(1, qMin(16, QThread::idealThreadCount() - 1));
+    int desiredThreads = Settings::SettingsData::instance()->getThumbnailBuilderThreadCount();
+    if (desiredThreads == 0) {
+        desiredThreads = qMax(1, qMin(16, QThread::idealThreadCount() - 1));
+    }
     m_exitRequested = false;
 
-    for (int i = 0; i < cores; ++i) {
+    for (int i = 0; i < desiredThreads; ++i) {
         ImageLoaderThread *imageLoader = new ImageLoaderThread();
         // The thread is set to the lowest priority to ensure that it doesn't starve the GUI thread.
         m_threadList << imageLoader;

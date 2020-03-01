@@ -4,6 +4,8 @@
 
 * Bugfix: kpa-merge should not fail if an item of id #0 exists in an index file.
 
+* Enhancement: Experimental: offer options for image search tuning.
+
 ====================== KPhotoalbum 5.6.1 released (10.02.2020) ======================
 
 * Bugfix: Fix crash when associating tags with image areas (Fixes #417360).

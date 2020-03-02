@@ -197,7 +197,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage(QWidget *parent)
                                                          << i18n("Manual Settings")); // manual is expected to be the last item
         layout->addWidget(m_loadOptimizationPreset, row, 1);
 
-        txt = i18n("<p>Tune image loading for best performance based on the type of storage your image database resides on.  If your image database resides on multiple media, choose the slowet media type used.</p>"
+        txt = i18n("<p>Tune image loading for best performance based on the type of storage your image database resides on.  If your image database resides on multiple media, choose the slowest media type used.</p>"
                    "<p>Use Manual Settings to configure details of how the loading is performed.</p>");
         loadOptimizationPresetLabel->setWhatsThis(txt);
         m_loadOptimizationPreset->setWhatsThis(txt);
@@ -224,7 +224,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage(QWidget *parent)
         m_preloadThreadCount->setSingleStep(1);
         layout->addWidget(m_preloadThreadCount, row, 1);
 
-        txt = i18n("<p>Number of threads to use for preloading images to have them in memory when their checksums are calculated.  This should generally be set higher for faster storage, but not more than the number of cores in your CPU.<.  Default is 1, which works well for mechanical hard disks./p>");
+        txt = i18n("<p>Number of threads to use for preloading images to have them in memory when their checksums are calculated.  This should generally be set higher for faster storage, but not more than the number of cores in your CPU. Default is 1, which works well for mechanical hard disks.</p>");
         preloadThreadCountLabel->setWhatsThis(txt);
         m_preloadThreadCount->setWhatsThis(txt);
 

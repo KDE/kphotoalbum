@@ -1,4 +1,4 @@
-/* Copyright 2012-2019 The KPhotoAlbum Development Team
+/* Copyright 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -33,7 +33,7 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <QDir>
-#include <cstdlib>
+#include <QTemporaryDir>
 
 namespace ImageManager
 {
@@ -49,9 +49,12 @@ void ExtractOneVideoFrame::extract(const DB::FileName &fileName, double offset, 
 ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double offset, QObject *receiver, const char *slot)
 {
     m_fileName = fileName;
+    const QString tmpPath = STR("%1/KPA-XXXXXX").arg(QDir::tempPath());
+    m_workingDirectory = new QTemporaryDir(tmpPath);
+    if (!m_workingDirectory->isValid())
+        qCWarning(ImageManagerLog) << "Failed to create temporary directory!";
     m_process = new Utilities::Process(this);
-    setupWorkingDirectory();
-    m_process->setWorkingDirectory(m_workingDirectory);
+    m_process->setWorkingDirectory(m_workingDirectory->path());
 
     connect(m_process, SIGNAL(finished(int)), this, SLOT(frameFetched()));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(handleError(QProcess::ProcessError)));
@@ -62,7 +65,7 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
     // analyzeduration is for videos where the videostream starts later than the sound
     arguments << STR("-ss") << QString::number(offset, 'f', 4) << STR("-analyzeduration")
               << STR("200M") << STR("-i") << fileName.absolute() << STR("-vf") << STR("thumbnail")
-              << STR("-vframes") << STR("20") << m_workingDirectory + STR("/000000%02d.png");
+              << STR("-vframes") << STR("20") << m_workingDirectory->filePath(STR("000000%02d.png"));
 
     qCDebug(ImageManagerLog, "%s %s", qPrintable(MainWindow::FeatureDialog::ffmpegBinary()), qPrintable(arguments.join(QString::fromLatin1(" "))));
 
@@ -71,12 +74,12 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
 
 void ExtractOneVideoFrame::frameFetched()
 {
-    if (!QFile::exists(m_workingDirectory + STR("/00000020.png")))
+    if (!QFile::exists(m_workingDirectory->filePath(STR("/00000020.png"))))
         markShortVideo(m_fileName);
 
     QString name;
     for (int i = 20; i > 0; --i) {
-        name = m_workingDirectory + STR("/000000%1.png").arg(i, 2, 10, QChar::fromLatin1('0'));
+        name = m_workingDirectory->filePath(STR("/000000%1.png").arg(i, 2, 10, QChar::fromLatin1('0')));
         if (QFile::exists(name)) {
             qCDebug(ImageManagerLog) << "Using video frame " << i;
             break;
@@ -85,7 +88,7 @@ void ExtractOneVideoFrame::frameFetched()
 
     QImage image(name);
     emit result(image);
-    deleteWorkingDirectory();
+    delete m_workingDirectory;
     deleteLater();
 }
 
@@ -118,22 +121,6 @@ void ExtractOneVideoFrame::handleError(QProcess::ProcessError error)
                              QString(), QLatin1String("errorWhenRunningQProcessFromExtractOneVideoFrame"));
     emit result(QImage());
     deleteLater();
-}
-
-void ExtractOneVideoFrame::setupWorkingDirectory()
-{
-    const QString tmpPath = STR("%1/KPA-XXXXXX").arg(QDir::tempPath());
-    m_workingDirectory = QString::fromUtf8(mkdtemp(tmpPath.toUtf8().data()));
-}
-
-void ExtractOneVideoFrame::deleteWorkingDirectory()
-{
-    QDir dir(m_workingDirectory);
-    QStringList files = dir.entryList(QDir::Files);
-    for (const QString &file : files)
-        dir.remove(file);
-
-    dir.rmdir(m_workingDirectory);
 }
 
 void ExtractOneVideoFrame::markShortVideo(const DB::FileName &fileName)

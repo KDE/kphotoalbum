@@ -1,4 +1,4 @@
-/* Copyright (C) 2014-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2014-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -181,7 +181,7 @@ private: // Variables
 
     // filled by addImage()
     QHash<GeoBinAddress, GeoBin *> m_baseBins;
-    QHash<GeoBinAddress, GeoCluster *> m_geoClusters;
+    QList<GeoCluster *> m_geoClusters;
 
     Marble::GeoDataLatLonBox m_markersBox;
     bool m_showThumbnails = true;

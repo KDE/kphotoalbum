@@ -1,4 +1,4 @@
-/* Copyright (C) 2014-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2014-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -299,7 +299,7 @@ void Map::MapView::buildImageClusters()
     for (int lvl = 0; lvl < MAP_CLUSTER_LEVELS; lvl++) {
         qCInfo(MapLog) << "MapView:" << clusters[lvl].size() << "clusters on level" << lvl;
     }
-    m_geoClusters = clusters[MAP_CLUSTER_LEVELS - 1];
+    m_geoClusters = clusters[MAP_CLUSTER_LEVELS - 1].values();
     qCDebug(TimingLog) << "MapView::addImages(): aggregated" << count << "GeoClusters in" << timer.elapsed() << "ms.";
 }
 

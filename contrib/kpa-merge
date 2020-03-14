@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright 2017 Robert Krawitz <rlk@alum.mit.edu>
+# Copyright 2017-2020 Robert Krawitz <rlk@alum.mit.edu>
 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public
@@ -224,7 +224,7 @@ sub loadCategory($$$) {
 	    $category_remappings{$name}{$remap}{"new"} = $category_max_id;
 	    if (defined $category_id_remap{$id}) {
 		print STDERR "*** Non-unique category remap for $id.\n";
-		print STDERR "*** Will remove member-group mappins for this id!";
+		print STDERR "*** Will remove member-group mappings for this id!";
 		$category_id_remap{$id} = -1;
 	    } else {
 		$category_id_remap{$id} = $category_max_id;

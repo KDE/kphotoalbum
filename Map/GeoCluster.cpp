@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2019-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -98,7 +98,7 @@ void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::Viewport
         // drawing a larger area gets nicer results on average:
         const qreal heightPx = qMax(1.2 * areaSizePx.height(), (qreal)MARKER_SIZE_PX);
         const qreal widthPx = qMax(1.2 * areaSizePx.width(), (qreal)MARKER_SIZE_PX);
-        painter->drawRect(center(), heightPx, widthPx);
+        painter->drawRect(center(), widthPx, heightPx);
         painter->setOpacity(1);
         QPen pen = painter->pen();
         painter->setPen(QPen(Qt::black));

@@ -205,7 +205,10 @@ sub isNode($$) {
 sub loadCategory($$$) {
     my ($node, $pass, $compressed) = @_;
     my ($name) = $node->getAttribute("name");
-    $categories{"members"}{$name} = {} if (! defined $categories{"members"}{$name});
+    if (! defined $categories{"members"}{$name}) {
+	$categories{"members"}{$name} = {};
+	push @{$categories{"members_list"}}, $name;
+    }
     $orphans{$name} = {};
     $category_remappings{$name} = {};
     $category_map{$name} = [];
@@ -281,6 +284,7 @@ sub loadCategories($$$) {
 	$categories{"attributes"} = getAttributes($node);
     }
     $categories{"members"} = {} if (! defined $categories{"members"});
+    $categories{"members_list"} = () if (! defined $categories{"members_list"});
     # Category maps (mapping between name and ID in a compressed file)
     # will differ for each file.
     %category_map = ();
@@ -864,7 +868,7 @@ sub build_categories($$) {
     my ($members) = $categories{"members"};
     %category_map = ();
 
-    foreach my $cat (sort keys %$members) {
+    foreach my $cat (@{$categories{"members_list"}}) {
 	my %cmap;
 	my ($cnode) = addElement($dom, $new_categories, "Category");
 	my ($cat_data) = $$members{$cat};
@@ -1040,7 +1044,7 @@ if ($command eq "clean") {
     }
     @items_to_add = @ARGV;
 } elsif ($command eq "tag_files" || $command eq "untag_files") {
-    if ($command eq "untag") {
+    if ($command eq "untag" || $command eq "untag_files") {
 	$tag_instead_of_untag = 0;
     }
     check_argv(2, 1);

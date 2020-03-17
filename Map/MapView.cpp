@@ -36,6 +36,7 @@
 #include <QElapsedTimer>
 #include <QLabel>
 #include <QLoggingCategory>
+#include <QMouseEvent>
 #include <QPixmap>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -425,6 +426,25 @@ Map::GeoCoordinates::LatLonBox Map::MapView::getRegionSelection() const
 bool Map::MapView::regionSelected() const
 {
     return m_regionSelected;
+}
+
+void Map::MapView::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() != Qt::LeftButton)
+        return;
+
+    qCDebug(MapLog) << "Map clicked.";
+    const Marble::ViewportParams *viewPortParams = m_mapWidget->viewport();
+    Q_ASSERT(viewPortParams);
+
+    for (const auto *cluster : m_geoClusters) {
+        const Marble::GeoDataLatLonBox region = cluster->regionForPoint(event->pos(), *viewPortParams);
+        if (!region.isEmpty()) {
+            qCDebug(MapLog) << "Cluster selected by mouse click.";
+            updateRegionSelection(region);
+            return;
+        }
+    }
 }
 
 QStringList Map::MapView::renderPosition() const

@@ -133,6 +133,8 @@ public:
     GeoCoordinates::LatLonBox getRegionSelection() const;
     bool regionSelected() const;
 
+    void mousePressEvent(QMouseEvent *event) override;
+
     // LayerInterface:
     /**
      * @brief renderPosition tells the LayerManager what layers we (currently) want to paint on.

@@ -37,6 +37,8 @@ namespace
 constexpr qreal FINE_RESOLUTION = 0.000001;
 // size of the markers in screen coordinates (pixel)
 constexpr int MARKER_SIZE_PX = 40;
+// the scale factor of the bounding box compared to the bounding box as drawn on the map
+constexpr qreal BOUNDING_BOX_SCALEFACTOR = 1.2;
 
 /**
  * @brief screenSize computes the screen size of a geographical region in pixels.
@@ -65,6 +67,27 @@ QSizeF screenSize(const Marble::ViewportParams &viewPortParams, const Marble::Ge
     }
     return QSizeF { qAbs(east - west), qAbs(north - south) };
 }
+
+/**
+ * @brief screenRegion translates a bounding region into screen coordinates for drawing it.
+ * The region has the size of what is actually drawn, not the size of the bounding region itself.
+ * @param viewPortParams
+ * @param region
+ * @return
+ */
+QRectF screenRegion(const Marble::ViewportParams &viewPortParams, const Marble::GeoDataLatLonBox region)
+{
+    const QSizeF areaSizePx = screenSize(viewPortParams, region);
+    // drawing a larger area gets nicer results on average:
+    const qreal heightPx = qMax(BOUNDING_BOX_SCALEFACTOR * areaSizePx.height(), (qreal)MARKER_SIZE_PX);
+    const qreal widthPx = qMax(BOUNDING_BOX_SCALEFACTOR * areaSizePx.width(), (qreal)MARKER_SIZE_PX);
+    qreal left;
+    qreal top;
+    viewPortParams.screenCoordinates(region.west(Marble::GeoDataCoordinates::Radian),
+                                     region.north(Marble::GeoDataCoordinates::Radian),
+                                     left, top);
+    return QRectF(left, top, widthPx, heightPx);
+}
 } //namespace
 
 Marble::GeoDataLatLonAltBox Map::GeoCluster::boundingRegion() const
@@ -83,22 +106,39 @@ Marble::GeoDataCoordinates Map::GeoCluster::center() const
     return boundingRegion().center();
 }
 
+Marble::GeoDataLatLonBox Map::GeoCluster::regionForPoint(QPoint pos, const Marble::ViewportParams &viewPortParams) const
+{
+    const QRectF screenRect = screenRegion(viewPortParams, boundingRegion());
+    if (!screenRect.contains(pos))
+        return {};
+
+    if (m_subItemsView) {
+        qCDebug(MapLog) << "GeoCluster matches point, but delegating to subClusters first.";
+        for (const auto &subCluster : m_subClusters) {
+            const Marble::GeoDataLatLonBox box = subCluster->regionForPoint(pos, viewPortParams);
+            if (!box.isEmpty())
+                return box;
+        }
+    }
+    qCDebug(MapLog) << "GeoCluster containing" << size() << "images matches point.";
+    return boundingRegion();
+}
+
 void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, Map::MapStyle style) const
 {
     if (viewPortParams.resolves(boundingRegion(), 2 * MARKER_SIZE_PX) || size() == 1
         || (viewPortParams.angularResolution() < FINE_RESOLUTION)) {
+        m_subItemsView = true;
         // if the region takes up enough screen space, we should display the subclusters individually.
         // if all images have the same coordinates (null bounding region), this will never happen
         // -> in this case, show the images when we're zoomed in enough
         renderSubItems(painter, viewPortParams, alternatePixmap, style);
     } else {
+        m_subItemsView = false;
         qCDebug(MapLog) << "GeoCluster has" << size() << "images.";
         painter->setOpacity(0.5);
-        const QSizeF areaSizePx = screenSize(viewPortParams, boundingRegion());
-        // drawing a larger area gets nicer results on average:
-        const qreal heightPx = qMax(1.2 * areaSizePx.height(), (qreal)MARKER_SIZE_PX);
-        const qreal widthPx = qMax(1.2 * areaSizePx.width(), (qreal)MARKER_SIZE_PX);
-        painter->drawRect(center(), widthPx, heightPx);
+        const QRectF screenRect = screenRegion(viewPortParams, boundingRegion());
+        painter->drawRect(center(), screenRect.width(), screenRect.height());
         painter->setOpacity(1);
         QPen pen = painter->pen();
         painter->setPen(QPen(Qt::black));

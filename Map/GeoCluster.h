@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2019-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -61,6 +61,17 @@ public:
      * @return the center of the boundingRegion
      */
     virtual Marble::GeoDataCoordinates center() const;
+
+    /**
+     * @brief regionForPoint checks whether the given screen coordinates match the GeoCluster.
+     * The corresponding bounding box is computed the same way as in the render method,
+     * matching against the GeoClusters own bounding box or against its sub-clusters as appropriate.
+     * @param pos
+     * @param viewPortParams
+     * @return The matching GeoDataLatLonBox if the position matches, or an empty box otherwise.
+     */
+    virtual Marble::GeoDataLatLonBox regionForPoint(QPoint pos, const Marble::ViewportParams &viewPortParams) const;
+
     void render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const;
     /**
      * @brief size
@@ -71,6 +82,7 @@ public:
 
 private:
     mutable int m_size = 0;
+    mutable bool m_subItemsView = false;
     QList<const GeoCluster *> m_subClusters;
 
 protected:

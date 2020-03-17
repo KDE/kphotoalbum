@@ -442,6 +442,7 @@ void Map::MapView::mousePressEvent(QMouseEvent *event)
         if (!region.isEmpty()) {
             qCDebug(MapLog) << "Cluster selected by mouse click.";
             updateRegionSelection(region);
+            event->accept();
             return;
         }
     }

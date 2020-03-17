@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -426,6 +426,7 @@ void NewImageFinder::searchForNewFiles(const DB::FileNameSet &loadedFiles, QStri
 
     const QString imageDir = Utilities::stripEndingForwardSlash(Settings::SettingsData::instance()->imageDirectory());
 
+    qCDebug(DBFileOpsLog) << "searching for new files in" << directory;
     FastDir dir(directory);
     const QStringList dirList = dir.entryList();
     ImageManager::RAWImageDecoder rawDec;
@@ -456,10 +457,13 @@ void NewImageFinder::searchForNewFiles(const DB::FileNameSet &loadedFiles, QStri
 
         if (fi.isFile()) {
             if (!DB::ImageDB::instance()->isBlocking(file)) {
-                if (canReadImage(file))
+                if (canReadImage(file)) {
+                    qCDebug(DBFileOpsLog) << "Found new image:" << file.relative();
                     m_pendingLoad.append(qMakePair(file, DB::Image));
-                else if (Utilities::isVideo(file))
+                } else if (Utilities::isVideo(file)) {
+                    qCDebug(DBFileOpsLog) << "Found new video:" << file.relative();
                     m_pendingLoad.append(qMakePair(file, DB::Video));
+                }
             }
         } else if (fi.isDir()) {
             subdirList.append(file.absolute());
@@ -540,6 +544,7 @@ void NewImageFinder::setupFileVersionDetection()
 
 void NewImageFinder::loadExtraFile(const DB::FileName &newFileName, DB::MediaType type)
 {
+    qCDebug(DBFileOpsLog) << "loadExtraFile(" << newFileName.relative() << ")";
     MD5 sum = MD5Sum(newFileName);
     if (handleIfImageHasBeenMoved(newFileName, sum))
         return;

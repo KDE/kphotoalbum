@@ -1,4 +1,4 @@
-/* Copyright (C) 2017-2018 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+/* Copyright (C) 2017-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -21,6 +21,7 @@
 // only enable warning messages by default
 Q_LOGGING_CATEGORY(DBLog, "kphotoalbum.DB", QtWarningMsg)
 Q_LOGGING_CATEGORY(DBCategoryMatcherLog, "kphotoalbum.DB.CategoryMatcher", QtWarningMsg)
+Q_LOGGING_CATEGORY(DBFileOpsLog, "kphotoalbum.DB.FileOperations", QtWarningMsg)
 Q_LOGGING_CATEGORY(DBImageScoutLog, "kphotoalbum.DB.ImageScout", QtWarningMsg)
 // I'm calling this FastDirLog (and not DBFastDirLog) because FastDir is independent of the rest of DB
 Q_LOGGING_CATEGORY(FastDirLog, "kphotoalbum.FastDir", QtWarningMsg)

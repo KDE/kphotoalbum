@@ -1,4 +1,4 @@
-/* Copyright (C) 2017-2018 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+/* Copyright (C) 2017-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -23,6 +23,8 @@
 
 Q_DECLARE_LOGGING_CATEGORY(DBLog)
 Q_DECLARE_LOGGING_CATEGORY(DBCategoryMatcherLog)
+// log for file loading operations (i.e. by nature very noisy):
+Q_DECLARE_LOGGING_CATEGORY(DBFileOpsLog)
 Q_DECLARE_LOGGING_CATEGORY(DBImageScoutLog)
 Q_DECLARE_LOGGING_CATEGORY(FastDirLog)
 

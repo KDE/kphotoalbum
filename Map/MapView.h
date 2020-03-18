@@ -86,7 +86,7 @@ class MapView
     Q_OBJECT
 
 public:
-    explicit MapView(QWidget *parent = nullptr, UsageType type = UsageType::InlineMapView);
+    explicit MapView(QWidget *parent, UsageType type);
     ~MapView() override = default;
 
     /**

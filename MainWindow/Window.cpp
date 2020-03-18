@@ -1949,7 +1949,7 @@ void MainWindow::Window::showPositionBrowser()
 Map::MapView *MainWindow::Window::positionBrowserWidget()
 {
     if (!m_positionBrowser) {
-        m_positionBrowser = new Map::MapView(m_stack);
+        m_positionBrowser = new Map::MapView(m_stack, Map::UsageType::InlineMapView);
         m_stack->addWidget(m_positionBrowser);
     }
     return m_positionBrowser;

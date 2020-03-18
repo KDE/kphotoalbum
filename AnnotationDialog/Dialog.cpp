@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -148,7 +148,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     m_annotationMapContainer = new QWidget(this);
     QVBoxLayout *annotationMapContainerLayout = new QVBoxLayout(m_annotationMapContainer);
 
-    m_annotationMap = new Map::MapView(this);
+    m_annotationMap = new Map::MapView(this, Map::UsageType::InlineMapView);
     annotationMapContainerLayout->addWidget(m_annotationMap);
 
     QHBoxLayout *mapLoadingProgressLayout = new QHBoxLayout();

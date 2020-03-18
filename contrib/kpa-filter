@@ -326,6 +326,9 @@ sub loadOptions() {
 sub hasAttribute($;$) {
     my ($category, $value) = @_;
     loadOptions();
+    if (! defined $category_map{$category}) {
+	die "hasAttribute: no such category $category\n";
+    }
     if (defined $value) {
 	return defined $current_image{"options"}{$category}{$value};
     } else {
@@ -434,7 +437,7 @@ EOF
 	    \$matched_count++;
 EOF
     if ($opt_list_type) {
-	if ($opt_list_type =~ /cat(egory)?:(.*)/) {
+	if ($opt_list_type =~ /[Cc]at(egory)?:(.*)/) {
 	    $code .= << "EOF"
 	    loadOptions();
 	    map { \$items_found{\$_}++; } keys \%{\$current_image{"options"}{"$2"}};
@@ -592,7 +595,13 @@ sub load_file($) {
 	    loadCategories($topcn, $compressed);
 	    if (! $opt_print_count && $opt_list_type && $opt_list_type =~ /^cat(egory)?:(.*)/ && !defined $kpa_filter) {
 		$opt_list_type = $2;
-		print join("\n", sort grep(defined $_, @{$category_map{$opt_list_type}})), "\n";
+		if (! defined $category_map{$opt_list_type}) {
+		    die "Can't list category $opt_list_type: no such category\n";
+		}
+		my $stuff = join("\n", sort grep(defined $_ && $_ ne '', @{$category_map{$opt_list_type}}));
+		if ($stuff) {
+		    print "$stuff\n";
+		}
 		exit;
 	    }
 	} elsif (isNode($topcn, "images")) {

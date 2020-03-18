@@ -33,8 +33,9 @@ my (%category_map);
 my (%blocklist);
 # This is stored as {category}{member}{groupname}, as members can only be
 # members of one group.  Weird, huh?  But this way, when we overlay the new
+# $member_groups{category}{member}{groupname} = is_referenced
 my (%member_groups);
-# $group_memberss{category}{groupname}{member} = is_referenced
+# $group_members{category}{groupname}{member} = is_referenced
 my (%group_members);
 # $category_images{category}{member} = is_referenced
 my (%categories_used);
@@ -59,7 +60,8 @@ my ($parent_of_items_to_add) = '';
 my (@files_to_tag) = ();
 my ($tag_instead_of_untag) = 1;
 my ($category_of_items_to_tag) = '';
-my ($item_to_tag) = '';
+my (@items_to_tag) = ();
+my (%map_items_to_tag) = ();
 
 # Order matters here; sort by date and then filename
 my (%images_seq);
@@ -259,8 +261,11 @@ sub loadCategory($$$) {
 	    }
 	}
     }
-    if ($category_of_items_to_tag eq $name && ! defined $$category{'members'}{$item_to_tag}) {
-	die "Error: attempting to tag files $category_of_items_to_tag/$item_to_tag, but item $category_of_items_to_tag/$item_to_tag does not exist.\n";
+    foreach my $item_to_tag (@items_to_tag) {
+	if ($category_of_items_to_tag eq $name && $tag_instead_of_untag && 
+	    ! defined $$category{'members'}{$item_to_tag}) {
+	    die "Error: attempting to tag files $category_of_items_to_tag/$item_to_tag, but item $category_of_items_to_tag/$item_to_tag does not exist.\n";
+	}
     }
     if ($category_of_items_to_add eq $name) {
 	if ($parent_of_items_to_add ne '' && ! defined $$category{'members'}{$parent_of_items_to_add}) {
@@ -268,7 +273,7 @@ sub loadCategory($$$) {
 	}
 	foreach my $item (@items_to_add) {
 	    if (defined $$category{'members'}{$item}) {
-		warn "$category/$item already exists, skipping.\n";
+		warn "$name/$item already exists, skipping.\n";
 	    } else {
 		$$category{'members'}{$item} = 1;
 		$category_map{$name}[++$category_max_id] = $item;
@@ -299,11 +304,13 @@ sub loadCategories($$$) {
     }
     if ($category_of_items_to_tag ne '' && $tag_instead_of_untag &&
 	! defined $categories{'members'}{$category_of_items_to_tag}) {
-	die "Error: attempting to tag files $category_of_items_to_tag/$item_to_tag, but category $category_of_items_to_tag does not exist.\n";
+	die "Error: attempting to tag files $category_of_items_to_tag, but category $category_of_items_to_tag does not exist.\n";
     }
-    if ($category_of_items_to_tag ne '' && $tag_instead_of_untag &&
-	! defined $categories{'members'}{$category_of_items_to_tag}{'members'}{$item_to_tag}) {
-	die "Error: attempting to tag files $category_of_items_to_tag/$item_to_tag, but item $category_of_items_to_tag/$item_to_tag does not exist.\n";
+    foreach my $item_to_tag (@items_to_tag) {
+	if ($category_of_items_to_tag ne '' && $tag_instead_of_untag &&
+	    ! defined $categories{'members'}{$category_of_items_to_tag}{'members'}{$item_to_tag}) {
+	    die "Error: attempting to tag files $category_of_items_to_tag/$item_to_tag, but item $category_of_items_to_tag/$item_to_tag does not exist.\n";
+	}
     }
 }
 
@@ -322,8 +329,12 @@ sub loadOptionValues($$$) {
 	my ($child) = $children->get_node($i);
 	next if $node->nodeType() != 1 || !isNode($child, "value");
 	my ($val) = $child->getAttribute("value");
-	$images{$file}{"options"}{$name}{$val} = 1;
-	$categories_used{$pass}{$name}{$val} = 1;
+	if ($tag_instead_of_untag ||
+	    $name ne $category_of_items_to_tag ||
+	    ! defined $map_items_to_tag{$name}) {
+	    $images{$file}{"options"}{$name}{$val} = 1;
+	    $categories_used{$pass}{$name}{$val} = 1;
+	}
     }
 }
 
@@ -375,8 +386,12 @@ sub loadCompressedOptions($$$) {
 	    $images{$file}{"options"} = {} if ($opt_replace_categories || ! defined $images{$file}{"options"});
 	    $images{$file}{"options"}{$category} = {} if (! defined $images{$file}{"options"}{$category});
 	    map {
-		$images{$file}{"options"}{$category}{$$map[$_]} = 1;
-		$categories_used{$pass}{$category}{$$map[$_]} = 1;
+		if ($tag_instead_of_untag ||
+		    $category ne $category_of_items_to_tag ||
+		    ! defined $map_items_to_tag{$$map[$_]}) {
+		    $images{$file}{"options"}{$category}{$$map[$_]} = 1;
+		    $categories_used{$pass}{$category}{$$map[$_]} = 1;
+		}
 	    } @members;
 	}
     }
@@ -500,34 +515,20 @@ sub loadImages($$$) {
 	next if $node->nodeType() != 1 || !isNode($child, "image");
 	loadImage($child, $pass, $compressed);
     }
-    if ($category_of_items_to_tag ne '') {
-	if ($tag_instead_of_untag) {
-	    my ($did_tag_images) = 0;
-	    foreach my $file (@files_to_tag) {
-		if (! defined $images{$file}) {
-		    warn "Image $file does not exist, not tagging.\n";
-		    next;
-		}
-		$did_tag_images = 1;
-		$images{$file}{"options"} = {} if (! defined $images{$file}{"options"});
-		$images{$file}{"options"}{$category_of_items_to_tag} = {} if (! defined $images{$file}{"options"}{$category_of_items_to_tag});
-		$images{$file}{"options"}{$category_of_items_to_tag}{$item_to_tag} = 1;
+    if ($category_of_items_to_tag ne '' && $tag_instead_of_untag) {
+	my ($did_tag_images) = 0;
+	foreach my $file (@files_to_tag) {
+	    if (! defined $images{$file}) {
+		warn "Image $file does not exist, not tagging.\n";
+		next;
 	    }
-	    if ($did_tag_images) {
-		$categories_used{$pass}{$category_of_items_to_tag}{$item_to_tag} = 1;
-	    }
-	} else {
-	    foreach my $file (@files_to_tag) {
-		if (! defined $images{$file}) {
-		    warn "Image $file does not exist, not tagging.\n";
-		    next;
-		}
-		if (defined $images{$file}{"options"} &&
-		    defined $images{$file}{"options"}{$category_of_items_to_tag} &&
-		    defined $images{$file}{"options"}{$category_of_items_to_tag}{$item_to_tag}) {
-		    delete $images{$file}{"options"}{$category_of_items_to_tag}{$item_to_tag};
-		}
-	    }
+	    $did_tag_images = 1;
+	    $images{$file}{"options"} = {} if (! defined $images{$file}{"options"});
+	    $images{$file}{"options"}{$category_of_items_to_tag} = {} if (! defined $images{$file}{"options"}{$category_of_items_to_tag});
+	    map { $images{$file}{"options"}{$category_of_items_to_tag}{$_} = 1; } @items_to_tag;
+	}
+	if ($did_tag_images) {
+	    map { $categories_used{$pass}{$category_of_items_to_tag}{$_} = 1; } @items_to_tag;
 	}
     }
 }
@@ -587,13 +588,15 @@ sub loadMemberGroup($$) {
 		}
 	    }
 	    map {
-		$member_groups{$category}{$$map[$_]} = $groupname;
+		$member_groups{$category}{$$map[$_]} = {} if (! defined $member_groups{$category}{$$map[$_]});
+		$member_groups{$category}{$$map[$_]}{$groupname} = 1;
 		$group_members{$category}{$groupname}{$$map[$_]} = 1;
 	    } @members;
 	}
     } else {
 	my ($member) = $node->getAttribute("member");
-	$member_groups{$category}{$member} = $groupname;
+	$member_groups{$category}{$member} = {} if (! defined $member_groups{$category}{$member});
+	$member_groups{$category}{$member}{$groupname} = 1;
 	$group_members{$category}{$groupname}{$member} = 1;
     }
 }
@@ -608,7 +611,7 @@ sub loadMemberGroups($$$) {
     }
     if ($category_of_items_to_add ne '' && $parent_of_items_to_add ne '') {
 	foreach my $item (@items_to_add) {
-	    $member_groups{$category_of_items_to_add}{$item} = $parent_of_items_to_add;
+	    $member_groups{$category_of_items_to_add}{$item}{$parent_of_items_to_add} = 1;
 	    $group_members{$category_of_items_to_add}{$parent_of_items_to_add}{$item} = 1;
 	}
     }
@@ -786,26 +789,32 @@ sub clean_unused_labels_pass(\%) {
 		print STDERR "   Purging $member\n";
 		delete $$members{$member};
 		# Remove this group membership
-		my ($group) = $member_groups{$category}{$member};
-		delete $member_groups{$category}{$member};
-		if (defined $group_members{$category}{$member}) {
-		    if (scalar %{$group_members{$category}{$member}} > 0) {
-			print STDERR "      WARNING: $member still has sub-members! Not deleting.\n";
-		    } else {
+		my (@groups) = keys %{$member_groups{$category}{$member}};
+		foreach my $group (@groups) {
+		    delete $member_groups{$category}{$member}{$group};
+		    if (scalar %{$member_groups{$category}{$member}} == 0) {
 			print STDERR "      Deleting empty member-group $member\n";
-			delete $group_members{$category}{$member};
+			delete $member_groups{$category}{$member};
 		    }
-		}
-		# And remove it from any group it's a member of.
-		if (defined $group) {
-		    print STDERR "    Removing $member from\n";
-		    print STDERR "             $group\n";
-		    delete $group_members{$category}{$group}{$member};
-		    # Prune any groups in which this was the last member,
-		    # which may allow us to do more work in the next pass.
-		    if (scalar %{$group_members{$category}{$group}} == 0) {
-			print STDERR "    Removed last member from $group\n";
-			delete $group_members{$category}{$group};
+		    if (defined $group_members{$category}{$member}) {
+			if (scalar %{$group_members{$category}{$member}} > 0) {
+			    print STDERR "      WARNING: $member still has sub-members! Not deleting.\n";
+			} else {
+			    print STDERR "      Deleting empty member-group $member\n";
+			    delete $group_members{$category}{$member};
+			}
+		    }
+		    # And remove it from any group it's a member of.
+		    if (defined $group) {
+			print STDERR "    Removing $member from\n";
+			print STDERR "             $group\n";
+			delete $group_members{$category}{$group}{$member};
+			# Prune any groups in which this was the last member,
+			# which may allow us to do more work in the next pass.
+			if (scalar %{$group_members{$category}{$group}} == 0) {
+			    print STDERR "    Removed last member from $group\n";
+			    delete $group_members{$category}{$group};
+			}
 		    }
 		}
 		$removed_something = 1;
@@ -914,7 +923,9 @@ sub build_images($$) {
 	    if ($compressed) {
 		foreach my $option (sort keys %{$$image{"options"}}) {
 		    my ($val) = join(",", sort {$a <=> $b} map { $category_map{$option}{$_} } keys %{$$image{"options"}{$option}});
-		    $inode->setAttribute($option, $val);
+		    if ($val ne '') {
+			$inode->setAttribute($option, $val);
+		    }
 		}
 	    } else {
 		my ($onode) = addElement($dom, $inode, 'options');
@@ -941,8 +952,13 @@ sub build_member_groups($$) {
     if ($compressed) {
 	foreach my $cat (sort keys %group_members) {
 	    my ($groups) = $group_members{$cat};
+#	    print STDERR "************ $cat\n";
 	    foreach my $group (sort keys %$groups) {
+#		print STDERR "\n  ++ $group\n";
+#		print STDERR "        ", join("\n        ", map {"$_|$category_map{$cat}{$_}"} keys %{$$groups{$group}}), "\n";
+#		print STDERR "\n";
 		my ($val) = join(",", sort {$a <=> $b} map {$category_map{$cat}{$_}} keys %{$$groups{$group}});
+#		print STDERR "\n   ----\n";
 		my ($mnode) = addElement($dom, $new_member_groups, "member");
 		$mnode->setAttribute("category", $cat);
 		$mnode->setAttribute("group-name", $group);
@@ -1047,13 +1063,14 @@ if ($command eq "clean") {
     if ($command eq "untag" || $command eq "untag_files") {
 	$tag_instead_of_untag = 0;
     }
-    check_argv(2, 1);
+    check_argv(2);
     shift @ARGV;
     $category_of_items_to_tag = shift @ARGV;
-    $item_to_tag = shift @ARGV;
+    @items_to_tag = @ARGV;
+    map { $map_items_to_tag{$_} = 1; } @items_to_tag;
     while (<STDIN>) {
 	chomp;
-	push @files_to_tag, $_;
+	push @files_to_tag, $_ if ($_ ne '')
     }
 } else {
     usage();

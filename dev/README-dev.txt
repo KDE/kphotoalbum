@@ -1,13 +1,11 @@
 Development tools to support KPhotoAlbum development
 ====================================================
 
-dev/scripts
------------
+dev/documentation
+-----------------
 
-This directory contains scripts useful for developing kphotoalbum.
-
-Scripts that are also useful to power users should usually go to the top level
-scripts directory (e.g. kpa-backup.sh).
+This directory contains developer-focused documentation such as information about coding style and the database file format.
+You can also find some notes about debugging.
 
 
 dev/githooks
@@ -27,6 +25,15 @@ About the hooks:
  - 02-check-copyright-header will remind you to update copyright headers
  - 03-check-untracked_source_files will try to warn you about files that you forgot to add to git
  - 04-check-clang-format will complain if your commit isn't formatted properly
+
+dev/scripts
+-----------
+
+This directory contains scripts useful for developing kphotoalbum.
+
+Scripts that are also useful to power users should usually go to the top level
+scripts directory (e.g. kpa-backup.sh).
+
 
 
 Additional resources

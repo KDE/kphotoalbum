@@ -494,11 +494,6 @@ set(kphotoalbum_SRCS
     ${libRemoteControl_SRCS}
     ${libMap_SRCS}
     ${libUtilities_SRCS}
-    # add doxygen headers so that they get visibiltiy in IDEs:
-    ${CMAKE_CURRENT_SOURCE_DIR}/documentation/coding-standards.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/documentation/mainpage.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/documentation/phrase-book.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/documentation/videothumbnails.h
     )
 
 add_executable(kphotoalbum ${kphotoalbum_SRCS})

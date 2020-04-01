@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -432,7 +432,7 @@ void Viewer::ViewerWidget::load()
 
     bool ok = m_display->setImage(currentInfo(), m_forward);
     if (!ok) {
-        close(false);
+        close();
         return;
     }
 
@@ -614,7 +614,7 @@ void Viewer::ViewerWidget::showLast()
     showNextN(m_list.count());
 }
 
-bool Viewer::ViewerWidget::close(bool alsoDelete)
+void Viewer::ViewerWidget::closeEvent(QCloseEvent *event)
 {
     if (!m_removed.isEmpty()) {
         MainWindow::DeleteDialog dialog(this);
@@ -623,9 +623,7 @@ bool Viewer::ViewerWidget::close(bool alsoDelete)
 
     m_slideShowTimer->stop();
     m_isRunningSlideShow = false;
-    return QWidget::close();
-    if (alsoDelete)
-        deleteLater();
+    event->accept();
 }
 
 DB::ImageInfoPtr Viewer::ViewerWidget::currentInfo() const

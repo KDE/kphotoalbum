@@ -1,3 +1,6 @@
+* Bugfix: Always show deletion dialog when closing the viewer and images are
+  marked for deletion.
+
 * Bugfix: Fix crash when dragging an image beyond the last thumbnail (Fixes #418251)
 
 * Bugfix: Fix computation of cell height.

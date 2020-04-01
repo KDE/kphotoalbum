@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -91,7 +91,6 @@ public:
     void addAdditionalTaggedAreas(DB::TaggedAreas taggedAreas);
 
 public slots:
-    bool close(bool alsoDelete = false);
     void updateInfoBox();
     void test();
     void moveInfoBox(int);
@@ -104,6 +103,7 @@ signals:
     void imageRotated(const DB::FileName &id);
 
 protected:
+    void closeEvent(QCloseEvent *event) override;
     void contextMenuEvent(QContextMenuEvent *e) override;
     void resizeEvent(QResizeEvent *) override;
     void keyPressEvent(QKeyEvent *) override;

@@ -127,6 +127,8 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type, QMap<Qt::Key, QPair<QString, 
     setFocusPolicy(Qt::StrongFocus);
 
     QTimer::singleShot(2000, this, SLOT(test()));
+
+    connect(DB::ImageDB::instance(), &DB::ImageDB::imagesDeleted, this, &ViewerWidget::slotRemoveDeletedImages);
 }
 
 void Viewer::ViewerWidget::setupContextMenu()
@@ -464,6 +466,13 @@ void Viewer::ViewerWidget::setCaptionWithDetail(const QString &detail)
     setWindowTitle(i18nc("@title:window %1 is the filename, %2 its detail info", "%1 %2",
                          currentInfo()->fileName().absolute(),
                          detail));
+}
+
+void Viewer::ViewerWidget::slotRemoveDeletedImages(const DB::FileNameList &imageList)
+{
+    for (auto filename : imageList) {
+        m_list.removeAll(filename);
+    }
 }
 
 void Viewer::ViewerWidget::contextMenuEvent(QContextMenuEvent *e)

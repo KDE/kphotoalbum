@@ -1,3 +1,5 @@
+* Bugfix: Fix crash when images are deleted while the viewer window is open.
+
 * Bugfix: Always show deletion dialog when closing the viewer and images are
   marked for deletion.
 

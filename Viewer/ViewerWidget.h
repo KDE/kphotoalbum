@@ -189,6 +189,12 @@ protected slots:
     /** Set the current window title (filename) and add the given detail */
     void setCaptionWithDetail(const QString &detail);
 
+    /**
+     * @brief slotRemoveDeletedImages removes all deleted images from the viewer playback list.
+     * @param imageList
+     */
+    void slotRemoveDeletedImages(const DB::FileNameList &imageList);
+
 private:
     static ViewerWidget *s_latest;
     friend class VideoShooter;

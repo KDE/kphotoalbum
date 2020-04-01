@@ -402,8 +402,8 @@ void Viewer::ViewerWidget::load(const DB::FileNameList &list, int index)
 
 void Viewer::ViewerWidget::load()
 {
-    const bool isReadable = QFileInfo(currentInfo()->fileName().absolute()).isReadable();
-    const bool isVideo = isReadable && Utilities::isVideo(currentInfo()->fileName());
+    const bool isReadable = QFileInfo(m_list[m_current].absolute()).isReadable();
+    const bool isVideo = isReadable && Utilities::isVideo(m_list[m_current]);
 
     if (isReadable) {
         if (isVideo) {
@@ -424,7 +424,7 @@ void Viewer::ViewerWidget::load()
     m_filterMenu->setEnabled(!isVideo);
     m_showExifViewer->setEnabled(!isVideo);
     if (m_exifViewer)
-        m_exifViewer->setImage(currentInfo()->fileName());
+        m_exifViewer->setImage(m_list[m_current]);
 
     Q_FOREACH (QAction *videoAction, m_videoActions) {
         videoAction->setVisible(isVideo);
@@ -464,7 +464,7 @@ void Viewer::ViewerWidget::load()
 void Viewer::ViewerWidget::setCaptionWithDetail(const QString &detail)
 {
     setWindowTitle(i18nc("@title:window %1 is the filename, %2 its detail info", "%1 %2",
-                         currentInfo()->fileName().absolute(),
+                         m_list[m_current].absolute(),
                          detail));
 }
 
@@ -1141,7 +1141,7 @@ void Viewer::ViewerWidget::wheelEvent(QWheelEvent *event)
 
 void Viewer::ViewerWidget::showExifViewer()
 {
-    m_exifViewer = new Exif::InfoDialog(currentInfo()->fileName(), this);
+    m_exifViewer = new Exif::InfoDialog(m_list[m_current], this);
     m_exifViewer->show();
 }
 
@@ -1317,7 +1317,7 @@ void Viewer::ViewerWidget::stopPlayback()
 
 void Viewer::ViewerWidget::invalidateThumbnail() const
 {
-    ImageManager::ThumbnailCache::instance()->removeThumbnail(currentInfo()->fileName());
+    ImageManager::ThumbnailCache::instance()->removeThumbnail(m_list[m_current]);
 }
 
 void Viewer::ViewerWidget::setTaggedAreasFromImage()
@@ -1423,7 +1423,7 @@ void Viewer::ViewerWidget::remapAreas(QSize viewSize, QRect zoomWindow, double s
 
 void Viewer::ViewerWidget::copyTo()
 {
-    QUrl src = QUrl::fromLocalFile(currentInfo()->fileName().absolute());
+    QUrl src = QUrl::fromLocalFile(m_list[m_current].absolute());
     if (m_lastCopyToTarget.isNull()) {
         // get directory of src file
         m_lastCopyToTarget = QFileInfo(src.path()).path();

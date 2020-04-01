@@ -637,7 +637,7 @@ void Viewer::ViewerWidget::closeEvent(QCloseEvent *event)
 
 DB::ImageInfoPtr Viewer::ViewerWidget::currentInfo() const
 {
-    return DB::ImageDB::instance()->info(m_list[m_current]); // PENDING(blackie) can we postpone this lookup?
+    return m_list[m_current].info();
 }
 
 void Viewer::ViewerWidget::infoBoxMove()

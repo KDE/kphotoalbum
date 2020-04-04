@@ -17,19 +17,23 @@
    along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "CheckDropItem.h"
+// Local includes
 
+#include "CheckDropItem.h"
 #include "DragItemInfo.h"
 #include "DragableTreeWidget.h"
 
-#include <DB/Category.h>
-#include <DB/CategoryItem.h>
-#include <DB/ImageDB.h>
-#include <DB/MemberMap.h>
+#include "DB/Category.h"
+#include "DB/CategoryItem.h"
+#include "DB/ImageDB.h"
+#include "DB/MemberMap.h"
 
+// KDE includes
 #include <KLocalizedString>
+#include <KMessageBox>
+
+// Qt includes
 #include <QDropEvent>
-#include <kmessagebox.h>
 
 CategoryListView::CheckDropItem::CheckDropItem(DragableTreeWidget *parent, const QString &column1,
                                                const QString &column2)

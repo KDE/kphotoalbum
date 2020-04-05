@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -110,7 +110,7 @@ void Database::showErrorAndFail(QSqlQuery &query) const
                              "<p>The error message obtained was:<br/>%2</p>",
                              query.lastQuery(), query.lastError().text());
 
-    const QString technicalInfo = QString::fromUtf8("Error running query: %s\n Error was: %s")
+    const QString technicalInfo = QString::fromUtf8("Error running query: %1\n Error was: %2")
                                       .arg(query.lastQuery(), query.lastError().text());
     showErrorAndFail(txt, technicalInfo);
 }
@@ -144,7 +144,7 @@ void Exif::Database::openDatabase()
                                  "<p>The error message obtained was:<br/>%1</p>",
                                  m_db.lastError().text());
         const QString logMsg = QString::fromUtf8("Could not open Exif search database! "
-                                                 "Error was: %s")
+                                                 "Error was: %1")
                                    .arg(m_db.lastError().text());
         showErrorAndFail(txt, logMsg);
         return;
@@ -274,7 +274,7 @@ bool Exif::Database::add(const DB::FileNameList &list)
             image->readMetadata();
             map << DBExifInfo(fileName, image->exifData());
         } catch (...) {
-            qWarning("Error while reading exif information from %s", qPrintable(fileName.absolute()));
+            qCWarning(ExifLog, "Error while reading exif information from %s", qPrintable(fileName.absolute()));
         }
     }
     insert(map);

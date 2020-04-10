@@ -1045,7 +1045,7 @@ void AnnotationDialog::Dialog::closeDialog()
     QDialog::reject();
 }
 
-StringSet AnnotationDialog::Dialog::changedOptions(ListSelect *ls)
+StringSet AnnotationDialog::Dialog::changedOptions(const ListSelect *ls)
 {
     StringSet on, partialOn, off, changes;
     std::tie(on, partialOn, off) = selectionForMultiSelect(ls, m_origList);
@@ -1069,7 +1069,7 @@ bool AnnotationDialog::Dialog::hasChanges()
     } else if (m_setup == InputMultiImageConfigMode) {
         if ((!m_startDate->date().isNull()) || (!m_endDate->date().isNull()) || (!m_imageLabel->text().isEmpty()) || (m_description->toPlainText() != m_firstDescription) || m_ratingChanged)
             return true;
-        for (ListSelect *ls : qAsConst(m_optionList)) {
+        for (const ListSelect *ls : qAsConst(m_optionList)) {
             if (!(changedOptions(ls).isEmpty()))
                 return true;
         }
@@ -1333,7 +1333,7 @@ void AnnotationDialog::Dialog::setUpCategoryListBoxForMultiImageSelection(ListSe
     listSel->setSelection(on, partialOn);
 }
 
-std::tuple<StringSet, StringSet, StringSet> AnnotationDialog::Dialog::selectionForMultiSelect(ListSelect *listSel, const DB::ImageInfoList &images)
+std::tuple<StringSet, StringSet, StringSet> AnnotationDialog::Dialog::selectionForMultiSelect(const ListSelect *listSel, const DB::ImageInfoList &images)
 {
     const QString category = listSel->category();
     const StringSet allItems = DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->itemsInclCategories().toSet();
@@ -1401,7 +1401,7 @@ void AnnotationDialog::Dialog::saveAndClose()
             ls->slotReturn();
         }
 
-        for (ListSelect *ls : qAsConst(m_optionList)) {
+        for (const ListSelect *ls : qAsConst(m_optionList)) {
             StringSet changes = changedOptions(ls);
             if (!(changes.isEmpty())) {
                 anyChanges = true;

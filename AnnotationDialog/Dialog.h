@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -155,7 +155,7 @@ protected:
     void showTornOfWindows();
     void hideTornOfWindows();
     bool hasChanges();
-    StringSet changedOptions(ListSelect *);
+    StringSet changedOptions(const ListSelect *);
     void showHelpDialog(UsageMode);
     void resizeEvent(QResizeEvent *) override;
     void moveEvent(QMoveEvent *) override;
@@ -164,7 +164,7 @@ protected:
     void loadWindowLayout();
     void setupActions();
     void setUpCategoryListBoxForMultiImageSelection(ListSelect *, const DB::ImageInfoList &images);
-    std::tuple<Utilities::StringSet, Utilities::StringSet, Utilities::StringSet> selectionForMultiSelect(ListSelect *, const DB::ImageInfoList &images);
+    std::tuple<Utilities::StringSet, Utilities::StringSet, Utilities::StringSet> selectionForMultiSelect(const ListSelect *, const DB::ImageInfoList &images);
     void saveAndClose();
     void ShowHideSearch(bool show);
 

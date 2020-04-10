@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -35,9 +35,7 @@ void XMLDB::NumberedBackup::makeNumberedBackup()
 {
     deleteOldBackupFiles();
 
-    int max = getMaxId();
-    QString fileName;
-    fileName.sprintf("index.xml~%04d~", max + 1);
+    const QString fileName = QStringLiteral("index.xml~%1~").arg(getMaxId() + 1, 4, 10, QLatin1Char('0'));
 
     if (!QFileInfo(QString::fromLatin1("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory())).exists())
         return;

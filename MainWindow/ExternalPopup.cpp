@@ -102,7 +102,7 @@ void MainWindow::ExternalPopup::slotExecuteService(QAction *action)
     if (action->data() == -1) {
         return; //user clicked the title entry. (i.e: "All Selected Items")
     } else if (action->data() == 1) {
-        for (const DB::FileName &file : m_list) {
+        for (const DB::FileName &file : qAsConst(m_list)) {
             if (m_appToMimeTypeMap[name].contains(mimeType(file)))
                 lst.append(QUrl(file.absolute()));
         }
@@ -183,11 +183,11 @@ Utilities::StringSet MainWindow::ExternalPopup::mimeTypes(const DB::FileNameList
 
 MainWindow::OfferType MainWindow::ExternalPopup::appInfos(const DB::FileNameList &files)
 {
-    StringSet types = mimeTypes(files);
+    const StringSet types = mimeTypes(files);
     OfferType res;
     for (const QString &type : types) {
-        KService::List offers = KMimeTypeTrader::self()->query(type, QLatin1String("Application"));
-        for (const KService::Ptr offer : offers) {
+        const KService::List offers = KMimeTypeTrader::self()->query(type, QLatin1String("Application"));
+        for (const KService::Ptr &offer : offers) {
             res.insert(qMakePair(offer->name(), offer->icon()));
             m_appToMimeTypeMap[offer->name()].insert(type);
         }

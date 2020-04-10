@@ -168,7 +168,7 @@ void XMLDB::XMLCategory::initIdMap()
         i = m_nameMap.lastKey();
     }
 
-    for (const QString &tag : m_items) {
+    for (const QString &tag : qAsConst(m_items)) {
         if (!m_idMap.contains(tag))
             setIdMapping(tag, ++i);
     }

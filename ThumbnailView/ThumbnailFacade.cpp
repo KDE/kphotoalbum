@@ -183,7 +183,8 @@ ThumbnailView::ThumbnailFacade *ThumbnailView::ThumbnailFacade::instance()
 
 void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
 {
-    for (const DB::FileName &fileName : widget()->selection(NoExpandCollapsedStacks)) {
+    const auto selection = widget()->selection(NoExpandCollapsedStacks);
+    for (const DB::FileName &fileName : selection) {
         ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
         BackgroundJobs::HandleVideoThumbnailRequestJob::removeFullScaleFrame(fileName);
         m_model->updateCell(fileName);

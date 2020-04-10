@@ -126,7 +126,7 @@ void DuplicateMerger::go()
         method = Utilities::DeleteFromDisk;
     }
 
-    for (DuplicateMatch *selector : m_selectors) {
+    for (DuplicateMatch *selector : qAsConst(m_selectors)) {
         selector->execute(method);
     }
 
@@ -138,7 +138,7 @@ void DuplicateMerger::updateSelectionCount()
     int total = 0;
     int selected = 0;
 
-    for (DuplicateMatch *selector : m_selectors) {
+    for (const DuplicateMatch *selector : qAsConst(m_selectors)) {
         ++total;
         if (selector->selected())
             ++selected;
@@ -152,7 +152,8 @@ void DuplicateMerger::findDuplicates()
 {
     Utilities::ShowBusyCursor dummy;
 
-    for (const DB::FileName &fileName : DB::ImageDB::instance()->images()) {
+    const auto images = DB::ImageDB::instance()->images();
+    for (const DB::FileName &fileName : images) {
         const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
         const DB::MD5 md5 = info->MD5Sum();
         m_matches[md5].append(fileName);
@@ -184,7 +185,7 @@ void DuplicateMerger::addRow(const DB::MD5 &md5)
 
 void DuplicateMerger::selectAll(bool b)
 {
-    for (DuplicateMatch *selector : m_selectors) {
+    for (DuplicateMatch *selector : qAsConst(m_selectors)) {
         selector->setSelected(b);
     }
 }

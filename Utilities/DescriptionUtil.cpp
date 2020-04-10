@@ -113,9 +113,9 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
         }
     }
 
-    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    const QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int link = 0;
-    for (const DB::CategoryPtr category : categories) {
+    for (const DB::CategoryPtr &category : categories) {
         const QString categoryName = category->name();
         if (category->doShow()) {
             StringSet items = info->itemsOfCategory(categoryName);
@@ -134,7 +134,7 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
                 QString title = QString::fromUtf8("<b>%1: </b> ").arg(category->name());
                 QString infoText;
                 bool first = true;
-                for (const QString &item : items) {
+                for (const QString &item : qAsConst(items)) {
                     if (first)
                         first = false;
                     else

@@ -229,7 +229,7 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
     // -------------------------------------------------- Text
     if (!m_description.isEmpty()) {
         const QString &txt(info->description());
-        QStringList list = m_description.split(QChar::fromLatin1(' '), QString::SkipEmptyParts);
+        const QStringList list = m_description.split(QChar::fromLatin1(' '), QString::SkipEmptyParts);
         for (const QString &word : list) {
             if (txt.indexOf(word, 0, Qt::CaseInsensitive) == -1)
                 return false;
@@ -389,15 +389,15 @@ void ImageSearchInfo::compile() const
     CompiledDataPrivate compiledData;
 
     for (QMap<QString, QString>::ConstIterator it = m_categoryMatchText.begin(); it != m_categoryMatchText.end(); ++it) {
-        QString category = it.key();
-        QString matchText = it.value();
+        const QString category = it.key();
+        const QString matchText = it.value();
 
-        QStringList orParts = matchText.split(QString::fromLatin1("|"), QString::SkipEmptyParts);
+        const QStringList orParts = matchText.split(QString::fromLatin1("|"), QString::SkipEmptyParts);
         DB::ContainerCategoryMatcher *orMatcher = new DB::OrCategoryMatcher;
 
         for (QString orPart : orParts) {
             // Split by " & ", not only by "&", so that the doubled "&"s won't be used as a split point
-            QStringList andParts = orPart.split(QString::fromLatin1(" & "), QString::SkipEmptyParts);
+            const QStringList andParts = orPart.split(QString::fromLatin1(" & "), QString::SkipEmptyParts);
 
             DB::ContainerCategoryMatcher *andMatcher;
             bool exactMatch = false;
@@ -405,7 +405,7 @@ void ImageSearchInfo::compile() const
             andMatcher = new DB::AndCategoryMatcher;
 
             for (QString str : andParts) {
-                static QRegExp regexp(QString::fromLatin1("^\\s*!\\s*(.*)$"));
+                static const QRegExp regexp(QString::fromLatin1("^\\s*!\\s*(.*)$"));
                 if (regexp.exactMatch(str)) { // str is preceded with NOT
                     negate = true;
                     str = regexp.cap(1);
@@ -510,14 +510,14 @@ QList<QList<SimpleCategoryMatcher *>> ImageSearchInfo::query() const
 Utilities::StringSet ImageSearchInfo::findAlreadyMatched(const QString &group) const
 {
     Utilities::StringSet result;
-    QString str = categoryMatchText(group);
+    const QString str = categoryMatchText(group);
     if (str.contains(QString::fromLatin1("|"))) {
         return result;
     }
 
-    QStringList list = str.split(QString::fromLatin1("&"), QString::SkipEmptyParts);
-    for (QString part : list) {
-        QString nm = part.trimmed();
+    const QStringList list = str.split(QString::fromLatin1("&"), QString::SkipEmptyParts);
+    for (const QString &part : list) {
+        const QString nm = part.trimmed();
         if (!nm.contains(QString::fromLatin1("!")))
             result.insert(nm);
     }

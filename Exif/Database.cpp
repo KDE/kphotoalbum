@@ -173,7 +173,8 @@ void Exif::Database::populateDatabase()
 {
     createMetadataTable(SchemaAndDataChanged);
     QStringList attributes;
-    for (DatabaseElement *element : elements()) {
+    const auto allElements = elements();
+    for (const DatabaseElement *element : allElements) {
         attributes.append(element->createString());
     }
 
@@ -389,7 +390,7 @@ bool Exif::Database::insert(const DB::FileName &filename, Exiv2::ExifData data)
     return status;
 }
 
-bool Exif::Database::insert(QList<DBExifInfo> map)
+bool Exif::Database::insert(const QList<DBExifInfo> map)
 {
     if (!isUsable())
         return false;

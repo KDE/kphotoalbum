@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -120,7 +120,7 @@ protected:
     void createMetadataTable(DBSchemaChangeType change);
     static QString connectionName();
     bool insert(const DB::FileName &filename, Exiv2::ExifData);
-    bool insert(QList<DBExifInfo>);
+    bool insert(const QList<DBExifInfo>);
 
 private:
     void showErrorAndFail(QSqlQuery &query) const;

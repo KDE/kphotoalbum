@@ -365,8 +365,9 @@ void ThumbnailView::ThumbnailWidget::showEvent(QShowEvent *event)
 DB::FileNameList ThumbnailView::ThumbnailWidget::selection(ThumbnailView::SelectionMode mode) const
 {
     DB::FileNameList res;
-    for (const QModelIndex &index : selectedIndexes()) {
-        DB::FileName currFileName = model()->imageAt(index.row());
+    const auto indexSelection = selectedIndexes();
+    for (const QModelIndex &index : indexSelection) {
+        const DB::FileName currFileName = model()->imageAt(index.row());
         bool includeAllStacks = false;
         switch (mode) {
         case IncludeAllStacks:

@@ -130,17 +130,17 @@ QMap<QString, QVariant> Plugins::ImageInfo::attributes()
 
     // Flickr plug-in expects the item tags, so we better give them.
     QString text;
-    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    const QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     QStringList tags;
     QStringList tagspath;
     const QLatin1String sep("/");
-    for (const DB::CategoryPtr category : categories) {
-        QString categoryName = category->name();
+    for (const DB::CategoryPtr &category : categories) {
+        const QString categoryName = category->name();
         if (category->isSpecialCategory())
             continue;
         // I don't know why any categories except the above should be excluded
         //if ( category->doShow() ) {
-        Utilities::StringSet items = m_info->itemsOfCategory(categoryName);
+        const Utilities::StringSet items = m_info->itemsOfCategory(categoryName);
         for (const QString &tag : items) {
             tags.append(tag);
             // digikam compatible tag path:
@@ -252,7 +252,7 @@ void Plugins::ImageInfo::addAttributes(const QMap<QString, QVariant> &amap)
                     QString previousTag;
                     // last component is the tag:
                     // others define hierarchy:
-                    for (const QString &currentTag : tagpath) {
+                    for (const QString &currentTag : qAsConst(tagpath)) {
                         if (!cat->items().contains(currentTag)) {
                             qCDebug(PluginsLog) << "Adding tag " << currentTag << " to category " << categoryName;
                             // before we can use a tag, we have to add it

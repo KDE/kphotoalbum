@@ -120,8 +120,8 @@ void Settings::TagGroupsPage::updateCategoryTree()
 
     // Create a tree view of all groups and their sub-groups
 
-    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for (const DB::CategoryPtr category : categories) {
+    const QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for (const DB::CategoryPtr &category : categories) {
         if (category->isSpecialCategory()) {
             continue;
         }
@@ -259,8 +259,7 @@ void Settings::TagGroupsPage::categoryChanged(const QString &name)
     m_membersListWidget->blockSignals(true);
     m_membersListWidget->clear();
 
-    QStringList list = getCategoryObject(name)->items();
-    list += m_memberMap.groups(name);
+    const QStringList list = getCategoryObject(name)->items() + m_memberMap.groups(name);
     QStringList alreadyAdded;
 
     for (const QString &member : list) {

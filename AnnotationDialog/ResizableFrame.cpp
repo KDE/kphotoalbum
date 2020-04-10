@@ -352,7 +352,8 @@ void AnnotationDialog::ResizableFrame::setTagData(QString category, QString tag,
     QPair<QString, QString> selectedData = QPair<QString, QString>(category, tag);
 
     // check existing areas for consistency
-    for (ResizableFrame *area : m_dialog->areas()) {
+    const auto areas = m_dialog->areas();
+    for (ResizableFrame *area : areas) {
         if (area->isTidied()) {
             continue;
         }

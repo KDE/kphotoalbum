@@ -60,7 +60,8 @@ void ThumbnailView::SelectionInteraction::startDrag()
 {
     m_dragInProgress = true;
     QList<QUrl> urls;
-    for (const DB::FileName &fileName : widget()->selection(NoExpandCollapsedStacks)) {
+    const auto selection = widget()->selection(NoExpandCollapsedStacks);
+    for (const DB::FileName &fileName : selection) {
         urls.append(QUrl::fromLocalFile(fileName.absolute()));
     }
     QDrag *drag = new QDrag(MainWindow::Window::theMainWindow());

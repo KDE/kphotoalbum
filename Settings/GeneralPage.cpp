@@ -144,8 +144,8 @@ Settings::GeneralPage::GeneralPage(QWidget *parent)
     lay->addWidget(albumCategoryLabel, row, 0);
     lay->addWidget(m_albumCategory, row, 1);
 
-    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for (const DB::CategoryPtr category : categories) {
+    const QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for (const DB::CategoryPtr &category : categories) {
         m_albumCategory->addItem(category->name());
     }
 

@@ -111,8 +111,9 @@ void ThumbnailView::CellGeometry::calculateTextHeight()
 
     if (Settings::SettingsData::instance()->displayCategories()) {
         int maxCatsInText = 0;
-        for (const DB::FileName &fileName : model()->imageList(ViewOrder)) {
-            DB::ImageInfoPtr info = fileName.info();
+        const auto images = model()->imageList(ViewOrder);
+        for (const DB::FileName &fileName : images) {
+            const DB::ImageInfoPtr info = fileName.info();
             int grps = info->availableCategories().length();
             if (grps > maxCatsInText - 2) {
                 grps -= info->itemsOfCategory(folder).empty() ? 1 : 2;

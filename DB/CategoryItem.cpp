@@ -54,7 +54,7 @@ bool DB::CategoryItem::hasChild(const QString &child) const
     if (mp_name == child)
         return true;
 
-    for (const CategoryItem *subcategory : mp_subcategories) {
+    for (const CategoryItem *subcategory : qAsConst(mp_subcategories)) {
         if (subcategory->hasChild(child))
             return true;
     }

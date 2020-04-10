@@ -75,7 +75,7 @@ void Exif::TreeView::reload()
     QMap<QString, QTreeWidgetItem *> tree;
 
     for (QStringList::const_iterator keysIt = keys.constBegin(); keysIt != keys.constEnd(); ++keysIt) {
-        QStringList subKeys = (*keysIt).split(QLatin1String("."));
+        const QStringList subKeys = (*keysIt).split(QLatin1String("."));
         QTreeWidgetItem *parent = nullptr;
         QString path;
         for (const QString &subKey : subKeys) {

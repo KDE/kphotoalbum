@@ -60,8 +60,8 @@ GroupCounter::GroupCounter(const QString &category)
 
     // Populate the m_memberToGroup map
     for (QMap<QString, StringSet>::Iterator groupToMemberIt = groupToMemberMap.begin(); groupToMemberIt != groupToMemberMap.end(); ++groupToMemberIt) {
-        StringSet members = groupToMemberIt.value();
-        QString group = groupToMemberIt.key();
+        const StringSet members = groupToMemberIt.value();
+        const QString group = groupToMemberIt.key();
 
         for (const auto &member : members) {
             m_memberToGroup[member].append(group);

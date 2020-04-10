@@ -75,8 +75,8 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     typedef QList<DB::FileName> StackList;
     typedef QMap<DB::StackID, StackList> StackMap;
     StackMap stackContents;
-    for (const DB::FileName &fileName : m_imageList) {
-        DB::ImageInfoPtr imageInfo = fileName.info();
+    for (const DB::FileName &fileName : qAsConst(m_imageList)) {
+        const DB::ImageInfoPtr imageInfo = fileName.info();
         if (imageInfo && imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
             stackContents[stackid].append(fileName);
@@ -97,8 +97,8 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
      */
     m_displayList = DB::FileNameList();
     QSet<DB::StackID> alreadyShownStacks;
-    for (const DB::FileName &fileName : m_imageList) {
-        DB::ImageInfoPtr imageInfo = fileName.info();
+    for (const DB::FileName &fileName : qAsConst(m_imageList)) {
+        const DB::ImageInfoPtr imageInfo = fileName.info();
         if (!m_filter.match(imageInfo))
             continue;
         if (imageInfo && imageInfo->isStacked()) {
@@ -163,7 +163,7 @@ void ThumbnailView::ThumbnailModel::setImageList(const DB::FileNameList &items)
     m_imageList = items;
     m_allStacks.clear();
     for (const DB::FileName &fileName : items) {
-        DB::ImageInfoPtr info = fileName.info();
+        const DB::ImageInfoPtr info = fileName.info();
         if (info && info->isStacked())
             m_allStacks << info->stackId();
     }
@@ -213,7 +213,7 @@ void ThumbnailView::ThumbnailModel::updateIndexCache()
 {
     m_fileNameToIndex.clear();
     int index = 0;
-    for (const DB::FileName &fileName : m_displayList) {
+    for (const DB::FileName &fileName : qAsConst(m_displayList)) {
         m_fileNameToIndex[fileName] = index;
         ++index;
     }
@@ -535,7 +535,7 @@ void ThumbnailView::ThumbnailModel::preloadThumbnails()
 {
     // FIXME: it would make a lot of sense to merge preloadThumbnails() with pixmap()
     // and maybe also move the caching stuff into the ImageManager
-    for (const DB::FileName &fileName : m_displayList) {
+    for (const DB::FileName &fileName : qAsConst(m_displayList)) {
         if (fileName.isNull())
             continue;
 

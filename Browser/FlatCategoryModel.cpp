@@ -31,7 +31,7 @@ Browser::FlatCategoryModel::FlatCategoryModel(const DB::CategoryPtr &category, c
     QStringList items = m_category->itemsInclCategories();
     items.sort();
 
-    for (const QString &name : items) {
+    for (const QString &name : qAsConst(items)) {
         const int imageCount = m_images.contains(name) ? m_images[name].count : 0;
         const int videoCount = m_videos.contains(name) ? m_videos[name].count : 0;
 

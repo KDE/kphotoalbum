@@ -97,12 +97,12 @@ void ImportExport::XMLHandler::writeCategories(QDomDocument doc, QDomElement roo
     QDomElement elm = doc.createElement(QString::fromLatin1("options"));
 
     bool anyAtAll = false;
-    QStringList grps = info->availableCategories();
+    const QStringList grps = info->availableCategories();
     for (const QString &name : grps) {
         QDomElement opt = doc.createElement(QString::fromLatin1("option"));
         opt.setAttribute(QString::fromLatin1("name"), name);
 
-        StringSet items = info->itemsOfCategory(name);
+        const StringSet items = info->itemsOfCategory(name);
         bool any = false;
         for (const QString &item : items) {
             QDomElement val = doc.createElement(QString::fromLatin1("value"));

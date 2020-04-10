@@ -168,7 +168,7 @@ void Viewer::VisibleOptionsMenu::updateState()
     m_showImageSize->setChecked(Settings::SettingsData::instance()->showImageSize());
     m_showRating->setChecked(Settings::SettingsData::instance()->showRating());
 
-    for (KToggleAction *action : m_actionList) {
+    for (KToggleAction *action : qAsConst(m_actionList)) {
         action->setChecked(DB::ImageDB::instance()->categoryCollection()->categoryForName(action->data().value<QString>())->doShow());
     }
 }

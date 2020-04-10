@@ -35,8 +35,8 @@ void MainWindow::CategoryImagePopup::populate(const QImage &image, const DB::Fil
     m_imageInfo = DB::ImageDB::instance()->info(imageName);
 
     // add the categories
-    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for (const DB::CategoryPtr category : categories) {
+    const QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for (const DB::CategoryPtr &category : categories) {
         if (!category->isSpecialCategory()) {
             bool categoryMenuEnabled = false;
             const QString categoryName = category->name();
@@ -44,7 +44,7 @@ void MainWindow::CategoryImagePopup::populate(const QImage &image, const DB::Fil
             categoryMenu->setTitle(category->name());
 
             // add category members
-            Utilities::StringSet members = m_imageInfo->itemsOfCategory(categoryName);
+            const Utilities::StringSet members = m_imageInfo->itemsOfCategory(categoryName);
             for (const QString &member : members) {
                 QAction *action = categoryMenu->addAction(member);
                 action->setObjectName(categoryName);

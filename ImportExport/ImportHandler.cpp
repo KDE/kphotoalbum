@@ -119,7 +119,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
 
     // First search for images next to the .kim file
     // Second search for images base on the image root as specified in the .kim file
-    QList<QUrl> searchUrls {
+    const QList<QUrl> searchUrls {
         m_settings.kimFile().adjusted(QUrl::RemoveFilename), m_settings.baseURL().adjusted(QUrl::RemoveFilename)
     };
     for (const QUrl &url : searchUrls) {

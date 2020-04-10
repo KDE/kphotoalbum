@@ -63,7 +63,8 @@ void Settings::UntaggedGroupBox::populateCategoryComboBox()
 {
     m_category->clear();
     m_category->addItem(i18n("None Selected"));
-    for (DB::CategoryPtr category : DB::ImageDB::instance()->categoryCollection()->categories()) {
+    const auto categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for (DB::CategoryPtr category : categories) {
         if (!category->isSpecialCategory())
             m_category->addItem(category->name(), category->name());
     }

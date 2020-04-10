@@ -101,7 +101,7 @@ DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForSpecial(const DB::Categ
 
 void XMLDB::XMLCategoryCollection::initIdMap()
 {
-    for (DB::CategoryPtr categoryPtr : m_categories) {
+    for (DB::CategoryPtr categoryPtr : qAsConst(m_categories)) {
         static_cast<XMLCategory *>(categoryPtr.data())->initIdMap();
     }
 }

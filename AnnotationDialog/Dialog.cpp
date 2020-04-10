@@ -475,15 +475,15 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
     m_lastSelectedPositionableTag.first = QString();
     m_lastSelectedPositionableTag.second = QString();
 
-    for (ListSelect *ls : m_optionList) {
+    for (ListSelect *ls : qAsConst(m_optionList)) {
         ls->setSelection(old_info.itemsOfCategory(ls->category()));
 
         // Also set all positionable tag candidates
 
         if (ls->positionable()) {
-            QString category = ls->category();
-            QSet<QString> selectedTags = old_info.itemsOfCategory(category);
-            QSet<QString> positionedTagSet = positionedTags(category);
+            const QString category = ls->category();
+            const QSet<QString> selectedTags = old_info.itemsOfCategory(category);
+            const QSet<QString> positionedTagSet = positionedTags(category);
 
             // Add the tag to the positionable candiate list, if no area is already associated with it
             for (const auto &tag : selectedTags) {
@@ -493,7 +493,8 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
             }
 
             // Check all areas for a linked tag in this category that is probably not selected anymore
-            for (ResizableFrame *area : areas()) {
+            const auto allAreas = areas();
+            for (ResizableFrame *area : allAreas) {
                 QPair<QString, QString> tagData = area->tagData();
 
                 if (tagData.first == category) {
@@ -549,13 +550,13 @@ void AnnotationDialog::Dialog::load()
 
     QList<QString> positionableCategories;
 
-    for (ListSelect *ls : m_optionList) {
+    for (ListSelect *ls : qAsConst(m_optionList)) {
         ls->setSelection(info.itemsOfCategory(ls->category()));
         ls->rePopulate();
 
         // Get all selected positionable tags and add them to the candidate list
         if (ls->positionable()) {
-            QSet<QString> selectedTags = ls->itemsOn();
+            const QSet<QString> selectedTags = ls->itemsOn();
 
             for (const QString &tagName : selectedTags) {
                 addTagToCandidateList(ls->category(), tagName);
@@ -616,7 +617,7 @@ void AnnotationDialog::Dialog::load()
 
 void AnnotationDialog::Dialog::writeToInfo()
 {
-    for (ListSelect *ls : m_optionList) {
+    for (ListSelect *ls : qAsConst(m_optionList)) {
         ls->slotReturn();
     }
 
@@ -645,7 +646,7 @@ void AnnotationDialog::Dialog::writeToInfo()
     info.setLabel(m_imageLabel->text());
     info.setDescription(m_description->toPlainText());
 
-    for (ListSelect *ls : m_optionList) {
+    for (const ListSelect *ls : qAsConst(m_optionList)) {
         info.setCategoryInfo(ls->category(), ls->itemsOn());
         if (ls->positionable()) {
             info.setPositionedTags(ls->category(), areas[ls->category()]);
@@ -735,7 +736,7 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
         m_ratingChanged = false;
         m_areasChanged = false;
 
-        for (ListSelect *ls : m_optionList) {
+        for (ListSelect *ls : qAsConst(m_optionList)) {
             setUpCategoryListBoxForMultiImageSelection(ls, list);
         }
 
@@ -784,7 +785,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search(DB::ImageSearchInfo *search
                                           m_imageLabel->text(), m_description->toPlainText(),
                                           m_imageFilePattern->text());
 
-        for (const ListSelect *ls : m_optionList) {
+        for (const ListSelect *ls : qAsConst(m_optionList)) {
             m_oldSearch.setCategoryMatchText(ls->category(), ls->text());
         }
         //FIXME: for the user to search for 0-rated images, he must first change the rating to anything > 0
@@ -810,7 +811,7 @@ void AnnotationDialog::Dialog::setup()
 {
     // Repopulate the listboxes in case data has changed
     // An group might for example have been renamed.
-    for (ListSelect *ls : m_optionList) {
+    for (ListSelect *ls : qAsConst(m_optionList)) {
         ls->populate();
     }
 
@@ -833,7 +834,7 @@ void AnnotationDialog::Dialog::setup()
         setWindowTitle(i18nc("@title:window", "Annotations"));
     }
 
-    for (ListSelect *ls : m_optionList) {
+    for (ListSelect *ls : qAsConst(m_optionList)) {
         ls->setMode(m_setup);
     }
 }
@@ -848,7 +849,7 @@ void AnnotationDialog::Dialog::loadInfo(const DB::ImageSearchInfo &info)
     m_startDate->setDate(info.date().start().date());
     m_endDate->setDate(info.date().end().date());
 
-    for (ListSelect *ls : m_optionList) {
+    for (ListSelect *ls : qAsConst(m_optionList)) {
         ls->setText(info.categoryMatchText(ls->category()));
     }
 
@@ -1068,7 +1069,7 @@ bool AnnotationDialog::Dialog::hasChanges()
     } else if (m_setup == InputMultiImageConfigMode) {
         if ((!m_startDate->date().isNull()) || (!m_endDate->date().isNull()) || (!m_imageLabel->text().isEmpty()) || (m_description->toPlainText() != m_firstDescription) || m_ratingChanged)
             return true;
-        for (ListSelect *ls : m_optionList) {
+        for (ListSelect *ls : qAsConst(m_optionList)) {
             if (!(changedOptions(ls).isEmpty()))
                 return true;
         }
@@ -1195,7 +1196,7 @@ void AnnotationDialog::Dialog::setupFocus()
     // now setup tab order.
     QWidget *prev = nullptr;
     QWidget *first = nullptr;
-    for (QWidget *widget : orderedList) {
+    for (QWidget *widget : qAsConst(orderedList)) {
         if (prev) {
             setTabOrder(prev, widget);
         } else {
@@ -1209,7 +1210,7 @@ void AnnotationDialog::Dialog::setupFocus()
     }
 
     // Finally set focus on the first list select
-    for (QWidget *widget : orderedList) {
+    for (QWidget *widget : qAsConst(orderedList)) {
         if (widget->property("FocusCandidate").isValid() && widget->isVisible()) {
             widget->setFocus();
             break;
@@ -1396,11 +1397,11 @@ void AnnotationDialog::Dialog::saveAndClose()
             *(m_origList[i]) = m_editList[i];
         }
     } else if (m_setup == InputMultiImageConfigMode) {
-        for (ListSelect *ls : m_optionList) {
+        for (ListSelect *ls : qAsConst(m_optionList)) {
             ls->slotReturn();
         }
 
-        for (ListSelect *ls : m_optionList) {
+        for (ListSelect *ls : qAsConst(m_optionList)) {
             StringSet changes = changedOptions(ls);
             if (!(changes.isEmpty())) {
                 anyChanges = true;

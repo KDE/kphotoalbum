@@ -43,8 +43,8 @@ QStringList Exif::SearchInfo::buildIntKeyQuery() const
     QStringList andArgs;
     for (IntKeyList::ConstIterator intIt = m_intKeys.begin(); intIt != m_intKeys.end(); ++intIt) {
         QStringList orArgs;
-        QString key = (*intIt).first;
-        IntList values = (*intIt).second;
+        const QString key = (*intIt).first;
+        const IntList values = (*intIt).second;
 
         for (int value : values) {
             orArgs << QString::fromLatin1("(%1 == %2)").arg(key).arg(value);

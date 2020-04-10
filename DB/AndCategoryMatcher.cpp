@@ -22,7 +22,7 @@
 
 bool DB::AndCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet> &alreadyMatched)
 {
-    for (CategoryMatcher *subMatcher : mp_elements) {
+    for (CategoryMatcher *subMatcher : qAsConst(mp_elements)) {
         if (!subMatcher->eval(info, alreadyMatched))
             return false;
     }

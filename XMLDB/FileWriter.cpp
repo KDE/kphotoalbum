@@ -153,7 +153,8 @@ void XMLDB::FileWriter::saveCategories(QXmlStreamWriter &writer)
                                             m_db->_members.groups(name));
         */
 
-        for (const QString &tagName : category->items()) {
+        const auto categoryItems = category->items();
+        for (const QString &tagName : categoryItems) {
             ElementWriter dummy(writer, QString::fromLatin1("value"));
             writer.writeAttribute(QString::fromLatin1("value"), tagName);
             writer.writeAttribute(QString::fromLatin1("id"),
@@ -170,14 +171,15 @@ void XMLDB::FileWriter::saveImages(QXmlStreamWriter &writer)
     DB::ImageInfoList list = m_db->m_images;
 
     // Copy files from clipboard to end of overview, so we don't loose them
-    for (const DB::ImageInfoPtr &infoPtr : m_db->m_clipboard) {
+    const auto clipBoardImages = m_db->m_clipboard;
+    for (const DB::ImageInfoPtr &infoPtr : clipBoardImages) {
         list.append(infoPtr);
     }
 
     {
         ElementWriter dummy(writer, QString::fromLatin1("images"));
 
-        for (const DB::ImageInfoPtr &infoPtr : list) {
+        for (const DB::ImageInfoPtr &infoPtr : qAsConst(list)) {
             save(writer, infoPtr);
         }
     }
@@ -189,7 +191,7 @@ void XMLDB::FileWriter::saveBlockList(QXmlStreamWriter &writer)
     QList<DB::FileName> blockList = m_db->m_blockList.toList();
     // sort blocklist to get diffable files
     std::sort(blockList.begin(), blockList.end());
-    for (const DB::FileName &block : blockList) {
+    for (const DB::FileName &block : qAsConst(blockList)) {
         ElementWriter dummy(writer, QString::fromLatin1("block"));
         writer.writeAttribute(QString::fromLatin1("file"), block.relative());
     }
@@ -224,7 +226,7 @@ void XMLDB::FileWriter::saveMemberGroups(QXmlStreamWriter &writer)
             }
 
             if (useCompressedFileFormat()) {
-                StringSet members = groupMapIt.value();
+                const StringSet members = groupMapIt.value();
                 ElementWriter dummy(writer, QString::fromLatin1("member"));
                 writer.writeAttribute(QString::fromLatin1("category"), categoryName);
                 writer.writeAttribute(QString::fromLatin1("group-name"), groupMapIt.key());
@@ -241,7 +243,7 @@ void XMLDB::FileWriter::saveMemberGroups(QXmlStreamWriter &writer)
             } else {
                 QStringList members = groupMapIt.value().toList();
                 std::sort(members.begin(), members.end());
-                for (const QString &member : members) {
+                for (const QString &member : qAsConst(members)) {
                     ElementWriter dummy(writer, QString::fromLatin1("member"));
                     writer.writeAttribute(QString::fromLatin1("category"), memberMapIt.key());
                     writer.writeAttribute(QString::fromLatin1("group-name"), groupMapIt.key());
@@ -343,7 +345,7 @@ void XMLDB::FileWriter::writeCategories(QXmlStreamWriter &writer, const DB::Imag
 {
     ElementWriter topElm(writer, QString::fromLatin1("options"), false);
 
-    QStringList grps = info->availableCategories();
+    const QStringList grps = info->availableCategories();
     for (const QString &name : grps) {
         if (!shouldSaveCategory(name))
             continue;
@@ -358,7 +360,7 @@ void XMLDB::FileWriter::writeCategories(QXmlStreamWriter &writer, const DB::Imag
             writer.writeAttribute(QString::fromLatin1("name"), name);
         }
 
-        for (const QString &itemValue : items) {
+        for (const QString &itemValue : qAsConst(items)) {
             ElementWriter dummy(writer, QString::fromLatin1("value"));
             writer.writeAttribute(QString::fromLatin1("value"), itemValue);
 
@@ -374,14 +376,14 @@ void XMLDB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, cons
 {
     QMap<QString, QList<QPair<QString, QRect>>> positionedTags;
 
-    QList<DB::CategoryPtr> categoryList = DB::ImageDB::instance()->categoryCollection()->categories();
+    const QList<DB::CategoryPtr> categoryList = DB::ImageDB::instance()->categoryCollection()->categories();
     for (const DB::CategoryPtr &category : categoryList) {
         QString categoryName = category->name();
 
         if (!shouldSaveCategory(categoryName))
             continue;
 
-        StringSet items = info->itemsOfCategory(categoryName);
+        const StringSet items = info->itemsOfCategory(categoryName);
         if (!items.empty()) {
             QStringList idList;
 
@@ -424,7 +426,7 @@ void XMLDB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, cons
             QList<QPair<QString, QRect>> areas = categoryWithAreas.value();
             std::sort(areas.begin(), areas.end(),
                       [](QPair<QString, QRect> a, QPair<QString, QRect> b) { return a.first < b.first; });
-            for (const auto &positionedTag : areas) {
+            for (const auto &positionedTag : qAsConst(areas)) {
                 ElementWriter dummy(writer, QString::fromLatin1("value"));
                 writer.writeAttribute(QString::fromLatin1("value"), positionedTag.first);
                 writer.writeAttribute(QString::fromLatin1("area"), areaToString(positionedTag.second));

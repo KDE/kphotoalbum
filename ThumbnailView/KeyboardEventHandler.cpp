@@ -50,7 +50,7 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent(QKeyEvent *event)
             bool hadHit = false;
 
             const DB::FileNameList selection = widget()->selection(event->modifiers() == Qt::NoModifier ? NoExpandCollapsedStacks : IncludeAllStacks);
-            DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
+            const DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
             for (const DB::FileName &fileName : selection) {
                 DB::ImageInfoPtr info = fileName.info();
                 if (!hadHit) {

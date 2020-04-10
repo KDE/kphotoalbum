@@ -471,7 +471,7 @@ void Settings::CategoryPage::enableDisable(bool b)
 void Settings::CategoryPage::saveSettings(Settings::SettingsData *opt, DB::MemberMap *memberMap)
 {
     // Delete items
-    for (CategoryItem *item : m_deletedCategories) {
+    for (CategoryItem *item : qAsConst(m_deletedCategories)) {
         item->removeFromDatabase();
     }
 
@@ -481,6 +481,7 @@ void Settings::CategoryPage::saveSettings(Settings::SettingsData *opt, DB::Membe
         item->submit(memberMap);
     }
 
+    // FIXME(jzarl): wtf? we need to fix this atrocity...
     DB::ImageDB::instance()->memberMap() = *memberMap;
     m_untaggedBox->saveSettings(opt);
 
@@ -497,8 +498,8 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData *opt)
     m_categoriesListWidget->blockSignals(true);
     m_categoriesListWidget->clear();
 
-    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for (const DB::CategoryPtr category : categories) {
+    const QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for (const DB::CategoryPtr &category : categories) {
         if (category->type() == DB::Category::PlainCategory
             || category->type() == DB::Category::TokensCategory) {
             Settings::CategoryItem *item = new CategoryItem(category->name(),
@@ -507,7 +508,7 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData *opt)
                                                             category->thumbnailSize(),
                                                             m_categoriesListWidget,
                                                             category->positionable());
-            Q_UNUSED(item);
+            Q_UNUSED(item)
         }
     }
 

@@ -84,7 +84,7 @@ void TokenEditor::show()
 {
     QStringList tokens = tokensInUse();
 
-    for (QCheckBox *box : m_checkBoxes) {
+    for (QCheckBox *box : qAsConst(m_checkBoxes)) {
         box->setChecked(false);
         QString txt = box->text().remove(QString::fromLatin1("&"));
         box->setEnabled(tokens.contains(txt));
@@ -94,14 +94,14 @@ void TokenEditor::show()
 
 void TokenEditor::selectAll()
 {
-    for (QCheckBox *box : m_checkBoxes) {
+    for (QCheckBox *box : qAsConst(m_checkBoxes)) {
         box->setChecked(true);
     }
 }
 
 void TokenEditor::selectNone()
 {
-    for (QCheckBox *box : m_checkBoxes) {
+    for (QCheckBox *box : qAsConst(m_checkBoxes)) {
         box->setChecked(false);
     }
 }
@@ -126,7 +126,7 @@ QStringList TokenEditor::tokensInUse()
 void TokenEditor::accept()
 {
     DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
-    for (const QCheckBox *box : m_checkBoxes) {
+    for (const QCheckBox *box : qAsConst(m_checkBoxes)) {
         if (box->isChecked() && box->isEnabled()) {
             QString txt = box->text().remove(QString::fromLatin1("&"));
             tokensCategory->removeItem(txt);

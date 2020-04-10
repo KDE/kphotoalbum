@@ -259,10 +259,10 @@ void ImportDialog::updateNextButtonState()
 void ImportDialog::createCategoryPages()
 {
     QStringList categories;
-    DB::ImageInfoList images = selectedImages();
+    const DB::ImageInfoList images = selectedImages();
     for (DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it) {
-        DB::ImageInfoPtr info = *it;
-        QStringList categoriesForImage = info->availableCategories();
+        const DB::ImageInfoPtr info = *it;
+        const QStringList categoriesForImage = info->availableCategories();
         for (const QString &category : categoriesForImage) {
             if (!categories.contains(category) && category != i18n("Folder") && category != i18n("Tokens") && category != i18n("Media Type"))
                 categories.append(category);
@@ -320,7 +320,8 @@ void ImportDialog::next()
         removePage(m_dummy);
 
         ImportMatcher *matcher = nullptr;
-        for (const CategoryMatch *match : m_categoryMatcher->m_matchers) {
+        const auto matchers = m_categoryMatcher->m_matchers;
+        for (const CategoryMatch *match : matchers) {
             if (match->m_checkbox->isChecked()) {
                 matcher = createCategoryPage(match->m_combobox->currentText(), match->m_text);
                 m_matchers.append(matcher);
@@ -344,7 +345,7 @@ void ImportDialog::slotSelectNone()
 
 void ImportDialog::selectImage(bool on)
 {
-    for (ImageRow *row : m_imagesSelect) {
+    for (ImageRow *row : qAsConst(m_imagesSelect)) {
         row->m_checkbox->setChecked(on);
     }
 }

@@ -102,13 +102,14 @@ int ImportExport::MD5CheckPage::countOfMD5Matches(const ImportSettings &settings
 ImportExport::ClashInfo ImportExport::MD5CheckPage::clashes(const ImportSettings &settings)
 {
     QStringList myCategories;
-    for (const CategoryMatchSetting &matcher : settings.categoryMatchSetting()) {
+    const auto categoryMatchSettings = settings.categoryMatchSetting();
+    for (const CategoryMatchSetting &matcher : categoryMatchSettings) {
         myCategories.append(matcher.DBCategoryName());
     }
 
     ClashInfo res(myCategories);
-    DB::ImageInfoList list = settings.selectedImages();
-    for (DB::ImageInfoPtr info : list) {
+    const DB::ImageInfoList list = settings.selectedImages();
+    for (const DB::ImageInfoPtr &info : list) {
         if (!DB::ImageDB::instance()->md5Map()->contains(info->MD5Sum()))
             continue;
 
@@ -125,7 +126,8 @@ ImportExport::ClashInfo ImportExport::MD5CheckPage::clashes(const ImportSettings
         if (info->date() != other->date())
             res.date = true;
 
-        for (const CategoryMatchSetting &matcher : settings.categoryMatchSetting()) {
+        const auto categoryMatchSettings = settings.categoryMatchSetting();
+        for (const CategoryMatchSetting &matcher : categoryMatchSettings) {
             const QString XMLFileCategory = matcher.XMLCategoryName();
             const QString DBCategory = matcher.DBCategoryName();
             if (mapCategoriesToDB(matcher, info->itemsOfCategory(XMLFileCategory)) != other->itemsOfCategory(DBCategory))

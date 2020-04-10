@@ -81,7 +81,7 @@ void MainWindow::RunDialog::slotMarkGo()
 
     // Replace the %all argument first
     QStringList fileList;
-    for (const DB::FileName &fileName : m_fileList)
+    for (const DB::FileName &fileName : qAsConst(m_fileList))
         fileList.append(fileName.absolute());
 
     cmdString.replace(replaceall, KShell::joinArgs(fileList));
@@ -89,7 +89,7 @@ void MainWindow::RunDialog::slotMarkGo()
     if (cmdString.contains(replaceeach)) {
         // cmdString should be run multiple times, once per "each"
         QString cmdOnce;
-        for (const DB::FileName &filename : m_fileList) {
+        for (const DB::FileName &filename : qAsConst(m_fileList)) {
             cmdOnce = cmdString;
             cmdOnce.replace(replaceeach, filename.absolute());
             KRun::runCommand(cmdOnce, MainWindow::Window::theMainWindow());

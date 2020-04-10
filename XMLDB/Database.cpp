@@ -193,7 +193,7 @@ void XMLDB::Database::deleteList(const DB::FileNameList &list)
             }
             if (newCache.size() <= 1) {
                 // we're destroying a stack
-                for (const DB::FileName &cacheName : newCache) {
+                for (const DB::FileName &cacheName : qAsConst(newCache)) {
                     DB::ImageInfoPtr cacheInf = cacheName.info();
                     cacheInf->setStackId(0);
                     cacheInf->setStackOrder(0);
@@ -252,7 +252,7 @@ void XMLDB::Database::forceUpdate(const DB::ImageInfoList &images)
     DB::ImageInfoList newImages = images.sort();
     if (m_images.count() == 0) {
         // case 1: The existing imagelist is empty.
-        for (const DB::ImageInfoPtr &imageInfo : newImages)
+        for (const DB::ImageInfoPtr &imageInfo : qAsConst(newImages))
             m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
         m_images = newImages;
     } else if (newImages.count() == 0) {
@@ -260,17 +260,17 @@ void XMLDB::Database::forceUpdate(const DB::ImageInfoList &images)
         return;
     } else if (newImages.first()->date().start() > m_images.last()->date().start()) {
         // case 2: The new list is later than the existsing
-        for (const DB::ImageInfoPtr &imageInfo : newImages)
+        for (const DB::ImageInfoPtr &imageInfo : qAsConst(newImages))
             m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
         m_images.appendList(newImages);
     } else if (m_images.isSorted()) {
         // case 3: The lists overlaps, and the existsing list is sorted
-        for (const DB::ImageInfoPtr &imageInfo : newImages)
+        for (const DB::ImageInfoPtr &imageInfo : qAsConst(newImages))
             m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
         m_images.mergeIn(newImages);
     } else {
         // case 4: The lists overlaps, and the existsing list is not sorted in the overlapping range.
-        for (const DB::ImageInfoPtr &imageInfo : newImages)
+        for (const DB::ImageInfoPtr &imageInfo : qAsConst(newImages))
             m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
         m_images.appendList(newImages);
     }
@@ -324,7 +324,7 @@ DB::ImageInfoPtr XMLDB::Database::info(const DB::FileName &fileName) const
     if (m_delayedCache.contains(name))
         return m_delayedCache[name];
 
-    for (const DB::ImageInfoPtr &imageInfo : m_images)
+    for (const DB::ImageInfoPtr &imageInfo : qAsConst(m_images))
         m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
 
     if (m_imageCache.contains(name)) {
@@ -509,7 +509,7 @@ bool XMLDB::Database::stack(const DB::FileNameList &items)
         return false; // images already in different stacks -> can't stack
 
     DB::StackID stackId = (stacks.size() == 1) ? *(stacks.begin()) : m_nextStackId++;
-    for (DB::ImageInfoPtr info : images) {
+    for (DB::ImageInfoPtr info : qAsConst(images)) {
         info->setStackOrder(stackOrder);
         info->setStackId(stackId);
         m_stackMap[stackId].append(info->fileName());
@@ -526,7 +526,7 @@ bool XMLDB::Database::stack(const DB::FileNameList &items)
 void XMLDB::Database::unstack(const DB::FileNameList &items)
 {
     for (const DB::FileName &fileName : items) {
-        DB::FileNameList allInStack = getStackFor(fileName);
+        const DB::FileNameList allInStack = getStackFor(fileName);
         if (allInStack.size() <= 2) {
             // we're destroying stack here
             for (const DB::FileName &stackFileName : allInStack) {
@@ -754,8 +754,9 @@ void XMLDB::Database::possibleLoadCompressedCategories(ReaderPtr reader, DB::Ima
     if (db == nullptr)
         return;
 
-    for (const DB::CategoryPtr categoryPtr : db->m_categoryCollection.categories()) {
-        QString categoryName = categoryPtr->name();
+    const auto categories = db->m_categoryCollection.categories();
+    for (const DB::CategoryPtr &categoryPtr : categories) {
+        const QString categoryName = categoryPtr->name();
         QString oldCategoryName;
         if (newToOldCategory) {
             // translate to old categoryName, defaulting to the original name if not found:
@@ -765,7 +766,7 @@ void XMLDB::Database::possibleLoadCompressedCategories(ReaderPtr reader, DB::Ima
         }
         QString str = reader->attribute(FileWriter::escape(oldCategoryName));
         if (!str.isEmpty()) {
-            QStringList list = str.split(QString::fromLatin1(","), QString::SkipEmptyParts);
+            const QStringList list = str.split(QString::fromLatin1(","), QString::SkipEmptyParts);
             for (const QString &tagString : list) {
                 int id = tagString.toInt();
                 if (id != 0 || categoryPtr->isSpecialCategory()) {

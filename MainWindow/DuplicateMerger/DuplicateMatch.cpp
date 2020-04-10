@@ -119,7 +119,7 @@ void DuplicateMatch::execute(Utilities::DeleteMethod method)
         return;
 
     DB::FileName destination;
-    for (QRadioButton *button : m_buttons) {
+    for (const QRadioButton *button : qAsConst(m_buttons)) {
         if (button->isChecked()) {
             destination = button->property("data").value<DB::FileName>();
             break;
@@ -127,7 +127,7 @@ void DuplicateMatch::execute(Utilities::DeleteMethod method)
     }
 
     DB::FileNameList deleteList, dupList;
-    for (QRadioButton *button : m_buttons) {
+    for (const QRadioButton *button : qAsConst(m_buttons)) {
         if (button->isChecked())
             continue;
         DB::FileName fileName = button->property("data").value<DB::FileName>();

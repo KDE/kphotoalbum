@@ -419,7 +419,7 @@ void MainWindow::Window::setStackHead(const DB::FileName &image)
 
     unsigned int oldOrder = image.info()->stackOrder();
 
-    DB::FileNameList others = DB::ImageDB::instance()->getStackFor(image);
+    const DB::FileNameList others = DB::ImageDB::instance()->getStackFor(image);
     for (const DB::FileName &current : others) {
         if (current == image) {
             current.info()->setStackOrder(1);
@@ -524,7 +524,8 @@ void MainWindow::Window::slotCopySelectedURLs()
 {
     QList<QUrl> urls;
     int urlcount = 0;
-    for (const DB::FileName &fileName : selected()) {
+    const auto selectedFiles = selected();
+    for (const DB::FileName &fileName : selectedFiles) {
         urls.append(QUrl::fromLocalFile(fileName.absolute()));
         urlcount++;
     }
@@ -574,7 +575,8 @@ void MainWindow::Window::slotPasteInformation()
     if (!originalInfo)
         return;
 
-    for (const DB::FileName &newFile : selected()) {
+    const auto selectedFiles = selected();
+    for (const DB::FileName &newFile : selectedFiles) {
         newFile.info()->copyExtraData(*originalInfo, false);
     }
     DirtyIndicator::markDirty();
@@ -1401,7 +1403,8 @@ void MainWindow::Window::slotUpdateViewMenu(DB::Category::ViewType type)
 void MainWindow::Window::slotShowNotOnDisk()
 {
     DB::FileNameList notOnDisk;
-    for (const DB::FileName &fileName : DB::ImageDB::instance()->images()) {
+    const auto allImages = DB::ImageDB::instance()->images();
+    for (const DB::FileName &fileName : allImages) {
         if (!fileName.exists())
             notOnDisk.append(fileName);
     }
@@ -1908,7 +1911,8 @@ void MainWindow::Window::checkIfVideoThumbnailerIsInstalled()
 
 bool MainWindow::Window::anyVideosSelected() const
 {
-    for (const DB::FileName &fileName : selected()) {
+    const auto selectedFiles = selected();
+    for (const DB::FileName &fileName : selectedFiles) {
         if (Utilities::isVideo(fileName))
             return true;
     }

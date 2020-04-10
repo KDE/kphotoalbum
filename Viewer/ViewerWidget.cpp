@@ -175,7 +175,8 @@ void Viewer::ViewerWidget::setupContextMenu()
     m_popup->addAction(action);
     m_actions->readSettings();
 
-    for (QAction *action : m_actions->actions()) {
+    const auto actions = m_actions->actions();
+    for (QAction *action : actions) {
         action->setShortcutContext(Qt::WindowShortcut);
         addAction(action);
     }
@@ -426,7 +427,7 @@ void Viewer::ViewerWidget::load()
     if (m_exifViewer)
         m_exifViewer->setImage(m_list[m_current]);
 
-    for (QAction *videoAction : m_videoActions) {
+    for (QAction *videoAction : qAsConst(m_videoActions)) {
         videoAction->setVisible(isVideo);
     }
 
@@ -1191,17 +1192,18 @@ void Viewer::ViewerWidget::createVideoMenu()
     menu->setTitle(i18nc("@title:inmenu", "Seek"));
     m_videoActions.append(m_popup->addMenu(menu));
 
-    QList<SeekInfo> list;
-    list << SeekInfo(i18nc("@action:inmenu", "10 minutes backward"), "seek-10-minute", -600000, QKeySequence(QString::fromLatin1("Ctrl+Left")))
-         << SeekInfo(i18nc("@action:inmenu", "1 minute backward"), "seek-1-minute", -60000, QKeySequence(QString::fromLatin1("Shift+Left")))
-         << SeekInfo(i18nc("@action:inmenu", "10 seconds backward"), "seek-10-second", -10000, QKeySequence(QString::fromLatin1("Left")))
-         << SeekInfo(i18nc("@action:inmenu", "1 seconds backward"), "seek-1-second", -1000, QKeySequence(QString::fromLatin1("Up")))
-         << SeekInfo(i18nc("@action:inmenu", "100 milliseconds backward"), "seek-100-millisecond", -100, QKeySequence(QString::fromLatin1("Shift+Up")))
-         << SeekInfo(i18nc("@action:inmenu", "100 milliseconds forward"), "seek+100-millisecond", 100, QKeySequence(QString::fromLatin1("Shift+Down")))
-         << SeekInfo(i18nc("@action:inmenu", "1 seconds forward"), "seek+1-second", 1000, QKeySequence(QString::fromLatin1("Down")))
-         << SeekInfo(i18nc("@action:inmenu", "10 seconds forward"), "seek+10-second", 10000, QKeySequence(QString::fromLatin1("Right")))
-         << SeekInfo(i18nc("@action:inmenu", "1 minute forward"), "seek+1-minute", 60000, QKeySequence(QString::fromLatin1("Shift+Right")))
-         << SeekInfo(i18nc("@action:inmenu", "10 minutes forward"), "seek+10-minute", 600000, QKeySequence(QString::fromLatin1("Ctrl+Right")));
+    const QList<SeekInfo> list = {
+        SeekInfo(i18nc("@action:inmenu", "10 minutes backward"), "seek-10-minute", -600000, QKeySequence(QString::fromLatin1("Ctrl+Left"))),
+        SeekInfo(i18nc("@action:inmenu", "1 minute backward"), "seek-1-minute", -60000, QKeySequence(QString::fromLatin1("Shift+Left"))),
+        SeekInfo(i18nc("@action:inmenu", "10 seconds backward"), "seek-10-second", -10000, QKeySequence(QString::fromLatin1("Left"))),
+        SeekInfo(i18nc("@action:inmenu", "1 seconds backward"), "seek-1-second", -1000, QKeySequence(QString::fromLatin1("Up"))),
+        SeekInfo(i18nc("@action:inmenu", "100 milliseconds backward"), "seek-100-millisecond", -100, QKeySequence(QString::fromLatin1("Shift+Up"))),
+        SeekInfo(i18nc("@action:inmenu", "100 milliseconds forward"), "seek+100-millisecond", 100, QKeySequence(QString::fromLatin1("Shift+Down"))),
+        SeekInfo(i18nc("@action:inmenu", "1 seconds forward"), "seek+1-second", 1000, QKeySequence(QString::fromLatin1("Down"))),
+        SeekInfo(i18nc("@action:inmenu", "10 seconds forward"), "seek+10-second", 10000, QKeySequence(QString::fromLatin1("Right"))),
+        SeekInfo(i18nc("@action:inmenu", "1 minute forward"), "seek+1-minute", 60000, QKeySequence(QString::fromLatin1("Shift+Right"))),
+        SeekInfo(i18nc("@action:inmenu", "10 minutes forward"), "seek+10-minute", 600000, QKeySequence(QString::fromLatin1("Ctrl+Right")))
+    };
 
     int count = 0;
     for (const SeekInfo &info : list) {
@@ -1407,8 +1409,9 @@ void Viewer::ViewerWidget::remapAreas(QSize viewSize, QRect zoomWindow, double s
     int innerOffsetLeft = -zoomWindow.left() * scaleWidth;
     int innerOffsetTop = -zoomWindow.top() * scaleHeight;
 
-    for (TaggedArea *area : findChildren<TaggedArea *>()) {
-        QRect actualGeometry = area->actualGeometry();
+    const auto areas = findChildren<TaggedArea *>();
+    for (TaggedArea *area : areas) {
+        const QRect actualGeometry = area->actualGeometry();
         QRect screenGeometry;
 
         screenGeometry.setWidth(actualGeometry.width() * scaleWidth);

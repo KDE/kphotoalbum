@@ -135,7 +135,7 @@ QGroupBox *MainWindow::StatisticsDialog::createAnnotatedGroupBox()
 
     m_category->addItem(i18nc("@item:inlistbox meaning 'no category'", "None"));
 
-    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    const QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for (const DB::CategoryPtr &category : categories) {
         if (category->type() == DB::Category::MediaTypeCategory
             || category->type() == DB::Category::FolderCategory) {
@@ -196,7 +196,7 @@ void MainWindow::StatisticsDialog::populateSubTree(const DB::ImageSearchInfo &in
 {
     top->setExpanded(true);
 
-    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    const QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
 
     int tagsTotal = 0;
     int grantTotal = 0;

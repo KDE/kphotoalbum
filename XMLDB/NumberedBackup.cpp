@@ -37,32 +37,31 @@ void XMLDB::NumberedBackup::makeNumberedBackup()
 
     const QString fileName = QStringLiteral("index.xml~%1~").arg(getMaxId() + 1, 4, 10, QLatin1Char('0'));
 
-    if (!QFileInfo(QString::fromLatin1("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory())).exists())
+    if (!QFileInfo(QStringLiteral("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory())).exists())
         return;
 
     if (Settings::SettingsData::instance()->compressBackup()) {
-        QString fileNameWithExt = fileName + QString::fromLatin1(".zip");
-
-        QString fileAndDir = QString::fromLatin1("%1/%2").arg(Settings::SettingsData::instance()->imageDirectory()).arg(fileNameWithExt);
+        const QString fileNameWithExt = fileName + QLatin1String(".zip");
+        const QString fileAndDir = QStringLiteral("%1/%2").arg(Settings::SettingsData::instance()->imageDirectory()).arg(fileNameWithExt);
         KZip zip(fileAndDir);
         if (!zip.open(QIODevice::WriteOnly)) {
-            m_ui.error(QString::fromUtf8("Error creating zip file %1").arg(fileAndDir), i18n("Error creating zip file %1", fileAndDir), i18n("Error Making Numbered Backup"));
+            m_ui.error(QStringLiteral("Error creating zip file %1").arg(fileAndDir), i18n("Error creating zip file %1", fileAndDir), i18n("Error Making Numbered Backup"));
             return;
         }
 
-        if (!zip.addLocalFile(QString::fromLatin1("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory()), fileName)) {
-            m_ui.error(QString::fromUtf8("Error writing file %1 to zip file %2").arg(fileName).arg(fileAndDir), i18n("Error writing file %1 to zip file %2", fileName, fileAndDir), i18n("Error Making Numbered Backup"));
+        if (!zip.addLocalFile(QStringLiteral("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory()), fileName)) {
+            m_ui.error(QStringLiteral("Error writing file %1 to zip file %2").arg(fileName).arg(fileAndDir), i18n("Error writing file %1 to zip file %2", fileName, fileAndDir), i18n("Error Making Numbered Backup"));
         }
         zip.close();
     } else {
-        Utilities::copyOrOverwrite(QString::fromLatin1("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory()),
-                                   QString::fromLatin1("%1/%2").arg(Settings::SettingsData::instance()->imageDirectory()).arg(fileName));
+        Utilities::copyOrOverwrite(QStringLiteral("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory()),
+                                   QStringLiteral("%1/%2").arg(Settings::SettingsData::instance()->imageDirectory()).arg(fileName));
     }
 }
 
 int XMLDB::NumberedBackup::getMaxId() const
 {
-    QStringList files = backupFiles();
+    const QStringList files = backupFiles();
     int max = 0;
     for (QStringList::ConstIterator fileIt = files.constBegin(); fileIt != files.constEnd(); ++fileIt) {
         bool OK;
@@ -74,12 +73,12 @@ int XMLDB::NumberedBackup::getMaxId() const
 QStringList XMLDB::NumberedBackup::backupFiles() const
 {
     QDir dir(Settings::SettingsData::instance()->imageDirectory());
-    return dir.entryList(QStringList() << QString::fromLatin1("index.xml~*~*"), QDir::Files);
+    return dir.entryList(QStringList() << QStringLiteral("index.xml~*~*"), QDir::Files);
 }
 
 int XMLDB::NumberedBackup::idForFile(const QString &fileName, bool &OK) const
 {
-    QRegExp reg(QString::fromLatin1("index\\.xml~([0-9]+)~(.zip)?"));
+    QRegExp reg(QStringLiteral("index\\.xml~([0-9]+)~(.zip)?"));
     if (reg.exactMatch(fileName)) {
         OK = true;
         return reg.cap(1).toInt();

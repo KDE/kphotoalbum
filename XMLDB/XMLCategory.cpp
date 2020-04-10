@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -168,13 +168,13 @@ void XMLDB::XMLCategory::initIdMap()
         i = m_nameMap.lastKey();
     }
 
-    Q_FOREACH (const QString &tag, m_items) {
+    for (const QString &tag : m_items) {
         if (!m_idMap.contains(tag))
             setIdMapping(tag, ++i);
     }
 
     const QStringList groups = DB::ImageDB::instance()->memberMap().groups(m_name);
-    Q_FOREACH (const QString &group, groups) {
+    for (const QString &group : groups) {
         if (!m_idMap.contains(group))
             setIdMapping(group, ++i);
     }

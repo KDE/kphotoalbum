@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -132,7 +132,7 @@ QDateTime XMLDB::XMLImageDateCollection::upperLimit() const
 
 XMLDB::XMLImageDateCollection::XMLImageDateCollection(const DB::FileNameList &list)
 {
-    Q_FOREACH (const DB::FileName &fileName, list) {
+    for (const DB::FileName &fileName : list) {
         add(fileName.info()->date());
     }
     buildIndex();

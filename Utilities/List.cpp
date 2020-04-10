@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2006-2010 Tuomas Suutari <thsuut@utu.fi>
+  Copyright (C) 2006-2020 Tuomas Suutari <thsuut@utu.fi>
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ template <class T>
 QList<T> Utilities::mergeListsUniqly(const QList<T> &l1, const QList<T> &l2)
 {
     QList<T> r = l1;
-    Q_FOREACH (const T &x, l2)
+    for (const T &x : l2)
         if (!r.contains(x))
             r.append(x);
     return r;

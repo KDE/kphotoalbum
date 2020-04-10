@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -103,7 +103,7 @@ void InvalidDateFinder::accept()
     dialog.setValue(0);
     int progress = 0;
 
-    Q_FOREACH (const DB::FileName &fileName, list) {
+    for (const DB::FileName &fileName : list) {
         dialog.setValue(++progress);
         qApp->processEvents(QEventLoop::AllEvents);
         if (dialog.wasCanceled())

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -54,7 +54,7 @@ bool DB::CategoryItem::hasChild(const QString &child) const
     if (mp_name == child)
         return true;
 
-    Q_FOREACH (const CategoryItem *subcategory, mp_subcategories) {
+    for (const CategoryItem *subcategory : mp_subcategories) {
         if (subcategory->hasChild(child))
             return true;
     }

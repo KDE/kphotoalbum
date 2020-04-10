@@ -230,7 +230,7 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
     if (!m_description.isEmpty()) {
         const QString &txt(info->description());
         QStringList list = m_description.split(QChar::fromLatin1(' '), QString::SkipEmptyParts);
-        Q_FOREACH (const QString &word, list) {
+        for (const QString &word : list) {
             if (txt.indexOf(word, 0, Qt::CaseInsensitive) == -1)
                 return false;
         }
@@ -395,7 +395,7 @@ void ImageSearchInfo::compile() const
         QStringList orParts = matchText.split(QString::fromLatin1("|"), QString::SkipEmptyParts);
         DB::ContainerCategoryMatcher *orMatcher = new DB::OrCategoryMatcher;
 
-        Q_FOREACH (QString orPart, orParts) {
+        for (QString orPart : orParts) {
             // Split by " & ", not only by "&", so that the doubled "&"s won't be used as a split point
             QStringList andParts = orPart.split(QString::fromLatin1(" & "), QString::SkipEmptyParts);
 
@@ -404,7 +404,7 @@ void ImageSearchInfo::compile() const
             bool negate = false;
             andMatcher = new DB::AndCategoryMatcher;
 
-            Q_FOREACH (QString str, andParts) {
+            for (QString str : andParts) {
                 static QRegExp regexp(QString::fromLatin1("^\\s*!\\s*(.*)$"));
                 if (regexp.exactMatch(str)) { // str is preceded with NOT
                     negate = true;
@@ -516,7 +516,7 @@ Utilities::StringSet ImageSearchInfo::findAlreadyMatched(const QString &group) c
     }
 
     QStringList list = str.split(QString::fromLatin1("&"), QString::SkipEmptyParts);
-    Q_FOREACH (QString part, list) {
+    for (QString part : list) {
         QString nm = part.trimmed();
         if (!nm.contains(QString::fromLatin1("!")))
             result.insert(nm);

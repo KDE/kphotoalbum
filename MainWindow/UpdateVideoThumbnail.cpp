@@ -1,4 +1,4 @@
-/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -42,7 +42,7 @@ void UpdateVideoThumbnail::usePrevious(const DB::FileNameList &list)
 
 void UpdateVideoThumbnail::update(const DB::FileNameList &list, int direction)
 {
-    Q_FOREACH (const DB::FileName &fileName, list) {
+    for (const DB::FileName &fileName : list) {
         if (Utilities::isVideo(fileName))
             update(fileName, direction);
     }

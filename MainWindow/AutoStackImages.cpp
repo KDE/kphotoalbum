@@ -1,4 +1,4 @@
-/* Copyright (C) 2010-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2010-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -132,7 +132,7 @@ void AutoStackImages::matchingMD5(DB::FileNameList &toBeShown)
 
     // Stacking all images that have the same MD5 sum
     // First make a map of MD5 sums with corresponding images
-    Q_FOREACH (const DB::FileName &fileName, m_list) {
+    for (const DB::FileName &fileName : m_list) {
         DB::MD5 sum = fileName.info()->MD5Sum();
         if (DB::ImageDB::instance()->md5Map()->contains(sum)) {
             if (tostack[sum].isEmpty())
@@ -159,9 +159,9 @@ void AutoStackImages::matchingMD5(DB::FileNameList &toBeShown)
             }
             if (stack.size() > 1) {
 
-                Q_FOREACH (const DB::FileName &a, showIfStacked) {
+                for (const DB::FileName &a : showIfStacked) {
                     if (!DB::ImageDB::instance()->getStackFor(a).isEmpty())
-                        Q_FOREACH (const DB::FileName &b, DB::ImageDB::instance()->getStackFor(a))
+                        for (const DB::FileName &b : DB::ImageDB::instance()->getStackFor(a))
                             toBeShown.append(b);
                     else
                         toBeShown.append(a);
@@ -194,7 +194,7 @@ void AutoStackImages::matchingFile(DB::FileNameList &toBeShown)
 
     // Stacking all images based on file version detection
     // First round prepares the stacking
-    Q_FOREACH (const DB::FileName &fileName, m_list) {
+    for (const DB::FileName &fileName : m_list) {
         if (modifiedFileCompString.length() >= 0 && fileName.relative().contains(modifiedFileComponent)) {
 
             for (QStringList::const_iterator it = originalFileComponents.constBegin();
@@ -238,9 +238,9 @@ void AutoStackImages::matchingFile(DB::FileNameList &toBeShown)
             }
             if (stack.size() > 1) {
 
-                Q_FOREACH (const DB::FileName &a, showIfStacked) {
+                for (const DB::FileName &a : showIfStacked) {
                     if (!DB::ImageDB::instance()->getStackFor(a).isEmpty())
-                        Q_FOREACH (const DB::FileName &b, DB::ImageDB::instance()->getStackFor(a))
+                        for (const DB::FileName &b : DB::ImageDB::instance()->getStackFor(a))
                             toBeShown.append(b);
                     else
                         toBeShown.append(a);
@@ -259,7 +259,7 @@ void AutoStackImages::matchingFile(DB::FileNameList &toBeShown)
 void AutoStackImages::continuousShooting(DB::FileNameList &toBeShown)
 {
     DB::ImageInfoPtr prev;
-    Q_FOREACH (const DB::FileName &fileName, m_list) {
+    for (const DB::FileName &fileName : m_list) {
         DB::ImageInfoPtr info = fileName.info();
         // Skipping images that do not have exact time stamp
         if (info->date().start() != info->date().end())
@@ -289,14 +289,14 @@ void AutoStackImages::continuousShooting(DB::FileNameList &toBeShown)
             } else {
                 // if this is first insert, we have to include also the stacked images from previuous image
                 if (!DB::ImageDB::instance()->getStackFor(info->fileName()).isEmpty())
-                    Q_FOREACH (const DB::FileName &a, DB::ImageDB::instance()->getStackFor(prev->fileName()))
+                    for (const DB::FileName &a : DB::ImageDB::instance()->getStackFor(prev->fileName()))
                         toBeShown.append(a);
                 else
                     toBeShown.append(prev->fileName());
             }
             // Inserting stacked images from the current image
             if (!DB::ImageDB::instance()->getStackFor(info->fileName()).isEmpty())
-                Q_FOREACH (const DB::FileName &a, DB::ImageDB::instance()->getStackFor(fileName))
+                for (const DB::FileName &a : DB::ImageDB::instance()->getStackFor(fileName))
                     toBeShown.append(a);
             else
                 toBeShown.append(info->fileName());

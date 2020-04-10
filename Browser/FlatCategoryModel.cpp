@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -31,7 +31,7 @@ Browser::FlatCategoryModel::FlatCategoryModel(const DB::CategoryPtr &category, c
     QStringList items = m_category->itemsInclCategories();
     items.sort();
 
-    Q_FOREACH (const QString &name, items) {
+    for (const QString &name : items) {
         const int imageCount = m_images.contains(name) ? m_images[name].count : 0;
         const int videoCount = m_videos.contains(name) ? m_videos[name].count : 0;
 

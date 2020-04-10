@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -145,7 +145,7 @@ Settings::GeneralPage::GeneralPage(QWidget *parent)
     lay->addWidget(m_albumCategory, row, 1);
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    Q_FOREACH (const DB::CategoryPtr category, categories) {
+    for (const DB::CategoryPtr category : categories) {
         m_albumCategory->addItem(category->name());
     }
 

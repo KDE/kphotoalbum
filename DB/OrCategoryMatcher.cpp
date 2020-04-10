@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,7 +22,7 @@
 
 bool DB::OrCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet> &alreadyMatched)
 {
-    Q_FOREACH (CategoryMatcher *subMatcher, mp_elements) {
+    for (CategoryMatcher *subMatcher : mp_elements) {
         if (subMatcher->eval(info, alreadyMatched))
             return true;
     }

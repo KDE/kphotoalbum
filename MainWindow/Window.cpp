@@ -420,7 +420,7 @@ void MainWindow::Window::setStackHead(const DB::FileName &image)
     unsigned int oldOrder = image.info()->stackOrder();
 
     DB::FileNameList others = DB::ImageDB::instance()->getStackFor(image);
-    Q_FOREACH (const DB::FileName &current, others) {
+    for (const DB::FileName &current : others) {
         if (current == image) {
             current.info()->setStackOrder(1);
         } else if (current.info()->stackOrder() < oldOrder) {
@@ -460,7 +460,7 @@ void MainWindow::Window::configureImages(bool oneAtATime)
         KMessageBox::sorry(this, i18n("No item is selected."), i18n("No Selection"));
     } else {
         DB::ImageInfoList images;
-        Q_FOREACH (const DB::FileName &fileName, list) {
+        for (const DB::FileName &fileName : list) {
             images.append(fileName.info());
         }
         configureImages(images, oneAtATime);
@@ -524,7 +524,7 @@ void MainWindow::Window::slotCopySelectedURLs()
 {
     QList<QUrl> urls;
     int urlcount = 0;
-    Q_FOREACH (const DB::FileName &fileName, selected()) {
+    for (const DB::FileName &fileName : selected()) {
         urls.append(QUrl::fromLocalFile(fileName.absolute()));
         urlcount++;
     }
@@ -574,7 +574,7 @@ void MainWindow::Window::slotPasteInformation()
     if (!originalInfo)
         return;
 
-    Q_FOREACH (const DB::FileName &newFile, selected()) {
+    for (const DB::FileName &newFile : selected()) {
         newFile.info()->copyExtraData(*originalInfo, false);
     }
     DirtyIndicator::markDirty();
@@ -631,7 +631,7 @@ DB::FileNameList MainWindow::Window::selectedOnDisk()
     const DB::FileNameList list = selected(ThumbnailView::NoExpandCollapsedStacks);
 
     DB::FileNameList listOnDisk;
-    Q_FOREACH (const DB::FileName &fileName, list) {
+    for (const DB::FileName &fileName : list) {
         if (DB::ImageInfo::imageOnDisk(fileName))
             listOnDisk.append(fileName);
     }
@@ -1307,7 +1307,7 @@ void MainWindow::Window::slotConfigureKeyBindings()
 
 #ifdef HASKIPI
     loadKipiPlugins();
-    Q_FOREACH (const KIPI::PluginLoader::Info *pluginInfo, m_pluginLoader->pluginList()) {
+    for (const KIPI::PluginLoader::Info *pluginInfo : m_pluginLoader->pluginList()) {
         KIPI::Plugin *plugin = pluginInfo->plugin();
         if (plugin)
             dialog->addCollection(plugin->actionCollection(),
@@ -1362,7 +1362,7 @@ void MainWindow::Window::rotateSelected(int angle)
         KMessageBox::sorry(this, i18n("No item is selected."),
                            i18n("No Selection"));
     } else {
-        Q_FOREACH (const DB::FileName &fileName, list) {
+        for (const DB::FileName &fileName : list) {
             fileName.info()->rotate(angle);
             ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
         }
@@ -1401,7 +1401,7 @@ void MainWindow::Window::slotUpdateViewMenu(DB::Category::ViewType type)
 void MainWindow::Window::slotShowNotOnDisk()
 {
     DB::FileNameList notOnDisk;
-    Q_FOREACH (const DB::FileName &fileName, DB::ImageDB::instance()->images()) {
+    for (const DB::FileName &fileName : DB::ImageDB::instance()->images()) {
         if (!fileName.exists())
             notOnDisk.append(fileName);
     }
@@ -1558,7 +1558,7 @@ void MainWindow::Window::plug()
     QList<QAction *> kipiActions;
 
     KIPI::PluginLoader::PluginList list = m_pluginLoader->pluginList();
-    Q_FOREACH (const KIPI::PluginLoader::Info *pluginInfo, list) {
+    for (const KIPI::PluginLoader::Info *pluginInfo : list) {
         KIPI::Plugin *plugin = pluginInfo->plugin();
         if (!plugin || !pluginInfo->shouldLoad())
             continue;
@@ -1566,7 +1566,7 @@ void MainWindow::Window::plug()
         plugin->setup(this);
 
         QList<QAction *> actions = plugin->actions();
-        Q_FOREACH (QAction *action, actions) {
+        for (QAction *action : actions) {
             kipiActions.append(action);
         }
         KConfigGroup group = KSharedConfig::openConfig()->group(QString::fromLatin1("Shortcuts"));
@@ -1908,7 +1908,7 @@ void MainWindow::Window::checkIfVideoThumbnailerIsInstalled()
 
 bool MainWindow::Window::anyVideosSelected() const
 {
-    Q_FOREACH (const DB::FileName &fileName, selected()) {
+    for (const DB::FileName &fileName : selected()) {
         if (Utilities::isVideo(fileName))
             return true;
     }

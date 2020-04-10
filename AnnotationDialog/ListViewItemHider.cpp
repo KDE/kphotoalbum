@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2015 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -91,10 +91,10 @@ bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown(QTreeWidgetItem
                                                          QString::SkipEmptyParts);
 
         // all search words ...
-        Q_FOREACH (const auto searchWord, searchWords) {
+        for (const auto searchWord : searchWords) {
             bool found = false;
             // ... must match at least one word of the item
-            Q_FOREACH (const auto itemWord, itemWords) {
+            for (const auto itemWord : itemWords) {
                 if (itemWord.startsWith(searchWord)) {
                     found = true;
                     break;

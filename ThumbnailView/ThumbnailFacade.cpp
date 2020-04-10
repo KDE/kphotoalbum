@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -183,7 +183,7 @@ ThumbnailView::ThumbnailFacade *ThumbnailView::ThumbnailFacade::instance()
 
 void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
 {
-    Q_FOREACH (const DB::FileName &fileName, widget()->selection(NoExpandCollapsedStacks)) {
+    for (const DB::FileName &fileName : widget()->selection(NoExpandCollapsedStacks)) {
         ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
         BackgroundJobs::HandleVideoThumbnailRequestJob::removeFullScaleFrame(fileName);
         m_model->updateCell(fileName);

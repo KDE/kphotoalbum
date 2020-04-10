@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -136,7 +136,7 @@ QGroupBox *MainWindow::StatisticsDialog::createAnnotatedGroupBox()
     m_category->addItem(i18nc("@item:inlistbox meaning 'no category'", "None"));
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    Q_FOREACH (const DB::CategoryPtr &category, categories) {
+    for (const DB::CategoryPtr &category : categories) {
         if (category->type() == DB::Category::MediaTypeCategory
             || category->type() == DB::Category::FolderCategory) {
             continue;
@@ -200,7 +200,7 @@ void MainWindow::StatisticsDialog::populateSubTree(const DB::ImageSearchInfo &in
 
     int tagsTotal = 0;
     int grantTotal = 0;
-    Q_FOREACH (const DB::CategoryPtr &category, categories) {
+    for (const DB::CategoryPtr &category : categories) {
         if (category->type() == DB::Category::MediaTypeCategory
             || category->type() == DB::Category::FolderCategory) {
             continue;

@@ -1,5 +1,5 @@
-/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
-  
+/* Copyright (C) 2012-2020 The KPhotoAlbum Development Team
+
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
    published by the Free Software Foundation; either version 2 of
@@ -7,12 +7,12 @@
    accepted by the membership of KDE e.V. (or its successor approved
    by the membership of KDE e.V.), which shall act as a proxy
    defined in Section 14 of version 3 of the license.
-   
+
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-   
+
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -69,7 +69,7 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList &files)
     optionsLayout->addWidget(label);
 
     bool first = true;
-    Q_FOREACH (const DB::FileName &fileName, files) {
+    for (const DB::FileName &fileName : files) {
         QHBoxLayout *lay = new QHBoxLayout;
         optionsLayout->addLayout(lay);
         QRadioButton *button = new QRadioButton(fileName.relative());
@@ -119,7 +119,7 @@ void DuplicateMatch::execute(Utilities::DeleteMethod method)
         return;
 
     DB::FileName destination;
-    Q_FOREACH (QRadioButton *button, m_buttons) {
+    for (QRadioButton *button : m_buttons) {
         if (button->isChecked()) {
             destination = button->property("data").value<DB::FileName>();
             break;
@@ -127,7 +127,7 @@ void DuplicateMatch::execute(Utilities::DeleteMethod method)
     }
 
     DB::FileNameList deleteList, dupList;
-    Q_FOREACH (QRadioButton *button, m_buttons) {
+    for (QRadioButton *button : m_buttons) {
         if (button->isChecked())
             continue;
         DB::FileName fileName = button->property("data").value<DB::FileName>();

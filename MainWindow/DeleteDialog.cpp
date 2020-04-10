@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -67,7 +67,7 @@ int DeleteDialog::exec(const DB::FileNameList &list)
         return 0;
 
     bool someFileExists = false;
-    Q_FOREACH (const DB::FileName &file, list) {
+    for (const DB::FileName &file : list) {
         if (file.exists()) {
             someFileExists = true;
             break;

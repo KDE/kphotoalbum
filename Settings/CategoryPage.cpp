@@ -471,7 +471,7 @@ void Settings::CategoryPage::enableDisable(bool b)
 void Settings::CategoryPage::saveSettings(Settings::SettingsData *opt, DB::MemberMap *memberMap)
 {
     // Delete items
-    Q_FOREACH (CategoryItem *item, m_deletedCategories) {
+    for (CategoryItem *item : m_deletedCategories) {
         item->removeFromDatabase();
     }
 
@@ -498,7 +498,7 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData *opt)
     m_categoriesListWidget->clear();
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    Q_FOREACH (const DB::CategoryPtr category, categories) {
+    for (const DB::CategoryPtr category : categories) {
         if (category->type() == DB::Category::PlainCategory
             || category->type() == DB::Category::TokensCategory) {
             Settings::CategoryItem *item = new CategoryItem(category->name(),

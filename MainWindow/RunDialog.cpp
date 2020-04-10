@@ -1,4 +1,4 @@
-/* Copyright (C) 2009-2010 Wes Hardaker <kpa@capturedonearth.com>
+/* Copyright (C) 2009-2020 Wes Hardaker <kpa@capturedonearth.com>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -81,7 +81,7 @@ void MainWindow::RunDialog::slotMarkGo()
 
     // Replace the %all argument first
     QStringList fileList;
-    Q_FOREACH (const DB::FileName &fileName, m_fileList)
+    for (const DB::FileName &fileName : m_fileList)
         fileList.append(fileName.absolute());
 
     cmdString.replace(replaceall, KShell::joinArgs(fileList));
@@ -89,7 +89,7 @@ void MainWindow::RunDialog::slotMarkGo()
     if (cmdString.contains(replaceeach)) {
         // cmdString should be run multiple times, once per "each"
         QString cmdOnce;
-        Q_FOREACH (const DB::FileName &filename, m_fileList) {
+        for (const DB::FileName &filename : m_fileList) {
             cmdOnce = cmdString;
             cmdOnce.replace(replaceeach, filename.absolute());
             KRun::runCommand(cmdOnce, MainWindow::Window::theMainWindow());

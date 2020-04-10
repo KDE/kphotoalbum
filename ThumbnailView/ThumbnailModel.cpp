@@ -75,7 +75,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     typedef QList<DB::FileName> StackList;
     typedef QMap<DB::StackID, StackList> StackMap;
     StackMap stackContents;
-    Q_FOREACH (const DB::FileName &fileName, m_imageList) {
+    for (const DB::FileName &fileName : m_imageList) {
         DB::ImageInfoPtr imageInfo = fileName.info();
         if (imageInfo && imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
@@ -97,7 +97,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
      */
     m_displayList = DB::FileNameList();
     QSet<DB::StackID> alreadyShownStacks;
-    Q_FOREACH (const DB::FileName &fileName, m_imageList) {
+    for (const DB::FileName &fileName : m_imageList) {
         DB::ImageInfoPtr imageInfo = fileName.info();
         if (!m_filter.match(imageInfo))
             continue;
@@ -109,7 +109,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
             Q_ASSERT(found != stackContents.end());
             const StackList &orderedStack = *found;
             if (m_expandedStacks.contains(stackid)) {
-                Q_FOREACH (const DB::FileName &fileName, orderedStack) {
+                for (const DB::FileName &fileName : orderedStack) {
                     m_displayList.append(fileName);
                 }
             } else {
@@ -162,7 +162,7 @@ void ThumbnailView::ThumbnailModel::setImageList(const DB::FileNameList &items)
 {
     m_imageList = items;
     m_allStacks.clear();
-    Q_FOREACH (const DB::FileName &fileName, items) {
+    for (const DB::FileName &fileName : items) {
         DB::ImageInfoPtr info = fileName.info();
         if (info && info->isStacked())
             m_allStacks << info->stackId();
@@ -184,7 +184,7 @@ void ThumbnailView::ThumbnailModel::imagesDeletedFromDB(const DB::FileNameList &
 {
     SelectionMaintainer dummy(widget(), model());
 
-    Q_FOREACH (const DB::FileName &fileName, list) {
+    for (const DB::FileName &fileName : list) {
         m_displayList.removeAll(fileName);
         m_imageList.removeAll(fileName);
     }
@@ -213,7 +213,7 @@ void ThumbnailView::ThumbnailModel::updateIndexCache()
 {
     m_fileNameToIndex.clear();
     int index = 0;
-    Q_FOREACH (const DB::FileName &fileName, m_displayList) {
+    for (const DB::FileName &fileName : m_displayList) {
         m_fileNameToIndex[fileName] = index;
         ++index;
     }
@@ -535,7 +535,7 @@ void ThumbnailView::ThumbnailModel::preloadThumbnails()
 {
     // FIXME: it would make a lot of sense to merge preloadThumbnails() with pixmap()
     // and maybe also move the caching stuff into the ImageManager
-    Q_FOREACH (const DB::FileName &fileName, m_displayList) {
+    for (const DB::FileName &fileName : m_displayList) {
         if (fileName.isNull())
             continue;
 

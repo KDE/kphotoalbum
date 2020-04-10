@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -81,7 +81,7 @@ QString Utilities::setupDemo()
         QString::fromLatin1("demo"),
         QStandardPaths::LocateDirectory);
     QStringList images;
-    Q_FOREACH (const QString &dir, kpaDemoDirs) {
+    for (const QString &dir : kpaDemoDirs) {
         QDirIterator it(dir, QStringList() << QStringLiteral("*.jpg") << QStringLiteral("*.avi"));
         while (it.hasNext()) {
             images.append(it.next());
@@ -105,7 +105,7 @@ QString Utilities::setupDemo()
         QString::fromLatin1("demo/CategoryImages"),
         QStandardPaths::LocateDirectory);
     QStringList catImages;
-    Q_FOREACH (const QString &dir, kpaDemoCatDirs) {
+    for (const QString &dir : kpaDemoCatDirs) {
         QDirIterator it(dir, QStringList() << QStringLiteral("*.jpg"));
         while (it.hasNext()) {
             catImages.append(it.next());

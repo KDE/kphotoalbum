@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -365,7 +365,7 @@ void ThumbnailView::ThumbnailWidget::showEvent(QShowEvent *event)
 DB::FileNameList ThumbnailView::ThumbnailWidget::selection(ThumbnailView::SelectionMode mode) const
 {
     DB::FileNameList res;
-    Q_FOREACH (const QModelIndex &index, selectedIndexes()) {
+    for (const QModelIndex &index : selectedIndexes()) {
         DB::FileName currFileName = model()->imageAt(index.row());
         bool includeAllStacks = false;
         switch (mode) {
@@ -416,7 +416,7 @@ void ThumbnailView::ThumbnailWidget::select(const DB::FileNameList &items)
     QModelIndex start;
     QModelIndex end;
     int count = 0;
-    Q_FOREACH (const DB::FileName &fileName, items) {
+    for (const DB::FileName &fileName : items) {
         QModelIndex index = model()->fileNameToIndex(fileName);
         if (count == 0) {
             start = index;

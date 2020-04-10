@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -122,7 +122,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
     QList<QUrl> searchUrls {
         m_settings.kimFile().adjusted(QUrl::RemoveFilename), m_settings.baseURL().adjusted(QUrl::RemoveFilename)
     };
-    Q_FOREACH (const QUrl &url, searchUrls) {
+    for (const QUrl &url : searchUrls) {
         QUrl src(url);
         src.setPath(src.path() + fileName.relative());
 

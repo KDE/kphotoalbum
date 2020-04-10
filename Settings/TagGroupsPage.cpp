@@ -121,7 +121,7 @@ void Settings::TagGroupsPage::updateCategoryTree()
     // Create a tree view of all groups and their sub-groups
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    Q_FOREACH (const DB::CategoryPtr category, categories) {
+    for (const DB::CategoryPtr category : categories) {
         if (category->isSpecialCategory()) {
             continue;
         }
@@ -263,7 +263,7 @@ void Settings::TagGroupsPage::categoryChanged(const QString &name)
     list += m_memberMap.groups(name);
     QStringList alreadyAdded;
 
-    Q_FOREACH (const QString &member, list) {
+    for (const QString &member : list) {
         if (member.isEmpty()) {
             // This can happen if we add group that currently has no members.
             continue;

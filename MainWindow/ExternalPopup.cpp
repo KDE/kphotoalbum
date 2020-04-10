@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -102,7 +102,7 @@ void MainWindow::ExternalPopup::slotExecuteService(QAction *action)
     if (action->data() == -1) {
         return; //user clicked the title entry. (i.e: "All Selected Items")
     } else if (action->data() == 1) {
-        Q_FOREACH (const DB::FileName &file, m_list) {
+        for (const DB::FileName &file : m_list) {
             if (m_appToMimeTypeMap[name].contains(mimeType(file)))
                 lst.append(QUrl(file.absolute()));
         }
@@ -169,7 +169,7 @@ Utilities::StringSet MainWindow::ExternalPopup::mimeTypes(const DB::FileNameList
 {
     StringSet res;
     StringSet extensions;
-    Q_FOREACH (const DB::FileName &file, files) {
+    for (const DB::FileName &file : files) {
         const DB::FileName baseFileName = file;
         const int extStart = baseFileName.relative().lastIndexOf(QChar::fromLatin1('.'));
         const QString ext = baseFileName.relative().mid(extStart);
@@ -185,9 +185,9 @@ MainWindow::OfferType MainWindow::ExternalPopup::appInfos(const DB::FileNameList
 {
     StringSet types = mimeTypes(files);
     OfferType res;
-    Q_FOREACH (const QString &type, types) {
+    for (const QString &type : types) {
         KService::List offers = KMimeTypeTrader::self()->query(type, QLatin1String("Application"));
-        Q_FOREACH (const KService::Ptr offer, offers) {
+        for (const KService::Ptr offer : offers) {
             res.insert(qMakePair(offer->name(), offer->icon()));
             m_appToMimeTypeMap[offer->name()].insert(type);
         }

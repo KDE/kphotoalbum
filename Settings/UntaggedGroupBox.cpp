@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -63,7 +63,7 @@ void Settings::UntaggedGroupBox::populateCategoryComboBox()
 {
     m_category->clear();
     m_category->addItem(i18n("None Selected"));
-    Q_FOREACH (DB::CategoryPtr category, DB::ImageDB::instance()->categoryCollection()->categories()) {
+    for (DB::CategoryPtr category : DB::ImageDB::instance()->categoryCollection()->categories()) {
         if (!category->isSpecialCategory())
             m_category->addItem(category->name(), category->name());
     }

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -168,7 +168,7 @@ void Viewer::VisibleOptionsMenu::updateState()
     m_showImageSize->setChecked(Settings::SettingsData::instance()->showImageSize());
     m_showRating->setChecked(Settings::SettingsData::instance()->showRating());
 
-    Q_FOREACH (KToggleAction *action, m_actionList) {
+    for (KToggleAction *action : m_actionList) {
         action->setChecked(DB::ImageDB::instance()->categoryCollection()->categoryForName(action->data().value<QString>())->doShow());
     }
 }

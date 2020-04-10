@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -101,7 +101,7 @@ DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForSpecial(const DB::Categ
 
 void XMLDB::XMLCategoryCollection::initIdMap()
 {
-    Q_FOREACH (DB::CategoryPtr categoryPtr, m_categories) {
+    for (DB::CategoryPtr categoryPtr : m_categories) {
         static_cast<XMLCategory *>(categoryPtr.data())->initIdMap();
     }
 }

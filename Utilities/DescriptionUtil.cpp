@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -115,7 +115,7 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
 
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
     int link = 0;
-    Q_FOREACH (const DB::CategoryPtr category, categories) {
+    for (const DB::CategoryPtr category : categories) {
         const QString categoryName = category->name();
         if (category->doShow()) {
             StringSet items = info->itemsOfCategory(categoryName);
@@ -134,7 +134,7 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
                 QString title = QString::fromUtf8("<b>%1: </b> ").arg(category->name());
                 QString infoText;
                 bool first = true;
-                Q_FOREACH (const QString &item, items) {
+                for (const QString &item : items) {
                     if (first)
                         first = false;
                     else

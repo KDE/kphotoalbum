@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -111,7 +111,7 @@ void ThumbnailView::CellGeometry::calculateTextHeight()
 
     if (Settings::SettingsData::instance()->displayCategories()) {
         int maxCatsInText = 0;
-        Q_FOREACH (const DB::FileName &fileName, model()->imageList(ViewOrder)) {
+        for (const DB::FileName &fileName : model()->imageList(ViewOrder)) {
             DB::ImageInfoPtr info = fileName.info();
             int grps = info->availableCategories().length();
             if (grps > maxCatsInText - 2) {

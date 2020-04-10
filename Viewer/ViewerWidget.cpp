@@ -175,7 +175,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     m_popup->addAction(action);
     m_actions->readSettings();
 
-    Q_FOREACH (QAction *action, m_actions->actions()) {
+    for (QAction *action : m_actions->actions()) {
         action->setShortcutContext(Qt::WindowShortcut);
         addAction(action);
     }
@@ -426,7 +426,7 @@ void Viewer::ViewerWidget::load()
     if (m_exifViewer)
         m_exifViewer->setImage(m_list[m_current]);
 
-    Q_FOREACH (QAction *videoAction, m_videoActions) {
+    for (QAction *videoAction : m_videoActions) {
         videoAction->setVisible(isVideo);
     }
 
@@ -1204,7 +1204,7 @@ void Viewer::ViewerWidget::createVideoMenu()
          << SeekInfo(i18nc("@action:inmenu", "10 minutes forward"), "seek+10-minute", 600000, QKeySequence(QString::fromLatin1("Ctrl+Right")));
 
     int count = 0;
-    Q_FOREACH (const SeekInfo &info, list) {
+    for (const SeekInfo &info : list) {
         if (count++ == 5) {
             QAction *sep = new QAction(menu);
             sep->setSeparator(true);
@@ -1407,7 +1407,7 @@ void Viewer::ViewerWidget::remapAreas(QSize viewSize, QRect zoomWindow, double s
     int innerOffsetLeft = -zoomWindow.left() * scaleWidth;
     int innerOffsetTop = -zoomWindow.top() * scaleHeight;
 
-    Q_FOREACH (TaggedArea *area, findChildren<TaggedArea *>()) {
+    for (TaggedArea *area : findChildren<TaggedArea *>()) {
         QRect actualGeometry = area->actualGeometry();
         QRect screenGeometry;
 

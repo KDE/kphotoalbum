@@ -173,7 +173,7 @@ void Exif::Database::populateDatabase()
 {
     createMetadataTable(SchemaAndDataChanged);
     QStringList attributes;
-    Q_FOREACH (DatabaseElement *element, elements()) {
+    for (DatabaseElement *element : elements()) {
         attributes.append(element->createString());
     }
 
@@ -267,7 +267,7 @@ bool Exif::Database::add(const DB::FileNameList &list)
 
     QList<DBExifInfo> map;
 
-    Q_FOREACH (const DB::FileName &fileName, list) {
+    for (const DB::FileName &fileName : list) {
         try {
             Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.absolute().toLocal8Bit().data());
             Q_ASSERT(image.get() != nullptr);
@@ -301,7 +301,7 @@ void Exif::Database::remove(const DB::FileNameList &list)
     m_db.transaction();
     QSqlQuery query(m_db);
     query.prepare(QString::fromLatin1("DELETE FROM exif WHERE fileName=?"));
-    Q_FOREACH (const DB::FileName &fileName, list) {
+    for (const DB::FileName &fileName : list) {
         query.bindValue(0, fileName.absolute());
         if (!query.exec()) {
             m_db.rollback();
@@ -396,7 +396,7 @@ bool Exif::Database::insert(QList<DBExifInfo> map)
 
     QSqlQuery *query = getInsertQuery();
     // not a const reference because DatabaseElement::valueFromExif uses operator[] on the exif datum
-    Q_FOREACH (DBExifInfo elt, map) {
+    for (DBExifInfo elt : map) {
         query->bindValue(0, elt.first.absolute());
         int i = 1;
         for (const DatabaseElement *e : elements()) {

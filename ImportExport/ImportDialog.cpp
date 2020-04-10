@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -263,7 +263,7 @@ void ImportDialog::createCategoryPages()
     for (DB::ImageInfoListConstIterator it = images.constBegin(); it != images.constEnd(); ++it) {
         DB::ImageInfoPtr info = *it;
         QStringList categoriesForImage = info->availableCategories();
-        Q_FOREACH (const QString &category, categoriesForImage) {
+        for (const QString &category : categoriesForImage) {
             if (!categories.contains(category) && category != i18n("Folder") && category != i18n("Tokens") && category != i18n("Media Type"))
                 categories.append(category);
         }
@@ -320,7 +320,7 @@ void ImportDialog::next()
         removePage(m_dummy);
 
         ImportMatcher *matcher = nullptr;
-        Q_FOREACH (const CategoryMatch *match, m_categoryMatcher->m_matchers) {
+        for (const CategoryMatch *match : m_categoryMatcher->m_matchers) {
             if (match->m_checkbox->isChecked()) {
                 matcher = createCategoryPage(match->m_combobox->currentText(), match->m_text);
                 m_matchers.append(matcher);
@@ -344,7 +344,7 @@ void ImportDialog::slotSelectNone()
 
 void ImportDialog::selectImage(bool on)
 {
-    Q_FOREACH (ImageRow *row, m_imagesSelect) {
+    for (ImageRow *row : m_imagesSelect) {
         row->m_checkbox->setChecked(on);
     }
 }

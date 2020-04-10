@@ -1,4 +1,4 @@
-/* Copyright 2012-2019 The KPhotoAlbum Development Team
+/* Copyright 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -126,7 +126,7 @@ void DuplicateMerger::go()
         method = Utilities::DeleteFromDisk;
     }
 
-    Q_FOREACH (DuplicateMatch *selector, m_selectors) {
+    for (DuplicateMatch *selector : m_selectors) {
         selector->execute(method);
     }
 
@@ -138,7 +138,7 @@ void DuplicateMerger::updateSelectionCount()
     int total = 0;
     int selected = 0;
 
-    Q_FOREACH (DuplicateMatch *selector, m_selectors) {
+    for (DuplicateMatch *selector : m_selectors) {
         ++total;
         if (selector->selected())
             ++selected;
@@ -152,7 +152,7 @@ void DuplicateMerger::findDuplicates()
 {
     Utilities::ShowBusyCursor dummy;
 
-    Q_FOREACH (const DB::FileName &fileName, DB::ImageDB::instance()->images()) {
+    for (const DB::FileName &fileName : DB::ImageDB::instance()->images()) {
         const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
         const DB::MD5 md5 = info->MD5Sum();
         m_matches[md5].append(fileName);
@@ -184,7 +184,7 @@ void DuplicateMerger::addRow(const DB::MD5 &md5)
 
 void DuplicateMerger::selectAll(bool b)
 {
-    Q_FOREACH (DuplicateMatch *selector, m_selectors) {
+    for (DuplicateMatch *selector : m_selectors) {
         selector->setSelected(b);
     }
 }

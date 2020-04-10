@@ -1,4 +1,4 @@
-/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -58,7 +58,7 @@ bool DeleteFiles::deleteFilesPrivate(const DB::FileNameList &files, DeleteMethod
     DB::FileNameList filenamesToRemove;
     QList<QUrl> filesToDelete;
 
-    Q_FOREACH (const DB::FileName &fileName, files) {
+    for (const DB::FileName &fileName : files) {
 
         if (DB::ImageInfo::imageOnDisk(fileName)) {
             if (method == DeleteFromDisk || method == MoveToTrash) {

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -63,7 +63,7 @@ GroupCounter::GroupCounter(const QString &category)
         StringSet members = groupToMemberIt.value();
         QString group = groupToMemberIt.key();
 
-        Q_FOREACH (const auto &member, members) {
+        for (const auto &member : members) {
             m_memberToGroup[member].append(group);
         }
         m_groupCount.insert(group, CountWithRange());

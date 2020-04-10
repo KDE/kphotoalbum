@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -134,14 +134,14 @@ QMap<QString, QVariant> Plugins::ImageInfo::attributes()
     QStringList tags;
     QStringList tagspath;
     const QLatin1String sep("/");
-    Q_FOREACH (const DB::CategoryPtr category, categories) {
+    for (const DB::CategoryPtr category : categories) {
         QString categoryName = category->name();
         if (category->isSpecialCategory())
             continue;
         // I don't know why any categories except the above should be excluded
         //if ( category->doShow() ) {
         Utilities::StringSet items = m_info->itemsOfCategory(categoryName);
-        Q_FOREACH (const QString &tag, items) {
+        for (const QString &tag : items) {
             tags.append(tag);
             // digikam compatible tag path:
             // note: this produces a semi-flattened hierarchy.
@@ -235,7 +235,7 @@ void Plugins::ImageInfo::addAttributes(const QMap<QString, QVariant> &amap)
             const QStringList tagspaths = map[QLatin1String("tagspath")].toStringList();
             const DB::CategoryCollection *categories = DB::ImageDB::instance()->categoryCollection();
             DB::MemberMap &memberMap = DB::ImageDB::instance()->memberMap();
-            Q_FOREACH (const QString &path, tagspaths) {
+            for (const QString &path : tagspaths) {
                 qCDebug(PluginsLog) << "Adding tags: " << path;
                 QStringList tagpath = path.split(QLatin1String("/"), QString::SkipEmptyParts);
                 // Note: maybe tagspaths with only one component or with unknown first component
@@ -252,7 +252,7 @@ void Plugins::ImageInfo::addAttributes(const QMap<QString, QVariant> &amap)
                     QString previousTag;
                     // last component is the tag:
                     // others define hierarchy:
-                    Q_FOREACH (const QString &currentTag, tagpath) {
+                    for (const QString &currentTag : tagpath) {
                         if (!cat->items().contains(currentTag)) {
                             qCDebug(PluginsLog) << "Adding tag " << currentTag << " to category " << categoryName;
                             // before we can use a tag, we have to add it

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -78,7 +78,7 @@ void Exif::TreeView::reload()
         QStringList subKeys = (*keysIt).split(QLatin1String("."));
         QTreeWidgetItem *parent = nullptr;
         QString path;
-        Q_FOREACH (const QString &subKey, subKeys) {
+        for (const QString &subKey : subKeys) {
             if (!path.isEmpty())
                 path += QString::fromLatin1(".");
             path += subKey;

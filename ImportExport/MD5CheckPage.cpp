@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -102,13 +102,13 @@ int ImportExport::MD5CheckPage::countOfMD5Matches(const ImportSettings &settings
 ImportExport::ClashInfo ImportExport::MD5CheckPage::clashes(const ImportSettings &settings)
 {
     QStringList myCategories;
-    Q_FOREACH (const CategoryMatchSetting &matcher, settings.categoryMatchSetting()) {
+    for (const CategoryMatchSetting &matcher : settings.categoryMatchSetting()) {
         myCategories.append(matcher.DBCategoryName());
     }
 
     ClashInfo res(myCategories);
     DB::ImageInfoList list = settings.selectedImages();
-    Q_FOREACH (DB::ImageInfoPtr info, list) {
+    for (DB::ImageInfoPtr info : list) {
         if (!DB::ImageDB::instance()->md5Map()->contains(info->MD5Sum()))
             continue;
 
@@ -125,7 +125,7 @@ ImportExport::ClashInfo ImportExport::MD5CheckPage::clashes(const ImportSettings
         if (info->date() != other->date())
             res.date = true;
 
-        Q_FOREACH (const CategoryMatchSetting &matcher, settings.categoryMatchSetting()) {
+        for (const CategoryMatchSetting &matcher : settings.categoryMatchSetting()) {
             const QString XMLFileCategory = matcher.XMLCategoryName();
             const QString DBCategory = matcher.DBCategoryName();
             if (mapCategoriesToDB(matcher, info->itemsOfCategory(XMLFileCategory)) != other->itemsOfCategory(DBCategory))
@@ -180,7 +180,7 @@ Utilities::StringSet ImportExport::MD5CheckPage::mapCategoriesToDB(const Categor
 {
     Utilities::StringSet res;
 
-    Q_FOREACH (const QString &item, items) {
+    for (const QString &item : items) {
         if (matcher.XMLtoDB().contains(item))
             res.insert(matcher.XMLtoDB()[item]);
     }

@@ -475,7 +475,7 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
     m_lastSelectedPositionableTag.first = QString();
     m_lastSelectedPositionableTag.second = QString();
 
-    Q_FOREACH (ListSelect *ls, m_optionList) {
+    for (ListSelect *ls : m_optionList) {
         ls->setSelection(old_info.itemsOfCategory(ls->category()));
 
         // Also set all positionable tag candidates
@@ -486,7 +486,7 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
             QSet<QString> positionedTagSet = positionedTags(category);
 
             // Add the tag to the positionable candiate list, if no area is already associated with it
-            Q_FOREACH (const auto &tag, selectedTags) {
+            for (const auto &tag : selectedTags) {
                 if (!positionedTagSet.contains(tag)) {
                     addTagToCandidateList(category, tag);
                 }
@@ -549,7 +549,7 @@ void AnnotationDialog::Dialog::load()
 
     QList<QString> positionableCategories;
 
-    Q_FOREACH (ListSelect *ls, m_optionList) {
+    for (ListSelect *ls : m_optionList) {
         ls->setSelection(info.itemsOfCategory(ls->category()));
         ls->rePopulate();
 
@@ -557,7 +557,7 @@ void AnnotationDialog::Dialog::load()
         if (ls->positionable()) {
             QSet<QString> selectedTags = ls->itemsOn();
 
-            Q_FOREACH (const QString &tagName, selectedTags) {
+            for (const QString &tagName : selectedTags) {
                 addTagToCandidateList(ls->category(), tagName);
             }
         }
@@ -616,7 +616,7 @@ void AnnotationDialog::Dialog::load()
 
 void AnnotationDialog::Dialog::writeToInfo()
 {
-    Q_FOREACH (ListSelect *ls, m_optionList) {
+    for (ListSelect *ls : m_optionList) {
         ls->slotReturn();
     }
 
@@ -645,7 +645,7 @@ void AnnotationDialog::Dialog::writeToInfo()
     info.setLabel(m_imageLabel->text());
     info.setDescription(m_description->toPlainText());
 
-    Q_FOREACH (ListSelect *ls, m_optionList) {
+    for (ListSelect *ls : m_optionList) {
         info.setCategoryInfo(ls->category(), ls->itemsOn());
         if (ls->positionable()) {
             info.setPositionedTags(ls->category(), areas[ls->category()]);
@@ -735,7 +735,7 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
         m_ratingChanged = false;
         m_areasChanged = false;
 
-        Q_FOREACH (ListSelect *ls, m_optionList) {
+        for (ListSelect *ls : m_optionList) {
             setUpCategoryListBoxForMultiImageSelection(ls, list);
         }
 
@@ -784,7 +784,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search(DB::ImageSearchInfo *search
                                           m_imageLabel->text(), m_description->toPlainText(),
                                           m_imageFilePattern->text());
 
-        Q_FOREACH (const ListSelect *ls, m_optionList) {
+        for (const ListSelect *ls : m_optionList) {
             m_oldSearch.setCategoryMatchText(ls->category(), ls->text());
         }
         //FIXME: for the user to search for 0-rated images, he must first change the rating to anything > 0
@@ -810,7 +810,7 @@ void AnnotationDialog::Dialog::setup()
 {
     // Repopulate the listboxes in case data has changed
     // An group might for example have been renamed.
-    Q_FOREACH (ListSelect *ls, m_optionList) {
+    for (ListSelect *ls : m_optionList) {
         ls->populate();
     }
 
@@ -833,7 +833,7 @@ void AnnotationDialog::Dialog::setup()
         setWindowTitle(i18nc("@title:window", "Annotations"));
     }
 
-    Q_FOREACH (ListSelect *ls, m_optionList) {
+    for (ListSelect *ls : m_optionList) {
         ls->setMode(m_setup);
     }
 }
@@ -848,7 +848,7 @@ void AnnotationDialog::Dialog::loadInfo(const DB::ImageSearchInfo &info)
     m_startDate->setDate(info.date().start().date());
     m_endDate->setDate(info.date().end().date());
 
-    Q_FOREACH (ListSelect *ls, m_optionList) {
+    for (ListSelect *ls : m_optionList) {
         ls->setText(info.categoryMatchText(ls->category()));
     }
 
@@ -1068,7 +1068,7 @@ bool AnnotationDialog::Dialog::hasChanges()
     } else if (m_setup == InputMultiImageConfigMode) {
         if ((!m_startDate->date().isNull()) || (!m_endDate->date().isNull()) || (!m_imageLabel->text().isEmpty()) || (m_description->toPlainText() != m_firstDescription) || m_ratingChanged)
             return true;
-        Q_FOREACH (ListSelect *ls, m_optionList) {
+        for (ListSelect *ls : m_optionList) {
             if (!(changedOptions(ls).isEmpty()))
                 return true;
         }
@@ -1195,7 +1195,7 @@ void AnnotationDialog::Dialog::setupFocus()
     // now setup tab order.
     QWidget *prev = nullptr;
     QWidget *first = nullptr;
-    Q_FOREACH (QWidget *widget, orderedList) {
+    for (QWidget *widget : orderedList) {
         if (prev) {
             setTabOrder(prev, widget);
         } else {
@@ -1209,7 +1209,7 @@ void AnnotationDialog::Dialog::setupFocus()
     }
 
     // Finally set focus on the first list select
-    Q_FOREACH (QWidget *widget, orderedList) {
+    for (QWidget *widget : orderedList) {
         if (widget->property("FocusCandidate").isValid() && widget->isVisible()) {
             widget->setFocus();
             break;
@@ -1396,11 +1396,11 @@ void AnnotationDialog::Dialog::saveAndClose()
             *(m_origList[i]) = m_editList[i];
         }
     } else if (m_setup == InputMultiImageConfigMode) {
-        Q_FOREACH (ListSelect *ls, m_optionList) {
+        for (ListSelect *ls : m_optionList) {
             ls->slotReturn();
         }
 
-        Q_FOREACH (ListSelect *ls, m_optionList) {
+        for (ListSelect *ls : m_optionList) {
             StringSet changes = changedOptions(ls);
             if (!(changes.isEmpty())) {
                 anyChanges = true;

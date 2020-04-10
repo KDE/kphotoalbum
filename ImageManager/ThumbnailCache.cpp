@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -471,7 +471,7 @@ void ImageManager::ThumbnailCache::removeThumbnails(const DB::FileNameList &file
 {
     QMutexLocker dataLocker(&m_dataLock);
     m_isDirty = true;
-    Q_FOREACH (const DB::FileName &fileName, files) {
+    for (const DB::FileName &fileName : files) {
         m_hash.remove(fileName);
     }
     dataLocker.unlock();

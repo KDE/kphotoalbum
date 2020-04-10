@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -36,7 +36,7 @@ void MainWindow::CategoryImagePopup::populate(const QImage &image, const DB::Fil
 
     // add the categories
     QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    Q_FOREACH (const DB::CategoryPtr category, categories) {
+    for (const DB::CategoryPtr category : categories) {
         if (!category->isSpecialCategory()) {
             bool categoryMenuEnabled = false;
             const QString categoryName = category->name();
@@ -45,7 +45,7 @@ void MainWindow::CategoryImagePopup::populate(const QImage &image, const DB::Fil
 
             // add category members
             Utilities::StringSet members = m_imageInfo->itemsOfCategory(categoryName);
-            Q_FOREACH (const QString &member, members) {
+            for (const QString &member : members) {
                 QAction *action = categoryMenu->addAction(member);
                 action->setObjectName(categoryName);
                 action->setData(member);

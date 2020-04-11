@@ -1347,16 +1347,12 @@ std::tuple<StringSet, StringSet, StringSet> AnnotationDialog::Dialog::selectionF
             itemsOnAllImages = itemsOnThisImage;
             firstImage = false;
         } else {
-            foreach (const QString &item, itemsOnThisImage) {
+            for (const QString &item : itemsOnThisImage) {
                 if (!itemsOnAllImages.contains(item) && !itemsOnSomeImages.contains(item)) {
                     itemsOnSomeImages += item;
                 }
             }
-            foreach (const QString &item, itemsOnAllImages) {
-                if (!itemsOnThisImage.contains(item)) {
-                    itemsOnAllImages -= item;
-                }
-            }
+            itemsOnAllImages = itemsOnAllImages.intersect(itemsOnThisImage);
         }
     }
     const StringSet itemsOnNoImages = allItems - itemsOnSomeImages - itemsOnAllImages;

@@ -138,7 +138,7 @@ void Settings::TagGroupsPage::updateCategoryTree()
         // Build a map with all members for each group
         QMap<QString, QStringList> membersForGroup;
         const QStringList allGroups = m_memberMap.groups(category->name());
-        foreach (const QString &group, allGroups) {
+        for (const QString &group : allGroups) {
             // FIXME: Why does the member map return an empty category?!
             if (group.isEmpty()) {
                 continue;
@@ -192,7 +192,7 @@ void Settings::TagGroupsPage::addSubCategories(QTreeWidgetItem *superCategory,
 
             // Search the member list for other groups
             QMap<QString, QStringList> subGroups;
-            foreach (const QString &groupName, allGroups) {
+            for (const QString &groupName : allGroups) {
                 if (membersForGroup[group].contains(groupName)) {
                     subGroups[groupName] = membersForGroup[groupName];
                 }

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -424,13 +424,8 @@ void ImagePreview::processNewArea()
 
 void ImagePreview::remapAreas()
 {
-    QList<ResizableFrame *> allAreas = this->findChildren<ResizableFrame *>();
-
-    if (allAreas.isEmpty()) {
-        return;
-    }
-
-    foreach (ResizableFrame *area, allAreas) {
+    const auto allAreas = this->findChildren<ResizableFrame *>();
+    for (ResizableFrame *area : allAreas) {
         area->setGeometry(areaActualToPreview(area->actualCoordinates()));
     }
 }
@@ -462,8 +457,8 @@ QRect ImagePreview::rotateArea(QRect originalAreaGeometry, int angle)
 void ImagePreview::rotateAreas(int angle)
 {
     // Map all areas to their respective coordinates on the rotated actual image
-    QList<ResizableFrame *> allAreas = this->findChildren<ResizableFrame *>();
-    foreach (ResizableFrame *area, allAreas) {
+    const auto allAreas = this->findChildren<ResizableFrame *>();
+    for (ResizableFrame *area : allAreas) {
         area->setActualCoordinates(rotateArea(area->actualCoordinates(), angle));
     }
 }

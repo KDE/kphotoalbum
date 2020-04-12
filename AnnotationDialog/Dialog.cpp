@@ -683,8 +683,8 @@ QList<AnnotationDialog::ResizableFrame *> AnnotationDialog::Dialog::areas() cons
 DB::TaggedAreas AnnotationDialog::Dialog::taggedAreas() const
 {
     DB::TaggedAreas taggedAreas;
-
-    foreach (ResizableFrame *area, areas()) {
+    const auto allAreas = areas();
+    for (ResizableFrame *area : allAreas) {
         QPair<QString, QString> tagData = area->tagData();
         if (!tagData.first.isEmpty()) {
             taggedAreas[tagData.first][tagData.second] = area->actualCoordinates();
@@ -1310,7 +1310,8 @@ void AnnotationDialog::Dialog::setupActions()
     action->setText(i18n("Toggle fullscreen preview"));
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Space);
 
-    foreach (QAction *action, m_actions->actions()) {
+    const auto allActions = m_actions->actions();
+    for (QAction *action : allActions) {
         action->setShortcutContext(Qt::WindowShortcut);
         addAction(action);
     }
@@ -1480,7 +1481,8 @@ void AnnotationDialog::Dialog::togglePreview()
 void AnnotationDialog::Dialog::tidyAreas()
 {
     // Remove all areas marked on the preview image
-    foreach (ResizableFrame *area, areas()) {
+    const auto allAreas = areas();
+    for (ResizableFrame *area : allAreas) {
         area->markTidied();
         area->deleteLater();
     }
@@ -1495,7 +1497,8 @@ void AnnotationDialog::Dialog::positionableTagSelected(QString category, QString
 {
     // Be sure not to propose an already-associated tag
     QPair<QString, QString> tagData = qMakePair(category, tag);
-    foreach (ResizableFrame *area, areas()) {
+    const auto allAreas = areas();
+    for (ResizableFrame *area : allAreas) {
         if (area->tagData() == tagData) {
             return;
         }
@@ -1517,7 +1520,8 @@ void AnnotationDialog::Dialog::positionableTagDeselected(QString category, QStri
     if (m_setup == InputSingleImageConfigMode) {
         QPair<QString, QString> deselectedTag = QPair<QString, QString>(category, tag);
 
-        foreach (ResizableFrame *area, areas()) {
+        const auto allAreas = areas();
+        for (ResizableFrame *area : allAreas) {
             if (area->tagData() == deselectedTag) {
                 area->removeTagData();
                 m_areasChanged = true;
@@ -1559,7 +1563,8 @@ QList<QPair<QString, QString>> AnnotationDialog::Dialog::positionableTagCandidat
 
 void AnnotationDialog::Dialog::slotShowAreas(bool showAreas)
 {
-    foreach (ResizableFrame *area, areas()) {
+    const auto allAreas = areas();
+    for (ResizableFrame *area : allAreas) {
         area->setVisible(showAreas);
     }
 }
@@ -1580,7 +1585,8 @@ void AnnotationDialog::Dialog::positionableTagRenamed(QString category, QString 
     }
 
     // Check if an area on the current image contains the changed or proposed tag
-    foreach (ResizableFrame *area, areas()) {
+    const auto allAreas = areas();
+    for (ResizableFrame *area : allAreas) {
         if (area->tagData() == oldTagData) {
             area->setTagData(category, newTag);
         }
@@ -1600,7 +1606,8 @@ void AnnotationDialog::Dialog::checkProposedTagData(
     QPair<QString, QString> tagData,
     ResizableFrame *areaToExclude) const
 {
-    foreach (ResizableFrame *area, areas()) {
+    const auto allAreas = areas();
+    for (ResizableFrame *area : allAreas) {
         if (area != areaToExclude
             && area->proposedTagData() == tagData
             && area->tagData().first.isEmpty()) {
@@ -1625,7 +1632,8 @@ bool AnnotationDialog::Dialog::positionableTagAvailable(const QString &category,
         return false;
 
     // does any area already have that tag?
-    foreach (const ResizableFrame *area, areas()) {
+    const auto allAreas = areas();
+    for (const ResizableFrame *area : allAreas) {
         const auto tagData = area->tagData();
         if (tagData.first == category && tagData.second == tag)
             return false;
@@ -1642,7 +1650,8 @@ bool AnnotationDialog::Dialog::positionableTagAvailable(const QString &category,
 QSet<QString> AnnotationDialog::Dialog::positionedTags(const QString &category) const
 {
     QSet<QString> tags;
-    foreach (const ResizableFrame *area, areas()) {
+    const auto allAreas = areas();
+    for (const ResizableFrame *area : allAreas) {
         const auto tagData = area->tagData();
         if (tagData.first == category)
             tags += tagData.second;
@@ -1700,7 +1709,7 @@ void AnnotationDialog::Dialog::populateMap()
     int imagesWithCoordinates = 0;
 
     // we can use the coordinates of the original images here, because the are never changed by the annotation dialog
-    foreach (const DB::ImageInfoPtr info, m_origList) {
+    for (const DB::ImageInfoPtr info : qAsConst(m_origList)) {
         processedImages++;
         m_mapLoadingProgress->setValue(processedImages);
         // keep things responsive by processing events manually:

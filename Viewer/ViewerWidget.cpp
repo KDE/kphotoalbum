@@ -1325,7 +1325,8 @@ void Viewer::ViewerWidget::invalidateThumbnail() const
 void Viewer::ViewerWidget::setTaggedAreasFromImage()
 {
     // Clean all areas we probably already have
-    foreach (TaggedArea *area, findChildren<TaggedArea *>()) {
+    const auto allAreas = findChildren<TaggedArea *>();
+    for (TaggedArea *area : allAreas) {
         area->deleteLater();
     }
 

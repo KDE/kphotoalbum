@@ -91,7 +91,7 @@ DuplicateMerger::DuplicateMerger(QWidget *parent)
     m_okButton = buttonBox->addButton(QDialogButtonBox::Ok);
     m_cancelButton = buttonBox->addButton(QDialogButtonBox::Cancel);
 
-    connect(m_selectAllButton, &QPushButton::clicked, this, QOverload<bool>::of(&DuplicateMerger::selectAll));
+    connect(m_selectAllButton, &QPushButton::clicked, this, QOverload<>::of(&DuplicateMerger::selectAll));
     connect(m_selectNoneButton, &QPushButton::clicked, this, &DuplicateMerger::selectNone);
     connect(m_okButton, &QPushButton::clicked, this, &DuplicateMerger::go);
     connect(m_cancelButton, &QPushButton::clicked, this, &DuplicateMerger::reject);

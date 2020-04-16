@@ -61,6 +61,7 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList &files)
     connect(m_merge, &QCheckBox::toggled, this, &DuplicateMatch::selectionChanged);
 
     QWidget *options = new QWidget;
+    options->setEnabled(false);
     rightSideLayout->addWidget(options);
     QVBoxLayout *optionsLayout = new QVBoxLayout(options);
     connect(m_merge, &QCheckBox::toggled, options, &QWidget::setEnabled);

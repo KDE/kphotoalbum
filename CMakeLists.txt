@@ -38,7 +38,7 @@ set(CMAKE_CXX_REQUIRED TRUE)
 
 ########### dependencies  ###############
 
-find_package(Qt5 5.9 REQUIRED COMPONENTS Sql Xml Widgets Network)
+find_package(Qt5 5.9 REQUIRED COMPONENTS Sql Xml Widgets)
 find_package(Phonon4Qt5 REQUIRED)
 find_package(KF5 5.44 REQUIRED COMPONENTS Archive Completion Config CoreAddons DocTools I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons)
 
@@ -436,9 +436,12 @@ set(libBackgroundJobs_SRCS
 
 option(KPA_ENABLE_REMOTECONTROL "Build with support for companion Android/QML app." OFF)
 set(libRemoteControl_SRCS)
+set(libRemoteControl_LIBS)
 if(KPA_ENABLE_REMOTECONTROL)
+    find_package(Qt5 5.9 REQUIRED COMPONENTS Network)
     # requires cmake 3.12
     add_compile_definitions(KPA_ENABLE_REMOTECONTROL)
+    set(libRemoteControl_LIBS Qt5::Network)
     set(libRemoteControl_SRCS
         ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteCommand.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteConnection.cpp
@@ -519,7 +522,7 @@ target_link_libraries(kphotoalbum
     KF5::XmlGui
     KF5::WidgetsAddons
     Phonon::phonon4qt5
-    Qt5::Network
+    ${libRemoteControl_LIBS}
     Qt5::Sql
     )
 

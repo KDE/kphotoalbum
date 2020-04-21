@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -33,9 +33,9 @@
 #endif
 #include <Utilities/StringSet.h>
 
+#include <QHash>
 #include <QRect>
 #include <QSize>
-#include <QHash>
 #include <QString>
 #include <QStringList>
 
@@ -208,7 +208,7 @@ public:
 protected:
     void setIsNull(bool b) { m_null = b; }
     bool isDirty() const { return m_dirty; }
-    void setIsDirty(bool b) { m_dirty = b; }
+    void markDirty();
     bool updateDateInformation(int mode) const;
 
     void setStackId(const StackID stackId);

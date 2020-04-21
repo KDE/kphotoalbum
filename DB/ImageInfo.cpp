@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -32,8 +32,8 @@
 
 #include <QFile>
 #include <QFileInfo>
-#include <QStringList>
 #include <QImageReader>
+#include <QStringList>
 
 using namespace DB;
 
@@ -110,7 +110,7 @@ int ImageInfo::matchGeneration() const
 void ImageInfo::setLabel(const QString &desc)
 {
     if (desc != m_label)
-        m_dirty = true;
+        markDirty();
     m_label = desc;
 }
 
@@ -122,7 +122,7 @@ QString ImageInfo::label() const
 void ImageInfo::setDescription(const QString &desc)
 {
     if (desc != m_description)
-        m_dirty = true;
+        markDirty();
     m_description = desc.trimmed();
 }
 
@@ -134,7 +134,7 @@ QString ImageInfo::description() const
 void ImageInfo::setCategoryInfo(const QString &key, const StringSet &value)
 {
     // Don't check if really changed, because it's too slow.
-    m_dirty = true;
+    markDirty();
     m_categoryInfomation[key] = value;
 }
 
@@ -165,7 +165,7 @@ void ImageInfo::renameItem(const QString &category, const QString &oldValue, con
     StringSet &set = m_categoryInfomation[category];
     StringSet::iterator it = set.find(oldValue);
     if (it != set.end()) {
-        m_dirty = true;
+        markDirty();
         set.erase(it);
         set.insert(newValue);
     }
@@ -179,7 +179,7 @@ DB::FileName ImageInfo::fileName() const
 void ImageInfo::setFileName(const DB::FileName &fileName)
 {
     if (fileName != m_fileName)
-        m_dirty = true;
+        markDirty();
     m_fileName = fileName;
 
     m_imageOnDisk = Unchecked;
@@ -199,7 +199,7 @@ void ImageInfo::rotate(int degrees, RotationMode mode)
     if (degrees == 0)
         return;
 
-    m_dirty = true;
+    markDirty();
     m_angle = (m_angle + degrees) % 360;
 
     if (degrees == 90 || degrees == 270) {
@@ -258,7 +258,7 @@ int ImageInfo::angle() const
 void ImageInfo::setAngle(int angle)
 {
     if (angle != m_angle)
-        m_dirty = true;
+        markDirty();
     m_angle = angle;
 }
 
@@ -276,7 +276,7 @@ void ImageInfo::setRating(short rating)
     if (rating < -1)
         rating = -1;
     if (m_rating != rating)
-        m_dirty = true;
+        markDirty();
 
     m_rating = rating;
 }
@@ -289,7 +289,7 @@ DB::StackID ImageInfo::stackId() const
 void ImageInfo::setStackId(const DB::StackID stackId)
 {
     if (stackId != m_stackId)
-        m_dirty = true;
+        markDirty();
     m_stackId = stackId;
 }
 
@@ -301,14 +301,14 @@ unsigned int ImageInfo::stackOrder() const
 void ImageInfo::setStackOrder(const unsigned int stackOrder)
 {
     if (stackOrder != m_stackOrder)
-        m_dirty = true;
+        markDirty();
     m_stackOrder = stackOrder;
 }
 
 void ImageInfo::setVideoLength(int length)
 {
     if (m_videoLength != length)
-        m_dirty = true;
+        markDirty();
     m_videoLength = length;
 }
 
@@ -320,7 +320,7 @@ int ImageInfo::videoLength() const
 void ImageInfo::setDate(const ImageDate &date)
 {
     if (date != m_date)
-        m_dirty = true;
+        markDirty();
     m_date = date;
 }
 
@@ -353,7 +353,7 @@ bool ImageInfo::operator==(const ImageInfo &other) const
 
 void ImageInfo::renameCategory(const QString &oldName, const QString &newName)
 {
-    m_dirty = true;
+    markDirty();
 
     m_categoryInfomation[newName] = m_categoryInfomation[oldName];
     m_categoryInfomation.remove(oldName);
@@ -398,7 +398,7 @@ void ImageInfo::setMD5Sum(const MD5 &sum, bool storeEXIF)
 
         // image size is invalidated by the thumbnail builder, if needed
 
-        m_dirty = true;
+        markDirty();
     }
     m_md5sum = sum;
 }
@@ -470,7 +470,7 @@ QSize ImageInfo::size() const
 void ImageInfo::setSize(const QSize &size)
 {
     if (size != m_size)
-        m_dirty = true;
+        markDirty();
     m_size = size;
 }
 
@@ -502,7 +502,7 @@ ImageInfo::ImageInfo(const DB::FileName &fileName,
     m_locked = false;
     m_null = false;
     m_type = type;
-    m_dirty = true;
+    markDirty();
 
     if (rating > 10)
         rating = 10;
@@ -663,7 +663,7 @@ void DB::ImageInfo::addCategoryInfo(const QString &category, const StringSet &va
 {
     for (StringSet::const_iterator valueIt = values.constBegin(); valueIt != values.constEnd(); ++valueIt) {
         if (!m_categoryInfomation[category].contains(*valueIt)) {
-            m_dirty = true;
+            markDirty();
             m_categoryInfomation[category].insert(*valueIt);
         }
     }
@@ -679,7 +679,7 @@ void DB::ImageInfo::removeCategoryInfo(const QString &category, const StringSet 
 {
     for (StringSet::const_iterator valueIt = values.constBegin(); valueIt != values.constEnd(); ++valueIt) {
         if (m_categoryInfomation[category].contains(*valueIt)) {
-            m_dirty = true;
+            markDirty();
             m_categoryInfomation[category].remove(*valueIt);
             m_taggedAreas[category].remove(*valueIt);
         }
@@ -689,7 +689,7 @@ void DB::ImageInfo::removeCategoryInfo(const QString &category, const StringSet 
 void DB::ImageInfo::addCategoryInfo(const QString &category, const QString &value, const QRect &area)
 {
     if (!m_categoryInfomation[category].contains(value)) {
-        m_dirty = true;
+        markDirty();
         m_categoryInfomation[category].insert(value);
 
         if (area.isValid()) {
@@ -701,7 +701,7 @@ void DB::ImageInfo::addCategoryInfo(const QString &category, const QString &valu
 void DB::ImageInfo::removeCategoryInfo(const QString &category, const QString &value)
 {
     if (m_categoryInfomation[category].contains(value)) {
-        m_dirty = true;
+        markDirty();
         m_categoryInfomation[category].remove(value);
         m_taggedAreas[category].remove(value);
     }
@@ -709,7 +709,7 @@ void DB::ImageInfo::removeCategoryInfo(const QString &category, const QString &v
 
 void DB::ImageInfo::setPositionedTags(const QString &category, const PositionTags &positionedTags)
 {
-    m_dirty = true;
+    markDirty();
     m_taggedAreas[category] = positionedTags;
 }
 
@@ -805,6 +805,12 @@ Map::GeoCoordinates DB::ImageInfo::coordinates() const
     m_coordinates = coords;
     m_coordsIsSet = true;
     return m_coordinates;
+}
+
+void ImageInfo::markDirty()
+{
+    m_dirty = true;
+    m_matchGeneration = -1;
 }
 
 #endif

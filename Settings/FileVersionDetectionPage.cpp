@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -60,6 +60,11 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage(QWidget *parent)
         m_excludeDirectories = new QLineEdit(generalBox);
         layout->addWidget(m_excludeDirectories);
         excludeDirectoriesLabel->setBuddy(m_excludeDirectories);
+
+        txt = i18n("<p>Specify a comma-separated list of directory names to ignore.</p>"
+                   "<p>For example, specifying \"<tt>.thumbs,.thumbnails</tt>\" here will cause "
+                   "KPhotoAlbum to ignore these two directory names in any directory when searching for new images.</p>");
+        m_excludeDirectories->setWhatsThis(txt);
 
         txt = i18n("<p>KPhotoAlbum is capable of searching for new images and videos when started, this does, "
                    "however, take some time, so instead you may wish to manually tell KPhotoAlbum to search for new images "

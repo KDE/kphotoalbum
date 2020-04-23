@@ -1,4 +1,4 @@
-/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -25,6 +25,7 @@
 
 #include <KLed>
 #include <KLocalizedString>
+#include <QApplication>
 #include <QPainter>
 #include <QPixmap>
 #include <QTime>
@@ -165,7 +166,7 @@ QPixmap JobModel::statusImage(JobInfo::State state) const
 {
     QColor color;
     if (state == JobInfo::Running)
-        color = blinkStateOn ? Qt::green : Qt::gray;
+        color = blinkStateOn ? Qt::green : qApp->palette().mid().color();
     else if (state == JobInfo::Completed)
         color = Qt::red;
     else
@@ -175,7 +176,7 @@ QPixmap JobModel::statusImage(JobInfo::State state) const
     led.setColor(color);
 
     QPalette pal = led.palette();
-    pal.setColor(QPalette::Window, Qt::white);
+    pal.setColor(QPalette::Window, qApp->palette().base().color());
     led.setPalette(pal);
 
     return led.grab();

@@ -1,4 +1,4 @@
-/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -64,11 +64,11 @@ void StatusIndicator::flicker()
 
     if (!JobManager::instance()->hasActiveJobs()) {
         m_timer->stop();
-        newColor = Qt::gray;
+        newColor = palette().mid().color();
     } else if (JobManager::instance()->isPaused() && !JobManager::instance()->hasActiveJobs())
         newColor = QColor(Qt::yellow).lighter();
     else
-        newColor = (color() == Qt::gray ? currentColor() : Qt::gray);
+        newColor = (color() == palette().mid().color() ? currentColor() : palette().mid().color());
 
     setColor(newColor);
 }

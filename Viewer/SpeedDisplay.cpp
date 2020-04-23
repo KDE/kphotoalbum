@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -75,11 +75,15 @@ void Viewer::SpeedDisplay::end()
     go();
 }
 
-void Viewer::SpeedDisplay::setAlphaChannel(int background, int label)
+void Viewer::SpeedDisplay::setAlphaChannel(int backgroundAlpha, int labelAlpha)
 {
     QPalette p = palette();
-    p.setColor(QPalette::Background, QColor(0, 0, 0, background)); // r,g,b,A
-    p.setColor(QPalette::WindowText, QColor(255, 255, 255, label));
+    QColor bgColor = p.background().color();
+    bgColor.setAlpha(backgroundAlpha);
+    p.setColor(QPalette::Background, bgColor);
+    QColor fgColor = p.windowText().color();
+    fgColor.setAlpha(labelAlpha);
+    p.setColor(QPalette::WindowText, fgColor);
     setPalette(p);
 }
 

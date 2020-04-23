@@ -178,7 +178,7 @@ MainWindow::Window::Window(QWidget *parent)
     m_dateBarLine->setMidLineWidth(0);
 
     QPalette pal = m_dateBarLine->palette();
-    pal.setColor(QPalette::WindowText, QColor("#c4c1bd"));
+    pal.setColor(QPalette::WindowText, palette().window().color());
     m_dateBarLine->setPalette(pal);
 
     lay->addWidget(m_dateBarLine);

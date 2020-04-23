@@ -1,4 +1,4 @@
-/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -45,7 +45,7 @@ protected:
     void paintEvent(QPaintEvent *event) override
     {
         QPainter painter(this);
-        painter.fillRect(event->rect(), QColor(Qt::white));
+        painter.fillRect(event->rect(), QColor(palette().background().color()));
     }
 };
 
@@ -74,7 +74,7 @@ void Exif::Grid::setupUI(const QString &charset)
         int count = 0;
         for (const QString &key : sorted) {
             const int subrow = (count % perCol);
-            const QColor color = (subrow & 1) ? Qt::white : QColor(226, 235, 250);
+            const QColor color = (subrow & 1) ? palette().base().color() : palette().alternateBase().color();
             QPair<QLabel *, QLabel *> pair = infoLabelPair(exifNameNoGroup(key), items[key].join(QLatin1String(", ")), color);
 
             int col = (count / perCol) * 2;

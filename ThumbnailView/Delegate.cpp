@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -24,6 +24,7 @@
 #include <Settings/SettingsData.h>
 
 #include <KLocalizedString>
+#include <QApplication>
 #include <QPainter>
 ThumbnailView::Delegate::Delegate(ThumbnailFactory *factory, QObject *parent)
     : QStyledItemDelegate(parent)
@@ -71,10 +72,12 @@ void ThumbnailView::Delegate::paintCellPixmap(QPainter *painter, const QStyleOpt
 
     // Paint transparent pixels over the widget for selection.
     const QItemSelectionModel *selectionModel = widget()->selectionModel();
+    QColor selectionColor = qApp->palette().highlight().color();
+    selectionColor.setAlpha(127);
     if (selectionModel->isSelected(index))
-        painter->fillRect(option.rect, QColor(58, 98, 134, 127));
+        painter->fillRect(option.rect, selectionColor);
     else if (selectionModel->hasSelection() && selectionModel->currentIndex() == index)
-        painter->fillRect(option.rect, QColor(58, 98, 134, 127));
+        painter->fillRect(option.rect, selectionColor);
 }
 
 void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect &pixmapRect, const QModelIndex &index) const
@@ -98,7 +101,9 @@ void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect &pix
     }
 
     painter->save();
-    painter->fillRect(backgroundRect, QBrush(QColor(0, 0, 0, 128)));
+    QColor bgColor = qApp->palette().shadow().color();
+    bgColor.setAlpha(128);
+    painter->fillRect(backgroundRect, QBrush(bgColor));
     painter->setPen(Qt::white);
     painter->drawText(textRect, Qt::TextDontClip, text);
     painter->restore();
@@ -139,6 +144,7 @@ void ThumbnailView::Delegate::paintBoundingRect(QPainter *painter, const QRect &
     rect.adjust(-5, -5, 4, 4);
     for (int i = 4; i >= 0; --i) {
         QColor color;
+        // FIXME(jzarl): use palette color instead:
         if (widget()->selectionModel()->isSelected(index)) {
             static QColor selectionColors[] = { QColor(58, 98, 134), QColor(96, 161, 221), QColor(93, 165, 228), QColor(132, 186, 237), QColor(62, 95, 128) };
             color = selectionColors[i];
@@ -165,6 +171,7 @@ void ThumbnailView::Delegate::paintBoundingRect(QPainter *painter, const QRect &
             // than rely on drawing with a transparent color on top of the
             // background.
             // 12 Aug. 2010 17:38 -- Jesper K. Pedersen
+            // FIXME(jzarl): use palette color instead:
             const QColor foreground = Qt::black;
             const QColor backround = QColor(Settings::SettingsData::instance()->backgroundColor());
 

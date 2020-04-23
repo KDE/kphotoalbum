@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -60,9 +60,12 @@ Viewer::InfoBox::InfoBox(Viewer::ViewerWidget *viewer)
 
     QPalette p = palette();
     // we want a transparent background, not the default widget grey
-    p.setColor(QPalette::Base, QColor(0, 0, 0, 170)); // r, g, b, A
+    QColor bgColor = palette().shadow().color();
+    bgColor.setAlpha(170);
+    p.setColor(QPalette::Base, bgColor);
     // adapt other colors as necessary
-    p.setColor(QPalette::Text, Qt::white);
+    p.setColor(QPalette::WindowText, palette().brightText().color());
+    p.setColor(QPalette::Text, palette().brightText().color());
     p.setColor(QPalette::Link, p.color(QPalette::Link).lighter());
     setPalette(p);
 

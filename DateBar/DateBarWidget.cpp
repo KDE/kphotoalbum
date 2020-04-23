@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -442,9 +442,9 @@ void DateBar::DateBarWidget::drawFocusRectangle(QPainter &p)
     p.setClipping(true);
     p.setClipRegion(region);
 
-    QColor col = Qt::gray;
+    QColor col = palette().highlight().color();
     if (!hasFocus())
-        col = Qt::white;
+        col = palette().window().color();
 
     p.setBrush(col);
     p.setPen(col);

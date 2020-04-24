@@ -144,23 +144,11 @@ void ThumbnailView::Delegate::paintBoundingRect(QPainter *painter, const QRect &
     rect.adjust(-5, -5, 4, 4);
     for (int i = 4; i >= 0; --i) {
         QColor color;
-        // FIXME(jzarl): use palette color instead:
         if (widget()->selectionModel()->isSelected(index)) {
-            static QColor selectionColors[] = { QColor(58, 98, 134), QColor(96, 161, 221), QColor(93, 165, 228), QColor(132, 186, 237), QColor(62, 95, 128) };
-            color = selectionColors[i];
-        }
-
-#if 0
-        // This code doesn't work very well with the QListView, for some odd reason, it often leaves a highlighted thumbnail behind
-        //  9 Aug. 2010 11:33 -- Jesper K. Pedersen
-
-        else if ( widget()->indexUnderCursor() == index ) {
-            static QColor hoverColors[] = { QColor(46,99,152), QColor(121,136,151), QColor(121,136,151), QColor(126,145,163), QColor(109,126,142)};
-            color = hoverColors[i];
-        }
-#endif
-
-        else {
+            // a factor of 100 means same brightness, 200 = half the brightness
+            static int factors[5] = { 177, 107, 104, 100, 185 };
+            color = qApp->palette().highlight().color().darker(factors[i]);
+        } else {
             // Originally I just painted the outline using drawRect, but that turned out to be a huge bottleneck.
             // The code was therefore converted to fillRect, which was much faster.
             // This code was complicted from that, as I previously drew the
@@ -171,8 +159,8 @@ void ThumbnailView::Delegate::paintBoundingRect(QPainter *painter, const QRect &
             // than rely on drawing with a transparent color on top of the
             // background.
             // 12 Aug. 2010 17:38 -- Jesper K. Pedersen
+            const QColor foreground = qApp->palette().shadow().color();
             // FIXME(jzarl): use palette color instead:
-            const QColor foreground = Qt::black;
             const QColor backround = QColor(Settings::SettingsData::instance()->backgroundColor());
 
             double alpha = (0.5 - 0.1 * i);

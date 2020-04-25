@@ -95,7 +95,8 @@ QLabel *Exif::Grid::headerLabel(const QString &title)
     QLabel *label = new QLabel(title);
 
     QPalette pal;
-    pal.setBrush(QPalette::Background, Qt::lightGray);
+    pal.setBrush(QPalette::Window, palette().dark());
+    pal.setBrush(QPalette::WindowText, palette().brightText());
     label->setPalette(pal);
     label->setAutoFillBackground(true);
     label->setAlignment(Qt::AlignCenter);

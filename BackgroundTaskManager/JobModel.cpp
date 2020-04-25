@@ -26,6 +26,7 @@
 #include <KLed>
 #include <KLocalizedString>
 #include <QApplication>
+#include <QBitmap>
 #include <QPainter>
 #include <QPixmap>
 #include <QTime>
@@ -175,11 +176,12 @@ QPixmap JobModel::statusImage(JobInfo::State state) const
     KLed led;
     led.setColor(color);
 
-    QPalette pal = led.palette();
-    pal.setColor(QPalette::Window, qApp->palette().base().color());
-    led.setPalette(pal);
+    QPixmap pixmap = led.grab();
+    // creating the mask by heuristic is expensive, so do it only once:
+    static QBitmap s_ledMask = pixmap.createHeuristicMask();
+    pixmap.setMask(s_ledMask);
 
-    return led.grab();
+    return pixmap;
 }
 
 } // namespace BackgroundTaskManager

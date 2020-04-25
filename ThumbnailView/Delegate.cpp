@@ -143,7 +143,11 @@ void ThumbnailView::Delegate::paintBoundingRect(QPainter *painter, const QRect &
     rect.adjust(-5, -5, 4, 4);
     for (int i = 4; i >= 0; --i) {
         QColor color;
-        if (widget()->selectionModel()->isSelected(index)) {
+        if (widget()->selectionModel()->currentIndex() == index) {
+            // a factor of 100 means same brightness, 200 = half the brightness
+            static int factors[5] = { 123, 74, 72, 70, 129 };
+            color = widget()->palette().highlight().color().darker(factors[i]);
+        } else if (widget()->selectionModel()->isSelected(index)) {
             // a factor of 100 means same brightness, 200 = half the brightness
             static int factors[5] = { 177, 107, 104, 100, 185 };
             color = widget()->palette().highlight().color().darker(factors[i]);

@@ -24,7 +24,6 @@
 #include <Settings/SettingsData.h>
 
 #include <KLocalizedString>
-#include <QApplication>
 #include <QPainter>
 ThumbnailView::Delegate::Delegate(ThumbnailFactory *factory, QObject *parent)
     : QStyledItemDelegate(parent)
@@ -47,10 +46,10 @@ void ThumbnailView::Delegate::paint(QPainter *painter, const QStyleOptionViewIte
 
 void ThumbnailView::Delegate::paintCellBackground(QPainter *painter, const QRect &rect) const
 {
-    painter->fillRect(rect, QColor(Settings::SettingsData::instance()->backgroundColor()));
-
+    // we used to paint the cell background here even though it is the same color as the widget background.
+    // -> now we only paint the grid here if needed
     if (widget()->isGridResizing() || Settings::SettingsData::instance()->thumbnailDisplayGrid()) {
-        painter->setPen(contrastColor(Settings::SettingsData::instance()->backgroundColor()));
+        painter->setPen(widget()->palette().shadow().color());
         // left and right of frame
         painter->drawLine(rect.right(), rect.top(), rect.right(), rect.bottom());
 
@@ -72,7 +71,7 @@ void ThumbnailView::Delegate::paintCellPixmap(QPainter *painter, const QStyleOpt
 
     // Paint transparent pixels over the widget for selection.
     const QItemSelectionModel *selectionModel = widget()->selectionModel();
-    QColor selectionColor = qApp->palette().highlight().color();
+    QColor selectionColor = widget()->palette().highlight().color();
     selectionColor.setAlpha(127);
     if (selectionModel->isSelected(index))
         painter->fillRect(option.rect, selectionColor);
@@ -101,7 +100,7 @@ void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect &pix
     }
 
     painter->save();
-    QColor bgColor = qApp->palette().shadow().color();
+    QColor bgColor = widget()->palette().shadow().color();
     bgColor.setAlpha(128);
     painter->fillRect(backgroundRect, QBrush(bgColor));
     painter->setPen(Qt::white);
@@ -121,7 +120,7 @@ void ThumbnailView::Delegate::paintCellText(QPainter *painter, const QStyleOptio
 
     QString title = index.data(Qt::DisplayRole).value<QString>();
     QRect rect = cellGeometryInfo()->cellTextGeometry();
-    painter->setPen(contrastColor(Settings::SettingsData::instance()->backgroundColor()));
+    painter->setPen(widget()->palette().text().color());
 
     //Qt::TextWordWrap just in case, if the text's width is wider than the cell's width
     painter->drawText(rect.translated(option.rect.topLeft()), Qt::AlignCenter | Qt::TextWordWrap, title);
@@ -147,7 +146,7 @@ void ThumbnailView::Delegate::paintBoundingRect(QPainter *painter, const QRect &
         if (widget()->selectionModel()->isSelected(index)) {
             // a factor of 100 means same brightness, 200 = half the brightness
             static int factors[5] = { 177, 107, 104, 100, 185 };
-            color = qApp->palette().highlight().color().darker(factors[i]);
+            color = widget()->palette().highlight().color().darker(factors[i]);
         } else {
             // Originally I just painted the outline using drawRect, but that turned out to be a huge bottleneck.
             // The code was therefore converted to fillRect, which was much faster.
@@ -159,16 +158,15 @@ void ThumbnailView::Delegate::paintBoundingRect(QPainter *painter, const QRect &
             // than rely on drawing with a transparent color on top of the
             // background.
             // 12 Aug. 2010 17:38 -- Jesper K. Pedersen
-            const QColor foreground = qApp->palette().shadow().color();
-            // FIXME(jzarl): use palette color instead:
-            const QColor backround = QColor(Settings::SettingsData::instance()->backgroundColor());
+            const QColor foreground = widget()->palette().shadow().color();
+            const QColor background = widget()->palette().base().color();
 
             double alpha = (0.5 - 0.1 * i);
             double inverseAlpha = 1 - alpha;
 
-            color = QColor(int(foreground.red() * alpha + backround.red() * inverseAlpha),
-                           int(foreground.green() * alpha + backround.green() * inverseAlpha),
-                           int(foreground.blue() * alpha + backround.blue() * inverseAlpha));
+            color = QColor(int(foreground.red() * alpha + background.red() * inverseAlpha),
+                           int(foreground.green() * alpha + background.green() * inverseAlpha),
+                           int(foreground.blue() * alpha + background.blue() * inverseAlpha));
         }
 
         QPen pen(color);

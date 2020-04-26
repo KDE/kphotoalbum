@@ -388,6 +388,7 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
             QFontMetrics fontMetrics(f);
             int w = stringWidth(fontMetrics, QString::number(tot));
             if (w < exactPx + rangePx - 2) {
+                // don't use a palette color here - otherwise it may have bad contrast with green and yellow:
                 p.setPen(Qt::black);
                 p.drawText(0, 0, QString::number(tot));
             }
@@ -649,7 +650,7 @@ void DateBar::DateBarWidget::drawResolutionIndicator(QPainter &p, int *leftEdge)
     int midLine = rect.top() + height / 2;
 
     p.save();
-    p.setPen(Qt::red);
+    p.setPen(palette().windowText().color());
 
     // draw arrows
     drawArrow(p, QPoint(startUnitPos - ARROW_LENGTH, midLine), QPoint(startUnitPos, midLine));

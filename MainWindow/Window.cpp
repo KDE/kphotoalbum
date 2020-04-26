@@ -26,6 +26,7 @@
 
 #include <KActionCollection>
 #include <KActionMenu>
+#include <KColorSchemeManager>
 #include <KConfigGroup>
 #include <KEditToolBar>
 #include <KIconLoader>
@@ -927,7 +928,7 @@ void MainWindow::Window::setupMenuBar()
                                                    this, SLOT(slotMarkUntagged()));
     m_markUntagged->setText(i18n("Mark As Untagged"));
 
-    // Settings
+    // The Settings menu
     KStandardAction::preferences(this, SLOT(slotOptions()), actionCollection());
     KStandardAction::keyBindings(this, SLOT(slotConfigureKeyBindings()), actionCollection());
     KStandardAction::configureToolbars(this, SLOT(slotConfigureToolbars()), actionCollection());
@@ -975,6 +976,13 @@ void MainWindow::Window::setupMenuBar()
     toggleSearchBar->setText(i18n("Show search bar"));
     toggleSearchBar->setIcon(QIcon::fromTheme(QString::fromLatin1("search")));
     // connections are done in createSearchBar()
+
+    KColorSchemeManager *schemes = new KColorSchemeManager(this);
+    m_colorSchemeMenu = schemes->createSchemeSelectionMenu(Settings::SettingsData::instance()->colorScheme(), this);
+    m_colorSchemeMenu->setText(i18n("Choose color scheme"));
+    m_colorSchemeMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("color")));
+    m_colorSchemeMenu->setDelayed(false);
+    actionCollection()->addAction(QString::fromLatin1("colorScheme"), m_colorSchemeMenu);
 
     // The help menu
     KStandardAction::tipOfDay(this, SLOT(showTipOfDay()), actionCollection());

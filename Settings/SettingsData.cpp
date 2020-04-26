@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -170,6 +170,7 @@ property_copy(excludeDirectories, setExcludeDirectories, QString, General, QStri
 property_copy(recentAndroidAddress, setRecentAndroidAddress, QString, General, QString())
 property_copy(listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnStartup, bool, General, false)
 #endif
+property_copy(colorScheme, setColorScheme, QString, General, QString());
 
 getValueFunc(QSize, histogramSize, General, QSize(15, 30))
 getValueFunc(ViewSortType, viewSortType, General, (int)SortLastUse)

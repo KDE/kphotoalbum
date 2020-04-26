@@ -90,6 +90,12 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type, QMap<Qt::Key, QPair<QString, 
         s_latest = this;
     }
 
+    // change the palette for the background - this is an intermediate step until we use a color scheme like gwenview does
+    QPalette pal = palette();
+    pal.setBrush(QPalette::Base, palette().shadow());
+    pal.setBrush(QPalette::Text, palette().brightText());
+    setPalette(pal);
+
     if (!m_inputMacros) {
         m_myInputMacros = m_inputMacros = new QMap<Qt::Key, QPair<QString, QString>>;
     }

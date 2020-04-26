@@ -209,8 +209,10 @@ void ThumbnailView::Delegate::paintStackedIndicator(QPainter *painter, const QRe
 
     // Paint the lines.
     painter->save();
+    const QColor lineColor = widget()->palette().shadow().color();
+    const QColor alternateColor = widget()->palette().brightText().color();
     for (int i = 0; i < 8; ++i) {
-        painter->setPen(QPen(i % 2 == 0 ? Qt::black : Qt::white));
+        painter->setPen(QPen(i % 2 == 0 ? lineColor : alternateColor));
 
         painter->drawLine(bottomLeftPoint, bottomRightPoint);
         if (topPoint != QPoint()) {

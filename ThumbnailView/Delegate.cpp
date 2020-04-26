@@ -103,7 +103,7 @@ void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect &pix
     QColor bgColor = widget()->palette().shadow().color();
     bgColor.setAlpha(128);
     painter->fillRect(backgroundRect, QBrush(bgColor));
-    painter->setPen(Qt::white);
+    painter->setPen(widget()->palette().brightText().color());
     painter->drawText(textRect, Qt::TextDontClip, text);
     painter->restore();
 }

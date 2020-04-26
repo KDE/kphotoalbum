@@ -165,7 +165,7 @@ void Exif::Grid::updateSearchString(const QString &search)
     for (QPair<QLabel *, QLabel *> tuple : m_labels) {
         const bool matches = tuple.first->text().contains(search, Qt::CaseInsensitive) && search.length() != 0;
         QPalette pal = tuple.first->palette();
-        pal.setBrush(QPalette::Foreground, matches ? Qt::red : Qt::black);
+        pal.setBrush(QPalette::Foreground, matches ? Qt::red : palette().text());
         tuple.first->setPalette(pal);
         tuple.second->setPalette(pal);
         QFont fnt = tuple.first->font();

@@ -41,6 +41,17 @@
 #include <qfontmetrics.h>
 #include <qpainter.h>
 
+namespace
+{
+QColor contrastColor(const QColor &color)
+{
+    if (color.red() < 127 && color.green() < 127 && color.blue() < 127)
+        return Qt::white;
+    else
+        return Qt::black;
+}
+}
+
 /**
  * \class ThumbnailView::ThumbnailWidget
  * This is the widget which shows the thumbnails.
@@ -440,14 +451,6 @@ void ThumbnailView::ThumbnailWidget::select(const DB::FileNameList &items)
 bool ThumbnailView::ThumbnailWidget::isItemUnderCursorSelected() const
 {
     return widget()->selection(ExpandCollapsedStacks).contains(mediaIdUnderCursor());
-}
-
-QColor ThumbnailView::contrastColor(const QColor &color)
-{
-    if (color.red() < 127 && color.green() < 127 && color.blue() < 127)
-        return Qt::white;
-    else
-        return Qt::black;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

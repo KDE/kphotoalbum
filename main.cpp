@@ -38,7 +38,11 @@
 #include <QCommandLineParser>
 #include <QDebug>
 #include <QLocale>
+#include <QLoggingCategory>
 #include <QTemporaryFile>
+
+Q_DECLARE_LOGGING_CATEGORY(MainLog)
+Q_LOGGING_CATEGORY(MainLog, "kphotoalbum", QtWarningMsg)
 
 void migrateKDE4Config()
 {
@@ -53,7 +57,7 @@ void migrateKDE4Config()
             generalConfig.writeEntry(QString::fromLatin1("imageDBFile"),
                                      unnamedConfig.readEntry(QString::fromLatin1("configfile")));
             unnamedConfig.deleteEntry(QString::fromLatin1("configfile"));
-            qWarning() << "Renamed config entry configfile to General.imageDBFile.";
+            qCWarning(MainLog) << "Renamed config entry configfile to General.imageDBFile.";
         }
     }
 }
@@ -114,7 +118,7 @@ int main(int argc, char **argv)
     aboutData.processCommandLine(parser);
 
     const QString schemePath = KSharedConfig::openConfig()->group("General").readEntry(QString::fromLatin1("colorScheme"), QString());
-    qDebug() << "Loading color scheme from " << (schemePath.isEmpty() ? QString::fromLatin1("system default") : schemePath);
+    qCDebug(MainLog) << "Loading color scheme from " << (schemePath.isEmpty() ? QString::fromLatin1("system default") : schemePath);
     app.setPalette(KColorScheme::createApplicationPalette(KSharedConfig::openConfig(schemePath)));
 
     new MainWindow::SplashScreen();

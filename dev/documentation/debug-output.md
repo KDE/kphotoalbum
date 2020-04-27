@@ -27,6 +27,7 @@ E.g. you can start KPhotoAlbum like this on the commandline:
 
 ## Logging Categories in KPhotoAlbum
 
+ - ```kphotoalbum```
  - ```kphotoalbum.AnnotationDialog```
  - ```kphotoalbum.BackgroundJobs```
  - ```kphotoalbum.BackgroundTaskManager```

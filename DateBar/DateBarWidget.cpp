@@ -132,6 +132,16 @@ QSize DateBar::DateBarWidget::minimumSizeHint() const
     return QSize(200, height);
 }
 
+bool DateBar::DateBarWidget::event(QEvent *event)
+{
+    if (event->type() == QEvent::PaletteChange) {
+        QWidget::event(event);
+        redraw();
+        return true;
+    }
+    return QWidget::event(event);
+}
+
 void DateBar::DateBarWidget::paintEvent(QPaintEvent * /*event*/)
 {
     QPainter painter(this);

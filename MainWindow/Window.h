@@ -222,6 +222,7 @@ protected slots:
 protected:
     void configureImages(bool oneAtATime);
     QString welcome();
+    bool event(QEvent *event) override;
     void closeEvent(QCloseEvent *e) override;
     void resizeEvent(QResizeEvent *) override;
     void moveEvent(QMoveEvent *) override;

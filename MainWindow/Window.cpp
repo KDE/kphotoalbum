@@ -722,6 +722,18 @@ QString MainWindow::Window::welcome()
     return configFileName;
 }
 
+bool MainWindow::Window::event(QEvent *event)
+{
+    if (event->type() == QEvent::PaletteChange) {
+        // KColorSchemeManager sets a dynamic property when activating a scheme:
+        const QString schemePath = qApp->property("KDE_COLOR_SCHEME_PATH").toString();
+        qCInfo(MainWindowLog) << "Color Scheme changed to " << (schemePath.isEmpty() ? QString::fromLatin1("system default") : schemePath);
+        Settings::SettingsData::instance()->setColorScheme(schemePath);
+        return QWidget::event(event);
+    }
+    return QWidget::event(event);
+}
+
 void MainWindow::Window::closeEvent(QCloseEvent *e)
 {
     bool quit = true;

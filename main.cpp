@@ -1,4 +1,4 @@
-/* Copyright (C) 2010-2019 The KPhotoAlbum development team
+/* Copyright (C) 2010-2020 The KPhotoAlbum development team
    Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
@@ -28,6 +28,7 @@
 #include <Settings/SettingsData.h>
 
 #include <KAboutData>
+#include <KColorScheme>
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
@@ -111,6 +112,10 @@ int main(int argc, char **argv)
 
     parser->process(app);
     aboutData.processCommandLine(parser);
+
+    const QString schemePath = KSharedConfig::openConfig()->group("General").readEntry(QString::fromLatin1("colorScheme"), QString());
+    qDebug() << "Loading color scheme from " << (schemePath.isEmpty() ? QString::fromLatin1("system default") : schemePath);
+    app.setPalette(KColorScheme::createApplicationPalette(KSharedConfig::openConfig(schemePath)));
 
     new MainWindow::SplashScreen();
 

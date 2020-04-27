@@ -990,7 +990,8 @@ void MainWindow::Window::setupMenuBar()
     // connections are done in createSearchBar()
 
     KColorSchemeManager *schemes = new KColorSchemeManager(this);
-    m_colorSchemeMenu = schemes->createSchemeSelectionMenu(Settings::SettingsData::instance()->colorScheme(), this);
+    const QString activeSchemeName = QFileInfo(Settings::SettingsData::instance()->colorScheme()).baseName();
+    m_colorSchemeMenu = schemes->createSchemeSelectionMenu(activeSchemeName, this);
     m_colorSchemeMenu->setText(i18n("Choose color scheme"));
     m_colorSchemeMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("color")));
     m_colorSchemeMenu->setDelayed(false);

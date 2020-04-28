@@ -41,6 +41,7 @@
 #include <Utilities/VideoUtil.h>
 
 #include <KActionCollection>
+#include <KColorScheme>
 #include <KIO/CopyJob>
 #include <KIconLoader>
 #include <KLocalizedString>
@@ -90,11 +91,8 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type, QMap<Qt::Key, QPair<QString, 
         s_latest = this;
     }
 
-    // change the palette for the background - this is an intermediate step until we use a color scheme like gwenview does
-    QPalette pal = palette();
-    pal.setBrush(QPalette::Base, palette().shadow());
-    pal.setBrush(QPalette::Text, palette().brightText());
-    setPalette(pal);
+    updatePalette();
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::colorSchemeChanged, this, &ViewerWidget::updatePalette);
 
     if (!m_inputMacros) {
         m_myInputMacros = m_inputMacros = new QMap<Qt::Key, QPair<QString, QString>>;
@@ -645,6 +643,17 @@ void Viewer::ViewerWidget::closeEvent(QCloseEvent *event)
 DB::ImageInfoPtr Viewer::ViewerWidget::currentInfo() const
 {
     return m_list[m_current].info();
+}
+
+void Viewer::ViewerWidget::updatePalette()
+{
+    QPalette pal = palette();
+    // if the scheme was set at startup from the scheme path (and not afterwards through KColorSchemeManager),
+    // then KColorScheme would use the standard system scheme if we don't explicitly give a config:
+    const auto schemeCfg = KSharedConfig::openConfig(Settings::SettingsData::instance()->colorScheme());
+    KColorScheme::adjustBackground(pal, KColorScheme::NormalBackground, QPalette::Base, KColorScheme::Complementary, schemeCfg);
+    KColorScheme::adjustForeground(pal, KColorScheme::NormalText, QPalette::Text, KColorScheme::Complementary, schemeCfg);
+    setPalette(pal);
 }
 
 void Viewer::ViewerWidget::infoBoxMove()

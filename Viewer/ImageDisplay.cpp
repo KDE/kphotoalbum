@@ -217,6 +217,7 @@ void Viewer::ImageDisplay::paintEvent(QPaintEvent *)
     int y = (height() - m_croppedAndScaledImg.height()) / 2;
 
     QPainter painter(this);
+    Q_ASSERT(painter.isActive());
     painter.fillRect(0, 0, width(), height(), palette().base());
     painter.drawImage(x, y, m_croppedAndScaledImg);
 }

@@ -31,26 +31,17 @@
 #include <DB/ImageInfoPtr.h>
 #include <Settings/SettingsData.h>
 
+#include <KColorScheme>
 #include <KLocalizedString>
+#include <QCursor>
+#include <QDebug>
+#include <QFontMetrics>
 #include <QItemSelection>
 #include <QItemSelectionRange>
+#include <QPainter>
 #include <QScrollBar>
 #include <QTimer>
 #include <math.h>
-#include <qcursor.h>
-#include <qfontmetrics.h>
-#include <qpainter.h>
-
-namespace
-{
-QColor contrastColor(const QColor &color)
-{
-    if (color.red() < 127 && color.green() < 127 && color.blue() < 127)
-        return Qt::white;
-    else
-        return Qt::black;
-}
-}
 
 /**
  * \class ThumbnailView::ThumbnailWidget
@@ -96,6 +87,7 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget(ThumbnailFactory *factory)
     connect(m_keyboardHandler, &KeyboardEventHandler::showSelection, this, &ThumbnailWidget::showSelection);
 
     updatePalette();
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::colorSchemeChanged, this, &ThumbnailWidget::updatePalette);
     setItemDelegate(new Delegate(factory, this));
 
     connect(selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(emitSelectionChangedSignal()));
@@ -334,8 +326,11 @@ DB::FileName ThumbnailView::ThumbnailWidget::currentItem() const
 void ThumbnailView::ThumbnailWidget::updatePalette()
 {
     QPalette pal = palette();
-    pal.setBrush(QPalette::Base, QColor(Settings::SettingsData::instance()->backgroundColor()));
-    pal.setBrush(QPalette::Text, contrastColor(QColor(Settings::SettingsData::instance()->backgroundColor())));
+    // if the scheme was set at startup from the scheme path (and not afterwards through KColorSchemeManager),
+    // then KColorScheme would use the standard system scheme if we don't explicitly give a config:
+    const auto schemeCfg = KSharedConfig::openConfig(Settings::SettingsData::instance()->colorScheme());
+    KColorScheme::adjustBackground(pal, KColorScheme::NormalBackground, QPalette::Base, KColorScheme::Complementary, schemeCfg);
+    KColorScheme::adjustForeground(pal, KColorScheme::NormalText, QPalette::Text, KColorScheme::Complementary, schemeCfg);
     setPalette(pal);
 }
 

@@ -145,7 +145,7 @@ public:
     property_copy(thumbnailDisplayGrid, setThumbnailDisplayGrid, bool);
     property_copy(previewSize, setPreviewSize, int);
     property_ref(backgroundColor, setBackgroundColor, QString);
-    property_copy(colorScheme, setColorScheme, QString);
+    property_ref(colorScheme, setColorScheme, QString);
     property_copy(incrementalThumbnails, setIncrementalThumbnails, bool);
 
     // Border space around thumbnails.
@@ -267,6 +267,7 @@ signals:
     void thumbnailSizeChanged(int);
     void actualThumbnailSizeChanged(int);
     void histogramScaleChanged();
+    void colorSchemeChanged();
 
 private:
     SettingsData(const QString &imageDirectory);

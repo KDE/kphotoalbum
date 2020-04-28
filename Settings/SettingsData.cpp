@@ -170,7 +170,14 @@ property_copy(excludeDirectories, setExcludeDirectories, QString, General, QStri
 property_copy(recentAndroidAddress, setRecentAndroidAddress, QString, General, QString())
 property_copy(listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnStartup, bool, General, false)
 #endif
-property_copy(colorScheme, setColorScheme, QString, General, QString());
+getValueFunc(QString, colorScheme, General, QString())
+void SettingsData::setColorScheme(const QString &path) {
+    if (path != colorScheme())
+    {
+        setValue("General", "colorScheme", path);
+        emit colorSchemeChanged();
+    }
+}
 
 getValueFunc(QSize, histogramSize, General, QSize(15, 30))
 getValueFunc(ViewSortType, viewSortType, General, (int)SortLastUse)

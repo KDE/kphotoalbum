@@ -74,12 +74,12 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
 
 void ExtractOneVideoFrame::frameFetched()
 {
-    if (!QFile::exists(m_workingDirectory->filePath(STR("/00000020.png"))))
+    if (!QFile::exists(m_workingDirectory->filePath(STR("00000020.png"))))
         markShortVideo(m_fileName);
 
     QString name;
     for (int i = 20; i > 0; --i) {
-        name = m_workingDirectory->filePath(STR("/000000%1.png").arg(i, 2, 10, QChar::fromLatin1('0')));
+        name = m_workingDirectory->filePath(STR("000000%1.png").arg(i, 2, 10, QChar::fromLatin1('0')));
         if (QFile::exists(name)) {
             qCDebug(ImageManagerLog) << "Using video frame " << i;
             break;

@@ -78,7 +78,7 @@ void Viewer::SpeedDisplay::end()
 void Viewer::SpeedDisplay::setAlphaChannel(int backgroundAlpha, int labelAlpha)
 {
     QPalette p = palette();
-    QColor bgColor = p.background().color();
+    QColor bgColor = p.window().color();
     bgColor.setAlpha(backgroundAlpha);
     p.setColor(QPalette::Background, bgColor);
     QColor fgColor = p.windowText().color();

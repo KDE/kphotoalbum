@@ -45,7 +45,7 @@ protected:
     void paintEvent(QPaintEvent *event) override
     {
         QPainter painter(this);
-        painter.fillRect(event->rect(), QColor(palette().background().color()));
+        painter.fillRect(event->rect(), QColor(palette().window().color()));
     }
 };
 

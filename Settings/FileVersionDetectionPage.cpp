@@ -25,13 +25,17 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QLineEdit>
+#include <QScrollArea>
 #include <QSpinBox>
 #include <QVBoxLayout>
 
 Settings::FileVersionDetectionPage::FileVersionDetectionPage(QWidget *parent)
     : QWidget(parent)
 {
-    QVBoxLayout *topLayout = new QVBoxLayout(this);
+    auto *mainLayout = new QVBoxLayout(this);
+    auto *scrollWidget = new QWidget;
+    auto *topLayout = new QVBoxLayout(scrollWidget);
+
     QString txt;
 
     // General file searching
@@ -262,6 +266,10 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage(QWidget *parent)
         thumbnailBuilderThreadCountLabel->setWhatsThis(txt);
         m_thumbnailBuilderThreadCount->setWhatsThis(txt);
     }
+
+    auto *scrollArea = new QScrollArea;
+    mainLayout->addWidget(scrollArea);
+    scrollArea->setWidget(scrollWidget);
 }
 
 Settings::FileVersionDetectionPage::~FileVersionDetectionPage()

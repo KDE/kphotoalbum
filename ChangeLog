@@ -1,3 +1,8 @@
+* Feature: Support for custom color schemes.
+  Note: This feature replaces the custom background color for the thumbnail view.
+
+* Bugfix: Consistent UI even with dark color schemes.
+
 * Bugfix: Fix behavior of refresh button (introduced in version 5.5)
 
 * Bugfix: Fix crash when images are deleted while the viewer window is open.

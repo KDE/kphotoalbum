@@ -1,4 +1,4 @@
-/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -45,7 +45,7 @@ protected:
     void paintEvent(QPaintEvent *event) override
     {
         QPainter painter(this);
-        painter.fillRect(event->rect(), QColor(Qt::white));
+        painter.fillRect(event->rect(), QColor(palette().background().color()));
     }
 };
 
@@ -74,7 +74,7 @@ void Exif::Grid::setupUI(const QString &charset)
         int count = 0;
         for (const QString &key : sorted) {
             const int subrow = (count % perCol);
-            const QColor color = (subrow & 1) ? Qt::white : QColor(226, 235, 250);
+            const QColor color = (subrow & 1) ? palette().base().color() : palette().alternateBase().color();
             QPair<QLabel *, QLabel *> pair = infoLabelPair(exifNameNoGroup(key), items[key].join(QLatin1String(", ")), color);
 
             int col = (count / perCol) * 2;
@@ -95,7 +95,8 @@ QLabel *Exif::Grid::headerLabel(const QString &title)
     QLabel *label = new QLabel(title);
 
     QPalette pal;
-    pal.setBrush(QPalette::Background, Qt::lightGray);
+    pal.setBrush(QPalette::Window, palette().dark());
+    pal.setBrush(QPalette::WindowText, palette().brightText());
     label->setPalette(pal);
     label->setAutoFillBackground(true);
     label->setAlignment(Qt::AlignCenter);
@@ -164,7 +165,7 @@ void Exif::Grid::updateSearchString(const QString &search)
     for (QPair<QLabel *, QLabel *> tuple : m_labels) {
         const bool matches = tuple.first->text().contains(search, Qt::CaseInsensitive) && search.length() != 0;
         QPalette pal = tuple.first->palette();
-        pal.setBrush(QPalette::Foreground, matches ? Qt::red : Qt::black);
+        pal.setBrush(QPalette::Foreground, matches ? Qt::red : palette().text());
         tuple.first->setPalette(pal);
         tuple.second->setPalette(pal);
         QFont fnt = tuple.first->font();

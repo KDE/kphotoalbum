@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -130,6 +130,16 @@ QSize DateBar::DateBarWidget::minimumSizeHint() const
     int height = qMax(dateAreaGeometry().bottom() + BORDER_AROUND_WIDGET,
                       m_barHeight + BUTTON_WIDTH + 2 * BORDER_AROUND_WIDGET + 7);
     return QSize(200, height);
+}
+
+bool DateBar::DateBarWidget::event(QEvent *event)
+{
+    if (event->type() == QEvent::PaletteChange) {
+        QWidget::event(event);
+        redraw();
+        return true;
+    }
+    return QWidget::event(event);
 }
 
 void DateBar::DateBarWidget::paintEvent(QPaintEvent * /*event*/)
@@ -388,6 +398,7 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
             QFontMetrics fontMetrics(f);
             int w = stringWidth(fontMetrics, QString::number(tot));
             if (w < exactPx + rangePx - 2) {
+                // don't use a palette color here - otherwise it may have bad contrast with green and yellow:
                 p.setPen(Qt::black);
                 p.drawText(0, 0, QString::number(tot));
             }
@@ -442,9 +453,9 @@ void DateBar::DateBarWidget::drawFocusRectangle(QPainter &p)
     p.setClipping(true);
     p.setClipRegion(region);
 
-    QColor col = Qt::gray;
+    QColor col = palette().highlight().color();
     if (!hasFocus())
-        col = Qt::white;
+        col = palette().window().color();
 
     p.setBrush(col);
     p.setPen(col);
@@ -649,7 +660,7 @@ void DateBar::DateBarWidget::drawResolutionIndicator(QPainter &p, int *leftEdge)
     int midLine = rect.top() + height / 2;
 
     p.save();
-    p.setPen(Qt::red);
+    p.setPen(palette().windowText().color());
 
     // draw arrows
     drawArrow(p, QPoint(startUnitPos - ARROW_LENGTH, midLine), QPoint(startUnitPos, midLine));

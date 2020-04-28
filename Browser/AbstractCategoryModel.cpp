@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -67,21 +67,15 @@ QString Browser::AbstractCategoryModel::text(const QString &name) const
 QPixmap Browser::AbstractCategoryModel::icon(const QString &name) const
 {
     const int size = m_category->thumbnailSize();
-    if (BrowserWidget::isResizing()) {
-        QPixmap res(size, size * Settings::SettingsData::instance()->getThumbnailAspectRatio());
-        res.fill(Qt::white);
-        return res;
-    }
 
     if (m_category->viewType() == DB::Category::TreeView || m_category->viewType() == DB::Category::IconView) {
         if (DB::ImageDB::instance()->memberMap().isGroup(m_category->name(), name)) {
-            return QIcon::fromTheme(QString::fromUtf8("folder-image")).pixmap(22);
+            return QIcon::fromTheme(QString::fromUtf8("folder-image")).pixmap(size);
         } else {
             return m_category->icon();
         }
     } else {
         // The category images are screenshot from the size of the viewer (Which might very well be considered a bug)
-        // This is the reason for asking for the thumbnail height being 3/4 of its width.
         return m_category->categoryImage(m_category->name(), name, size, size * Settings::SettingsData::instance()->getThumbnailAspectRatio());
     }
 }

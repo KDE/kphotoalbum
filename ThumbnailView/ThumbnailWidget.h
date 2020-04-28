@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -149,8 +149,6 @@ private:
     KeyboardEventHandler *m_keyboardHandler;
     QScopedPointer<VideoThumbnailCycler> m_videoThumbnailCycler;
 };
-
-QColor contrastColor(const QColor &color);
 }
 
 #endif /* THUMBNAILVIEW_THUMBNAILWIDGET_H */

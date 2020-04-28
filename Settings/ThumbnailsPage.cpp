@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -74,13 +74,6 @@ Settings::ThumbnailsPage::ThumbnailsPage(QWidget *parent)
     lay->addWidget(thumbnailSpaceLabel, row, 0);
     lay->addWidget(m_thumbnailSpace, row, 1);
 
-    // Background color
-    ++row;
-    QLabel *backgroundColorLabel = new QLabel(i18n("Background color:"));
-    m_backgroundColor = new KColorButton;
-    lay->addWidget(backgroundColorLabel, row, 0);
-    lay->addWidget(m_backgroundColor, row, 1);
-
     // Display grid lines in the thumbnail view
     ++row;
     m_thumbnailDisplayGrid = new QCheckBox(i18n("Display grid around thumbnails"));
@@ -137,10 +130,6 @@ Settings::ThumbnailsPage::ThumbnailsPage(QWidget *parent)
     txt = i18n("<p>How thick the cell padding should be.</p>");
     thumbnailSpaceLabel->setWhatsThis(txt);
 
-    txt = i18n("<p>Background color to use in the thumbnail viewer</p>");
-    backgroundColorLabel->setWhatsThis(txt);
-    m_backgroundColor->setWhatsThis(txt);
-
     txt = i18n("<p>If you want to see grid around your thumbnail images, "
                "select this option.</p>");
     m_thumbnailDisplayGrid->setWhatsThis(txt);
@@ -166,7 +155,6 @@ void Settings::ThumbnailsPage::loadSettings(Settings::SettingsData *opt)
     m_thumbnailSize->setMinimum(opt->minimumThumbnailSize());
     m_thumbnailSize->setMaximum(opt->maximumThumbnailSize());
     m_thumbnailSize->setValue(opt->thumbnailSize());
-    m_backgroundColor->setColor(QColor(opt->backgroundColor()));
     m_thumbnailDisplayGrid->setChecked(opt->thumbnailDisplayGrid());
     m_thumbnailAspectRatio->setCurrentIndex(opt->thumbnailAspectRatio());
     m_thumbnailSpace->setValue(opt->thumbnailSpace());
@@ -183,7 +171,6 @@ void Settings::ThumbnailsPage::saveSettings(Settings::SettingsData *opt)
     // ensure that the user actually sees the thumbnail size change:
     opt->setActualThumbnailSize(m_thumbnailSize->value());
     opt->setThumbnailAspectRatio((ThumbnailAspectRatio)m_thumbnailAspectRatio->currentIndex());
-    opt->setBackgroundColor(m_backgroundColor->color().name());
     opt->setThumbnailDisplayGrid(m_thumbnailDisplayGrid->isChecked());
     opt->setThumbnailSpace(m_thumbnailSpace->value());
     opt->setDisplayLabels(m_displayLabels->isChecked());

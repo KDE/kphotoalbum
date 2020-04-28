@@ -1,4 +1,4 @@
-/* Copyright (C) 2007-2018 Jan Kundrat <jkt@gentoo.org>
+/* Copyright (C) 2007-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -38,16 +38,12 @@ Viewer::TextDisplay::TextDisplay(QWidget *parent)
     m_text = new QLabel(this);
     lay->addWidget(m_text);
     m_text->setAlignment(Qt::AlignCenter);
-
-    QPalette pal = m_text->palette();
-    pal.setColor(QPalette::Background, Qt::white);
-    m_text->setPalette(pal);
 }
 
 bool Viewer::TextDisplay::setImage(DB::ImageInfoPtr info, bool forward)
 {
-    Q_UNUSED(info);
-    Q_UNUSED(forward);
+    Q_UNUSED(info)
+    Q_UNUSED(forward)
     return true;
 }
 

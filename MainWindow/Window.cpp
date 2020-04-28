@@ -26,6 +26,7 @@
 
 #include <KActionCollection>
 #include <KActionMenu>
+#include <KColorSchemeManager>
 #include <KConfigGroup>
 #include <KEditToolBar>
 #include <KIconLoader>
@@ -178,7 +179,7 @@ MainWindow::Window::Window(QWidget *parent)
     m_dateBarLine->setMidLineWidth(0);
 
     QPalette pal = m_dateBarLine->palette();
-    pal.setColor(QPalette::WindowText, QColor("#c4c1bd"));
+    pal.setColor(QPalette::WindowText, palette().window().color());
     m_dateBarLine->setPalette(pal);
 
     lay->addWidget(m_dateBarLine);
@@ -721,6 +722,18 @@ QString MainWindow::Window::welcome()
     return configFileName;
 }
 
+bool MainWindow::Window::event(QEvent *event)
+{
+    if (event->type() == QEvent::PaletteChange) {
+        // KColorSchemeManager sets a dynamic property when activating a scheme:
+        const QString schemePath = qApp->property("KDE_COLOR_SCHEME_PATH").toString();
+        qCInfo(MainWindowLog) << "Color Scheme changed to " << (schemePath.isEmpty() ? QString::fromLatin1("system default") : schemePath);
+        Settings::SettingsData::instance()->setColorScheme(schemePath);
+        return QWidget::event(event);
+    }
+    return QWidget::event(event);
+}
+
 void MainWindow::Window::closeEvent(QCloseEvent *e)
 {
     bool quit = true;
@@ -927,7 +940,7 @@ void MainWindow::Window::setupMenuBar()
                                                    this, SLOT(slotMarkUntagged()));
     m_markUntagged->setText(i18n("Mark As Untagged"));
 
-    // Settings
+    // The Settings menu
     KStandardAction::preferences(this, SLOT(slotOptions()), actionCollection());
     KStandardAction::keyBindings(this, SLOT(slotConfigureKeyBindings()), actionCollection());
     KStandardAction::configureToolbars(this, SLOT(slotConfigureToolbars()), actionCollection());
@@ -975,6 +988,14 @@ void MainWindow::Window::setupMenuBar()
     toggleSearchBar->setText(i18n("Show search bar"));
     toggleSearchBar->setIcon(QIcon::fromTheme(QString::fromLatin1("search")));
     // connections are done in createSearchBar()
+
+    KColorSchemeManager *schemes = new KColorSchemeManager(this);
+    const QString activeSchemeName = QFileInfo(Settings::SettingsData::instance()->colorScheme()).baseName();
+    m_colorSchemeMenu = schemes->createSchemeSelectionMenu(activeSchemeName, this);
+    m_colorSchemeMenu->setText(i18n("Choose color scheme"));
+    m_colorSchemeMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("color")));
+    m_colorSchemeMenu->setDelayed(false);
+    actionCollection()->addAction(QString::fromLatin1("colorScheme"), m_colorSchemeMenu);
 
     // The help menu
     KStandardAction::tipOfDay(this, SLOT(showTipOfDay()), actionCollection());

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -45,7 +45,6 @@ private:
     QCheckBox *m_displayLabels;
     QCheckBox *m_displayCategories;
     QSpinBox *m_autoShowThumbnailView;
-    KColorButton *m_backgroundColor;
     QCheckBox *m_incrementalThumbnails;
 };
 

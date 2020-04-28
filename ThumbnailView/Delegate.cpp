@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -46,10 +46,10 @@ void ThumbnailView::Delegate::paint(QPainter *painter, const QStyleOptionViewIte
 
 void ThumbnailView::Delegate::paintCellBackground(QPainter *painter, const QRect &rect) const
 {
-    painter->fillRect(rect, QColor(Settings::SettingsData::instance()->backgroundColor()));
-
+    // we used to paint the cell background here even though it is the same color as the widget background.
+    // -> now we only paint the grid here if needed
     if (widget()->isGridResizing() || Settings::SettingsData::instance()->thumbnailDisplayGrid()) {
-        painter->setPen(contrastColor(Settings::SettingsData::instance()->backgroundColor()));
+        painter->setPen(widget()->palette().shadow().color());
         // left and right of frame
         painter->drawLine(rect.right(), rect.top(), rect.right(), rect.bottom());
 
@@ -71,10 +71,12 @@ void ThumbnailView::Delegate::paintCellPixmap(QPainter *painter, const QStyleOpt
 
     // Paint transparent pixels over the widget for selection.
     const QItemSelectionModel *selectionModel = widget()->selectionModel();
+    QColor selectionColor = widget()->palette().highlight().color();
+    selectionColor.setAlpha(127);
     if (selectionModel->isSelected(index))
-        painter->fillRect(option.rect, QColor(58, 98, 134, 127));
+        painter->fillRect(option.rect, selectionColor);
     else if (selectionModel->hasSelection() && selectionModel->currentIndex() == index)
-        painter->fillRect(option.rect, QColor(58, 98, 134, 127));
+        painter->fillRect(option.rect, selectionColor);
 }
 
 void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect &pixmapRect, const QModelIndex &index) const
@@ -98,8 +100,10 @@ void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect &pix
     }
 
     painter->save();
-    painter->fillRect(backgroundRect, QBrush(QColor(0, 0, 0, 128)));
-    painter->setPen(Qt::white);
+    QColor bgColor = widget()->palette().shadow().color();
+    bgColor.setAlpha(128);
+    painter->fillRect(backgroundRect, QBrush(bgColor));
+    painter->setPen(widget()->palette().brightText().color());
     painter->drawText(textRect, Qt::TextDontClip, text);
     painter->restore();
 }
@@ -116,7 +120,7 @@ void ThumbnailView::Delegate::paintCellText(QPainter *painter, const QStyleOptio
 
     QString title = index.data(Qt::DisplayRole).value<QString>();
     QRect rect = cellGeometryInfo()->cellTextGeometry();
-    painter->setPen(contrastColor(Settings::SettingsData::instance()->backgroundColor()));
+    painter->setPen(widget()->palette().text().color());
 
     //Qt::TextWordWrap just in case, if the text's width is wider than the cell's width
     painter->drawText(rect.translated(option.rect.topLeft()), Qt::AlignCenter | Qt::TextWordWrap, title);
@@ -139,22 +143,15 @@ void ThumbnailView::Delegate::paintBoundingRect(QPainter *painter, const QRect &
     rect.adjust(-5, -5, 4, 4);
     for (int i = 4; i >= 0; --i) {
         QColor color;
-        if (widget()->selectionModel()->isSelected(index)) {
-            static QColor selectionColors[] = { QColor(58, 98, 134), QColor(96, 161, 221), QColor(93, 165, 228), QColor(132, 186, 237), QColor(62, 95, 128) };
-            color = selectionColors[i];
-        }
-
-#if 0
-        // This code doesn't work very well with the QListView, for some odd reason, it often leaves a highlighted thumbnail behind
-        //  9 Aug. 2010 11:33 -- Jesper K. Pedersen
-
-        else if ( widget()->indexUnderCursor() == index ) {
-            static QColor hoverColors[] = { QColor(46,99,152), QColor(121,136,151), QColor(121,136,151), QColor(126,145,163), QColor(109,126,142)};
-            color = hoverColors[i];
-        }
-#endif
-
-        else {
+        if (widget()->selectionModel()->currentIndex() == index) {
+            // a factor of 100 means same brightness, 200 = half the brightness
+            static int factors[5] = { 123, 74, 72, 70, 129 };
+            color = widget()->palette().highlight().color().darker(factors[i]);
+        } else if (widget()->selectionModel()->isSelected(index)) {
+            // a factor of 100 means same brightness, 200 = half the brightness
+            static int factors[5] = { 177, 107, 104, 100, 185 };
+            color = widget()->palette().highlight().color().darker(factors[i]);
+        } else {
             // Originally I just painted the outline using drawRect, but that turned out to be a huge bottleneck.
             // The code was therefore converted to fillRect, which was much faster.
             // This code was complicted from that, as I previously drew the
@@ -165,15 +162,15 @@ void ThumbnailView::Delegate::paintBoundingRect(QPainter *painter, const QRect &
             // than rely on drawing with a transparent color on top of the
             // background.
             // 12 Aug. 2010 17:38 -- Jesper K. Pedersen
-            const QColor foreground = Qt::black;
-            const QColor backround = QColor(Settings::SettingsData::instance()->backgroundColor());
+            const QColor foreground = widget()->palette().shadow().color();
+            const QColor background = widget()->palette().base().color();
 
             double alpha = (0.5 - 0.1 * i);
             double inverseAlpha = 1 - alpha;
 
-            color = QColor(int(foreground.red() * alpha + backround.red() * inverseAlpha),
-                           int(foreground.green() * alpha + backround.green() * inverseAlpha),
-                           int(foreground.blue() * alpha + backround.blue() * inverseAlpha));
+            color = QColor(int(foreground.red() * alpha + background.red() * inverseAlpha),
+                           int(foreground.green() * alpha + background.green() * inverseAlpha),
+                           int(foreground.blue() * alpha + background.blue() * inverseAlpha));
         }
 
         QPen pen(color);
@@ -212,8 +209,10 @@ void ThumbnailView::Delegate::paintStackedIndicator(QPainter *painter, const QRe
 
     // Paint the lines.
     painter->save();
+    const QColor lineColor = widget()->palette().shadow().color();
+    const QColor alternateColor = widget()->palette().brightText().color();
     for (int i = 0; i < 8; ++i) {
-        painter->setPen(QPen(i % 2 == 0 ? Qt::black : Qt::white));
+        painter->setPen(QPen(i % 2 == 0 ? lineColor : alternateColor));
 
         painter->drawLine(bottomLeftPoint, bottomRightPoint);
         if (topPoint != QPoint()) {

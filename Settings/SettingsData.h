@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -144,7 +144,7 @@ public:
     property_copy(showNewestThumbnailFirst, setShowNewestFirst, bool);
     property_copy(thumbnailDisplayGrid, setThumbnailDisplayGrid, bool);
     property_copy(previewSize, setPreviewSize, int);
-    property_ref(backgroundColor, setBackgroundColor, QString);
+    property_ref(colorScheme, setColorScheme, QString);
     property_copy(incrementalThumbnails, setIncrementalThumbnails, bool);
 
     // Border space around thumbnails.
@@ -266,6 +266,7 @@ signals:
     void thumbnailSizeChanged(int);
     void actualThumbnailSizeChanged(int);
     void histogramScaleChanged();
+    void colorSchemeChanged();
 
 private:
     SettingsData(const QString &imageDirectory);

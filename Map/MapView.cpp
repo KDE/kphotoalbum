@@ -221,7 +221,7 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
         QPixmap icon = plugin->action()->icon().pixmap(QSize(20, 20));
         if (icon.isNull()) {
             icon = QPixmap(20, 20);
-            icon.fill(Qt::white);
+            icon.fill(palette().button().color());
         }
         button->setIcon(icon);
 

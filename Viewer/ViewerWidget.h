@@ -136,6 +136,8 @@ protected:
     DB::ImageInfoPtr currentInfo() const;
     friend class InfoBox;
 
+    void updatePalette();
+
 private:
     void showNextN(int);
     void showPrevN(int);

@@ -1,4 +1,4 @@
-/* Copyright (C) 2016 Tobias Leupold <tobias.leupold@web.de>
+/* Copyright (C) 2016-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -112,7 +112,7 @@ void AnnotationDialog::AreaTagSelectDialog::slotFinished()
 
 void AnnotationDialog::AreaTagSelectDialog::paintEvent(QPaintEvent *)
 {
-    QColor backgroundColor = Qt::white;
+    QColor backgroundColor = palette().base().color();
     backgroundColor.setAlpha(160);
     QPainter painter(this);
     painter.fillRect(rect(), backgroundColor);

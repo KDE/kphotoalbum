@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -170,6 +170,14 @@ property_copy(excludeDirectories, setExcludeDirectories, QString, General, QStri
 property_copy(recentAndroidAddress, setRecentAndroidAddress, QString, General, QString())
 property_copy(listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnStartup, bool, General, false)
 #endif
+getValueFunc(QString, colorScheme, General, QString())
+void SettingsData::setColorScheme(const QString &path) {
+    if (path != colorScheme())
+    {
+        setValue("General", "colorScheme", path);
+        emit colorSchemeChanged();
+    }
+}
 
 getValueFunc(QSize, histogramSize, General, QSize(15, 30))
 getValueFunc(ViewSortType, viewSortType, General, (int)SortLastUse)
@@ -274,7 +282,6 @@ property_copy(thumbnailSpace, setThumbnailSpace, int, Thumbnails, 4)
 property_copy(minimumThumbnailSize, setMinimumThumbnailSize, int, Thumbnails, 32)
 property_copy(maximumThumbnailSize, setMaximumThumbnailSize, int, Thumbnails, 4096)
 property_enum(thumbnailAspectRatio, setThumbnailAspectRatio, ThumbnailAspectRatio, Thumbnails, Aspect_3_2)
-property_ref(backgroundColor, setBackgroundColor, QString, Thumbnails, QColor(Qt::darkGray).name())
 property_copy(incrementalThumbnails, setIncrementalThumbnails, bool, Thumbnails, true)
 
 // database specific so that changing it doesn't invalidate the thumbnail cache for other databases:

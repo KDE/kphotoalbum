@@ -282,7 +282,6 @@ property_copy(thumbnailSpace, setThumbnailSpace, int, Thumbnails, 4)
 property_copy(minimumThumbnailSize, setMinimumThumbnailSize, int, Thumbnails, 32)
 property_copy(maximumThumbnailSize, setMaximumThumbnailSize, int, Thumbnails, 4096)
 property_enum(thumbnailAspectRatio, setThumbnailAspectRatio, ThumbnailAspectRatio, Thumbnails, Aspect_3_2)
-property_ref(backgroundColor, setBackgroundColor, QString, Thumbnails, QColor(Qt::darkGray).name())
 property_copy(incrementalThumbnails, setIncrementalThumbnails, bool, Thumbnails, true)
 
 // database specific so that changing it doesn't invalidate the thumbnail cache for other databases:

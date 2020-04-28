@@ -144,7 +144,6 @@ public:
     property_copy(showNewestThumbnailFirst, setShowNewestFirst, bool);
     property_copy(thumbnailDisplayGrid, setThumbnailDisplayGrid, bool);
     property_copy(previewSize, setPreviewSize, int);
-    property_ref(backgroundColor, setBackgroundColor, QString);
     property_ref(colorScheme, setColorScheme, QString);
     property_copy(incrementalThumbnails, setIncrementalThumbnails, bool);
 

@@ -807,12 +807,12 @@ Map::GeoCoordinates DB::ImageInfo::coordinates() const
     return m_coordinates;
 }
 
+#endif
+
 void ImageInfo::markDirty()
 {
     m_dirty = true;
     m_matchGeneration = -1;
 }
-
-#endif
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

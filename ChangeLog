@@ -1,5 +1,4 @@
-* Feature: Support for custom color schemes.
-  Note: This feature replaces the custom background color for the thumbnail view.
+* Bugfix: Fix handling of negation in searches (Fixes #334672)
 
 * Bugfix: Consistent UI even with dark color schemes.
 
@@ -17,6 +16,9 @@
 * Bugfix: kpa-merge should not fail if an item of id #0 exists in an index file.
 
 * Enhancement: Experimental: offer options for image search tuning.
+
+* Feature: Support for custom color schemes.
+  Note: This feature replaces the custom background color for the thumbnail view.
 
 ====================== KPhotoalbum 5.6.1 released (10.02.2020) ======================
 

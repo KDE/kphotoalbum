@@ -417,8 +417,10 @@ void ImageSearchInfo::compile() const
                     continue;
                 } else {
                     valueMatcher = new DB::ValueCategoryMatcher(category, str);
-                    if (negate)
+                    if (negate) {
                         valueMatcher = new DB::NegationCategoryMatcher(valueMatcher);
+                        negate = false;
+                    }
                 }
                 andMatcher->addElement(valueMatcher);
             }

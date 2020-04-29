@@ -990,7 +990,9 @@ void MainWindow::Window::setupMenuBar()
     // connections are done in createSearchBar()
 
     KColorSchemeManager *schemes = new KColorSchemeManager(this);
-    const QString activeSchemeName = QFileInfo(Settings::SettingsData::instance()->colorScheme()).baseName();
+    const QString schemePath = Settings::SettingsData::instance()->colorScheme();
+    const auto schemeCfg = KSharedConfig::openConfig(schemePath);
+    const QString activeSchemeName = schemeCfg->group("General").readEntry("Name", QFileInfo(schemePath).baseName());
     m_colorSchemeMenu = schemes->createSchemeSelectionMenu(activeSchemeName, this);
     m_colorSchemeMenu->setText(i18n("Choose color scheme"));
     m_colorSchemeMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("color")));

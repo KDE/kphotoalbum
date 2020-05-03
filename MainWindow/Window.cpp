@@ -941,7 +941,10 @@ void MainWindow::Window::setupMenuBar()
     m_markUntagged->setText(i18n("Mark As Untagged"));
 
     // The Settings menu
-    KStandardAction::preferences(this, SLOT(slotOptions()), actionCollection());
+    KStandardAction::preferences(this, &Window::slotOptions, actionCollection());
+    // the default configureShortcuts impl in XMLGuiFactory that is available via setupGUI
+    // does not work for us because we need to add our own (non-XMLGui) actionCollections:
+    KStandardAction::keyBindings(this, &Window::configureShortcuts, actionCollection());
 
     a = actionCollection()->addAction(QString::fromLatin1("readdAllMessages"), this, SLOT(slotReenableMessages()));
     a->setText(i18n("Enable All Messages"));
@@ -1014,7 +1017,7 @@ void MainWindow::Window::setupMenuBar()
     m_usePreviousVideoThumbnail->setText(i18n("Use previous video thumbnail"));
     actionCollection()->setDefaultShortcut(m_usePreviousVideoThumbnail, Qt::CTRL + Qt::Key_Minus);
 
-    setupGUI(KXmlGuiWindow::Default);
+    setupGUI(KXmlGuiWindow::ToolBar | Create | Save);
 }
 
 void MainWindow::Window::slotExportToHTML()

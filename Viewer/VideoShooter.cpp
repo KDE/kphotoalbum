@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -70,7 +70,7 @@ void Viewer::VideoShooter::start(const DB::ImageInfoPtr &info, ViewerWidget *vie
         m_viewer->m_videoDisplay->playPause();
 
     // Wait a bit for the context menu to disapear
-    QTimer::singleShot(200, this, SLOT(doShoot()));
+    QTimer::singleShot(200, this, &VideoShooter::doShoot);
 }
 
 void Viewer::VideoShooter::doShoot()

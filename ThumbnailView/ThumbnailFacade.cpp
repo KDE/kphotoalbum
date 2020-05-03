@@ -107,14 +107,9 @@ QSlider *ThumbnailView::ThumbnailFacade::createResizeSlider()
     return new GridResizeSlider(this);
 }
 
-ThumbnailView::FilterWidget *ThumbnailView::ThumbnailFacade::filterWidget()
+ThumbnailView::FilterWidget *ThumbnailView::ThumbnailFacade::createFilterWidget(QWidget *parent)
 {
-    return model()->filterWidget();
-}
-
-KActionCollection *ThumbnailView::ThumbnailFacade::actions()
-{
-    return filterWidget()->actions();
+    return model()->createFilterWidget(parent);
 }
 
 void ThumbnailView::ThumbnailFacade::selectAll()

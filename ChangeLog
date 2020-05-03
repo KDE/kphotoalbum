@@ -1,3 +1,5 @@
+* Bugfix: Fix crash when changing the toolbar.
+
 * Bugfix: Fix handling of negation in searches (Fixes #334672)
 
 * Bugfix: Consistent UI even with dark color schemes.

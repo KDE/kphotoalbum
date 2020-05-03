@@ -47,11 +47,6 @@ ThumbnailView::ThumbnailModel::ThumbnailModel(ThumbnailFactory *factory)
 
     m_filter.setSearchMode(0);
     connect(this, &ThumbnailModel::filterChanged, this, &ThumbnailModel::updateDisplayModel);
-
-    m_filterWidget = new FilterWidget;
-    connect(this, &ThumbnailModel::filterChanged, m_filterWidget, &FilterWidget::setFilter);
-    connect(m_filterWidget, &FilterWidget::ratingChanged, this, &ThumbnailModel::filterByRating);
-    connect(m_filterWidget, &FilterWidget::filterToggled, this, &ThumbnailModel::toggleFilter);
 }
 
 static bool stackOrderComparator(const DB::FileName &a, const DB::FileName &b)
@@ -444,9 +439,14 @@ bool ThumbnailView::ThumbnailModel::isFiltered() const
     return !m_filter.isNull();
 }
 
-ThumbnailView::FilterWidget *ThumbnailView::ThumbnailModel::filterWidget()
+ThumbnailView::FilterWidget *ThumbnailView::ThumbnailModel::createFilterWidget(QWidget *parent)
 {
-    return m_filterWidget;
+
+    auto filterWidget = new FilterWidget(parent);
+    connect(this, &ThumbnailModel::filterChanged, filterWidget, &FilterWidget::setFilter);
+    connect(filterWidget, &FilterWidget::ratingChanged, this, &ThumbnailModel::filterByRating);
+    connect(filterWidget, &FilterWidget::filterToggled, this, &ThumbnailModel::toggleFilter);
+    return filterWidget;
 }
 
 bool ThumbnailView::ThumbnailModel::thumbnailStillNeeded(int row) const

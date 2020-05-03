@@ -1342,12 +1342,14 @@ void MainWindow::Window::slotConfigureKeyBindings()
 
     createAnnotationDialog();
     dialog->addCollection(m_annotationDialog->actions(), i18n("Annotation Dialog"));
-    dialog->addCollection(m_thumbnailView->actions(), i18n("Thumbnail View"));
+    auto *filterWidget = m_thumbnailView->createFilterWidget(nullptr);
+    dialog->addCollection(filterWidget->actions(), i18n("Thumbnail View"));
 
     dialog->configure();
 
     delete dialog;
     delete viewer;
+    delete filterWidget;
 }
 
 void MainWindow::Window::slotSetFileName(const DB::FileName &fileName)
@@ -1890,7 +1892,7 @@ void MainWindow::Window::createSearchBar()
     connect(toggleSearchBar, &QAction::triggered, searchBar, &SearchBar::setVisible);
     connect(searchBar, &SearchBar::visibilityChanged, toggleSearchBar, &QAction::setChecked);
 
-    auto filterWidget = m_thumbnailView->filterWidget();
+    auto filterWidget = m_thumbnailView->createFilterWidget(this);
     addToolBar(filterWidget);
     filterWidget->setObjectName(QString::fromUtf8("filterBar"));
     connect(m_browser, &Browser::BrowserWidget::viewChanged, ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);

@@ -33,8 +33,8 @@ public:
     void loadSettings(Settings::SettingsData *opt);
     void saveSettings(Settings::SettingsData *opt);
     void categoryAdded(const QString &categoryName);
-    void categoryDeleted(QString categoryName);
-    void categoryRenamed(QString oldCategoryName, QString newCategoryName);
+    void categoryDeleted(const QString &categoryName);
+    void categoryRenamed(const QString &oldCategoryName, const QString &newCategoryName);
 
 private slots:
     void populateCategoryComboBox();

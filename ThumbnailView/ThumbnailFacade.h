@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -56,19 +56,10 @@ public:
 
     /**
      * @brief filterWidget provides a FilterWidget that is connected to the ThumbnailModel.
-     * If called multiple times, the same FilterWidget will be returned.
-     * Keyboard shortcuts for the widget are included in ThumbnailFacade::actions().
      * The widget will reflect changes in the filter and can be used to set the filter.
      * @return a FilterWidget
      */
-    FilterWidget *filterWidget();
-
-    /**
-     * @brief a collection of all QActions for the ThumbnailView component.
-     * Currently, this only contains the filterWidget actions.
-     * @return the QActions for the whole thumbnail view component.
-     */
-    KActionCollection *actions();
+    FilterWidget *createFilterWidget(QWidget *parent);
 
 public slots:
     void gotoDate(const DB::ImageDate &date, bool includeRanges);

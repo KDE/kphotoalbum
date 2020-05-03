@@ -146,7 +146,7 @@ void Settings::UntaggedGroupBox::categoryAdded(const QString &categoryName)
     m_category->addItem(categoryName);
 }
 
-void Settings::UntaggedGroupBox::categoryDeleted(QString categoryName)
+void Settings::UntaggedGroupBox::categoryDeleted(const QString &categoryName)
 {
     if (categoryName == m_category->itemData(m_category->currentIndex()).value<QString>()) {
         m_category->setCurrentIndex(0);
@@ -155,7 +155,7 @@ void Settings::UntaggedGroupBox::categoryDeleted(QString categoryName)
     m_category->removeItem(m_category->findText(categoryName));
 }
 
-void Settings::UntaggedGroupBox::categoryRenamed(QString oldCategoryName, QString newCategoryName)
+void Settings::UntaggedGroupBox::categoryRenamed(const QString &oldCategoryName, const QString &newCategoryName)
 {
     const int index = m_category->findText(oldCategoryName);
     m_category->setItemText(index, newCategoryName);

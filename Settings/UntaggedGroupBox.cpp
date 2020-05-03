@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -139,6 +139,11 @@ void Settings::UntaggedGroupBox::saveSettings(Settings::SettingsData *opt)
     }
 
     opt->setUntaggedImagesTagVisible(m_showUntaggedImagesTag->isChecked());
+}
+
+void Settings::UntaggedGroupBox::categoryAdded(const QString &categoryName)
+{
+    m_category->addItem(categoryName);
 }
 
 void Settings::UntaggedGroupBox::categoryDeleted(QString categoryName)

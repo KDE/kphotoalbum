@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -32,6 +32,7 @@ public:
     explicit UntaggedGroupBox(QWidget *parent = 0);
     void loadSettings(Settings::SettingsData *opt);
     void saveSettings(Settings::SettingsData *opt);
+    void categoryAdded(const QString &categoryName);
     void categoryDeleted(QString categoryName);
     void categoryRenamed(QString oldCategoryName, QString newCategoryName);
 

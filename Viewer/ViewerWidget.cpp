@@ -130,7 +130,7 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type, QMap<Qt::Key, QPair<QString, 
 
     setFocusPolicy(Qt::StrongFocus);
 
-    QTimer::singleShot(2000, this, SLOT(test()));
+    QTimer::singleShot(2000, this, &ViewerWidget::test);
 
     connect(DB::ImageDB::instance(), &DB::ImageDB::imagesDeleted, this, &ViewerWidget::slotRemoveDeletedImages);
 }
@@ -150,27 +150,27 @@ void Viewer::ViewerWidget::setupContextMenu()
     createCategoryImageMenu();
     createFilterMenu();
 
-    QAction *action = m_actions->addAction(QString::fromLatin1("viewer-edit-image-properties"), this, SLOT(editImage()));
+    QAction *action = m_actions->addAction(QString::fromLatin1("viewer-edit-image-properties"), this, &ViewerWidget::editImage);
     action->setText(i18nc("@action:inmenu", "Annotate..."));
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_1);
     m_popup->addAction(action);
 
-    m_setStackHead = m_actions->addAction(QString::fromLatin1("viewer-set-stack-head"), this, SLOT(slotSetStackHead()));
+    m_setStackHead = m_actions->addAction(QString::fromLatin1("viewer-set-stack-head"), this, &ViewerWidget::slotSetStackHead);
     m_setStackHead->setText(i18nc("@action:inmenu", "Set as First Image in Stack"));
     m_actions->setDefaultShortcut(m_setStackHead, Qt::CTRL + Qt::Key_4);
     m_popup->addAction(m_setStackHead);
 
-    m_showExifViewer = m_actions->addAction(QString::fromLatin1("viewer-show-exif-viewer"), this, SLOT(showExifViewer()));
+    m_showExifViewer = m_actions->addAction(QString::fromLatin1("viewer-show-exif-viewer"), this, &ViewerWidget::showExifViewer);
     m_showExifViewer->setText(i18nc("@action:inmenu", "Show Exif Viewer"));
     m_popup->addAction(m_showExifViewer);
 
-    m_copyTo = m_actions->addAction(QString::fromLatin1("viewer-copy-to"), this, SLOT(copyTo()));
+    m_copyTo = m_actions->addAction(QString::fromLatin1("viewer-copy-to"), this, &ViewerWidget::copyTo);
     m_copyTo->setText(i18nc("@action:inmenu", "Copy Image to..."));
     m_actions->setDefaultShortcut(m_copyTo, Qt::Key_F7);
     m_popup->addAction(m_copyTo);
 
     if (m_type == ViewerWindow) {
-        action = m_actions->addAction(QString::fromLatin1("viewer-close"), this, SLOT(close()));
+        action = m_actions->addAction(QString::fromLatin1("viewer-close"), this, &ViewerWidget::close);
         action->setText(i18nc("@action:inmenu", "Close"));
         action->setShortcut(Qt::Key_Escape);
         m_actions->setShortcutsConfigurable(action, false);
@@ -228,19 +228,19 @@ void Viewer::ViewerWidget::createRotateMenu()
     m_rotateMenu = new QMenu(m_popup);
     m_rotateMenu->setTitle(i18nc("@title:inmenu", "Rotate"));
 
-    QAction *action = m_actions->addAction(QString::fromLatin1("viewer-rotate90"), this, SLOT(rotate90()));
+    QAction *action = m_actions->addAction(QString::fromLatin1("viewer-rotate90"), this, &ViewerWidget::rotate90);
     action->setText(i18nc("@action:inmenu", "Rotate clockwise"));
     action->setShortcut(Qt::Key_9);
     m_actions->setShortcutsConfigurable(action, false);
     m_rotateMenu->addAction(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-rotate180"), this, SLOT(rotate180()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-rotate180"), this, &ViewerWidget::rotate180);
     action->setText(i18nc("@action:inmenu", "Flip Over"));
     action->setShortcut(Qt::Key_8);
     m_actions->setShortcutsConfigurable(action, false);
     m_rotateMenu->addAction(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-rotare270"), this, SLOT(rotate270()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-rotare270"), this, &ViewerWidget::rotate270);
     //                                                            ^ this is a typo, isn't it?!
     action->setText(i18nc("@action:inmenu", "Rotate counterclockwise"));
     action->setShortcut(Qt::Key_7);
@@ -255,74 +255,74 @@ void Viewer::ViewerWidget::createSkipMenu()
     QMenu *popup = new QMenu(m_popup);
     popup->setTitle(i18nc("@title:inmenu As in 'skip 2 images'", "Skip"));
 
-    QAction *action = m_actions->addAction(QString::fromLatin1("viewer-home"), this, SLOT(showFirst()));
+    QAction *action = m_actions->addAction(QString::fromLatin1("viewer-home"), this, &ViewerWidget::showFirst);
     action->setText(i18nc("@action:inmenu Go to first image", "First"));
     action->setShortcut(Qt::Key_Home);
     m_actions->setShortcutsConfigurable(action, false);
     popup->addAction(action);
     m_backwardActions.append(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-end"), this, SLOT(showLast()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-end"), this, &ViewerWidget::showLast);
     action->setText(i18nc("@action:inmenu Go to last image", "Last"));
     action->setShortcut(Qt::Key_End);
     m_actions->setShortcutsConfigurable(action, false);
     popup->addAction(action);
     m_forwardActions.append(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-next"), this, SLOT(showNext()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-next"), this, &ViewerWidget::showNext);
     action->setText(i18nc("@action:inmenu", "Show Next"));
     action->setShortcuts(QList<QKeySequence>() << Qt::Key_PageDown << Qt::Key_Space);
     popup->addAction(action);
     m_forwardActions.append(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-next-10"), this, SLOT(showNext10()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-next-10"), this, &ViewerWidget::showNext10);
     action->setText(i18nc("@action:inmenu", "Skip 10 Forward"));
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_PageDown);
     popup->addAction(action);
     m_forwardActions.append(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-next-100"), this, SLOT(showNext100()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-next-100"), this, &ViewerWidget::showNext100);
     action->setText(i18nc("@action:inmenu", "Skip 100 Forward"));
     m_actions->setDefaultShortcut(action, Qt::SHIFT + Qt::Key_PageDown);
     popup->addAction(action);
     m_forwardActions.append(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-next-1000"), this, SLOT(showNext1000()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-next-1000"), this, &ViewerWidget::showNext1000);
     action->setText(i18nc("@action:inmenu", "Skip 1000 Forward"));
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::SHIFT + Qt::Key_PageDown);
     popup->addAction(action);
     m_forwardActions.append(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-prev"), this, SLOT(showPrev()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-prev"), this, &ViewerWidget::showPrev);
     action->setText(i18nc("@action:inmenu", "Show Previous"));
     action->setShortcuts(QList<QKeySequence>() << Qt::Key_PageUp << Qt::Key_Backspace);
     popup->addAction(action);
     m_backwardActions.append(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-prev-10"), this, SLOT(showPrev10()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-prev-10"), this, &ViewerWidget::showPrev10);
     action->setText(i18nc("@action:inmenu", "Skip 10 Backward"));
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_PageUp);
     popup->addAction(action);
     m_backwardActions.append(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-prev-100"), this, SLOT(showPrev100()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-prev-100"), this, &ViewerWidget::showPrev100);
     action->setText(i18nc("@action:inmenu", "Skip 100 Backward"));
     m_actions->setDefaultShortcut(action, Qt::SHIFT + Qt::Key_PageUp);
     popup->addAction(action);
     m_backwardActions.append(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-prev-1000"), this, SLOT(showPrev1000()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-prev-1000"), this, &ViewerWidget::showPrev1000);
     action->setText(i18nc("@action:inmenu", "Skip 1000 Backward"));
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::SHIFT + Qt::Key_PageUp);
     popup->addAction(action);
     m_backwardActions.append(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-delete-current"), this, SLOT(deleteCurrent()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-delete-current"), this, &ViewerWidget::deleteCurrent);
     action->setText(i18nc("@action:inmenu", "Delete Image"));
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Delete);
     popup->addAction(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-remove-current"), this, SLOT(removeCurrent()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-remove-current"), this, &ViewerWidget::removeCurrent);
     action->setText(i18nc("@action:inmenu", "Remove Image from Display List"));
     action->setShortcut(Qt::Key_Delete);
     m_actions->setShortcutsConfigurable(action, false);
@@ -337,31 +337,31 @@ void Viewer::ViewerWidget::createZoomMenu()
     popup->setTitle(i18nc("@action:inmenu", "Zoom"));
 
     // PENDING(blackie) Only for image display?
-    QAction *action = m_actions->addAction(QString::fromLatin1("viewer-zoom-in"), this, SLOT(zoomIn()));
+    QAction *action = m_actions->addAction(QString::fromLatin1("viewer-zoom-in"), this, &ViewerWidget::zoomIn);
     action->setText(i18nc("@action:inmenu", "Zoom In"));
     action->setShortcut(Qt::Key_Plus);
     m_actions->setShortcutsConfigurable(action, false);
     popup->addAction(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-zoom-out"), this, SLOT(zoomOut()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-zoom-out"), this, &ViewerWidget::zoomOut);
     action->setText(i18nc("@action:inmenu", "Zoom Out"));
     action->setShortcut(Qt::Key_Minus);
     m_actions->setShortcutsConfigurable(action, false);
     popup->addAction(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-zoom-full"), this, SLOT(zoomFull()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-zoom-full"), this, &ViewerWidget::zoomFull);
     action->setText(i18nc("@action:inmenu", "Full View"));
     action->setShortcut(Qt::Key_Period);
     m_actions->setShortcutsConfigurable(action, false);
     popup->addAction(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-zoom-pixel"), this, SLOT(zoomPixelForPixel()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-zoom-pixel"), this, &ViewerWidget::zoomPixelForPixel);
     action->setText(i18nc("@action:inmenu", "Pixel for Pixel View"));
     action->setShortcut(Qt::Key_Equal);
     m_actions->setShortcutsConfigurable(action, false);
     popup->addAction(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-toggle-fullscreen"), this, SLOT(toggleFullScreen()));
+    action = m_actions->addAction(QString::fromLatin1("viewer-toggle-fullscreen"), this, &ViewerWidget::toggleFullScreen);
     action->setText(i18nc("@action:inmenu", "Toggle Full Screen"));
     action->setShortcuts(QList<QKeySequence>() << Qt::Key_F11 << Qt::Key_Return);
     popup->addAction(action);
@@ -374,17 +374,17 @@ void Viewer::ViewerWidget::createSlideShowMenu()
     QMenu *popup = new QMenu(m_popup);
     popup->setTitle(i18nc("@title:inmenu", "Slideshow"));
 
-    m_startStopSlideShow = m_actions->addAction(QString::fromLatin1("viewer-start-stop-slideshow"), this, SLOT(slotStartStopSlideShow()));
+    m_startStopSlideShow = m_actions->addAction(QString::fromLatin1("viewer-start-stop-slideshow"), this, &ViewerWidget::slotStartStopSlideShow);
     m_startStopSlideShow->setText(i18nc("@action:inmenu", "Run Slideshow"));
     m_actions->setDefaultShortcut(m_startStopSlideShow, Qt::CTRL + Qt::Key_R);
     popup->addAction(m_startStopSlideShow);
 
-    m_slideShowRunFaster = m_actions->addAction(QString::fromLatin1("viewer-run-faster"), this, SLOT(slotSlideShowFaster()));
+    m_slideShowRunFaster = m_actions->addAction(QString::fromLatin1("viewer-run-faster"), this, &ViewerWidget::slotSlideShowFaster);
     m_slideShowRunFaster->setText(i18nc("@action:inmenu", "Run Faster"));
     m_actions->setDefaultShortcut(m_slideShowRunFaster, Qt::CTRL + Qt::Key_Plus); // if you change this, please update the info in Viewer::SpeedDisplay
     popup->addAction(m_slideShowRunFaster);
 
-    m_slideShowRunSlower = m_actions->addAction(QString::fromLatin1("viewer-run-slower"), this, SLOT(slotSlideShowSlower()));
+    m_slideShowRunSlower = m_actions->addAction(QString::fromLatin1("viewer-run-slower"), this, &ViewerWidget::slotSlideShowSlower);
     m_slideShowRunSlower->setText(i18nc("@action:inmenu", "Run Slower"));
     m_actions->setDefaultShortcut(m_slideShowRunSlower, Qt::CTRL + Qt::Key_Minus); // if you change this, please update the info in Viewer::SpeedDisplay
     popup->addAction(m_slideShowRunSlower);
@@ -986,7 +986,7 @@ void Viewer::ViewerWidget::show(bool slideShow)
     if (slideShow != m_isRunningSlideShow) {
         // The info dialog will show up at the wrong place if we call this function directly
         // don't ask me why -  4 Sep. 2004 15:13 -- Jesper K. Pedersen
-        QTimer::singleShot(0, this, SLOT(slotStartStopSlideShow()));
+        QTimer::singleShot(0, this, &ViewerWidget::slotStartStopSlideShow);
     }
 }
 
@@ -1228,7 +1228,7 @@ void Viewer::ViewerWidget::createVideoMenu()
             menu->addAction(sep);
         }
 
-        QAction *seek = m_actions->addAction(QString::fromLatin1(info.name), m_videoDisplay, SLOT(seek()));
+        QAction *seek = m_actions->addAction(QString::fromLatin1(info.name), m_videoDisplay, &VideoDisplay::seek);
         seek->setText(info.title);
         seek->setData(info.value);
         seek->setShortcut(info.key);
@@ -1241,25 +1241,25 @@ void Viewer::ViewerWidget::createVideoMenu()
     m_popup->addAction(sep);
     m_videoActions.append(sep);
 
-    m_stop = m_actions->addAction(QString::fromLatin1("viewer-video-stop"), m_videoDisplay, SLOT(stop()));
+    m_stop = m_actions->addAction(QString::fromLatin1("viewer-video-stop"), m_videoDisplay, &VideoDisplay::stop);
     m_stop->setText(i18nc("@action:inmenu Stop video playback", "Stop"));
     m_popup->addAction(m_stop);
     m_videoActions.append(m_stop);
 
-    m_playPause = m_actions->addAction(QString::fromLatin1("viewer-video-pause"), m_videoDisplay, SLOT(playPause()));
+    m_playPause = m_actions->addAction(QString::fromLatin1("viewer-video-pause"), m_videoDisplay, &VideoDisplay::playPause);
     // text set in contextMenuEvent()
     m_playPause->setShortcut(Qt::Key_P);
     m_actions->setShortcutsConfigurable(m_playPause, false);
     m_popup->addAction(m_playPause);
     m_videoActions.append(m_playPause);
 
-    m_makeThumbnailImage = m_actions->addAction(QString::fromLatin1("make-thumbnail-image"), this, SLOT(makeThumbnailImage()));
+    m_makeThumbnailImage = m_actions->addAction(QString::fromLatin1("make-thumbnail-image"), this, &ViewerWidget::makeThumbnailImage);
     m_actions->setDefaultShortcut(m_makeThumbnailImage, Qt::ControlModifier + Qt::Key_S);
     m_makeThumbnailImage->setText(i18nc("@action:inmenu", "Use current frame in thumbnail view"));
     m_popup->addAction(m_makeThumbnailImage);
     m_videoActions.append(m_makeThumbnailImage);
 
-    QAction *restart = m_actions->addAction(QString::fromLatin1("viewer-video-restart"), m_videoDisplay, SLOT(restart()));
+    QAction *restart = m_actions->addAction(QString::fromLatin1("viewer-video-restart"), m_videoDisplay, &VideoDisplay::restart);
     restart->setText(i18nc("@action:inmenu Restart video playback.", "Restart"));
     m_popup->addAction(restart);
     m_videoActions.append(restart);
@@ -1277,26 +1277,26 @@ void Viewer::ViewerWidget::createFilterMenu()
     m_filterMenu = new QMenu(m_popup);
     m_filterMenu->setTitle(i18nc("@title:inmenu", "Filters"));
 
-    m_filterNone = m_actions->addAction(QString::fromLatin1("filter-empty"), this, SLOT(filterNone()));
+    m_filterNone = m_actions->addAction(QString::fromLatin1("filter-empty"), this, &ViewerWidget::filterNone);
     m_filterNone->setText(i18nc("@action:inmenu", "Remove All Filters"));
     m_filterMenu->addAction(m_filterNone);
 
-    m_filterBW = m_actions->addAction(QString::fromLatin1("filter-bw"), this, SLOT(filterBW()));
+    m_filterBW = m_actions->addAction(QString::fromLatin1("filter-bw"), this, &ViewerWidget::filterBW);
     m_filterBW->setText(i18nc("@action:inmenu", "Apply Grayscale Filter"));
     m_filterBW->setCheckable(true);
     m_filterMenu->addAction(m_filterBW);
 
-    m_filterContrastStretch = m_actions->addAction(QString::fromLatin1("filter-cs"), this, SLOT(filterContrastStretch()));
+    m_filterContrastStretch = m_actions->addAction(QString::fromLatin1("filter-cs"), this, &ViewerWidget::filterContrastStretch);
     m_filterContrastStretch->setText(i18nc("@action:inmenu", "Apply Contrast Stretching Filter"));
     m_filterContrastStretch->setCheckable(true);
     m_filterMenu->addAction(m_filterContrastStretch);
 
-    m_filterHistogramEqualization = m_actions->addAction(QString::fromLatin1("filter-he"), this, SLOT(filterHistogramEqualization()));
+    m_filterHistogramEqualization = m_actions->addAction(QString::fromLatin1("filter-he"), this, &ViewerWidget::filterHistogramEqualization);
     m_filterHistogramEqualization->setText(i18nc("@action:inmenu", "Apply Histogram Equalization Filter"));
     m_filterHistogramEqualization->setCheckable(true);
     m_filterMenu->addAction(m_filterHistogramEqualization);
 
-    m_filterMono = m_actions->addAction(QString::fromLatin1("filter-mono"), this, SLOT(filterMono()));
+    m_filterMono = m_actions->addAction(QString::fromLatin1("filter-mono"), this, &ViewerWidget::filterMono);
     m_filterMono->setText(i18nc("@action:inmenu", "Apply Monochrome Filter"));
     m_filterMono->setCheckable(true);
     m_filterMenu->addAction(m_filterMono);

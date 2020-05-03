@@ -204,7 +204,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
             connect(sel, &ListSelect::positionableTagDeselected, this, &Dialog::positionableTagDeselected);
             connect(sel, &ListSelect::positionableTagRenamed, this, &Dialog::positionableTagRenamed);
 
-            connect(m_preview->preview(), SIGNAL(proposedTagSelected(QString, QString)), sel, SLOT(ensureTagIsSelected(QString, QString)));
+            connect(m_preview->preview(), &ImagePreview::proposedTagSelected, sel, &ListSelect::ensureTagIsSelected);
 
             // We have at least one positionable category
             m_positionableCategories = true;
@@ -263,7 +263,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     connect(m_preview, &ImagePreviewWidget::imageDeleted, this, &Dialog::slotDeleteImage);
     connect(m_preview, &ImagePreviewWidget::copyPrevClicked, this, &Dialog::slotCopyPrevious);
     connect(m_preview, &ImagePreviewWidget::areaVisibilityChanged, this, &Dialog::slotShowAreas);
-    connect(m_preview->preview(), SIGNAL(areaCreated(ResizableFrame *)), this, SLOT(slotNewArea(ResizableFrame *)));
+    connect(m_preview->preview(), &ImagePreview::areaCreated, this, &Dialog::slotNewArea);
 
     // Disable so no button accept return (which would break with the line edits)
     m_revertBut->setAutoDefault(false);
@@ -889,9 +889,9 @@ void AnnotationDialog::Dialog::slotOptions()
     alphaFlatSort->setChecked(Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaFlat);
     dateSort->setChecked(Settings::SettingsData::instance()->viewSortType() == Settings::SortLastUse);
     menu->addActions(sortTypes->actions());
-    connect(dateSort, SIGNAL(triggered()), m_optionList.at(0), SLOT(slotSortDate()));
-    connect(alphaTreeSort, SIGNAL(triggered()), m_optionList.at(0), SLOT(slotSortAlphaTree()));
-    connect(alphaFlatSort, SIGNAL(triggered()), m_optionList.at(0), SLOT(slotSortAlphaFlat()));
+    connect(dateSort, &QAction::triggered, m_optionList.at(0), &ListSelect::slotSortDate);
+    connect(alphaTreeSort, &QAction::triggered, m_optionList.at(0), &ListSelect::slotSortAlphaTree);
+    connect(alphaFlatSort, &QAction::triggered, m_optionList.at(0), &ListSelect::slotSortAlphaFlat);
 
     // create MatchType entries
     menu->addSeparator();
@@ -921,7 +921,7 @@ void AnnotationDialog::Dialog::slotOptions()
         showSelectedOnly->setChecked(ShowSelectionOnlyManager::instance().selectionIsLimited());
         menu->addAction(showSelectedOnly);
 
-        connect(showSelectedOnly, SIGNAL(triggered()), &ShowSelectionOnlyManager::instance(), SLOT(toggle()));
+        connect(showSelectedOnly, &QAction::triggered, &ShowSelectionOnlyManager::instance(), &ShowSelectionOnlyManager::toggle);
     }
 
     // execute menu & handle response:
@@ -1000,10 +1000,10 @@ AnnotationDialog::ListSelect *AnnotationDialog::Dialog::createListSel(const DB::
 {
     ListSelect *sel = new ListSelect(category, m_dockWindow);
     m_optionList.append(sel);
-    connect(DB::ImageDB::instance()->categoryCollection(), SIGNAL(itemRemoved(DB::Category *, QString)),
-            this, SLOT(slotDeleteOption(DB::Category *, QString)));
-    connect(DB::ImageDB::instance()->categoryCollection(), SIGNAL(itemRenamed(DB::Category *, QString, QString)),
-            this, SLOT(slotRenameOption(DB::Category *, QString, QString)));
+    connect(DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::itemRemoved,
+            this, &Dialog::slotDeleteOption);
+    connect(DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::itemRenamed,
+            this, &Dialog::slotRenameOption);
 
     return sel;
 }
@@ -1261,52 +1261,52 @@ void AnnotationDialog::Dialog::loadWindowLayout()
 void AnnotationDialog::Dialog::setupActions()
 {
     QAction *action = nullptr;
-    action = m_actions->addAction(QString::fromLatin1("annotationdialog-sort-alphatree"), m_optionList.at(0), SLOT(slotSortAlphaTree()));
+    action = m_actions->addAction(QString::fromLatin1("annotationdialog-sort-alphatree"), m_optionList.at(0), &ListSelect::slotSortAlphaTree);
     action->setText(i18n("Sort Alphabetically (Tree)"));
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_F4);
 
-    action = m_actions->addAction(QString::fromLatin1("annotationdialog-sort-alphaflat"), m_optionList.at(0), SLOT(slotSortAlphaFlat()));
+    action = m_actions->addAction(QString::fromLatin1("annotationdialog-sort-alphaflat"), m_optionList.at(0), &ListSelect::slotSortAlphaFlat);
     action->setText(i18n("Sort Alphabetically (Flat)"));
 
-    action = m_actions->addAction(QString::fromLatin1("annotationdialog-sort-MRU"), m_optionList.at(0), SLOT(slotSortDate()));
+    action = m_actions->addAction(QString::fromLatin1("annotationdialog-sort-MRU"), m_optionList.at(0), &ListSelect::slotSortDate);
     action->setText(i18n("Sort Most Recently Used"));
 
-    action = m_actions->addAction(QString::fromLatin1("annotationdialog-toggle-sort"), m_optionList.at(0), SLOT(toggleSortType()));
+    action = m_actions->addAction(QString::fromLatin1("annotationdialog-toggle-sort"), m_optionList.at(0), &ListSelect::toggleSortType);
     action->setText(i18n("Toggle Sorting"));
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_T);
 
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-toggle-showing-selected-only"),
-                                  &ShowSelectionOnlyManager::instance(), SLOT(toggle()));
+                                  &ShowSelectionOnlyManager::instance(), &ShowSelectionOnlyManager::toggle);
     action->setText(i18n("Toggle Showing Selected Items Only"));
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_S);
 
-    action = m_actions->addAction(QString::fromLatin1("annotationdialog-next-image"), m_preview, SLOT(slotNext()));
+    action = m_actions->addAction(QString::fromLatin1("annotationdialog-next-image"), m_preview, &ImagePreviewWidget::slotNext);
     action->setText(i18n("Annotate Next"));
     m_actions->setDefaultShortcut(action, Qt::Key_PageDown);
 
-    action = m_actions->addAction(QString::fromLatin1("annotationdialog-prev-image"), m_preview, SLOT(slotPrev()));
+    action = m_actions->addAction(QString::fromLatin1("annotationdialog-prev-image"), m_preview, &ImagePreviewWidget::slotPrev);
     action->setText(i18n("Annotate Previous"));
     m_actions->setDefaultShortcut(action, Qt::Key_PageUp);
 
-    action = m_actions->addAction(QString::fromLatin1("annotationdialog-OK-dialog"), this, SLOT(doneTagging()));
+    action = m_actions->addAction(QString::fromLatin1("annotationdialog-OK-dialog"), this, &Dialog::doneTagging);
     action->setText(i18n("OK dialog"));
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Return);
 
-    action = m_actions->addAction(QString::fromLatin1("annotationdialog-delete-image"), this, SLOT(slotDeleteImage()));
+    action = m_actions->addAction(QString::fromLatin1("annotationdialog-delete-image"), this, &Dialog::slotDeleteImage);
     action->setText(i18n("Delete"));
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Delete);
 
-    action = m_actions->addAction(QString::fromLatin1("annotationdialog-copy-previous"), this, SLOT(slotCopyPrevious()));
+    action = m_actions->addAction(QString::fromLatin1("annotationdialog-copy-previous"), this, &Dialog::slotCopyPrevious);
     action->setText(i18n("Copy tags from previous image"));
     m_actions->setDefaultShortcut(action, Qt::ALT + Qt::Key_Insert);
 
-    action = m_actions->addAction(QString::fromLatin1("annotationdialog-rotate-left"), m_preview, SLOT(rotateLeft()));
+    action = m_actions->addAction(QString::fromLatin1("annotationdialog-rotate-left"), m_preview, &ImagePreviewWidget::rotateLeft);
     action->setText(i18n("Rotate counterclockwise"));
 
-    action = m_actions->addAction(QString::fromLatin1("annotationdialog-rotate-right"), m_preview, SLOT(rotateRight()));
+    action = m_actions->addAction(QString::fromLatin1("annotationdialog-rotate-right"), m_preview, &ImagePreviewWidget::rotateRight);
     action->setText(i18n("Rotate clockwise"));
 
-    action = m_actions->addAction(QString::fromLatin1("annotationdialog-toggle-viewer"), this, SLOT(togglePreview()));
+    action = m_actions->addAction(QString::fromLatin1("annotationdialog-toggle-viewer"), this, &Dialog::togglePreview);
     action->setText(i18n("Toggle fullscreen preview"));
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Space);
 
@@ -1687,7 +1687,7 @@ void AnnotationDialog::Dialog::annotationMapVisibilityChanged(bool visible)
         // when the map dockwidget is already visible on show(), the call to
         // annotationMapVisibilityChanged  is executed in the GUI thread.
         // This ensures that populateMap() doesn't block the GUI in this case:
-        QTimer::singleShot(0, this, SLOT(populateMap()));
+        QTimer::singleShot(0, this, &Dialog::populateMap);
     } else {
         m_cancelMapLoading = true;
     }

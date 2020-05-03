@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -124,7 +124,7 @@ AnnotationDialog::ListSelect::ListSelect(const DB::CategoryPtr &category, QWidge
     connect(m_dateSort, &QToolButton::clicked, this, &ListSelect::slotSortDate);
     connect(m_alphaTreeSort, &QToolButton::clicked, this, &ListSelect::slotSortAlphaTree);
     connect(m_alphaFlatSort, &QToolButton::clicked, this, &ListSelect::slotSortAlphaFlat);
-    connect(m_showSelectedOnly, SIGNAL(clicked()), &ShowSelectionOnlyManager::instance(), SLOT(toggle()));
+    connect(m_showSelectedOnly, &QToolButton::clicked, &ShowSelectionOnlyManager::instance(), &ShowSelectionOnlyManager::toggle);
 
     lay2->addWidget(m_alphaTreeSort);
     lay2->addWidget(m_alphaFlatSort);
@@ -135,13 +135,13 @@ AnnotationDialog::ListSelect::ListSelect(const DB::CategoryPtr &category, QWidge
 
     populate();
 
-    connect(Settings::SettingsData::instance(), SIGNAL(viewSortTypeChanged(Settings::ViewSortType)),
-            this, SLOT(setViewSortType(Settings::ViewSortType)));
-    connect(Settings::SettingsData::instance(), SIGNAL(matchTypeChanged(AnnotationDialog::MatchType)),
-            this, SLOT(updateListview()));
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::viewSortTypeChanged,
+            this, &ListSelect::setViewSortType);
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::matchTypeChanged,
+            this, &ListSelect::updateListview);
 
-    connect(&ShowSelectionOnlyManager::instance(), SIGNAL(limitToSelected()), this, SLOT(limitToSelection()));
-    connect(&ShowSelectionOnlyManager::instance(), SIGNAL(broaden()), this, SLOT(showAllChildren()));
+    connect(&ShowSelectionOnlyManager::instance(), &ShowSelectionOnlyManager::limitToSelected, this, &ListSelect::limitToSelection);
+    connect(&ShowSelectionOnlyManager::instance(), &ShowSelectionOnlyManager::broaden, this, &ListSelect::showAllChildren);
 }
 
 void AnnotationDialog::ListSelect::slotReturn()

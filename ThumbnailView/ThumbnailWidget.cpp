@@ -77,7 +77,7 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget(ThumbnailFactory *factory)
     viewport()->setMouseTracking(true);
     setMouseTracking(true);
 
-    connect(selectionModel(), SIGNAL(currentChanged(QModelIndex, QModelIndex)), this, SLOT(scheduleDateChangeSignal()));
+    connect(selectionModel(), &QItemSelectionModel::currentChanged, this, &ThumbnailWidget::scheduleDateChangeSignal);
     viewport()->setAcceptDrops(true);
 
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -90,11 +90,11 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget(ThumbnailFactory *factory)
     connect(Settings::SettingsData::instance(), &Settings::SettingsData::colorSchemeChanged, this, &ThumbnailWidget::updatePalette);
     setItemDelegate(new Delegate(factory, this));
 
-    connect(selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(emitSelectionChangedSignal()));
+    connect(selectionModel(), &QItemSelectionModel::selectionChanged, this, &ThumbnailWidget::emitSelectionChangedSignal);
 
     setDragEnabled(false); // We run our own dragging, so disable QListView's version.
 
-    connect(verticalScrollBar(), SIGNAL(valueChanged(int)), model(), SLOT(updateVisibleRowInfo()));
+    connect(verticalScrollBar(), &QScrollBar::valueChanged, model(), &ThumbnailModel::updateVisibleRowInfo);
     setupDateChangeTimer();
 }
 

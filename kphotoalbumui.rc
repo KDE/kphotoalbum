@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kphotoalbum" version="48">
+<kpartgui name="kphotoalbum" version="49">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -44,7 +44,6 @@
         <text>Privacy</text>
         <Action name="lockToDefaultScope"/>
         <Action name="unlockFromDefaultScope"/>
-        <Action name="changeScopePasswd" />
         <Separator/>
         <Action name="setDefaultScopeNegative" />
         <Action name="setDefaultScopePositive" />

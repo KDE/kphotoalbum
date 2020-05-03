@@ -425,7 +425,6 @@ property_ref_(HTMLThumbSize, setHTMLThumbSize, int, groupForDatabase("HTML Setti
 property_ref_(HTMLNumOfCols, setHTMLNumOfCols, int, groupForDatabase("HTML Settings"), 5)
 property_ref_(HTMLSizes, setHTMLSizes, QString, groupForDatabase("HTML Settings"), STR(""))
 property_ref_(HTMLIncludeSelections, setHTMLIncludeSelections, QString, groupForDatabase("HTML Settings"), STR(""))
-property_ref_(password, setPassword, QString, groupForDatabase("Privacy Settings"), STR(""))
     // clang-format on
 
     QDate SettingsData::fromDate() const

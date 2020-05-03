@@ -881,14 +881,12 @@ void MainWindow::Window::setupMenuBar()
     m_jumpToContext->setIcon(QIcon::fromTheme(QString::fromLatin1("kphotoalbum"))); // icon suggestion: go-jump (don't know the exact meaning though, so I didn't replace it right away
 
     m_lock = actionCollection()->addAction(QString::fromLatin1("lockToDefaultScope"), this, &Window::lockToDefaultScope);
+    m_lock->setIcon(QIcon::fromTheme(QLatin1String("lock")));
     m_lock->setText(i18n("Lock Images"));
 
     m_unlock = actionCollection()->addAction(QString::fromLatin1("unlockFromDefaultScope"), this, &Window::unlockFromDefaultScope);
+    m_unlock->setIcon(QIcon::fromTheme(QLatin1String("unlock")));
     m_unlock->setText(i18n("Unlock"));
-
-    a = actionCollection()->addAction(QString::fromLatin1("changeScopePasswd"), this, &Window::changePassword);
-    a->setText(i18n("Change Password..."));
-    actionCollection()->setDefaultShortcut(a, 0);
 
     m_setDefaultPos = actionCollection()->addAction(QString::fromLatin1("setDefaultScopePositive"), this, &Window::setDefaultScopePositive);
     m_setDefaultPos->setText(i18n("Lock Away All Other Items"));
@@ -1240,39 +1238,12 @@ void MainWindow::Window::setDefaultScopeNegative()
 
 void MainWindow::Window::lockToDefaultScope()
 {
-    int i = KMessageBox::warningContinueCancel(this,
-                                               i18n("<p>The password protection is only a means of allowing your little sister "
-                                                    "to look in your images, without getting to those embarrassing images from "
-                                                    "your last party.</p>"
-                                                    "<p><b>In other words, anyone with access to the index.xml file can easily "
-                                                    "circumvent this password.</b></p>"),
-                                               i18n("Password Protection"),
-                                               KStandardGuiItem::cont(), KStandardGuiItem::cancel(),
-                                               QString::fromLatin1("lockPassWordIsNotEncruption"));
-    if (i == KMessageBox::Cancel)
-        return;
-
     setLocked(true, false);
 }
 
 void MainWindow::Window::unlockFromDefaultScope()
 {
-    bool OK = (Settings::SettingsData::instance()->password().isEmpty());
-    QPointer<KPasswordDialog> dialog = new KPasswordDialog(this);
-    while (!OK) {
-        dialog->setPrompt(i18n("Type in Password to Unlock"));
-        const int code = dialog->exec();
-        if (code == QDialog::Rejected)
-            return;
-        const QString passwd = dialog->password();
-
-        OK = (Settings::SettingsData::instance()->password() == passwd);
-
-        if (!OK)
-            KMessageBox::sorry(this, i18n("Invalid password."));
-    }
     setLocked(false, false);
-    delete dialog;
 }
 
 void MainWindow::Window::setLocked(bool locked, bool force, bool recount)
@@ -1286,32 +1257,6 @@ void MainWindow::Window::setLocked(bool locked, bool force, bool recount)
     m_setDefaultNeg->setEnabled(!locked);
     if (recount)
         m_browser->reload();
-}
-
-void MainWindow::Window::changePassword()
-{
-    bool OK = (Settings::SettingsData::instance()->password().isEmpty());
-
-    QPointer<KPasswordDialog> dialog = new KPasswordDialog;
-
-    while (!OK) {
-        dialog->setPrompt(i18n("Type in Old Password"));
-        const int code = dialog->exec();
-        if (code == QDialog::Rejected)
-            return;
-        const QString passwd = dialog->password();
-
-        OK = (Settings::SettingsData::instance()->password() == QString(passwd));
-
-        if (!OK)
-            KMessageBox::sorry(this, i18n("Invalid password."));
-    }
-
-    dialog->setPrompt(i18n("Type in New Password"));
-    const int code = dialog->exec();
-    if (code == QDialog::Accepted)
-        Settings::SettingsData::instance()->setPassword(dialog->password());
-    delete dialog;
 }
 
 void MainWindow::Window::configureShortcuts()

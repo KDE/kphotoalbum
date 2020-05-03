@@ -214,8 +214,6 @@ public:
 
     property_copy(delayLoadingPlugins, setDelayLoadingPlugins, bool);
 
-    property_ref(password, setPassword, QString);
-
     property_ref(HTMLBaseDir, setHTMLBaseDir, QString);
     property_ref(HTMLBaseURL, setHTMLBaseURL, QString);
     property_ref(HTMLDestURL, setHTMLDestURL, QString);

@@ -172,7 +172,6 @@ protected slots:
     void setDefaultScopePositive();
     void setDefaultScopeNegative();
     void unlockFromDefaultScope();
-    void changePassword();
     void configureShortcuts();
     void slotSetFileName(const DB::FileName &);
     void updateContextMenuFromSelectionSize(int selectionSize);

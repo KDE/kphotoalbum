@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2019-2020 The KPhotoAlbum Development Team
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -20,7 +20,7 @@
 #ifndef KPHOTOALBUM_PURPOSEMENU_H
 #define KPHOTOALBUM_PURPOSEMENU_H
 
-#include <QObject>
+#include <PurposeWidgets/Menu>
 #include <QString>
 #include <QUrl>
 #include <config-kpa-kipi.h>
@@ -35,7 +35,7 @@ class Menu;
 namespace Plugins
 {
 
-class PurposeMenu : public QObject
+class PurposeMenu : public Purpose::Menu
 {
     Q_OBJECT
 public:
@@ -55,7 +55,6 @@ signals:
 
 private:
     QMenu *m_parentMenu;
-    Purpose::Menu *m_purposeMenu;
     bool m_menuUpdateNeeded; ///< Keeps track of changed image selection
     /**
      * @brief Load the Purpose::Menu, add it to the parent menu, and set up connections.

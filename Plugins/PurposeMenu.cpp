@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2019-2020 The KPhotoAlbum Development Team
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as
@@ -31,9 +31,8 @@
 #include <QMenu>
 
 Plugins::PurposeMenu::PurposeMenu(QMenu *parent)
-    : QObject(parent)
+    : Purpose::Menu(parent)
     , m_parentMenu(parent)
-    , m_purposeMenu(new Purpose::Menu(parent))
     , m_menuUpdateNeeded(true)
 {
     loadPurposeMenu();
@@ -42,19 +41,19 @@ Plugins::PurposeMenu::PurposeMenu(QMenu *parent)
 void Plugins::PurposeMenu::slotSelectionChanged()
 {
     m_menuUpdateNeeded = true;
-    m_purposeMenu->clear();
+    clear();
     qCDebug(PluginsLog) << "Purpose menu items invalidated...";
 }
 
 void Plugins::PurposeMenu::loadPurposeMenu()
 {
     // attach the menu
-    QAction *purposeMenu = m_parentMenu->addMenu(m_purposeMenu);
+    QAction *purposeMenu = m_parentMenu->addMenu(this);
     purposeMenu->setText(i18n("Share"));
     purposeMenu->setIcon(QIcon::fromTheme(QStringLiteral("document-share")));
 
     // set up the callback signal
-    connect(m_purposeMenu, &Purpose::Menu::finished, this, [this](const QJsonObject &output, int error, const QString &message) {
+    connect(this, &Purpose::Menu::finished, this, [this](const QJsonObject &output, int error, const QString &message) {
         if (error) {
             qCDebug(PluginsLog) << "Failed to share image:" << message;
             emit imageSharingFailed(message);
@@ -68,7 +67,7 @@ void Plugins::PurposeMenu::loadPurposeMenu()
     });
 
     // update available options based on the latest picture
-    connect(m_purposeMenu, &QMenu::aboutToShow, this, &PurposeMenu::loadPurposeItems);
+    connect(this, &QMenu::aboutToShow, this, &PurposeMenu::loadPurposeItems);
     qCDebug(PluginsLog) << "Purpose menu loaded...";
 }
 
@@ -87,10 +86,10 @@ void Plugins::PurposeMenu::loadPurposeItems()
 
     // "image/jpeg" is certainly not always true, but the interface does not allow a mimeType list
     // and the plugins likely won't care...
-    m_purposeMenu->model()->setInputData(QJsonObject {
+    model()->setInputData(QJsonObject {
         { QStringLiteral("mimeType"), QStringLiteral("image/jpeg") },
         { QStringLiteral("urls"), urls } });
-    m_purposeMenu->model()->setPluginType(QStringLiteral("Export"));
-    m_purposeMenu->reload();
+    model()->setPluginType(QStringLiteral("Export"));
+    reload();
     qCDebug(PluginsLog) << "Purpose menu items loaded...";
 }

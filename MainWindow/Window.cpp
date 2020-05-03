@@ -1342,14 +1342,12 @@ void MainWindow::Window::slotConfigureKeyBindings()
 
     createAnnotationDialog();
     dialog->addCollection(m_annotationDialog->actions(), i18n("Annotation Dialog"));
-    auto *filterWidget = m_thumbnailView->createFilterWidget(nullptr);
-    dialog->addCollection(filterWidget->actions(), i18n("Thumbnail View"));
+    dialog->addCollection(m_filterWidget->actions(), i18n("Thumbnail View"));
 
     dialog->configure();
 
     delete dialog;
     delete viewer;
-    delete filterWidget;
 }
 
 void MainWindow::Window::slotSetFileName(const DB::FileName &fileName)
@@ -1892,15 +1890,15 @@ void MainWindow::Window::createSearchBar()
     connect(toggleSearchBar, &QAction::triggered, searchBar, &SearchBar::setVisible);
     connect(searchBar, &SearchBar::visibilityChanged, toggleSearchBar, &QAction::setChecked);
 
-    auto filterWidget = m_thumbnailView->createFilterWidget(this);
-    addToolBar(filterWidget);
-    filterWidget->setObjectName(QString::fromUtf8("filterBar"));
+    m_filterWidget = m_thumbnailView->createFilterWidget(this);
+    addToolBar(m_filterWidget);
+    m_filterWidget->setObjectName(QString::fromUtf8("filterBar"));
     connect(m_browser, &Browser::BrowserWidget::viewChanged, ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);
-    connect(m_browser, &Browser::BrowserWidget::isFilterable, filterWidget, &ThumbnailView::FilterWidget::setEnabled);
+    connect(m_browser, &Browser::BrowserWidget::isFilterable, m_filterWidget, &ThumbnailView::FilterWidget::setEnabled);
     QAction *toggleFilterToolbar = actionCollection()->action(QString::fromLatin1("toggleFilterToolbar"));
     Q_ASSERT(toggleFilterToolbar);
-    connect(toggleFilterToolbar, &QAction::triggered, filterWidget, &ThumbnailView::FilterWidget::setVisible);
-    connect(filterWidget, &ThumbnailView::FilterWidget::visibilityChanged, toggleFilterToolbar, &QAction::setChecked);
+    connect(toggleFilterToolbar, &QAction::triggered, m_filterWidget, &ThumbnailView::FilterWidget::setVisible);
+    connect(m_filterWidget, &ThumbnailView::FilterWidget::visibilityChanged, toggleFilterToolbar, &QAction::setChecked);
 }
 
 void MainWindow::Window::executeStartupActions()

@@ -90,6 +90,7 @@ class SettingsDialog;
 namespace ThumbnailView
 {
 class ThumbnailFacade;
+class FilterWidget;
 }
 
 class BreadcrumbViewer;
@@ -304,6 +305,7 @@ private:
 #ifdef HAVE_MARBLE
     Map::MapView *m_positionBrowser;
 #endif
+    ThumbnailView::FilterWidget *m_filterWidget;
 };
 
 }

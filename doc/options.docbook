@@ -102,9 +102,8 @@ example_12.tif, example.PNG.
   <title>Viewer Settings</title>
   <para>Another rather simple configuration. Mainly you can select the
   preferred size of Viewer or SlideShow window or to display them in
-  full screen mode. Basic SlideShow interval can be set here but a more
-  feature rich Advanced SlideShow is available from KIPI plugins. The
-  scaling algorithm can be <emphasis>Best</emphasis> or
+  full screen mode. Basic SlideShow interval can be set here.
+  The scaling algorithm can be <emphasis>Best</emphasis> or
   <emphasis>Fastest</emphasis>. If your
   computer is fast enough for Best scaling use that otherwise go for the
   speed.

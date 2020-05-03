@@ -1,9 +1,8 @@
   <chapter id="chp-generating-html">
     <title>Generating &HTML;</title>
-    <para>&kphotoalbum; offers two possibilities for generating &HTML; from your
-      photo album. One is the implementation build into &kphotoalbum;, the other is
-      available as an plugin (see <xref linkend="chp-plugins"/>). This section
-      will describe the build in version, which you may find in the menubar
+    <para>&kphotoalbum; offers the possibility for generating &HTML; from your
+      photo album.
+      You may find this in the menubar
       <menuchoice><guimenu>File</guimenu><guimenuitem>Generate 
       &HTML;</guimenuitem></menuchoice></para>
     

@@ -35,7 +35,7 @@
 
    <h2>Backend</h2>
    \li \ref ImageManager - Thumbnail loader
-   \li \ref Plugins - KIPI plug-in management
+   \li \ref Plugins - Purpose plugin management
    \li \ref Utilities - Miscellaneous utility classes
    \li \ref BackgroundTaskManager
    \li \ref BackgroundJobs - Jobs for the BackgroundTaskManager

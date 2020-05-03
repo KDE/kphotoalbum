@@ -23,7 +23,7 @@
 #include <PurposeWidgets/Menu>
 #include <QString>
 #include <QUrl>
-#include <config-kpa-kipi.h>
+#include <config-kpa-plugins.h>
 
 class QMenu;
 

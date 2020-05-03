@@ -29,7 +29,7 @@
 #include <QList>
 #include <QPointer>
 #include <QUrl>
-#include <config-kpa-kipi.h>
+#include <config-kpa-plugins.h>
 
 class QAction;
 class QCloseEvent;
@@ -45,12 +45,6 @@ class KActionMenu;
 class KTipDialog;
 class KToggleAction;
 
-#ifdef HASKIPI
-namespace KIPI
-{
-class PluginLoader;
-}
-#endif
 #ifdef HAVE_MARBLE
 namespace Map
 {
@@ -135,7 +129,6 @@ public:
 
 public slots:
     void showThumbNails(const DB::FileNameList &items);
-    void loadKipiPlugins();
     void reloadThumbnails(ThumbnailView::SelectionUpdateMethod method = ThumbnailView::MaintainSelection);
     void runDemo();
     void slotImageRotated(const DB::FileName &fileName);
@@ -186,8 +179,6 @@ protected slots:
     void delayedInit();
     void slotReenableMessages();
     void slotImagesChanged(const QList<QUrl> &);
-    void slotSelectionChanged(int count);
-    void plug();
     void slotRemoveTokens();
     void slotShowListOfFiles();
     void updateDateBar(const Browser::BreadcrumbList &);
@@ -285,9 +276,6 @@ private:
     QAction *m_runRandomSlideShow;
     Plugins::Interface *m_pluginInterface;
     QAction *m_showExifDialog;
-#ifdef HASKIPI
-    KIPI::PluginLoader *m_pluginLoader;
-#endif
     QAction *m_recreateThumbnails;
     QAction *m_useNextVideoThumbnail;
     QAction *m_usePreviousVideoThumbnail;
@@ -295,7 +283,6 @@ private:
     TokenEditor *m_tokenEditor;
     DateBar::DateBarWidget *m_dateBar;
     QFrame *m_dateBarLine;
-    bool m_hasLoadedKipiPlugins;
     QMap<Qt::Key, QPair<QString, QString>> m_viewerInputMacros;
     MainWindow::StatusBar *m_statusBar;
     QString m_lastTarget;

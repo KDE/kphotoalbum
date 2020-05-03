@@ -73,10 +73,6 @@
     </Menu>
     <Menu name="plugins">
       <text>Plugins</text>
-      <Menu name="kipiplugins">
-        <text>Legacy Plugins (KIPI)</text>
-        <ActionList name="kipi_actions"/>
-      </Menu>
    </Menu>
    <Menu name="settings">
      <Action name="readdAllMessages"/>

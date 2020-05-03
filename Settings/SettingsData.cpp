@@ -409,8 +409,6 @@ property_copy(updateDescription, setUpdateDescription, bool, ExifImport, false)
     ///////////////////////
 
     // clang-format off
-property_copy(delayLoadingPlugins, setDelayLoadingPlugins, bool, Plug - ins, true)
-
 property_ref_(HTMLBaseDir, setHTMLBaseDir, QString, groupForDatabase("HTML Settings"), QString::fromLocal8Bit(qgetenv("HOME")) + STR("/public_html"))
 property_ref_(HTMLBaseURL, setHTMLBaseURL, QString, groupForDatabase("HTML Settings"), STR("file://") + HTMLBaseDir())
 property_ref_(HTMLDestURL, setHTMLDestURL, QString, groupForDatabase("HTML Settings"), STR("file://") + HTMLBaseDir())

@@ -16,8 +16,6 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "config-kpa-plugins.h"
-
 #include "SettingsDialog.h"
 
 #include "BirthdayPage.h"
@@ -26,7 +24,6 @@
 #include "ExifPage.h"
 #include "FileVersionDetectionPage.h"
 #include "GeneralPage.h"
-#include "PluginsPage.h"
 #include "TagGroupsPage.h"
 #include "ThumbnailsPage.h"
 #include "ViewerPage.h"
@@ -55,15 +52,8 @@ Settings::SettingsDialog::SettingsDialog(QWidget *parent)
     m_categoryPage = new Settings::CategoryPage(this);
     m_tagGroupsPage = new Settings::TagGroupsPage(this);
     m_viewerPage = new Settings::ViewerPage(this);
-
-#ifdef HASKIPI
-    m_pluginsPage = new Settings::PluginsPage(this);
-#endif
-
     m_exifPage = new Settings::ExifPage(this);
-
     m_birthdayPage = new Settings::BirthdayPage(this);
-
     m_databaseBackendPage = new Settings::DatabaseBackendPage(this);
 
     Data data[] = {
@@ -74,10 +64,6 @@ Settings::SettingsDialog::SettingsDialog(QWidget *parent)
         { SettingsPage::BirthdayPage, i18n("Birthdays"), "view-calendar-birthday", m_birthdayPage },
         { SettingsPage::TagGroupsPage, i18n("Tag Groups"), "view-group", m_tagGroupsPage },
         { SettingsPage::ViewerPage, i18n("Viewer"), "document-preview", m_viewerPage },
-#ifdef HASKIPI
-        { SettingsPage::PluginsPage, i18n("Plugins"), "plugins", m_pluginsPage },
-#endif
-
         { SettingsPage::ExifPage, i18n("Exif/IPTC Information"), "document-properties", m_exifPage },
         { SettingsPage::DatabaseBackendPage, i18n("Database Backend"), "document-save", m_databaseBackendPage },
         { SettingsPage::GeneralPage, QString(), "", 0 }
@@ -118,17 +104,9 @@ void Settings::SettingsDialog::show()
     m_tagGroupsPage->loadSettings();
     m_databaseBackendPage->loadSettings(opt);
     m_viewerPage->loadSettings(opt);
-
-#ifdef HASKIPI
-    m_pluginsPage->loadSettings(opt);
-#endif
-
     m_categoryPage->loadSettings(opt);
-
     m_exifPage->loadSettings(opt);
-
     m_categoryPage->enableDisable(false);
-
     m_birthdayPage->reload();
     m_categoryPage->resetCategoryNamesChanged();
 
@@ -152,19 +130,11 @@ void Settings::SettingsDialog::slotMyOK()
     m_generalPage->saveSettings(opt);
     m_fileVersionDetectionPage->saveSettings(opt);
     m_thumbnailsPage->saveSettings(opt);
-
     m_birthdayPage->saveSettings();
     m_tagGroupsPage->saveSettings();
     m_categoryPage->saveSettings(opt, m_tagGroupsPage->memberMap());
-
     m_viewerPage->saveSettings(opt);
-
-#ifdef HASKIPI
-    m_pluginsPage->saveSettings(opt);
-#endif
-
     m_exifPage->saveSettings(opt);
-
     m_databaseBackendPage->saveSettings(opt);
 
     emit changed();

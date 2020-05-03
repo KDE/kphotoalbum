@@ -62,11 +62,6 @@
 #include <kio_version.h> // for #if KIO_VERSION...
 #include <ktip.h>
 
-#ifdef HASKIPI
-#include <KIPI/Plugin>
-#include <KIPI/PluginLoader>
-#endif
-
 #include <AnnotationDialog/Dialog.h>
 #include <BackgroundJobs/SearchForVideosWithoutLengthInfo.h>
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
@@ -90,9 +85,6 @@
 #include <ImageManager/ThumbnailCache.h>
 #include <ImportExport/Export.h>
 #include <ImportExport/Import.h>
-#ifdef HASKIPI
-#include <Plugins/Interface.h>
-#endif
 #ifdef KF5Purpose_FOUND
 #include <Plugins/PurposeMenu.h>
 #endif
@@ -272,12 +264,6 @@ void MainWindow::Window::delayedInit()
         qApp->processEvents();
         DB::ImageDB::instance()->slotRescan();
         qCInfo(TimingLog) << "MainWindow: Search for New Files: " << timer.restart() << "ms.";
-    }
-
-    if (!Settings::SettingsData::instance()->delayLoadingPlugins()) {
-        splash->message(i18n("Loading Plug-ins"));
-        loadKipiPlugins();
-        qCInfo(TimingLog) << "MainWindow: Loading Plug-ins: " << timer.restart() << "ms.";
     }
 
     splash->done();
@@ -1266,16 +1252,6 @@ void MainWindow::Window::configureShortcuts()
     dialog->addCollection(actionCollection(), i18n("General"));
     dialog->addCollection(viewer->actions(), i18n("Viewer"));
 
-#ifdef HASKIPI
-    loadKipiPlugins();
-    for (const KIPI::PluginLoader::Info *pluginInfo : m_pluginLoader->pluginList()) {
-        KIPI::Plugin *plugin = pluginInfo->plugin();
-        if (plugin)
-            dialog->addCollection(plugin->actionCollection(),
-                                  i18nc("Add 'Plugin' prefix so that KIPI plugins are obvious in KShortcutsDialog…", "Plugin: %1", pluginInfo->name()));
-    }
-#endif
-
     createAnnotationDialog();
     dialog->addCollection(m_annotationDialog->actions(), i18n("Annotation Dialog"));
     dialog->addCollection(m_filterWidget->actions(), i18n("Thumbnail View"));
@@ -1429,7 +1405,6 @@ void MainWindow::Window::setupPluginMenu()
     QMenu *menu = findChild<QMenu *>(QString::fromLatin1("plugins"));
     if (!menu) {
         KMessageBox::error(this, i18n("<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::Window::setupPluginMenu). This indicate that you forgot to do a make install. If you did compile KPhotoAlbum yourself, then please run make install. If not, please report this as a bug.</p><p>KPhotoAlbum will continue execution, but it is not entirely unlikely that it will crash later on due to the missing make install.</p>"), i18n("Internal Error"));
-        m_hasLoadedKipiPlugins = true;
         return; // This is no good, but lets try and continue.
     }
 
@@ -1451,78 +1426,6 @@ void MainWindow::Window::setupPluginMenu()
         QString message = i18n("Image sharing failed with message: %1", errorMessage);
         m_statusBar->showMessage(message);
     });
-#endif
-
-#ifdef HASKIPI
-    connect(menu, &QMenu::aboutToShow, this, &Window::loadKipiPlugins);
-    m_hasLoadedKipiPlugins = false;
-#else
-    setPluginMenuState("kipiplugins", {});
-#ifndef KF5Purpose_FOUND
-    menu->setEnabled(false);
-#endif
-    m_hasLoadedKipiPlugins = true;
-#endif
-}
-
-void MainWindow::Window::loadKipiPlugins()
-{
-#ifdef HASKIPI
-    Utilities::ShowBusyCursor dummy;
-    if (m_hasLoadedKipiPlugins)
-        return;
-
-    m_pluginInterface = new Plugins::Interface(this, QString::fromLatin1("KPhotoAlbum kipi interface"));
-    connect(m_pluginInterface, &Plugins::Interface::imagesChanged, this, &Window::slotImagesChanged);
-
-    QStringList ignores;
-    ignores << QString::fromLatin1("CommentsEditor")
-            << QString::fromLatin1("HelloWorld");
-
-    m_pluginLoader = new KIPI::PluginLoader();
-    m_pluginLoader->setIgnoredPluginsList(ignores);
-    m_pluginLoader->setInterface(m_pluginInterface);
-    m_pluginLoader->init();
-    connect(m_pluginLoader, &KIPI::PluginLoader::replug, this, &Window::plug);
-    m_pluginLoader->loadPlugins();
-
-    // Setup signals
-    connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::selectionChanged, this, &Window::slotSelectionChanged);
-    m_hasLoadedKipiPlugins = true;
-
-    // Make sure selection is updated also when plugin loading is
-    // delayed. This is needed, because selection might already be
-    // non-empty when loading the plugins.
-    slotSelectionChanged(selected().size());
-#endif // HASKIPI
-}
-
-void MainWindow::Window::plug()
-{
-#ifdef HASKIPI
-    unplugActionList(QString::fromLatin1("kipi_actions"));
-
-    QList<QAction *> kipiActions;
-
-    KIPI::PluginLoader::PluginList list = m_pluginLoader->pluginList();
-    for (const KIPI::PluginLoader::Info *pluginInfo : list) {
-        KIPI::Plugin *plugin = pluginInfo->plugin();
-        if (!plugin || !pluginInfo->shouldLoad())
-            continue;
-
-        plugin->setup(this);
-
-        QList<QAction *> actions = plugin->actions();
-        for (QAction *action : actions) {
-            kipiActions.append(action);
-        }
-        KConfigGroup group = KSharedConfig::openConfig()->group(QString::fromLatin1("Shortcuts"));
-        plugin->actionCollection()->importGlobalShortcuts(&group);
-    }
-
-    setPluginMenuState("kipiplugins", kipiActions);
-
-    plugActionList(QString::fromLatin1("kipi_actions"), kipiActions);
 #endif
 }
 
@@ -1558,15 +1461,6 @@ DB::ImageSearchInfo MainWindow::Window::currentContext()
 QString MainWindow::Window::currentBrowseCategory() const
 {
     return m_browser->currentCategory();
-}
-
-void MainWindow::Window::slotSelectionChanged(int count)
-{
-#ifdef HASKIPI
-    m_pluginInterface->slotSelectionChanged(count != 0);
-#else
-    Q_UNUSED(count)
-#endif
 }
 
 void MainWindow::Window::resizeEvent(QResizeEvent *)

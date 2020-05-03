@@ -59,14 +59,6 @@ else()
     find_package(Exiv2 REQUIRED)
 endif()
 
-find_package(KF5Kipi 5.1.0)
-set_package_properties(KF5Kipi
-    PROPERTIES
-    TYPE RECOMMENDED
-    PURPOSE "Enables integration of KDE image plugin interface (shared functionality between KPhotoAlbum and other apps like gwenview or digikam)"
-    )
-set(HASKIPI ${KF5Kipi_FOUND})
-
 find_package(KF5Purpose)
 set_package_properties(KF5Purpose
     PROPERTIES
@@ -177,18 +169,6 @@ set(libPlugins_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/documentation.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/Logging.cpp
     )
-if(KF5Kipi_FOUND)
-    set(libPlugins_SRCS ${libPlugins_SRCS}
-        ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/Interface.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageCollection.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageInfo.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/CategoryImageCollection.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/ImageCollectionSelector.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Settings/PluginsPage.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/UploadWidget.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/UploadImageCollection.cpp
-        )
-endif()
 if(KF5Purpose_FOUND)
     set(libPlugins_SRCS ${libPlugins_SRCS}
         ${CMAKE_CURRENT_SOURCE_DIR}/Plugins/PurposeMenu.cpp
@@ -526,9 +506,6 @@ target_link_libraries(kphotoalbum
     Qt5::Sql
     )
 
-if(KF5Kipi_FOUND)
-    target_link_libraries(kphotoalbum KF5::Kipi)
-endif()
 if(KF5Purpose_FOUND)
     target_link_libraries(kphotoalbum KF5::Purpose KF5::PurposeWidgets)
 endif()

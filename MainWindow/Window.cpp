@@ -18,7 +18,7 @@
 
 #include "Window.h"
 
-#include <config-kpa-kipi.h>
+#include <config-kpa-plugins.h>
 #include <stdexcept>
 #ifdef HAVE_STDLIB_H
 #include <stdlib.h>

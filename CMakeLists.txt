@@ -552,7 +552,7 @@ install(FILES kphotoalbumui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/kphotoalbu
 install(FILES org.kde.kphotoalbum.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
 configure_file(config-kpa-kdcraw.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kdcraw.h)
-configure_file(config-kpa-kipi.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kipi.h)
+configure_file(config-kpa-plugins.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-plugins.h)
 configure_file(config-kpa-marble.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-marble.h)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

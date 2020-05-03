@@ -17,8 +17,8 @@
 */
 
 #include "FeatureDialog.h"
-#include <config-kpa-kipi.h>
 #include <config-kpa-marble.h>
+#include <config-kpa-plugins.h>
 
 #include <Exif/Database.h>
 

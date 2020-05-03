@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -16,7 +16,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "config-kpa-kipi.h"
+#include "config-kpa-plugins.h"
 
 #include "SettingsDialog.h"
 

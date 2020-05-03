@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -21,7 +21,7 @@
 #include <QCheckBox>
 #include <QLabel>
 #include <QVBoxLayout>
-#include <config-kpa-kipi.h>
+#include <config-kpa-plugins.h>
 
 #ifdef HASKIPI
 #include <KIPI/ConfigWidget>

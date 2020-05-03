@@ -942,8 +942,6 @@ void MainWindow::Window::setupMenuBar()
 
     // The Settings menu
     KStandardAction::preferences(this, SLOT(slotOptions()), actionCollection());
-    KStandardAction::keyBindings(this, SLOT(slotConfigureKeyBindings()), actionCollection());
-    KStandardAction::configureToolbars(this, SLOT(slotConfigureToolbars()), actionCollection());
 
     a = actionCollection()->addAction(QString::fromLatin1("readdAllMessages"), this, SLOT(slotReenableMessages()));
     a->setText(i18n("Enable All Messages"));
@@ -1016,8 +1014,7 @@ void MainWindow::Window::setupMenuBar()
     m_usePreviousVideoThumbnail->setText(i18n("Use previous video thumbnail"));
     actionCollection()->setDefaultShortcut(m_usePreviousVideoThumbnail, Qt::CTRL + Qt::Key_Minus);
 
-    setStandardToolBarMenuEnabled(true);
-    createGUI(QString::fromLatin1("kphotoalbumui.rc"));
+    setupGUI(KXmlGuiWindow::Default);
 }
 
 void MainWindow::Window::slotExportToHTML()
@@ -1314,7 +1311,7 @@ void MainWindow::Window::changePassword()
     delete dialog;
 }
 
-void MainWindow::Window::slotConfigureKeyBindings()
+void MainWindow::Window::configureShortcuts()
 {
     Viewer::ViewerWidget *viewer = new Viewer::ViewerWidget; // Do not show, this is only used to get a key configuration
     KShortcutsDialog *dialog = new KShortcutsDialog();
@@ -1459,21 +1456,6 @@ MainWindow::Window *MainWindow::Window::theMainWindow()
 {
     Q_ASSERT(s_instance);
     return s_instance;
-}
-
-void MainWindow::Window::slotConfigureToolbars()
-{
-    QPointer<KEditToolBar> dlg = new KEditToolBar(guiFactory());
-    connect(dlg, &KEditToolBar::newToolBarConfig,
-            this, &Window::slotNewToolbarConfig);
-    dlg->exec();
-    delete dlg;
-}
-
-void MainWindow::Window::slotNewToolbarConfig()
-{
-    createGUI();
-    createSearchBar();
 }
 
 void MainWindow::Window::slotImport()

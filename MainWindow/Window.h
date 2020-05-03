@@ -173,7 +173,7 @@ protected slots:
     void setDefaultScopeNegative();
     void unlockFromDefaultScope();
     void changePassword();
-    void slotConfigureKeyBindings();
+    void configureShortcuts();
     void slotSetFileName(const DB::FileName &);
     void updateContextMenuFromSelectionSize(int selectionSize);
     void slotUpdateViewMenu(DB::Category::ViewType);
@@ -182,8 +182,6 @@ protected slots:
     void slotBuildThumbnailsIfWanted();
     void slotRunSlideShow();
     void slotRunRandomizedSlideShow();
-    void slotConfigureToolbars();
-    void slotNewToolbarConfig();
     void slotImport();
     void slotExport();
     void delayedInit();

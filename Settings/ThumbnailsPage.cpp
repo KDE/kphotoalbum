@@ -167,9 +167,11 @@ void Settings::ThumbnailsPage::loadSettings(Settings::SettingsData *opt)
 void Settings::ThumbnailsPage::saveSettings(Settings::SettingsData *opt)
 {
     opt->setPreviewSize(m_previewSize->value());
-    opt->setThumbnailSize(m_thumbnailSize->value());
-    // ensure that the user actually sees the thumbnail size change:
-    opt->setActualThumbnailSize(m_thumbnailSize->value());
+    if (m_thumbnailSize->value() != opt->thumbnailSize()) {
+        opt->setThumbnailSize(m_thumbnailSize->value());
+        // ensure that the user actually sees the thumbnail size change:
+        opt->setActualThumbnailSize(m_thumbnailSize->value());
+    }
     opt->setThumbnailAspectRatio((ThumbnailAspectRatio)m_thumbnailAspectRatio->currentIndex());
     opt->setThumbnailDisplayGrid(m_thumbnailDisplayGrid->isChecked());
     opt->setThumbnailSpace(m_thumbnailSpace->value());

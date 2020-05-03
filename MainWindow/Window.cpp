@@ -984,7 +984,7 @@ void MainWindow::Window::setupMenuBar()
     const auto schemeCfg = KSharedConfig::openConfig(schemePath);
     const QString activeSchemeName = schemeCfg->group("General").readEntry("Name", QFileInfo(schemePath).baseName());
     m_colorSchemeMenu = schemes->createSchemeSelectionMenu(activeSchemeName, this);
-    m_colorSchemeMenu->setText(i18n("Choose color scheme"));
+    m_colorSchemeMenu->setText(i18n("Choose Color Scheme"));
     m_colorSchemeMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("color")));
     m_colorSchemeMenu->setDelayed(false);
     actionCollection()->addAction(QString::fromLatin1("colorScheme"), m_colorSchemeMenu);

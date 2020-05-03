@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartgui name="kphotoalbum" version="47">
+<kpartgui name="kphotoalbum" version="48">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -83,8 +83,6 @@
      <Action name="readdAllMessages"/>
      <Action name="showToolTipOnImages"/>
      <Action name="configureView"/>
-     <Action name="toggleFilterToolbar"/>
-     <Action name="toggleSearchBar"/>
      <Action name="colorScheme"/>
    </Menu>
    <Menu name="help">

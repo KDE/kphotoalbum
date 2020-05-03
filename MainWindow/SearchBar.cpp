@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -30,6 +30,9 @@
 MainWindow::SearchBar::SearchBar(KMainWindow *parent)
     : KToolBar(parent)
 {
+    setWindowTitle(i18nc("Name/title of the search bar toolbar widget", "Search Bar"));
+    setWindowIcon(QIcon::fromTheme(QLatin1String("search")));
+
     QLabel *label = new QLabel(i18nc("@label:textbox label on the search bar", "Search:") + QString::fromLatin1(" "));
     addWidget(label);
 

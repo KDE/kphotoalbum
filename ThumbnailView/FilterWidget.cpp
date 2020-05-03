@@ -1,4 +1,4 @@
-/* Copyright (C) 2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2019-2020 The KPhotoAlbum Development Team
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License as
@@ -27,6 +27,9 @@
 ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
     : KToolBar(parent)
 {
+    setWindowTitle(i18nc("Name/title of the filter toolbar widget", "Filter Toolbar"));
+    setWindowIcon(QIcon::fromTheme(QLatin1String("view-filter")));
+
     m_actions = new KActionCollection(this);
     m_toggleFilter = addAction(
         QIcon::fromTheme(QLatin1String("view-filter")),

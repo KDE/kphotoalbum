@@ -15,7 +15,7 @@ install(
     display.js
     style.css
     ie.css
-    DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum/themes/darkJS
+    DESTINATION "${KDE_INSTALL_DATADIR}/kphotoalbum/themes/darkJS"
     )
 
 # vi:expandtab:tabstop=4 shiftwidth=4:

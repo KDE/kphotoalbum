@@ -5,7 +5,7 @@ install(
     mainpage.html
     navigation.js
     style.css
-    DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum/themes/picBelow
+    DESTINATION "${KDE_INSTALL_DATADIR}/kphotoalbum/themes/picBelow"
     )
 
 # vi:expandtab:tabstop=4 shiftwidth=4:

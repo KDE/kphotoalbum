@@ -30,7 +30,7 @@ install(
     sunset.jpg
     wayne.jpg
     movie.avi
-    DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum/demo
+    DESTINATION "${KDE_INSTALL_DATADIR}/kphotoalbum/demo"
     )
 
 # vi:expandtab:tabstop=4 shiftwidth=4:

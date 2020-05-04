@@ -11,7 +11,7 @@ install(
     People-Spiff.jpg
     People-Wayne.jpg
     People-Pets.jpg
-    DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum/demo/CategoryImages
+    DESTINATION "${KDE_INSTALL_DATADIR}/kphotoalbum/demo/CategoryImages"
     )
 
 # vi:expandtab:tabstop=4 shiftwidth=4:

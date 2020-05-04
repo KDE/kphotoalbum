@@ -13,7 +13,7 @@ install(
     upbar.png
     upright.png
     download.png
-    DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum/themes/rounded
+    DESTINATION "${KDE_INSTALL_DATADIR}/kphotoalbum/themes/rounded"
     )
 
 # vi:expandtab:tabstop=4 shiftwidth=4:

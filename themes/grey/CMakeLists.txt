@@ -5,7 +5,7 @@ install(
     mainpage.css
     mainpage.html
     download.png
-    DESTINATION ${KDE_INSTALL_DATADIR}/kphotoalbum/themes/grey
+    DESTINATION "${KDE_INSTALL_DATADIR}/kphotoalbum/themes/grey"
     )
 
 # vi:expandtab:tabstop=4 shiftwidth=4:

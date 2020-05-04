@@ -23,8 +23,8 @@
 
 #include <QCryptographicHash>
 #include <QFile>
-#include <QIODevice>
 #include <QHash>
+#include <QIODevice>
 #include <QMutex>
 
 static QMutex s_MD5CacheMutex;
@@ -139,5 +139,5 @@ DB::MD5 DB::MD5Sum(const DB::FileName &fileName)
 
 void DB::PreloadMD5Sum(const DB::FileName &fileName)
 {
-    (void) MD5Sum(fileName);
+    (void)MD5Sum(fileName);
 }

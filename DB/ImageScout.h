@@ -29,7 +29,7 @@ namespace DB
 {
 
 typedef QQueue<DB::FileName> ImageScoutQueue;
-typedef void (*PreloadFunc)(const DB::FileName&);
+typedef void (*PreloadFunc)(const DB::FileName &);
 class ImageScoutThread;
 
 /**

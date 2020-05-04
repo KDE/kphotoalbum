@@ -486,6 +486,7 @@ add_dependencies(kphotoalbum UpdateVersion)
 
 # External components
 target_link_libraries(kphotoalbum
+    PRIVATE
     ${JPEG_LIBRARY}
     ${EXIV2_LIBRARIES}
     KF5::Archive
@@ -507,15 +508,15 @@ target_link_libraries(kphotoalbum
     )
 
 if(KF5Purpose_FOUND)
-    target_link_libraries(kphotoalbum KF5::Purpose KF5::PurposeWidgets)
+    target_link_libraries(kphotoalbum PRIVATE KF5::Purpose KF5::PurposeWidgets)
 endif()
 
 if(KF5KDcraw_FOUND)
-    target_link_libraries(kphotoalbum KF5::KDcraw)
+    target_link_libraries(kphotoalbum PRIVATE KF5::KDcraw)
 endif()
 
 if(Marble_FOUND)
-    target_link_libraries(kphotoalbum Marble)
+    target_link_libraries(kphotoalbum PRIVATE Marble)
 endif()
 
 install(TARGETS kphotoalbum ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

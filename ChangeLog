@@ -21,6 +21,8 @@
 
 * Bugfix: kpa-merge should not fail if an item of id #0 exists in an index file.
 
+* Deprecation: Remove support for KIPI plugins
+
 * Enhancement: Experimental: offer options for image search tuning.
 
 * Feature: Support for custom color schemes.

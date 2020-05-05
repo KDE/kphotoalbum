@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public
@@ -27,6 +27,7 @@
 #include <MainWindow/Window.h>
 #include <Settings/SettingsData.h>
 
+#include <KColorScheme>
 #include <KConfig>
 #include <KConfigGroup>
 #include <KFileItem>
@@ -570,16 +571,20 @@ void HTMLDialog::displayThemeDescription(int themenr)
 void HTMLDialog::slotUpdateOutputLabel()
 {
     QString outputDir = QDir(m_baseDir->text()).filePath(m_outputDir->text());
+    auto labelPalette = m_outputLabel->palette();
     // feedback on validity:
     if (outputDir == m_baseDir->text()) {
-        m_outputLabel->setStyleSheet(QString::fromLatin1("QLabel { color : darkred; }"));
+        KColorScheme::adjustForeground(labelPalette, KColorScheme::ForegroundRole::NegativeText, QPalette::WindowText);
+        KColorScheme::adjustBackground(labelPalette, KColorScheme::BackgroundRole::NegativeBackground, QPalette::Window);
         outputDir.append(i18n("<p>Gallery directory cannot be empty.</p>"));
     } else if (QDir(outputDir).exists()) {
-        m_outputLabel->setStyleSheet(QString::fromLatin1("QLabel { color : darkorange; }"));
+        KColorScheme::adjustForeground(labelPalette, KColorScheme::ForegroundRole::NegativeText, QPalette::WindowText);
+        KColorScheme::adjustBackground(labelPalette, KColorScheme::BackgroundRole::NegativeBackground, QPalette::Window);
         outputDir.append(i18n("<p>The output directory already exists.</p>"));
     } else {
-        m_outputLabel->setStyleSheet(QString::fromLatin1("QLabel { color : black; }"));
+        labelPalette = palette();
     }
+    m_outputLabel->setPalette(labelPalette);
     m_outputLabel->setText(outputDir);
 }
 

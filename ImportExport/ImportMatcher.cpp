@@ -112,10 +112,6 @@ CategoryMatch::CategoryMatch(bool allowNew, const QString &kimFileItem, QStringL
             } else
                 m_checkbox->setChecked(false);
         }
-        QPalette pal = m_checkbox->palette();
-        KColorScheme::adjustForeground(pal, KColorScheme::ForegroundRole::NegativeText, QPalette::ButtonText, KColorScheme::Button);
-        KColorScheme::adjustBackground(pal, KColorScheme::BackgroundRole::NegativeBackground, QPalette::Button, KColorScheme::Button);
-        m_checkbox->setPalette(pal);
     }
 }
 

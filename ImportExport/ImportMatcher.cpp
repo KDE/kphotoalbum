@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -20,6 +20,7 @@
 
 #include "ImportSettings.h"
 
+#include <KColorScheme>
 #include <KLocalizedString>
 #include <QGridLayout>
 #include <QVBoxLayout>
@@ -46,22 +47,21 @@ ImportMatcher::ImportMatcher(const QString &otherCategory, const QString &myCate
     gridLay->setColumnStretch(1, 1);
     setWidget(top);
 
-    QLabel *label = new QLabel(i18n("Key in file"), grid);
-    gridLay->addWidget(label, 0, 0);
+    QPalette pal = palette();
+    pal.setBrush(QPalette::Window, palette().dark());
+    pal.setBrush(QPalette::WindowText, palette().brightText());
 
-    QPalette pal = label->palette();
-    QColor col = pal.color(QPalette::Background);
+    QLabel *label = new QLabel(i18n("Key in file"), grid);
     label->setAutoFillBackground(true);
-    pal.setColor(QPalette::Background, pal.color(QPalette::Foreground));
-    pal.setColor(QPalette::Foreground, col);
     label->setPalette(pal);
     label->setAlignment(Qt::AlignCenter);
+    gridLay->addWidget(label, 0, 0);
 
     label = new QLabel(i18n("Key in your database"), grid);
     label->setAutoFillBackground(true);
-    gridLay->addWidget(label, 0, 1);
     label->setPalette(pal);
     label->setAlignment(Qt::AlignCenter);
+    gridLay->addWidget(label, 0, 1);
 
     int row = 1;
     for (QStringList::ConstIterator it = otherItems.begin(); it != otherItems.end(); ++it) {
@@ -113,7 +113,8 @@ CategoryMatch::CategoryMatch(bool allowNew, const QString &kimFileItem, QStringL
                 m_checkbox->setChecked(false);
         }
         QPalette pal = m_checkbox->palette();
-        pal.setColor(QPalette::ButtonText, Qt::red);
+        KColorScheme::adjustForeground(pal, KColorScheme::ForegroundRole::NegativeText, QPalette::ButtonText, KColorScheme::Button);
+        KColorScheme::adjustBackground(pal, KColorScheme::BackgroundRole::NegativeBackground, QPalette::Button, KColorScheme::Button);
         m_checkbox->setPalette(pal);
     }
 }

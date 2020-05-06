@@ -1104,7 +1104,7 @@ void Viewer::ViewerWidget::keyPressEvent(QKeyEvent *event)
         } else if (m_currentCategory.isEmpty()) {
             // still searching for a category to lock to
             m_currentInput += incomingKey;
-            QStringList categorynames = DB::ImageDB::instance()->categoryCollection()->categoryTexts();
+            QStringList categorynames = DB::ImageDB::instance()->categoryCollection()->categoryNames();
             if (find_tag_in_list(categorynames, namefound) == 1) {
                 // yay, we have exactly one!
                 m_currentCategory = namefound;

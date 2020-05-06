@@ -55,15 +55,6 @@ QStringList XMLDB::XMLCategoryCollection::categoryNames(IncludeSpecialCategories
     return res;
 }
 
-QStringList XMLDB::XMLCategoryCollection::categoryTexts() const
-{
-    QStringList res;
-    for (QList<DB::CategoryPtr>::ConstIterator it = m_categories.begin(); it != m_categories.end(); ++it) {
-        res.append((*it)->name());
-    }
-    return res;
-}
-
 void XMLDB::XMLCategoryCollection::removeCategory(const QString &name)
 {
     for (QList<DB::CategoryPtr>::iterator it = m_categories.begin(); it != m_categories.end(); ++it) {

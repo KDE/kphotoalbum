@@ -34,7 +34,6 @@ public:
     DB::CategoryPtr categoryForName(const QString &name) const override;
     void addCategory(DB::CategoryPtr);
     QStringList categoryNames(IncludeSpecialCategories include = IncludeSpecialCategories::Yes) const override;
-    QStringList categoryTexts() const override;
     void removeCategory(const QString &name) override;
     void rename(const QString &oldName, const QString &newName) override;
     QList<DB::CategoryPtr> categories() const override;

@@ -42,7 +42,6 @@ public:
     };
     virtual CategoryPtr categoryForName(const QString &name) const = 0;
     virtual QStringList categoryNames(IncludeSpecialCategories include = IncludeSpecialCategories::Yes) const = 0;
-    virtual QStringList categoryTexts() const = 0;
     virtual void removeCategory(const QString &name) = 0;
     virtual void rename(const QString &oldName, const QString &newName) = 0;
     virtual QList<CategoryPtr> categories() const = 0;

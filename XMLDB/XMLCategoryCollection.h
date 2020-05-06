@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -33,7 +33,7 @@ class XMLCategoryCollection : public DB::CategoryCollection
 public:
     DB::CategoryPtr categoryForName(const QString &name) const override;
     void addCategory(DB::CategoryPtr);
-    QStringList categoryNames() const override;
+    QStringList categoryNames(IncludeSpecialCategories include = IncludeSpecialCategories::Yes) const override;
     QStringList categoryTexts() const override;
     void removeCategory(const QString &name) override;
     void rename(const QString &oldName, const QString &newName) override;

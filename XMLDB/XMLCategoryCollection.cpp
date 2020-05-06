@@ -45,11 +45,12 @@ void XMLDB::XMLCategoryCollection::addCategory(DB::CategoryPtr category)
     emit categoryCollectionChanged();
 }
 
-QStringList XMLDB::XMLCategoryCollection::categoryNames() const
+QStringList XMLDB::XMLCategoryCollection::categoryNames(IncludeSpecialCategories include) const
 {
     QStringList res;
-    for (QList<DB::CategoryPtr>::ConstIterator it = m_categories.begin(); it != m_categories.end(); ++it) {
-        res.append((*it)->name());
+    for (const auto &category : m_categories) {
+        if (include == IncludeSpecialCategories::Yes || !category->isSpecialCategory())
+            res.append(category->name());
     }
     return res;
 }

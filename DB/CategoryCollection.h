@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -36,8 +36,12 @@ class CategoryCollection : public QObject
     Q_OBJECT
 
 public:
+    enum class IncludeSpecialCategories {
+        Yes,
+        No
+    };
     virtual CategoryPtr categoryForName(const QString &name) const = 0;
-    virtual QStringList categoryNames() const = 0;
+    virtual QStringList categoryNames(IncludeSpecialCategories include = IncludeSpecialCategories::Yes) const = 0;
     virtual QStringList categoryTexts() const = 0;
     virtual void removeCategory(const QString &name) = 0;
     virtual void rename(const QString &oldName, const QString &newName) = 0;

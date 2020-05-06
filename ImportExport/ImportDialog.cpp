@@ -264,13 +264,15 @@ void ImportDialog::createCategoryPages()
         const DB::ImageInfoPtr info = *it;
         const QStringList categoriesForImage = info->availableCategories();
         for (const QString &category : categoriesForImage) {
-            if (!categories.contains(category) && category != i18n("Folder") && category != i18n("Tokens") && category != i18n("Media Type"))
+            auto catPtr = DB::ImageDB::instance()->categoryCollection()->categoryForName(category);
+            if (!categories.contains(category) && !(catPtr && catPtr->isSpecialCategory())) {
                 categories.append(category);
+            }
         }
     }
 
     if (!categories.isEmpty()) {
-        m_categoryMatcher = new ImportMatcher(QString(), QString(), categories, DB::ImageDB::instance()->categoryCollection()->categoryNames(),
+        m_categoryMatcher = new ImportMatcher(QString(), QString(), categories, DB::ImageDB::instance()->categoryCollection()->categoryNames(DB::CategoryCollection::IncludeSpecialCategories::No),
                                               false, this);
         m_categoryMatcherPage = addPage(m_categoryMatcher, i18n("Match Categories"));
 

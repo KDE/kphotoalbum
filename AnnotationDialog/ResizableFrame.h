@@ -1,4 +1,4 @@
-/* Copyright (C) 2014 Tobias Leupold <tobias.leupold@web.de>
+/* Copyright (C) 2014-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -40,6 +40,7 @@ namespace AnnotationDialog
 class ResizableFrame : public QFrame
 {
     Q_OBJECT
+    Q_PROPERTY(bool associated READ associated)
 
 public:
     explicit ResizableFrame(QWidget *parent = 0);
@@ -55,7 +56,6 @@ public:
     QPair<QString, QString> tagData() const;
     void removeTagData();
     void setTagData(QString category, QString tag, ChangeOrigin changeOrigin = ManualChange);
-    void setProposedTagData(QPair<QString, QString> tagData);
     QPair<QString, QString> proposedTagData() const;
     void removeProposedTagData();
 
@@ -68,11 +68,18 @@ public:
     void markTidied();
     bool isTidied() const;
 
+    bool associated() const;
+
 protected:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void contextMenuEvent(QContextMenuEvent *) override;
+    /**
+     * @brief repolish tells the widget to reevaluate its style.
+     * This required when the style is dynamically changed because a property changed.
+     */
+    void repolish();
 
 private slots:
     void associateTag();

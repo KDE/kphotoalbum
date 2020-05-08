@@ -49,11 +49,6 @@ constexpr int SCALE_BOTTOM = 0b00000010;
 constexpr int SCALE_RIGHT = 0b00000100;
 constexpr int SCALE_LEFT = 0b00001000;
 constexpr int MOVE = 0b10000000;
-
-const QString STYLESHEET = QString::fromUtf8(
-    "AnnotationDialog--ResizableFrame { color: rgb(255,0,0); }"
-    "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }"
-    "AnnotationDialog--ResizableFrame[associated=true] { color: rgb(0,255,0); }");
 }
 
 AnnotationDialog::ResizableFrame::ResizableFrame(QWidget *parent)
@@ -64,7 +59,6 @@ AnnotationDialog::ResizableFrame::ResizableFrame(QWidget *parent)
 
     setFrameShape(QFrame::Box);
     setMouseTracking(true);
-    setStyleSheet(STYLESHEET);
 
     m_removeAct = new QAction(
         i18nc("area of an image; rectangle that is overlayed upon the image",

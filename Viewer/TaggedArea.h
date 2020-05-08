@@ -27,7 +27,12 @@ namespace Viewer
  * @brief The TaggedArea class represents a positionable tag in the viewer.
  * It does not allow any manipulation of the tag data.
  *
+ * ## Styling
  * The appearance is based on the properties selected() and highlighted().
+ * The following styles are expected to be set for a proper appearance of TaggedArea:
+ *  - `Viewer--TaggedArea`
+ *  - `Viewer--TaggedArea:hover`
+ *  - `Viewer--TaggedArea[highlighted="true"]`
  */
 class TaggedArea : public QFrame
 {

@@ -1,4 +1,4 @@
-/* Copyright (C) 2014-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2014-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -25,12 +25,6 @@ Viewer::TaggedArea::TaggedArea(QWidget *parent)
     : QFrame(parent)
 {
     setFrameShape(QFrame::Box);
-    setStyleSheet(QStringLiteral(
-        "Viewer--TaggedArea { border: none; background-color: none; }"
-        "Viewer--TaggedArea:hover, Viewer--TaggedArea[selected=\"true\"] {"
-        " border: 1px solid rgb(0,255,0,99); background-color: rgb(255,255,255,30);"
-        " }"
-        "Viewer--TaggedArea[highlighted=\"true\"]{ border: 1px solid rgb(255,128,0,99); background-color: rgb(255,255,255,30); }"));
 }
 
 void Viewer::TaggedArea::setTagInfo(QString category, QString localizedCategory, QString tag)

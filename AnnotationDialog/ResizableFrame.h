@@ -40,12 +40,18 @@ namespace AnnotationDialog
 /**
  * @brief The ResizableFrame class represents a positionable tag in the annotation dialog.
  * It has two basic states: associated to a tag, and unassociated.
- * A context menu is provided to allow associating the ResizableFrame with a tag,
+ *
+ * An AreaTagSelectDialog provides the context menu to allow associating the ResizableFrame with a tag,
  * as well as removing the tag, or removing the area completely.
  *
  * If an area is removed, the associated tag is usually removed from the image as well.
  *
+ * ## Styling
  * The frame is styled based on this state (see property \c associated).
+ * The following styles are expected to be set for a proper appearance of ResizableFrame:
+ *  - `AnnotationDialog--ResizableFrame`
+ *  - `AnnotationDialog--ResizableFrame:hover`
+ *  - `AnnotationDialog--ResizableFrame[associated="true"]`
  */
 class ResizableFrame : public QFrame
 {

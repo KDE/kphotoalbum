@@ -44,6 +44,19 @@
 Q_DECLARE_LOGGING_CATEGORY(MainLog)
 Q_LOGGING_CATEGORY(MainLog, "kphotoalbum", QtWarningMsg)
 
+namespace
+{
+
+const auto STYLE = QStringLiteral(
+    "Viewer--TaggedArea { border: none; background-color: none; }"
+    "Viewer--TaggedArea:hover, Viewer--TaggedArea[selected=\"true\"] {"
+    " border: 1px solid rgb(0,255,0,99); background-color: rgb(255,255,255,30);"
+    " }"
+    "Viewer--TaggedArea[highlighted=\"true\"]{ border: 1px solid rgb(255,128,0,99); background-color: rgb(255,255,255,30); }"
+    "AnnotationDialog--ResizableFrame { color: rgb(255,0,0); }"
+    "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }"
+    "AnnotationDialog--ResizableFrame[associated=true] { color: rgb(0,255,0); }");
+}
 void migrateKDE4Config()
 {
     Kdelibs4ConfigMigrator migrator(QStringLiteral("kphotoalbum")); // the same name defined in the aboutData
@@ -120,6 +133,7 @@ int main(int argc, char **argv)
     const QString schemePath = KSharedConfig::openConfig()->group("General").readEntry(QString::fromLatin1("colorScheme"), QString());
     qCDebug(MainLog) << "Loading color scheme from " << (schemePath.isEmpty() ? QString::fromLatin1("system default") : schemePath);
     app.setPalette(KColorScheme::createApplicationPalette(KSharedConfig::openConfig(schemePath)));
+    app.setStyleSheet(STYLE);
 
     new MainWindow::SplashScreen();
 

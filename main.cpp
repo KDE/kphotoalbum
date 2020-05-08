@@ -133,7 +133,8 @@ int main(int argc, char **argv)
     const QString schemePath = KSharedConfig::openConfig()->group("General").readEntry(QString::fromLatin1("colorScheme"), QString());
     qCDebug(MainLog) << "Loading color scheme from " << (schemePath.isEmpty() ? QString::fromLatin1("system default") : schemePath);
     app.setPalette(KColorScheme::createApplicationPalette(KSharedConfig::openConfig(schemePath)));
-    app.setStyleSheet(STYLE);
+    if (app.styleSheet().isEmpty())
+        app.setStyleSheet(STYLE);
 
     new MainWindow::SplashScreen();
 

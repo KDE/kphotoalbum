@@ -37,6 +37,16 @@ class QMouseEvent;
 namespace AnnotationDialog
 {
 
+/**
+ * @brief The ResizableFrame class represents a positionable tag in the annotation dialog.
+ * It has two basic states: associated to a tag, and unassociated.
+ * A context menu is provided to allow associating the ResizableFrame with a tag,
+ * as well as removing the tag, or removing the area completely.
+ *
+ * If an area is removed, the associated tag is usually removed from the image as well.
+ *
+ * The frame is styled based on this state (see property \c associated).
+ */
 class ResizableFrame : public QFrame
 {
     Q_OBJECT
@@ -68,6 +78,10 @@ public:
     void markTidied();
     bool isTidied() const;
 
+    /**
+     * @brief associated
+     * @return \c true, if a tag is associated with this area, \c false otherwise.
+     */
     bool associated() const;
 
 protected:

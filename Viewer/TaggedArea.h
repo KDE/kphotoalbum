@@ -1,4 +1,4 @@
-/* Copyright (C) 2014-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2014-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -23,6 +23,12 @@
 namespace Viewer
 {
 
+/**
+ * @brief The TaggedArea class represents a positionable tag in the viewer.
+ * It does not allow any manipulation of the tag data.
+ *
+ * The appearance is based on the properties selected() and highlighted().
+ */
 class TaggedArea : public QFrame
 {
     Q_OBJECT

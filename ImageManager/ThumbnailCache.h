@@ -34,6 +34,29 @@ namespace ImageManager
 
 class ThumbnailMapping;
 
+/**
+ * @brief The ThumbnailCache implements thumbnail storage optimized for speed.
+ *
+ * ## On-disk storage
+ * The problem with the FreeDesktop.org thumbnail storage is that there is one file per image.
+ * This means that showing a full page of thumbnails, containing dozens of images requires many
+ * file operations.
+ *
+ * Our storage scheme introduces a single index file (\c thumbnailindex) that contains
+ * the index of known thumbnails and their location in the thumbnail storage files (\c thumb-N).
+ * The thumbnail storage files contain raw JPEG thumbnail data.
+ *
+ * This layout creates far less files on the filesystem,
+ * the files can be memory-mapped, and because similar sets of images are often
+ * shown together, data locality is used to our advantage.
+ *
+ * ## Caveats
+ * Note that thumbnails are only ever added, never deleted from the thumbnail files.
+ * Old images remain in the thumbnail files - they are just removed from the index file.
+ *
+ * ## Further reading
+ * - https://specifications.freedesktop.org/thumbnail-spec/thumbnail-spec-latest.html
+ */
 class ThumbnailCache : public QObject
 {
     Q_OBJECT
@@ -41,19 +64,63 @@ class ThumbnailCache : public QObject
 public:
     static ThumbnailCache *instance();
     static void deleteInstance();
+    /**
+     * @brief ThumbnailCache
+     * Provide access to a KPhotoAlbum-style thumbnail cache in the given directory.
+     * @param baseDirectory the directory in which the \c thumbnailindex file resides.
+     */
     ThumbnailCache(const QString &baseDirectory);
+    /**
+     * @brief Insert a thumbnail for the given file.
+     * @param name the image file name
+     * @param image the thumbnail data
+     */
     void insert(const DB::FileName &name, const QImage &image);
+    /**
+     * @brief lookup and return the thumbnail for the given file.
+     * @param name the image file name
+     * @return a QPixmap containing the thumbnail, or a null QPixmap if no thumbnail was found.
+     */
     QPixmap lookup(const DB::FileName &name) const;
+    /**
+     * @brief lookupRawData
+     * @param name the image file name
+     * @return the raw JPEG thumbnail data or a null QByteArray.
+     */
     QByteArray lookupRawData(const DB::FileName &name) const;
+    /**
+     * @brief Check if the ThumbnailCache contains a thumbnail for the given file.
+     * @param name the image file name
+     * @return \c true if the thumbnail exists, \c false otherwise.
+     */
     bool contains(const DB::FileName &name) const;
-    void removeThumbnail(const DB::FileName &);
-    void removeThumbnails(const DB::FileNameList &);
+    /**
+     * @brief "Forget" the thumbnail for an image.
+     * @param name the image file name
+     */
+    void removeThumbnail(const DB::FileName &name);
+    /**
+     * @brief "Forget" the thumbnails for the given images.
+     * Like removeThumbnail(), but for a list of images
+     * @param names a list of image file names
+     */
+    void removeThumbnails(const DB::FileNameList &names);
 
 public slots:
+    /**
+     * @brief Save the thumbnail cache to disk.
+     */
     void save() const;
+    /**
+     * @brief Invalidate the ThumbnailCache and remove the thumbnail files and index.
+     */
     void flush();
 
 signals:
+    /**
+     * @brief doSave is emitted when save() is called.
+     * This signal is more or less an internal signal.
+     */
     void doSave() const;
 
 private:

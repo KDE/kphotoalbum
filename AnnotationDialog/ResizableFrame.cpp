@@ -27,11 +27,13 @@
 #include "CompletableLineEdit.h"
 #include "ImagePreview.h"
 #include "ImagePreviewWidget.h"
+#include "Logging.h"
 
 // Qt includes
 #include <QApplication>
 #include <QDockWidget>
 #include <QList>
+#include <QLoggingCategory>
 #include <QMenu>
 #include <QMouseEvent>
 #include <QTimer>
@@ -47,16 +49,6 @@ constexpr int SCALE_BOTTOM = 0b00000010;
 constexpr int SCALE_RIGHT = 0b00000100;
 constexpr int SCALE_LEFT = 0b00001000;
 constexpr int MOVE = 0b10000000;
-
-const QString STYLE_UNASSOCIATED = QString::fromUtf8(
-    "AnnotationDialog--ResizableFrame { color: rgb(255,0,0); }"
-    "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }");
-const QString STYLE_PROPOSED = QString::fromUtf8(
-    "AnnotationDialog--ResizableFrame { color: rgb(255,255,0); }"
-    "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }");
-const QString STYLE_ASSOCIATED = QString::fromUtf8(
-    "AnnotationDialog--ResizableFrame { color: rgb(0,255,0); }"
-    "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }");
 }
 
 AnnotationDialog::ResizableFrame::ResizableFrame(QWidget *parent)
@@ -67,7 +59,6 @@ AnnotationDialog::ResizableFrame::ResizableFrame(QWidget *parent)
 
     setFrameShape(QFrame::Box);
     setMouseTracking(true);
-    setStyleSheet(STYLE_UNASSOCIATED);
 
     m_removeAct = new QAction(
         i18nc("area of an image; rectangle that is overlayed upon the image",
@@ -311,6 +302,13 @@ void AnnotationDialog::ResizableFrame::contextMenuEvent(QContextMenuEvent *)
     showContextMenu();
 }
 
+void AnnotationDialog::ResizableFrame::repolish()
+{
+    style()->unpolish(this);
+    style()->polish(this);
+    update();
+}
+
 QAction *AnnotationDialog::ResizableFrame::createAssociateTagAction(
     const QPair<QString, QString> &tag,
     QString prefix)
@@ -333,6 +331,11 @@ QAction *AnnotationDialog::ResizableFrame::createAssociateTagAction(
     action->setData(data);
 
     return action;
+}
+
+bool AnnotationDialog::ResizableFrame::associated() const
+{
+    return !m_tagData.first.isEmpty();
 }
 
 void AnnotationDialog::ResizableFrame::associateTag()
@@ -376,8 +379,8 @@ void AnnotationDialog::ResizableFrame::setTagData(QString category, QString tag,
     // Update the tool tip
     setToolTip(tag + QString::fromUtf8(" (") + category + QString::fromUtf8(")"));
 
-    // Set the color to "associated"
-    setStyleSheet(STYLE_ASSOCIATED);
+    repolish();
+    qCDebug(AnnotationDialogLog) << "ResizeableFrame is now associated to" << m_tagData;
 
     // Remove the associated tag from the tag candidate list
     m_dialog->removeTagFromCandidateList(m_tagData.first, m_tagData.second);
@@ -402,13 +405,8 @@ void AnnotationDialog::ResizableFrame::removeTagData()
     m_tagData.first.clear();
     m_tagData.second.clear();
     setToolTip(QString());
-
-    // Set the color to "un-associated" or "proposed"
-    if (m_proposedTagData.first.isEmpty()) {
-        setStyleSheet(STYLE_UNASSOCIATED);
-    } else {
-        setStyleSheet(STYLE_PROPOSED);
-    }
+    repolish();
+    qCDebug(AnnotationDialogLog) << "ResizeableFrame is now unassociated";
 
     // Tell the dialog an area has been changed
     m_dialog->areaChanged();
@@ -451,12 +449,6 @@ QPair<QString, QString> AnnotationDialog::ResizableFrame::tagData() const
     return m_tagData;
 }
 
-void AnnotationDialog::ResizableFrame::setProposedTagData(QPair<QString, QString> tagData)
-{
-    m_proposedTagData = tagData;
-    setStyleSheet(STYLE_PROPOSED);
-}
-
 QPair<QString, QString> AnnotationDialog::ResizableFrame::proposedTagData() const
 {
     return m_proposedTagData;
@@ -465,7 +457,6 @@ QPair<QString, QString> AnnotationDialog::ResizableFrame::proposedTagData() cons
 void AnnotationDialog::ResizableFrame::removeProposedTagData()
 {
     m_proposedTagData = QPair<QString, QString>();
-    setStyleSheet(STYLE_UNASSOCIATED);
     setToolTip(QString());
 }
 

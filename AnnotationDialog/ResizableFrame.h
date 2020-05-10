@@ -1,4 +1,4 @@
-/* Copyright (C) 2014 Tobias Leupold <tobias.leupold@web.de>
+/* Copyright (C) 2014-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -37,9 +37,26 @@ class QMouseEvent;
 namespace AnnotationDialog
 {
 
+/**
+ * @brief The ResizableFrame class represents a positionable tag in the annotation dialog.
+ * It has two basic states: associated to a tag, and unassociated.
+ *
+ * An AreaTagSelectDialog provides the context menu to allow associating the ResizableFrame with a tag,
+ * as well as removing the tag, or removing the area completely.
+ *
+ * If an area is removed, the associated tag is usually removed from the image as well.
+ *
+ * ## Styling
+ * The frame is styled based on this state (see property \c associated).
+ * The following styles are expected to be set for a proper appearance of ResizableFrame:
+ *  - `AnnotationDialog--ResizableFrame`
+ *  - `AnnotationDialog--ResizableFrame:hover`
+ *  - `AnnotationDialog--ResizableFrame[associated="true"]`
+ */
 class ResizableFrame : public QFrame
 {
     Q_OBJECT
+    Q_PROPERTY(bool associated READ associated)
 
 public:
     explicit ResizableFrame(QWidget *parent = 0);
@@ -55,7 +72,6 @@ public:
     QPair<QString, QString> tagData() const;
     void removeTagData();
     void setTagData(QString category, QString tag, ChangeOrigin changeOrigin = ManualChange);
-    void setProposedTagData(QPair<QString, QString> tagData);
     QPair<QString, QString> proposedTagData() const;
     void removeProposedTagData();
 
@@ -68,11 +84,22 @@ public:
     void markTidied();
     bool isTidied() const;
 
+    /**
+     * @brief associated
+     * @return \c true, if a tag is associated with this area, \c false otherwise.
+     */
+    bool associated() const;
+
 protected:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void contextMenuEvent(QContextMenuEvent *) override;
+    /**
+     * @brief repolish tells the widget to reevaluate its style.
+     * This required when the style is dynamically changed because a property changed.
+     */
+    void repolish();
 
 private slots:
     void associateTag();

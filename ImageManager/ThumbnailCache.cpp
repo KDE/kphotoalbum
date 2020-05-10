@@ -85,8 +85,9 @@ public:
 
 ImageManager::ThumbnailCache *ImageManager::ThumbnailCache::s_instance = nullptr;
 
-ImageManager::ThumbnailCache::ThumbnailCache()
-    : m_currentFile(0)
+ImageManager::ThumbnailCache::ThumbnailCache(const QDir &baseDirectory)
+    : m_baseDir(baseDirectory)
+    , m_currentFile(0)
     , m_currentOffset(0)
     , m_timer(new QTimer)
     , m_needsFullSave(true)
@@ -426,14 +427,13 @@ bool ImageManager::ThumbnailCache::contains(const DB::FileName &name) const
 
 QString ImageManager::ThumbnailCache::thumbnailPath(const QString &file, const QString dir) const
 {
-    QString base = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath(dir);
-    return base + file;
+    return m_baseDir.absoluteFilePath(dir) + file;
 }
 
 ImageManager::ThumbnailCache *ImageManager::ThumbnailCache::instance()
 {
     if (!s_instance) {
-        s_instance = new ThumbnailCache;
+        s_instance = new ThumbnailCache { QDir(Settings::SettingsData::instance()->imageDirectory()) };
     }
     return s_instance;
 }

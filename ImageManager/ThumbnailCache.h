@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -21,6 +21,7 @@
 
 #include <DB/FileNameList.h>
 
+#include <QDir>
 #include <QFile>
 #include <QHash>
 #include <QImage>
@@ -41,7 +42,7 @@ class ThumbnailCache : public QObject
 public:
     static ThumbnailCache *instance();
     static void deleteInstance();
-    ThumbnailCache();
+    ThumbnailCache(const QDir &baseDirectory);
     void insert(const DB::FileName &name, const QImage &image);
     QPixmap lookup(const DB::FileName &name) const;
     QByteArray lookupRawData(const DB::FileName &name) const;
@@ -63,6 +64,7 @@ private:
     QString thumbnailPath(const QString &fileName, const QString dir = QString::fromLatin1(".thumbnails/")) const;
 
     static ThumbnailCache *s_instance;
+    const QDir m_baseDir;
     QHash<DB::FileName, CacheFileInfo> m_hash;
     mutable QHash<DB::FileName, CacheFileInfo> m_unsavedHash;
     /* Protects accesses to the data (hash and unsaved hash) */

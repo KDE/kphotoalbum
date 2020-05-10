@@ -46,7 +46,6 @@ public:
     QPixmap lookup(const DB::FileName &name) const;
     QByteArray lookupRawData(const DB::FileName &name) const;
     bool contains(const DB::FileName &name) const;
-    void load();
     void removeThumbnail(const DB::FileName &);
     void removeThumbnails(const DB::FileNameList &);
 
@@ -58,6 +57,14 @@ signals:
     void doSave() const;
 
 private:
+    /**
+     * @brief load the \c thumbnailindex file if possible.
+     * This function populates the thumbnail hash, but does not
+     * load any actual thumbnail data.
+     * If the file does not exist, or if it is not compatible,
+     * then it is discarded.
+     */
+    void load();
     ~ThumbnailCache() override;
     QString fileNameForIndex(int index) const;
     QString thumbnailPath(const QString &fileName) const;

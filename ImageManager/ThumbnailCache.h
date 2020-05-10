@@ -21,7 +21,6 @@
 
 #include <DB/FileNameList.h>
 
-#include <QDir>
 #include <QFile>
 #include <QHash>
 #include <QImage>
@@ -42,7 +41,7 @@ class ThumbnailCache : public QObject
 public:
     static ThumbnailCache *instance();
     static void deleteInstance();
-    ThumbnailCache(const QDir &baseDirectory);
+    ThumbnailCache(const QString &baseDirectory);
     void insert(const DB::FileName &name, const QImage &image);
     QPixmap lookup(const DB::FileName &name) const;
     QByteArray lookupRawData(const DB::FileName &name) const;
@@ -60,11 +59,11 @@ signals:
 
 private:
     ~ThumbnailCache() override;
-    QString fileNameForIndex(int index, const QString dir = QString::fromLatin1(".thumbnails/")) const;
-    QString thumbnailPath(const QString &fileName, const QString dir = QString::fromLatin1(".thumbnails/")) const;
+    QString fileNameForIndex(int index) const;
+    QString thumbnailPath(const QString &fileName) const;
 
     static ThumbnailCache *s_instance;
-    const QDir m_baseDir;
+    const QString m_baseDir;
     QHash<DB::FileName, CacheFileInfo> m_hash;
     mutable QHash<DB::FileName, CacheFileInfo> m_unsavedHash;
     /* Protects accesses to the data (hash and unsaved hash) */

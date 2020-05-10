@@ -45,6 +45,7 @@ constexpr size_t LRU_SIZE = 2;
 
 constexpr int THUMBNAIL_CACHE_SAVE_INTERNAL_MS = (5 * 1000);
 
+const QString THUMBNAIL_DIR = QString::fromLatin1(".thumbnails/");
 }
 
 namespace ImageManager
@@ -85,7 +86,7 @@ public:
 
 ImageManager::ThumbnailCache *ImageManager::ThumbnailCache::s_instance = nullptr;
 
-ImageManager::ThumbnailCache::ThumbnailCache(const QDir &baseDirectory)
+ImageManager::ThumbnailCache::ThumbnailCache(const QString &baseDirectory)
     : m_baseDir(baseDirectory)
     , m_currentFile(0)
     , m_currentOffset(0)
@@ -196,9 +197,9 @@ void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QImage
     }
 }
 
-QString ImageManager::ThumbnailCache::fileNameForIndex(int index, const QString dir) const
+QString ImageManager::ThumbnailCache::fileNameForIndex(int index) const
 {
-    return thumbnailPath(QString::fromLatin1("thumb-") + QString::number(index), dir);
+    return thumbnailPath(QString::fromLatin1("thumb-") + QString::number(index));
 }
 
 QPixmap ImageManager::ThumbnailCache::lookup(const DB::FileName &name) const
@@ -415,15 +416,16 @@ bool ImageManager::ThumbnailCache::contains(const DB::FileName &name) const
     return answer;
 }
 
-QString ImageManager::ThumbnailCache::thumbnailPath(const QString &file, const QString dir) const
+QString ImageManager::ThumbnailCache::thumbnailPath(const QString &file) const
 {
-    return m_baseDir.absoluteFilePath(dir) + file;
+    return m_baseDir + file;
 }
 
 ImageManager::ThumbnailCache *ImageManager::ThumbnailCache::instance()
 {
     if (!s_instance) {
-        s_instance = new ThumbnailCache { QDir(Settings::SettingsData::instance()->imageDirectory()) };
+        const QString thumbnailDirectory = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath(THUMBNAIL_DIR);
+        s_instance = new ThumbnailCache { thumbnailDirectory };
     }
     return s_instance;
 }

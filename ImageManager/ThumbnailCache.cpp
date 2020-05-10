@@ -203,20 +203,10 @@ QString ImageManager::ThumbnailCache::fileNameForIndex(int index, const QString 
 
 QPixmap ImageManager::ThumbnailCache::lookup(const DB::FileName &name) const
 {
-    m_dataLock.lock();
-    CacheFileInfo info = m_hash[name];
-    m_dataLock.unlock();
+    auto array = lookupRawData(name);
+    if (array.isNull())
+        return QPixmap();
 
-    ThumbnailMapping *t = m_memcache->object(info.fileIndex);
-    if (!t || !t->isValid()) {
-        t = new ThumbnailMapping(fileNameForIndex(info.fileIndex));
-        if (!t->isValid()) {
-            qCWarning(ImageManagerLog, "Failed to map thumbnail file");
-            return QPixmap();
-        }
-        m_memcache->insert(info.fileIndex, t);
-    }
-    QByteArray array(t->map.mid(info.offset, info.size));
     QBuffer buffer(&array);
     buffer.open(QIODevice::ReadOnly);
     QImage image;

@@ -327,7 +327,7 @@ bool MainWindow::Window::slotExit()
         }
     }
     // Flush any remaining thumbnails
-    ImageManager::ThumbnailCache::instance()->save();
+    thumbnailCache()->save();
 
 doQuit:
     ImageManager::AsyncLoader::instance()->requestExit();
@@ -491,7 +491,7 @@ void MainWindow::Window::slotSave()
     Utilities::ShowBusyCursor dummy;
     m_statusBar->showMessage(i18n("Saving..."), 5000);
     DB::ImageDB::instance()->save(Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("index.xml"), false);
-    ImageManager::ThumbnailCache::instance()->save();
+    thumbnailCache()->save();
     m_statusBar->mp_dirtyIndicator->saved();
     QDir().remove(Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"));
     m_statusBar->showMessage(i18n("Saving... Done"), 5000);
@@ -1026,7 +1026,7 @@ void MainWindow::Window::slotAutoSave()
         Utilities::ShowBusyCursor dummy;
         m_statusBar->showMessage(i18n("Auto saving...."));
         DB::ImageDB::instance()->save(Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"), true);
-        ImageManager::ThumbnailCache::instance()->save();
+        thumbnailCache()->save();
         m_statusBar->showMessage(i18n("Auto saving.... Done"), 5000);
         m_statusBar->mp_dirtyIndicator->autoSaved();
     }
@@ -1306,7 +1306,7 @@ void MainWindow::Window::rotateSelected(int angle)
     } else {
         for (const DB::FileName &fileName : list) {
             fileName.info()->rotate(angle);
-            ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
+            thumbnailCache()->removeThumbnail(fileName);
         }
         m_statusBar->mp_dirtyIndicator->markDirty();
     }
@@ -1453,7 +1453,7 @@ void MainWindow::Window::slotImagesChanged(const QList<QUrl> &urls)
         if (!fileName.isNull()) {
             // Plugins may report images outsite of the photodatabase
             // This seems to be the case with the border image plugin, which reports the destination image
-            ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
+            thumbnailCache()->removeThumbnail(fileName);
             // update MD5sum:
             MD5 md5sum = MD5Sum(fileName);
             fileName.info()->setMD5Sum(md5sum);
@@ -1606,7 +1606,7 @@ void MainWindow::Window::slotBuildThumbnails()
 
 void MainWindow::Window::slotBuildThumbnailsIfWanted()
 {
-    ImageManager::ThumbnailCache::instance()->flush();
+    thumbnailCache()->flush();
     if (!Settings::SettingsData::instance()->incrementalThumbnails())
         ImageManager::ThumbnailBuilder::instance()->buildAll(ImageManager::StartDelayed);
 }
@@ -1774,7 +1774,7 @@ void MainWindow::Window::slotImageRotated(const DB::FileName &fileName)
 {
     // An image has been rotated by the annotation dialog or the viewer.
     // We have to reload the respective thumbnail to get it in the right angle
-    ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
+    thumbnailCache()->removeThumbnail(fileName);
 }
 
 bool MainWindow::Window::dbIsDirty() const

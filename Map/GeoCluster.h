@@ -32,6 +32,11 @@ class GeoPainter;
 class ViewportParams;
 }
 
+namespace ImageManager
+{
+class ThumbnailCache;
+}
+
 namespace Map
 {
 
@@ -40,6 +45,11 @@ class GeoCoordinates;
 enum class MapStyle {
     ShowPins,
     ShowThumbnails
+};
+
+struct ThumbnailParams {
+    const QPixmap &alternatePixmap;
+    const ImageManager::ThumbnailCache *cache;
 };
 
 class GeoCluster
@@ -72,7 +82,7 @@ public:
      */
     virtual Marble::GeoDataLatLonBox regionForPoint(QPoint pos, const Marble::ViewportParams &viewPortParams) const;
 
-    void render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const;
+    void render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, MapStyle style) const;
     /**
      * @brief size
      * The result is only computed once at the first call to the method.
@@ -92,10 +102,10 @@ protected:
      * @brief renderSubItems renders the sub-items of this GeoCluster.
      * @param painter
      * @param viewPortParams
-     * @param alternatePixmap
+     * @param ThumbnailParams
      * @param style
      */
-    virtual void renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const;
+    virtual void renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, MapStyle style) const;
 };
 
 /**
@@ -114,7 +124,7 @@ private:
     QList<DB::ImageInfoPtr> m_images;
 
 protected:
-    void renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, MapStyle style) const override;
+    void renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, MapStyle style) const override;
 };
 
 /**

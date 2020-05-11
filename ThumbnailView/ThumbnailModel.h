@@ -30,6 +30,11 @@
 #include <QAbstractListModel>
 #include <QPixmap>
 
+namespace ImageManager
+{
+class ThumbnailCache;
+}
+
 namespace ThumbnailView
 {
 class ThumbnailFactory;
@@ -40,7 +45,7 @@ class ThumbnailModel : public QAbstractListModel, public ImageManager::ImageClie
     Q_OBJECT
 
 public:
-    explicit ThumbnailModel(ThumbnailFactory *factory);
+    explicit ThumbnailModel(ThumbnailFactory *factory, const ImageManager::ThumbnailCache *thumbnailCache);
 
     // -------------------------------------------------- QAbstractListModel
     using QAbstractListModel::beginResetModel;
@@ -199,6 +204,8 @@ private: // Instance variables.
 
     DB::ImageSearchInfo m_filter;
     DB::ImageSearchInfo m_previousFilter;
+
+    const ImageManager::ThumbnailCache *m_thumbnailCache;
 };
 
 }

@@ -179,7 +179,8 @@ MainWindow::Window::Window(QWidget *parent)
     setHistogramVisibilty(Settings::SettingsData::instance()->showHistogram());
 
     m_browser = new Browser::BrowserWidget(m_stack);
-    m_thumbnailView = new ThumbnailView::ThumbnailFacade();
+    Q_ASSERT(m_thumbnailCache);
+    m_thumbnailView = new ThumbnailView::ThumbnailFacade(m_thumbnailCache);
 
     m_stack->addWidget(m_browser);
     m_stack->addWidget(m_thumbnailView->gui());

@@ -25,6 +25,11 @@
 class KActionCollection;
 class QSlider;
 
+namespace ImageManager
+{
+class ThumbnailCache;
+}
+
 namespace ThumbnailView
 {
 class ThumbnailModel;
@@ -38,7 +43,7 @@ class ThumbnailFacade : public QObject, public ThumbnailFactory
     Q_OBJECT
 public:
     static ThumbnailFacade *instance();
-    ThumbnailFacade();
+    ThumbnailFacade(ImageManager::ThumbnailCache *thumbnailCache);
     QWidget *gui();
     void setCurrentItem(const DB::FileName &fileName);
     void reload(SelectionUpdateMethod method);
@@ -96,6 +101,7 @@ private:
     ThumbnailWidget *m_widget;
     ThumbnailPainter *m_painter;
     ThumbnailToolTip *m_toolTip;
+    ImageManager::ThumbnailCache *m_thumbnailCache;
 };
 }
 

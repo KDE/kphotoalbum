@@ -35,11 +35,12 @@
 #include <QIcon>
 #include <QLoggingCategory>
 
-ThumbnailView::ThumbnailModel::ThumbnailModel(ThumbnailFactory *factory)
+ThumbnailView::ThumbnailModel::ThumbnailModel(ThumbnailFactory *factory, const ImageManager::ThumbnailCache *thumbnailCache)
     : ThumbnailComponent(factory)
     , m_sortDirection(Settings::SettingsData::instance()->showNewestThumbnailFirst() ? NewestFirst : OldestFirst)
     , m_firstVisibleRow(-1)
     , m_lastVisibleRow(-1)
+    , m_thumbnailCache(thumbnailCache)
 {
     connect(DB::ImageDB::instance(), SIGNAL(imagesDeleted(DB::FileNameList)), this, SLOT(imagesDeletedFromDB(DB::FileNameList)));
     m_ImagePlaceholder = QIcon::fromTheme(QLatin1String("image-x-generic")).pixmap(cellGeometryInfo()->preferredIconSize());
@@ -422,9 +423,9 @@ QPixmap ThumbnailView::ThumbnailModel::pixmap(const DB::FileName &fileName) cons
     if (imageInfo == DB::ImageInfoPtr(nullptr))
         return QPixmap();
 
-    if (ImageManager::ThumbnailCache::instance()->contains(fileName)) {
+    if (m_thumbnailCache->contains(fileName)) {
         // the cached thumbnail needs to be scaled to the actual thumbnail size:
-        return ImageManager::ThumbnailCache::instance()->lookup(fileName).scaled(cellGeometryInfo()->preferredIconSize(), Qt::KeepAspectRatio);
+        return m_thumbnailCache->lookup(fileName).scaled(cellGeometryInfo()->preferredIconSize(), Qt::KeepAspectRatio);
     }
 
     const_cast<ThumbnailView::ThumbnailModel *>(this)->requestThumbnail(fileName, ImageManager::ThumbnailVisible);
@@ -539,7 +540,7 @@ void ThumbnailView::ThumbnailModel::preloadThumbnails()
         if (fileName.isNull())
             continue;
 
-        if (ImageManager::ThumbnailCache::instance()->contains(fileName))
+        if (m_thumbnailCache->contains(fileName))
             continue;
         const_cast<ThumbnailView::ThumbnailModel *>(this)->requestThumbnail(fileName, ImageManager::ThumbnailInvisible);
     }

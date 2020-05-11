@@ -69,7 +69,7 @@ void UpdateVideoThumbnail::update(const DB::FileName &fileName, int direction)
     Utilities::copyOrOverwrite(newImageName.absolute(), baseImageName.absolute());
 
     QImage image = QImage(newImageName.absolute()).scaled(ThumbnailView::CellGeometry::preferredIconSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    ImageManager::ThumbnailCache::instance()->insert(fileName, image);
+    MainWindow::Window::theMainWindow()->thumbnailCache()->insert(fileName, image);
     MainWindow::Window::theMainWindow()->reloadThumbnails();
 }
 

@@ -44,8 +44,6 @@ constexpr int THUMBNAIL_FILE_VERSION = 4;
 constexpr size_t LRU_SIZE = 2;
 
 constexpr int THUMBNAIL_CACHE_SAVE_INTERNAL_MS = (5 * 1000);
-
-const QString THUMBNAIL_DIR = QString::fromLatin1(".thumbnails/");
 }
 
 namespace ImageManager
@@ -82,6 +80,11 @@ public:
     QFile file;
     QByteArray map;
 };
+
+QString defaultThumbnailDirectory()
+{
+    return QString::fromLatin1(".thumbnails/");
+}
 }
 
 ImageManager::ThumbnailCache *ImageManager::ThumbnailCache::s_instance = nullptr;
@@ -423,17 +426,7 @@ QString ImageManager::ThumbnailCache::thumbnailPath(const QString &file) const
 
 ImageManager::ThumbnailCache *ImageManager::ThumbnailCache::instance()
 {
-    if (!s_instance) {
-        const QString thumbnailDirectory = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath(THUMBNAIL_DIR);
-        s_instance = new ThumbnailCache { thumbnailDirectory };
-    }
     return s_instance;
-}
-
-void ImageManager::ThumbnailCache::deleteInstance()
-{
-    delete s_instance;
-    s_instance = nullptr;
 }
 
 void ImageManager::ThumbnailCache::flush()

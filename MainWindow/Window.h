@@ -73,9 +73,9 @@ namespace HTMLGenerator
 {
 class HTMLDialog;
 }
-namespace Plugins
+namespace ImageManager
 {
-class Interface;
+class ThumbnailCache;
 }
 namespace Settings
 {
@@ -104,6 +104,9 @@ public:
     ~Window() override;
     static void configureImages(const DB::ImageInfoList &list, bool oneAtATime);
     static Window *theMainWindow();
+
+    ImageManager::ThumbnailCache *thumbnailCache() const;
+
     DB::FileNameList selected(ThumbnailView::SelectionMode mode = ThumbnailView::ExpandCollapsedStacks) const;
     DB::ImageSearchInfo currentContext();
     QString currentBrowseCategory() const;
@@ -235,6 +238,7 @@ protected:
 private:
     static Window *s_instance;
 
+    ImageManager::ThumbnailCache *m_thumbnailCache;
     ThumbnailView::ThumbnailFacade *m_thumbnailView;
     Settings::SettingsDialog *m_settingsDialog;
     QPointer<AnnotationDialog::Dialog> m_annotationDialog;
@@ -274,7 +278,6 @@ private:
     QAction *m_clearSelection;
     QAction *m_runSlideShow;
     QAction *m_runRandomSlideShow;
-    Plugins::Interface *m_pluginInterface;
     QAction *m_showExifDialog;
     QAction *m_recreateThumbnails;
     QAction *m_useNextVideoThumbnail;

@@ -62,14 +62,16 @@ class ThumbnailCache : public QObject
     Q_OBJECT
 
 public:
+    // FIXME: until we get rid of the singleton, just allow direct access to this:
+    static ThumbnailCache *s_instance;
     static ThumbnailCache *instance();
-    static void deleteInstance();
     /**
      * @brief ThumbnailCache
      * Provide access to a KPhotoAlbum-style thumbnail cache in the given directory.
      * @param baseDirectory the directory in which the \c thumbnailindex file resides.
      */
     ThumbnailCache(const QString &baseDirectory);
+    ~ThumbnailCache() override;
     /**
      * @brief Insert a thumbnail for the given file.
      * @param name the image file name
@@ -132,11 +134,9 @@ private:
      * then it is discarded.
      */
     void load();
-    ~ThumbnailCache() override;
     QString fileNameForIndex(int index) const;
     QString thumbnailPath(const QString &fileName) const;
 
-    static ThumbnailCache *s_instance;
     const QString m_baseDir;
     QHash<DB::FileName, CacheFileInfo> m_hash;
     mutable QHash<DB::FileName, CacheFileInfo> m_unsavedHash;
@@ -163,6 +163,11 @@ private:
     mutable QFile *m_currentWriter;
 };
 
+/**
+ * @brief defaultThumbnailDirectory
+ * @return the default thumbnail (sub-)directory name, e.g. ".thumbnails"
+ */
+QString defaultThumbnailDirectory();
 }
 
 #endif /* THUMBNAILCACHE_H */

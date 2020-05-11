@@ -247,7 +247,7 @@ MainWindow::Window::Window(QWidget *parent)
 MainWindow::Window::~Window()
 {
     DB::ImageDB::deleteInstance();
-    ImageManager::ThumbnailCache::deleteInstance();
+    delete m_thumbnailCache;
     Exif::Database::deleteInstance();
 }
 
@@ -1133,6 +1133,11 @@ bool MainWindow::Window::load()
     }
     DB::ImageDB::setupXMLDB(configFile, *this);
 
+    const QString thumbnailDirectory = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath(ImageManager::defaultThumbnailDirectory());
+    m_thumbnailCache = new ImageManager::ThumbnailCache { thumbnailDirectory };
+    // FIXME: this is just a placeholder solution until the singleton is removed:
+    ImageManager::ThumbnailCache::s_instance = m_thumbnailCache;
+
     // some sanity checks:
     if (!Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
         && !(Settings::SettingsData::instance()->untaggedCategory().isEmpty()
@@ -1380,6 +1385,11 @@ MainWindow::Window *MainWindow::Window::theMainWindow()
 {
     Q_ASSERT(s_instance);
     return s_instance;
+}
+
+ImageManager::ThumbnailCache *MainWindow::Window::thumbnailCache() const
+{
+    return m_thumbnailCache;
 }
 
 void MainWindow::Window::slotImport()

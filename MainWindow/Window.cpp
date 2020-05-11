@@ -1719,7 +1719,8 @@ void MainWindow::Window::createSearchBar()
 
 void MainWindow::Window::executeStartupActions()
 {
-    new ImageManager::ThumbnailBuilder(m_statusBar, this);
+    Q_ASSERT(m_thumbnailCache);
+    new ImageManager::ThumbnailBuilder(m_statusBar, this, m_thumbnailCache);
     if (!Settings::SettingsData::instance()->incrementalThumbnails())
         ImageManager::ThumbnailBuilder::instance()->buildMissing();
     connect(Settings::SettingsData::instance(), &Settings::SettingsData::thumbnailSizeChanged,

@@ -71,7 +71,7 @@ bool DeleteFiles::deleteFilesPrivate(const DB::FileNameList &files, DeleteMethod
             filenamesToRemove.append(fileName);
     }
 
-    ImageManager::ThumbnailCache::instance()->removeThumbnails(files);
+    MainWindow::Window::theMainWindow()->thumbnailCache()->removeThumbnails(files);
 
     if (method == DeleteFromDisk || method == MoveToTrash) {
         KJob *job;

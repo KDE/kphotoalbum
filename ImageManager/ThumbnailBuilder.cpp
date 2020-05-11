@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -49,9 +49,6 @@ ImageManager::ThumbnailBuilder::ThumbnailBuilder(MainWindow::StatusBar *statusBa
     connect(m_statusBar, &MainWindow::StatusBar::cancelRequest, this, &ThumbnailBuilder::cancelRequests);
     s_instance = this;
 
-    // Make sure that this is created early, in the main thread, so it
-    // can receive signals.
-    ThumbnailCache::instance();
     m_startBuildTimer = new QTimer(this);
     m_startBuildTimer->setSingleShot(true);
     connect(m_startBuildTimer, &QTimer::timeout, this, &ThumbnailBuilder::doThumbnailBuild);

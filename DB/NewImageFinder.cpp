@@ -726,7 +726,7 @@ bool NewImageFinder::calculateMD5sums(
         if (info->MD5Sum() != md5) {
             info->setMD5Sum(md5);
             dirty = true;
-            ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
+            MainWindow::Window::theMainWindow()->thumbnailCache()->removeThumbnail(fileName);
         }
 
         md5Map->insert(md5, fileName);

@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -38,9 +38,10 @@
 namespace BackgroundJobs
 {
 
-HandleVideoThumbnailRequestJob::HandleVideoThumbnailRequestJob(ImageManager::ImageRequest *request, BackgroundTaskManager::Priority priority)
+HandleVideoThumbnailRequestJob::HandleVideoThumbnailRequestJob(ImageManager::ImageRequest *request, BackgroundTaskManager::Priority priority, ImageManager::ThumbnailCache *thumbnailCache)
     : BackgroundTaskManager::JobInterface(priority)
     , m_request(request)
+    , m_thumbnailCache(thumbnailCache)
 {
 }
 
@@ -98,8 +99,9 @@ void HandleVideoThumbnailRequestJob::sendResult(QImage image)
 {
     //if ( m_request->isRequestStillValid(m_request) ) {
     image = image.scaled(QSize(m_request->width(), m_request->height()), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    if (m_request->isThumbnailRequest())
-        ImageManager::ThumbnailCache::instance()->insert(m_request->databaseFileName(), image);
+    if (m_request->isThumbnailRequest()) {
+        m_thumbnailCache->insert(m_request->databaseFileName(), image);
+    }
     m_request->setLoadedOK(!image.isNull());
     m_request->client()->pixmapLoaded(m_request, image);
     //}

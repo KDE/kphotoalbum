@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -118,7 +118,7 @@ bool ImageManager::AsyncLoader::loadVideo(ImageRequest *request)
         : BackgroundTaskManager::BackgroundVideoThumbnailRequest;
 
     BackgroundTaskManager::JobManager::instance()->addJob(
-        new BackgroundJobs::HandleVideoThumbnailRequestJob(request, priority));
+        new BackgroundJobs::HandleVideoThumbnailRequestJob(request, priority, MainWindow::Window::theMainWindow()->thumbnailCache()));
     return true;
 }
 
@@ -235,7 +235,7 @@ void ImageManager::AsyncLoader::customEvent(QEvent *ev)
         }
 
         if (request->isThumbnailRequest())
-            ImageManager::ThumbnailCache::instance()->insert(request->databaseFileName(), image);
+            MainWindow::Window::theMainWindow()->thumbnailCache()->insert(request->databaseFileName(), image);
 
         if (requestStillNeeded && request->client()) {
             request->client()->pixmapLoaded(request, image);

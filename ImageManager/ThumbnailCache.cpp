@@ -44,6 +44,8 @@ constexpr int THUMBNAIL_FILE_VERSION = 4;
 constexpr size_t LRU_SIZE = 2;
 
 constexpr int THUMBNAIL_CACHE_SAVE_INTERNAL_MS = (5 * 1000);
+
+const auto INDEXFILE_NAME = QString::fromLatin1("thumbnailindex");
 }
 
 namespace ImageManager
@@ -281,7 +283,7 @@ void ImageManager::ThumbnailCache::saveFull() const
     }
     file.close();
 
-    const QString realFileName = thumbnailPath(QString::fromLatin1("thumbnailindex"));
+    const QString realFileName = thumbnailPath(INDEXFILE_NAME);
     QFile::remove(realFileName);
     if (!file.copy(realFileName)) {
         qCWarning(ImageManagerLog, "Failed to copy the temporary file %s to %s", qPrintable(file.fileName()), qPrintable(realFileName));
@@ -314,7 +316,7 @@ void ImageManager::ThumbnailCache::saveIncremental() const
     m_unsavedHash.clear();
     m_isDirty = true;
 
-    const QString realFileName = thumbnailPath(QString::fromLatin1("thumbnailindex"));
+    const QString realFileName = thumbnailPath(INDEXFILE_NAME);
     QFile file(realFileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Append)) {
         qCWarning(ImageManagerLog, "Failed to open thumbnail cache for appending");
@@ -335,7 +337,7 @@ void ImageManager::ThumbnailCache::saveIncremental() const
 void ImageManager::ThumbnailCache::saveInternal() const
 {
     m_saveLock.lock();
-    const QString realFileName = thumbnailPath(QString::fromLatin1("thumbnailindex"));
+    const QString realFileName = thumbnailPath(INDEXFILE_NAME);
     // If something has asked for a full save, do it!
     if (m_needsFullSave || !QFile(realFileName).exists()) {
         saveFull();
@@ -364,7 +366,7 @@ void ImageManager::ThumbnailCache::save() const
 
 void ImageManager::ThumbnailCache::load()
 {
-    QFile file(thumbnailPath(QString::fromLatin1("thumbnailindex")));
+    QFile file(thumbnailPath(INDEXFILE_NAME));
     if (!file.exists())
         return;
 

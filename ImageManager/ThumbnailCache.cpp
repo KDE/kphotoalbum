@@ -87,8 +87,6 @@ QString defaultThumbnailDirectory()
 }
 }
 
-ImageManager::ThumbnailCache *ImageManager::ThumbnailCache::s_instance = nullptr;
-
 ImageManager::ThumbnailCache::ThumbnailCache(const QString &baseDirectory)
     : m_baseDir(baseDirectory)
     , m_currentFile(0)
@@ -422,11 +420,6 @@ bool ImageManager::ThumbnailCache::contains(const DB::FileName &name) const
 QString ImageManager::ThumbnailCache::thumbnailPath(const QString &file) const
 {
     return m_baseDir + file;
-}
-
-ImageManager::ThumbnailCache *ImageManager::ThumbnailCache::instance()
-{
-    return s_instance;
 }
 
 void ImageManager::ThumbnailCache::flush()

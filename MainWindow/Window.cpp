@@ -1136,8 +1136,6 @@ bool MainWindow::Window::load()
 
     const QString thumbnailDirectory = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath(ImageManager::defaultThumbnailDirectory());
     m_thumbnailCache = new ImageManager::ThumbnailCache { thumbnailDirectory };
-    // FIXME: this is just a placeholder solution until the singleton is removed:
-    ImageManager::ThumbnailCache::s_instance = m_thumbnailCache;
 
     // some sanity checks:
     if (!Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()

@@ -62,9 +62,6 @@ class ThumbnailCache : public QObject
     Q_OBJECT
 
 public:
-    // FIXME: until we get rid of the singleton, just allow direct access to this:
-    static ThumbnailCache *s_instance;
-    static ThumbnailCache *instance();
     /**
      * @brief ThumbnailCache
      * Provide access to a KPhotoAlbum-style thumbnail cache in the given directory.

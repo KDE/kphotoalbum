@@ -105,6 +105,15 @@ public:
      */
     void removeThumbnails(const DB::FileNameList &names);
 
+    /**
+     * @brief thumbnailSize
+     * Usually, this is the size of the thumbnails in the cache.
+     * If the index file was converted from an older file version (4),
+     * the size is read from the configuration file.
+     * @return the current thumbnail size.
+     */
+    int thumbnailSize() const;
+
 public slots:
     /**
      * @brief Save the thumbnail cache to disk.
@@ -115,12 +124,26 @@ public slots:
      */
     void flush();
 
+    /**
+     * @brief setThumbnailSize sets the thumbnail size recorded in the thumbnail index file.
+     * If the value changes, the thumbnail cache is invalidated.
+     * Except minimal sanity checks, no bounds for thumbnailSize are enforced.
+     * @param thumbnailSize
+     */
+    void setThumbnailSize(int thumbnailSize);
 signals:
     /**
      * @brief doSave is emitted when save() is called.
      * This signal is more or less an internal signal.
      */
     void doSave() const;
+
+    /**
+     * @brief cacheInvalidated is emitted when the thumbnails are no longer valid.
+     * This usually happens when the thumbnail size changed.
+     * This signal is *not* emitted when the cache was flushed by explicit request.
+     */
+    void cacheInvalidated();
 
 private:
     /**
@@ -134,6 +157,7 @@ private:
     QString fileNameForIndex(int index) const;
     QString thumbnailPath(const QString &fileName) const;
 
+    int m_thumbnailSize = -1;
     const QString m_baseDir;
     QHash<DB::FileName, CacheFileInfo> m_hash;
     mutable QHash<DB::FileName, CacheFileInfo> m_unsavedHash;

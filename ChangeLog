@@ -1,3 +1,7 @@
+* Change: Store thumbnail size in thumbnail cache.
+  Warning: After the thumbnail cache was converted to the new format,
+  older versions of KPhotoAlbum can no longer read it!
+
 * Change: Remove fake password-protection from privacy lock.
   Even with the warning message it might give somebody a false sense of
   security.

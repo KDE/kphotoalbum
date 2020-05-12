@@ -1136,6 +1136,8 @@ bool MainWindow::Window::load()
 
     const QString thumbnailDirectory = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath(ImageManager::defaultThumbnailDirectory());
     m_thumbnailCache = new ImageManager::ThumbnailCache { thumbnailDirectory };
+    // thumbnail size from cache overrides config value:
+    Settings::SettingsData::instance()->setThumbnailSize(m_thumbnailCache->thumbnailSize());
 
     // some sanity checks:
     if (!Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
@@ -1605,7 +1607,6 @@ void MainWindow::Window::slotBuildThumbnails()
 
 void MainWindow::Window::slotBuildThumbnailsIfWanted()
 {
-    thumbnailCache()->flush();
     if (!Settings::SettingsData::instance()->incrementalThumbnails())
         ImageManager::ThumbnailBuilder::instance()->buildAll(ImageManager::StartDelayed);
 }
@@ -1722,7 +1723,7 @@ void MainWindow::Window::executeStartupActions()
     new ImageManager::ThumbnailBuilder(m_statusBar, this, m_thumbnailCache);
     if (!Settings::SettingsData::instance()->incrementalThumbnails())
         ImageManager::ThumbnailBuilder::instance()->buildMissing();
-    connect(Settings::SettingsData::instance(), &Settings::SettingsData::thumbnailSizeChanged,
+    connect(m_thumbnailCache, &ImageManager::ThumbnailCache::cacheInvalidated,
             this, &Window::slotBuildThumbnailsIfWanted);
 
     if (!FeatureDialog::hasVideoThumbnailer()) {

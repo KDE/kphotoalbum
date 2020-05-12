@@ -149,7 +149,7 @@ void ImageManager::ThumbnailBuilder::buildOneThumbnail(const DB::ImageInfoPtr &i
     ImageManager::ImageRequest *request
         = new ImageManager::PreloadRequest(info->fileName(),
                                            ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
-                                           this);
+                                           this, m_thumbnailCache);
     request->setIsThumbnailRequest(true);
     request->setPriority(ImageManager::BuildThumbnails);
     ImageManager::AsyncLoader::instance()->load(request);
@@ -193,7 +193,7 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
         ImageManager::ImageRequest *request
             = new ImageManager::PreloadRequest(fileName,
                                                ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
-                                               this);
+                                               this, m_thumbnailCache);
         request->setIsThumbnailRequest(true);
         request->setPriority(ImageManager::BuildThumbnails);
         if (ImageManager::AsyncLoader::instance()->load(request))

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2011 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,12 +22,16 @@
 
 namespace ImageManager
 {
+class ThumbnailCache;
 
 class PreloadRequest : public ImageRequest
 {
 public:
-    explicit PreloadRequest(const DB::FileName &fileName, const QSize &size, int angle, ImageClientInterface *client);
+    explicit PreloadRequest(const DB::FileName &fileName, const QSize &size, int angle, ImageClientInterface *client, const ThumbnailCache *thumbnailCache);
     bool stillNeeded() const override;
+
+private:
+    const ThumbnailCache *m_thumbnailCache;
 };
 
 }

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -93,7 +93,7 @@ public:
     DB::FileNameList currentScope(bool requireOnDisk) const;
 
     virtual DB::FileName findFirstItemInRange(
-        const FileNameList &images,
+        const FileNameList &files,
         const ImageDate &range,
         bool includeRanges) const;
 
@@ -115,7 +115,8 @@ public: // Methods that must be overridden
      * @return a mapping of sub-category (tags/tag-groups) to the number of images (and the associated date range)
      */
     virtual QMap<QString, CountWithRange> classify(const ImageSearchInfo &info, const QString &category, MediaType typemask, ClassificationMode mode = ClassificationMode::FullCount) = 0;
-    virtual FileNameList images() = 0;
+    virtual FileNameList files() = 0;
+    virtual ImageInfoList images() = 0;
     /**
      * @brief addImages to the database.
      * The parameter \p doUpdate decides whether all bookkeeping should be done right away
@@ -124,7 +125,7 @@ public: // Methods that must be overridden
      * @param images
      * @param doUpdate
      */
-    virtual void addImages(const ImageInfoList &images, bool doUpdate = true) = 0;
+    virtual void addImages(const ImageInfoList &files, bool doUpdate = true) = 0;
     virtual void commitDelayedImages() = 0;
     virtual void clearDelayedImages() = 0;
     /** @short Update file name stored in the DB */
@@ -174,7 +175,7 @@ public: // Methods that must be overridden
      *
      * This function doesn't touch the order of images at all.
      * */
-    virtual void unstack(const DB::FileNameList &images) = 0;
+    virtual void unstack(const DB::FileNameList &files) = 0;
 
     /** @short Return a list of images which are in the same stack as the one specified.
      *

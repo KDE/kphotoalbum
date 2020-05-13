@@ -617,7 +617,7 @@ void Exif::Database::recreate()
     QDir().rename(exifDBFile(), origBackup);
     init();
 
-    const DB::FileNameList allImages = DB::ImageDB::instance()->images();
+    const DB::FileNameList allImages = DB::ImageDB::instance()->files();
     QProgressDialog dialog;
     dialog.setModal(true);
     dialog.setLabelText(i18n("Rereading Exif information from all images"));

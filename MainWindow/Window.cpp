@@ -690,7 +690,7 @@ void MainWindow::Window::slotSortByDateAndTime()
 
 void MainWindow::Window::slotSortAllByDateAndTime()
 {
-    DB::ImageDB::instance()->sortAndMergeBackIn(DB::ImageDB::instance()->images());
+    DB::ImageDB::instance()->sortAndMergeBackIn(DB::ImageDB::instance()->files());
     if (m_thumbnailView->gui() == m_stack->currentWidget())
         showThumbNails(DB::ImageDB::instance()->search(Browser::BrowserWidget::instance()->currentContext()));
     DirtyIndicator::markDirty();
@@ -1344,7 +1344,7 @@ void MainWindow::Window::slotUpdateViewMenu(DB::Category::ViewType type)
 void MainWindow::Window::slotShowNotOnDisk()
 {
     DB::FileNameList notOnDisk;
-    const auto allImages = DB::ImageDB::instance()->images();
+    const auto allImages = DB::ImageDB::instance()->files();
     for (const DB::FileName &fileName : allImages) {
         if (!fileName.exists())
             notOnDisk.append(fileName);

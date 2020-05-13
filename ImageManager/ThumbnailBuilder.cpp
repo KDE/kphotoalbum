@@ -105,7 +105,7 @@ void ImageManager::ThumbnailBuilder::buildAll(ThumbnailBuildStart when)
     int ret = msgBox.exec();
     if (ret == QMessageBox::Yes) {
         m_thumbnailCache->flush();
-        scheduleThumbnailBuild(DB::ImageDB::instance()->images(), when);
+        scheduleThumbnailBuild(DB::ImageDB::instance()->files(), when);
     }
 }
 
@@ -122,7 +122,7 @@ ImageManager::ThumbnailBuilder::~ThumbnailBuilder()
 
 void ImageManager::ThumbnailBuilder::buildMissing()
 {
-    const DB::FileNameList images = DB::ImageDB::instance()->images();
+    const DB::FileNameList images = DB::ImageDB::instance()->files();
     DB::FileNameList needed;
     for (const DB::FileName &fileName : images) {
         if (!m_thumbnailCache->contains(fileName))

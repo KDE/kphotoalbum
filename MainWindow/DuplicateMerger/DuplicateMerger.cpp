@@ -152,7 +152,7 @@ void DuplicateMerger::findDuplicates()
 {
     Utilities::ShowBusyCursor dummy;
 
-    const auto images = DB::ImageDB::instance()->images();
+    const auto images = DB::ImageDB::instance()->files();
     for (const DB::FileName &fileName : images) {
         const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
         const DB::MD5 md5 = info->MD5Sum();

@@ -397,7 +397,7 @@ bool NewImageFinder::findImages()
     // knows about an image ? Here we've to iterate through all of them and it
     // might be more efficient do do this in the database without fetching the
     // whole info.
-    for (const DB::FileName &fileName : DB::ImageDB::instance()->images()) {
+    for (const DB::FileName &fileName : DB::ImageDB::instance()->files()) {
         loadedFiles.insert(fileName);
     }
 

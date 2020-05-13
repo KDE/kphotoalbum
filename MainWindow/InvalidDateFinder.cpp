@@ -95,7 +95,7 @@ void InvalidDateFinder::accept()
     mainLayout->addWidget(buttonBox);
 
     // Now search for the images.
-    const DB::FileNameList list = DB::ImageDB::instance()->images();
+    const DB::FileNameList list = DB::ImageDB::instance()->files();
     DB::FileNameList toBeShown;
     QProgressDialog dialog(nullptr);
     dialog.setWindowTitle(i18nc("@title:window", "Reading File Properties"));

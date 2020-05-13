@@ -102,7 +102,7 @@ void ImageDB::slotRecalcCheckSums(const DB::FileNameList &inputList)
 {
     DB::FileNameList list = inputList;
     if (list.isEmpty()) {
-        list = images();
+        list = files();
         md5Map()->clear();
     }
 
@@ -117,7 +117,7 @@ DB::FileNameSet DB::ImageDB::imagesWithMD5Changed()
 {
     MD5Map map;
     bool wasCanceled;
-    NewImageFinder().calculateMD5sums(images(), &map, &wasCanceled);
+    NewImageFinder().calculateMD5sums(files(), &map, &wasCanceled);
     if (wasCanceled)
         return DB::FileNameSet();
 

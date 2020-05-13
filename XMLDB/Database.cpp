@@ -367,12 +367,12 @@ bool XMLDB::Database::isBlocking(const DB::FileName &fileName)
     return m_blockList.contains(fileName);
 }
 
-DB::FileNameList XMLDB::Database::files()
+DB::FileNameList XMLDB::Database::files() const
 {
     return m_images.files();
 }
 
-DB::ImageInfoList XMLDB::Database::images()
+DB::ImageInfoList XMLDB::Database::images() const
 {
     return m_images;
 }

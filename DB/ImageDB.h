@@ -115,8 +115,8 @@ public: // Methods that must be overridden
      * @return a mapping of sub-category (tags/tag-groups) to the number of images (and the associated date range)
      */
     virtual QMap<QString, CountWithRange> classify(const ImageSearchInfo &info, const QString &category, MediaType typemask, ClassificationMode mode = ClassificationMode::FullCount) = 0;
-    virtual FileNameList files() = 0;
-    virtual ImageInfoList images() = 0;
+    virtual FileNameList files() const = 0;
+    virtual ImageInfoList images() const = 0;
     /**
      * @brief addImages to the database.
      * The parameter \p doUpdate decides whether all bookkeeping should be done right away

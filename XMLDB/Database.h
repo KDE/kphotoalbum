@@ -53,8 +53,8 @@ public:
     void renameCategory(const QString &oldName, const QString newName) override;
 
     QMap<QString, DB::CountWithRange> classify(const DB::ImageSearchInfo &info, const QString &category, DB::MediaType typemask, DB::ClassificationMode mode) override;
-    DB::FileNameList files() override;
-    DB::ImageInfoList images() override;
+    DB::FileNameList files() const override;
+    DB::ImageInfoList images() const override;
     void addImages(const DB::ImageInfoList &files, bool doUpdate) override;
     void commitDelayedImages() override;
     void clearDelayedImages() override;

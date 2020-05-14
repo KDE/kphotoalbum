@@ -21,6 +21,7 @@
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
 
+#include <DB/ImageDB.h>
 #include <Settings/SettingsData.h>
 
 #include <KLocalizedString>
@@ -81,7 +82,8 @@ void ThumbnailView::Delegate::paintCellPixmap(QPainter *painter, const QStyleOpt
 
 void ThumbnailView::Delegate::paintVideoInfo(QPainter *painter, const QRect &pixmapRect, const QModelIndex &index) const
 {
-    DB::ImageInfoPtr imageInfo = model()->imageAt(index.row()).info();
+    const auto fileName = model()->imageAt(index.row());
+    const DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(fileName);
     if (!imageInfo || imageInfo->mediaType() != DB::Video)
         return;
 
@@ -182,12 +184,13 @@ void ThumbnailView::Delegate::paintBoundingRect(QPainter *painter, const QRect &
 
 static DB::StackID getStackId(const DB::FileName &fileName)
 {
-    return fileName.info()->stackId();
+    return DB::ImageDB::instance()->info(fileName)->stackId();
 }
 
 void ThumbnailView::Delegate::paintStackedIndicator(QPainter *painter, const QRect &pixmapRect, const QModelIndex &index) const
 {
-    DB::ImageInfoPtr imageInfo = model()->imageAt(index.row()).info();
+    const auto fileName = model()->imageAt(index.row());
+    const DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(fileName);
     if (!imageInfo || !imageInfo->isStacked())
         return;
 

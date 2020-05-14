@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -114,7 +114,8 @@ void Exif::InfoDialog::setImage(const DB::FileName &fileName)
     m_fileNameLabel->setText(fileName.relative());
     m_grid->setFileName(fileName);
 
-    ImageManager::ImageRequest *request = new ImageManager::ImageRequest(fileName, QSize(128, 128), fileName.info()->angle(), this);
+    const auto info = DB::ImageDB::instance()->info(fileName);
+    ImageManager::ImageRequest *request = new ImageManager::ImageRequest(fileName, QSize(128, 128), info->angle(), this);
     request->setPriority(ImageManager::Viewer);
     ImageManager::AsyncLoader::instance()->load(request);
 }

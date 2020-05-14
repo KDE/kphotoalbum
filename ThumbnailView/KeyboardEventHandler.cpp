@@ -52,7 +52,7 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent(QKeyEvent *event)
             const DB::FileNameList selection = widget()->selection(event->modifiers() == Qt::NoModifier ? NoExpandCollapsedStacks : IncludeAllStacks);
             const DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
             for (const DB::FileName &fileName : selection) {
-                DB::ImageInfoPtr info = fileName.info();
+                DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
                 if (!hadHit) {
                     mustRemoveToken = info->hasCategoryInfo(tokensCategory->name(), token);
                     hadHit = true;
@@ -87,7 +87,7 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent(QKeyEvent *event)
                 // set rating
                 const DB::FileNameList selection = widget()->selection(event->modifiers() == Qt::NoModifier ? NoExpandCollapsedStacks : IncludeAllStacks);
                 for (const DB::FileName &fileName : selection) {
-                    DB::ImageInfoPtr info = fileName.info();
+                    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
                     info->setRating(rating);
                 }
                 MainWindow::DirtyIndicator::markDirty();

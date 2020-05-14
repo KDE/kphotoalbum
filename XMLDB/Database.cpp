@@ -182,9 +182,9 @@ void XMLDB::Database::addToBlockList(const DB::FileNameList &list)
 void XMLDB::Database::deleteList(const DB::FileNameList &list)
 {
     for (const DB::FileName &fileName : list) {
-        DB::ImageInfoPtr inf = fileName.info();
-        StackMap::iterator found = m_stackMap.find(inf->stackId());
-        if (inf->isStacked() && found != m_stackMap.end()) {
+        const DB::ImageInfoPtr imageInfo = info(fileName);
+        StackMap::iterator found = m_stackMap.find(imageInfo->stackId());
+        if (imageInfo->isStacked() && found != m_stackMap.end()) {
             const DB::FileNameList origCache = found.value();
             DB::FileNameList newCache;
             for (const DB::FileName &cacheName : origCache) {
@@ -194,17 +194,17 @@ void XMLDB::Database::deleteList(const DB::FileNameList &list)
             if (newCache.size() <= 1) {
                 // we're destroying a stack
                 for (const DB::FileName &cacheName : qAsConst(newCache)) {
-                    DB::ImageInfoPtr cacheInf = cacheName.info();
-                    cacheInf->setStackId(0);
-                    cacheInf->setStackOrder(0);
+                    DB::ImageInfoPtr cacheInfo = info(cacheName);
+                    cacheInfo->setStackId(0);
+                    cacheInfo->setStackOrder(0);
                 }
-                m_stackMap.remove(inf->stackId());
+                m_stackMap.remove(imageInfo->stackId());
             } else {
-                m_stackMap.insert(inf->stackId(), newCache);
+                m_stackMap.insert(imageInfo->stackId(), newCache);
             }
         }
-        m_imageCache.remove(inf->fileName().absolute());
-        m_images.remove(inf);
+        m_imageCache.remove(imageInfo->fileName().absolute());
+        m_images.remove(imageInfo);
     }
     Exif::Database::instance()->remove(list);
     emit totalChanged(m_images.count());
@@ -406,7 +406,7 @@ void XMLDB::Database::sortAndMergeBackIn(const DB::FileNameList &fileNameList)
 {
     DB::ImageInfoList infoList;
     for (const DB::FileName &fileName : fileNameList)
-        infoList.append(fileName.info());
+        infoList.append(info(fileName));
     m_images.sortAndMergeBackIn(infoList);
 }
 
@@ -500,7 +500,7 @@ bool XMLDB::Database::stack(const DB::FileNameList &items)
     unsigned int stackOrder = 1;
 
     for (const DB::FileName &fileName : items) {
-        DB::ImageInfoPtr imgInfo = fileName.info();
+        DB::ImageInfoPtr imgInfo = info(fileName);
         Q_ASSERT(imgInfo);
         if (imgInfo->isStacked()) {
             stacks << imgInfo->stackId();
@@ -535,7 +535,7 @@ void XMLDB::Database::unstack(const DB::FileNameList &items)
         if (allInStack.size() <= 2) {
             // we're destroying stack here
             for (const DB::FileName &stackFileName : allInStack) {
-                DB::ImageInfoPtr imgInfo = stackFileName.info();
+                DB::ImageInfoPtr imgInfo = info(stackFileName);
                 Q_ASSERT(imgInfo);
                 if (imgInfo->isStacked()) {
                     m_stackMap.remove(imgInfo->stackId());
@@ -544,7 +544,7 @@ void XMLDB::Database::unstack(const DB::FileNameList &items)
                 }
             }
         } else {
-            DB::ImageInfoPtr imgInfo = fileName.info();
+            DB::ImageInfoPtr imgInfo = info(fileName);
             Q_ASSERT(imgInfo);
             if (imgInfo->isStacked()) {
                 m_stackMap[imgInfo->stackId()].removeAll(fileName);

@@ -119,7 +119,7 @@ void ThumbnailView::ThumbnailWidget::keyReleaseEvent(QKeyEvent *event)
 bool ThumbnailView::ThumbnailWidget::isMouseOverStackIndicator(const QPoint &point)
 {
     // first check if image is stack, if not return.
-    DB::ImageInfoPtr imageInfo = mediaIdUnderCursor().info();
+    const DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(mediaIdUnderCursor());
     if (!imageInfo)
         return false;
     if (!imageInfo->isStacked())
@@ -232,7 +232,7 @@ void ThumbnailView::ThumbnailWidget::emitDateChange()
         return;
 
     static QDateTime lastDate;
-    QDateTime date = fileName.info()->date().start();
+    const QDateTime date = DB::ImageDB::instance()->info(fileName)->date().start();
     if (date != lastDate) {
         lastDate = date;
         if (date.date().year() != 1900)
@@ -382,7 +382,7 @@ DB::FileNameList ThumbnailView::ThumbnailWidget::selection(ThumbnailView::Select
         case ExpandCollapsedStacks: {
             // if the selected image belongs to a collapsed thread,
             // imply that all images in the stack are selected:
-            DB::ImageInfoPtr imageInfo = currFileName.info();
+            const DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(currFileName);
             if (imageInfo && imageInfo->isStacked()
                 && (includeAllStacks || !model()->isItemInExpandedStack(imageInfo->stackId()))) {
                 // add all images in the same stack

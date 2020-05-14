@@ -255,7 +255,7 @@ bool HTMLGenerator::Generator::generateIndexPage(int width, int height)
 
     QDomElement row;
     for (const DB::FileName &fileName : m_setup.imageList()) {
-        const DB::ImageInfoPtr info = fileName.info();
+        const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
         if (wasCanceled())
             return false;
 
@@ -407,7 +407,8 @@ bool HTMLGenerator::Generator::generateContentPage(int width, int height,
     if (content.isEmpty())
         return false;
 
-    DB::ImageInfoPtr info = current.info();
+    const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(current);
+    // Note(jzarl): is there any reason why currentFile could be different from current?
     const DB::FileName currentFile = info->fileName();
 
     // Adding the copyright comment after DOCTYPE not before (HTML standard requires the DOCTYPE to be first within the document)
@@ -576,7 +577,7 @@ QString HTMLGenerator::Generator::nameImage(const DB::FileName &fileName, int si
 
 QString HTMLGenerator::Generator::createImage(const DB::FileName &fileName, int size)
 {
-    DB::ImageInfoPtr info = fileName.info();
+    const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
     if (m_generatedFiles.contains(qMakePair(fileName, size))) {
         m_waitCounter--;
     } else {

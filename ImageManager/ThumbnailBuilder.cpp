@@ -179,7 +179,7 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
     // is less than (i. e. zero) the number of thumbnails actually built.
     m_expectedThumbnails = m_thumbnailsToBuild.size();
     for (const DB::FileName &fileName : m_thumbnailsToBuild) {
-        DB::ImageInfoPtr info = fileName.info();
+        const auto info = DB::ImageDB::instance()->info(fileName);
         if (ImageManager::AsyncLoader::instance()->isExiting()) {
             cancelRequests();
             break;

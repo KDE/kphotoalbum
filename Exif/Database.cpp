@@ -617,7 +617,7 @@ void Exif::Database::recreate()
     QDir().rename(exifDBFile(), origBackup);
     init();
 
-    const DB::FileNameList allImages = DB::ImageDB::instance()->files();
+    const auto allImages = DB::ImageDB::instance()->images();
     QProgressDialog dialog;
     dialog.setModal(true);
     dialog.setLabelText(i18n("Rereading Exif information from all images"));
@@ -625,11 +625,10 @@ void Exif::Database::recreate()
     // using a transaction here removes a *huge* overhead on the insert statements
     startInsertTransaction();
     int i = 0;
-    for (const DB::FileName &fileName : allImages) {
-        const DB::ImageInfoPtr info = fileName.info();
+    for (const auto &info : allImages) {
         dialog.setValue(i++);
         if (info->mediaType() == DB::Image) {
-            add(fileName);
+            add(info->fileName());
         }
         if (i % 10)
             qApp->processEvents();

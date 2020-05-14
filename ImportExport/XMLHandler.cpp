@@ -18,6 +18,7 @@
 #include "XMLHandler.h"
 
 #include <DB/FileName.h>
+#include <DB/ImageDB.h>
 #include <Utilities/FileUtil.h>
 
 using Utilities::StringSet;
@@ -54,7 +55,8 @@ QByteArray ImportExport::XMLHandler::createIndexXML(
 
     for (const DB::FileName &fileName : images) {
         const QString mappedFile = nameMap->uniqNameFor(fileName);
-        QDomElement elm = save(doc, fileName.info());
+        const auto info = DB::ImageDB::instance()->info(fileName);
+        QDomElement elm = save(doc, info);
         elm.setAttribute(QString::fromLatin1("file"), mappedFile);
         top.appendChild(elm);
     }

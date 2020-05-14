@@ -52,7 +52,7 @@ ThumbnailView::ThumbnailModel::ThumbnailModel(ThumbnailFactory *factory, const I
 
 static bool stackOrderComparator(const DB::FileName &a, const DB::FileName &b)
 {
-    return a.info()->stackOrder() < b.info()->stackOrder();
+    return DB::ImageDB::instance()->info(a)->stackOrder() < DB::ImageDB::instance()->info(b)->stackOrder();
 }
 
 void ThumbnailView::ThumbnailModel::updateDisplayModel()
@@ -72,7 +72,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     typedef QMap<DB::StackID, StackList> StackMap;
     StackMap stackContents;
     for (const DB::FileName &fileName : qAsConst(m_imageList)) {
-        const DB::ImageInfoPtr imageInfo = fileName.info();
+        const DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(fileName);
         if (imageInfo && imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
             stackContents[stackid].append(fileName);
@@ -94,7 +94,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     m_displayList = DB::FileNameList();
     QSet<DB::StackID> alreadyShownStacks;
     for (const DB::FileName &fileName : qAsConst(m_imageList)) {
-        const DB::ImageInfoPtr imageInfo = fileName.info();
+        const DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(fileName);
         if (!m_filter.match(imageInfo))
             continue;
         if (imageInfo && imageInfo->isStacked()) {
@@ -129,7 +129,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
 
 void ThumbnailView::ThumbnailModel::toggleStackExpansion(const DB::FileName &fileName)
 {
-    DB::ImageInfoPtr imageInfo = fileName.info();
+    const DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(fileName);
     if (imageInfo) {
         DB::StackID stackid = imageInfo->stackId();
         model()->beginResetModel();
@@ -159,7 +159,7 @@ void ThumbnailView::ThumbnailModel::setImageList(const DB::FileNameList &items)
     m_imageList = items;
     m_allStacks.clear();
     for (const DB::FileName &fileName : items) {
-        const DB::ImageInfoPtr info = fileName.info();
+        const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
         if (info && info->isStacked())
             m_allStacks << info->stackId();
     }
@@ -297,7 +297,7 @@ QVariant ThumbnailView::ThumbnailModel::data(const QModelIndex &index, int role)
 
 void ThumbnailView::ThumbnailModel::requestThumbnail(const DB::FileName &fileName, const ImageManager::Priority priority)
 {
-    DB::ImageInfoPtr imageInfo = fileName.info();
+    const DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(fileName);
     if (!imageInfo)
         return;
     // request the thumbnail in the size that is set in the settings, not in the current grid size:
@@ -318,7 +318,7 @@ void ThumbnailView::ThumbnailModel::pixmapLoaded(ImageManager::ImageRequest *req
     // As a result of the image being loaded, we emit the dataChanged signal, which in turn asks the delegate to paint the cell
     // The delegate now fetches the newly loaded image from the cache.
 
-    DB::ImageInfoPtr imageInfo = fileName.info();
+    DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(fileName);
     // TODO(hzeller): figure out, why the size is set here. We do an implicit
     // write here to the database.
     if (fullSize.isValid() && imageInfo) {
@@ -331,6 +331,7 @@ void ThumbnailView::ThumbnailModel::pixmapLoaded(ImageManager::ImageRequest *req
 QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) const
 {
     const DB::FileName fileName = imageAt(index.row());
+    const auto info = DB::ImageDB::instance()->info(fileName);
 
     QString text;
 
@@ -340,7 +341,7 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
     const int maxCharacters = thumbnailHeight / QFontMetrics(widget()->font()).maxWidth() * 2;
 
     if (Settings::SettingsData::instance()->displayLabels()) {
-        QString line = fileName.info()->label();
+        QString line = info->label();
         if (stringWidth(line) > thumbnailWidth) {
             line = line.left(maxCharacters);
             line += QLatin1String(" ...");
@@ -349,11 +350,11 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
     }
 
     if (Settings::SettingsData::instance()->displayCategories()) {
-        QStringList grps = fileName.info()->availableCategories();
+        QStringList grps = info->availableCategories();
         for (QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it) {
             QString category = *it;
             if (category != i18n("Folder") && category != i18n("Media Type")) {
-                Utilities::StringSet items = fileName.info()->itemsOfCategory(category);
+                Utilities::StringSet items = info->itemsOfCategory(category);
 
                 if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
                     && !Settings::SettingsData::instance()->untaggedImagesTagVisible()) {
@@ -419,7 +420,7 @@ QPixmap ThumbnailView::ThumbnailModel::pixmap(const DB::FileName &fileName) cons
     if (m_overrideFileName == fileName)
         return m_overrideImage;
 
-    const DB::ImageInfoPtr imageInfo = fileName.info();
+    const DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(fileName);
     if (imageInfo == DB::ImageInfoPtr(nullptr))
         return QPixmap();
 

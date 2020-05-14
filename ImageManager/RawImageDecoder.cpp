@@ -54,7 +54,6 @@ bool RAWImageDecoder::_decode(QImage *img, ImageRequest *request, QSize *fullSiz
     qCDebug(ImageManagerLog) << "Got embedded preview for raw file" << imageFile.relative();
     qCDebug(ImageManagerLog) << "  Preview size:" << img->width() << "x" << img->height();
     qCDebug(ImageManagerLog) << "  Requested dimension:" << dim;
-    qCDebug(ImageManagerLog) << "  Image orientation:" << imageFile.info()->angle() << "degrees";
     qCDebug(ImageManagerLog) << "  useRawThumbnail:" << Settings::SettingsData::instance()->useRawThumbnail();
     qCDebug(ImageManagerLog) << "  useRawThumbnailSize:" << Settings::SettingsData::instance()->useRawThumbnailSize();
 

@@ -133,7 +133,8 @@ void AutoStackImages::matchingMD5(DB::FileNameList &toBeShown)
     // Stacking all images that have the same MD5 sum
     // First make a map of MD5 sums with corresponding images
     for (const DB::FileName &fileName : qAsConst(m_list)) {
-        DB::MD5 sum = fileName.info()->MD5Sum();
+        const auto info = DB::ImageDB::instance()->info(fileName);
+        DB::MD5 sum = info->MD5Sum();
         if (DB::ImageDB::instance()->md5Map()->contains(sum)) {
             if (tostack[sum].isEmpty())
                 tostack.insert(sum, DB::FileNameList() << fileName);
@@ -205,7 +206,8 @@ void AutoStackImages::matchingFile(DB::FileNameList &toBeShown)
                 DB::FileName originalFileName = DB::FileName::fromRelativePath(tmp);
 
                 if (originalFileName != fileName && m_list.contains(originalFileName)) {
-                    DB::MD5 sum = originalFileName.info()->MD5Sum();
+                    const auto info = DB::ImageDB::instance()->info(fileName);
+                    DB::MD5 sum = info->MD5Sum();
                     if (tostack[sum].isEmpty()) {
                         if (m_origTop->isChecked()) {
                             tostack.insert(sum, DB::FileNameList() << originalFileName);
@@ -261,7 +263,7 @@ void AutoStackImages::continuousShooting(DB::FileNameList &toBeShown)
 {
     DB::ImageInfoPtr prev;
     for (const DB::FileName &fileName : qAsConst(m_list)) {
-        DB::ImageInfoPtr info = fileName.info();
+        const auto info = DB::ImageDB::instance()->info(fileName);
         // Skipping images that do not have exact time stamp
         if (info->date().start() != info->date().end())
             continue;

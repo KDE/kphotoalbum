@@ -20,6 +20,7 @@
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
 
+#include <DB/ImageDB.h>
 #include <Settings/SettingsData.h>
 
 #include <KLocalizedString>
@@ -113,7 +114,7 @@ void ThumbnailView::CellGeometry::calculateTextHeight()
         int maxCatsInText = 0;
         const auto images = model()->imageList(ViewOrder);
         for (const DB::FileName &fileName : images) {
-            const DB::ImageInfoPtr info = fileName.info();
+            const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
             int grps = info->availableCategories().length();
             if (grps > maxCatsInText - 2) {
                 grps -= info->itemsOfCategory(folder).empty() ? 1 : 2;

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -21,6 +21,7 @@
 #include "XMLHandler.h"
 
 #include <DB/FileNameList.h>
+#include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
 #include <ImageManager/AsyncLoader.h>
 #include <ImageManager/RawImageDecoder.h>
@@ -288,7 +289,8 @@ void Export::generateThumbnails(const DB::FileNameList &list)
     m_subdir = QLatin1String("Thumbnails/");
     m_filesRemaining = list.size(); // Used to break the event loop.
     for (const DB::FileName &fileName : list) {
-        ImageManager::ImageRequest *request = new ImageManager::ImageRequest(fileName, QSize(128, 128), fileName.info()->angle(), this);
+        const auto info = DB::ImageDB::instance()->info(fileName);
+        ImageManager::ImageRequest *request = new ImageManager::ImageRequest(fileName, QSize(128, 128), info->angle(), this);
         request->setPriority(ImageManager::BatchTask);
         ImageManager::AsyncLoader::instance()->load(request);
     }

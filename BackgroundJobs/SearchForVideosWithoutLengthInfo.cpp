@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -39,9 +39,8 @@ BackgroundJobs::SearchForVideosWithoutLengthInfo::SearchForVideosWithoutLengthIn
 
 void BackgroundJobs::SearchForVideosWithoutLengthInfo::execute()
 {
-    const DB::FileNameList images = DB::ImageDB::instance()->files();
-    for (const DB::FileName &image : images) {
-        const DB::ImageInfoPtr info = image.info();
+    const auto images = DB::ImageDB::instance()->images();
+    for (const auto &info : images) {
         if (!info->isVideo())
             continue;
         // silently ignore videos not (currently) on disk:

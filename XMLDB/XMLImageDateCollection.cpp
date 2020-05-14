@@ -133,7 +133,7 @@ QDateTime XMLDB::XMLImageDateCollection::upperLimit() const
 XMLDB::XMLImageDateCollection::XMLImageDateCollection(const DB::FileNameList &list)
 {
     for (const DB::FileName &fileName : list) {
-        add(fileName.info()->date());
+        add(DB::ImageDB::instance()->info(fileName)->date());
     }
     buildIndex();
 }

@@ -95,31 +95,31 @@ void InvalidDateFinder::accept()
     mainLayout->addWidget(buttonBox);
 
     // Now search for the images.
-    const DB::FileNameList list = DB::ImageDB::instance()->files();
+    const auto images = DB::ImageDB::instance()->images();
     DB::FileNameList toBeShown;
     QProgressDialog dialog(nullptr);
     dialog.setWindowTitle(i18nc("@title:window", "Reading File Properties"));
-    dialog.setMaximum(list.size());
+    dialog.setMaximum(images.size());
     dialog.setValue(0);
     int progress = 0;
 
-    for (const DB::FileName &fileName : list) {
+    for (const auto &info : images) {
         dialog.setValue(++progress);
         qApp->processEvents(QEventLoop::AllEvents);
         if (dialog.wasCanceled())
             break;
-        if (fileName.info()->isNull())
+        if (info->isNull())
             continue;
 
-        DB::ImageDate date = fileName.info()->date();
+        DB::ImageDate date = info->date();
         bool show = false;
         if (m_dateNotTime->isChecked()) {
-            DB::FileInfo fi = DB::FileInfo::read(fileName, DB::EXIFMODE_DATE);
+            DB::FileInfo fi = DB::FileInfo::read(info->fileName(), DB::EXIFMODE_DATE);
             if (fi.dateTime().date() == date.start().date())
                 show = (fi.dateTime().time() != date.start().time());
             if (show) {
                 edit->append(QString::fromLatin1("%1:<br/>existing = %2<br>new..... = %3")
-                                 .arg(fileName.relative())
+                                 .arg(info->fileName().relative())
                                  .arg(date.start().toString())
                                  .arg(fi.dateTime().toString()));
             }
@@ -130,7 +130,7 @@ void InvalidDateFinder::accept()
         }
 
         if (show)
-            toBeShown.append(fileName);
+            toBeShown.append(info->fileName());
     }
 
     if (m_dateNotTime->isChecked()) {

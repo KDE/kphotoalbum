@@ -402,17 +402,19 @@ void MainWindow::Window::slotSetStackHead()
 
 void MainWindow::Window::setStackHead(const DB::FileName &image)
 {
-    if (!image.info()->isStacked())
+    const auto info = DB::ImageDB::instance()->info(image);
+    if (!info->isStacked())
         return;
 
-    unsigned int oldOrder = image.info()->stackOrder();
+    unsigned int oldOrder = info->stackOrder();
 
     const DB::FileNameList others = DB::ImageDB::instance()->getStackFor(image);
     for (const DB::FileName &current : others) {
+        const auto currentInfo = DB::ImageDB::instance()->info(current);
         if (current == image) {
-            current.info()->setStackOrder(1);
-        } else if (current.info()->stackOrder() < oldOrder) {
-            current.info()->setStackOrder(current.info()->stackOrder() + 1);
+            currentInfo->setStackOrder(1);
+        } else if (currentInfo->stackOrder() < oldOrder) {
+            currentInfo->setStackOrder(currentInfo->stackOrder() + 1);
         }
     }
 
@@ -449,7 +451,8 @@ void MainWindow::Window::configureImages(bool oneAtATime)
     } else {
         DB::ImageInfoList images;
         for (const DB::FileName &fileName : list) {
-            images.append(fileName.info());
+            auto info = DB::ImageDB::instance()->info(fileName);
+            images.append(info);
         }
         configureImages(images, oneAtATime);
     }
@@ -554,6 +557,8 @@ void MainWindow::Window::slotPasteInformation()
 
     MD5 originalSum = MD5Sum(fileName);
     ImageInfoPtr originalInfo;
+    // FIXME(jzarl): if and else do the same thing!!!
+    //             -> What was the original intention?
     if (DB::ImageDB::instance()->md5Map()->contains(originalSum)) {
         originalInfo = DB::ImageDB::instance()->info(fileName);
     } else {
@@ -565,7 +570,8 @@ void MainWindow::Window::slotPasteInformation()
 
     const auto selectedFiles = selected();
     for (const DB::FileName &newFile : selectedFiles) {
-        newFile.info()->copyExtraData(*originalInfo, false);
+        auto newInfo = DB::ImageDB::instance()->info(newFile);
+        newInfo->copyExtraData(*originalInfo, false);
     }
     DirtyIndicator::markDirty();
 }
@@ -1184,7 +1190,7 @@ void MainWindow::Window::contextMenuEvent(QContextMenuEvent *e)
         // "Invoke external program"
 
         ExternalPopup externalCommands { &menu };
-        DB::ImageInfoPtr info = m_thumbnailView->mediaIdUnderCursor().info();
+        const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_thumbnailView->mediaIdUnderCursor());
 
         externalCommands.populate(info, selected());
         QAction *action = menu.addMenu(&externalCommands);
@@ -1275,8 +1281,8 @@ void MainWindow::Window::slotSetFileName(const DB::FileName &fileName)
     if (fileName.isNull())
         m_statusBar->clearMessage();
     else {
-        info = fileName.info();
-        if (info != ImageInfoPtr(nullptr))
+        info = DB::ImageDB::instance()->info(fileName);
+        if (info)
             m_statusBar->showMessage(fileName.absolute(), 4000);
     }
 }
@@ -1306,7 +1312,7 @@ void MainWindow::Window::rotateSelected(int angle)
                            i18n("No Selection"));
     } else {
         for (const DB::FileName &fileName : list) {
-            fileName.info()->rotate(angle);
+            DB::ImageDB::instance()->info(fileName)->rotate(angle);
             thumbnailCache()->removeThumbnail(fileName);
         }
         m_statusBar->mp_dirtyIndicator->markDirty();
@@ -1457,7 +1463,7 @@ void MainWindow::Window::slotImagesChanged(const QList<QUrl> &urls)
             thumbnailCache()->removeThumbnail(fileName);
             // update MD5sum:
             MD5 md5sum = MD5Sum(fileName);
-            fileName.info()->setMD5Sum(md5sum);
+            DB::ImageDB::instance()->info(fileName)->setMD5Sum(md5sum);
         }
     }
     m_statusBar->mp_dirtyIndicator->markDirty();
@@ -1637,8 +1643,8 @@ void MainWindow::Window::slotMarkUntagged()
 {
     if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()) {
         for (const DB::FileName &newFile : selected()) {
-            newFile.info()->addCategoryInfo(Settings::SettingsData::instance()->untaggedCategory(),
-                                            Settings::SettingsData::instance()->untaggedTag());
+            DB::ImageDB::instance()->info(newFile)->addCategoryInfo(Settings::SettingsData::instance()->untaggedCategory(),
+                                                                    Settings::SettingsData::instance()->untaggedTag());
         }
 
         DirtyIndicator::markDirty();

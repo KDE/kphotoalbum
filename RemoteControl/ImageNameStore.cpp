@@ -25,7 +25,7 @@ namespace RemoteControl
 ImageNameStore::ImageNameStore()
 {
     // To avoid delays when the user shows all images the first time, lets pull all images now.
-    for (const DB::FileName &fileName : DB::ImageDB::instance()->images()) {
+    for (const DB::FileName &fileName : DB::ImageDB::instance()->files()) {
         m_lastId++;
         m_idToNameMap.insert(m_lastId, fileName);
         m_nameToIdMap.insert(fileName, m_lastId);

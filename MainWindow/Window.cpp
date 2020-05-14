@@ -546,15 +546,7 @@ void MainWindow::Window::slotPasteInformation()
     if (fileName.isNull())
         return;
 
-    MD5 originalSum = MD5Sum(fileName);
-    ImageInfoPtr originalInfo;
-    // FIXME(jzarl): if and else do the same thing!!!
-    //             -> What was the original intention?
-    if (DB::ImageDB::instance()->md5Map()->contains(originalSum)) {
-        originalInfo = DB::ImageDB::instance()->info(fileName);
-    } else {
-        originalInfo = fileName.info();
-    }
+    const DB::ImageInfoPtr originalInfo = DB::ImageDB::instance()->info(fileName);
     // fail silent if there is no info for the file.
     if (!originalInfo)
         return;

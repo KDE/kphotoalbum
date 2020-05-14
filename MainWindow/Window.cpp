@@ -534,23 +534,14 @@ void MainWindow::Window::slotPasteInformation()
 {
     const QMimeData *mimeData = QApplication::clipboard()->mimeData();
 
-    // Idealy this would look like
-    // QList<QUrl> urls;
-    // urls.fromMimeData(mimeData);
-    // if ( urls.count() != 1 ) return;
-    // const QString string = urls.first().path();
-
-    QString string = mimeData->text();
-    // fail silent if more than one image is in clipboard.
-    if (string.count(QString::fromLatin1("\n")) != 0)
+    if (!mimeData->hasUrls() || mimeData->urls().length() != 1)
         return;
 
-    const QString urlHead = QLatin1String("file://");
-    if (string.startsWith(urlHead)) {
-        string = string.right(string.size() - urlHead.size());
-    }
+    const QUrl url = mimeData->urls().first();
+    if (!url.isLocalFile())
+        return;
 
-    const DB::FileName fileName = DB::FileName::fromAbsolutePath(string);
+    const DB::FileName fileName = DB::FileName::fromAbsolutePath(url.toLocalFile());
     // fail silent if there is no file.
     if (fileName.isNull())
         return;

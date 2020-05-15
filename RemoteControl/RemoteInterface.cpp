@@ -169,7 +169,7 @@ void RemoteInterface::sendCategoryValues(const SearchRequest &search)
 
 void RemoteInterface::sendImageSearchResult(const SearchInfo &search)
 {
-    const DB::FileNameList files = DB::ImageDB::instance()->search(convert(search), true /* Require on disk */);
+    const DB::FileNameList files = DB::ImageDB::instance()->search(convert(search), true /* Require on disk */).files();
     DB::FileNameList stacksRemoved;
     QList<int> result;
 

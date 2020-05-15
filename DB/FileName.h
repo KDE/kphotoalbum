@@ -20,8 +20,6 @@
 #ifndef FILENAME_H
 #define FILENAME_H
 
-#include "ImageInfoPtr.h"
-
 #include <QSet>
 #include <QString>
 #include <QUrl>

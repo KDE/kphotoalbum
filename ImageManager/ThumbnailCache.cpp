@@ -19,8 +19,6 @@
 
 #include "Logging.h"
 
-#include <DB/FastDir.h>
-#include <DB/ImageDB.h>
 #include <MainWindow/Logging.h>
 #include <Settings/SettingsData.h>
 

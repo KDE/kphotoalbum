@@ -20,6 +20,7 @@
 #define VIEWER_H
 
 #include <DB/FileNameList.h>
+#include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
 
 #include <QImage>

@@ -31,11 +31,6 @@
 #include <QString>
 #include <QTemporaryDir>
 
-namespace DB
-{
-class Id;
-}
-
 namespace HTMLGenerator
 {
 

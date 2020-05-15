@@ -47,7 +47,7 @@ class Database : public DB::ImageDB
 
 public:
     uint totalCount() const override;
-    DB::FileNameList search(
+    DB::ImageInfoList search(
         const DB::ImageSearchInfo &,
         bool requireOnDisk = false) const override;
     void renameCategory(const QString &oldName, const QString newName) override;
@@ -85,7 +85,7 @@ public:
     static int fileVersion();
 
 protected:
-    DB::FileNameList searchPrivate(
+    DB::ImageInfoList searchPrivate(
         const DB::ImageSearchInfo &,
         bool requireOnDisk,
         bool onlyItemsMatchingRange) const;

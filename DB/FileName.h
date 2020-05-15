@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -43,7 +43,6 @@ public:
     bool operator!=(const FileName &other) const;
     bool operator<(const FileName &other) const;
     bool exists() const;
-    ImageInfoPtr info() const;
 
     /**
      * @brief Conversion to absolute local file url.

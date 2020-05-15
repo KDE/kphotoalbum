@@ -673,7 +673,7 @@ void MainWindow::Window::launchViewer(const DB::FileNameList &inputMediaList, bo
 void MainWindow::Window::slotSortByDateAndTime()
 {
     DB::ImageDB::instance()->sortAndMergeBackIn(selected());
-    showThumbNails(DB::ImageDB::instance()->search(Browser::BrowserWidget::instance()->currentContext()));
+    showThumbNails(DB::ImageDB::instance()->search(Browser::BrowserWidget::instance()->currentContext()).files());
     DirtyIndicator::markDirty();
 }
 
@@ -681,7 +681,7 @@ void MainWindow::Window::slotSortAllByDateAndTime()
 {
     DB::ImageDB::instance()->sortAndMergeBackIn(DB::ImageDB::instance()->files());
     if (m_thumbnailView->gui() == m_stack->currentWidget())
-        showThumbNails(DB::ImageDB::instance()->search(Browser::BrowserWidget::instance()->currentContext()));
+        showThumbNails(DB::ImageDB::instance()->search(Browser::BrowserWidget::instance()->currentContext()).files());
     DirtyIndicator::markDirty();
 }
 
@@ -1557,7 +1557,7 @@ void MainWindow::Window::clearDateRange()
     reloadThumbnails(ThumbnailView::MaintainSelection);
 }
 
-void MainWindow::Window::showThumbNails(const DB::FileNameList &items)
+void MainWindow::Window::showThumbNails(const FileNameList &items)
 {
     m_thumbnailView->setImageList(items);
     m_statusBar->mp_partial->setMatchCount(items.size());

@@ -642,7 +642,7 @@ void Viewer::ViewerWidget::closeEvent(QCloseEvent *event)
 
 DB::ImageInfoPtr Viewer::ViewerWidget::currentInfo() const
 {
-    return m_list[m_current].info();
+    return DB::ImageDB::instance()->info(m_list[m_current]);
 }
 
 void Viewer::ViewerWidget::updatePalette()

@@ -130,10 +130,10 @@ QDateTime XMLDB::XMLImageDateCollection::upperLimit() const
     return QDateTime(QDate(2100, 1, 1));
 }
 
-XMLDB::XMLImageDateCollection::XMLImageDateCollection(const DB::FileNameList &list)
+XMLDB::XMLImageDateCollection::XMLImageDateCollection(const DB::ImageInfoList &list)
 {
-    for (const DB::FileName &fileName : list) {
-        add(DB::ImageDB::instance()->info(fileName)->date());
+    for (const auto &image : list) {
+        add(image->date());
     }
     buildIndex();
 }

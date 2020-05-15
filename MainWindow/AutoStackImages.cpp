@@ -287,7 +287,7 @@ void AutoStackImages::continuousShooting(DB::FileNameList &toBeShown)
             stack.append(prev->fileName());
             stack.append(info->fileName());
             if (!toBeShown.isEmpty()) {
-                if (toBeShown.at(toBeShown.size() - 1).info()->fileName() != prev->fileName())
+                if (toBeShown.at(toBeShown.size() - 1) != prev->fileName())
                     toBeShown.append(prev->fileName());
             } else {
                 // if this is first insert, we have to include also the stacked images from previuous image

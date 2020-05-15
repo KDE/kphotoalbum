@@ -99,7 +99,7 @@ public:
 
 public: // Methods that must be overridden
     virtual uint totalCount() const = 0;
-    virtual DB::FileNameList search(const ImageSearchInfo &, bool requireOnDisk = false) const = 0;
+    virtual DB::ImageInfoList search(const ImageSearchInfo &, bool requireOnDisk = false) const = 0;
 
     virtual void renameCategory(const QString &oldName, const QString newName) = 0;
 

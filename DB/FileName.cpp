@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -18,9 +18,6 @@
 */
 
 #include "FileName.h"
-
-#include "ImageDB.h"
-#include "ImageInfoList.h"
 
 #include <Settings/SettingsData.h>
 #include <Utilities/FileNameUtil.h>
@@ -90,11 +87,6 @@ bool DB::FileName::operator<(const DB::FileName &other) const
 bool DB::FileName::exists() const
 {
     return QFile::exists(absolute());
-}
-
-DB::ImageInfoPtr DB::FileName::info() const
-{
-    return ImageDB::instance()->info(*this);
 }
 
 DB::FileName::operator QUrl() const

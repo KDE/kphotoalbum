@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -29,7 +29,7 @@ Browser::ImageViewPage::ImageViewPage(const DB::ImageSearchInfo &info, BrowserWi
 
 void Browser::ImageViewPage::activate()
 {
-    MainWindow::Window::theMainWindow()->showThumbNails(DB::ImageDB::instance()->search(searchInfo()));
+    MainWindow::Window::theMainWindow()->showThumbNails(DB::ImageDB::instance()->search(searchInfo()).files());
 
     if (!m_context.isNull()) {
         // PENDING(blackie) this is the only place that uses the ThumbnailFacade as a singleton. Rewrite to make it communicate with it otherwise.

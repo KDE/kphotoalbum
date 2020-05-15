@@ -377,27 +377,27 @@ DB::ImageInfoList XMLDB::Database::images() const
     return m_images;
 }
 
-DB::FileNameList XMLDB::Database::search(
+DB::ImageInfoList XMLDB::Database::search(
     const DB::ImageSearchInfo &info,
     bool requireOnDisk) const
 {
     return searchPrivate(info, requireOnDisk, true);
 }
 
-DB::FileNameList XMLDB::Database::searchPrivate(
+DB::ImageInfoList XMLDB::Database::searchPrivate(
     const DB::ImageSearchInfo &info,
     bool requireOnDisk,
     bool onlyItemsMatchingRange) const
 {
     // When searching for images counts for the datebar, we want matches outside the range too.
     // When searching for images for the thumbnail view, we only want matches inside the range.
-    DB::FileNameList result;
+    DB::ImageInfoList result;
     for (DB::ImageInfoListConstIterator it = m_images.constBegin(); it != m_images.constEnd(); ++it) {
         bool match = !(*it)->isLocked() && info.match(*it) && (!onlyItemsMatchingRange || rangeInclude(*it));
         match &= !requireOnDisk || DB::ImageInfo::imageOnDisk((*it)->fileName());
 
         if (match)
-            result.append((*it)->fileName());
+            result.append((*it));
     }
     return result;
 }

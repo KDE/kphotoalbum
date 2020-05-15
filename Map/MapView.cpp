@@ -265,13 +265,13 @@ void Map::MapView::addImages(const DB::ImageSearchInfo &searchInfo)
     QElapsedTimer timer;
     timer.start();
     displayStatus(MapStatus::Loading);
-    DB::FileNameList images = DB::ImageDB::instance()->search(searchInfo);
+    const auto images = DB::ImageDB::instance()->search(searchInfo);
     int count = 0;
     int total = 0;
     // put images in bins
     for (const auto &imageInfo : images) {
         total++;
-        if (addImage(imageInfo.info()))
+        if (addImage(imageInfo))
             count++;
     }
     buildImageClusters();

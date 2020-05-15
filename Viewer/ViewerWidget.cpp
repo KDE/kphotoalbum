@@ -1334,7 +1334,7 @@ void Viewer::ViewerWidget::stopPlayback()
 
 void Viewer::ViewerWidget::invalidateThumbnail() const
 {
-    ImageManager::ThumbnailCache::instance()->removeThumbnail(m_list[m_current]);
+    MainWindow::Window::theMainWindow()->thumbnailCache()->removeThumbnail(m_list[m_current]);
 }
 
 void Viewer::ViewerWidget::setTaggedAreasFromImage()

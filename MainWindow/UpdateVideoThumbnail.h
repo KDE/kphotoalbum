@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -25,17 +25,11 @@
 namespace MainWindow
 {
 
-class UpdateVideoThumbnail
+namespace UpdateVideoThumbnail
 {
-public:
-    static void useNext(const DB::FileNameList &);
-    static void usePrevious(const DB::FileNameList &);
-
-private:
-    static void update(const DB::FileNameList &, int direction);
-    static void update(const DB::FileName &fileName, int direction);
-    static DB::FileName nextExistingImage(const DB::FileName &fileName, int frame, int direction);
-};
+    void useNext(const DB::FileNameList &);
+    void usePrevious(const DB::FileNameList &);
+}
 
 } // namespace MainWindow
 

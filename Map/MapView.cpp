@@ -25,6 +25,7 @@
 #include <DB/ImageDB.h>
 #include <DB/ImageSearchInfo.h>
 #include <MainWindow/Logging.h>
+#include <MainWindow/Window.h>
 
 #include <KConfigGroup>
 #include <KIconLoader>
@@ -464,8 +465,9 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *v
 
     painter->setBrush(QBrush(QColor(Qt::red).lighter()));
     painter->setPen(QColor(Qt::red));
+    ThumbnailParams thumbs { m_pin, MainWindow::Window::theMainWindow()->thumbnailCache() };
     for (const auto *bin : m_geoClusters) {
-        bin->render(painter, *viewPortParams, m_pin, m_showThumbnails ? MapStyle::ShowThumbnails : MapStyle::ShowPins);
+        bin->render(painter, *viewPortParams, thumbs, m_showThumbnails ? MapStyle::ShowThumbnails : MapStyle::ShowPins);
     }
 
     qCDebug(TimingLog) << "Map rendered in" << timer.elapsed() << "ms.";

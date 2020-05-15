@@ -124,7 +124,7 @@ Marble::GeoDataLatLonBox Map::GeoCluster::regionForPoint(QPoint pos, const Marbl
     return boundingRegion();
 }
 
-void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, Map::MapStyle style) const
+void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, Map::MapStyle style) const
 {
     if (viewPortParams.resolves(boundingRegion(), 2 * MARKER_SIZE_PX) || size() == 1
         || (viewPortParams.angularResolution() < FINE_RESOLUTION)) {
@@ -132,7 +132,7 @@ void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::Viewport
         // if the region takes up enough screen space, we should display the subclusters individually.
         // if all images have the same coordinates (null bounding region), this will never happen
         // -> in this case, show the images when we're zoomed in enough
-        renderSubItems(painter, viewPortParams, alternatePixmap, style);
+        renderSubItems(painter, viewPortParams, thumbs, style);
     } else {
         m_subItemsView = false;
         qCDebug(MapLog) << "GeoCluster has" << size() << "images.";
@@ -157,10 +157,10 @@ int Map::GeoCluster::size() const
     return m_size;
 }
 
-void Map::GeoCluster::renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, Map::MapStyle style) const
+void Map::GeoCluster::renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, Map::MapStyle style) const
 {
     for (const auto &subCluster : m_subClusters) {
-        subCluster->render(painter, viewPortParams, alternatePixmap, style);
+        subCluster->render(painter, viewPortParams, thumbs, style);
     }
 }
 
@@ -195,7 +195,7 @@ int Map::GeoBin::size() const
     return m_images.size();
 }
 
-void Map::GeoBin::renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const QPixmap &alternatePixmap, Map::MapStyle style) const
+void Map::GeoBin::renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, Map::MapStyle style) const
 {
     const auto viewPort = viewPortParams.viewLatLonAltBox();
     qCDebug(MapLog) << "GeoBin: drawing individual images";
@@ -205,10 +205,10 @@ void Map::GeoBin::renderSubItems(Marble::GeoPainter *painter, const Marble::View
                                              Marble::GeoDataCoordinates::Degree);
         if (viewPort.contains(pos)) {
             if (style == MapStyle::ShowPins) {
-                painter->drawPixmap(pos, alternatePixmap);
+                painter->drawPixmap(pos, thumbs.alternatePixmap);
             } else {
                 // FIXME(l3u) Maybe we should cache the scaled thumbnails?
-                painter->drawPixmap(pos, ImageManager::ThumbnailCache::instance()->lookup(image->fileName()).scaled(QSize(MARKER_SIZE_PX, MARKER_SIZE_PX), Qt::KeepAspectRatio));
+                painter->drawPixmap(pos, thumbs.cache->lookup(image->fileName()).scaled(QSize(MARKER_SIZE_PX, MARKER_SIZE_PX), Qt::KeepAspectRatio));
             }
         }
     }

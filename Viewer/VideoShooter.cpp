@@ -25,6 +25,7 @@
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <DB/ImageInfo.h>
 #include <ImageManager/ThumbnailCache.h>
+#include <MainWindow/Window.h>
 
 #include <QApplication>
 #include <QTimer>
@@ -78,7 +79,7 @@ void Viewer::VideoShooter::doShoot()
     // Make the screenshot and save it
     const QImage image = m_viewer->m_videoDisplay->screenShoot();
     const DB::FileName fileName = m_info->fileName();
-    ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
+    MainWindow::Window::theMainWindow()->thumbnailCache()->removeThumbnail(fileName);
     BackgroundJobs::HandleVideoThumbnailRequestJob::saveFullScaleFrame(fileName, image);
 
     // Show the infobox again

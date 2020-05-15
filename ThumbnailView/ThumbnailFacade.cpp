@@ -29,15 +29,16 @@
 #include <Settings/SettingsData.h>
 
 ThumbnailView::ThumbnailFacade *ThumbnailView::ThumbnailFacade::s_instance = nullptr;
-ThumbnailView::ThumbnailFacade::ThumbnailFacade()
+ThumbnailView::ThumbnailFacade::ThumbnailFacade(ImageManager::ThumbnailCache *thumbnailCache)
     : m_cellGeometry(nullptr)
     , m_model(nullptr)
     , m_widget(nullptr)
     , m_toolTip(nullptr)
+    , m_thumbnailCache(thumbnailCache)
 {
     // To avoid one of the components references one of the other before it has been initialized, we first construct them all with null.
     m_cellGeometry = new CellGeometry(this);
-    m_model = new ThumbnailModel(this);
+    m_model = new ThumbnailModel(this, m_thumbnailCache);
     m_widget = new ThumbnailWidget(this);
     m_toolTip = new ThumbnailToolTip(m_widget);
 
@@ -180,7 +181,7 @@ void ThumbnailView::ThumbnailFacade::slotRecreateThumbnail()
 {
     const auto selection = widget()->selection(NoExpandCollapsedStacks);
     for (const DB::FileName &fileName : selection) {
-        ImageManager::ThumbnailCache::instance()->removeThumbnail(fileName);
+        m_thumbnailCache->removeThumbnail(fileName);
         BackgroundJobs::HandleVideoThumbnailRequestJob::removeFullScaleFrame(fileName);
         m_model->updateCell(fileName);
     }

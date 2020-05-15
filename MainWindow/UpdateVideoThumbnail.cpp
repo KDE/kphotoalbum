@@ -27,28 +27,22 @@
 #include <Utilities/FileUtil.h>
 #include <Utilities/VideoUtil.h>
 
-namespace MainWindow
+namespace
 {
 
-void UpdateVideoThumbnail::useNext(const DB::FileNameList &list)
+DB::FileName nextExistingImage(const DB::FileName &fileName, int frame, int direction)
 {
-    update(list, +1);
-}
-
-void UpdateVideoThumbnail::usePrevious(const DB::FileNameList &list)
-{
-    update(list, -1);
-}
-
-void UpdateVideoThumbnail::update(const DB::FileNameList &list, int direction)
-{
-    for (const DB::FileName &fileName : list) {
-        if (Utilities::isVideo(fileName))
-            update(fileName, direction);
+    for (int i = 1; i < 10; ++i) {
+        const int nextIndex = (frame + 10 + direction * i) % 10;
+        const DB::FileName file = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(fileName, nextIndex);
+        if (file.exists())
+            return file;
     }
+    Q_ASSERT(false && "We should always find at least the current frame");
+    return DB::FileName();
 }
 
-void UpdateVideoThumbnail::update(const DB::FileName &fileName, int direction)
+void update(const DB::FileName &fileName, int direction)
 {
     const DB::FileName baseImageName = BackgroundJobs::HandleVideoThumbnailRequestJob::pathForRequest(fileName);
     QImage baseImage(baseImageName.absolute());
@@ -69,21 +63,27 @@ void UpdateVideoThumbnail::update(const DB::FileName &fileName, int direction)
     Utilities::copyOrOverwrite(newImageName.absolute(), baseImageName.absolute());
 
     QImage image = QImage(newImageName.absolute()).scaled(ThumbnailView::CellGeometry::preferredIconSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    ImageManager::ThumbnailCache::instance()->insert(fileName, image);
+    MainWindow::Window::theMainWindow()->thumbnailCache()->insert(fileName, image);
     MainWindow::Window::theMainWindow()->reloadThumbnails();
 }
 
-DB::FileName UpdateVideoThumbnail::nextExistingImage(const DB::FileName &fileName, int frame, int direction)
+void update(const DB::FileNameList &list, int direction)
 {
-    for (int i = 1; i < 10; ++i) {
-        const int nextIndex = (frame + 10 + direction * i) % 10;
-        const DB::FileName file = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(fileName, nextIndex);
-        if (file.exists())
-            return file;
+    for (const DB::FileName &fileName : list) {
+        if (Utilities::isVideo(fileName))
+            update(fileName, direction);
     }
-    Q_ASSERT(false && "We should always find at least the current frame");
-    return DB::FileName();
+}
+} // namespace
+
+void MainWindow::UpdateVideoThumbnail::useNext(const DB::FileNameList &list)
+{
+    update(list, +1);
 }
 
-} // namespace MainWindow
+void MainWindow::UpdateVideoThumbnail::usePrevious(const DB::FileNameList &list)
+{
+    update(list, -1);
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

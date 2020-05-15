@@ -1,4 +1,4 @@
-/* Copyright (C) 2015 Johannes Zarl <johannes@zarl.at>
+/* Copyright (C) 2015-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -32,7 +32,7 @@ class ThumbnailWidget;
  * The GridResizeSlider is a QSlider that ties into the ThumbnailView infrastructure,
  * as well as into the SettingsData on thumbnail size.
  *
- * Moving the slider changes the actual thumbnail size, and changing the actual
+ * Moving the slider changes the displayed thumbnail size, and changing the
  * thumbnail size in the SettingsData reflects on the slider.
  * Changes in SettingsData::thumbnailSize() are reflected in the maximum slider value.
  */
@@ -42,10 +42,6 @@ class GridResizeSlider : public QSlider, private ThumbnailComponent
 public:
     explicit GridResizeSlider(ThumbnailFactory *factory);
     ~GridResizeSlider() override;
-
-public slots:
-    void increaseThumbnailSize();
-    void decreaseThumbnailSize();
 
 signals:
     void isResizing(bool);
@@ -64,7 +60,6 @@ private slots:
 private:
     bool m_resizing;
     QTimer *m_timer;
-    void calculateNewThumbnailSize(int perRowDifference);
 };
 }
 

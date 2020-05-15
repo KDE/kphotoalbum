@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -42,6 +42,7 @@ class QTimer;
 
 namespace ImageManager
 {
+class ThumbnailCache;
 
 class ThumbnailBuilder : public QObject, public ImageManager::ImageClientInterface
 {
@@ -66,9 +67,10 @@ public slots:
 private:
     friend class MainWindow::Window;
     static ThumbnailBuilder *s_instance;
-    ThumbnailBuilder(MainWindow::StatusBar *statusBar, QObject *parent);
+    ThumbnailBuilder(MainWindow::StatusBar *statusBar, QObject *parent, ThumbnailCache *thumbnailCache);
     void terminateScout();
     MainWindow::StatusBar *m_statusBar;
+    ThumbnailCache *m_thumbnailCache;
     int m_count;
     int m_expectedThumbnails;
     bool m_isBuilding;

@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -27,6 +27,7 @@
 namespace ImageManager
 {
 class ImageRequest;
+class ThumbnailCache;
 }
 namespace DB
 {
@@ -41,7 +42,7 @@ class HandleVideoThumbnailRequestJob : public BackgroundTaskManager::JobInterfac
 {
     Q_OBJECT
 public:
-    explicit HandleVideoThumbnailRequestJob(ImageManager::ImageRequest *request, BackgroundTaskManager::Priority priority);
+    explicit HandleVideoThumbnailRequestJob(ImageManager::ImageRequest *request, BackgroundTaskManager::Priority priority, ImageManager::ThumbnailCache *thumbnailCache);
     QString title() const override;
     QString details() const override;
     static void saveFullScaleFrame(const DB::FileName &fileName, const QImage &image);
@@ -60,6 +61,7 @@ private:
     QImage brokenImage() const;
 
     ImageManager::ImageRequest *m_request;
+    ImageManager::ThumbnailCache *m_thumbnailCache;
 };
 
 } // namespace BackgroundJobs

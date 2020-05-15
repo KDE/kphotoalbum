@@ -1,4 +1,4 @@
-/* Copyright (C) 2015-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2015-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -131,59 +131,6 @@ void ThumbnailView::GridResizeSlider::setMaximum(int size)
 {
     // QSlider::setMaximum() is not a slot, which is why we need this slot as workaround
     QSlider::setMaximum(size);
-}
-
-void ThumbnailView::GridResizeSlider::increaseThumbnailSize()
-{
-    calculateNewThumbnailSize(-1);
-}
-
-void ThumbnailView::GridResizeSlider::decreaseThumbnailSize()
-{
-    calculateNewThumbnailSize(1);
-}
-
-void ThumbnailView::GridResizeSlider::calculateNewThumbnailSize(int perRowDifference)
-{
-    if (!Settings::SettingsData::instance()->incrementalThumbnails()) {
-        int code = KMessageBox::questionYesNo(
-            MainWindow::Window::theMainWindow(),
-            i18n("Really resize the stored thumbnail size? It will result in all thumbnails being "
-                 "regenerated!"),
-            i18n("Really resize the thumbnails?"),
-            KStandardGuiItem::yes(), KStandardGuiItem::no(),
-            QLatin1String("resizeGrid"));
-
-        if (code == KMessageBox::Yes) {
-            KSharedConfig::openConfig()->sync();
-        } else {
-            return;
-        }
-    }
-
-    // + 6 because 5 pixels are added in ThumbnailView::CellGeometry::iconGeometry
-    // and one additional pixel is needed for the grid. So we need to add/remove 6 pixels.
-    int thumbnailSize = Settings::SettingsData::instance()->actualThumbnailSize() + 6;
-    int thumbnailSpace = Settings::SettingsData::instance()->thumbnailSpace();
-    int viewportWidth = widget()->viewport()->width();
-    int perRow = viewportWidth / (thumbnailSize + thumbnailSpace);
-
-    if (perRow + perRowDifference <= 0) {
-        return;
-    }
-
-    int newWidth = (viewportWidth / (perRow + perRowDifference) - thumbnailSpace) - 6;
-
-    if (newWidth < Settings::SettingsData::instance()->minimumThumbnailSize()) {
-        return;
-    }
-
-    Settings::SettingsData::instance()->setThumbnailSize(newWidth);
-    Settings::SettingsData::instance()->setActualThumbnailSize(newWidth);
-    model()->beginResetModel();
-    cellGeometryInfo()->flushCache();
-    model()->endResetModel();
-    model()->updateVisibleRowInfo();
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

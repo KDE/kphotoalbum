@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2011 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -20,13 +20,14 @@
 
 #include "ThumbnailCache.h"
 
-ImageManager::PreloadRequest::PreloadRequest(const DB::FileName &fileName, const QSize &size, int angle, ImageClientInterface *client)
+ImageManager::PreloadRequest::PreloadRequest(const DB::FileName &fileName, const QSize &size, int angle, ImageClientInterface *client, const ThumbnailCache *thumbnailCache)
     : ImageRequest(fileName, size, angle, client)
+    , m_thumbnailCache(thumbnailCache)
 {
 }
 
 bool ImageManager::PreloadRequest::stillNeeded() const
 {
-    return !ThumbnailCache::instance()->contains(databaseFileName());
+    return !m_thumbnailCache->contains(databaseFileName());
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

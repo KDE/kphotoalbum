@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -37,9 +37,10 @@
 
 ImageManager::ThumbnailBuilder *ImageManager::ThumbnailBuilder::s_instance = nullptr;
 
-ImageManager::ThumbnailBuilder::ThumbnailBuilder(MainWindow::StatusBar *statusBar, QObject *parent)
+ImageManager::ThumbnailBuilder::ThumbnailBuilder(MainWindow::StatusBar *statusBar, QObject *parent, ThumbnailCache *thumbnailCache)
     : QObject(parent)
     , m_statusBar(statusBar)
+    , m_thumbnailCache(thumbnailCache)
     , m_count(0)
     , m_isBuilding(false)
     , m_loadedCount(0)
@@ -49,9 +50,6 @@ ImageManager::ThumbnailBuilder::ThumbnailBuilder(MainWindow::StatusBar *statusBa
     connect(m_statusBar, &MainWindow::StatusBar::cancelRequest, this, &ThumbnailBuilder::cancelRequests);
     s_instance = this;
 
-    // Make sure that this is created early, in the main thread, so it
-    // can receive signals.
-    ThumbnailCache::instance();
     m_startBuildTimer = new QTimer(this);
     m_startBuildTimer->setSingleShot(true);
     connect(m_startBuildTimer, &QTimer::timeout, this, &ThumbnailBuilder::doThumbnailBuild);
@@ -106,7 +104,7 @@ void ImageManager::ThumbnailBuilder::buildAll(ThumbnailBuildStart when)
     msgBox.setDefaultButton(QMessageBox::No);
     int ret = msgBox.exec();
     if (ret == QMessageBox::Yes) {
-        ImageManager::ThumbnailCache::instance()->flush();
+        m_thumbnailCache->flush();
         scheduleThumbnailBuild(DB::ImageDB::instance()->images(), when);
     }
 }
@@ -127,7 +125,7 @@ void ImageManager::ThumbnailBuilder::buildMissing()
     const DB::FileNameList images = DB::ImageDB::instance()->images();
     DB::FileNameList needed;
     for (const DB::FileName &fileName : images) {
-        if (!ImageManager::ThumbnailCache::instance()->contains(fileName))
+        if (!m_thumbnailCache->contains(fileName))
             needed.append(fileName);
     }
     scheduleThumbnailBuild(needed, StartDelayed);
@@ -151,7 +149,7 @@ void ImageManager::ThumbnailBuilder::buildOneThumbnail(const DB::ImageInfoPtr &i
     ImageManager::ImageRequest *request
         = new ImageManager::PreloadRequest(info->fileName(),
                                            ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
-                                           this);
+                                           this, m_thumbnailCache);
     request->setIsThumbnailRequest(true);
     request->setPriority(ImageManager::BuildThumbnails);
     ImageManager::AsyncLoader::instance()->load(request);
@@ -195,7 +193,7 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
         ImageManager::ImageRequest *request
             = new ImageManager::PreloadRequest(fileName,
                                                ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
-                                               this);
+                                               this, m_thumbnailCache);
         request->setIsThumbnailRequest(true);
         request->setPriority(ImageManager::BuildThumbnails);
         if (ImageManager::AsyncLoader::instance()->load(request))
@@ -210,7 +208,7 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
 
 void ImageManager::ThumbnailBuilder::save()
 {
-    ImageManager::ThumbnailCache::instance()->save();
+    m_thumbnailCache->save();
 }
 
 void ImageManager::ThumbnailBuilder::requestCanceled()

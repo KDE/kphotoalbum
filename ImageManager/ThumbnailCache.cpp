@@ -39,12 +39,14 @@ namespace
 
 // We split the thumbnails into chunks to avoid a huge file changing over and over again, with a bad hit for backups
 constexpr int MAX_FILE_SIZE = 32 * 1024 * 1024;
-constexpr int THUMBNAIL_FILE_VERSION = 4;
+constexpr int THUMBNAIL_FILE_VERSION_MIN = 4;
+constexpr int THUMBNAIL_FILE_VERSION = 5;
 // We map some thumbnail files into memory and manage them in a least-recently-used fashion
 constexpr size_t LRU_SIZE = 2;
 
 constexpr int THUMBNAIL_CACHE_SAVE_INTERNAL_MS = (5 * 1000);
 
+const auto INDEXFILE_NAME = QString::fromLatin1("thumbnailindex");
 }
 
 namespace ImageManager
@@ -81,12 +83,16 @@ public:
     QFile file;
     QByteArray map;
 };
+
+QString defaultThumbnailDirectory()
+{
+    return QString::fromLatin1(".thumbnails/");
+}
 }
 
-ImageManager::ThumbnailCache *ImageManager::ThumbnailCache::s_instance = nullptr;
-
-ImageManager::ThumbnailCache::ThumbnailCache()
-    : m_currentFile(0)
+ImageManager::ThumbnailCache::ThumbnailCache(const QString &baseDirectory)
+    : m_baseDir(baseDirectory)
+    , m_currentFile(0)
     , m_currentOffset(0)
     , m_timer(new QTimer)
     , m_needsFullSave(true)
@@ -97,6 +103,9 @@ ImageManager::ThumbnailCache::ThumbnailCache()
     const QString dir = thumbnailPath(QString());
     if (!QFile::exists(dir))
         QDir().mkpath(dir);
+
+    // set a default value for version 4 files and new databases:
+    m_thumbnailSize = Settings::SettingsData::instance()->thumbnailSize();
 
     load();
     connect(this, &ImageManager::ThumbnailCache::doSave, this, &ImageManager::ThumbnailCache::saveImpl);
@@ -195,27 +204,17 @@ void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QImage
     }
 }
 
-QString ImageManager::ThumbnailCache::fileNameForIndex(int index, const QString dir) const
+QString ImageManager::ThumbnailCache::fileNameForIndex(int index) const
 {
-    return thumbnailPath(QString::fromLatin1("thumb-") + QString::number(index), dir);
+    return thumbnailPath(QString::fromLatin1("thumb-") + QString::number(index));
 }
 
 QPixmap ImageManager::ThumbnailCache::lookup(const DB::FileName &name) const
 {
-    m_dataLock.lock();
-    CacheFileInfo info = m_hash[name];
-    m_dataLock.unlock();
+    auto array = lookupRawData(name);
+    if (array.isNull())
+        return QPixmap();
 
-    ThumbnailMapping *t = m_memcache->object(info.fileIndex);
-    if (!t || !t->isValid()) {
-        t = new ThumbnailMapping(fileNameForIndex(info.fileIndex));
-        if (!t->isValid()) {
-            qCWarning(ImageManagerLog, "Failed to map thumbnail file");
-            return QPixmap();
-        }
-        m_memcache->insert(info.fileIndex, t);
-    }
-    QByteArray array(t->map.mid(info.offset, info.size));
     QBuffer buffer(&array);
     buffer.open(QIODevice::ReadOnly);
     QImage image;
@@ -275,6 +274,7 @@ void ImageManager::ThumbnailCache::saveFull() const
 
     QDataStream stream(&file);
     stream << THUMBNAIL_FILE_VERSION
+           << m_thumbnailSize
            << m_currentFile
            << m_currentOffset
            << m_hash.count();
@@ -288,7 +288,7 @@ void ImageManager::ThumbnailCache::saveFull() const
     }
     file.close();
 
-    const QString realFileName = thumbnailPath(QString::fromLatin1("thumbnailindex"));
+    const QString realFileName = thumbnailPath(INDEXFILE_NAME);
     QFile::remove(realFileName);
     if (!file.copy(realFileName)) {
         qCWarning(ImageManagerLog, "Failed to copy the temporary file %s to %s", qPrintable(file.fileName()), qPrintable(realFileName));
@@ -321,7 +321,7 @@ void ImageManager::ThumbnailCache::saveIncremental() const
     m_unsavedHash.clear();
     m_isDirty = true;
 
-    const QString realFileName = thumbnailPath(QString::fromLatin1("thumbnailindex"));
+    const QString realFileName = thumbnailPath(INDEXFILE_NAME);
     QFile file(realFileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Append)) {
         qCWarning(ImageManagerLog, "Failed to open thumbnail cache for appending");
@@ -342,7 +342,7 @@ void ImageManager::ThumbnailCache::saveIncremental() const
 void ImageManager::ThumbnailCache::saveInternal() const
 {
     m_saveLock.lock();
-    const QString realFileName = thumbnailPath(QString::fromLatin1("thumbnailindex"));
+    const QString realFileName = thumbnailPath(INDEXFILE_NAME);
     // If something has asked for a full save, do it!
     if (m_needsFullSave || !QFile(realFileName).exists()) {
         saveFull();
@@ -371,7 +371,7 @@ void ImageManager::ThumbnailCache::save() const
 
 void ImageManager::ThumbnailCache::load()
 {
-    QFile file(thumbnailPath(QString::fromLatin1("thumbnailindex")));
+    QFile file(thumbnailPath(INDEXFILE_NAME));
     if (!file.exists())
         return;
 
@@ -381,11 +381,21 @@ void ImageManager::ThumbnailCache::load()
     QDataStream stream(&file);
     int version;
     stream >> version;
-    if (version != THUMBNAIL_FILE_VERSION)
+
+    if (version != THUMBNAIL_FILE_VERSION && version != THUMBNAIL_FILE_VERSION_MIN)
         return; //Discard cache
 
     // We can't allow anything to modify the structure while we're doing this.
     QMutexLocker dataLocker(&m_dataLock);
+
+    if (version == THUMBNAIL_FILE_VERSION_MIN) {
+        qCInfo(ImageManagerLog) << "Loading thumbnail index version " << version
+                                << "- assuming thumbnail size" << m_thumbnailSize << "px";
+    } else {
+        stream >> m_thumbnailSize;
+        qCDebug(ImageManagerLog) << "Thumbnail cache has thumbnail size" << m_thumbnailSize << "px";
+    }
+
     int count = 0;
     stream >> m_currentFile
         >> m_currentOffset
@@ -424,24 +434,14 @@ bool ImageManager::ThumbnailCache::contains(const DB::FileName &name) const
     return answer;
 }
 
-QString ImageManager::ThumbnailCache::thumbnailPath(const QString &file, const QString dir) const
+QString ImageManager::ThumbnailCache::thumbnailPath(const QString &file) const
 {
-    QString base = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath(dir);
-    return base + file;
+    return m_baseDir + file;
 }
 
-ImageManager::ThumbnailCache *ImageManager::ThumbnailCache::instance()
+int ImageManager::ThumbnailCache::thumbnailSize() const
 {
-    if (!s_instance) {
-        s_instance = new ThumbnailCache;
-    }
-    return s_instance;
-}
-
-void ImageManager::ThumbnailCache::deleteInstance()
-{
-    delete s_instance;
-    s_instance = nullptr;
+    return m_thumbnailSize;
 }
 
 void ImageManager::ThumbnailCache::flush()
@@ -476,5 +476,17 @@ void ImageManager::ThumbnailCache::removeThumbnails(const DB::FileNameList &file
     }
     dataLocker.unlock();
     save();
+}
+
+void ImageManager::ThumbnailCache::setThumbnailSize(int thumbSize)
+{
+    if (thumbSize < 0)
+        return;
+
+    if (thumbSize != m_thumbnailSize) {
+        m_thumbnailSize = thumbSize;
+        flush();
+        emit cacheInvalidated();
+    }
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

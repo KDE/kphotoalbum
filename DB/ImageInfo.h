@@ -51,10 +51,6 @@ class Database;
 
 namespace DB
 {
-enum PathType {
-    RelativeToImageRoot,
-    AbsolutePath
-};
 enum RotationMode {
     RotateImageInfoAndAreas,
     RotateImageInfoOnly

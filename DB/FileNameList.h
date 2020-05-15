@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -21,13 +21,16 @@
 #define FILENAMELIST_H
 
 #include "FileName.h"
-#include "ImageInfo.h"
 
 #include <QList>
 #include <QStringList>
 
 namespace DB
 {
+enum PathType {
+    RelativeToImageRoot,
+    AbsolutePath
+};
 
 class FileNameList : public QList<DB::FileName>
 {

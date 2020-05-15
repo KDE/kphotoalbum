@@ -19,6 +19,7 @@
 
 #include "SettingsData.h"
 
+#include <DB/Category.h>
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 

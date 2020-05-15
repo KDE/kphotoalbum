@@ -20,10 +20,9 @@
 #define SETTINGS_SETTINGSDATA_H
 
 #include <AnnotationDialog/enums.h>
-#include <DB/Category.h>
 #include <DB/ImageSearchInfo.h>
-#include <Exif/Info.h>
 #include <Utilities/StringSet.h>
+#include <QObject>
 
 #define property(GET_TYPE, GET_FUNC, SET_FUNC, SET_TYPE) \
     GET_TYPE GET_FUNC() const;                           \

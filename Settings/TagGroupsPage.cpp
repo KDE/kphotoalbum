@@ -271,7 +271,7 @@ void Settings::TagGroupsPage::categoryChanged(const QString &name)
         if (!alreadyAdded.contains(member)) {
             alreadyAdded << member;
 
-            if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
+            if (DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()
                 && !Settings::SettingsData::instance()->untaggedImagesTagVisible()) {
 
                 if (name == Settings::SettingsData::instance()->untaggedCategory()) {

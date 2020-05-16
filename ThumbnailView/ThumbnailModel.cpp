@@ -356,7 +356,7 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
             if (category != i18n("Folder") && category != i18n("Media Type")) {
                 Utilities::StringSet items = info->itemsOfCategory(category);
 
-                if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
+                if (DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()
                     && !Settings::SettingsData::instance()->untaggedImagesTagVisible()) {
 
                     if (category == Settings::SettingsData::instance()->untaggedCategory()) {

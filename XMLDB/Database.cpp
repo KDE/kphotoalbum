@@ -415,6 +415,11 @@ DB::CategoryCollection *XMLDB::Database::categoryCollection()
     return &m_categoryCollection;
 }
 
+const DB::CategoryCollection *XMLDB::Database::categoryCollection() const
+{
+    return &m_categoryCollection;
+}
+
 QExplicitlySharedDataPointer<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
 {
     return QExplicitlySharedDataPointer<DB::ImageDateCollection>(

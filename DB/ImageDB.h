@@ -97,6 +97,8 @@ public:
         const ImageDate &range,
         bool includeRanges) const;
 
+    bool untaggedCategoryFeatureConfigured() const;
+
 public: // Methods that must be overridden
     virtual uint totalCount() const = 0;
     virtual DB::ImageInfoList search(const ImageSearchInfo &, bool requireOnDisk = false) const = 0;
@@ -141,6 +143,7 @@ public: // Methods that must be overridden
     virtual void sortAndMergeBackIn(const DB::FileNameList &list) = 0;
 
     virtual CategoryCollection *categoryCollection() = 0;
+    virtual const CategoryCollection *categoryCollection() const = 0;
     virtual QExplicitlySharedDataPointer<ImageDateCollection> rangeCollection() = 0;
 
     /**

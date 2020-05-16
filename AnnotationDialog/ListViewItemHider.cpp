@@ -25,6 +25,8 @@
 #include "ListSelect.h"
 #include "ListViewItemHider.h"
 
+#include <DB/ImageDB.h>
+
 using namespace Utilities;
 
 /**
@@ -71,7 +73,7 @@ AnnotationDialog::ListViewTextMatchHider::ListViewTextMatchHider(const QString &
 bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown(QTreeWidgetItem *item)
 {
     // Be sure not to display the "untagged image" tag if configured
-    if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
+    if (DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()
         && !Settings::SettingsData::instance()->untaggedImagesTagVisible()) {
         if (Settings::SettingsData::instance()->untaggedCategory()
             == dynamic_cast<ListSelect *>(item->treeWidget()->parent())->category()) {

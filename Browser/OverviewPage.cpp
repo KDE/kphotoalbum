@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -318,7 +318,7 @@ void Browser::OverviewPage::updateImageCount()
 
 Browser::BrowserPage *Browser::OverviewPage::activateUntaggedImagesAction()
 {
-    if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()) {
+    if (DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()) {
         DB::ImageSearchInfo info = BrowserPage::searchInfo();
         info.addAnd(Settings::SettingsData::instance()->untaggedCategory(),
                     Settings::SettingsData::instance()->untaggedTag());

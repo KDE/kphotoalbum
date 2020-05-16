@@ -1129,7 +1129,7 @@ bool MainWindow::Window::load()
     Settings::SettingsData::instance()->setThumbnailSize(m_thumbnailCache->thumbnailSize());
 
     // some sanity checks:
-    if (!Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
+    if (!DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()
         && !(Settings::SettingsData::instance()->untaggedCategory().isEmpty()
              && Settings::SettingsData::instance()->untaggedTag().isEmpty())
         && !Options::the()->demoMode()) {
@@ -1624,7 +1624,7 @@ void MainWindow::Window::slotStatistics()
 
 void MainWindow::Window::slotMarkUntagged()
 {
-    if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()) {
+    if (DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()) {
         for (const DB::FileName &newFile : selected()) {
             DB::ImageDB::instance()->info(newFile)->addCategoryInfo(Settings::SettingsData::instance()->untaggedCategory(),
                                                                     Settings::SettingsData::instance()->untaggedTag());

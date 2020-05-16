@@ -194,6 +194,14 @@ DB::FileName ImageDB::findFirstItemInRange(const DB::FileNameList &images,
     return candidate;
 }
 
+bool ImageDB::untaggedCategoryFeatureConfigured() const
+{
+    const auto untaggedCategory = Settings::SettingsData::instance()->untaggedCategory();
+    const auto untaggedTag = Settings::SettingsData::instance()->untaggedTag();
+    return categoryCollection()->categoryNames().contains(untaggedCategory)
+        && categoryCollection()->categoryForName(untaggedCategory)->items().contains(untaggedTag);
+}
+
 /** \fn void ImageDB::renameCategory( const QString& oldName, const QString newName )
  * \brief Rename category in media items stored in database.
  */

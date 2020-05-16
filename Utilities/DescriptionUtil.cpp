@@ -120,7 +120,7 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
         if (category->doShow()) {
             StringSet items = info->itemsOfCategory(categoryName);
 
-            if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()
+            if (DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()
                 && !Settings::SettingsData::instance()->untaggedImagesTagVisible()) {
 
                 if (categoryName == Settings::SettingsData::instance()->untaggedCategory()) {

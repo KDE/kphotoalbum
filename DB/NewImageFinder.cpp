@@ -744,7 +744,7 @@ bool NewImageFinder::calculateMD5sums(
 
 void DB::NewImageFinder::markUnTagged(ImageInfoPtr info)
 {
-    if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()) {
+    if (DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()) {
         info->addCategoryInfo(Settings::SettingsData::instance()->untaggedCategory(),
                               Settings::SettingsData::instance()->untaggedTag());
     }

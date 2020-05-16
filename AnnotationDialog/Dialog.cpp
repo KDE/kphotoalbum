@@ -450,7 +450,7 @@ void AnnotationDialog::Dialog::slotIndexChanged(int index)
 void AnnotationDialog::Dialog::doneTagging()
 {
     saveAndClose();
-    if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()) {
+    if (DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()) {
         for (DB::ImageInfoListIterator it = m_origList.begin(); it != m_origList.end(); ++it) {
             (*it)->removeCategoryInfo(Settings::SettingsData::instance()->untaggedCategory(),
                                       Settings::SettingsData::instance()->untaggedTag());
@@ -697,7 +697,7 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
 {
     ShowHideSearch(false);
 
-    if (Settings::SettingsData::instance()->hasUntaggedCategoryFeatureConfigured()) {
+    if (DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()) {
         DB::ImageDB::instance()->categoryCollection()->categoryForName(Settings::SettingsData::instance()->untaggedCategory())->addItem(Settings::SettingsData::instance()->untaggedTag());
     }
 

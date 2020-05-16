@@ -137,18 +137,6 @@ Settings::GeneralPage::GeneralPage(QWidget *parent)
     m_showSplashScreen = new QCheckBox(i18n("Show splash screen"), box);
     lay->addWidget(m_showSplashScreen, row, 0);
 
-    // Album Category
-    row++;
-    QLabel *albumCategoryLabel = new QLabel(i18n("Category for virtual albums:"), box);
-    m_albumCategory = new QComboBox;
-    lay->addWidget(albumCategoryLabel, row, 0);
-    lay->addWidget(m_albumCategory, row, 1);
-
-    const QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for (const DB::CategoryPtr &category : categories) {
-        m_albumCategory->addItem(category->name());
-    }
-
 #ifdef KPA_ENABLE_REMOTECONTROL
     m_listenForAndroidDevicesOnStartup = new QCheckBox(i18n("Listen for Android devices on startup"));
     lay->addWidget(m_listenForAndroidDevicesOnStartup);
@@ -180,22 +168,6 @@ Settings::GeneralPage::GeneralPage(QWidget *parent)
                "Check this checkbox to specify if you want to use this as a "
                "default description for your images.</p>");
     m_useEXIFComments->setWhatsThis(txt);
-
-    txt = i18n("<p>KPhotoAlbum shares plugins with other imaging applications, some of which have the concept of albums. "
-               "KPhotoAlbum does not have this concept; nevertheless, for certain plugins to function, KPhotoAlbum behaves "
-               "to the plugin system as if it did.</p>"
-               "<p>KPhotoAlbum does this by defining the current album to be the current view - that is, all the images the "
-               "browser offers to display.</p>"
-               "<p>In addition to the current album, KPhotoAlbum must also be able to give a list of all albums; "
-               "the list of all albums is defined in the following way:"
-               "<ul><li>When KPhotoAlbum's browser displays the content of a category, say all People, then each item in this category "
-               "will look like an album to the plugin.</li>"
-               "<li>Otherwise, the category you specify using this option will be used; e.g. if you specify People "
-               "with this option, then KPhotoAlbum will act as if you had just chosen to display people and then invoke "
-               "the plugin which needs to know about all albums.</li></ul></p>"
-               "<p>Most users would probably want to specify Events here.</p>");
-    albumCategoryLabel->setWhatsThis(txt);
-    m_albumCategory->setWhatsThis(txt);
 
     txt = i18n("Show the KPhotoAlbum splash screen on start up");
     m_showSplashScreen->setWhatsThis(txt);
@@ -246,11 +218,6 @@ void Settings::GeneralPage::loadSettings(Settings::SettingsData *opt)
 #ifdef KPA_ENABLE_REMOTECONTROL
     m_listenForAndroidDevicesOnStartup->setChecked(opt->listenForAndroidDevicesOnStartup());
 #endif
-    DB::CategoryPtr cat = DB::ImageDB::instance()->categoryCollection()->categoryForName(opt->albumCategory());
-    if (!cat)
-        cat = DB::ImageDB::instance()->categoryCollection()->categories()[0];
-
-    m_albumCategory->setEditText(cat->name());
 }
 
 void Settings::GeneralPage::saveSettings(Settings::SettingsData *opt)
@@ -282,12 +249,6 @@ void Settings::GeneralPage::saveSettings(Settings::SettingsData *opt)
 #ifdef KPA_ENABLE_REMOTECONTROL
     opt->setListenForAndroidDevicesOnStartup(m_listenForAndroidDevicesOnStartup->isChecked());
 #endif
-
-    QString name = m_albumCategory->currentText();
-    if (name.isNull()) {
-        name = DB::ImageDB::instance()->categoryCollection()->categoryNames()[0];
-    }
-    opt->setAlbumCategory(name);
 
     opt->setHistogramSize(QSize(m_barWidth->value(), m_barHeight->value()));
 }

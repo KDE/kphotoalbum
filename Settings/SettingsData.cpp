@@ -363,20 +363,6 @@ void SettingsData::setSmoothScale(bool b)
 //// Categories ////
 ////////////////////
 
-setValueFunc(setAlbumCategory, QString &, General, albumCategory)
-
-    QString SettingsData::albumCategory() const
-{
-    QString category = value("General", "albumCategory", STR(""));
-
-    if (!DB::ImageDB::instance()->categoryCollection()->categoryNames().contains(category)) {
-        category = DB::ImageDB::instance()->categoryCollection()->categoryNames()[0];
-        const_cast<SettingsData *>(this)->setAlbumCategory(category);
-    }
-
-    return category;
-}
-
 // clang-format off
 property_ref(untaggedCategory, setUntaggedCategory, QString, General, i18n("Events"))
 property_ref(untaggedTag, setUntaggedTag, QString, General, i18n("untagged"))

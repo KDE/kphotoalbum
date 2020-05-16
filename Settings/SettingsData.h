@@ -183,7 +183,6 @@ public:
     //// Categories ////
     ////////////////////
 
-    property_ref(albumCategory, setAlbumCategory, QString);
     property_ref(untaggedCategory, setUntaggedCategory, QString);
     property_ref(untaggedTag, setUntaggedTag, QString);
     bool hasUntaggedCategoryFeatureConfigured() const;

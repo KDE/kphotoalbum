@@ -22,7 +22,7 @@ Here are a few pointers regarding coding standards in KPhotoAlbum. Please do sti
 code is easier to get into for new people, and easier to maintain for everyone.
 
 \li Basically, we try to stick by the
-    <a href="https://community.kde.org/Policies/Kdelibs_Coding_Style">kdelibs coding style</a>.
+    <a href="https://community.kde.org/Policies/Frameworks_Coding_Style">kdelibs coding style</a>.
 \li Indentation is 4 spaces.
 \li Instance variables are prefixed with `m_` (not only with `_`).
 \li Static instance variables are prefixed with `s_`.

@@ -74,9 +74,7 @@ FeatureDialog::FeatureDialog(QWidget *parent)
                  "</p>");
 
     text += i18n("<h1><a name=\"video\">Video support</a></h1>"
-                 "<p>KPhotoAlbum relies on Qt's Phonon architecture for displaying videos; this in turn relies on GStreamer. "
-                 "If this feature is not enabled for you, have a look at the "
-                 "<a href=\"https://userbase.kde.org/KPhotoAlbum#Video_Support\">KPhotoAlbum wiki article on video support</a>.</p>");
+                 "<p>KPhotoAlbum relies on Qt's Phonon architecture for displaying videos; this in turn relies on GStreamer.</p>");
 
     QStringList mimeTypes = supportedVideoMimeTypes();
     mimeTypes.sort();

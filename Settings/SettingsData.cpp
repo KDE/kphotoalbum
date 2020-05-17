@@ -23,7 +23,6 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
-#include <QPixmapCache>
 #include <QStringList>
 #include <QThread>
 #include <stdlib.h>
@@ -305,8 +304,6 @@ int SettingsData::actualThumbnailSize() const
 
 void SettingsData::setActualThumbnailSize(int value)
 {
-    QPixmapCache::clear();
-
     // enforce limits:
     value = qBound(minimumThumbnailSize(), value, thumbnailSize());
 

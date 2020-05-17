@@ -55,6 +55,7 @@
 #include <QMimeData>
 #include <QMoveEvent>
 #include <QObject>
+#include <QPixmapCache>
 #include <QResizeEvent>
 #include <QStackedWidget>
 #include <QTimer>
@@ -1678,6 +1679,8 @@ void MainWindow::Window::mergeDuplicates()
 
 void MainWindow::Window::slotThumbnailSizeChanged()
 {
+    QPixmapCache::clear();
+
     QString thumbnailSizeMsg = i18nc("@info:status",
                                      //xgettext:no-c-format
                                      "Thumbnail width: %1px (storage size: %2px)",

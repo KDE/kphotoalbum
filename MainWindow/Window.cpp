@@ -1094,7 +1094,7 @@ bool MainWindow::Window::load()
 
     // To avoid a race conditions where both the image loader thread creates an instance of
     // Settings, and where the main thread crates an instance, we better get it created now.
-    Settings::SettingsData::setup(QFileInfo(configFile).absolutePath());
+    Settings::SettingsData::setup(QFileInfo(configFile).absolutePath(), *this);
 
     if (Settings::SettingsData::instance()->showSplashScreen()) {
         SplashScreen::instance()->show();

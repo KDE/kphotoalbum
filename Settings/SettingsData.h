@@ -21,6 +21,7 @@
 
 #include <AnnotationDialog/enums.h>
 #include <DB/ImageSearchInfo.h>
+#include <DB/UIDelegate.h>
 #include <Utilities/StringSet.h>
 #include <QObject>
 
@@ -81,7 +82,7 @@ class SettingsData : public QObject
 public:
     static SettingsData *instance();
     static bool ready();
-    static void setup(const QString &imageDirectory);
+    static void setup(const QString &imageDirectory, DB::UIDelegate &delegate);
 
     /////////////////
     //// General ////
@@ -262,7 +263,8 @@ signals:
     void colorSchemeChanged();
 
 private:
-    SettingsData(const QString &imageDirectory);
+    SettingsData(const QString &imageDirectory, DB::UIDelegate &delegate);
+    DB::UIDelegate &uiDelegate() const;
 
     bool m_trustTimeStamps;
     bool m_hasAskedAboutTimeStamps;
@@ -272,6 +274,7 @@ private:
     friend class DB::CategoryCollection;
 
     QStringList m_EXIFCommentsToStrip;
+    DB::UIDelegate &m_UI;
 };
 } // end of namespace
 

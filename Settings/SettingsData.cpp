@@ -22,9 +22,7 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
-#include <KMessageBox>
 #include <KSharedConfig>
-#include <QApplication>
 #include <QPixmapCache>
 #include <QStringList>
 #include <QThread>
@@ -116,13 +114,14 @@ bool SettingsData::ready()
     return s_instance;
 }
 
-void SettingsData::setup(const QString &imageDirectory)
+void SettingsData::setup(const QString &imageDirectory, DB::UIDelegate &delegate)
 {
     if (!s_instance)
-        s_instance = new SettingsData(imageDirectory);
+        s_instance = new SettingsData(imageDirectory, delegate);
 }
 
-SettingsData::SettingsData(const QString &imageDirectory)
+SettingsData::SettingsData(const QString &imageDirectory, DB::UIDelegate &delegate)
+    : m_UI(delegate)
 {
     m_hasAskedAboutTimeStamps = false;
 
@@ -225,16 +224,15 @@ bool SettingsData::trustTimeStamps()
         return false;
     else {
         if (!m_hasAskedAboutTimeStamps) {
-            QApplication::setOverrideCursor(Qt::ArrowCursor);
-            QString txt = i18n("When reading time information of images, their Exif info is used. "
-                               "Exif info may, however, not be supported by your KPhotoAlbum installation, "
-                               "or no valid information may be in the file. "
-                               "As a backup, KPhotoAlbum may use the timestamp of the image - this may, "
-                               "however, not be valid in case the image is scanned in. "
-                               "So the question is, should KPhotoAlbum trust the time stamp on your images?");
-            int answer = KMessageBox::questionYesNo(nullptr, txt, i18n("Trust Time Stamps?"));
-            QApplication::restoreOverrideCursor();
-            if (answer == KMessageBox::Yes)
+            const QString txt = i18n("When reading time information of images, their Exif info is used. "
+                                     "Exif info may, however, not be supported by your KPhotoAlbum installation, "
+                                     "or no valid information may be in the file. "
+                                     "As a backup, KPhotoAlbum may use the timestamp of the image - this may, "
+                                     "however, not be valid in case the image is scanned in. "
+                                     "So the question is, should KPhotoAlbum trust the time stamp on your images?");
+            const QString logMsg = QString::fromUtf8("Trust timestamps for this session?");
+            auto answer = uiDelegate().questionYesNo(logMsg, txt, i18n("Trust Time Stamps?"));
+            if (answer == DB::UserFeedback::Confirm)
                 m_trustTimeStamps = true;
             else
                 m_trustTimeStamps = false;
@@ -590,6 +588,11 @@ int Settings::SettingsData::getThumbnailBuilderThreadCount() const
         return qMax(1, qMin(16, QThread::idealThreadCount() - 1));
         break;
     }
+}
+
+DB::UIDelegate &SettingsData::uiDelegate() const
+{
+    return m_UI;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

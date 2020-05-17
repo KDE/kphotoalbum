@@ -25,7 +25,6 @@
 #include <KSharedConfig>
 #include <QStringList>
 #include <QThread>
-#include <stdlib.h>
 
 #define STR(x) QString::fromLatin1(x)
 

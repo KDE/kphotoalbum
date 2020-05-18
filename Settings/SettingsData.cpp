@@ -34,11 +34,11 @@
     KSharedConfig::openConfig()->group(GROUP).readEntry(OPTION, DEFAULT)
 
 #define setValue(GROUP, OPTION, VALUE)                                  \
-    {                                                                   \
+    do {                                                                \
         KConfigGroup group = KSharedConfig::openConfig()->group(GROUP); \
         group.writeEntry(OPTION, VALUE);                                \
         group.sync();                                                   \
-    }
+    } while (0)
 
 #define getValueFunc_(TYPE, FUNC, GROUP, OPTION, DEFAULT)           \
     TYPE SettingsData::FUNC() const                                 \

@@ -355,28 +355,26 @@ void ImageSearchInfo::debug()
     }
 }
 
-// PENDING(blackie) move this into the Options class instead of having it here.
-void ImageSearchInfo::saveLock() const
+QVariantMap ImageSearchInfo::getLockData() const
 {
-    KConfigGroup config = KSharedConfig::openConfig()->group(Settings::SettingsData::instance()->groupForDatabase("Privacy Settings"));
-    config.writeEntry(QString::fromLatin1("label"), m_label);
-    config.writeEntry(QString::fromLatin1("description"), m_description);
-    config.writeEntry(QString::fromLatin1("categories"), m_categoryMatchText.keys());
+    QVariantMap pairs;
+    pairs[QString::fromLatin1("label")] = m_label;
+    pairs[QString::fromLatin1("description")] = m_description;
+    pairs[QString::fromLatin1("categories")] = QVariant(m_categoryMatchText.keys());
     for (QMap<QString, QString>::ConstIterator it = m_categoryMatchText.begin(); it != m_categoryMatchText.end(); ++it) {
-        config.writeEntry(it.key(), it.value());
+        pairs[it.key()] = it.value();
     }
-    config.sync();
+    return pairs;
 }
 
-ImageSearchInfo ImageSearchInfo::loadLock()
+ImageSearchInfo ImageSearchInfo::loadLock(const QMap<QString, QVariant> &keyValuePairs)
 {
-    KConfigGroup config = KSharedConfig::openConfig()->group(Settings::SettingsData::instance()->groupForDatabase("Privacy Settings"));
     ImageSearchInfo info;
-    info.m_label = config.readEntry("label");
-    info.m_description = config.readEntry("description");
-    QStringList categories = config.readEntry<QStringList>(QString::fromLatin1("categories"), QStringList());
+    info.m_label = keyValuePairs.value(QString::fromLatin1("label"), {}).toString();
+    info.m_description = keyValuePairs.value(QString::fromLatin1("description"), {}).toString();
+    QStringList categories = keyValuePairs.value(QString::fromLatin1("categories"), {}).toStringList();
     for (QStringList::ConstIterator it = categories.constBegin(); it != categories.constEnd(); ++it) {
-        info.setCategoryMatchText(*it, config.readEntry<QString>(*it, QString()));
+        info.setCategoryMatchText(*it, keyValuePairs.value(*it, {}).toString());
     }
     return info;
 }

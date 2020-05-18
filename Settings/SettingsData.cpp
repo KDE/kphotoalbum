@@ -28,7 +28,7 @@
 
 #define STR(x) QString::fromLatin1(x)
 
-#define value(GROUP, OPTION, DEFAULT) \
+#define cfgValue(GROUP, OPTION, DEFAULT) \
     KSharedConfig::openConfig()->group(GROUP).readEntry(OPTION, DEFAULT)
 
 #define setValue(GROUP, OPTION, VALUE)                                  \
@@ -41,7 +41,7 @@
 #define getValueFunc_(TYPE, FUNC, GROUP, OPTION, DEFAULT) \
     TYPE SettingsData::FUNC() const                       \
     {                                                     \
-        return (TYPE)value(GROUP, OPTION, DEFAULT);       \
+        return (TYPE)cfgValue(GROUP, OPTION, DEFAULT);    \
     }
 
 #define setValueFunc_(FUNC, TYPE, GROUP, OPTION, VALUE) \
@@ -126,11 +126,11 @@ SettingsData::SettingsData(const QString &imageDirectory, DB::UIDelegate &delega
     QString s = STR("/");
     m_imageDirectory = imageDirectory.endsWith(s) ? imageDirectory : imageDirectory + s;
 
-    _smoothScale = value("Viewer", "smoothScale", true);
+    _smoothScale = cfgValue("Viewer", "smoothScale", true);
 
     // Split the list of Exif comments that should be stripped automatically to a list
 
-    QStringList commentsToStrip = value("General", "commentsToStrip", QString::fromLatin1("Exif_JPEG_PICTURE-,-OLYMPUS DIGITAL CAMERA-,-JENOPTIK DIGITAL CAMERA-,-")).split(QString::fromLatin1("-,-"), QString::SkipEmptyParts);
+    QStringList commentsToStrip = cfgValue("General", "commentsToStrip", QString::fromLatin1("Exif_JPEG_PICTURE-,-OLYMPUS DIGITAL CAMERA-,-JENOPTIK DIGITAL CAMERA-,-")).split(QString::fromLatin1("-,-"), QString::SkipEmptyParts);
     for (QString &comment : commentsToStrip)
         comment.replace(QString::fromLatin1(",,"), QString::fromLatin1(","));
 
@@ -294,7 +294,7 @@ getValueFunc_(int, thumbnailSize, groupForDatabase("Thumbnails"), "thumbSize", 2
 int SettingsData::actualThumbnailSize() const
 {
     // this is database specific since it's a derived value of thumbnailSize
-    int retval = value(groupForDatabase("Thumbnails"), "actualThumbSize", 0);
+    int retval = cfgValue(groupForDatabase("Thumbnails"), "actualThumbSize", 0);
     // if no value has been set, use thumbnailSize
     if (retval == 0)
         retval = thumbnailSize();
@@ -404,7 +404,7 @@ property_ref_(HTMLIncludeSelections, setHTMLIncludeSelections, QString, groupFor
 
     QDate SettingsData::fromDate() const
 {
-    QString date = value("Miscellaneous", "fromDate", STR(""));
+    QString date = cfgValue("Miscellaneous", "fromDate", STR(""));
     return date.isEmpty() ? QDate(QDate::currentDate().year(), 1, 1) : QDate::fromString(date, Qt::ISODate);
 }
 
@@ -416,7 +416,7 @@ void SettingsData::setFromDate(const QDate &date)
 
 QDate SettingsData::toDate() const
 {
-    QString date = value("Miscellaneous", "toDate", STR(""));
+    QString date = cfgValue("Miscellaneous", "toDate", STR(""));
     return date.isEmpty() ? QDate(QDate::currentDate().year() + 1, 1, 1) : QDate::fromString(date, Qt::ISODate);
 }
 
@@ -438,18 +438,32 @@ QString SettingsData::groupForDatabase(const char *setting) const
 
 DB::ImageSearchInfo SettingsData::currentLock() const
 {
-    return DB::ImageSearchInfo::loadLock();
+    // duplicating logic from ImageSearchInfo here is not ideal
+    // FIXME(jzarl): review the whole database view lock mechanism
+    const auto group = groupForDatabase("Privacy Settings");
+    QVariantMap keyValuePairs;
+    keyValuePairs[STR("label")] = cfgValue(group, "label", {});
+    keyValuePairs[STR("description")] = cfgValue(group, "description", {});
+    keyValuePairs[STR("categories")] = cfgValue(group, "categories", QVariant());
+    const QStringList categories = cfgValue(group, "categories", QVariant()).toStringList();
+    for (QStringList::ConstIterator it = categories.constBegin(); it != categories.constEnd(); ++it) {
+        keyValuePairs[*it] = cfgValue(group, *it, {});
+    }
+    return DB::ImageSearchInfo::loadLock(keyValuePairs);
 }
 
 void SettingsData::setCurrentLock(const DB::ImageSearchInfo &info, bool exclude)
 {
-    info.saveLock();
+    const auto pairs = info.getLockData();
+    for (QVariantMap::const_iterator it = pairs.cbegin(); it != pairs.cend(); ++it) {
+        setValue(groupForDatabase("Privacy Settings"), it.key(), it.value());
+    }
     setValue(groupForDatabase("Privacy Settings"), "exclude", exclude);
 }
 
 bool SettingsData::lockExcludes() const
 {
-    return value(groupForDatabase("Privacy Settings"), "exclude", false);
+    return cfgValue(groupForDatabase("Privacy Settings"), "exclude", false);
 }
 
 getValueFunc_(bool, locked, groupForDatabase("Privacy Settings"), "locked", false)
@@ -470,7 +484,7 @@ void SettingsData::setWindowGeometry(WindowType win, const QRect &geometry)
 
 QRect SettingsData::windowGeometry(WindowType win) const
 {
-    return value("Window Geometry", win, QRect(0, 0, 800, 600));
+    return cfgValue("Window Geometry", win, QRect(0, 0, 800, 600));
 }
 
 double Settings::SettingsData::getThumbnailAspectRatio() const

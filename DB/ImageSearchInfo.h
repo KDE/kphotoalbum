@@ -85,8 +85,8 @@ public:
     void setSearchRAW(bool m_searchRAW);
     void setSearchMode(int index);
 
-    void saveLock() const;
-    static ImageSearchInfo loadLock();
+    QVariantMap getLockData() const;
+    static ImageSearchInfo loadLock(const QMap<QString, QVariant> &keyValuePairs);
 
     void debug();
     void debugMatcher() const;

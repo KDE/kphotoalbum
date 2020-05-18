@@ -533,16 +533,13 @@ bool Settings::SettingsData::getOverlapLoadMD5() const
     case Settings::LoadOptimizationSlowNVME:
     case Settings::LoadOptimizationFastNVME:
         return true;
-        break;
     case Settings::LoadOptimizationManual:
         return Settings::SettingsData::instance()->overlapLoadMD5();
-        break;
     case Settings::LoadOptimizationHardDisk:
     case Settings::LoadOptimizationNetwork:
     case Settings::LoadOptimizationSataSSD:
     default:
         return false;
-        break;
     }
 }
 
@@ -551,17 +548,14 @@ int Settings::SettingsData::getPreloadThreadCount() const
     switch (Settings::SettingsData::instance()->loadOptimizationPreset()) {
     case Settings::LoadOptimizationManual:
         return Settings::SettingsData::instance()->preloadThreadCount();
-        break;
     case Settings::LoadOptimizationSlowNVME:
     case Settings::LoadOptimizationFastNVME:
     case Settings::LoadOptimizationSataSSD:
         return qMax(1, qMin(16, QThread::idealThreadCount()));
-        break;
     case Settings::LoadOptimizationHardDisk:
     case Settings::LoadOptimizationNetwork:
     default:
         return 1;
-        break;
     }
 }
 
@@ -570,17 +564,14 @@ int Settings::SettingsData::getThumbnailPreloadThreadCount() const
     switch (Settings::SettingsData::instance()->loadOptimizationPreset()) {
     case Settings::LoadOptimizationManual:
         return Settings::SettingsData::instance()->thumbnailPreloadThreadCount();
-        break;
     case Settings::LoadOptimizationSlowNVME:
     case Settings::LoadOptimizationFastNVME:
     case Settings::LoadOptimizationSataSSD:
         return qMax(1, qMin(16, QThread::idealThreadCount() / 2));
-        break;
     case Settings::LoadOptimizationHardDisk:
     case Settings::LoadOptimizationNetwork:
     default:
         return 1;
-        break;
     }
 }
 
@@ -589,7 +580,6 @@ int Settings::SettingsData::getThumbnailBuilderThreadCount() const
     switch (Settings::SettingsData::instance()->loadOptimizationPreset()) {
     case Settings::LoadOptimizationManual:
         return Settings::SettingsData::instance()->thumbnailBuilderThreadCount();
-        break;
     case Settings::LoadOptimizationSlowNVME:
     case Settings::LoadOptimizationFastNVME:
     case Settings::LoadOptimizationSataSSD:
@@ -597,7 +587,6 @@ int Settings::SettingsData::getThumbnailBuilderThreadCount() const
     case Settings::LoadOptimizationNetwork:
     default:
         return qMax(1, qMin(16, QThread::idealThreadCount() - 1));
-        break;
     }
 }
 

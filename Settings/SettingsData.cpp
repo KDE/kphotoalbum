@@ -40,10 +40,10 @@
         group.sync();                                                   \
     }
 
-#define getValueFunc_(TYPE, FUNC, GROUP, OPTION, DEFAULT) \
-    TYPE SettingsData::FUNC() const                       \
-    {                                                     \
-        return (TYPE)cfgValue(GROUP, OPTION, DEFAULT);    \
+#define getValueFunc_(TYPE, FUNC, GROUP, OPTION, DEFAULT)           \
+    TYPE SettingsData::FUNC() const                                 \
+    {                                                               \
+        return static_cast<TYPE>(cfgValue(GROUP, OPTION, DEFAULT)); \
     }
 
 #define setValueFunc_(FUNC, TYPE, GROUP, OPTION, VALUE) \
@@ -59,13 +59,13 @@
 #define property_(GET_TYPE, GET_FUNC, GET_VALUE, SET_FUNC, SET_TYPE, SET_VALUE, GROUP, OPTION, GET_DEFAULT_1, GET_DEFAULT_2, GET_DEFAULT_2_TYPE) \
     GET_TYPE SettingsData::GET_FUNC() const                                                                                                      \
     {                                                                                                                                            \
-        KConfigGroup g = KSharedConfig::openConfig()->group(GROUP);                                                                              \
+        const KConfigGroup g = KSharedConfig::openConfig()->group(GROUP);                                                                        \
                                                                                                                                                  \
         if (!g.hasKey(OPTION))                                                                                                                   \
             return GET_DEFAULT_1;                                                                                                                \
                                                                                                                                                  \
-        GET_DEFAULT_2_TYPE v = g.readEntry(OPTION, (GET_DEFAULT_2_TYPE)GET_DEFAULT_2);                                                           \
-        return (GET_TYPE)GET_VALUE;                                                                                                              \
+        GET_DEFAULT_2_TYPE v = g.readEntry(OPTION, static_cast<GET_DEFAULT_2_TYPE>(GET_DEFAULT_2));                                              \
+        return static_cast<GET_TYPE>(GET_VALUE);                                                                                                 \
     }                                                                                                                                            \
     setValueFunc_(SET_FUNC, SET_TYPE, GROUP, OPTION, SET_VALUE)
 
@@ -83,7 +83,7 @@
     property(TYPE, GET_FUNC, SET_FUNC, TYPE &, v, #GROUP, #GET_FUNC, GET_DEFAULT)
 
 #define property_enum(GET_FUNC, SET_FUNC, TYPE, GROUP, GET_DEFAULT) \
-    property(TYPE, GET_FUNC, SET_FUNC, TYPE, (int)v, #GROUP, #GET_FUNC, (int)GET_DEFAULT)
+    property(TYPE, GET_FUNC, SET_FUNC, TYPE, static_cast<int>(v), #GROUP, #GET_FUNC, static_cast<int>(GET_DEFAULT))
 
 #define property_sset(GET_FUNC, SET_FUNC, GROUP, GET_DEFAULT) \
     property_(StringSet, GET_FUNC, v.toSet(), SET_FUNC, StringSet &, v.toList(), #GROUP, #GET_FUNC, GET_DEFAULT, QStringList(), QStringList)
@@ -125,7 +125,7 @@ SettingsData::SettingsData(const QString &imageDirectory, DB::UIDelegate &delega
 {
     m_hasAskedAboutTimeStamps = false;
 
-    QString s = STR("/");
+    const QString s = STR("/");
     m_imageDirectory = imageDirectory.endsWith(s) ? imageDirectory : imageDirectory + s;
 
     _smoothScale = cfgValue("Viewer", "smoothScale", true);
@@ -176,8 +176,8 @@ void SettingsData::setColorScheme(const QString &path) {
 }
 
 getValueFunc(QSize, histogramSize, General, QSize(15, 30))
-getValueFunc(ViewSortType, viewSortType, General, (int)SortLastUse)
-getValueFunc(AnnotationDialog::MatchType, matchType, General, (int)AnnotationDialog::MatchFromWordStart)
+getValueFunc(ViewSortType, viewSortType, General, static_cast<int>(SortLastUse))
+getValueFunc(AnnotationDialog::MatchType, matchType, General, static_cast<int>(AnnotationDialog::MatchFromWordStart))
 getValueFunc(bool, histogramUseLinearScale, General, false)
 
     // clang-format on
@@ -204,7 +204,7 @@ void SettingsData::setViewSortType(const ViewSortType tp)
     if (tp == viewSortType())
         return;
 
-    setValue("General", "viewSortType", (int)tp);
+    setValue("General", "viewSortType", static_cast<int>(tp));
     emit viewSortTypeChanged(tp);
 }
 void SettingsData::setMatchType(const AnnotationDialog::MatchType mt)
@@ -212,7 +212,7 @@ void SettingsData::setMatchType(const AnnotationDialog::MatchType mt)
     if (mt == matchType())
         return;
 
-    setValue("General", "matchType", (int)mt);
+    setValue("General", "matchType", static_cast<int>(mt));
     emit matchTypeChanged(mt);
 }
 

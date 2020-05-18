@@ -409,7 +409,7 @@ void Map::MapView::updateRegionSelection(const Marble::GeoDataLatLonBox &selecti
 void Map::MapView::updateRegionSelectionOld(const QList<double> &selection)
 {
     Q_ASSERT(selection.length() == 4);
-    // see also: https://cgit.kde.org/marble.git/commit/?id=ec1f7f554e9f6ca248b4a3b01dbf08507870687e
+    // see also: https://commits.kde.org/marble/ec1f7f554e9f6ca248b4a3b01dbf08507870687e
     Marble::GeoDataLatLonBox sel { selection.at(1), selection.at(3), selection.at(2), selection.at(0), Marble::GeoDataCoordinates::Degree };
     updateRegionSelection(sel);
 }

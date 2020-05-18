@@ -13,7 +13,7 @@
 #   regionSelected(const QList<double>&)
 # to:
 #   regionSelected(const Marble::GeoDataLatLonBox &)
-# [see https://cgit.kde.org/marble.git/commit/?id=ec1f7f554e9f6ca248b4a3b01dbf08507870687e]
+# [see https://commits.kde.org/marble/ec1f7f554e9f6ca248b4a3b01dbf08507870687e]
 #
 # These feature checks are necessary, because MARBLE_VERSION was not changed in
 # the release and we are left without a way to just check the version of

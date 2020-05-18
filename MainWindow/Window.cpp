@@ -1210,12 +1210,12 @@ void MainWindow::Window::contextMenuEvent(QContextMenuEvent *e)
 
 void MainWindow::Window::setDefaultScopePositive()
 {
-    Settings::SettingsData::instance()->setCurrentLock(m_browser->currentContext(), false);
+    Settings::SettingsData::instance()->setCurrentLock(m_browser->currentContext().getLockData(), false);
 }
 
 void MainWindow::Window::setDefaultScopeNegative()
 {
-    Settings::SettingsData::instance()->setCurrentLock(m_browser->currentContext(), true);
+    Settings::SettingsData::instance()->setCurrentLock(m_browser->currentContext().getLockData(), true);
 }
 
 void MainWindow::Window::lockToDefaultScope()

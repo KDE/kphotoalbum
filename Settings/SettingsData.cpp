@@ -19,6 +19,8 @@
 
 #include "SettingsData.h"
 
+#include <Exif/SearchInfo.h>
+
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -436,7 +438,7 @@ QString SettingsData::groupForDatabase(const char *setting) const
     return STR("%1 - %2").arg(STR(setting)).arg(imageDirectory());
 }
 
-DB::ImageSearchInfo SettingsData::currentLock() const
+QVariantMap SettingsData::currentLock() const
 {
     // duplicating logic from ImageSearchInfo here is not ideal
     // FIXME(jzarl): review the whole database view lock mechanism
@@ -449,12 +451,11 @@ DB::ImageSearchInfo SettingsData::currentLock() const
     for (QStringList::ConstIterator it = categories.constBegin(); it != categories.constEnd(); ++it) {
         keyValuePairs[*it] = cfgValue(group, *it, {});
     }
-    return DB::ImageSearchInfo::loadLock(keyValuePairs);
+    return keyValuePairs;
 }
 
-void SettingsData::setCurrentLock(const DB::ImageSearchInfo &info, bool exclude)
+void SettingsData::setCurrentLock(const QVariantMap &pairs, bool exclude)
 {
-    const auto pairs = info.getLockData();
     for (QVariantMap::const_iterator it = pairs.cbegin(); it != pairs.cend(); ++it) {
         setValue(groupForDatabase("Privacy Settings"), it.key(), it.value());
     }

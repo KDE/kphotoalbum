@@ -20,7 +20,6 @@
 #define SETTINGS_SETTINGSDATA_H
 
 #include <AnnotationDialog/enums.h>
-#include <DB/ImageSearchInfo.h>
 #include <DB/UIDelegate.h>
 #include <Utilities/StringSet.h>
 #include <QObject>
@@ -232,8 +231,8 @@ public:
 
     QString groupForDatabase(const char *setting) const;
 
-    DB::ImageSearchInfo currentLock() const;
-    void setCurrentLock(const DB::ImageSearchInfo &, bool exclude);
+    QVariantMap currentLock() const;
+    void setCurrentLock(const QVariantMap &pairs, bool exclude);
     bool lockExcludes() const;
 
     bool locked() const;

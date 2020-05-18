@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2014 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -165,11 +165,11 @@ void Settings::CategoryItem::renameCategory(DB::MemberMap *memberMap)
 
     // update category names for privacy-lock settings:
     Settings::SettingsData *settings = Settings::SettingsData::instance();
-    DB::ImageSearchInfo info = settings->currentLock();
+    DB::ImageSearchInfo info = DB::ImageSearchInfo::loadLock(settings->currentLock());
     const bool exclude = settings->lockExcludes();
 
     info.renameCategory(m_categoryOrig, m_category);
-    settings->setCurrentLock(info, exclude);
+    settings->setCurrentLock(info.getLockData(), exclude);
 
     DB::ImageDB::instance()->categoryCollection()->rename(m_categoryOrig, m_category);
     memberMap->renameCategory(m_categoryOrig, m_category);

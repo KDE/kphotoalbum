@@ -228,7 +228,8 @@ void XMLDB::Database::deleteItem(DB::Category *category, const QString &value)
 
 void XMLDB::Database::lockDB(bool lock, bool exclude)
 {
-    DB::ImageSearchInfo info = Settings::SettingsData::instance()->currentLock();
+    auto lockData = Settings::SettingsData::instance()->currentLock();
+    DB::ImageSearchInfo info = DB::ImageSearchInfo::loadLock(lockData);
     for (DB::ImageInfoListIterator it = m_images.begin(); it != m_images.end(); ++it) {
         if (lock) {
             bool match = info.match(*it);

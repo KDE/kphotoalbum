@@ -38,7 +38,7 @@ set(CMAKE_CXX_REQUIRED TRUE)
 
 ########### dependencies  ###############
 
-find_package(Qt5 5.9 REQUIRED COMPONENTS Sql Xml Widgets)
+find_package(Qt5 5.9 REQUIRED COMPONENTS Core Sql Xml Widgets)
 find_package(Phonon4Qt5 REQUIRED)
 find_package(KF5 5.44 REQUIRED COMPONENTS Archive Completion Config CoreAddons DocTools I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons)
 
@@ -520,6 +520,56 @@ if(Marble_FOUND)
 endif()
 
 install(TARGETS kphotoalbum ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+
+add_library(kpabase
+    AnnotationDialog/enums.cpp
+    AnnotationDialog/enums.h
+    DB/FileName.cpp
+    DB/FileName.h
+    DB/FileNameList.cpp
+    DB/FileNameList.h
+    DB/Logging.cpp
+    DB/Logging.h
+    DB/UIDelegate.cpp
+    DB/UIDelegate.h
+    ImageManager/Logging.cpp
+    ImageManager/Logging.h
+    MainWindow/Logging.cpp
+    MainWindow/Logging.h
+    Settings/SettingsData.cpp
+    Settings/SettingsData.h
+    Utilities/FileNameUtil.cpp
+    Utilities/FileNameUtil.h
+    Utilities/StringSet.cpp
+    Utilities/StringSet.h
+    )
+add_library(KPA::Base ALIAS kpabase)
+target_link_libraries(kpabase
+    PUBLIC
+    KF5::ConfigCore
+    KF5::I18n
+    Qt5::Core
+    )
+# FIXME(jzarl): once KPhotoAlbum uses internal libs, export public symbols instead:
+set_target_properties(kpabase PROPERTIES CXX_VISIBILITY_PRESET default)
+add_library(kpathumbnails
+    ImageManager/Logging.cpp
+    ImageManager/Logging.h
+    ImageManager/ThumbnailCache.cpp
+    ImageManager/ThumbnailCache.h
+    )
+add_library(KPA::Thumbnails ALIAS kpathumbnails)
+# FIXME(jzarl): once KPhotoAlbum uses internal libs, export public symbols instead:
+set_target_properties(kpathumbnails PROPERTIES CXX_VISIBILITY_PRESET default)
+target_link_libraries(kpathumbnails
+    PUBLIC
+    KPA::Base
+    Qt5::Gui
+    )
+#add_executable(kpa-thumbnailtool
+#    kpa-thumbnailtool/main.cpp
+#    )
+#target_link_libraries(kpa-thumbnailtool PRIVATE KPA::Thumbnails)
 
 ########### install files ###############
 

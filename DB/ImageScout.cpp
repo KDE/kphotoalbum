@@ -1,4 +1,4 @@
-/* Copyright (C) 2018-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2018-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -124,6 +124,7 @@ void ImageScoutThread::doRun(char *tmpBuf)
         if (m_preloadFunc) {
             (*m_preloadFunc)(fileName);
         } else {
+            // Note(jzarl): for Windows, we'd need a functional replacement for open(), read(), close() in unistd.h
             int inputFD = open(QFile::encodeName(fileName.absolute()).constData(), O_RDONLY);
             int bytesRead = 0;
             if (inputFD >= 0) {

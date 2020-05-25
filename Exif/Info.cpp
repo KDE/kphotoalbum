@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -110,7 +110,10 @@ QMap<QString, QStringList> Info::infoForViewer(const DB::FileName &fileName, con
 
 QMap<QString, QStringList> Info::infoForDialog(const DB::FileName &fileName, const QString &charset)
 {
-    return info(fileName, ::Settings::SettingsData::instance()->exifForDialog(), true, charset);
+    auto keys = ::Settings::SettingsData::instance()->exifForDialog();
+    if (keys.isEmpty())
+        keys = standardKeys();
+    return info(fileName, keys, true, charset);
 }
 
 StringSet Info::standardKeys()

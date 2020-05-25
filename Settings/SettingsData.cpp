@@ -19,8 +19,6 @@
 
 #include "SettingsData.h"
 
-#include <Exif/SearchInfo.h>
-
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -367,7 +365,7 @@ property_copy(untaggedImagesTagVisible, setUntaggedImagesTagVisible, bool, Gener
 
     // clang-format off
 property_sset(exifForViewer, setExifForViewer, Exif, StringSet())
-property_sset(exifForDialog, setExifForDialog, Exif, Exif::Info::instance()->standardKeys())
+property_sset(exifForDialog, setExifForDialog, Exif, StringSet())
 property_ref(iptcCharset, setIptcCharset, QString, Exif, QString())
     // clang-format on
 

@@ -566,10 +566,13 @@ target_link_libraries(kpathumbnails
     KPA::Base
     Qt5::Gui
     )
-#add_executable(kpa-thumbnailtool
-#    kpa-thumbnailtool/main.cpp
-#    )
-#target_link_libraries(kpa-thumbnailtool PRIVATE KPA::Thumbnails)
+add_executable(kpa-thumbnailtool
+    kpa-thumbnailtool/main.cpp
+    )
+target_link_libraries(kpa-thumbnailtool PRIVATE
+    KPA::Thumbnails
+    KF5::CoreAddons
+    )
 
 ########### install files ###############
 

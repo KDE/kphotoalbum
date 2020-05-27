@@ -102,7 +102,7 @@ SettingsData *SettingsData::s_instance = nullptr;
 SettingsData *SettingsData::instance()
 {
     if (!s_instance)
-        qFatal("instance called before loading a setup!");
+        qFatal("SettingsData: instance called before loading a setup!");
 
     return s_instance;
 }

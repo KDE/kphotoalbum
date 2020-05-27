@@ -32,6 +32,7 @@
 #include <QDir>
 #include <QLocale>
 #include <QLoggingCategory>
+#include <QTimer>
 
 Q_DECLARE_LOGGING_CATEGORY(MainLog)
 Q_LOGGING_CATEGORY(MainLog, "kphotoalbum.thumbnailtool", QtWarningMsg)
@@ -95,6 +96,8 @@ int main(int argc, char **argv)
     const ImageManager::ThumbnailCache cache { thumbnailDir };
     qDebug() << "Thumbnail storage size:" << cache.thumbnailSize();
 
+    // immediately quit the event loop:
+    QTimer::singleShot(0, &app, &QCoreApplication::quit);
     return QCoreApplication::exec();
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

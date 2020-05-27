@@ -18,6 +18,7 @@
 
 #include "version.h"
 
+#include <ImageManager/ThumbnailCache.h>
 #include <Settings/SettingsData.h>
 
 #include <KAboutData>
@@ -28,6 +29,7 @@
 #include <QCommandLineParser>
 #include <QCoreApplication>
 #include <QDebug>
+#include <QDir>
 #include <QLocale>
 #include <QLoggingCategory>
 
@@ -69,7 +71,7 @@ int main(int argc, char **argv)
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addVersionOption();
-    parser.addPositionalArgument(QString::fromUtf8("thumbnailDir"), i18n("The directory containing the thumbnailindex file."));
+    parser.addPositionalArgument(QString::fromUtf8("imageDir"), i18n("The directory containing the .thumbnail directory."));
 
     KAboutData::setApplicationData(aboutData);
     aboutData.setupCommandLine(&parser);
@@ -77,7 +79,22 @@ int main(int argc, char **argv)
     parser.process(app);
     aboutData.processCommandLine(&parser);
 
-    int code = QCoreApplication::exec();
-    return code;
+    const auto args = parser.positionalArguments();
+    if (args.empty()) {
+        qWarning("Missing argument!");
+        return 1;
+    }
+    const auto imageDir = QDir { args.first() };
+    if (!imageDir.exists()) {
+        qWarning("Not a directory!");
+        return 1;
+    }
+    DB::DummyUIDelegate uiDelegate;
+    Settings::SettingsData::setup(imageDir.path(), uiDelegate);
+    const auto thumbnailDir = imageDir.absoluteFilePath(ImageManager::defaultThumbnailDirectory());
+    const ImageManager::ThumbnailCache cache { thumbnailDir };
+    qDebug() << "Thumbnail storage size:" << cache.thumbnailSize();
+
+    return QCoreApplication::exec();
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

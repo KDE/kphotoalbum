@@ -32,10 +32,53 @@
 #include <QDir>
 #include <QLocale>
 #include <QLoggingCategory>
+#include <QTemporaryFile>
 #include <QTimer>
 
 Q_DECLARE_LOGGING_CATEGORY(MainLog)
 Q_LOGGING_CATEGORY(MainLog, "kphotoalbum.thumbnailtool", QtWarningMsg)
+
+int convertV5ToV4Cache(const QString &indexFilename)
+{
+    QFile indexFile { indexFilename };
+    if (!indexFile.open(QIODevice::ReadOnly)) {
+        qCWarning(MainLog) << "Could not open thumbnailindex file! Aborting...";
+        return 1;
+    }
+    QDataStream stream { &indexFile };
+    int version;
+    stream >> version;
+    if (version != 5) {
+        qCWarning(MainLog) << "Thumbnailindex is not a version 5 file! Aborting...";
+        return 1;
+    }
+    // skip dimensions
+    stream.skipRawData(sizeof(int));
+
+    QTemporaryFile newIndexFile;
+    if (!newIndexFile.open()) {
+        qCWarning(MainLog) << "Could not open temporary file for writing! Aborting...";
+        return 1;
+    }
+    QDataStream newStream { &newIndexFile };
+    constexpr int v4FileVersion = 4;
+    newStream << v4FileVersion;
+    int numBytes = 0;
+    char buf[256];
+    do {
+        numBytes = stream.readRawData(buf, 256);
+        newStream.writeRawData(buf, numBytes);
+    } while (numBytes != 0);
+    if (!indexFile.rename(QString::fromUtf8("%1.bak").arg(indexFilename))) {
+        qCWarning(MainLog) << "Could not back up thumbnailindex file! Aborting...";
+        return 1;
+    }
+    if (!newIndexFile.copy(indexFilename)) {
+        qCWarning(MainLog) << "Could not emplace new thumbnailindex file!" << newIndexFile.errorString();
+        return 1;
+    }
+    return 0;
+}
 
 int main(int argc, char **argv)
 {
@@ -72,7 +115,9 @@ int main(int argc, char **argv)
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addVersionOption();
-    parser.addPositionalArgument(QString::fromUtf8("imageDir"), i18n("The directory containing the .thumbnail directory."));
+    parser.addOption({ QString::fromUtf8("info"), i18nc("@info:shell", "Print information about thumbnail cache.") });
+    parser.addOption({ QString::fromUtf8("convertV5ToV4"), i18nc("@info:shell", "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3.") });
+    parser.addPositionalArgument(QString::fromUtf8("imageDir"), i18nc("@info:shell", "The directory containing the .thumbnail directory."));
 
     KAboutData::setApplicationData(aboutData);
     aboutData.setupCommandLine(&parser);
@@ -90,11 +135,16 @@ int main(int argc, char **argv)
         qWarning("Not a directory!");
         return 1;
     }
-    DB::DummyUIDelegate uiDelegate;
-    Settings::SettingsData::setup(imageDir.path(), uiDelegate);
-    const auto thumbnailDir = imageDir.absoluteFilePath(ImageManager::defaultThumbnailDirectory());
-    const ImageManager::ThumbnailCache cache { thumbnailDir };
-    qDebug() << "Thumbnail storage size:" << cache.thumbnailSize();
+    if (parser.isSet(QString::fromUtf8("info"))) {
+        DB::DummyUIDelegate uiDelegate;
+        Settings::SettingsData::setup(imageDir.path(), uiDelegate);
+        const auto thumbnailDir = imageDir.absoluteFilePath(ImageManager::defaultThumbnailDirectory());
+        const ImageManager::ThumbnailCache cache { thumbnailDir };
+        qDebug() << "Thumbnail storage size:" << cache.thumbnailSize();
+    } else if (parser.isSet(QString::fromUtf8("convertV5ToV4"))) {
+        const QString indexFile = imageDir.absoluteFilePath(QString::fromUtf8(".thumbnails/thumbnailindex"));
+        return convertV5ToV4Cache(indexFile);
+    }
 
     // immediately quit the event loop:
     QTimer::singleShot(0, &app, &QCoreApplication::quit);

@@ -74,8 +74,10 @@ int main(int argc, char **argv)
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addVersionOption();
-    parser.addOption({ QString::fromUtf8("info"), i18nc("@info:shell", "Print information about thumbnail cache.") });
-    parser.addOption({ QString::fromUtf8("convertV5ToV4"), i18nc("@info:shell", "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3.") });
+    QCommandLineOption infoOption { QString::fromUtf8("info"), i18nc("@info:shell", "Print information about thumbnail cache.") };
+    parser.addOption(infoOption);
+    QCommandLineOption convertV5ToV4Option { QString::fromUtf8("convertV5ToV4"), i18nc("@info:shell", "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3.") };
+    parser.addOption(convertV5ToV4Option);
     parser.addPositionalArgument(QString::fromUtf8("imageDir"), i18nc("@info:shell", "The directory containing the .thumbnail directory."));
 
     KAboutData::setApplicationData(aboutData);
@@ -95,18 +97,22 @@ int main(int argc, char **argv)
         qWarning("Not a directory!");
         return 1;
     }
-    if (parser.isSet(QString::fromUtf8("info"))) {
+    if (parser.isSet(convertV5ToV4Option)) {
+        const QString indexFile = imageDir.absoluteFilePath(QString::fromUtf8(".thumbnails/thumbnailindex"));
+        return convertV5ToV4Cache(indexFile);
+    }
+    if (parser.isSet(infoOption)) {
         DB::DummyUIDelegate uiDelegate;
         Settings::SettingsData::setup(imageDir.path(), uiDelegate);
         const auto thumbnailDir = imageDir.absoluteFilePath(ImageManager::defaultThumbnailDirectory());
         const ImageManager::ThumbnailCache cache { thumbnailDir };
-        console << "Thumbnail cache directory: " << thumbnailDir << "\n";
-        console << "Thumbnail index version: " << cache.fileVersion() << "\n";
-        console << "Maximum supported thumbnailindex version: " << cache.currentFileVersion() << "\n";
-        console << "Thumbnail storage size: " << cache.thumbnailSize() << "\n";
-    } else if (parser.isSet(QString::fromUtf8("convertV5ToV4"))) {
-        const QString indexFile = imageDir.absoluteFilePath(QString::fromUtf8(".thumbnails/thumbnailindex"));
-        return convertV5ToV4Cache(indexFile);
+        console << i18nc("@info:shell", "Thumbnail cache directory: %1\n", thumbnailDir);
+        console << i18nc("@info:shell", "Thumbnailindex file version: %1\n", cache.fileVersion());
+        console << i18nc("@info:shell", "Maximum supported thumbnailindex file version: %1\n", cache.currentFileVersion());
+        console << i18nc("@info:shell", "Thumbnail storage size: %1\n", cache.thumbnailSize());
+        if (cache.fileVersion() < 5) {
+            console << i18nc("@info:shell", "Note: Thumbnail storage size is defined in the configuration file prior to v5.\n");
+        }
     }
 
     // immediately quit the event loop:

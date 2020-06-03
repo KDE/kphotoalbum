@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "Logging.h"
+#include "ThumbnailCacheConverter.h"
 #include "version.h"
 
 #include <ImageManager/ThumbnailCache.h>
@@ -32,53 +34,9 @@
 #include <QDir>
 #include <QLocale>
 #include <QLoggingCategory>
-#include <QTemporaryFile>
 #include <QTimer>
 
-Q_DECLARE_LOGGING_CATEGORY(MainLog)
-Q_LOGGING_CATEGORY(MainLog, "kphotoalbum.thumbnailtool", QtWarningMsg)
-
-int convertV5ToV4Cache(const QString &indexFilename)
-{
-    QFile indexFile { indexFilename };
-    if (!indexFile.open(QIODevice::ReadOnly)) {
-        qCWarning(MainLog) << "Could not open thumbnailindex file! Aborting...";
-        return 1;
-    }
-    QDataStream stream { &indexFile };
-    int version;
-    stream >> version;
-    if (version != 5) {
-        qCWarning(MainLog) << "Thumbnailindex is not a version 5 file! Aborting...";
-        return 1;
-    }
-    // skip dimensions
-    stream.skipRawData(sizeof(int));
-
-    QTemporaryFile newIndexFile;
-    if (!newIndexFile.open()) {
-        qCWarning(MainLog) << "Could not open temporary file for writing! Aborting...";
-        return 1;
-    }
-    QDataStream newStream { &newIndexFile };
-    constexpr int v4FileVersion = 4;
-    newStream << v4FileVersion;
-    int numBytes = 0;
-    char buf[256];
-    do {
-        numBytes = stream.readRawData(buf, 256);
-        newStream.writeRawData(buf, numBytes);
-    } while (numBytes != 0);
-    if (!indexFile.rename(QString::fromUtf8("%1.bak").arg(indexFilename))) {
-        qCWarning(MainLog) << "Could not back up thumbnailindex file! Aborting...";
-        return 1;
-    }
-    if (!newIndexFile.copy(indexFilename)) {
-        qCWarning(MainLog) << "Could not emplace new thumbnailindex file!" << newIndexFile.errorString();
-        return 1;
-    }
-    return 0;
-}
+using namespace KPAThumbnailTool;
 
 int main(int argc, char **argv)
 {

@@ -34,6 +34,7 @@
 #include <QDir>
 #include <QLocale>
 #include <QLoggingCategory>
+#include <QTextStream>
 #include <QTimer>
 
 using namespace KPAThumbnailTool;
@@ -82,6 +83,7 @@ int main(int argc, char **argv)
 
     parser.process(app);
     aboutData.processCommandLine(&parser);
+    QTextStream console { stdout };
 
     const auto args = parser.positionalArguments();
     if (args.empty()) {
@@ -98,7 +100,7 @@ int main(int argc, char **argv)
         Settings::SettingsData::setup(imageDir.path(), uiDelegate);
         const auto thumbnailDir = imageDir.absoluteFilePath(ImageManager::defaultThumbnailDirectory());
         const ImageManager::ThumbnailCache cache { thumbnailDir };
-        qDebug() << "Thumbnail storage size:" << cache.thumbnailSize();
+        console << "Thumbnail storage size:" << cache.thumbnailSize();
     } else if (parser.isSet(QString::fromUtf8("convertV5ToV4"))) {
         const QString indexFile = imageDir.absoluteFilePath(QString::fromUtf8(".thumbnails/thumbnailindex"));
         return convertV5ToV4Cache(indexFile);

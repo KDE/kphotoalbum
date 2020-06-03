@@ -28,14 +28,16 @@ int KPAThumbnailTool::convertV5ToV4Cache(const QString &indexFilename)
 {
     QFile indexFile { indexFilename };
     if (!indexFile.open(QIODevice::ReadOnly)) {
-        qCWarning(MainLog) << "Could not open thumbnailindex file! Aborting...";
+        qCWarning(MainLog) << "Could not open thumbnailindex file!";
+        qCWarning(MainLog) << "Aborting...";
         return 1;
     }
     QDataStream stream { &indexFile };
     int version;
     stream >> version;
     if (version != 5) {
-        qCWarning(MainLog) << "Thumbnailindex is not a version 5 file! Aborting...";
+        qCWarning(MainLog) << "Thumbnailindex is not a version 5 file!";
+        qCWarning(MainLog) << "Aborting...";
         return 1;
     }
     // skip dimensions
@@ -43,7 +45,8 @@ int KPAThumbnailTool::convertV5ToV4Cache(const QString &indexFilename)
 
     QTemporaryFile newIndexFile;
     if (!newIndexFile.open()) {
-        qCWarning(MainLog) << "Could not open temporary file for writing! Aborting...";
+        qCWarning(MainLog) << "Could not open temporary file for writing!";
+        qCWarning(MainLog) << "Aborting...";
         return 1;
     }
     QDataStream newStream { &newIndexFile };
@@ -56,7 +59,8 @@ int KPAThumbnailTool::convertV5ToV4Cache(const QString &indexFilename)
         newStream.writeRawData(buf, numBytes);
     } while (numBytes != 0);
     if (!indexFile.rename(QString::fromUtf8("%1.bak").arg(indexFilename))) {
-        qCWarning(MainLog) << "Could not back up thumbnailindex file! Aborting...";
+        qCWarning(MainLog) << "Could not back up thumbnailindex file!";
+        qCWarning(MainLog) << "Aborting...";
         return 1;
     }
     if (!newIndexFile.copy(indexFilename)) {

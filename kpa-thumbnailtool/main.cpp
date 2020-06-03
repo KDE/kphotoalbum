@@ -100,7 +100,10 @@ int main(int argc, char **argv)
         Settings::SettingsData::setup(imageDir.path(), uiDelegate);
         const auto thumbnailDir = imageDir.absoluteFilePath(ImageManager::defaultThumbnailDirectory());
         const ImageManager::ThumbnailCache cache { thumbnailDir };
-        console << "Thumbnail storage size:" << cache.thumbnailSize();
+        console << "Thumbnail cache directory: " << thumbnailDir << "\n";
+        console << "Thumbnail index version: " << cache.fileVersion() << "\n";
+        console << "Maximum supported thumbnailindex version: " << cache.currentFileVersion() << "\n";
+        console << "Thumbnail storage size: " << cache.thumbnailSize() << "\n";
     } else if (parser.isSet(QString::fromUtf8("convertV5ToV4"))) {
         const QString indexFile = imageDir.absoluteFilePath(QString::fromUtf8(".thumbnails/thumbnailindex"));
         return convertV5ToV4Cache(indexFile);

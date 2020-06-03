@@ -38,7 +38,6 @@ namespace
 // We split the thumbnails into chunks to avoid a huge file changing over and over again, with a bad hit for backups
 constexpr int MAX_FILE_SIZE = 32 * 1024 * 1024;
 constexpr int THUMBNAIL_FILE_VERSION_MIN = 4;
-constexpr int THUMBNAIL_FILE_VERSION = 5;
 // We map some thumbnail files into memory and manage them in a least-recently-used fashion
 constexpr size_t LRU_SIZE = 2;
 
@@ -268,10 +267,11 @@ void ImageManager::ThumbnailCache::saveFull() const
     // Clear the dirty flag early so that we can allow further work to proceed.
     // If the save fails, we'll set the dirty flag again.
     m_isDirty = false;
+    m_fileVersion = currentFileVersion();
     dataLocker.unlock();
 
     QDataStream stream(&file);
-    stream << THUMBNAIL_FILE_VERSION
+    stream << currentFileVersion()
            << m_thumbnailSize
            << m_currentFile
            << m_currentOffset
@@ -377,17 +377,16 @@ void ImageManager::ThumbnailCache::load()
     timer.start();
     file.open(QIODevice::ReadOnly);
     QDataStream stream(&file);
-    int version;
-    stream >> version;
+    stream >> m_fileVersion;
 
-    if (version != THUMBNAIL_FILE_VERSION && version != THUMBNAIL_FILE_VERSION_MIN)
+    if (m_fileVersion != currentFileVersion() && m_fileVersion != THUMBNAIL_FILE_VERSION_MIN)
         return; //Discard cache
 
     // We can't allow anything to modify the structure while we're doing this.
     QMutexLocker dataLocker(&m_dataLock);
 
-    if (version == THUMBNAIL_FILE_VERSION_MIN) {
-        qCInfo(ImageManagerLog) << "Loading thumbnail index version " << version
+    if (m_fileVersion == THUMBNAIL_FILE_VERSION_MIN) {
+        qCInfo(ImageManagerLog) << "Loading thumbnail index version " << m_fileVersion
                                 << "- assuming thumbnail size" << m_thumbnailSize << "px";
     } else {
         stream >> m_thumbnailSize;
@@ -440,6 +439,16 @@ QString ImageManager::ThumbnailCache::thumbnailPath(const QString &file) const
 int ImageManager::ThumbnailCache::thumbnailSize() const
 {
     return m_thumbnailSize;
+}
+
+int ImageManager::ThumbnailCache::fileVersion() const
+{
+    return m_fileVersion;
+}
+
+int ImageManager::ThumbnailCache::currentFileVersion()
+{
+    return 5;
 }
 
 void ImageManager::ThumbnailCache::flush()

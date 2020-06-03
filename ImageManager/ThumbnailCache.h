@@ -114,6 +114,22 @@ public:
      */
     int thumbnailSize() const;
 
+    /**
+     * @brief fileVersion returns the file format version of the thumbnailindex file currently on disk.
+     *
+     * Usually, this is equal to the current version, but if an old ThumbnailCache
+     * that is still compatible with this version of KPhotoAlbum is loaded and was not yet stored,
+     * it may differ.
+     * @return 4 or 5
+     */
+    int fileVersion() const;
+
+    /**
+     * @brief currentFileVersion
+     * @return The file format version of the thumbnailindex file.
+     */
+    static int currentFileVersion();
+
 public slots:
     /**
      * @brief Save the thumbnail cache to disk.
@@ -157,6 +173,8 @@ private:
     QString fileNameForIndex(int index) const;
     QString thumbnailPath(const QString &fileName) const;
 
+    // mutable because saveIncremental is const
+    mutable int m_fileVersion = -1;
     int m_thumbnailSize = -1;
     const QString m_baseDir;
     QHash<DB::FileName, CacheFileInfo> m_hash;

@@ -26,16 +26,22 @@
 #include <QStringList>
 #include <QThread>
 
+namespace
+{
+// when used from an application with different component name
+// (e.g. kpa-thumbnailtool), we need to explicitly set the component name:
+const QString configFile = QString::fromLatin1("kphotoalbumrc");
+}
 #define STR(x) QString::fromLatin1(x)
 
 #define cfgValue(GROUP, OPTION, DEFAULT) \
-    KSharedConfig::openConfig()->group(GROUP).readEntry(OPTION, DEFAULT)
+    KSharedConfig::openConfig(configFile)->group(GROUP).readEntry(OPTION, DEFAULT)
 
-#define setValue(GROUP, OPTION, VALUE)                                  \
-    do {                                                                \
-        KConfigGroup group = KSharedConfig::openConfig()->group(GROUP); \
-        group.writeEntry(OPTION, VALUE);                                \
-        group.sync();                                                   \
+#define setValue(GROUP, OPTION, VALUE)                                            \
+    do {                                                                          \
+        KConfigGroup group = KSharedConfig::openConfig(configFile)->group(GROUP); \
+        group.writeEntry(OPTION, VALUE);                                          \
+        group.sync();                                                             \
     } while (0)
 
 #define getValueFunc_(TYPE, FUNC, GROUP, OPTION, DEFAULT)           \
@@ -57,7 +63,7 @@
 #define property_(GET_TYPE, GET_FUNC, GET_VALUE, SET_FUNC, SET_TYPE, SET_VALUE, GROUP, OPTION, GET_DEFAULT_1, GET_DEFAULT_2, GET_DEFAULT_2_TYPE) \
     GET_TYPE SettingsData::GET_FUNC() const                                                                                                      \
     {                                                                                                                                            \
-        const KConfigGroup g = KSharedConfig::openConfig()->group(GROUP);                                                                        \
+        const KConfigGroup g = KSharedConfig::openConfig(configFile)->group(GROUP);                                                              \
                                                                                                                                                  \
         if (!g.hasKey(OPTION))                                                                                                                   \
             return GET_DEFAULT_1;                                                                                                                \

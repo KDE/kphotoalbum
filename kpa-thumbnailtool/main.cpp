@@ -107,10 +107,10 @@ int main(int argc, char **argv)
         const auto thumbnailDir = imageDir.absoluteFilePath(ImageManager::defaultThumbnailDirectory());
         const ImageManager::ThumbnailCache cache { thumbnailDir };
         console << i18nc("@info:shell", "Thumbnail cache directory: %1\n", thumbnailDir);
-        console << i18nc("@info:shell", "Thumbnailindex file version: %1\n", cache.fileVersion());
-        console << i18nc("@info:shell", "Maximum supported thumbnailindex file version: %1\n", cache.currentFileVersion());
+        console << i18nc("@info:shell", "Thumbnailindex file version: %1\n", cache.actualFileVersion());
+        console << i18nc("@info:shell", "Maximum supported thumbnailindex file version: %1\n", cache.preferredFileVersion());
         console << i18nc("@info:shell", "Thumbnail storage size: %1\n", cache.thumbnailSize());
-        if (cache.fileVersion() < 5) {
+        if (cache.actualFileVersion() < 5) {
             console << i18nc("@info:shell", "Note: Thumbnail storage size is defined in the configuration file prior to v5.\n");
         }
     }

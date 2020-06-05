@@ -115,20 +115,20 @@ public:
     int thumbnailSize() const;
 
     /**
-     * @brief fileVersion returns the file format version of the thumbnailindex file currently on disk.
+     * @brief Returns the file format version of the thumbnailindex file currently on disk.
      *
      * Usually, this is equal to the current version, but if an old ThumbnailCache
      * that is still compatible with this version of KPhotoAlbum is loaded and was not yet stored,
      * it may differ.
      * @return 4 or 5
      */
-    int fileVersion() const;
+    int actualFileVersion() const;
 
     /**
-     * @brief currentFileVersion
+     * @brief Version of the tumbnailindex file when saved.
      * @return The file format version of the thumbnailindex file.
      */
-    static int currentFileVersion();
+    static int preferredFileVersion();
 
 public slots:
     /**

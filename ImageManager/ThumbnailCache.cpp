@@ -267,11 +267,11 @@ void ImageManager::ThumbnailCache::saveFull() const
     // Clear the dirty flag early so that we can allow further work to proceed.
     // If the save fails, we'll set the dirty flag again.
     m_isDirty = false;
-    m_fileVersion = currentFileVersion();
+    m_fileVersion = preferredFileVersion();
     dataLocker.unlock();
 
     QDataStream stream(&file);
-    stream << currentFileVersion()
+    stream << preferredFileVersion()
            << m_thumbnailSize
            << m_currentFile
            << m_currentOffset
@@ -379,7 +379,7 @@ void ImageManager::ThumbnailCache::load()
     QDataStream stream(&file);
     stream >> m_fileVersion;
 
-    if (m_fileVersion != currentFileVersion() && m_fileVersion != THUMBNAIL_FILE_VERSION_MIN)
+    if (m_fileVersion != preferredFileVersion() && m_fileVersion != THUMBNAIL_FILE_VERSION_MIN)
         return; //Discard cache
 
     // We can't allow anything to modify the structure while we're doing this.
@@ -441,12 +441,12 @@ int ImageManager::ThumbnailCache::thumbnailSize() const
     return m_thumbnailSize;
 }
 
-int ImageManager::ThumbnailCache::fileVersion() const
+int ImageManager::ThumbnailCache::actualFileVersion() const
 {
     return m_fileVersion;
 }
 
-int ImageManager::ThumbnailCache::currentFileVersion()
+int ImageManager::ThumbnailCache::preferredFileVersion()
 {
     return 5;
 }

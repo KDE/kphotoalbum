@@ -78,6 +78,8 @@ int main(int argc, char **argv)
     parser.addOption(infoOption);
     QCommandLineOption convertV5ToV4Option { QString::fromUtf8("convertV5ToV4"), i18nc("@info:shell", "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3.") };
     parser.addOption(convertV5ToV4Option);
+    QCommandLineOption verifyOption { QString::fromUtf8("verify"), i18nc("@info:shell", "Verify thumbnail cache consistency.") };
+    parser.addOption(verifyOption);
     parser.addPositionalArgument(QString::fromUtf8("imageDir"), i18nc("@info:shell", "The directory containing the .thumbnail directory."));
 
     KAboutData::setApplicationData(aboutData);
@@ -101,11 +103,13 @@ int main(int argc, char **argv)
         const QString indexFile = imageDir.absoluteFilePath(QString::fromUtf8(".thumbnails/thumbnailindex"));
         return convertV5ToV4Cache(indexFile);
     }
+
+    int returnValue = 0;
+    DB::DummyUIDelegate uiDelegate;
+    Settings::SettingsData::setup(imageDir.path(), uiDelegate);
+    const auto thumbnailDir = imageDir.absoluteFilePath(ImageManager::defaultThumbnailDirectory());
+    const ImageManager::ThumbnailCache cache { thumbnailDir };
     if (parser.isSet(infoOption)) {
-        DB::DummyUIDelegate uiDelegate;
-        Settings::SettingsData::setup(imageDir.path(), uiDelegate);
-        const auto thumbnailDir = imageDir.absoluteFilePath(ImageManager::defaultThumbnailDirectory());
-        const ImageManager::ThumbnailCache cache { thumbnailDir };
         console << i18nc("@info:shell", "Thumbnail cache directory: %1\n", thumbnailDir);
         console << i18nc("@info:shell", "Thumbnailindex file version: %1\n", cache.actualFileVersion());
         console << i18nc("@info:shell", "Maximum supported thumbnailindex file version: %1\n", cache.preferredFileVersion());
@@ -114,9 +118,23 @@ int main(int argc, char **argv)
             console << i18nc("@info:shell", "Note: Thumbnail storage size is defined in the configuration file prior to v5.\n");
         }
     }
+    if (parser.isSet(verifyOption)) {
+        const auto incorrectDimensions = cache.findIncorrectlySizedThumbnails();
+        if (incorrectDimensions.isEmpty()) {
+            console << i18nc("@info:shell", "No inconsistencies found.\n");
+        } else {
+            returnValue = 1;
+            console << i18nc("@info:shell This line is printed before a list of file names.", "The following thumbnails appear to have incorrect sizes:\n");
+            for (const auto &filename : incorrectDimensions) {
+                console << filename.absolute() << "\n";
+            }
+        }
+    }
 
-    // immediately quit the event loop:
-    QTimer::singleShot(0, &app, &QCoreApplication::quit);
-    return QCoreApplication::exec();
+    return returnValue;
+    // so far, we don't need an event loop:
+    //// immediately quit the event loop:
+    //QTimer::singleShot(0, &app, &QCoreApplication::quit);
+    //return QCoreApplication::exec();
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

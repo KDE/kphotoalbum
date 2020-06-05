@@ -451,6 +451,35 @@ int ImageManager::ThumbnailCache::preferredFileVersion()
     return 5;
 }
 
+DB::FileNameList ImageManager::ThumbnailCache::findIncorrectlySizedThumbnails() const
+{
+    QMutexLocker dataLocker(&m_dataLock);
+    const QHash<DB::FileName, CacheFileInfo> tempHash = m_hash;
+    dataLocker.unlock();
+
+    // accessing the data directly instead of using the lookupRawData() method
+    // may be more efficient, but this method should be called rarely
+    // and readability therefore trumps performance
+    DB::FileNameList resultList;
+    for (auto it = m_hash.constBegin(); it != m_hash.constEnd(); ++it) {
+        const auto filename = it.key();
+        auto jpegData = lookupRawData(filename);
+        Q_ASSERT(!jpegData.isNull());
+
+        QBuffer buffer(&jpegData);
+        buffer.open(QIODevice::ReadOnly);
+        QImage image;
+        image.load(&buffer, "JPG");
+        const auto size = image.size();
+        if (size.width() != m_thumbnailSize && size.height() != m_thumbnailSize) {
+            qCInfo(ImageManagerLog) << "Thumbnail for file " << filename.relative() << "has incorrect size:" << size;
+            resultList.append(filename);
+        }
+    }
+
+    return resultList;
+}
+
 void ImageManager::ThumbnailCache::flush()
 {
     QMutexLocker dataLocker(&m_dataLock);

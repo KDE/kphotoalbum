@@ -77,6 +77,7 @@ public:
     void insert(const DB::FileName &name, const QImage &image);
     /**
      * @brief lookup and return the thumbnail for the given file.
+     * Note: this method requires a GuiApplication to exist.
      * @param name the image file name
      * @return a QPixmap containing the thumbnail, or a null QPixmap if no thumbnail was found.
      */
@@ -129,6 +130,14 @@ public:
      * @return The file format version of the thumbnailindex file.
      */
     static int preferredFileVersion();
+
+    /**
+     * @brief Check all thumbnails for consistency with thumbnailSize().
+     * Only the thumbnails which are saved to disk are checked.
+     * If you have changed changed the cache you need to save if to guarantee correct results.
+     * @return all thumbnails that do not match the expected image dimensions.
+     */
+    DB::FileNameList findIncorrectlySizedThumbnails() const;
 
 public slots:
     /**

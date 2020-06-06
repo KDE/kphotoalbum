@@ -39,6 +39,14 @@
 
 using namespace KPAThumbnailTool;
 
+void checkConflictingOptions(const QCommandLineParser &parser, const QCommandLineOption &opt1, const QCommandLineOption &opt2)
+{
+    if (parser.isSet(opt1) && parser.isSet(opt2)) {
+        qWarning() << "Conflicting commandline options: " << opt1.names().first() << "," << opt2.names().first();
+        exit(1);
+    }
+}
+
 int main(int argc, char **argv)
 {
     KLocalizedString::setApplicationDomain("kphotoalbum");
@@ -88,6 +96,9 @@ int main(int argc, char **argv)
     parser.process(app);
     aboutData.processCommandLine(&parser);
     QTextStream console { stdout };
+
+    checkConflictingOptions(parser, convertV5ToV4Option, infoOption);
+    checkConflictingOptions(parser, convertV5ToV4Option, verifyOption);
 
     const auto args = parser.positionalArguments();
     if (args.empty()) {

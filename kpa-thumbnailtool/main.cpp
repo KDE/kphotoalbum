@@ -39,10 +39,10 @@
 
 using namespace KPAThumbnailTool;
 
-void checkConflictingOptions(const QCommandLineParser &parser, const QCommandLineOption &opt1, const QCommandLineOption &opt2)
+void checkConflictingOptions(const QCommandLineParser &parser, const QCommandLineOption &opt1, const QCommandLineOption &opt2, QTextStream &err)
 {
     if (parser.isSet(opt1) && parser.isSet(opt2)) {
-        qWarning() << "Conflicting commandline options: " << opt1.names().first() << "," << opt2.names().first();
+        err << i18nc("@info:shell", "Conflicting commandline options: %1 and %2!\n", opt1.names().first(), opt2.names().first());
         exit(1);
     }
 }
@@ -96,23 +96,24 @@ int main(int argc, char **argv)
     parser.process(app);
     aboutData.processCommandLine(&parser);
     QTextStream console { stdout };
+    QTextStream err { stderr };
 
-    checkConflictingOptions(parser, convertV5ToV4Option, infoOption);
-    checkConflictingOptions(parser, convertV5ToV4Option, verifyOption);
+    checkConflictingOptions(parser, convertV5ToV4Option, infoOption, err);
+    checkConflictingOptions(parser, convertV5ToV4Option, verifyOption, err);
 
     const auto args = parser.positionalArguments();
     if (args.empty()) {
-        qWarning("Missing argument!");
+        err << i18nc("@info:shell", "Missing argument!\n");
         return 1;
     }
     const auto imageDir = QDir { args.first() };
     if (!imageDir.exists()) {
-        qWarning("Not a directory!");
+        err << i18nc("@info:shell", "%1 is not a directory!\n", args.first());
         return 1;
     }
     if (parser.isSet(convertV5ToV4Option)) {
         const QString indexFile = imageDir.absoluteFilePath(QString::fromUtf8(".thumbnails/thumbnailindex"));
-        return convertV5ToV4Cache(indexFile);
+        return convertV5ToV4Cache(indexFile, err);
     }
 
     int returnValue = 0;

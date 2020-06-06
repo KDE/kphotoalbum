@@ -20,6 +20,7 @@
 #define KPA_THUMBNAILTOOL_THUMBNAILCACHECONVERTER_H
 
 class QString;
+class QTextStream;
 
 namespace KPAThumbnailTool
 {
@@ -31,9 +32,10 @@ namespace KPAThumbnailTool
  * This way, code in ThumbnailCache is not bloated by a niche-usecase.
  *
  * @param indexFilename
+ * @param err an output stream for error messages
  * @return 0 on success, 1 otherwise.
  */
-int convertV5ToV4Cache(const QString &indexFilename);
+int convertV5ToV4Cache(const QString &indexFilename, QTextStream &err);
 }
 
 #endif

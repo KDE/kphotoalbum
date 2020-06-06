@@ -18,26 +18,27 @@
 #include "ThumbnailCacheConverter.h"
 #include "Logging.h"
 
+#include <KLocalizedString>
 #include <QDataStream>
 #include <QFile>
-#include <QLoggingCategory>
 #include <QString>
 #include <QTemporaryFile>
+#include <QTextStream>
 
-int KPAThumbnailTool::convertV5ToV4Cache(const QString &indexFilename)
+int KPAThumbnailTool::convertV5ToV4Cache(const QString &indexFilename, QTextStream &err)
 {
     QFile indexFile { indexFilename };
     if (!indexFile.open(QIODevice::ReadOnly)) {
-        qCWarning(MainLog) << "Could not open thumbnailindex file!";
-        qCWarning(MainLog) << "Aborting...";
+        err << i18nc("@info:shell", "Could not open thumbnailindex file!\n");
+        err << i18nc("@info:shell", "Thumbnailindex was not changed.\n");
         return 1;
     }
     QDataStream stream { &indexFile };
     int version;
     stream >> version;
     if (version != 5) {
-        qCWarning(MainLog) << "Thumbnailindex is not a version 5 file!";
-        qCWarning(MainLog) << "Aborting...";
+        err << i18nc("@info:shell", "Thumbnailindex is not a version 5 file!\n");
+        err << i18nc("@info:shell", "Thumbnailindex was not changed.\n");
         return 1;
     }
     // skip dimensions
@@ -45,8 +46,8 @@ int KPAThumbnailTool::convertV5ToV4Cache(const QString &indexFilename)
 
     QTemporaryFile newIndexFile;
     if (!newIndexFile.open()) {
-        qCWarning(MainLog) << "Could not open temporary file for writing!";
-        qCWarning(MainLog) << "Aborting...";
+        err << i18nc("@info:shell", "Could not open temporary file for writing!\n");
+        err << i18nc("@info:shell", "Thumbnailindex was not changed.\n");
         return 1;
     }
     QDataStream newStream { &newIndexFile };
@@ -59,12 +60,13 @@ int KPAThumbnailTool::convertV5ToV4Cache(const QString &indexFilename)
         newStream.writeRawData(buf, numBytes);
     } while (numBytes != 0);
     if (!indexFile.rename(QString::fromUtf8("%1.bak").arg(indexFilename))) {
-        qCWarning(MainLog) << "Could not back up thumbnailindex file!";
-        qCWarning(MainLog) << "Aborting...";
+        err << i18nc("@info:shell", "Could not back up thumbnailindex file!\n");
+        err << i18nc("@info:shell", "Thumbnailindex was not changed.\n");
         return 1;
     }
     if (!newIndexFile.copy(indexFilename)) {
-        qCWarning(MainLog) << "Could not emplace new thumbnailindex file!" << newIndexFile.errorString();
+        err << i18nc("@info:shell", "Could not copy temporary thumbnailindex file to final location!\n");
+        err << i18nc("@info:shell", "Error message was: %1\n", newIndexFile.errorString());
         return 1;
     }
     return 0;

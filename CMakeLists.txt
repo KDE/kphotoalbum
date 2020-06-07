@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.2.0)
 project(kphotoalbum LANGUAGES CXX VERSION 5.6.1)
 
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 if(POLICY CMP0063)
     cmake_policy(SET CMP0063 NEW)
 endif()
@@ -31,10 +34,6 @@ add_definitions(
     -DQT_DISABLE_DEPRECATED_BEFORE=0x050900
     -DQT_DISABLE_Q_FOREACH
     )
-
-
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_REQUIRED TRUE)
 
 ########### dependencies  ###############
 

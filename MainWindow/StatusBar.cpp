@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -31,6 +31,7 @@
 #include <KIconLoader>
 #include <KLocalizedString>
 #include <QApplication>
+#include <QElapsedTimer>
 #include <QHBoxLayout>
 #include <QIcon>
 #include <QLabel>
@@ -147,8 +148,8 @@ void MainWindow::StatusBar::setProgress(int progress)
         hideStatusBar();
 
     // If progress comes in to fast, then the UI will freeze from all time spent on updating the progressbar.
-    static QTime time;
-    if (time.isNull() || time.elapsed() > 200) {
+    static QElapsedTimer time;
+    if (!time.isValid() || time.elapsed() > 200) {
         m_progressBar->setValue(progress);
         time.restart();
     }

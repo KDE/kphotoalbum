@@ -30,6 +30,7 @@
 #include <Utilities/List.h>
 
 #include <KLocalizedString>
+#include <QElapsedTimer>
 #include <QFile>
 #include <QFileInfo>
 #include <QXmlStreamWriter>
@@ -73,9 +74,9 @@ void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
             i18n("Error while saving..."));
         return;
     }
-    QTime t;
+    QElapsedTimer timer;
     if (TimingLog().isDebugEnabled())
-        t.start();
+        timer.start();
     QXmlStreamWriter writer(&out);
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
@@ -92,7 +93,7 @@ void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
         //saveSettings(writer);
     }
     writer.writeEndDocument();
-    qCDebug(TimingLog) << "XMLDB::FileWriter::save(): Saving took" << t.elapsed() << "ms";
+    qCDebug(TimingLog) << "XMLDB::FileWriter::save(): Saving took" << timer.elapsed() << "ms";
 
     // State: index.xml has previous DB version, index.xml.tmp has the current version.
 

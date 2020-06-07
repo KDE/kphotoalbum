@@ -417,8 +417,6 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
 
 void XMLDB::FileReader::checkIfAllImagesHaveSizeAttributes()
 {
-    QTime time;
-    time.start();
     if (m_db->uiDelegate().isDialogDisabled(QString::fromLatin1("checkWhetherAllImagesIncludesSize")))
         return;
 

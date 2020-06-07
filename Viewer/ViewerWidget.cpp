@@ -51,6 +51,7 @@
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <QDesktopWidget>
+#include <QElapsedTimer>
 #include <QEventLoop>
 #include <QFileDialog>
 #include <QFileInfo>
@@ -803,7 +804,7 @@ void Viewer::ViewerWidget::slotStartStopSlideShow()
 void Viewer::ViewerWidget::slotSlideShowNextFromTimer()
 {
     // Load the next images.
-    QTime timer;
+    QElapsedTimer timer;
     timer.start();
     if (m_display == m_imageDisplay)
         slotSlideShowNext();
@@ -811,7 +812,7 @@ void Viewer::ViewerWidget::slotSlideShowNextFromTimer()
     // ensure that there is a few milliseconds pause, so that an end slideshow keypress
     // can get through immediately, we don't want it to queue up behind a bunch of timer events,
     // which loaded a number of new images before the slideshow stops
-    int ms = qMax(200, m_slideShowPause - timer.elapsed());
+    int ms = qMax(Q_INT64_C(200), m_slideShowPause - timer.elapsed());
     m_slideShowTimer->start(ms);
 }
 

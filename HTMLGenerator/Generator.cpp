@@ -425,12 +425,21 @@ bool HTMLGenerator::Generator::generateContentPage(int width, int height,
     // TODO: Hardcoded non-standard category names is not good practice
     QString title = QString::fromLatin1("");
     QString name = QString::fromLatin1("Common Name");
-    if (!info->itemsOfCategory(name).empty()) {
-        title += QStringList(info->itemsOfCategory(name).toList()).join(QString::fromLatin1(" - "));
+    const auto itemsOfCategory = info->itemsOfCategory(name);
+    if (!itemsOfCategory.empty()) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        title += QStringList(itemsOfCategory.begin(), itemsOfCategory.end()).join(QLatin1String(" - "));
+#else
+        title += QStringList(itemsOfCategory.toList()).join(QString::fromLatin1(" - "));
+#endif
     } else {
         name = QString::fromLatin1("Latin Name");
-        if (!info->itemsOfCategory(name).empty()) {
-            title += QStringList(info->itemsOfCategory(name).toList()).join(QString::fromLatin1(" - "));
+        if (!itemsOfCategory.empty()) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+            title += QStringList(itemsOfCategory.begin(), itemsOfCategory.end()).join(QString::fromLatin1(" - "));
+#else
+            title += QStringList(itemsOfCategory.toList()).join(QString::fromLatin1(" - "));
+#endif
         } else {
             title = info->label();
         }

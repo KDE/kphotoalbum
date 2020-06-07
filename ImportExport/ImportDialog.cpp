@@ -295,7 +295,12 @@ ImportMatcher *ImportDialog::createCategoryPage(const QString &myCategory, const
     QStringList myItems = DB::ImageDB::instance()->categoryCollection()->categoryForName(myCategory)->itemsInclCategories();
     myItems.sort();
 
-    ImportMatcher *matcher = new ImportMatcher(otherCategory, myCategory, otherItems.toList(), myItems, true, this);
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    const QStringList otherItemsList(otherItems.begin(), otherItems.end());
+#else
+    const QStringList otherItemsList = otherItems.toList();
+#endif
+    ImportMatcher *matcher = new ImportMatcher(otherCategory, myCategory, otherItemsList, myItems, true, this);
     addPage(matcher, myCategory);
     return matcher;
 }

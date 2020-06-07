@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -64,11 +64,23 @@ void MemberMap::deleteGroup(const QString &category, const QString &name)
 QStringList MemberMap::members(const QString &category, const QString &memberGroup, bool closure) const
 {
     if (closure) {
-        if (m_dirty)
+        if (m_dirty) {
             calculate();
+        }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        const auto &members = m_closureMembers[category][memberGroup];
+        return QStringList(members.begin(), members.end());
+#else
         return m_closureMembers[category][memberGroup].toList();
-    } else
+#endif
+    } else {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        const auto &members = m_members[category][memberGroup];
+        return QStringList(members.begin(), members.end());
+#else
         return m_members[category][memberGroup].toList();
+#endif
+    }
 }
 
 void MemberMap::setMembers(const QString &category, const QString &memberGroup, const QStringList &members)

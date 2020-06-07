@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -110,7 +110,11 @@ void Viewer::CategoryImageConfig::groupChanged()
         set += map[*directMembersIt];
     }
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    QStringList list(set.begin(), set.end());
+#else
     QStringList list = set.toList();
+#endif
 
     list.sort();
     m_member->addItems(list);

@@ -189,7 +189,11 @@ void XMLDB::FileWriter::saveImages(QXmlStreamWriter &writer)
 void XMLDB::FileWriter::saveBlockList(QXmlStreamWriter &writer)
 {
     ElementWriter dummy(writer, QString::fromLatin1("blocklist"));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    QList<DB::FileName> blockList(m_db->m_blockList.begin(), m_db->m_blockList.end());
+#else
     QList<DB::FileName> blockList = m_db->m_blockList.toList();
+#endif
     // sort blocklist to get diffable files
     std::sort(blockList.begin(), blockList.end());
     for (const DB::FileName &block : qAsConst(blockList)) {

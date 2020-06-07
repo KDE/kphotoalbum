@@ -660,7 +660,7 @@ QString HTMLGenerator::Generator::translateToHTML(const QString &str)
         if (str[i].unicode() < 128)
             res.append(str[i]);
         else {
-            res.append(QString().sprintf("&#%u;", (unsigned int)str[i].unicode()));
+            res.append(QStringLiteral("&#%1;").arg((unsigned int)str[i].unicode()));
         }
     }
     return res;

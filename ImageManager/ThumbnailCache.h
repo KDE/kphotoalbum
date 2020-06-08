@@ -77,6 +77,7 @@ public:
     void insert(const DB::FileName &name, const QImage &image);
     /**
      * @brief lookup and return the thumbnail for the given file.
+     * Note: this method requires a GuiApplication to exist.
      * @param name the image file name
      * @return a QPixmap containing the thumbnail, or a null QPixmap if no thumbnail was found.
      */
@@ -113,6 +114,30 @@ public:
      * @return the current thumbnail size.
      */
     int thumbnailSize() const;
+
+    /**
+     * @brief Returns the file format version of the thumbnailindex file currently on disk.
+     *
+     * Usually, this is equal to the current version, but if an old ThumbnailCache
+     * that is still compatible with this version of KPhotoAlbum is loaded and was not yet stored,
+     * it may differ.
+     * @return 4 or 5
+     */
+    int actualFileVersion() const;
+
+    /**
+     * @brief Version of the tumbnailindex file when saved.
+     * @return The file format version of the thumbnailindex file.
+     */
+    static int preferredFileVersion();
+
+    /**
+     * @brief Check all thumbnails for consistency with thumbnailSize().
+     * Only the thumbnails which are saved to disk are checked.
+     * If you have changed changed the cache you need to save if to guarantee correct results.
+     * @return all thumbnails that do not match the expected image dimensions.
+     */
+    DB::FileNameList findIncorrectlySizedThumbnails() const;
 
 public slots:
     /**
@@ -157,6 +182,8 @@ private:
     QString fileNameForIndex(int index) const;
     QString thumbnailPath(const QString &fileName) const;
 
+    // mutable because saveIncremental is const
+    mutable int m_fileVersion = -1;
     int m_thumbnailSize = -1;
     const QString m_baseDir;
     QHash<DB::FileName, CacheFileInfo> m_hash;

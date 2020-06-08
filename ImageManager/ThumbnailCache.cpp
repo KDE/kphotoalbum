@@ -38,7 +38,6 @@ namespace
 // We split the thumbnails into chunks to avoid a huge file changing over and over again, with a bad hit for backups
 constexpr int MAX_FILE_SIZE = 32 * 1024 * 1024;
 constexpr int THUMBNAIL_FILE_VERSION_MIN = 4;
-constexpr int THUMBNAIL_FILE_VERSION = 5;
 // We map some thumbnail files into memory and manage them in a least-recently-used fashion
 constexpr size_t LRU_SIZE = 2;
 
@@ -268,10 +267,11 @@ void ImageManager::ThumbnailCache::saveFull() const
     // Clear the dirty flag early so that we can allow further work to proceed.
     // If the save fails, we'll set the dirty flag again.
     m_isDirty = false;
+    m_fileVersion = preferredFileVersion();
     dataLocker.unlock();
 
     QDataStream stream(&file);
-    stream << THUMBNAIL_FILE_VERSION
+    stream << preferredFileVersion()
            << m_thumbnailSize
            << m_currentFile
            << m_currentOffset
@@ -377,17 +377,16 @@ void ImageManager::ThumbnailCache::load()
     timer.start();
     file.open(QIODevice::ReadOnly);
     QDataStream stream(&file);
-    int version;
-    stream >> version;
+    stream >> m_fileVersion;
 
-    if (version != THUMBNAIL_FILE_VERSION && version != THUMBNAIL_FILE_VERSION_MIN)
+    if (m_fileVersion != preferredFileVersion() && m_fileVersion != THUMBNAIL_FILE_VERSION_MIN)
         return; //Discard cache
 
     // We can't allow anything to modify the structure while we're doing this.
     QMutexLocker dataLocker(&m_dataLock);
 
-    if (version == THUMBNAIL_FILE_VERSION_MIN) {
-        qCInfo(ImageManagerLog) << "Loading thumbnail index version " << version
+    if (m_fileVersion == THUMBNAIL_FILE_VERSION_MIN) {
+        qCInfo(ImageManagerLog) << "Loading thumbnail index version " << m_fileVersion
                                 << "- assuming thumbnail size" << m_thumbnailSize << "px";
     } else {
         stream >> m_thumbnailSize;
@@ -440,6 +439,45 @@ QString ImageManager::ThumbnailCache::thumbnailPath(const QString &file) const
 int ImageManager::ThumbnailCache::thumbnailSize() const
 {
     return m_thumbnailSize;
+}
+
+int ImageManager::ThumbnailCache::actualFileVersion() const
+{
+    return m_fileVersion;
+}
+
+int ImageManager::ThumbnailCache::preferredFileVersion()
+{
+    return 5;
+}
+
+DB::FileNameList ImageManager::ThumbnailCache::findIncorrectlySizedThumbnails() const
+{
+    QMutexLocker dataLocker(&m_dataLock);
+    const QHash<DB::FileName, CacheFileInfo> tempHash = m_hash;
+    dataLocker.unlock();
+
+    // accessing the data directly instead of using the lookupRawData() method
+    // may be more efficient, but this method should be called rarely
+    // and readability therefore trumps performance
+    DB::FileNameList resultList;
+    for (auto it = m_hash.constBegin(); it != m_hash.constEnd(); ++it) {
+        const auto filename = it.key();
+        auto jpegData = lookupRawData(filename);
+        Q_ASSERT(!jpegData.isNull());
+
+        QBuffer buffer(&jpegData);
+        buffer.open(QIODevice::ReadOnly);
+        QImage image;
+        image.load(&buffer, "JPG");
+        const auto size = image.size();
+        if (size.width() != m_thumbnailSize && size.height() != m_thumbnailSize) {
+            qCInfo(ImageManagerLog) << "Thumbnail for file " << filename.relative() << "has incorrect size:" << size;
+            resultList.append(filename);
+        }
+    }
+
+    return resultList;
 }
 
 void ImageManager::ThumbnailCache::flush()

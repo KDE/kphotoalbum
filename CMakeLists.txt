@@ -1,12 +1,8 @@
-cmake_minimum_required(VERSION 3.2.0)
+cmake_minimum_required(VERSION 3.3.0)
 project(kphotoalbum LANGUAGES CXX VERSION 5.6.1)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-if(POLICY CMP0063)
-    cmake_policy(SET CMP0063 NEW)
-endif()
 
 # provide drop-down menu for build-type in cmake-gui:
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ";Debug;Release;RelWithDebInfo;MinSizeRel")

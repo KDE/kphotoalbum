@@ -39,6 +39,7 @@
 #include <QFile>
 #include <QProgressDialog>
 #include <kio/job.h>
+#include <kio_version.h>
 #include <kmessagebox.h>
 #include <memory>
 
@@ -126,7 +127,11 @@ void ImportExport::ImportHandler::copyNextFromExternal()
         QUrl src(url);
         src.setPath(src.path() + fileName.relative());
 
+#if KIO_VERSION < QT_VERSION_CHECK(5, 69, 0)
         std::unique_ptr<KIO::StatJob> statJob { KIO::stat(src, KIO::StatJob::SourceSide, 0 /* just query for existence */) };
+#else
+        std::unique_ptr<KIO::StatJob> statJob { KIO::statDetails(src, KIO::StatJob::SourceSide, KIO::StatDetail::StatNoDetails) };
+#endif
         KJobWidgets::setWindow(statJob.get(), MainWindow::Window::theMainWindow());
         if (statJob->exec()) {
             QUrl dest = QUrl::fromLocalFile(m_fileMapper->uniqNameFor(fileName));

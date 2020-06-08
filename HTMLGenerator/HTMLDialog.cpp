@@ -53,6 +53,7 @@
 #include <QStandardPaths>
 #include <QStringMatcher>
 #include <QVBoxLayout>
+#include <kio_version.h>
 
 using namespace HTMLGenerator;
 
@@ -426,7 +427,11 @@ bool HTMLDialog::checkVars()
     }
 
     // ensure base dir exists
+#if KIO_VERSION < QT_VERSION_CHECK(5, 69, 0)
     QScopedPointer<KIO::StatJob> statJob(KIO::stat(QUrl::fromUserInput(baseDir), KIO::StatJob::DestinationSide, 1 /*only basic info*/));
+#else
+    QScopedPointer<KIO::StatJob> statJob(KIO::statDetails(QUrl::fromUserInput(baseDir), KIO::StatJob::DestinationSide, KIO::StatDetail::StatNoDetails));
+#endif
     KJobWidgets::setWindow(statJob.data(), MainWindow::Window::theMainWindow());
     if (!statJob->exec()) {
         KMessageBox::error(this, i18n("<p>Error while reading information about %1. "
@@ -445,7 +450,11 @@ bool HTMLDialog::checkVars()
     }
 
     // test if destination directory exists.
+#if KIO_VERSION < QT_VERSION_CHECK(5, 69, 0)
     QScopedPointer<KIO::StatJob> existsJob(KIO::stat(QUrl::fromUserInput(outputDir), KIO::StatJob::DestinationSide, 0 /*only minimal info*/));
+#else
+    QScopedPointer<KIO::StatJob> existsJob(KIO::statDetails(QUrl::fromUserInput(outputDir), KIO::StatJob::DestinationSide, KIO::StatDetail::StatNoDetails));
+#endif
     KJobWidgets::setWindow(existsJob.data(), MainWindow::Window::theMainWindow());
     if (existsJob->exec()) {
         int answer = KMessageBox::warningYesNo(this,

@@ -48,7 +48,7 @@ using namespace ImportExport;
 ImportExport::ImportHandler::ImportHandler()
     : m_fileMapper(nullptr)
     , m_finishedPressed(false)
-    , m_progress(0)
+    , m_progress(nullptr)
     , m_reportUnreadableFiles(true)
     , m_eventLoop(new QEventLoop)
 
@@ -109,7 +109,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
 
     if (isImageAlreadyInDB(info)) {
         qCDebug(ImportExportLog) << info->fileName().relative() << "is already in database.";
-        aCopyJobCompleted(0);
+        aCopyJobCompleted(nullptr);
         return;
     }
 
@@ -250,7 +250,7 @@ void ImportExport::ImportHandler::aCopyFailed(QStringList files)
         m_reportUnreadableFiles = false;
         // fall through
     default:
-        aCopyJobCompleted(0);
+        aCopyJobCompleted(nullptr);
     }
 }
 

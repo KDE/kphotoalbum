@@ -219,14 +219,29 @@ ImageDate::ImageDate(int yearFrom, int monthFrom, int dayFrom, int yearTo, int m
     }
 
     if (monthFrom <= 0) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        m_start = QDate(yearFrom, 1, 1).startOfDay();
+        m_end = QDate(yearFrom + 1, 1, 1).startOfDay().addSecs(-1);
+#else
         m_start = QDateTime(QDate(yearFrom, 1, 1));
         m_end = QDateTime(QDate(yearFrom + 1, 1, 1)).addSecs(-1);
+#endif
     } else if (dayFrom <= 0) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        m_start = QDate(yearFrom, monthFrom, 1).startOfDay();
+        m_end = addMonth(yearFrom, monthFrom).startOfDay().addSecs(-1);
+#else
         m_start = QDateTime(QDate(yearFrom, monthFrom, 1));
         m_end = QDateTime(addMonth(yearFrom, monthFrom)).addSecs(-1);
+#endif
     } else if (hourFrom < 0) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        m_start = QDate(yearFrom, monthFrom, dayFrom).startOfDay();
+        m_end = QDate(yearFrom, monthFrom, dayFrom).addDays(1).startOfDay().addSecs(-1);
+#else
         m_start = QDateTime(QDate(yearFrom, monthFrom, dayFrom));
         m_end = QDateTime(QDate(yearFrom, monthFrom, dayFrom).addDays(1)).addSecs(-1);
+#endif
     } else if (minuteFrom < 0) {
         m_start = QDateTime(QDate(yearFrom, monthFrom, dayFrom), QTime(hourFrom, 0, 0));
         m_end = QDateTime(QDate(yearFrom, monthFrom, dayFrom), QTime(hourFrom, 23, 59));
@@ -239,16 +254,28 @@ ImageDate::ImageDate(int yearFrom, int monthFrom, int dayFrom, int yearTo, int m
     }
 
     if (yearTo > 0) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        m_end = QDate(yearTo + 1, 1, 1).startOfDay().addSecs(-1);
+#else
         m_end = QDateTime(QDate(yearTo + 1, 1, 1)).addSecs(-1);
+#endif
 
         if (monthTo > 0) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+            m_end = addMonth(yearTo, monthTo).startOfDay().addSecs(-1);
+#else
             m_end = QDateTime(addMonth(yearTo, monthTo)).addSecs(-1);
+#endif
 
             if (dayTo > 0) {
                 if (dayFrom == dayTo && monthFrom == monthTo && yearFrom == yearTo)
                     m_end = m_start;
                 else
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+                    m_end = QDate(yearTo, monthTo, dayTo).addDays(1).startOfDay().addSecs(-1);
+#else
                     m_end = QDateTime(QDate(yearTo, monthTo, dayTo).addDays(1)).addSecs(-1);
+#endif
             }
         }
         // It should not be possible here for m_end < m_start.

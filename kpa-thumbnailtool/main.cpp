@@ -82,13 +82,15 @@ int main(int argc, char **argv)
     QCommandLineParser parser;
     parser.addHelpOption();
     parser.addVersionOption();
+    parser.addPositionalArgument(QString::fromUtf8("imageDir"), i18nc("@info:shell", "The directory containing the .thumbnail directory."));
     QCommandLineOption infoOption { QString::fromUtf8("info"), i18nc("@info:shell", "Print information about thumbnail cache.") };
     parser.addOption(infoOption);
     QCommandLineOption convertV5ToV4Option { QString::fromUtf8("convertV5ToV4"), i18nc("@info:shell", "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3.") };
     parser.addOption(convertV5ToV4Option);
     QCommandLineOption verifyOption { QString::fromUtf8("verify"), i18nc("@info:shell", "Verify thumbnail cache consistency.") };
     parser.addOption(verifyOption);
-    parser.addPositionalArgument(QString::fromUtf8("imageDir"), i18nc("@info:shell", "The directory containing the .thumbnail directory."));
+    QCommandLineOption fixOption { QString::fromUtf8("remove-broken"), i18nc("@info:shell", "Fix inconsistent thumbnails by removing them from the cache (requires --verify).") };
+    parser.addOption(fixOption);
 
     KAboutData::setApplicationData(aboutData);
     aboutData.setupCommandLine(&parser);
@@ -120,7 +122,7 @@ int main(int argc, char **argv)
     DB::DummyUIDelegate uiDelegate;
     Settings::SettingsData::setup(imageDir.path(), uiDelegate);
     const auto thumbnailDir = imageDir.absoluteFilePath(ImageManager::defaultThumbnailDirectory());
-    const ImageManager::ThumbnailCache cache { thumbnailDir };
+    ImageManager::ThumbnailCache cache { thumbnailDir };
     if (parser.isSet(infoOption)) {
         console << i18nc("@info:shell", "Thumbnail cache directory: %1\n", thumbnailDir);
         console << i18nc("@info:shell", "Thumbnailindex file version: %1\n", cache.actualFileVersion());
@@ -140,13 +142,16 @@ int main(int argc, char **argv)
             for (const auto &filename : incorrectDimensions) {
                 console << filename.absolute() << "\n";
             }
+            if (parser.isSet(fixOption)) {
+                cache.removeThumbnails(incorrectDimensions);
+                cache.save();
+                console << i18nc("@info:shell", "Inconsistent thumbnails have been removed from the database.\n");
+            }
         }
     }
 
-    return returnValue;
-    // so far, we don't need an event loop:
-    //// immediately quit the event loop:
-    //QTimer::singleShot(0, &app, &QCoreApplication::quit);
-    //return QCoreApplication::exec();
+    // immediately quit the event loop:
+    QTimer::singleShot(0, [&app, returnValue]() { app.exit(returnValue); });
+    return QCoreApplication::exec();
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

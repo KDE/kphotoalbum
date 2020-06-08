@@ -47,13 +47,19 @@ public:
     static void extract(const DB::FileName &filename, double offset, QObject *receiver, const char *slot);
 
 private slots:
-    void frameFetched();
-    void handleError(QProcess::ProcessError);
+    /**
+     * @brief processFinished call the appropriate handler function based on exit status.
+     * @param exitCode
+     * @param status
+     */
+    void processFinished(int exitCode, QProcess::ExitStatus status);
 
 signals:
     void result(const QImage &);
 
 private:
+    void frameFetched();
+    void handleError(QProcess::ProcessError);
     ExtractOneVideoFrame(const DB::FileName &filename, double offset, QObject *receiver, const char *slot);
     void markShortVideo(const DB::FileName &fileName);
 

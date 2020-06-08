@@ -46,6 +46,15 @@ void ExtractOneVideoFrame::extract(const DB::FileName &fileName, double offset, 
         new ExtractOneVideoFrame(fileName, offset, receiver, slot);
 }
 
+void ExtractOneVideoFrame::processFinished(int exitCode, QProcess::ExitStatus status)
+{
+    if (status == QProcess::ExitStatus::NormalExit && exitCode == 0) {
+        frameFetched();
+    } else {
+        handleError(m_process->error());
+    }
+}
+
 ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double offset, QObject *receiver, const char *slot)
 {
     m_fileName = fileName;
@@ -56,8 +65,7 @@ ExtractOneVideoFrame::ExtractOneVideoFrame(const DB::FileName &fileName, double 
     m_process = new Utilities::Process(this);
     m_process->setWorkingDirectory(m_workingDirectory->path());
 
-    connect(m_process, SIGNAL(finished(int)), this, SLOT(frameFetched()));
-    connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(handleError(QProcess::ProcessError)));
+    connect(m_process, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, &ExtractOneVideoFrame::processFinished);
     connect(this, SIGNAL(result(QImage)), receiver, slot);
 
     Q_ASSERT(MainWindow::FeatureDialog::hasVideoThumbnailer());

@@ -274,7 +274,7 @@ void ImagePreview::PreviewLoader::cancelPreload()
 QImage ImagePreview::rotateAndScale(QImage img, int width, int height, int angle) const
 {
     if (angle != 0) {
-        QMatrix matrix;
+        QTransform matrix;
         matrix.rotate(angle);
         img = img.transformed(matrix);
     }
@@ -502,7 +502,7 @@ void ImagePreview::fetchFullSizeImage()
     }
 
     if (m_angle != m_info.angle()) {
-        QMatrix matrix;
+        QTransform matrix;
         matrix.rotate(m_info.angle());
         m_fullSizeImage = m_fullSizeImage.transformed(matrix);
     }

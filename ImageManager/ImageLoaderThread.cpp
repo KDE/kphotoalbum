@@ -119,7 +119,7 @@ int ImageManager::ImageLoaderThread::calcLoadSize(ImageRequest *request)
 QImage ImageManager::ImageLoaderThread::scaleAndRotate(ImageRequest *request, QImage img)
 {
     if (request->angle() != 0 && !request->imageIsPreRotated()) {
-        QMatrix matrix;
+        QTransform matrix;
         matrix.rotate(request->angle());
         img = img.transformed(matrix);
         int angle = (request->angle() + 360) % 360;

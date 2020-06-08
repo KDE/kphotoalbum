@@ -131,6 +131,7 @@ int main(int argc, char **argv)
         if (cache.actualFileVersion() < 5) {
             console << i18nc("@info:shell", "Note: Thumbnail storage size is defined in the configuration file prior to v5.\n");
         }
+        console.flush();
     }
     if (parser.isSet(verifyOption)) {
         const auto incorrectDimensions = cache.findIncorrectlySizedThumbnails();
@@ -148,6 +149,7 @@ int main(int argc, char **argv)
                 console << i18nc("@info:shell", "Inconsistent thumbnails have been removed from the database.\n");
             }
         }
+        console.flush();
     }
 
     // immediately quit the event loop:

@@ -246,7 +246,12 @@ void XMLDB::FileWriter::saveMemberGroups(QXmlStreamWriter &writer)
                 std::sort(idList.begin(), idList.end());
                 writer.writeAttribute(QString::fromLatin1("members"), idList.join(QString::fromLatin1(",")));
             } else {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+                const auto groupMapItValue = groupMapIt.value();
+                QStringList members(groupMapItValue.begin(), groupMapItValue.end());
+#else
                 QStringList members = groupMapIt.value().toList();
+#endif
                 std::sort(members.begin(), members.end());
                 for (const QString &member : qAsConst(members)) {
                     ElementWriter dummy(writer, QString::fromLatin1("member"));
@@ -357,7 +362,12 @@ void XMLDB::FileWriter::writeCategories(QXmlStreamWriter &writer, const DB::Imag
 
         ElementWriter categoryElm(writer, QString::fromLatin1("option"), false);
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+        const auto itemsOfCategory = info->itemsOfCategory(name);
+        QStringList items(itemsOfCategory.begin(), itemsOfCategory.end());
+#else
         QStringList items = info->itemsOfCategory(name).toList();
+#endif
         std::sort(items.begin(), items.end());
         if (!items.isEmpty()) {
             topElm.writeStartElement();

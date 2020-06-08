@@ -85,7 +85,11 @@ QStringList MemberMap::members(const QString &category, const QString &memberGro
 
 void MemberMap::setMembers(const QString &category, const QString &memberGroup, const QStringList &members)
 {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    StringSet allowedMembers(members.begin(), members.end());
+#else
     StringSet allowedMembers = members.toSet();
+#endif
 
     for (QStringList::const_iterator i = members.begin(); i != members.end(); ++i)
         if (!canAddMemberToGroup(category, memberGroup, *i))
@@ -136,12 +140,22 @@ QStringList MemberMap::calculateClosure(QMap<QString, StringSet> &resultSoFar, c
         if (resultSoFar.contains(*it)) {
             result += resultSoFar[*it];
         } else if (isGroup(category, *it)) {
-            result += calculateClosure(resultSoFar, category, *it).toSet();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+            const auto closure = calculateClosure(resultSoFar, category, *it);
+            const StringSet closureSet(closure.begin(), closure.end());
+#else
+            const StringSet closureSet = calculateClosure(resultSoFar, category, *it).toSet();
+#endif
+            result += closureSet;
         }
     }
 
     resultSoFar[group] = result;
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+    return QStringList(result.begin(), result.end());
+#else
     return result.toList();
+#endif
 }
 
 /**

@@ -785,13 +785,19 @@ QString HTMLGenerator::Generator::populateDescription(QList<DB::CategoryPtr> cat
         description += QString::fromLatin1("<li> <b>%1</b> %2</li>").arg(i18n("Date")).arg(info->date().toString());
 
     for (QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it) {
-        if ((*it)->isSpecialCategory())
+        if ((*it)->isSpecialCategory()) {
             continue;
+        }
 
-        QString name = (*it)->name();
-        if (!info->itemsOfCategory(name).empty() && m_setup.includeCategory(name)) {
-            QString val = QStringList(info->itemsOfCategory(name).toList()).join(QString::fromLatin1(", "));
-            description += QString::fromLatin1("  <li> <b>%1:</b> %2</li>").arg(name).arg(val);
+        const auto name = (*it)->name();
+        const auto itemsOfCategory = info->itemsOfCategory(name);
+        if (!itemsOfCategory.empty() && m_setup.includeCategory(name)) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+            const QStringList itemsList(itemsOfCategory.begin(), itemsOfCategory.end());
+#else
+            const QStringList itemsList = itemsOfCategory.toList();
+#endif
+            description += QStringLiteral("  <li> <b>%1:</b> %2</li>").arg(name, itemsList.join(QLatin1String(", ")));
         }
     }
 

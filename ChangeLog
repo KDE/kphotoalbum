@@ -34,6 +34,8 @@
 * Feature: Support for custom color schemes.
   Note: This feature replaces the custom background color for the thumbnail view.
 
+* Feature: Add new utility kpa-thumbnailtool
+
 ====================== KPhotoalbum 5.6.1 released (10.02.2020) ======================
 
 * Bugfix: Fix crash when associating tags with image areas (Fixes #417360).

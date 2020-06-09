@@ -379,8 +379,10 @@ void ImageManager::ThumbnailCache::load()
     QDataStream stream(&file);
     stream >> m_fileVersion;
 
-    if (m_fileVersion != preferredFileVersion() && m_fileVersion != THUMBNAIL_FILE_VERSION_MIN)
+    if (m_fileVersion != preferredFileVersion() && m_fileVersion != THUMBNAIL_FILE_VERSION_MIN) {
+        qCWarning(ImageManagerLog) << "Thumbnail index version" << m_fileVersion << "can not be used. Discarding...";
         return; //Discard cache
+    }
 
     // We can't allow anything to modify the structure while we're doing this.
     QMutexLocker dataLocker(&m_dataLock);

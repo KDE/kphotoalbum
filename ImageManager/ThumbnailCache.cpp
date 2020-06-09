@@ -474,7 +474,7 @@ DB::FileNameList ImageManager::ThumbnailCache::findIncorrectlySizedThumbnails() 
         image.load(&buffer, "JPG");
         const auto size = image.size();
         if (size.width() != m_thumbnailSize && size.height() != m_thumbnailSize) {
-            qCInfo(ImageManagerLog) << "Thumbnail for file " << filename.relative() << "has incorrect size:" << size;
+            qCDebug(ImageManagerLog) << "Thumbnail for file " << filename.relative() << "has incorrect size:" << size;
             resultList.append(filename);
         }
     }

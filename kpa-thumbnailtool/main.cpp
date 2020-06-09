@@ -91,6 +91,8 @@ int main(int argc, char **argv)
     parser.addOption(verifyOption);
     QCommandLineOption fixOption { QString::fromUtf8("remove-broken"), i18nc("@info:shell", "Fix inconsistent thumbnails by removing them from the cache (requires --verify).") };
     parser.addOption(fixOption);
+    QCommandLineOption quietOption { QString::fromUtf8("quiet"), i18nc("@info:shell", "Be less verbose.") };
+    parser.addOption(quietOption);
 
     KAboutData::setApplicationData(aboutData);
     aboutData.setupCommandLine(&parser);
@@ -128,7 +130,7 @@ int main(int argc, char **argv)
         console << i18nc("@info:shell", "Thumbnailindex file version: %1\n", cache.actualFileVersion());
         console << i18nc("@info:shell", "Maximum supported thumbnailindex file version: %1\n", cache.preferredFileVersion());
         console << i18nc("@info:shell", "Thumbnail storage size: %1\n", cache.thumbnailSize());
-        if (cache.actualFileVersion() < 5) {
+        if (cache.actualFileVersion() < 5 && !parser.isSet(quietOption)) {
             console << i18nc("@info:shell", "Note: Thumbnail storage size is defined in the configuration file prior to v5.\n");
         }
         console << i18nc("@info:shell", "Number of thumbnails: %1\n", cache.size());
@@ -140,9 +142,11 @@ int main(int argc, char **argv)
             console << i18nc("@info:shell", "No inconsistencies found.\n");
         } else {
             returnValue = 1;
-            console << i18nc("@info:shell This line is printed before a list of file names.", "The following thumbnails appear to have incorrect sizes:\n");
-            for (const auto &filename : incorrectDimensions) {
-                console << filename.absolute() << "\n";
+            if (!parser.isSet(quietOption)) {
+                console << i18nc("@info:shell This line is printed before a list of file names.", "The following thumbnails appear to have incorrect sizes:\n");
+                for (const auto &filename : incorrectDimensions) {
+                    console << filename.absolute() << "\n";
+                }
             }
             if (parser.isSet(fixOption)) {
                 cache.removeThumbnails(incorrectDimensions);

@@ -139,6 +139,12 @@ public:
      */
     DB::FileNameList findIncorrectlySizedThumbnails() const;
 
+    /**
+     * @brief size
+     * @return the number of thumbnails in the cache (saved and unsaved)
+     */
+    int size() const;
+
 public slots:
     /**
      * @brief Save the thumbnail cache to disk.

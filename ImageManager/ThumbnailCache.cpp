@@ -482,6 +482,12 @@ DB::FileNameList ImageManager::ThumbnailCache::findIncorrectlySizedThumbnails() 
     return resultList;
 }
 
+int ImageManager::ThumbnailCache::size() const
+{
+    QMutexLocker dataLocker(&m_dataLock);
+    return m_hash.size() + m_unsavedHash.size();
+}
+
 void ImageManager::ThumbnailCache::flush()
 {
     QMutexLocker dataLocker(&m_dataLock);

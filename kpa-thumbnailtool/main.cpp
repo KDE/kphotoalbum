@@ -131,6 +131,7 @@ int main(int argc, char **argv)
         if (cache.actualFileVersion() < 5) {
             console << i18nc("@info:shell", "Note: Thumbnail storage size is defined in the configuration file prior to v5.\n");
         }
+        console << i18nc("@info:shell", "Number of thumbnails: %1\n", cache.size());
         console.flush();
     }
     if (parser.isSet(verifyOption)) {
@@ -146,7 +147,9 @@ int main(int argc, char **argv)
             if (parser.isSet(fixOption)) {
                 cache.removeThumbnails(incorrectDimensions);
                 cache.save();
-                console << i18nc("@info:shell", "Inconsistent thumbnails have been removed from the database.\n");
+                console << i18ncp("@info:shell",
+                                  "Removed 1 inconsistent thumbnail from the database.\n",
+                                  "Removed %1 inconsistent thumbnails from the database.\n", incorrectDimensions.size());
             }
         }
         console.flush();

@@ -561,6 +561,8 @@ target_link_libraries(kpathumbnails
     KPA::Base
     Qt5::Gui
     )
+install(TARGETS kpabase kpathumbnails ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+
 add_subdirectory(kpa-thumbnailtool)
 
 ########### install files ###############

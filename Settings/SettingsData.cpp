@@ -450,8 +450,10 @@ QVariantMap SettingsData::currentLock() const
     QVariantMap keyValuePairs;
     keyValuePairs[STR("label")] = cfgValue(group, "label", {});
     keyValuePairs[STR("description")] = cfgValue(group, "description", {});
-    keyValuePairs[STR("categories")] = cfgValue(group, "categories", QVariant());
-    const QStringList categories = cfgValue(group, "categories", QVariant()).toStringList();
+    // reading a QVariant containing a stringlist is asking too much of cfgValue:
+    const auto config = KSharedConfig::openConfig(configFile)->group(group);
+    const QStringList categories = config.readEntry<QStringList>(QString::fromUtf8("categories"), QStringList());
+    keyValuePairs[STR("categories")] = QVariant(categories);
     for (QStringList::ConstIterator it = categories.constBegin(); it != categories.constEnd(); ++it) {
         keyValuePairs[*it] = cfgValue(group, *it, {});
     }

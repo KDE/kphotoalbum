@@ -28,6 +28,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QMessageBox>
+#include <QDebug>
 
 Settings::UntaggedGroupBox::UntaggedGroupBox(QWidget *parent)
     : QGroupBox(i18n("Untagged Images"), parent)
@@ -65,8 +66,9 @@ void Settings::UntaggedGroupBox::populateCategoryComboBox()
     m_category->addItem(i18n("None Selected"));
     const auto categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for (DB::CategoryPtr category : categories) {
-        if (!category->isSpecialCategory())
-            m_category->addItem(category->name());
+        if (!category->isSpecialCategory()) {
+            m_category->addItem(category->name(), category->name());
+        }
     }
 }
 
@@ -74,9 +76,10 @@ void Settings::UntaggedGroupBox::populateTagsCombo()
 {
     m_tag->clear();
     const QString currentCategory = m_category->itemData(m_category->currentIndex()).value<QString>();
-    if (currentCategory.isEmpty())
+
+    if (currentCategory.isEmpty()) {
         m_tag->setEnabled(false);
-    else {
+    } else {
         m_tag->setEnabled(true);
         const QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName(currentCategory)->items();
         m_tag->addItems(items);

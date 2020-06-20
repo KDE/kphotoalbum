@@ -35,6 +35,20 @@
 #include <QMessageBox>
 #include <QTimer>
 
+namespace
+{
+/**
+ * @brief Thumbnail size for storage.
+ * @see ThumbnailView::CellGeometry::preferredIconSize()
+ * @return
+ */
+QSize preferredThumbnailSize()
+{
+    int width = Settings::SettingsData::instance()->thumbnailSize();
+    return QSize(width, width);
+}
+}
+
 ImageManager::ThumbnailBuilder *ImageManager::ThumbnailBuilder::s_instance = nullptr;
 
 ImageManager::ThumbnailBuilder::ThumbnailBuilder(MainWindow::StatusBar *statusBar, QObject *parent, ThumbnailCache *thumbnailCache)
@@ -148,7 +162,7 @@ void ImageManager::ThumbnailBuilder::buildOneThumbnail(const DB::ImageInfoPtr &i
 {
     ImageManager::ImageRequest *request
         = new ImageManager::PreloadRequest(info->fileName(),
-                                           ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
+                                           preferredThumbnailSize(), info->angle(),
                                            this, m_thumbnailCache);
     request->setIsThumbnailRequest(true);
     request->setPriority(ImageManager::BuildThumbnails);
@@ -192,7 +206,7 @@ void ImageManager::ThumbnailBuilder::doThumbnailBuild()
 
         ImageManager::ImageRequest *request
             = new ImageManager::PreloadRequest(fileName,
-                                               ThumbnailView::CellGeometry::preferredIconSize(), info->angle(),
+                                               preferredThumbnailSize(), info->angle(),
                                                this, m_thumbnailCache);
         request->setIsThumbnailRequest(true);
         request->setPriority(ImageManager::BuildThumbnails);

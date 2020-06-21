@@ -566,7 +566,8 @@ void Settings::TagGroupsPage::saveOldGroup()
         }
     }
 
-    m_memberMap.setMembers(m_currentCategory, m_currentGroup, list);
+    if (!m_currentCategory.isEmpty() && !m_currentGroup.isEmpty())
+        m_memberMap.setMembers(m_currentCategory, m_currentGroup, list);
 }
 
 void Settings::TagGroupsPage::selectMembers(const QString &group)

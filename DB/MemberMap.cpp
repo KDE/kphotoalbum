@@ -89,6 +89,8 @@ QStringList MemberMap::members(const QString &category, const QString &memberGro
 
 void MemberMap::setMembers(const QString &category, const QString &memberGroup, const QStringList &members)
 {
+    Q_ASSERT(!category.isEmpty());
+    Q_ASSERT(!memberGroup.isEmpty());
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     StringSet allowedMembers(members.begin(), members.end());
 #else

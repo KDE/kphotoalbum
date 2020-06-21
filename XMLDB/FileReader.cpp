@@ -345,8 +345,11 @@ void XMLDB::FileReader::loadMemberGroups(ReaderPtr reader)
                     }
                     XMLCategory *cat = static_cast<XMLCategory *>(catPtr.data());
                     QString member = cat->nameForId(memberItem.toInt());
-                    if (member.isNull())
+                    if (member.isNull()) {
+                        qCWarning(XMLDBLog) << "Tag group" << category << "references non-existing tag with id"
+                                            << memberItem << "!";
                         continue;
+                    }
                     m_db->m_members.addMemberToGroup(category, group, member);
                 }
 

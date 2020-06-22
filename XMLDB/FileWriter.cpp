@@ -143,18 +143,10 @@ void XMLDB::FileWriter::saveCategories(QXmlStreamWriter &writer)
             writer.writeAttribute(QString::fromUtf8("meta"), QString::fromUtf8("tokens"));
         }
 
-        // FIXME (l3u):
-        // Correct me if I'm wrong, but we don't need this, as the tags used as groups are
-        // added to the respective category anyway when they're created, so there's no need to
-        // re-add them here. Apart from this, adding an empty group (one without members) does
-        // add an empty tag ("") doing so.
-        /*
-        QStringList list =
-                Utilities::mergeListsUniqly(category->items(),
-                                            m_db->_members.groups(name));
-        */
-
-        const auto categoryItems = category->items();
+        // As bug 423334 shows, it is easy to forget to add a group to the respective category
+        // when it's created. We can not enforce correct creation of member groups in our API,
+        // but we can prevent incorrect data from entering index.xml.
+        const auto categoryItems = Utilities::mergeListsUniqly(category->items(), m_db->memberMap().groups(name));
         for (const QString &tagName : categoryItems) {
             ElementWriter dummy(writer, QString::fromLatin1("value"));
             writer.writeAttribute(QString::fromLatin1("value"), tagName);

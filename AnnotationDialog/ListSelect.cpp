@@ -472,6 +472,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
                                                       i18n("Name for the new tag group the tag will be added to:"));
         if (superCategory.isEmpty())
             return;
+        m_category->addItem(superCategory);
         memberMap.addGroup(m_category->name(), superCategory);
         memberMap.addMemberToGroup(m_category->name(), superCategory, item->text(0));
         //DB::ImageDB::instance()->setMemberMap( memberMap );

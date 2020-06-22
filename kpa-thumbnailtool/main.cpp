@@ -87,9 +87,9 @@ int main(int argc, char **argv)
     parser.addOption(infoOption);
     QCommandLineOption convertV5ToV4Option { QString::fromUtf8("convertV5ToV4"), i18nc("@info:shell", "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3.") };
     parser.addOption(convertV5ToV4Option);
-    QCommandLineOption verifyOption { QString::fromUtf8("verify"), i18nc("@info:shell", "Verify thumbnail cache consistency.") };
+    QCommandLineOption verifyOption { QString::fromUtf8("check-thumbnail-dimensions"), i18nc("@info:shell", "Check thumbnail cache for consistency of thumbnail dimensions.") };
     parser.addOption(verifyOption);
-    QCommandLineOption fixOption { QString::fromUtf8("remove-broken"), i18nc("@info:shell", "Fix inconsistent thumbnails by removing them from the cache (requires --verify).") };
+    QCommandLineOption fixOption { QString::fromUtf8("remove-broken"), i18nc("@info:shell", "Fix inconsistent thumbnails by removing them from the cache (requires --check-thumbnail-dimensions).") };
     parser.addOption(fixOption);
     QCommandLineOption quietOption { QString::fromUtf8("quiet"), i18nc("@info:shell", "Be less verbose.") };
     parser.addOption(quietOption);
@@ -127,11 +127,11 @@ int main(int argc, char **argv)
     ImageManager::ThumbnailCache cache { thumbnailDir };
     if (parser.isSet(infoOption)) {
         console << i18nc("@info:shell", "Thumbnail cache directory: %1\n", thumbnailDir);
-        console << i18nc("@info:shell", "Thumbnailindex file version: %1\n", cache.actualFileVersion());
+        console << i18nc("@info:shell", "Thumbnail index file version: %1\n", cache.actualFileVersion());
         console << i18nc("@info:shell", "Maximum supported thumbnailindex file version: %1\n", cache.preferredFileVersion());
-        console << i18nc("@info:shell", "Thumbnail storage size: %1\n", cache.thumbnailSize());
+        console << i18nc("@info:shell", "Thumbnail storage dimensions: %1 pixels\n", cache.thumbnailSize());
         if (cache.actualFileVersion() < 5 && !parser.isSet(quietOption)) {
-            console << i18nc("@info:shell", "Note: Thumbnail storage size is defined in the configuration file prior to v5.\n");
+            console << i18nc("@info:shell", "Note: Thumbnail storage dimensions are defined in the configuration file prior to v5.\n");
         }
         console << i18nc("@info:shell", "Number of thumbnails: %1\n", cache.size());
         console.flush();

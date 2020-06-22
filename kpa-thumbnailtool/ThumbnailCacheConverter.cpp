@@ -29,14 +29,14 @@ int KPAThumbnailTool::convertV5ToV4Cache(const QString &indexFilename, QTextStre
 {
     QFile fromFile { indexFilename };
     if (!fromFile.open(QIODevice::ReadOnly)) {
-        err << i18nc("@info:shell", "Could not open thumbnailindex file!\n");
-        err << i18nc("@info:shell", "Thumbnailindex was not changed.\n");
+        err << i18nc("@info:shell", "Could not open file `thumbnailindex`!\n");
+        err << i18nc("@info:shell", "Thumbnail index was not changed.\n");
         return 1;
     }
     QTemporaryFile toFile;
     if (!toFile.open()) {
         err << i18nc("@info:shell", "Could not open temporary file for writing!\n");
-        err << i18nc("@info:shell", "Thumbnailindex was not changed.\n");
+        err << i18nc("@info:shell", "Thumbnail index was not changed.\n");
         return 1;
     }
 
@@ -44,12 +44,12 @@ int KPAThumbnailTool::convertV5ToV4Cache(const QString &indexFilename, QTextStre
         return 1;
 
     if (!fromFile.rename(QString::fromUtf8("%1.bak").arg(indexFilename))) {
-        err << i18nc("@info:shell", "Could not back up thumbnailindex file!\n");
-        err << i18nc("@info:shell", "Thumbnailindex was not changed.\n");
+        err << i18nc("@info:shell", "Could not back up file `thumbnailindex`!\n");
+        err << i18nc("@info:shell", "Thumbnail index was not changed.\n");
         return 1;
     }
     if (!toFile.copy(indexFilename)) {
-        err << i18nc("@info:shell", "Could not copy temporary thumbnailindex file to final location!\n");
+        err << i18nc("@info:shell", "Could not copy temporary thumbnail index file to final location!\n");
         err << i18nc("@info:shell", "Error message was: %1\n", toFile.errorString());
         return 1;
     }
@@ -62,8 +62,8 @@ bool KPAThumbnailTool::convertV5ToV4Cache(QIODevice &fromFile, QIODevice &toFile
     int version;
     fromStream >> version;
     if (version != 5) {
-        err << i18nc("@info:shell", "Thumbnailindex is not a version 5 file!\n");
-        err << i18nc("@info:shell", "Thumbnailindex was not changed.\n");
+        err << i18nc("@info:shell", "Thumbnail index is not a version 5 file!\n");
+        err << i18nc("@info:shell", "Thumbnail index was not changed.\n");
         return false;
     }
     // skip dimensions

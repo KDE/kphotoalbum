@@ -6,6 +6,8 @@
   Even with the warning message it might give somebody a false sense of
   security.
 
+* Bugfix: Make sure tag groups are always added to tag list as well (Fixes #423334)
+
 * Bugfix: Fix crash when changing the toolbar.
 
 * Bugfix: Fix handling of negation in searches (Fixes #334672)

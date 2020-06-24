@@ -27,6 +27,8 @@
 
 * Bugfix: kpa-merge should not fail if an item of id #0 exists in an index file.
 
+* Bugfix: Fix crash when ffmpeg can not extract video thumbnails (Fixes #422555)
+
 * Deprecation: Remove support for KIPI plugins
 
 * Enhancement: Experimental: offer options for image search tuning.

@@ -25,6 +25,7 @@
   <name xml:lang="pt-BR">KPhotoAlbum</name>
   <name xml:lang="ru">KPhotoAlbum</name>
   <name xml:lang="sk">KPhotoAlbum</name>
+  <name xml:lang="sl">KPhotoAlbum</name>
   <name xml:lang="sv">Kfotoalbum</name>
   <name xml:lang="tr">KPhotoAlbum</name>
   <name xml:lang="uk">KPhotoAlbum</name>
@@ -51,6 +52,7 @@
   <summary xml:lang="pt">Aplicação de gestão de imagens do KDE</summary>
   <summary xml:lang="pt-BR">Software de gerenciamento de imagens do KDE</summary>
   <summary xml:lang="sk">KDE softvér na manipuláciu s obrázkami</summary>
+  <summary xml:lang="sl">Programska oprema za upravljanje slik v namizju KDE</summary>
   <summary xml:lang="sv">KDE bildhanteringsprogramvara</summary>
   <summary xml:lang="tr">KDE resim yönetim yazılımı</summary>
   <summary xml:lang="uk">Програма для керування зображеннями у KDE</summary>
@@ -78,6 +80,7 @@
     <p xml:lang="pt">O KPhotoAlbum é uma aplicação para marcar e gerir uma colecção de fotografias, tornando-a fácil de pesquisar.</p>
     <p xml:lang="pt-BR">KPhotoAlbum é um aplicativo para etiquetar e gerenciar uma coleção de fotos e torná-la pesquisável.</p>
     <p xml:lang="sk">KPhotoAlbum je aplikácia na označovanie a správu kolekcie fotografií a jej prehľadávanie.</p>
+    <p xml:lang="sl">KPhotoAlbum je aplikacija za označevanje in upravljanje zbirke fotografij in omogoča iskanje.</p>
     <p xml:lang="sv">Kfotoalbum är ett program för att etikettera och hantera en fotosamling och göra den sökbar.</p>
     <p xml:lang="tr">KPhotoAlbum resim koleksiyonunu etiketlemek ve yöneten ve onu aranabilir yapan için bir uygulamadır.</p>
     <p xml:lang="uk">KPhotoAlbum — програма для створення міток у збірці фотографій та керування збіркою із можливостями пошуку зображень.</p>
@@ -108,6 +111,7 @@
       <caption xml:lang="pl">Ekran główny w KPhotoAlbum</caption>
       <caption xml:lang="pt">O ecrã principal no KPhotoAlbum</caption>
       <caption xml:lang="pt-BR">A tela principal do KPhotoAlbum</caption>
+      <caption xml:lang="sl">Glavni zaslon v KPhotoAlbumu</caption>
       <caption xml:lang="sv">Huvudskärmen i Kfotoalbum</caption>
       <caption xml:lang="uk">Знімок головного вікна KPhotoAlbum</caption>
       <caption xml:lang="x-test">xxThe main screen in KPhotoAlbumxx</caption>

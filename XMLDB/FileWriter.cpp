@@ -489,8 +489,8 @@ QString XMLDB::FileWriter::escape(const QString &str)
     if (useCompressedFileFormat()) {
         while ((pos = rx.indexIn(tmp, pos)) != -1) {
             QString before = rx.cap(1);
-            QString after;
-            after.sprintf("_.%0X", rx.cap(1).data()->toLatin1());
+            QString after = QString::fromLatin1("_.");
+            after += QString::fromLocal8Bit(rx.cap(1).toLatin1().toHex());
             tmp.replace(pos, before.length(), after);
             pos += after.length();
         }

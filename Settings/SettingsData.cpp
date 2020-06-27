@@ -89,8 +89,13 @@ const QString configFile = QString::fromLatin1("kphotoalbumrc");
 #define property_enum(GET_FUNC, SET_FUNC, TYPE, GROUP, GET_DEFAULT) \
     property(TYPE, GET_FUNC, SET_FUNC, TYPE, static_cast<int>(v), #GROUP, #GET_FUNC, static_cast<int>(GET_DEFAULT))
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+#define property_sset(GET_FUNC, SET_FUNC, GROUP, GET_DEFAULT) \
+    property_(StringSet, GET_FUNC, (StringSet{ v.begin(), v.end() }), SET_FUNC, StringSet &, (QStringList{ v.begin(), v.end() }), #GROUP, #GET_FUNC, GET_DEFAULT, QStringList(), QStringList)
+#else
 #define property_sset(GET_FUNC, SET_FUNC, GROUP, GET_DEFAULT) \
     property_(StringSet, GET_FUNC, v.toSet(), SET_FUNC, StringSet &, v.toList(), #GROUP, #GET_FUNC, GET_DEFAULT, QStringList(), QStringList)
+#endif
 
 /**
  * smoothScale() is called from the image loading thread, therefore we need

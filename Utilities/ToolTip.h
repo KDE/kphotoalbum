@@ -1,4 +1,4 @@
-/* Copyright 2012 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -33,11 +33,11 @@ class ToolTip : public QLabel, public ImageManager::ImageClientInterface
 {
     Q_OBJECT
 public:
-    explicit ToolTip(QWidget *parent = nullptr, Qt::WindowFlags f = 0);
     void pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image) override;
     void requestToolTip(const DB::FileName &fileName);
 
 protected:
+    explicit ToolTip(QWidget *parent, Qt::WindowFlags f);
     virtual void placeWindow() = 0;
 
 private:

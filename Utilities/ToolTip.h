@@ -29,6 +29,10 @@ class QTemporaryFile;
 namespace Utilities
 {
 
+/**
+ * @brief The ToolTip class acts as a base class for tooltips that can show image thumbnails or image info text.
+ * The subclasses only customize the window behaviour, such as placement and window flags.
+ */
 class ToolTip : public QLabel, public ImageManager::ImageClientInterface
 {
     Q_OBJECT

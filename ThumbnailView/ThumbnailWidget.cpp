@@ -205,16 +205,17 @@ void ThumbnailView::ThumbnailWidget::wheelEvent(QWheelEvent *event)
         m_wheelResizing = true;
 
         model()->beginResetModel();
-        const int delta = -event->delta() / 20;
+        const int delta = -event->angleDelta().y() / 20;
         static int _minimum_ = Settings::SettingsData::instance()->minimumThumbnailSize();
         Settings::SettingsData::instance()->setActualThumbnailSize(qMax(_minimum_, Settings::SettingsData::instance()->actualThumbnailSize() + delta));
         cellGeometryInfo()->calculateCellSize();
         model()->endResetModel();
     } else {
-        int delta = event->delta() / 5;
-        QWheelEvent newevent = QWheelEvent(event->pos(), delta, event->buttons(), Qt::NoModifier);
+        const auto angleDelta = event->angleDelta() / 5;
+        QWheelEvent newevent = QWheelEvent(event->pos(), event->globalPos(), event->pixelDelta(), angleDelta, event->buttons(), event->modifiers(), event->phase(), event->inverted());
 
         QListView::wheelEvent(&newevent);
+        event->setAccepted(newevent.isAccepted());
     }
 }
 

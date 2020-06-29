@@ -212,7 +212,7 @@ void ThumbnailView::ThumbnailWidget::wheelEvent(QWheelEvent *event)
         model()->endResetModel();
     } else {
         int delta = event->delta() / 5;
-        QWheelEvent newevent = QWheelEvent(event->pos(), delta, event->buttons(), nullptr);
+        QWheelEvent newevent = QWheelEvent(event->pos(), delta, event->buttons(), Qt::NoModifier);
 
         QListView::wheelEvent(&newevent);
     }

@@ -29,7 +29,15 @@
 #include <KFileItem>
 #include <KLocalizedString>
 #include <KMimeTypeTrader>
+#include <kio_version.h>
+#if KIO_VERSION >= QT_VERSION_CHECK(5, 70, 0)
+#include <KIO/ApplicationLauncherJob>
+#include <KIO/JobUiDelegate>
+#endif
+#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
+// KRun::displayOpenWithDialog() was both replaced and deprecated in 5.71
 #include <KRun>
+#endif
 #include <KService>
 #include <KShell>
 #include <QFile>
@@ -139,17 +147,32 @@ void MainWindow::ExternalPopup::slotExecuteService(QAction *action)
         return;
     }
 
+    auto *uiParent = MainWindow::Window::theMainWindow();
     // check for the special entry for self-defined
     if (name == i18n("Open With...")) {
-        KRun::displayOpenWithDialog(lst, MainWindow::Window::theMainWindow());
+#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
+        KRun::displayOpenWithDialog(lst, uiParent);
+#else
+        auto job = new KIO::ApplicationLauncherJob();
+        job->setUrls(lst);
+        job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
+        job->start();
+#endif
         return;
     }
 
     KService::List offers = KMimeTypeTrader::self()->query(*(apps.begin()), QString::fromLatin1("Application"),
                                                            QString::fromLatin1("Name == '%1'").arg(name));
     Q_ASSERT(offers.count() >= 1);
-    KService::Ptr ptr = offers.first();
-    KRun::runService(*ptr, lst, MainWindow::Window::theMainWindow());
+    KService::Ptr service = offers.first();
+#if KIO_VERSION < QT_VERSION_CHECK(5, 70, 0)
+    KRun::runService(*service, lst, uiParent);
+#else
+    auto job = new KIO::ApplicationLauncherJob(service);
+    job->setUrls(lst);
+    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
+    job->start();
+#endif
 }
 
 MainWindow::ExternalPopup::ExternalPopup(QWidget *parent)

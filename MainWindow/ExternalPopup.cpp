@@ -55,7 +55,7 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
     clear();
     QAction *action;
 
-    QStringList list = QStringList() << i18n("Current Item") << i18n("All Selected Items") << i18n("Copy and Open");
+    const QStringList list = QStringList() << i18n("Current Item") << i18n("All Selected Items") << i18n("Copy and Open");
     for (int which = 0; which < 3; ++which) {
         if (which == 0 && !current)
             continue;
@@ -107,14 +107,18 @@ void MainWindow::ExternalPopup::slotExecuteService(QAction *action)
     // get the list of arguments
     QList<QUrl> lst;
 
-    if (action->data() == -1) {
-        return; //user clicked the title entry. (i.e: "All Selected Items")
+    // for action->data() see the QStringList in populate()
+    if (action->data() == 0) {
+        // "current item"
+        lst.append(QUrl(m_currentInfo->fileName().absolute()));
     } else if (action->data() == 1) {
+        // "all selected"
         for (const DB::FileName &file : qAsConst(m_list)) {
             if (m_appToMimeTypeMap[name].contains(mimeType(file)))
                 lst.append(QUrl(file.absolute()));
         }
     } else if (action->data() == 2) {
+        // "copy and open"
         QString origFile = m_currentInfo->fileName().absolute();
         QString newFile = origFile;
 
@@ -130,9 +134,8 @@ void MainWindow::ExternalPopup::slotExecuteService(QAction *action)
             qCWarning(MainWindowLog, "No settings were appropriate for modifying the file name (you must fill in the regexp field; Opening the original instead");
             lst.append(QUrl::fromLocalFile(origFile));
         }
-
     } else {
-        lst.append(QUrl(m_currentInfo->fileName().absolute()));
+        return; //user clicked the title entry. (i.e: "All Selected Items")
     }
 
     // get the program to run

@@ -37,6 +37,11 @@
 #include <KIO/CopyJob>
 #include <KLocalizedString>
 #include <KMessageBox>
+#include <kio_version.h>
+#if KIO_VERSION > QT_VERSION_CHECK(5, 69, 0)
+#include <KIO/CommandLauncherJob>
+#include <kdialogjobuidelegate.h>
+#endif
 #include <KRun>
 #include <QApplication>
 #include <QDir>
@@ -612,17 +617,27 @@ QString HTMLGenerator::Generator::createVideo(const DB::FileName &fileName)
             // TODO: shouldn't we use avconv library directly instead of KRun
             // TODO: should check that the avconv (ffmpeg takes the same parameters on older systems) and ffmpeg2theora exist
             // TODO: Figure out avconv parameters to get rid of ffmpeg2theora
-            KRun::runCommand(QString::fromLatin1("%1 -y -i %2  -vcodec libx264 -b 250k -bt 50k -acodec libfaac -ab 56k -ac 2 -s %3 %4")
-                                 .arg(m_avconv)
-                                 .arg(fileName.absolute())
-                                 .arg(QString::fromLatin1("320x240"))
-                                 .arg(destName.replace(QRegExp(QString::fromLatin1("\\..*")), QString::fromLatin1(".mp4"))),
-                             MainWindow::Window::theMainWindow());
-            KRun::runCommand(QString::fromLatin1("ffmpeg2theora -v 7 -o %1 -x %2 %3")
-                                 .arg(destName.replace(QRegExp(QString::fromLatin1("\\..*")), QString::fromLatin1(".ogg")))
-                                 .arg(QString::fromLatin1("320"))
-                                 .arg(fileName.absolute()),
-                             MainWindow::Window::theMainWindow());
+            auto *uiParent = MainWindow::Window::theMainWindow();
+            const auto avCmd = QString::fromLatin1("%1 -y -i %2  -vcodec libx264 -b 250k -bt 50k -acodec libfaac -ab 56k -ac 2 -s %3 %4")
+                                   .arg(m_avconv)
+                                   .arg(fileName.absolute())
+                                   .arg(QString::fromLatin1("320x240"))
+                                   .arg(destName.replace(QRegExp(QString::fromLatin1("\\..*")), QString::fromLatin1(".mp4")));
+            const auto f2tCmd = QString::fromLatin1("ffmpeg2theora -v 7 -o %1 -x %2 %3")
+                                    .arg(destName.replace(QRegExp(QString::fromLatin1("\\..*")), QString::fromLatin1(".ogg")))
+                                    .arg(QString::fromLatin1("320"))
+                                    .arg(fileName.absolute());
+#if KIO_VERSION <= QT_VERSION_CHECK(5, 69, 0)
+            KRun::runCommand(avCmd, uiParent);
+            KRun::runCommand(f2tCmd, uiParent);
+#else
+            KIO::CommandLauncherJob *avJob = new KIO::CommandLauncherJob(avCmd);
+            avJob->setUiDelegate(new KDialogJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
+            avJob->start();
+            KIO::CommandLauncherJob *f2tJob = new KIO::CommandLauncherJob(f2tCmd);
+            f2tJob->setUiDelegate(new KDialogJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
+            f2tJob->start();
+#endif
         } else
             Utilities::copyOrOverwrite(fileName.absolute(), destName);
         m_copiedVideos.insert(fileName);

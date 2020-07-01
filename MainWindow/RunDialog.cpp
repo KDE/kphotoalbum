@@ -27,7 +27,13 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QWidget>
-#include <krun.h>
+#include <kio_version.h>
+#if KIO_VERSION > QT_VERSION_CHECK(5, 69, 0)
+#include <KIO/CommandLauncherJob>
+#include <kdialogjobuidelegate.h>
+#else
+#include <KRun>
+#endif
 #include <kshell.h>
 
 MainWindow::RunDialog::RunDialog(QWidget *parent)
@@ -92,10 +98,24 @@ void MainWindow::RunDialog::slotMarkGo()
         for (const DB::FileName &filename : qAsConst(m_fileList)) {
             cmdOnce = cmdString;
             cmdOnce.replace(replaceeach, filename.absolute());
-            KRun::runCommand(cmdOnce, MainWindow::Window::theMainWindow());
+            auto *uiParent = MainWindow::Window::theMainWindow();
+#if KIO_VERSION <= QT_VERSION_CHECK(5, 69, 0)
+            KRun::runCommand(cmdOnce, uiParent);
+#else
+            KIO::CommandLauncherJob *job = new KIO::CommandLauncherJob(cmdOnce);
+            job->setUiDelegate(new KDialogJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
+            job->start();
+#endif
         }
     } else {
-        KRun::runCommand(cmdString, MainWindow::Window::theMainWindow());
+        auto *uiParent = MainWindow::Window::theMainWindow();
+#if KIO_VERSION <= QT_VERSION_CHECK(5, 69, 0)
+        KRun::runCommand(cmdString, uiParent);
+#else
+        KIO::CommandLauncherJob *job = new KIO::CommandLauncherJob(cmdString);
+        job->setUiDelegate(new KDialogJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
+        job->start();
+#endif
     }
 }
 

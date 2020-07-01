@@ -30,7 +30,7 @@
 #include <kio_version.h>
 #if KIO_VERSION > QT_VERSION_CHECK(5, 69, 0)
 #include <KIO/CommandLauncherJob>
-#include <kdialogjobuidelegate.h>
+#include <KIO/JobUiDelegate>
 #else
 #include <KRun>
 #endif

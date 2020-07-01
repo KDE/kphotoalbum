@@ -10,7 +10,9 @@ Not every distro ships the latest version of Qt. As a rule of thumb, we aim for 
 
 \li It is one of the more popular distros
 \li The release life cycle is very regular
-\li Package information is readily available <a href='https://packages.ubuntu.com/libqt5gui' alt='Ubuntu package search'>online</a>
+\li Package information is readily available. See e.g. the information for
+    <a href='https://packages.ubuntu.com/libqt5gui' alt='Ubuntu package search'>libqt5gui</a> or
+    <a href='https://packages.ubuntu.com/libkf5kio-dev' alt='Ubuntu package search'>libkf5kio-dev</a>
 
 <h2>Code formatting</h2>
 

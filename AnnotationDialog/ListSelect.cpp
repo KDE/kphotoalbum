@@ -68,7 +68,6 @@ AnnotationDialog::ListSelect::ListSelect(const DB::CategoryPtr &category, QWidge
     m_lineEdit->setProperty("WantsFocus", true);
     layout->addWidget(m_lineEdit);
 
-    // PENDING(blackie) rename instance variable to something better than _listView
     m_treeWidget = new CategoryListView::DragableTreeWidget(m_category, this);
     m_treeWidget->setHeaderLabel(QString::fromLatin1("items"));
     m_treeWidget->header()->hide();

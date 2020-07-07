@@ -130,6 +130,8 @@ void TokenEditor::accept()
         if (box->isChecked() && box->isEnabled()) {
             QString txt = box->text().remove(QString::fromLatin1("&"));
             tokensCategory->removeItem(txt);
+            // re-add the token so that it is still available e.g. in the annotation dialog list select:
+            tokensCategory->addItem(txt);
         }
     }
     QDialog::accept();

@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -41,6 +41,10 @@ public:
     explicit CompletableLineEdit(ListSelect *parent);
     explicit CompletableLineEdit(ListSelect *ls, QWidget *parent);
     void setListView(QTreeWidget *);
+    /**
+     * @brief If the mode is SearchMode, only items that exist in the ListSelect can be entered.
+     * @param mode
+     */
     void setMode(UsageMode mode);
     void keyPressEvent(QKeyEvent *ev) override;
 

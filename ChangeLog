@@ -31,6 +31,8 @@
 
 * Bugfix: Removing a token no longer makes it disappear from the annotation dialog (Fixes #423978)
 
+* Bugfix: Sanitize input for the Tokens category, make Folder and Media Type categories read-only (Fixes #423979).
+
 * Deprecation: Remove support for KIPI plugins
 
 * Enhancement: Experimental: offer options for image search tuning.

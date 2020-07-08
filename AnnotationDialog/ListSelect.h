@@ -68,7 +68,11 @@ public:
     StringSet itemsUnchanged() const;
 
     bool isAND() const;
-    void setMode(UsageMode);
+    /**
+     * @brief setMode for a search dialog or for annotating images individually or by batch.
+     * @param mode
+     */
+    void setMode(UsageMode mode);
 
     void populate();
 
@@ -115,15 +119,31 @@ protected:
     void populateAlphaFlat();
     void populateMRU();
     void configureItem(CategoryListView::CheckDropItem *item);
-    bool isInputMode() const;
+    /**
+     * @brief computedEditMode computes the edit mode taking into account the current UsageMode.
+     * @return \c Selectable if mode is \c SearchMode, editMode otherwise.
+     */
+    ListSelectEditMode computedEditMode() const;
     StringSet itemsOfState(Qt::CheckState state) const;
     void checkItem(const QString itemText, bool);
     void ensureAllInstancesAreStateChanged(QTreeWidgetItem *item);
+    /**
+     * @brief setEditMode to control how the ListSelect handles input.
+     * For normal categories, \c ListSelectEditMode::Editable is recommended.
+     * Special categories should either be \c ReadOnly (folder, media type) or
+     * \c Selectable (tokens category).
+     * @param mode
+     */
+    void setEditMode(ListSelectEditMode mode);
 
 private: // Functions
     bool searchForUntaggedImagesTagNeeded();
     void hideUntaggedImagesTag();
     QTreeWidgetItem *getUntaggedImagesTag();
+    /**
+     * @brief updateLineEditMode sets the mode for the CompleteableLineEdit according to mode and editMode.
+     */
+    void updateLineEditMode();
 
 private: // Variables
     DB::CategoryPtr m_category;
@@ -132,6 +152,7 @@ private: // Variables
     QRadioButton *m_or;
     QRadioButton *m_and;
     UsageMode m_mode;
+    ListSelectEditMode m_editMode;
     QToolButton *m_alphaTreeSort;
     QToolButton *m_alphaFlatSort;
     QToolButton *m_dateSort;

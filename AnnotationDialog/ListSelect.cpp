@@ -141,11 +141,18 @@ AnnotationDialog::ListSelect::ListSelect(const DB::CategoryPtr &category, QWidge
 
     connect(&ShowSelectionOnlyManager::instance(), &ShowSelectionOnlyManager::limitToSelected, this, &ListSelect::limitToSelection);
     connect(&ShowSelectionOnlyManager::instance(), &ShowSelectionOnlyManager::broaden, this, &ListSelect::showAllChildren);
+
+    if (category->isSpecialCategory()) {
+        if (category->type() == DB::Category::TokensCategory)
+            setEditMode(ListSelectEditMode::Selectable);
+        else
+            setEditMode(ListSelectEditMode::ReadOnly);
+    }
 }
 
 void AnnotationDialog::ListSelect::slotReturn()
 {
-    if (isInputMode()) {
+    if (computedEditMode() == ListSelectEditMode::Editable) {
         QString enteredText = m_lineEdit->text().trimmed();
         if (enteredText.isEmpty()) {
             return;
@@ -214,7 +221,7 @@ bool AnnotationDialog::ListSelect::isAND() const
 void AnnotationDialog::ListSelect::setMode(UsageMode mode)
 {
     m_mode = mode;
-    m_lineEdit->setMode(mode);
+    updateLineEditMode();
     if (mode == SearchMode) {
         // "0" below is sorting key which ensures that None is always at top.
         CheckDropItem *item = new CheckDropItem(m_treeWidget, DB::ImageDB::NONE(), QString::fromLatin1("0"));
@@ -233,6 +240,12 @@ void AnnotationDialog::ListSelect::setMode(UsageMode mode)
 
     // ensure that the selection count indicator matches the current mode:
     updateSelectionCount();
+}
+
+void ListSelect::setEditMode(ListSelectEditMode mode)
+{
+    m_editMode = mode;
+    updateLineEditMode();
 }
 
 void AnnotationDialog::ListSelect::setViewSortType(Settings::ViewSortType tp)
@@ -397,11 +410,14 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
     alphaTreeAction->setCheckable(true);
     alphaTreeAction->setChecked(Settings::SettingsData::instance()->viewSortType() == Settings::SortAlphaTree);
 
-    if (!item) {
+    if (!item || computedEditMode() != Editable) {
         deleteAction->setEnabled(false);
         renameAction->setEnabled(false);
         members->setEnabled(false);
+        newCategoryAction->setEnabled(false);
         newSubcategoryAction->setEnabled(false);
+        if (takeAction)
+            takeAction->setEnabled(false);
     }
     // -------------------------------------------------- exec
     QAction *which = menu->exec(m_treeWidget->mapToGlobal(pos));
@@ -409,6 +425,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
         return;
     else if (which == deleteAction) {
         Q_ASSERT(item);
+        Q_ASSERT(computedEditMode() == Editable);
         int code = KMessageBox::warningContinueCancel(this, i18n("<p>Do you really want to delete \"%1\"?<br/>"
                                                                  "Deleting the item will remove any information "
                                                                  "about it from any image containing the item.</p>",
@@ -427,6 +444,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
         }
     } else if (which == renameAction) {
         Q_ASSERT(item);
+        Q_ASSERT(computedEditMode() == Editable);
         bool ok;
         QString newStr = QInputDialog::getText(this,
                                                i18n("Rename Item"), i18n("Enter new name:"),
@@ -466,6 +484,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
         Settings::SettingsData::instance()->setViewSortType(Settings::SortAlphaFlat);
     } else if (which == newCategoryAction) {
         Q_ASSERT(item);
+        Q_ASSERT(computedEditMode() == Editable);
         QString superCategory = QInputDialog::getText(this,
                                                       i18n("New tag group"),
                                                       i18n("Name for the new tag group the tag will be added to:"));
@@ -478,6 +497,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
         rePopulate();
     } else if (which == newSubcategoryAction) {
         Q_ASSERT(item);
+        Q_ASSERT(computedEditMode() == Editable);
         QString subCategory = QInputDialog::getText(this,
                                                     i18n("Add a tag"),
                                                     i18n("Name for the tag to be added to this tag group:"));
@@ -488,18 +508,18 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
         memberMap.addGroup(m_category->name(), item->text(0));
         memberMap.addMemberToGroup(m_category->name(), item->text(0), subCategory);
         //DB::ImageDB::instance()->setMemberMap( memberMap );
-        if (isInputMode())
-            m_category->addItem(subCategory);
+        m_category->addItem(subCategory);
 
         rePopulate();
-        if (isInputMode())
-            checkItem(subCategory, true);
+        checkItem(subCategory, true);
     } else if (which == takeAction) {
         Q_ASSERT(item);
+        Q_ASSERT(computedEditMode() == Editable);
         memberMap.removeMemberFromGroup(m_category->name(), parent->text(0), item->text(0));
         rePopulate();
     } else {
         Q_ASSERT(item);
+        Q_ASSERT(computedEditMode() == Editable);
         QString checkedItem = which->data().value<QString>();
         if (which->isChecked()) // choosing the item doesn't check it, so this is the value before.
             memberMap.addMemberToGroup(m_category->name(), checkedItem, item->text(0));
@@ -658,7 +678,7 @@ void AnnotationDialog::ListSelect::updateListview()
 
 void AnnotationDialog::ListSelect::limitToSelection()
 {
-    if (!isInputMode())
+    if (computedEditMode() != Editable)
         return;
 
     m_showSelectedOnly->setChecked(true);
@@ -686,6 +706,14 @@ QTreeWidgetItem *AnnotationDialog::ListSelect::getUntaggedImagesTag()
     } else {
         return matchingTags.at(0);
     }
+}
+
+void ListSelect::updateLineEditMode()
+{
+    if (m_editMode == Selectable)
+        m_lineEdit->setMode(SearchMode);
+    else
+        m_lineEdit->setMode(m_mode);
 }
 
 void AnnotationDialog::ListSelect::updateSelectionCount()
@@ -746,9 +774,11 @@ void AnnotationDialog::ListSelect::configureItem(CategoryListView::CheckDropItem
     item->setDNDEnabled(isDNDAllowed && !m_category->isSpecialCategory());
 }
 
-bool AnnotationDialog::ListSelect::isInputMode() const
+ListSelectEditMode ListSelect::computedEditMode() const
 {
-    return m_mode != SearchMode;
+    if (m_mode == SearchMode)
+        return ListSelectEditMode::Selectable;
+    return m_editMode;
 }
 
 StringSet AnnotationDialog::ListSelect::itemsOn() const

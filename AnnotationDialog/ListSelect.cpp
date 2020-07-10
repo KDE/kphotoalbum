@@ -749,7 +749,7 @@ void AnnotationDialog::ListSelect::updateSelectionCount()
                 itemsOnCount + itemsUnchanged().size()));
             break;
         } // else fall through and only show one number:
-        /* FALLTHROUGH */
+        Q_FALLTHROUGH();
     case InputSingleImageConfigMode:
         if (itemsOnCount > 0) {
             // if any tags have been selected
@@ -760,7 +760,7 @@ void AnnotationDialog::ListSelect::updateSelectionCount()
                       m_baseTitle, itemsOnCount));
             break;
         } // else fall through and only show category
-        /* FALLTHROUGH */
+        Q_FALLTHROUGH();
     case SearchMode:
         // no indicator while searching
         parentWidget()->setWindowTitle(m_baseTitle);

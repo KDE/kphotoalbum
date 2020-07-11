@@ -285,8 +285,6 @@ function fullSizeLoaded()
 	width = self.width > self.height ? self.width : self.height
 	height = self.width < self.height ? self.width: self.height
 
-	delete self
-
 	thumbsW = thumbsWidth(40)
 	areaHeight = thumbsHeight(width + 45)
 	areaWidth = width + 20

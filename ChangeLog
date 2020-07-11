@@ -35,6 +35,8 @@
 
 * Deprecation: Remove support for KIPI plugins
 
+* Deprecation: Drop python2 API and associated python scripts
+
 * Enhancement: Experimental: offer options for image search tuning.
 
 * Enhancement: Smaller improvements to the import dialog.

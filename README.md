@@ -11,8 +11,8 @@ https://phabricator.kde.org/project/profile/255/
 
 | Platform                 | Build Status |
 | ------------------------ | ------------ |
-| FreeBSD - KF5 dev        | [![Build Status](https://build.kde.org/buildStatus/icon?job=Extragear%2Fkphotoalbum%2Fkf5-qt5+FreeBSDQt5.14)](https://build.kde.org/job/Extragear/job/kphotoalbum/job/kf5-qt5%20FreeBSDQt5.14/) |
-| FreeBSD - KF5 stable     | [![Build Status](https://build.kde.org/buildStatus/icon?job=Extragear%2Fkphotoalbum%2Fstable-kf5-qt5+FreeBSDQt5.14)](https://build.kde.org/job/Extragear/job/kphotoalbum/job/stable-kf5-qt5%20FreeBSDQt5.14/)                                                                                                                                                                                                       |
+| FreeBSD - KF5 dev        | [![Build Status](https://build.kde.org/buildStatus/icon?job=Extragear%2Fkphotoalbum%2Fkf5-qt5+FreeBSDQt5.15)](https://build.kde.org/job/Extragear/job/kphotoalbum/job/kf5-qt5%20FreeBSDQt5.15/) |
+| FreeBSD - KF5 stable     | [![Build Status](https://build.kde.org/buildStatus/icon?job=Extragear%2Fkphotoalbum%2Fstable-kf5-qt5+FreeBSDQt5.15)](https://build.kde.org/job/Extragear/job/kphotoalbum/job/stable-kf5-qt5%20FreeBSDQt5.15/)                                                                                                                                                                                                       |
 | SUSE - KF5 dev           | [![Build Status](https://build.kde.org/buildStatus/icon?job=Extragear%2Fkphotoalbum%2Fkf5-qt5+SUSEQt5.14)](https://build.kde.org/job/Extragear/job/kphotoalbum/job/kf5-qt5%20SUSEQt5.14/)      |
 | SUSE - KF5 stable        | [![Build Status](https://build.kde.org/buildStatus/icon?job=Extragear%2Fkphotoalbum%2Fstable-kf5-qt5+SUSEQt5.14)](https://build.kde.org/job/Extragear/job/kphotoalbum/job/stable-kf5-qt5%20SUSEQt5.14/)|
 

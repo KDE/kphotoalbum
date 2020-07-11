@@ -59,6 +59,16 @@ enum RotationMode {
 using Utilities::StringSet;
 class MemberMap;
 
+/**
+ * @brief The FileInformation enum controls the behaviour of the ImageInfo constructor.
+ * Depending on the value, metadata is read from the image file and optionally the Exif database is updated.
+ */
+enum class FileInformation {
+    Ignore, ///< Do not read additional information from the image file.
+    Read, ///< Read metadata from the image file, but do not update metadata in the Exif database.
+    ReadAndUpdateExifDB ///< Read metadata from the image file and update the Exif database.
+};
+
 enum MediaType { Image = 0x01,
                  Video = 0x02 };
 const MediaType anyMediaType = MediaType(Image | Video);
@@ -74,8 +84,34 @@ class ImageInfo : public QSharedData
 {
 
 public:
+    /**
+     * @brief ImageInfo constructs an empty ImageInfo.
+     * An empty imageInfo can be detected by calling \c isNull().
+     */
     ImageInfo();
-    explicit ImageInfo(const DB::FileName &fileName, MediaType type = Image, bool readExifInfo = true, bool storeExifInfo = true);
+    /**
+     * @brief ImageInfo constructor to create an ImageInfo for a file.
+     * This constructor is typically called by the new image finder.
+     * @param fileName
+     * @param type
+     * @param infoMode
+     */
+    explicit ImageInfo(const DB::FileName &fileName, MediaType type = Image, FileInformation infoMode = FileInformation::ReadAndUpdateExifDB);
+    /**
+     * @brief ImageInfo constructor including all fields.
+     * This constructor is typically called when reading ImageInfos from the database file, or when doing an import.
+     * @param fileName
+     * @param label
+     * @param description
+     * @param date
+     * @param angle
+     * @param md5sum
+     * @param size
+     * @param type
+     * @param rating
+     * @param stackId
+     * @param stackOrder
+     */
     ImageInfo(const DB::FileName &fileName,
               const QString &label,
               const QString &description,

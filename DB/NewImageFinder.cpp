@@ -551,7 +551,7 @@ void NewImageFinder::loadExtraFile(const DB::FileName &newFileName, DB::MediaTyp
 
     // check to see if this is a new version of a previous image
     // We'll get the Exif data later, when we get the MD5 checksum.
-    ImageInfoPtr info = ImageInfoPtr(new ImageInfo(newFileName, type, false, false));
+    ImageInfoPtr info = ImageInfoPtr(new ImageInfo(newFileName, type, DB::FileInformation::Ignore));
     ImageInfoPtr originalInfo;
     DB::FileName originalFileName;
 

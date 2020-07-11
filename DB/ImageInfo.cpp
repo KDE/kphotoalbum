@@ -50,8 +50,7 @@ ImageInfo::ImageInfo()
 {
 }
 
-ImageInfo::ImageInfo(const DB::FileName &fileName, MediaType type, bool readExifInfo,
-                     bool storeExifInfo)
+ImageInfo::ImageInfo(const DB::FileName &fileName, MediaType type, FileInformation infoMode)
     : m_imageOnDisk(YesOnDisk)
     , m_null(false)
     , m_size(-1, -1)
@@ -71,9 +70,9 @@ ImageInfo::ImageInfo(const DB::FileName &fileName, MediaType type, bool readExif
     setFileName(fileName);
 
     // Read Exif information
-    if (readExifInfo) {
+    if (infoMode != FileInformation::Ignore) {
         ExifMode mode = EXIFMODE_INIT;
-        if (!storeExifInfo)
+        if (infoMode == FileInformation::ReadAndUpdateExifDB)
             mode &= ~EXIFMODE_DATABASE_UPDATE;
         readExif(fileName, mode);
     }

@@ -248,7 +248,7 @@ void ImportExport::ImportHandler::aCopyFailed(QStringList files)
 
     case KMessageBox::No:
         m_reportUnreadableFiles = false;
-        // fall through
+        Q_FALLTHROUGH();
     default:
         aCopyJobCompleted(nullptr);
     }
@@ -311,7 +311,7 @@ void ImportExport::ImportHandler::addNewRecord(DB::ImageInfoPtr info)
 {
     const DB::FileName importName = info->fileName();
 
-    DB::ImageInfoPtr updateInfo(new DB::ImageInfo(importName, info->mediaType(), false /*don't read exif */));
+    DB::ImageInfoPtr updateInfo(new DB::ImageInfo(importName, info->mediaType(), DB::FileInformation::Ignore));
     updateInfo->setLabel(info->label());
     updateInfo->setDescription(info->description());
     updateInfo->setDate(info->date());

@@ -107,7 +107,7 @@ function nextImage()
 	if (ss) {
 		clearTimeout(timer)
 		if (pause) { return }
-		timer = setTimeout("nextImage()",speed)
+        timer = setTimeout(nextImage,speed)
 	}
 
 	if (browserVideo) {
@@ -135,7 +135,7 @@ function prevImage()
 	if (ss) {
 		clearTimeout(timer)
 		if (pause) { return }
-		timer = setTimeout("nextImage()",speed)
+        timer = setTimeout(nextImage,speed)
 	}
 
 	if (browserVideo) {
@@ -256,7 +256,7 @@ function videoInfo(msg)
 		document.write(msg)
 	}
 	document.write('</p></div>') // videoInfo
-	setTimeout("closeVideoInfo()",7000)
+    setTimeout(closeVideoInfo,7000)
 }
 
 function closeVideoInfo()
@@ -614,7 +614,7 @@ function slideShow()
 	if (!ss) {
 		ss = 1
 		showImageViewer(viewerImage)
-		timer = setTimeout("nextImage()",speed)
+        timer = setTimeout(nextImage,speed)
 
 		// SlideShow speed config
 		document.getElementById("slideSpeed").style.display = "block"
@@ -703,7 +703,7 @@ function setSize()
 // Setting timer to change width...hack to prevent resize loops
 function widthTimer()
 {
-	setTimeout("setSize()",1)
+    setTimeout(setSize,1)
 }
 
 // vi:noexpandtab:tabstop=4 shiftwidth=4:

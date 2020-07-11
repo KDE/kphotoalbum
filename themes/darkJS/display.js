@@ -45,6 +45,7 @@ var konqueror = 0
 var thumbsW
 var areaHeight
 var areaWidth
+var width
 
 
 // Registering keyboard listener
@@ -355,6 +356,7 @@ function imageInit()
 	document.write('<div class="thumbnails" id="thumbnails" style="height:' +
 		areaHeight + 'px;">')
 
+	var ts
 	if ( browser === 0 ) {
 		ts = (tsize + 4) + 'px'
 	} else {
@@ -443,7 +445,7 @@ function showImage(img)
 			document.getElementById("thumb-div-" + image).className = "thumb-div"
 			image = img
 		} else {
-			mimetype = gallery[img][3].split('/', 2)
+			var mimetype = gallery[img][3].split('/', 2)
 			if (mimetype[0] == "video") {
 				if (browserVideo) {
 					document.getElementById("fullVideo").style.display="block"
@@ -496,7 +498,7 @@ function videoEnd()
 // Resize the ImageViewer to match each image
 function viewerSize()
 {
-	mimetype = gallery[viewerImage][3].split('/', 2)
+	var mimetype = gallery[viewerImage][3].split('/', 2)
 	if (mimetype[0] == "video") {
 		document.getElementById("fullarea").style.width = width + 'px'
 	} else  {
@@ -516,6 +518,7 @@ function viewerVideoSize()
 // Display ImageViewer
 function showImageViewer(img)
 {
+	var mimetype
 	if (img == -1) {
 		mimetype = gallery[image][3].split('/', 2)
 	} else {
@@ -704,3 +707,5 @@ function widthTimer()
 {
 	setTimeout("setSize()",1)
 }
+
+// vi:noexpandtab:tabstop=4 shiftwidth=4:

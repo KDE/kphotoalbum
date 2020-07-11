@@ -40,6 +40,9 @@ ThumbnailView::ThumbnailFacade::ThumbnailFacade(ImageManager::ThumbnailCache *th
     m_cellGeometry = new CellGeometry(this);
     m_model = new ThumbnailModel(this, m_thumbnailCache);
     m_widget = new ThumbnailWidget(this);
+    // I don't want to introduce a strong interdependency between ThumbnailWidget and ThumbnailToolTip,
+    // hence I don't want to push the tooltip construction into the thumbnail widget.
+    // Unfortunately, this causes a warning in lgtm:
     m_toolTip = new ThumbnailToolTip(m_widget); // lgtm [cpp/resource-not-released-in-destructor]
 
     connect(m_widget, &ThumbnailWidget::showImage, this, &ThumbnailFacade::showImage);

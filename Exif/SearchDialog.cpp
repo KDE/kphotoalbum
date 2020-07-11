@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -142,7 +142,7 @@ void Exif::SearchDialog::makeISO(QGridLayout *layout)
          << Exif::RangeWidget::Value(25600, QString::fromLatin1("25600"))
          << Exif::RangeWidget::Value(51200, QString::fromLatin1("51200"));
 
-    m_iso = new RangeWidget(i18n("Iso setting"), QString::fromLatin1("Exif_Photo_ISOSpeedRatings"), list, layout, 0);
+    m_iso = new RangeWidget(i18n("Iso setting"), QString::fromLatin1("Exif_Photo_ISOSpeedRatings"), list, layout, 0, this);
 }
 
 void Exif::SearchDialog::makeExposureTime(QGridLayout *layout)
@@ -203,7 +203,7 @@ void Exif::SearchDialog::makeExposureTime(QGridLayout *layout)
         << Exif::RangeWidget::Value(25, QString::fromLatin1("25 %1").arg(secs))
         << Exif::RangeWidget::Value(30, QString::fromLatin1("30 %1").arg(secs));
 
-    m_exposureTime = new RangeWidget(i18n("Exposure time"), QString::fromLatin1("Exif_Photo_ExposureTime"), list, layout, 1);
+    m_exposureTime = new RangeWidget(i18n("Exposure time"), QString::fromLatin1("Exif_Photo_ExposureTime"), list, layout, 1, this);
 }
 
 RangeWidget *Exif::SearchDialog::makeFNumber(const QString &text, const QString &key, QGridLayout *layout, int row)
@@ -241,7 +241,7 @@ RangeWidget *Exif::SearchDialog::makeFNumber(const QString &text, const QString 
         << Exif::RangeWidget::Value(40, QString::fromLatin1("40"))
         << Exif::RangeWidget::Value(45, QString::fromLatin1("45"));
 
-    return new RangeWidget(text, key, list, layout, row);
+    return new RangeWidget(text, key, list, layout, row, this);
 }
 
 #define addSetting(settings, text, num)                 \

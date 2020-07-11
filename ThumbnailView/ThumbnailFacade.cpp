@@ -40,7 +40,7 @@ ThumbnailView::ThumbnailFacade::ThumbnailFacade(ImageManager::ThumbnailCache *th
     m_cellGeometry = new CellGeometry(this);
     m_model = new ThumbnailModel(this, m_thumbnailCache);
     m_widget = new ThumbnailWidget(this);
-    m_toolTip = new ThumbnailToolTip(m_widget);
+    m_toolTip = new ThumbnailToolTip(m_widget); // lgtm [cpp/resource-not-released-in-destructor]
 
     connect(m_widget, &ThumbnailWidget::showImage, this, &ThumbnailFacade::showImage);
     connect(m_widget, &ThumbnailWidget::showSelection, this, &ThumbnailFacade::showSelection);

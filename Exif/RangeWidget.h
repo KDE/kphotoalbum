@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -48,7 +48,7 @@ public:
 
     typedef QList<Value> ValueList;
 
-    RangeWidget(const QString &text, const QString &searchTag, const ValueList &list, QGridLayout *layout, int row);
+    RangeWidget(const QString &text, const QString &searchTag, const ValueList &list, QGridLayout *layout, int row, QObject *parent);
     Exif::SearchInfo::Range range() const;
 
 protected slots:

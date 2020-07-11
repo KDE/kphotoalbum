@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,8 +22,8 @@
 #include <QGridLayout>
 #include <qlabel.h>
 
-Exif::RangeWidget::RangeWidget(const QString &text, const QString &searchTag, const ValueList &list, QGridLayout *layout, int row)
-    : QObject(layout->widget())
+Exif::RangeWidget::RangeWidget(const QString &text, const QString &searchTag, const ValueList &list, QGridLayout *layout, int row, QObject *parent)
+    : QObject(parent)
     , m_searchTag(searchTag)
     , m_list(list)
 {

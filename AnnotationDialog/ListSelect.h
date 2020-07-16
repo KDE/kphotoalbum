@@ -153,6 +153,7 @@ private: // Variables
     QRadioButton *m_and;
     UsageMode m_mode;
     ListSelectEditMode m_editMode = ListSelectEditMode::Editable;
+    QLabel *m_roIndicator;
     QToolButton *m_alphaTreeSort;
     QToolButton *m_alphaFlatSort;
     QToolButton *m_dateSort;

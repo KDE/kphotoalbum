@@ -83,6 +83,11 @@ AnnotationDialog::ListSelect::ListSelect(const DB::CategoryPtr &category, QWidge
     QHBoxLayout *lay2 = new QHBoxLayout;
     layout->addLayout(lay2);
 
+    m_roIndicator = new QLabel;
+    m_roIndicator->setPixmap(smallIcon(QString::fromLatin1("emblem-readonly")));
+    m_roIndicator->setVisible(m_editMode == ListSelectEditMode::ReadOnly);
+    lay2->addWidget(m_roIndicator);
+
     m_or = new QRadioButton(i18n("or"), this);
     m_and = new QRadioButton(i18n("and"), this);
     lay2->addWidget(m_or);
@@ -714,6 +719,8 @@ void ListSelect::updateLineEditMode()
         m_lineEdit->setMode(SearchMode);
     else
         m_lineEdit->setMode(m_mode);
+
+    m_roIndicator->setVisible(computedEditMode() == ListSelectEditMode::ReadOnly);
 }
 
 void AnnotationDialog::ListSelect::updateSelectionCount()

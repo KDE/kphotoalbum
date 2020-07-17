@@ -153,6 +153,7 @@ AnnotationDialog::ListSelect::ListSelect(const DB::CategoryPtr &category, QWidge
         else
             setEditMode(ListSelectEditMode::ReadOnly);
     }
+    updateLineEditMode();
 }
 
 void AnnotationDialog::ListSelect::slotReturn()
@@ -538,6 +539,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
 
 void AnnotationDialog::ListSelect::addItems(DB::CategoryItem *item, QTreeWidgetItem *parent)
 {
+    const bool isReadOnly = computedEditMode() == ListSelectEditMode::ReadOnly;
     for (QList<DB::CategoryItem *>::ConstIterator subcategoryIt = item->mp_subcategories.constBegin(); subcategoryIt != item->mp_subcategories.constEnd(); ++subcategoryIt) {
         CheckDropItem *newItem = nullptr;
 
@@ -548,6 +550,9 @@ void AnnotationDialog::ListSelect::addItems(DB::CategoryItem *item, QTreeWidgetI
 
         newItem->setExpanded(true);
         configureItem(newItem);
+        if (isReadOnly) {
+            newItem->setFlags(newItem->flags() ^ Qt::ItemIsUserCheckable);
+        }
 
         addItems(*subcategoryIt, newItem);
     }
@@ -720,7 +725,8 @@ void ListSelect::updateLineEditMode()
     else
         m_lineEdit->setMode(m_mode);
 
-    m_roIndicator->setVisible(computedEditMode() == ListSelectEditMode::ReadOnly);
+    const bool isReadOnly = computedEditMode() == ListSelectEditMode::ReadOnly;
+    m_roIndicator->setVisible(isReadOnly);
 }
 
 void AnnotationDialog::ListSelect::updateSelectionCount()

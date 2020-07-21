@@ -75,7 +75,7 @@
                 </option>
             </options>
         </image>
-        <image file="new_wave_1.jpg" label="new_wave" description="Notice I scanned this image in, so I don't know exactly when it was taken. Fortunately KPhotoAlbum allows to just specify the date as a range. By the way, have a look at http://www.kphotoalbum.org/ where you may find some introduction videos about KPhotoAlbum." startDate="1989-01-01T00:00:00" endDate="1990-12-31T23:59:59" md5sum="f1a61c28ec397dc982360ebda4feaf5a" width="800" height="549">
+        <image file="new_wave_1.jpg" label="new_wave" description="Notice I scanned this image in, so I don't know exactly when it was taken. Fortunately KPhotoAlbum allows to just specify the date as a range. By the way, have a look at http://www.kphotoalbum.org/ where you may find some introduction videos about KPhotoAlbum." startDate="1989-01-01T00:00:00" endDate="1990-12-31T23:59:59" angle="90" md5sum="f1a61c28ec397dc982360ebda4feaf5a" width="549" height="800">
             <options>
                 <option name="Events">
                     <value value="fun"/>
@@ -145,7 +145,7 @@
                 </option>
             </options>
         </image>
-        <image file="grand_canyon_1.jpg" label="grand_canyon" startDate="2003-01-02T00:00:00" endDate="2003-01-02T23:59:59" md5sum="b4cb3a885b2be09bc6e40adbfca97ec3" width="800" height="535">
+        <image file="grand_canyon_1.jpg" label="grand_canyon" startDate="2003-01-02T00:00:00" endDate="2003-01-02T23:59:59" angle="180" md5sum="b4cb3a885b2be09bc6e40adbfca97ec3" width="800" height="535">
             <options>
                 <option name="Events">
                     <value value="scanned in"/>
@@ -160,7 +160,7 @@
                 </option>
             </options>
         </image>
-        <image file="grand_canyon_2.jpg" label="grand_canyon" description="JENOPTIK DIGITAL CAMERA" startDate="2003-01-02T06:48:54" md5sum="d8e5f1c525749073e8321f071eb8278c" width="800" height="600">
+        <image file="grand_canyon_2.jpg" label="grand_canyon" startDate="2003-01-02T14:48:54" md5sum="d8e5f1c525749073e8321f071eb8278c" width="800" height="600">
             <options>
                 <option name="Places">
                     <value value="Grand Canyon"/>
@@ -170,7 +170,7 @@
                 </option>
             </options>
         </image>
-        <image file="grand_canyon_3.jpg" label="grand_canyon" description="JENOPTIK DIGITAL CAMERA" startDate="2003-01-02T06:31:00" md5sum="fda4b61c3aa66da83d1ee6284dffc3ce" width="800" height="600">
+        <image file="grand_canyon_3.jpg" label="grand_canyon" startDate="2003-01-02T15:31:00" md5sum="fda4b61c3aa66da83d1ee6284dffc3ce" width="800" height="600">
             <options>
                 <option name="Events">
                     <value value="scenic"/>
@@ -180,7 +180,7 @@
                 </option>
             </options>
         </image>
-        <image file="donna_2.jpg" label="donna" description="OLYMPUS DIGITAL CAMERA" startDate="2003-05-18T17:01:01" md5sum="7e3a08585b84fa49ed6db121591c81bc" width="800" height="600">
+        <image file="donna_2.jpg" label="donna" startDate="2003-05-18T17:01:01" md5sum="7e3a08585b84fa49ed6db121591c81bc" width="800" height="600">
             <options>
                 <option name="Places">
                     <value value="Esbjerg"/>
@@ -190,7 +190,7 @@
                 </option>
             </options>
         </image>
-        <image file="wayne.jpg" description="Wayne and Jim live in Las Vegas. I visit them everytime I'm in the neighborhood :-) One would expect that I spent a lot of money gambling when going to Las Vegas, but all my money is spent on beer and pool :-)" startDate="2003-11-15T20:51:59" md5sum="3584d334581f5f9a692d81a63c97b1f0" width="800" height="600">
+        <image file="wayne.jpg" description="Wayne and Jim live in Las Vegas. I visit them everytime I'm in the neighborhood :-) One would expect that I spent a lot of money gambling when going to Las Vegas, but all my money is spent on beer and pool :-)" startDate="2003-11-15T20:51:59" angle="90" md5sum="3584d334581f5f9a692d81a63c97b1f0" width="600" height="800">
             <options>
                 <option name="Places">
                     <value value="Las Vegas"/>
@@ -201,14 +201,14 @@
                 </option>
             </options>
         </image>
-        <image file="pool_2.jpg" label="pool" description="OLYMPUS DIGITAL CAMERA" startDate="2005-02-05T00:00:00" endDate="2005-02-05T23:59:59" md5sum="e7e20ded0496723e109117344e3da1b3" width="800" height="600">
+        <image file="pool_2.jpg" label="pool" startDate="2005-02-05T00:00:00" endDate="2005-02-05T23:59:59" angle="270" md5sum="e7e20ded0496723e109117344e3da1b3" width="600" height="800">
             <options>
                 <option name="People">
                     <value value="Jesper"/>
                 </option>
             </options>
         </image>
-        <image file="pool.jpg" description="OLYMPUS DIGITAL CAMERA" startDate="2005-05-17T21:52:37" md5sum="50e2590061b3c935829367dfd4aeff98" width="800" height="600">
+        <image file="pool.jpg" startDate="2005-05-17T21:52:37" md5sum="50e2590061b3c935829367dfd4aeff98" width="800" height="600">
             <options>
                 <option name="People">
                     <value value="Jesper"/>
@@ -225,7 +225,7 @@
                 </option>
             </options>
         </image>
-        <image file="skagen.jpg" startDate="2005-07-28T05:09:07" md5sum="de46775f4d45d79c239ecfa35b48d8dd" width="800" height="533">
+        <image file="skagen.jpg" startDate="2005-07-28T11:09:07" md5sum="de46775f4d45d79c239ecfa35b48d8dd" width="800" height="533">
             <options>
                 <option name="Events">
                     <value value="desktop"/>
@@ -236,7 +236,7 @@
                 </option>
             </options>
         </image>
-        <image file="anne_helene.jpg" description="May I introduce Anne Helene, my girlfriend for more than 10 years." startDate="2005-07-28T05:18:48" md5sum="dc1e885f3d0e9b20bffa5fd3ceebe116" width="400" height="600">
+        <image file="anne_helene.jpg" description="May I introduce Anne Helene, my girlfriend for more than 10 years." startDate="2005-07-28T11:18:48" md5sum="dc1e885f3d0e9b20bffa5fd3ceebe116" width="400" height="600">
             <options>
                 <option name="Places">
                     <value value="Skagen"/>
@@ -246,7 +246,7 @@
                 </option>
             </options>
         </image>
-        <image file="cold_water.jpg" description="The interesting thing about skagen is that you may stand with a foot in Skagerrak and a foot in Kattegat. Besides the waters being named different on each side, waves actually also meet from each side which looks really cool. If you've never been there, you should really go (Honk the horn when you drive by Hjørring, where I currently live :-) Learn more about Skagen from http://en.wikipedia.org/wiki/Skagen" startDate="2005-07-28T05:01:56" md5sum="dfde7d5951a9a3f567796172d45ce5ed" width="800" height="533">
+        <image file="cold_water.jpg" description="The interesting thing about skagen is that you may stand with a foot in Skagerrak and a foot in Kattegat. Besides the waters being named different on each side, waves actually also meet from each side which looks really cool. If you've never been there, you should really go (Honk the horn when you drive by Hjørring, where I currently live :-) Learn more about Skagen from http://en.wikipedia.org/wiki/Skagen" startDate="2005-07-28T12:01:56" md5sum="dfde7d5951a9a3f567796172d45ce5ed" width="800" height="533">
             <options>
                 <option name="Places">
                     <value value="Skagen"/>
@@ -284,25 +284,14 @@
                 </option>
             </options>
         </image>
-        <image file="jesper.jpg" startDate="2005-12-29T23:45:22" md5sum="820e9f0c8dad791786c03c0601901347" width="800" height="533">
+        <image file="jesper.jpg" startDate="2005-12-29T17:45:22" md5sum="820e9f0c8dad791786c03c0601901347" width="800" height="533">
             <options>
                 <option name="People">
                     <value value="Jesper"/>
                 </option>
             </options>
         </image>
-        <image file="bar55_2.jpg" label="bar55" description="OLYMPUS DIGITAL CAMERA" startDate="2006-02-11T03:33:29" md5sum="b58171a20ca7e407ea96a62b1517e734" width="800" height="600">
-            <options>
-                <option name="Places">
-                    <value value="New York"/>
-                </option>
-                <option name="People">
-                    <value value="Anne Helene"/>
-                    <value value="Jesper"/>
-                </option>
-            </options>
-        </image>
-        <image file="bar55.jpg" description="OLYMPUS DIGITAL CAMERA" startDate="2006-02-11T04:22:11" md5sum="6c0e38708e46338afdad6c2ccf703cba" width="800" height="600">
+        <image file="bar55_2.jpg" label="bar55" startDate="2006-02-10T21:33:29" md5sum="b58171a20ca7e407ea96a62b1517e734" width="800" height="600">
             <options>
                 <option name="Places">
                     <value value="New York"/>
@@ -313,7 +302,18 @@
                 </option>
             </options>
         </image>
-        <image file="snow.jpg" description="OLYMPUS DIGITAL CAMERA" startDate="2006-02-13T00:10:17" md5sum="42d4893725219e945ffc6d63a529cabd" width="800" height="600">
+        <image file="bar55.jpg" startDate="2006-02-10T22:22:11" md5sum="6c0e38708e46338afdad6c2ccf703cba" width="800" height="600">
+            <options>
+                <option name="Places">
+                    <value value="New York"/>
+                </option>
+                <option name="People">
+                    <value value="Anne Helene"/>
+                    <value value="Jesper"/>
+                </option>
+            </options>
+        </image>
+        <image file="snow.jpg" startDate="2006-02-12T18:10:17" md5sum="42d4893725219e945ffc6d63a529cabd" width="800" height="600">
             <options>
                 <option name="Events">
                     <value value="desktop"/>
@@ -323,7 +323,7 @@
                 </option>
             </options>
         </image>
-        <image file="movie.avi" description="In the very early days when installing your sounds card under Linux, you would hear Linus Torvalds say &quot;Hi my name is Linus, and I pronounce it Linus&quot;. So what better phrase to use for demoing KPhotoAlbums video support? :-)" startDate="2020-04-17T00:33:31" md5sum="ceebdcfa9d26516d3874296c335cb133" width="97" height="72" videoLength="4">
+        <image file="movie.avi" description="In the very early days when installing your sounds card under Linux, you would hear Linus Torvalds say &quot;Hi my name is Linus, and I pronounce it Linus&quot;. So what better phrase to use for demoing KPhotoAlbums video support? :-)" startDate="2006-10-29T19:53:58" md5sum="ceebdcfa9d26516d3874296c335cb133" width="97" height="72" videoLength="4">
             <options>
                 <option name="Tokens">
                     <value value="A"/>

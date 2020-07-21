@@ -48,32 +48,32 @@
     <images>
         <image file="1.jpg" label="0805106186" startDate="2008-05-10T13:44:51" md5sum="00273ab34b2b2755a6eed480c7d04a16" width="3072" height="2048">
             <options>
-                <option name="Keywords">
-                    <value value="Keyword 2"/>
-                </option>
                 <option name="Orte">
                     <value value="Place 1"/>
+                </option>
+                <option name="Keywords">
+                    <value value="Keyword 2"/>
                 </option>
             </options>
         </image>
         <image file="2.jpg" label="0805106186" startDate="2008-05-10T13:44:51" md5sum="00273ab34b2b2755a6eed480c7d04a16" width="3072" height="2048">
             <options>
-                <option name="Keywords">
-                    <value value="Keyword 2"/>
-                </option>
                 <option name="Orte">
                     <value value="Place 2"/>
+                </option>
+                <option name="Keywords">
+                    <value value="Keyword 2"/>
                 </option>
             </options>
         </image>
         <image file="3.jpg" label="" startDate="2008-05-10T13:44:51" md5sum="00273ab34b2b2755a6eed480c7d04a16" width="3072" height="2048">
             <options>
+                <option name="Orte">
+                    <value value="Place 1"/>
+                </option>
                 <option name="Keywords">
                     <value value="Keyword 1"/>
                     <value value="Keyword 2"/>
-                </option>
-                <option name="Orte">
-                    <value value="Place 1"/>
                 </option>
                 <option name="Personen">
                     <value value="Persons 1"/>
@@ -82,11 +82,11 @@
         </image>
         <image file="4.jpg" label="" startDate="2008-05-10T13:44:51" md5sum="00273ab34b2b2755a6eed480c7d04a16" width="3072" height="2048">
             <options>
-                <option name="Keywords">
-                    <value value="Keyword 1"/>
-                </option>
                 <option name="Orte">
                     <value value="Place 2"/>
+                </option>
+                <option name="Keywords">
+                    <value value="Keyword 1"/>
                 </option>
                 <option name="Personen">
                     <value value="Persons 2"/>

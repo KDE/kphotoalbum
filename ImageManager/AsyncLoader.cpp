@@ -113,6 +113,9 @@ bool ImageManager::AsyncLoader::loadVideo(ImageRequest *request)
     if (!MainWindow::FeatureDialog::hasVideoThumbnailer())
         return false;
 
+    if (!request->fileSystemFileName().exists())
+        return false;
+
     BackgroundTaskManager::Priority priority = (request->priority() > ThumbnailInvisible)
         ? BackgroundTaskManager::ForegroundThumbnailRequest
         : BackgroundTaskManager::BackgroundVideoThumbnailRequest;

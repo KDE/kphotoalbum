@@ -1,4 +1,4 @@
-/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -44,6 +44,9 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
 
     // no video thumbnails without ffmpeg:
     if (!MainWindow::FeatureDialog::hasVideoThumbnailer())
+        return;
+
+    if (!fileName.exists())
         return;
 
     cancelPreviousJobs();

@@ -347,7 +347,9 @@ void XMLDB::FileWriter::writeCategories(QXmlStreamWriter &writer, const DB::Imag
 {
     ElementWriter topElm(writer, QString::fromLatin1("options"), false);
 
-    const QStringList grps = info->availableCategories();
+    QStringList grps = info->availableCategories();
+    // in contrast to CategoryCollection::categories, availableCategories is randomly sorted (since it is now a QHash)
+    grps.sort();
     for (const QString &name : grps) {
         if (!shouldSaveCategory(name))
             continue;

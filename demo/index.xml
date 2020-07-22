@@ -325,9 +325,6 @@
         </image>
         <image file="movie.avi" description="In the very early days when installing your sounds card under Linux, you would hear Linus Torvalds say &quot;Hi my name is Linus, and I pronounce it Linus&quot;. So what better phrase to use for demoing KPhotoAlbums video support? :-)" startDate="2006-10-29T19:53:58" md5sum="ceebdcfa9d26516d3874296c335cb133" width="97" height="72" videoLength="4">
             <options>
-                <option name="Tokens">
-                    <value value="A"/>
-                </option>
                 <option name="Places">
                     <value value="Denmark"/>
                 </option>

@@ -1,4 +1,4 @@
-/* Copyright (C) 2016-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2016-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public License as
@@ -132,8 +132,6 @@ bool MainWindow::Options::searchForImagesOnStart() const
 MainWindow::Options::Options()
     : d(new OptionsPrivate)
 {
-    d->parser.addVersionOption();
-    d->parser.addHelpOption();
     d->configFile.setFlags(QCommandLineOption::HiddenFromHelp);
     d->parser.addOptions(
         QList<QCommandLineOption>()

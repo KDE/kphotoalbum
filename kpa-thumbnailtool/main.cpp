@@ -80,8 +80,6 @@ int main(int argc, char **argv)
 
     // initialize the commandline parser
     QCommandLineParser parser;
-    parser.addHelpOption();
-    parser.addVersionOption();
     parser.addPositionalArgument(QString::fromUtf8("imageDir"), i18nc("@info:shell", "The directory containing the .thumbnail directory."));
     QCommandLineOption infoOption { QString::fromUtf8("info"), i18nc("@info:shell", "Print information about thumbnail cache.") };
     parser.addOption(infoOption);

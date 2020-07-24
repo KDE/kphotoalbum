@@ -18,6 +18,7 @@
             <value value="Newark" id="6"/>
             <value value="Odense" id="7"/>
             <value value="Denmark" id="8"/>
+            <value value="USA" id="10"/>
         </Category>
         <Category name="Persons" icon="" show="1" viewtype="0" thumbnailsize="32" positionable="0">
             <value value="Jesper" id="7"/>
@@ -27,6 +28,7 @@
             <value value="Anne Helene" id="4"/>
             <value value="Blackie" id="5"/>
             <value value="Spiff" id="6"/>
+            <value value="Pet" id="8"/>
         </Category>
         <Category name="Tokens" icon="tag" show="1" viewtype="0" thumbnailsize="32" positionable="0" meta="tokens">
             <value value="Z" id="1"/>

@@ -491,11 +491,7 @@ QString XMLDB::FileWriter::escape(const QString &str)
     if (useCompressedFileFormat()) {
         while ((pos = rx.indexIn(tmp, pos)) != -1) {
             QString before = rx.cap(1);
-            // the old version called QString::sprintf("_.%0X", rx.cap(1).toLatin1())
-            // -> by using the hex value, the string is essentially cast as a number, creating the leading 0xff bytes
-            // since the latin1 is always 1 byte, we should always have 3 leading 0xff bytes, i.e. 6 'F' in total:
-            QString after = QString::fromLatin1("_.FFFFFF");
-            after += QString::fromLocal8Bit(rx.cap(1).toLatin1().toHex().toUpper());
+            QString after = QString::asprintf("_.%0X", rx.cap(1).data()->toLatin1());
             tmp.replace(pos, before.length(), after);
             pos += after.length();
         }

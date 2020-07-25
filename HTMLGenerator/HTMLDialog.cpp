@@ -536,6 +536,9 @@ void HTMLDialog::populateThemesCombo()
             KConfig themeconfig(QString::fromLatin1("%1/kphotoalbum.theme").arg(themePath), KConfig::SimpleConfig);
             KConfigGroup config = themeconfig.group("theme");
             QString themeName = config.readEntry("Name");
+            // without the name, we can't show anything useful for the user to choose
+            if (themeName.trimmed().isEmpty())
+                continue;
             QString themeAuthor = config.readEntry("Author");
             m_themeAuthors << themeAuthor; // save author to display later
             QString themeDefault = config.readEntry("Default");

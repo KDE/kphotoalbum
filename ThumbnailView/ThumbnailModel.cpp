@@ -167,7 +167,6 @@ void ThumbnailView::ThumbnailModel::setImageList(const DB::FileNameList &items)
     preloadThumbnails();
 }
 
-// TODO(hzeller) figure out if this should return the m_imageList or m_displayList.
 DB::FileNameList ThumbnailView::ThumbnailModel::imageList(Order order) const
 {
     if (order == SortedOrder && m_sortDirection == NewestFirst)
@@ -319,8 +318,10 @@ void ThumbnailView::ThumbnailModel::pixmapLoaded(ImageManager::ImageRequest *req
     // The delegate now fetches the newly loaded image from the cache.
 
     DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(fileName);
-    // TODO(hzeller): figure out, why the size is set here. We do an implicit
+    // (hzeller): figure out, why the size is set here. We do an implicit
     // write here to the database.
+    // (jzarl 2020-07-25): when loading a fullsize pixmap, we get the size "for free";
+    // calculating it separately would cost us more than writing to the database from here.
     if (fullSize.isValid() && imageInfo) {
         imageInfo->setSize(fullSize);
     }

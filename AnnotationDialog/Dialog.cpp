@@ -467,7 +467,7 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
     if (m_current < 1)
         return;
 
-    // FIXME: it would be better to compute the "previous image" in a better way, but let's stick with this for now...
+    // (jzarl 2020-07-26): defining the "previous image" as the one before this is the behaviour of the least surprise:
     DB::ImageInfo &old_info = m_editList[m_current - 1];
 
     m_positionableTagCandidates.clear();
@@ -1109,7 +1109,10 @@ void AnnotationDialog::Dialog::slotDeleteImage()
     if (m_setup == SearchMode)
         return;
 
-    if (m_setup == InputMultiImageConfigMode) //TODO: probably delete here should mean remove from selection
+    // should delete mean "remove from selection" or "delete"?
+    // is the user even aware that the dialog is in multi image mode?
+    // IMO (jzarl) this is too ambiguous to do anything other than bail out:
+    if (m_setup == InputMultiImageConfigMode)
         return;
 
     DB::ImageInfoPtr info = m_origList[m_current];

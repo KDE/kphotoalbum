@@ -393,7 +393,7 @@ bool NewImageFinder::findImages()
     QElapsedTimer timer;
 
     timer.start();
-    // TODO: maybe the databas interface should allow to query if it
+    // TODO: maybe the database interface should allow to query if it
     // knows about an image ? Here we've to iterate through all of them and it
     // might be more efficient do do this in the database without fetching the
     // whole info.

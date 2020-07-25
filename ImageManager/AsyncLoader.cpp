@@ -64,10 +64,9 @@ void ImageManager::AsyncLoader::init()
     // as that'd mean that a dual-core box would only have one core decoding images, which would be
     // suboptimal.
     // In case of only one core in the computer, use one core for thumbnail generation
-    // TODO(isilmendil): It seems that many people have their images on NFS-mounts.
-    //                   Should we somehow detect this and allocate less threads there?
-    //                   rlk 20180515: IMO no; if anything, we need more threads to hide
-    //                   the latency of NFS.
+    // jzarl:  It seems that many people have their images on NFS-mounts.
+    //         Should we somehow detect this and allocate less threads there?
+    //         rlk 20180515: IMO no; if anything, we need more threads to hide the latency of NFS.
     int desiredThreads = Settings::SettingsData::instance()->getThumbnailBuilderThreadCount();
     if (desiredThreads == 0) {
         desiredThreads = qMax(1, qMin(16, QThread::idealThreadCount() - 1));

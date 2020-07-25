@@ -142,7 +142,7 @@ QMap<QString, StringSet> MemberMap::groupMap(const QString &category) const
 */
 QStringList MemberMap::calculateClosure(QMap<QString, StringSet> &resultSoFar, const QString &category, const QString &group) const
 {
-    resultSoFar[group] = StringSet(); // Prevent against cykles.
+    resultSoFar[group] = StringSet(); // Prevent against cycles.
     StringSet members = m_members[category][group];
     StringSet result = members;
     for (StringSet::const_iterator it = members.begin(); it != members.end(); ++it) {

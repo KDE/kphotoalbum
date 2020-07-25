@@ -102,7 +102,6 @@ Marble::GeoDataLatLonAltBox Map::GeoCluster::boundingRegion() const
 
 Marble::GeoDataCoordinates Map::GeoCluster::center() const
 {
-    // TODO(jzarl): check how this compares to e.g. the center of all coordinates instead:
     return boundingRegion().center();
 }
 

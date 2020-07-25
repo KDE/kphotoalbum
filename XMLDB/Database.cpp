@@ -447,7 +447,7 @@ DB::ImageInfoList XMLDB::Database::takeImagesFromSelection(const DB::FileNameLis
     if (selection.isEmpty())
         return result;
 
-    // iterate over all images (expensive!!) TODO: improve?
+    // iterate over all images (expensive!!)
     for (DB::ImageInfoListIterator it = m_images.begin(); it != m_images.end(); /**/) {
         const DB::FileName imagefile = (*it)->fileName();
         DB::FileNameList::const_iterator si = selection.begin();

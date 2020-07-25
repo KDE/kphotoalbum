@@ -284,7 +284,6 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     setupActions();
     shortCutManager.setupShortCuts();
 
-    // WARNING layout->addWidget(buttonBox) must be last item in layout
     layout->addWidget(buttonBox);
 }
 

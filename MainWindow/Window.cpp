@@ -1044,7 +1044,12 @@ void MainWindow::Window::showBrowser()
 
 void MainWindow::Window::slotOptionGroupChanged()
 {
-    // FIXME: What if annotation dialog is open? (if that's possible)
+    // deleting the dialog would close it anyways, but I feel that we should not
+    // depend on this behaviour lest we want it to crash:
+    if (m_annotationDialog) {
+        m_annotationDialog->close();
+    }
+
     delete m_annotationDialog;
     m_annotationDialog = nullptr;
     DirtyIndicator::markDirty();

@@ -27,7 +27,7 @@
 
 * Bugfix: Fix computation of cell height.
 
-* Bugfix: kpa-merge should not fail if an item of id #0 exists in an index file.
+* Bugfix: kpa-merge should not fail if an item of id 0 exists in an index file.
 
 * Bugfix: Fix crash when ffmpeg can not extract video thumbnails (Fixes #422555)
 

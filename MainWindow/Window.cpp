@@ -141,6 +141,8 @@ MainWindow::Window::Window(QWidget *parent)
     , m_positionBrowser(nullptr)
 #endif
 {
+    // propagate palette changes to subwindows:
+    setAttribute(Qt::WA_WindowPropagation);
     qCDebug(MainWindowLog) << "Using icon theme: " << QIcon::themeName();
     qCDebug(MainWindowLog) << "Icon search paths: " << QIcon::themeSearchPaths();
     QElapsedTimer timer;
@@ -170,11 +172,7 @@ MainWindow::Window::Window(QWidget *parent)
     m_dateBarLine->setFrameStyle(QFrame::HLine | QFrame::Plain);
     m_dateBarLine->setLineWidth(0);
     m_dateBarLine->setMidLineWidth(0);
-
-    QPalette pal = m_dateBarLine->palette();
-    pal.setColor(QPalette::WindowText, palette().window().color());
-    m_dateBarLine->setPalette(pal);
-
+    m_dateBarLine->setForegroundRole(QPalette::Window);
     lay->addWidget(m_dateBarLine);
 
     setHistogramVisibilty(Settings::SettingsData::instance()->showHistogram());
@@ -706,9 +704,8 @@ bool MainWindow::Window::event(QEvent *event)
         const QString schemePath = qApp->property("KDE_COLOR_SCHEME_PATH").toString();
         qCInfo(MainWindowLog) << "Color Scheme changed to " << (schemePath.isEmpty() ? QString::fromLatin1("system default") : schemePath);
         Settings::SettingsData::instance()->setColorScheme(schemePath);
-        return QWidget::event(event);
     }
-    return QWidget::event(event);
+    return KXmlGuiWindow::event(event);
 }
 
 void MainWindow::Window::closeEvent(QCloseEvent *e)

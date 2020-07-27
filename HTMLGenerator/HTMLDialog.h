@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+/* Copyright (C) 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -55,6 +55,7 @@ protected slots:
     void slotSuggestOutputDir();
 
 protected:
+    bool event(QEvent *event) override;
     bool checkVars();
     Setup setup() const;
     QList<ImageSizeCheckBox *> activeResolutions() const;

@@ -63,6 +63,7 @@ public:
     void setSize();
 
 protected:
+    bool event(QEvent *e) override;
     QVariant loadResource(int type, const QUrl &name) override;
     void mouseMoveEvent(QMouseEvent *) override;
     void mousePressEvent(QMouseEvent *) override;
@@ -74,6 +75,7 @@ protected:
     void showBrowser();
     void possiblyStartResize(const QPoint &pos);
     void hackLinkColorForQt52();
+    void updatePalette();
 
 protected slots:
     void jumpToContext();

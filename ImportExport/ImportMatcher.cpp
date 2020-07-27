@@ -47,19 +47,17 @@ ImportMatcher::ImportMatcher(const QString &otherCategory, const QString &myCate
     gridLay->setColumnStretch(1, 1);
     setWidget(top);
 
-    QPalette pal = palette();
-    pal.setBrush(QPalette::Window, palette().dark());
-    pal.setBrush(QPalette::WindowText, palette().brightText());
-
     QLabel *label = new QLabel(i18n("Key in file"), grid);
     label->setAutoFillBackground(true);
-    label->setPalette(pal);
+    label->setForegroundRole(QPalette::Dark);
+    label->setBackgroundRole(QPalette::BrightText);
     label->setAlignment(Qt::AlignCenter);
     gridLay->addWidget(label, 0, 0);
 
     label = new QLabel(i18n("Key in your database"), grid);
     label->setAutoFillBackground(true);
-    label->setPalette(pal);
+    label->setForegroundRole(QPalette::Dark);
+    label->setBackgroundRole(QPalette::BrightText);
     label->setAlignment(Qt::AlignCenter);
     gridLay->addWidget(label, 0, 1);
 

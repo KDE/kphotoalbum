@@ -41,8 +41,10 @@ public:
     void requestToolTip(const DB::FileName &fileName);
 
 protected:
+    bool event(QEvent *e) override;
     explicit ToolTip(QWidget *parent, Qt::WindowFlags f);
     virtual void placeWindow() = 0;
+    void updatePalette();
 
 private:
     void renderToolTip();

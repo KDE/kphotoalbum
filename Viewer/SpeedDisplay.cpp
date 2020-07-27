@@ -85,6 +85,8 @@ void Viewer::SpeedDisplay::setAlphaChannel(int backgroundAlpha, int labelAlpha)
     fgColor.setAlpha(labelAlpha);
     p.setColor(QPalette::WindowText, fgColor);
     setPalette(p);
+    // re-enable palette propagation:
+    setAttribute(Qt::WA_SetPalette);
 }
 
 void Viewer::SpeedDisplay::setAlphaChannel(int alpha)

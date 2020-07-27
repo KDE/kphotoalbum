@@ -25,6 +25,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QPainter>
+#include <QPalette>
 #include <QResizeEvent>
 #include <QScrollBar>
 #include <QTimer>
@@ -74,8 +75,8 @@ void Exif::Grid::setupUI(const QString &charset)
         int count = 0;
         for (const QString &key : sorted) {
             const int subrow = (count % perCol);
-            const QColor color = (subrow & 1) ? palette().base().color() : palette().alternateBase().color();
-            QPair<QLabel *, QLabel *> pair = infoLabelPair(exifNameNoGroup(key), items[key].join(QLatin1String(", ")), color);
+            const QPalette::ColorRole role = (subrow & 1) ? QPalette::Base : QPalette::AlternateBase;
+            QPair<QLabel *, QLabel *> pair = infoLabelPair(exifNameNoGroup(key), items[key].join(QLatin1String(", ")), role);
 
             int col = (count / perCol) * 2;
             layout->addWidget(pair.first, row + subrow, col);
@@ -94,25 +95,21 @@ QLabel *Exif::Grid::headerLabel(const QString &title)
 {
     QLabel *label = new QLabel(title);
 
-    QPalette pal;
-    pal.setBrush(QPalette::Window, palette().dark());
-    pal.setBrush(QPalette::WindowText, palette().brightText());
-    label->setPalette(pal);
+    label->setBackgroundRole(QPalette::Dark);
+    label->setForegroundRole(QPalette::BrightText);
     label->setAutoFillBackground(true);
     label->setAlignment(Qt::AlignCenter);
 
     return label;
 }
 
-QPair<QLabel *, QLabel *> Exif::Grid::infoLabelPair(const QString &title, const QString &value, const QColor &color)
+QPair<QLabel *, QLabel *> Exif::Grid::infoLabelPair(const QString &title, const QString &value, const QPalette::ColorRole backgroundRole)
 {
     QLabel *keyLabel = new QLabel(title);
     QLabel *valueLabel = new QLabel(value);
 
-    QPalette pal;
-    pal.setBrush(QPalette::Background, color);
-    keyLabel->setPalette(pal);
-    valueLabel->setPalette(pal);
+    keyLabel->setBackgroundRole(backgroundRole);
+    valueLabel->setBackgroundRole(backgroundRole);
     keyLabel->setAutoFillBackground(true);
     valueLabel->setAutoFillBackground(true);
     m_labels.append(qMakePair(keyLabel, valueLabel));
@@ -164,10 +161,12 @@ void Exif::Grid::updateSearchString(const QString &search)
 {
     for (QPair<QLabel *, QLabel *> tuple : m_labels) {
         const bool matches = tuple.first->text().contains(search, Qt::CaseInsensitive) && search.length() != 0;
-        QPalette pal = tuple.first->palette();
-        pal.setBrush(QPalette::Foreground, matches ? Qt::red : palette().text());
-        tuple.first->setPalette(pal);
-        tuple.second->setPalette(pal);
+        const auto fgRole = matches ? QPalette::HighlightedText : QPalette::Text;
+        const auto bgRole = matches ? QPalette::Highlight : QPalette::Base;
+        tuple.first->setForegroundRole(fgRole);
+        tuple.first->setBackgroundRole(bgRole);
+        tuple.second->setForegroundRole(fgRole);
+        tuple.second->setBackgroundRole(bgRole);
         QFont fnt = tuple.first->font();
         fnt.setBold(matches);
         tuple.first->setFont(fnt);

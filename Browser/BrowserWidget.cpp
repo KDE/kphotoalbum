@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -389,10 +389,7 @@ void Browser::BrowserWidget::createWidgets()
     m_treeView->setAcceptDrops(true);
     m_treeView->setDropIndicatorShown(true);
     m_treeView->setDefaultDropAction(Qt::MoveAction);
-
-    QPalette pal = m_treeView->palette();
-    pal.setBrush(QPalette::Base, QApplication::palette().color(QPalette::Background));
-    m_treeView->setPalette(pal);
+    m_treeView->setBackgroundRole(QPalette::Background);
 
     m_treeView->header()->setStretchLastSection(false);
     m_treeView->header()->setSortIndicatorShown(true);

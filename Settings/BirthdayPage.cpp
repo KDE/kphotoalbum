@@ -264,9 +264,11 @@ QDate Settings::BirthdayPage::parseDate(QString date)
 void Settings::BirthdayPage::checkDateInput(QString date)
 {
     QDate parsedDate = parseDate(date);
-    if (parsedDate.isValid()) {
+    if (parsedDate.isValid() || date.isEmpty()) {
         m_calendar->setSelectedDate(parsedDate);
         m_dateInput->setPalette(palette());
+        // re-enable palette propagation:
+        m_dateInput->setAttribute(Qt::WA_SetPalette);
     } else {
         auto errorPalette = m_dateInput->palette();
         KColorScheme::adjustForeground(errorPalette, KColorScheme::ForegroundRole::NegativeText, QPalette::Text);

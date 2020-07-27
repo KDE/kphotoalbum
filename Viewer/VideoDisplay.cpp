@@ -46,9 +46,7 @@ Viewer::VideoDisplay::VideoDisplay(QWidget *parent)
     , m_zoomType(FullZoom)
     , m_zoomFactor(1)
 {
-    QPalette pal = palette();
-    pal.setColor(QPalette::Window, palette().shadow().color());
-    setPalette(pal);
+    setBackgroundRole(QPalette::Shadow);
     setAutoFillBackground(true);
 
     m_mediaObject = nullptr;

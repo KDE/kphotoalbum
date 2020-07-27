@@ -1,4 +1,4 @@
-/* Copyright (C) 2003-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2003-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -31,10 +31,6 @@ Browser::CenteringIconView::CenteringIconView(QWidget *parent)
     : QListView(parent)
     , m_viewMode(NormalIconView)
 {
-    QPalette pal = palette();
-    pal.setBrush(QPalette::Base, QApplication::palette().color(QPalette::Base));
-    setPalette(pal);
-
     setGridSize(QSize(CELLWIDTH, CELLHEIGHT));
     viewport()->setAutoFillBackground(false);
 

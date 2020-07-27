@@ -608,6 +608,13 @@ void HTMLDialog::slotSuggestOutputDir()
     }
 }
 
+bool HTMLDialog::event(QEvent *event)
+{
+    if (event->type() == QEvent::PaletteChange)
+        slotUpdateOutputLabel();
+    return KPageDialog::event(event);
+}
+
 int HTMLDialog::exec(const DB::FileNameList &list)
 {
     if (list.empty()) {

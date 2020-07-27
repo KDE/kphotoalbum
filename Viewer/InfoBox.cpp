@@ -58,16 +58,7 @@ Viewer::InfoBox::InfoBox(Viewer::ViewerWidget *viewer)
     setMidLineWidth(0);
     setAutoFillBackground(false);
 
-    QPalette p = palette();
-    // we want a transparent background, not the default widget grey
-    QColor bgColor = palette().shadow().color();
-    bgColor.setAlpha(170);
-    p.setColor(QPalette::Base, bgColor);
-    // adapt other colors as necessary
-    p.setColor(QPalette::WindowText, palette().brightText().color());
-    p.setColor(QPalette::Text, palette().brightText().color());
-    p.setColor(QPalette::Link, p.color(QPalette::Link).lighter());
-    setPalette(p);
+    updatePalette();
 
     m_jumpToContext = new QToolButton(this);
     m_jumpToContext->setIcon(QIcon::fromTheme(QString::fromUtf8("kphotoalbum")));
@@ -160,6 +151,13 @@ void Viewer::InfoBox::setSize()
         + m_jumpToContext->width() + 10;
 
     resize(realWidth, qMin((int)document()->size().height(), maxHeight));
+}
+
+bool Viewer::InfoBox::event(QEvent *e)
+{
+    if (e->type() == QEvent::PaletteChange)
+        updatePalette();
+    return QTextBrowser::event(e);
 }
 
 void Viewer::InfoBox::mousePressEvent(QMouseEvent *event)
@@ -318,6 +316,22 @@ void Viewer::InfoBox::hackLinkColorForQt52()
         }
         cursor.movePosition(QTextCursor::NextCharacter);
     }
+}
+
+void Viewer::InfoBox::updatePalette()
+{
+    QPalette p = palette();
+    // we want a transparent background, not the default widget grey
+    QColor bgColor = palette().shadow().color();
+    bgColor.setAlpha(170);
+    p.setColor(QPalette::Base, bgColor);
+    // adapt other colors as necessary
+    p.setColor(QPalette::WindowText, palette().brightText().color());
+    p.setColor(QPalette::Text, palette().brightText().color());
+    p.setColor(QPalette::Link, p.color(QPalette::Link).lighter());
+    setPalette(p);
+    // re-enable palette propagation:
+    setAttribute(Qt::WA_SetPalette);
 }
 
 void Viewer::InfoBox::contextMenuEvent(QContextMenuEvent *event)

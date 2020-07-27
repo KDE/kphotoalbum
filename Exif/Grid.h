@@ -1,4 +1,4 @@
-/* Copyright (C) 2012-2019 The KPhotoAlbum Development Team
+/* Copyright (C) 2012-2020 The KPhotoAlbum Development Team
 
    This program is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -59,7 +59,7 @@ private:
     QString exifNameNoGroup(const QString &fullName);
     void scroll(int dy);
     QLabel *headerLabel(const QString &title);
-    QPair<QLabel *, QLabel *> infoLabelPair(const QString &title, const QString &value, const QColor &color);
+    QPair<QLabel *, QLabel *> infoLabelPair(const QString &title, const QString &value, const QPalette::ColorRole role);
 
 private slots:
     void updateWidgetSize();

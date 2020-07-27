@@ -44,11 +44,6 @@
 MainWindow::StatusBar::StatusBar()
     : QStatusBar()
 {
-    QPalette pal = palette();
-    pal.setBrush(QPalette::Base, QApplication::palette().color(QPalette::Background));
-    pal.setBrush(QPalette::Background, QApplication::palette().color(QPalette::Background));
-    setPalette(pal);
-
     setupGUI();
     m_pendingShowTimer = new QTimer(this);
     m_pendingShowTimer->setSingleShot(true);

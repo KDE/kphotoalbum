@@ -135,6 +135,7 @@ int main(int argc, char **argv)
     app.setPalette(KColorScheme::createApplicationPalette(KSharedConfig::openConfig(schemePath)));
     if (app.styleSheet().isEmpty())
         app.setStyleSheet(STYLE);
+    app.setAttribute(Qt::AA_UseStyleSheetPropagationInWidgetStyles);
 
     new MainWindow::SplashScreen();
 

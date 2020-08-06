@@ -1,3 +1,11 @@
+* Code cleanup:
+  - Removed old macros in favor of C++11 features
+  - Fixed all deprecation warnings emerged with Qt 5.14
+  - Updated old SIGNAL() and SLOT() connects
+
+* Change: We now no longer depend on libkgeomap and now use Marble directly to display geographic
+  information for images and maps.
+
 * Change: Store thumbnail size in thumbnail cache. Warning: After the thumbnail cache was converted
   to the new format, older versions of KPhotoAlbum can no longer read it!
 

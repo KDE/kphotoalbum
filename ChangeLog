@@ -1,10 +1,8 @@
-* Change: Store thumbnail size in thumbnail cache.
-  Warning: After the thumbnail cache was converted to the new format,
-  older versions of KPhotoAlbum can no longer read it!
+* Change: Store thumbnail size in thumbnail cache. Warning: After the thumbnail cache was converted
+  to the new format, older versions of KPhotoAlbum can no longer read it!
 
-* Change: Remove fake password-protection from privacy lock.
-  Even with the warning message it might give somebody a false sense of
-  security.
+* Change: Remove fake password-protection from privacy lock. Even with the warning message it might
+  give somebody a false sense of security.
 
 * Change: Don't display HTML export themes missing a name.
 
@@ -20,8 +18,7 @@
 
 * Bugfix: Fix crash when images are deleted while the viewer window is open.
 
-* Bugfix: Always show deletion dialog when closing the viewer and images are
-  marked for deletion.
+* Bugfix: Always show deletion dialog when closing the viewer and images are marked for deletion.
 
 * Bugfix: Fix crash when dragging an image beyond the last thumbnail (Fixes #418251)
 
@@ -33,7 +30,8 @@
 
 * Bugfix: Removing a token no longer makes it disappear from the annotation dialog (Fixes #423978)
 
-* Bugfix: Sanitize input for the Tokens category, make Folder and Media Type categories read-only (Fixes #423979).
+* Bugfix: Sanitize input for the Tokens category, make Folder and Media Type categories read-only
+  (Fixes #423979).
 
 * Deprecation: Remove support for KIPI plugins
 
@@ -43,8 +41,8 @@
 
 * Enhancement: Smaller improvements to the import dialog.
 
-* Feature: Support for custom color schemes.
-  Note: This feature replaces the custom background color for the thumbnail view.
+* Feature: Support for custom color schemes. Note: This feature replaces the custom background color
+  for the thumbnail view.
 
 * Feature: Add new utility kpa-thumbnailtool
 
@@ -54,17 +52,15 @@
 
 ====================== KPhotoalbum 5.6 released (08.02.2020) ======================
 
-* Change: Don't build with remote interface by default.
-  The companion app has not been available for Android for a while now.
-  This feature will either be removed in the future, or the Android app will
-  be re-published.
+* Change: Don't build with remote interface by default. The companion app has not been available for
+  Android for a while now. This feature will either be removed in the future, or the Android app
+  will be re-published.
 
 * Bugfix: Make theme files translatable (Fixes #406144).
 
-* Bugfix: Prevent invalid tag id in index.xml when renaming tags under some
-  circumstances. When invalid ids already are present in an index.xml file,
-  automatically repair if possible, or alert the user that manual repair is
-  needed. (Fixes #415415)
+* Bugfix: Prevent invalid tag id in index.xml when renaming tags under some circumstances. When
+  invalid ids already are present in an index.xml file, automatically repair if possible, or alert
+  the user that manual repair is needed. (Fixes #415415)
 
 * Bugfix: Deeply nested tag groups are now displayed correctly in the tag groups
   settings page.

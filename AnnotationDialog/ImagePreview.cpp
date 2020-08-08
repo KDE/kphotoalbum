@@ -372,7 +372,7 @@ void ImagePreview::mouseReleaseEvent(QMouseEvent *event)
 QPixmap ImagePreview::grabAreaImage(QRect area)
 {
     return QPixmap::fromImage(m_currentImage.getImage().copy(area.left() - m_minX,
-                                                             area.top() - m_minY,
+                                                             area.top() - m_minY - 1,
                                                              area.width(),
                                                              area.height()));
 }

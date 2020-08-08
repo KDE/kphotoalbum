@@ -297,7 +297,7 @@ void Map::MapView::buildImageClusters()
     //    remove aggregated clusters from set of eligible clusters
     // 4. with remaining clusters, continue at 2.
 
-    Q_ASSERT(clusters[MAP_CLUSTER_LEVELS - 1].size() > 0);
+    Q_ASSERT(clusters[MAP_CLUSTER_LEVELS - 1].size() > 0 || clusters[0].size() == 0);
     for (int lvl = 0; lvl < MAP_CLUSTER_LEVELS; lvl++) {
         qCInfo(MapLog) << "MapView:" << clusters[lvl].size() << "clusters on level" << lvl;
     }

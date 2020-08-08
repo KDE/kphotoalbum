@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.3.0)
-project(kphotoalbum LANGUAGES CXX VERSION 5.6.1)
+project(kphotoalbum LANGUAGES CXX VERSION 5.7.0)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

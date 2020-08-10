@@ -211,8 +211,13 @@ void ThumbnailView::ThumbnailWidget::wheelEvent(QWheelEvent *event)
         cellGeometryInfo()->calculateCellSize();
         model()->endResetModel();
     } else {
+#if QT_VERSION < QT_VERSION_CHECK(5, 12, 0)
+        const int delta = event->delta() / 5;
+        QWheelEvent newevent = QWheelEvent(event->pos(), delta, event->buttons(), event->modifiers());
+#else
         const auto angleDelta = event->angleDelta() / 5;
         QWheelEvent newevent = QWheelEvent(event->pos(), event->globalPos(), event->pixelDelta(), angleDelta, event->buttons(), event->modifiers(), event->phase(), event->inverted());
+#endif
 
         QListView::wheelEvent(&newevent);
         event->setAccepted(newevent.isAccepted());

@@ -291,6 +291,7 @@ QDockWidget *AnnotationDialog::Dialog::createDock(const QString &title, const QS
                                                   Qt::DockWidgetArea location, QWidget *widget)
 {
     QDockWidget *dock = new QDockWidget(title);
+    // make sure that no accelerator is set up now - this is done by ShortCutManager instead:
     KAcceleratorManager::setNoAccel(dock);
     dock->setObjectName(name);
     dock->setAllowedAreas(Qt::AllDockWidgetAreas);

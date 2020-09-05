@@ -129,4 +129,9 @@
     <binary>kphotoalbum</binary>
   </provides>
   <launchable type="desktop-id">org.kde.kphotoalbum.desktop</launchable>
+  <custom>
+    <value key="KDE::irc">#kphotoalbum</value>
+	 <value key="KDE::matrix">#kphotoalbum</value>
+	 <value key="KDE::mailinglist">kphotoalbum@mail.kdab.com</value>
+  </custom>
 </component>

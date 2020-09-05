@@ -530,10 +530,10 @@ QList<SimpleCategoryMatcher *> ImageSearchInfo::extractAndMatcher(CategoryMatche
 QList<QList<SimpleCategoryMatcher *>> ImageSearchInfo::convertMatcher(CategoryMatcher *item) const
 {
     QList<QList<SimpleCategoryMatcher *>> result;
-    OrCategoryMatcher *orMacther;
+    OrCategoryMatcher *orMatcher;
 
-    if ((orMacther = dynamic_cast<OrCategoryMatcher *>(item))) {
-        for (CategoryMatcher *child : orMacther->mp_elements) {
+    if ((orMatcher = dynamic_cast<OrCategoryMatcher *>(item))) {
+        for (CategoryMatcher *child : orMatcher->mp_elements) {
             result.append(extractAndMatcher(child));
         }
     } else

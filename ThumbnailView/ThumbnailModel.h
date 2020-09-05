@@ -123,6 +123,11 @@ public slots:
      * @param tag
      */
     void toggleCategoryFilter(const QString &category, const QString &tag);
+    /**
+     * @brief filterByFreeformText filters by a plain text search.
+     * To clear this filter specifically, pass an empty QString.
+     * @param text
+     */
     void filterByFreeformText(const QString &text);
 
 signals:

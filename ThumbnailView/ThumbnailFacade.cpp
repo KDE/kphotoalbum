@@ -196,4 +196,9 @@ void ThumbnailView::ThumbnailFacade::clearFilter()
     m_model->clearFilter();
 }
 
+void ThumbnailView::ThumbnailFacade::setFreeformFilter(const QString &text)
+{
+    model()->filterByFreeformText(text);
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

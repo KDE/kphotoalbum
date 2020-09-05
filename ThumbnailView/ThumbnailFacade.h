@@ -79,6 +79,7 @@ public slots:
     void slotRecreateThumbnail();
 
     void clearFilter();
+    void setFreeformFilter(const QString &text);
 
 signals:
     void showImage(const DB::FileName &id);

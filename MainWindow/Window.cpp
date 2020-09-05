@@ -1696,6 +1696,7 @@ void MainWindow::Window::createSearchBar()
     m_filterWidget->setObjectName(QString::fromUtf8("filterBar"));
     connect(m_browser, &Browser::BrowserWidget::viewChanged, ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);
     connect(m_browser, &Browser::BrowserWidget::isFilterable, m_filterWidget, &ThumbnailView::FilterWidget::setEnabled);
+    connect(searchBar, &SearchBar::textChanged, ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::setFreeformFilter);
 }
 
 void MainWindow::Window::executeStartupActions()

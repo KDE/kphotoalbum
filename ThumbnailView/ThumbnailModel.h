@@ -123,6 +123,7 @@ public slots:
      * @param tag
      */
     void toggleCategoryFilter(const QString &category, const QString &tag);
+    void filterByFreeformText(const QString &text);
 
 signals:
     void collapseAllStacksEnabled(bool enabled);

@@ -521,6 +521,13 @@ void ThumbnailView::ThumbnailModel::toggleCategoryFilter(const QString &category
     filterByCategory(category, tag);
 }
 
+void ThumbnailView::ThumbnailModel::filterByFreeformText(const QString &text)
+{
+    qCDebug(ThumbnailViewLog) << "Filter added: freeform_match(" << text << ")";
+    m_filter.setFreeformMatchText(text);
+    emit filterChanged(m_filter);
+}
+
 void ThumbnailView::ThumbnailModel::preloadThumbnails()
 {
     // FIXME: it would make a lot of sense to merge preloadThumbnails() with pixmap()

@@ -31,7 +31,7 @@ Browser::Viewer Browser::ImageViewPage::viewer()
 
 bool Browser::ImageViewPage::isSearchable() const
 {
-    return false;
+    return true;
 }
 
 Browser::ImageViewPage::ImageViewPage(const DB::FileName &context, BrowserWidget *browser)

@@ -114,6 +114,7 @@ protected:
 private:
     /**
      * @brief The CompiledDataPrivate struct encapsulates the non-copyable data members of the ImageSearchInfo.
+     * It covers all category related search data (as covered by compile()), but not any other search fields.
      * Its copy constructor and copy operator invalidate the object,
      * This allows the ImageSearchInfo to just use the default copy/move constructors/operators.
      */
@@ -139,12 +140,21 @@ private:
     int m_ratingSearchMode = 0;
     bool m_searchRAW = false;
     bool m_isNull = true;
+    /**
+     * @brief If a search is cacheable, its match result is stored in the ImageInfo.
+     * Only one match result can be cached.
+     * The matchGeneration is increased whenever the search info is changed, preventing stale results.
+     */
     bool m_isCacheable = true;
+    /**
+     * @brief m_matchGeneration is used to determine whether a cached match result is still valid.
+     * Remember to set it to nextGeneration() whenever the search info was changed and is cacheable!
+     */
+    int m_matchGeneration;
     mutable CompiledDataPrivate m_compiled;
 
     Exif::SearchInfo m_exifSearchInfo;
 
-    int m_matchGeneration;
     bool doMatch(ImageInfoPtr) const;
 
 #ifdef HAVE_MARBLE

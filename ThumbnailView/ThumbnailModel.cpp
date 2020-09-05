@@ -28,10 +28,12 @@
 #include <DB/ImageDB.h>
 #include <ImageManager/AsyncLoader.h>
 #include <ImageManager/ThumbnailCache.h>
+#include <MainWindow/Logging.h>
 #include <Settings/SettingsData.h>
 #include <Utilities/FileUtil.h>
 
 #include <KLocalizedString>
+#include <QElapsedTimer>
 #include <QIcon>
 #include <QLoggingCategory>
 
@@ -57,6 +59,8 @@ static bool stackOrderComparator(const DB::FileName &a, const DB::FileName &b)
 
 void ThumbnailView::ThumbnailModel::updateDisplayModel()
 {
+    QElapsedTimer timer;
+    timer.start();
     beginResetModel();
     ImageManager::AsyncLoader::instance()->stop(model(), ImageManager::StopOnlyNonPriorityLoads);
 
@@ -125,6 +129,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     emit collapseAllStacksEnabled(m_expandedStacks.size() > 0);
     emit expandAllStacksEnabled(m_allStacks.size() != model()->m_expandedStacks.size());
     endResetModel();
+    qCInfo(TimingLog) << "ThumbnailModel::updateDisplayModel(): " << timer.restart() << "ms.";
 }
 
 void ThumbnailView::ThumbnailModel::toggleStackExpansion(const DB::FileName &fileName)

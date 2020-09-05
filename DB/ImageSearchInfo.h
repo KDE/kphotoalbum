@@ -92,6 +92,20 @@ public:
     void setRegionSelection(const Map::GeoCoordinates::LatLonBox &actRegionSelection);
 #endif
 
+    QString freeformMatchText() const;
+    /**
+     * @brief setFreeformMatchText sets a freeform string to match on.
+     * The idea is to provide a way to quickly drill down by entering unstructured text,
+     * e.g. in the thumbnail view.
+     *
+     * Currently, this matches against:
+     *  - description
+     *  - label
+     *  - filename
+     * @param freeformMatchText
+     */
+    void setFreeformMatchText(const QString &freeformMatchText);
+
 protected:
     void compile() const;
 
@@ -120,6 +134,7 @@ private:
     QMap<QString, QString> m_categoryMatchText;
     QString m_label;
     QString m_description;
+    QString m_freeformMatchText = {};
     QRegExp m_fnPattern;
     short m_rating = -1;
     short m_megapixel = 0;

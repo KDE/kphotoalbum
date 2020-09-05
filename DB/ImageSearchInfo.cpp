@@ -282,8 +282,8 @@ void ImageSearchInfo::setRating(short rating)
 {
     m_rating = rating;
     m_isNull = false;
-    m_compiled.valid = false;
     m_matchGeneration = nextGeneration();
+    // compiled data is not affected
 }
 
 void ImageSearchInfo::setMegaPixel(short megapixel)
@@ -597,11 +597,11 @@ Map::GeoCoordinates::LatLonBox ImageSearchInfo::regionSelection() const
 void ImageSearchInfo::setRegionSelection(const Map::GeoCoordinates::LatLonBox &actRegionSelection)
 {
     m_regionSelection = actRegionSelection;
-    m_compiled.valid = false;
     if (!m_regionSelection.isNull()) {
         m_isNull = false;
     }
     m_matchGeneration = nextGeneration();
+    // compiled data is not affected
 }
 #endif
 

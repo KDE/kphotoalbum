@@ -4,6 +4,8 @@
 
 * Enhancement: Allow relative local URLs in "Open list of files" dialog
 
+* Bugfix: Fix searching for label (introduced in version 5.4.1)
+
 ====================== KPhotoalbum 5.7.0 released (08.08.2020) ======================
 
 * Code cleanup:

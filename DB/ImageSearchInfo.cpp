@@ -173,7 +173,7 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
     }
 
     // -------------------------------------------------- Label
-    if (m_label.isEmpty() && info->label().indexOf(m_label) == -1)
+    if (!m_label.isEmpty() && info->label().indexOf(m_label) == -1)
         return false;
 
     // -------------------------------------------------- RAW

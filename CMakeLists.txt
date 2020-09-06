@@ -33,7 +33,7 @@ add_definitions(
 
 ########### dependencies  ###############
 
-find_package(Qt5 5.9 REQUIRED COMPONENTS Core Sql Xml Widgets)
+find_package(Qt5 5.9 REQUIRED COMPONENTS Core Sql Xml Widgets Test)
 find_package(Phonon4Qt5 REQUIRED)
 find_package(KF5 5.44 REQUIRED COMPONENTS Archive Completion Config CoreAddons DocTools I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons)
 

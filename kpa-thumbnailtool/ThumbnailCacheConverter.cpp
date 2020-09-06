@@ -58,6 +58,8 @@ int KPAThumbnailTool::convertV5ToV4Cache(const QString &indexFilename, QTextStre
 
 bool KPAThumbnailTool::convertV5ToV4Cache(QIODevice &fromFile, QIODevice &toFile, QTextStream &err)
 {
+    Q_ASSERT(fromFile.isReadable());
+    Q_ASSERT(toFile.isWritable());
     QDataStream fromStream { &fromFile };
     int version;
     fromStream >> version;

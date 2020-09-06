@@ -46,8 +46,8 @@ int convertV5ToV4Cache(const QString &indexFilename, QTextStream &err);
  * but just reads the file and converts the header accordingly.
  *
  * This way, code in ThumbnailCache is not bloated by a niche-usecase.
- * @param fromFile the QIODevice containing the old index data
- * @param toFile a QIODevice to write to
+ * @param fromFile the (already opened) QIODevice containing the old index data
+ * @param toFile an open QIODevice to write to
  * @param err a stream for error messages.
  * @return \c true on success, \c false if the input file is not valid.
  */

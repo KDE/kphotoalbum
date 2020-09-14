@@ -221,7 +221,7 @@ private:
 
     int m_currentUnit;
     QDateTime m_currentDate;
-    int m_barWidth;
+    int m_barWidth; ///< width of a single unit in pixel
     int m_barHeight;
     bool m_includeFuzzyCounts;
     QMenu *m_contextMenu;

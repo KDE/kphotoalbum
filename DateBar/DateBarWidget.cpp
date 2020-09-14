@@ -832,7 +832,7 @@ void DateBar::DateBarWidget::focusOutEvent(QFocusEvent *)
 int DateBar::DateBarWidget::unitAtPos(int x) const
 {
     Q_ASSERT_X(x - barAreaGeometry().left() >= 0, "DateBarWidget::unitAtPos", "horizontal offset cannot be negative!");
-    Q_ASSERT_X(x - barAreaGeometry().left() <= m_barWidth, "DateBarWidget::unitAtPos", "horizontal offset larger than m_barWidth!");
+    Q_ASSERT_X(x - barAreaGeometry().left() <= barAreaGeometry().width(), "DateBarWidget::unitAtPos", "horizontal offset larger than total width!");
     return (x - barAreaGeometry().left()) / m_barWidth;
 }
 

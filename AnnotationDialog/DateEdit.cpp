@@ -202,7 +202,7 @@ void AnnotationDialog::DateEdit::dateSelected(QDate newDate)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
         emit dateChanged(DB::ImageDate(newDate.startOfDay(), newDate.startOfDay()));
 #else
-        emit dateChanged(DB::ImageDate(QDateTime(newDate), QDateTime(newDate)));
+        emit dateChanged(DB::ImageDate(Utilities::FastDateTime(newDate), Utilities::FastDateTime(newDate)));
 #endif
         m_DateFrame->hide();
     }
@@ -216,7 +216,7 @@ void AnnotationDialog::DateEdit::dateEntered(QDate newDate)
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
         emit dateChanged(DB::ImageDate(newDate.startOfDay(), newDate.startOfDay()));
 #else
-        emit dateChanged(DB::ImageDate(QDateTime(newDate), QDateTime(newDate)));
+        emit dateChanged(DB::ImageDate(Utilities::FastDateTime(newDate), Utilities::FastDateTime(newDate)));
 #endif
     }
 }
@@ -236,7 +236,7 @@ void AnnotationDialog::DateEdit::lineEnterPressed()
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
         emit dateChanged(DB::ImageDate(date.startOfDay(), end.startOfDay()));
 #else
-        emit dateChanged(DB::ImageDate(QDateTime(date), QDateTime(end)));
+        emit dateChanged(DB::ImageDate(Utilities::FastDateTime(date), Utilities::FastDateTime(end)));
 #endif
     } else {
         // Invalid or unacceptable date - revert to previous value

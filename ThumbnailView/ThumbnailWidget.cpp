@@ -232,8 +232,8 @@ void ThumbnailView::ThumbnailWidget::emitDateChange()
     if (fileName.isNull())
         return;
 
-    static QDateTime lastDate;
-    const QDateTime date = DB::ImageDB::instance()->info(fileName)->date().start();
+    static Utilities::FastDateTime lastDate;
+    const Utilities::FastDateTime date = DB::ImageDB::instance()->info(fileName)->date().start();
     if (date != lastDate) {
         lastDate = date;
         if (date.date().year() != 1900)

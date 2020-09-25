@@ -602,18 +602,18 @@ int XMLDB::Database::fileVersion()
     return 8;
 }
 
-// During profiling of loading, I found that a significant amount of time was spent in QDateTime::fromString.
+// During profiling of loading, I found that a significant amount of time was spent in Utilities::FastDateTime::fromString.
 // Reviewing the code, I fount that it did a lot of extra checks we don't need (like checking if the string have
 // timezone information (which they won't in KPA), this function is a replacement that is faster than the original.
-QDateTime dateTimeFromString(const QString &str)
+Utilities::FastDateTime dateTimeFromString(const QString &str)
 {
     static QChar T = QChar::fromLatin1('T');
 
     if (str[10] == T)
-        return QDateTime(QDate::fromString(str.left(10), Qt::ISODate), QTime::fromString(str.mid(11), Qt::ISODate));
+        return Utilities::FastDateTime(QDate::fromString(str.left(10), Qt::ISODate), QTime::fromString(str.mid(11), Qt::ISODate));
 
     else
-        return QDateTime::fromString(str, Qt::ISODate);
+        return Utilities::FastDateTime::fromString(str, Qt::ISODate);
 }
 
 DB::ImageInfoPtr XMLDB::Database::createImageInfo(const DB::FileName &fileName, ReaderPtr reader, Database *db, const QMap<QString, QString> *newToOldCategory)
@@ -657,7 +657,7 @@ DB::ImageInfoPtr XMLDB::Database::createImageInfo(const DB::FileName &fileName, 
 
     DB::ImageDate date;
     if (reader->hasAttribute(_startDate_)) {
-        QDateTime start;
+        Utilities::FastDateTime start;
 
         QString str = reader->attribute(_startDate_);
         if (!str.isEmpty())

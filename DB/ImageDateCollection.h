@@ -44,8 +44,8 @@ class ImageDateCollection : public QSharedData
 public:
     virtual ~ImageDateCollection() {}
     virtual ImageCount count(const ImageDate &range) = 0;
-    virtual QDateTime lowerLimit() const = 0;
-    virtual QDateTime upperLimit() const = 0;
+    virtual Utilities::FastDateTime lowerLimit() const = 0;
+    virtual Utilities::FastDateTime upperLimit() const = 0;
 };
 
 }

@@ -89,7 +89,7 @@ void DateBar::SelectionHandler::mousePressEvent(int x)
 void DateBar::SelectionHandler::mouseMoveEvent(int x)
 {
     int unit = m_dateBar->unitAtPos(x);
-    QDateTime date = m_dateBar->dateForUnit(unit);
+    Utilities::FastDateTime date = m_dateBar->dateForUnit(unit);
     if (m_start < date)
         m_end = m_dateBar->dateForUnit(unit + 1);
     else
@@ -175,7 +175,7 @@ void DateBar::BarDragHandler::mouseMoveEvent(int x)
     m_dateBar->emitDateSelected();
 }
 
-QDateTime DateBar::SelectionHandler::min() const
+Utilities::FastDateTime DateBar::SelectionHandler::min() const
 {
     if (m_start < m_end)
         return m_start;
@@ -183,7 +183,7 @@ QDateTime DateBar::SelectionHandler::min() const
         return m_end;
 }
 
-QDateTime DateBar::SelectionHandler::max() const
+Utilities::FastDateTime DateBar::SelectionHandler::max() const
 {
     if (m_start >= m_end)
         return m_dateBar->dateForUnit(1, m_start);
@@ -193,8 +193,8 @@ QDateTime DateBar::SelectionHandler::max() const
 
 void DateBar::SelectionHandler::clearSelection()
 {
-    m_start = QDateTime();
-    m_end = QDateTime();
+    m_start = Utilities::FastDateTime();
+    m_end = Utilities::FastDateTime();
 }
 
 void DateBar::SelectionHandler::mouseReleaseEvent()

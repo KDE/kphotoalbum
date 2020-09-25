@@ -20,7 +20,7 @@
 #include <DB/ImageDate.h>
 
 #include <QObject>
-#include <qdatetime.h>
+#include <Utilities/FastDateTime.h>
 
 namespace DB
 {
@@ -79,15 +79,15 @@ public:
     void mousePressEvent(int x) override;
     void mouseMoveEvent(int x) override;
     void mouseReleaseEvent() override;
-    QDateTime min() const;
-    QDateTime max() const;
+    Utilities::FastDateTime min() const;
+    Utilities::FastDateTime max() const;
     DB::ImageDate dateRange() const;
     void clearSelection();
     bool hasSelection() const;
 
 private:
-    QDateTime m_start;
-    QDateTime m_end;
+    Utilities::FastDateTime m_start;
+    Utilities::FastDateTime m_end;
 };
 }
 

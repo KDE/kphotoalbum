@@ -22,7 +22,7 @@
 #include "Logging.h"
 
 #include <KLocalizedString>
-#include <QDateTime>
+#include <Utilities/FastDateTime.h>
 #include <QVector>
 #include <QtAlgorithms>
 using namespace DB;
@@ -30,14 +30,14 @@ using namespace DB;
 class SortableImageInfo
 {
 public:
-    SortableImageInfo(const QDateTime &datetime, const QString &string, const ImageInfoPtr &info)
+    SortableImageInfo(const Utilities::FastDateTime &datetime, const QString &string, const ImageInfoPtr &info)
         : m_dt(datetime)
         , m_st(string)
         , m_in(info)
     {
     }
     SortableImageInfo() = default;
-    const QDateTime &DateTime(void) const { return m_dt; }
+    const Utilities::FastDateTime &DateTime(void) const { return m_dt; }
     const QString &String(void) const { return m_st; }
     const ImageInfoPtr &ImageInfo(void) const { return m_in; }
     bool operator==(const SortableImageInfo &other) const { return m_dt == other.m_dt && m_st == other.m_st; }
@@ -62,7 +62,7 @@ public:
     bool operator<=(const SortableImageInfo &other) const { return *this == other || *this < other; }
 
 private:
-    QDateTime m_dt;
+    Utilities::FastDateTime m_dt;
     QString m_st;
     ImageInfoPtr m_in;
 };
@@ -122,10 +122,10 @@ bool ImageInfoList::isSorted()
     if (count() == 0)
         return true;
 
-    QDateTime prev = first()->date().start();
+    Utilities::FastDateTime prev = first()->date().start();
     QString prevFile = first()->fileName().absolute();
     for (ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it) {
-        QDateTime cur = (*it)->date().start();
+        Utilities::FastDateTime cur = (*it)->date().start();
         QString curFile = (*it)->fileName().absolute();
         if (prev > cur || (prev == cur && prevFile > curFile))
             return false;
@@ -140,10 +140,10 @@ void ImageInfoList::mergeIn(ImageInfoList other)
     ImageInfoList tmp;
 
     for (ImageInfoListConstIterator it = constBegin(); it != constEnd(); ++it) {
-        QDateTime thisDate = (*it)->date().start();
+        Utilities::FastDateTime thisDate = (*it)->date().start();
         QString thisFileName = (*it)->fileName().absolute();
         while (other.count() != 0) {
-            QDateTime otherDate = other.first()->date().start();
+            Utilities::FastDateTime otherDate = other.first()->date().start();
             QString otherFileName = other.first()->fileName().absolute();
             if (otherDate < thisDate || (otherDate == thisDate && otherFileName < thisFileName)) {
                 tmp.append(other[0]);

@@ -20,7 +20,7 @@
 #define DATEBAR_H
 #include "ViewHandler.h"
 
-#include <QDateTime>
+#include <Utilities/FastDateTime.h>
 #include <QExplicitlySharedDataPointer>
 #include <QPixmap>
 #include <QWidget>
@@ -88,7 +88,7 @@ public:
 public slots:
     void clearSelection();
     void setViewType(ViewType tp, bool redrawNow = true);
-    void setDate(const QDateTime &date);
+    void setDate(const Utilities::FastDateTime &date);
     void setImageDateCollection(const QExplicitlySharedDataPointer<DB::ImageDateCollection> &);
     void scrollLeft();
     void scrollRight();
@@ -173,13 +173,13 @@ protected:
      * @return a unit index between 0 and numberOfUnits
      */
     int unitAtPos(int x) const;
-    QDateTime dateForUnit(int unit, const QDateTime &offset = QDateTime()) const;
+    Utilities::FastDateTime dateForUnit(int unit, const Utilities::FastDateTime &offset = Utilities::FastDateTime()) const;
     /**
      * @brief unitForDate return the unit index corresponding to the date/time.
-     * @param date a valid QDateTime.
+     * @param date a valid Utilities::FastDateTime.
      * @return An integer greater or equal to 0 if \p date is in view, -1 otherwise.
      */
-    int unitForDate(const QDateTime &date) const;
+    int unitForDate(const Utilities::FastDateTime &date) const;
     bool isUnitSelected(int unit) const;
     bool hasSelection() const;
     DB::ImageDate currentSelection() const;
@@ -220,7 +220,7 @@ private:
     QToolButton *m_cancelSelection;
 
     int m_currentUnit;
-    QDateTime m_currentDate;
+    Utilities::FastDateTime m_currentDate;
     int m_barWidth; ///< width of a single unit in pixel
     int m_barHeight;
     bool m_includeFuzzyCounts;

@@ -631,13 +631,13 @@ void AnnotationDialog::Dialog::writeToInfo()
 
     if (m_time->isHidden()) {
         if (m_endDate->date().isValid())
-            info.setDate(DB::ImageDate(QDateTime(m_startDate->date(), QTime(0, 0, 0)),
-                                       QDateTime(m_endDate->date(), QTime(23, 59, 59))));
+            info.setDate(DB::ImageDate(Utilities::FastDateTime(m_startDate->date(), QTime(0, 0, 0)),
+                                       Utilities::FastDateTime(m_endDate->date(), QTime(23, 59, 59))));
         else
-            info.setDate(DB::ImageDate(QDateTime(m_startDate->date(), QTime(0, 0, 0)),
-                                       QDateTime(m_startDate->date(), QTime(23, 59, 59))));
+            info.setDate(DB::ImageDate(Utilities::FastDateTime(m_startDate->date(), QTime(0, 0, 0)),
+                                       Utilities::FastDateTime(m_startDate->date(), QTime(23, 59, 59))));
     } else
-        info.setDate(DB::ImageDate(QDateTime(m_startDate->date(), m_time->time())));
+        info.setDate(DB::ImageDate(Utilities::FastDateTime(m_startDate->date(), m_time->time())));
 
     // Generate a list of all tagged areas
 

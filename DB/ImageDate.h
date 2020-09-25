@@ -18,7 +18,7 @@
 
 #ifndef IMAGEDATE_H
 #define IMAGEDATE_H
-#include <qdatetime.h>
+#include <Utilities/FastDateTime.h>
 #include <qstring.h>
 #include <qstringlist.h>
 
@@ -30,14 +30,14 @@ class ImageDate
 public:
     ImageDate();
     ImageDate(const QDate &start, const QDate &end);
-    ImageDate(const QDateTime &start, const QDateTime &end);
+    ImageDate(const Utilities::FastDateTime &start, const Utilities::FastDateTime &end);
     ImageDate(int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int hourFrom, int minuteFrom, int secondFrom);
     explicit ImageDate(const QDate &);
-    explicit ImageDate(const QDateTime &);
+    explicit ImageDate(const Utilities::FastDateTime &);
     ImageDate(const QDate &start, QDate end, const QTime &time);
 
-    QDateTime start() const;
-    QDateTime end() const;
+    Utilities::FastDateTime start() const;
+    Utilities::FastDateTime end() const;
     static QDate parseDate(const QString &date, bool startDate);
 
     bool operator<(const ImageDate &other) const;
@@ -55,7 +55,7 @@ public:
                      ExactMatch,
                      RangeMatch };
     MatchType isIncludedIn(const ImageDate &searchRange) const;
-    bool includes(const QDateTime &date) const;
+    bool includes(const Utilities::FastDateTime &date) const;
 
     void extendTo(const ImageDate &other);
 
@@ -64,7 +64,7 @@ protected:
     static QString formatRegexp();
 
 private:
-    QDateTime m_start, m_end;
+    Utilities::FastDateTime m_start, m_end;
 };
 }
 

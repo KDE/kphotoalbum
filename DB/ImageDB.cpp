@@ -176,7 +176,7 @@ DB::FileName ImageDB::findFirstItemInRange(const DB::FileNameList &images,
                                            bool includeRanges) const
 {
     DB::FileName candidate;
-    QDateTime candidateDateStart;
+    Utilities::FastDateTime candidateDateStart;
     for (const DB::FileName &fileName : images) {
         ImageInfoPtr iInfo = info(fileName);
 

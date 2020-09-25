@@ -26,11 +26,11 @@ using namespace DB;
 
 ImageDate::ImageDate(const QDate &date)
 {
-    m_start = QDateTime(date, QTime(0, 0, 0));
-    m_end = QDateTime(date, QTime(0, 0, 0));
+    m_start = Utilities::FastDateTime(date, QTime(0, 0, 0));
+    m_end = Utilities::FastDateTime(date, QTime(0, 0, 0));
 }
 
-ImageDate::ImageDate(const QDateTime &date)
+ImageDate::ImageDate(const Utilities::FastDateTime &date)
 {
     m_start = date;
     m_end = date;
@@ -56,22 +56,22 @@ bool ImageDate::isFuzzy() const
     return m_start != m_end;
 }
 
-static bool isFirstSecOfMonth(const QDateTime &date)
+static bool isFirstSecOfMonth(const Utilities::FastDateTime &date)
 {
     return date.date().day() == 1 && date.time().hour() == 0 && date.time().minute() == 0;
 }
 
-static bool isLastSecOfMonth(QDateTime date)
+static bool isLastSecOfMonth(Utilities::FastDateTime date)
 {
     return isFirstSecOfMonth(date.addSecs(1));
 }
 
-static bool isFirstSecOfDay(const QDateTime &time)
+static bool isFirstSecOfDay(const Utilities::FastDateTime &time)
 {
     return time.time().hour() == 0 && time.time().minute() == 0 && time.time().second() == 0;
 }
 
-static bool isLastSecOfDay(const QDateTime &time)
+static bool isLastSecOfDay(const Utilities::FastDateTime &time)
 {
     return time.time().hour() == 23 && time.time().minute() == 59 && time.time().second() == 59;
 }
@@ -163,12 +163,12 @@ QString ImageDate::formatRegexp()
     return str;
 }
 
-QDateTime ImageDate::start() const
+Utilities::FastDateTime ImageDate::start() const
 {
     return m_start;
 }
 
-QDateTime ImageDate::end() const
+Utilities::FastDateTime ImageDate::end() const
 {
     return m_end;
 }
@@ -178,7 +178,7 @@ bool ImageDate::operator<(const ImageDate &other) const
     return start() < other.start() || (start() == other.start() && end() < other.end());
 }
 
-ImageDate::ImageDate(const QDateTime &start, const QDateTime &end)
+ImageDate::ImageDate(const Utilities::FastDateTime &start, const Utilities::FastDateTime &end)
 {
     if (!start.isValid() || !end.isValid() || start <= end) {
         m_start = start;
@@ -192,11 +192,11 @@ ImageDate::ImageDate(const QDateTime &start, const QDateTime &end)
 ImageDate::ImageDate(const QDate &start, const QDate &end)
 {
     if (!start.isValid() || !end.isValid() || start <= end) {
-        m_start = QDateTime(start, QTime(0, 0, 0));
-        m_end = QDateTime(end, QTime(23, 59, 59));
+        m_start = Utilities::FastDateTime(start, QTime(0, 0, 0));
+        m_end = Utilities::FastDateTime(end, QTime(23, 59, 59));
     } else {
-        m_start = QDateTime(end, QTime(0, 0, 0));
-        m_end = QDateTime(start, QTime(23, 59, 59));
+        m_start = Utilities::FastDateTime(end, QTime(0, 0, 0));
+        m_end = Utilities::FastDateTime(start, QTime(23, 59, 59));
     }
 }
 
@@ -213,8 +213,8 @@ static QDate addMonth(int year, int month)
 ImageDate::ImageDate(int yearFrom, int monthFrom, int dayFrom, int yearTo, int monthTo, int dayTo, int hourFrom, int minuteFrom, int secondFrom)
 {
     if (yearFrom <= 0) {
-        m_start = QDateTime();
-        m_end = QDateTime();
+        m_start = Utilities::FastDateTime();
+        m_end = Utilities::FastDateTime();
         return;
     }
 
@@ -223,33 +223,33 @@ ImageDate::ImageDate(int yearFrom, int monthFrom, int dayFrom, int yearTo, int m
         m_start = QDate(yearFrom, 1, 1).startOfDay();
         m_end = QDate(yearFrom + 1, 1, 1).startOfDay().addSecs(-1);
 #else
-        m_start = QDateTime(QDate(yearFrom, 1, 1));
-        m_end = QDateTime(QDate(yearFrom + 1, 1, 1)).addSecs(-1);
+        m_start = Utilities::FastDateTime(QDate(yearFrom, 1, 1));
+        m_end = Utilities::FastDateTime(QDate(yearFrom + 1, 1, 1)).addSecs(-1);
 #endif
     } else if (dayFrom <= 0) {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
         m_start = QDate(yearFrom, monthFrom, 1).startOfDay();
         m_end = addMonth(yearFrom, monthFrom).startOfDay().addSecs(-1);
 #else
-        m_start = QDateTime(QDate(yearFrom, monthFrom, 1));
-        m_end = QDateTime(addMonth(yearFrom, monthFrom)).addSecs(-1);
+        m_start = Utilities::FastDateTime(QDate(yearFrom, monthFrom, 1));
+        m_end = Utilities::FastDateTime(addMonth(yearFrom, monthFrom)).addSecs(-1);
 #endif
     } else if (hourFrom < 0) {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
         m_start = QDate(yearFrom, monthFrom, dayFrom).startOfDay();
         m_end = QDate(yearFrom, monthFrom, dayFrom).addDays(1).startOfDay().addSecs(-1);
 #else
-        m_start = QDateTime(QDate(yearFrom, monthFrom, dayFrom));
-        m_end = QDateTime(QDate(yearFrom, monthFrom, dayFrom).addDays(1)).addSecs(-1);
+        m_start = Utilities::FastDateTime(QDate(yearFrom, monthFrom, dayFrom));
+        m_end = Utilities::FastDateTime(QDate(yearFrom, monthFrom, dayFrom).addDays(1)).addSecs(-1);
 #endif
     } else if (minuteFrom < 0) {
-        m_start = QDateTime(QDate(yearFrom, monthFrom, dayFrom), QTime(hourFrom, 0, 0));
-        m_end = QDateTime(QDate(yearFrom, monthFrom, dayFrom), QTime(hourFrom, 23, 59));
+        m_start = Utilities::FastDateTime(QDate(yearFrom, monthFrom, dayFrom), QTime(hourFrom, 0, 0));
+        m_end = Utilities::FastDateTime(QDate(yearFrom, monthFrom, dayFrom), QTime(hourFrom, 23, 59));
     } else if (secondFrom < 0) {
-        m_start = QDateTime(QDate(yearFrom, monthFrom, dayFrom), QTime(hourFrom, minuteFrom, 0));
-        m_end = QDateTime(QDate(yearFrom, monthFrom, dayFrom), QTime(hourFrom, minuteFrom, 59));
+        m_start = Utilities::FastDateTime(QDate(yearFrom, monthFrom, dayFrom), QTime(hourFrom, minuteFrom, 0));
+        m_end = Utilities::FastDateTime(QDate(yearFrom, monthFrom, dayFrom), QTime(hourFrom, minuteFrom, 59));
     } else {
-        m_start = QDateTime(QDate(yearFrom, monthFrom, dayFrom), QTime(hourFrom, minuteFrom, secondFrom));
+        m_start = Utilities::FastDateTime(QDate(yearFrom, monthFrom, dayFrom), QTime(hourFrom, minuteFrom, secondFrom));
         m_end = m_start;
     }
 
@@ -257,14 +257,14 @@ ImageDate::ImageDate(int yearFrom, int monthFrom, int dayFrom, int yearTo, int m
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
         m_end = QDate(yearTo + 1, 1, 1).startOfDay().addSecs(-1);
 #else
-        m_end = QDateTime(QDate(yearTo + 1, 1, 1)).addSecs(-1);
+        m_end = Utilities::FastDateTime(QDate(yearTo + 1, 1, 1)).addSecs(-1);
 #endif
 
         if (monthTo > 0) {
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
             m_end = addMonth(yearTo, monthTo).startOfDay().addSecs(-1);
 #else
-            m_end = QDateTime(addMonth(yearTo, monthTo)).addSecs(-1);
+            m_end = Utilities::FastDateTime(addMonth(yearTo, monthTo)).addSecs(-1);
 #endif
 
             if (dayTo > 0) {
@@ -274,7 +274,7 @@ ImageDate::ImageDate(int yearFrom, int monthFrom, int dayFrom, int yearTo, int m
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
                     m_end = QDate(yearTo, monthTo, dayTo).addDays(1).startOfDay().addSecs(-1);
 #else
-                    m_end = QDateTime(QDate(yearTo, monthTo, dayTo).addDays(1)).addSecs(-1);
+                    m_end = Utilities::FastDateTime(QDate(yearTo, monthTo, dayTo).addDays(1)).addSecs(-1);
 #endif
             }
         }
@@ -345,15 +345,15 @@ ImageDate::ImageDate(const QDate &start, QDate end, const QTime &time)
         end = start;
 
     if (start == end && time.isValid()) {
-        m_start = QDateTime(start, time);
+        m_start = Utilities::FastDateTime(start, time);
         m_end = m_start;
     } else {
         if (start > end) {
-            m_end = QDateTime(start, QTime(0, 0, 0));
-            m_start = QDateTime(end, QTime(23, 59, 59));
+            m_end = Utilities::FastDateTime(start, QTime(0, 0, 0));
+            m_start = Utilities::FastDateTime(end, QTime(23, 59, 59));
         } else {
-            m_start = QDateTime(start, QTime(0, 0, 0));
-            m_end = QDateTime(end, QTime(23, 59, 59));
+            m_start = Utilities::FastDateTime(start, QTime(0, 0, 0));
+            m_end = Utilities::FastDateTime(end, QTime(23, 59, 59));
         }
     }
 }
@@ -369,7 +369,7 @@ ImageDate::MatchType ImageDate::isIncludedIn(const ImageDate &searchRange) const
     return DontMatch;
 }
 
-bool ImageDate::includes(const QDateTime &date) const
+bool ImageDate::includes(const Utilities::FastDateTime &date) const
 {
     return ImageDate(date).isIncludedIn(*this) == ExactMatch;
 }

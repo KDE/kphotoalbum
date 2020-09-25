@@ -396,9 +396,9 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
         return;
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    QDateTime last = QDate(1900, 1, 1).startOfDay();
+    Utilities::FastDateTime last = QDate(1900, 1, 1).startOfDay();
 #else
-    QDateTime last(QDate(1900, 1, 1));
+    Utilities::FastDateTime last(QDate(1900, 1, 1));
 #endif
     bool wrongOrder = false;
     for (DB::ImageInfoListIterator it = m_db->m_images.begin(); !wrongOrder && it != m_db->m_images.end(); ++it) {

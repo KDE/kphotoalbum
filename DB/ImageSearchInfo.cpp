@@ -175,8 +175,8 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
         return false;
 
     // -------------------------------------------------- Date
-    QDateTime actualStart = info->date().start();
-    QDateTime actualEnd = info->date().end();
+    Utilities::FastDateTime actualStart = info->date().start();
+    Utilities::FastDateTime actualEnd = info->date().end();
 
     if (m_date.start().isValid()) {
         if (actualEnd < m_date.start() || (m_date.end().isValid() && actualStart > m_date.end()))

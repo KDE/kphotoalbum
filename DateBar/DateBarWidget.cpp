@@ -26,7 +26,7 @@
 #include <KLocalizedString>
 #include <QAction>
 #include <QContextMenuEvent>
-#include <QDateTime>
+#include <Utilities/FastDateTime.h>
 #include <QFontMetrics>
 #include <QGuiApplication>
 #include <QIcon>
@@ -61,7 +61,7 @@ DateBar::DateBarWidget::DateBarWidget(QWidget *parent)
     , m_tp(YearView)
     , m_currentMouseHandler(nullptr)
     , m_currentUnit(0)
-    , m_currentDate(QDateTime::currentDateTime())
+    , m_currentDate(Utilities::FastDateTime::currentDateTime())
     , m_includeFuzzyCounts(true)
     , m_contextMenu(nullptr)
     , m_showResolutionIndicator(true)
@@ -218,7 +218,7 @@ void DateBar::DateBarWidget::drawTickMarks(QPainter &p, const QRect &textRect)
         p.save();
         p.setPen(Qt::NoPen);
         p.setBrush(palette().brush(QPalette::Highlight));
-        QDateTime date = dateForUnit(unit);
+        Utilities::FastDateTime date = dateForUnit(unit);
         if (isUnitSelected(unit))
             p.drawRect(QRect(x, rect.top(), m_barWidth, rect.height()));
         p.restore();
@@ -280,7 +280,7 @@ void DateBar::DateBarWidget::setViewHandlerForType(ViewType tp)
     }
 }
 
-void DateBar::DateBarWidget::setDate(const QDateTime &date)
+void DateBar::DateBarWidget::setDate(const Utilities::FastDateTime &date)
 {
     m_currentDate = date;
     if (hasSelection()) {
@@ -300,10 +300,10 @@ void DateBar::DateBarWidget::setImageDateCollection(const QExplicitlySharedDataP
 {
     m_dates = dates;
     if (m_doAutomaticRangeAdjustment && m_dates && !m_dates->lowerLimit().isNull()) {
-        QDateTime start = m_dates->lowerLimit();
-        QDateTime end = m_dates->upperLimit();
+        Utilities::FastDateTime start = m_dates->lowerLimit();
+        Utilities::FastDateTime end = m_dates->upperLimit();
         if (end.isNull())
-            end = QDateTime::currentDateTime();
+            end = Utilities::FastDateTime::currentDateTime();
 
         m_currentDate = start;
         m_currentUnit = 0;
@@ -596,9 +596,9 @@ DB::ImageDate DateBar::DateBarWidget::rangeAt(const QPoint &p)
 DB::ImageDate DateBar::DateBarWidget::rangeForUnit(int unit)
 {
     // Note on the use of setTimeSpec.
-    // It came to my attention that addSec would create a QDateTime with internal type LocalStandard, while all the others would have type LocalUnknown,
-    // this resulted in that QDateTime::operator<() would call getUTC(), which took 90% of the time for populating the datebar.
-    QDateTime toUnit = dateForUnit(unit + 1).addSecs(-1);
+    // It came to my attention that addSec would create a Utilities::FastDateTime with internal type LocalStandard, while all the others would have type LocalUnknown,
+    // this resulted in that Utilities::FastDateTime::operator<() would call getUTC(), which took 90% of the time for populating the datebar.
+    Utilities::FastDateTime toUnit = dateForUnit(unit + 1).addSecs(-1);
     toUnit.setTimeSpec(Qt::LocalTime);
     return DB::ImageDate(dateForUnit(unit), toUnit);
 }
@@ -803,7 +803,7 @@ void DateBar::DateBarWidget::keyPressEvent(QKeyEvent *event)
     else
         return;
 
-    QDateTime newDate = dateForUnit(offset, m_currentDate);
+    Utilities::FastDateTime newDate = dateForUnit(offset, m_currentDate);
     if ((offset < 0 && newDate >= m_dates->lowerLimit()) || (offset > 0 && newDate <= m_dates->upperLimit())) {
         m_currentDate = newDate;
         m_currentUnit += offset;
@@ -836,16 +836,16 @@ int DateBar::DateBarWidget::unitAtPos(int x) const
     return (x - barAreaGeometry().left()) / m_barWidth;
 }
 
-QDateTime DateBar::DateBarWidget::dateForUnit(int unit, const QDateTime &offset) const
+Utilities::FastDateTime DateBar::DateBarWidget::dateForUnit(int unit, const Utilities::FastDateTime &offset) const
 {
     return m_currentHandler->date(unit, offset);
 }
 
 bool DateBar::DateBarWidget::isUnitSelected(int unit) const
 {
-    QDateTime minDate = m_selectionHandler->min();
-    QDateTime maxDate = m_selectionHandler->max();
-    QDateTime date = dateForUnit(unit);
+    Utilities::FastDateTime minDate = m_selectionHandler->min();
+    Utilities::FastDateTime maxDate = m_selectionHandler->max();
+    Utilities::FastDateTime date = dateForUnit(unit);
     return (minDate <= date && date < maxDate && !minDate.isNull());
 }
 
@@ -874,7 +874,7 @@ void DateBar::DateBarWidget::emitRangeSelection(const DB::ImageDate &range)
     emit dateRangeChange(range);
 }
 
-int DateBar::DateBarWidget::unitForDate(const QDateTime &date) const
+int DateBar::DateBarWidget::unitForDate(const Utilities::FastDateTime &date) const
 {
     for (int unit = 0; unit < numberOfUnits(); ++unit) {
         if (m_currentHandler->date(unit) <= date && date < m_currentHandler->date(unit + 1))

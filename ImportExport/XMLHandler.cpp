@@ -70,8 +70,8 @@ QDomElement ImportExport::XMLHandler::save(QDomDocument doc, const DB::ImageInfo
     elm.setAttribute(QString::fromLatin1("description"), info->description());
 
     DB::ImageDate date = info->date();
-    QDateTime start = date.start();
-    QDateTime end = date.end();
+    Utilities::FastDateTime start = date.start();
+    Utilities::FastDateTime end = date.end();
 
     elm.setAttribute(QString::fromLatin1("yearFrom"), start.date().year());
     elm.setAttribute(QString::fromLatin1("monthFrom"), start.date().month());

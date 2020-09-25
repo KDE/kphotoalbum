@@ -2042,7 +2042,7 @@ Previous changes
 2005-08-03  Jesper K. Pedersen  <blackie@kde.org>
 
 	* Internal: Simplify ImageDate so it now is only a from and a to
-	QDateTime - this makes it possible for backends to do better date
+	Utilities::FastDateTime - this makes it possible for backends to do better date
 	searches (needed by the SQL backend)
 
 	* Delay loading plugins - this will save us half a second at start

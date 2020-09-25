@@ -302,8 +302,8 @@ void XMLDB::FileWriter::save(QXmlStreamWriter &writer, const DB::ImageInfoPtr &i
         writer.writeAttribute(QString::fromLatin1("description"), info->description());
 
     DB::ImageDate date = info->date();
-    QDateTime start = date.start();
-    QDateTime end = date.end();
+    Utilities::FastDateTime start = date.start();
+    Utilities::FastDateTime end = date.end();
 
     writer.writeAttribute(QString::fromLatin1("startDate"), start.toString(Qt::ISODate));
     if (start != end)

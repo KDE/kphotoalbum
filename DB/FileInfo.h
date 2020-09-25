@@ -23,7 +23,7 @@
 
 #include <Exif/Info.h>
 
-#include <qdatetime.h>
+#include <Utilities/FastDateTime.h>
 #include <qstring.h>
 
 namespace DB
@@ -34,7 +34,7 @@ class FileInfo
 {
 public:
     static FileInfo read(const DB::FileName &fileName, DB::ExifMode mode);
-    QDateTime dateTime() { return m_date; }
+    Utilities::FastDateTime dateTime() { return m_date; }
     int angle() { return m_angle; }
     QString description() { return m_description; }
     Exiv2::ExifData &getExifData();
@@ -42,14 +42,14 @@ public:
 
 protected:
     void parseEXIV2(const DB::FileName &fileName);
-    QDateTime fetchEXIV2Date(Exiv2::ExifData &map, const char *key);
+    Utilities::FastDateTime fetchEXIV2Date(Exiv2::ExifData &map, const char *key);
 
     int orientationToAngle(int orientation);
 
 private:
     FileInfo(const DB::FileName &fileName, DB::ExifMode mode);
     bool updateDataFromFileTimeStamp(const DB::FileName &fileName, DB::ExifMode mode);
-    QDateTime m_date;
+    Utilities::FastDateTime m_date;
     int m_angle;
     QString m_description;
     Exiv2::ExifData m_exifMap;

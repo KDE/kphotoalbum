@@ -21,7 +21,7 @@
 #include <Settings/SettingsData.h>
 #include <Utilities/VideoUtil.h>
 
-#include <QDateTime>
+#include <Utilities/FastDateTime.h>
 #include <QFileInfo>
 #include <QRegularExpression>
 
@@ -105,17 +105,17 @@ void DB::FileInfo::parseEXIV2(const DB::FileName &fileName)
     }
 }
 
-QDateTime FileInfo::fetchEXIV2Date(Exiv2::ExifData &map, const char *key)
+Utilities::FastDateTime FileInfo::fetchEXIV2Date(Exiv2::ExifData &map, const char *key)
 {
     try {
         if (map.findKey(Exiv2::ExifKey(key)) != map.end()) {
             const Exiv2::Exifdatum &datum = map[key];
-            return QDateTime::fromString(QString::fromLatin1(datum.toString().c_str()), Qt::ISODate);
+            return Utilities::FastDateTime::fromString(QString::fromLatin1(datum.toString().c_str()), Qt::ISODate);
         }
     } catch (...) {
     }
 
-    return QDateTime();
+    return Utilities::FastDateTime();
 }
 
 int DB::FileInfo::orientationToAngle(int orientation)

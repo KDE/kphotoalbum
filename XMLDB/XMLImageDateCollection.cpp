@@ -30,9 +30,9 @@ void XMLDB::XMLImageDateCollection::buildIndex()
 {
     StartIndexMap::ConstIterator startSearch = m_startIndex.constBegin();
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-    QDateTime biggestEnd = QDate(1900, 1, 1).startOfDay();
+    Utilities::FastDateTime biggestEnd = QDate(1900, 1, 1).startOfDay();
 #else
-    QDateTime biggestEnd = QDateTime(QDate(1900, 1, 1));
+    Utilities::FastDateTime biggestEnd = Utilities::FastDateTime(QDate(1900, 1, 1));
 #endif
     for (StartIndexMap::ConstIterator it = m_startIndex.constBegin();
          it != m_startIndex.constEnd();
@@ -112,7 +112,7 @@ DB::ImageCount XMLDB::XMLImageDateCollection::count(const DB::ImageDate &range)
     return res;
 }
 
-QDateTime XMLDB::XMLImageDateCollection::lowerLimit() const
+Utilities::FastDateTime XMLDB::XMLImageDateCollection::lowerLimit() const
 {
     if (!m_startIndex.empty()) {
         // skip null dates:
@@ -124,11 +124,11 @@ QDateTime XMLDB::XMLImageDateCollection::lowerLimit() const
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     return QDate(1900, 1, 1).startOfDay();
 #else
-    return QDateTime(QDate(1900, 1, 1));
+    return Utilities::FastDateTime(QDate(1900, 1, 1));
 #endif
 }
 
-QDateTime XMLDB::XMLImageDateCollection::upperLimit() const
+Utilities::FastDateTime XMLDB::XMLImageDateCollection::upperLimit() const
 {
     if (!m_endIndex.empty()) {
         EndIndexMap::ConstIterator highest = m_endIndex.constEnd();
@@ -138,7 +138,7 @@ QDateTime XMLDB::XMLImageDateCollection::upperLimit() const
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     return QDate(2100, 1, 1).startOfDay();
 #else
-    return QDateTime(QDate(2100, 1, 1));
+    return Utilities::FastDateTime(QDate(2100, 1, 1));
 #endif
 }
 

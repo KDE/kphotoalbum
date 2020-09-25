@@ -84,7 +84,7 @@ signals:
     void showImage(const DB::FileName &id);
     void showSelection();
     void fileIdUnderCursorChanged(const DB::FileName &id);
-    void currentDateChanged(const QDateTime &);
+    void currentDateChanged(const Utilities::FastDateTime &);
     void selectionChanged(int numberOfItemsSelected);
     void collapseAllStacksEnabled(bool enabled);
     void expandAllStacksEnabled(bool enabled);

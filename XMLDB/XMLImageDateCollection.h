@@ -36,12 +36,12 @@ public:
 
 public:
     DB::ImageCount count(const DB::ImageDate &range) override;
-    QDateTime lowerLimit() const override;
-    QDateTime upperLimit() const override;
+    Utilities::FastDateTime lowerLimit() const override;
+    Utilities::FastDateTime upperLimit() const override;
 
 private:
-    typedef QMap<QDateTime, DB::ImageDate> StartIndexMap;
-    typedef QMap<QDateTime, StartIndexMap::ConstIterator> EndIndexMap;
+    typedef QMap<Utilities::FastDateTime, DB::ImageDate> StartIndexMap;
+    typedef QMap<Utilities::FastDateTime, StartIndexMap::ConstIterator> EndIndexMap;
 
     void add(const DB::ImageDate &);
 

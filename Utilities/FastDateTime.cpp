@@ -18,6 +18,11 @@
 
 #include "FastDateTime.h"
 
+namespace {
+qint64 toValidatedMSecs(const QDateTime& dateTime) {
+    return dateTime.isValid() ? dateTime.toMSecsSinceEpoch() : INT64_MIN;
+}
+}
 Utilities::FastDateTime
 Utilities::FastDateTime::addDays(qint64 days) const
 {

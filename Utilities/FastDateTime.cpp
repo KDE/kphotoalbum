@@ -28,8 +28,7 @@ Utilities::FastDateTime::addDays(qint64 days) const
 {
     FastDateTime answer(*this);
     answer.m_dateTime = answer.m_dateTime.addDays(days);
-    answer.m_msecsSinceEpoch = answer.m_dateTime.isValid() ?
-        answer.m_dateTime.toMSecsSinceEpoch() : INT64_MIN;
+    answer.m_msecsSinceEpoch = toValidatedMSecs(answer);
     return answer;
 }
 

@@ -36,8 +36,8 @@ public:
     explicit ImageDate(const Utilities::FastDateTime &);
     ImageDate(const QDate &start, QDate end, const QTime &time);
 
-    Utilities::FastDateTime start() const;
-    Utilities::FastDateTime end() const;
+    const Utilities::FastDateTime &start() const { return m_start; }
+    const Utilities::FastDateTime &end() const { return m_end; }
     static QDate parseDate(const QString &date, bool startDate);
 
     bool operator<(const ImageDate &other) const;

@@ -24,10 +24,13 @@
 
 using namespace DB;
 
+static const QTime _startOfDay_(0, 0, 0);
+static const QTime _endOfDay_(23, 59, 59);
+
 ImageDate::ImageDate(const QDate &date)
 {
-    m_start = Utilities::FastDateTime(date, QTime(0, 0, 0));
-    m_end = Utilities::FastDateTime(date, QTime(0, 0, 0));
+    m_start = Utilities::FastDateTime(date, _startOfDay_);
+    m_end = m_start;
 }
 
 ImageDate::ImageDate(const Utilities::FastDateTime &date)
@@ -163,16 +166,6 @@ QString ImageDate::formatRegexp()
     return str;
 }
 
-Utilities::FastDateTime ImageDate::start() const
-{
-    return m_start;
-}
-
-Utilities::FastDateTime ImageDate::end() const
-{
-    return m_end;
-}
-
 bool ImageDate::operator<(const ImageDate &other) const
 {
     return start() < other.start() || (start() == other.start() && end() < other.end());
@@ -192,11 +185,11 @@ ImageDate::ImageDate(const Utilities::FastDateTime &start, const Utilities::Fast
 ImageDate::ImageDate(const QDate &start, const QDate &end)
 {
     if (!start.isValid() || !end.isValid() || start <= end) {
-        m_start = Utilities::FastDateTime(start, QTime(0, 0, 0));
-        m_end = Utilities::FastDateTime(end, QTime(23, 59, 59));
+        m_start = Utilities::FastDateTime(start, _startOfDay_);
+        m_end = Utilities::FastDateTime(end, _endOfDay_);
     } else {
-        m_start = Utilities::FastDateTime(end, QTime(0, 0, 0));
-        m_end = Utilities::FastDateTime(start, QTime(23, 59, 59));
+        m_start = Utilities::FastDateTime(end, _startOfDay_);
+        m_end = Utilities::FastDateTime(start, _endOfDay_);
     }
 }
 
@@ -349,11 +342,11 @@ ImageDate::ImageDate(const QDate &start, QDate end, const QTime &time)
         m_end = m_start;
     } else {
         if (start > end) {
-            m_end = Utilities::FastDateTime(start, QTime(0, 0, 0));
-            m_start = Utilities::FastDateTime(end, QTime(23, 59, 59));
+            m_end = Utilities::FastDateTime(start, _startOfDay_);
+            m_start = Utilities::FastDateTime(end, _endOfDay_);
         } else {
-            m_start = Utilities::FastDateTime(start, QTime(0, 0, 0));
-            m_end = Utilities::FastDateTime(end, QTime(23, 59, 59));
+            m_start = Utilities::FastDateTime(start, _startOfDay_);
+            m_end = Utilities::FastDateTime(end, _endOfDay_);
         }
     }
 }

@@ -46,8 +46,7 @@ Utilities::FastDateTime::addYears(qint64 years) const
 {
     FastDateTime answer(*this);
     answer.m_dateTime = answer.m_dateTime.addYears(years);
-    answer.m_msecsSinceEpoch = answer.m_dateTime.isValid() ?
-        answer.m_dateTime.toMSecsSinceEpoch() : INT64_MIN;
+    answer.m_msecsSinceEpoch = toValidatedMSecs(answer);
     return answer;
 }
 

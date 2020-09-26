@@ -55,8 +55,7 @@ Utilities::FastDateTime::addSecs(qint64 secs) const
 {
     FastDateTime answer(*this);
     answer.m_dateTime = answer.m_dateTime.addSecs(secs);
-    answer.m_msecsSinceEpoch = answer.m_dateTime.isValid() ?
-        answer.m_dateTime.toMSecsSinceEpoch() : INT64_MIN;
+    answer.m_msecsSinceEpoch = toValidatedMSecs(answer);
     return answer;
 }
 

@@ -37,8 +37,7 @@ Utilities::FastDateTime::addMonths(qint64 months) const
 {
     FastDateTime answer(*this);
     answer.m_dateTime = answer.m_dateTime.addMonths(months);
-    answer.m_msecsSinceEpoch = answer.m_dateTime.isValid() ?
-        answer.m_dateTime.toMSecsSinceEpoch() : INT64_MIN;
+    answer.m_msecsSinceEpoch = toValidatedMSecs(answer);
     return answer;
 }
 

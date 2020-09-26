@@ -595,11 +595,7 @@ DB::ImageDate DateBar::DateBarWidget::rangeAt(const QPoint &p)
 
 DB::ImageDate DateBar::DateBarWidget::rangeForUnit(int unit)
 {
-    // Note on the use of setTimeSpec.
-    // It came to my attention that addSec would create a Utilities::FastDateTime with internal type LocalStandard, while all the others would have type LocalUnknown,
-    // this resulted in that Utilities::FastDateTime::operator<() would call getUTC(), which took 90% of the time for populating the datebar.
     Utilities::FastDateTime toUnit = dateForUnit(unit + 1).addSecs(-1);
-    toUnit.setTimeSpec(Qt::LocalTime);
     return DB::ImageDate(dateForUnit(unit), toUnit);
 }
 

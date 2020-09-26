@@ -41,11 +41,11 @@ namespace Utilities
 class FastDateTime
 {
 public:
-    FastDateTime() : m_dateTime(), m_msecsSinceEpoch(m_dateTime.isValid() ? m_dateTime.toMSecsSinceEpoch() : INT64_MIN) {}
-    FastDateTime(const QDate &d, const QTime &t, Qt::TimeSpec spec = Qt::LocalTime) : m_dateTime(d, t, spec), m_msecsSinceEpoch(m_dateTime.isValid() ? m_dateTime.toMSecsSinceEpoch() : INT64_MIN) {}
+    FastDateTime();
+    FastDateTime(const QDate &d, const QTime &t, Qt::TimeSpec spec = Qt::LocalTime);
     FastDateTime(const FastDateTime &other) : m_dateTime(other.m_dateTime), m_msecsSinceEpoch(other.m_msecsSinceEpoch) {}
     // Needed for QDate(Y, M, D).startOfDay()
-    FastDateTime(const QDateTime &other) : m_dateTime(other), m_msecsSinceEpoch(m_dateTime.isValid() ? m_dateTime.toMSecsSinceEpoch() : INT64_MIN) {}
+    FastDateTime(const QDateTime &other);
     ~FastDateTime() {};
 
     Q_DECL_CONSTEXPR bool operator==(const FastDateTime &other) const { if (isOK() && other.isOK()) return m_msecsSinceEpoch == other.m_msecsSinceEpoch; else return m_dateTime == other.m_dateTime; }
@@ -64,7 +64,6 @@ public:
     qint64 toSecsSinceEpoch() const { if (isOK()) return m_msecsSinceEpoch / 1000; else return m_dateTime.toSecsSinceEpoch(); }
     FastDateTime& operator=(const Utilities::FastDateTime &other) noexcept { if (&other != this) { m_dateTime = other.m_dateTime; m_msecsSinceEpoch = other.m_msecsSinceEpoch; } return *this; }
 
-    void setTimeSpec(Qt::TimeSpec spec) { m_dateTime.setTimeSpec(spec); m_msecsSinceEpoch = m_dateTime.isValid() ? m_dateTime.toMSecsSinceEpoch() : INT64_MIN; }
     Q_REQUIRED_RESULT FastDateTime addDays(qint64 days) const;
     Q_REQUIRED_RESULT FastDateTime addMonths(qint64 months) const;
     Q_REQUIRED_RESULT FastDateTime addYears(qint64 years) const;

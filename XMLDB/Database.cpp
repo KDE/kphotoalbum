@@ -40,6 +40,7 @@
 #include <QElapsedTimer>
 #include <QExplicitlySharedDataPointer>
 #include <QFileInfo>
+#include <QMutexLocker>
 
 using Utilities::StringSet;
 
@@ -605,15 +606,23 @@ int XMLDB::Database::fileVersion()
 // During profiling of loading, I found that a significant amount of time was spent in Utilities::FastDateTime::fromString.
 // Reviewing the code, I fount that it did a lot of extra checks we don't need (like checking if the string have
 // timezone information (which they won't in KPA), this function is a replacement that is faster than the original.
-Utilities::FastDateTime dateTimeFromString(const QString &str)
+static Utilities::FastDateTime dateTimeFromString(const QString& str)
 {
-    static QChar T = QChar::fromLatin1('T');
-
-    if (str[10] == T)
-        return Utilities::FastDateTime(QDate::fromString(str.left(10), Qt::ISODate), QTime::fromString(str.mid(11), Qt::ISODate));
-
-    else
-        return Utilities::FastDateTime::fromString(str, Qt::ISODate);
+    // Caching the last used date/time string will help for photographers
+    // who frequently take bursts.
+    static QString s_lastDateTimeString;
+    static Utilities::FastDateTime s_lastDateTime;
+    static QMutex s_lastDateTimeLocker;
+    QMutexLocker dummy(&s_lastDateTimeLocker);
+    static const QChar T = QChar::fromLatin1('T');
+    if (str != s_lastDateTimeString) {
+        if ( str[10] == T)
+            s_lastDateTime = QDateTime(QDate::fromString(str.left(10), Qt::ISODate),QTime::fromString(str.mid(11),Qt::ISODate));
+        else
+            s_lastDateTime = QDateTime::fromString(str,Qt::ISODate);
+        s_lastDateTimeString = str;
+    }
+    return s_lastDateTime;
 }
 
 DB::ImageInfoPtr XMLDB::Database::createImageInfo(const DB::FileName &fileName, ReaderPtr reader, Database *db, const QMap<QString, QString> *newToOldCategory)

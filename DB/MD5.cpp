@@ -39,8 +39,8 @@ DB::MD5::MD5()
 
 DB::MD5::MD5(const QString &md5str)
     : m_isNull(md5str.isEmpty())
-    , m_v0(md5str.left(16).toULongLong(0, 16))
-    , m_v1(md5str.mid(16, 16).toULongLong(0, 16))
+    , m_v0(md5str.leftRef(16).toULongLong(0, 16))
+    , m_v1(md5str.midRef(16, 16).toULongLong(0, 16))
 {
 }
 
@@ -55,8 +55,8 @@ DB::MD5 &DB::MD5::operator=(const QString &md5str)
         m_isNull = true;
     } else {
         m_isNull = false;
-        m_v0 = md5str.left(16).toULongLong(0, 16);
-        m_v1 = md5str.mid(16, 16).toULongLong(0, 16);
+        m_v0 = md5str.leftRef(16).toULongLong(0, 16);
+        m_v1 = md5str.midRef(16, 16).toULongLong(0, 16);
     }
     return *this;
 }

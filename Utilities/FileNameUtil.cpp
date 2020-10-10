@@ -22,8 +22,7 @@
 
 QString Utilities::stripEndingForwardSlash(const QString &fileName)
 {
-    static QString slash = QString::fromLatin1("/");
-    if (fileName.endsWith(slash))
+    if (fileName.endsWith(QStringLiteral("/")))
         return fileName.left(fileName.length() - 1);
     else
         return fileName;
@@ -41,19 +40,16 @@ QString Utilities::relativeFolderName(const QString &fileName)
 
 QString Utilities::absoluteImageFileName(const QString &relativeName)
 {
-    static QString slash = QString::fromLatin1("/");
-    return stripEndingForwardSlash(Settings::SettingsData::instance()->imageDirectory()) + slash + relativeName;
+    return stripEndingForwardSlash(Settings::SettingsData::instance()->imageDirectory()) + QStringLiteral("/") + relativeName;
 }
 
 QString Utilities::imageFileNameToAbsolute(const QString &fileName)
 {
-    static QString slash = QString::fromLatin1("/");
-    static QString fileslashslash = QString::fromLatin1("file://");
     if (fileName.startsWith(Settings::SettingsData::instance()->imageDirectory()))
         return fileName;
-    else if (fileName.startsWith(fileslashslash))
+    else if (fileName.startsWith(QStringLiteral("file://")))
         return imageFileNameToAbsolute(fileName.mid(7)); // 7 == length("file://")
-    else if (fileName.startsWith(slash))
+    else if (fileName.startsWith(QStringLiteral("/")))
         return QString(); // Not within our image root
     else
         return absoluteImageFileName(fileName);

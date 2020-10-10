@@ -99,7 +99,7 @@ void XmlReader::reportError(const QString &text)
         message += i18n("<p>Additional error information:<nl/><message>%1</message></p>", errorString());
     message += xi18n("<p>Database path: <filename>%1</filename></p>", m_streamName);
 
-    m_ui.error(QString::fromUtf8("XmlReader: error in line %1, column %2 (%3)")
+    m_ui.error(QStringLiteral("XmlReader: error in line %1, column %2 (%3)")
                    .arg(lineNumber())
                    .arg(columnNumber())
                    .arg(errorString()),

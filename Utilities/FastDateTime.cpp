@@ -37,6 +37,12 @@ Utilities::FastDateTime::FastDateTime(const QDate &d, const QTime &t,
 {
 }
 
+Utilities::FastDateTime::FastDateTime(const QDate &d)
+    : m_dateTime(d),
+      m_msecsSinceEpoch(toValidatedMSecs(m_dateTime))
+{
+}
+
 Utilities::FastDateTime::FastDateTime(const QDateTime &other)
     : m_dateTime(other),
       m_msecsSinceEpoch(toValidatedMSecs(m_dateTime))

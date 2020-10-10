@@ -43,6 +43,7 @@ class FastDateTime
 public:
     FastDateTime();
     FastDateTime(const QDate &d, const QTime &t, Qt::TimeSpec spec = Qt::LocalTime);
+    FastDateTime(const QDate &d);
     FastDateTime(const FastDateTime &other) : m_dateTime(other.m_dateTime), m_msecsSinceEpoch(other.m_msecsSinceEpoch) {}
     // Needed for QDate(Y, M, D).startOfDay()
     FastDateTime(const QDateTime &other);

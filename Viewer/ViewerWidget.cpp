@@ -92,9 +92,6 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type, QMap<Qt::Key, QPair<QString, 
         s_latest = this;
     }
 
-    updatePalette();
-    connect(Settings::SettingsData::instance(), &Settings::SettingsData::colorSchemeChanged, this, &ViewerWidget::updatePalette);
-
     if (!m_inputMacros) {
         m_myInputMacros = m_inputMacros = new QMap<Qt::Key, QPair<QString, QString>>;
     }
@@ -134,6 +131,9 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type, QMap<Qt::Key, QPair<QString, 
     QTimer::singleShot(2000, this, &ViewerWidget::test);
 
     connect(DB::ImageDB::instance(), &DB::ImageDB::imagesDeleted, this, &ViewerWidget::slotRemoveDeletedImages);
+
+    updatePalette();
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::colorSchemeChanged, this, &ViewerWidget::updatePalette);
 }
 
 void Viewer::ViewerWidget::setupContextMenu()

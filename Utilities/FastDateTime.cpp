@@ -38,7 +38,12 @@ Utilities::FastDateTime::FastDateTime(const QDate &d, const QTime &t,
 }
 
 Utilities::FastDateTime::FastDateTime(const QDate &d)
-    : m_dateTime(d),
+    :
+#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
+      m_dateTime(d.startOfDay()),
+#else
+      m_dateTime(d),
+#endif
       m_msecsSinceEpoch(toValidatedMSecs(m_dateTime))
 {
 }

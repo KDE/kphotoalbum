@@ -86,3 +86,4 @@ Icon=open-raw
 Type=Application
 Categories=Graphics;Photography;
 MimeType=image/x-canon-crw;image/x-canon-cr2;image/x-sony-arw;image/x-nikon-nef;image/x-olympus-orf;image/x-pentax-pef;image/x-adobe-dng;image/x-raw;image/gif;image/tiff;image/jpeg;
+NoDisplay=true

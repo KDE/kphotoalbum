@@ -19,6 +19,7 @@
 
 #include "UpdateVideoThumbnail.h"
 
+#include "Logging.h"
 #include "Window.h"
 
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
@@ -27,18 +28,26 @@
 #include <Utilities/FileUtil.h>
 #include <Utilities/VideoUtil.h>
 
+#include <QLoggingCategory>
+
 namespace
 {
 
 DB::FileName nextExistingImage(const DB::FileName &fileName, int frame, int direction)
 {
+    // starting with i=1 is *not* an off-by-one error
     for (int i = 1; i < 10; ++i) {
         const int nextIndex = (frame + 10 + direction * i) % 10;
         const DB::FileName file = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(fileName, nextIndex);
-        if (file.exists())
+        if (file.exists()) {
+            qCDebug(MainWindowLog) << "Next frame for video" << file.relative() << " has index" << nextIndex;
             return file;
+        }
     }
-    Q_ASSERT(false && "We should always find at least the current frame");
+    const DB::FileName file = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(fileName, 0);
+    qCDebug(MainWindowLog) << "No next thumbnail found for video" << fileName.relative()
+                           << "(frame:" << frame << ", direction:" << direction << ") - thumbnail base name:" << file.absolute();
+    // the thumbnail may not have been written to disk yet
     return DB::FileName();
 }
 
@@ -59,6 +68,8 @@ void update(const DB::FileName &fileName, int direction)
     }
 
     const DB::FileName newImageName = nextExistingImage(fileName, frame, direction);
+    if (newImageName.isNull())
+        return;
 
     Utilities::copyOrOverwrite(newImageName.absolute(), baseImageName.absolute());
 

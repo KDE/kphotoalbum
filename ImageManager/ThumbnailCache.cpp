@@ -169,7 +169,9 @@ void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QImage
             return;
         } else {
             // File has moved; incremental save does no good.
-            qCDebug(ImageManagerLog) << "Found duplicate thumbnail " << name.relative() << " at new location, need full save! ";
+            // Either the image file has changed and with it the thumbnail, or
+            // this is a video file and a different frame has been selected as thumbnail
+            qCDebug(ImageManagerLog) << "Setting new thumbnail for image " << name.relative() << ", need full save! ";
             m_saveLock.lock();
             m_needsFullSave = true;
             m_saveLock.unlock();

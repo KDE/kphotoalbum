@@ -60,7 +60,11 @@ public:
     QDate date() const { return m_dateTime.date(); }
     QTime time() const { return m_dateTime.time(); }
     QString toString(Qt::DateFormat format = Qt::TextDate) const { return m_dateTime.toString(format); }
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
     QString toString(QStringView format) const { return m_dateTime.toString(format); }
+#else
+    QString toString(QString format) const { return m_dateTime.toString(format); }
+#endif
     qint64 secsTo(const FastDateTime &other) const { if (isOK() && other.isOK()) return (other.m_msecsSinceEpoch - m_msecsSinceEpoch) / 1000; else return secsTo(other); }
     qint64 toSecsSinceEpoch() const { if (isOK()) return m_msecsSinceEpoch / 1000; else return m_dateTime.toSecsSinceEpoch(); }
     FastDateTime& operator=(const Utilities::FastDateTime &other) noexcept { if (&other != this) { m_dateTime = other.m_dateTime; m_msecsSinceEpoch = other.m_msecsSinceEpoch; } return *this; }

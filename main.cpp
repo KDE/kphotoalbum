@@ -86,7 +86,7 @@ int main(int argc, char **argv)
         i18n("KPhotoAlbum"), // display name
         QStringLiteral(KPA_VERSION),
         i18n("KDE Photo Album"), // short description
-        KAboutLicense::GPL,
+        KAboutLicense::GPL_V3,
         i18n("Copyright (C) 2003-2020 The KPhotoAlbum Development Team"), // copyright statement
         QString(), // other text
         QStringLiteral("https://www.kphotoalbum.org") // homepage

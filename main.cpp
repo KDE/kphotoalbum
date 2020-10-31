@@ -64,12 +64,12 @@ void migrateKDE4Config()
     migrator.setUiFiles(QStringList() << QStringLiteral("kphotoalbumui.rc"));
     if (migrator.migrate()) {
         KConfigGroup unnamedConfig = KSharedConfig::openConfig()->group(QString());
-        if (unnamedConfig.hasKey(QString::fromLatin1("configfile"))) {
+        if (unnamedConfig.hasKey(QStringLiteral("configfile"))) {
             // rename config file entry on update
-            KConfigGroup generalConfig = KSharedConfig::openConfig()->group(QString::fromUtf8("General"));
-            generalConfig.writeEntry(QString::fromLatin1("imageDBFile"),
-                                     unnamedConfig.readEntry(QString::fromLatin1("configfile")));
-            unnamedConfig.deleteEntry(QString::fromLatin1("configfile"));
+            KConfigGroup generalConfig = KSharedConfig::openConfig()->group(QStringLiteral("General"));
+            generalConfig.writeEntry(QStringLiteral("imageDBFile"),
+                                     unnamedConfig.readEntry(QStringLiteral("configfile")));
+            unnamedConfig.deleteEntry(QStringLiteral("configfile"));
             qCWarning(MainLog) << "Renamed config entry configfile to General.imageDBFile.";
         }
     }
@@ -130,8 +130,8 @@ int main(int argc, char **argv)
     parser->process(app);
     aboutData.processCommandLine(parser);
 
-    const QString schemePath = KSharedConfig::openConfig()->group("General").readEntry(QString::fromLatin1("colorScheme"), QString());
-    qCDebug(MainLog) << "Loading color scheme from " << (schemePath.isEmpty() ? QString::fromLatin1("system default") : schemePath);
+    const QString schemePath = KSharedConfig::openConfig()->group("General").readEntry(QStringLiteral("colorScheme"), QString());
+    qCDebug(MainLog) << "Loading color scheme from " << (schemePath.isEmpty() ? QStringLiteral("system default") : schemePath);
     app.setPalette(KColorScheme::createApplicationPalette(KSharedConfig::openConfig(schemePath)));
     if (app.styleSheet().isEmpty())
         app.setStyleSheet(STYLE);

@@ -50,10 +50,10 @@ namespace
 {
 const QString MAPVIEW_FLOATER_VISIBLE_CONFIG_PREFIX = QStringLiteral("MarbleFloaterVisible ");
 const QStringList MAPVIEW_RENDER_POSITION({ QStringLiteral("HOVERS_ABOVE_SURFACE") });
-const QVector<QString> WANTED_FLOATERS { QStringLiteral("Compass"),
-                                         QStringLiteral("Scale Bar"),
-                                         QStringLiteral("Navigation"),
-                                         QStringLiteral("Overview Map") };
+const QVector<QString> WANTED_FLOATERS { QStringLiteral("compass"),
+                                         QStringLiteral("scalebar"),
+                                         QStringLiteral("navigation"),
+                                         QStringLiteral("overviewmap") };
 
 // levels of clustering for geo coordinates
 constexpr int MAP_CLUSTER_LEVELS = 10;
@@ -207,7 +207,7 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
             continue;
         }
 
-        const QString name = plugin->name();
+        const QString name = plugin->nameId();
         if (!WANTED_FLOATERS.contains(name)) {
             continue;
         }

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
 _checks[check_recover-from-idzero]="Recovery from tags with id=0"
 _context[check_recover-from-idzero]="<h2>What this test will do:</h2>
 <p><ul>

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
 _checks[check_untagged]="Feature: Mark As Untagged"
 _context[check_untagged]="<h2>What this test will do:</h2>
 <ul>

@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2019-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
 _checks[check_old-index.xml]="Compatibility: Old/ancient file formats"
 _context[check_old-index.xml]="<h2>What this test will do:</h2>
 <p><ul>

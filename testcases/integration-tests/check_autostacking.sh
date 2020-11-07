@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2018-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
 _checks[check_autostacking]="Feature: Automatic Stacking Of Image Variants"
 _context[check_autostacking]="<h2>What this test will do:</h2>
 <ul>

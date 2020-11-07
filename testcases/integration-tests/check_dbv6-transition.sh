@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2018-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
 _checks[check_dbv6-transition]="Compatibility: upgrade to version 6 database files."
 _context[check_dbv6-transition]="<h2>What this test will do:</h2>
 <p><ul>

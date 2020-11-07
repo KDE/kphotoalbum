@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2019-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
 _checks[check_diacritical]="Compatibility: Diacritical characters in v7 database files."
 _context[check_diacritical]="<h2>What this test will do:</h2>
 <p><ul>

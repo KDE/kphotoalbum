@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2019-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
 _checks[check_recover-from-duplicates]="Recovery from duplicate image entries"
 _context[check_recover-from-duplicates]="<h2>What this test will do:</h2>
 <p><ul>

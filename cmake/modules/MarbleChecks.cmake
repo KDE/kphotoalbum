@@ -1,10 +1,6 @@
-# Copyright 2018 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2018 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
-# This software is distributed WITHOUT ANY WARRANTY; without even the
-# implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-#
-# Redistribution and use is allowed according to the terms of the BSD 3-clause license.
-# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
+# SPDX-License-Identifier: BSD-3-Clause
 
 
 ###############################

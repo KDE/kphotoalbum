@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright 2012-2016 Miika Turkia <miika.turkia@gmail.com>
+# SPDX-FileCopyrightText: 2012-2016 Miika Turkia <miika.turkia@gmail.com>
 #
 # Try to locate RAW files to open them in external editor from
 # GUI application like KPhotoAlbum

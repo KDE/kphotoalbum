@@ -1,7 +1,7 @@
 #!/bin/bash
 # SPDX-FileCopyrightText: 2018-2020 The KPhotoAlbum Development Team
 #
-# SPDX-License-Identifier: BSD-2-Clause.
+# SPDX-License-Identifier: BSD-2-Clause
 
 export LC_ALL=C
 myname=`basename "$0"`

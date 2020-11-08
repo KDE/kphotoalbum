@@ -16,11 +16,12 @@
 # For compatibility, also the variable EXIV2_MIN_VERSION can be set to the minimum version
 # you need before doing FIND_PACKAGE(Exiv2). The default is 0.12.
 
-# Copyright (c) 2010, Alexander Neundorf, <neundorf@kde.org>
-# Copyright (c) 2008, Gilles Caulier, <caulier.gilles@gmail.com>
+# SPDX-FileCopyrightText: 2010 Alexander Neundorf <neundorf@kde.org>
+# SPDX-FileCopyrightText: 2008 Gilles Caulier <caulier.gilles@gmail.com>
 #
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
+# SPDX-License-Identifier: BSD-3-Clause
 
 # Support EXIV2_MIN_VERSION for compatibility:
 if(NOT Exiv2_FIND_VERSION)

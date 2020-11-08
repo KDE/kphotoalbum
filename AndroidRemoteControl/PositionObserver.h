@@ -21,12 +21,13 @@
 
 class QQuickView;
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
 class PositionObserver
 {
 public:
-    static void setView(QQuickView* view);
+    static void setView(QQuickView *view);
 
     static void setThumbnailOffset(int index);
     static int thumbnailOffset();

@@ -17,18 +17,19 @@
 */
 
 #include "PositionObserver.h"
-#include <QQuickView>
-#include <QQmlEngine>
 #include <QQmlContext>
+#include <QQmlEngine>
 #include <QQuickItem>
+#include <QQuickView>
 
-namespace RemoteControl {
-
-static QQuickView* m_view = nullptr;
-
-QQuickItem* findItem(const QString& name)
+namespace RemoteControl
 {
-    return m_view->rootObject()->findChild<QQuickItem*>(name);
+
+static QQuickView *m_view = nullptr;
+
+QQuickItem *findItem(const QString &name)
+{
+    return m_view->rootObject()->findChild<QQuickItem *>(name);
 }
 
 void PositionObserver::setView(QQuickView *view)
@@ -37,16 +38,16 @@ void PositionObserver::setView(QQuickView *view)
     m_view = view;
 }
 
-void setOffset(const QString& view, int index)
+void setOffset(const QString &view, int index)
 {
-    QQuickItem* item = findItem(view);
+    QQuickItem *item = findItem(view);
     Q_ASSERT(item);
     item->setProperty("index", index);
 }
 
-int getOffset(const QString& view)
+int getOffset(const QString &view)
 {
-    QQuickItem* item = findItem(view);
+    QQuickItem *item = findItem(view);
     Q_ASSERT(item);
 
     QVariant value;

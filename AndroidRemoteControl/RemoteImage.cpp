@@ -18,21 +18,21 @@
 
 #include "RemoteImage.h"
 #include "ImageStore.h"
-#include <QPainter>
 #include "RemoteInterface.h"
 #include "ScreenInfo.h"
 #include "Settings.h"
+#include <QPainter>
 
 using namespace RemoteControl;
 
-RemoteImage::RemoteImage(QQuickItem *parent) :
-    QQuickPaintedItem(parent)
+RemoteImage::RemoteImage(QQuickItem *parent)
+    : QQuickPaintedItem(parent)
 {
 }
 
-void RemoteImage::paint(QPainter* painter)
+void RemoteImage::paint(QPainter *painter)
 {
-    painter->drawImage(0,0, m_image);
+    painter->drawImage(0, 0, m_image);
 }
 
 int RemoteImage::imageId() const
@@ -45,10 +45,10 @@ QSize RemoteImage::size() const
     if (m_type == ViewType::Images)
         return ScreenInfo::instance().viewSize();
     else
-        return QSize(width(),height());
+        return QSize(width(), height());
 }
 
-void RemoteImage::setLabel(const QString& label)
+void RemoteImage::setLabel(const QString &label)
 {
     if (label != m_label) {
         m_label = label;
@@ -56,7 +56,7 @@ void RemoteImage::setLabel(const QString& label)
     }
 }
 
-void RemoteImage::setImage(const QImage& image)
+void RemoteImage::setImage(const QImage &image)
 {
     m_image = image;
     setWidth(image.width());

@@ -19,18 +19,19 @@
 #include "ScreenInfo.h"
 #include "Settings.h"
 #include <QScreen>
-#include <cmath>
 #include <QTimer>
+#include <cmath>
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
-ScreenInfo& ScreenInfo::instance()
+ScreenInfo &ScreenInfo::instance()
 {
     static ScreenInfo instance;
     return instance;
 }
 
-void ScreenInfo::setScreen(QScreen* screen)
+void ScreenInfo::setScreen(QScreen *screen)
 {
     m_screen = screen;
     QSize size = pixelForSizeInMM(100);
@@ -41,8 +42,8 @@ QSize ScreenInfo::pixelForSizeInMM(int size) const
 {
     const QSizeF mm = m_screen->physicalSize();
     const QSize pixels = screenSize();
-    return QSize( (size / mm.width() ) * pixels.width(),
-                  (size / mm.height()) * pixels.height());
+    return QSize((size / mm.width()) * pixels.width(),
+                 (size / mm.height()) * pixels.height());
 }
 
 void ScreenInfo::setCategoryCount(int count)
@@ -72,7 +73,7 @@ ScreenInfo::ScreenInfo()
     connect(&Settings::instance(), &Settings::overviewIconSizeChanged, this, &ScreenInfo::overviewIconSizeChanged);
     connect(&Settings::instance(), &Settings::overviewIconSizeChanged, this, &ScreenInfo::overviewSpacingChanged);
     connect(this, &ScreenInfo::viewWidthChanged, this,
-            [this] () { QTimer::singleShot(0, this, SLOT(updateLayout())); });
+            [this]() { QTimer::singleShot(0, this, SLOT(updateLayout())); });
 }
 
 int ScreenInfo::possibleColumns()
@@ -106,9 +107,9 @@ void ScreenInfo::updateLayout()
     const int preferredCols = ceil(sqrt(iconCount));
 
     int columns;
-    for (columns = qMin(possibleColumns(), preferredCols); columns < possibleColumns(); ++columns ) {
+    for (columns = qMin(possibleColumns(), preferredCols); columns < possibleColumns(); ++columns) {
         const int rows = ceil(1.0 * iconCount / columns);
-        const int height = (rows + 2*0.25 + (rows-1)/2) * iconHeight();
+        const int height = (rows + 2 * 0.25 + (rows - 1) / 2) * iconHeight();
         if (height < m_viewHeight)
             break;
     }
@@ -120,7 +121,7 @@ void ScreenInfo::updateLayout()
 
 int ScreenInfo::overviewSpacing() const
 {
-    return overviewIconSize()/2;
+    return overviewIconSize() / 2;
 }
 
 } // namespace RemoteControl

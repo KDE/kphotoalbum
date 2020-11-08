@@ -18,10 +18,10 @@
 
 #include "Settings.h"
 #include <QSettings>
-namespace RemoteControl {
+namespace RemoteControl
+{
 
-
-Settings& Settings::instance()
+Settings &Settings::instance()
 {
     static Settings settings;
     return settings;

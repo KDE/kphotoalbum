@@ -19,12 +19,13 @@
 #ifndef REMOTECONTROL_HISTORY_H
 #define REMOTECONTROL_HISTORY_H
 
-#include <QStack>
 #include "Action.h"
+#include <QStack>
 #include <memory>
 #include <stack>
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
 class History
 {

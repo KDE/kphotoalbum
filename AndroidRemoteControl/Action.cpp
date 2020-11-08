@@ -17,17 +17,17 @@
 */
 
 #include "Action.h"
+#include "PositionObserver.h"
 #include "RemoteInterface.h"
 #include "ScreenInfo.h"
-#include "PositionObserver.h"
 
-extern QQuickView* view;
+extern QQuickView *view;
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
-
-Action::Action(const SearchInfo& searchInfo)
-    :m_searchInfo(searchInfo)
+Action::Action(const SearchInfo &searchInfo)
+    : m_searchInfo(searchInfo)
 {
 }
 
@@ -42,7 +42,7 @@ void Action::setCurrentPage(Page page)
     RemoteInterface::instance().setCurrentPage(page);
 }
 
-void Action::sendCommand(const RemoteCommand& command)
+void Action::sendCommand(const RemoteCommand &command)
 {
     RemoteInterface::instance().sendCommand(command);
 }
@@ -52,11 +52,8 @@ void Action::clearCategoryModel()
     RemoteInterface::instance().m_categoryItems->setImages({});
 }
 
-
-
-
-ShowOverviewAction::ShowOverviewAction(const SearchInfo& searchInfo)
-    :Action(searchInfo)
+ShowOverviewAction::ShowOverviewAction(const SearchInfo &searchInfo)
+    : Action(searchInfo)
 {
 }
 
@@ -67,8 +64,9 @@ void ShowOverviewAction::execute()
     setCurrentPage(Page::OverviewPage);
 }
 
-ShowCategoryValueAction::ShowCategoryValueAction(const SearchInfo& searchInfo, CategoryViewType type)
-    :Action(searchInfo), m_type(type)
+ShowCategoryValueAction::ShowCategoryValueAction(const SearchInfo &searchInfo, CategoryViewType type)
+    : Action(searchInfo)
+    , m_type(type)
 {
 }
 
@@ -79,8 +77,7 @@ void ShowCategoryValueAction::execute()
     if (m_type == CategoryViewType::CategoryIconView) {
         PositionObserver::setCategoryIconViewOffset(m_index);
         setCurrentPage(Page::CategoryItemsPage);
-    }
-    else {
+    } else {
         PositionObserver::setCategoryListViewOffset(m_index);
         setCurrentPage(Page::CategoryListPage);
     }
@@ -94,8 +91,8 @@ void ShowCategoryValueAction::save()
         m_index = PositionObserver::categoryListViewOffset();
 }
 
-ShowThumbnailsAction::ShowThumbnailsAction(const SearchInfo& searchInfo)
-    :Action(searchInfo)
+ShowThumbnailsAction::ShowThumbnailsAction(const SearchInfo &searchInfo)
+    : Action(searchInfo)
 {
 }
 
@@ -113,8 +110,9 @@ void ShowThumbnailsAction::save()
     m_index = PositionObserver::thumbnailOffset();
 }
 
-ShowImagesAction::ShowImagesAction(int imageId, const SearchInfo& searchInfo)
-    :Action(searchInfo), m_imageId(imageId)
+ShowImagesAction::ShowImagesAction(int imageId, const SearchInfo &searchInfo)
+    : Action(searchInfo)
+    , m_imageId(imageId)
 {
 }
 
@@ -124,12 +122,13 @@ void ShowImagesAction::execute()
     RemoteInterface::instance().setCurrentView(m_imageId);
 }
 
-DiscoverAction::DiscoverAction(const SearchInfo& searchInfo, DiscoveryModel* model)
- : Action(searchInfo), m_model(model)
+DiscoverAction::DiscoverAction(const SearchInfo &searchInfo, DiscoveryModel *model)
+    : Action(searchInfo)
+    , m_model(model)
 {
 }
 
-void DiscoverAction::setCurrentSelection(const QList<int>& selection, const QList<int> &allImages)
+void DiscoverAction::setCurrentSelection(const QList<int> &selection, const QList<int> &allImages)
 {
     m_currentSelection = selection;
     m_allImages = allImages;

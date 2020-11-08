@@ -19,10 +19,11 @@
 #ifndef REMOTECONTROL_SETTINGS_H
 #define REMOTECONTROL_SETTINGS_H
 
-#include <QObject>
 #include <QColor>
+#include <QObject>
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
 class Settings : public QObject
 {
@@ -36,7 +37,7 @@ class Settings : public QObject
     double m_thumbnailScale;
 
 public:
-    static Settings& instance();
+    static Settings &instance();
     int thumbnailSize() const;
     void setThumbnailSize(int size);
     int categoryItemSize() const;

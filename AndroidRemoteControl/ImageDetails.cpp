@@ -18,9 +18,10 @@
 
 #include "ImageDetails.h"
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
-ImageDetails&ImageDetails::instance()
+ImageDetails &ImageDetails::instance()
 {
     static ImageDetails instance;
     return instance;
@@ -31,12 +32,12 @@ QStringList ImageDetails::categories() const
     return m_categories.keys();
 }
 
-QStringList ImageDetails::itemsOfCategory(const QString& category)
+QStringList ImageDetails::itemsOfCategory(const QString &category)
 {
     auto list = m_categories[category];
     QStringList res;
     std::transform(list.begin(), list.end(), std::back_inserter(res),
-                   [] (CategoryItemDetails& item) { return item.name; });
+                   [](CategoryItemDetails &item) { return item.name; });
     return res;
 }
 
@@ -49,7 +50,7 @@ void ImageDetails::clear()
     emit updated();
 }
 
-void ImageDetails::setData(const ImageDetailsResult& data)
+void ImageDetails::setData(const ImageDetailsResult &data)
 {
     m_fileName = data.fileName;
     m_date = data.date;
@@ -58,13 +59,13 @@ void ImageDetails::setData(const ImageDetailsResult& data)
     emit updated();
 }
 
-QString ImageDetails::age(const QString& category, const QString &item)
+QString ImageDetails::age(const QString &category, const QString &item)
 {
     auto list = m_categories[category];
     auto res = std::find_if(list.begin(), list.end(),
-                            [&category, &item] (const CategoryItemDetails& candidate) {
-        return candidate.name == item;
-    } );
+                            [&category, &item](const CategoryItemDetails &candidate) {
+                                return candidate.name == item;
+                            });
     return (*res).age;
 }
 } // namespace RemoteControl

@@ -17,12 +17,13 @@
 */
 
 #include "DiscoveryModel.h"
-#include "Types.h"
 #include "Action.h"
+#include "Types.h"
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
-DiscoveryModel::DiscoveryModel(QObject* parent)
+DiscoveryModel::DiscoveryModel(QObject *parent)
     : ThumbnailModel(parent)
 {
 }
@@ -32,7 +33,7 @@ int DiscoveryModel::count() const
     return m_count;
 }
 
-void DiscoveryModel::setImages(const QList<int>& images)
+void DiscoveryModel::setImages(const QList<int> &images)
 {
     m_allImages = images;
     resetImages();
@@ -65,7 +66,7 @@ void DiscoveryModel::resetImages()
 
     QList<int> result = m_allImages;
     std::random_shuffle(result.begin(), result.end());
-    result = result.mid(0,m_count);
+    result = result.mid(0, m_count);
     result.push_front(DISCOVERYID);
     ThumbnailModel::setImages(result);
     m_action->setCurrentSelection(result, m_allImages);

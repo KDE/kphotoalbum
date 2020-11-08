@@ -21,7 +21,8 @@
 
 #include <QAbstractListModel>
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
 using RoleMap = QHash<int, QByteArray>;
 class ThumbnailModel : public QAbstractListModel
@@ -33,7 +34,7 @@ public:
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
     RoleMap roleNames() const override;
-    virtual void setImages(const QList<int>&image);
+    virtual void setImages(const QList<int> &image);
     int indexOf(int imageId);
 
 protected:
@@ -42,6 +43,6 @@ protected:
 
 } // namespace RemoteControl
 
-Q_DECLARE_METATYPE(RemoteControl::ThumbnailModel*);
+Q_DECLARE_METATYPE(RemoteControl::ThumbnailModel *);
 
 #endif // REMOTECONTROL_THUMBNAILMODEL_H

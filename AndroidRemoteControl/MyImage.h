@@ -19,8 +19,8 @@
 #ifndef MYIMAGE_H
 #define MYIMAGE_H
 
-#include <QQuickPaintedItem>
 #include <QImage>
+#include <QQuickPaintedItem>
 
 namespace RemoteControl
 {
@@ -41,7 +41,7 @@ public:
     int imageHeight() const;
 
 public slots:
-    void setImage(const QImage& image);
+    void setImage(const QImage &image);
 
 signals:
     void imageChanged();

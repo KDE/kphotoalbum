@@ -16,22 +16,23 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include "ImageStore.h"
 #include "ThumbnailModel.h"
+#include "ImageStore.h"
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
-ThumbnailModel::ThumbnailModel(QObject *parent) :
-    QAbstractListModel(parent)
+ThumbnailModel::ThumbnailModel(QObject *parent)
+    : QAbstractListModel(parent)
 {
 }
 
-int ThumbnailModel::rowCount(const QModelIndex&) const
+int ThumbnailModel::rowCount(const QModelIndex &) const
 {
     return m_images.count();
 }
 
-QVariant ThumbnailModel::data(const QModelIndex& index, int role) const
+QVariant ThumbnailModel::data(const QModelIndex &index, int role) const
 {
     if (role == ImageIdRole)
         return m_images[index.row()];
@@ -40,10 +41,10 @@ QVariant ThumbnailModel::data(const QModelIndex& index, int role) const
 
 RoleMap ThumbnailModel::roleNames() const
 {
-    return { {ImageIdRole, "imageId"} };
+    return { { ImageIdRole, "imageId" } };
 }
 
-void ThumbnailModel::setImages(const QList<int>& images)
+void ThumbnailModel::setImages(const QList<int> &images)
 {
     beginResetModel();
     m_images = images;

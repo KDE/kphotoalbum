@@ -18,7 +18,8 @@
 
 #include "History.h"
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
 void History::push(std::unique_ptr<Action> action)
 {

@@ -19,11 +19,12 @@
 #ifndef REMOTEIMAGE_H
 #define REMOTEIMAGE_H
 
-#include <QQuickPaintedItem>
-#include <QImage>
 #include "Types.h"
+#include <QImage>
+#include <QQuickPaintedItem>
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
 class RemoteImage : public QQuickPaintedItem
 {
@@ -37,8 +38,8 @@ public:
     void paint(QPainter *painter) override;
     int imageId() const;
     QSize size() const;
-    void setLabel(const QString& label);
-    void setImage(const QImage& image);
+    void setLabel(const QString &label);
+    void setImage(const QImage &image);
 
 public slots:
     void setImageId(int imageId);

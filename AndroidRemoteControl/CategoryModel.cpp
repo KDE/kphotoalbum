@@ -20,20 +20,20 @@
 #include "ScreenInfo.h"
 using namespace RemoteControl;
 
-CategoryModel::CategoryModel(QObject *parent) :
-    QAbstractListModel(parent)
+CategoryModel::CategoryModel(QObject *parent)
+    : QAbstractListModel(parent)
 {
 }
 
-int CategoryModel::rowCount(const QModelIndex& parent) const
+int CategoryModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
     return m_categories.count();
 }
 
-QVariant CategoryModel::data(const QModelIndex& index, int role) const
+QVariant CategoryModel::data(const QModelIndex &index, int role) const
 {
-    const Category& item = m_categories[index.row()];
+    const Category &item = m_categories[index.row()];
     if (role == NameRole)
         return item.name;
     else if (role == IconRole)
@@ -47,10 +47,10 @@ QVariant CategoryModel::data(const QModelIndex& index, int role) const
 
 RoleMap RemoteControl::CategoryModel::roleNames() const
 {
-    return { {NameRole, "name"}, {IconRole, "icon"}, {EnabledRole, "enabled"}, {TypeRole, "type"} };
+    return { { NameRole, "name" }, { IconRole, "icon" }, { EnabledRole, "enabled" }, { TypeRole, "type" } };
 }
 
-void CategoryModel::setCategories(const QList<Category>& categories)
+void CategoryModel::setCategories(const QList<Category> &categories)
 {
     beginResetModel();
     m_categories = categories;

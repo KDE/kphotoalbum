@@ -18,14 +18,14 @@
 
 #include "Client.h"
 
+#include "RemoteCommand.h"
 #include <QTcpSocket>
 #include <QUdpSocket>
-#include "RemoteCommand.h"
 
 using namespace RemoteControl;
 
-Client::Client(QObject *parent) :
-    RemoteConnection(parent)
+Client::Client(QObject *parent)
+    : RemoteConnection(parent)
 {
     connect(&m_server, &QTcpServer::newConnection, this, &Client::acceptConnection);
     connect(&m_timer, &QTimer::timeout, this, &Client::sendBroadcastPackage);
@@ -38,7 +38,7 @@ bool Client::isConnected() const
     return m_socket != nullptr;
 }
 
-QTcpSocket* Client::socket()
+QTcpSocket *Client::socket()
 {
     return m_socket;
 }

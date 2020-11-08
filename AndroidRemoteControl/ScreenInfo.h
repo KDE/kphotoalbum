@@ -23,9 +23,10 @@
 #include <QSize>
 class QScreen;
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
-class ScreenInfo :public QObject
+class ScreenInfo : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(double dotsPerMM MEMBER m_dotsPerMM CONSTANT)
@@ -37,8 +38,8 @@ class ScreenInfo :public QObject
     Q_PROPERTY(int textHeight MEMBER m_textHeight NOTIFY textHeightChanged)
 
 public:
-    static ScreenInfo& instance();
-    void setScreen(QScreen*);
+    static ScreenInfo &instance();
+    void setScreen(QScreen *);
     QSize pixelForSizeInMM(int size) const;
     void setCategoryCount(int count);
     QSize screenSize() const;
@@ -63,7 +64,7 @@ private:
     int possibleColumns();
     int iconHeight();
 
-    QScreen* m_screen;
+    QScreen *m_screen;
     double m_dotsPerMM;
     int m_categoryCount = 0;
     int m_overviewColumnCount = 0;

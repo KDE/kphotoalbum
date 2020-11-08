@@ -20,14 +20,14 @@
 #include "RemoteInterface.h"
 #include "Settings.h"
 
-#include <QTimer>
 #include "RemoteImage.h"
 #include <QMutexLocker>
+#include <QTimer>
 
+namespace RemoteControl
+{
 
-namespace RemoteControl {
-
-ImageStore& ImageStore::instance()
+ImageStore &ImageStore::instance()
 {
     static ImageStore instance;
     return instance;
@@ -39,24 +39,24 @@ ImageStore::ImageStore()
     connect(&Settings::instance(), &Settings::categoryItemSizeChanged, this, &ImageStore::reset);
 }
 
-void ImageStore::requestImage(RemoteImage* client, ImageId imageId, const QSize& size, ViewType type)
+void ImageStore::requestImage(RemoteImage *client, ImageId imageId, const QSize &size, ViewType type)
 {
     // This method is call from the painting thread.
     QMutexLocker locker(&m_mutex);
 
     // This code is executed from paint, which is on the QML thread, we therefore need to get it on the GUI thread
     // where out TCPSocket is located.
-    QTimer* timer = new QTimer;
+    QTimer *timer = new QTimer;
     timer->setSingleShot(true);
 
     // There seems to be a path through QML where the client is deleted right after this request is send,
     // therefore, have client as the third parameter to the connect below, as that will prevent the request in that setup.
-    connect(timer, &QTimer::timeout, client, [imageId,size,type,timer,client, this] () {
+    connect(timer, &QTimer::timeout, client, [imageId, size, type, timer, client, this]() {
         ThumbnailRequest request(imageId, size, type);
 
         RemoteInterface::instance().sendCommand(request);
 
-        RequestType key = qMakePair(imageId,type);
+        RequestType key = qMakePair(imageId, type);
         m_requestMap.insert(key, client);
         m_reverseRequestMap.insert(client, key);
 
@@ -66,12 +66,12 @@ void ImageStore::requestImage(RemoteImage* client, ImageId imageId, const QSize&
     timer->start(0);
 }
 
-void ImageStore::updateImage(ImageId imageId, const QImage& image, const QString& label, ViewType type)
+void ImageStore::updateImage(ImageId imageId, const QImage &image, const QString &label, ViewType type)
 {
     QMutexLocker locker(&m_mutex);
-    RequestType key = qMakePair(imageId,type);
+    RequestType key = qMakePair(imageId, type);
     if (m_requestMap.contains(key)) {
-        RemoteImage* client = m_requestMap[key];
+        RemoteImage *client = m_requestMap[key];
 
         client->setImage(image);
         client->setLabel(label);
@@ -83,14 +83,14 @@ void ImageStore::updateImage(ImageId imageId, const QImage& image, const QString
 
 void RemoteControl::ImageStore::reset()
 {
-    QList<RemoteImage*> keys = m_reverseRequestMap.keys();
+    QList<RemoteImage *> keys = m_reverseRequestMap.keys();
     m_reverseRequestMap.clear();
     m_requestMap.clear();
 }
 
 void ImageStore::clientDeleted()
 {
-    RemoteImage* remoteImage = static_cast<RemoteImage*>(sender());
+    RemoteImage *remoteImage = static_cast<RemoteImage *>(sender());
 
     QMutexLocker locker(&m_mutex);
     if (m_reverseRequestMap.contains(remoteImage)) {

@@ -21,14 +21,14 @@
 
 using namespace RemoteControl;
 
-MyImage::MyImage(QQuickItem *parent) :
-    QQuickPaintedItem(parent)
+MyImage::MyImage(QQuickItem *parent)
+    : QQuickPaintedItem(parent)
 {
 }
 
-void MyImage::paint(QPainter* painter)
+void MyImage::paint(QPainter *painter)
 {
-    painter->drawImage(0,0, m_image);
+    painter->drawImage(0, 0, m_image);
 }
 
 QImage MyImage::image() const
@@ -46,7 +46,7 @@ int MyImage::imageHeight() const
     return m_image.height();
 }
 
-void MyImage::setImage(const QImage& image)
+void MyImage::setImage(const QImage &image)
 {
     if (m_image != image) {
         m_image = image;

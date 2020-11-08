@@ -19,9 +19,10 @@
 #ifndef REMOTECONTROL_IMAGEDETAILS_H
 #define REMOTECONTROL_IMAGEDETAILS_H
 
-#include <QObject>
 #include "RemoteCommand.h"
-namespace RemoteControl {
+#include <QObject>
+namespace RemoteControl
+{
 
 class ImageDetails : public QObject
 {
@@ -35,15 +36,15 @@ class ImageDetails : public QObject
     Q_PROPERTY(QString dummy READ dummy NOTIFY updated)
 
 public:
-    static ImageDetails& instance();
+    static ImageDetails &instance();
     QStringList categories() const;
 
 public slots:
     void clear();
-    void setData(const ImageDetailsResult& data);
-    QStringList itemsOfCategory(const QString& category);
+    void setData(const ImageDetailsResult &data);
+    QStringList itemsOfCategory(const QString &category);
     QString dummy() const { return {}; }
-    QString age(const QString &category, const QString& item);
+    QString age(const QString &category, const QString &item);
 
 signals:
     void updated();
@@ -53,7 +54,7 @@ private:
     QString m_fileName;
     QString m_date;
     QString m_description;
-    QMap<QString,CategoryItemDetailsList> m_categories;
+    QMap<QString, CategoryItemDetailsList> m_categories;
 };
 
 } // namespace RemoteControl

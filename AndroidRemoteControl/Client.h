@@ -23,7 +23,8 @@
 #include <QTcpServer>
 #include <QTimer>
 
-namespace RemoteControl {
+namespace RemoteControl
+{
 
 class Client : public RemoteConnection
 {
@@ -37,7 +38,7 @@ signals:
     void disconnected();
 
 protected:
-    QTcpSocket* socket() override;
+    QTcpSocket *socket() override;
 
 private slots:
     void acceptConnection();
@@ -46,9 +47,8 @@ private slots:
 
 private:
     QTcpServer m_server;
-    QTcpSocket* m_socket = nullptr;
+    QTcpSocket *m_socket = nullptr;
     QTimer m_timer;
-
 };
 
 }

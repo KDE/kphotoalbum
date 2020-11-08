@@ -23,10 +23,10 @@
 #include <DB/ImageDateCollection.h>
 #include <Settings/SettingsData.h>
 
+#include <Utilities/FastDateTime.h>
 #include <KLocalizedString>
 #include <QAction>
 #include <QContextMenuEvent>
-#include <Utilities/FastDateTime.h>
 #include <QFontMetrics>
 #include <QGuiApplication>
 #include <QIcon>

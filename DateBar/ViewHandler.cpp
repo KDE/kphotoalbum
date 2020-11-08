@@ -260,7 +260,7 @@ QString DayViewHandler::unitText() const
 void HourViewHandler::init(const Utilities::FastDateTime &startDate)
 {
     ViewHandler::init(Utilities::FastDateTime(startDate.date(),
-                                QTime(startDate.time().hour(), 10 * (int)floor(startDate.time().minute() / 10.0), 0)));
+                                              QTime(startDate.time().hour(), 10 * (int)floor(startDate.time().minute() / 10.0), 0)));
 }
 
 bool HourViewHandler::isMajorUnit(int unit)
@@ -294,7 +294,7 @@ QString HourViewHandler::unitText() const
 void TenMinuteViewHandler::init(const Utilities::FastDateTime &startDate)
 {
     ViewHandler::init(Utilities::FastDateTime(startDate.date(),
-                                QTime(startDate.time().hour(), 10 * (int)floor(startDate.time().minute() / 10.0), 0)));
+                                              QTime(startDate.time().hour(), 10 * (int)floor(startDate.time().minute() / 10.0), 0)));
 }
 
 bool TenMinuteViewHandler::isMajorUnit(int unit)
@@ -328,8 +328,8 @@ QString TenMinuteViewHandler::unitText() const
 void MinuteViewHandler::init(const Utilities::FastDateTime &startDate)
 {
     ViewHandler::init(Utilities::FastDateTime(startDate.date(),
-                                QTime(startDate.time().hour(),
-                                      startDate.time().minute(), 0)));
+                                              QTime(startDate.time().hour(),
+                                                    startDate.time().minute(), 0)));
 }
 
 bool MinuteViewHandler::isMajorUnit(int unit)

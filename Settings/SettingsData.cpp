@@ -91,7 +91,7 @@ const QString configFile = QString::fromLatin1("kphotoalbumrc");
 
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
 #define property_sset(GET_FUNC, SET_FUNC, GROUP, GET_DEFAULT) \
-    property_(StringSet, GET_FUNC, (StringSet{ v.begin(), v.end() }), SET_FUNC, StringSet &, (QStringList{ v.begin(), v.end() }), #GROUP, #GET_FUNC, GET_DEFAULT, QStringList(), QStringList)
+    property_(StringSet, GET_FUNC, (StringSet { v.begin(), v.end() }), SET_FUNC, StringSet &, (QStringList { v.begin(), v.end() }), #GROUP, #GET_FUNC, GET_DEFAULT, QStringList(), QStringList)
 #else
 #define property_sset(GET_FUNC, SET_FUNC, GROUP, GET_DEFAULT) \
     property_(StringSet, GET_FUNC, v.toSet(), SET_FUNC, StringSet &, v.toList(), #GROUP, #GET_FUNC, GET_DEFAULT, QStringList(), QStringList)

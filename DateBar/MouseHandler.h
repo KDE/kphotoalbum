@@ -19,8 +19,8 @@
 #define DATEBARMOUSEHANDLER_H
 #include <DB/ImageDate.h>
 
-#include <QObject>
 #include <Utilities/FastDateTime.h>
+#include <QObject>
 
 namespace DB
 {

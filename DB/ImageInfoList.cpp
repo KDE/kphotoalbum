@@ -21,8 +21,8 @@
 #include "ImageInfo.h"
 #include "Logging.h"
 
-#include <KLocalizedString>
 #include <Utilities/FastDateTime.h>
+#include <KLocalizedString>
 #include <QVector>
 #include <QtAlgorithms>
 using namespace DB;

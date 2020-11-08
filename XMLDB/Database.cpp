@@ -606,7 +606,7 @@ int XMLDB::Database::fileVersion()
 // During profiling of loading, I found that a significant amount of time was spent in Utilities::FastDateTime::fromString.
 // Reviewing the code, I fount that it did a lot of extra checks we don't need (like checking if the string have
 // timezone information (which they won't in KPA), this function is a replacement that is faster than the original.
-static Utilities::FastDateTime dateTimeFromString(const QString& str)
+static Utilities::FastDateTime dateTimeFromString(const QString &str)
 {
     // Caching the last used date/time string will help for photographers
     // who frequently take bursts.
@@ -616,10 +616,10 @@ static Utilities::FastDateTime dateTimeFromString(const QString& str)
     QMutexLocker dummy(&s_lastDateTimeLocker);
     static const QChar T = QChar::fromLatin1('T');
     if (str != s_lastDateTimeString) {
-        if ( str[10] == T)
-            s_lastDateTime = QDateTime(QDate::fromString(str.left(10), Qt::ISODate),QTime::fromString(str.mid(11),Qt::ISODate));
+        if (str[10] == T)
+            s_lastDateTime = QDateTime(QDate::fromString(str.left(10), Qt::ISODate), QTime::fromString(str.mid(11), Qt::ISODate));
         else
-            s_lastDateTime = QDateTime::fromString(str,Qt::ISODate);
+            s_lastDateTime = QDateTime::fromString(str, Qt::ISODate);
         s_lastDateTimeString = str;
     }
     return s_lastDateTime;

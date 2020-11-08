@@ -25,10 +25,10 @@
 #include <KLocalizedString>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QDebug>
 #include <QGridLayout>
 #include <QLabel>
 #include <QMessageBox>
-#include <QDebug>
 
 Settings::UntaggedGroupBox::UntaggedGroupBox(QWidget *parent)
     : QGroupBox(i18n("Untagged Images"), parent)

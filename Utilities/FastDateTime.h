@@ -18,8 +18,8 @@
 
 #ifndef UTILITIES_FASTDATETIME_H
 #define UTILITIES_FASTDATETIME_H
-#include <QDateTime>
 #include <QDate>
+#include <QDateTime>
 #include <QTime>
 
 namespace Utilities
@@ -44,30 +44,95 @@ public:
     FastDateTime();
     FastDateTime(const QDate &d, const QTime &t, Qt::TimeSpec spec = Qt::LocalTime);
     FastDateTime(const QDate &d);
-    FastDateTime(const FastDateTime &other) : m_dateTime(other.m_dateTime), m_msecsSinceEpoch(other.m_msecsSinceEpoch) {}
+    FastDateTime(const FastDateTime &other)
+        : m_dateTime(other.m_dateTime)
+        , m_msecsSinceEpoch(other.m_msecsSinceEpoch)
+    {
+    }
     // Needed for QDate(Y, M, D).startOfDay()
     FastDateTime(const QDateTime &other);
     ~FastDateTime() {};
 
-    Q_DECL_CONSTEXPR bool operator==(const FastDateTime &other) const { if (isOK() && other.isOK()) return m_msecsSinceEpoch == other.m_msecsSinceEpoch; else return m_dateTime == other.m_dateTime; }
-    Q_DECL_CONSTEXPR bool operator!=(const FastDateTime &other) const { if (isOK() && other.isOK()) return m_msecsSinceEpoch != other.m_msecsSinceEpoch; else return m_dateTime != other.m_dateTime; }
-    Q_DECL_CONSTEXPR bool operator< (const FastDateTime &other) const { if (isOK() && other.isOK()) return m_msecsSinceEpoch <  other.m_msecsSinceEpoch; else return m_dateTime <  other.m_dateTime; }
-    Q_DECL_CONSTEXPR bool operator<=(const FastDateTime &other) const { if (isOK() && other.isOK()) return m_msecsSinceEpoch <= other.m_msecsSinceEpoch; else return m_dateTime <= other.m_dateTime; }
-    Q_DECL_CONSTEXPR bool operator> (const FastDateTime &other) const { if (isOK() && other.isOK()) return m_msecsSinceEpoch >  other.m_msecsSinceEpoch; else return m_dateTime >  other.m_dateTime; }
-    Q_DECL_CONSTEXPR bool operator>=(const FastDateTime &other) const { if (isOK() && other.isOK()) return m_msecsSinceEpoch >= other.m_msecsSinceEpoch; else return m_dateTime >= other.m_dateTime; }
+    Q_DECL_CONSTEXPR bool operator==(const FastDateTime &other) const
+    {
+        if (isOK() && other.isOK())
+            return m_msecsSinceEpoch == other.m_msecsSinceEpoch;
+        else
+            return m_dateTime == other.m_dateTime;
+    }
+    Q_DECL_CONSTEXPR bool operator!=(const FastDateTime &other) const
+    {
+        if (isOK() && other.isOK())
+            return m_msecsSinceEpoch != other.m_msecsSinceEpoch;
+        else
+            return m_dateTime != other.m_dateTime;
+    }
+    Q_DECL_CONSTEXPR bool operator<(const FastDateTime &other) const
+    {
+        if (isOK() && other.isOK())
+            return m_msecsSinceEpoch < other.m_msecsSinceEpoch;
+        else
+            return m_dateTime < other.m_dateTime;
+    }
+    Q_DECL_CONSTEXPR bool operator<=(const FastDateTime &other) const
+    {
+        if (isOK() && other.isOK())
+            return m_msecsSinceEpoch <= other.m_msecsSinceEpoch;
+        else
+            return m_dateTime <= other.m_dateTime;
+    }
+    Q_DECL_CONSTEXPR bool operator>(const FastDateTime &other) const
+    {
+        if (isOK() && other.isOK())
+            return m_msecsSinceEpoch > other.m_msecsSinceEpoch;
+        else
+            return m_dateTime > other.m_dateTime;
+    }
+    Q_DECL_CONSTEXPR bool operator>=(const FastDateTime &other) const
+    {
+        if (isOK() && other.isOK())
+            return m_msecsSinceEpoch >= other.m_msecsSinceEpoch;
+        else
+            return m_dateTime >= other.m_dateTime;
+    }
     bool isNull() const { return m_dateTime.isNull(); }
     bool isValid() const { return m_dateTime.isValid(); }
     QDate date() const { return m_dateTime.date(); }
     QTime time() const { return m_dateTime.time(); }
     QString toString(Qt::DateFormat format = Qt::TextDate) const { return m_dateTime.toString(format); }
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-    QString toString(QStringView format) const { return m_dateTime.toString(format); }
+    QString toString(QStringView format) const
+    {
+        return m_dateTime.toString(format);
+    }
 #else
-    QString toString(QString format) const { return m_dateTime.toString(format); }
+    QString toString(QString format) const
+    {
+        return m_dateTime.toString(format);
+    }
 #endif
-    qint64 secsTo(const FastDateTime &other) const { if (isOK() && other.isOK()) return (other.m_msecsSinceEpoch - m_msecsSinceEpoch) / 1000; else return secsTo(other); }
-    qint64 toSecsSinceEpoch() const { if (isOK()) return m_msecsSinceEpoch / 1000; else return m_dateTime.toSecsSinceEpoch(); }
-    FastDateTime& operator=(const Utilities::FastDateTime &other) noexcept { if (&other != this) { m_dateTime = other.m_dateTime; m_msecsSinceEpoch = other.m_msecsSinceEpoch; } return *this; }
+    qint64 secsTo(const FastDateTime &other) const
+    {
+        if (isOK() && other.isOK())
+            return (other.m_msecsSinceEpoch - m_msecsSinceEpoch) / 1000;
+        else
+            return secsTo(other);
+    }
+    qint64 toSecsSinceEpoch() const
+    {
+        if (isOK())
+            return m_msecsSinceEpoch / 1000;
+        else
+            return m_dateTime.toSecsSinceEpoch();
+    }
+    FastDateTime &operator=(const Utilities::FastDateTime &other) noexcept
+    {
+        if (&other != this) {
+            m_dateTime = other.m_dateTime;
+            m_msecsSinceEpoch = other.m_msecsSinceEpoch;
+        }
+        return *this;
+    }
 
     Q_REQUIRED_RESULT FastDateTime addDays(qint64 days) const;
     Q_REQUIRED_RESULT FastDateTime addMonths(qint64 months) const;

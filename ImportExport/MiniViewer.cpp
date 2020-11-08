@@ -23,10 +23,10 @@
 
 #include <KLocalizedString>
 #include <QDialogButtonBox>
-#include <QPushButton>
 #include <QImage>
 #include <QLabel>
 #include <QLayout>
+#include <QPushButton>
 #include <QTransform>
 
 using namespace ImportExport;

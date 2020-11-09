@@ -15,3 +15,7 @@ at the file contents).
 
 The current state of affairs is that kphotoalbum can not read version 1 files,
 i.e. files written by kimdaba/kphotoalbum v2.1 and lower.
+
+----
+SPDX-FileCopyrightText: none
+SPDX-License-Identifier: CC0-1.0

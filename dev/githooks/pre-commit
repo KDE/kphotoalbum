@@ -1,4 +1,6 @@
 #!/bin/sh -e
+# SPDX-FileCopyrightText: none
+# SPDX-License-Identifier: CC0-1.0
 hooksdir=$(dirname "$0")
 
 for f in "$hooksdir"/pre-commit.d/*

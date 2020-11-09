@@ -1,0 +1,19 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: KPhotoAlbum
+Source: https://invent.kde.org/graphics/kphotoalbum
+
+Files: testcases/integration-tests/*.xml
+Copyright: none
+License: CC0-1.0
+
+Files: testcases/db/*/*.xml
+Copyright: none
+License: CC0-1.0
+
+Files: testcases/db/*/*.log
+Copyright: none
+License: CC0-1.0
+
+Files: testcases/import/*.kim
+Copyright: none
+License: CC0-1.0

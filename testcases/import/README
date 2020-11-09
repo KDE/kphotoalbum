@@ -33,3 +33,7 @@ match_with_different_name_for_person_and_location.kim
 The phone in this test case has Jesper tagged as "KPA developer", and the
 city Esbjerg tagged as "The city of Esbjerg". Esbjerg should be preselected
 in the matcher.
+
+----
+SPDX-FileCopyrightText: none
+SPDX-License-Identifier: CC0-1.0

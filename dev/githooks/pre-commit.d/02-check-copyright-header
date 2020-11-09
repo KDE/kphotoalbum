@@ -1,4 +1,7 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: 2019 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-License-Identifier: BSD-2-Clause
+
 ###
 # Check all added or modified files that have a copyright line
 # for an up-to-date copyright year.

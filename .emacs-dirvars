@@ -1,2 +1,4 @@
+;; SPDX-FileCopyrightText: none
+;; SPDX-License-Identifier: CC0-1.0
 kdab-jump-project-name: kpa
 kdab-jump-mini-buffer-text-for-orig-version: "###-OLD-OLD-OLD-###"

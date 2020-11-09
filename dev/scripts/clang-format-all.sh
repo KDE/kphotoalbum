@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: none
+# SPDX-License-Identifier: CC0-1.0
 # Apply clang-format in-place to all source files
 # Note: AndroidRemoteControl is excluded for now because clang-format would butcher the symlinks.
 

@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
 DB="$1"
 
 if [ ! -r "$DB" ]

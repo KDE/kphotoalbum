@@ -15,3 +15,7 @@ names of the standard categories into the database.
 
 Beginning with database format version 6, the old names loose their "special"
 meaning and are handled just like every other user-created category.
+
+----
+SPDX-FileCopyrightText: none
+SPDX-License-Identifier: CC0-1.0

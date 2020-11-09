@@ -23,7 +23,7 @@
 ##
 
 # SPDX-FileCopyrightText: 2012-2013 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-# SPDX-License-Identifier: BSD-2-Clause
+# SPDX-License-Identifier: BSD-3-Clause
 
 
 # FindGit is a standard module since cmake 2.8.2

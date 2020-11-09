@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: none
+// SPDX-License-Identifier: CC0-1.0
+
 /* Define to 1 if Marble should be compiled in */
 #cmakedefine HAVE_MARBLE 1
 #ifdef HAVE_MARBLE

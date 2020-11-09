@@ -40,3 +40,7 @@ Additional resources
 --------------------
 
  - https://techbase.kde.org/Development/Git/Configuration
+
+----
+SPDX-FileCopyrightText: 2019-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+SPDX-License-Identifier: CC-BY-SA-4.0

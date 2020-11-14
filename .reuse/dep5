@@ -22,3 +22,7 @@ Files: doc/*
 Copyright: 2003-2007 Jesper K. Pedersen
 Copyright: 2012 Miika Turkia
 License: GFDL-1.2-only
+
+Files: demo/*.jpg demo/*.avi demo/index.xml
+Copyright: 2003-2007 Jesper K. Pedersen
+License: CC-BY-SA-4.0

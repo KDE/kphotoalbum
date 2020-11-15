@@ -49,3 +49,8 @@ Try annotating some image, see if something is not behaving as it should.
 ### Maintenance Menu
 
  - Play around with the menu items...
+
+----
+SPDX-FileCopyrightText: 2018-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+
+SPDX-License-Identifier: CC-BY-SA-4.0

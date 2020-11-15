@@ -57,3 +57,8 @@ E.g. you can start KPhotoAlbum like this on the commandline:
 ## Further reading
 
  - https://doc.qt.io/qt-5/qloggingcategory.html#details
+
+----
+SPDX-FileCopyrightText: 2018-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+
+SPDX-License-Identifier: CC-BY-SA-4.0

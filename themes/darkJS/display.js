@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2009-2012 Miika Turkia <miika.turkia@gmail.com>
+//
+// SPDX-License-Identifier: LicenseRef-KDE-Accepted-LGPL
+
 // Selectable options BEGIN
 // Konqueror tends to crash with videos. If set to 1 videos are disabled with Konqueror
 var konquerorPlaySafe = 1

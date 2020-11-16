@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2009-2010 Miika Turkia <miika.turkia@gmail.com>
+//
+// SPDX-License-Identifier: LicenseRef-KDE-Accepted-LGPL
+
 function listenKey () { document.onkeydown = getKey; }
 
 function getKey(e){

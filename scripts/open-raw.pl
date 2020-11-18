@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 # SPDX-FileCopyrightText: 2012-2016 Miika Turkia <miika.turkia@gmail.com>
+# SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 #
 # Try to locate RAW files to open them in external editor from
 # GUI application like KPhotoAlbum

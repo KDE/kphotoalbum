@@ -1,4 +1,5 @@
-# Copyright 2012 Miika Turkia <miika.turkia@gmail.com>
+# SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+# SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 #
 # Copy this file to /usr/local/share/applications/
 # Update the Exec and Icon variables as appropriate

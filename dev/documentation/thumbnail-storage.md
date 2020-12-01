@@ -1,3 +1,8 @@
+<!--
+SPDX-License-Identifier: CC-BY-SA-4.0
+SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+-->
+
 # Thumbnail storage file formats
 
 ## Version 4
@@ -72,8 +77,3 @@ struct Cache {
 ## Thumbnail files
 
 Unchanged to previous version.
-
-----
-SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-
-SPDX-License-Identifier: CC-BY-SA-4.0

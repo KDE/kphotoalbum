@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2013, 2015-2016, 2018-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2009, 2013 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-License-Identifier: CC-BY-SA-4.0
 //krazy:skip
 /**
 \page coding-standards Coding Standards

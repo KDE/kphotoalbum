@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2009 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-License-Identifier: CC-BY-SA-4.0
 //krazy:skip
 /**
    \page phrase-book Phrase book

@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-License-Identifier: CC-BY-SA-4.0
 //krazy:skip
 /**
   \page videothumbnails Video thumbnail related classes

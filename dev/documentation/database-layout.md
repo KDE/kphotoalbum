@@ -1,3 +1,9 @@
+<!--
+SPDX-License-Identifier: CC-BY-SA-4.0
+SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
+SPDX-FileCopyrightText: 2014-2015, 2017-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+-->
+
 Image database overview for KPhotoAlbum {#database-layout}
 =======================================
 

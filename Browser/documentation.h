@@ -1,8 +1,9 @@
 //krazy:skip
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2009-2010 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
 /**
   \namespace Browser

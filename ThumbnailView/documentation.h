@@ -1,3 +1,8 @@
+// SPDX-FileCopyrightText: 2009-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2020 Miika Turkia <miika.turkia@gmail.com>
+//
+// SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
+
 //krazy:skip
 /**
   \namespace ThumbnailView

@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2009-2010 Miika Turkia <miika.turkia@gmail.com>
+# SPDX-FileCopyrightText: 2016, 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 install(
     FILES
     download.png

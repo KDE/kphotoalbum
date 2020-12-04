@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2009 Jesper K. Pedersen <blackie@kde.org>
+# SPDX-FileCopyrightText: 2016 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 install(
     FILES
     download.png

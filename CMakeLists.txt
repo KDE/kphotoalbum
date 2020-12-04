@@ -1,3 +1,27 @@
+# SPDX-FileCopyrightText: 2007 Gustavo P. Boiko <gustavo.boiko@kdemail.net>
+# SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
+# SPDX-FileCopyrightText: 2007-2010 Tuomas Suutari <tuomas@nepnep.net>
+# SPDX-FileCopyrightText: 2007-2014 Jesper K. Pedersen <blackie@kde.org>
+# SPDX-FileCopyrightText: 2008, 2013-2014, 2016 Pino Toscano <pino@kde.org>
+# SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
+# SPDX-FileCopyrightText: 2008-2009 Jan Kundrát <jkt@flaska.net>
+# SPDX-FileCopyrightText: 2009 Hassan Ibraheem <hasan.ibraheem@gmail.com>
+# SPDX-FileCopyrightText: 2010, 2012 Miika Turkia <miika.turkia@gmail.com>
+# SPDX-FileCopyrightText: 2010, 2015, 2019 David Faure <faure@kde.org>
+# SPDX-FileCopyrightText: 2012 Albert Astals Cid <tsdgeos@terra.es>
+# SPDX-FileCopyrightText: 2012-2013 Andreas Neustifter <andreas.neustifter@gmail.com>
+# SPDX-FileCopyrightText: 2012-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2014 David Edmundson <kde@davidedmundson.co.uk>
+# SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tobias.leupold@gmx.de>
+# SPDX-FileCopyrightText: 2016 Christoph Feck <cfeck@kde.org>
+# SPDX-FileCopyrightText: 2016 Luigi Toscano <luigi.toscano@tiscali.it>
+# SPDX-FileCopyrightText: 2016 Michael Palimaka <kensington@gentoo.org>
+# SPDX-FileCopyrightText: 2017 Ben Cooksley <bcooksley@kde.org>
+# SPDX-FileCopyrightText: 2018, 2020 Robert Krawitz <rlk@alum.mit.edu>
+# SPDX-FileCopyrightText: 2020 Wes Hardaker <kpa@capturedonearth.com>
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 cmake_minimum_required(VERSION 3.3.0)
 project(kphotoalbum LANGUAGES CXX VERSION 5.7.0)
 

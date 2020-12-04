@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 add_executable(kpa-thumbnailtool
     main.cpp
     Logging.cpp

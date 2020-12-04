@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2016 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2020 Pino Toscano <pino@kde.org>
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
 ecm_install_icons(
 	ICONS
 	16-actions-open-raw.png

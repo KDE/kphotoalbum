@@ -49,10 +49,3 @@ For installation instructions see the INSTALL file.  For a list of
 major changes, see the ChangeLog file. A full list of changes is in GIT
 log available also on-line:
 https://commits.kde.org/kphotoalbum
-
-
-----
-SPDX-FileCopyrightText: 2018-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
-SPDX-FileCopyrightText: 2004-2009 Jesper Pedersen <blackie@blackie.dk>
-SPDX-License-Identifier: CC-BY-SA-4.0

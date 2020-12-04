@@ -27,7 +27,3 @@ If you want to make changes to the remote client, it's best to use qtcreator and
 ## Building for android
 
 TODO
-
-----
-SPDX-FileCopyrightText: 2016 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-SPDX-License-Identifier: CC-BY-SA-4.0

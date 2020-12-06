@@ -19,8 +19,8 @@
 #include <DB/ImageInfoPtr.h>
 #include <DB/UIDelegate.h>
 #include <Exif/Database.h>
-#include <MainWindow/Logging.h>
 #include <Settings/SettingsData.h>
+#include <Utilities/Logging.h>
 #include <Utilities/VideoUtil.h>
 
 #include <KLocalizedString>

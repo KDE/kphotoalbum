@@ -6,8 +6,8 @@
 
 #include "Logging.h"
 
-#include <MainWindow/Logging.h>
 #include <Settings/SettingsData.h>
+#include <Utilities/Logging.h>
 
 #include <QBuffer>
 #include <QCache>

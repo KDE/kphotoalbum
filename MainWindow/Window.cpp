@@ -110,6 +110,7 @@
 #include <Utilities/DemoUtil.h>
 #include <Utilities/FileNameUtil.h>
 #include <Utilities/List.h>
+#include <Utilities/Logging.h>
 #include <Utilities/ShowBusyCursor.h>
 #include <Utilities/VideoUtil.h>
 #include <Viewer/ViewerWidget.h>

@@ -17,8 +17,8 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <Exif/SearchDialog.h>
-#include <MainWindow/Logging.h>
 #include <MainWindow/Window.h>
+#include <Utilities/Logging.h>
 #include <Utilities/ShowBusyCursor.h>
 
 #include <KLocalizedString>

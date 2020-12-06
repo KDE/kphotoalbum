@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: 2017-2018 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+/* SPDX-FileCopyrightText: 2017-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 
    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -7,6 +7,7 @@
 
 #include <QLoggingCategory>
 
+Q_DECLARE_LOGGING_CATEGORY(TimingLog)
 Q_DECLARE_LOGGING_CATEGORY(UtilitiesLog)
 
 #endif /* UTILITIES_LOGGING_H */

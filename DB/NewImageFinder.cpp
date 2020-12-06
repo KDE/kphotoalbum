@@ -18,11 +18,11 @@
 #include <ImageManager/ThumbnailBuilder.h>
 #include <ImageManager/ThumbnailCache.h>
 #include <MainWindow/FeatureDialog.h>
-#include <MainWindow/Logging.h>
 #include <MainWindow/Window.h>
 #include <Settings/SettingsData.h>
 #include <Utilities/FileNameUtil.h>
 #include <Utilities/FileUtil.h>
+#include <Utilities/Logging.h>
 #include <Utilities/VideoUtil.h>
 
 #include <KLocalizedString>

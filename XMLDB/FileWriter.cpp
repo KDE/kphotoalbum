@@ -12,9 +12,9 @@
 #include "XMLCategory.h"
 
 #include <DB/UIDelegate.h>
-#include <MainWindow/Logging.h>
 #include <Settings/SettingsData.h>
 #include <Utilities/List.h>
+#include <Utilities/Logging.h>
 
 #include <KLocalizedString>
 #include <QElapsedTimer>

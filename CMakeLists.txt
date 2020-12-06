@@ -554,12 +554,12 @@ add_library(kpabase
     DB/UIDelegate.h
     ImageManager/Logging.cpp
     ImageManager/Logging.h
-    MainWindow/Logging.cpp
-    MainWindow/Logging.h
     Settings/SettingsData.cpp
     Settings/SettingsData.h
     Utilities/FileNameUtil.cpp
     Utilities/FileNameUtil.h
+    Utilities/Logging.cpp
+    Utilities/Logging.h
     Utilities/StringSet.cpp
     Utilities/StringSet.h
     )

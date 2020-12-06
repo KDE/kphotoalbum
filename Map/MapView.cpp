@@ -10,8 +10,8 @@
 
 #include <DB/ImageDB.h>
 #include <DB/ImageSearchInfo.h>
-#include <MainWindow/Logging.h>
 #include <MainWindow/Window.h>
+#include <Utilities/Logging.h>
 
 #include <KConfigGroup>
 #include <KIconLoader>

@@ -1,5 +1,5 @@
 #!/bin/bash
-# SPDX-FileCopyrightText: 2019 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2019-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 # SPDX-License-Identifier: BSD-2-Clause
 
 ###
@@ -21,14 +21,14 @@ fi
 
 year=$(date +%Y)
 IFS=$'\n'
-for line in $(git status -s)
+for line in $(git status --short)
 do
 	# if the file is added or modified
 	if [[ $line == A* || $line == M* ]]
 	then
-		if head -n5 "${line:3}" | grep -q -i copyright
+		if grep -q SPDX-FileCopyrightText "${line:3}"
 		then
-			if ! head -n5 "${line:3}" | grep -q -i "copyright.*[ -]$year"
+			if ! grep -q "SPDX-FileCopyrightText:.*$year" "${line:3}"
 			then
 				missing_year="$missing_year\n${line:3}"
 			fi

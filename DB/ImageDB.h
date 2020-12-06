@@ -11,6 +11,7 @@
 #include "ImageDateCollection.h"
 #include "ImageInfoList.h"
 #include "ImageInfoPtr.h"
+#include "ImageSearchInfo.h"
 #include "MediaCount.h"
 
 #include <QObject>
@@ -24,7 +25,6 @@ class CategoryCollection;
 class Category;
 class MD5Map;
 class MemberMap;
-class ImageSearchInfo;
 class FileName;
 class UIDelegate;
 
@@ -160,6 +160,7 @@ public slots:
     void slotRecalcCheckSums(const DB::FileNameList &selection);
     virtual MediaCount count(const ImageSearchInfo &info);
     virtual void slotReread(const DB::FileNameList &list, DB::ExifMode mode);
+    void setCurrentScope(const DB::ImageSearchInfo &info);
 
 signals:
     void totalChanged(uint);
@@ -180,6 +181,7 @@ protected slots:
 private:
     static void connectSlots();
     static ImageDB *s_instance;
+    DB::ImageSearchInfo m_currentScope;
 };
 }
 #endif /* IMAGEDB_H */

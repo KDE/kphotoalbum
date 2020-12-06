@@ -77,7 +77,7 @@ signals:
     void isFilterable(bool);
     void isViewChangeable(bool);
     void currentViewTypeChanged(DB::Category::ViewType);
-    void viewChanged();
+    void viewChanged(DB::ImageSearchInfo);
     void imageCount(uint);
 
 protected:

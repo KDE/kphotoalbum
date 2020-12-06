@@ -10,7 +10,7 @@
 #include "NewImageFinder.h"
 #include "UIDelegate.h"
 
-#include <Browser/BrowserWidget.h>
+#include <Settings/SettingsData.h>
 #include <XMLDB/Database.h>
 
 #include <KLocalizedString>
@@ -57,7 +57,7 @@ QString ImageDB::NONE()
 
 DB::FileNameList ImageDB::currentScope(bool requireOnDisk) const
 {
-    return search(Browser::BrowserWidget::instance()->currentContext(), requireOnDisk).files();
+    return search(m_currentScope, requireOnDisk).files();
 }
 
 void ImageDB::markDirty()
@@ -156,6 +156,11 @@ void ImageDB::slotReread(const DB::FileNameList &list, DB::ExifMode mode)
             info(*it)->readExif(*it, mode);
         markDirty();
     }
+}
+
+void ImageDB::setCurrentScope(const ImageSearchInfo &info)
+{
+    m_currentScope = info;
 }
 
 DB::FileName ImageDB::findFirstItemInRange(const DB::FileNameList &images,

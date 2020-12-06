@@ -44,6 +44,7 @@ Browser::BrowserWidget::BrowserWidget(QWidget *parent)
     connect(DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::categoryCollectionChanged,
             this, &BrowserWidget::reload);
     connect(this, &BrowserWidget::viewChanged, this, &BrowserWidget::resetIconViewSearch);
+    connect(this, &BrowserWidget::viewChanged, DB::ImageDB::instance(), &DB::ImageDB::setCurrentScope);
 
     m_filterProxy = new TreeFilter(this);
     m_filterProxy->setFilterKeyColumn(0);
@@ -142,7 +143,7 @@ void Browser::BrowserWidget::emitSignals()
     }
 
     emit pathChanged(createPath());
-    emit viewChanged();
+    emit viewChanged(currentAction()->searchInfo());
     emit imageCount(DB::ImageDB::instance()->count(currentAction()->searchInfo()).total());
 }
 

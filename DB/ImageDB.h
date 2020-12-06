@@ -50,33 +50,10 @@ public:
     static ImageDB *instance();
     static void setupXMLDB(const QString &configFile, UIDelegate &delegate);
     static void deleteInstance();
+    static QString NONE();
 
     DB::FileNameSet imagesWithMD5Changed();
     UIDelegate &uiDelegate() const;
-
-public slots:
-    void setDateRange(const ImageDate &, bool includeFuzzyCounts);
-    void clearDateRange();
-    virtual void slotRescan();
-    void slotRecalcCheckSums(const DB::FileNameList &selection);
-    virtual MediaCount count(const ImageSearchInfo &info);
-    virtual void slotReread(const DB::FileNameList &list, DB::ExifMode mode);
-
-protected:
-    ImageDate m_selectionRange;
-    bool m_includeFuzzyCounts;
-    ImageInfoList m_clipboard;
-    UIDelegate &m_UI;
-
-private:
-    static void connectSlots();
-    static ImageDB *s_instance;
-
-protected:
-    ImageDB(UIDelegate &delegate);
-
-public:
-    static QString NONE();
     DB::FileNameList currentScope(bool requireOnDisk) const;
 
     virtual DB::FileName findFirstItemInRange(
@@ -86,7 +63,6 @@ public:
 
     bool untaggedCategoryFeatureConfigured() const;
 
-public: // Methods that must be overridden
     virtual uint totalCount() const = 0;
     virtual DB::ImageInfoList search(const ImageSearchInfo &, bool requireOnDisk = false) const = 0;
 
@@ -176,14 +152,34 @@ public: // Methods that must be overridden
     virtual DB::FileNameList getStackFor(const DB::FileName &referenceId) const = 0;
 
     virtual void copyData(const DB::FileName &from, const DB::FileName &to) = 0;
-protected slots:
-    virtual void lockDB(bool lock, bool exclude) = 0;
-    void markDirty();
+
+public slots:
+    void setDateRange(const ImageDate &, bool includeFuzzyCounts);
+    void clearDateRange();
+    virtual void slotRescan();
+    void slotRecalcCheckSums(const DB::FileNameList &selection);
+    virtual MediaCount count(const ImageSearchInfo &info);
+    virtual void slotReread(const DB::FileNameList &list, DB::ExifMode mode);
 
 signals:
     void totalChanged(uint);
     void dirty();
     void imagesDeleted(const DB::FileNameList &);
+
+protected:
+    ImageDB(UIDelegate &delegate);
+    ImageDate m_selectionRange;
+    bool m_includeFuzzyCounts;
+    ImageInfoList m_clipboard;
+    UIDelegate &m_UI;
+
+protected slots:
+    virtual void lockDB(bool lock, bool exclude) = 0;
+    void markDirty();
+
+private:
+    static void connectSlots();
+    static ImageDB *s_instance;
 };
 }
 #endif /* IMAGEDB_H */

@@ -87,7 +87,7 @@ public:
      * The parameter \p doUpdate decides whether all bookkeeping should be done right away
      * (\c true; the "normal" use-case), or if it should be deferred until later(\c false).
      * If doUpdate is deferred, either commitDelayedImages() or clearDelayedImages() needs to be called afterwards.
-     * @param images
+     * @param files
      * @param doUpdate
      */
     virtual void addImages(const ImageInfoList &files, bool doUpdate = true) = 0;

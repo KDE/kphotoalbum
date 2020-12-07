@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2009 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
@@ -16,7 +17,6 @@
   \ref ExifPage,
   \ref FileVersionDetectionPage,
   \ref GeneralPage,
-  \ref PluginsPage,
   \ref TagGroupsPage,
   \ref ThumbnailsPage, and
   \ref ViewerPage

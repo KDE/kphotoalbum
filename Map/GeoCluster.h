@@ -88,7 +88,7 @@ protected:
      * @brief renderSubItems renders the sub-items of this GeoCluster.
      * @param painter
      * @param viewPortParams
-     * @param ThumbnailParams
+     * @param thumbs handle for the thumbnail cache and an alternate pixmap
      * @param style
      */
     virtual void renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, MapStyle style) const;

@@ -26,11 +26,15 @@ do
 	# if the file is added or modified
 	if [[ $line == A* || $line == M* ]]
 	then
-		if grep -q SPDX-FileCopyrightText "${line:3}"
+		filename="${line:3}"
+		if grep -q SPDX-FileCopyrightText "${filename}"
 		then
-			if ! grep -q "SPDX-FileCopyrightText:.*$year" "${line:3}"
+			if ! grep -q "SPDX-FileCopyrightText:.*$year" "${filename}"
 			then
-				missing_year="$missing_year\n${line:3}"
+				if ! grep -q "SPDX-FileCopyrightText: *none" "${filename}"
+				then
+					missing_year="$missing_year\n${filename}"
+				fi
 			fi
 		fi
 	fi

@@ -14,7 +14,6 @@
 #include <ThumbnailView/CellGeometry.h>
 #include <Utilities/ImageUtil.h>
 
-#include <KCodecs>
 #include <KLocalizedString>
 #include <QCryptographicHash>
 #include <QDir>

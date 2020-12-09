@@ -20,7 +20,6 @@
 
 #include "ImageEvent.h"
 
-#include <kcodecs.h>
 #include <qmatrix.h>
 
 namespace ImageManager

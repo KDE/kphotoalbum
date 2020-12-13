@@ -26,6 +26,10 @@
 // KRun::displayOpenWithDialog() was both replaced and deprecated in 5.71
 #include <KRun>
 #endif
+#include <kservice_version.h>
+#if KSERVICE_VERSION > QT_VERSION_CHECK(5, 68, 0)
+#include <KApplicationTrader>
+#endif
 #include <KService>
 #include <KShell>
 #include <QFile>
@@ -201,7 +205,11 @@ MainWindow::OfferType MainWindow::ExternalPopup::appInfos(const DB::FileNameList
     const StringSet types = mimeTypes(files);
     OfferType res;
     for (const QString &type : types) {
+#if KSERVICE_VERSION < QT_VERSION_CHECK(5, 68, 0)
         const KService::List offers = KMimeTypeTrader::self()->query(type, QLatin1String("Application"));
+#else
+        const KService::List offers = KApplicationTrader::queryByMimeType(type);
+#endif
         for (const KService::Ptr &offer : offers) {
             res.insert(offer);
             m_appToMimeTypeMap[offer->name()].insert(type);

@@ -13,6 +13,8 @@
 #include <QPixmap>
 #include <qpair.h>
 
+#include <KService>
+
 namespace DB
 {
 class ImageInfo;
@@ -23,7 +25,7 @@ namespace MainWindow
 
 using Utilities::StringSet;
 
-typedef QSet<QPair<QString, QString>> OfferType;
+typedef QSet<KService::Ptr> OfferType;
 
 class ExternalPopup : public QMenu
 {
@@ -33,15 +35,15 @@ public:
     explicit ExternalPopup(QWidget *parent);
     void populate(DB::ImageInfoPtr current, const DB::FileNameList &list);
 
-protected slots:
-    void slotExecuteService(QAction *);
-
 protected:
     QString mimeType(const DB::FileName &file);
     StringSet mimeTypes(const DB::FileNameList &files);
     OfferType appInfos(const DB::FileNameList &files);
 
 private:
+    void runService(KService::Ptr servicel, QList<QUrl> urls);
+    QList<QUrl> relevantUrls(int which, KService::Ptr service);
+
     DB::FileNameList m_list;
     DB::ImageInfoPtr m_currentInfo;
     QMap<QString, StringSet> m_appToMimeTypeMap;

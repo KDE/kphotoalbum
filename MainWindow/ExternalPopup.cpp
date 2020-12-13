@@ -61,51 +61,66 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
         else
             offers = appInfos(imageList);
 
-        for (OfferType::const_iterator offerIt = offers.begin(); offerIt != offers.end(); ++offerIt) {
-            action = submenu->addAction((*offerIt).first);
-            action->setObjectName((*offerIt).first); // Notice this is needed to find the application later!
-            action->setIcon(QIcon::fromTheme((*offerIt).second));
-            action->setData(which);
+        for (KService::Ptr offer : qAsConst(offers)) {
+            action = submenu->addAction(offer->name());
+            action->setIcon(QIcon::fromTheme(offer->icon()));
             action->setEnabled(enabled);
+            connect(action, &QAction::triggered, this, [this, offer, which] {
+                runService(offer, relevantUrls(which, offer));
+            });
         }
 
         // A personal command
         action = submenu->addAction(i18n("Open With..."));
-        action->setObjectName(i18n("Open With...")); // Notice this is needed to find the application later!
         // XXX: action->setIcon( QIcon::fromTheme((*offerIt).second) );
-        action->setData(which);
         action->setEnabled(enabled);
+        connect(action, &QAction::triggered, this, [this, which] {
+            const QList<QUrl> urls = relevantUrls(which, {});
+
+            auto *uiParent = MainWindow::Window::theMainWindow();
+#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
+            KRun::displayOpenWithDialog(lst, uiParent);
+#else
+            auto job = new KIO::ApplicationLauncherJob();
+            job->setUrls(urls);
+            job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
+            job->start();
+#endif
+        });
 
         // A personal command
         // XXX: see kdialog.h for simple usage
         action = submenu->addAction(i18n("Your Command Line"));
-        action->setObjectName(i18n("Your Command Line")); // Notice this is needed to find the application later!
         // XXX: action->setIcon( QIcon::fromTheme((*offerIt).second) );
-        action->setData(which);
         action->setEnabled(enabled);
+        connect(action, &QAction::triggered, this, [this] {
+            static RunDialog *dialog = new RunDialog(MainWindow::Window::theMainWindow());
+            dialog->setImageList(m_list);
+            dialog->show();
+        });
     }
 }
 
-void MainWindow::ExternalPopup::slotExecuteService(QAction *action)
+QList<QUrl> MainWindow::ExternalPopup::relevantUrls(int which, KService::Ptr service)
 {
-    QString name = action->objectName();
-    const StringSet apps = m_appToMimeTypeMap[name];
+    // "current item"
+    if (which == 0) {
+        return {QUrl(m_currentInfo->fileName().absolute())};
+    }
 
-    // get the list of arguments
-    QList<QUrl> lst;
-
-    // for action->data() see the QStringList in populate()
-    if (action->data() == 0) {
-        // "current item"
-        lst.append(QUrl(m_currentInfo->fileName().absolute()));
-    } else if (action->data() == 1) {
-        // "all selected"
+    // "all selected"
+    if (which == 1) {
+        QList<QUrl> lst;
         for (const DB::FileName &file : qAsConst(m_list)) {
-            if (m_appToMimeTypeMap[name].contains(mimeType(file)))
+            if (service && m_appToMimeTypeMap[service->name()].contains(mimeType(file)))
                 lst.append(QUrl(file.absolute()));
         }
-    } else if (action->data() == 2) {
-        // "copy and open"
+        return lst;
+    }
+
+    // "copy and open"
+    if (which == 2) {
+        QList<QUrl> lst;
         QString origFile = m_currentInfo->fileName().absolute();
         QString newFile = origFile;
 
@@ -121,45 +136,19 @@ void MainWindow::ExternalPopup::slotExecuteService(QAction *action)
             qCWarning(MainWindowLog, "No settings were appropriate for modifying the file name (you must fill in the regexp field; Opening the original instead");
             lst.append(QUrl::fromLocalFile(origFile));
         }
-    } else {
-        return; //user clicked the title entry. (i.e: "All Selected Items")
+        return lst;
     }
+    return {};
+}
 
-    // get the program to run
-
-    // check for the special entry for self-defined
-    if (name == i18n("Your Command Line")) {
-
-        static RunDialog *dialog = new RunDialog(MainWindow::Window::theMainWindow());
-        dialog->setImageList(m_list);
-        dialog->show();
-
-        return;
-    }
-
+void MainWindow::ExternalPopup::runService(KService::Ptr service, QList<QUrl> urls)
+{
     auto *uiParent = MainWindow::Window::theMainWindow();
-    // check for the special entry for self-defined
-    if (name == i18n("Open With...")) {
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-        KRun::displayOpenWithDialog(lst, uiParent);
-#else
-        auto job = new KIO::ApplicationLauncherJob();
-        job->setUrls(lst);
-        job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
-        job->start();
-#endif
-        return;
-    }
-
-    KService::List offers = KMimeTypeTrader::self()->query(*(apps.begin()), QString::fromLatin1("Application"),
-                                                           QString::fromLatin1("Name == '%1'").arg(name));
-    Q_ASSERT(offers.count() >= 1);
-    KService::Ptr service = offers.first();
 #if KIO_VERSION < QT_VERSION_CHECK(5, 70, 0)
-    KRun::runService(*service, lst, uiParent);
+    KRun::runService(*service, urls, uiParent);
 #else
     auto job = new KIO::ApplicationLauncherJob(service);
-    job->setUrls(lst);
+    job->setUrls(urls);
     job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
     job->start();
 #endif
@@ -169,7 +158,6 @@ MainWindow::ExternalPopup::ExternalPopup(QWidget *parent)
     : QMenu(parent)
 {
     setTitle(i18n("Invoke External Program"));
-    connect(this, &ExternalPopup::triggered, this, &ExternalPopup::slotExecuteService);
 }
 
 QString MainWindow::ExternalPopup::mimeType(const DB::FileName &file)
@@ -201,7 +189,7 @@ MainWindow::OfferType MainWindow::ExternalPopup::appInfos(const DB::FileNameList
     for (const QString &type : types) {
         const KService::List offers = KMimeTypeTrader::self()->query(type, QLatin1String("Application"));
         for (const KService::Ptr &offer : offers) {
-            res.insert(qMakePair(offer->name(), offer->icon()));
+            res.insert(offer);
             m_appToMimeTypeMap[offer->name()].insert(type);
         }
     }

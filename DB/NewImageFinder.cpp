@@ -410,8 +410,6 @@ void NewImageFinder::searchForNewFiles(const DB::FileNameSet &loadedFiles, QStri
     qApp->processEvents(QEventLoop::AllEvents);
     directory = Utilities::stripEndingForwardSlash(directory);
 
-    const QString imageDir = Utilities::stripEndingForwardSlash(Settings::SettingsData::instance()->imageDirectory());
-
     qCDebug(DBFileOpsLog) << "searching for new files in" << directory;
     FastDir dir(directory);
     const QStringList dirList = dir.entryList();

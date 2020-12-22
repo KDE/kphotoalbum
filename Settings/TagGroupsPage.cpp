@@ -499,7 +499,6 @@ void Settings::TagGroupsPage::slotDeleteGroup()
 {
     QTreeWidgetItem *currentItem = m_categoryTreeWidget->currentItem();
     QString message;
-    QString title;
 
     if (currentItem->childCount() > 0) {
         message = xi18nc("@info", "<para>Really delete group \"%1\"?</para>"

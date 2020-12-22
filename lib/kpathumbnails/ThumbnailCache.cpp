@@ -465,7 +465,7 @@ DB::FileNameList ImageManager::ThumbnailCache::findIncorrectlySizedThumbnails() 
     // may be more efficient, but this method should be called rarely
     // and readability therefore trumps performance
     DB::FileNameList resultList;
-    for (auto it = m_hash.constBegin(); it != m_hash.constEnd(); ++it) {
+    for (auto it = tempHash.constBegin(); it != tempHash.constEnd(); ++it) {
         const auto filename = it.key();
         auto jpegData = lookupRawData(filename);
         Q_ASSERT(!jpegData.isNull());

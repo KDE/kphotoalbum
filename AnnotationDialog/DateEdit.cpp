@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2018 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 /**
  * A date editing widget that consists of an editable combo box.
@@ -42,7 +42,6 @@ AnnotationDialog::DateEdit::DateEdit(bool isStartEdit, QWidget *parent)
     setEditable(true);
     setMaxCount(1); // need at least one entry for popup to work
     m_value = m_defaultValue;
-    QString today = QDate::currentDate().toString(QString::fromLatin1("dd. MMM yyyy"));
     addItem(QString::fromLatin1(""));
     setCurrentIndex(0);
     setItemText(0, QString::fromLatin1(""));

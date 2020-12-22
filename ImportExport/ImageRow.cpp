@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "ImageRow.h"
 
 #include "ImportDialog.h"
@@ -42,7 +43,6 @@ void ImageRow::showImage()
                 src = src2;
             src = src.adjusted(QUrl::RemoveFilename);
             src.setPath(src.path() + m_info->fileName().relative());
-            QString tmpFile;
 
             std::unique_ptr<KIO::StoredTransferJob> downloadJob { KIO::storedGet(src) };
             KJobWidgets::setWindow(downloadJob.get(), MainWindow::Window::theMainWindow());

@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "CompletableLineEdit.h"
 
 #include "ListSelect.h"
@@ -217,7 +218,6 @@ void AnnotationDialog::CompletableLineEdit::selectPrevNextMatch(bool next)
 
     // extract last component of line edit
     int itemStart = text().lastIndexOf(QRegExp(QString::fromLatin1("[!&|]"))) + 1;
-    QString input = text().mid(itemStart);
     selectItemAndUpdateLineEdit(item, itemStart, text().left(selectionStart()));
 }
 

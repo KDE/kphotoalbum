@@ -32,7 +32,7 @@ class BrowserPage : public QObject
     Q_OBJECT
 public:
     BrowserPage(const DB::ImageSearchInfo &info, BrowserWidget *browser);
-    ~BrowserPage() override {}
+    ~BrowserPage() override { }
 
     /**
      * Construct the page. Result of activation may be to call \ref BrowserWidget::addAction.

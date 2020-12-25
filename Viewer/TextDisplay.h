@@ -25,10 +25,10 @@ public:
 
 public slots:
     /* zooming doesn't make sense for textual display */
-    void zoomIn() override {}
-    void zoomOut() override {}
-    void zoomFull() override {}
-    void zoomPixelForPixel() override {}
+    void zoomIn() override { }
+    void zoomOut() override { }
+    void zoomFull() override { }
+    void zoomPixelForPixel() override { }
 
 private:
     QLabel *m_text;

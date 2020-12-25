@@ -20,7 +20,7 @@ public:
         , mp_rangeMatch(rangeMatch)
     {
     }
-    ImageCount() {}
+    ImageCount() { }
 
     int mp_exact;
     int mp_rangeMatch;
@@ -29,7 +29,7 @@ public:
 class ImageDateCollection : public QSharedData
 {
 public:
-    virtual ~ImageDateCollection() {}
+    virtual ~ImageDateCollection() { }
     virtual ImageCount count(const ImageDate &range) = 0;
     virtual Utilities::FastDateTime lowerLimit() const = 0;
     virtual Utilities::FastDateTime upperLimit() const = 0;

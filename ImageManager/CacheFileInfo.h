@@ -8,7 +8,7 @@
 namespace ImageManager
 {
 struct CacheFileInfo {
-    CacheFileInfo() {}
+    CacheFileInfo() { }
     CacheFileInfo(int fileIndex, int offset, int size)
         : fileIndex(fileIndex)
         , offset(offset)

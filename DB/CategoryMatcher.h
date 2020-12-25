@@ -34,7 +34,7 @@ class CategoryMatcher
 {
 public:
     CategoryMatcher();
-    virtual ~CategoryMatcher() {}
+    virtual ~CategoryMatcher() { }
     virtual void debug(int level) const = 0;
 
     virtual bool eval(ImageInfoPtr, QMap<QString, StringSet> &alreadyMatched) = 0;

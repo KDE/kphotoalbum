@@ -23,7 +23,7 @@ public:
     class Value
     {
     public:
-        Value() {}
+        Value() { }
         Value(double value, const QString &text)
             : value(value)
             , text(text)

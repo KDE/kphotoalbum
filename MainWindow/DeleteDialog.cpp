@@ -86,7 +86,8 @@ int DeleteDialog::exec(const DB::FileNameList &list)
 
 void DeleteDialog::deleteImages()
 {
-    bool anyDeleted = Utilities::DeleteFiles::deleteFiles(m_list, m_deleteFile->isChecked() ? Utilities::DeleteFromDisk : m_useTrash->isChecked() ? Utilities::MoveToTrash : Utilities::BlockFromDatabase);
+    bool anyDeleted = Utilities::DeleteFiles::deleteFiles(m_list, m_deleteFile->isChecked() ? Utilities::DeleteFromDisk : m_useTrash->isChecked() ? Utilities::MoveToTrash
+                                                                                                                                                  : Utilities::BlockFromDatabase);
     if (anyDeleted)
         accept();
     else

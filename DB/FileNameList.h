@@ -21,7 +21,7 @@ enum PathType {
 class FileNameList : public QList<DB::FileName>
 {
 public:
-    FileNameList() {}
+    FileNameList() { }
     FileNameList(const QList<DB::FileName> &);
     /**
      * @brief Create a FileNameList from a list of absolute filenames.

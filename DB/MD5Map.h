@@ -23,7 +23,7 @@ typedef QHash<DB::FileName, MD5> FileMD5Map;
 class MD5Map
 {
 public:
-    virtual ~MD5Map() {}
+    virtual ~MD5Map() { }
     virtual void insert(const MD5 &md5sum, const DB::FileName &fileName);
     virtual DB::FileName lookup(const MD5 &md5sum) const;
     virtual MD5 lookupFile(const DB::FileName &fileName) const;

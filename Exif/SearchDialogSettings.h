@@ -15,7 +15,7 @@ template <class T>
 class Setting
 {
 public:
-    Setting() {}
+    Setting() { }
     Setting(QCheckBox *cb, T value)
         : cb(cb)
         , value(value)

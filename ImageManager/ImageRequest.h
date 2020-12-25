@@ -27,7 +27,7 @@ class ImageRequest
 {
 public:
     ImageRequest(const DB::FileName &fileName, const QSize &size, int angle, ImageClientInterface *client);
-    virtual ~ImageRequest() {}
+    virtual ~ImageRequest() { }
     ImageRequest(bool requestExit);
 
     bool isNull() const;

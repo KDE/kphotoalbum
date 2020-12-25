@@ -149,7 +149,7 @@ bool MainWindow::FeatureDialog::hasAllFeaturesAvailable()
 }
 
 struct Data {
-    Data() {}
+    Data() { }
     Data(const QString &title, const QString tag, bool featureFound)
         : title(title)
         , tag(tag)

@@ -28,7 +28,7 @@ public:
     class Range
     {
     public:
-        Range() {}
+        Range() { }
         explicit Range(const QString &key);
         bool isLowerMin, isLowerMax, isUpperMin, isUpperMax;
         double min, max;

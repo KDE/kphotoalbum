@@ -111,9 +111,9 @@ class DummyUIDelegate : public UIDelegate
 protected:
     UserFeedback askWarningContinueCancel(const QString &, const QString &, const QString &) override { return UserFeedback::SafeDefaultAction; }
     UserFeedback askQuestionYesNo(const QString &, const QString &, const QString &) override { return UserFeedback::SafeDefaultAction; }
-    void showInformation(const QString &, const QString &, const QString &) override {}
-    void showSorry(const QString &, const QString &, const QString &) override {}
-    void showError(const QString &, const QString &, const QString &) override {}
+    void showInformation(const QString &, const QString &, const QString &) override { }
+    void showSorry(const QString &, const QString &, const QString &) override { }
+    void showError(const QString &, const QString &, const QString &) override { }
 
 public:
     bool isDialogDisabled(const QString &) override { return false; }

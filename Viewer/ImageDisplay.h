@@ -31,7 +31,7 @@ class ViewHandler;
 class ViewerWidget;
 
 struct ViewPreloadInfo {
-    ViewPreloadInfo() {}
+    ViewPreloadInfo() { }
     ViewPreloadInfo(const QImage &img, const QSize &size, int angle)
         : img(img)
         , size(size)

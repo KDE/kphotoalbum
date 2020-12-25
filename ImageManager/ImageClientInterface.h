@@ -31,7 +31,7 @@ public:
      * Callback on loaded image.
      */
     virtual void pixmapLoaded(ImageRequest *request, const QImage &image) = 0;
-    virtual void requestCanceled() {}
+    virtual void requestCanceled() { }
 };
 }
 

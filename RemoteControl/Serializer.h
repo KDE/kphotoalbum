@@ -30,7 +30,7 @@ static void fastStreamImage(QDataStream &stream, const QImage &image, Background
 class SerializerInterface
 {
 public:
-    virtual ~SerializerInterface() {}
+    virtual ~SerializerInterface() { }
     virtual void encode(QDataStream &) = 0;
     virtual void decode(QDataStream &) = 0;
 };

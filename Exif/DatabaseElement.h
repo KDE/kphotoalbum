@@ -19,7 +19,7 @@ namespace Exif
 class DatabaseElement
 {
 public:
-    virtual ~DatabaseElement() {}
+    virtual ~DatabaseElement() { }
     virtual QString columnName() const = 0;
     /**
      * @brief createString

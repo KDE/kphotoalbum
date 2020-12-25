@@ -15,8 +15,8 @@ namespace AnnotationDialog
 class ListViewItemHider
 {
 protected:
-    ListViewItemHider() {}
-    virtual ~ListViewItemHider() {}
+    ListViewItemHider() { }
+    virtual ~ListViewItemHider() { }
 
     bool setItemsVisible(QTreeWidgetItem *parentItem);
     virtual bool shouldItemBeShown(QTreeWidgetItem *) = 0;

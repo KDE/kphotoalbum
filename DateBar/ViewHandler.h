@@ -14,7 +14,7 @@ namespace DateBar
 class ViewHandler
 {
 public:
-    virtual ~ViewHandler() {}
+    virtual ~ViewHandler() { }
     virtual void init(const Utilities::FastDateTime &startDate) = 0;
     virtual bool isMajorUnit(int unit) = 0;
     virtual bool isMidUnit(int unit);

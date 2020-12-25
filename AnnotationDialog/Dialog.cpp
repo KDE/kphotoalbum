@@ -1704,7 +1704,7 @@ void AnnotationDialog::Dialog::populateMap()
     int imagesWithCoordinates = 0;
 
     // we can use the coordinates of the original images here, because the are never changed by the annotation dialog
-    for (const DB::ImageInfoPtr info : qAsConst(m_origList)) {
+    for (const DB::ImageInfoPtr &info : qAsConst(m_origList)) {
         processedImages++;
         m_mapLoadingProgress->setValue(processedImages);
         // keep things responsive by processing events manually:

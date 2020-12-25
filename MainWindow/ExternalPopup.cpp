@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2020 Nicolas Fella <nicolas.fella@gmx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ExternalPopup.h"
 
@@ -81,10 +81,10 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
 #if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
             KRun::displayOpenWithDialog(lst, uiParent);
 #else
-            auto job = new KIO::ApplicationLauncherJob();
-            job->setUrls(urls);
-            job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
-            job->start();
+                auto job = new KIO::ApplicationLauncherJob();
+                job->setUrls(urls);
+                job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
+                job->start();
 #endif
         });
 
@@ -105,7 +105,7 @@ QList<QUrl> MainWindow::ExternalPopup::relevantUrls(int which, KService::Ptr ser
 {
     // "current item"
     if (which == 0) {
-        return {QUrl(m_currentInfo->fileName().absolute())};
+        return { QUrl(m_currentInfo->fileName().absolute()) };
     }
 
     // "all selected"

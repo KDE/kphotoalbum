@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2020 Nicolas Fella <nicolas.fella@gmx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
@@ -42,21 +43,33 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
     clear();
     QAction *action;
 
-    const QStringList list = QStringList() << i18n("Current Item") << i18n("All Selected Items") << i18n("Copy and Open");
-    for (int which = 0; which < 3; ++which) {
-        if (which == 0 && !current)
+    for (PopupAction which : { PopupAction::OpenCurrent, PopupAction::OpenAllSelected, PopupAction::CopyAndOpenAllSelected }) {
+        if (which == PopupAction::OpenCurrent && !current)
             continue;
 
         const bool multiple = (m_list.count() > 1);
-        const bool enabled = (which != 1 && m_currentInfo) || (which == 1 && multiple);
+        const bool enabled = (which != PopupAction::OpenAllSelected && m_currentInfo) || (which == PopupAction::OpenAllSelected && multiple);
 
         // Submenu
-        QMenu *submenu = addMenu(list[which]);
+        QString menuLabel;
+        switch (which) {
+        case PopupAction::OpenCurrent:
+            menuLabel = i18n("Current Item");
+            break;
+        case PopupAction::OpenAllSelected:
+            menuLabel = i18n("All Selected Items");
+            break;
+        case PopupAction::CopyAndOpenAllSelected:
+            menuLabel = i18n("Copy and Open");
+        }
+        Q_ASSERT(!menuLabel.isNull());
+
+        QMenu *submenu = addMenu(menuLabel);
         submenu->setEnabled(enabled);
 
         // Fetch set of offers
         OfferType offers;
-        if (which == 0)
+        if (which == PopupAction::OpenCurrent)
             offers = appInfos(DB::FileNameList() << current->fileName());
         else
             offers = appInfos(imageList);
@@ -101,15 +114,13 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
     }
 }
 
-QList<QUrl> MainWindow::ExternalPopup::relevantUrls(int which, KService::Ptr service)
+QList<QUrl> MainWindow::ExternalPopup::relevantUrls(PopupAction which, KService::Ptr service)
 {
-    // "current item"
-    if (which == 0) {
+    if (which == PopupAction::OpenCurrent) {
         return { QUrl(m_currentInfo->fileName().absolute()) };
     }
 
-    // "all selected"
-    if (which == 1) {
+    if (which == PopupAction::OpenAllSelected) {
         QList<QUrl> lst;
         for (const DB::FileName &file : qAsConst(m_list)) {
             if (service && m_appToMimeTypeMap[service->name()].contains(mimeType(file)))
@@ -118,9 +129,12 @@ QList<QUrl> MainWindow::ExternalPopup::relevantUrls(int which, KService::Ptr ser
         return lst;
     }
 
-    // "copy and open"
-    if (which == 2) {
+    if (which == PopupAction::CopyAndOpenAllSelected) {
         QList<QUrl> lst;
+        // the way things are presented in the UI, a user is likely to expect this option to
+        // copy and open all selected, not just one. Also, the computation of `enabled` in populate()
+        // suggests the same (hence the enum name) ->
+        // FIXME(jzarl) make this work on the file list!
         QString origFile = m_currentInfo->fileName().absolute();
         QString newFile = origFile;
 

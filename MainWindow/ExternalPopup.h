@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef EXTERNALPOPUP_H
 #define EXTERNALPOPUP_H
@@ -41,8 +41,11 @@ protected:
     OfferType appInfos(const DB::FileNameList &files);
 
 private:
+    enum class PopupAction { OpenCurrent,
+                             OpenAllSelected,
+                             CopyAndOpenAllSelected };
     void runService(KService::Ptr servicel, QList<QUrl> urls);
-    QList<QUrl> relevantUrls(int which, KService::Ptr service);
+    QList<QUrl> relevantUrls(PopupAction which, KService::Ptr service);
 
     DB::FileNameList m_list;
     DB::ImageInfoPtr m_currentInfo;

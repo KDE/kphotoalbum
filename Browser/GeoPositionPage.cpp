@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "GeoPositionPage.h"
 
@@ -54,12 +54,15 @@ void Browser::GeoPositionPage::slotNewRegionSelected(Map::GeoCoordinates::LatLon
     DB::ImageSearchInfo info = searchInfo();
 
     info.setRegionSelection(coordinates);
-
-    browser()->addAction(new Browser::OverviewPage(Breadcrumb(name), info, browser()));
     const int numSelected = DB::ImageDB::instance()->search(info).size();
-    qCDebug(BrowserLog) << "Selected region" << coordinates << "with" << numSelected << "images.";
-    if (numSelected <= Settings::SettingsData::instance()->autoShowThumbnailView()) {
-        browser()->addAction(new ImageViewPage(info, browser()));
+    if (numSelected > 0) {
+        browser()->addAction(new Browser::OverviewPage(Breadcrumb(name), info, browser()));
+        qCDebug(BrowserLog) << "Selected region" << coordinates << "with" << numSelected << "images.";
+        if (numSelected <= Settings::SettingsData::instance()->autoShowThumbnailView()) {
+            browser()->addAction(new ImageViewPage(info, browser()));
+        }
+    } else {
+        qCDebug(BrowserLog) << "Ignoring region selection" << coordinates << "without images.";
     }
 }
 

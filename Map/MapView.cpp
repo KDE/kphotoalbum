@@ -420,6 +420,11 @@ void Map::MapView::mousePressEvent(QMouseEvent *event)
     if (event->button() != Qt::LeftButton)
         return;
 
+    if (event->modifiers() != Qt::NoModifier) {
+        event->ignore();
+        return;
+    }
+
     qCDebug(MapLog) << "Map clicked.";
     const Marble::ViewportParams *viewPortParams = m_mapWidget->viewport();
     Q_ASSERT(viewPortParams);

@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2014-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2014-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 // Local includes
 #include "MapView.h"
@@ -417,27 +417,23 @@ bool Map::MapView::regionSelected() const
 
 void Map::MapView::mousePressEvent(QMouseEvent *event)
 {
-    if (event->button() != Qt::LeftButton)
-        return;
+    if (event->button() == Qt::LeftButton && event->modifiers() == Qt::NoModifier) {
+        qCDebug(MapLog) << "Map clicked.";
+        const Marble::ViewportParams *viewPortParams = m_mapWidget->viewport();
+        Q_ASSERT(viewPortParams);
 
-    if (event->modifiers() != Qt::NoModifier) {
-        event->ignore();
-        return;
-    }
-
-    qCDebug(MapLog) << "Map clicked.";
-    const Marble::ViewportParams *viewPortParams = m_mapWidget->viewport();
-    Q_ASSERT(viewPortParams);
-
-    for (const auto *cluster : m_geoClusters) {
-        const Marble::GeoDataLatLonBox region = cluster->regionForPoint(event->pos(), *viewPortParams);
-        if (!region.isEmpty()) {
-            qCDebug(MapLog) << "Cluster selected by mouse click.";
-            updateRegionSelection(region);
-            event->accept();
-            return;
+        for (const auto *cluster : m_geoClusters) {
+            const Marble::GeoDataLatLonBox region = cluster->regionForPoint(event->pos(), *viewPortParams);
+            if (!region.isEmpty()) {
+                qCDebug(MapLog) << "Cluster selected by mouse click.";
+                updateRegionSelection(region);
+                event->accept();
+                return;
+            }
         }
     }
+    event->ignore();
+    QWidget::mousePressEvent(event);
 }
 
 QStringList Map::MapView::renderPosition() const

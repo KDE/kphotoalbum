@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2019-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2019-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "GeoCluster.h"
 #include "GeoCoordinates.h"
@@ -91,22 +91,24 @@ Marble::GeoDataCoordinates Map::GeoCluster::center() const
     return boundingRegion().center();
 }
 
-Marble::GeoDataLatLonBox Map::GeoCluster::regionForPoint(QPoint pos, const Marble::ViewportParams &viewPortParams) const
+const Map::GeoCluster *Map::GeoCluster::regionForPoint(QPoint pos, const Marble::ViewportParams &viewPortParams) const
 {
     const QRectF screenRect = screenRegion(viewPortParams, boundingRegion());
     if (!screenRect.contains(pos))
-        return {};
+        return nullptr;
 
     if (m_subItemsView) {
         qCDebug(MapLog) << "GeoCluster matches point, but delegating to subClusters first.";
         for (const auto &subCluster : m_subClusters) {
-            const Marble::GeoDataLatLonBox box = subCluster->regionForPoint(pos, viewPortParams);
-            if (!box.isEmpty())
-                return box;
+            auto cluster = subCluster->regionForPoint(pos, viewPortParams);
+            if (cluster && !cluster->isEmpty())
+                return cluster;
         }
+        return nullptr;
+    } else {
+        qCDebug(MapLog) << "GeoCluster containing" << size() << "images matches point.";
+        return this;
     }
-    qCDebug(MapLog) << "GeoCluster containing" << size() << "images matches point.";
-    return boundingRegion();
 }
 
 void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, Map::MapStyle style) const
@@ -140,6 +142,11 @@ int Map::GeoCluster::size() const
         }
     }
     return m_size;
+}
+
+bool Map::GeoCluster::isEmpty() const
+{
+    return (size() == 0);
 }
 
 void Map::GeoCluster::renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, Map::MapStyle style) const

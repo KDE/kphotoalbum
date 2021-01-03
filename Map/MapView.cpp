@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2014-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2014-2015 Tobias Leupold <tobias.leupold@gmx.de>
+// SPDX-FileCopyrightText: 2015-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
@@ -422,11 +423,11 @@ void Map::MapView::mousePressEvent(QMouseEvent *event)
         const Marble::ViewportParams *viewPortParams = m_mapWidget->viewport();
         Q_ASSERT(viewPortParams);
 
-        for (const auto *cluster : m_geoClusters) {
-            const Marble::GeoDataLatLonBox region = cluster->regionForPoint(event->pos(), *viewPortParams);
-            if (!region.isEmpty()) {
+        for (const auto *topLevelCluster : m_geoClusters) {
+            const auto subCluster = topLevelCluster->regionForPoint(event->pos(), *viewPortParams);
+            if (subCluster && !subCluster->isEmpty()) {
                 qCDebug(MapLog) << "Cluster selected by mouse click.";
-                updateRegionSelection(region);
+                updateRegionSelection(subCluster->boundingRegion());
                 event->accept();
                 return;
             }

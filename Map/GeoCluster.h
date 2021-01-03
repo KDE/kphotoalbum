@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2019-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2019-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef MAP_GEOCLUSTER_H
 #define MAP_GEOCLUSTER_H
@@ -64,9 +64,9 @@ public:
      * matching against the GeoClusters own bounding box or against its sub-clusters as appropriate.
      * @param pos
      * @param viewPortParams
-     * @return The matching GeoDataLatLonBox if the position matches, or an empty box otherwise.
+     * @return The matching GeoCluster if the position matches, or a \c nullptr otherwise.
      */
-    virtual Marble::GeoDataLatLonBox regionForPoint(QPoint pos, const Marble::ViewportParams &viewPortParams) const;
+    virtual const GeoCluster *regionForPoint(QPoint pos, const Marble::ViewportParams &viewPortParams) const;
 
     void render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, MapStyle style) const;
     /**
@@ -76,10 +76,16 @@ public:
      */
     virtual int size() const;
 
+    /**
+     * @brief isEmpty
+     * @return \c true, if size is 0, \c false otherwise.
+     */
+    bool isEmpty() const;
+
 private:
     mutable int m_size = 0;
     mutable bool m_subItemsView = false;
-    QList<const GeoCluster *> m_subClusters;
+    QList<const GeoCluster *> m_subClusters = {};
 
 protected:
     mutable Marble::GeoDataLatLonAltBox m_boundingRegion;

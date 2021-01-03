@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2014-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2014-2015 Tobias Leupold <tobias.leupold@gmx.de>
+// SPDX-FileCopyrightText: 2016-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef MAPVIEW_H
 #define MAPVIEW_H

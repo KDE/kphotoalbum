@@ -418,6 +418,12 @@ bool Map::MapView::regionSelected() const
 
 void Map::MapView::mousePressEvent(QMouseEvent *event)
 {
+    if (m_preselectedCluster && event->button() == Qt::RightButton) {
+        // cancel geocluster selection if RMB is clicked
+        m_preselectedCluster = nullptr;
+        event->accept();
+        return;
+    }
     if (event->button() == Qt::LeftButton && event->modifiers() == Qt::NoModifier) {
         qCDebug(MapLog) << "Map clicked.";
         const Marble::ViewportParams *viewPortParams = m_mapWidget->viewport();
@@ -426,7 +432,7 @@ void Map::MapView::mousePressEvent(QMouseEvent *event)
         for (const auto *topLevelCluster : m_geoClusters) {
             const auto subCluster = topLevelCluster->regionForPoint(event->pos(), *viewPortParams);
             if (subCluster && !subCluster->isEmpty()) {
-                qCDebug(MapLog) << "Cluster selected by mouse click.";
+                qCDebug(MapLog) << "Cluster preselected/clicked.";
                 m_preselectedCluster = subCluster;
                 event->accept();
                 return;
@@ -440,9 +446,22 @@ void Map::MapView::mousePressEvent(QMouseEvent *event)
 void Map::MapView::mouseReleaseEvent(QMouseEvent *event)
 {
     if (m_preselectedCluster) {
+        qCDebug(MapLog) << "Cluster selection accepted.";
         updateRegionSelection(m_preselectedCluster->boundingRegion());
         m_preselectedCluster = nullptr;
         event->accept();
+    } else {
+        QWidget::mouseReleaseEvent(event);
+    }
+}
+
+void Map::MapView::keyPressEvent(QKeyEvent *event)
+{
+    if (m_preselectedCluster && event->matches(QKeySequence::Cancel)) {
+        // cancel geocluster selection if Escape key is pressed
+        m_preselectedCluster = nullptr;
+    } else {
+        QWidget::keyPressEvent(event);
     }
 }
 

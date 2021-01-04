@@ -123,11 +123,12 @@ void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::Viewport
     } else {
         m_subItemsView = false;
         qCDebug(MapLog) << "GeoCluster has" << size() << "images.";
+        QPen pen = painter->pen();
+        const auto opacity = painter->opacity();
         painter->setOpacity(0.5);
         const QRectF screenRect = screenRegion(viewPortParams, boundingRegion());
         painter->drawRect(center(), screenRect.width(), screenRect.height());
-        painter->setOpacity(1);
-        QPen pen = painter->pen();
+        painter->setOpacity(opacity);
         painter->setPen(QPen(Qt::black));
         painter->drawText(center(), i18nc("The number of images in an area of the map", "%1", size()), -0.5 * MARKER_SIZE_PX, 0.5 * MARKER_SIZE_PX, MARKER_SIZE_PX, MARKER_SIZE_PX, QTextOption(Qt::AlignCenter));
         painter->setPen(pen);

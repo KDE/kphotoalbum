@@ -121,6 +121,7 @@ public:
     bool regionSelected() const;
 
     void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
 
     // LayerInterface:
     /**
@@ -166,6 +167,13 @@ private: // Variables
     GeoCoordinates m_lastCenter;
     QWidget *m_kpaButtons;
     QWidget *m_floaters;
+    /**
+     * If the user clicks a cluster on the map, it gets preselected (and highlighted) before the mouse release event finalizes the selection.
+     * @see mousePressEvent
+     * @see mouseReleaseEvent
+     * @see render
+     */
+    const GeoCluster *m_preselectedCluster = nullptr;
 
     // filled by addImage()
     QHash<GeoBinAddress, GeoBin *> m_baseBins;

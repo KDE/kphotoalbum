@@ -427,7 +427,7 @@ void Map::MapView::mousePressEvent(QMouseEvent *event)
             const auto subCluster = topLevelCluster->regionForPoint(event->pos(), *viewPortParams);
             if (subCluster && !subCluster->isEmpty()) {
                 qCDebug(MapLog) << "Cluster selected by mouse click.";
-                updateRegionSelection(subCluster->boundingRegion());
+                m_preselectedCluster = subCluster;
                 event->accept();
                 return;
             }
@@ -435,6 +435,15 @@ void Map::MapView::mousePressEvent(QMouseEvent *event)
     }
     event->ignore();
     QWidget::mousePressEvent(event);
+}
+
+void Map::MapView::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (m_preselectedCluster) {
+        updateRegionSelection(m_preselectedCluster->boundingRegion());
+        m_preselectedCluster = nullptr;
+        event->accept();
+    }
 }
 
 QStringList Map::MapView::renderPosition() const
@@ -451,11 +460,17 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *v
     QElapsedTimer timer;
     timer.start();
 
-    painter->setBrush(QBrush(QColor(Qt::red).lighter()));
-    painter->setPen(QColor(Qt::red));
+    painter->setBrush(palette().brush(QPalette::Dark));
+    painter->setPen(palette().color(QPalette::Text));
     ThumbnailParams thumbs { m_pin, MainWindow::Window::theMainWindow()->thumbnailCache() };
+    const auto mapStyle = m_showThumbnails ? MapStyle::ShowThumbnails : MapStyle::ShowPins;
     for (const auto *bin : m_geoClusters) {
-        bin->render(painter, *viewPortParams, thumbs, m_showThumbnails ? MapStyle::ShowThumbnails : MapStyle::ShowPins);
+        bin->render(painter, *viewPortParams, thumbs, mapStyle);
+    }
+    if (m_preselectedCluster) {
+        painter->setBrush(palette().brush(QPalette::Highlight));
+        painter->setPen(palette().color(QPalette::HighlightedText));
+        m_preselectedCluster->render(painter, *viewPortParams, thumbs, mapStyle);
     }
 
     qCDebug(TimingLog) << "Map rendered in" << timer.elapsed() << "ms.";

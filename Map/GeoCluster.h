@@ -1,5 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2019-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -113,6 +112,7 @@ public:
     int size() const override;
 
 private:
+    mutable QHash<DB::ImageInfoPtr, QPixmap> m_scaledThumbnailCache; ///< local cache for scaled thumbnails
     QList<DB::ImageInfoPtr> m_images;
 
 protected:

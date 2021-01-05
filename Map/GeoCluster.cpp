@@ -1,5 +1,4 @@
-// SPDX-FileCopyrightText: 2019-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2019-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -191,7 +190,7 @@ int Map::GeoBin::size() const
 void Map::GeoBin::renderSubItems(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, Map::MapStyle style) const
 {
     const auto viewPort = viewPortParams.viewLatLonAltBox();
-    qCDebug(MapLog) << "GeoBin: drawing individual images";
+    qCDebug(MapLog) << "GeoBin: drawing" << m_images.count() << "individual images";
     for (const DB::ImageInfoPtr &image : m_images) {
         const Marble::GeoDataCoordinates pos(image->coordinates().lon(), image->coordinates().lat(),
                                              image->coordinates().alt(),
@@ -200,8 +199,11 @@ void Map::GeoBin::renderSubItems(Marble::GeoPainter *painter, const Marble::View
             if (style == MapStyle::ShowPins) {
                 painter->drawPixmap(pos, thumbs.alternatePixmap);
             } else {
-                // FIXME(l3u) Maybe we should cache the scaled thumbnails?
-                painter->drawPixmap(pos, thumbs.cache->lookup(image->fileName()).scaled(QSize(MARKER_SIZE_PX, MARKER_SIZE_PX), Qt::KeepAspectRatio));
+                if (!m_scaledThumbnailCache.contains(image)) {
+                    QPixmap thumb = thumbs.cache->lookup(image->fileName()).scaled(QSize(MARKER_SIZE_PX, MARKER_SIZE_PX), Qt::KeepAspectRatio);
+                    m_scaledThumbnailCache.insert(image, thumb);
+                }
+                painter->drawPixmap(pos, m_scaledThumbnailCache.value(image));
             }
         }
     }

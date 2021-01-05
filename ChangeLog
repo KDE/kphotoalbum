@@ -1,5 +1,7 @@
 * Enhancement: UI improvements for MapView
 
+* Enhancement: Performance improvement when many thumbnails are shown in the MapView
+
 ====================== KPhotoalbum 5.7.0 released (08.08.2020) ======================
 
 * Code cleanup:

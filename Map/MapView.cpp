@@ -505,6 +505,11 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *v
     QElapsedTimer timer;
     timer.start();
 
+    painter->setBrush(Qt::transparent);
+    painter->setPen(palette().color(QPalette::Highlight));
+    constexpr qreal BOUNDING_BOX_SCALEFACTOR = 1.2;
+    painter->drawRect(m_markersBox.center(), m_markersBox.width(Marble::GeoDataCoordinates::Degree) * BOUNDING_BOX_SCALEFACTOR, m_markersBox.height(Marble::GeoDataCoordinates::Degree) * BOUNDING_BOX_SCALEFACTOR, true);
+
     painter->setBrush(palette().brush(QPalette::Dark));
     painter->setPen(palette().color(QPalette::Text));
     ThumbnailParams thumbs { m_pin, MainWindow::Window::theMainWindow()->thumbnailCache() };

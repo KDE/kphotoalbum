@@ -112,7 +112,8 @@ const Map::GeoCluster *Map::GeoCluster::regionForPoint(QPoint pos, const Marble:
 
 void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, Map::MapStyle style) const
 {
-    if (viewPortParams.resolves(boundingRegion(), 2 * MARKER_SIZE_PX) || size() == 1
+    if (style == MapStyle::ForceShowThumbnails || size() == 1
+        || viewPortParams.resolves(boundingRegion(), 2 * MARKER_SIZE_PX)
         || (viewPortParams.angularResolution() < FINE_RESOLUTION)) {
         m_subItemsView = true;
         // if the region takes up enough screen space, we should display the subclusters individually.

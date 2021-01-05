@@ -179,6 +179,18 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     showThumbnails->setChecked(m_showThumbnails);
     connect(showThumbnails, &QPushButton::clicked, this, &MapView::setShowThumbnails);
 
+    QPushButton *groupThumbnails = new QPushButton;
+    groupThumbnails->setFlat(true);
+    groupThumbnails->setIcon(QPixmap(smallIcon(QStringLiteral("view-group"))));
+    groupThumbnails->setToolTip(i18nc("@action to group, as in aggregate thumbnails into clusters", "Group adjacent thumbnails into clickable clusters"));
+    kpaButtonsLayout->addWidget(groupThumbnails);
+    groupThumbnails->setCheckable(true);
+    groupThumbnails->setChecked(m_groupThumbnails);
+    connect(groupThumbnails, &QPushButton::clicked, this, &MapView::setGroupThumbnails);
+    // groupThumbnails interacts with showThumbnails:
+    showThumbnails->setEnabled(m_groupThumbnails);
+    connect(groupThumbnails, &QPushButton::clicked, showThumbnails, &QPushButton::setEnabled);
+
     // Marble floater control buttons
 
     m_floaters = new QWidget;
@@ -320,6 +332,20 @@ void Map::MapView::setShowThumbnails(bool state)
 {
     m_showThumbnails = state;
     m_mapWidget->reloadMap();
+}
+
+void Map::MapView::setGroupThumbnails(bool state)
+{
+    m_groupThumbnails = state;
+    m_mapWidget->reloadMap();
+}
+
+Map::MapStyle Map::MapView::mapStyle() const
+{
+    if (m_groupThumbnails)
+        return m_showThumbnails ? MapStyle::ShowThumbnails : MapStyle::ShowPins;
+    else
+        return MapStyle::ForceShowThumbnails;
 }
 
 void Map::MapView::displayStatus(MapStatus status)
@@ -482,14 +508,13 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *v
     painter->setBrush(palette().brush(QPalette::Dark));
     painter->setPen(palette().color(QPalette::Text));
     ThumbnailParams thumbs { m_pin, MainWindow::Window::theMainWindow()->thumbnailCache() };
-    const auto mapStyle = m_showThumbnails ? MapStyle::ShowThumbnails : MapStyle::ShowPins;
     for (const auto *bin : m_geoClusters) {
-        bin->render(painter, *viewPortParams, thumbs, mapStyle);
+        bin->render(painter, *viewPortParams, thumbs, mapStyle());
     }
     if (m_preselectedCluster) {
         painter->setBrush(palette().brush(QPalette::Highlight));
         painter->setPen(palette().color(QPalette::HighlightedText));
-        m_preselectedCluster->render(painter, *viewPortParams, thumbs, mapStyle);
+        m_preselectedCluster->render(painter, *viewPortParams, thumbs, mapStyle());
     }
 
     qCDebug(TimingLog) << "Map rendered in" << timer.elapsed() << "ms.";

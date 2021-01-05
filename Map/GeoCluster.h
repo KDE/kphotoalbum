@@ -5,6 +5,8 @@
 #ifndef MAP_GEOCLUSTER_H
 #define MAP_GEOCLUSTER_H
 
+#include "enums.h"
+
 #include <DB/ImageInfoPtr.h>
 
 #include <marble/GeoDataCoordinates.h>
@@ -26,11 +28,6 @@ namespace Map
 {
 
 class GeoCoordinates;
-
-enum class MapStyle {
-    ShowPins,
-    ShowThumbnails
-};
 
 struct ThumbnailParams {
     const QPixmap &alternatePixmap;

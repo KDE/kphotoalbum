@@ -9,6 +9,7 @@
 
 #include "config-kpa-marble.h"
 #include "GeoCoordinates.h"
+#include "enums.h"
 
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
@@ -110,6 +111,16 @@ public:
      * Sets the state of the "Show Thumbnails" button on the map's control widget.
      */
     void setShowThumbnails(bool state);
+    /**
+     * @brief Sets the state of the "Group Thumbnails" button on lthe map's control widget.
+     */
+    void setGroupThumbnails(bool state);
+
+    /**
+     * @brief Returns the appropriate map style depending on the state of the "Show Thumbnails" and "Group Thumbnails" buttons.
+     * @return the currently active MapStyle
+     */
+    MapStyle mapStyle() const;
 
     /**
      * This sets the status label text and it's visibility, as well as the visibilty of the map
@@ -182,6 +193,7 @@ private: // Variables
 
     Marble::GeoDataLatLonBox m_markersBox;
     bool m_showThumbnails = true;
+    bool m_groupThumbnails = true;
     QPixmap m_pin;
     Marble::GeoDataLatLonBox m_regionSelection;
     bool m_regionSelected = false;

@@ -19,6 +19,7 @@
 # SPDX-FileCopyrightText: 2017 Ben Cooksley <bcooksley@kde.org>
 # SPDX-FileCopyrightText: 2018, 2020 Robert Krawitz <rlk@alum.mit.edu>
 # SPDX-FileCopyrightText: 2020 Wes Hardaker <kpa@capturedonearth.com>
+# SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
@@ -459,6 +460,7 @@ set(libMap_SRCS)
 if(Marble_FOUND)
     set(libMap_SRCS
         "${CMAKE_CURRENT_SOURCE_DIR}/Browser/GeoPositionPage.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Map/enums.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/Map/GeoCluster.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/Map/MapView.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/Map/Logging.cpp"

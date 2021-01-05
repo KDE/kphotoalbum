@@ -1,8 +1,22 @@
-/* SPDX-FileCopyrightText: 2010-2020 The KPhotoAlbum development team
-   SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003 Lukáš Tinkl <lukas@kde.org>
+// SPDX-FileCopyrightText: 2003 Simon Hausmann <hausmann@kde.org>
+// SPDX-FileCopyrightText: 2003 Stephan Binner <binner@kde.org>
+// SPDX-FileCopyrightText: 2003-2007, 2009-2014 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2005, 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2006-2008 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007 Chusslove Illich <caslav.ilic@gmx.net>
+// SPDX-FileCopyrightText: 2007, 2011 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2009 Andrew Coles <andrew.i.coles@googlemail.com>
+// SPDX-FileCopyrightText: 2009 Christoph Feck <cfeck@kde.org>
+// SPDX-FileCopyrightText: 2010, 2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2012-2014, 2016, 2018-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
+// SPDX-FileCopyrightText: 2018, 2020 Tobias Leupold <tobias.leupold@gmx.de>
+// SPDX-FileCopyrightText: 2019 Alexander Potashev <aspotashev@gmail.com>
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "version.h"
 
@@ -74,7 +88,7 @@ int main(int argc, char **argv)
         QStringLiteral(KPA_VERSION),
         i18n("KDE Photo Album"), // short description
         KAboutLicense::GPL_V3,
-        i18n("Copyright (C) 2003-2020 The KPhotoAlbum Development Team"), // copyright statement
+        i18n("Copyright (C) 2003-2021 The KPhotoAlbum Development Team"), // copyright statement
         QString(), // other text
         QStringLiteral("https://www.kphotoalbum.org") // homepage
     );

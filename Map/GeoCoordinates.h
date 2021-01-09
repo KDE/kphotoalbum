@@ -1,13 +1,17 @@
-/* SPDX-FileCopyrightText: 2018-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2018-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef GEOCOORDINATES_H
 #define GEOCOORDINATES_H
 
 #include <QString>
 
+namespace Marble
+{
+class GeoDataLatLonBox;
+}
 namespace Map
 {
 
@@ -26,6 +30,7 @@ public:
     struct LatLonBox {
         LatLonBox() = default;
         LatLonBox(double north, double south, double east, double west);
+        explicit LatLonBox(const Marble::GeoDataLatLonBox &box);
         bool isNull() const;
         operator QString() const;
         double north = 0;

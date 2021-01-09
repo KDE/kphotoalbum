@@ -430,11 +430,7 @@ void Map::MapView::updateRegionSelectionOld(const QList<double> &selection)
 
 Map::GeoCoordinates::LatLonBox Map::MapView::getRegionSelection() const
 {
-    return GeoCoordinates::LatLonBox(
-        m_regionSelection.north(Marble::GeoDataCoordinates::Degree),
-        m_regionSelection.south(Marble::GeoDataCoordinates::Degree),
-        m_regionSelection.east(Marble::GeoDataCoordinates::Degree),
-        m_regionSelection.west(Marble::GeoDataCoordinates::Degree));
+    return GeoCoordinates::LatLonBox(m_regionSelection);
 }
 
 bool Map::MapView::regionSelected() const

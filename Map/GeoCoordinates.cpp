@@ -1,9 +1,11 @@
-/* SPDX-FileCopyrightText: 2018-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2018-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "GeoCoordinates.h"
+
+#include <marble/GeoDataLatLonAltBox.h>
 
 bool Map::GeoCoordinates::hasCoordinates() const
 {
@@ -53,6 +55,14 @@ Map::GeoCoordinates::LatLonBox::LatLonBox(double north, double south, double eas
     , south(south)
     , east(east)
     , west(west)
+{
+}
+
+Map::GeoCoordinates::LatLonBox::LatLonBox(const Marble::GeoDataLatLonBox &box)
+    : north(box.north(Marble::GeoDataCoordinates::Degree))
+    , south(box.south(Marble::GeoDataCoordinates::Degree))
+    , east(box.east(Marble::GeoDataCoordinates::Degree))
+    , west(box.west(Marble::GeoDataCoordinates::Degree))
 {
 }
 

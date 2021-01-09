@@ -12,6 +12,8 @@
 #include <marble/GeoDataCoordinates.h>
 #include <marble/GeoDataLatLonAltBox.h>
 
+#include <QRegion>
+
 namespace Marble
 {
 class GeoDataLatLonBox;
@@ -80,7 +82,7 @@ public:
 
 private:
     mutable int m_size = 0;
-    mutable bool m_subItemsView = false;
+    mutable QRegion m_renderedRegion = {}; ///< If currently drawn, contains the rendered region. Otherwise the region is empty.
     QList<const GeoCluster *> m_subClusters = {};
 
 protected:

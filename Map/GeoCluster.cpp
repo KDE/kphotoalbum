@@ -92,22 +92,18 @@ Marble::GeoDataCoordinates Map::GeoCluster::center() const
 
 const Map::GeoCluster *Map::GeoCluster::regionForPoint(QPoint pos, const Marble::ViewportParams &viewPortParams) const
 {
-    const QRectF screenRect = screenRegion(viewPortParams, boundingRegion());
-    if (!screenRect.contains(pos))
-        return nullptr;
-
-    if (m_subItemsView) {
-        qCDebug(MapLog) << "GeoCluster matches point, but delegating to subClusters first.";
+    // only check child items if the cluster was not drawn on the map:
+    if (m_renderedRegion.isEmpty()) {
         for (const auto &subCluster : m_subClusters) {
             auto cluster = subCluster->regionForPoint(pos, viewPortParams);
             if (cluster && !cluster->isEmpty())
                 return cluster;
         }
-        return nullptr;
-    } else {
+    } else if (m_renderedRegion.contains(pos)) {
         qCDebug(MapLog) << "GeoCluster containing" << size() << "images matches point.";
         return this;
     }
+    return nullptr;
 }
 
 void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, Map::MapStyle style) const
@@ -115,19 +111,19 @@ void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::Viewport
     if (style == MapStyle::ForceShowThumbnails || size() == 1
         || viewPortParams.resolves(boundingRegion(), 2 * MARKER_SIZE_PX)
         || (viewPortParams.angularResolution() < FINE_RESOLUTION)) {
-        m_subItemsView = true;
+        m_renderedRegion = {};
         // if the region takes up enough screen space, we should display the subclusters individually.
         // if all images have the same coordinates (null bounding region), this will never happen
         // -> in this case, show the images when we're zoomed in enough
         renderSubItems(painter, viewPortParams, thumbs, style);
     } else {
-        m_subItemsView = false;
         qCDebug(MapLog) << "GeoCluster has" << size() << "images.";
         QPen pen = painter->pen();
         const auto opacity = painter->opacity();
         painter->setOpacity(0.5);
         const QRectF screenRect = screenRegion(viewPortParams, boundingRegion());
         painter->drawRect(center(), screenRect.width(), screenRect.height());
+        m_renderedRegion = painter->regionFromRect(center(), screenRect.width(), screenRect.height());
         painter->setOpacity(opacity);
         painter->setPen(QPen(Qt::black));
         painter->drawText(center(), i18nc("The number of images in an area of the map", "%1", size()), -0.5 * MARKER_SIZE_PX, 0.5 * MARKER_SIZE_PX, MARKER_SIZE_PX, MARKER_SIZE_PX, QTextOption(Qt::AlignCenter));

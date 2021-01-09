@@ -33,6 +33,7 @@ public:
         explicit LatLonBox(const Marble::GeoDataLatLonBox &box);
         bool isNull() const;
         operator QString() const;
+        bool contains(const GeoCoordinates &point) const;
         double north = 0;
         double south = 0;
         double east = 0;

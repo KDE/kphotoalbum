@@ -70,6 +70,23 @@ bool Map::GeoCoordinates::LatLonBox::isNull() const
 {
     return north == 0 && south == 0 && east == 0 && west == 0;
 }
+
+bool Map::GeoCoordinates::LatLonBox::contains(const Map::GeoCoordinates &point) const
+{
+    // copied from Marble::GeoDataLatLonBox:
+    const double lat = point.lat();
+    if (lat < south || lat > north) {
+        return false;
+    }
+    const double lon = point.lon();
+    if (((lon < west || lon > east)
+         && (west < east))
+        || ((lon < west && lon > east)
+            && (east > west))) {
+        return false;
+    }
+    return true;
+}
 Map::GeoCoordinates::LatLonBox::operator QString() const
 {
     return QStringLiteral("(N%1, S%2, E%3, W%4)").arg(north).arg(south).arg(east).arg(west);

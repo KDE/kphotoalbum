@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ImageSearchInfo.h"
 
@@ -185,18 +185,9 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
     if (!m_regionSelection.isNull()) {
         if (!info->coordinates().hasCoordinates())
             return false;
-        double infoLat = info->coordinates().lat();
-        if (infoLat < m_regionSelection.south || infoLat > m_regionSelection.north) {
+
+        if (!m_regionSelection.contains(info->coordinates()))
             return false;
-        }
-        double infoLon = info->coordinates().lon();
-        // copied from Marble::GeoDataLatLonBox:
-        if (((infoLon < m_regionSelection.west || infoLon > m_regionSelection.east)
-             && (m_regionSelection.west < m_regionSelection.east))
-            || ((infoLon < m_regionSelection.west && infoLon > m_regionSelection.east)
-                && (m_regionSelection.east > m_regionSelection.west))) {
-            return false;
-        }
     }
 #endif
 

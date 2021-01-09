@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2020 Nicolas Fella <nicolas.fella@gmx.de>
+// SPDX-FileCopyrightText: 2020-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2020-2021 Nicolas Fella <nicolas.fella@gmx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -27,7 +27,7 @@
 #include <KRun>
 #endif
 #include <kservice_version.h>
-#if KSERVICE_VERSION > QT_VERSION_CHECK(5, 68, 0)
+#if KSERVICE_VERSION >= QT_VERSION_CHECK(5, 68, 0)
 #include <KApplicationTrader>
 #endif
 #include <KService>

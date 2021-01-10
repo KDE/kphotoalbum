@@ -73,15 +73,17 @@ bool Map::GeoCoordinates::LatLonBox::isNull() const
 
 bool Map::GeoCoordinates::LatLonBox::contains(const Map::GeoCoordinates &point) const
 {
-    // copied from Marble::GeoDataLatLonBox:
+    // increase size by delta in all directions for the check
+    // this fixes numerical issues with those images that lie directly on the border
+    const double delta = 0.000001;
     const double lat = point.lat();
-    if (lat < south || lat > north) {
+    if (lat < south - delta || lat > north + delta) {
         return false;
     }
     const double lon = point.lon();
-    if (((lon < west || lon > east)
+    if (((lon < west - delta || lon > east + delta)
          && (west < east))
-        || ((lon < west && lon > east)
+        || ((lon < west - delta && lon > east + delta)
             && (east < west))) {
         return false;
     }

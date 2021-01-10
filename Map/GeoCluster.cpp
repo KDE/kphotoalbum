@@ -56,15 +56,15 @@ QSizeF screenSize(const Marble::ViewportParams &viewPortParams, const Marble::Ge
  * The region has the size of what is actually drawn, not the size of the bounding region itself.
  * @param viewPortParams
  * @param region
- * @param thumbnailSize
+ * @param minSizePx
  * @return the region in screen coordinates
  */
-QRectF screenRegion(const Marble::ViewportParams &viewPortParams, const Marble::GeoDataLatLonBox region, int thumbnailSize)
+QRectF screenRegion(const Marble::ViewportParams &viewPortParams, const Marble::GeoDataLatLonBox region, int minSizePx)
 {
     const QSizeF areaSizePx = screenSize(viewPortParams, region);
     // drawing a larger area gets nicer results on average:
-    const qreal heightPx = qMax(BOUNDING_BOX_SCALEFACTOR * areaSizePx.height(), (qreal)thumbnailSize);
-    const qreal widthPx = qMax(BOUNDING_BOX_SCALEFACTOR * areaSizePx.width(), (qreal)thumbnailSize);
+    const qreal heightPx = qMax(BOUNDING_BOX_SCALEFACTOR * areaSizePx.height(), (qreal)minSizePx);
+    const qreal widthPx = qMax(BOUNDING_BOX_SCALEFACTOR * areaSizePx.width(), (qreal)minSizePx);
     qreal left;
     qreal top;
     viewPortParams.screenCoordinates(region.west(Marble::GeoDataCoordinates::Radian),

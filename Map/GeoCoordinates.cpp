@@ -82,7 +82,7 @@ bool Map::GeoCoordinates::LatLonBox::contains(const Map::GeoCoordinates &point) 
     if (((lon < west || lon > east)
          && (west < east))
         || ((lon < west && lon > east)
-            && (east > west))) {
+            && (east < west))) {
         return false;
     }
     return true;

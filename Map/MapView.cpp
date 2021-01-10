@@ -508,7 +508,9 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *v
 
     painter->setBrush(palette().brush(QPalette::Dark));
     painter->setPen(palette().color(QPalette::Text));
-    ThumbnailParams thumbs { m_pin, MainWindow::Window::theMainWindow()->thumbnailCache() };
+    // size of the markers in screen coordinates (pixel)
+    constexpr int MARKER_SIZE_PX = 40;
+    ThumbnailParams thumbs { m_pin, MainWindow::Window::theMainWindow()->thumbnailCache(), MARKER_SIZE_PX };
     for (const auto *bin : m_geoClusters) {
         bin->render(painter, *viewPortParams, thumbs, mapStyle());
     }

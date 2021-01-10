@@ -34,6 +34,7 @@ class GeoCoordinates;
 struct ThumbnailParams {
     const QPixmap &alternatePixmap;
     const ImageManager::ThumbnailCache *cache;
+    const int thumbnailSizePx;
 };
 
 class GeoCluster
@@ -112,6 +113,7 @@ public:
 
 private:
     mutable QHash<DB::ImageInfoPtr, QPixmap> m_scaledThumbnailCache; ///< local cache for scaled thumbnails
+    mutable int m_thumbnailSizePx; ///< pixel size of thumbnails in the cache
     QList<DB::ImageInfoPtr> m_images;
 
 protected:

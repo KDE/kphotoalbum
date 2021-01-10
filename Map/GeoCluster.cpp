@@ -20,8 +20,6 @@ namespace
 {
 // when the angular resolution is smaller than fineResolution, all details should be shown
 constexpr qreal FINE_RESOLUTION = 0.000001;
-// size of the markers in screen coordinates (pixel)
-constexpr int MARKER_SIZE_PX = 40;
 // the scale factor of the bounding box compared to the bounding box as drawn on the map
 constexpr qreal BOUNDING_BOX_SCALEFACTOR = 1.2;
 
@@ -58,14 +56,15 @@ QSizeF screenSize(const Marble::ViewportParams &viewPortParams, const Marble::Ge
  * The region has the size of what is actually drawn, not the size of the bounding region itself.
  * @param viewPortParams
  * @param region
- * @return
+ * @param thumbnailSize
+ * @return the region in screen coordinates
  */
-QRectF screenRegion(const Marble::ViewportParams &viewPortParams, const Marble::GeoDataLatLonBox region)
+QRectF screenRegion(const Marble::ViewportParams &viewPortParams, const Marble::GeoDataLatLonBox region, int thumbnailSize)
 {
     const QSizeF areaSizePx = screenSize(viewPortParams, region);
     // drawing a larger area gets nicer results on average:
-    const qreal heightPx = qMax(BOUNDING_BOX_SCALEFACTOR * areaSizePx.height(), (qreal)MARKER_SIZE_PX);
-    const qreal widthPx = qMax(BOUNDING_BOX_SCALEFACTOR * areaSizePx.width(), (qreal)MARKER_SIZE_PX);
+    const qreal heightPx = qMax(BOUNDING_BOX_SCALEFACTOR * areaSizePx.height(), (qreal)thumbnailSize);
+    const qreal widthPx = qMax(BOUNDING_BOX_SCALEFACTOR * areaSizePx.width(), (qreal)thumbnailSize);
     qreal left;
     qreal top;
     viewPortParams.screenCoordinates(region.west(Marble::GeoDataCoordinates::Radian),
@@ -109,7 +108,7 @@ const Map::GeoCluster *Map::GeoCluster::regionForPoint(QPoint pos, const Marble:
 void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, Map::MapStyle style) const
 {
     if (style == MapStyle::ForceShowThumbnails || size() == 1
-        || viewPortParams.resolves(boundingRegion(), 2 * MARKER_SIZE_PX)
+        || viewPortParams.resolves(boundingRegion(), 2 * thumbs.thumbnailSizePx)
         || (viewPortParams.angularResolution() < FINE_RESOLUTION)) {
         m_renderedRegion = {};
         // if the region takes up enough screen space, we should display the subclusters individually.
@@ -121,12 +120,12 @@ void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::Viewport
         QPen pen = painter->pen();
         const auto opacity = painter->opacity();
         painter->setOpacity(0.5);
-        const QRectF screenRect = screenRegion(viewPortParams, boundingRegion());
+        const QRectF screenRect = screenRegion(viewPortParams, boundingRegion(), thumbs.thumbnailSizePx);
         painter->drawRect(center(), screenRect.width(), screenRect.height());
         m_renderedRegion = painter->regionFromRect(center(), screenRect.width(), screenRect.height());
         painter->setOpacity(opacity);
         painter->setPen(QPen(Qt::black));
-        painter->drawText(center(), i18nc("The number of images in an area of the map", "%1", size()), -0.5 * MARKER_SIZE_PX, 0.5 * MARKER_SIZE_PX, MARKER_SIZE_PX, MARKER_SIZE_PX, QTextOption(Qt::AlignCenter));
+        painter->drawText(center(), i18nc("The number of images in an area of the map", "%1", size()), -0.5 * thumbs.thumbnailSizePx, 0.5 * thumbs.thumbnailSizePx, thumbs.thumbnailSizePx, thumbs.thumbnailSizePx, QTextOption(Qt::AlignCenter));
         painter->setPen(pen);
     }
 }
@@ -196,8 +195,12 @@ void Map::GeoBin::renderSubItems(Marble::GeoPainter *painter, const Marble::View
             if (style == MapStyle::ShowPins) {
                 painter->drawPixmap(pos, thumbs.alternatePixmap);
             } else {
+                if (thumbs.thumbnailSizePx != m_thumbnailSizePx) {
+                    m_scaledThumbnailCache.clear();
+                    m_thumbnailSizePx = thumbs.thumbnailSizePx;
+                }
                 if (!m_scaledThumbnailCache.contains(image)) {
-                    QPixmap thumb = thumbs.cache->lookup(image->fileName()).scaled(QSize(MARKER_SIZE_PX, MARKER_SIZE_PX), Qt::KeepAspectRatio);
+                    QPixmap thumb = thumbs.cache->lookup(image->fileName()).scaled(QSize(thumbs.thumbnailSizePx, thumbs.thumbnailSizePx), Qt::KeepAspectRatio);
                     m_scaledThumbnailCache.insert(image, thumb);
                 }
                 painter->drawPixmap(pos, m_scaledThumbnailCache.value(image));

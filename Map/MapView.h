@@ -154,14 +154,15 @@ public:
                 const QString &renderPos, Marble::GeoSceneLayer * /*nullptr*/) override;
 
     /**
-     * @return The size of the rendered thumbnails in pixels.
+     * @return The size of the rendered thumbnails/markers in pixels.
      */
-    int thumbnailSize() const;
+    int markerSize() const;
     /**
-     * @brief Set the thumbnailSize for rendering on the map
-     * @param thumbnailSizePx a size in pixels
+     * @brief Set the markerSize for rendering on the map
+     * Note: Apart from thumbnails, this also affects the size of clusters and therefore the clustering.
+     * @param markerSizePx a size in pixels
      */
-    void setThumbnailSize(int thumbnailSizePx);
+    void setMarkerSize(int markerSizePx);
 
 Q_SIGNALS:
     void newRegionSelected(Map::GeoCoordinates::LatLonBox coordinates);
@@ -172,6 +173,9 @@ public slots:
      * Centers the map on the coordinates of the given image.
      */
     void setCenter(const DB::ImageInfoPtr image);
+
+    void increaseMarkerSize();
+    void decreaseMarkerSize();
 
 private slots:
     void saveSettings();
@@ -207,7 +211,7 @@ private: // Variables
     QPixmap m_pin;
     Marble::GeoDataLatLonBox m_regionSelection;
     bool m_regionSelected = false;
-    int m_thumbnailSize;
+    int m_markerSize;
 };
 
 }

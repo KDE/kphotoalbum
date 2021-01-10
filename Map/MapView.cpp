@@ -36,7 +36,10 @@
 namespace
 {
 // size of the markers in screen coordinates (pixel)
-constexpr int MARKER_SIZE_PX = 40;
+constexpr int MARKER_SIZE_DEFAULT_PX = 40;
+constexpr int MARKER_SIZE_MIN_PX = 20;
+constexpr int MARKER_SIZE_MAX_PX = 400;
+constexpr int MARKER_SIZE_STEP_PX = 10;
 const QString MAPVIEW_FLOATER_VISIBLE_CONFIG_PREFIX = QStringLiteral("MarbleFloaterVisible ");
 const QStringList MAPVIEW_RENDER_POSITION({ QStringLiteral("HOVERS_ABOVE_SURFACE") });
 const QVector<QString> WANTED_FLOATERS { QStringLiteral("compass"),
@@ -119,7 +122,7 @@ inline QPixmap smallIcon(const QString &iconName)
 
 Map::MapView::MapView(QWidget *parent, UsageType type)
     : QWidget(parent)
-    , m_thumbnailSize(MARKER_SIZE_PX)
+    , m_markerSize(MARKER_SIZE_DEFAULT_PX)
 {
     if (type == UsageType::MapViewWindow) {
         setWindowFlags(Qt::Window);
@@ -193,6 +196,20 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     // groupThumbnails interacts with showThumbnails:
     showThumbnails->setEnabled(m_groupThumbnails);
     connect(groupThumbnails, &QPushButton::clicked, showThumbnails, &QPushButton::setEnabled);
+
+    QPushButton *decreaseMarkerSize = new QPushButton;
+    decreaseMarkerSize->setFlat(true);
+    decreaseMarkerSize->setIcon(QPixmap(smallIcon(QStringLiteral("view-zoom-out-symbolic"))));
+    decreaseMarkerSize->setToolTip(i18nc("@action Decrease size of the markers (i.e. thumbnails) drawn on the map", "Decrease marker size"));
+    kpaButtonsLayout->addWidget(decreaseMarkerSize);
+    connect(decreaseMarkerSize, &QPushButton::clicked, this, &MapView::decreaseMarkerSize);
+
+    QPushButton *increaseMarkerSize = new QPushButton;
+    increaseMarkerSize->setFlat(true);
+    increaseMarkerSize->setIcon(QPixmap(smallIcon(QStringLiteral("view-zoom-in-symbolic"))));
+    increaseMarkerSize->setToolTip(i18nc("@action Increase size of the markers (i.e. thumbnails) drawn on the map", "Increase marker size"));
+    kpaButtonsLayout->addWidget(increaseMarkerSize);
+    connect(increaseMarkerSize, &QPushButton::clicked, this, &MapView::increaseMarkerSize);
 
     // Marble floater control buttons
 
@@ -318,6 +335,16 @@ void Map::MapView::setCenter(const DB::ImageInfoPtr image)
     setLastCenter();
 }
 
+void Map::MapView::increaseMarkerSize()
+{
+    setMarkerSize(markerSize() + MARKER_SIZE_STEP_PX);
+}
+
+void Map::MapView::decreaseMarkerSize()
+{
+    setMarkerSize(markerSize() - MARKER_SIZE_STEP_PX);
+}
+
 void Map::MapView::saveSettings()
 {
     KSharedConfigPtr config = KSharedConfig::openConfig();
@@ -334,13 +361,13 @@ void Map::MapView::saveSettings()
 void Map::MapView::setShowThumbnails(bool state)
 {
     m_showThumbnails = state;
-    m_mapWidget->reloadMap();
+    m_mapWidget->update();
 }
 
 void Map::MapView::setGroupThumbnails(bool state)
 {
     m_groupThumbnails = state;
-    m_mapWidget->reloadMap();
+    m_mapWidget->update();
 }
 
 Map::MapStyle Map::MapView::mapStyle() const
@@ -421,14 +448,16 @@ void Map::MapView::updateRegionSelection(const Marble::GeoDataLatLonBox &selecti
     emit newRegionSelected(getRegionSelection());
 }
 
-int Map::MapView::thumbnailSize() const
+int Map::MapView::markerSize() const
 {
-    return m_thumbnailSize;
+    return m_markerSize;
 }
 
-void Map::MapView::setThumbnailSize(int thumbnailSizePx)
+void Map::MapView::setMarkerSize(int markerSizePx)
 {
-    m_thumbnailSize = thumbnailSizePx;
+    m_markerSize = qBound(MARKER_SIZE_MIN_PX, markerSizePx, MARKER_SIZE_MAX_PX);
+    qCDebug(MapLog) << "Set map marker size to" << m_markerSize;
+    m_mapWidget->update();
 }
 
 #ifndef MARBLE_HAS_regionSelected_NEW
@@ -521,7 +550,7 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *v
 
     painter->setBrush(palette().brush(QPalette::Dark));
     painter->setPen(palette().color(QPalette::Text));
-    ThumbnailParams thumbs { m_pin, MainWindow::Window::theMainWindow()->thumbnailCache(), m_thumbnailSize };
+    ThumbnailParams thumbs { m_pin, MainWindow::Window::theMainWindow()->thumbnailCache(), m_markerSize };
     for (const auto *bin : m_geoClusters) {
         bin->render(painter, *viewPortParams, thumbs, mapStyle());
     }

@@ -35,6 +35,8 @@
 
 namespace
 {
+// size of the markers in screen coordinates (pixel)
+constexpr int MARKER_SIZE_PX = 40;
 const QString MAPVIEW_FLOATER_VISIBLE_CONFIG_PREFIX = QStringLiteral("MarbleFloaterVisible ");
 const QStringList MAPVIEW_RENDER_POSITION({ QStringLiteral("HOVERS_ABOVE_SURFACE") });
 const QVector<QString> WANTED_FLOATERS { QStringLiteral("compass"),
@@ -117,6 +119,7 @@ inline QPixmap smallIcon(const QString &iconName)
 
 Map::MapView::MapView(QWidget *parent, UsageType type)
     : QWidget(parent)
+    , m_thumbnailSize(MARKER_SIZE_PX)
 {
     if (type == UsageType::MapViewWindow) {
         setWindowFlags(Qt::Window);
@@ -418,6 +421,16 @@ void Map::MapView::updateRegionSelection(const Marble::GeoDataLatLonBox &selecti
     emit newRegionSelected(getRegionSelection());
 }
 
+int Map::MapView::thumbnailSize() const
+{
+    return m_thumbnailSize;
+}
+
+void Map::MapView::setThumbnailSize(int thumbnailSizePx)
+{
+    m_thumbnailSize = thumbnailSizePx;
+}
+
 #ifndef MARBLE_HAS_regionSelected_NEW
 void Map::MapView::updateRegionSelectionOld(const QList<double> &selection)
 {
@@ -508,9 +521,7 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *v
 
     painter->setBrush(palette().brush(QPalette::Dark));
     painter->setPen(palette().color(QPalette::Text));
-    // size of the markers in screen coordinates (pixel)
-    constexpr int MARKER_SIZE_PX = 40;
-    ThumbnailParams thumbs { m_pin, MainWindow::Window::theMainWindow()->thumbnailCache(), MARKER_SIZE_PX };
+    ThumbnailParams thumbs { m_pin, MainWindow::Window::theMainWindow()->thumbnailCache(), m_thumbnailSize };
     for (const auto *bin : m_geoClusters) {
         bin->render(painter, *viewPortParams, thumbs, mapStyle());
     }

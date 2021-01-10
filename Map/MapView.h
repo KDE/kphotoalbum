@@ -153,6 +153,16 @@ public:
     bool render(Marble::GeoPainter *painter, Marble::ViewportParams *viewPortParams,
                 const QString &renderPos, Marble::GeoSceneLayer * /*nullptr*/) override;
 
+    /**
+     * @return The size of the rendered thumbnails in pixels.
+     */
+    int thumbnailSize() const;
+    /**
+     * @brief Set the thumbnailSize for rendering on the map
+     * @param thumbnailSizePx a size in pixels
+     */
+    void setThumbnailSize(int thumbnailSizePx);
+
 Q_SIGNALS:
     void newRegionSelected(Map::GeoCoordinates::LatLonBox coordinates);
     void displayStatusChanged(MapStatus);
@@ -197,6 +207,7 @@ private: // Variables
     QPixmap m_pin;
     Marble::GeoDataLatLonBox m_regionSelection;
     bool m_regionSelected = false;
+    int m_thumbnailSize;
 };
 
 }

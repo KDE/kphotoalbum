@@ -121,8 +121,10 @@ void Map::GeoCluster::render(Marble::GeoPainter *painter, const Marble::Viewport
         const auto opacity = painter->opacity();
         painter->setOpacity(0.5);
         const QRectF screenRect = screenRegion(viewPortParams, boundingRegion(), thumbs.thumbnailSizePx);
-        painter->drawRect(center(), screenRect.width(), screenRect.height());
-        m_renderedRegion = painter->regionFromRect(center(), screenRect.width(), screenRect.height());
+        painter->drawRect(center(), screenRect.width(), screenRect.height(), false);
+        m_renderedRegion = painter->regionFromRect(center(), screenRect.width(), screenRect.height(), false);
+        // adjust region to match up with drawn region:
+        m_renderedRegion.translate(static_cast<int>(-0.5 * screenRect.width()), static_cast<int>(-0.5 * screenRect.height()));
         painter->setOpacity(opacity);
         painter->setPen(QPen(Qt::black));
         painter->drawText(center(), i18nc("The number of images in an area of the map", "%1", size()), -0.5 * thumbs.thumbnailSizePx, 0.5 * thumbs.thumbnailSizePx, thumbs.thumbnailSizePx, thumbs.thumbnailSizePx, QTextOption(Qt::AlignCenter));

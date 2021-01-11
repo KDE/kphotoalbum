@@ -490,11 +490,9 @@ void Map::MapView::mousePressEvent(QMouseEvent *event)
     }
     if (event->button() == Qt::LeftButton && event->modifiers() == Qt::NoModifier) {
         qCDebug(MapLog) << "Map clicked.";
-        const Marble::ViewportParams *viewPortParams = m_mapWidget->viewport();
-        Q_ASSERT(viewPortParams);
 
         for (const auto *topLevelCluster : m_geoClusters) {
-            const auto subCluster = topLevelCluster->regionForPoint(event->pos(), *viewPortParams);
+            const auto subCluster = topLevelCluster->regionForPoint(event->pos());
             if (subCluster && !subCluster->isEmpty()) {
                 qCDebug(MapLog) << "Cluster preselected/clicked.";
                 m_preselectedCluster = subCluster;

@@ -62,10 +62,9 @@ public:
      * The corresponding bounding box is computed the same way as in the render method,
      * matching against the GeoClusters own bounding box or against its sub-clusters as appropriate.
      * @param pos
-     * @param viewPortParams
      * @return The matching GeoCluster if the position matches, or a \c nullptr otherwise.
      */
-    virtual const GeoCluster *regionForPoint(QPoint pos, const Marble::ViewportParams &viewPortParams) const;
+    virtual const GeoCluster *regionForPoint(QPoint pos) const;
 
     void render(Marble::GeoPainter *painter, const Marble::ViewportParams &viewPortParams, const ThumbnailParams &thumbs, MapStyle style) const;
     /**

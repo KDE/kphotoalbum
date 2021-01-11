@@ -89,12 +89,12 @@ Marble::GeoDataCoordinates Map::GeoCluster::center() const
     return boundingRegion().center();
 }
 
-const Map::GeoCluster *Map::GeoCluster::regionForPoint(QPoint pos, const Marble::ViewportParams &viewPortParams) const
+const Map::GeoCluster *Map::GeoCluster::regionForPoint(QPoint pos) const
 {
     // only check child items if the cluster was not drawn on the map:
     if (m_renderedRegion.isEmpty()) {
         for (const auto &subCluster : m_subClusters) {
-            auto cluster = subCluster->regionForPoint(pos, viewPortParams);
+            auto cluster = subCluster->regionForPoint(pos);
             if (cluster && !cluster->isEmpty())
                 return cluster;
         }

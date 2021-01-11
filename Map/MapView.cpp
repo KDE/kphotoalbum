@@ -491,15 +491,18 @@ void Map::MapView::mousePressEvent(QMouseEvent *event)
         return;
     }
     if (event->button() == Qt::LeftButton && event->modifiers() == Qt::NoModifier) {
-        qCDebug(MapLog) << "Map clicked.";
+        if (m_mapWidget->geometry().contains(event->pos())) {
+            qCDebug(MapLog) << "Map clicked.";
+            const auto mapPos = event->pos() - m_mapWidget->pos();
 
-        for (const auto *topLevelCluster : m_geoClusters) {
-            const auto subCluster = topLevelCluster->regionForPoint(event->pos());
-            if (subCluster && !subCluster->isEmpty()) {
-                qCDebug(MapLog) << "Cluster preselected/clicked.";
-                m_preselectedCluster = subCluster;
-                event->accept();
-                return;
+            for (const auto *topLevelCluster : m_geoClusters) {
+                const auto subCluster = topLevelCluster->regionForPoint(mapPos);
+                if (subCluster && !subCluster->isEmpty()) {
+                    qCDebug(MapLog) << "Cluster preselected/clicked.";
+                    m_preselectedCluster = subCluster;
+                    event->accept();
+                    return;
+                }
             }
         }
     }
@@ -522,13 +525,16 @@ void Map::MapView::mouseReleaseEvent(QMouseEvent *event)
 void Map::MapView::mouseMoveEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::NoButton) {
-        for (const auto *topLevelCluster : m_geoClusters) {
-            const auto subCluster = topLevelCluster->regionForPoint(event->pos());
-            // Note(jzarl) unfortunately we cannot use QWidget::setCursor here
-            if (subCluster) {
-                QGuiApplication::setOverrideCursor(Qt::ArrowCursor);
-            } else {
-                QGuiApplication::restoreOverrideCursor();
+        if (m_mapWidget->geometry().contains(event->pos())) {
+            const auto mapPos = event->pos() - m_mapWidget->pos();
+            for (const auto *topLevelCluster : m_geoClusters) {
+                const auto subCluster = topLevelCluster->regionForPoint(mapPos);
+                // Note(jzarl) unfortunately we cannot use QWidget::setCursor here
+                if (subCluster) {
+                    QGuiApplication::setOverrideCursor(Qt::ArrowCursor);
+                } else {
+                    QGuiApplication::restoreOverrideCursor();
+                }
             }
         }
     }

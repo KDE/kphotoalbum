@@ -22,6 +22,7 @@
 #include <QAction>
 #include <QDebug>
 #include <QElapsedTimer>
+#include <QGuiApplication>
 #include <QLabel>
 #include <QLoggingCategory>
 #include <QMouseEvent>
@@ -128,6 +129,7 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
         setWindowFlags(Qt::Window);
         setAttribute(Qt::WA_DeleteOnClose);
     }
+    setMouseTracking(true);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
 
@@ -515,6 +517,22 @@ void Map::MapView::mouseReleaseEvent(QMouseEvent *event)
     } else {
         QWidget::mouseReleaseEvent(event);
     }
+}
+
+void Map::MapView::mouseMoveEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::NoButton) {
+        for (const auto *topLevelCluster : m_geoClusters) {
+            const auto subCluster = topLevelCluster->regionForPoint(event->pos());
+            // Note(jzarl) unfortunately we cannot use QWidget::setCursor here
+            if (subCluster) {
+                QGuiApplication::setOverrideCursor(Qt::ArrowCursor);
+            } else {
+                QGuiApplication::restoreOverrideCursor();
+            }
+        }
+    }
+    QWidget::mouseMoveEvent(event);
 }
 
 void Map::MapView::keyPressEvent(QKeyEvent *event)

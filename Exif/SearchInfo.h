@@ -7,7 +7,7 @@
 
 #include "Database.h"
 
-#include <DB/FileName.h>
+#include <kpabase/FileName.h>
 
 #include <QList>
 #include <QPair>

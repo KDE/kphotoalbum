@@ -6,7 +6,7 @@
 #ifndef REMOTECONTROL_IMAGENAMESTORE_H
 #define REMOTECONTROL_IMAGENAMESTORE_H
 
-#include <DB/FileName.h>
+#include <kpabase/FileName.h>
 
 #include <QHash>
 #include <QPair>

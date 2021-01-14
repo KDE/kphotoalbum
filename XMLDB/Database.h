@@ -11,12 +11,12 @@
 
 #include <DB/Category.h>
 #include <DB/CategoryCollection.h>
-#include <DB/FileNameList.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfoList.h>
 #include <DB/ImageSearchInfo.h>
 #include <DB/MD5Map.h>
 #include <DB/MemberMap.h>
+#include <kpabase/FileNameList.h>
 
 #include <qdom.h>
 #include <qstringlist.h>

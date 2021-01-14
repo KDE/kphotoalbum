@@ -9,7 +9,7 @@
 
 #include <DB/ImageDB.h>
 #include <MainWindow/Window.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>
 #include <QApplication>

@@ -20,7 +20,7 @@
 
 #include <ImageManager/ThumbnailBuilder.h>
 #include <MainWindow/Window.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 ThumbnailView::GridResizeSlider::GridResizeSlider(ThumbnailFactory *factory)
     : QSlider(Qt::Horizontal)

@@ -7,7 +7,7 @@
 
 #include "ImageDecoder.h"
 
-#include <DB/FileName.h>
+#include <kpabase/FileName.h>
 
 #include <QStringList>
 

@@ -12,7 +12,7 @@
 #include "XMLCategory.h"
 
 #include <DB/MD5Map.h>
-#include <DB/UIDelegate.h>
+#include <kpabase/UIDelegate.h>
 
 // KDE includes
 #include <KLocalizedString>

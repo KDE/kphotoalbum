@@ -2,8 +2,8 @@
 
    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
-#ifndef UIDELEGATE_H
-#define UIDELEGATE_H
+#ifndef KPABASE_UIDELEGATE_H
+#define KPABASE_UIDELEGATE_H
 
 #include <QString>
 
@@ -121,4 +121,4 @@ public:
 
 } // namespace DB
 
-#endif // UIDELEGATE_H
+#endif // KPABASE_UIDELEGATE_H

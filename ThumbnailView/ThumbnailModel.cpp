@@ -11,12 +11,12 @@
 #include "ThumbnailRequest.h"
 #include "ThumbnailWidget.h"
 
-#include <DB/FileName.h>
 #include <DB/ImageDB.h>
 #include <ImageManager/AsyncLoader.h>
 #include <ImageManager/ThumbnailCache.h>
-#include <Settings/SettingsData.h>
 #include <Utilities/FileUtil.h>
+#include <kpabase/FileName.h>
+#include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>
 #include <QIcon>

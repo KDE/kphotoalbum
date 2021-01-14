@@ -7,7 +7,7 @@
 #define GROUPCOUNTER_H
 #include "Category.h"
 
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <QHash>
 

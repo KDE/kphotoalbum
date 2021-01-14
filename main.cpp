@@ -26,7 +26,7 @@
 #ifdef KPA_ENABLE_REMOTECONTROL
 #include <RemoteControl/RemoteInterface.h>
 #endif
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <KAboutData>
 #include <KColorScheme>

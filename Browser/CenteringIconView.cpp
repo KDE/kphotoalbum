@@ -4,9 +4,9 @@
 */
 #include "CenteringIconView.h"
 
-#include <Settings/SettingsData.h>
 #include <Utilities/BooleanGuard.h>
 #include <Utilities/FileUtil.h>
+#include <kpabase/SettingsData.h>
 
 #include <QApplication>
 #include <cmath>

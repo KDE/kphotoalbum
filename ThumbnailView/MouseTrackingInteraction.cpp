@@ -8,7 +8,7 @@
 #include "ThumbnailWidget.h"
 #include "VideoThumbnailCycler.h"
 
-#include <DB/FileName.h>
+#include <kpabase/FileName.h>
 
 #include <QMouseEvent>
 

@@ -8,7 +8,7 @@
 #include "ImageDB.h"
 #include "MemberMap.h"
 
-#include <Utilities/StringSet.h>
+#include <kpabase/StringSet.h>
 using namespace DB;
 
 /**

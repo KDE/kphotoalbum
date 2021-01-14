@@ -6,7 +6,7 @@
 #ifndef VIDEOTHUMBNAILCYCLER_H
 #define VIDEOTHUMBNAILCYCLER_H
 
-#include <DB/FileName.h>
+#include <kpabase/FileName.h>
 
 #include <QObject>
 

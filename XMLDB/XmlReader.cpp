@@ -4,7 +4,7 @@
 */
 #include "XmlReader.h"
 
-#include <DB/UIDelegate.h>
+#include <kpabase/UIDelegate.h>
 
 #include <KLocalizedString>
 

@@ -8,7 +8,7 @@
 #include "JpeglibWithFix.h"
 #include "Logging.h"
 
-#include <DB/FileName.h>
+#include <kpabase/FileName.h>
 
 #include <QFileInfo>
 #include <QImageReader>

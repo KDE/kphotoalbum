@@ -7,14 +7,14 @@
 
 #include "XMLHandler.h"
 
-#include <DB/FileNameList.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
 #include <ImageManager/AsyncLoader.h>
 #include <ImageManager/RawImageDecoder.h>
-#include <Utilities/FileNameUtil.h>
 #include <Utilities/FileUtil.h>
 #include <Utilities/VideoUtil.h>
+#include <kpabase/FileNameList.h>
+#include <kpabase/FileNameUtil.h>
 
 #include <KConfigGroup>
 #include <KHelpClient>

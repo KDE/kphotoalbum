@@ -10,7 +10,7 @@
 #include <DB/ImageDB.h>
 #include <ImageManager/AsyncLoader.h>
 #include <ImageManager/ImageRequest.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <QEvent>
 #include <QTemporaryFile>

@@ -5,7 +5,7 @@
 
 #ifndef MEMBERMAP_H
 #define MEMBERMAP_H
-#include <Utilities/StringSet.h>
+#include <kpabase/StringSet.h>
 
 #include <qmap.h>
 #include <qobject.h>

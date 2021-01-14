@@ -7,7 +7,7 @@
 #include <DB/Category.h>
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <KActionCollection>
 #include <KLocalizedString>

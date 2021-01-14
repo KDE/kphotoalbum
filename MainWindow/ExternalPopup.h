@@ -5,9 +5,9 @@
 
 #ifndef EXTERNALPOPUP_H
 #define EXTERNALPOPUP_H
-#include <DB/FileNameList.h>
 #include <DB/ImageInfoList.h>
-#include <Utilities/StringSet.h>
+#include <kpabase/FileNameList.h>
+#include <kpabase/StringSet.h>
 
 #include <QMenu>
 #include <QPixmap>

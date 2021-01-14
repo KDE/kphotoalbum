@@ -19,7 +19,7 @@
 #include "InfoBoxResizer.h"
 #include "ViewerWidget.h"
 
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 // Qt classes
 class QMenu;

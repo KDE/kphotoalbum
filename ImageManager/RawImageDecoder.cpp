@@ -7,9 +7,9 @@
 #include "ImageRequest.h"
 #include "Logging.h"
 
-#include <DB/FileName.h>
-#include <Settings/SettingsData.h>
 #include <Utilities/FastJpeg.h>
+#include <kpabase/FileName.h>
+#include <kpabase/SettingsData.h>
 
 #include <QFile>
 #include <QImage>

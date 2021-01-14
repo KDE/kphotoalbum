@@ -19,11 +19,11 @@
 #include <ImageManager/ThumbnailCache.h>
 #include <MainWindow/FeatureDialog.h>
 #include <MainWindow/Window.h>
-#include <Settings/SettingsData.h>
-#include <Utilities/FileNameUtil.h>
 #include <Utilities/FileUtil.h>
-#include <Utilities/Logging.h>
 #include <Utilities/VideoUtil.h>
+#include <kpabase/FileNameUtil.h>
+#include <kpabase/Logging.h>
+#include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>
 #include <KMessageBox>

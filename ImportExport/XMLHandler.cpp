@@ -4,9 +4,9 @@
 */
 #include "XMLHandler.h"
 
-#include <DB/FileName.h>
 #include <DB/ImageDB.h>
 #include <Utilities/FileUtil.h>
+#include <kpabase/FileName.h>
 
 using Utilities::StringSet;
 

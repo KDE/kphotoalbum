@@ -6,8 +6,8 @@
 
 #include "Logging.h"
 
-#include <Settings/SettingsData.h>
-#include <Utilities/Logging.h>
+#include <kpabase/Logging.h>
+#include <kpabase/SettingsData.h>
 
 #include <QBuffer>
 #include <QCache>

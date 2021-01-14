@@ -3,8 +3,8 @@
    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-#ifndef FILENAME_H
-#define FILENAME_H
+#ifndef KPABASE_FILENAME_H
+#define KPABASE_FILENAME_H
 
 #include <QSet>
 #include <QString>
@@ -47,5 +47,5 @@ typedef QSet<DB::FileName> FileNameSet;
 
 Q_DECLARE_METATYPE(DB::FileName)
 
-#endif // FILENAME_H
+#endif // KPABASE_FILENAME_H
 // vi:expandtab:tabstop=4 shiftwidth=4:

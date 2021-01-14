@@ -127,7 +127,6 @@ set(libdatebar_SRCS
 
 set(libSettings_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/documentation.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Settings/SettingsData.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/SettingsDialog.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/ViewerSizeConfig.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/CategoryItem.cpp"
@@ -242,13 +241,10 @@ set(libUtilities_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Process.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DeleteFiles.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ToolTip.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Logging.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/JpeglibWithFix.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/StringSet.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/FastJpeg.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DemoUtil.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DescriptionUtil.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/FileNameUtil.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/VideoUtil.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ImageUtil.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/FastDateTime.cpp"
@@ -300,7 +296,6 @@ set(libImageManager_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnails.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoLengthExtractor.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ExtractOneVideoFrame.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/Logging.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/CacheFileInfo.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/enums.cpp"
     )
@@ -331,9 +326,6 @@ set(libDB_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/AndCategoryMatcher.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/FastDir.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/OptimizedFileList.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/DB/FileName.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/DB/FileNameList.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/DB/Logging.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/CategoryPtr.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/ExifMode.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/ImageDateCollection.cpp"
@@ -342,7 +334,6 @@ set(libDB_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/MediaCount.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/RawId.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/SimpleCategoryMatcher.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/DB/UIDelegate.cpp"
     )
 
 set(libImportExport_SRCS
@@ -376,7 +367,6 @@ set(libAnnotationDialog_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/DescriptionEdit.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/AreaTagSelectDialog.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/Logging.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/AnnotationDialog/enums.cpp"
     )
 
 set(libBrowser_SRCS
@@ -468,6 +458,7 @@ if(Marble_FOUND)
         )
 endif()
 
+add_subdirectory(lib)
 add_subdirectory(images)
 add_subdirectory(icons)
 add_subdirectory(demo)
@@ -509,6 +500,7 @@ add_dependencies(kphotoalbum UpdateVersion)
 # External components
 target_link_libraries(kphotoalbum
     PRIVATE
+    KPA::Base
     ${JPEG_LIBRARY}
     ${EXIV2_LIBRARIES}
     KF5::Archive
@@ -543,40 +535,9 @@ endif()
 
 install(TARGETS kphotoalbum ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
-add_library(kpabase
-    AnnotationDialog/enums.cpp
-    AnnotationDialog/enums.h
-    DB/FileName.cpp
-    DB/FileName.h
-    DB/FileNameList.cpp
-    DB/FileNameList.h
-    DB/Logging.cpp
-    DB/Logging.h
-    DB/UIDelegate.cpp
-    DB/UIDelegate.h
-    ImageManager/Logging.cpp
-    ImageManager/Logging.h
-    Settings/SettingsData.cpp
-    Settings/SettingsData.h
-    Utilities/FileNameUtil.cpp
-    Utilities/FileNameUtil.h
-    Utilities/Logging.cpp
-    Utilities/Logging.h
-    Utilities/StringSet.cpp
-    Utilities/StringSet.h
-    )
-add_library(KPA::Base ALIAS kpabase)
-target_link_libraries(kpabase
-    PUBLIC
-    KF5::ConfigCore
-    KF5::I18n
-    Qt5::Core
-    )
 # FIXME(jzarl): once KPhotoAlbum uses internal libs, export public symbols instead:
 set_target_properties(kpabase PROPERTIES CXX_VISIBILITY_PRESET default)
 add_library(kpathumbnails
-    ImageManager/Logging.cpp
-    ImageManager/Logging.h
     ImageManager/ThumbnailCache.cpp
     ImageManager/ThumbnailCache.h
     )

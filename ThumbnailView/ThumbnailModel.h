@@ -8,11 +8,11 @@
 #include "ThumbnailComponent.h"
 #include "enums.h"
 
-#include <DB/FileNameList.h>
 #include <DB/ImageInfo.h>
 #include <DB/ImageSearchInfo.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <ImageManager/enums.h>
+#include <kpabase/FileNameList.h>
 
 #include <QAbstractListModel>
 #include <QPixmap>

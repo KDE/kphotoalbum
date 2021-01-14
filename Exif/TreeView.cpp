@@ -7,7 +7,7 @@
 
 #include "Info.h"
 
-#include <Utilities/StringSet.h>
+#include <kpabase/StringSet.h>
 
 #include <qmap.h>
 #include <qstringlist.h>

@@ -18,8 +18,8 @@
 #include <DB/ImageDB.h>
 #include <Exif/SearchDialog.h>
 #include <MainWindow/Window.h>
-#include <Utilities/Logging.h>
 #include <Utilities/ShowBusyCursor.h>
+#include <kpabase/Logging.h>
 
 #include <KLocalizedString>
 #include <KMessageBox>

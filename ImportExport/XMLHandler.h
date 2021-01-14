@@ -7,8 +7,8 @@
 
 #include "Export.h" // ImageFileLocation
 
-#include <DB/FileNameList.h>
 #include <DB/ImageInfoPtr.h>
+#include <kpabase/FileNameList.h>
 
 #include <QDomDocument>
 #include <QDomElement>

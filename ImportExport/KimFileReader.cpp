@@ -4,8 +4,8 @@
 */
 #include "KimFileReader.h"
 
-#include <Utilities/FileNameUtil.h>
 #include <Utilities/VideoUtil.h>
+#include <kpabase/FileNameUtil.h>
 
 #include <KLocalizedString>
 #include <QFileInfo>

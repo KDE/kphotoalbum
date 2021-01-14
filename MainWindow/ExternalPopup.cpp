@@ -10,9 +10,9 @@
 #include "RunDialog.h"
 #include "Window.h"
 
-#include <DB/FileNameList.h>
 #include <DB/ImageInfo.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/FileNameList.h>
+#include <kpabase/SettingsData.h>
 
 #include <KFileItem>
 #include <KLocalizedString>

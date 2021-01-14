@@ -13,9 +13,9 @@
 
 #include <Exif/Database.h>
 #include <Exif/DatabaseElement.h>
-#include <Settings/SettingsData.h>
-#include <Utilities/FileNameUtil.h>
-#include <Utilities/StringSet.h>
+#include <kpabase/FileNameUtil.h>
+#include <kpabase/SettingsData.h>
+#include <kpabase/StringSet.h>
 
 #include <QFile>
 #include <QFileInfo>

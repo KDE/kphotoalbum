@@ -14,8 +14,8 @@
 #include <DB/ImageInfoPtr.h>
 #include <DB/OptimizedFileList.h>
 #include <MainWindow/StatusBar.h>
-#include <Settings/SettingsData.h>
 #include <ThumbnailView/CellGeometry.h>
+#include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>
 #include <QLoggingCategory>

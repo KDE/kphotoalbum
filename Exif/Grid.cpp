@@ -6,7 +6,7 @@
 
 #include "Info.h"
 
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <QColor>
 #include <QGridLayout>

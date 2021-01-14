@@ -15,8 +15,8 @@
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <BackgroundTaskManager/JobManager.h>
 #include <MainWindow/FeatureDialog.h>
-#include <Settings/SettingsData.h>
 #include <Utilities/VideoUtil.h>
+#include <kpabase/SettingsData.h>
 
 #include <QIcon>
 #include <QPixmapCache>

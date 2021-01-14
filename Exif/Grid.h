@@ -5,8 +5,8 @@
 #ifndef EXIF_GRID_H
 #define EXIF_GRID_H
 
-#include <DB/FileName.h>
-#include <Utilities/StringSet.h>
+#include <kpabase/FileName.h>
+#include <kpabase/StringSet.h>
 
 #include <QMap>
 #include <QScrollArea>

@@ -10,8 +10,8 @@
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
 
-#include <DB/FileNameList.h>
 #include <MainWindow/Window.h>
+#include <kpabase/FileNameList.h>
 
 #include <QApplication>
 #include <QDrag>

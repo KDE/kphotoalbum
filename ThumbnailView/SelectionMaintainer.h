@@ -8,7 +8,7 @@
 #include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
 
-#include <DB/FileNameList.h>
+#include <kpabase/FileNameList.h>
 
 namespace ThumbnailView
 {

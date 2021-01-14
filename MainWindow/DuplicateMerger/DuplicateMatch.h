@@ -6,9 +6,9 @@
 #ifndef MAINWINDOW_DUPLICATEMATCH_H
 #define MAINWINDOW_DUPLICATEMATCH_H
 
-#include <DB/FileNameList.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <Utilities/DeleteFiles.h>
+#include <kpabase/FileNameList.h>
 
 #include <QList>
 #include <QWidget>

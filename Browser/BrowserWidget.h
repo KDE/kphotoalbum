@@ -9,7 +9,7 @@
 #include "CenteringIconView.h"
 
 #include <DB/Category.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <QListView>
 

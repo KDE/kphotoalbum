@@ -8,13 +8,13 @@
 #include "DuplicateMatch.h"
 #include "MergeToolTip.h"
 
-#include <DB/FileName.h>
-#include <DB/FileNameList.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
 #include <DB/MD5.h>
 #include <Utilities/DeleteFiles.h>
 #include <Utilities/ShowBusyCursor.h>
+#include <kpabase/FileName.h>
+#include <kpabase/FileNameList.h>
 
 #include <KLocalizedString>
 #include <QDebug>

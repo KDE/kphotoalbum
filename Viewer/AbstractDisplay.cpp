@@ -6,7 +6,7 @@
 #include "AbstractDisplay.h"
 
 #include <DB/ImageInfo.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 Viewer::AbstractDisplay::AbstractDisplay(QWidget *parent)
     : QWidget(parent)

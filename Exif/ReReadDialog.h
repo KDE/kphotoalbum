@@ -6,7 +6,7 @@
 #ifndef REREADDIALOG_H
 #define REREADDIALOG_H
 
-#include <DB/FileNameList.h>
+#include <kpabase/FileNameList.h>
 
 #include <QDialog>
 

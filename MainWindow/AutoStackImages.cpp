@@ -12,9 +12,9 @@
 #include <DB/ImageDate.h>
 #include <DB/ImageInfo.h>
 #include <DB/MD5Map.h>
-#include <Settings/SettingsData.h>
 #include <Utilities/FileUtil.h>
 #include <Utilities/ShowBusyCursor.h>
+#include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>
 #include <QApplication>

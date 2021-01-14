@@ -13,15 +13,15 @@
 
 #include <Browser/BrowserWidget.h>
 #include <DB/CategoryCollection.h>
-#include <DB/FileName.h>
 #include <DB/GroupCounter.h>
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
-#include <DB/UIDelegate.h>
 #include <Exif/Database.h>
-#include <Settings/SettingsData.h>
-#include <Utilities/Logging.h>
 #include <Utilities/VideoUtil.h>
+#include <kpabase/FileName.h>
+#include <kpabase/Logging.h>
+#include <kpabase/SettingsData.h>
+#include <kpabase/UIDelegate.h>
 
 #include <KLocalizedString>
 #include <QElapsedTimer>

@@ -7,7 +7,7 @@
 #ifndef UTILITIES_UNIQ_FILENAME_MAPPER_H
 #define UTILITIES_UNIQ_FILENAME_MAPPER_H
 
-#include <DB/FileName.h>
+#include <kpabase/FileName.h>
 
 #include <QMap>
 #include <QSet>

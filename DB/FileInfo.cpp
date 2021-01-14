@@ -5,8 +5,8 @@
 #include "FileInfo.h"
 
 #include <Exif/Info.h>
-#include <Settings/SettingsData.h>
 #include <Utilities/VideoUtil.h>
+#include <kpabase/SettingsData.h>
 
 #include <Utilities/FastDateTime.h>
 #include <QFileInfo>

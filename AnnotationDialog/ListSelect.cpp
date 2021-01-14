@@ -15,7 +15,7 @@
 #include <DB/CategoryItem.h>
 #include <DB/ImageDB.h>
 #include <DB/MemberMap.h>
-#include <Utilities/StringSet.h>
+#include <kpabase/StringSet.h>
 
 #include <KIO/CopyJob>
 #include <KLocalizedString>

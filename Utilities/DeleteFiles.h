@@ -6,7 +6,7 @@
 #ifndef UTILITIES_DELETEFILES_H
 #define UTILITIES_DELETEFILES_H
 
-#include <DB/FileNameList.h>
+#include <kpabase/FileNameList.h>
 
 #include <QObject>
 class KJob;

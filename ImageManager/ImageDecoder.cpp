@@ -4,7 +4,7 @@
 */
 #include "ImageDecoder.h"
 
-#include <DB/FileName.h>
+#include <kpabase/FileName.h>
 
 QList<ImageManager::ImageDecoder *> *ImageManager::ImageDecoder::decoders()
 {

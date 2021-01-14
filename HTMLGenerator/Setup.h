@@ -5,7 +5,7 @@
 #ifndef HTMLGENERATOR_SETUP_H
 #define HTMLGENERATOR_SETUP_H
 
-#include <DB/FileNameList.h>
+#include <kpabase/FileNameList.h>
 
 #include <QList>
 #include <QMap>

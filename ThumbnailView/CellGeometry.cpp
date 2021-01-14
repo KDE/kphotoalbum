@@ -8,7 +8,7 @@
 #include "ThumbnailWidget.h"
 
 #include <DB/ImageDB.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>
 

@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: 2017-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+/* SPDX-FileCopyrightText: 2017-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 
    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
@@ -11,3 +11,8 @@ Q_LOGGING_CATEGORY(DBFileOpsLog, "kphotoalbum.DB.FileOperations", QtWarningMsg)
 Q_LOGGING_CATEGORY(DBImageScoutLog, "kphotoalbum.DB.ImageScout", QtWarningMsg)
 // I'm calling this FastDirLog (and not DBFastDirLog) because FastDir is independent of the rest of DB
 Q_LOGGING_CATEGORY(FastDirLog, "kphotoalbum.FastDir", QtWarningMsg)
+
+Q_LOGGING_CATEGORY(ImageManagerLog, "kphotoalbum.ImageManager", QtWarningMsg)
+
+Q_LOGGING_CATEGORY(TimingLog, "kphotoalbum.timingInformation", QtWarningMsg)
+Q_LOGGING_CATEGORY(UtilitiesLog, "kphotoalbum.Utilities", QtWarningMsg)

@@ -14,7 +14,7 @@
 #include <MainWindow/TokenEditor.h>
 #include <MainWindow/Window.h>
 #include <Utilities/Process.h>
-#include <Utilities/StringSet.h>
+#include <kpabase/StringSet.h>
 
 #include <KLocalizedString>
 #include <KMessageBox>

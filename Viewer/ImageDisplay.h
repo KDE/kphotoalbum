@@ -8,10 +8,10 @@
 
 #include "AbstractDisplay.h"
 
-#include <DB/FileNameList.h>
 #include <DB/ImageInfoPtr.h>
 #include <ImageManager/ImageClientInterface.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/FileNameList.h>
+#include <kpabase/SettingsData.h>
 
 #include <QMouseEvent>
 #include <QPaintEvent>

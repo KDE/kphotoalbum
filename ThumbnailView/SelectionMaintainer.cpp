@@ -4,7 +4,7 @@
 */
 #include "SelectionMaintainer.h"
 
-#include <DB/FileNameList.h>
+#include <kpabase/FileNameList.h>
 
 ThumbnailView::SelectionMaintainer::SelectionMaintainer(ThumbnailWidget *widget, ThumbnailModel *model)
     : m_widget(widget)

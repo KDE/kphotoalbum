@@ -8,7 +8,7 @@
 #include "Database.h"
 
 #include <DB/ImageDB.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <KConfigGroup>
 #include <KLocalizedString>

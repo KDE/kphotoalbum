@@ -12,7 +12,7 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <MainWindow/Window.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <KColorScheme>
 #include <KConfig>

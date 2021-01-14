@@ -5,7 +5,7 @@
 
 #include "FileNameUtil.h"
 
-#include <Settings/SettingsData.h>
+#include "SettingsData.h"
 
 QString Utilities::stripEndingForwardSlash(const QString &fileName)
 {

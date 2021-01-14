@@ -7,7 +7,7 @@
 #include "ThumbnailFactory.h"
 #include "ThumbnailWidget.h"
 
-#include <DB/FileNameList.h>
+#include <kpabase/FileNameList.h>
 
 class KActionCollection;
 class QSlider;

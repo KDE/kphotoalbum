@@ -15,9 +15,9 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageSearchInfo.h>
-#include <Settings/SettingsData.h>
 #include <Utilities/FileUtil.h>
 #include <Utilities/ShowBusyCursor.h>
+#include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>
 #include <QApplication>

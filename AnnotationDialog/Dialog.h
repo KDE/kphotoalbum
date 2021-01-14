@@ -15,7 +15,7 @@
 #include <DB/Category.h>
 #include <DB/ImageInfoList.h>
 #include <DB/ImageSearchInfo.h>
-#include <Utilities/StringSet.h>
+#include <kpabase/StringSet.h>
 
 #include <QCheckBox>
 #include <QDialog>

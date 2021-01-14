@@ -9,7 +9,7 @@
 #include "DB/ImageDB.h"
 #include "Exif/Info.h"
 #include "Logging.h"
-#include "Settings/SettingsData.h"
+#include "kpabase/SettingsData.h"
 
 // KDE includes
 #include <KLocalizedString>

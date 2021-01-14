@@ -13,7 +13,7 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <MainWindow/DirtyIndicator.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 ThumbnailView::KeyboardEventHandler::KeyboardEventHandler(ThumbnailFactory *factory)
     : ThumbnailComponent(factory)

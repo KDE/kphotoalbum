@@ -6,7 +6,7 @@
 #ifndef IMAGEMANAGER_VIDEOTHUMBNAILS_H
 #define IMAGEMANAGER_VIDEOTHUMBNAILS_H
 
-#include <DB/FileName.h>
+#include <kpabase/FileName.h>
 
 #include <QImage>
 #include <QObject>

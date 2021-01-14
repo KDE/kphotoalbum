@@ -5,7 +5,7 @@
 
 #include "ImageUtil.h"
 
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <QDir>
 #include <QFileInfo>

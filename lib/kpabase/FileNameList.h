@@ -3,8 +3,8 @@
    SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 */
 
-#ifndef FILENAMELIST_H
-#define FILENAMELIST_H
+#ifndef KPABASE_FILENAMELIST_H
+#define KPABASE_FILENAMELIST_H
 
 #include "FileName.h"
 
@@ -35,5 +35,5 @@ public:
 
 }
 
-#endif // FILENAMELIST_H
+#endif // KPABASE_FILENAMELIST_H
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -10,9 +10,9 @@
 #include <ImageManager/ImageRequest.h>
 #include <ImageManager/ThumbnailCache.h>
 #include <MainWindow/FeatureDialog.h>
-#include <Settings/SettingsData.h>
 #include <ThumbnailView/CellGeometry.h>
 #include <Utilities/ImageUtil.h>
+#include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>
 #include <QCryptographicHash>

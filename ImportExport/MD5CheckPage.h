@@ -7,7 +7,7 @@
 
 #include "ImportSettings.h"
 
-#include <Utilities/StringSet.h>
+#include <kpabase/StringSet.h>
 
 #include <QGridLayout>
 #include <QWidget>

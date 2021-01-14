@@ -12,7 +12,7 @@
 #include <DB/ImageDB.h>
 #include <DB/ImageSearchInfo.h>
 #include <MainWindow/Window.h>
-#include <Utilities/Logging.h>
+#include <kpabase/Logging.h>
 
 #include <KConfigGroup>
 #include <KIconLoader>

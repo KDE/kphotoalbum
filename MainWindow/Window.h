@@ -6,11 +6,11 @@
 #ifndef MAINWINDOW_WINDOW_H
 #define MAINWINDOW_WINDOW_H
 #include <DB/Category.h>
-#include <DB/FileNameList.h>
 #include <DB/ImageSearchInfo.h>
-#include <DB/UIDelegate.h>
 #include <ThumbnailView/enums.h>
 #include <config-kpa-marble.h>
+#include <kpabase/FileNameList.h>
+#include <kpabase/UIDelegate.h>
 
 #include <KXmlGuiWindow>
 #include <QList>

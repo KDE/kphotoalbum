@@ -8,7 +8,7 @@
 #include "MouseHandler.h"
 
 #include <DB/ImageDateCollection.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <Utilities/FastDateTime.h>
 #include <KLocalizedString>

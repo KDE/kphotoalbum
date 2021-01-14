@@ -6,7 +6,7 @@
 #define EXIFDATABASE_H
 
 #include <DB/FileInfo.h>
-#include <DB/FileNameList.h>
+#include <kpabase/FileNameList.h>
 
 #include <QList>
 #include <QPair>

@@ -8,8 +8,8 @@
 
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
-#include <Settings/SettingsData.h>
-#include <Utilities/StringSet.h>
+#include <kpabase/SettingsData.h>
+#include <kpabase/StringSet.h>
 
 #include <QFile>
 #include <QFileInfo>

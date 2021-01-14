@@ -10,8 +10,8 @@
 #include "NewImageFinder.h"
 #include "UIDelegate.h"
 
-#include <Settings/SettingsData.h>
 #include <XMLDB/Database.h>
+#include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>
 #include <QProgressDialog>

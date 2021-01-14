@@ -8,8 +8,8 @@
 #include "Window.h"
 
 #include <DB/CategoryCollection.h>
-#include <Utilities/StringSet.h>
 #include <Viewer/CategoryImageConfig.h>
+#include <kpabase/StringSet.h>
 
 #include <KLocalizedString>
 #include <qstringlist.h>

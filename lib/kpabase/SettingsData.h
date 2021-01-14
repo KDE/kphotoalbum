@@ -3,13 +3,13 @@
    SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-#ifndef SETTINGS_SETTINGSDATA_H
-#define SETTINGS_SETTINGSDATA_H
+#ifndef KPABASE_SETTINGSDATA_H
+#define KPABASE_SETTINGSDATA_H
 
-#include <AnnotationDialog/enums.h>
-#include <DB/UIDelegate.h>
-#include <Utilities/StringSet.h>
-#include <QObject>
+#include "QObject"
+#include "StringSet.h"
+#include "UIDelegate.h"
+#include "enums.h"
 
 #define property(GET_TYPE, GET_FUNC, SET_FUNC, SET_TYPE) \
     GET_TYPE GET_FUNC() const;                           \
@@ -268,5 +268,5 @@ private:
 #undef property_copy
 #undef property_ref
 
-#endif /* SETTINGS_SETTINGSDATA_H */
+#endif /* KPABASE_SETTINGSDATA_H */
 // vi:expandtab:tabstop=4 shiftwidth=4:

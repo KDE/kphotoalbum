@@ -9,9 +9,9 @@
 #include "ImageClientInterface.h"
 #include "enums.h"
 
-#include <DB/FileNameList.h>
 #include <DB/ImageInfoPtr.h>
 #include <DB/ImageScout.h>
+#include <kpabase/FileNameList.h>
 
 #include <QAtomicInt>
 #include <QImage>

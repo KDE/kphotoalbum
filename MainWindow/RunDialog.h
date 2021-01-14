@@ -7,7 +7,7 @@
 #ifndef RUNDIALOG_H
 #define RUNDIALOG_H
 
-#include <DB/FileNameList.h>
+#include <kpabase/FileNameList.h>
 
 #include <QDialog>
 #include <QLineEdit>

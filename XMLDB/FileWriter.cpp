@@ -11,10 +11,10 @@
 #include "NumberedBackup.h"
 #include "XMLCategory.h"
 
-#include <DB/UIDelegate.h>
-#include <Settings/SettingsData.h>
 #include <Utilities/List.h>
-#include <Utilities/Logging.h>
+#include <kpabase/Logging.h>
+#include <kpabase/SettingsData.h>
+#include <kpabase/UIDelegate.h>
 
 #include <KLocalizedString>
 #include <QElapsedTimer>

@@ -13,7 +13,7 @@
 
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <ImageManager/ThumbnailCache.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 ThumbnailView::ThumbnailFacade *ThumbnailView::ThumbnailFacade::s_instance = nullptr;
 ThumbnailView::ThumbnailFacade::ThumbnailFacade(ImageManager::ThumbnailCache *thumbnailCache)

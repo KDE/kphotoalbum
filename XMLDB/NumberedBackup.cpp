@@ -4,9 +4,9 @@
 */
 #include "NumberedBackup.h"
 
-#include <DB/UIDelegate.h>
-#include <Settings/SettingsData.h>
 #include <Utilities/FileUtil.h>
+#include <kpabase/SettingsData.h>
+#include <kpabase/UIDelegate.h>
 
 #include <KLocalizedString>
 #include <KZip>

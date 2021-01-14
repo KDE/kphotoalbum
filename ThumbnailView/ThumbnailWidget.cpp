@@ -16,7 +16,7 @@
 #include <Browser/BrowserWidget.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfoPtr.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <KColorScheme>
 #include <KLocalizedString>

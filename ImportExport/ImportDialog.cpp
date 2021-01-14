@@ -11,8 +11,8 @@
 #include "MD5CheckPage.h"
 
 #include <DB/ImageInfo.h>
-#include <Settings/SettingsData.h>
 #include <XMLDB/Database.h>
+#include <kpabase/SettingsData.h>
 
 #include <KHelpClient>
 #include <KLocalizedString>

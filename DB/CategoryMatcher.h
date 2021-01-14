@@ -8,7 +8,7 @@
 
 #include "ImageInfoPtr.h"
 
-#include <Utilities/StringSet.h>
+#include <kpabase/StringSet.h>
 
 #include <QMap>
 

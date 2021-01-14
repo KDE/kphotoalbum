@@ -10,8 +10,8 @@
 #include "MemberMap.h"
 #include "UIDelegate.h"
 
-#include <Settings/SettingsData.h>
 #include <Utilities/ImageUtil.h>
+#include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>
 #include <QDir>

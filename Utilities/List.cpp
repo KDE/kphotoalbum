@@ -16,8 +16,8 @@
 
 #include "List.h"
 
-#include <DB/FileName.h>
 #include <DB/RawId.h>
+#include <kpabase/FileName.h>
 
 #include <QList>
 #include <QStringList>

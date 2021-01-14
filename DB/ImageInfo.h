@@ -13,12 +13,12 @@
 #include "FileName.h"
 #include "ImageDate.h"
 #include "MD5.h"
-#include "Utilities/StringSet.h"
+#include "kpabase/StringSet.h"
 
 #ifdef HAVE_MARBLE
 #include <Map/GeoCoordinates.h>
 #endif
-#include <Utilities/StringSet.h>
+#include <kpabase/StringSet.h>
 
 #include <QHash>
 #include <QRect>

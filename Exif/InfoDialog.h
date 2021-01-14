@@ -6,8 +6,8 @@
 #ifndef INFODIALOG_H
 #define INFODIALOG_H
 
-#include <DB/FileName.h>
 #include <ImageManager/ImageClientInterface.h>
+#include <kpabase/FileName.h>
 
 #include <QDialog>
 

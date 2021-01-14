@@ -12,8 +12,8 @@
 #ifdef KPA_ENABLE_REMOTECONTROL
 #include <RemoteControl/ConnectionIndicator.h>
 #endif
-#include <Settings/SettingsData.h>
 #include <ThumbnailView/ThumbnailFacade.h>
+#include <kpabase/SettingsData.h>
 
 #include <KIconLoader>
 #include <KLocalizedString>

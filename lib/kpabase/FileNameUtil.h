@@ -3,8 +3,8 @@
    SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-#ifndef FILENAME_UTIL_H
-#define FILENAME_UTIL_H
+#ifndef KPABASE_FILENAME_UTIL_H
+#define KPABASE_FILENAME_UTIL_H
 
 #include <QString>
 
@@ -18,6 +18,6 @@ QString imageFileNameToAbsolute(const QString &fileName);
 QString relativeFolderName(const QString &fileName);
 }
 
-#endif /* FILENAME_UTIL_H */
+#endif /* KPABASE_FILENAME_UTIL_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

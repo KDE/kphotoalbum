@@ -6,8 +6,8 @@
 #ifndef MAINWINDOW_DUPLICATEMERGER_H
 #define MAINWINDOW_DUPLICATEMERGER_H
 
-#include <DB/FileNameList.h>
 #include <DB/MD5.h>
+#include <kpabase/FileNameList.h>
 
 #include <QDialog>
 #include <QMap>

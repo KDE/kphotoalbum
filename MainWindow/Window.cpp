@@ -61,7 +61,6 @@
 #include <DB/ImageInfo.h>
 #include <DB/MD5.h>
 #include <DB/MD5Map.h>
-#include <DB/UIDelegate.h>
 #include <DateBar/DateBarWidget.h>
 #include <Exif/Database.h>
 #include <Exif/Info.h>
@@ -73,6 +72,7 @@
 #include <ImageManager/ThumbnailCache.h>
 #include <ImportExport/Export.h>
 #include <ImportExport/Import.h>
+#include <kpabase/UIDelegate.h>
 #ifdef KF5Purpose_FOUND
 #include <Plugins/PurposeMenu.h>
 #endif
@@ -102,18 +102,18 @@
 #ifdef KPA_ENABLE_REMOTECONTROL
 #include <RemoteControl/RemoteInterface.h>
 #endif
-#include <Settings/SettingsData.h>
 #include <Settings/SettingsDialog.h>
 #include <ThumbnailView/FilterWidget.h>
 #include <ThumbnailView/ThumbnailFacade.h>
 #include <ThumbnailView/enums.h>
 #include <Utilities/DemoUtil.h>
-#include <Utilities/FileNameUtil.h>
 #include <Utilities/List.h>
-#include <Utilities/Logging.h>
 #include <Utilities/ShowBusyCursor.h>
 #include <Utilities/VideoUtil.h>
 #include <Viewer/ViewerWidget.h>
+#include <kpabase/FileNameUtil.h>
+#include <kpabase/Logging.h>
+#include <kpabase/SettingsData.h>
 
 using namespace DB;
 

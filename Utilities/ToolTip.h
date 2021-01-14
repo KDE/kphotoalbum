@@ -6,8 +6,8 @@
 #ifndef UTILITIES_TOOLTIP_H
 #define UTILITIES_TOOLTIP_H
 
-#include <DB/FileName.h>
 #include <ImageManager/ImageClientInterface.h>
+#include <kpabase/FileName.h>
 
 #include <QLabel>
 class QTemporaryFile;

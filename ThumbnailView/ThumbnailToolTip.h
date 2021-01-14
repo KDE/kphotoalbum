@@ -5,9 +5,9 @@
 
 #ifndef THUMBNAILTOOLTIP_H
 #define THUMBNAILTOOLTIP_H
-#include <DB/FileName.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <Utilities/ToolTip.h>
+#include <kpabase/FileName.h>
 
 #include <QEvent>
 #include <qlabel.h>

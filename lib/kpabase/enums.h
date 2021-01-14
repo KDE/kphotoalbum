@@ -2,8 +2,8 @@
 
    SPDX-License-Identifier: GPL-2.0-or-later
 */
-#ifndef ENUMS_H
-#define ENUMS_H
+#ifndef KPABASE_ENUMS_H
+#define KPABASE_ENUMS_H
 
 namespace AnnotationDialog
 {
@@ -27,6 +27,6 @@ enum ListSelectEditMode {
     Editable ///< values can be freely added, selected, and removed
 };
 
-#endif /* ENUMS_H */
+#endif /* KPABASE_ENUMS_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

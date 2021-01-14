@@ -5,7 +5,7 @@
 
 #ifndef VIDEO_UTIL_H
 #define VIDEO_UTIL_H
-#include <DB/FileName.h>
+#include <kpabase/FileName.h>
 
 #include <QSet>
 #include <QString>

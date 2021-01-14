@@ -6,9 +6,9 @@
 #ifndef VIEWER_H
 #define VIEWER_H
 
-#include <DB/FileNameList.h>
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
+#include <kpabase/FileNameList.h>
 
 #include <QImage>
 #include <QMap>

@@ -9,8 +9,8 @@
 
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
-#include <Settings/SettingsData.h>
 #include <Utilities/FileUtil.h>
+#include <kpabase/SettingsData.h>
 
 #include <QApplication>
 #include <QCursor>

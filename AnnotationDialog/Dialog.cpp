@@ -19,9 +19,9 @@
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
 #include <MainWindow/DirtyIndicator.h>
-#include <Settings/SettingsData.h>
 #include <Utilities/ShowBusyCursor.h>
 #include <Viewer/ViewerWidget.h>
+#include <kpabase/SettingsData.h>
 
 #include <KAcceleratorManager>
 #include <KActionCollection>

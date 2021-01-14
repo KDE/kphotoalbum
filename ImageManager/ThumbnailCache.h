@@ -6,7 +6,7 @@
 #define THUMBNAILCACHE_H
 #include "CacheFileInfo.h"
 
-#include <DB/FileNameList.h>
+#include <kpabase/FileNameList.h>
 
 #include <QFile>
 #include <QHash>

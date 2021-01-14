@@ -7,8 +7,8 @@
 #define IMAGEVIEWPAGE_H
 #include "BrowserPage.h"
 
-#include <DB/FileName.h>
 #include <DB/ImageSearchInfo.h>
+#include <kpabase/FileName.h>
 
 namespace Browser
 {

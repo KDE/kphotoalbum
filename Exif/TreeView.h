@@ -6,7 +6,7 @@
 #ifndef EXIFTREEVIEW_H
 #define EXIFTREEVIEW_H
 
-#include <Utilities/StringSet.h>
+#include <kpabase/StringSet.h>
 
 #include <QTreeWidget>
 

@@ -9,7 +9,7 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageSearchInfo.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>
 #include <QDialogButtonBox>

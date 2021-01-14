@@ -8,7 +8,7 @@
 #include "version.h"
 
 #include <ImageManager/ThumbnailCache.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <KAboutData>
 #include <KConfigGroup>

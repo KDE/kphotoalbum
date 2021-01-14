@@ -5,7 +5,7 @@
 
 #ifndef IMAGE_UTIL_H
 #define IMAGE_UTIL_H
-#include <DB/FileName.h>
+#include <kpabase/FileName.h>
 
 #include <QImage>
 

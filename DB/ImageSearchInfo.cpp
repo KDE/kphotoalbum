@@ -17,7 +17,7 @@
 #include "ValueCategoryMatcher.h"
 
 #include <ImageManager/RawImageDecoder.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <KConfigGroup>
 #include <KLocalizedString>

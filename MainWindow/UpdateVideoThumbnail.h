@@ -6,7 +6,7 @@
 #ifndef MAINWINDOW_UPDATEVIDEOTHUMBNAIL_H
 #define MAINWINDOW_UPDATEVIDEOTHUMBNAIL_H
 
-#include <DB/FileNameList.h>
+#include <kpabase/FileNameList.h>
 
 namespace MainWindow
 {

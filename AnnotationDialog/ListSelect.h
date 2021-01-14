@@ -8,7 +8,7 @@
 #include "enums.h"
 
 #include <DB/CategoryPtr.h>
-#include <Settings/SettingsData.h>
+#include <kpabase/SettingsData.h>
 
 #include <QLabel>
 #include <QList>

@@ -7,7 +7,7 @@
 #define BACKGROUNDJOBS_EXTRACTONETHUMBNAILJOB_H
 
 #include <BackgroundTaskManager/JobInterface.h>
-#include <DB/FileName.h>
+#include <kpabase/FileName.h>
 
 class QImage;
 

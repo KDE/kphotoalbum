@@ -5,8 +5,8 @@
 
 #include "FileName.h"
 
-#include <Settings/SettingsData.h>
-#include <Utilities/FileNameUtil.h>
+#include "FileNameUtil.h"
+#include "SettingsData.h"
 
 #include <QFile>
 

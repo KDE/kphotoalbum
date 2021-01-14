@@ -13,7 +13,7 @@
 #ifdef HAVE_MARBLE
 #include <Map/GeoCoordinates.h>
 #endif
-#include <Utilities/StringSet.h>
+#include <kpabase/StringSet.h>
 
 #include <QList>
 #include <QMap>

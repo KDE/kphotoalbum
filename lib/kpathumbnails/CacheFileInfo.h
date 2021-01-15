@@ -2,8 +2,8 @@
 
    SPDX-License-Identifier: GPL-2.0-or-later
 */
-#ifndef CACHEFILEINFO_H
-#define CACHEFILEINFO_H
+#ifndef KPATHUMBNAILS_CACHEFILEINFO_H
+#define KPATHUMBNAILS_CACHEFILEINFO_H
 
 namespace ImageManager
 {
@@ -22,6 +22,6 @@ struct CacheFileInfo {
 };
 }
 
-#endif /* CACHEFILEINFO_H */
+#endif /* KPATHUMBNAILS_CACHEFILEINFO_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

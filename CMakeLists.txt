@@ -105,15 +105,6 @@ if(Marble_FOUND)
     include(MarbleChecks)
 endif()
 
-add_custom_target(
-    UpdateVersion ALL
-    COMMAND "${CMAKE_COMMAND}"
-    "-DBASE_DIR=${CMAKE_CURRENT_SOURCE_DIR}" -DPROJECT_NAME=KPA -DPROJECT_VERSION="${PROJECT_VERSION}"
-    -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" -P "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/UpdateVersion.cmake"
-    COMMENT "Updating version header."
-    BYPRODUCTS "${CMAKE_CURRENT_SOURCE_DIR}/version.h"
-    )
-
 # For config-kpa-*.h
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
@@ -287,7 +278,6 @@ set(libImageManager_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageDecoder.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RawImageDecoder.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/RequestQueue.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ThumbnailCache.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ImageEvent.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ThumbnailBuilder.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/PreloadRequest.cpp"
@@ -296,7 +286,6 @@ set(libImageManager_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnails.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoLengthExtractor.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/ExtractOneVideoFrame.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/CacheFileInfo.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/enums.cpp"
     )
 
@@ -496,11 +485,13 @@ set(kphotoalbum_SRCS
 
 add_executable(kphotoalbum ${kphotoalbum_SRCS})
 add_dependencies(kphotoalbum UpdateVersion)
+target_include_directories(kphotoalbum PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 # External components
 target_link_libraries(kphotoalbum
     PRIVATE
     KPA::Base
+    KPA::Thumbnails
     ${JPEG_LIBRARY}
     ${EXIV2_LIBRARIES}
     KF5::Archive
@@ -534,20 +525,6 @@ if(Marble_FOUND)
 endif()
 
 install(TARGETS kphotoalbum ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
-
-add_library(kpathumbnails
-    ImageManager/ThumbnailCache.cpp
-    ImageManager/ThumbnailCache.h
-    )
-add_library(KPA::Thumbnails ALIAS kpathumbnails)
-# FIXME(jzarl): once KPhotoAlbum uses internal libs, export public symbols instead:
-set_target_properties(kpathumbnails PROPERTIES CXX_VISIBILITY_PRESET default)
-target_link_libraries(kpathumbnails
-    PUBLIC
-    KPA::Base
-    Qt5::Gui
-    )
-install(TARGETS kpabase kpathumbnails ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 add_subdirectory(kpa-thumbnailtool)
 

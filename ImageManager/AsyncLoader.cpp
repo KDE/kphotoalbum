@@ -10,13 +10,13 @@
 #include "ImageEvent.h"
 #include "ImageLoaderThread.h"
 #include "ThumbnailBuilder.h"
-#include "ThumbnailCache.h"
 
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <BackgroundTaskManager/JobManager.h>
 #include <MainWindow/FeatureDialog.h>
 #include <Utilities/VideoUtil.h>
 #include <kpabase/SettingsData.h>
+#include <kpathumbnails/ThumbnailCache.h>
 
 #include <QIcon>
 #include <QPixmapCache>

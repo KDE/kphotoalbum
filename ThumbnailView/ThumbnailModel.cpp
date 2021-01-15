@@ -13,10 +13,10 @@
 
 #include <DB/ImageDB.h>
 #include <ImageManager/AsyncLoader.h>
-#include <ImageManager/ThumbnailCache.h>
 #include <Utilities/FileUtil.h>
 #include <kpabase/FileName.h>
 #include <kpabase/SettingsData.h>
+#include <kpathumbnails/ThumbnailCache.h>
 
 #include <KLocalizedString>
 #include <QIcon>

@@ -12,8 +12,8 @@
 #include "ThumbnailWidget.h"
 
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
-#include <ImageManager/ThumbnailCache.h>
 #include <kpabase/SettingsData.h>
+#include <kpathumbnails/ThumbnailCache.h>
 
 ThumbnailView::ThumbnailFacade *ThumbnailView::ThumbnailFacade::s_instance = nullptr;
 ThumbnailView::ThumbnailFacade::ThumbnailFacade(ImageManager::ThumbnailCache *thumbnailCache)

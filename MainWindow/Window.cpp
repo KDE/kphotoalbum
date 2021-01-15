@@ -69,10 +69,10 @@
 #include <HTMLGenerator/HTMLDialog.h>
 #include <ImageManager/AsyncLoader.h>
 #include <ImageManager/ThumbnailBuilder.h>
-#include <ImageManager/ThumbnailCache.h>
 #include <ImportExport/Export.h>
 #include <ImportExport/Import.h>
 #include <kpabase/UIDelegate.h>
+#include <kpathumbnails/ThumbnailCache.h>
 #ifdef KF5Purpose_FOUND
 #include <Plugins/PurposeMenu.h>
 #endif

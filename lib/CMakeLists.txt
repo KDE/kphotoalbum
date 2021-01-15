@@ -3,5 +3,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 add_subdirectory(kpabase)
+add_subdirectory(kpathumbnails)
 
 # vi:expandtab:tabstop=4 shiftwidth=4:

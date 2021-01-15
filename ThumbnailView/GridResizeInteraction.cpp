@@ -9,10 +9,10 @@
 #include "ThumbnailWidget.h"
 
 #include <ImageManager/ThumbnailBuilder.h>
-#include <ImageManager/ThumbnailCache.h>
 #include <ImageManager/enums.h>
 #include <MainWindow/Window.h>
 #include <kpabase/SettingsData.h>
+#include <kpathumbnails/ThumbnailCache.h>
 
 #include <KLocalizedString>
 #include <KSharedConfig>

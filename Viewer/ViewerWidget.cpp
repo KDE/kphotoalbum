@@ -18,7 +18,6 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <Exif/InfoDialog.h>
-#include <ImageManager/ThumbnailCache.h>
 #include <MainWindow/CategoryImagePopup.h>
 #include <MainWindow/DeleteDialog.h>
 #include <MainWindow/DirtyIndicator.h>
@@ -26,6 +25,7 @@
 #include <MainWindow/Window.h>
 #include <Utilities/DescriptionUtil.h>
 #include <Utilities/VideoUtil.h>
+#include <kpathumbnails/ThumbnailCache.h>
 
 #include <KActionCollection>
 #include <KColorScheme>

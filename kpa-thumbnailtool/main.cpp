@@ -7,8 +7,8 @@
 #include "ThumbnailCacheConverter.h"
 #include "version.h"
 
-#include <ImageManager/ThumbnailCache.h>
 #include <kpabase/SettingsData.h>
+#include <kpathumbnails/ThumbnailCache.h>
 
 #include <KAboutData>
 #include <KConfigGroup>

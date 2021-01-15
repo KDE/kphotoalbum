@@ -7,7 +7,7 @@
 #include "Logging.h"
 
 #include <DB/ImageInfo.h>
-#include <ImageManager/ThumbnailCache.h>
+#include <kpathumbnails/ThumbnailCache.h>
 
 #include <KLocalizedString>
 #include <QPen>

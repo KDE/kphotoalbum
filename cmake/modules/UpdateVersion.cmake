@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2012-2016 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2012-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
@@ -35,15 +35,19 @@ if ( PROJECT_VERSION )
 	set ( "${PROJECT_NAME}_VERSION" "${PROJECT_VERSION}" )
 
 	message ( STATUS "Setting version information to ${PROJECT_VERSION}..." )
+	if (NOT DEFINED OUTPUT_DIR)
+		set(OUTPUT_DIR ${BASE_DIR})
+	endif()
 	# write version info to a temporary file
-	configure_file ( ${BASE_DIR}/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h~ )
+	configure_file ( ${OUTPUT_DIR}/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h~ )
 	# update info iff changed
-	execute_process ( COMMAND "${CMAKE_COMMAND}" -E copy_if_different ${CMAKE_CURRENT_BINARY_DIR}/version.h~ ${BASE_DIR}/version.h )
+	execute_process ( COMMAND "${CMAKE_COMMAND}" -E copy_if_different ${CMAKE_CURRENT_BINARY_DIR}/version.h~ ${OUTPUT_DIR}/version.h )
+	set_property(SOURCE ${OUTPUT_DIR}/version.h PROPERTY SKIP_AUTOMOC ON)
 	# make sure info doesn't get stale
 	file ( REMOVE ${CMAKE_CURRENT_BINARY_DIR}/version.h~ )
 else()
 	# if we got no version, but we have a version.h, don't complain:
-	if ( NOT EXISTS "${BASE_DIR}/version.h" )
+	if ( NOT EXISTS "${OUTPUT_DIR}/version.h" )
 		message ( SEND_ERROR "The generated file 'version.h' does not exist!" )
 		message ( AUTHOR_WARNING "When creating a release tarball, please make sure to run cmake -P ${CMAKE_CURRENT_LIST_FILE}" )
 	endif()

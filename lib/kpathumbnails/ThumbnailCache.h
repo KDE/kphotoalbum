@@ -2,8 +2,8 @@
 
    SPDX-License-Identifier: GPL-2.0-or-later
 */
-#ifndef THUMBNAILCACHE_H
-#define THUMBNAILCACHE_H
+#ifndef KPATHUMBNAILS_THUMBNAILCACHE_H
+#define KPATHUMBNAILS_THUMBNAILCACHE_H
 #include "CacheFileInfo.h"
 
 #include <kpabase/FileNameList.h>
@@ -211,6 +211,6 @@ private:
 QString defaultThumbnailDirectory();
 }
 
-#endif /* THUMBNAILCACHE_H */
+#endif /* KPATHUMBNAILS_THUMBNAILCACHE_H */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

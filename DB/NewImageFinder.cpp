@@ -16,7 +16,6 @@
 #include <Exif/Database.h>
 #include <ImageManager/RawImageDecoder.h>
 #include <ImageManager/ThumbnailBuilder.h>
-#include <ImageManager/ThumbnailCache.h>
 #include <MainWindow/FeatureDialog.h>
 #include <MainWindow/Window.h>
 #include <Utilities/FileUtil.h>
@@ -24,6 +23,7 @@
 #include <kpabase/FileNameUtil.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
+#include <kpathumbnails/ThumbnailCache.h>
 
 #include <KLocalizedString>
 #include <KMessageBox>

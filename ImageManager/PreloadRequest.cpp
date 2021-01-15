@@ -5,7 +5,7 @@
 
 #include "PreloadRequest.h"
 
-#include "ThumbnailCache.h"
+#include <kpathumbnails/ThumbnailCache.h>
 
 ImageManager::PreloadRequest::PreloadRequest(const DB::FileName &fileName, const QSize &size, int angle, ImageClientInterface *client, const ThumbnailCache *thumbnailCache)
     : ImageRequest(fileName, size, angle, client)

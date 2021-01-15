@@ -8,7 +8,6 @@
 #include "AsyncLoader.h"
 #include "Logging.h"
 #include "PreloadRequest.h"
-#include "ThumbnailCache.h"
 
 #include <DB/ImageDB.h>
 #include <DB/ImageInfoPtr.h>
@@ -16,6 +15,7 @@
 #include <MainWindow/StatusBar.h>
 #include <ThumbnailView/CellGeometry.h>
 #include <kpabase/SettingsData.h>
+#include <kpathumbnails/ThumbnailCache.h>
 
 #include <KLocalizedString>
 #include <QLoggingCategory>

@@ -7,18 +7,17 @@
 
 #include "AsyncLoader.h"
 #include "ImageDecoder.h"
+#include "ImageEvent.h"
 #include "Logging.h"
 #include "RawImageDecoder.h"
-#include "ThumbnailCache.h"
 
 #include <Utilities/FastJpeg.h>
 #include <Utilities/ImageUtil.h>
+#include <kpathumbnails/ThumbnailCache.h>
 
 #include <QApplication>
 #include <QFileInfo>
 #include <QLoggingCategory>
-
-#include "ImageEvent.h"
 
 #include <qmatrix.h>
 

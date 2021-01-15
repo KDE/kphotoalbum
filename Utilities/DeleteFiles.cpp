@@ -8,9 +8,9 @@
 #include "ShowBusyCursor.h"
 
 #include <DB/ImageDB.h>
-#include <ImageManager/ThumbnailCache.h>
 #include <MainWindow/DirtyIndicator.h>
 #include <MainWindow/Window.h>
+#include <kpathumbnails/ThumbnailCache.h>
 
 #include <KIO/CopyJob>
 #include <KIO/DeleteJob>

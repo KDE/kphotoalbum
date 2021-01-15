@@ -11,8 +11,8 @@
 
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <DB/ImageInfo.h>
-#include <ImageManager/ThumbnailCache.h>
 #include <MainWindow/Window.h>
+#include <kpathumbnails/ThumbnailCache.h>
 
 #include <QApplication>
 #include <QTimer>

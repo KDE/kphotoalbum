@@ -9,10 +9,10 @@
 #include "Window.h"
 
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
-#include <ImageManager/ThumbnailCache.h>
 #include <ThumbnailView/CellGeometry.h>
 #include <Utilities/FileUtil.h>
 #include <Utilities/VideoUtil.h>
+#include <kpathumbnails/ThumbnailCache.h>
 
 #include <QLoggingCategory>
 

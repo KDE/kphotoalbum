@@ -12,7 +12,14 @@ add_custom_target(
     BYPRODUCTS "${CMAKE_CURRENT_SOURCE_DIR}/version.h"
     )
 
+configure_file(config-kpa-kdcraw.h.in "${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kdcraw.h")
+configure_file(config-kpa-plugins.h.in "${CMAKE_CURRENT_BINARY_DIR}/config-kpa-plugins.h")
+configure_file(config-kpa-marble.h.in "${CMAKE_CURRENT_BINARY_DIR}/config-kpa-marble.h")
+
 add_library(kpabase
+    "${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kdcraw.h"
+    "${CMAKE_CURRENT_BINARY_DIR}/config-kpa-plugins.h"
+    "${CMAKE_CURRENT_BINARY_DIR}/config-kpa-marble.h"
     enums.cpp
     enums.h
     FileName.cpp
@@ -34,6 +41,9 @@ add_library(kpabase
 add_library(KPA::Base ALIAS kpabase)
 # FIXME(jzarl): once KPhotoAlbum uses internal libs, export public symbols instead:
 set_target_properties(kpabase PROPERTIES CXX_VISIBILITY_PRESET default)
+
+# see CMP0071
+set_property(SOURCE version.h PROPERTY SKIP_AUTOMOC ON)
 
 target_include_directories(kpabase
     INTERFACE ${CMAKE_CURRENT_LIST_DIR}/..

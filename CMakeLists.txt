@@ -105,9 +105,6 @@ if(Marble_FOUND)
     include(MarbleChecks)
 endif()
 
-# For config-kpa-*.h
-include_directories("${CMAKE_CURRENT_BINARY_DIR}")
-
 set(libdatebar_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/DateBar/documentation.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/DateBar/DateBarWidget.cpp"
@@ -535,10 +532,6 @@ install(FILES kphotoalbumrc DESTINATION ${KDE_INSTALL_CONFDIR})
 install(FILES tips default-setup DESTINATION "${KDE_INSTALL_DATADIR}/kphotoalbum")
 install(FILES kphotoalbumui.rc DESTINATION "${KDE_INSTALL_KXMLGUI5DIR}/kphotoalbum")
 install(FILES org.kde.kphotoalbum.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
-
-configure_file(config-kpa-kdcraw.h.cmake "${CMAKE_CURRENT_BINARY_DIR}/config-kpa-kdcraw.h")
-configure_file(config-kpa-plugins.h.cmake "${CMAKE_CURRENT_BINARY_DIR}/config-kpa-plugins.h")
-configure_file(config-kpa-marble.h.cmake "${CMAKE_CURRENT_BINARY_DIR}/config-kpa-marble.h")
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 

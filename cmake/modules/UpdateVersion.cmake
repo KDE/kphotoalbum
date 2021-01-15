@@ -42,7 +42,6 @@ if ( PROJECT_VERSION )
 	configure_file ( ${OUTPUT_DIR}/version.h.in ${CMAKE_CURRENT_BINARY_DIR}/version.h~ )
 	# update info iff changed
 	execute_process ( COMMAND "${CMAKE_COMMAND}" -E copy_if_different ${CMAKE_CURRENT_BINARY_DIR}/version.h~ ${OUTPUT_DIR}/version.h )
-	set_property(SOURCE ${OUTPUT_DIR}/version.h PROPERTY SKIP_AUTOMOC ON)
 	# make sure info doesn't get stale
 	file ( REMOVE ${CMAKE_CURRENT_BINARY_DIR}/version.h~ )
 else()

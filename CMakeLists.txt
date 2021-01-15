@@ -535,8 +535,6 @@ endif()
 
 install(TARGETS kphotoalbum ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
-# FIXME(jzarl): once KPhotoAlbum uses internal libs, export public symbols instead:
-set_target_properties(kpabase PROPERTIES CXX_VISIBILITY_PRESET default)
 add_library(kpathumbnails
     ImageManager/ThumbnailCache.cpp
     ImageManager/ThumbnailCache.h

@@ -12,7 +12,6 @@ config-kpa-*
 CMakeCache.txt
 CMakeTmp
 EnabledFeatures.txt
-lib
 install_manifest.txt
 kphotoalbum
 kphotoalbum.shell

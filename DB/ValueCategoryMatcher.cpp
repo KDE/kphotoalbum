@@ -6,8 +6,9 @@
 #include "ValueCategoryMatcher.h"
 
 #include "ImageDB.h"
-#include "Logging.h"
 #include "MemberMap.h"
+
+#include <kpabase/Logging.h>
 
 void DB::ValueCategoryMatcher::debug(int level) const
 {

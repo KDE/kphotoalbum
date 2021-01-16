@@ -5,19 +5,15 @@
 
 #include "CategoryItem.h"
 
-// Qt includes
-#include <QDir>
-
-// KDE includes
-
-// Local includes
-#include "SettingsData.h"
-
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <DB/MemberMap.h>
 #include <MainWindow/DirtyIndicator.h>
 #include <MainWindow/Window.h>
+#include <kpabase/SettingsData.h>
+
+// Qt includes
+#include <QDir>
 
 Settings::CategoryItem::CategoryItem(const QString &category,
                                      const QString &icon,

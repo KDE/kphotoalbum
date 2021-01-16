@@ -5,7 +5,8 @@
 
 #ifndef IMAGESCOUT_H
 #define IMAGESCOUT_H
-#include "FileName.h"
+
+#include <kpabase/FileName.h>
 
 #include <QAtomicInt>
 #include <QList>

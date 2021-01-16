@@ -7,7 +7,6 @@
 #include "FastDir.h"
 #include "ImageDB.h"
 #include "ImageScout.h"
-#include "Logging.h"
 #include "MD5Map.h"
 
 #include <BackgroundJobs/ReadVideoLengthJob.h>

@@ -5,7 +5,7 @@
 
 #ifndef OPTIMIZEDFILELIST_H
 #define OPTIMIZEDFILELIST_H
-#include "FileNameList.h"
+#include <kpabase/FileNameList.h>
 
 #include <QMap>
 #include <QSet>

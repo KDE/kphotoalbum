@@ -5,10 +5,10 @@
 #include "RawImageDecoder.h"
 
 #include "ImageRequest.h"
-#include "Logging.h"
 
 #include <Utilities/FastJpeg.h>
 #include <kpabase/FileName.h>
+#include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 
 #include <QFile>

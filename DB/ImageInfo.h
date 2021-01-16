@@ -10,14 +10,13 @@
 
 #include "CategoryPtr.h"
 #include "ExifMode.h"
-#include "FileName.h"
 #include "ImageDate.h"
 #include "MD5.h"
-#include "kpabase/StringSet.h"
 
 #ifdef HAVE_MARBLE
 #include <Map/GeoCoordinates.h>
 #endif
+#include <kpabase/FileName.h>
 #include <kpabase/StringSet.h>
 
 #include <QHash>

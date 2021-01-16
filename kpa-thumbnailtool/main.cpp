@@ -5,9 +5,9 @@
 
 #include "Logging.h"
 #include "ThumbnailCacheConverter.h"
-#include "version.h"
 
 #include <kpabase/SettingsData.h>
+#include <kpabase/version.h>
 #include <kpathumbnails/ThumbnailCache.h>
 
 #include <KAboutData>

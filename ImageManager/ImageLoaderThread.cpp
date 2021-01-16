@@ -8,11 +8,11 @@
 #include "AsyncLoader.h"
 #include "ImageDecoder.h"
 #include "ImageEvent.h"
-#include "Logging.h"
 #include "RawImageDecoder.h"
 
 #include <Utilities/FastJpeg.h>
 #include <Utilities/ImageUtil.h>
+#include <kpabase/Logging.h>
 #include <kpathumbnails/ThumbnailCache.h>
 
 #include <QApplication>

@@ -10,12 +10,12 @@
 
 #include "ImagePreviewWidget.h"
 #include "ListSelect.h"
-#include "enums.h"
 
 #include <DB/Category.h>
 #include <DB/ImageInfoList.h>
 #include <DB/ImageSearchInfo.h>
 #include <kpabase/StringSet.h>
+#include <kpabase/enums.h>
 
 #include <QCheckBox>
 #include <QDialog>

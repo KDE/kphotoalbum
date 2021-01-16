@@ -5,18 +5,18 @@
 #include "ImageDB.h"
 
 #include "CategoryCollection.h"
-#include "FileName.h"
 #include "MediaCount.h"
 #include "NewImageFinder.h"
-#include "UIDelegate.h"
 
 #include <XMLDB/Database.h>
+#include <kpabase/FileName.h>
 #include <kpabase/SettingsData.h>
+#include <kpabase/UIDelegate.h>
 
 #include <KLocalizedString>
+#include <QApplication>
+#include <QFileInfo>
 #include <QProgressDialog>
-#include <qapplication.h>
-#include <qfileinfo.h>
 
 using namespace DB;
 

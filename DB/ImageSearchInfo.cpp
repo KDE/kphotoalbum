@@ -10,13 +10,13 @@
 #include "ContainerCategoryMatcher.h"
 #include "ExactCategoryMatcher.h"
 #include "ImageDB.h"
-#include "Logging.h"
 #include "NegationCategoryMatcher.h"
 #include "NoTagCategoryMatcher.h"
 #include "OrCategoryMatcher.h"
 #include "ValueCategoryMatcher.h"
 
 #include <ImageManager/RawImageDecoder.h>
+#include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 
 #include <KConfigGroup>

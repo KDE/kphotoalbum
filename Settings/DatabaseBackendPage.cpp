@@ -4,9 +4,8 @@
 */
 #include "DatabaseBackendPage.h"
 
-#include "SettingsData.h"
-
 #include <MainWindow/DirtyIndicator.h>
+#include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>
 #include <QCheckBox>

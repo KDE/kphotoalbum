@@ -7,12 +7,13 @@
 #define IMAGEDB_H
 
 #include "Category.h"
-#include "FileNameList.h"
 #include "ImageDateCollection.h"
 #include "ImageInfoList.h"
 #include "ImageInfoPtr.h"
 #include "ImageSearchInfo.h"
 #include "MediaCount.h"
+
+#include <kpabase/FileNameList.h>
 
 #include <QObject>
 

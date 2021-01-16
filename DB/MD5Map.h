@@ -5,11 +5,12 @@
 
 #ifndef MD5MAP_H
 #define MD5MAP_H
-#include "FileName.h"
 #include "MD5.h"
 
-#include <qhash.h>
-#include <qstring.h>
+#include <kpabase/FileName.h>
+
+#include <QHash>
+#include <QString>
 
 namespace DB
 {

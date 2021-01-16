@@ -18,8 +18,6 @@
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "version.h"
-
 #include <MainWindow/Options.h>
 #include <MainWindow/SplashScreen.h>
 #include <MainWindow/Window.h>
@@ -27,6 +25,7 @@
 #include <RemoteControl/RemoteInterface.h>
 #endif
 #include <kpabase/SettingsData.h>
+#include <kpabase/version.h>
 
 #include <KAboutData>
 #include <KColorScheme>

@@ -6,9 +6,9 @@
 #include "DemoUtil.h"
 
 #include "FileUtil.h"
-#include "Logging.h"
 
 #include <MainWindow/Window.h>
+#include <kpabase/Logging.h>
 
 #include <KIO/DeleteJob>
 #include <KJob>

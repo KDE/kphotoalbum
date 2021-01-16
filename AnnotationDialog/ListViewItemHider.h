@@ -4,10 +4,13 @@
 */
 #ifndef LISTVIEWITEMHIDER_H
 #define LISTVIEWITEMHIDER_H
-#include "enums.h"
+
+#include <kpabase/enums.h>
+
+#include <QString>
+
 class QTreeWidget;
 class QTreeWidgetItem;
-#include <QString>
 
 namespace AnnotationDialog
 {

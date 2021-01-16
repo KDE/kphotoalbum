@@ -6,9 +6,9 @@
 #include "FastJpeg.h"
 
 #include "JpeglibWithFix.h"
-#include "Logging.h"
 
 #include <kpabase/FileName.h>
+#include <kpabase/Logging.h>
 
 #include <QFileInfo>
 #include <QImageReader>

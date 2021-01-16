@@ -5,7 +5,8 @@
 #include "OrCategoryMatcher.h"
 
 #include "ImageInfo.h"
-#include "Logging.h"
+
+#include <kpabase/Logging.h>
 
 bool DB::OrCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet> &alreadyMatched)
 {

@@ -5,7 +5,7 @@
 #ifndef ANNOTATIONDIALOG_COMPLETABLELINEEDIT_H
 #define ANNOTATIONDIALOG_COMPLETABLELINEEDIT_H
 
-#include "enums.h"
+#include <kpabase/enums.h>
 
 #include <KLineEdit>
 class QKeyEvent;

@@ -4,8 +4,6 @@
 */
 #include "ThumbnailCache.h"
 
-#include "Logging.h"
-
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 

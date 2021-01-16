@@ -8,12 +8,12 @@
 #include "CategoryCollection.h"
 #include "FileInfo.h"
 #include "ImageDB.h"
-#include "Logging.h"
 #include "MemberMap.h"
 
 #include <Exif/Database.h>
 #include <Exif/DatabaseElement.h>
 #include <kpabase/FileNameUtil.h>
+#include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 #include <kpabase/StringSet.h>
 

@@ -6,7 +6,8 @@
 #include "MemberMap.h"
 
 #include "Category.h"
-#include "Logging.h"
+
+#include <kpabase/Logging.h>
 
 using namespace DB;
 

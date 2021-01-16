@@ -5,10 +5,10 @@
 
 #ifndef LISTSELECT_H
 #define LISTSELECT_H
-#include "enums.h"
 
 #include <DB/CategoryPtr.h>
 #include <kpabase/SettingsData.h>
+#include <kpabase/enums.h>
 
 #include <QLabel>
 #include <QList>

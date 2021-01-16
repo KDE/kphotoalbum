@@ -6,7 +6,8 @@
 
 #ifndef FASTDIR_H
 #define FASTDIR_H
-#include "FileNameList.h"
+
+#include <kpabase/FileNameList.h>
 
 #include <QSet>
 #include <QString>

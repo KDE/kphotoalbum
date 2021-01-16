@@ -10,14 +10,13 @@
 #ifndef RESIZABLEFRAME_H
 #define RESIZABLEFRAME_H
 
-// Qt includes
-#include <QFrame>
-#include <QTreeWidgetItem>
-
-// Local includes
 #include "Dialog.h"
 #include "ListSelect.h"
-#include "enums.h"
+
+#include <kpabase/enums.h>
+
+#include <QFrame>
+#include <QTreeWidgetItem>
 
 class QMouseEvent;
 

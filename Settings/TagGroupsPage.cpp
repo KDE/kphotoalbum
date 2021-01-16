@@ -4,8 +4,14 @@
 */
 
 #include "TagGroupsPage.h"
+#include "CategoriesGroupsWidget.h"
 
-// Qt includes
+#include <DB/CategoryCollection.h>
+#include <MainWindow/DirtyIndicator.h>
+#include <kpabase/SettingsData.h>
+
+#include <KLocalizedString>
+#include <KMessageBox>
 #include <QAction>
 #include <QFont>
 #include <QGridLayout>
@@ -17,17 +23,6 @@
 #include <QMenu>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
-
-// KDE includes
-#include <KLocalizedString>
-#include <KMessageBox>
-
-// Local includes
-#include "CategoriesGroupsWidget.h"
-#include "SettingsData.h"
-
-#include <DB/CategoryCollection.h>
-#include <MainWindow/DirtyIndicator.h>
 
 Settings::TagGroupsPage::TagGroupsPage(QWidget *parent)
     : QWidget(parent)

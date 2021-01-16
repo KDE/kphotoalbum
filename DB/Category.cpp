@@ -8,10 +8,10 @@
 #include "CategoryItem.h"
 #include "ImageDB.h"
 #include "MemberMap.h"
-#include "UIDelegate.h"
 
 #include <Utilities/ImageUtil.h>
 #include <kpabase/SettingsData.h>
+#include <kpabase/UIDelegate.h>
 
 #include <KLocalizedString>
 #include <QDir>

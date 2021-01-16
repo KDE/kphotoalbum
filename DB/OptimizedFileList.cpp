@@ -6,7 +6,8 @@
 #include "OptimizedFileList.h"
 
 #include "FastDir.h"
-#include "Logging.h"
+
+#include <kpabase/Logging.h>
 
 extern "C" {
 #include <dirent.h>

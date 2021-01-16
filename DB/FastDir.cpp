@@ -6,7 +6,7 @@
 
 #include "FastDir.h"
 
-#include "Logging.h"
+#include <kpabase/Logging.h>
 
 #include <QFile>
 #include <QLoggingCategory>

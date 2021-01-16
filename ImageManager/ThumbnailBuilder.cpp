@@ -6,7 +6,6 @@
 #include "ThumbnailBuilder.h"
 
 #include "AsyncLoader.h"
-#include "Logging.h"
 #include "PreloadRequest.h"
 
 #include <DB/ImageDB.h>
@@ -14,6 +13,7 @@
 #include <DB/OptimizedFileList.h>
 #include <MainWindow/StatusBar.h>
 #include <ThumbnailView/CellGeometry.h>
+#include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 #include <kpathumbnails/ThumbnailCache.h>
 

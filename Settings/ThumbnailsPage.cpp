@@ -4,7 +4,7 @@
 */
 #include "ThumbnailsPage.h"
 
-#include "SettingsData.h"
+#include <kpabase/SettingsData.h>
 
 #include <KColorButton>
 #include <KComboBox>

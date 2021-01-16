@@ -5,10 +5,9 @@
 
 #include "VideoLengthExtractor.h"
 
-#include "Logging.h"
-
 #include <MainWindow/FeatureDialog.h>
 #include <Utilities/Process.h>
+#include <kpabase/Logging.h>
 
 #include <QDir>
 

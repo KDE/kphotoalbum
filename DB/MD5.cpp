@@ -6,7 +6,7 @@
 
 #include "MD5.h"
 
-#include "FileName.h"
+#include <kpabase/FileName.h>
 
 #include <QCryptographicHash>
 #include <QFile>

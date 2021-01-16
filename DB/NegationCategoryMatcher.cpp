@@ -5,7 +5,8 @@
 #include "NegationCategoryMatcher.h"
 
 #include "ImageInfo.h"
-#include "Logging.h"
+
+#include <kpabase/Logging.h>
 
 DB::NegationCategoryMatcher::NegationCategoryMatcher(CategoryMatcher *child)
     : m_child(child)

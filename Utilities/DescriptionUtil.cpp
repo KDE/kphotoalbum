@@ -3,18 +3,15 @@
    SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-// Local includes
 #include "DescriptionUtil.h"
-#include "DB/CategoryCollection.h"
-#include "DB/ImageDB.h"
-#include "Exif/Info.h"
-#include "Logging.h"
-#include "kpabase/SettingsData.h"
 
-// KDE includes
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <Exif/Info.h>
+#include <kpabase/Logging.h>
+#include <kpabase/SettingsData.h>
+
 #include <KLocalizedString>
-
-// Qt includes
 #include <QList>
 #include <QTextCodec>
 #include <QUrl>

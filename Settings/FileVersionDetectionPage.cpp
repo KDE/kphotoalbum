@@ -4,7 +4,7 @@
 */
 #include "FileVersionDetectionPage.h"
 
-#include "SettingsData.h"
+#include <kpabase/SettingsData.h>
 
 #include <KComboBox>
 #include <KLocalizedString>

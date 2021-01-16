@@ -5,7 +5,8 @@
 #include "NoTagCategoryMatcher.h"
 
 #include "ImageInfo.h"
-#include "Logging.h"
+
+#include <kpabase/Logging.h>
 
 DB::NoTagCategoryMatcher::NoTagCategoryMatcher(const QString &category)
     : m_category(category)

@@ -4,10 +4,9 @@
 */
 #include "UntaggedGroupBox.h"
 
-#include "SettingsData.h"
-
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
+#include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>
 #include <QCheckBox>

@@ -6,15 +6,12 @@
 #ifndef CATEGORYPAGE_H
 #define CATEGORYPAGE_H
 
-// Qt includes
+#include <kpabase/SettingsData.h>
+
 #include <QAbstractItemDelegate>
 #include <QLabel>
 #include <QWidget>
 
-// Local includes
-#include "SettingsData.h"
-
-// Qt classes
 class QListWidget;
 class QListWidgetItem;
 class QComboBox;
@@ -22,8 +19,6 @@ class QSpinBox;
 class QCheckBox;
 class QPushButton;
 class QGroupBox;
-
-// KDE classes
 class KIconButton;
 
 namespace DB

@@ -13,7 +13,6 @@
 #include "ResizableFrame.h"
 #include "ShortCutManager.h"
 #include "ShowSelectionOnlyManager.h"
-#include "enums.h"
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
@@ -22,6 +21,7 @@
 #include <Utilities/ShowBusyCursor.h>
 #include <Viewer/ViewerWidget.h>
 #include <kpabase/SettingsData.h>
+#include <kpabase/enums.h>
 
 #include <KAcceleratorManager>
 #include <KActionCollection>

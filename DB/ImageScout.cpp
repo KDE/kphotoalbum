@@ -5,7 +5,7 @@
 
 #include "ImageScout.h"
 
-#include "Logging.h"
+#include <kpabase/Logging.h>
 
 #include <QAtomicInt>
 #include <QDataStream>

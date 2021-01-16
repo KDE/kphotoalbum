@@ -5,8 +5,6 @@
 
 #include "ExtractOneVideoFrame.h"
 
-#include "Logging.h"
-
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <MainWindow/DirtyIndicator.h>
@@ -14,6 +12,7 @@
 #include <MainWindow/TokenEditor.h>
 #include <MainWindow/Window.h>
 #include <Utilities/Process.h>
+#include <kpabase/Logging.h>
 #include <kpabase/StringSet.h>
 
 #include <KLocalizedString>

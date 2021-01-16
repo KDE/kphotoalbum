@@ -4,10 +4,9 @@
 */
 #include "ExifPage.h"
 
-#include "SettingsData.h"
-
 #include <Exif/Info.h>
 #include <Exif/TreeView.h>
+#include <kpabase/SettingsData.h>
 
 #include <KComboBox>
 #include <KLocalizedString>

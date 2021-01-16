@@ -4,11 +4,12 @@
 */
 #include "ImageInfoList.h"
 
-#include "FileNameList.h"
 #include "ImageInfo.h"
-#include "Logging.h"
 
 #include <Utilities/FastDateTime.h>
+#include <kpabase/FileNameList.h>
+#include <kpabase/Logging.h>
+
 #include <KLocalizedString>
 #include <QVector>
 #include <QtAlgorithms>

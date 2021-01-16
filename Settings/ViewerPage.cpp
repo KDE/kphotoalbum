@@ -4,8 +4,9 @@
 */
 #include "ViewerPage.h"
 
-#include "SettingsData.h"
 #include "ViewerSizeConfig.h"
+
+#include <kpabase/SettingsData.h>
 
 #include <KComboBox>
 #include <KLocalizedString>

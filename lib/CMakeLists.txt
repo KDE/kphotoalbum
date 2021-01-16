@@ -8,7 +8,7 @@ add_custom_target(
     UpdateVersion ALL
     COMMAND "${CMAKE_COMMAND}"
     "-DBASE_DIR=${kphotoalbum_SOURCE_DIR}" -DPROJECT_NAME=KPA -DPROJECT_VERSION="${kphotoalbum_VERSION}"
-    -DOUTPUT_DIR="${CMAKE_CURRENT_SOURCE_DIR}/kpabase"
+    "-DOUTPUT_DIR=${CMAKE_CURRENT_SOURCE_DIR}/kpabase"
     -DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}" -P "${kphotoalbum_SOURCE_DIR}/cmake/modules/UpdateVersion.cmake"
     COMMENT "Updating version header."
     BYPRODUCTS "${CMAKE_CURRENT_SOURCE_DIR}/kpabase/version.h"

@@ -6,7 +6,7 @@
 #ifndef ANNOTATIONDIALOG_DIALOG_H
 #define ANNOTATIONDIALOG_DIALOG_H
 
-#include "config-kpa-marble.h"
+#include <kpabase/config-kpa-marble.h>
 
 #include "ImagePreviewWidget.h"
 #include "ListSelect.h"

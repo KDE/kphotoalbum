@@ -7,7 +7,7 @@
 #define IMAGESEARCHINFO_H
 #include "ImageDate.h"
 #include "ImageInfoPtr.h"
-#include <config-kpa-marble.h>
+#include <kpabase/config-kpa-marble.h>
 
 #include <Exif/SearchInfo.h>
 #ifdef HAVE_MARBLE

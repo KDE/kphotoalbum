@@ -7,12 +7,12 @@
 #ifndef MAPVIEW_H
 #define MAPVIEW_H
 
-#include "config-kpa-marble.h"
 #include "GeoCoordinates.h"
 #include "enums.h"
 
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
+#include <kpabase/config-kpa-marble.h>
 
 #include <QList>
 #include <QPixmap>

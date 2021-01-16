@@ -6,7 +6,7 @@
 #ifndef IMAGEINFO_H
 #define IMAGEINFO_H
 
-#include "config-kpa-marble.h"
+#include <kpabase/config-kpa-marble.h>
 
 #include "CategoryPtr.h"
 #include "ExifMode.h"

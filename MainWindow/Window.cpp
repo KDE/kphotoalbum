@@ -5,7 +5,74 @@
 
 #include "Window.h"
 
-#include <config-kpa-plugins.h>
+#include "AutoStackImages.h"
+#include "BreadcrumbViewer.h"
+#include "CopyPopup.h"
+#include "DeleteDialog.h"
+#include "DirtyIndicator.h"
+#include "DuplicateMerger/DuplicateMerger.h"
+#include "ExternalPopup.h"
+#include "FeatureDialog.h"
+#include "ImageCounter.h"
+#include "InvalidDateFinder.h"
+#include "Logging.h"
+#include "Options.h"
+#include "SearchBar.h"
+#include "SplashScreen.h"
+#include "StatisticsDialog.h"
+#include "StatusBar.h"
+#include "TokenEditor.h"
+#include "UpdateVideoThumbnail.h"
+#include "WelcomeDialog.h"
+
+#include <AnnotationDialog/Dialog.h>
+#include <BackgroundJobs/SearchForVideosWithoutLengthInfo.h>
+#include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
+#include <BackgroundTaskManager/JobManager.h>
+#include <Browser/BrowserWidget.h>
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
+#include <DB/ImageDateCollection.h>
+#include <DB/ImageInfo.h>
+#include <DB/MD5.h>
+#include <DB/MD5Map.h>
+#include <DateBar/DateBarWidget.h>
+#include <Exif/Database.h>
+#include <Exif/Info.h>
+#include <Exif/InfoDialog.h>
+#include <Exif/ReReadDialog.h>
+#include <HTMLGenerator/HTMLDialog.h>
+#include <ImageManager/AsyncLoader.h>
+#include <ImageManager/ThumbnailBuilder.h>
+#include <ImportExport/Export.h>
+#include <ImportExport/Import.h>
+#include <Settings/SettingsDialog.h>
+#include <ThumbnailView/FilterWidget.h>
+#include <ThumbnailView/ThumbnailFacade.h>
+#include <ThumbnailView/enums.h>
+#include <Utilities/DemoUtil.h>
+#include <Utilities/List.h>
+#include <Utilities/ShowBusyCursor.h>
+#include <Utilities/VideoUtil.h>
+#include <Viewer/ViewerWidget.h>
+#include <kpabase/FileNameUtil.h>
+#include <kpabase/Logging.h>
+#include <kpabase/SettingsData.h>
+#include <kpabase/UIDelegate.h>
+#include <kpabase/config-kpa-marble.h>
+#include <kpabase/config-kpa-plugins.h>
+#include <kpathumbnails/ThumbnailCache.h>
+
+#ifdef KF5Purpose_FOUND
+#include <Plugins/PurposeMenu.h>
+#endif
+#ifdef HAVE_MARBLE
+#include <Map/MapView.h>
+#endif
+#ifdef KPA_ENABLE_REMOTECONTROL
+#include <RemoteControl/RemoteInterface.h>
+#endif
+
 #include <stdexcept>
 #ifdef HAVE_STDLIB_H
 #include <stdlib.h>
@@ -49,71 +116,6 @@
 #include <QVBoxLayout>
 #include <kio_version.h> // for #if KIO_VERSION...
 #include <ktip.h>
-
-#include <AnnotationDialog/Dialog.h>
-#include <BackgroundJobs/SearchForVideosWithoutLengthInfo.h>
-#include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
-#include <BackgroundTaskManager/JobManager.h>
-#include <Browser/BrowserWidget.h>
-#include <DB/CategoryCollection.h>
-#include <DB/ImageDB.h>
-#include <DB/ImageDateCollection.h>
-#include <DB/ImageInfo.h>
-#include <DB/MD5.h>
-#include <DB/MD5Map.h>
-#include <DateBar/DateBarWidget.h>
-#include <Exif/Database.h>
-#include <Exif/Info.h>
-#include <Exif/InfoDialog.h>
-#include <Exif/ReReadDialog.h>
-#include <HTMLGenerator/HTMLDialog.h>
-#include <ImageManager/AsyncLoader.h>
-#include <ImageManager/ThumbnailBuilder.h>
-#include <ImportExport/Export.h>
-#include <ImportExport/Import.h>
-#include <kpabase/UIDelegate.h>
-#include <kpathumbnails/ThumbnailCache.h>
-#ifdef KF5Purpose_FOUND
-#include <Plugins/PurposeMenu.h>
-#endif
-#include "AutoStackImages.h"
-#include "BreadcrumbViewer.h"
-#include "CopyPopup.h"
-#include "DeleteDialog.h"
-#include "DirtyIndicator.h"
-#include "DuplicateMerger/DuplicateMerger.h"
-#include "ExternalPopup.h"
-#include "FeatureDialog.h"
-#include "ImageCounter.h"
-#include "InvalidDateFinder.h"
-#include "Logging.h"
-#include "Options.h"
-#include "SearchBar.h"
-#include "SplashScreen.h"
-#include "StatisticsDialog.h"
-#include "StatusBar.h"
-#include "TokenEditor.h"
-#include "UpdateVideoThumbnail.h"
-#include "WelcomeDialog.h"
-
-#ifdef HAVE_MARBLE
-#include <Map/MapView.h>
-#endif
-#ifdef KPA_ENABLE_REMOTECONTROL
-#include <RemoteControl/RemoteInterface.h>
-#endif
-#include <Settings/SettingsDialog.h>
-#include <ThumbnailView/FilterWidget.h>
-#include <ThumbnailView/ThumbnailFacade.h>
-#include <ThumbnailView/enums.h>
-#include <Utilities/DemoUtil.h>
-#include <Utilities/List.h>
-#include <Utilities/ShowBusyCursor.h>
-#include <Utilities/VideoUtil.h>
-#include <Viewer/ViewerWidget.h>
-#include <kpabase/FileNameUtil.h>
-#include <kpabase/Logging.h>
-#include <kpabase/SettingsData.h>
 
 using namespace DB;
 

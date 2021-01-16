@@ -6,20 +6,15 @@
 #ifndef INFOBOX_H
 #define INFOBOX_H
 
-#include "config-kpa-marble.h"
-
-// Qt includes
-#include <QMouseEvent>
-#include <QPointer>
-
-// KDE includes
-#include <QTextBrowser>
-
-// Local includes
 #include "InfoBoxResizer.h"
 #include "ViewerWidget.h"
 
 #include <kpabase/SettingsData.h>
+#include <kpabase/config-kpa-marble.h>
+
+#include <QMouseEvent>
+#include <QPointer>
+#include <QTextBrowser>
 
 // Qt classes
 class QMenu;

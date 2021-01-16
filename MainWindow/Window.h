@@ -8,15 +8,15 @@
 #include <DB/Category.h>
 #include <DB/ImageSearchInfo.h>
 #include <ThumbnailView/enums.h>
-#include <config-kpa-marble.h>
 #include <kpabase/FileNameList.h>
 #include <kpabase/UIDelegate.h>
+#include <kpabase/config-kpa-marble.h>
+#include <kpabase/config-kpa-plugins.h>
 
 #include <KXmlGuiWindow>
 #include <QList>
 #include <QPointer>
 #include <QUrl>
-#include <config-kpa-plugins.h>
 
 class QAction;
 class QCloseEvent;

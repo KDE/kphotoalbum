@@ -10,10 +10,10 @@
 #include <kpabase/FileName.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
+#include <kpabase/config-kpa-kdcraw.h>
 
 #include <QFile>
 #include <QImage>
-#include <config-kpa-kdcraw.h>
 #ifdef HAVE_KDCRAW
 #include <KDCRAW/KDcraw>
 #include <KDCRAW/RawFiles>

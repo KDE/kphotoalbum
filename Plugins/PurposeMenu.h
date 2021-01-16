@@ -6,10 +6,11 @@
 #ifndef KPHOTOALBUM_PURPOSEMENU_H
 #define KPHOTOALBUM_PURPOSEMENU_H
 
+#include <kpabase/config-kpa-plugins.h>
+
 #include <PurposeWidgets/Menu>
 #include <QString>
 #include <QUrl>
-#include <config-kpa-plugins.h>
 
 class QMenu;
 

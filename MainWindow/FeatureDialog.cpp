@@ -4,10 +4,10 @@
 */
 
 #include "FeatureDialog.h"
-#include <config-kpa-marble.h>
-#include <config-kpa-plugins.h>
 
 #include <Exif/Database.h>
+#include <kpabase/config-kpa-marble.h>
+#include <kpabase/config-kpa-plugins.h>
 
 #include <KLocalizedString>
 #include <QDialogButtonBox>

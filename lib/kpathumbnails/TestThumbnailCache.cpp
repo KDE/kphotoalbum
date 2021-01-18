@@ -43,7 +43,6 @@ void KPATest::TestThumbnailCache::initTestCase()
 
 void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()
 {
-
     QTemporaryDir tmpDir;
     QVERIFY(tmpDir.isValid());
     tmpDir.setAutoRemove(false);
@@ -64,19 +63,35 @@ void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()
     QSignalSpy cacheSavedSpy { &thumbnailCache, &ImageManager::ThumbnailCache::saveComplete };
     QVERIFY(cacheSavedSpy.isValid());
 
+    // change this when the version changes:
+    QCOMPARE(thumbnailCache.preferredFileVersion(), 5);
+    // verify input as defined in v4IndexHexData:
+    QCOMPARE(thumbnailCache.actualFileVersion(), 4);
     QCOMPARE(thumbnailCache.size(), 3);
+    QVERIFY(thumbnailCache.contains(DB::FileName::fromRelativePath(QStringLiteral("blackie.jpg"))));
     QVERIFY(thumbnailCache.contains(DB::FileName::fromRelativePath(QStringLiteral("spiff_2.jpg"))));
+    QVERIFY(thumbnailCache.contains(DB::FileName::fromRelativePath(QStringLiteral("new_wave_2.jpg"))));
+    QVERIFY(!thumbnailCache.contains(DB::FileName::fromRelativePath(QString())));
+
     // remove an empty file list to force the dirty flag:
     thumbnailCache.removeThumbnails(DB::FileNameList());
+    // actually, removeThumbnails causes a save, but in case we change we want to call save explicitly:
     thumbnailCache.save();
-
+    // save is actually called more than once, but should only be executed once:
     QCOMPARE(cacheSavedSpy.count(), 1);
 
-    QVERIFY(thumbnailIndex.open(QIODevice::ReadOnly));
+    // after saving, the actual file version should have been updated
+    QCOMPARE(thumbnailCache.actualFileVersion(), thumbnailCache.preferredFileVersion());
+    QCOMPARE(thumbnailCache.thumbnailSize(), Settings::SettingsData::instance()->thumbnailSize());
 
+    // verify data on disk:
+    QVERIFY(thumbnailIndex.open(QIODevice::ReadOnly));
     const QByteArray v5Index { thumbnailIndex.readAll() };
     thumbnailIndex.close();
     QCOMPARE(v5Index, QByteArray::fromHex(v5IndexHexData));
+
+    // we only have the index data - trying a lookup won't work, but shouldn't crash or something
+    QVERIFY(thumbnailCache.lookup(DB::FileName::fromRelativePath(QStringLiteral("blackie.jpg"))).isNull());
 }
 
 QTEST_MAIN(KPATest::TestThumbnailCache)

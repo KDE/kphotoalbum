@@ -76,4 +76,7 @@ target_link_libraries(kpathumbnails
 
 install(TARGETS kpathumbnails ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
+# unit tests:
+add_subdirectory(kpathumbnails)
+
 # vi:expandtab:tabstop=4 shiftwidth=4:

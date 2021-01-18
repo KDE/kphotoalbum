@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "ThumbnailCache.h"
 
 #include <kpabase/Logging.h>
@@ -382,10 +383,11 @@ void ImageManager::ThumbnailCache::load()
         qCDebug(ImageManagerLog) << "Thumbnail cache has thumbnail size" << m_thumbnailSize << "px";
     }
 
-    int count = 0;
+    int expectedCount = 0;
     stream >> m_currentFile
         >> m_currentOffset
-        >> count;
+        >> expectedCount;
+    int count = 0;
 
     while (!stream.atEnd()) {
         QString name;
@@ -410,7 +412,7 @@ void ImageManager::ThumbnailCache::load()
         }
         count++;
     }
-    qCDebug(TimingLog) << "Loaded thumbnails in " << timer.elapsed() / 1000.0 << " seconds";
+    qCDebug(TimingLog, "Loaded %d (expected: %d) thumbnails in %f seconds", count, expectedCount, timer.elapsed() / 1000.0);
 }
 
 bool ImageManager::ThumbnailCache::contains(const DB::FileName &name) const

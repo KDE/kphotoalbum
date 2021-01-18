@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef KPATHUMBNAILS_THUMBNAILCACHE_H
 #define KPATHUMBNAILS_THUMBNAILCACHE_H
 #include "CacheFileInfo.h"
@@ -135,6 +136,8 @@ public:
 public slots:
     /**
      * @brief Save the thumbnail cache to disk.
+     * Note: this method emits an internal signal which calls the actual save implementation.
+     * Therefore, saving may not be finished when this method returns.
      */
     void save() const;
     /**
@@ -160,8 +163,22 @@ signals:
      * @brief cacheInvalidated is emitted when the thumbnails are no longer valid.
      * This usually happens when the thumbnail size changed.
      * This signal is *not* emitted when the cache was flushed by explicit request.
+     * @see cacheFlushed()
      */
     void cacheInvalidated();
+
+    /**
+     * @brief cacheFlushed is emitted if the cache was flushed by explicit request.
+     * @see flush()
+     * @see cacheInvalidated()
+     */
+    void cacheFlushed();
+
+    /**
+     * @brief saveComplete is emitted after the thumbnail cache was successfully saved.
+     * At the time the signal is emitted, the cache is not dirty (i.e. a full save was performed).
+     */
+    void saveComplete() const;
 
 private:
     /**

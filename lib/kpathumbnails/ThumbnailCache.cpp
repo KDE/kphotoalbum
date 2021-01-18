@@ -231,6 +231,8 @@ QByteArray ImageManager::ThumbnailCache::lookupRawData(const DB::FileName &name)
 
 void ImageManager::ThumbnailCache::saveFull() const
 {
+    QElapsedTimer timer;
+    timer.start();
     // First ensure that any dirty thumbnails are written to disk
     m_thumbnailWriterLock.lock();
     if (m_currentWriter) {
@@ -241,6 +243,7 @@ void ImageManager::ThumbnailCache::saveFull() const
 
     QMutexLocker dataLocker(&m_dataLock);
     if (!m_isDirty) {
+        qCDebug(ImageManagerLog) << "ThumbnailCache::saveFull(): cache not dirty.";
         return;
     }
     QTemporaryFile file;
@@ -286,6 +289,9 @@ void ImageManager::ThumbnailCache::saveFull() const
         realFile.open(QIODevice::ReadOnly);
         realFile.setPermissions(QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup | QFile::ReadOther);
         realFile.close();
+        qCDebug(ImageManagerLog) << "ThumbnailCache::saveFull(): cache saved.";
+        qCDebug(TimingLog, "Saved thumbnail cache with %d images in %f seconds", size(), timer.elapsed() / 1000.0);
+        emit saveComplete();
     }
 }
 
@@ -358,8 +364,10 @@ void ImageManager::ThumbnailCache::save() const
 void ImageManager::ThumbnailCache::load()
 {
     QFile file(thumbnailPath(INDEXFILE_NAME));
-    if (!file.exists())
+    if (!file.exists()) {
+        qCWarning(ImageManagerLog) << "Thumbnail index file " << file.fileName() << " not found!";
         return;
+    }
 
     QElapsedTimer timer;
     timer.start();
@@ -399,6 +407,8 @@ void ImageManager::ThumbnailCache::load()
             >> offset
             >> size;
 
+        // qCDebug(ImageManagerLog) << "Adding file to index:" << name
+        //                          << "(index/offset/size:" << fileIndex << "/" << offset << "/" << size << ")";
         m_hash.insert(DB::FileName::fromRelativePath(name), CacheFileInfo(fileIndex, offset, size));
         if (fileIndex > m_currentFile) {
             m_currentFile = fileIndex;
@@ -490,6 +500,7 @@ void ImageManager::ThumbnailCache::flush()
     m_memcache->clear();
     dataLocker.unlock();
     save();
+    emit cacheFlushed();
 }
 
 void ImageManager::ThumbnailCache::removeThumbnail(const DB::FileName &fileName)

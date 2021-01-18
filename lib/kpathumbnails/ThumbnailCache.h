@@ -123,7 +123,7 @@ public:
     /**
      * @brief Check all thumbnails for consistency with thumbnailSize().
      * Only the thumbnails which are saved to disk are checked.
-     * If you have changed changed the cache you need to save if to guarantee correct results.
+     * If you have changed changed the cache you need to save it to guarantee correct results.
      * @return all thumbnails that do not match the expected image dimensions.
      */
     DB::FileNameList findIncorrectlySizedThumbnails() const;

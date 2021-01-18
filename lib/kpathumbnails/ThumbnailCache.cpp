@@ -83,9 +83,8 @@ ImageManager::ThumbnailCache::ThumbnailCache(const QString &baseDirectory)
     , m_memcache(new QCache<int, ThumbnailMapping>(LRU_SIZE))
     , m_currentWriter(nullptr)
 {
-    const QString dir = thumbnailPath(QString());
-    if (!QFile::exists(dir))
-        QDir().mkpath(dir);
+    if (!m_baseDir.exists())
+        QDir().mkpath(m_baseDir.path());
 
     // set a default value for version 4 files and new databases:
     m_thumbnailSize = Settings::SettingsData::instance()->thumbnailSize();
@@ -434,7 +433,7 @@ bool ImageManager::ThumbnailCache::contains(const DB::FileName &name) const
 
 QString ImageManager::ThumbnailCache::thumbnailPath(const QString &file) const
 {
-    return m_baseDir + file;
+    return m_baseDir.filePath(file);
 }
 
 int ImageManager::ThumbnailCache::thumbnailSize() const

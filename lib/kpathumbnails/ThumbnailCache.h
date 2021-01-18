@@ -9,6 +9,7 @@
 
 #include <kpabase/FileNameList.h>
 
+#include <QDir>
 #include <QFile>
 #include <QHash>
 #include <QImage>
@@ -195,7 +196,7 @@ private:
     // mutable because saveIncremental is const
     mutable int m_fileVersion = -1;
     int m_thumbnailSize = -1;
-    const QString m_baseDir;
+    const QDir m_baseDir;
     QHash<DB::FileName, CacheFileInfo> m_hash;
     mutable QHash<DB::FileName, CacheFileInfo> m_unsavedHash;
     /* Protects accesses to the data (hash and unsaved hash) */

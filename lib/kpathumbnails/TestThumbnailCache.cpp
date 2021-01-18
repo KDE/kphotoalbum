@@ -59,8 +59,7 @@ void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()
     thumbnailIndex.close();
     QCOMPARE(thumbnailIndex.size(), 136);
 
-    // FIXME(jzarl): this should work without trailing '/' as well:
-    ImageManager::ThumbnailCache thumbnailCache { thumbnailDir.path() + QDir::separator() };
+    ImageManager::ThumbnailCache thumbnailCache { thumbnailDir.path() };
 
     QSignalSpy cacheSavedSpy { &thumbnailCache, &ImageManager::ThumbnailCache::saveComplete };
     QVERIFY(cacheSavedSpy.isValid());

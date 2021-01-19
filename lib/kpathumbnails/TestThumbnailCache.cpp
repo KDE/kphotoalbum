@@ -45,7 +45,7 @@ void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()
 {
     QTemporaryDir tmpDir;
     QVERIFY(tmpDir.isValid());
-    tmpDir.setAutoRemove(false);
+    // tmpDir.setAutoRemove(false);
 
     DB::DummyUIDelegate uiDelegate;
     Settings::SettingsData::setup(tmpDir.path(), uiDelegate);
@@ -92,6 +92,95 @@ void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()
 
     // we only have the index data - trying a lookup won't work, but shouldn't crash or something
     QVERIFY(thumbnailCache.lookup(DB::FileName::fromRelativePath(QStringLiteral("blackie.jpg"))).isNull());
+
+    QSignalSpy flushedSpy { &thumbnailCache, &ImageManager::ThumbnailCache::cacheFlushed };
+    QVERIFY(flushedSpy.isValid());
+    thumbnailCache.flush();
+    QCOMPARE(flushedSpy.count(), 1);
+    QCOMPARE(thumbnailCache.size(), 0);
+}
+
+void KPATest::TestThumbnailCache::insertRemove()
+{
+    QTemporaryDir tmpDir;
+    QVERIFY(tmpDir.isValid());
+    // tmpDir.setAutoRemove(false);
+
+    DB::DummyUIDelegate uiDelegate;
+    Settings::SettingsData::setup(tmpDir.path(), uiDelegate);
+
+    const QDir thumbnailDir { tmpDir.filePath(ImageManager::defaultThumbnailDirectory()) };
+    QDir().mkdir(thumbnailDir.path());
+
+    ImageManager::ThumbnailCache thumbnailCache { thumbnailDir.path() };
+
+    QSignalSpy cacheSavedSpy { &thumbnailCache, &ImageManager::ThumbnailCache::saveComplete };
+    QVERIFY(cacheSavedSpy.isValid());
+
+    thumbnailCache.save();
+    QCOMPARE(thumbnailCache.size(), 0);
+    // nothing stored yet - no need to save:
+    QCOMPARE(cacheSavedSpy.count(), 0);
+    QCOMPARE(thumbnailCache.actualFileVersion(), -1);
+
+    // insert some images
+    // the image needs to be valid
+    QImage nullImage {};
+    const auto nullImageFileName = DB::FileName::fromRelativePath(QStringLiteral("nullImage.jpg"));
+    thumbnailCache.insert(nullImageFileName, nullImage);
+    QCOMPARE(thumbnailCache.size(), 0);
+    QVERIFY(!thumbnailCache.contains(nullImageFileName));
+
+    const int thumbnailSize = thumbnailCache.thumbnailSize();
+    QImage someImage { thumbnailSize + 1, thumbnailSize + 1, QImage::Format_RGB32 };
+    someImage.fill(Qt::red);
+    QVERIFY(!someImage.isNull());
+    const auto someImageFileName = DB::FileName::fromRelativePath(QStringLiteral("someImage.jpg"));
+    thumbnailCache.insert(someImageFileName, someImage);
+    QCOMPARE(thumbnailCache.size(), 1);
+    QVERIFY(thumbnailCache.contains(someImageFileName));
+
+    QImage otherImage { thumbnailSize, thumbnailSize, QImage::Format_RGB32 };
+    otherImage.fill(Qt::green);
+    QVERIFY(!otherImage.isNull());
+    const auto otherImageFileName = DB::FileName::fromRelativePath(QStringLiteral("otherImage.jpg"));
+    thumbnailCache.insert(otherImageFileName, otherImage);
+    QCOMPARE(thumbnailCache.size(), 2);
+    QVERIFY(thumbnailCache.contains(otherImageFileName));
+
+    // TODO(jzarl) inserted images should be the same as the ones we look up
+
+    // this should do nothing:
+    thumbnailCache.removeThumbnails(DB::FileNameList());
+    QCOMPARE(thumbnailCache.size(), 2);
+    QCOMPARE(thumbnailCache.actualFileVersion(), thumbnailCache.preferredFileVersion());
+
+    thumbnailCache.save();
+    // the someImage has an incorrect size:
+    QCOMPARE(thumbnailCache.findIncorrectlySizedThumbnails().size(), 1);
+
+    // removals:
+    QVERIFY(thumbnailCache.contains(someImageFileName));
+    QVERIFY(thumbnailCache.contains(otherImageFileName));
+    thumbnailCache.removeThumbnail(someImageFileName);
+    QCOMPARE(thumbnailCache.size(), 1);
+    QVERIFY(!thumbnailCache.contains(someImageFileName));
+    QVERIFY(thumbnailCache.contains(otherImageFileName));
+    thumbnailCache.save();
+    QVERIFY(thumbnailCache.findIncorrectlySizedThumbnails().isEmpty());
+
+    thumbnailCache.removeThumbnails(DB::FileNameList({ otherImageFileName }));
+    QCOMPARE(thumbnailCache.size(), 0);
+
+    // insert again and invalidate by changing thumbnail size:
+    thumbnailCache.insert(someImageFileName, someImage);
+    thumbnailCache.insert(otherImageFileName, otherImage);
+    QCOMPARE(thumbnailCache.size(), 2);
+    QSignalSpy invalidatedSpy { &thumbnailCache, &ImageManager::ThumbnailCache::cacheInvalidated };
+    QVERIFY(invalidatedSpy.isValid());
+    thumbnailCache.setThumbnailSize(thumbnailSize + 1);
+    QCOMPARE(invalidatedSpy.count(), 1);
+    QCOMPARE(thumbnailCache.size(), 0);
 }
 
 QTEST_MAIN(KPATest::TestThumbnailCache)

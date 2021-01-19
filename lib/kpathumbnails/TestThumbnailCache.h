@@ -18,6 +18,7 @@ private slots:
      * @brief Set up v4 index file, check index file after conversion.
      */
     void loadV4ThumbnailIndex();
+    void insertRemove();
 };
 }
 

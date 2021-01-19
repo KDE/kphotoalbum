@@ -109,6 +109,10 @@ ImageManager::ThumbnailCache::~ThumbnailCache()
 
 void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QImage &image)
 {
+    if (image.isNull()) {
+        qCWarning(ImageManagerLog) << "Thumbnail for file" << name.relative() << "is invalid!";
+        return;
+    }
     QMutexLocker thumbnailLocker(&m_thumbnailWriterLock);
     if (!m_currentWriter) {
         m_currentWriter = new QFile(fileNameForIndex(m_currentFile));
@@ -483,7 +487,7 @@ DB::FileNameList ImageManager::ThumbnailCache::findIncorrectlySizedThumbnails() 
 int ImageManager::ThumbnailCache::size() const
 {
     QMutexLocker dataLocker(&m_dataLock);
-    return m_hash.size() + m_unsavedHash.size();
+    return m_hash.size();
 }
 
 void ImageManager::ThumbnailCache::flush()

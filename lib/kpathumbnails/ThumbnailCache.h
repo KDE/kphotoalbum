@@ -110,7 +110,7 @@ public:
      * Usually, this is equal to the current version, but if an old ThumbnailCache
      * that is still compatible with this version of KPhotoAlbum is loaded and was not yet stored,
      * it may differ.
-     * @return 4 or 5
+     * @return 4 or 5 if the cache has been written to disk, or -1 for a fresh, unsaved cache.
      */
     int actualFileVersion() const;
 
@@ -130,7 +130,7 @@ public:
 
     /**
      * @brief size
-     * @return the number of thumbnails in the cache (saved and unsaved)
+     * @return the number of (saved) thumbnails in the cache
      */
     int size() const;
 

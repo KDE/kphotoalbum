@@ -1,14 +1,16 @@
-/* SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "FileName.h"
 
 #include "FileNameUtil.h"
+#include "Logging.h"
 #include "SettingsData.h"
 
 #include <QFile>
+#include <QLoggingCategory>
 
 DB::FileName::FileName()
     : m_isNull(true)
@@ -18,8 +20,10 @@ DB::FileName::FileName()
 DB::FileName DB::FileName::fromAbsolutePath(const QString &fileName)
 {
     const QString imageRoot = Utilities::stripEndingForwardSlash(Settings::SettingsData::instance()->imageDirectory()) + QLatin1String("/");
-    if (!fileName.startsWith(imageRoot))
+    if (!fileName.startsWith(imageRoot)) {
+        qCWarning(DBLog) << "Absolute filename is outside of image root:" << fileName;
         return FileName();
+    }
 
     FileName res;
     res.m_isNull = false;
@@ -30,7 +34,10 @@ DB::FileName DB::FileName::fromAbsolutePath(const QString &fileName)
 
 DB::FileName DB::FileName::fromRelativePath(const QString &fileName)
 {
-    Q_ASSERT(!fileName.startsWith(QChar::fromLatin1('/')));
+    if (fileName.startsWith(QChar::fromLatin1('/'))) {
+        qCWarning(DBLog) << "Relative filename cannot start with '/':" << fileName;
+        return {};
+    }
     FileName res;
     res.m_isNull = false;
     res.m_relativePath = fileName;

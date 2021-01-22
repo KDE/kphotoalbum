@@ -5,6 +5,8 @@
 #ifndef KPATEST_FILENAME_H
 #define KPATEST_FILENAME_H
 
+#include "UIDelegate.h"
+
 #include <QtTest/QTest>
 
 namespace KPATest
@@ -19,8 +21,12 @@ private slots:
      */
     void uninitialized();
     void absolute();
-    //void initTestCase();
-    //void cleanupTestCase();
+    void relative();
+    void initTestCase();
+
+private:
+    QTemporaryDir tmpDir;
+    DB::DummyUIDelegate uiDelegate;
 };
 }
 

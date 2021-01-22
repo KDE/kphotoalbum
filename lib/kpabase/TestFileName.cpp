@@ -7,7 +7,6 @@
 #include "FileName.h"
 
 #include <kpabase/SettingsData.h>
-#include <kpabase/UIDelegate.h>
 
 #include <QRegularExpression>
 
@@ -16,14 +15,11 @@ namespace
 constexpr auto msgPreconditionFailed = "Precondition for test failed - please fix unit test!";
 }
 
-//void KPATest::FileName::initTestCase()
-//{
-//    qSetGlobalQHashSeed(0);
-//}
-
-//void KPATest::FileName::cleanupTestCase()
-//{
-//}
+void KPATest::TestFileName::initTestCase()
+{
+    QVERIFY2(tmpDir.isValid(), msgPreconditionFailed);
+    Settings::SettingsData::setup(tmpDir.path(), uiDelegate);
+}
 
 void KPATest::TestFileName::uninitialized()
 {
@@ -33,12 +29,7 @@ void KPATest::TestFileName::uninitialized()
 
 void KPATest::TestFileName::absolute()
 {
-    QTemporaryDir tmpDir;
-    QVERIFY2(tmpDir.isValid(), msgPreconditionFailed);
-    tmpDir.setAutoRemove(false);
-    DB::DummyUIDelegate uiDelegate;
-    Settings::SettingsData::setup(tmpDir.path(), uiDelegate);
-
+    QDir imageRoot { Settings::SettingsData::instance()->imageDirectory() };
     using DB::FileName;
 
     // empty filename
@@ -61,7 +52,6 @@ void KPATest::TestFileName::absolute()
     QVERIFY(relativeFN.isNull());
 
     // correct filename
-    QDir imageRoot { tmpDir.path() };
     const auto absoluteFilePath = imageRoot.absoluteFilePath(QStringLiteral("atest.jpg"));
     const auto correctFN = FileName::fromAbsolutePath(absoluteFilePath);
     QVERIFY(!correctFN.isNull());
@@ -84,10 +74,64 @@ void KPATest::TestFileName::absolute()
     QFile existingFile { imageRoot.absoluteFilePath(QStringLiteral("existing.jpg")) };
     QVERIFY2(existingFile.open(QIODevice::WriteOnly), msgPreconditionFailed);
     existingFile.close();
+    QVERIFY2(existingFile.exists(), msgPreconditionFailed);
     const auto existingFN = FileName::fromAbsolutePath(existingFile.fileName());
     QVERIFY(!existingFN.isNull());
     QCOMPARE(existingFN.absolute(), existingFile.fileName());
     QCOMPARE(existingFN.relative(), imageRoot.relativeFilePath(existingFile.fileName()));
+    QVERIFY(existingFN.exists());
+    QVERIFY(correctFN != existingFN);
+
+    // alphabetical order
+    QVERIFY(correctFN < existingFN);
+}
+
+void KPATest::TestFileName::relative()
+{
+    QDir imageRoot { Settings::SettingsData::instance()->imageDirectory() };
+
+    using DB::FileName;
+
+    // empty filename
+    const auto emptyFN = FileName::fromRelativePath({});
+    QVERIFY(emptyFN.isNull());
+
+    // absolute filename
+    const auto absoluteFilePath = imageRoot.absoluteFilePath(QStringLiteral("atest.jpg"));
+    const QRegularExpression absolutePathWarning { QStringLiteral("Relative filename cannot start with '/':") };
+    QTest::ignoreMessage(QtWarningMsg, absolutePathWarning);
+    const auto absoluteFN = FileName::fromRelativePath(absoluteFilePath);
+    QVERIFY(absoluteFN.isNull());
+
+    // correct filename
+    QDir cwd;
+    const auto relativeFilePath = imageRoot.relativeFilePath(absoluteFilePath);
+    const auto correctFN = FileName::fromRelativePath(relativeFilePath);
+    QVERIFY(!correctFN.isNull());
+    QCOMPARE(correctFN.absolute(), absoluteFilePath);
+    QCOMPARE(correctFN.relative(), relativeFilePath);
+    QVERIFY(!correctFN.exists());
+    QCOMPARE(correctFN.operator QUrl().toLocalFile(), absoluteFilePath);
+
+    const auto sameFN = FileName::fromRelativePath(relativeFilePath);
+    QVERIFY(sameFN == correctFN);
+    QVERIFY(sameFN != emptyFN);
+
+    const auto absoluteCorrectFN = FileName::fromAbsolutePath(absoluteFilePath);
+    QVERIFY(!absoluteCorrectFN.isNull());
+    QCOMPARE(absoluteCorrectFN.absolute(), correctFN.absolute());
+    QCOMPARE(absoluteCorrectFN.relative(), correctFN.relative());
+    QVERIFY(absoluteCorrectFN == correctFN);
+
+    // existing correct filename
+    QFile existingFile { imageRoot.relativeFilePath(QStringLiteral("existing.jpg")) };
+    QVERIFY2(existingFile.open(QIODevice::WriteOnly), msgPreconditionFailed);
+    existingFile.close();
+    QVERIFY2(existingFile.exists(), msgPreconditionFailed);
+    const auto existingFN = FileName::fromRelativePath(existingFile.fileName());
+    QVERIFY(!existingFN.isNull());
+    QCOMPARE(existingFN.absolute(), imageRoot.absoluteFilePath(existingFile.fileName()));
+    QCOMPARE(existingFN.relative(), existingFile.fileName());
     QVERIFY(existingFN.exists());
     QVERIFY(correctFN != existingFN);
 

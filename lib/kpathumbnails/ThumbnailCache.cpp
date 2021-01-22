@@ -368,7 +368,7 @@ void ImageManager::ThumbnailCache::load()
 {
     QFile file(thumbnailPath(INDEXFILE_NAME));
     if (!file.exists()) {
-        qCWarning(ImageManagerLog) << "Thumbnail index file " << file.fileName() << " not found!";
+        qCWarning(ImageManagerLog) << "Thumbnail index file" << file.fileName() << "not found!";
         return;
     }
 

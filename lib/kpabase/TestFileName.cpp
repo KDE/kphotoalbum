@@ -34,7 +34,7 @@ void KPATest::TestFileName::uninitialized()
 void KPATest::TestFileName::absolute()
 {
     QTemporaryDir tmpDir;
-    QVERIFY(tmpDir.isValid());
+    QVERIFY2(tmpDir.isValid(), msgPreconditionFailed);
     tmpDir.setAutoRemove(false);
     DB::DummyUIDelegate uiDelegate;
     Settings::SettingsData::setup(tmpDir.path(), uiDelegate);

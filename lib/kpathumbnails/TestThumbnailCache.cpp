@@ -10,10 +10,12 @@
 #include <kpabase/UIDelegate.h>
 
 #include <QLoggingCategory>
+#include <QRegularExpression>
 #include <QSignalSpy>
 
 namespace
 {
+constexpr auto msgPreconditionFailed = "Precondition for test failed - please fix unit test!";
 constexpr auto v4IndexHexData {
     "00000004" // version
     "00000003" // current file
@@ -44,7 +46,7 @@ void KPATest::TestThumbnailCache::initTestCase()
 void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()
 {
     QTemporaryDir tmpDir;
-    QVERIFY(tmpDir.isValid());
+    QVERIFY2(tmpDir.isValid(), msgPreconditionFailed);
     // tmpDir.setAutoRemove(false);
 
     DB::DummyUIDelegate uiDelegate;
@@ -53,7 +55,7 @@ void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()
     const QDir thumbnailDir { tmpDir.filePath(ImageManager::defaultThumbnailDirectory()) };
     QDir().mkdir(thumbnailDir.path());
     QFile thumbnailIndex { thumbnailDir.filePath(QStringLiteral("thumbnailindex")) };
-    QVERIFY(thumbnailIndex.open(QIODevice::WriteOnly));
+    QVERIFY2(thumbnailIndex.open(QIODevice::WriteOnly), msgPreconditionFailed);
     thumbnailIndex.write(QByteArray::fromHex(v4IndexHexData));
     thumbnailIndex.close();
     QCOMPARE(thumbnailIndex.size(), 136);
@@ -61,7 +63,7 @@ void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()
     ImageManager::ThumbnailCache thumbnailCache { thumbnailDir.path() };
 
     QSignalSpy cacheSavedSpy { &thumbnailCache, &ImageManager::ThumbnailCache::saveComplete };
-    QVERIFY(cacheSavedSpy.isValid());
+    QVERIFY2(cacheSavedSpy.isValid(), msgPreconditionFailed);
 
     // change this when the version changes:
     QCOMPARE(thumbnailCache.preferredFileVersion(), 5);
@@ -85,16 +87,19 @@ void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()
     QCOMPARE(thumbnailCache.thumbnailSize(), Settings::SettingsData::instance()->thumbnailSize());
 
     // verify data on disk:
-    QVERIFY(thumbnailIndex.open(QIODevice::ReadOnly));
+    QVERIFY2(thumbnailIndex.open(QIODevice::ReadOnly), msgPreconditionFailed);
     const QByteArray v5Index { thumbnailIndex.readAll() };
     thumbnailIndex.close();
     QCOMPARE(v5Index, QByteArray::fromHex(v5IndexHexData));
 
     // we only have the index data - trying a lookup won't work, but shouldn't crash or something
+    QTest::ignoreMessage(QtWarningMsg, "Failed to open thumbnail file");
+    QTest::ignoreMessage(QtWarningMsg, "Failed to map thumbnail file");
+    QTest::ignoreMessage(QtWarningMsg, "Failed to map thumbnail file");
     QVERIFY(thumbnailCache.lookup(DB::FileName::fromRelativePath(QStringLiteral("blackie.jpg"))).isNull());
 
     QSignalSpy flushedSpy { &thumbnailCache, &ImageManager::ThumbnailCache::cacheFlushed };
-    QVERIFY(flushedSpy.isValid());
+    QVERIFY2(flushedSpy.isValid(), msgPreconditionFailed);
     thumbnailCache.flush();
     QCOMPARE(flushedSpy.count(), 1);
     QCOMPARE(thumbnailCache.size(), 0);
@@ -103,7 +108,7 @@ void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()
 void KPATest::TestThumbnailCache::insertRemove()
 {
     QTemporaryDir tmpDir;
-    QVERIFY(tmpDir.isValid());
+    QVERIFY2(tmpDir.isValid(), msgPreconditionFailed);
     // tmpDir.setAutoRemove(false);
 
     DB::DummyUIDelegate uiDelegate;
@@ -112,10 +117,13 @@ void KPATest::TestThumbnailCache::insertRemove()
     const QDir thumbnailDir { tmpDir.filePath(ImageManager::defaultThumbnailDirectory()) };
     QDir().mkdir(thumbnailDir.path());
 
+    const QRegularExpression thumbnailIndexNotFoundRegex { QStringLiteral("Thumbnail index file \"%1\" not found!")
+                                                               .arg(thumbnailDir.filePath(QStringLiteral("thumbnailindex"))) };
+    QTest::ignoreMessage(QtWarningMsg, thumbnailIndexNotFoundRegex);
     ImageManager::ThumbnailCache thumbnailCache { thumbnailDir.path() };
 
     QSignalSpy cacheSavedSpy { &thumbnailCache, &ImageManager::ThumbnailCache::saveComplete };
-    QVERIFY(cacheSavedSpy.isValid());
+    QVERIFY2(cacheSavedSpy.isValid(), msgPreconditionFailed);
 
     thumbnailCache.save();
     QCOMPARE(thumbnailCache.size(), 0);
@@ -127,6 +135,7 @@ void KPATest::TestThumbnailCache::insertRemove()
     // the image needs to be valid
     QImage nullImage {};
     const auto nullImageFileName = DB::FileName::fromRelativePath(QStringLiteral("nullImage.jpg"));
+    QTest::ignoreMessage(QtWarningMsg, "Thumbnail for file \"nullImage.jpg\" is invalid!");
     thumbnailCache.insert(nullImageFileName, nullImage);
     QCOMPARE(thumbnailCache.size(), 0);
     QVERIFY(!thumbnailCache.contains(nullImageFileName));

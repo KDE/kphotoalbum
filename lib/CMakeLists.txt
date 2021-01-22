@@ -56,6 +56,9 @@ target_link_libraries(kpabase
 
 install(TARGETS kpabase ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
+# unit tests:
+add_subdirectory(kpabase)
+
 ################################################################################
 ### KPA::Thumbnails
 add_library(kpathumbnails

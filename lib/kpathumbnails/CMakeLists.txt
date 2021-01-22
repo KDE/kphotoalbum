@@ -7,7 +7,7 @@
 include(ECMAddTests)
 ecm_add_test(
     TestThumbnailCache.cpp
-    TEST_NAME ThumbnailCache
+    TEST_NAME TestThumbnailCache
     LINK_LIBRARIES Qt5::Core Qt5::Test KPA::Thumbnails
     )
 # vi:expandtab:tabstop=4 shiftwidth=4:

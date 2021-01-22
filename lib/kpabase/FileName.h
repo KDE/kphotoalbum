@@ -58,6 +58,12 @@ public:
     bool isNull() const;
     bool operator==(const FileName &other) const;
     bool operator!=(const FileName &other) const;
+    /**
+     * @brief operator <
+     * Null FileNames are considered to be "smallest", but really you shouldn't be comparing the ordinality of null FileNames.
+     * @param other
+     * @return relative() < other.relative()
+     */
     bool operator<(const FileName &other) const;
     /**
      * @brief exists

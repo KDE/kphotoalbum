@@ -93,6 +93,7 @@ void KPATest::TestFileName::relative()
     using DB::FileName;
 
     // empty filename
+    QTest::ignoreMessage(QtWarningMsg, "Relative or absolute filename cannot be empty!");
     const auto emptyFN = FileName::fromRelativePath({});
     QVERIFY(emptyFN.isNull());
 

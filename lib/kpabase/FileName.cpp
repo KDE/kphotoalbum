@@ -29,6 +29,10 @@ DB::FileName DB::FileName::fromAbsolutePath(const QString &fileName)
     res.m_isNull = false;
     res.m_absoluteFilePath = fileName;
     res.m_relativePath = fileName.mid(imageRoot.length());
+    if (res.m_relativePath.isEmpty() || res.m_absoluteFilePath.isEmpty()) {
+        qCWarning(DBLog) << "Relative or absolute filename cannot be empty!";
+        return {};
+    }
     return res;
 }
 
@@ -42,6 +46,10 @@ DB::FileName DB::FileName::fromRelativePath(const QString &fileName)
     res.m_isNull = false;
     res.m_relativePath = fileName;
     res.m_absoluteFilePath = Utilities::stripEndingForwardSlash(Settings::SettingsData::instance()->imageDirectory()) + QLatin1String("/") + fileName;
+    if (res.m_relativePath.isEmpty() || res.m_absoluteFilePath.isEmpty()) {
+        qCWarning(DBLog) << "Relative or absolute filename cannot be empty!";
+        return {};
+    }
     return res;
 }
 
@@ -74,6 +82,14 @@ bool DB::FileName::operator!=(const DB::FileName &other) const
 
 bool DB::FileName::operator<(const DB::FileName &other) const
 {
+    if (isNull()) {
+        qCWarning(DBLog) << "FileName for comparison is null!";
+        return true;
+    }
+    if (other.isNull()) {
+        qCWarning(DBLog) << "FileName for comparison is null!";
+        return false;
+    }
     return relative() < other.relative();
 }
 
@@ -89,6 +105,8 @@ DB::FileName::operator QUrl() const
 
 uint DB::qHash(const DB::FileName &fileName)
 {
+    if (fileName.isNull())
+        return qHash(QString());
     return qHash(fileName.relative());
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

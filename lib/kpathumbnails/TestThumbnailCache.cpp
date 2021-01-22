@@ -73,7 +73,7 @@ void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()
     QVERIFY(thumbnailCache.contains(DB::FileName::fromRelativePath(QStringLiteral("blackie.jpg"))));
     QVERIFY(thumbnailCache.contains(DB::FileName::fromRelativePath(QStringLiteral("spiff_2.jpg"))));
     QVERIFY(thumbnailCache.contains(DB::FileName::fromRelativePath(QStringLiteral("new_wave_2.jpg"))));
-    QVERIFY(!thumbnailCache.contains(DB::FileName::fromRelativePath(QString())));
+    QVERIFY(!thumbnailCache.contains(DB::FileName()));
 
     // remove an empty file list to force the dirty flag:
     thumbnailCache.removeThumbnails(DB::FileNameList());

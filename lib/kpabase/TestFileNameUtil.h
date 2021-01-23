@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-#ifndef KPATEST_FILENAME_H
-#define KPATEST_FILENAME_H
+#ifndef KPATEST_FILENAMEUTIL_H
+#define KPATEST_FILENAMEUTIL_H
 
 #include "UIDelegate.h"
 
@@ -12,18 +12,15 @@
 
 namespace KPATest
 {
-class TestFileName : public QObject
+class TestFileNameUtil : public QObject
 {
     Q_OBJECT
 private slots:
-    /**
-     * @brief Check behaviour with uninitialized SettingsData.
-     * Merely creating a null FileName should not trigger an assertion.
-     */
-    void uninitialized();
-    void absolute();
-    void relative();
     void initTestCase();
+    //void cleanupTestCase();
+
+    void stripEndingForwardSlash();
+    void folderName();
 
 private:
     QTemporaryDir tmpDir;

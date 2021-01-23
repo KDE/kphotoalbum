@@ -21,6 +21,7 @@ private slots:
 
     void stripEndingForwardSlash();
     void folderName();
+    void fileNameFromUserData();
 
 private:
     QTemporaryDir tmpDir;

@@ -8,6 +8,10 @@
 
 #include <QString>
 
+namespace DB
+{
+class FileName;
+}
 namespace Utilities
 {
 /**
@@ -22,6 +26,14 @@ QString stripEndingForwardSlash(const QString &fileName);
 QString absoluteImageFileName(const QString &relativeName);
 // FIXME(jzarl): only used in MainWindow::Window::slotShowListOfFiles - please replace
 QString imageFileNameToAbsolute(const QString &fileName);
+/**
+ * @brief fileNameFromUserData creates a FileName from an absolute or relative file name string.
+ * It also recognizes local URLs (starting with "file://").
+ * @param fileName
+ * @return a DB::FileName corresponding to the \p fileName, or a default-constructed FileName if the name is not valid.
+ * @attention Requires an initialized SettingsData singleton.
+ */
+DB::FileName fileNameFromUserData(const QString &fileName);
 
 /**
  * @brief Compute the directory part of a relative or absolute filename.

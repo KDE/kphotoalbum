@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "Window.h"
 
@@ -1487,10 +1487,7 @@ void MainWindow::Window::slotShowListOfFiles()
 
     DB::FileNameList out;
     for (QStringList::const_iterator it = list.constBegin(); it != list.constEnd(); ++it) {
-        QString fileNameStr = Utilities::imageFileNameToAbsolute(*it);
-        if (fileNameStr.isNull())
-            continue;
-        const DB::FileName fileName = DB::FileName::fromAbsolutePath(fileNameStr);
+        const DB::FileName fileName = Utilities::fileNameFromUserData(*it);
         if (!fileName.isNull())
             out.append(fileName);
     }

@@ -26,8 +26,8 @@ private slots:
     void initTestCase();
 
 private:
-    QTemporaryDir tmpDir;
-    DB::DummyUIDelegate uiDelegate;
+    QTemporaryDir m_tmpDir;
+    DB::DummyUIDelegate m_uiDelegate;
 };
 }
 

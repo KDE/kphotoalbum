@@ -19,8 +19,8 @@ constexpr auto msgPreconditionFailed = "Precondition for test failed - please fi
 
 void KPATest::TestFileNameUtil::initTestCase()
 {
-    QVERIFY2(tmpDir.isValid(), msgPreconditionFailed);
-    Settings::SettingsData::setup(tmpDir.path(), uiDelegate);
+    QVERIFY2(m_tmpDir.isValid(), msgPreconditionFailed);
+    Settings::SettingsData::setup(m_tmpDir.path(), m_uiDelegate);
     // qSetGlobalQHashSeed(0);
 }
 
@@ -73,7 +73,7 @@ void KPATest::TestFileNameUtil::fileNameFromUserData()
     QCOMPARE(fileNameFromUserData(absoluteOutsideUrl), DB::FileName());
 
     const auto relativeFilePath1 = QStringLiteral("image.jpg");
-    const auto absoluteFilePath1 = tmpDir.filePath(relativeFilePath1);
+    const auto absoluteFilePath1 = m_tmpDir.filePath(relativeFilePath1);
     const auto absoluteUrl1 = QUrl::fromLocalFile(absoluteFilePath1).toString();
     const auto relativeUrl1 = QUrl::fromLocalFile(relativeFilePath1).toString();
     const auto fileName1 = DB::FileName::fromRelativePath(relativeFilePath1);
@@ -86,7 +86,7 @@ void KPATest::TestFileNameUtil::fileNameFromUserData()
     QCOMPARE(fileNameFromUserData(absoluteUrl1), fileName1);
 
     const auto relativeFilePath2 = QStringLiteral("subdir/image.jpg");
-    const auto absoluteFilePath2 = tmpDir.filePath(relativeFilePath2);
+    const auto absoluteFilePath2 = m_tmpDir.filePath(relativeFilePath2);
     const auto absoluteUrl2 = QUrl::fromLocalFile(absoluteFilePath2).toString();
     const auto relativeUrl2 = QUrl::fromLocalFile(relativeFilePath2).toString();
     const auto fileName2 = DB::FileName::fromRelativePath(relativeFilePath2);

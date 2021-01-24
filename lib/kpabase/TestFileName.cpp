@@ -17,8 +17,8 @@ constexpr auto msgPreconditionFailed = "Precondition for test failed - please fi
 
 void KPATest::TestFileName::initTestCase()
 {
-    QVERIFY2(tmpDir.isValid(), msgPreconditionFailed);
-    Settings::SettingsData::setup(tmpDir.path(), uiDelegate);
+    QVERIFY2(m_tmpDir.isValid(), msgPreconditionFailed);
+    Settings::SettingsData::setup(m_tmpDir.path(), m_uiDelegate);
 }
 
 void KPATest::TestFileName::uninitialized()
@@ -40,7 +40,7 @@ void KPATest::TestFileName::absolute()
 
     // incorrect root
     const auto outsidePath = QStringLiteral("/notarealdirectory/test.jpg");
-    QVERIFY2(!outsidePath.startsWith(tmpDir.path()), msgPreconditionFailed);
+    QVERIFY2(!outsidePath.startsWith(m_tmpDir.path()), msgPreconditionFailed);
     QTest::ignoreMessage(QtWarningMsg, imageRootWarning);
     const auto outsideFN = FileName::fromAbsolutePath(outsidePath);
     QVERIFY(outsideFN.isNull());
@@ -48,7 +48,7 @@ void KPATest::TestFileName::absolute()
     // relative filename
     QDir cwd;
     QTest::ignoreMessage(QtWarningMsg, imageRootWarning);
-    const auto relativeFN = FileName::fromAbsolutePath(cwd.relativeFilePath(tmpDir.path() + QStringLiteral("/test.jpg")));
+    const auto relativeFN = FileName::fromAbsolutePath(cwd.relativeFilePath(m_tmpDir.path() + QStringLiteral("/test.jpg")));
     QVERIFY(relativeFN.isNull());
 
     // correct filename

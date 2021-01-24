@@ -24,8 +24,8 @@ private slots:
     void fileNameFromUserData();
 
 private:
-    QTemporaryDir tmpDir;
-    DB::DummyUIDelegate uiDelegate;
+    QTemporaryDir m_tmpDir;
+    DB::DummyUIDelegate m_uiDelegate;
 };
 }
 

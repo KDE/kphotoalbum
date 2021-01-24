@@ -56,10 +56,15 @@ public:
      * @return \c true if the FileName is null, \c false if it is valid.
      */
     bool isNull() const;
+    /**
+     * @brief isValid
+     * @return \c true if the FileName is valid, \c false if it is null.
+     */
+    bool isValid() const;
     bool operator==(const FileName &other) const;
     bool operator!=(const FileName &other) const;
     /**
-     * @brief operator <
+     * @brief operator < as required for sorting filenames
      * Null FileNames are considered to be "smallest", but really you shouldn't be comparing the ordinality of null FileNames.
      * @param other
      * @return relative() < other.relative()

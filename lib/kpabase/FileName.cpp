@@ -70,6 +70,11 @@ bool DB::FileName::isNull() const
     return m_isNull;
 }
 
+bool DB::FileName::isValid() const
+{
+    return !isNull();
+}
+
 bool DB::FileName::operator==(const DB::FileName &other) const
 {
     return m_isNull == other.m_isNull && m_relativePath == other.m_relativePath;

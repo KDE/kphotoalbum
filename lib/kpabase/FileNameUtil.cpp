@@ -26,26 +26,17 @@ QString Utilities::relativeFolderName(const QString &fileName)
         return fileName.left(index);
 }
 
-QString Utilities::absoluteImageFileName(const QString &relativeName)
-{
-    return stripEndingForwardSlash(Settings::SettingsData::instance()->imageDirectory()) + QStringLiteral("/") + relativeName;
-}
-
-QString Utilities::imageFileNameToAbsolute(const QString &fileName)
-{
-    if (fileName.startsWith(Settings::SettingsData::instance()->imageDirectory()))
-        return fileName;
-    else if (fileName.startsWith(QStringLiteral("file://")))
-        return imageFileNameToAbsolute(fileName.mid(7)); // 7 == length("file://")
-    else if (fileName.startsWith(QStringLiteral("/")))
-        return QString(); // Not within our image root
-    else
-        return absoluteImageFileName(fileName);
-}
-
 DB::FileName Utilities::fileNameFromUserData(const QString &fileName)
 {
-    return DB::FileName::fromAbsolutePath(imageFileNameToAbsolute(fileName));
+    const auto inputUrl = QUrl::fromUserInput(fileName, Settings::SettingsData::instance()->imageDirectory(), QUrl::AssumeLocalFile);
+    if (!inputUrl.isLocalFile())
+        return {};
+
+    const auto inputFileName = inputUrl.toLocalFile();
+    if (inputFileName.startsWith(QStringLiteral("/")))
+        return DB::FileName::fromAbsolutePath(inputFileName);
+    else
+        return DB::FileName::fromRelativePath(inputFileName);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

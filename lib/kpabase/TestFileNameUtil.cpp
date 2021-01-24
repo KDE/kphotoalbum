@@ -64,10 +64,7 @@ void KPATest::TestFileNameUtil::fileNameFromUserData()
     const auto emptyUrl = QUrl::fromLocalFile(emptyString).toString();
     const auto absoluteOutsideFilePath = QStringLiteral("/external/path/to/image.jpg");
     const auto absoluteOutsideUrl = QUrl::fromLocalFile(absoluteOutsideFilePath).toString();
-    const auto emptyNameWarning = "Relative or absolute filename cannot be empty!";
-    QTest::ignoreMessage(QtWarningMsg, emptyNameWarning);
     QCOMPARE(fileNameFromUserData(emptyString), DB::FileName());
-    QTest::ignoreMessage(QtWarningMsg, emptyNameWarning);
     QCOMPARE(fileNameFromUserData(emptyUrl), DB::FileName());
     const QRegularExpression imageRootWarning { QStringLiteral("Absolute filename is outside of image root:") };
     QTest::ignoreMessage(QtWarningMsg, imageRootWarning);
@@ -85,8 +82,7 @@ void KPATest::TestFileNameUtil::fileNameFromUserData()
     QCOMPARE(fileName1.relative(), relativeFilePath1);
     QCOMPARE(fileNameFromUserData(relativeFilePath1), fileName1);
     QCOMPARE(fileNameFromUserData(absoluteFilePath1), fileName1);
-    // current implementation does not deal with relative urls
-    //QCOMPARE(fileNameFromUserData(relativeUrl1), fileName1);
+    QCOMPARE(fileNameFromUserData(relativeUrl1), fileName1);
     QCOMPARE(fileNameFromUserData(absoluteUrl1), fileName1);
 
     const auto relativeFilePath2 = QStringLiteral("subdir/image.jpg");
@@ -99,8 +95,7 @@ void KPATest::TestFileNameUtil::fileNameFromUserData()
     QCOMPARE(fileName2.relative(), relativeFilePath2);
     QCOMPARE(fileNameFromUserData(relativeFilePath2), fileName2);
     QCOMPARE(fileNameFromUserData(absoluteFilePath2), fileName2);
-    // current implementation does not deal with relative urls
-    // QCOMPARE(fileNameFromUserData(relativeUrl2), fileName2);
+    QCOMPARE(fileNameFromUserData(relativeUrl2), fileName2);
     QCOMPARE(fileNameFromUserData(absoluteUrl2), fileName2);
 }
 

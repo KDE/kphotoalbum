@@ -22,10 +22,6 @@ namespace Utilities
  */
 QString stripEndingForwardSlash(const QString &fileName);
 
-// FIXME(jzarl): this is only used internally by imageFileNameToAbsolute - remove once that one is no longer needed.
-QString absoluteImageFileName(const QString &relativeName);
-// FIXME(jzarl): only used in MainWindow::Window::slotShowListOfFiles - please replace
-QString imageFileNameToAbsolute(const QString &fileName);
 /**
  * @brief fileNameFromUserData creates a FileName from an absolute or relative file name string.
  * It also recognizes local URLs (starting with "file://").

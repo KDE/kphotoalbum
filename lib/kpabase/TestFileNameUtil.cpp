@@ -97,6 +97,9 @@ void KPATest::TestFileNameUtil::fileNameFromUserData()
     QCOMPARE(fileNameFromUserData(absoluteFilePath2), fileName2);
     QCOMPARE(fileNameFromUserData(relativeUrl2), fileName2);
     QCOMPARE(fileNameFromUserData(absoluteUrl2), fileName2);
+
+    const auto nonlocalUrl = QStringLiteral("https://example.com/image.jpg");
+    QVERIFY(fileNameFromUserData(nonlocalUrl).isNull());
 }
 
 //void KPATest::TestFileNameUtil::cleanupTestCase()

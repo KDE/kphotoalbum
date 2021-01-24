@@ -2,6 +2,8 @@
 
 * Enhancement: Performance improvement when many thumbnails are shown in the MapView
 
+* Enhancement: Allow relative local URLs in "Open list of files" dialog
+
 ====================== KPhotoalbum 5.7.0 released (08.08.2020) ======================
 
 * Code cleanup:

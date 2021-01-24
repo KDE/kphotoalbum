@@ -23,6 +23,7 @@ private slots:
     void uninitialized();
     void absolute();
     void relative();
+    void operators();
     void initTestCase();
 
 private:

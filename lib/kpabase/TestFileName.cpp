@@ -6,6 +6,7 @@
 
 #include "FileName.h"
 
+#include <kpabase/FileNameUtil.h>
 #include <kpabase/SettingsData.h>
 
 #include <QRegularExpression>
@@ -37,6 +38,10 @@ void KPATest::TestFileName::absolute()
     QTest::ignoreMessage(QtWarningMsg, imageRootWarning);
     const auto emptyFN = FileName::fromAbsolutePath({});
     QVERIFY(emptyFN.isNull());
+
+    QTest::ignoreMessage(QtWarningMsg, "Relative or absolute filename cannot be empty!");
+    const auto rootFN = FileName::fromAbsolutePath(imageRoot.path() + QStringLiteral("/"));
+    QVERIFY(rootFN.isNull());
 
     // incorrect root
     const auto outsidePath = QStringLiteral("/notarealdirectory/test.jpg");
@@ -138,6 +143,32 @@ void KPATest::TestFileName::relative()
 
     // alphabetical order
     QVERIFY(correctFN < existingFN);
+}
+
+void KPATest::TestFileName::operators()
+{
+    // empty filename
+    const auto emptyFN = DB::FileName();
+    QVERIFY(emptyFN.isNull());
+    QCOMPARE(qHash(emptyFN), qHash(QString()));
+
+    // correct filenames
+    const auto correctFNA = DB::FileName::fromRelativePath(QStringLiteral("a.jpg"));
+    QVERIFY(correctFNA.isValid());
+    const auto correctFNZ = DB::FileName::fromRelativePath(QStringLiteral("z.jpg"));
+    QVERIFY(correctFNZ.isValid());
+
+    const auto nullComparisonWarning = "FileName for comparison is null!";
+    QTest::ignoreMessage(QtWarningMsg, nullComparisonWarning);
+    QVERIFY(emptyFN < correctFNA);
+    QTest::ignoreMessage(QtWarningMsg, nullComparisonWarning);
+    QVERIFY(emptyFN < correctFNZ);
+    QVERIFY(correctFNA < correctFNZ);
+    QTest::ignoreMessage(QtWarningMsg, nullComparisonWarning);
+    QVERIFY(!(correctFNA < emptyFN));
+    QTest::ignoreMessage(QtWarningMsg, nullComparisonWarning);
+    QVERIFY(!(correctFNZ < emptyFN));
+    QVERIFY(!(correctFNZ < correctFNA));
 }
 
 QTEST_MAIN(KPATest::TestFileName)

@@ -70,9 +70,9 @@ QPixmap ImportExport::KimFileReader::loadThumbnail(QString fileName)
 
     const KArchiveDirectory *thumbnailDir = static_cast<const KArchiveDirectory *>(thumbnails);
 
-    const QString ext = Utilities::isVideo(DB::FileName::fromRelativePath(fileName)) ? QString::fromLatin1("jpg") : QFileInfo(fileName).completeSuffix();
-    // TODO(jzarl): how exactly is the baseName of fileName going to contain a trailing '/'?
-    fileName = QString::fromLatin1("%1.%2").arg(Utilities::stripEndingForwardSlash(QFileInfo(fileName).baseName())).arg(ext);
+    const auto fileInfo = QFileInfo(fileName);
+    const QString ext = Utilities::isVideo(DB::FileName::fromRelativePath(fileName)) ? QString::fromLatin1("jpg") : fileInfo.completeSuffix();
+    fileName = QString::fromLatin1("%1.%2").arg(fileInfo.baseName()).arg(ext);
     const KArchiveEntry *fileEntry = thumbnailDir->entry(fileName);
     if (fileEntry == nullptr || !fileEntry->isFile()) {
         KMessageBox::error(nullptr, i18n("No thumbnail existed in export file for %1", fileName));
@@ -80,7 +80,7 @@ QPixmap ImportExport::KimFileReader::loadThumbnail(QString fileName)
     }
 
     const KArchiveFile *file = static_cast<const KArchiveFile *>(fileEntry);
-    QByteArray data = file->data();
+    const QByteArray data = file->data();
     QPixmap pixmap;
     pixmap.loadFromData(data);
     return pixmap;

@@ -14,6 +14,7 @@
 #include "NoTagCategoryMatcher.h"
 #include "OrCategoryMatcher.h"
 #include "ValueCategoryMatcher.h"
+#include "WildcardCategoryMatcher.h"
 
 #include <ImageManager/RawImageDecoder.h>
 #include <kpabase/Logging.h>
@@ -24,6 +25,7 @@
 #include <KSharedConfig>
 #include <QApplication>
 #include <QRegExp>
+#include <QRegularExpression>
 
 using namespace DB;
 
@@ -224,7 +226,8 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
         bool lbl = false, fn = false, dsc = false;
         if ((lbl = info->label().indexOf(m_freeformMatchText) == -1)
             && (fn = info->fileName().relative().indexOf(m_freeformMatchText) == -1)
-            && (dsc = info->description().indexOf(m_freeformMatchText) == -1)) {
+            && (dsc = info->description().indexOf(m_freeformMatchText) == -1)
+            && !m_freeformMatcher.eval(info)) {
             return false;
         }
     }
@@ -561,6 +564,8 @@ void ImageSearchInfo::setFreeformMatchText(const QString &freeformMatchText)
 {
     setCacheable(false);
     m_freeformMatchText = freeformMatchText;
+    QRegularExpression re { freeformMatchText, QRegularExpression::CaseInsensitiveOption };
+    m_freeformMatcher.setRegularExpression(re);
     m_isNull = m_isNull && freeformMatchText.isEmpty();
 }
 

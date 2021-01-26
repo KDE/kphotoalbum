@@ -1,12 +1,13 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef IMAGESEARCHINFO_H
 #define IMAGESEARCHINFO_H
 #include "ImageDate.h"
 #include "ImageInfoPtr.h"
+#include "WildcardCategoryMatcher.h"
 #include <kpabase/config-kpa-marble.h>
 
 #include <Exif/SearchInfo.h>
@@ -135,6 +136,7 @@ private:
     QString m_label;
     QString m_description;
     QString m_freeformMatchText = {};
+    WildcardCategoryMatcher m_freeformMatcher;
     QRegExp m_fnPattern;
     short m_rating = -1;
     short m_megapixel = 0;

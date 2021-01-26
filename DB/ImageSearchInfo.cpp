@@ -84,7 +84,7 @@ void ImageSearchInfo::checkIfNull()
     if (m_date.isNull() && m_label.isEmpty() && m_description.isEmpty()
         && m_rating == -1 && m_megapixel == 0 && m_exifSearchInfo.isNull()
         && m_categoryMatchText.isEmpty()
-        && m_freeformMatchText.isEmpty()
+        && freeformMatchText().isEmpty()
 #ifdef HAVE_KGEOMAP
         && !m_regionSelection.first.hasCoordinates() && !m_regionSelection.second.hasCoordinates()
 #endif
@@ -222,11 +222,11 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
         return false;
 
     // -------------------------------------------------- Freeform
-    if (!m_freeformMatchText.isEmpty()) {
-        bool lbl = false, fn = false, dsc = false;
-        if ((lbl = info->label().indexOf(m_freeformMatchText) == -1)
-            && (fn = info->fileName().relative().indexOf(m_freeformMatchText) == -1)
-            && (dsc = info->description().indexOf(m_freeformMatchText) == -1)
+    if (!freeformMatchText().isEmpty()) {
+        const auto re = m_freeformMatcher.regularExpression();
+        if (!re.match(info->label()).hasMatch()
+            && !re.match(info->fileName().relative()).hasMatch()
+            && !re.match(info->description()).hasMatch()
             && !m_freeformMatcher.eval(info)) {
             return false;
         }
@@ -557,13 +557,12 @@ QList<QList<SimpleCategoryMatcher *>> ImageSearchInfo::convertMatcher(CategoryMa
 
 QString ImageSearchInfo::freeformMatchText() const
 {
-    return m_freeformMatchText;
+    return m_freeformMatcher.regularExpression().pattern();
 }
 
 void ImageSearchInfo::setFreeformMatchText(const QString &freeformMatchText)
 {
     setCacheable(false);
-    m_freeformMatchText = freeformMatchText;
     QRegularExpression re { freeformMatchText, QRegularExpression::CaseInsensitiveOption };
     m_freeformMatcher.setRegularExpression(re);
     m_isNull = m_isNull && freeformMatchText.isEmpty();

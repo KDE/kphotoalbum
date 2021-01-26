@@ -135,7 +135,6 @@ private:
     QMap<QString, QString> m_categoryMatchText;
     QString m_label;
     QString m_description;
-    QString m_freeformMatchText = {};
     WildcardCategoryMatcher m_freeformMatcher;
     QRegExp m_fnPattern;
     short m_rating = -1;

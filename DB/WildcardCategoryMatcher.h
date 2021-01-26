@@ -23,6 +23,11 @@ class WildcardCategoryMatcher : public SimpleCategoryMatcher
 {
 public:
     /**
+     * @brief regularExpression
+     * @return the regular expression set by setRegularExpression
+     */
+    QRegularExpression regularExpression() const;
+    /**
      * @brief Set a new match expression and compile a list of matching tags.
      * @param re a regular expression matching against the desired tags
      */

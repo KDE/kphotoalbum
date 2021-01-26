@@ -14,6 +14,11 @@ void DB::WildcardCategoryMatcher::debug(int level) const
     qCDebug(DBCategoryMatcherLog, "%s: %s", qPrintable(spaces(level)), qPrintable(m_re.pattern()));
 }
 
+QRegularExpression DB::WildcardCategoryMatcher::regularExpression() const
+{
+    return m_re;
+}
+
 void DB::WildcardCategoryMatcher::setRegularExpression(const QRegularExpression &re)
 {
     m_re = re;

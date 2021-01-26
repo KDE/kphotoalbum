@@ -1,3 +1,5 @@
+* Enhancement: Add freeform text search to thumbnail view (Implements #321502)
+
 * Enhancement: UI improvements for MapView
 
 * Enhancement: Performance improvement when many thumbnails are shown in the MapView

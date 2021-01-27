@@ -102,8 +102,9 @@ public:
      * Currently, this matches against:
      *  - description
      *  - label
-     *  - filename
-     * @param freeformMatchText
+     *  - relative filename
+     *  - tag names
+     * @param freeformMatchText a pattern suitable for a QRegularExpression match
      */
     void setFreeformMatchText(const QString &freeformMatchText);
 

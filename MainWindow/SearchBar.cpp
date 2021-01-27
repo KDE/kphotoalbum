@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "SearchBar.h"
 
@@ -57,6 +57,7 @@ bool MainWindow::SearchBar::eventFilter(QObject *, QEvent *e)
 void MainWindow::SearchBar::reset()
 {
     m_edit->clear();
+    emit cleared();
 }
 
 /**

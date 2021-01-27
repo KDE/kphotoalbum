@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef MAINWINDOW_WINDOW_H
 #define MAINWINDOW_WINDOW_H
@@ -150,6 +150,7 @@ protected slots:
     void slotAutoSave();
     void showBrowser();
     void slotOptionGroupChanged();
+    void slotFilterChanged();
     void showTipOfDay();
     void lockToDefaultScope();
     void setDefaultScopePositive();

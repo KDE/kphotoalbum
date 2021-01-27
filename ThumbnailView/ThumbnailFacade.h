@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef THUMBNAILFACADE_H
 #define THUMBNAILFACADE_H
 #include "ThumbnailFactory.h"
@@ -12,6 +13,10 @@
 class KActionCollection;
 class QSlider;
 
+namespace DB
+{
+class ImageSearchInfo;
+}
 namespace ImageManager
 {
 class ThumbnailCache;
@@ -76,6 +81,7 @@ signals:
     void selectionChanged(int numberOfItemsSelected);
     void collapseAllStacksEnabled(bool enabled);
     void expandAllStacksEnabled(bool enabled);
+    void filterChanged(const DB::ImageSearchInfo &);
 
 private:
     ThumbnailModel *model() override;

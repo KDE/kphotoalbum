@@ -219,6 +219,7 @@ MainWindow::Window::Window(QWidget *parent)
     connect(DB::ImageDB::instance()->categoryCollection(), &DB::CategoryCollection::categoryCollectionChanged,
             this, &Window::slotOptionGroupChanged);
     connect(m_browser, &Browser::BrowserWidget::imageCount, m_statusBar->mp_partial, &ImageCounter::showBrowserMatches);
+    connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::filterChanged, this, &Window::slotFilterChanged);
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::selectionChanged, this, &Window::updateContextMenuFromSelectionSize);
 
     checkIfVideoThumbnailerIsInstalled();
@@ -1040,6 +1041,11 @@ void MainWindow::Window::slotOptionGroupChanged()
     delete m_annotationDialog;
     m_annotationDialog = nullptr;
     DirtyIndicator::markDirty();
+}
+
+void MainWindow::Window::slotFilterChanged()
+{
+    m_statusBar->mp_partial->showBrowserMatches(m_thumbnailView->imageList(ThumbnailView::ViewOrder).size());
 }
 
 void MainWindow::Window::showTipOfDay()

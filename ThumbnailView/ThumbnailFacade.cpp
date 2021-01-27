@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "ThumbnailFacade.h"
 
 #include "CellGeometry.h"
@@ -39,6 +40,7 @@ ThumbnailView::ThumbnailFacade::ThumbnailFacade(ImageManager::ThumbnailCache *th
     connect(m_widget, &ThumbnailWidget::selectionCountChanged, this, &ThumbnailFacade::selectionChanged);
     connect(m_model, &ThumbnailModel::collapseAllStacksEnabled, this, &ThumbnailFacade::collapseAllStacksEnabled);
     connect(m_model, &ThumbnailModel::expandAllStacksEnabled, this, &ThumbnailFacade::expandAllStacksEnabled);
+    connect(m_model, &ThumbnailModel::filterChanged, this, &ThumbnailFacade::filterChanged);
 
     s_instance = this;
 }

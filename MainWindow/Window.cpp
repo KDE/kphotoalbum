@@ -116,6 +116,7 @@
 #include <QVBoxLayout>
 #include <kio_version.h> // for #if KIO_VERSION...
 #include <ktip.h>
+#include <kwidgetsaddons_version.h>
 
 using namespace DB;
 
@@ -915,7 +916,11 @@ void MainWindow::Window::setupMenuBar()
     m_viewMenu = actionCollection()->add<KActionMenu>(QString::fromLatin1("configureView"));
     m_viewMenu->setText(i18n("Configure Current View"));
     m_viewMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("view-list-details")));
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+    m_viewMenu->setPopupMode(QToolButton::InstantPopup);
+#else
     m_viewMenu->setDelayed(false);
+#endif
 
     QActionGroup *viewGrp = new QActionGroup(this);
     viewGrp->setExclusive(true);
@@ -950,7 +955,11 @@ void MainWindow::Window::setupMenuBar()
     m_colorSchemeMenu = schemes->createSchemeSelectionMenu(activeSchemeName, this);
     m_colorSchemeMenu->setText(i18n("Choose Color Scheme"));
     m_colorSchemeMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("color")));
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+    m_colorSchemeMenu->setPopupMode(QToolButton::InstantPopup);
+#else
     m_colorSchemeMenu->setDelayed(false);
+#endif
     actionCollection()->addAction(QString::fromLatin1("colorScheme"), m_colorSchemeMenu);
 
     // The help menu

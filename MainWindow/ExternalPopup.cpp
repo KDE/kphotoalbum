@@ -96,7 +96,7 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
 
             auto *uiParent = MainWindow::Window::theMainWindow();
 #if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-            KRun::displayOpenWithDialog(lst, uiParent);
+            KRun::displayOpenWithDialog(urls, uiParent);
 #else
                 auto job = new KIO::ApplicationLauncherJob();
                 job->setUrls(urls);

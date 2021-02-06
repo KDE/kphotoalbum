@@ -43,6 +43,8 @@ void MainWindow::SplashScreen::drawContents(QPainter *painter)
     QFont font = painter->font();
     font.setPointSize(10);
     painter->setFont(font);
+    // Currently background is white, we need a contrast color
+    painter->setPen(Qt::black);
     QRect r = QRect(QPoint(20, 265), QSize(360, 25));
 
     // Version String

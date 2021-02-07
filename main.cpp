@@ -149,7 +149,11 @@ int main(int argc, char **argv)
         return retVal;
     }
 
-    view->setGeometry(Settings::SettingsData::instance()->windowGeometry(Settings::MainWindow));
+    const auto mainWindowGeometry = Settings::SettingsData::instance()->windowGeometry(Settings::MainWindow);
+    if (mainWindowGeometry.isValid())
+        view->setGeometry(mainWindowGeometry);
+    else
+        view->showMaximized();
 
 #ifdef KPA_ENABLE_REMOTECONTROL
     (void)RemoteControl::RemoteInterface::instance();

@@ -8,6 +8,7 @@
 #include "ThumbnailCacheConverter.h"
 
 #include <QBuffer>
+#include <QTextStream>
 
 namespace
 {

@@ -21,9 +21,10 @@ build:suse:
       apt-get -qq update && apt-get install -y --no-install-recommends make cmake extra-cmake-modules gettext
       g++ gcc libkf5kio-dev pkg-config pkg-kde-tools libphonon4qt5-dev libkf5archive-dev libkf5doctools-dev
       libqt5sql5-sqlite libkf5textwidgets-dev libjpeg-dev libexiv2-dev libkf5purpose-dev libkf5kdcraw-dev
-      libmarble-dev curl
+      libmarble-dev curl git
   script:
     - mkdir build && cd $_ && cmake ../ && make
+    - make install
 
 build:debian-stable:
   stage: build

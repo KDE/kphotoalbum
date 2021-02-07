@@ -1,18 +1,5 @@
 <tip category="KPhotoAlbum">
 <html>
-<p>On KPhotoAlbum's home page <a href="http://www.kphotoalbum.org/">www.kphotoalbum.org</a> you may see a few videos featuring a number of
-different KPhotoAlbum features.</p>
-</html>
-</tip>
-
-<tip category="KPhotoAlbum">
-<html>
-<p>KPhotoAlbum's Handbook is available from Help menu. <a href="http://docs.kde.org/development/en/extragear-graphics/kphotoalbum/index.html">Online</a> and <a href="http://docs.kde.org/development/en/extragear-graphics/kphotoalbum/kphotoalbum.pdf">PDF</a> versions are available at <a href="http://docs.kde.org">KDE documentation site</a>.</p>
-</html>
-</tip>
-
-<tip category="KPhotoAlbum">
-<html>
 <p>It is possible to create new categories - that are alternatives
 to <resource>People</resource>, <resource>Places</resource>, and <resource>Events</resource> - in the annotation
 dialog.

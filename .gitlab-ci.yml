@@ -1,11 +1,36 @@
+# SPDX-FileCopyrightText: none
+# SPDX-License-Identifier: CC0-1.0
 include:
   - https://invent.kde.org/sysadmin/ci-tooling/raw/master/invent/ci-before.yml
   - https://invent.kde.org/sysadmin/ci-tooling/raw/master/invent/ci-extragear-linux.yml
 
-build:suse515:
+build:suse:
   stage: build
   image: "kdeorg/ci-suse-qt515"
   extends: .linux
   variables:
     PLATFORM: SUSEQt5.15
     BRANCH_GROUP: kf5-qt5
+
+.template: &debian
+  variables:
+    DEBIAN_FRONTEND: noninteractive
+    LANG: C.UTF-8
+  before_script:
+    - >-
+      apt-get -qq update && apt-get install -y --no-install-recommends make cmake extra-cmake-modules gettext
+      g++ gcc libkf5kio-dev pkg-config pkg-kde-tools libphonon4qt5-dev libkf5archive-dev libkf5doctools-dev
+      libqt5sql5-sqlite libkf5textwidgets-dev libjpeg-dev libexiv2-dev libkf5purpose-dev libkf5kdcraw-dev
+      libmarble-dev curl
+  script:
+    - mkdir build && cd $_ && cmake ../ && make
+
+build:debian-stable:
+  stage: build
+  image: "debian:stable"
+  <<: *debian
+
+build:debian-testing:
+  stage: build
+  image: "debian:testing"
+  <<: *debian

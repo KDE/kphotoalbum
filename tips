@@ -163,20 +163,6 @@ The age of the person will then be shown in the info box of the viewer window.
 
 <tip category="KPhotoAlbum">
 <html>
-<p>KPhotoAlbum can detect and recognize faces on images.</p>
-<p>
-To use this functionality, use the <interface>Search for faces on the current image</interface>
-button below the image preview in the annotation dialog.
-</p>
-<note>To see if face recognition support is enabled, open the feature dialog
-(<interface>Help|KPhotoAlbum feature status</interface>), and check the item
-<resource>Face detection and recognition support</resource>.
-</note>
-</html>
-</tip>
-
-<tip category="KPhotoAlbum">
-<html>
 <p>You can associate tags to an area of an image (e.g. to connect a name to a face).</p>
 <p>
 To do so, make sure that the checkbox <interface>Positionable Tags</interface> under

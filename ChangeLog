@@ -1,3 +1,5 @@
+* Enhancement: Improve focus switching behavior when using Tab/Shift-Tab
+
 * Enhancement: Add freeform text search to thumbnail view (Implements #321502)
 
 * Enhancement: UI improvements for MapView
@@ -7,6 +9,10 @@
 * Enhancement: Allow relative local URLs in "Open list of files" dialog
 
 * Bugfix: Fix searching for label (introduced in version 5.4.1)
+
+* Bugfix: Make splash screen text readable with dark themes
+
+* Change: Start maximized on first startup
 
 ====================== KPhotoalbum 5.7.0 released (08.08.2020) ======================
 

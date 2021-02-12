@@ -36,7 +36,7 @@ bool MainWindow::SearchBar::eventFilter(QObject *, QEvent *e)
     if (e->type() == QEvent::KeyPress) {
         QKeyEvent *ke = static_cast<QKeyEvent *>(e);
         if (ke->key() == Qt::Key_Up || ke->key() == Qt::Key_Down || ke->key() == Qt::Key_Left || ke->key() == Qt::Key_Right || ke->key() == Qt::Key_PageDown || ke->key() == Qt::Key_PageUp || ke->key() == Qt::Key_Home || ke->key() == Qt::Key_End) {
-            emit keyPressed(ke);
+            emit movementKeyPressed(ke);
             return true;
         } else if (ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return) {
             // If I don't interpret return and enter here, but simply rely
@@ -46,12 +46,12 @@ bool MainWindow::SearchBar::eventFilter(QObject *, QEvent *e)
             emit returnPressed();
             return true;
         } else if (ke->key() == Qt::Key_Escape)
-            reset();
+            clear();
     }
     return false;
 }
 
-void MainWindow::SearchBar::reset()
+void MainWindow::SearchBar::clear()
 {
     m_edit->clear();
     emit cleared();

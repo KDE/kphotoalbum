@@ -40,7 +40,7 @@ public slots:
     /**
      * @brief Clears the content of the search box.
      */
-    void reset();
+    void clear();
     /**
      * @brief setLineEditEnabled calls setEnabled() on the search box.
      * @param enabled
@@ -62,13 +62,13 @@ signals:
      */
     void cleared();
     /**
-     * @brief keyPressed is emitted when a movement key is pressed.
+     * @brief movementKeyPressed is emitted when a movement key is pressed.
      * QKeyEvents that are signalled this way are:
      *  - arrow keys
      *  - Page up and Page down keys
      *  - Home and End keys
      */
-    void keyPressed(QKeyEvent *);
+    void movementKeyPressed(QKeyEvent *);
 
 private:
     QLineEdit *m_edit;

@@ -1705,8 +1705,8 @@ void MainWindow::Window::createSearchBar()
 
     connect(m_searchBar, &SearchBar::textChanged, m_browser, &Browser::BrowserWidget::slotLimitToMatch);
     connect(m_searchBar, &SearchBar::returnPressed, m_browser, &Browser::BrowserWidget::slotInvokeSeleted);
-    connect(m_searchBar, &SearchBar::keyPressed, m_browser, &Browser::BrowserWidget::scrollKeyPressed);
-    connect(m_browser, &Browser::BrowserWidget::viewChanged, m_searchBar, &SearchBar::reset);
+    connect(m_searchBar, &SearchBar::movementKeyPressed, m_browser, &Browser::BrowserWidget::scrollKeyPressed);
+    connect(m_browser, &Browser::BrowserWidget::viewChanged, m_searchBar, &SearchBar::clear);
     connect(m_browser, &Browser::BrowserWidget::isSearchable, m_searchBar, &SearchBar::setLineEditEnabled);
 
     m_filterWidget = m_thumbnailView->createFilterWidget(this);

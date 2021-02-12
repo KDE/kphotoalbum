@@ -73,11 +73,9 @@ AnnotationDialog::ListSelect::ListSelect(const DB::CategoryPtr &category, QWidge
 
     m_roIndicator = new QLabel;
     m_roIndicator->setPixmap(smallIcon(QString::fromLatin1("emblem-readonly")));
-    m_roIndicator->setVisible(m_editMode == ListSelectEditMode::ReadOnly);
     lay2->addWidget(m_roIndicator);
     m_selectableIndicator = new QLabel;
     m_selectableIndicator->setPixmap(smallIcon(QString::fromLatin1("emblem-checked")));
-    m_selectableIndicator->setVisible(m_editMode == ListSelectEditMode::Selectable);
     lay2->addWidget(m_selectableIndicator);
 
     m_or = new QRadioButton(i18n("or"), this);
@@ -719,6 +717,8 @@ void ListSelect::updateLineEditMode()
 
     const bool isReadOnly = computedEditMode() == ListSelectEditMode::ReadOnly;
     m_roIndicator->setVisible(isReadOnly);
+    // deactivate read-only fields when editing:
+    m_lineEdit->setEnabled((m_mode == UsageMode::SearchMode) || !isReadOnly);
     const bool isSelectable = computedEditMode() == ListSelectEditMode::Selectable;
     m_selectableIndicator->setVisible(isSelectable);
 }

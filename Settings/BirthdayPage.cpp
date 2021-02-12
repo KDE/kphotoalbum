@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2014-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 // Qt includes
 #include <QCalendarWidget>
@@ -52,10 +52,10 @@ Settings::BirthdayPage::BirthdayPage(QWidget *parent)
     connect(m_categoryBox, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &BirthdayPage::changeCategory);
 
     m_filter = new QLineEdit;
-    m_filter->setPlaceholderText(i18n("Filter (Alt+f)"));
     itemsHeaderLayout->addWidget(m_filter);
     connect(m_filter, &QLineEdit::textChanged, this, &BirthdayPage::resetCategory);
-    new QShortcut(Qt::AltModifier + Qt::Key_F, m_filter, SLOT(setFocus()));
+    const auto filterShortcut = new QShortcut(Qt::AltModifier + Qt::Key_F, m_filter, SLOT(setFocus()));
+    m_filter->setPlaceholderText(i18nc("@label:textedit", "Filter ... (%1)", filterShortcut->key().toString(QKeySequence::NativeText)));
 
     if (QLocale().dateFormat(QLocale::ShortFormat).contains(QString::fromUtf8("yyyy"))) {
         m_dateFormats << QLocale().dateFormat(QLocale::ShortFormat);

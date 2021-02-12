@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "InfoDialog.h"
 
@@ -61,9 +61,8 @@ Exif::InfoDialog::InfoDialog(const DB::FileName &fileName, QWidget *parent)
     hlay = new QHBoxLayout;
     vlay->addLayout(hlay);
 
-    QLabel *searchLabel = new QLabel(i18n("Exif label search: "), top);
-    hlay->addWidget(searchLabel);
     m_searchBox = new QLineEdit(top);
+    m_searchBox->setPlaceholderText(i18nc("@label:textbox The search box allows the user to filter by exif label names", "Filter labels..."));
     hlay->addWidget(m_searchBox);
     hlay->addStretch(1);
 

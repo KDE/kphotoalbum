@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "DateBarWidget.h"
 
@@ -72,12 +72,14 @@ DateBar::DateBarWidget::DateBarWidget(QWidget *parent)
     m_zoomIn = new QToolButton(this);
     m_zoomIn->setIcon(QIcon::fromTheme(QStringLiteral("zoom-in")));
     m_zoomIn->setToolTip(i18n("Zoom in"));
+    m_zoomIn->setFocusPolicy(Qt::ClickFocus);
     connect(m_zoomIn, &QToolButton::clicked, this, &DateBarWidget::zoomIn);
     connect(this, &DateBarWidget::canZoomIn, m_zoomIn, &QToolButton::setEnabled);
 
     m_zoomOut = new QToolButton(this);
     m_zoomOut->setIcon(QIcon::fromTheme(QStringLiteral("zoom-out")));
     m_zoomOut->setToolTip(i18n("Zoom out"));
+    m_zoomOut->setFocusPolicy(Qt::ClickFocus);
     connect(m_zoomOut, &QToolButton::clicked, this, &DateBarWidget::zoomOut);
     connect(this, &DateBarWidget::canZoomOut, m_zoomOut, &QToolButton::setEnabled);
 

@@ -185,6 +185,9 @@ MainWindow::Window::Window(QWidget *parent)
     setupStatusBar();
     qCInfo(TimingLog) << "MainWindow: setupStatusBar: " << timer.restart() << "ms.";
 
+    setTabOrder(m_searchBar, m_thumbnailView->gui());
+    setTabOrder(m_thumbnailView->gui(), m_dateBar);
+
     // Misc
     m_autoSaveTimer = new QTimer(this);
     connect(m_autoSaveTimer, &QTimer::timeout, this, &Window::slotAutoSave);
@@ -1696,23 +1699,23 @@ void MainWindow::Window::slotThumbnailSizeChanged()
 void MainWindow::Window::createSearchBar()
 {
     // Set up the search tool bar
-    SearchBar *searchBar = new SearchBar(this);
-    searchBar->setLineEditEnabled(false);
-    searchBar->setObjectName(QString::fromUtf8("searchBar"));
+    m_searchBar = new SearchBar(this);
+    m_searchBar->setLineEditEnabled(false);
+    m_searchBar->setObjectName(QString::fromUtf8("searchBar"));
 
-    connect(searchBar, &SearchBar::textChanged, m_browser, &Browser::BrowserWidget::slotLimitToMatch);
-    connect(searchBar, &SearchBar::returnPressed, m_browser, &Browser::BrowserWidget::slotInvokeSeleted);
-    connect(searchBar, &SearchBar::keyPressed, m_browser, &Browser::BrowserWidget::scrollKeyPressed);
-    connect(m_browser, &Browser::BrowserWidget::viewChanged, searchBar, &SearchBar::reset);
-    connect(m_browser, &Browser::BrowserWidget::isSearchable, searchBar, &SearchBar::setLineEditEnabled);
+    connect(m_searchBar, &SearchBar::textChanged, m_browser, &Browser::BrowserWidget::slotLimitToMatch);
+    connect(m_searchBar, &SearchBar::returnPressed, m_browser, &Browser::BrowserWidget::slotInvokeSeleted);
+    connect(m_searchBar, &SearchBar::keyPressed, m_browser, &Browser::BrowserWidget::scrollKeyPressed);
+    connect(m_browser, &Browser::BrowserWidget::viewChanged, m_searchBar, &SearchBar::reset);
+    connect(m_browser, &Browser::BrowserWidget::isSearchable, m_searchBar, &SearchBar::setLineEditEnabled);
 
     m_filterWidget = m_thumbnailView->createFilterWidget(this);
     addToolBar(m_filterWidget);
     m_filterWidget->setObjectName(QString::fromUtf8("filterBar"));
     connect(m_browser, &Browser::BrowserWidget::viewChanged, ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);
     connect(m_browser, &Browser::BrowserWidget::isFilterable, m_filterWidget, &ThumbnailView::FilterWidget::setEnabled);
-    connect(searchBar, &SearchBar::textChanged, ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::setFreeformFilter);
-    connect(searchBar, &SearchBar::cleared, ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);
+    connect(m_searchBar, &SearchBar::textChanged, ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::setFreeformFilter);
+    connect(m_searchBar, &SearchBar::cleared, ThumbnailView::ThumbnailFacade::instance(), &ThumbnailView::ThumbnailFacade::clearFilter);
 }
 
 void MainWindow::Window::executeStartupActions()

@@ -78,6 +78,8 @@ class BreadcrumbViewer;
 
 namespace MainWindow
 {
+
+class SearchBar;
 class DeleteDialog;
 class StatusBar;
 class TokenEditor;
@@ -233,6 +235,7 @@ private:
     QStackedWidget *m_stack;
     QTimer *m_autoSaveTimer;
     Browser::BrowserWidget *m_browser;
+    SearchBar *m_searchBar;
     DeleteDialog *m_deleteDialog;
     QAction *m_lock;
     QAction *m_unlock;

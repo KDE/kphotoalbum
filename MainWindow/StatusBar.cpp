@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "StatusBar.h"
 
 #include "DirtyIndicator.h"
@@ -95,12 +96,14 @@ void MainWindow::StatusBar::setupGUI()
     m_thumbnailSizeSlider->setMaximumSize(m_thumbnailSizeSlider->size());
     m_thumbnailSizeSlider->setMinimumSize(m_thumbnailSizeSlider->size());
     m_thumbnailSizeSlider->hide();
+    m_thumbnailSizeSlider->setFocusPolicy(Qt::ClickFocus);
 
     m_thumbnailSettings = new QToolButton;
     m_thumbnailSettings->setIcon(QIcon::fromTheme(QString::fromUtf8("settings-configure")));
     m_thumbnailSettings->setToolTip(i18n("Thumbnail settings..."));
     addPermanentWidget(m_thumbnailSettings, 0);
     m_thumbnailSettings->hide();
+    m_thumbnailSettings->setFocusPolicy(Qt::NoFocus);
     connect(m_thumbnailSettings, &QToolButton::clicked, this, &StatusBar::thumbnailSettingsRequested);
 }
 

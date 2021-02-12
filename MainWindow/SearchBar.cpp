@@ -20,12 +20,9 @@ MainWindow::SearchBar::SearchBar(KMainWindow *parent)
     setWindowTitle(i18nc("Name/title of the search bar toolbar widget", "Search Bar"));
     setWindowIcon(QIcon::fromTheme(QLatin1String("search")));
 
-    QLabel *label = new QLabel(i18nc("@label:textbox label on the search bar", "Search:") + QString::fromLatin1(" "));
-    addWidget(label);
-
     m_edit = new QLineEdit(this);
     m_edit->setClearButtonEnabled(true);
-    label->setBuddy(m_edit);
+    m_edit->setPlaceholderText(i18nc("@label:textbox", "Search…"));
 
     addWidget(m_edit);
     connect(m_edit, &QLineEdit::textChanged, this, &SearchBar::textChanged);
@@ -43,7 +40,7 @@ bool MainWindow::SearchBar::eventFilter(QObject *, QEvent *e)
             return true;
         } else if (ke->key() == Qt::Key_Enter || ke->key() == Qt::Key_Return) {
             // If I don't interpret return and enter here, but simply rely
-            // on QLineEdit itself to emit the signal, then  it will
+            // on QLineEdit itself to emit the signal, then it will
             // propagate to the main window, and from there be delivered to
             // the central widget.
             emit returnPressed();
@@ -65,9 +62,9 @@ void MainWindow::SearchBar::reset()
  * but due to a bug in either KDE or Qt, this resulted in the bar never
  * being enabled again after a disable.
  */
-void MainWindow::SearchBar::setLineEditEnabled(bool b)
+void MainWindow::SearchBar::setLineEditEnabled(bool enabled)
 {
-    m_edit->setEnabled(b);
+    m_edit->setEnabled(enabled);
     m_edit->setFocus();
 }
 

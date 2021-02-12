@@ -53,7 +53,7 @@ AnnotationDialog::ListSelect::ListSelect(const DB::CategoryPtr &category, QWidge
     m_lineEdit = new CompletableLineEdit(this);
     m_lineEdit->setProperty("FocusCandidate", true);
     m_lineEdit->setProperty("WantsFocus", true);
-    m_lineEdit->setPlaceholderText(i18nc("@label:textbox", "Enter a tag..."));
+    m_lineEdit->setPlaceholderText(i18nc("@label:textbox", "Enter a tag ..."));
     layout->addWidget(m_lineEdit);
 
     m_treeWidget = new CategoryListView::DragableTreeWidget(m_category, this);

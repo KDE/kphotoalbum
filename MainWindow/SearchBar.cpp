@@ -22,7 +22,7 @@ MainWindow::SearchBar::SearchBar(KMainWindow *parent)
 
     m_edit = new QLineEdit(this);
     m_edit->setClearButtonEnabled(true);
-    m_edit->setPlaceholderText(i18nc("@label:textbox", "Search…"));
+    m_edit->setPlaceholderText(i18nc("@label:textbox", "Search ..."));
 
     addWidget(m_edit);
     connect(m_edit, &QLineEdit::textChanged, this, &SearchBar::textChanged);

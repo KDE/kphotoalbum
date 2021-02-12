@@ -62,7 +62,7 @@ Exif::InfoDialog::InfoDialog(const DB::FileName &fileName, QWidget *parent)
     vlay->addLayout(hlay);
 
     m_searchBox = new QLineEdit(top);
-    m_searchBox->setPlaceholderText(i18nc("@label:textbox The search box allows the user to filter by exif label names", "Filter labels..."));
+    m_searchBox->setPlaceholderText(i18nc("@label:textbox The search box allows the user to filter by exif label names", "Filter labels ..."));
     hlay->addWidget(m_searchBox);
     hlay->addStretch(1);
 

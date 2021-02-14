@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "BrowserWidget.h"
 
@@ -294,6 +294,7 @@ void Browser::BrowserWidget::switchToViewType(DB::Category::ViewType type)
     if (m_curView) {
         m_curView->setModel(0);
         disconnect(m_curView, &QAbstractItemView::clicked, this, &BrowserWidget::itemClicked);
+        disconnect(m_curView, &QAbstractItemView::activated, this, &BrowserWidget::itemClicked);
     }
 
     if (type == DB::Category::TreeView || type == DB::Category::ThumbedTreeView) {
@@ -314,7 +315,10 @@ void Browser::BrowserWidget::switchToViewType(DB::Category::ViewType type)
 
     // Hook up the new view
     m_curView->setModel(m_filterProxy);
+    // we connect the clicked() signal to force single-click behaviour with all platform settings
+    // activated is still needed, though, because it also handles keyboard selection
     connect(m_curView, &QAbstractItemView::clicked, this, &BrowserWidget::itemClicked);
+    connect(m_curView, &QAbstractItemView::activated, this, &BrowserWidget::itemClicked);
 
     m_stack->setCurrentWidget(m_curView);
     adjustTreeViewColumnSize();

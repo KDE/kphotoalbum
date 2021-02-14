@@ -82,7 +82,7 @@ void Browser::BrowserWidget::back()
 void Browser::BrowserWidget::activatePage(int pageIndex)
 {
     if (pageIndex != m_current) {
-        if (currentAction() != 0) {
+        if (currentAction() != nullptr) {
             currentAction()->deactivate();
         }
         m_current = pageIndex;
@@ -133,7 +133,7 @@ void Browser::BrowserWidget::emitSignals()
     emit isFilterable(currentAction()->viewer() == ShowImageViewer);
     emit isViewChangeable(currentAction()->isViewChangeable());
 
-    bool isCategoryAction = (dynamic_cast<CategoryPage *>(currentAction()) != 0);
+    bool isCategoryAction = (dynamic_cast<CategoryPage *>(currentAction()) != nullptr);
 
     if (isCategoryAction) {
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(currentCategory());
@@ -272,7 +272,7 @@ void Browser::BrowserWidget::itemClicked(const QModelIndex &index)
 
 Browser::BrowserPage *Browser::BrowserWidget::currentAction() const
 {
-    return m_current >= 0 ? m_list[m_current] : 0;
+    return m_current >= 0 ? m_list[m_current] : nullptr;
 }
 
 void Browser::BrowserWidget::setModel(QAbstractItemModel *model)
@@ -290,7 +290,7 @@ void Browser::BrowserWidget::setModel(QAbstractItemModel *model)
 void Browser::BrowserWidget::switchToViewType(DB::Category::ViewType type)
 {
     if (m_curView) {
-        m_curView->setModel(0);
+        m_curView->setModel(nullptr);
         disconnect(m_curView, &QAbstractItemView::clicked, this, &BrowserWidget::itemClicked);
         disconnect(m_curView, &QAbstractItemView::activated, this, &BrowserWidget::itemClicked);
     }
@@ -302,7 +302,7 @@ void Browser::BrowserWidget::switchToViewType(DB::Category::ViewType type)
         m_filterProxy->invalidate();
         m_filterProxy->sort(0, Qt::AscendingOrder);
 
-        m_listView->setViewMode(dynamic_cast<OverviewPage *>(currentAction()) == 0 ? CenteringIconView::NormalIconView : CenteringIconView::CenterView);
+        m_listView->setViewMode(dynamic_cast<OverviewPage *>(currentAction()) == nullptr ? CenteringIconView::NormalIconView : CenteringIconView::CenterView);
     }
 
     if (CategoryPage *action = dynamic_cast<CategoryPage *>(currentAction())) {

@@ -112,7 +112,7 @@ void Browser::BrowserWidget::addImageView(const DB::FileName &context)
 void Browser::BrowserWidget::addAction(Browser::BrowserPage *action)
 {
     // remove actions which would go forward in the breadcrumbs
-    while ((int)m_list.count() > m_current + 1) {
+    while (m_list.count() > m_current + 1) {
         BrowserPage *m = m_list.back();
         m_list.pop_back();
         delete m;
@@ -125,7 +125,7 @@ void Browser::BrowserWidget::addAction(Browser::BrowserPage *action)
 void Browser::BrowserWidget::emitSignals()
 {
     emit canGoBack(m_current > 0);
-    emit canGoForward(m_current < (int)m_list.count() - 1);
+    emit canGoForward(m_current < m_list.count() - 1);
     if (currentAction()->viewer() == ShowBrowser)
         emit showingOverview();
 

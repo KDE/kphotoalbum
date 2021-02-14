@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef BROWSER_H
 #define BROWSER_H
@@ -78,7 +78,7 @@ signals:
     void isViewChangeable(bool);
     void currentViewTypeChanged(DB::Category::ViewType);
     void viewChanged(DB::ImageSearchInfo);
-    void imageCount(uint);
+    void imageCount(int);
 
 protected:
     bool eventFilter(QObject *, QEvent *) override;

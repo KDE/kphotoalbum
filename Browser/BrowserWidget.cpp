@@ -281,11 +281,9 @@ void Browser::BrowserWidget::setModel(QAbstractItemModel *model)
     // make sure the view knows about the source model change:
     m_curView->setModel(m_filterProxy);
 
-    if (qobject_cast<TreeCategoryModel *>(model)) {
-        // FIXME: The new-style connect here does not work, reload() is not triggered
-        //connect(model, &QAbstractItemModel::dataChanged, this, &BrowserWidget::reload);
-        // The old-style one triggers reload() correctly
-        connect(model, SIGNAL(dataChanged()), this, SLOT(reload()));
+    const auto *treeModel = qobject_cast<TreeCategoryModel *>(model);
+    if (treeModel) {
+        connect(treeModel, &TreeCategoryModel::dataChanged, this, &BrowserWidget::reload);
     }
 }
 

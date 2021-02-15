@@ -201,6 +201,7 @@ MainWindow::Window::Window(QWidget *parent)
             m_browser, &Browser::BrowserWidget::widenToBreadcrumb);
     connect(m_browser, &Browser::BrowserWidget::pathChanged,
             this, QOverload<const Browser::BreadcrumbList &>::of(&Window::updateDateBar));
+    connect(m_browser, &Browser::BrowserWidget::showSearch, m_searchBar, QOverload<>::of(&QWidget::setFocus));
 
     connect(m_dateBar, &DateBar::DateBarWidget::dateSelected,
             m_thumbnailView, &ThumbnailView::ThumbnailFacade::gotoDate);

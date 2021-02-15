@@ -405,9 +405,17 @@ bool Browser::BrowserWidget::eventFilter(QObject * /* obj */, QEvent *event)
 {
     if (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseMove || event->type() == QEvent::MouseButtonRelease) {
         QMouseEvent *me = static_cast<QMouseEvent *>(event);
+        Q_ASSERT(me != nullptr);
         if (me->buttons() & Qt::MidButton || me->button() & Qt::MidButton) {
             handleResizeEvent(me);
             return true;
+        }
+    }
+    if (event->type() == QEvent::KeyPress) {
+        const auto *keyEvent = static_cast<QKeyEvent *>(event);
+        Q_ASSERT(keyEvent != nullptr);
+        if (keyEvent->key() == Qt::Key_Slash) {
+            emit showSearch();
         }
     }
 

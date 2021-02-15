@@ -79,6 +79,7 @@ signals:
     void currentViewTypeChanged(DB::Category::ViewType);
     void viewChanged(DB::ImageSearchInfo);
     void imageCount(int);
+    void showSearch();
 
 protected:
     bool eventFilter(QObject *, QEvent *) override;

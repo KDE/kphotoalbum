@@ -35,6 +35,7 @@ ThumbnailView::ThumbnailFacade::ThumbnailFacade(ImageManager::ThumbnailCache *th
 
     connect(m_widget, &ThumbnailWidget::showImage, this, &ThumbnailFacade::showImage);
     connect(m_widget, &ThumbnailWidget::showSelection, this, &ThumbnailFacade::showSelection);
+    connect(m_widget, &ThumbnailWidget::showSearch, this, &ThumbnailFacade::showSearch);
     connect(m_widget, &ThumbnailWidget::fileIdUnderCursorChanged, this, &ThumbnailFacade::fileIdUnderCursorChanged);
     connect(m_widget, &ThumbnailWidget::currentDateChanged, this, &ThumbnailFacade::currentDateChanged);
     connect(m_widget, &ThumbnailWidget::selectionCountChanged, this, &ThumbnailFacade::selectionChanged);

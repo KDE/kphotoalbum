@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef THUMBNAILVIEW_THUMBNAILWIDGET_H
 #define THUMBNAILVIEW_THUMBNAILWIDGET_H
 
@@ -74,6 +75,7 @@ public slots:
 signals:
     void showImage(const DB::FileName &id);
     void showSelection();
+    void showSearch();
     void fileIdUnderCursorChanged(const DB::FileName &id);
     void currentDateChanged(const Utilities::FastDateTime &);
     void selectionCountChanged(int numberOfItemsSelected);

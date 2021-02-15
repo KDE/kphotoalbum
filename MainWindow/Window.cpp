@@ -217,6 +217,7 @@ MainWindow::Window::Window(QWidget *parent)
 
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::showImage, this, &Window::showImage);
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::showSelection, this, QOverload<>::of(&Window::slotView));
+    connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::showSearch, m_searchBar, QOverload<>::of(&QWidget::setFocus));
 
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::fileIdUnderCursorChanged, this, &Window::slotSetFileName);
     connect(DB::ImageDB::instance(), &DB::ImageDB::totalChanged, this, QOverload<>::of(&Window::updateDateBar));

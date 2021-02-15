@@ -76,6 +76,7 @@ public slots:
 signals:
     void showImage(const DB::FileName &id);
     void showSelection();
+    void showSearch();
     void fileIdUnderCursorChanged(const DB::FileName &id);
     void currentDateChanged(const Utilities::FastDateTime &);
     void selectionChanged(int numberOfItemsSelected);

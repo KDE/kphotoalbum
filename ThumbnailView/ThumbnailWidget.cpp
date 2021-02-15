@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ThumbnailWidget.h"
 
@@ -72,6 +72,7 @@ ThumbnailView::ThumbnailWidget::ThumbnailWidget(ThumbnailFactory *factory)
 
     connect(&m_mouseTrackingHandler, &MouseTrackingInteraction::fileIdUnderCursorChanged, this, &ThumbnailWidget::fileIdUnderCursorChanged);
     connect(m_keyboardHandler, &KeyboardEventHandler::showSelection, this, &ThumbnailWidget::showSelection);
+    connect(m_keyboardHandler, &KeyboardEventHandler::showSearch, this, &ThumbnailWidget::showSearch);
 
     updatePalette();
     connect(Settings::SettingsData::instance(), &Settings::SettingsData::colorSchemeChanged, this, &ThumbnailWidget::updatePalette);

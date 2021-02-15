@@ -29,6 +29,7 @@ MainWindow::SearchBar::SearchBar(KMainWindow *parent)
     connect(m_edit, &QLineEdit::returnPressed, this, &SearchBar::returnPressed);
 
     m_edit->installEventFilter(this);
+    setFocusProxy(m_edit);
 }
 
 bool MainWindow::SearchBar::eventFilter(QObject *, QEvent *e)
@@ -57,15 +58,9 @@ void MainWindow::SearchBar::clear()
     emit cleared();
 }
 
-/**
- * This was originally just a call to setEnabled() on the SearchBar itself,
- * but due to a bug in either KDE or Qt, this resulted in the bar never
- * being enabled again after a disable.
- */
 void MainWindow::SearchBar::setLineEditEnabled(bool enabled)
 {
     m_edit->setEnabled(enabled);
-    m_edit->setFocus();
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

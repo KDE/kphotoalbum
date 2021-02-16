@@ -239,6 +239,14 @@ void Browser::BrowserWidget::slotLimitToMatch(const QString &str)
     m_filterProxy->setFilterFixedString(str);
     setBranchOpen(QModelIndex(), true);
     adjustTreeViewColumnSize();
+
+    // if nothing is selected, select the first item to make the UI consistent with the behaviour of slotInvokeSelected:
+    if (!m_curView->currentIndex().isValid()) {
+        if (m_filterProxy->rowCount(QModelIndex()) > 0) {
+            // Use the first item
+            m_curView->selectionModel()->select(m_filterProxy->index(0, 0, QModelIndex()), QItemSelectionModel::Select);
+        }
+    }
 }
 
 void Browser::BrowserWidget::resetIconViewSearch()

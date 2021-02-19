@@ -49,6 +49,10 @@ bool MainWindow::SearchBar::eventFilter(QObject *, QEvent *e)
         } else if (ke->key() == Qt::Key_Escape)
             clear();
     }
+    if (e->type() == QEvent::FocusIn) {
+        // this ensures that BrowserWidget::slotLimitToMatch is called when the search bar is activated
+        emit textChanged(m_edit->text());
+    }
     return false;
 }
 

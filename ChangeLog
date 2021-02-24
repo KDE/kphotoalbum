@@ -1,3 +1,5 @@
+* Change: Search field no longer gets focus by default (you can press '/' to focus)
+
 * Enhancement: Improve focus switching behavior when using Tab/Shift-Tab
 
 * Enhancement: Add freeform text search to thumbnail view (Implements #321502)

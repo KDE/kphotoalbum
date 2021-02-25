@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "Database.h"
 
 #include "DatabaseElement.h"
@@ -223,6 +224,15 @@ void Exif::Database::createMetadataTable(DBSchemaChangeType change)
     }
 }
 
+bool Database::add(const DB::FileName &filename, Exiv2::ExifData data)
+{
+    if (!isUsable())
+        return false;
+
+    // we might as well rename insert() to add()
+    return insert(filename, data);
+}
+
 bool Exif::Database::add(const DB::FileName &fileName)
 {
     if (!isUsable())
@@ -238,14 +248,6 @@ bool Exif::Database::add(const DB::FileName &fileName)
         qCWarning(ExifLog, "Error while reading exif information from %s", qPrintable(fileName.absolute()));
         return false;
     }
-}
-
-bool Exif::Database::add(DB::FileInfo &fileInfo)
-{
-    if (!isUsable())
-        return false;
-
-    return insert(fileInfo.getFileName(), fileInfo.getExifData());
 }
 
 bool Exif::Database::add(const DB::FileNameList &list)

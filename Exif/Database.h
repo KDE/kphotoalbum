@@ -1,11 +1,11 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef EXIFDATABASE_H
 #define EXIFDATABASE_H
 
-#include <DB/FileInfo.h>
 #include <kpabase/FileNameList.h>
 
 #include <QList>
@@ -71,12 +71,13 @@ public:
      */
     int DBFileVersionGuaranteed() const;
     /**
-     * @brief add a file and its exif data to the database.
+     * @brief Add a file and its exif data to the database.
      * If the file already exists in the database, the new data replaces the existing data.
-     * @param fileInfo the file
-     * @return
+     * @param filename
+     * @param data
+     * @return \c true, if the operation succeeded, \c false otherwise
      */
-    bool add(DB::FileInfo &fileInfo);
+    bool add(const DB::FileName &filename, Exiv2::ExifData data);
     bool add(const DB::FileName &fileName);
     bool add(const DB::FileNameList &list);
     void remove(const DB::FileName &fileName);

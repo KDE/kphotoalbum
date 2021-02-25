@@ -716,7 +716,8 @@ void HTMLGenerator::Generator::pixmapLoaded(ImageManager::ImageRequest *request,
 
     if (!Utilities::isVideo(fileName)) {
         try {
-            Exif::Info::instance()->writeInfoToFile(fileName, file);
+            auto imageInfo = DB::ImageDB::instance()->info(fileName);
+            Exif::writeExifInfoToFile(fileName, file, imageInfo->description());
         } catch (...) {
         }
     }

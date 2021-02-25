@@ -7,8 +7,7 @@
 
 #include "Logging.h"
 
-#include <DB/ImageDB.h>
-#include <DB/ImageInfo.h>
+#include <kpabase/FileName.h>
 #include <kpabase/SettingsData.h>
 #include <kpabase/StringSet.h>
 
@@ -164,7 +163,7 @@ Info::Info()
     m_keys = standardKeys();
 }
 
-void Exif::Info::writeInfoToFile(const DB::FileName &srcName, const QString &destName)
+void Exif::writeExifInfoToFile(const DB::FileName &srcName, const QString &destName, const QString &imageDescription)
 {
     // Load Exif from source image
     Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(QFile::encodeName(srcName.absolute()).data());
@@ -172,8 +171,7 @@ void Exif::Info::writeInfoToFile(const DB::FileName &srcName, const QString &des
     Exiv2::ExifData data = image->exifData();
 
     // Modify Exif information from database.
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(srcName);
-    data["Exif.Image.ImageDescription"] = info->description().toLocal8Bit().data();
+    data["Exif.Image.ImageDescription"] = imageDescription.toLocal8Bit().data();
 
     image = Exiv2::ImageFactory::open(QFile::encodeName(destName).data());
     image->setExifData(data);

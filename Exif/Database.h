@@ -71,16 +71,36 @@ public:
      */
     int DBFileVersionGuaranteed() const;
     /**
-     * @brief Add a file and its exif data to the database.
+     * @brief Adds a file and its exif data to the exif database.
      * If the file already exists in the database, the new data replaces the existing data.
      * @param filename
-     * @param data
+     * @param data the exif data
      * @return \c true, if the operation succeeded, \c false otherwise
      */
     bool add(const DB::FileName &filename, Exiv2::ExifData data);
+    /**
+     * @brief Adds a file to the exif database, reading its exif data from the file.
+     * @param fileName
+     * @return \c true, if the operation succeeded, \c false otherwise
+     */
     bool add(const DB::FileName &fileName);
+    /**
+     * @brief Adds a list of files to the exif database, reading the exif data from the files.
+     * @param list
+     * @return \c true, if the operation succeeded, \c false otherwise
+     */
     bool add(const DB::FileNameList &list);
+    /**
+     * @brief Removes a single file from the exif database.
+     * Removing a file that is not in the database is allowed.
+     * @param fileName
+     */
     void remove(const DB::FileName &fileName);
+    /**
+     * @brief Removes a list of files from the exif database.
+     * Passing an empty list or a list that contains files that are not actually in the exif database is allowed.
+     * @param list
+     */
     void remove(const DB::FileNameList &list);
     /**
      * @brief readFields searches the exif database for a given file and fills the element list with values.

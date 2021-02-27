@@ -113,7 +113,15 @@ public:
     DB::FileNameSet filesMatchingQuery(const QString &query) const;
     CameraList cameras() const;
     LensList lenses() const;
-    void recreate();
+    /**
+     * @brief Discards the current exif database and recreates it from the given files.
+     *
+     * Exiv2 seems to accept both image and movie files without ill effects
+     * (but does not actually return any usable metadata).
+     * To be on the safe side though, I would still filter out non-image files as long as there is no official support for movie files in exiv2.
+     * @param allImageFiles a list of all image files
+     */
+    void recreate(const DB::FileNameList &allImageFiles);
     bool startInsertTransaction();
     bool commitInsertTransaction();
     bool abortInsertTransaction();

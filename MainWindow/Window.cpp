@@ -1667,7 +1667,7 @@ void MainWindow::Window::setupStatusBar()
 
 void MainWindow::Window::slotRecreateExifDB()
 {
-    Exif::Database::instance()->recreate();
+    Exif::Database::instance()->recreate(DB::ImageDB::instance()->files());
 }
 
 void MainWindow::Window::useNextVideoThumbnail()

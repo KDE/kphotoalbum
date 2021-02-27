@@ -8,7 +8,6 @@
 #include "DatabaseElement.h"
 #include "Logging.h"
 
-#include <DB/ImageDB.h>
 #include <MainWindow/Window.h>
 #include <kpabase/SettingsData.h>
 
@@ -593,7 +592,7 @@ void Exif::Database::init()
         updateDatabase();
 }
 
-void Exif::Database::recreate()
+void Exif::Database::recreate(const DB::FileNameList &allImageFiles)
 {
     // We create a backup of the current database in case
     // the user presse 'cancel' or there is any error. In that case
@@ -606,19 +605,16 @@ void Exif::Database::recreate()
     QDir().rename(exifDBFile(), origBackup);
     init();
 
-    const auto allImages = DB::ImageDB::instance()->images();
     QProgressDialog dialog;
     dialog.setModal(true);
     dialog.setLabelText(i18n("Rereading Exif information from all images"));
-    dialog.setMaximum(allImages.size());
+    dialog.setMaximum(allImageFiles.size());
     // using a transaction here removes a *huge* overhead on the insert statements
     startInsertTransaction();
     int i = 0;
-    for (const auto &info : allImages) {
+    for (const auto &fileName : allImageFiles) {
         dialog.setValue(i++);
-        if (info->mediaType() == DB::Image) {
-            add(info->fileName());
-        }
+        add(fileName);
         if (i % 10)
             qApp->processEvents();
         if (dialog.wasCanceled())

@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "NewImageFinder.h"
 
 #include "FastDir.h"
@@ -487,7 +488,7 @@ void NewImageFinder::loadExtraFiles()
         scout.setPreloadFunc(DB::PreloadMD5Sum);
     scout.start();
 
-    Exif::Database::instance()->startInsertTransaction();
+    DB::ImageDB::instance()->exifDB()->startInsertTransaction();
     dialog.setValue(count); // ensure to call setProgress(0)
     timeSinceProgressUpdate.start();
     for (LoadList::Iterator it = m_pendingLoad.begin(); it != m_pendingLoad.end(); ++it, ++count) {
@@ -495,7 +496,7 @@ void NewImageFinder::loadExtraFiles()
 
         if (dialog.wasCanceled()) {
             m_pendingLoad.clear();
-            Exif::Database::instance()->abortInsertTransaction();
+            DB::ImageDB::instance()->exifDB()->abortInsertTransaction();
             return;
         }
         // (*it).first: DB::FileName
@@ -511,7 +512,7 @@ void NewImageFinder::loadExtraFiles()
     // loadExtraFile() has already inserted all images into the
     // database, but without committing the changes
     DB::ImageDB::instance()->commitDelayedImages();
-    Exif::Database::instance()->commitInsertTransaction();
+    DB::ImageDB::instance()->exifDB()->commitInsertTransaction();
 
     ImageManager::ThumbnailBuilder::instance()->save();
 }
@@ -659,8 +660,8 @@ bool NewImageFinder::handleIfImageHasBeenMoved(const FileName &newFileName, cons
 
                 DB::ImageDB::instance()->md5Map()->insert(sum, info->fileName());
 
-                Exif::Database::instance()->remove(matchedFileName);
-                Exif::Database::instance()->add(newFileName);
+                DB::ImageDB::instance()->exifDB()->remove(matchedFileName);
+                DB::ImageDB::instance()->exifDB()->add(newFileName);
                 ImageManager::ThumbnailBuilder::instance()->buildOneThumbnail(info);
                 return true;
             }

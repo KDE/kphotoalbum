@@ -17,6 +17,8 @@
 
 #include <QObject>
 
+#include <bits/unique_ptr.h>
+
 class QProgressBar;
 
 namespace DB
@@ -154,6 +156,8 @@ public:
 
     virtual void copyData(const DB::FileName &from, const DB::FileName &to) = 0;
 
+    Exif::Database *exifDB() const;
+
 public slots:
     void setDateRange(const ImageDate &, bool includeFuzzyCounts);
     void clearDateRange();
@@ -174,6 +178,7 @@ protected:
     bool m_includeFuzzyCounts;
     ImageInfoList m_clipboard;
     UIDelegate &m_UI;
+    std::unique_ptr<Exif::Database> m_exifDB;
 
 protected slots:
     virtual void lockDB(bool lock, bool exclude) = 0;

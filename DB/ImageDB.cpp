@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "ImageDB.h"
 
 #include "CategoryCollection.h"
@@ -118,6 +119,7 @@ UIDelegate &DB::ImageDB::uiDelegate() const
 
 ImageDB::ImageDB(UIDelegate &delegate)
     : m_UI(delegate)
+    , m_exifDB(std::make_unique<Exif::Database>(delegate))
 {
 }
 
@@ -192,6 +194,11 @@ bool ImageDB::untaggedCategoryFeatureConfigured() const
     const auto untaggedTag = Settings::SettingsData::instance()->untaggedTag();
     return categoryCollection()->categoryNames().contains(untaggedCategory)
         && categoryCollection()->categoryForName(untaggedCategory)->items().contains(untaggedTag);
+}
+
+Exif::Database *ImageDB::exifDB() const
+{
+    return m_exifDB.get();
 }
 
 /** \fn void ImageDB::renameCategory( const QString& oldName, const QString newName )

@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ReReadDialog.h"
 
@@ -34,7 +34,7 @@ Exif::ReReadDialog::ReReadDialog(QWidget *parent)
 
     m_exifDB = new QCheckBox(i18n("Update Exif search database"), top);
     lay1->addWidget(m_exifDB);
-    if (!Exif::Database::instance()->isUsable()) {
+    if (!DB::ImageDB::instance()->exifDB()->isUsable()) {
         m_exifDB->hide();
     }
 

@@ -245,7 +245,6 @@ MainWindow::Window::~Window()
 {
     DB::ImageDB::deleteInstance();
     delete m_thumbnailCache;
-    Exif::Database::deleteInstance();
 }
 
 void MainWindow::Window::delayedInit()
@@ -278,7 +277,6 @@ void MainWindow::Window::delayedInit()
         KTipDialog::showTip(this);
     }
 
-    Exif::Database::instance(); // Load the database
     qCInfo(TimingLog) << "MainWindow: Loading Exif DB:" << timer.restart() << "ms.";
 
 #ifdef KPA_ENABLE_REMOTECONTROL
@@ -1667,7 +1665,7 @@ void MainWindow::Window::setupStatusBar()
 
 void MainWindow::Window::slotRecreateExifDB()
 {
-    Exif::Database::instance()->recreate(DB::ImageDB::instance()->files(DB::MediaType::Image));
+    DB::ImageDB::instance()->exifDB()->recreate(DB::ImageDB::instance()->files(DB::MediaType::Image));
 }
 
 void MainWindow::Window::useNextVideoThumbnail()

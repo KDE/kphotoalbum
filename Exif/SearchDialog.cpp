@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "SearchDialog.h"
 
@@ -23,8 +23,9 @@
 
 using namespace Exif;
 
-Exif::SearchDialog::SearchDialog(QWidget *parent)
+Exif::SearchDialog::SearchDialog(const Database *exifDB, QWidget *parent)
     : KPageDialog(parent)
+    , m_exifDB(exifDB)
 {
     setWindowTitle(i18nc("@title:window", "Exif Search"));
     setFaceType(Tabbed);
@@ -318,7 +319,7 @@ QWidget *Exif::SearchDialog::makeSaturation(QWidget *parent)
 
 Exif::SearchInfo Exif::SearchDialog::info()
 {
-    Exif::SearchInfo result;
+    Exif::SearchInfo result(m_exifDB);
     result.addSearchKey(QString::fromLatin1("Exif_Photo_MeteringMode"), m_meteringMode.selected());
     result.addSearchKey(QString::fromLatin1("Exif_Photo_ExposureProgram"), m_exposureProgram.selected());
     result.addSearchKey(QString::fromLatin1("Exif_Image_Orientation"), m_orientation.selected());
@@ -348,7 +349,7 @@ QWidget *Exif::SearchDialog::makeCamera()
     view->setWidget(w);
     QVBoxLayout *layout = new QVBoxLayout(w);
 
-    QList<QPair<QString, QString>> cameras = Exif::Database::instance()->cameras();
+    QList<QPair<QString, QString>> cameras = m_exifDB->cameras();
     std::sort(cameras.begin(), cameras.end());
 
     for (QList<QPair<QString, QString>>::ConstIterator cameraIt = cameras.constBegin(); cameraIt != cameras.constEnd(); ++cameraIt) {
@@ -374,7 +375,7 @@ QWidget *Exif::SearchDialog::makeLens()
     view->setWidget(w);
     QVBoxLayout *layout = new QVBoxLayout(w);
 
-    QList<QString> lenses = Exif::Database::instance()->lenses();
+    QList<QString> lenses = m_exifDB->lenses();
     std::sort(lenses.begin(), lenses.end());
 
     if (lenses.isEmpty()) {
@@ -391,7 +392,7 @@ QWidget *Exif::SearchDialog::makeLens()
         }
     }
 
-    if (Exif::Database::instance()->DBFileVersionGuaranteed() < 3) {
+    if (m_exifDB->DBFileVersionGuaranteed() < 3) {
         QLabel *label = new QLabel(
             i18n("Not all images in the database have lens information. "
                  "<note>Recreate the Exif search database to ensure lens data for all images.</note>"));

@@ -13,6 +13,10 @@
 #include <QSqlDatabase>
 #include <QString>
 
+namespace DB
+{
+class UIDelegate;
+}
 namespace Exiv2
 {
 class ExifData;
@@ -42,8 +46,9 @@ public:
     typedef QString Lens;
     typedef QList<Lens> LensList;
 
-    static Database *instance();
-    static void deleteInstance();
+    Database(DB::UIDelegate &uiDelegate);
+    ~Database();
+
     static bool isAvailable();
     /**
      * @brief DBVersion is the exif search database schema version currently supported by KPhotoAlbum.
@@ -144,15 +149,13 @@ private:
     bool m_isOpen;
     bool m_doUTF8Conversion;
     mutable bool m_isFailed;
-    Database();
-    ~Database();
     void init();
     QSqlQuery *getInsertQuery();
     void concludeInsertQuery(QSqlQuery *);
-    static Database *s_instance;
     QString m_queryString;
     QSqlDatabase m_db;
     QSqlQuery *m_insertTransaction;
+    DB::UIDelegate &m_ui;
 };
 }
 

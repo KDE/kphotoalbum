@@ -194,7 +194,7 @@ void XMLDB::Database::deleteList(const DB::FileNameList &list)
         m_imageCache.remove(imageInfo->fileName().absolute());
         m_images.remove(imageInfo);
     }
-    Exif::Database::instance()->remove(list);
+    exifDB()->remove(list);
     emit totalChanged(m_images.count());
     emit imagesDeleted(list);
     emit dirty();

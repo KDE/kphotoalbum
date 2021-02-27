@@ -10,6 +10,7 @@
 
 #include <MainWindow/Window.h>
 #include <kpabase/SettingsData.h>
+#include <kpabase/UIDelegate.h>
 
 #include <KLocalizedString>
 #include <QApplication>
@@ -80,8 +81,6 @@ const Database::ElementList elements(int since = 0)
 }
 }
 
-Exif::Database *Exif::Database::s_instance = nullptr;
-
 /**
  * @brief show and error message for the failed \p query and disable the Exif database.
  * The database is closed because at this point we can not trust the data inside.
@@ -112,11 +111,13 @@ void Database::showErrorAndFail(const QString &errorMessage, const QString &tech
     m_isFailed = true;
 }
 
-Exif::Database::Database()
+Exif::Database::Database(DB::UIDelegate &uiDelegate)
     : m_isOpen(false)
     , m_isFailed(false)
+    , m_ui(uiDelegate)
 {
     m_db = QSqlDatabase::addDatabase(QString::fromLatin1("QSQLITE"), QString::fromLatin1("exif"));
+    init();
 }
 
 void Exif::Database::openDatabase()
@@ -398,23 +399,6 @@ bool Exif::Database::insert(const QList<DBExifInfo> map)
     }
     concludeInsertQuery(query);
     return true;
-}
-
-Exif::Database *Exif::Database::instance()
-{
-    if (!s_instance) {
-        qCInfo(ExifLog) << "initializing Exif database...";
-        s_instance = new Exif::Database();
-        s_instance->init();
-    }
-
-    return s_instance;
-}
-
-void Exif::Database::deleteInstance()
-{
-    delete s_instance;
-    s_instance = nullptr;
 }
 
 bool Exif::Database::isAvailable()

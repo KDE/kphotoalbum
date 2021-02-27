@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "Database.h"
 
@@ -356,9 +356,9 @@ bool XMLDB::Database::isBlocking(const DB::FileName &fileName)
     return m_blockList.contains(fileName);
 }
 
-DB::FileNameList XMLDB::Database::files() const
+DB::FileNameList XMLDB::Database::files(DB::MediaType type) const
 {
-    return m_images.files();
+    return m_images.files(type);
 }
 
 DB::ImageInfoList XMLDB::Database::images() const

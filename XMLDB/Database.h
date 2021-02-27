@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef XMLDB_DATABASE_H
 #define XMLDB_DATABASE_H
@@ -40,7 +40,7 @@ public:
     void renameCategory(const QString &oldName, const QString newName) override;
 
     QMap<QString, DB::CountWithRange> classify(const DB::ImageSearchInfo &info, const QString &category, DB::MediaType typemask, DB::ClassificationMode mode) override;
-    DB::FileNameList files() const override;
+    DB::FileNameList files(DB::MediaType type) const override;
     DB::ImageInfoList images() const override;
     void addImages(const DB::ImageInfoList &files, bool doUpdate) override;
     void commitDelayedImages() override;

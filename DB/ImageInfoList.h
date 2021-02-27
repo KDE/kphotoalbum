@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef IMAGEINFOLIST_H
 #define IMAGEINFOLIST_H
 #include "ImageInfo.h"
@@ -23,7 +24,7 @@ public:
     bool isSorted();
     void mergeIn(ImageInfoList list);
     void remove(const ImageInfoPtr &info);
-    DB::FileNameList files() const;
+    DB::FileNameList files(MediaType type = anyMediaType) const;
 };
 
 typedef QList<ImageInfoPtr>::Iterator ImageInfoListIterator;

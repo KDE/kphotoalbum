@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef IMAGEDB_H
 #define IMAGEDB_H
@@ -81,7 +81,7 @@ public:
      * @return a mapping of sub-category (tags/tag-groups) to the number of images (and the associated date range)
      */
     virtual QMap<QString, CountWithRange> classify(const ImageSearchInfo &info, const QString &category, MediaType typemask, ClassificationMode mode = ClassificationMode::FullCount) = 0;
-    virtual FileNameList files() const = 0;
+    virtual FileNameList files(MediaType type = anyMediaType) const = 0;
     virtual ImageInfoList images() const = 0;
     /**
      * @brief addImages to the database.

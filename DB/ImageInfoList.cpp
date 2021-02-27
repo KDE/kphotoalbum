@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "ImageInfoList.h"
 
 #include "ImageInfo.h"
@@ -155,11 +156,14 @@ void ImageInfoList::remove(const ImageInfoPtr &info)
     }
 }
 
-DB::FileNameList ImageInfoList::files() const
+DB::FileNameList ImageInfoList::files(DB::MediaType type) const
 {
     DB::FileNameList res;
-    for (const ImageInfoPtr &info : *this)
-        res.append(info->fileName());
+    for (const ImageInfoPtr &info : *this) {
+        if (info->mediaType() & type) {
+            res.append(info->fileName());
+        }
+    }
     return res;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

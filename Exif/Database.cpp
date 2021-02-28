@@ -8,7 +8,6 @@
 #include "DatabaseElement.h"
 #include "Logging.h"
 
-#include <MainWindow/Window.h>
 #include <kpabase/SettingsData.h>
 #include <kpabase/UIDelegate.h>
 
@@ -103,10 +102,8 @@ void Database::showErrorAndFail(QSqlQuery &query) const
 
 void Database::showErrorAndFail(const QString &errorMessage, const QString &technicalInfo) const
 {
-    KMessageBox::information(MainWindow::Window::theMainWindow(), errorMessage, i18n("Error in Exif database"), QString::fromLatin1("sql_error_in_exif_DB"));
-
-    qCWarning(ExifLog) << technicalInfo;
-
+    // FIXME(jzarl) add a log parameter to UIDelegate to prevent everything from going to the same log
+    m_ui.information(technicalInfo, errorMessage, i18n("Error in Exif database"), QString::fromLatin1("sql_error_in_exif_DB"));
     // disable exif db for now:
     m_isFailed = true;
 }

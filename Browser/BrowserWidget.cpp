@@ -299,7 +299,6 @@ void Browser::BrowserWidget::switchToViewType(DB::Category::ViewType type)
 {
     if (m_curView) {
         m_curView->setModel(nullptr);
-        disconnect(m_curView, &QAbstractItemView::clicked, this, &BrowserWidget::itemClicked);
         disconnect(m_curView, &QAbstractItemView::activated, this, &BrowserWidget::itemClicked);
     }
 
@@ -321,9 +320,6 @@ void Browser::BrowserWidget::switchToViewType(DB::Category::ViewType type)
 
     // Hook up the new view
     m_curView->setModel(m_filterProxy);
-    // we connect the clicked() signal to force single-click behaviour with all platform settings
-    // activated is still needed, though, because it also handles keyboard selection
-    connect(m_curView, &QAbstractItemView::clicked, this, &BrowserWidget::itemClicked);
     connect(m_curView, &QAbstractItemView::activated, this, &BrowserWidget::itemClicked);
 
     m_stack->setCurrentWidget(m_curView);

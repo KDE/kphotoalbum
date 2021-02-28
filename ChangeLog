@@ -16,6 +16,8 @@
 
 * Change: Start maximized on first startup
 
+* Change: Click behavior for overview page now honors system-preference for double- or single-click
+
 ====================== KPhotoalbum 5.7.0 released (08.08.2020) ======================
 
 * Code cleanup:

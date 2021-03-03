@@ -5,6 +5,7 @@
 #include "Logging.h"
 
 // only enable warning messages by default
+Q_LOGGING_CATEGORY(BaseLog, "kphotoalbum", QtWarningMsg)
 Q_LOGGING_CATEGORY(DBLog, "kphotoalbum.DB", QtWarningMsg)
 Q_LOGGING_CATEGORY(DBCategoryMatcherLog, "kphotoalbum.DB.CategoryMatcher", QtWarningMsg)
 Q_LOGGING_CATEGORY(DBFileOpsLog, "kphotoalbum.DB.FileOperations", QtWarningMsg)

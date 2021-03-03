@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "FileWriter.h"
 
 #include "CompressFileInfo.h"
@@ -56,9 +57,9 @@ void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
     QFile out(fileName + QStringLiteral(".tmp"));
     if (!out.open(QIODevice::WriteOnly | QIODevice::Text)) {
         m_db->uiDelegate().sorry(
-            QStringLiteral("Error saving to file '%1': %2").arg(out.fileName()).arg(out.errorString()), i18n("<p>Could not save the image database to XML.</p>"
-                                                                                                             "File %1 could not be opened because of the following error: %2",
-                                                                                                             out.fileName(), out.errorString()),
+            DB::LogMessage { XMLDBLog(), QStringLiteral("Error saving to file '%1': %2").arg(out.fileName()).arg(out.errorString()) }, i18n("<p>Could not save the image database to XML.</p>"
+                                                                                                                                            "File %1 could not be opened because of the following error: %2",
+                                                                                                                                            out.fileName(), out.errorString()),
             i18n("Error while saving..."));
         return;
     }
@@ -88,18 +89,18 @@ void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
     // original file can be safely deleted
     if ((!QFile::remove(fileName)) && QFile::exists(fileName)) {
         m_db->uiDelegate().sorry(
-            QStringLiteral("Removal of file '%1' failed.").arg(fileName), i18n("<p>Failed to remove old version of image database.</p>"
-                                                                               "<p>Please try again or replace the file %1 with file %2 manually!</p>",
-                                                                               fileName, out.fileName()),
+            DB::LogMessage { XMLDBLog(), QStringLiteral("Removal of file '%1' failed.").arg(fileName) }, i18n("<p>Failed to remove old version of image database.</p>"
+                                                                                                              "<p>Please try again or replace the file %1 with file %2 manually!</p>",
+                                                                                                              fileName, out.fileName()),
             i18n("Error while saving..."));
         return;
     }
     // State: index.xml doesn't exist, index.xml.tmp has the current version.
     if (!out.rename(fileName)) {
         m_db->uiDelegate().sorry(
-            QStringLiteral("Renaming index.xml to '%1' failed.").arg(out.fileName()), i18n("<p>Failed to move temporary XML file to permanent location.</p>"
-                                                                                           "<p>Please try again or rename file %1 to %2 manually!</p>",
-                                                                                           out.fileName(), fileName),
+            DB::LogMessage { XMLDBLog(), QStringLiteral("Renaming index.xml to '%1' failed.").arg(out.fileName()) }, i18n("<p>Failed to move temporary XML file to permanent location.</p>"
+                                                                                                                          "<p>Please try again or rename file %1 to %2 manually!</p>",
+                                                                                                                          out.fileName(), fileName),
             i18n("Error while saving..."));
         // State: index.xml.tmp has the current version.
         return;

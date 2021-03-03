@@ -44,9 +44,10 @@ void checkForBackupFile(const QString &fileName, DB::UIDelegate &ui)
 
     const long backupSizeKB = backUpFile.size() >> 10;
     const DB::UserFeedback choice = ui.questionYesNo(
-        QString::fromUtf8("Autosave file found: '%1', %2KB.").arg(backupName).arg(backupSizeKB), i18n("Autosave file '%1' exists (size %3 KB) and is newer than '%2'. "
-                                                                                                      "Should the autosave file be used?",
-                                                                                                      backupName, fileName, backupSizeKB),
+        DB::LogMessage { XMLDBLog(), QString::fromUtf8("Autosave file found: '%1', %2KB.").arg(backupName).arg(backupSizeKB) },
+        i18n("Autosave file '%1' exists (size %3 KB) and is newer than '%2'. "
+             "Should the autosave file be used?",
+             backupName, fileName, backupSizeKB),
         i18n("Found Autosave File"));
 
     if (choice == DB::UserFeedback::Confirm) {

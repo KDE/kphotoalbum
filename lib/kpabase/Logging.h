@@ -7,6 +7,7 @@
 
 #include <QLoggingCategory>
 
+Q_DECLARE_LOGGING_CATEGORY(BaseLog)
 Q_DECLARE_LOGGING_CATEGORY(DBLog)
 Q_DECLARE_LOGGING_CATEGORY(DBCategoryMatcherLog)
 // log for file loading operations (i.e. by nature very noisy):

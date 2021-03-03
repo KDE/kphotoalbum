@@ -102,8 +102,7 @@ void Database::showErrorAndFail(QSqlQuery &query) const
 
 void Database::showErrorAndFail(const QString &errorMessage, const QString &technicalInfo) const
 {
-    // FIXME(jzarl) add a log parameter to UIDelegate to prevent everything from going to the same log
-    m_ui.information(technicalInfo, errorMessage, i18n("Error in Exif database"), QString::fromLatin1("sql_error_in_exif_DB"));
+    m_ui.information(DB::LogMessage { ExifLog(), technicalInfo }, errorMessage, i18n("Error in Exif database"), QString::fromLatin1("sql_error_in_exif_DB"));
     // disable exif db for now:
     m_isFailed = true;
 }

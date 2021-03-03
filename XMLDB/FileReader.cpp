@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 // Local includes
 #include "FileReader.h"
@@ -41,9 +41,10 @@ void XMLDB::FileReader::read(const QString &configFile)
 
     if (m_fileVersion > Database::fileVersion()) {
         DB::UserFeedback ret = m_db->uiDelegate().warningContinueCancel(
-            QString::fromLatin1("index.xml version %1 is newer than %2!").arg(m_fileVersion).arg(Database::fileVersion()), i18n("<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</p>"
-                                                                                                                                "<p>Chances are you will be able to read this file, but when writing it back, "
-                                                                                                                                "information saved in the newer version will be lost</p>"),
+            DB::LogMessage { XMLDBLog(), QString::fromLatin1("index.xml version %1 is newer than %2!").arg(m_fileVersion).arg(Database::fileVersion()) },
+            i18n("<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</p>"
+                 "<p>Chances are you will be able to read this file, but when writing it back, "
+                 "information saved in the newer version will be lost</p>"),
             i18n("index.xml version mismatch"), QString::fromLatin1("checkDatabaseFileVersion"));
         if (ret != DB::UserFeedback::Confirm)
             exit(-1);
@@ -166,10 +167,11 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
             bool repairMode = false;
             if (cat) {
                 DB::UserFeedback choice = m_db->uiDelegate().warningContinueCancel(
-                    QString::fromUtf8("Line %1, column %2: duplicate category '%3'")
-                        .arg(reader->lineNumber())
-                        .arg(reader->columnNumber())
-                        .arg(categoryName),
+                    DB::LogMessage { XMLDBLog(),
+                                     QString::fromUtf8("Line %1, column %2: duplicate category '%3'")
+                                         .arg(reader->lineNumber())
+                                         .arg(reader->columnNumber())
+                                         .arg(categoryName) },
                     i18n("<p>Line %1, column %2: duplicate category '%3'</p>"
                          "<p>Choose continue to ignore the duplicate category and try an automatic repair, "
                          "or choose cancel to quit.</p>",
@@ -225,8 +227,8 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
 
     if (m_fileVersion < 7) {
         m_db->uiDelegate().information(
-            QString::fromLatin1("Standard category names are no longer used since index.xml "
-                                "version 7. Standard categories will be left untranslated from now on."),
+            DB::LogMessage { XMLDBLog(), QString::fromLatin1("Standard category names are no longer used since index.xml "
+                                                             "version 7. Standard categories will be left untranslated from now on.") },
             i18nc("Leave \"Folder\" and \"Media Type\" untranslated below, those will show up with "
                   "these exact names. Thanks :-)",
                   "<p><b>This version of KPhotoAlbum does not translate \"standard\" categories "
@@ -268,8 +270,7 @@ void XMLDB::FileReader::loadImages(ReaderPtr reader)
                 existingInfo->merge(*info);
             } else {
                 m_db->uiDelegate().error(
-                    QString::fromUtf8("Conflicting information for file '%1': duplicate entry with different MD5 sum! Bailing out...")
-                        .arg(dbFileName.relative()),
+                    DB::LogMessage { XMLDBLog(), QString::fromUtf8("Conflicting information for file '%1': duplicate entry with different MD5 sum! Bailing out...").arg(dbFileName.relative()) },
                     i18n("<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum.</p>"
                          "<p>Manual repair required!</p>",
                          reader->lineNumber(),
@@ -392,15 +393,17 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
 
     if (wrongOrder) {
         m_db->uiDelegate().information(
-            QString::fromLatin1("Database is not sorted by date."), i18n("<p>Your images/videos are not sorted, which means that navigating using the date bar "
-                                                                         "will only work suboptimally.</p>"
-                                                                         "<p>In the <b>Maintenance</b> menu, you can find <b>Display Images with Incomplete Dates</b> "
-                                                                         "which you can use to find the images that are missing date information.</p>"
-                                                                         "<p>You can then select the images that you have reason to believe have a correct date "
-                                                                         "in either their Exif data or on the file, and execute <b>Maintenance->Read Exif Info</b> "
-                                                                         "to reread the information.</p>"
-                                                                         "<p>Finally, once all images have their dates set, you can execute "
-                                                                         "<b>Maintenance->Sort All by Date & Time</b> to sort them in the database. </p>"),
+            DB::LogMessage { XMLDBLog(),
+                             QString::fromLatin1("Database is not sorted by date.") },
+            i18n("<p>Your images/videos are not sorted, which means that navigating using the date bar "
+                 "will only work suboptimally.</p>"
+                 "<p>In the <b>Maintenance</b> menu, you can find <b>Display Images with Incomplete Dates</b> "
+                 "which you can use to find the images that are missing date information.</p>"
+                 "<p>You can then select the images that you have reason to believe have a correct date "
+                 "in either their Exif data or on the file, and execute <b>Maintenance->Read Exif Info</b> "
+                 "to reread the information.</p>"
+                 "<p>Finally, once all images have their dates set, you can execute "
+                 "<b>Maintenance->Sort All by Date & Time</b> to sort them in the database. </p>"),
             i18n("Images/Videos Are Not Sorted"), QString::fromLatin1("checkWhetherImagesAreSorted"));
     }
 }
@@ -412,11 +415,12 @@ void XMLDB::FileReader::checkIfAllImagesHaveSizeAttributes()
 
     if (m_db->s_anyImageWithEmptySize) {
         m_db->uiDelegate().information(
-            QString::fromLatin1("Found image(s) without size information."), i18n("<p>Not all the images in the database have information about image sizes; this is needed to "
-                                                                                  "get the best result in the thumbnail view. To fix this, simply go to the <b>Maintenance</b> menu, "
-                                                                                  "and first choose <b>Remove All Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</p>"
-                                                                                  "<p>Not doing so will result in extra space around images in the thumbnail view - that is all - so "
-                                                                                  "there is no urgency in doing it.</p>"),
+            DB::LogMessage { XMLDBLog(), QString::fromLatin1("Found image(s) without size information.") },
+            i18n("<p>Not all the images in the database have information about image sizes; this is needed to "
+                 "get the best result in the thumbnail view. To fix this, simply go to the <b>Maintenance</b> menu, "
+                 "and first choose <b>Remove All Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</p>"
+                 "<p>Not doing so will result in extra space around images in the thumbnail view - that is all - so "
+                 "there is no urgency in doing it.</p>"),
             i18n("Not All Images Have Size Information"), QString::fromLatin1("checkWhetherAllImagesIncludesSize"));
     }
 }
@@ -456,7 +460,7 @@ void XMLDB::FileReader::repairDB()
                          "<p>All affected images have also been marked with a tag "
                          "<em>KPhotoAlbum - manual repair needed</em>.</p>");
         if (manualRepairNeeded) {
-            m_db->uiDelegate().information(logSummary, message, i18n("Database repair required"));
+            m_db->uiDelegate().information(DB::LogMessage { XMLDBLog(), logSummary }, message, i18n("Database repair required"));
         }
     }
 }
@@ -478,14 +482,15 @@ XMLDB::ReaderPtr XMLDB::FileReader::readConfigFile(const QString &configFile)
         QFile file(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("default-setup")));
         if (!file.open(QIODevice::ReadOnly)) {
             m_db->uiDelegate().information(
-                QString::fromLatin1("default-setup not found in standard paths."), i18n("<p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"
-                                                                                        "<p>If you have installed KPhotoAlbum yourself, then you must remember to set the environment variable "
-                                                                                        "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
-                                                                                        "<p>If you for example ran cmake with <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must use the following "
-                                                                                        "environment variable setup (this example is for Bash and compatible shells):</p>"
-                                                                                        "<p><b>export KDEDIRS=/usr/local/kde</b></p>"
-                                                                                        "<p>In case you already have KDEDIRS set, simply append the string as if you where setting the <b>PATH</b> "
-                                                                                        "environment variable</p>"),
+                DB::LogMessage { XMLDBLog(), QString::fromLatin1("default-setup not found in standard paths.") },
+                i18n("<p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"
+                     "<p>If you have installed KPhotoAlbum yourself, then you must remember to set the environment variable "
+                     "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
+                     "<p>If you for example ran cmake with <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must use the following "
+                     "environment variable setup (this example is for Bash and compatible shells):</p>"
+                     "<p><b>export KDEDIRS=/usr/local/kde</b></p>"
+                     "<p>In case you already have KDEDIRS set, simply append the string as if you where setting the <b>PATH</b> "
+                     "environment variable</p>"),
                 i18n("No default setup file found"));
         } else {
             QTextStream stream(&file);
@@ -506,7 +511,8 @@ XMLDB::ReaderPtr XMLDB::FileReader::readConfigFile(const QString &configFile)
     } else {
         if (!file.open(QIODevice::ReadOnly)) {
             m_db->uiDelegate().error(
-                QString::fromLatin1("Unable to open '%1' for reading").arg(configFile), i18n("Unable to open '%1' for reading", configFile), i18n("Error Running Demo"));
+                DB::LogMessage { XMLDBLog(), QString::fromLatin1("Unable to open '%1' for reading").arg(configFile) },
+                i18n("Unable to open '%1' for reading", configFile), i18n("Error Running Demo"));
             exit(-1);
         }
 

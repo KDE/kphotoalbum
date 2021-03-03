@@ -5,6 +5,8 @@
 
 #include "SettingsData.h"
 
+#include "Logging.h"
+
 #include <KConfig>
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -226,7 +228,7 @@ bool SettingsData::trustTimeStamps()
                                      "however, not be valid in case the image is scanned in. "
                                      "So the question is, should KPhotoAlbum trust the time stamp on your images?");
             const QString logMsg = QString::fromUtf8("Trust timestamps for this session?");
-            auto answer = uiDelegate().questionYesNo(logMsg, txt, i18n("Trust Time Stamps?"));
+            auto answer = uiDelegate().questionYesNo(DB::LogMessage { BaseLog(), logMsg }, txt, i18n("Trust Time Stamps?"));
             if (answer == DB::UserFeedback::Confirm)
                 m_trustTimeStamps = true;
             else

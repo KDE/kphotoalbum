@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ViewerWidget.h"
 
@@ -177,6 +177,7 @@ void Viewer::ViewerWidget::setupContextMenu()
 void Viewer::ViewerWidget::createShowContextMenu()
 {
     VisibleOptionsMenu *menu = new VisibleOptionsMenu(this, m_actions);
+    menu->setDisabled(m_type == InlineViewer);
     connect(menu, &VisibleOptionsMenu::visibleOptionsChanged, this, &ViewerWidget::updateInfoBox);
     m_popup->addMenu(menu);
 }

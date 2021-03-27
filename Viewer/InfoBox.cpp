@@ -1,22 +1,9 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "InfoBox.h"
-
-// Qt includes
-#include <QApplication>
-#include <QBitmap>
-#include <QDesktopWidget>
-#include <QMouseEvent>
-#include <QScrollBar>
-#include <QToolButton>
-
-// KDE includes
-#include <KActionCollection>
-#include <KLocalizedString>
-#include <KRatingWidget>
 
 // Local includes
 #include <Browser/BrowserWidget.h>
@@ -27,6 +14,17 @@
 #include <Map/MapView.h>
 #endif
 #include "VisibleOptionsMenu.h"
+
+#include <KActionCollection>
+#include <KLocalizedString>
+#include <KRatingWidget>
+#include <QApplication>
+#include <QBitmap>
+#include <QDebug>
+#include <QDesktopWidget>
+#include <QMouseEvent>
+#include <QScrollBar>
+#include <QToolButton>
 
 using namespace Settings;
 

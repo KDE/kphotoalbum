@@ -14,6 +14,8 @@
 
 * Bugfix: Make splash screen text readable with dark themes
 
+* Bugfix: Fix crash in context menu of full-screen preview of annotation dialog
+
 * Change: Start maximized on first startup
 
 * Change: Click behavior for overview page now honors system-preference for double- or single-click

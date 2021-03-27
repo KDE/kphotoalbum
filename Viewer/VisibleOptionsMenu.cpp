@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "VisibleOptionsMenu.h"
 
 #include <DB/Category.h>
@@ -13,6 +14,7 @@
 #include <KLocalizedString>
 #include <KToggleAction>
 #include <QCheckBox>
+#include <QDebug>
 #include <QList>
 
 Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget *parent, KActionCollection *actions)
@@ -70,12 +72,12 @@ Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget *parent, KActionCollectio
     connect(m_showRating, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowRating);
     addAction(m_showRating);
 
-    QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
-    for (QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it) {
-        KToggleAction *taction = actions->add<KToggleAction>((*it)->name());
+    const QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
+    for (const auto &category : categories) {
+        KToggleAction *taction = actions->add<KToggleAction>(category->name());
         m_actionList.append(taction);
-        taction->setText((*it)->name());
-        taction->setData((*it)->name());
+        taction->setText(category->name());
+        taction->setData(category->name());
         addAction(taction);
         connect(taction, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowCategory);
     }
@@ -155,8 +157,10 @@ void Viewer::VisibleOptionsMenu::updateState()
     m_showImageSize->setChecked(Settings::SettingsData::instance()->showImageSize());
     m_showRating->setChecked(Settings::SettingsData::instance()->showRating());
 
+    const auto categoryCollection = DB::ImageDB::instance()->categoryCollection();
     for (KToggleAction *action : qAsConst(m_actionList)) {
-        action->setChecked(DB::ImageDB::instance()->categoryCollection()->categoryForName(action->data().value<QString>())->doShow());
+        const auto category = categoryCollection->categoryForName(action->data().value<QString>());
+        action->setChecked(category->doShow());
     }
 }
 

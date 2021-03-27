@@ -6,8 +6,8 @@
 #include "Database.h"
 
 #include "DatabaseElement.h"
-#include "Logging.h"
 
+#include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 #include <kpabase/UIDelegate.h>
 
@@ -22,7 +22,6 @@
 #include <QSqlQuery>
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
-#include <kmessagebox.h>
 
 using namespace Exif;
 

@@ -4,7 +4,7 @@
 */
 #include "DatabaseElement.h"
 
-#include "Logging.h"
+#include <kpabase/Logging.h>
 
 #include <QVariant>
 #include <exiv2/exif.hpp>

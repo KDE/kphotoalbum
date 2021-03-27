@@ -12,12 +12,12 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
-#include <Exif/Info.h>
 #include <ImageManager/AsyncLoader.h>
 #include <ImportExport/Export.h>
 #include <MainWindow/Window.h>
 #include <Utilities/FileUtil.h>
 #include <Utilities/VideoUtil.h>
+#include <kpaexif/Info.h>
 
 #include <KConfig>
 #include <KConfigGroup>

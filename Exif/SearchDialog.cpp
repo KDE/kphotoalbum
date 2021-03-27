@@ -5,7 +5,7 @@
 
 #include "SearchDialog.h"
 
-#include "Database.h"
+#include <kpaexif/Database.h>
 
 #include <KConfigGroup>
 #include <KLocalizedString>

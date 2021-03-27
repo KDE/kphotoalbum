@@ -10,11 +10,11 @@
 #include "WildcardCategoryMatcher.h"
 #include <kpabase/config-kpa-marble.h>
 
-#include <Exif/SearchInfo.h>
 #ifdef HAVE_MARBLE
 #include <Map/GeoCoordinates.h>
 #endif
 #include <kpabase/StringSet.h>
+#include <kpaexif/SearchInfo.h>
 
 #include <QList>
 #include <QMap>

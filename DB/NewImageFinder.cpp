@@ -13,7 +13,6 @@
 #include <BackgroundJobs/ReadVideoLengthJob.h>
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
 #include <BackgroundTaskManager/JobManager.h>
-#include <Exif/Database.h>
 #include <ImageManager/RawImageDecoder.h>
 #include <ImageManager/ThumbnailBuilder.h>
 #include <MainWindow/FeatureDialog.h>
@@ -23,6 +22,7 @@
 #include <kpabase/FileNameUtil.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
+#include <kpaexif/Database.h>
 #include <kpathumbnails/ThumbnailCache.h>
 
 #include <KLocalizedString>

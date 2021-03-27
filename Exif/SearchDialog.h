@@ -8,7 +8,8 @@
 
 #include "RangeWidget.h"
 #include "SearchDialogSettings.h"
-#include "SearchInfo.h"
+
+#include <kpaexif/SearchInfo.h>
 
 #include <KPageDialog>
 

@@ -10,12 +10,12 @@
 #include "ImageDB.h"
 #include "MemberMap.h"
 
-#include <Exif/Database.h>
-#include <Exif/DatabaseElement.h>
 #include <kpabase/FileNameUtil.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 #include <kpabase/StringSet.h>
+#include <kpaexif/Database.h>
+#include <kpaexif/DatabaseElement.h>
 
 #include <QFile>
 #include <QFileInfo>

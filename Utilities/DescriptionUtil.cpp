@@ -1,15 +1,15 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "DescriptionUtil.h"
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
-#include <Exif/Info.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
+#include <kpaexif/Info.h>
 
 #include <KLocalizedString>
 #include <QList>

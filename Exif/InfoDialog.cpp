@@ -6,7 +6,7 @@
 #include "InfoDialog.h"
 
 #include "Grid.h"
-#include "Info.h"
+#include <kpaexif/Info.h>
 
 #include <DB/ImageDB.h>
 #include <ImageManager/AsyncLoader.h>

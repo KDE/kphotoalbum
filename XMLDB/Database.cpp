@@ -16,12 +16,12 @@
 #include <DB/GroupCounter.h>
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
-#include <Exif/Database.h>
 #include <Utilities/VideoUtil.h>
 #include <kpabase/FileName.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 #include <kpabase/UIDelegate.h>
+#include <kpaexif/Database.h>
 
 #include <KLocalizedString>
 #include <QElapsedTimer>

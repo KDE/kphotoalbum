@@ -5,7 +5,7 @@
 
 #include "Info.h"
 
-#include "Logging.h"
+#include <kpabase/Logging.h>
 
 #include <kpabase/FileName.h>
 #include <kpabase/SettingsData.h>

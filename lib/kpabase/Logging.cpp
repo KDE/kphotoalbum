@@ -10,10 +10,9 @@ Q_LOGGING_CATEGORY(DBLog, "kphotoalbum.DB", QtWarningMsg)
 Q_LOGGING_CATEGORY(DBCategoryMatcherLog, "kphotoalbum.DB.CategoryMatcher", QtWarningMsg)
 Q_LOGGING_CATEGORY(DBFileOpsLog, "kphotoalbum.DB.FileOperations", QtWarningMsg)
 Q_LOGGING_CATEGORY(DBImageScoutLog, "kphotoalbum.DB.ImageScout", QtWarningMsg)
+Q_LOGGING_CATEGORY(ExifLog, "kphotoalbum.Exif", QtWarningMsg)
 // I'm calling this FastDirLog (and not DBFastDirLog) because FastDir is independent of the rest of DB
 Q_LOGGING_CATEGORY(FastDirLog, "kphotoalbum.FastDir", QtWarningMsg)
-
 Q_LOGGING_CATEGORY(ImageManagerLog, "kphotoalbum.ImageManager", QtWarningMsg)
-
 Q_LOGGING_CATEGORY(TimingLog, "kphotoalbum.timingInformation", QtWarningMsg)
 Q_LOGGING_CATEGORY(UtilitiesLog, "kphotoalbum.Utilities", QtWarningMsg)

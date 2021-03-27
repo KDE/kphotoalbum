@@ -5,7 +5,7 @@
 
 #include "ReReadDialog.h"
 
-#include "Database.h"
+#include <kpaexif/Database.h>
 
 #include <DB/ImageDB.h>
 #include <kpabase/SettingsData.h>

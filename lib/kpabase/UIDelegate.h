@@ -129,6 +129,64 @@ public:
     bool isDialogDisabled(const QString &) override { return false; }
 };
 
+/**
+ * @brief The AbstractProgressIndicator class provides a generic progress indicator interface.
+ * It is mostly designed as a UI-agnostic interface that allows a drop-in replacement for QProgressDialog.
+ */
+class AbstractProgressIndicator
+{
+public:
+    virtual int minimum() const = 0;
+    virtual void setMinimum(int min) = 0;
+    virtual int maximum() const = 0;
+    virtual void setMaximum(int max) = 0;
+    virtual int value() = 0;
+    virtual void setValue(int value) = 0;
+
+    /**
+     * @brief wasCanceled signals whether a cancellation of the action was requested.
+     * @return \c true, if the action shall be aborted, or \c false if it shall continue.
+     */
+    virtual bool wasCanceled() const = 0;
+
+protected:
+    virtual ~AbstractProgressIndicator() {};
+};
+
+template <class Super>
+class ProgressDialog : public DB::AbstractProgressIndicator, public Super
+{
+public:
+    int minimum() const override
+    {
+        return Super::minimum();
+    }
+    void setMinimum(int min) override
+    {
+        Super::setMinimum(min);
+    }
+    int maximum() const override
+    {
+        return Super::maximum();
+    }
+    void setMaximum(int max) override
+    {
+        Super::setMaximum(max);
+    }
+    int value() override
+    {
+        return Super::value();
+    }
+    void setValue(int value) override
+    {
+        Super::setValue(value);
+    }
+    bool wasCanceled() const override
+    {
+        return Super::wasCanceled();
+    }
+};
+
 } // namespace DB
 
 #endif // KPABASE_UIDELEGATE_H

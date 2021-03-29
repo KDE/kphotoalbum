@@ -584,7 +584,7 @@ void Exif::Database::recreate(const DB::FileNameList &allImageFiles)
     QDir().rename(exifDBFile(), origBackup);
     init();
 
-    QProgressDialog dialog;
+    DB::ProgressDialog<QProgressDialog> dialog;
     dialog.setModal(true);
     dialog.setLabelText(i18n("Rereading Exif information from all images"));
     dialog.setMaximum(allImageFiles.size());

@@ -110,6 +110,7 @@
 #include <QMoveEvent>
 #include <QObject>
 #include <QPixmapCache>
+#include <QProgressDialog>
 #include <QResizeEvent>
 #include <QStackedWidget>
 #include <QTimer>
@@ -1665,7 +1666,13 @@ void MainWindow::Window::setupStatusBar()
 
 void MainWindow::Window::slotRecreateExifDB()
 {
-    DB::ImageDB::instance()->exifDB()->recreate(DB::ImageDB::instance()->files(DB::MediaType::Image));
+    const auto allImageFiles = DB::ImageDB::instance()->files(DB::MediaType::Image);
+    DB::ProgressDialog<QProgressDialog> dialog;
+    dialog.setModal(true);
+    dialog.setLabelText(i18n("Rereading Exif information from all images"));
+    dialog.setMaximum(allImageFiles.size());
+
+    DB::ImageDB::instance()->exifDB()->recreate(allImageFiles, dialog);
 }
 
 void MainWindow::Window::useNextVideoThumbnail()

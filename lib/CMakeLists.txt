@@ -113,7 +113,6 @@ target_link_libraries(kpaexif
     KPA::Base
     Qt5::Core
     Qt5::Sql
-    Qt5::Widgets
     )
 
 install(TARGETS kpaexif ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

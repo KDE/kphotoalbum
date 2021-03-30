@@ -16,6 +16,7 @@
 namespace DB
 {
 class UIDelegate;
+class AbstractProgressIndicator;
 }
 namespace Exiv2
 {
@@ -123,10 +124,16 @@ public:
      *
      * Exiv2 seems to accept both image and movie files without ill effects
      * (but does not actually return any usable metadata).
-     * To be on the safe side though, I would still filter out non-image files as long as there is no official support for movie files in exiv2.
+     *
+     * Recreating the exif database can take a lot of time. To get a decent user experience in spite of that,
+     * the method updates the given AbstractProgressIndicator and calls QCoreApplication::processEvents()
+     * in regular intervals (if a QCoreApplication instance is available).
+     *
+     * To be on the safe side though, you should still filter out non-image files as long as there is no official support for movie files in exiv2.
      * @param allImageFiles a list of all image files
+     * @param progressIndicator for quick usage from a GUI application, use a DB::ProgressIndicator<QProgressDialog>
      */
-    void recreate(const DB::FileNameList &allImageFiles);
+    void recreate(const DB::FileNameList &allImageFiles, DB::AbstractProgressIndicator &progressIndicator);
     bool startInsertTransaction();
     bool commitInsertTransaction();
     bool abortInsertTransaction();

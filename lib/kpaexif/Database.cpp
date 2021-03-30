@@ -12,10 +12,9 @@
 #include <kpabase/UIDelegate.h>
 
 #include <KLocalizedString>
-#include <QApplication>
+#include <QCoreApplication>
 #include <QDir>
 #include <QFile>
-#include <QProgressDialog>
 #include <QSqlDatabase>
 #include <QSqlDriver>
 #include <QSqlError>
@@ -571,7 +570,7 @@ void Exif::Database::init()
         updateDatabase();
 }
 
-void Exif::Database::recreate(const DB::FileNameList &allImageFiles)
+void Exif::Database::recreate(const DB::FileNameList &allImageFiles, DB::AbstractProgressIndicator &progressIndicator)
 {
     // We create a backup of the current database in case
     // the user presse 'cancel' or there is any error. In that case
@@ -584,24 +583,23 @@ void Exif::Database::recreate(const DB::FileNameList &allImageFiles)
     QDir().rename(exifDBFile(), origBackup);
     init();
 
-    DB::ProgressDialog<QProgressDialog> dialog;
-    dialog.setModal(true);
-    dialog.setLabelText(i18n("Rereading Exif information from all images"));
-    dialog.setMaximum(allImageFiles.size());
     // using a transaction here removes a *huge* overhead on the insert statements
     startInsertTransaction();
     int i = 0;
     for (const auto &fileName : allImageFiles) {
-        dialog.setValue(i++);
+        progressIndicator.setValue(i++);
         add(fileName);
-        if (i % 10)
-            qApp->processEvents();
-        if (dialog.wasCanceled())
+        if (i % 10) {
+            auto app = QCoreApplication::instance();
+            if (app)
+                app->processEvents();
+        }
+        if (progressIndicator.wasCanceled())
             break;
     }
 
     // PENDING(blackie) We should count the amount of files that did not succeeded and warn the user.
-    if (dialog.wasCanceled()) {
+    if (progressIndicator.wasCanceled()) {
         abortInsertTransaction();
         m_db.close();
         QDir().remove(exifDBFile());

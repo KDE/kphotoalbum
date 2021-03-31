@@ -108,11 +108,11 @@ endif()
 
 target_link_libraries(kpaexif
     PRIVATE
+    Qt5::Sql
     PUBLIC
     ${EXIV2_LIBRARIES}
     KPA::Base
     Qt5::Core
-    Qt5::Sql
     )
 
 install(TARGETS kpaexif ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

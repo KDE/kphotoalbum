@@ -10,7 +10,6 @@
 
 #include <QList>
 #include <QPair>
-#include <QSqlDatabase>
 #include <QString>
 
 namespace DB
@@ -39,7 +38,6 @@ class DatabaseElement;
 // support is not available ( !isAvailable() ). This is to simplify client code.
 class Database
 {
-
 public:
     typedef QList<DatabaseElement *> ElementList;
     typedef QPair<QString, QString> Camera;
@@ -48,7 +46,10 @@ public:
     typedef QList<Lens> LensList;
 
     Database(DB::UIDelegate &uiDelegate);
+    Database(const Database &) = delete;
     ~Database();
+
+    Database &operator=(const Database &) = delete;
 
     static bool isAvailable();
     /**
@@ -138,31 +139,10 @@ public:
     bool commitInsertTransaction();
     bool abortInsertTransaction();
 
-protected:
-    enum DBSchemaChangeType { SchemaChanged,
-                              SchemaAndDataChanged };
-    static QString exifDBFile();
-    void openDatabase();
-    void populateDatabase();
-    void updateDatabase();
-    void createMetadataTable(DBSchemaChangeType change);
-    static QString connectionName();
-    bool insert(const DB::FileName &filename, Exiv2::ExifData);
-    bool insert(const QList<DBExifInfo>);
-
 private:
-    void showErrorAndFail(QSqlQuery &query) const;
-    void showErrorAndFail(const QString &errorMessage, const QString &technicalInfo) const;
-    bool m_isOpen;
-    bool m_doUTF8Conversion;
-    mutable bool m_isFailed;
-    void init();
-    QSqlQuery *getInsertQuery();
-    void concludeInsertQuery(QSqlQuery *);
-    QString m_queryString;
-    QSqlDatabase m_db;
-    QSqlQuery *m_insertTransaction;
-    DB::UIDelegate &m_ui;
+    class DatabasePrivate;
+    DatabasePrivate *d_ptr;
+    Q_DECLARE_PRIVATE(Database)
 };
 }
 

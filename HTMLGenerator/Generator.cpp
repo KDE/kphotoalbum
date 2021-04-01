@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "Generator.h"
 
@@ -12,12 +12,12 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
-#include <Exif/Info.h>
 #include <ImageManager/AsyncLoader.h>
 #include <ImportExport/Export.h>
 #include <MainWindow/Window.h>
 #include <Utilities/FileUtil.h>
 #include <Utilities/VideoUtil.h>
+#include <kpaexif/Info.h>
 
 #include <KConfig>
 #include <KConfigGroup>
@@ -716,7 +716,8 @@ void HTMLGenerator::Generator::pixmapLoaded(ImageManager::ImageRequest *request,
 
     if (!Utilities::isVideo(fileName)) {
         try {
-            Exif::Info::instance()->writeInfoToFile(fileName, file);
+            auto imageInfo = DB::ImageDB::instance()->info(fileName);
+            Exif::writeExifInfoToFile(fileName, file, imageInfo->description());
         } catch (...) {
         }
     }

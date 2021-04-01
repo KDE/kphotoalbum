@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef EXIF_INFO_H
 #define EXIF_INFO_H
 #include <kpabase/StringSet.h>
@@ -37,7 +38,6 @@ public:
     QMap<QString, QStringList> infoForDialog(const DB::FileName &fileName, const QString &charset);
     StringSet availableKeys();
     StringSet standardKeys();
-    void writeInfoToFile(const DB::FileName &srcName, const QString &destName);
     Metadata metadata(const DB::FileName &fileName);
 
 protected:
@@ -47,6 +47,15 @@ private:
     static Info *s_instance;
     StringSet m_keys;
 };
+
+/**
+     * @brief Writes the exif information from one file to another.
+     * The given description is overwrites the exif description field of the destination file.
+     * @param srcName the image file in the database
+     * @param destName the destination image file
+     * @param imageDescription the image description text (usually DB::ImageInfo::description())
+     */
+void writeExifInfoToFile(const DB::FileName &srcName, const QString &destName, const QString &imageDescription);
 
 }
 

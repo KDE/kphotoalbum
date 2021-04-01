@@ -1,13 +1,15 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef EXIFSEARCHDIALOG_H
 #define EXIFSEARCHDIALOG_H
 
 #include "RangeWidget.h"
 #include "SearchDialogSettings.h"
-#include "SearchInfo.h"
+
+#include <kpaexif/SearchInfo.h>
 
 #include <KPageDialog>
 
@@ -22,7 +24,7 @@ class SearchDialog : public KPageDialog
     Q_OBJECT
 
 public:
-    explicit SearchDialog(QWidget *parent);
+    explicit SearchDialog(const Database *exifDB, QWidget *parent);
     Exif::SearchInfo info();
 
 protected:
@@ -43,6 +45,7 @@ protected slots:
     void toFocalLengthChanged(int);
 
 private:
+    const Exif::Database *m_exifDB;
     Exif::RangeWidget *m_iso;
     Exif::RangeWidget *m_exposureTime;
     Exif::RangeWidget *m_fNumber;

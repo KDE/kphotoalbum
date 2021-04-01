@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ImageInfo.h"
 
@@ -10,12 +10,12 @@
 #include "ImageDB.h"
 #include "MemberMap.h"
 
-#include <Exif/Database.h>
-#include <Exif/DatabaseElement.h>
 #include <kpabase/FileNameUtil.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 #include <kpabase/StringSet.h>
+#include <kpaexif/Database.h>
+#include <kpaexif/DatabaseElement.h>
 
 #include <QFile>
 #include <QFileInfo>
@@ -435,7 +435,7 @@ void ImageInfo::readExif(const DB::FileName &fullPath, DB::ExifMode mode)
 
     // Database update
     if (mode & EXIFMODE_DATABASE_UPDATE) {
-        Exif::Database::instance()->add(exifInfo);
+        DB::ImageDB::instance()->exifDB()->add(exifInfo.getFileName(), exifInfo.getExifData());
 #ifdef HAVE_MARBLE
         // GPS coords might have changed...
         m_coordsIsSet = false;
@@ -760,17 +760,18 @@ Map::GeoCoordinates DB::ImageInfo::coordinates() const
     }
 
     // read field values from database:
-    bool foundIt = Exif::Database::instance()->readFields(m_fileName, fields);
+    bool foundIt = DB::ImageDB::instance()->exifDB()->readFields(m_fileName, fields);
 
     // if the Database query result doesn't contain exif GPS info (-> upgraded exifdb from DBVersion < 2), it is null
     // if the result is int 0, then there's no exif gps information in the image
     // otherwise we can proceed to parse the information
     if (foundIt && fields[EXIF_GPS_VERSIONID]->value().isNull()) {
+        auto exifDB = DB::ImageDB::instance()->exifDB();
         // update exif DB and repeat the search:
-        Exif::Database::instance()->remove(fileName());
-        Exif::Database::instance()->add(fileName());
+        exifDB->remove(fileName());
+        exifDB->add(fileName());
 
-        Exif::Database::instance()->readFields(m_fileName, fields);
+        exifDB->readFields(m_fileName, fields);
         Q_ASSERT(!fields[EXIF_GPS_VERSIONID]->value().isNull());
     }
 

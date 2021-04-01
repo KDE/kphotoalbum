@@ -67,18 +67,6 @@ if(JPEG_FOUND)
     include_directories("${JPEG_INCLUDE_DIR}")
 endif()
 
-### 2018-12-30 jzarl
-# When Exiv2 0.26 can be deprecated, FindExiv2.cmake should be removed
-# and only find_package(exiv2) should be used
-find_package(exiv2 CONFIG QUIET)
-if(exiv2_FOUND)
-    # search againg with REQUIRED, so that the feature summary correctly shows exiv as required dependency
-    find_package(exiv2 CONFIG REQUIRED)
-    set(EXIV2_LIBRARIES exiv2lib)
-else()
-    find_package(Exiv2 REQUIRED)
-endif()
-
 find_package(KF5Purpose)
 set_package_properties(KF5Purpose
     PROPERTIES
@@ -376,17 +364,12 @@ set(libBrowser_SRCS
 
 set(libExif_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Exif/documentation.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Exif/Database.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Exif/InfoDialog.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Exif/SearchDialog.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Exif/SearchInfo.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Exif/TreeView.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Exif/Info.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Exif/RangeWidget.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Exif/DatabaseElement.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Exif/ReReadDialog.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Exif/Grid.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Exif/Logging.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Exif/SearchDialogSettings.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/ExifPage.cpp"
     )
@@ -490,8 +473,8 @@ target_link_libraries(kphotoalbum
     PRIVATE
     KPA::Base
     KPA::Thumbnails
+    KPA::Exif
     ${JPEG_LIBRARY}
-    ${EXIV2_LIBRARIES}
     KF5::Archive
     KF5::Completion
     KF5::ConfigCore
@@ -507,7 +490,6 @@ target_link_libraries(kphotoalbum
     KF5::WidgetsAddons
     Phonon::phonon4qt5
     ${libRemoteControl_LIBS}
-    Qt5::Sql
     )
 
 if(KF5Purpose_FOUND)

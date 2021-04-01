@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: 2019 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 # SPDX-License-Identifier: BSD-2-Clause
 ###
-# Check for untracked C++ source files.
+# Check for untracked C++ source files and cmake files.
 ###
 
 set -e
@@ -17,7 +17,7 @@ then
 fi
 
 retval=0
-untracked_files=$(git status -s | grep '^?? ' | grep '\.\(cpp\|h\)' | sed 's/^.../   /')
+untracked_files=$(git status -s | grep '^?? ' | grep '\(CMakeLists.txt\)\|\(\.cmake\)\|\(\.cpp\)\|\(\.h\)' | sed 's/^.../   /')
 if [[ -n "$untracked_files" ]]
 then
 	printf "Untracked files:\n$untracked_files\n"

@@ -82,4 +82,42 @@ install(TARGETS kpathumbnails ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 # unit tests:
 add_subdirectory(kpathumbnails)
 
+################################################################################
+### KPA::ExifD
+add_library(kpaexif
+    kpaexif/Database.cpp
+    kpaexif/SearchInfo.cpp
+    kpaexif/Info.cpp
+    kpaexif/DatabaseElement.cpp
+    )
+add_library(KPA::Exif ALIAS kpaexif)
+# FIXME(jzarl): once KPhotoAlbum uses internal libs, export public symbols instead:
+set_target_properties(kpaexif PROPERTIES CXX_VISIBILITY_PRESET default)
+
+### 2018-12-30 jzarl
+# When Exiv2 0.26 can be deprecated, FindExiv2.cmake should be removed
+# and only find_package(exiv2) should be used
+find_package(exiv2 CONFIG QUIET)
+if(exiv2_FOUND)
+    # search againg with REQUIRED, so that the feature summary correctly shows exiv as required dependency
+    find_package(exiv2 CONFIG REQUIRED)
+    set(EXIV2_LIBRARIES exiv2lib)
+else()
+    find_package(Exiv2 REQUIRED)
+endif()
+
+target_link_libraries(kpaexif
+    PRIVATE
+    Qt5::Sql
+    PUBLIC
+    ${EXIV2_LIBRARIES} # TODO(jzarl): make this private if possible
+    KPA::Base
+    Qt5::Core
+    )
+
+install(TARGETS kpaexif ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+
+# unit tests:
+add_subdirectory(kpaexif)
+
 # vi:expandtab:tabstop=4 shiftwidth=4:

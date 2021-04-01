@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "SearchInfo.h"
 
@@ -20,6 +20,16 @@
  * The search is stored in an instance of \ref DB::ImageSearchInfo, and may later be executed using search().
  * Once a search has been executed, the application may ask if a given image is in the search result using matches()
  */
+Exif::SearchInfo::SearchInfo()
+    : m_exifDB(nullptr)
+{
+}
+
+Exif::SearchInfo::SearchInfo(const Database *db)
+    : m_exifDB(db)
+{
+}
+
 void Exif::SearchInfo::addSearchKey(const QString &key, const IntList &values)
 {
     m_intKeys.append(qMakePair(key, values));
@@ -134,7 +144,7 @@ void Exif::SearchInfo::search() const
     m_matches.clear();
     if (m_emptyQuery)
         return;
-    m_matches = Exif::Database::instance()->filesMatchingQuery(queryStr);
+    m_matches = m_exifDB->filesMatchingQuery(queryStr);
 }
 
 bool Exif::SearchInfo::matches(const DB::FileName &fileName) const
@@ -147,7 +157,12 @@ bool Exif::SearchInfo::matches(const DB::FileName &fileName) const
 
 bool Exif::SearchInfo::isNull() const
 {
-    return buildQuery().isEmpty();
+    return m_exifDB == nullptr;
+}
+
+bool Exif::SearchInfo::isEmpty() const
+{
+    return isNull() || buildQuery().isEmpty();
 }
 
 void Exif::SearchInfo::addCamera(const CameraList &list)

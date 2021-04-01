@@ -1,18 +1,22 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef EXIFDATABASE_H
 #define EXIFDATABASE_H
 
-#include <DB/FileInfo.h>
 #include <kpabase/FileNameList.h>
 
 #include <QList>
 #include <QPair>
-#include <QSqlDatabase>
 #include <QString>
 
+namespace DB
+{
+class UIDelegate;
+class AbstractProgressIndicator;
+}
 namespace Exiv2
 {
 class ExifData;
@@ -34,7 +38,6 @@ class DatabaseElement;
 // support is not available ( !isAvailable() ). This is to simplify client code.
 class Database
 {
-
 public:
     typedef QList<DatabaseElement *> ElementList;
     typedef QPair<QString, QString> Camera;
@@ -42,8 +45,12 @@ public:
     typedef QString Lens;
     typedef QList<Lens> LensList;
 
-    static Database *instance();
-    static void deleteInstance();
+    Database(DB::UIDelegate &uiDelegate);
+    Database(const Database &) = delete;
+    ~Database();
+
+    Database &operator=(const Database &) = delete;
+
     static bool isAvailable();
     /**
      * @brief DBVersion is the exif search database schema version currently supported by KPhotoAlbum.
@@ -71,15 +78,36 @@ public:
      */
     int DBFileVersionGuaranteed() const;
     /**
-     * @brief add a file and its exif data to the database.
+     * @brief Adds a file and its exif data to the exif database.
      * If the file already exists in the database, the new data replaces the existing data.
-     * @param fileInfo the file
-     * @return
+     * @param filename
+     * @param data the exif data
+     * @return \c true, if the operation succeeded, \c false otherwise
      */
-    bool add(DB::FileInfo &fileInfo);
+    bool add(const DB::FileName &filename, Exiv2::ExifData data);
+    /**
+     * @brief Adds a file to the exif database, reading its exif data from the file.
+     * @param fileName
+     * @return \c true, if the operation succeeded, \c false otherwise
+     */
     bool add(const DB::FileName &fileName);
+    /**
+     * @brief Adds a list of files to the exif database, reading the exif data from the files.
+     * @param list
+     * @return \c true, if the operation succeeded, \c false otherwise
+     */
     bool add(const DB::FileNameList &list);
+    /**
+     * @brief Removes a single file from the exif database.
+     * Removing a file that is not in the database is allowed.
+     * @param fileName
+     */
     void remove(const DB::FileName &fileName);
+    /**
+     * @brief Removes a list of files from the exif database.
+     * Passing an empty list or a list that contains files that are not actually in the exif database is allowed.
+     * @param list
+     */
     void remove(const DB::FileNameList &list);
     /**
      * @brief readFields searches the exif database for a given file and fills the element list with values.
@@ -92,38 +120,29 @@ public:
     DB::FileNameSet filesMatchingQuery(const QString &query) const;
     CameraList cameras() const;
     LensList lenses() const;
-    void recreate();
+    /**
+     * @brief Discards the current exif database and recreates it from the given files.
+     *
+     * Exiv2 seems to accept both image and movie files without ill effects
+     * (but does not actually return any usable metadata).
+     *
+     * Recreating the exif database can take a lot of time. To get a decent user experience in spite of that,
+     * the method updates the given AbstractProgressIndicator and calls QCoreApplication::processEvents()
+     * in regular intervals (if a QCoreApplication instance is available).
+     *
+     * To be on the safe side though, you should still filter out non-image files as long as there is no official support for movie files in exiv2.
+     * @param allImageFiles a list of all image files
+     * @param progressIndicator for quick usage from a GUI application, use a DB::ProgressIndicator<QProgressDialog>
+     */
+    void recreate(const DB::FileNameList &allImageFiles, DB::AbstractProgressIndicator &progressIndicator);
     bool startInsertTransaction();
     bool commitInsertTransaction();
     bool abortInsertTransaction();
 
-protected:
-    enum DBSchemaChangeType { SchemaChanged,
-                              SchemaAndDataChanged };
-    static QString exifDBFile();
-    void openDatabase();
-    void populateDatabase();
-    void updateDatabase();
-    void createMetadataTable(DBSchemaChangeType change);
-    static QString connectionName();
-    bool insert(const DB::FileName &filename, Exiv2::ExifData);
-    bool insert(const QList<DBExifInfo>);
-
 private:
-    void showErrorAndFail(QSqlQuery &query) const;
-    void showErrorAndFail(const QString &errorMessage, const QString &technicalInfo) const;
-    bool m_isOpen;
-    bool m_doUTF8Conversion;
-    mutable bool m_isFailed;
-    Database();
-    ~Database();
-    void init();
-    QSqlQuery *getInsertQuery();
-    void concludeInsertQuery(QSqlQuery *);
-    static Database *s_instance;
-    QString m_queryString;
-    QSqlDatabase m_db;
-    QSqlQuery *m_insertTransaction;
+    class DatabasePrivate;
+    DatabasePrivate *d_ptr;
+    Q_DECLARE_PRIVATE(Database)
 };
 }
 

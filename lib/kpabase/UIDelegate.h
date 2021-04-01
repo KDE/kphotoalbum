@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
 #ifndef KPABASE_UIDELEGATE_H
 #define KPABASE_UIDELEGATE_H
 
@@ -22,6 +23,15 @@ enum class UserFeedback {
 };
 
 /**
+ * @brief The LogMessage struct combines a log message with its category.
+ * The main intention is to make the UIDelegate method signatures more readable (by avoiding repeated QString parameters).
+ */
+struct LogMessage {
+    const QLoggingCategory &category; ///< The logging category that shall be used for logging the message.
+    const QString &message; ///< The log message. Log messages should usually not be localized.
+};
+
+/**
  * @brief The UIDelegate class encapsulates possible user interaction and feedback.
  * This class is required because in the DB core there should not be any dependency on UI classes.
  * Therefore, the usual routine of calling KMessageBox with some parent widget does not work.
@@ -36,55 +46,55 @@ public:
     /**
      * @brief Similar to KMessageBox::warningContinueCancel, this method displays a message and prompts the user to continue or cancel.
      *
-     * Additionally, a non-localized logMessage is logged within the DB log category.
-     * @param logMessage a non-localized log message
+     * Additionally, a non-localized log message is logged within the given log category.
+     * @param logMsg a non-localized log message
      * @param msg a localized message
      * @param title a localized title for a possible message window
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      * @return the user choice in form of a UserFeedback
      */
-    UserFeedback warningContinueCancel(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
+    UserFeedback warningContinueCancel(const LogMessage logMsg, const QString &msg, const QString &title, const QString &dialogId = QString());
 
     /**
      * @brief Similar to KMessageBox::questionYesNo, this method displays a message and prompts the user for a yes/no answer.
-     * @param logMessage a non-localized log message
+     * @param logMsg a non-localized log message
      * @param msg a localized message
      * @param title a localized title for a possible message window
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      * @return the user choice in form of a UserFeedback
      */
-    UserFeedback questionYesNo(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
+    UserFeedback questionYesNo(const LogMessage logMsg, const QString &msg, const QString &title, const QString &dialogId = QString());
 
     /**
      * @brief Displays an informational message to the user.
      *
-     * Additionally, a non-localized logMessage is logged within the DB log category.
-     * @param logMessage a non-localized log message
+     * Additionally, a non-localized log message is logged within the given log category.
+     * @param logMsg a non-localized log message
      * @param msg a localized message
      * @param title a localized title for a possible message window
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      */
-    void information(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
+    void information(const LogMessage logMsg, const QString &msg, const QString &title, const QString &dialogId = QString());
     /**
      * @brief Displays a message to the user indicating something went wrong.
      *
-     * Additionally, a non-localized logMessage is logged within the DB log category.
-     * @param logMessage a non-localized log message
+     * Additionally, a non-localized log message is logged within the given log category.
+     * @param logMsg a non-localized log message
      * @param msg a localized message
      * @param title a localized title for a possible message window
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      */
-    void sorry(const QString &msg, const QString &logMessage, const QString &title, const QString &dialogId = QString());
+    void sorry(const LogMessage logMsg, const QString &msg, const QString &title, const QString &dialogId = QString());
     /**
      * @brief Displays an error message to the user.
      *
-     * Additionally, a non-localized logMessage is logged within the DB log category.
-     * @param logMessage a non-localized log message
+     * Additionally, a non-localized log message is logged within the given log category.
+     * @param logMsg a non-localized log message
      * @param msg a localized message
      * @param title a localized title for a possible message window
      * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
      */
-    void error(const QString &logMessage, const QString &msg, const QString &title, const QString &dialogId = QString());
+    void error(const LogMessage logMsg, const QString &msg, const QString &title, const QString &dialogId = QString());
 
     /**
      * @brief isDialogDisabled checks whether the user disabled display of a dialog.
@@ -117,6 +127,64 @@ protected:
 
 public:
     bool isDialogDisabled(const QString &) override { return false; }
+};
+
+/**
+ * @brief The AbstractProgressIndicator class provides a generic progress indicator interface.
+ * It is mostly designed as a UI-agnostic interface that allows a drop-in replacement for QProgressDialog.
+ */
+class AbstractProgressIndicator
+{
+public:
+    virtual int minimum() const = 0;
+    virtual void setMinimum(int min) = 0;
+    virtual int maximum() const = 0;
+    virtual void setMaximum(int max) = 0;
+    virtual int value() = 0;
+    virtual void setValue(int value) = 0;
+
+    /**
+     * @brief wasCanceled signals whether a cancellation of the action was requested.
+     * @return \c true, if the action shall be aborted, or \c false if it shall continue.
+     */
+    virtual bool wasCanceled() const = 0;
+
+protected:
+    virtual ~AbstractProgressIndicator() {};
+};
+
+template <class Super>
+class ProgressDialog : public DB::AbstractProgressIndicator, public Super
+{
+public:
+    int minimum() const override
+    {
+        return Super::minimum();
+    }
+    void setMinimum(int min) override
+    {
+        Super::setMinimum(min);
+    }
+    int maximum() const override
+    {
+        return Super::maximum();
+    }
+    void setMaximum(int max) override
+    {
+        Super::setMaximum(max);
+    }
+    int value() override
+    {
+        return Super::value();
+    }
+    void setValue(int value) override
+    {
+        Super::setValue(value);
+    }
+    bool wasCanceled() const override
+    {
+        return Super::wasCanceled();
+    }
 };
 
 } // namespace DB

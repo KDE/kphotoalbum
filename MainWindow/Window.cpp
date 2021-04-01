@@ -37,8 +37,6 @@
 #include <DB/MD5.h>
 #include <DB/MD5Map.h>
 #include <DateBar/DateBarWidget.h>
-#include <Exif/Database.h>
-#include <Exif/Info.h>
 #include <Exif/InfoDialog.h>
 #include <Exif/ReReadDialog.h>
 #include <HTMLGenerator/HTMLDialog.h>
@@ -61,6 +59,8 @@
 #include <kpabase/UIDelegate.h>
 #include <kpabase/config-kpa-marble.h>
 #include <kpabase/config-kpa-plugins.h>
+#include <kpaexif/Database.h>
+#include <kpaexif/Info.h>
 #include <kpathumbnails/ThumbnailCache.h>
 
 #ifdef KF5Purpose_FOUND
@@ -110,6 +110,7 @@
 #include <QMoveEvent>
 #include <QObject>
 #include <QPixmapCache>
+#include <QProgressDialog>
 #include <QResizeEvent>
 #include <QStackedWidget>
 #include <QTimer>
@@ -245,7 +246,6 @@ MainWindow::Window::~Window()
 {
     DB::ImageDB::deleteInstance();
     delete m_thumbnailCache;
-    Exif::Database::deleteInstance();
 }
 
 void MainWindow::Window::delayedInit()
@@ -278,7 +278,6 @@ void MainWindow::Window::delayedInit()
         KTipDialog::showTip(this);
     }
 
-    Exif::Database::instance(); // Load the database
     qCInfo(TimingLog) << "MainWindow: Loading Exif DB:" << timer.restart() << "ms.";
 
 #ifdef KPA_ENABLE_REMOTECONTROL
@@ -1667,7 +1666,13 @@ void MainWindow::Window::setupStatusBar()
 
 void MainWindow::Window::slotRecreateExifDB()
 {
-    Exif::Database::instance()->recreate();
+    const auto allImageFiles = DB::ImageDB::instance()->files(DB::MediaType::Image);
+    DB::ProgressDialog<QProgressDialog> dialog;
+    dialog.setModal(true);
+    dialog.setLabelText(i18n("Rereading Exif information from all images"));
+    dialog.setMaximum(allImageFiles.size());
+
+    DB::ImageDB::instance()->exifDB()->recreate(allImageFiles, dialog);
 }
 
 void MainWindow::Window::useNextVideoThumbnail()

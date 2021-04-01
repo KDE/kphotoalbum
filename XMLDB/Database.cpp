@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "Database.h"
 
@@ -16,12 +16,12 @@
 #include <DB/GroupCounter.h>
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
-#include <Exif/Database.h>
 #include <Utilities/VideoUtil.h>
 #include <kpabase/FileName.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 #include <kpabase/UIDelegate.h>
+#include <kpaexif/Database.h>
 
 #include <KLocalizedString>
 #include <QElapsedTimer>
@@ -44,9 +44,10 @@ void checkForBackupFile(const QString &fileName, DB::UIDelegate &ui)
 
     const long backupSizeKB = backUpFile.size() >> 10;
     const DB::UserFeedback choice = ui.questionYesNo(
-        QString::fromUtf8("Autosave file found: '%1', %2KB.").arg(backupName).arg(backupSizeKB), i18n("Autosave file '%1' exists (size %3 KB) and is newer than '%2'. "
-                                                                                                      "Should the autosave file be used?",
-                                                                                                      backupName, fileName, backupSizeKB),
+        DB::LogMessage { XMLDBLog(), QString::fromUtf8("Autosave file found: '%1', %2KB.").arg(backupName).arg(backupSizeKB) },
+        i18n("Autosave file '%1' exists (size %3 KB) and is newer than '%2'. "
+             "Should the autosave file be used?",
+             backupName, fileName, backupSizeKB),
         i18n("Found Autosave File"));
 
     if (choice == DB::UserFeedback::Confirm) {
@@ -194,7 +195,7 @@ void XMLDB::Database::deleteList(const DB::FileNameList &list)
         m_imageCache.remove(imageInfo->fileName().absolute());
         m_images.remove(imageInfo);
     }
-    Exif::Database::instance()->remove(list);
+    exifDB()->remove(list);
     emit totalChanged(m_images.count());
     emit imagesDeleted(list);
     emit dirty();
@@ -356,9 +357,9 @@ bool XMLDB::Database::isBlocking(const DB::FileName &fileName)
     return m_blockList.contains(fileName);
 }
 
-DB::FileNameList XMLDB::Database::files() const
+DB::FileNameList XMLDB::Database::files(DB::MediaType type) const
 {
-    return m_images.files();
+    return m_images.files(type);
 }
 
 DB::ImageInfoList XMLDB::Database::images() const

@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "Category.h"
 
@@ -10,6 +10,7 @@
 #include "MemberMap.h"
 
 #include <Utilities/ImageUtil.h>
+#include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 #include <kpabase/UIDelegate.h>
 
@@ -158,7 +159,8 @@ void DB::Category::setCategoryImage(const QString &category, QString member, con
         bool ok = QDir().mkdir(dir);
         if (!ok) {
             DB::ImageDB::instance()->uiDelegate().error(
-                QString::fromLatin1("Unable to create CategoryImages directory!"), i18n("Unable to create directory '%1'.", dir), i18n("Unable to Create Directory"));
+                DB::LogMessage { DBLog(), QString::fromLatin1("Unable to create CategoryImages directory!") },
+                i18n("Unable to create directory '%1'.", dir), i18n("Unable to Create Directory"));
             return;
         }
     }
@@ -166,7 +168,8 @@ void DB::Category::setCategoryImage(const QString &category, QString member, con
     ok = image.save(fileName, "JPEG");
     if (!ok) {
         DB::ImageDB::instance()->uiDelegate().error(
-            QString::fromLatin1("Unable to save category image '%1'!").arg(fileName), i18n("Error when saving image '%1'.", fileName), i18n("Error Saving Image"));
+            DB::LogMessage { DBLog(), QString::fromLatin1("Unable to save category image '%1'!").arg(fileName) },
+            i18n("Error when saving image '%1'.", fileName), i18n("Error Saving Image"));
         return;
     }
 

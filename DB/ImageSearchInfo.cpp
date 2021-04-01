@@ -82,7 +82,7 @@ void ImageSearchInfo::checkIfNull()
     if (m_compiled.valid || isNull())
         return;
     if (m_date.isNull() && m_label.isEmpty() && m_description.isEmpty()
-        && m_rating == -1 && m_megapixel == 0 && m_exifSearchInfo.isNull()
+        && m_rating == -1 && m_megapixel == 0 && m_exifSearchInfo.isEmpty()
         && m_categoryMatchText.isEmpty()
         && freeformMatchText().isEmpty()
 #ifdef HAVE_KGEOMAP

@@ -1,14 +1,14 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef FILEINFO_H
 #define FILEINFO_H
 
 #include "ExifMode.h"
 
-#include <Exif/Info.h>
+#include <kpaexif/Info.h>
 
 #include <Utilities/FastDateTime.h>
 #include <qstring.h>

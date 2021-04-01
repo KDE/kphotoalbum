@@ -1,13 +1,13 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "Info.h"
 
-#include "Logging.h"
+#include <kpabase/Logging.h>
 
-#include <DB/ImageDB.h>
-#include <DB/ImageInfo.h>
+#include <kpabase/FileName.h>
 #include <kpabase/SettingsData.h>
 #include <kpabase/StringSet.h>
 
@@ -113,9 +113,8 @@ StringSet Info::standardKeys()
     QList<const Exiv2::TagInfo *> tags;
     std::ostringstream s;
 
-#if (EXIV2_TEST_VERSION(0, 21, 0))
     const Exiv2::GroupInfo *gi = Exiv2::ExifTags::groupList();
-    while (gi->tagList_ != 0) {
+    while (gi->tagList_ != nullptr) {
         Exiv2::TagListFct tl = gi->tagList_;
         const Exiv2::TagInfo *ti = tl();
 
@@ -132,27 +131,6 @@ StringSet Info::standardKeys()
             ++(*it);
         }
     }
-#else
-    tags << Exiv2::ExifTags::ifdTagList() << Exiv2::ExifTags::exifTagList() << Exiv2::ExifTags::iopTagList() << Exiv2::ExifTags::gpsTagList();
-    for (QList<const Exiv2::TagInfo *>::iterator it = tags.begin(); it != tags.end(); ++it) {
-        while ((*it)->tag_ != 0xffff) {
-            res.insert(QLatin1String(Exiv2::ExifKey((*it)->tag_, Exiv2::ExifTags::ifdItem((*it)->ifdId_)).key().c_str()));
-            ++(*it);
-        }
-    }
-
-    // Now the ugly part -- exiv2 doesn't have any way to get a list of
-    // MakerNote tags in a reasonable form, so we have to parse it from strings
-
-    for (Exiv2::IfdId kind = Exiv2::canonIfdId; kind < Exiv2::lastIfdId;
-         kind = static_cast<Exiv2::IfdId>(kind + 1)) {
-#if EXIV2_TEST_VERSION(0, 17, 0)
-        Exiv2::ExifTags::taglist(s, kind);
-#else
-        Exiv2::ExifTags::makerTaglist(s, kind);
-#endif
-    }
-#endif
 
     // IPTC tags use yet another format...
     Exiv2::IptcDataSets::dataSetList(s);
@@ -185,7 +163,7 @@ Info::Info()
     m_keys = standardKeys();
 }
 
-void Exif::Info::writeInfoToFile(const DB::FileName &srcName, const QString &destName)
+void Exif::writeExifInfoToFile(const DB::FileName &srcName, const QString &destName, const QString &imageDescription)
 {
     // Load Exif from source image
     Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(QFile::encodeName(srcName.absolute()).data());
@@ -193,8 +171,7 @@ void Exif::Info::writeInfoToFile(const DB::FileName &srcName, const QString &des
     Exiv2::ExifData data = image->exifData();
 
     // Modify Exif information from database.
-    DB::ImageInfoPtr info = DB::ImageDB::instance()->info(srcName);
-    data["Exif.Image.ImageDescription"] = info->description().toLocal8Bit().data();
+    data["Exif.Image.ImageDescription"] = imageDescription.toLocal8Bit().data();
 
     image = Exiv2::ImageFactory::open(QFile::encodeName(destName).data());
     image->setExifData(data);
@@ -225,7 +202,7 @@ Exif::Metadata Exif::Info::metadata(const DB::FileName &fileName)
     try {
         Exif::Metadata result;
         Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(QFile::encodeName(fileName.absolute()).data());
-        Q_ASSERT(image.get() != 0);
+        Q_ASSERT(image.get() != nullptr);
         image->readMetadata();
         result.exif = image->exifData();
         result.iptc = image->iptcData();

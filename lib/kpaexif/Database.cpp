@@ -1,28 +1,26 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "Database.h"
 
 #include "DatabaseElement.h"
-#include "Logging.h"
 
-#include <DB/ImageDB.h>
-#include <MainWindow/Window.h>
+#include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
+#include <kpabase/UIDelegate.h>
 
 #include <KLocalizedString>
-#include <QApplication>
+#include <QCoreApplication>
 #include <QDir>
 #include <QFile>
-#include <QProgressDialog>
 #include <QSqlDatabase>
 #include <QSqlDriver>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
-#include <kmessagebox.h>
 
 using namespace Exif;
 
@@ -78,16 +76,93 @@ const Database::ElementList elements(int since = 0)
 
     return elms;
 }
+
+bool isSQLiteDriverAvailable()
+{
+#ifdef QT_NO_SQL
+    return false;
+#else
+    return QSqlDatabase::isDriverAvailable(QString::fromLatin1("QSQLITE"));
+#endif
+}
 }
 
-Exif::Database *Exif::Database::s_instance = nullptr;
+class Database::DatabasePrivate
+{
+public:
+    DatabasePrivate(Database *q, DB::UIDelegate &uiDelegate);
+    ~DatabasePrivate();
+
+    bool isOpen() const;
+    bool isUsable() const;
+    int DBFileVersion() const;
+
+protected:
+    Database *q_ptr;
+    Q_DECLARE_PUBLIC(Database)
+
+    enum DBSchemaChangeType { SchemaChanged,
+                              SchemaAndDataChanged };
+    static QString exifDBFile();
+    void openDatabase();
+    void populateDatabase();
+    void updateDatabase();
+    void createMetadataTable(DBSchemaChangeType change);
+    static QString connectionName();
+    bool insert(const DB::FileName &filename, Exiv2::ExifData);
+    bool insert(const QList<DBExifInfo> &);
+
+private:
+    mutable bool m_isFailed = false;
+    DB::UIDelegate &m_ui;
+    QSqlDatabase m_db;
+    bool m_isOpen = false;
+    bool m_doUTF8Conversion = false;
+    QSqlQuery *m_insertTransaction = nullptr;
+    QString m_queryString;
+
+    void showErrorAndFail(QSqlQuery &query) const;
+    void showErrorAndFail(const QString &errorMessage, const QString &technicalInfo) const;
+    void init();
+    QSqlQuery *getInsertQuery();
+    void concludeInsertQuery(QSqlQuery *);
+};
+
+Database::DatabasePrivate::DatabasePrivate(Database *q, DB::UIDelegate &uiDelegate)
+    : q_ptr(q)
+    , m_ui(uiDelegate)
+    , m_db(QSqlDatabase::addDatabase(QString::fromLatin1("QSQLITE"), QString::fromLatin1("exif")))
+{
+    init();
+}
+
+void Exif::Database::DatabasePrivate::init()
+{
+    Q_Q(Database);
+    if (!q->isAvailable())
+        return;
+
+    m_isFailed = false;
+    m_insertTransaction = nullptr;
+    const bool dbExists = QFile::exists(exifDBFile());
+
+    openDatabase();
+
+    if (!isOpen())
+        return;
+
+    if (!dbExists)
+        populateDatabase();
+    else
+        updateDatabase();
+}
 
 /**
  * @brief show and error message for the failed \p query and disable the Exif database.
  * The database is closed because at this point we can not trust the data inside.
  * @param query
  */
-void Database::showErrorAndFail(QSqlQuery &query) const
+void Database::DatabasePrivate::showErrorAndFail(QSqlQuery &query) const
 {
     const QString txt = i18n("<p>There was an error while accessing the Exif search database. "
                              "The error is likely due to a broken database file.</p>"
@@ -102,24 +177,24 @@ void Database::showErrorAndFail(QSqlQuery &query) const
     showErrorAndFail(txt, technicalInfo);
 }
 
-void Database::showErrorAndFail(const QString &errorMessage, const QString &technicalInfo) const
+void Database::DatabasePrivate::showErrorAndFail(const QString &errorMessage, const QString &technicalInfo) const
 {
-    KMessageBox::information(MainWindow::Window::theMainWindow(), errorMessage, i18n("Error in Exif database"), QString::fromLatin1("sql_error_in_exif_DB"));
-
-    qCWarning(ExifLog) << technicalInfo;
-
+    m_ui.information(DB::LogMessage { ExifLog(), technicalInfo }, errorMessage, i18n("Error in Exif database"), QString::fromLatin1("sql_error_in_exif_DB"));
     // disable exif db for now:
     m_isFailed = true;
 }
 
-Exif::Database::Database()
-    : m_isOpen(false)
-    , m_isFailed(false)
+Exif::Database::Database(DB::UIDelegate &uiDelegate)
+    : d_ptr(new DatabasePrivate(this, uiDelegate))
 {
-    m_db = QSqlDatabase::addDatabase(QString::fromLatin1("QSQLITE"), QString::fromLatin1("exif"));
 }
 
-void Exif::Database::openDatabase()
+Database::~Database()
+{
+    delete d_ptr;
+}
+
+void Exif::Database::DatabasePrivate::openDatabase()
 {
     m_db.setDatabaseName(exifDBFile());
 
@@ -142,7 +217,7 @@ void Exif::Database::openDatabase()
     m_doUTF8Conversion = !m_db.driver()->hasFeature(QSqlDriver::Unicode);
 }
 
-Exif::Database::~Database()
+Exif::Database::DatabasePrivate::~DatabasePrivate()
 {
     // We have to close the database before destroying the QSqlDatabase object,
     // otherwise Qt screams and kittens might die (see QSqlDatabase's
@@ -151,12 +226,17 @@ Exif::Database::~Database()
         m_db.close();
 }
 
-bool Exif::Database::isOpen() const
+bool Exif::Database::DatabasePrivate::isOpen() const
 {
     return m_isOpen && !m_isFailed;
 }
+bool Exif::Database::isOpen() const
+{
+    Q_D(const Database);
+    return d->isOpen();
+}
 
-void Exif::Database::populateDatabase()
+void Exif::Database::DatabasePrivate::populateDatabase()
 {
     createMetadataTable(SchemaAndDataChanged);
     QStringList attributes;
@@ -172,7 +252,7 @@ void Exif::Database::populateDatabase()
         showErrorAndFail(query);
 }
 
-void Exif::Database::updateDatabase()
+void Exif::Database::DatabasePrivate::updateDatabase()
 {
     if (m_db.tables().isEmpty()) {
         const QString txt = i18n("<p>The Exif search database is corrupted and has no data.</p> "
@@ -201,7 +281,7 @@ void Exif::Database::updateDatabase()
     }
 }
 
-void Exif::Database::createMetadataTable(DBSchemaChangeType change)
+void Exif::Database::DatabasePrivate::createMetadataTable(DBSchemaChangeType change)
 {
     QSqlQuery query(m_db);
     query.prepare(QString::fromLatin1("create table if not exists settings (keyword TEXT PRIMARY KEY, value TEXT) without rowid"));
@@ -223,6 +303,16 @@ void Exif::Database::createMetadataTable(DBSchemaChangeType change)
     }
 }
 
+bool Database::add(const DB::FileName &filename, Exiv2::ExifData data)
+{
+    if (!isUsable())
+        return false;
+
+    Q_D(Database);
+    // we might as well rename insert() to add()
+    return d->insert(filename, data);
+}
+
 bool Exif::Database::add(const DB::FileName &fileName)
 {
     if (!isUsable())
@@ -233,19 +323,12 @@ bool Exif::Database::add(const DB::FileName &fileName)
         Q_ASSERT(image.get() != nullptr);
         image->readMetadata();
         Exiv2::ExifData &exifData = image->exifData();
-        return insert(fileName, exifData);
+        Q_D(Database);
+        return d->insert(fileName, exifData);
     } catch (...) {
         qCWarning(ExifLog, "Error while reading exif information from %s", qPrintable(fileName.absolute()));
         return false;
     }
-}
-
-bool Exif::Database::add(DB::FileInfo &fileInfo)
-{
-    if (!isUsable())
-        return false;
-
-    return insert(fileInfo.getFileName(), fileInfo.getExifData());
 }
 
 bool Exif::Database::add(const DB::FileNameList &list)
@@ -265,7 +348,8 @@ bool Exif::Database::add(const DB::FileNameList &list)
             qCWarning(ExifLog, "Error while reading exif information from %s", qPrintable(fileName.absolute()));
         }
     }
-    insert(map);
+    Q_D(Database);
+    d->insert(map);
     return true;
 }
 
@@ -274,11 +358,12 @@ void Exif::Database::remove(const DB::FileName &fileName)
     if (!isUsable())
         return;
 
-    QSqlQuery query(m_db);
+    Q_D(Database);
+    QSqlQuery query(d->m_db);
     query.prepare(QString::fromLatin1("DELETE FROM exif WHERE fileName=?"));
     query.bindValue(0, fileName.absolute());
     if (!query.exec())
-        showErrorAndFail(query);
+        d->showErrorAndFail(query);
 }
 
 void Exif::Database::remove(const DB::FileNameList &list)
@@ -286,21 +371,22 @@ void Exif::Database::remove(const DB::FileNameList &list)
     if (!isUsable())
         return;
 
-    m_db.transaction();
-    QSqlQuery query(m_db);
+    Q_D(Database);
+    d->m_db.transaction();
+    QSqlQuery query(d->m_db);
     query.prepare(QString::fromLatin1("DELETE FROM exif WHERE fileName=?"));
     for (const DB::FileName &fileName : list) {
         query.bindValue(0, fileName.absolute());
         if (!query.exec()) {
-            m_db.rollback();
-            showErrorAndFail(query);
+            d->m_db.rollback();
+            d->showErrorAndFail(query);
             return;
         }
     }
-    m_db.commit();
+    d->m_db.commit();
 }
 
-QSqlQuery *Exif::Database::getInsertQuery()
+QSqlQuery *Exif::Database::DatabasePrivate::getInsertQuery()
 {
     if (!isUsable())
         return nullptr;
@@ -308,7 +394,7 @@ QSqlQuery *Exif::Database::getInsertQuery()
         return m_insertTransaction;
     if (m_queryString.isEmpty()) {
         QStringList formalList;
-        Database::ElementList elms = elements();
+        const Database::ElementList elms = elements();
         for (const DatabaseElement *e : elms) {
             formalList.append(e->queryString());
         }
@@ -320,7 +406,7 @@ QSqlQuery *Exif::Database::getInsertQuery()
     return query;
 }
 
-void Exif::Database::concludeInsertQuery(QSqlQuery *query)
+void Exif::Database::DatabasePrivate::concludeInsertQuery(QSqlQuery *query)
 {
     if (m_insertTransaction)
         return;
@@ -330,18 +416,26 @@ void Exif::Database::concludeInsertQuery(QSqlQuery *query)
 
 bool Exif::Database::startInsertTransaction()
 {
-    Q_ASSERT(m_insertTransaction == nullptr);
-    m_insertTransaction = getInsertQuery();
-    m_db.transaction();
-    return (m_insertTransaction != nullptr);
+    if (!isUsable())
+        return false;
+
+    Q_D(Database);
+    Q_ASSERT(d->m_insertTransaction == nullptr);
+    d->m_insertTransaction = d->getInsertQuery();
+    d->m_db.transaction();
+    return (d->m_insertTransaction != nullptr);
 }
 
 bool Exif::Database::commitInsertTransaction()
 {
-    if (m_insertTransaction) {
-        m_db.commit();
-        delete m_insertTransaction;
-        m_insertTransaction = nullptr;
+    if (!isUsable())
+        return false;
+
+    Q_D(Database);
+    if (d->m_insertTransaction) {
+        d->m_db.commit();
+        delete d->m_insertTransaction;
+        d->m_insertTransaction = nullptr;
     } else
         qCWarning(ExifLog, "Trying to commit transaction, but no transaction is active!");
     return true;
@@ -349,16 +443,20 @@ bool Exif::Database::commitInsertTransaction()
 
 bool Exif::Database::abortInsertTransaction()
 {
-    if (m_insertTransaction) {
-        m_db.rollback();
-        delete m_insertTransaction;
-        m_insertTransaction = nullptr;
+    if (!isUsable())
+        return false;
+
+    Q_D(Database);
+    if (d->m_insertTransaction) {
+        d->m_db.rollback();
+        delete d->m_insertTransaction;
+        d->m_insertTransaction = nullptr;
     } else
         qCWarning(ExifLog, "Trying to abort transaction, but no transaction is active!");
     return true;
 }
 
-bool Exif::Database::insert(const DB::FileName &filename, Exiv2::ExifData data)
+bool Exif::Database::DatabasePrivate::insert(const DB::FileName &filename, Exiv2::ExifData data)
 {
     if (!isUsable())
         return false;
@@ -377,7 +475,7 @@ bool Exif::Database::insert(const DB::FileName &filename, Exiv2::ExifData data)
     return status;
 }
 
-bool Exif::Database::insert(const QList<DBExifInfo> map)
+bool Exif::Database::DatabasePrivate::insert(const QList<DBExifInfo> &map)
 {
     if (!isUsable())
         return false;
@@ -399,33 +497,12 @@ bool Exif::Database::insert(const QList<DBExifInfo> map)
     return true;
 }
 
-Exif::Database *Exif::Database::instance()
-{
-    if (!s_instance) {
-        qCInfo(ExifLog) << "initializing Exif database...";
-        s_instance = new Exif::Database();
-        s_instance->init();
-    }
-
-    return s_instance;
-}
-
-void Exif::Database::deleteInstance()
-{
-    delete s_instance;
-    s_instance = nullptr;
-}
-
 bool Exif::Database::isAvailable()
 {
-#ifdef QT_NO_SQL
-    return false;
-#else
-    return QSqlDatabase::isDriverAvailable(QString::fromLatin1("QSQLITE"));
-#endif
+    return isSQLiteDriverAvailable();
 }
 
-int Exif::Database::DBFileVersion() const
+int Exif::Database::DatabasePrivate::DBFileVersion() const
 {
     // previous to KPA 4.6, there was no metadata table:
     if (!m_db.tables().contains(QString::fromLatin1("settings")))
@@ -441,15 +518,23 @@ int Exif::Database::DBFileVersion() const
     return 0;
 }
 
+int Exif::Database::DBFileVersion() const
+{
+    Q_D(const Database);
+    return d->DBFileVersion();
+}
+
 int Exif::Database::DBFileVersionGuaranteed() const
 {
+    Q_D(const Database);
+
     // previous to KPA 4.6, there was no metadata table:
-    if (!m_db.tables().contains(QString::fromLatin1("settings")))
+    if (!d->m_db.tables().contains(QString::fromLatin1("settings")))
         return 0;
 
-    QSqlQuery query(QString::fromLatin1("SELECT value FROM settings WHERE keyword = 'GuaranteedDataVersion'"), m_db);
+    QSqlQuery query(QString::fromLatin1("SELECT value FROM settings WHERE keyword = 'GuaranteedDataVersion'"), d->m_db);
     if (!query.exec())
-        showErrorAndFail(query);
+        d->showErrorAndFail(query);
 
     if (query.first()) {
         return query.value(0).toInt();
@@ -462,12 +547,17 @@ constexpr int Exif::Database::DBVersion()
     return DB_VERSION;
 }
 
+bool Exif::Database::DatabasePrivate::isUsable() const
+{
+    return isSQLiteDriverAvailable() && isOpen();
+}
 bool Exif::Database::isUsable() const
 {
-    return (isAvailable() && isOpen());
+    Q_D(const Database);
+    return d->isUsable();
 }
 
-QString Exif::Database::exifDBFile()
+QString Exif::Database::DatabasePrivate::exifDBFile()
 {
     return ::Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db");
 }
@@ -483,7 +573,8 @@ bool Exif::Database::readFields(const DB::FileName &fileName, ElementList &field
         fieldList.append(e->columnName());
     }
 
-    QSqlQuery query(m_db);
+    Q_D(const Database);
+    QSqlQuery query(d->m_db);
     // the query returns a single value, so we don't need the overhead for random access:
     query.setForwardOnly(true);
 
@@ -492,7 +583,7 @@ bool Exif::Database::readFields(const DB::FileName &fileName, ElementList &field
     query.bindValue(0, fileName.absolute());
 
     if (!query.exec()) {
-        showErrorAndFail(query);
+        d->showErrorAndFail(query);
     }
     if (query.next()) {
         // file in exif db -> write back results
@@ -511,13 +602,14 @@ DB::FileNameSet Exif::Database::filesMatchingQuery(const QString &queryStr) cons
         return DB::FileNameSet();
 
     DB::FileNameSet result;
-    QSqlQuery query(queryStr, m_db);
+    Q_D(const Database);
+    QSqlQuery query(queryStr, d->m_db);
 
     if (!query.exec())
-        showErrorAndFail(query);
+        d->showErrorAndFail(query);
 
     else {
-        if (m_doUTF8Conversion)
+        if (d->m_doUTF8Conversion)
             while (query.next())
                 result.insert(DB::FileName::fromAbsolutePath(QString::fromUtf8(query.value(0).toByteArray())));
         else
@@ -535,9 +627,10 @@ QList<QPair<QString, QString>> Exif::Database::cameras() const
     if (!isUsable())
         return result;
 
-    QSqlQuery query(QString::fromLatin1("SELECT DISTINCT Exif_Image_Make, Exif_Image_Model FROM exif"), m_db);
+    Q_D(const Database);
+    QSqlQuery query(QString::fromLatin1("SELECT DISTINCT Exif_Image_Make, Exif_Image_Model FROM exif"), d->m_db);
     if (!query.exec()) {
-        showErrorAndFail(query);
+        d->showErrorAndFail(query);
     } else {
         while (query.next()) {
             QString make = query.value(0).toString();
@@ -557,9 +650,10 @@ QList<QString> Exif::Database::lenses() const
     if (!isUsable())
         return result;
 
-    QSqlQuery query(QString::fromLatin1("SELECT DISTINCT Exif_Photo_LensModel FROM exif"), m_db);
+    Q_D(const Database);
+    QSqlQuery query(QString::fromLatin1("SELECT DISTINCT Exif_Photo_LensModel FROM exif"), d->m_db);
     if (!query.exec()) {
-        showErrorAndFail(query);
+        d->showErrorAndFail(query);
     } else {
         while (query.next()) {
             QString lens = query.value(0).toString();
@@ -571,65 +665,42 @@ QList<QString> Exif::Database::lenses() const
     return result;
 }
 
-void Exif::Database::init()
+void Exif::Database::recreate(const DB::FileNameList &allImageFiles, DB::AbstractProgressIndicator &progressIndicator)
 {
-    if (!isAvailable())
-        return;
-
-    m_isFailed = false;
-    m_insertTransaction = nullptr;
-    bool dbExists = QFile::exists(exifDBFile());
-
-    openDatabase();
-
-    if (!isOpen())
-        return;
-
-    if (!dbExists)
-        populateDatabase();
-    else
-        updateDatabase();
-}
-
-void Exif::Database::recreate()
-{
+    Q_D(Database);
     // We create a backup of the current database in case
     // the user presse 'cancel' or there is any error. In that case
     // we want to go back to the original DB.
 
-    const QString origBackup = exifDBFile() + QLatin1String(".bak");
-    m_db.close();
+    const QString origBackup = d->exifDBFile() + QLatin1String(".bak");
+    d->m_db.close();
 
     QDir().remove(origBackup);
-    QDir().rename(exifDBFile(), origBackup);
-    init();
+    QDir().rename(d->exifDBFile(), origBackup);
+    d->init();
 
-    const auto allImages = DB::ImageDB::instance()->images();
-    QProgressDialog dialog;
-    dialog.setModal(true);
-    dialog.setLabelText(i18n("Rereading Exif information from all images"));
-    dialog.setMaximum(allImages.size());
     // using a transaction here removes a *huge* overhead on the insert statements
     startInsertTransaction();
     int i = 0;
-    for (const auto &info : allImages) {
-        dialog.setValue(i++);
-        if (info->mediaType() == DB::Image) {
-            add(info->fileName());
+    for (const auto &fileName : allImageFiles) {
+        progressIndicator.setValue(i++);
+        add(fileName);
+        if (i % 10) {
+            auto app = QCoreApplication::instance();
+            if (app)
+                app->processEvents();
         }
-        if (i % 10)
-            qApp->processEvents();
-        if (dialog.wasCanceled())
+        if (progressIndicator.wasCanceled())
             break;
     }
 
     // PENDING(blackie) We should count the amount of files that did not succeeded and warn the user.
-    if (dialog.wasCanceled()) {
+    if (progressIndicator.wasCanceled()) {
         abortInsertTransaction();
-        m_db.close();
-        QDir().remove(exifDBFile());
-        QDir().rename(origBackup, exifDBFile());
-        init();
+        d->m_db.close();
+        QDir().remove(d->exifDBFile());
+        QDir().rename(origBackup, d->exifDBFile());
+        d->init();
     } else {
         commitInsertTransaction();
         QDir().remove(origBackup);

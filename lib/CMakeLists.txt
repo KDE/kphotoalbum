@@ -110,7 +110,7 @@ target_link_libraries(kpaexif
     PRIVATE
     Qt5::Sql
     PUBLIC
-    ${EXIV2_LIBRARIES}
+    ${EXIV2_LIBRARIES} # TODO(jzarl): make this private if possible
     KPA::Base
     Qt5::Core
     )

@@ -16,8 +16,7 @@
 #include <kpabase/FileNameList.h>
 
 #include <QObject>
-
-#include <bits/unique_ptr.h>
+#include <memory>
 
 class QProgressBar;
 

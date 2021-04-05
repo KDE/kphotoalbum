@@ -172,9 +172,8 @@ void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QByteA
             // Either the image file has changed and with it the thumbnail, or
             // this is a video file and a different frame has been selected as thumbnail
             qCDebug(ImageManagerLog) << "Setting new thumbnail for image " << name.relative() << ", need full save! ";
-            m_saveLock.lock();
+            QMutexLocker saveLocker(&m_saveLock);
             m_needsFullSave = true;
-            m_saveLock.unlock();
         }
     }
 
@@ -248,12 +247,12 @@ void ImageManager::ThumbnailCache::saveFull() const
     QElapsedTimer timer;
     timer.start();
     // First ensure that any dirty thumbnails are written to disk
-    m_thumbnailWriterLock.lock();
+    QMutexLocker thumbnailLocker(&m_thumbnailWriterLock);
     if (m_currentWriter) {
         delete m_currentWriter;
         m_currentWriter = nullptr;
     }
-    m_thumbnailWriterLock.unlock();
+    thumbnailLocker.unlock();
 
     QMutexLocker dataLocker(&m_dataLock);
     if (!m_isDirty) {
@@ -313,12 +312,12 @@ void ImageManager::ThumbnailCache::saveFull() const
 // save eventually.
 void ImageManager::ThumbnailCache::saveIncremental() const
 {
-    m_thumbnailWriterLock.lock();
+    QMutexLocker thumbnailLocker(&m_thumbnailWriterLock);
     if (m_currentWriter) {
         delete m_currentWriter;
         m_currentWriter = nullptr;
     }
-    m_thumbnailWriterLock.unlock();
+    thumbnailLocker.unlock();
     QMutexLocker dataLocker(&m_dataLock);
     if (m_unsavedHash.count() == 0) {
         return;
@@ -347,7 +346,7 @@ void ImageManager::ThumbnailCache::saveIncremental() const
 
 void ImageManager::ThumbnailCache::saveInternal() const
 {
-    m_saveLock.lock();
+    QMutexLocker saveLocker(&m_saveLock);
     const QString realFileName = thumbnailPath(INDEXFILE_NAME);
     // If something has asked for a full save, do it!
     if (m_needsFullSave || !QFile(realFileName).exists()) {
@@ -355,7 +354,6 @@ void ImageManager::ThumbnailCache::saveInternal() const
     } else {
         saveIncremental();
     }
-    m_saveLock.unlock();
 }
 
 void ImageManager::ThumbnailCache::saveImpl() const
@@ -369,9 +367,9 @@ void ImageManager::ThumbnailCache::saveImpl() const
 
 void ImageManager::ThumbnailCache::save() const
 {
-    m_saveLock.lock();
+    QMutexLocker saveLocker(&m_saveLock);
     m_needsFullSave = true;
-    m_saveLock.unlock();
+    saveLocker.unlock();
     emit doSave();
 }
 

@@ -113,6 +113,25 @@ void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QImage
         qCWarning(ImageManagerLog) << "Thumbnail for file" << name.relative() << "is invalid!";
         return;
     }
+
+    QByteArray data;
+    QBuffer buffer(&data);
+    bool OK = buffer.open(QIODevice::WriteOnly);
+    Q_ASSERT(OK);
+    Q_UNUSED(OK);
+
+    OK = image.save(&buffer, "JPG");
+    Q_ASSERT(OK);
+
+    insert(name, data);
+}
+
+void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QByteArray &thumbnailData)
+{
+    if (thumbnailData.isNull()) {
+        qCWarning(ImageManagerLog) << "Thumbnail data for file" << name.relative() << "is invalid!";
+        return;
+    }
     QMutexLocker thumbnailLocker(&m_thumbnailWriterLock);
     if (!m_currentWriter) {
         m_currentWriter = new QFile(fileNameForIndex(m_currentFile));
@@ -129,17 +148,9 @@ void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QImage
     QMutexLocker dataLocker(&m_dataLock);
     // purge in-memory cache for the current file:
     m_memcache->remove(m_currentFile);
-    QByteArray data;
-    QBuffer buffer(&data);
-    bool OK = buffer.open(QIODevice::WriteOnly);
-    Q_ASSERT(OK);
-    Q_UNUSED(OK);
 
-    OK = image.save(&buffer, "JPG");
-    Q_ASSERT(OK);
-
-    const int size = data.size();
-    if (!(m_currentWriter->write(data.data(), size) == size && m_currentWriter->flush())) {
+    const int size = thumbnailData.size();
+    if (!(m_currentWriter->write(thumbnailData.data(), size) == size && m_currentWriter->flush())) {
         qCWarning(ImageManagerLog, "Failed to write image data to thumbnail file");
         return;
     }

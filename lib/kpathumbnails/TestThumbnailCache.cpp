@@ -9,6 +9,7 @@
 #include <kpabase/SettingsData.h>
 #include <kpabase/UIDelegate.h>
 
+#include <QBuffer>
 #include <QLoggingCategory>
 #include <QRegularExpression>
 #include <QSignalSpy>
@@ -158,6 +159,21 @@ void KPATest::TestThumbnailCache::insertRemove()
     QVERIFY(thumbnailCache.contains(otherImageFileName));
 
     // TODO(jzarl) inserted images should be the same as the ones we look up
+    QByteArray someImageData;
+    QBuffer someImageBuffer(&someImageData);
+    bool OK = someImageBuffer.open(QIODevice::WriteOnly);
+    QVERIFY2(OK, "someImageBuffer.open() failed!");
+    OK = someImage.save(&someImageBuffer, "JPG");
+    QVERIFY2(OK, "Writing someImage into buffer failed!");
+
+    thumbnailCache.removeThumbnail(someImageFileName);
+    QCOMPARE(thumbnailCache.size(), 1);
+    QVERIFY(!thumbnailCache.contains(someImageFileName));
+    thumbnailCache.insert(someImageFileName, someImageData);
+    QCOMPARE(thumbnailCache.size(), 2);
+    QVERIFY(thumbnailCache.contains(someImageFileName));
+    const auto someImageCacheData = thumbnailCache.lookupRawData(someImageFileName);
+    QCOMPARE(someImageCacheData, someImageData);
 
     // this should do nothing:
     thumbnailCache.removeThumbnails(DB::FileNameList());

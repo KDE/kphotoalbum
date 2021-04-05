@@ -65,6 +65,13 @@ public:
      */
     void insert(const DB::FileName &name, const QImage &image);
     /**
+     * @brief insert inserts raw JPEG-encoded data into the thumbnail database.
+     * It is recommended that you use insert(const DB::FileName&, const QImage&) if possible.
+     * @param name the image file name
+     * @param thumbnailData the JPEG encoded image data
+     */
+    void insert(const DB::FileName &name, const QByteArray &thumbnailData);
+    /**
      * @brief lookup and return the thumbnail for the given file.
      * Note: this method requires a GuiApplication to exist.
      * @param name the image file name

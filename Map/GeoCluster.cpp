@@ -171,6 +171,7 @@ void Map::GeoCluster::addSubCluster(const Map::GeoCluster *subCluster)
 
 Map::GeoBin::GeoBin()
     : GeoCluster(0)
+    , m_thumbnailSizePx(0)
 {
 }
 

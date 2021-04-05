@@ -223,7 +223,8 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     KSharedConfigPtr config = KSharedConfig::openConfig();
     KConfigGroup group = config->group(QStringLiteral("MapView"));
 
-    for (const Marble::RenderPlugin *plugin : m_mapWidget->renderPlugins()) {
+    const auto renderPlugins = m_mapWidget->renderPlugins();
+    for (const Marble::RenderPlugin *plugin : renderPlugins) {
         if (plugin->renderType() != Marble::RenderPlugin::PanelRenderType) {
             continue;
         }
@@ -351,7 +352,8 @@ void Map::MapView::saveSettings()
 {
     KSharedConfigPtr config = KSharedConfig::openConfig();
     KConfigGroup group = config->group(QStringLiteral("MapView"));
-    for (const QPushButton *button : m_floaters->findChildren<QPushButton *>()) {
+    const auto buttons = m_floaters->findChildren<QPushButton *>();
+    for (const QPushButton *button : buttons) {
         group.writeEntry(MAPVIEW_FLOATER_VISIBLE_CONFIG_PREFIX
                              + button->property("floater").toString(),
                          button->isChecked());
@@ -495,7 +497,7 @@ void Map::MapView::mousePressEvent(QMouseEvent *event)
             qCDebug(MapLog) << "Map clicked.";
             const auto mapPos = event->pos() - m_mapWidget->pos();
 
-            for (const auto *topLevelCluster : m_geoClusters) {
+            for (const auto *topLevelCluster : qAsConst(m_geoClusters)) {
                 const auto subCluster = topLevelCluster->regionForPoint(mapPos);
                 if (subCluster && !subCluster->isEmpty()) {
                     qCDebug(MapLog) << "Cluster preselected/clicked.";
@@ -527,7 +529,7 @@ void Map::MapView::mouseMoveEvent(QMouseEvent *event)
     if (event->button() == Qt::NoButton) {
         if (m_mapWidget->geometry().contains(event->pos())) {
             const auto mapPos = event->pos() - m_mapWidget->pos();
-            for (const auto *topLevelCluster : m_geoClusters) {
+            for (const auto *topLevelCluster : qAsConst(m_geoClusters)) {
                 const auto subCluster = topLevelCluster->regionForPoint(mapPos);
                 // Note(jzarl) unfortunately we cannot use QWidget::setCursor here
                 if (subCluster) {
@@ -560,7 +562,7 @@ QStringList Map::MapView::renderPosition() const
 bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *viewPortParams,
                           const QString &renderPos, Marble::GeoSceneLayer *)
 {
-    Q_ASSERT(renderPos == renderPosition().first());
+    Q_ASSERT(renderPos == renderPosition().constFirst());
     Q_ASSERT(viewPortParams != nullptr);
     QElapsedTimer timer;
     timer.start();
@@ -573,7 +575,7 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *v
     painter->setBrush(palette().brush(QPalette::Dark));
     painter->setPen(palette().color(QPalette::Text));
     ThumbnailParams thumbs { m_pin, MainWindow::Window::theMainWindow()->thumbnailCache(), m_markerSize };
-    for (const auto *bin : m_geoClusters) {
+    for (const auto *bin : qAsConst(m_geoClusters)) {
         bin->render(painter, *viewPortParams, thumbs, mapStyle());
     }
     if (m_preselectedCluster) {

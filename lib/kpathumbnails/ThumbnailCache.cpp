@@ -44,7 +44,7 @@ namespace ImageManager
 class ThumbnailMapping
 {
 public:
-    ThumbnailMapping(const QString &filename)
+    explicit ThumbnailMapping(const QString &filename)
         : file(filename)
         , map(nullptr)
     {

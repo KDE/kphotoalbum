@@ -318,6 +318,7 @@ void ImageManager::ThumbnailCache::saveIncremental() const
         m_currentWriter = nullptr;
     }
     thumbnailLocker.unlock();
+
     QMutexLocker dataLocker(&m_dataLock);
     if (m_unsavedHash.count() == 0) {
         return;

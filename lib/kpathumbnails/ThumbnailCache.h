@@ -228,9 +228,22 @@ private:
     mutable QTimer *m_timer;
     mutable bool m_needsFullSave;
     mutable bool m_isDirty;
+    /**
+     * @brief saveFull stores the full contents of the index file.
+     * I.e. the whole file is rewritten.
+     */
     void saveFull() const;
+    /**
+     * @brief saveIncremental appends all unsaved hash entries to the index file.
+     */
     void saveIncremental() const;
+    /**
+     * @brief saveInternal checks whether a full save is requested or needed and calls the incremental or full save accordingly.
+     */
     void saveInternal() const;
+    /**
+     * @brief saveImpl calls saveInternal and resets the save timer.
+     */
     void saveImpl() const;
 
     /**

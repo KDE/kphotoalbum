@@ -29,7 +29,7 @@ constexpr size_t LRU_SIZE = 2;
 
 constexpr int THUMBNAIL_CACHE_SAVE_INTERNAL_MS = (5 * 1000);
 
-const auto INDEXFILE_NAME = QString::fromLatin1("thumbnailindex");
+constexpr auto INDEXFILE_NAME = "thumbnailindex";
 }
 
 namespace ImageManager
@@ -433,6 +433,11 @@ bool ImageManager::ThumbnailCache::contains(const DB::FileName &name) const
     QMutexLocker dataLocker(&m_dataLock);
     bool answer = m_hash.contains(name);
     return answer;
+}
+
+QString ImageManager::ThumbnailCache::thumbnailPath(const char *utf8FileName) const
+{
+    return m_baseDir.filePath(QString::fromUtf8(utf8FileName));
 }
 
 QString ImageManager::ThumbnailCache::thumbnailPath(const QString &file) const

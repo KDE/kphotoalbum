@@ -191,6 +191,17 @@ private:
      */
     void load();
     QString fileNameForIndex(int index) const;
+    /**
+     * @brief thumbnailPath
+     * @param utf8FileName the name of the file (does not have to exist), UTF-8 encoded
+     * @return the file path for the named file in the thumbnail directory
+     */
+    QString thumbnailPath(const char *utf8FileName) const;
+    /**
+     * @brief thumbnailPath
+     * @param fileName the name of the file (does not have to exist)
+     * @return the file path for the named file in the thumbnail directory
+     */
     QString thumbnailPath(const QString &fileName) const;
 
     // mutable because saveIncremental is const

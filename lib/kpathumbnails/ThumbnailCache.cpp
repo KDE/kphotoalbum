@@ -505,6 +505,69 @@ int ImageManager::ThumbnailCache::size() const
     return m_hash.size();
 }
 
+void ImageManager::ThumbnailCache::vacuum()
+{
+    QMutexLocker dataLocker(&m_dataLock);
+    while (m_isDirty) {
+        dataLocker.unlock();
+        saveFull();
+        dataLocker.relock();
+    }
+
+    const auto backupSuffix = QChar::fromLatin1('~');
+    // save what we need
+    for (int i = 0; i <= m_currentFile; ++i) {
+        const auto cacheFile = fileNameForIndex(i);
+        QFile::rename(cacheFile, cacheFile + backupSuffix);
+    }
+
+    const int maxFileIndex = m_currentFile;
+    // we need to store the filename besides the cache file info so that we can reinsert it later
+    struct RichCacheFileInfo {
+        CacheFileInfo info;
+        DB::FileName name;
+    };
+    QList<RichCacheFileInfo> cacheEntries;
+    for (auto it = m_hash.constKeyValueBegin(); it != m_hash.constKeyValueEnd(); ++it) {
+        cacheEntries.append(RichCacheFileInfo { it->second, it->first });
+    }
+    // sort for sequential I/O:
+    std::sort(cacheEntries.begin(), cacheEntries.end(), [](RichCacheFileInfo a, RichCacheFileInfo b) { return a.info.fileIndex < b.info.fileIndex || (a.info.fileIndex == b.info.fileIndex && a.info.offset < b.info.offset); });
+
+    // flush the cache manually (cache files have been moved already)
+    m_currentFile = 0;
+    m_currentOffset = 0;
+    m_isDirty = true;
+    m_hash.clear();
+    m_unsavedHash.clear();
+    m_memcache->clear();
+    dataLocker.unlock();
+
+    // rebuild
+    int currentFileIndex { -1 };
+    ThumbnailMapping *currentFile { nullptr };
+    for (const auto &entry : qAsConst(cacheEntries)) {
+        Q_ASSERT(entry.info.fileIndex != -1);
+        if (entry.info.fileIndex != currentFileIndex) {
+            currentFileIndex = entry.info.fileIndex;
+            if (currentFile)
+                delete currentFile;
+            currentFile = new ThumbnailMapping(fileNameForIndex(currentFileIndex) + backupSuffix);
+        }
+
+        const QByteArray imageData(currentFile->map.mid(entry.info.offset, entry.info.size));
+        insert(entry.name, imageData);
+    }
+    if (currentFile)
+        delete currentFile;
+
+    for (int i = 0; i <= maxFileIndex; ++i) {
+        const auto cacheFile = fileNameForIndex(i);
+        QFile::remove(cacheFile + backupSuffix);
+    }
+    save();
+}
+
 void ImageManager::ThumbnailCache::flush()
 {
     QMutexLocker dataLocker(&m_dataLock);

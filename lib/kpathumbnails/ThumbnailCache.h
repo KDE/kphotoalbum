@@ -141,6 +141,11 @@ public:
      */
     int size() const;
 
+    /**
+     * @brief Compacts the on-disk storage for the cache by discarding stale data from its files.
+     */
+    void vacuum();
+
 public slots:
     /**
      * @brief Save the thumbnail cache to disk.

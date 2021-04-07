@@ -529,7 +529,7 @@ void ImageManager::ThumbnailCache::vacuum()
     };
     QList<RichCacheFileInfo> cacheEntries;
     for (auto it = m_hash.constKeyValueBegin(); it != m_hash.constKeyValueEnd(); ++it) {
-        cacheEntries.append(RichCacheFileInfo { it->second, it->first });
+        cacheEntries.append(RichCacheFileInfo { (*it).second, (*it).first });
     }
     // sort for sequential I/O:
     std::sort(cacheEntries.begin(), cacheEntries.end(), [](RichCacheFileInfo a, RichCacheFileInfo b) { return a.info.fileIndex < b.info.fileIndex || (a.info.fileIndex == b.info.fileIndex && a.info.offset < b.info.offset); });

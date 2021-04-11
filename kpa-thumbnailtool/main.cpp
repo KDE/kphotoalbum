@@ -29,7 +29,7 @@ using namespace KPAThumbnailTool;
 void checkConflictingOptions(const QCommandLineParser &parser, const QCommandLineOption &opt1, const QCommandLineOption &opt2, QTextStream &err)
 {
     if (parser.isSet(opt1) && parser.isSet(opt2)) {
-        err << i18nc("@info:shell", "Conflicting commandline options: %1 and %2!\n", opt1.names().first(), opt2.names().first());
+        err << i18nc("@info:shell", "Conflicting commandline options: %1 and %2!\n", opt1.names().constFirst(), opt2.names().constFirst());
         exit(1);
     }
 }
@@ -145,7 +145,7 @@ int main(int argc, char **argv)
     }
 
     // immediately quit the event loop:
-    QTimer::singleShot(0, [&app, returnValue]() { app.exit(returnValue); });
+    QTimer::singleShot(0, &app, [&app, returnValue]() { app.exit(returnValue); });
     return QCoreApplication::exec();
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

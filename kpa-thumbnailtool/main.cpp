@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2020 The KPhotoAlbum development team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2020 The KPhotoAlbum development team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "Logging.h"
 #include "ThumbnailCacheConverter.h"
@@ -76,6 +76,8 @@ int main(int argc, char **argv)
     parser.addOption(verifyOption);
     QCommandLineOption fixOption { QString::fromUtf8("remove-broken"), i18nc("@info:shell", "Fix inconsistent thumbnails by removing them from the cache (requires --check-thumbnail-dimensions).") };
     parser.addOption(fixOption);
+    QCommandLineOption vacuumOption { QString::fromUtf8("vacuum"), i18nc("@info:shell", "Remove unreferenced thumbnails from the thumbnail data files.") };
+    parser.addOption(vacuumOption);
     QCommandLineOption quietOption { QString::fromUtf8("quiet"), i18nc("@info:shell", "Be less verbose.") };
     parser.addOption(quietOption);
 
@@ -142,6 +144,9 @@ int main(int argc, char **argv)
             }
         }
         console.flush();
+    }
+    if (parser.isSet(vacuumOption)) {
+        cache.vacuum();
     }
 
     // immediately quit the event loop:

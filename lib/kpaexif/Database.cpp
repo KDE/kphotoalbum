@@ -8,7 +8,6 @@
 #include "DatabaseElement.h"
 
 #include <kpabase/Logging.h>
-#include <kpabase/SettingsData.h>
 #include <kpabase/UIDelegate.h>
 
 #include <KLocalizedString>
@@ -90,12 +89,14 @@ bool isSQLiteDriverAvailable()
 class Database::DatabasePrivate
 {
 public:
-    DatabasePrivate(Database *q, DB::UIDelegate &uiDelegate);
+    DatabasePrivate(Database *q, const QString &exifDBFile, DB::UIDelegate &uiDelegate);
     ~DatabasePrivate();
 
     bool isOpen() const;
     bool isUsable() const;
     int DBFileVersion() const;
+
+    QString getFileName() const;
 
 protected:
     Database *q_ptr;
@@ -103,7 +104,6 @@ protected:
 
     enum DBSchemaChangeType { SchemaChanged,
                               SchemaAndDataChanged };
-    static QString exifDBFile();
     void openDatabase();
     void populateDatabase();
     void updateDatabase();
@@ -116,6 +116,7 @@ private:
     mutable bool m_isFailed = false;
     DB::UIDelegate &m_ui;
     QSqlDatabase m_db;
+    const QString m_fileName;
     bool m_isOpen = false;
     bool m_doUTF8Conversion = false;
     QSqlQuery *m_insertTransaction = nullptr;
@@ -128,10 +129,11 @@ private:
     void concludeInsertQuery(QSqlQuery *);
 };
 
-Database::DatabasePrivate::DatabasePrivate(Database *q, DB::UIDelegate &uiDelegate)
+Database::DatabasePrivate::DatabasePrivate(Database *q, const QString &exifDBFile, DB::UIDelegate &uiDelegate)
     : q_ptr(q)
     , m_ui(uiDelegate)
     , m_db(QSqlDatabase::addDatabase(QString::fromLatin1("QSQLITE"), QString::fromLatin1("exif")))
+    , m_fileName(exifDBFile)
 {
     init();
 }
@@ -144,7 +146,7 @@ void Exif::Database::DatabasePrivate::init()
 
     m_isFailed = false;
     m_insertTransaction = nullptr;
-    const bool dbExists = QFile::exists(exifDBFile());
+    const bool dbExists = QFile::exists(m_fileName);
 
     openDatabase();
 
@@ -184,8 +186,8 @@ void Database::DatabasePrivate::showErrorAndFail(const QString &errorMessage, co
     m_isFailed = true;
 }
 
-Exif::Database::Database(DB::UIDelegate &uiDelegate)
-    : d_ptr(new DatabasePrivate(this, uiDelegate))
+Exif::Database::Database(const QString &sqliteFileName, DB::UIDelegate &uiDelegate)
+    : d_ptr(new DatabasePrivate(this, sqliteFileName, uiDelegate))
 {
 }
 
@@ -196,7 +198,7 @@ Database::~Database()
 
 void Exif::Database::DatabasePrivate::openDatabase()
 {
-    m_db.setDatabaseName(exifDBFile());
+    m_db.setDatabaseName(m_fileName);
 
     m_isOpen = m_db.open();
     if (!m_isOpen) {
@@ -497,6 +499,11 @@ bool Exif::Database::DatabasePrivate::insert(const QList<DBExifInfo> &map)
     return true;
 }
 
+QString Exif::Database::DatabasePrivate::getFileName() const
+{
+    return m_fileName;
+}
+
 bool Exif::Database::isAvailable()
 {
     return isSQLiteDriverAvailable();
@@ -555,11 +562,6 @@ bool Exif::Database::isUsable() const
 {
     Q_D(const Database);
     return d->isUsable();
-}
-
-QString Exif::Database::DatabasePrivate::exifDBFile()
-{
-    return ::Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db");
 }
 
 bool Exif::Database::readFields(const DB::FileName &fileName, ElementList &fields) const
@@ -672,11 +674,11 @@ void Exif::Database::recreate(const DB::FileNameList &allImageFiles, DB::Abstrac
     // the user presse 'cancel' or there is any error. In that case
     // we want to go back to the original DB.
 
-    const QString origBackup = d->exifDBFile() + QLatin1String(".bak");
+    const QString origBackup = d->getFileName() + QLatin1String(".bak");
     d->m_db.close();
 
     QDir().remove(origBackup);
-    QDir().rename(d->exifDBFile(), origBackup);
+    QDir().rename(d->getFileName(), origBackup);
     d->init();
 
     // using a transaction here removes a *huge* overhead on the insert statements
@@ -698,8 +700,8 @@ void Exif::Database::recreate(const DB::FileNameList &allImageFiles, DB::Abstrac
     if (progressIndicator.wasCanceled()) {
         abortInsertTransaction();
         d->m_db.close();
-        QDir().remove(d->exifDBFile());
-        QDir().rename(origBackup, d->exifDBFile());
+        QDir().remove(d->getFileName());
+        QDir().rename(origBackup, d->getFileName());
         d->init();
     } else {
         commitInsertTransaction();

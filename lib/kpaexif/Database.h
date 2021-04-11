@@ -45,7 +45,7 @@ public:
     typedef QString Lens;
     typedef QList<Lens> LensList;
 
-    Database(DB::UIDelegate &uiDelegate);
+    Database(const QString &sqliteFileName, DB::UIDelegate &uiDelegate);
     Database(const Database &) = delete;
     ~Database();
 

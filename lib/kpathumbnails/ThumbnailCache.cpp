@@ -513,11 +513,15 @@ void ImageManager::ThumbnailCache::vacuum()
         saveFull();
         dataLocker.relock();
     }
+    QElapsedTimer timer;
+    timer.start();
 
+    long oldStorageSize = 0;
     const auto backupSuffix = QChar::fromLatin1('~');
     // save what we need
     for (int i = 0; i <= m_currentFile; ++i) {
         const auto cacheFile = fileNameForIndex(i);
+        oldStorageSize += QFileInfo(cacheFile).size();
         QFile::rename(cacheFile, cacheFile + backupSuffix);
     }
 
@@ -561,6 +565,14 @@ void ImageManager::ThumbnailCache::vacuum()
     if (currentFile)
         delete currentFile;
 
+    qCDebug(TimingLog, "Rewrote %d thumbnails in %f seconds", size(), timer.elapsed() / 1000.0);
+    long newStorageSize = 0;
+    for (int i = 0; i <= m_currentFile; ++i) {
+        const auto cacheFile = fileNameForIndex(i);
+        newStorageSize += QFileInfo(cacheFile).size();
+    }
+    qCDebug(ImageManagerLog, "Thumbnail storage used %ld bytes in %d files before and %ld bytes in %d files after operation.", oldStorageSize, maxFileIndex, newStorageSize, m_currentFile);
+    qCDebug(ImageManagerLog, "Size reduction: %.2f%%", 100.0 * (oldStorageSize - newStorageSize) / oldStorageSize);
     for (int i = 0; i <= maxFileIndex; ++i) {
         const auto cacheFile = fileNameForIndex(i);
         QFile::remove(cacheFile + backupSuffix);

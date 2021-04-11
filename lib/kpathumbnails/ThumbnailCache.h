@@ -143,6 +143,7 @@ public:
 
     /**
      * @brief Compacts the on-disk storage for the cache by discarding stale data from its files.
+     * To ensure consistency, this method also saves the cache.
      */
     void vacuum();
 

@@ -232,11 +232,6 @@ bool Exif::Database::DatabasePrivate::isOpen() const
 {
     return m_isOpen && !m_isFailed;
 }
-bool Exif::Database::isOpen() const
-{
-    Q_D(const Database);
-    return d->isOpen();
-}
 
 void Exif::Database::DatabasePrivate::populateDatabase()
 {
@@ -549,7 +544,7 @@ int Exif::Database::DBFileVersionGuaranteed() const
     return 0;
 }
 
-constexpr int Exif::Database::DBVersion()
+int Exif::Database::DBVersion()
 {
     return DB_VERSION;
 }
@@ -667,8 +662,29 @@ QList<QString> Exif::Database::lenses() const
     return result;
 }
 
+int Database::size() const
+{
+    if (!isUsable())
+        return 0;
+
+    Q_D(const Database);
+    QSqlQuery query(QLatin1String("SELECT count(*) FROM exif"), d->m_db);
+    int result = 0;
+    if (!query.exec()) {
+        d->showErrorAndFail(query);
+    } else {
+        if (query.first()) {
+            result = query.value(0).toInt();
+        }
+    }
+    return result;
+}
+
 void Exif::Database::recreate(const DB::FileNameList &allImageFiles, DB::AbstractProgressIndicator &progressIndicator)
 {
+    progressIndicator.setMinimum(0);
+    progressIndicator.setMaximum(allImageFiles.size());
+
     Q_D(Database);
     // We create a backup of the current database in case
     // the user presse 'cancel' or there is any error. In that case

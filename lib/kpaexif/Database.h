@@ -56,9 +56,12 @@ public:
      * @brief DBVersion is the exif search database schema version currently supported by KPhotoAlbum.
      * @return the Exif Database version
      */
-    static constexpr int DBVersion();
+    static int DBVersion();
 
-    bool isOpen() const;
+    /**
+     * @brief isUsable
+     * @return \c true, if the Exif database is available, open, and not in a failure state. \c false otherwise
+     */
     bool isUsable() const;
     /**
      * @brief DBFileVersion is the database schema version used in the exif-info.db file.
@@ -120,6 +123,13 @@ public:
     DB::FileNameSet filesMatchingQuery(const QString &query) const;
     CameraList cameras() const;
     LensList lenses() const;
+
+    /**
+     * @brief size
+     * @return The number of entries in the Exif database
+     */
+    int size() const;
+
     /**
      * @brief Discards the current exif database and recreates it from the given files.
      *

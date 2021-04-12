@@ -36,3 +36,43 @@ void DB::UIDelegate::error(const LogMessage logMsg, const QString &msg, const QS
     qCCritical(logMsg.category) << logMsg.message;
     showError(msg, title, dialogId);
 }
+
+int DB::DummyProgressIndicator::minimum() const
+{
+    return m_min;
+}
+
+void DB::DummyProgressIndicator::setMinimum(int min)
+{
+    m_min = min;
+}
+
+int DB::DummyProgressIndicator::maximum() const
+{
+    return m_max;
+}
+
+void DB::DummyProgressIndicator::setMaximum(int max)
+{
+    m_max = max;
+}
+
+int DB::DummyProgressIndicator::value()
+{
+    return m_value;
+}
+
+void DB::DummyProgressIndicator::setValue(int value)
+{
+    m_value = value;
+}
+
+bool DB::DummyProgressIndicator::wasCanceled() const
+{
+    return m_cancelRequested;
+}
+
+void DB::DummyProgressIndicator::setCancelRequested(bool cancel)
+{
+    m_cancelRequested = cancel;
+}

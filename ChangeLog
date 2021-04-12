@@ -10,6 +10,8 @@
 
 * Enhancement: Allow relative local URLs in "Open list of files" dialog
 
+* Enhancement: Add option "--vacuum" to kpa-thumbnailtool
+
 * Bugfix: Fix searching for label (introduced in version 5.4.1)
 
 * Bugfix: Make splash screen text readable with dark themes

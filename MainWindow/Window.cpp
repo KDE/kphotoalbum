@@ -1670,7 +1670,6 @@ void MainWindow::Window::slotRecreateExifDB()
     DB::ProgressDialog<QProgressDialog> dialog;
     dialog.setModal(true);
     dialog.setLabelText(i18n("Rereading Exif information from all images"));
-    dialog.setMaximum(allImageFiles.size());
 
     DB::ImageDB::instance()->exifDB()->recreate(allImageFiles, dialog);
 }

@@ -187,6 +187,25 @@ public:
     }
 };
 
+class DummyProgressIndicator : public DB::AbstractProgressIndicator
+{
+public:
+    int minimum() const override;
+    void setMinimum(int min) override;
+    int maximum() const override;
+    void setMaximum(int max) override;
+    int value() override;
+    void setValue(int value) override;
+    bool wasCanceled() const override;
+
+    void setCancelRequested(bool cancel);
+
+private:
+    int m_min = 0;
+    int m_max = 100;
+    int m_value = 0;
+    bool m_cancelRequested = false;
+};
 } // namespace DB
 
 #endif // KPABASE_UIDELEGATE_H

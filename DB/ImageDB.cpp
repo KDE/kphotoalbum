@@ -119,7 +119,7 @@ UIDelegate &DB::ImageDB::uiDelegate() const
 
 ImageDB::ImageDB(UIDelegate &delegate)
     : m_UI(delegate)
-    , m_exifDB(std::make_unique<Exif::Database>(delegate))
+    , m_exifDB(std::make_unique<Exif::Database>(::Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db"), delegate))
 {
 }
 

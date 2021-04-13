@@ -57,6 +57,10 @@ then
 	# whitespace in filenames is not handled
 	fnames="${affected_files[@]}"
 	printf "**   reuse addheader --year $year --copyright '$copyright' ${fnames}\n"
+	if ! which reuse >/dev/null
+	then
+		printf "** You can usually install the reuse tool by running 'pip install --user reuse' or by following the instructions on https://reuse.software/\n"
+	fi
 	printf "** You can suppress this check by setting 'git config kpa.checkCopyrightHeader false'\n"
 	printf "** or by setting the environment variable CHECK_COPYRIGHT_HEADER=false\n"
 	exit 1

@@ -23,7 +23,7 @@ updated if needed.
 About the hooks:
  - 01-pre-commit: this is the default pre-commit hook supplied with git
  - 02-check-copyright-header will remind you to update copyright headers
- - 03-check-untracked_source_files will try to warn you about files that you forgot to add to git
+ - 03-check-untracked_files will try to warn you about files that you forgot to add to git
  - 04-check-clang-format will complain if your commit isn't formatted properly
 
 dev/scripts
@@ -40,7 +40,3 @@ Additional resources
 --------------------
 
  - https://techbase.kde.org/Development/Git/Configuration
-
-----
-SPDX-FileCopyrightText: 2019-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-SPDX-License-Identifier: CC-BY-SA-4.0

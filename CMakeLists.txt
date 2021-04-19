@@ -12,7 +12,7 @@
 # SPDX-FileCopyrightText: 2012-2013 Andreas Neustifter <andreas.neustifter@gmail.com>
 # SPDX-FileCopyrightText: 2012-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 # SPDX-FileCopyrightText: 2014 David Edmundson <kde@davidedmundson.co.uk>
-# SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tobias.leupold@gmx.de>
+# SPDX-FileCopyrightText: 2014-2021 Tobias Leupold <tobias.leupold@gmx.de>
 # SPDX-FileCopyrightText: 2016 Christoph Feck <cfeck@kde.org>
 # SPDX-FileCopyrightText: 2016 Luigi Toscano <luigi.toscano@tiscali.it>
 # SPDX-FileCopyrightText: 2016 Michael Palimaka <kensington@gentoo.org>
@@ -249,7 +249,7 @@ set(libMainWindow_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/DuplicateMerger.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/DuplicateMatch.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/DuplicateMerger/MergeToolTip.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/CopyPopup.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/CopyLinkEngine.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/Options.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/MainWindow/Logging.cpp"
     )

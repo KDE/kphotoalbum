@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+/* SPDX-FileCopyrightText: 2003-2021 The KPhotoAlbum Development Team
 
    SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -9,6 +9,7 @@
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
 #include <kpabase/FileNameList.h>
+#include <MainWindow/CopyLinkEngine.h>
 
 #include <QImage>
 #include <QMap>
@@ -66,6 +67,7 @@ public:
     void setShowFullScreen(bool on);
     void show(bool slideShow);
     KActionCollection *actions();
+    void setCopyLinkEngine(MainWindow::CopyLinkEngine *copyLinkEngine);
 
     /**
      * @brief setTaggedAreasFromImage
@@ -84,7 +86,6 @@ public slots:
     void moveInfoBox(int);
     void stopPlayback();
     void remapAreas(QSize viewSize, QRect zoomWindow, double sizeRatio);
-    void copyTo();
 
 signals:
     void soughtTo(const DB::FileName &id);
@@ -185,6 +186,8 @@ protected slots:
      */
     void slotRemoveDeletedImages(const DB::FileNameList &imageList);
 
+    void triggerCopyLinkAction(MainWindow::CopyLinkEngine::Action action);
+
 private:
     static ViewerWidget *s_latest;
     friend class VideoShooter;
@@ -226,7 +229,8 @@ private:
     QAction *m_showExifViewer;
     QPointer<Exif::InfoDialog> m_exifViewer;
 
-    QAction *m_copyTo;
+    QAction *m_copyToAction;
+    QAction *m_linkToAction;
 
     InfoBox *m_infoBox;
     QImage m_currentImage;
@@ -260,7 +264,7 @@ private:
     QMap<Qt::Key, QPair<QString, QString>> *m_inputMacros;
     QMap<Qt::Key, QPair<QString, QString>> *m_myInputMacros;
 
-    QString m_lastCopyToTarget;
+    MainWindow::CopyLinkEngine *m_copyLinkEngine;
 };
 
 }

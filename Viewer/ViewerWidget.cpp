@@ -52,6 +52,8 @@
 #include <QWheelEvent>
 #include <qglobal.h>
 
+#include <functional>
+
 Viewer::ViewerWidget *Viewer::ViewerWidget::s_latest = nullptr;
 
 Viewer::ViewerWidget *Viewer::ViewerWidget::latest()
@@ -152,10 +154,19 @@ void Viewer::ViewerWidget::setupContextMenu()
     m_showExifViewer->setText(i18nc("@action:inmenu", "Show Exif Viewer"));
     m_popup->addAction(m_showExifViewer);
 
-    m_copyTo = m_actions->addAction(QString::fromLatin1("viewer-copy-to"), this, &ViewerWidget::copyTo);
-    m_copyTo->setText(i18nc("@action:inmenu", "Copy Image to..."));
-    m_actions->setDefaultShortcut(m_copyTo, Qt::Key_F7);
-    m_popup->addAction(m_copyTo);
+    m_popup->addSeparator();
+
+    m_copyToAction = m_actions->addAction(QStringLiteral("viewer-copy-to"), this, std::bind(&ViewerWidget::triggerCopyLinkAction, this, MainWindow::CopyLinkEngine::Copy));
+    m_copyToAction->setText(i18nc("@action:inmenu", "Copy image to ..."));
+    m_actions->setDefaultShortcut(m_copyToAction, Qt::Key_F7);
+    m_popup->addAction(m_copyToAction);
+
+    m_linkToAction = m_actions->addAction(QStringLiteral("viewer-link-to"), this, std::bind(&ViewerWidget::triggerCopyLinkAction, this, MainWindow::CopyLinkEngine::Link));
+    m_linkToAction->setText(i18nc("@action:inmenu", "Link image to ..."));
+    m_actions->setDefaultShortcut(m_linkToAction, Qt::SHIFT + Qt::Key_F7);
+    m_popup->addAction(m_linkToAction);
+
+    m_popup->addSeparator();
 
     if (m_type == ViewerWindow) {
         action = m_actions->addAction(QString::fromLatin1("viewer-close"), this, &ViewerWidget::close);
@@ -1429,29 +1440,15 @@ void Viewer::ViewerWidget::remapAreas(QSize viewSize, QRect zoomWindow, double s
     }
 }
 
-void Viewer::ViewerWidget::copyTo()
+void Viewer::ViewerWidget::setCopyLinkEngine(MainWindow::CopyLinkEngine *copyLinkEngine)
 {
-    QUrl src = QUrl::fromLocalFile(m_list[m_current].absolute());
-    if (m_lastCopyToTarget.isNull()) {
-        // get directory of src file
-        m_lastCopyToTarget = QFileInfo(src.path()).path();
-    }
+    m_copyLinkEngine = copyLinkEngine;
+}
 
-    QFileDialog dialog(this);
-    dialog.setWindowTitle(i18nc("@title:window", "Copy Image to..."));
-    // use directory of src as start-location:
-    dialog.setDirectory(m_lastCopyToTarget);
-    dialog.selectFile(src.fileName());
-    dialog.setAcceptMode(QFileDialog::AcceptSave);
-    dialog.setLabelText(QFileDialog::Accept, i18nc("@action:button", "Copy"));
-
-    if (dialog.exec()) {
-        QUrl dst = dialog.selectedUrls().first();
-        KIO::CopyJob *job = KIO::copy(src, dst);
-        connect(job, &KIO::CopyJob::finished, job, &QObject::deleteLater);
-        // get directory of dst file
-        m_lastCopyToTarget = QFileInfo(dst.path()).path();
-    }
+void Viewer::ViewerWidget::triggerCopyLinkAction(MainWindow::CopyLinkEngine::Action action)
+{
+    auto selectedFiles = QList<QUrl> { QUrl::fromLocalFile(m_list.value(m_current).absolute()) };
+    m_copyLinkEngine->selectTarget(this, selectedFiles, action);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -12,6 +12,7 @@
 #include <kpabase/UIDelegate.h>
 #include <kpabase/config-kpa-marble.h>
 #include <kpabase/config-kpa-plugins.h>
+#include <MainWindow/CopyLinkEngine.h>
 
 #include <KXmlGuiWindow>
 #include <QList>
@@ -83,6 +84,7 @@ class SearchBar;
 class DeleteDialog;
 class StatusBar;
 class TokenEditor;
+class CopyLinkEngine;
 
 class Window : public KXmlGuiWindow, public DB::UIDelegate
 {
@@ -200,6 +202,7 @@ protected slots:
     void mergeDuplicates();
     void slotThumbnailSizeChanged();
     void slotMarkUntagged();
+    void triggerCopyLinkAction(CopyLinkEngine::Action action);
 
 protected:
     void configureImages(bool oneAtATime);
@@ -255,6 +258,8 @@ private:
     QAction *m_sortAllByDateAndTime;
     QAction *m_AutoStackImages;
     QAction *m_viewInNewWindow;
+    QAction *m_copyAction;
+    QAction *m_linkAction;
     KActionMenu *m_viewMenu;
     KToggleAction *m_smallListView;
     KToggleAction *m_largeListView;
@@ -284,6 +289,8 @@ private:
     Map::MapView *m_positionBrowser;
 #endif
     ThumbnailView::FilterWidget *m_filterWidget;
+    CopyLinkEngine *m_copyLinkEngine;
+
 };
 
 }

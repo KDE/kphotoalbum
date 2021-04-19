@@ -7,7 +7,6 @@
 
 #include "AutoStackImages.h"
 #include "BreadcrumbViewer.h"
-#include "CopyPopup.h"
 #include "DeleteDialog.h"
 #include "DirtyIndicator.h"
 #include "DuplicateMerger/DuplicateMerger.h"
@@ -118,6 +117,7 @@
 #include <kio_version.h> // for #if KIO_VERSION...
 #include <ktip.h>
 #include <kwidgetsaddons_version.h>
+#include <functional>
 
 using namespace DB;
 
@@ -238,6 +238,8 @@ MainWindow::Window::Window(QWidget *parent)
 
     // Automatically save toolbar settings
     setAutoSaveSettings();
+
+    m_copyLinkEngine = new CopyLinkEngine(this);
 
     qCInfo(TimingLog) << "MainWindow: misc setup time: " << timer.restart() << "ms.";
 }
@@ -654,9 +656,12 @@ void MainWindow::Window::launchViewer(const DB::FileNameList &inputMediaList, bo
         viewer = Viewer::ViewerWidget::latest();
         viewer->raise();
         viewer->activateWindow();
-    } else
+    } else {
         viewer = new Viewer::ViewerWidget(Viewer::ViewerWidget::ViewerWindow,
                                           &m_viewerInputMacros);
+        viewer->setCopyLinkEngine(m_copyLinkEngine);
+    }
+
     connect(viewer, &Viewer::ViewerWidget::soughtTo, m_thumbnailView, &ThumbnailView::ThumbnailFacade::changeSingleSelection);
     connect(viewer, &Viewer::ViewerWidget::imageRotated, this, &Window::slotImageRotated);
 
@@ -993,6 +998,14 @@ void MainWindow::Window::setupMenuBar()
     m_usePreviousVideoThumbnail->setText(i18n("Use previous video thumbnail"));
     actionCollection()->setDefaultShortcut(m_usePreviousVideoThumbnail, Qt::CTRL + Qt::Key_Minus);
 
+    m_copyAction = actionCollection()->addAction(QStringLiteral("copyImagesTo"), this, std::bind(&Window::triggerCopyLinkAction, this, CopyLinkEngine::Copy));
+    m_copyAction->setText(i18ncp("@action:inmenu", "Copy image to ...", "Copy images to ...", 1));
+    actionCollection()->setDefaultShortcut(m_copyAction, Qt::Key_F7);
+
+    m_linkAction = actionCollection()->addAction(QStringLiteral("linkImagesTo"), this, std::bind(&Window::triggerCopyLinkAction, this, CopyLinkEngine::Link));
+    m_linkAction->setText(i18ncp("@action:inmenu", "Link image to ...", "Link images to ...", 1));
+    actionCollection()->setDefaultShortcut(m_linkAction, Qt::SHIFT + Qt::Key_F7);
+
     setupGUI(KXmlGuiWindow::ToolBar | Create | Save);
 }
 
@@ -1187,36 +1200,51 @@ void MainWindow::Window::contextMenuEvent(QContextMenuEvent *e)
         ExternalPopup externalCommands { &menu };
         const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_thumbnailView->mediaIdUnderCursor());
 
-        externalCommands.populate(info, selected());
-        QAction *action = menu.addMenu(&externalCommands);
-        if (!info && selected().isEmpty())
-            action->setEnabled(false);
+        const auto selection = selected();
+        const auto selectionCount = selected().count();
 
-        QUrl selectedFile;
-        if (info)
-            selectedFile = QUrl::fromLocalFile(info->fileName().absolute());
-        QList<QUrl> allSelectedFiles;
-        for (const QString &selectedPath : selected().toStringList(DB::AbsolutePath)) {
-            allSelectedFiles << QUrl::fromLocalFile(selectedPath);
+        externalCommands.populate(info, selection);
+        auto *externalCommandsAction = menu.addMenu(&externalCommands);
+        if (!info && selectionCount == 0) {
+            externalCommandsAction->setEnabled(false);
         }
 
-        // "Copy image(s) to ..."
-        CopyPopup copyMenu(&menu, selectedFile, allSelectedFiles, m_lastTarget, CopyPopup::Copy);
-        QAction *copyAction = menu.addMenu(&copyMenu);
-        if (!info && selected().isEmpty()) {
-            copyAction->setEnabled(false);
-        }
+        // "Copy to ..." / "Link to ..."
 
-        // "Link image(s) to ..."
-        CopyPopup linkMenu(&menu, selectedFile, allSelectedFiles, m_lastTarget, CopyPopup::Link);
-        QAction *linkAction = menu.addMenu(&linkMenu);
-        if (!info && selected().isEmpty()) {
-            linkAction->setEnabled(false);
-        }
+        menu.addSeparator();
+
+        m_copyAction->setText(i18ncp("@action:inmenu", "Copy image to ...", "Copy images to ...", selectionCount));
+        menu.addAction(m_copyAction);
+        m_copyAction->setEnabled(selectionCount > 0);
+
+        m_linkAction->setText(i18ncp("@action:inmenu", "Link image to ...", "Link images to ...", selectionCount));
+        menu.addAction(m_linkAction);
+        m_linkAction->setEnabled(selectionCount > 0);
 
         menu.exec(QCursor::pos());
     }
     e->setAccepted(true);
+}
+
+void MainWindow::Window::triggerCopyLinkAction(CopyLinkEngine::Action action)
+{
+    QStringList selection;
+
+    if (m_thumbnailView->gui() == m_stack->currentWidget()) {
+        selection = selected().toStringList(DB::AbsolutePath);
+    }
+
+    if (selection.isEmpty()) {
+        KMessageBox::sorry(this, i18n("No item is selected."), i18n("No Selection"));
+        return;
+    }
+
+    QList<QUrl> selectedFiles;
+    for (const QString &path : selection) {
+        selectedFiles.append(QUrl::fromLocalFile(path));
+    }
+
+    m_copyLinkEngine->selectTarget(this, selectedFiles, action);
 }
 
 void MainWindow::Window::setDefaultScopePositive()

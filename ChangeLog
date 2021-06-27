@@ -1,3 +1,5 @@
+====================== KPhotoalbum 5.8.0 released (27.06.2021) ======================
+
 * Enhancement: The "Copy to/Move to" action (triggered by pressing F7/F8) can now be run both from
   the browser and the viewer, using the same interface and caching the same last target directory
 

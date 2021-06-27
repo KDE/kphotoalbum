@@ -62,7 +62,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent(QKeyEvent *ev)
         // If final Return is handled by the default implementation,
         // it can "leak" to other widgets. So we swallow it here:
         if (ev->key() == Qt::Key_Return || ev->key() == Qt::Key_Enter)
-            emit KLineEdit::returnPressed(text());
+            emit KLineEdit::returnKeyPressed(text());
         else
             KLineEdit::keyPressEvent(ev);
         if (prevContent != text())

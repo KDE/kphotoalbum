@@ -870,7 +870,7 @@ void ListSelect::connectLineEdit(CompletableLineEdit *le)
 {
     le->setObjectName(m_category->name());
     le->setListView(m_treeWidget);
-    connect(le, &KLineEdit::returnPressed, this, &ListSelect::slotExternalReturn);
+    connect(le, &KLineEdit::returnKeyPressed, this, &ListSelect::slotExternalReturn);
 }
 
 void AnnotationDialog::ListSelect::ensureTagIsSelected(QString category, QString tag)

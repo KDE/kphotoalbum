@@ -57,7 +57,7 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
     mainLayout->addWidget(tagMenu, 2, 0, 1, 2);
     connect(tagMenu, &QMenu::triggered, this, &QDialog::accept);
 
-    connect(tagSelect, &KLineEdit::returnKeyPressed, this, &AreaTagSelectDialog::slotSetTag);
+    connect(tagSelect, &KLineEdit::returnPressed, this, &AreaTagSelectDialog::slotSetTag);
     connect(tagSelect, &QLineEdit::textChanged, this, &AreaTagSelectDialog::slotValidateTag);
     connect(this, &QDialog::finished, this, &AreaTagSelectDialog::slotFinished);
 }

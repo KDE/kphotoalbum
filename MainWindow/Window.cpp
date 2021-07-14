@@ -999,11 +999,11 @@ void MainWindow::Window::setupMenuBar()
     actionCollection()->setDefaultShortcut(m_usePreviousVideoThumbnail, Qt::CTRL + Qt::Key_Minus);
 
     m_copyAction = actionCollection()->addAction(QStringLiteral("copyImagesTo"), this, std::bind(&Window::triggerCopyLinkAction, this, CopyLinkEngine::Copy));
-    m_copyAction->setText(i18ncp("@action:inmenu", "Copy image to ...", "Copy images to ...", 1));
+    m_copyAction->setText(i18np("Copy image to ...", "Copy images to ...", 1));
     actionCollection()->setDefaultShortcut(m_copyAction, Qt::Key_F7);
 
     m_linkAction = actionCollection()->addAction(QStringLiteral("linkImagesTo"), this, std::bind(&Window::triggerCopyLinkAction, this, CopyLinkEngine::Link));
-    m_linkAction->setText(i18ncp("@action:inmenu", "Link image to ...", "Link images to ...", 1));
+    m_linkAction->setText(i18np("Link image to ...", "Link images to ...", 1));
     actionCollection()->setDefaultShortcut(m_linkAction, Qt::SHIFT + Qt::Key_F7);
 
     setupGUI(KXmlGuiWindow::ToolBar | Create | Save);

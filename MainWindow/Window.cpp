@@ -1213,11 +1213,11 @@ void MainWindow::Window::contextMenuEvent(QContextMenuEvent *e)
 
         menu.addSeparator();
 
-        m_copyAction->setText(i18ncp("@action:inmenu", "Copy image to ...", "Copy images to ...", selectionCount));
+        m_copyAction->setText(i18np("Copy image to ...", "Copy images to ...", selectionCount));
         menu.addAction(m_copyAction);
         m_copyAction->setEnabled(selectionCount > 0);
 
-        m_linkAction->setText(i18ncp("@action:inmenu", "Link image to ...", "Link images to ...", selectionCount));
+        m_linkAction->setText(i18np("Link image to ...", "Link images to ...", selectionCount));
         menu.addAction(m_linkAction);
         m_linkAction->setEnabled(selectionCount > 0);
 

@@ -8,8 +8,8 @@
 
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
-#include <kpabase/FileNameList.h>
 #include <MainWindow/CopyLinkEngine.h>
+#include <kpabase/FileNameList.h>
 
 #include <QImage>
 #include <QMap>
@@ -149,9 +149,7 @@ protected slots:
     void showLast();
     void deleteCurrent();
     void removeCurrent();
-    void rotate90();
-    void rotate180();
-    void rotate270();
+    void rotate(int angle);
     void toggleFullScreen();
     void slotStartStopSlideShow();
     void slotSlideShowNext();

@@ -155,10 +155,9 @@ void Viewer::ImageDisplay::mouseReleaseEvent(QMouseEvent *event)
     update();
 }
 
-bool Viewer::ImageDisplay::setImage(DB::ImageInfoPtr info, bool forward)
+bool Viewer::ImageDisplay::setImageImpl(DB::ImageInfoPtr info, bool forward)
 {
     qCDebug(ViewerLog) << "setImage(" << info->fileName().relative() << "," << forward << ")";
-    m_info = info;
     m_loadedImage = QImage();
 
     // Find the index of the current image
@@ -681,6 +680,11 @@ void Viewer::ImageDisplay::zoomPixelForPixel()
     qCDebug(ViewerLog) << "zoomPixelForPixel(): Zoom region changed to" << m_zStart << "-" << m_zEnd;
     cropAndScale();
     potentiallyLoadFullSize();
+}
+
+void Viewer::ImageDisplay::rotate(const DB::ImageInfoPtr &info)
+{
+    setImage(info, m_forward);
 }
 
 void Viewer::ImageDisplay::updateZoomPoints(const Settings::StandardViewSize type, const QSize &imgSize)

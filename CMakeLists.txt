@@ -59,7 +59,9 @@ add_definitions(
 ########### dependencies  ###############
 
 find_package(Qt5 5.9 REQUIRED COMPONENTS Core Sql Xml Widgets Test)
-find_package(Phonon4Qt5 REQUIRED)
+find_package(Phonon4Qt5)
+find_package(QtAV)
+find_package(LIBVLC)
 find_package(KF5 5.44 REQUIRED COMPONENTS Archive Completion Config CoreAddons DocTools I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons)
 
 find_package(JPEG REQUIRED)
@@ -93,6 +95,10 @@ if(Marble_FOUND)
     include(MarbleChecks)
 endif()
 
+if(NOT Phonon4Qt5_FOUND AND NOT QtAV_FOUND AND NOT LIBVLC_FOUND)
+    message(FATAL_ERROR "A video backend must be provided. CMake failed to find any of Phonon, QtAV, and VLC")
+endif()
+
 set(libdatebar_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/DateBar/documentation.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/DateBar/DateBarWidget.cpp"
@@ -118,6 +124,7 @@ set(libSettings_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/BirthdayPage.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/DateTableWidgetItem.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/Logging.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Settings/VideoPlayerSelectorDialog.cpp"
     )
 
 set(libxmldb_SRCS
@@ -186,6 +193,8 @@ set(libViewer_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VideoShooter.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/TaggedArea.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/Logging.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VideoToolBar.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/Slider.cpp"
     )
 
 set(libCategoryListView_SRCS
@@ -488,7 +497,6 @@ target_link_libraries(kphotoalbum
     KF5::TextWidgets
     KF5::XmlGui
     KF5::WidgetsAddons
-    Phonon::phonon4qt5
     ${libRemoteControl_LIBS}
     )
 
@@ -504,9 +512,37 @@ if(Marble_FOUND)
     target_link_libraries(kphotoalbum PRIVATE Marble)
 endif()
 
+if(QtAV_FOUND)
+  include_directories(${QTAV_CORE_INCLUDE_DIR})
+  target_sources(kphotoalbum PRIVATE
+      "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/QtAVDisplay.cpp"
+      "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/QtAVVideoToolBar.cpp"
+  )
+  target_link_libraries(kphotoalbum PRIVATE ${QTAV_LIBRARIES})
+endif()
+
+if(LIBVLC_FOUND)
+  include_directories(${LIBVLC_INCLUDE_DIR})
+  target_sources(kphotoalbum PRIVATE
+      "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VLCDisplay.cpp"
+  )
+  target_link_libraries(kphotoalbum PRIVATE ${LIBVLC_LIBRARY})
+endif()
+
+if (Phonon4Qt5_FOUND)
+  target_sources(kphotoalbum PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/PhononDisplay.cpp"
+  )
+  target_link_libraries(kphotoalbum PRIVATE Phonon::phonon4qt5)
+endif()
 install(TARGETS kphotoalbum ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 add_subdirectory(kpa-thumbnailtool)
+
+configure_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/config-kphotoalbum.h.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/config-kphotoalbum.h
+)
 
 ########### install files ###############
 

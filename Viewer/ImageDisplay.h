@@ -48,7 +48,6 @@ class ImageDisplay : public Viewer::AbstractDisplay, public ImageManager::ImageC
     Q_OBJECT
 public:
     explicit ImageDisplay(QWidget *parent);
-    bool setImage(DB::ImageInfoPtr info, bool forward) override;
     QImage currentViewAsThumbnail() const;
     void pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image) override;
     void setImageList(const DB::FileNameList &list);
@@ -65,8 +64,11 @@ public slots:
     void zoomOut() override;
     void zoomFull() override;
     void zoomPixelForPixel() override;
+    void stop() override { }
+    void rotate(const DB::ImageInfoPtr &info) override;
 
 protected slots:
+    bool setImageImpl(DB::ImageInfoPtr info, bool forward) override;
     void hideCursor();
     void showCursor();
     void disableCursorHiding();
@@ -121,7 +123,7 @@ private:
     DB::FileNameList m_imageList;
     QMap<QString, DB::ImageInfoPtr> m_loadMap;
     bool m_reloadImageInProgress;
-    int m_forward;
+    bool m_forward;
     int m_curIndex;
     bool m_busy;
     ViewerWidget *m_viewer;

@@ -5,10 +5,13 @@
 #ifndef VIEWERPAGE_H
 #define VIEWERPAGE_H
 #include <QWidget>
+#include <kpabase/SettingsData.h>
 
 class KComboBox;
 class QSpinBox;
 class QComboBox;
+class QPushButton;
+
 namespace Settings
 {
 class SettingsData;
@@ -28,6 +31,8 @@ private:
     QSpinBox *m_slideShowInterval;
     QSpinBox *m_cacheSize;
     KComboBox *m_viewerStandardSize;
+    QPushButton *m_videoBackendButton;
+    Settings::VideoBackend m_videoBackend = Settings::VideoBackend::NotConfigured;
 };
 
 }

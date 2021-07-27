@@ -18,7 +18,7 @@
 #include <QStandardPaths>
 #include <QTextBrowser>
 #include <QVBoxLayout>
-#include <phonon/backendcapabilities.h>
+#include <config-kphotoalbum.h>
 
 using namespace MainWindow;
 
@@ -61,14 +61,7 @@ FeatureDialog::FeatureDialog(QWidget *parent)
                  "</p>");
 
     text += i18n("<h1><a name=\"video\">Video support</a></h1>"
-                 "<p>KPhotoAlbum relies on Qt's Phonon architecture for displaying videos; this in turn relies on GStreamer.</p>");
-
-    QStringList mimeTypes = supportedVideoMimeTypes();
-    mimeTypes.sort();
-    if (mimeTypes.isEmpty())
-        text += i18n("<p>No video mime types found, which indicates that either Qt was compiled without phonon support, or there were missing codecs</p>");
-    else
-        text += i18n("<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</li></ul></p>", mimeTypes.join(QString::fromLatin1("</li><li>")));
+                 "<p>KPhotoAlbum relies on QtAv for displaying videos; this in turn relies on ffmpeg</p>");
 
     text += i18n("<h1><a name=\"videoPreview\">Video thumbnail support</a></h1>"
                  "<p>KPhotoAlbum can use <tt>ffmpeg</tt> to extract thumbnails from videos. These thumbnails are used to preview "
@@ -167,7 +160,6 @@ QString MainWindow::FeatureDialog::featureString()
     features << Data(i18n("Plug-ins available"), QString::fromLatin1("#purpose"), hasPurposeSupport());
     features << Data(i18n("SQLite database support (used for Exif searches)"), QString::fromLatin1("#database"), hasEXIV2DBSupport());
     features << Data(i18n("Map view for geotagged images."), QString::fromLatin1("#geomap"), hasGeoMapSupport());
-    features << Data(i18n("Video support"), QString::fromLatin1("#video"), !supportedVideoMimeTypes().isEmpty());
     features << Data(i18n("Video thumbnail support"), QString::fromLatin1("#videoPreview"), hasVideoThumbnailer());
     features << Data(i18n("Video metadata support"), QString::fromLatin1("#videoInfo"), hasVideoProber());
 
@@ -185,11 +177,6 @@ QString MainWindow::FeatureDialog::featureString()
     result += QString::fromLatin1("</table></p>");
 
     return result;
-}
-
-QStringList MainWindow::FeatureDialog::supportedVideoMimeTypes()
-{
-    return Phonon::BackendCapabilities::availableMimeTypes();
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

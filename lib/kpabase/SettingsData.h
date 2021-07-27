@@ -58,6 +58,11 @@ enum LoadOptimizationPreset { LoadOptimizationHardDisk,
                               LoadOptimizationFastNVME,
                               LoadOptimizationManual };
 
+enum class VideoBackend { NotConfigured,
+                          Phonon,
+                          QtAV,
+                          VLC };
+
 typedef const char *WindowType;
 extern const WindowType MainWindow, AnnotationDialog;
 
@@ -165,6 +170,7 @@ public:
     property_copy(infoBoxHeight, setInfoBoxHeight, int);
     property_copy(infoBoxPosition, setInfoBoxPosition, Position);
     property_copy(viewerStandardSize, setViewerStandardSize, StandardViewSize);
+    property_copy(videoBackend, setVideoBackend, VideoBackend);
 
     ////////////////////
     //// Categories ////

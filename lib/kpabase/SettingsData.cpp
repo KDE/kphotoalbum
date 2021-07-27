@@ -335,6 +335,7 @@ property_copy(infoBoxWidth, setInfoBoxWidth, int, Viewer, 400)
 property_copy(infoBoxHeight, setInfoBoxHeight, int, Viewer, 300)
 property_enum(infoBoxPosition, setInfoBoxPosition, Position, Viewer, Bottom)
 property_enum(viewerStandardSize, setViewerStandardSize, StandardViewSize, Viewer, FullSize)
+property_enum(videoBackend, setVideoBackend, VideoBackend, Viewer, VideoBackend::NotConfigured)
     // clang-format on
 
     bool SettingsData::smoothScale() const

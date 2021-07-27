@@ -20,7 +20,6 @@ class TextDisplay : public Viewer::AbstractDisplay
     Q_OBJECT
 public:
     explicit TextDisplay(QWidget *parent);
-    bool setImage(DB::ImageInfoPtr info, bool forward) override;
     void setText(const QString text);
 
 public slots:
@@ -29,6 +28,11 @@ public slots:
     void zoomOut() override { }
     void zoomFull() override { }
     void zoomPixelForPixel() override { }
+    void stop() override { }
+    void rotate(const DB::ImageInfoPtr & /*info*/) override { }
+
+protected:
+    bool setImageImpl(DB::ImageInfoPtr info, bool forward) override;
 
 private:
     QLabel *m_text;

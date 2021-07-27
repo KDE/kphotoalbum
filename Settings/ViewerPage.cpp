@@ -4,6 +4,7 @@
 */
 #include "ViewerPage.h"
 
+#include "VideoPlayerSelectorDialog.h"
 #include "ViewerSizeConfig.h"
 
 #include <kpabase/SettingsData.h>
@@ -12,8 +13,24 @@
 #include <KLocalizedString>
 #include <QGridLayout>
 #include <QLabel>
+#include <QPushButton>
 #include <QSpinBox>
 #include <QVBoxLayout>
+
+static QString videoBackendTextFromEnum(Settings::VideoBackend backend)
+{
+    switch (backend) {
+    case Settings::VideoBackend::NotConfigured:
+        return i18n("Not Configured");
+    case Settings::VideoBackend::VLC:
+        return QString::fromUtf8("VLC");
+    case Settings::VideoBackend::QtAV:
+        return QString::fromUtf8("QtAV");
+    case Settings::VideoBackend::Phonon:
+        return QString::fromUtf8("Phonon");
+    }
+    return {}; // Make CI shut up.
+}
 
 Settings::ViewerPage::ViewerPage(QWidget *parent)
     : QWidget(parent)
@@ -28,24 +45,25 @@ Settings::ViewerPage::ViewerPage(QWidget *parent)
 
     QGridLayout *glay = new QGridLayout;
     lay1->addLayout(glay);
+    int row = -1;
 
     QLabel *label = new QLabel(i18n("Slideshow interval:"), this);
-    glay->addWidget(label, 0, 0);
+    glay->addWidget(label, ++row, 0);
 
     m_slideShowInterval = new QSpinBox;
     m_slideShowInterval->setRange(1, INT_MAX);
-    glay->addWidget(m_slideShowInterval, 0, 1);
+    glay->addWidget(m_slideShowInterval, row, 1);
     m_slideShowInterval->setSuffix(i18n(" sec"));
     label->setBuddy(m_slideShowInterval);
 
     label = new QLabel(i18n("Image cache:"), this);
-    glay->addWidget(label, 1, 0);
+    glay->addWidget(label, ++row, 0);
 
     m_cacheSize = new QSpinBox;
     m_cacheSize->setRange(0, 16384);
     m_cacheSize->setSingleStep(10);
     m_cacheSize->setSuffix(i18n(" Mbytes"));
-    glay->addWidget(m_cacheSize, 1, 1);
+    glay->addWidget(m_cacheSize, row, 1);
     label->setBuddy(m_cacheSize);
 
     QString txt;
@@ -53,8 +71,8 @@ Settings::ViewerPage::ViewerPage(QWidget *parent)
     QLabel *standardSizeLabel = new QLabel(i18n("Standard size in viewer:"), this);
     m_viewerStandardSize = new KComboBox(this);
     m_viewerStandardSize->addItems(QStringList() << i18n("Full Viewer Size") << i18n("Natural Image Size") << i18n("Natural Image Size If Possible"));
-    glay->addWidget(standardSizeLabel, 2, 0);
-    glay->addWidget(m_viewerStandardSize, 2, 1);
+    glay->addWidget(standardSizeLabel, ++row, 0);
+    glay->addWidget(m_viewerStandardSize, row, 1);
     standardSizeLabel->setBuddy(m_viewerStandardSize);
 
     txt = i18n("<p>Set the standard size for images to be displayed in the viewer.</p> "
@@ -69,12 +87,23 @@ Settings::ViewerPage::ViewerPage(QWidget *parent)
     m_smoothScale->addItems(QStringList() << i18n("Fastest") << i18n("Best"));
     scalingLabel->setBuddy(m_smoothScale);
 
-    glay->addWidget(scalingLabel, 3, 0);
-    glay->addWidget(m_smoothScale, 3, 1);
+    glay->addWidget(scalingLabel, ++row, 0);
+    glay->addWidget(m_smoothScale, row, 1);
     txt = i18n("<p>When displaying images, KPhotoAlbum normally performs smooth scaling of the image. "
                "If this option is not set, KPhotoAlbum will use a faster but less smooth scaling method.</p>");
     scalingLabel->setWhatsThis(txt);
     m_smoothScale->setWhatsThis(txt);
+
+    label = new QLabel(i18n("Video Backend:"), this);
+    m_videoBackendButton = new QPushButton;
+    glay->addWidget(label, ++row, 0);
+    glay->addWidget(m_videoBackendButton, row, 1);
+    connect(m_videoBackendButton, &QPushButton::clicked, [this] {
+        VideoPlayerSelectorDialog dialog(this);
+        dialog.exec();
+        m_videoBackend = dialog.backend();
+        m_videoBackendButton->setText(videoBackendTextFromEnum(m_videoBackend));
+    });
 }
 
 void Settings::ViewerPage::loadSettings(Settings::SettingsData *opt)
@@ -87,6 +116,8 @@ void Settings::ViewerPage::loadSettings(Settings::SettingsData *opt)
     m_cacheSize->setValue(opt->viewerCacheSize());
     m_smoothScale->setCurrentIndex(opt->smoothScale());
     m_viewerStandardSize->setCurrentIndex(opt->viewerStandardSize());
+    m_videoBackend = opt->videoBackend();
+    m_videoBackendButton->setText(videoBackendTextFromEnum(m_videoBackend));
 }
 
 void Settings::ViewerPage::saveSettings(Settings::SettingsData *opt)
@@ -99,5 +130,6 @@ void Settings::ViewerPage::saveSettings(Settings::SettingsData *opt)
     opt->setViewerStandardSize((StandardViewSize)m_viewerStandardSize->currentIndex());
     opt->setSlideShowSize(m_slideShowSetup->size());
     opt->setLaunchSlideShowFullScreen(m_slideShowSetup->launchFullScreen());
+    opt->setVideoBackend(m_videoBackend);
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -11,7 +11,7 @@
 #include <QMessageBox>
 #include <QScreen>
 #include <QVBoxLayout>
-
+#include <QPainterPath>
 #include <QtAV/AVPlayer.h>
 #include <QtAV/LibAVFilter.h>
 #include <QtAV/VideoRenderer.h>

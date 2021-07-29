@@ -21,7 +21,7 @@ VideoPlayerSelectorDialog::VideoPlayerSelectorDialog(QWidget *parent)
     QLabel *label = new QLabel(i18n("<h1>Choose a Video Player</h1>"));
     layout->addWidget(label);
 
-    QString txt = i18n("<html><p>There are unfortunately no video player which just works out of the box for everyone.</p>"
+    QString txt = i18n("<html><p>Unfortunately, there is no video player which just works out of the box for everyone.</p>"
                        "<p>KPhotoAlbum therefore comes with three different back-ends, choose the one that works the best for you</p>"
 
                        "<p><b>VLC</b> seems to be the best supported video player back-end, meaning it can play most video formats. "
@@ -44,7 +44,7 @@ VideoPlayerSelectorDialog::VideoPlayerSelectorDialog(QWidget *parent)
 #if LIBVLC_FOUND
     m_vlc = new QRadioButton(QString::fromUtf8("VLC"));
 #else
-    m_vlc = new QRadioButton(QString::fromUtf8("VLC") + i18n(" (NOT AVILABLE)"));
+    m_vlc = new QRadioButton(QString::fromUtf8("VLC") + i18n(" (NOT AVAILABLE)"));
     m_vlc->setEnabled(false);
     somethingNotAvailable = true;
 #endif
@@ -53,7 +53,7 @@ VideoPlayerSelectorDialog::VideoPlayerSelectorDialog(QWidget *parent)
 #if QtAV_FOUND
     m_qtav = new QRadioButton(QString::fromUtf8("QtAV"));
 #else
-    m_qtav = new QRadioButton(QString::fromUtf8("QtAV") + i18n(" (NOT AVILABLE)"));
+    m_qtav = new QRadioButton(QString::fromUtf8("QtAV") + i18n(" (NOT AVAILABLE)"));
     m_qtav->setEnabled(false);
     somethingNotAvailable = true;
 #endif
@@ -62,7 +62,7 @@ VideoPlayerSelectorDialog::VideoPlayerSelectorDialog(QWidget *parent)
 #if Phonon4Qt5_FOUND
     m_phonon = new QRadioButton(QString::fromUtf8("Phonon"));
 #else
-    m_phonon = new QRadioButton(QString::fromUtf8("Phonon") + i18n(" (NOT AVILABLE)"));
+    m_phonon = new QRadioButton(QString::fromUtf8("Phonon") + i18n(" (NOT AVAILABLE)"));
     m_phonon->setEnabled(false);
     somethingNotAvailable = true;
 #endif

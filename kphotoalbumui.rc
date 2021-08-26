@@ -1,4 +1,8 @@
 <!DOCTYPE kpartgui>
+<!-- SPDX-FileCopyrightText: none
+
+     SPDX-License-Identifier: CC0-1.0
+-->
 <kpartgui name="kphotoalbum" version="49">
   <MenuBar>
     <Menu name="file">
@@ -86,7 +90,6 @@
      <Action name="showVideo"/>
    </Menu>
   </MenuBar>
-
   <ToolBar noMerge="1"  name="mainToolBar">
     <text>Main Toolbar</text>
     <Action name="file_save"/>
@@ -96,6 +99,4 @@
     <Action name="view_redisplay"/>
     <Action name="runSlideShow"/>
   </ToolBar>
-
-
 </kpartgui>

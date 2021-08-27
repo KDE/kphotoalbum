@@ -133,7 +133,7 @@ SPDX-License-Identifier: CC0-1.0
   </screenshots>
   <url type="homepage">https://kphotoalbum.org</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kphotoalbum</url>
-  <update_contact>kphotoalbum@mail.kdab.com</update_contact>
+  <update_contact>kphotoalbum@kde.org</update_contact>
   <project_group>KDE</project_group>
   <provides>
     <binary>kphotoalbum</binary>

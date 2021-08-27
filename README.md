@@ -24,7 +24,7 @@ Mailing List
 
 KPhotoAlbum has a mailing list at
 
-    https://mail.kdab.com/mailman/listinfo/kphotoalbum
+    https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum
 
 where you might find answers to common questions, plus get information
 about KPhotoAlbum development, plus of course ask questions.

@@ -1,6 +1,8 @@
 <!--
-SPDX-License-Identifier: CC-BY-SA-4.0
 SPDX-FileCopyrightText: 2018-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+
+SPDX-License-Identifier: CC-BY-SA-4.0
 -->
 
 # Pre release tests for KPhotoAlbum
@@ -13,6 +15,12 @@ This is a list of things to check before putting out a new version of kphotoalbu
  - When writing helper snippets, assume the kphotoalbum source directory as current working directory.
  - If not otherwise specified, the tests assume the default configuration options.
    Either start them in a clean environment, or set XDG_CONFIG_HOME so that an existing kphotoalbumrc is not used.
+
+## Automated tests
+
+KPhotoAlbum comes with a few unit tests. You can run them by invoking `ctest` in the build directory.
+We do not ship with failing unit tests.
+If any test is enabled but failes, this is considered a bug.
 
 ## Semi-automated checks
 

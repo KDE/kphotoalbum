@@ -1,13 +1,17 @@
 #!/bin/bash
+
 # SPDX-FileCopyrightText: 2019 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
 # SPDX-License-Identifier: BSD-2-Clause
+
 ###
 # Check all added or modified C++ source files for correct formatting
 ###
 
 set -e
 
-if ! which clang-format >/dev/null 2>&1
+if ! command -v clang-format >/dev/null
 then
 	echo "Please install clang-format!"
 fi

@@ -1,5 +1,7 @@
 #!/bin/bash
+
 # SPDX-FileCopyrightText: 2019-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
 # SPDX-License-Identifier: BSD-2-Clause
 
 ###
@@ -57,7 +59,7 @@ then
 	# whitespace in filenames is not handled
 	fnames="${affected_files[@]}"
 	printf "**   reuse addheader --year $year --copyright '$copyright' ${fnames}\n"
-	if ! which reuse >/dev/null
+	if ! command -v reuse >/dev/null
 	then
 		printf "** You can usually install the reuse tool by running 'pip install --user reuse' or by following the instructions on https://reuse.software/\n"
 	fi

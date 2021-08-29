@@ -1,5 +1,6 @@
 #!/bin/bash
-# SPDX-FileCopyrightText: 2018-2020 The KPhotoAlbum Development Team
+
+# SPDX-FileCopyrightText: 2018-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
 # SPDX-License-Identifier: BSD-2-Clause
 
@@ -229,7 +230,7 @@ generic_check()
 
 for dep in $DEPS
 do
-	if ! which "$dep" >/dev/null 2>&1
+	if ! command -v "$dep" >/dev/null
 	then
 		log err "Could not find required dependency '$dep'!"
 		exit 2
@@ -259,7 +260,7 @@ while true ; do
 		*) echo "Internal error!" ; exit 1 ;;
 	esac
 done
-log info "Using $version (`which kphotoalbum`)..."
+log info "Using $version (`command -v kphotoalbum`)..."
 
 if [ -z "$TEMPDIR" ]
 then

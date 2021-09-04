@@ -492,7 +492,7 @@ void Viewer::ViewerWidget::slotRemoveDeletedImages(const DB::FileNameList &image
 
 void Viewer::ViewerWidget::contextMenuEvent(QContextMenuEvent *e)
 {
-    if (m_videoDisplay) {
+    if (m_display == m_videoDisplay) {
         if (m_videoDisplay->isPaused())
             m_playPause->setText(i18nc("@action:inmenu Start video playback", "Play"));
         else

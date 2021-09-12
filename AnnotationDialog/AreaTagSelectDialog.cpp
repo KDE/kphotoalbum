@@ -49,6 +49,7 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
     mainLayout->addWidget(tagSelect, 0, 1);
 
     m_messageLabel = new QLabel();
+    m_messageLabel->setWordWrap(true);
     mainLayout->addWidget(m_messageLabel, 1, 1);
     m_messageLabel->hide();
 

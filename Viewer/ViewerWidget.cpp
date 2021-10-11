@@ -168,7 +168,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     m_popup->addAction(m_setStackHead);
 
     m_showExifViewer = m_actions->addAction(QString::fromLatin1("viewer-show-exif-viewer"), this, &ViewerWidget::showExifViewer);
-    m_showExifViewer->setText(i18nc("@action:inmenu", "Show Exif Viewer"));
+    m_showExifViewer->setText(i18n("Show Exif Info"));
     m_popup->addAction(m_showExifViewer);
 
     m_popup->addSeparator();

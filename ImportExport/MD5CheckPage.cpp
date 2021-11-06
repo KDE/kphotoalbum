@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "MD5CheckPage.h"
 
 #include <DB/ImageDB.h>
@@ -101,7 +102,9 @@ ImportExport::ClashInfo ImportExport::MD5CheckPage::clashes(const ImportSettings
             continue;
 
         const DB::FileName name = DB::ImageDB::instance()->md5Map()->lookup(info->MD5Sum());
-        DB::ImageInfoPtr other = DB::ImageDB::instance()->info(name);
+        const DB::ImageInfoPtr other = DB::ImageDB::instance()->info(name);
+        if (other->isNull())
+            continue;
         if (info->label() != other->label())
             res.label = true;
         if (info->description() != other->description())

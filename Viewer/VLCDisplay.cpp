@@ -57,7 +57,7 @@ void Viewer::VLCDisplay::setPosition(int newPosition)
 
     float pos = (float)(newPosition) / (float)m_videoToolBar->maximum();
 #if LIBVLC_VERSION_INT >= 0x04000000
-    libvlc_media_player_set_position(m_player, pos, true);
+    libvlc_media_player_set_position(m_player, pos, /*fastseek=*/true);
 #else
     libvlc_media_player_set_position(m_player, pos);
 #endif

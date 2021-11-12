@@ -12,6 +12,9 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
+#include <vlc/libvlc_version.h>
+#include <vlc/libvlc_media_player.h>
+
 Viewer::VLCDisplay::VLCDisplay(QWidget *parent)
     : Viewer::VideoDisplay(parent)
 {
@@ -53,7 +56,11 @@ void Viewer::VLCDisplay::setPosition(int newPosition)
         return;
 
     float pos = (float)(newPosition) / (float)m_videoToolBar->maximum();
+#if LIBVLC_VERSION_INT >= 0x04000000
+    libvlc_media_player_set_position(m_player, pos, true);
+#else
     libvlc_media_player_set_position(m_player, pos);
+#endif
 }
 
 void Viewer::VLCDisplay::playPause()
@@ -101,7 +108,11 @@ bool Viewer::VLCDisplay::isPaused() const
 
 void Viewer::VLCDisplay::stop()
 {
+#if LIBVLC_VERSION_INT >= 0x04000000
+    libvlc_media_player_stop_async(m_player);
+#else
     libvlc_media_player_stop(m_player);
+#endif
     m_poller->stop();
 }
 

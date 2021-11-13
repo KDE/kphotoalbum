@@ -17,6 +17,9 @@
 #include <QDebug>
 #include <QDateTime>
 #include <QMimeDatabase>
+#include <QDir>
+#include <QUrl>
+#include <QDesktopServices>
 
 static QString s_noPerm = QStringLiteral("-");
 static const QMimeDatabase s_mimeDB;
@@ -31,6 +34,7 @@ Exif::MetaDataDisplay::MetaDataDisplay(QWidget *parent) : QWidget(parent)
 
     layout->addWidget(keyLabel(i18n("Absolute path:")), row, 0);
     m_absolutePath = valueLabel();
+    connect(m_absolutePath, &QLabel::linkActivated, this, &Exif::MetaDataDisplay::openDir);
     layout->addWidget(m_absolutePath, row++, 1);
 
     layout->addWidget(keyLabel(i18n("MIME type:")), row, 0);
@@ -67,7 +71,8 @@ Exif::MetaDataDisplay::MetaDataDisplay(QWidget *parent) : QWidget(parent)
 QLabel *Exif::MetaDataDisplay::keyLabel(const QString &text)
 {
     auto *label = new QLabel;
-    label->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    label->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Minimum);
+    label->setAlignment(Qt::AlignTop);
     label->setText(text);
     return label;
 }
@@ -85,7 +90,9 @@ void Exif::MetaDataDisplay::setFileName(const QString &fileName)
     const QFileInfo info(fileName);
     const QLocale locale;
 
-    m_absolutePath->setText(fileName);
+    m_fileDir = info.absoluteDir().canonicalPath();
+
+    m_absolutePath->setText(QStringLiteral("%1<br/><a href=\"#\">%2</a>").arg(fileName, i18n("Open directory with a file manager")));
 
     m_mimeType->setText(s_mimeDB.mimeTypeForFile(fileName).name());
 
@@ -140,4 +147,9 @@ void Exif::MetaDataDisplay::setFileName(const QString &fileName)
     m_permissions->setText(i18nc("File permissions string compiled from a parsed variant (e.g. "
                                  "\"rw-rw-r--\", %1) and it's octal representation (e.g. \"0644\")",
                                  "%1 (%2)", parsedPermissions, octalPermissions));
+}
+
+void Exif::MetaDataDisplay::openDir()
+{
+    QDesktopServices::openUrl(QUrl::fromLocalFile(m_fileDir));
 }

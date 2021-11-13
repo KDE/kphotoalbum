@@ -24,6 +24,9 @@ private: // Functions;
     QLabel *keyLabel(const QString &text);
     QLabel *valueLabel();
 
+private slots:
+    void openDir();
+
 private: // Variables
     QLabel *m_absolutePath;
     QLabel *m_size;
@@ -33,6 +36,8 @@ private: // Variables
     QLabel *m_group;
     QLabel *m_permissions;
     QLabel *m_mimeType;
+
+    QString m_fileDir;
 
 };
 

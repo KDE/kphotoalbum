@@ -29,7 +29,7 @@ using Utilities::StringSet;
 Exif::InfoDialog::InfoDialog(const DB::FileName &fileName, QWidget *parent)
     : QDialog(parent)
 {
-    setWindowTitle(i18nc("@title:window", "Exif Information"));
+    setWindowTitle(i18nc("@title:window", "Exif Information and file metadata"));
 
     setAttribute(Qt::WA_DeleteOnClose);
     QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Close);

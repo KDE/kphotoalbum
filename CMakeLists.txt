@@ -12,7 +12,7 @@
 # SPDX-FileCopyrightText: 2012-2013 Andreas Neustifter <andreas.neustifter@gmail.com>
 # SPDX-FileCopyrightText: 2012-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 # SPDX-FileCopyrightText: 2014 David Edmundson <kde@davidedmundson.co.uk>
-# SPDX-FileCopyrightText: 2014-2021 Tobias Leupold <tobias.leupold@gmx.de>
+# SPDX-FileCopyrightText: 2014-2021 Tobias Leupold <tl@l3u.de>
 # SPDX-FileCopyrightText: 2016 Christoph Feck <cfeck@kde.org>
 # SPDX-FileCopyrightText: 2016 Luigi Toscano <luigi.toscano@tiscali.it>
 # SPDX-FileCopyrightText: 2016 Michael Palimaka <kensington@gentoo.org>
@@ -380,6 +380,7 @@ set(libExif_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Exif/ReReadDialog.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Exif/Grid.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Exif/SearchDialogSettings.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Exif/MetaDataDisplay.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/ExifPage.cpp"
     )
 

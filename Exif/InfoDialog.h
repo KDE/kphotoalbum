@@ -28,6 +28,7 @@ namespace Exif
 {
 
 class Grid;
+class MetaDataDisplay;
 
 class InfoDialog : public QDialog, public ImageManager::ImageClientInterface
 {
@@ -49,7 +50,10 @@ private:
     QComboBox *m_iptcCharset;
     Grid *m_grid;
     QLabel *m_fileNameLabel;
+    MetaDataDisplay *m_metaDataDisplay;
+
 };
+
 }
 
 #endif /* INFODIALOG_H */

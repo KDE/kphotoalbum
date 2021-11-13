@@ -6,6 +6,7 @@
 #include "InfoDialog.h"
 
 #include "Grid.h"
+#include "MetaDataDisplay.h"
 #include <kpaexif/Info.h>
 
 #include <DB/ImageDB.h>
@@ -21,6 +22,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QTextCodec>
+#include <QTabWidget>
 
 using Utilities::StringSet;
 
@@ -53,13 +55,18 @@ Exif::InfoDialog::InfoDialog(const DB::FileName &fileName, QWidget *parent)
     m_pix = new QLabel(top);
     hlay->addWidget(m_pix);
 
+    // -------------------------------------------------- Exif info part
+
+    auto *exifWidget = new QWidget;
+    auto *exifWidgetLayout = new QVBoxLayout(exifWidget);
+
     // -------------------------------------------------- Exif Grid
     m_grid = new Exif::Grid(top);
-    vlay->addWidget(m_grid);
+    exifWidgetLayout->addWidget(m_grid);
 
     // -------------------------------------------------- Current Search
     hlay = new QHBoxLayout;
-    vlay->addLayout(hlay);
+    exifWidgetLayout->addLayout(hlay);
 
     m_searchBox = new QLineEdit(top);
     m_searchBox->setPlaceholderText(i18nc("@label:textbox The search box allows the user to filter by exif label names", "Filter labels ..."));
@@ -77,6 +84,17 @@ Exif::InfoDialog::InfoDialog(const DB::FileName &fileName, QWidget *parent)
     hlay->addWidget(iptcLabel);
     hlay->addWidget(m_iptcCharset);
 
+    // -------------------------------------------------- File metadata part
+
+    m_metaDataDisplay = new MetaDataDisplay;
+
+    // -------------------------------------------------- Tab widget
+    auto *tabWidget = new QTabWidget;
+    vlay->addWidget(tabWidget);
+    tabWidget->addTab(exifWidget, i18n("Exif info"));
+    tabWidget->addTab(m_metaDataDisplay, i18n("File metadata"));
+
+    // -------------------------------------------------- layout done
     connect(m_searchBox, &QLineEdit::textChanged, m_grid, &Grid::updateSearchString);
     connect(m_iptcCharset, static_cast<void (QComboBox::*)(const QString &)>(&QComboBox::activated), m_grid, &Grid::setupUI);
     setImage(fileName);
@@ -99,6 +117,7 @@ void Exif::InfoDialog::setImage(const DB::FileName &fileName)
 {
     m_fileNameLabel->setText(fileName.relative());
     m_grid->setFileName(fileName);
+    m_metaDataDisplay->setFileName(fileName.absolute());
 
     const auto info = DB::ImageDB::instance()->info(fileName);
     ImageManager::ImageRequest *request = new ImageManager::ImageRequest(fileName, QSize(128, 128), info->angle(), this);

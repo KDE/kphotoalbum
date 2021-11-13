@@ -52,13 +52,13 @@ add_definitions(
     -DQT_NO_CAST_FROM_BYTEARRAY
     -DQT_DEPRECATED_WARNINGS
     -DQT_STRICT_ITERATORS
-    -DQT_DISABLE_DEPRECATED_BEFORE=0x050900
+    -DQT_DISABLE_DEPRECATED_BEFORE=0x050A00
     -DQT_DISABLE_Q_FOREACH
     )
 
 ########### dependencies  ###############
 
-find_package(Qt5 5.9 REQUIRED COMPONENTS Core Sql Xml Widgets Test)
+find_package(Qt5 5.10 REQUIRED COMPONENTS Core Sql Xml Widgets Test)
 find_package(Phonon4Qt5)
 find_package(QtAV)
 find_package(LIBVLC)

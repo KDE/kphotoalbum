@@ -9,9 +9,9 @@
 #include <KLocalizedString>
 #include <QGuiApplication>
 #include <QMessageBox>
+#include <QPainterPath>
 #include <QScreen>
 #include <QVBoxLayout>
-#include <QPainterPath>
 #include <QtAV/AVPlayer.h>
 #include <QtAV/LibAVFilter.h>
 #include <QtAV/VideoRenderer.h>
@@ -34,13 +34,12 @@ Viewer::QtAVDisplay::QtAVDisplay(QWidget *parent)
     // See VideoDisplay::seekToPosition
     m_player->setAsyncLoad(false);
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
-
     m_videoWidget = m_renderer->widget();
     if (!m_videoWidget) {
         QMessageBox::critical(this, i18n("Failed to set up video playback"), i18n("Failed to set up video playback (widget wasn't created)"));
         return;
     }
+    QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(m_videoWidget, 1);
 
     m_player->setRenderer(m_renderer);
@@ -52,9 +51,9 @@ Viewer::QtAVDisplay::QtAVDisplay(QWidget *parent)
 
     connect(m_toolBar, &VideoToolBar::positionChanged, this, &QtAVDisplay::seekToPosition);
     connect(m_player, &QtAV::AVPlayer::positionChanged, this, &QtAVDisplay::displayPosition);
-    connect(m_toolBar, &VideoToolBar::muted, [this](bool b) { m_player->audio()->setMute(b); });
+    connect(m_toolBar, &VideoToolBar::muted, m_player, [this](bool b) { m_player->audio()->setMute(b); });
 
-    connect(m_toolBar, &VideoToolBar::volumeChanged, [this](int value) { m_player->audio()->setVolume(value / 100.0); });
+    connect(m_toolBar, &VideoToolBar::volumeChanged, m_player, [this](int value) { m_player->audio()->setVolume(value / 100.0); });
     m_toolBar->setVolume(100 * m_player->audio()->volume());
 
     m_rotateFilter = new QtAV::LibAVFilterVideo(m_player);

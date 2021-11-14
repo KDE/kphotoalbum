@@ -1353,8 +1353,9 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent)
     return new PhononDisplay(parent);
 #endif
 
-    qCWarning(ViewerLog) << "Could not find a suitable video backend!";
-    return new DummyVideoDisplay(parent);
+    static_assert(LIBVLC_FOUND || QtAV_FOUND || Phonon4Qt5_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
+    Q_UNREACHABLE();
+    return nullptr;
 }
 }
 

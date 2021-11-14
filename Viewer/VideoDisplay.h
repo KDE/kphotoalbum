@@ -24,29 +24,5 @@ signals:
     void stopped();
 };
 
-/**
- * @brief The DummyDisplay class is a minimal VideoDisplay that does nothing.
- */
-class DummyVideoDisplay : public VideoDisplay
-{
-public:
-    DummyVideoDisplay(QWidget *parent);
-    bool isPaused() const override;
-    void playPause() override;
-    bool isPlaying() const override;
-    QImage screenShoot() override;
-    void relativeSeek(int) override;
-    ;
-    void restart() override;
-    void stop() override;
-    void rotate(const DB::ImageInfoPtr &) override;
-
-protected:
-    virtual bool setImageImpl(DB::ImageInfoPtr, bool) override;
-
-private:
-    bool m_playing = false;
-    bool m_paused = false;
-};
 }
 #endif // VIDEODISPLAY_H

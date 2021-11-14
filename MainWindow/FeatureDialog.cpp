@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "FeatureDialog.h"
+#include <config-kpa-videobackends.h>
 
 #include <kpabase/config-kpa-marble.h>
 #include <kpabase/config-kpa-plugins.h>
@@ -18,7 +19,6 @@
 #include <QStandardPaths>
 #include <QTextBrowser>
 #include <QVBoxLayout>
-#include <config-kphotoalbum.h>
 
 using namespace MainWindow;
 

@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ViewerWidget.h"
-#include <config-kphotoalbum.h>
+#include <config-kpa-videobackends.h>
 
 #include "CategoryImageConfig.h"
 #include "ImageDisplay.h"

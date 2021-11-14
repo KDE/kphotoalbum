@@ -540,8 +540,8 @@ install(TARGETS kphotoalbum ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 add_subdirectory(kpa-thumbnailtool)
 
 configure_file(
-  ${CMAKE_CURRENT_SOURCE_DIR}/config-kphotoalbum.h.cmake
-  ${CMAKE_CURRENT_BINARY_DIR}/config-kphotoalbum.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/config-kpa-videobackends.h.in
+  ${CMAKE_CURRENT_BINARY_DIR}/config-kpa-videobackends.h
 )
 
 ########### install files ###############

@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "VideoPlayerSelectorDialog.h"
+#include <config-kpa-videobackends.h>
+
 #include <KLocalizedString>
 #include <QDialogButtonBox>
 #include <QLabel>
 #include <QRadioButton>
 #include <QVBoxLayout>
-
-#include <config-kphotoalbum.h>
 
 namespace Settings
 {

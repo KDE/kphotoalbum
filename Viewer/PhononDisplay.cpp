@@ -1,4 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "PhononDisplay.h"
@@ -30,6 +32,7 @@ Viewer::PhononDisplay::PhononDisplay(QWidget *parent)
 {
     setBackgroundRole(QPalette::Shadow);
     setAutoFillBackground(true);
+    setup();
 }
 
 void Viewer::PhononDisplay::setup()
@@ -60,9 +63,6 @@ void Viewer::PhononDisplay::setup()
 
 bool Viewer::PhononDisplay::setImageImpl(DB::ImageInfoPtr info, bool /*forward*/)
 {
-    if (!m_mediaObject)
-        setup();
-
     m_mediaObject->setCurrentSource(QUrl::fromLocalFile(info->fileName().absolute()));
     m_mediaObject->play();
 

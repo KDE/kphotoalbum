@@ -97,9 +97,10 @@ void Exif::MetaDataDisplay::setFileName(const QString &fileName)
     m_mimeType->setText(s_mimeDB.mimeTypeForFile(fileName).name());
 
     const auto size = info.size();
+    const auto formattedSize = locale.formattedDataSize(size);
     m_size->setText(i18nc("File size composed of a pre-formatted (already localized) "
                           "human-readable file size (%1) and the number of bytes (%2)",
-                          "%1 (%2 B)", locale.formattedDataSize(size), size));
+                          "%1 (%2 B)", formattedSize, size));
 
     m_created->setText(locale.toString(info.birthTime()));
 

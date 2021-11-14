@@ -9,6 +9,7 @@
 #include "CategoryImageConfig.h"
 #include "ImageDisplay.h"
 #include "InfoBox.h"
+#include "Logging.h"
 
 #if Phonon4Qt5_FOUND
 #include "PhononDisplay.h"
@@ -54,6 +55,7 @@
 #include <QContextMenuEvent>
 #include <QDBusConnection>
 #include <QDBusMessage>
+#include <QDebug>
 #include <QDesktopWidget>
 #include <QElapsedTimer>
 #include <QEventLoop>
@@ -1196,7 +1198,7 @@ void Viewer::ViewerWidget::createVideoMenu()
         seek->setText(title);
         seek->setShortcut(key);
         m_actions->setShortcutsConfigurable(seek, false);
-        connect(seek, &QAction::triggered, [this, value] {
+        connect(seek, &QAction::triggered, m_videoDisplay, [this, value] {
             m_videoDisplay->relativeSeek(value);
         });
         menu->addAction(seek);
@@ -1312,20 +1314,31 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent)
     backend = Settings::SettingsData::instance()->videoBackend();
 
     // First check if the selected backend is available
+    switch (backend) {
+    case Settings::VideoBackend::VLC:
 #if LIBVLC_FOUND
-    if (backend == Settings::VideoBackend::VLC)
         return new VLCDisplay(parent);
+#else
+        qCWarning(ViewerLog) << "Video backend VLC not available. Selecting first available backend...";
 #endif
+        break;
+    case Settings::VideoBackend::QtAV:
 #if QtAV_FOUND
-    if (backend == Settings::VideoBackend::QtAV) {
         return new QtAVDisplay(parent);
-    }
+#else
+        qCWarning(ViewerLog) << "Video backend QtAV not available. Selecting first available backend...";
 #endif
+        break;
+    case Settings::VideoBackend::Phonon:
 #if Phonon4Qt5_FOUND
-    if (backend == Settings::VideoBackend::Phonon) {
         return new PhononDisplay(parent);
-    }
+#else
+        qCWarning(ViewerLog) << "Video backend Phonon not available. Selecting first available backend...";
 #endif
+        break;
+    case Settings::VideoBackend::NotConfigured:
+        qCDebug(ViewerLog) << "No video backend configured. Selecting first available backend...";
+    }
 
     // If we make it here the selected backend wasn't available, so instead choose one that is.
 #if LIBVLC_FOUND
@@ -1340,7 +1353,8 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent)
     return new PhononDisplay(parent);
 #endif
 
-    return nullptr;
+    qCWarning(ViewerLog) << "Could not find a suitable video backend!";
+    return new DummyVideoDisplay(parent);
 }
 }
 

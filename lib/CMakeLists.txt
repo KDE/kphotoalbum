@@ -24,6 +24,8 @@ add_library(kpabase
     "${CMAKE_CURRENT_BINARY_DIR}/kpabase/config-kpa-marble.h"
     kpabase/enums.cpp
     kpabase/enums.h
+    kpabase/CrashSentinel.cpp
+    kpabase/CrashSentinel.h
     kpabase/FileName.cpp
     kpabase/FileName.h
     kpabase/FileNameList.cpp

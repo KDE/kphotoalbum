@@ -985,7 +985,7 @@ void MainWindow::Window::setupMenuBar()
 
     // Context menu actions
     m_showExifDialog = actionCollection()->addAction(QString::fromLatin1("showExifInfo"), this, &Window::slotShowExifInfo);
-    m_showExifDialog->setText(i18n("Show Exif Info"));
+    m_showExifDialog->setText(i18n("Show Exif Info and file metadata"));
 
     m_recreateThumbnails = actionCollection()->addAction(QString::fromLatin1("recreateThumbnails"), m_thumbnailView, &ThumbnailView::ThumbnailFacade::slotRecreateThumbnail);
     m_recreateThumbnails->setText(i18n("Recreate Selected Thumbnails"));

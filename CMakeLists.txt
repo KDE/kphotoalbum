@@ -12,7 +12,7 @@
 # SPDX-FileCopyrightText: 2012-2013 Andreas Neustifter <andreas.neustifter@gmail.com>
 # SPDX-FileCopyrightText: 2012-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 # SPDX-FileCopyrightText: 2014 David Edmundson <kde@davidedmundson.co.uk>
-# SPDX-FileCopyrightText: 2014-2021 Tobias Leupold <tobias.leupold@gmx.de>
+# SPDX-FileCopyrightText: 2014-2021 Tobias Leupold <tl@l3u.de>
 # SPDX-FileCopyrightText: 2016 Christoph Feck <cfeck@kde.org>
 # SPDX-FileCopyrightText: 2016 Luigi Toscano <luigi.toscano@tiscali.it>
 # SPDX-FileCopyrightText: 2016 Michael Palimaka <kensington@gentoo.org>
@@ -52,13 +52,13 @@ add_definitions(
     -DQT_NO_CAST_FROM_BYTEARRAY
     -DQT_DEPRECATED_WARNINGS
     -DQT_STRICT_ITERATORS
-    -DQT_DISABLE_DEPRECATED_BEFORE=0x050900
+    -DQT_DISABLE_DEPRECATED_BEFORE=0x050A00
     -DQT_DISABLE_Q_FOREACH
     )
 
 ########### dependencies  ###############
 
-find_package(Qt5 5.9 REQUIRED COMPONENTS Core Sql Xml Widgets Test)
+find_package(Qt5 5.10 REQUIRED COMPONENTS Core Sql Xml Widgets Test)
 find_package(Phonon4Qt5)
 find_package(QtAV)
 find_package(LIBVLC)
@@ -380,6 +380,7 @@ set(libExif_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Exif/ReReadDialog.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Exif/Grid.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Exif/SearchDialogSettings.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Exif/MetaDataDisplay.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/ExifPage.cpp"
     )
 

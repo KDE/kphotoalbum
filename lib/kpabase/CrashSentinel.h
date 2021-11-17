@@ -16,14 +16,17 @@ namespace KPABase
  *
  * The CrashSentinel was introduced to be able to react to some video backends crashing for some users.
  * If the app knows that a video was playing when while it exited anomally, it can try a different backend next time.
+ *
+ * The sentinel writes the crashInfo into the \c component configuration of the `[CrashInfo]` section of the application configuration file.
+ * When the CrashSentinel is deleted or if suspend() is called, the crashInfo is removed. Calling resume() reenables the crash detection.
+ *
+ * You should never create more than one CrashSentinel for the same component: the sentinel assumes exclusive access to the associated config entries.
  */
 class CrashSentinel
 {
 public:
     /**
      * @brief Create a CrashSentinel for the given component.
-     * The sentinel writes the crashInfo into the `<component>Sentinel` configuration of the `[CrashInfo]` section of the application configuration file.
-     * When the CrashSentinel is deleted or if suspend() is called, the crashInfo is removed. Calling resume() reenables the crash detection.
      * @param component the name of the component that is covered by the CrashSentinel
      * @param crashInfo the identifier of the currently active code path
      */
@@ -60,16 +63,16 @@ public:
     void setCrashInfo(const QString &crashInfo);
 
     /**
-     * @brief crashInfo
-     * @return the active crashInfo identifier.
-     */
-    QString crashInfo() const;
-
-    /**
      * @brief component
      * @return the component name.
      */
     QString component() const;
+
+    /**
+     * @brief crashInfo
+     * @return the active crashInfo identifier.
+     */
+    QString crashInfo() const;
 
     /**
      * @brief isSuspended

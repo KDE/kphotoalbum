@@ -4,4 +4,90 @@
 
 #include "CrashSentinel.h"
 
+#include <KConfigGroup>
+#include <KSharedConfig>
+
+namespace
+{
+constexpr auto CFG_GROUP { "CrashInfo" };
+constexpr auto CFG_HISTORY { "_history" };
+}
+
+KPABase::CrashSentinel::CrashSentinel(const QString &component, const QString &crashInfo)
+    : m_component(component)
+    , m_crashInfo(crashInfo)
+{
+    auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
+    m_lastCrashInfo = cfgGroup.readEntry(m_component, QString());
+    if (!m_lastCrashInfo.isEmpty()) {
+        const auto historyEntry = m_component + QString::fromUtf8(CFG_HISTORY);
+        auto history = cfgGroup.readEntry(historyEntry, QStringList());
+        history.append(m_lastCrashInfo);
+        cfgGroup.writeEntry(historyEntry, history);
+    }
+    resume();
+}
+
+KPABase::CrashSentinel::~CrashSentinel()
+{
+    suspend();
+}
+
+bool KPABase::CrashSentinel::hasCrashInfo() const
+{
+    return !m_lastCrashInfo.isEmpty();
+}
+
+QString KPABase::CrashSentinel::lastCrashInfo() const
+{
+    return m_lastCrashInfo;
+}
+
+QStringList KPABase::CrashSentinel::crashHistory() const
+{
+    const auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
+    return cfgGroup.readEntry(m_component + QString::fromUtf8(CFG_HISTORY), QStringList());
+}
+
+void KPABase::CrashSentinel::clearCrashHistory()
+{
+    auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
+    cfgGroup.deleteEntry(m_component + QString::fromUtf8(CFG_HISTORY));
+}
+
+void KPABase::CrashSentinel::setCrashInfo(const QString &crashInfo)
+{
+    suspend();
+    m_crashInfo = crashInfo;
+    resume();
+}
+
+QString KPABase::CrashSentinel::component() const
+{
+    return m_component;
+}
+
+QString KPABase::CrashSentinel::crashInfo() const
+{
+    return m_crashInfo;
+}
+
+bool KPABase::CrashSentinel::isSuspended() const
+{
+    const auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
+    return !cfgGroup.hasKey(m_component);
+}
+
+void KPABase::CrashSentinel::suspend()
+{
+    auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
+    cfgGroup.deleteEntry(m_component);
+}
+
+void KPABase::CrashSentinel::resume()
+{
+    auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
+    cfgGroup.writeEntry(m_component, m_crashInfo);
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:

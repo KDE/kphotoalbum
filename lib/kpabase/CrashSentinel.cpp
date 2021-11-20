@@ -3,9 +3,11 @@
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "CrashSentinel.h"
+#include "Logging.h"
 
 #include <KConfigGroup>
 #include <KSharedConfig>
+#include <QLoggingCategory>
 
 namespace
 {
@@ -25,6 +27,8 @@ KPABase::CrashSentinel::CrashSentinel(const QString &component, const QString &c
         history.append(m_lastCrashInfo);
         cfgGroup.writeEntry(historyEntry, history);
     }
+    qCDebug(BaseLog).nospace() << "Created CrashSentinel for component " << m_component << ". Previous crash information: "
+                               << lastCrashInfo() << (hasCrashInfo() ? "" : "n/a");
 }
 
 KPABase::CrashSentinel::~CrashSentinel()
@@ -81,12 +85,14 @@ void KPABase::CrashSentinel::suspend()
 {
     auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
     cfgGroup.deleteEntry(m_component);
+    qCDebug(BaseLog) << "CrashSentinel for component" << m_component << "suspended.";
 }
 
 void KPABase::CrashSentinel::activate()
 {
     auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
     cfgGroup.writeEntry(m_component, m_crashInfo);
+    qCDebug(BaseLog) << "CrashSentinel for component" << m_component << "activated. Crash info:" << m_crashInfo;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

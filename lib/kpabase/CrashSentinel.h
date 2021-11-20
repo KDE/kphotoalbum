@@ -18,7 +18,8 @@ namespace KPABase
  * If the app knows that a video was playing when while it exited anomally, it can try a different backend next time.
  *
  * The sentinel writes the crashInfo into the \c component configuration of the `[CrashInfo]` section of the application configuration file.
- * When the CrashSentinel is deleted or if suspend() is called, the crashInfo is removed. Calling resume() reenables the crash detection.
+ * Calling activate() (re)enables the crash detection.
+ * When the CrashSentinel is deleted or if suspend() is called, the crashInfo is removed.
  *
  * You should never create more than one CrashSentinel for the same component: the sentinel assumes exclusive access to the associated config entries.
  */
@@ -30,7 +31,7 @@ public:
      * @param component the name of the component that is covered by the CrashSentinel
      * @param crashInfo the identifier of the currently active code path
      */
-    CrashSentinel(const QString &component, const QString &crashInfo);
+    CrashSentinel(const QString &component, const QString &crashInfo = QString());
     ~CrashSentinel();
 
     /**
@@ -85,14 +86,15 @@ public:
      * While suspended, the sentinel will not be able to register a crash.
      * Call this, if the "crashy" component is unlikely to actually crash, e.g. when the component is still loaded in memory but not doing anything.
      * This allows you to avoid false positives because of the application crashing in another component.
+     * Calling suspend on an already suspended CrashSentinel will do nothing.
      */
     void suspend();
 
     /**
-     * @brief resume the CrashSentinel if it is suspended.
-     * Calling resume on a non-suspended CrashSentinel will do nothing.
+     * @brief activate the CrashSentinel if it is suspended.
+     * Calling activate on a non-suspended CrashSentinel will do nothing.
      */
-    void resume();
+    void activate();
 
 private:
     const QString m_component;

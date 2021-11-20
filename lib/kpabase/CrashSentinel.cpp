@@ -25,7 +25,6 @@ KPABase::CrashSentinel::CrashSentinel(const QString &component, const QString &c
         history.append(m_lastCrashInfo);
         cfgGroup.writeEntry(historyEntry, history);
     }
-    resume();
 }
 
 KPABase::CrashSentinel::~CrashSentinel()
@@ -59,7 +58,7 @@ void KPABase::CrashSentinel::setCrashInfo(const QString &crashInfo)
 {
     suspend();
     m_crashInfo = crashInfo;
-    resume();
+    activate();
 }
 
 QString KPABase::CrashSentinel::component() const
@@ -84,7 +83,7 @@ void KPABase::CrashSentinel::suspend()
     cfgGroup.deleteEntry(m_component);
 }
 
-void KPABase::CrashSentinel::resume()
+void KPABase::CrashSentinel::activate()
 {
     auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
     cfgGroup.writeEntry(m_component, m_crashInfo);

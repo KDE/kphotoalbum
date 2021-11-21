@@ -12,12 +12,13 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
-#include <vlc/libvlc_version.h>
 #include <vlc/libvlc_media_player.h>
+#include <vlc/libvlc_version.h>
 
 Viewer::VLCDisplay::VLCDisplay(QWidget *parent)
     : Viewer::VideoDisplay(parent)
 {
+    setObjectName(QStringLiteral("VLCDisplay"));
     QVBoxLayout *layout = new QVBoxLayout(this);
     m_videoWidget = new QWidget(this);
     layout->addWidget(m_videoWidget, 1);

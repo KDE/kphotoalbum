@@ -30,6 +30,7 @@
 Viewer::PhononDisplay::PhononDisplay(QWidget *parent)
     : Viewer::VideoDisplay(parent)
 {
+    setObjectName(QStringLiteral("PhononDisplay"));
     setBackgroundRole(QPalette::Shadow);
     setAutoFillBackground(true);
     setup();

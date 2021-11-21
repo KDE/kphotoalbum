@@ -83,6 +83,7 @@ Viewer::ViewerWidget *Viewer::ViewerWidget::latest()
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::ViewerWidget::ViewerWidget(UsageType type, QMap<Qt::Key, QPair<QString, QString>> *macroStore)
     : QStackedWidget(nullptr)
+    , m_crashSentinel(QString::fromUtf8("videoBackend"))
     , m_current(0)
     , m_popup(nullptr)
     , m_showingFullScreen(false)
@@ -423,9 +424,11 @@ void Viewer::ViewerWidget::load()
     const bool isReadable = QFileInfo(m_list[m_current].absolute()).isReadable();
     const bool isVideo = isReadable && Utilities::isVideo(m_list[m_current]);
 
+    m_crashSentinel.suspend();
     if (isReadable) {
         if (isVideo) {
             m_display = m_videoDisplay;
+            m_crashSentinel.activate();
         } else
             m_display = m_imageDisplay;
     } else {
@@ -1302,11 +1305,15 @@ void Viewer::ViewerWidget::moveInfoBox(int y)
 
 namespace Viewer
 {
-static VideoDisplay *instantiateVideoDisplay(QWidget *parent)
+static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSentinel &sentinel)
 {
     auto backend = Settings::SettingsData::instance()->videoBackend();
+    bool showSelectorDialog = backend == Settings::VideoBackend::NotConfigured;
+    if (sentinel.hasCrashInfo()) {
+        showSelectorDialog = true;
+    }
 
-    if (backend == Settings::VideoBackend::NotConfigured) {
+    if (showSelectorDialog) {
         Settings::VideoPlayerSelectorDialog dialog;
         dialog.exec();
         Settings::SettingsData::instance()->setVideoBackend(dialog.backend());
@@ -1362,7 +1369,8 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent)
 void Viewer::ViewerWidget::createVideoViewer()
 {
 
-    m_videoDisplay = instantiateVideoDisplay(this);
+    m_videoDisplay = instantiateVideoDisplay(this, m_crashSentinel);
+    m_crashSentinel.setCrashInfo(m_videoDisplay->objectName());
 
     addWidget(m_videoDisplay);
     connect(m_videoDisplay, &VideoDisplay::stopped, this, &ViewerWidget::videoStopped);
@@ -1371,6 +1379,7 @@ void Viewer::ViewerWidget::createVideoViewer()
 void Viewer::ViewerWidget::stopPlayback()
 {
     m_videoDisplay->stop();
+    m_crashSentinel.suspend();
 }
 
 void Viewer::ViewerWidget::invalidateThumbnail() const

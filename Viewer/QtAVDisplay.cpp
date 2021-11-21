@@ -21,6 +21,7 @@
 Viewer::QtAVDisplay::QtAVDisplay(QWidget *parent)
     : Viewer::VideoDisplay(parent)
 {
+    setObjectName(QStringLiteral("QtAVDisplay"));
     m_renderer = new QtAV::WidgetRenderer(this);
     if (!m_renderer) {
         QMessageBox::critical(this, i18n("Failed to set up video playback"), i18n("Failed to set up video playback (renderer wasn't created)"));

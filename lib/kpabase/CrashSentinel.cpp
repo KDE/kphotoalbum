@@ -12,7 +12,7 @@
 namespace
 {
 constexpr auto CFG_GROUP { "CrashInfo" };
-constexpr auto CFG_HISTORY { "_history" };
+constexpr auto CFG_HISTORY { "_crashHistory" };
 }
 
 KPABase::CrashSentinel::CrashSentinel(const QString &component, const QString &crashInfo)
@@ -85,6 +85,7 @@ void KPABase::CrashSentinel::suspend()
 {
     auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
     cfgGroup.deleteEntry(m_component);
+    cfgGroup.sync();
     qCDebug(BaseLog) << "CrashSentinel for component" << m_component << "suspended.";
 }
 
@@ -92,6 +93,7 @@ void KPABase::CrashSentinel::activate()
 {
     auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
     cfgGroup.writeEntry(m_component, m_crashInfo);
+    cfgGroup.sync();
     qCDebug(BaseLog) << "CrashSentinel for component" << m_component << "activated. Crash info:" << m_crashInfo;
 }
 

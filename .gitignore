@@ -25,3 +25,5 @@ build-*
 version.h
 *.pyc
 .directory
+.kdev4
+*.kdev4

@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -12,6 +13,7 @@
 #include <QRegExp>
 #include <QTreeWidgetItem>
 #include <QTreeWidgetItemIterator>
+#include <kcompletion_version.h>
 
 AnnotationDialog::CompletableLineEdit::CompletableLineEdit(ListSelect *parent)
     : KLineEdit(parent)
@@ -62,7 +64,11 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent(QKeyEvent *ev)
         // If final Return is handled by the default implementation,
         // it can "leak" to other widgets. So we swallow it here:
         if (ev->key() == Qt::Key_Return || ev->key() == Qt::Key_Enter)
+#if KCOMPLETION_VERSION >= QT_VERSION_CHECK(5, 81, 0)
+            emit KLineEdit::returnKeyPressed(text());
+#else
             emit KLineEdit::returnPressed(text());
+#endif
         else
             KLineEdit::keyPressEvent(ev);
         if (prevContent != text())

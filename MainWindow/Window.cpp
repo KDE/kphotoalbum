@@ -114,10 +114,11 @@
 #include <QStackedWidget>
 #include <QTimer>
 #include <QVBoxLayout>
+#include <functional>
+#include <kconfigwidgets_version.h>
 #include <kio_version.h> // for #if KIO_VERSION...
 #include <ktip.h>
 #include <kwidgetsaddons_version.h>
-#include <functional>
 
 using namespace DB;
 
@@ -276,8 +277,10 @@ void MainWindow::Window::delayedInit()
         ImportExport::Import::imageImport(importUrl);
         qCInfo(TimingLog) << "MainWindow: imageImport:" << timer.restart() << "ms.";
     } else {
+#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 83, 0)
         // I need to postpone this otherwise the tip dialog will not get focus on start up
         KTipDialog::showTip(this);
+#endif
     }
 
     qCInfo(TimingLog) << "MainWindow: Loading Exif DB:" << timer.restart() << "ms.";
@@ -972,7 +975,9 @@ void MainWindow::Window::setupMenuBar()
     actionCollection()->addAction(QString::fromLatin1("colorScheme"), m_colorSchemeMenu);
 
     // The help menu
+#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 83, 0)
     KStandardAction::tipOfDay(this, &Window::showTipOfDay, actionCollection());
+#endif
 
     a = actionCollection()->addAction(QString::fromLatin1("runDemo"), this, &Window::runDemo);
     a->setText(i18n("Run KPhotoAlbum Demo"));
@@ -1076,7 +1081,10 @@ void MainWindow::Window::slotFilterChanged()
 
 void MainWindow::Window::showTipOfDay()
 {
+    // deprecated without in-program replacement
+#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 83, 0)
     KTipDialog::showTip(this, QString(), true);
+#endif
 }
 
 void MainWindow::Window::runDemo()

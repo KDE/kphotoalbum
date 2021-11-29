@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef ANNOTATIONDIALOG_DIALOG_H
 #define ANNOTATIONDIALOG_DIALOG_H
@@ -111,7 +111,7 @@ protected slots:
     void slotStartDateChanged(const DB::ImageDate &);
     void slotCopyPrevious();
     void slotShowAreas(bool showAreas);
-    void slotRatingChanged(unsigned int);
+    void slotRatingChanged(int);
     void togglePreview();
     void descriptionPageUpDownPressed(QKeyEvent *event);
     void slotNewArea(ResizableFrame *area);

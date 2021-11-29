@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "Dialog.h"
 
@@ -377,7 +377,8 @@ QWidget *AnnotationDialog::Dialog::createDateWidget(ShortCutManager &shortCutMan
     m_rating = new KRatingWidget;
     m_rating->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     lay9->addWidget(m_rating, 0, Qt::AlignCenter);
-    connect(m_rating, static_cast<void (KRatingWidget::*)(uint)>(&KRatingWidget::ratingChanged), this, &Dialog::slotRatingChanged);
+    // cast for versions of KRatingWidget where ratingChanged(uint) is still a thing:
+    connect(m_rating, static_cast<void (KRatingWidget::*)(int)>(&KRatingWidget::ratingChanged), this, &Dialog::slotRatingChanged);
 
     m_ratingSearchLabel = new QLabel(i18n("Rating search mode:"));
     lay9->addWidget(m_ratingSearchLabel);
@@ -1356,7 +1357,7 @@ std::tuple<StringSet, StringSet, StringSet> AnnotationDialog::Dialog::selectionF
     return std::make_tuple(itemsOnAllImages, itemsOnSomeImages, itemsOnNoImages);
 }
 
-void AnnotationDialog::Dialog::slotRatingChanged(unsigned int)
+void AnnotationDialog::Dialog::slotRatingChanged(int)
 {
     m_ratingChanged = true;
 }

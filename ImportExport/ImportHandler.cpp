@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "ImportHandler.h"
 
 #include "ImportSettings.h"
@@ -87,11 +88,18 @@ void ImportExport::ImportHandler::copyFromExternal()
     m_progress->setMaximum(2 * m_pendingCopies.count());
     m_progress->show();
     connect(m_progress, &QProgressDialog::canceled, this, &ImportHandler::stopCopyingImages);
+    if (m_pendingCopies.isEmpty()) {
+        qCDebug(ImportExportLog) << "No images selected for import!";
+        m_eventLoop->exit(false);
+        return;
+    }
     copyNextFromExternal();
 }
 
 void ImportExport::ImportHandler::copyNextFromExternal()
 {
+    // this function must not be called without a next image
+    Q_ASSERT(!m_pendingCopies.isEmpty());
     DB::ImageInfoPtr info = m_pendingCopies[0];
 
     if (isImageAlreadyInDB(info)) {

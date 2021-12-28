@@ -31,7 +31,7 @@ public:
      * @param component the name of the component that is covered by the CrashSentinel
      * @param crashInfo the identifier of the currently active code path
      */
-    CrashSentinel(const QString &component, const QString &crashInfo = QString());
+    explicit CrashSentinel(const QString &component, const QString &crashInfo = QString());
     ~CrashSentinel();
 
     /**

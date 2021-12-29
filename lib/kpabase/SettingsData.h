@@ -1,15 +1,16 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef KPABASE_SETTINGSDATA_H
 #define KPABASE_SETTINGSDATA_H
 
-#include "QObject"
 #include "StringSet.h"
 #include "UIDelegate.h"
 #include "enums.h"
+
+#include <QObject>
 
 #define property(GET_TYPE, GET_FUNC, SET_FUNC, SET_TYPE) \
     GET_TYPE GET_FUNC() const;                           \
@@ -25,6 +26,8 @@ class CategoryCollection;
 
 namespace Settings
 {
+Q_NAMESPACE
+
 using Utilities::StringSet;
 
 enum Position { Bottom,
@@ -58,10 +61,12 @@ enum LoadOptimizationPreset { LoadOptimizationHardDisk,
                               LoadOptimizationFastNVME,
                               LoadOptimizationManual };
 
-enum class VideoBackend { NotConfigured,
-                          Phonon,
-                          QtAV,
-                          VLC };
+enum class VideoBackend { NotConfigured = 0b0000,
+                          Phonon = 0b0001,
+                          QtAV = 0b0010,
+                          VLC = 0b0100 };
+Q_DECLARE_FLAGS(VideoBackends, VideoBackend);
+Q_FLAG_NS(VideoBackend);
 
 typedef const char *WindowType;
 extern const WindowType MainWindow, AnnotationDialog;

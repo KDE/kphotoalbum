@@ -1,10 +1,13 @@
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef KPABASE_CRASH_SENTINEL_H
 #define KPABASE_CRASH_SENTINEL_H
 
+#include <QByteArray>
+#include <QList>
 #include <QString>
 
 namespace KPABase
@@ -31,7 +34,7 @@ public:
      * @param component the name of the component that is covered by the CrashSentinel
      * @param crashInfo the identifier of the currently active code path
      */
-    explicit CrashSentinel(const QString &component, const QString &crashInfo = QString());
+    explicit CrashSentinel(const QString &component, const QByteArray &crashInfo = QByteArray());
     ~CrashSentinel();
 
     /**
@@ -43,13 +46,13 @@ public:
      * @brief lastCrashInfo
      * @return the crash information from the last crash, or an empty string if hasCrashInfo() is false.
      */
-    QString lastCrashInfo() const;
+    QByteArray lastCrashInfo() const;
 
     /**
      * @brief crashHistory
      * @return a list of all previously recorded crash infos (including the lastCrashInfo)
      */
-    QStringList crashHistory() const;
+    QList<QByteArray> crashHistory() const;
 
     /**
      * @brief clearCrashHistory clears all previously recorded crash infos.
@@ -61,7 +64,7 @@ public:
      * @brief setCrashInfo replaces the crashInfo with a new identifier.
      * Setting the crashInfo does not affect whether the sentinel is suspended or not.
      */
-    void setCrashInfo(const QString &crashInfo);
+    void setCrashInfo(const QByteArray &crashInfo);
 
     /**
      * @brief component
@@ -73,7 +76,7 @@ public:
      * @brief crashInfo
      * @return the active crashInfo identifier.
      */
-    QString crashInfo() const;
+    QByteArray crashInfo() const;
 
     /**
      * @brief isSuspended
@@ -98,8 +101,8 @@ public:
 
 private:
     const QString m_component;
-    QString m_crashInfo;
-    QString m_lastCrashInfo;
+    QByteArray m_crashInfo;
+    QByteArray m_lastCrashInfo;
 };
 
 }

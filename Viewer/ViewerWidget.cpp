@@ -1373,7 +1373,7 @@ void Viewer::ViewerWidget::createVideoViewer()
 
     m_videoDisplay = instantiateVideoDisplay(this, m_crashSentinel);
     const auto backendEnum = QMetaEnum::fromType<Settings::VideoBackend>();
-    const auto backendName = QString::fromUtf8(backendEnum.valueToKey(static_cast<int>(Settings::SettingsData::instance()->videoBackend())));
+    const auto backendName = backendEnum.valueToKey(static_cast<int>(Settings::SettingsData::instance()->videoBackend()));
     m_crashSentinel.setCrashInfo(backendName);
 
     addWidget(m_videoDisplay);

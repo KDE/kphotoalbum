@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -15,15 +16,15 @@ constexpr auto CFG_GROUP { "CrashInfo" };
 constexpr auto CFG_HISTORY { "_crashHistory" };
 }
 
-KPABase::CrashSentinel::CrashSentinel(const QString &component, const QString &crashInfo)
+KPABase::CrashSentinel::CrashSentinel(const QString &component, const QByteArray &crashInfo)
     : m_component(component)
     , m_crashInfo(crashInfo)
 {
     auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
-    m_lastCrashInfo = cfgGroup.readEntry(m_component, QString());
+    m_lastCrashInfo = cfgGroup.readEntry(m_component, QByteArray());
     if (!m_lastCrashInfo.isEmpty()) {
         const auto historyEntry = m_component + QString::fromUtf8(CFG_HISTORY);
-        auto history = cfgGroup.readEntry(historyEntry, QStringList());
+        auto history = cfgGroup.readEntry(historyEntry, QList<QByteArray>());
         history.append(m_lastCrashInfo);
         cfgGroup.writeEntry(historyEntry, history);
     }
@@ -41,15 +42,15 @@ bool KPABase::CrashSentinel::hasCrashInfo() const
     return !m_lastCrashInfo.isEmpty();
 }
 
-QString KPABase::CrashSentinel::lastCrashInfo() const
+QByteArray KPABase::CrashSentinel::lastCrashInfo() const
 {
     return m_lastCrashInfo;
 }
 
-QStringList KPABase::CrashSentinel::crashHistory() const
+QList<QByteArray> KPABase::CrashSentinel::crashHistory() const
 {
     const auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
-    return cfgGroup.readEntry(m_component + QString::fromUtf8(CFG_HISTORY), QStringList());
+    return cfgGroup.readEntry(m_component + QString::fromUtf8(CFG_HISTORY), QList<QByteArray>());
 }
 
 void KPABase::CrashSentinel::clearCrashHistory()
@@ -58,7 +59,7 @@ void KPABase::CrashSentinel::clearCrashHistory()
     cfgGroup.deleteEntry(m_component + QString::fromUtf8(CFG_HISTORY));
 }
 
-void KPABase::CrashSentinel::setCrashInfo(const QString &crashInfo)
+void KPABase::CrashSentinel::setCrashInfo(const QByteArray &crashInfo)
 {
     suspend();
     m_crashInfo = crashInfo;
@@ -70,7 +71,7 @@ QString KPABase::CrashSentinel::component() const
     return m_component;
 }
 
-QString KPABase::CrashSentinel::crashInfo() const
+QByteArray KPABase::CrashSentinel::crashInfo() const
 {
     return m_crashInfo;
 }

@@ -1,4 +1,6 @@
 // SPDX-FileCopyrightText: 2021 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "QtAVDisplay.h"
@@ -21,7 +23,6 @@
 Viewer::QtAVDisplay::QtAVDisplay(QWidget *parent)
     : Viewer::VideoDisplay(parent)
 {
-    setObjectName(QStringLiteral("QtAVDisplay"));
     m_renderer = new QtAV::WidgetRenderer(this);
     if (!m_renderer) {
         QMessageBox::critical(this, i18n("Failed to set up video playback"), i18n("Failed to set up video playback (renderer wasn't created)"));

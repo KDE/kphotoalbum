@@ -1,4 +1,6 @@
 // SPDX-FileCopyrightText: 2021 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "VLCDisplay.h"
@@ -18,7 +20,6 @@
 Viewer::VLCDisplay::VLCDisplay(QWidget *parent)
     : Viewer::VideoDisplay(parent)
 {
-    setObjectName(QStringLiteral("VLCDisplay"));
     QVBoxLayout *layout = new QVBoxLayout(this);
     m_videoWidget = new QWidget(this);
     layout->addWidget(m_videoWidget, 1);
@@ -150,7 +151,7 @@ void Viewer::VLCDisplay::setupVLC()
         char buf[BUF_SIZE];
         snprintf(buf, BUF_SIZE, "--video-filter=transform{type=%d}", m_info->angle());
 
-        const char *vlc_args[] = { "--verbose=2", //be much more verbose then normal for debugging purpose
+        const char *vlc_args[] = { "--verbose=2", // be much more verbose then normal for debugging purpose
                                    buf };
         m_vlcInstance = libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args);
     } else

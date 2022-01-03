@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -71,6 +72,7 @@
 #include <QWheelEvent>
 #include <qglobal.h>
 
+#include <QMetaEnum>
 #include <functional>
 
 Viewer::ViewerWidget *Viewer::ViewerWidget::s_latest = nullptr;
@@ -1370,7 +1372,9 @@ void Viewer::ViewerWidget::createVideoViewer()
 {
 
     m_videoDisplay = instantiateVideoDisplay(this, m_crashSentinel);
-    m_crashSentinel.setCrashInfo(m_videoDisplay->objectName());
+    const auto backendEnum = QMetaEnum::fromType<Settings::VideoBackend>();
+    const auto backendName = QString::fromUtf8(backendEnum.valueToKey(static_cast<int>(Settings::SettingsData::instance()->videoBackend())));
+    m_crashSentinel.setCrashInfo(backendName);
 
     addWidget(m_videoDisplay);
     connect(m_videoDisplay, &VideoDisplay::stopped, this, &ViewerWidget::videoStopped);

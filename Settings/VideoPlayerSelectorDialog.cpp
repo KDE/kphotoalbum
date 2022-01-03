@@ -1,12 +1,16 @@
 // SPDX-FileCopyrightText: 2021 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "VideoPlayerSelectorDialog.h"
+#include "Logging.h"
 #include <config-kpa-videobackends.h>
 
 #include <KLocalizedString>
 #include <QDialogButtonBox>
 #include <QLabel>
+#include <QLoggingCategory>
 #include <QRadioButton>
 #include <QVBoxLayout>
 
@@ -41,53 +45,49 @@ VideoPlayerSelectorDialog::VideoPlayerSelectorDialog(QWidget *parent)
     layout->addWidget(label);
 
     bool somethingNotAvailable = false;
-#if LIBVLC_FOUND
-    m_vlc = new QRadioButton(QString::fromUtf8("VLC"));
-#else
-    m_vlc = new QRadioButton(QString::fromUtf8("VLC") + i18n(" (NOT AVAILABLE)"));
-    m_vlc->setEnabled(false);
-    somethingNotAvailable = true;
-#endif
+    if (availableVideoBackends().testFlag(VideoBackend::VLC)) {
+        m_vlc = new QRadioButton(QString::fromUtf8("VLC"));
+    } else {
+        m_vlc = new QRadioButton(QString::fromUtf8("VLC") + i18n(" (NOT AVAILABLE)"));
+        m_vlc->setEnabled(false);
+        somethingNotAvailable = true;
+    }
     layout->addWidget(m_vlc);
 
-#if QtAV_FOUND
-    m_qtav = new QRadioButton(QString::fromUtf8("QtAV"));
-#else
-    m_qtav = new QRadioButton(QString::fromUtf8("QtAV") + i18n(" (NOT AVAILABLE)"));
-    m_qtav->setEnabled(false);
-    somethingNotAvailable = true;
-#endif
+    if (availableVideoBackends().testFlag(VideoBackend::QtAV)) {
+        m_qtav = new QRadioButton(QString::fromUtf8("QtAV"));
+    } else {
+        m_qtav = new QRadioButton(QString::fromUtf8("QtAV") + i18n(" (NOT AVAILABLE)"));
+        m_qtav->setEnabled(false);
+        somethingNotAvailable = true;
+    }
     layout->addWidget(m_qtav);
 
-#if Phonon4Qt5_FOUND
-    m_phonon = new QRadioButton(QString::fromUtf8("Phonon"));
-#else
-    m_phonon = new QRadioButton(QString::fromUtf8("Phonon") + i18n(" (NOT AVAILABLE)"));
-    m_phonon->setEnabled(false);
-    somethingNotAvailable = true;
-#endif
+    if (availableVideoBackends().testFlag(VideoBackend::Phonon)) {
+        m_phonon = new QRadioButton(QString::fromUtf8("Phonon"));
+    } else {
+        m_phonon = new QRadioButton(QString::fromUtf8("Phonon") + i18n(" (NOT AVAILABLE)"));
+        m_phonon->setEnabled(false);
+        somethingNotAvailable = true;
+    }
     layout->addWidget(m_phonon);
 
-    auto backend = SettingsData::instance()->videoBackend();
+    auto backend = preferredVideoBackend(SettingsData::instance()->videoBackend());
     QRadioButton *rb = [&] {
         QRadioButton *candidate = nullptr;
-
-#if Phonon4Qt5_FOUND
-        if (backend == VideoBackend::Phonon)
-            return m_phonon;
-        candidate = m_phonon;
-#endif
-#if QtAV_FOUND
-        if (backend == VideoBackend::QtAV)
-            return m_qtav;
-        candidate = m_qtav;
-#endif
-
-#if LIBVLC_FOUND
-        if (backend == VideoBackend::VLC)
-            return m_vlc;
-        candidate = m_vlc;
-#endif
+        switch (backend) {
+        case VideoBackend::Phonon:
+            candidate = m_phonon;
+            break;
+        case VideoBackend::QtAV:
+            candidate = m_qtav;
+            break;
+        case VideoBackend::VLC:
+            candidate = m_vlc;
+            break;
+        default:
+            Q_UNREACHABLE();
+        }
         return candidate;
     }();
 
@@ -116,6 +116,40 @@ VideoBackend VideoPlayerSelectorDialog::backend() const
         return VideoBackend::QtAV;
     else
         return VideoBackend::Phonon;
+}
+
+constexpr VideoBackends availableVideoBackends()
+{
+    VideoBackends availableBackends;
+#if LIBVLC_FOUND
+    availableBackends |= VideoBackend::VLC;
+#endif
+#if QtAV_FOUND
+    availableBackends |= VideoBackend::QtAV;
+#endif
+#if Phonon4Qt5_FOUND
+    availableBackends |= VideoBackend::Phonon;
+#endif
+    static_assert(LIBVLC_FOUND || QtAV_FOUND || Phonon4Qt5_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
+    return availableBackends;
+}
+
+VideoBackend preferredVideoBackend(const VideoBackend configuredBackend, const VideoBackends exclusions)
+{
+    if (availableVideoBackends().testFlag(configuredBackend) && !exclusions.testFlag(configuredBackend)) {
+        qCDebug(SettingsLog) << "preferredVideoBackend(): configured backend is viable:" << configuredBackend;
+        return configuredBackend;
+    }
+
+    for (const VideoBackend candidate : { VideoBackend::VLC, VideoBackend::QtAV, VideoBackend::Phonon }) {
+        if (availableVideoBackends().testFlag(candidate) && !exclusions.testFlag(candidate)) {
+            qCDebug(SettingsLog) << "preferredVideoBackend(): backend is viable:" << candidate;
+            return candidate;
+        }
+        qCDebug(SettingsLog) << "preferredVideoBackend(): backend is not viable:" << candidate;
+    }
+    qCDebug(SettingsLog) << "preferredVideoBackend(): no backend is viable.";
+    return VideoBackend::NotConfigured;
 }
 
 } // namespace Settings

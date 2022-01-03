@@ -1310,19 +1310,41 @@ namespace Viewer
 static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSentinel &sentinel)
 {
     auto backend = Settings::SettingsData::instance()->videoBackend();
-    bool showSelectorDialog = backend == Settings::VideoBackend::NotConfigured;
-    if (sentinel.hasCrashInfo()) {
-        showSelectorDialog = true;
+    if (backend == Settings::VideoBackend::NotConfigured) {
+        // just select a backend for the user if they didn't choose one
+        backend = Settings::preferredVideoBackend(backend);
     }
+    if (sentinel.hasCrashInfo()) {
+        // KPA crashed during video playback - time to select a different backend based on crash data:
+        const auto badBackends = sentinel.crashHistory();
+        const auto backendEnum = QMetaEnum::fromType<Settings::VideoBackend>();
+        Settings::VideoBackends exclusions;
+        for (const auto &badBackend : badBackends) {
+            bool ok = false;
+            const auto be = static_cast<Settings::VideoBackend>(backendEnum.keyToValue(badBackend.constData(), &ok));
+            if (ok) {
+                exclusions |= be;
+            } else {
+                qCWarning(ViewerLog) << "Could not parse crash data:" << badBackend << "is an unknown video backend value! Ignoring...";
+            }
+        }
+        auto preferredBackend = Settings::preferredVideoBackend(backend, exclusions);
+        if (preferredBackend != backend) {
+            qCWarning(ViewerLog) << "A crash was registered during usage of the " << backend << "video backend - automatically switching to different backend:" << preferredBackend;
+            Settings::SettingsData::instance()->setVideoBackend(preferredBackend);
+            backend = preferredBackend;
+        }
+    }
+    bool showSelectorDialog = backend == Settings::VideoBackend::NotConfigured;
 
     if (showSelectorDialog) {
         Settings::VideoPlayerSelectorDialog dialog;
         dialog.exec();
         Settings::SettingsData::instance()->setVideoBackend(dialog.backend());
+        backend = Settings::SettingsData::instance()->videoBackend();
+        sentinel.clearCrashHistory();
     }
-    backend = Settings::SettingsData::instance()->videoBackend();
 
-    // First check if the selected backend is available
     switch (backend) {
     case Settings::VideoBackend::VLC:
 #if LIBVLC_FOUND
@@ -1346,21 +1368,8 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
 #endif
         break;
     case Settings::VideoBackend::NotConfigured:
-        qCDebug(ViewerLog) << "No video backend configured. Selecting first available backend...";
+        qCCritical(ViewerLog) << "No viable video backend!";
     }
-
-    // If we make it here the selected backend wasn't available, so instead choose one that is.
-#if LIBVLC_FOUND
-    return new VLCDisplay(parent);
-#endif
-
-#if QtAV_FOUND
-    return new QtAVDisplay(parent);
-#endif
-
-#if Phonon4Qt5_FOUND
-    return new PhononDisplay(parent);
-#endif
 
     static_assert(LIBVLC_FOUND || QtAV_FOUND || Phonon4Qt5_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
     Q_UNREACHABLE();

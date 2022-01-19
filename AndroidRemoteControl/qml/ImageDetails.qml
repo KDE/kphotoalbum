@@ -8,10 +8,6 @@ import QtQuick 2.0
 Item {
     id: root
     property int imageId
-    onImageIdChanged: {
-        if (visible)
-            _remoteInterface.requestDetails(imageId)
-    }
 
     visible: false
     opacity: visible ? 1 : 0

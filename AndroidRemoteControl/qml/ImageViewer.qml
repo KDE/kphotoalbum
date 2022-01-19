@@ -139,6 +139,7 @@ ListView {
     }
 
     onCurrentIndexChanged: {
+        details.hide()
         if (keyboard.visible)
             _remoteInterface.requestDetails(root.currentItem.imageId)
     }

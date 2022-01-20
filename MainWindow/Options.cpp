@@ -48,6 +48,11 @@ public:
         i18n("Listen for network connections on address <interface_address>."),
         i18n("interface_address")
     };
+
+    QCommandLineOption hideInitialWindow {
+        QLatin1String("hide"),
+        i18n("Hide main window at start up. Useful when starting KPhotoAlbum for serving images to an android device.")
+    };
 #endif
     QCommandLineOption searchOnStartup { QLatin1String("search"), i18n("Search for new images on startup.") };
 };
@@ -115,6 +120,15 @@ bool MainWindow::Options::searchForImagesOnStart() const
     return d->parser.isSet(d->searchOnStartup);
 }
 
+bool MainWindow::Options::hideInitialWindow() const
+{
+#ifdef KPA_ENABLE_REMOTECONTROL
+    return d->parser.isSet(d->hideInitialWindow);
+#else
+    return false;
+#endif
+}
+
 MainWindow::Options::Options()
     : d(new OptionsPrivate)
 {
@@ -128,6 +142,7 @@ MainWindow::Options::Options()
 #ifdef KPA_ENABLE_REMOTECONTROL
         << d->listen
         << d->listenAddress
+        << d->hideInitialWindow
 #endif
         << d->searchOnStartup);
 }

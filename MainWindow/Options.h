@@ -51,6 +51,8 @@ public:
      */
     bool searchForImagesOnStart() const;
 
+    bool hideInitialWindow() const;
+
 private:
     class OptionsPrivate;
     Options();

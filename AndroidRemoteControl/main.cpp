@@ -9,6 +9,7 @@
 #include <QQuickView>
 
 #include "ImageDetails.h"
+#include "ImageProvider.h"
 #include "ImageStore.h"
 #include "MyImage.h"
 #include "PositionObserver.h"
@@ -35,6 +36,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<RemoteImage>("KPhotoAlbum", 1, 0, "RemoteImage");
     qmlRegisterType<MyImage>("KPhotoAlbum", 1, 0, "MyImage");
     qmlRegisterUncreatableType<Types>("KPhotoAlbum", 1, 0, "Enums", "Don't create instances of this class");
+    viewer.engine()->addImageProvider(QLatin1String("images"), new ImageProvider);
 
     QQmlContext *rootContext = viewer.engine()->rootContext();
     rootContext->setContextProperty(QStringLiteral("_remoteInterface"), &RemoteInterface::instance());

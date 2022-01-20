@@ -6,6 +6,7 @@
 import QtQuick 2.0
 import KPhotoAlbum 1.0
 import QtQuick.Controls 1.1
+import QtQuick.Extras 1.4
 
 PinchArea {
     id: root
@@ -72,23 +73,47 @@ PinchArea {
         flickable: grid
     }
 
-    Menu {
-        id: menu
-        title: "Context Menu"
-        MenuItem {
-            text: "Refine search"
-            onTriggered: _remoteInterface.showOverviewPage()
-        }
-        MenuItem {
-            text: "Go Home"
-            onTriggered: _remoteInterface.goHome()
-        }
-    }
-
     PositionObserver {
         id: observer
         view: grid
     }
+
+    PieMenu {
+        id: pieMenu
+        triggerMode: TriggerMode.TriggerOnRelease
+
+        MenuItem {
+            text: "Run Slide Show"
+            iconSource: "qrc:/Images/view-presentation.png"
+            onTriggered: console.log("Run SlideShow")
+        }
+
+//        MenuItem {
+//            text: "Show Time Line"
+//            onTriggered: console.log("Show timeline")
+//        }
+
+        MenuItem {
+            text: "Refine Search"
+            iconSource: "qrc:/Images/system-search.png"
+            onTriggered: _remoteInterface.showOverviewPage()
+        }
+
+        MenuItem {
+            text: "Go Home"
+            iconSource: pieMenu.visible ? "image://images/home" : ""
+            onTriggered: _remoteInterface.goHome()
+        }
+
+
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        propagateComposedEvents: true
+        onPressAndHold: pieMenu.popup(mouseX, mouseY)
+    }
+
 
     function imageWidth() {
         return type == Enums.CategoryItems ? _settings.categoryItemSize : _settings.thumbnailSize;

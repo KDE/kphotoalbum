@@ -3,6 +3,7 @@ CONFIG += c++11
 TARGET=KPhotoAlbum
 
 SOURCES += main.cpp \
+    ImageProvider.cpp \
     RemoteInterface.cpp \
     RemoteConnection.cpp \
     RemoteImage.cpp \
@@ -39,6 +40,7 @@ RESOURCES += \
     resources.qrc
 
 HEADERS += \
+    ImageProvider.h \
     RemoteInterface.h \
     RemoteConnection.h \
     RemoteImage.h \

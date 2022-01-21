@@ -6,26 +6,14 @@
 #ifndef REMOTECONTROL_SERIALIZER_H
 #define REMOTECONTROL_SERIALIZER_H
 
+#include <QImage>
 #include <QObject>
 
 namespace RemoteControl
 {
 
-enum class BackgroundType { Transparent,
-                            NonTransparent };
-
-static void fastStreamImage(QDataStream &stream, const QImage &image, BackgroundType type)
-{
-    if (type == BackgroundType::Transparent) {
-        QImage result(image.width(), image.height(), QImage::Format_RGB32);
-        result.fill(Qt::black);
-        QPainter p(&result);
-        p.drawImage(0, 0, image);
-        p.end();
-        result.save(stream.device(), "JPEG");
-    } else
-        image.save(stream.device(), "JPEG");
-}
+enum class ImageEncoding { PNG,
+                           JPEG }; // FIXME document why
 
 class SerializerInterface
 {
@@ -60,23 +48,25 @@ template <>
 class Serializer<QImage> : public SerializerInterface
 {
 public:
-    Serializer(QImage &value, BackgroundType background = BackgroundType::NonTransparent)
+    Serializer(QImage &value, ImageEncoding encoding)
         : m_image(value)
-        , m_background(background)
+        , m_encoding(encoding)
     {
     }
+
     void encode(QDataStream &stream) override
     {
-        fastStreamImage(stream, m_image, m_background);
+        m_image.save(stream.device(), m_encoding == ImageEncoding::JPEG ? "JPEG" : "PNG");
     }
+
     void decode(QDataStream &stream) override
     {
-        m_image.load(stream.device(), "JPEG");
+        m_image.load(stream.device(), m_encoding == ImageEncoding::JPEG ? "JPEG" : "PNG");
     }
 
 private:
     QImage &m_image;
-    BackgroundType m_background;
+    ImageEncoding m_encoding;
 };
 
 } // namespace RemoteControl

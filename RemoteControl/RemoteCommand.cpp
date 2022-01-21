@@ -101,14 +101,14 @@ ThumbnailResult::ThumbnailResult(ImageId _imageId, const QString &_label, const 
 {
     addSerializer(new Serializer<ImageId>(imageId));
     addSerializer(new Serializer<QString>(label));
-    addSerializer(new Serializer<QImage>(image));
+    addSerializer(new Serializer<QImage>(image, ImageEncoding::JPEG));
     addSerializer(new Serializer<ViewType>(type));
 }
 
 QDataStream &operator<<(QDataStream &stream, const Category &category)
 {
     stream << category.name << category.enabled << (int)category.viewType;
-    fastStreamImage(stream, category.icon, BackgroundType::Transparent);
+    category.icon.save(stream.device(), "JPEG");
     return stream;
 }
 
@@ -238,9 +238,9 @@ StaticImageResult::StaticImageResult(const QImage &_homeIcon, const QImage &_kph
     , kphotoalbumIcon(_kphotoalbumIcon)
     , discoverIcon(_discoverIcon)
 {
-    addSerializer(new Serializer<QImage>(homeIcon, BackgroundType::Transparent));
-    addSerializer(new Serializer<QImage>(kphotoalbumIcon, BackgroundType::Transparent));
-    addSerializer(new Serializer<QImage>(discoverIcon, BackgroundType::Transparent));
+    addSerializer(new Serializer<QImage>(homeIcon, ImageEncoding::PNG));
+    addSerializer(new Serializer<QImage>(kphotoalbumIcon, ImageEncoding::PNG));
+    addSerializer(new Serializer<QImage>(discoverIcon, ImageEncoding::PNG));
 }
 
 ToggleTokenRequest::ToggleTokenRequest(ImageId _imageId, const QString &_token, State _state)

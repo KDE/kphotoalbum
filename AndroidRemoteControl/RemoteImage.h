@@ -5,7 +5,7 @@
 #ifndef REMOTEIMAGE_H
 #define REMOTEIMAGE_H
 
-#include "Types.h"
+#include "../RemoteControl/Types.h"
 #include <QImage>
 #include <QQuickPaintedItem>
 

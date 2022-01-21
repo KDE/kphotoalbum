@@ -5,13 +5,10 @@ TARGET=KPhotoAlbum
 SOURCES += main.cpp \
     ImageProvider.cpp \
     RemoteInterface.cpp \
-    RemoteConnection.cpp \
     RemoteImage.cpp \
-    RemoteCommand.cpp \
     Client.cpp \
     CategoryModel.cpp \
     MyImage.cpp \
-    SearchInfo.cpp \
     Settings.cpp \
     ImageStore.cpp \
     ScreenInfo.cpp \
@@ -20,7 +17,10 @@ SOURCES += main.cpp \
     ThumbnailModel.cpp \
     ImageDetails.cpp \
     DiscoveryModel.cpp \
-    PositionObserver.cpp
+    PositionObserver.cpp \
+    ../RemoteControl/RemoteConnection.cpp \
+    ../RemoteControl/RemoteCommand.cpp \
+    ../RemoteControl/SearchInfo.cpp \
 
 OTHER_FILES += \
     qml/main.qml \
@@ -42,23 +42,23 @@ RESOURCES += \
 HEADERS += \
     ImageProvider.h \
     RemoteInterface.h \
-    RemoteConnection.h \
     RemoteImage.h \
-    RemoteCommand.h \
     Client.h \
     CategoryModel.h \
     MyImage.h \
-    SearchInfo.h \
     Settings.h \
     ImageStore.h \
     ScreenInfo.h \
-    Types.h \
     Action.h \
     History.h \
     ThumbnailModel.h \
     ImageDetails.h \
     DiscoveryModel.h \
     PositionObserver.h \
-    Serializer.h
+    ../RemoteControl/RemoteConnection.h \
+    ../RemoteControl/RemoteCommand.h \
+    ../RemoteControl/SearchInfo.h \
+    ../RemoteControl/Types.h \
+    ../RemoteControl/Serializer.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

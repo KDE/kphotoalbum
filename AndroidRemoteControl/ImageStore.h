@@ -5,7 +5,7 @@
 #ifndef REMOTECONTROL_IMAGESTORE_H
 #define REMOTECONTROL_IMAGESTORE_H
 
-#include "Types.h"
+#include "../RemoteControl/Types.h"
 #include <QImage>
 #include <QMap>
 #include <QMutex>

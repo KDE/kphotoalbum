@@ -5,14 +5,14 @@
 #ifndef REMOTEINTERFACE_H
 #define REMOTEINTERFACE_H
 
+#include "../RemoteControl/RemoteCommand.h"
+#include "../RemoteControl/SearchInfo.h"
 #include "CategoryModel.h"
 #include "DiscoveryModel.h"
-#include "RemoteCommand.h"
-#include "SearchInfo.h"
 #include "ThumbnailModel.h"
 
+#include "../RemoteControl/Types.h"
 #include "History.h"
-#include "Types.h"
 #include <QImage>
 #include <QMap>
 #include <QObject>

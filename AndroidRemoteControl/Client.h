@@ -5,7 +5,7 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-#include "RemoteConnection.h"
+#include "../RemoteControl/RemoteConnection.h"
 #include <QTcpServer>
 #include <QTimer>
 

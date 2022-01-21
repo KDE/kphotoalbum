@@ -8,7 +8,7 @@
 #include <QAbstractListModel>
 #include <QList>
 
-#include "RemoteCommand.h"
+#include "../RemoteControl/RemoteCommand.h"
 
 namespace RemoteControl
 {

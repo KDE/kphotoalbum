@@ -5,7 +5,7 @@
 #ifndef REMOTECONTROL_IMAGEDETAILS_H
 #define REMOTECONTROL_IMAGEDETAILS_H
 
-#include "RemoteCommand.h"
+#include "../RemoteControl/RemoteCommand.h"
 #include <QObject>
 namespace RemoteControl
 {

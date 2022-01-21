@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "DiscoveryModel.h"
+#include "../RemoteControl/Types.h"
 #include "Action.h"
-#include "Types.h"
 
 namespace RemoteControl
 {

@@ -6,9 +6,9 @@
 #ifndef REMOTECONTROL_ACTION_H
 #define REMOTECONTROL_ACTION_H
 
+#include "../RemoteControl/RemoteCommand.h"
+#include "../RemoteControl/Types.h"
 #include "DiscoveryModel.h"
-#include "RemoteCommand.h"
-#include "Types.h"
 #include <QString>
 
 namespace RemoteControl

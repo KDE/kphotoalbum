@@ -3,7 +3,7 @@
    SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-import QtQuick 2.0
+import QtQuick 2.15
 import KPhotoAlbum 1.0
 import QtQuick.Controls 1.1
 import QtQuick.Extras 1.4
@@ -42,7 +42,7 @@ PinchArea {
 
         delegate: Item {
             Column {
-                x: (padding() + grid.cellWidth - width)/2
+                x: (padding + grid.cellWidth - width)/2
                 y: grid.cellHeight - height
 
                 RemoteImage {
@@ -55,13 +55,13 @@ PinchArea {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: root.clicked(parent.imageId,parent.label)
-                        onPressAndHold: menu.popup()
+                        onPressAndHold: menu.popup() // FIXME
                     }
                 }
                 Text {
                     visible: root.showLabels
                     color: _settings.textColor
-                    anchors { left: parent.left; right: parent.right; margins: padding()/2 }
+                    anchors { left: parent.left; right: parent.right; margins: padding/2 }
                     text: remoteImage.label
                     elide: Text.ElideRight
                     verticalAlignment: Text.AlignTop

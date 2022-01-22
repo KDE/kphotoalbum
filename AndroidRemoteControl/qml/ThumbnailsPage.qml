@@ -28,10 +28,6 @@ PinchArea {
         grid.scale = 1
     }
 
-    Keys.onMenuPressed: menu.popup()
-    Keys.onTabPressed: menu.popup() /* on desktop */
-    Keys.onEscapePressed: menu.visible = false
-
     GridView {
         id: grid
         anchors.fill: parent

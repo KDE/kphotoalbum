@@ -32,7 +32,7 @@ public Q_SLOTS:
     void loadFullSize();
 
 protected:
-    void componentComplete();
+    void componentComplete() override;
 
 private Q_SLOTS:
     void requestImage();

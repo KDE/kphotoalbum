@@ -28,6 +28,7 @@ PinchArea {
         grid.scale = 1
     }
 
+
     GridView {
         id: grid
         anchors.fill: parent
@@ -51,7 +52,6 @@ PinchArea {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: root.clicked(parent.imageId,parent.label)
-                        onPressAndHold: menu.popup() // FIXME
                     }
                 }
                 Text {
@@ -63,6 +63,14 @@ PinchArea {
                     verticalAlignment: Text.AlignTop
                 }
             }
+        }
+        MouseArea {
+            anchors.fill: parent
+            propagateComposedEvents: false
+            // See https://stackoverflow.com/questions/29236762/mousearea-inside-flickable-is-preventing-it-from-flicking
+            // for why this is needed.
+            onReleased: propagateComposedEvents = true
+            onPressAndHold: pieMenu.popup(mouseX, mouseY)
         }
     }
     ScrollBar {
@@ -103,13 +111,6 @@ PinchArea {
 
 
     }
-
-    MouseArea {
-        anchors.fill: parent
-        propagateComposedEvents: true
-        onPressAndHold: pieMenu.popup(mouseX, mouseY)
-    }
-
 
     function imageWidth() {
         return type == Enums.CategoryItems ? _settings.categoryItemSize : _settings.thumbnailSize;

@@ -38,8 +38,9 @@ PinchArea {
         cellHeight: imageWidth() + padding() + (root.showLabels ? 30 : 0)
 
         delegate: Item {
+            property alias imageId: remoteImage.imageId
             Column {
-                x: (padding + grid.cellWidth - width)/2
+                x: (root.padding() + grid.cellWidth - width)/2
                 y: grid.cellHeight - height
 
                 RemoteImage {
@@ -57,7 +58,7 @@ PinchArea {
                 Text {
                     visible: root.showLabels
                     color: _settings.textColor
-                    anchors { left: parent.left; right: parent.right; margins: padding/2 }
+                    anchors { left: parent.left; right: parent.right; margins: root.padding()/2 }
                     text: remoteImage.label
                     elide: Text.ElideRight
                     verticalAlignment: Text.AlignTop
@@ -70,7 +71,14 @@ PinchArea {
             // See https://stackoverflow.com/questions/29236762/mousearea-inside-flickable-is-preventing-it-from-flicking
             // for why this is needed.
             onReleased: propagateComposedEvents = true
-            onPressAndHold: pieMenu.popup(mouseX, mouseY)
+            onPressAndHold: {
+                var child = grid.itemAt(grid.contentX + mouseX, grid.contentY + mouseY)
+                if (child)
+                    pieMenu.imageId = child.imageId
+                else
+                    pieMenu.imageId = -1
+                pieMenu.popup(mouseX, mouseY)
+            }
         }
     }
     ScrollBar {
@@ -85,11 +93,12 @@ PinchArea {
     PieMenu {
         id: pieMenu
         triggerMode: TriggerMode.TriggerOnRelease
+        property int imageId : -1
 
         QQC1.MenuItem {
             text: "Run Slide Show"
             iconSource: "qrc:/Images/view-presentation.png"
-            onTriggered: console.log("Run SlideShow")
+            onTriggered: { _slideShow.running = true; root.clicked(pieMenu.imageId, "")}
         }
 
 //        QQC1.MenuItem {

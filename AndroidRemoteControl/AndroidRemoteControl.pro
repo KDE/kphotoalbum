@@ -14,6 +14,7 @@ SOURCES += main.cpp \
     ScreenInfo.cpp \
     Action.cpp \
     History.cpp \
+    SlideShow.cpp \
     ThumbnailModel.cpp \
     ImageDetails.cpp \
     DiscoveryModel.cpp \
@@ -51,6 +52,7 @@ HEADERS += \
     ScreenInfo.h \
     Action.h \
     History.h \
+    SlideShow.h \
     ThumbnailModel.h \
     ImageDetails.h \
     DiscoveryModel.h \

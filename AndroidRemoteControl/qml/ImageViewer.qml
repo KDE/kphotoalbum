@@ -25,6 +25,11 @@ ListView {
         details.hide()
     }
 
+    Connections {
+        target: _slideShow
+        function onRequestNext() { root.incrementCurrentIndex() }
+    }
+
     delegate: Zoomable {
         id: zoomable
         clip: true

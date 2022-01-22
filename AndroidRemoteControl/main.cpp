@@ -17,6 +17,7 @@
 #include "RemoteInterface.h"
 #include "ScreenInfo.h"
 #include "Settings.h"
+#include "SlideShow.h"
 
 using namespace RemoteControl;
 
@@ -43,6 +44,7 @@ int main(int argc, char *argv[])
     rootContext->setContextProperty(QStringLiteral("_settings"), &Settings::instance());
     rootContext->setContextProperty(QStringLiteral("_screenInfo"), &ScreenInfo::instance());
     rootContext->setContextProperty(QStringLiteral("_imageDetails"), &ImageDetails::instance());
+    rootContext->setContextProperty(QStringLiteral("_slideShow"), new SlideShow);
 
     viewer.setSource(QStringLiteral("qrc:/qml/main.qml"));
     viewer.setResizeMode(QQuickView::SizeRootObjectToView);

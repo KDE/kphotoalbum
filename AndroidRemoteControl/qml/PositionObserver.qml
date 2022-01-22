@@ -11,8 +11,8 @@ Item {
 
     Connections {
         target: view
-        onCountChanged: scrollToStoredOffset()
-        onVisibleChanged: scrollToStoredOffset()
+        function onCountChanged() { scrollToStoredOffset() }
+        function onVisibleChanged() { scrollToStoredOffset() }
     }
 
     function scrollToStoredOffset() {

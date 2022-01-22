@@ -48,7 +48,9 @@ ListView {
 
                 Connections {
                     target: zoomable
-                    onZoomStarted: remoteImage.loadFullSize()
+                    function onZoomStarted() {
+                        remoteImage.loadFullSize()
+                    }
                 }
             }
         }
@@ -84,7 +86,7 @@ ListView {
 
     Connections {
         target: _remoteInterface
-        onJumpToImage: {
+        function onJumpToImage(index) {
             var tmp = root.highlightMoveDuration;
             root.highlightMoveDuration = 0
             root.currentIndex = index

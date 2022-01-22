@@ -9,7 +9,7 @@ import KPhotoAlbum 1.0
 Rectangle {
     color: _settings.backgroundColor
 
-    OverviewPage {
+    FrontPage {
         anchors.fill: parent
         visible: _remoteInterface.currentPage === Enums.OverviewPage
     }

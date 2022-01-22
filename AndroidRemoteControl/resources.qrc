@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/main.qml</file>
-        <file>qml/OverviewPage.qml</file>
         <file>qml/Icon.qml</file>
         <file>qml/ThumbnailsPage.qml</file>
         <file>qml/ImageViewer.qml</file>
@@ -14,5 +13,6 @@
         <file>qml/Cell.qml</file>
         <file>Images/system-search.png</file>
         <file>Images/view-presentation.png</file>
+        <file>qml/FrontPage.qml</file>
     </qresource>
 </RCC>

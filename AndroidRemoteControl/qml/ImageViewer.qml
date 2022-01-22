@@ -5,7 +5,7 @@
 
 import KPhotoAlbum 1.0
 import QtQuick 2.15
-import QtQuick.Controls 1.1
+import QtQuick.Controls 2.15 // MenuItem
 
 ListView {
     id: root

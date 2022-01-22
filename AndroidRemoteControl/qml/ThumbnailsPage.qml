@@ -5,7 +5,7 @@
 
 import QtQuick 2.15
 import KPhotoAlbum 1.0
-import QtQuick.Controls 1.1
+import QtQuick.Controls 1.4 as QQC1 // We need Menu from QQC 1, not 2!
 import QtQuick.Extras 1.4
 
 PinchArea {
@@ -82,24 +82,24 @@ PinchArea {
         id: pieMenu
         triggerMode: TriggerMode.TriggerOnRelease
 
-        MenuItem {
+        QQC1.MenuItem {
             text: "Run Slide Show"
             iconSource: "qrc:/Images/view-presentation.png"
             onTriggered: console.log("Run SlideShow")
         }
 
-//        MenuItem {
+//        QQC1.MenuItem {
 //            text: "Show Time Line"
 //            onTriggered: console.log("Show timeline")
 //        }
 
-        MenuItem {
+        QQC1.MenuItem {
             text: "Refine Search"
             iconSource: "qrc:/Images/system-search.png"
             onTriggered: _remoteInterface.showOverviewPage()
         }
 
-        MenuItem {
+        QQC1.MenuItem {
             text: "Go Home"
             iconSource: pieMenu.visible ? "image://images/home" : ""
             onTriggered: _remoteInterface.goHome()

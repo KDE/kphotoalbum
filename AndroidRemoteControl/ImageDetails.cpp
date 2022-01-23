@@ -49,7 +49,7 @@ QString ImageDetails::age(const QString &category, const QString &item)
 {
     auto list = m_categories[category];
     auto res = std::find_if(list.begin(), list.end(),
-                            [&category, &item](const CategoryItemDetails &candidate) {
+                            [&item](const CategoryItemDetails &candidate) {
                                 return candidate.name == item;
                             });
     return (*res).age;

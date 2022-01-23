@@ -7,10 +7,25 @@ ImageProvider::ImageProvider()
 {
 }
 
-QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
+ImageProvider &ImageProvider::instance()
 {
-    auto image = RemoteControl::RemoteInterface::instance().m_homeImage;
-    qDebug() << id << image.size();
+    static ImageProvider instance;
+    return instance;
+}
+
+QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize & /*requestedSize*/)
+{
+    auto image = [&] {
+        if (id == "home")
+            return RemoteControl::RemoteInterface::instance().m_homeImage;
+        else if (id == "info")
+            return m_info;
+        else if (id == "slideShow")
+            return m_slideShow;
+        else if (id == "search")
+            return m_search;
+        Q_UNREACHABLE();
+    }();
     *size = image.size();
     return image;
 }

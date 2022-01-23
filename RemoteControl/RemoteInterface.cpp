@@ -232,13 +232,17 @@ void RemoteInterface::sendImageDetails(const ImageDetailsRequest &command)
 
 void RemoteInterface::sendHomePageImages(const StaticImageRequest &command)
 {
-    const int size = command.size;
+    auto image = [size = command.size](const QLatin1String &which) {
+        return KIconLoader::global()->loadIcon(which, KIconLoader::Desktop, size).toImage();
+    };
 
-    QPixmap homeIcon = KIconLoader::global()->loadIcon(QString::fromUtf8("go-home"), KIconLoader::Desktop, size);
-    QPixmap kphotoalbumIcon = KIconLoader::global()->loadIcon(QString::fromUtf8("kphotoalbum"), KIconLoader::Desktop, size);
-    QPixmap discoverIcon = KIconLoader::global()->loadIcon(QString::fromUtf8("edit-find"), KIconLoader::Desktop, size);
-
-    m_connection->sendCommand(StaticImageResult(homeIcon.toImage(), kphotoalbumIcon.toImage(), discoverIcon.toImage()));
+    StaticImageResult result;
+    result.homeIcon = image(QLatin1String("go-home"));
+    result.kphotoalbumIcon = image(QLatin1String("kphotoalbum"));
+    result.discoverIcon = image(QLatin1String("edit-find"));
+    result.info = image(QLatin1String("documentinfo"));
+    result.slideShow = image(QLatin1String("view-presentation"));
+    m_connection->sendCommand(result);
 }
 
 void RemoteInterface::setToken(const ToggleTokenRequest &command)

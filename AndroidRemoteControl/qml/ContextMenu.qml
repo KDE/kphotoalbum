@@ -11,7 +11,7 @@ PieMenu {
 
     QQC1.MenuItem {
         text: "Run Slide Show"
-        iconSource: "qrc:/Images/view-presentation.png"
+        iconSource: root.visible ? "image://images/slideShow" : ""
         onTriggered: {
             _slideShow.running = true
             if (!imageViewer)
@@ -27,7 +27,7 @@ PieMenu {
     QQC1.MenuItem {
         visible: !imageViewer
         text: "Refine Search"
-        iconSource: "qrc:/Images/system-search.png"
+        iconSource: root.visible ? "image://images/search" : ""
         onTriggered: _remoteInterface.showOverviewPage()
     }
 
@@ -36,4 +36,12 @@ PieMenu {
         iconSource: root.visible ? "image://images/home" : ""
         onTriggered: _remoteInterface.goHome()
     }
+
+    QQC1.MenuItem {
+        visible: imageViewer
+        text: "Image Details"
+        iconSource: root.visible ? "image://images/info" : ""
+        onTriggered: _imageDetails.visible = true
+    }
+
 }

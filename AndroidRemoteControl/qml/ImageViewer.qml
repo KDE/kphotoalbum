@@ -25,7 +25,7 @@ Item {
         Keys.onEscapePressed: {
             menu.visible = false
             keyboard.visible = false
-            details.hide()
+            _imageDetails.visible = false
         }
 
         Connections {
@@ -68,7 +68,7 @@ Item {
             z: -1
             anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
             height: parent.height/5
-            onClicked: details.show()
+            onClicked: _imageDetails.visible = true
         }
 
         MouseArea {
@@ -103,11 +103,11 @@ Item {
         }
 
         MouseArea {
-            enabled: keyboard.visible || details.visible
+            enabled: keyboard.visible || _imageDetails.visible
             anchors.fill: parent
             onClicked: {
                 keyboard.visible = false
-                details.hide()
+                _imageDetails.visible = false
             }
         }
 
@@ -125,6 +125,7 @@ Item {
             id: details
             anchors.centerIn: parent
             imageId: listview.currentItem ? listview.currentItem.imageId : -1
+            visible: _imageDetails.visible
         }
 
         Menu {
@@ -132,7 +133,7 @@ Item {
             title: "Context Menu"
             MenuItem {
                 text: "Image details"
-                onTriggered: details.show()
+                onTriggered: _imageDetails.visible = true
             }
             MenuItem {
                 text: "Add/Remove tokens..."
@@ -156,7 +157,7 @@ Item {
         }
 
         onCurrentIndexChanged: {
-            details.hide()
+            _imageDetails.visible = false
             if (keyboard.visible)
                 _remoteInterface.requestDetails(listview.currentItem.imageId)
         }

@@ -18,6 +18,7 @@ class Action
 {
 public:
     Action(const SearchInfo &searchInfo);
+    virtual ~Action() { }
     void run();
     virtual void save() {};
 

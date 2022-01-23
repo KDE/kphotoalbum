@@ -232,15 +232,14 @@ StaticImageRequest::StaticImageRequest(int _size)
     addSerializer(new Serializer<int>(size));
 }
 
-StaticImageResult::StaticImageResult(const QImage &_homeIcon, const QImage &_kphotoalbumIcon, const QImage &_discoverIcon)
+StaticImageResult::StaticImageResult()
     : RemoteCommand(CommandType::StaticImageResult)
-    , homeIcon(_homeIcon)
-    , kphotoalbumIcon(_kphotoalbumIcon)
-    , discoverIcon(_discoverIcon)
 {
     addSerializer(new Serializer<QImage>(homeIcon, ImageEncoding::PNG));
     addSerializer(new Serializer<QImage>(kphotoalbumIcon, ImageEncoding::PNG));
     addSerializer(new Serializer<QImage>(discoverIcon, ImageEncoding::PNG));
+    addSerializer(new Serializer<QImage>(info, ImageEncoding::PNG));
+    addSerializer(new Serializer<QImage>(slideShow, ImageEncoding::PNG));
 }
 
 ToggleTokenRequest::ToggleTokenRequest(ImageId _imageId, const QString &_token, State _state)

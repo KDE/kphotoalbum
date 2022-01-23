@@ -9,13 +9,19 @@ Item {
     id: root
     property int imageId
 
-    visible: false
     opacity: visible ? 1 : 0
     Behavior on opacity { NumberAnimation { duration: 200 } }
 
     width: rect.width
     height: Math.min(_screenInfo.viewHeight, rect.height)
     anchors.centerIn: parent
+
+    onVisibleChanged: {
+        if(visible)
+            _remoteInterface.requestDetails(imageId)
+        else
+            hideAnimation.restart()
+    }
 
     Flickable {
         contentWidth: rect.width
@@ -24,8 +30,8 @@ Item {
 
         Rectangle {
             id: rect
-            width: visible ? column.width + 40 : 0
-            height: visible ? column.height + 40 : 0
+            width: root.visible ? column.width + 40 : 0
+            height: root.visible ? column.height + 40 : 0
             color: "#AA000000"
 
             MouseArea {
@@ -95,30 +101,6 @@ Item {
             }
         }
     }
-    Canvas {
-        id:canvas
-        anchors { right: parent.right; top: parent.top }
-        width: 50
-        height: 50
-        onPaint: {
-            var ctx = getContext("2d");
-            ctx.fillStyle = "#FFFFFF";
-            ctx.fillRect(0,0,width,height)
-            ctx.lineWidth = 5
-            ctx.moveTo(0,0)
-            ctx.lineTo(width,height)
-            ctx.moveTo(0,height)
-            ctx.lineTo(width,0)
-            ctx.stroke()
-        }
-
-        MouseArea {
-            x: -50; y: -50
-            width: parent.width+100
-            height: parent.height+100
-            onClicked: hide()
-        }
-    }
 
     function items(category) {
         var result
@@ -135,14 +117,5 @@ Item {
                 result = link
         }
         return result
-    }
-
-    function hide() {
-        hideAnimation.restart()
-    }
-
-    function show() {
-        _remoteInterface.requestDetails(imageId)
-        visible = true
     }
 }

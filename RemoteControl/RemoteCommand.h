@@ -170,10 +170,12 @@ public:
 class StaticImageResult : public RemoteCommand
 {
 public:
-    StaticImageResult(const QImage &homeIcon = {}, const QImage &kphotoalbumIcon = {}, const QImage &discoverIcon = {});
+    StaticImageResult();
     QImage homeIcon;
     QImage kphotoalbumIcon;
     QImage discoverIcon;
+    QImage info;
+    QImage slideShow;
 };
 
 class ToggleTokenRequest : public RemoteCommand

@@ -65,19 +65,12 @@ PinchArea {
                 }
             }
         }
-        MouseArea {
+        PressAndHoldArea {
             anchors.fill: parent
-            propagateComposedEvents: false
-            // See https://stackoverflow.com/questions/29236762/mousearea-inside-flickable-is-preventing-it-from-flicking
-            // for why this is needed.
-            onReleased: propagateComposedEvents = true
             onPressAndHold: {
                 var child = grid.itemAt(grid.contentX + mouseX, grid.contentY + mouseY)
-                if (child)
-                    pieMenu.imageId = child.imageId
-                else
-                    pieMenu.imageId = -1
-                pieMenu.popup(mouseX, mouseY)
+                contextMenu.imageId = child ? child.imageId : -1
+                contextMenu.popup(mouseX, mouseY)
             }
         }
     }
@@ -90,35 +83,8 @@ PinchArea {
         view: grid
     }
 
-    PieMenu {
-        id: pieMenu
-        triggerMode: TriggerMode.TriggerOnRelease
-        property int imageId : -1
-
-        QQC1.MenuItem {
-            text: "Run Slide Show"
-            iconSource: "qrc:/Images/view-presentation.png"
-            onTriggered: { _slideShow.running = true; root.clicked(pieMenu.imageId, "")}
-        }
-
-//        QQC1.MenuItem {
-//            text: "Show Time Line"
-//            onTriggered: console.log("Show timeline")
-//        }
-
-        QQC1.MenuItem {
-            text: "Refine Search"
-            iconSource: "qrc:/Images/system-search.png"
-            onTriggered: _remoteInterface.showOverviewPage()
-        }
-
-        QQC1.MenuItem {
-            text: "Go Home"
-            iconSource: pieMenu.visible ? "image://images/home" : ""
-            onTriggered: _remoteInterface.goHome()
-        }
-
-
+    ContextMenu {
+        id: contextMenu
     }
 
     function imageWidth() {

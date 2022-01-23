@@ -14,5 +14,7 @@
         <file>Images/system-search.png</file>
         <file>Images/view-presentation.png</file>
         <file>qml/FrontPage.qml</file>
+        <file>qml/ContextMenu.qml</file>
+        <file>qml/PressAndHoldArea.qml</file>
     </qresource>
 </RCC>

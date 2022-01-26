@@ -45,6 +45,7 @@ int main(int argc, char *argv[])
     rootContext->setContextProperty(QStringLiteral("_screenInfo"), &ScreenInfo::instance());
     rootContext->setContextProperty(QStringLiteral("_imageDetails"), &ImageDetails::instance());
     rootContext->setContextProperty(QStringLiteral("_slideShow"), new SlideShow);
+    rootContext->setContextProperty(QStringLiteral("_images"), &ImageProvider::instance());
 
     viewer.setSource(QStringLiteral("qrc:/qml/main.qml"));
     viewer.setResizeMode(QQuickView::SizeRootObjectToView);

@@ -13,7 +13,6 @@
 
 #include "../RemoteControl/Types.h"
 #include "History.h"
-#include <QImage>
 #include <QMap>
 #include <QObject>
 #include <QStringList>
@@ -31,9 +30,6 @@ class RemoteInterface : public QObject
     Q_PROPERTY(bool connected READ isConnected NOTIFY connectionChanged)
     Q_PROPERTY(RemoteControl::CategoryModel *categories MEMBER m_categories NOTIFY categoriesChanged)
     Q_PROPERTY(ThumbnailModel *categoryItems MEMBER m_categoryItems NOTIFY categoryItemsChanged)
-    Q_PROPERTY(QImage home MEMBER m_homeImage NOTIFY homeImageChanged)
-    Q_PROPERTY(QImage kphotoalbum MEMBER m_kphotoalbumImage NOTIFY kphotoalbumImageChange)
-    Q_PROPERTY(QImage discoveryImage MEMBER m_discoveryImage NOTIFY discoveryImageChanged)
     Q_PROPERTY(RemoteControl::Types::Page currentPage MEMBER m_currentPage NOTIFY currentPageChanged)
     Q_PROPERTY(ThumbnailModel *thumbnailModel MEMBER m_thumbnailModel NOTIFY thumbnailModelChanged)
     Q_PROPERTY(QStringList listCategoryValues MEMBER m_listCategoryValues NOTIFY listCategoryValuesChanged)
@@ -47,7 +43,6 @@ public:
     bool isConnected() const;
     void sendCommand(const RemoteCommand &command);
     QString currentCategory() const;
-    QImage discoveryImage() const;
 
     enum class ModelType { Thumbnail,
                            Discovery };
@@ -73,15 +68,12 @@ public Q_SLOTS:
 Q_SIGNALS:
     void connectionChanged();
     void categoriesChanged();
-    void homeImageChanged();
-    void kphotoalbumImageChange();
     void categoryItemsChanged();
     void currentPageChanged();
     void thumbnailModelChanged();
     void jumpToImage(int index);
     void listCategoryValuesChanged();
 
-    void discoveryImageChanged();
     void discoveryModelChanged();
 
     void activeThumbnailModelChanged();
@@ -93,7 +85,6 @@ public:
     QString networkAddress() const;
 
     QStringList tokens() const;
-    QImage m_homeImage;
 
 private Q_SLOTS:
     void requestInitialData();
@@ -113,14 +104,12 @@ private:
 
     Client *m_connection = nullptr;
     CategoryModel *m_categories;
-    QImage m_kphotoalbumImage;
     SearchInfo m_search;
     ThumbnailModel *m_categoryItems;
     RemoteControl::Page m_currentPage = RemoteControl::Page::Startup;
     ThumbnailModel *m_thumbnailModel;
     History m_history;
     QStringList m_listCategoryValues;
-    QImage m_discoveryImage;
     DiscoveryModel *m_discoveryModel;
     ThumbnailModel *m_activeThumbnailModel = nullptr;
 };

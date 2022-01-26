@@ -45,7 +45,7 @@ PinchArea {
 
             Icon {
                 text: "home"
-                icon: _remoteInterface.home
+                icon: _images.home
                 width: _screenInfo.overviewIconSize
                 iconScale: root.iconScale
                 onClicked: _remoteInterface.goHome()
@@ -65,7 +65,7 @@ PinchArea {
 
             Icon {
                 text: "Discover"
-                icon: _remoteInterface.discoveryImage
+                icon: _images.discovery
                 width: _screenInfo.overviewIconSize
                 iconScale: root.iconScale
                 onClicked: _remoteInterface.doDiscovery()
@@ -73,7 +73,7 @@ PinchArea {
 
             Icon {
                 text: "View"
-                icon: _remoteInterface.kphotoalbum
+                icon: _images.kphotoalbum
                 width: _screenInfo.overviewIconSize
                 iconScale: root.iconScale
                 onClicked: _remoteInterface.showThumbnails()

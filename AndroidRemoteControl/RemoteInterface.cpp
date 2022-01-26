@@ -73,18 +73,7 @@ void RemoteInterface::gotDisconnected()
 
 void RemoteInterface::setHomePageImages(const StaticImageResult &command)
 {
-    m_homeImage = command.homeIcon;
-    Q_EMIT homeImageChanged();
-
-    m_kphotoalbumImage = command.kphotoalbumIcon;
-    Q_EMIT kphotoalbumImageChange();
-
-    m_discoveryImage = command.discoverIcon;
-    Q_EMIT discoveryImageChanged();
-
-    ImageProvider::instance().m_info = command.info;
-    ImageProvider::instance().m_slideShow = command.slideShow;
-    ImageProvider::instance().m_search = command.discoverIcon;
+    ImageProvider::instance().setImages(command);
 }
 
 RemoteInterface &RemoteInterface::instance()
@@ -106,11 +95,6 @@ void RemoteInterface::sendCommand(const RemoteCommand &command)
 QString RemoteInterface::currentCategory() const
 {
     return m_search.currentCategory();
-}
-
-QImage RemoteInterface::discoveryImage() const
-{
-    return m_discoveryImage;
 }
 
 void RemoteInterface::setActiveThumbnailModel(RemoteInterface::ModelType type)

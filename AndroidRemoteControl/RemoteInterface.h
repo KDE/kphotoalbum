@@ -64,6 +64,7 @@ public Q_SLOTS:
     void removeToken(int imageId, const QString &token);
     void rerequestOverviewPageData();
     void pushAwayFromStartupState();
+    void jumpToContext(int imageId);
 
 Q_SIGNALS:
     void connectionChanged();
@@ -85,6 +86,7 @@ public:
     QString networkAddress() const;
 
     QStringList tokens() const;
+    ThumbnailModel *activeThumbnailModel();
 
 private Q_SLOTS:
     void requestInitialData();

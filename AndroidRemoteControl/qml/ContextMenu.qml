@@ -44,4 +44,11 @@ PieMenu {
         onTriggered: _imageDetails.visible = true
     }
 
+    QQC1.MenuItem {
+        visible: imageViewer
+//        enabled: root.imageId != -1 // FIXME DO I NEED TO PROVIDE A GREYED OUT VERSION MYSELF?
+        text: "Jump to Context"
+        iconSource: _images.ready ? "image://images/kphotoalbum" : ""
+        onTriggered: _remoteInterface.jumpToContext(root.imageId)
+    }
 }

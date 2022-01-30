@@ -78,17 +78,22 @@ void ShowCategoryValueAction::save()
         m_index = PositionObserver::categoryListViewOffset();
 }
 
-ShowThumbnailsAction::ShowThumbnailsAction(const SearchInfo &searchInfo)
+ShowThumbnailsAction::ShowThumbnailsAction(const SearchInfo &searchInfo, int imageId)
     : Action(searchInfo)
+    , m_imageId(imageId)
 {
 }
 
 void ShowThumbnailsAction::execute()
 {
-    sendCommand(SearchRequest(SearchType::Images, m_searchInfo));
+    SearchRequest request(SearchType::Images, m_searchInfo);
+    request.focusImage = m_imageId;
+    sendCommand(request);
     RemoteInterface::instance().setActiveThumbnailModel(RemoteInterface::ModelType::Thumbnail);
     setCurrentPage(Page::ThumbnailsPage);
 
+    // FIXME How can this even work? At this point the images hasn't been loaded - or are they possible in the cache?
+    // Anyway does it work with the introduction of m_imageId?
     PositionObserver::setThumbnailOffset(m_index);
 }
 

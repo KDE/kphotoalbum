@@ -136,15 +136,18 @@ SearchRequest::SearchRequest(SearchType _type, const SearchInfo &_searchInfo, in
     addSerializer(new Serializer<SearchType>(type));
     addSerializer(new Serializer<SearchInfo>(searchInfo));
     addSerializer(new Serializer<int>(size));
+    addSerializer(new Serializer<int>(focusImage));
 }
 
-SearchResult::SearchResult(SearchType _type, const QList<int> &_result)
+SearchResult::SearchResult(SearchType _type, const QList<int> &_result, ImageId _focusImage)
     : RemoteCommand(CommandType::SearchResult)
     , type(_type)
     , result(_result)
+    , focusImage(_focusImage)
 {
     addSerializer(new Serializer<SearchType>(type));
     addSerializer(new Serializer<QList<int>>(result));
+    addSerializer(new Serializer<int>(focusImage));
 }
 
 ThumbnailRequest::ThumbnailRequest(ImageId _imageId, const QSize &_size, ViewType _type)

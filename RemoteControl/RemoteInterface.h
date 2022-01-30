@@ -45,7 +45,7 @@ private:
 
     void sendCategoryNames(const SearchRequest &searchInfo);
     void sendCategoryValues(const SearchRequest &search);
-    void sendImageSearchResult(const SearchInfo &search);
+    void sendImageSearchResult(const SearchInfo &search, ImageId focusImage);
     void requestThumbnail(const ThumbnailRequest &command);
     void cancelRequest(const ThumbnailCancelRequest &command);
     void sendImageDetails(const ImageDetailsRequest &command);

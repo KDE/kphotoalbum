@@ -97,7 +97,7 @@ void RemoteInterface::handleCommand(const RemoteCommand &command)
         else if (searchCommand.type == SearchType::CategoryItems)
             sendCategoryValues(searchCommand);
         else
-            sendImageSearchResult(searchCommand.searchInfo);
+            sendImageSearchResult(searchCommand.searchInfo, searchCommand.focusImage);
     } else if (command.commandType() == CommandType::ThumbnailRequest)
         requestThumbnail(static_cast<const ThumbnailRequest &>(command));
     else if (command.commandType() == CommandType::ThumbnailCancelRequest)
@@ -153,7 +153,7 @@ void RemoteInterface::sendCategoryValues(const SearchRequest &search)
     }
 }
 
-void RemoteInterface::sendImageSearchResult(const SearchInfo &search)
+void RemoteInterface::sendImageSearchResult(const SearchInfo &search, ImageId focusImage)
 {
     const DB::FileNameList files = DB::ImageDB::instance()->search(convert(search), true /* Require on disk */).files();
     DB::FileNameList stacksRemoved;
@@ -171,7 +171,7 @@ void RemoteInterface::sendImageSearchResult(const SearchInfo &search)
                        return m_imageNameStore[fileName];
                    });
 
-    m_connection->sendCommand(SearchResult(SearchType::Images, result));
+    m_connection->sendCommand(SearchResult(SearchType::Images, result, focusImage));
 }
 
 void RemoteInterface::requestThumbnail(const ThumbnailRequest &command)

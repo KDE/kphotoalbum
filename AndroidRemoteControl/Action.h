@@ -56,7 +56,7 @@ private:
 class ShowThumbnailsAction : public Action
 {
 public:
-    ShowThumbnailsAction(const SearchInfo &searchInfo);
+    ShowThumbnailsAction(const SearchInfo &searchInfo, int imageId = -1);
 
 protected:
     void execute() override;
@@ -64,6 +64,7 @@ protected:
 
 private:
     int m_index = 0;
+    int m_imageId = -1;
 };
 
 class ShowImagesAction : public Action

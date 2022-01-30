@@ -89,14 +89,16 @@ public:
     SearchType type;
     SearchInfo searchInfo;
     int size; // Only used for SearchType::Categories
+    ImageId focusImage = -1;
 };
 
 class SearchResult : public RemoteCommand
 {
 public:
-    SearchResult(SearchType type = {}, const QList<int> &result = {});
+    SearchResult(SearchType type = {}, const QList<int> &result = {}, ImageId focusImage = {});
     SearchType type;
     QList<int> result;
+    ImageId focusImage = -1;
 };
 
 class ThumbnailRequest : public RemoteCommand

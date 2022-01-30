@@ -22,6 +22,7 @@
 #include <QTcpSocket>
 #include <qimage.h>
 
+#include <PositionObserver.h>
 #include <memory>
 
 using namespace RemoteControl;
@@ -197,6 +198,12 @@ void RemoteInterface::pushAwayFromStartupState()
         setCurrentPage(Types::UnconnectedPage);
 }
 
+void RemoteInterface::jumpToContext(int imageId)
+{
+    m_history.push(std::unique_ptr<Action>(new ShowThumbnailsAction({}, imageId)));
+    m_history.rerunTopItem(); // FIXME WHY IS THIS NEEDED? Without it jump to context doesn't seem to work but it is just calling run a second time, hmm hmmm
+}
+
 void RemoteInterface::setCurrentView(int imageId)
 {
     Q_EMIT jumpToImage(m_activeThumbnailModel->indexOf(imageId));
@@ -217,6 +224,11 @@ QStringList RemoteInterface::tokens() const
 {
     // FIXME: in KPA the tokens category is now retrieved using categoryForSpecial
     return ImageDetails::instance().itemsOfCategory(QStringLiteral("Tokens"));
+}
+
+ThumbnailModel *RemoteInterface::activeThumbnailModel()
+{
+    return m_activeThumbnailModel;
 }
 
 void RemoteInterface::requestInitialData()
@@ -261,6 +273,11 @@ void RemoteInterface::gotSearchResult(const SearchResult &result)
 {
     if (result.type == SearchType::Images) {
         m_activeThumbnailModel->setImages(result.result);
+        if (result.focusImage != -1) {
+            auto index = activeThumbnailModel()->indexOf(result.focusImage);
+            PositionObserver::setThumbnailOffset(index);
+        }
+
     } else if (result.type == SearchType::CategoryItems) {
         m_categoryItems->setImages(result.result);
     }

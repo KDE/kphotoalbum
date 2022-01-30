@@ -165,5 +165,6 @@ Item {
     ContextMenu {
         id: contextMenu
         imageViewer: true
+        imageId: listview.currentItem ? listview.currentItem.imageId : -1
     }
 }

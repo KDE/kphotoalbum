@@ -128,7 +128,7 @@ Item {
             visible: _imageDetails.visible
         }
 
-        Menu {
+        Menu { // FIXME delete
             id: menu
             title: "Context Menu"
             MenuItem {
@@ -150,6 +150,7 @@ Item {
         }
 
         PressAndHoldArea {
+            enabled: !_imageDetails.visible && !keyboard.visible
             anchors.fill: parent
             onPressAndHold: {
                 contextMenu.popup(mouseX, mouseY)

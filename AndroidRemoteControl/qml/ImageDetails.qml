@@ -56,7 +56,7 @@ Item {
                         text: "<b>" + modelData + "</b>: " + items(modelData) + _imageDetails.dummy
                         color: "white"
                         linkColor: "white"
-                        onLinkActivated: { hide(); _remoteInterface.activateSearch(link) }
+                        onLinkActivated: { _imageDetails.visible = false; _remoteInterface.activateSearch(link) }
                         wrapMode: Text.Wrap
                         width: column.width
                     }

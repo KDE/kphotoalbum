@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-    SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "HTMLDialog.h"
 
@@ -121,11 +121,9 @@ void HTMLDialog::createContentPage()
     lay1->addWidget(m_html5Video);
 
     QString avconv = QStandardPaths::findExecutable(QString::fromUtf8("avconv"));
-    const QString ffmpeg2theora = QStandardPaths::findExecutable(QString::fromUtf8("ffmpeg2theora"));
-
-    QStandardPaths::findExecutable(QString::fromUtf8("avconv"));
     if (avconv.isNull())
         avconv = QStandardPaths::findExecutable(QString::fromUtf8("ffmpeg"));
+    const QString ffmpeg2theora = QStandardPaths::findExecutable(QString::fromUtf8("ffmpeg2theora"));
 
     QString txt = i18n("<p>This selection will generate video files suitable for displaying on web. "
                        "avconv and ffmpeg2theora are required for video file generation.</p>");
@@ -532,7 +530,7 @@ void HTMLDialog::populateThemesCombo()
             QString themeDescription = config.readEntry("Description");
             m_themeDescriptions << themeDescription; // save description to display later
 
-            //m_themeBox->insertItem( i, i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
+            // m_themeBox->insertItem( i, i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
             m_themeBox->insertItem(i, i18n("%1", themeName));
             m_themes.insert(i, themePath);
 

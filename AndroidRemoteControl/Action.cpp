@@ -7,7 +7,6 @@
 #include "PositionObserver.h"
 #include "RemoteInterface.h"
 #include "ScreenInfo.h"
-
 extern QQuickView *view;
 
 namespace RemoteControl
@@ -80,26 +79,30 @@ void ShowCategoryValueAction::save()
 
 ShowThumbnailsAction::ShowThumbnailsAction(const SearchInfo &searchInfo, int imageId)
     : Action(searchInfo)
-    , m_imageId(imageId)
+    , m_initialImageRequest(imageId)
 {
 }
 
 void ShowThumbnailsAction::execute()
 {
     SearchRequest request(SearchType::Images, m_searchInfo);
-    request.focusImage = m_imageId;
+    if (m_scrolledToIndex == -1) {
+        // We need to send the request to the server and back, as it is only when we have the
+        // request back that we can look up the index of the images
+        request.focusImage = m_initialImageRequest;
+    }
+
     sendCommand(request);
     RemoteInterface::instance().setActiveThumbnailModel(RemoteInterface::ModelType::Thumbnail);
     setCurrentPage(Page::ThumbnailsPage);
 
-    // FIXME How can this even work? At this point the images hasn't been loaded - or are they possible in the cache?
-    // Anyway does it work with the introduction of m_imageId?
-    PositionObserver::setThumbnailOffset(m_index);
+    if (m_scrolledToIndex != -1)
+        PositionObserver::setThumbnailOffset(m_scrolledToIndex);
 }
 
 void ShowThumbnailsAction::save()
 {
-    m_index = PositionObserver::thumbnailOffset();
+    m_scrolledToIndex = PositionObserver::thumbnailOffset();
 }
 
 ShowImagesAction::ShowImagesAction(int imageId, const SearchInfo &searchInfo)

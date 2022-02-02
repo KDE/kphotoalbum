@@ -16,6 +16,7 @@ static QQuickView *m_view = nullptr;
 
 QQuickItem *findItem(const QString &name)
 {
+    // This will find the QML element PositionObserver with the given name.
     return m_view->rootObject()->findChild<QQuickItem *>(name);
 }
 

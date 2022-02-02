@@ -63,8 +63,8 @@ protected:
     void save() override;
 
 private:
-    int m_index = 0;
-    int m_imageId = -1;
+    int m_scrolledToIndex = -1;
+    int m_initialImageRequest = -1;
 };
 
 class ShowImagesAction : public Action

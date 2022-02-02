@@ -162,6 +162,10 @@ Item {
             if (keyboard.visible)
                 _remoteInterface.requestDetails(listview.currentItem.imageId)
         }
+        onVisibleChanged: {
+            if (!visible)
+                _slideShow.running = false
+        }
     }
     ContextMenu {
         id: contextMenu

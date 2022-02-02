@@ -1,3 +1,8 @@
+/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
+
+SPDX-License-Identifier: GPL-2.0-or-later
+*/
+
 #include "ImageProvider.h"
 #include "RemoteInterface.h"
 #include <QDebug>

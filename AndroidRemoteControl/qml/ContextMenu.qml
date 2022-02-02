@@ -1,3 +1,8 @@
+/* SPDX-FileCopyrightText: 2022 Jesper K. Pedersen <blackie@kde.org>
+
+   SPDX-License-Identifier: GPL-2.0-or-later
+*/
+
 import QtQuick 2.0
 import QtQuick.Controls 1.4 as QQC1 // We need Menu from QQC 1, not 2!
 import QtQuick.Extras 1.4

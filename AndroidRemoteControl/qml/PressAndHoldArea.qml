@@ -1,3 +1,8 @@
+/* SPDX-FileCopyrightText: 2022 Jesper K. Pedersen <blackie@kde.org>
+
+   SPDX-License-Identifier: GPL-2.0-or-later
+*/
+
 import QtQuick 2.15
 
 // The seems to be a bug in Qt relating to using a Flickable and a MouseArea with pressAndHold

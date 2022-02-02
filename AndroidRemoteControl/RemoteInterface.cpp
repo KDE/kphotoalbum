@@ -201,7 +201,6 @@ void RemoteInterface::pushAwayFromStartupState()
 void RemoteInterface::jumpToContext(int imageId)
 {
     m_history.push(std::unique_ptr<Action>(new ShowThumbnailsAction({}, imageId)));
-    m_history.rerunTopItem(); // FIXME WHY IS THIS NEEDED? Without it jump to context doesn't seem to work but it is just calling run a second time, hmm hmmm
 }
 
 void RemoteInterface::setCurrentView(int imageId)

@@ -12,6 +12,7 @@ class SlideShow : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool running READ running WRITE setRunning NOTIFY runningChanged)
+    Q_PROPERTY(int interval READ interval WRITE setInterval NOTIFY intervalChanged)
 
 public:
     explicit SlideShow(QObject *parent = nullptr);
@@ -20,9 +21,13 @@ public:
     void setRunning(bool newRunning);
     Q_INVOKABLE void setOverride(bool newRunning);
 
+    int interval() const;
+    void setInterval(int newInterval);
+
 signals:
     void runningChanged();
     void requestNext();
+    void intervalChanged();
 
 private:
     bool m_running = false;

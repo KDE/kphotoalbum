@@ -171,5 +171,12 @@ Item {
         id: contextMenu
         imageViewer: true
         imageId: listview.currentItem ? listview.currentItem.imageId : -1
+        onRequestAdjustSpeed: slider.visible = true
+    }
+
+    SlideShowSlider {
+        id: slider
+        anchors.fill: parent
+        visible: false
     }
 }

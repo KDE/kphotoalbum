@@ -11,6 +11,7 @@ PieMenu {
     id: root
     property int imageId : -1
     property bool imageViewer : false
+    signal requestAdjustSpeed()
 
     triggerMode: TriggerMode.TriggerOnRelease
 
@@ -56,4 +57,12 @@ PieMenu {
         iconSource: _images.ready ? "image://images/kphotoalbum" : ""
         onTriggered: _remoteInterface.jumpToContext(root.imageId)
     }
+
+    QQC1.MenuItem {
+        visible: imageViewer && _slideShow.running
+        text: "Adjust Speed"
+        iconSource: _images.ready ? "image://images/slideShowSpeed" : ""
+        onTriggered: root.requestAdjustSpeed()
+    }
+
 }

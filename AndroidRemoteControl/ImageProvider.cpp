@@ -39,6 +39,8 @@ QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &
             return m_images.discoverIcon;
         else if (id == "kphotoalbum")
             return m_images.kphotoalbumIcon;
+        else if (id == "slideShowSpeed")
+            return m_images.slideShowSpeed;
         Q_UNREACHABLE();
     }();
     *size = image.size();

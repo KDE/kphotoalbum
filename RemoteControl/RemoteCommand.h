@@ -178,6 +178,7 @@ public:
     QImage discoverIcon;
     QImage info;
     QImage slideShow;
+    QImage slideShowSpeed;
 };
 
 class ToggleTokenRequest : public RemoteCommand

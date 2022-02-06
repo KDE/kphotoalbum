@@ -242,6 +242,7 @@ void RemoteInterface::sendHomePageImages(const StaticImageRequest &command)
     result.discoverIcon = image(QLatin1String("edit-find"));
     result.info = image(QLatin1String("documentinfo"));
     result.slideShow = image(QLatin1String("view-presentation"));
+    result.slideShowSpeed = image(QLatin1String("speedometer"));
     m_connection->sendCommand(result);
 }
 

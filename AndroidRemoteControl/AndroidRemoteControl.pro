@@ -1,5 +1,5 @@
 QT += qml quick network widgets
-CONFIG += c++11
+CONFIG += c++14
 TARGET=KPhotoAlbum
 
 SOURCES += main.cpp \

@@ -17,6 +17,7 @@ Item {
     anchors.centerIn: parent
 
     onVisibleChanged: {
+        _slideShow.setOverride(!visible)
         if(visible)
             _remoteInterface.requestDetails(imageId)
         else

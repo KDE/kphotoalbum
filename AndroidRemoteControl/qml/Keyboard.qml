@@ -17,6 +17,8 @@ Item {
     opacity: visible ? 1 : 0
     Behavior on opacity { NumberAnimation { duration: 200 } }
 
+    onVisibleChanged: _slideShow.setOverride(!visible)
+
     Cell {
         anchors {
             left: grid.left

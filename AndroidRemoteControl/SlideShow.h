@@ -18,6 +18,7 @@ public:
 
     bool running() const;
     void setRunning(bool newRunning);
+    Q_INVOKABLE void setOverride(bool newRunning);
 
 signals:
     void runningChanged();
@@ -25,5 +26,6 @@ signals:
 
 private:
     bool m_running = false;
+    bool m_override = false;
     QTimer *m_timer;
 };

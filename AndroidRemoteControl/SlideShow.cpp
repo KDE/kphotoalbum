@@ -31,3 +31,13 @@ void SlideShow::setRunning(bool newRunning)
     else
         m_timer->stop();
 }
+
+void SlideShow::setOverride(bool newRunning)
+{
+    if (newRunning)
+        setRunning(m_override);
+    else {
+        m_override = m_running;
+        setRunning(false);
+    }
+}

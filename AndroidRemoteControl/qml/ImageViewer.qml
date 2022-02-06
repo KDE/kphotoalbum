@@ -1,4 +1,4 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
+/* SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
 
    SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -10,6 +10,8 @@ import QtQuick.Controls 2.15 // MenuItem
 Item {
     ListView {
         id: listview
+        property bool isZoomedOut: true
+
         anchors.fill: parent
 
         model: _remoteInterface.activeThumbnailModel
@@ -40,6 +42,10 @@ Item {
             height: listview.height
             fitOnScreen: true
             property int imageId : model.imageId
+
+            // The PressAndHoldArea below can't see this item so communicate view the listview.
+            onIsZoomedOutChanged: listview.isZoomedOut = isZoomedOut
+
 
             sourceComponent: Item {
                 property QtObject sourceSize : QtObject {
@@ -150,7 +156,7 @@ Item {
         }
 
         PressAndHoldArea {
-            enabled: !_imageDetails.visible && !keyboard.visible
+            enabled: !_imageDetails.visible && !keyboard.visible && listview.isZoomedOut
             anchors.fill: parent
             onPressAndHold: {
                 contextMenu.popup(mouseX, mouseY)

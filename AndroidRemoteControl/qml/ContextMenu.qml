@@ -17,12 +17,20 @@ PieMenu {
 
     QQC1.MenuItem {
         text: "Run Slide Show"
+        visible: !_slideShow.running
         iconSource: _images.ready ? "image://images/slideShow" : ""
         onTriggered: {
             _slideShow.running = true
             if (!imageViewer)
                 _remoteInterface.showImage(imageId)
         }
+    }
+
+    QQC1.MenuItem {
+        text: "Stop Slide Show"
+        visible: _slideShow.running
+        iconSource: _images.ready ? "image://images/stopSlideShow" : ""
+        onTriggered: _slideShow.running = false
     }
 
 //        QQC1.MenuItem {

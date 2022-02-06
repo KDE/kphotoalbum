@@ -243,6 +243,7 @@ void RemoteInterface::sendHomePageImages(const StaticImageRequest &command)
     result.info = image(QLatin1String("documentinfo"));
     result.slideShow = image(QLatin1String("view-presentation"));
     result.slideShowSpeed = image(QLatin1String("speedometer"));
+    result.stop = image(QLatin1String("dialog-close"));
     m_connection->sendCommand(result);
 }
 

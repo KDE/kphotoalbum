@@ -244,6 +244,7 @@ StaticImageResult::StaticImageResult()
     addSerializer(new Serializer<QImage>(info, ImageEncoding::PNG));
     addSerializer(new Serializer<QImage>(slideShow, ImageEncoding::PNG));
     addSerializer(new Serializer<QImage>(slideShowSpeed, ImageEncoding::PNG));
+    addSerializer(new Serializer<QImage>(stop, ImageEncoding::PNG));
 }
 
 ToggleTokenRequest::ToggleTokenRequest(ImageId _imageId, const QString &_token, State _state)

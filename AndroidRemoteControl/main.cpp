@@ -3,11 +3,6 @@
    SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-#include <QApplication>
-#include <QQmlContext>
-#include <QQmlEngine>
-#include <QQuickView>
-
 #include "ImageDetails.h"
 #include "ImageProvider.h"
 #include "ImageStore.h"
@@ -18,6 +13,11 @@
 #include "ScreenInfo.h"
 #include "Settings.h"
 #include "SlideShow.h"
+#include <QApplication>
+#include <QQmlContext>
+#include <QQmlEngine>
+#include <QQuickView>
+#include <QStyleHints>
 
 using namespace RemoteControl;
 
@@ -56,5 +56,6 @@ int main(int argc, char *argv[])
     // Create the store on the GUI thread
     (void)ImageStore::instance();
 
+    QGuiApplication::styleHints()->setMousePressAndHoldInterval(400);
     return app.exec();
 }

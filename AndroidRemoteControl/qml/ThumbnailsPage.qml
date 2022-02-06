@@ -7,6 +7,7 @@ import QtQuick 2.15
 import KPhotoAlbum 1.0
 import QtQuick.Controls 1.4 as QQC1 // We need Menu from QQC 1, not 2!
 import QtQuick.Extras 1.4
+import QtQuick.Controls 2.15 as QQC2
 
 PinchArea {
     id: root
@@ -73,9 +74,9 @@ PinchArea {
                 contextMenu.popup(mouseX, mouseY)
             }
         }
-    }
-    ScrollBar {
-        flickable: grid
+        QQC2.ScrollBar.vertical: QQC2.ScrollBar {
+            width: _screenInfo.dotsPerMM * 5
+        }
     }
 
     PositionObserver {

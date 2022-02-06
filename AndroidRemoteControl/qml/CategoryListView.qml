@@ -4,14 +4,14 @@
 */
 
 import QtQuick 2.15
-
+import QtQuick.Controls 2.15 as QQC2
 ListView {
     id: root
     signal clicked(string label)
 
     delegate: Text {
         font.pointSize: 30
-        anchors {left: parent.left; right: parent.right}
+        width: root.width
         text: (modelData == "**NONE**") ? "None" : modelData
         color: _settings.textColor
         MouseArea {
@@ -20,8 +20,8 @@ ListView {
         }
     }
 
-    ScrollBar {
-        flickable: root
+    QQC2.ScrollBar.vertical: QQC2.ScrollBar {
+        width: _screenInfo.dotsPerMM * 5
     }
 
     PositionObserver {

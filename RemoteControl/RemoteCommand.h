@@ -11,6 +11,8 @@
 
 #include <QBuffer>
 #include <QDataStream>
+#include <QDate>
+#include <QHash>
 #include <QImage>
 #include <QMap>
 #include <QPainter>
@@ -23,7 +25,7 @@ namespace RemoteControl
 {
 class SerializerInterface;
 
-const int VERSION = 7;
+const int VERSION = 8;
 
 enum class CommandType {
     ThumbnailResult,
@@ -38,7 +40,8 @@ enum class CommandType {
     CategoryItemsResult,
     StaticImageRequest,
     StaticImageResult,
-    ToggleTokenRequest
+    ToggleTokenRequest,
+    ImageDateResult,
 };
 
 class RemoteCommand
@@ -193,5 +196,11 @@ public:
     State state;
 };
 
+class ImageDateResult : public RemoteCommand
+{
+public:
+    ImageDateResult(const QHash<int, QDate> &imageDates = {});
+    QHash<int, QDate> imageDates;
+};
 }
 #endif // REMOTECOMMAND_H

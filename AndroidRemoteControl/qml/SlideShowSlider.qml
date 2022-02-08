@@ -1,3 +1,8 @@
+/* SPDX-FileCopyrightText: 2022 Jesper K. Pedersen <blackie@kde.org>
+
+   SPDX-License-Identifier: GPL-2.0-or-later
+*/
+
 import QtQuick 2.0
 import QtQuick.Controls 2.15
 
@@ -23,6 +28,7 @@ Item {
             right: parent.right
             margins: 100
         }
+        handle.width: _screenInfo.dotsPerMM * 5
 
         from: 1
         to: 120

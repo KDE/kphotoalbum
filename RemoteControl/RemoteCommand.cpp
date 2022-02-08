@@ -4,9 +4,7 @@
 */
 
 #include "RemoteCommand.h"
-
 #include "Serializer.h"
-
 #include <QDebug>
 #include <QElapsedTimer>
 #include <QMap>
@@ -87,6 +85,7 @@ std::unique_ptr<RemoteCommand> RemoteCommand::create(CommandType id)
         ADDFACTORY(StaticImageRequest);
         ADDFACTORY(StaticImageResult);
         ADDFACTORY(ToggleTokenRequest);
+        ADDFACTORY(ImageDateResult);
     }
     Q_ASSERT(factories.contains(id));
     return factories[id]();
@@ -256,4 +255,11 @@ ToggleTokenRequest::ToggleTokenRequest(ImageId _imageId, const QString &_token, 
     addSerializer(new Serializer<ImageId>(imageId));
     addSerializer(new Serializer<QString>(token));
     addSerializer(new Serializer<State>(state));
+}
+
+ImageDateResult::ImageDateResult(const QHash<int, QDate> &_imageDates)
+    : RemoteCommand(CommandType::ImageDateResult)
+    , imageDates(_imageDates)
+{
+    addSerializer(new Serializer<QHash<int, QDate>>(imageDates));
 }

@@ -253,6 +253,8 @@ void RemoteInterface::handleCommand(const RemoteCommand &command)
         setListCategoryValues(static_cast<const CategoryItemsResult &>(command).items);
     else if (command.commandType() == CommandType::StaticImageResult)
         setHomePageImages(static_cast<const StaticImageResult &>(command));
+    else if (command.commandType() == CommandType::ImageDateResult)
+        ImageStore::instance().setImageDates(static_cast<const ImageDateResult &>(command).imageDates);
     else
         qFatal("Unhandled command");
 }

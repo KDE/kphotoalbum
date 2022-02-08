@@ -51,11 +51,18 @@ void RemoteImage::setImage(const QImage &image)
     update();
 }
 
+void RemoteImage::setDate(const QDate &date)
+{
+    m_date = date;
+    emit dateChanged();
+}
+
 void RemoteImage::setImageId(int imageId)
 {
     if (m_imageId != imageId) {
         m_imageId = imageId;
         Q_EMIT imageIdChanged();
+        setDate(ImageStore::instance().date(imageId));
     }
 }
 

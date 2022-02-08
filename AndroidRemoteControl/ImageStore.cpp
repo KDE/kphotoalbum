@@ -53,6 +53,16 @@ void ImageStore::requestImage(RemoteImage *client, ImageId imageId, const QSize 
     timer->start(0);
 }
 
+void ImageStore::setImageDates(const QHash<ImageId, QDate> &imageDates)
+{
+    m_imageDates = imageDates;
+}
+
+QDate ImageStore::date(ImageId id) const
+{
+    return m_imageDates.value(id);
+}
+
 void ImageStore::updateImage(ImageId imageId, const QImage &image, const QString &label, ViewType type)
 {
     QMutexLocker locker(&m_mutex);

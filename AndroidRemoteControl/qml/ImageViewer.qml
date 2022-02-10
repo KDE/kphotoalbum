@@ -22,14 +22,6 @@ Item {
         highlightRangeMode: ListView.StrictlyEnforceRange
         interactive: currentItem && currentItem.isZoomedOut
 
-        Keys.onMenuPressed: menu.popup()
-        Keys.onTabPressed: menu.popup() /* on desktop */
-        Keys.onEscapePressed: {
-            menu.visible = false
-            keyboard.visible = false
-            _imageDetails.visible = false
-        }
-
         Connections {
             target: _slideShow
             function onRequestNext() { listview.incrementCurrentIndex() }
@@ -132,27 +124,6 @@ Item {
             anchors.centerIn: parent
             imageId: listview.currentItem ? listview.currentItem.imageId : -1
             visible: _imageDetails.visible
-        }
-
-        Menu { // FIXME delete
-            id: menu
-            title: "Context Menu"
-            MenuItem {
-                text: "Image details"
-                onTriggered: _imageDetails.visible = true
-            }
-            MenuItem {
-                text: "Add/Remove tokens..."
-                onTriggered: keyboard.visible = true
-            }
-            MenuItem {
-                text: "Refine search"
-                onTriggered: _remoteInterface.showOverviewPage()
-            }
-            MenuItem {
-                text: "Go Home"
-                onTriggered: _remoteInterface.goHome()
-            }
         }
 
         PressAndHoldArea {

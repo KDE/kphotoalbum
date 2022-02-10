@@ -12,8 +12,11 @@
 namespace RemoteControl
 {
 
+// We want to send the images from the database over as JPEG to get them over as fast as possible.
+// On the other hand, JPEG do not support transparency, so the images used for example in the context menu,
+// need to be send over as PNGs.
 enum class ImageEncoding { PNG,
-                           JPEG }; // FIXME document why
+                           JPEG };
 
 class SerializerInterface
 {

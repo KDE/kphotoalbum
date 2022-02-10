@@ -5,6 +5,7 @@
 
 import QtQuick 2.15
 import KPhotoAlbum 1.0
+import QtQml 2.15
 
 Rectangle {
     color: _settings.backgroundColor
@@ -61,6 +62,7 @@ Rectangle {
             property: "count"
             value: discoveryPage.itemsPerPage-1
             when: discoveryPage.visible
+            restoreMode: Binding.RestoreNone
         }
      }
 

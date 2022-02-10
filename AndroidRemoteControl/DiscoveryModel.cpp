@@ -5,6 +5,7 @@
 #include "DiscoveryModel.h"
 #include "../RemoteControl/Types.h"
 #include "Action.h"
+#include <random>
 
 namespace RemoteControl
 {
@@ -51,7 +52,9 @@ void DiscoveryModel::resetImages()
         return;
 
     QList<int> result = m_allImages;
-    std::random_shuffle(result.begin(), result.end());
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(result.begin(), result.end(), g);
     result = result.mid(0, m_count);
     result.push_front(DISCOVERYID);
     ThumbnailModel::setImages(result);

@@ -6,6 +6,7 @@
 
 #include "RemoteCommand.h"
 
+#include "../Utilities/EnumHelper.h"
 #include <QApplication>
 #include <QBuffer>
 #include <QTcpSocket>
@@ -30,7 +31,7 @@ RemoteConnection::RemoteConnection(QObject *parent)
 void RemoteConnection::sendCommand(const RemoteCommand &command)
 {
     protocolDebug() << qPrintable(QTime::currentTime().toString(QString::fromUtf8("hh:mm:ss.zzz")))
-                    << ": Sending " << QString::number((int)command.commandType());
+                    << ": Sending " << EnumHelper::toString(command.commandType());
     Q_ASSERT(QThread::currentThread() == qApp->thread());
 
     if (!isConnected())
@@ -91,10 +92,11 @@ void RemoteConnection::dataReceived()
             qint32 id;
             stream >> id;
 
-            std::unique_ptr<RemoteCommand> command = RemoteCommand::create(static_cast<CommandType>(id));
+            auto commandType = static_cast<CommandType>(id);
+            std::unique_ptr<RemoteCommand> command = RemoteCommand::create(commandType);
             command->decode(stream);
             protocolDebug() << qPrintable(QTime::currentTime().toString(QString::fromUtf8("hh:mm:ss.zzz")))
-                            << ": Received " << id;
+                            << ": Received " << EnumHelper::toString(commandType);
 
             Q_EMIT gotCommand(*command);
         }

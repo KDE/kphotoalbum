@@ -23,6 +23,7 @@
 
 namespace RemoteControl
 {
+Q_NAMESPACE
 class SerializerInterface;
 
 const int VERSION = 8;
@@ -43,6 +44,7 @@ enum class CommandType {
     ToggleTokenRequest,
     ImageDateResult,
 };
+Q_ENUM_NS(CommandType)
 
 class RemoteCommand
 {

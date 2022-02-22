@@ -17,7 +17,8 @@ class ThumbnailModel : public QAbstractListModel
     Q_OBJECT
 public:
     explicit ThumbnailModel(QObject *parent = 0);
-    enum { ImageIdRole };
+    enum { ImageIdRole,
+           IsVideoRole };
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
     RoleMap roleNames() const override;

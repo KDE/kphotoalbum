@@ -42,7 +42,9 @@ enum class CommandType {
     StaticImageRequest,
     StaticImageResult,
     ToggleTokenRequest,
-    ImageDateResult,
+    ImageInfosResult,
+    VideoRequest,
+    VideoResult,
 };
 Q_ENUM_NS(CommandType)
 
@@ -57,6 +59,11 @@ public:
 
     void addSerializer(SerializerInterface *serializer);
     static std::unique_ptr<RemoteCommand> create(CommandType commandType);
+    void clear()
+    {
+        // FIXME remove once I've figured out why it crashes in ~ImageInfosResult
+        m_serializers.clear();
+    }
 
 private:
     QList<SerializerInterface *> m_serializers;
@@ -198,11 +205,28 @@ public:
     State state;
 };
 
-class ImageDateResult : public RemoteCommand
+class ImageInfosResult : public RemoteCommand
 {
 public:
-    ImageDateResult(const QHash<int, QDate> &imageDates = {});
+    ImageInfosResult(const QHash<int, QDate> &imageDates = {}, const QVector<int> &videos = {});
+    ~ImageInfosResult();
     QHash<int, QDate> imageDates;
+    QVector<int> videos; // ID's of all videos
+};
+
+class VideoRequest : public RemoteCommand
+{
+public:
+    VideoRequest(ImageId imageId = {});
+    ImageId imageId;
+};
+
+class VideoResult : public RemoteCommand
+{
+public:
+    VideoResult(ImageId imageId = {}, const QByteArray &data = {});
+    ImageId imageId;
+    QByteArray data;
 };
 }
 #endif // REMOTECOMMAND_H

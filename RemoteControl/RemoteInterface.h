@@ -52,6 +52,7 @@ private:
     void sendHomePageImages(const StaticImageRequest &command);
     void setToken(const ToggleTokenRequest &command);
     void sendInitialDateMap();
+    void sendVideo(const VideoRequest &command);
 
     DB::ImageSearchInfo convert(const RemoteControl::SearchInfo &) const;
     Server *m_connection;

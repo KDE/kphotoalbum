@@ -4,10 +4,9 @@
 */
 
 #include "ImageStore.h"
+#include "RemoteImage.h"
 #include "RemoteInterface.h"
 #include "Settings.h"
-
-#include "RemoteImage.h"
 #include <QMutexLocker>
 #include <QTimer>
 
@@ -65,6 +64,7 @@ QDate ImageStore::date(ImageId id) const
 
 void ImageStore::updateImage(ImageId imageId, const QImage &image, const QString &label, ViewType type)
 {
+    // FIXME are there even threads involved?!
     QMutexLocker locker(&m_mutex);
     RequestType key = qMakePair(imageId, type);
     if (m_requestMap.contains(key)) {

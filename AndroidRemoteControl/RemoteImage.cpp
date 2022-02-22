@@ -93,7 +93,8 @@ void RemoteImage::requestImage()
         m_image = ImageProvider::instance().discoverIcon().scaled(size(), Qt::KeepAspectRatio);
     else {
         m_image = {};
-        ImageStore::instance().requestImage(this, m_imageId, size(), m_type);
+        if (m_imageId != -1)
+            ImageStore::instance().requestImage(this, m_imageId, size(), m_type);
     }
     update();
 }

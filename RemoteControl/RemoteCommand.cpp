@@ -66,7 +66,7 @@ void RemoteCommand::addSerializer(SerializerInterface *serializer)
 using CommandFacory = std::function<std::unique_ptr<RemoteCommand>()>;
 #define ADDFACTORY(COMMAND)                \
     factories.insert(CommandType::COMMAND, \
-                     []() { return std::unique_ptr<RemoteCommand>(new COMMAND); })
+                     []() { return std::make_unique<COMMAND>(); })
 
 std::unique_ptr<RemoteCommand> RemoteCommand::create(CommandType id)
 {
@@ -85,7 +85,9 @@ std::unique_ptr<RemoteCommand> RemoteCommand::create(CommandType id)
         ADDFACTORY(StaticImageRequest);
         ADDFACTORY(StaticImageResult);
         ADDFACTORY(ToggleTokenRequest);
-        ADDFACTORY(ImageDateResult);
+        ADDFACTORY(ImageInfosResult);
+        ADDFACTORY(VideoRequest);
+        ADDFACTORY(VideoResult);
     }
     Q_ASSERT(factories.contains(id));
     return factories[id]();
@@ -257,9 +259,33 @@ ToggleTokenRequest::ToggleTokenRequest(ImageId _imageId, const QString &_token, 
     addSerializer(new Serializer<State>(state));
 }
 
-ImageDateResult::ImageDateResult(const QHash<int, QDate> &_imageDates)
-    : RemoteCommand(CommandType::ImageDateResult)
+ImageInfosResult::ImageInfosResult(const QHash<int, QDate> &_imageDates, const QVector<int> &_videos)
+    : RemoteCommand(CommandType::ImageInfosResult)
     , imageDates(_imageDates)
+    , videos(_videos)
 {
     addSerializer(new Serializer<QHash<int, QDate>>(imageDates));
+    addSerializer(new Serializer<QVector<int>>(videos));
+}
+
+ImageInfosResult::~ImageInfosResult()
+{
+    // FIXME: It crashes when it is trying to delete the serializer. Something to debug another day.
+    clear();
+}
+
+VideoRequest::VideoRequest(ImageId _imageId)
+    : RemoteCommand(CommandType::VideoRequest)
+    , imageId(_imageId)
+{
+    addSerializer(new Serializer<int>(imageId));
+}
+
+VideoResult::VideoResult(ImageId _imageId, const QByteArray &_data)
+    : RemoteCommand(CommandType::VideoResult)
+    , imageId(_imageId)
+    , data(_data)
+{
+    addSerializer(new Serializer<int>(imageId));
+    addSerializer(new Serializer<QByteArray>(data));
 }

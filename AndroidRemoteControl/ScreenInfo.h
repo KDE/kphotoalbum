@@ -50,13 +50,13 @@ private:
     int possibleColumns();
     int iconHeight();
 
-    QScreen *m_screen;
-    double m_dotsPerMM;
+    QScreen *m_screen = nullptr;
+    double m_dotsPerMM = 0;
     int m_categoryCount = 0;
     int m_overviewColumnCount = 0;
     int m_viewWidth = 0;
-    int m_viewHeight;
-    int m_textHeight;
+    int m_viewHeight = 0;
+    int m_textHeight = 0;
 };
 
 } // namespace RemoteControl

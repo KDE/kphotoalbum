@@ -14,5 +14,6 @@
         <file>qml/ContextMenu.qml</file>
         <file>qml/PressAndHoldArea.qml</file>
         <file>qml/SlideShowSlider.qml</file>
+        <file>qml/VideoViewer.qml</file>
     </qresource>
 </RCC>

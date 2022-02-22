@@ -8,6 +8,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15 // MenuItem
 
 Item {
+    id: root
     ListView {
         id: listview
         property bool isZoomedOut: true
@@ -34,6 +35,7 @@ Item {
             height: listview.height
             fitOnScreen: true
             property int imageId : model.imageId
+            readonly property bool isCurrentItem : ListView.isCurrentItem
 
             // The PressAndHoldArea below can't see this item so communicate view the listview.
             onIsZoomedOutChanged: listview.isZoomedOut = isZoomedOut
@@ -41,23 +43,37 @@ Item {
 
             sourceComponent: Item {
                 property QtObject sourceSize : QtObject {
-                    readonly property int width: remoteImage.width
-                    readonly property int height: remoteImage.height
+                    readonly property int width: model.isVideo ? _screenInfo.viewWidth :remoteImage.width
+                    readonly property int height: model.isVideo ? _screenInfo.viewHeight : remoteImage.height
                 }
 
                 RemoteImage {
                     id: remoteImage
                     scale: parent.width / width
                     transformOrigin: Item.TopLeft
-                    imageId: model.imageId
+                    imageId: model.isVideo ? -1 : model.imageId
                     type: Enums.Images
+                    visible: !model.isVideo
 
                     Connections {
                         target: zoomable
                         function onZoomStarted() {
-                            remoteImage.loadFullSize()
+                            if (!model.isVideo)
+                                remoteImage.loadFullSize()
                         }
                     }
+                }
+                VideoViewer {
+                    anchors.centerIn: parent
+                    scale: {
+                        if (!listview.isZoomedOut)
+                            return parent.width / width
+                        var widthScale = root.width / width
+                        var heightScale = root.height / height
+                        return Math.min(Math.min(widthScale, heightScale), 1)
+                    }
+                    active: model.isVideo && zoomable.isCurrentItem && root.visible
+                    imageId: model.isVideo ? model.imageId : -1
                 }
             }
         }

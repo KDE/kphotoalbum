@@ -4,6 +4,7 @@
 
 #include "RemoteInterface.h"
 #include "ImageProvider.h"
+#include "VideoStore.h"
 
 #include "../RemoteControl/RemoteCommand.h"
 #include "Action.h"
@@ -253,9 +254,13 @@ void RemoteInterface::handleCommand(const RemoteCommand &command)
         setListCategoryValues(static_cast<const CategoryItemsResult &>(command).items);
     else if (command.commandType() == CommandType::StaticImageResult)
         setHomePageImages(static_cast<const StaticImageResult &>(command));
-    else if (command.commandType() == CommandType::ImageDateResult)
-        ImageStore::instance().setImageDates(static_cast<const ImageDateResult &>(command).imageDates);
-    else
+    else if (command.commandType() == CommandType::ImageInfosResult) {
+        auto infoCommand = static_cast<const ImageInfosResult &>(command);
+        ImageStore::instance().setImageDates(infoCommand.imageDates);
+        VideoStore::instance().setVideos(infoCommand.videos);
+    } else if (command.commandType() == CommandType::VideoResult) {
+        VideoStore::instance().setVideo(static_cast<const VideoResult &>(command));
+    } else
         qFatal("Unhandled command");
 }
 

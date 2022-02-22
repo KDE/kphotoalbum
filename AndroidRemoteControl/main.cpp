@@ -18,8 +18,28 @@
 #include <QQmlEngine>
 #include <QQuickView>
 #include <QStyleHints>
+#include <RemoteVideoInfo.h>
 
 using namespace RemoteControl;
+
+#ifdef REQUEST_PERMISSIONS_ON_ANDROID
+#include <QtAndroid>
+
+bool requestStoragePermission()
+{
+    // FIXME: How do I unset this, so I can retest?
+    using namespace QtAndroid;
+
+    QString permission = QStringLiteral("android.permission.WRITE_EXTERNAL_STORAGE");
+    const QHash<QString, PermissionResult> results = requestPermissionsSync(QStringList({ permission }));
+    if (!results.contains(permission) || results[permission] == PermissionResult::Denied) {
+        qWarning() << "Couldn't get permission: " << permission;
+        return false;
+    }
+
+    return true;
+}
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -28,6 +48,11 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("kde.org");
     QCoreApplication::setApplicationName("KPhotoAlbum");
 
+#ifdef REQUEST_PERMISSIONS_ON_ANDROID
+    if (!requestStoragePermission())
+        return -1;
+#endif
+
     QQuickView viewer;
     PositionObserver::setView(&viewer);
 
@@ -35,6 +60,7 @@ int main(int argc, char *argv[])
     QObject::connect(viewer.engine(), SIGNAL(quit()), &app, SLOT(quit()));
 
     qmlRegisterType<RemoteImage>("KPhotoAlbum", 1, 0, "RemoteImage");
+    qmlRegisterType<RemoteVideoInfo>("KPhotoAlbum", 1, 0, "RemoteVideoInfo");
     qmlRegisterType<MyImage>("KPhotoAlbum", 1, 0, "MyImage");
     qmlRegisterUncreatableType<Types>("KPhotoAlbum", 1, 0, "Enums", "Don't create instances of this class");
     viewer.engine()->addImageProvider(QLatin1String("images"), &ImageProvider::instance());

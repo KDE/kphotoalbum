@@ -4,7 +4,8 @@
 */
 
 #include "ThumbnailModel.h"
-#include "ImageStore.h"
+#include "VideoStore.h"
+#include <QDebug>
 
 namespace RemoteControl
 {
@@ -21,14 +22,18 @@ int ThumbnailModel::rowCount(const QModelIndex &) const
 
 QVariant ThumbnailModel::data(const QModelIndex &index, int role) const
 {
+    auto id = [&] { return m_images[index.row()]; };
     if (role == ImageIdRole)
-        return m_images[index.row()];
+        return id();
+    else if (role == IsVideoRole)
+        return VideoStore::instance().isVideo(id());
+    Q_UNREACHABLE();
     return {};
 }
 
 RoleMap ThumbnailModel::roleNames() const
 {
-    return { { ImageIdRole, "imageId" } };
+    return { { ImageIdRole, "imageId" }, { IsVideoRole, "isVideo" } };
 }
 
 void ThumbnailModel::setImages(const QList<int> &images)

@@ -19,8 +19,8 @@ class RemoteConnection : public QObject
 {
     Q_OBJECT
 public:
-    const int UDPPORT = 23455;
-    const int TCPPORT = 23456;
+    static constexpr int UDPPORT = 23455;
+    static constexpr int TCPPORT = 23456;
     explicit RemoteConnection(QObject *parent = 0);
     virtual bool isConnected() const = 0;
     void sendCommand(const RemoteCommand &);

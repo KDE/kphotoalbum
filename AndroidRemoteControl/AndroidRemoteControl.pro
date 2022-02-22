@@ -9,6 +9,7 @@ SOURCES += main.cpp \
     Client.cpp \
     CategoryModel.cpp \
     MyImage.cpp \
+    RemoteVideoInfo.cpp \
     Settings.cpp \
     ImageStore.cpp \
     ScreenInfo.cpp \
@@ -22,6 +23,7 @@ SOURCES += main.cpp \
     ../RemoteControl/RemoteConnection.cpp \
     ../RemoteControl/RemoteCommand.cpp \
     ../RemoteControl/SearchInfo.cpp \
+    VideoStore.cpp
 
 OTHER_FILES += \
     qml/main.qml \
@@ -47,6 +49,7 @@ HEADERS += \
     Client.h \
     CategoryModel.h \
     MyImage.h \
+    RemoteVideoInfo.h \
     Settings.h \
     ImageStore.h \
     ScreenInfo.h \
@@ -61,6 +64,12 @@ HEADERS += \
     ../RemoteControl/RemoteCommand.h \
     ../RemoteControl/SearchInfo.h \
     ../RemoteControl/Types.h \
-    ../RemoteControl/Serializer.h
+    ../RemoteControl/Serializer.h \
+    VideoStore.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+android: qtHaveModule(androidextras) {
+    QT += androidextras
+    DEFINES += REQUEST_PERMISSIONS_ON_ANDROID
+}

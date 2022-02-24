@@ -55,6 +55,7 @@ void VideoStore::addSegment(ImageId imageID, bool firstSegment, int totalSize, c
     auto written = out.write(data);
     // FIXME error handling
 
+    m_requests.value(imageID)->setProgress(out.size() * 1.0 / totalSize);
     if (totalSize == out.size())
         m_requests.value(imageID)->setUrl(QString("file://%1").arg(outputFile));
 }

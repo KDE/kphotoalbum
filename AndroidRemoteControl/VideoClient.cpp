@@ -1,3 +1,8 @@
+/* SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+
+SPDX-License-Identifier: GPL-2.0-or-later
+*/
+
 #include "VideoClient.h"
 #include "../RemoteControl/VideoSharedTypes.h"
 #include "../Utilities/AlgorithmHelper.h"

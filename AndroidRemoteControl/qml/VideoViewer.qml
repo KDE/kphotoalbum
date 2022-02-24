@@ -6,6 +6,7 @@
 import QtQuick 2.0
 import QtMultimedia 5.0
 import KPhotoAlbum 1.0
+import QtQuick.Controls 2.15
 
 VideoOutput {
     id: root
@@ -26,5 +27,11 @@ VideoOutput {
     MouseArea {
         anchors.fill: parent
         onClicked: media.play()
+    }
+
+    ProgressBar {
+        anchors.centerIn: parent
+        value: remoteVideo.progress
+        visible: root.active && value != 1
     }
 }

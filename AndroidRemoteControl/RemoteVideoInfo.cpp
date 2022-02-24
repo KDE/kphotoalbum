@@ -60,4 +60,17 @@ void RemoteVideoInfo::setImageId(int newImageId)
     emit imageIdChanged();
 }
 
+void RemoteVideoInfo::setProgress(double progres)
+{
+    if (m_progress == progres)
+        return;
+    m_progress = progres;
+    emit progressChanged();
+}
+
+double RemoteVideoInfo::progress() const
+{
+    return m_progress;
+}
+
 } // namespace RemoteControl

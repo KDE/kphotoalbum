@@ -32,18 +32,6 @@ void VideoStore::requestVideo(RemoteVideoInfo *client, ImageId imageId)
     RemoteInterface::instance().sendCommand(request);
 }
 
-void VideoStore::setVideo(const VideoResult &result)
-{
-    // FIXME correct path?
-    QDir dir(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation));
-    QString outputFile = dir.filePath(QString("%1.mp4").arg(result.imageId));
-    QFile out(outputFile);
-    bool openOut = out.open(QIODevice::WriteOnly);
-    auto written = out.write(result.data);
-    // FIXME error handling
-    m_requests.value(result.imageId)->setUrl(QString("file://%1").arg(outputFile));
-}
-
 void VideoStore::setVideos(const QVector<ImageId> &videos)
 {
     m_videos = videos;
@@ -52,6 +40,23 @@ void VideoStore::setVideos(const QVector<ImageId> &videos)
 bool VideoStore::isVideo(ImageId imageID) const
 {
     return m_videos.contains(imageID);
+}
+
+void VideoStore::addSegment(ImageId imageID, bool firstSegment, int totalSize, const QByteArray &data)
+{
+    // FIXME correct path?
+    QDir dir(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation));
+    QString outputFile = dir.filePath(QString("%1.mp4").arg(imageID));
+    QFile out(outputFile);
+    QIODevice::OpenMode mode = QIODevice::WriteOnly;
+    if (!firstSegment)
+        mode.setFlag(QIODevice::Append, true);
+    bool outOpen = out.open(mode);
+    auto written = out.write(data);
+    // FIXME error handling
+
+    if (totalSize == out.size())
+        m_requests.value(imageID)->setUrl(QString("file://%1").arg(outputFile));
 }
 
 } // namespace RemoteControl

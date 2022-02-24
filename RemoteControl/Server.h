@@ -18,10 +18,11 @@ class Server : public RemoteConnection
 public:
     explicit Server(QObject *parent = 0);
     bool isConnected() const override;
-    void listen(QHostAddress address);
+    void listen(const QHostAddress &address);
     void stopListening();
     QTcpSocket *socket() override;
     void connectToTcpServer(const QHostAddress &address);
+    QHostAddress remoteAddress() const;
 
 Q_SIGNALS:
     void connected();
@@ -37,6 +38,7 @@ private:
     QUdpSocket *m_socket = nullptr;
     QTcpSocket *m_tcpSocket = nullptr;
     bool m_isConnected = false;
+    QHostAddress m_remoteAddress;
 };
 
 }

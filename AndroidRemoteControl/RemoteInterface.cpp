@@ -24,6 +24,7 @@
 #include <qimage.h>
 
 #include <PositionObserver.h>
+#include <VideoClient.h>
 #include <memory>
 
 using namespace RemoteControl;
@@ -33,6 +34,7 @@ RemoteInterface::RemoteInterface()
     , m_categoryItems(new ThumbnailModel(this))
     , m_thumbnailModel(new ThumbnailModel(this))
     , m_discoveryModel(new DiscoveryModel(this))
+    , m_videoClient(new VideoClient(this))
 {
     m_connection = new Client;
     connect(m_connection, SIGNAL(gotCommand(RemoteCommand)), this, SLOT(handleCommand(RemoteCommand)));
@@ -258,8 +260,6 @@ void RemoteInterface::handleCommand(const RemoteCommand &command)
         auto infoCommand = static_cast<const ImageInfosResult &>(command);
         ImageStore::instance().setImageDates(infoCommand.imageDates);
         VideoStore::instance().setVideos(infoCommand.videos);
-    } else if (command.commandType() == CommandType::VideoResult) {
-        VideoStore::instance().setVideo(static_cast<const VideoResult &>(command));
     } else
         qFatal("Unhandled command");
 }

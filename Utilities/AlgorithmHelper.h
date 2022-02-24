@@ -41,4 +41,12 @@ int sum(const Container &container, ExtractFunction fn)
 }
 
 }
+
+// Tool to convert class enum value to underlying type for easier use
+template <typename E>
+constexpr typename std::underlying_type<E>::type operator+(E e)
+{
+    return static_cast<typename std::underlying_type<E>::type>(e);
+}
+
 #endif // ALGORITHMHELPER_H

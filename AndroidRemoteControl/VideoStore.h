@@ -21,9 +21,9 @@ class VideoStore : public QObject
 public:
     static VideoStore &instance();
     void requestVideo(RemoteVideoInfo *client, ImageId imageId);
-    void setVideo(const VideoResult &result);
     void setVideos(const QVector<ImageId> &videos);
     bool isVideo(ImageId imageID) const;
+    void addSegment(ImageId imageID, bool firstSegment, int totalSize, const QByteArray &data);
 
 private:
     explicit VideoStore(QObject *parent = nullptr);

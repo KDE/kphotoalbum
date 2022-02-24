@@ -8,6 +8,7 @@
 #include "RemoteImageRequest.h"
 #include "Server.h"
 #include "Types.h"
+#include "VideoServer.h"
 
 #include <Browser/FlatCategoryModel.h>
 #include <DB/Category.h>
@@ -45,11 +46,11 @@ RemoteInterface::RemoteInterface(QObject *parent)
     , m_connection(new Server(this))
 {
     connect(m_connection, &Server::gotCommand, this, &RemoteInterface::handleCommand);
-    connect(m_connection, &Server::connected, this, &RemoteInterface::connected);
+    connect(m_connection, &Server::connected, this, &RemoteInterface::connected); // FIXME Anyone using this, but this class itself?
     connect(m_connection, &Server::disConnected, this, &RemoteInterface::disConnected);
     connect(m_connection, &Server::stoppedListening, this, &RemoteInterface::stoppedListening);
 
-    connect(this, &RemoteInterface::connected, this, &RemoteInterface::sendInitialDateMap);
+    connect(this, &RemoteInterface::connected, this, &RemoteInterface::setupWhenConnected);
 }
 
 DB::ImageSearchInfo RemoteInterface::convert(const SearchInfo &searchInfo) const
@@ -262,6 +263,14 @@ void RemoteInterface::setToken(const ToggleTokenRequest &command)
     MainWindow::DirtyIndicator::markDirty();
 }
 
+void RemoteInterface::setupWhenConnected()
+{
+    sendInitialDateMap();
+    delete m_videoServer;
+    m_videoServer = new VideoServer;
+    m_videoServer->connectToTCPServer(m_connection->remoteAddress());
+}
+
 void RemoteInterface::sendInitialDateMap()
 {
     const DB::ImageInfoList images = DB::ImageDB::instance()->images();
@@ -284,12 +293,10 @@ void RemoteInterface::sendInitialDateMap()
 
 void RemoteInterface::sendVideo(const VideoRequest &command)
 {
+
     // FIXME: Error handling
     const DB::FileName fileName = m_imageNameStore[command.imageId];
-    QFile file(fileName.absolute());
-    file.open(QIODevice::ReadOnly);
-
-    m_connection->sendCommand(VideoResult(command.imageId, file.readAll()));
+    m_videoServer->sendVideo(fileName, command.imageId);
 }
 
 #include "moc_RemoteInterface.cpp"

@@ -23,6 +23,7 @@ SOURCES += main.cpp \
     ../RemoteControl/RemoteConnection.cpp \
     ../RemoteControl/RemoteCommand.cpp \
     ../RemoteControl/SearchInfo.cpp \
+    VideoClient.cpp \
     VideoStore.cpp
 
 OTHER_FILES += \
@@ -65,6 +66,7 @@ HEADERS += \
     ../RemoteControl/SearchInfo.h \
     ../RemoteControl/Types.h \
     ../RemoteControl/Serializer.h \
+    VideoClient.h \
     VideoStore.h
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

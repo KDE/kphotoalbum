@@ -23,7 +23,7 @@ bool Server::isConnected() const
     return m_isConnected;
 }
 
-void Server::listen(QHostAddress address)
+void Server::listen(const QHostAddress &address)
 {
     if (!m_socket) {
         m_socket = new QUdpSocket(this);
@@ -56,8 +56,7 @@ void Server::readIncommingUDP()
     Q_ASSERT(m_socket->hasPendingDatagrams());
     char data[1000];
 
-    QHostAddress address;
-    qint64 len = m_socket->readDatagram(data, 1000, &address);
+    qint64 len = m_socket->readDatagram(data, 1000, &m_remoteAddress);
     QString string = QString::fromUtf8(data).left(len);
     QStringList list = string.split(QChar::fromLatin1(' '));
     if (list[0] != QString::fromUtf8("KPhotoAlbum")) {
@@ -74,16 +73,23 @@ void Server::readIncommingUDP()
         return;
     }
 
-    connectToTcpServer(address);
+    connectToTcpServer(m_remoteAddress);
 }
 
 void Server::connectToTcpServer(const QHostAddress &address)
 {
+    m_remoteAddress = address;
+
     m_tcpSocket = new QTcpSocket;
     connect(m_tcpSocket, &QTcpSocket::connected, this, &Server::gotConnected);
     connect(m_tcpSocket, &QTcpSocket::readyRead, this, &Server::dataReceived);
-    m_tcpSocket->connectToHost(address, TCPPORT);
+    m_tcpSocket->connectToHost(m_remoteAddress, TCPPORT);
     connect(m_tcpSocket, &QTcpSocket::disconnected, this, &Server::lostConnection);
+}
+
+QHostAddress Server::remoteAddress() const
+{
+    return m_remoteAddress;
 }
 
 void Server::gotConnected()

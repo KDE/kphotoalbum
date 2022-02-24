@@ -429,6 +429,7 @@ if(KPA_ENABLE_REMOTECONTROL)
         "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ImageNameStore.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/ConnectionIndicator.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Logging.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/VideoServer.cpp"
         )
 endif()
 

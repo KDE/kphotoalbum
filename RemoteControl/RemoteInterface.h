@@ -51,13 +51,15 @@ private:
     void sendImageDetails(const ImageDetailsRequest &command);
     void sendHomePageImages(const StaticImageRequest &command);
     void setToken(const ToggleTokenRequest &command);
+    void setupWhenConnected();
     void sendInitialDateMap();
     void sendVideo(const VideoRequest &command);
 
     DB::ImageSearchInfo convert(const RemoteControl::SearchInfo &) const;
-    Server *m_connection;
+    Server *m_connection = nullptr;
     QSet<DB::FileName> m_activeReuqest;
     ImageNameStore m_imageNameStore;
+    class VideoServer *m_videoServer = nullptr;
 };
 
 }

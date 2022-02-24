@@ -44,7 +44,6 @@ enum class CommandType {
     ToggleTokenRequest,
     ImageInfosResult,
     VideoRequest,
-    VideoResult,
 };
 Q_ENUM_NS(CommandType)
 
@@ -221,12 +220,5 @@ public:
     ImageId imageId;
 };
 
-class VideoResult : public RemoteCommand
-{
-public:
-    VideoResult(ImageId imageId = {}, const QByteArray &data = {});
-    ImageId imageId;
-    QByteArray data;
-};
 }
 #endif // REMOTECOMMAND_H

@@ -4,6 +4,7 @@ SPDX-License-Identifier: GPL-2.0-or-later
 */
 
 #include "SlideShow.h"
+#include <QDebug>
 #include <QTimer>
 #include <chrono>
 
@@ -29,7 +30,7 @@ void SlideShow::setRunning(bool newRunning)
     m_running = newRunning;
     emit runningChanged();
 
-    if (newRunning)
+    if (newRunning && !m_videoRunning)
         m_timer->start();
     else
         m_timer->stop();
@@ -56,4 +57,25 @@ void SlideShow::setInterval(int interval)
         return;
     m_timer->setInterval(interval * 1000);
     emit intervalChanged();
+}
+
+bool SlideShow::videoRunning() const
+{
+    return m_videoRunning;
+}
+
+void SlideShow::setVideoRunning(bool newVideoRunning)
+{
+    if (m_videoRunning == newVideoRunning)
+        return;
+    m_videoRunning = newVideoRunning;
+    emit videoRunningChanged();
+
+    if (m_videoRunning) {
+        m_timer->stop();
+    } else if (m_running) {
+        m_timer->start();
+        // This need to be delayed, otherwise we get a binding loop on the QML site.
+        QMetaObject::invokeMethod(this, "requestNext", Qt::QueuedConnection);
+    }
 }

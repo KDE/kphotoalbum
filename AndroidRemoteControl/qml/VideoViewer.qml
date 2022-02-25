@@ -13,6 +13,7 @@ VideoOutput {
     property alias imageId: remoteVideo.imageId
     property alias active : remoteVideo.active
     source: media
+
     RemoteVideoInfo {
         id: remoteVideo
     }
@@ -22,6 +23,8 @@ VideoOutput {
         source: root.active ? remoteVideo.url : ""
         autoPlay: true
         onError: console.log("Error from Media Player:" + errorString)
+        onPlaying: _slideShow.videoRunning = true
+        onStopped: _slideShow.videoRunning = false
     }
 
     MouseArea {

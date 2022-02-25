@@ -4,6 +4,7 @@ SPDX-License-Identifier: GPL-2.0-or-later
 */
 
 #include "RemoteVideoInfo.h"
+#include "Tracer.h"
 #include "VideoStore.h"
 #include <QDebug>
 
@@ -11,23 +12,26 @@ namespace RemoteControl
 {
 
 RemoteVideoInfo::RemoteVideoInfo(QObject *parent)
-    : QObject(parent)
-{
-}
+    : QObject(parent) {
+        TRACE
+    }
 
-RemoteVideoInfo::~RemoteVideoInfo()
+    RemoteVideoInfo::~RemoteVideoInfo()
 {
+    TRACE
     if (m_progress < 1)
-        VideoStore::instance().cancelRequest(m_imageId);
+        VideoStore::instance().cancelRequestFromClient(m_imageId);
 }
 
 bool RemoteVideoInfo::active() const
 {
+    TRACE
     return m_active;
 }
 
 void RemoteVideoInfo::setActive(bool newActive)
 {
+    TRACE
     if (m_active == newActive)
         return;
 
@@ -41,11 +45,13 @@ void RemoteVideoInfo::setActive(bool newActive)
 
 const QString &RemoteVideoInfo::url() const
 {
+    TRACE
     return m_url;
 }
 
 void RemoteVideoInfo::setUrl(const QString &url)
 {
+    TRACE
     if (m_url == url)
         return;
     m_url = url;
@@ -54,12 +60,13 @@ void RemoteVideoInfo::setUrl(const QString &url)
 
 int RemoteVideoInfo::imageId() const
 {
+    TRACE
     return m_imageId;
 }
 
 void RemoteVideoInfo::setImageId(int newImageId)
 {
-
+    TRACE
     if (m_imageId == newImageId)
         return;
     VideoStore::instance().requestPreHeat(this, newImageId);
@@ -69,6 +76,7 @@ void RemoteVideoInfo::setImageId(int newImageId)
 
 void RemoteVideoInfo::setProgress(double progres)
 {
+    TRACE
     if (m_progress == progres)
         return;
     m_progress = progres;
@@ -77,6 +85,7 @@ void RemoteVideoInfo::setProgress(double progres)
 
 double RemoteVideoInfo::progress() const
 {
+    TRACE
     return m_progress;
 }
 

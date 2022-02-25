@@ -21,18 +21,19 @@ class VideoStore : public QObject
 public:
     static VideoStore &instance();
     void requestVideo(RemoteVideoInfo *client, ImageId imageId);
-    void cancelRequest(ImageId imageId);
+    void cancelRequestFromClient(ImageId imageId);
     void requestPreHeat(RemoteVideoInfo *client, ImageId imageId);
     void setVideos(const QVector<ImageId> &videos);
     bool isVideo(ImageId imageID) const;
     void addSegment(ImageId imageID, bool firstSegment, int totalSize, const QString &fileSuffix, const QByteArray &data);
-    void serverCanceledRequest(ImageId imageId);
+    void cancelRequestFromServer(ImageId imageId);
 
 private:
     explicit VideoStore(QObject *parent = nullptr);
     bool hasVideo(ImageId imageId) const;
     void sendURL(RemoteVideoInfo *client, ImageId imageId);
     void makeRequest(RemoteVideoInfo *client, ImageId imageId, bool isPriority);
+    void cancelRequest(ImageId imageId);
 
     QHash<ImageId, RemoteVideoInfo *> m_requests;
 

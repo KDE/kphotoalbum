@@ -92,7 +92,7 @@ void RemoteControl::VideoClient::dataReceived()
                 qDebug() << "======================================= GOT THE CANCEL ==============================================";
                 ImageId imageId;
                 stream >> imageId;
-                VideoStore::instance().serverCanceledRequest(imageId);
+                VideoStore::instance().cancelRequestFromServer(imageId);
             }
             }
         }

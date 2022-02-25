@@ -61,15 +61,22 @@ void VideoStore::requestVideo(RemoteVideoInfo *client, ImageId imageId)
     makeRequest(client, imageId, true);
 }
 
-void VideoStore::cancelRequest(ImageId imageId)
+void VideoStore::cancelRequestFromClient(ImageId imageId)
 {
     TRACE
     if (m_requests.contains(imageId))
         RemoteInterface::instance().cancelVideoRequest(imageId);
+    cancelRequest(imageId);
     // Actual clean up will happen when the server responds.
 }
 
-void VideoStore::serverCanceledRequest(ImageId imageId)
+void VideoStore::cancelRequestFromServer(ImageId imageId)
+{
+    TRACE
+    cancelRequest(imageId);
+}
+
+void VideoStore::cancelRequest(ImageId imageId)
 {
     TRACE
     if (!m_requests.contains(imageId))

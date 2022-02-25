@@ -21,17 +21,24 @@ class VideoStore : public QObject
 public:
     static VideoStore &instance();
     void requestVideo(RemoteVideoInfo *client, ImageId imageId);
-    void cancelRequest(RemoteVideoInfo *client, ImageId imageId);
+    void cancelRequest(ImageId imageId);
+    void requestPreHeat(RemoteVideoInfo *client, ImageId imageId);
     void setVideos(const QVector<ImageId> &videos);
     bool isVideo(ImageId imageID) const;
-    void addSegment(ImageId imageID, bool firstSegment, int totalSize, const QByteArray &data);
+    void addSegment(ImageId imageID, bool firstSegment, int totalSize, const QString &fileSuffix, const QByteArray &data);
+    void serverCanceledRequest(ImageId imageId);
 
 private:
     explicit VideoStore(QObject *parent = nullptr);
+    bool hasVideo(ImageId imageId) const;
+    void sendURL(RemoteVideoInfo *client, ImageId imageId);
+    void makeRequest(RemoteVideoInfo *client, ImageId imageId, bool isPriority);
+
     QHash<ImageId, RemoteVideoInfo *> m_requests;
 
     // FIXME should this be a set instead?
     QVector<ImageId> m_videos; // Will only be access on GUI
+    QHash<ImageId, QString> m_fileNames;
 };
 
 } // namespace RemoteControl

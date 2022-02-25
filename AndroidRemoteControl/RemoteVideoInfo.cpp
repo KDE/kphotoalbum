@@ -15,6 +15,12 @@ RemoteVideoInfo::RemoteVideoInfo(QObject *parent)
 {
 }
 
+RemoteVideoInfo::~RemoteVideoInfo()
+{
+    if (m_progress < 1)
+        VideoStore::instance().cancelRequest(m_imageId);
+}
+
 bool RemoteVideoInfo::active() const
 {
     return m_active;
@@ -28,9 +34,7 @@ void RemoteVideoInfo::setActive(bool newActive)
     if (newActive) {
         Q_ASSERT(m_imageId != -1);
         VideoStore::instance().requestVideo(this, m_imageId);
-    } else if (m_progress < 1)
-        VideoStore::instance().cancelRequest(this, m_imageId);
-
+    }
     m_active = newActive;
     emit activeChanged();
 }
@@ -55,8 +59,10 @@ int RemoteVideoInfo::imageId() const
 
 void RemoteVideoInfo::setImageId(int newImageId)
 {
+
     if (m_imageId == newImageId)
         return;
+    VideoStore::instance().requestPreHeat(this, newImageId);
     m_imageId = newImageId;
     emit imageIdChanged();
 }

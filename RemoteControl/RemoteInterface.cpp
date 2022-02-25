@@ -295,10 +295,9 @@ void RemoteInterface::sendInitialDateMap()
 
 void RemoteInterface::sendVideo(const VideoRequest &command)
 {
-
     // FIXME: Error handling
     const DB::FileName fileName = m_imageNameStore[command.imageId];
-    m_videoServer->sendVideo(fileName, command.imageId);
+    m_videoServer->sendVideo(fileName, command.imageId, command.isPriority);
 }
 
 #include "moc_RemoteInterface.cpp"

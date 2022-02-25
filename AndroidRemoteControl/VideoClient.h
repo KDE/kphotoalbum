@@ -36,6 +36,7 @@ private:
     qint32 m_length;
 
     RemoteControl::ImageId m_imageId;
+    QString m_suffix;
     int m_fileSize;
     int m_currentDataReceived;
     QTcpServer *m_server = nullptr;

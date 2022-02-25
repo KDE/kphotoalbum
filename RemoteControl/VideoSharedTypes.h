@@ -10,4 +10,5 @@ constexpr int VIDEOPORT = 23457;
 constexpr int PACKAGESIZE = 1024 * 100;
 
 enum class PackageType { Header = 0,
-                         Data = 1 };
+                         Data = 1,
+                         Cancel = 2 };

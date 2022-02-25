@@ -23,6 +23,7 @@ SOURCES += main.cpp \
     ../RemoteControl/RemoteConnection.cpp \
     ../RemoteControl/RemoteCommand.cpp \
     ../RemoteControl/SearchInfo.cpp \
+    Tracer.cpp \
     VideoClient.cpp \
     VideoStore.cpp
 
@@ -66,6 +67,7 @@ HEADERS += \
     ../RemoteControl/SearchInfo.h \
     ../RemoteControl/Types.h \
     ../RemoteControl/Serializer.h \
+    Tracer.h \
     VideoClient.h \
     VideoStore.h
 

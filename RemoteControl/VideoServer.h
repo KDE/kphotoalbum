@@ -21,9 +21,10 @@ class VideoServer : public QThread
 {
     Q_OBJECT
 public:
-    explicit VideoServer(QObject *parent = nullptr);
+    using QThread::QThread;
+    ~VideoServer();
     void connectToTCPServer(const QHostAddress &address);
-    void sendVideo(const DB::FileName &fileName, ImageId imageId);
+    void sendVideo(const DB::FileName &fileName, ImageId imageId, bool isPriority);
     void cancelRequest(ImageId imageId);
 
 protected:
@@ -31,6 +32,8 @@ protected:
 
 private:
     QTcpSocket *m_socket = nullptr;
+    void removeRequest(ImageId imageId);
+    QStringList queue() const;
 
     struct Request {
         DB::FileName fileName;
@@ -38,8 +41,6 @@ private:
     };
 
     QVector<Request> m_requests;
-    ImageId m_loading = -1;
-
     QMutex m_mutex;
     QWaitCondition m_waitCondition;
     QHostAddress m_remoteAddress;

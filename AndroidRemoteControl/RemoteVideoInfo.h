@@ -20,6 +20,7 @@ class RemoteVideoInfo : public QObject
 
 public:
     explicit RemoteVideoInfo(QObject *parent = nullptr);
+    ~RemoteVideoInfo();
 
     bool active() const;
     void setActive(bool newActive);

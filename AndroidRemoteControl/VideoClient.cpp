@@ -6,43 +6,47 @@ SPDX-License-Identifier: GPL-2.0-or-later
 #include "VideoClient.h"
 #include "../RemoteControl/VideoSharedTypes.h"
 #include "../Utilities/AlgorithmHelper.h"
+#include "Tracer.h"
 #include "VideoStore.h"
 #include <QBuffer>
 #include <QDataStream>
 #include <QTcpServer>
 #include <QTcpSocket>
 
-namespace RemoteControl
-{
-VideoClient::VideoClient(QObject *parent)
+RemoteControl::VideoClient::VideoClient(QObject *parent)
     : QObject(parent)
 {
+    TRACE
     setupTCPServer();
 }
 
-void VideoClient::setupTCPServer()
+void RemoteControl::VideoClient::setupTCPServer()
 {
+    TRACE
     m_server = new QTcpServer(this);
     connect(m_server, &QTcpServer::newConnection, this, &VideoClient::acceptConnection);
     connect(m_server, &QTcpServer::acceptError, this, [](auto err) { qDebug() << "VideoServer error: " << err; });
     m_server->listen(QHostAddress::Any, VIDEOPORT);
 }
 
-void VideoClient::acceptConnection()
+void RemoteControl::VideoClient::acceptConnection()
 {
+    TRACE
     m_socket = m_server->nextPendingConnection();
     connect(m_socket, &QTcpSocket::disconnected, this, &VideoClient::disconnect);
     connect(m_socket, &QTcpSocket::readyRead, this, &VideoClient::dataReceived);
 }
 
-void VideoClient::disconnect()
+void RemoteControl::VideoClient::disconnect()
 {
+    TRACE
     m_socket = nullptr;
     // FIXME: I'm sure I need to cancel some sending here
 }
 
-void VideoClient::dataReceived()
+void RemoteControl::VideoClient::dataReceived()
 {
+    TRACE
     // FIXME introduce AlignedBuffer to avoid code duplication
     QDataStream stream(m_socket);
     while (m_socket->bytesAvailable()) {
@@ -70,20 +74,27 @@ void VideoClient::dataReceived()
             PackageType type;
             stream >> type;
             switch (type) {
-            case PackageType::Header:
-                stream >> m_imageId;
+            case PackageType::Header: {
                 quint64 size;
-                stream >> size;
+                stream >> m_imageId >> size >> m_suffix;
                 m_fileSize = size;
                 m_currentDataReceived = 0;
                 break;
-            case PackageType::Data:
+            }
+            case PackageType::Data: {
                 QByteArray data;
                 stream >> data;
-                VideoStore::instance().addSegment(m_imageId, m_currentDataReceived == 0, m_fileSize, data);
+                VideoStore::instance().addSegment(m_imageId, m_currentDataReceived == 0, m_fileSize, m_suffix, data);
                 m_currentDataReceived += data.size();
+                break;
+            }
+            case PackageType::Cancel: {
+                qDebug() << "======================================= GOT THE CANCEL ==============================================";
+                ImageId imageId;
+                stream >> imageId;
+                VideoStore::instance().serverCanceledRequest(imageId);
+            }
             }
         }
     }
-}
 }

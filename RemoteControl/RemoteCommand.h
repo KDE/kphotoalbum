@@ -217,8 +217,9 @@ public:
 class VideoRequest : public RemoteCommand
 {
 public:
-    VideoRequest(ImageId imageId = {});
+    VideoRequest(ImageId imageId = {}, bool isPriority = {});
     ImageId imageId;
+    bool isPriority;
 };
 
 class CancelVideoRequest : public RemoteCommand

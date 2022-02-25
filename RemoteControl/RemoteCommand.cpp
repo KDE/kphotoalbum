@@ -274,11 +274,13 @@ ImageInfosResult::~ImageInfosResult()
     clear();
 }
 
-VideoRequest::VideoRequest(ImageId _imageId)
+VideoRequest::VideoRequest(ImageId _imageId, bool _isPriority)
     : RemoteCommand(CommandType::VideoRequest)
     , imageId(_imageId)
+    , isPriority(_isPriority)
 {
     addSerializer(new Serializer<int>(imageId));
+    addSerializer(new Serializer<bool>(isPriority));
 }
 
 CancelVideoRequest::CancelVideoRequest(ImageId _imageId)

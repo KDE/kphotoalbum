@@ -81,15 +81,12 @@ void VideoServer::run()
 
         // First send header
         start();
-        stream << PackageType::Header;
+        stream << PackageType::Header << request.imageId << file.size();
         send();
 
-        int id = 0;
         for (qint64 offset = 0; offset < file.size(); offset += PACKAGESIZE) {
             start();
             stream << PackageType::Data;
-            stream << request.imageId;
-            stream << ++id;
             stream << file.read(PACKAGESIZE);
             send();
             QMutexLocker dummy(&m_mutex);

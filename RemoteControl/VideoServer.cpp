@@ -10,12 +10,13 @@ SPDX-License-Identifier: GPL-2.0-or-later
 #include <QDataStream>
 #include <QFile>
 #include <QTcpSocket>
+#include <QThread>
 
 namespace RemoteControl
 {
 
 VideoServer::VideoServer(QObject *parent)
-    : QObject(parent)
+    : QThread(parent)
 {
     // FIXME kill?
 }
@@ -23,15 +24,30 @@ VideoServer::VideoServer(QObject *parent)
 void VideoServer::connectToTCPServer(const QHostAddress &address)
 {
     Q_ASSERT(!address.isNull());
-    m_socket = new QTcpSocket;
-    connect(m_socket, &QTcpSocket::connected, this, &VideoServer::gotConnected);
-    connect(m_socket, &QTcpSocket::readyRead, this, &VideoServer::dataReceived);
-    connect(m_socket, &QTcpSocket::disconnected, this, &VideoServer::lostConnection);
-    m_socket->connectToHost(address, VIDEOPORT);
+    m_remoteAddress = address;
+    start();
 }
 
 void VideoServer::sendVideo(const DB::FileName &fileName, ImageId imageId)
 {
+    QMutexLocker dummy(&m_mutex);
+    m_requests.append({ fileName, imageId });
+    m_waitCondition.wakeOne();
+}
+
+void VideoServer::cancelRequest(ImageId imageId)
+{
+    QMutexLocker dummy(&m_mutex);
+    if (m_loading == imageId)
+        m_loading = -1;
+}
+
+void VideoServer::run()
+{
+    m_socket = new QTcpSocket;
+    m_socket->connectToHost(m_remoteAddress, VIDEOPORT);
+    m_socket->waitForConnected();
+
     QBuffer buffer;
     buffer.open(QIODevice::WriteOnly);
     QDataStream stream(&buffer);
@@ -47,39 +63,41 @@ void VideoServer::sendVideo(const DB::FileName &fileName, ImageId imageId)
         stream << (qint32)buffer.size();
         m_socket->write(buffer.data());
         m_socket->flush();
+        m_socket->waitForBytesWritten();
     };
 
-    QFile file(fileName.absolute());
-    file.open(QIODevice::ReadOnly);
+    Q_FOREVER
     {
+        m_mutex.lock();
+        if (m_requests.isEmpty())
+            m_waitCondition.wait(&m_mutex);
+
+        Request request = m_requests.takeFirst();
+        m_loading = request.imageId;
+        m_mutex.unlock();
+
+        QFile file(request.fileName.absolute());
+        file.open(QIODevice::ReadOnly);
+
+        // First send header
         start();
         stream << PackageType::Header;
-        stream << imageId;
-        stream << (qint64)file.size();
         send();
+
+        int id = 0;
+        for (qint64 offset = 0; offset < file.size(); offset += PACKAGESIZE) {
+            start();
+            stream << PackageType::Data;
+            stream << request.imageId;
+            stream << ++id;
+            stream << file.read(PACKAGESIZE);
+            send();
+            QMutexLocker dummy(&m_mutex);
+            if (m_loading != request.imageId) {
+                break;
+            }
+        }
     }
-
-    for (qint64 offset = 0; offset < file.size(); offset += PACKAGESIZE) {
-        start();
-        stream << PackageType::Data;
-        stream << file.read(PACKAGESIZE);
-        send();
-    }
-}
-
-void VideoServer::gotConnected()
-{
-    // FIXME: implement
-}
-
-void VideoServer::dataReceived()
-{
-    // FIXME: Delete ?
-}
-
-void VideoServer::lostConnection()
-{
-    // FIXME: implement
 }
 
 } // namespace RemoteControl

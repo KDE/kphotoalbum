@@ -44,6 +44,7 @@ enum class CommandType {
     ToggleTokenRequest,
     ImageInfosResult,
     VideoRequest,
+    CancelVideoRequest,
 };
 Q_ENUM_NS(CommandType)
 
@@ -220,5 +221,11 @@ public:
     ImageId imageId;
 };
 
+class CancelVideoRequest : public RemoteCommand
+{
+public:
+    CancelVideoRequest(ImageId imageId = {});
+    ImageId imageId;
+};
 }
 #endif // REMOTECOMMAND_H

@@ -64,6 +64,7 @@ public Q_SLOTS:
     void rerequestOverviewPageData();
     void pushAwayFromStartupState();
     void jumpToContext(int imageId);
+    void cancelVideoRequest(ImageId imageId);
 
 Q_SIGNALS:
     void connectionChanged();

@@ -87,6 +87,7 @@ std::unique_ptr<RemoteCommand> RemoteCommand::create(CommandType id)
         ADDFACTORY(ToggleTokenRequest);
         ADDFACTORY(ImageInfosResult);
         ADDFACTORY(VideoRequest);
+        ADDFACTORY(CancelVideoRequest);
     }
     Q_ASSERT(factories.contains(id));
     return factories[id]();
@@ -275,6 +276,13 @@ ImageInfosResult::~ImageInfosResult()
 
 VideoRequest::VideoRequest(ImageId _imageId)
     : RemoteCommand(CommandType::VideoRequest)
+    , imageId(_imageId)
+{
+    addSerializer(new Serializer<int>(imageId));
+}
+
+CancelVideoRequest::CancelVideoRequest(ImageId _imageId)
+    : RemoteCommand(CommandType::CancelVideoRequest)
     , imageId(_imageId)
 {
     addSerializer(new Serializer<int>(imageId));

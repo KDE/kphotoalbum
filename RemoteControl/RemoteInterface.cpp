@@ -114,6 +114,8 @@ void RemoteInterface::handleCommand(const RemoteCommand &command)
         setToken(static_cast<const ToggleTokenRequest &>(command));
     else if (command.commandType() == CommandType::VideoRequest)
         sendVideo(static_cast<const VideoRequest &>(command));
+    else if (command.commandType() == CommandType::CancelVideoRequest)
+        m_videoServer->cancelRequest(static_cast<const CancelVideoRequest &>(command).imageId);
 }
 
 void RemoteInterface::sendCategoryNames(const SearchRequest &search)

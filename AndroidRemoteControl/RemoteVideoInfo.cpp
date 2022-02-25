@@ -28,7 +28,8 @@ void RemoteVideoInfo::setActive(bool newActive)
     if (newActive) {
         Q_ASSERT(m_imageId != -1);
         VideoStore::instance().requestVideo(this, m_imageId);
-    }
+    } else if (m_progress < 1)
+        VideoStore::instance().cancelRequest(this, m_imageId);
 
     m_active = newActive;
     emit activeChanged();

@@ -206,6 +206,11 @@ void RemoteInterface::jumpToContext(int imageId)
     m_history.push(std::unique_ptr<Action>(new ShowThumbnailsAction({}, imageId)));
 }
 
+void RemoteInterface::cancelVideoRequest(ImageId imageId)
+{
+    sendCommand(CancelVideoRequest(imageId));
+}
+
 void RemoteInterface::setCurrentView(int imageId)
 {
     Q_EMIT jumpToImage(m_activeThumbnailModel->indexOf(imageId));

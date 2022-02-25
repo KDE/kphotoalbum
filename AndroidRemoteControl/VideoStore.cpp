@@ -32,6 +32,13 @@ void VideoStore::requestVideo(RemoteVideoInfo *client, ImageId imageId)
     RemoteInterface::instance().sendCommand(request);
 }
 
+void VideoStore::cancelRequest(RemoteVideoInfo *client, ImageId imageId)
+{
+    // FIXME either delete or at least mark partial downloaded videos
+    // FIXME also be prepared for more packages before the desktop stops sending data
+    RemoteInterface::instance().cancelVideoRequest(imageId);
+}
+
 void VideoStore::setVideos(const QVector<ImageId> &videos)
 {
     m_videos = videos;

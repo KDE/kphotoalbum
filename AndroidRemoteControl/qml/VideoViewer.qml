@@ -7,6 +7,7 @@ import QtQuick 2.15
 import QtMultimedia 5.15
 import KPhotoAlbum 1.0
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
 VideoOutput {
     id: root
@@ -47,8 +48,8 @@ VideoOutput {
         value: remoteVideo.progress
         visible: root.active && value != 1
     }
-    Slider {
-        // FIXME when portait image is shown in landscape, the slider is scaled down in size.
+
+    RowLayout {
         anchors {
             left: parent.left
             right: parent.right
@@ -60,11 +61,21 @@ VideoOutput {
         }
         // FIXME there is a few milliseconds where the handle is in the middle of the screen
         visible: media.duration > 0
-        handle.height: implicitHandleHeight * 2
 
-        to: media.duration
-        value: media.position
+        TimeDisplay { milliseconds: media.position }
 
-        onMoved: media.seek(value)
+        Slider {
+            // FIXME when portait image is shown in landscape, the slider is scaled down in size.
+            handle.height: implicitHandleHeight * 2
+
+            to: media.duration
+            value: media.position
+
+            onMoved: media.seek(value)
+
+            RowLayout.fillWidth: true
+        }
+
+        TimeDisplay { milliseconds: media.duration }
     }
 }

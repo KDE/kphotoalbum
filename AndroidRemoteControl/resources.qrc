@@ -15,5 +15,6 @@
         <file>qml/PressAndHoldArea.qml</file>
         <file>qml/SlideShowSlider.qml</file>
         <file>qml/VideoViewer.qml</file>
+        <file>qml/TimeDisplay.qml</file>
     </qresource>
 </RCC>

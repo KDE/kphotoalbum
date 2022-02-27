@@ -12,6 +12,7 @@ VideoOutput {
     id: root
     property alias imageId: remoteVideo.imageId
     property alias active : remoteVideo.active
+    readonly property bool isLoading: media.status === MediaPlayer.NoMedia || media.status === MediaPlayer.Loading
     source: media
 
     RemoteVideoInfo {

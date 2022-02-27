@@ -43,17 +43,17 @@ Item {
 
             sourceComponent: Item {
                 property QtObject sourceSize : QtObject {
-                    readonly property int width: model.isVideo ? _screenInfo.viewWidth :remoteImage.width
-                    readonly property int height: model.isVideo ? _screenInfo.viewHeight : remoteImage.height
+                    readonly property int width: remoteImage.visible ? remoteImage.width : _screenInfo.viewWidth
+                    readonly property int height: remoteImage.visible ? remoteImage.height : _screenInfo.viewHeight
                 }
 
                 RemoteImage {
                     id: remoteImage
                     scale: parent.width / width
                     transformOrigin: Item.TopLeft
-                    imageId: model.isVideo ? -1 : model.imageId
+                    imageId: model.imageId
                     type: Enums.Images
-                    visible: !model.isVideo
+                    visible: !model.isVideo || videoViewer.isLoading
 
                     Connections {
                         target: zoomable
@@ -64,7 +64,10 @@ Item {
                     }
                 }
                 VideoViewer {
+                    id: videoViewer
                     anchors.centerIn: parent
+                    width: _screenInfo.viewWidth
+                    height: _screenInfo.viewHeight
                     scale: {
                         if (!listview.isZoomedOut)
                             return parent.width / width

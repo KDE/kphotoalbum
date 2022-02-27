@@ -22,6 +22,7 @@ Item {
         highlightMoveDuration: 200
         highlightRangeMode: ListView.StrictlyEnforceRange
         interactive: currentItem && currentItem.isZoomedOut
+        cacheBuffer: Math.max(_screenInfo.viewWidth, _screenInfo.viewHeight)*2
 
         Connections {
             target: _slideShow

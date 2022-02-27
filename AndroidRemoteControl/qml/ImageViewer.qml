@@ -79,44 +79,35 @@ Item {
         }
 
         MouseArea {
+            id: bottomArea
             z: -1
             anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
             height: parent.height/5
             onClicked: _imageDetails.visible = true
         }
-
         MouseArea {
+            id: leftArea
             z: -1
             anchors { top: parent.top; bottom: parent.bottom; left: parent.left }
             width: parent.width/5
             onClicked: listview.decrementCurrentIndex()
         }
-
         MouseArea {
+            id: rightArea
             z: -1
             anchors { top: parent.top; bottom: parent.bottom; right: parent.right }
             width: parent.width/5
             onClicked: listview.incrementCurrentIndex()
         }
-
         MouseArea {
+            id: topArea
             z: -1
             anchors { top: parent.top; left: parent.left; right: parent.right }
             height: parent.height/5
             onClicked: keyboard.visible = true
         }
-
-        Connections {
-            target: _remoteInterface
-            function onJumpToImage(index) {
-                var tmp = listview.highlightMoveDuration;
-                listview.highlightMoveDuration = 0
-                listview.currentIndex = index
-                listview.highlightMoveDuration = tmp
-            }
-        }
-
         MouseArea {
+            id: cancelingArea
             enabled: keyboard.visible || _imageDetails.visible
             anchors.fill: parent
             onClicked: {
@@ -124,29 +115,23 @@ Item {
                 _imageDetails.visible = false
             }
         }
-
-        Keyboard {
-            id: keyboard
-            anchors.centerIn: parent
-            visible: false
-            onVisibleChanged: _remoteInterface.requestDetails(listview.currentItem.imageId)
-            onLetterSelected: _remoteInterface.setToken(listview.currentItem.imageId, letter)
-            onLetterDeselected: _remoteInterface.removeToken(listview.currentItem.imageId, letter)
-            selected: _remoteInterface.tokens
-        }
-
-        ImageDetails {
-            id: details
-            anchors.centerIn: parent
-            imageId: listview.currentItem ? listview.currentItem.imageId : -1
-            visible: _imageDetails.visible
-        }
-
         PressAndHoldArea {
+            id: contextMenuHandler
             enabled: !_imageDetails.visible && !keyboard.visible && listview.isZoomedOut
             anchors.fill: parent
+            // This cannot go over the slider used when playing videos, otherwise it will steal the videos events.
+            anchors.bottomMargin: _screenInfo.pixelForSizeInMM(15).height
             onPressAndHold: {
                 contextMenu.popup(mouseX, mouseY)
+            }
+        }
+        Connections { // connect onJumpToImage from C++
+            target: _remoteInterface
+            function onJumpToImage(index) {
+                var tmp = listview.highlightMoveDuration;
+                listview.highlightMoveDuration = 0
+                listview.currentIndex = index
+                listview.highlightMoveDuration = tmp
             }
         }
 
@@ -160,6 +145,24 @@ Item {
                 _slideShow.running = false
         }
     }
+
+    Keyboard {
+        id: keyboard
+        anchors.centerIn: parent
+        visible: false
+        onVisibleChanged: _remoteInterface.requestDetails(listview.currentItem.imageId)
+        onLetterSelected: _remoteInterface.setToken(listview.currentItem.imageId, letter)
+        onLetterDeselected: _remoteInterface.removeToken(listview.currentItem.imageId, letter)
+        selected: _remoteInterface.tokens
+    }
+
+    ImageDetails {
+        id: details
+        anchors.centerIn: parent
+        imageId: listview.currentItem ? listview.currentItem.imageId : -1
+        visible: _imageDetails.visible
+    }
+
     ContextMenu {
         id: contextMenu
         imageViewer: true

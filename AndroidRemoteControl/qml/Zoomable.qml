@@ -72,6 +72,7 @@ Item {
 
 
                 MouseArea {
+                    // FIXME this doesn't work.
                     anchors.fill: parent
                     onDoubleClicked: returnToFullScreen()
                     propagateComposedEvents: true

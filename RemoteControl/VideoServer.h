@@ -26,6 +26,7 @@ public:
     void connectToTCPServer(const QHostAddress &address);
     void sendVideo(const DB::FileName &fileName, ImageId imageId, bool isPriority);
     void cancelRequest(ImageId imageId);
+    void requestCloseDown();
 
 protected:
     void run() override;

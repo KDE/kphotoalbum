@@ -24,8 +24,6 @@ SPDX-License-Identifier: GPL-2.0-or-later
 
 RemoteControl::VideoServer::~VideoServer()
 {
-    requestInterruption();
-    m_waitCondition.wakeOne();
 }
 
 void RemoteControl::VideoServer::connectToTCPServer(const QHostAddress &address)
@@ -62,6 +60,13 @@ void RemoteControl::VideoServer::cancelRequest(ImageId imageId)
     videoServerDebug() << "Requesting to remove" << imageId;
     QMutexLocker dummy(&m_mutex);
     removeRequest(imageId);
+}
+
+void RemoteControl::VideoServer::requestCloseDown()
+{
+    requestInterruption();
+    m_waitCondition.wakeOne();
+    wait(5000);
 }
 
 void RemoteControl::VideoServer::removeRequest(ImageId imageId)

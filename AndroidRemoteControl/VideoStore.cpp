@@ -18,6 +18,7 @@ namespace RemoteControl
 VideoStore::VideoStore(QObject *parent)
     : QObject(parent)
 {
+    purgeCache();
 }
 
 bool VideoStore::hasVideo(ImageId imageId) const
@@ -88,6 +89,15 @@ void VideoStore::cancelRequest(ImageId imageId)
     m_fileNames.remove(imageId);
 }
 
+void VideoStore::purgeCache()
+{
+    TRACE
+    QDir dir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+    for (const auto &file : dir.entryList({ "_KPhotoAlbum_*" }, QDir::Files)) {
+        dir.remove(file);
+    }
+}
+
 void VideoStore::requestPreHeat(RemoteVideoInfo *client, ImageId imageId)
 {
     TRACE
@@ -116,7 +126,7 @@ void VideoStore::addSegment(ImageId imageID, bool firstSegment, int totalSize, c
     }
 
     // FIXME correct path?
-    QDir dir(QStandardPaths::writableLocation(QStandardPaths::MoviesLocation));
+    QDir dir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
     QString outputFile = dir.filePath(QString("_KPhotoAlbum_%1.%2").arg(imageID).arg(fileSuffix));
     QFile out(outputFile);
     QIODevice::OpenMode mode = QIODevice::WriteOnly;

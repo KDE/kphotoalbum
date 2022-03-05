@@ -27,6 +27,7 @@ public:
     bool isVideo(ImageId imageID) const;
     void addSegment(ImageId imageID, bool firstSegment, int totalSize, const QString &fileSuffix, const QByteArray &data);
     void cancelRequestFromServer(ImageId imageId);
+    static void purgeCache();
 
 private:
     explicit VideoStore(QObject *parent = nullptr);

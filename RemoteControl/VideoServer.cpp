@@ -83,7 +83,7 @@ void RemoteControl::VideoServer::removeRequest(ImageId imageId)
 QStringList RemoteControl::VideoServer::queue() const
 {
     // ===============================================================
-    //       THE MUTEX MUSTY BE LOCKED WHEN CALLING THIS FUNCITON
+    //       THE MUTEX MUST BE LOCKED WHEN CALLING THIS FUNCITON
     // ===============================================================
     QStringList result;
     std::transform(m_requests.cbegin(), m_requests.cend(), std::back_inserter(result), [](const auto &item) { return QString::number(item.imageId); });

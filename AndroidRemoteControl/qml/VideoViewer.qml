@@ -50,6 +50,9 @@ VideoOutput {
     }
 
     RowLayout {
+        id: progressIndicator
+        property bool detailsVisible : false
+
         anchors {
             left: parent.left
             right: parent.right
@@ -62,9 +65,16 @@ VideoOutput {
         // FIXME there is a few milliseconds where the handle is in the middle of the screen
         visible: media.duration > 0
 
-        TimeDisplay { milliseconds: media.position }
+        TimeDisplay {
+            milliseconds: media.position
+            MouseArea {
+                anchors.fill: parent
+                onClicked: progressIndicator.detailsVisible = !progressIndicator.detailsVisible
+            }
+        }
 
         Slider {
+            visible: progressIndicator.detailsVisible
             // FIXME when portait image is shown in landscape, the slider is scaled down in size.
             handle.height: implicitHandleHeight * 2
 
@@ -76,6 +86,9 @@ VideoOutput {
             RowLayout.fillWidth: true
         }
 
-        TimeDisplay { milliseconds: media.duration }
+        TimeDisplay {
+            milliseconds: media.duration
+            visible: progressIndicator.detailsVisible
+        }
     }
 }

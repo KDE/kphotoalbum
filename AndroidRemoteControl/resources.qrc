@@ -16,5 +16,6 @@
         <file>qml/SlideShowSlider.qml</file>
         <file>qml/VideoViewer.qml</file>
         <file>qml/TimeDisplay.qml</file>
+        <file>qml/OnePixelTimeDisplay.qml</file>
     </qresource>
 </RCC>

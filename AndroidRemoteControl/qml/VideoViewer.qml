@@ -50,31 +50,25 @@ VideoOutput {
     }
 
     RowLayout {
-        id: progressIndicator
-        property bool detailsVisible : false
-
         anchors {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
 
-            leftMargin: _screenInfo.pixelForSizeInMM(5).width
-            rightMargin: _screenInfo.pixelForSizeInMM(5).width
-            bottomMargin: _screenInfo.pixelForSizeInMM(5).height
+            bottomMargin: _screenInfo.pixelForSizeInMM(2).height
         }
-        // FIXME there is a few milliseconds where the handle is in the middle of the screen
         visible: media.duration > 0
 
         TimeDisplay {
             milliseconds: media.position
             MouseArea {
                 anchors.fill: parent
-                onClicked: progressIndicator.detailsVisible = !progressIndicator.detailsVisible
+                onClicked: _settings.showVideoPlaybackSlider = !_settings.showVideoPlaybackSlider
             }
         }
 
         Slider {
-            visible: progressIndicator.detailsVisible
+            visible: _settings.showVideoPlaybackSlider
             // FIXME when portait image is shown in landscape, the slider is scaled down in size.
             handle.height: implicitHandleHeight * 2
 
@@ -88,7 +82,19 @@ VideoOutput {
 
         TimeDisplay {
             milliseconds: media.duration
-            visible: progressIndicator.detailsVisible
+            visible: _settings.showVideoPlaybackSlider
         }
+
+    }
+    OnePixelTimeDisplay {
+        anchors {
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
+        }
+        height: _screenInfo.dotsPerMM * 1
+        visible: !_settings.showVideoPlaybackSlider
+        current: media.position
+        max: media.duration
     }
 }

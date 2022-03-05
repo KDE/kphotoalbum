@@ -19,6 +19,7 @@ class Settings : public QObject
     Q_PROPERTY(double overviewIconSize READ overviewIconSize WRITE setOverviewIconSize NOTIFY overviewIconSizeChanged)
     Q_PROPERTY(QColor backgroundColor READ backgroundColor NOTIFY backgroundColorChanged)
     Q_PROPERTY(QColor textColor READ textColor NOTIFY foregroundColorChanged)
+    Q_PROPERTY(bool showVideoPlaybackSlider MEMBER m_showVideoPlaybackSlider NOTIFY showVideoPlaybackSliderChanged)
 
     double m_thumbnailScale;
 
@@ -30,7 +31,6 @@ public:
     double overviewIconSize() const;
 
     QColor backgroundColor() const;
-
     QColor textColor() const;
 
 public Q_SLOTS:
@@ -43,10 +43,12 @@ Q_SIGNALS:
     void overviewIconSizeChanged();
     void backgroundColorChanged();
     void foregroundColorChanged();
+    void showVideoPlaybackSliderChanged();
 
 private:
     explicit Settings() = default;
     int m_categoryItemSize;
+    bool m_showVideoPlaybackSlider = false;
 };
 
 } // namespace RemoteControl

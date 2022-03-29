@@ -141,7 +141,8 @@ VideoBackend preferredVideoBackend(const VideoBackend configuredBackend, const V
         return configuredBackend;
     }
 
-    for (const VideoBackend candidate : { VideoBackend::VLC, VideoBackend::QtAV, VideoBackend::Phonon }) {
+    // change backend priority here:
+    for (const VideoBackend candidate : { VideoBackend::Phonon, VideoBackend::VLC, VideoBackend::QtAV }) {
         if (availableVideoBackends().testFlag(candidate) && !exclusions.testFlag(candidate)) {
             qCDebug(SettingsLog) << "preferredVideoBackend(): backend is viable:" << candidate;
             return candidate;

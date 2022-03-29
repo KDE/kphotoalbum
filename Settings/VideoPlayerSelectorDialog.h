@@ -26,6 +26,13 @@ constexpr VideoBackends availableVideoBackends();
  */
 Settings::VideoBackend preferredVideoBackend(const Settings::VideoBackend configuredBackend, const Settings::VideoBackends exclusions = {});
 
+/**
+ * @brief localizedEnumName returns a localized value for the enum, for use in localized messages.
+ * @param backend the VideoBackend
+ * @return a localized friendly name representing the enum value
+ */
+QString localizedEnumName(const Settings::VideoBackend backend);
+
 class VideoPlayerSelectorDialog : public QDialog
 {
     Q_OBJECT

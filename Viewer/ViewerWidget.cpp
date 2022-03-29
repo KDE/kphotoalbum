@@ -51,6 +51,7 @@
 #include <KIO/CopyJob>
 #include <KIconLoader>
 #include <KLocalizedString>
+#include <KMessageBox>
 #include <QAction>
 #include <QApplication>
 #include <QContextMenuEvent>
@@ -1330,14 +1331,31 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
         }
         auto preferredBackend = Settings::preferredVideoBackend(backend, exclusions);
         if (preferredBackend != backend) {
-            qCWarning(ViewerLog) << "A crash was registered during usage of the " << backend << "video backend - automatically switching to different backend:" << preferredBackend;
-            Settings::SettingsData::instance()->setVideoBackend(preferredBackend);
-            backend = preferredBackend;
+            qCWarning(ViewerLog) << "A crash was registered during usage of the " << backend << "video backend - preferred new backend:" << preferredBackend;
+            const bool foundViableBackend = (preferredBackend != Settings::VideoBackend::NotConfigured);
+            bool userAcceptedNewBackend = false;
+            if (foundViableBackend) {
+                const auto message = i18n(
+                    "<p>It seems that KPhotoAlbum previously crashed during video playback."
+                    "On some platforms, this is a common problem with some video players.</p>"
+                    "<p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>");
+                const auto messageDetails = i18n(
+                    "<p>Video backend that was interrupted: <tt>%1</tt></p>"
+                    "<p>Video backend that will be used instead: <tt>%2</tt></p>",
+                    Settings::localizedEnumName(backend), Settings::localizedEnumName(preferredBackend));
+                const auto choice = KMessageBox::warningContinueCancelDetailed(parent, message, QString(), KStandardGuiItem::cont(), KStandardGuiItem::cancel(), QString(), KMessageBox::Notify, messageDetails);
+                userAcceptedNewBackend = (choice == KMessageBox::Continue);
+            }
+            if (userAcceptedNewBackend || !foundViableBackend) {
+                Settings::SettingsData::instance()->setVideoBackend(preferredBackend);
+                backend = preferredBackend;
+            }
         }
     }
     bool showSelectorDialog = backend == Settings::VideoBackend::NotConfigured;
 
     if (showSelectorDialog) {
+        // no viable backend found yet -> we need the user to choose
         Settings::VideoPlayerSelectorDialog dialog;
         dialog.exec();
         Settings::SettingsData::instance()->setVideoBackend(dialog.backend());

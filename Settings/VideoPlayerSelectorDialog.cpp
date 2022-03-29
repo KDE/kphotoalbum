@@ -153,4 +153,18 @@ VideoBackend preferredVideoBackend(const VideoBackend configuredBackend, const V
     return VideoBackend::NotConfigured;
 }
 
+QString localizedEnumName(const VideoBackend backend)
+{
+    switch (backend) {
+    case VideoBackend::NotConfigured:
+        return i18nc("A friendly name for the video backend", "Unconfigured video backend");
+    case VideoBackend::Phonon:
+        return i18nc("A friendly name for the video backend", "Phonon video backend");
+    case VideoBackend::QtAV:
+        return i18nc("A friendly name for the video backend", "QtAV video backend");
+    case VideoBackend::VLC:
+        return i18nc("A friendly name for the video backend", "VLC video backend");
+    }
+}
+
 } // namespace Settings

@@ -165,6 +165,8 @@ QString localizedEnumName(const VideoBackend backend)
     case VideoBackend::VLC:
         return i18nc("A friendly name for the video backend", "VLC video backend");
     }
+    Q_UNREACHABLE();
+    return {};
 }
 
 } // namespace Settings

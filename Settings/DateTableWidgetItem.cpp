@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2015 Tobias Leupold <tobias.leupold@web.de>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2015 Tobias Leupold <tl at l3u dot de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later OR GPL-3.0-or-later OR LicenseRef-KDE-Accepted-GPL
 
 // Qt includes
 #include <QDate>

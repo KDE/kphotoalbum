@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2021 Tobias Leupold <tobias.leupold@gmx.de>
-
-   SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2021 Tobias Leupold <tl at l3u dot de>
+//
+// SPDX-License-Identifier: GPL-3.0-or-later OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef COPYLINKENGINE_H
 #define COPYLINKENGINE_H

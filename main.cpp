@@ -10,11 +10,10 @@
 // SPDX-FileCopyrightText: 2009 Andrew Coles <andrew.i.coles@googlemail.com>
 // SPDX-FileCopyrightText: 2009 Christoph Feck <cfeck@kde.org>
 // SPDX-FileCopyrightText: 2010, 2012 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2012-2014, 2016, 2018-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
-// SPDX-FileCopyrightText: 2018, 2020 Tobias Leupold <tobias.leupold@gmx.de>
+// SPDX-FileCopyrightText: 2018, 2020 Tobias Leupold <tl at l3u dot de>
 // SPDX-FileCopyrightText: 2019 Alexander Potashev <aspotashev@gmail.com>
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2012-2014, 2016, 2018-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 

@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2014-2015 Tobias Leupold <tobias.leupold@gmx.de>
+// SPDX-FileCopyrightText: 2014-2015 Tobias Leupold <tl at l3u dot de>
 // SPDX-FileCopyrightText: 2015-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //

@@ -10,16 +10,15 @@
 # SPDX-FileCopyrightText: 2010, 2015, 2019 David Faure <faure@kde.org>
 # SPDX-FileCopyrightText: 2012 Albert Astals Cid <tsdgeos@terra.es>
 # SPDX-FileCopyrightText: 2012-2013 Andreas Neustifter <andreas.neustifter@gmail.com>
-# SPDX-FileCopyrightText: 2012-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 # SPDX-FileCopyrightText: 2014 David Edmundson <kde@davidedmundson.co.uk>
-# SPDX-FileCopyrightText: 2014-2021 Tobias Leupold <tl@l3u.de>
+# SPDX-FileCopyrightText: 2014-2021 Tobias Leupold <tl at l3u dot de>
 # SPDX-FileCopyrightText: 2016 Christoph Feck <cfeck@kde.org>
 # SPDX-FileCopyrightText: 2016 Luigi Toscano <luigi.toscano@tiscali.it>
 # SPDX-FileCopyrightText: 2016 Michael Palimaka <kensington@gentoo.org>
 # SPDX-FileCopyrightText: 2017 Ben Cooksley <bcooksley@kde.org>
 # SPDX-FileCopyrightText: 2018, 2020 Robert Krawitz <rlk@alum.mit.edu>
 # SPDX-FileCopyrightText: 2020 Wes Hardaker <kpa@capturedonearth.com>
-# SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2012-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
 # SPDX-License-Identifier: BSD-3-Clause
 

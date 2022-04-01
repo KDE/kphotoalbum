@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2016 Tobias Leupold <tobias.leupold@web.de>
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2016 Tobias Leupold <tl at l3u dot de>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef AREATAGSELECTDIALOG_H
 #define AREATAGSELECTDIALOG_H

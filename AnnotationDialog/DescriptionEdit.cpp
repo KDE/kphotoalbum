@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014-2018 Tobias Leupold <tobias.leupold@gmx.de>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2018 Tobias Leupold <tl at l3u dot de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later OR GPL-3.0-or-later OR LicenseRef-KDE-Accepted-GPL
 
 #include "DescriptionEdit.h"
 

@@ -70,7 +70,7 @@ SPDX-License-Identifier: CC0-1.0
   <description>
     <p>KPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.</p>
     <p xml:lang="ca">El KPhotoAlbum és una aplicació per a etiquetar i gestionar una col·lecció de fotografies i fer-les fàcils de trobar.</p>
-    <p xml:lang="ca-valencia">El KPhotoAlbum és una aplicació per a etiquetar i gestionar una col·lecció de fotografies i fer-les fàcils de trobar.</p>
+    <p xml:lang="ca-valencia">KPhotoAlbum és una aplicació per a etiquetar i gestionar una col·lecció de fotografies i fer-les fàcils de trobar.</p>
     <p xml:lang="cs">KPhotoAlbum je aplikace pro značkování a správu sbírky fotografií pro jejich vyhledávání.</p>
     <p xml:lang="de">KPhotoAlbum ist eine Anwendung zum Verschlagworten, Verwalten und Durchsuchen Ihrer Fotosammlung.</p>
     <p xml:lang="en-GB">KPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.</p>
@@ -103,7 +103,7 @@ SPDX-License-Identifier: CC0-1.0
       <image>https://cdn.kde.org/screenshots/kphotoalbum/kphotoalbum.png</image>
       <caption>The main screen in KPhotoAlbum</caption>
       <caption xml:lang="ca">La pantalla principal del KPhotoAlbum</caption>
-      <caption xml:lang="ca-valencia">La pantalla principal del KPhotoAlbum</caption>
+      <caption xml:lang="ca-valencia">La pantalla principal de KPhotoAlbum</caption>
       <caption xml:lang="cs">Hlavní obrazovka pro KPhotoAlbum</caption>
       <caption xml:lang="de">Das Hauptfenster von KPhotoAlbum</caption>
       <caption xml:lang="en-GB">The main screen in KPhotoAlbum</caption>

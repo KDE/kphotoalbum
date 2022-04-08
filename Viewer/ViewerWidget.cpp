@@ -1333,7 +1333,6 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
         if (preferredBackend != backend) {
             qCWarning(ViewerLog) << "A crash was registered during usage of the " << backend << "video backend - preferred new backend:" << preferredBackend;
             const bool foundViableBackend = (preferredBackend != Settings::VideoBackend::NotConfigured);
-            bool userAcceptedNewBackend = false;
             if (foundViableBackend) {
                 const auto message = i18n(
                     "<p>It seems that KPhotoAlbum previously crashed during video playback."
@@ -1344,11 +1343,18 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
                     "<p>Video backend that will be used instead: <tt>%2</tt></p>",
                     Settings::localizedEnumName(backend), Settings::localizedEnumName(preferredBackend));
                 const auto choice = KMessageBox::warningContinueCancelDetailed(parent, message, QString(), KStandardGuiItem::cont(), KStandardGuiItem::cancel(), QString(), KMessageBox::Notify, messageDetails);
-                userAcceptedNewBackend = (choice == KMessageBox::Continue);
-            }
-            if (userAcceptedNewBackend || !foundViableBackend) {
-                Settings::SettingsData::instance()->setVideoBackend(preferredBackend);
-                backend = preferredBackend;
+                if (choice == KMessageBox::Continue) {
+                    Settings::SettingsData::instance()->setVideoBackend(preferredBackend);
+                    backend = preferredBackend;
+                }
+            } else {
+                // if no viable backend was found, that means that all available backends crashed at some point
+                // i.e. there's no point in bugging the user again - just disable the crash detection completely
+                sentinel.disablePermanently();
+                const auto message = i18n(
+                    "<p>KPhotoAlbum has tried out all available video backends, but every one crashed at some point.</p>"
+                    "<p>Crash detection is now turned off.</p>");
+                KMessageBox::sorry(parent, message);
             }
         }
     }

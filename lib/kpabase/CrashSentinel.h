@@ -99,6 +99,22 @@ public:
      */
     void activate();
 
+    /**
+     * @brief disablePermanently disabled the CrashSentinel permanently.
+     * I.e. crash data will still be stored, but no indication of any crash will be shown by any of the methods
+     * hasCrashInfo(), lastCrashInfo(), crashHistory().
+     * To reenable, call clearCrashHistory();
+     *
+     * Use this method if an crashes are spurious and should be ignored.
+     */
+    void disablePermanently();
+
+    /**
+     * @brief isDisabled
+     * @return \c true, if the crash sentinel was permanently disabled, \c false otherwise.
+     */
+    bool isDisabled() const;
+
 private:
     const QString m_component;
     QByteArray m_crashInfo;

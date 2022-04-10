@@ -50,7 +50,6 @@ public:
 
     QString kimFileName(bool relative);
     bool writeToFile(const QString &fileName, const QString &str);
-    QString translateToHTML(const QString &);
     int calculateSteps();
     void getThemeInfo(QString *baseDir, QString *name, QString *author);
 

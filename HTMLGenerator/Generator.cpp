@@ -37,6 +37,7 @@
 #include <QList>
 #include <QMimeDatabase>
 #include <QStandardPaths>
+#include <QDebug>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -649,23 +650,10 @@ bool HTMLGenerator::Generator::writeToFile(const QString &fileName, const QStrin
         return false;
     }
 
-    QByteArray data = translateToHTML(str).toUtf8();
+    QByteArray data = str.toUtf8();
     file.write(data);
     file.close();
     return true;
-}
-
-QString HTMLGenerator::Generator::translateToHTML(const QString &str)
-{
-    QString res;
-    for (int i = 0; i < str.length(); ++i) {
-        if (str[i].unicode() < 128)
-            res.append(str[i]);
-        else {
-            res.append(QStringLiteral("&#%1;").arg((unsigned int)str[i].unicode()));
-        }
-    }
-    return res;
 }
 
 bool HTMLGenerator::Generator::linkIndexFile()

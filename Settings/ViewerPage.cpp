@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "ViewerPage.h"
 
 #include "VideoPlayerSelectorDialog.h"
@@ -29,6 +30,7 @@ static QString videoBackendTextFromEnum(Settings::VideoBackend backend)
     case Settings::VideoBackend::Phonon:
         return QString::fromUtf8("Phonon");
     }
+    Q_UNREACHABLE();
     return {}; // Make CI shut up.
 }
 
@@ -98,7 +100,7 @@ Settings::ViewerPage::ViewerPage(QWidget *parent)
     m_videoBackendButton = new QPushButton;
     glay->addWidget(label, ++row, 0);
     glay->addWidget(m_videoBackendButton, row, 1);
-    connect(m_videoBackendButton, &QPushButton::clicked, [this] {
+    connect(m_videoBackendButton, &QPushButton::clicked, this, [this] {
         VideoPlayerSelectorDialog dialog(this);
         dialog.exec();
         m_videoBackend = dialog.backend();

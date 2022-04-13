@@ -9,6 +9,7 @@
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
 #include <MainWindow/CopyLinkEngine.h>
+#include <kpabase/CrashSentinel.h>
 #include <kpabase/FileNameList.h>
 
 #include <QImage>
@@ -208,6 +209,8 @@ private:
     ImageDisplay *m_imageDisplay;
     VideoDisplay *m_videoDisplay;
     TextDisplay *m_textDisplay;
+
+    KPABase::CrashSentinel m_crashSentinel;
 
     int m_screenSaverCookie;
     DB::FileNameList m_list;

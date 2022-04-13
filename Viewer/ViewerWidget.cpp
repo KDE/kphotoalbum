@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -50,6 +51,7 @@
 #include <KIO/CopyJob>
 #include <KIconLoader>
 #include <KLocalizedString>
+#include <KMessageBox>
 #include <QAction>
 #include <QApplication>
 #include <QContextMenuEvent>
@@ -71,6 +73,7 @@
 #include <QWheelEvent>
 #include <qglobal.h>
 
+#include <QMetaEnum>
 #include <functional>
 
 Viewer::ViewerWidget *Viewer::ViewerWidget::s_latest = nullptr;
@@ -83,6 +86,7 @@ Viewer::ViewerWidget *Viewer::ViewerWidget::latest()
 // Notice the parent is zero to allow other windows to come on top of it.
 Viewer::ViewerWidget::ViewerWidget(UsageType type, QMap<Qt::Key, QPair<QString, QString>> *macroStore)
     : QStackedWidget(nullptr)
+    , m_crashSentinel(QString::fromUtf8("videoBackend"))
     , m_current(0)
     , m_popup(nullptr)
     , m_showingFullScreen(false)
@@ -423,9 +427,11 @@ void Viewer::ViewerWidget::load()
     const bool isReadable = QFileInfo(m_list[m_current].absolute()).isReadable();
     const bool isVideo = isReadable && Utilities::isVideo(m_list[m_current]);
 
+    m_crashSentinel.suspend();
     if (isReadable) {
         if (isVideo) {
             m_display = m_videoDisplay;
+            m_crashSentinel.activate();
         } else
             m_display = m_imageDisplay;
     } else {
@@ -1302,18 +1308,67 @@ void Viewer::ViewerWidget::moveInfoBox(int y)
 
 namespace Viewer
 {
-static VideoDisplay *instantiateVideoDisplay(QWidget *parent)
+static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSentinel &sentinel)
 {
     auto backend = Settings::SettingsData::instance()->videoBackend();
-
     if (backend == Settings::VideoBackend::NotConfigured) {
+        // just select a backend for the user if they didn't choose one
+        backend = Settings::preferredVideoBackend(backend);
+    }
+    if (sentinel.hasCrashInfo()) {
+        // KPA crashed during video playback - time to select a different backend based on crash data:
+        const auto badBackends = sentinel.crashHistory();
+        const auto backendEnum = QMetaEnum::fromType<Settings::VideoBackend>();
+        Settings::VideoBackends exclusions;
+        for (const auto &badBackend : badBackends) {
+            bool ok = false;
+            const auto be = static_cast<Settings::VideoBackend>(backendEnum.keyToValue(badBackend.constData(), &ok));
+            if (ok) {
+                exclusions |= be;
+            } else {
+                qCWarning(ViewerLog) << "Could not parse crash data:" << badBackend << "is an unknown video backend value! Ignoring...";
+            }
+        }
+        auto preferredBackend = Settings::preferredVideoBackend(backend, exclusions);
+        if (preferredBackend != backend) {
+            qCWarning(ViewerLog) << "A crash was registered during usage of the " << backend << "video backend - preferred new backend:" << preferredBackend;
+            const bool foundViableBackend = (preferredBackend != Settings::VideoBackend::NotConfigured);
+            if (foundViableBackend) {
+                const auto message = i18n(
+                    "<p>It seems that KPhotoAlbum previously crashed during video playback."
+                    "On some platforms, this is a common problem with some video players.</p>"
+                    "<p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>");
+                const auto messageDetails = i18n(
+                    "<p>Video backend that was interrupted: <tt>%1</tt></p>"
+                    "<p>Video backend that will be used instead: <tt>%2</tt></p>",
+                    Settings::localizedEnumName(backend), Settings::localizedEnumName(preferredBackend));
+                const auto choice = KMessageBox::warningContinueCancelDetailed(parent, message, QString(), KStandardGuiItem::cont(), KStandardGuiItem::cancel(), QString(), KMessageBox::Notify, messageDetails);
+                if (choice == KMessageBox::Continue) {
+                    Settings::SettingsData::instance()->setVideoBackend(preferredBackend);
+                    backend = preferredBackend;
+                }
+            } else {
+                // if no viable backend was found, that means that all available backends crashed at some point
+                // i.e. there's no point in bugging the user again - just disable the crash detection completely
+                sentinel.disablePermanently();
+                const auto message = i18n(
+                    "<p>KPhotoAlbum has tried out all available video backends, but every one crashed at some point.</p>"
+                    "<p>Crash detection is now turned off.</p>");
+                KMessageBox::sorry(parent, message);
+            }
+        }
+    }
+    bool showSelectorDialog = backend == Settings::VideoBackend::NotConfigured;
+
+    if (showSelectorDialog) {
+        // no viable backend found yet -> we need the user to choose
         Settings::VideoPlayerSelectorDialog dialog;
         dialog.exec();
         Settings::SettingsData::instance()->setVideoBackend(dialog.backend());
+        backend = Settings::SettingsData::instance()->videoBackend();
+        sentinel.clearCrashHistory();
     }
-    backend = Settings::SettingsData::instance()->videoBackend();
 
-    // First check if the selected backend is available
     switch (backend) {
     case Settings::VideoBackend::VLC:
 #if LIBVLC_FOUND
@@ -1337,21 +1392,8 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent)
 #endif
         break;
     case Settings::VideoBackend::NotConfigured:
-        qCDebug(ViewerLog) << "No video backend configured. Selecting first available backend...";
+        qCCritical(ViewerLog) << "No viable video backend!";
     }
-
-    // If we make it here the selected backend wasn't available, so instead choose one that is.
-#if LIBVLC_FOUND
-    return new VLCDisplay(parent);
-#endif
-
-#if QtAV_FOUND
-    return new QtAVDisplay(parent);
-#endif
-
-#if Phonon4Qt5_FOUND
-    return new PhononDisplay(parent);
-#endif
 
     static_assert(LIBVLC_FOUND || QtAV_FOUND || Phonon4Qt5_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
     Q_UNREACHABLE();
@@ -1362,7 +1404,10 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent)
 void Viewer::ViewerWidget::createVideoViewer()
 {
 
-    m_videoDisplay = instantiateVideoDisplay(this);
+    m_videoDisplay = instantiateVideoDisplay(this, m_crashSentinel);
+    const auto backendEnum = QMetaEnum::fromType<Settings::VideoBackend>();
+    const auto backendName = backendEnum.valueToKey(static_cast<int>(Settings::SettingsData::instance()->videoBackend()));
+    m_crashSentinel.setCrashInfo(backendName);
 
     addWidget(m_videoDisplay);
     connect(m_videoDisplay, &VideoDisplay::stopped, this, &ViewerWidget::videoStopped);
@@ -1371,6 +1416,7 @@ void Viewer::ViewerWidget::createVideoViewer()
 void Viewer::ViewerWidget::stopPlayback()
 {
     m_videoDisplay->stop();
+    m_crashSentinel.suspend();
 }
 
 void Viewer::ViewerWidget::invalidateThumbnail() const

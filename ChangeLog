@@ -1,5 +1,15 @@
-* Enhancement: Generic file metadata (size, last changed date etc.) can now be viewed via the Exif
-  metadata dialog.
+* Bugfix: Fix crash when forgetting to select images upon import (Fixes #445404)
+
+* Bugfix: Fix faulty assertion when video thumbnail files cannot be written (Fixes: 446258)
+
+* Bugfix: Remove incomplete URL encoding of non-ASCII characters in HTML export (Fixes #452458)
+
+* Deprecation: Disable tip of the day with KF5 5.83 and newer
+
+* Enhancement: Generic file metadata (size, last changed date etc.) can now be viewed via the Exif metadata dialog.
+
+* Enhancement: Support other video backends (libVLC, QtAV) in addition to Phonon
+
 
 ====================== KPhotoalbum 5.8.1 released (27.06.2021) ======================
 

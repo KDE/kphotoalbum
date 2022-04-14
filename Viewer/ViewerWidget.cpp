@@ -1335,7 +1335,7 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
             const bool foundViableBackend = (preferredBackend != Settings::VideoBackend::NotConfigured);
             if (foundViableBackend) {
                 const auto message = i18n(
-                    "<p>It seems that KPhotoAlbum previously crashed during video playback."
+                    "<p>It seems that KPhotoAlbum previously crashed during video playback. "
                     "On some platforms, this is a common problem with some video players.</p>"
                     "<p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>");
                 const auto messageDetails = i18n(

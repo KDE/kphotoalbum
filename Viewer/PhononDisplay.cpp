@@ -1,6 +1,13 @@
-// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2006-2010, 2012, 2021 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007 Thiago Macieira <thiago@kde.org>
+// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2009 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
+// SPDX-FileCopyrightText: 2013 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2013, 2015-2016, 2019-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2018-2019 Tobias Leupold <tobias.leupold@gmx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -59,7 +66,7 @@ void Viewer::PhononDisplay::setup()
     connect(m_mediaObject, &Phonon::MediaObject::tick, m_videoToolBar, &VideoToolBar::setPosition);
     connect(m_videoToolBar, &VideoToolBar::positionChanged, m_mediaObject, &Phonon::MediaObject::seek);
     connect(m_videoToolBar, &VideoToolBar::muted, m_audioDevice, &Phonon::AudioOutput::setMuted);
-    connect(m_videoToolBar, &VideoToolBar::volumeChanged, [this](int volume) { m_audioDevice->setVolume(volume / 100.0); });
+    connect(m_videoToolBar, &VideoToolBar::volumeChanged, m_audioDevice, [this](int volume) { m_audioDevice->setVolume(volume / 100.0); });
 }
 
 bool Viewer::PhononDisplay::setImageImpl(DB::ImageInfoPtr info, bool /*forward*/)

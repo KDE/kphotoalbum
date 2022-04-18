@@ -1,8 +1,11 @@
-// SPDX-FileCopyrightText: 2021 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "VideoToolBar.h"
 #include "Slider.h"
+
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QTime>
@@ -33,7 +36,7 @@ VideoToolBar::VideoToolBar(QWidget *parent)
 
     m_muteButton = new QToolButton;
     hLay->addWidget(m_muteButton);
-    connect(m_muteButton, &QToolButton::clicked, [this] { setMuted(!m_isMuted); });
+    connect(m_muteButton, &QToolButton::clicked, this, [this] { setMuted(!m_isMuted); });
 
     m_volumeSlider = new QSlider(Qt::Horizontal);
     hLay->addWidget(m_volumeSlider);

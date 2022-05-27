@@ -15,8 +15,8 @@ Rectangle {
         anchors.centerIn: parent
         text: {
             var seconds = milliseconds/1000
-            var minutes = Math.round(seconds/60);
-            var secs = Math.round(seconds%60)
+            var minutes = Math.floor(seconds/60);
+            var secs = Math.floor(seconds%60)
             return minutes + ":" + (secs < 10 ? "0" : "") + secs
         }
     }

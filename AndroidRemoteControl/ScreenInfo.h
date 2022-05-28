@@ -8,6 +8,7 @@
 #include <QObject>
 #include <QSize>
 class QScreen;
+class QQuickView;
 
 namespace RemoteControl
 {
@@ -22,10 +23,11 @@ class ScreenInfo : public QObject
     Q_PROPERTY(int viewWidth MEMBER m_viewWidth NOTIFY viewWidthChanged)
     Q_PROPERTY(int viewHeight MEMBER m_viewHeight NOTIFY viewHeightChanged)
     Q_PROPERTY(int textHeight MEMBER m_textHeight NOTIFY textHeightChanged)
+    Q_PROPERTY(bool showFullScreen READ isShowingFullScreen WRITE setShowFullScreen NOTIFY showFullScreenChanged)
 
 public:
     static ScreenInfo &instance();
-    void setScreen(QScreen *);
+    void setQQuickViewer(QQuickView *);
     Q_INVOKABLE QSize pixelForSizeInMM(int size) const;
     void setCategoryCount(int count);
     QSize screenSize() const;
@@ -34,6 +36,9 @@ public:
     int overviewIconSize() const;
     int overviewSpacing() const;
 
+    bool isShowingFullScreen() const;
+    void setShowFullScreen(bool newShowFullScreen);
+
 Q_SIGNALS:
     void overviewIconSizeChanged();
     void overviewColumnCountChanged();
@@ -41,6 +46,7 @@ Q_SIGNALS:
     void viewWidthChanged();
     void viewHeightChanged();
     void textHeightChanged();
+    void showFullScreenChanged();
 
 private Q_SLOTS:
     void updateLayout();
@@ -49,8 +55,9 @@ private:
     ScreenInfo();
     int possibleColumns();
     int iconHeight();
+    QScreen *screen() const;
 
-    QScreen *m_screen = nullptr;
+    QQuickView *m_viewer = nullptr;
     double m_dotsPerMM = 0;
     int m_categoryCount = 0;
     int m_overviewColumnCount = 0;

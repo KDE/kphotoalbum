@@ -4,6 +4,7 @@
 
 #include "ScreenInfo.h"
 #include "Settings.h"
+#include <QQuickView>
 #include <QScreen>
 #include <QTimer>
 #include <cmath>
@@ -17,16 +18,16 @@ ScreenInfo &ScreenInfo::instance()
     return instance;
 }
 
-void ScreenInfo::setScreen(QScreen *screen)
+void ScreenInfo::setQQuickViewer(QQuickView *viewer)
 {
-    m_screen = screen;
+    m_viewer = viewer;
     QSize size = pixelForSizeInMM(100);
     m_dotsPerMM = (size.width() + size.height()) / 2 / 100;
 }
 
 QSize ScreenInfo::pixelForSizeInMM(int size) const
 {
-    const QSizeF mm = m_screen->physicalSize();
+    const QSizeF mm = screen()->physicalSize();
     const QSize pixels = screenSize();
     return QSize((size / mm.width()) * pixels.width(),
                  (size / mm.height()) * pixels.height());
@@ -40,7 +41,7 @@ void ScreenInfo::setCategoryCount(int count)
 
 QSize ScreenInfo::screenSize() const
 {
-    return m_screen->geometry().size();
+    return screen()->geometry().size();
 }
 
 QSize ScreenInfo::viewSize() const
@@ -83,6 +84,11 @@ int ScreenInfo::iconHeight()
     return iconHeight + innerSpacing + m_textHeight;
 }
 
+QScreen *ScreenInfo::screen() const
+{
+    return m_viewer->screen();
+}
+
 void ScreenInfo::updateLayout()
 {
     if (m_categoryCount == 0 || m_viewWidth == 0)
@@ -108,6 +114,22 @@ void ScreenInfo::updateLayout()
 int ScreenInfo::overviewSpacing() const
 {
     return overviewIconSize() / 2;
+}
+
+bool ScreenInfo::isShowingFullScreen() const
+{
+    return m_viewer->windowState() == Qt::WindowFullScreen;
+}
+
+void ScreenInfo::setShowFullScreen(bool newShowFullScreen)
+{
+    if (isShowingFullScreen() != newShowFullScreen) {
+        if (newShowFullScreen)
+            m_viewer->showFullScreen();
+        else
+            m_viewer->showMaximized();
+        emit showFullScreenChanged();
+    }
 }
 
 } // namespace RemoteControl

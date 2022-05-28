@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     QQuickView viewer;
     PositionObserver::setView(&viewer);
 
-    ScreenInfo::instance().setScreen(viewer.screen());
+    ScreenInfo::instance().setQQuickViewer(&viewer);
     QObject::connect(viewer.engine(), SIGNAL(quit()), &app, SLOT(quit()));
 
     qmlRegisterType<RemoteImage>("KPhotoAlbum", 1, 0, "RemoteImage");
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
     viewer.setResizeMode(QQuickView::SizeRootObjectToView);
 
     viewer.resize(1024, 768);
-    viewer.show();
+    viewer.showMaximized();
 
     // Create the store on the GUI thread
     (void)ImageStore::instance();

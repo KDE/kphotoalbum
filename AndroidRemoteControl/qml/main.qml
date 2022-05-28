@@ -95,6 +95,12 @@ Rectangle {
         value: height
     }
 
+    Binding {
+        target: _screenInfo
+        property: "showFullScreen"
+        value: _remoteInterface.currentPage === Enums.ImageViewerPage
+    }
+
     // Dummy elemenent so I can know the default text element hight
     Text {
         id: dummy

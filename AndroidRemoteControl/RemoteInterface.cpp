@@ -133,23 +133,23 @@ void RemoteInterface::goForward()
 void RemoteInterface::selectCategory(const QString &category, int type)
 {
     m_search.addCategory(category);
-    m_history.push(std::unique_ptr<Action>(new ShowCategoryValueAction(m_search, static_cast<CategoryViewType>(type))));
+    m_history.push(std::make_unique<ShowCategoryValueAction>(m_search, static_cast<CategoryViewType>(type)));
 }
 
 void RemoteInterface::selectCategoryValue(const QString &value)
 {
     m_search.addValue(value);
-    m_history.push(std::unique_ptr<Action>(new ShowThumbnailsAction(m_search)));
+    m_history.push(std::make_unique<ShowThumbnailsAction>(m_search));
 }
 
 void RemoteInterface::showThumbnails()
 {
-    m_history.push(std::unique_ptr<Action>(new ShowThumbnailsAction(m_search)));
+    m_history.push(std::make_unique<ShowThumbnailsAction>(m_search));
 }
 
 void RemoteInterface::showImage(int imageId)
 {
-    m_history.push(std::unique_ptr<Action>(new ShowImagesAction(imageId, m_search)));
+    m_history.push(std::make_unique<ShowImagesAction>(imageId, m_search));
 }
 
 void RemoteInterface::requestDetails(int imageId)
@@ -165,17 +165,17 @@ void RemoteInterface::activateSearch(const QString &search)
     SearchInfo result;
     result.addCategory(category);
     result.addValue(item);
-    m_history.push(std::unique_ptr<Action>(new ShowThumbnailsAction(result)));
+    m_history.push(std::make_unique<ShowThumbnailsAction>(result));
 }
 
 void RemoteInterface::doDiscovery()
 {
-    m_history.push(std::unique_ptr<Action>(new DiscoverAction(m_search, m_discoveryModel)));
+    m_history.push(std::make_unique<DiscoverAction>(m_search, m_discoveryModel));
 }
 
 void RemoteInterface::showOverviewPage()
 {
-    m_history.push(std::unique_ptr<Action>(new ShowOverviewAction(m_search)));
+    m_history.push(std::make_unique<ShowOverviewAction>(m_search));
 }
 
 void RemoteInterface::setToken(int imageId, const QString &token)
@@ -203,7 +203,7 @@ void RemoteInterface::pushAwayFromStartupState()
 
 void RemoteInterface::jumpToContext(int imageId)
 {
-    m_history.push(std::unique_ptr<Action>(new ShowThumbnailsAction({}, imageId)));
+    m_history.push(std::make_unique<ShowThumbnailsAction>(SearchInfo(), imageId));
 }
 
 void RemoteInterface::cancelVideoRequest(ImageId imageId)
@@ -241,7 +241,7 @@ ThumbnailModel *RemoteInterface::activeThumbnailModel()
 void RemoteInterface::requestInitialData()
 {
     requestHomePageImages();
-    m_history.push(std::unique_ptr<Action>(new ShowOverviewAction({})));
+    m_history.push(std::make_unique<ShowOverviewAction>(SearchInfo()));
 }
 
 void RemoteInterface::handleCommand(const RemoteCommand &command)

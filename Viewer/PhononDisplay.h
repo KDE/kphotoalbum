@@ -1,4 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2021 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -43,9 +45,11 @@ public slots:
     void playPause() override;
     void restart() override;
     void rotate(const DB::ImageInfoPtr &info) override;
+    void changeVolume(int newVolumePercent);
 
 private slots:
     void phononStateChanged(Phonon::State, Phonon::State);
+    void updateVolume(qreal newVolumeVolt);
 
 protected:
     void resize(double factor);

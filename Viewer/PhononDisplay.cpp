@@ -23,6 +23,7 @@
 #include <QGuiApplication>
 #include <QResizeEvent>
 #include <QScreen>
+#include <QtMath>
 #include <kmessagebox.h>
 #include <ktoolbar.h>
 #include <ktoolinvocation.h>
@@ -34,6 +35,12 @@
 #include <phonon/videowidget.h>
 #include <qglobal.h>
 #include <qlayout.h>
+
+namespace
+{
+constexpr qreal LOUDNESS_TO_VOLTAGE_EXPONENT = qreal(0.67);
+constexpr qreal VOLTAGE_TO_LOUDNESS_EXPONENT = qreal(1.0 / LOUDNESS_TO_VOLTAGE_EXPONENT);
+}
 
 Viewer::PhononDisplay::PhononDisplay(QWidget *parent)
     : Viewer::VideoDisplay(parent)
@@ -66,7 +73,8 @@ void Viewer::PhononDisplay::setup()
     connect(m_mediaObject, &Phonon::MediaObject::tick, m_videoToolBar, &VideoToolBar::setPosition);
     connect(m_videoToolBar, &VideoToolBar::positionChanged, m_mediaObject, &Phonon::MediaObject::seek);
     connect(m_videoToolBar, &VideoToolBar::muted, m_audioDevice, &Phonon::AudioOutput::setMuted);
-    connect(m_videoToolBar, &VideoToolBar::volumeChanged, m_audioDevice, [this](int volume) { m_audioDevice->setVolume(volume / 100.0); });
+    connect(m_videoToolBar, &VideoToolBar::volumeChanged, this, &PhononDisplay::changeVolume);
+    connect(m_audioDevice, &Phonon::AudioOutput::volumeChanged, this, &PhononDisplay::updateVolume);
 }
 
 bool Viewer::PhononDisplay::setImageImpl(DB::ImageInfoPtr info, bool /*forward*/)
@@ -174,6 +182,12 @@ void Viewer::PhononDisplay::phononStateChanged(Phonon::State newState, Phonon::S
     }
 }
 
+void Viewer::PhononDisplay::updateVolume(qreal newVolumeVolt)
+{
+    const QSignalBlocker blocker { m_videoToolBar };
+    m_videoToolBar->setVolume(qPow(newVolumeVolt, VOLTAGE_TO_LOUDNESS_EXPONENT) * 100.0);
+}
+
 void Viewer::PhononDisplay::setVideoWidgetSize()
 {
     if (!m_mediaObject)
@@ -199,12 +213,18 @@ void Viewer::PhononDisplay::setVideoWidgetSize()
     m_videoToolBar->move(0, height() - m_videoToolBar->sizeHint().height());
     m_videoToolBar->resize(width(), m_videoToolBar->sizeHint().height());
     m_videoToolBar->setRange(0, m_mediaObject->totalTime());
-    m_videoToolBar->setVolume(m_audioDevice->volume() * 100.0);
+    updateVolume(m_audioDevice->volume());
 }
 
 void Viewer::PhononDisplay::rotate(const DB::ImageInfoPtr & /*info*/)
 {
     // Not supported.
+}
+
+void Viewer::PhononDisplay::changeVolume(int newVolumePercent)
+{
+    QSignalBlocker blocker { m_audioDevice };
+    m_audioDevice->setVolume(qPow(newVolumePercent / 100.0, LOUDNESS_TO_VOLTAGE_EXPONENT));
 }
 
 void Viewer::PhononDisplay::relativeSeek(int msec)

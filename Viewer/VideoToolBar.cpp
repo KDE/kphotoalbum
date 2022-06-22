@@ -74,6 +74,11 @@ void VideoToolBar::setVolume(int volume)
     m_percentageLabel->setText(QString::fromLatin1("%1%").arg(volume));
 }
 
+bool VideoToolBar::isMuted() const
+{
+    return m_isMuted;
+}
+
 void VideoToolBar::setMuted(bool b)
 {
     QString icon = b ? QString::fromLatin1("audio-volume-muted") : QString::fromLatin1("audio-volume-medium");

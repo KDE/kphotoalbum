@@ -1,5 +1,8 @@
 // SPDX-FileCopyrightText: 2021 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
 // SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 #include <QWidget>
@@ -22,6 +25,7 @@ public:
     void setPosition(int value);
 
     void setVolume(int volume);
+    bool isMuted() const;
     void setMuted(bool b);
 
     virtual void closePreview() { }

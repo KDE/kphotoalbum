@@ -46,10 +46,12 @@ public slots:
     void restart() override;
     void rotate(const DB::ImageInfoPtr &info) override;
     void changeVolume(int newVolumePercent);
+    void setMuted(bool mute);
 
 private slots:
     void phononStateChanged(Phonon::State, Phonon::State);
     void updateVolume(qreal newVolumeVolt);
+    void updateMuteState(bool mute);
 
 protected:
     void resize(double factor);

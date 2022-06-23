@@ -72,9 +72,11 @@ void Viewer::PhononDisplay::setup()
     connect(m_mediaObject, &Phonon::MediaObject::stateChanged, this, &PhononDisplay::phononStateChanged);
     connect(m_mediaObject, &Phonon::MediaObject::tick, m_videoToolBar, &VideoToolBar::setPosition);
     connect(m_videoToolBar, &VideoToolBar::positionChanged, m_mediaObject, &Phonon::MediaObject::seek);
-    connect(m_videoToolBar, &VideoToolBar::muted, m_audioDevice, &Phonon::AudioOutput::setMuted);
+    // use proxy slots to avoid a signal-loop between the VideoToolBar and the Phonon::AudioOutput
     connect(m_videoToolBar, &VideoToolBar::volumeChanged, this, &PhononDisplay::changeVolume);
     connect(m_audioDevice, &Phonon::AudioOutput::volumeChanged, this, &PhononDisplay::updateVolume);
+    connect(m_videoToolBar, &VideoToolBar::muted, this, &PhononDisplay::setMuted);
+    connect(m_audioDevice, &Phonon::AudioOutput::mutedChanged, this, &PhononDisplay::updateMuteState);
 }
 
 bool Viewer::PhononDisplay::setImageImpl(DB::ImageInfoPtr info, bool /*forward*/)
@@ -188,6 +190,12 @@ void Viewer::PhononDisplay::updateVolume(qreal newVolumeVolt)
     m_videoToolBar->setVolume(qPow(newVolumeVolt, VOLTAGE_TO_LOUDNESS_EXPONENT) * 100.0);
 }
 
+void Viewer::PhononDisplay::updateMuteState(bool mute)
+{
+    const QSignalBlocker blocker { m_videoToolBar };
+    m_videoToolBar->setMuted(mute);
+}
+
 void Viewer::PhononDisplay::setVideoWidgetSize()
 {
     if (!m_mediaObject)
@@ -213,7 +221,6 @@ void Viewer::PhononDisplay::setVideoWidgetSize()
     m_videoToolBar->move(0, height() - m_videoToolBar->sizeHint().height());
     m_videoToolBar->resize(width(), m_videoToolBar->sizeHint().height());
     m_videoToolBar->setRange(0, m_mediaObject->totalTime());
-    updateVolume(m_audioDevice->volume());
 }
 
 void Viewer::PhononDisplay::rotate(const DB::ImageInfoPtr & /*info*/)
@@ -225,6 +232,12 @@ void Viewer::PhononDisplay::changeVolume(int newVolumePercent)
 {
     QSignalBlocker blocker { m_audioDevice };
     m_audioDevice->setVolume(qPow(newVolumePercent / 100.0, LOUDNESS_TO_VOLTAGE_EXPONENT));
+}
+
+void Viewer::PhononDisplay::setMuted(bool mute)
+{
+    QSignalBlocker blocker { m_audioDevice };
+    m_audioDevice->setMuted(mute);
 }
 
 void Viewer::PhononDisplay::relativeSeek(int msec)

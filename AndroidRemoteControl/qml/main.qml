@@ -15,6 +15,7 @@ Rectangle {
         visible: _remoteInterface.currentPage === Enums.OverviewPage
     }
 
+    // Showing category items (say all people) in a grid view
     ThumbnailsPage {
         name: "categoryPage"
         visible: _remoteInterface.currentPage === Enums.CategoryItemsPage
@@ -25,6 +26,7 @@ Rectangle {
         onClicked: _remoteInterface.selectCategoryValue(label)
     }
 
+    // Showing caregory items (say all places) in a list view
     CategoryListView {
         visible: _remoteInterface.currentPage === Enums.CategoryListPage
         anchors.fill: parent

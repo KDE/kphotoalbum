@@ -346,3 +346,5 @@ void AnnotationDialog::DateEdit::slotTextChanged(const QString &)
     m_TextChanged = true;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_DateEdit.cpp"

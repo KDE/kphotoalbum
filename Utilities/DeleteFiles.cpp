@@ -81,3 +81,5 @@ bool DeleteFiles::deleteFilesPrivate(const DB::FileNameList &files, DeleteMethod
 
 } // namespace Utilities
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_DeleteFiles.cpp"

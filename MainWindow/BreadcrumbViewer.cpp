@@ -80,3 +80,5 @@ QSize MainWindow::BreadcrumbViewer::minimumSizeHint() const
     return QSize(100, QLabel::minimumSizeHint().height());
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_BreadcrumbViewer.cpp"

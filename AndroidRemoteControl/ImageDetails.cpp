@@ -56,3 +56,5 @@ QString ImageDetails::age(const QString &category, const QString &item)
     return (*res).age;
 }
 } // namespace RemoteControl
+
+#include "moc_ImageDetails.cpp"

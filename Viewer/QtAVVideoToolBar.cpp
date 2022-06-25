@@ -64,3 +64,5 @@ void QtAVVideoToolBar::slotVideoStarted()
 }
 
 } // namespace Viewer
+
+#include "moc_QtAVVideoToolBar.cpp"

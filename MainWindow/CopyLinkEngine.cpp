@@ -62,3 +62,5 @@ void CopyLinkEngine::selectTarget(QWidget *parent, QList<QUrl> &files, Action ac
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_CopyLinkEngine.cpp"

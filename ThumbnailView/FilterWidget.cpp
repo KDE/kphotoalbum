@@ -88,3 +88,5 @@ KActionCollection *ThumbnailView::FilterWidget::actions() const
 {
     return m_actions;
 }
+
+#include "moc_FilterWidget.cpp"

@@ -44,3 +44,5 @@ int ThumbnailModel::indexOf(int imageId)
 }
 
 } // namespace RemoteControl
+
+#include "moc_ThumbnailModel.cpp"

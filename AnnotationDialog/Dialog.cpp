@@ -1763,3 +1763,5 @@ void AnnotationDialog::Dialog::mapLoadingFinished(bool mapHasImages, bool allIma
 #endif
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_Dialog.cpp"

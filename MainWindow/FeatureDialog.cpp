@@ -180,3 +180,5 @@ QString MainWindow::FeatureDialog::featureString()
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_FeatureDialog.cpp"

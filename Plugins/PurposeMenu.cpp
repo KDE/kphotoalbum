@@ -79,3 +79,5 @@ void Plugins::PurposeMenu::loadPurposeItems()
     reload();
     qCDebug(PluginsLog) << "Purpose menu items loaded...";
 }
+
+#include "moc_PurposeMenu.cpp"

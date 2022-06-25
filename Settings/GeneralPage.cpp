@@ -271,3 +271,5 @@ void Settings::GeneralPage::stripEXIFCommentsChanged(int state)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_GeneralPage.cpp"

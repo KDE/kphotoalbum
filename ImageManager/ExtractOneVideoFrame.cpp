@@ -155,3 +155,5 @@ void ExtractOneVideoFrame::markShortVideo(const DB::FileName &fileName)
 
 } // namespace ImageManager
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ExtractOneVideoFrame.cpp"

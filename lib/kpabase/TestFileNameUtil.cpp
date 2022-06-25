@@ -109,3 +109,5 @@ void KPATest::TestFileNameUtil::fileNameFromUserData()
 QTEST_MAIN(KPATest::TestFileNameUtil)
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_TestFileNameUtil.cpp"

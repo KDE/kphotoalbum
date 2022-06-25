@@ -116,3 +116,5 @@ void AnnotationDialog::AreaTagSelectDialog::moveToArea(QPoint areaTopLeft)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_AreaTagSelectDialog.cpp"

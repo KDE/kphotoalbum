@@ -776,3 +776,5 @@ DB::CategoryPtr Settings::TagGroupsPage::getCategoryObject(QString category) con
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_TagGroupsPage.cpp"

@@ -134,3 +134,5 @@ void Settings::SettingsDialog::keyPressEvent(QKeyEvent *)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_SettingsDialog.cpp"

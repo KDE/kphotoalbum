@@ -70,3 +70,5 @@ void Viewer::TaggedArea::setHighlighted(bool highlighted)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_TaggedArea.cpp"

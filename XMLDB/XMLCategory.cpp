@@ -233,3 +233,5 @@ QDate XMLDB::XMLCategory::birthDate(const QString &item) const
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_XMLCategory.cpp"

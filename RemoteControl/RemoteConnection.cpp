@@ -101,3 +101,5 @@ void RemoteConnection::dataReceived()
         }
     }
 }
+
+#include "moc_RemoteConnection.cpp"

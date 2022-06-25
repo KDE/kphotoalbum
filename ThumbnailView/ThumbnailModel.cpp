@@ -561,3 +561,5 @@ int ThumbnailView::ThumbnailModel::stringWidth(const QString &text) const
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ThumbnailModel.cpp"

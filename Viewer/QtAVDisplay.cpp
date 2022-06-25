@@ -153,3 +153,5 @@ void Viewer::QtAVDisplay::displayPosition(quint64 pos)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_QtAVDisplay.cpp"

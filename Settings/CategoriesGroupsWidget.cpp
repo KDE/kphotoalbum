@@ -100,3 +100,5 @@ void Settings::CategoriesGroupsWidget::dropEvent(QDropEvent *event)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_CategoriesGroupsWidget.cpp"

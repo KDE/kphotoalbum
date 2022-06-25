@@ -102,3 +102,5 @@ QString VideoToolBar::format() const
 }
 
 } // namespace Viewer
+
+#include "moc_VideoToolBar.cpp"

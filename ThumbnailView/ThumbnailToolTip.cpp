@@ -112,3 +112,5 @@ void ThumbnailView::ThumbnailToolTip::placeWindow()
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ThumbnailToolTip.cpp"

@@ -120,3 +120,5 @@ bool ThumbnailView::KeyboardEventHandler::keyReleaseEvent(QKeyEvent *event)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_KeyboardEventHandler.cpp"

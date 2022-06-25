@@ -400,3 +400,5 @@ void Export::showUsageDialog()
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_Export.cpp"

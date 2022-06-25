@@ -61,3 +61,5 @@ MiniViewer::MiniViewer(QWidget *parent)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_MiniViewer.cpp"

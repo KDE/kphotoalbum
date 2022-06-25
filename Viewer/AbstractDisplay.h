@@ -6,8 +6,8 @@
 #ifndef ABSTRACTDISPLAY_H
 #define ABSTRACTDISPLAY_H
 
+#include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
-
 #include <qwidget.h>
 
 namespace Viewer

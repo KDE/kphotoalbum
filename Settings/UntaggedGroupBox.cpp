@@ -152,3 +152,5 @@ void Settings::UntaggedGroupBox::categoryRenamed(const QString &oldCategoryName,
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_UntaggedGroupBox.cpp"

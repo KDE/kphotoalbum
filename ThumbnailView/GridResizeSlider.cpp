@@ -121,3 +121,5 @@ void ThumbnailView::GridResizeSlider::setMaximum(int size)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_GridResizeSlider.cpp"

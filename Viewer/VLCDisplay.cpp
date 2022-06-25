@@ -179,3 +179,5 @@ void Viewer::VLCDisplay::restart()
 {
     setImageImpl(m_info, true);
 }
+
+#include "moc_VLCDisplay.cpp"

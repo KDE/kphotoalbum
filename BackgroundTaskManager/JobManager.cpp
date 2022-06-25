@@ -123,3 +123,5 @@ void BackgroundTaskManager::JobManager::togglePaused()
     execute();
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_JobManager.cpp"

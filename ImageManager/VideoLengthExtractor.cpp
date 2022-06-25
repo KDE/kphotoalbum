@@ -84,3 +84,5 @@ void ImageManager::VideoLengthExtractor::processEnded()
     m_process = nullptr;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_VideoLengthExtractor.cpp"

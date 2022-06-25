@@ -94,3 +94,5 @@ bool Browser::BrowserPage::showDuringMovement() const
     return false;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_BrowserPage.cpp"

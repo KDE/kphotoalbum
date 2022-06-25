@@ -81,3 +81,5 @@ void CategoryListView::DragableTreeWidget::dragMoveEvent(QDragMoveEvent *event)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_DragableTreeWidget.cpp"

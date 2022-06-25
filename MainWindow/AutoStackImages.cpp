@@ -313,3 +313,5 @@ void AutoStackImages::accept()
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_AutoStackImages.cpp"

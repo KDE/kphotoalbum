@@ -362,3 +362,5 @@ void Viewer::InfoBox::updateMapForCurrentImage(DB::FileName)
 #endif
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_InfoBox.cpp"

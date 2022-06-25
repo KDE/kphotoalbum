@@ -98,3 +98,5 @@ void Server::lostConnection()
     m_isConnected = false;
     emit disConnected();
 }
+
+#include "moc_Server.cpp"

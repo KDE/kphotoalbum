@@ -60,3 +60,5 @@ void DiscoveryModel::resetImages()
 }
 
 } // namespace RemoteControl
+
+#include "moc_DiscoveryModel.cpp"

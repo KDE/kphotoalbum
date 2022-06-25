@@ -1879,3 +1879,5 @@ bool MainWindow::Window::isDialogDisabled(const QString &dialogId)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_Window.cpp"

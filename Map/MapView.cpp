@@ -589,3 +589,5 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *v
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_MapView.cpp"

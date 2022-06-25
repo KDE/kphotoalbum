@@ -83,3 +83,5 @@ void ThumbnailView::VideoThumbnailCycler::stopCycle()
     m_timer->stop();
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_VideoThumbnailCycler.cpp"

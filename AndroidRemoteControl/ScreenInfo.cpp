@@ -112,3 +112,5 @@ int ScreenInfo::overviewSpacing() const
 }
 
 } // namespace RemoteControl
+
+#include "moc_ScreenInfo.cpp"

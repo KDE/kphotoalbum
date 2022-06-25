@@ -64,3 +64,5 @@ void ImageRow::showImage()
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ImageRow.cpp"

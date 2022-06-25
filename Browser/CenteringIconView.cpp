@@ -106,3 +106,5 @@ int Browser::CenteringIconView::availableHeight() const
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_CenteringIconView.cpp"

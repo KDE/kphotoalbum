@@ -113,3 +113,5 @@ void Viewer::ViewHandler::hideEvent()
     }
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ViewHandler.cpp"

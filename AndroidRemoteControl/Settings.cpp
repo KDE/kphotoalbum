@@ -64,3 +64,5 @@ void Settings::setOverviewIconSize(double size)
 }
 
 } // namespace RemoteControl
+
+#include "moc_Settings.cpp"

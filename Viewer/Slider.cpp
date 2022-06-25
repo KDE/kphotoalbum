@@ -130,3 +130,5 @@ void Slider::mousePressEvent(QMouseEvent *e)
         QSlider::mousePressEvent(e);
     }
 }
+
+#include "moc_Slider.cpp"

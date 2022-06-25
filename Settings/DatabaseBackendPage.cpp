@@ -91,3 +91,5 @@ void Settings::DatabaseBackendPage::markDirty()
     MainWindow::DirtyIndicator::markDirty();
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_DatabaseBackendPage.cpp"

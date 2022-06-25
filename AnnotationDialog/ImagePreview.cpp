@@ -562,3 +562,5 @@ float ImagePreview::distance(QPoint point1, QPoint point2)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ImagePreview.cpp"

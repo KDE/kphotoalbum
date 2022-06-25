@@ -222,3 +222,5 @@ void ImageManager::ThumbnailBuilder::requestCanceled()
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ThumbnailBuilder.cpp"

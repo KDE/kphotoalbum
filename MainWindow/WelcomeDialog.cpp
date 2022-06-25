@@ -189,3 +189,5 @@ void MainWindow::WelcomeDialog::checkFeatures()
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_WelcomeDialog.cpp"

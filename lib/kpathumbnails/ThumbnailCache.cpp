@@ -627,3 +627,5 @@ void ImageManager::ThumbnailCache::setThumbnailSize(int thumbSize)
     }
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ThumbnailCache.cpp"

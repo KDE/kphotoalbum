@@ -60,3 +60,5 @@ void KPATest::TestExifDatabase::trivialTests()
 QTEST_MAIN(KPATest::TestExifDatabase)
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_TestExifDatabase.cpp"

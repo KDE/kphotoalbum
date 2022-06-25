@@ -524,3 +524,5 @@ void Settings::CategoryPage::resetCategoryNamesChanged()
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_CategoryPage.cpp"

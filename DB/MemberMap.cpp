@@ -391,3 +391,5 @@ void DB::MemberMap::setLoading(bool b)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_MemberMap.cpp"

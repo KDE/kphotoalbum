@@ -174,3 +174,5 @@ void KPATest::TestFileName::operators()
 QTEST_MAIN(KPATest::TestFileName)
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_TestFileName.cpp"

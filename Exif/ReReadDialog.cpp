@@ -130,3 +130,5 @@ void Exif::ReReadDialog::warnAboutDates(bool b)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ReReadDialog.cpp"

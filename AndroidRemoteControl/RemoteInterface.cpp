@@ -277,3 +277,5 @@ void RemoteInterface::gotSearchResult(const SearchResult &result)
         m_categoryItems->setImages(result.result);
     }
 }
+
+#include "moc_RemoteInterface.cpp"

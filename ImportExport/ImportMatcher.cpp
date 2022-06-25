@@ -111,3 +111,5 @@ ImportExport::CategoryMatchSetting ImportExport::ImportMatcher::settings()
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ImportMatcher.cpp"

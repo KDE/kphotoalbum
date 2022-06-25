@@ -43,3 +43,5 @@ void Utilities::Process::readStandardOutput()
     m_stdout.append(stream.readAll());
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_Process.cpp"

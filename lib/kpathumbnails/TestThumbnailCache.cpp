@@ -211,3 +211,5 @@ void KPATest::TestThumbnailCache::insertRemove()
 QTEST_MAIN(KPATest::TestThumbnailCache)
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_TestThumbnailCache.cpp"

@@ -146,3 +146,5 @@ void ConnectionIndicator::waitingAnimation()
 }
 
 } // namespace RemoteControl
+
+#include "moc_ConnectionIndicator.cpp"

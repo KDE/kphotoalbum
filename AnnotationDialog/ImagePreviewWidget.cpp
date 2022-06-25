@@ -356,3 +356,5 @@ void AnnotationDialog::ImagePreviewWidget::showEvent(QShowEvent *)
     setToolTip(m_delBut, i18nc("@info:tooltip", "Delete image"), "annotationdialog-delete-image");
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ImagePreviewWidget.cpp"

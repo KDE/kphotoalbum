@@ -103,3 +103,5 @@ void ImageManager::VideoThumbnails::cancelPreviousJobs()
     m_activeRequests.clear();
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_VideoThumbnails.cpp"

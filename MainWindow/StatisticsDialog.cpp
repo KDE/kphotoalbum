@@ -210,3 +210,5 @@ void MainWindow::StatisticsDialog::populateSubTree(const DB::ImageSearchInfo &in
     highlightTotalRow(totalRow);
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_StatisticsDialog.cpp"

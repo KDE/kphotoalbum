@@ -327,3 +327,5 @@ void Settings::BirthdayPage::removeDate()
     m_calendar->setSelectedDate(QDate::currentDate());
     setDate(QDate());
 }
+
+#include "moc_BirthdayPage.cpp"

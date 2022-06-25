@@ -170,3 +170,5 @@ QString localizedEnumName(const VideoBackend backend)
 }
 
 } // namespace Settings
+
+#include "moc_VideoPlayerSelectorDialog.cpp"

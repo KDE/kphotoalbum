@@ -179,3 +179,5 @@ void Viewer::CategoryImageConfig::show()
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_CategoryImageConfig.cpp"

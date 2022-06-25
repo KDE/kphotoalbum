@@ -172,3 +172,5 @@ QPixmap JobModel::statusImage(JobInfo::State state) const
 
 } // namespace BackgroundTaskManager
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_JobModel.cpp"

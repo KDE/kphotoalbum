@@ -198,3 +198,5 @@ void Exif::Grid::setFileName(const DB::FileName &fileName)
     setupUI(Settings::SettingsData::instance()->iptcCharset());
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_Grid.cpp"

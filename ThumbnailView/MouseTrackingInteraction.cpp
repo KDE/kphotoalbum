@@ -57,3 +57,5 @@ void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon()
     }
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_MouseTrackingInteraction.cpp"

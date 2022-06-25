@@ -20,4 +20,5 @@ bool Viewer::AbstractDisplay::setImage(DB::ImageInfoPtr info, bool forward)
     return setImageImpl(info, forward);
 }
 
+#include "moc_AbstractDisplay.cpp"
 // vi:expandtab:tabstop=4 shiftwidth=4:

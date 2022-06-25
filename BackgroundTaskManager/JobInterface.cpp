@@ -49,3 +49,5 @@ void BackgroundTaskManager::JobInterface::dependedJobCompleted()
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_JobInterface.cpp"

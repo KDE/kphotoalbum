@@ -49,3 +49,5 @@ bool CategoryModel::hasData() const
 {
     return rowCount(QModelIndex()) != 0;
 }
+
+#include "moc_CategoryModel.cpp"

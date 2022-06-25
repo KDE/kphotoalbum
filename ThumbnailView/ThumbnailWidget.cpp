@@ -443,3 +443,5 @@ bool ThumbnailView::ThumbnailWidget::isItemUnderCursorSelected() const
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ThumbnailWidget.cpp"

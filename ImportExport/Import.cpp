@@ -106,3 +106,5 @@ ImportExport::Import::~Import()
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_Import.cpp"

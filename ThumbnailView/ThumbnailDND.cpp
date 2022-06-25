@@ -132,3 +132,5 @@ void ThumbnailView::ThumbnailDND::contentsDragEnterEvent(QDragEnterEvent *event)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ThumbnailDND.cpp"

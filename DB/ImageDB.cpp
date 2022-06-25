@@ -206,3 +206,5 @@ Exif::Database *ImageDB::exifDB() const
  */
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ImageDB.cpp"

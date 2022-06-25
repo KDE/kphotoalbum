@@ -86,3 +86,5 @@ Exif::SearchInfo::Range Exif::RangeWidget::range() const
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_RangeWidget.cpp"

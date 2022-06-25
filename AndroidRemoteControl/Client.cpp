@@ -53,3 +53,5 @@ void Client::disconnect()
     m_socket = nullptr;
     emit disconnected();
 }
+
+#include "moc_Client.cpp"

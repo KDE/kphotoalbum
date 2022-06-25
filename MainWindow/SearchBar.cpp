@@ -68,3 +68,5 @@ void MainWindow::SearchBar::setLineEditEnabled(bool enabled)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_SearchBar.cpp"

@@ -192,3 +192,5 @@ void ThumbnailView::ThumbnailFacade::setFreeformFilter(const QString &text)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ThumbnailFacade.cpp"

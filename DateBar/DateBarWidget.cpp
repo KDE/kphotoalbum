@@ -902,3 +902,5 @@ int DateBar::DateBarWidget::stringWidth(const QFontMetrics &fontMetrics, const Q
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_DateBarWidget.cpp"

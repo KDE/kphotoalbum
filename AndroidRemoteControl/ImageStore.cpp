@@ -91,3 +91,5 @@ void ImageStore::clientDeleted()
 }
 
 } // namespace RemoteControl
+
+#include "moc_ImageStore.cpp"

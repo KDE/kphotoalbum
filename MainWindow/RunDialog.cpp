@@ -112,3 +112,5 @@ void MainWindow::RunDialog::show()
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_RunDialog.cpp"

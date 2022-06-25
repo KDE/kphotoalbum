@@ -59,3 +59,5 @@ void MainWindow::SplashScreen::drawContents(QPainter *painter)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_SplashScreen.cpp"

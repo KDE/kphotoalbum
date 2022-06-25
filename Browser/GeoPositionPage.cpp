@@ -81,3 +81,5 @@ bool Browser::GeoPositionPage::showDuringMovement() const
     return true;
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_GeoPositionPage.cpp"

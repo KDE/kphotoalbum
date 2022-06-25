@@ -90,3 +90,5 @@ void StatusIndicator::showToolTip(QHelpEvent *event)
 
 } // namespace BackgroundTaskManager
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_StatusIndicator.cpp"

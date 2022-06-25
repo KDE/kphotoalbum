@@ -42,3 +42,5 @@ void MyImage::setImage(const QImage &image)
         emit imageHeightChanged();
     }
 }
+
+#include "moc_MyImage.cpp"

@@ -55,3 +55,5 @@ void KPATest::TestThumbnailCacheConverter::convertV5toV4()
 QTEST_MAIN(KPATest::TestThumbnailCacheConverter)
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_TestThumbnailCacheConverter.cpp"

@@ -90,3 +90,5 @@ void RemoteImage::requestImage()
     }
     update();
 }
+
+#include "moc_RemoteImage.cpp"

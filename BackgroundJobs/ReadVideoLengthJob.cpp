@@ -53,3 +53,5 @@ void BackgroundJobs::ReadVideoLengthJob::unableToDetermineLength()
     emit completed();
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ReadVideoLengthJob.cpp"

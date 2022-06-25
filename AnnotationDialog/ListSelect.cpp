@@ -909,3 +909,5 @@ void AnnotationDialog::ListSelect::deselectTag(QString tag)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ListSelect.cpp"

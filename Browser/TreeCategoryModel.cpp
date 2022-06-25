@@ -238,3 +238,5 @@ bool Browser::TreeCategoryModel::dropMimeData(const QMimeData *data, Qt::DropAct
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_TreeCategoryModel.cpp"

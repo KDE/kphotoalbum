@@ -224,3 +224,5 @@ bool operator<(const QPair<QString, QPixmap> &a, const QPair<QString, QPixmap> &
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ExternalPopup.cpp"

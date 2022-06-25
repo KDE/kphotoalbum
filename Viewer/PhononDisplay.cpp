@@ -206,3 +206,5 @@ void Viewer::PhononDisplay::relativeSeek(int msec)
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_PhononDisplay.cpp"

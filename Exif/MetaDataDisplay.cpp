@@ -157,3 +157,5 @@ void Exif::MetaDataDisplay::openDir()
 {
     QDesktopServices::openUrl(QUrl::fromLocalFile(m_fileDir));
 }
+
+#include "moc_MetaDataDisplay.cpp"

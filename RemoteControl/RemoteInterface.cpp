@@ -253,3 +253,5 @@ void RemoteInterface::setToken(const ToggleTokenRequest &command)
         info->removeCategoryInfo(tokensCategory->name(), command.token);
     MainWindow::DirtyIndicator::markDirty();
 }
+
+#include "moc_RemoteInterface.cpp"

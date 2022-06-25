@@ -803,3 +803,5 @@ void XMLDB::Database::possibleLoadCompressedCategories(ReaderPtr reader, DB::Ima
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_Database.cpp"

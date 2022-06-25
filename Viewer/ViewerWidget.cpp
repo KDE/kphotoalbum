@@ -1539,3 +1539,5 @@ void Viewer::ViewerWidget::triggerCopyLinkAction(MainWindow::CopyLinkEngine::Act
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
+
+#include "moc_ViewerWidget.cpp"

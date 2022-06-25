@@ -266,6 +266,14 @@ DB::TagInfo *DB::Category::itemForName(const QString &tag)
 
 QPixmap DB::Category::categoryImage(const QString &category, const QString &member, int width, int height) const
 {
+    // The android client needs images for the media category, so provide them from here.
+    if (type() == DB::Category::MediaTypeCategory) {
+        if (member == i18n("Image"))
+            return QIcon::fromTheme(QLatin1String("image-x-generic")).pixmap(QSize(width, height));
+        else
+            return QIcon::fromTheme(QLatin1String("video-x-generic")).pixmap(QSize(width, height));
+    }
+
     QString fileName = fileForCategoryImage(category, member);
     QString key = QString::fromLatin1("%1-%2").arg(width).arg(fileName);
     QPixmap res;

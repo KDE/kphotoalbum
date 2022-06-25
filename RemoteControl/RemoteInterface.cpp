@@ -118,6 +118,15 @@ void RemoteInterface::handleCommand(const RemoteCommand &command)
         m_videoServer->cancelRequest(static_cast<const CancelVideoRequest &>(command).imageId);
 }
 
+namespace
+{
+// On the desktop the category view is a listview, but that looks really bad on android, so force an icon view.
+bool isIconView(const DB::CategoryPtr &category)
+{
+    return category->viewType() == DB::Category::IconView || category->viewType() == DB::Category::ThumbedIconView || category->type() == DB::Category::MediaTypeCategory;
+}
+}
+
 void RemoteInterface::sendCategoryNames(const SearchRequest &search)
 {
     const DB::ImageSearchInfo dbSearchInfo = convert(search.searchInfo);
@@ -128,7 +137,7 @@ void RemoteInterface::sendCategoryNames(const SearchRequest &search)
 
         QMap<QString, DB::CountWithRange> videos = DB::ImageDB::instance()->classify(dbSearchInfo, category->name(), DB::Video);
         const bool enabled = (images.count() + videos.count() > 1);
-        CategoryViewType type = (category->viewType() == DB::Category::IconView || category->viewType() == DB::Category::ThumbedIconView)
+        CategoryViewType type = isIconView(category)
             ? Types::CategoryIconView
             : Types::CategoryListView;
 
@@ -147,7 +156,7 @@ void RemoteInterface::sendCategoryValues(const SearchRequest &search)
 
     Browser::FlatCategoryModel model(category, dbSearchInfo);
 
-    if (category->viewType() == DB::Category::IconView || category->viewType() == DB::Category::ThumbedIconView) {
+    if (isIconView(category)) {
         QList<int> result;
         std::transform(model.m_items.begin(), model.m_items.end(), std::back_inserter(result),
                        [this, categoryName](const QString itemName) {

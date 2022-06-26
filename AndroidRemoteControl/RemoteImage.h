@@ -19,7 +19,7 @@ class RemoteImage : public QQuickPaintedItem
     Q_PROPERTY(int imageId READ imageId WRITE setImageId NOTIFY imageIdChanged)
     Q_PROPERTY(RemoteControl::Types::ViewType type MEMBER m_type NOTIFY typeChanged)
     Q_PROPERTY(QString label MEMBER m_label NOTIFY labelChanged)
-    Q_PROPERTY(QDate date MEMBER m_date NOTIFY dateChanged)
+    Q_PROPERTY(QString searchLabel READ searchLabel NOTIFY searchLabelChanged)
 
 public:
     explicit RemoteImage(QQuickItem *parent = 0);
@@ -29,6 +29,7 @@ public:
     void setLabel(const QString &label);
     void setImage(const QImage &image);
     void setDate(const QDate &date);
+    QString searchLabel() const;
 
 public Q_SLOTS:
     void setImageId(int imageId);
@@ -45,7 +46,7 @@ Q_SIGNALS:
     void typeChanged();
     void labelChanged();
     void sourceSizeChanged();
-    void dateChanged();
+    void searchLabelChanged();
 
 private:
     int m_imageId;

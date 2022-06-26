@@ -40,7 +40,7 @@ PinchArea {
 
         delegate: Item {
             property alias imageId: remoteImage.imageId
-            property alias date: remoteImage.date
+            property alias searchLabel: remoteImage.searchLabel
             Column {
                 x: (root.padding() + grid.cellWidth - width)/2
                 y: grid.cellHeight - height
@@ -80,27 +80,9 @@ PinchArea {
             width: _screenInfo.dotsPerMM * 5
         }
 
-        Rectangle {
-            id: dateInfo
-            width: text.implicitWidth + 30
-            height: text.implicitHeight + 10
-            color: "white"
-            anchors.right: scrollbar.left
-            y: (scrollbar.height-scrollbar.width) * scrollbar.position
-            visible: !isNaN(topDate())
-            opacity: scrollbar.contentItem.opacity > 0.5 ? 1 : scrollbar.contentItem.opacity
-
-            Text {
-                id: text
-                anchors.centerIn: parent
-                text: Qt.formatDate(parent.topDate(), "MMM yyyy")
-            }
-
-            function topDate() {
-                var item = grid.itemAt(grid.contentX, grid.contentY)
-                if (!item) return null
-                return item.date
-            }
+        SearchBarIndicator {
+            scrollbar: scrollbar
+            view: grid
         }
     }
 

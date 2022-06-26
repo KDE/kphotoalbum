@@ -12,8 +12,10 @@ ListView {
     delegate: Text {
         font.pointSize: 30
         width: root.width
-        text: (modelData == "**NONE**") ? "None" : modelData
+        text: (modelData === "**NONE**") ? "None" : modelData
+        readonly property string searchLabel : text[0]
         color: _settings.textColor
+
         MouseArea {
             anchors.fill: parent
             onClicked: root.clicked(modelData)
@@ -21,8 +23,15 @@ ListView {
     }
 
     QQC2.ScrollBar.vertical: QQC2.ScrollBar {
+        id: scrollbar
         width: _screenInfo.dotsPerMM * 5
     }
+
+    SearchBarIndicator {
+        scrollbar : scrollbar
+        view: root
+    }
+
 
     PositionObserver {
         objectName: "listViewPageObserver"

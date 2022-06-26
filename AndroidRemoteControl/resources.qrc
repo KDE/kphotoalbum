@@ -17,5 +17,6 @@
         <file>qml/VideoViewer.qml</file>
         <file>qml/TimeDisplay.qml</file>
         <file>qml/OnePixelTimeDisplay.qml</file>
+        <file>qml/SearchBarIndicator.qml</file>
     </qresource>
 </RCC>

@@ -40,6 +40,7 @@ void RemoteImage::setLabel(const QString &label)
     if (label != m_label) {
         m_label = label;
         Q_EMIT labelChanged();
+        Q_EMIT searchLabelChanged();
     }
 }
 
@@ -54,7 +55,7 @@ void RemoteImage::setImage(const QImage &image)
 void RemoteImage::setDate(const QDate &date)
 {
     m_date = date;
-    emit dateChanged();
+    emit searchLabelChanged();
 }
 
 void RemoteImage::setImageId(int imageId)
@@ -97,6 +98,15 @@ void RemoteImage::requestImage()
             ImageStore::instance().requestImage(this, m_imageId, size(), m_type);
     }
     update();
+}
+
+QString RemoteImage::searchLabel() const
+{
+    if (m_date.isValid())
+        return m_date.toString("MMM yyyy");
+    else if (m_label.length() > 0)
+        return m_label.at(0);
+    return QString();
 }
 
 #include "moc_RemoteImage.cpp"

@@ -33,7 +33,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="sk">KPhotoAlbum</name>
   <name xml:lang="sl">KPhotoAlbum</name>
   <name xml:lang="sv">Kfotoalbum</name>
-  <name xml:lang="tr">KPhotoAlbum</name>
+  <name xml:lang="tr">K Fotoğraf Albümü</name>
   <name xml:lang="uk">KPhotoAlbum</name>
   <name xml:lang="x-test">xxKPhotoAlbumxx</name>
   <name xml:lang="zh-CN">KPhotoAlbum</name>
@@ -62,7 +62,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="sk">KDE softvér na manipuláciu s obrázkami</summary>
   <summary xml:lang="sl">Programska oprema za upravljanje slik v namizju KDE</summary>
   <summary xml:lang="sv">KDE bildhanteringsprogramvara</summary>
-  <summary xml:lang="tr">KDE resim yönetim yazılımı</summary>
+  <summary xml:lang="tr">KDE görsel yönetim yazılımı</summary>
   <summary xml:lang="uk">Програма для керування зображеннями у KDE</summary>
   <summary xml:lang="x-test">xxKDE image management softwarexx</summary>
   <summary xml:lang="zh-CN">KDE 图像管理软件</summary>
@@ -92,7 +92,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="sk">KPhotoAlbum je aplikácia na označovanie a správu kolekcie fotografií a jej prehľadávanie.</p>
     <p xml:lang="sl">KPhotoAlbum je aplikacija za označevanje in upravljanje zbirke fotografij in omogoča iskanje.</p>
     <p xml:lang="sv">Kfotoalbum är ett program för att etikettera och hantera en fotosamling och göra den sökbar.</p>
-    <p xml:lang="tr">KPhotoAlbum resim koleksiyonunu etiketlemek ve yöneten ve onu aranabilir yapan için bir uygulamadır.</p>
+    <p xml:lang="tr">K Fotoğraf Albümü, bir fotoğraf koleksiyonunu etiketlemek, yönetmek ve onu aranabilir kılmak için bir uygulamadır.</p>
     <p xml:lang="uk">KPhotoAlbum — програма для створення міток у збірці фотографій та керування збіркою із можливостями пошуку зображень.</p>
     <p xml:lang="x-test">xxKPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.xx</p>
     <p xml:lang="zh-CN">KPhotoAlbum 是一个用于标记和管理照片收藏并使其可以检索的应用程序。</p>
@@ -125,6 +125,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="sk">Hlavná obrazovka v KPhotoAlbum</caption>
       <caption xml:lang="sl">Glavni zaslon v KPhotoAlbumu</caption>
       <caption xml:lang="sv">Huvudskärmen i Kfotoalbum</caption>
+      <caption xml:lang="tr">K Fotoğraf Albümü ana ekranı</caption>
       <caption xml:lang="uk">Знімок головного вікна KPhotoAlbum</caption>
       <caption xml:lang="x-test">xxThe main screen in KPhotoAlbumxx</caption>
       <caption xml:lang="zh-CN">KPhotoAlbum 的主界面</caption>

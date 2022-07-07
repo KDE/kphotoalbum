@@ -68,6 +68,11 @@ void VideoToolBar::setPosition(int value)
     m_currentOffset->setText(QTime(0, 0, 0).addMSecs(value).toString(format()));
 }
 
+int VideoToolBar::volume() const
+{
+    return m_volumeSlider->value();
+}
+
 void VideoToolBar::setVolume(int volume)
 {
     m_volumeSlider->setValue(volume);

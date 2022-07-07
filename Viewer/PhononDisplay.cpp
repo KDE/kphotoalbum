@@ -12,6 +12,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "PhononDisplay.h"
+#include "Logging.h"
 
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
@@ -187,13 +188,16 @@ void Viewer::PhononDisplay::phononStateChanged(Phonon::State newState, Phonon::S
 void Viewer::PhononDisplay::updateVolume(qreal newVolumeVolt)
 {
     const QSignalBlocker blocker { m_videoToolBar };
-    m_videoToolBar->setVolume(qPow(newVolumeVolt, VOLTAGE_TO_LOUDNESS_EXPONENT) * 100.0);
+    const auto volume = qPow(newVolumeVolt, VOLTAGE_TO_LOUDNESS_EXPONENT) * 100.0;
+    m_videoToolBar->setVolume(volume);
+    qCDebug(ViewerLog) << "Phonon volume is now at" << volume;
 }
 
 void Viewer::PhononDisplay::updateMuteState(bool mute)
 {
     const QSignalBlocker blocker { m_videoToolBar };
     m_videoToolBar->setMuted(mute);
+    qCDebug(ViewerLog) << "Phonon mute state is now" << mute;
 }
 
 void Viewer::PhononDisplay::setVideoWidgetSize()
@@ -237,7 +241,13 @@ void Viewer::PhononDisplay::changeVolume(int newVolumePercent)
 void Viewer::PhononDisplay::setMuted(bool mute)
 {
     QSignalBlocker blocker { m_audioDevice };
+    // Phonon::AudioDevice::setMuted() does not seem to be able to reliably unmute things
+    // luckily, we know the correct value for the volume slider
     m_audioDevice->setMuted(mute);
+    if (!mute) {
+        const auto volumeDb = qPow(m_videoToolBar->volume() / 100.0, LOUDNESS_TO_VOLTAGE_EXPONENT);
+        m_audioDevice->setVolume(volumeDb);
+    }
 }
 
 void Viewer::PhononDisplay::relativeSeek(int msec)

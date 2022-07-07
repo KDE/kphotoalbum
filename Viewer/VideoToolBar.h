@@ -24,6 +24,15 @@ public:
 
     void setPosition(int value);
 
+    /**
+     * @brief volume
+     * @return the audio volume in percent, between 0% and 100%
+     */
+    int volume() const;
+    /**
+     * @brief setVolume sets the audio volume
+     * @param volume in percent, between 0 and 100
+     */
     void setVolume(int volume);
     bool isMuted() const;
     void setMuted(bool b);

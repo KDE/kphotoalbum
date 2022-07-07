@@ -15,10 +15,11 @@ if ( EXISTS "${BASE_DIR}/.git" )
 
 	# if both are set, check if project version and git version match
 	if ( GIT_VERSION AND PROJECT_VERSION )
-		string(FIND "-" "${GIT_VERSION}" _position)
-		# if output of git describe contains no '-', it's a commit hash without a version.
+		string(FIND "${GIT_VERSION}" "-" _position)
+		# if output of git describe contains no '-', it's a commit hash only.
+		# note: this code does not make a special distinction for "-dirty"
 		if ( _position EQUAL -1 )
-			message(STATUS "Git describe returned hash without tag information.")
+			message(STATUS "Git describe returned hash without tag information. Using information from project version.")
 			set(GIT_VERSION "${PROJECT_VERSION}-${GIT_VERSION}")
 		else()
 			string( FIND "${GIT_VERSION}" "${PROJECT_VERSION}" _position )

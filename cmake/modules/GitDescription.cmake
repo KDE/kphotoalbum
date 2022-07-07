@@ -23,8 +23,9 @@
 ##
 
 # SPDX-FileCopyrightText: 2012-2013 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
 # SPDX-License-Identifier: BSD-3-Clause
-
 
 # FindGit is a standard module since cmake 2.8.2
 # CMakeParseArguments is included since cmake 2.8.3
@@ -35,7 +36,7 @@ include ( CMakeParseArguments )
 # Additional arguments to git describe ( e.g. --dirty ) can be passed using the keyword GIT_ARGS.
 # If SEND_ERROR is set, execution is immediately stopped when an error occurs.
 function ( git_get_description DESCVAR )
-	cmake_parse_arguments ( _GGD "SEND_ERROR" "GIT_ARGS" "" "${ARGN}" )
+	cmake_parse_arguments ( _GGD "SEND_ERROR" "" "GIT_ARGS" "${ARGN}" )
 	if ( SEND_ERROR )
 		set ( _severity SEND_ERROR )
 	else()

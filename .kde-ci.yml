@@ -19,3 +19,6 @@ Dependencies:
     'frameworks/purpose': '@stable'
     'graphics/libkdcraw': '@stable'
     'education/marble': '@stable'
+
+Options:
+  require-passing-tests-on: [ Linux ]

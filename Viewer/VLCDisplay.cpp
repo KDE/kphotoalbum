@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2021 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2021 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -34,7 +35,7 @@ Viewer::VLCDisplay::VLCDisplay(QWidget *parent)
     connect(m_poller, &QTimer::timeout, this, &Viewer::VLCDisplay::updateInterface);
     connect(m_videoToolBar, &VideoToolBar::positionChanged, this, &VLCDisplay::setPosition);
     connect(m_videoToolBar, &VideoToolBar::volumeChanged, this, &VLCDisplay::changeVolume);
-    connect(m_videoToolBar, &VideoToolBar::muted, [this](bool b) {
+    connect(m_videoToolBar, &VideoToolBar::muted, this, [this](bool b) {
         libvlc_audio_set_mute(m_player, b);
     });
 }

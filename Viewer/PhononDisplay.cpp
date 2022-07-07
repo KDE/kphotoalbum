@@ -1,10 +1,18 @@
-// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2006-2010, 2012, 2021 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007 Thiago Macieira <thiago@kde.org>
+// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2009 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
+// SPDX-FileCopyrightText: 2013 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2013, 2015-2016, 2019-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2018-2019 Tobias Leupold <tobias.leupold@gmx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "PhononDisplay.h"
+#include "Logging.h"
 
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
@@ -16,6 +24,7 @@
 #include <QGuiApplication>
 #include <QResizeEvent>
 #include <QScreen>
+#include <QtMath>
 #include <kmessagebox.h>
 #include <ktoolbar.h>
 #include <ktoolinvocation.h>
@@ -27,6 +36,12 @@
 #include <phonon/videowidget.h>
 #include <qglobal.h>
 #include <qlayout.h>
+
+namespace
+{
+constexpr qreal LOUDNESS_TO_VOLTAGE_EXPONENT = qreal(0.67);
+constexpr qreal VOLTAGE_TO_LOUDNESS_EXPONENT = qreal(1.0 / LOUDNESS_TO_VOLTAGE_EXPONENT);
+}
 
 Viewer::PhononDisplay::PhononDisplay(QWidget *parent)
     : Viewer::VideoDisplay(parent)
@@ -58,8 +73,11 @@ void Viewer::PhononDisplay::setup()
     connect(m_mediaObject, &Phonon::MediaObject::stateChanged, this, &PhononDisplay::phononStateChanged);
     connect(m_mediaObject, &Phonon::MediaObject::tick, m_videoToolBar, &VideoToolBar::setPosition);
     connect(m_videoToolBar, &VideoToolBar::positionChanged, m_mediaObject, &Phonon::MediaObject::seek);
-    connect(m_videoToolBar, &VideoToolBar::muted, m_audioDevice, &Phonon::AudioOutput::setMuted);
-    connect(m_videoToolBar, &VideoToolBar::volumeChanged, [this](int volume) { m_audioDevice->setVolume(volume / 100.0); });
+    // use proxy slots to avoid a signal-loop between the VideoToolBar and the Phonon::AudioOutput
+    connect(m_videoToolBar, &VideoToolBar::volumeChanged, this, &PhononDisplay::changeVolume);
+    connect(m_audioDevice, &Phonon::AudioOutput::volumeChanged, this, &PhononDisplay::updateVolume);
+    connect(m_videoToolBar, &VideoToolBar::muted, this, &PhononDisplay::setMuted);
+    connect(m_audioDevice, &Phonon::AudioOutput::mutedChanged, this, &PhononDisplay::updateMuteState);
 }
 
 bool Viewer::PhononDisplay::setImageImpl(DB::ImageInfoPtr info, bool /*forward*/)
@@ -167,6 +185,21 @@ void Viewer::PhononDisplay::phononStateChanged(Phonon::State newState, Phonon::S
     }
 }
 
+void Viewer::PhononDisplay::updateVolume(qreal newVolumeVolt)
+{
+    const QSignalBlocker blocker { m_videoToolBar };
+    const auto volume = qPow(newVolumeVolt, VOLTAGE_TO_LOUDNESS_EXPONENT) * 100.0;
+    m_videoToolBar->setVolume(volume);
+    qCDebug(ViewerLog) << "Phonon volume is now at" << volume;
+}
+
+void Viewer::PhononDisplay::updateMuteState(bool mute)
+{
+    const QSignalBlocker blocker { m_videoToolBar };
+    m_videoToolBar->setMuted(mute);
+    qCDebug(ViewerLog) << "Phonon mute state is now" << mute;
+}
+
 void Viewer::PhononDisplay::setVideoWidgetSize()
 {
     if (!m_mediaObject)
@@ -192,12 +225,29 @@ void Viewer::PhononDisplay::setVideoWidgetSize()
     m_videoToolBar->move(0, height() - m_videoToolBar->sizeHint().height());
     m_videoToolBar->resize(width(), m_videoToolBar->sizeHint().height());
     m_videoToolBar->setRange(0, m_mediaObject->totalTime());
-    m_videoToolBar->setVolume(m_audioDevice->volume() * 100.0);
 }
 
 void Viewer::PhononDisplay::rotate(const DB::ImageInfoPtr & /*info*/)
 {
     // Not supported.
+}
+
+void Viewer::PhononDisplay::changeVolume(int newVolumePercent)
+{
+    QSignalBlocker blocker { m_audioDevice };
+    m_audioDevice->setVolume(qPow(newVolumePercent / 100.0, LOUDNESS_TO_VOLTAGE_EXPONENT));
+}
+
+void Viewer::PhononDisplay::setMuted(bool mute)
+{
+    QSignalBlocker blocker { m_audioDevice };
+    // Phonon::AudioDevice::setMuted() does not seem to be able to reliably unmute things
+    // luckily, we know the correct value for the volume slider
+    m_audioDevice->setMuted(mute);
+    if (!mute) {
+        const auto volumeDb = qPow(m_videoToolBar->volume() / 100.0, LOUDNESS_TO_VOLTAGE_EXPONENT);
+        m_audioDevice->setVolume(volumeDb);
+    }
 }
 
 void Viewer::PhononDisplay::relativeSeek(int msec)

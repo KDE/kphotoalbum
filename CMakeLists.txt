@@ -10,6 +10,7 @@
 # SPDX-FileCopyrightText: 2010, 2015, 2019 David Faure <faure@kde.org>
 # SPDX-FileCopyrightText: 2012 Albert Astals Cid <tsdgeos@terra.es>
 # SPDX-FileCopyrightText: 2012-2013 Andreas Neustifter <andreas.neustifter@gmail.com>
+# SPDX-FileCopyrightText: 2012-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 # SPDX-FileCopyrightText: 2014 David Edmundson <kde@davidedmundson.co.uk>
 # SPDX-FileCopyrightText: 2014-2021 Tobias Leupold <tl at l3u dot de>
 # SPDX-FileCopyrightText: 2016 Christoph Feck <cfeck@kde.org>
@@ -18,7 +19,7 @@
 # SPDX-FileCopyrightText: 2017 Ben Cooksley <bcooksley@kde.org>
 # SPDX-FileCopyrightText: 2018, 2020 Robert Krawitz <rlk@alum.mit.edu>
 # SPDX-FileCopyrightText: 2020 Wes Hardaker <kpa@capturedonearth.com>
-# SPDX-FileCopyrightText: 2012-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
@@ -61,7 +62,7 @@ find_package(Qt5 5.10 REQUIRED COMPONENTS Core Sql Xml Widgets Test)
 find_package(Phonon4Qt5)
 find_package(QtAV)
 find_package(LIBVLC)
-find_package(KF5 5.44 REQUIRED COMPONENTS Archive Completion Config CoreAddons DocTools I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons)
+find_package(KF5 5.44 REQUIRED COMPONENTS Archive Completion Config CoreAddons I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons)
 
 find_package(JPEG REQUIRED)
 if(JPEG_FOUND)
@@ -443,7 +444,11 @@ add_subdirectory(icons)
 add_subdirectory(demo)
 add_subdirectory(themes)
 add_subdirectory(scripts)
-add_subdirectory(doc)
+
+option(KPA_ENABLE_HANDBOOK "Create the KPhotoAlbum handbook (warning: currently very outdated)" FALSE)
+if (KPA_ENABLE_HANDBOOK)
+    add_subdirectory(doc)
+endif()
 
 
 ########### next target ###############

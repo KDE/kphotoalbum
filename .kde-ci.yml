@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: None
+# SPDX-License-Identifier: CC0-1.0
+
+Dependencies:
+- 'on': ['@all']
+  'require':
+    'libraries/phonon': '@stable'
+    'frameworks/karchive': '@stable'
+    'frameworks/kcompletion': '@stable'
+    'frameworks/kconfig': '@stable'
+    'frameworks/kcoreaddons': '@stable'
+    'frameworks/ki18n': '@stable'
+    'frameworks/kiconthemes': '@stable'
+    'frameworks/kjobwidgets': '@stable'
+    'frameworks/kio': '@stable'
+    'frameworks/ktextwidgets': '@stable'
+    'frameworks/kxmlgui': '@stable'
+    'frameworks/kwidgetsaddons': '@stable'
+    'frameworks/purpose': '@stable'
+    'graphics/libkdcraw': '@stable'
+    'education/marble': '@stable'

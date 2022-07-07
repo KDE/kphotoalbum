@@ -42,7 +42,7 @@ VideoToolBar::VideoToolBar(QWidget *parent)
     hLay->addWidget(m_volumeSlider);
     m_volumeSlider->setMaximumWidth(200);
     m_volumeSlider->setRange(0, 100);
-    connect(m_volumeSlider, &QSlider::sliderMoved, this, &VideoToolBar::volumeChanged);
+    connect(m_volumeSlider, &QSlider::valueChanged, this, &VideoToolBar::volumeChanged);
     setMuted(false); // force loading the icon
 
     m_percentageLabel = new QLabel;

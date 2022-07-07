@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SPDX-FileCopyrightText: 2019-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2019-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
 # SPDX-License-Identifier: BSD-2-Clause
 
@@ -35,7 +35,7 @@ do
 		then
 			if ! grep -q "SPDX-FileCopyrightText:.*$year" "${filename}"
 			then
-				if ! grep -q "SPDX-FileCopyrightText: *none" "${filename}"
+				if ! grep -iq "SPDX-FileCopyrightText: *none" "${filename}"
 				then
 					affected_files+=("${filename}")
 				fi

@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef SETTINGSDIALOG_H
 #define SETTINGSDIALOG_H
@@ -71,7 +71,6 @@ private:
     Settings::CategoryPage *m_categoryPage;
     Settings::TagGroupsPage *m_tagGroupsPage;
     Settings::ViewerPage *m_viewerPage;
-    Settings::PluginsPage *m_pluginsPage;
     Settings::ExifPage *m_exifPage;
     Settings::DatabaseBackendPage *m_databaseBackendPage;
     Settings::BirthdayPage *m_birthdayPage;

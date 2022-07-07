@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef JOBMANAGER_H
 #define JOBMANAGER_H
@@ -42,7 +42,6 @@ private:
 
     int maxJobCount() const;
 
-    bool m_isRunning;
     QList<JobInterface *> m_active;
     PriorityQueue m_queue;
     bool m_isPaused;

@@ -1,8 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <blackie@kde.org>
-   SPDX-FileCopyrightText: 2009-2010 Wes Hardaker <kpa@capturedonearth.com>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2009-2010 Wes Hardaker <kpa@capturedonearth.com>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef RUNDIALOG_H
 #define RUNDIALOG_H
@@ -28,7 +28,6 @@ protected slots:
     void slotMarkGo();
 
 private:
-    bool *m_ok;
     QLineEdit *m_cmd;
     DB::FileNameList m_fileList;
 };

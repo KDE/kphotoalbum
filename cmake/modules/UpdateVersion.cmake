@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2012-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
 # SPDX-License-Identifier: BSD-3-Clause
-
 
 if ( NOT DEFINED BASE_DIR )
 	message ( FATAL_ERROR "UpdateVersion.cmake: BASE_DIR not set. Please supply base working directory!" )
@@ -10,15 +10,23 @@ endif()
 # Step 1: query git if available:
 if ( EXISTS "${BASE_DIR}/.git" )
 	include ( "${CMAKE_CURRENT_LIST_DIR}/GitDescription.cmake" )
-	git_get_description ( GIT_VERSION GIT_ARGS --dirty )
+	# shallow cloning in gitlab CI requires --always parameter to not fail due to missing tag information:
+	git_get_description ( GIT_VERSION GIT_ARGS --dirty --always)
 
 	# if both are set, check if project version and git version match
 	if ( GIT_VERSION AND PROJECT_VERSION )
-		string( FIND "${GIT_VERSION}" "${PROJECT_VERSION}" _position )
+		string(FIND "-" "${GIT_VERSION}" _position)
+		# if output of git describe contains no '-', it's a commit hash without a version.
+		if ( _position EQUAL -1 )
+			message(STATUS "Git describe returned hash without tag information.")
+			set(GIT_VERSION "${PROJECT_VERSION}-${GIT_VERSION}")
+		else()
+			string( FIND "${GIT_VERSION}" "${PROJECT_VERSION}" _position )
 
-		# allow for position 0 or 1 (e.g. "5.0" in "v5.0")
-		if ( ( _position LESS 0 ) OR ( _position GREATER 1 ) )
-			message( AUTHOR_WARNING "Output of 'git describe' does not match PROJECT_VERSION! (${GIT_VERSION} vs ${PROJECT_VERSION})" )
+			# allow for position 0 or 1 (e.g. "5.0" in "v5.0")
+			if ( ( _position LESS 0 ) OR ( _position GREATER 1 ) )
+				message( AUTHOR_WARNING "Output of 'git describe' does not match PROJECT_VERSION! (${GIT_VERSION} vs ${PROJECT_VERSION})" )
+			endif()
 		endif()
 		unset(_position)
 	endif()

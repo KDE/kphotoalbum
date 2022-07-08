@@ -445,10 +445,7 @@ add_subdirectory(demo)
 add_subdirectory(themes)
 add_subdirectory(scripts)
 
-option(KPA_ENABLE_HANDBOOK "Create the KPhotoAlbum handbook (warning: currently very outdated)" FALSE)
-if (KPA_ENABLE_HANDBOOK)
-    add_subdirectory(doc)
-endif()
+add_subdirectory(doc)
 
 
 ########### next target ###############

@@ -27,7 +27,6 @@
 #include <QtMath>
 #include <kmessagebox.h>
 #include <ktoolbar.h>
-#include <ktoolinvocation.h>
 #include <kxmlguibuilder.h>
 #include <kxmlguiclient.h>
 #include <kxmlguifactory.h>

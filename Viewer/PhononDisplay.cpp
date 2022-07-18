@@ -7,7 +7,7 @@
 // SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
 // SPDX-FileCopyrightText: 2013 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2013, 2015-2016, 2019-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2018-2019 Tobias Leupold <tobias.leupold@gmx.de>
+// SPDX-FileCopyrightText: 2018-2019 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 

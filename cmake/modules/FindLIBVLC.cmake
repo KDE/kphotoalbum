@@ -1,11 +1,15 @@
-
-# CMake module to search for LIBVLC (VLC library)
-# Author: Rohit Yadav <rohityadav89@gmail.com>
-#
+# SPDX-FileCopyrightText: 2014 Tadej Novak <tadej@tano.si>
+# SPDX-FileCopyrightText: Rohit Yadav <rohityadav89@gmail.com>
+# SPDX-License-Identifier: LGPL-3.0-or-later
+# Copied from https://github.com/vlc-qt/vlc-qt/blob/master/cmake/FindLIBVLC.cmake
+# Authorship and license information transformed to SPDX.
+#############################################################################
+# VLC - CMake module
+#############################################################################
 # If it's found it sets LIBVLC_FOUND to TRUE
 # and following variables are set:
-#    LIBVLC_INCLUDE_DIR
-#    LIBVLC_LIBRARY
+#  LIBVLC_INCLUDE_DIR
+#  LIBVLC_LIBRARY
 
 
 # FIND_PATH and FIND_LIBRARY normally search standard locations
@@ -23,6 +27,8 @@ FIND_PATH(LIBVLC_INCLUDE_DIR vlc/vlc.h
     #Mac OS and Contribs
     "${CMAKE_CURRENT_SOURCE_DIR}/contribs/include"
     "${CMAKE_CURRENT_SOURCE_DIR}/contribs/include/vlc"
+    "/Applications/VLC.app/Contents/MacOS/include"
+    "/Applications/VLC.app/Contents/MacOS/include/vlc"
     # Env
     "$ENV{LIB_DIR}/include"
     "$ENV{LIB_DIR}/include/vlc"
@@ -33,8 +39,7 @@ FIND_PATH(LIBVLC_INCLUDE_DIR vlc/vlc.h
     "/usr/local/include/vlc"
     #mingw
     c:/msys/local/include
-    # MacOS install dir
-    /Applications/VLC.app/Contents/MacOS/include
+    "c:/Program Files (x86)/VideoLAN/VLC/sdk/include"
   )
 FIND_PATH(LIBVLC_INCLUDE_DIR PATHS "${CMAKE_INCLUDE_PATH}/vlc" NAMES vlc.h)
 
@@ -47,10 +52,11 @@ FIND_LIBRARY(LIBVLC_LIBRARY NAMES vlc libvlc
     #Mac OS
     "${CMAKE_CURRENT_SOURCE_DIR}/contribs/lib"
     "${CMAKE_CURRENT_SOURCE_DIR}/contribs/plugins"
-    # MacOS install dir
-    /Applications/VLC.app/Contents/MacOS/lib
+    "/Applications/VLC.app/Contents/MacOS/lib"
+    "/Applications/VLC.app/Contents/MacOS/plugins"
     #mingw
     c:/msys/local/lib
+    "c:/Program Files (x86)/VideoLAN/VLC/sdk/lib"
   )
 FIND_LIBRARY(LIBVLC_LIBRARY NAMES vlc libvlc)
 FIND_LIBRARY(LIBVLCCORE_LIBRARY NAMES vlccore libvlccore
@@ -60,10 +66,11 @@ FIND_LIBRARY(LIBVLCCORE_LIBRARY NAMES vlccore libvlccore
     #Mac OS
     "${CMAKE_CURRENT_SOURCE_DIR}/contribs/lib"
     "${CMAKE_CURRENT_SOURCE_DIR}/contribs/plugins"
-    # MacOS install dir
-    /Applications/VLC.app/Contents/MacOS/lib
+    "/Applications/VLC.app/Contents/MacOS/lib"
+    "/Applications/VLC.app/Contents/MacOS/plugins"
     #mingw
     c:/msys/local/lib
+    "c:/Program Files (x86)/VideoLAN/VLC/sdk/lib"
   )
 FIND_LIBRARY(LIBVLCCORE_LIBRARY NAMES vlccore libvlccore)
 
@@ -72,7 +79,6 @@ IF (LIBVLC_INCLUDE_DIR AND LIBVLC_LIBRARY AND LIBVLCCORE_LIBRARY)
 ENDIF (LIBVLC_INCLUDE_DIR AND LIBVLC_LIBRARY AND LIBVLCCORE_LIBRARY)
 
 IF (LIBVLC_FOUND)
-   get_filename_component(LIBVLC_LIB_DIR ${LIBVLC_LIBRARY} PATH)
    IF (NOT LIBVLC_FIND_QUIETLY)
       MESSAGE(STATUS "Found LibVLC include-dir path: ${LIBVLC_INCLUDE_DIR}")
       MESSAGE(STATUS "Found LibVLC library path:${LIBVLC_LIBRARY}")
@@ -83,4 +89,3 @@ ELSE (LIBVLC_FOUND)
       MESSAGE(FATAL_ERROR "Could not find LibVLC")
    ENDIF (LIBVLC_FIND_REQUIRED)
 ENDIF (LIBVLC_FOUND)
-

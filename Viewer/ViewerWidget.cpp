@@ -1354,7 +1354,7 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
                 const auto message = i18n(
                     "<p>KPhotoAlbum has tried out all available video backends, but every one crashed at some point.</p>"
                     "<p>Crash detection is now turned off.</p>");
-                KMessageBox::sorry(parent, message);
+                KMessageBox::error(parent, message);
             }
         }
     }

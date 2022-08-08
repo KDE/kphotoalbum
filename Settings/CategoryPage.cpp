@@ -255,7 +255,7 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem *item)
         || newCategoryName == QString::fromUtf8("Media Type")) {
 
         resetCategory(item);
-        KMessageBox::sorry(this,
+        KMessageBox::error(this,
                            i18n("<p>Can't change the name of category \"%1\" to \"%2\":</p>"
                                 "<p>\"%2\" is a special category name which is reserved and can't "
                                 "be used for a normal category.</p>",
@@ -267,7 +267,7 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem *item)
     // Let's see if we already have a category with this name.
     if (m_categoriesListWidget->findItems(newCategoryName, Qt::MatchExactly).size() > 0) {
         resetCategory(item);
-        KMessageBox::sorry(this,
+        KMessageBox::error(this,
                            i18n("<p>Can't change the name of category \"%1\" to \"%2\":</p>"
                                 "<p>A category with this name already exists.</p>",
                                 m_currentCategory->text(), newCategoryName),
@@ -284,7 +284,7 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem *item)
 
         if (newCategoryName == cat->originalName()) {
             resetCategory(item);
-            KMessageBox::sorry(this,
+            KMessageBox::error(this,
                                i18n("<p>Can't change the name of category \"%1\" to \"%2\":</p>"
                                     "<p>There's a pending rename action on the category \"%2\". "
                                     "Please save this change first.</p>",

@@ -945,12 +945,12 @@ void AnnotationDialog::Dialog::slotSaveWindowSetup()
 
     QFile file(QString::fromLatin1("%1/layout.dat").arg(Settings::SettingsData::instance()->imageDirectory()));
     if (!file.open(QIODevice::WriteOnly)) {
-        KMessageBox::sorry(this,
+        KMessageBox::error(this,
                            i18n("<p>Could not save the window layout.</p>"
                                 "File %1 could not be opened because of the following error: %2",
                                 file.fileName(), file.errorString()));
     } else if (!(file.write(data) && file.flush())) {
-        KMessageBox::sorry(this,
+        KMessageBox::error(this,
                            i18n("<p>Could not save the window layout.</p>"
                                 "File %1 could not be written because of the following error: %2",
                                 file.fileName(), file.errorString()));

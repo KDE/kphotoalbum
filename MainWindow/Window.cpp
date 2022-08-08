@@ -366,7 +366,7 @@ void MainWindow::Window::slotCreateImageStack()
             == KMessageBox::Yes) {
             DB::ImageDB::instance()->unstack(list);
             if (!DB::ImageDB::instance()->stack(list)) {
-                KMessageBox::sorry(this,
+                KMessageBox::error(this,
                                    i18n("Unknown error, stack creation failed."),
                                    i18n("Stacking Error"));
                 return;
@@ -447,7 +447,7 @@ void MainWindow::Window::configureImages(bool oneAtATime)
 {
     const DB::FileNameList &list = selected();
     if (list.isEmpty()) {
-        KMessageBox::sorry(this, i18n("No item is selected."), i18n("No Selection"));
+        KMessageBox::error(this, i18n("No item is selected."), i18n("No Selection"));
     } else {
         DB::ImageInfoList images;
         for (const DB::FileName &fileName : list) {
@@ -573,7 +573,7 @@ void MainWindow::Window::slotAutoStackImages()
 {
     const DB::FileNameList list = selected();
     if (list.isEmpty()) {
-        KMessageBox::sorry(this, i18n("No item is selected."), i18n("No Selection"));
+        KMessageBox::error(this, i18n("No item is selected."), i18n("No Selection"));
         return;
     }
     QPointer<MainWindow::AutoStackImages> stacker = new AutoStackImages(this, list);
@@ -646,7 +646,7 @@ void MainWindow::Window::launchViewer(const DB::FileNameList &inputMediaList, bo
         mediaList = DB::ImageDB::instance()->currentScope(false);
 
     if (mediaList.isEmpty()) {
-        KMessageBox::sorry(this, i18n("There are no images to be shown."));
+        KMessageBox::error(this, i18n("There are no images to be shown."));
         return;
     }
 
@@ -1243,7 +1243,7 @@ void MainWindow::Window::triggerCopyLinkAction(CopyLinkEngine::Action action)
     }
 
     if (selection.isEmpty()) {
-        KMessageBox::sorry(this, i18n("No item is selected."), i18n("No Selection"));
+        KMessageBox::error(this, i18n("No item is selected."), i18n("No Selection"));
         return;
     }
 
@@ -1339,7 +1339,7 @@ void MainWindow::Window::rotateSelected(int angle)
 {
     const DB::FileNameList list = selected();
     if (list.isEmpty()) {
-        KMessageBox::sorry(this, i18n("No item is selected."),
+        KMessageBox::error(this, i18n("No item is selected."),
                            i18n("No Selection"));
     } else {
         for (const DB::FileName &fileName : list) {
@@ -1548,7 +1548,7 @@ void MainWindow::Window::slotShowListOfFiles()
     }
 
     if (out.isEmpty())
-        KMessageBox::sorry(this, i18n("No images matching your input were found."), i18n("No Matches"));
+        KMessageBox::information(this, i18n("No images matching your input were found."), i18n("No Matches"));
     else
         showThumbNails(out);
 }
@@ -1862,7 +1862,7 @@ void MainWindow::Window::showInformation(const QString &msg, const QString &titl
 
 void MainWindow::Window::showSorry(const QString &msg, const QString &title, const QString &)
 {
-    KMessageBox::sorry(this, msg, title);
+    KMessageBox::error(this, msg, title);
 }
 
 void MainWindow::Window::showError(const QString &msg, const QString &title, const QString &)

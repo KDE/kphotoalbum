@@ -509,7 +509,7 @@ void ImagePreview::acceptProposedTag(QPair<QString, QString> tagData, ResizableF
          categoryIt != categories.constEnd(); ++categoryIt) {
         if ((*categoryIt)->name() == tagData.first) {
             if (!(*categoryIt)->positionable()) {
-                KMessageBox::sorry(this, i18n("<p><b>Can't associate tag \"%2\"</b></p>"
+                KMessageBox::error(this, i18n("<p><b>Can't associate tag \"%2\"</b></p>"
                                               "<p>The category \"%1\" the tag \"%2\" belongs to is not positionable.</p>"
                                               "<p>If you want to use this tag, change this in the settings dialog. "
                                               "If this tag shouldn't be in the recognition database anymore, it can "
@@ -523,7 +523,7 @@ void ImagePreview::acceptProposedTag(QPair<QString, QString> tagData, ResizableF
     }
 
     if (!categoryFound) {
-        KMessageBox::sorry(this, i18n("<p><b>Can't associate tag \"%2\"</b></p>"
+        KMessageBox::error(this, i18n("<p><b>Can't associate tag \"%2\"</b></p>"
                                       "<p>The category \"%1\" the tag \"%2\" belongs to does not exist.</p>"
                                       "<p>If you want to use this tag, add this category and mark it as positionable. "
                                       "If this tag shouldn't be in the recognition database anymore, it can "

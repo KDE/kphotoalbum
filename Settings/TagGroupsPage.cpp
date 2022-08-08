@@ -348,7 +348,7 @@ void Settings::TagGroupsPage::slotAddGroup()
     // Let's see if we already have this group
     if (groups.contains(newSubCategory)) {
         // (with the validator working correctly, we should not get to this point)
-        KMessageBox::sorry(this,
+        KMessageBox::error(this,
                            i18nc("@info", "<p>The group \"%1\" already exists.</p>", newSubCategory),
                            i18nc("@title:window", "Cannot add group"));
         return;
@@ -439,7 +439,7 @@ void Settings::TagGroupsPage::slotRenameGroup()
 
     if (groups.contains(newSubCategoryName)) {
         // (with the validator working correctly, we should not get to this point)
-        KMessageBox::sorry(this,
+        KMessageBox::error(this,
                            xi18nc("@info", "<para>Cannot rename group \"%1\" to \"%2\": "
                                            "\"%2\" already exists in category \"%3\"</para>",
                                   m_currentSubCategory,

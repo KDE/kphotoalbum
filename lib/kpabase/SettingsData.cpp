@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -335,10 +336,28 @@ property_copy(infoBoxWidth, setInfoBoxWidth, int, Viewer, 400)
 property_copy(infoBoxHeight, setInfoBoxHeight, int, Viewer, 300)
 property_enum(infoBoxPosition, setInfoBoxPosition, Position, Viewer, Bottom)
 property_enum(viewerStandardSize, setViewerStandardSize, StandardViewSize, Viewer, FullSize)
-property_enum(videoBackend, setVideoBackend, VideoBackend, Viewer, VideoBackend::NotConfigured)
+//property_enum(videoBackend, setVideoBackend, VideoBackend, Viewer, VideoBackend::NotConfigured)
+setValueFunc_(setVideoBackend, VideoBackend, "Viewer", "videoBackend", static_cast<int>(v))
     // clang-format on
 
-    bool SettingsData::smoothScale() const
+    VideoBackend SettingsData::videoBackend() const
+{
+    auto value = static_cast<VideoBackend>(cfgValue("Viewer", "videoBackend", static_cast<int>(VideoBackend::NotConfigured)));
+    // validate input:
+    switch (value) {
+    case VideoBackend::NotConfigured:
+    case VideoBackend::Phonon:
+    case VideoBackend::QtAV:
+    case VideoBackend::VLC:
+        break;
+    default:
+        qCWarning(BaseLog) << "Ignoring invalid configuration value for Viewer.videoBackend...";
+        value = VideoBackend::NotConfigured;
+    }
+    return value;
+}
+
+bool SettingsData::smoothScale() const
 {
     return _smoothScale;
 }

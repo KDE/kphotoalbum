@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -882,7 +883,7 @@ void MainWindow::Window::setupMenuBar()
 #ifdef DOES_STILL_NOT_WORK_IN_KPA4
     a = actionCollection()->addAction(QString::fromLatin1("findImagesWithChangedMD5Sum"), this, SLOT(slotShowImagesWithChangedMD5Sum()));
     a->setText(i18n("Display Images and Videos with Changed MD5 Sum"));
-#endif //DOES_STILL_NOT_WORK_IN_KPA4
+#endif // DOES_STILL_NOT_WORK_IN_KPA4
 
     a = actionCollection()->addAction(QLatin1String("mergeDuplicates"), this, &Window::mergeDuplicates);
     a->setText(i18n("Merge duplicates"));
@@ -1731,7 +1732,7 @@ void MainWindow::Window::slotThumbnailSizeChanged()
     QPixmapCache::clear();
 
     QString thumbnailSizeMsg = i18nc("@info:status",
-                                     //xgettext:no-c-format
+                                     // xgettext:no-c-format
                                      "Thumbnail width: %1px (storage size: %2px)",
                                      Settings::SettingsData::instance()->actualThumbnailSize(),
                                      Settings::SettingsData::instance()->thumbnailSize());
@@ -1858,11 +1859,6 @@ UserFeedback MainWindow::Window::askQuestionYesNo(const QString &msg, const QStr
 void MainWindow::Window::showInformation(const QString &msg, const QString &title, const QString &dialogId)
 {
     KMessageBox::information(this, msg, title, dialogId);
-}
-
-void MainWindow::Window::showSorry(const QString &msg, const QString &title, const QString &)
-{
-    KMessageBox::error(this, msg, title);
 }
 
 void MainWindow::Window::showError(const QString &msg, const QString &title, const QString &)

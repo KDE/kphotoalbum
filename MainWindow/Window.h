@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -7,12 +8,12 @@
 #define MAINWINDOW_WINDOW_H
 #include <DB/Category.h>
 #include <DB/ImageSearchInfo.h>
+#include <MainWindow/CopyLinkEngine.h>
 #include <ThumbnailView/enums.h>
 #include <kpabase/FileNameList.h>
 #include <kpabase/UIDelegate.h>
 #include <kpabase/config-kpa-marble.h>
 #include <kpabase/config-kpa-plugins.h>
-#include <MainWindow/CopyLinkEngine.h>
 
 #include <KXmlGuiWindow>
 #include <QList>
@@ -117,7 +118,6 @@ public:
     DB::UserFeedback askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId) override;
     DB::UserFeedback askQuestionYesNo(const QString &msg, const QString &title, const QString &dialogId) override;
     void showInformation(const QString &msg, const QString &title, const QString &dialogId) override;
-    void showSorry(const QString &msg, const QString &title, const QString &) override;
     void showError(const QString &msg, const QString &title, const QString &) override;
     bool isDialogDisabled(const QString &dialogId) override;
 
@@ -290,7 +290,6 @@ private:
 #endif
     ThumbnailView::FilterWidget *m_filterWidget;
     CopyLinkEngine *m_copyLinkEngine;
-
 };
 
 }

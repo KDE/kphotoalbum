@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2019 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -76,16 +77,6 @@ public:
      */
     void information(const LogMessage logMsg, const QString &msg, const QString &title, const QString &dialogId = QString());
     /**
-     * @brief Displays a message to the user indicating something went wrong.
-     *
-     * Additionally, a non-localized log message is logged within the given log category.
-     * @param logMsg a non-localized log message
-     * @param msg a localized message
-     * @param title a localized title for a possible message window
-     * @param dialogId an ID to identify the dialog (can be used to give the user a "don't ask again" checkbox)
-     */
-    void sorry(const LogMessage logMsg, const QString &msg, const QString &title, const QString &dialogId = QString());
-    /**
      * @brief Displays an error message to the user.
      *
      * Additionally, a non-localized log message is logged within the given log category.
@@ -109,7 +100,6 @@ protected:
     virtual UserFeedback askWarningContinueCancel(const QString &msg, const QString &title, const QString &dialogId) = 0;
     virtual UserFeedback askQuestionYesNo(const QString &msg, const QString &title, const QString &dialogId) = 0;
     virtual void showInformation(const QString &msg, const QString &title, const QString &dialogId) = 0;
-    virtual void showSorry(const QString &msg, const QString &title, const QString &dialogId) = 0;
     virtual void showError(const QString &msg, const QString &title, const QString &dialogId) = 0;
 };
 
@@ -122,7 +112,6 @@ protected:
     UserFeedback askWarningContinueCancel(const QString &, const QString &, const QString &) override { return UserFeedback::SafeDefaultAction; }
     UserFeedback askQuestionYesNo(const QString &, const QString &, const QString &) override { return UserFeedback::SafeDefaultAction; }
     void showInformation(const QString &, const QString &, const QString &) override { }
-    void showSorry(const QString &, const QString &, const QString &) override { }
     void showError(const QString &, const QString &, const QString &) override { }
 
 public:

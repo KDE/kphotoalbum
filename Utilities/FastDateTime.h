@@ -130,7 +130,10 @@ public:
     static FastDateTime fromString(const QString &s, Qt::DateFormat f = Qt::TextDate);
 
 private:
-    Q_DECL_CONSTEXPR bool isOK() const { return m_msecsSinceEpoch > INT64_MIN; }
+    Q_DECL_CONSTEXPR bool isOK() const
+    {
+        return m_msecsSinceEpoch > INT64_MIN;
+    }
     QDateTime m_dateTime;
     qint64 m_msecsSinceEpoch;
 };

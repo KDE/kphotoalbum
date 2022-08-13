@@ -490,7 +490,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
         m_category->addItem(superCategory);
         memberMap.addGroup(m_category->name(), superCategory);
         memberMap.addMemberToGroup(m_category->name(), superCategory, item->text(0));
-        //DB::ImageDB::instance()->setMemberMap( memberMap );
+        // DB::ImageDB::instance()->setMemberMap( memberMap );
         rePopulate();
     } else if (which == newSubcategoryAction) {
         Q_ASSERT(item);
@@ -504,7 +504,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
         m_category->addItem(subCategory);
         memberMap.addGroup(m_category->name(), item->text(0));
         memberMap.addMemberToGroup(m_category->name(), item->text(0), subCategory);
-        //DB::ImageDB::instance()->setMemberMap( memberMap );
+        // DB::ImageDB::instance()->setMemberMap( memberMap );
         m_category->addItem(subCategory);
 
         rePopulate();

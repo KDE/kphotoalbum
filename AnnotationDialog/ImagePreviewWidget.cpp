@@ -217,16 +217,16 @@ void ImagePreviewWidget::slotDeleteImage()
     const DB::FileNameList deleteList = DB::FileNameList() << info.fileName();
 
     int ret = dialog.exec(deleteList);
-    if (ret == QDialog::Rejected) //Delete Dialog rejected, do nothing
+    if (ret == QDialog::Rejected) // Delete Dialog rejected, do nothing
         return;
 
     emit imageDeleted(m_imageList->at(m_current));
 
-    if (!m_nextBut->isEnabled()) //No next image exists, select previous
+    if (!m_nextBut->isEnabled()) // No next image exists, select previous
         m_current--;
 
     if (m_imageList->count() == 0)
-        return; //No images left
+        return; // No images left
 
     setImage(m_imageList->at(m_current));
 }

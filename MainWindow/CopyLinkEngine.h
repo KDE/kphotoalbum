@@ -28,7 +28,6 @@ public slots:
 
 private: // Variables
     QString m_lastTarget;
-
 };
 
 }

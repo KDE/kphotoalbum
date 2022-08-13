@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-//krazy:skip
+// krazy:skip
 /**
  * \namespace Viewer
  * \brief Viewer used for displaying images and videos

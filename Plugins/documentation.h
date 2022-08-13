@@ -3,7 +3,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-//krazy:skip
+// krazy:skip
 /**
   \namespace Plugins
   \brief Implementation of the Purpose interface.

@@ -31,13 +31,13 @@
 #endif
 #include <KRun>
 #include <QApplication>
+#include <QDebug>
 #include <QDir>
 #include <QDomDocument>
 #include <QFile>
 #include <QList>
 #include <QMimeDatabase>
 #include <QStandardPaths>
-#include <QDebug>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -52,7 +52,7 @@ QString readFile(const QString &fileName)
 
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly)) {
-        //KMessageBox::error( nullptr, i18n("Could not open file %1").arg( fileName ) );
+        // KMessageBox::error( nullptr, i18n("Could not open file %1").arg( fileName ) );
         return QString();
     }
 
@@ -62,7 +62,7 @@ QString readFile(const QString &fileName)
 
     return content;
 }
-} //namespace
+} // namespace
 
 HTMLGenerator::Generator::Generator(const Setup &setup, QWidget *parent)
     : QProgressDialog(parent)

@@ -82,7 +82,7 @@ namespace
             return Acceptable;
         }
     };
-} //namespace
+} // namespace
 
 void ConnectionIndicator::contextMenuEvent(QContextMenuEvent *)
 {

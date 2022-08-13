@@ -38,7 +38,6 @@ private: // Variables
     QLabel *m_mimeType;
 
     QString m_fileDir;
-
 };
 
 }

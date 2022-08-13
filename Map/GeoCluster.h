@@ -125,6 +125,6 @@ protected:
  * @param coords
  */
 void extendGeoDataLatLonBox(Marble::GeoDataLatLonBox &box, const Map::GeoCoordinates &coords);
-} //namespace
+} // namespace
 
 #endif

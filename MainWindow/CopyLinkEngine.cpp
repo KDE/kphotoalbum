@@ -15,7 +15,8 @@
 namespace MainWindow
 {
 
-CopyLinkEngine::CopyLinkEngine(QObject *parent) : QObject(parent)
+CopyLinkEngine::CopyLinkEngine(QObject *parent)
+    : QObject(parent)
 {
 }
 

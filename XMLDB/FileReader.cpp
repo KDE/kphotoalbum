@@ -58,7 +58,7 @@ void XMLDB::FileReader::read(const QString &configFile)
     loadImages(reader);
     loadBlockList(reader);
     loadMemberGroups(reader);
-    //loadSettings(reader);
+    // loadSettings(reader);
 
     repairDB();
 

@@ -69,7 +69,7 @@ bool CategoryListView::CheckDropItem::dataDropped(const QMimeData *data)
         memberMap.removeMemberFromGroup(m_listView->category()->name(), oldParent, child);
     }
 
-    //DB::ImageDB::instance()->setMemberMap( memberMap );
+    // DB::ImageDB::instance()->setMemberMap( memberMap );
 
     m_listView->emitItemsChanged();
     return true;

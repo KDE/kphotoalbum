@@ -320,19 +320,19 @@ void Settings::TagGroupsPage::slotAddGroup()
     }
 
     //// reject existing group names:
-    //KStringListValidator validator(groups);
-    //QString newSubCategory = KInputDialog::getText(i18nc("@title:window","New Group"),
-    //                                               i18nc("@label:textbox","Group name:"),
-    //                                               QString() /*value*/,
-    //                                               &ok,
-    //                                               this /*parent*/,
-    //                                               &validator,
-    //                                               QString() /*mask*/,
-    //                                               QString() /*WhatsThis*/,
-    //                                               tags /*completion*/
-    //                                               );
-    // FIXME: KF5-port: QInputDialog does not accept a validator,
-    // and KInputDialog was removed in KF5. -> Reimplement input validation using other stuff
+    // KStringListValidator validator(groups);
+    // QString newSubCategory = KInputDialog::getText(i18nc("@title:window","New Group"),
+    //                                                i18nc("@label:textbox","Group name:"),
+    //                                                QString() /*value*/,
+    //                                                &ok,
+    //                                                this /*parent*/,
+    //                                                &validator,
+    //                                                QString() /*mask*/,
+    //                                                QString() /*WhatsThis*/,
+    //                                                tags /*completion*/
+    //                                                );
+    //  FIXME: KF5-port: QInputDialog does not accept a validator,
+    //  and KInputDialog was removed in KF5. -> Reimplement input validation using other stuff
     QString newSubCategory = QInputDialog::getText(this,
                                                    i18nc("@title:window", "New Group"),
                                                    i18nc("@label:textbox", "Group name:"),

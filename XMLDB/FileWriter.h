@@ -35,7 +35,7 @@ protected:
     void writeCategories(QXmlStreamWriter &, const DB::ImageInfoPtr &info);
     void writeCategoriesCompressed(QXmlStreamWriter &, const DB::ImageInfoPtr &info);
     bool shouldSaveCategory(const QString &categoryName) const;
-    //void saveSettings(QXmlStreamWriter&);
+    // void saveSettings(QXmlStreamWriter&);
 
 private:
     Database *const m_db;

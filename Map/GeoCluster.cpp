@@ -72,7 +72,7 @@ QRectF screenRegion(const Marble::ViewportParams &viewPortParams, const Marble::
                                      left, top);
     return QRectF(left, top, widthPx, heightPx);
 }
-} //namespace
+} // namespace
 
 Marble::GeoDataLatLonAltBox Map::GeoCluster::boundingRegion() const
 {

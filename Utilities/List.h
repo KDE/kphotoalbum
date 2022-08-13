@@ -23,18 +23,18 @@
 namespace Utilities
 {
 /** Merge two lists to one list without duplicating items.
-     *
-     * Returned list will have items of l1 in original order followed
-     * by those items of l2 that are not in l1.
-     */
+ *
+ * Returned list will have items of l1 in original order followed
+ * by those items of l2 that are not in l1.
+ */
 template <class T>
 QList<T> mergeListsUniqly(const QList<T> &l1, const QList<T> &l2);
 
 /** Shuffle a list.
-     *
-     * Returned list will have same items as the given list, but in
-     * random order.
-     */
+ *
+ * Returned list will have same items as the given list, but in
+ * random order.
+ */
 template <class T>
 QList<T> shuffleList(const QList<T> &list);
 }

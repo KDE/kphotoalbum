@@ -1,7 +1,7 @@
-//krazy:skip
-// SPDX-FileCopyrightText: 2009 Jesper K. Pedersen <blackie@kde.org>
+// krazy:skip
+//  SPDX-FileCopyrightText: 2009 Jesper K. Pedersen <blackie@kde.org>
 //
-// SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL OR CC-BY-SA-4.0
+//  SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL OR CC-BY-SA-4.0
 /**
    \page html-themes HTML themes
 

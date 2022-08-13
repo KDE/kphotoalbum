@@ -112,8 +112,8 @@ void ImagePreview::reload()
             setCurrentImage(m_preloader.getImage());
         } else if (m_lastImage.has(m_info.fileName(), m_info.angle())) {
             qCDebug(AnnotationDialogLog) << "reload(): set last image";
-            //don't pass by reference, the additional constructor is needed here
-            //see setCurrentImage for the reason (where m_lastImage is changed...)
+            // don't pass by reference, the additional constructor is needed here
+            // see setCurrentImage for the reason (where m_lastImage is changed...)
             setCurrentImage(QImage(m_lastImage.getImage()));
         } else {
             if (!m_currentImage.has(m_info.fileName(), m_info.angle())) {
@@ -182,9 +182,9 @@ void ImagePreview::pixmapLoaded(ImageManager::ImageRequest *request, const QImag
 
 void ImagePreview::anticipate(DB::ImageInfo &info1)
 {
-    //We cannot call m_preloader.preloadImage right here:
-    //this function is called before reload(), so if we preload here,
-    //the preloader will always be loading the image after the next image.
+    // We cannot call m_preloader.preloadImage right here:
+    // this function is called before reload(), so if we preload here,
+    // the preloader will always be loading the image after the next image.
     m_anticipated.set(info1.fileName(), info1.angle());
 }
 
@@ -244,7 +244,7 @@ void ImagePreview::PreviewLoader::pixmapLoaded(ImageManager::ImageRequest *reque
 
 void ImagePreview::PreviewLoader::preloadImage(const DB::FileName &fileName, int width, int height, int angle)
 {
-    //no need to worry about concurrent access: everything happens in the event loop thread
+    // no need to worry about concurrent access: everything happens in the event loop thread
     reset();
     ImageManager::AsyncLoader::instance()->stop(this);
     ImageManager::ImageRequest *request = new ImageManager::ImageRequest(fileName, QSize(width, height), angle, this);

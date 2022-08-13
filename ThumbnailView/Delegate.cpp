@@ -111,7 +111,7 @@ void ThumbnailView::Delegate::paintCellText(QPainter *painter, const QStyleOptio
     QRect rect = cellGeometryInfo()->cellTextGeometry();
     painter->setPen(widget()->palette().text().color());
 
-    //Qt::TextWordWrap just in case, if the text's width is wider than the cell's width
+    // Qt::TextWordWrap just in case, if the text's width is wider than the cell's width
     painter->drawText(rect.translated(option.rect.topLeft()), Qt::AlignCenter | Qt::TextWordWrap, title);
 }
 

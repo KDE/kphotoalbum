@@ -132,7 +132,7 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
 
     // -------------------------------------------------- Rating
 
-    //ok = ok && (_rating == -1 ) || ( _rating == info->rating() );
+    // ok = ok && (_rating == -1 ) || ( _rating == info->rating() );
     if (m_rating != -1) {
         switch (m_ratingSearchMode) {
         case 1:

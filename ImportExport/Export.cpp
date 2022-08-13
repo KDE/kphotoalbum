@@ -43,7 +43,7 @@ bool isRAW(const DB::FileName &fileName)
 {
     return ImageManager::RAWImageDecoder::isRAW(fileName);
 }
-} //namespace
+} // namespace
 
 void Export::imageExport(const DB::FileNameList &list)
 {

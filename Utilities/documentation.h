@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-//krazy:skip
+// krazy:skip
 /**
   \namespace Utilities
   \brief Collection of a number of utilities used throughout the code

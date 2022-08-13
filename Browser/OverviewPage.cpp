@@ -34,7 +34,7 @@ Browser::OverviewPage::OverviewPage(const Breadcrumb &breadcrumb, const DB::Imag
     : BrowserPage(info, browser)
     , m_breadcrumb(breadcrumb)
 {
-    //updateImageCount();
+    // updateImageCount();
 }
 
 int Browser::OverviewPage::rowCount(const QModelIndex &parent) const

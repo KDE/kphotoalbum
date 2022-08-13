@@ -1,4 +1,4 @@
-//krazy:skip
+// krazy:skip
 
 // SPDX-FileCopyrightText: 2009, 2012 Jesper K. Pedersen <blackie@kde.org>
 //

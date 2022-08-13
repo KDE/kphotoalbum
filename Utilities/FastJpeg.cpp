@@ -32,7 +32,7 @@ static void myjpeg_error_exit(j_common_ptr cinfo)
 
     char buffer[JMSG_LENGTH_MAX];
     (*cinfo->err->format_message)(cinfo, buffer);
-    //kWarning() << buffer;
+    // kWarning() << buffer;
     longjmp(myerr->setjmp_buffer, 1);
 }
 }
@@ -113,7 +113,7 @@ bool Utilities::loadJPEGInternal(QImage *img, FILE *inputFile, QSize *fullSize, 
 
     int imgSize = qMax(cinfo.image_width, cinfo.image_height);
 
-    //libjpeg supports a sort of scale-while-decoding which speeds up decoding
+    // libjpeg supports a sort of scale-while-decoding which speeds up decoding
     int scale = 1;
     if (dim != -1) {
         while (dim * scale * 2 <= imgSize) {
@@ -179,7 +179,7 @@ bool Utilities::loadJPEGInternal(QImage *img, FILE *inputFile, QSize *fullSize, 
 
     jpeg_destroy_decompress(&cinfo);
 
-    //image = img.smoothScale(newx,newy);
+    // image = img.smoothScale(newx,newy);
     return true;
 }
 

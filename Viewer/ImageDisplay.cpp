@@ -272,7 +272,7 @@ void Viewer::ImageDisplay::zoomOut()
     qCDebug(ViewerLog, "zoomOut()");
     QPoint size = (m_zEnd - m_zStart);
 
-    //Bug 150971, Qt tries to render bigger and bigger images (10000x10000), hence running out of memory.
+    // Bug 150971, Qt tries to render bigger and bigger images (10000x10000), hence running out of memory.
     if ((size.x() * size.y() > 25 * 1024 * 1024))
         return;
 

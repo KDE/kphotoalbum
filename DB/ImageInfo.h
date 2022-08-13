@@ -224,8 +224,14 @@ public:
 #endif
 
 protected:
-    void setIsNull(bool b) { m_null = b; }
-    bool isDirty() const { return m_dirty; }
+    void setIsNull(bool b)
+    {
+        m_null = b;
+    }
+    bool isDirty() const
+    {
+        return m_dirty;
+    }
     void markDirty();
     bool updateDateInformation(int mode) const;
 

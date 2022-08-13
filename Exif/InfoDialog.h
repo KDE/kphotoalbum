@@ -51,7 +51,6 @@ private:
     Grid *m_grid;
     QLabel *m_fileNameLabel;
     MetaDataDisplay *m_metaDataDisplay;
-
 };
 
 }

@@ -36,7 +36,7 @@ protected:
     void loadImages(ReaderPtr reader);
     void loadBlockList(ReaderPtr reader);
     void loadMemberGroups(ReaderPtr reader);
-    //void loadSettings(ReaderPtr reader);
+    // void loadSettings(ReaderPtr reader);
 
     DB::ImageInfoPtr load(const DB::FileName &filename, ReaderPtr reader);
     ReaderPtr readConfigFile(const QString &configFile);

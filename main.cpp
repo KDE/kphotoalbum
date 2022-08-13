@@ -81,7 +81,7 @@ int main(int argc, char **argv)
     migrateKDE4Config();
 
     KAboutData aboutData(
-        QStringLiteral("kphotoalbum"), //component name
+        QStringLiteral("kphotoalbum"), // component name
         i18n("KPhotoAlbum"), // display name
         QStringLiteral(KPA_VERSION),
         i18n("KDE Photo Album"), // short description

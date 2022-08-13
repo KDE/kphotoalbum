@@ -12,10 +12,10 @@ namespace DB
 {
 
 /**
-     * NegationCategoryMatcher matches, if (and only if) its child matcher does not match.
-     *
-     * This is not a standard ContainerCategoryMatcher, because it always has exactly one child.
-     */
+ * NegationCategoryMatcher matches, if (and only if) its child matcher does not match.
+ *
+ * This is not a standard ContainerCategoryMatcher, because it always has exactly one child.
+ */
 class NegationCategoryMatcher : public CategoryMatcher
 {
 public:

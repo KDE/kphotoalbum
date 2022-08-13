@@ -1,4 +1,4 @@
-//krazy:skip
+// krazy:skip
 
 // SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2009-2010 Jesper K. Pedersen <blackie@kde.org>

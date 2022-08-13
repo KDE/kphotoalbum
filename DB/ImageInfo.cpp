@@ -173,7 +173,7 @@ void ImageInfo::setFileName(const DB::FileName &fileName)
     if (folderCategory) {
         DB::MemberMap &map = DB::ImageDB::instance()->memberMap();
         createFolderCategoryItem(folderCategory, map);
-        //ImageDB::instance()->setMemberMap( map );
+        // ImageDB::instance()->setMemberMap( map );
     }
 }
 

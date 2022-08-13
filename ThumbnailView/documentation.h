@@ -3,7 +3,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-//krazy:skip
+// krazy:skip
 /**
   \namespace ThumbnailView
   \brief  The classes in this namespace makes up the thumbnail window

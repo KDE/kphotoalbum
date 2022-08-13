@@ -776,8 +776,8 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search(DB::ImageSearchInfo *search
         for (const ListSelect *ls : qAsConst(m_optionList)) {
             m_oldSearch.setCategoryMatchText(ls->category(), ls->text());
         }
-        //FIXME: for the user to search for 0-rated images, he must first change the rating to anything > 0
-        //then change back to 0 .
+        // FIXME: for the user to search for 0-rated images, he must first change the rating to anything > 0
+        // then change back to 0 .
         if (m_ratingChanged)
             m_oldSearch.setRating(m_rating->rating());
 

@@ -21,8 +21,8 @@
 #include <QLayout>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QTextCodec>
 #include <QTabWidget>
+#include <QTextCodec>
 
 using Utilities::StringSet;
 

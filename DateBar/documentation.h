@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
-//krazy:skip
+// krazy:skip
 /**
   \namespace DateBar
   \brief The central class in the DateBar namespace is the DateBarWidget.

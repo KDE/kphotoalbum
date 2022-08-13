@@ -103,7 +103,7 @@ private:
     XMLCategoryCollection m_categoryCollection;
     DB::MemberMap m_members;
     DB::MD5Map m_md5map;
-    //QMap<QString, QString> m_settings;
+    // QMap<QString, QString> m_settings;
 
     DB::StackID m_nextStackId;
     typedef QMap<DB::StackID, DB::FileNameList> StackMap;

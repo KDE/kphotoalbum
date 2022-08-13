@@ -9,22 +9,23 @@
 #include <KLocalizedString>
 
 // Qt includes
-#include <QVBoxLayout>
+#include <QDateTime>
+#include <QDebug>
+#include <QDesktopServices>
+#include <QDir>
+#include <QFileInfo>
 #include <QGridLayout>
 #include <QLabel>
-#include <QFileInfo>
 #include <QLocale>
-#include <QDebug>
-#include <QDateTime>
 #include <QMimeDatabase>
-#include <QDir>
 #include <QUrl>
-#include <QDesktopServices>
+#include <QVBoxLayout>
 
 static QString s_noPerm = QStringLiteral("-");
 static const QMimeDatabase s_mimeDB;
 
-Exif::MetaDataDisplay::MetaDataDisplay(QWidget *parent) : QWidget(parent)
+Exif::MetaDataDisplay::MetaDataDisplay(QWidget *parent)
+    : QWidget(parent)
 {
     auto *mainLayout = new QVBoxLayout(this);
     auto *layout = new QGridLayout;
@@ -95,8 +96,7 @@ void Exif::MetaDataDisplay::setFileName(const QString &fileName)
 
     m_fileDir = info.absoluteDir().canonicalPath();
 
-    m_absolutePath->setText(QStringLiteral("%1<br/><a href=\"#\">%2</a>").arg(
-                                           fileName, i18n("Open directory with a file manager")));
+    m_absolutePath->setText(QStringLiteral("%1<br/><a href=\"#\">%2</a>").arg(fileName, i18n("Open directory with a file manager")));
 
     m_mimeType->setText(s_mimeDB.mimeTypeForFile(fileName).name());
 
@@ -115,24 +115,25 @@ void Exif::MetaDataDisplay::setFileName(const QString &fileName)
 
     const auto permissions = QFile::permissions(fileName);
 
+    // clang-format off
     QString parsedPermissions;
-    parsedPermissions.append(permissions & QFile::ReadOwner
+    parsedPermissions.append((permissions & QFile::ReadOwner)
         ? i18nc("File permission shortcut for \"reading allowed\"", "r") : s_noPerm);
-    parsedPermissions.append(permissions & QFile::WriteOwner
+    parsedPermissions.append((permissions & QFile::WriteOwner)
         ? i18nc("File permission shortcut for \"writing allowed\"", "w") : s_noPerm);
-    parsedPermissions.append(permissions & QFile::ExeOwner
+    parsedPermissions.append((permissions & QFile::ExeOwner)
         ? i18nc("File permission shortcut for \"executing allowed\"", "x") : s_noPerm);
-    parsedPermissions.append(permissions & QFile::ReadGroup
+    parsedPermissions.append((permissions & QFile::ReadGroup)
         ? i18nc("File permission shortcut for \"reading allowed\"", "r") : s_noPerm);
-    parsedPermissions.append(permissions & QFile::WriteGroup
+    parsedPermissions.append((permissions & QFile::WriteGroup)
         ? i18nc("File permission shortcut for \"writing allowed\"", "w") : s_noPerm);
-    parsedPermissions.append(permissions & QFile::ExeGroup
+    parsedPermissions.append((permissions & QFile::ExeGroup)
         ? i18nc("File permission shortcut for \"executing allowed\"", "x") : s_noPerm);
-    parsedPermissions.append(permissions & QFile::ReadOther
+    parsedPermissions.append((permissions & QFile::ReadOther)
         ? i18nc("File permission shortcut for \"reading allowed\"", "r") : s_noPerm);
-    parsedPermissions.append(permissions & QFile::WriteOther
+    parsedPermissions.append((permissions & QFile::WriteOther)
         ? i18nc("File permission shortcut for \"writing allowed\"", "w") : s_noPerm);
-    parsedPermissions.append(permissions & QFile::ExeOther
+    parsedPermissions.append((permissions & QFile::ExeOther)
         ? i18nc("File permission shortcut for \"executing allowed\"", "x") : s_noPerm);
 
     auto hex = 0x0000;
@@ -145,6 +146,8 @@ void Exif::MetaDataDisplay::setFileName(const QString &fileName)
     if (permissions & QFile::ReadOther)  { hex |= QFile::ReadOther;  }
     if (permissions & QFile::WriteOther) { hex |= QFile::WriteOther; }
     if (permissions & QFile::ExeOther)   { hex |= QFile::ExeOther;   }
+    // clang-format on
+
     auto octalPermissions = QString::number(hex, 16);
     octalPermissions = octalPermissions.remove(1, 1).prepend(QStringLiteral("0"));
 

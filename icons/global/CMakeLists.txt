@@ -14,7 +14,7 @@ ecm_install_icons(
 	32-apps-kphotoalbum.png
 	48-apps-kphotoalbum.png
 	64-apps-kphotoalbum.png
-	128-apps-kphotoalbum.png
+	sc-apps-kphotoalbum.svg
 	DESTINATION
 	${KDE_INSTALL_ICONDIR}
 	)

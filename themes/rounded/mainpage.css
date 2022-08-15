@@ -1,3 +1,7 @@
+/*
+ * SPDX-FileCopyrightText: 2004 Teemu Rytilahti <teemu.rytilahti@kde-fi.org>
+ */
+
 BODY { background: #C5918B; text-align:center; } 
 #img { border: 1px solid black; } 
 h1.title { text-align: center; color: black; }

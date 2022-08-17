@@ -5,7 +5,6 @@
 
 install(
     FILES
-    download.png
     imagepage.html
     kphotoalbum.theme
     mainpage.html

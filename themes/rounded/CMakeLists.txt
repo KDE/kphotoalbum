@@ -18,7 +18,6 @@ install(
     leftbar.png
     upbar.png
     upright.png
-    download.png
     DESTINATION "${KDE_INSTALL_DATADIR}/kphotoalbum/themes/rounded"
     )
 

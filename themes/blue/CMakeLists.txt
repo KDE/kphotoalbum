@@ -10,7 +10,6 @@ install(
     kphotoalbum.theme
     mainpage.css
     mainpage.html
-    download.png
     DESTINATION "${KDE_INSTALL_DATADIR}/kphotoalbum/themes/blue"
     )
 

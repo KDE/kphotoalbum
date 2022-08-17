@@ -1,3 +1,7 @@
+/*
+ * SPDX-FileCopyrightText: 2006 Nick Ryan
+ */
+
 BODY { background-color: #333333 !important; color: white; }
 #img { border: 1px solid #A2A2A2; }
 table.thumbnail-table,table.image-table { width: 100%; color: white; text-align:center; }

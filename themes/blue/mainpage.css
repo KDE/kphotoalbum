@@ -1,3 +1,7 @@
+/*
+ * SPDX-FileCopyrightText: 2006 Teemu Rytilahti
+ */
+
 BODY { background-color: #7ba5c1 !important; color: black; }
 #img { border: 1px solid white; }
 table.thumbnail-table,table.image-table { width: 100%; color: white; text-align:center; }

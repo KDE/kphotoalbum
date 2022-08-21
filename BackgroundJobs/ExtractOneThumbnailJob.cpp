@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "ExtractOneThumbnailJob.h"
 
@@ -76,8 +76,8 @@ void ExtractOneThumbnailJob::frameLoaded(const QImage &image)
     } else {
         // Create empty file to avoid that we recheck at next start up.
         QFile file(frameName().absolute());
-        file.open(QFile::WriteOnly);
-        file.close();
+        if (file.open(QFile::WriteOnly))
+            file.close();
     }
     emit completed();
 }

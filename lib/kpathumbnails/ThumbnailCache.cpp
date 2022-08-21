@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -292,19 +293,29 @@ void ImageManager::ThumbnailCache::saveFull() const
 
     const QString realFileName = thumbnailPath(INDEXFILE_NAME);
     QFile::remove(realFileName);
+    bool success = false;
     if (!file.copy(realFileName)) {
         qCWarning(ImageManagerLog, "Failed to copy the temporary file %s to %s", qPrintable(file.fileName()), qPrintable(realFileName));
+    } else {
+        QFile realFile(realFileName);
+        if (!realFile.open(QIODevice::ReadOnly)) {
+            qCWarning(ImageManagerLog, "Could not open the file %s for reading!", qPrintable(realFileName));
+        } else {
+            if (!realFile.setPermissions(QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup | QFile::ReadOther)) {
+                qCWarning(ImageManagerLog, "Could not set permissions on file %s!", qPrintable(realFileName));
+            } else {
+                realFile.close();
+                qCDebug(ImageManagerLog) << "ThumbnailCache::saveFull(): cache saved.";
+                qCDebug(TimingLog, "Saved thumbnail cache with %d images in %f seconds", size(), timer.elapsed() / 1000.0);
+                emit saveComplete();
+                success = true;
+            }
+        }
+    }
+    if (!success) {
         dataLocker.relock();
         m_isDirty = true;
         m_needsFullSave = true;
-    } else {
-        QFile realFile(realFileName);
-        realFile.open(QIODevice::ReadOnly);
-        realFile.setPermissions(QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup | QFile::ReadOther);
-        realFile.close();
-        qCDebug(ImageManagerLog) << "ThumbnailCache::saveFull(): cache saved.";
-        qCDebug(TimingLog, "Saved thumbnail cache with %d images in %f seconds", size(), timer.elapsed() / 1000.0);
-        emit saveComplete();
     }
 }
 
@@ -384,13 +395,16 @@ void ImageManager::ThumbnailCache::load()
 
     QElapsedTimer timer;
     timer.start();
-    file.open(QIODevice::ReadOnly);
+    if (!file.open(QIODevice::ReadOnly)) {
+        qCWarning(ImageManagerLog) << "Could not open thumbnail index file" << file.fileName() << "!";
+        return;
+    }
     QDataStream stream(&file);
     stream >> m_fileVersion;
 
     if (m_fileVersion != preferredFileVersion() && m_fileVersion != THUMBNAIL_FILE_VERSION_MIN) {
         qCWarning(ImageManagerLog) << "Thumbnail index version" << m_fileVersion << "can not be used. Discarding...";
-        return; //Discard cache
+        return; // Discard cache
     }
 
     // We can't allow anything to modify the structure while we're doing this.

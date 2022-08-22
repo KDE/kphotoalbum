@@ -1,5 +1,14 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003-2010, 2012-2013 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2005, 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2006-2008 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007, 2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2009 Hassan Ibraheem <hasan.ibraheem@gmail.com>
+// SPDX-FileCopyrightText: 2011-2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2012-2013, 2015-2016, 2018-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2016, 2018-2020 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2017-2020 Robert Krawitz <rlk@alum.mit.edu>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -419,6 +428,7 @@ void ImageSearchInfo::compile() const
                 // if andMatcher has exactMatch set, but no CategoryMatchers, then
                 // matching "category / None" is what we want:
                 if (andMatcher->mp_elements.count() == 0) {
+                    delete andMatcher;
                     exactMatcher = new DB::NoTagCategoryMatcher(category);
                 } else {
                     ExactCategoryMatcher *noOtherMatcher = new ExactCategoryMatcher(category);
@@ -435,12 +445,16 @@ void ImageSearchInfo::compile() const
                 orMatcher->addElement(andMatcher->mp_elements[0]);
             else if (andMatcher->mp_elements.count() > 1)
                 orMatcher->addElement(andMatcher);
+            else
+                delete andMatcher;
         }
         CategoryMatcher *matcher = nullptr;
         if (orMatcher->mp_elements.count() == 1)
             matcher = orMatcher->mp_elements[0];
         else if (orMatcher->mp_elements.count() > 1)
             matcher = orMatcher;
+        else
+            delete orMatcher;
 
         if (matcher) {
             compiledData.categoryMatchers.append(matcher);

@@ -234,6 +234,7 @@ QByteArray ImageManager::ThumbnailCache::lookupRawData(const DB::FileName &name)
     if (!t || !t->isValid()) {
         t = new ThumbnailMapping(fileNameForIndex(info.fileIndex));
         if (!t->isValid()) {
+            delete t;
             qCWarning(ImageManagerLog, "Failed to map thumbnail file");
             return QByteArray();
         }

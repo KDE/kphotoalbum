@@ -1,7 +1,17 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2005 Steffen Hansen <hansen@kde.org>
+// SPDX-FileCopyrightText: 2005-2010, 2012 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2006-2007, 2009 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2007-2008, 2011-2012 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2010 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2012 Rex Dieter <rdieter@math.unl.edu>
+// SPDX-FileCopyrightText: 2013-2014, 2016, 2018-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2016 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "RawImageDecoder.h"
 
 #include "ImageRequest.h"
@@ -29,13 +39,15 @@ bool RAWImageDecoder::_decode(QImage *img, ImageRequest *request, QSize *fullSiz
     Q_UNUSED(dim)
 
 #ifdef HAVE_KDCRAW
+    QSize size;
+    QSize *fSize = (fullSize) ? fullSize : &size;
     const DB::FileName &imageFile = request->fileSystemFileName();
     QByteArray previewData;
     if (!KDcrawIface::KDcraw::loadEmbeddedPreview(previewData, imageFile.absolute()))
         return false;
 
     // Faster than allowing loadRawPreview to do the decode itself
-    if (!Utilities::loadJPEG(img, previewData, fullSize, dim))
+    if (!Utilities::loadJPEG(img, previewData, fSize, dim))
         return false;
 
     qCDebug(ImageManagerLog) << "Got embedded preview for raw file" << imageFile.relative();
@@ -95,8 +107,7 @@ bool RAWImageDecoder::_decode(QImage *img, ImageRequest *request, QSize *fullSiz
     } else
         qCDebug(ImageManagerLog) << "Embedded raw thumbnail is sufficient...";
 
-    if (fullSize)
-        *fullSize = img->size();
+    *fSize = img->size();
 
     return true;
 #else /* HAVE_KDCRAW */

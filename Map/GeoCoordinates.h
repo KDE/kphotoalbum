@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2018-2019 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -43,9 +44,9 @@ public:
     operator QString() const;
 
 private: // Variables
-    double m_lat;
-    double m_lon;
-    double m_alt;
+    double m_lat = 0;
+    double m_lon = 0;
+    double m_alt = 0;
     bool m_hasCoordinates = false;
     bool m_hasAlt = false;
 };

@@ -1,7 +1,12 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2009 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2009-2010 Hassan Ibraheem <hasan.ibraheem@gmail.com>
+// SPDX-FileCopyrightText: 2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2010, 2012, 2019, 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2013-2016, 2018-2020, 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2019 Tobias Leupold <tl@stonemx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "ImagePreviewWidget.h"
 
 #include <DB/ImageDB.h>
@@ -22,6 +27,7 @@ using namespace AnnotationDialog;
 
 ImagePreviewWidget::ImagePreviewWidget(KActionCollection *actions)
     : QWidget()
+    , m_singleEdit(false)
     , m_actions(actions)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -307,22 +313,6 @@ void ImagePreviewWidget::updateTexts()
                                                "Areas on an image can only be shown in single-image annotation mode."));
         }
     }
-}
-
-void ImagePreviewWidget::setFacedetectButEnabled(bool state)
-{
-    if (state == false) {
-        QApplication::setOverrideCursor(Qt::WaitCursor);
-    } else {
-        QApplication::restoreOverrideCursor();
-    }
-
-    m_facedetectBut->setChecked(!state);
-    m_facedetectBut->setEnabled(state);
-
-    // Better disable the whole widget so that the user can't
-    // change or delete the image during face detection.
-    this->setEnabled(state);
 }
 
 void ImagePreviewWidget::setSearchMode(bool state)

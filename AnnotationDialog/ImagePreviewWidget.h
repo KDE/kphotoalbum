@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2019 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2019 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef IMAGEPREVIEWWIDGET_H
 #define IMAGEPREVIEWWIDGET_H
@@ -39,7 +39,6 @@ public:
     ImagePreview *preview() const;
     bool showAreas() const;
     void canCreateAreas(bool state);
-    void setFacedetectButEnabled(bool state);
     void setSearchMode(bool state);
     void updatePositionableCategories(QList<QString> positionableCategories = QList<QString>());
     QString defaultPositionableCategory() const;
@@ -82,7 +81,6 @@ private: // Variables
     QPushButton *m_rotateRight;
     QPushButton *m_delBut;
     QPushButton *m_copyPreviousBut;
-    QPushButton *m_facedetectBut;
     QPushButton *m_toggleAreasBut;
     QList<DB::ImageInfo> *m_imageList;
     int m_current;

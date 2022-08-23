@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef IMAGEDISPLAY_H
 #define IMAGEDISPLAY_H
@@ -40,7 +40,7 @@ struct ViewPreloadInfo {
     }
     QImage img;
     QSize size;
-    int angle;
+    int angle = 0;
 };
 
 class ImageDisplay : public Viewer::AbstractDisplay, public ImageManager::ImageClientInterface

@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef ANNOTATIONDIALOG_COMPLETABLELINEEDIT_H
 #define ANNOTATIONDIALOG_COMPLETABLELINEEDIT_H
 
@@ -45,9 +46,9 @@ protected:
     void mergePreviousImageSelection();
 
 private:
-    QTreeWidget *m_listView;
+    QTreeWidget *m_listView = nullptr;
     UsageMode m_mode;
-    ListSelect *m_listSelect;
+    ListSelect *m_listSelect = nullptr;
 };
 }
 

@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef IMPORTEXPORT_H
 #define IMPORTEXPORT_H
@@ -56,18 +56,18 @@ protected:
     void copyImages(const DB::FileNameList &list);
 
 private:
-    bool m_internalOk; // used in case m_ok is null
-    bool *m_ok;
-    int m_filesRemaining;
-    int m_steps;
-    QProgressDialog *m_progressDialog;
-    KZip *m_zip;
-    int m_maxSize;
+    bool m_internalOk = false; // used in case m_ok is null
+    bool *m_ok = nullptr;
+    int m_filesRemaining = 0;
+    int m_steps = 0;
+    QProgressDialog *m_progressDialog = nullptr;
+    KZip *m_zip = nullptr;
+    int m_maxSize = 0;
     QString m_subdir;
-    bool m_loopEntered;
+    bool m_loopEntered = false;
     ImageFileLocation m_location;
     Utilities::UniqFilenameMapper m_filenameMapper;
-    bool m_copyingFiles;
+    bool m_copyingFiles = false;
     QString m_destdir;
     const QPointer<QEventLoop> m_eventLoop;
 };

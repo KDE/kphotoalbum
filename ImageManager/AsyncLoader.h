@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef IMAGEMANAGER_ASYNCLOADER_H
 #define IMAGEMANAGER_ASYNCLOADER_H
@@ -65,8 +65,7 @@ private:
     QSet<ImageRequest *> m_currentLoading;
     QImage m_brokenImage;
     QList<ImageLoaderThread *> m_threadList;
-    bool m_exitRequested;
-    int m_exitRequestsProcessed;
+    bool m_exitRequested = false;
 };
 }
 

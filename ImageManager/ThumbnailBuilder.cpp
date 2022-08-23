@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ThumbnailBuilder.h"
 
@@ -43,6 +43,7 @@ ImageManager::ThumbnailBuilder::ThumbnailBuilder(MainWindow::StatusBar *statusBa
     , m_statusBar(statusBar)
     , m_thumbnailCache(thumbnailCache)
     , m_count(0)
+    , m_expectedThumbnails(0)
     , m_isBuilding(false)
     , m_loadedCount(0)
     , m_preloadQueue(nullptr)

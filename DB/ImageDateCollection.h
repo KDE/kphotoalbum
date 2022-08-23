@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef IMAGEDATECOLLECTION_H
 #define IMAGEDATECOLLECTION_H
@@ -22,8 +22,8 @@ public:
     }
     ImageCount() { }
 
-    int mp_exact;
-    int mp_rangeMatch;
+    int mp_exact = 0;
+    int mp_rangeMatch = 0;
 };
 
 class ImageDateCollection : public QSharedData

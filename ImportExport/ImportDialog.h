@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef IMPORT_H
 #define IMPORT_H
@@ -68,20 +68,20 @@ signals:
 
 private:
     DB::ImageInfoList m_images;
-    QLineEdit *m_destinationEdit;
-    KPageWidgetItem *m_destinationPage;
-    KPageWidgetItem *m_categoryMatcherPage;
-    KPageWidgetItem *m_dummy;
-    ImportMatcher *m_categoryMatcher;
+    QLineEdit *m_destinationEdit = nullptr;
+    KPageWidgetItem *m_destinationPage = nullptr;
+    KPageWidgetItem *m_categoryMatcherPage = nullptr;
+    KPageWidgetItem *m_dummy = nullptr;
+    ImportMatcher *m_categoryMatcher = nullptr;
     ImportMatchers m_matchers;
     QList<ImageRow *> m_imagesSelect;
-    QTemporaryFile *m_tmp;
-    bool m_externalSource;
+    QTemporaryFile *m_tmp = nullptr;
+    bool m_externalSource = false;
     QUrl m_kimFile;
-    bool m_hasFilled;
+    bool m_hasFilled = false;
     QUrl m_baseUrl;
-    KimFileReader *m_kimFileReader;
-    MD5CheckPage *m_md5CheckPage;
+    KimFileReader *m_kimFileReader = nullptr;
+    MD5CheckPage *m_md5CheckPage = nullptr;
 };
 }
 

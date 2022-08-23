@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -25,7 +26,10 @@
 using namespace DB;
 
 ImageInfo::ImageInfo()
-    : m_null(true)
+    : m_angle(0)
+    , m_imageOnDisk(OnDisk::Unchecked)
+    , m_null(true)
+    , m_type(anyMediaType)
     , m_rating(-1)
     , m_stackId(0)
     , m_stackOrder(0)
@@ -476,18 +480,16 @@ ImageInfo::ImageInfo(const DB::FileName &fileName,
                      short rating,
                      unsigned int stackId,
                      unsigned int stackOrder)
+    : m_fileName(fileName)
+    , m_label(label)
+    , m_description(description)
+    , m_date(date)
+    , m_angle(angle)
+    , m_md5sum(md5sum)
+    , m_null(false)
+    , m_size(size)
+    , m_type(type)
 {
-    m_fileName = fileName;
-    m_label = label;
-    m_description = description;
-    m_date = date;
-    m_angle = angle;
-    m_md5sum = md5sum;
-    m_size = size;
-    m_imageOnDisk = Unchecked;
-    m_locked = false;
-    m_null = false;
-    m_type = type;
     markDirty();
 
     if (rating > 10)

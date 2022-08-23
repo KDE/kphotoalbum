@@ -119,7 +119,9 @@ void SettingsData::setup(const QString &imageDirectory, DB::UIDelegate &delegate
 }
 
 SettingsData::SettingsData(const QString &imageDirectory, DB::UIDelegate &delegate)
-    : m_UI(delegate)
+    : m_trustTimeStamps(false)
+    , m_hasAskedAboutTimeStamps(false)
+    , m_UI(delegate)
 {
     m_hasAskedAboutTimeStamps = false;
 

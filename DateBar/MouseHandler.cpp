@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "MouseHandler.h"
 
@@ -127,6 +127,7 @@ void DateBar::FocusItemDragHandler::mouseMoveEvent(int x)
 
 DateBar::BarDragHandler::BarDragHandler(DateBarWidget *dateBar)
     : MouseHandler(dateBar)
+    , m_movementOffset(0)
 {
 }
 

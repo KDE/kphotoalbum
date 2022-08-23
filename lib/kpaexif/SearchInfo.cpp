@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -59,11 +60,7 @@ void Exif::SearchInfo::addRangeKey(const Range &range)
 }
 
 Exif::SearchInfo::Range::Range(const QString &key)
-    : isLowerMin(false)
-    , isLowerMax(false)
-    , isUpperMin(false)
-    , isUpperMax(false)
-    , key(key)
+    : key(key)
 {
 }
 

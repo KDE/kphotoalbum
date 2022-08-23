@@ -1,13 +1,11 @@
-/* SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "SelectionInteraction.h"
 
-#include "CellGeometry.h"
 #include "ThumbnailFactory.h"
-#include "ThumbnailModel.h"
 #include "ThumbnailWidget.h"
 
 #include <MainWindow/Window.h>
@@ -21,6 +19,7 @@
 
 ThumbnailView::SelectionInteraction::SelectionInteraction(ThumbnailFactory *factory)
     : ThumbnailComponent(factory)
+    , m_isMouseDragOperation(false)
     , m_dragInProgress(false)
 {
 }

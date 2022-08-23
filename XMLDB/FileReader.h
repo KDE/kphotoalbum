@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef XMLDB_FILEREADER_H
 #define XMLDB_FILEREADER_H
 
@@ -24,6 +25,7 @@ class FileReader
 public:
     FileReader(Database *db)
         : m_db(db)
+        , m_fileVersion(0)
         , m_nextStackId(1)
     {
     }

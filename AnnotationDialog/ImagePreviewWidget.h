@@ -73,22 +73,22 @@ private: // Functions
     void toggleFullscreenPreview();
 
 private: // Variables
-    ImagePreview *m_preview;
-    QPushButton *m_prevBut;
-    QPushButton *m_nextBut;
-    QPushButton *m_toggleFullscreenPreview;
-    QPushButton *m_rotateLeft;
-    QPushButton *m_rotateRight;
-    QPushButton *m_delBut;
-    QPushButton *m_copyPreviousBut;
-    QPushButton *m_toggleAreasBut;
-    QList<DB::ImageInfo> *m_imageList;
-    int m_current;
-    bool m_singleEdit;
-    QLabel *m_defaultAreaCategoryLabel;
-    QComboBox *m_defaultAreaCategory;
-    QWidget *m_controlWidget;
-    KActionCollection *m_actions;
+    ImagePreview *m_preview = nullptr;
+    QPushButton *m_prevBut = nullptr;
+    QPushButton *m_nextBut = nullptr;
+    QPushButton *m_toggleFullscreenPreview = nullptr;
+    QPushButton *m_rotateLeft = nullptr;
+    QPushButton *m_rotateRight = nullptr;
+    QPushButton *m_delBut = nullptr;
+    QPushButton *m_copyPreviousBut = nullptr;
+    QPushButton *m_toggleAreasBut = nullptr;
+    QList<DB::ImageInfo> *m_imageList = nullptr;
+    int m_current = -1;
+    bool m_singleEdit = false;
+    QLabel *m_defaultAreaCategoryLabel = nullptr;
+    QComboBox *m_defaultAreaCategory = nullptr;
+    QWidget *m_controlWidget = nullptr;
+    KActionCollection *m_actions = nullptr;
 };
 }
 

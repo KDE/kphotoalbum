@@ -43,8 +43,12 @@ public:
     public:
         Range() { }
         explicit Range(const QString &key);
-        bool isLowerMin, isLowerMax, isUpperMin, isUpperMax;
-        double min, max;
+        bool isLowerMin = false;
+        bool isLowerMax = false;
+        bool isUpperMin = false;
+        bool isUpperMax = false;
+        double min = 0;
+        double max = 0;
         QString key;
     };
 

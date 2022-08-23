@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef HTMLGENERATOR_SETUP_H
 #define HTMLGENERATOR_SETUP_H
 
@@ -80,19 +81,19 @@ private:
     QString m_baseURL;
     QString m_destURL;
     QString m_outputDir;
-    int m_thumbSize;
+    int m_thumbSize = -1;
     QString m_copyright;
-    bool m_date;
+    bool m_date = false;
     QString m_description;
-    int m_numOfCols;
-    bool m_generateKimFile;
+    int m_numOfCols = 0;
+    bool m_generateKimFile = false;
     QString m_theme;
     QMap<QString, bool> m_includeCategory;
     QList<ImageSizeCheckBox *> m_resolutions;
     DB::FileNameList m_images;
-    bool m_inlineMovies;
-    bool m_html5Video;
-    bool m_html5VideoGenerate;
+    bool m_inlineMovies = false;
+    bool m_html5Video = false;
+    bool m_html5VideoGenerate = false;
 };
 
 }

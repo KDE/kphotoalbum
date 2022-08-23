@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef VIDEOSHOOTER_H
 #define VIDEOSHOOTER_H
@@ -28,10 +28,10 @@ private slots:
 private:
     static VideoShooter *s_instance;
     explicit VideoShooter();
-    ViewerWidget *m_viewer;
-    bool m_infoboxVisible;
+    ViewerWidget *m_viewer = nullptr;
+    bool m_infoboxVisible = false;
     DB::ImageInfoPtr m_info;
-    bool m_wasPlaying;
+    bool m_wasPlaying = false;
 };
 
 }

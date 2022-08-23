@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -66,6 +67,8 @@ QString readFile(const QString &fileName)
 
 HTMLGenerator::Generator::Generator(const Setup &setup, QWidget *parent)
     : QProgressDialog(parent)
+    , m_waitCounter(0)
+    , m_total(0)
     , m_tempDirHandle()
     , m_tempDir(m_tempDirHandle.path())
     , m_hasEnteredLoop(false)

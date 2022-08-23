@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ViewHandler.h"
 
@@ -20,6 +20,8 @@ Viewer::ViewHandler::ViewHandler(Viewer::ImageDisplay *display)
     : QObject(display)
     , m_scale(false)
     , m_pan(false)
+    , m_errorX(0)
+    , m_errorY(0)
     , m_rubberBand(new QRubberBand(QRubberBand::Rectangle, display))
     , m_display(display)
 {

@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "AsyncLoader.h"
 
@@ -58,7 +58,6 @@ void ImageManager::AsyncLoader::init()
     if (desiredThreads == 0) {
         desiredThreads = qMax(1, qMin(16, QThread::idealThreadCount() - 1));
     }
-    m_exitRequested = false;
 
     for (int i = 0; i < desiredThreads; ++i) {
         ImageLoaderThread *imageLoader = new ImageLoaderThread();

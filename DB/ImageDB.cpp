@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -120,6 +121,7 @@ UIDelegate &DB::ImageDB::uiDelegate() const
 ImageDB::ImageDB(UIDelegate &delegate)
     : m_UI(delegate)
     , m_exifDB(std::make_unique<Exif::Database>(::Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db"), delegate))
+    , m_includeFuzzyCounts(false)
 {
 }
 

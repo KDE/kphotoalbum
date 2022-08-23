@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "GridResizeInteraction.h"
 
 #include "CellGeometry.h"
@@ -19,6 +20,9 @@
 #include <QScrollBar>
 ThumbnailView::GridResizeInteraction::GridResizeInteraction(ThumbnailFactory *factory)
     : ThumbnailComponent(factory)
+    , m_origWidth(0)
+    , m_resizing(false)
+    , m_currentRow(0)
 {
 }
 

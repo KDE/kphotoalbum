@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef IMAGEINFO_H
 #define IMAGEINFO_H
@@ -57,7 +57,7 @@ enum class FileInformation {
 
 enum MediaType { Image = 0x01,
                  Video = 0x02 };
-const MediaType anyMediaType = MediaType(Image | Video);
+constexpr MediaType anyMediaType = MediaType(Image | Video);
 typedef unsigned int StackID;
 
 typedef QHash<QString, QRect> PositionTags;
@@ -249,16 +249,16 @@ private:
     enum OnDisk { YesOnDisk,
                   NoNotOnDisk,
                   Unchecked };
-    mutable OnDisk m_imageOnDisk;
+    mutable OnDisk m_imageOnDisk = OnDisk::Unchecked;
     MD5 m_md5sum;
-    bool m_null;
+    bool m_null = true;
     QSize m_size;
     MediaType m_type;
     short m_rating;
     StackID m_stackId;
     unsigned int m_stackOrder;
     int m_videoLength;
-    bool m_isMatched;
+    bool m_isMatched = false;
     int m_matchGeneration;
 #ifdef HAVE_MARBLE
     mutable Map::GeoCoordinates m_coordinates;
@@ -266,10 +266,10 @@ private:
 #endif
 
     // Cache information
-    bool m_locked;
+    bool m_locked = false;
 
     // Will be set to true after every change
-    bool m_dirty;
+    bool m_dirty = false;
 };
 }
 

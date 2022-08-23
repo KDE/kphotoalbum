@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -143,7 +144,7 @@ bool MainWindow::FeatureDialog::hasAllFeaturesAvailable()
 
 struct Data {
     Data() { }
-    Data(const QString &title, const QString tag, bool featureFound)
+    Data(const QString &title, const QString &tag, bool featureFound)
         : title(title)
         , tag(tag)
         , featureFound(featureFound)
@@ -151,7 +152,7 @@ struct Data {
     }
     QString title;
     QString tag;
-    bool featureFound;
+    bool featureFound = false;
 };
 
 QString MainWindow::FeatureDialog::featureString()

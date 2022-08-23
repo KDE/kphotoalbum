@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -173,11 +174,11 @@ signals:
 
 protected:
     ImageDB(UIDelegate &delegate);
-    ImageDate m_selectionRange;
-    bool m_includeFuzzyCounts;
     ImageInfoList m_clipboard;
     UIDelegate &m_UI;
     std::unique_ptr<Exif::Database> m_exifDB;
+    ImageDate m_selectionRange;
+    bool m_includeFuzzyCounts;
 
 protected slots:
     virtual void lockDB(bool lock, bool exclude) = 0;

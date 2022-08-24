@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef IMAGEPREVIEW_H
 #define IMAGEPREVIEW_H
@@ -100,24 +100,24 @@ private:
     QString m_fileName;
     PreviewImage m_currentImage, m_lastImage;
     PreloadInfo m_anticipated;
-    int m_angle;
-    int m_minX;
-    int m_maxX;
-    int m_minY;
-    int m_maxY;
+    int m_angle = 0;
+    int m_minX = 0;
+    int m_maxX = 0;
+    int m_minY = 0;
+    int m_maxY = 0;
     QPoint m_areaStart;
     QPoint m_areaEnd;
     QPoint m_currentPos;
-    QRubberBand *m_selectionRect;
-    double m_scaleWidth;
-    double m_scaleHeight;
-    double m_aspectRatio;
-    QTimer *m_reloadTimer;
+    QRubberBand *m_selectionRect = nullptr;
+    double m_scaleWidth = 0;
+    double m_scaleHeight = 0;
+    double m_aspectRatio = 1;
+    QTimer *m_reloadTimer = nullptr;
+    bool m_areaCreationEnabled = false;
+    QImage m_fullSizeImage;
 
     void createNewArea(QRect geometry, QRect actualGeometry);
     QRect rotateArea(QRect originalAreaGeometry, int angle);
-    bool m_areaCreationEnabled;
-    QImage m_fullSizeImage;
     void fetchFullSizeImage();
     bool fuzzyAreaExists(QList<QRect> &existingAreas, QRect area);
     float distance(QPoint point1, QPoint point2);

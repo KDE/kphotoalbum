@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef CELLGEOMETRY_H
 #define CELLGEOMETRY_H
 #include "ThumbnailComponent.h"
@@ -39,8 +40,8 @@ private:
     void calculateTextHeight();
     void calculateCellTextGeometry();
 
-    bool m_cacheInitialized;
-    int m_textHeight;
+    bool m_cacheInitialized = false;
+    int m_textHeight = 0;
     QSize m_cellSize;
     QRect m_cellTextGeometry;
 };

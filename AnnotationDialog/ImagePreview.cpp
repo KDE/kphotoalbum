@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ImagePreview.h"
 
@@ -25,10 +25,7 @@ using namespace AnnotationDialog;
 
 ImagePreview::ImagePreview(QWidget *parent)
     : QLabel(parent)
-    , m_selectionRect(0)
-    , m_aspectRatio(1)
     , m_reloadTimer(new QTimer(this))
-    , m_areaCreationEnabled(false)
 {
     setAlignment(Qt::AlignCenter);
     setMinimumSize(64, 64);

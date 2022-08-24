@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef INFOBOXRESIZER_H
 #define INFOBOXRESIZER_H
 
@@ -25,11 +26,11 @@ public:
 
 private:
     InfoBox *m_infoBox;
-    bool m_left;
-    bool m_right;
-    bool m_top;
-    bool m_bottom;
-    bool m_active;
+    bool m_left = false;
+    bool m_right = false;
+    bool m_top = false;
+    bool m_bottom = false;
+    bool m_active = false;
 };
 
 }

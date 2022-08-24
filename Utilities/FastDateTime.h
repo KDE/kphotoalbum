@@ -31,11 +31,8 @@ public:
     FastDateTime();
     FastDateTime(const QDate &d, const QTime &t, Qt::TimeSpec spec = Qt::LocalTime);
     FastDateTime(const QDate &d);
-    FastDateTime(const FastDateTime &other)
-        : m_dateTime(other.m_dateTime)
-        , m_msecsSinceEpoch(other.m_msecsSinceEpoch)
-    {
-    }
+    FastDateTime(const FastDateTime &other) = default;
+    FastDateTime(FastDateTime &&other) = default;
     // Needed for QDate(Y, M, D).startOfDay()
     FastDateTime(const QDateTime &other);
     ~FastDateTime() {};
@@ -112,14 +109,8 @@ public:
         else
             return m_dateTime.toSecsSinceEpoch();
     }
-    FastDateTime &operator=(const Utilities::FastDateTime &other) noexcept
-    {
-        if (&other != this) {
-            m_dateTime = other.m_dateTime;
-            m_msecsSinceEpoch = other.m_msecsSinceEpoch;
-        }
-        return *this;
-    }
+    FastDateTime &operator=(const Utilities::FastDateTime &other) = default;
+    FastDateTime &operator=(Utilities::FastDateTime &&other) = default;
 
     Q_REQUIRED_RESULT FastDateTime addDays(qint64 days) const;
     Q_REQUIRED_RESULT FastDateTime addMonths(qint64 months) const;

@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -79,7 +80,9 @@ void XMLDB::FileReader::createSpecialCategories()
     if (m_db->m_categoryCollection.categoryForName(m_folderCategory->name()))
         m_db->m_categoryCollection.removeCategory(m_folderCategory->name());
     m_db->m_categoryCollection.addCategory(m_folderCategory);
-    dynamic_cast<XMLCategory *>(m_folderCategory.data())->setShouldSave(false);
+    auto xmlCategory = dynamic_cast<XMLCategory *>(m_folderCategory.data());
+    Q_ASSERT(xmlCategory);
+    xmlCategory->setShouldSave(false);
 
     // Setup the "Tokens" category
 

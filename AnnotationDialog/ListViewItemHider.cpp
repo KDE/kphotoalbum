@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 // Qt includes
 #include <QTreeWidget>
@@ -62,8 +62,9 @@ bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown(QTreeWidgetItem
     // Be sure not to display the "untagged image" tag if configured
     if (DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()
         && !Settings::SettingsData::instance()->untaggedImagesTagVisible()) {
-        if (Settings::SettingsData::instance()->untaggedCategory()
-            == dynamic_cast<ListSelect *>(item->treeWidget()->parent())->category()) {
+        const auto listSelect = dynamic_cast<ListSelect *>(item->treeWidget()->parent());
+        Q_ASSERT(listSelect);
+        if (Settings::SettingsData::instance()->untaggedCategory() == listSelect->category()) {
             if (item->text(0) == Settings::SettingsData::instance()->untaggedTag()) {
                 return false;
             }

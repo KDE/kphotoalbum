@@ -231,6 +231,7 @@ void ImageManager::AsyncLoader::customEvent(QEvent *ev)
         delete request;
     } else if (ev->type() == CANCELEVENTID) {
         CancelEvent *cancelEvent = dynamic_cast<CancelEvent *>(ev);
+        Q_ASSERT(cancelEvent);
         cancelEvent->request()->client()->requestCanceled();
     }
 }

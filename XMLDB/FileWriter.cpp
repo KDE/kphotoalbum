@@ -456,7 +456,9 @@ bool XMLDB::FileWriter::shouldSaveCategory(const QString &categoryName) const
         return false;
     }
 
-    const bool shouldSave = dynamic_cast<XMLCategory *>(m_db->m_categoryCollection.categoryForName(categoryName).data())->shouldSave();
+    const auto category = dynamic_cast<XMLCategory *>(m_db->m_categoryCollection.categoryForName(categoryName).data());
+    Q_ASSERT(category);
+    const bool shouldSave = category->shouldSave();
     cache.insert(categoryName, shouldSave);
     return shouldSave;
 }

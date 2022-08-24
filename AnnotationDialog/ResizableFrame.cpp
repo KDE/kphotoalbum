@@ -42,7 +42,9 @@ AnnotationDialog::ResizableFrame::ResizableFrame(QWidget *parent)
     , m_dialog(nullptr)
 {
     m_preview = dynamic_cast<ImagePreview *>(parent);
+    Q_ASSERT(m_preview);
     m_previewWidget = dynamic_cast<ImagePreviewWidget *>(m_preview->parentWidget());
+    Q_ASSERT(m_previewWidget);
 
     setFrameShape(QFrame::Box);
     setMouseTracking(true);

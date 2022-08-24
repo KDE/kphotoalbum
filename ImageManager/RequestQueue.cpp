@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "RequestQueue.h"
 
 #include "AsyncLoader.h"
@@ -49,7 +50,7 @@ ImageManager::ImageRequest *ImageManager::RequestQueue::popNext()
             }
         }
         if (AsyncLoader::instance()->isExiting())
-            return new ImageRequest(true);
+            return new ImageRequest(ImageRequest::RequestType::ExitRequest);
     } while (it != m_queues.begin());
 
     return nullptr;

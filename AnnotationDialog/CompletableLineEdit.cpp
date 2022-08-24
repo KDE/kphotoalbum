@@ -1,13 +1,13 @@
 // SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "CompletableLineEdit.h"
 
 #include "ListSelect.h"
-#include "ResizableFrame.h"
 
 #include <QKeyEvent>
 #include <QRegExp>

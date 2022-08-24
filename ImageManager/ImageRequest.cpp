@@ -1,13 +1,14 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "ImageRequest.h"
 
 ImageManager::ImageRequest::ImageRequest(const DB::FileName &fileName,
                                          const QSize &size, int angle,
                                          ImageManager::ImageClientInterface *client)
-    : m_null(false)
+    : m_type(RequestType::ImageRequest)
     , m_fileName(fileName)
     , m_width(size.width())
     , m_height(size.height())
@@ -17,19 +18,28 @@ ImageManager::ImageRequest::ImageRequest(const DB::FileName &fileName,
     , m_loadedOK(false)
     , m_dontUpScale(false)
     , m_isThumbnailRequest(false)
-    , m_isExitRequest(false)
     , m_imageIsPreRotated(false)
 {
 }
 
-ImageManager::ImageRequest::ImageRequest(bool requestExit)
-    : m_isExitRequest(requestExit)
+ImageManager::ImageRequest::ImageRequest(RequestType type)
+    : m_type(type)
+    , m_width(0)
+    , m_height(0)
+    , m_client(nullptr)
+    , m_angle(0)
+    , m_priority(Priority::LastPriority)
+    , m_loadedOK(false)
+    , m_dontUpScale(false)
+    , m_isThumbnailRequest(false)
+    , m_imageIsPreRotated(false)
 {
+    Q_ASSERT(type == RequestType::ExitRequest);
 }
 
 bool ImageManager::ImageRequest::isExitRequest() const
 {
-    return m_isExitRequest;
+    return m_type == RequestType::ExitRequest;
 }
 
 bool ImageManager::ImageRequest::imageIsPreRotated() const
@@ -45,11 +55,6 @@ void ImageManager::ImageRequest::setImageIsPreRotated(bool imageIsPreRotated)
 bool ImageManager::ImageRequest::loadedOK() const
 {
     return m_loadedOK;
-}
-
-bool ImageManager::ImageRequest::isNull() const
-{
-    return m_null;
 }
 
 int ImageManager::ImageRequest::width() const
@@ -80,7 +85,7 @@ bool ImageManager::ImageRequest::operator<(const ImageRequest &other) const
 bool ImageManager::ImageRequest::operator==(const ImageRequest &other) const
 {
     // Compare all atributes but the pixmap.
-    return (m_null == other.m_null && databaseFileName() == other.databaseFileName() && m_width == other.m_width && m_height == other.m_height && m_angle == other.m_angle && m_client == other.m_client && m_priority == other.m_priority);
+    return (m_type == other.m_type && databaseFileName() == other.databaseFileName() && m_width == other.m_width && m_height == other.m_height && m_angle == other.m_angle && m_client == other.m_client && m_priority == other.m_priority);
 }
 
 ImageManager::ImageClientInterface *ImageManager::ImageRequest::client() const

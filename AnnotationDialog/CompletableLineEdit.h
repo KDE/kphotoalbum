@@ -47,7 +47,7 @@ protected:
 
 private:
     QTreeWidget *m_listView = nullptr;
-    UsageMode m_mode;
+    UsageMode m_mode = UsageMode::InputSingleImageConfigMode;
     ListSelect *m_listSelect = nullptr;
 };
 }

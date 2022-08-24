@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2013-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2013-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef XMLREADER_H
 #define XMLREADER_H
@@ -26,6 +26,7 @@ struct ElementInfo {
     }
     ElementInfo()
         : isValid(false)
+        , isStartToken(false)
     {
     }
 

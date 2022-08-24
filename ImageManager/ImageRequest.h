@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef IMAGEREQUEST_H
 #define IMAGEREQUEST_H
 #include "enums.h"
@@ -26,11 +27,19 @@ class ImageClientInterface;
 class ImageRequest
 {
 public:
+    enum class RequestType {
+        ImageRequest,
+        ExitRequest
+    };
     ImageRequest(const DB::FileName &fileName, const QSize &size, int angle, ImageClientInterface *client);
     virtual ~ImageRequest() { }
-    ImageRequest(bool requestExit);
-
-    bool isNull() const;
+    /**
+     * @brief Create a special request.
+     * This constructor can be used to create an ExitRequest.
+     * You must not use this constructor with a request Type of ImageRequest - use the file name based constructor for an actual ImageRequest instead.
+     * @param type ExitRequest
+     */
+    ImageRequest(RequestType type);
 
     /** This is the filename that the media is known by in the database.
         See \ref fileSystemFileName for details
@@ -82,7 +91,7 @@ public:
     void setImageIsPreRotated(bool imageIsPreRotated);
 
 private:
-    bool m_null;
+    const RequestType m_type;
     DB::FileName m_fileName;
 
     int m_width;
@@ -94,7 +103,6 @@ private:
     bool m_loadedOK;
     bool m_dontUpScale;
     bool m_isThumbnailRequest;
-    bool m_isExitRequest;
     bool m_imageIsPreRotated;
 };
 

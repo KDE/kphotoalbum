@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2014-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef CATEGORIESGROUPSWIDGET_H
 #define CATEGORIESGROUPSWIDGET_H
@@ -30,10 +30,10 @@ private: // Functions
     void updateHighlight(QTreeWidgetItem *target);
 
 private: // Variables
-    TagGroupsPage *m_tagGroupsPage;
-    QTreeWidgetItem *m_draggedItem;
+    TagGroupsPage *m_tagGroupsPage = nullptr;
+    QTreeWidgetItem *m_draggedItem = nullptr;
     QString m_draggedItemCategory;
-    QTreeWidgetItem *m_oldTarget;
+    QTreeWidgetItem *m_oldTarget = nullptr;
     QBrush m_backgroundNoTarget;
     const QBrush m_backgroundHiglightTarget;
 };

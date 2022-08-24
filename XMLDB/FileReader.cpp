@@ -127,7 +127,9 @@ void XMLDB::FileReader::createSpecialCategories()
     mediaCat->addItem(i18n("Image"));
     mediaCat->addItem(i18n("Video"));
     mediaCat->setType(DB::Category::MediaTypeCategory);
-    dynamic_cast<XMLCategory *>(mediaCat.data())->setShouldSave(false);
+    auto mediaCategory = dynamic_cast<XMLCategory *>(mediaCat.data());
+    Q_ASSERT(mediaCategory);
+    mediaCategory->setShouldSave(false);
     // The media type is not stored in the media category,
     // but older versions of KPhotoAlbum stored a stub entry, which we need to remove first:
     if (m_db->m_categoryCollection.categoryForName(mediaCat->name()))

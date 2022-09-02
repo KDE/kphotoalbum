@@ -5,6 +5,9 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
+# Note: Application icons should always be installed by the application itself:
+# https://specifications.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html#install_icons
+
 include(ECMInstallIcons)
 add_subdirectory(global)
 

@@ -1,14 +1,20 @@
-* Bugfix: Fix crash when forgetting to select images upon import (Fixes #445404)
+* Bugfix: Fix crash when forgetting to select images upon import (Fixes: 445404)
 
 * Bugfix: Fix faulty assertion when video thumbnail files cannot be written (Fixes: 446258)
 
-* Bugfix: Remove incomplete URL encoding of non-ASCII characters in HTML export (Fixes #452458)
+* Bugfix: Remove incomplete URL encoding of non-ASCII characters in HTML export (Fixes: 452458)
 
-* Deprecation: Disable tip of the day with KF5 5.83 and newer
+* Bugfix: Fix crash when reimporting deleted files from a .kim file (Fixes: 444792)
+
+* Bugfix: Fix multiple issues identified by code analysis tools.
+
+* Deprecation: Tip of the day feature was removed because it is no longer supported by KDE Frameworks.
 
 * Enhancement: Generic file metadata (size, last changed date etc.) can now be viewed via the Exif metadata dialog.
 
-* Enhancement: Support other video backends (libVLC, QtAV) in addition to Phonon
+* Enhancement: Support other video backends (libVLC, QtAV) in addition to Phonon.
+
+* Enhancement: Add volume controls to video player.
 
 
 ====================== KPhotoalbum 5.8.1 released (27.06.2021) ======================

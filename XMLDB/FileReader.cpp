@@ -490,7 +490,7 @@ XMLDB::ReaderPtr XMLDB::FileReader::readConfigFile(const QString &configFile)
                 DB::LogMessage { XMLDBLog(), QString::fromLatin1("default-setup not found in standard paths.") },
                 i18n("<p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"
                      "<p>If you have installed KPhotoAlbum yourself, then you must remember to set the environment variable "
-                     "<b>KDEDIRS</b>, to point to the topmost installation directory.</p>"
+                     "<b>KDEDIRS</b>, to point to the topmost installation folder.</p>"
                      "<p>If you for example ran cmake with <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must use the following "
                      "environment variable setup (this example is for Bash and compatible shells):</p>"
                      "<p><b>export KDEDIRS=/usr/local/kde</b></p>"

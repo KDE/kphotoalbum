@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2009-2020 Wes Hardaker <kpa@capturedonearth.com>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2009-2020 Wes Hardaker <kpa@capturedonearth.com>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "RunDialog.h"
 
@@ -44,7 +44,7 @@ MainWindow::RunDialog::RunDialog(QWidget *parent)
                "with a list of your files. For example, if you entered:</p>"
                "<ul><li>cp %all /tmp</li></ul>"
                "<p>Then the files you selected would be copied to the /tmp "
-               "directory</p>"
+               "folder</p>"
                "<p>You can also use %each to have a command be run once per "
                "file.</p>");
     m_cmd->setWhatsThis(txt);

@@ -1140,7 +1140,7 @@ bool MainWindow::Window::load()
         QFileInfo fi(configFile);
 
         if (!fi.dir().exists()) {
-            KMessageBox::error(this, i18n("<p>Could not open given index.xml as provided directory does not exist.<br />%1</p>", fi.absolutePath()));
+            KMessageBox::error(this, i18n("<p>Could not open given index.xml, as the provided folder does not exist.<br />%1</p>", fi.absolutePath()));
             return false;
         }
 

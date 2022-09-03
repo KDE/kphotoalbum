@@ -292,7 +292,7 @@ void HTMLDialog::createDestinationPage()
     int row = -1;
 
     // Base Directory
-    QLabel *label = new QLabel(i18n("Base directory:"), destinationPage);
+    QLabel *label = new QLabel(i18n("Base folder:"), destinationPage);
     lay2->addWidget(label, ++row, 0);
     QHBoxLayout *lay3 = new QHBoxLayout;
     lay2->addLayout(lay3, row, 1);
@@ -309,14 +309,14 @@ void HTMLDialog::createDestinationPage()
     m_baseDir->setText(Settings::SettingsData::instance()->HTMLBaseDir());
 
     // Output Directory
-    label = new QLabel(i18n("Gallery directory:"), destinationPage);
+    label = new QLabel(i18n("Gallery folder:"), destinationPage);
     lay2->addWidget(label, ++row, 0);
     m_outputDir = new QLineEdit(destinationPage);
     lay2->addWidget(m_outputDir, row, 1);
     label->setBuddy(m_outputDir);
 
     // fully "Assembled" output Directory
-    label = new QLabel(i18n("Output directory:"), destinationPage);
+    label = new QLabel(i18n("Output folder:"), destinationPage);
     lay2->addWidget(label, ++row, 0);
     m_outputLabel = new QLabel(destinationPage);
     lay2->addWidget(m_outputLabel, row, 1);
@@ -381,7 +381,7 @@ void HTMLDialog::slotOk()
 void HTMLDialog::selectDir()
 {
     QString dir = QFileDialog::getExistingDirectory(this,
-                                                    i18n("Select base directory..."),
+                                                    i18n("Select base folder..."),
                                                     m_baseDir->text());
     if (!dir.isEmpty())
         m_baseDir->setText(dir);
@@ -394,20 +394,20 @@ bool HTMLDialog::checkVars()
     // Ensure base dir is specified
     QString baseDir = m_baseDir->text();
     if (baseDir.isEmpty()) {
-        KMessageBox::error(this, i18n("<p>You did not specify a base directory. "
-                                      "This is the topmost directory for your images. "
-                                      "Under this directory you will find each generated collection "
-                                      "in separate directories.</p>"),
-                           i18n("No Base Directory Specified"));
+        KMessageBox::error(this, i18n("<p>You did not specify a base folder. "
+                                      "This is the topmost folder for your images. "
+                                      "Each generated collection will be contained in this folder "
+                                      "in separate subfolders.</p>"),
+                           i18n("No Base Folder Specified"));
         return false;
     }
 
     // ensure output directory is specified
     if (m_outputDir->text().isEmpty()) {
-        KMessageBox::error(this, i18n("<p>You did not specify an output directory. "
-                                      "This is a directory containing the actual images. "
-                                      "The directory will be in the base directory specified above.</p>"),
-                           i18n("No Output Directory Specified"));
+        KMessageBox::error(this, i18n("<p>You did not specify an output folder. "
+                                      "This is a folder containing the actual images. "
+                                      "The folder will be a subfolder of the base folder specified above.</p>"),
+                           i18n("No Output Folder Specified"));
         return false;
     }
 
@@ -420,7 +420,7 @@ bool HTMLDialog::checkVars()
     KJobWidgets::setWindow(statJob.data(), MainWindow::Window::theMainWindow());
     if (!statJob->exec()) {
         KMessageBox::error(this, i18n("<p>Error while reading information about %1. "
-                                      "This is most likely because the directory does not exist.</p>"
+                                      "This is most likely because the folder does not exist.</p>"
                                       "<p>The error message was: %2</p>",
                                       baseDir, statJob->errorString()));
         return false;
@@ -428,7 +428,7 @@ bool HTMLDialog::checkVars()
 
     KFileItem fileInfo(statJob->statResult(), QUrl::fromUserInput(baseDir));
     if (!fileInfo.isDir()) {
-        KMessageBox::error(this, i18n("<p>%1 does not exist, is not a directory or "
+        KMessageBox::error(this, i18n("<p>%1 does not exist, is not a folder or "
                                       "cannot be written to.</p>",
                                       baseDir));
         return false;
@@ -443,11 +443,11 @@ bool HTMLDialog::checkVars()
     KJobWidgets::setWindow(existsJob.data(), MainWindow::Window::theMainWindow());
     if (existsJob->exec()) {
         int answer = KMessageBox::warningYesNo(this,
-                                               i18n("<p>Output directory %1 already exists. "
-                                                    "Usually, this means you should specify a new directory.</p>"
+                                               i18n("<p>Output folder %1 already exists. "
+                                                    "Usually, this means you should specify a new folder.</p>"
                                                     "<p>Should %2 be deleted first?</p>",
                                                     outputDir, outputDir),
-                                               i18n("Directory Exists"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
+                                               i18n("Folder Exists"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
                                                QString::fromLatin1("html_export_delete_original_directory"));
         if (answer == KMessageBox::Yes) {
             QScopedPointer<KJob> delJob(KIO::del(QUrl::fromUserInput(outputDir)));
@@ -573,11 +573,11 @@ void HTMLDialog::slotUpdateOutputLabel()
     if (outputDir == m_baseDir->text()) {
         KColorScheme::adjustForeground(labelPalette, KColorScheme::ForegroundRole::NegativeText, QPalette::WindowText);
         KColorScheme::adjustBackground(labelPalette, KColorScheme::BackgroundRole::NegativeBackground, QPalette::Window);
-        outputDir.append(i18n("<p>Gallery directory cannot be empty.</p>"));
+        outputDir.append(i18n("<p>Gallery folder cannot be empty.</p>"));
     } else if (QDir(outputDir).exists()) {
         KColorScheme::adjustForeground(labelPalette, KColorScheme::ForegroundRole::NegativeText, QPalette::WindowText);
         KColorScheme::adjustBackground(labelPalette, KColorScheme::BackgroundRole::NegativeBackground, QPalette::Window);
-        outputDir.append(i18n("<p>The output directory already exists.</p>"));
+        outputDir.append(i18n("<p>The output folder already exists.</p>"));
     } else {
         labelPalette = palette();
     }

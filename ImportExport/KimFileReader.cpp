@@ -33,7 +33,7 @@ bool ImportExport::KimFileReader::open(const QString &fileName)
 
     m_dir = m_zip->directory();
     if (m_dir == nullptr) {
-        KMessageBox::error(nullptr, i18n("Error reading directory contents of file %1; it is likely that the file is broken.", fileName));
+        KMessageBox::error(nullptr, i18n("Error reading folder contents of file %1; it is likely that the file is broken.", fileName));
         delete m_zip;
         m_zip = nullptr;
         return false;
@@ -66,7 +66,7 @@ QPixmap ImportExport::KimFileReader::loadThumbnail(QString fileName)
         return QPixmap();
 
     if (!thumbnails->isDirectory()) {
-        KMessageBox::error(nullptr, i18n("Thumbnail item in export file was not a directory, this indicates that the file is broken."));
+        KMessageBox::error(nullptr, i18n("Thumbnail item in export file was not a folder, this indicates that the file is broken."));
         return QPixmap();
     }
 
@@ -92,12 +92,12 @@ QByteArray ImportExport::KimFileReader::loadImage(const QString &fileName)
 {
     const KArchiveEntry *images = m_dir->entry(QString::fromLatin1("Images"));
     if (!images) {
-        KMessageBox::error(nullptr, i18n("export file did not contain a Images subdirectory, this indicates that the file is broken"));
+        KMessageBox::error(nullptr, i18n("Export file did not contain a Images subfolder, this indicates that the file is broken"));
         return QByteArray();
     }
 
     if (!images->isDirectory()) {
-        KMessageBox::error(nullptr, i18n("Images item in export file was not a directory, this indicates that the file is broken"));
+        KMessageBox::error(nullptr, i18n("Images item in export file was not a folder, this indicates that the file is broken"));
         return QByteArray();
     }
 

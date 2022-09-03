@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2020 The KPhotoAlbum development team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -40,7 +41,7 @@ int main(int argc, char **argv)
     QCoreApplication app(argc, argv);
 
     KAboutData aboutData(
-        QStringLiteral("kpa-thumbnailtool"), //component name
+        QStringLiteral("kpa-thumbnailtool"), // component name
         i18n("KPhotoAlbum Thumbnail Tool"), // display name
         QStringLiteral(KPA_VERSION),
         i18n("Tool for inspecting and editing the KPhotoAlbum thumbnail cache"), // short description
@@ -67,7 +68,7 @@ int main(int argc, char **argv)
 
     // initialize the commandline parser
     QCommandLineParser parser;
-    parser.addPositionalArgument(QString::fromUtf8("imageDir"), i18nc("@info:shell", "The directory containing the .thumbnail directory."));
+    parser.addPositionalArgument(QString::fromUtf8("imageDir"), i18nc("@info:shell", "The folder containing the .thumbnail folder."));
     QCommandLineOption infoOption { QString::fromUtf8("info"), i18nc("@info:shell", "Print information about thumbnail cache.") };
     parser.addOption(infoOption);
     QCommandLineOption convertV5ToV4Option { QString::fromUtf8("convertV5ToV4"), i18nc("@info:shell", "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3.") };
@@ -99,7 +100,7 @@ int main(int argc, char **argv)
     }
     const auto imageDir = QDir { args.first() };
     if (!imageDir.exists()) {
-        err << i18nc("@info:shell", "%1 is not a directory!\n", args.first());
+        err << i18nc("@info:shell", "%1 is not a folder!\n", args.first());
         return 1;
     }
     if (parser.isSet(convertV5ToV4Option)) {
@@ -113,7 +114,7 @@ int main(int argc, char **argv)
     const auto thumbnailDir = imageDir.absoluteFilePath(ImageManager::defaultThumbnailDirectory());
     ImageManager::ThumbnailCache cache { thumbnailDir };
     if (parser.isSet(infoOption)) {
-        console << i18nc("@info:shell", "Thumbnail cache directory: %1\n", thumbnailDir);
+        console << i18nc("@info:shell", "Thumbnail cache folder: %1\n", thumbnailDir);
         console << i18nc("@info:shell", "Thumbnail index file version: %1\n", cache.actualFileVersion());
         console << i18nc("@info:shell", "Maximum supported thumbnailindex file version: %1\n", cache.preferredFileVersion());
         console << i18nc("@info:shell", "Thumbnail storage dimensions: %1 pixels\n", cache.thumbnailSize());

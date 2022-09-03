@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2021 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -96,7 +97,7 @@ void Exif::MetaDataDisplay::setFileName(const QString &fileName)
 
     m_fileDir = info.absoluteDir().canonicalPath();
 
-    m_absolutePath->setText(QStringLiteral("%1<br/><a href=\"#\">%2</a>").arg(fileName, i18n("Open directory with a file manager")));
+    m_absolutePath->setText(QStringLiteral("%1<br/><a href=\"#\">%2</a>").arg(fileName, i18n("Open folder with a file manager")));
 
     m_mimeType->setText(s_mimeDB.mimeTypeForFile(fileName).name());
 

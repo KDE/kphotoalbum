@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ImportDialog.h"
 
@@ -118,8 +118,8 @@ void ImportDialog::createIntroduction()
                        "This wizard will take you through the steps of an import operation. The steps are: "
                        "<ol><li>First you must select which images you want to import from the export file. "
                        "You do so by selecting the checkbox next to the image.</li>"
-                       "<li>Next you must tell KPhotoAlbum in which directory to put the images. This directory must "
-                       "of course be below the directory root KPhotoAlbum uses for images. "
+                       "<li>Next you must tell KPhotoAlbum in which folder to put the images. This folder must "
+                       "of course be contained by the base folder KPhotoAlbum uses for images. "
                        "KPhotoAlbum will take care to avoid name clashes</li>"
                        "<li>The next step is to specify which categories you want to import (People, Places, ... ) "
                        "and also tell KPhotoAlbum how to match the categories from the file to your categories. "
@@ -218,10 +218,10 @@ void ImportDialog::slotEditDestination()
     QString file = QFileDialog::getExistingDirectory(this, QString(), m_destinationEdit->text());
     if (!file.isNull()) {
         if (!QFileInfo(file).absoluteFilePath().startsWith(QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath())) {
-            KMessageBox::error(this, i18n("The directory must be a subdirectory of %1", Settings::SettingsData::instance()->imageDirectory()));
+            KMessageBox::error(this, i18n("The folder must be a subfolder of %1", Settings::SettingsData::instance()->imageDirectory()));
         } else if (QFileInfo(file).absoluteFilePath().startsWith(
                        QFileInfo(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath() + QString::fromLatin1("CategoryImages"))) {
-            KMessageBox::error(this, i18n("This directory is reserved for category images."));
+            KMessageBox::error(this, i18n("This folder is reserved for category images."));
         } else {
             m_destinationEdit->setText(file);
             updateNextButtonState();
@@ -297,11 +297,11 @@ void ImportDialog::next()
     if (currentPage() == m_destinationPage) {
         QString dir = m_destinationEdit->text();
         if (!QFileInfo(dir).exists()) {
-            int answer = KMessageBox::questionYesNo(this, i18n("Directory %1 does not exist. Should it be created?", dir));
+            int answer = KMessageBox::questionYesNo(this, i18n("Folder %1 does not exist. Should it be created?", dir));
             if (answer == KMessageBox::Yes) {
                 bool ok = QDir().mkpath(dir);
                 if (!ok) {
-                    KMessageBox::error(this, i18n("Error creating directory %1", dir));
+                    KMessageBox::error(this, i18n("Error creating folder %1", dir));
                     return;
                 }
             } else

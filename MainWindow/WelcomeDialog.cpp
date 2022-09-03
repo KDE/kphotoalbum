@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2018 Jesper K Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2018 Jesper K Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "WelcomeDialog.h"
 
@@ -98,20 +98,20 @@ FileDialog::FileDialog(QWidget *parent)
 
     QLabel *label = new QLabel(i18n("<h1>KPhotoAlbum database creation</h1>"
                                     "<p>You need to show where the photos and videos are for KPhotoAlbum to "
-                                    "find them. They all need to be under one root directory, for example "
-                                    "/home/user/Images. In this directory you can have as many subdirectories as you "
+                                    "find them. They all need to be contained by a single folder, for example "
+                                    "/home/user/Images. In this folder you can have as many subfolders as you "
                                     "want, KPhotoAlbum will find them all for you.</p>"
                                     "<p>Feel safe, KPhotoAlbum will not modify or edit any of your images, so you can "
-                                    "simply point KPhotoAlbum to the directory where you already have all your "
+                                    "simply point KPhotoAlbum to the folder where you already have all your "
                                     "images.</p>"
-                                    "<p>If you have an existing KPhotoAlbum database and root directory somewhere, "
-                                    "point KPhotoAlbum to that directory to start using it again.</p>"),
+                                    "<p>If you have an existing KPhotoAlbum database and image folder somewhere, "
+                                    "point KPhotoAlbum to that folder to start using it again.</p>"),
                                this);
     label->setWordWrap(true);
     mainLayout->addWidget(label);
 
     QHBoxLayout *lay2 = new QHBoxLayout;
-    label = new QLabel(i18n("Image/Video root directory: "), this);
+    label = new QLabel(i18n("Image/Video root folder: "), this);
     lay2->addWidget(label);
 
     m_lineEdit = new QLineEdit(this);
@@ -151,16 +151,16 @@ QString FileDialog::getFileName()
 
         dir = KShell::tildeExpand(m_lineEdit->text());
         if (!QFileInfo(dir).exists()) {
-            int create = KMessageBox::questionYesNo(this, i18n("Directory does not exist, create it?"));
+            int create = KMessageBox::questionYesNo(this, i18n("Folder does not exist, create it?"));
             if (create == KMessageBox::Yes) {
                 bool ok2 = QDir().mkdir(dir);
                 if (!ok2) {
-                    KMessageBox::error(this, i18n("Could not create directory %1", dir));
+                    KMessageBox::error(this, i18n("Could not create folder %1", dir));
                 } else
                     ok = true;
             }
         } else if (!QFileInfo(dir).isDir()) {
-            KMessageBox::error(this, i18n("%1 exists, but is not a directory", dir));
+            KMessageBox::error(this, i18n("%1 exists, but is not a folder", dir));
         } else
             ok = true;
     }

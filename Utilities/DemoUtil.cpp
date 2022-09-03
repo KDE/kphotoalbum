@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "DemoUtil.h"
 
@@ -48,7 +48,7 @@ QString Utilities::setupDemo()
     if (!fi.exists()) {
         bool ok = QDir().mkdir(demoDir);
         if (!ok) {
-            KMessageBox::error(nullptr, i18n("Unable to create directory '%1' needed for demo.", demoDir), i18n("Error Running Demo"));
+            KMessageBox::error(nullptr, i18n("Unable to create folder '%1' needed for demo.", demoDir), i18n("Error Running Demo"));
             exit(-1);
         }
     }
@@ -82,7 +82,7 @@ QString Utilities::setupDemo()
     if (!fi.exists()) {
         bool ok = QDir().mkdir(catDir);
         if (!ok) {
-            KMessageBox::error(nullptr, i18n("Unable to create directory '%1' needed for demo.", catDir), i18n("Error Running Demo"));
+            KMessageBox::error(nullptr, i18n("Unable to create folder '%1' needed for demo.", catDir), i18n("Error Running Demo"));
             exit(-1);
         }
     }

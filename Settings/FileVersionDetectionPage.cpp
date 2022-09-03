@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "FileVersionDetectionPage.h"
 
 #include <kpabase/SettingsData.h>
@@ -52,9 +53,9 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage(QWidget *parent)
         layout->addWidget(m_excludeDirectories);
         excludeDirectoriesLabel->setBuddy(m_excludeDirectories);
 
-        txt = i18n("<p>Specify a comma-separated list of directory names to ignore.</p>"
+        txt = i18n("<p>Specify a comma-separated list of folder names to ignore.</p>"
                    "<p>For example, specifying \"<tt>.thumbs,.thumbnails</tt>\" here will cause "
-                   "KPhotoAlbum to ignore these two directory names in any directory when searching for new images.</p>");
+                   "KPhotoAlbum to ignore these two folder names in any folder when searching for new images.</p>");
         m_excludeDirectories->setWhatsThis(txt);
 
         txt = i18n("<p>KPhotoAlbum is capable of searching for new images and videos when started, this does, "
@@ -70,7 +71,7 @@ Settings::FileVersionDetectionPage::FileVersionDetectionPage(QWidget *parent)
 
         txt = i18n("<p>KPhotoAlbum attempts to read all image files whether actual files or symbolic links. If you "
                    "wish to ignore symbolic links, check this option. This is useful if for some reason you have e.g. "
-                   "both the original files and symbolic links to these files within your image directory.</p>");
+                   "both the original files and symbolic links to these files within your image folder.</p>");
         m_skipSymlinks->setWhatsThis(txt);
 
         txt = i18n("<p>KPhotoAlbum is capable of reading certain kinds of RAW images. "

@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -159,8 +160,8 @@ void DB::Category::setCategoryImage(const QString &category, QString member, con
         bool ok = QDir().mkdir(dir);
         if (!ok) {
             DB::ImageDB::instance()->uiDelegate().error(
-                DB::LogMessage { DBLog(), QString::fromLatin1("Unable to create CategoryImages directory!") },
-                i18n("Unable to create directory '%1'.", dir), i18n("Unable to Create Directory"));
+                DB::LogMessage { DBLog(), QString::fromLatin1("Unable to create CategoryImages folder!") },
+                i18n("Unable to create folder '%1'.", dir), i18n("Unable to Create Folder"));
             return;
         }
     }

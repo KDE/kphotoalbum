@@ -9,13 +9,9 @@ https://phabricator.kde.org/project/profile/255/
 
 ## Continuous Integration Results
 
-| Platform                 | Build Status |
-| ------------------------ | ------------ |
-| FreeBSD - KF5 dev        | [![Build Status](https://build.kde.org/buildStatus/icon?job=Extragear%2Fkphotoalbum%2Fkf5-qt5+FreeBSDQt5.15)](https://build.kde.org/job/Extragear/job/kphotoalbum/job/kf5-qt5%20FreeBSDQt5.15/) |
-| FreeBSD - KF5 stable     | [![Build Status](https://build.kde.org/buildStatus/icon?job=Extragear%2Fkphotoalbum%2Fstable-kf5-qt5+FreeBSDQt5.15)](https://build.kde.org/job/Extragear/job/kphotoalbum/job/stable-kf5-qt5%20FreeBSDQt5.15/)                                                                                                                                                                                                       |
-| SUSE - KF5 dev           | [![Build Status](https://build.kde.org/buildStatus/icon?job=Extragear%2Fkphotoalbum%2Fkf5-qt5+SUSEQt5.15)](https://build.kde.org/job/Extragear/job/kphotoalbum/job/kf5-qt5%20SUSEQt5.15/)      |
-| SUSE - KF5 stable        | [![Build Status](https://build.kde.org/buildStatus/icon?job=Extragear%2Fkphotoalbum%2Fstable-kf5-qt5+SUSEQt5.15)](https://build.kde.org/job/Extragear/job/kphotoalbum/job/stable-kf5-qt5%20SUSEQt5.15/)|
-| LGTM                     | [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/KDE/kphotoalbum.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/KDE/kphotoalbum/context:cpp)<br/>[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/KDE/kphotoalbum.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/KDE/kphotoalbum/context:javascript) |
+[![Build Status](https://invent.kde.org/graphics/kphotoalbum/badges/master/pipeline.svg)](https://invent.kde.org/graphics/kphotoalbum/-/pipelines)<br/>
+[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/KDE/kphotoalbum.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/KDE/kphotoalbum/context:cpp)<br/>
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/KDE/kphotoalbum.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/KDE/kphotoalbum/context:javascript)
 
 
 

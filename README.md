@@ -9,6 +9,9 @@ https://phabricator.kde.org/project/profile/255/
 
 ## Continuous Integration Results
 
+KPhotoAlbum actively supports Linux and FreeBSD platforms. You can always check the latest build status on the [pipelines](https://invent.kde.org/graphics/kphotoalbum/-/pipelines) page.
+If you can help bring KPhotoAlbum to other platforms as well, we would be happy to hear from you!
+
 [![Build Status](https://invent.kde.org/graphics/kphotoalbum/badges/master/pipeline.svg)](https://invent.kde.org/graphics/kphotoalbum/-/pipelines)<br/>
 [![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/KDE/kphotoalbum.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/KDE/kphotoalbum/context:cpp)<br/>
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/KDE/kphotoalbum.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/KDE/kphotoalbum/context:javascript)

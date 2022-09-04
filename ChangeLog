@@ -1,3 +1,5 @@
+====================== KPhotoalbum 5.9.0 released (04.09.2022) ======================
+
 * Bugfix: Fix crash when forgetting to select images upon import (Fixes: 445404)
 
 * Bugfix: Fix faulty assertion when video thumbnail files cannot be written (Fixes: 446258)
@@ -8,14 +10,15 @@
 
 * Bugfix: Fix multiple issues identified by code analysis tools.
 
-* Deprecation: Tip of the day feature was removed because it is no longer supported by KDE Frameworks.
+* Deprecation: Tip of the day feature was removed because it is no longer supported by KDE
+  Frameworks.
 
-* Enhancement: Generic file metadata (size, last changed date etc.) can now be viewed via the Exif metadata dialog.
+* Enhancement: Generic file metadata (size, last changed date etc.) can now be viewed via the Exif
+  metadata dialog.
 
 * Enhancement: Support other video backends (libVLC, QtAV) in addition to Phonon.
 
 * Enhancement: Add volume controls to video player.
-
 
 ====================== KPhotoalbum 5.8.1 released (27.06.2021) ======================
 

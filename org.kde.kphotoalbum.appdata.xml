@@ -146,7 +146,7 @@ SPDX-License-Identifier: CC0-1.0
     <value key="KDE::mailinglist">kphotoalbum</value>
   </custom>
   <releases>
-    <release version="5.9.0" date="2022-09-04"/>
+    <release version="5.9.1" date="2022-09-05"/>
     <release version="5.8.1" date="2021-06-27"/>
   </releases>
   <content_rating type="oars-1.1"/>

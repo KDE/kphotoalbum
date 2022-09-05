@@ -1,3 +1,8 @@
+====================== KPhotoalbum 5.9.1 released (05.09.2022) ======================
+
+* Hotfix: Due to a problem with the tarme.rb releasme script, the 5.9.0 tarball lacked all l10n
+  data. We thus had to withdraw the release and tag a new one.
+
 ====================== KPhotoalbum 5.9.0 released (04.09.2022) ======================
 
 * Bugfix: Fix crash when forgetting to select images upon import (Fixes: 445404)

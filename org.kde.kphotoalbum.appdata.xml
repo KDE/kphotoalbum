@@ -147,6 +147,7 @@ SPDX-License-Identifier: CC0-1.0
   </custom>
   <releases>
     <release version="5.8.1" date="2021-06-27"/>
+    <release version="5.9.0" date="2022-09-04"/>
   </releases>
   <content_rating type="oars-1.1"/>
 </component>

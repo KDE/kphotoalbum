@@ -19,7 +19,7 @@
   Frameworks.
 
 * Enhancement: Generic file metadata (size, last changed date etc.) can now be viewed via the Exif
-  metadata dialog.
+  metadata dialog (Implements: 443552).
 
 * Enhancement: Support other video backends (libVLC, QtAV) in addition to Phonon.
 

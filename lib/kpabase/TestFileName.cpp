@@ -110,7 +110,6 @@ void KPATest::TestFileName::relative()
     QVERIFY(absoluteFN.isNull());
 
     // correct filename
-    QDir cwd;
     const auto relativeFilePath = imageRoot.relativeFilePath(absoluteFilePath);
     const auto correctFN = FileName::fromRelativePath(relativeFilePath);
     QVERIFY(!correctFN.isNull());

@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -56,7 +57,7 @@ public:
      * Provide access to a KPhotoAlbum-style thumbnail cache in the given directory.
      * @param baseDirectory the directory in which the \c thumbnailindex file resides.
      */
-    ThumbnailCache(const QString &baseDirectory);
+    explicit ThumbnailCache(const QString &baseDirectory);
     ~ThumbnailCache() override;
     /**
      * @brief Insert a thumbnail for the given file.
@@ -153,7 +154,7 @@ public slots:
      * Note: this method emits an internal signal which calls the actual save implementation.
      * Therefore, saving may not be finished when this method returns.
      */
-    void save() const;
+    void save();
     /**
      * @brief Invalidate the ThumbnailCache and remove the thumbnail files and index.
      */
@@ -171,7 +172,7 @@ signals:
      * @brief doSave is emitted when save() is called.
      * This signal is more or less an internal signal.
      */
-    void doSave() const;
+    void doSave();
 
     /**
      * @brief cacheInvalidated is emitted when the thumbnails are no longer valid.
@@ -192,7 +193,7 @@ signals:
      * @brief saveComplete is emitted after the thumbnail cache was successfully saved.
      * At the time the signal is emitted, the cache is not dirty (i.e. a full save was performed).
      */
-    void saveComplete() const;
+    void saveComplete();
 
 private:
     /**
@@ -217,40 +218,39 @@ private:
      */
     QString thumbnailPath(const QString &fileName) const;
 
-    // mutable because saveIncremental is const
-    mutable int m_fileVersion = -1;
+    int m_fileVersion = -1;
     int m_thumbnailSize = -1;
     const QDir m_baseDir;
     QHash<DB::FileName, CacheFileInfo> m_hash;
-    mutable QHash<DB::FileName, CacheFileInfo> m_unsavedHash;
+    QHash<DB::FileName, CacheFileInfo> m_unsavedHash;
     /* Protects accesses to the data (hash and unsaved hash) */
     mutable QMutex m_dataLock;
     /* Prevents multiple saves from happening simultaneously */
-    mutable QMutex m_saveLock;
+    QMutex m_saveLock;
     /* Protects writing thumbnails to disk */
-    mutable QMutex m_thumbnailWriterLock;
+    QMutex m_thumbnailWriterLock;
     int m_currentFile;
     int m_currentOffset;
-    mutable QTimer *m_timer;
-    mutable bool m_needsFullSave;
-    mutable bool m_isDirty;
+    QTimer *m_timer;
+    bool m_needsFullSave;
+    bool m_isDirty;
     /**
      * @brief saveFull stores the full contents of the index file.
      * I.e. the whole file is rewritten.
      */
-    void saveFull() const;
+    void saveFull();
     /**
      * @brief saveIncremental appends all unsaved hash entries to the index file.
      */
-    void saveIncremental() const;
+    void saveIncremental();
     /**
      * @brief saveInternal checks whether a full save is requested or needed and calls the incremental or full save accordingly.
      */
-    void saveInternal() const;
+    void saveInternal();
     /**
      * @brief saveImpl calls saveInternal and resets the save timer.
      */
-    void saveImpl() const;
+    void saveImpl();
 
     /**
      * Holds an in-memory cache of thumbnail files.

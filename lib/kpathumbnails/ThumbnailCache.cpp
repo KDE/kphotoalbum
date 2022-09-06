@@ -150,13 +150,13 @@ void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QByteA
     // purge in-memory cache for the current file:
     m_memcache->remove(m_currentFile);
 
-    const int size = thumbnailData.size();
-    if (!(m_currentWriter->write(thumbnailData.data(), size) == size && m_currentWriter->flush())) {
+    const int sizeBytes = thumbnailData.size();
+    if (!(m_currentWriter->write(thumbnailData.data(), sizeBytes) == sizeBytes && m_currentWriter->flush())) {
         qCWarning(ImageManagerLog, "Failed to write image data to thumbnail file");
         return;
     }
 
-    if (m_currentOffset + size > MAX_FILE_SIZE) {
+    if (m_currentOffset + sizeBytes > MAX_FILE_SIZE) {
         delete m_currentWriter;
         m_currentWriter = nullptr;
     }
@@ -164,7 +164,7 @@ void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QByteA
 
     if (m_hash.contains(name)) {
         CacheFileInfo info = m_hash[name];
-        if (info.fileIndex == m_currentFile && info.offset == m_currentOffset && info.size == size) {
+        if (info.fileIndex == m_currentFile && info.offset == m_currentOffset && info.size == sizeBytes) {
             qCDebug(ImageManagerLog) << "Found duplicate thumbnail " << name.relative() << "but no change in information";
             dataLocker.unlock();
             return;
@@ -178,13 +178,13 @@ void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QByteA
         }
     }
 
-    m_hash.insert(name, CacheFileInfo(m_currentFile, m_currentOffset, size));
+    m_hash.insert(name, CacheFileInfo(m_currentFile, m_currentOffset, sizeBytes));
     m_isDirty = true;
 
-    m_unsavedHash.insert(name, CacheFileInfo(m_currentFile, m_currentOffset, size));
+    m_unsavedHash.insert(name, CacheFileInfo(m_currentFile, m_currentOffset, sizeBytes));
 
     // Update offset
-    m_currentOffset += size;
+    m_currentOffset += sizeBytes;
     if (m_currentOffset > MAX_FILE_SIZE) {
         m_currentFile++;
         m_currentOffset = 0;
@@ -244,7 +244,7 @@ QByteArray ImageManager::ThumbnailCache::lookupRawData(const DB::FileName &name)
     return array;
 }
 
-void ImageManager::ThumbnailCache::saveFull() const
+void ImageManager::ThumbnailCache::saveFull()
 {
     QElapsedTimer timer;
     timer.start();
@@ -322,7 +322,7 @@ void ImageManager::ThumbnailCache::saveFull() const
 
 // Incremental save does *not* clear the dirty flag.  We always want to do a full
 // save eventually.
-void ImageManager::ThumbnailCache::saveIncremental() const
+void ImageManager::ThumbnailCache::saveIncremental()
 {
     QMutexLocker thumbnailLocker(&m_thumbnailWriterLock);
     if (m_currentWriter) {
@@ -357,7 +357,7 @@ void ImageManager::ThumbnailCache::saveIncremental() const
     file.close();
 }
 
-void ImageManager::ThumbnailCache::saveInternal() const
+void ImageManager::ThumbnailCache::saveInternal()
 {
     QMutexLocker saveLocker(&m_saveLock);
     const QString realFileName = thumbnailPath(INDEXFILE_NAME);
@@ -369,7 +369,7 @@ void ImageManager::ThumbnailCache::saveInternal() const
     }
 }
 
-void ImageManager::ThumbnailCache::saveImpl() const
+void ImageManager::ThumbnailCache::saveImpl()
 {
     m_timer->stop();
     saveInternal();
@@ -378,7 +378,7 @@ void ImageManager::ThumbnailCache::saveImpl() const
     m_timer->start(THUMBNAIL_CACHE_SAVE_INTERNAL_MS);
 }
 
-void ImageManager::ThumbnailCache::save() const
+void ImageManager::ThumbnailCache::save()
 {
     QMutexLocker saveLocker(&m_saveLock);
     m_needsFullSave = true;

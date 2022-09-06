@@ -29,7 +29,7 @@ void copyList(const QStringList &from, const QString &directoryTo)
 {
     for (QStringList::ConstIterator it = from.constBegin(); it != from.constEnd(); ++it) {
         const QString destFile = directoryTo + QString::fromLatin1("/") + QFileInfo(*it).fileName();
-        if (!QFileInfo(destFile).exists()) {
+        if (!QFileInfo::exists(destFile)) {
             const bool ok = Utilities::copyOrOverwrite(*it, destFile);
             if (!ok) {
                 KMessageBox::error(nullptr, i18n("Unable to copy '%1' to '%2'.", *it, destFile), i18n("Error Running Demo"));

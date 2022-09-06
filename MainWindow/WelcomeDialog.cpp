@@ -151,7 +151,7 @@ QString FileDialog::getFileName()
             return QString();
 
         dir = KShell::tildeExpand(m_lineEdit->text());
-        if (!QFileInfo(dir).exists()) {
+        if (!QFileInfo::exists(dir)) {
             const QString question = i18n("Folder does not exist, create it?");
             const QString title = i18nc("@title", "Create folder?");
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)

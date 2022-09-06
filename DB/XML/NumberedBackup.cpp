@@ -30,7 +30,7 @@ void DB::NumberedBackup::makeNumberedBackup()
 
     const QString fileName = QStringLiteral("index.xml~%1~").arg(getMaxId() + 1, 4, 10, QLatin1Char('0'));
 
-    if (!QFileInfo(QStringLiteral("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory())).exists())
+    if (!QFileInfo::exists(QStringLiteral("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory())))
         return;
 
     if (Settings::SettingsData::instance()->compressBackup()) {

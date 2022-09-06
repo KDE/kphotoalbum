@@ -27,7 +27,7 @@ void Utilities::UniqFilenameMapper::reset()
 bool Utilities::UniqFilenameMapper::fileClashes(const QString &file)
 {
     return m_uniqFiles.contains(file)
-        || (!m_targetDirectory.isNull() && QFileInfo(file).exists());
+        || (!m_targetDirectory.isNull() && QFileInfo::exists(file));
 }
 
 QString Utilities::UniqFilenameMapper::uniqNameFor(const DB::FileName &filename)

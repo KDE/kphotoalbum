@@ -1340,7 +1340,7 @@ Previous changes
 	* Don't offer to show videos on start up. Instead there now is an
 	entry in the menu.
 
- 	* Exif/Database.cpp (offerInitialize): Don't offer to populate the
+  * Exif/Database.cpp (offerInitialize): Don't offer to populate the
 	exiv database anymore, this was really only needed when people
 	upgraded to the last major version.
 
@@ -2895,4 +2895,3 @@ Previous changes
 
 	* BUGFIX: Pressing Cancel in the find dialog, does no longer
 	change the content of the browser window.
-

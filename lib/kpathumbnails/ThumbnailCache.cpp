@@ -84,8 +84,11 @@ ImageManager::ThumbnailCache::ThumbnailCache(const QString &baseDirectory)
     , m_memcache(new QCache<int, ThumbnailMapping>(LRU_SIZE))
     , m_currentWriter(nullptr)
 {
-    if (!m_baseDir.exists())
-        QDir().mkpath(m_baseDir.path());
+    if (!m_baseDir.exists()) {
+        if (!QDir().mkpath(m_baseDir.path())) {
+            qCWarning(ImageManagerLog, "Failed to create thumbnail cache directory!");
+        }
+    }
 
     // set a default value for version 4 files and new databases:
     m_thumbnailSize = Settings::SettingsData::instance()->thumbnailSize();

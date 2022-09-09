@@ -1,4 +1,11 @@
-# Changelog
+<!--
+SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+SPDX-FileCopyrightText: 2022 Tobias Leupold <tl@stonemx.de>
+
+SPDX-License-Identifier: CC-BY-SA-4.0
+-->
+Changelog
+=========
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -15,14 +22,16 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Removed
 ### Security
 
-## [5.9.1] - 2022-09-05
+[5.9.1] - 2022-09-05
+--------------------
 
 ### Fixed
 - Due to a problem with the tarme.rb releasme script, the 5.9.0 tarball lacked all localisation
   data. We thus had to withdraw the release and tag a new one.
 
 
-## [5.9.0] - 2022-09-04
+[5.9.0] - 2022-09-04
+--------------------
 
 ### Added
 - Generic file metadata (size, last changed date etc.) can now be viewed via the Exif

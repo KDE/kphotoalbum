@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
@@ -142,6 +143,7 @@ void KPATest::TestThumbnailCache::insertRemove()
     QVERIFY(!thumbnailCache.contains(nullImageFileName));
 
     const int thumbnailSize = thumbnailCache.thumbnailSize();
+    QVERIFY2(thumbnailSize > 0, "Thumbnail size must be greater than 0!");
     QImage someImage { thumbnailSize + 1, thumbnailSize + 1, QImage::Format_RGB32 };
     someImage.fill(Qt::red);
     QVERIFY(!someImage.isNull());

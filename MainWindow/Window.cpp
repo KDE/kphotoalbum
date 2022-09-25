@@ -811,7 +811,6 @@ void MainWindow::Window::setupMenuBar()
     // The View menu
     m_view = actionCollection()->addAction(QString::fromLatin1("viewImages"), this, qOverload<>(&Window::slotView));
     m_view->setText(i18n("View"));
-    actionCollection()->setDefaultShortcut(m_view, Qt::CTRL + Qt::Key_I);
 
     m_viewInNewWindow = actionCollection()->addAction(QString::fromLatin1("viewImagesNewWindow"), this, &Window::slotViewNewWindow);
     m_viewInNewWindow->setText(i18n("View (In New Window)"));
@@ -921,6 +920,7 @@ void MainWindow::Window::setupMenuBar()
     m_colorSchemeMenu->setDelayed(false);
 #endif
     actionCollection()->addAction(QString::fromLatin1("colorScheme"), m_colorSchemeMenu);
+
     // Maintenance
     a = actionCollection()->addAction(QString::fromLatin1("findUnavailableImages"), this, &Window::slotShowNotOnDisk);
     a->setText(i18n("Display Images and Videos Not on Disk"));

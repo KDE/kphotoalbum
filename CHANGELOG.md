@@ -17,6 +17,9 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Added
 ### Changed
  - View-related actions formerly found in the "Settings" menu were moved to the "View" menu.
+ - Default shortcut for "View" images was removed.</br>
+   Pressing "Enter" to open the viewer is now the preferred way.
+   To restore the old behavior, reassign the shortcut via "Settings | Configure Keyboard Shortcuts..."
 ### Dependencies
 ### Deprecated
 ### Fixed

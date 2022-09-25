@@ -808,7 +808,7 @@ void MainWindow::Window::setupMenuBar()
     m_rotRight->setText(i18n("Rotate clockwise"));
     actionCollection()->setDefaultShortcut(m_rotRight, Qt::Key_9);
 
-    // The Images menu
+    // The View menu
     m_view = actionCollection()->addAction(QString::fromLatin1("viewImages"), this, qOverload<>(&Window::slotView));
     m_view->setText(i18n("View"));
     actionCollection()->setDefaultShortcut(m_view, Qt::CTRL + Qt::Key_I);
@@ -873,6 +873,54 @@ void MainWindow::Window::setupMenuBar()
     m_setDefaultNeg = actionCollection()->addAction(QString::fromLatin1("setDefaultScopeNegative"), this, &Window::setDefaultScopeNegative);
     m_setDefaultNeg->setText(i18n("Lock Away Current Set of Items"));
 
+    m_viewMenu = actionCollection()->add<KActionMenu>(QString::fromLatin1("configureView"));
+    m_viewMenu->setText(i18n("Configure Current View"));
+    m_viewMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("view-list-details")));
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+    m_viewMenu->setPopupMode(QToolButton::InstantPopup);
+#else
+    m_viewMenu->setDelayed(false);
+#endif
+
+    QActionGroup *viewGrp = new QActionGroup(this);
+    viewGrp->setExclusive(true);
+
+    m_smallListView = actionCollection()->add<KToggleAction>(QString::fromLatin1("smallListView"), m_browser, &Browser::BrowserWidget::slotSmallListView);
+    m_smallListView->setText(i18n("Tree"));
+    m_viewMenu->addAction(m_smallListView);
+    m_smallListView->setActionGroup(viewGrp);
+
+    m_largeListView = actionCollection()->add<KToggleAction>(QString::fromLatin1("largelistview"), m_browser, &Browser::BrowserWidget::slotLargeListView);
+    m_largeListView->setText(i18n("Tree with User Icons"));
+    m_viewMenu->addAction(m_largeListView);
+    m_largeListView->setActionGroup(viewGrp);
+
+    m_largeIconView = actionCollection()->add<KToggleAction>(QString::fromLatin1("largeiconview"), m_browser, &Browser::BrowserWidget::slotLargeIconView);
+    m_largeIconView->setText(i18n("Icons"));
+    m_viewMenu->addAction(m_largeIconView);
+    m_largeIconView->setActionGroup(viewGrp);
+
+    connect(m_browser, &Browser::BrowserWidget::isViewChangeable, viewGrp, &QActionGroup::setEnabled);
+    connect(m_browser, &Browser::BrowserWidget::currentViewTypeChanged, this, &Window::slotUpdateViewMenu);
+
+    a = actionCollection()->add<KToggleAction>(QString::fromLatin1("showToolTipOnImages"));
+    a->setText(i18n("Show Tooltips in Thumbnails Window"));
+    actionCollection()->setDefaultShortcut(a, Qt::CTRL + Qt::Key_T);
+    connect(a, &QAction::toggled, m_thumbnailView, &ThumbnailView::ThumbnailFacade::showToolTipsOnImages);
+
+    KColorSchemeManager *schemes = new KColorSchemeManager(this);
+    const QString schemePath = Settings::SettingsData::instance()->colorScheme();
+    const auto schemeCfg = KSharedConfig::openConfig(schemePath);
+    const QString activeSchemeName = schemeCfg->group("General").readEntry("Name", QFileInfo(schemePath).baseName());
+    m_colorSchemeMenu = schemes->createSchemeSelectionMenu(activeSchemeName, this);
+    m_colorSchemeMenu->setText(i18n("Choose Color Scheme"));
+    m_colorSchemeMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("color")));
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
+    m_colorSchemeMenu->setPopupMode(QToolButton::InstantPopup);
+#else
+    m_colorSchemeMenu->setDelayed(false);
+#endif
+    actionCollection()->addAction(QString::fromLatin1("colorScheme"), m_colorSchemeMenu);
     // Maintenance
     a = actionCollection()->addAction(QString::fromLatin1("findUnavailableImages"), this, &Window::slotShowNotOnDisk);
     a->setText(i18n("Display Images and Videos Not on Disk"));
@@ -925,55 +973,6 @@ void MainWindow::Window::setupMenuBar()
 
     a = actionCollection()->addAction(QString::fromLatin1("readdAllMessages"), this, &Window::slotReenableMessages);
     a->setText(i18n("Enable All Messages"));
-
-    m_viewMenu = actionCollection()->add<KActionMenu>(QString::fromLatin1("configureView"));
-    m_viewMenu->setText(i18n("Configure Current View"));
-    m_viewMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("view-list-details")));
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
-    m_viewMenu->setPopupMode(QToolButton::InstantPopup);
-#else
-    m_viewMenu->setDelayed(false);
-#endif
-
-    QActionGroup *viewGrp = new QActionGroup(this);
-    viewGrp->setExclusive(true);
-
-    m_smallListView = actionCollection()->add<KToggleAction>(QString::fromLatin1("smallListView"), m_browser, &Browser::BrowserWidget::slotSmallListView);
-    m_smallListView->setText(i18n("Tree"));
-    m_viewMenu->addAction(m_smallListView);
-    m_smallListView->setActionGroup(viewGrp);
-
-    m_largeListView = actionCollection()->add<KToggleAction>(QString::fromLatin1("largelistview"), m_browser, &Browser::BrowserWidget::slotLargeListView);
-    m_largeListView->setText(i18n("Tree with User Icons"));
-    m_viewMenu->addAction(m_largeListView);
-    m_largeListView->setActionGroup(viewGrp);
-
-    m_largeIconView = actionCollection()->add<KToggleAction>(QString::fromLatin1("largeiconview"), m_browser, &Browser::BrowserWidget::slotLargeIconView);
-    m_largeIconView->setText(i18n("Icons"));
-    m_viewMenu->addAction(m_largeIconView);
-    m_largeIconView->setActionGroup(viewGrp);
-
-    connect(m_browser, &Browser::BrowserWidget::isViewChangeable, viewGrp, &QActionGroup::setEnabled);
-    connect(m_browser, &Browser::BrowserWidget::currentViewTypeChanged, this, &Window::slotUpdateViewMenu);
-
-    a = actionCollection()->add<KToggleAction>(QString::fromLatin1("showToolTipOnImages"));
-    a->setText(i18n("Show Tooltips in Thumbnails Window"));
-    actionCollection()->setDefaultShortcut(a, Qt::CTRL + Qt::Key_T);
-    connect(a, &QAction::toggled, m_thumbnailView, &ThumbnailView::ThumbnailFacade::showToolTipsOnImages);
-
-    KColorSchemeManager *schemes = new KColorSchemeManager(this);
-    const QString schemePath = Settings::SettingsData::instance()->colorScheme();
-    const auto schemeCfg = KSharedConfig::openConfig(schemePath);
-    const QString activeSchemeName = schemeCfg->group("General").readEntry("Name", QFileInfo(schemePath).baseName());
-    m_colorSchemeMenu = schemes->createSchemeSelectionMenu(activeSchemeName, this);
-    m_colorSchemeMenu->setText(i18n("Choose Color Scheme"));
-    m_colorSchemeMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("color")));
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
-    m_colorSchemeMenu->setPopupMode(QToolButton::InstantPopup);
-#else
-    m_colorSchemeMenu->setDelayed(false);
-#endif
-    actionCollection()->addAction(QString::fromLatin1("colorScheme"), m_colorSchemeMenu);
 
     // The help menu
 #if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 83, 0)

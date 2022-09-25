@@ -16,6 +16,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
 ### Added
 ### Changed
+ - View-related actions formerly found in the "Settings" menu were moved to the "View" menu.
 ### Dependencies
 ### Deprecated
 ### Fixed

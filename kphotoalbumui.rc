@@ -3,7 +3,7 @@
 
      SPDX-License-Identifier: CC0-1.0
 -->
-<kpartgui name="kphotoalbum" version="49">
+<kpartgui name="kphotoalbum" version="50">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -52,6 +52,10 @@
         <Action name="setDefaultScopeNegative" />
         <Action name="setDefaultScopePositive" />
       </Menu>
+      <Separator/>
+      <Action name="showToolTipOnImages"/>
+      <Action name="configureView"/>
+      <Action name="colorScheme"/>
     </Menu>
     <Menu name="maintenance">
       <text>&amp;Maintenance</text>
@@ -80,9 +84,6 @@
    </Menu>
    <Menu name="settings">
      <Action name="readdAllMessages"/>
-     <Action name="showToolTipOnImages"/>
-     <Action name="configureView"/>
-     <Action name="colorScheme"/>
    </Menu>
    <Menu name="help">
      <Action name="runDemo"/>

@@ -69,9 +69,12 @@ void KPABase::CrashSentinel::clearCrashHistory()
 
 void KPABase::CrashSentinel::setCrashInfo(const QByteArray &crashInfo)
 {
+    const bool wasActive = !isSuspended();
     suspend();
     m_crashInfo = crashInfo;
-    activate();
+    if (wasActive) {
+        activate();
+    }
 }
 
 QString KPABase::CrashSentinel::component() const

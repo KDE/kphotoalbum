@@ -3,7 +3,7 @@
 
      SPDX-License-Identifier: CC0-1.0
 -->
-<kpartgui name="kphotoalbum" version="50">
+<kpartgui name="kphotoalbum" version="51">
   <MenuBar>
     <Menu name="file">
       <Action name="exportHTML"/>
@@ -54,6 +54,8 @@
       </Menu>
       <Separator/>
       <Action name="showToolTipOnImages"/>
+      <Action name="showLabelBelowThumbnail"/>
+      <Action name="showCategoryBelowThumbnail"/>
       <Action name="configureView"/>
       <Action name="colorScheme"/>
     </Menu>

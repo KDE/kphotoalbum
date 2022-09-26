@@ -14,6 +14,7 @@
 #include <KSharedConfig>
 #include <QStringList>
 #include <QThread>
+#include <type_traits>
 
 namespace
 {
@@ -266,8 +267,29 @@ property_copy(thumbnailBuilderThreadCount, setThumbnailBuilderThreadCount, int, 
     ////////////////////
 
     // clang-format off
-property_copy(displayLabels, setDisplayLabels, bool, Thumbnails, true)
-property_copy(displayCategories, setDisplayCategories, bool, Thumbnails, false)
+//property_copy(displayLabels, setDisplayLabels, bool, Thumbnails, true)
+getValueFunc_(bool, displayLabels, groupForDatabase("Thumbnails"), "displayLabels", true)
+//property_copy(displayCategories, setDisplayCategories, bool, Thumbnails, false)
+getValueFunc_(bool, displayCategories, groupForDatabase("Thumbnails"), "displayCategories", false)
+
+    // clang-format on
+
+    void SettingsData::setDisplayLabels(bool value)
+{
+    const bool changed = value != displayLabels();
+    setValue(groupForDatabase("Thumbnails"), "displayLabels", value);
+    if (changed)
+        emit displayLabelsChanged(value);
+}
+
+void SettingsData::setDisplayCategories(bool value)
+{
+    const bool changed = value != displayCategories();
+    setValue(groupForDatabase("Thumbnails"), "displayCategories", value);
+    if (changed)
+        emit displayCategoriesChanged(value);
+}
+// clang-format off
 property_copy(autoShowThumbnailView, setAutoShowThumbnailView, int, Thumbnails, 20)
 property_copy(showNewestThumbnailFirst, setShowNewestFirst, bool, Thumbnails, false)
 property_copy(thumbnailDisplayGrid, setThumbnailDisplayGrid, bool, Thumbnails, false)

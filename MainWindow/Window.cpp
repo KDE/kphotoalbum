@@ -907,6 +907,26 @@ void MainWindow::Window::setupMenuBar()
     actionCollection()->setDefaultShortcut(a, Qt::CTRL + Qt::Key_T);
     connect(a, &QAction::toggled, m_thumbnailView, &ThumbnailView::ThumbnailFacade::showToolTipsOnImages);
 
+    a = actionCollection()->add<KToggleAction>(QString::fromLatin1("showLabelBelowThumbnail"));
+    a->setText(i18n("Show Labels in Thumbnails Window"));
+    a->setIcon(QIcon::fromTheme(QString::fromLatin1("label")));
+    a->setChecked(Settings::SettingsData::instance()->displayLabels());
+    connect(a, &QAction::toggled, this, [this](bool doShow) {
+        Settings::SettingsData::instance()->setDisplayLabels(doShow);
+        reloadThumbnails();
+    });
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::displayLabelsChanged, a, &QAction::setChecked);
+
+    a = actionCollection()->add<KToggleAction>(QString::fromLatin1("showCategoryBelowThumbnail"));
+    a->setText(i18n("Show Categories in Thumbnails Window"));
+    a->setIcon(QIcon::fromTheme(QString::fromLatin1("category")));
+    a->setChecked(Settings::SettingsData::instance()->displayCategories());
+    connect(a, &QAction::toggled, this, [this](bool doShow) {
+        Settings::SettingsData::instance()->setDisplayCategories(doShow);
+        reloadThumbnails();
+    });
+    connect(Settings::SettingsData::instance(), &Settings::SettingsData::displayCategoriesChanged, a, &QAction::setChecked);
+
     KColorSchemeManager *schemes = new KColorSchemeManager(this);
     const QString schemePath = Settings::SettingsData::instance()->colorScheme();
     const auto schemeCfg = KSharedConfig::openConfig(schemePath);

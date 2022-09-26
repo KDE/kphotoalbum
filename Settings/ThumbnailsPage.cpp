@@ -1,7 +1,10 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2009-2011 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2013, 2015-2016, 2019-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "ThumbnailsPage.h"
 
 #include <kpabase/SettingsData.h>
@@ -146,7 +149,9 @@ void Settings::ThumbnailsPage::loadSettings(Settings::SettingsData *opt)
     m_thumbnailAspectRatio->setCurrentIndex(opt->thumbnailAspectRatio());
     m_thumbnailSpace->setValue(opt->thumbnailSpace());
     m_displayLabels->setChecked(opt->displayLabels());
+    connect(opt, &Settings::SettingsData::displayLabelsChanged, m_displayLabels, &QCheckBox::setChecked);
     m_displayCategories->setChecked(opt->displayCategories());
+    connect(opt, &Settings::SettingsData::displayCategoriesChanged, m_displayCategories, &QCheckBox::setChecked);
     m_autoShowThumbnailView->setValue(opt->autoShowThumbnailView());
     m_incrementalThumbnails->setChecked(opt->incrementalThumbnails());
 }

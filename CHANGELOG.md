@@ -20,6 +20,9 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Default shortcut for "View" images was removed.</br>
    Pressing "Enter" to open the viewer is now the preferred way.
    To restore the old behavior, reassign the shortcut via "Settings | Configure Keyboard Shortcuts..."
+ - Make options "Display Labels in Thumbnail View" and "Display Categories in Thumbnail View" reachable via the "View" menu
+   and allow both actions to be assigned keyboard shortcuts.
+
 ### Dependencies
 ### Deprecated
 ### Fixed

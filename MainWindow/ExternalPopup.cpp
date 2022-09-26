@@ -102,7 +102,11 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
 #else
                 auto job = new KIO::ApplicationLauncherJob();
                 job->setUrls(urls);
+#if KIO_VERSION < QT_VERSION_CHECK(5, 98, 0)
+                job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
+#else
                 job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
+#endif
                 job->start();
 #endif
         });
@@ -169,7 +173,11 @@ void MainWindow::ExternalPopup::runService(KService::Ptr service, QList<QUrl> ur
 #else
     auto job = new KIO::ApplicationLauncherJob(service);
     job->setUrls(urls);
+#if KIO_VERSION < QT_VERSION_CHECK(5, 98, 0)
+    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
+#else
     job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
+#endif
     job->start();
 #endif
 }

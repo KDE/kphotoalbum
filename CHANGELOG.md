@@ -15,18 +15,28 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ## [UNRELEASED]
 
 ### Added
+ - Allow setting keyboard shortcuts for Date Bar component.
+
 ### Changed
  - View-related actions formerly found in the "Settings" menu were moved to the "View" menu.
+ - Make options "Display Labels in Thumbnail View" and "Display Categories in Thumbnail View" reachable via the "View" menu
+   and allow both actions to be assigned keyboard shortcuts (Implements: #145346).
+
+### Dependencies
+ - CMake: 3.18
+ - Qt5: 5.15
+ - KDE Frameworks: 5.78
+
+### Deprecated
+
+### Fixed
+ - Improve readability of "Show Tooltips in Thumbnails Window" tooltip.
+
+### Removed
  - Default shortcut for "View" images was removed.</br>
    Pressing "Enter" to open the viewer is now the preferred way.
    To restore the old behavior, reassign the shortcut via "Settings | Configure Keyboard Shortcuts..."
- - Make options "Display Labels in Thumbnail View" and "Display Categories in Thumbnail View" reachable via the "View" menu
-   and allow both actions to be assigned keyboard shortcuts.
 
-### Dependencies
-### Deprecated
-### Fixed
-### Removed
 ### Security
 
 [5.9.1] - 2022-09-05

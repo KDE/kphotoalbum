@@ -2,6 +2,7 @@
 // SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2013, 2015-2016, 2018-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: CC-BY-SA-4.0
 
@@ -13,13 +14,16 @@
 Not every distro ships the latest version of Qt. As a rule of thumb, we aim for compatibility with the latest Ubuntu LTS release.
 Since invent.kde.org makes it easier to get a continuous integration pipeline for Debian stable, we are currently supporting that as well.
 
-<h3>Why Ubuntu?</h3>
+<h3>Why Ubuntu and Debian?</h3>
 
-\li It is one of the more popular distros
+\li Ubuntu is one of the more popular distros
 \li The release life cycle is very regular
-\li Package information is readily available. See e.g. the information for
-    <a href='https://packages.ubuntu.com/libqt5gui' alt='Ubuntu package search'>libqt5gui</a> or
-    <a href='https://packages.ubuntu.com/libkf5kio-dev' alt='Ubuntu package search'>libkf5kio-dev</a>
+\li Debian is easily integrated with our CI pipeline in a way that tracks an older distro.
+\li Package information is readily available. See e.g. the information for the
+    <a href='https://packages.ubuntu.com/libqt5gui' alt='Ubuntu package search'>libqt5gui</a> and
+    <a href='https://packages.ubuntu.com/libkf5kio-dev' alt='Ubuntu package search'>libkf5kio-dev</a> Ubuntu packages, or
+    <a href='https://packages.debian.org/search?keywords=libkf5kio-dev' alt='Debian package search'>libkf5kio-dev</a> and
+    <a href='https://packages.debian.org/search?keywords=libqt5gui' alt='Debian package search'>libqt5gui</> Debian packages.
 
 <h2>Code formatting</h2>
 

@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef DATEBAR_H
 #define DATEBAR_H
@@ -12,6 +12,7 @@
 #include <QPixmap>
 #include <QWidget>
 
+class KActionCollection;
 class QMenu;
 class QKeyEvent;
 class QMouseEvent;
@@ -71,6 +72,7 @@ public:
      * @see setIncludeFuzzyCounts
      */
     bool includeFuzzyCounts() const;
+    KActionCollection *actions();
 
 public slots:
     void clearSelection();
@@ -105,6 +107,7 @@ signals:
     void toolTipInfo(const QString &);
     void dateRangeChange(const DB::ImageDate &);
     void dateRangeCleared();
+    void dateRangeSelected(bool);
 
 public:
     // Overridden methods for internal purpose
@@ -214,6 +217,7 @@ private:
     QMenu *m_contextMenu;
     bool m_showResolutionIndicator;
     bool m_doAutomaticRangeAdjustment;
+    KActionCollection *m_actionCollection;
 };
 }
 

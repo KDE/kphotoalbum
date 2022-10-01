@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -11,6 +12,7 @@
 #include <kpabase/SettingsData.h>
 
 #include <Utilities/FastDateTime.h>
+#include <KActionCollection>
 #include <KLocalizedString>
 #include <QAction>
 #include <QContextMenuEvent>
@@ -53,41 +55,61 @@ DateBar::DateBarWidget::DateBarWidget(QWidget *parent)
     , m_contextMenu(nullptr)
     , m_showResolutionIndicator(true)
     , m_doAutomaticRangeAdjustment(true)
+    , m_actionCollection(new KActionCollection(this))
 {
     setMouseTracking(true);
     setFocusPolicy(Qt::StrongFocus);
 
     m_barWidth = Settings::SettingsData::instance()->histogramSize().width();
     m_barHeight = Settings::SettingsData::instance()->histogramSize().height();
+
+    auto scrollRightAction = m_actionCollection->addAction(QString::fromLatin1("datebar-scroll-right"));
+    scrollRightAction->setShortcutContext(Qt::ApplicationShortcut);
+    scrollRightAction->setText(i18n("Scroll right"));
+    scrollRightAction->setAutoRepeat(true);
+    connect(scrollRightAction, &QAction::triggered, this, &DateBarWidget::scrollRight);
     m_rightArrow = new QToolButton(this);
+    m_rightArrow->setDefaultAction(scrollRightAction);
     m_rightArrow->setArrowType(Qt::RightArrow);
-    m_rightArrow->setAutoRepeat(true);
-    connect(m_rightArrow, &QToolButton::clicked, this, &DateBarWidget::scrollRight);
 
+    auto scrollLeftAction = m_actionCollection->addAction(QString::fromLatin1("datebar-scroll-left"));
+    scrollLeftAction->setShortcutContext(Qt::ApplicationShortcut);
+    scrollLeftAction->setText(i18n("Scroll left"));
+    scrollLeftAction->setAutoRepeat(true);
+    connect(scrollLeftAction, &QAction::triggered, this, &DateBarWidget::scrollLeft);
     m_leftArrow = new QToolButton(this);
+    m_leftArrow->setDefaultAction(scrollLeftAction);
     m_leftArrow->setArrowType(Qt::LeftArrow);
-    m_leftArrow->setAutoRepeat(true);
-    connect(m_leftArrow, &QToolButton::clicked, this, &DateBarWidget::scrollLeft);
 
+    auto zoomInAction = m_actionCollection->addAction(QString::fromLatin1("datebar-zoom-in"));
+    zoomInAction->setShortcutContext(Qt::ApplicationShortcut);
+    zoomInAction->setText(i18n("Zoom in"));
+    zoomInAction->setIcon(QIcon::fromTheme(QStringLiteral("zoom-in")));
+    connect(zoomInAction, &QAction::triggered, this, &DateBarWidget::zoomIn);
+    connect(this, &DateBarWidget::canZoomIn, zoomInAction, &QAction::setEnabled);
     m_zoomIn = new QToolButton(this);
-    m_zoomIn->setIcon(QIcon::fromTheme(QStringLiteral("zoom-in")));
-    m_zoomIn->setToolTip(i18n("Zoom in"));
+    m_zoomIn->setDefaultAction(zoomInAction);
     m_zoomIn->setFocusPolicy(Qt::ClickFocus);
-    connect(m_zoomIn, &QToolButton::clicked, this, &DateBarWidget::zoomIn);
-    connect(this, &DateBarWidget::canZoomIn, m_zoomIn, &QToolButton::setEnabled);
 
+    auto zoomOutAction = m_actionCollection->addAction(QString::fromLatin1("datebar-zoom-out"));
+    zoomOutAction->setShortcutContext(Qt::ApplicationShortcut);
+    zoomOutAction->setText(i18n("Zoom out"));
+    zoomOutAction->setIcon(QIcon::fromTheme(QStringLiteral("zoom-out")));
+    connect(zoomOutAction, &QAction::triggered, this, &DateBarWidget::zoomOut);
+    connect(this, &DateBarWidget::canZoomOut, zoomOutAction, &QAction::setEnabled);
     m_zoomOut = new QToolButton(this);
-    m_zoomOut->setIcon(QIcon::fromTheme(QStringLiteral("zoom-out")));
-    m_zoomOut->setToolTip(i18n("Zoom out"));
+    m_zoomOut->setDefaultAction(zoomOutAction);
     m_zoomOut->setFocusPolicy(Qt::ClickFocus);
-    connect(m_zoomOut, &QToolButton::clicked, this, &DateBarWidget::zoomOut);
-    connect(this, &DateBarWidget::canZoomOut, m_zoomOut, &QToolButton::setEnabled);
 
+    auto clearSelectionAction = m_actionCollection->addAction(QString::fromLatin1("datebar-clear-selection"));
+    clearSelectionAction->setShortcutContext(Qt::ApplicationShortcut);
+    clearSelectionAction->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear")));
+    clearSelectionAction->setText(i18nc("The button clears the selection of a date range in the date bar.", "Clear date selection"));
+    clearSelectionAction->setEnabled(false);
+    connect(clearSelectionAction, &QAction::triggered, this, &DateBarWidget::clearSelection);
+    connect(this, &DateBarWidget::dateRangeSelected, clearSelectionAction, &QAction::setEnabled);
     m_cancelSelection = new QToolButton(this);
-    m_cancelSelection->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear")));
-    connect(m_cancelSelection, &QToolButton::clicked, this, &DateBarWidget::clearSelection);
-    m_cancelSelection->setEnabled(false);
-    m_cancelSelection->setToolTip(i18nc("The button clears the selection of a date range in the date bar.", "Clear date selection"));
+    m_cancelSelection->setDefaultAction(clearSelectionAction);
 
     placeAndSizeButtons();
 
@@ -105,6 +127,7 @@ DateBar::DateBarWidget::DateBarWidget(QWidget *parent)
     setToolTip(whatsThis());
 
     connect(Settings::SettingsData::instance(), &Settings::SettingsData::histogramScaleChanged, this, &DateBarWidget::redraw);
+    m_actionCollection->readSettings();
 }
 
 QSize DateBar::DateBarWidget::sizeHint() const
@@ -510,7 +533,6 @@ void DateBar::DateBarWidget::mousePressEvent(QMouseEvent *event)
         }
     }
     m_currentMouseHandler->mousePressEvent(event->x());
-    m_cancelSelection->setEnabled(hasSelection());
     emit dateSelected(currentDateRange(), includeFuzzyCounts());
     showStatusBarTip(event->pos());
     redraw();
@@ -591,6 +613,11 @@ DB::ImageDate DateBar::DateBarWidget::rangeForUnit(int unit)
 bool DateBar::DateBarWidget::includeFuzzyCounts() const
 {
     return m_includeFuzzyCounts;
+}
+
+KActionCollection *DateBar::DateBarWidget::actions()
+{
+    return m_actionCollection;
 }
 
 void DateBar::DateBarWidget::contextMenuEvent(QContextMenuEvent *event)
@@ -849,14 +876,15 @@ void DateBar::DateBarWidget::clearSelection()
     if (m_selectionHandler->hasSelection()) {
         m_selectionHandler->clearSelection();
         emit dateRangeCleared();
+        emit dateRangeSelected(false);
         redraw();
     }
-    m_cancelSelection->setEnabled(false);
 }
 
 void DateBar::DateBarWidget::emitRangeSelection(const DB::ImageDate &range)
 {
     emit dateRangeChange(range);
+    emit dateRangeSelected(true);
 }
 
 int DateBar::DateBarWidget::unitForDate(const Utilities::FastDateTime &date) const

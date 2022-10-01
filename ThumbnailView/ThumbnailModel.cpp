@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "ThumbnailModel.h"
 
 #include "CellGeometry.h"
@@ -335,7 +336,7 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
 
     if (Settings::SettingsData::instance()->displayLabels()) {
         QString line = info->label();
-        if (stringWidth(line) > thumbnailWidth) {
+        if (widget()->fontMetrics().horizontalAdvance(line) > thumbnailWidth) {
             line = line.left(maxCharacters);
             line += QLatin1String(" ...");
         }
@@ -370,7 +371,7 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
                             line += QLatin1String(", ");
                         line += item;
                     }
-                    if (stringWidth(line) > thumbnailWidth) {
+                    if (widget()->fontMetrics().horizontalAdvance(line) > thumbnailWidth) {
                         line = line.left(maxCharacters);
                         line += QLatin1String(" ...");
                     }
@@ -545,19 +546,6 @@ void ThumbnailView::ThumbnailModel::preloadThumbnails()
             continue;
         const_cast<ThumbnailView::ThumbnailModel *>(this)->requestThumbnail(fileName, ImageManager::ThumbnailInvisible);
     }
-}
-
-int ThumbnailView::ThumbnailModel::stringWidth(const QString &text) const
-{
-    // This is a workaround for the deprecation warnings emerged with Qt 5.13.
-    // QFontMetrics::horizontalAdvance wasn't introduced until Qt 5.11. As soon as we drop support
-    // for Qt versions before 5.11, this can be removed in favor of calling horizontalAdvance
-    // directly.
-#if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
-    return QFontMetrics(widget()->font()).width(text);
-#else
-    return QFontMetrics(widget()->font()).horizontalAdvance(text);
-#endif
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

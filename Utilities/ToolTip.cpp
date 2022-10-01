@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "ToolTip.h"
 
@@ -26,7 +26,7 @@ ToolTip::ToolTip(QWidget *parent, Qt::WindowFlags f)
     setLineWidth(1);
     setMargin(1);
 
-    setWindowOpacity(0.8);
+    setWindowOpacity(0.9);
     setAutoFillBackground(true);
     updatePalette();
 }
@@ -35,7 +35,6 @@ void ToolTip::updatePalette()
 {
     QPalette p = palette();
     QColor bgColor = palette().shadow().color();
-    bgColor.setAlpha(170);
     p.setColor(QPalette::Background, bgColor);
     p.setColor(QPalette::WindowText, palette().brightText().color());
     setPalette(p);
@@ -64,8 +63,11 @@ void ToolTip::pixmapLoaded(ImageManager::ImageRequest *request, const QImage &im
     m_tmpFileForThumbnailView->open();
 
     image.save(m_tmpFileForThumbnailView, "PNG");
-    if (fileName == m_currentFileName)
+    if (fileName == m_currentFileName) {
+        setMinimumWidth(3 * image.width());
+        setMinimumHeight(image.height());
         renderToolTip();
+    }
 }
 
 void ToolTip::requestToolTip(const DB::FileName &fileName)
@@ -87,9 +89,8 @@ void ToolTip::renderToolTip()
 {
     const int size = Settings::SettingsData::instance()->previewSize();
     if (size != 0) {
-        setText(QString::fromLatin1("<table cols=\"2\" cellpadding=\"10\"><tr><td><img src=\"%1\"></td><td>%2</td></tr>")
-                    .arg(m_tmpFileForThumbnailView->fileName())
-                    .arg(Utilities::createInfoText(DB::ImageDB::instance()->info(m_currentFileName), nullptr)));
+        setText(QString::fromLatin1("<table cols='2' cellpadding='10'><tr><td><img src='%1' width=></td><td>%2</td></tr>")
+                    .arg(m_tmpFileForThumbnailView->fileName(), Utilities::createInfoText(DB::ImageDB::instance()->info(m_currentFileName), nullptr)));
     } else
         setText(QString::fromLatin1("<p>%1</p>").arg(Utilities::createInfoText(DB::ImageDB::instance()->info(m_currentFileName), nullptr)));
 

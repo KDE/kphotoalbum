@@ -1356,12 +1356,8 @@ void AnnotationDialog::Dialog::setUpCategoryListBoxForMultiImageSelection(ListSe
 std::tuple<StringSet, StringSet, StringSet> AnnotationDialog::Dialog::selectionForMultiSelect(const ListSelect *listSel, const DB::ImageInfoList &images)
 {
     const QString category = listSel->category();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     const auto itemsInclCategories = DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->itemsInclCategories();
     const StringSet allItems(itemsInclCategories.begin(), itemsInclCategories.end());
-#else
-    const StringSet allItems = DB::ImageDB::instance()->categoryCollection()->categoryForName(category)->itemsInclCategories().toSet();
-#endif
     StringSet itemsOnSomeImages;
     StringSet itemsOnAllImages;
     bool firstImage = true;

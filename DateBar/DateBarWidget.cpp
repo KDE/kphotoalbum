@@ -938,6 +938,7 @@ int DateBar::DateBarWidget::stringWidth(const QFontMetrics &fontMetrics, const Q
     // QFontMetrics::horizontalAdvance wasn't introduced until Qt 5.11. As soon as we drop support
     // for Qt versions before 5.11, this can be removed in favor of calling horizontalAdvance
     // directly.
+    // FIXME(jzarl) This can now be fixed!
 #if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
     return fontMetrics.width(text);
 #else

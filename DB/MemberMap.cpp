@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "MemberMap.h"
 
@@ -59,19 +59,11 @@ QStringList MemberMap::members(const QString &category, const QString &memberGro
         if (m_dirty) {
             calculate();
         }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
         const auto &members = m_closureMembers[category][memberGroup];
         return QStringList(members.begin(), members.end());
-#else
-        return m_closureMembers[category][memberGroup].toList();
-#endif
     } else {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
         const auto &members = m_members[category][memberGroup];
         return QStringList(members.begin(), members.end());
-#else
-        return m_members[category][memberGroup].toList();
-#endif
     }
 }
 
@@ -79,11 +71,7 @@ void MemberMap::setMembers(const QString &category, const QString &memberGroup, 
 {
     Q_ASSERT(!category.isEmpty());
     Q_ASSERT(!memberGroup.isEmpty());
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     StringSet allowedMembers(members.begin(), members.end());
-#else
-    StringSet allowedMembers = members.toSet();
-#endif
 
     for (QStringList::const_iterator i = members.begin(); i != members.end(); ++i)
         if (!canAddMemberToGroup(category, memberGroup, *i))
@@ -137,22 +125,14 @@ QStringList MemberMap::calculateClosure(QMap<QString, StringSet> &resultSoFar, c
         if (resultSoFar.contains(*it)) {
             result += resultSoFar[*it];
         } else if (isGroup(category, *it)) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
             const auto closure = calculateClosure(resultSoFar, category, *it);
             const StringSet closureSet(closure.begin(), closure.end());
-#else
-            const StringSet closureSet = calculateClosure(resultSoFar, category, *it).toSet();
-#endif
             result += closureSet;
         }
     }
 
     resultSoFar[group] = result;
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     return QStringList(result.begin(), result.end());
-#else
-    return result.toList();
-#endif
 }
 
 /**

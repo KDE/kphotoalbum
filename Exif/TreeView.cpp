@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -56,12 +57,8 @@ void Exif::TreeView::reload()
 {
     clear();
     setRootIsDecorated(true);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     const auto availableKeys = Exif::Info::instance()->availableKeys();
     QStringList keys(availableKeys.begin(), availableKeys.end());
-#else
-    QStringList keys = Exif::Info::instance()->availableKeys().toList();
-#endif
     keys.sort();
 
     QMap<QString, QTreeWidgetItem *> tree;

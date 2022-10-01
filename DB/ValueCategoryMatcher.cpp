@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "ValueCategoryMatcher.h"
 
@@ -26,11 +26,7 @@ DB::ValueCategoryMatcher::ValueCategoryMatcher(const QString &category, const QS
 
     const MemberMap &map = DB::ImageDB::instance()->memberMap();
     const QStringList members = map.members(m_category, m_option, true);
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     m_members = StringSet(members.begin(), members.end());
-#else
-    m_members = members.toSet();
-#endif
 }
 
 bool DB::ValueCategoryMatcher::eval(ImageInfoPtr info, QMap<QString, StringSet> &alreadyMatched)

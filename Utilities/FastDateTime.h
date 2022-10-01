@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2020 the KPhotoAlbum development team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2020 the KPhotoAlbum development team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef UTILITIES_FASTDATETIME_H
 #define UTILITIES_FASTDATETIME_H
@@ -84,17 +84,10 @@ public:
     QDate date() const { return m_dateTime.date(); }
     QTime time() const { return m_dateTime.time(); }
     QString toString(Qt::DateFormat format = Qt::TextDate) const { return m_dateTime.toString(format); }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
     QString toString(QStringView format) const
     {
         return m_dateTime.toString(format);
     }
-#else
-    QString toString(QString format) const
-    {
-        return m_dateTime.toString(format);
-    }
-#endif
     qint64 secsTo(const FastDateTime &other) const
     {
         if (isOK() && other.isOK())

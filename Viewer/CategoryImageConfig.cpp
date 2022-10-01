@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "CategoryImageConfig.h"
 
@@ -97,11 +97,7 @@ void Viewer::CategoryImageConfig::groupChanged()
         set += map[*directMembersIt];
     }
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     QStringList list(set.begin(), set.end());
-#else
-    QStringList list = set.toList();
-#endif
 
     list.sort();
     m_member->addItems(list);

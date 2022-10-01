@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ThumbnailToolTip.h"
 
@@ -73,15 +73,10 @@ void ThumbnailView::ThumbnailToolTip::placeWindow()
     if (m_heightInverse)
         pos.setY(pos.y() - 30 - height());
 
-        // TODO: remove this version check once we don't care about Ubuntu 18.04 LTS anymore
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
     QScreen *screen = qApp->screenAt(QCursor::pos());
     if (!screen)
         return;
     QRect geom = screen->geometry();
-#else
-    QRect geom = qApp->desktop()->screenGeometry(QCursor::pos());
-#endif
 
     // Now test whether the window moved outside the screen
     if (m_widthInverse) {

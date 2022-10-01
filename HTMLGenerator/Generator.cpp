@@ -423,19 +423,11 @@ bool HTMLGenerator::Generator::generateContentPage(int width, int height,
     QString name = QString::fromLatin1("Common Name");
     const auto itemsOfCategory = info->itemsOfCategory(name);
     if (!itemsOfCategory.empty()) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
         title += QStringList(itemsOfCategory.begin(), itemsOfCategory.end()).join(QLatin1String(" - "));
-#else
-        title += QStringList(itemsOfCategory.toList()).join(QString::fromLatin1(" - "));
-#endif
     } else {
         name = QString::fromLatin1("Latin Name");
         if (!itemsOfCategory.empty()) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
             title += QStringList(itemsOfCategory.begin(), itemsOfCategory.end()).join(QString::fromLatin1(" - "));
-#else
-            title += QStringList(itemsOfCategory.toList()).join(QString::fromLatin1(" - "));
-#endif
         } else {
             title = info->label();
         }
@@ -786,11 +778,7 @@ QString HTMLGenerator::Generator::populateDescription(QList<DB::CategoryPtr> cat
         const auto name = (*it)->name();
         const auto itemsOfCategory = info->itemsOfCategory(name);
         if (!itemsOfCategory.empty() && m_setup.includeCategory(name)) {
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
             const QStringList itemsList(itemsOfCategory.begin(), itemsOfCategory.end());
-#else
-            const QStringList itemsList = itemsOfCategory.toList();
-#endif
             description += QStringLiteral("  <li> <b>%1:</b> %2</li>").arg(name, itemsList.join(QLatin1String(", ")));
         }
     }

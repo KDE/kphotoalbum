@@ -622,15 +622,10 @@ void ImageInfo::merge(const ImageInfo &other)
     const bool isCompleted = !m_categoryInfomation[untaggedCategory].contains(untaggedTag) || !other.m_categoryInfomation[untaggedCategory].contains(untaggedTag);
 
     // Merge tags
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     const auto categoryInfomationKeys = m_categoryInfomation.keys();
     QSet<QString> keys(categoryInfomationKeys.begin(), categoryInfomationKeys.end());
     const auto otherCategoryInfomationKeys = other.m_categoryInfomation.keys();
     const QSet<QString> otherCategoryInfomationKeysSet(otherCategoryInfomationKeys.begin(), otherCategoryInfomationKeys.end());
-#else
-    QSet<QString> keys = QSet<QString>::fromList(m_categoryInfomation.keys());
-    const auto otherCategoryInfomationKeysSet = QSet<QString>::fromList(other.m_categoryInfomation.keys());
-#endif
     keys.unite(otherCategoryInfomationKeysSet);
     for (const QString &key : keys) {
         m_categoryInfomation[key].unite(other.m_categoryInfomation[key]);

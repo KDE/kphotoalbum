@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "XMLImageDateCollection.h"
 
@@ -16,11 +16,7 @@ void XMLDB::XMLImageDateCollection::add(const DB::ImageDate &date)
 void XMLDB::XMLImageDateCollection::buildIndex()
 {
     StartIndexMap::ConstIterator startSearch = m_startIndex.constBegin();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     Utilities::FastDateTime biggestEnd = QDate(1900, 1, 1).startOfDay();
-#else
-    Utilities::FastDateTime biggestEnd = Utilities::FastDateTime(QDate(1900, 1, 1));
-#endif
     for (StartIndexMap::ConstIterator it = m_startIndex.constBegin();
          it != m_startIndex.constEnd();
          ++it) {
@@ -108,11 +104,7 @@ Utilities::FastDateTime XMLDB::XMLImageDateCollection::lowerLimit() const
                 return it.key();
         }
     }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     return QDate(1900, 1, 1).startOfDay();
-#else
-    return Utilities::FastDateTime(QDate(1900, 1, 1));
-#endif
 }
 
 Utilities::FastDateTime XMLDB::XMLImageDateCollection::upperLimit() const
@@ -122,11 +114,7 @@ Utilities::FastDateTime XMLDB::XMLImageDateCollection::upperLimit() const
         --highest;
         return highest.key();
     }
-#if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
     return QDate(2100, 1, 1).startOfDay();
-#else
-    return Utilities::FastDateTime(QDate(2100, 1, 1));
-#endif
 }
 
 XMLDB::XMLImageDateCollection::XMLImageDateCollection(const DB::ImageInfoList &list)

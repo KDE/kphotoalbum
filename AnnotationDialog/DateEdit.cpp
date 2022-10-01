@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -70,9 +71,8 @@ AnnotationDialog::DateEdit::DateEdit(bool isStartEdit, QWidget *parent)
     m_KeywordMap[i18n("today")] = 0;
     m_KeywordMap[i18n("yesterday")] = -1;
 
-    QString dayName;
     for (int i = 1; i <= 7; ++i) {
-        dayName = QLocale().dayName(i, QLocale::LongFormat).toLower();
+        QString dayName = QLocale().dayName(i, QLocale::LongFormat).toLower();
         m_KeywordMap[dayName] = i + 100;
     }
     lineEdit()->installEventFilter(this); // handle keyword entry
@@ -169,10 +169,10 @@ void AnnotationDialog::DateEdit::showPopup()
 
     m_DateFrame->move(popupPoint);
 
-    QDate date;
-    readDate(date, 0);
-    if (date.isValid()) {
-        m_DatePicker->setDate(date);
+    QDate newDate;
+    readDate(newDate, 0);
+    if (newDate.isValid()) {
+        m_DatePicker->setDate(newDate);
     } else {
         m_DatePicker->setDate(m_defaultValue);
     }
@@ -212,15 +212,15 @@ void AnnotationDialog::DateEdit::lineEnterPressed()
     if (!m_TextChanged)
         return;
 
-    QDate date;
+    QDate newDate;
     QDate end;
-    if (readDate(date, &end) && (m_HandleInvalid || date.isValid()) && validate(date)) {
+    if (readDate(newDate, &end) && (m_HandleInvalid || newDate.isValid()) && validate(newDate)) {
         // Update the edit. This is needed if the user has entered a
         // word rather than the actual date.
-        setDate(date);
-        emit(dateChanged(date));
+        setDate(newDate);
+        emit dateChanged(newDate);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 14, 0)
-        emit dateChanged(DB::ImageDate(date.startOfDay(), end.startOfDay()));
+        emit dateChanged(DB::ImageDate(newDate.startOfDay(), end.startOfDay()));
 #else
         emit dateChanged(DB::ImageDate(Utilities::FastDateTime(date), Utilities::FastDateTime(end)));
 #endif
@@ -233,8 +233,8 @@ void AnnotationDialog::DateEdit::lineEnterPressed()
 
 bool AnnotationDialog::DateEdit::inputIsValid() const
 {
-    QDate date;
-    return readDate(date, 0) && date.isValid();
+    QDate inputDate;
+    return readDate(inputDate, 0) && inputDate.isValid();
 }
 
 /* Reads the text from the line edit. If the text is a keyword, the
@@ -313,7 +313,7 @@ bool AnnotationDialog::DateEdit::eventFilter(QObject *obj, QEvent *e)
         switch (e->type()) {
         case QEvent::MouseButtonDblClick:
         case QEvent::MouseButtonPress: {
-            QMouseEvent *me = (QMouseEvent *)e;
+            QMouseEvent *me = dynamic_cast<QMouseEvent *>(e);
             if (!m_DateFrame->rect().contains(me->pos())) {
                 QPoint globalPos = m_DateFrame->mapToGlobal(me->pos());
                 if (QApplication::widgetAt(globalPos) == this) {

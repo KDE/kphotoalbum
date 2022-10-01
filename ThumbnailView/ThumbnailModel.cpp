@@ -363,7 +363,7 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
                 if (!items.empty()) {
                     QString line;
                     bool first = true;
-                    for (Utilities::StringSet::const_iterator it2 = items.begin(); it2 != items.end(); ++it2) {
+                    for (Utilities::StringSet::const_iterator it2 = items.cbegin(); it2 != items.cend(); ++it2) {
                         QString item = *it2;
                         if (first)
                             first = false;
@@ -514,7 +514,7 @@ void ThumbnailView::ThumbnailModel::filterByCategory(const QString &category, co
 void ThumbnailView::ThumbnailModel::toggleCategoryFilter(const QString &category, const QString &tag)
 {
     auto tags = m_filter.categoryMatchText(category).split(QLatin1String("&"), QString::SkipEmptyParts);
-    for (const auto &existingTag : tags) {
+    for (const auto &existingTag : qAsConst(tags)) {
         if (tag == existingTag.trimmed()) {
             qCDebug(ThumbnailViewLog) << "Filter removed: category(" << category << "," << tag << ")";
             tags.removeAll(existingTag);

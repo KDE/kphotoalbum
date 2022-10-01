@@ -1314,6 +1314,7 @@ void MainWindow::Window::configureShortcuts()
     KShortcutsDialog *dialog = new KShortcutsDialog();
     dialog->addCollection(actionCollection(), i18n("General"));
     dialog->addCollection(viewer->actions(), i18n("Viewer"));
+    dialog->addCollection(m_dateBar->actions(), i18nc("I.e. the timeline histogram widget", "Date Bar"));
 
     createAnnotationDialog();
     dialog->addCollection(m_annotationDialog->actions(), i18n("Annotation Dialog"));

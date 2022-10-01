@@ -22,7 +22,7 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-cmake_minimum_required(VERSION 3.16.0)
+cmake_minimum_required(VERSION 3.18.0)
 project(kphotoalbum LANGUAGES CXX VERSION 5.9.1)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -57,11 +57,11 @@ add_definitions(
 
 ########### dependencies  ###############
 
-find_package(Qt5 5.10 REQUIRED COMPONENTS Core Sql Xml Widgets Test)
+find_package(Qt5 5.15 REQUIRED COMPONENTS Core Sql Xml Widgets Test)
 find_package(Phonon4Qt5)
 find_package(QtAV)
 find_package(LIBVLC)
-find_package(KF5 5.44 REQUIRED COMPONENTS Archive Completion Config CoreAddons I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons)
+find_package(KF5 5.78 REQUIRED COMPONENTS Archive Completion Config CoreAddons I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons)
 
 find_package(JPEG REQUIRED)
 if(JPEG_FOUND)

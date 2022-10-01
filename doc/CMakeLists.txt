@@ -5,7 +5,7 @@
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-find_package(KF5 5.44 REQUIRED DocTools)
+find_package(KF5 REQUIRED DocTools)
 kdoctools_create_handbook(index.docbook INSTALL_DESTINATION "${KDE_INSTALL_DOCBUNDLEDIR}/en" SUBDIR kphotoalbum)
 
 # vi:expandtab:tabstop=4 shiftwidth=4:

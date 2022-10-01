@@ -20,8 +20,12 @@ Since invent.kde.org makes it easier to get a continuous integration pipeline fo
 \li The release life cycle is very regular
 \li Debian is easily integrated with our CI pipeline in a way that tracks an older distro.
 \li Package information is readily available. See e.g. the information for the
+    <a href='https://packages.ubuntu.com/search?keywords=cmake' alt='Ubuntu package search'>cmake</a>,
+    <a href='https://packages.ubuntu.com/search?keywords=extra-cmake-modules' alt='Ubuntu package search'>extra-cmake-modules</a>,
     <a href='https://packages.ubuntu.com/libqt5gui' alt='Ubuntu package search'>libqt5gui</a> and
     <a href='https://packages.ubuntu.com/libkf5kio-dev' alt='Ubuntu package search'>libkf5kio-dev</a> Ubuntu packages, or
+    <a href='https://packages.debian.org/search?keywords=cmake' alt='Debian package search'>cmake</a>,
+    <a href='https://packages.debian.org/search?keywords=extra-cmake-modules' alt='Debian package search'>extra-cmake-modules</a>,
     <a href='https://packages.debian.org/search?keywords=libkf5kio-dev' alt='Debian package search'>libkf5kio-dev</a> and
     <a href='https://packages.debian.org/search?keywords=libqt5gui' alt='Debian package search'>libqt5gui</> Debian packages.
 

@@ -85,8 +85,9 @@ DateBar::DateBarWidget::DateBarWidget(QWidget *parent)
     zoomInAction->setShortcutContext(Qt::ApplicationShortcut);
     zoomInAction->setText(i18n("Zoom in"));
     zoomInAction->setIcon(QIcon::fromTheme(QStringLiteral("zoom-in")));
+    zoomInAction->setEnabled(canZoomIn());
     connect(zoomInAction, &QAction::triggered, this, &DateBarWidget::zoomIn);
-    connect(this, &DateBarWidget::canZoomIn, zoomInAction, &QAction::setEnabled);
+    connect(this, &DateBarWidget::zoomInEnabled, zoomInAction, &QAction::setEnabled);
     m_zoomIn = new QToolButton(this);
     m_zoomIn->setDefaultAction(zoomInAction);
     m_zoomIn->setFocusPolicy(Qt::ClickFocus);
@@ -95,8 +96,9 @@ DateBar::DateBarWidget::DateBarWidget(QWidget *parent)
     zoomOutAction->setShortcutContext(Qt::ApplicationShortcut);
     zoomOutAction->setText(i18n("Zoom out"));
     zoomOutAction->setIcon(QIcon::fromTheme(QStringLiteral("zoom-out")));
+    zoomOutAction->setEnabled(canZoomOut());
     connect(zoomOutAction, &QAction::triggered, this, &DateBarWidget::zoomOut);
-    connect(this, &DateBarWidget::canZoomOut, zoomOutAction, &QAction::setEnabled);
+    connect(this, &DateBarWidget::zoomOutEnabled, zoomOutAction, &QAction::setEnabled);
     m_zoomOut = new QToolButton(this);
     m_zoomOut->setDefaultAction(zoomOutAction);
     m_zoomOut->setFocusPolicy(Qt::ClickFocus);
@@ -322,7 +324,7 @@ void DateBar::DateBarWidget::setImageDateCollection(const QExplicitlySharedDataP
         // select suitable timeframe:
         setViewType(MinuteView, false);
         m_currentHandler->init(start);
-        while (m_tp != DecadeView && end > dateForUnit(numberOfUnits())) {
+        while (canZoomOut() && end > dateForUnit(numberOfUnits())) {
             m_tp = (ViewType)(m_tp - 1);
             setViewHandlerForType(m_tp);
             m_currentHandler->init(start);
@@ -496,14 +498,14 @@ void DateBar::DateBarWidget::drawFocusRectangle(QPainter &p)
 
 void DateBar::DateBarWidget::zoomIn()
 {
-    if (m_tp == MinuteView)
+    if (!canZoomIn())
         return;
     zoom(+1);
 }
 
 void DateBar::DateBarWidget::zoomOut()
 {
-    if (m_tp == DecadeView)
+    if (!canZoomOut())
         return;
     zoom(-1);
 }
@@ -511,9 +513,13 @@ void DateBar::DateBarWidget::zoomOut()
 void DateBar::DateBarWidget::zoom(int steps)
 {
     ViewType tp = (ViewType)(m_tp + steps);
+    const bool couldZoomIn = canZoomIn();
+    const bool couldZoomOut = canZoomOut();
     setViewType(tp);
-    emit canZoomIn(tp != MinuteView);
-    emit canZoomOut(tp != DecadeView);
+    if (couldZoomIn != canZoomIn())
+        emit zoomInEnabled(canZoomIn());
+    if (couldZoomOut != canZoomOut())
+        emit zoomOutEnabled(canZoomOut());
 }
 
 void DateBar::DateBarWidget::mousePressEvent(QMouseEvent *event)
@@ -618,6 +624,16 @@ bool DateBar::DateBarWidget::includeFuzzyCounts() const
 KActionCollection *DateBar::DateBarWidget::actions()
 {
     return m_actionCollection;
+}
+
+bool DateBar::DateBarWidget::canZoomIn() const
+{
+    return (m_tp != MinuteView);
+}
+
+bool DateBar::DateBarWidget::canZoomOut() const
+{
+    return (m_tp != DecadeView);
 }
 
 void DateBar::DateBarWidget::contextMenuEvent(QContextMenuEvent *event)
@@ -794,12 +810,12 @@ void DateBar::DateBarWidget::keyPressEvent(QKeyEvent *event)
 {
     int offset = 0;
     if (event->key() == Qt::Key_Plus) {
-        if (m_tp != MinuteView)
+        if (canZoomIn())
             zoom(1);
         return;
     }
     if (event->key() == Qt::Key_Minus) {
-        if (m_tp != DecadeView)
+        if (canZoomOut())
             zoom(-1);
         return;
     }

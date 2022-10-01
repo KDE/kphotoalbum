@@ -74,6 +74,9 @@ public:
     bool includeFuzzyCounts() const;
     KActionCollection *actions();
 
+    bool canZoomIn() const;
+    bool canZoomOut() const;
+
 public slots:
     void clearSelection();
     void setViewType(ViewType tp, bool redrawNow = true);
@@ -101,8 +104,8 @@ public slots:
     void setAutomaticRangeAdjustment(bool);
 
 signals:
-    void canZoomIn(bool);
-    void canZoomOut(bool);
+    void zoomInEnabled(bool);
+    void zoomOutEnabled(bool);
     void dateSelected(const DB::ImageDate &, bool includeRanges);
     void toolTipInfo(const QString &);
     void dateRangeChange(const DB::ImageDate &);

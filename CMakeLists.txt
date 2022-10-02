@@ -25,6 +25,15 @@
 cmake_minimum_required(VERSION 3.18.0)
 project(kphotoalbum LANGUAGES CXX VERSION 5.9.1)
 
+# set minimum versions here:
+set(MINIMUM_ECM_VERSION 5.78)
+set(MINIMUM_KF5_VERSION 5.78)
+set(MINIMUM_Qt5_VERSION_MAJOR 5)
+set(MINIMUM_Qt5_VERSION_MINOR 15)
+set(MINIMUM_Qt5_VERSION_PATCH 0)
+set(MINIMUM_Qt5_VERSION "${MINIMUM_Qt5_VERSION_MAJOR}.${MINIMUM_Qt5_VERSION_MINOR}.${MINIMUM_Qt5_VERSION_PATCH}")
+math(EXPR MINIMUM_Qt5_VERSION_HEX "${MINIMUM_Qt5_VERSION_MAJOR} << 24 | ${MINIMUM_Qt5_VERSION_MINOR} << 16 | ${MINIMUM_Qt5_VERSION_PATCH}" OUTPUT_FORMAT HEXADECIMAL)
+
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -33,7 +42,7 @@ set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ";Debug;Release;RelWithDebI
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
 
-find_package(ECM 5.78 REQUIRED NO_MODULE)
+find_package(ECM ${MINIMUM_ECM_VERSION} REQUIRED NO_MODULE)
 list(APPEND CMAKE_MODULE_PATH "${ECM_MODULE_PATH}" )
 
 include(KDEInstallDirs)
@@ -44,24 +53,31 @@ include(FeatureSummary)
 # enable exceptions:
 kde_enable_exceptions()
 
+
 add_definitions(
     -DQT_NO_CAST_FROM_ASCII
     -DQT_NO_CAST_TO_ASCII
     -DQT_NO_URL_CAST_FROM_STRING
     -DQT_NO_CAST_FROM_BYTEARRAY
+    -DQT_USE_STRINGBUILDER
+    #-DQT_NO_NARROWING_CONVERSIONS_IN_CONNECT
+    #-DQT_NO_KEYWORDS
+    -DQT_NO_FOREACH
     -DQT_DEPRECATED_WARNINGS
     -DQT_STRICT_ITERATORS
-    -DQT_DISABLE_DEPRECATED_BEFORE=0x050A00
+    # jzarl: the goal here is to have QT_DISABLE_DEPRECATED_BEFORE follow the required Qt5 version, but we're not there yet:
+    #-DQT_DISABLE_DEPRECATED_BEFORE=${MINIMUM_Qt5_VERSION_HEX}
+    -DQT_DISABLE_DEPRECATED_BEFORE=0x050a00
     -DQT_DISABLE_Q_FOREACH
     )
 
 ########### dependencies  ###############
 
-find_package(Qt5 5.15 REQUIRED COMPONENTS Core Sql Xml Widgets Test)
+find_package(Qt5 ${MINIMUM_Qt5_VERSION} REQUIRED COMPONENTS Core Sql Xml Widgets Test)
 find_package(Phonon4Qt5)
 find_package(QtAV)
 find_package(LIBVLC)
-find_package(KF5 5.78 REQUIRED COMPONENTS Archive Completion Config CoreAddons I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons)
+find_package(KF5 ${MINIMUM_KF5_VERSION} REQUIRED COMPONENTS Archive Completion Config CoreAddons I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons)
 
 find_package(JPEG REQUIRED)
 if(JPEG_FOUND)

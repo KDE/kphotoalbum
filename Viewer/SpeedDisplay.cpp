@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "SpeedDisplay.h"
 
@@ -67,7 +67,7 @@ void Viewer::SpeedDisplay::setAlphaChannel(int backgroundAlpha, int labelAlpha)
     QPalette p = palette();
     QColor bgColor = p.window().color();
     bgColor.setAlpha(backgroundAlpha);
-    p.setColor(QPalette::Background, bgColor);
+    p.setColor(QPalette::Window, bgColor);
     QColor fgColor = p.windowText().color();
     fgColor.setAlpha(labelAlpha);
     p.setColor(QPalette::WindowText, fgColor);

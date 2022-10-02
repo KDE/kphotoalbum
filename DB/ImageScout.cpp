@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2018-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2018-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ImageScout.h"
 
@@ -97,16 +97,16 @@ void ImageScoutThread::doRun(char *tmpBuf)
         locker.unlock();
         // If we're behind the reader, move along
         m_preloadedCount++;
-        if (m_loadedCount.load() >= m_preloadedCount.load()) {
+        if (m_loadedCount.loadRelaxed() >= m_preloadedCount.loadRelaxed()) {
             m_skippedCount++;
             continue;
         } else {
             // Don't get too far ahead of the loader, or we just waste memory
             // TODO: wait on something rather than polling
-            while (m_preloadedCount.load() >= m_loadedCount.load() + m_maxSeekAhead && !isInterruptionRequested()) {
+            while (m_preloadedCount.loadRelaxed() >= m_loadedCount.loadRelaxed() + m_maxSeekAhead && !isInterruptionRequested()) {
                 QThread::msleep(SEEKAHEAD_WAIT_MS);
             }
-            // qCDebug(DBImageScoutLog) << ">>>>>Scout: preload" << m_preloadedCount.load() << "load" << m_loadedCount.load() << fileName.relative();
+            // qCDebug(DBImageScoutLog) << ">>>>>Scout: preload" << m_preloadedCount.loadRelaxed() << "load" << m_loadedCount.loadRelaxed() << fileName.relative();
         }
         if (m_preloadFunc) {
             (*m_preloadFunc)(fileName);

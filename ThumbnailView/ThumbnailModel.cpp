@@ -513,7 +513,7 @@ void ThumbnailView::ThumbnailModel::filterByCategory(const QString &category, co
 
 void ThumbnailView::ThumbnailModel::toggleCategoryFilter(const QString &category, const QString &tag)
 {
-    auto tags = m_filter.categoryMatchText(category).split(QLatin1String("&"), QString::SkipEmptyParts);
+    auto tags = m_filter.categoryMatchText(category).split(QLatin1String("&"), Qt::SkipEmptyParts);
     for (const auto &existingTag : qAsConst(tags)) {
         if (tag == existingTag.trimmed()) {
             qCDebug(ThumbnailViewLog) << "Filter removed: category(" << category << "," << tag << ")";

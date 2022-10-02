@@ -127,7 +127,7 @@ bool ThumbnailView::ThumbnailWidget::isMouseOverStackIndicator(const QPoint &poi
 
 static bool isMouseResizeGesture(QMouseEvent *event)
 {
-    return (event->button() & Qt::MidButton) || ((event->modifiers() & Qt::ControlModifier) && (event->modifiers() & Qt::AltModifier));
+    return (event->button() & Qt::MiddleButton) || ((event->modifiers() & Qt::ControlModifier) && (event->modifiers() & Qt::AltModifier));
 }
 
 void ThumbnailView::ThumbnailWidget::mousePressEvent(QMouseEvent *event)
@@ -201,7 +201,7 @@ void ThumbnailView::ThumbnailWidget::wheelEvent(QWheelEvent *event)
         model()->endResetModel();
     } else {
         const auto angleDelta = event->angleDelta() / 5;
-        QWheelEvent newevent = QWheelEvent(event->pos(), event->globalPos(), event->pixelDelta(), angleDelta, event->buttons(), event->modifiers(), event->phase(), event->inverted());
+        QWheelEvent newevent = QWheelEvent(event->position(), event->globalPosition(), event->pixelDelta(), angleDelta, event->buttons(), event->modifiers(), event->phase(), event->inverted());
 
         QListView::wheelEvent(&newevent);
         event->setAccepted(newevent.isAccepted());

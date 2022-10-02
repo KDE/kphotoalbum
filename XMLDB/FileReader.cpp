@@ -328,7 +328,7 @@ void XMLDB::FileReader::loadMemberGroups(ReaderPtr reader)
                 QString member = reader->attribute(memberString);
                 m_db->m_members.addMemberToGroup(category, group, member);
             } else {
-                const QStringList members = reader->attribute(membersString).split(QString::fromLatin1(","), QString::SkipEmptyParts);
+                const QStringList members = reader->attribute(membersString).split(QString::fromLatin1(","), Qt::SkipEmptyParts);
                 for (const QString &memberItem : members) {
                     DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName(category);
                     if (!catPtr) { // category was not declared in "Categories"

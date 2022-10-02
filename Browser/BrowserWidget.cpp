@@ -392,7 +392,7 @@ void Browser::BrowserWidget::createWidgets()
     m_treeView->setAcceptDrops(true);
     m_treeView->setDropIndicatorShown(true);
     m_treeView->setDefaultDropAction(Qt::MoveAction);
-    m_treeView->setBackgroundRole(QPalette::Background);
+    m_treeView->setBackgroundRole(QPalette::Window);
 
     m_treeView->header()->setStretchLastSection(false);
     m_treeView->header()->setSortIndicatorShown(true);

@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -44,7 +45,7 @@ void MainWindow::StatusBar::setupGUI()
 
     QWidget *indicators = new QWidget(this);
     QHBoxLayout *indicatorsHBoxLayout = new QHBoxLayout(indicators);
-    indicatorsHBoxLayout->setMargin(0);
+    indicatorsHBoxLayout->setContentsMargins(0, 0, 0, 0);
     indicatorsHBoxLayout->setSpacing(10);
     mp_dirtyIndicator = new DirtyIndicator(indicators);
     indicatorsHBoxLayout->addWidget(mp_dirtyIndicator);

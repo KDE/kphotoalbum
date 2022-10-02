@@ -774,7 +774,7 @@ void XMLDB::Database::possibleLoadCompressedCategories(ReaderPtr reader, DB::Ima
         }
         QString str = reader->attribute(FileWriter::escape(oldCategoryName));
         if (!str.isEmpty()) {
-            const QStringList list = str.split(QString::fromLatin1(","), QString::SkipEmptyParts);
+            const QStringList list = str.split(QString::fromLatin1(","), Qt::SkipEmptyParts);
             for (const QString &tagString : list) {
                 int id = tagString.toInt();
                 if (id != 0 || categoryPtr->isSpecialCategory()) {

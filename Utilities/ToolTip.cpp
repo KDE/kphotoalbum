@@ -35,7 +35,7 @@ void ToolTip::updatePalette()
 {
     QPalette p = palette();
     QColor bgColor = palette().shadow().color();
-    p.setColor(QPalette::Background, bgColor);
+    p.setColor(QPalette::Window, bgColor);
     p.setColor(QPalette::WindowText, palette().brightText().color());
     setPalette(p);
     // re-enable palette-propagation:

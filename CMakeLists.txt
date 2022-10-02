@@ -63,12 +63,10 @@ add_definitions(
     #-DQT_NO_NARROWING_CONVERSIONS_IN_CONNECT
     -DQT_NO_KEYWORDS
     -DQT_NO_FOREACH
-    -DQT_DEPRECATED_WARNINGS
     -DQT_STRICT_ITERATORS
     # jzarl: the goal here is to have QT_DISABLE_DEPRECATED_BEFORE follow the required Qt5 version, but we're not there yet:
     #-DQT_DISABLE_DEPRECATED_BEFORE=${MINIMUM_Qt5_VERSION_HEX}
     -DQT_DISABLE_DEPRECATED_BEFORE=0x050a00
-    -DQT_DISABLE_Q_FOREACH
     )
 
 ########### dependencies  ###############

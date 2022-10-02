@@ -174,7 +174,7 @@ void DateBar::DateBarWidget::redraw()
     // Fill with background pixels
     p.save();
     p.setPen(Qt::NoPen);
-    p.setBrush(palette().brush(QPalette::Background));
+    p.setBrush(palette().brush(QPalette::Window));
     p.drawRect(rect());
 
     if (!m_dates)
@@ -524,10 +524,10 @@ void DateBar::DateBarWidget::zoom(int steps)
 
 void DateBar::DateBarWidget::mousePressEvent(QMouseEvent *event)
 {
-    if ((event->button() & (Qt::MidButton | Qt::LeftButton)) == 0 || event->x() > barAreaGeometry().right() || event->x() < barAreaGeometry().left())
+    if ((event->button() & (Qt::MiddleButton | Qt::LeftButton)) == 0 || event->x() > barAreaGeometry().right() || event->x() < barAreaGeometry().left())
         return;
 
-    if ((event->button() & Qt::MidButton)
+    if ((event->button() & Qt::MiddleButton)
         || event->modifiers() & Qt::ControlModifier) {
         m_currentMouseHandler = m_barDragHandler;
     } else {
@@ -561,7 +561,7 @@ void DateBar::DateBarWidget::mouseMoveEvent(QMouseEvent *event)
     if (m_currentMouseHandler == nullptr)
         return;
 
-    if ((event->buttons() & (Qt::MidButton | Qt::LeftButton)) == 0)
+    if ((event->buttons() & (Qt::MiddleButton | Qt::LeftButton)) == 0)
         return;
 
     m_currentMouseHandler->endAutoScroll();
@@ -920,13 +920,13 @@ void DateBar::DateBarWidget::emitDateSelected()
 void DateBar::DateBarWidget::wheelEvent(QWheelEvent *e)
 {
     if (e->modifiers() & Qt::ControlModifier) {
-        if (e->delta() > 0)
+        if (e->pixelDelta().y() > 0)
             zoomIn();
         else
             zoomOut();
         return;
     }
-    int scrollAmount = e->delta() > 0 ? SCROLL_AMOUNT : -SCROLL_AMOUNT;
+    int scrollAmount = e->pixelDelta().y() > 0 ? SCROLL_AMOUNT : -SCROLL_AMOUNT;
     if (e->modifiers() & Qt::ShiftModifier)
         scrollAmount *= SCROLL_ACCELERATION;
     scroll(scrollAmount);

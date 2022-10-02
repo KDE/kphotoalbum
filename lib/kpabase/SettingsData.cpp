@@ -128,7 +128,7 @@ SettingsData::SettingsData(const QString &imageDirectory, DB::UIDelegate &delega
 
     // Split the list of Exif comments that should be stripped automatically to a list
 
-    QStringList commentsToStrip = cfgValue("General", "commentsToStrip", QString::fromLatin1("Exif_JPEG_PICTURE-,-OLYMPUS DIGITAL CAMERA-,-JENOPTIK DIGITAL CAMERA-,-")).split(QString::fromLatin1("-,-"), QString::SkipEmptyParts);
+    QStringList commentsToStrip = cfgValue("General", "commentsToStrip", QString::fromLatin1("Exif_JPEG_PICTURE-,-OLYMPUS DIGITAL CAMERA-,-JENOPTIK DIGITAL CAMERA-,-")).split(QString::fromLatin1("-,-"), Qt::SkipEmptyParts);
     for (QString &comment : commentsToStrip)
         comment.replace(QString::fromLatin1(",,"), QString::fromLatin1(","));
 

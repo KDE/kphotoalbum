@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -53,7 +53,7 @@ public:
     void setModel(QAbstractItemModel *);
     static bool isResizing() { return s_isResizing; }
 
-public slots:
+public Q_SLOTS:
     void back();
     void forward();
     void go();
@@ -68,7 +68,7 @@ public slots:
     void scrollKeyPressed(QKeyEvent *);
     void widenToBreadcrumb(const Browser::Breadcrumb &);
 
-signals:
+Q_SIGNALS:
     void canGoBack(bool);
     void canGoForward(bool);
     void showingOverview();
@@ -85,7 +85,7 @@ protected:
     bool eventFilter(QObject *, QEvent *) override;
     void activatePage(int pageIndex);
 
-private slots:
+private Q_SLOTS:
     void resetIconViewSearch();
     void itemClicked(const QModelIndex &);
     void adjustTreeViewColumnSize();

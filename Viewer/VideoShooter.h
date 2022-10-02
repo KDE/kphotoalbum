@@ -21,7 +21,7 @@ class VideoShooter : public QObject
 public:
     static void go(const DB::ImageInfoPtr &info, Viewer::ViewerWidget *viewer);
 
-private slots:
+private Q_SLOTS:
     void start(const DB::ImageInfoPtr &info, ViewerWidget *);
     void doShoot();
 

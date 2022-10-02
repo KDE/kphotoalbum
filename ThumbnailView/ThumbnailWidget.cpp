@@ -180,7 +180,7 @@ void ThumbnailView::ThumbnailWidget::mouseDoubleClickEvent(QMouseEvent *event)
     } else if (!(event->modifiers() & Qt::ControlModifier)) {
         DB::FileName id = mediaIdUnderCursor();
         if (!id.isNull())
-            emit showImage(id);
+            Q_EMIT showImage(id);
     }
 }
 
@@ -226,7 +226,7 @@ void ThumbnailView::ThumbnailWidget::emitDateChange()
     if (date != lastDate) {
         lastDate = date;
         if (date.date().year() != 1900)
-            emit currentDateChanged(date);
+            Q_EMIT currentDateChanged(date);
     }
 }
 
@@ -331,7 +331,7 @@ int ThumbnailView::ThumbnailWidget::cellWidth() const
 
 void ThumbnailView::ThumbnailWidget::emitSelectionChangedSignal()
 {
-    emit selectionCountChanged(selection(ExpandCollapsedStacks).size());
+    Q_EMIT selectionCountChanged(selection(ExpandCollapsedStacks).size());
 }
 
 void ThumbnailView::ThumbnailWidget::scheduleDateChangeSignal()

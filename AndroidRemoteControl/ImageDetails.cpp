@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ImageDetails.h"
 
@@ -34,7 +33,7 @@ void ImageDetails::clear()
     m_date.clear();
     m_description.clear();
     m_categories.clear();
-    emit updated();
+    Q_EMIT updated();
 }
 
 void ImageDetails::setData(const ImageDetailsResult &data)
@@ -43,7 +42,7 @@ void ImageDetails::setData(const ImageDetailsResult &data)
     m_date = data.date;
     m_description = data.description;
     m_categories = data.categories;
-    emit updated();
+    Q_EMIT updated();
 }
 
 QString ImageDetails::age(const QString &category, const QString &item)

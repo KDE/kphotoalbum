@@ -1092,7 +1092,7 @@ void AnnotationDialog::Dialog::rotate(int angle)
     } else {
         DB::ImageInfo &info = m_editList[m_current];
         info.rotate(angle, DB::RotateImageInfoOnly);
-        emit imageRotated(info.fileName());
+        Q_EMIT imageRotated(info.fileName());
     }
 }
 

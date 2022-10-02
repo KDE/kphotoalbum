@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014-2015 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef BIRTHDAYPAGE_H
 #define BIRTHDAYPAGE_H
@@ -31,12 +30,12 @@ class BirthdayPage : public QWidget
 {
     Q_OBJECT
 
-public slots:
+public Q_SLOTS:
     void pageChange(KPageWidgetItem *page);
     void discardChanges();
     void saveSettings();
 
-private slots:
+private Q_SLOTS:
     void changeCategory(int index);
     void resetCategory();
     void editDate(int row, int);

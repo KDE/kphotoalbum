@@ -1,9 +1,10 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef GENERALPAGE_H
 #define GENERALPAGE_H
+
 #include <QWidget>
 
 class QComboBox;
@@ -11,6 +12,7 @@ class QSpinBox;
 class QCheckBox;
 class KComboBox;
 class QTextEdit;
+
 namespace Settings
 {
 class SettingsData;
@@ -25,7 +27,7 @@ public:
     void setUseRawThumbnailSize(const QSize &size);
     QSize useRawThumbnailSize();
 
-private slots:
+private Q_SLOTS:
     void showHistogramChanged(int state) const;
     void useEXIFCommentsChanged(int state);
     void stripEXIFCommentsChanged(int state);

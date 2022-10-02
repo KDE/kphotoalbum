@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2019-2020 The KPhotoAlbum Development Team
-
-  SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-  */
+// SPDX-FileCopyrightText: 2019-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "FilterWidget.h"
 
@@ -35,7 +34,7 @@ ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
             short rating = i * 2;
             if (static_cast<short>(m_rating->rating()) == rating)
                 rating = -1;
-            emit ratingChanged(rating);
+            Q_EMIT ratingChanged(rating);
         });
         m_rating->addAction(ratingAction);
     }
@@ -76,7 +75,7 @@ void ThumbnailView::FilterWidget::setEnabled(bool enabled)
 void ThumbnailView::FilterWidget::slotRatingChanged(int rating)
 {
     Q_ASSERT(-1 <= rating && rating <= 10);
-    emit ratingChanged((short)rating);
+    Q_EMIT ratingChanged((short)rating);
 }
 
 void ThumbnailView::FilterWidget::resetLabelText()

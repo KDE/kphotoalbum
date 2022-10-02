@@ -31,7 +31,7 @@ ExtractOneThumbnailJob::ExtractOneThumbnailJob(const DB::FileName &fileName, int
 void ExtractOneThumbnailJob::execute()
 {
     if (m_wasCanceled || frameName().exists())
-        emit completed();
+        Q_EMIT completed();
     else {
         DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName);
         const int length = info->videoLength();
@@ -79,7 +79,7 @@ void ExtractOneThumbnailJob::frameLoaded(const QImage &image)
         if (file.open(QFile::WriteOnly))
             file.close();
     }
-    emit completed();
+    Q_EMIT completed();
 }
 
 DB::FileName ExtractOneThumbnailJob::frameName() const

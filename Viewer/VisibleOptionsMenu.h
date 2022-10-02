@@ -1,12 +1,13 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef VISIBLEOPTIONSMENU_H
 #define VISIBLEOPTIONSMENU_H
 
 #include <QList>
 #include <QMenu>
+
 class KToggleAction;
 class KActionCollection;
 
@@ -26,10 +27,10 @@ class VisibleOptionsMenu : public QMenu
 public:
     VisibleOptionsMenu(QWidget *parent, KActionCollection *actions);
 
-signals:
+Q_SIGNALS:
     void visibleOptionsChanged();
 
-private slots:
+private Q_SLOTS:
     void updateState();
     void toggleShowInfoBox(bool);
     void toggleShowCategory(bool);

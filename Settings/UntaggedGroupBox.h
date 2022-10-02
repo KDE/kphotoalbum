@@ -1,10 +1,12 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef UNTAGGEDGROUPBOX_H
 #define UNTAGGEDGROUPBOX_H
+
 #include <QGroupBox>
+
 class QComboBox;
 class QCheckBox;
 
@@ -23,7 +25,7 @@ public:
     void categoryDeleted(const QString &categoryName);
     void categoryRenamed(const QString &oldCategoryName, const QString &newCategoryName);
 
-private slots:
+private Q_SLOTS:
     void populateCategoryComboBox();
     void populateTagsCombo();
 

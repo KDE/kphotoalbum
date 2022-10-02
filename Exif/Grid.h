@@ -27,7 +27,7 @@ public:
     explicit Grid(QWidget *parent);
     void setFileName(const DB::FileName &fileName);
 
-public slots:
+public Q_SLOTS:
     void updateSearchString(const QString &);
     /**
      * @brief setupUI sets up the scroll area for the given charset.
@@ -49,7 +49,7 @@ private:
     QLabel *headerLabel(const QString &title);
     QPair<QLabel *, QLabel *> infoLabelPair(const QString &title, const QString &value, const QPalette::ColorRole role);
 
-private slots:
+private Q_SLOTS:
     void updateWidgetSize();
 
 private:

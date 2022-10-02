@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef THUMBNAILMODEL_H
 #define THUMBNAILMODEL_H
 
@@ -86,7 +86,7 @@ public:
 
     FilterWidget *createFilterWidget(QWidget *parent);
 
-public slots:
+public Q_SLOTS:
     void updateVisibleRowInfo();
 
     void toggleFilter(bool enable);
@@ -130,7 +130,7 @@ public slots:
      */
     void filterByFreeformText(const QString &text);
 
-signals:
+Q_SIGNALS:
     void collapseAllStacksEnabled(bool enabled);
     void expandAllStacksEnabled(bool enabled);
     void selectionChanged(int numberOfItemsSelected);
@@ -140,7 +140,7 @@ private: // Methods
     void requestThumbnail(const DB::FileName &mediaId, const ImageManager::Priority priority);
     void preloadThumbnails();
 
-private slots:
+private Q_SLOTS:
     void imagesDeletedFromDB(const DB::FileNameList &);
 
 private: // Instance variables.

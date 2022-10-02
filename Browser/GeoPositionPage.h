@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef GEOPOSITIONPAGE_H
 #define GEOPOSITIONPAGE_H
@@ -35,7 +34,7 @@ public:
     bool isSearchable() const override;
     bool showDuringMovement() const override;
 
-public slots:
+public Q_SLOTS:
     void slotNewRegionSelected(Map::GeoCoordinates::LatLonBox coordinates);
 
 private:

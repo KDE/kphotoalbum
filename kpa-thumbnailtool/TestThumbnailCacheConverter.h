@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2020 The KPhotoAlbum development team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
@@ -14,7 +14,7 @@ namespace KPATest
 class TestThumbnailCacheConverter : public QObject
 {
     Q_OBJECT
-private slots:
+private Q_SLOTS:
     void convertV5toV4();
 };
 }

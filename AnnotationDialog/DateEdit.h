@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 /**
  * A date editing widget that consists of an editable combo box.
  * The combo box contains the date in text form, and clicking the combo
@@ -97,7 +97,7 @@ public:
 
     void showPopup() override;
 
-signals:
+Q_SIGNALS:
     /** This signal is emitted whenever the user modifies the date. This
      * may not get emitted until the user presses enter in the line edit or
      * focus leaves the widget (i.e. the user confirms their selection).
@@ -109,7 +109,7 @@ signals:
      */
     void invalidDateEntered();
 
-protected slots:
+protected Q_SLOTS:
     void dateSelected(QDate);
     void dateEntered(QDate);
     void lineEnterPressed();

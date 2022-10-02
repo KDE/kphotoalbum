@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "XMLCategory.h"
 
 #include "Logging.h"
@@ -35,7 +35,7 @@ void XMLDB::XMLCategory::setPositionable(bool positionable)
 {
     if (positionable != m_positionable) {
         m_positionable = positionable;
-        emit changed();
+        Q_EMIT changed();
     }
 }
 
@@ -52,13 +52,13 @@ QString XMLDB::XMLCategory::iconName() const
 void XMLDB::XMLCategory::setIconName(const QString &name)
 {
     m_icon = name;
-    emit changed();
+    Q_EMIT changed();
 }
 
 void XMLDB::XMLCategory::setViewType(ViewType type)
 {
     m_type = type;
-    emit changed();
+    Q_EMIT changed();
 }
 
 XMLDB::XMLCategory::ViewType XMLDB::XMLCategory::viewType() const
@@ -69,7 +69,7 @@ XMLDB::XMLCategory::ViewType XMLDB::XMLCategory::viewType() const
 void XMLDB::XMLCategory::setDoShow(bool b)
 {
     m_show = b;
-    emit changed();
+    Q_EMIT changed();
 }
 
 bool XMLDB::XMLCategory::doShow() const
@@ -107,7 +107,7 @@ void XMLDB::XMLCategory::removeItem(const QString &item)
     m_items.removeAll(item);
     m_nameMap.remove(idForName(item));
     m_idMap.remove(item);
-    emit itemRemoved(item);
+    Q_EMIT itemRemoved(item);
 }
 
 void XMLDB::XMLCategory::renameItem(const QString &oldValue, const QString &newValue)
@@ -120,7 +120,7 @@ void XMLDB::XMLCategory::renameItem(const QString &oldValue, const QString &newV
     addItem(newValue);
     if (id > 0)
         setIdMapping(newValue, id);
-    emit itemRenamed(oldValue, newValue);
+    Q_EMIT itemRenamed(oldValue, newValue);
 }
 
 void XMLDB::XMLCategory::addItem(const QString &item)
@@ -204,7 +204,7 @@ void XMLDB::XMLCategory::clearNullIds()
 void XMLDB::XMLCategory::setThumbnailSize(int size)
 {
     m_thumbnailSize = size;
-    emit changed();
+    Q_EMIT changed();
 }
 
 int XMLDB::XMLCategory::thumbnailSize() const

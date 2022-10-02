@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -182,9 +182,9 @@ void Viewer::InfoBox::mouseMoveEvent(QMouseEvent *event)
 void Viewer::InfoBox::linkHovered(const QString &linkName)
 {
     if (linkName.isEmpty()) {
-        emit noTagHovered();
+        Q_EMIT noTagHovered();
     } else {
-        emit tagHovered(m_linkMap[linkName.toInt()]);
+        Q_EMIT tagHovered(m_linkMap[linkName.toInt()]);
     }
 
     m_hoveringOverLink = !linkName.isNull();

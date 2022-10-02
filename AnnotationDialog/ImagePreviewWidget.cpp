@@ -170,7 +170,7 @@ void ImagePreviewWidget::slotPrev()
         m_preview->anticipate((*m_imageList)[m_current - 1]);
     setImage(m_imageList->at(m_current));
 
-    emit indexChanged(m_current);
+    Q_EMIT indexChanged(m_current);
 }
 
 void ImagePreviewWidget::slotNext()
@@ -184,12 +184,12 @@ void ImagePreviewWidget::slotNext()
         m_preview->anticipate((*m_imageList)[m_current + 1]);
     setImage(m_imageList->at(m_current));
 
-    emit indexChanged(m_current);
+    Q_EMIT indexChanged(m_current);
 }
 
 void ImagePreviewWidget::slotCopyPrevious()
 {
-    emit copyPrevClicked();
+    Q_EMIT copyPrevClicked();
 }
 
 void ImagePreviewWidget::rotateLeft()
@@ -209,7 +209,7 @@ void ImagePreviewWidget::rotate(int angle)
 
     m_preview->rotate(angle);
 
-    emit imageRotated(angle);
+    Q_EMIT imageRotated(angle);
 }
 
 void ImagePreviewWidget::slotDeleteImage()
@@ -226,7 +226,7 @@ void ImagePreviewWidget::slotDeleteImage()
     if (ret == QDialog::Rejected) // Delete Dialog rejected, do nothing
         return;
 
-    emit imageDeleted(m_imageList->at(m_current));
+    Q_EMIT imageDeleted(m_imageList->at(m_current));
 
     if (!m_nextBut->isEnabled()) // No next image exists, select previous
         m_current--;
@@ -244,7 +244,7 @@ void ImagePreviewWidget::setImage(const DB::ImageInfo &info)
 
     m_preview->setImage(info);
 
-    emit imageChanged(info);
+    Q_EMIT imageChanged(info);
 }
 
 void ImagePreviewWidget::setImage(const int index)
@@ -277,7 +277,7 @@ void ImagePreviewWidget::slotShowAreas(bool show)
     // slot can be triggered by something else than the button:
     m_toggleAreasBut->setChecked(show);
 
-    emit areaVisibilityChanged(show);
+    Q_EMIT areaVisibilityChanged(show);
 }
 
 bool ImagePreviewWidget::showAreas() const
@@ -290,7 +290,7 @@ void ImagePreviewWidget::canCreateAreas(bool state)
     if (m_toggleAreasBut->isEnabled() != state) {
         m_toggleAreasBut->setChecked(state);
         m_toggleAreasBut->setEnabled(state);
-        emit areaVisibilityChanged(state);
+        Q_EMIT areaVisibilityChanged(state);
     }
     m_preview->setAreaCreationEnabled(state);
     updateTexts();
@@ -322,7 +322,7 @@ void ImagePreviewWidget::setSearchMode(bool state)
 
 void ImagePreviewWidget::toggleFullscreenPreview()
 {
-    emit togglePreview();
+    Q_EMIT togglePreview();
 }
 
 void ImagePreviewWidget::setToggleFullscreenPreviewEnabled(bool state)

@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "MyImage.h"
 #include <QPainter>
@@ -37,9 +36,9 @@ void MyImage::setImage(const QImage &image)
 {
     if (m_image != image) {
         m_image = image;
-        emit imageChanged();
-        emit imageWidthChanged();
-        emit imageHeightChanged();
+        Q_EMIT imageChanged();
+        Q_EMIT imageWidthChanged();
+        Q_EMIT imageHeightChanged();
     }
 }
 

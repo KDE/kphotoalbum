@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText:  2006-2010 Ricardo Villalba <rvm@escomposlinux.org>
+// SPDX-FileCopyrightText: 2006-2022 Ricardo Villalba <rvm@escomposlinux.org>
 //
 // SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Trolltech-FreeQtFoundation-Accepted-LGPL
 
@@ -69,13 +69,13 @@ int Slider::pixelPosToRangeValue(int pos) const
 
 void Slider::enterEvent(QEvent *event)
 {
-    emit onEnter();
+    Q_EMIT onEnter();
     QSlider::enterEvent(event);
 }
 
 void Slider::leaveEvent(QEvent *e)
 {
-    emit onLeave();
+    Q_EMIT onLeave();
     QSlider::leaveEvent(e);
 }
 
@@ -83,7 +83,7 @@ void Slider::mouseMoveEvent(QMouseEvent *e)
 {
     const int o = style()->pixelMetric(QStyle::PM_SliderLength) - 1;
     int v = QStyle::sliderValueFromPosition(minimum(), maximum(), e->pos().x() - o / 2, width() - o, false);
-    emit onHover(e->globalPos(), v);
+    Q_EMIT onHover(e->globalPos(), v);
     QSlider::mouseMoveEvent(e);
 }
 
@@ -104,8 +104,8 @@ void Slider::mousePressEvent(QMouseEvent *e)
             setSliderPosition(v);
             triggerAction(SliderMove);
             setRepeatAction(SliderNoAction);
-            emit sliderMoved(v);
-            emit sliderPressed();
+            Q_EMIT sliderMoved(v);
+            Q_EMIT sliderPressed();
         } else {
             QSlider::mousePressEvent(e);
         }

@@ -1,12 +1,13 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef TOKENEDITOR_H
 #define TOKENEDITOR_H
 
 #include <QDialog>
 #include <QList>
+
 class QCheckBox;
 
 namespace MainWindow
@@ -21,7 +22,7 @@ public:
     virtual void show();
     static QStringList tokensInUse();
 
-protected slots:
+protected Q_SLOTS:
     void selectAll();
     void selectNone();
     void accept() override;

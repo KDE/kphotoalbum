@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef JOBINTERFACE_H
 #define JOBINTERFACE_H
@@ -25,10 +24,10 @@ public:
 protected:
     virtual void execute() = 0;
 
-signals:
+Q_SIGNALS:
     void completed();
 
-private slots:
+private Q_SLOTS:
     void dependedJobCompleted();
 
 private:

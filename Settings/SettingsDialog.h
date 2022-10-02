@@ -54,14 +54,14 @@ public:
     explicit SettingsDialog(QWidget *parent);
     virtual void show();
 
-public slots:
+public Q_SLOTS:
     void activatePage(SettingsPage pageId);
 
-signals:
+Q_SIGNALS:
     void changed();
     void thumbnailSizeChanged();
 
-protected slots:
+protected Q_SLOTS:
     void slotMyOK();
 
 private:

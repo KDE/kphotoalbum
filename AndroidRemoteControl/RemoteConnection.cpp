@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "RemoteConnection.h"
 
@@ -97,7 +96,7 @@ void RemoteConnection::dataReceived()
             protocolDebug() << qPrintable(QTime::currentTime().toString(QString::fromUtf8("hh:mm:ss.zzz")))
                             << ": Received " << id;
 
-            emit gotCommand(*command);
+            Q_EMIT gotCommand(*command);
         }
     }
 }

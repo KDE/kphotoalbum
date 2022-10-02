@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef MINIVIEWER_H
 #define MINIVIEWER_H
@@ -30,7 +29,7 @@ public:
     static void show(QImage img, DB::ImageInfoPtr info, QWidget *parent = nullptr);
     void closeEvent(QCloseEvent *event) override;
 
-protected slots:
+protected Q_SLOTS:
     void slotClose();
 
 private:

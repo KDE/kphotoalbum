@@ -33,10 +33,10 @@ public:
     QImage screenShoot() override;
     void relativeSeek(int msec) override;
 
-signals:
+Q_SIGNALS:
     void stopped();
 
-public slots:
+public Q_SLOTS:
     void zoomIn() override;
     void zoomOut() override;
     void zoomFull() override;
@@ -48,7 +48,7 @@ public slots:
     void changeVolume(int newVolumePercent);
     void setMuted(bool mute);
 
-private slots:
+private Q_SLOTS:
     void phononStateChanged(Phonon::State, Phonon::State);
     void updateVolume(qreal newVolumeVolt);
     void updateMuteState(bool mute);

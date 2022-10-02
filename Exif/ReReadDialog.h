@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef REREADDIALOG_H
 #define REREADDIALOG_H
@@ -27,7 +26,7 @@ public:
     using QDialog::exec;
     int exec(const DB::FileNameList &);
 
-protected slots:
+protected Q_SLOTS:
     void readInfo();
     void warnAboutDates(bool);
 

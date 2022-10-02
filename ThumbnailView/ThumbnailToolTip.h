@@ -1,10 +1,10 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef THUMBNAILTOOLTIP_H
 #define THUMBNAILTOOLTIP_H
+
 #include <ImageManager/ImageClientInterface.h>
 #include <Utilities/ToolTip.h>
 #include <kpabase/FileName.h>
@@ -30,7 +30,7 @@ public:
     explicit ThumbnailToolTip(ThumbnailWidget *view);
     virtual void setActive(bool);
 
-private slots:
+private Q_SLOTS:
     void requestToolTip();
 
 private:

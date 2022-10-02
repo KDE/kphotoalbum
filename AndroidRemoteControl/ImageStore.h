@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef REMOTECONTROL_IMAGESTORE_H
 #define REMOTECONTROL_IMAGESTORE_H
@@ -25,7 +24,7 @@ public:
     void updateImage(ImageId imageId, const QImage &requestImage, const QString &label, ViewType type);
     void requestImage(RemoteImage *client, ImageId imageId, const QSize &size, ViewType type);
 
-private slots:
+private Q_SLOTS:
     void reset();
     void clientDeleted();
 

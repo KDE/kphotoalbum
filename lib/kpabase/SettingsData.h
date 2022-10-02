@@ -250,7 +250,7 @@ public:
     int getThumbnailPreloadThreadCount() const;
     int getThumbnailBuilderThreadCount() const;
 
-signals:
+Q_SIGNALS:
     void locked(bool lock, bool exclude);
     void viewSortTypeChanged(Settings::ViewSortType);
     void matchTypeChanged(AnnotationDialog::MatchType);

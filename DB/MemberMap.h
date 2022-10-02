@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef MEMBERMAP_H
 #define MEMBERMAP_H
@@ -58,13 +57,13 @@ protected:
     void calculate() const;
     QStringList calculateClosure(QMap<QString, StringSet> &resultSoFar, const QString &category, const QString &group) const;
 
-public slots:
+public Q_SLOTS:
     virtual void deleteCategory(const QString &category);
     virtual void deleteItem(DB::Category *category, const QString &name);
     virtual void renameItem(DB::Category *category, const QString &oldName, const QString &newName);
     void setLoading(bool b);
 
-signals:
+Q_SIGNALS:
     void dirty();
 
 private:

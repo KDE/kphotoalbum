@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "VideoThumbnails.h"
 
@@ -57,7 +56,7 @@ void ImageManager::VideoThumbnails::requestNext()
     for (int i = 0; i < 10; ++i) {
         m_index = (m_index + 1) % 10;
         if (!m_cache[m_index].isNull()) {
-            emit frameLoaded(m_cache[m_index]);
+            Q_EMIT frameLoaded(m_cache[m_index]);
             m_pendingRequest = false;
             return;
         }
@@ -74,7 +73,7 @@ void ImageManager::VideoThumbnails::gotFrame()
 
     if (m_pendingRequest) {
         m_index = index;
-        emit frameLoaded(m_cache[index]);
+        Q_EMIT frameLoaded(m_cache[index]);
     }
 }
 

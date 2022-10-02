@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ImageDisplay.h"
 
@@ -151,7 +150,7 @@ void Viewer::ImageDisplay::mouseReleaseEvent(QMouseEvent *event)
     if (!block) {
         QWidget::mouseReleaseEvent(event);
     }
-    emit possibleChange();
+    Q_EMIT possibleChange();
     update();
 }
 
@@ -174,7 +173,7 @@ bool Viewer::ImageDisplay::setImageImpl(DB::ImageInfoPtr info, bool forward)
         updateZoomPoints(Settings::SettingsData::instance()->viewerStandardSize(), found.img.size());
         cropAndScale();
         info->setSize(found.size);
-        emit imageReady();
+        Q_EMIT imageReady();
     } else {
         requestImage(info, true);
         busy();
@@ -332,7 +331,7 @@ void Viewer::ImageDisplay::cropAndScale()
 
     update();
 
-    emit viewGeometryChanged(m_croppedAndScaledImg.size(), QRect(m_zStart, m_zEnd), sizeRatio(m_loadedImage.size(), m_info->size()));
+    Q_EMIT viewGeometryChanged(m_croppedAndScaledImg.size(), QRect(m_zStart, m_zEnd), sizeRatio(m_loadedImage.size(), m_info->size()));
 }
 
 void Viewer::ImageDisplay::filterNone()
@@ -495,7 +494,7 @@ void Viewer::ImageDisplay::updateZoomCaption()
         ratio = ((double)imgSize.height()) / (m_zEnd.y() - m_zStart.y());
     }
 
-    emit setCaptionInfo((ratio > 1.05)
+    Q_EMIT setCaptionInfo((ratio > 1.05)
                             ? ki18n("[ zoom x%1 ]").subs(ratio, 0, 'f', 1).toString()
                             : QString());
 }
@@ -554,7 +553,7 @@ void Viewer::ImageDisplay::pixmapLoaded(ImageManager::ImageRequest *request, con
 
         m_loadedImage = image;
         cropAndScale();
-        emit imageReady();
+        Q_EMIT imageReady();
     } else {
         if (imgSize != size())
             return; // Might be an old preload version, or a loaded version that never made it in time
@@ -564,7 +563,7 @@ void Viewer::ImageDisplay::pixmapLoaded(ImageManager::ImageRequest *request, con
         updatePreload();
     }
     unbusy();
-    emit possibleChange();
+    Q_EMIT possibleChange();
 }
 
 void Viewer::ImageDisplay::setImageList(const DB::FileNameList &list)

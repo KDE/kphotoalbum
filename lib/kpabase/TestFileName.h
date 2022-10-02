@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
@@ -15,7 +15,7 @@ namespace KPATest
 class TestFileName : public QObject
 {
     Q_OBJECT
-private slots:
+private Q_SLOTS:
     /**
      * @brief Check behaviour with uninitialized SettingsData.
      * Merely creating a null FileName should not trigger an assertion.

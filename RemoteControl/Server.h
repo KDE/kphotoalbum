@@ -1,12 +1,12 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef SERVER_H
 #define SERVER_H
 
 #include "RemoteConnection.h"
+
 class QUdpSocket;
 class QTcpSocket;
 
@@ -23,12 +23,12 @@ public:
     QTcpSocket *socket() override;
     void connectToTcpServer(const QHostAddress &address);
 
-signals:
+Q_SIGNALS:
     void connected();
     void disConnected();
     void stoppedListening();
 
-private slots:
+private Q_SLOTS:
     void readIncommingUDP();
     void gotConnected();
     void lostConnection();

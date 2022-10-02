@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2018 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "DragableTreeWidget.h"
 
@@ -29,7 +28,7 @@ DB::CategoryPtr CategoryListView::DragableTreeWidget::category() const
 
 void CategoryListView::DragableTreeWidget::emitItemsChanged()
 {
-    emit itemsChanged();
+    Q_EMIT itemsChanged();
 }
 
 QMimeData *CategoryListView::DragableTreeWidget::mimeData(const QList<QTreeWidgetItem *> items) const

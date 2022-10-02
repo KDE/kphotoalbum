@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2019-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef FILTERWIDGET_H
 #define FILTERWIDGET_H
@@ -37,11 +36,11 @@ public:
      */
     KActionCollection *actions() const;
 
-signals:
+Q_SIGNALS:
     void filterToggled(bool enabled);
     void ratingChanged(short rating);
 
-public slots:
+public Q_SLOTS:
     void setFilter(const DB::ImageSearchInfo &filter);
     /**
      * @brief setEnabled enables or disables the filter controls.
@@ -50,7 +49,7 @@ public slots:
      */
     void setEnabled(bool enabled);
 
-protected slots:
+protected Q_SLOTS:
     void slotRatingChanged(int rating);
     void resetLabelText();
 

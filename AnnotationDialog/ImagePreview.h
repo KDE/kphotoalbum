@@ -38,10 +38,10 @@ public:
     void acceptProposedTag(QPair<QString, QString> tagData, ResizableFrame *area);
     QPixmap grabAreaImage(QRect area);
 
-public slots:
+public Q_SLOTS:
     void setAreaCreationEnabled(bool state);
 
-signals:
+Q_SIGNALS:
     void areaCreated(ResizableFrame *area);
     void proposedTagSelected(QString category, QString tag);
 
@@ -92,7 +92,7 @@ protected:
     };
     PreviewLoader m_preloader;
 
-protected slots:
+protected Q_SLOTS:
     void resizeFinished();
 
 private:

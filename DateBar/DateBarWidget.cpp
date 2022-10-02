@@ -443,7 +443,7 @@ void DateBar::DateBarWidget::scroll(int units)
 {
     m_currentDate = dateForUnit(units, m_currentDate);
     redraw();
-    emit dateSelected(currentDateRange(), includeFuzzyCounts());
+    Q_EMIT dateSelected(currentDateRange(), includeFuzzyCounts());
 }
 
 void DateBar::DateBarWidget::drawFocusRectangle(QPainter &p)
@@ -517,9 +517,9 @@ void DateBar::DateBarWidget::zoom(int steps)
     const bool couldZoomOut = canZoomOut();
     setViewType(tp);
     if (couldZoomIn != canZoomIn())
-        emit zoomInEnabled(canZoomIn());
+        Q_EMIT zoomInEnabled(canZoomIn());
     if (couldZoomOut != canZoomOut())
-        emit zoomOutEnabled(canZoomOut());
+        Q_EMIT zoomOutEnabled(canZoomOut());
 }
 
 void DateBar::DateBarWidget::mousePressEvent(QMouseEvent *event)
@@ -539,7 +539,7 @@ void DateBar::DateBarWidget::mousePressEvent(QMouseEvent *event)
         }
     }
     m_currentMouseHandler->mousePressEvent(event->x());
-    emit dateSelected(currentDateRange(), includeFuzzyCounts());
+    Q_EMIT dateSelected(currentDateRange(), includeFuzzyCounts());
     showStatusBarTip(event->pos());
     redraw();
 }
@@ -601,7 +601,7 @@ void DateBar::DateBarWidget::setIncludeFuzzyCounts(bool b)
     if (hasSelection())
         emitRangeSelection(m_selectionHandler->dateRange());
 
-    emit dateSelected(currentDateRange(), includeFuzzyCounts());
+    Q_EMIT dateSelected(currentDateRange(), includeFuzzyCounts());
 }
 
 DB::ImageDate DateBar::DateBarWidget::rangeAt(const QPoint &p)
@@ -781,7 +781,7 @@ void DateBar::DateBarWidget::showStatusBarTip(const QPoint &pos)
 
     static QString lastTip;
     if (lastTip != res)
-        emit toolTipInfo(res);
+        Q_EMIT toolTipInfo(res);
     lastTip = res;
 }
 
@@ -844,7 +844,7 @@ void DateBar::DateBarWidget::keyPressEvent(QKeyEvent *event)
             clearSelection();
     }
     redraw();
-    emit dateSelected(currentDateRange(), includeFuzzyCounts());
+    Q_EMIT dateSelected(currentDateRange(), includeFuzzyCounts());
 }
 
 void DateBar::DateBarWidget::focusInEvent(QFocusEvent *)
@@ -891,16 +891,16 @@ void DateBar::DateBarWidget::clearSelection()
 {
     if (m_selectionHandler->hasSelection()) {
         m_selectionHandler->clearSelection();
-        emit dateRangeCleared();
-        emit dateRangeSelected(false);
+        Q_EMIT dateRangeCleared();
+        Q_EMIT dateRangeSelected(false);
         redraw();
     }
 }
 
 void DateBar::DateBarWidget::emitRangeSelection(const DB::ImageDate &range)
 {
-    emit dateRangeChange(range);
-    emit dateRangeSelected(true);
+    Q_EMIT dateRangeChange(range);
+    Q_EMIT dateRangeSelected(true);
 }
 
 int DateBar::DateBarWidget::unitForDate(const Utilities::FastDateTime &date) const
@@ -914,7 +914,7 @@ int DateBar::DateBarWidget::unitForDate(const Utilities::FastDateTime &date) con
 
 void DateBar::DateBarWidget::emitDateSelected()
 {
-    emit dateSelected(currentDateRange(), includeFuzzyCounts());
+    Q_EMIT dateSelected(currentDateRange(), includeFuzzyCounts());
 }
 
 void DateBar::DateBarWidget::wheelEvent(QWheelEvent *e)

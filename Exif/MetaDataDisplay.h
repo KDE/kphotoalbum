@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2021-2022 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -24,7 +24,7 @@ private: // Functions;
     QLabel *keyLabel(const QString &text);
     QLabel *valueLabel();
 
-private slots:
+private Q_SLOTS:
     void openDir();
 
 private: // Variables

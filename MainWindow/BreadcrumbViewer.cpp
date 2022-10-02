@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -15,7 +15,7 @@ void MainWindow::BreadcrumbViewer::setBreadcrumbs(const Browser::BreadcrumbList 
 
 void MainWindow::BreadcrumbViewer::linkClicked(const QString &link)
 {
-    emit widenToBreadcrumb(m_activeCrumbs[link.toInt()]);
+    Q_EMIT widenToBreadcrumb(m_activeCrumbs[link.toInt()]);
 }
 
 MainWindow::BreadcrumbViewer::BreadcrumbViewer()

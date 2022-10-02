@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef INVALIDDATEFINDER_H
 #define INVALIDDATEFINDER_H
@@ -19,7 +18,7 @@ class InvalidDateFinder : public QDialog
 public:
     explicit InvalidDateFinder(QWidget *parent);
 
-protected slots:
+protected Q_SLOTS:
     void accept() override;
 
 private:

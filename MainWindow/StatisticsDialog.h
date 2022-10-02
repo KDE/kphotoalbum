@@ -1,11 +1,12 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef STATISTICSDIALOG_H
 #define STATISTICSDIALOG_H
 
 #include <QDialog>
+
 class QGridLayout;
 class QLabel;
 class QGroupBox;
@@ -35,7 +36,7 @@ private:
     QGroupBox *createAnnotatedGroupBox();
     void populateSubTree(const DB::ImageSearchInfo &info, int imageCount, QTreeWidgetItem *top);
 
-private slots:
+private Q_SLOTS:
     void categoryChanged(int);
     void populate();
 

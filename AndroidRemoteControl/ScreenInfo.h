@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef REMOTECONTROL_SCREENINFO_H
 #define REMOTECONTROL_SCREENINFO_H
@@ -35,7 +34,7 @@ public:
     int overviewIconSize() const;
     int overviewSpacing() const;
 
-signals:
+Q_SIGNALS:
     void overviewIconSizeChanged();
     void overviewColumnCountChanged();
     void overviewSpacingChanged();
@@ -43,7 +42,7 @@ signals:
     void viewHeightChanged();
     void textHeightChanged();
 
-private slots:
+private Q_SLOTS:
     void updateLayout();
 
 private:

@@ -1,9 +1,10 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef MOUSEINTERACTION_H
 #define MOUSEINTERACTION_H
+
 #include <QMouseEvent>
 #include <qevent.h>
 
@@ -16,7 +17,7 @@ namespace ThumbnailView
  * Tree event handlers exists:
  * \ref GridResizeInteraction - Resizing the grid
  * \ref SelectionInteraction - handling selection
- * \ref MouseTrackingInteraction - Mouse tracking emit current file under point, when mouse is not pressed down.
+ * \ref MouseTrackingInteraction - Mouse tracking Q_EMIT current file under point, when mouse is not pressed down.
  */
 class MouseInteraction
 {

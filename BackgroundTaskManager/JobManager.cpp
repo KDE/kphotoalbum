@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "JobManager.h"
 
@@ -57,7 +56,7 @@ void BackgroundTaskManager::JobManager::execute()
         JobInterface *job = m_queue.dequeue();
         connect(job, &JobInterface::completed, this, &JobManager::jobCompleted);
         m_active.append(job);
-        emit jobStarted(job);
+        Q_EMIT jobStarted(job);
         job->start();
     }
 }
@@ -111,7 +110,7 @@ void BackgroundTaskManager::JobManager::jobCompleted()
 {
     JobInterface *job = qobject_cast<JobInterface *>(sender());
     Q_ASSERT(job);
-    emit jobEnded(job);
+    Q_EMIT jobEnded(job);
     m_active.removeAll(job);
     job->deleteLater();
     execute();

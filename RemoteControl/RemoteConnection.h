@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef REMOTECONNECTION_H
 #define REMOTECONNECTION_H
@@ -26,10 +25,10 @@ public:
     virtual bool isConnected() const = 0;
     void sendCommand(const RemoteCommand &);
 
-signals:
+Q_SIGNALS:
     void gotCommand(const RemoteCommand &);
 
-protected slots:
+protected Q_SLOTS:
     void dataReceived();
 
 protected:

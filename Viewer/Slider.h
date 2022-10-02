@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText:  2006-2010 Ricardo Villalba <rvm@escomposlinux.org>
+// SPDX-FileCopyrightText:  2006-2022 Ricardo Villalba <rvm@escomposlinux.org>
 //
 // SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Trolltech-FreeQtFoundation-Accepted-LGPL
 
@@ -12,7 +12,7 @@ class Slider : public QSlider
 public:
     Slider(QWidget *parent = 0);
 
-signals:
+Q_SIGNALS:
     void onEnter();
     void onLeave();
     void onHover(const QPoint &pos, int value);

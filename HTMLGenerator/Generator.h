@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef HTMLGENERATOR_GENERATOR_H
 #define HTMLGENERATOR_GENERATOR_H
 
@@ -30,7 +30,7 @@ public:
     ~Generator() override;
     void generate();
 
-protected slots:
+protected Q_SLOTS:
     void slotCancelGenerate();
     void showBrowser();
 

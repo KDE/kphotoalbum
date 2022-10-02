@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "Client.h"
 
@@ -36,7 +35,7 @@ void Client::acceptConnection()
     m_socket = m_server.nextPendingConnection();
     connect(m_socket, &QTcpSocket::disconnected, this, &Client::disconnect);
     connect(m_socket, &QTcpSocket::readyRead, this, &Client::dataReceived);
-    emit gotConnected();
+    Q_EMIT gotConnected();
 }
 
 void Client::sendBroadcastPackage()
@@ -51,7 +50,7 @@ void Client::disconnect()
     m_timer.start(500);
     m_socket->deleteLater();
     m_socket = nullptr;
-    emit disconnected();
+    Q_EMIT disconnected();
 }
 
 #include "moc_Client.cpp"

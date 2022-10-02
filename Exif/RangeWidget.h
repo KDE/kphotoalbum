@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -39,7 +39,7 @@ public:
     RangeWidget(const QString &text, const QString &searchTag, const ValueList &list, QGridLayout *layout, int row, QObject *parent);
     Exif::SearchInfo::Range range() const;
 
-protected slots:
+protected Q_SLOTS:
     void slotUpdateTo(int index);
 
 protected:

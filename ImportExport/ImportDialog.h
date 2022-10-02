@@ -55,7 +55,7 @@ protected:
     DB::ImageInfoList selectedImages() const;
     void possiblyAddMD5CheckPage();
 
-protected slots:
+protected Q_SLOTS:
     void slotEditDestination();
     void updateNextButtonState();
     void next() override;
@@ -63,7 +63,7 @@ protected slots:
     void slotSelectNone();
     void slotHelp();
 
-signals:
+Q_SIGNALS:
     void failedToCopy(QStringList files);
 
 private:

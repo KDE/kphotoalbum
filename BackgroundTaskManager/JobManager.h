@@ -27,11 +27,11 @@ public:
     bool hasActiveJobs() const;
     void togglePaused();
 
-signals:
+Q_SIGNALS:
     void jobStarted(JobInterface *job);
     void jobEnded(JobInterface *job);
 
-private slots:
+private Q_SLOTS:
     void execute();
     void jobCompleted();
 

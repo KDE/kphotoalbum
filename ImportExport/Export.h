@@ -92,7 +92,7 @@ private:
     QRadioButton *m_symlink;
     QRadioButton *m_auto;
 
-private slots:
+private Q_SLOTS:
     void showHelp();
 };
 }

@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "HandleVideoThumbnailRequestJob.h"
 
@@ -55,7 +54,7 @@ void HandleVideoThumbnailRequestJob::frameLoaded(QImage image)
         image = brokenImage();
     saveFullScaleFrame(m_request->databaseFileName(), image);
     sendResult(image);
-    emit completed();
+    Q_EMIT completed();
 }
 
 void HandleVideoThumbnailRequestJob::saveFullScaleFrame(const DB::FileName &fileName, const QImage &image)

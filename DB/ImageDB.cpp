@@ -64,7 +64,7 @@ DB::FileNameList ImageDB::currentScope(bool requireOnDisk) const
 
 void ImageDB::markDirty()
 {
-    emit dirty();
+    Q_EMIT dirty();
 }
 
 void ImageDB::setDateRange(const ImageDate &range, bool includeFuzzyCounts)
@@ -84,7 +84,7 @@ void ImageDB::slotRescan()
     if (newImages)
         markDirty();
 
-    emit totalChanged(totalCount());
+    Q_EMIT totalChanged(totalCount());
 }
 
 void ImageDB::slotRecalcCheckSums(const DB::FileNameList &inputList)
@@ -99,7 +99,7 @@ void ImageDB::slotRecalcCheckSums(const DB::FileNameList &inputList)
     if (d)
         markDirty();
 
-    emit totalChanged(totalCount());
+    Q_EMIT totalChanged(totalCount());
 }
 
 DB::FileNameSet DB::ImageDB::imagesWithMD5Changed()

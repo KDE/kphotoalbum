@@ -65,9 +65,9 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent(QKeyEvent *ev)
         // it can "leak" to other widgets. So we swallow it here:
         if (ev->key() == Qt::Key_Return || ev->key() == Qt::Key_Enter)
 #if KCOMPLETION_VERSION >= QT_VERSION_CHECK(5, 81, 0)
-            emit KLineEdit::returnKeyPressed(text());
+            Q_EMIT KLineEdit::returnKeyPressed(text());
 #else
-            emit KLineEdit::returnPressed(text());
+            Q_EMIT KLineEdit::returnPressed(text());
 #endif
         else
             KLineEdit::keyPressEvent(ev);

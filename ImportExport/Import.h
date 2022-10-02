@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef IMPORTEXPORT_IMPORT_H
 #define IMPORTEXPORT_IMPORT_H
@@ -28,7 +27,7 @@ public:
     static void imageImport();
     static void imageImport(const QUrl &url);
 
-private slots:
+private Q_SLOTS:
     void downloadKimJobCompleted(KJob *);
     void data(KIO::Job *, const QByteArray &);
 

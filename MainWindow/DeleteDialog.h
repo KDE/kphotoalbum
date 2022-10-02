@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef DELETEDIALOG_H
 #define DELETEDIALOG_H
@@ -32,7 +31,7 @@ public:
     using QDialog::exec;
     int exec(const DB::FileNameList &list);
 
-protected slots:
+protected Q_SLOTS:
     void deleteImages();
 
 private:

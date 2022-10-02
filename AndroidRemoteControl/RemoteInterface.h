@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef REMOTEINTERFACE_H
 #define REMOTEINTERFACE_H
@@ -54,7 +53,7 @@ public:
                            Discovery };
     void setActiveThumbnailModel(ModelType);
 
-public slots:
+public Q_SLOTS:
     void goHome();
     void goBack();
     void goForward();
@@ -71,7 +70,7 @@ public slots:
     void rerequestOverviewPageData();
     void pushAwayFromStartupState();
 
-signals:
+Q_SIGNALS:
     void connectionChanged();
     void categoriesChanged();
     void homeImageChanged();
@@ -95,7 +94,7 @@ public:
 
     QStringList tokens() const;
 
-private slots:
+private Q_SLOTS:
     void requestInitialData();
     void handleCommand(const RemoteCommand &);
     void updateImage(const ThumbnailResult &);

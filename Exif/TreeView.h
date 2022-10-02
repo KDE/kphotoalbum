@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2019 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef EXIFTREEVIEW_H
 #define EXIFTREEVIEW_H
@@ -24,7 +23,7 @@ public:
     void setSelectedExif(const StringSet &selected);
     void reload();
 
-protected slots:
+protected Q_SLOTS:
     void toggleChildren(QTreeWidgetItem *);
 };
 

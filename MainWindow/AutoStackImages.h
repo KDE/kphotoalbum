@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2010 Miika Turkia <miika.turkia@gmail.com>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2010-2022 Miika Turkia <miika.turkia@gmail.com>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef AUTOSTACKIMAGES_H
 #define AUTOSTACKIMAGES_H
@@ -27,7 +26,7 @@ class AutoStackImages : public QDialog
 public:
     AutoStackImages(QWidget *parent, const DB::FileNameList &list);
 
-protected slots:
+protected Q_SLOTS:
     void accept() override;
 
 private:

@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2021 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021-2022 The KPhotoAlbum Development Team
+//
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -23,7 +24,7 @@ public:
     void relativeSeek(int msec) override;
     void restart() override;
 
-public slots:
+public Q_SLOTS:
     void updateInterface();
     void changeVolume(int newVolume);
     void setPosition(int newPosition);

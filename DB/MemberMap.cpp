@@ -36,7 +36,7 @@ void MemberMap::markDirty(const QString &category)
     if (m_loading)
         regenerateFlatList(category);
     else
-        emit dirty();
+        Q_EMIT dirty();
 }
 
 void MemberMap::deleteGroup(const QString &category, const QString &name)
@@ -287,7 +287,7 @@ void MemberMap::addMemberToGroup(const QString &category, const QString &group, 
 
     // If we are loading, we do *not* want to regenerate the list!
     if (!m_loading)
-        emit dirty();
+        Q_EMIT dirty();
 }
 
 void MemberMap::removeMemberFromGroup(const QString &category, const QString &group, const QString &item)
@@ -298,7 +298,7 @@ void MemberMap::removeMemberFromGroup(const QString &category, const QString &gr
         // We shouldn't be doing this very often, so just regenerate
         // the flat list
         regenerateFlatList(category);
-        emit dirty();
+        Q_EMIT dirty();
     }
 }
 
@@ -321,7 +321,7 @@ void MemberMap::renameCategory(const QString &oldName, const QString &newName)
     m_closureMembers[newName] = m_closureMembers[oldName];
     m_closureMembers.remove(oldName);
     if (!m_loading)
-        emit dirty();
+        Q_EMIT dirty();
 }
 
 void MemberMap::deleteCategory(const QString &category)

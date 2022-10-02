@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef CATEGORYPAGE_H
 #define CATEGORYPAGE_H
@@ -50,14 +49,14 @@ public:
     void resetInterface();
     void resetCategoryNamesChanged();
 
-signals:
+Q_SIGNALS:
     void categoryChangesPending();
 
-protected slots:
+protected Q_SLOTS:
     friend class SettingsDialog;
     void resetCategoryLabel();
 
-private slots:
+private Q_SLOTS:
     void editSelectedCategory();
     void editCategory(QListWidgetItem *);
     void positionableChanged(bool);

@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2019-2020 The KPhotoAlbum Development Team
- *
- *  SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
- */
+// SPDX-FileCopyrightText: 2019-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef KPHOTOALBUM_PURPOSEMENU_H
 #define KPHOTOALBUM_PURPOSEMENU_H
@@ -28,10 +27,10 @@ class PurposeMenu : public Purpose::Menu
 public:
     explicit PurposeMenu(QMenu *parent);
 
-public slots:
+public Q_SLOTS:
     void slotSelectionChanged();
 
-signals:
+Q_SIGNALS:
     /**
      * @brief imageShared is emitted when an image was shared successfully.
      * The url contains the optional location of the shared data

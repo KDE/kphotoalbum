@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2019-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "RemoteInterface.h"
 
@@ -76,7 +75,7 @@ bool RemoteInterface::requestStillNeeded(const DB::FileName &fileName)
 void RemoteInterface::listen(QHostAddress address)
 {
     m_connection->listen(address);
-    emit listening();
+    Q_EMIT listening();
 }
 
 void RemoteInterface::stopListening()

@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef TAGGROUPSPAGE_H
 #define TAGGROUPSPAGE_H
@@ -46,12 +45,12 @@ public:
     QString getCategory(QTreeWidgetItem *currentItem);
     void processDrop(QTreeWidgetItem *draggedItem, QTreeWidgetItem *targetItem);
 
-public slots:
+public Q_SLOTS:
     void categoryChangesPending();
     void slotPageChange();
     void discardChanges();
 
-private slots:
+private Q_SLOTS:
     void slotAddGroup();
     void slotDeleteGroup();
     void slotRenameGroup();

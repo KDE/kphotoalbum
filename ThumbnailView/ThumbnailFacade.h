@@ -59,7 +59,7 @@ public:
      */
     FilterWidget *createFilterWidget(QWidget *parent);
 
-public slots:
+public Q_SLOTS:
     void gotoDate(const DB::ImageDate &date, bool includeRanges);
     void selectAll();
     void clearSelection();
@@ -74,7 +74,7 @@ public slots:
     void clearFilter();
     void setFreeformFilter(const QString &text);
 
-signals:
+Q_SIGNALS:
     void showImage(const DB::FileName &id);
     void showSelection();
     void showSearch();

@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -83,7 +83,7 @@ protected:
     void insertList(const DB::FileName &id, const DB::ImageInfoList &list, bool after);
     static void readOptions(DB::ImageInfoPtr info, ReaderPtr reader, const QMap<QString, QString> *newToOldCategory = nullptr);
 
-protected slots:
+protected Q_SLOTS:
     void renameItem(DB::Category *category, const QString &oldName, const QString &newName);
     void deleteItem(DB::Category *category, const QString &option);
     void lockDB(bool lock, bool exclude) override;

@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "Settings.h"
 #include <QSettings>
@@ -23,7 +22,7 @@ void Settings::setThumbnailSize(int size)
 {
     if (size != thumbnailSize()) {
         QSettings().setValue(QStringLiteral("thumbnailSize"), size);
-        emit thumbnailSizeChanged();
+        Q_EMIT thumbnailSizeChanged();
     }
 }
 
@@ -51,7 +50,7 @@ void Settings::setCategoryItemSize(int size)
 {
     if (size != categoryItemSize()) {
         QSettings().setValue(QStringLiteral("categoryItemSize"), size);
-        emit categoryItemSizeChanged();
+        Q_EMIT categoryItemSizeChanged();
     }
 }
 
@@ -59,7 +58,7 @@ void Settings::setOverviewIconSize(double size)
 {
     if (overviewIconSize() != size) {
         QSettings().setValue(QStringLiteral("overviewIconSize"), size);
-        emit overviewIconSizeChanged();
+        Q_EMIT overviewIconSizeChanged();
     }
 }
 

@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef CATEGORYIMAGECONFIG_H
 #define CATEGORYIMAGECONFIG_H
@@ -31,7 +30,7 @@ public:
     void setCurrentImage(const QImage &image, const DB::ImageInfoPtr &info);
     void show();
 
-protected slots:
+protected Q_SLOTS:
     void groupChanged();
     void memberChanged();
     void slotSet();

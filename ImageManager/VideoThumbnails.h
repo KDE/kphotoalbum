@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef IMAGEMANAGER_VIDEOTHUMBNAILS_H
 #define IMAGEMANAGER_VIDEOTHUMBNAILS_H
@@ -34,13 +33,13 @@ public:
     explicit VideoThumbnails(QObject *parent = nullptr);
     void setVideoFile(const DB::FileName &fileName);
 
-public slots:
+public Q_SLOTS:
     void requestNext();
 
-signals:
+Q_SIGNALS:
     void frameLoaded(const QImage &);
 
-private slots:
+private Q_SLOTS:
     void gotFrame();
 
 private:

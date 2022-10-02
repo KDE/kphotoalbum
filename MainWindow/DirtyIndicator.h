@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef DIRTYINDICATOR_H
 #define DIRTYINDICATOR_H
 
@@ -20,10 +20,10 @@ public:
     static void markDirty();
     static void suppressMarkDirty(bool state);
 
-public slots:
+public Q_SLOTS:
     void markDirtySlot();
 
-signals:
+Q_SIGNALS:
     void dirty();
 
 private:

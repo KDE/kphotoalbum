@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef CATEGORYCOLLECTION_H
 #define CATEGORYCOLLECTION_H
 
@@ -37,13 +37,13 @@ public:
         = 0;
     virtual CategoryPtr categoryForSpecial(const Category::CategoryType type) const = 0;
 
-signals:
+Q_SIGNALS:
     void categoryCollectionChanged();
     void categoryRemoved(const QString &categoryName);
     void itemRenamed(DB::Category *category, const QString &oldName, const QString &newName);
     void itemRemoved(DB::Category *category, const QString &name);
 
-protected slots:
+protected Q_SLOTS:
     void slotItemRenamed(const QString &oldName, const QString &newName);
     void slotItemRemoved(const QString &item);
 };

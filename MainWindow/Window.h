@@ -121,14 +121,14 @@ public:
     void showError(const QString &msg, const QString &title, const QString &) override;
     bool isDialogDisabled(const QString &dialogId) override;
 
-public slots:
+public Q_SLOTS:
     void showThumbNails(const DB::FileNameList &items);
     void reloadThumbnails(ThumbnailView::SelectionUpdateMethod method = ThumbnailView::MaintainSelection);
     void runDemo();
     void slotImageRotated(const DB::FileName &fileName);
     void slotSave();
 
-protected slots:
+protected Q_SLOTS:
     void showThumbNails();
     bool slotExit();
     void slotOptions();

@@ -453,7 +453,7 @@ void Viewer::ViewerWidget::load()
         videoAction->setVisible(isVideo);
     }
 
-    emit soughtTo(m_list[m_current]);
+    Q_EMIT soughtTo(m_list[m_current]);
 
     bool ok = m_display->setImage(currentInfo(), m_forward);
     if (!ok) {
@@ -615,7 +615,7 @@ void Viewer::ViewerWidget::rotate(int angle)
     m_display->rotate(currentInfo());
     invalidateThumbnail();
     MainWindow::DirtyIndicator::markDirty();
-    emit imageRotated(m_list[m_current]);
+    Q_EMIT imageRotated(m_list[m_current]);
 }
 
 void Viewer::ViewerWidget::showFirst()

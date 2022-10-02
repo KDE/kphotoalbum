@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "JobInterface.h"
 
@@ -12,7 +11,7 @@
   \class BackgroundTaskManager::JobInterface
   \brief Interfaces for jobs to be executed using \ref BackgroundTaskManager::JobManager
 
-  Each job must override \ref execute, and must emit the signal completed.
+  Each job must override \ref execute, and must Q_EMIT the signal completed.
   Emitting the signal is crusial, as the JobManager will otherwise stall.
 */
 

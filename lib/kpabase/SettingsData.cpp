@@ -167,7 +167,7 @@ void SettingsData::setColorScheme(const QString &path) {
     if (path != colorScheme())
     {
         setValue("General", "colorScheme", path);
-        emit colorSchemeChanged();
+        Q_EMIT colorSchemeChanged();
     }
 }
 
@@ -183,7 +183,7 @@ getValueFunc(bool, histogramUseLinearScale, General, false)
         return;
 
     setValue("General", "histogramUseLinearScale", useLinearScale);
-    emit histogramScaleChanged();
+    Q_EMIT histogramScaleChanged();
 }
 
 void SettingsData::setHistogramSize(const QSize &size)
@@ -192,7 +192,7 @@ void SettingsData::setHistogramSize(const QSize &size)
         return;
 
     setValue("General", "histogramSize", size);
-    emit histogramSizeChanged(size);
+    Q_EMIT histogramSizeChanged(size);
 }
 
 void SettingsData::setViewSortType(const ViewSortType tp)
@@ -201,7 +201,7 @@ void SettingsData::setViewSortType(const ViewSortType tp)
         return;
 
     setValue("General", "viewSortType", static_cast<int>(tp));
-    emit viewSortTypeChanged(tp);
+    Q_EMIT viewSortTypeChanged(tp);
 }
 void SettingsData::setMatchType(const AnnotationDialog::MatchType mt)
 {
@@ -209,7 +209,7 @@ void SettingsData::setMatchType(const AnnotationDialog::MatchType mt)
         return;
 
     setValue("General", "matchType", static_cast<int>(mt));
-    emit matchTypeChanged(mt);
+    Q_EMIT matchTypeChanged(mt);
 }
 
 bool SettingsData::trustTimeStamps()
@@ -274,7 +274,7 @@ getValueFunc_(bool, displayCategories, groupForDatabase("Thumbnails"), "displayC
     const bool changed = value != displayLabels();
     setValue(groupForDatabase("Thumbnails"), "displayLabels", value);
     if (changed)
-        emit displayLabelsChanged(value);
+        Q_EMIT displayLabelsChanged(value);
 }
 
 void SettingsData::setDisplayCategories(bool value)
@@ -282,7 +282,7 @@ void SettingsData::setDisplayCategories(bool value)
     const bool changed = value != displayCategories();
     setValue(groupForDatabase("Thumbnails"), "displayCategories", value);
     if (changed)
-        emit displayCategoriesChanged(value);
+        Q_EMIT displayCategoriesChanged(value);
 }
 // clang-format off
 property_copy(autoShowThumbnailView, setAutoShowThumbnailView, int, Thumbnails, 20)
@@ -306,7 +306,7 @@ getValueFunc_(int, thumbnailSize, groupForDatabase("Thumbnails"), "thumbSize", 2
     value = qBound(minimumThumbnailSize(), value, maximumThumbnailSize());
 
     if (value != thumbnailSize())
-        emit thumbnailSizeChanged(value);
+        Q_EMIT thumbnailSizeChanged(value);
     setValue(groupForDatabase("Thumbnails"), "thumbSize", value);
 }
 
@@ -327,7 +327,7 @@ void SettingsData::setActualThumbnailSize(int value)
 
     if (value != actualThumbnailSize()) {
         setValue(groupForDatabase("Thumbnails"), "actualThumbSize", value);
-        emit actualThumbnailSizeChanged(value);
+        Q_EMIT actualThumbnailSizeChanged(value);
     }
 }
 
@@ -513,7 +513,7 @@ getValueFunc_(bool, locked, groupForDatabase("Privacy Settings"), "locked", fals
         return;
 
     setValue(groupForDatabase("Privacy Settings"), "locked", lock);
-    emit locked(lock, lockExcludes());
+    Q_EMIT locked(lock, lockExcludes());
 }
 
 void SettingsData::setWindowGeometry(WindowType win, const QRect &geometry)

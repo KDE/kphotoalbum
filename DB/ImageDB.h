@@ -158,7 +158,7 @@ public:
 
     Exif::Database *exifDB() const;
 
-public slots:
+public Q_SLOTS:
     void setDateRange(const ImageDate &, bool includeFuzzyCounts);
     void clearDateRange();
     virtual void slotRescan();
@@ -167,7 +167,7 @@ public slots:
     virtual void slotReread(const DB::FileNameList &list, DB::ExifMode mode);
     void setCurrentScope(const DB::ImageSearchInfo &info);
 
-signals:
+Q_SIGNALS:
     void totalChanged(uint);
     void dirty();
     void imagesDeleted(const DB::FileNameList &);
@@ -180,7 +180,7 @@ protected:
     ImageDate m_selectionRange;
     bool m_includeFuzzyCounts;
 
-protected slots:
+protected Q_SLOTS:
     virtual void lockDB(bool lock, bool exclude) = 0;
     void markDirty();
 

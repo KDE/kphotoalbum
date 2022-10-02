@@ -1,12 +1,12 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef REMOTECONTROL_CONNECTIONINDICATOR_H
 #define REMOTECONTROL_CONNECTIONINDICATOR_H
 
 #include <QLabel>
+
 class QTimer;
 
 namespace RemoteControl
@@ -20,7 +20,7 @@ public:
 
     void mouseReleaseEvent(QMouseEvent *ev) override;
     void contextMenuEvent(QContextMenuEvent *ev) override;
-private slots:
+private Q_SLOTS:
     void on();
     void off();
     void wait();

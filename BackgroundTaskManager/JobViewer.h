@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012-2016 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef BACKGROUNDTASKS_JOBVIEWER_H
 #define BACKGROUNDTASKS_JOBVIEWER_H
@@ -24,7 +23,7 @@ public:
     explicit JobViewer(QWidget *parent = nullptr);
     void setVisible(bool) override;
 
-private slots:
+private Q_SLOTS:
     void togglePause();
 
 private:

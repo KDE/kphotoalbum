@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2021 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021-2022 The KPhotoAlbum Development Team
+//
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -27,7 +28,7 @@ public:
     bool isPlaying() const override;
     QImage screenShoot() override;
 
-public slots:
+public Q_SLOTS:
     void stop() override;
     void playPause() override;
     void restart() override;

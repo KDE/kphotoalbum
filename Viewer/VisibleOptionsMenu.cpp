@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -87,62 +87,62 @@ void Viewer::VisibleOptionsMenu::toggleShowCategory(bool b)
 {
     QAction *action = qobject_cast<QAction *>(sender());
     DB::ImageDB::instance()->categoryCollection()->categoryForName(action->data().value<QString>())->setDoShow(b);
-    emit visibleOptionsChanged();
+    Q_EMIT visibleOptionsChanged();
 }
 
 void Viewer::VisibleOptionsMenu::toggleShowLabel(bool b)
 {
     Settings::SettingsData::instance()->setShowLabel(b);
-    emit visibleOptionsChanged();
+    Q_EMIT visibleOptionsChanged();
 }
 
 void Viewer::VisibleOptionsMenu::toggleShowDescription(bool b)
 {
     Settings::SettingsData::instance()->setShowDescription(b);
-    emit visibleOptionsChanged();
+    Q_EMIT visibleOptionsChanged();
 }
 
 void Viewer::VisibleOptionsMenu::toggleShowDate(bool b)
 {
     Settings::SettingsData::instance()->setShowDate(b);
     m_showTime->setVisible(b);
-    emit visibleOptionsChanged();
+    Q_EMIT visibleOptionsChanged();
 }
 
 void Viewer::VisibleOptionsMenu::toggleShowFilename(bool b)
 {
     Settings::SettingsData::instance()->setShowFilename(b);
-    emit visibleOptionsChanged();
+    Q_EMIT visibleOptionsChanged();
 }
 
 void Viewer::VisibleOptionsMenu::toggleShowTime(bool b)
 {
     Settings::SettingsData::instance()->setShowTime(b);
-    emit visibleOptionsChanged();
+    Q_EMIT visibleOptionsChanged();
 }
 
 void Viewer::VisibleOptionsMenu::toggleShowEXIF(bool b)
 {
     Settings::SettingsData::instance()->setShowEXIF(b);
-    emit visibleOptionsChanged();
+    Q_EMIT visibleOptionsChanged();
 }
 
 void Viewer::VisibleOptionsMenu::toggleShowImageSize(bool b)
 {
     Settings::SettingsData::instance()->setShowImageSize(b);
-    emit visibleOptionsChanged();
+    Q_EMIT visibleOptionsChanged();
 }
 
 void Viewer::VisibleOptionsMenu::toggleShowRating(bool b)
 {
     Settings::SettingsData::instance()->setShowRating(b);
-    emit visibleOptionsChanged();
+    Q_EMIT visibleOptionsChanged();
 }
 
 void Viewer::VisibleOptionsMenu::toggleShowInfoBox(bool b)
 {
     Settings::SettingsData::instance()->setShowInfoBox(b);
-    emit visibleOptionsChanged();
+    Q_EMIT visibleOptionsChanged();
 }
 
 void Viewer::VisibleOptionsMenu::updateState()

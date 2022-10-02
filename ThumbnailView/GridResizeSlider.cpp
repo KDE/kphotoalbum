@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2015-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2015-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 // Qt includes
 #include <QTimer>
@@ -86,7 +85,7 @@ void ThumbnailView::GridResizeSlider::enterGridResizingMode()
 
     qCDebug(ThumbnailViewLog) << "Entering grid resizing mode";
     ImageManager::ThumbnailBuilder::instance()->cancelRequests();
-    emit isResizing(true);
+    Q_EMIT isResizing(true);
 }
 
 void ThumbnailView::GridResizeSlider::leaveGridResizingMode()
@@ -100,7 +99,7 @@ void ThumbnailView::GridResizeSlider::leaveGridResizingMode()
     cellGeometryInfo()->flushCache();
     model()->endResetModel();
     model()->updateVisibleRowInfo();
-    emit isResizing(false);
+    Q_EMIT isResizing(false);
 }
 
 void ThumbnailView::GridResizeSlider::setCellSize(int size)

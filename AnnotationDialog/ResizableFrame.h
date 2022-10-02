@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 // The basic resizable QFrame has been shamelessly stolen from
 // http://qt-project.org/forums/viewthread/24104
@@ -87,7 +86,7 @@ protected:
      */
     void repolish();
 
-private slots:
+private Q_SLOTS:
     void associateTag();
     void associateTag(QAction *action);
     void remove();

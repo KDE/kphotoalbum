@@ -1,8 +1,8 @@
-/* SPDX-FileCopyrightText: 2016-2019 The KPhotoAlbum Development Team
-   SPDX-FileCopyrightText: 2016-2017 Matthias Füssel <matthias.fuessel@gmx.net>
+// SPDX-FileCopyrightText: 2016-2017 Matthias Füssel <matthias.fuessel@gmx.net>
+// SPDX-FileCopyrightText: 2016-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "PositionBrowserWidget.h"
 
 #include <DB/ImageDB.h>
@@ -60,6 +60,6 @@ void Browser::PositionBrowserWidget::clearImages()
 void Browser::PositionBrowserWidget::slotRegionSelectionChanged()
 {
     if (m_mapView->regionSelected()) {
-        emit signalNewRegionSelected(m_mapView->getRegionSelection());
+        Q_EMIT signalNewRegionSelected(m_mapView->getRegionSelection());
     }
 }

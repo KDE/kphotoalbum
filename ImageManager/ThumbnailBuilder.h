@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef THUMBNAILBUILDER_H
 #define THUMBNAILBUILDER_H
@@ -42,7 +41,7 @@ public:
     void pixmapLoaded(ImageRequest *request, const QImage &image) override;
     void requestCanceled() override;
 
-public slots:
+public Q_SLOTS:
     void buildAll(ThumbnailBuildStart when = ImageManager::StartDelayed);
     void buildMissing();
     void cancelRequests();

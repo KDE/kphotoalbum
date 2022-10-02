@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef LISTSELECT_H
 #define LISTSELECT_H
@@ -73,7 +72,7 @@ public:
 
     void deselectTag(QString tag);
 
-public slots:
+public Q_SLOTS:
     void slotReturn();
     void slotExternalReturn(const QString &text);
     void slotSortDate();
@@ -84,7 +83,7 @@ public slots:
     void rePopulate();
     void ensureTagIsSelected(QString category, QString tag);
 
-signals:
+Q_SIGNALS:
     /**
      * This signal is emitted whenever a positionable tag is (de)selected.
      */
@@ -92,7 +91,7 @@ signals:
     void positionableTagDeselected(const QString category, const QString tag);
     void positionableTagRenamed(const QString category, const QString oldTag, const QString newTag);
 
-protected slots:
+protected Q_SLOTS:
     void itemSelected(QTreeWidgetItem *);
     void showContextMenu(const QPoint &);
     void setViewSortType(Settings::ViewSortType);

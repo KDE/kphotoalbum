@@ -43,7 +43,7 @@ protected:
     virtual void onTimeSliderHover(const QPoint &pos, int value);
     void setSeekSliderEnabled(bool b);
 
-signals:
+Q_SIGNALS:
     void positionChanged(int value);
     void volumeChanged(int volume);
     void muted(bool muted);

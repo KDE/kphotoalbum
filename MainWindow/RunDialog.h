@@ -24,7 +24,7 @@ public:
     void setImageList(const DB::FileNameList &fileList);
     void show();
 
-protected slots:
+protected Q_SLOTS:
     void slotMarkGo();
 
 private:

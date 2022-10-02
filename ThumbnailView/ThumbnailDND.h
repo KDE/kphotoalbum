@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef THUMBNAILDND_H
 #define THUMBNAILDND_H
 
@@ -28,7 +28,7 @@ public:
     void contentsDropEvent(QDropEvent *event);
     void contentsDragEnterEvent(QDragEnterEvent *event);
 
-private slots:
+private Q_SLOTS:
     void realDropEvent();
 
 private:

@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef MYIMAGE_H
 #define MYIMAGE_H
@@ -27,10 +26,10 @@ public:
     int imageWidth() const;
     int imageHeight() const;
 
-public slots:
+public Q_SLOTS:
     void setImage(const QImage &image);
 
-signals:
+Q_SIGNALS:
     void imageChanged();
 
     void imageWidthChanged();

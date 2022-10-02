@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "DiscoveryModel.h"
 #include "Action.h"
@@ -41,7 +40,7 @@ void DiscoveryModel::setCount(int count)
 {
     if (m_count != count) {
         m_count = count;
-        emit countChanged();
+        Q_EMIT countChanged();
         resetImages();
     }
 }

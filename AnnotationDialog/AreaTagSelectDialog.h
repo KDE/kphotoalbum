@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2016 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2016-2022 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -39,7 +39,7 @@ public:
 protected:
     void paintEvent(QPaintEvent *) override;
 
-private slots:
+private Q_SLOTS:
     void slotSetTag(const QString &tag);
     void slotValidateTag(const QString &tag);
     void slotFinished();

@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef IMAGEMANAGER_EXTRACTONEVIDEOFRAME_H
 #define IMAGEMANAGER_EXTRACTONEVIDEOFRAME_H
@@ -32,7 +31,7 @@ class ExtractOneVideoFrame : public QObject
 public:
     static void extract(const DB::FileName &filename, double offset, QObject *receiver, const char *slot);
 
-private slots:
+private Q_SLOTS:
     /**
      * @brief processFinished call the appropriate handler function based on exit status.
      * @param exitCode
@@ -40,7 +39,7 @@ private slots:
      */
     void processFinished(int exitCode, QProcess::ExitStatus status);
 
-signals:
+Q_SIGNALS:
     void result(const QImage &);
 
 private:

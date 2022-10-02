@@ -76,7 +76,7 @@ void Viewer::VLCDisplay::updateInterface()
     libvlc_media_t *curMedia = libvlc_media_player_get_media(m_player);
     if (!curMedia || libvlc_media_get_state(m_media) == libvlc_Ended) {
         m_poller->stop();
-        emit stopped();
+        Q_EMIT stopped();
         return;
     }
 

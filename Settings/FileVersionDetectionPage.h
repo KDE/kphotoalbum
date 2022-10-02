@@ -1,9 +1,10 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef FILEVERSIONDETECTIONPAGE_H
 #define FILEVERSIONDETECTIONPAGE_H
+
 #include <QWidget>
 
 class KComboBox;
@@ -11,6 +12,7 @@ class QLineEdit;
 class QSpinBox;
 class QComboBox;
 class QCheckBox;
+
 namespace Settings
 {
 class SettingsData;
@@ -23,7 +25,7 @@ public:
     void loadSettings(Settings::SettingsData *);
     void saveSettings(Settings::SettingsData *);
 
-private slots:
+private Q_SLOTS:
     /**
      * @brief Enable/disable UI elements for manual optimization settings based on
      * the active m_loadOptimizationPreset combobox value.

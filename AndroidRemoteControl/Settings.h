@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef REMOTECONTROL_SETTINGS_H
 #define REMOTECONTROL_SETTINGS_H
@@ -34,11 +33,11 @@ public:
 
     QColor textColor() const;
 
-public slots:
+public Q_SLOTS:
     void setCategoryItemSize(int size);
     void setOverviewIconSize(double size);
 
-signals:
+Q_SIGNALS:
     void thumbnailSizeChanged();
     void categoryItemSizeChanged();
     void overviewIconSizeChanged();

@@ -1,9 +1,10 @@
-// SPDX-FileCopyrightText: 2014-2015 Tobias Leupold <tl at stonemx dot de>
 // SPDX-FileCopyrightText: 2015-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 // Local includes
+
 #include "MapView.h"
 #include "GeoCluster.h"
 #include "Logging.h"
@@ -436,7 +437,7 @@ void Map::MapView::displayStatus(MapStatus status)
         m_setLastCenterButton->setEnabled(false);
         break;
     }
-    emit displayStatusChanged(status);
+    Q_EMIT displayStatusChanged(status);
 }
 
 void Map::MapView::setLastCenter()
@@ -448,7 +449,7 @@ void Map::MapView::updateRegionSelection(const Marble::GeoDataLatLonBox &selecti
 {
     m_regionSelected = true;
     m_regionSelection = selection;
-    emit newRegionSelected(getRegionSelection());
+    Q_EMIT newRegionSelected(getRegionSelection());
 }
 
 int Map::MapView::markerSize() const

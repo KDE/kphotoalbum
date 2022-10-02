@@ -44,7 +44,7 @@ public:
     QString defaultPositionableCategory() const;
     void setToggleFullscreenPreviewEnabled(bool state);
 
-public slots:
+public Q_SLOTS:
     void slotNext();
     void slotPrev();
     void slotCopyPrevious();
@@ -53,7 +53,7 @@ public slots:
     void rotateRight();
     void slotShowAreas(bool show);
 
-signals:
+Q_SIGNALS:
     void imageDeleted(const DB::ImageInfo &deletedImage);
     void imageRotated(int angle);
     void imageChanged(const DB::ImageInfo &newImage);

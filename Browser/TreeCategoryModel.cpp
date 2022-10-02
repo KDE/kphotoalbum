@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 // Qt includes
 #include <QMimeData>
@@ -232,7 +231,7 @@ bool Browser::TreeCategoryModel::dropMimeData(const QMimeData *data, Qt::DropAct
 
     DB::ImageDB::instance()->memberMap() = m_memberMap;
     MainWindow::DirtyIndicator::markDirty();
-    emit(dataChanged());
+    Q_EMIT dataChanged();
 
     return true;
 }

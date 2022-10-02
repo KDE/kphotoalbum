@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2019-2020 The KPhotoAlbum Development Team
- *
- *  SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
- */
+// SPDX-FileCopyrightText: 2019-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "PurposeMenu.h"
 
@@ -42,13 +41,13 @@ void Plugins::PurposeMenu::loadPurposeMenu()
     connect(this, &Purpose::Menu::finished, this, [this](const QJsonObject &output, int error, const QString &message) {
         if (error) {
             qCDebug(PluginsLog) << "Failed to share image:" << message;
-            emit imageSharingFailed(message);
+            Q_EMIT imageSharingFailed(message);
         } else {
             // Note: most plugins don't seem to actually return anything in the url field...
             const QUrl returnUrl = QUrl(output[QStringLiteral("url")].toString(), QUrl::ParsingMode::StrictMode);
             qCDebug(PluginsLog) << "Image shared successfully.";
             qCDebug(PluginsLog) << "Raw json data: " << output;
-            emit imageShared(returnUrl);
+            Q_EMIT imageShared(returnUrl);
         }
     });
 

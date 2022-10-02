@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "DirtyIndicator.h"
 
@@ -56,7 +55,7 @@ void MainWindow::DirtyIndicator::markDirtySlot()
     s_saveDirty = true;
     s_autoSaveDirty = true;
     setPixmap(m_dirtyPix);
-    emit dirty();
+    Q_EMIT dirty();
 }
 
 void MainWindow::DirtyIndicator::autoSaved()

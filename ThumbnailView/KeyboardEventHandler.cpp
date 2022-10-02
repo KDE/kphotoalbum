@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -88,12 +88,12 @@ bool ThumbnailView::KeyboardEventHandler::keyPressEvent(QKeyEvent *event)
         VideoThumbnailCycler::instance()->stopCycle();
 
     if (event->key() == Qt::Key_Return) {
-        emit showSelection();
+        Q_EMIT showSelection();
         return true;
     }
 
     if (event->key() == Qt::Key_Slash) {
-        emit showSearch();
+        Q_EMIT showSearch();
         return true;
     }
 

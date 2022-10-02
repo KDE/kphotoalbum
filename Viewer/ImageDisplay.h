@@ -59,7 +59,7 @@ public:
     bool filterContrastStretch();
     bool filterHistogramEqualization();
 
-public slots:
+public Q_SLOTS:
     void zoomIn() override;
     void zoomOut() override;
     void zoomFull() override;
@@ -67,14 +67,14 @@ public slots:
     void stop() override { }
     void rotate(const DB::ImageInfoPtr &info) override;
 
-protected slots:
+protected Q_SLOTS:
     bool setImageImpl(DB::ImageInfoPtr info, bool forward) override;
     void hideCursor();
     void showCursor();
     void disableCursorHiding();
     void enableCursorHiding();
 
-signals:
+Q_SIGNALS:
     void possibleChange();
     void imageReady();
     void setCaptionInfo(const QString &info);

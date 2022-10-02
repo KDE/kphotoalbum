@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef REMOTECONTROL_IMAGEDETAILS_H
 #define REMOTECONTROL_IMAGEDETAILS_H
@@ -26,14 +25,14 @@ public:
     static ImageDetails &instance();
     QStringList categories() const;
 
-public slots:
+public Q_SLOTS:
     void clear();
     void setData(const ImageDetailsResult &data);
     QStringList itemsOfCategory(const QString &category);
     QString dummy() const { return {}; }
     QString age(const QString &category, const QString &item);
 
-signals:
+Q_SIGNALS:
     void updated();
 
 private:

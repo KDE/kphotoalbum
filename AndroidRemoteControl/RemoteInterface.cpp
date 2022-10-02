@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "RemoteInterface.h"
 
@@ -49,7 +48,7 @@ void RemoteInterface::setCurrentPage(Page page)
 {
     if (m_currentPage != page) {
         m_currentPage = page;
-        emit currentPageChanged();
+        Q_EMIT currentPageChanged();
     }
 }
 
@@ -57,7 +56,7 @@ void RemoteInterface::setListCategoryValues(const QStringList &values)
 {
     if (m_listCategoryValues != values) {
         m_listCategoryValues = values;
-        emit listCategoryValuesChanged();
+        Q_EMIT listCategoryValuesChanged();
     }
 }
 
@@ -74,13 +73,13 @@ void RemoteInterface::gotDisconnected()
 void RemoteInterface::setHomePageImages(const StaticImageResult &command)
 {
     m_homeImage = command.homeIcon;
-    emit homeImageChanged();
+    Q_EMIT homeImageChanged();
 
     m_kphotoalbumImage = command.kphotoalbumIcon;
-    emit kphotoalbumImageChange();
+    Q_EMIT kphotoalbumImageChange();
 
     m_discoveryImage = command.discoverIcon;
-    emit discoveryImageChanged();
+    Q_EMIT discoveryImageChanged();
 }
 
 RemoteInterface &RemoteInterface::instance()
@@ -211,7 +210,7 @@ void RemoteInterface::pushAwayFromStartupState()
 
 void RemoteInterface::setCurrentView(int imageId)
 {
-    emit jumpToImage(m_activeThumbnailModel->indexOf(imageId));
+    Q_EMIT jumpToImage(m_activeThumbnailModel->indexOf(imageId));
 }
 
 QString RemoteInterface::networkAddress() const
@@ -249,7 +248,7 @@ void RemoteInterface::handleCommand(const RemoteCommand &command)
         ; // Used for debugging, it will print time stamp when decoded
     else if (command.commandType() == CommandType::ImageDetailsResult) {
         ImageDetails::instance().setData(static_cast<const ImageDetailsResult &>(command));
-        emit tokensChanged();
+        Q_EMIT tokensChanged();
     } else if (command.commandType() == CommandType::CategoryItemsResult)
         setListCategoryValues(static_cast<const CategoryItemsResult &>(command).items);
     else if (command.commandType() == CommandType::StaticImageResult)

@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "MouseTrackingInteraction.h"
 
 #include "ThumbnailModel.h"
@@ -49,7 +49,7 @@ void ThumbnailView::MouseTrackingInteraction::handleCursorOverNewIcon()
 
     if (fileName != lastFileNameUnderCursor) {
         if (!fileName.isNull() && !lastFileNameUnderCursor.isNull()) {
-            emit fileIdUnderCursorChanged(fileName);
+            Q_EMIT fileIdUnderCursorChanged(fileName);
             model()->updateCell(lastFileNameUnderCursor);
             model()->updateCell(fileName);
         }

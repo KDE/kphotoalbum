@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "CategoryPage.h"
 
@@ -298,7 +297,7 @@ void Settings::CategoryPage::categoryNameChanged(QListWidgetItem *item)
     item->setText(newCategoryName);
     m_categoriesListWidget->blockSignals(false);
 
-    emit categoryChangesPending();
+    Q_EMIT categoryChangesPending();
     m_untaggedBox->categoryRenamed(m_categoryNameBeforeEdit, newCategoryName);
     m_currentCategory->setLabel(newCategoryName);
     editCategory(m_currentCategory);
@@ -375,7 +374,7 @@ void Settings::CategoryPage::newCategory()
                                                    64,
                                                    m_categoriesListWidget);
     m_currentCategory->markAsNewCategory();
-    emit categoryChangesPending();
+    Q_EMIT categoryChangesPending();
     m_currentCategory->setLabel(checkedCategory);
     m_currentCategory->setSelected(true);
     m_categoriesListWidget->blockSignals(false);
@@ -410,7 +409,7 @@ void Settings::CategoryPage::deleteCurrentCategory()
     resetCategoryLabel();
 
     editCategory(m_categoriesListWidget->currentItem());
-    emit categoryChangesPending();
+    Q_EMIT categoryChangesPending();
 }
 
 void Settings::CategoryPage::renameCurrentCategory()

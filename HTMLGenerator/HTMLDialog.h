@@ -34,7 +34,7 @@ public:
     using KPageDialog::exec;
     int exec(const DB::FileNameList &list);
 
-protected slots:
+protected Q_SLOTS:
     void slotOk();
     void selectDir();
     void displayThemeDescription(int);

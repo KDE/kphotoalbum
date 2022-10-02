@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "SearchForVideosWithoutVideoThumbnailsJob.h"
 
@@ -44,7 +43,7 @@ void BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::execute()
 
         BackgroundTaskManager::JobManager::instance()->addJob(readVideoLengthJob);
     }
-    emit completed();
+    Q_EMIT completed();
 }
 
 QString BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::title() const

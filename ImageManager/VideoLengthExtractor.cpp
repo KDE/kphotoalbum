@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "VideoLengthExtractor.h"
 
@@ -30,7 +29,7 @@ void ImageManager::VideoLengthExtractor::extract(const DB::FileName &fileName)
     }
 
     if (!MainWindow::FeatureDialog::hasVideoThumbnailer()) {
-        emit unableToDetermineLength();
+        Q_EMIT unableToDetermineLength();
         return;
     }
 
@@ -60,7 +59,7 @@ void ImageManager::VideoLengthExtractor::processEnded()
         qCWarning(ImageManagerLog) << "Unable to parse video length from ffprobe output!"
                                    << "Output was:\n"
                                    << m_process->stdOut();
-        emit unableToDetermineLength();
+        Q_EMIT unableToDetermineLength();
         return;
     }
     const QString lenStr = list[0].trimmed();
@@ -69,17 +68,17 @@ void ImageManager::VideoLengthExtractor::processEnded()
     const double length = lenStr.toDouble(&ok);
     if (!ok) {
         qCWarning(ImageManagerLog) << STR("Unable to convert string \"%1\"to double (for file %2)").arg(lenStr).arg(m_fileName.absolute());
-        emit unableToDetermineLength();
+        Q_EMIT unableToDetermineLength();
         return;
     }
 
     if (length == 0) {
         qCWarning(ImageManagerLog) << "video length returned was 0 for file " << m_fileName.absolute();
-        emit unableToDetermineLength();
+        Q_EMIT unableToDetermineLength();
         return;
     }
 
-    emit lengthFound(int(length));
+    Q_EMIT lengthFound(int(length));
     m_process->deleteLater();
     m_process = nullptr;
 }

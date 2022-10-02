@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2014-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2014-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef TAGGEDAREA_H
 #define TAGGEDAREA_H
 
@@ -54,7 +54,7 @@ public:
      */
     void setHighlighted(bool highlighted);
 
-public slots:
+public Q_SLOTS:
     /**
      * @brief checkIsSelected set the \c selected property if tagData matches the tag.
      * @param tagData

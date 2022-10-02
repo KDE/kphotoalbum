@@ -1,12 +1,14 @@
 // SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef SEARCHBAR_H
 #define SEARCHBAR_H
+
 #include <QEvent>
 #include <ktoolbar.h>
+
 class QLineEdit;
 class KMainWindow;
 
@@ -36,7 +38,7 @@ public:
 protected:
     bool eventFilter(QObject *watched, QEvent *e) override;
 
-public slots:
+public Q_SLOTS:
     /**
      * @brief Clears the content of the search box.
      */
@@ -47,7 +49,7 @@ public slots:
      */
     void setLineEditEnabled(bool enabled);
 
-signals:
+Q_SIGNALS:
     /**
      * @see QLineEdit::textChanged
      */

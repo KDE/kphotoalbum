@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2018 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ShowSelectionOnlyManager.h"
 
@@ -25,16 +24,16 @@ void AnnotationDialog::ShowSelectionOnlyManager::toggle()
 {
     m_limit = !m_limit;
     if (m_limit)
-        emit limitToSelected();
+        Q_EMIT limitToSelected();
     else
-        emit broaden();
+        Q_EMIT broaden();
 }
 
 void AnnotationDialog::ShowSelectionOnlyManager::unlimitFromSelection()
 {
     if (m_limit) {
         m_limit = false;
-        emit broaden();
+        Q_EMIT broaden();
     }
 }
 

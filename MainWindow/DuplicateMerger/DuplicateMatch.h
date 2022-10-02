@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef MAINWINDOW_DUPLICATEMATCH_H
 #define MAINWINDOW_DUPLICATEMATCH_H
@@ -34,7 +33,7 @@ public:
     void execute(Utilities::DeleteMethod);
     bool eventFilter(QObject *, QEvent *) override;
 
-signals:
+Q_SIGNALS:
     void selectionChanged();
 
 private:

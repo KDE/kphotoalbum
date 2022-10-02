@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef REMOTEINTERFACE_H
 #define REMOTEINTERFACE_H
@@ -32,10 +31,10 @@ public:
     void stopListening();
     void connectTo(const QHostAddress &address);
 
-private slots:
+private Q_SLOTS:
     void handleCommand(const RemoteCommand &);
 
-signals:
+Q_SIGNALS:
     void connected();
     void disConnected();
     void listening();

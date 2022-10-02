@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "CategoryModel.h"
 #include "ScreenInfo.h"
@@ -42,7 +41,7 @@ void CategoryModel::setCategories(const QList<Category> &categories)
     beginResetModel();
     m_categories = categories;
     endResetModel();
-    emit hasDataChanged();
+    Q_EMIT hasDataChanged();
 }
 
 bool CategoryModel::hasData() const

@@ -77,7 +77,7 @@ public:
     bool canZoomIn() const;
     bool canZoomOut() const;
 
-public slots:
+public Q_SLOTS:
     void clearSelection();
     void setViewType(ViewType tp, bool redrawNow = true);
     void setDate(const Utilities::FastDateTime &date);
@@ -103,7 +103,7 @@ public slots:
      */
     void setAutomaticRangeAdjustment(bool);
 
-signals:
+Q_SIGNALS:
     void zoomInEnabled(bool);
     void zoomOutEnabled(bool);
     void dateSelected(const DB::ImageDate &, bool includeRanges);

@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012-2016 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef MAINWINDOW_DUPLICATEMERGER_H
 #define MAINWINDOW_DUPLICATEMERGER_H
@@ -31,7 +30,7 @@ public:
     explicit DuplicateMerger(QWidget *parent = nullptr);
     ~DuplicateMerger() override;
 
-private slots:
+private Q_SLOTS:
     void selectAll();
     void selectNone();
     void go();

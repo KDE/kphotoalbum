@@ -311,7 +311,7 @@ void ImageManager::ThumbnailCache::saveFull()
                 realFile.close();
                 qCDebug(ImageManagerLog) << "ThumbnailCache::saveFull(): cache saved.";
                 qCDebug(TimingLog, "Saved thumbnail cache with %d images in %f seconds", size(), timer.elapsed() / 1000.0);
-                emit saveComplete();
+                Q_EMIT saveComplete();
                 success = true;
             }
         }
@@ -386,7 +386,7 @@ void ImageManager::ThumbnailCache::save()
     QMutexLocker saveLocker(&m_saveLock);
     m_needsFullSave = true;
     saveLocker.unlock();
-    emit doSave();
+    Q_EMIT doSave();
 }
 
 void ImageManager::ThumbnailCache::load()
@@ -611,7 +611,7 @@ void ImageManager::ThumbnailCache::flush()
     m_memcache->clear();
     dataLocker.unlock();
     save();
-    emit cacheFlushed();
+    Q_EMIT cacheFlushed();
 }
 
 void ImageManager::ThumbnailCache::removeThumbnail(const DB::FileName &fileName)
@@ -641,7 +641,7 @@ void ImageManager::ThumbnailCache::setThumbnailSize(int thumbSize)
     if (thumbSize != m_thumbnailSize) {
         m_thumbnailSize = thumbSize;
         flush();
-        emit cacheInvalidated();
+        Q_EMIT cacheInvalidated();
     }
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

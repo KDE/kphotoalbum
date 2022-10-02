@@ -1,10 +1,12 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef DATABASEBACKENDPAGE_H
 #define DATABASEBACKENDPAGE_H
+
 #include <QWidget>
+
 class QCheckBox;
 class QSpinBox;
 
@@ -20,7 +22,7 @@ public:
     void loadSettings(Settings::SettingsData *);
     void saveSettings(Settings::SettingsData *);
 
-private slots:
+private Q_SLOTS:
     void markDirty();
 
 private:

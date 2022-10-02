@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef REMOTEIMAGE_H
 #define REMOTEIMAGE_H
@@ -28,17 +27,17 @@ public:
     void setLabel(const QString &label);
     void setImage(const QImage &image);
 
-public slots:
+public Q_SLOTS:
     void setImageId(int imageId);
     void loadFullSize();
 
 protected:
     void componentComplete();
 
-private slots:
+private Q_SLOTS:
     void requestImage();
 
-signals:
+Q_SIGNALS:
     void imageIdChanged();
     void typeChanged();
     void labelChanged();

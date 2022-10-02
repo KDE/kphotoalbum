@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef BACKGROUNDJOBS_HANDLEVIDEOTHUMBNAILREQUESTJOB_H
 #define BACKGROUNDJOBS_HANDLEVIDEOTHUMBNAILREQUESTJOB_H
@@ -39,7 +38,7 @@ public:
 protected:
     void execute() override;
 
-private slots:
+private Q_SLOTS:
     void frameLoaded(QImage);
 
 private:

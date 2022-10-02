@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -175,7 +175,7 @@ void AnnotationDialog::ListSelect::slotReturn()
         if (!items.isEmpty()) {
             items.at(0)->setCheckState(0, Qt::Checked);
             if (m_positionable) {
-                emit positionableTagSelected(m_category->name(), items.at(0)->text(0));
+                Q_EMIT positionableTagSelected(m_category->name(), items.at(0)->text(0));
             }
         } else {
             Q_ASSERT(false);
@@ -323,9 +323,9 @@ void AnnotationDialog::ListSelect::itemSelected(QTreeWidgetItem *item)
     else {
         if (m_positionable) {
             if (item->checkState(0) == Qt::Checked) {
-                emit positionableTagSelected(m_category->name(), item->text(0));
+                Q_EMIT positionableTagSelected(m_category->name(), item->text(0));
             } else {
-                emit positionableTagDeselected(m_category->name(), item->text(0));
+                Q_EMIT positionableTagDeselected(m_category->name(), item->text(0));
             }
         }
 
@@ -433,7 +433,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
             if (item->checkState(0) == Qt::Checked && m_positionable) {
                 // An area could be linked against this. We can use positionableTagDeselected
                 // here, as the procedure is the same as if the tag had been deselected.
-                emit positionableTagDeselected(m_category->name(), item->text(0));
+                Q_EMIT positionableTagDeselected(m_category->name(), item->text(0));
             }
 
             m_category->removeItem(item->text(0));
@@ -469,7 +469,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
 
                 if (m_positionable) {
                     // Also take care of areas that could be linked against this
-                    emit positionableTagRenamed(m_category->name(), oldStr, newStr);
+                    Q_EMIT positionableTagRenamed(m_category->name(), oldStr, newStr);
                 }
             }
         }

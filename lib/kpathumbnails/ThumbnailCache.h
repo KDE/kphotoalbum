@@ -148,7 +148,7 @@ public:
      */
     void vacuum();
 
-public slots:
+public Q_SLOTS:
     /**
      * @brief Save the thumbnail cache to disk.
      * Note: this method emits an internal signal which calls the actual save implementation.
@@ -167,7 +167,7 @@ public slots:
      * @param thumbnailSize
      */
     void setThumbnailSize(int thumbnailSize);
-signals:
+Q_SIGNALS:
     /**
      * @brief doSave is emitted when save() is called.
      * This signal is more or less an internal signal.

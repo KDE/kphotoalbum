@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef CATEGORY_H
 #define CATEGORY_H
 
@@ -87,7 +87,7 @@ public:
 private:
     QString defaultIconName() const;
 
-signals:
+Q_SIGNALS:
     void changed();
     void itemRenamed(const QString &oldName, const QString &newName);
     void itemRemoved(const QString &name);

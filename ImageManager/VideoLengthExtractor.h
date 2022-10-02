@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef VIDEOLENGTHEXTRACTOR_H
 #define VIDEOLENGTHEXTRACTOR_H
@@ -29,11 +28,11 @@ public:
     explicit VideoLengthExtractor(QObject *parent = nullptr);
     void extract(const DB::FileName &fileName);
 
-signals:
+Q_SIGNALS:
     void lengthFound(int length);
     void unableToDetermineLength();
 
-private slots:
+private Q_SLOTS:
     void processEnded();
 
 private:

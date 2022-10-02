@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef IMAGEROW_H
 #define IMAGEROW_H
 
@@ -28,7 +28,7 @@ public:
     ImportDialog *m_import;
     KimFileReader *m_kimFileReader;
 
-public slots:
+public Q_SLOTS:
     void showImage();
 };
 

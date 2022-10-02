@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef REMOTECONTROL_DISCOVERYMODEL_H
 #define REMOTECONTROL_DISCOVERYMODEL_H
@@ -25,11 +24,11 @@ public:
     void setCurrentSelection(const QList<int> &selection, const QList<int> &allImages);
     void setCurrentAction(DiscoverAction *action);
 
-public slots:
+public Q_SLOTS:
     void setCount(int arg);
     void resetImages();
 
-signals:
+Q_SIGNALS:
     void countChanged();
 
 private:

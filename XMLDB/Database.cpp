@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -196,9 +196,9 @@ void XMLDB::Database::deleteList(const DB::FileNameList &list)
         m_images.remove(imageInfo);
     }
     exifDB()->remove(list);
-    emit totalChanged(m_images.count());
-    emit imagesDeleted(list);
-    emit dirty();
+    Q_EMIT totalChanged(m_images.count());
+    Q_EMIT imagesDeleted(list);
+    Q_EMIT dirty();
 }
 
 void XMLDB::Database::renameItem(DB::Category *category, const QString &oldName, const QString &newName)
@@ -291,8 +291,8 @@ void XMLDB::Database::commitDelayedImages()
         // It's more efficient from an I/O perspective to minimize the number
         // of passes over the images, and with the ability to add the Exif
         // data in a transaction, there's no longer any need to read it here.
-        emit totalChanged(m_images.count());
-        emit dirty();
+        Q_EMIT totalChanged(m_images.count());
+        Q_EMIT dirty();
     }
 }
 
@@ -484,7 +484,7 @@ void XMLDB::Database::insertList(
         // increment always to retain order of selected images
         imageIt++;
     }
-    emit dirty();
+    Q_EMIT dirty();
 }
 
 bool XMLDB::Database::stack(const DB::FileNameList &items)
@@ -518,7 +518,7 @@ bool XMLDB::Database::stack(const DB::FileNameList &items)
     }
 
     if (changed)
-        emit dirty();
+        Q_EMIT dirty();
 
     return changed;
 }
@@ -550,7 +550,7 @@ void XMLDB::Database::unstack(const DB::FileNameList &items)
     }
 
     if (!items.isEmpty())
-        emit dirty();
+        Q_EMIT dirty();
 }
 
 DB::FileNameList XMLDB::Database::getStackFor(const DB::FileName &referenceImg) const

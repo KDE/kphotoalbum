@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef IMPORTHANDLER_H
 #define IMPORTHANDLER_H
 
@@ -45,7 +45,7 @@ private:
     bool copyFilesFromZipFile();
     void updateDB();
 
-private slots:
+private Q_SLOTS:
     void stopCopyingImages();
     void aCopyFailed(QStringList files);
     void aCopyJobCompleted(KJob *);

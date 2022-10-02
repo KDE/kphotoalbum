@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef ABSTRACTDISPLAY_H
 #define ABSTRACTDISPLAY_H
@@ -20,7 +19,7 @@ public:
     explicit AbstractDisplay(QWidget *parent);
     bool setImage(DB::ImageInfoPtr info, bool forward);
 
-public slots:
+public Q_SLOTS:
     virtual void zoomIn() {};
     virtual void zoomOut() {};
     virtual void zoomFull() {};

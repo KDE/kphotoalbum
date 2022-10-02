@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2014-2018 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -18,7 +18,7 @@ AnnotationDialog::DescriptionEdit::~DescriptionEdit()
 void AnnotationDialog::DescriptionEdit::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_PageUp || event->key() == Qt::Key_PageDown) {
-        emit pageUpDownPressed(event);
+        Q_EMIT pageUpDownPressed(event);
     } else {
         QTextEdit::keyPressEvent(event);
     }

@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "XMLCategoryCollection.h"
 
@@ -29,7 +28,7 @@ void XMLDB::XMLCategoryCollection::addCategory(DB::CategoryPtr category)
     connect(category.data(), &DB::Category::changed, this, &XMLCategoryCollection::categoryCollectionChanged);
     connect(category.data(), &DB::Category::itemRemoved, this, &XMLCategoryCollection::slotItemRemoved);
     connect(category.data(), &DB::Category::itemRenamed, this, &XMLCategoryCollection::slotItemRenamed);
-    emit categoryCollectionChanged();
+    Q_EMIT categoryCollectionChanged();
 }
 
 QStringList XMLDB::XMLCategoryCollection::categoryNames(IncludeSpecialCategories include) const
@@ -47,8 +46,8 @@ void XMLDB::XMLCategoryCollection::removeCategory(const QString &name)
     for (QList<DB::CategoryPtr>::iterator it = m_categories.begin(); it != m_categories.end(); ++it) {
         if ((*it)->name() == name) {
             m_categories.erase(it);
-            emit categoryRemoved(name);
-            emit categoryCollectionChanged();
+            Q_EMIT categoryRemoved(name);
+            Q_EMIT categoryCollectionChanged();
             return;
         }
     }
@@ -59,7 +58,7 @@ void XMLDB::XMLCategoryCollection::rename(const QString &oldName, const QString 
 {
     categoryForName(oldName)->setName(newName);
     DB::ImageDB::instance()->renameCategory(oldName, newName);
-    emit categoryCollectionChanged();
+    Q_EMIT categoryCollectionChanged();
 }
 
 QList<DB::CategoryPtr> XMLDB::XMLCategoryCollection::categories() const

@@ -1,13 +1,14 @@
-/* SPDX-FileCopyrightText: 2015-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2015-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef GRIDRESIZESLIDER_H
 #define GRIDRESIZESLIDER_H
 
 #include "ThumbnailComponent.h"
 
 #include <QSlider>
+
 class QTimer;
 
 namespace ThumbnailView
@@ -30,7 +31,7 @@ public:
     explicit GridResizeSlider(ThumbnailFactory *factory);
     ~GridResizeSlider() override;
 
-signals:
+Q_SIGNALS:
     void isResizing(bool);
 
 protected:
@@ -38,7 +39,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent *) override;
     void wheelEvent(QWheelEvent *) override;
 
-private slots:
+private Q_SLOTS:
     void enterGridResizingMode();
     void leaveGridResizingMode();
     void setCellSize(int size);

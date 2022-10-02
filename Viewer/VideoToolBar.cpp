@@ -92,7 +92,7 @@ void VideoToolBar::setMuted(bool b)
     m_volumeSlider->setEnabled(!b);
     if (b != m_isMuted) {
         m_isMuted = b;
-        emit muted(b);
+        Q_EMIT muted(b);
     }
 }
 

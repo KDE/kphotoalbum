@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012-2018 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef PROCESS_H
 #define PROCESS_H
@@ -19,7 +18,7 @@ public:
     QString stdOut() const;
     QString stdErr() const;
 
-private slots:
+private Q_SLOTS:
     void readStandardError();
     void readStandardOutput();
 

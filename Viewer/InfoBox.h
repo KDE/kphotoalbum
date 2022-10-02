@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef INFOBOX_H
 #define INFOBOX_H
@@ -59,7 +58,7 @@ protected:
     void hackLinkColorForQt52();
     void updatePalette();
 
-protected slots:
+protected Q_SLOTS:
     void jumpToContext();
     void linkHovered(const QString &linkName);
 #ifdef HAVE_MARBLE
@@ -67,7 +66,7 @@ protected slots:
     void updateMapForCurrentImage(DB::FileName);
 #endif
 
-signals:
+Q_SIGNALS:
     void tagHovered(const QPair<QString, QString> &tagData);
     void noTagHovered();
 

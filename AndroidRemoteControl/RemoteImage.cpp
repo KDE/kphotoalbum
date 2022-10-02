@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "RemoteImage.h"
 #include "ImageStore.h"
@@ -39,7 +38,7 @@ void RemoteImage::setLabel(const QString &label)
 {
     if (label != m_label) {
         m_label = label;
-        emit labelChanged();
+        Q_EMIT labelChanged();
     }
 }
 
@@ -55,7 +54,7 @@ void RemoteImage::setImageId(int imageId)
 {
     if (m_imageId != imageId) {
         m_imageId = imageId;
-        emit imageIdChanged();
+        Q_EMIT imageIdChanged();
     }
 }
 

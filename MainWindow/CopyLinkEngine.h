@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2021-2022 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -23,7 +23,7 @@ public:
 
     explicit CopyLinkEngine(QObject *parent);
 
-public slots:
+public Q_SLOTS:
     void selectTarget(QWidget *parent, QList<QUrl> &files, Action action);
 
 private: // Variables

@@ -80,7 +80,7 @@ void ExtractOneVideoFrame::frameFetched()
     }
 
     QImage image(name);
-    emit result(image);
+    Q_EMIT result(image);
     delete m_workingDirectory;
     deleteLater();
 }
@@ -112,7 +112,7 @@ void ExtractOneVideoFrame::handleError(QProcess::ProcessError error)
     KMessageBox::information(MainWindow::Window::theMainWindow(),
                              i18n("<p>Error when extracting video thumbnails.<br/>Error was: %1</p>", message),
                              QString(), QLatin1String("errorWhenRunningQProcessFromExtractOneVideoFrame"));
-    emit result(QImage());
+    Q_EMIT result(QImage());
     deleteLater();
 }
 

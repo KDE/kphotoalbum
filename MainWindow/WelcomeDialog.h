@@ -1,13 +1,13 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef WELCOMEDIALOG_H
 #define WELCOMEDIALOG_H
 
 #include <QDialog>
 #include <qdialog.h>
+
 class QLineEdit;
 
 namespace MainWindow
@@ -21,7 +21,7 @@ public:
     explicit WelcomeDialog(QWidget *parent = nullptr);
     QString configFileName() const;
 
-protected slots:
+protected Q_SLOTS:
     void slotLoadDemo();
     void createSetup();
     void checkFeatures();
@@ -36,7 +36,7 @@ class FileDialog : public QDialog
 public:
     explicit FileDialog(QWidget *parent);
     QString getFileName();
-protected slots:
+protected Q_SLOTS:
     void slotBrowseForDirecory();
 
 private:

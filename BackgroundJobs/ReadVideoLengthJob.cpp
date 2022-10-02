@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ReadVideoLengthJob.h"
 
@@ -44,13 +43,13 @@ void BackgroundJobs::ReadVideoLengthJob::lengthFound(int length)
         info->setVideoLength(length);
         MainWindow::DirtyIndicator::markDirty();
     }
-    emit completed();
+    Q_EMIT completed();
 }
 
 void BackgroundJobs::ReadVideoLengthJob::unableToDetermineLength()
 {
     // PENDING(blackie) Should we mark these as trouble, so we don't try them over and over again?
-    emit completed();
+    Q_EMIT completed();
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:
 

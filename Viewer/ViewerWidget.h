@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2021 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef VIEWER_H
 #define VIEWER_H
@@ -81,14 +80,14 @@ public:
      */
     void addAdditionalTaggedAreas(DB::TaggedAreas taggedAreas);
 
-public slots:
+public Q_SLOTS:
     void updateInfoBox();
     void test();
     void moveInfoBox(int);
     void stopPlayback();
     void remapAreas(QSize viewSize, QRect zoomWindow, double sizeRatio);
 
-signals:
+Q_SIGNALS:
     void soughtTo(const DB::FileName &id);
     void imageRotated(const DB::FileName &id);
 
@@ -137,7 +136,7 @@ private:
                         OnlyRemoveFromViewer };
     void removeOrDeleteCurrent(RemoveAction);
 
-protected slots:
+protected Q_SLOTS:
     void showNext();
     void showNext10();
     void showNext100();

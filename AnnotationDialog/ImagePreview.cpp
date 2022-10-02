@@ -389,7 +389,7 @@ void ImagePreview::createNewArea(QRect geometry, QRect actualGeometry)
     actualGeometry = areaPreviewToActual(newArea->geometry());
     // Store the coordinates on the real image (not on the preview)
     newArea->setActualCoordinates(actualGeometry);
-    emit areaCreated(newArea);
+    Q_EMIT areaCreated(newArea);
 
     newArea->show();
     newArea->showContextMenu();
@@ -465,7 +465,7 @@ void ImagePreview::createTaggedArea(QString category, QString tag, QRect geometr
     // Create a ResizableFrame (cleaned up in Dialog::tidyAreas())
     ResizableFrame *newArea = new ResizableFrame(this);
 
-    emit areaCreated(newArea);
+    Q_EMIT areaCreated(newArea);
 
     newArea->setGeometry(areaActualToPreview(geometry));
     newArea->setActualCoordinates(geometry);
@@ -531,7 +531,7 @@ void ImagePreview::acceptProposedTag(QPair<QString, QString> tagData, ResizableF
 
     // Tell all ListSelects that we accepted a proposed tag, so that the ListSelect
     // holding the respective category can ensure that the tag is checked
-    emit proposedTagSelected(tagData.first, tagData.second);
+    Q_EMIT proposedTagSelected(tagData.first, tagData.second);
 
     // Associate the area with the proposed tag
     area->setTagData(tagData.first, tagData.second);

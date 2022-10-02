@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014-2019 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "Server.h"
 
@@ -44,7 +43,7 @@ void Server::stopListening()
     m_socket = nullptr;
     delete m_tcpSocket;
     m_tcpSocket = nullptr;
-    emit stoppedListening();
+    Q_EMIT stoppedListening();
 }
 
 QTcpSocket *Server::socket()
@@ -90,13 +89,13 @@ void Server::connectToTcpServer(const QHostAddress &address)
 void Server::gotConnected()
 {
     m_isConnected = true;
-    emit connected();
+    Q_EMIT connected();
 }
 
 void Server::lostConnection()
 {
     m_isConnected = false;
-    emit disConnected();
+    Q_EMIT disConnected();
 }
 
 #include "moc_Server.cpp"

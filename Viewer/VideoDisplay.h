@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2003-2021 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef VIDEODISPLAY_H
@@ -20,7 +21,7 @@ public:
     virtual void relativeSeek(int msec) = 0;
     virtual void restart() = 0;
 
-signals:
+Q_SIGNALS:
     void stopped();
 };
 

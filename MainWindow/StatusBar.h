@@ -1,12 +1,14 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef STATUSBAR_H
 #define STATUSBAR_H
+
 #include "BreadcrumbViewer.h"
 
 #include <QStatusBar>
+
 class QToolButton;
 class QTimer;
 class QProgressBar;
@@ -36,14 +38,14 @@ public:
     void showThumbnailSlider();
     void hideThumbnailSlider();
 
-signals:
+Q_SIGNALS:
     void cancelRequest();
     void thumbnailSettingsRequested();
 
 protected:
     void enterEvent(QEvent *event) override;
 
-private slots:
+private Q_SLOTS:
     void hideStatusBar();
     void showStatusBar();
 

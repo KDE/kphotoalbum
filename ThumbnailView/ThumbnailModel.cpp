@@ -114,8 +114,8 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
 
     updateIndexCache();
 
-    emit collapseAllStacksEnabled(m_expandedStacks.size() > 0);
-    emit expandAllStacksEnabled(m_allStacks.size() != model()->m_expandedStacks.size());
+    Q_EMIT collapseAllStacksEnabled(m_expandedStacks.size() > 0);
+    Q_EMIT expandAllStacksEnabled(m_allStacks.size() != model()->m_expandedStacks.size());
     endResetModel();
     qCInfo(TimingLog) << "ThumbnailModel::updateDisplayModel(): " << timer.restart() << "ms.";
 }
@@ -257,7 +257,7 @@ void ThumbnailView::ThumbnailModel::setOverrideImage(const DB::FileName &fileNam
         m_overrideFileName = fileName;
         m_overrideImage = pixmap;
     }
-    emit dataChanged(fileNameToIndex(fileName), fileNameToIndex(fileName));
+    Q_EMIT dataChanged(fileNameToIndex(fileName), fileNameToIndex(fileName));
 }
 
 DB::FileName ThumbnailView::ThumbnailModel::imageAt(int index) const
@@ -307,7 +307,7 @@ void ThumbnailView::ThumbnailModel::pixmapLoaded(ImageManager::ImageRequest *req
     const DB::FileName fileName = request->databaseFileName();
     const QSize fullSize = request->fullSize();
 
-    // As a result of the image being loaded, we emit the dataChanged signal, which in turn asks the delegate to paint the cell
+    // As a result of the image being loaded, we Q_EMIT the dataChanged signal, which in turn asks the delegate to paint the cell
     // The delegate now fetches the newly loaded image from the cache.
 
     DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(fileName);
@@ -319,7 +319,7 @@ void ThumbnailView::ThumbnailModel::pixmapLoaded(ImageManager::ImageRequest *req
         imageInfo->setSize(fullSize);
     }
 
-    emit dataChanged(fileNameToIndex(fileName), fileNameToIndex(fileName));
+    Q_EMIT dataChanged(fileNameToIndex(fileName), fileNameToIndex(fileName));
 }
 
 QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) const
@@ -391,7 +391,7 @@ void ThumbnailView::ThumbnailModel::updateCell(int row)
 
 void ThumbnailView::ThumbnailModel::updateCell(const QModelIndex &index)
 {
-    emit dataChanged(index, index);
+    Q_EMIT dataChanged(index, index);
 }
 
 void ThumbnailView::ThumbnailModel::updateCell(const DB::FileName &fileName)
@@ -468,7 +468,7 @@ void ThumbnailView::ThumbnailModel::toggleFilter(bool enable)
         clearFilter();
     else if (m_filter.isNull()) {
         std::swap(m_filter, m_previousFilter);
-        emit filterChanged(m_filter);
+        Q_EMIT filterChanged(m_filter);
     }
 }
 
@@ -478,7 +478,7 @@ void ThumbnailView::ThumbnailModel::clearFilter()
         qCDebug(ThumbnailViewLog) << "Filter cleared.";
         m_previousFilter = m_filter;
         m_filter = DB::ImageSearchInfo();
-        emit filterChanged(m_filter);
+        Q_EMIT filterChanged(m_filter);
     }
 }
 
@@ -487,7 +487,7 @@ void ThumbnailView::ThumbnailModel::filterByRating(short rating)
     Q_ASSERT(-1 <= rating && rating <= 10);
     qCDebug(ThumbnailViewLog) << "Filter set: rating(" << rating << ")";
     m_filter.setRating(rating);
-    emit filterChanged(m_filter);
+    Q_EMIT filterChanged(m_filter);
 }
 
 void ThumbnailView::ThumbnailModel::toggleRatingFilter(short rating)
@@ -499,7 +499,7 @@ void ThumbnailView::ThumbnailModel::toggleRatingFilter(short rating)
         qCDebug(ThumbnailViewLog) << "Filter removed: rating";
         m_filter.setRating(-1);
         m_filter.checkIfNull();
-        emit filterChanged(m_filter);
+        Q_EMIT filterChanged(m_filter);
     }
 }
 
@@ -508,7 +508,7 @@ void ThumbnailView::ThumbnailModel::filterByCategory(const QString &category, co
     qCDebug(ThumbnailViewLog) << "Filter added: category(" << category << "," << tag << ")";
 
     m_filter.addAnd(category, tag);
-    emit filterChanged(m_filter);
+    Q_EMIT filterChanged(m_filter);
 }
 
 void ThumbnailView::ThumbnailModel::toggleCategoryFilter(const QString &category, const QString &tag)
@@ -520,7 +520,7 @@ void ThumbnailView::ThumbnailModel::toggleCategoryFilter(const QString &category
             tags.removeAll(existingTag);
             m_filter.setCategoryMatchText(category, tags.join(QLatin1String(" & ")));
             m_filter.checkIfNull();
-            emit filterChanged(m_filter);
+            Q_EMIT filterChanged(m_filter);
             return;
         }
     }
@@ -531,7 +531,7 @@ void ThumbnailView::ThumbnailModel::filterByFreeformText(const QString &text)
 {
     qCDebug(ThumbnailViewLog) << "Filter added: freeform_match(" << text << ")";
     m_filter.setFreeformMatchText(text);
-    emit filterChanged(m_filter);
+    Q_EMIT filterChanged(m_filter);
 }
 
 void ThumbnailView::ThumbnailModel::preloadThumbnails()

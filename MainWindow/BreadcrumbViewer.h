@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef BREADCRUMBVIEWER_H
 #define BREADCRUMBVIEWER_H
 #include <Browser/BreadcrumbList.h>
@@ -18,16 +18,16 @@ public:
     BreadcrumbViewer();
     QSize minimumSizeHint() const override;
 
-public slots:
+public Q_SLOTS:
     void setBreadcrumbs(const Browser::BreadcrumbList &list);
 
-signals:
+Q_SIGNALS:
     void widenToBreadcrumb(const Browser::Breadcrumb &);
 
 protected:
     void resizeEvent(QResizeEvent *event) override;
 
-private slots:
+private Q_SLOTS:
     void linkClicked(const QString &link);
 
 private:

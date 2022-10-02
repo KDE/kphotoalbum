@@ -1,9 +1,10 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef DATEBARMOUSEHANDLER_H
 #define DATEBARMOUSEHANDLER_H
+
 #include <DB/ImageDate.h>
 
 #include <Utilities/FastDateTime.h>
@@ -30,7 +31,7 @@ public:
     void startAutoScroll();
     void endAutoScroll();
 
-protected slots:
+protected Q_SLOTS:
     void autoScroll();
 
 protected:

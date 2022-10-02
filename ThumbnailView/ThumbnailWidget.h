@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -63,7 +63,7 @@ public:
     void select(const DB::FileNameList &);
     bool isItemUnderCursorSelected() const;
 
-public slots:
+public Q_SLOTS:
     void gotoDate(const DB::ImageDate &date, bool includeRanges);
     /**
      * @brief setExternallyResizing
@@ -72,7 +72,7 @@ public slots:
      */
     void setExternallyResizing(bool state);
 
-signals:
+Q_SIGNALS:
     void showImage(const DB::FileName &id);
     void showSelection();
     void showSearch();
@@ -96,7 +96,7 @@ protected:
     void dragLeaveEvent(QDragLeaveEvent *) override;
     void dropEvent(QDropEvent *) override;
 
-private slots:
+private Q_SLOTS:
     void emitDateChange();
     void scheduleDateChangeSignal();
     void emitSelectionChangedSignal();

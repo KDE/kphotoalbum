@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef READVIDEOLENGTHJOB_H
 #define READVIDEOLENGTHJOB_H
@@ -26,7 +25,7 @@ public:
     QString title() const override;
     QString details() const override;
 
-private slots:
+private Q_SLOTS:
     void lengthFound(int);
     void unableToDetermineLength();
 

@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2014 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2014-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef CLIENT_H
 #define CLIENT_H
@@ -20,14 +19,14 @@ public:
     explicit Client(QObject *parent = 0);
     bool isConnected() const override;
 
-signals:
+Q_SIGNALS:
     void gotConnected();
     void disconnected();
 
 protected:
     QTcpSocket *socket() override;
 
-private slots:
+private Q_SLOTS:
     void acceptConnection();
     void sendBroadcastPackage();
     void disconnect();

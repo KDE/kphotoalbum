@@ -1,11 +1,12 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef SPEEDDISPLAY_H
 #define SPEEDDISPLAY_H
+
 #include <QLabel>
+
 class QTimeLine;
 class QTimer;
 class QLabel;
@@ -25,7 +26,7 @@ public:
     void end();
     void go();
 
-private slots:
+private Q_SLOTS:
     void setAlphaChannel(int alpha);
     void setAlphaChannel(int background, int label);
 

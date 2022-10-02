@@ -184,8 +184,8 @@ void AnnotationDialog::DateEdit::dateSelected(QDate newDate)
 {
     if ((m_HandleInvalid || newDate.isValid()) && validate(newDate)) {
         setDate(newDate);
-        emit dateChanged(newDate);
-        emit dateChanged(DB::ImageDate(newDate.startOfDay(), newDate.startOfDay()));
+        Q_EMIT dateChanged(newDate);
+        Q_EMIT dateChanged(DB::ImageDate(newDate.startOfDay(), newDate.startOfDay()));
         m_DateFrame->hide();
     }
 }
@@ -194,8 +194,8 @@ void AnnotationDialog::DateEdit::dateEntered(QDate newDate)
 {
     if ((m_HandleInvalid || newDate.isValid()) && validate(newDate)) {
         setDate(newDate);
-        emit dateChanged(newDate);
-        emit dateChanged(DB::ImageDate(newDate.startOfDay(), newDate.startOfDay()));
+        Q_EMIT dateChanged(newDate);
+        Q_EMIT dateChanged(DB::ImageDate(newDate.startOfDay(), newDate.startOfDay()));
     }
 }
 
@@ -210,12 +210,12 @@ void AnnotationDialog::DateEdit::lineEnterPressed()
         // Update the edit. This is needed if the user has entered a
         // word rather than the actual date.
         setDate(newDate);
-        emit dateChanged(newDate);
-        emit dateChanged(DB::ImageDate(newDate.startOfDay(), end.startOfDay()));
+        Q_EMIT dateChanged(newDate);
+        Q_EMIT dateChanged(DB::ImageDate(newDate.startOfDay(), end.startOfDay()));
     } else {
         // Invalid or unacceptable date - revert to previous value
         setDate(m_value);
-        emit invalidDateEntered();
+        Q_EMIT invalidDateEntered();
     }
 }
 

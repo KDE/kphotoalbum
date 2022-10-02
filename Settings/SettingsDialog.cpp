@@ -1,7 +1,6 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "SettingsDialog.h"
 
@@ -124,7 +123,7 @@ void Settings::SettingsDialog::slotMyOK()
     m_exifPage->saveSettings(opt);
     m_databaseBackendPage->saveSettings(opt);
 
-    emit changed();
+    Q_EMIT changed();
     KSharedConfig::openConfig()->sync();
 }
 

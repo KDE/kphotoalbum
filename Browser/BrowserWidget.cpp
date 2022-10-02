@@ -133,14 +133,14 @@ void Browser::BrowserWidget::addAction(Browser::BrowserPage *action)
 
 void Browser::BrowserWidget::emitSignals()
 {
-    emit canGoBack(m_current > 0);
-    emit canGoForward(m_current < m_list.count() - 1);
+    Q_EMIT canGoBack(m_current > 0);
+    Q_EMIT canGoForward(m_current < m_list.count() - 1);
     if (currentAction()->viewer() == ShowBrowser)
-        emit showingOverview();
+        Q_EMIT showingOverview();
 
-    emit isSearchable(currentAction()->isSearchable());
-    emit isFilterable(currentAction()->viewer() == ShowImageViewer);
-    emit isViewChangeable(currentAction()->isViewChangeable());
+    Q_EMIT isSearchable(currentAction()->isSearchable());
+    Q_EMIT isFilterable(currentAction()->viewer() == ShowImageViewer);
+    Q_EMIT isViewChangeable(currentAction()->isViewChangeable());
 
     bool isCategoryAction = (dynamic_cast<CategoryPage *>(currentAction()) != nullptr);
 
@@ -148,12 +148,12 @@ void Browser::BrowserWidget::emitSignals()
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(currentCategory());
         Q_ASSERT(category.data());
 
-        emit currentViewTypeChanged(category->viewType());
+        Q_EMIT currentViewTypeChanged(category->viewType());
     }
 
-    emit pathChanged(createPath());
-    emit viewChanged(currentAction()->searchInfo());
-    emit imageCount(DB::ImageDB::instance()->count(currentAction()->searchInfo()).total());
+    Q_EMIT pathChanged(createPath());
+    Q_EMIT viewChanged(currentAction()->searchInfo());
+    Q_EMIT imageCount(DB::ImageDB::instance()->count(currentAction()->searchInfo()).total());
 }
 
 void Browser::BrowserWidget::home()
@@ -428,7 +428,7 @@ bool Browser::BrowserWidget::eventFilter(QObject * /* obj */, QEvent *event)
         const auto *keyEvent = static_cast<QKeyEvent *>(event);
         Q_ASSERT(keyEvent != nullptr);
         if (keyEvent->key() == Qt::Key_Slash) {
-            emit showSearch();
+            Q_EMIT showSearch();
         }
     }
 

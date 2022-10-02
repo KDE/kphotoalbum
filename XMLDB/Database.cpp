@@ -89,7 +89,7 @@ XMLDB::Database::Database(const QString &configFile, DB::UIDelegate &delegate)
             &m_members, &DB::MemberMap::deleteCategory);
 }
 
-uint XMLDB::Database::totalCount() const
+int XMLDB::Database::totalCount() const
 {
     return m_images.count();
 }

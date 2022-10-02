@@ -38,7 +38,7 @@ public Q_SLOTS:
 
 protected:
     bool setImageImpl(DB::ImageInfoPtr info, bool forward) override;
-    void displayPosition(quint64 pos);
+    void displayPosition(qint64 pos);
 
 private:
     QWidget *m_videoWidget = nullptr;

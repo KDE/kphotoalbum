@@ -17,10 +17,10 @@ public:
     explicit ImageCounter(QWidget *parent);
 
 public Q_SLOTS:
-    void setMatchCount(uint matches);
-    void setSelectionCount(uint selected);
-    void setTotal(uint);
-    void showBrowserMatches(uint matches);
+    void setMatchCount(int matches);
+    void setSelectionCount(int selected);
+    void setTotal(int);
+    void showBrowserMatches(int matches);
 };
 }
 

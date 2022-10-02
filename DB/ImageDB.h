@@ -66,7 +66,7 @@ public:
 
     bool untaggedCategoryFeatureConfigured() const;
 
-    virtual uint totalCount() const = 0;
+    virtual int totalCount() const = 0;
     virtual DB::ImageInfoList search(const ImageSearchInfo &, bool requireOnDisk = false) const = 0;
 
     virtual void renameCategory(const QString &oldName, const QString newName) = 0;
@@ -168,7 +168,7 @@ public Q_SLOTS:
     void setCurrentScope(const DB::ImageSearchInfo &info);
 
 Q_SIGNALS:
-    void totalChanged(uint);
+    void totalChanged(int);
     void dirty();
     void imagesDeleted(const DB::FileNameList &);
 

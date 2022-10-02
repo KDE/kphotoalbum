@@ -33,7 +33,7 @@ class Database : public DB::ImageDB
     Q_OBJECT
 
 public:
-    uint totalCount() const override;
+    int totalCount() const override;
     DB::ImageInfoList search(
         const DB::ImageSearchInfo &,
         bool requireOnDisk = false) const override;

@@ -22,7 +22,7 @@ public:
     void setRange(int min, int max);
     int maximum() const;
 
-    void setPosition(int value);
+    void setPosition(qint64 value);
 
     /**
      * @brief volume

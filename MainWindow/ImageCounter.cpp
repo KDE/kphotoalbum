@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2018 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ImageCounter.h"
 
@@ -15,12 +15,12 @@ MainWindow::ImageCounter::ImageCounter(QWidget *parent)
     setMargin(5);
 }
 
-void MainWindow::ImageCounter::setMatchCount(uint matches)
+void MainWindow::ImageCounter::setMatchCount(int matches)
 {
     setText(i18np("Showing 1 thumbnail", "Showing %1 thumbnails", matches));
 }
 
-void MainWindow::ImageCounter::setSelectionCount(uint selected)
+void MainWindow::ImageCounter::setSelectionCount(int selected)
 {
     if (selected > 0)
         setText(i18n("(%1 selected)", selected));
@@ -28,16 +28,15 @@ void MainWindow::ImageCounter::setSelectionCount(uint selected)
         setText(QString());
 }
 
-void MainWindow::ImageCounter::setTotal(uint c)
+void MainWindow::ImageCounter::setTotal(int c)
 {
     setText(i18n("Total: %1", c));
 }
 
-void MainWindow::ImageCounter::showBrowserMatches(uint matches)
+void MainWindow::ImageCounter::showBrowserMatches(int matches)
 {
     setText(i18np("1 match", "%1 matches", matches));
 }
 
-// vi:expandtab:tabstop=4 shiftwidth=4:
-
 #include "moc_ImageCounter.cpp"
+// vi:expandtab:tabstop=4 shiftwidth=4:

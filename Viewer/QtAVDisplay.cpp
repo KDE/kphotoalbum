@@ -146,7 +146,7 @@ bool Viewer::QtAVDisplay::isPlaying() const
     return m_player->isPlaying();
 }
 
-void Viewer::QtAVDisplay::displayPosition(quint64 pos)
+void Viewer::QtAVDisplay::displayPosition(qint64 pos)
 {
     if (m_player->isSeekable())
         m_toolBar->setPosition(pos);

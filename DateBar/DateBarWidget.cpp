@@ -177,8 +177,10 @@ void DateBar::DateBarWidget::redraw()
     p.setBrush(palette().brush(QPalette::Window));
     p.drawRect(rect());
 
-    if (!m_dates)
+    if (!m_dates) {
+        p.restore();
         return;
+    }
 
     // Draw the area with histograms
     QRect barArea = barAreaGeometry();

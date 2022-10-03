@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef XMLIMAGEDATECOLLECTION_H
 #define XMLIMAGEDATECOLLECTION_H
 
@@ -27,7 +28,7 @@ public:
     Utilities::FastDateTime upperLimit() const override;
 
 private:
-    typedef QMap<Utilities::FastDateTime, DB::ImageDate> StartIndexMap;
+    typedef QMultiMap<Utilities::FastDateTime, DB::ImageDate> StartIndexMap;
     typedef QMap<Utilities::FastDateTime, StartIndexMap::ConstIterator> EndIndexMap;
 
     void add(const DB::ImageDate &);

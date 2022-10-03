@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: none
 # SPDX-License-Identifier: CC0-1.0
+build/
 cmake_install.cmake
 CTestTestfile.cmake
 cmake_uninstall.cmake
@@ -13,7 +14,6 @@ CMakeCache.txt
 CMakeTmp
 EnabledFeatures.txt
 install_manifest.txt
-kphotoalbum
 kphotoalbum.shell
 cscope.*
 tags

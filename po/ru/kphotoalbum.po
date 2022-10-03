@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:44+0000\n"
+"POT-Creation-Date: 2022-10-03 00:44+0000\n"
 "PO-Revision-Date: 2020-03-22 17:24+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -413,7 +413,7 @@ msgstr "Завершить работу с окном комментирован
 
 # BUGME: please disambiguate --aspotashev
 #: AnnotationDialog/Dialog.cpp:1315 AnnotationDialog/ListSelect.cpp:354
-#: Settings/CategoryPage.cpp:70
+#: Settings/CategoryPage.cpp:69
 #, kde-format
 msgid "Delete"
 msgstr "Удалить"
@@ -793,22 +793,22 @@ msgstr "Связать с"
 msgid "Extracting Thumbnail"
 msgstr "Создание миниатюры"
 
-#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:35
+#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:34
 #, kde-format
 msgid "Extract Video Thumbnail"
 msgstr "Создание миниатюры видеозаписи"
 
-#: BackgroundJobs/ReadVideoLengthJob.cpp:31
+#: BackgroundJobs/ReadVideoLengthJob.cpp:30
 #, kde-format
 msgid "Read Video Length"
 msgstr "Определение продолжительности видеозаписи"
 
-#: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:47
+#: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
 msgid "Search for videos without length information"
 msgstr "Поиск видеозаписей без информации о продолжительности"
 
-#: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:52
+#: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:51
 #, kde-format
 msgid "Searching for videos without video thumbnails"
 msgstr "Поиск видеозаписей без миниатюр"
@@ -818,25 +818,25 @@ msgstr "Поиск видеозаписей без миниатюр"
 msgid "Not Started"
 msgstr "Не запущено"
 
-#: BackgroundTaskManager/JobModel.cpp:94
+#: BackgroundTaskManager/JobModel.cpp:93
 #, kde-format
 msgctxt "@title:column Background job id"
 msgid "ID"
 msgstr "Идентификатор"
 
-#: BackgroundTaskManager/JobModel.cpp:96
+#: BackgroundTaskManager/JobModel.cpp:95
 #, kde-format
 msgctxt "@title:column Background job title"
 msgid "Title"
 msgstr "Название"
 
-#: BackgroundTaskManager/JobModel.cpp:98
+#: BackgroundTaskManager/JobModel.cpp:97
 #, kde-format
 msgctxt "@title:column Additional information on background job"
 msgid "Details"
 msgstr "Подробности"
 
-#: BackgroundTaskManager/JobModel.cpp:100
+#: BackgroundTaskManager/JobModel.cpp:99
 #, kde-format
 msgctxt "@title:column Elapsed time"
 msgid "Elapsed"
@@ -1808,7 +1808,7 @@ msgstr "Какие данные включить"
 msgid "Layout"
 msgstr "Размещение"
 
-#: HTMLGenerator/HTMLDialog.cpp:185 Settings/CategoryPage.cpp:126
+#: HTMLGenerator/HTMLDialog.cpp:185 Settings/CategoryPage.cpp:125
 #, kde-format
 msgid "Thumbnail size:"
 msgstr "Размер миниатюр:"
@@ -3810,7 +3810,7 @@ msgstr "Все"
 msgid "Total"
 msgstr "Всего"
 
-#: MainWindow/StatusBar.cpp:103
+#: MainWindow/StatusBar.cpp:104
 #, kde-format
 msgid "Thumbnail settings..."
 msgstr "Настроить миниатюры..."
@@ -4397,12 +4397,12 @@ msgstr ""
 "непомеченных изображений в <interface>Настройка|Настроить KPhotoAlbum...|"
 "Категории</interface>.</p>"
 
-#: MainWindow/Window.cpp:1315 Settings/SettingsDialog.cpp:47
+#: MainWindow/Window.cpp:1315 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Общие"
 
-#: MainWindow/Window.cpp:1316 Settings/SettingsDialog.cpp:53
+#: MainWindow/Window.cpp:1316 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Окно просмотра"
@@ -4419,7 +4419,7 @@ msgstr "Дата:"
 msgid "Annotation Dialog"
 msgstr "Окно комментирования"
 
-#: MainWindow/Window.cpp:1321 Settings/SettingsDialog.cpp:49
+#: MainWindow/Window.cpp:1321 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Окно миниатюр"
@@ -4532,29 +4532,29 @@ msgctxt "The number of images in an area of the map"
 msgid "%1"
 msgstr "%1"
 
-#: Map/MapView.cpp:169
+#: Map/MapView.cpp:170
 #, kde-format
 msgid "Save the current map settings"
 msgstr "Сохранить текущие параметры карты"
 
-#: Map/MapView.cpp:176
+#: Map/MapView.cpp:177
 #, kde-format
 msgid "Go to last map position"
 msgstr "Перейти к последнему положению карты"
 
-#: Map/MapView.cpp:183
+#: Map/MapView.cpp:184
 #, fuzzy, kde-format
 #| msgid "Show Thumbnails"
 msgid "Show thumbnails"
 msgstr "Показать миниатюры"
 
-#: Map/MapView.cpp:192
+#: Map/MapView.cpp:193
 #, kde-format
 msgctxt "@action to group, as in aggregate thumbnails into clusters"
 msgid "Group adjacent thumbnails into clickable clusters"
 msgstr ""
 
-#: Map/MapView.cpp:204
+#: Map/MapView.cpp:205
 #, fuzzy, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt ""
@@ -4562,7 +4562,7 @@ msgctxt ""
 msgid "Decrease marker size"
 msgstr "Размер миниатюры:"
 
-#: Map/MapView.cpp:211
+#: Map/MapView.cpp:212
 #, fuzzy, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt ""
@@ -4570,28 +4570,28 @@ msgctxt ""
 msgid "Increase marker size"
 msgstr "Размер миниатюры:"
 
-#: Map/MapView.cpp:361
+#: Map/MapView.cpp:362
 #, kde-format
 msgid "Map view"
 msgstr "Просмотр на карте"
 
-#: Map/MapView.cpp:361
+#: Map/MapView.cpp:362
 #, fuzzy, kde-format
 #| msgid "Settings saved"
 msgid "Settings saved!"
 msgstr "Параметры сохранены."
 
-#: Map/MapView.cpp:388
+#: Map/MapView.cpp:389
 #, kde-format
 msgid "<i>Loading coordinates from the images ...</i>"
 msgstr "<i>Загрузка координат из изображений...</i>"
 
-#: Map/MapView.cpp:404
+#: Map/MapView.cpp:405
 #, kde-format
 msgid "<i>This image does not contain geographic coordinates.</i>"
 msgstr "<i>Это изображение не содержит географических координат.</i>"
 
-#: Map/MapView.cpp:412
+#: Map/MapView.cpp:413
 #, kde-format
 msgid ""
 "<i>Some of the selected images do not contain geographic coordinates.</i>"
@@ -4599,19 +4599,19 @@ msgstr ""
 "<i>Некоторые из выбранных изображений не содержат географических координат.</"
 "i>"
 
-#: Map/MapView.cpp:422
+#: Map/MapView.cpp:423
 #, kde-format
 msgid "<i>Search for geographic coordinates.</i>"
 msgstr "<i>Поиск по географическим координатам.</i>"
 
-#: Map/MapView.cpp:430
+#: Map/MapView.cpp:431
 #, kde-format
 msgid "<i>None of the selected images contain geographic coordinates.</i>"
 msgstr ""
 "<i>Ни одно из выбранных изображений не содержит географических координат.</i>"
 
 # BUGME: untranslatable settings "Soft"/"Hard"/etc in Exif/SearchDialog.cpp --aspotashev
-#: Plugins/PurposeMenu.cpp:38
+#: Plugins/PurposeMenu.cpp:37
 #, fuzzy, kde-format
 #| msgid "Sharpness"
 msgid "Share"
@@ -4641,12 +4641,12 @@ msgstr ""
 msgid "Android device address: "
 msgstr "Адрес устройства Android:"
 
-#: RemoteControl/Server.cpp:33
+#: RemoteControl/Server.cpp:32
 #, kde-format
 msgid "Unable to bind to socket"
 msgstr "Не удалось присоединиться к сокету"
 
-#: RemoteControl/Server.cpp:34
+#: RemoteControl/Server.cpp:33
 #, kde-format
 msgid ""
 "Unable to listen for remote Android connections. This is likely because you "
@@ -4656,12 +4656,12 @@ msgstr ""
 "клиента Android. Вероятно, у вас уже запущен другой экземпляр программы "
 "KPhotoAlbum."
 
-#: RemoteControl/Server.cpp:68
+#: RemoteControl/Server.cpp:67
 #, kde-format
 msgid "Invalid Version"
 msgstr "Неправильная версия"
 
-#: RemoteControl/Server.cpp:69
+#: RemoteControl/Server.cpp:68
 #, kde-format
 msgid ""
 "Version mismatch between Remote Client and KPhotoAlbum on the desktop.\n"
@@ -4724,27 +4724,27 @@ msgstr "Введите дату..."
 msgid "<i>Select an item on the left to edit the birthday</i>"
 msgstr "<i>Выберите элемент слева для редактирования дня рождения</i>"
 
-#: Settings/CategoryPage.cpp:45
+#: Settings/CategoryPage.cpp:44
 #, kde-format
 msgid "Category Settings"
 msgstr "Настройка категорий"
 
-#: Settings/CategoryPage.cpp:66
+#: Settings/CategoryPage.cpp:65
 #, kde-format
 msgid "New"
 msgstr "Создать"
 
-#: Settings/CategoryPage.cpp:74
+#: Settings/CategoryPage.cpp:73
 #, kde-format
 msgid "Rename"
 msgstr "Переименовать"
 
-#: Settings/CategoryPage.cpp:107
+#: Settings/CategoryPage.cpp:106
 #, kde-format
 msgid "Positionable tags:"
 msgstr "Позиционные метки:"
 
-#: Settings/CategoryPage.cpp:109
+#: Settings/CategoryPage.cpp:108
 #, fuzzy, kde-format
 #| msgid "Tags in this category can be associated with areas within images"
 msgid ""
@@ -4752,37 +4752,37 @@ msgid ""
 "associated with areas within images"
 msgstr "Метки из данной категории можно присваивать областям изображений"
 
-#: Settings/CategoryPage.cpp:116
+#: Settings/CategoryPage.cpp:115
 #, kde-format
 msgid "Icon:"
 msgstr "Значок:"
 
-#: Settings/CategoryPage.cpp:136
+#: Settings/CategoryPage.cpp:135
 #, kde-format
 msgid "Preferred view:"
 msgstr "Предпочитаемый вид:"
 
-#: Settings/CategoryPage.cpp:141
+#: Settings/CategoryPage.cpp:140
 #, kde-format
 msgid "List View"
 msgstr "Список"
 
-#: Settings/CategoryPage.cpp:142
+#: Settings/CategoryPage.cpp:141
 #, kde-format
 msgid "List View with Custom Thumbnails"
 msgstr "Список с миниатюрами"
 
-#: Settings/CategoryPage.cpp:143
+#: Settings/CategoryPage.cpp:142
 #, kde-format
 msgid "Icon View"
 msgstr "Значки"
 
-#: Settings/CategoryPage.cpp:144
+#: Settings/CategoryPage.cpp:143
 #, kde-format
 msgid "Icon View with Custom Thumbnails"
 msgstr "Значки с миниатюрами"
 
-#: Settings/CategoryPage.cpp:154
+#: Settings/CategoryPage.cpp:153
 #, kde-format
 msgid ""
 "<font color='red'>The database has unsaved changes. As long as those are not "
@@ -4793,36 +4793,36 @@ msgstr ""
 "сохранены, названия категорий не могут быть изменены, а новые не могут быть "
 "добавлены.</font>"
 
-#: Settings/CategoryPage.cpp:162
+#: Settings/CategoryPage.cpp:161
 #, kde-format
 msgid "Save the DB now"
 msgstr "Сохранить базу данных"
 
-#: Settings/CategoryPage.cpp:202
+#: Settings/CategoryPage.cpp:201
 #, kde-format
 msgid "Settings for category <b>%1</b>"
 msgstr "Настройка категории <b>%1</b>"
 
-#: Settings/CategoryPage.cpp:205
+#: Settings/CategoryPage.cpp:204
 #, kde-format
 msgid "<i>Pending change: rename to \"%1\"</i>"
 msgstr "<i>В ожидании изменения: переименование в «%1»</i>"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: Settings/CategoryPage.cpp:252 ThumbnailView/CellGeometry.cpp:93
+#: Settings/CategoryPage.cpp:251 ThumbnailView/CellGeometry.cpp:93
 #: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "Папка"
 
-#: Settings/CategoryPage.cpp:254 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:253 ThumbnailView/ThumbnailModel.cpp:350
 #: XMLDB/Database.cpp:273 XMLDB/Database.cpp:642 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
 msgstr "Тип данных"
 
-#: Settings/CategoryPage.cpp:259
+#: Settings/CategoryPage.cpp:258
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>\"%2\" is a "
@@ -4833,12 +4833,12 @@ msgstr ""
 "специальным названием категории, которое зарезервировано и не может "
 "использоваться для обычной категории.</p>"
 
-#: Settings/CategoryPage.cpp:263 Settings/CategoryPage.cpp:274
+#: Settings/CategoryPage.cpp:262 Settings/CategoryPage.cpp:273
 #, kde-format
 msgid "Invalid category name"
 msgstr "Недопустимое название категории"
 
-#: Settings/CategoryPage.cpp:271
+#: Settings/CategoryPage.cpp:270
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>A category with "
@@ -4847,7 +4847,7 @@ msgstr ""
 "<p>Не удалось изменить название категории «%1» на «%2»:</p><p>Категория с "
 "таким названием уже существует.</p>"
 
-#: Settings/CategoryPage.cpp:288
+#: Settings/CategoryPage.cpp:287
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>There's a "
@@ -4858,12 +4858,12 @@ msgstr ""
 "запланировано переименование категории «%2». Сохраните сначала это изменение."
 "</p>"
 
-#: Settings/CategoryPage.cpp:292
+#: Settings/CategoryPage.cpp:291
 #, kde-format
 msgid "Unsaved pending renaming action"
 msgstr "Несохранённая операция переименования"
 
-#: Settings/CategoryPage.cpp:324
+#: Settings/CategoryPage.cpp:323
 #, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
@@ -4872,17 +4872,17 @@ msgstr ""
 "<p>Сделать метки в категории «%1» непозиционными?</p><p>Все области "
 "изображений, связанные с метками из этой категории, будут удалены.</p>"
 
-#: Settings/CategoryPage.cpp:363
+#: Settings/CategoryPage.cpp:362
 #, kde-format
 msgid "New category"
 msgstr "Новая категория"
 
-#: Settings/CategoryPage.cpp:396
+#: Settings/CategoryPage.cpp:395
 #, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
 msgstr "<p>Удалить категорию «%1»?</p>"
 
-#: Settings/CategoryPage.cpp:511
+#: Settings/CategoryPage.cpp:510
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>Выберите категорию для редактирования</i>"
@@ -5497,37 +5497,37 @@ msgstr ""
 "одному на строку. Постарайтесь добавить точный комментарий, включая все "
 "пробелы.</p>"
 
-#: Settings/SettingsDialog.cpp:48
+#: Settings/SettingsDialog.cpp:47
 #, kde-format
 msgid "File Searching & Versions"
 msgstr "Поиск файлов и версии"
 
-#: Settings/SettingsDialog.cpp:50
+#: Settings/SettingsDialog.cpp:49
 #, kde-format
 msgid "Categories"
 msgstr "Категории"
 
-#: Settings/SettingsDialog.cpp:51
+#: Settings/SettingsDialog.cpp:50
 #, kde-format
 msgid "Birthdays"
 msgstr "Дни рождения"
 
-#: Settings/SettingsDialog.cpp:52
+#: Settings/SettingsDialog.cpp:51
 #, kde-format
 msgid "Tag Groups"
 msgstr "Группы меток"
 
-#: Settings/SettingsDialog.cpp:54
+#: Settings/SettingsDialog.cpp:53
 #, kde-format
 msgid "Exif/IPTC Information"
 msgstr "Метаданные EXIF/IPTC"
 
-#: Settings/SettingsDialog.cpp:55
+#: Settings/SettingsDialog.cpp:54
 #, kde-format
 msgid "Database Backend"
 msgstr "База данных"
 
-#: Settings/SettingsDialog.cpp:75
+#: Settings/SettingsDialog.cpp:74
 #, kde-format
 msgctxt "@title:window"
 msgid "Settings"
@@ -6106,26 +6106,26 @@ msgctxt ""
 msgid "video"
 msgstr "видеозапись"
 
-#: ThumbnailView/FilterWidget.cpp:16
+#: ThumbnailView/FilterWidget.cpp:15
 #, fuzzy, kde-format
 #| msgid "Show Category Editor"
 msgctxt "Name/title of the filter toolbar widget"
 msgid "Filter Toolbar"
 msgstr "Редактировать категории..."
 
-#: ThumbnailView/FilterWidget.cpp:22
+#: ThumbnailView/FilterWidget.cpp:21
 #, kde-format
 msgctxt ""
 "The action enables/disables filtering of images in the thumbnail view."
 msgid "Toggle filter"
 msgstr ""
 
-#: ThumbnailView/FilterWidget.cpp:24
+#: ThumbnailView/FilterWidget.cpp:23
 #, kde-kuit-format
 msgid "Press <shortcut>Escape</shortcut> to clear filter."
 msgstr ""
 
-#: ThumbnailView/FilterWidget.cpp:31
+#: ThumbnailView/FilterWidget.cpp:30
 #, kde-format
 msgid "Filter view by rating: %1 star"
 msgid_plural "Filter view by rating: %1 stars"
@@ -6134,7 +6134,7 @@ msgstr[1] ""
 msgstr[2] ""
 msgstr[3] ""
 
-#: ThumbnailView/FilterWidget.cpp:61
+#: ThumbnailView/FilterWidget.cpp:60
 #, fuzzy, kde-format
 #| msgctxt "@title:inmenu"
 #| msgid "Filters"
@@ -6142,7 +6142,7 @@ msgctxt "The label gives a textual description of the active filter"
 msgid "Filter: %1"
 msgstr "Фильтры"
 
-#: ThumbnailView/FilterWidget.cpp:84
+#: ThumbnailView/FilterWidget.cpp:83
 #, kde-kuit-format
 msgid ""
 "Tip: Use <shortcut>Alt+Shift+<placeholder>A-Z</placeholder></shortcut> to "
@@ -6399,13 +6399,13 @@ msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
 msgstr "Установить"
 
-#: Viewer/ImageDisplay.cpp:355 Viewer/ImageDisplay.cpp:379
-#: Viewer/ImageDisplay.cpp:440
+#: Viewer/ImageDisplay.cpp:354 Viewer/ImageDisplay.cpp:378
+#: Viewer/ImageDisplay.cpp:439
 #, kde-format
 msgid "Insufficient color depth for this filter"
 msgstr "Недостаточная глубина цвета для этого фильтра"
 
-#: Viewer/ImageDisplay.cpp:499
+#: Viewer/ImageDisplay.cpp:498
 #, kde-format
 msgid "[ zoom x%1 ]"
 msgstr "[ масштаб %1x ]"

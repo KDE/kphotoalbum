@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-02 00:44+0000\n"
+"POT-Creation-Date: 2022-10-03 00:44+0000\n"
 "PO-Revision-Date: 2021-01-10 14:24+0100\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -405,7 +405,7 @@ msgid "OK dialog"
 msgstr "OK dialóg"
 
 #: AnnotationDialog/Dialog.cpp:1315 AnnotationDialog/ListSelect.cpp:354
-#: Settings/CategoryPage.cpp:70
+#: Settings/CategoryPage.cpp:69
 #, kde-format
 msgid "Delete"
 msgstr "Odstrániť"
@@ -772,22 +772,22 @@ msgstr "Asociovať s"
 msgid "Extracting Thumbnail"
 msgstr "Extrahujem miniatúru"
 
-#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:35
+#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:34
 #, kde-format
 msgid "Extract Video Thumbnail"
 msgstr "Extrahovať video miniatúry"
 
-#: BackgroundJobs/ReadVideoLengthJob.cpp:31
+#: BackgroundJobs/ReadVideoLengthJob.cpp:30
 #, kde-format
 msgid "Read Video Length"
 msgstr "Čítať dĺžku videa"
 
-#: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:47
+#: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
 msgid "Search for videos without length information"
 msgstr "Hľadať videá bez informácie dĺžky"
 
-#: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:52
+#: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:51
 #, kde-format
 msgid "Searching for videos without video thumbnails"
 msgstr "Hľadanie videí bez náhľadov videí"
@@ -797,25 +797,25 @@ msgstr "Hľadanie videí bez náhľadov videí"
 msgid "Not Started"
 msgstr "Nezačal"
 
-#: BackgroundTaskManager/JobModel.cpp:94
+#: BackgroundTaskManager/JobModel.cpp:93
 #, kde-format
 msgctxt "@title:column Background job id"
 msgid "ID"
 msgstr "ID"
 
-#: BackgroundTaskManager/JobModel.cpp:96
+#: BackgroundTaskManager/JobModel.cpp:95
 #, kde-format
 msgctxt "@title:column Background job title"
 msgid "Title"
 msgstr "Názov"
 
-#: BackgroundTaskManager/JobModel.cpp:98
+#: BackgroundTaskManager/JobModel.cpp:97
 #, kde-format
 msgctxt "@title:column Additional information on background job"
 msgid "Details"
 msgstr "Podrobnosti"
 
-#: BackgroundTaskManager/JobModel.cpp:100
+#: BackgroundTaskManager/JobModel.cpp:99
 #, kde-format
 msgctxt "@title:column Elapsed time"
 msgid "Elapsed"
@@ -1762,7 +1762,7 @@ msgstr "Čo zahrnúť"
 msgid "Layout"
 msgstr "Rozloženie"
 
-#: HTMLGenerator/HTMLDialog.cpp:185 Settings/CategoryPage.cpp:126
+#: HTMLGenerator/HTMLDialog.cpp:185 Settings/CategoryPage.cpp:125
 #, kde-format
 msgid "Thumbnail size:"
 msgstr "Veľkosť miniatúry:"
@@ -3742,7 +3742,7 @@ msgstr "Všetko"
 msgid "Total"
 msgstr "Celkom"
 
-#: MainWindow/StatusBar.cpp:103
+#: MainWindow/StatusBar.cpp:104
 #, fuzzy, kde-format
 #| msgid "Thumbnail size:"
 msgid "Thumbnail settings..."
@@ -4322,12 +4322,12 @@ msgstr ""
 "nastavenia neoznačenej značky pod <interface>Nastavenia|Nastaviť "
 "KPhotoAlbum...|Kategórie</interface></p>"
 
-#: MainWindow/Window.cpp:1315 Settings/SettingsDialog.cpp:47
+#: MainWindow/Window.cpp:1315 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Všeobecné"
 
-#: MainWindow/Window.cpp:1316 Settings/SettingsDialog.cpp:53
+#: MainWindow/Window.cpp:1316 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Prehliadač"
@@ -4344,7 +4344,7 @@ msgstr "Dátum:"
 msgid "Annotation Dialog"
 msgstr "Dialóg anotácie"
 
-#: MainWindow/Window.cpp:1321 Settings/SettingsDialog.cpp:49
+#: MainWindow/Window.cpp:1321 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Zobrazenie náhľadov"
@@ -4456,29 +4456,29 @@ msgctxt "The number of images in an area of the map"
 msgid "%1"
 msgstr "%1"
 
-#: Map/MapView.cpp:169
+#: Map/MapView.cpp:170
 #, kde-format
 msgid "Save the current map settings"
 msgstr "Uložiť aktuálne nastavenia mapy"
 
-#: Map/MapView.cpp:176
+#: Map/MapView.cpp:177
 #, kde-format
 msgid "Go to last map position"
 msgstr "Prejsť na poslednú pozíciu mapy"
 
-#: Map/MapView.cpp:183
+#: Map/MapView.cpp:184
 #, fuzzy, kde-format
 #| msgid "Show Thumbnails"
 msgid "Show thumbnails"
 msgstr "Zobraziť náhľady"
 
-#: Map/MapView.cpp:192
+#: Map/MapView.cpp:193
 #, kde-format
 msgctxt "@action to group, as in aggregate thumbnails into clusters"
 msgid "Group adjacent thumbnails into clickable clusters"
 msgstr ""
 
-#: Map/MapView.cpp:204
+#: Map/MapView.cpp:205
 #, fuzzy, kde-format
 #| msgid "Decrease thumbnail storage size"
 msgctxt ""
@@ -4486,7 +4486,7 @@ msgctxt ""
 msgid "Decrease marker size"
 msgstr "Zmenšiť veľkosť úložiska miniatúr"
 
-#: Map/MapView.cpp:211
+#: Map/MapView.cpp:212
 #, fuzzy, kde-format
 #| msgid "Increase thumbnail storage size"
 msgctxt ""
@@ -4494,45 +4494,45 @@ msgctxt ""
 msgid "Increase marker size"
 msgstr "Zväčšiť veľkosť úložiska miniatúr"
 
-#: Map/MapView.cpp:361
+#: Map/MapView.cpp:362
 #, kde-format
 msgid "Map view"
 msgstr "Zobraznie mapy"
 
-#: Map/MapView.cpp:361
+#: Map/MapView.cpp:362
 #, fuzzy, kde-format
 #| msgid "Settings saved"
 msgid "Settings saved!"
 msgstr "Nastavenia uložené"
 
-#: Map/MapView.cpp:388
+#: Map/MapView.cpp:389
 #, kde-format
 msgid "<i>Loading coordinates from the images ...</i>"
 msgstr "<i>Načítavam súradnice z obrázkov ...</i>"
 
-#: Map/MapView.cpp:404
+#: Map/MapView.cpp:405
 #, kde-format
 msgid "<i>This image does not contain geographic coordinates.</i>"
 msgstr "<i>Tento obrázok neobsahuje geografické súradnice.</i>"
 
-#: Map/MapView.cpp:412
+#: Map/MapView.cpp:413
 #, kde-format
 msgid ""
 "<i>Some of the selected images do not contain geographic coordinates.</i>"
 msgstr ""
 "<i>Niektoré z vybraných obrázkov neobsahujú geografické súradnice..</i>"
 
-#: Map/MapView.cpp:422
+#: Map/MapView.cpp:423
 #, kde-format
 msgid "<i>Search for geographic coordinates.</i>"
 msgstr "<i>Hľadať geografické súradnice.</i>"
 
-#: Map/MapView.cpp:430
+#: Map/MapView.cpp:431
 #, kde-format
 msgid "<i>None of the selected images contain geographic coordinates.</i>"
 msgstr "<i>Žiadny z vybraných obrázkov neobsahuje geografické súradnice.</i>"
 
-#: Plugins/PurposeMenu.cpp:38
+#: Plugins/PurposeMenu.cpp:37
 #, fuzzy, kde-format
 #| msgid "Sharpness"
 msgid "Share"
@@ -4560,12 +4560,12 @@ msgstr ""
 msgid "Android device address: "
 msgstr "Adresa Android zariadenia: "
 
-#: RemoteControl/Server.cpp:33
+#: RemoteControl/Server.cpp:32
 #, kde-format
 msgid "Unable to bind to socket"
 msgstr "Nemôžem naviazať na socket"
 
-#: RemoteControl/Server.cpp:34
+#: RemoteControl/Server.cpp:33
 #, kde-format
 msgid ""
 "Unable to listen for remote Android connections. This is likely because you "
@@ -4574,12 +4574,12 @@ msgstr ""
 "Nemôžem zistiť vzdialené Android pripojenia. Môže to byť preto, lebo beží "
 "iná inštancia aplikácie KPhotoAlbum."
 
-#: RemoteControl/Server.cpp:68
+#: RemoteControl/Server.cpp:67
 #, kde-format
 msgid "Invalid Version"
 msgstr "Neplatná verzia"
 
-#: RemoteControl/Server.cpp:69
+#: RemoteControl/Server.cpp:68
 #, kde-format
 msgid ""
 "Version mismatch between Remote Client and KPhotoAlbum on the desktop.\n"
@@ -4642,27 +4642,27 @@ msgstr "Zadajte dátum..."
 msgid "<i>Select an item on the left to edit the birthday</i>"
 msgstr "<i>Vyberte položku naľavo na úpravu narodenín</i>"
 
-#: Settings/CategoryPage.cpp:45
+#: Settings/CategoryPage.cpp:44
 #, kde-format
 msgid "Category Settings"
 msgstr "Nastavenia kategórie"
 
-#: Settings/CategoryPage.cpp:66
+#: Settings/CategoryPage.cpp:65
 #, kde-format
 msgid "New"
 msgstr "Nové"
 
-#: Settings/CategoryPage.cpp:74
+#: Settings/CategoryPage.cpp:73
 #, kde-format
 msgid "Rename"
 msgstr "Premenovať"
 
-#: Settings/CategoryPage.cpp:107
+#: Settings/CategoryPage.cpp:106
 #, kde-format
 msgid "Positionable tags:"
 msgstr "Polohovateľné značky:"
 
-#: Settings/CategoryPage.cpp:109
+#: Settings/CategoryPage.cpp:108
 #, fuzzy, kde-format
 #| msgid "Tags in this category can be associated with an area of the image"
 msgid ""
@@ -4670,37 +4670,37 @@ msgid ""
 "associated with areas within images"
 msgstr "Značky v tejto kategórii môžu byť asociované s oblasťou obrázku"
 
-#: Settings/CategoryPage.cpp:116
+#: Settings/CategoryPage.cpp:115
 #, kde-format
 msgid "Icon:"
 msgstr "Ikona:"
 
-#: Settings/CategoryPage.cpp:136
+#: Settings/CategoryPage.cpp:135
 #, kde-format
 msgid "Preferred view:"
 msgstr "Preferovaný pohľad:"
 
-#: Settings/CategoryPage.cpp:141
+#: Settings/CategoryPage.cpp:140
 #, kde-format
 msgid "List View"
 msgstr "Pohľad zoznamu"
 
-#: Settings/CategoryPage.cpp:142
+#: Settings/CategoryPage.cpp:141
 #, kde-format
 msgid "List View with Custom Thumbnails"
 msgstr "Pohľad zoznamu s vlastnými miniatúrami"
 
-#: Settings/CategoryPage.cpp:143
+#: Settings/CategoryPage.cpp:142
 #, kde-format
 msgid "Icon View"
 msgstr "Zobrazenie ikon"
 
-#: Settings/CategoryPage.cpp:144
+#: Settings/CategoryPage.cpp:143
 #, kde-format
 msgid "Icon View with Custom Thumbnails"
 msgstr "Pohľad ikon s vlastnými miniatúrami"
 
-#: Settings/CategoryPage.cpp:154
+#: Settings/CategoryPage.cpp:153
 #, kde-format
 msgid ""
 "<font color='red'>The database has unsaved changes. As long as those are not "
@@ -4710,36 +4710,36 @@ msgstr ""
 "<font color='red'>Databáza má neuložené zmeny. Kým sa tiet neuložia, názvy "
 "kategórií nie je možné meniť a nové nie je možné pridávať.</font>"
 
-#: Settings/CategoryPage.cpp:162
+#: Settings/CategoryPage.cpp:161
 #, kde-format
 msgid "Save the DB now"
 msgstr "Uložiť databázu teraz"
 
-#: Settings/CategoryPage.cpp:202
+#: Settings/CategoryPage.cpp:201
 #, kde-format
 msgid "Settings for category <b>%1</b>"
 msgstr "Nastavenia pre kategóriu <b>%1</b>"
 
-#: Settings/CategoryPage.cpp:205
+#: Settings/CategoryPage.cpp:204
 #, kde-format
 msgid "<i>Pending change: rename to \"%1\"</i>"
 msgstr "<i>Čakajúca zmena: premenovanie na \"%1\"</i>"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: Settings/CategoryPage.cpp:252 ThumbnailView/CellGeometry.cpp:93
+#: Settings/CategoryPage.cpp:251 ThumbnailView/CellGeometry.cpp:93
 #: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "Priečinok"
 
-#: Settings/CategoryPage.cpp:254 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:253 ThumbnailView/ThumbnailModel.cpp:350
 #: XMLDB/Database.cpp:273 XMLDB/Database.cpp:642 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
 msgstr "Typ média"
 
-#: Settings/CategoryPage.cpp:259
+#: Settings/CategoryPage.cpp:258
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>\"%2\" is a "
@@ -4750,12 +4750,12 @@ msgstr ""
 "špeciálny názov kategórie, ktorý je rezervovaný a nedá sa použiť pre "
 "normálnu kategóriu.</p>"
 
-#: Settings/CategoryPage.cpp:263 Settings/CategoryPage.cpp:274
+#: Settings/CategoryPage.cpp:262 Settings/CategoryPage.cpp:273
 #, kde-format
 msgid "Invalid category name"
 msgstr "Neplatný názov kategórie"
 
-#: Settings/CategoryPage.cpp:271
+#: Settings/CategoryPage.cpp:270
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>A category with "
@@ -4764,7 +4764,7 @@ msgstr ""
 "<p>Nemôžem zmeniť názov kategórie \"%1\" na \"%2\":</p> <p>Kategória s týmto "
 "názvom už existuje.</p>"
 
-#: Settings/CategoryPage.cpp:288
+#: Settings/CategoryPage.cpp:287
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>There's a "
@@ -4774,12 +4774,12 @@ msgstr ""
 "<p>Nemôžem zmeniť názov kategórie \"%1\" na \"%2\":</p> <p>Je čakajúca akcia "
 "na kategórii \"%2\". Prosím, uložte najprv túto zmenu</p>"
 
-#: Settings/CategoryPage.cpp:292
+#: Settings/CategoryPage.cpp:291
 #, kde-format
 msgid "Unsaved pending renaming action"
 msgstr "Neuložené čaká na operáciu premenovania"
 
-#: Settings/CategoryPage.cpp:324
+#: Settings/CategoryPage.cpp:323
 #, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
@@ -4788,17 +4788,17 @@ msgstr ""
 "<p>Naozaj chcete urobiť \"%1\" nepolohovateľné?</p> <p>Niektoré oblasti "
 "nalinkované oproti tejto kategórii budú vymazané!</p>"
 
-#: Settings/CategoryPage.cpp:363
+#: Settings/CategoryPage.cpp:362
 #, kde-format
 msgid "New category"
 msgstr "Nová kategória"
 
-#: Settings/CategoryPage.cpp:396
+#: Settings/CategoryPage.cpp:395
 #, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
 msgstr "<p>Naozaj vymazať kategóriu \"%1\"?</p>"
 
-#: Settings/CategoryPage.cpp:511
+#: Settings/CategoryPage.cpp:510
 #, fuzzy, kde-format
 #| msgid "<i>choose a category to edit it</i>"
 msgid "<i>Choose a category to edit it</i>"
@@ -5407,39 +5407,39 @@ msgstr ""
 "komentáre, ktoré chcete ignorovať do vstupného poľa, každý na jeden riadok. "
 "Určite pridajte presný komentár, vrátane všetkých medzier.</p>"
 
-#: Settings/SettingsDialog.cpp:48
+#: Settings/SettingsDialog.cpp:47
 #, kde-format
 msgid "File Searching & Versions"
 msgstr "Hľadanie súborov & verzie"
 
-#: Settings/SettingsDialog.cpp:50
+#: Settings/SettingsDialog.cpp:49
 #, kde-format
 msgid "Categories"
 msgstr "Kategórie"
 
-#: Settings/SettingsDialog.cpp:51
+#: Settings/SettingsDialog.cpp:50
 #, kde-format
 msgid "Birthdays"
 msgstr "Narodeniny"
 
-#: Settings/SettingsDialog.cpp:52
+#: Settings/SettingsDialog.cpp:51
 #, kde-format
 msgid "Tag Groups"
 msgstr "Skupiny značiek"
 
-#: Settings/SettingsDialog.cpp:54
+#: Settings/SettingsDialog.cpp:53
 #, fuzzy, kde-format
 #| msgid "EXIF/IPTC Information"
 msgid "Exif/IPTC Information"
 msgstr "EXIF/IPTC informácia"
 
-#: Settings/SettingsDialog.cpp:55
+#: Settings/SettingsDialog.cpp:54
 #, fuzzy, kde-format
 #| msgid "Database backend"
 msgid "Database Backend"
 msgstr "Backend databázy"
 
-#: Settings/SettingsDialog.cpp:75
+#: Settings/SettingsDialog.cpp:74
 #, fuzzy, kde-format
 #| msgid "Settings"
 msgctxt "@title:window"
@@ -6022,26 +6022,26 @@ msgctxt ""
 msgid "video"
 msgstr "video"
 
-#: ThumbnailView/FilterWidget.cpp:16
+#: ThumbnailView/FilterWidget.cpp:15
 #, fuzzy, kde-format
 #| msgid "Show Category Editor"
 msgctxt "Name/title of the filter toolbar widget"
 msgid "Filter Toolbar"
 msgstr "Zobraziť editor kategórií"
 
-#: ThumbnailView/FilterWidget.cpp:22
+#: ThumbnailView/FilterWidget.cpp:21
 #, kde-format
 msgctxt ""
 "The action enables/disables filtering of images in the thumbnail view."
 msgid "Toggle filter"
 msgstr ""
 
-#: ThumbnailView/FilterWidget.cpp:24
+#: ThumbnailView/FilterWidget.cpp:23
 #, kde-kuit-format
 msgid "Press <shortcut>Escape</shortcut> to clear filter."
 msgstr ""
 
-#: ThumbnailView/FilterWidget.cpp:31
+#: ThumbnailView/FilterWidget.cpp:30
 #, kde-format
 msgid "Filter view by rating: %1 star"
 msgid_plural "Filter view by rating: %1 stars"
@@ -6049,7 +6049,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ThumbnailView/FilterWidget.cpp:61
+#: ThumbnailView/FilterWidget.cpp:60
 #, fuzzy, kde-format
 #| msgctxt "@title:inmenu"
 #| msgid "Filters"
@@ -6057,7 +6057,7 @@ msgctxt "The label gives a textual description of the active filter"
 msgid "Filter: %1"
 msgstr "Filtre"
 
-#: ThumbnailView/FilterWidget.cpp:84
+#: ThumbnailView/FilterWidget.cpp:83
 #, kde-kuit-format
 msgid ""
 "Tip: Use <shortcut>Alt+Shift+<placeholder>A-Z</placeholder></shortcut> to "
@@ -6291,13 +6291,13 @@ msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
 msgstr "Nastaviť"
 
-#: Viewer/ImageDisplay.cpp:355 Viewer/ImageDisplay.cpp:379
-#: Viewer/ImageDisplay.cpp:440
+#: Viewer/ImageDisplay.cpp:354 Viewer/ImageDisplay.cpp:378
+#: Viewer/ImageDisplay.cpp:439
 #, kde-format
 msgid "Insufficient color depth for this filter"
 msgstr "Nedostatočná farebná hĺbka pre tento filter"
 
-#: Viewer/ImageDisplay.cpp:499
+#: Viewer/ImageDisplay.cpp:498
 #, kde-format
 msgid "[ zoom x%1 ]"
 msgstr "[ priblíženie x%1 ]"

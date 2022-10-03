@@ -207,7 +207,7 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
                         if (useCompressedFileFormat()) {
                             qCWarning(XMLDBLog) << "Tag" << categoryName << "/" << value << "has id=0!";
                             m_repairTagsWithNullIds = true;
-                            static_cast<XMLCategory *>(cat.data())->setIdMapping(value, id, XMLCategory::IdMapping::UnsafeMapping);
+                            static_cast<XMLCategory *>(cat.data())->addZeroMapping(value);
                         }
                         // else just don't set the id mapping so that a new id gets assigned
                     }
@@ -448,7 +448,7 @@ void XMLDB::FileReader::repairDB()
         bool manualRepairNeeded = false;
         for (auto category : m_db->categoryCollection()->categories()) {
             XMLCategory *xmlCategory = static_cast<XMLCategory *>(category.data());
-            QStringList tags = xmlCategory->namesForId(0);
+            QStringList tags = xmlCategory->namesForIdZero();
             if (tags.size() > 1) {
                 manualRepairNeeded = true;
                 message += i18nc("repair merged tags", "<li>%1:<br/>", category->name());

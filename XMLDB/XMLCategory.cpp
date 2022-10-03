@@ -2,12 +2,8 @@
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#undef QT_DISABLE_DEPRECATED_BEFORE
-#warning "Fix QMap insertMulte usage here"
-
 #include "XMLCategory.h"
 
-#include "Logging.h"
 #include <DB/ImageDB.h>
 #include <DB/MemberMap.h>
 #include <Utilities/List.h>
@@ -153,7 +149,7 @@ void XMLDB::XMLCategory::initIdMap()
     // find maximum id
     // obviously, this will leave gaps in numbering when tags are deleted
     // assuming that tags are seldomly removed this should not be a problem
-    int i = 0;
+    int i = 1;
     if (!m_nameMap.empty()) {
         i = m_nameMap.lastKey();
     }
@@ -170,19 +166,17 @@ void XMLDB::XMLCategory::initIdMap()
     }
 }
 
-void XMLDB::XMLCategory::setIdMapping(const QString &name, int id, IdMapping mode)
+void XMLDB::XMLCategory::setIdMapping(const QString &name, int id)
 {
-    if (id <= 0) {
-        if (mode == IdMapping::SafeMapping) {
-            qCWarning(XMLDBLog, "XMLDB::XMLCategory::setIdMapping attempting to set id for %s to invalid value %d", qPrintable(name), id);
-        } else {
-            m_nameMap.insertMulti(id, name);
-            m_idMap.insertMulti(name, id);
-        }
-    } else {
-        m_nameMap.insert(id, name);
-        m_idMap.insert(name, id);
-    }
+    Q_ASSERT(id > 0);
+    m_nameMap.insert(id, name);
+    m_idMap.insert(name, id);
+}
+
+void XMLDB::XMLCategory::addZeroMapping(const QString &name)
+{
+    m_namesWithIdZero += name;
+    m_idMap.insert(name, 0);
 }
 
 QString XMLDB::XMLCategory::nameForId(int id) const
@@ -191,17 +185,17 @@ QString XMLDB::XMLCategory::nameForId(int id) const
     return m_nameMap[id];
 }
 
-QStringList XMLDB::XMLCategory::namesForId(int id) const
+QStringList XMLDB::XMLCategory::namesForIdZero() const
 {
-    return m_nameMap.values(id);
+    return m_namesWithIdZero;
 }
 
 void XMLDB::XMLCategory::clearNullIds()
 {
-    for (const auto &tag : namesForId(0)) {
+    for (const auto &tag : m_namesWithIdZero) {
         m_idMap.remove(tag);
     }
-    m_nameMap.remove(0);
+    m_namesWithIdZero.clear();
 }
 
 void XMLDB::XMLCategory::setThumbnailSize(int size)

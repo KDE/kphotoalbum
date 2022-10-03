@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef XMLCATEGORY_H
 #define XMLCATEGORY_H
 #include <DB/Category.h>
@@ -48,24 +49,31 @@ public:
     QStringList items() const override;
     int idForName(const QString &name) const;
     void initIdMap();
-    enum class IdMapping { SafeMapping,
-                           UnsafeMapping };
-    void setIdMapping(const QString &name, int id, IdMapping mode = IdMapping::SafeMapping);
+    /**
+     * @brief setIdMapping sets the mapping from id to name and vice versa.
+     * The id must be a positive value.
+     * @param name
+     * @param id > 0
+     */
+    void setIdMapping(const QString &name, int id);
+    /**
+     * @brief addZeroMapping allows adding of category names with id 0.
+     * This id is not allowed normally, but can happen in corrupted index.xml files.
+     * @param name
+     */
+    void addZeroMapping(const QString &name);
     QString nameForId(int id) const;
     /**
-     * @brief namesForId returns multiple names for an id.
+     * @brief namesForIdZero returns all names for id 0.
      * Obviously, this is not how ids usually work.
-     * Multiple names for the same id can be forced by using the IdMapping::UnsafeMapping parameter
-     * when calling setIdMapping().
-     * The only place where this makes sense is when reading a damaged index.xml file that is to be repaired.
-     * After loading the database is complete, the mapping between id and name is always 1:1!
-     * @param id
+     * The only time when this makes sense is when reading a damaged index.xml file that is to be repaired.
+     * After loading the database is complete, the mapping between id and name must always 1:1!
      * @return
      */
-    QStringList namesForId(int id) const;
+    QStringList namesForIdZero() const;
     /**
      * @brief clearNullIds clears the IdMapping for tags with id=0.
-     * This can only happen when loading a corrupted database file.
+     * Category names with id 0 can only happen when loading a corrupted database file.
      */
     void clearNullIds();
 
@@ -87,6 +95,7 @@ private:
     QMap<QString, int> m_idMap;
     QMap<int, QString> m_nameMap;
     QMap<QString, QDate> m_birthDates;
+    QStringList m_namesWithIdZero;
 
     bool m_shouldSave;
 };

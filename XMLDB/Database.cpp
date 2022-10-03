@@ -781,7 +781,7 @@ void XMLDB::Database::possibleLoadCompressedCategories(ReaderPtr reader, DB::Ima
                     const QString name = static_cast<const XMLCategory *>(categoryPtr.data())->nameForId(id);
                     info->addCategoryInfo(categoryName, name);
                 } else {
-                    QStringList tags = static_cast<const XMLCategory *>(categoryPtr.data())->namesForId(id);
+                    QStringList tags = static_cast<const XMLCategory *>(categoryPtr.data())->namesForIdZero();
                     if (tags.size() == 1) {
                         qCInfo(XMLDBLog) << "Fixing tag " << categoryName << "/" << tags[0] << "with id=0 for image" << info->fileName().relative();
                     } else {

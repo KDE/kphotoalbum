@@ -419,7 +419,7 @@ bool Browser::BrowserWidget::eventFilter(QObject * /* obj */, QEvent *event)
     if (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseMove || event->type() == QEvent::MouseButtonRelease) {
         QMouseEvent *me = static_cast<QMouseEvent *>(event);
         Q_ASSERT(me != nullptr);
-        if (me->buttons() & Qt::MidButton || me->button() & Qt::MidButton) {
+        if (me->buttons() & Qt::MiddleButton || me->button() & Qt::MiddleButton) {
             handleResizeEvent(me);
             return true;
         }

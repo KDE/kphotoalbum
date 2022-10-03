@@ -38,7 +38,7 @@ bool Viewer::ViewHandler::mousePressEvent(QMouseEvent *e, const QPoint &unTransl
         } else {
             m_scale = true;
         }
-    } else if (e->button() & Qt::MidButton) {
+    } else if (e->button() & Qt::MiddleButton) {
         m_pan = true;
     }
 

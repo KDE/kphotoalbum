@@ -65,8 +65,8 @@ add_definitions(
     -DQT_NO_FOREACH
     -DQT_STRICT_ITERATORS
     # jzarl: the goal here is to have QT_DISABLE_DEPRECATED_BEFORE follow the required Qt5 version, but we're not there yet:
-    #-DQT_DISABLE_DEPRECATED_BEFORE=${MINIMUM_Qt5_VERSION_HEX}
-    -DQT_DISABLE_DEPRECATED_BEFORE=0x050e00
+    -DQT_DISABLE_DEPRECATED_BEFORE=${MINIMUM_Qt5_VERSION_HEX}
+    #-DQT_DISABLE_DEPRECATED_BEFORE=0x050e00
     )
 
 ########### dependencies  ###############

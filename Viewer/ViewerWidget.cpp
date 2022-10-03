@@ -1148,7 +1148,7 @@ void Viewer::ViewerWidget::videoStopped()
 
 void Viewer::ViewerWidget::wheelEvent(QWheelEvent *event)
 {
-    if (event->delta() < 0) {
+    if (event->pixelDelta().y() < 0) {
         showNext();
     } else {
         showPrev();

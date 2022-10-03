@@ -1557,7 +1557,7 @@ void MainWindow::Window::slotShowListOfFiles()
     QStringList list = QInputDialog::getMultiLineText(this,
                                                       i18n("Open List of Files"),
                                                       i18n("You can open a set of files from KPhotoAlbum's image root by listing the files here."))
-                           .split(QChar::fromLatin1('\n'), QString::SkipEmptyParts);
+                           .split(QChar::fromLatin1('\n'), Qt::SkipEmptyParts);
     if (list.isEmpty())
         return;
 

@@ -60,7 +60,7 @@ protected:
 
 protected Q_SLOTS:
     void jumpToContext();
-    void linkHovered(const QString &linkName);
+    void linkHovered(const QUrl &link);
 #ifdef HAVE_MARBLE
     void launchMapView();
     void updateMapForCurrentImage(DB::FileName);

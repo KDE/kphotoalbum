@@ -126,7 +126,7 @@ namespace
         static bool extensionListsInitialized = false;
         if (!extensionListsInitialized) {
 #ifdef HAVE_KDCRAW
-            _rawExtensions = QString::fromLatin1(raw_file_extentions).split(QChar::fromLatin1(' '), QString::SkipEmptyParts);
+            _rawExtensions = QString::fromLatin1(raw_file_extentions).split(QChar::fromLatin1(' '), Qt::SkipEmptyParts);
 #endif /* HAVE_KDCRAW */
             for (QStringList::iterator it = _rawExtensions.begin(); it != _rawExtensions.end(); ++it)
                 (*it).remove(QString::fromUtf8("*."));

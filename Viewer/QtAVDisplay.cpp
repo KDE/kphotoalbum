@@ -3,6 +3,9 @@
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+// QtAVWidgets/WidgetRenderer 1.13 is incompativle witch QT_DISABLE_DEPRECATED_BEFORE 5.15:
+#undef QT_DISABLE_DEPRECATED_BEFORE
+
 #include "QtAVDisplay.h"
 #include "QtAVVideoToolBar.h"
 

@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -96,7 +97,7 @@ Exif::InfoDialog::InfoDialog(const DB::FileName &fileName, QWidget *parent)
 
     // -------------------------------------------------- layout done
     connect(m_searchBox, &QLineEdit::textChanged, m_grid, &Grid::updateSearchString);
-    connect(m_iptcCharset, static_cast<void (QComboBox::*)(const QString &)>(&QComboBox::activated), m_grid, &Grid::setupUI);
+    connect(m_iptcCharset, &QComboBox::textActivated, m_grid, &Grid::setupUI);
     setImage(fileName);
 
     vlay->addWidget(buttonBox);

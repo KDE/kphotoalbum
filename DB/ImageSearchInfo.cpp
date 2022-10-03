@@ -219,7 +219,7 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
     // -------------------------------------------------- Text
     if (!m_description.isEmpty()) {
         const QString &txt(info->description());
-        const QStringList list = m_description.split(QChar::fromLatin1(' '), QString::SkipEmptyParts);
+        const QStringList list = m_description.split(QChar::fromLatin1(' '), Qt::SkipEmptyParts);
         for (const QString &word : list) {
             if (txt.indexOf(word, 0, Qt::CaseInsensitive) == -1)
                 return false;
@@ -391,12 +391,12 @@ void ImageSearchInfo::compile() const
         const QString category = it.key();
         const QString matchText = it.value();
 
-        const QStringList orParts = matchText.split(QString::fromLatin1("|"), QString::SkipEmptyParts);
+        const QStringList orParts = matchText.split(QString::fromLatin1("|"), Qt::SkipEmptyParts);
         DB::ContainerCategoryMatcher *orMatcher = new DB::OrCategoryMatcher;
 
         for (QString orPart : orParts) {
             // Split by " & ", not only by "&", so that the doubled "&"s won't be used as a split point
-            const QStringList andParts = orPart.split(QString::fromLatin1(" & "), QString::SkipEmptyParts);
+            const QStringList andParts = orPart.split(QString::fromLatin1(" & "), Qt::SkipEmptyParts);
 
             DB::ContainerCategoryMatcher *andMatcher;
             bool exactMatch = false;
@@ -521,7 +521,7 @@ Utilities::StringSet ImageSearchInfo::findAlreadyMatched(const QString &group) c
         return result;
     }
 
-    const QStringList list = str.split(QString::fromLatin1("&"), QString::SkipEmptyParts);
+    const QStringList list = str.split(QString::fromLatin1("&"), Qt::SkipEmptyParts);
     for (const QString &part : list) {
         const QString nm = part.trimmed();
         if (!nm.contains(QString::fromLatin1("!")))

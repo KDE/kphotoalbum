@@ -76,9 +76,9 @@ bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown(QTreeWidgetItem
         return item->text(0).toLower().startsWith(m_text.toLower());
     case AnnotationDialog::MatchFromWordStart: {
         const QStringList itemWords = item->text(0).toLower().split(QRegExp(QString::fromUtf8("\\W+")),
-                                                                    QString::SkipEmptyParts);
+                                                                    Qt::SkipEmptyParts);
         const QStringList searchWords = m_text.toLower().split(QRegExp(QString::fromUtf8("\\W+")),
-                                                               QString::SkipEmptyParts);
+                                                               Qt::SkipEmptyParts);
 
         // all search words ...
         for (const auto &searchWord : searchWords) {

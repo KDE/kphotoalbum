@@ -273,7 +273,7 @@ void ImagePreview::updateScaleFactors()
 
     // Calculate a scale factor from the original image's size and it's current preview
     QSize actualSize = getActualImageSize();
-    QSize previewSize = pixmap()->size();
+    QSize previewSize = pixmap().size();
     m_scaleWidth = double(actualSize.width()) / double(previewSize.width());
     m_scaleHeight = double(actualSize.height()) / double(previewSize.height());
 

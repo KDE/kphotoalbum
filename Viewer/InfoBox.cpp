@@ -49,9 +49,7 @@ Viewer::InfoBox::InfoBox(Viewer::ViewerWidget *viewer)
     m_jumpToContext->setIcon(QIcon::fromTheme(QString::fromUtf8("kphotoalbum")));
     m_jumpToContext->setFixedSize(16, 16);
     connect(m_jumpToContext, &QToolButton::clicked, this, &InfoBox::jumpToContext);
-    // overloaded signal requires explicit cast:
-    void (InfoBox::*highlighted)(const QString &) = &InfoBox::highlighted;
-    connect(this, highlighted, this, &InfoBox::linkHovered);
+    connect(this, &InfoBox::highlighted, this, &InfoBox::linkHovered);
 
 #ifdef HAVE_MARBLE
     m_showOnMap = new QToolButton(this);
@@ -179,15 +177,15 @@ void Viewer::InfoBox::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-void Viewer::InfoBox::linkHovered(const QString &linkName)
+void Viewer::InfoBox::linkHovered(const QUrl &link)
 {
-    if (linkName.isEmpty()) {
+    if (link.isEmpty()) {
         Q_EMIT noTagHovered();
     } else {
-        Q_EMIT tagHovered(m_linkMap[linkName.toInt()]);
+        Q_EMIT tagHovered(m_linkMap[link.path().toInt()]);
     }
 
-    m_hoveringOverLink = !linkName.isNull();
+    m_hoveringOverLink = !link.isEmpty();
 }
 
 void Viewer::InfoBox::jumpToContext()

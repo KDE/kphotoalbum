@@ -291,10 +291,9 @@ bool AnnotationDialog::DateEdit::eventFilter(QObject *obj, QEvent *e)
             Q_ASSERT(we != nullptr);
 
             int step = 0;
-            step = we->delta() > 0 ? 1 : -1;
-            if (we->orientation() == Qt::Vertical) {
-                setDate(m_value.addDays(step));
-            }
+            // angleDelta = eigths of a degree
+            step = qBound(-1, (int)(we->angleDelta().x()), 1);
+            setDate(m_value.addDays(step));
         }
     } else {
         // It's a date picker event

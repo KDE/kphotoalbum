@@ -1,5 +1,4 @@
 // SPDX-FileCopyrightText: 2019-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -14,9 +13,6 @@
 #include <QPen>
 #include <QSize>
 #include <marble/GeoDataLatLonBox.h>
-// Debian stable (bullseye) ships with libmarble-dev 20.12, which has some deprecated API in its GeoPainter.h headers:
-// TODO: remove statement after release of Debian bookworm
-#undef QT_DISABLE_DEPRECATED_BEFORE
 #include <marble/GeoPainter.h>
 #include <marble/ViewportParams.h>
 

@@ -64,9 +64,7 @@ add_definitions(
     -DQT_NO_KEYWORDS
     -DQT_NO_FOREACH
     -DQT_STRICT_ITERATORS
-    # jzarl: the goal here is to have QT_DISABLE_DEPRECATED_BEFORE follow the required Qt5 version, but we're not there yet:
     -DQT_DISABLE_DEPRECATED_BEFORE=${MINIMUM_Qt5_VERSION_HEX}
-    #-DQT_DISABLE_DEPRECATED_BEFORE=0x050e00
     )
 
 ########### dependencies  ###############
@@ -106,6 +104,10 @@ set_package_properties(Marble
 set(HAVE_MARBLE ${Marble_FOUND})
 if(Marble_FOUND)
     include(MarbleChecks)
+    if(NOT ${Marble_VERSION} VERSION_GREATER 0.28)
+        # Debian 11 (bullseye) ships with a version of Marble that is not compatible with these deprecations:
+        remove_definitions(-DQT_DISABLE_DEPRECATED_BEFORE=${MINIMUM_Qt5_VERSION_HEX})
+    endif()
 endif()
 
 if(NOT Phonon4Qt5_FOUND AND NOT QtAV_FOUND AND NOT LIBVLC_FOUND)

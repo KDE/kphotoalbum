@@ -1,0 +1,184 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-thumbnail-view">
+  <title
+>Miniatyrbildsvisning</title>
+  <para
+>Genom att välja <guilabel
+>Visa bilder</guilabel
+> i bläddraren, kommer du till en miniatyrbildsöversikt av bilderna i området (eller alla bilder om inget område har valts). Ett exempel på detta kan ses i <xref linkend="fig-thumbnailview"/> nedan. Miniatyrbildernas storlek kan enkelt ställas in genom att dra musen med mittenknappen nertryckt (prova, det är riktigt häftigt).</para>
+
+  <figure id="fig-thumbnailview">
+    <title
+>Miniatyrbildsvisning</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="thumbnailview.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>Du kan ordna om dina bilder i miniatyrbildsöversikten genom att dra omkring dem med musen. För att datumraden ska fungera som det är tänkt bör du dock ha som mål att alltid hålla dina bilder sorterade. Att sortera bilderna kan göras genom att markera alla bilder och välja <menuchoice
+><guimenu
+>Bilder</guimenu
+> <guimenuitem
+>Sortera markerade enligt datum och tid</guimenuitem
+></menuchoice
+>. Sorteringen ordnar inte om bilder som har samma datum och tid, så om du till exempel har 100 bilder från 1992 (dvs. ingen månad eller dag, bara ett år), kan du flytta omkring dem, och deras inbördes ordning förblir oförändrad efter sortering.</para>
+
+<para
+>Genom att dra en bild från visningsfönstret till bakgrunden, används bilden som bakgrundsbild för skrivbordet.</para>
+
+  <para
+>Genom att klicka på en bild laddar du den i visningsfönstret. Om inget visningsfönster finns, skapas ett.</para>
+
+  <para
+>Om du markerar ett antal bilder, och trycker på <keycombo
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> (eller väljer <menuchoice
+><guimenu
+>Bilder</guimenu
+> <guimenuitem
+>Visa markerade</guimenuitem
+></menuchoice
+>), laddas bilderna i det befintliga visningsfönstret (om inget finns, skapas ett). Annars kan du välja <menuchoice
+><guimenu
+>Bilder</guimenu
+> <guimenuitem
+>Visa markerade (i nytt fönster)</guimenuitem
+></menuchoice
+> för att få bilderna laddade i ett nytt fönster. Om du trycker på <keycombo
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> eller väljer <menuchoice
+><guimenu
+>Bilder</guimenu
+> <guimenuitem
+>Visa bildspel</guimenuitem
+></menuchoice
+> laddas markerade bilder i visningsfönstret och ett bildspel startas. Till sist, genom att välja <menuchoice
+><guimenu
+>Bilder</guimenu
+> <guimenuitem
+>Kör slumpmässigt bildspel</guimenuitem
+></menuchoice
+> visas ett bildspel med bilderna valda i slumpmässig ordning.</para>
+
+
+<sect1 id="sect-deleting-images">
+  <title
+>Ta bort bilder</title>
+  <para
+>Det är också möjligt att ta bort bilder från miniatyrbildsvisningen. För att göra det, markera bilderna du vill ta bort och tryck på tangenten Delete eller välj <menuchoice
+><guimenu
+>Redigera</guimenu
+> <guimenuitem
+>Ta bort markerade</guimenuitem
+></menuchoice
+> i menyraden. Genom att du gör det visar Kfotoalbum dialogrutan i <xref linkend="fig-delete-images"/>.</para>
+
+<figure id="fig-delete-images">
+<title
+>Ta bort bilder</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="delete-images.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+  <para
+>Det finns tre sätt att ta bort en bild i Kfotoalbum, antingen flytta den till papperskorgen, ta bort den från disken, vilket betyder att den är permanent borttagen, eller tala om för Kfotoalbum att den inte ska inkluderas. I det senare fallet, visar Kfotoalbum aldrig bilden igen, men den finns kvar på disk. Det är användbart om det till exempel finns <emphasis
+>miniatyrbilder</emphasis
+> lagrade bland dina bilder. Sådana miniatyrbilderna innehåller översikter av alla övriga bilder, och skulle därför vara onödiga i Kfotoalbum, men för andra program, som t.ex. en webbläsare, kan de behövas.</para>
+</sect1>
+
+
+<sect1 id="sect-offline-mode">
+<title
+>Nerkopplat läge</title>
+<para
+>Ett ständig krig pågår mellan växande data, och större hårddiskar. Om du har ett stort antal bilder, kan du hamna mitt i kriget, och inte ha tillräckligt med hårddiskutrymme för att lagra alla dina bilder. I detta fall kanske du väljer att lägga några av bilderna på en cd. Ett alternativt fall kan vara att du gör en affärsresa, och vill ta med dig dina bilder, men inte har det 20 Gibyte hårddiskutrymme som krävs för syftet.</para>
+
+<para
+>Kfotoalbum erbjuder en lösning på problemet, som innebär att du kan använda det utan att ha bilderna tillgängliga på disk. Du måste förstås ha dem tillgängliga vid någon tidpunkt för att Kfotoalbum ska inse att det finns nya bilder att indexera. På <xref linkend="fig-offline-mode"/> visas Kfotoalbum när det inte hittar alla bilder som behövs på disk.</para>
+
+<figure id="fig-offline-mode">
+<title
+>Kfotoalbum i nerkopplat läge</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="offline-mode.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Bilder med kapat hörn (dvs. bild 1-4) är inte tillgängliga på disk. Miniatyrbilder är dock tillgängliga för bilderna 5-9, även om bilderna saknas på disken. Därför kan Kfotoalbum visa miniatyrbilder för dessa bilder, men de går inte att se i bildvisaren. (Vi brukade kapa hörnet på miniatyrbilder för att ange att bilden saknas på disk, men den funktionen verkar för närvarande inte fungera.) </para>
+
+<para
+>Som du inser, kräver funktionen att du kopierar filer till och från kataloger. Kfotoalbum har för närvarande inget stöd för att be dig mata in cd:n som du namngav någonting. Glöm därför bort den här funktionen om du inte är en person som gillar att flytta omkring filer, etc. Försäkra dig istället om att du köper hårddiskar som är stora nog för att alltid lagra alla dina bilder.</para>
+
+</sect1>
+
+
+
+<sect1 id="sect-privacy">
+<title
+>Säkerhet</title>
+<para
+>För ett tag sedan tog jag och min flickvän med oss min bärbara dator vid ett besök till mina svärföräldrar, för att visa bilderna från vår senaste semester. Kfotoalbum visade sig vara en stor succé, och det tog inte lång tid innan min flickväns lillasyster tog hand om datorn och började bläddra omkring själv. Tyvärr tog det henne inte heller lång tid att hitta några, låt oss säga förargliga, bilder av mig från min ungdom, och alla skrattade gott åt mig. Den händelsen inspirerade mig att lägga till en ny funktion i Kfotoalbum, nämligen låsning av privata bilder.</para>
+
+<para
+>I menyn <guimenu
+>Bilder</guimenu
+> hittar du en undermeny som heter <guimenuitem
+>Privat</guimenuitem
+>. För att få en viss säkerhet, bläddra till bilderna du vill hålla privata, när du är ensam, och välj <guimenuitem
+>Lås in nuvarande uppsättning bilder</guimenuitem
+> i undermenyn Privat. Som ett alternativ kan du bläddra till bilderna som du vill begränsa din lillasyster till att se, och välja <guimenuitem
+>Lås in alla övriga bilder</guimenuitem
+>.</para>
+
+<para
+>Nu har du angivit vad som skall döljas, och när du lämnar över din bärbara dator till din lillasyster, välj helt enkelt <guimenuitem
+>Lås bilder</guimenuitem
+>, så kan hon inte se de låsta bilderna. När du är klar, kan du låsa upp dem igen med <guimenuitem
+>Lås upp</guimenuitem
+>.</para>
+
+<para
+>Det är möjligt att ange ett lösenord som måste skrivas in för att låsa upp databasen. I menyn <guimenuitem
+>Privat</guimenuitem
+>, välj helt enkelt alternativet <guimenuitem
+>Ändra lösenord</guimenuitem
+> för att ange ett lösenord.</para>
+
+<para
+>Luras inte att tro att det här hjälper dig att dölja bilder för gott. För det första finns bilderna fortfarande på disk. För det andra, kan vem som helst som kan komma åt filen <filename
+>index.xml</filename
+> som Kfotoalbum använder, kan läsa lösenordet i klartext och till och med ta bort det. Funktionen är bara avsedd som skydd mot att någon som sitter och bläddrar med Kfotoalbum, kommer åt dina privata bilder av misstag.</para>
+
+</sect1>
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

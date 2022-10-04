@@ -1,0 +1,214 @@
+<chapter id="chp-options">
+  <title
+>Configurazione di &kphotoalbum;</title>
+  <para
+>Selezionando <menuchoice
+><guimenu
+>Impostazioni</guimenu
+><guimenuitem
+>Configura KPhotoAlbum...</guimenuitem
+></menuchoice
+> dalla barra dei menu, apparirà la finestra delle opzioni. Questo capitolo ti spiegherà le opzioni di configurazione qui disponibili.</para>
+
+
+<sect1 id="opt-general">
+  <title
+>Impostazioni generali</title>
+
+<para
+>Sotto puoi vedere la pagina di configurazione per le opzioni generali. Alcune di queste opzioni sono qui brevemente descritte, e puoi anche accedere a un menu informativo mentre regoli la configurazione facendo clic con il &RMB; su qualsiasi opzione e selezionando l'elemento del menu <guimenuitem
+>Che cos'è?</guimenuitem
+>.</para>
+
+<figure id="fig-options-general">
+<title
+>Opzioni generali</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-general.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+><guilabel
+>Usa informazioni EXIF sull'orientazione</guilabel
+> farà ruotare automaticamente le immagini come sono state scattate. La maggior parte delle immagini digitali includono una miniatura nei file in formato RAW, e spesso questa miniatura è di dimensioni utili, o addirittura complete. Selezionare l'uso di questa miniatura incorporata accelererà tutte le operazioni delle immagini, visto che la decodifica dei file RAW è molto lenta mentre l'uso della miniatura è molto più veloce. Puoi anche specificare le dimensioni minime per la miniatura per far decodificare l'immagine RAW se la miniatura non è di dimensioni sufficienti.</para>
+</sect1>
+
+<sect1 id="opt-search-new">
+  <title
+>Impostazioni del rilevatore di nuove immagini</title>
+<para
+>Il pannello sinistro dà accesso alle altre impostazioni, come <guimenuitem
+>Ricerca di file e versioni</guimenuitem
+>. Queste impostazioni definiscono il comportamento di &kphotoalbum; quando vengono rilevate nuove immagini. Queste possono essere cercate automaticamente all'avvio, o manualmente dal menu <guimenu
+>Manutenzione</guimenu
+>. Di nuovo, le opzioni sono ben descritte nel menu di aiuto in linea, ma alcune vanno probabilmente presentate in breve qui.</para>
+
+<figure id="fig-options-file-versions">
+<title
+>Ricerca di file e versioni</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-file-versions.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para>
+<itemizedlist mark='opencircle'>
+    <listitem
+><para
+>Probabilmente vorrai saltare la ricerca di alcune cartelle generate da vari visori di immagini o selettori di file. Questo è un elenco separato da virgole, e ci si possono facilmente aggiungere nuove cartelle quandunque necessario.</para
+></listitem>
+    <listitem>
+        <para
+>Le nuove versioni degli stessi file possono essere automaticamente rilevate fino a un certo punto. Se vuoi, per esempio, impilare automaticamente le nuove versioni della stessa immagine, puoi configurare l'espressione regolare da usare per vedere se il nuovo file è una nuova versione dell'originale. Le impostazioni seguenti, tra cui la prima è l'espressione regolare di ricerca e la seconda il file originale, dovrebbero aiutarti a cominciare, ma potrebbe servirti un po' di tempo per adattarli al tuo modo di indicare i file:</para>
+    <orderedlist>
+    <listitem
+><para
+>(_(v){0,1}([0-9]){1,2}){0,1}\.(jpg|JPG|tif|TIF|png|PNG)</para
+></listitem>
+    <listitem
+><para
+>.CR2;.NEF;.JPG;.jpg</para
+></listitem>
+    </orderedlist>
+    </listitem>
+</itemizedlist
+>Nota che il <guilabel
+>Testo di sostituzione dei file originali</guilabel
+> può avere diversi suffissi separati da punti e virgola e si possono usare referenze alla corrispondenza dell'espressione regolare con il formato <userinput
+>\1</userinput
+>. Il file originale viene cercato nella stessa cartella del nuovo. L'espressione regolare di cui sopra corrisponderà, per esempio, ai seguenti file: <filename
+>esempio_v1.jpg</filename
+>, <filename
+>esempio_12.tif</filename
+>, ed <filename
+>esempio.PNG</filename
+>. </para>
+</sect1>
+
+<sect1 id="opt-thumbnails">
+  <title
+>Impostazioni del visore di miniature</title>
+  <para
+>Non c'è molto da configurare per il visore delle miniature. Principalmente le dimensioni delle miniature e dei suggerimenti (se intendi usare la funzionalità dei suggerimenti attivabile da <menuchoice
+><guimenu
+>Impostazioni</guimenu
+><guimenuitem
+>Mostra suggerimenti nella finestra delle miniature</guimenuitem
+></menuchoice
+> o <keycombo action="simul"
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+>). Puoi anche scegliere di visualizzare informazioni aggiuntive come etichette e categorie assieme alle miniature. </para>
+<figure>
+<title
+>Opzioni per la vista delle miniature</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-thumbnailview.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+<sect1 id="opt-viewer">
+  <title
+>Impostazioni del visore</title>
+  <para
+>Un'altra configurazione piuttosto semplice. Principalmente puoi scegliere le dimensioni preferite delle finestre del visore e della presentazione, o se visualizzarle in modalità a tutto schermo. L'<guilabel
+>Intervallo di presentazione</guilabel
+> di base può essere configurato qui. L'algoritmo di ridimensionamento può essere il <guilabel
+>Migliore</guilabel
+> o il <guilabel
+>Più veloce</guilabel
+>. Se il tuo computer è abbastanza veloce per il ridimensionamento <guilabel
+>Migliore</guilabel
+> usa quello, altrimenti preferiscigli quello veloce. </para>
+<figure>
+<title
+>Opzioni del visore</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-viewer.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+
+
+
+<sect1 id="sec-specifying-categories">
+  <title
+>Categorie</title>
+  <para
+>In <xref linkend="chp-typingIn"/> è stato descritto come puoi specificare diverse proprietà per ogni immagine, incluse <literal
+>Persone</literal
+>, <literal
+>Luoghi</literal
+> e <literal
+>Parole chiave</literal
+>. È possibile specificare le tue categorie, quindi se preferisci potresti avere dei gruppi tuoi come <literal
+>Elementi</literal
+>, <literal
+>Animali</literal
+>, o <literal
+>Album</literal
+>.</para>
+
+<para
+>In <xref linkend="fig-options-group"/> qui sotto puoi vedere la finestra di dialogo usata per configurare quali categorie esistono. Per ogni categoria specifichi un'etichetta e un'icona.</para>
+
+<figure id="fig-options-group">
+<title
+>Configurazione delle categorie</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-groups.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+
+
+
+<sect1 id="sec-member-groups-in-options-dialog">
+<title
+>Sottocategorie</title>
+
+<para
+>Nel<xref linkend="sec-member-groups-in-property-editor"/> abbiamo discusso le sottocategorie. Dalla finestra delle impostazioni è possibile configurare interi gruppi di membri, cioè configurare tutti i membri di un gruppo in una volta invece che configurare tutti i gruppi per un membro come si faceva nel<xref linkend="sec-member-groups-in-property-editor"/>.</para>
+
+<para
+>In <xref linkend="fig-options-member"/> puoi vedere la pagina di configurazione per specificare i gruppi di membri. In cima c'è una casella a scelta multipla, dove puoi specificare quale categoria stai attualmente configurando. Sulla sinistra vedi un riquadro di lista con la categoria attuale, e sulla destra un riquadro di lista con le sottocategorie.</para>
+
+<figure id="fig-options-member">
+<title
+>Configurazione dei gruppi di membri</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-member.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+</sect1>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

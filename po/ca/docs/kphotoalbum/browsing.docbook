@@ -1,0 +1,181 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2007 Jan Kundrát <jkt@flaska.net>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-browsing">
+  <title
+>Navegar</title>
+  <para
+>Una vegada anotades les vostres imatges i vídeos, &kphotoalbum; estarà llest per a navegar a través de les imatges, vegeu la <xref linkend="fig-browser-with-images"/>. Si es compara amb la <xref linkend="fig-empty-browser-window"/>, veureu que ara hi ha elements en cadascuna de les categories per a Gent, Llocs i Paraules clau.</para>
+  
+  <figure id="fig-browser-with-images">
+    <title
+>Navegar quan les imatges i els vídeos estan anotats</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-with-images.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>A la finestra del navegador podeu veure les categories de la informació que heu escrit dins en anotar les vostres imatges i vídeos. A més, hi ha elements per a la cerca basada en la informació EXIF ​​de les imatges, navegació per l'estructura de carpetes del disc dur, i per descomptat, mostrar les miniatures reals. Descriurem cada element al seu torn.</para
+> 
+  
+  <para
+>En fer clic sobre Gent, la finestra del navegador canviarà, com podeu veure a la <xref linkend="fig-browser-for-persons"/>.</para>
+  
+  <figure id="fig-browser-for-persons">
+    <title
+>Finestra de navegació quan s'ha seleccionat gent.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-persons.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>El navegador, ara està ple de la gent que heu especificat a les vostres imatges i vídeos <footnote
+><para
+>Haureu notat que l'element <literal
+>Pets</literal
+> (nom del gos) disposa d'una icona especial. Pels detalls sobre això, veure <xref linkend="sec-specifying-categories"/>.</para
+></footnote
+>, la selecció d'una persona us portarà de tornada a l'estat original del navegador, com hem vist a la <xref linkend="fig-browser-with-images"/>, aquesta vegada però, estem <emphasis
+>en l'àmbit</emphasis
+> de la persona que hem seleccionat. Això vol dir que només ens mostra la informació sobre les imatges i vídeos que contenen aquesta persona. Veure la <xref linkend="fig-browser-for-jesper"/> a continuació, la qual és el resultat de la nostra selecció de la persona <literal
+>Jesper</literal
+>, podeu veure una indicació d'aquesta persona a la part inferior de la finestra. Compareu la <xref linkend="fig-browser-with-images"/> amb la <xref linkend="fig-browser-for-jesper"/>, podreu veure que el nombre d'imatges i vídeos disponibles s'ha reduït de 25 a 12, i també ha canviat la quantitat d'elements per a les diferents categories.</para>
+  
+  <figure id="fig-browser-for-jesper">
+    <title
+>Navegació limitada a l'àmbit de la persona <literal
+>Jesper</literal
+></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-jesper.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>Si ara continuem seleccionant una nova persona, llavors obtindrem les imatges que contenen ambdues persones. Continuant d'aquesta manera podreu reduir el conjunt d'imatges que teniu al cap a unes poques imatges d'un conjunt de milers de persones.</para>
+  
+  <para
+>Quan acabeu de limitar l'àmbit de les imatges, podreu seleccionar la icona <guilabel
+>Mostra les miniatures</guilabel
+>, per a veure exactament les imatges que corresponen al vostre àmbit actual.</para>
+
+
+
+
+
+
+
+
+  <sect1 id="sect-adding-preview-images-to-the-browser">
+  <title
+>Afegir imatges de vista prèvia al navegador</title>
+  <para
+>Pel que fa a la <xref linkend="fig-browser-for-persons"/>, veureu que cada persona disposa de la mateixa icona al davant del seu nom. &kphotoalbum; és capaç de mostrar una imatge de vista prèvia individual per a cada persona <footnote
+><para
+>Per descomptat, això també és aplicable als llocs, paraules clau i altres categories que hàgiu definit.</para
+></footnote
+> tal com podeu veure a la <xref linkend="fig-imagesForPersons"/>.</para>
+
+  <figure id="fig-imagesForPersons">
+    <title
+>Imatges individuals per a cada persona</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="imagesForPersons.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Per a mostrar les imatges juntament amb els noms, escolliu el botó d'eina al costat dret de la barra d'eines, això obrirà un menú emergent en el qual podreu escollir quina vista voleu utilitzar per a la categoria indicada. Tingueu present que les vistes s'han de configurar per a cada categoria -d'aquesta manera podreu, per exemple, utilitzar una vista d'icones per a la gent, però una simple vista de llista per a les paraules clau (en el cas que no podeu arranjar bones imatges per les paraules clau)-.</para
+>  
+
+
+<para
+>No obstant això, és la vostra tasca indicar quines imatges voleu utilitzar individualment per a cada persona. Per fer-ho, heu d'obrir el visualitzador (veure la <xref linkend="chp-viewer"/>), i des del menú contextual escolliu <guimenuitem
+>Mostra l'editor de categories</guimenuitem
+>, això obrirà l'editor de categories com podeu veure a la <xref linkend="fig-categoryEditor"/>. A l'editor de categories escolliu la imatge per a la persona indicada. Al visualitzador, és possible fer zoom sobre una part de la imatge, i d'aquesta manera escapçar la part que es mostrarà.</para>
+
+
+  <figure id="fig-categoryEditor">
+    <title
+>Categoria Editor</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="categoryEditor.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+
+
+
+
+
+
+
+
+
+  
+  <sect1 id="sect-general-image-searches">
+    <title
+>Cerques d'imatge generals</title>
+    <para
+>Si escolliu l'element <guilabel
+>Cerca</guilabel
+> al navegador, obtindreu un diàleg amb una gran semblança amb el diàleg vau utilitzar per establir les propietats de les vostres imatges. El podeu veure a la <xref linkend="fig-search"/>.</para>
+    
+    <figure id="fig-search">
+      <title
+>Diàleg de cerca</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="search.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para
+>Si escriviu una cadena al camp etiqueta o descripció, després aquest text se cercarà utilitzant cerques de subcadenes. De la mateixa manera també podeu especificar una data per cercar, sigui com a part d'una data, diguem 1971, o com una data completa. També podeu especificar intervals de dates, com des de 1971 a 1980.</para>
+    
+    <para
+>Les opcions d'element permeten una forma molt limitada per escriure una expressió, com podeu veure a la <xref linkend="fig-search"/>. Aquí cerquem les imatges amb <literal
+>Jesper</literal
+>, però sense <literal
+>Anne Helene</literal
+>.</para>
+    
+    <para
+>Les operacions permeses són «&amp;» (vol dir: i), «|» (vol dir: o) i «!» (vol dir: no).</para>
+    
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

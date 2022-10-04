@@ -1,0 +1,366 @@
+<chapter id="chp-viewer">
+  <title
+>Il visore</title>
+  <para
+>La ragione per cui metti tutte le tue immagini in &kphotoalbum; e spendi ore e ore a descriverle, è ovviamente che a un certo punto le vorrai vedere. Per questo motivo &kphotoalbum; ha una visore in grado di visualizzare immagini e filmati. Puoi aprire il visore dalla vista miniature, come descritto nel<xref linkend="chp-thumbnail-view"/>.</para>
+
+  <para
+>Il visore può essere visto in <xref linkend="fig-viewer"/>. Il visore ovviamente mostra l'immagine, ma in più mostra anche le informazioni specificate per ogni immagine, incluso chi c'è nell'immagine, quando e dove è stata scattata, eccetera. </para>
+
+  <figure id="fig-viewer">
+    <title
+>Il visore</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Nel caso che il riquadro informativo sia posizionato sopra parte delle immagini che vuoi vedere, puoi semplicemente trascinarlo via con il mouse da un'altra parte dell'immagine. È possibile configurare cosa dovrebbe essere visualizzato nella casella delle informazioni, e ovviamente se debba essere visualizzata o meno. Tutte le opzioni sono disponibili facendo clic destro col mouse sul visore. Il menu contestuale può essere visto nel<xref linkend="fig-viewer-contextmenu"/> qui sotto.</para>
+
+  <figure id="fig-viewer-contextmenu">
+    <title
+>Il menu contestuale del visore</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer-contextmenu.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Alcune parole nel riquadro informazioni sono sottolineate. Se fai clic col mouse su una di queste parole il browser (vedi <xref linkend="chp-browsing"/> andrà nell'ambito di quell'elemento. Quindi se fai clic su <literal
+>Anne Helene</literal
+> il browser ti mostrerà tutte le immagini di Anne Helene, esattamente come se tu avessi selezionato <literal
+>Persone</literal
+> dalla radice del browser, e poi <literal
+>Anne Helene</literal
+>.</para>
+
+<para
+>Nel riquadro delle informazioni puoi vedere un piccolo pulsante con il logo di &kphotoalbum;. Premere quel pulsante ti porterà al visore delle miniature. La vista miniature mostrerà tutte le immagini, e le immagini che hai appena visto nel visore saranno selezionate. L'idea è questa: navighi fino a una certa persona, e guardi le immagini di quella persona. Una delle immagini è, diciamo, dai tempi delle superiori, e ora vuoi vedere immagini da quel periodo. Usando il pulsante <guilabel
+>Salta al contesto</guilabel
+>, vieni portato alla vista miniature che mostra tutte le immagini, con quella attuale selezionata, e probabilmente tutte le tue foto delle superiori intorno.</para>
+
+  <para
+>Nel caso che tu abbia caricato più immagini nel visore, puoi andare avanti e indietro usando <keycap
+>Pag↑</keycap
+> e <keycap
+>Pag↓</keycap
+> sulla tastiera. Puoi andare alle immagini prima e ultima usando <keycap
+>Home</keycap
+> e <keycap
+>Fine</keycap
+>. Queste funzioni sono ovviamente disponibili anche nel menu contestuale.</para>
+
+  <para
+>Se più immagini sono state caricate nel visore, puoi chiedergli di eseguirne una presentazione, che vuol dire che &kphotoalbum; caricherà una nuova immagine ogni pochi secondi. Quanto rapidamente le immagini vengano sostituite, viene configurato premendo il tasto Ctrl e rispettivamente + (per un'attesa maggiore tra le immagini) o &ndash; (minore attesa tra le immagini). La presentazione si avvia e si ferma semplicemente premendo <keycombo
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+>.</para>
+
+  <para
+>Una funzionalità molto utile del visore di &kphotoalbum; è la possibilità di andare in modalità a schermo intero. In questa modalità, il visore usa l'intera area dello schermo; premi semplicemente il tasto invio per commutare tra la modalità normale e a schermo intero.</para>
+
+  <para
+>Usando il visore, puoi ingrandire e rimpicciolire la tua immagine, semplicemente trascinando un rettangolo col mouse. Premere il tasto - la rimpicciolirà di nuovo.Premere il tasto + ingrandirà al centro dell'immagine. <xref linkend="fig-marking-zoom-rectangle"/>, sotto, mostra come un rettangolo d'ingrandimento è segnato, e <xref linkend="fig-zoomed-view"/> mostra il risultato dell'ingrandimento.</para>
+
+<para
+>Premere il tasto punto ti permette di azzerare l'ingrandimento, in modo che l'immagine ne sia visualizzata senza. Premere il tasto uguale imposterà il livello di ingrandimento in modo che un pixel sullo schermo corrisponda a un pixel dell'immagine.</para>
+
+<para
+>Nota, dal punto di vista tecnico, che l'unica operazione di ingrandimento che funziona quando si guarda un filmato è l'ingrandimento e il rimpicciolimento (i tasti più e meno).</para>
+
+  <figure id="fig-marking-zoom-rectangle">
+    <title
+>Ingrandire nel visore</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="marking-zoom-rectangle.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-zoomed-view">
+    <title
+>Ingrandire nel visore</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="zoomed-view.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Scegliendo l'operazione Ruota dal menu contestuale puoi ruotare l'immagine (non funziona per i filmati). Puoi annotare l'immagine attuale semplicemente scegliendo <guimenuitem
+>Annota</guimenuitem
+> nel menu contestuale.</para>
+
+
+
+
+
+<sect1 id="tokens">
+<title
+>Impostare gli elementi dal visore</title>
+<para
+>Quando visualizzi le immagini potresti accorgerti che una certa immagine contiene una persona di cui ti sei dimenticato di impostare il nome. A questo punto puoi annullare la tua visualizzazione, e correre alla finestra di configurazione dell'immagine per specificare la persona. Spesso, tuttavia, vorrai solo segnare l'immagine e continuare a guardare le immagini.</para>
+
+<para
+>In una situazione alternativa, vuoi inviare un certo numero di immagini a una stampante per svilupparle su carta. Per vedere quali vuoi sviluppare, avvii il visore sulle immagini, e segni le immagini come buone o cattive mentre le guardi.</para>
+
+<para
+>Per i due esempi sopra il visore ti offre di impostare degli elementi sulle immagini mentre le guardi. Gli elementi sono indicati con le lettere dalla A alla Z, e imposti un elemento semplicemente premendone la lettera. Nel<xref linkend="fig-images-with-tokens"/> puoi vedere un'immagine dove sono impostati gli elementi A, B e C.</para>
+
+  <figure id="fig-images-with-tokens">
+    <title
+>Un'immagine con elementi</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images-with-tokens.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Una volta che hai impostato gli elementi sulle immagini, essi saranno disponibili per la normale navigazione nel browser, come si può vedere nel<xref linkend="fig-tokens-in-browser"/>. Quindi quando hai segnato delle immagini che hanno bisogno di essere modificate, stampate o di qualsiasi cosa, naviga alle immagini, e annota le immagini in una volta sola (come descritto nel<xref linkend="sect-specifying-properties-for-all-images-simultaneously"/>), usa un'estensione per copiare le immagini selezionate su un CD, o qualsiasi cosa di cui tu abbia bisogno.</para>
+
+  <figure id="fig-tokens-in-browser">
+    <title
+>Elementi visti nel browser</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-browser.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Le categorie (e specialmente gli elementi) possono essere visualizzate nel visore delle miniature. Quando si visualizzano le categorie nel visore delle miniature, puoi anche aggiungere degli elementi alle immagini semplicemente premendone la lettera quando l'immagine è selezionata. Questo è visibile nel<xref linkend="fig-tokens-in-thumbnail-viewer"/>.</para>
+
+  <figure id="fig-tokens-in-thumbnail-viewer">
+    <title
+>Elementi visti nel visore delle miniature</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-thumbnail-viewer.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+
+
+</sect1>
+
+<sect1 id="category-selectors-in-viewer">
+    <title
+>Impostare le categorie dal visore</title>
+    <para
+>La categoria può essere selezionata sul visore iniziando a scriverne il nome. La selezione viene effettuata immediatamente quando rimane una sola categoria corrispondente.</para>
+
+    <para
+>Per passare alla modalità di selezione delle categorie basta scrivere la sbarra (<userinput
+>/</userinput
+>). Le opzioni possibili vengono mostrate dopo aver assegnato il testo in parentesi graffe, e vengono immediatamente riviste quando vengono battute altre lettere. Quando una categoria è selezionata, puoi continuare a scrivere per selezionare il valore dell'elemento. L'immagine seguente mostra questa azione, sotto di essa c'è una spiegazione di come funziona il tutto. </para>
+
+
+<figure id="category-selectors">
+<title
+>Selezionare le categorie dal visore</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="category-selectors.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Segui la configurazione delle categorie per capire meglio questa spiegazione. Iniziando a scrivere <userinput
+>/p</userinput
+>, la selezione cambierà da <guilabel
+>Elementi</guilabel
+> a <guilabel
+>Parole chiave</guilabel
+> (perché la P è univoca). Dopodiché, battere <userinput
+>b</userinput
+> assegnerà immediatamente la parola chiave <computeroutput
+>buono</computeroutput
+> all'immagine. Scrivere <userinput
+>g</userinput
+> farà apparire <computeroutput
+>G{ente,iorgio}</computeroutput
+> nella casella informativa e scrivere una <userinput
+>e</userinput
+> o una <userinput
+>i</userinput
+> di seguito completerà la corrispondenza e ne assegnerà il risultato all'immagine. <itemizedlist mark='opencircle'>
+    <listitem
+><para
+>Elementi</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>A..Z</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Parole chiave</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Buono</para
+></listitem>
+        <listitem
+><para
+>Cattivo</para
+></listitem>
+        <listitem
+><para
+>Noia</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Gente</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Giorgio</para
+></listitem>
+        <listitem
+><para
+>Fede</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Luoghi</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Internet</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+</itemizedlist>
+</para>
+
+<sect2>
+    <title
+>Parole esatte</title>
+<para
+>Se vuoi inserire una nuova parola, o hai parole come <userinput
+>boa</userinput
+> e <userinput
+>boato</userinput
+>, devi poter scrivere la parola esatta che vuoi inserire o selezionare. Lo puoi fare iniziando la parola con delle virgolette (<userinput
+>"</userinput
+>) e concludendola con una virgola (<userinput
+>,</userinput
+>). Se selezionassimo <userinput
+>boa</userinput
+> immediatamente dopo la battitura non sarebbe possibile selezionare <userinput
+>boato</userinput
+>, altrimenti dovremmo attendere altre lettere e non sarebbe possibile selezionare <userinput
+>boa</userinput
+>. <figure id="keyword-exact">
+<title
+>Selezionare parole esatte nel visore</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="keyword-exact.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</para>
+</sect2>
+
+<sect2>
+    <title
+>Comincia sempre con la selezione delle categorie</title>
+<para
+>Se scrivi due <userinput
+>/</userinput
+> di fila verranno scambiate due modalità, la predefinita descritta sopra e una modalità di selezione delle categorie. In quest'ultima torniamo immediatamente alla selezione delle categorie dopo una corrispondenza: in questo modo puoi continuamente selezionare elementi tra categorie diverse. Effettuerà comunque la corrispondenza più veloce possibile, in modo che <userinput
+>pb</userinput
+> corrisponderà a <computeroutput
+>Parole chiave/Buono</computeroutput
+> nell'esempio sopra. </para>
+</sect2>
+<sect2>
+    <title
+>Assegnare scorciatoie</title>
+<para
+>Se il campo è attualmente vuoto (per esempio, non stai selezionando nulla) e premi un tasto funzione da <keycap
+>F1</keycap
+> a <keycap
+>F12</keycap
+> (o fino a <keycap
+>F35</keycap
+> a seconda della tua tastiera), l'ultima assegnazione che ha fatto corrispondenza verrà assegnata a quel tasto. Puoi applicare la stessa assegnazione a nuove immagini semplicemente premendo il tasto scorciatoia. Per toglierla, usa il tasto &Shift; con la scorciatoia (<keycombo
+>&Shift;<keycap
+>F<replaceable
+>n</replaceable
+></keycap
+></keycombo
+>). È utile per assegnare rapidamente degli elementi ricorrenti nell'insieme di immagini. Ricorda sia la categoria che l'elemento. Queste scorciatoie sono ricordate fino alla chiusura di &kphotoalbum;; al momento non è possibile sostituire le scorciatoie assegnate. </para>
+  </sect2>
+</sect1>
+
+
+<!-- Drawing on images feature has been dropped
+  <sect1 id="drawing-on-images">
+    <title
+>Drawing on Images</title>
+    <para
+>Sometimes it might not be obvious what you want to show with a
+given image, for that purpose &kphotoalbum; allows you to draw on the
+images. </para>
+
+<para
+>The actual drawing is not saved to the image, but rather to the
+database, that way you can undo your drawing at a later point.</para>
+
+<para
+>In <xref linkend="fig-draw-on-image"/> you can see an image drawn
+on. To bring &kphotoalbum; in to drawing mode, select <guimenuitem
+>Draw on
+Image</guimenuitem
+> from the context menu. To quit drawing, press the cross in
+the toolbar at the top of the window.</para>
+
+<figure id="fig-draw-on-image">
+<title
+>Drawing on Images</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="draw-on-image.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+  </sect1>
+-->
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

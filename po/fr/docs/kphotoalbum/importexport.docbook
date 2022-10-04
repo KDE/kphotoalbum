@@ -1,0 +1,157 @@
+<!--
+SPDX-FileCopyrightText: 2004-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-importExport">
+  <title
+>Importer/Exporter</title>
+  <para
+>Si vous assistez à une réunion de famille, une réunion professionnelle, une conférence ou tout autre évènement où d'autres utilisateurs de &kphotoalbum; peuvent être présents, vous pourriez avoir envie de partager vos images avec eux. Vous pourriez bien sûr choisir de générer pour eux des pages &HTML; pour qu'ils naviguent dans les photos. Mais étant donné que vous avez déjà passé du temps à classer les photos (qui est sur les photos, où ont elles été prises, etc.), il n'y a aucune raison pour eux de refaire ce travail. </para>
+
+    <para
+>&kphotoalbum; vous permet d'exporter un ensemble de photos dans un fichier <literal role="extension"
+>.kim</literal
+>, que les autres personnes peuvent importer dans leurs base de données pour accéder à votre classification pour ces photos.</para>
+
+    <para
+>Deux différentes sortes de fichiers <literal role="extension"
+>.kim</literal
+> existent : en-ligne ou externes, selon que les photos sont stockées dans un fichier ou dans un autre endroit. Mettre les photos dans un fichier est un avantage dans la mesure où le fichier est auto-suffisant mais ce qui présente évidemment le désavantage évident d'avoir un fichier plutôt volumineux.</para>
+
+    <para
+>Vous pouvez générer un fichier <literal role="extension"
+>.kim</literal
+> à partir de deux endroits : directement à partir du menu <menuchoice
+><guimenu
+>Fichier</guimenu
+><guimenuitem
+>Export...</guimenuitem
+></menuchoice
+> ou en même temps que les pages &HTML; (Voir <xref linkend="chp-generating-html"/>). Un export &HTML; avec l'option de création d'un fichier <literal role="extension"
+>.kim</literal
+> générera un fichier externe <literal role="extension"
+>.kim</literal
+>.</para>
+
+    <para
+>Les fichiers externes <literal role="extension"
+>.kim</literal
+> chercheront pour des photos selon l'un de deux modes. D'abord, la recherche essayera de trouver des photos proches du fichier <literal role="extension"
+>.kim</literal
+> et en cas d'échec de cette recherche, elle recherchera des images à l'URL spécifiée quand le fichier <literal role="extension"
+>.kim</literal
+>a été créé. Noter que le second mode n'est possible pour les fichiers <literal role="extension"
+>.kim</literal
+> créées lors de l'export &HTML;.</para>
+    
+    <sect1 id="chp-exportDialog">
+      <title
+>Boîte de dialogue « Export »</title>
+      <para
+>Ce chapitre vous détaillera le fonctionnement de la boîte de dialogue « Export » disponible à partir du menu <menuchoice
+><guimenu
+>Fichier</guimenu
+><guimenuitem
+>Export...</guimenuitem
+></menuchoice
+>.</para>
+
+      <para
+>Le paramètre le plus important dans cette boîte de dialogue est de spécifier si le fichier <literal role="extension"
+>.kim</literal
+> devra être interne ou externe (voir la description ci-dessus). Vous avez les trois options suivantes :  <itemizedlist>
+          <listitem
+><para
+>Insérer dans un fichier <literal role="extension"
+>.kim</literal
+> - Cela produira un fichier interne</para
+></listitem>
+          <listitem
+><para
+>Copie manuelle après création d'un fichier  .kim - Ici, vous devez copier vous-même les photos après la création d'un fichier  .kim</para
+></listitem>
+          <listitem
+><para
+>Copie automatique avec création d'un fichier .kim - ici &kphotoalbum; copiera les photos pour vous.</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+>Entre nous, les fichiers <literal role="extension"
+>.kim</literal
+> ne sont que des fichiers zip. Normalement, cela ne vaut pas la peine de compresser les fichiers car les photos sont naturellement compressées via le format JPEG et que le fichier XML est plutôt léger. Si vous voulez vraiment grappiller quelques octets de plus, vous pouvez le faire en vérifiant <guilabel
+>Compresser le fichier d'exportation</guilabel
+></para>
+
+      <para
+>La dernière option sur la page est <guilabel
+>Limiter la taille maximale de la photo</guilabel
+>. Quand vous envoyez quelques photos à certains amis, vous ne voulez pas forcément le faire avec leurs tailles maximales car le fichier <literal role="extension"
+>.kim</literal
+> pourrait être énorme. Pour cela, vous pouvez spécifier que la dimension maximales des images doit être au maximum de 800 pixels dans chaque direction.</para>
+    </sect1>
+
+
+
+
+    
+<sect1 id="chp-importDialog">
+  <title
+>Boîte de dialogue « Import »</title>
+<para
+>Quand vous sélectionnez un fichier <literal role="extension"
+>.kim</literal
+> par le navigateur web ou que vous choisissez le menu <menuchoice
+><guimenu
+>Fichier</guimenu
+><guimenuitem
+>Import...</guimenuitem
+></menuchoice
+>, &kphotoalbum; importera la base de données exportée avec la fonctionnalité décrite dans <xref linkend="chp-importExport"/>.</para>
+
+<para
+>L'assistant d'import travaille en 4 étapes. D'abord, vous devez spécifier quelles photos vous voulez importer. Ensuite, vous devez spécifier dans quel dossier stocker les photos importées.</para>
+
+<para
+>Naturellement, vous allez appeler la catégorie « Personne » sous <emphasis
+>Personen</emphasis
+> si vous êtes Allemand, pendant que moi, en Danois, je l'appellerais plutôt <emphasis
+>personer</emphasis
+>. Dans la troisième étape de l'assistant d'import, vous devez spécifier quelle catégorie du fichier devra être importée, ainsi qu'avec quelle catégorie de votre base de données elle devra correspondre.</para>
+
+<para
+>Je pourrais m'appeler dans mes bases de données comme <emphasis
+>moi</emphasis
+>, alors que dans votre base de données, je m'appellerais Jesper K. Pedersen. L'étape quatre consiste à fixer les correspondances pour chacune des catégories importées. Cela peut être vu sur la page <xref linkend="fig-import-dialog"/>.</para>
+
+<figure id="fig-import-dialog">
+<title
+>Faire correspondre « Personnes » dans la boîte de dialogue « Importation » </title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="import-dialog.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Dans la copie d'écran, vous pouvez voir que Donna est la même personne dans le fichier .kim et dans ma base de données - le nom est montré en noir pour indiquer une parfaite correspondance dans la base de données. Les trois autre noms n'ont pas trouvé dans la base de données, ainsi, à la fois Jesper et Anne Marie ont été trouvé comme correspondant à une sous-chaîne. Ainsi, ceux- ci sont suggérés. Enfin, dans ma base de données, je n'avais pas de Denis (ou je pourrais l'avoir nommé différemment), ainsi, &kphotoalbum; me suggère simplement Denis comme nom pour l'importation.</para>
+
+</sect1>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

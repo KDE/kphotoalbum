@@ -1,0 +1,98 @@
+<chapter id="introduction">
+  <title
+>Introdução</title>
+  <para
+>Se você for como o autor deste manual, terá centenas ou mesmo milhares de imagens desde que arranjou a sua primeira máquina fotográfica, sendo que algumas foram tiradas com uma máquina normal e outras com uma máquina digital. Ao longo dos tempos, julgou que conseguiria ser capaz eternamente de recordar a história por detrás de cada imagem, os nomes das pessoas nas mesmas e da data em que cada uma foi tirada. O autor chegou pessoalmente à conclusão que isso não seria mais possível e especialmente com as suas imagens digitais - já para não falar das fotos em papel - daí a necessidade de uma ferramenta para o ajudar a descrever as suas imagens e para procurar na pilha de imagens. Isto é exactamente o objectivo do &kphotoalbum;.</para>
+  
+  
+  <para
+>O &kphotoalbum; foca-se em três pontos-chave: <itemizedlist>
+      <listitem
+><para
+>Tem de ser simples para anotar um  conjunto de imagens de uma vez. Deverá, por exemplo, não levar mais do que alguns 'clicks' do rato para marcar todas as suas imagens das suas férias como sendo de Itália em 1992. O &kphotoalbum; oferece duas formas de descrever as imagens: <guilabel
+>uma de cada vez</guilabel
+>, o que é útil para escrever texto sobre as imagens e <guilabel
+>todas em simultâneo</guilabel
+>, o que é útil para escolher um conjunto de imagens e definir algumas propriedades como a localização, as pessoas nas imagens ou a data da imagem.</para
+></listitem>
+      
+      <listitem
+><para
+>Deverá ser simples procurar por imagens. O &kphotoalbum; permite descrever as imagens com um conjunto de propriedades. Estas incluem a data, as pessoas na imagem, a localização da imagem, mais um campo de palavra-chave que o utilizador poderá aplicar em palavras-chave do tipo <emphasis
+>Álbum 7</emphasis
+> ou <emphasis
+>Férias em Itália</emphasis
+>. Com o &kphotoalbum;, o utilizador poderá procurar as imagens por cada uma das categorias - &eg;, procurar todas as imagens em que aparece o Zé nas férias em Itália.</para
+></listitem
+> 
+      
+      <listitem
+><para
+>Deverá ser simples navegar e ver as imagens. Ao ver as imagens, o seu foco muda com frequência - numa altura poderá estar a ver as imagens das suas férias em 1992 e, ao ver a imagem de um amigo seu com o qual passou essas férias, o seu foco muda, pelo que poderá passar a querer ver todas as imagens desse amigo.</para
+></listitem>
+    </itemizedlist
+></para>
+  
+  <!-- ====================================================================== -->
+  <sect1 id="sect-overview-of-manual">
+    <title
+>Introdução ao manual</title>
+    <para
+>Neste manual, o autor irá conduzi-lo pelos passos de (1) anotar as suas imagens, (2) navegar e ver as imagens e (3) os tópicos avançados e a personalização.</para>
+
+<para
+>O &kphotoalbum; começou como uma aplicação para gerir as suas imagens, mas desde então tem evoluído; como tal, hoje em dia já toma conta também dos seus vídeos. Em vários pontos deste manual falar-se-á de imagens, mas nessa discussão também estão incluídos os vídeos.</para>
+  
+
+  </sect1>
+  
+  
+  <!-- ====================================================================== -->
+  <sect1 id="sec-organization-of-images-and-KPhotoAlbum-files">
+    <title
+>Organização das imagens e dos ficheiros do &kphotoalbum;</title>
+    <para
+>O &kphotoalbum; usa todas as imagens de uma pasta e de todas as subpastas por baixo dela; da primeira vez que iniciar o &kphotoalbum;, ser-lhe-á pedida a localização desta pasta. O &kphotoalbum; não irá modificar nenhumas imagens, por isso você não terá de ter medo que o &kphotoalbum; altere as suas imagens <footnote
+><para
+>As duas excepções a esta regra são (1) remover imagens individuais, se o pedir explicitamente em <menuchoice
+><guimenu
+>Editar</guimenu
+><guimenuitem
+>Remover os Seleccionados</guimenuitem
+></menuchoice
+> e (2) operações com 'plugins'</para
+></footnote
+>. De qualquer forma, se não confiar no &kphotoalbum;, sinta-se à vontade em tornar todas as suas imagens protegidas contra escrita.</para>
+    
+    <para
+>O &kphotoalbum; irá guardar toda a sua informação no ficheiro <filename
+>index.xml</filename
+> da sua pasta de topo das imagens. Este é um ficheiro XML simples, para que o possa salvaguardar com as ferramentas que preferir, incluindo os utilitários de salvaguarda normais, a cópia para disquetes ou a manutenção num sistema de controlo de versões com o CVS. Existe também um programa de salvaguarda (<emphasis
+>kpa-backup.sh</emphasis
+> que vem no código do &kphotoalbum; e que faz uma cópia do 'index.xml', bem como dos ficheiros de configuração na pasta pessoal do utilizador.</para>
+    
+    <para
+>O &kphotoalbum; irá recordar o local que você lhe indicou onde se localizam as suas imagens e utilizá-lo-á de novo nas sessões futuras do &kphotoalbum;. Se alguma vez precisar de carregar outra base de dados no &kphotoalbum; (i.e. outra pasta com imagens), então poderá iniciá-lo com a opção <option
+>-c</option
+>. Por exemplo: <userinput
+><command
+>kphotoalbum</command
+> <option
+>-c</option
+> <filename
+>~/AsMinhasFotos/index.xml</filename
+></userinput
+>.</para>
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

@@ -1,0 +1,189 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2007 Jan Kundrát <jkt@flaska.net>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-browsing">
+  <title
+>Перегляд</title>
+  <para
+>Після створення приміток до ваших зображень і відео &kphotoalbum; надасть вам змогу переглядати ваші зображення, див. <xref linkend="fig-browser-with-images"/>. Порівняно з тим, що ми бачили у розділі <xref linkend="fig-empty-browser-window"/> об’єкти тепер буде розподілено за категоріями: <literal
+>Люди</literal
+>, <literal
+>Місця</literal
+> і <literal
+>Ключові слова</literal
+>.</para>
+  
+  <figure id="fig-browser-with-images">
+    <title
+>Інструмент перегляду з коментованими зображеннями і відео</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-with-images.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>У вікні переглядача ви побачите категорії, дані щодо яких ви вводили під час створення приміток до ваших зображень і відео. Крім того, там ви побачите пункти, призначені для пошуку на основі даних EXIF щодо зображень, перегляду структури тек на жорсткому диску вашого комп’ютера і, звичайно ж, мініатюри зображень. Давайте почергово розглянемо кожен з елементів.</para
+> 
+  
+  <para
+>Натисніть вказівником миші позначку <literal
+>Люди</literal
+>, — у вікні переглядача ви побачите інший перелік зображень: <xref linkend="fig-browser-for-persons"/>.</para>
+  
+  <figure id="fig-browser-for-persons">
+    <title
+>Вікно переглядача з вибраною вкладкою «Люди».</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-persons.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>У вікні переглядача тепер показано об’єкти, які ви пов’язали з людьми під час створення приміток до зображень і відео<footnote
+><para
+>Ви можете зауважити, що елемент <literal
+>Домашні тварини</literal
+> має особливу піктограму. Докладніше про це можна дізнатися з розділу <xref linkend="sec-specifying-categories"/>.</para
+></footnote
+>. Позначення пункту певної особи поверне переглядач до початкового стану, який зображено на знімку <xref linkend="fig-browser-with-images"/>, але цього разу буде показано лише елементи, що <emphasis
+>відповідають</emphasis
+> вибраній нами особі. Це означає, що буде показано лише зображення і відео, які пов’язано з обраною особою. Див. <xref linkend="fig-browser-for-jesper"/> нижче, там ми маємо справу з вибором особи <literal
+>Jesper</literal
+>, повідомлення про це можна бачити у нижній частині вікна. Будь ласка, порівняйте <xref linkend="fig-browser-with-images"/> з <xref linkend="fig-browser-for-jesper"/>, ви можете бачити лише кількість зображень і відео зменшилася з 25 до 12, кількість елементів у інших категоріях також змінилася.</para>
+  
+  <figure id="fig-browser-for-jesper">
+    <title
+>Переглядач, обмежений областю особи <literal
+>Jesper</literal
+></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-jesper.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>Якщо знову обрати пункт якоїсь особи, у вікні переглядача залишаться лише зображення і відео, які пов’язано з обома вибраними нами особами. Таким чином, ви можете звужувати набір потрібних зображень з тисяч до декількох.</para>
+  
+  <para
+>Після завершення обмеження переліку зображень ви можете натиснути піктограму <guilabel
+>Переглянути мініатюри</guilabel
+>, щоб побачити список мініатюр, що відповідають вибраному вами діапазону зображень.</para>
+
+
+
+
+
+
+
+
+  <sect1 id="sect-adding-preview-images-to-the-browser">
+  <title
+>Додавання зображень попереднього перегляду до переглядача</title>
+  <para
+>Якщо ви поглянете на зображення <xref linkend="fig-browser-for-persons"/>, ви можете помітити, що всі пункти осіб мають однакові піктограми. Насправді, &kphotoalbum; може показувати вказану вами піктограму поряд з пунктом особи<footnote
+><para
+>Це, звичайно ж, стосується місць, ключових слів та інших створених вами категорій.</para
+></footnote
+>, це можна бачити на зображенні <xref linkend="fig-imagesForPersons"/>.</para>
+
+  <figure id="fig-imagesForPersons">
+    <title
+>Зображення для кожної з осіб</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="imagesForPersons.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Щоб наказати програмі показувати зображення разом з їх назвами, натисніть крайню праву кнопку на панелі інструментів. Програма відкриє контекстне меню, за допомогою якого ви зможете вибрати різновид перегляду для вказаної категорії. Зауважте, що перегляди можна налаштувати окремо для кожної з категорій — отже, ви можете, наприклад, використовувати перегляд піктограмами для категорії «Люди» і звичайний перегляд списком для категорії «Ключові слова» (якщо ви не можете визначитися з належними піктограмами для ваших ключових слів).</para
+>  
+
+
+<para
+>Але визначення зображень, які буде використано для створення піктограм для окремих пунктів осіб, є вашою справою. Щоб визначити зображення, вам слід відкрити переглядач (див. <xref linkend="chp-viewer"/>) і обрати у контекстному меню пункт <guimenuitem
+>Показати редактор категорій</guimenuitem
+>. Програма відкриє вікно редактора категорій, яке можна бачити на знімку <xref linkend="fig-categoryEditor"/>. За допомогою редактора категорій ви зможете вибрати зображення для певної особи. За допомогою переглядача можна збільшити частину зображення і таким чином обмежити частину, яку буде показано на піктограмі.</para>
+
+
+  <figure id="fig-categoryEditor">
+    <title
+>Редактор категорій</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="categoryEditor.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+
+
+
+
+
+
+
+
+
+  
+  <sect1 id="sect-general-image-searches">
+    <title
+>Загальний пошук зображень</title>
+    <para
+>Якщо ви оберете пункт <guilabel
+>Пошук</guilabel
+> у переглядачі, програма відкриє діалогове вікно дуже подібне до вікна, яке ви бачили під час встановлення властивостей ваших зображень. Знімок цього діалогового вікна наведено на зображенні <xref linkend="fig-search"/> нижче.</para>
+    
+    <figure id="fig-search">
+      <title
+>Діалогове вікно пошуку</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="search.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para
+>Якщо ви введете дані до полів мітки або опису, програма виконає пошук вказаного фрагмента тексту у відповідних полях елементів. Ви так само можете вказати дату для пошуку, частково, наприклад, 1971, або повністю. Можна вказувати і діапазони дат, наприклад, 1971-1980.</para>
+    
+    <para
+>За допомогою віджета параметрів пошуку ви можете звузити область пошуків, як це показано на знімку <xref linkend="fig-search"/>. У даному випадку буде виконано пошук зображень, що відповідають особі <literal
+>Jesper</literal
+>, але без <literal
+>Anne Helene</literal
+>.</para>
+    
+    <para
+>Ви можете скористатися такими діями: &amp; (означає «та»), | (означає «або») і ! (означає «ні»).</para>
+    
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

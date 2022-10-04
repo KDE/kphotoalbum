@@ -1,0 +1,51 @@
+<chapter id="chp-datebar">
+  <title
+>La barra de fechas</title>
+
+<para
+>En la parte inferior de la ventana de &kphotoalbum; se encuentra la barra de fechas (véase <xref linkend="fig-datebar"/>). Como su nombra indica, muestra estadísticas de las fechas de las imágenes de su base de datos.</para>
+
+<figure id="fig-datebar">
+<title
+>La barra de fechas</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Cada barra indica cuántas imágenes hay en cada período. En la figura superior puede que en enero de 2005 tengo 261 imágenes. Las barras representan dos datos: en cuántas imágenes la fecha se corresponde exactamente con el período dado, y en cuántas se solapa parcialmente con él. Una imagen con una fecha en 2005 contará como un solapamiento para todos los meses de 2005, mientras que una imagen del 24 de enero de 2005 será una fecha exacta para enero de 2005. Las coincidencias exactas se resaltan en verde, mientras que las inexactas se resaltan en amarillo. Por ejemplo, en diciembre de 2004 tengo 86 imágenes exactas y 61 solapadas (se pueden ver los contadores pasando el ratón por encima del rango dado hasta que se muestren en la barra de estado).</para>
+
+<para
+>La barra de fechas le ofrece varias granularidades, donde cada barra muestra un intervalo de tiempo distinto. Los intervalos son años, meses, semanas, días, horas y 10 minutos. <xref linkend="fig-datebar-for-minutes"/> le muestra parte de mi base de datos, donde cada barra muestra solo 10 minutos.</para>
+
+<figure id="fig-datebar-for-minutes">
+<title
+>La barra de fechas mostrando intervalos de 10 minutos</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar-for-minutes.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Puede interactuar con la barra de fechas de dos maneras, navegando por vista de miniaturas de la base de datos: si selecciona una fecha, la vista se desplazará la vista a la primera imagen en ella; o simplemente con navegar, la barra de fechas se actualizará para que vea la fecha de las imágenes mostradas en ese momento.</para>
+
+<para
+>También puede sacar un intervalo de la barra de fechas, pulsando y arrastrando el ratón en la zona de la regla, es decir, en las marcas de tiempo. Cuando seleccione un intervalo, la vista de miniaturas mostrará solo las imágenes contenidas en él. Puede cancelar la selección pulsando el botón correspondiente a la izquierda de la barra de fechas.</para>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

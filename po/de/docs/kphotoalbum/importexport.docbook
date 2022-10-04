@@ -1,0 +1,152 @@
+<chapter id="chp-importExport">
+  <title
+>Import/Export</title>
+  <para
+>Falls Sie sich auf einer Familienfeier, einem Meeting in der Firma, einer Konferenz oder irgendwo anders, mit anderen Benutzer von &kphotoalbum; zusammenkommen, befinden, möchten Sie vielleicht Ihre Bilder mit diesen teilen. Sie können natürlich eine &HTML;-Seite zur Betrachtung der Bilder erstellen. Wenn Sie jedoch schon sehr viel Zeit dafür aufgewendet haben die Bildinformationen, Personen auf den Bildern, Aufnahmeort, usw. einzutragen, dann müssen Sie mit &kphotoalbum; diese Arbeit nicht noch einmal machen.</para>
+
+    <para
+>Mit &kphotoalbum; können Sie eine Kopie Ihrer Bilder in eine <literal role="extension"
+>.kim</literal
+>-Datei exportieren. Diese können andere in Ihre Datenbank importieren. Die Bildeigenschaften werden dabei mit ex- und importiert.</para>
+
+    <para
+>Es gibt zwei verschiedene Arten von <literal role="extensions"
+>.kim</literal
+>-Dateien, interne und externe. Sie unterscheiden sich darin,ob die Bilder selbst mit in der Datei gespeichert sind oder ob sich in der Datei nur eine Verknüpfung zu Bildern befindet. Der Vorteil alle Bilder in die Datei zu speichern ist, dass Sie alle Bilder beisammen haben und diese Datei so unabhängig weitergeben können. Der offensichtliche Nachteil ist jedoch die Dateigröße.</para>
+
+    <para
+>Sie können eine <literal role="extension"
+>.kim</literal
+>-Datei entweder direkt aus dem Menü <menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>Exportieren...</guimenuitem
+></menuchoice
+> oder zusammen mit &HTML;-Seiten, siehe <xref linkend="chp-generating-html"/>, erstellen. Wenn Sie eine <literal role="extension"
+>.kim</literal
+>-Datei zusammen mit einer &HTML;-Datei erstellen, wird dies eine externe <literal role="extension"
+>.kim</literal
+>-Datei.</para>
+
+    <para
+>Eine externe <literal role="extension"
+>.kim</literal
+>-Datei sucht die Bilder auf zweifache Weise. Zuerst durchsucht es die Bilder, die sich im Ordner der <literal role="extensions"
+>.kim</literal
+>-Datei befinden. Werden die entsprechenden Bilder nicht gefunden, so werden die Bilder der URL, die Sie beim Erstellen der &HTML;-Dateien angegeben haben, durchsucht. Dies ist natürlich nur möglich, wenn Sie Ihre <literal role="extension"
+>.kim</literal
+>-Datei mittels dem &HTML;-Export erstellt haben.</para>
+    
+    <sect1 id="chp-exportDialog">
+      <title
+>Der Dialog Exportieren</title>
+      <para
+>Im folgenden wird der Dialog für das Exportieren von Bildern beschrieben, den Sie über das Menü <menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>Exportieren...</guimenuitem
+></menuchoice
+> aufrufen können.</para>
+
+      <para
+>Die wichtigste Option dieses Dialoges ist, ob es sich um interne oder externe <literal role="extension"
+>.kim</literal
+>-Dateien handeln soll. Es stehen Ihnen folgende drei Auswahlmöglichkeiten zur Verfügung: <itemizedlist>
+          <listitem
+><para
+><quote
+>In die <literal role="extensions"
+>.kim</literal
+>-Datei einfügen</quote
+> erzeugt eine interne Datei.</para
+></listitem>
+          <listitem
+><para
+>Bei der Option <quote
+>Manuell neben die .kim-Datei kopieren</quote
+> müssen Sie die Bilder in den gleichen Ordner wie die .kim-Datei kopieren.</para
+></listitem>
+          <listitem
+><para
+>Mit der Option <quote
+>Automatisch neben die .kim-Datei kopieren</quote
+> kopiert &kphotoalbum; die Bilder automatisch für Sie.</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+><literal role="extensions"
+>.kim</literal
+>-Dateien sind normale Zip-Dateien. Da die meisten Bilder schon mit JPEG komprimiert wurden und die XML-Datei selbst sehr klein ist, lohnt es sich normalerweise nicht, die Dateien zu komprimieren. Falls Sie dies trotzdem möchten, so wählen Sie einfach die Option <guilabel
+>Exportdatei komprimieren</guilabel
+>.</para>
+
+      <para
+>Die letzte Option dieser Seite lautet <guilabel
+>Maximale Bildgröße begrenzen</guilabel
+>. Wenn Sie Ihren Freunden Bilder schicken, möchten Sie die Bilder vielleicht nicht in voller Größe schicken, da die <literal role="extensions"
+>.kim</literal
+>-Datei sonst sehr groß wäre. Hier können Sie die Größe begrenzen, indem Sie beispielsweise sagen, dass jedes Bild höchstens 800 Pixel hoch und breit sein soll.</para>
+    </sect1>
+
+
+
+
+    
+<sect1 id="chp-importDialog">
+  <title
+>Der Dialog Importieren</title>
+<para
+>Wenn Sie eine Datei mit der Endung <literal role="extensions"
+>.kim</literal
+> aus dem Webbrowser oder aus dem Menü <menuchoice
+><guimenu
+>Datei</guimenu
+> <guimenuitem
+>Importieren...</guimenuitem
+></menuchoice
+> auswählen, wird &kphotoalbum; die exportierte Datenbank wie in <xref linkend="chp-importExport"/> beschrieben importieren.</para>
+
+<para
+>Der Assistent zum Importieren besteht aus vier Schritten. Zuerst müssen Sie auswählen, welche Bilder Sie importieren möchten, danach, in welchen Ordner die importieren Bilder kopiert werden sollen.</para>
+
+<para
+>Es kann sein, dass Sie die Kategorie Personen der zu importierenden Datei <emphasis
+>personer</emphasis
+> heißt (wenn Sie ein Däne sind), während diese Kategorie bei Ihrer Datenbank <emphasis
+>Personen</emphasis
+> heißt. Deshalb werden Sie im dritten Dialogfenster gefragt, welche Kategorien der zu importierenden Datei importiert werden sollen und welchen Kategorien diese in Ihrer Datenbank entsprechen.</para>
+
+<para
+>Im vierten Schritt können Sie die Kategorien der zu importierenden Datei mit den Kategorien Ihrer jetzigen Datenbank abgleichen. Ein Beispiel hierfür sehen Sie in <xref linkend="fig-import-dialog"/>.</para>
+
+<figure id="fig-import-dialog">
+<title
+>Abgleich von Personen im Import-Dialog </title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="import-dialog.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Auf dem Bild sehen Sie, dass Donna sowohl in der .kim-Datei als auch in der Datenbank den gleichen Namen hat - der Name wird schwarz angezeigt, um Ihnen die Übereinstimmung zu verdeutlichen. Die anderen drei Namen wurden in der Datenbank nicht gefunden, obwohl Jesper und Anne Helene als Bestandteil wiedererkannt wurden, weshalb diese vorgeschlagen werden. Zuletzt sehen Sie, dass Spiff in der Datenbank nicht vorkommt, weshalb &kphotoalbum; vorschlägt, diese Person neu zu übernehmen.</para>
+
+</sect1>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

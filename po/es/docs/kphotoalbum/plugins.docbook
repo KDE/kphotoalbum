@@ -1,0 +1,79 @@
+<chapter id="chp-plugins">
+  <title
+>Complementos</title>
+  <para
+>&kphotoalbum; comparte el sistema de complementos de con otras aplicaciones de imágenes como <application
+>digiKam</application
+> y <application
+>Gwenview</application
+>. Dicho sistema se denomina <application
+>Kipi</application
+>, siglas de  &kde; Image Plugin Interface. Puede consultar la <ulink url="http://extragear.kde.org/apps/kipi/"
+>web de Kipi</ulink
+></para>
+
+<para
+>Los complementos están disponibles en el elemento <guimenu
+>Complementos</guimenu
+> del menú. En este manual no se describe ningún complemento porque no forman parte de &kphotoalbum;, sino que se distribuyen por separado. Sin embargo, la mayoría de ellos disponen de una página de ayuda.</para>
+
+<warning
+><para
+>Como los complementos se comparten entre varias aplicaciones, puede que algunos no estén demasiado probados con &kphotoalbum;, por lo que es recomendable que los pruebe con la base de datos de demostración antes de hacerlo con sus propias imágenes<footnote
+><para
+>Puede iniciar &kphotoalbum; en modo demo desde la consola ejecutando <userinput
+><command
+>kphotoalbum</command
+> <option
+>-demo</option
+></userinput
+>, o desde el menú <guimenu
+>Ayuda</guimenu
+>.</para
+></footnote
+> (¡no dirá que no le advertimos!).</para
+></warning>
+
+<para
+>Cada aplicación utiliza KIPI de diferente forma, lo que significa que algunos complementos no funcionan de la misma manera que &kphotoalbum;, pero es el precio que hay que pagar por compartir funcionalidad entre aplicaciones.</para>
+
+<para
+>La diferencia más importante entre &kphotoalbum; y otras aplicaciones que utilizan KIPI es que estas últimas ordenan las imágenes en álbumes, donde un álbum es una carpeta. &kphotoalbum; no utiliza este concepto, sin embargo, para que funcionen ciertos complementos, de cara a ellos se comporta como si lo hiciera.</para>
+
+<para
+>Para ello, &kphotoalbum; asigna <emphasis
+>el álbum actual</emphasis
+> a la vista actual, es decir, todas las imágenes que el explorador puede mostrar en este momento.</para>
+
+<para
+>Además del álbum actual, &kphotoalbum; puede mostrar una lista de todos los álbumes, definida de la siguiente forma:</para>
+
+<itemizedlist>
+  <listitem
+><para
+>Cuando el explorador de &kphotoalbum; muestra el contenido de una categoría, como las personas, el complemento verá cada elemento de esta como un álbum.</para
+></listitem
+> 
+  <listitem
+><para
+>Si no, se utilizará la categoría que haya especificado como <guilabel
+>Categoría para álbumes virtuales</guilabel
+> en el diálogo de opciones. Por ejemplo, si especificó que fuera «Personas», &kphotoalbum; se comportará como si solo quisiera que mostrase personas e invocará al complemento que necesite trabajar con álbumes.</para
+></listitem>
+</itemizedlist>
+
+<para
+>Algunos complementos pueden incluir funciones redundantes a las implementas en &kphotoalbum;, y en ese caso no querrá verlos todos en el menú de complementos. Para ello, diríjase al diálogo de opciones e indique cuáles son los que desea mostrar.</para>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

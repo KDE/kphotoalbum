@@ -1,0 +1,100 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="introduction">
+  <title
+>Inledning</title>
+  <para
+>Om du är som jag, har du tusentals bilder tagna ända sedan du fick din första kamera, vissa med en vanlig kamera och andra med en digitalkamera. Under alla år har du trott att du skulle kunna komma ihåg historien bakom varenda bild. Du skulle kunna komma ihåg namnen på alla personer på dina bilder, och exakt datum för varenda bild. Personligen insåg jag att det inte längre var möjligt, och särskilt för mina digitala bilder - men även för pappersbilder - behövde jag ett verktyg för att hjälpa mig beskriva mina bilder och söka i bildhögen. Det är exakt vad Kfotoalbum är till för.</para>
+  
+  
+  <para
+>Kfotoalbum fokuserar på tre nyckelpunkter: <itemizedlist>
+      <listitem
+><para
+>Det måste vara lätt att beskriva ett antal bilder samtidigt. Det får till exempel inte ta mer än några musklick att markera alla bilder från semestern som från Italien, 1992. Kfotoalbum erbjuder två sätt att beskriva bilder <guilabel
+>en i taget</guilabel
+>, vilket är användbart för att skriva in text om bilderna, och <guilabel
+>alla samtidigt</guilabel
+>, vilket är användbart för att välja ett antal bilder, och ange egenskaper som plats, personer på bilderna och bildernas datum.</para
+></listitem>
+      
+      <listitem
+><para
+>Det måste vara lätt att söka efter bilder. Kfotoalbum erbjuder möjlighet att beskriva bilder med ett antal egenskaper. De innefattar datum, personer, platser och ett nyckelordsfält där användaren kan lägga till egna nyckelord, som <emphasis
+>Album 7</emphasis
+> eller <emphasis
+>Semester i Italien</emphasis
+>. Du kan söka efter bilder i var och en av kategorierna med Kfotoalbum, till exempel hitta alla bilder med Jesper från semestern i Italien. Det är naturligtvis också möjligt att skapa egna kategorier. Mer om det senare.</para
+></listitem
+> 
+      
+      <listitem
+><para
+>Det måste vara lätt att bläddra bland bilderna och visa dem. När man tittar på bilder, ändras fokus ofta. I ena ögonblicket tittar man på bilder från semestern 1992, och när man ser en bild på en vän som man tillbringade semestern med, ändras fokus plötsligt, och man vill se alla bilder av den vännen.</para
+></listitem>
+    </itemizedlist
+></para>
+  
+  <!-- ====================================================================== -->
+  <sect1 id="sect-overview-of-manual">
+    <title
+>Översikt över handboken</title>
+    <para
+>I den här handboken går vi igenom de steg som behövs för (1) att beskriva bilderna, (2) att bläddra igenom och visa bilder och (3) avancerad användning och inställning.</para>
+
+<para
+>Kfotoalbum började som ett program för att hantera bilder, men sedan dess har det utökats, så att det idag också hanterar videor. På många ställen i handboken talas det om bilder, men lika ofta ingår videor i beskrivningen.</para>
+  
+
+  </sect1>
+  
+  
+  <!-- ====================================================================== -->
+  <sect1 id="sec-organization-of-images-and-KPhotoAlbum-files">
+    <title
+>Organisation av bilder och Kfotoalbum-filer</title>
+    <para
+>Kfotoalbum använder alla bilder i en katalog och i alla dess underkataloger. Första gången du startar Kfotoalbum blir du tillfrågad om platsen för denna katalog, som syns här. Kfotoalbum kommer inte att ändra några bilder, så du behöver inte vara rädd för att Kfotoalbum påverkar bilderna<footnote
+><para
+>Regelns två undantag är (1) om du ber Kfotoalbum att ta bort enskilda bilder, med <menuchoice
+><guimenu
+>Redigera</guimenu
+> <guimenuitem
+>Ta bort markerad</guimenuitem
+></menuchoice
+> och (2) åtgärder i insticksprogram.</para
+></footnote
+>. Om du inte riktigt litar på Kfotoalbum, får du gärna skrivskydda alla dina bilder.</para>
+    
+    <para
+>Kfotoalbum sparar all information i filen <filename
+>index.xml</filename
+> i den översta bildkatalogen. Filen är en vanlig XML-fil, så du kan enkelt säkerhetskopiera den med vilket verktyg du än föredrar, inklusive normala säkerhetskopieringsverktyg, kopiera filen till en diskett, eller hantera versioner med VCS. Ett skript för säkerhetskopiering (<emphasis
+>kpa-backup.sh</emphasis
+>) tillhandahålls i Kfotoalbums källkod som inte bara säkerhetskopierar index.xml, utan också inställningsfilerna i användarens hemkatalog.</para>
+    
+    <para
+>Kfotoalbum kommer ihåg var du talade om att bilderna fanns, och använder det i fortsättningen när Kfotoalbum körs. Skulle du någonsin vilja ladda in en annan databas i Kfotoalbum (dvs. ett annat katalogträd med bilder), kan du starta programmet med väljaren <option
+>-c</option
+>. Till exempel: <literal
+>kphotoalbum -c ~/företagsbilder/index.xml</literal
+>.</para>
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

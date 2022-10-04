@@ -1,0 +1,172 @@
+<chapter id="work-flow">
+  <title
+>Fluxos de Trabalho com o &kphotoalbum;</title>
+  <para
+>O fluxo de trabalho é um aspecto bastante importando nas imagens digitais. Neste capítulo, iremos descrever cenários diferentes que se adequam a necessidades diferentes. Existem diversos factores diferentes que deverão ser tidos em conta ao desenvolver um fluxo de trabalho ou cenário. Esperemos que estes exemplos lhe dêem ideias suficientes sobre como afinar o seu próprio método de trabalho com imagens digitais.</para>
+
+  <sect1 id="raw-workflow">
+  <title
+>Fluxo de trabalho do RAW com o &kphotoalbum; e o Bibble5/AfterShot Pro</title>
+  <para
+>Ao fotografar imagens RAW, os ficheiros da máquina deverão ser revelados para um formato conhecido como o JPEG ou o TIFF. Existem algumas opções para escolher se estiver a trabalhar em Linux. Por exemplo, o RawTherapee e o Ufraw são alternativas gratuitas, enquanto o Bibble5/AfterShot Pro são aplicações comerciais para esse fim.</para>
+
+  <para
+>Recomendam-se algumas definições para um cenário de RAW. A primeira é a activação da utilização da miniatura incorporada. Isto dar-lhe-á um enorme aumento de performance ao descodificar cada ficheiro RAW na sua visualização (veja também a definição da dimensão mínima, para garantir uma qualidade decente). A segunda é a possibilidade da Pesquisa de Novas Imagens empilhar automaticamente as versões reveladas sobre o ficheiro RAW (a imagem revelada deverá estar na mesma pasta que a original). Isto necessita de expressões regulares, como está descrito em <xref linkend="opt-search-new"/>. São fornecidos dois utilitários no código-fonte do &kphotoalbum; para ajudar no cenário RAW. Estes são o 'open-raw.desktop' e o 'open-raw.pl'. O primeiro permite às aplicações gráficas abrirem os ficheiros RAW e o segundo tenta procurar o ficheiro RAW original e abri-lo em vez da imagem revelada. </para>
+
+  <figure id="fig-raw-workflow">
+    <title
+>Enviar as Imagens para o Editor RAW</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="raw-external.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>O primeiro passo no cenário actual é copiar as imagens da máquina digital para o computador. Uma simples cópia numa janela de terminal é tudo o que é necessário: </para>
+  <screen
+><userinput
+><command
+>cp</command
+> <option
+>-a</option
+> <filename
+>/media/.../101CANON/</filename
+> <filename
+>~/Imagens/2012/exemplo</filename>
+  </userinput
+></screen>
+  <para
+>Depois, tanto poderá iniciar o &kphotoalbum; ou executar a opção <menuchoice
+><guimenu
+>Manutenção</guimenu
+><guimenuitem
+>Pesquisar por Imagens e Vídeos</guimenuitem
+></menuchoice
+>. Deverão ser encontradas agora as imagens novas e está na altura de marcar inicialmente as imagens. No exemplo dado, o fotógrafo normalmente indica primeiro o local onde foi tirada a foto. (Seleccionando a opção <literal
+>Pasta</literal
+> e indo para a pasta nova, poderá ir a <literal
+>Miniaturas</literal
+>, seleccioná-las a todas e <guimenu
+>Anotar Vários Itens de uma Vez</guimenu
+> ou <keycombo action="simul"
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>. Indique o local correcto, como por exemplo, Finlândia-Helsínquia (veja <xref linkend="sec-member-groups-in-property-editor"/>). </para>
+
+  <para
+>Agora que as imagens novas são fáceis de encontrar, é possível fazer a classificação e remoção inicial. Para tal, poderá ir para a área de miniaturas e iniciar o Visualizador, carregando para tal em &Enter;. Será usada a classificação das imagens boas, bastando para tal carregar no número apropriado de <keycap
+>1</keycap
+> a <keycap
+>5</keycap
+>. O autor só pretende atribuir classificações entre 3 e 5 estrelas, pelo que carrega em <keycombo action="simul"
+>&Ctrl;<keycap
+>Del</keycap
+></keycombo
+> para apagar as más fotografias. Nessa altura, também já será possível adicionar os nomes das pessoas, caso exista alguém em destaque na fotografia. Assim que se terminar a primeira ronda, poder-se-á sair do Visualizador com a tecla &Esc; e seleccionar a opção <literal
+>Apagar o ficheiro do disco</literal
+> para se ver livre das imagens más de vez. </para>
+
+  <para
+>Depois, serão seleccionadas apenas as imagens que tiverem classificação suficientemente alta, usando a função de pesquisa. Naturalmente, o Local deverá estar definido se a pesquisa for iniciada com o <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+>. Contudo, se a pesquisa for invocada a partir da janela principal, a selecção actual será aprofundada até à correspondência mais exacta. De qualquer, no ponto actual, é possível percorrer as imagens melhor classificadas de novo, se ainda refinar mais a classificação. P.ex., se tiver 5 fotografias semelhantes de uma espécie de Pardal, normalmente reduz-se a a classificação das imagens mais fracas e aumenta-se a classificação da melhor ou melhores. Poderá fazer a comparação das imagens se seleccionar as que deseja comparar e iniciar o Visualizador. A remoção de imagens da selecção do Visualizador poderá ser feita com a tecla <keycap
+>Delete</keycap
+>. Esta apenas desactiva a visualização da imagem actual, enquanto no Visualizador não se poderá remover ou apagar nada. Isto permite comparar as 2 ou 3 melhores imagens entre si, mudando entre elas com as teclas <keycap
+>PgUp</keycap
+> e <keycap
+>PgDn</keycap
+>. Normalmente, pode-se usar uma categoria <literal
+>tmp</literal
+> para marcar &eg; caranguejos e camarões, para que seja possível mostrar apenas o tipo de imagens seleccionado durante as últimas fases de selecção e identificação.</para>
+
+  <para
+>Depois de ficar apenas com um número reduzido de imagens, será iniciada a sua marcação. Foi adicionado o nome em Latim para as espécies e o nome comum. Sempre que tiver estas duas categorias completas, considera-se a imagem como Pronta e será retirada da configuração Não Marcada. Lembre-se que, se precisar à mesma de marcar após a revelação das imagens RAW (e auto-empilhá-las), terá de seleccionar o topo da pilha recolhida (ou todas as imagens na pilha expandida) e seleccionar <emphasis
+>Anotar Vários Itens de uma Vez</emphasis
+> para que toda a pilha fique anotada, em vez de apenas a imagem do topo.</para>
+
+  <para
+>As melhores imagens são enviadas para aplicações externas para serem reveladas. Com as imagens desejadas seleccionadas, carregue com o botão direito sobre a miniatura seleccionada e escolha a opção <menuchoice
+><guimenuitem
+>Invocar um Programa Externo</guimenuitem
+><guimenuitem
+>Todas as Imagens Seleccionadas</guimenuitem
+><guimenuitem
+>Enviar para o Bibble5</guimenuitem
+></menuchoice
+>. A aplicação seleccionada é de facto um programa do autor que detecta se existe um ficheiro RAW para as imagens já reveladas disponível e usa-o, se possível. Dentro da aplicação externa, é possível efectuar alguns ajustes e recortes, se necessário, colocando os JPEG's revelados a seguir ao ficheiro RAW original. A nomenclatura do ficheiro é relativamente simples, mudando a extensão ou adicionando números e sublinhados, se necessário. </para>
+
+  <para
+>Agora que existe uma grande quantidade de JPEG's novos nas pastas das imagens, iremos deixar que o &kphotoalbum; procure por imagens novas, empilhando as novas no topo do RAW original (<xref linkend="fig-options-file-versions"/>). Depois, faça uma ronda final onde poderá seleccionar as imagens reveladas e adicionar algumas descrições, se necessário.</para>
+
+  <para
+>O passo final é gerar páginas &HTML; estáticas e enviá-las para o servidor Web, para que os amigos e colegas desfrutem delas. Isso será feito com as pilhas recolhidas, para escolher apenas as imagens reveladas para a página Web. A geração do &HTML; está descrita em <xref linkend="chp-generating-html"/>.</para>
+  </sect1>
+
+  <sect1 id="pano-workflow">
+  <title
+>Fluxo de criação de panoramas</title>
+  <para
+>Os panoramas necessitam de um fluxo de trabalho ligeiramente diferente da edição normal de fotografias. Isto deve-se ao facto de usarem vários ficheiros de origem. A ferramenta de escolha dos panoramas é o Autopano Pro, mas a última versão do &digikam; também deverá funcionar bem, custando um valor nulo. A seguinte lista descreve os passos necessários: <orderedlist>
+  <listitem
+><para
+>Marque as fotografias que pertencem a um panorama no &kphotoalbum; da forma apropriada. Isto é feito principalmente para evitar a eliminação de imagens por acaso, ao escolher o lixo no meio das fotografias tiradas. Poderá também querer usar isto para empilhar o conjunto de imagens originais nesta altura.</para
+></listitem>
+  <listitem
+><para
+>Terá pelo menos duas opções simples para o passo seguinte: <orderedlist>
+  <listitem
+><para
+>Poderá deixar que o Autopano Pro descubra os panoramas automaticamente na pasta de fotografias. </para
+></listitem>
+  <listitem
+><para
+>Ou enviar as imagens adequadas para o Autopano Pro na linha de comandos para acelerar as coisas. Isto é útil se a pasta de imagens tiver diversas imagens diferentes, especialmente imagens RAW. Isto obriga a corrigir o programa que inicia o Autopano Pro para aceitar dados de entrada e para criar um ficheiro 'desktop' ou ainda invocar programas externos com uma linha de comandos própria.</para
+></listitem>
+  </orderedlist>
+  </para
+></listitem>
+  <listitem
+><para
+>Se ocorrer que falte um pequeno pedaço do panorama, poderá tentar ajeitá-lo p.ex. com o Gimp. O Gimp funciona normalmente bastante bem se existir bastante "estrutura" para clonar, mas não existe qualquer garantia de que obtenha resultados úteis.</para
+></listitem>
+  <listitem
+><para
+>Grave a imagem nova em qualquer ponto próximo da pasta de imagens do &kphotoalbum; e corra a opção <menuchoice
+><guimenu
+>Manutenção</guimenu
+><guimenuitem
+>Sondar de Novo as Imagens e Vídeos</guimenuitem
+></menuchoice
+>. Esta deverá detectar o novo panorama e incluí-lo na galeria de imagens. </para
+></listitem>
+  <listitem
+><para
+>Se tiver activado o Empilhamento Automático das imagens novas e se o nome do novo panorama corresponder às regras deste, o panorama deverá ficar no topo da pilha. Caso contrário ordene as imagens pela data, para que o novo panorama termine nas imagens de origem e as empilhe manualmente. (O Autopano Pro parece gravar os dados de EXIF da primeira imagem no panorama.)</para
+></listitem>
+  <listitem
+><para
+>Poderá à mesma adicionar marcações nesta altura ao panorama ou poderá incluir todas as imagens de origem com a combinação <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>.</para
+></listitem>
+  </orderedlist>
+  </para>
+</sect1>
+</chapter>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

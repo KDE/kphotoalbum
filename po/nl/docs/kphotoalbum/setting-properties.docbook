@@ -1,0 +1,214 @@
+<chapter id="chp-typingIn">
+  <title
+>Annoteren van uw afbeeldingen</title>
+  <para
+>In <xref linkend="fig-empty-browser-window"/> kunt u een voorbeeld van het venster zien dat u begroet wanneer u &kphotoalbum; hebt gestart met uw eigen afbeeldingen.</para>
+
+  <para
+>Aan de bovenkant van het scherm vindt u een menubalk en een werkbalk zoals u die kent elke van andere &kde;-programma's. Onder de werkbalk ziet u het overzichtvenster. In het overzichtvenster kunt u verschillende categorieën selecteren om het aantal foto's te beperken die u wilt inspecteren. In <xref linkend="chp-browsing"/> gaan we terug naar het overzichtvenster, maar voor dit moment, druk op de knop <guibutton
+>Miniaturen tonen</guibutton
+> zodat u voor elke foto een miniatuurvoorbeeld ziet.</para>
+
+  <figure id="fig-empty-browser-window">
+    <title
+>&kphotoalbum; opstarten met uw eigen afbeeldingen</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="empty-browser-window.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+    <para
+>De hoofdfunctie van &kphotoalbum; is dat u uw afbeeldingen van annotaties kunt voorzien. Dit omvat wie er op een gegeven afbeelding is te zien, waar deze is genomen, &etc; U kunt dat doen ofwel voor één afbeelding tegelijk of een aantal afbeeldingen tegelijk (Bijvoorbeeld alle afbeeldingen die de persoon <emphasis
+>Jesper</emphasis
+> bevatten en in <emphasis
+>Kopenhagen</emphasis
+> zijn genomen.)</para>
+
+    <para
+>Om een afbeelding van een annotatie te voorzien, selecteert u de desbetreffende afbeeldingen en gaat u vervolgens naar <menuchoice
+><guimenu
+>Bewerken</guimenu
+> <guisubmenu
+>Individuele items annoteren</guisubmenu
+></menuchoice
+>. Vervolgens kunt u de geselecteerde afbeeldingen achter elkaar annoteren. Als u in plaats daarvan <guimenuitem
+>Meerdere items tegelijk annoteren</guimenuitem
+> selecteert, dan kunt u alle geselecteerde items tegelijk annoteren alsof het een enkel item is. Met andere woorden, met deze keuzemogelijkheid kunt u uw afbeeldingen en masse annoteren - b.v. al deze afbeeldingen zijn gemaakt in Kopenhagen. Deze twee keuzemogelijkheden zijn ook beschikbaar via het contextmenu, dat beschikbaar als u met de &RMB; klikt op het overzichtvenster of de sneltoets gebruikt. Een voorbeeld hiervan is te zien in <xref linkend="fig-edit-properies-menu"/>.</para>
+
+    <figure id="fig-edit-properies-menu">
+      <title
+>Contextmenu voor het bewerken van eigenschappen</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="edit-properies-menu.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para
+>In <xref linkend="fig-image-config-window"/> hieronder kunt u het dialoogvenster zien voor het annoteren van de foto's en video's. In dit dialoogvenster kunt u de datum van het maken van het item, de titel van het item <footnote
+><para
+>De titel is bij het begin ingevuld met de bestandsnaam. De browser gebruikt de titel en wanneer u de afbeeldingen exporteert naar &HTML;-pagina's</para
+></footnote
+>, een omschrijving van het item en als belangrijkste de verschillende <emphasis
+>categorieën</emphasis
+> van het item. In de schermafdruk zijn dit de categorieën <literal
+>Mensen</literal
+>, <literal
+>Plaatsen</literal
+> en <literal
+>Trefwoorden</literal
+>, maar zoals u kunt lezen in <xref linkend="sec-specifying-categories"/>, kunt u deze drie vooringestelde categorieën wijzigen naar uw voorkeur. </para>
+
+    <figure id="fig-image-config-window">
+      <title
+>Afbeeldingen en video's van annotatie voorzien</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="image-config-window.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para
+>Al deze annotaties kunt u gebruiken bij het doorzoeken en bladeren, zoals u kunt lezen in <xref linkend="chp-browsing"/>. Op verzoek kunt u deze annotaties zien tijdens het bekijken van de items op de ingebouwde viewer.</para>
+
+
+
+
+    <sect1 id="sect-specifying-options">
+      <title
+>Categorieën</title>
+      <para
+>In <xref linkend="fig-image-config-window"/> zijn drie keuzelijsten gecombineerd met invoervakken voor het opgegeven van mensen, plaatsen en trefwoorden. Dit widget is een belangrijk onderdeel van &kphotoalbum;, omdat u hem veel gebruikt bij het invoeren van informatie over uw afbeeldingen.</para>
+
+      <para
+>U kunt een eigenschap bepalen via een keuzelijst, eenvoudig door selecteren (selecteer bijvoorbeeld <literal
+>Donna</literal
+> om aan te geven dat Donna op de gegeven foto voorbeeld voor komt. Als alternatief kunt u de naam typen in het invoervak. Onmiddellijk wanneer u begint met typen, start &kphotoalbum; met zoeken in de keuzelijst en zoekt naar het eerste item dat overeenkomt met wat u tot dusver hebt ingevoerd en vult dit aan. Het typen van <literal
+>Do</literal
+> kan dus voldoende zijn om <literal
+>Donna</literal
+> te vinden. Op het moment dat u het item heeft gevonden, hoeft u alleen maar op &Enter; te drukken om dit item in de keuzelijst te selecteren. Het item zal nu bovenaan de lijst worden geplaatst en is daarom de volgende keer nog makkelijker te vinden. Er ook een "naadloze" manier van annoteren in het afbeeeldingsvenster, de beschrijving hiervan vindt u later in <xref linkend="category-selectors-in-viewer"/>.</para>
+
+      <para
+>Het idee achter het verplaatsen van items naar de top wanneer ze geselecteerd zijn is dat, wanneer u bijvoorbeeld naar een familiefeestje bent gegaan, u misschien 50 afbeeldingen heeft met allemaal dezelfde 5-10 mensen erop. Tijdens het invoeren van de informatie over deze 50 afbeeldingen heeft u de 5-10 mensen bovenaan de keuzelijst staan vanaf het moment dat u voor de eerste keer hun naam hebt ingevoerd.</para>
+
+     <para
+>Als u de voorkeur geeft aan, in plaats daarvan, de lijst alfabetisch te sorteren, druk gewoon op het pictogram voor sorteren onder het vak met de lijst.</para>
+    </sect1>
+
+
+    <sect1 id="sect-specifying-properties-for-one-image-at-a-time">
+      <title
+>Één item tegelijk van een annotatie voorzien</title>
+      <para
+>Als u de eigenschappen van één foto tegelijk invoert, dan kunt natuurlijk nog steeds een aantal foto's tegelijk selecteren, en zeggen, <emphasis
+>ik wil deze foto's annoteren</emphasis
+>. Voor dit geval vindt u de knoppen volgende en vorige onder de foto in de rechterbovenhoek. </para>
+    </sect1>
+
+    <sect1 id="sect-specifying-properties-for-all-images-simultaneously">
+      <title
+>Meerdere items tegelijk van een annotatie voorzien</title>
+      <para
+>Als u meerdere foto's heeft met bijvoorbeeld dezelfde persoon dan kan het handiger zijn om al deze foto's te selecteren en in te voeren dat deze persoon op al deze foto's voorkomt door gebruik van <emphasis
+>Meerdere items tegelijk van een annotatie voorzien</emphasis
+>.</para>
+      <para
+>Als u een stapel foto's wilt annoteren dan kunt u dit ook doen als de stapel is ingeklapt. U hoeft dan alleen de bovenste foto van de stapel te selecteren om de hele stapel foto's te annoteren. (Als u een enkele foto annoteert dan krijgt alleen de geselecteerde foto, in dit geval de bovenste, een annotatie) Het uitklappen van de stapel en alle foto's selecteren werkt natuurlijk ook.</para>
+
+    </sect1>
+
+
+<sect1 id="sec-member-groups-in-property-editor">
+<title
+>Subcategorieën</title>
+  <para
+>Las Vegas, San Francisco, Los Angeles en California bevinden zich allen in de USA. Verder bevinden San Francisco en Los Angeles zich in California.</para>
+
+<para
+>In plaats van voor iedere foto van San Francisco op te geven dat deze is genomen in San Francisco in California en in de VS, wilt u misschien &kphotoalbum; zo instellen dat San Francisco en Los Angeles zich in Californië bevinden en dat Californië samen met anderen zich in de VS bevinden. Nadat u dit heeft gedaan toont de browser (zie <xref linkend="chp-browsing"/>) u een item voor de VS en daarin een item voor Californië naast al uw normale items. Als u Californië selecteert dan ziet u alle foto's van San Francisco, Los Angeles, &etc;</para>
+
+<para
+>In <xref linkend="fig-usa-as-a-member"/> kunt u een browservenster zien met de VS als een supercategorie. Om aan te geven dat dit een groep is, is een speciaal pictogram gebruikt.</para>
+
+<figure id="fig-usa-as-a-member">
+<title
+>Browser met VS als supercategorie</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="usa-as-a-member.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Met het contextmenu van de annotatiedialoog is het mogelijk om een item aan een bestaand of een nieuwe supercategorie of een subcategorie toe te voegen. Daarnaast kunt u eenvoudig een item verslepen naar een categorie zodat het een subcategorie van dat item wordt. LET OP: om dit te laten werken is het nodig dat op dat moment uw categorieën alfabetisch gesorteerd zijn. Zie <xref linkend="fig-membergroup-config"/>.</para>
+
+<figure id="fig-membergroup-config">
+<title
+>De annotatiedialoog met de categorieën in alfabetische volgorde</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="member-group-setting.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+</sect1>
+
+
+
+
+
+
+  <sect1 id="sect-changing-layout-of-the-property-window">
+    <title
+>Het aanpassen van de indeling van de annotatiedialoog</title>
+    <para
+>Het is mogelijk om de items in de annotatiedialoog te verplaatsen, Klik op de balk aan de bovenkant van het frame en sleep het rond - u kunt zelfs een frame zelfstandig op topniveau plaatsen.</para>
+
+    <para
+>Op het moment dat u een indeling heeft gevonden die voldoet voor uw scherm en uw gebruik van &kphotoalbum;, &etc; klikt u op de knop <guibutton
+>Opties...</guibutton
+>, waarna een pop-up-menu opent waarmee u de huidige vensterindeling kunt opslaan.</para>
+
+    <para
+>U kunt er ook voor kiezen om een frame te verbergen of een frame in te schakelen dat standaard niet zichtbaar is. U kunt altijd teruggaan naar de beginsituatie door via de knop <guibutton
+>Opties...</guibutton
+> de opdracht <guimenuitem
+>Indeling terugzetten</guimenuitem
+> uit het pop-up-menu te selecteren. Dit kunt u zien in <xref linkend="fig-redisplay-frames"/>.</para>
+
+
+  <figure id="fig-redisplay-frames">
+    <title
+>Eerder verborgen vensters tonen.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="redisplay-frames.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

@@ -1,0 +1,181 @@
+<chapter id="chp-browsing">
+  <title
+>Navigazione</title>
+  <para
+>Una volta che hai annotate le tue immagini e i tuoi filmati, &kphotoalbum; è pronto a farti navigare tra le tue immagini, vedi <xref linkend="fig-browser-with-images"/>. Se confronti con <xref linkend="fig-empty-browser-window"/> , vedrai che adesso ci sono elementi disponibili in ciascuna delle categorie di <literal
+>Persone</literal
+>, <literal
+>Luoghi</literal
+>, e <literal
+>Parole chiave</literal
+>.</para>
+  
+  <figure id="fig-browser-with-images">
+    <title
+>Browser quando le immagini e i filmati sono stati annotati</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-with-images.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>Nella finestra di navigazione puoi vedere le categorie in cui hai inserito informazioni quando hai annotato le immagini e i filmati. Inoltre, ci sono elementi per la ricerca in base alle informazioni EXIF delle immagini, per navigare la struttura delle cartelle del disco fisso, e ovviamente per mostrare le miniature vere e proprie. Descriviamo un elemento alla volta.</para
+> 
+  
+  <para
+>Facendo clic su <literal
+>Persone</literal
+>, la finestra di navigazione cambierà, come puoi vedere in <xref linkend="fig-browser-for-persons"/>.</para>
+  
+  <figure id="fig-browser-for-persons">
+    <title
+>Finestra di navigazione quando è stato scelto Persone.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-persons.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>Il browser è stato ora riempito delle persone che hai specificato per le tue immagini<footnote
+><para
+>Potresti notare come l'elemento <literal
+>Animali</literal
+> ha un'icona speciale. Per maggiori dettagli, vedi <xref linkend="sec-specifying-categories"/>.</para
+></footnote
+>, selezionare una persona ti riporterà allo stato originario del browser, come abbiamo visto in <xref linkend="fig-browser-with-images"/>; questa volta, però, siamo <emphasis
+>nell'ambito</emphasis
+> della persona che abbiamo scelto. Ciò significa che vengono mostrate solo informazioni riguardo a immagini e filmati contenenti quella persona. Vedi <xref linkend="fig-browser-for-jesper"/> sotto, che è il risultato di aver selezionato la persona <literal
+>Jesper</literal
+>, puoi vederne un'indicazione nel fondo della finestra. Per piacere confronta <xref linkend="fig-browser-with-images"/> con <xref linkend="fig-browser-for-jesper"/>, dove vedrai che il numero di immagini e filmati disponibili è sceso da 25 a 12, e anche la quantità di elementi per le diverse categorie è cambiata.</para>
+  
+  <figure id="fig-browser-for-jesper">
+    <title
+>Browser limitato all'ambito della persona <literal
+>Jesper</literal
+></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-jesper.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>Se adesso procediamo a selezionare una nuova persona, otterremo le immagini che contengono entrambe le persone. Continuando in questo modo puoi restringere l'insieme di immagini a cui stai pensando a qualche immagine da un insieme di migliaia.</para>
+  
+  <para
+>Quando hai finito di limitare l'ambito delle immagini, puoi selezionare l'icona <guilabel
+>Visualizza miniature</guilabel
+>, per vedere esattamente le immagini che corrispondono al tuo ambito attuale.</para>
+
+
+
+
+
+
+
+
+  <sect1 id="sect-adding-preview-images-to-the-browser">
+  <title
+>Aggiungere immagini d'anteprima al browser</title>
+  <para
+>Guardando <xref linkend="fig-browser-for-persons"/> noterai come ogni persona abbia la stessa icona davanti al suo nome. &kphotoalbum; è anche in grado di mostrare un'immagine di anteprima per ciascuna persona<footnote
+><para
+>Questo ovviamente si applica anche a luoghi, parole chiave e altre categorie che avrai definito da solo.</para
+></footnote
+> come si può vedere in <xref linkend="fig-imagesForPersons"/>.</para>
+
+  <figure id="fig-imagesForPersons">
+    <title
+>Immagini per ogni singola persona</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="imagesForPersons.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Per mostrare le immagini assieme ai nomi, scegli il pulsante in fondo a destra della barra degli strumenti, che farà apparire un menu a scomparsa, dal quale potrai scegliere quale vista usare per la categoria in questione. Nota che le viste devono essere configurate per ogni categoria; in questo modo puoi, per esempio, usare una vista a icone per le persone, ma una semplice vista a elenco per le parole chiave (nel caso che non riuscissi a trovare delle buone immagini per le tue parole chiave).</para
+>  
+
+
+<para
+>È comunque compito tuo dire quali immagini usare per ogni persona. Per farlo, devi aprire il visore (vedi <xref linkend="chp-viewer"/>), e dal menu contestuale scegli <guimenuitem
+>Mostra l'editor delle categorie</guimenuitem
+>; questo farà apparire l'editor di categorie, che può essere visto in <xref linkend="fig-categoryEditor"/>. Nell'editor di categorie puoi scegliere l'immagine per la persona. Nel visore è possibile ingrandire parte dell'immagine, e in quel modo ritagliare la parte che dovrebbe essere mostrata.</para>
+
+
+  <figure id="fig-categoryEditor">
+    <title
+>Editor di categorie</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="categoryEditor.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+
+
+
+
+
+
+
+
+
+  
+  <sect1 id="sect-general-image-searches">
+    <title
+>Ricerche generali di immagini</title>
+    <para
+>Se scegli l'elemento <guilabel
+>Cerca</guilabel
+> nel browser, otterrai una finestra di dialogo molto simile a quella che hai usato per impostare le proprietà delle tue immagini. Puoi vedere questo dialogo in<xref linkend="fig-search"/> sotto.</para>
+    
+    <figure id="fig-search">
+      <title
+>Finestra di dialogo di ricerca</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="search.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para
+>Se scrivi una stringa nel campo etichetta o descrizione, quel testo sarà cercato usando una ricerca con sottostringhe. Allo stesso modo puoi anche specificare una data da cercare, sia parte di una data, diciamo 1971, sia una completa. Puoi anche specificare intervalli di date, come1971-1980.</para>
+    
+    <para
+>L'elemento opzioni permette di scrivere un'espressione in forma rudimentale, come puoi vederne un esempio nel<xref linkend="fig-search"/>. Qui cerchiamo immagini con <literal
+>Jesper</literal
+>, ma senza <literal
+>Anne Helene</literal
+>.</para>
+    
+    <para
+>Le operazioni permesse sono &amp; («e» logico), | («o» logico), e ! («no» logico).</para>
+    
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

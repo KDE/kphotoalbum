@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-03 00:44+0000\n"
+"POT-Creation-Date: 2022-10-04 00:42+0000\n"
 "PO-Revision-Date: 2022-02-15 21:10+0000\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian\n"
@@ -1026,17 +1026,17 @@ msgid ""
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:643
+#: DateBar/DateBarWidget.cpp:645
 #, kde-format
 msgid "Show Ranges"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:649
+#: DateBar/DateBarWidget.cpp:651
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:774
+#: DateBar/DateBarWidget.cpp:776
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1045,7 +1045,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: DateBar/DateBarWidget.cpp:775
+#: DateBar/DateBarWidget.cpp:777
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1056,7 +1056,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: DateBar/DateBarWidget.cpp:776
+#: DateBar/DateBarWidget.cpp:778
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1065,7 +1065,7 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: DateBar/DateBarWidget.cpp:778
+#: DateBar/DateBarWidget.cpp:780
 #, fuzzy, kde-format
 #| msgid "1 image"
 #| msgid_plural "%1 images"
@@ -1076,7 +1076,7 @@ msgstr[0] "1 imagine"
 msgstr[1] "%1 imagini"
 msgstr[2] "%1 de imagini"
 
-#: DateBar/DateBarWidget.cpp:780
+#: DateBar/DateBarWidget.cpp:782
 #, fuzzy, kde-format
 #| msgid "%1 | %2"
 msgctxt ""
@@ -1275,32 +1275,32 @@ msgstr ""
 msgid "Following files could not be read:"
 msgstr "Următoarele fișiere nu au putut fi citite:"
 
-#: Exif/InfoDialog.cpp:32
+#: Exif/InfoDialog.cpp:33
 #, fuzzy, kde-format
 #| msgid "EXIF Information"
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
 msgstr "Informație EXIF"
 
-#: Exif/InfoDialog.cpp:72
+#: Exif/InfoDialog.cpp:73
 #, kde-format
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
 msgstr ""
 
-#: Exif/InfoDialog.cpp:76
+#: Exif/InfoDialog.cpp:77
 #, kde-format
 msgid "IPTC character set:"
 msgstr ""
 
-#: Exif/InfoDialog.cpp:94
+#: Exif/InfoDialog.cpp:95
 #, fuzzy, kde-format
 #| msgid "Exif Info"
 msgid "Exif info"
 msgstr "Informație EXIF"
 
-#: Exif/InfoDialog.cpp:95
+#: Exif/InfoDialog.cpp:96
 #, fuzzy, kde-format
 #| msgid "Videos"
 msgid "File metadata"
@@ -4038,7 +4038,7 @@ msgstr ""
 msgid "Video thumbnails are not available"
 msgstr "Înregistrări"
 
-#: Map/GeoCluster.cpp:137
+#: Map/GeoCluster.cpp:141
 #, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
@@ -5727,7 +5727,7 @@ msgstr ""
 msgid "[ zoom x%1 ]"
 msgstr "[ zoom x%1 ]"
 
-#: Viewer/InfoBox.cpp:61
+#: Viewer/InfoBox.cpp:59
 #, kde-format
 msgid "Show the geographic position of this image on a map"
 msgstr ""
@@ -5737,17 +5737,17 @@ msgstr ""
 msgid "Error playing media"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:28 Viewer/QtAVDisplay.cpp:41
+#: Viewer/QtAVDisplay.cpp:31 Viewer/QtAVDisplay.cpp:44
 #, kde-format
 msgid "Failed to set up video playback"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:28
+#: Viewer/QtAVDisplay.cpp:31
 #, kde-format
 msgid "Failed to set up video playback (renderer wasn't created)"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:41
+#: Viewer/QtAVDisplay.cpp:44
 #, kde-format
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""

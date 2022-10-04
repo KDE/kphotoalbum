@@ -1,0 +1,156 @@
+<chapter id="chp-importExport">
+  <title
+>Importazione/esportazione</title>
+  <para
+>Se partecipi a una festa di famiglia, un incontro di lavoro, una conferenza, o qualsiasi altro evento dove potrebbero essere presenti altri utenti di &kphotoalbum;, potresti voler condividere le tue immagini con queste persone. Potresti ovviamente scegliere di generare pagine &HTML; da fargli sfogliare, ma dato che hai già speso del tempo per classificare tutte le immagini (chi c'è sulle immagini, dove sono state scattate, ecc.), non c'è motivo che loro rifacciano tutto quel lavoro.</para>
+
+    <para
+>&kphotoalbum; ti permette di esportare un insieme di tue immagini in un file <literal role="extension"
+>.kim</literal
+>, che altre persone possono importare nella loro banca dati, per avere la tua classificazione delle immagini.</para>
+
+    <para
+>Ci sono due tipi diversi di file <literal role="extension"
+>.kim</literal
+>, interni ed esterni, a seconda che le immagini stesse siano nel file o in qualche altro posto. Posizionare le immagini nel file ha l'ovvio vantaggio che il file è autonomo, mentre ha l'altrettanto ovvio svantaggio che il file è piuttosto grande.</para>
+
+    <para
+>Ci sono due posti da cui puoi generare un file <literal role="extension"
+>.kim</literal
+>, cioè direttamente da <menuchoice
+><guimenu
+>File</guimenu
+> <guimenuitem
+>Esporta...</guimenuitem
+></menuchoice
+>, o insieme con le pagine &HTML; (vedi <xref linkend="chp-generating-html"/>). Creare un file <literal role="extension"
+>.kim</literal
+> durante l'esportazione &HTML; creerà un file <literal role="extension"
+>.kim</literal
+> esterno.</para>
+
+    <para
+>I file <literal role="extension"
+>.kim</literal
+> esterni cercheranno le immagini in uno o due modi. Prima cercheranno le immagini a fianco del file <literal role="extension"
+>.kim</literal
+>, e, se non le trovano, cercheranno all'URL specificato quando il file <literal role="extension"
+>.kim</literal
+> è stato creato. Nota che l'ultima opzione è possibile solo per i file <literal role="extension"
+>.kim</literal
+> creati durante un'esportazione &HTML;.</para>
+    
+    <sect1 id="chp-exportDialog">
+      <title
+>Finestra di esportazione</title>
+      <para
+>Questa sezione ti dirà della finestra di esportazione che raggiungi da <menuchoice
+><guimenu
+>File</guimenu
+><guimenuitem
+>Esporta...</guimenuitem
+></menuchoice
+>.</para>
+
+      <para
+>La parte più importante di questa finestra è specificare se il file <literal role="extension"
+>.kim</literal
+> debba essere interno o esterno (vedi la descrizione sopra). Hai le seguenti tre opzioni: <itemizedlist>
+          <listitem
+><para
+>Includi nel file <literal role="extension"
+>.kim</literal
+> - questo sarà un file interno</para
+></listitem>
+          <listitem
+><para
+>Copia manualmente di fianco al file <literal role="extension"
+>.kim</literal
+> - qui devi copiare da te le immagini di fianco al file <literal role="extension"
+>.kim</literal
+></para
+></listitem>
+          <listitem
+><para
+>Copia automaticamente di fianco al file <literal role="extension"
+>.kim</literal
+> - qui &kphotoalbum; copierà le immagini al posto tuo.</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+>Detto tra noi, i file <literal role="extension"
+>.kim</literal
+> sono in realtà solo dei file zip. Normalmente non vale la pena di disturbarsi a comprimere le immagini che sono già compresse con JPEG, e il file XML di per sé è veramente piccolo. Se vuoi veramente spremere gli ultimi byte, puoi ancora farlo, segnando <guilabel
+>Comprimi il file esportato</guilabel
+></para>
+
+      <para
+>L'ultima opzione sulla pagina è <guilabel
+>Limita la dimensione massima delle immagini</guilabel
+>. Quando invii delle immagini a degli amici, potresti non volerle inviare in dimensione piena, perché il file <literal role="extension"
+>.kim</literal
+> potrebbe essere gigantesco. Per questo puoi specificare che la massima dimensione delle immagini dovrebbe essere, diciamo, al massimo 800 pixel in ogni direzione.</para>
+    </sect1>
+
+
+
+
+    
+<sect1 id="chp-importDialog">
+  <title
+>Finestra di importazione</title>
+<para
+>Quando selezioni un file <literal role="extension"
+>.kim</literal
+> da un browser Web, o scegli <menuchoice
+><guimenu
+>File</guimenu
+><guimenuitem
+>Importa...</guimenuitem
+></menuchoice
+>, &kphotoalbum; importerà la banca dati esportata con la funzionalità descritta nel<xref linkend="chp-importExport"/>.</para>
+
+<para
+>L'assistente di importazione consiste di quattro passi. Prima specifichi quali immagini vuoi importare. Poi devi specificare in quale cartella vuoi importare le immagini.</para>
+
+<para
+>Probabilmente chiamerai la categoria delle persone <emphasis
+>persone</emphasis
+> (se sei italiano), mentre io in danese chiamo questa categoria <emphasis
+>personer</emphasis
+>. Nel terzo passo della finestra di importazione, devi specificare quali categorie importare dal file, e a quali categorie corrispondono nella tua banca dati.</para>
+
+<para
+>Nelle mie banche dati io mi chiamo <emphasis
+>Io</emphasis
+>, mentre nella tua banca dati sono Jesper K. Pedersen. Il quarto passo ti permette di impostare le corrispondenze tra tutte le categorie importate. Ciò si può vedere nel<xref linkend="fig-import-dialog"/>.</para>
+
+<figure id="fig-import-dialog">
+<title
+>Persone corrispondenti nella finestra di importazione </title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="import-dialog.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Nella schermata puoi vedere che Donna è lo stesso sia nel file .kim che nella mia banca dati; il nome è mostrato in nero per indicare una corrispondenza perfetta. Gli altri tre nomi non sono stati trovati nella banca dati, sebbene sia Jesper che Anne Helene abbiano corrisposto a delle sottostringhe, quindi sono suggeriti. Infine nella mia banca dati non ho Spiff (o potrei averlo chiamato diversamente), quindi &kphotoalbum; semplicemente suggerisce Spiff come nome di importazione.</para>
+
+</sect1>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

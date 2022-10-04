@@ -1,0 +1,141 @@
+  <chapter id="chp-generating-html">
+    <title
+>Gerando &HTML;</title>
+    <para
+>O &kphotoalbum; oferece a possibilidade de gerar &HTML; a partir do seu álbum de fotografias. Você poderá encontrar esta opção no menu <menuchoice
+><guimenu
+>Arquivo</guimenu
+><guimenuitem
+>Gerar &HTML;</guimenuitem
+></menuchoice
+></para>
+    
+    <para
+>Antes das páginas em &HTML; serem geradas, você precisa de indicar algumas informações, repartidas nas três páginas <guilabel
+>Conteúdo</guilabel
+>, <guilabel
+>Disposição</guilabel
+> e <guilabel
+>Destino</guilabel
+>. A seção a seguir descreve cada página em detalhe.</para>
+
+    <sect1 id="the_content_page">
+      <title
+>A página de <guilabel
+>Conteúdo</guilabel
+></title>
+      <para
+>Na página de conteúdo, você indica quais as informações que deverão ser geradas para as páginas em &HTML;.</para>
+
+	<figure id="html-content">
+	<title
+>Configuração do conteúdo do gerador de HTML</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-content.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>Primeiro, você indica o título das páginas de visão geral, além de uma descrição gerada para estas. Se o tema que você selecionou suporta informações sobre direitos autorais, elas podem ser indicadas aqui. </para>
+
+      <para
+>A seguir, você poderá indicar se é gerado um arquivo de exportação do &kphotoalbum; e se é colocado na página geral. Veja o <xref linkend="chp-importExport"/> para mais detalhes sobre os arquivos de exportação. Você também poderá indicar se deseja incorporar os vídeos ou transferi-los separadamente.</para>
+
+      <para
+>Finalmente, você poderá indicar que informações deverão ser geradas nas páginas em &HTML;. Desta forma, você poderá ignorar a geração de informação que possa ser óbvia para o leitor das páginas (imagine que as imagens são da festa a que todos foram). Convém notar que o &kphotoalbum; não lhe permite atualmente excluir certas categorias do arquivo de exportação, por isso não confie nisto como uma forma de excluir dados que não queira que os leitores das suas páginas vejam.</para>
+    </sect1>
+
+    <sect1 id="the_layout_page">
+      <title
+>A página de <guilabel
+>Disposição</guilabel
+></title>
+      <para
+>Na página de disposição, você indica como as suas páginas em &HTML; deverão ficar. A maior parte das opções desta página são relativamente simples e você não irá precisar de mais descrições aqui. É mostrada uma rápida introdução de cada tema quando você o seleciona, para que possa ter alguma ideia de como ele se parece.</para>
+
+	<figure id="html-layout">
+	<title
+>Configuração do layout do gerador de HTML</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-layout.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>No fundo desta página é possível indicar várias resoluções para as imagens. Desta forma, as pessoas que vejam as suas páginas não são forçadas a transferir as imagens com grandes resoluções, como por exemplo 1600x1200, para vê-las num monitor que não dê mais do que 800x600.</para>
+      
+      <para
+>A qualquer momento os seus leitores poderão alterar a resolução, dentro das que você selecionou. Desta forma, eles poderão navegar pelas suas imagens com uma resolução baixa (e, deste modo, com um tempo mais rápido de transferência) e, quando quiserem ver uma imagem especialmente interessante, possam mudar para uma resolução alta.</para>
+    </sect1>
+
+    <sect1 id="the_destination_page">
+      <title
+>A página de <guilabel
+>Destino</guilabel
+></title>
+      <para
+>Na página de destino, você indica várias pastas e URLs que correspondem aos locais para onde vão as suas páginas.</para>
+
+      <para
+>A filosofia será que você indica uma pasta base para todos os itens gerados e para cada categoria de itens, indica uma nova subpasta.</para>
+
+	<figure id="html-destination">
+	<title
+>Configuração da destino do gerador de HTML</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-destination.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>Primeiro, você precisa indicar a pasta de base para todas as suas imagens. Esta pasta será recordada de sessão para sessão e permite-lhe indicar de uma vez por todas para onde todas as imagens subsequentes irão. Aqui você poderá indicar uma pasta ou qualquer <ulink url="help:/kioslave/index.html"
+>protocolo</ulink
+> suportado pelo &kde;. Os exemplos incluem: <itemizedlist>
+          <listitem
+><para
+>ftp://servidor/area-envio/imagens (enviar através de FTP)</para
+></listitem>
+          <listitem
+><para
+>fish://servidor/home/xpto/imagens (enviar por SSH)</para
+></listitem>
+          <listitem
+><para
+>smb://servidor/c/imagens (enviar para um compartilhamento Windows)</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+>Logo que tenha acabado de gerar as suas imagens, você poderá querer verificar se elas estão de fato disponíveis para a sua audiência. Se indicar uma URL no campo <guilabel
+>URL de Base</guilabel
+>, será aberto um navegador Web logo que as páginas &HTML; tenham sido geradas. A URL que indicar aqui deverá corresponder à pasta indicada acima. Deste modo, o navegador Web será aberto nas subpastas desta URL.</para>
+      
+      <para
+>Logo que tenha gerado as páginas em &HTML;, as suas páginas poderão ainda não estar no seu destino final, um vez que poderá necessitar de procedimentos especiais de envio fora do controle do &kphotoalbum;. Para a funcionalidade de Importação (ver em <xref linkend="chp-importExport"/>) funcionar, o usuário precisa de indicar o destino final das páginas. Mais uma vez, isto não inclui a subpasta dos itens gerados neste momento.</para>
+
+      <para
+>Os três campos de texto descritos acima são URLs e pastas de base. Nestas localizações, uma subpasta nova será criada com o nome que indicou na <guilabel
+>Pasta do Resultado</guilabel
+>.</para>
+    </sect1>
+
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

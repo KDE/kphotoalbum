@@ -1,0 +1,157 @@
+<!--
+SPDX-FileCopyrightText: 2004-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-importExport">
+  <title
+>Import och export</title>
+  <para
+>Om du deltar i en familjefest, ett företagsmöte, en konferens eller något annat evenemang där andra användare av Kfotoalbum kan vara närvarande, kanske du vill dela dina bilder med dem. Du kan förstås välja att skapa &HTML;-sidor som de kan bläddra bland, men med antagandet att du redan har gjort åt tid för att klassificera alla bilder (vem som finns på bilderna, var de togs, etc.), finns det ingen anledning att de ska göra om allt arbete.</para>
+
+    <para
+>Kfotoalbum låter dig exportera en uppsättning av dina bilder till en <literal role="extension"
+>.kim</literal
+>-fil, som andra personer kan importera till sin databas, för att få din klassificering av bilderna.</para>
+
+    <para
+>Det finns två olika sorters <literal role="extension"
+>.kim</literal
+>-filer, infogade eller externa, som anger om själva bilderna är infogade i filen eller finns på någon annan plats. Att infoga bilderna i filen har den uppenbara fördelen att filen innehåller allt, medan det har den lika uppenbara nackdelen att filen är ganska stor.</para>
+
+    <para
+>Det finns två ställen där du kan skapa en <literal role="extension"
+>.kim</literal
+>-fil, nämligen direkt från <menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Exportera...</guimenuitem
+></menuchoice
+>, eller tillsammans med &HTML;-sidor (se <xref linkend="chp-generating-html"/>). När en <literal role="extension"
+>.kim</literal
+>-fil skapas vid &HTML;-export är det en extern <literal role="extension"
+>.kim</literal
+>-fil.</para>
+
+    <para
+>Externa <literal role="extension"
+>.kim</literal
+>-filer söker efter bilder på ett av två sätt. Först tittar den efter bilderna tillsammans med <literal role="extension"
+>.kim</literal
+>-filen, och om de inte hittas söker den efter dem på den webbadress som angavs när <literal role="extension"
+>.kim</literal
+>-filen skapades vid HTML-export. Observera att det senare bara är möjligt för <literal role="extension"
+>.kim</literal
+>-filer som skapades under &HTML;-export.</para>
+    
+    <sect1 id="chp-exportDialog">
+      <title
+>Exportdialogruta</title>
+      <para
+>Det här avsnittet beskriver exportdialogrutan som du kommer till från <menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Exportera...</guimenuitem
+></menuchoice
+>.</para>
+
+      <para
+>Den viktigaste delen av dialogrutan är att ange om <literal role="extension"
+>.kim</literal
+>-filen ska ha infogade eller externa bilder (se beskrivningen ovan). Du har följande tre alternativ: <itemizedlist>
+          <listitem
+><para
+>Inkludera i <literal role="extension"
+>.kim</literal
+>-filen: Det här är en fil med infogade bilder</para
+></listitem>
+          <listitem
+><para
+>Kopiera manuellt intill .kim-fil: Här måste du kopiera bilderna själv intill .kim-filen.</para
+></listitem>
+          <listitem
+><para
+>Kopiera automatiskt intill .kim-fil: Här kopierar Kfotoalbum filerna åt dig.</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+>Bara mellan oss, <literal role="extension"
+>.kim</literal
+>-filer är egentligen bara zip-filer. Normalt är det inte värt att komprimera filerna eftersom bilder normalt redan är komprimerade JPEG-filer, och XML-filen själv är verkligt liten. Om du verkligen vill trycka ihop de sista fåtal tecknen, kan du fortfarande göra det, genom att markera <guilabel
+>Komprimera exporterad fil</guilabel
+>.</para>
+
+      <para
+>Det sista alternativet på sidan är <guilabel
+>Begränsa maximala dimensioner till:</guilabel
+>. När du skickar vissa bilder till dina vänner, kanske du inte vill skicka bilder med full storlek, eftersom <literal role="extension"
+>.kim</literal
+>-filen kan vara enorm. Därför kan du ange att bildernas maximala dimension ska vara kanske 800 bildpunkter i varje riktning.</para>
+    </sect1>
+
+
+
+
+    
+<sect1 id="chp-importDialog">
+  <title
+>Importdialogruta</title>
+<para
+>När du väljer en <literal role="extension"
+>.kim</literal
+>-fil i en webbläsare, eller väljer <menuchoice
+><guimenu
+>Arkiv</guimenu
+> <guimenuitem
+>Importera...</guimenuitem
+></menuchoice
+>, importerar Kfotoalbum databasen som exporterats med funktionen som beskrivs i <xref linkend="chp-importExport"/>.</para>
+
+<para
+>Importguiden består av fyra steg. Först måste du ange vilka bilder du vill importera. Därefter måste du ange i vilken katalog de importerade bilderna ska placeras.</para>
+
+<para
+>Det är möjligt att du kallar personkategorin <emphasis
+>personen</emphasis
+> (om du är tysk), medan jag kallar kategorin <emphasis
+>personer</emphasis
+> på svenska. I det tredje steget i importdialogrutan måste du ange vilka kategorier från importfilen som ska importeras, samt vilka kategorier de motsvarar i din databas.</para>
+
+<para
+>Jag kanske kallar mig själv för <emphasis
+>jag</emphasis
+> i min databas, medan jag kallas Jesper K. Pedersen i din databas. Steg fyra låter dig ange motsvarigheter för var och en av de importerade kategorierna. Det visas i <xref linkend="fig-import-dialog"/>.</para>
+
+<figure id="fig-import-dialog">
+<title
+>Matcha personer i importdialogrutan </title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="import-dialog.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>På skärmbilden ser du att Donna är samma i både .kim-filen och i min databas. Namnet visas med svart för att ange en perfekt motsvarighet i databasen. De andra tre namnen hittades inte i databasen, även om både Jesper och Anne Helene hittades som delsträngar, så de föreslås. Till sist, hade jag inte Spiff i min databas (eller så angav jag ett helt annat namn), så Kfotoalbum föreslår helt enkelt Spiff som importnamn.</para>
+
+</sect1>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

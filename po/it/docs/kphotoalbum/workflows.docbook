@@ -1,0 +1,180 @@
+<chapter id="work-flow">
+  <title
+>Le procedure con &kphotoalbum;</title>
+  <para
+>Le procedure sono un aspetto importante della fotografia digitale. In questo capitolo descriviamo diverse procedure che si adattano a diverse esigenze. Ci sono molti diversi fattori che vanno considerati nello sviluppo di una procedura. Speriamo che questi esempi potranno darti abbastanza idee su come regolare il tuo modo di lavorare con le immagini digitali.</para>
+
+  <sect1 id="raw-workflow">
+  <title
+>Procedura RAW con &kphotoalbum; e Bibble5/AfterShot Pro</title>
+  <para
+>Quando si scattano immagini RAW, i file della fotocamera vanno convertiti in formati più riconoscibili come JPEG o TIFF. Ci sono alcune possibilità tra cui scegliere quando si lavora su Linux. A tal file, per esempio, RawTherapee e Ufraw sono delle alternative libere, mentre Bibble5/AfterShot Pro sono applicazioni commerciali.</para>
+
+  <para
+>Alcune impostazioni sono raccomandate per una procedura RAW. La prima è abilitare l'uso delle miniature incorporate. Questo accelererà sensibilmente il lavoro al confronto della decodifica di ogni file RAW ogni volta che viene visualizzato (controlla anche la configurazione della dimensione minima per assicurare una qualità accettabile). La seconda è l'impilamento automatico da parte del rilevatore di nuove immagini delle versioni convertite dal file RAW (l'immagine convertita deve essere nella stessa cartella dell'originale). Questo richiede espressioni regolari come descritte nel<xref linkend="opt-search-new"/>. Due script di supporto sono acclusi al codice sorgente di &kphotoalbum; per supportare la procedura RAW. Questi sono <filename
+>open-raw.desktop</filename
+> e <filename
+>open-raw.pl</filename
+>. Il primo permette alle applicazioni grafiche di aprire i file RAW con lo script <filename
+>open-raw.pl</filename
+>, che cerca di trovare il file RAW originale e aprire quello invece dell'immagine convertita. </para>
+
+  <figure id="fig-raw-workflow">
+    <title
+>Inviare immagini a un editor RAW</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="raw-external.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>Il primo passo di una procedura reale è copiare le immagini dalla fotocamera al computer. Una semplice copia da una finestra di terminale è tutto il necessario: </para>
+  <screen
+><userinput
+><command
+>cp</command
+> <option
+>-a</option
+> <filename
+>/media/.../101CANON/</filename
+> <filename
+>~/Immagini/2012/campione</filename>
+  </userinput
+></screen>
+  <para
+>Quindi, avvia &kphotoalbum; o esegui <menuchoice
+><guimenu
+>Manutenzione</guimenu
+><guimenuitem
+>Scansiona di nuovo le immagini e i filmati</guimenuitem
+></menuchoice
+>. Le nuove immagini dovrebbero essere rilevate, e ora è il momento di fare una prima etichettatura delle immagini. Siccome di solito scatto fotografie quando sono in viaggio, inserisco per prima cosa il luogo. Seleziona <guilabel
+>Cartella</guilabel
+> e vai alla nuova cartella; vai quindi alle <guilabel
+>Mostra miniature</guilabel
+>, seleziona tutto e <guilabel
+>Annota più elementi alla volta</guilabel
+> o <keycombo action="simul"
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>; inserisci quindi il luogo, come Norvegia-Trondheim (vedi <xref linkend="sec-member-groups-in-property-editor"/>). </para>
+
+  <para
+>Adesso che le nuove immagini sono facili da trovare, effettuo una cernita iniziale. Per farlo vado nella vista delle miniature e avvio il visore premendo &Enter;. Uso le valutazioni per le immagini buone, premendo il tasto appropriato da <keycap
+>1</keycap
+> a <keycap
+>5</keycap
+>. Io dò solo voti da 3 a 5 e premo <keycombo action="simul"
+>&Ctrl;<keycap
+>Canc</keycap
+></keycombo
+> per eliminare le foto non buone. A questo punto posso anche aggiungere i nomi delle persone, se per esempio qualcuno si sta tuffando in una foto. Una volta che questa prima operazione è fatta, esco dal visore premendo &Esc; e seleziono <guimenuitem
+>Elimina il file dal disco</guimenuitem
+> per eliminare per sempre le immagini non buone. </para>
+
+  <para
+>Quindi seleziono solo le immagini con una valutazione abbastanza alta con la funzione di ricerca. Naturalmente il luogo va impostato se la ricerca comincia per <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+>. Tuttavia, se la ricerca viene avviata dalla finestra principale, la selezione attuale viene filtrata per ottenerne una più precisa. Comunque, a questo punto ripasso le immagini con le valutazioni migliori, affinandone la valutazione. Per esempio, se ho cinque diverse foto di una specie di nudibranchi, di solito riduco la valutazione delle immagini meno riuscite e potrei aumentare quella della migliore. Le immagini si possono confrontare selezionando quelle che vuoi confrontare e avviando il visore. Le immagini si possono rimuovere dalla selezione del visore con il testo <keycap
+>Canc</keycap
+>; nulla viene rimosso o eliminato. Questo permette di confrontare due o tre buone immmagini fianco a fianco, passando da una all'altra con <keycap
+>Pag↑</keycap
+> e <keycap
+>Pag↓</keycap
+>. Molto spesso uso una categoria <userinput
+>temp</userinput
+> per indicare per esempio granchi e gamberi, per poter vedere facilmente solo il tipo di immagini selezionate nelle fasi successive di selezione e identificazione.</para>
+
+  <para
+>Quando rimane un numero ridotto di immagini, inizio ad etichettarle. Aggiungo il nome della specie in Latino e il nome volgare. Quando ho completato queste categorie considero l'immagine completata e rimuovo l'indicazione di immagine senza etichette. Nota che se devi ancora etichettare dopo aver sviluppato (e impilato autoaticamentem) l'immagine RAW, devi selezionare la cima della pila contratta (o tutte le immagini della pila espansa) e selezionare <guilabel
+>Annota più elementi alla volta</guilabel
+> per annotare tutta la pila invece di solo l'immagine in cima.</para>
+
+  <para
+>Le migliori immagini vengono inviate a un'applicazione esterna per la conversione. Selezionate le immagini desiderate, fai clic con il &RMB; sulla miniatura selezionata e seleziona <menuchoice
+><guimenuitem
+>Chiama programma esterno</guimenuitem
+><guimenuitem
+>Tutte le immagini selezionate</guimenuitem
+><guimenuitem
+>Invia Bibble5</guimenuitem
+></menuchoice
+>. L'applicazione selezionata è in realtà il mio script che rileva la presenza di un file RAW per le immagini disponibili che possono essere già state convertite, e usa quello se possibile. Nell'applicazione esterna faccio un po' di regolazioni e ritagli se necessario, e quindi produco la JPEG sviluppata di fianco al file RAW originale. L'assegnazione dei nomi è abbastanza semplice, basta cambiare l'estensione o aggiungere un trattino basso e un numero di serie se necessario. </para>
+
+  <para
+>Adesso che ci sono un sacco di nuove JPEG nelle cartelle delle immagini, lascio che &kphotoalbum; cerchi le nuove immagini e impili automaticamente le nuove sopra le RAW originali (<xref linkend="fig-options-file-versions"/>). È quindi necessaria un'ultima serie di selezione con le immagini convertite, aggiungendo delle descrizioni se opportuno.</para>
+
+  <para
+>L'ultimo passo è generare delle pagine &HTML; statiche e caricarle sul mio server Web per farle vedere ad amici e colleghi. Questo è quello che io faccio con le pile contratte per mettere solo le immagini sviluppate sulla pagina Web. La generazione dell'&HTML; è descritta nel<xref linkend="chp-generating-html"/>.</para>
+  </sect1>
+
+  <sect1 id="pano-workflow">
+  <title
+>Procedura per panorami</title>
+  <para
+>I panorami richiedono una procedura un po' diversa dalla normale modifica delle immagini. Questo perché sono richiesti diversi file di partenza. Lo strumento migliore per i panorami è Autopano Pro, ma l'ultima versione di &digikam; dovrebbe andare bene e non costa nulla. L'elenco seguente descrive i passi richiesti: <orderedlist>
+  <listitem
+><para
+>Etichetta correttamente le foto che compongono un panorama in &kphotoalbum;. Questo va fatto soprattutto per evitare di eliminare le immagini per sbaglio quando si tolgono le immagini non buone da tutte quelle scattate. A questo punto probabilmente vorrai anche impilare la serie di immagini sorgente.</para
+></listitem>
+  <listitem
+><para
+>Hai almeno due semplici alternative per il prossimo passo: <orderedlist>
+  <listitem
+><para
+>Puoi far trovare i panorami automaticamente ad Autopano Pro dalla cartella delle foto; </para
+></listitem>
+  <listitem
+><para
+>o puoi mandare le immagini giuste ad Autopano Pro sulla riga di comando per accelerare il procedimento. Questo è comodo se la cartella contiene molte immagini, soprattutto se sono RAW. Questo richiede di correggere lo script che avvia Autopano Pro per accettare dell'input e creare un file desktop, o richiamare un programma esterno con la sua riga di comando.</para
+></listitem>
+  </orderedlist>
+  </para
+></listitem>
+  <listitem
+><para
+>Se sembra che al panorama risultante manchi una parte, puoi provare ad aggiungerla con per esempio Gimp. Gimp funziona molto bene se c'è abbastanza <quote
+>struttura</quote
+> da clonare, ma non c'è garanzia che otterrai dei risultati accettabili.</para
+></listitem>
+  <listitem
+><para
+>Salva l'immagine da qualche parte nella cartella delle immagini di &kphotoalbum; ed esegui <menuchoice
+><guimenu
+>Manutenzione</guimenu
+><guimenuitem
+>Scansiona di nuovo le immagini e i filmati</guimenuitem
+></menuchoice
+>. Questo dovrebbe far rilevare il nuovo panorama e includerlo nella galleria delle immagini. </para
+></listitem>
+  <listitem
+><para
+>Se hai impostato correttamente l'impilamento automatico delle nuove immagini e il nome del nuovo panorama corrisponde alle regole giuste, il panorama dovrebbe essere in cima alla pila. Altrimenti, ordina le immagini per data, in modo che il nuovo panorama sia presso le immagini sorgente, e impilale a mano (sembra che Autopano Pro scriva le informazioni EXIF della prima immagine del panorama).</para
+></listitem>
+  <listitem
+><para
+>A questo punto puoi ancora aggiungere delle etichette al panorama, o potresti includere tutte le immagini sorgente con <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>.</para
+></listitem>
+  </orderedlist>
+  </para>
+</sect1>
+</chapter>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

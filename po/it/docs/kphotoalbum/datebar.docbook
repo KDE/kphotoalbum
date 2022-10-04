@@ -1,0 +1,51 @@
+<chapter id="chp-datebar">
+  <title
+>La barra della data</title>
+
+<para
+>In fondo alla finestra principale di &kphotoalbum; troverai la barra della data (vedi <xref linkend="fig-datebar"/>). Come indica il nome, mostra le statistiche della data delle immagini nella tua banca dati.</para>
+
+<figure id="fig-datebar">
+<title
+>La barra della data</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Le singole barre indicano quante immagini sono nel periodo dato. Nell'immagine sopra puoi vedere che ho 261 immagini da gennaio 2005. Le barre codificano due informazioni, cioè quante immagini hanno una data esatta nel periodo dato, e quante hanno una sovrapposizione. Un'immagine che ha una data che dice 2005 conterà quindi come sovrapposizione per tutti i mesi del 2005, mentre un'immagine del 24 gennaio 2005 conterà come data esatta per gennaio 2005. Le corrispondenze esatte sono visualizzate in verde, mentre le sovrapposizioni sono visualizzate in giallo. Perciò, per dicembre 2004 ho 86 immagini nel conto delle esatte, e 61 nel conto delle sovrapposizioni (leggo i conti facendo passare il mouse sull'intervallo, perché ciò visualizza i conti nella barra di stato).</para>
+
+<para
+>La barra della data ti offre un numero di diverse granularità, in cui ogni barra visualizza un diverso intervallo di tempo. Gli intervalli sono anni, mesi, settimane, giorni, ore e 10 minuti. <xref linkend="fig-datebar-for-minutes"/> ti mostra parte della mia banca dati dove ogni barra mostra solo 10 minuti.</para>
+
+<figure id="fig-datebar-for-minutes">
+<title
+>La barra della data che mostra intervalli di 10 minuti</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar-for-minutes.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>La barra della data è interattiva in due modi: puoi navigare la vista delle miniature dalla banca dati, e selezionare una data scorrerà la vista delle miniature in modo che sia visualizzata la prima immagine a partire da quella data. Inoltre, puoi navigare nella vista delle miniature, e la barra della data sarà aggiornata per visualizzare la data delle immagini attualmente visualizzate.</para>
+
+<para
+>Puoi anche trascinare un intervallo nella barra della data. Lo fai premendo e trascinando il mouse nella parte del righello della barra della data, cioè sulle date/ore. Quando selezioni un intervallo, la vista delle miniature visualizzerà solo immagini da quell'intervallo. Puoi annullare una selezione premendo il pulsante Annulla sul lato sinistro della barra della data.</para>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

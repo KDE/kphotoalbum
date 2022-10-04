@@ -1,0 +1,106 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="introduction">
+  <title
+>Introducció</title>
+  <para
+>Si sou com jo, tindreu milers d'imatges des que vau aconseguir la vostra primera càmera, algunes preses amb una càmera normal, les altres amb una càmera digital. Al llarg de tots aquests anys creia que seria capaç de recordar la història al darrere de cada fotografia fins a l'eternitat, que seria capaç de recordar els noms de totes les persones a les meves imatges, i que seria capaç de recordar la data exacta de cada imatge. Em vaig adonar que ja no era possible, i especialment per a les meves imatges digitals -també per a les meves imatges de paper- que necessitava una eina que m'ajudés a descriure-les, i cercar a la pila d'imatges. Això és exactament el que tracta de fer el &kphotoalbum;.</para>
+  
+  
+  <para
+>El &kphotoalbum; se centra en tres punts clau: <itemizedlist>
+      <listitem
+><para
+>Hauria de ser fàcil anotar una sèrie d'imatges alhora. No hauria de prendre més que uns quants clics del ratolí per marcar totes les imatges de les vostres vacances a Itàlia, 1992. El &kphotoalbum; ofereix dues formes de descriure les imatges: <guilabel
+>una cada vegada</guilabel
+>, el qual és útil per escriure text sobre les imatges, i <guilabel
+>totes alhora</guilabel
+>, el qual és útil per a seleccionar una sèrie d'imatges i establir les propietats com la ubicació, la gent que hi surt i la data de la imatge.</para
+></listitem>
+      
+      <listitem
+><para
+>Hauria de ser fàcil cercar imatges. El &kphotoalbum; ofereix descriure les imatges amb una sèrie de propietats. Aquestes inclouen la data, la gent, els llocs, a més d'un camp de paraules clau que l'usuari pot utilitzar personalitzar, com <emphasis
+>Àlbum 7</emphasis
+> o <emphasis
+>Un viatge de vacances a Itàlia</emphasis
+>. Amb el &kphotoalbum; podreu cercar imatges en cadascuna de les categories: &pex;, trobar totes les imatges on surt en «Jesper» a les de vacances a Itàlia. Per descomptat, també és possible crear les vostres pròpies categories, en parlarem més endavant.</para
+></listitem
+> 
+      
+      <listitem
+><para
+>Hauria de ser fàcil navegar i veure les imatges. Quan les esteu veient, la vostra atenció canviarà sovint: un moment esteu cercant a les imatges de les vostres vacances el 1992, i en veure una imatge d'una amiga amb qui sortíeu durant les festes, la vostra atenció canviarà de sobte, de manera que voldreu veure totes les imatges on apareix.</para
+></listitem>
+    </itemizedlist
+></para>
+  
+  <!-- ====================================================================== -->
+  <sect1 id="sect-overview-of-manual">
+    <title
+>Resum del manual</title>
+    <para
+>En aquest manual us guiaré a través dels passos (1) anotar les vostres imatges, (2) navegar i visualitzar imatges, i (3) temes avançats i personalització.</para>
+
+<para
+>El &kphotoalbum; va començar com una aplicació per a gestionar les imatges, però des de llavors s'ha ampliat, i per això avui en dia també s'encarrega dels vídeos. En molts llocs d'aquest manual parlaré de les imatges, però sovint s'inclouran els vídeos.</para>
+  
+
+  </sect1>
+  
+  
+  <!-- ====================================================================== -->
+  <sect1 id="sec-organization-of-images-and-KPhotoAlbum-files">
+    <title
+>Organitzar les imatges i fitxers al &kphotoalbum;</title>
+    <para
+>El &kphotoalbum; utilitza totes les imatges d'un directori i tots els seus subdirectoris, la primera vegada que inicieu el &kphotoalbum;, us demanarà la ubicació d'aquest directori. El &kphotoalbum; no modificarà cap imatge, i per això no heu de tenir por que el &kphotoalbum; alteri les vostres imatges. <footnote
+><para
+>Hi ha dues excepcions amb aquesta regla (1) si demaneu al &kphotoalbum; que suprimeixi imatges individuals, des de <menuchoice
+><guimenu
+>Edita</guimenu
+><guimenuitem
+>Suprimeix les seleccionades</guimenuitem
+></menuchoice
+>, i (2) operacions dels connectors.</para
+></footnote
+>, si en realitat no us fieu del &kphotoalbum;, no dubteu a fer totes les vostres imatges protegides contra escriptura.</para>
+    
+    <para
+>El &kphotoalbum; desarà tota la seva informació al fitxer <filename
+>index.xml</filename
+> al directori d'imatge més alt. Aquest fitxer serà un simple fitxer XML, i per això en podreu fer una còpia de seguretat amb facilitat utilitzant les eines que preferiu, incloent-hi les utilitats de còpia de seguretat normals, copieu el fitxer en un disquet, o manteniu revisions utilitzant VCS. També hi ha un script de còpia de seguretat (<emphasis
+>kpa-backup.sh</emphasis
+>) que ve amb el codi font del &kphotoalbum; i no només copia els fitxers index.xml, també els fitxers de configuració dins del directori d'inici de l'usuari.</para>
+    
+    <para
+>El &kphotoalbum; recordarà on es troben les vostres imatges, i les tornarà a utilitzar. Si mai voleu carregar una altra base de dades (&ead;, un altre arbre de directoris d'imatges), llavors podeu iniciar-lo amb l'opció <option
+>-c</option
+>. Per exemple: «<userinput
+><command
+>kphotoalbum</command
+> <option
+>-c</option
+> <filename
+>~/ImatgesEmpresa/index.xml</filename
+></userinput
+>».</para>
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

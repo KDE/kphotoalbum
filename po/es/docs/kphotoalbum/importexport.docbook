@@ -1,0 +1,148 @@
+<chapter id="chp-importExport">
+  <title
+>Importar/Exportar</title>
+  <para
+>Si va a asistir a una fiesta familiar, reunión de empresa, conferencia u otro evento donde pueda haber más usuarios de &kphotoalbum;, usted puede querer compartir sus imágenes con ellos. Por supuesto, puede generar páginas &HTML; que puedan explorar, pero ya que ha pasado su tiempo clasificando las imágenes (quién sale en ellas, dónde fueron tomadas, etc.), no hay razón por la que ellos deban rehacer todo el trabajo.</para>
+
+    <para
+>&kphotoalbum; le permite exportar un conjunto de imágenes a un archivo <literal role="extension"
+>.kim</literal
+>, que otras personas pueden importar en su base de datos para obtener su clasificación de dichas imágenes.</para>
+
+    <para
+>Existen dos tipos de archivos <literal role="extension"
+>.kim</literal
+>, en línea o externos, según las imágenes estén incrustadas en el archivo o en otra ubicación. Empotrarlas en el archivo tiene la ventaja obvia de que es autosuficiente, pero cuenta con la también obvia desventaja de que el archivo será muy grande.</para>
+
+    <para
+>Puede generar el archivo <literal role="extension"
+>.kim</literal
+> desde dos sitios: directamente en <menuchoice
+><guimenu
+>Archivo</guimenu
+><guimenuitem
+>Exportar...</guimenuitem
+></menuchoice
+>, o con páginas &HTML; (véase <xref linkend="chp-generating-html"/>). Si crea un archivo <literal role="extension"
+>.kim</literal
+> durante la exportación a &HTML;, dicho archivo <literal role="extension"
+>.kim</literal
+> será externo.</para>
+
+    <para
+>En los archivos <literal role="extension"
+>.kim</literal
+> externos, las imágenes se buscan de dos maneras. Primero, se intentan buscar en la carpeta donde se encuentra el archivo <literal role="extension"
+>.kim</literal
+> y, si no se encuentran, en el URL facilitado cuando  se creó dicho archivo. Tenga en cuenta que esto último solo es posible con los archivos <literal role="extension"
+>.kim</literal
+> creados durante la exportación en &HTML;.</para>
+    
+    <sect1 id="chp-exportDialog">
+      <title
+>Diálogo de exportación</title>
+      <para
+>En esta sección se comenta el diálogo de exportación cargado desde el menú <menuchoice
+><guimenu
+>Archivo</guimenu
+> <guimenuitem
+>Exportar...</guimenuitem
+></menuchoice
+>.</para>
+
+      <para
+>El punto más importante de este diálogo es la especificación de si el archivo <literal role="extension"
+>.kim</literal
+> será interno o externo (ver descripción superior). Las opciones disponibles son: <itemizedlist>
+          <listitem
+><para
+>Incluir en el archivo <literal role="extension"
+>.kim</literal
+> - el archivo será interno</para
+></listitem>
+          <listitem
+><para
+>Copiar manualmente junto al archivo .kim - debe copiar las imágenes usted mismo junto al archivo .kim</para
+></listitem>
+          <listitem
+><para
+>Copiar automáticamente junto al archivo .kim - &kphotoalbum; copiará las imágenes por usted.</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+>Entre nosotros, los archivos <literal role="extension"
+>.kim</literal
+> son solo archivos comprimidos. Normalmente, no merece la pena comprimir los archivos porque las imágenes ya son JPEG comprimidos, y el XML en sí es muy pequeño. Si aun así quiere apurar hasta el último byte, puede hacerlo marcando <guilabel
+>Comprimir el archivo de exportación</guilabel
+></para>
+
+      <para
+>La última opción de la página es <guilabel
+>Limitar el tamaño de las imágenes</guilabel
+>. Cuando envíe imágenes a sus amigos, puede que no quiera que estén al tamaño completo porque el archivo <literal role="extension"
+>.kim</literal
+> sería muy grande. Por ello puede indicar, por ejemplo, que el tamaño máximo en cualquier dirección sea de 800 píxeles.</para>
+    </sect1>
+
+
+
+
+    
+<sect1 id="chp-importDialog">
+  <title
+>Diálogo de importación</title>
+<para
+>Cuando seleccione un archivo <literal role="extension"
+>.kim</literal
+> desde el explorador de archivo o con la opción <menuchoice
+><guimenu
+>Archivo</guimenu
+><guimenuitem
+>Importar...</guimenuitem
+></menuchoice
+>, &kphotoalbum; importará la base de datos antes exportada según el funcionamiento descrito en <xref linkend="chp-importExport"/>.</para>
+
+<para
+>El asistente de importación se compone de cuatro pasos. Primero, debe indicar qué imagenes desea importar, y a continuación la carpeta donde guardarlas.</para>
+
+<para
+>Es posible que, si usted fuese alemán, desease llamar a la categoría de personas <emphasis
+>personen</emphasis
+>, o que un danés la llamase <emphasis
+>personer</emphasis
+>. En el tercer paso del diálogo de importación debe especificar qué categorías del archivo desea importar, y con cuáles se corresponderán en su base de datos.</para>
+
+<para
+>En mi base de datos yo me autodenominaría <emphasis
+>yo</emphasis
+>, mientras que en la suya sería Jesper K. Pedersen. En el cuarto paso puede configurar las correspondencias de cada categoría importada, como se puede ver en <xref linkend="fig-import-dialog"/>.</para>
+
+<figure id="fig-import-dialog">
+<title
+>Relacionar personas del diálogo de importación </title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="import-dialog.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>En la captura, puede ver que Donna es la misma en el archivo .kim y en la base de datos -el nombre se muestra en negro para indicar una correspondencia perfecta. Los otros tres nombres no se encontraron en la base de datos, aunque tanto Jesper como Anne Helene se encontraron como subcadenas, por lo que se muestran como sugerencias. Finalmente, en mi base de datos no tengo a Spiff (o lo he llamado de una manera muy diferente), por lo que &kphotoalbum; solo sugiere Spiff como nombre a importar.</para>
+
+</sect1>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

@@ -1,0 +1,224 @@
+<!--
+SPDX-FileCopyrightText: 2003 Stephan Kulow <coolo@kde.org>
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 André Marcelo Alvarenga <alvarenga@kde.org>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-typingIn">
+  <title
+>Annoter vos photos</title>
+  <para
+>Dans <xref linkend="fig-empty-browser-window"/>, vous pouvez voir un exemple de fenêtre qui vous réjouira une fois que vous aurez démarré &kphotoalbum; avec vos propres photos.</para>
+
+  <para
+>En haut de l'écran, vous trouverez un menu et une barre d'outils, comme pour toute application &kde;. En dessous de la barre d'outils, vous voyez la fenêtre de navigation. Dans cette fenêtre, vous pouvez choisir entre différentes catégories pour restreindre les images à traiter. Dans <xref linkend="chp-browsing"/>, nous revenons vers le navigateur mais pour l'instant, appuyons simplement le menu <guibutton
+>Voir les aperçus</guibutton
+> qui vous montrera une vue avec vignettes de toutes vos photos.</para>
+
+  <figure id="fig-empty-browser-window">
+    <title
+>Lancement de &kphotoalbum; avec vos propres photos</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="empty-browser-window.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+    <para
+>La fonctionnalité clé de &kphotoalbum; est de vous permettre d'annoter vos photos. Cela permet de dire qui est sur une photo, où elle a été prise, &etc;. Vous pouvez le faire soit photo par photo ou vous pouvez annoter un certain nombre de photos simultanément (Par exemple, toutes ces photos concernent la personne <emphasis
+>Jesper</emphasis
+> et ont été prises à <emphasis
+>Copenhague</emphasis
+>).</para>
+
+    <para
+>Pour annoter des photos, les sélectionner et aller dans <menuchoice
+><guimenu
+>Éditer</guimenu
+> <guisubmenu
+>Annoter des photos une à une</guisubmenu
+></menuchoice
+>. Maintenant, vous annotez les images sélectionnées les unes après les autres. Si vous choisissez à la place <guimenuitem
+>Annoter de plusieurs photos en même temps</guimenuitem
+>, vous allez annoter tous les éléments sélectionnés de la même façon qu'une unique photo. Entre d'autres termes, cette option vous permettra d'annoter en masse vos photos, par exemple, en disant que toutes ces photos ont été prises à Copenhague. Ces deux options sont aussi disponibles dans le menu contextuel que vous obtenez en faisant un clic de souris dans l'icône d'aperçu de la photo ou par un raccourci clavier. Un exemple de ce mode de fonctionnement est donné dans <xref linkend="fig-edit-properies-menu"/>.</para>
+
+    <figure id="fig-edit-properies-menu">
+      <title
+>Menu contextuel pour éditer les propriétés</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="edit-properies-menu.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para
+>Dans <xref linkend="fig-image-config-window"/> ci-dessous, vous pouvez voir la fenêtre pour annoter les photos et les vidéos. Dans cette fenêtre, vous pouvez spécifier la date ou le label de l'élément<footnote
+><para
+>. Le label est inséré dans le nom du fichier. Le label est utilisé dans le navigateur et quand les photos sont exportées vers des pages &HTML;</para
+></footnote
+>. Une description et les plus importantes <emphasis
+>catégories</emphasis
+> de l'élément sont présentées. Dans la copie d'écran, ces catégories sont <literal
+>Personnes</literal
+>, <literal
+>Endroits</literal
+> et <literal
+>Mots clés</literal
+>. Mais comme vous pouvez le voir dans <xref linkend="sec-specifying-categories"/>, ces trois catégories prédéfinies peuvent être modifiées à votre convenance. </para>
+
+    <figure id="fig-image-config-window">
+      <title
+>Annoter des photos et des vidéos.</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="image-config-window.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para
+>Toutes ces annotations peuvent être utilisées pour rechercher et naviguer comme nous pouvons le voir dans <xref linkend="chp-browsing"/>. A la demande, vous pouvez voir ces annotations en affichant les éléments dans l'afficheur intégré.</para>
+
+
+
+
+    <sect1 id="sect-specifying-options">
+      <title
+>Catégories</title>
+      <para
+>Dans <xref linkend="fig-image-config-window"/>, il y a trois boîtes avec liste de choix, combinées avec des lignes d'édition pour spécifier les personnes, les endroits et les mots clés. Ces composants graphiques sont une part importante de &kphotoalbum;, puisque vous allez les utiliser encore et encore quand vous insérerez des informations à propos de vos photos.</para>
+
+      <para
+>Vous pouvez spécifier une propriété à partir de la liste de choix, simplement en cliquant dessus. Sélectionner <literal
+>Donna</literal
+> pour spécifier que Donna est sur une photo donnée. Alternativement, vous pouvez saisir son nom dans la ligne d'édition. Quand vous commencez à saisir un nom dans la ligne d'édition, &kphotoalbum; va parcourir la liste de choix et va rechercher le premier élément correspondant à ce que vous avez tapé précédemment et va le compléter. Ainsi, saisir <literal
+>Do</literal
+> peut être suffisant pour trouver <literal
+>Donna</literal
+>. Une fois que vous avez trouvé l'élément que vous recherchiez, saisissez sur &Enter; pour sélectionner l'élément dans la liste de choix. L'élément sera maintenant déplacé vers le haut de la vue, pour que vous puissiez le retrouver plus facilement la prochaine fois que vous aurez besoin. Il y a aussi une façon sans pour l'annotation à partir de l'afficheur d'images qui est décrit plus tard sur la page <xref linkend="category-selectors-in-viewer"/>.</para>
+
+      <para
+>La mise en tête des éléments que vous avez sélectionnés facilite le traitement de masse. Par exemple, avec une fête de famille, vous aurez peut être 50 photos, toutes avec les 5 à 10 mêmes personnes. En saisissant des informations pour ces 50 photos, vous aurez les mêmes 5 à 10 mêmes personnes en haut de la liste de choix, dès la première fois où vous les avez insérées.</para>
+
+     <para
+>Si vous préférez avoir la liste de choix ordonnée dans l'ordre alphabétique, simplement cliquer sur l'icône de tri sous la liste de choix.</para>
+    </sect1>
+
+
+    <sect1 id="sect-specifying-properties-for-one-image-at-a-time">
+      <title
+>Annoter un élément à la fois</title>
+      <para
+>Quand vous spécifiez des propriétés pour une photo à la fois, vous pouvez ensuite sélectionner un certain nombre de photos et dire <emphasis
+>Je veux annoter ces photos</emphasis
+>. Dans ce cas, vous trouverez un bouton suivant et précédent sous les photos dans le coin supérieur droit. </para>
+    </sect1>
+
+    <sect1 id="sect-specifying-properties-for-all-images-simultaneously">
+      <title
+>Annoter des éléments multiples en une fois</title>
+      <para
+>Si vous avez plusieurs photos avec, par exemple, la même personne, alors il pourrait être plus simple de sélectionner ces photos et de spécifier que cette personne est sur toutes les photos en utilisant <emphasis
+>Annoter de Multiple Items en une fois</emphasis
+>.</para>
+      <para
+>Si vous voulez annoter une pile de photos, vous pouvez le faire quand la pile est dépliée.Vous avez uniquement besoin de sélectionner l'image sur le dessus de la pile et annoter les photos multiples. Si vous annotez une unique photo, uniquement la photo sélectionnée, la première photo de la pile dans ce cas sera annotée. Bien sûr, déplier la pile et sélectionner toutes les images permettent de faire la même chose.</para>
+
+    </sect1>
+
+
+<sect1 id="sec-member-groups-in-property-editor">
+<title
+>Sous-catégories</title>
+  <para
+>Las Vegas, San Francisco, Los Angeles et Californie sont relatifs aux USA. De plus, San Francisco et Los Angeles sont relatifs à la Californie.</para>
+
+<para
+>Au lieu de spécifier pour chaque photo prise à San Francisco, ce qui donne San Francisco, en Californie, aux USA, vous pouvez à la place, dire à &kphotoalbum; que San Francisco et Los Angeles sont en Californie et que la Californie est aux USA. En faisant cela, l'afficheur (voir <xref linkend="chp-browsing"/>) vous fournira un élément pour USA et un élément pour Californie en plus de tous les autres élément. En sélectionnant Californie, vous allez voir les photos de San Francisco, Los Angeles, etc.</para>
+
+<para
+>Dans <xref linkend="fig-usa-as-a-member"/>, vous pourrez voir une fenêtre de navigation contenant USA comme une macro catégorie. Une icône spéciale vous indique qu'il s'agit d'un groupe.</para>
+
+<figure id="fig-usa-as-a-member">
+<title
+>Navigateur montrant USA comme une macro catégorie</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="usa-as-a-member.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Dans le menu contextuel associé à l'annotation, il est possible d'ajouter un élément à une catégorie existante, à une nouvelle macro catégorie ou à une sous-catégorie. De plus, vous pouvez simplement faire glisser un élément vers une catégorie pour en faire une sous-catégorie de cet élément. Notez que cela implique que vous ayez trié à ce moment vos catégories par ordre alphabétique. Voir <xref linkend="fig-membergroup-config"/>.</para>
+
+<figure id="fig-membergroup-config">
+<title
+>Catégories affichées en ordre alphabétique dans la boîte de dialogue d'annotation</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="member-group-setting.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+</sect1>
+
+
+
+
+
+
+  <sect1 id="sect-changing-layout-of-the-property-window">
+    <title
+>Changer le format de la boîte de dialogue d'annotation</title>
+    <para
+>Il est possible de déplacer les éléments de la boîte de dialogue d'annotation, simplement à partir de la barre en haut des cadres en les déplaçant - vous pouvez même fabriquer votre cadre dans la fenêtre de plus haut niveau.</para>
+
+    <para
+>Une fois que vous avez trouvé une disposition qui correspond au format de votre écran, à votre utilisation de &kphotoalbum;, appuyer simplement sur le bouton <guibutton
+>Options...</guibutton
+> qui affichera une fenêtre contextuelle vous permettant de sauvegarder la disposition de la fenêtre.</para>
+
+    <para
+>Vous pouvez aussi choisir de cacher un cadre ou en activer certains qui ne sont pas visibles par défaut. Vous pouvez toujours revenir à la disposition initiale en choisissant le bouton <guibutton
+>Options...</guibutton
+> puis en sélectionnant le menu<guimenuitem
+>Réinitialiser la disposition</guimenuitem
+> dans le menu contextuel. Voir <xref linkend="fig-redisplay-frames"/>.</para>
+
+
+  <figure id="fig-redisplay-frames">
+    <title
+>Affichage des fenêtres précédemment cachées.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="redisplay-frames.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

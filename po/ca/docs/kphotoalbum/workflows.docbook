@@ -1,0 +1,180 @@
+<!--
+SPDX-FileCopyrightText: 2012 André Marcelo Alvarenga <alvarenga@kde.org>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="work-flow">
+  <title
+>Fluxos de treball amb el &kphotoalbum;</title>
+  <para
+>El flux de treball és un aspecte força important en les imatges digitals. En aquest capítol descriurem els diferents fluxos de treball que s'ajusten a diferents necessitats. Hi ha molts factors diferents que s'han de considerar en el desenvolupament d'un flux de treball. Esperem que aquests exemples us proporcionin prou idees sobre com afinar el vostre propi mètode de treball amb les imatges digitals.</para>
+
+  <sect1 id="raw-workflow">
+  <title
+>Flux de treball RAW utilitzant el &kphotoalbum; i Bibble5/AfterShot Pro</title>
+  <para
+>Quan es prenen imatges RAW, els fitxers de la càmera s'han de desenvolupar a un format comunament reconegut com a JPEG o TIFF. Hi ha diverses opcions per triar a l'hora de treballar sota Linux. Per exemple RAWTherapee i UFRaw són alternatives de codi obert, mentre que Bibble5/AfterShot Pro són aplicacions comercials per a aquesta finalitat.</para>
+
+  <para
+>Recomanen unes quantes opcions de configuració per a un flux de treball RAW. En primer lloc permetre l'ús de la imatge incrustada. Això donarà un gran impuls de velocitat sobre la descodificació de cada fitxer RAW, cada vegada que es visualitza (comproveu també la configuració de la dimensió mínima per assegurar una qualitat decent). En segon lloc, és perquè el cercador d'imatges noves apili automàticament les versions desenvolupades sobre el fitxer RAW (la imatge desenvolupada haurà d'estar al mateix directori que l'original). Això requereix expressions regulars com es descriu a la <xref linkend="opt-search-new"/>. Es proporcionen dos scripts d'ajuda amb el codi font del &kphotoalbum; per ajudar en el flux de treball RAW. Aquestes són open-raw.desktop i open-raw.pl. El primer permet a les aplicacions IGU obrir els fitxers RAW i el segon intenta trobar el fitxer RAW original i l'obre, en comptes de la imatge desenvolupada. </para>
+
+  <figure id="fig-raw-workflow">
+    <title
+>Enviar imatges a un editor RAW</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="raw-external.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>El primer pas en un flux de treball real consisteix a copiar les imatges des de la càmera a l'ordinador. Una simple còpia des d'una finestra de terminal és tot el que es necessita: </para>
+  <screen
+><userinput
+><command
+>cp</command
+> <option
+>-a</option
+> <filename
+>/media/.../101CANON/</filename
+> <filename
+>~/Imatges/2012/mostra</filename>
+  </userinput
+></screen>
+  <para
+>Després, inicieu el &kphotoalbum; o executeu <menuchoice
+><guimenu
+>Manteniment</guimenu
+><guimenuitem
+>Torna a explorar les imatges i vídeos</guimenuitem
+></menuchoice
+>. Es trobaran les imatges noves i ara és hora de realitzar un primer etiquetatge de les imatges. Normalment, quan fotografio mentre viatjo, primer insereixo el lloc. Seleccioneu <guilabel
+>Carpeta</guilabel
+> i cerqueu el nou directori. A continuació, aneu a <guilabel
+>Mostra les miniatures</guilabel
+>, seleccioneu-ho tot i <guimenu
+>Anota múltiples elements a la vegada</guimenu
+> o <keycombo action="simul"
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>. Introduïu el lloc que li correspon com Finland-Helsinki (vegeu la <xref linkend="sec-member-groups-in-property-editor"/>). </para>
+
+  <para
+>Ara que les noves imatges són fàcils de trobar, faig una classificació i eliminació inicial. Ho faré a la vista de miniatures i iniciaré el visualitzador prement &Intro;. Utilitzo la valoració per a les imatges bones, només cal prémer el número corresponent de l'<keycap
+>1</keycap
+> al <keycap
+>5</keycap
+>. Només dono 3-5 valoracions i premo <keycombo action="simul"
+>&Ctrl;<keycap
+>Supr</keycap
+></keycombo
+> per a les fotografies dolentes i per eliminar-les. En aquest punt, també podeu afegir els noms de les persones, si no, passaria a ser un bus a la foto. Una vegada es realitza la primera volta, surto del visualitzador prement &Esc; i selecciono <guimenuitem
+>Suprimeix x fitxers del disc</guimenuitem
+> per eliminar per sempre les imatges dolentes. </para>
+
+  <para
+>Després selecciono només les imatges que tenen una valoració prou alta utilitzant la característica de cerca. Naturalment, s'ha d'establir el lloc si la cerca s'inicia amb <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+>. No obstant això, si s'invoca la cerca des de la finestra principal, la selecció actual s'aprofundeix per obtenir una coincidència més precisa. De totes maneres, en aquest punt vaig de nou a les imatges millor valorades, refinant sobre la valoració. Per exemple, si tinc 5 fotografies similars d'una espècie Nudibranch, en general disminueixo la valoració de les imatges més dolentes i podria incrementar les més bones. Comparar les imatges es pot fer seleccionant les que voleu comparar i iniciar el visualitzador. L'esborrat de les imatges des del visualitzador es pot fer amb la tecla <keycap
+>Supr</keycap
+>. Això només s'inhabilita en la visualització de la imatge actual, mentre que en el visualitzador no s'esborra o elimina res. Això permet la comparació de 2 o 3 bones imatges, una al costat de l'altra, movent-nos entre elles amb les tecles <keysym
+>Re Pàg</keysym
+> i <keysym
+>Av Pàg</keysym
+>. Molt sovint, utilitzo una categoria <literal
+>tmp</literal
+> per marcar, &pex;, els crancs i gambes, per ser capaç de mostrar amb facilitat els tipus seleccionats d'imatges durant les últimes fases de selecció i identificació.</para>
+
+  <para
+>Després d'una quantitat reduïda d'imatges, començo a etiquetar-les. Afegeixo el nom en llatí de l'espècie i el nom comú. Cada vegada que tinc completades aquestes dues categories, considero la imatge feta i obtinc la graella del marcatge sense etiquetar. Tingueu en compte que si encara heu de fer l'etiquetatge després de desenvolupar (i apilar automàticament) la imatge RAW, haureu de seleccionar la part superior de la pila plegada (o totes les imatges a la pila desplegada) i seleccionar <emphasis
+>Anota múltiples elements a la vegada</emphasis
+> per obtenir l'anotació de la totalitat de la pila, en lloc de només la imatge superior.</para>
+
+  <para
+>Les imatges bones s'envien a l'aplicació externa per al desenvolupament. Amb les imatges desitjades seleccionades, feu clic dret sobre la miniatura seleccionada i seleccioneu <menuchoice
+><guimenuitem
+>Invoca un programa extern</guimenuitem
+><guimenuitem
+>Tots els elements seleccionats</guimenuitem
+><guimenuitem
+>Envia a Bibble5</guimenuitem
+></menuchoice
+>. L'aplicació seleccionada és en realitat el meu script que detecta si hi ha un fitxer RAW per a les imatges disponibles possiblement ja desenvolupades i les utilitza si és possible. Dins de l'aplicació externa, faig una mica de posada a punt i escapçada si cal, i després la sortida dels JPEG desenvolupats al costat del fitxer RAW original. L'anomenat de fitxers és molt simple, només cal canviar l'extensió o afegir un guió baix i un número de sèrie si cal. </para>
+
+  <para
+>Ara que hi ha un munt de JPEG nous als directoris d'imatges, vaig deixar que el &kphotoalbum; cerqui per a noves imatges i apili de forma automàtica les noves a la part superior del RAW original (<xref linkend="fig-options-file-versions"/>). A continuació, una volta final de selecció amb les imatges desenvolupades i l'afegit d'algunes descripcions, si cal.</para>
+
+  <para
+>El pas final és la generació de pàgines &HTML; estàtiques i publicar-les al meu servidor web perquè els amics i col·legues en gaudeixin. Això ho faig amb les piles plegades per a només obtenir les imatges desenvolupades a la pàgina web. La generació &HTML; es descriu en el <xref linkend="chp-generating-html"/>.</para>
+  </sect1>
+
+  <sect1 id="pano-workflow">
+  <title
+>Flux de treball del panorama</title>
+  <para
+>Els panorames requereixen un flux de treball una mica diferent de l'edició normal de les fotografies. Això es deu a la necessitat de múltiples fitxers d'origen. L'eina d'elecció pels panorames és Autopano Pro, però l'última versió de &digikam; hauria d'anar bé i s'ajusta al pressupost zero. La següent llista descriu els passos necessaris: <orderedlist>
+  <listitem
+><para
+>Etiquetar correctament les fotografies que pertanyen a un panorama en el &kphotoalbum;. Això es fa principalment per evitar el descart d'imatges per accident, en ordenar les dolentes entre les fotografies preses. En aquest punt, és possible que també vulgueu apilar el conjunt d'imatges d'origen.</para
+></listitem>
+  <listitem
+><para
+>Pel proper pas almenys teniu dues opcions simples: <orderedlist>
+  <listitem
+><para
+>Podeu deixar que Autopano Pro trobi automàticament els panorames des del directori de fotografies. </para
+></listitem>
+  <listitem
+><para
+>O podeu enviar les imatges adequades a Autopano Pro a través de la línia d'ordres per accelerar les coses. Això és útil si el directori d'imatge conté una gran quantitat d'imatges, especialment RAW. Això requereix que corregiu l'script que inicia Autopano Pro per acceptar l'entrada i per crear un fitxer d'escriptori o invocar un programa extern amb la seva pròpia línia d'ordres.</para
+></listitem>
+  </orderedlist>
+  </para
+></listitem>
+  <listitem
+><para
+>Si succeeix que al panorama resultant hi falta una petita part, podeu enganxar-la manualment, &pex;, amb el Gimp. Gimp treballa generalment molt bé si hi ha prou «estructura» per ser clonades, però no hi ha absolutament cap garantia que obtindreu resultats útils.</para
+></listitem>
+  <listitem
+><para
+>Deseu la nova imatge en algun lloc en el directori d'imatge del &kphotoalbum; i executeu <menuchoice
+><guimenu
+>Manteniment</guimenu
+><guimenuitem
+>Torna a explorar les imatges i vídeos</guimenuitem
+></menuchoice
+>. Això hauria de detectar el nou panorama i incloure'l a la galeria de fotografies. </para
+></listitem>
+  <listitem
+><para
+>Si heu establert correctament l'apilament automàtic de les noves imatges i el nom del nou panorama coincideix amb les regles per això, el panorama haurà d'estar a la part superior de la pila. En cas contrari, ordeneu les imatges per data, de manera que el nou panorama acabi a sobre de les imatges d'origen i apileu manualment. (Autopano Pro sembla escriure la informació EXIF ​​de la primera imatge en el panorama).</para
+></listitem>
+  <listitem
+><para
+>Encara podeu afegir etiquetes en aquest punt al panorama o també podeu incloure totes les imatges d'origen amb <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>.</para
+></listitem>
+  </orderedlist>
+  </para>
+</sect1>
+</chapter>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

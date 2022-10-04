@@ -1,0 +1,51 @@
+<chapter id="chp-datebar">
+  <title
+>Die Zeitleiste</title>
+
+<para
+>Am unteren Rand des Hauptfensters von &kphotoalbum; sehen Sie die Zeitleiste. Ein Bild dieser Leiste sehen Sie in <xref linkend="fig-datebar"/>. Wie der Name schon sagt, zeigt diese Leiste Ihnen Datums-Statistiken über die Bilder in Ihrer Datenbank an.</para>
+
+<figure id="fig-datebar">
+<title
+>Die Zeitleiste</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Die einzelnen Balken zeigen an, wie viele Bilder im jeweiligen Zeitraum eingeordnet sind. Im Bild oben sehen Sie, dass 261 Bilder im Januar 2005 aufgenommen wurden. Die Balken geben Ihnen zwei Informationen, zum einen, wie viele Bilder genau im ausgewählten Zeitraum entstanden sind und zum anderen, wie viele Bilder sich mit dem gewählten Zeitraum überlappen. Ein Bild, das als Datumsangabe das Jahr 2005 hat, überlappt folglich alle Monate des Jahres 2005, wogegen ein Bild, das vom 24 Januar 2005 stammt, nur zum Januar hinzu gezählt wird. Die Bilder, die genau im gewählten Zeitraum aufgenommen wurden, werden grün, die anderen gelb dargestellt. Im Bild oben sehen Sie also, dass im Dezember 2004 genau 86 Bilder aufgenommen wurden und 61 in diesem Monat überlappen. Die genauen Zahlen erfahren Sie, indem Sie die Maus über die Auswahl bewegen. Dann wird Ihnen in der Statusleiste die genaue Zahl angezeigt.</para>
+
+<para
+>Die Zeitleiste kann Ihnen verschiedene Genauigkeiten anzeigen. Jeder Balken zeigt dann ein anderes Intervall an. Sie können zwischen den Einheiten Jahren, Monaten, Wochen, Stunden und 10 Minuten wechseln. In <xref linkend="fig-datebar-for-minutes"/> sehen Sie einen Teil einer Datenbank, in dem jeder Balken für zehn Minuten steht.</para>
+
+<figure id="fig-datebar-for-minutes">
+<title
+>Die Zeitleiste in 10-Minuten-Abschnitten</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar-for-minutes.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Die Zeitleiste können Sie auf folgende Weisen interaktiv verwenden: Sie können in den angezeigten Einträgen in der Vorschau-Ansicht aus der Datenbank heraus navigieren (wenn Sie ein Datum auswählen, wird Ihnen das erste Bild dieses Datums in der Vorschau-Ansicht angezeigt) und außerdem zeigt die Zeitleiste immer das Datum der momentan angezeigten Bilder an, wenn Sie in der Vorschau-Ansicht navigieren.</para>
+
+<para
+>Sie können auch einen Bereich in der Zeitleiste auswählen, indem Sie die Maustaste gedrückt halten und die Maus über das Lineal der Zeitleiste, also die Zeitangaben, ziehen. Wenn Sie einen Bereich auswählen, werden Ihnen in der Vorschau-Ansicht nur Bilder dieses Zeitraums angezeigt. Sie können die Auswahl aufheben, indem Sie auf den Knopf „Die Auswahl so erweitern, dass wieder alle Bilder/Videos enthalten sind“ am Linken Rand der Zeitleiste drücken.</para>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

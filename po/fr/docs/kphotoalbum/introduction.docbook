@@ -1,0 +1,106 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="introduction">
+  <title
+>Introduction</title>
+  <para
+>Si vous êtes comme moi, vous avez des milliers d'images, que vous avez prises dès votre premier appareil photo, soit argentique soit numérique. Pendant toutes ces années, vous avez cru que vous seriez capable pour l'éternité, de vous souvenir de l'histoire derrière chaque photo, de vous rappeler des noms de toutes les personnes sur vos photos et de la date exacte de chaque photo. J'ai réalisé par moi même que cela n'était pas possible du tout en particulier avec mes images numériques, mais aussi pour mes tirages de photos. J'ai eu besoin d'un outil pour m'aider à décrire mes photos et de chercher dans une pile de photos. Voilà ce qu'est exactement le rôle de &kphotoalbum;.</para>
+  
+  
+  <para
+>&kphotoalbum; est bâti autour de trois points clés : <itemizedlist>
+      <listitem
+><para
+>Il doit être facile d'annoter en une fois un ensemble d'images. Par exemple, marquer toutes vos images prises en Italie de 1992 ne doit pas vous prendre plus de quelques clics de souris. &kphotoalbum; vous offre 2 moyens de décrire des images : <guilabel
+>Une par une</guilabel
+>, qui est utile pour ajouter du texte sur des photos et <guilabel
+>Tous Simultanément</guilabel
+>, qui est utile pour sélectionner un ensemble de photos et y affecter des propriétés telles que l'endroit, les personnes sur les photos ou la date de la photo.</para
+></listitem>
+      
+      <listitem
+><para
+>Cela doit être facile de chercher des images. &kphotoalbum; permet de décrire des photos avec un certain nombre de propriétés. Elles incluent la date, les personnes, les lieux plus un champ avec un mot clé que l'utilisateur peut utiliser avec des mots clés spécifiques tels que <emphasis
+>Album 7</emphasis
+> ou <emphasis
+>Voyage de vacances en Italie</emphasis
+>. Avec &kphotoalbum;, vous pouvez chercher des photos dans chacune des catégories, c'est-à-dire, trouver toutes les photos avec Jesper dessus et relatives à vos vacances en Italie. Il est bien sur possible de créer ces propres catégories, ce que nous verrons plus tard.</para
+></listitem
+> 
+      
+      <listitem
+><para
+>Cela doit être simple de naviguer et de voir les photos. En regardant les photos, votre attention change - à un moment, vous regardez les photos de vos vacances en 1992, et en voyant un photo d'un ami avec lequel vous avez passé des vacances, votre attention change soudainement, de façon que vous voulez voir toutes les photos de cet ami.</para
+></listitem>
+    </itemizedlist
+></para>
+  
+  <!-- ====================================================================== -->
+  <sect1 id="sect-overview-of-manual">
+    <title
+>Présentation générale du manuel</title>
+    <para
+>Dans ce manuel, je vous ferais passer des étapes (1) d'annotation de vos photos, (2) de navigation et d'affichage et (3) de traitements avancés et de personnalisation.</para>
+
+<para
+>&kphotoalbum; a été crée comme une application pour gérer des photos. Depuis, il a été étendu aujourd'hui, pour qu'il prenne aussi en charge vos vidéos. Dans de nombreux endroits de ce manuel, je parlerais de photos mais la plupart des discussions incluront aussi les vidéos.</para>
+  
+
+  </sect1>
+  
+  
+  <!-- ====================================================================== -->
+  <sect1 id="sec-organization-of-images-and-KPhotoAlbum-files">
+    <title
+>Organisation des photos et fichiers de &kphotoalbum;</title>
+    <para
+>&kphotoalbum; utilise toutes les images d'un dossier et de tous les sous-dossiers en dessous de lui. La première fois que vous lancerez &kphotoalbum;, vous aurez à donner l'emplacement de ce dossier. &kphotoalbum; ne modifiera aucune photo, ainsi vous ne devez pas avoir peur que &kphotoalbum; altère vos photos<footnote
+><para
+>. Les deux exceptions à cette règle sont (1) si vous demandez à &kphotoalbum; de supprimer des photos spécifiques à partir de <menuchoice
+><guimenu
+>Éditer</guimenu
+><guimenuitem
+>Suppression les images sélectionnées</guimenuitem
+></menuchoice
+> et (2) des opérations avec modules externes.</para
+></footnote
+>Actuellement, si vous ne faites pas confiance à &kphotoalbum;, n'hésitez pas à mettre vos photos en lecture seule.</para>
+    
+    <para
+>&kphotoalbum; sauvegardera toutes ses informations dans un fichier <filename
+>index.xml</filename
+> à la racine de votre dossier de photos. Ce fichier est un simple fichier XML, comme cela, vous pouvez facilement le sauvegarder quel que soit l'outil que vous avez choisi, incluant les utilitaires classiques de sauvegarde, le copier sur un disquette ou en gérant ses révisions avec CVS. Il y a aussi un script de sauvegarde (<emphasis
+>kpa-backup.sh</emphasis
+>) fourni avec les sources de &kphotoalbum; qui sauvegarde non seulement le fichier index.xml mais aussi les fichiers de configuration dans le dossier racine de l'utilisateur.</para>
+    
+    <para
+>&kphotoalbum; se souviendra de l'endroit que vous lui avez spécifié pour stocker vos photos et le re-utiliser dans une utilisation ultérieure de &kphotoalbum;. Au cas où vous décideriez de charger une autre base de données dans &kphotoalbum; (par exemple une autre arborescence de photos), alors vous devrez le lancer avec l'option <option
+>-c</option
+>. Par exemple : <userinput
+><command
+>kphotoalbum</command
+> <option
+>-c</option
+> <filename
+>~/CompanyImages/index.xml</filename
+></userinput
+>. </para>
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

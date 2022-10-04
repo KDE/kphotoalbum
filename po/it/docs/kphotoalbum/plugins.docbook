@@ -1,0 +1,79 @@
+<chapter id="chp-plugins">
+  <title
+>Estensioni</title>
+  <para
+>&kphotoalbum; condivide un sistema di estensioni con una serie di altre applicazioni per immagini, tra queste <application
+>digiKam</application
+> e <application
+>Gwenview</application
+>. Il sistema delle estensioni si chiama <application
+>Kipi</application
+>, che sta per Interfaccia di Estensioni per Immagini di &kde;. Vedi la <ulink url="http://extragear.kde.org/apps/kipi/"
+>pagina Web di Kipi</ulink
+></para>
+
+<para
+>Le estensioni sono disponibili dalla barra dei menu, sotto l'elemento <guimenu
+>Estensioni</guimenu
+>. Le estensioni non possono essere e non saranno descritti in questo manuale, perché non fanno parte di &kphotoalbum;, ma sono un programma a parte. La maggior parte delle estensioni, tuttavia, ha una pagina di aiuto disponibile dall'estensione stessa.</para>
+
+<warning
+><para
+>Attenzione: siccome le estensioni sono condivise tra diverse applicazioni, certe potrebbero essere molto poco testate in &kphotoalbum;, quindi dovresti sempre provare le nuove con la banca dati dimostrativa prima di provarle sulle tue immagini<footnote
+><para
+>Puoi avviare &kphotoalbum; con la configurazione dimostrativa o dalla shell eseguendo <userinput
+><command
+>kphotoalbum</command
+> <option
+>-demo</option
+></userinput
+>, o dal menu <guimenu
+>Aiuto</guimenu
+>.</para
+></footnote
+> (Non dire che non ti ho avvertito!).</para
+></warning>
+
+<para
+>Le applicazioni che usano KIPI sono molto diverse tra loro, ciò vuol dire che alcune estensioni non funzionano sempre come &kphotoalbum;, ma in fondo questo è il prezzo per poter condividere le funzionalità tra le applicazioni.</para>
+
+<para
+>La differenza più importante tra &kphotoalbum; e le altre applicazioni che usano KIPI è che le altre applicazioni ordinano le immagini in album, dove un album è semplicemente una cartella. &kphotoalbum; non usa questo concetto; tuttavia, perché certe estensioni funzionino, &kphotoalbum; si comporta con il sistema delle estensioni come se l'avesse.</para>
+
+<para
+>&kphotoalbum; lo fa definendo come <emphasis
+>l'album attuale</emphasis
+> la vista attuale; cioè, tutte le immagini che il browser attualmente permette di visualizzare.</para>
+
+<para
+>Oltre all'album attuale, &kphotoalbum; deve anche poter dare un elenco di tutti gli album; &kphotoalbum; lo definisce nel modo seguente:</para>
+
+<itemizedlist>
+  <listitem
+><para
+>Quando il browser di &kphotoalbum; mostra i contenuti di una categoria, diciamo persone, ogni elemento in questa categoria sembrerà essere un album all'estensione.</para
+></listitem
+> 
+  <listitem
+><para
+>Altrimenti, sarà usata la categoria che specifichi per <guilabel
+>Categoria per gli album virtuali</guilabel
+> nella finestra delle opzioni; per esempio, se specifichi Persone con questa opzione, &kphotoalbum; farà come se tu avessi appena scelto di mostrare le persone, e quindi chiamerà l'estensione che deve sapere di tutti gli album.</para
+></listitem>
+</itemizedlist>
+
+<para
+>Alcune estensioni potrebbero essere ridondanti con delle funzionalità già implementate in &kphotoalbum;, e in quel caso potresti non volerle vedere nel loro menu. Per farlo, vai nella finestra delle opzioni, e specifica quali estensioni dovrebbero essere visualizzate.</para>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

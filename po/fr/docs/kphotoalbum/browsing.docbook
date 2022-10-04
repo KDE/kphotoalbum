@@ -1,0 +1,189 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2007 Jan Kundrát <jkt@flaska.net>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-browsing">
+  <title
+>Navigation</title>
+  <para
+>Une fois que vous avez annoté vos images et vos vidéos, &kphotoalbum; vous permet de naviguer dans vos images, voir <xref linkend="fig-browser-with-images"/>. Si vous comparez cela à <xref linkend="fig-empty-browser-window"/>, vous verrez qu'il y a maintenant des éléments présents dans chacune des catégories <literal
+>Personnes</literal
+>, <literal
+>Lieux</literal
+> et <literal
+>Mots clés</literal
+>.</para>
+  
+  <figure id="fig-browser-with-images">
+    <title
+>Navigation quand les images et les vidéos ont été annotées</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-with-images.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>Dans la fenêtre de navigation, vous pouvez voir les catégories dans lesquelles vous avez rentré des informations au moment où vous avez annoté vos images et vos vidéos. De plus, il y a des éléments pour des recherches utilisant les informations EXIF des images, pour la navigation dans le système de dossiers de votre disque dur et bien sûr d'affichage des vignettes présentes. Passons à la description de chaque élément, l'un après l'autre. </para
+> 
+  
+  <para
+>En maintenant le clic souris enfoncée sur <literal
+>Personnes</literal
+>, la fenêtre de navigation changera comme vous pouvez le voir dans <xref linkend="fig-browser-for-persons"/>.</para>
+  
+  <figure id="fig-browser-for-persons">
+    <title
+>Fenêtre de navigation quand le groupe « Personnes » est sélectionné.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-persons.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>Le navigateur est maintenant opérationnel avec toutes les personnes que vous avez spécifiez pour accéder à vos images et vos vidéos.<footnote
+><para
+> Vous devez noter que l'élément <literal
+>Animaux</literal
+> a une icône spéciale. Pour plus de détails, voir <xref linkend="sec-specifying-categories"/>. </para
+></footnote
+>La sélection d'une personne vous fera revenir à l'état de départ de la navigation comme nous le voyons dans <xref linkend="fig-browser-with-images"/>, à ce moment, cependant, nous sommes <emphasis
+>dans le périmètre</emphasis
+> de la personne que nous avons choisie. Cela signifie que nous ne montrons que les informations sur les photos et les vidéos associées à cette personne. Voir ci-dessous <xref linkend="fig-browser-for-jesper"/>, qui présente notre résultat après avoir choisi <literal
+>Jesper</literal
+> comme Personne avec une indication de ce filtre au bas de la fenêtre. Vous pouvez comparer <xref linkend="fig-browser-with-images"/> avec <xref linkend="fig-browser-for-jesper"/>, où vous pouvez constater que le nombre d'images et de vidéos disponibles est passé de 25 à 12 et que le total d'éléments des différentes catégories a aussi changé.</para>
+  
+  <figure id="fig-browser-for-jesper">
+    <title
+>Navigation réduite à une personne <literal
+>Jesper</literal
+></title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-jesper.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>Si nous continuons maintenant à sélectionner une nouvelle personne, alors nous recevons les images relatives aux deux personnes. En continuant de cette façon, vous pouvez réduire un ensemble d'images que vous voulez sélectionner d'un nombre de plusieurs centaines à quelques unes.</para>
+  
+  <para
+>Quand vous avez raffiné le filtre sur les images, vous pouvez sélectionner l'icône <guilabel
+>Voir Vignettes</guilabel
+> pour voir exactement les images qui correspondent à votre filtre.</para>
+
+
+
+
+
+
+
+
+  <sect1 id="sect-adding-preview-images-to-the-browser">
+  <title
+>Ajout d'images d'aperçu à votre navigateur</title>
+  <para
+>En regardant à <xref linkend="fig-browser-for-persons"/> vous verrez que chaque personne a la même icône en face de son nom. &kphotoalbum; est actuellement capable d'afficher une image d'aperçu pour chaque personne. <footnote
+><para
+>. Cela est applicable aussi aux lieux, mots clés et aux autres catégories que vous avez définies vous même.</para
+></footnote
+> Voir <xref linkend="fig-imagesForPersons"/>.</para>
+
+  <figure id="fig-imagesForPersons">
+    <title
+>Images de chaque personne</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="imagesForPersons.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Pour afficher les photos en même temps que leurs noms, choisir le bouton outil à l'extrême droite de la barre d'outils, qui fera apparaître une boîte de dialogue où vous pourrez choisir quelle vue vous voulez utiliser pour une catégorie donnée. Les vues de notification doivent être configurées pour chaque catégorie - de cette façon, vous pouvez par exemple utiliser la vue par icône pour les personnes, mais une vue par liste pour les mots clés (dans le cas où vous ne pourriez y arriver avec de bonnes photos pour vos mots clés).</para
+>  
+
+
+<para
+>Cependant, votre travail est de lui dire quelles images utiliser pour chaque personne. Pour le faire, vous devez ouvrir la fenêtre d'affichage (voir <xref linkend="chp-viewer"/>) et choisir dans le menu contextuel <guimenuitem
+>Afficher l'éditeur de catégorie</guimenuitem
+>. Cela fera apparaître l'éditeur de catégorie qui peut être vu dans <xref linkend="fig-categoryEditor"/>. Dans l'éditeur de catégorie, vous sélectionnez l'image pour une personne donnée. L'afficheur vous permet de faire un zoom sur une partie de l'image et comme cela, rogner la partie qui doit être affichée.</para>
+
+
+  <figure id="fig-categoryEditor">
+    <title
+>Éditeur de catégorie</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="categoryEditor.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+
+
+
+
+
+
+
+
+
+  
+  <sect1 id="sect-general-image-searches">
+    <title
+>Recherches générales d'images</title>
+    <para
+>Si vous choisissez l'élément <guilabel
+>Chercher</guilabel
+> dans le navigateur, vous obtiendrez une fenêtre de dialogue ressemblant fortement à la fenêtre utilisée pour définir les propriétés de vos images. Vous pouvez voir cette fenêtre de dialogue ci-dessous <xref linkend="fig-search"/>.</para>
+    
+    <figure id="fig-search">
+      <title
+>Boîte de dialogue de recherche</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="search.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para
+>Si vous tapez un chaîne de caractères dans le champ Label ou Description, alors, ce texte sera recherché en utilisant une sous-chaîne. De la même façon, vous pouvez aussi spécifier une date pour une recherche, soit une partie de date, comme 1971 ou une date complète. Vous pouvez aussi spécifier une plage de dates telle que 1971-1980.</para>
+    
+    <para
+>L'élément « Options » permet des requêtes très précises sous forme d'expressions comme vous pouvez en voir un exemple à l'adresse <xref linkend="fig-search"/>. Ici, nous cherchons des images avec <literal
+>Jesper</literal
+>, mais sans <literal
+>Anne Hélène</literal
+>.</para>
+    
+    <para
+>Les opérations autorisées sont &amp; (signifiant « et »), | (signifiant « ou »), et ! (signifiant « non »).</para>
+    
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

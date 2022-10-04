@@ -1,0 +1,177 @@
+<chapter id="chp-thumbnail-view">
+  <title
+>Visor de miniaturas</title>
+  <para
+>Al seleccionar <guilabel
+>Ver miniaturas</guilabel
+> en el explorador, obtendrá un resumen con miniaturas de las imágenes en el contexto actual (o todas las imágenes si no ha seleccionado ninguno). Puede ver un ejemplo a continuación en <xref linkend="fig-thumbnailview"/>. El número de miniaturas se puede configurar solo con arrastrar el ratón mientras pulsa el botón central (inténtelo, es genial).</para>
+
+  <figure id="fig-thumbnailview">
+    <title
+>Vista de miniaturas</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="thumbnailview.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>En el resumen con miniaturas puede reordenar sus imágenes arrastrándolas con el ratón. Para que la barra de fechas funcione correctamente debe, de hecho, intentar mantenerlas siempre ordenadas. Para ello, seleccione todas las imágenes, y elija el menú <menuchoice
+><guimenu
+>Imágenes</guimenu
+><guimenuitem
+>Ordenar selección por fecha y hora</guimenuitem
+></menuchoice
+>. La ordenación no recolocará las imágenes con la misma fecha y hora, por lo que si tiene 100 imágenes con fecha de 1992 (sin mes ni día, solo con el año) deberá moverlas manualmente, y su orden individual no se modificará después de realizar otra ordenación.</para>
+
+<para
+>Al arrastra una imagen del visor al fondo, la establecerá como fondo de pantalla de su escritorio.</para>
+
+  <para
+>Al hacer clic en una imagen la cargará en el visor. Si no hay ninguna ventana del visor, se creará una.</para>
+
+  <para
+>Si selecciona varias imágenes y pulsa <keycombo
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> o elige <menuchoice
+><guimenu
+>Imágenes</guimenu
+><guimenuitem
+>Ver seleccionadas</guimenuitem
+></menuchoice
+>, las imágenes se cargarán en el visor actual (si no hay ninguno se creará). También puede seleccionar <menuchoice
+><guimenu
+>Imágenes</guimenu
+><guimenuitem
+>Ver (en otra ventana)</guimenuitem
+></menuchoice
+> para que las imágenes se carguen en otro visor. Si pulsa <keycombo
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> o elige <menuchoice
+><guimenu
+>Imágenes</guimenu
+><guimenuitem
+>Lanzar presentación</guimenuitem
+></menuchoice
+>, las imágenes seleccionadas se cargarán en el visor y se iniciará una presentación. Finalmente, seleccionando <menuchoice
+><guimenu
+>Imágenes</guimenu
+><guimenuitem
+>Lanzar presentación aleatoria</guimenuitem
+></menuchoice
+> mostrará una presentación de las imágenes seleccionadas ordenadas aleatoriamente.</para>
+
+
+<sect1 id="sect-deleting-images">
+  <title
+>Eliminar imágenes</title>
+  <para
+>Puede eliminar imágenes desde la vista de miniaturas. Para ello, seleccione las imágenes que desea eliminar y presione la tecla «Suprimir» o seleccione el menú <menuchoice
+><guimenu
+>Editar</guimenu
+><guimenuitem
+>Eliminar seleccionadas</guimenuitem
+></menuchoice
+>. Así, &kphotoalbum; le mostrará un diálogo <xref linkend="fig-delete-images"/></para>
+
+<figure id="fig-delete-images">
+<title
+>Eliminar imágenes</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="delete-images.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+  <para
+>Hay dos formas de eliminar una imagen en &kphotoalbum;: borrarla directamente del disco, con lo que desaparecerá permanentemente, o solicitar a &kphotoalbum; que no la incluya. En este último caso, &kphotoalbum; no volverá a mostrarla, pero no se eliminará del disco. Esto es útil, por ejemplo, si tiene <emphasis
+>miniaturas</emphasis
+> almacenadas entre sus imágenes. Esta miniaturas podría contener un resumen de todas las demás imágenes y por tanto no sería útil en &kphotoalbum;, pero otras aplicaciones como navegadores web sí podrían necesitarla.</para>
+</sect1>
+
+
+<sect1 id="sect-offline-mode">
+<title
+>Modo desconectado</title>
+<para
+>Hay una batalla constante entre el crecimiento de datos y el aumento de tamaño de los discos duros. Si tiene muchas imágenes seguramente usted esté en medio de esa batalla, sin espacio suficiente para almacenar todas sus imágenes. En este caso, podría almacenar algunas de ellas en CDs. Otro caso es que quisiera irse de viaje de negocios y quisiera llevarse sus imágenes, pero no que disponga de un disco duro de 20GB para dicho propósito.</para>
+
+<para
+>&kphotoalbum; ofrece una solución a ese problema, permitiendo su uso sin tener todas las imágenes disponibles en disco. Por supuesto, tendrá que disponer de ellas en algún momento para que &kphotoalbum; sepa que tienes que indexar imágenes nuevas. <xref linkend="fig-offline-mode"/> muestra lo que ocurre cuando &kphotoalbum; no encuentra todas las imágenes necesarias en disco.</para>
+
+<figure id="fig-offline-mode">
+<title
+>&kphotoalbum; in Modo desconectado</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="offline-mode.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Las imágenes con una esquina cortada (las imágenes 1 a 9) no están disponibles en disco. Sin embargo, hay miniaturas disponibles para las imágenes 5 a 9, por lo que &kphotoalbum; se las muestra, aunque usted puede no visualizar estas imágenes en el visor.</para>
+
+<para
+>Como puede ver, esta función necesita que mueva los archivos dentro y fuera de sus carpetas, porque &kphotoalbum; aún no le pide que inserte el CD etiquetado como «blabla». Si no le gusta tener que mover los archivos, le rogamos que se olvide de esta función y que simplemente se asegure de que sus discos duros son lo bastante grandes como para albergar todas sus imágenes.</para>
+
+</sect1>
+
+
+
+<sect1 id="sect-privacy">
+<title
+>Privacidad</title>
+<para
+>Hace un tiempo ni novia y yo nos llevamos el portátil para enseñarle a mis suegros las fotos de nuestras últimas vacaciones. &kphotoalbum; funcionó perfectamente, y no pasó mucho tiempo hasta que la hermana pequeña de mi novia se apropió del portátil y empezó a verlas ella sola. Por desgracia, tampoco tardó mucho en llegar a unas fotos digamos «desafortunadas» de cuando yo era joven, y fueron un gran motivo de risa por su parte. Esto me inspiró para añadir una nueva función a &kphotoalbum; que decidí llamar «bloqueo de privacidad».</para>
+
+<para
+>El menú <guimenu
+>Imágenes</guimenu
+> contiene un submenú de <guimenuitem
+>privacidad</guimenuitem
+>. Si quiere asegurarlas, navegue -desde su cuenta- hasta las imágenes que quiera hacer privadas, y seleccione <guimenuitem
+>Bloquear el conjunto actual de elementos</guimenuitem
+> en el submenú de privacidad. También puede navegar hasta las imágenes a las que quiera limitar el acceso y seleccionar <guimenuitem
+>Bloquear el resto de elementos</guimenuitem
+>.</para>
+
+<para
+>Ahora que ha especificado qué quiere oculta, y una vez entregado el portátil a su hermanita, seleccione <guimenuitem
+>Bloquear imágenes</guimenuitem
+> y ya no podrá ver las imágenes bloqueadas. Cuando termine, puede desbloquearlas de nuevo utilizando <guimenuitem
+>Desbloquear</guimenuitem
+>.</para>
+
+<para
+>Puede especificar la contraseña que deberá introducirse para desbloquear la base de datos. En el menú <guimenuitem
+>Privacidad</guimenuitem
+>, seleccione <guimenuitem
+>Cambiar contraseña</guimenuitem
+> para indicar una.</para>
+
+<para
+>No crea que con esto podrá esconder sus imágenes para siempre. Para empezar, se almacenan en el disco, y cualquiera con acceso al archivo <filename
+>index.xml</filename
+> utilizado por &kphotoalbum; puede leer la contraseña en texto plano y, opcionalmente, eliminarla. Esta función solo funciona como protección contra alguien que vaya a consultar sus imágenes privadas desde &kphotoalbum;.</para>
+
+</sect1>
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

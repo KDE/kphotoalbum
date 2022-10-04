@@ -1,0 +1,73 @@
+<chapter id="chp-plugins">
+  <title
+>'Plugins'</title>
+  <para
+>O &kphotoalbum; partilha um sistema de 'plugins' com um conjunto de outras aplicações de imagens, nomeadamente o <application
+>digiKam</application
+> e o <application
+>Gwenview</application
+>. O sistema de 'plugins' chama-se <application
+>Kipi</application
+>, que é uma abreviatura para '&kde; Image Plugin Interface'.  Consulte a <ulink url="http://extragear.kde.org/apps/kipi/"
+>Página do Kipi</ulink
+>.</para>
+
+<para
+>Os 'plugins' estão disponíveis na barra de menu, sob o item <guimenu
+>Plugins</guimenu
+>. Os 'plugins' não poderão nem irão ser descritos neste manual, dado que os 'plugins' não fazem parte do &kphotoalbum;, mas são sim enviados à parte. A maioria dos 'plugins' tem, todavia, uma página de ajuda disponível para o 'plugin' propriamente dito.</para>
+
+<warning
+><para
+>Dado que os 'plugins' estão partilhados por um conjunto de aplicações, certos 'plugins' poderão ter sido pouco testados com o &kphotoalbum;, você terá testar sempre os novos 'plugins' com a base de dados de demonstração antes de experimentar com as suas próprias imagens <footnote
+><para
+>Você iniciar o &kphotoalbum; com a configuração de demonstração quer com a linha de comandos <literal
+>kphotoalbum -demo</literal
+>, quer com o menu Ajuda.</para
+></footnote
+> (Não diga que não foi avisado!).</para
+></warning>
+
+<para
+>As aplicações por detrás do KIPI são muito diferentes, o que significa que alguns 'plugins' nem sempre trabalham de forma semelhante ao &kphotoalbum; mas, apesar de tudo, este é o preço a pagar por partilhar a funcionalidade entre as aplicações.</para>
+
+<para
+>A diferença mais importante entre o &kphotoalbum; e as outras aplicações que usam o KIPI, é que as outras aplicações ordenam as imagens em álbuns, onde um álbum é simplesmente uma pasta. O &kphotoalbum; não tem este conceito; contudo, para certos 'plugins' funcionarem, o &kphotoalbum; comporta-se no sistema de 'plugins' como se o suportasse.</para>
+
+<para
+>O &kphotoalbum; faz isto através da definição do <emphasis
+>álbum actual</emphasis
+> como sendo a vista actual - isto é, todas as imagens que o navegador tem visíveis de momento.</para>
+
+<para
+>Para além do álbum actual, o &kphotoalbum; deverá também ser capaz de dar uma lista de todos os álbuns; o &kphotoalbum; define esta lista da seguinte forma:</para>
+
+<itemizedlist>
+  <listitem
+><para
+>Quando o navegador do &kphotoalbum; mostra o conteúdo de uma categoria, por exemplo todas as Pessoas, então cada item desta categoria comportar-se-á como um álbum para o 'plugin'.</para
+></listitem
+> 
+  <listitem
+><para
+>Caso contrário, a categoria que você indicar como <literal
+>Categoria para os álbuns virtuais</literal
+> na janela de opções será a usada; p.ex., se você tiver indicado a Pessoas como esta categoria, então o &kphotoalbum; irá actuar como se você tivesse escolhido mostrar as pessoas e depois invocará o 'plugin' que precisa de saber todos os álbuns.</para
+></listitem>
+</itemizedlist>
+
+<para
+>Alguns dos 'plugins' poderão ser redundantes no que respeita às funcionalidades implementadas no &kphotoalbum; e, neste caso, poderá não querer vê-los a todos no menu de 'Plugins'. Para tal, você poderá ir à janela de opções e indicar os 'plugins' que deverão ser mostrados ou não.</para>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

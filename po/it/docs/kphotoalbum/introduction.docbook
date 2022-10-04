@@ -1,0 +1,100 @@
+<chapter id="introduction">
+  <title
+>Introduzione</title>
+  <para
+>Se tu sei come me, hai migliaia di immagini dal primo giorno in cui hai avuto una macchina fotografica, sia normale che digitale. Attraverso gli anni hai creduto che saresti riuscito a ricordare per l'eternità la storia di ogni immagine, i nomi di tutte le persone nella foto, e la data esatta. Io mi sono reso conto personalmente che non era possibile, e soprattutto per le mie immagini digitali - ma anche per quelle su carta - avevo bisogno di uno strumento per aiutarmi a descrivere le mie immagini, e cercare nella mia catasta di foto. Questo è quello che fa &kphotoalbum;.</para>
+  
+  
+  <para
+>&kphotoalbum; si concentra su tre punti chiave: <itemizedlist>
+      <listitem
+><para
+>Deve essere facile annotare un certo numero di immagini alla volta. Per esempio non deve volerci più di qualche clic col mouse per selezionare tutte le tue immagini delle vacanze come foto della Danimarca, 1992. &kphotoalbum; offre due modi di descrivere le immagini: <guilabel
+>una alla volta</guilabel
+>, che è utile per scrivere i testi delle immagini, e <guilabel
+>tutte assieme</guilabel
+>, che è utile per selezionarne un certo numero, e impostare proprietà come luogo, persone e data dell'immagine.</para
+></listitem>
+      
+      <listitem
+><para
+>Deve essere facile cercare le immagini. &kphotoalbum; offre la possibilità di descrivere le immagini con un certo numero di proprietà. Queste includono data, persone, luogo, più un campo parole chiave che l'utente può usare per parole chiave personalizzate, come <emphasis
+>Album 7</emphasis
+> o <emphasis
+>vacanze in Danimarca</emphasis
+>. Con &kphotoalbum; puoi cercare in ciascuna delle categorie: per esempio, <quote
+>trova le immagini con dentro Jesper dalle vacanze in Danimarca</quote
+>. È ovviamente possibile creare le tue categorie personalizzate, ne parleremo più avanti.</para
+></listitem
+> 
+      
+      <listitem
+><para
+>Deve essere facile sfogliare e vedere le immagini. Quando si guardano le immagini, la tua attenzione si sposta spesso - un momento guardi le foto delle vacanze del 1992, e quando vedi una foto di un amico con cui sei stato in vacanza, la tua attenzione si sposta improvvisamente, e vuoi vedere tutte le foto del tuo amico.</para
+></listitem>
+    </itemizedlist
+></para>
+  
+  <!-- ====================================================================== -->
+  <sect1 id="sect-overview-of-manual">
+    <title
+>Panoramica del manuale</title>
+    <para
+>In questo manuale ti guiderò attraverso i passi di (1) annotare le tue foto, (2) sfogliare e vedere le foto e (3) argomenti avanzati e personalizzazione.</para>
+
+<para
+>&kphotoalbum; è partito come applicazione per la gestione delle immagini, ma da allora è stato esteso e oggi gestisce anche i filmati. In molti punti del manuale parlerò soprattutto delle immagini, ma spesso gli stessi discorsi valgono per i filmati.</para>
+  
+
+  </sect1>
+  
+  
+  <!-- ====================================================================== -->
+  <sect1 id="sec-organization-of-images-and-KPhotoAlbum-files">
+    <title
+>Organizzazione delle immagini e dei file di &kphotoalbum;</title>
+    <para
+>&kphotoalbum; usa tutte le immagini di una cartella e tutte le sottocartelle sotto di essa; la prima volta che avvii  ti sarà &kphotoalbum;chiesto il percorso di questa cartella. &kphotoalbum; non modificherà nessuna immagine, quindi non devi aver paura che &kphotoalbum; alteri le tue immagini<footnote
+><para
+>Le due eccezioni a questa regola sono (1) se chiedi a &kphotoalbum; di eliminare un'immagine, da <menuchoice
+><guimenu
+>Modifica</guimenu
+> <guimenuitem
+>Elimina selezionate</guimenuitem
+></menuchoice
+>, e (2) le operazioni delle estensioni.</para
+></footnote
+>, se non ti fidi di &kphotoalbum; puoi benissimo rendere tutte le tue immagini inaccessibili in scrittura.</para>
+    
+    <para
+>&kphotoalbum; salverà tutte le sue informazioni nel file <filename
+>index.xml</filename
+> nella tua cartella più elevata. Questo file è un semplice file XML, quindi è facile farne una copia di sicurezza con qualsiasi strumento tu preferisca, inclusi i normali programmi di copie di sicurezza, copiare il file su un dischetto, o tenerne delle revisioni con dei sistemi di controllo delle revisioni come CVS o Subversion. C'è anche uno script per copie di sicurezza (<emphasis
+>kpa-backup.sh</emphasis
+>) accluso al codice sorgente di &kphotoalbum;, che fa una copia non solo di index.xml, ma anche dei file di configurazione nella cartella Home dell'utente.</para>
+    
+    <para
+>&kphotoalbum; si ricorderà dove gli hai detto che sono le immagini, e lo riuserà nell'uso futuro di &kphotoalbum;. Dovessi mai voler caricare un'altra banca dati in &kphotoalbum; (cioè un altro albero di una cartella di immagini), lo potrai avviare con l'opzione <option
+>-c</option
+>. Per esempio: <userinput
+><command
+>kphotoalbum</command
+> <option
+>-c</option
+> <filename
+>~/CompanyImages/index.xml</filename
+></userinput
+>.</para>
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

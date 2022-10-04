@@ -1,0 +1,179 @@
+<chapter id="chp-thumbnail-view">
+  <title
+>Miniaturenviewer</title>
+  <para
+>Door het selecteren van <guilabel
+>Miniaturen tonen</guilabel
+> in de browser, krijgt u een overzicht met miniaturen van de geselecteerde foto's (of alle foto's als geen foto's zijn geselecteerd). Een voorbeeld kunt u hier <xref linkend="fig-thumbnailview"/> zien. Het formaat van de miniaturen kunt u eenvoudig instellen door met de middelste muisknop ingedrukt te verslepen (probeer het, dit is echt leuk).</para>
+
+  <figure id="fig-thumbnailview">
+    <title
+>Miniaturenweergave</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="thumbnailview.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>In de miniaturenviewer kunt u de volgorde van uw foto's veranderen door ze te verslepen met de muis. Echter om de datumbalk naar behoren te laten werken, is het verstandig om de foto's gesorteerd te houden. U kunt uw foto's sorteren door alle foto's te selecteren en vervolgens <menuchoice
+><guimenu
+>Afbeeldingen</guimenu
+><guimenuitem
+>Selectie sorteren op datum &amp; tijd</guimenuitem
+></menuchoice
+> te kiezen. De volgorde van foto's met dezelfde datum en tijd blijft behouden, dus als u bijvoorbeeld 100 foto's met de datum 1992 (dat wil zeggen geen maand, geen dag, alleen jaar), dan kunt u ze rustig verplaatsen, hun volgorde blijft onveranderd na een sortering.</para>
+
+<para
+>Slepen van een afbeelding uit de viewer naar de achtergrond stelt de afbeelding in als de achtergrondafbeelding van uw bureaublad.</para>
+
+  <para
+>Door op een afbeelding te klikken laadt u het in de viewer, als er geen viewervenster aanwezig is, dan wordt een viewervenster aangemaakt.</para>
+
+  <para
+>Als u een aantal foto's heeft geselecteerd en <keycombo
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> intoetst of <menuchoice
+><guimenu
+>Beeld</guimenu
+><guimenuitem
+>Tonen</guimenuitem
+></menuchoice
+> selecteert, zullen de foto's in het bestaande weergavevenster geladen worden (als er nog geen weergavevenster is geopend dan zal er eentje worden geopend). Als alternatief kunt u ook <menuchoice
+><guimenu
+>Beeld</guimenu
+><guimenuitem
+>Tonen (in nieuw venster)</guimenuitem
+></menuchoice
+> selecteren om de foto's in een nieuw weergavevenster te laden. Als u  <keycombo
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> intoetst of <menuchoice
+><guimenu
+>Beeld</guimenu
+><guimenuitem
+>Diavoorstelling tonen</guimenuitem
+></menuchoice
+> selecteert dan laadt u de foto's in het weergavevenster en start een diashow. Als u tenslotte <menuchoice
+><guimenu
+>Beeld</guimenu
+><guimenuitem
+>Dia's in willekeurige volgorde</guimenuitem
+></menuchoice
+> kiest dan start u een diashow met de foto's in willekeurige volgorde.</para>
+
+
+<sect1 id="sect-deleting-images">
+  <title
+>Afbeeldingen verwijderen</title>
+  <para
+>Bij de miniaturenweergave is het ook mogelijk om foto's te verwijderen. Om deze te verwijderen selecteert u de foto's die u wilt verwijderen en drukt op de toets <keycap
+>Delete</keycap
+> of selecteert <menuchoice
+><guimenu
+>Bewerken</guimenu
+><guimenuitem
+>Selectie verwijderen</guimenuitem
+></menuchoice
+> van de menubalk. Als u dit uitvoert dan toont &kphotoalbum; u het dialoogvenster in <xref linkend="fig-delete-images"/></para>
+
+<figure id="fig-delete-images">
+<title
+>Afbeeldingen verwijderen</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="delete-images.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+  <para
+>Er zijn drie manieren in &kphotoalbum; om een foto te verwijderen, namelijk verplaatsen naar de prullenbak, verwijderen van de harde schijf - wat inhoud dat het permanent weg is - of opdracht geven aan &kphotoalbum; het niet op te nemen. In het laatste geval zal &kphotoalbum; de foto nooit meer tonen, maar deze blijft wel op de harde schijf aanwezig. Dit is handig als er bijvoorbeeld een <emphasis
+>miniaturenoverzicht-afbeelding</emphasis
+> bij de foto's is opgeslagen. Deze miniaturenoverzicht-afbeelding zou een overzicht van alle andere foto's kunnen bevatten, en zou dus zinloos zijn in &kphotoalbum;, maar voor andere programma's zoals een webbrowser, kan het toch nodig zijn.</para>
+</sect1>
+
+
+<sect1 id="sect-offline-mode">
+<title
+>Offline-modus</title>
+<para
+>Er is een voortdurende strijd tussen het groeien van data en het groeien van de opslagruimte van harde schijven. Als u een groot aantal foto's heeft, dan vindt u zichzelf vaak midden in dat slagveld terug met een tekort aan opslagruimte op de harde schijf om al uw foto's op te slaan. In dat geval kunt u ervoor kiezen om een gedeelte van de foto's op CD's te branden. Een ander scenario kan zijn dat u op zakenreis gaat, uw foto's mee wilt nemen en de 20GB harde schijfruimte die daarvoor nodig is niet heeft.</para>
+
+<para
+>&kphotoalbum; heeft voor dat probleem een oplossing, namelijk dat u ze kunt gebruiken, zonder dat de foto's op de harde schijf beschikbaar zijn. Ze moeten natuurlijk wel op een moment beschikbaar zijn zodat &kphotoalbum; ze als nieuwe foto's kan indexeren. <xref linkend="fig-offline-mode"/> toont &kphotoalbum; wanneer het niet alle foto's op de harde schijf kan vinden.</para>
+
+<figure id="fig-offline-mode">
+<title
+>&kphotoalbum; in offline modus</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="offline-mode.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Foto's waarvan het hoekje ontbreekt (dat zijn hier de foto's 1-4) zijn niet beschikbaar op de schijf. De miniaturen zijn beschikbaar voor de foto's 5-9, maar de foto's zelf ontbrekende op de schijf. Daarom kan &kphotoalbum; wel de miniaturen van deze foto's laten zien maar u kunt de foto's zelf niet in het weergavevenster bekijken. (We knipten in het verleden het hoekje van miniaturen af om te laten zien dat de foto ontbrak maar dat onderdeel lijkt op dit moment niet te werken). </para>
+
+<para
+>Zoals u kunt zien, is het voor dit hulpmiddel nodig dat u de bestanden van en naar uw mappen kopieert, &kphotoalbum; heeft geen middel om u te vragen om de CD met het label blah blah in de CD-speler te stoppen. Vergeet dit onderdeel dus als u er niet van houdt om met bestanden te rommelen enz. en zorg er eenvoudig voor dat u harde schijven koopt die groot genoeg zijn om al uw foto's te herbergen.</para>
+
+</sect1>
+
+
+
+<sect1 id="sect-privacy">
+<title
+>Privacy</title>
+<para
+>Enige tijd geleden namen ik en mijn vriendin mijn laptop mee bij ons bezoek aan mijn schoonouders om hen de foto's van onze laatste vakantie te laten zien. &kphotoalbum; was een groot success, en het duurde niet lang voordat het kleine zusje van mijn vriendin de laptop veroverde en zelfstandig rond begon te bladeren. Ongelukkigerwijs had ze ook niet veel tijd nodig om enkele, laten we zeggen minder gelukkige, foto's uit mijn jeugd te vinden, ze konden smakelijk om de foto's van mij lachen. Dat moment inspireerde mij om een nieuw onderdeel aan &kphotoalbum; toe te voegen, namelijk het privacyslot.</para>
+
+<para
+>In het menu <guimenu
+>Beeld</guimenu
+> vindt u een submenu met de naam <guimenuitem
+>Privacy</guimenuitem
+>. Om enige privacy te krijgen, gaat u - terwijl u alleen bent - naar de foto's die u privé wilt houden en selecteert uit het privacy submenu <guimenuitem
+>Huidige set items vergrendelen</guimenuitem
+>. Als alternatief kunt u ook naar de foto's gaan die uw kleine zuster wel mag zien en selecteert <guimenuitem
+>Alle andere items vergrendelen</guimenuitem
+>.</para>
+
+<para
+>Nu u heeft ingesteld welke foto's niet bekeken mogen worden en uw kleine zusje uw laptop wil gebruiken, dan selecteert u eenvoudig <guimenuitem
+>Afbeeldingen vergrendelen</guimenuitem
+> en uw zusje kan de vergrendelde foto's niet meer inzien. Als uw zusje klaar is dan kunt u ze weer ontgrendelen door <guimenuitem
+>Vergrendeling opheffen</guimenuitem
+> te gebruiken.</para>
+
+<para
+>Het is mogelijk om een wachtwoord op te geven dat u moet invoeren om de database te ontgrendelen. In het menu <guimenuitem
+>Privacy</guimenuitem
+> selecteert u <guimenuitem
+>Wachtwoord wijzigen</guimenuitem
+> om een wachtwoord in te stellen.</para>
+
+<para
+>Laat u niet misleiden door te geloven dat dit voldoende is om foto's voorgoed te verbergen. Ten eerste zijn de foto's nog steeds op de harde schijf aanwezig, ten tweede, iedereen die toegang heeft tot het bestand <filename
+>index.xml</filename
+>, dat &kphotoalbum; gebruikt, kan het wachtwoord in leesbare tekst lezen en desgewenst verwijderen. Dit onderdeel is alleen bedoeld als bescherming tegen iemand die &kphotoalbum; heeft geopend en onbedoeld toegang heeft tot uw privé foto's.</para>
+
+</sect1>
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

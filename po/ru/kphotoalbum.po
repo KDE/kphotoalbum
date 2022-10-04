@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-03 00:44+0000\n"
+"POT-Creation-Date: 2022-10-04 00:42+0000\n"
 "PO-Revision-Date: 2020-03-22 17:24+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1124,17 +1124,17 @@ msgid ""
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:643
+#: DateBar/DateBarWidget.cpp:645
 #, kde-format
 msgid "Show Ranges"
 msgstr "Показать изображения с неточными датами"
 
-#: DateBar/DateBarWidget.cpp:649
+#: DateBar/DateBarWidget.cpp:651
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr "Показать индикатор разрешения"
 
-#: DateBar/DateBarWidget.cpp:774
+#: DateBar/DateBarWidget.cpp:776
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1144,7 +1144,7 @@ msgstr[1] "%1 точных"
 msgstr[2] "%1 точных"
 msgstr[3] "%1 точное"
 
-#: DateBar/DateBarWidget.cpp:775
+#: DateBar/DateBarWidget.cpp:777
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1156,7 +1156,7 @@ msgstr[1] " + %1 неточных"
 msgstr[2] " + %1 неточных"
 msgstr[3] " + %1 неточное"
 
-#: DateBar/DateBarWidget.cpp:776
+#: DateBar/DateBarWidget.cpp:778
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1166,7 +1166,7 @@ msgstr[1] " = итого %1"
 msgstr[2] " = итого %1"
 msgstr[3] " = итого %1"
 
-#: DateBar/DateBarWidget.cpp:778
+#: DateBar/DateBarWidget.cpp:780
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
@@ -1176,7 +1176,7 @@ msgstr[1] "%1 изображения/видеозаписи"
 msgstr[2] "%1 изображений/видеозаписей"
 msgstr[3] "%1 изображение/видеозапись"
 
-#: DateBar/DateBarWidget.cpp:780
+#: DateBar/DateBarWidget.cpp:782
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
@@ -1382,7 +1382,7 @@ msgstr ""
 msgid "Following files could not be read:"
 msgstr "Не удалось прочитать следующие файлы:"
 
-#: Exif/InfoDialog.cpp:32
+#: Exif/InfoDialog.cpp:33
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Exif Information"
@@ -1390,25 +1390,25 @@ msgctxt "@title:window"
 msgid "Exif Information and file metadata"
 msgstr "Метаданные EXIF"
 
-#: Exif/InfoDialog.cpp:72
+#: Exif/InfoDialog.cpp:73
 #, kde-format
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
 msgstr ""
 
-#: Exif/InfoDialog.cpp:76
+#: Exif/InfoDialog.cpp:77
 #, kde-format
 msgid "IPTC character set:"
 msgstr "Кодировка IPTC:"
 
-#: Exif/InfoDialog.cpp:94
+#: Exif/InfoDialog.cpp:95
 #, fuzzy, kde-format
 #| msgid "Exif Info"
 msgid "Exif info"
 msgstr "Метаданные EXIF"
 
-#: Exif/InfoDialog.cpp:95
+#: Exif/InfoDialog.cpp:96
 #, fuzzy, kde-format
 #| msgid "Video metadata support"
 msgid "File metadata"
@@ -4525,7 +4525,7 @@ msgstr ""
 msgid "Video thumbnails are not available"
 msgstr "Миниатюры видеозаписей недоступны"
 
-#: Map/GeoCluster.cpp:137
+#: Map/GeoCluster.cpp:141
 #, fuzzy, kde-format
 #| msgid "%1"
 msgctxt "The number of images in an area of the map"
@@ -6410,7 +6410,7 @@ msgstr "Недостаточная глубина цвета для этого �
 msgid "[ zoom x%1 ]"
 msgstr "[ масштаб %1x ]"
 
-#: Viewer/InfoBox.cpp:61
+#: Viewer/InfoBox.cpp:59
 #, kde-format
 msgid "Show the geographic position of this image on a map"
 msgstr "Показать географическое положение этого изображения на карте"
@@ -6420,17 +6420,17 @@ msgstr "Показать географическое положение это�
 msgid "Error playing media"
 msgstr "Ошибка воспроизведения медиафайла"
 
-#: Viewer/QtAVDisplay.cpp:28 Viewer/QtAVDisplay.cpp:41
+#: Viewer/QtAVDisplay.cpp:31 Viewer/QtAVDisplay.cpp:44
 #, kde-format
 msgid "Failed to set up video playback"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:28
+#: Viewer/QtAVDisplay.cpp:31
 #, kde-format
 msgid "Failed to set up video playback (renderer wasn't created)"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:41
+#: Viewer/QtAVDisplay.cpp:44
 #, kde-format
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""

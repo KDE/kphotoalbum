@@ -1,0 +1,180 @@
+<!--
+SPDX-FileCopyrightText: 2012 André Marcelo Alvarenga <alvarenga@kde.org>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="work-flow">
+  <title
+>Les processus de traitement avec &kphotoalbum;</title>
+  <para
+>Le processus de traitement est un aspect assez important de l'imagerie numérique. Dans ce chapitre, nous allons décrire différents processus de traitement qui correspondent à différents besoins. Plusieurs facteurs doivent être pris en compte lorsqu'on développe un processus de traitement. Espérons que ces exemples vous fourniront suffisamment d'idées pour pouvoir mettre en place votre propre méthode de travail.</para>
+
+  <sect1 id="raw-workflow">
+  <title
+>Le flux de production « RAW » utilisant &kphotoalbum; et Bibble5 / AfterShot Pro.</title>
+  <para
+>Lors de la prise de photographie au format « RAW », les fichiers contenus dans l'appareil photo doivent être développés dans des formats plus communs tels que « JPEG » ou « TIFF ». Il existe plusieurs possibilités lors de travaux sous Linux. Par exemple, « RawTherapee » et « Ufraw » sont des alternatives « open-source » tandis que Bible5 / AfterShotPro sont des applications commerciales.</para>
+
+  <para
+>Quelques réglages sont recommandés pour un processus de traitement RAW. D'abord, il faut activer l'utilisation de l'intégration des vignettes. Cela va permettre d'accélérer fortement le décodage de chaque fichier RAW à chaque fois qu'ils seront vus (vérifiez aussi la configuration de la dimension minimale pour s'assurer d'avoir une qualité raisonnable). La deuxième chose concerne le nouveau chercheur d'images qui empile automatiquement les versions développées sur le fichier RAW (une image développée doit être mise dans le même dossier que l'originale). Cela nécessite l'utilisation d'expressions rationnelles comme décrit dans <xref linkend="opt-search-new"/>. Deux scripts d'aide sont fournis avec &kphotoalbum; pour aider l'utilisateur. Ces scripts sont « open-raw.desktop » et « open-raw.pl ». Le premier permet aux applications graphiques d'ouvrir les fichiers RAW dans le script open-raw.pl, qui va tenter de trouver le fichier RAW original pour l'ouvrir, au lieu d'ouvrir l'image développée. </para>
+
+  <figure id="fig-raw-workflow">
+    <title
+>Envoyer des images dans l'éditeur de RAW.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="raw-external.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>La première étape est de copier les images depuis l'appareil photo vers l'ordinateur. Un simple copier depuis le terminal est nécessaire :  </para>
+  <screen
+><userinput
+><command
+>cp</command
+> <option
+>-a</option
+> <filename
+>/media/.../101CANON/</filename
+> <filename
+>~/Images/2012/exemple</filename>
+  </userinput
+></screen>
+  <para
+>Ensuite, démarrez &kphotoalbum; ou bien exécutez <menuchoice
+><guimenu
+>Maintenance</guimenu
+><guimenuitem
+>Rechercher de nouvelles images et vidéos</guimenuitem
+></menuchoice
+>. Les nouvelles images devraient être trouvées. Il est maintenant temps d'étiqueter les images. Comme j'ai l'habitude de prendre des photos lorsque je voyage, je vais d'abord ajouter le lieu. Sélectionnez <guilabel
+>Fichier</guilabel
+> et parcourez jusqu'au nouveau dossier. Ensuite, allez dans <guilabel
+>Afficher les vignettes</guilabel
+>, sélectionnez tout et <guimenu
+>Annoter simultanément</guimenu
+> ou bien faites <keycombo action="simul"
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>. Saisissez le lieu comme par exemple Finlande − Helsinki (voir <xref linkend="sec-member-groups-in-property-editor"/>). </para>
+
+  <para
+>Maintenant que les nouvelles images sont faciles à trouver, je vais faire le classement initial ainsi que la suppression. Pour cela, je vais dans l'afficheur de vignettes et je débute en appuyant sur &Entree;. Je note les bonnes images, en appuyant sur le chiffre correspondant allant de <keycap
+>1</keycap
+> à <keycap
+>5</keycap
+>. J'en ai noté trois sur cinq et j'ai appuyé sur <keycombo action="simul"
+>&Ctrl;<keycap
+>Suppr</keycap
+></keycombo
+> pour supprimer les mauvaises photos. À ce stade, je peux aussi ajouter le nom des personnes se trouvant sur la photo. Une fois la première partie terminée, je quitte l'afficheur en appuyant sur &Echap; et je sélectionne <guimenuitem
+>Supprimer des fichiers depuis le disque</guimenuitem
+> pour supprimer les mauvaises images pour de bon. </para>
+
+  <para
+>Ensuite, je sélectionne seulement les images qui sont assez bien notées grâce à la fonction rechercher. Évidemment, le lieu doit être indiqué si la recherche est activée avec <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+>. Cependant, si la recherche est effectuée depuis la fenêtre principale, la sélection actuelle est explorée en détails pour une correspondance plus précise. En tout cas, à ce point, je vais passer par les images les mieux notées parmi toutes les images pour affiner de nouveau sur celles-ci. Par exemple, si j'ai cinq photos similaires d'une espèce de Nudibranche, je diminue généralement la note des images les moins bonnes et augmente la meilleure. Vous pouvez comparer des images en sélectionnant celles qui vous intéressent et en démarrant l'afficheur. Les images peuvent être supprimées depuis l'afficheur avec la touche<keycap
+>Suppr</keycap
+>. Cela désactive l'affichage de l'image courante à l'intérieur de l'afficheur, mais rien n'est retiré ou supprimé. Cela permet de comparer les deux ou trois meilleures images côte à côte en se déplaçant à l'aide de <keycap
+>Page Suiv</keycap
+> et <keycap
+>Page Préc</keycap
+>. J'ai couramment utilisé une catégorie <literal
+>tmp</literal
+> pour faire la notation. </para>
+
+  <para
+>Après avoir diminué la quantité d'images, il reste à les étiqueter. Le nom latin de l'espèce ainsi que son nom commun sont ajoutés. À chaque fois que ces deux catégories sont indiquées, l'image est considérée comme terminée et marquée. Veuillez noter que si vous avez toujours besoin de faire de l'étiquetage après le développement des images « RAW » (et les enregistrer automatiquement), vous devez sélectionner le sommet de la pile (ou toutes les images de la pile dépliée). Ensuite, sélectionnez <emphasis
+>Annoter des éléments multiples en une fois.</emphasis
+> pour pouvoir annoter la totalité de la pie au lieu de la seule image de tête.étiqueté, il est bon d'avoir un marquage final avant de développer les JPEG).</para>
+
+  <para
+>Les meilleures images sont envoyées à une application externe pour être développées. Sur les images sélectionnées, faites un clic droit sur les vignettes et sélectionnez <menuchoice
+><guimenuitem
+>Appeler un programme externe</guimenuitem
+><guimenuitem
+>Toutes les images sélectionnées</guimenuitem
+><guimenuitem
+>Envoyer vers Bibble5</guimenuitem
+></menuchoice
+>. L'application sélectionnée est mon script qui détecte si il y a un fichier RAW de disponible pour les éventuelles images déjà développées et l'utilise si possible. Dans l'application externe, j'effectue si nécessaire quelques réglages et rognages et ensuite les JPEG sont développés à coté du fichier RAW d'origine. Le nommage des fichiers est assez simple, il suffit de changer l'extension ou d'ajouter un caractère de soulignement et un chiffre si nécessaire. </para>
+
+  <para
+>Maintenant qu'il y a assez de nouvelles JPEG dans les dossiers d'images, je laisse &kphotoalbum; chercher de nouvelles images et de les empiler automatiquement en haut du RAW initial (<xref linkend="fig-options-file-versions"/>). Ensuite, faites un dernier tour sur les images développées pour voir s'il est nécessaire d'ajouter d'autres descriptions.</para>
+
+  <para
+>La dernière étape consiste à générer les pages &HTML; statiques et de les télécharger sur mon serveur Internet pour le plus grand plaisir de mes amis et de mes collègues. Voilà ce qui est fait avec la pile repliée pour n'envoyer que les images développées vers la page Internet. La génération &HTML; est décrite sur <xref linkend="chp-generating-html"/>.</para>
+  </sect1>
+
+  <sect1 id="pano-workflow">
+  <title
+>Flux de production pour le panorama</title>
+  <para
+>Les panoramas nécessitent un flux de production différents de celui du traitement norma de photos. Ceci provient de l'exigence de travailler avec des fichiers de source. L'outil choisi pour les panoramas est « Autopano Pro ». Mais la dernière version de &digikam; devrait être suffisant et avec un budget nul. La liste suivante décrit les différentes étapes nécessaires : <orderedlist>
+  <listitem
+><para
+>Marquer les photos appartenant au panorama dans &kphotoalbum; de façon appropriée. Ceci est fait principalement pour éviter de supprimer des images par accident, lors de tri des brouillons parmi les photos prises. Vous voudrez probablement empiler l'ensemble des images source à ce stade.</para
+></listitem>
+  <listitem
+><para
+>Vous avez au moins deux options simples pour la prochaine étape : <orderedlist>
+  <listitem
+><para
+>Vous pouvez laisser « Autopano Pro » trouver les panoramas automatiquement à partir du dossier de photos. </para
+></listitem>
+  <listitem
+><para
+>Ou, d'envoyer les images correctes vers « Autopano Pro » en ligne de commandes pour accélérer les choses. Ceci est élégant si le dossier d'images contient un grand nombre de photos, en particulier au format « RAW ». Ceci nécessite de modifier le script démarrant « AutoPano Pro » pour qu'il accepte les entrées et de créer un fichier de bureau ou de lancer un programme externe avec sa propre ligne de commandes.</para
+></listitem>
+  </orderedlist>
+  </para
+></listitem>
+  <listitem
+><para
+>S'il arrive que le panorama produit ne prenne pas en compte une petite partie, vous pouvez essayer de mettre en œuvre, par exemple « GIMP ». Ce dernier fonctionne généralement bien, si il y a assez de « structure » à cloner. Mais, cela ne vous donne aucune garantie d'avoir des résultats utilisables.</para
+></listitem>
+  <listitem
+><para
+>Enregistrer la nouvelle image quelque part dans le dossier d'images de &kphotoalbum; et lancer <menuchoice
+><guimenu
+>Maintenance</guimenu
+><guimenuitem
+>Re-lancer la recherche d'images et de vidéos</guimenuitem
+></menuchoice
+>. Cela devrait relancer le nouveau panorama et l'inclure dans la galerie de photos. </para
+></listitem>
+  <listitem
+><para
+>Si vous avez défini l'auto-enregistrement correct de nouvelles images et si le nom du nouveau panorama correspond aux règles de celui-ci, il devrait se trouver en haut de la pile. Sinon, triez les images par date. Ainsi, le nouveau panorama se termine par les images sources et les enregistre manuellement. (« Autopano Pro » semble écrire les informations « EXIF » de la première image dans le panorama).</para
+></listitem>
+  <listitem
+><para
+>Vous pouvez toujours ajouter des étiquettes à ce point dans le panorama ou vous pourriez aussi inclure toutes les sources d'images aussi <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>.</para
+></listitem>
+  </orderedlist>
+  </para>
+</sect1>
+</chapter>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

@@ -1,0 +1,198 @@
+<chapter id="chp-options">
+  <title
+>&kphotoalbum; configureren</title>
+  <para
+>Het selecteren van <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>KPhotoAlbum instellen...</guimenuitem
+></menuchoice
+> uit de menubalk laat de dialoog met opties verschijnen. Dit hoofdstuk vetelt u over de hier beschikbare optie-instellingen.</para>
+
+
+<sect1 id="opt-general">
+  <title
+>Algemene instellingen</title>
+
+<para
+>Hieronder ziet u de pagina voor instellingen voor algemene opties. Sommige van deze opties worden hier kort beschreven en u kunt ook toegang krijgen tot een informatiemenu bij het instellen door rechts te klikken op een optie en het selecteren van het menu-item <guimenuitem
+>Wat is dit?</guimenuitem
+>.</para>
+
+<figure id="fig-options-general">
+<title
+>Algemene opties</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-general.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>EXIF-informatie gebruiken zal de foto automatisch laten draaien. De meeste digitale camera's voegen een miniatuurvoorbeeld aan de RAW-bestanden toe en vaak is dit miniatuurvoorbeeld voldoende groot en soms zelfs op volledige grootte. Het gebruik van deze miniatuurvoorbeelden maakt dat alle bewerkingen van de foto veel sneller verlopen omdat het decoderen van RAW-bestanden veel tijd kost en dat van miniatuurvoorbeelden veel sneller is. U kunt ook het minimum formaat van een miniatuurvoorbeeld opgeven zodat de RAW-foto wordt gebruikt als het miniatuurvoorbeeld van een onbruikbaar formaat is.</para>
+</sect1>
+
+<sect1 id="opt-search-new">
+  <title
+>Instellingen voor het zoeken van nieuwe afbeeldingen</title>
+<para
+>Het linker paneel geeft u toegang tot andere instellingen zoals <guimenuitem
+>Zoeken van bestanden &amp; versies</guimenuitem
+>. Deze instellingen definiëren het gedrag van &kphotoalbum; wanneer nieuwe afbeeldingen worden gevonden. Hierop kan automatisch worden gezocht bij het opstarten of handmatig vanuit het menu <guimenu
+>Onderhoud</guimenu
+>. Opnieuw, de opties zijn goed beschreven in het online hulpmenu maar aan enkelen zou hier kort aandacht moeten worden gegeven.</para>
+
+<figure id="fig-options-file-versions">
+<title
+>Zoeken naar bestanden en hun versies</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-file-versions.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para>
+<itemizedlist mark='opencircle'>
+    <listitem
+><para
+>U wilt waarschijnlijk het doorzoeken overslaan voor mappen die zijn aangemaakt door andere afbeeeldingsweergevers of bestandsbrowsers. Dit is een door komma's gescheiden lijst waar u makkelijk nieuwe mappen aan kunt toevoegen.</para
+></listitem>
+    <listitem>
+        <para
+>&kphotoalbum; kan tot op zekere hoogte nieuwe versies van hetzelfde bestand detecteren. Als u wilt dat &eg; automatisch nieuwe versies van dezelfde foto op een stapel gelegd worden dan kunt u een reguliere expressie gebruiken om te proberen vast te stellen of een nieuw bestand een nieuwe versie of een origineel bestand is. U kunt de volgende instellingen proberen, de eerste is een zoekopdracht en de tweede een test of het een origineel bestand is, maar deze moet u misschien wat aanpassen voor het door u gebruikte schema voor naamgeving.</para>
+    <orderedlist>
+    <listitem
+><para
+>(_(v){0,1}([0-9]){1,2}){0,1}\.(jpg|JPG|tif|TIF|png|PNG)</para
+></listitem>
+    <listitem
+><para
+>.CR2;.NEF;.JPG;.jpg</para
+></listitem>
+    </orderedlist>
+    </listitem>
+</itemizedlist
+>Merk op dat u in de vervangingstekst voor een oorspronkelijk bestand meerdere extensies gescheiden door een puntkomma (;) kunt opgegeven opgegeven en dat u een referentie naar een regexp-match kunt maken in het formaat van \1. De zoektocht naar het originele bestand gebeurt vanuit de map waar het nieuwe bestand aanwezig is en overeenkomt met de zoektekst &eg; de volgende bestanden: example_v1.jpg, example_12.tif, example.PNG. </para>
+</sect1>
+
+<sect1 id="opt-thumbnails">
+  <title
+>Instellingen voor de miniaturenviewer</title>
+  <para
+>Er is niet veel dat u voor de miniaturenviewer hoeft in te stellen. Voornamelijk de miniatuurgrootte en het formaat van de tekstballon (Als u tekstballonnen wilt gaan gebruiken dan kunt u dit inschakelen via  <menuchoice
+><guimenu
+>Instellingen</guimenu
+><guimenuitem
+>Tekstballonnen in miniaturenvenster tonen</guimenuitem
+></menuchoice
+> of <keycombo
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+>). U kunt ook instellen of extra informatie zoals labels en categorieën bij de miniaturen zichtbaar is. </para>
+<figure>
+<title
+>Opties voor de miniaturenweergave</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-thumbnailview.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+<sect1 id="opt-viewer">
+  <title
+>Viewerinstellingen</title>
+  <para
+>Een andere tamelijk simpele configuratie. In hoofdzaak kunt u de afmeting van uw voorkeur voor het venster van viewer of diashow selecteren of om ze in volledig-scherm-modus te tonen. Het basis interval van de diashow kan hier worden ingesteld. Het schalingsalgoritme kan <emphasis
+>Beste</emphasis
+> of <emphasis
+>Snelste</emphasis
+> zijn. Als uw computer snel genoeg is voor Beste schaling gebruik dat, ga anders voor snelheid. </para>
+<figure>
+<title
+>Opties voor de viewer</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-viewer.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+
+
+
+<sect1 id="sec-specifying-categories">
+  <title
+>Categorieën</title>
+  <para
+>In <xref linkend="chp-typingIn"/> is beschreven hoe u verschillende eigenschappen voor elke afbeelding kunt specificeren, deze omvatten <literal
+>Mensen</literal
+>, <literal
+>Plaatsen</literal
+> en <literal
+>Kenwoorden</literal
+>. Het is mogelijk om uw eigen categorieën te specificeren, als u daar de voorkeur aan geeft dan kunt u categorieën <literal
+>Items</literal
+>, <literal
+>Dieren</literal
+> of <literal
+>Albums</literal
+> zelf definiëren.</para>
+
+<para
+>In <xref linkend="fig-options-group"/> hieronder kunt u de gebruikte dialoog zien om bestaande categorieën in te stellen. Voor elke categorie specificeert u een label en een pictogram.</para>
+
+<figure id="fig-options-group">
+<title
+>Categorieën instellen</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-groups.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+
+
+
+<sect1 id="sec-member-groups-in-options-dialog">
+<title
+>Subcategorieën</title>
+
+<para
+>In <xref linkend="sec-member-groups-in-property-editor"/> hebben we subcategorieën besproken. In de instellingendialoog is het mogelijk gehele ledengroepen in te stellen, &ie; alle leden van een groep in ene in te stellen in plaats van alle groepen voor een lid zoals de situatie in <xref linkend="sec-member-groups-in-property-editor"/>.</para>
+
+<para
+>In <xref linkend="fig-options-member"/> kunt u de configuratiepagina zien voor het specificeren van ledengroepen. Bovenaan is er een keuzevak, waar u kunt specificeren welke categorie u nu aan het configureren bent. links ziet u een vak met een lijst met de huidige categorie en rechts ziet u een vak met een lijst met de subcategorieën.</para>
+
+<figure id="fig-options-member">
+<title
+>Groepen van leden instellen</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-member.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+</sect1>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

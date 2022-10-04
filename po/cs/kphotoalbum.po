@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-03 00:44+0000\n"
+"POT-Creation-Date: 2022-10-04 00:42+0000\n"
 "PO-Revision-Date: 2021-09-02 12:32+0200\n"
 "Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -1016,17 +1016,17 @@ msgid ""
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:643
+#: DateBar/DateBarWidget.cpp:645
 #, kde-format
 msgid "Show Ranges"
 msgstr "Zobrazit rozsahy"
 
-#: DateBar/DateBarWidget.cpp:649
+#: DateBar/DateBarWidget.cpp:651
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr "Zobrazit ukazatel rozlišení"
 
-#: DateBar/DateBarWidget.cpp:774
+#: DateBar/DateBarWidget.cpp:776
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1035,7 +1035,7 @@ msgstr[0] "%1 přesně"
 msgstr[1] "%1 přesně"
 msgstr[2] "%1 přesně"
 
-#: DateBar/DateBarWidget.cpp:775
+#: DateBar/DateBarWidget.cpp:777
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1046,7 +1046,7 @@ msgstr[0] " + 1 rozsah"
 msgstr[1] " + %1 rozsahy"
 msgstr[2] " + %1 rozsahů"
 
-#: DateBar/DateBarWidget.cpp:776
+#: DateBar/DateBarWidget.cpp:778
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1055,7 +1055,7 @@ msgstr[0] " = 1 celkem"
 msgstr[1] " = %1 celkem"
 msgstr[2] " = %1 celkem"
 
-#: DateBar/DateBarWidget.cpp:778
+#: DateBar/DateBarWidget.cpp:780
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
@@ -1064,7 +1064,7 @@ msgstr[0] "%1 obrázek/video"
 msgstr[1] "%1 obrázky/videa"
 msgstr[2] "%1 obrázků/videí"
 
-#: DateBar/DateBarWidget.cpp:780
+#: DateBar/DateBarWidget.cpp:782
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
@@ -1265,30 +1265,30 @@ msgstr ""
 msgid "Following files could not be read:"
 msgstr "Následující soubory nelze přečíst:"
 
-#: Exif/InfoDialog.cpp:32
+#: Exif/InfoDialog.cpp:33
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
 msgstr ""
 
-#: Exif/InfoDialog.cpp:72
+#: Exif/InfoDialog.cpp:73
 #, kde-format
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
 msgstr "Filtrovat štítky..."
 
-#: Exif/InfoDialog.cpp:76
+#: Exif/InfoDialog.cpp:77
 #, kde-format
 msgid "IPTC character set:"
 msgstr "Znaková sada IPTC:"
 
-#: Exif/InfoDialog.cpp:94
+#: Exif/InfoDialog.cpp:95
 #, kde-format
 msgid "Exif info"
 msgstr ""
 
-#: Exif/InfoDialog.cpp:95
+#: Exif/InfoDialog.cpp:96
 #, kde-format
 msgid "File metadata"
 msgstr ""
@@ -4055,7 +4055,7 @@ msgstr ""
 msgid "Video thumbnails are not available"
 msgstr "Miniatury videí jsou nedostupné"
 
-#: Map/GeoCluster.cpp:137
+#: Map/GeoCluster.cpp:141
 #, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
@@ -5743,7 +5743,7 @@ msgstr "Nedostatečná hloubka barev pro tento filtr"
 msgid "[ zoom x%1 ]"
 msgstr "[ zoom x%1 ]"
 
-#: Viewer/InfoBox.cpp:61
+#: Viewer/InfoBox.cpp:59
 #, kde-format
 msgid "Show the geographic position of this image on a map"
 msgstr ""
@@ -5753,17 +5753,17 @@ msgstr ""
 msgid "Error playing media"
 msgstr "Chyba při přehrávání média"
 
-#: Viewer/QtAVDisplay.cpp:28 Viewer/QtAVDisplay.cpp:41
+#: Viewer/QtAVDisplay.cpp:31 Viewer/QtAVDisplay.cpp:44
 #, kde-format
 msgid "Failed to set up video playback"
 msgstr "Nastavení přehrávání videa selhalo"
 
-#: Viewer/QtAVDisplay.cpp:28
+#: Viewer/QtAVDisplay.cpp:31
 #, kde-format
 msgid "Failed to set up video playback (renderer wasn't created)"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:41
+#: Viewer/QtAVDisplay.cpp:44
 #, kde-format
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""

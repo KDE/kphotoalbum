@@ -1,0 +1,150 @@
+<!--
+SPDX-FileCopyrightText: 2004-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-generating-html">
+    <title
+>Générer &HTML;</title>
+    <para
+>&kphotoalbum; offre la possibilité de générer du &HTML; à partir de votre album de photos. Vous pouvez la trouver dans la barre de menu <menuchoice
+><guimenu
+>Fichier</guimenu
+><guimenuitem
+>Générer &HTML;</guimenuitem
+></menuchoice
+>.</para>
+    
+    <para
+>Avant que les pages &HTML; ne soient générées, vous devez spécifier certaines informations réparties sur les trois pages <guilabel
+>Contenu</guilabel
+>, <guilabel
+>Disposition</guilabel
+> and <guilabel
+>Destination</guilabel
+>. Les sections suivantes décrivent chaque page en détail.</para>
+
+    <sect1 id="the_content_page">
+      <title
+>La page <guilabel
+>Contenu</guilabel
+></title>
+      <para
+>Dans la page « Contenu », vous spécifiez quelles informations doivent être générées vers les pages &HTML;.</para>
+
+	<figure id="html-content">
+	<title
+>Configuration du contenu du générateur HTML</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-content.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>Tout d'abord, vous spécifiez le titre des pages d'aperçu, ainsi qu'une description générée sur celles-ci. Si le thème que vous choisissez prend en compte le droit d'auteur, cela peut être spécifié ici. </para>
+
+      <para
+>Ensuite, vous spécifiez si un fichier d'export de &kphotoalbum; doit être généré et mis dans une page d'aperçu. Voir <xref linkend="chp-importExport"/> pour des détails sur les fichiers d'export. Et vous pouvez choisir de considérer les films comme des objets intégrés ou qui peuvent être téléchargés. </para>
+
+      <para
+>Enfin, vous devez spécifier quelle information doit être générée dans les pages &HTML;. De cette façon, vous pouvez vous dispenser de générer des informations qui pourraient être évidentes au lecteur de ces pages (c'est-à-dire que ces images proviennent de la fête à laquelle nous avons participé). A noter que &kphotoalbum; ne vous autorise pas pour l'instant d'exclure certaines catégories dans le fichier export. Aussi, ne faites pas confiance à cette façon pour exclure des informations que vous ne voulez pas que les lecteurs de vos pages voient.</para>
+    </sect1>
+
+    <sect1 id="the_layout_page">
+      <title
+>La page <guilabel
+>Disposition</guilabel
+></title>
+      <para
+>Sur la page de disposition, vous spécifiez l'apparence de vos pages &HTML;. La plupart des options sur cette page sont explicites et ne nécessite pas de description complémentaire ici. Une courte introduction sur chaque thème est affichée quand vous sélectionnez le thème pour vous en donner un aperçu.</para>
+
+	<figure id="html-layout">
+	<title
+>Configuration de la disposition du générateur HTML</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-layout.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>En bas de cette page, il est possible de spécifier plusieurs résolutions pour les images. De cette façon, les personnes lisant vos pages, ne sont pas obligés de charger les images en hautes résolutions, telles que 1600x1200, simplement pour les voir sur un écran n'offrant qu'une résolution comme 800x600.</para>
+      
+      <para
+>A tout moment, vos lecteurs peuvent changer la résolution parmi celles que vous avez spécifiées. De cette façon, ils peuvent naviguer dans vos images en basse résolution (et ainsi, un temps de chargement plus court) et quand ils voient une image qui les intéresse, ils peuvent basculer en haute résolution.</para>
+    </sect1>
+
+    <sect1 id="the_destination_page">
+      <title
+>La page <guilabel
+>Destination</guilabel
+></title>
+      <para
+>Sur la page de destination, vous spécifiez plusieurs dossiers et URL où seront stockées vos pages.</para>
+
+      <para
+>Par construction, vous spécifiez un dossier racine pour toutes vos générations, et pour chaque génération, vous spécifiez un nouveau sous-dossier.</para>
+
+	<figure id="html-destination">
+	<title
+>Configuration de la destination pour le générateur HTML</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-destination.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>Tout d'abord, vous devez spécifier le dossier racine pour toutes vos images. Ce dossier sera utilisé d'une session à une autre et vous permet une fois pour toute, de dire où toutes les images associées doivent être stockées. Ici, vous devez spécifier un dossier ou n'importe quel <ulink url="help:/kioslave/index.html"
+>protocole</ulink
+> pris en charge par &kde;, comme par exemple : <itemizedlist>
+          <listitem
+><para
+>ftp://someserver/my-upload-area/images (téléchargement utilisant FTP)</para
+></listitem>
+          <listitem
+><para
+>fish : //someserver/home/foo/images (téléchargement utilisant ssh)</para
+></listitem>
+          <listitem
+><para
+>smb://someserver/c/images (téléchargement vers un partage Windows)</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+>Une fois que vous avez générées vos images, vous pourriez vouloir vérifier si elles sont bien disponibles pour vos correspondants. Si vous spécifiez une URL dans la ligne d'édition <guilabel
+>Base URL</guilabel
+>, un navigateur web sera lancé une fois les pages &HTML; générées. L'URL que vous spécifiez ici, doit correspondre au dossier que vous avez spécifié au dessus. Alors, le navigateur web sera lancé en référençant les sous-dossiers de cette URL.</para>
+      
+      <para
+>Une fois que vous avez généré les pages &HTML;, vos pages peuvent ne pas être dans leur destination finale, vous pourriez alors avoir besoin d'une procédure particulière de téléchargement, en dehors des fonctions de &kphotoalbum;. Pour que la fonction « Import » (voir <xref linkend="chp-importExport"/>) fonctionne, vous avez besoin de spécifier la destination finale des pages. A nouveau, cela ne concerne pas le sous-dossier de la génération courante.</para>
+
+      <para
+>Les trois lignes d'édition décrites ci-dessus référencent tous les dossiers ou les URLs de base. A ces endroits, un nouveau sous-dossier sera créé, selon le nom spécifié dans <guilabel
+>Dossier Destination</guilabel
+>.</para>
+    </sect1>
+
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

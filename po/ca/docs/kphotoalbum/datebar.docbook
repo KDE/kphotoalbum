@@ -1,0 +1,58 @@
+<!--
+SPDX-FileCopyrightText: 2005-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2010 Burkhard Lück <lueck@hube-lueck.de>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-datebar">
+  <title
+>La barra de dates</title>
+
+<para
+>A la part inferior de la finestra principal del &kphotoalbum;, trobareu la barra de dates (vegeu la <xref linkend="fig-datebar"/>). Com el seu nom indica, mostra les estadístiques de les dates quant a les imatges a la base de dades.</para>
+
+<figure id="fig-datebar">
+<title
+>La barra de dates</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Les barres individuals indiquen el nombre d'imatges que es troben dins del període de temps indicat. A la figura anterior podeu veure que tinc 261 imatges des de Gener de 2005. Les barres codifiquen dues informacions, la quantitat d'imatges que tenen una data exacta dins del període indicat, i quantes se superposen dins d'aquest període. Una imatge que té una data que diu 2005 serà per tant considerada com una superposició de tots els mesos de 2005, mentre que una imatge de 24 gener de 2005 comptarà com una data exacta per a Gener de 2005. Els resultats exactes es mostren en color verd, mentre que les coincidències inexactes es mostren en color groc. D'aquesta manera, al Desembre de 2004 tinc 86 imatges amb la data exacta, i 61 amb la data superposada. (Les dates es poden conèixer amb només passar el ratolí per sobre de l'interval indicat, atès que es mostra la quantitat a la barra d'estat).</para>
+
+<para
+>La barra de dates ofereix una sèrie de diferents granulacions, on cada barra mostra un interval de temps diferent. L'interval és anys, mesos, setmanes, dies, hores i 10 minuts. La <xref linkend="fig-datebar-for-minutes"/> mostra part de la meva base de dades, on cada barra només mostra 10 minuts.</para>
+
+<figure id="fig-datebar-for-minutes">
+<title
+>La barra de dates mostrant intervals de 10 minuts</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar-for-minutes.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>La barra de dates és interactiva de dues maneres, en primer lloc podeu navegar per la vista de miniatures des de la base de dades -seleccionant una data es desplaçarà la vista de miniatures de manera que es mostri la primera imatge per aquesta data-. En segon lloc, quan navegueu per la vista de miniatures, la barra de dates s'actualitzarà per mostrar la data de les imatges que es mostren actualment.</para>
+
+<para
+>També podeu arrossegar un interval en la barra de dates. Ho podeu fer fent clic i arrossegant el ratolí sobre la part del regle de la barra de la data, &ead;, sobre les marques de temps. Quan seleccioneu un interval de temps, la vista de miniatures només mostrarà les imatges dins d'aquest interval. Podeu cancel·lar una selecció prement el botó Cancel·la al costat esquerre de la barra de dates.</para>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

@@ -1,0 +1,118 @@
+<chapter id="chp-options">
+  <title
+>Configurar &kphotoalbum;</title>
+  <para
+>Cuando seleccione el menú <menuchoice
+><guimenu
+>Preferencias</guimenu
+><guimenuitem
+>Configurar KPhotoAlbum...</guimenuitem
+></menuchoice
+> se le mostrará el diálogo de opciones. En este capítulo se explican las opciones de configuración disponibles en él.</para>
+
+<para
+>En la imagen inferior puede ver la página de configuración de opciones generales, de la vista de miniaturas y del visor. Cada opción tiene una descripción «qué es esto» muy detallada así que, para obtener ayuda sobre un elemento, pulse F1 y presione el cursor sobre la opción.</para>
+
+<figure id="fig-options-general">
+<title
+>Opciones generales</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-general.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<figure>
+<title
+>Opciones de la vista de miniaturas</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-thumbnailview.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<figure>
+<title
+>Opciones del visor</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-viewer.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+
+
+
+
+<sect1 id="sec-specifying-categories">
+  <title
+>Categorías</title>
+  <para
+>En <xref linkend="chp-typingIn"/> se explicaba cómo especificar propiedades para cada imagen, incluyendo <literal
+>Personas</literal
+>, <literal
+>Lugares</literal
+> y <literal
+>Palabras clave</literal
+>. Puede crear sus propias categorías, así que si lo prefiere también puede especificar <literal
+>Elementos</literal
+>, <literal
+>Animals</literal
+>, o <literal
+>Álbumes</literal
+> usted mismo.</para>
+
+<para
+>En <xref linkend="fig-options-group"/> a continuación puede ver el diálogo para configurar las categorías existentes. Para cada una debe especificar una etiqueta y un icono.</para>
+
+<figure id="fig-options-group">
+<title
+>Configurar categorías</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-groups.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+
+
+
+<sect1 id="sec-member-groups-in-options-dialog">
+<title
+>Subcategorías</title>
+
+<para
+>En <xref linkend="sec-member-groups-in-property-editor"/> se explicaban las subcategorías. Desde el diálogo de preferencias puede configurar todos los miembros de grupos, es decir, en lugar de tener que hacerlo uno a uno como en el caso de <xref linkend="sec-member-groups-in-property-editor"/>.</para>
+
+<para
+>En <xref linkend="fig-options-member"/> puede ver la página de configuración para especificar miembros de grupos. En la parte superior hay una caja desplegable donde indicar la categoría que está configurando. A la izquierda puede ver una lista con la categoría actual, y a la derecha otra lista con las subcategorías.</para>
+
+<figure id="fig-options-member">
+<title
+>Configurar miembros de grupos</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-member.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+</sect1>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

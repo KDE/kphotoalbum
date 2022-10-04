@@ -1,0 +1,224 @@
+<!--
+SPDX-FileCopyrightText: 2003 Stephan Kulow <coolo@kde.org>
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 André Marcelo Alvarenga <alvarenga@kde.org>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-typingIn">
+  <title
+>Beskriva dina bilder</title>
+  <para
+>I bilden <xref linkend="fig-empty-browser-window"/> kan du se ett exempel på fönstret som visas när du väl har startat Kfotoalbum med dina egna bilder.</para>
+
+  <para
+>Längst upp i fönstret hittar du en menyrad och verktygsrad, som du känner igen från andra &kde;-program. Under verktygsraden visas bläddringsfönstret. I bläddringsfönstret kan du välja olika kategorier för att begränsa bilderna du ska betrakta. I <xref linkend="chp-browsing"/> kommer vi tillbaka till bläddraren, men tryck nu bara på alternativet <guibutton
+>Visa miniatyrbilder</guibutton
+>, som ger dig en miniatyrbildsvy av alla dina bilder.</para>
+
+  <figure id="fig-empty-browser-window">
+    <title
+>Starta Kfotoalbum med dina egna bilder</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="empty-browser-window.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+    <para
+>Nyckelfunktionen i Kfotoalbum är att du kan beskriva bilderna. Det omfattar vem som finns på en given bild, var den är tagen, etc. Du kan antingen göra det en bild i taget, eller för ett antal bilder på en gång. (Till exempel alla bilder som <emphasis
+>Jesper</emphasis
+> finns med på, och är tagna i <emphasis
+>Köpenhamn</emphasis
+>.)</para>
+
+    <para
+>För att beskriva bilder, markera bilderna i fråga, och välj <menuchoice
+><guimenu
+>Redigera</guimenu
+><guisubmenu
+>Beskriv enskilda objekt</guisubmenu
+></menuchoice
+>. Nu beskriver du de markerade bilderna en i taget. Om du istället väljer <guimenuitem
+>Beskriv flera objekt åt gången</guimenuitem
+> beskriver du alla markerade objekt som om de var ett enda objekt. Med andra ord, beskriver du mängder av bilder, t.ex. anger du att alla bilderna togs i Köpenhamn. De två alternativen är också tillgängliga i en sammanhangsberoende meny, som visas genom att högerklicka med musen i miniatyrbildsöversikten, eller använda snabbtangenten. Ett exempel på detta visas på <xref linkend="fig-edit-properies-menu"/>.</para>
+
+    <figure id="fig-edit-properies-menu">
+      <title
+>Sammanhangsberoende meny för att redigera egenskaper</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="edit-properies-menu.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para
+>På <xref linkend="fig-image-config-window"/> nedan, kan du se fönstret för att anpassa bildegenskaper. Du kan ange bildens datum och namn i det här fönstret<footnote
+><para
+>Namnet initieras till filnamnet. Namnet används i bläddraren, och när bilder exporteras till &HTML;-sidor</para
+></footnote
+>, en beskrivning av bilden och, viktigast av allt, olika <emphasis
+>kategorier</emphasis
+> för bilden. På skärmbilden är egenskaperna <literal
+>Personer</literal
+>, <literal
+>Platser</literal
+> och <literal
+>Nyckelord</literal
+>, men som du kommer att se under <xref linkend="sec-specifying-categories"/>, kan dessa tre fördefinierade grupper ändras som du önskar. </para>
+
+    <figure id="fig-image-config-window">
+      <title
+>Beskriva bilder och videor</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="image-config-window.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para
+>Alla beskrivningarna kan användas för att söka eller bläddra, som vi ser på <xref linkend="chp-browsing"/>. Du kan se beskrivningarna på begäran, när du ser på bilderna i det inbyggda visningsfönstret.</para>
+
+
+
+
+    <sect1 id="sect-specifying-options">
+      <title
+>Kategorier</title>
+      <para
+>Det finns tre listrutor i <xref linkend="fig-image-config-window"/>, kombinerat med radeditorer för att ange personer, platser och nyckelord. Komponenterna är en mycket viktig del av Kfotoalbum, eftersom du använder dem om och om igen, när du anger information om dina bilder.</para>
+
+      <para
+>Du kan ange ett alternativ från en listruta, genom att helt enkelt välja det. (Välj till exempel <literal
+>Donna</literal
+>, för att ange att Donna finns på den givna bilden. Som ett alternativ kan du skriva in namnet i radeditorn. När du börjar skriva in ett namn i radeditorn, tittar Kfotoalbum i listrutan, och söker efter första värdet som passar ihop med det du hittills skrivit, och fyller i det. Att skriva <literal
+>Do</literal
+> kan vara nog för att hitta <literal
+>Donna</literal
+>. När du väl har hittat värdet du letade efter, tryck helt enkelt på returtangenten för att välja värdet i listrutan. Värdet flyttas nu överst i listan, så att nästa gång du behöver det angivna värdet är det ännu lättare att hitta. Det finns också ett "sömlöst" sätt att lägga till en beskrivning från bildvisningen som beskrivs senare i <xref linkend="category-selectors-in-viewer"/>.)</para>
+
+      <para
+>Idén bakom att flytta bilder längst upp när det har markerats, är att om du till exempel deltar i en familjefest, får du kanske 50 bilder med samma 5-10 personer. När du skriver in information om de 50 bilderna, har du de 5-10 personerna överst i listrutan så fort du har skrivit in deras namn första gången.</para>
+
+     <para
+>Om du föredrar att sortera listan alfabetiskt istället, klicka helt enkelt på ikonen för sortering under listrutan.</para>
+    </sect1>
+
+
+    <sect1 id="sect-specifying-properties-for-one-image-at-a-time">
+      <title
+>Beskriva ett objekt åt gången</title>
+      <para
+>När du anger egenskaper för en bild åt gången, kan du förstås välja ett antal bilder och säga <emphasis
+>Jag vill ange egenskaper för alla dessa bilder</emphasis
+>. I detta fall hittar du knappar för att gå till nästa och föregående bild i övre högra hörnet. </para>
+    </sect1>
+
+    <sect1 id="sect-specifying-properties-for-all-images-simultaneously">
+      <title
+>Beskriva flera objekt åt gången</title>
+      <para
+>Om du till exempel har flera bilder med samma person, kan det vara bekvämare att markera bilderna och ange att personen finns på alla bilder med <emphasis
+>Beskriv flera objekt åt gången</emphasis
+>.</para>
+      <para
+>Om du vill lägga till en beskrivning för en hög med bilder kan du göra det när högen är hopsamlad. Du behöver bara markera den översta bilden i högen och välja att beskriva flera bilder (om du väljer att beskriva en enstaka bild, den översta i högen i detta fall, gäller beskrivningen bara den). Att visa hela högen och markera alla bilder fungerar förstås lika bra.</para>
+
+    </sect1>
+
+
+<sect1 id="sec-member-groups-in-property-editor">
+<title
+>Delkategorier</title>
+  <para
+>Las Vegas, San Francisco, Los Angeles och Kalifornien finns alla i U.S.A. Dessutom finns San Francisco och Los Angeles i Kalifornien.</para>
+
+<para
+>Istället för att ange för varje enskild bild från San Francisco att den är tagen i San Francisco, och i Kalifornien, och i U.S.A., kan du istället tala om för Kfotoalbum att San Francisco och Los Angeles finns i Kalifornien, och att bland annat Kalifornien finns i U.S.A. Om du gör det erbjuder bläddraren (se <xref linkend="chp-browsing"/>) ett objekt för U.S.A.och ett för Kalifornien förutom alla vanliga objekt. Väljer du Kalifornien ser du alla bilder från San Francisco, Los Angeles, etc.</para>
+
+<para
+>I <xref linkend="fig-usa-as-a-member"/> ser du ett bläddringsfönster som innehåller U.S.A. som ett objekt i en huvudkategori. För att ange att detta är en grupp, används en särskild ikon.</para>
+
+<figure id="fig-usa-as-a-member">
+<title
+>Bläddringsfönster som visar U.S.A. som huvudkategori</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="usa-as-a-member.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Det är möjligt att lägga till ett objekt i en befintlig eller ny huvudkategori eller delkategori med beskrivningsdialogrutans sammanhangsberoende meny. Dessutom kan du helt enkelt dra ett objekt till en kategori för att göra det till en delkategori till den kategorin. Observera att det för närvarande kräver att kategorierna sorteras alfabetiskt. Se <xref linkend="fig-membergroup-config"/>.</para>
+
+<figure id="fig-membergroup-config">
+<title
+>Kategorier visade med alfabetisk vy i beskrivningsdialogrutan</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="member-group-setting.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+</sect1>
+
+
+
+
+
+
+  <sect1 id="sect-changing-layout-of-the-property-window">
+    <title
+>Ändra layout på beskrivningsdialogrutan</title>
+    <para
+>Det är möjligt att flytta omkring objekten i beskrivningsdialogrutan, markera helt enkelt överkanten i ramarna och flytta omkring dem. Du kan till och med göra en ram till ett eget toppnivåfönster.</para>
+
+    <para
+>När du väl har hittat en layout som fungerar bra på bildskärmen, din användning av Kfotoalbum, etc. klicka helt enkelt på knappen <guibutton
+>Alternativ...</guibutton
+>, som visar en meny där du kan spara aktuell fönsterinställning.</para>
+
+    <para
+>Du kan också välja att dölja en ram, eller aktivera några som inte normalt är synliga. Du kan alltid gå tillbaka till den ursprungliga layouten via knappen <guibutton
+>Alternativ...</guibutton
+>, och välja <guimenuitem
+>Återställ layout</guimenuitem
+> i den sammanhangsberoende menyn. Detta visas i <xref linkend="fig-redisplay-frames"/>.</para>
+
+
+  <figure id="fig-redisplay-frames">
+    <title
+>Visa tidigare dolda fönster.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="redisplay-frames.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

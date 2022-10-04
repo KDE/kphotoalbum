@@ -1,0 +1,224 @@
+<!--
+SPDX-FileCopyrightText: 2003 Stephan Kulow <coolo@kde.org>
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 André Marcelo Alvarenga <alvarenga@kde.org>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-typingIn">
+  <title
+>Anotar les imatges</title>
+  <para
+>A la <xref linkend="fig-empty-browser-window"/> podeu veure un exemple de la finestra que us dona la benvinguda una vegada heu iniciat el &kphotoalbum; amb les vostres pròpies imatges.</para>
+
+  <para
+>A la part superior de la pantalla trobareu un menú i una barra d'eines, com ja coneixeu de qualsevol aplicació del &kde;. Per sota de la barra d'eines veureu la finestra del navegador. A la finestra del navegador, podreu seleccionar diferents categories per limitar les imatges que inspeccionareu. En el <xref linkend="chp-browsing"/> parlem del navegador, però per ara, simplement premeu l'element <guibutton
+>Mostra les miniatures</guibutton
+>, el qual mostrarà una vista de miniatures de totes les imatges.</para>
+
+  <figure id="fig-empty-browser-window">
+    <title
+>Iniciant el &kphotoalbum; amb les vostres pròpies imatges</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="empty-browser-window.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+    <para
+>La característica principal del &kphotoalbum; és que podeu anotar les vostres imatges. Això inclou les que es troben en una imatge indicada, on es va prendre, &etc; Podeu fer-ho, sigui sobre una sola imatge o sobre un nombre d'imatges alhora (per exemple, totes les imatges que continguin la persona <emphasis
+>Jesper</emphasis
+>, i que es van prendre a <emphasis
+>Copenhaguen</emphasis
+>).</para>
+
+    <para
+>Per anotar unes quantes imatges, seleccioneu les imatges en qüestió, i aneu a <menuchoice
+><guimenu
+>Edita</guimenu
+> <guisubmenu
+>Anota elements individuals</guisubmenu
+></menuchoice
+>. Anoteu les vostres imatges seleccionades una a una. Si per contra escolliu <guimenuitem
+>Anota múltiples elements a la vegada</guimenuitem
+>, anotareu tots els elements seleccionats, com si fos un sol element. En altres paraules, amb aquesta opció anotareu de forma massiva les vostres imatges: &pex;, dient que totes aquestes imatges es van prendre a Copenhaguen. Aquestes dues opcions estan disponibles des d'un menú contextual que s'obté fent clic amb el &BDR; sobre la vista de miniatures o utilitzant dreceres de teclat. Podeu veure un exemple a <xref linkend="fig-edit-properies-menu"/>.</para>
+
+    <figure id="fig-edit-properies-menu">
+      <title
+>Menú contextual per editar les propietats</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="edit-properies-menu.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para
+>A la <xref linkend="fig-image-config-window"/> a continuació podeu veure la finestra per anotar imatges i vídeos. En aquesta finestra podeu especificar la data, l'etiqueta<footnote
+><para
+>L'etiqueta s'inicia amb el nom del fitxer. L'etiqueta s'utilitza en el navegador, i quan les imatges s'exporten a les pàgines &HTML;.</para
+></footnote
+>, una descripció i el més important, diferents <emphasis
+>categories</emphasis
+> per a l'element. A la captura de pantalla, aquestes categories són <literal
+>Gent</literal
+>, <literal
+>Llocs</literal
+> i <literal
+>Paraules clau</literal
+>, però com es veu a la <xref linkend="sec-specifying-categories"/>, aquestes tres categories predefinides es poden canviar segons les vostres preferències. </para>
+
+    <figure id="fig-image-config-window">
+      <title
+>Anotant imatges i vídeos</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="image-config-window.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para
+>Totes aquestes anotacions es poden utilitzar per a la cerca i navegació, com veurem en el <xref linkend="chp-browsing"/>. A petició podeu veure aquestes anotacions durant la visualització dels elements en el visualitzador encastat.</para>
+
+
+
+
+    <sect1 id="sect-specifying-options">
+      <title
+>Categories</title>
+      <para
+>A la <xref linkend="fig-image-config-window"/> hi ha tres quadres de llista combinats amb la línia d'edició per a especificar les categories gent, llocs i paraules clau. Aquests ginys són una part molt important del &kphotoalbum;, ja que les utilitzareu una vegada i una altra, quan especifiqueu informació sobre les vostres imatges.</para>
+
+      <para
+>Podeu especificar una propietat des d'un quadre de llista, simplement seleccionant-la (seleccioneu <literal
+>Donna</literal
+> per especificar que es troba a la imatge indicada. De manera alternativa, podeu escriure el seu nom a la línia d'edició. Quan comenceu a escriure un nom a la línia d'edició, el &kphotoalbum; el mostrarà al quadre de llista i cercarà el primer element coincident que heu escrit fins ara, i l'omplirà. De manera que en escriure <literal
+>Do</literal
+> es trobarà <literal
+>Donna</literal
+>. Un cop hàgiu trobat l'element que cerqueu, simplement premeu &Intro; per a seleccionar-lo en el quadre de llista. Ara, l'element serà traslladat a la part superior de la vista, de manera que la pròxima vegada que el necessiteu, serà més fàcil de trobar. També hi ha una manera «sense fissures» d'anotar des del visualitzador d'imatges que es tractarà després a <xref linkend="category-selectors-in-viewer"/>.</para>
+
+      <para
+>La idea de moure els últims elements a la part superior quan han estat seleccionats, és que quan per exemple aneu a una festa familiar, potser obtindreu 50 imatges amb les mateixes 5 o 10 persones. Quan escriviu informació sobre aquestes 50 imatges tindreu les 5 o 10 persones a la part superior del quadre de llista tan aviat com hàgiu escrit el seu nom per primera vegada.</para>
+
+     <para
+>Si preferiu tenir la llista ordenada alfabèticament, simplement haureu de prémer la icona sota el quadre de llista per ordenar-la.</para>
+    </sect1>
+
+
+    <sect1 id="sect-specifying-properties-for-one-image-at-a-time">
+      <title
+>Anotar un element alhora</title>
+      <para
+>Quan especifiqueu les propietats d'una imatge alhora, per descomptat és possible seleccionar una sèrie d'imatges, i <emphasis
+>escollir que voleu anotar aquestes imatges</emphasis
+>. En aquesta situació, trobareu un botó Següent i Anterior sota la imatge a l'extrem superior esquerra. </para>
+    </sect1>
+
+    <sect1 id="sect-specifying-properties-for-all-images-simultaneously">
+      <title
+>Anotar múltiples elements alhora</title>
+      <para
+>Si teniu diverses imatges amb, diguem la mateixa persona, llavors podria ser més còmode seleccionar aquestes imatges i especificar que aquesta persona surt en totes les imatges utilitzant <emphasis
+>Anota múltiples elements a la vegada</emphasis
+>.</para>
+      <para
+>Si voleu anotar un munt d'imatges, podeu establir què es farà quan la pila resta plegada. Només heu de seleccionar la imatge superior de la pila i anotar diverses imatges. (Si anoteu una sola imatge, només s'anotarà aquesta imatge). Per descomptat, en desplegar i seleccionar totes les imatges també funcionarà anotant-les.</para>
+
+    </sect1>
+
+
+<sect1 id="sec-member-groups-in-property-editor">
+<title
+>Subcategories</title>
+  <para
+>Las Vegas, San Francisco, Los Angeles i Califòrnia estan ubicats als EUA. D'altra banda, San Francisco i Los Angeles es troben a Califòrnia.</para>
+
+<para
+>En lloc d'especificar per a cada imatge de Sant Francisco, que està a San Francisco, Califòrnia, i als EUA, li podeu dir al &kphotoalbum; que San Francisco i Los Angeles estan a Califòrnia, i Califòrnia, entre d'altres es troben als EUA. Si ho feu, el navegador (vegeu <xref linkend="chp-browsing"/>) us oferirà un element dels EUA, i un element de Califòrnia, a més de tots els elements normals. Seleccionant Califòrnia, veureu totes les imatges de San Francisco, Los Angeles, &etc;</para>
+
+<para
+>A la <xref linkend="fig-usa-as-a-member"/> podeu veure una finestra del navegador, que conté els EUA com una supercategoria. Per indicar que aquest és un grup que utilitza una icona especial.</para>
+
+<figure id="fig-usa-as-a-member">
+<title
+>Navegar mostrant els EUA com una supercategoria</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="usa-as-a-member.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Al menú contextual del diàleg d'anotacions, és possible afegir un element a una super o subcategoria existent o nova. A més simplement podeu arrossegar un element a una categoria perquè sigui una subcategoria d'aquest element. Tingueu en compte que això requereix que tingueu ordenades les vostres categories per ordre alfabètic. Vegeu <xref linkend="fig-membergroup-config"/>.</para>
+
+<figure id="fig-membergroup-config">
+<title
+>Categories mostrades en una vista alfabètica del diàleg d'anotacions</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="member-group-setting.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+</sect1>
+
+
+
+
+
+
+  <sect1 id="sect-changing-layout-of-the-property-window">
+    <title
+>Canviar el disseny del diàleg d'anotacions</title>
+    <para
+>És possible moure els elements del diàleg d'anotacions, simplement des de la barra a la part superior dels marcs, i moure-les -fins i tot podeu crear un marc dins d'una finestra de nivell superior-.</para>
+
+    <para
+>Un cop hàgiu trobat una disposició que funcioni bé a la pantalla, amb el vostre ús del &kphotoalbum;, &etc; simplement premeu el botó <guibutton
+>Opcions...</guibutton
+>, aquest mostrarà un menú emergent en el qual podreu desar la disposició de la finestra actual.</para>
+
+    <para
+>També podeu escollir ocultar un marc, o permetre que alguns no siguin visibles per omissió. Sempre podreu tornar a la disposició original prement el botó <guibutton
+>Opcions...</guibutton
+> i seleccionant <guimenuitem
+>Reinicia la disposició</guimenuitem
+> des del menú emergent. Es pot veure a la <xref linkend="fig-redisplay-frames"/>.</para>
+
+
+  <figure id="fig-redisplay-frames">
+    <title
+>Mostrar finestres abans ocultes.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="redisplay-frames.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

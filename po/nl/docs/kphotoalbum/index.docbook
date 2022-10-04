@@ -1,0 +1,156 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
+  <!ENTITY kphotoalbum "<application
+>KPhotoAlbum</application
+>">
+  <!ENTITY kappname "&kphotoalbum;">
+  <!ENTITY package "extragear-graphics">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Dutch "INCLUDE"
+> 
+
+  <!ENTITY introduction SYSTEM "introduction.docbook">
+  <!ENTITY setting-properties SYSTEM "setting-properties.docbook">
+  <!ENTITY browsing SYSTEM "browsing.docbook">
+  <!ENTITY thumbnail-view SYSTEM "thumbnail-view.docbook">
+  <!ENTITY viewer SYSTEM "viewer.docbook">
+  <!ENTITY datebar SYSTEM "datebar.docbook">
+  <!ENTITY options SYSTEM "options.docbook">
+  <!ENTITY workflows SYSTEM "workflows.docbook">
+  <!ENTITY generating-html SYSTEM "generating-html.docbook">
+  <!ENTITY importexport SYSTEM "importexport.docbook">
+]>
+
+<book id="kphotoalbum" lang="&language;">
+  
+  <bookinfo>
+    <title
+>Het handboek van &kphotoalbum;</title>
+    
+    <authorgroup>
+      <author
+><firstname
+>Jesper K.</firstname
+> <surname
+>Pedersen</surname
+> </author>
+      <author
+><firstname
+>Miika</firstname
+> <surname
+>Turkia</surname
+> </author>
+      
+      &Freek.de.Kruijf;&Ronald.Stroethoff; 
+    </authorgroup>
+    
+    <copyright>
+      <year
+>2003-2007</year>
+      <holder
+>Jesper K. Pedersen</holder>
+      
+    </copyright>
+    <copyright>
+      <year
+>2012</year>
+      <holder
+>Miika Turkia</holder>
+    </copyright>
+    
+    <date
+>2012-02-23</date>
+    <releaseinfo
+>4.2</releaseinfo>
+    
+    <abstract>
+    <para
+><inlinemediaobject>
+    <imageobject
+><imagedata fileref="splash-large.png" format="PNG" scalefit="1"/></imageobject>
+    <textobject
+><phrase
+>Logo van &kphotoalbum;</phrase
+></textobject>
+    </inlinemediaobject
+></para>
+    
+    <para
+>Dit is de gebruikershandleiding voor &kphotoalbum; &mdash; software voor het catalogiseren van digitale afbeeldingen met ondersteuning van annotatie, bladeren, zoeken en bekijken van digitale afbeeldingen en video's. Als u iemand bent die er niet van houdt om documentatie te lezen, maar liever de dingen uitprobeert, dan zijn hier een paar alternatieven: <itemizedlist>
+          <listitem
+><para
+>Ga naar de <ulink url="http://www.kphotoalbum.org/"
+>Homepagina van &kphotoalbum;</ulink
+>, en kijk naar het snelle overzicht, schermafbeeldingen en introductievideo's.</para
+></listitem>
+          <listitem
+><para
+>Start &kphotoalbum;, en accepteer het aanbod voor een demo (Als dit uw eerste keer is om het te starten) of ga naar het menu <guimenu
+>Help</guimenu
+> en selecteer <guimenuitem
+>&kphotoalbum;-demo starten</guimenuitem
+>. Die zal &kphotoalbum; laden met een aantal afbeeldingen en laat u rondkijken.</para
+></listitem>
+        </itemizedlist
+></para>
+
+   <para
+>Als u er de voorkeur aan geeft om dit document af te drukken dan vindt u het als een lang &HTML;-document op <ulink url="http://www.kphotoalbum.org/"
+>de startpagina van &kphotoalbum;</ulink
+> en als een PDF-bestand op <ulink url="http://docs.kde.org/"
+>KDE docs</ulink
+>.</para>
+</abstract>
+    <keywordset>
+      <keyword
+>KDE</keyword>
+      <keyword
+>extragear-graphics</keyword>
+      <keyword
+>KPhotoAlbum</keyword>
+      <keyword
+>Database voor afbeeldingen</keyword>
+    </keywordset>
+  </bookinfo>
+  
+  &introduction;
+  &setting-properties;
+  &browsing;
+  &thumbnail-view;
+  &viewer;
+  &datebar;
+  &generating-html;
+  &importexport;
+  &options;
+  &workflows;
+
+
+  <!-- ====================================================================== -->
+  <!--                                 FAQ                                    -->
+  <!-- ====================================================================== -->
+  <chapter id="faq">
+    <title
+>Veel voorkomende vragen</title>
+
+<para
+>Voor een lijst met veel voorkomende vragen, zie <ulink url="http://userbase.kde.org/KPhotoAlbum_FAQ"
+>http://userbase.kde.org/KPhotoAlbum_FAQ</ulink
+></para>
+  </chapter>
+
+  <chapter id="credits-and-license">
+    <title
+>Dankbetuigingen en licentie</title>
+    &meld.fouten;&vertaling.freek; &underFDL; &underGPL; </chapter>
+
+</book>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+End:
+-->

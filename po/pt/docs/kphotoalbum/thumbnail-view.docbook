@@ -1,0 +1,179 @@
+<chapter id="chp-thumbnail-view">
+  <title
+>Visualizador das miniaturas</title>
+  <para
+>Se seleccionar a opção <guilabel
+>Ver as Miniaturas</guilabel
+> no navegador, irá ver uma apresentação das miniaturas das imagens do âmbito actual (ou todas as imagens, se não tiver escolhido qualquer âmbito). Um exemplo disto poderá ser visto <xref linkend="fig-thumbnailview"/> abaixo. O tamanho das miniaturas pode ser configurado se arrastar o rato com o botão do meio pressionado (experimente, está realmente simples).</para>
+
+  <figure id="fig-thumbnailview">
+    <title
+>Vista em Miniaturas</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="thumbnailview.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>Na vista geral das miniaturas, você poderá reordenar as suas imagens, arrastando-as com o rato, ou copiá-las e colá-las com o teclado. Para a barra de datas funcionar adequadamente deverá, contudo, tentar manter as suas imagens sempre ordenadas. A ordenação poderá ser feita se seleccionar todas as imagens e escolher a opção <menuchoice
+><guimenu
+>Imagens</guimenu
+><guimenu
+>Ordenar as Seleccionadas por Data &amp; Hora</guimenu
+></menuchoice
+>. Essa operação não irá reordenar as imagens que tenham a mesma data e hora, como tal, se você tiver 100 imagens de 1992 (i.e., sem mês nem dia, apenas o ano), poderá movê-las e a sua ordem ficará inalterada ao fim de algum tempo.</para>
+
+<para
+>Se arrastar uma imagem do visualizador para o fundo do ecrã, irá configurar essa imagem como o novo papel de parede.</para>
+
+  <para
+>Se carregar numa imagem carregá-la-á no visualizador; se não estiver nenhuma janela de visualização presente, será criada uma nova.</para>
+
+  <para
+>Se o utilizador seleccionar um conjunto de imagens e carregar em <keycombo
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> (ou escolher <menuchoice
+><guimenu
+>Imagens</guimenu
+><guimenuitem
+>Ver as Seleccionadas</guimenuitem
+></menuchoice
+>), as imagens serão carregadas no visualizador existente (se não existir nenhum aberto, será criado um). Em alternativa, poderá escolher a opção <menuchoice
+><guimenu
+>Imagens</guimenu
+><guimenuitem
+>Ver (numa nova janela)</guimenuitem
+></menuchoice
+>) para que as imagens sejam carregadas num novo visualizador. Se você carregar em <keycombo
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> ou escolher <menuchoice
+><guimenu
+>Imagens</guimenu
+><guimenuitem
+>Correr a Apresentação</guimenuitem
+></menuchoice
+>, as imagens seleccionadas serão carregadas no visualizador e será iniciada uma apresentação. Finalmente, se escolher a opção <menuchoice
+><guimenu
+>Imagens</guimenu
+><guimenuitem
+>Correr uma Apresentação Aleatória</guimenuitem
+></menuchoice
+>, irá mostrar uma apresentação com as imagens seleccionadas numa ordem aleatória.</para>
+
+
+<sect1 id="sect-deleting-images">
+  <title
+>Apagar as Imagens</title>
+  <para
+>Nas janelas das miniaturas também é possível remover imagens. Para o fazer, seleccione as imagens que deseja remover e carregue na tecla <keycap
+>Delete</keycap
+> ou seleccione <menuchoice
+><guimenu
+>Editar</guimenu
+><guimenuitem
+>Remover as Seleccionadas</guimenuitem
+></menuchoice
+> do menu. Ao fazê-lo, o &kphotoalbum; irá mostrar a janela em  <xref linkend="fig-delete-images"/></para>
+
+<figure id="fig-delete-images">
+<title
+>Apagar as Imagens</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="delete-images.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+  <para
+>Existem três formas de remover uma imagem no &kphotoalbum;, sendo nomeadamente a remoção da mesma do disco, o que significa que esta desaparece de vez, ou dizendo ao &kphotoalbum; para não a incluir. Na última situação, o &kphotoalbum; não irá mostrar mais a imagem, mas mantê-la-á no disco. Isto é útil se, por exemplo, existirem <emphasis
+>imagens de miniaturas</emphasis
+> guardadas no meio das suas imagens. Esta imagem em miniatura iria conter uma vista geral sobre todas as outras imagens e isto seria deste modo inútil no &kphotoalbum;, mas para as outras aplicações, como por exemplo um navegador Web, poderia ser necessário.</para>
+</sect1>
+
+
+<sect1 id="sect-offline-mode">
+<title
+>Modo Desligado</title>
+<para
+>Existe uma batalha constante entre o crescimento dos dados e o aumento do tamanho dos discos rígidos. Se você tiver um conjunto grande imagens, poderá ficar no meio dessa batalha, ao não ter espaço em disco suficiente para guardar todas as suas imagens. Nessa situação, poderá optar por colocar algumas das imagens em CDs. Um cenário alternativo será quando for numa viagem de negócios e quiser levar as suas imagens consigo, mas não tem o espaço em disco de 20 Gb para esse fim.</para>
+
+<para
+>O &kphotoalbum; oferece uma solução para esse problema, nomeadamente na medida de lhe permitir usá-la, sem ter de ter as imagens disponíveis no disco. Você terá, obviamente, de as disponibilizar numa altura qualquer para que o &kphotoalbum; descubra que existem imagens novas para ele indexar. O <xref linkend="fig-offline-mode"/> mostra o &kphotoalbum; quando não é capaz de encontrar todas as imagens necessárias no disco.</para>
+
+<figure id="fig-offline-mode">
+<title
+>O &kphotoalbum; no Modo Desligado</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="offline-mode.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>As imagens que têm o canto cortado (isto é, a imagem 1-4) não estão disponíveis no disco. As imagens em miniatura, por outro lado, estão disponíveis para as imagens 5-9, pelo que o &kphotoalbum; consegue mostrar as miniaturas para essas imagens. Não conseguirá, contudo, ver essas imagens no visualizador. (Era normal cortar o canto das miniaturas para indicar que faltava a imagem no disco, mas essa funcionalidade parece não estar a funcionar de momento.) </para>
+
+<para
+>Como pode ver, esta funcionalidade necessita que você copie os ficheiros de e para as suas pastas; o &kphotoalbum; não tem de momento nenhum suporte para lhe pedir para inserir o CD que etiquetou como Blá Blá. Por isso, esqueça esta funcionalidade se você for do tipo de pessoa que não gosta de mexer nos ficheiros, etc. e que prefere sim comprar discos rígidos grandes o suficiente para guardar sempre todas as suas imagens.</para>
+
+</sect1>
+
+
+
+<sect1 id="sect-privacy">
+<title
+>Privacidade</title>
+<para
+>Há algum tempo, o autor e a namorada trouxeram um portátil com algumas visitas aos sogros, para lhes mostrar as imagens das últimas férias. O &kphotoalbum; acabou por ser um grande sucesso e não levou muito tempo a que ela pegasse no portátil e começasse a navegar por si só. Infelizmente, também não levou muito tempo a que ela descobrisse algumas imagens infelizes do autor na sua juventude, pelo que as pessoas se riram bastante dele. Esse episódio levou a que o autor adicionasse uma nova funcionalidade ao &kphotoalbum;, nomeadamente ao bloqueio para privacidade.</para>
+
+<para
+>No menu <guimenu
+>Imagens</guimenu
+> poderá encontrar um sub-menu chamado <guimenuitem
+>Privacidade</guimenuitem
+>. Para obter alguma privacidade escolha - enquanto está sozinho - as imagens que deseja manter privadas e seleccione a opção <guimenuitem
+>Marcar a Vista Actual como Trancada</guimenuitem
+> no sub-menu de privacidade. Em alternativa, poderá escolher as imagens que deixará a sua irmã ver e seleccionar a opção <guimenuitem
+>Marcar Tudo Excepto a Vista Actual como Trancado</guimenuitem
+>.</para>
+
+<para
+>Agora que escolheu o que deseja esconder, e antes que passe o seu portátil à sua irmã, escolha simplesmente <guimenuitem
+>Trancar as Imagens</guimenuitem
+>, pelo que a sua irmã não será capaz de ver as imagens bloqueadas. Quando terminar, poderá desbloqueá-las com a opção <guimenuitem
+>Destrancar</guimenuitem
+>.</para>
+
+<para
+>É possível indicar uma senha que terá de ser introduzida para desbloquear a base de dados. No menu de <guimenuitem
+>Privacidade</guimenuitem
+>, basta seleccionar a opção <guimenuitem
+>Mudar a Senha</guimenuitem
+> para configurar uma senha.</para>
+
+<para
+>Não se iluda se pensa que isto irá ajudá-lo a esconder as imagens de vez. Primeiro que tudo, as imagens estão ainda no disco; segundo, qualquer pessoa com acesso ao ficheiro <filename
+>index.xml</filename
+> que o &kphotoalbum; usa, poderá ler a senha em texto simples e, opcionalmente, removê-la. Esta funcionalidade pretende proteger apenas contra pessoas que usem o &kphotoalbum; sem intenção real de obter as suas imagens privadas.</para>
+
+</sect1>
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

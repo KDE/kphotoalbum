@@ -1,0 +1,79 @@
+<chapter id="chp-plugins">
+  <title
+>Modules externes </title>
+  <para
+>&kphotoalbum; partage un système de modules externes avec un certain nombre d'applications traitant les photos, parmi elles, <application
+>digiKam</application
+> et <application
+>Gwenview</application
+>. Le système de modules externes est nommé <application
+>Kipi</application
+>, qui est le raccourci pour &kde; de « Image Plugin Interface ». Voir <ulink url="http://extragear.kde.org/apps/kipi/"
+>Page d'accueil pour Kipi</ulink
+></para>
+
+<para
+>Les modules externes sont disponibles à partir de la barre de menu, sous le menu <guimenu
+>Modules</guimenu
+>. Ces modules ne seront et ne pourront être décrits dans ce manuel puisque qu'ils ne font pas partie de &kphotoalbum; mais sont livrés séparément. La plupart des modules ont bien sûr une page d'aide, disponible à partir du module lui-même.</para>
+
+<warning
+><para
+>Comme les modules externes sont partagés entre nombre d'applications, certains peuvent être très faiblement testés avec &kphotoalbum;. Pour cette raison, vous devriez toujours essayer les nouveaux modules externes avec la base de données de démonstration avant de les utiliser sur vos propres photos.<footnote
+><para
+> Vous démarrez &kphotoalbum;avec le réglage de démonstration, soit à partir de la console en exécutant <userinput
+><command
+>kphotoalbum</command
+> <option
+>-demo</option
+></userinput
+>, soit à partir du menu <guimenu
+>Aide</guimenu
+>. </para
+></footnote
+> (Ne dites pas qu'on ne vous aura pas prévenu).</para
+></warning>
+
+<para
+>Les applications utilisant KIPI sont très différentes les unes des autres. Cela signifie que quelques modules externes peuvent ne pas toujours fonctionner avec l'application &kphotoalbum;. Après tout, c'est le prix à payer pour partager des fonctionnalités entre applications.</para>
+
+<para
+>La plus importante des différences entre &kphotoalbum; et les autres applications utilisant KIPI est que les autres applications organisent les images en albums, qui ne sont simplement que des dossiers. &kphotoalbum; ne travaille pas comme cela. Néanmoins, pour que certains modules externes fonctionnent, &kphotoalbum; se comporte avec le système de modules comme s'il le faisait.</para>
+
+<para
+>&kphotoalbum; réalise cela en définissant <emphasis
+>l'album courant</emphasis
+> comme étant une vue courante - c'est-à-dire, toutes les photos qui sont affichées par le navigateur.</para>
+
+<para
+>En plus de l'album courant, &kphotoalbum; doit être aussi capable de fournir la liste de tous les albums. &kphotoalbum; construit cette liste de la façon suivante : </para>
+
+<itemizedlist>
+  <listitem
+><para
+>Quand le navigateur de photos de &kphotoalbum; affiche le contenu d'une catégorie, disons « Personne », alors chaque élément de cette catégorie sera affiché comme un album par le module.</para
+></listitem
+> 
+  <listitem
+><para
+>Autrement, la catégorie que vous avez sélectionnée dans la fenêtre d'options <guilabel
+>Catégorie pour les albums virtuels</guilabel
+>sera utilisée; c'est-à-dire que si vous avez spécifié la catégorie « Personne » avec cette option, alors &kphotoalbum; agira comme si vous aviez choisi d'afficher les personnes et juste après, il invoquera le module qui aura besoin de tout savoir sur les albums.</para
+></listitem>
+</itemizedlist>
+
+<para
+>Quelques modules peuvent être redondants à des fonctionnalités existantes de &kphotoalbum;. Dans ce cas, vous pourriez ne pas vouloir les voir du tout dans le menu « Modules ». Pour cela, vous devrez aller dans la boîte de dialogue d'options et spécifier quels modules doivent être montrés.</para>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

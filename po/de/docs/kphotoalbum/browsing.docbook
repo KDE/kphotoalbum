@@ -1,0 +1,195 @@
+<chapter id="chp-browsing">
+  <title
+>Durchblättern der Bilder</title>
+  <para
+>Sobald Sie Ihre Bilder und Videos mit Anmerkungen versehen haben, können Sie mit &kphotoalbum; durch diese blättern, siehe <xref linkend="fig-browser-with-images"/>. Wie Sie durch einen Vergleich mit <xref linkend="fig-empty-browser-window"/> sehen können, sind nun in jeder Gruppe, also in <literal
+>Personen</literal
+>, <literal
+>Orte</literal
+> und in der Gruppe <literal
+>Stichwörter</literal
+> Einträge vorhanden.</para>
+  
+  <figure id="fig-browser-with-images">
+    <title
+>Browser mit Bilder und Videos, die mit Anmerkungen versehen sind</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-with-images.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>In dem Browserfenster sehen Sie die Kategorien, für die Sie Informationen eingegeben haben als Sie Ihre Bilder und Videos mit Anmerkungen versehen haben. Zusätzlich gibt es Einträge, um nach EXIF-basierenden Informationen zu suchen, die Ordnerstruktur auf Ihrer Festplatte zu betrachten und natürlich die aktuellen Vorschaubilder anzusehen. Im folgenden wird jedes für sich beschrieben.</para
+> 
+  
+  <para
+>Wenn Sie mit der Maus auf den Eintrag <literal
+>Personen</literal
+> drücken, verändert sich die Ansicht des Browsers. Siehe <xref linkend="fig-browser-for-persons"/>.</para>
+  
+  <figure id="fig-browser-for-persons">
+    <title
+>Das Browserfenster, nachdem der Eintrag Personen ausgewählt wurde.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-persons.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>Nun sehen Sie alle Personen, die Sie für Ihre Bilder und Videos verwendet haben. <footnote
+><para
+>Sie haben sicherlich festgestellt, dass der Eintrag <literal
+>Haustiere</literal
+> ein besonderes Symbol besitzt. Weitere Informationen hierzu finden Sie im Abschnitt <xref linkend="sec-specifying-categories"/>.</para
+></footnote
+> Nachdem Sie eine Person ausgewählt haben, gelangen Sie zum vorigen Fenster zurück, siehe <xref linkend="fig-browser-with-images"/>. Dieses Mal wurde aber diese Person ausgewählt, um Bilder zu filtern. Das bedeutet, Sie sehen nun nur Informationen über Bilder, auf denen die gewählte Person zu sehen ist. In <xref linkend="fig-browser-for-jesper"/> sehen Sie das Ergebnis einer Auswahl der Person <literal
+>Jesper</literal
+>. Wenn Sie <xref linkend="fig-browser-with-images"/> mit <xref linkend="fig-browser-for-jesper"/> vergleichen, sehen Sie, dass die Anzahl der Bilder und Videos von 25 auf 12 zurückgegangen ist und dass sich die Anzahl der Einträge für die verschiedenen Kategorien auch verändert hat.</para>
+  
+  <figure id="fig-browser-for-jesper">
+    <title
+>Ansicht, nachdem <literal
+>Jesper</literal
+> ausgewählt wurde</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="browser-for-jesper.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+  
+  <para
+>Wenn Sie eine weitere Person auswählen, werden nur die Bilder angezeigt, auf denen beide Personen zu sehen sind. Durch diese Auswahlmethode können Sie die Zahl der angezeigten Bilder von ein paar tausend auf wenige einzelne eingrenzen.</para>
+  
+  <para
+>Wenn Sie alle Personen, Orte und sonstige Einstellungen ausgewählt haben, können Sie mit <guilabel
+>Vorschaubilder anzeigen</guilabel
+> die Bilder Ihres Auswahlbereiches ansehen.</para>
+
+
+
+
+
+
+
+
+  <sect1 id="sect-adding-preview-images-to-the-browser">
+  <title
+>Vorschaubilder hinzufügen</title>
+  <para
+>In <xref linkend="fig-browser-for-persons"/> hat jede Person das gleiche Symbol vor ihrem Namen. Sie können mit &kphotoalbum; jedoch für jede Person ein eigenes Vorschaubild speichern, <footnote
+><para
+>Das gilt natürlich auch für Orte, Stichwörter und andere Kategorien, die Sie selbst definiert haben.</para
+></footnote
+> Siehe dazu <xref linkend="fig-imagesForPersons"/>.</para>
+
+  <figure id="fig-imagesForPersons">
+    <title
+>Individuelle Bilder für jede Person</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="imagesForPersons.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Um Bilder neben den Namen anzuzeigen, wählen Sie <menuchoice
+><guimenu
+>Einstellungen</guimenu
+><guisubmenu
+>Aktuelle Ansicht</guisubmenu
+></menuchoice
+>. Im Menü können Sie dann auswählen, welche Ansicht Sie für die aktuelle Kategorie verwenden möchten. Beachten Sie hierbei bitte, dass Sie die Ansicht für jede Kategorie separat einstellen müssen. Das hat den Vorteil, dass Sie sich z.B. eine Symbolansicht von Personen, aber eine einfache Liste von Stichwörtern anzeigen lassen können (falls Sie für Ihre Stichwörter keine geeigneten Bilder besitzen).</para
+>  
+
+
+<para
+>Sie müssen jedoch selbst festlegen, welches Bild für jede einzelne Person angezeigt werden soll. Um dies zu tun, müssen Sie das Bild-Ansichts-Fenster (in <xref linkend="chp-viewer"/> näher beschrieben) öffnen und im Kontextmenü den Eintrag <guimenuitem
+>Kategorie-Editor anzeigen</guimenuitem
+> auswählen. Nun wird Ihnen ein Kategorien-Editor, wie in <xref linkend="fig-categoryEditor"/> zu sehen, angezeigt. Hier können Sie das Bild für die entsprechende Person auswählen. Im Ansichts-Fenster können Sie den Vergrößerungsfaktor nach Ihren Wünschen anpassen und dadurch auswählen, welcher Teil des Bildes angezeigt beziehungsweise abgeschnitten werden soll.</para>
+
+
+  <figure id="fig-categoryEditor">
+    <title
+>Kategorien-Editor</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="categoryEditor.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+
+
+
+
+
+
+
+
+
+  
+  <sect1 id="sect-general-image-searches">
+    <title
+>Allgemeine Bildersuche</title>
+    <para
+>Wenn Sie im Hauptfenster den Eintrag <guilabel
+>Suchen</guilabel
+> aufrufen, wird Ihnen ein Dialog angezeigt, der dem Dialog für das Festlegen der Bild-Eigenschaften sehr ähnlich ist. Diesen Dialog können Sie in <xref linkend="fig-search"/> noch einmal ansehen.</para>
+    
+    <figure id="fig-search">
+      <title
+>Bildsuche-Dialog</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="search.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+    
+    <para
+>Wenn Sie eine Zeichenfolge in das Feld <literal
+>Beschriftung</literal
+> oder <literal
+>Beschreibung</literal
+> eingeben, werden die Beschriftungen beziehungsweise Beschreibungen der Bilder nach diesem Text durchsucht. Wenn Sie möchten, können Sie auch ein Datum eingeben, nach dem gesucht werden soll; das Datum kann entweder ein Teil des Gesamtdatums sein, also zum Beispiel 1971, oder das komplette Datum. Sie können auch einen Bereich von zwei Daten verwenden, wie zum Beispiel 1971-1980.</para>
+    
+    <para
+>Die Optionen im unteren Teil des Fensters ermöglichen in begrenzter Weise das Suchen mit Ausdrücken, wie Sie in <xref linkend="fig-search"/> sehen können. Hier wird nach Bildern gesucht, auf denen <literal
+>Jesper</literal
+>, jedoch nicht <literal
+>Anne Helene</literal
+> abgebildet sind.</para>
+    
+    <para
+>Die Operationen, die Sie eingeben können, sind &amp; (bedeutet <quote
+>und</quote
+>), | (bedeutet <quote
+>oder</quote
+>) und ! (bedeutet <quote
+>nicht</quote
+>).</para>
+    
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

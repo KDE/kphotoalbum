@@ -1,0 +1,150 @@
+<chapter id="chp-importExport">
+  <title
+>Import ja eksport</title>
+  <para
+>Kui osaled perekonnapeol, firma koosolekul, konverentsil või mis tahes muul sündmusel, kus on kohal ka muid &kphotoalbum;i kasutajaid, võib sul tekkida ületamatu vajadus jagada oma pilte teiste inimestega. Selleks võib muidugi luua &HTML;-leheküljed, mida teised saaksid vaadata, aga arvestades aega, mida sa oled juba kulutanud kõigi oma piltide klassifitseerimisele (kes on kes, kus on pilt tehtud jne.), ei ole põhjust lasta neil seda tööd uuesti teha.</para>
+
+    <para
+>&kphotoalbum; võimaldab sul eksportida pildikogumi <literal role="extension"
+>.kim</literal
+>-faili, mida teised saavad siis importida oma andmebaasi. Sellisel juhul kandub üle ka sinu klassifikatsioon.</para>
+
+    <para
+>Õigupoolest on olemas kaht tüüpi <literal role="extension"
+>.kim</literal
+>-faile: sisesed ja välised vastavalt sellele, kas pildid ise asuvad samuti failis või kuskil mujal. Piltide lisamine faili on mõistagi kasulik selles mõttes, et nii on fail igati täiuslik, kuid samas muudab see faili päris suureks...</para>
+
+    <para
+><literal role="extension"
+>.kim</literal
+>-faili saab tekitada kahel viisil: menüükäsuga <menuchoice
+><guimenu
+>Fail</guimenu
+><guimenuitem
+>Eksport...</guimenuitem
+></menuchoice
+> või &HTML;-lehekülgi luues (vaata <xref linkend="chp-generating-html"/>). <literal role="extension"
+>.kim</literal
+>-faili loomisel &HTML; ekspordi ajal luuakse väline <literal role="extension"
+>.kim</literal
+>-fail.</para>
+
+    <para
+>Välised <literal role="extension"
+>.kim</literal
+>-failid otsivad pilte kahel viisil. Kõigepealt üritavad nad pilte leida <literal role="extension"
+>.kim</literal
+>-failiga samast kohast, kui seal neid aga ei ole, siis URL-ilt, mis määrati <literal role="extension"
+>.kim</literal
+>-faili loomise ajal. Arvesta, et viimast võimalust kasutatakse ainult siis, kui <literal role="extension"
+>.kim</literal
+>-fail on loodud &HTML; ekspordi ajal.</para>
+    
+    <sect1 id="chp-exportDialog">
+      <title
+>Ekspordidialoog</title>
+      <para
+>Siin kirjeldatakse ekspordidialoogi, mille avab menüükäsk <menuchoice
+><guimenu
+>Fail</guimenu
+> <guimenuitem
+>Eksport...</guimenuitem
+></menuchoice
+></para>
+
+      <para
+>Dialoogi tähtsaim osa on selle määramine, kas <literal role="extension"
+>.kim</literal
+>-fail on sisene või väline (vaata nende võimaluste kirjeldust eespool). Siin on kolm võimalust: <itemizedlist>
+          <listitem
+><para
+>Kaasamine <literal role="extension"
+>.kim</literal
+>-faili - see on sisene fail</para
+></listitem>
+          <listitem
+><para
+>Käsitsi kopeerimine .kim-faili - sel juhul tuleb pildid ise kopeerida .kim-faili asukohta</para
+></listitem>
+          <listitem
+><para
+>Automaatne kopeerimine .kim-faili - sel juhul kopeerib &kphotoalbum; failid sinu eest.</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+>Tegelikult on <literal role="extension"
+>.kim</literal
+>-failid lihtsalt zip-failid. Tavaliselt ei ole mõtet end failide tihendamisega vaevata, sest üldiselt on pildid juba tihendatud JPEG vormingus ning XML-fail on iseenesest imeväike. Kui aga soovid tingimata ka viimase kui ühe baidi kokku pigistada, märgi ära <guilabel
+>Eksportfail tihendatakse</guilabel
+>.</para>
+
+      <para
+>Viimane võimalus on <guilabel
+>Piltide maks. mõõtmed</guilabel
+>. Kui saadad näiteks pilte sõbrale, ei ole mõnikord mõtet saata pilte täissuuruses, sest <literal role="extension"
+>.kim</literal
+>-fail võib olla vägagi suur. Seepärast on sul võimalik määrata piltide maksimaalsed mõõtmed (näiteks 800x800 pikslit).</para>
+    </sect1>
+
+
+
+
+    
+<sect1 id="chp-importDialog">
+  <title
+>Impordidialoog</title>
+<para
+>Kui valid veebilehitsejas <literal role="extension"
+>.kim</literal
+>-faili või rakenduses käsu <menuchoice
+><guimenu
+>Fail</guimenu
+><guimenuitem
+>Import...</guimenuitem
+></menuchoice
+>, impordib &kphotoalbum; andmebaasi, mis on eksporditud viisil, mida kirjeldas <xref linkend="chp-importExport"/>.</para>
+
+<para
+>Impordinõustaja koosneb neljast sammust. Kõigepealt tuleb määrata, milliseid pilte soovid importida. Seejärel tuleb otsustada, millisesse kataloogi imporditud pildid panna.</para>
+
+<para
+>On tõenäoline, et kui oled sakslane, kuuluvad sinu isikud kategooriasse <emphasis
+>Personen</emphasis
+>, aga kui näiteks eestlane, siis kategooriasse <emphasis
+>Inimesed</emphasis
+>. Kolmandal sammul tuleb otsustada, millised importfaili kategooriad importida, ning kuidas seostada need kategooriad sinu enda andmebaasis juba olevate kategooriatega.</para>
+
+<para
+>Võib ju olla, et ma olen oma andmebaasis andnud endale kategooriaks <emphasis
+>Mina</emphasis
+>, samal ajal kui näiteks sinu andmebaasis kannan ma nime Jesper K. Pedersen. Neljandal sammul saabki imporditavad kataloogid olemasolevatega vastavusse seada, nagu näitab <xref linkend="fig-import-dialog"/>.</para>
+
+<figure id="fig-import-dialog">
+<title
+>Inimeste sobitamine impordidialoogis </title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="import-dialog.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Siin on näha, et Donna esineb ühtmoodi nii .kim-failis kui ka minu andmebaasis: nime näidatakse mustana, mis tähistab täielikku sobivust andmebaasis. Ülejäänud kolme nime andmebaasis ei leitud, kuigi Jesper ja Anne Helene leiti alamstringina, mistõttu neile on siin ka vaste välja pakutud. Mitte mingil kujul ei esine minu andmebaasis aga nime Spiff (või kui antud isik seal ongi, siis täiesti teise nime all), mistõttu &kphotoalbum; pakub välja võimaluse importidagi see kui Spiff.</para>
+
+</sect1>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

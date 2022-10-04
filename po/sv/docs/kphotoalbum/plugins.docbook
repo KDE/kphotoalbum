@@ -1,0 +1,77 @@
+<chapter id="chp-plugins">
+  <title
+>Insticksprogram</title>
+  <para
+>Kfotoalbum delar ett system för insticksprogram med ett antal andra bildprogram, bland annat <application
+>Digikam</application
+> och <application
+>Gwenview</application
+>. Systemet med insticksprogram heter <literal
+>KIPI</literal
+>, vilket är en förkortning av &kde; Image Plugin Interface. Se <ulink url="http://extragear.kde.org/apps/kipi.php"
+>KIPI:s hemsida</ulink
+>.</para>
+
+<para
+>Insticksprogrammen är tillgängliga från menyraden, under alternativet <guimenu
+>Insticksprogram</guimenu
+>. Insticksprogrammen kan inte och kommer inte beskrivas i den här handboken, eftersom de inte är en del av Kfotoalbum, utan levereras separat. De flesta insticksprogram har dock en hjälpsida tillgänglig från insticksprogrammet självt.</para>
+
+<warning
+><para
+>Varning: Eftersom insticksprogrammen delas mellan ett antal olika program, kan vissa insticksprogram ha provats mycket lite tillsammans med Kfotoalbum. Du bör därför alltid prova nya insticksprogram med demonstrationsdatabasen innan du använder dem med dina egna bilder<footnote
+><para
+>Du startar antingen Kfotoalbum med demonstrationsinställningar från en terminal genom att köra <userinput
+><command
+>kphotoalbum</command
+> <option
+>-demo</option
+></userinput
+>, eller från menyn Hjälp</para
+></footnote
+> (Säg inte att jag inte varnade dig!).</para
+></warning>
+
+<para
+>Programmen som använder KIPI är mycket olika varandra. Det betyder att vissa insticksprogram inte alltid fungerar på samma sätt som Kfotoalbum, men det är ändå priset för att dela funktioner mellan program.</para>
+
+<para
+>Den viktigaste skillnaden mellan Kfotoalbum och andra program som använder KIPI är att de andra programmen ordnar bilder i album, där ett album helt enkelt är en katalog. Kfotoalbum har inte detta begrepp, dock beter sig Kfotoalbum som om det hade det mot insticksprogrammen.</para>
+
+<para
+>Kfotoalbum gör det genom att definiera <emphasis
+>aktuellt album</emphasis
+> som aktuell vy, dvs. alla bilder som bläddraren för närvarande erbjuder sig att visa.</para>
+
+<para
+>Förutom aktuellt album måste Kfotoalbum också kunna ge en lista med alla album. Kfotoalbum definierar listan på följande sätt:</para>
+
+<itemizedlist>
+  <listitem
+><para
+>När Kfotoalbums bläddrare visar innehållet i en kategori, som personer, ser varje objekt i kategorin ut som ett album för insticksprogrammet.</para
+></listitem
+> 
+  <listitem
+><para
+>Annars används kategorin du anger som <guilabel
+>Kategori för virtuella album</guilabel
+> i inställningsdialogrutan. Om du till exempel anger personer i alternativet, beter sig Kfotoalbum som om du just hade valt att visa personer och startar därefter insticksprogrammet som behöver känna till alla album.</para
+></listitem>
+</itemizedlist>
+
+<para
+>Vissa insticksprogram kan duplicera funktioner som är implementerade i Kfotoalbum, och i så fall kanske du inte alls vill se dem i menyn Insticksprogram. För att åstadkomma det kan du använda inställningsdialogrutan och ange vilka insticksprogram som över huvud taget ska visas.</para>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

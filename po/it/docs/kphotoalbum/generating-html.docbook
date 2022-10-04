@@ -1,0 +1,141 @@
+  <chapter id="chp-generating-html">
+    <title
+>Generazione di &HTML;</title>
+    <para
+>&kphotoalbum; offre la possibilità di generare &HTML; dal tuo album di fotografie. Puoi trovare questa opzione nella barra dei menu <menuchoice
+><guimenu
+>File</guimenu
+><guimenuitem
+>Genera &HTML;</guimenuitem
+></menuchoice
+></para>
+    
+    <para
+>Prima che le pagine &HTML; siano generate, devi specificare un po' di informazioni, divise tra le tre pagine <guilabel
+>Contenuto</guilabel
+>, <guilabel
+>Schema</guilabel
+> e <guilabel
+>Destinazione</guilabel
+>. La sezione seguente descrive in dettaglio ogni pagina.</para>
+
+    <sect1 id="the_content_page">
+      <title
+>La pagina <guilabel
+>Contenuto</guilabel
+></title>
+      <para
+>Nella pagina Contenuto specifichi quali informazioni dovrebbero essere generate nelle pagine &HTML;.</para>
+
+	<figure id="html-content">
+	<title
+>Configurazione del contenuto del generatore HTML</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-content.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>Per prima cosa specifichi il titolo delle pagine di panoramica, più una descrizione generata su queste pagine. Se il tema che hai selezionato supporta la notifica del copyright, la puoi specificare qui. </para>
+
+      <para
+>Poi specifichi se un file di esportazione di &kphotoalbum; debba essere generato, e messo sulla pagina di panoramica, e se vuoi includere i filmati in linea o come oggetti scaricabili. Vedi <xref linkend="chp-importExport"/> per i dettagli sull'esportazione dei file.</para>
+
+      <para
+>Infine puoi specificare quali informazioni dovrebbero essere generate sulle pagine &HTML;. In questo modo puoi saltare la generazione delle informazioni ovvie al lettore delle pagine (mettiamo che le immagini sono della festa a cui siamo stati tutti). Attenzione, &kphotoalbum; attualmente non ti permette di escludere certe categorie dal file di esportazione, quindi non affidartici come se fosse un modo di escludere delle informazioni che non vuoi siano viste dai lettori delle tue pagine.</para>
+    </sect1>
+
+    <sect1 id="the_layout_page">
+      <title
+>La pagina <guilabel
+>Schema</guilabel
+></title>
+      <para
+>Sulla pagina dello schema specifichi come dovrebbe apparire la pagina &HTML;. La maggior parte delle opzioni su questa pagina sono ovvie, e non hanno bisogno di ulteriori descrizioni. Viene mostrata una breve introduzione a ciascun tema quando lo selezioni per dare un'idea del suo aspetto.</para>
+
+	<figure id="html-layout">
+	<title
+>Configurazione dell'aspetto del generatore HTML</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-layout.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>In fondo a questa pagina è possibile specificare diverse risoluzioni delle immagini. In questo modo la gente che legge le tue pagine non deve scaricare le immagini in alte risoluzioni, diciamo 1600x1200, solo per vederle su un monitor che non dà più di 800x600.</para>
+      
+      <para
+>In qualsiasi momento i tuoi lettori possono cambiare la risoluzione tra quelle che hai specificato. In questo modo possono navigare tra le tue immagini in bassa risoluzione (e quindi più velocemente), e quando vedono un'immagine interessante, possono passare all'alta risoluzione.</para>
+    </sect1>
+
+    <sect1 id="the_destination_page">
+      <title
+>La pagina <guilabel
+>Destinazione</guilabel
+></title>
+      <para
+>Sulla pagina delle destinazioni specifichi diverse cartelle e URL che indicano dove va la tua pagina.</para>
+
+      <para
+>L'idea è che tu specifichi una cartella di base per tutte le tue generazioni, e per ogni generazione specifichi una nuova sottocartella.</para>
+
+	<figure id="html-destination">
+	<title
+>Configurazione della destinazione del generatore HTML</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-destination.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>Prima devi specificare la cartella di base per tutte le tue immagini. Questa cartella sarà ricordata in ogni sessione, e ti permette di dire una volta per tutte dove dovranno andare tutte le immagini successive. Qui puoi specificare una cartella, o qualsiasi <ulink url="help:/kioslave/index.html"
+>protocollo</ulink
+> supportato da &kde;. Gli esempi includono: <itemizedlist>
+          <listitem
+><para
+>ftp://unserver/la-mia-zona-di-caricamento/immagini (caricamento con FTP)</para
+></listitem>
+          <listitem
+><para
+>fish://unserver/home/pippo/immagini (caricamento con ssh)</para
+></listitem>
+          <listitem
+><para
+>smb://unserver/c/immagini (caricamento su una condivisione Windows)</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+>Una volta che hai finito di generare le tue immagini, puoi controllare se sono veramente disponibili ai tuoi lettori. Se specifichi un URL nella casella di testo <guilabel
+>URL di base</guilabel
+>, sarà chiamato un browser Web una volta che le pagine &HTML; saranno state generate. L'URL che specifichi qui dovrebbe corrispondere alla cartella che hai specificato sopra. In questo modo il browser Web sarà avviato nelle sottocartelle di questo URL.</para>
+      
+      <para
+>Una volta che hai generato le pagine &HTML;, le tue pagine potrebbero non essere ancora nella loro destinazione finale, e potresti aver bisogno di procedure di caricamento speciali dal controllo di &kphotoalbum;. Affinché la funzionalità di importazione (vedi <xref linkend="chp-importExport"/>) funzioni, devi specificare la destinazione finale delle pagine. Di nuovo, ciò non include la sottocartella della generazione attuale.</para>
+
+      <para
+>Le tre caselle di testo sopra descritte sono tutte le cartelle e URL di base. A queste posizioni sarà creata una nuova sottocartella con il nome che specifichi in <guilabel
+>Cartella di output</guilabel
+>.</para>
+    </sect1>
+
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

@@ -1,0 +1,102 @@
+<chapter id="introduction">
+  <title
+>Einleitung</title>
+  <para
+>Wenn Sie wie ich sind, dann haben Sie tausende von Bildern angesammelt, seit Sie Ihre erste Kamera haben. Einige wurden mit einer normalen und andere mit einer digitale Kamera gemacht. All die Jahre haben Sie geglaubt, dass Sie sich bis in alle Ewigkeit an die Geschichte hinter jedem einzelnen Bild, an jeden Namen der Leute auf den Fotos und an den genauen Tag, an dem das Bild gemacht wurde, erinnern können. Sie werden feststellen, dass dies irgendwann nicht mehr möglich ist. Daher benötigen Sie für Ihre digitalen aber auch für die analogen Bilder ein Werkzeug, das Ihnen hilft, die Bilder zu beschreiben und in den Bildern zu suchen. Dies ist die Aufgabe von &kphotoalbum;.</para>
+  
+  
+  <para
+>&kphotoalbum; wurde entwickelt, um die folgenden drei Punkte zu kombinieren: <itemizedlist>
+      <listitem
+><para
+>Es muss einfach sein, eine große Anzahl von Bildern auf einmal zu beschreiben: Es sollten beispielsweise nur ein paar Mausklicks genügen, um alle Bilder, die beim Italienurlaub im Jahr 1992 gemacht wurden, als solche zu verschlagworten. Mit &kphotoalbum; können Sie Bildbeschreibungen auf zwei Arten hinzufügen. Entweder beschreiben Sie <guilabel
+>Ein Bild nach dem anderen</guilabel
+>, was nützlich ist, wenn Sie für Ihre Bilder einen Text eingeben möchten oder Sie beschreiben <guilabel
+>Alle Bilder gleichzeitig</guilabel
+>, wenn Sie z. B. für eine größere Zahl von Bildern den Ort, die abgebildeten Personen oder das Datum der Aufnahmen eingeben möchten.</para
+></listitem>
+      
+      <listitem
+><para
+>Es muss einfach sein, nach Bildern zu suchen: Mit &kphotoalbum; können Sie Ihren Bildern eine Reihe von Eigenschaften und Beschreibungen, wie zum Beispiel das Datum der Aufnahme, abgebildete Personen und Orte oder benutzerdefinierte Stichworte, z.B. <emphasis
+>Album 7</emphasis
+> oder <emphasis
+>Italienurlaub</emphasis
+>, zuweisen. Sie können Bilder in jeder der gerade genannten Kategorien suchen,<abbrev
+>d. h.</abbrev
+>, Sie können zum Beispiel alle Bilder des Italienurlaubs, auf denen eine bestimmte Person abgebildet ist, suchen. Natürlich können Sie auch Ihre eigenen Kategorien erstellen, dazu später mehr.</para
+></listitem
+> 
+      
+      <listitem
+><para
+>Es muss einfach sein, Bilder zu durchsuchen und anzusehen: Wenn man Bilder ansieht, möchte man oft innerhalb von verschiedenen Bildergruppen springen &mdash; wenn Sie zum Beispiel Bilder Ihres Italienurlaubs ansehen und ein Bild mit Ihrem Freund darauf entdecken, möchten Sie vielleicht alle Bilder, auf denen dieser Freund abgebildet ist, sehen.</para
+></listitem>
+    </itemizedlist
+></para>
+  
+  <!-- ====================================================================== -->
+  <sect1 id="sect-overview-of-manual">
+    <title
+>Überblick über den Aufbau des Handbuchs</title>
+    <para
+>In diesem Handbuch werden Sie die verschiedenen Schritte vom (1) Festlegen der Informationen über Ihre Bilder, über (2) das Durchsuchen und Ansehen, bis hin zu (3) fortgeschrittenen Themen und Anpassungsmöglichkeiten durchlaufen.</para>
+
+<para
+>&kphotoalbum; wurde als ein Programm zum Verwalten Ihrer Bilder begonnen. Es wurde aber erweitert und heute kümmert es sich auch um Ihre Videos. An vielen Stellen in diesem Handbuch wird über Bilder geredet, aber häufig schließt dies auch Videos mit ein.</para>
+  
+
+  </sect1>
+  
+  
+  <!-- ====================================================================== -->
+  <sect1 id="sec-organization-of-images-and-KPhotoAlbum-files">
+    <title
+>Die Organisation von Bildern und &kphotoalbum;-Dateien</title>
+    <para
+>&kphotoalbum; verwendet alle Bilder eines Ordners und all seiner Unterordner als Datenbank. Beim ersten Start von &kphotoalbum; werden Sie nach dem Ort dieses Ordners gefragt. &kphotoalbum; wird keines Ihrer Bilder in irgendeiner Weise verändern; <footnote
+><para
+>Die beiden Ausnahmen hierfür sind (1) das Löschen einzelner Bilder, wenn Sie dies vom Menü <menuchoice
+><guimenu
+>Bearbeiten</guimenu
+><guimenuitem
+>Auswahl löschen</guimenuitem
+></menuchoice
+> anstoßen und (2) Operationen von Modulen.</para
+></footnote
+> Falls Sie &kphotoalbum; noch nicht vertrauen, können Sie natürlich alle Bildern mit einem Schreibschutz versehen.</para>
+    
+    <para
+>&kphotoalbum; speichert alle seine Informationen in der Datei <filename
+>index.xml</filename
+> im obersten Ordner ihrer Bilder. Dabei handelt es sich um eine einfache XML-Datei, die Sie mit einem Programm Ihrer Wahl – einschließlich normaler Sicherungsprogramme – sichern, auf eine Diskette kopieren oder als Revisionen in einem Versionsverwaltungssystem ablegen können. Außerdem wird mit &kphotoalbum; ein Sicherungsskript <emphasis
+>kpa-backup.sh</emphasis
+> verteilt, mit dem nicht nur die Datei <filename
+>index.xml</filename
+>, sondern auch die Einrichtungsdateien im persönlichen Ordner des Benutzers gesichert werden können.</para>
+    
+    <para
+>&kphotoalbum; merkt sich den Ordner, in dem Ihre Bilder gespeichert sind und verwendet diesen bei zukünftigen Starts automatisch wieder. Falls Sie einmal eine andere Datenbank in &kphotoalbum; einlesen möchten, also einen anderen Ordnerbaum mit Bildern, können Sie &kphotoalbum; mit der Option <option
+>-c</option
+> starten. Als Beispiel: <userinput
+><command
+>kphotoalbum</command
+> <option
+>-c</option
+> <filename
+>~/Firma/Bilder/index.xml</filename
+></userinput
+>.</para>
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

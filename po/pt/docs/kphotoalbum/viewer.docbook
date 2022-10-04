@@ -1,0 +1,318 @@
+<chapter id="chp-viewer">
+  <title
+>O Visualizador</title>
+  <para
+>A razão para você colocar todas as suas imagens no &kphotoalbum; e gastar horas e horas a descrevê-las é obviamente o facto de você, em determinada altura, desejar dar uma vista de olhos. Para esse fim, o &kphotoalbum; tem uma janela de imagens, a qual você poderá aceder a partir das miniaturas, tal como está descrito em <xref linkend="chp-thumbnail-view"/>.</para>
+
+  <para
+>O visualizador pode ser visto em <xref linkend="fig-viewer"/>. O visualizador apresenta-lhe, como seria de esperar, a imagem, mas para além disso mostra também a informação que indicou para cada imagem, incluindo quem está nas imagens, onde e quando foi retirada, &etc; </para>
+
+  <figure id="fig-viewer">
+    <title
+>O Visualizador</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>No caso de a área de informações estar localizada na parte de cima das imagens que deseja ver, poderá simplesmente pegar nela com o rato e movê-la para outro local da imagem. Também é possível configurar o que deve ser apresentado na área de informações ou se deve ser mostrada de todo ou não. Todas estas opções estão disponíveis se carregar com o botão direito do seu rato no visualizador. O menu de contexto poderá ser visto abaixo em <xref linkend="fig-viewer-contextmenu"/>.</para>
+
+  <figure id="fig-viewer-contextmenu">
+    <title
+>O menu de contexto do visualizador</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer-contextmenu.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Algumas das palavras da área de informação estão sublinhadas. Se carregar com o rato numa dessas palavras, o navegador (ver em <xref linkend="chp-browsing"/>) irá apontar para o âmbito desse item. Como tal, se carregar em <literal
+>José Pires</literal
+>, o navegador irá mostrar todas as fotografias do José Pires, assim como o faria se você tivesse seleccionado as <literal
+>Pessoas</literal
+> na raiz do navegador e seleccionasse a seguir <literal
+>José Pires</literal
+>.</para>
+
+<para
+>Na área de informação, poderá ver um pequeno botão com o logótipo do &kphotoalbum;. Se carregar nesse botão, poderá ir para o visualizador de miniaturas. A área de miniaturas irá mostrar todas as imagens, assim como seleccionará a imagem que tinha no visualizador. A ideia por detrás disto é a seguinte: você poderá escolher uma dada pessoa e ver as imagens dessa pessoa. Uma das imagens é, por exemplo, do seu tempo de liceu e agora poderá querer ver as imagens desse período. Se usar o botão <guilabel
+>Saltar para o Contexto</guilabel
+>, poderá ver a área de miniaturas a mostrar todas as imagens com a actual em primeiro plano, possivelmente rodeada por todas as suas fotos do liceu.</para>
+
+  <para
+>No caso de você ter carregado várias imagens no visualizador, poderá seguir para trás e para a frente com as teclas <keycap
+>Page Up</keycap
+> e <keycap
+>Page Down</keycap
+>. Poderá ir para a primeira e última imagem com o <keycap
+>Home</keycap
+> e o <keycap
+>End</keycap
+>, respectivamente. Estas opções, como seria de esperar, estão também disponíveis no menu de contexto.</para>
+
+  <para
+>Se foram carregadas várias imagens no visualizador, você poderá pedir a ele para as mostrar como uma apresentação, o que significa que o &kphotoalbum; carrega uma imagem nova com um intervalo de alguns segundos. A frequência com que carrega uma imagem nova é configurada se carregar na tecla Control e, respectivamente em Mais (para ir mais depressa) ou Menos (para ir mais devagar). O arranque e a paragem da apresentação é feito simplesmente com a tecla <keycombo
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+>.</para>
+
+  <para
+>Uma funcionalidade muito útil do visualizador do &kphotoalbum; é a sua capacidade de ir para o modo de ecrã completo. Neste modo, o visualizador irá usar o espaço completo do ecrã, bastando carregar na tecla Return para o fazer entrar e sair do modo de ecrã completo.</para>
+
+  <para
+>Com o visualizador, você poderá ampliar e reduzir a sua imagem, bastando para tal arrastar um rectângulo com o rato. Se carregar na tecla Menos irá reduzir de novo. Se carregar na tecla Mais irá ampliar a imagem com base no seu centro. O <xref linkend="fig-marking-zoom-rectangle"/> em baixo mostra como se marca um rectângulo de ampliação e o <xref linkend="fig-zoomed-view"/> mostra o resultado da mesma ampliação.</para>
+
+<para
+>Se carregar na tecla de ponto (.), poderá repor o nível de ampliação, de modo que a imagem seja mostrada com o tamanho natural. Se carregar no botão de igual (=), irá definir o nível de ampliação de forma que cada pixel do ecrã corresponda a um pixel da imagem.</para>
+
+<para
+>Do ponto de vista técnico, a única operação de ampliação que funciona ao ver vídeos, é a ampliação e redução normais (com as teclas '+' e '-').</para>
+
+  <figure id="fig-marking-zoom-rectangle">
+    <title
+>O visualizador mais de perto</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="marking-zoom-rectangle.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-zoomed-view">
+    <title
+>O visualizador mais de perto</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="zoomed-view.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Ao escolher as operações de rotação no menu de contexto, você poderá rodar a imagem. O utilizador poderá anotar a imagem actual, bastando para tal escolher <guimenuitem
+>Anotar</guimenuitem
+> no menu de contexto.</para>
+
+
+
+
+
+<sect1 id="tokens">
+<title
+>Definir os Itens do Visualizador</title>
+<para
+>Ao ver as imagens, você poderá descobrir que uma dada imagem contém uma pessoa, cujo nome você se esqueceu de definir nas imagens. Nesta altura, poderá cancelar a sua visualização e saltar para a janela de configuração da imagem para apontar a pessoa. Contudo, frequentemente, poderá desejar apenas marcar a imagem e continuar a ver as restantes.</para>
+
+<para
+>Uma situação alternativa é a seguinte: Deseja enviar um conjunto de imagens para uma impressora para que estas sejam reveladas em papel. Para ver o que deseja revelar, poderá iniciar o visualizador das imagens e depois querer marcar as imagens como boas ou más, enquanto vê cada uma das imagens.</para>
+
+<para
+>Para os dois exemplos acima, o visualizador permite-lhe definir itens para as imagens, enquanto as vê. Os itens são identificados de A a Z e você poderá atribuir um item, simplesmente carregando na letra desse item. Em <xref linkend="fig-images-with-tokens"/>, poderá ver uma imagem em que estão atribuídos os itens A, B e C.</para>
+
+  <figure id="fig-images-with-tokens">
+    <title
+>Uma Imagem com Itens</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images-with-tokens.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Logo que tenha atribuído itens às suas imagens, os itens ficarão disponíveis para navegação normal no navegador, como pode ser visto em <xref linkend="fig-tokens-in-browser"/>. Deste modo, quando você tiver marcado as imagens que necessitem de ser editadas, impressas ou manipuladas de outra forma qualquer, basta escolher as imagens e anotar todas as imagens de uma vez (como está descrito em <xref linkend="sect-specifying-properties-for-all-images-simultaneously"/>), usar um 'plugin' para copiar as imagens seleccionadas para um CD ou o que desejar fazer com elas.</para>
+
+  <figure id="fig-tokens-in-browser">
+    <title
+>Itens Vistos no Navegador</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-browser.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>As categorias (e os itens especiais) poderão ser mostradas no visualizador de miniaturas. Ao mostrar as categorias no visualizador de miniaturas, poderá também adicionar itens às imagens, bastando para tal carregar na letra do item, quando a imagem estiver seleccionada. Isto poderá ser visto em <xref linkend="fig-tokens-in-thumbnail-viewer"/></para>
+
+  <figure id="fig-tokens-in-thumbnail-viewer">
+    <title
+>Itens Vistos no Visualizador de Miniaturas</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-thumbnail-viewer.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+
+
+</sect1>
+
+<sect1 id="category-selectors-in-viewer">
+    <title
+>Definir as Categorias do Visualizador</title>
+    <para
+>Poderá seleccionar a categoria no visualizador se começar a escrever o nome dela. A selecção é feita imediatamente quando só existir apenas uma categoria correspondente.</para>
+
+    <para
+>Para mudar para o modo de selecção da categoria, basta carregar na barra (/). As opções possíveis são apresentadas a seguir ao texto 'Atribuição:' entre chavetas, sendo revistas imediatamente assim que for escrevendo mais letras. Quando seleccionar uma categoria, poderá continuar a escrever para seleccionar o valor do item. A imagem seguinte mostra isto em acção e, por baixo, uma explicação de como tudo funciona. </para>
+
+
+<figure id="category-selectors">
+<title
+>Seleccionar as Categorias do Visualizador</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="category-selectors.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Siga a configuração da categoria abaixo para compreender melhor esta explicação. Se começar por escrever "/P", o campo de texto irá mudar de "Elementos" para "Palavras-Chave" (dado que o P é único). Depois disso, se escrever "b" irá atribuir imediatamente a palavra-chave "boa" à imagem. Se escrever "a" irá mostrar "Aborrecida", atribuindo o resultado à imagem. Se escrever "/p" irá funcionar de forma semelhante para "Pessoas". <itemizedlist mark='opencircle'>
+    <listitem
+><para
+>Elementos</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>A..Z</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Palavras-Chave</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Boa</para
+></listitem>
+        <listitem
+><para
+>Má</para
+></listitem>
+        <listitem
+><para
+>Aborrecida</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Pessoas</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Jorge</para
+></listitem>
+        <listitem
+><para
+>Frederico</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Locais</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Internet</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+</itemizedlist>
+</para>
+
+<sect2>
+    <title
+>Palavras exactas</title>
+<para
+>Se quiser introduzir uma nova palavra ou tiver palavras como "boa" e "boas", terá de poder escrever a palavra exacta que deseja inserir ou seleccionar. Isso poderá ser obtido se iniciar a palavra com aspas (") e terminar com uma vírgula (,). Se tivesse seleccionado "boa" imediatamente após ser escrito, poderia não seleccionar "boas" e, nesse caso, teria de esperar por carregar em mais teclas. <figure id="keyword-exact">
+<title
+>Seleccionar as Palavras Exactas no Visualizador</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="keyword-exact.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</para>
+</sect2>
+
+<sect2>
+    <title
+>Iniciar sempre com a selecção da categoria</title>
+<para
+>Se escrever duas '/'s seguidas, ira mudar entre dois modos diferentes: o modo predefinido, descrito acima, e um modo de selecção da categoria. No último modo, iremos de volta para a selecção da categoria após uma correspondência. Dessa forma, poderá seleccionar de forma contínua os itens em categorias diferentes. Iria à mesma fazer a correspondência mais rápida possível, pelo que se escrevesse acima "Pa" iria corresponder a "Palavras-chave/Aborrecida" no exemplo acima. </para>
+</sect2>
+<sect2>
+    <title
+>Atribuir atalhos</title>
+<para
+>Se o campo actualmente estiver em branco (p.ex. se não estiver a seleccionar nada de momento) e tiver carregado numa tecla de função (F1-F35), irá atribuir a última definição correspondente a essa tecla. Poderá aplicar a mesma atribuição às imagens novas, carregando para tal na tecla do atalho. Para remover, use a tecla Shift e o atalho (<keycombo
+>&Shift;<keycap
+>F#</keycap
+></keycombo
+>). Isto é útil para atribuir rapidamente itens frequentes de forma repetida ao seu conjunto de imagens actual. Ele recorda tanto a categoria como o item da mesma. Estes atalhos só são recordados até que feche o &kphotoalbum;, não existindo suporte para substituir o atalho atribuído. </para>
+  </sect2>
+</sect1>
+
+
+<!-- Drawing on images feature has been dropped
+  <sect1 id="drawing-on-images">
+    <title
+>Drawing on Images</title>
+    <para
+>Sometimes it might not be obvious what you want to show with a
+given image, for that purpose &kphotoalbum; allows you to draw on the
+images. </para>
+
+<para
+>The actual drawing is not saved to the image, but rather to the
+database, that way you can undo your drawing at a later point.</para>
+
+<para
+>In <xref linkend="fig-draw-on-image"/> you can see an image drawn
+on. To bring &kphotoalbum; in to drawing mode, select <guimenuitem
+>Draw on
+Image</guimenuitem
+> from the context menu. To quit drawing, press the cross in
+the toolbar at the top of the window.</para>
+
+<figure id="fig-draw-on-image">
+<title
+>Drawing on Images</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="draw-on-image.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+  </sect1>
+-->
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

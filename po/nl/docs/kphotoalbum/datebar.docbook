@@ -1,0 +1,51 @@
+<chapter id="chp-datebar">
+  <title
+>De datumbalk</title>
+
+<para
+>Onderaan het hoofdvenster van &kphotoalbum; vindt u de gegevensbalk (zie <xref linkend="fig-datebar"/>). Zoals de naam aangeeft toont het statistieken over de afbeeldingen in uw database.</para>
+
+<figure id="fig-datebar">
+<title
+>De datumbalk</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>De individuele balken geven aan hoeveel afbeeldingen zich in de gegeven periode bevinden. In de figuur boven kunt u zien dat ik 261 afbeeldingen heb uit januari 2005. De balken geven twee soorten informatie, namelijk hoeveel afbeeldingen een exacte datum hebben in de gegeven periode en hoeveel een overlap hebben met de gegeven periode. Een afbeelding die een datum 2005 heeft zal dus als een overlap voor alle maanden van 2005 hebben, terwijl een afbeelding van 24 jan 2005 zal tellen als een exacte datum voor januari 2005. Exacte overeenkomsten worden getoond met groen, terwijl niet exacte overeenkomsten in geel worden getoond. Dus in december 2004 heb ik 86 afbeeldingen met een exact aantal en 61 met overlap telling. (ik ken de aantallen door de muis over de gegeven reeks te bewegen, omdat dat de aantallen in de statusbalk geeft).</para>
+
+<para
+>De datumbalk biedt u een aantal verschillende indelingen, waar elke balk een verschillende tijdreeks toont. De reeksen zijn jaren, maanden, weken, dagen, uren en 10 minuten. <xref linkend="fig-datebar-for-minutes"/> toont delen van mijn database waar elke balk slechts 10 minuten toont.</para>
+
+<figure id="fig-datebar-for-minutes">
+<title
+>De datumbalk met 10 minuten intervallen</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar-for-minutes.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>De datumbalk is interactief op twee manieren, eerst kunt u navigeren in de miniatuurweergave uit de database - een datum selecteren schuift de miniatuurweergave zodat de eerste afbeelding van die datum getoond wordt. Ten tweede, wanneer u in de miniatuurweergave ronddwaalt, zal de datumbalk zo worden bijgewerkt dat deze de datum van de nu getoonde afbeeldingen weergeeft.</para>
+
+<para
+>U kunt ook een reeks in de datumbalk slepen. U doet dat door met de muis te drukken en te slepen in het liniaal gedeelte van de datumbalk, dwz. op de tijdstempels. Wanneer u een reeks selecteert zal de miniatuurweergave alleen afbeeldingen uit die reeks weergeven. U kunt een selectie annuleren door op de knop Annuleren links van de datumbalk te drukken.</para>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

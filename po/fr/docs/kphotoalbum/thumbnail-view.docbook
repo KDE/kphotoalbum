@@ -1,0 +1,184 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-thumbnail-view">
+  <title
+>Visionneuse de miniatures</title>
+  <para
+>En sélectionnant <guilabel
+>Vue par vignettes</guilabel
+> dans le navigateur, vous obtenez une vue générale avec les images filtrées sous forme de vignettes (ou toutes les images s'il n'y a pas de filtre). Un exemple est donné ci-dessous dans <xref linkend="fig-thumbnailview"/>. La taille des vignettes peut être simplement configurée en faisant glisser la souris avec le bouton central enfoncé (Essayez, c'est vraiment facile).</para>
+
+  <figure id="fig-thumbnailview">
+    <title
+>Vue par vignettes</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="thumbnailview.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>Dans la vue générale par vignettes, vous pouvez ré-organiser vos photos en les faisant glisser au sein de la vue avec la souris. Pour utiliser la barre de date de façon correcte, vous devez cependant veiller à maintenir vos photos toujours triées. Vous pouvez trier vos photos en les sélectionnant toutes et en choisissant <menuchoice
+><guimenu
+>Photos</guimenu
+><guimenuitem
+>Tri par Date &amp; Heure</guimenuitem
+></menuchoice
+>. Le tri ne ré-organisera pas les photos qui ont la même date et heure. Si par exemple, vous avez 100 photos datées de 1992 (c'est-à-dire, sans date mais uniquement l'année) alors vous devez les faire bouger et leur place individuelle restera inchangée après un tri.</para>
+
+<para
+>Glisser une photo d'un afficheur vers le fond d'écran transformera la photo en fond d'écran de votre bureau.</para>
+
+  <para
+>Vous chargez une photo dans l'afficheur en cliquant sur une photo, une fenêtre d'affichage sera créée si aucune fenêtre d'affichage n'est ouverte.</para>
+
+  <para
+>Si vous sélectionnez un ensemble de photos et si vous appuyez sur <keycombo
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> ou si vous choisissez <menuchoice
+><guimenu
+>Photos</guimenu
+><guimenuitem
+>Voir les photos sélectionnées</guimenuitem
+></menuchoice
+>, les photos seront chargées dans la fenêtre d'affichage courante (Si aucune n'existe, alors une nouvelle sera créée). Alternativement, vous pouvez aussi choisir <menuchoice
+><guimenu
+>Photos</guimenu
+><guimenuitem
+>Affichage (dans une nouvelle fenêtre)</guimenuitem
+></menuchoice
+> pour que les photos soient chargées dans une nouvelle vue. Si vous appuyez sur <keycombo
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> ou choisissez <menuchoice
+><guimenu
+>Photos</guimenu
+><guimenuitem
+>Démarrer un diaporama</guimenuitem
+></menuchoice
+>, les photos sélectionnées seront chargées dans l'afficheur et le diaporama sera lancé. Enfin, la choix de <menuchoice
+><guimenu
+>Photos</guimenu
+><guimenuitem
+>Démarrer un diaporama en mode aléatoire</guimenuitem
+></menuchoice
+> démarrera un diaporama dans lesquelles les photos seront affichées dans un ordre aléatoire.</para>
+
+
+<sect1 id="sect-deleting-images">
+  <title
+>Supprimer des photos</title>
+  <para
+>A partir de la vue par vignettes, il est aussi possible de supprimer des photos. Pour cela, sélectionner les photos que vous voulez supprimer et appuyer sur la touche de suppression ou sélectionner dans la barre de menus <menuchoice
+><guimenu
+>Éditer</guimenu
+><guimenuitem
+>Supprimer les photos sélectionnées</guimenuitem
+></menuchoice
+>. En procédant de cette façon, &kphotoalbum; vous affichera la boîte de dialogue dans <xref linkend="fig-delete-images"/></para>
+
+<figure id="fig-delete-images">
+<title
+>Supprimer des photos</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="delete-images.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+  <para
+>Trois méthodes sont proposées dans &kphotoalbum; pour supprimer une image, soit en la déplaçant vers la corbeille, soit en la supprimant du disque ce qui implique sa suppression définitive ou en demandant à &kphotoalbum; de ne pas la prendre en compte. Dans cette dernière méthode, &kphotoalbum; n'affichera plus jamais la photo mais la conservera sur le disque. Cela est utile si par exemple, il y a des<emphasis
+>photos en vignettes</emphasis
+> stockées au milieu des photos. Cette image en vignettes contient un aperçu de toutes les autres photos et seraient donc inutiles dans &kphotoalbum;, mais pourraient être nécessaires pour d'autres applications telles qu'un navigateur web.</para>
+</sect1>
+
+
+<sect1 id="sect-offline-mode">
+<title
+>Mode hors-ligne</title>
+<para
+>Il y a une bataille constante en cours entre la croissance du volume de données et la taille sans cesse croissante des disques durs. Si vous avez un grand nombre de photos, vous vous trouvez impliquer dans cette bataille en n'ayant pas assez d'espace disque pour stocker toutes vos images. Dans cette situation, vous pourriez avoir fait le choix de mettre certaines de vos photos sur des CDs. Un scénario alternatif pourrait être que vous partiez en voyage d'affaires et que vous vouliez transporter avec vous vos photos mais que vous n'ayez pas les 20 Go nécessaires pour cela. </para>
+
+<para
+>&kphotoalbum; offre une solution à ce problème, qui vous permet de l'utiliser sans avoir les photos disponibles sur le disque dur. Il faut bien les avoir eues disponibles à un moment dans &kphotoalbum; pour que &kphotoalbum; puisse les indexer. <xref linkend="fig-offline-mode"/> montre quand &kphotoalbum; n'est pas capable de trouver les photos requises sur le disque dur.</para>
+
+<figure id="fig-offline-mode">
+<title
+>&kphotoalbum; en Mode Hors-ligne</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="offline-mode.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Les photos qui ont le coin coupé (photos 1-4) ne sont pas présentes sur le disque dur. Les vignettes sont cependant disponibles pour les photos 5-9, même si les images sont absentes du disque. Cependant, &kphotoalbum; peut vous montrer les vignettes de ces photos mais ne pourra pas les afficher. (Vous avons l'habitude de couper les coins des vignettes pour indiquer que l'image est absente du disque. Mais cette fonctionnalité semble actuellement non disponible). </para>
+
+<para
+>Comme vous pouvez le voir, cette fonctionnalité nécessite que vous ayez copié les fichiers dans ou en dehors de vos dossiers. &kphotoalbum; ne vous demandera rien pour insérer un CD nommé « truc ». Alors, n'oubliez cette fonctionnalité si vous êtes le genre de personne qui n'aime pas s'embêter avec des fichiers etc. Préférer alors tout simplement acheter des disques durs avec suffisamment d'espace pour toujours stocker toutes vos photos. </para>
+
+</sect1>
+
+
+
+<sect1 id="sect-privacy">
+<title
+>Confidentialité</title>
+<para
+>Il y a quelques temps, ma copine et moi, nous avons emporté un PC portable avec nous lors d'une visite à mes beaux-parents, pour leur montrer les photos de nos dernières vacances. &kphotoalbum; venait d'être diffusé et avait un grand succès. Cela n'a pas duré très longtemps avant que les copines de ma petite sœur ne s'emparent du PC portable et ne commencent à naviguer par elles-même. Malheureusement, il ne s'est pas écoulé très longtemps avant que par mégarde, elles ne voient des photos de moi durant ma jeunesse et qu'elles n'aient une petite crise de fou rire envers moi. Cette histoire m'a conduit à ajouter une nouvelle fonctionnalité dans &kphotoalbum; nommée verrouillage de confidentialité.</para>
+
+<para
+>Dans le menu <guimenu
+>Photos</guimenu
+>, vous trouverez un sous-menu dénommé <guimenuitem
+>Confidentialité</guimenuitem
+>. Pour avoir un peu de confidentialité, naviguez - pendant que vous êtes sous votre compte - vers les photos que vous souhaitez conserver privées et sélectionnez <guimenuitem
+>Verrouillage des photos sélectionnées</guimenuitem
+> à partir du sous-menu de confidentialité. Alternativement, vous pouvez naviguer vers les photos que vous souhaitez conserver hors des yeux de votre sœur et sélectionnez <guimenuitem
+>Verrouillage toutes les autres photos</guimenuitem
+>.</para>
+
+<para
+>Maintenant, vous avez spécifié ce que vous vouliez conserver secret et une fois que vous avez repris votre PC portable des mains de votre sœur, choisissez simplement <guimenuitem
+>Verrouillage des photos</guimenuitem
+> et votre sœur ne sera plus capable de voir les photos verrouillées. Une fois réalisé, vous pourrez les dé-verrouiller à nouveau en utilisant <guimenuitem
+>Déverrouillage</guimenuitem
+>.</para>
+
+<para
+>Il est possible de spécifier un mot de passe qui doit être saisi pour déverrouiller la base de données. Dans le menu <guimenuitem
+>Confidentialité</guimenuitem
+>, sélectionnez tout simplement <guimenuitem
+>Changer le mot de passe</guimenuitem
+> pour définir un mot de passe.</para>
+
+<para
+>Ne croyez pas que cela vous aidera de cacher des photos pour de bon. D'abord, les photos sont toujours sur le disque dur et deuxièmement, n'importe ayant accès au fichier <filename
+>index.xml</filename
+> que &kphotoalbum; utilise, peut lire le mot de passe en clair et potentiellement, l'effacer. Cette fonctionnalité ne permet que la protection envers une personne utilisant &kphotoalbum; et regardant non intentionnellement vos photos privées.</para>
+
+</sect1>
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

@@ -1,0 +1,58 @@
+<!--
+SPDX-FileCopyrightText: 2005-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2010 Burkhard Lück <lueck@hube-lueck.de>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-datebar">
+  <title
+>Datumraden</title>
+
+<para
+>Längst ner i Kfotoalbums huvudfönster hittar du datumraden (se <xref linkend="fig-datebar"/>). Som namnet anger visar den datumstatistik för bilderna i din databas.</para>
+
+<figure id="fig-datebar">
+<title
+>Datumraden</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>De enskilda staplarna anger hur många bilder som finns inom den givna perioden. I figuren ovan kan du se att det finns 261 bilder från januari 2005. Staplarna kodar två sorters information, nämligen hur många bilder som har ett exakt datum inom den givna perioden, och hur många som överlappar den givna perioden. En bild som har ett datum som anger 2005 räknas som överlappning för alla månader under 2005, medan en bild från 24:e januari 2005 räknas som ett exakt datum för januari 2005. Exakta matchningar visas med grönt, medan inexakta matchningar visas med gult. Sålunda finns det 86 bilder som räknas exakt under december 2004, och 61 som räknas med överlappning. (Jag kan avgöra antalen genom att hålla musen över ett givet intervall, eftersom det visar antalen i statusraden).</para>
+
+<para
+>Datumraden erbjuder ett antal olika upplösningar, där varje stapel visar olika tidsintervall. Intervallen är år, månader, veckor, dagar, timmar och 10 minuter. <xref linkend="fig-datebar-for-minutes"/> visar en del av min databas där varje stapel bara visar 10 minuter.</para>
+
+<figure id="fig-datebar-for-minutes">
+<title
+>Datumraden som visar 10-minutersintervall</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar-for-minutes.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Datumraden är interaktiv på två sätt. För det första kan du navigera i miniatyrbildsvyn från databasen: Att välja ett datum panorerar miniatyrbildsvyn så att den första bilden från det datumet visas. För det andra, när du navigerar i miniatyrbildsvyn, uppdateras datumraden så att den visar datumet för bilderna som för närvarande visas.</para>
+
+<para
+>Du kan också rita upp ett intervall i datumraden. Du gör det genom att hålla nere och dra musen i datumradens linjaldel, dvs. på tidsstämplarna. När du väljer ett intervall, visar miniatyrbildsvyn bara bilder från det intervallet. Du avbryter en markering genom att klicka på knappen Avbryt till vänster om datumraden.</para>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

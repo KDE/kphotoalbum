@@ -1,0 +1,79 @@
+<chapter id="chp-plugins">
+  <title
+>Plug-ins</title>
+  <para
+>&kphotoalbum; deelt een systeem voor plug-ins met een aantal andere afbeeldingtoepassingen, waaronder <application
+>digiKam</application
+> en <application
+>Gwenview</application
+>. Het plug-insysteem heeft de naam <application
+>Kipi</application
+>, wat de afkorting is van &kde; Image Plugin Interface. Zie <ulink url="http://extragear.kde.org/apps/kipi/"
+>Kipi-homepagina</ulink
+></para>
+
+<para
+>De plug-ins zijn beschikbaar vanuit het item <guimenu
+>Plug-ins</guimenu
+> in de menubalk. De plug-ins kunnen en zullen niet worden beschreven in deze handleiding omdat de plug-ins geen onderdeel uitmaken van &kphotoalbum; en apart beschikbaar zijn. De meeste plug-ins hebben echter zelf een helppagina beschikbaar die vanuit de plug-in zelf toegankelijk is.</para>
+
+<warning
+><para
+>Omdat de plug-ins bij een aantal programma's in gebruik zijn, kunnen de combinaties van bepaalde plug-ins samen met &kphotoalbum; nog weinig getest zijn, Het is daarom verstandig om een nieuwe plug-in uit te proberen op de demo database voordat u deze uitprobeert op uw eigen foto's<footnote
+><para
+>U start &kphotoalbum; met de demo setup naar keuze vanaf de commandoregel door het gebruik van het commando <userinput
+><command
+>kphotoalbum</command
+> <option
+>-demo</option
+></userinput
+> of via het menu <guimenu
+>Help</guimenu
+>.</para
+></footnote
+> (Zeg niet dat ik u niet heb gewaarschuwd!).</para
+></warning>
+
+<para
+>De programma's gebruiken KIPI op een verschillende manier, dit betekent dat sommige plug-ins niet altijd op de manier van &kphotoalbum; werken, maar dat is de prijs voor het delen van functionaliteit tussen de programma's.</para>
+
+<para
+>Het belangrijkste verschil tussen &kphotoalbum; en de andere programma's die KIPI gebruiken, is dat andere programma's de foto's onderverdelen in fotoalbums waarbij een fotoalbum eenvoudig een map op de harde schijf is. &kphotoalbum; gebruikt dit concept niet; maar om sommige plug-ins te laten werken, doet &kphotoalbum; tegenover de plug-in alsof het dat wel het geval is.</para>
+
+<para
+>&kphotoalbum; doet dit door <emphasis
+>het huidige album</emphasis
+> te definiëren als de huidige weergave - dat wil zeggen alle afbeeldingen die de browser nu laat weergeven.</para>
+
+<para
+>Naast het huidige album moet &kphotoalbum; ook in staat zijn om een lijst van alle albums te geven; &kphotoalbum; definieert deze lijst op de volgende manier:</para>
+
+<itemizedlist>
+  <listitem
+><para
+>Wanneer de browser van &kphotoalbum; de inhoud van een categorie toont, zeg mensen, dan zal elk item in deze categorie er voor de plug-in uitzien als een album.</para
+></listitem
+> 
+  <listitem
+><para
+>Anders wordt de categorie gebruikt die u specificeert voor <guilabel
+>Categorie voor virtuele albums</guilabel
+> in de dialoog voor opties; als u bijvoorbeeld Mensen met deze optie specificeert, dan zal &kphotoalbum; reageren alsof u zojuist gekozen hebt om mensen te tonen en daarna de plug-in oproept die alle albums moet weten.</para
+></listitem>
+</itemizedlist>
+
+<para
+>Het gedrag van sommige plug-ins is al ingebouwd in &kphotoalbum; en in dat geval wilt u deze plug-in misschien helemaal niet zien in het plug-in-menu. In dat geval kunt de instellingendialoog openen en instellen welke plug-ins wel of niet zichtbaar zijn.</para>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

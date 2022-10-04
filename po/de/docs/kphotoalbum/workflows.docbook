@@ -1,0 +1,170 @@
+<chapter id="work-flow">
+  <title
+>Arbeitsablauf mit &kphotoalbum;</title>
+  <para
+>Der Arbeitsablauf ist ein wichtiger Aspekt in der digitalen Bildbearbeitung. In diesem Kapitel werden mehrere Abläufe für verschiedene Anforderungen beschrieben. Es müssen viele verschiedenen Faktoren bei der Entwicklung eines Arbeitsablaufs bedacht werden. Diese Beispiele geben Ihnen hoffentlich einige Anregungen, um Ihren eigenen Arbeitsablauf in der Bildverarbeitung zu finden.</para>
+
+  <sect1 id="raw-workflow">
+  <title
+>Arbeitsablauf für Rohbilder mit &kphotoalbum; und Bibble5/AfterShot Pro</title>
+  <para
+>Bei der Aufnahme von Rohbildern müssen die Bilder von der Kamera in ein übliches Format wie JPEG oder TIFF umgewandelt werden. Dazu gibt es unter Linux mehrere Alternativen. Zum Beispiel RawTherapee und Ufraw sind Open-Source-Programme, Bibble5/AfterShot Pro dagegen kommerzielle Programme für diese Aufgabe.</para>
+
+  <para
+>Einige Einstellungen werden für den Arbeitsablauf mit Roh-Dateien empfohlen. Als erstes aktivieren Sie die Verwendung der eingebetteten Vorschaubilder. Damit erreichen Sie eine erheblich schnellere Anzeige im Vergleich zur Dekodierung jedes einzelnen Rohdaten-Bilds. Überprüfen Sie die Einstellung der minimalen Vorschaugröße, um eine ausreichende Anzeigequalität zu erhalten. Als nächstes überprüfen Sie, dass bei der Suche nach neuen Bildern die entwickelten Versionen automatisch über die Rohdateien gestapelt werden. Die entwickelten Bilder müssen im gleichen Ordner wie das Original gespeichert werden. Das erreichen Sie mit regulären Ausdrücken wie im Abschnitt <xref linkend="opt-search-new"/> beschrieben. Die beiden Skripte open-raw.desktop und open-raw.pl werden mit &kphotoalbum; ausgeliefert, die diesen Arbeitsablauf für Rohdateien unterstützen. Das erste ermöglicht grafischen Anwendungen, Rohdateien mit open-raw.pl zu öffnen, welches wiederum die ursprünglichen Rohdatei sucht und sie anstelle des entwickelten Bilds öffnet. </para>
+
+  <figure id="fig-raw-workflow">
+    <title
+>Bilder an die Rohbearbeitung übergeben</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="raw-external.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>Der erste eigentliche Schritt im Arbeitsablauf ist das Kopieren der Bilder von der Kamera auf den Rechner. Das kann in einem Terminalfenster mit folgendem Befehl erfolgen: </para>
+  <screen
+><userinput
+><command
+>cp</command
+> <option
+>-a</option
+> <filename
+>/media/.../101CANON/</filename
+> <filename
+>~/Pictures/2012/sample</filename>
+  </userinput
+></screen>
+  <para
+>Dann starten Sie entweder &kphotoalbum; oder wählen <menuchoice
+><guimenu
+>Wartung</guimenu
+><guimenuitem
+>Bilder und Videos neu einlesen</guimenuitem
+></menuchoice
+>. Die neuen Bilder werden gefunden und sollten als erstes mit Stichwörtern versehen werden. Wenn Sie normalerweise auf Reisen fotografieren, sollten Sie als erstes Orte zuweisen. Wählen Sie <guilabel
+>Ordner</guilabel
+> und gehen Sie zum neuen Ordner. Gehen Sie dann zu <guilabel
+>Vorschaubilder anzeigen</guilabel
+>, wählen alle aus und benutzen <guimenu
+>Mehrere Einträge gleichzeitig kategorisieren</guimenu
+> aus dem Kontextmenü oder drücken <keycombo action="simul"
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>. Fügen Sie den richtigen Ort wie zum Beispiel „Finnland-Helsinki“ ein, siehe auch <xref linkend="sec-member-groups-in-property-editor"/>. </para>
+
+  <para
+>Da die neuen Bilder nun leicht zu finden sind, sollte eine erste Bewertung und Löschung nicht gelungener Aufnahmen erfolgen. Wechseln Sie zur Vorschauansicht und starten den Betrachter durch Drücken der Taste &Enter;. Zur Bewertung drücken Sie die entsprechenden Zahlen von <keycap
+>1</keycap
+> bis <keycap
+>5</keycap
+>. Zum Löschen von Fotos verwenden Sie <keycombo action="simul"
+>&Ctrl;<keycap
+>Entf</keycap
+></keycombo
+>. Jetzt können auch die Namen der Personen hinzugefügt werden. Verlassen Sie den Betrachter mit &Esc; und wählen dann <guimenuitem
+>Datei von der Festplatte löschen</guimenuitem
+>, um die schlechten Bilder loszuwerden. </para>
+
+  <para
+>Jetzt sollten Sie nur die Bilder mit einer entsprechend hohen Bewertung mit der Suchfunktion auswählen. Natürlich muss ein Ort angegeben werden, wenn die Suche mit <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+> begonnen wird. Wird die Suche dagegen im Hauptfenster gestartet, wird die aktuelle Auswahl durch genauere Übereinstimmung eingegrenzt. Dann sollten Sie die Bewertung der besten Bilder verfeinern. Haben Sie zum Beispiel fünf Bilder einer Nacktschnecke, sollten Sie die Bewertung der schlechteren Bilder verringern und des besten Bilds vergrößern. Bilder können Sie vergleichen, indem Sie sie auswählen und dann den Betrachter starten. Drücken Sie die Taste <keycap
+>Entf</keycap
+>, um Bilder aus der Ansichtsauswahl zu entfernen. Dies erlaubt das Vergleichen von zwei oder drei Bildern, mit den Tasten <keycap
+>Bild auf</keycap
+> und <keycap
+>Bild ab</keycap
+> können Sie zwischen den Bilder wechseln. Benutzen Sie temporäre Kategorien, um nur bestimmte Arten von Bildern bei der späteren Auswahl und Identifizierung anzuzeigen.</para>
+
+  <para
+>Nachdem jetzt nur noch eine verringerte Anzahl von Bildern übrig ist, sollten Sie mit der Zuweisung von Stichwörtern und Kommentaren weitermachen. Möchten Sie nach der Entwicklung der Rohbilder und automatischer Stapelung Stichwörter zuweisen, müssen Sie das oberste Element eines eingeklappten Stapels oder alle Bilder eines ausgeklappten Stapels auswählen und dann <emphasis
+>Mehrere Einträge gleichzeitig kategorisieren</emphasis
+>, um alle Bilder anstatt des obersten zu ändern.</para>
+
+  <para
+>Die besten Bilder werden nun an das externe Programm zur Entwicklung gesendet. Sind die gewünschten Bilder ausgewählt, klicken Sie mit der &RMBn; auf ein ausgewähltes Vorschaubild und wählen dann <menuchoice
+><guimenuitem
+>Externes Programm starten</guimenuitem
+><guimenuitem
+>Alle ausgewählten Einträge</guimenuitem
+><guimenuitem
+>Bibble5</guimenuitem
+></menuchoice
+>. Das hier ausgewählte Programm ist tatsächlich das mit &kphotoalbum; ausgelieferte Skript, das erkennt, ob eine Rohdatendatei für die möglicherweise bereits entwickelten Bilder verfügbar ist, und das dann benutzt wird. Mit dem externen Programm bearbeiten Sie die Bilder und speichern dann die entwickelten JPG-Dateien zu den ursprünglichen Rohdateien. Beim Dateinamen sollten Sie die Erweiterung anpassen sowie – falls nötig – Unterstrich und fortlaufende Nummer hinzufügen. </para>
+
+  <para
+>Da es nun viele neue JPEG-Bilder im Bilderordner gibt, lassen Sie &kphotoalbum; nach neuen Bildern suchen und sie automatisch auf die Rohdateien (<xref linkend="fig-options-file-versions"/>) stapeln. Dann erfolgt eine endgültige Suche mit den entwickelten Bildern und es werden noch einige Beschreibungen hinzugefügt, falls nötig.</para>
+
+  <para
+>Der letzte Schritt ist die Erstellung statischer &HTML;-Seiten, die auf einen Webserver hoch geladen werden, damit die Fotos von Freunden und Kollegen angeschaut werden können. Dies sollten Sie mit dem eingeklappten Stapel ausführen, um nur die entwickelten Bilder auf der Webseite zu haben. Die &HTML;-Generierung wird im <xref linkend="chp-generating-html"/> beschrieben.</para>
+  </sect1>
+
+  <sect1 id="pano-workflow">
+  <title
+>Arbeitsablauf mit Panoramen</title>
+  <para
+>Panoramen benötigen einen etwas anderen Arbeitsablauf als die Bearbeitung normaler Fotos. Dies wird durch mehrere Quelldateien bedingt. Das Werkzeug der Wahl ist Autopano Pro, aber eine aktuelle Version von &digikam; kann es auch gut und ist zudem kostenlos. Im Folgenden werden die nötigen Schritte erläutert: <orderedlist>
+  <listitem
+><para
+>Verschlagworten Sie die Fotos, die zum Panorama gehören, entsprechend. Damit soll verhindert werden, dass Fotos versehentlich gelöscht werden, wenn der Ausschuss unter den Fotos aussortiert wird. Sie sollten außerdem die zusammengehörenden Fotos in einen Stapel packen.</para
+></listitem>
+  <listitem
+><para
+>Es gibt mindestens zwei einfache Optionen für den nächsten Schritt: <orderedlist>
+  <listitem
+><para
+>Sie können die Panoramen von Autopano Pro automatisch aus dem Fotoverzeichnis ermitteln lassen. </para
+></listitem>
+  <listitem
+><para
+>Oder Sie senden für einen schnelleren Ablauf die korrekten Bilder über die Befehlszeile an Autopano Pro. Das ist dann praktisch, wenn sich viele Dateien, insbesondere im Rohformat, in dem Ordner befinden. Dazu muss das Skript zum Starten von Autopano Pro so geändert werden, dass Eingaben übernommen werden und eine „.desktop“-Datei erstellt werden. Alternativ kann Autopano Pro als externes Programm von der Befehlszeile aus benutzt werden.</para
+></listitem>
+  </orderedlist>
+  </para
+></listitem>
+  <listitem
+><para
+>Sollte dem resultierende Panorama ein kleiner Teil fehlen, können Sie es z. B. mit Gimp aufbereiten. Das funktioniert für gewöhnlich ganz gut, wenn es genug Strukturen im Bild gibt, die über die Lücke geklont werden können. Es ist jedoch nicht garantiert, dass Sie brauchbare Ergebnisse erhalten.</para
+></listitem>
+  <listitem
+><para
+>Speichern Sie das neue Bild irgendwo im &kphotoalbum;-Baum und rufen Sie <menuchoice
+><guimenu
+>Wartung</guimenu
+><guimenuitem
+>Bilder und Videos neu einlesen</guimenuitem
+></menuchoice
+> aus dem Menü auf. Nun sollte das neue Panorama erkannt und in die Galerie aufgenommen werden. </para
+></listitem>
+  <listitem
+><para
+>Wenn Sie das automatische Stapeln neuer Bilder korrekt eingestellt haben und der Name des neuen Panoramas der Regel entspricht, sollte es nun oben auf dem Stapel liegen. Sortieren Sie andernfalls die Bilder nach Datum, damit das Panorama in der Nähe der Panorama-Quellbilder liegt und stapeln Sie es manuell (Autopano Pro scheint die EXIF-Informationen des ersten Quellbildes in das Panorama einzubetten).</para
+></listitem>
+  <listitem
+><para
+>Sie können nun dem Panorama weitere Stichwörter zuweisen und dabei auch mit <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+> alle Quellbilder mit einschließen.</para
+></listitem>
+  </orderedlist>
+  </para>
+</sect1>
+</chapter>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

@@ -1,0 +1,326 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-viewer">
+  <title
+>Visning</title>
+  <para
+>Orsaken att du lägger in alla dina bilder i Kfotoalbum, och använder timma efter timma att beskriva dem, är förstås för att du någon gång vill titta på dem. Av den anledningen har Kfotoalbum möjlighet att visa bilder och videor. Du öppnar visningsfönstret från miniatyrbildsvyn, som beskrivs under <xref linkend="chp-thumbnail-view"/>.</para>
+
+  <para
+>Bildvisningen kan ses i <xref linkend="fig-viewer"/>. Visningen visar förstås bilden, men förutom det också informationen du angav för varje bild, inklusive vem som finns på bilden, när och var den är tagen, etc. </para>
+
+  <figure id="fig-viewer">
+    <title
+>Visning</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Om informationsrutan finns över en del av bilden som du vill se, kan du bara ta tag i den med musen och flytta den någon annanstans på bilden. Det är också möjligt att ställa in vad som ska visas i informationsrutan, och förstås om den överhuvudtaget ska visas. Alla dessa alternativ är tillgängliga genom att högerklicka med musen i visningsfönstret. Den sammanhangsberoende menyn syns i <xref linkend="fig-viewer-contextmenu"/> nedan.</para>
+
+  <figure id="fig-viewer-contextmenu">
+    <title
+>Visningens sammanhangsberoende meny</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer-contextmenu.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Vissa av orden i informationsrutorna är understrukna. Om du klickar med musen på ett av orden går bläddraren till visning av den komponenten (se <xref linkend="chp-browsing"/>). Om du alltså klickar på <literal
+>Anne Helene</literal
+> visar bläddraren alla bilder av Anne Helene, precis som den hade gjort om du valt <literal
+>Personer</literal
+> i bläddrarens rot, och därefter valt <literal
+>Anne Helene</literal
+>.</para>
+
+<para
+>Du ser en liten knapp med Kfotoalbums logotyp i informationsrutan. Genom att klicka på knappen kommer du till miniatyrbildsvisningen. Miniatyrbildsvyn visar alla bilder, och bilden du just tittade på i bildvisningen är markerad. Idén bakom detta är följande: Du bläddrar till en given person, och tittar på bilderna med den personen. En av bilderna är exempelvis från din gymnasietid, och du vill nu se bilder från den tiden. Med knappen <guilabel
+>Gå till sammanhang</guilabel
+>, kommer du till miniatyrbildsvyn som visar alla bilder, med den nuvarande i fokus, och troligen med alla dina gymnasiebilder runt omkring.</para>
+
+  <para
+>Om du har laddat flera bilder i visningen, kan du gå fram och tillbaka med tangenterna <keycap
+>Page Up</keycap
+> och <keycap
+>Page Down</keycap
+> på tangentbordet. Du kan gå till första och sista bilden med <keycap
+>Home</keycap
+> och <keycap
+>End</keycap
+>. Funktionerna är förstås också tillgängliga från den sammanhangsberoende menyn.</para>
+
+  <para
+>Om flera bilder laddades i visningen, kan du be att de visas som ett bildspel, vilket betyder att Kfotoalbum laddar en ny bild efter några sekunder. Hur ofta en ny bild laddas, kan ställas in genom att hålla nere Ctrl-tangenten och plus (för längre fördröjning mellan varje bild) eller minus (kortare fördröjning mellan varje bild). Starta och stoppa bildspelet görs genom att helt enkelt trycka på tangenten <keycombo
+>&Ctrl;<keycap
+>s</keycap
+></keycombo
+>.</para>
+
+  <para
+>En mycket användbar funktion i Kfotoalbums visning, är möjligheten att direkt gå till fullskärmsläge. I detta läge använder visningen hela skärmens utrymme. Tryck helt enkelt på returtangenten för att starta eller avsluta fullskärmsläge.</para>
+
+  <para
+>Med visningen kan du zooma in eller ut i bilden, helt enkelt genom att rita en rektangel med musen. Genom att trycka på minus-tangenten zoomar du ut igen. Genom att trycka på plus-tangenten zoomar du in i mitten på bilden. <xref linkend="fig-marking-zoom-rectangle"/> nedan, visar hur en zoomningsrektangel markeras, och <xref linkend="fig-zoomed-view"/> visar resultatet av zoomningen.</para>
+
+<para
+>Genom att trycka på tangenten punkt kan du återställa zoomningen, så att bilden visas utan zoomning. Genom att trycka på likhetstecknet ställs zoomnivån in så att varje bildpunkt på skärmen motsvarar en bildpunkt i bilden.</para>
+
+<para
+>Observera att av tekniska orsaker fungerar bara zoomåtgärderna zooma in och zooma ut vid visning av video (tangenterna plus och minus).</para>
+
+  <figure id="fig-marking-zoom-rectangle">
+    <title
+>Zooma i visningen</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="marking-zoom-rectangle.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-zoomed-view">
+    <title
+>Zooma i visningen</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="zoomed-view.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Genom att välja rotationsoperationen i den sammanhangsberoende menyn, kan du rotera bilden (det fungerar inte för videor). Du kan beskriva aktuell bild genom att helt enkelt välja <guimenuitem
+>Lägg till beskrivning</guimenuitem
+> i den sammanhangsberoende menyn.</para>
+
+
+
+
+
+<sect1 id="tokens">
+<title
+>Ange värden i visningen</title>
+<para
+>När du tittar på bilderna kanske du märker att en viss bild innehåller en person som du glömt att ange för bilderna. Nu kan du avbryta visningen, och hasta till bildinställningsdialogrutan för att ange personen. Ofta vill du dock bara markera bilden och fortsätta titta på bilderna.</para>
+
+<para
+>En alternativ situation är följande: Du vill skicka ett antal bilder till en skrivare för att skriva ut dem på papper. För att se vilka du vill skriva ut, startar du bildvisningen med bilderna, och nu vill du markera bilderna som bra eller dåliga medan du tittar på varje bild.</para>
+
+<para
+>För ovanstående två exempel erbjuder bildvisningen möjlighet att ange värden för varje bild medan du tittar på dem. Värden är namn från A till Z, och du anger ett värde genom att helt enkelt trycka på bokstaven för värdet. Du kan se en bild där värdena A, B och C är angivna i <xref linkend="fig-images-with-tokens"/>.</para>
+
+  <figure id="fig-images-with-tokens">
+    <title
+>En bild med värden</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images-with-tokens.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>När du väl har angivit värden för bilderna, är de tillgängliga för vanlig bläddring i bläddraren, som visas i <xref linkend="fig-tokens-in-browser"/>. När du alltså har markerat bilder som ska redigeras, skrivas ut eller något annat, bläddra helt enkelt till bilderna och ange en beskrivning för alla bilder samtidigt (som framgår av <xref linkend="sect-specifying-properties-for-all-images-simultaneously"/>), använd insticksprogrammet för att kopiera valda bilder till en cd, eller vad du än vill göra.</para>
+
+  <figure id="fig-tokens-in-browser">
+    <title
+>Värden som de ses i bläddraren</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-browser.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Kategorier (och värden) kan visas i miniatyrbildsvisningen. När kategorierna visas i miniatyrbildsvisningen kan du också lägga till värden i bilder genom att helt enkelt trycka på bokstaven för värdet när bilden är markerad. Det syns i <xref linkend="fig-tokens-in-thumbnail-viewer"/></para>
+
+  <figure id="fig-tokens-in-thumbnail-viewer">
+    <title
+>Värden som de ses i miniatyrbildsvisningen</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-thumbnail-viewer.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+
+
+</sect1>
+
+<sect1 id="category-selectors-in-viewer">
+    <title
+>Ange kategorier i visningen</title>
+    <para
+>Kategori kan väljas i visaren genom att börja skriva kategorinamnet. Valet görs omedelbart när det bara finns en kategori kvar som passar in.</para>
+
+    <para
+>Skriv helt enkelt bara in snedstreck (/) för att byta till kategorivalsläge. Möjliga alternativ visas efter Tilldelning:text i krullparenteser, och ändras omedelbart så fort fler bokstäver skrivs in. När en kategori har valts, kan du fortsätta att skriva för att välja objektets värde. Följande bild visar detta i arbete, och nedan följer en förklaring av hur det hela fungerar. </para>
+
+
+<figure id="category-selectors">
+<title
+>Välja kategorier i visningen</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="category-selectors.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Följ inställningen av kategori nedan för att förstå förklaringen bättre. Börja med att skriva "/k", så byter indatavalet från "värden" till "Keywords" (eftersom K är unikt). Att därefter skriva "g" tilldelar omedelbart nyckelordet "good" till bilden. Att skriva "b" visar B{ad,oring} i informationsrutan och att därefter skriva "a" eller "o" gör matchningen fullständig och tilldelar resultatet till bilden. Att skriva "/p" fungerar på liknande sätt, och visar den partiella matchningen "P{eople,laces}" så att du kan skriva "e" eller "l" för att antingen komplettera "People" eller "Places". <itemizedlist mark='opencircle'>
+    <listitem
+><para
+>Värden</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>A..Z</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Nyckelord</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Bra</para
+></listitem>
+        <listitem
+><para
+>Dålig</para
+></listitem>
+        <listitem
+><para
+>Tråkig</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Personer</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>George</para
+></listitem>
+        <listitem
+><para
+>Fred</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Platser</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Internet</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+</itemizedlist>
+</para>
+
+<sect2>
+    <title
+>Exakta ord</title>
+<para
+>Om du vill infoga ett nytt ord, eller ha ord som boa och boaorm måste du kunna skriva in exakt det ord du vill infoga eller välja. Det kan åstadkommas genom att inleda ordet med ett dubbelt citationstecken (") och avsluta med ett kommatecken (,). Om boa skulle väljas omedelbart när det skrivs in skulle du inte kunna välja boaorm, och om vi istället skulle vänta på fler tangentnedtryckningar skulle du inte kunna välja boa. <figure id="keyword-exact">
+<title
+>Välja exakta ord i visningen</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="keyword-exact.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</para>
+</sect2>
+
+<sect2>
+    <title
+>Börja alltid med att välja kategori</title>
+<para
+>Om du skriver in två '/' i rad byter det mellan två olika lägen. Standardläget som beskrivs ovan och ett läge för kategorival. I det senare läget, går vi direkt tillbaka till ett kategorival efter en träff. På så sätt kan du kontinuerligt välja objekt med inom olika kategorier. Det ger fortfarande den snabbast möjliga matchningen så att skriva "kt", motsvarar fortfarande "Nyckelord/Tråkig" i exemplet som anges ovan. </para>
+</sect2>
+<sect2>
+    <title
+>Tilldela genvägar</title>
+<para
+>Om pågående inmatning är tom (dvs. du är inte mitt under ett val) och du trycker på en funktionstangent F1 till F12 (eller upp till F35 om tangentbordet stöder det), tilldelas tangenten den senast matchande tilldelningen till tangenten. Samma tilldelning kan göras för nya bilder genom att helt enkelt trycka på snabbtangenten. För att ta bort den använd skifttangenten och snabbtangenten (<keycombo
+>&Shift;<keycap
+>Fn</keycap
+></keycombo
+>). Det är användbart för att snabbt tilldela upprepade objekt i den aktuella bildmängden. Den kommer både ihåg kategorin och kategoriobjektet. Genvägarna är tillgängliga till Kfotoalbum avslutas, det finns för närvarande inget stöd för att ersätta tilldelade genvägar. </para>
+  </sect2>
+</sect1>
+
+
+<!-- Drawing on images feature has been dropped
+  <sect1 id="drawing-on-images">
+    <title
+>Drawing on Images</title>
+    <para
+>Sometimes it might not be obvious what you want to show with a
+given image, for that purpose &kphotoalbum; allows you to draw on the
+images. </para>
+
+<para
+>The actual drawing is not saved to the image, but rather to the
+database, that way you can undo your drawing at a later point.</para>
+
+<para
+>In <xref linkend="fig-draw-on-image"/> you can see an image drawn
+on. To bring &kphotoalbum; in to drawing mode, select <guimenuitem
+>Draw on
+Image</guimenuitem
+> from the context menu. To quit drawing, press the cross in
+the toolbar at the top of the window.</para>
+
+<figure id="fig-draw-on-image">
+<title
+>Drawing on Images</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="draw-on-image.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+  </sect1>
+-->
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

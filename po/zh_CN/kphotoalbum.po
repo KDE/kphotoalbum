@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-03 00:44+0000\n"
+"POT-Creation-Date: 2022-10-04 00:42+0000\n"
 "PO-Revision-Date: 2022-10-02 15:49\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -989,24 +989,24 @@ msgid ""
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:643
+#: DateBar/DateBarWidget.cpp:645
 #, kde-format
 msgid "Show Ranges"
 msgstr "显示范围"
 
-#: DateBar/DateBarWidget.cpp:649
+#: DateBar/DateBarWidget.cpp:651
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr "显示分辨率指示器"
 
-#: DateBar/DateBarWidget.cpp:774
+#: DateBar/DateBarWidget.cpp:776
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
 msgid_plural "%1 exact"
 msgstr[0] ""
 
-#: DateBar/DateBarWidget.cpp:775
+#: DateBar/DateBarWidget.cpp:777
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1015,21 +1015,21 @@ msgid " + 1 range"
 msgid_plural " + %1 ranges"
 msgstr[0] ""
 
-#: DateBar/DateBarWidget.cpp:776
+#: DateBar/DateBarWidget.cpp:778
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
 msgid_plural " = %1 total"
 msgstr[0] ""
 
-#: DateBar/DateBarWidget.cpp:778
+#: DateBar/DateBarWidget.cpp:780
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
 msgid_plural "%1 images/videos"
 msgstr[0] ""
 
-#: DateBar/DateBarWidget.cpp:780
+#: DateBar/DateBarWidget.cpp:782
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
@@ -1227,30 +1227,30 @@ msgstr ""
 msgid "Following files could not be read:"
 msgstr "以下文件不可读："
 
-#: Exif/InfoDialog.cpp:32
+#: Exif/InfoDialog.cpp:33
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
 msgstr ""
 
-#: Exif/InfoDialog.cpp:72
+#: Exif/InfoDialog.cpp:73
 #, kde-format
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
 msgstr ""
 
-#: Exif/InfoDialog.cpp:76
+#: Exif/InfoDialog.cpp:77
 #, kde-format
 msgid "IPTC character set:"
 msgstr "IPTC 字符集："
 
-#: Exif/InfoDialog.cpp:94
+#: Exif/InfoDialog.cpp:95
 #, kde-format
 msgid "Exif info"
 msgstr ""
 
-#: Exif/InfoDialog.cpp:95
+#: Exif/InfoDialog.cpp:96
 #, kde-format
 msgid "File metadata"
 msgstr ""
@@ -3901,7 +3901,7 @@ msgstr ""
 msgid "Video thumbnails are not available"
 msgstr ""
 
-#: Map/GeoCluster.cpp:137
+#: Map/GeoCluster.cpp:141
 #, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
@@ -5525,7 +5525,7 @@ msgstr ""
 msgid "[ zoom x%1 ]"
 msgstr "[ 缩放 x%1 ]"
 
-#: Viewer/InfoBox.cpp:61
+#: Viewer/InfoBox.cpp:59
 #, kde-format
 msgid "Show the geographic position of this image on a map"
 msgstr ""
@@ -5535,17 +5535,17 @@ msgstr ""
 msgid "Error playing media"
 msgstr "播放媒体出错"
 
-#: Viewer/QtAVDisplay.cpp:28 Viewer/QtAVDisplay.cpp:41
+#: Viewer/QtAVDisplay.cpp:31 Viewer/QtAVDisplay.cpp:44
 #, kde-format
 msgid "Failed to set up video playback"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:28
+#: Viewer/QtAVDisplay.cpp:31
 #, kde-format
 msgid "Failed to set up video playback (renderer wasn't created)"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:41
+#: Viewer/QtAVDisplay.cpp:44
 #, kde-format
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""

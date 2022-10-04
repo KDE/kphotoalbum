@@ -1,0 +1,324 @@
+<chapter id="chp-viewer">
+  <title
+>De viewer</title>
+  <para
+>De reden voor u om al uw afbeeldingen in &kphotoalbum; te stoppen en uren en uren om ze te beschrijven, is natuurlijk dat u op een gegeven moment naar ze wilt kijken. Daarvoor heeft &kphotoalbum; een viewer die in staat is om uw afbeeldingen en video's te laten zien. U opent de viewer vanuit de miniaturenweergave zoals beschreven in <xref linkend="chp-thumbnail-view"/>.</para>
+
+  <para
+>De viewer kunt u zien in <xref linkend="fig-viewer"/>. De viewer toont natuurlijk de foto aan u, maar bovendien toont het ook de opgegeven informatie over elke foto met wie staat er op de foto, waar en wanneer is deze genomen, &etc; </para>
+
+  <figure id="fig-viewer">
+    <title
+>De viewer</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>In het geval dat de ondertiteling wordt geprojecteerd op een gedeelte van de foto die u wilt bekijken, dan kunt u deze eenvoudig verslepen naar een ander gedeelte van de foto. Het is mogelijk om in te stellen welke informatie zichtbaar is in de ondertiteling, maar ook of de informatie überhaupt zichtbaar is. Al deze keuzemogelijkheden zijn instelbaar na het klikken met de &RMB; in de viewer. Het contextmenu ziet u hieronder in <xref linkend="fig-viewer-contextmenu"/>.</para>
+
+  <figure id="fig-viewer-contextmenu">
+    <title
+>Het contextmenu van de viewer</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer-contextmenu.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Sommige woorden in de ondertiteling zijn onderstreept. Als u met de muis klikt op een van deze woorden klikt dan gaat het weergavevenster (zie <xref linkend="chp-browsing"/>) naar de scope van dat item. Dus als u klikt op <literal
+>Anne Helene</literal
+> dan toont de browser u alle foto's met Anne Helene, net zoals het gedaan zou hebben als u <literal
+>Mensen</literal
+> in de root van de browser en vervolgens <literal
+>Anne Helene</literal
+> zou selecteren.</para>
+
+<para
+>In de ondertiteling kunt u een kleine knop met het &kphotoalbum; logo zien. Als u op die knop drukt dan opent de miniaturenviewer. De miniaturenviewer toont alle foto's, waarbij de foto die u in de viewer bekeek nog steeds is geselecteerd. Het idee hierachter is het volgende: u zoekt naar foto's met een bepaalde persoon om ze daarna te bekijken. Een van de foto's is van uw middelbare schooltijd en nu wilt u foto's uit die periode gaan bekijken. Door het gebruik van de knop <guilabel
+>Naar context gaan</guilabel
+>  gaat u naar de miniaturenweergave waar u alle foto's ziet met de focus op de laatst geselecteerde en waarschijnlijk de foto's van de middelbare schooltijd daaromheen.</para>
+
+  <para
+>In het geval dat u verschillende foto's heeft geladen in de viewer, kunt u door de foto's vooruit en achteruit gaan met gebruik van <keycap
+>Page Up</keycap
+> en <keycap
+>Page Down</keycap
+>. U kunt naar de eerste en de laatste foto gaan met gebruik van <keycap
+>Home</keycap
+> en <keycap
+>End</keycap
+>. Deze mogelijkheden zijn natuurlijk ook in het contextmenu beschikbaar.</para>
+
+  <para
+>Als meerdere foto's zijn geladen in de viewer dan kunt u deze als diashow afspelen, wat inhoud dat &kphotoalbum; elke paar seconde een nieuwe foto toont. Hoe vaak de viewer een nieuwe foto laadt kunt u instellen door de toets &Ctrl; en  respectievelijk plus (om sneller te gaan) of minus (voor langzamer). Het starten en stoppen van de diashow kunt u doen door het intoetsten van <keycombo
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+>.</para>
+
+  <para
+>De mogelijkheid van de &kphotoalbum;-viewer om schermvullend te werken is erg handig. De viewer gebruikt in deze mode het complete scherm. Door het indrukken van de toets <keycap
+>Enter</keycap
+> verandert het beeld van en naar schermvullend.</para>
+
+  <para
+>Tijdens het gebruik van de viewer, kunt u op uw foto in- en uit-zoomen, door met de muis een rechthoek te tekenen. Door het indrukken van de toets <keycap
+>-</keycap
+> zoomt u weer uit. Door het indrukken van de toets <keycap
+>+</keycap
+> zoomt u in op het midden van de foto. <xref linkend="fig-marking-zoom-rectangle"/> hieronder laat een zoom-rechthoek zien en <xref linkend="fig-zoomed-view"/> toont het resultaat van het inzoomen.</para>
+
+<para
+>Indrukken van de punt, laat u het zoomen resetten, zodat de afbeelding zonder zoom getoond wordt. Op het is-teken drukken stelt het zoomniveau in zodat elk pixel op het scherm correspondeert met een pixel in de afbeelding.</para>
+
+<para
+>Merk op dat vanwege technische redenen de enige werkende zoom-functie tijdens het kijken naar video's het in- en uitzoomen is (met de plus- en minus-toets).</para>
+
+  <figure id="fig-marking-zoom-rectangle">
+    <title
+>Zoomen in de viewer</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="marking-zoom-rectangle.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-zoomed-view">
+    <title
+>Zoomen in de viewer</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="zoomed-view.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Door het kiezen van de rotatie-bewerkingen uit het context menu kunt u de foto roteren (Dit werkt niet bij video's). U kunt ook de huidige foto annoteren door  <guimenuitem
+>Individuele items annoteren</guimenuitem
+> in het contextmenu te selecteren.</para>
+
+
+
+
+
+<sect1 id="tokens">
+<title
+>Tokens instellen vanuit de viewer</title>
+<para
+>Bij het bekijken van de afbeeldingen kunt een afbeelding tegen komen die een persoon bevat waarvan u de naam vergeten bent om aan de afbeelding te hangen. Op dat moment kunt u het bekijken afbreken en u haasten naar de dialoog om deze persoon er aan te hangen. u kunt echter de voorkeur geven om de afbeelding van een markering te voorzien en door te gaan met het bekijken.</para>
+
+<para
+>Een andere situatie is dat u een aantal foto's naar een printer wilt versturen om ze op papier af te drukken. Om te bekijken welke u wilt hebben, laadt u de viewer met de foto's en tijdens het inspecteren markeert u ze als goed of slecht.</para>
+
+<para
+>Voor de twee bovengenoemde voorbeelden kunt in de viewer tijdens het kijken een set tokens heeft op de foto's aanbrengen. De tokens zijn gemarkeerd met de letters A tot Z, en u brengt een token aan door eenvoudig de desbetreffende letter in te toetsen. In <xref linkend="fig-images-with-tokens"/> ziet u een foto waarop de tokens A, B en C zijn aangebracht.</para>
+
+  <figure id="fig-images-with-tokens">
+    <title
+>Een afbeelding met tokens</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images-with-tokens.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Nadat u tokens op uw foto's heeft aangebracht, zijn ze beschikbaar om er normaal doorheen te bladeren in de browser, zoals u kunt zien in <xref linkend="fig-tokens-in-browser"/>. Wanneer u de foto's heeft gemarkeerd die u wilt bewerken, uitprinten of wat dan ook, kunt u naar de foto's gaan en al deze foto's tegelijk annoteren (zoals beschreven in <xref linkend="sect-specifying-properties-for-all-images-simultaneously"/>), om vervolgens een plug-in te gebruiken om de geselecteerde foto's naar een cd te kopiëren of welke andere gewenste bewerking dan ook uit te voeren.</para>
+
+  <figure id="fig-tokens-in-browser">
+    <title
+>Tokens te zien in de browser</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-browser.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Categorieën (en met name tokens) zijn zichtbaar in de miniaturenviewer. Als de categorieën zichtbaar zijn in de miniaturenviewer, dan kunt u ook hier weer tokens aan de geselecteerde foto toevoegen door eenvoudig de desbetreffende letter in te toetsen, zoals u kunt zien in <xref linkend="fig-tokens-in-thumbnail-viewer"/></para>
+
+  <figure id="fig-tokens-in-thumbnail-viewer">
+    <title
+>Tokens te zien in de miniaturenviewer</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-thumbnail-viewer.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+
+
+</sect1>
+
+<sect1 id="category-selectors-in-viewer">
+    <title
+>Categorieën instellen vanuit de viewer</title>
+    <para
+>Categorieën kunnen worden geselecteerd in de viewer door te beginnen met het invoeren van de naam van de categorie. Selectie wordt onmiddellijk gedaan wanneer er slechts één overeenkomende categorie is overgebleven.</para>
+
+    <para
+>Om over te schakelen naar de modus categorieselectie typt u eenvoudig de slash (/). De keuzemogelijkheden ziet u na toekennen: tekst tussen accolades en dit past zich onmiddellijk aan als u meer letters invoert. Nadat u een categorie heeft geselecteerd kunt u doorgaan met intypen om een waarde te selecteren. U kunt dit in de volgende afbeelding zien met daaronder de uitleg daarover. </para>
+
+
+<figure id="category-selectors">
+<title
+>Categorieën selecteren in de viewer</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="category-selectors.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Volg de categorie-setup hieronder voor een beter begrip van deze uitleg. Start met typen van "/k" zodat de input selectie omschakelt van "Tokens" naar "Trefwoorden" (omdat K uniek is). Daarna zal het typen van "g" het trefwoord "good" aan de foto koppelen. Het typing van "b" zal B{ad,oring} in de info box tonen en het vervolgens typen van "a" of "o" maakt dat de match compleet is en koppelt het resultaat aan de foto. Op dezelfde manier werkt het typen van "/p" en zal daarom de gedeeltelijke matches "P{eople,laces} tonen zodat u "e" of "l" kunt typen om als resultaat "People" danwel "Places" te verkrijgen. <itemizedlist mark='opencircle'>
+    <listitem
+><para
+>Tokens</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>A..Z</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Trefwoorden</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Goed</para
+></listitem>
+        <listitem
+><para
+>Slecht</para
+></listitem>
+        <listitem
+><para
+>Saai</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Mensen</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>George</para
+></listitem>
+        <listitem
+><para
+>Fred</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Plaatsen</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Internet</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+</itemizedlist>
+</para>
+
+<sect2>
+    <title
+>Exacte woorden</title>
+<para
+>Als u een nieuw woord wilt toevoegen of in situaties dat u woorden heeft zoals boa en board dan moet het mogelijk zijn om exact het gewenste woord in te typen. Dit kunt u bereiken door het woord te laten starten met een aanhalingsteken (") en te laten eindigen met een komma (,). Als we boa onmiddellijk zouden selecteren tijdens het typen dan zou u nooit board kunnen selecteren en andersom zou het programma blijven wachten op meer toetsaanslagen en kon u nooit meer boa selecteren. <figure id="keyword-exact">
+<title
+>Exacte woorden selecteren in de viewer</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="keyword-exact.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</para>
+</sect2>
+
+<sect2>
+    <title
+>Altijd beginnen met categorie selectie</title>
+<para
+>Als u twee '/'s in achter elkaar typt dan schakelt het programma om tussen twee modi. De standaard hierboven beschreven modus en een categorieselectie-modus. In de laatste modus gaan we na een overeenkomst rechtstreeks naar de categorie. Op deze manier kunt u doorgaan met het selecteren van items in verschillende categorieën. Dit is de snelst mogelijke manier om een overeenkomst te krijgen waarmee als u "kbo" hebt ingetypt het overeenkomt met "Keywords/Boring" in het voorbeeld hierboven. </para>
+</sect2>
+<sect2>
+    <title
+>Sneltoetsen toewijzen</title>
+<para
+>Als de huidige invoer leeg is (&eg; u heeft niets geselecteerd) en u drukt een van de functietoetsen (F1 - F12) (of tot F35 als uw toetsenbord die heeft) in, dan wordt de laatste geselecteerde categorie aan deze functietoets gekoppeld. U kunt deze ook aan nieuwe foto's toewijzen door de sneltoets in te drukken. Om de sneltoets te verwijderen gebruikt u de &Shift;-toets samen met de sneltoets (<keycombo
+>&Shift;<keycap
+>F#</keycap
+></keycombo
+>). Dit is handig voor het toewijzen van veel gebruikte items aan de huidige set foto's. Dit geldt voor zowel de categorie als het categorie-item. Deze sneltoetsen blijven geldig totdat u &kphotoalbum; afsluit, Op dit moment is het vervangen van de sneltoets niet mogelijk. </para>
+  </sect2>
+</sect1>
+
+
+<!-- Drawing on images feature has been dropped
+  <sect1 id="drawing-on-images">
+    <title
+>Drawing on Images</title>
+    <para
+>Sometimes it might not be obvious what you want to show with a
+given image, for that purpose &kphotoalbum; allows you to draw on the
+images. </para>
+
+<para
+>The actual drawing is not saved to the image, but rather to the
+database, that way you can undo your drawing at a later point.</para>
+
+<para
+>In <xref linkend="fig-draw-on-image"/> you can see an image drawn
+on. To bring &kphotoalbum; in to drawing mode, select <guimenuitem
+>Draw on
+Image</guimenuitem
+> from the context menu. To quit drawing, press the cross in
+the toolbar at the top of the window.</para>
+
+<figure id="fig-draw-on-image">
+<title
+>Drawing on Images</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="draw-on-image.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+  </sect1>
+-->
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

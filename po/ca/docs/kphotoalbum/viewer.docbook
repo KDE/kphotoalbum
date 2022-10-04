@@ -1,0 +1,326 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-viewer">
+  <title
+>El visualitzador</title>
+  <para
+>La raó perquè poseu totes les vostres imatges dins del &kphotoalbum;, i passar hores i hores en descriure'ls, per descomptat, és que en algun moment les voldreu mirar. Per aquesta finalitat, el &kphotoalbum; disposa d'un visualitzador capaç per a mostrar les vostres imatges i vídeos. Obriu el visualitzador des de la vista de miniatures com es descriu al <xref linkend="chp-thumbnail-view"/>.</para>
+
+  <para
+>El visualitzador es pot veure a <xref linkend="fig-viewer"/>. El visualitzador, per descomptat, mostrarà la imatge, però a més que també mostrarà la informació especificada per a cada imatge, inclosa, la que apareix a les imatges, on i quan es va prendre, &etc; </para>
+
+  <figure id="fig-viewer">
+    <title
+>El visualitzador</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>En cas que el rètol informatiu es trobi a la part superior d'una part de les imatges que voleu veure, només l'heu d'agafar amb el ratolí i moure'l cap a una altra part de la imatge. És possible configurar si s'ha de mostrar o no el rètol informatiu. Totes aquestes opcions estan disponibles fent clic dret amb el &BDR; sobre el visualitzador. El menú contextual es pot veure a la <xref linkend="fig-viewer-contextmenu"/> a continuació.</para>
+
+  <figure id="fig-viewer-contextmenu">
+    <title
+>El menú contextual del visualitzador</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer-contextmenu.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Algunes de les paraules en el rètol informatiu estan subratllades. Si feu clic amb el ratolí sobre una d'aquestes paraules, el navegador (vegeu el <xref linkend="chp-browsing"/>) anirà a l'àmbit d'aquest element. Així, feu clic sobre <literal
+>Anne Helene</literal
+>, el navegador us mostrarà totes les imatges d'Anne Helene, com ho hauria fet si seleccioneu <literal
+>Gent</literal
+> des de l'arrel del navegador, i després seleccioneu <literal
+>Anne Helene</literal
+>.</para>
+
+<para
+>En el rètol informatiu veureu un petit botó amb el logotip del &kphotoalbum;. En prémer aquest botó, anireu al visualitzador de miniatures. La vista de miniatures mostrarà totes les imatges, i la imatge que teníeu seleccionada al visualitzador. La idea al darrere d'això és la següent: navegueu fins a una persona determinada, i mireu les imatges d'aquesta persona. Una de les imatges és del temps de quan fèieu secundària, i ara voleu veure les imatges d'aquest període de temps. Utilitzant el botó <guilabel
+>Ves al context</guilabel
+>, anireu a la vista de miniatures que mostra totes les imatges, amb l'actual en el focus, i és probable que l'envoltin totes les fotografies de l'escola secundària.</para>
+
+  <para
+>En cas d'haver carregat diverses imatges al visualitzador, podreu anar endavant i enrere utilitzant les tecles <keysym
+>Re Pàg</keysym
+> i <keysym
+>Av Pàg</keysym
+>. Podreu anar a la primera i l'última imatge utilitzant les tecles <keycap
+>Inici</keycap
+> i <keycap
+>Fi</keycap
+>. Aquestes característiques, per descomptat, també estan disponibles des del menú contextual.</para>
+
+  <para
+>Si es carreguen diverses imatges al visualitzador, podreu demanar que s'executi com una presentació de diapositives, el qual significa que el &kphotoalbum; carregarà una nova imatge cada pocs segons. Amb quina freqüència es carrega una nova imatge es configura prement la tecla de control i la respectiva més (per anar més de pressa) o menys (per anar més lent). Iniciar i aturar la presentació de diapositives es realitza simplement prement <keycombo
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+>.</para>
+
+  <para
+>Una característica molt útil del visualitzador del &kphotoalbum; és la seva capacitat d'entrar en el mode de pantalla completa. En aquest mode, el visualitzador utilitza tot l'espai de la pantalla, només haureu de prémer la tecla Retorn per entrar i sortir del mode de pantalla completa.</para>
+
+  <para
+>Utilitzant el visualitzador, podeu fer zoom per apropar i allunyar la imatge, simplement arrossegant un rectangle amb el ratolí. En prémer la tecla de menys s'allunyarà. En prémer la tecla de més s'aproparà al centre de la imatge. La <xref linkend="fig-marking-zoom-rectangle"/> mostra com es marca un rectangle de zoom, i la <xref linkend="fig-zoomed-view"/> mostra el resultat del zoom.</para>
+
+<para
+>En prémer la tecla de punt, es reinicia el zoom, de manera que la imatge es mostrarà sense zoom. En prémer la tecla del signe igual, establireu el nivell de zoom de manera que per a cada píxel a la pantalla es correspondrà amb un píxel a la imatge.</para>
+
+<para
+>Des d'un punt de vista tècnic, l'única operació de zoom que funciona només quan es veuen vídeos són apropar i allunyar (les tecles de més i de menys).</para>
+
+  <figure id="fig-marking-zoom-rectangle">
+    <title
+>Zoom en el visualitzador</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="marking-zoom-rectangle.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-zoomed-view">
+    <title
+>Zoom en el visualitzador</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="zoomed-view.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>L'elecció de les operacions per girar des del menú contextual, podeu girar la imatge (no funciona pels vídeos). Podeu anotar la imatge actual, simplement escollint <guimenuitem
+>Anota</guimenuitem
+> al menú contextual.</para>
+
+
+
+
+
+<sect1 id="tokens">
+<title
+>Ajustar els símbols des del visualitzador</title>
+<para
+>En veure les imatges, és possible que una determinada imatge contingui una persona, el nom de la qual se us va oblidar establir a les imatges. En aquest moment, podeu cancel·lar la visualització, i anar al diàleg configuració d'imatge per especificar la persona. No obstant això, és possible que preferiu simplement etiquetar la imatge i continuar visualitzant les imatges.</para>
+
+<para
+>Una situació alternativa és que si voleu enviar una sèrie d'imatges a una impressora per a revelar-les en paper. Per a veure el que voleu, inicieu el visualitzador sobre les imatges, i etiqueteu-les com a bones o dolentes, mentre inspeccioneu cadascuna de les imatges.</para>
+
+<para
+>En els dos exemples anteriors, el visualitzador us ofereix establir els símbols sobre les imatges mentre les esteu visualitzant. Els símbols s'anomenen de l'A a la Z, i s'estableixen simplement prement la seva lletra. A la <xref linkend="fig-images-with-tokens"/> podeu veure una imatge on s'han establert els símbols A, B i C.</para>
+
+  <figure id="fig-images-with-tokens">
+    <title
+>Una imatge amb símbols</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images-with-tokens.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Una vegada establerts els símbols sobre les imatges, que estaran disponibles per a la navegació normal al navegador, com podeu veure a la <xref linkend="fig-tokens-in-browser"/>. De manera que quan hàgiu marcat les imatges que necessiteu editar, imprimir, o el que sigui, simplement navegueu fins a les imatges, i anoteu-les totes alhora (com es descriu a la <xref linkend="sect-specifying-properties-for-all-images-simultaneously"/>), utilitzeu un connector per a copiar les imatges seleccionades en un CD, o el que necessiteu fer.</para>
+
+  <figure id="fig-tokens-in-browser">
+    <title
+>Símbols vistos al navegador</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-browser.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Les categories (i els símbols especials) es poden mostrar al visualitzador de miniatures. Quan es mostren les categories al visualitzador de miniatures, també podeu afegir símbols a les imatges, simplement prement la lletra del símbol quan s'ha seleccionat la imatge, això es pot veure a la <xref linkend="fig-tokens-in-thumbnail-viewer"/>.</para>
+
+  <figure id="fig-tokens-in-thumbnail-viewer">
+    <title
+>Símbols vistos al visualitzador de miniatures</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-thumbnail-viewer.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+
+
+</sect1>
+
+<sect1 id="category-selectors-in-viewer">
+    <title
+>Ajustar les categories des del visualitzador</title>
+    <para
+>Podeu seleccionar la categoria al visualitzador començant a escriure el nom de la categoria. La selecció es realitza immediatament quan només hi ha una categoria coincident.</para>
+
+    <para
+>Per a canviar al mode de selecció de la categoria, simplement escriviu una barra (/). Les possibles opcions es mostren després del text Assignació: entre claudàtors, i es revisaran immediatament una vegada s'escriuen més lletres. Quan se selecciona una categoria, podeu seguir escrivint per seleccionar el valor de l'element. La següent imatge mostra això en acció, i a sota hi ha una explicació sobre com funciona. </para>
+
+
+<figure id="category-selectors">
+<title
+>Seleccionar categories al visualitzador</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="category-selectors.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Seguiu a sota la configuració de la categoria per entendre millor aquesta explicació. Comenceu escrivint «/p», la selecció d'entrada canviarà de «Símbols» a «Paraules clau» (ja que P és única). Després d'això, si escriviu «g» s'assignarà la paraula clau «good» immediatament a la imatge. Si escriviu «b» es mostrarà B{ad,oring} al rètol informatiu i escrivint «a» o «o» seguidament es completarà la coincidència i s'assignarà el resultat a la imatge. Escriure «/p» funcionarà de manera similar i mostrarà la categoria de coincidència parcial P{eople,laces}, de manera que podeu escriure «e» o «l» per a completar «People» o «Places», respectivament. <itemizedlist mark='opencircle'>
+    <listitem
+><para
+>Símbols</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>A..Z</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Paraules clau</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Bona</para
+></listitem>
+        <listitem
+><para
+>Dolenta</para
+></listitem>
+        <listitem
+><para
+>Avorrida</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Gent</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>George</para
+></listitem>
+        <listitem
+><para
+>Fred</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Llocs</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Internet</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+</itemizedlist>
+</para>
+
+<sect2>
+    <title
+>Paraules exactes</title>
+<para
+>Si voleu introduir una nova paraula o tenir paraules com «boa» i «board», necessitareu ser capaç d'escriure la paraula exacta que voleu inserir o seleccionar. Això es pot aconseguir a partir de la paraula amb cometes dobles (") i acabant-la amb una coma (,). Si volem seleccionar «boa» immediatament després de ser escrita, no es podrà seleccionar «board», i en cas contrari estaria esperant més pulsacions de les tecles i no es podria seleccionar «boa». <figure id="keyword-exact">
+<title
+>Seleccionar paraules exactes al visualitzador</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="keyword-exact.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</para>
+</sect2>
+
+<sect2>
+    <title
+>Començar sempre amb la selecció de la categoria</title>
+<para
+>Si escriviu dues barres «/» seguides, canviareu entre dos modes diferents. El mode per omissió descrit anteriorment i un mode de selecció de la categoria. En aquest últim mode, tornarem a la selecció de la categoria després d'una coincidència. D'aquesta manera podreu contínuament seleccionar elements dins de les diferents categories. Encara faria la coincidència més ràpida possible, de manera que escrivint «kbo» seguirà coincidint amb «Keywords/Boring» en l'exemple anterior. </para>
+</sect2>
+<sect2>
+    <title
+>Assignar dreceres</title>
+<para
+>Si l'entrada actual està en blanc (&pex;, no hi ha res seleccionat) i premeu una tecla de funció F1 a F12 (o fins a F35 si el teclat és compatible), s'assignarà a aquesta tecla l'última assignació coincident. Podeu aplicar la mateixa assignació a les imatges noves amb només prémer la tecla de drecera. Per eliminar-la, utilitzeu el modificador Maj. i la drecera (<keycombo
+>&Maj;<keycap
+>F#</keycap
+></keycombo
+>). Això és útil per assignar amb rapidesa els elements que es repeteixen amb freqüència al vostre conjunt d'imatges actual. Es recorda tant la categoria com l'element de la categoria. Aquestes dreceres són recordades fins que es tanca el &kphotoalbum;, en l'actualitat no hi ha suport per a substituir la drecera assignada. </para>
+  </sect2>
+</sect1>
+
+
+<!-- Drawing on images feature has been dropped
+  <sect1 id="drawing-on-images">
+    <title
+>Drawing on Images</title>
+    <para
+>Sometimes it might not be obvious what you want to show with a
+given image, for that purpose &kphotoalbum; allows you to draw on the
+images. </para>
+
+<para
+>The actual drawing is not saved to the image, but rather to the
+database, that way you can undo your drawing at a later point.</para>
+
+<para
+>In <xref linkend="fig-draw-on-image"/> you can see an image drawn
+on. To bring &kphotoalbum; in to drawing mode, select <guimenuitem
+>Draw on
+Image</guimenuitem
+> from the context menu. To quit drawing, press the cross in
+the toolbar at the top of the window.</para>
+
+<figure id="fig-draw-on-image">
+<title
+>Drawing on Images</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="draw-on-image.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+  </sect1>
+-->
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

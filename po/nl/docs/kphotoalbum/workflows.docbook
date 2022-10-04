@@ -1,0 +1,174 @@
+<chapter id="work-flow">
+  <title
+>Workflows met &kphotoalbum;</title>
+  <para
+>Workflow is een behoorlijk belangrijk aspect bij digitale beelden. In dit hoofdstuk beschrijven we verschillende workflows die passen bij verschillende behoeften. Er zijn veel verschillende factoren die in beschouwing genomen moeten worden bij het ontwikkelen van een workflow. Hopelijk bieden deze voorbeelden u voldoende ideeën over hoe u uw eigen methode van werken met digitale afbeeldingen in kunt richten.</para>
+
+  <sect1 id="raw-workflow">
+  <title
+>RAW-workflow met &kphotoalbum; en Bibble5/AfterShot Pro</title>
+  <para
+>Bij het schieten van RAW-afbeeldingen moeten de bestanden uit de camera geconverteerd worden naar algemeen herkende formaten zoals JPEG of TIFF. Er zijn een paar opties waaruit kan worden gekozen bij het werken op Linux. RawTherapee en Ufraw zijn bijvoorbeeld open-source alternatieven waarbij Bibble5/AfterShot Pro een commerciële toepassing voor dit doel is.</para>
+
+  <para
+>Een paar aanbevelingen voor instellingen voor een RAW workflow. De eerste is het inschakelen van het gebruik van de ingebedde miniatuur. Dit geeft een enorme snelheidsverhoging tegenover het elke keer weer decoderen van elk raw-bestand dat u bekijkt (controleer ook de instelling voor de minimale afmetingen om een redelijke kwaliteit te behouden). Als tweede dat de Nieuwe afbeeldingen zoeker automatisch de ontwikkelde versies over het RAW-bestand moet stapelen (ontwikkelde foto moet in dezelfde map komen als het origineel). Dit vereist de reguliere expressies zoals beschreven in <xref linkend="opt-search-new"/>. In &kphotoalbum; broncode zijn twee hulpscripts aanwezig voor hulp bij de RAW workflow. Dit zijn open-raw.desktop en open-raw.pl. De eerste maakt het voor GUI-programma's mogelijk om met het open-raw.pl script RAW-bestanden te openen, dit script probeert het originele RAW-bestand te vinden en deze te openen in plaats van de ontwikkelde foto. </para>
+
+  <figure id="fig-raw-workflow">
+    <title
+>Afbeeldingen naar de RAW-bewerker zenden</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="raw-external.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>De eerste stap in echte werkflow is om de afbeeldingen uit de camera naar de computer te kopiëren. Een eenvoudige kopieeropdracht in een terminalvenster is alles wat nodig is: </para>
+  <screen
+><userinput
+><command
+>cp</command
+> <option
+>-a</option
+> <filename
+>/media/.../101CANON/</filename
+> <filename
+>~/Pictures/2012/voorbeeld</filename>
+  </userinput
+></screen>
+  <para
+>Start daarna &kphotoalbum; of voer <menuchoice
+><guimenu
+>Onderhoud</guimenu
+><guimenuitem
+>Opnieuw scannen naar afbeeldingen en video's</guimenuitem
+></menuchoice
+> uit. Nieuwe afbeeldingen zouden moeten worden gevonden en daarna is het tijd voor het initieel van tags voorzien van de afbeeldingen. Omdat ik gewoonlijk fotografeer tijdens reizen voer ik eerst de plaats in. (Selecteer <guilabel
+>Map</guilabel
+> en blader naar de nieuwe map. Ga daarna naar de <guilabel
+>Miniaturen</guilabel
+>, selecteer alles en <guimenu
+>Meerdere items tegelijk annoteren</guimenu
+> of <keycombo action="simul"
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>. Voeg de juiste plaats in zoals Finland-Helsinki (zie <xref linkend="sec-member-groups-in-property-editor"/>). </para>
+
+  <para
+>Nu de nieuwe foto's makkelijker te vinden zijn, ga ik ze ordenen en sommige verwijderen. Hiervoor wil ik naar de miniaturenviewer gaan en het weergavevenster starten via de toets <keycap
+>&Enter;</keycap
+>. Ik geef een waardering voor goede foto's en toets daarvoor gewoon het toepasselijke nummer van <keycap
+>1</keycap
+> tot <keycap
+>5</keycap
+> in. Ik geef alleen waarderingen van 3 tot 5 en druk op <keycombo action="simul"
+>&Ctrl;<keycap
+>Del</keycap
+></keycombo
+> bij de slechte foto's om deze te verwijderen. Op dat moment kan ik wellicht ook namen van mensen toevoegen als er een duiker op de foto staat. Nadat de eerste ronde voorbij is, verlaat ik de viewer door op &Esc; te drukken en selecteer vervolgens <guimenuitem
+>Van schijf verwijderen</guimenuitem
+> om de slechte foto's voorgoed te verwijderen. </para>
+
+  <para
+>Vervolgens ga ik via het gebruik van de zoekfunctie alleen die foto's selecteren waarvan de waardering hoog genoeg is. Natuurlijk de plaats ingesteld zijn als het zoeken wordt gestart met <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+>. Maar als u de zoektocht start vanuit het hoofdvenster dan zal de huidige selectie doorwerken naar de meer precieze overeenkomst. Hoe dan ook, op dit punt ga ik opnieuw door de beter gewaardeerde foto's om de waardering preciezer te maken. B.v. als ik 5 vergelijkbare foto's heb van een naaktslakken-soort dan verminder ik de waardering van slechtere foto's en verhoog misschien de waardering van de beste. U kunt de foto's vergelijken door ze te selecteren en vervolgens de Viewer te starten. Foto's kunt u uit de selectieweergave verwijderen met <keycap
+>Delete</keycap
+>. Dit schakelt alleen het bekijken van de geselecteerde foto in het viewervenster uit, u verwijdert niets. Hierdoor kunt u de 2 of 3 betere foto's naast elkaar vergelijken waarbij u er tussen heen en weer kunt schakelen met <keycap
+>PgUp</keycap
+> en <keycap
+>PgDn</keycap
+>. Vaak gebruik ik een <literal
+>tmp</literal
+>-categorie om &eg; krabben en garnalen te markeren zodat het tijdens latere fases van het selectieproces makkelijker is om alleen geselecteerde foto-categorieën te bekijken en te identificeren.</para>
+
+  <para
+>Nadat een gereduceerde hoeveelheid afbeeldingen over is begin ik ze van tags te voorzien. Ik voeg de Latijnse naam van de soort en de gewone naam. Wanneer ik deze twee categorieën heb voltooid beschouw ik de afbeelding als af gooi de geen-tag markering weg. Merk op dat als het nodig is tagging te doen na het ontwikkelen van de RAW-afbeelding (en ze auto te stapelen) het nodig is de bovenkant van de ingeklapte stapel (of alle afbeeldingen op een uitgeklapte stapel) en <emphasis
+>Meerdere items op hetzelfde moment annoteren</emphasis
+> selecteren om de gehele stapel te annoteren in plaats van alleen de aller bovenste afbeelding.</para>
+
+  <para
+>De beste foto's stuur ik naar een extern programma voor ontwikkeling. Met de gewenste foto's geselecteerd, klikt u met de &RMB; op de geselecteerde miniatuur en kies <menuchoice
+><guimenuitem
+>Extern programma starten</guimenuitem
+><guimenuitem
+>Alle geselecteerde items</guimenuitem
+><guimenuitem
+>Send Bibble5</guimenuitem
+></menuchoice
+>. Het geselecteerde programma is eigenlijk mijn script dat uittest of er al een RAW-bestand is voor de mogelijk al ontwikkelde foto's en gebruikt die indien mogelijk. In dit externe programma voer ik enige tuning op de foto uit en snij het zo nodig bij en sla het resultaat als ontwikkelde JPEG's naast het originele RAW-bestand op. De naamgeving van het bestand is vrij eenvoudig, wijzig de extensie of voeg desgewenst een laag liggend streepje ('_') en een volgnummer toe. </para>
+
+  <para
+>Nu er genoeg nieuwe JPEG's in de fotomappen zitten, kan ik &kphotoalbum; laten zoeken naar nieuwe foto's en automatisch de nieuwe boven op de originele RAW laten stapelen (<xref linkend="fig-options-file-versions"/>). Tenslotte een laatste selectieronde met de ontwikkelde foto's en het zo nodig nog toevoegen van wat omschrijvingen.</para>
+
+  <para
+>De laatste stap is het genereren van statische &HTML;-pagina's en het uploaden naar mijn webserver voor het genieten door vrienden en collega's. Dit doe ik met de ingeklapte stapels om alleen de ontwikkelde afbeeldingen van de webpagina te verkrijgen. &HTML;-generatie wordt beschreven in <xref linkend="chp-generating-html"/>.</para>
+  </sect1>
+
+  <sect1 id="pano-workflow">
+  <title
+>Panorama workflow</title>
+  <para
+>Panorama's vereisen een andere workflow dan normale foto's. Dit is omdat er meerdere bronbestanden nodig zijn. Het voorkeurprogramma voor panorama's is Autopano Pro maar de laatste versie van &digikam; voldoet ook en kost niets. De volgende lijst beschrijft de benodigde stappen: <orderedlist>
+  <listitem
+><para
+>Markeer de foto's die bij een panorama behoren in &kphotoalbum; zoals gebruikelijk. Dit doet u om te voorkomen dat u per ongeluk foto's weggooit tijdens het selecteren van de te verwijderen mislukkingen uit de genomen foto's. U wilt waarschijnlijk ook op dit moment de verzameling bronfoto's op een stapel leggen.</para
+></listitem>
+  <listitem
+><para
+>Voor de volgende stap kunt u kiezen uit twee keuzemogelijkheden: <orderedlist>
+  <listitem
+><para
+>U kunt Autopano Pro zelf automatisch in de foto-map laten zoeken. </para
+></listitem>
+  <listitem
+><para
+>Of u kunt voor een snellere verwerking de juiste foto's via de commandoregel naar Autopano Pro versturen. Dit is handig als de foto-map veel (met name RAW) foto's bevat. Het is dan wel noodzakelijk om het script dat Autopano Pro start zodanig aan te passen dat het invoer accepteert en u moet ook een desktop-bestand creëren dat een extern programma met een eigen commandoregel aanroept.</para
+></listitem>
+  </orderedlist>
+  </para
+></listitem>
+  <listitem
+><para
+>Het gebeurt soms dat bij het resulterende panorama een klein stukje ontbreekt, u kunt proberen dit met &eg; met Gimp erbij te knutselen . Het resultaat van Gimp is vaak redelijk goed als er genoeg "structuur" is om te kopiëren maar er is geen garantie dat u bruikbare resultaten krijgt.</para
+></listitem>
+  <listitem
+><para
+>Sla de nieuwe foto op ergens onder &kphotoalbum;'s foto-map en start  <menuchoice
+><guimenu
+>Onderhoud</guimenu
+><guimenuitem
+>Opnieuw naar afbeeldingen en video's zoeken</guimenuitem
+></menuchoice
+> opnieuw op. Als resultaat ziet u hierdoor het nieuwe panorama in de afbeeldingen-galerij zichtbaar worden. </para
+></listitem>
+  <listitem
+><para
+>Als u het automatisch stapelen van nieuwe foto's juist heeft ingesteld en de naam van het panorama volgt de regels hiervoor dan zou het panorama bovenop de stapel moeten komen. Anders is de datum de sorteervolgorde, zodat het nieuwe panorama bij de bronfoto's terecht komt en u ze handmatig moet stapelen. (Autopano Pro lijkt de EXIF-info van de eerste foto in het panorama te schrijven.)</para
+></listitem>
+  <listitem
+><para
+>U kunt op dit moment nog steeds tags aan het panorama toevoegen maar u kunt ook alle bronfoto's toevoegen met <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>.</para
+></listitem>
+  </orderedlist>
+  </para>
+</sect1>
+</chapter>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

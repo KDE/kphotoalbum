@@ -1,0 +1,326 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-viewer">
+  <title
+>L'afficheur</title>
+  <para
+>Votre justification de mettre toutes vos images dans &kphotoalbum; et de passer des heures et des heures à les étiqueter est bien sûr d'arriver à les regarder. Pour cette raison, &kphotoalbum; contient un afficheur capable d'afficher vos photos et vos vidéos. Vous ouvrez l'afficheur à partir de la vue en vignettes comme décrit dans <xref linkend="chp-thumbnail-view"/>.</para>
+
+  <para
+>L'afficheur est décrit dans <xref linkend="fig-viewer"/>. Bien sûr, l'afficheur ne se contente pas de vous montrer la photo. Mais, il vous présente en plus, les informations que vous avez spécifiées pour chaque photo, comme qui est sur la photo, où et quand a t elle été prise, &etc; </para>
+
+  <figure id="fig-viewer">
+    <title
+>L'afficheur</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Au cas où la boîte d'informations serait située au dessus de la zone de photos que vous êtes entrain de voir, vous pouvez simplement l'attraper avec la souris et la déplacer ailleurs sur une photo. Il est possible de configurer ce qui peut être montré dans la boîte d'information et bien sûr, si elle doit être affichée ou non. Toutes ces options sont disponibles par un clic-droit de la souris sur l'afficheur. Le menu contextuel peut être vu ci-dessous à l'adresse <xref linkend="fig-viewer-contextmenu"/>.</para>
+
+  <figure id="fig-viewer-contextmenu">
+    <title
+>Le menu contextuel de l'afficheur</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer-contextmenu.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Quelques uns des mots dans la fenêtre d'information sont des soulignés. Si vous cliquez avec la souris sur un de ces mots, le navigateur (voir <xref linkend="chp-browsing"/>) s'ouvrira avec ce mot comme clé. Ainsi, si vous cliquez sur <literal
+>Anne Marie</literal
+>, le navigateur vous montrera toutes les photos de Anne Marie, comme si vous l'auriez fait en sélectionnant <literal
+>Personne</literal
+> à la racine du navigateur et en choisissant ensuite <literal
+>Anne Marie</literal
+>.</para>
+
+<para
+>Dans la fenêtre d'information, vous pouvez voir un petit bouton avec le logo de &kphotoalbum;. En pressant ce bouton, vous lancerez l'afficheur de vignettes. La vue en vignettes affichera toutes les photos et la photo que vous venez de sélectionner dans l'afficheur sera sélectionnée. L'idée directrice est la suivante : vous naviguez vers une personne donnée et regardez aux photos de cette personne. Une de ces photos est par exemple de votre période de lycée et maintenant vous voulez voir des photos de cette période. En utilisant le bouton <guilabel
+>Sauter vers contexte</guilabel
+>, vous allez arriver à une vue en vignettes montrant toutes les photos, avec le focus sur la photo courante et vraisemblablement toutes les photos de votre période de lycée tout autour.</para>
+
+  <para
+>Dans le cas où vous avez chargé plusieurs photos dans l'afficheur, vous pouvez vous déplacer en avant et en arrière en utilisant les touches <keycap
+>Page suivante </keycap
+> et <keycap
+>Page précédente</keycap
+>. Vous pouvez aller aux premières et dernières photos en utilisant les touches <keycap
+>Début</keycap
+> and <keycap
+>Fin</keycap
+>. Ces fonctions sont bien sûr aussi disponibles par le menu contextuel.</para>
+
+  <para
+>Si plusieurs photos sont chargées dans l'afficheur, vous pouvez lui demander de les faire afficher en diaporama, ce qui signifie que &kphotoalbum; va charger une nouvelle photo avec une période de quelques secondes. Le temps d'affichage d'une photo peut être configurer en pressant la touche de contrôle et respectivement plus (pour aller plus vite) et moins (pour aller plus lentement). Le démarrage et l'arrêt du diaporama se fait en appuyant simplement sur <keycombo
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+>.</para>
+
+  <para
+>L'afficheur de &kphotoalbum; possède une fonctionnalité très utile, l'affichage en mode plein écran. Dans ce mode, l'afficheur utilise la surface totale de l'écran, une simple pression de la touche entrée permet de rentrer ou de sortir du mode plein écran.</para>
+
+  <para
+>En utilisant l'afficheur, vous pouvez faire des zooms avant ou arrière de votre photo, simplement en déplaçant un rectangle avec la souris. Une pression sur la touche moins permet de répéter un zoom arrière. Une pression sur la touche plus permet un zoom avant au centre de la photo. <xref linkend="fig-marking-zoom-rectangle"/> ci-dessous montre comment le rectangle de zoom est matérialisé et <xref linkend="fig-zoomed-view"/> montre le résultat du zoom.</para>
+
+<para
+>Une pression sur la touche « virgule » permet de ré-initialiser la fonction de zoom, permettant ainsi d'afficher la photo à son échelle réelle. Une pression sur le signe « égal » permet de définir le zoom pour que chaque pixel de l'écran corresponde à un pixel de la photo.</para>
+
+<para
+>A noter, techniquement, lors de l'affichage de vidéos, les seules opérations de zoom qui fonctionnent sont « zoom avant » et « zoom arrière » (touches « plus » et « moins »). </para>
+
+  <figure id="fig-marking-zoom-rectangle">
+    <title
+>Zoomer dans l'afficheur</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="marking-zoom-rectangle.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-zoomed-view">
+    <title
+>Zoomer dans l'afficheur</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="zoomed-view.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>En sélectionnant les opérations de rotation dans le menu contextuel, vous pouvez faire tourner une photo (Ne fonctionne pas pour les vidéos). Vous pouvez annoter la photo courante simplement en choisissant <guimenuitem
+>Annoter</guimenuitem
+> dans le menu contextuel.</para>
+
+
+
+
+
+<sect1 id="tokens">
+<title
+>Positionné des jetons à partir de l'afficheur</title>
+<para
+>Quand vous naviguez parmi les photos, vous pouvez trouver qu'une certaine photo contienne une personne dont vous n'avez pas inséré le nom dans les photos. A ce moment, vous pouvez annuler votre navigation et vous précipiter pour ouvrir la boîte de configuration des photos pour y spécifier la personne. Cependant, vous pouvez préférer juste insérer une balise dans l'image et de continuer de naviguer parmi les photos.</para>
+
+<para
+>Une situation alternative est si vous voulez envoyer un nombre de photos sur une imprimante pour les avoir développer sur papier. Pour voir lesquelles vous voulez, vous lancez l'afficheur sur les photos et vous insérer les balises lorsque nécessaire sur vos photos.</para>
+
+<para
+>Pour les deux exemples ci-dessus, l'afficheur vous offre la possibilité de mettre en place des jetons sur les photos quand vous les regardez. Les jetons sont nommés de A à Z et vous insérez un jeton en saisissant tout simplement une lettre. Vous pouvez voir une photo intégrant les jetons A, B et C dans <xref linkend="fig-images-with-tokens"/>.</para>
+
+  <figure id="fig-images-with-tokens">
+    <title
+>Une image avec des jetons</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images-with-tokens.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Une fois que vous avez inséré des jetons dans vos photos, ceux-ci deviennent utilisables pour navigation classique dans le navigateur, comme vous pouvez le voir dans <xref linkend="fig-tokens-in-browser"/>. Ainsi, quand vous avez marqué des photos pour être éditées, imprimées or autre chose, naviguer simplement jusqu'aux photos et annoter les toutes en même temps (Voir la description dans <xref linkend="sect-specifying-properties-for-all-images-simultaneously"/>, utilisez un module externe pour copier les images sélectionnées vers un CD ou faites ce que vous avez à faire.</para>
+
+  <figure id="fig-tokens-in-browser">
+    <title
+>Jetons vus dans le navigateur.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-browser.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Les catégories (et tout particulièrement les jetons) peuvent être affichées dans l'afficheur avec aperçus. Quand vous montrez les catégories dans l'afficheur avec aperçus, vous pouvez aussi ajouter des jetons aux photos, simplement en pressant la lettre associée au jeton quand une image est sélectionnée. A voir dans <xref linkend="fig-tokens-in-thumbnail-viewer"/></para>
+
+  <figure id="fig-tokens-in-thumbnail-viewer">
+    <title
+>Jetons vus dans l'afficheur de vignettes</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-thumbnail-viewer.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+
+
+</sect1>
+
+<sect1 id="category-selectors-in-viewer">
+    <title
+>Définition de catégories à partir de l'afficheur</title>
+    <para
+>La catégorie peut être sélectionnée dans l'afficheur en commençant à saisir son nom. La sélection est faite immédiatement quand il y n'y a qu'une catégorie qui correspond.</para>
+
+    <para
+>Pour changer vers le mode de sélection par catégorie, saisissez simplement le slash (/). Les options suivantes sont affichées ci-dessous, Affectation : le texte entre accolades et la catégorie sont immédiatement modifiés dès que d'autres lettres sont saisies. Quand une catégorie est sélectionnée, vous pouvez continuer à saisir des lettres pour sélectionner la valeur de l'élément. La figure suivante présente ce mode en action et une explication est donnée en dessous sur la façon dont cela fonctionne. </para>
+
+
+<figure id="category-selectors">
+<title
+>Sélection de catégories dans l'afficheur</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="category-selectors.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Veuillez regarder la configuration de catégorie ci-dessous pour mieux comprendre cette explication. En commençant par saisir « /m », la sélection d'entrée se déplacera de la catégorie « Jetons » vers « Mots clés » (puisqu'un seul mot commençant par « m »). Après cela, la saisie de « b » associera le mot clé « Bon » directement à l'image. La saisie de « m » n'affichera dans la boîte d'informations « Mauvais », « Médiocre ». La saisie de « a » ou « é » complétera la correspondance et l'associera à l'image. La saisie de « /p » fonctionnera de façon similaire et affichera la correspondance partielle avec la catégorie, comme « Personnes », « Places ». Ainsi, vous pouvez saisir « e » ou « l » pour un complètement respectivement à « Personnes » ou « Places ». <itemizedlist mark='opencircle'>
+    <listitem
+><para
+>Jetons</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>A .. Z</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Mots clés</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Bon</para
+></listitem>
+        <listitem
+><para
+>Mauvais</para
+></listitem>
+        <listitem
+><para
+>Ennuyeux</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Personnes</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>George</para
+></listitem>
+        <listitem
+><para
+>Fred</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Places</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Internet</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+</itemizedlist>
+</para>
+
+<sect2>
+    <title
+>Mots exacts</title>
+<para
+>Si vous voulez définir un nouveau mot ou avoir des mots comme « boa » et « bateau », vous devez pouvoir saisir le mot exact que vous voulez définir ou sélectionner. Cela peut être réaliser en commençant le mot avec une double guillemet et en le finissant par une virgule. Si vous sélectionnez « boa » immédiatement durant la saisie, vous ne pourrez pas sélectionner « bateau ». Dans le cas contraire, vous devriez faire plusieurs appuis de touches et vous ne pourriez sélectionner « boa ». <figure id="keyword-exact">
+<title
+>Sélection des mots exacts dans l'afficheur</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="keyword-exact.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</para>
+</sect2>
+
+<sect2>
+    <title
+>Toujours démarrer avec la sélection de catégorie</title>
+<para
+>La saisie de 2 « / » dans une colonne vous fera passer entre les deux modes différents. Le mode par défaut décrit ci-dessous et le mode de sélection par catégorie. Dans ce dernier mode, il y a un retour direct à la sélection de catégorie après une correspondance. De cette façon, vous pouvez continuellement sélectionner des éléments dans des catégories différentes. Cela permet d'avoir une correspondance la plus rapide possible. Ainsi, la saisie de « men » conduira à la correspondance avec « Mots clés / Ennuyeux » comme dans l'exemple proposé ci-dessous. </para>
+</sect2>
+<sect2>
+    <title
+>Association à des raccourcis</title>
+<para
+>Si la saisie courante est vide (c'est-à-dire, vous n'êtes pas en position de sélectionner quoi que ce soit) et que vous appuyez sur la touche de fonction de F1 à F12 (ou jusqu'à F35 si votre clavier l'accepte), la touche sera associée à la dernière correspondance. Vous pouvez appliquer la même correspondance à de nouvelles images, simplement en appuyant sur la touche de raccourci. Suppression du modificateur pour majuscules/minuscules et du raccourci (<keycombo
+>&Maj; <keycap
+>F#</keycap
+></keycombo
+>). Cela est intéressant pour associer rapidement des éléments apparaissant de façon multiple dans l'ensemble courant de vos photos. Cela mémorise à la fois, la catégorie et l'élément de catégorie. Ces raccourcis sont mémorisés jusque ce que &kphotoalbum; soit fermé ; il n'y a pas actuellement de fonction pour remplacer les raccourcis associés. </para>
+  </sect2>
+</sect1>
+
+
+<!-- Drawing on images feature has been dropped
+  <sect1 id="drawing-on-images">
+    <title
+>Drawing on Images</title>
+    <para
+>Sometimes it might not be obvious what you want to show with a
+given image, for that purpose &kphotoalbum; allows you to draw on the
+images. </para>
+
+<para
+>The actual drawing is not saved to the image, but rather to the
+database, that way you can undo your drawing at a later point.</para>
+
+<para
+>In <xref linkend="fig-draw-on-image"/> you can see an image drawn
+on. To bring &kphotoalbum; in to drawing mode, select <guimenuitem
+>Draw on
+Image</guimenuitem
+> from the context menu. To quit drawing, press the cross in
+the toolbar at the top of the window.</para>
+
+<figure id="fig-draw-on-image">
+<title
+>Drawing on Images</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="draw-on-image.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+  </sect1>
+-->
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

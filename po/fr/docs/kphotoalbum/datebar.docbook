@@ -1,0 +1,58 @@
+<!--
+SPDX-FileCopyrightText: 2005-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2010 Burkhard Lück <lueck@hube-lueck.de>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-datebar">
+  <title
+>La barre de date</title>
+
+<para
+>Au bas de la fenêtre principale de &kphotoalbum;, vous verrez la barre de données (voir <xref linkend="fig-datebar"/>). Comme son nom l'indique, elle montre les statistiques de dates pour les images contenues dans votre base de données.</para>
+
+<figure id="fig-datebar">
+<title
+>La barre de date</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>La barre individuelle montre comment plusieurs images ont été stockées dans la période donnée. Dans la figure ci-dessus, vous pouvez voir que j'ai 261 images stockées depuis Janvier 2005. La barre fournit 2 informations, nommément, combien d'images ont une date de stockage correspondant à la période spécifiée et ont une date qui chevauchent la période spécifiée. Une image datée de 2005, sera alors comptée comme chevauchant tous les mois de 2005, alors qu'une image datée du 24 Janvier 2005 sera comptée comme une date exacte pour Janvier 2005. Les correspondances exactes sont affichées en vert, tandis que les correspondances en recouvrement le seront en jaune. Ainsi, en Décembre 2004, j'ai 86 images en correspondance de date exacte et 61 en correspondance avec recouvrement de date. (Je connais ces valeurs en passant la souris au dessus d'un intervalle de date donné, ce qui affiche les valeurs dans la barre d'état).</para>
+
+<para
+>La barre de date vous plusieurs niveaux de détails, où chaque barre affiche un intervalle de temps différent. Les valeurs d'intervalles sont des années, des mois, des semaines, des jours, des heures et des dizaines de minutes.<xref linkend="fig-datebar-for-minutes"/> vous montre une partie de ma base de données où chaque barre montre uniquement une dizaine de minutes.</para>
+
+<figure id="fig-datebar-for-minutes">
+<title
+>La barre de date montrant des intervalles de 10 minutes</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar-for-minutes.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>La barre de date est interactive de deux façons, premièrement, vous pouvez naviguer en utilisant la vue avec vignettes produites à partir de la base de données - la sélection d'une date fera défiler la vue avec vignettes et la première image répondant au critère de date sera affichée. Deuxièmement, quand vous naviguez dans la vue avec vignettes, la barre de date sera mise à jour pour afficher la date des images en cours d'affichage.</para>
+
+<para
+>Vous pouvez aussi faire glisser un intervalle dans la barre de date. Vous pouvez le faire en pressant et en faisant glisser la souris dans la règle de la barre de date, c'est-à-dire, sur les étiquettes de temps. Quand vous sélectionnez un intervalle, l'afficheur de vignettes n'affichera que les images correspondant à cet intervalle. Vous annulez une sélection en appuyant sur le bouton d'annulation sur le coté gauche de la barre de date.</para>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

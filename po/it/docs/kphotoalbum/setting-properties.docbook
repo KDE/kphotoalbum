@@ -1,0 +1,214 @@
+<chapter id="chp-typingIn">
+  <title
+>Annotare le immagini</title>
+  <para
+>Nel<xref linkend="fig-empty-browser-window"/> puoi vedere un esempio della finestra che ti darà il benvenuto una volta che avrai avviato &kphotoalbum; con le tue immagini.</para>
+
+  <para
+>In cima allo schermo troverai un menu e una barra degli strumenti, come li vedi in qualsiasi altra applicazione &kde;. Sotto la barra degli strumenti vedi la finestra del browser. Nella finestra del browser puoi selezionare diverse categorie per limitare le immagini da vedere. Nel<xref linkend="chp-browsing"/> torneremo al browser, ma per adesso basta che premi il pulsante <guibutton
+>Mostra miniature</guibutton
+>, che mostrerà una vista delle miniature di tutte le immagini.</para>
+
+  <figure id="fig-empty-browser-window">
+    <title
+>Avviare &kphotoalbum; con le tue immagini</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="empty-browser-window.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+    <para
+>La funzionalità chiave di &kphotoalbum; è che puoi annotare le immagini. Ciò include chi c'è in una certa immagine, dove è stata scattata, ecc. Puoi farlo sia un'immagine alla volta, o puoi annotare più immagini contemporaneamente (per esempio, tutte queste immagini contengono la persona <emphasis
+>Jesper</emphasis
+>, e sono state scattate a <emphasis
+>Copenaghen</emphasis
+>).</para>
+
+    <para
+>Per annotare le immagini, seleziona le immagini in questione, e vai a <menuchoice
+><guimenu
+>Modifica</guimenu
+><guisubmenu
+>Annota elementi singoli</guisubmenu
+></menuchoice
+>. Adesso annota le immagini selezionate una dopo l'altra. Se invece scegli <guimenuitem
+>Annota più elementi alla volta</guimenuitem
+>, annoterai gli elementi selezionati come se fossero uno solo. Ciò vuol dire che con questa opzione puoi annotare le immagini in serie, per esempio tutte quelle scattate a Copenaghen. Queste due opzioni sono anche disponibili da un menu contestuale, che ottieni facendo clic destro col mouse nella panoramica miniature o usando la scorciatoia da tastiera. Un esempio di ciò può essere visto nel<xref linkend="fig-edit-properies-menu"/>.</para>
+
+    <figure id="fig-edit-properies-menu">
+      <title
+>Menù contestuale per modificare le proprietà</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="edit-properies-menu.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para
+>Nel<xref linkend="fig-image-config-window"/> qui sotto puoi vedere la finestra per annotare le immagini e i filmati. In questa finestra puoi specificare la data dell'immagine, l'etichetta dell'immagine<footnote
+><para
+>L'etichetta è inizializzata al nome del file. L'etichetta è usata nel browser, e quando le immagini sono esportate a pagine &HTML;.</para
+></footnote
+>, una descrizione dell'immagine, e soprattutto diverse <emphasis
+>categorie</emphasis
+> per l'immagine. Nella schermata, queste categorie sono <literal
+>Persone</literal
+>, <literal
+>Luoghi</literal
+>, e <literal
+>Parole chiave</literal
+>, ma come vedrai nel<xref linkend="sec-specifying-categories"/>, questi tre categorie predefinite possono essere cambiate a tuo piacimento. </para>
+
+    <figure id="fig-image-config-window">
+      <title
+>Annotare immagini e filmati</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="image-config-window.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para
+>Tutte queste annotazioni possono essere usate per cercare e sfogliare, come vedremo nel<xref linkend="chp-browsing"/>. A richiesta potrai vedere queste annotazioni quando guarderai gli elementi nel visore incorporato.</para>
+
+
+
+
+    <sect1 id="sect-specifying-options">
+      <title
+>Categorie</title>
+      <para
+>Nel<xref linkend="fig-image-config-window"/> ci sono tre caselle combinate per specificare persone, luoghi e parole chiave. Questi oggetti sono una parte molto importante di &kphotoalbum;, perché li userai in continuazione, specificando le informazioni delle tue immagini.</para>
+
+      <para
+>Puoi specificare una proprietà da una casella combinata, semplicemente selezionandola. Seleziona per esempio <literal
+>Tizia</literal
+> per specificare che Tizia sia sull'immagine data; alternativamente, puoi scrivere il suo nome nella casella. Quando inizi a scrivere un nome nella casella combinata, &kphotoalbum; cercherà nella lista il primo elemento corrispondente a ciò che avrai scritto fino a quel punto, e completerà il campo. A questo punto scrivere <literal
+>Ti</literal
+> potrebbe essere abbastanza per trovare <literal
+>Tizia</literal
+>. Una volta che avrai trovato l'elemento che stai cercando, premi semplicemente &Enter; e seleziona quell'elemento nella lista. L'elemento sarà ora mosso in cima alla visualizzazione, così la prossima volta che ne avrai bisogno sarà ancora più facile da trovare. C'è anche un modo integrato di annotare dal visore delle immagini descritto in seguito nel<xref linkend="category-selectors-in-viewer"/>.</para>
+
+      <para
+>L'idea di muovere gli elementi in cima quando sono selezionati è che quando si va a, per esempio, una festa di famiglia, otterrai magari 50 immagini con le stesse 5&ndash;10 persone. Scrivendo le informazioni di queste 50 immagini avrai le 5&ndash;10 persone in cima alla lista non appena avrai scritto il loro nome la prima volta.</para>
+
+     <para
+>Se preferisci che l'elenco sia ordinato alfabeticamente, premi semplicemente l'icona per riordinare sotto la casella combinata.</para>
+    </sect1>
+
+
+    <sect1 id="sect-specifying-properties-for-one-image-at-a-time">
+      <title
+>Annotare un elemento alla volta</title>
+      <para
+>Quando specifichi delle proprietà per un'immagine alla volta, puoi ovviamente ancora selezionare più immagini, e dire, <emphasis
+>Voglio annotare queste immagini</emphasis
+>. In questa situazione, troverai un pulsante prossimo e precedente sotto l'immagine nell'angolo in alto a destra. </para>
+    </sect1>
+
+    <sect1 id="sect-specifying-properties-for-all-images-simultaneously">
+      <title
+>Annotare più elementi alla volta</title>
+      <para
+>Se hai parecchie immagini con per esempio la stessa persona, potrebbe essere più comodo selezionare queste immagini e specificare che questa persona è in tutte le immagini usando <guimenuitem
+>Annota più elementi alla volta</guimenuitem
+>.</para>
+      <para
+>Se vuoi annotare una pila di immagini lo puoi fare quando la pila è contratta. Basta selezionare l'immagine in cima alla pila e annotare più immagini (se annoti una sola immagine, viene annotata solo quella selezionata, in questo caso quella in cima). Ovviamente funziona anche espandere la pila e selezionare tutte le immagini.</para>
+
+    </sect1>
+
+
+<sect1 id="sec-member-groups-in-property-editor">
+<title
+>Sottocategorie</title>
+  <para
+>Gubbio, Prato, Perugia e Umbria sono tutte in Italia. Inoltre, Gubbio e Perugia sono in Umbria.</para>
+
+<para
+>Invece di specificare per ogni immagine di Gubbio che è di Gubbio, in Umbria, e in Italia, potresti invece dire a &kphotoalbum; che Gubbio e Perugia sono in Umbria, e che l'Umbria è in Italia. Così facendo il browser (vedi <xref linkend="chp-browsing"/>) ti offrirà un elemento per l'Italia e uno per l'Umbria in aggiunta a tutti i tuoi normali elementi. Selezionando l'Umbria, vedrai le immagini di Gubbio, Perugia eccetera.</para>
+
+<para
+>Nel<xref linkend="fig-usa-as-a-member"/> puoi vedere una finestra del browser contenente l'Italia come sovracategoria. Per indicarti che questo è un gruppo, si usa un'icona speciale.</para>
+
+<figure id="fig-usa-as-a-member">
+<title
+>Il browser che mostra l'Italia come sovracategoria</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="usa-as-a-member.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Nel menu contestuale della finestra di annotazione è possibile aggiungere un elemento a una sovracategoria o sottocategoria preesistente. Inoltre, puoi semplicemente trascinare un elemento in una categoria per renderlo una sottocategoria di quell'elemento. Nota che per questo è necessario che tu stia già ordinando alfabeticamente le categorie. Vedi <xref linkend="fig-membergroup-config"/>.</para>
+
+<figure id="fig-membergroup-config">
+<title
+>Categorie mostrate nella vista alfabetica della finestra di annotazione</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="member-group-setting.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+</sect1>
+
+
+
+
+
+
+  <sect1 id="sect-changing-layout-of-the-property-window">
+    <title
+>Cambiare l'aspetto della finestra delle annotazioni</title>
+    <para
+>È possibile spostare gli elementi della finestra delle annotazioni semplicemente trascinandoli dalla barra in cima ai riquadri; puoi anche fare un riquadro a sé stante in una finestra di livello massimo.</para>
+
+    <para
+>Una volta trovato un aspetto che funziona bene col tuo schermo, col tuo uso di &kphotoalbum;, eccetera, basta premere il pulsante <guibutton
+>Opzioni...</guibutton
+>, che mostrerà un menu a scomparsa dal quale puoi salvare l'aspetto attuale delle finestre.</para>
+
+    <para
+>Puoi anche scegliere di nascondere un riquadro, o abilitarne alcuni all'inizio non visibili. Puoi sempre tornare alla disposizione iniziale con il pulsante <guibutton
+>Opzioni</guibutton
+>, e selezionando <guimenuitem
+>Reimposta lo schema</guimenuitem
+> dal menu a comparsa. Ciò è illustrato nel<xref linkend="fig-redisplay-frames"/>.</para>
+
+
+  <figure id="fig-redisplay-frames">
+    <title
+>Mostrare finestre precedentemente nascoste.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="redisplay-frames.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

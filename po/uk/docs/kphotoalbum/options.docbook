@@ -1,0 +1,211 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-options">
+  <title
+>Налаштування &kphotoalbum;</title>
+  <para
+>За допомогою пункту <menuchoice
+><guimenu
+>Параметри</guimenu
+><guimenuitem
+>Налаштувати KPhotoAlbum...</guimenuitem
+></menuchoice
+> з меню програми ви можете відкрити діалогове вікно параметрів. У цій главі підручника ми поговоримо про параметри, які можна налаштувати за допомогою цього діалогового вікна.</para>
+
+
+<sect1 id="opt-general">
+  <title
+>Загальні параметри</title>
+
+<para
+>Нижче наведено сторінку налаштовування загальних параметрів. Частину цих параметрів коротко описано у цьому розділі. Крім того, ви можете скористатися пунктом <guimenuitem
+>Що це?</guimenuitem
+> меню <guimenu
+>Довідка</guimenu
+>, щоб отримати доступ до підказок щодо призначення пунктів.</para>
+
+<figure id="fig-options-general">
+<title
+>Загальні параметри</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-general.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Позначення пункту <guilabel
+>Використовувати інформацію про орієнтацію з EXIF</guilabel
+> призведе до автоматично обертання зображень. У більшості цифрових фотоапаратів передбачено вбудовування мініатюри до файлів цифрових негативів. Часто такі мініатюри мають достатній розмір, іноді можуть бути навіть повнорозмірними зображеннями. Позначення пункту використання цієї мініатюри призведе до пришвидшення обробки зображень, оскільки декодування цифрових негативів є доволі тривалою дією, а просте видобування мініатюри — ні. Ви також можете вказати мінімальні розміри мініатюри, щоб декодування цифрових негативів відбувалося лише тоді, коли розміри мініатюри є незадовільними.</para>
+</sect1>
+
+<sect1 id="opt-search-new">
+  <title
+>Параметри засобу пошуку нових зображень</title>
+<para
+>За допомогою панелі ліворуч ви зможете отримати доступ до інших сторінок параметрів, зокрема сторінки <guimenuitem
+>Пошук файлів та версії</guimenuitem
+>. За допомогою пунктів цієї сторінки ви можете визначити поведінку &kphotoalbum; у сенсі виявлення нових зображень. Пошук нових зображень може бути виконано у автоматичному режимі під час запуску програми або вручну за допомогою меню <guimenu
+>Обслуговування</guimenu
+>. Знову ж таки, передбачено непогану систему підказок до пунктів цієї сторінки, але деякі з цих пунктів варті згадки і у цьому підручнику.</para>
+
+<figure id="fig-options-file-versions">
+<title
+>Пошук файлів та версії</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-file-versions.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para>
+<itemizedlist mark='opencircle'>
+    <listitem
+><para
+>Ймовірно, вам захочеться пропустити під час пошуку каталоги, створені іншими програмами для перегляду зображень або керування файлами. Передбачено спеціальний список для таких каталогів, записи якого відокремлюються комами. Ви можете будь-коли додати до цього списку каталоги, у яких не слід шукати зображення.</para
+></listitem>
+    <listitem>
+        <para
+>До певної міри, програма здатна автоматично виявляти нові версії того самого зображення. Якщо вам, наприклад, потрібно, щоб програма автоматично створювала стоси з версій одного зображення, ви можете вказати формальний вираз, який буде використано для визначення того, що файл є новою версією початкового файла. Нижче наведено приклади таких записів: першим вказано формальний вираз, другим вираз для пошуку файлів оригіналів. Вам достатньо скоригувати ці записи відповідно до способу іменування файлів у вашій системі.</para>
+    <orderedlist>
+    <listitem
+><para
+>(_(v){0,1}([0-9]){1,2}){0,1}\.(jpg|JPG|tif|TIF|png|PNG)</para
+></listitem>
+    <listitem
+><para
+>.CR2;.NEF;.JPG;.jpg</para
+></listitem>
+    </orderedlist>
+    </listitem>
+</itemizedlist
+>Зауважте, що у полі назви початкового файла можна вказувати декілька суфіксів, відокремлених крапкою з комою. Крім того, можна використовувати посилання на формальний вираз у форматі \1. Пошук початкового файла буде здійснено у тому ж каталозі, у якому зберігається новий файл. У нашому прикладі формальному виразу відповідатимуть такі файли: example_v1.jpg, example_12.tif, example.PNG. </para>
+</sect1>
+
+<sect1 id="opt-thumbnails">
+  <title
+>Параметри перегляду мініатюр</title>
+  <para
+>Список налаштувань режиму перегляду мініатюр є доволі коротким. Ви можете вказати розміри зображення мініатюри і підказки (якщо ви маєте намір скористатися можливістю перегляду підказок, яку можна увімкнути за допомогою пункту меню <menuchoice
+><guimenu
+>Параметри</guimenu
+><guimenuitem
+>Показувати підказки у вікні мініатюр</guimenuitem
+></menuchoice
+> або комбінації клавіш <keycombo
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+>). Крім того, ви можете наказати програмі показувати на мініатюрах додаткові дані, зокрема мітки та назви категорій. </para>
+<figure>
+<title
+>Параметри перегляду мініатюр</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-thumbnailview.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+<sect1 id="opt-viewer">
+  <title
+>Параметри переглядача</title>
+  <para
+>Ще одна проста сторінка налаштовування. Зокрема ви можете визначити бажані розміри панелі перегляду або вікна показу слайдів у режимі повноекранного показу. Можна також вказати інтервал між змінами слайдів. Можна вибрати алгоритм масштабування, <emphasis
+>Найкращий</emphasis
+> або <emphasis
+>Найшвидший</emphasis
+>. Якщо ваш комп’ютер є доволі потужним, краще скористатися алгоритмом з найкращою якістю. Якщо ж критичною є швидкість, скористайтеся найшвидшим алгоритмом. </para>
+<figure>
+<title
+>Параметри переглядача</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-viewer.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+
+
+
+<sect1 id="sec-specifying-categories">
+  <title
+>Категорії</title>
+  <para
+>У главі <xref linkend="chp-typingIn"/> ми вже говорили про те, як можна вказати різні властивості для кожного з зображень, це стосується категорій <literal
+>Люди</literal
+>, <literal
+>Місця</literal
+> і <literal
+>Ключові слова</literal
+>. Але ви можете вказати і власні категорії, отже, якщо бажаєте, можете створити категорії <literal
+>Речі</literal
+>, <literal
+>Тварини</literal
+> або <literal
+>Альбоми</literal
+> власноруч.</para>
+
+<para
+>На знімку <xref linkend="fig-options-group"/>, наведеному нижче, ви можете бачити діалогове вікно, яке використовується для налаштування існуючих категорій. Для кожної такої категорії ви можете вказати мітку і піктограму.</para>
+
+<figure id="fig-options-group">
+<title
+>Налаштування категорій</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-groups.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+
+
+
+<sect1 id="sec-member-groups-in-options-dialog">
+<title
+>Підкатегорії</title>
+
+<para
+>У розділі <xref linkend="sec-member-groups-in-property-editor"/> ми вже обговорювали підкатегорії. За допомогою діалогового вікна параметрів ви можете налаштувати одразу всі елементи груп однією дією, без потреби у налаштуванні кожного окремого елемента, як це було у розділі <xref linkend="sec-member-groups-in-property-editor"/>.</para>
+
+<para
+>На знімку <xref linkend="fig-options-member"/> ви можете бачити сторінку налаштування, призначену для визначення елементів груп. У верхній частині вікна передбачено спадний список, за допомогою якого ви можете визначити категорію для налаштування. У лівій частині вікна розташовано панель списку з поточною категорією, а у правій частині — список підкатегорій.</para>
+
+<figure id="fig-options-member">
+<title
+>Налаштування учасників груп</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-member.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+</sect1>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

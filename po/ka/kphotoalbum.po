@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-03 00:44+0000\n"
-"PO-Revision-Date: 2022-09-27 12:34+0200\n"
+"POT-Creation-Date: 2022-10-04 00:42+0000\n"
+"PO-Revision-Date: 2022-10-03 05:53+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -372,7 +372,7 @@ msgstr ""
 #: Settings/CategoryPage.cpp:69
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "Delete"
 
 #: AnnotationDialog/Dialog.cpp:1319
 #, kde-format
@@ -736,7 +736,7 @@ msgstr ""
 #: BackgroundTaskManager/JobInfo.cpp:55
 #, kde-format
 msgid "Not Started"
-msgstr ""
+msgstr "არ დაწყებულა"
 
 #: BackgroundTaskManager/JobModel.cpp:93
 #, kde-format
@@ -957,12 +957,12 @@ msgstr "ელემენტების გადატანა"
 #: DateBar/DateBarWidget.cpp:68
 #, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "მარჯვნივ გაწევა"
 
 #: DateBar/DateBarWidget.cpp:77
 #, kde-format
 msgid "Scroll left"
-msgstr ""
+msgstr "მარცხნივ გაწევა"
 
 #: DateBar/DateBarWidget.cpp:86
 #, kde-format
@@ -991,17 +991,17 @@ msgid ""
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:643
+#: DateBar/DateBarWidget.cpp:645
 #, kde-format
 msgid "Show Ranges"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:649
+#: DateBar/DateBarWidget.cpp:651
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:774
+#: DateBar/DateBarWidget.cpp:776
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1009,7 +1009,7 @@ msgid_plural "%1 exact"
 msgstr[0] "1 ზუსტი"
 msgstr[1] "%1 ზუსტი"
 
-#: DateBar/DateBarWidget.cpp:775
+#: DateBar/DateBarWidget.cpp:777
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1019,7 +1019,7 @@ msgid_plural " + %1 ranges"
 msgstr[0] " +1 დიაპაზონი"
 msgstr[1] " + %1 დიაპაზონი"
 
-#: DateBar/DateBarWidget.cpp:776
+#: DateBar/DateBarWidget.cpp:778
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1027,7 +1027,7 @@ msgid_plural " = %1 total"
 msgstr[0] " = 1 ჯამში"
 msgstr[1] " = %1 ჯამში"
 
-#: DateBar/DateBarWidget.cpp:778
+#: DateBar/DateBarWidget.cpp:780
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
@@ -1035,7 +1035,7 @@ msgid_plural "%1 images/videos"
 msgstr[0] "%1 გამოსახულება/ვიდეო"
 msgstr[1] "%1 გამოსახულება/ვიდეო"
 
-#: DateBar/DateBarWidget.cpp:780
+#: DateBar/DateBarWidget.cpp:782
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
@@ -1230,33 +1230,33 @@ msgstr ""
 msgid "Following files could not be read:"
 msgstr ""
 
-#: Exif/InfoDialog.cpp:32
+#: Exif/InfoDialog.cpp:33
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
 msgstr ""
 
-#: Exif/InfoDialog.cpp:72
+#: Exif/InfoDialog.cpp:73
 #, kde-format
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
 msgstr ""
 
-#: Exif/InfoDialog.cpp:76
+#: Exif/InfoDialog.cpp:77
 #, kde-format
 msgid "IPTC character set:"
 msgstr ""
 
-#: Exif/InfoDialog.cpp:94
+#: Exif/InfoDialog.cpp:95
 #, kde-format
 msgid "Exif info"
 msgstr ""
 
-#: Exif/InfoDialog.cpp:95
+#: Exif/InfoDialog.cpp:96
 #, kde-format
 msgid "File metadata"
-msgstr ""
+msgstr "ფაილის მეტამონაცემები"
 
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
@@ -1653,17 +1653,17 @@ msgstr "თემა:"
 #: HTMLGenerator/HTMLDialog.cpp:223
 #, kde-format
 msgid "Theme Description"
-msgstr ""
+msgstr "თემის აღწერა"
 
 #: HTMLGenerator/HTMLDialog.cpp:230
 #, kde-format
 msgid "Image Sizes"
-msgstr ""
+msgstr "გამოსახულების ზომები"
 
 #: HTMLGenerator/HTMLDialog.cpp:239
 #, kde-format
 msgid "Full size"
-msgstr ""
+msgstr "სრული ზომა"
 
 #: HTMLGenerator/HTMLDialog.cpp:284 HTMLGenerator/HTMLDialog.cpp:285
 #, kde-format
@@ -1673,17 +1673,17 @@ msgstr "დანიშნულება"
 #: HTMLGenerator/HTMLDialog.cpp:295
 #, kde-format
 msgid "Base folder:"
-msgstr ""
+msgstr "საბაზსო საქაღალდე:"
 
 #: HTMLGenerator/HTMLDialog.cpp:312
 #, kde-format
 msgid "Gallery folder:"
-msgstr ""
+msgstr "გალერეის საქაღალდე:"
 
 #: HTMLGenerator/HTMLDialog.cpp:319
 #, kde-format
 msgid "Output folder:"
-msgstr ""
+msgstr "გამოტანის საქაღალდე:"
 
 #: HTMLGenerator/HTMLDialog.cpp:330
 #, kde-format
@@ -2880,12 +2880,12 @@ msgstr ""
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:75
 #, kde-format
 msgid "Select &All"
-msgstr ""
+msgstr "ყველაფრის &მონიშვნა"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:76
 #, kde-format
 msgid "Select &None"
-msgstr ""
+msgstr "მონიშვნის &მოხსნა"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:133
 #, kde-format
@@ -3485,7 +3485,7 @@ msgstr ""
 #: MainWindow/Window.cpp:743
 #, kde-format
 msgid "Import..."
-msgstr ""
+msgstr "შემოტანა..."
 
 #: MainWindow/Window.cpp:746
 #, kde-format
@@ -3811,11 +3811,10 @@ msgid "Viewer"
 msgstr "მაყურებელი"
 
 #: MainWindow/Window.cpp:1317
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "თარიღი: "
+msgstr "თარიღის ზოლი"
 
 #: MainWindow/Window.cpp:1320
 #, kde-format
@@ -3911,7 +3910,7 @@ msgstr ""
 msgid "Video thumbnails are not available"
 msgstr ""
 
-#: Map/GeoCluster.cpp:137
+#: Map/GeoCluster.cpp:141
 #, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
@@ -5540,7 +5539,7 @@ msgstr ""
 msgid "[ zoom x%1 ]"
 msgstr ""
 
-#: Viewer/InfoBox.cpp:61
+#: Viewer/InfoBox.cpp:59
 #, kde-format
 msgid "Show the geographic position of this image on a map"
 msgstr ""
@@ -5550,17 +5549,17 @@ msgstr ""
 msgid "Error playing media"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:28 Viewer/QtAVDisplay.cpp:41
+#: Viewer/QtAVDisplay.cpp:31 Viewer/QtAVDisplay.cpp:44
 #, kde-format
 msgid "Failed to set up video playback"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:28
+#: Viewer/QtAVDisplay.cpp:31
 #, kde-format
 msgid "Failed to set up video playback (renderer wasn't created)"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:41
+#: Viewer/QtAVDisplay.cpp:44
 #, kde-format
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""
@@ -5661,7 +5660,7 @@ msgstr "ბოლო"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
-msgstr ""
+msgstr "შემდეგის ჩვენება"
 
 #: Viewer/ViewerWidget.cpp:295
 #, kde-format

@@ -1,0 +1,180 @@
+<!--
+SPDX-FileCopyrightText: 2012 André Marcelo Alvarenga <alvarenga@kde.org>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="work-flow">
+  <title
+>Arbetsflöden i Kfotoalbum</title>
+  <para
+>Arbetsflödet är en rätt viktig aspekt av digital bildhantering. I det här kapilet beskriver vi olika arbetsflöden som passar olika behov. Det finns många olika faktorer som måste tas hänsyn till när ett arbetsflöde utvecklas. Förhoppningsvis ger dessa exempel dig tillräckligt med idéer om hur du kan trimma din egen metod vid arbete med digitala bilder.</para>
+
+  <sect1 id="raw-workflow">
+  <title
+>Arbetsflöde med obehandlade bilder i Kfotoalbum och Bibble5/AfterShot Pro</title>
+  <para
+>När obehandlade bilder tas måste kamerafilerna framkallas till vanligt igenkända format som JPEG eller TIFF. Det finns några alternativ att välja bland vid arbete på Linux. Exempelvis RawTherapee och Ufraw är alternativ med öppen källkod, medan Bibble5/AfterShot Pro är kommersiella program för syftet.</para>
+
+  <para
+>Några inställningar rekommenderas för ett arbetsflöde med obehadlade bilder. Det första är att aktivera användning av den inbäddade miniatyrbilden. Det ger en enorm hastighetsförbättring mot att avkoda varje obehandlad fil varje gång den visas (kontrollera också inställningen av minimal dimension för att försäkra att kvaliteten är rimlig). Det andra är att den nya bildsökningen automatiskt lägger de framkallade versionerna ovanpå den obehandlade filen (den framkallade bilden måste vara i samma katalog som originalet). Det kräver reguljära uttryck som beskrivs i <xref linkend="opt-search-new"/>. Två hjälpskript tillhandahålls i Kfotoalbums källkod för att hjälpa till med arbetsflödet för obehandlade bilder. De är open-raw.desktop och open-raw.pl. Det första gör det möjligt för program med grafiskt gränssnitt att öppna obehandlade filer med skriptet open-raw.pl som försöker hitta den ursprungliga obehandlade filen och öppna den istället för den framkallade bilden. </para>
+
+  <figure id="fig-raw-workflow">
+    <title
+>Skicka bilder till editorn för obehandlade bilder</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="raw-external.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>Det första steget i själva arbetsflödet är att kopiera bilderna från kameran till datorn. En enkel kopiering i ett terminalfönster är allt som behövs: </para>
+  <screen
+><userinput
+><command
+>cp</command
+> <option
+>-a</option
+> <filename
+>/media/.../101CANON/</filename
+> <filename
+>~/Pictures/2012/sample</filename>
+  </userinput
+></screen>
+  <para
+>Starta därefter antingen Kfotoalbum eller kör <menuchoice
+><guimenu
+>Underhåll</guimenu
+><guimenuitem
+>Sök efter bilder och videor igen</guimenuitem
+></menuchoice
+>. Nya bilder ska hittas och nu är det dags att göra den inledande taggningen av bilderna. Eftersom jag oftast tar fotografier under resor, börjar jag med att ange platsen. (Välj <guilabel
+>Katalog</guilabel
+> och bläddra till den nya katalogen. Gå därefter till <guilabel
+>Visa miniatyrbilder</guilabel
+>, markera allting och välj <guimenu
+>Beskriv flera objekt åt gången</guimenu
+> eller <keycombo action="simul"
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>. Infoga rätt plats, som Finland-Helsingfors (se <xref linkend="sec-member-groups-in-property-editor"/>). </para>
+
+  <para
+>Nu då de nya bilderna är lätta att hitta, gör jag den inledande betygsättningen och borttagningen. För att göra det, går jag till miniatyrbildsvisningen och startar visningen genom att trycka på returtangenten. Jag använder betyg för bra bilder, genom att helt enkelt trycka på lämplig siffra från <keycap
+>1</keycap
+> till <keycap
+>5</keycap
+>. Jag ger bara betyge 3 till 5 och trycker på <keycombo action="simul"
+>&Ctrl;<keycap
+>Delete</keycap
+></keycombo
+> för de dåliga fotona för att ta bort dem. Vid detta tillfälle kanske jag också lägger till personnamn om det råkar finnas en dykare på fotot. När den första omgången är klar, avslutar jag visningen genom att trycka på Escape och välja <guimenuitem
+>Ta bort fil från disk</guimenuitem
+> för att bli av med de dåliga bilderna för gott. </para>
+
+  <para
+>Därefter väljer jag bara bilderna som har tillräckligt högt betyg med sökfunktionen. Naturligtvis måste platsen vara angiven om sökningen startas med <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+>. Om sökningen startas från huvudfönstret är det nuvarande urvalet redan nere på den mer exakta matchningen. Hur som helst, vid detta tillfälle går jag igenom bilderna med bättre betyg och förfinar betygsättningen. Om jag t.ex. har fem liknande bilder av en art nakensnäckor minskar jag i allmänhet betyget för de sämre bilderna och kanske ökar den bästa. Jämföra bilder kan göras genom att välja de du jämföra och starta visningen. Att ta bort bilder från visningsurvalet kan göras med <keycap
+>Delete</keycap
+>. Det inaktiverar bara visningen av aktuell bild inne i visningen, ingenting tas bort. Det gör det möjligt att jämföra de två eller tre bästa bilderna intill varandra och gå mellan dem med <keycap
+>Page Up</keycap
+> och <keycap
+>Page Down</keycap
+>. Jag använder ofta kategorin <literal
+>temp</literal
+> för att t.ex. markera krabbor och räkor för att enkelt kunna visa vissa bildtyper under de senare faserna av urval och identifiering.</para>
+
+  <para
+>Efter ett reducerat antal bilder är kvar, börjar jag tagga dem. Jag lägger till artens latinska namn och det vanliga namnet. När väl dessa två kategorier är färdiga anser jag bilden klar, och gör mig av med markeringen otaggad. Observera att om du fortfarande behöver lägga till taggar efter framkallning av den obehandlade bilden (och automatiskt lägga dem i hög) måste den översta bilden i en hopsamlad hög (eller alla bilder i en utlagd hög) markeras och använda <emphasis
+>Beskriv flera objekt åt gången</emphasis
+> för att få hela högen beskriven istället för bara den översta bilden.</para>
+
+  <para
+>De bästa bilderna skickas till det externa programmet för framkallning. Med önskade bilder valda, högerklicka på markerade miniatyrbilder och välj <menuchoice
+><guimenuitem
+>Starta externt program</guimenuitem
+> <guimenuitem
+>Alla markerade bilder</guimenuitem
+> <guimenuitem
+>Bibble5</guimenuitem
+></menuchoice
+>. Programmet som väljes är i själva verket mitt skript som detekterar om det finns en obehandlad fil tillgänglig för de möjligen redan framkallade bilderna och använder den om möjligt. Inne i det externa programmet gör jag en del finjustering och beskärning om det behövs och därefter matar jag ut de framkallade JPEG-filerna bredvid de ursprungliga obehandlade filerna. Filnamngivningen är ganska enkel, ändra filändelsen och lägg till understreck och löpnummer om det behövs. </para>
+
+  <para
+>Nu när det finns gott om nya JPEG-filer i bildbiblioteken, låter jag Kfotoalbum söka efter nya bilder, och automatiskt lägga de nya ovanpå de ursprungliga obehandlade bilderna (<xref linkend="fig-options-file-versions"/>). Därefter en slutomgång med urval av de utvecklade bilderna, och tillägg av några beskrivningar om det behövs.</para>
+
+  <para
+>Det sista steget är att skapa statiska &HTML;-sidor och ladda upp dem till min webbserver för att vänner och kollegor ska kunna njuta av dem. Det gör jag med högarna hoplagda för att bara skicka de framkallade bilderna till webbsidan. Att skapa &HTML; beskrivs i <xref linkend="chp-generating-html"/>.</para>
+  </sect1>
+
+  <sect1 id="pano-workflow">
+  <title
+>Arbetsflöde för panoraman</title>
+  <para
+>Panoraman kräver ett något annorlunda arbetsflöde än vanlig fotoredigering. Det beror på att de kräver flera ingående filer. Det bästa verktyget för panoraman är Autopano Pro, men den senaste versionen av &digikam; bör fungera bra och passar en nollbudget. Den följande listan beskriver nödvändiga steg: <orderedlist>
+  <listitem
+><para
+>Tagga de foton som hör till ett panorama på lämpligt sätt i Kfotoalbum. Det görs i huvudsak för att undvika att kasta bilder av misstag, när skräpet bland tagna foton rensas bort. Det är troligen också lämpligt att lägga uppsättningen med ingående bilder i hög vid detta tillfälle.</para
+></listitem>
+  <listitem
+><para
+>För nästa steg finns åtminstone två enkla alternativ: <orderedlist>
+  <listitem
+><para
+>Låt Autopano Pro hitta panoraman automatiskt från fotokatalogen. </para
+></listitem>
+  <listitem
+><para
+>Eller skicka rätt bilder till Autopano Pro på kommandoraden för att snabba upp hanteringen. Det är praktiskt om bildkatalogen innehåller många bilder, i synnerhet obehandlade. Det kräver att man ändrar skriptet som startar Autopano Pro så att det accepterar indata och skapa en skrivbordsfil. eller starta det externa programmet med sin egen kommandorad.</para
+></listitem>
+  </orderedlist>
+  </para
+></listitem>
+  <listitem
+><para
+>Om det råkar vara så att det resulterande panoramat saknar en liten del, kan du försöka skapa det för hand, exempelvis med Gimp. Gimp fungerar oftast riktigt bra om det finns tillräckligt med "struktur" att repetera, men det finns ingen garanti för att du får ett användbart resultat.</para
+></listitem>
+  <listitem
+><para
+>Spara den nya bilden någonstans under  Kfotoalbums bildkatalog och kör <menuchoice
+><guimenu
+>Underhåll</guimenu
+><guimenuitem
+>Sök efter bilder och videor igen</guimenuitem
+></menuchoice
+>. Då bör det nya panoramat hittas, och inkluderas i bildgalleriet. </para
+></listitem>
+  <listitem
+><para
+>Om du har ställt in att lägga nya bilder på hög automatiskt riktigt, och namnet på det nya panoramat stämmer med dessa regler, bör panoramat vara överst i högen. Sortera annars bilderna enligt datum, så att det nya panoramat hamnar vid de ingående bilderna och lägg dem i hög manuellt (Autopano Pro verkar skriva EXIF-informationen i panoramats första bild).</para
+></listitem>
+  <listitem
+><para
+>Du kan också lägga till taggar i panoramat vid detta tillfälle, eller också inkludera alla datafiler med <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>.</para
+></listitem>
+  </orderedlist>
+  </para>
+</sect1>
+</chapter>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

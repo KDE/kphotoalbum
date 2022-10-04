@@ -1,0 +1,77 @@
+<chapter id="chp-plugins">
+  <title
+>Module</title>
+  <para
+>&kphotoalbum; teilt sich sein Modulsystem mit anderen Grafik-Anwendungen, wie zum Beispiel <application
+>digiKam</application
+> und <application
+>Gwenview</application
+>. Dieses Modulsystem heißt <application
+>KIPI</application
+> und bedeutet &kde; Image Plugin Interface (Schnittstelle für &kde;-Bildermodule). Nähre Informationen hierzu finden Sie auf der <ulink url="http://extragear.kde.org/apps/kipi.php"
+>Homepage von Kipi</ulink
+>.</para>
+
+<para
+>Die Module können über das Menü <guimenu
+>Module</guimenu
+> aufgerufen werden. Die Module können und werden in diesem Handbuch nicht beschrieben werden, da sie nicht Teil von &kphotoalbum; sind, sondern separat vertrieben werden. Die meisten Module besitzen jedoch eine Hilfe-Seite, die Sie über das Module selbst aufrufen können.</para>
+
+<warning
+><para
+>Da die Module von mehreren Anwendungen untereinander gemeinsam verwendet werden, kann es sein, dass einige davon mit &kphotoalbum; nur sehr wenig getestet wurden. Deswegen sollten Sie neue Module immer zuerst mit der Demo-Datenbank testen, bevor Sie diese auf Ihre eigenen Bilder anwenden<footnote
+><para
+>Die &kphotoalbum; Demo-Datenbank können Sie entweder über die Befehlszeile mit dem Befehl <userinput
+><command
+>kphotoalbum</command
+> <option
+>-demo</option
+> </userinput 
+> oder über das Menü Hilfe aufrufen.</para
+></footnote
+> Sagen Sie nicht, ich hätte Sie nicht gewarnt!</para
+></warning>
+
+<para
+>Die Anwendungen, die die Module über KIPI gemeinsam verwenden, sind sehr unterschiedlich, wodurch es sein kann, dass einige Module mit &kphotoalbum; nicht funktionieren. Dies ist der Nachteil, wenn man Funktionen mit verschiedenen Anwendungen teilt.</para>
+
+<para
+>Der größte Unterschied zwischen &kphotoalbum; und anderen Anwendungen, die auch KIPI benutzen, ist, dass die anderen Anwendungen ihre Bilder in Alben anordnen: Dabei ist ein Album einfach ein Ordner. Auch wenn &kphotoalbum; diese Art der Ordnung nicht unterstützt, simuliert es für einige Module die Ordnung nach Alben, damit Sie die Funktionen mit &kphotoalbum; nutzen können.</para>
+
+<para
+>Dabei simuliert &kphotoalbum; das <emphasis
+>aktuelle Album</emphasis
+>, indem es einfach der aktuellen Ansicht entspricht, also alle Bilder enthält, die Ihnen die Bildervorschau momentan anzeigt.</para>
+
+<para
+>Neben dem aktuellen Album muss &kphotoalbum; den Modulen auch noch eine Liste aller Alben übergeben. Hierbei geht &kphotoalbum; wie folgt vor:</para>
+
+<itemizedlist>
+  <listitem
+><para
+>Wenn &kphotoalbum;s Browser den Inhalt einer Kategorie anzeigt, z. B. alle Personen, dann stellt jeder Eintrag dieser Kategorie ein Album für das Modul dar.</para
+></listitem
+> 
+  <listitem
+><para
+>Oder es wird die Kategorie, die Sie im Einstellungsdialog als <guilabel
+>Kategorie für virtuelle Alben</guilabel
+> festgelegt haben, verwendet. Wenn Sie also beispielsweise die Kategorie Personen verwenden, wird &kphotoalbum; so tun, also ob Sie Personen zur Ansicht ausgewählt hätten und dem Modul dies weitergeben.</para
+></listitem>
+</itemizedlist>
+
+<para
+>Einige Module können redundant zu Funktionen sein, die bereits in &kphotoalbum; eingebaut sind, weshalb Sie sie vielleicht aus dem Menü entfernen wollen. Starten Sie dazu den Einstellungsdialog und wählen Sie im Bereich Module, welche Module geladen werden sollen.</para>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

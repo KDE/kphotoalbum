@@ -1,0 +1,165 @@
+<!--
+SPDX-FileCopyrightText: 2004-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-importExport">
+  <title
+>Importar/Exportar</title>
+  <para
+>Si assistiu a una festa familiar, una reunió d'empresa, un congrés, o qualsevol altre esdeveniment en el qual altres usuaris del &kphotoalbum; poden estar presents, és possible que vulgueu compartir les vostres imatges amb aquesta gent. Per descomptat, podeu optar per generar pàgines &HTML; perquè puguin navegar, però com ja s'ha perdut prou temps per ordenar totes les imatges (qui apareix a les imatges, quan es van prendre, &etc;), no hi ha cap raó perquè tornar a fer tot aquest treball.</para>
+
+    <para
+>El &kphotoalbum; permet exportar un conjunt d'imatges dins d'un fitxer <literal role="extension"
+>.kim</literal
+>, el qual poden importar les altres persones a la seva base de dades, per obtenir la vostra classificació per aquestes imatges.</para>
+
+    <para
+>Existeixen dues classes diferents de fitxers <literal role="extension"
+>.kim</literal
+>, inclosos o externs, amb una referència sobre si les imatges es troben dins del fitxer o en algun altre lloc. La col·locació de les imatges dins del fitxer té l'avantatge obvi que el fitxer és completament autònom, si bé té el desavantatge igualment obvi que el fitxer resultarà força gran.</para>
+
+    <para
+>Hi ha dos llocs des dels quals podeu generar un fitxer <literal role="extension"
+>.kim</literal
+>, directament des de l'element de menú <menuchoice
+><guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Exporta...</guimenuitem
+></menuchoice
+>, o juntament amb les pàgines &HTML; (vegeu el <xref linkend="chp-generating-html"/>). La creació d'un fitxer <literal role="extension"
+>.kim</literal
+> durant l'exportació &HTML; crearà un fitxer <literal role="extension"
+>.kim</literal
+> extern.</para>
+
+    <para
+>Els fitxers <literal role="extension"
+>.kim</literal
+> externs cerquen les imatges en una de dues maneres. En primer lloc intentarà cercar-les al costat del fitxer <literal role="extension"
+>.kim</literal
+>, i si no les troba, les cercarà a l'&URL; especificat quan es va crear el fitxer <literal role="extension"
+>.kim</literal
+>. Tingueu present que la segona només és possible per a fitxers <literal role="extension"
+>.kim</literal
+> creats durant l'exportació &HTML;.</para>
+    
+    <sect1 id="chp-exportDialog">
+      <title
+>Diàleg Exporta</title>
+      <para
+>Aquesta secció us informarà sobre el diàleg d'exportació que obteniu des de <menuchoice
+><guimenu
+>Fitxer</guimenu
+> <guimenuitem
+>Exporta...</guimenuitem
+></menuchoice
+>.</para>
+
+      <para
+>La part més important d'aquest diàleg especifica si el fitxer <literal role="extension"
+>.kim</literal
+> haurà de ser intern o extern (vegeu la descripció anterior). Disposeu de les tres opcions següents: <itemizedlist>
+          <listitem
+><para
+>Inclou en el fitxer <literal role="extension"
+>.kim</literal
+> - aquest serà un fitxer intern</para
+></listitem>
+          <listitem
+><para
+>Còpia manual al costat del fitxer <literal role="extension"
+>.kim</literal
+> - aquí podeu copiar les imatges al costat del fitxer <literal role="extension"
+>.kim</literal
+></para
+></listitem>
+          <listitem
+><para
+>Còpia automàtica al costat del fitxer <literal role="extension"
+>.kim</literal
+> - aquí el &kphotoalbum; copiarà les imatges.</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+>Entre nosaltres, els fitxers <literal role="extension"
+>.kim</literal
+> en realitat són fitxers zip. Normalment no val la pena molestar-se en comprimir els fitxers perquè les imatges normalment ja estan comprimides en JPEG, i el fitxer XML ja és prou petit. Si realment voleu esgarrapar els últims bytes, encara podeu fer-ho, marcant <guilabel
+>Comprimeix el fitxer d'exportació</guilabel
+>.</para>
+
+      <para
+>L'última opció a la pàgina és <guilabel
+>Limita les dimensions màximes de la imatge a</guilabel
+>. Quan envieu algunes imatges a alguns amics, possiblement no voldreu enviar imatges a mida completa, el fitxer <literal role="extension"
+>.kim</literal
+> podria ser enorme. Per això, és possible especificar que la dimensió màxima de les imatges han de tenir un màxim de 800 píxels en cada direcció.</para>
+    </sect1>
+
+
+
+
+    
+<sect1 id="chp-importDialog">
+  <title
+>Diàleg Importa</title>
+<para
+>Quan seleccioneu un fitxer <literal role="extension"
+>.kim</literal
+> des d'un navegador web, o escolliu <menuchoice
+><guimenu
+>Fitxer</guimenu
+><guimenuitem
+>Importa...</guimenuitem
+></menuchoice
+>, el &kphotoalbum; importarà la base de dades exportada amb la característica descrita en el <xref linkend="chp-importExport"/>.</para>
+
+<para
+>L'assistent d'importació consisteix en quatre passos. Durant el primer heu d'especificar les imatges que voleu importar. A continuació, heu d'especificar en quin directori posar les imatges importades.</para>
+
+<para
+>El més probable és que crideu a la categoria de persones, <emphasis
+>personen</emphasis
+> (si sou alemany), mentre que a Dinamarca podeu anomenar aquesta categoria <emphasis
+>personer</emphasis
+>. En el tercer pas del diàleg d'importació, haureu d'especificar quina categoria s'haurà d'importar del fitxer d'importació, seguida de les categories a la vostra base de dades que coincideixen.</para>
+
+<para
+>Jo podria dir que a les meves bases de dades soc <emphasis
+>mi</emphasis
+>, mentre que a la vostra base de dades em direu Jesper K. Pedersen. El quart pas permet establir la coincidència per a cadascuna de les categories importades. Això es pot veure en la <xref linkend="fig-import-dialog"/>.</para>
+
+<figure id="fig-import-dialog">
+<title
+>Relacionar persones al diàleg d'importació </title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="import-dialog.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>A la captura de pantalla podeu veure que Donna és el mateix tant al fitxer <literal role="extension"
+>.kim</literal
+> com a la meva base de dades -el nom es mostra en negre per indicar una coincidència perfecta a la base de dades-. Els altres tres noms no es troben a la base de dades, encara que s'han trobat resultats coincidents per a tots dos com a subcadena, Jesper i Anne Helene, de manera que se suggereixen aquests. Finalment, a la meva base de dades no tenia Spiff (o es podria anomenar d'una manera molt diferent), de manera que el &kphotoalbum; simplement suggereix Spiff per al nom d'importació.</para>
+
+</sect1>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

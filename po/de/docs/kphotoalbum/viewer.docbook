@@ -1,0 +1,342 @@
+<chapter id="chp-viewer">
+  <title
+>Der Betrachter</title>
+  <para
+>Der Grund, warum Sie alle Ihre Bilder mit &kphotoalbum; verwalten und Stunden über Stunden damit verbringen, Sie zu beschreiben, ist natürlich, dass Sie sie irgendwann betrachten wollen. Aus diesem Grund verfügt &kphotoalbum; über einen Bild- und Videobetrachter. Diesen können Sie aus der Vorschau starten, wie in <xref linkend="chp-thumbnail-view"/> beschrieben ist.</para>
+
+  <para
+>Den Betrachter können Sie in <xref linkend="fig-viewer"/> sehen. Er zeigt natürlich das Bild, aber zusätzliche alle Informationen, die Sie über das Bild eingeben haben, wie z. B. wer auf dem Bild ist, wann und wo es gemacht wurde, &etc; </para>
+
+  <figure id="fig-viewer">
+    <title
+>Der Betrachter</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Falls die Infobox den Teil des Bildes überdeckt, den Sie sehen wollen, so können Sie diese einfach mit der Maus ziehen und woanders ablegen. Sie können auch konfigurieren, welche Informationen angezeigt und ob überhaupt Informationen angezeigt werden sollen. All diese Optionen sind nach einem Rechtsklick auf den Betrachter verfügbar. Das dann erscheinende Kontextmenü sehen Sie in <xref linkend="fig-viewer-contextmenu"/>.</para>
+
+  <figure id="fig-viewer-contextmenu">
+    <title
+>Das Kontextmenü des Betrachters</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer-contextmenu.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Einige Wörter in der Infobox sind unterstrichen. Wenn Sie hierauf klicken (siehe <xref linkend="chp-browsing"/>), ändert der Browser den Anzeigeumfang auf diesen Eintrag. Wenn Sie also auf <literal
+>Anne Helene</literal
+> klicken, zeigt der Browser Ihnen alle Bilder mit Anne Helene an, als ob Sie <literal
+>Personen</literal
+> aus dem Hauptfenster und dann <literal
+>Anne Helene</literal
+> ausgewählt hätten.</para>
+
+<para
+>In der Infobox sehen sie einen kleinen Knopf mit dem &kphotoalbum;-Logo. Wenn Sie diesen Knopf drücken, bekommen Sie den Vorschaubetrachter angezeigt. Dieser zeigt Ihnen alle Bilder und das Bild, das Sie eben im Betrachter hatten, wird automatisch ausgewählt. Die Idee ist, dass Sie alle Bilder mit einer Person betrachten. Eins der Bilder stammt aus der Abiturzeit und nun wollen Sie alle Bilder aus dieser Zeit sehen. Wenn Sie den <guilabel
+>Zum den Kontext springen</guilabel
+>-Knopf benutzen, landen Sie in der Vorschau mit allen Bildern und dem aktuellen im Fokus. Höchstwahrscheinlich finden Sie alle Ihre Bilder aus der Abiturzeit darum herum.</para>
+
+  <para
+>Falls Sie mehrere Bilder im Betrachter geladen haben, können Sie zwischen ihnen vor und zurück wechseln, indem Sie die Tasten <keycap
+>Bild auf</keycap
+> und <keycap
+>Bild ab</keycap
+> benutzen. Sie können zum ersten und letzten Bild mit <keycap
+>Pos1</keycap
+> und <keycap
+>Ende</keycap
+> springen. Diese Funktionen sind auch aus dem Kontextmenü erreichbar.</para>
+
+  <para
+>Wenn mehrere Bilder im Betrachter geladen sind, können Sie diese als Diaschau laufen lassen. &kphotoalbum; lädt dann ein neues Bild nach ein paar Sekunden. Wie häufig es ein neues Bild lädt kann kontrolliert werden, indem Sie die &Ctrl;-Taste und Plus bzw. Minus drücken. Gestartet und gestoppt wird die Diaschau durch die Tasten <keycombo
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+>.</para>
+
+  <para
+>Eine sehr nützliche Fähigkeit des Betrachters von &kphotoalbum; ist es, in den Vollbildmodus wechseln zu können. In diesem Modus benutzt der Betrachter den kompletten Platz auf dem Bildschirm. Benutzen Sie einfach die Eingabetaste, um in den Vollbildmodus und zurück zu wechseln.</para>
+
+  <para
+>Wenn Sie den Betrachter benutzen, können Sie in das Bild hinein- und herauszoomen. Zum Hineinzoomen können Sie mit der Maus einfach ein Rechteck aufziehen. Mit der Minus-Taste können Sie wieder herauszoomen Die Plus-Taste zoomt in die Mitte des Bildes hinein. <xref linkend="fig-marking-zoom-rectangle"/> zeigt, wie ein Zoom-Rechteck markiert ist und <xref linkend="fig-zoomed-view"/> zeigt das Ergebnis des Zooms.</para>
+
+<para
+>Mit der Punkt-Taste können Sie die Vergrößerung zurücksetzen, so dass das Bild in Originalgröße gezeigt wird. Mit der Gleichheitstaste stellen Sie die Vergrößerung so ein, dass jedes Pixel auf dem Bildschirm einem Pixel des Bildes entspricht.</para>
+
+<para
+>Beachten Sie, dass die einzigen Zoomoperationen, die bei Videos funktionieren, das Herein- und Herauszoomen mit der Plus- und Minustaste sind.</para>
+
+  <figure id="fig-marking-zoom-rectangle">
+    <title
+>Mit dem Betrachter zoomen</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="marking-zoom-rectangle.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-zoomed-view">
+    <title
+>Mit dem Betrachter zoomen</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="zoomed-view.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Mit den Drehfunktionen aus dem Kontextmenü können Sie das Bild drehen. Dies funktioniert nicht bei Videos. Sie können Anmerkungen zu dem aktuellen Bild mit dem Menüpunkt <guimenuitem
+>Kategorisieren</guimenuitem
+> aus dem Kontextmenü machen.</para>
+
+
+
+
+
+<sect1 id="tokens">
+<title
+>Merkmale aus dem Betrachter setzen</title>
+<para
+>Bei Betrachten von Bildern stellen Sie möglicherweise fest, dass Sie ein Bild mit einer Person finden, deren Namen Sie für das Bild nicht angegeben haben. In dem Moment können Sie das Ansehen abbrechen und den Einrichtungsdialog des Bildes öffnen, um diese Namen einzugeben. Sie werden es aber vielleicht vorziehen, nur das Bild zu markieren und weitere Bilder zu betrachten.</para>
+
+<para
+>Eine weitere Situation ist, dass Sie eine Anzahl von Bildern an einen Drucker senden wollen, um die Bilder auf Papier entwickelt zu bekommen. Um zu sehen, welche Fotos Sie wollen, können Sie den Betrachter mit den Bildern starten und sie als gut oder schlecht markieren, während Sie eins nach dem anderen ansehen.</para>
+
+<para
+>Für die beiden Beispiele oben gibt Ihnen der Betrachter die Möglichkeit, Bilder mit Merkmalen zu versehen, während Sie sie ansehen. Merkmale sind die Buchstaben A bis Z und Sie können ein Merkmal dadurch setzen, dass Sie den entsprechenden Buchstaben drücken. In <xref linkend="fig-images-with-tokens"/> sehen Sie ein Bild, bei dem die Merkmale A, B und C gesetzt sind.</para>
+
+  <figure id="fig-images-with-tokens">
+    <title
+>Ein Bild mit Merkmale</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images-with-tokens.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Sobald Sie Merkmale auf Ihre Bilder gesetzt haben, stehen diese Ihnen im Browser zur Verfügung. Dies können Sie in <xref linkend="fig-tokens-in-browser"/> sehen. Nachdem Sie also alle Bilder, die Sie zur Bearbeitung, zum Drucken oder für was auch immer markiert haben, können Sie sie einfach alle auf einmal kategorisieren (wie in <xref linkend="sect-specifying-properties-for-all-images-simultaneously"/> beschrieben), sie mit einem Modul auf CD brennen oder was immer Sie damit tun wollen.</para>
+
+  <figure id="fig-tokens-in-browser">
+    <title
+>Merkmale im Browser betrachtet</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-browser.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Kategorien und besonders Merkmale können in der Vorschauansicht angezeigt werden. Wenn Sie sich Kategorien in der Vorschauansicht anzeigen lassen, dann können Sie Merkmale zu den Bildern hinzufügen, indem Sie einfach den Buchstaben für das Merkmal drücken, nachdem das Bild ausgewählt wurde. Dies sehen Sie in <xref linkend="fig-tokens-in-thumbnail-viewer"/>:</para>
+
+  <figure id="fig-tokens-in-thumbnail-viewer">
+    <title
+>Merkmale, die in der Vorschauansicht angezeigt werden</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-thumbnail-viewer.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+
+
+</sect1>
+
+<sect1 id="category-selectors-in-viewer">
+    <title
+>Kategorien im Betrachter auswählen</title>
+    <para
+>Kategorien können im Betrachter gewählt werden, indem Sie mit der Eingabe des Namens der Kategorie starten. Die Auswahl erfolgt sofort, wenn nur eine passende Kategorie übrig ist.</para>
+
+    <para
+>Um in den Auswahlmodus für Kategorien zu wechseln, geben Sie einen Schrägstrich (<userinput
+>/</userinput
+>) ein. Mögliche Optionen werden nach „Zuweisen:“ als Text in in geschweiften Klammern angezeigt. Sie werden nach der Eingabe weiterer Zeichen sofort aktualisiert. Wenn eine Kategorie ausgewählt ist, können Sie weitertippen, um den Wert des Eintrags auszuwählen. Das folgende Bild zeigt diesen Vorgang in Aktion, darunter finden Sie eine Erklärung, wie es funktioniert. </para>
+
+
+<figure id="category-selectors">
+<title
+>Kategorien im Betrachter auswählen</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="category-selectors.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Folgen Sie den folgenden Anweisungen zur Einstellung einer Kategorie, um diese Erklärung besser zu verstehen. Mit der Eingabe von„/P“ wechselt die Eingabeauswahl von „Stichwörter“ zu „Personen“, da dies eindeutig ist. Danach geben Sie „g“ ein, damit wird dem Bild sofort das Sprichwort „Gut“ zugewiesen. Haben Sie zum Beispiel „Land“ und „Leute“ als Stichwörter definiert, wird nach der Eingabe von <userinput
+>l</userinput
+> „L{and,eute}“ im Informationsfeld angezeigt. Geben Sie dann als nächstes <userinput
+>a</userinput
+> oder <userinput
+>e</userinput
+> ein, wird das passende Stichwort dem Bild zuweisen. <itemizedlist mark='opencircle'>
+    <listitem
+><para
+>Merkmale</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>A..Z</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Schlüsselwörter</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Gut</para
+></listitem>
+        <listitem
+><para
+>Schlecht</para
+></listitem>
+        <listitem
+><para
+>Langweilig</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Personen</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>George</para
+></listitem>
+        <listitem
+><para
+>Fred</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+    <listitem>
+    <para
+>Orte</para>
+    <itemizedlist mark='opencircle'>
+        <listitem
+><para
+>Internet</para
+></listitem>
+    </itemizedlist>
+    </listitem>
+</itemizedlist>
+</para>
+
+<sect2>
+    <title
+>Genaue Wörter</title>
+<para
+>Möchten Sie ein neues Wort eingeben oder Wörter wie „Land“ und „Landschaft“ verwenden, müssen Sie das genaue Wort eingeben können, das Sie einfügen oder auswählen möchten. Das erreichen Sie, indem Sie vor dem Wort ein doppeltes Anführungszeichen <userinput
+>"</userinput
+> und am Ende ein Komma <userinput
+>,</userinput
+> eintippen. Wenn „Land“ direkt nach der Eingabe akzeptiert würde, könnte „Landschaft“ nicht ausgewählt werden. Anders herum können Sie „Land“ nicht auswählen, wenn nach dessen Eingabe wegen der Möglichkeit von „Landschaft“ auf weitere Tastendrücke gewartet wird. <figure id="keyword-exact">
+<title
+>Genaue Wörter im Betrachter auswählen</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="keyword-exact.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</para>
+</sect2>
+
+<sect2>
+    <title
+>Immer mit der Auswahl der Kategorie starten</title>
+<para
+>Wenn Sie zweimal nacheinander das Zeichen <userinput
+>/</userinput
+> eingeben, wird zwischen dem oben beschriebenen Standardmodus und der Kategorienauswahl umgeschaltet. Im zuletzt genannten Modus erfolgt bei einer Übereinstimmung sofort der Wechsel zurück zur Kategorieauswahl. Dadurch können Sie fortlaufend Elemente in verschiedenen Kategorien auswählen. Es wird immer der erste mögliche Treffer gefunden, so dass die Eingabe von <userinput
+>sgu</userinput
+> auf <quote
+>Stichwörter/Gut</quote
+> passt. </para>
+</sect2>
+<sect2>
+    <title
+>Kurzbefehle zuweisen</title>
+<para
+>Wenn die aktuelle Eingabe leer ist und Sie sich &eg; nicht mitten in einer Auswahl befinden, können Sie die Funktionstasten <keycap
+>F1</keycap
+> bis <keycap
+>F12</keycap
+> oder bis zu <keycap
+>F35</keycap
+>, wenn das durch die Tastatur unterstützt wird, benutzen und die letzte passende Zuweisung an diese Taste binden. Für neue Bilder können Sie die gleiche Zuweisung nur durch Drücken der Taste vornehmen. Eine Zuweisung entfernen Sie mit dem Kurzbefehl (<keycombo
+>&Shift;<keycap
+>F#</keycap
+></keycombo
+>). Dies kann für die schnelle Zuweisung regelmäßig wiederkehrender Einträge im aktuellen Satz von Bildern benutzt werden. Sowohl die Kategorie wie auch der Kategorieeintrag bleiben der Taste zugeordnet, bis &kphotoalbum; beendet wird. Zur Zeit ist es nicht möglich, zugeordnete Kurzbefehle zu ändern oder zu ersetzen. </para>
+  </sect2>
+</sect1>
+
+
+<!-- Drawing on images feature has been dropped
+  <sect1 id="drawing-on-images">
+    <title
+>Drawing on Images</title>
+    <para
+>Sometimes it might not be obvious what you want to show with a
+given image, for that purpose &kphotoalbum; allows you to draw on the
+images. </para>
+
+<para
+>The actual drawing is not saved to the image, but rather to the
+database, that way you can undo your drawing at a later point.</para>
+
+<para
+>In <xref linkend="fig-draw-on-image"/> you can see an image drawn
+on. To bring &kphotoalbum; in to drawing mode, select <guimenuitem
+>Draw on
+Image</guimenuitem
+> from the context menu. To quit drawing, press the cross in
+the toolbar at the top of the window.</para>
+
+<figure id="fig-draw-on-image">
+<title
+>Drawing on Images</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="draw-on-image.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+  </sect1>
+-->
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

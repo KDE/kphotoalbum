@@ -1,0 +1,184 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-thumbnail-view">
+  <title
+>Visualitzador de miniatures</title>
+  <para
+>En seleccionar <guilabel
+>Veure miniatures</guilabel
+> al navegador, obtindreu un resum de miniatures de les imatges actualment en l'àmbit (o totes les imatges, si hi ha cap àmbit seleccionat). Un exemple d'això es pot veure a la <xref linkend="fig-thumbnailview"/> a continuació. La mida de les miniatures es pot configurar simplement arrossegant el ratolí amb el &BMR; (proveu-ho, que és genial).</para>
+
+  <figure id="fig-thumbnailview">
+    <title
+>Vista de miniatures</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="thumbnailview.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>A la vista de miniatures podeu tornar a ordenar les vostres imatges arrossegant-les amb el ratolí. De tota manera, perquè funcioni correctament a la barra de la data, haureu de tenir com a objectiu mantenir les imatges ordenades en tot moment. L'ordenació de les imatges es pot fer seleccionant totes les imatges, i escollir <menuchoice
+><guimenu
+>Imatges</guimenu
+><guimenuitem
+>Ordena les seleccionades per data i hora</guimenuitem
+></menuchoice
+>. L'ordenació no tornarà a ordenar les imatges que tenen la mateixa data i hora, de manera que si teniu unes 100 imatges amb la data 1992 (&ead;, sense els mesos o els dies, només l'any), llavors us hi podeu moure, i el seu ordre individual es quedarà sense canvis després d'una ordenació.</para>
+
+<para
+>Quan arrossegueu una imatge des del visualitzador cap al fons establireu la imatge com a imatge de fons del vostre escriptori.</para>
+
+  <para
+>Quan feu clic sobre una imatge, aquesta es carregarà al visualitzador, si no hi ha present una finestra del visualitzador, es crearà.</para>
+
+  <para
+>Si seleccioneu un nombre d'imatges i premeu <keycombo
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> o escolliu <menuchoice
+><guimenu
+>Imatges</guimenu
+><guimenuitem
+>Visualitza les seleccionades</guimenuitem
+></menuchoice
+>, les imatges seran carregades al visualitzador existent (si no hi ha cap visualitzador, se'n crearà un). De manera alternativa, podeu escollir <menuchoice
+><guimenu
+>Imatges</guimenu
+><guimenuitem
+>Visualitza (en una nova finestra)</guimenuitem
+></menuchoice
+> per obtenir les imatges carregades en un visualitzador nou. Si premeu <keycombo
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> o escolliu <menuchoice
+><guimenu
+>Imatges</guimenu
+><guimenuitem
+>Executa el passi de diapositives</guimenuitem
+></menuchoice
+> les imatges seleccionades es carregaran dins del visualitzador i s'iniciarà una presentació de diapositives. Finalment escolliu <menuchoice
+><guimenu
+>Imatges</guimenu
+><guimenuitem
+>Executa el passi aleatori de diapositives</guimenuitem
+></menuchoice
+>, mostrarà una presentació de diapositives de les imatges seleccionades de forma aleatòria.</para>
+
+
+<sect1 id="sect-deleting-images">
+  <title
+>Suprimir les imatges</title>
+  <para
+>A la vista de miniatures, també és possible esborrar les imatges. Per fer-ho, seleccioneu les imatges que voleu esborrar i premeu la tecla Supr o seleccioneu <menuchoice
+><guimenu
+>Edita</guimenu
+><guimenuitem
+>Elimina la selecció</guimenuitem
+></menuchoice
+> des de la barra de menús. Si ho feu, el &kphotoalbum; mostrarà el diàleg a la <xref linkend="fig-delete-images"/>.</para>
+
+<figure id="fig-delete-images">
+<title
+>Suprimir les imatges</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="delete-images.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+  <para
+>Hi ha tres maneres d'esborrar una imatge al &kphotoalbum;, moure-les a la paperera, eliminar-la del disc -el qual significa que s'ha anat permanentment- o dir-li al &kphotoalbum; que no l'inclogui. En aquest últim cas, el &kphotoalbum; no mostrarà de nou la imatge, però la mantindrà al disc. Això és útil si, per exemple, són les <emphasis
+>imatges en miniatura</emphasis
+> emmagatzemades entre les vostres imatges. Aquesta miniatura conté un resum de totes les altres imatges, i per això resulta inútil al &kphotoalbum;, però per a una altra aplicació, per exemple un navegador web, podria ser necessària.</para>
+</sect1>
+
+
+<sect1 id="sect-offline-mode">
+<title
+>Mode desconnectat</title>
+<para
+>Hi ha una batalla constant entre el creixement de les dades, i els discs durs cada vegada més grans. Si teniu un gran nombre d'imatges, potser us trobareu enmig de la batalla, no disposeu de prou espai al disc dur per emmagatzemar totes les imatges. En aquesta situació, podeu optar per posar algunes de les imatges sobre CD. Un escenari alternatiu podria ser que aneu en un viatge de negocis, i voleu dur les vostres imatges, però no disposeu d'un espai de disc de 20 GB, el qual és el que requeriu per aquesta finalitat.</para>
+
+<para
+>El &kphotoalbum; ofereix una solució a aquest problema, sense necessitat de tenir les imatges disponibles al disc. Per descomptat, necessitareu tenir a disposició d'algun temps perquè el &kphotoalbum; s'adoni que hi ha noves imatges per indexar. <xref linkend="fig-offline-mode"/> mostra el &kphotoalbum; quan no és capaç de trobar totes les imatges necessàries en el disc.</para>
+
+<figure id="fig-offline-mode">
+<title
+>El &kphotoalbum; en el mode desconnectat</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="offline-mode.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Les imatges tenen el tall de la cantonada (això és, imatges 1-4) no estan disponibles al disc. Les miniatures, d'altra banda, estan disponibles per a imatges 5-9, tot i que les imatges no es troben al disc. Per tant, el &kphotoalbum;, pot mostrar les miniatures d'aquestes imatges, però no pot visualitzar-les al visualitzador. (Utilitzarem el tall de la cantonada de les miniatures per indicar si la imatge no es troba al disc, però aquesta característica sembla no estar funcionant actualment). </para>
+
+<para
+>Com podeu veure, aquesta característica requereix copiar fitxers dins i fora dels vostres directoris, el &kphotoalbum; no té cap tipus de suport per a demanar-vos que inseriu el CD que heu etiquetat, bla, bla. Per tant, si us plau, oblideu-vos d'aquesta característica si sou el tipus de persona que no us agrada jugar amb els fitxers, &etc;, i en el seu lloc, simplement assegureu-vos de comprar discs durs prou grans com per emmagatzemar sempre totes les vostres imatges.</para>
+
+</sect1>
+
+
+
+<sect1 id="sect-privacy">
+<title
+>Privadesa</title>
+<para
+>Fa algun temps, la meva xicota i jo portàvem al meu ordinador portàtil en una visita als meus pares, per mostrar-los les imatges de les nostres vacances més recents. El &kphotoalbum; va resultar ser un gran èxit, i no va tardar gaire abans que el nuvi de la meva germana va agafar el portàtil i va començar a navegar per totes les seves. Per desgràcia, tampoc va tardar gaire a arribar a algunes, diguem desafortunades, imatges meves de petit, i foren una gran rialla per la seva part. Aquest episodi em va inspirar per afegir una nova característica al &kphotoalbum;, la qual vaig decidir anomenar bloqueig de privacitat.</para>
+
+<para
+>Al menú <guimenu
+>Imatges</guimenu
+> trobareu un submenú anomenat <guimenuitem
+>Privadesa</guimenuitem
+>. Per obtenir una mica de privacitat, navegueu -mentre esteu en les vostres- cap a les imatges que voleu mantenir en privat, i seleccioneu <guimenuitem
+>Bloqueja el conjunt actual d'elements</guimenuitem
+> des del submenú privadesa. També podeu navegar cap a les imatges que voleu limitar de veure a la vostra germaneta i seleccioneu <guimenuitem
+>Bloqueja tots els altres elements</guimenuitem
+>.</para>
+
+<para
+>Ara que heu especificat què ocultar, i una vegada lliureu el vostre portàtil a la vostra germaneta, simplement escolliu <guimenuitem
+>Bloqueja les imatges</guimenuitem
+>, i la vostra germana no serà capaç de veure les imatges bloquejades. Quan acabeu les podeu desbloquejar de nou utilitzant <guimenuitem
+>Desbloqueja</guimenuitem
+>.</para>
+
+<para
+>És possible especificar una contrasenya a introduir per a desbloquejar la base de dades. Al menú <guimenuitem
+>Privadesa</guimenuitem
+>, simplement seleccioneu <guimenuitem
+>Canvia la contrasenya</guimenuitem
+> per establir una contrasenya.</para>
+
+<para
+>No creieu que això ajudarà a ocultar les imatges per sempre. En primer lloc, les imatges encara són al disc, en segon lloc, qualsevol persona amb accés al fitxer <filename
+>index.xml</filename
+> que utilitza el &kphotoalbum;, podrà llegir la contrasenya en text net i, de manera opcional, eliminar-la. Aquesta característica només està destinada com una protecció contra algú que utilitzarà el &kphotoalbum; però que no veurà les vostres imatges privades sense voler.</para>
+
+</sect1>
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

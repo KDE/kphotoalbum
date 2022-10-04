@@ -1,0 +1,181 @@
+<chapter id="chp-thumbnail-view">
+  <title
+>Bildvorschau</title>
+  <para
+>Wenn Sie den Eintrag <guilabel
+>Vorschaubilder anzeigen</guilabel
+> im Browser auswählen, erhalten Sie einen Überblick mit Vorschaubildern der aktuell ausgewählten Bilder, oder aller Bilder falls Sie keinen Filter gesetzt haben. Ein Beispiel dafür sehen Sie folgend in <xref linkend="fig-thumbnailview"/>. Sie können die Größe der Vorschaubilder durch einfaches Ziehen der Maus bei gedrückter mittlerer Maustaste einstellen. Versuchen Sie es einfach mal.</para>
+
+  <figure id="fig-thumbnailview">
+    <title
+>Bildvorschau</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="thumbnailview.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>In der Vorschauansicht können Sie Ihre Bilder neu anordnen, indem Sie diese mit der Maus verschieben. Damit die Zeitleiste richtig funktioniert sollten Sie Ihre Bilder immer sortiert lassen. Sie können Ihre Bilder sortieren, indem Sie alle Bilder auswählen und aus dem Menü <menuchoice
+><guimenu
+>Bilder</guimenu
+> <guimenuitem
+>Auswahl nach Datum &amp; Zeit sortieren</guimenuitem
+></menuchoice
+> ansteuern. Bilder, die am selben Tag und zur selben Zeit aufgenommen wurden, werden nicht umsortiert. Wenn Sie also beispielsweise 100 Bilder aus dem Jahr 1992 haben, können Sie die Reihenfolge ändern, ohne dass die Reihenfolge bei einem Sortieren geändert wird.</para>
+
+<para
+>Wenn Sie ein Bild aus der Vorschau ziehen und auf dem Hintergrund Ihrer Arbeitsfläche fallenlassen, wird dieses Bild als Hintergrundbild für Ihre Arbeitsfläche eingerichtet.</para>
+
+  <para
+>Wenn Sie ein Bild anklicken, wird dieses im Bildbetrachter angezeigt. Falls Sie noch kein Fenster mit einem Bildbetrachter geöffnet haben, wird ein neues Anzeigefenster erstellt.</para>
+
+  <para
+>Wenn Sie mehrere Bilder auswählen und <keycombo
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> drücken (oder im Menü <menuchoice
+><guimenu
+>Bilder</guimenu
+> <guimenuitem
+>Ansicht</guimenuitem
+></menuchoice
+> auswählen), werden diese Bilder in ein geöffnetes Bildbetrachter-Fenster geladen (oder ein neues Fenster erstellt, falls Sie noch keines geöffnet haben). Sie können auch das Menü <menuchoice
+><guimenu
+>Bilder</guimenu
+><guimenuitem
+>Anzeigen (in einem neuen Fenster)</guimenuitem
+></menuchoice
+> benutzen, um das Bild in einem neuen Fenster anzuzeigen. Wenn Sie die Tastenkombination <keycombo
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> drücken (oder im Menü <menuchoice
+><guimenu
+>Bilder</guimenu
+> <guimenuitem
+>Diaschau starten</guimenuitem
+></menuchoice
+> auswählen), werden die ausgewählten Bilder in einem neuen Fenster des Bildbetrachters angezeigt und eine Diaschau wird gestartet. Zuletzt können Sie über den Menüeintrag <menuchoice
+><guimenu
+>Bilder</guimenu
+><guimenuitem
+>Diaschau in zufälliger Abfolge starten</guimenuitem
+></menuchoice
+> eine Diaschau anzeigen, die die Bilder in zufälliger Reihenfolge durchläuft.</para>
+
+
+<sect1 id="sect-deleting-images">
+  <title
+>Löschen von Bildern</title>
+  <para
+>Sie können in der Bildvorschau auch Bilder löschen. Wählen Sie einfach die entsprechenden Bilder aus, die Sie löschen möchten und drücken Sie entweder die Entfernen-Taste oder wählen Sie im Menü <menuchoice
+><guimenu
+>Bearbeiten</guimenu
+><guimenuitem
+>Auswahl löschen</guimenuitem
+></menuchoice
+>. Nun wird Ihnen das Fenster angezeigt, das Sie in <xref linkend="fig-delete-images"/> sehen können.</para>
+
+<figure id="fig-delete-images">
+<title
+>Löschen von Bildern</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="delete-images.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+  <para
+>Es gibt drei verschiedene Möglichkeiten, Bilder in &kphotoalbum;, zu löschen: Sie können die betreffenden Bilder in den Papierkorb verschieben oder von Ihrer Festplatte löschen, wodurch Sie unwiderruflich verloren sind oder Sie geben an, dass das betreffende Bild nicht in der Datenbank aufgenommen werden soll. In diesem Fall wird &kphotoalbum; Ihnen das Bild in Zukunft nicht mehr anzeigen, es wird jedoch nicht gelöscht und befindet sich daher weiterhin auf der Festplatte. Diese Funktion ist beispielsweise dann sehr nützlich, wenn sich <emphasis
+>Vorschaubilder</emphasis
+> unter Ihren Bildern befinden. Diese Vorschaubilder stellen eine Übersicht über alle anderen Bilder dar, weshalb sie in &kphotoalbum; überflüssig sind. In anderen Anwendungen aber, z. B. in einem Webbrowser, könnten sie von Nutzen sein.</para>
+</sect1>
+
+
+<sect1 id="sect-offline-mode">
+<title
+>Offline-Modus</title>
+<para
+>Sowohl die Kapazität der Festplatten, als auch die Größe der Daten, die darauf gespeichert sind, nehmen immer mehr zu. Wenn Sie eine sehr große Anzahl an Bildern haben, sind Sie vielleicht in der Situation, dass Sie nicht genügend freien Speicherplatz auf Ihrer Festplatte zur Verfügung haben, um all Ihre Bilder darauf zu speichern. In diesem Fall könnten Sie einige Bilder auf eine CD brennen. Ein anderes Beispiel hierfür ist eine Reise, auf der Sie viele Bilder mitnehmen möchten, jedoch nicht genügend Speicherplatz auf Ihrem Notebook zur Verfügung haben.</para>
+
+<para
+>&kphotoalbum; bietet Ihnen für dieses Problem eine Lösung an; Sie können es nämlich auch dann verwenden, wenn die Bilder nicht auf der Festplatte zur Verfügung stehen. Natürlich müssen Sie die Bilder irgendwann einmal verfügbar haben, damit &kphotoalbum; Sie in den Datenbank-Index aufnehmen kann. In <xref linkend="fig-offline-mode"/> sehen Sie die Ansicht von &kphotoalbum;, wenn nicht alle benötigten Bilder von der Festplatte geladen werden können.</para>
+
+<figure id="fig-offline-mode">
+<title
+>&kphotoalbum; im Offline-Modus</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="offline-mode.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Bilder wie Bild 1-4, bei denen die Ecke abgeschnitten ist, sind nicht auf der Festplatte gespeichert. Für die Bilder 5-9 sind die Vorschaubilder vorhanden, auch wenn die Bilder auf der Festplatte fehlen. Daher können die Vorschaubilder, aber nicht die tatsächlichen Bilder angezeigt werden. Eine abgeschnittene Ecke eines Vorschaubilds zeigt an, dass das Bild auf der Festplatte fehlt, leider funktioniert das zurzeit aber nicht richtig. </para>
+
+<para
+>Wie Sie sehen, verlangt diese Funktion, dass Sie Dateien aus den Ordnern heraus und wieder hineinkopieren. &kphotoalbum; unterstützt es bis jetzt noch nicht, Sie um das Einlegen der betreffenden CD zu bitten. Falls Sie also Ärger wie das Durcheinander-Bringen Ihrer Bilder vermeiden möchten, sorgen Sie statt dessen dafür, dass Sie stets genug Festplattenplatz haben, um all Ihre Bilder zu speichern.</para>
+
+</sect1>
+
+
+
+<sect1 id="sect-privacy">
+<title
+>Privatsphäre</title>
+<para
+>Vor einiger Zeit besuchten meine Freundin und ich meine Schwiegereltern. Dabei nahmen wir den Laptop mit, um ihnen unsere letzten Urlaubsbilder zu zeigen. Die vielfältigen Funktionen von &kphotoalbum; waren ein voller Erfolg und es dauerte nicht lange, bis die kleine Schwester meiner Freundin den Laptop in die Hand bekam und die Bilder selbst durchsuchte. Unglücklicherweise brauchte sie auch nicht lange, um – sagen wir – <quote
+>unangenehme</quote
+> Jugendbilder von mir zu finden, was zu einem großen Gelächter über mich führte. Diese Situation brachte mich auf die Idee, eine neue Funktion zu &kphotoalbum; hinzuzufügen, nämlich die Funktion <quote
+>Bilder sperren</quote
+>.</para>
+
+<para
+>Im Menü <guimenu
+>Bilder</guimenu
+> finden Sie ein Untermenü mit dem Namen <guimenuitem
+>Privatsphäre</guimenuitem
+>. Wenn Sie ein wenig mehr Privatsphäre haben möchten, filtern Sie die Bilder so, dass am Ende diejenigen übrig bleiben, die Sie für andere unzugänglich machen möchten und klicken Sie auf <guimenuitem
+>Aktuellen Satz von Einträgen sperren</guimenuitem
+> im Menü Privatsphäre. Alternativ dazu können Sie auch alle Bilder, die Ihre kleine Schwester sehen darf, ansteuern und den Menüeintrag <guimenuitem
+>Alle anderen Einträge sperren</guimenuitem
+> wählen.</para>
+
+<para
+>Damit haben Sie festgelegt, welche Bilder im Fall des Falles verborgen werden sollen. Wenn Sie den Laptop nun Ihrer kleinen Schwester geben, wählen Sie einfach den Menüeintrag <guimenuitem
+>Bilder sperren</guimenuitem
+>, wodurch alle Bilder, die Sie gesperrt haben, ausgeblendet werden. Wenn Sie die Bilder wieder angezeigt bekommen möchten, klicken Sie auf <guimenuitem
+>Sperre aufheben</guimenuitem
+>.</para>
+
+<para
+>Es ist auch möglich, ein Passwort festzulegen, das zum Entsperren der Bilder eingegeben werden muss. Um dieses Passwort einzurichten, wählen Sie einfach <guimenuitem
+>Passwort ändern</guimenuitem
+> im Menü <guimenuitem
+>Privatsphäre</guimenuitem
+>.</para>
+
+<para
+>Bitte bedenken Sie, dass dieser Bilderschutz keinesfalls sehr sicher ist. Zum einen befinden sich alle Bilder weiterhin auf der Festplatte und zum anderen kann jeder, der auf die Datei <filename
+>index.xml</filename
+> zugreifen kann, das Passwort als unverschlüsselten Text herauslesen oder löschen. Diese Art des Passwort-Schutzes soll nur verhindern, dass jemand, der vor &kphotoalbum; sitzt, unbeabsichtigt auf Ihre privaten Bilder stößt.</para>
+
+</sect1>
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

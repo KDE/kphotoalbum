@@ -1,0 +1,141 @@
+  <chapter id="chp-generating-html">
+    <title
+>&HTML;-bestanden genereren</title>
+    <para
+>&kphotoalbum; biedt de mogelijkheid voor het genereren van &HTML; van uw fotoalbum. U kunt deze vinden in de menubalk <menuchoice
+><guimenu
+>Bestand</guimenu
+><guimenuitem
+>&HTML; genereren</guimenuitem
+></menuchoice
+></para>
+    
+    <para
+>Voor het genereren van de &HTML;-pagina's moet u enige informatie opgeven verdeeld over de drie pagina's <guilabel
+>Inhoud</guilabel
+>, <guilabel
+>Opmaak</guilabel
+> en <guilabel
+>Bestemming</guilabel
+>. De volgende sectie zal elke pagina gedetailleerd beschrijven.</para>
+
+    <sect1 id="the_content_page">
+      <title
+>De pagina <guilabel
+>Inhoud</guilabel
+></title>
+      <para
+>In de pagina Inhoud specificeert u welke informatie gegenereerd moet worden voor the &HTML;-pagina's.</para>
+
+	<figure id="html-content">
+	<title
+>Instellingen voor de HTML-generator voor de inhoud</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-content.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>Allereerst geeft u hier de titel van de overzichtpagina's op met de beschrijving voor op deze pagina's. Als het gekozen thema de vermelding van een copyright ondersteunt dan kunt u deze hier ook opgeven. </para>
+
+      <para
+>Vervolgens geeft u aan of een &kphotoalbum; exportbestand moet worden gecreëerd en de omschrijving op de overzichtpagina. Lees <xref linkend="chp-importExport"/> voor details over exportbestanden. En of u wilt dat de filmpjes in-line of downloadable zijn.</para>
+
+      <para
+>Tenslotte geeft u op welke informatie op deze &HTML;-pagina's terecht moet komen. Op deze manier kunt u informatie overslaan die voor de lezer van de pagina's al bekend is (laten we zeggen dat de foto's van een feestje zijn waar we allemaal zijn geweest). Let op, met &kphotoalbum; is het op dit moment nog niet mogelijk om bepaalde categorieën van het exportbestand uit te sluiten, vertrouw dus niet op om bepaalde informatie weg te laten waarvan u niet wilt dat de lezers van uw pagina's die zien.</para>
+    </sect1>
+
+    <sect1 id="the_layout_page">
+      <title
+>De pagina <guilabel
+>Indeling</guilabel
+></title>
+      <para
+>Op de indelingspagina kunt u instellen hoe uw &HTML;-pagina eruit komt te zien. De meeste keuzemogelijkheden op deze pagina spreken voor zich en hebben hier geen verdere uitleg nodig. Bij het kiezen van een thema krijgt u een korte introductie om een idee van het uiterlijk te krijgen.</para>
+
+	<figure id="html-layout">
+	<title
+>Instellingen voor de HTML-generator voor de indeling</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-layout.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>Onderaan deze pagina kunt u voor de foto's uit diverse resoluties kiezen. Op deze manier zijn de mensen die uw pagina's lezen niet verplicht om afbeeldingen in hoge resoluties te downloaden, zoals 1600x1200, om ze alleen maar te bekijken op een monitor met niet meer dan 800x600.</para>
+      
+      <para
+>Uw lezers kunnen op elk gewenst moment een andere keuze uit de door u opgegeven resoluties maken. Op deze manier kunnen zij door uw afbeeldingen met een lage resolutie bladeren (met op die manier snelle downloadtijden), en als zij een interessante afbeelding zien dan kunnen ze omschakelen naar een hoge resolutie.</para>
+    </sect1>
+
+    <sect1 id="the_destination_page">
+      <title
+>De pagina <guilabel
+>Bestemming</guilabel
+></title>
+      <para
+>Op de pagina Bestemming specificeert u verschillende mappen en URL's om aan te geven waar uw pagina's heengaan.</para>
+
+      <para
+>Het idee is dat u een basismap instelt voor al uw HTML-uitvoer en dat u voor elke &HTML;-uitvoer apart een nieuwe submap instelt.</para>
+
+	<figure id="html-destination">
+	<title
+>Instellingen voor de HTML-generator voor de bestemming</title>
+	<mediaobject>
+	<imageobject>
+	<imagedata fileref="html-destination.png" format="PNG"/>
+	</imageobject>
+	</mediaobject>
+	</figure>
+
+      <para
+>Eerst moet u de basismap voor al uw afbeeldingen instellen. De instelling voor deze map blijft van sessie tot sessie bewaart zodat u maar eenmalig hoeft in te stellen waar in het vervolg de afbeeldingen geplaatst moeten worden. Hier kunt u een map instellen of in plaats daarvan elk door &kde; ondersteund <ulink url="help:/kioslave/index.html"
+>protocol</ulink
+>. Voorbeelden zijn: <itemizedlist>
+          <listitem
+><para
+>ftp://een-server/mijn-upload-gebied/afbeeldingen (uploaden met FTP)</para
+></listitem>
+          <listitem
+><para
+>fish://een-server/mijn-upload-gebied/afbeeldingen (uploaden met ssh)</para
+></listitem>
+          <listitem
+><para
+>smb://een-server/c/afbeeldingen (uploaden naar een Windows share)</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+>Als u klaar bent met het creëren van uw afbeeldingen, wilt u waarschijnlijk controleren of uw lezers echt toegang tot de afbeeldingen hebben. Als u een URL in het vak <guilabel
+>Basisadres</guilabel
+> heeft ingesteld, dan zal na het creëren van de &HTML;-pagina's een webbrowser worden geopend. De URL die u hier opgeeft moet overeenkomen met de map die u hierboven heeft opgegeven. De webbrowser zal daarom starten met de submappen van deze URL.</para>
+      
+      <para
+>Nadat u de &HTML;-pagina's heeft gecreëerd, zijn uw pagina's waarschijnlijk nog niet op hun uiteindelijke bestemming, U heeft waarschijnlijk specifieke procedures voor uploaden nodig die buiten de controle van &kphotoalbum; vallen. Om met het Import-hulpmiddel (lees <xref linkend="chp-importExport"/>) te kunnen werken, moet u de uiteindelijke bestemming voor de pagina's instellen. Dit is opnieuw niet de submap van de huidige creatie.</para>
+
+      <para
+>De drie hierboven beschreven tekstvelden zijn allen basismappen en basis-URL's . Op deze locaties zal een nieuwe submap worden gecreëerd met de in <guilabel
+>Uitvoermap</guilabel
+> opgegeven naam.</para>
+    </sect1>
+
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

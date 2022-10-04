@@ -273,7 +273,12 @@ void ImagePreview::updateScaleFactors()
 
     // Calculate a scale factor from the original image's size and it's current preview
     QSize actualSize = getActualImageSize();
+    // TODO(jzarl): remove once we don't care about Debian 11 anymore:
+#if QT_DEPRECATED_SINCE(5, 15)
+    QSize previewSize = pixmap()->size();
+#else
     QSize previewSize = pixmap().size();
+#endif
     m_scaleWidth = double(actualSize.width()) / double(previewSize.width());
     m_scaleHeight = double(actualSize.height()) / double(previewSize.height());
 

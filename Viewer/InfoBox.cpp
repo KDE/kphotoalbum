@@ -49,7 +49,8 @@ Viewer::InfoBox::InfoBox(Viewer::ViewerWidget *viewer)
     m_jumpToContext->setIcon(QIcon::fromTheme(QString::fromUtf8("kphotoalbum")));
     m_jumpToContext->setFixedSize(16, 16);
     connect(m_jumpToContext, &QToolButton::clicked, this, &InfoBox::jumpToContext);
-    connect(this, &InfoBox::highlighted, this, &InfoBox::linkHovered);
+    // TODO(jzarl): remove QOverload once we don't care about Debian 11 anymore:
+    connect(this, QOverload<const QUrl &>::of(&QTextBrowser::highlighted), this, &InfoBox::linkHovered);
 
 #ifdef HAVE_MARBLE
     m_showOnMap = new QToolButton(this);

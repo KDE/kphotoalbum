@@ -2,20 +2,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Yasen Pramatarov <yasen@lindeas.com>, 2009, 2010, 2011.
+# Mincho Kondarev <mkondarev@yahoo.de>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-04 00:42+0000\n"
-"PO-Revision-Date: 2011-07-21 19:55+0300\n"
-"Last-Translator: Yasen Pramatarov <yasen@lindeas.com>\n"
-"Language-Team: Bulgarian <dict@fsa-bg.org>\n"
+"POT-Creation-Date: 2022-10-05 00:44+0000\n"
+"PO-Revision-Date: 2022-10-04 23:15+0200\n"
+"Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
+"Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 22.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -30,7 +31,7 @@ msgstr "yasen@lindeas.com"
 #: AnnotationDialog/AreaTagSelectDialog.cpp:91
 #, kde-format
 msgid "Tag is already used for another area"
-msgstr ""
+msgstr "Етикетът вече се използва за друга област"
 
 #: AnnotationDialog/DateEdit.cpp:70
 #, kde-format
@@ -53,6 +54,8 @@ msgid ""
 "(You have differing descriptions on individual images, setting text here "
 "will override them all)"
 msgstr ""
+"(Имате различни описания на отделните изображения, зададеният тук текст ще "
+"ги замени всички)"
 
 #: AnnotationDialog/Dialog.cpp:132
 #, kde-format
@@ -79,6 +82,11 @@ msgid ""
 "KPhotoAlbum...|General</interface>, a description embedded in the image Exif "
 "information is imported to this field if available.</para>"
 msgstr ""
+"<para> Описателен текст на изображението. </para><para> Ако <emphasis> "
+"Използване на Exifописание </emphasis> е активирано в <interface> Настройки "
+"| Настройванена KPhotoAlbum... | Общи </interface>, описание, вградено в  "
+"Exif данните на изображението ще се импортира в тази област, ако е налична.</"
+"para>"
 
 #: AnnotationDialog/Dialog.cpp:168 DB/ImageDB.cpp:145
 #, kde-format
@@ -86,9 +94,9 @@ msgid "Cancel"
 msgstr "Отказ"
 
 #: AnnotationDialog/Dialog.cpp:173 AnnotationDialog/Dialog.cpp:175
-#, fuzzy, kde-format
+#, kde-format
 msgid "Map"
-msgstr "апр"
+msgstr "Карта"
 
 #: AnnotationDialog/Dialog.cpp:181
 #, kde-format
@@ -97,11 +105,13 @@ msgid ""
 "The map widget allows you to view the location of images if GPS coordinates "
 "are found in the Exif information."
 msgstr ""
+"Приспособлението за карта ви позволява да преглеждате местоположението на "
+"изображенията, ако в Exif данните са налични GPS координати."
 
 #: AnnotationDialog/Dialog.cpp:229
 #, kde-format
 msgid "Revert This Item"
-msgstr ""
+msgstr "Връщане на този елемент"
 
 #: AnnotationDialog/Dialog.cpp:235
 #, kde-format
@@ -111,7 +121,7 @@ msgstr "Изчистване на формуляра"
 #: AnnotationDialog/Dialog.cpp:239
 #, kde-format
 msgid "Options..."
-msgstr "Настройки..."
+msgstr "Опции..."
 
 #: AnnotationDialog/Dialog.cpp:245
 #, kde-format
@@ -124,7 +134,7 @@ msgid "Continue &Later"
 msgstr "Продължаване по-&късно"
 
 #: AnnotationDialog/Dialog.cpp:256 AnnotationDialog/Dialog.cpp:827
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:button"
 msgid "&Search"
 msgstr "&Търсене"
@@ -152,7 +162,7 @@ msgstr "Време: "
 #: AnnotationDialog/Dialog.cpp:355
 #, kde-format
 msgid "Use Fuzzy Date"
-msgstr ""
+msgstr "Използване на ориентировъчна дата"
 
 #: AnnotationDialog/Dialog.cpp:357
 #, kde-format
@@ -165,56 +175,63 @@ msgid ""
 "the photo comes from an analog camera), then you should set <interface>Use "
 "Fuzzy Date</interface>.</para>"
 msgstr ""
+"<para> В KPhotoAlbum изображенията могат да имат точна дата и час или "
+"<emphasis> ориентировъчна</emphasis> дата, която се е случила по всяко време "
+"в рамките на посоченинтервал от време. Изображенията, направени с цифрови "
+"камери, обикновено имат точнадата. </para><para> Ако не знаете, точно кога е "
+"направена снимката (например акоснимката е от аналогова камера), тогава "
+"можете да зададете <interface> Използванена ориентировъчна дата </interface>."
+"</para>"
 
 #: AnnotationDialog/Dialog.cpp:372
 #, kde-format
 msgid "Minimum megapixels:"
-msgstr ""
+msgstr "Минимални мегапиксели:"
 
 #: AnnotationDialog/Dialog.cpp:382
 #, kde-format
 msgid "Maximum megapixels:"
-msgstr ""
+msgstr "Максимални мегапиксели:"
 
 #: AnnotationDialog/Dialog.cpp:395
 #, kde-format
 msgid "Rating:"
-msgstr ""
+msgstr "Оценка:"
 
 #: AnnotationDialog/Dialog.cpp:403
 #, kde-format
 msgid "Rating search mode:"
-msgstr ""
+msgstr "Режим на търсене на оценка:"
 
 #: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid "=="
-msgstr ""
+msgstr "=="
 
 #: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid ">="
-msgstr ""
+msgstr ">="
 
 #: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid "<="
-msgstr ""
+msgstr "<="
 
 #: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid "!="
-msgstr ""
+msgstr "!="
 
 #: AnnotationDialog/Dialog.cpp:415
 #, kde-format
 msgid "File Name Pattern: "
-msgstr ""
+msgstr "Шаблон за име на файл:"
 
 #: AnnotationDialog/Dialog.cpp:418
 #, kde-format
 msgid "File Name Pattern"
-msgstr ""
+msgstr "Шаблон за име на файла"
 
 #: AnnotationDialog/Dialog.cpp:423
 #, kde-format
@@ -222,13 +239,13 @@ msgid "Search only for RAW files"
 msgstr "Търсене само за файлове RAW"
 
 #: AnnotationDialog/Dialog.cpp:613
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
-msgstr "Анотации"
+msgstr "Бележки (%1/%2)"
 
 #: AnnotationDialog/Dialog.cpp:832
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Търсене"
@@ -239,25 +256,25 @@ msgid "Done"
 msgstr "Готово"
 
 #: AnnotationDialog/Dialog.cpp:842
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
-msgstr "Анотации"
+msgstr "Бележки"
 
 #: AnnotationDialog/Dialog.cpp:874
 #, kde-format
 msgid "Configure Window Layout..."
-msgstr ""
+msgstr "Конфигуриране на оформлението на прозореца..."
 
 #: AnnotationDialog/Dialog.cpp:875
 #, kde-format
 msgid "Save Current Window Setup"
-msgstr ""
+msgstr "Запазване на текущата настройка на прозореца"
 
 #: AnnotationDialog/Dialog.cpp:876
 #, kde-format
 msgid "Reset layout"
-msgstr ""
+msgstr "Възстановяване на стандартно оформление"
 
 #: AnnotationDialog/Dialog.cpp:883 AnnotationDialog/Dialog.cpp:1284
 #: AnnotationDialog/ListSelect.cpp:95
@@ -272,29 +289,29 @@ msgid "Sort Alphabetically (Flat)"
 msgstr "Азбучно подреждане (плоско)"
 
 #: AnnotationDialog/Dialog.cpp:891
-#, fuzzy, kde-format
+#, kde-format
 msgid "Sort by Date"
-msgstr "Подреждане по дата"
+msgstr "Сортиране по дата"
 
 #: AnnotationDialog/Dialog.cpp:907
 #, kde-format
 msgid "Match Tags from the First Character"
-msgstr ""
+msgstr "Сравняване на етикети от първата буква"
 
 #: AnnotationDialog/Dialog.cpp:908
 #, kde-format
 msgid "Match Tags from Word Boundaries"
-msgstr ""
+msgstr "Сравняване на етикети в рамките на цели думи"
 
 #: AnnotationDialog/Dialog.cpp:909
 #, kde-format
 msgid "Match Tags Anywhere"
-msgstr ""
+msgstr "Сравняване на етикети навсякъде"
 
 #: AnnotationDialog/Dialog.cpp:926
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
-msgstr ""
+msgstr "Показване само избрани Ctrl+S"
 
 #: AnnotationDialog/Dialog.cpp:969
 #, kde-format
@@ -302,6 +319,8 @@ msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
 "of the following error: %2"
 msgstr ""
+"<p>Не можа да се запази оформлението на прозореца.</p> Файлът %1 не може да "
+"бъде отворен, порадиследната грешка: %2"
 
 #: AnnotationDialog/Dialog.cpp:974
 #, kde-format
@@ -309,6 +328,8 @@ msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
 "of the following error: %2"
 msgstr ""
+"<p>Не можа да се запази оформлението на прозореца.</p>Файлът %1 не може да "
+"бъде записан, поради следната грешка: %2"
 
 #: AnnotationDialog/Dialog.cpp:1042
 #, kde-format
@@ -316,6 +337,8 @@ msgid ""
 "<p>Some changes are made to annotations. Do you really want to cancel all "
 "recent changes for each affected file?</p>"
 msgstr ""
+"<p>Някои бележки са промени. Наистина ли искате да отмените всичкипоследни "
+"промени във файловете?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1148
 #, kde-format
@@ -327,6 +350,13 @@ msgid ""
 "you can find extra tips on its usage by reading about <a href=\"help:/"
 "kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
 msgstr ""
+"<p> Току що отворихте диалоговия прозорец за разширено търсене. За да "
+"извлечете максимума от него прочетете секцията в ръководството за <a href="
+"\"help:/kphotoalbum/sect-general-image-searches.html\"\"> Разширенотърсене </"
+"a>. </p><p> Този диалог се използва и за въвеждане на информацияза "
+"изображенията. Можете да намерите допълнителни съвети за използването му, "
+"като прочетете за <a href=\"help:/kphotoalbum/chp-typingIn.html\"> начини на "
+"въвеждане</a>.</p>"
 
 #: AnnotationDialog/Dialog.cpp:1156
 #, kde-format
@@ -336,11 +366,15 @@ msgid ""
 "p><p>It is strongly recommended that you take 5 minutes to read the <a href="
 "\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
 msgstr ""
+"<p> Току що отворихте един от най-важните прозорци в KPhotoAlbum. Тойсъдържа "
+"много функции, които са оптимизирани за бързо използване.</p><p> Силно се "
+"препоръчва да отделите 5 минути, за да прочетете <a href=\"help:/kphotoalbum/"
+"chp-typingIn.html\">документация за този диалогов прозорец </a></p>"
 
 #: AnnotationDialog/Dialog.cpp:1291
 #, kde-format
 msgid "Sort Most Recently Used"
-msgstr ""
+msgstr "Сортиране на най-скоро използваните"
 
 #: AnnotationDialog/Dialog.cpp:1294
 #, kde-format
@@ -350,22 +384,22 @@ msgstr "Превключване на подреждането"
 #: AnnotationDialog/Dialog.cpp:1299
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
-msgstr ""
+msgstr "Превключване на Показване на само избрани елементи"
 
 #: AnnotationDialog/Dialog.cpp:1303
 #, kde-format
 msgid "Annotate Next"
-msgstr ""
+msgstr "Бележка към следващо изображение"
 
 #: AnnotationDialog/Dialog.cpp:1307
 #, kde-format
 msgid "Annotate Previous"
-msgstr ""
+msgstr "Бележка към предишно изображение"
 
 #: AnnotationDialog/Dialog.cpp:1311
 #, kde-format
 msgid "OK dialog"
-msgstr ""
+msgstr "ОК диалогов прозорец"
 
 #: AnnotationDialog/Dialog.cpp:1315 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:69
@@ -376,24 +410,24 @@ msgstr "Изтриване"
 #: AnnotationDialog/Dialog.cpp:1319
 #, kde-format
 msgid "Copy tags from previous image"
-msgstr ""
+msgstr "Копиране на етикетите от предишното изображение"
 
 #: AnnotationDialog/Dialog.cpp:1323 MainWindow/Window.cpp:804
 #, kde-format
 msgid "Rotate counterclockwise"
-msgstr ""
+msgstr "Завъртане обратно на часовниковата стрелка"
 
 #: AnnotationDialog/Dialog.cpp:1326 MainWindow/Window.cpp:808
 #, kde-format
 msgid "Rotate clockwise"
-msgstr ""
+msgstr "Завъртане по часовниковата стрелка"
 
 #: AnnotationDialog/Dialog.cpp:1329
 #, kde-format
 msgid "Toggle fullscreen preview"
-msgstr ""
+msgstr "Превключване в преглед на цял екран"
 
-#: AnnotationDialog/ImagePreview.cpp:509
+#: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
@@ -401,8 +435,13 @@ msgid ""
 "change this in the settings dialog. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings.</p>"
 msgstr ""
+"<p><b> Не може да се свърже етикет  \"%2\"</b></p><p> Категорията \"%1\", "
+"към която етикетът\"%2\" принадлежи, не може да се позиционира. </p><p> Ако "
+"искате да използвате този етикет,трябва да го промените в диалоговия "
+"прозорец за настройки. Ако този етикет не трябва да бъде вбазата данни за "
+"разпознаване, той може да бъде изтрит в настройките.</p>"
 
-#: AnnotationDialog/ImagePreview.cpp:523
+#: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
@@ -410,16 +449,21 @@ msgid ""
 "this category and mark it as positionable. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings dialog.</p>"
 msgstr ""
+"<p><b> Не може да се свърже етикет \"%2\"</b></p><p>Категорията \"%1\", към "
+"която етикетът\"%2\" принадлежи не съществува. </p><p> Ако искате да "
+"използвате този маркер, добавететази категория и я маркирайте като "
+"позиционираща се. Ако този етикет не трябва да бъде вбазата данни за "
+"разпознаване вече може да бъде изтрит в диалоговия прозорец за настройки.</p>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:49
 #, kde-format
 msgid "Annotate previous image (Page Up)"
-msgstr ""
+msgstr "Задаване на бележка към предишното изображение (Page Up)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:55
 #, kde-format
 msgid "Annotate next image (Page Down)"
-msgstr ""
+msgstr "Задаване на бележка към следващото изображение (Page Down)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:80
 #, kde-format
@@ -428,17 +472,20 @@ msgid ""
 "<para>Set the same tags on this image than on the previous one. The image "
 "date, label, rating, and description are left unchanged.</para>"
 msgstr ""
+"<para>Зададени са същите етикети на това изображение като на предишното. "
+"Датата, етикетите, оценката и описанието на изображението са непроменени.</"
+"para>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:108
 #, kde-format
 msgid "Category for new areas:"
-msgstr ""
+msgstr "Категория за нови области:"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:303
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
-msgstr ""
+msgstr "Скриване или показване на области на изображението"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:308
 #, kde-format
@@ -448,27 +495,33 @@ msgid ""
 "category in <interface>Settings|Configure KPhotoAlbum...|Categories</"
 "interface>, you can associate specific image areas with tags."
 msgstr ""
+"Ако активирате <emphasis> позициониращи етикети </emphasis> за поне "
+"еднакатегория в <interface> Настройки | Настройване на KPhotoAlbum ... | "
+"Категории </interface>, можете да свържете конкретни области на изображения "
+"с етикети."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:313
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
 msgstr ""
+"Областите на изображение могат да бъдат показани само в режим на задаване на "
+"бележки за едно изображение."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:342
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
 msgstr "Превключване на пълен екран"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:343
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
 msgstr "Завъртяно обратно на часовниковата стрелка"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:344
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
 msgstr "Завъртяно по часовниковата стрелка"
@@ -477,19 +530,19 @@ msgstr "Завъртяно по часовниковата стрелка"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
-msgstr ""
+msgstr "Копиране на етикет от предишното маркирано изображение"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:346
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"
 msgstr "Изтриване на изображение"
 
 #: AnnotationDialog/ListSelect.cpp:57
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr "Анотация..."
+msgstr "Въведете етикет..."
 
 #: AnnotationDialog/ListSelect.cpp:82 DB/ImageSearchInfo.cpp:338
 #, kde-format
@@ -509,7 +562,7 @@ msgstr "Подреждане по дата"
 #: AnnotationDialog/ListSelect.cpp:113
 #, kde-format
 msgid "Show only selected Ctrl+S"
-msgstr ""
+msgstr "Показване само избрани Ctrl+s"
 
 #: AnnotationDialog/ListSelect.cpp:162
 #, kde-format
@@ -519,6 +572,10 @@ msgid ""
 "Untagged Images</interface>). It will not show up here as long as it is "
 "selected for this purpose."
 msgstr ""
+"Етикетът, който сте въвели, е етикетът, който е зададен автоматично за "
+"новооткрити,изображения без етикет(вж. <interface> Настройки | Настройване "
+"на KPhotoAlbum ... | Категории |Изображения без етикети </interface>). Той "
+"няма да се показва тук, докато еизбран за тази цел."
 
 #: AnnotationDialog/ListSelect.cpp:344
 #, kde-format
@@ -526,9 +583,9 @@ msgid "No Item Selected"
 msgstr "Нама избран елемент"
 
 #: AnnotationDialog/ListSelect.cpp:348
-#, fuzzy, kde-format
+#, kde-format
 msgid "<b>%1</b>"
-msgstr "<b>Подреждане</b>"
+msgstr "<b>%1</b>"
 
 #: AnnotationDialog/ListSelect.cpp:355
 #, kde-format
@@ -536,29 +593,29 @@ msgid "Rename..."
 msgstr "Преименуване..."
 
 #: AnnotationDialog/ListSelect.cpp:357
-#, fuzzy, kde-format
+#, kde-format
 msgid "<b>Tag Groups</b>"
-msgstr "Нова група"
+msgstr "<b>Групови етикети</b>"
 
 #: AnnotationDialog/ListSelect.cpp:365
-#, fuzzy, kde-format
+#, kde-format
 msgid "Tag groups"
-msgstr "Нова група"
+msgstr "Групови етикети"
 
 #: AnnotationDialog/ListSelect.cpp:382
 #, kde-format
 msgid "Add this tag to a new tag group..."
-msgstr ""
+msgstr "Добавяне на етикета към нова група от етикети..."
 
 #: AnnotationDialog/ListSelect.cpp:385
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
-msgstr ""
+msgstr "Задаване на етикета като  групов етикет и добавяне на етикет..."
 
 #: AnnotationDialog/ListSelect.cpp:391
 #, kde-format
 msgid "Remove from tag group %1"
-msgstr ""
+msgstr "Премахване от груповия етикет %1"
 
 #: AnnotationDialog/ListSelect.cpp:394
 #, kde-format
@@ -586,6 +643,9 @@ msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
 "any information about it from any image containing the item.</p>"
 msgstr ""
+"<p>Наистина ли искате да изтриете \"%1\"? <br/> Изтриването на елемента ще "
+"премахне всяка информация за него от всяко изображение, което го съдържащо.</"
+"p>"
 
 #: AnnotationDialog/ListSelect.cpp:430
 #, kde-format
@@ -614,6 +674,8 @@ msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
 "\"%3\" on any image containing it.</p>"
 msgstr ""
+"<p>Наистина ли искате да преименувате \"%1\" на \"%2\"? <br/> Това ще "
+"преименува ще преименува \"%3\" на всяко изображение, което го съдържа.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:456
 #, kde-format
@@ -621,24 +683,24 @@ msgid "Really Rename %1?"
 msgstr "Наистина ли да се преименува %1?"
 
 #: AnnotationDialog/ListSelect.cpp:486
-#, fuzzy, kde-format
+#, kde-format
 msgid "New tag group"
-msgstr "Нова група"
+msgstr "Нова група от етикети"
 
 #: AnnotationDialog/ListSelect.cpp:487
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
-msgstr ""
+msgstr "Име за новия групов етикет, етикетът ще бъде добавен към:"
 
 #: AnnotationDialog/ListSelect.cpp:499
 #, kde-format
 msgid "Add a tag"
-msgstr ""
+msgstr "Добавяне на етикет"
 
 #: AnnotationDialog/ListSelect.cpp:500
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
-msgstr ""
+msgstr "Име за етикета, който ще бъде добавен към тази група с етикети:"
 
 #: AnnotationDialog/ListSelect.cpp:754
 #, kde-format
@@ -646,19 +708,19 @@ msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
 "'People (1-2)'"
 msgid "%1 (%2-%3)"
-msgstr ""
+msgstr "%1 (%2-%3)"
 
 #: AnnotationDialog/ListSelect.cpp:767
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:54
 #, kde-format
 msgctxt "area of an image; rectangle that is overlayed upon the image"
 msgid "Remove area"
-msgstr ""
+msgstr "Премахване на областта"
 
 #: AnnotationDialog/ResizableFrame.cpp:309
 #, kde-format
@@ -666,13 +728,13 @@ msgctxt ""
 "%1 is a prefix like 'Associate with', %2 is the tag name and %3 is the tag's "
 "category"
 msgid "%1 %2 (%3)"
-msgstr ""
+msgstr "%1 %2 (%3)"
 
 #: AnnotationDialog/ResizableFrame.cpp:313
 #, kde-format
 msgctxt "%1 is the tag name and %2 is the tag's category"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:354
 #, kde-format
@@ -680,23 +742,25 @@ msgid ""
 "<p>%1 has already been tagged in another area on this image.</p><p>If you "
 "continue, the previous tag will be removed...</p>"
 msgstr ""
+"<p>%1 вече е маркиран в друга област на това изображение. </p><p> Ако "
+"продължете, предишният етикет ще бъде премахнат... </p>"
 
 #: AnnotationDialog/ResizableFrame.cpp:357
 #, kde-format
 msgid "Replace existing area?"
-msgstr ""
+msgstr "Да се замени ли съществуващата област?"
 
 #: AnnotationDialog/ResizableFrame.cpp:458
 #, kde-format
 msgctxt ""
 "As in: remove tag %1 in category %2 [from this marked area of the image]"
 msgid "Remove tag %1 (%2)"
-msgstr ""
+msgstr "Премахване на етикет %1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:469
 #, kde-format
 msgid "Associate with"
-msgstr ""
+msgstr "Свързване с"
 
 #: AnnotationDialog/ResizableFrame.cpp:491
 #: AnnotationDialog/ResizableFrame.cpp:500
@@ -708,64 +772,64 @@ msgid "Associate with"
 msgstr ""
 
 #: BackgroundJobs/ExtractOneThumbnailJob.cpp:44
-#, fuzzy, kde-format
+#, kde-format
 msgid "Extracting Thumbnail"
-msgstr "Създаване на умалени изображения"
+msgstr "Извличане на миниатюри"
 
 #: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:34
-#, fuzzy, kde-format
+#, kde-format
 msgid "Extract Video Thumbnail"
-msgstr "Създаване на умалени изображения"
+msgstr "Извличане на видеоминиатюри"
 
 #: BackgroundJobs/ReadVideoLengthJob.cpp:30
 #, kde-format
 msgid "Read Video Length"
-msgstr ""
+msgstr "Зареждане на продължителността на видеото"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
 msgid "Search for videos without length information"
-msgstr ""
+msgstr "Търсене на видеозаписи без информация за продължителността"
 
 #: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:51
 #, kde-format
 msgid "Searching for videos without video thumbnails"
-msgstr ""
+msgstr "Търсене на видеозаписи без видео миниатюри"
 
 #: BackgroundTaskManager/JobInfo.cpp:55
-#, fuzzy, kde-format
+#, kde-format
 msgid "Not Started"
-msgstr "Незавъртяно"
+msgstr "Не е започнато"
 
 #: BackgroundTaskManager/JobModel.cpp:93
 #, kde-format
 msgctxt "@title:column Background job id"
 msgid "ID"
-msgstr ""
+msgstr "Идентификатор"
 
 #: BackgroundTaskManager/JobModel.cpp:95
 #, kde-format
 msgctxt "@title:column Background job title"
 msgid "Title"
-msgstr ""
+msgstr "Заглавие"
 
 #: BackgroundTaskManager/JobModel.cpp:97
 #, kde-format
 msgctxt "@title:column Additional information on background job"
 msgid "Details"
-msgstr ""
+msgstr "Подробности"
 
 #: BackgroundTaskManager/JobModel.cpp:99
 #, kde-format
 msgctxt "@title:column Elapsed time"
 msgid "Elapsed"
-msgstr ""
+msgstr "Изминато"
 
 #: BackgroundTaskManager/JobViewer.cpp:21
 #, kde-format
 msgctxt "@title:window"
 msgid "Background Job Viewer"
-msgstr ""
+msgstr "Преглед на процеси на заден план"
 
 #: BackgroundTaskManager/JobViewer.cpp:30
 #: BackgroundTaskManager/JobViewer.cpp:65
@@ -774,9 +838,9 @@ msgid "Pause"
 msgstr "Пауза"
 
 #: BackgroundTaskManager/JobViewer.cpp:65
-#, fuzzy, kde-format
+#, kde-format
 msgid "Continue"
-msgstr "Продължаване по-&късно"
+msgstr "Продължаване"
 
 #: BackgroundTaskManager/StatusIndicator.cpp:78
 #, kde-format
@@ -788,22 +852,28 @@ msgid ""
 "is executing a foreground job (like extracting a thumbnail for a video file, "
 "which is currently shown in the thumbnail viewer)</li></ul></p>"
 msgstr ""
+"<p> Активни задачи: %1 <br/> Задачи в изчакване: %2 <hr/><br/> Цветови "
+"кодове:<ul><li><b> мигащо зелено </b>: Активни фонови задачи </li><li><b> "
+"сиво </b>:Няма активни задачи </li><li><b>жълто </b>: Опашката на задачите е "
+"поставена на пауза за задачи на заден план, но задачите на преден план се "
+"изпълняват (като извличане на миниатюри на видеофайлове, които се показват в "
+"прозореца с миниатюри)</li></ul></p>"
 
 #: Browser/AbstractCategoryModel.cpp:37 Exif/SearchDialog.cpp:386
 #: lib/kpaexif/SearchInfo.cpp:193
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "As in No persons, no locations etc."
 msgid "None"
 msgstr "Без"
 
 #: Browser/AbstractCategoryModel.cpp:39
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "As in no other persons, or no other locations. "
 msgid "No other"
-msgstr "Друго"
+msgstr "Няма други"
 
 #: Browser/AbstractCategoryModel.cpp:82
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:intable number of images with a specific tag."
 msgid "1 image"
 msgid_plural "%1 images"
@@ -811,7 +881,7 @@ msgstr[0] "1 изображение"
 msgstr[1] "%1 изображения"
 
 #: Browser/AbstractCategoryModel.cpp:84
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:intable number of videos with a specific tag."
 msgid "1 video"
 msgid_plural "%1 videos"
@@ -829,25 +899,25 @@ msgid "Videos"
 msgstr "Видеозаписи"
 
 #: Browser/AbstractCategoryModel.cpp:150
-#, fuzzy, kde-format
+#, kde-format
 msgid "Start Date"
-msgstr "Подреждане по дата"
+msgstr "Начална дата"
 
 #: Browser/AbstractCategoryModel.cpp:152
-#, fuzzy, kde-format
+#, kde-format
 msgid "End Date"
-msgstr "Дата"
+msgstr "Крайна дата"
 
 #: Browser/Breadcrumb.cpp:27
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "As in 'all pictures'."
 msgid "All"
 msgstr "Всички"
 
 #: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:132
-#, fuzzy, kde-format
+#, kde-format
 msgid "Geo Position"
-msgstr "Описание"
+msgstr "Геолокация"
 
 #: Browser/OverviewPage.cpp:143
 #, kde-format
@@ -855,7 +925,7 @@ msgid "Exif Info"
 msgstr "Exif-данни"
 
 #: Browser/OverviewPage.cpp:154
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "Търсене"
@@ -873,20 +943,20 @@ msgstr "Показване на миниатюрите"
 #: Browser/OverviewPage.cpp:253 Browser/OverviewPage.cpp:273
 #, kde-format
 msgid "Search did not match any images or videos."
-msgstr ""
+msgstr "Няма съвпадения при търсенето на изображения или видеоклипове."
 
 #: Browser/OverviewPage.cpp:253 Browser/OverviewPage.cpp:273
 #, kde-format
 msgid "Empty Search Result"
-msgstr ""
+msgstr "Изчистване на резултата от търсенето"
 
 #: Browser/OverviewPage.cpp:257
-#, fuzzy, kde-format
+#, kde-format
 msgid "Exif Search"
 msgstr "Търсене в EXIF"
 
 #: Browser/OverviewPage.cpp:277
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "търсене"
@@ -900,31 +970,37 @@ msgid ""
 "b></li><li>Now choose the <b>Categories</b> icon</li><li>Now configure "
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
+"<p> Все още не сте конфигурирали кой етикет да използвате за указване на "
+"изображения без етикет. </p><p> Моля, следвайте тези стъпки, за да го "
+"направите: <ul><li>В лентата на менютоизберете <b> Настройки </b></li><li>От "
+"там изберете <b> Настройване на KPhotoAlbum</b></li><li> Сега изберете "
+"иконата <b>Категории </b></li><li> Сега конфигурирайтераздела <b>Изображения "
+"без етикет</b></li></ul></p>"
 
 #: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1712
 #, kde-format
 msgid "Feature has not been configured"
-msgstr ""
+msgstr "Функцията не е конфигурирана"
 
 #: CategoryListView/CheckDropItem.cpp:110
 #, kde-format
 msgid "\"%1\" and \"%2\""
-msgstr ""
+msgstr "\"%1\" и \"%2\""
 
 #: CategoryListView/CheckDropItem.cpp:114
 #, kde-format
 msgid "\"%1\""
-msgstr ""
+msgstr "\"%1\""
 
 #: CategoryListView/CheckDropItem.cpp:116
 #, kde-format
 msgid ", \"%1\""
-msgstr ""
+msgstr ", \"%1\""
 
 #: CategoryListView/CheckDropItem.cpp:119
 #, kde-format
 msgid " and \"%1\""
-msgstr ""
+msgstr " и \"%1\""
 
 #: CategoryListView/CheckDropItem.cpp:123
 #, kde-format
@@ -946,7 +1022,23 @@ msgid_plural ""
 "it really your intention to make \"%3\" a tag group and add %2 as members?</"
 "p>"
 msgstr[0] ""
+"<p>Току що завлякохте един елемент в друг. Това ще направи целевия елемент "
+"групов етикет, а завлечения елемент член на тази група. Груповите етикети "
+"могат да се използват за обозначаване на факти като \"Лас Вегас е в САЩ \". "
+"В рамките на този пример ще трябва да завлечете Лас Вегас в САЩ. Когато сте "
+"настроили групов етикет, можете ,например, да видите всички изображения от "
+"САЩ просто като изберете този елемент в браузъра. </p><p>Наистина ли имате "
+"намерение да направите \"%3\" групов етикет и да добавете \"%2\" като неин "
+"член? </p>"
 msgstr[1] ""
+"<p>Току що завлякохте няколко елемента в друг. Това ще направи целевия "
+"елемент групов етикет, а завлечения елемент член на тази група. Груповите "
+"етикети могат да се използват за обозначаване на факти като \"Лас Вегас и Ню "
+"Йорк се намират в САЩ \". В рамките на този пример ще трябва да завлечете "
+"Лас Вегас и Ню Йорк в САЩ. Когато сте настроили групов етикет, можете ,"
+"например, да видите всички изображения от САЩ просто като изберете този "
+"елемент в браузъра. </p><p>Наистина ли имате намерение да направите \"%3\" "
+"групов етикет и да добавете \"%2\" като неин член? </p>"
 
 #: CategoryListView/CheckDropItem.cpp:149
 #, kde-format
@@ -964,20 +1056,20 @@ msgid "Scroll left"
 msgstr ""
 
 #: DateBar/DateBarWidget.cpp:86
-#, fuzzy, kde-format
+#, kde-format
 msgid "Zoom in"
 msgstr "Увеличаване"
 
 #: DateBar/DateBarWidget.cpp:97
-#, fuzzy, kde-format
+#, kde-format
 msgid "Zoom out"
 msgstr "Намаляване"
 
 #: DateBar/DateBarWidget.cpp:109
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
-msgstr "Изтриване на избраните"
+msgstr "Изчистване на избраните дати"
 
 #: DateBar/DateBarWidget.cpp:122
 #, kde-kuit-format
@@ -989,24 +1081,30 @@ msgid ""
 "selection: Click/drag below the timeline.</item><item>Jump to a date by "
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
+"<title>Лента на хронологията</title><para><list><item>Превъртане с помощта "
+"на клавишите със стрелки,колелцето или средния бутон на мишката.</"
+"item><item>Увеличаване с помощта на клавишите +/- или Ctrl + колелцето на "
+"мишката. </item><item> Ограничаване на изгледа до избрания период: Щракнете "
+"и плъзнете под времевата линия. </item><item> Отиване към определена дата:"
+"Щракнете върху лентата за хистограма. </item></list></para>"
 
 #: DateBar/DateBarWidget.cpp:645
 #, kde-format
 msgid "Show Ranges"
-msgstr ""
+msgstr "Показване на времевия период"
 
 #: DateBar/DateBarWidget.cpp:651
 #, kde-format
 msgid "Show Resolution Indicator"
-msgstr ""
+msgstr "Показване размера на скалата"
 
 #: DateBar/DateBarWidget.cpp:776
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
 msgid_plural "%1 exact"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 точно"
+msgstr[1] "%1 точни"
 
 #: DateBar/DateBarWidget.cpp:777
 #, kde-format
@@ -1015,27 +1113,27 @@ msgctxt ""
 "the given date range,"
 msgid " + 1 range"
 msgid_plural " + %1 ranges"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " + 1 период"
+msgstr[1] " + %1 периода"
 
 #: DateBar/DateBarWidget.cpp:778
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
 msgid_plural " = %1 total"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " = 1 общо"
+msgstr[1] " = %1 общи"
 
 #: DateBar/DateBarWidget.cpp:780
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
 msgid_plural "%1 images/videos"
-msgstr[0] "%1 снимки/видеозаписа"
-msgstr[1] "%1 снимки/видеозаписа"
+msgstr[0] "%1 изображение/видеозапис"
+msgstr[1] "%1 изображения/видеозаписа"
 
 #: DateBar/DateBarWidget.cpp:782
-#, fuzzy, kde-format
+#, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
 msgid "%1 | %2"
@@ -1072,26 +1170,24 @@ msgid "10 Minutes"
 msgstr "10 минути"
 
 #: DateBar/ViewHandler.cpp:312
-#, fuzzy, kde-format
+#, kde-format
 msgid "1 Minute"
-msgstr "10 минути"
+msgstr "1 минута"
 
 #: DateBar/ViewHandler.cpp:347
-#, fuzzy, kde-format
+#, kde-format
 msgid "10 Seconds"
-msgstr "1 секунда"
+msgstr "10 секунди"
 
 #: DB/Category.cpp:164
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1'."
+#, kde-format
 msgid "Unable to create folder '%1'."
-msgstr "Грешка при създаване на папката \"%1\"."
+msgstr "Не може да се създаде папка \"%1\"."
 
 #: DB/Category.cpp:164
-#, fuzzy, kde-format
-#| msgid "Unable to Create Directory"
+#, kde-format
 msgid "Unable to Create Folder"
-msgstr "Грешка при създаване на папката"
+msgstr "Папката не може да се създаде"
 
 #: DB/Category.cpp:173
 #, kde-format
@@ -1104,73 +1200,73 @@ msgid "Error Saving Image"
 msgstr "Грешка при записване на изображението"
 
 #: DB/ImageDate.cpp:357
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "jan"
 msgstr "яну"
 
 #: DB/ImageDate.cpp:357
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "feb"
 msgstr "фев"
 
 #: DB/ImageDate.cpp:358
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "mar"
 msgstr "мар"
 
 #: DB/ImageDate.cpp:358
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "apr"
 msgstr "апр"
 
 #: DB/ImageDate.cpp:359
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "may"
 msgstr "май"
 
 #: DB/ImageDate.cpp:359
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "jun"
 msgstr "юни"
 
 #: DB/ImageDate.cpp:360
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "jul"
 msgstr "юли"
 
 #: DB/ImageDate.cpp:360
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "aug"
 msgstr "авг"
 
 #: DB/ImageDate.cpp:361
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "sep"
 msgstr "сеп"
 
 #: DB/ImageDate.cpp:361
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "oct"
 msgstr "окт"
 
 #: DB/ImageDate.cpp:362
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "nov"
 msgstr "ное"
 
 #: DB/ImageDate.cpp:362
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "дек"
@@ -1187,7 +1283,7 @@ msgctxt ""
 "problem with this, but I need some how to indicate the category, and users "
 "may create their own categories, so this is the best I can do - Jesper."
 msgid "No %1"
-msgstr ""
+msgstr "Няма %1"
 
 #: DB/ImageSearchInfo.cpp:339
 #, kde-format
@@ -1202,7 +1298,7 @@ msgctxt ""
 "and users may create their own categories, so this is the best I can do - "
 "Jesper."
 msgid "No other %1"
-msgstr ""
+msgstr "Няма други %1"
 
 #: DB/NewImageFinder.cpp:466
 #, kde-format
@@ -1211,13 +1307,16 @@ msgid ""
 "of images, this may take some time.<br/>However, there is only a delay when "
 "new images are found.</p>"
 msgstr ""
+"<p><b>Зареждане на информация от нови файлове</b></p><p> В зависимост от "
+"брояна изображенията това може да отнеме известно време.<br/>Въпреки това, "
+"има забавяне само когато са намерени нови изображения. </p>"
 
 #: DB/NewImageFinder.cpp:681
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<p><b>Изчисляване на контролната сума за %1 файл</b></p>"
+msgstr[1] "<p><b> Изчисляване на контролни суми за %1 файлове </b></p>"
 
 #: DB/NewImageFinder.cpp:682
 #, kde-format
@@ -1225,49 +1324,51 @@ msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
 "images even when you have moved them on the disk.</p>"
 msgstr ""
+"<p> Като съхранява контролна сума за всяко изображение KPhotoAlbum е в "
+"състояние да намериизображенията дори, когато сте ги преместили на диска.</p>"
 
 #: DB/NewImageFinder.cpp:725
 #, kde-format
 msgid "Following files could not be read:"
-msgstr ""
+msgstr "Следните файлове не може да бъдат прочетени:"
 
 #: Exif/InfoDialog.cpp:33
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
-msgstr "EXIF-данни"
+msgstr "EXIF-данни и метаданни"
 
 #: Exif/InfoDialog.cpp:73
 #, kde-format
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
-msgstr ""
+msgstr "Филтриране на етикети ..."
 
 #: Exif/InfoDialog.cpp:77
 #, kde-format
 msgid "IPTC character set:"
-msgstr ""
+msgstr "IPTC набор от символи:"
 
 #: Exif/InfoDialog.cpp:95
-#, fuzzy, kde-format
+#, kde-format
 msgid "Exif info"
 msgstr "Exif-данни"
 
 #: Exif/InfoDialog.cpp:96
-#, fuzzy, kde-format
+#, kde-format
 msgid "File metadata"
-msgstr "Поддръжка на видео"
+msgstr "Метаданни на файл"
 
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
 msgid "Absolute path:"
-msgstr ""
+msgstr "Абсолютен път:"
 
 #: Exif/MetaDataDisplay.cpp:42
 #, kde-format
 msgid "MIME type:"
-msgstr ""
+msgstr "Вид по MIME:"
 
 #: Exif/MetaDataDisplay.cpp:46 Settings/ViewerSizeConfig.cpp:26
 #, kde-format
@@ -1277,17 +1378,17 @@ msgstr "Размер:"
 #: Exif/MetaDataDisplay.cpp:50
 #, kde-format
 msgid "Created:"
-msgstr ""
+msgstr "Създаден:"
 
 #: Exif/MetaDataDisplay.cpp:54
 #, kde-format
 msgid "Changed:"
-msgstr ""
+msgstr "Променени:"
 
 #: Exif/MetaDataDisplay.cpp:58
 #, kde-format
 msgid "Owner:"
-msgstr ""
+msgstr "Собственик:"
 
 #: Exif/MetaDataDisplay.cpp:62
 #, kde-format
@@ -1295,14 +1396,14 @@ msgid "Group:"
 msgstr "Група:"
 
 #: Exif/MetaDataDisplay.cpp:66
-#, fuzzy, kde-format
+#, kde-format
 msgid "Permissions:"
-msgstr "Версия: %1"
+msgstr "Права:"
 
 #: Exif/MetaDataDisplay.cpp:100
 #, kde-format
 msgid "Open folder with a file manager"
-msgstr ""
+msgstr "Отваряне на папката с файл мениджър"
 
 #: Exif/MetaDataDisplay.cpp:107
 #, kde-format
@@ -1310,25 +1411,25 @@ msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr ""
+msgstr "%1 (%2 B)"
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "File permission shortcut for \"reading allowed\""
 msgid "r"
-msgstr "или"
+msgstr "r"
 
 #: Exif/MetaDataDisplay.cpp:124 Exif/MetaDataDisplay.cpp:130
 #: Exif/MetaDataDisplay.cpp:136
 #, kde-format
 msgctxt "File permission shortcut for \"writing allowed\""
 msgid "w"
-msgstr ""
+msgstr "с"
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
 msgstr "x"
@@ -1339,38 +1440,38 @@ msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and it's octal representation (e.g. \"0644\")"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2)"
 
 #: Exif/ReReadDialog.cpp:28
 #, kde-format
 msgctxt "@title:window"
 msgid "Read Exif Info from Files"
-msgstr ""
+msgstr "Зареждане на Exif данни от файлове"
 
 #: Exif/ReReadDialog.cpp:35
-#, fuzzy, kde-format
+#, kde-format
 msgid "Update Exif search database"
-msgstr "Обновяване на базата от данни"
+msgstr "Обновяване на базата от данни на Exif търсене"
 
 #: Exif/ReReadDialog.cpp:41
 #, kde-format
 msgid "Update image date"
-msgstr ""
+msgstr "Актуализиране на датата на изображението"
 
 #: Exif/ReReadDialog.cpp:44
 #, kde-format
 msgid "Use modification date if Exif not found"
-msgstr ""
+msgstr "Използване на датата на промяна, ако не е намерен Exif"
 
 #: Exif/ReReadDialog.cpp:47
 #, kde-format
 msgid "Update image orientation from Exif information"
-msgstr ""
+msgstr "Актуализиране на ориентацията на изображението от Exif данните"
 
 #: Exif/ReReadDialog.cpp:50
 #, kde-format
 msgid "Update image description from Exif information"
-msgstr ""
+msgstr "Актуализиране на описанието на изображението от Exif данните"
 
 #: Exif/ReReadDialog.cpp:53
 #, kde-format
@@ -1383,14 +1484,17 @@ msgid ""
 "<p>Be aware that setting the data from Exif may <b>overwrite</b> data you "
 "have previously entered manually using the image configuration dialog.</p>"
 msgstr ""
+"<p> Бъдете наясно, че задаването на датата от Exif ​​може <b>да презапише</b> "
+"датата, коятопреди това сте въвели ръчно в диалоговия прозорец за "
+"конфигуриране на изображението.</p>"
 
 #: Exif/ReReadDialog.cpp:127
 #, kde-format
 msgid "Override image dates"
-msgstr ""
+msgstr "Заменяне на датите на изображенията"
 
 #: Exif/SearchDialog.cpp:30
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Exif Search"
 msgstr "Търсене в EXIF"
@@ -1401,9 +1505,9 @@ msgid "Settings"
 msgstr "Настройки"
 
 #: Exif/SearchDialog.cpp:55
-#, fuzzy, kde-format
+#, kde-format
 msgid "Aperture (F Number)"
-msgstr "Бленда"
+msgstr "Бленда (число f)"
 
 #: Exif/SearchDialog.cpp:65
 #, kde-format
@@ -1411,7 +1515,7 @@ msgid "Focal Length"
 msgstr "Фокусно разстояние"
 
 #: Exif/SearchDialog.cpp:73
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "As in 'A range from x to y'"
 msgid "to"
 msgstr "до"
@@ -1430,7 +1534,7 @@ msgstr "Фотоапарат"
 #: Exif/SearchDialog.cpp:102
 #, kde-format
 msgid "Lens"
-msgstr ""
+msgstr "Лещи"
 
 #: Exif/SearchDialog.cpp:107 Settings/GeneralPage.cpp:115
 #, kde-format
@@ -1494,9 +1598,9 @@ msgid "No cameras found in the database"
 msgstr "Не са открити фотоапарати в базата от данни"
 
 #: Exif/SearchDialog.cpp:382
-#, fuzzy, kde-format
+#, kde-format
 msgid "No lenses found in the database"
-msgstr "Не са открити фотоапарати в базата от данни"
+msgstr "Не са открити лещи в базата от данни"
 
 #: Exif/SearchDialog.cpp:397
 #, kde-format
@@ -1504,16 +1608,19 @@ msgid ""
 "Not all images in the database have lens information. <note>Recreate the "
 "Exif search database to ensure lens data for all images.</note>"
 msgstr ""
+"Не всички изображения в базата данни имат информация за обектива. "
+"<note>Създайте нановобазата данни за търсене на Exif, за да се извлекат "
+"данни за обектива за всички изображения.</note>"
 
 #: HTMLGenerator/Generator.cpp:50
 #, kde-format
 msgid "<p>No file name given!</p>"
-msgstr ""
+msgstr "<p>Не е дадено име на файл!</p>"
 
 #: HTMLGenerator/Generator.cpp:76
 #, kde-format
 msgid "Generating images for HTML page "
-msgstr ""
+msgstr "Генериране на изображения за HTML страница"
 
 #: HTMLGenerator/Generator.cpp:179
 #, kde-format
@@ -1548,22 +1655,22 @@ msgstr "следващо"
 #: HTMLGenerator/Generator.cpp:643
 #, kde-format
 msgid "Could not create file '%1'."
-msgstr ""
+msgstr "Не може да се създаде файл : \"%1\"."
 
 #: HTMLGenerator/Generator.cpp:644
 #, kde-format
 msgid "Could Not Create File"
-msgstr ""
+msgstr "Не може да се създаде файл"
 
 #: HTMLGenerator/Generator.cpp:663
 #, kde-format
 msgid "<p>Unable to copy %1 to %2</p>"
-msgstr ""
+msgstr "<p>Не може да се копира %1 в %2</p>"
 
 #: HTMLGenerator/Generator.cpp:697
 #, kde-format
 msgid "Unable to write image '%1'."
-msgstr ""
+msgstr "Не може да се запише изображение \"%1\"."
 
 #: HTMLGenerator/Generator.cpp:771 HTMLGenerator/HTMLDialog.cpp:146
 #, kde-format
@@ -1571,7 +1678,7 @@ msgid "Date"
 msgstr "Дата"
 
 #: HTMLGenerator/HTMLDialog.cpp:51
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "HTML Export"
 msgstr "Изнасяне в HTML"
@@ -1599,20 +1706,20 @@ msgstr "Описание:"
 #: HTMLGenerator/HTMLDialog.cpp:109
 #, kde-format
 msgid "Create .kim export file"
-msgstr ""
+msgstr "Създаване на .kim експортен файл"
 
 #: HTMLGenerator/HTMLDialog.cpp:114
 #, kde-format
 msgctxt ""
 "Inline as a verb, i.e. 'please show movies right on the page, not as links'"
 msgid "Inline Movies in pages"
-msgstr ""
+msgstr "Вградени филми в страниците"
 
 #: HTMLGenerator/HTMLDialog.cpp:119
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Tag as in HTML-tag, not as in image tag"
 msgid "Use HTML5 video tag"
-msgstr "Създаване на умалени изображения"
+msgstr "Използване на HTML5 видео етикети"
 
 #: HTMLGenerator/HTMLDialog.cpp:128
 #, kde-format
@@ -1620,11 +1727,13 @@ msgid ""
 "<p>This selection will generate video files suitable for displaying on web. "
 "avconv and ffmpeg2theora are required for video file generation.</p>"
 msgstr ""
+"<p> Този избор ще генерира видео файлове, подходящи за показване в мрежата."
+"avconv и ffmpeg2theora са необходими за генериране на видео файлове. </p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:130
 #, kde-format
 msgid "Generate HTML5 video files (mp4 and ogg)"
-msgstr ""
+msgstr "Генериране на HTML5 видео файлове (MP4 и OGG)"
 
 #: HTMLGenerator/HTMLDialog.cpp:138
 #, kde-format
@@ -1652,9 +1761,9 @@ msgid "Theme:"
 msgstr "Тема:"
 
 #: HTMLGenerator/HTMLDialog.cpp:223
-#, fuzzy, kde-format
+#, kde-format
 msgid "Theme Description"
-msgstr "Показване на описание"
+msgstr "Описание на темата"
 
 #: HTMLGenerator/HTMLDialog.cpp:230
 #, kde-format
@@ -1669,29 +1778,27 @@ msgstr "Пълен размер"
 #: HTMLGenerator/HTMLDialog.cpp:284 HTMLGenerator/HTMLDialog.cpp:285
 #, kde-format
 msgid "Destination"
-msgstr ""
+msgstr "Назначение"
 
 #: HTMLGenerator/HTMLDialog.cpp:295
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgid "Base folder:"
 msgstr "Основна папка:"
 
 #: HTMLGenerator/HTMLDialog.cpp:312
-#, fuzzy, kde-format
+#, kde-format
 msgid "Gallery folder:"
-msgstr "Основна папка:"
+msgstr "Папка за Галерия:"
 
 #: HTMLGenerator/HTMLDialog.cpp:319
-#, fuzzy, kde-format
-#| msgid "Output directory:"
+#, kde-format
 msgid "Output folder:"
 msgstr "Изходна папка:"
 
 #: HTMLGenerator/HTMLDialog.cpp:330
 #, kde-format
 msgid "URL for final destination of .kim file:"
-msgstr ""
+msgstr "URL адрес за крайната дестинация на .kim файл:"
 
 #: HTMLGenerator/HTMLDialog.cpp:332
 #, kde-format
@@ -1700,21 +1807,24 @@ msgid ""
 "URL.</p><p>This only affects the generated <filename>.kim</filename> file.</"
 "p>"
 msgstr ""
+"<p>Ако преместите галерията на отдалечено място, задайте URL адреса на "
+"дестинацията. </p><p>Това засяга само генерирания <filename>.kim </filename> "
+"файл. </p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:341
 #, kde-format
 msgid "Open gallery in browser:"
-msgstr ""
+msgstr "Отваряне на Галерия в браузъра:"
 
 #: HTMLGenerator/HTMLDialog.cpp:357
 #, kde-format
 msgid "You must select at least one resolution."
-msgstr ""
+msgstr "Трябва да изберете поне една резолюция."
 
 #: HTMLGenerator/HTMLDialog.cpp:384
-#, fuzzy, kde-format
+#, kde-format
 msgid "Select base folder..."
-msgstr "Основна папка:"
+msgstr "Избиране на основна папка..."
 
 #: HTMLGenerator/HTMLDialog.cpp:397
 #, kde-format
@@ -1723,11 +1833,14 @@ msgid ""
 "images. Each generated collection will be contained in this folder in "
 "separate subfolders.</p>"
 msgstr ""
+"<p>Не сте основна базова папка. Това е най-горната папка за "
+"вашитеизображения. Всяка генерирана колекция ще се съдържа в тази папка "
+"вотделни подпапки. </p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:401
 #, kde-format
 msgid "No Base Folder Specified"
-msgstr ""
+msgstr "Не е посочена основна папка"
 
 #: HTMLGenerator/HTMLDialog.cpp:407
 #, kde-format
@@ -1736,11 +1849,13 @@ msgid ""
 "actual images. The folder will be a subfolder of the base folder specified "
 "above.</p>"
 msgstr ""
+"<p> Не сте посочили изходна папка. Това е папка, съдържащадействителни "
+"изображения. Папката ще бъде подпапка на посочената горе основна папка.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:410
 #, kde-format
 msgid "No Output Folder Specified"
-msgstr ""
+msgstr "Не е посочена изходна папка"
 
 #: HTMLGenerator/HTMLDialog.cpp:422
 #, kde-format
@@ -1748,11 +1863,14 @@ msgid ""
 "<p>Error while reading information about %1. This is most likely because the "
 "folder does not exist.</p><p>The error message was: %2</p>"
 msgstr ""
+"<p>Грешка при четене на информация за %1. Това най-вероятно е, защотопапката "
+"не съществува.</p><p> Съобщението за грешка беше: %2</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:431
 #, kde-format
 msgid "<p>%1 does not exist, is not a folder or cannot be written to.</p>"
 msgstr ""
+"<p>%1 не съществува, не е папка или не може да бъде извършен запис. </p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:446
 #, kde-format
@@ -1760,28 +1878,29 @@ msgid ""
 "<p>Output folder %1 already exists. Usually, this means you should specify a "
 "new folder.</p><p>Should %2 be deleted first?</p>"
 msgstr ""
+"<p>Изходна папка %1 вече съществува. Обикновено това означава, че трябва да "
+"посочитенова папка.</p><p>Трябва ли преди това да бъде изтрито %2?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgid "Folder Exists"
-msgstr "Папка"
+msgstr "Папката съществува"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:534 MainWindow/SplashScreen.cpp:53
 #, kde-format
 msgid "%1"
-msgstr ""
+msgstr "%1"
 
 #: HTMLGenerator/HTMLDialog.cpp:545
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
-msgstr ""
+msgstr "Не се намериха теми - най-вероятно това е грешка в инсталацията"
 
 #: HTMLGenerator/HTMLDialog.cpp:552
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
-msgstr ""
+msgstr "Повече от една тема е зададена по подразбиране, използва се тема %1"
 
 #: HTMLGenerator/HTMLDialog.cpp:559
 #, kde-format
@@ -1790,7 +1909,7 @@ msgctxt ""
 "by itself will work fine on this context if no proper word is available in "
 "your language."
 msgid "by "
-msgstr ""
+msgstr "от"
 
 #: HTMLGenerator/HTMLDialog.cpp:561
 #, kde-format
@@ -1798,51 +1917,54 @@ msgid ""
 "\n"
 " "
 msgstr ""
+"\n"
+" "
 
 #: HTMLGenerator/HTMLDialog.cpp:576
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
-msgstr ""
+msgstr "<p>Папката на Галерия не може да бъде празна.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:580
 #, kde-format
 msgid "<p>The output folder already exists.</p>"
-msgstr ""
+msgstr "<p>Изходната папка вече съществува.</p>"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:93
 #, kde-format
 msgid "Failed to start"
-msgstr ""
+msgstr "Неуспешно стартиране"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:96
 #, kde-format
 msgid "Crashed"
-msgstr ""
+msgstr "Срив"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:99
 #, kde-format
 msgid "Timedout"
-msgstr ""
+msgstr "Времето изтече"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:102
 #, kde-format
 msgid "Read error"
-msgstr ""
+msgstr "Грешка при четене"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:105
 #, kde-format
 msgid "Write error"
-msgstr ""
+msgstr "Грешка при запис"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:108
-#, fuzzy, kde-format
+#, kde-format
 msgid "Unknown error"
-msgstr "Неизвестно"
+msgstr "Неизвестна грешка"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:113
 #, kde-format
 msgid "<p>Error when extracting video thumbnails.<br/>Error was: %1</p>"
 msgstr ""
+"<p>Грешка при извличане на миниатюри на видео.<br/>Грешката беше: %1</p>"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:137
 #, kde-format
@@ -1854,6 +1976,13 @@ msgid ""
 "(You might need to wait till the video extraction led in your status bar has "
 "stopped blinking, to see all affected videos.)"
 msgstr ""
+"Не може да се извлекат видеоминиатюри от някои файлове. Или файлът е е "
+"повреден по някакъв начин или видеото е изключително кратко. За ваше "
+"улеснение за тези видеоклипове е зададен знак '%1'.\n"
+"\n"
+"(Възможно е да се наложи да изчакате, докато индикаторът за извличане на "
+"видео в лентата на състоянието да спре да мига, за да видите всички "
+"засегнати видеоклипове.)"
 
 #: ImageManager/ThumbnailBuilder.cpp:103
 #, kde-format
@@ -1871,20 +2000,20 @@ msgid "Building thumbnails"
 msgstr "Изграждане на миниатюри"
 
 #: ImportExport/Export.cpp:61
-#, fuzzy, kde-format
+#, kde-format
 msgid "Save an export file"
-msgstr "Внасяне на файл"
+msgstr "Запазване на файл за експортиране"
 
 #: ImportExport/Export.cpp:63 ImportExport/Import.cpp:28
-#, fuzzy, kde-format
+#, kde-format
 msgid "KPhotoAlbum import files"
-msgstr "KPhotoAlbum"
+msgstr "Файлове за импортиране на KPhotoAlbum"
 
 #: ImportExport/Export.cpp:79
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Configuration / Copy Images"
-msgstr "Изнасяне и копиране на изображения..."
+msgstr "Експортиране на настройките / копиране на изображения"
 
 #: ImportExport/Export.cpp:92
 #, kde-format
@@ -1994,7 +2123,7 @@ msgstr "Създаване на умалени изображения"
 #: ImportExport/Export.cpp:297
 #, kde-format
 msgid "Copying image files"
-msgstr ""
+msgstr "Копиране на файлове с изображения"
 
 #: ImportExport/Export.cpp:362
 #, kde-format
@@ -2021,9 +2150,9 @@ msgid "How to Use the Export File"
 msgstr ""
 
 #: ImportExport/Import.cpp:26
-#, fuzzy, kde-format
+#, kde-format
 msgid "KPhotoAlbum Export Files"
-msgstr "KPhotoAlbum"
+msgstr "Файлове за експортиране на KPhotoAlbum"
 
 #: ImportExport/Import.cpp:58
 #, kde-format
@@ -2062,7 +2191,7 @@ msgid ""
 msgstr ""
 
 #: ImportExport/ImportDialog.cpp:136
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:tab introduction page"
 msgid "Introduction"
 msgstr "Въведение"
@@ -2113,10 +2242,9 @@ msgid "Folder %1 does not exist. Should it be created?"
 msgstr ""
 
 #: ImportExport/ImportDialog.cpp:300
-#, fuzzy, kde-format
-#| msgid "Error Deleting Files"
+#, kde-format
 msgid "Error creating folder %1"
-msgstr "Грешка при изтриване на файловете"
+msgstr "Грешка при създаването на папка %1"
 
 #: ImportExport/ImportDialog.cpp:381
 #, kde-format
@@ -2124,7 +2252,7 @@ msgid "How to resolve clashes"
 msgstr ""
 
 #: ImportExport/ImportHandler.cpp:91 ImportExport/ImportHandler.cpp:157
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "Копиране на изображения"
@@ -2255,9 +2383,9 @@ msgid "Conflicting commandline options: %1 and %2!\n"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:45
-#, fuzzy, kde-format
+#, kde-format
 msgid "KPhotoAlbum Thumbnail Tool"
-msgstr "KPhotoAlbum"
+msgstr "Инструмент за миниатюри на KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:47
 #, kde-format
@@ -2267,7 +2395,7 @@ msgstr ""
 #: kpa-thumbnailtool/main.cpp:49
 #, kde-format
 msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
-msgstr ""
+msgstr "Copyright (C) 2020 The KPhotoAlbum Development Team"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:98
 #, kde-format
@@ -2275,19 +2403,19 @@ msgid "Johannes Zarl-Zierl"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:98
-#, fuzzy, kde-format
+#, kde-format
 msgid "Development, Maintainer"
-msgstr "Разработка"
+msgstr "Разработка и поддръжка"
 
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:99
-#, fuzzy, kde-format
+#, kde-format
 msgid "Robert Krawitz"
-msgstr "Robert L Krawitz"
+msgstr "Robert Krawitz"
 
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:99
-#, fuzzy, kde-format
+#, kde-format
 msgid "Development, Optimization"
-msgstr "Разработка"
+msgstr "Разработка и оптимизации"
 
 #: kpa-thumbnailtool/main.cpp:59 main.cpp:100
 #, kde-format
@@ -2322,7 +2450,7 @@ msgstr "Jan Kundr&aacute;t"
 #: kpa-thumbnailtool/main.cpp:64 main.cpp:105
 #, kde-format
 msgid "Andreas Neustifter"
-msgstr ""
+msgstr "Andreas Neustifter"
 
 #: kpa-thumbnailtool/main.cpp:65 main.cpp:106
 #, kde-format
@@ -2393,19 +2521,19 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "%1 is not a folder!\n"
-msgstr ""
+msgstr "%1 не е папка!\n"
 
 #: kpa-thumbnailtool/main.cpp:117
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
-msgstr "Грешка при създаване на папката \"%1\"."
+msgstr "Папка за кеш на миниатюри: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:118
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index file version: %1\n"
-msgstr "Грешка при създаване на папката \"%1\"."
+msgstr "Версия на файла с индекса на миниатюрите: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:119
 #, kde-format
@@ -2414,10 +2542,10 @@ msgid "Maximum supported thumbnailindex file version: %1\n"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:120
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail storage dimensions: %1 pixels\n"
-msgstr "Размер на миниатюрите:"
+msgstr "Размери на хранилището за миниатюри: %1 пиксела\n"
 
 #: kpa-thumbnailtool/main.cpp:122
 #, kde-format
@@ -2428,10 +2556,10 @@ msgid ""
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:124
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:shell"
 msgid "Number of thumbnails: %1\n"
-msgstr "Брой колони:"
+msgstr "Брой на миниатюрите: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:130
 #, kde-format
@@ -2550,9 +2678,9 @@ msgid "Events"
 msgstr "Събития"
 
 #: lib/kpabase/SettingsData.cpp:396 XMLDB/FileReader.cpp:509
-#, fuzzy, kde-format
+#, kde-format
 msgid "untagged"
-msgstr "Изображения без етикет"
+msgstr "без етикет"
 
 #: lib/kpaexif/Database.cpp:169
 #, kde-format
@@ -2565,9 +2693,9 @@ msgid ""
 msgstr ""
 
 #: lib/kpaexif/Database.cpp:184
-#, fuzzy, kde-format
+#, kde-format
 msgid "Error in Exif database"
-msgstr "Преобразуване на базата от данни"
+msgstr "Грешка в базата от данни на Exif"
 
 #: lib/kpaexif/Database.cpp:205
 #, kde-format
@@ -2597,7 +2725,7 @@ msgstr ""
 #: main.cpp:90
 #, kde-format
 msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
-msgstr ""
+msgstr "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
 
 #: main.cpp:111
 #, kde-format
@@ -2620,6 +2748,8 @@ msgid ""
 "(.) Patch with folder info made available through the browser. (.) Patch for "
 "adding a check box for \"and/or\" searches in the search page."
 msgstr ""
+"(.) Пач с информация за папки, достъпна чрез браузъра. (.) Пач за добавяне "
+"на поле за отметка за търсене \"и/или\" в страницата за търсене."
 
 #: main.cpp:113
 #, kde-format
@@ -2634,7 +2764,7 @@ msgstr ""
 #: main.cpp:114
 #, kde-format
 msgid "Wes Hardaker"
-msgstr ""
+msgstr "Wes Hardaker"
 
 #: main.cpp:114
 #, kde-format
@@ -2743,7 +2873,7 @@ msgid "Stack images created within the following time-frame:"
 msgstr ""
 
 #: MainWindow/AutoStackImages.cpp:79
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Unit suffix on a QSpinBox; note the space at the beginning."
 msgid " seconds"
 msgstr "секунди"
@@ -2780,26 +2910,26 @@ msgid "Make Category Image"
 msgstr ""
 
 #: MainWindow/CopyLinkEngine.cpp:37
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Изнасяне и копиране на изображения..."
-msgstr[1] "Изнасяне и копиране на изображения..."
+msgstr[0] "Копиране на изображение в...."
+msgstr[1] "Копиране на изображения в...."
 
 #: MainWindow/CopyLinkEngine.cpp:40
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Изнасяне и копиране на изображения..."
-msgstr[1] "Изнасяне и копиране на изображения..."
+msgstr[0] "Създаване на връзка към изображение в ..."
+msgstr[1] "Създаване на връзка към изображения в ..."
 
 #: MainWindow/DeleteDialog.cpp:24
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Removing Items"
-msgstr "Преместване на елементи"
+msgstr "Премахване на елементи"
 
 #: MainWindow/DeleteDialog.cpp:64
 #, kde-format
@@ -2841,20 +2971,20 @@ msgstr[0] "Само изтриване на записа в базата от д
 msgstr[1] "Само изтриване на %1 записа в базата от данни"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:44
-#, fuzzy, kde-format
+#, kde-format
 msgid "Merge these images"
-msgstr "Изтриване на изображение"
+msgstr "Сливане на изображенията"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
-#, fuzzy, kde-format
+#, kde-format
 msgid "Select target:"
-msgstr "Изчистване на избора"
+msgstr "Избиране на цел:"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70
 #, kde-format
 msgctxt "i for info"
 msgid "i"
-msgstr ""
+msgstr "i"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:42
 #, kde-format
@@ -2871,29 +3001,29 @@ msgid "Move to &trash"
 msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:52
-#, fuzzy, kde-format
+#, kde-format
 msgid "&Delete from disk"
-msgstr "Изтриване на файла от диска"
+msgstr "&Изтриване от диска"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:53
 #, kde-format
 msgid "&Block from database"
-msgstr ""
+msgstr "&Блок от базата данни"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:75
-#, fuzzy, kde-format
+#, kde-format
 msgid "Select &All"
-msgstr "Избиране на всичко"
+msgstr "Из&биране на всичко"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:76
-#, fuzzy, kde-format
+#, kde-format
 msgid "Select &None"
-msgstr "Изчистване на избора"
+msgstr "Из&чистване на избора"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:133
-#, fuzzy, kde-format
+#, kde-format
 msgid "%1 of %2 selected"
-msgstr "Нама избран елемент"
+msgstr "%1 от %2 избрано"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:181
 #, kde-format
@@ -3026,23 +3156,23 @@ msgid "Map view for geotagged images."
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:164
-#, fuzzy, kde-format
+#, kde-format
 msgid "Video thumbnail support"
 msgstr "Поддръжка на видео миниатюри"
 
 #: MainWindow/FeatureDialog.cpp:165
-#, fuzzy, kde-format
+#, kde-format
 msgid "Video metadata support"
-msgstr "Поддръжка на видео"
+msgstr "Поддръжка на видео метаданни"
 
 #: MainWindow/FeatureDialog.cpp:169
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Feature available"
 msgid "Yes"
 msgstr "Да"
 
 #: MainWindow/FeatureDialog.cpp:170
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Feature not available"
 msgid "No"
 msgstr "Не"
@@ -3055,9 +3185,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: MainWindow/ImageCounter.cpp:26
-#, fuzzy, kde-format
+#, kde-format
 msgid "(%1 selected)"
-msgstr "Нама избран елемент"
+msgstr "(%1 избрано)"
 
 #: MainWindow/ImageCounter.cpp:33
 #, kde-format
@@ -3068,8 +3198,8 @@ msgstr "Общо: %1"
 #, kde-format
 msgid "1 match"
 msgid_plural "%1 matches"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 съвпадение"
+msgstr[1] "%1 съвпадения"
 
 #: MainWindow/InvalidDateFinder.cpp:33
 #, kde-format
@@ -3101,7 +3231,7 @@ msgid ""
 msgstr ""
 
 #: MainWindow/InvalidDateFinder.cpp:70
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Image Info"
 msgstr "Информация за изображение"
@@ -3125,9 +3255,9 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Options.cpp:26 MainWindow/Options.cpp:31
-#, fuzzy, kde-format
+#, kde-format
 msgid "databaseFile"
-msgstr "Преобразуване на базата от данни"
+msgstr "databaseFile"
 
 #: MainWindow/Options.cpp:30
 #, kde-format
@@ -3140,9 +3270,9 @@ msgid "Starts KPhotoAlbum with a prebuilt set of demo images."
 msgstr ""
 
 #: MainWindow/Options.cpp:36
-#, fuzzy, kde-format
+#, kde-format
 msgid "Import file."
-msgstr "Внасяне на файл"
+msgstr "Импортиране на файл."
 
 #: MainWindow/Options.cpp:37
 #, kde-format
@@ -3165,9 +3295,9 @@ msgid "interface_address"
 msgstr ""
 
 #: MainWindow/Options.cpp:52
-#, fuzzy, kde-format
+#, kde-format
 msgid "Search for new images on startup."
-msgstr "Търсене за нови файлове"
+msgstr "Търсене за нови изображения при стартиране."
 
 #: MainWindow/RunDialog.cpp:33
 #, no-c-format, kde-format
@@ -3192,7 +3322,7 @@ msgctxt ""
 "As in 'Execute a command and replace any occurrence of %all with the "
 "filenames of all selected files'"
 msgid "%all"
-msgstr ""
+msgstr "%всичко"
 
 #: MainWindow/RunDialog.cpp:73
 #, no-c-format, kde-format
@@ -3200,19 +3330,19 @@ msgctxt ""
 "As in 'Execute a command for each selected file in turn and replace any "
 "occurrence of %each with the filename "
 msgid "%each"
-msgstr ""
+msgstr "%всеки"
 
 #: MainWindow/SearchBar.cpp:20
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Name/title of the search bar toolbar widget"
 msgid "Search Bar"
-msgstr "Търсене"
+msgstr "Лента за търсене"
 
 #: MainWindow/SearchBar.cpp:25
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Search ..."
-msgstr "Търсене"
+msgstr "Търсене ..."
 
 #: MainWindow/StatisticsDialog.cpp:31
 #, kde-format
@@ -3242,7 +3372,7 @@ msgstr "Категория"
 #: MainWindow/StatisticsDialog.cpp:55
 #, kde-format
 msgid "# of Items"
-msgstr ""
+msgstr "# от елемента"
 
 #: MainWindow/StatisticsDialog.cpp:55
 #, kde-format
@@ -3278,13 +3408,13 @@ msgid "Tag:"
 msgstr "Етикет:"
 
 #: MainWindow/StatisticsDialog.cpp:123
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox meaning 'no category'"
 msgid "None"
 msgstr "Без"
 
 #: MainWindow/StatisticsDialog.cpp:163
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "As in 'all images'"
 msgid "All"
 msgstr "Всички"
@@ -3295,9 +3425,9 @@ msgid "Total"
 msgstr "Общо"
 
 #: MainWindow/StatusBar.cpp:104
-#, fuzzy, kde-format
+#, kde-format
 msgid "Thumbnail settings..."
-msgstr "Размер на миниатюрите:"
+msgstr "Настройки на миниатюрите..."
 
 #: MainWindow/TokenEditor.cpp:29
 #, kde-format
@@ -3336,7 +3466,7 @@ msgstr ""
 #: MainWindow/WelcomeDialog.cpp:62
 #, kde-format
 msgid "Load Demo"
-msgstr ""
+msgstr "Зареждане на демо"
 
 #: MainWindow/WelcomeDialog.cpp:65
 #, kde-format
@@ -3375,7 +3505,7 @@ msgstr ""
 #: MainWindow/WelcomeDialog.cpp:163
 #, kde-format
 msgid "%1 exists, but is not a folder"
-msgstr ""
+msgstr "%1 съществува, но не е папка"
 
 #: MainWindow/WelcomeDialog.cpp:179
 #, kde-format
@@ -3496,7 +3626,7 @@ msgid "Export/Copy Images..."
 msgstr "Изнасяне и копиране на изображения..."
 
 #: MainWindow/Window.cpp:773
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Изтриване на избраните"
@@ -3514,12 +3644,12 @@ msgstr ""
 #: MainWindow/Window.cpp:785
 #, kde-format
 msgid "Annotate Individual Items"
-msgstr ""
+msgstr "Добавяне на бележки към отделни елементи"
 
 #: MainWindow/Window.cpp:789
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
-msgstr ""
+msgstr "Добавяне на бележки към няколко елемента наведнъж"
 
 #: MainWindow/Window.cpp:793
 #, kde-format
@@ -3582,9 +3712,9 @@ msgid "Sort Selected by Date && Time"
 msgstr ""
 
 #: MainWindow/Window.cpp:854
-#, fuzzy, kde-format
+#, kde-format
 msgid "Limit View to Selection"
-msgstr "Няма избрано"
+msgstr "Ограничаване на изгледа до селекцията"
 
 #: MainWindow/Window.cpp:857
 #, kde-format
@@ -3637,10 +3767,9 @@ msgid "Show Tooltips in Thumbnails Window"
 msgstr ""
 
 #: MainWindow/Window.cpp:911
-#, fuzzy, kde-format
-#| msgid "Show Thumbnails"
+#, kde-format
 msgid "Show Labels in Thumbnails Window"
-msgstr "Показване на миниатюрите"
+msgstr "Показване на етикети в прозореца с миниатюри"
 
 #: MainWindow/Window.cpp:921
 #, kde-format
@@ -3693,9 +3822,9 @@ msgid "Read Exif Info from Files..."
 msgstr ""
 
 #: MainWindow/Window.cpp:972
-#, fuzzy, kde-format
+#, kde-format
 msgid "Sort All by Date && Time"
-msgstr "Подреждане по дата"
+msgstr "Подреждане по дата и час"
 
 #: MainWindow/Window.cpp:976
 #, kde-format
@@ -3708,9 +3837,9 @@ msgid "Build Thumbnails"
 msgstr "Изграждане на миниатюри"
 
 #: MainWindow/Window.cpp:982
-#, fuzzy, kde-format
+#, kde-format
 msgid "Statistics..."
-msgstr "Статистика"
+msgstr "Статистика..."
 
 #: MainWindow/Window.cpp:986
 #, kde-format
@@ -3743,14 +3872,14 @@ msgid "Show Exif Info and file metadata"
 msgstr ""
 
 #: MainWindow/Window.cpp:1016
-#, fuzzy, kde-format
+#, kde-format
 msgid "Recreate Selected Thumbnails"
-msgstr "Пренареждане на миниатюрите"
+msgstr "Повторно създаване на избраните миниатюри"
 
 #: MainWindow/Window.cpp:1019
-#, fuzzy, kde-format
+#, kde-format
 msgid "Use next video thumbnail"
-msgstr "Създаване на умалени изображения"
+msgstr "Използване на следващата миниатюра на видео"
 
 #: MainWindow/Window.cpp:1023
 #, kde-format
@@ -3758,18 +3887,18 @@ msgid "Use previous video thumbnail"
 msgstr ""
 
 #: MainWindow/Window.cpp:1027 MainWindow/Window.cpp:1244
-#, fuzzy, kde-format
+#, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Изнасяне и копиране на изображения..."
-msgstr[1] "Изнасяне и копиране на изображения..."
+msgstr[0] "Копиране на изображение в ..."
+msgstr[1] "Копиране на изображения в ..."
 
 #: MainWindow/Window.cpp:1031 MainWindow/Window.cpp:1248
-#, fuzzy, kde-format
+#, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Изнасяне и копиране на изображения..."
-msgstr[1] "Изнасяне и копиране на изображения..."
+msgstr[0] "Създаване на връзка към изображение в ..."
+msgstr[1] "Създаване на връзка към изображения в ..."
 
 #: MainWindow/Window.cpp:1057
 #, kde-format
@@ -3852,7 +3981,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1476
 #, kde-format
 msgid "Internal Error"
-msgstr ""
+msgstr "Вътрешна грешка"
 
 #: MainWindow/Window.cpp:1487
 #, kde-format
@@ -3892,9 +4021,9 @@ msgid "No Matches"
 msgstr "Няма съвпадения"
 
 #: MainWindow/Window.cpp:1729
-#, fuzzy, kde-format
+#, kde-format
 msgid "Rereading Exif information from all images"
-msgstr "Зареждане на данни от изображенията"
+msgstr "Повторно зареждане на Exif данни от всички изображения"
 
 #: MainWindow/Window.cpp:1756
 #, no-c-format, kde-format
@@ -3911,15 +4040,15 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:1812
-#, fuzzy, kde-format
+#, kde-format
 msgid "Video thumbnails are not available"
-msgstr "Файлът не е наличен"
+msgstr "Миниатюрите на видеозаписите не са налични"
 
-#: Map/GeoCluster.cpp:141
+#: Map/GeoCluster.cpp:137
 #, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
-msgstr ""
+msgstr "%1"
 
 #: Map/MapView.cpp:170
 #, kde-format
@@ -3932,9 +4061,9 @@ msgid "Go to last map position"
 msgstr ""
 
 #: Map/MapView.cpp:184
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show thumbnails"
-msgstr "Показване на миниатюрите"
+msgstr "Показване на миниатюри"
 
 #: Map/MapView.cpp:193
 #, kde-format
@@ -3962,14 +4091,14 @@ msgid "Map view"
 msgstr ""
 
 #: Map/MapView.cpp:362
-#, fuzzy, kde-format
+#, kde-format
 msgid "Settings saved!"
-msgstr "Настройки"
+msgstr "Настройките са запазени!"
 
 #: Map/MapView.cpp:389
-#, fuzzy, kde-format
+#, kde-format
 msgid "<i>Loading coordinates from the images ...</i>"
-msgstr "Зареждане на данни от изображенията"
+msgstr "<i>Зареждане на координатите от изображенията ...</i>"
 
 #: Map/MapView.cpp:405
 #, kde-format
@@ -3993,9 +4122,9 @@ msgid "<i>None of the selected images contain geographic coordinates.</i>"
 msgstr ""
 
 #: Plugins/PurposeMenu.cpp:37
-#, fuzzy, kde-format
+#, kde-format
 msgid "Share"
-msgstr "Острота"
+msgstr "Споделяне"
 
 #: RemoteControl/ConnectionIndicator.cpp:30
 #, kde-format
@@ -4010,9 +4139,9 @@ msgid ""
 msgstr ""
 
 #: RemoteControl/ConnectionIndicator.cpp:90
-#, fuzzy, kde-format
+#, kde-format
 msgid "Android device address: "
-msgstr "Адрес на сървъра:"
+msgstr "Адрес на Android устройство:"
 
 #: RemoteControl/Server.cpp:32
 #, kde-format
@@ -4027,9 +4156,9 @@ msgid ""
 msgstr ""
 
 #: RemoteControl/Server.cpp:67
-#, fuzzy, kde-format
+#, kde-format
 msgid "Invalid Version"
-msgstr "Неправилна парола."
+msgstr "Невалидна версия"
 
 #: RemoteControl/Server.cpp:68
 #, kde-format
@@ -4040,10 +4169,10 @@ msgid ""
 msgstr ""
 
 #: Settings/BirthdayPage.cpp:58
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:textedit"
 msgid "Filter ... (%1)"
-msgstr "Филтри"
+msgstr "Филтър ... (%1)"
 
 #: Settings/BirthdayPage.cpp:92
 #, kde-format
@@ -4065,12 +4194,12 @@ msgstr "Хора"
 #: Settings/BirthdayPage.cpp:156
 #, kde-format
 msgid "Name"
-msgstr ""
+msgstr "Име"
 
 #: Settings/BirthdayPage.cpp:156
 #, kde-format
 msgid "Birthday"
-msgstr ""
+msgstr "Рожден ден"
 
 #: Settings/BirthdayPage.cpp:224
 #, kde-format
@@ -4078,9 +4207,9 @@ msgid "Birthday of %1:"
 msgstr ""
 
 #: Settings/BirthdayPage.cpp:232
-#, fuzzy, kde-format
+#, kde-format
 msgid "Enter a date..."
-msgstr "Анотация..."
+msgstr "Въведете дата..."
 
 #: Settings/BirthdayPage.cpp:296
 #, kde-format
@@ -4088,9 +4217,9 @@ msgid "<i>Select an item on the left to edit the birthday</i>"
 msgstr ""
 
 #: Settings/CategoryPage.cpp:44
-#, fuzzy, kde-format
+#, kde-format
 msgid "Category Settings"
-msgstr "Категории"
+msgstr "Настройки на категории"
 
 #: Settings/CategoryPage.cpp:65
 #, kde-format
@@ -4098,9 +4227,9 @@ msgid "New"
 msgstr "Нов"
 
 #: Settings/CategoryPage.cpp:73
-#, fuzzy, kde-format
+#, kde-format
 msgid "Rename"
-msgstr "Преименуване..."
+msgstr "Преименуване"
 
 #: Settings/CategoryPage.cpp:106
 #, kde-format
@@ -4158,9 +4287,9 @@ msgid "Save the DB now"
 msgstr ""
 
 #: Settings/CategoryPage.cpp:201
-#, fuzzy, kde-format
+#, kde-format
 msgid "Settings for category <b>%1</b>"
-msgstr "<b>Задаване на категория: </b> "
+msgstr "Настройки за категория<b>%1</b>"
 
 #: Settings/CategoryPage.cpp:204
 #, kde-format
@@ -4190,9 +4319,9 @@ msgid ""
 msgstr ""
 
 #: Settings/CategoryPage.cpp:262 Settings/CategoryPage.cpp:273
-#, fuzzy, kde-format
+#, kde-format
 msgid "Invalid category name"
-msgstr "Неправилна парола."
+msgstr "Невалидно име на категория"
 
 #: Settings/CategoryPage.cpp:270
 #, kde-format
@@ -4222,14 +4351,14 @@ msgid ""
 msgstr ""
 
 #: Settings/CategoryPage.cpp:362
-#, fuzzy, kde-format
+#, kde-format
 msgid "New category"
-msgstr "Нова категория..."
+msgstr "Нова категория"
 
 #: Settings/CategoryPage.cpp:395
-#, fuzzy, kde-format
+#, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
-msgstr "Наистина ли да се изтрие %1?"
+msgstr "<p>Наистина ли да се изтрие категория \"%1\"?</p>"
 
 #: Settings/CategoryPage.cpp:510
 #, kde-format
@@ -4504,14 +4633,14 @@ msgid "Type of media on which your images are stored."
 msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:189
-#, fuzzy, kde-format
+#, kde-format
 msgid "Hard Disk"
-msgstr "Твърдо"
+msgstr "Твърд диск"
 
 #: Settings/FileVersionDetectionPage.cpp:190
 #, kde-format
 msgid "Network"
-msgstr ""
+msgstr "Мрежа"
 
 #: Settings/FileVersionDetectionPage.cpp:191
 #, kde-format
@@ -4529,9 +4658,9 @@ msgid "Fast PCIe/NVMe"
 msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:194
-#, fuzzy, kde-format
+#, kde-format
 msgid "Manual Settings"
-msgstr "Настройки"
+msgstr "Ръчни настройки"
 
 #: Settings/FileVersionDetectionPage.cpp:197
 #, kde-format
@@ -4609,19 +4738,19 @@ msgid "Trust image dates:"
 msgstr ""
 
 #: Settings/GeneralPage.cpp:38
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "As in 'always trust image dates'"
 msgid "Always"
 msgstr "Винаги"
 
 #: Settings/GeneralPage.cpp:39
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "As in 'ask whether to trust image dates'"
 msgid "Ask"
 msgstr "Питане"
 
 #: Settings/GeneralPage.cpp:40
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "As in 'never trust image dates'"
 msgid "Never"
 msgstr "Никога"
@@ -4632,9 +4761,9 @@ msgid "Use Exif orientation information"
 msgstr ""
 
 #: Settings/GeneralPage.cpp:52
-#, fuzzy, kde-format
+#, kde-format
 msgid "Use Exif description"
-msgstr "Показване на описание"
+msgstr "Използване на Exif описание"
 
 #: Settings/GeneralPage.cpp:56
 #, kde-format
@@ -4654,12 +4783,12 @@ msgstr ""
 #: Settings/GeneralPage.cpp:86
 #, kde-format
 msgid "Histogram"
-msgstr ""
+msgstr "Хистограма"
 
 #: Settings/GeneralPage.cpp:93
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show histogram"
-msgstr "Показване на време"
+msgstr "Показване на хистограмата"
 
 #: Settings/GeneralPage.cpp:98
 #, kde-format
@@ -4748,34 +4877,34 @@ msgstr "Категории"
 #: Settings/SettingsDialog.cpp:50
 #, kde-format
 msgid "Birthdays"
-msgstr ""
+msgstr "Рождени дни"
 
 #: Settings/SettingsDialog.cpp:51
-#, fuzzy, kde-format
+#, kde-format
 msgid "Tag Groups"
-msgstr "Нова група"
+msgstr "Групови етикети"
 
 #: Settings/SettingsDialog.cpp:53
-#, fuzzy, kde-format
+#, kde-format
 msgid "Exif/IPTC Information"
-msgstr "EXIF-данни"
+msgstr "Exif/IPTC данни"
 
 #: Settings/SettingsDialog.cpp:54
-#, fuzzy, kde-format
+#, kde-format
 msgid "Database Backend"
-msgstr "Име на базата от данни:"
+msgstr "База данни"
 
 #: Settings/SettingsDialog.cpp:74
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Settings"
 msgstr "Настройки"
 
 #: Settings/TagGroupsPage.cpp:33
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label"
 msgid "Categories and groups:"
-msgstr "Категории"
+msgstr "Категории и групи:"
 
 #: Settings/TagGroupsPage.cpp:42
 #, kde-format
@@ -4795,7 +4924,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add group ..."
-msgstr ""
+msgstr "Добавяне на група ..."
 
 #: Settings/TagGroupsPage.cpp:225
 #, kde-format
@@ -4804,10 +4933,10 @@ msgid "Rename group \"%1\""
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:227
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete group \"%1\""
-msgstr "Изтриване на група"
+msgstr "Изтриване на група \"%1\""
 
 #: Settings/TagGroupsPage.cpp:306
 #, kde-format
@@ -4816,13 +4945,13 @@ msgid "Tags in group \"%1\" of category \"%2\""
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:337
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "New Group"
 msgstr "Нова група"
 
 #: Settings/TagGroupsPage.cpp:338
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Group name:"
 msgstr "Име на група:"
@@ -4837,19 +4966,19 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Cannot add group"
-msgstr ""
+msgstr "Не може да се добави група"
 
 #: Settings/TagGroupsPage.cpp:430 Settings/TagGroupsPage.cpp:448
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Rename Group"
-msgstr "Изтриване на група"
+msgstr "Преименуване на група"
 
 #: Settings/TagGroupsPage.cpp:431
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:textbox"
 msgid "New group name:"
-msgstr "Име на група:"
+msgstr "Име на нова група:"
 
 #: Settings/TagGroupsPage.cpp:443
 #, kde-kuit-format
@@ -4869,40 +4998,40 @@ msgid ""
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:510
-#, fuzzy, kde-kuit-format
+#, kde-kuit-format
 msgctxt "@info"
 msgid "<para>Really delete group \"%1\"?</para>"
-msgstr "Наистина ли да се изтрие %1?"
+msgstr "<para>Наистина ли да се изтрие група \"%1\"?</para>"
 
 #: Settings/TagGroupsPage.cpp:515
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Delete Group"
 msgstr "Изтриване на група"
 
 #: Settings/TagGroupsPage.cpp:694
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename \"%1\""
-msgstr "Преименуване..."
+msgstr "Преименуване \"%1\""
 
 #: Settings/TagGroupsPage.cpp:696
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete \"%1\""
-msgstr "Изтриване"
+msgstr "Изтриване на \"%1\""
 
 #: Settings/TagGroupsPage.cpp:707
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "New Tag Name"
-msgstr "Име за нова подкатегория:"
+msgstr "Име на нов етикет:"
 
 #: Settings/TagGroupsPage.cpp:708
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Tag name:"
-msgstr "Име на група:"
+msgstr "Име на етикет:"
 
 #: Settings/TagGroupsPage.cpp:757
 #, kde-kuit-format
@@ -4914,7 +5043,7 @@ msgid ""
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:761
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Really delete %1?"
 msgstr "Наистина ли да се изтрие %1?"
@@ -4935,14 +5064,14 @@ msgid "Thumbnail image size:"
 msgstr ""
 
 #: Settings/ThumbnailsPage.cpp:47
-#, fuzzy, kde-format
+#, kde-format
 msgid "Build thumbnails on demand"
-msgstr "Изграждане на миниатюри"
+msgstr "Изграждане на миниатюри при необходимост"
 
 #: Settings/ThumbnailsPage.cpp:52
-#, fuzzy, kde-format
+#, kde-format
 msgid "Thumbnail table cells aspect ratio:"
-msgstr "Размер на миниатюрите:"
+msgstr "Съотношение на миниатюри:"
 
 #: Settings/ThumbnailsPage.cpp:54
 #, kde-format
@@ -5008,7 +5137,7 @@ msgstr ""
 #, kde-format
 msgctxt "Describing: 'ThumbnailView will not be automatically shown'"
 msgid "Disabled"
-msgstr ""
+msgstr "Деактивиран"
 
 #: Settings/ThumbnailsPage.cpp:98
 #, kde-format
@@ -5098,9 +5227,9 @@ msgid "None Selected"
 msgstr "Няма избрано"
 
 #: Settings/UntaggedGroupBox.cpp:113
-#, fuzzy, kde-format
+#, kde-format
 msgid "New tag added"
-msgstr "Име за нова подкатегория:"
+msgstr "Добавен е нов етикет"
 
 #: Settings/UntaggedGroupBox.cpp:114
 #, kde-format
@@ -5142,7 +5271,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:69
 #, kde-format
 msgid " (NOT AVAILABLE)"
-msgstr ""
+msgstr " (Не е наличен)"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:97
 #, kde-format
@@ -5161,27 +5290,27 @@ msgid "Unconfigured video backend"
 msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:162
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
-msgstr "Име на базата от данни:"
+msgstr "Бекенд за Phonon видео"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:164
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
-msgstr "Име на базата от данни:"
+msgstr "Бекенд за QtAV видео"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:166
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
-msgstr "Име на базата от данни:"
+msgstr "Бекенд за VLC видео"
 
 #: Settings/ViewerPage.cpp:25
-#, fuzzy, kde-format
+#, kde-format
 msgid "Not Configured"
-msgstr "Незададено"
+msgstr "Не е конфигуриран"
 
 #: Settings/ViewerPage.cpp:42
 #, kde-format
@@ -5246,9 +5375,9 @@ msgid ""
 msgstr ""
 
 #: Settings/ViewerPage.cpp:87
-#, fuzzy, kde-format
+#, kde-format
 msgid "Scaling algorithm:"
-msgstr "Алгоритъм за претърсване"
+msgstr "Алгоритъм за мащабиране"
 
 #: Settings/ViewerPage.cpp:89
 #, kde-format
@@ -5269,9 +5398,9 @@ msgid ""
 msgstr ""
 
 #: Settings/ViewerPage.cpp:99
-#, fuzzy, kde-format
+#, kde-format
 msgid "Video Backend:"
-msgstr "Име на базата от данни:"
+msgstr "Бекенд за видео:"
 
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
@@ -5279,18 +5408,18 @@ msgid "Launch in full screen"
 msgstr "Зареждане в пълен екран"
 
 #: ThumbnailView/Delegate.cpp:237
-#, fuzzy, kde-format
+#, kde-format
 msgctxt ""
 "No video length could be determined, so we just display 'video' instead of "
 "the video length."
 msgid "video"
-msgstr "1 видеозапис"
+msgstr "видеозапис"
 
 #: ThumbnailView/FilterWidget.cpp:15
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Name/title of the filter toolbar widget"
 msgid "Filter Toolbar"
-msgstr "Главна лента с инструменти"
+msgstr "Лента с инструменти за филтри"
 
 #: ThumbnailView/FilterWidget.cpp:21
 #, kde-format
@@ -5312,10 +5441,10 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ThumbnailView/FilterWidget.cpp:60
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "The label gives a textual description of the active filter"
 msgid "Filter: %1"
-msgstr "Филтри"
+msgstr "Филтър: %1"
 
 #: ThumbnailView/FilterWidget.cpp:83
 #, kde-kuit-format
@@ -5356,10 +5485,9 @@ msgid "Error Running Demo"
 msgstr ""
 
 #: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:85
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1'."
+#, kde-format
 msgid "Unable to create folder '%1' needed for demo."
-msgstr "Грешка при създаване на папката \"%1\"."
+msgstr "Не може да се създаде папка \"%1\", необходима за демонстрацията."
 
 #: Utilities/DescriptionUtil.cpp:56
 #, kde-format
@@ -5375,31 +5503,31 @@ msgstr "<b>Дата: </b> "
 #, kde-format
 msgctxt "width x height"
 msgid "%1x%2"
-msgstr ""
+msgstr "%1x%2"
 
 #: Utilities/DescriptionUtil.cpp:73
 #, kde-format
 msgctxt "short for: x megapixels"
 msgid " (%1MP)"
-msgstr ""
+msgstr " (%1MP)"
 
 #: Utilities/DescriptionUtil.cpp:78
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (%1:1)"
-msgstr ""
+msgstr " (%1:1)"
 
 #: Utilities/DescriptionUtil.cpp:80
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (1:1)"
-msgstr ""
+msgstr " (1:1)"
 
 #: Utilities/DescriptionUtil.cpp:82
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (1:%1)"
-msgstr ""
+msgstr " (1:%1)"
 
 #: Utilities/DescriptionUtil.cpp:83
 #, kde-format
@@ -5421,115 +5549,115 @@ msgstr "<b>Описание: </b> "
 msgctxt "As in 'The baby is 1 day old'"
 msgid "1 day"
 msgid_plural "%1 days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 ден"
+msgstr[1] "%1 ден"
 
 #: Utilities/DescriptionUtil.cpp:251
 #, kde-format
 msgctxt "As in 'This happened 1 day ago'"
 msgid "1 day ago"
 msgid_plural "%1 days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "преди един ден"
+msgstr[1] "преди %1 дни"
 
 #: Utilities/DescriptionUtil.cpp:254
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "As in 'The baby is 1 month old'"
 msgid "1 month"
 msgid_plural "%1 months"
 msgstr[0] "1 месец"
-msgstr[1] "1 месец"
+msgstr[1] "%1 месеца"
 
 #: Utilities/DescriptionUtil.cpp:256
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "As in 'This happened 1 month ago'"
 msgid "1 month ago"
 msgid_plural "%1 months ago"
-msgstr[0] "1 месец"
-msgstr[1] "1 месец"
+msgstr[0] "преди 1 месец"
+msgstr[1] "преди %1 месеца"
 
 #: Utilities/DescriptionUtil.cpp:259
 #, kde-format
 msgctxt "As in 'The baby is 1 year old'"
 msgid "1 year"
 msgid_plural "%1 years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 година"
+msgstr[1] "%1 години"
 
 #: Utilities/DescriptionUtil.cpp:261
 #, kde-format
 msgctxt "As in 'This happened 1 year ago'"
 msgid "1 year ago"
 msgid_plural "%1 years ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "преди една година"
+msgstr[1] "преди %1 години"
 
 #: Utilities/DescriptionUtil.cpp:351 Utilities/DescriptionUtil.cpp:377
 #, kde-format
 msgid " (%1)"
-msgstr ""
+msgstr " (%1)"
 
 #: Utilities/DescriptionUtil.cpp:353
 #, kde-format
 msgid " (&lt; %1)"
-msgstr ""
+msgstr " (&lt; %1)"
 
 #: Utilities/DescriptionUtil.cpp:356
 #, kde-format
 msgctxt "E.g. ' (1-2 years)'"
 msgid " (%1-%2)"
-msgstr ""
+msgstr " (%1-%2)"
 
 #: Utilities/DescriptionUtil.cpp:358
 #, kde-format
 msgctxt "E.g. ' (7 months-1 year)'"
 msgid " (%1-%2)"
-msgstr ""
+msgstr " (%1-%2)"
 
 #: Utilities/DescriptionUtil.cpp:380
 #, kde-format
 msgctxt "E.g. ' (1-2 years ago)'"
 msgid " (%1-%2)"
-msgstr ""
+msgstr " (%1-%2)"
 
 #: Utilities/DescriptionUtil.cpp:382
 #, kde-format
 msgctxt "E.g. '(7 months ago-1 year ago)'"
 msgid " (%1-%2)"
-msgstr ""
+msgstr " (%1-%2)"
 
 #: Viewer/CategoryImageConfig.cpp:33
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Configure Category Image"
-msgstr "Настройки на текущия изглед"
+msgstr "Настройки на категория на изображение"
 
 #: Viewer/CategoryImageConfig.cpp:42
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:listbox As in 'select the tag category'"
 msgid "Category:"
 msgstr "Категория:"
 
 #: Viewer/CategoryImageConfig.cpp:49
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:listbox As in 'select a tag'"
 msgid "Tag:"
 msgstr "Етикет:"
 
 #: Viewer/CategoryImageConfig.cpp:58
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label The current category image"
 msgid "Current image:"
 msgstr "Текущо изображение:"
 
 #: Viewer/CategoryImageConfig.cpp:66
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label Preview of the new category imape"
 msgid "New image:"
 msgstr "Ново изображение:"
 
 #: Viewer/CategoryImageConfig.cpp:75
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
 msgstr "Задаване"
@@ -5545,7 +5673,7 @@ msgstr ""
 msgid "[ zoom x%1 ]"
 msgstr "[ увеличение x%1 ]"
 
-#: Viewer/InfoBox.cpp:59
+#: Viewer/InfoBox.cpp:60
 #, kde-format
 msgid "Show the geographic position of this image on a map"
 msgstr ""
@@ -5571,10 +5699,10 @@ msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""
 
 #: Viewer/SpeedDisplay.cpp:33
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
-msgstr "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
+msgstr "<p><center><font size=\"+4\">%1&nbsp;с</font></center></p>"
 
 #: Viewer/SpeedDisplay.cpp:41
 #, kde-format
@@ -5585,16 +5713,16 @@ msgid ""
 msgstr ""
 
 #: Viewer/SpeedDisplay.cpp:61
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
-msgstr "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
+msgstr "<p><center><font size=\"+4\">Край на прожекцията</font></center></p>"
 
 #: Viewer/ViewerWidget.cpp:167
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotate..."
-msgstr "Анотация..."
+msgstr "Задаване на бележка..."
 
 #: Viewer/ViewerWidget.cpp:172
 #, kde-format
@@ -5603,34 +5731,34 @@ msgid "Set as First Image in Stack"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:183
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
-msgstr "Изнасяне и копиране на изображения..."
+msgstr "Копиране на изображение в ..."
 
 #: Viewer/ViewerWidget.cpp:188
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
-msgstr "Изнасяне и копиране на изображения..."
+msgstr "Създаване на връзка към изображение в ..."
 
 #: Viewer/ViewerWidget.cpp:196
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Затваряне"
 
 #: Viewer/ViewerWidget.cpp:252
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Завъртане"
 
 #: Viewer/ViewerWidget.cpp:263
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
-msgstr "Завъртяно по часовниковата стрелка"
+msgstr "Завъртане по часовниковата стрелка"
 
 #: Viewer/ViewerWidget.cpp:264
 #, kde-format
@@ -5639,79 +5767,79 @@ msgid "Flip Over"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:265
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
-msgstr "Завъртяно обратно на часовниковата стрелка"
+msgstr "Завъртане обратно на часовниковата стрелка"
 
 #: Viewer/ViewerWidget.cpp:272
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Пропускане"
 
 #: Viewer/ViewerWidget.cpp:275
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "Първо"
 
 #: Viewer/ViewerWidget.cpp:282
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Последно"
 
 #: Viewer/ViewerWidget.cpp:289
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
-msgstr "Показване на следво"
+msgstr "Показване на следващо"
 
 #: Viewer/ViewerWidget.cpp:295
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "Пропускане на 10 напред"
 
 #: Viewer/ViewerWidget.cpp:301
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "Пропускане на 100 напред"
 
 #: Viewer/ViewerWidget.cpp:307
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "Пропускане на 1000 напред"
 
 #: Viewer/ViewerWidget.cpp:313
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Показване на предишно"
 
 #: Viewer/ViewerWidget.cpp:319
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "Пропускане на 10 назад"
 
 #: Viewer/ViewerWidget.cpp:325
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "Пропускане на 100 назад"
 
 #: Viewer/ViewerWidget.cpp:331
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "Пропускане на 1000 назад"
 
 #: Viewer/ViewerWidget.cpp:337
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Изтриване на изображение"
@@ -5723,25 +5851,25 @@ msgid "Remove Image from Display List"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:353
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Мащаб"
 
 #: Viewer/ViewerWidget.cpp:357
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Увеличаване"
 
 #: Viewer/ViewerWidget.cpp:363
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Намаляване"
 
 #: Viewer/ViewerWidget.cpp:369
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Пълен размер"
@@ -5753,19 +5881,19 @@ msgid "Pixel for Pixel View"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:381
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Превключване на пълен екран"
 
 #: Viewer/ViewerWidget.cpp:391
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Прожекция"
 
 #: Viewer/ViewerWidget.cpp:394 Viewer/ViewerWidget.cpp:789
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Пускане на прожекция"
@@ -5777,10 +5905,10 @@ msgid "Run Faster"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:404
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
-msgstr "Пускане на прожекция"
+msgstr "По-бавно прожектиране"
 
 #: Viewer/ViewerWidget.cpp:439
 #, kde-format
@@ -5791,130 +5919,130 @@ msgstr "Файлът не е наличен"
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
-msgstr ""
+msgstr "%1 %2"
 
 #: Viewer/ViewerWidget.cpp:505
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
 msgstr "Старт"
 
 #: Viewer/ViewerWidget.cpp:507
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Пауза"
 
 #: Viewer/ViewerWidget.cpp:742
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Basically 'enter a category name'"
 msgid "<b>Setting Category: </b>"
 msgstr "<b>Задаване на категория: </b> "
 
 #: Viewer/ViewerWidget.cpp:747
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Basically 'enter a tag name'"
 msgid "<b>Assigning: </b>"
-msgstr "<b>Описание: </b> "
+msgstr "<b>Задаване: </b> "
 
 #: Viewer/ViewerWidget.cpp:795
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Спиране на прожекцията"
 
 #: Viewer/ViewerWidget.cpp:1192
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Търсене"
 
 #: Viewer/ViewerWidget.cpp:1213
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "10 минути назад"
 
 #: Viewer/ViewerWidget.cpp:1214
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "1 минута назад"
 
 #: Viewer/ViewerWidget.cpp:1215
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "10 секунди назад"
 
 #: Viewer/ViewerWidget.cpp:1216
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "1 секунда назад"
 
 #: Viewer/ViewerWidget.cpp:1217
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "100 милисекунди назад"
 
 #: Viewer/ViewerWidget.cpp:1218
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "100 милисекунди напред"
 
 #: Viewer/ViewerWidget.cpp:1219
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "1 секунда напред"
 
 #: Viewer/ViewerWidget.cpp:1220
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "10 секунди напред"
 
 #: Viewer/ViewerWidget.cpp:1221
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "1 минута напред"
 
 #: Viewer/ViewerWidget.cpp:1222
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "10 минути напред"
 
 #: Viewer/ViewerWidget.cpp:1230
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
-msgstr "Спиране"
+msgstr "Стоп"
 
 #: Viewer/ViewerWidget.cpp:1243
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
-msgstr "Създаване на умалени изображения"
+msgstr "Използване на текущия кадър в изгледа на миниатюрите"
 
 #: Viewer/ViewerWidget.cpp:1249
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
-msgstr "Презареждане"
+msgstr "Рестартиране"
 
 #: Viewer/ViewerWidget.cpp:1264
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Филтри"
 
 #: Viewer/ViewerWidget.cpp:1267
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Премахване на всички филтри"
@@ -6006,7 +6134,7 @@ msgid "Show Filename"
 msgstr "Показване име на файла"
 
 #: Viewer/VisibleOptionsMenu.cpp:61
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show Exif"
 msgstr "Показване на EXIF"
 
@@ -6016,9 +6144,9 @@ msgid "Show Image Size"
 msgstr "Показване размер на изображението"
 
 #: Viewer/VisibleOptionsMenu.cpp:71
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show Rating"
-msgstr "Показване на дата"
+msgstr "Показване на оценките"
 
 #: XMLDB/Database.cpp:48
 #, kde-format
@@ -6033,12 +6161,12 @@ msgid "Found Autosave File"
 msgstr ""
 
 #: XMLDB/Database.cpp:274 XMLDB/Database.cpp:643 XMLDB/FileReader.cpp:127
-#, fuzzy, kde-format
+#, kde-format
 msgid "Image"
 msgstr "Изображение"
 
 #: XMLDB/Database.cpp:274 XMLDB/Database.cpp:644 XMLDB/FileReader.cpp:128
-#, fuzzy, kde-format
+#, kde-format
 msgid "Video"
 msgstr "Видео"
 
@@ -6051,7 +6179,7 @@ msgstr ""
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: XMLDB/FileReader.cpp:46
 #, kde-format
@@ -6080,9 +6208,9 @@ msgid ""
 msgstr ""
 
 #: XMLDB/FileReader.cpp:186 XMLDB/FileReader.cpp:284
-#, fuzzy, kde-format
+#, kde-format
 msgid "Error in database file"
-msgstr "Преобразуване на базата от данни"
+msgstr "Грешка във файла на базата от данни"
 
 #: XMLDB/FileReader.cpp:239
 #, kde-format
@@ -6099,9 +6227,9 @@ msgid ""
 msgstr ""
 
 #: XMLDB/FileReader.cpp:247
-#, fuzzy, kde-format
+#, kde-format
 msgid "Changed standard category names"
-msgstr "Неправилна парола."
+msgstr "Променени стандартни имена на категории"
 
 #: XMLDB/FileReader.cpp:279
 #, kde-format
@@ -6164,13 +6292,13 @@ msgstr ""
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
-msgstr ""
+msgstr "%1<br/>"
 
 #: XMLDB/FileReader.cpp:459
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
-msgstr ""
+msgstr "</li>"
 
 #: XMLDB/FileReader.cpp:464
 #, kde-format
@@ -6179,11 +6307,13 @@ msgid ""
 "</ul></p><p>All affected images have also been marked with a tag "
 "<em>KPhotoAlbum - manual repair needed</em>.</p>"
 msgstr ""
+"</ul></p><p>Всички засегнати изображения също са маркирани с етикет "
+"<em>KPhotoAlbum - необходима е ръчно поправяне</em>.</p>"
 
 #: XMLDB/FileReader.cpp:468
-#, fuzzy, kde-format
+#, kde-format
 msgid "Database repair required"
-msgstr "Име на базата от данни:"
+msgstr "Необходима е поправка на базата от данни:"
 
 #: XMLDB/FileReader.cpp:491
 #, kde-format
@@ -6242,9 +6372,9 @@ msgid ""
 msgstr ""
 
 #: XMLDB/FileWriter.cpp:64 XMLDB/FileWriter.cpp:96 XMLDB/FileWriter.cpp:105
-#, fuzzy, kde-format
+#, kde-format
 msgid "Error while saving..."
-msgstr "Грешка при записване на изображението \"%1\"."
+msgstr "Грешка при запис..."
 
 #: XMLDB/FileWriter.cpp:93
 #, kde-format
@@ -6271,9 +6401,9 @@ msgid "Error Making Numbered Backup"
 msgstr ""
 
 #: XMLDB/NumberedBackup.cpp:43
-#, fuzzy, kde-format
+#, kde-format
 msgid "Error writing file %1 to zip file %2"
-msgstr "Грешка при копиране на %1 в %2"
+msgstr "Грешка при запис на файл %1 във файл zip %2"
 
 #: XMLDB/XmlReader.cpp:41
 #, kde-format
@@ -6318,9 +6448,9 @@ msgid "<p>Database path: <filename>%1</filename></p>"
 msgstr ""
 
 #: XMLDB/XmlReader.cpp:92
-#, fuzzy, kde-format
+#, kde-format
 msgid "Error while reading database file"
-msgstr "Преобразуване на базата от данни"
+msgstr "Грешка при четене от файл на базата данни"
 
 #~ msgid "Directory Exists"
 #~ msgstr "Папката съществува."

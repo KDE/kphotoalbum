@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-04 00:42+0000\n"
+"POT-Creation-Date: 2022-10-05 00:44+0000\n"
 "PO-Revision-Date: 2022-10-02 13:04+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -431,7 +431,7 @@ msgstr "Saat yönünde döndür"
 msgid "Toggle fullscreen preview"
 msgstr "Tam ekran önizlemeyi aç/kapat"
 
-#: AnnotationDialog/ImagePreview.cpp:509
+#: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
@@ -444,7 +444,7 @@ msgstr ""
 "istiyorsanız ayarlar penceresinden bunu değiştirin. Eğer bu etiketin tanıma "
 "veritabanında olmasını istemyorsanız ayarlardan silebilirsiniz.</p>"
 
-#: AnnotationDialog/ImagePreview.cpp:523
+#: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
@@ -4257,7 +4257,7 @@ msgstr ""
 msgid "Video thumbnails are not available"
 msgstr "Video küçük görselleri kullanılabilir değil"
 
-#: Map/GeoCluster.cpp:141
+#: Map/GeoCluster.cpp:137
 #, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
@@ -6102,7 +6102,7 @@ msgstr "Bu filtre için yetersiz renk derinliği"
 msgid "[ zoom x%1 ]"
 msgstr "[ yaklaş x%1 ]"
 
-#: Viewer/InfoBox.cpp:59
+#: Viewer/InfoBox.cpp:60
 #, kde-format
 msgid "Show the geographic position of this image on a map"
 msgstr "Bu görselin coğrafi konumunu haritada göster"

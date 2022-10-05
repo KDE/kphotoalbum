@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-04 00:42+0000\n"
+"POT-Creation-Date: 2022-10-05 00:44+0000\n"
 "PO-Revision-Date: 2019-01-19 19:46+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -418,7 +418,7 @@ msgstr "順時針方向旋轉"
 msgid "Toggle fullscreen preview"
 msgstr "切換全螢幕預覽"
 
-#: AnnotationDialog/ImagePreview.cpp:509
+#: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
@@ -427,7 +427,7 @@ msgid ""
 "recognition database anymore, it can be deleted in the settings.</p>"
 msgstr ""
 
-#: AnnotationDialog/ImagePreview.cpp:523
+#: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
@@ -4313,7 +4313,7 @@ msgstr ""
 msgid "Video thumbnails are not available"
 msgstr "無法使用影片縮圖"
 
-#: Map/GeoCluster.cpp:141
+#: Map/GeoCluster.cpp:137
 #, fuzzy, kde-format
 #| msgid "%1"
 msgctxt "The number of images in an area of the map"
@@ -6090,7 +6090,7 @@ msgstr "此過濾器的色彩空間不足"
 msgid "[ zoom x%1 ]"
 msgstr "【縮放 %1 倍】"
 
-#: Viewer/InfoBox.cpp:59
+#: Viewer/InfoBox.cpp:60
 #, kde-format
 msgid "Show the geographic position of this image on a map"
 msgstr ""

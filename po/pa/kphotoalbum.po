@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-04 00:42+0000\n"
+"POT-Creation-Date: 2022-10-05 00:44+0000\n"
 "PO-Revision-Date: 2010-04-16 06:52+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -400,7 +400,7 @@ msgstr "ਸੱਜੇ ਦਾਅ ਘੁੰਮਾਓ"
 msgid "Toggle fullscreen preview"
 msgstr "ਪੂਰੀ ਸਕਰੀਨ ਲਈ ਬਦਲੋ"
 
-#: AnnotationDialog/ImagePreview.cpp:509
+#: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
@@ -409,7 +409,7 @@ msgid ""
 "recognition database anymore, it can be deleted in the settings.</p>"
 msgstr ""
 
-#: AnnotationDialog/ImagePreview.cpp:523
+#: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
@@ -4038,7 +4038,7 @@ msgstr ""
 msgid "Video thumbnails are not available"
 msgstr "ਫਾਇਲ ਉਪਲੱਬਧ ਨਹੀਂ"
 
-#: Map/GeoCluster.cpp:141
+#: Map/GeoCluster.cpp:137
 #, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
@@ -5726,7 +5726,7 @@ msgstr ""
 msgid "[ zoom x%1 ]"
 msgstr "[ ਜ਼ੂਮ x%1 ]"
 
-#: Viewer/InfoBox.cpp:59
+#: Viewer/InfoBox.cpp:60
 #, kde-format
 msgid "Show the geographic position of this image on a map"
 msgstr ""

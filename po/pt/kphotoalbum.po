@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-04 00:42+0000\n"
-"PO-Revision-Date: 2022-09-30 00:06+0100\n"
+"POT-Creation-Date: 2022-10-05 00:44+0000\n"
+"PO-Revision-Date: 2022-10-04 10:26+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -455,7 +455,7 @@ msgstr "Rodar no sentido horário"
 msgid "Toggle fullscreen preview"
 msgstr "Comutar a antevisão do ecrã completo"
 
-#: AnnotationDialog/ImagePreview.cpp:509
+#: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
@@ -469,7 +469,7 @@ msgstr ""
 "estar mais na base de dados de reconhecimento, pode ser apagada na "
 "configuração.</p>"
 
-#: AnnotationDialog/ImagePreview.cpp:523
+#: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
@@ -1075,12 +1075,12 @@ msgstr "Mover os Itens"
 #: DateBar/DateBarWidget.cpp:68
 #, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "Deslocar à direita"
 
 #: DateBar/DateBarWidget.cpp:77
 #, kde-format
 msgid "Scroll left"
-msgstr ""
+msgstr "Deslocar à esquerda"
 
 #: DateBar/DateBarWidget.cpp:86
 #, kde-format
@@ -2497,10 +2497,9 @@ msgstr ""
 "Ferramenta para inspeccionar e editar a 'cache' de miniaturas do KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:49
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2021 da Equipa de Desenvolvimento do KPhotoAlbum"
+msgstr "Copyright (C) 2020-2022 da Equipa de Desenvolvimento do KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:98
 #, kde-format
@@ -2857,10 +2856,9 @@ msgid "KDE Photo Album"
 msgstr "Álbum de Fotografias do KDE"
 
 #: main.cpp:90
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2021 da Equipa de Desenvolvimento do KPhotoAlbum"
+msgstr "Copyright (C) 2003-2022 da Equipa de Desenvolvimento do KPhotoAlbum"
 
 #: main.cpp:111
 #, kde-format
@@ -4201,11 +4199,10 @@ msgid "Viewer"
 msgstr "Visualizador"
 
 #: MainWindow/Window.cpp:1317
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "Data: "
+msgstr "Barra de Datas"
 
 #: MainWindow/Window.cpp:1320
 #, kde-format
@@ -4316,7 +4313,7 @@ msgstr ""
 msgid "Video thumbnails are not available"
 msgstr "As miniaturas de vídeos não estão disponíveis"
 
-#: Map/GeoCluster.cpp:141
+#: Map/GeoCluster.cpp:137
 #, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
@@ -6195,7 +6192,7 @@ msgstr "Profundidade de cores insuficiente para este filtro"
 msgid "[ zoom x%1 ]"
 msgstr "[ ampliação x%1 ]"
 
-#: Viewer/InfoBox.cpp:59
+#: Viewer/InfoBox.cpp:60
 #, kde-format
 msgid "Show the geographic position of this image on a map"
 msgstr "Mostrar a posição geográfica desta imagem num mapa"
@@ -7049,6 +7046,3 @@ msgstr "<p>Localização da base de dados: <filename>%1</filename></p>"
 #, kde-format
 msgid "Error while reading database file"
 msgstr "Erro ao ler o ficheiro da base de dados"
-
-#~ msgid "Copyright (C) 2020 The KPhotoAlbum Development Team"
-#~ msgstr "Copyright (C) 2020 da Equipa de Desenvolvimento do KPhotoAlbum"

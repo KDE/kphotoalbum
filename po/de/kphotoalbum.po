@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-04 00:42+0000\n"
+"POT-Creation-Date: 2022-10-05 00:44+0000\n"
 "PO-Revision-Date: 2021-06-06 15:25+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -428,7 +428,7 @@ msgstr "Im Uhrzeigersinn drehen"
 msgid "Toggle fullscreen preview"
 msgstr "Vollbildvorschau umschalten"
 
-#: AnnotationDialog/ImagePreview.cpp:509
+#: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
@@ -443,7 +443,7 @@ msgstr ""
 "Erkennungsdatenbank sein soll, kann es in den Einstellungen gelöscht werden."
 "</p>"
 
-#: AnnotationDialog/ImagePreview.cpp:523
+#: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
@@ -4433,7 +4433,7 @@ msgstr ""
 msgid "Video thumbnails are not available"
 msgstr "Videovorschaubilder sind nicht verfügbar"
 
-#: Map/GeoCluster.cpp:141
+#: Map/GeoCluster.cpp:137
 #, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
@@ -6242,7 +6242,7 @@ msgstr "Unzureichende Farbtiefe für diesen Filter"
 msgid "[ zoom x%1 ]"
 msgstr "[ Zoom x%1 ]"
 
-#: Viewer/InfoBox.cpp:59
+#: Viewer/InfoBox.cpp:60
 #, kde-format
 msgid "Show the geographic position of this image on a map"
 msgstr "Zeigt die geographische Position dieses Bilds auf einer Karte"

@@ -4,6 +4,7 @@
 
 [theme]
 Name=Dark JavaScript v1.3.0
+Name[bg]=Dark JavaScript v1.3.0
 Name[ca]=JavaScript fosc v1.3.0
 Name[ca@valencia]=JavaScript fosc v1.3.0
 Name[cs]=Tmavý JavaScript v1.3.0
@@ -35,6 +36,7 @@ Author=Miika Turkia
 ThemeLicense=LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 Default=true
 Description=This theme uses JavaScript heavily to provide smooth photo gallery. Naturally images can be navigated without JavaScript support similarly as with the dark theme. The main window provides a thumbnail view with smallest image (by default) on right. The largest generated images can be viewed either with manual navigation or slide show. This theme works best with rather small images that can fully fit to the screen.
+Description[bg]=Тази тема използва активно JavaScript, за да осигури изгладена фотогалерия.Естествено изображенията могат да бъдат навигирани без поддръжка на JavaScript по подобен начинкато тъмната тема. Основният прозорец осигурява миниатюрен изглед с най-малкитеразмери на изображенията (по подразбиране) вдясно. Най-големите генерирани изображения могат да бъдат разгледаниили с ръчна навигация или с прожекция. Тази тема работи най -добре с малки изображения, които могат напълно да се поберат на екрана.
 Description[ca]=Aquest tema usa intensament el JavaScript per a proporcionar una suau galeria de fotos. Naturalment es pot navegar per les imatges sense el suport de JavaScript de manera semblant al tema fosc. La finestra principal proporciona una vista de miniatures amb les imatges més petites a la dreta (predeterminat). Les imatges generades més grans es poden veure amb la navegació manual o bé amb un passi de diapositives. Aquest tema funciona millor amb imatges bastant petites que poden encaixar completament a la pantalla.
 Description[ca@valencia]=Este tema utilitza intensament JavaScript per a proporcionar una suau galeria de fotos. Naturalment es pot navegar per les imatges sense el suport de JavaScript de manera pareixent al tema fosc. La finestra principal proporciona una vista de miniatures amb les imatges més xicotetes a la dreta (predeterminat). Les imatges generades més grans es poden veure amb la navegació manual o bé amb un passe de diapositives. Este tema funciona millor amb imatges bastant xicotetes que poden encaixar completament a la pantalla.
 Description[de]=Dieses Design verwendet JavaScript, um eine fließende Fotogalerie zu ermöglichen. Natürlich ist die Navigation der Bilder ohne JavaScript-Unterstützung ähnlich wie beim dunklen Design möglich. Das Hauptfenster bietet eine Vorschaubild-Ansicht mit dem kleinsten Bild (standardmäßig) auf der rechten Seite. Die größten erzeugten Bilder können entweder mit manueller Navigation oder Diashow betrachtet werden. Dieses Design funktioniert am besten mit eher kleinen Bildern, die vollständig auf den Bildschirm passen können.

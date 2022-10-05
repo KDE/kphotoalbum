@@ -4,6 +4,7 @@
 
 [theme]
 Name=Dark v1.0.1
+Name[bg]=Dark v1.0.1
 Name[ca]=Fosc v1.0.1
 Name[ca@valencia]=Fosc v1.0.1
 Name[cs]=Dark v1.0.1
@@ -34,6 +35,7 @@ Name[zh_TW]=Dark v1.0.1
 Author=Miika Turkia
 ThemeLicense=LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
 Description=This theme uses darkish colors and provides basic gallery quite similar to other themes in KPhotoAlbum. Possibility to navigate images with keyboard is added if JavaScript support is enabled.
+Description[bg]=Тази тема използва тъмни цветове и предоставя основна галерия, подобна на други теми в KPhotoAlbum. Възможността за навигация на изображенията с клавиатурата е добавена, ако е активирана поддръжката на JavaScript.
 Description[ca]=Aquest tema usa colors foscos i proporciona una galeria bàsica força semblant a altres temes del KPhotoAlbum. Possibilita navegar per les imatges amb el teclat si s'ha activat el suport de JavaScript.
 Description[ca@valencia]=Este tema utilitza colors foscos i proporciona una galeria bàsica força pareixent a altres temes de KPhotoAlbum. Possibilita navegar per les imatges amb el teclat si s'ha activat el suport de JavaScript.
 Description[de]=Dieses Design verwendet dunkle Farben und bietet eine einfache Galerie ähnlich wie die anderen Designs in KPhotoAlbum. Die Navigation der Bilder mit der Tastatur ist möglich, wenn die JavaScript-Unterstützung aktiviert ist.

@@ -8,6 +8,7 @@
 [Desktop Entry]
 Version=1.0
 Name=Open in RAW editor
+Name[bg]=Отваряне в редактор на RAW изображения
 Name[bs]=Otvori RAW editor
 Name[ca]=Obre en un editor RAW
 Name[ca@valencia]=Obri en un editor RAW
@@ -48,6 +49,7 @@ Name[uk]=Відкрити у редакторі цифрових негатив�
 Name[x-test]=xxOpen in RAW editorxx
 Name[zh_TW]=在 RAW 編輯器開啟
 Comment=Send RAW files to external editor on command line
+Comment[bg]=Изпращане на RAW файлове към външен редактор от командния ред
 Comment[bs]=Šalje RAW datoteke vanjskom uređivaču na komandnoj liniji
 Comment[ca]=Envia els fitxers RAW a un editor extern a través de la línia d'ordres
 Comment[ca@valencia]=Envia els fitxers RAW a un editor extern a través de la línia d'ordres

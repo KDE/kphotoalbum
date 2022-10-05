@@ -4,6 +4,7 @@
 
 [theme]
 Name=Rounded
+Name[bg]=Rounded
 Name[ca]=Arrodonit
 Name[ca@valencia]=Arredonit
 Name[cs]=Zaoblený
@@ -32,6 +33,7 @@ Name[uk]=Заокруглена
 Name[x-test]=xxRoundedxx
 Author=Teemu Rytilahti
 Description=This theme uses rounded boxes with a non-intrusive pastel pink background. Descriptions are centered below the image.
+Description[bg]=Тази тема използва заоблени полета с ненатрапчив пастелно розов фон. Описанията са центрирани под изображението.
 Description[ca]=Aquest tema usa quadres arrodonits amb un fons rosa pastís no intrusiu. Les descripcions estan centrades sota la imatge.
 Description[ca@valencia]=Este tema utilitza quadros arredonits amb un fons rosa pastís no intrusiu. Les descripcions estan centrades davall la imatge.
 Description[de]=Dieses Design verwendet abgerundete Elemente mit einem nicht-aufdringlichen pastellrosa Hintergrund. Beschreibungen werden unterhalb des Bildes zentriert.

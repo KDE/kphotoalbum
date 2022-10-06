@@ -1553,7 +1553,7 @@ msgstr "Lent"
 #: Exif/SearchDialog.cpp:107 Settings/GeneralPage.cpp:115
 #, kde-format
 msgid "Miscellaneous"
-msgstr "Miscelànea"
+msgstr "Miscel·lània"
 
 #: Exif/SearchDialog.cpp:133
 #, kde-format
@@ -2143,7 +2143,7 @@ msgstr "S'ha produït un error en crear el fitxer zip"
 #: ImportExport/Export.cpp:243
 #, kde-format
 msgid "&Cancel"
-msgstr "&Cancel·la"
+msgstr "C&ancel·la"
 
 #: ImportExport/Export.cpp:262
 #, kde-format
@@ -2727,7 +2727,7 @@ msgstr "L'índex de miniatures no és un fitxer en la versió 5!\n"
 #: kphotoalbumui.rc:33
 #, kde-format
 msgid "&View"
-msgstr "&Visualitza"
+msgstr "Vi&sualitza"
 
 #. i18n: ectx: Menu (privacy)
 #: kphotoalbumui.rc:48

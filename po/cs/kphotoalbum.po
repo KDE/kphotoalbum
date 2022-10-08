@@ -982,12 +982,12 @@ msgstr "Přesunout položky"
 #: DateBar/DateBarWidget.cpp:68
 #, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "Rolovat doprava"
 
 #: DateBar/DateBarWidget.cpp:77
 #, kde-format
 msgid "Scroll left"
-msgstr ""
+msgstr "Rolovat doleva"
 
 #: DateBar/DateBarWidget.cpp:86
 #, kde-format
@@ -2331,10 +2331,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:49
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2021 Vývojářský tým KPhotoAlbum"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:98
 #, kde-format
@@ -2678,10 +2677,9 @@ msgid "KDE Photo Album"
 msgstr "KDE Photo Album"
 
 #: main.cpp:90
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2021 Vývojářský tým KPhotoAlbum"
+msgstr ""
 
 #: main.cpp:111
 #, kde-format
@@ -3953,11 +3951,10 @@ msgid "Viewer"
 msgstr "Prohlížeč"
 
 #: MainWindow/Window.cpp:1317
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "Datum: "
+msgstr ""
 
 #: MainWindow/Window.cpp:1320
 #, kde-format
@@ -6532,6 +6529,3 @@ msgstr "<p>Cesta k databázi: <filename>%1</filename></p>"
 #, kde-format
 msgid "Error while reading database file"
 msgstr "Chyba při čtení souboru databáze"
-
-#~ msgid "Copyright (C) 2020 The KPhotoAlbum Development Team"
-#~ msgstr "Copyright (C) 2020 Vývojářský tým KPhotoAlbum"

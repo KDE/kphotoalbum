@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-05 00:44+0000\n"
-"PO-Revision-Date: 2022-01-29 13:46+0400\n"
+"PO-Revision-Date: 2022-10-05 20:32+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Generator: Lokalize 21.07.70\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -662,20 +662,18 @@ msgid "Name for the tag to be added to this tag group:"
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:754
-#, fuzzy, kde-format
-#| msgid "%1 (by %2)"
+#, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
 "'People (1-2)'"
 msgid "%1 (%2-%3)"
-msgstr "%1 (من %2)"
+msgstr "%1 (%2-%3)"
 
 #: AnnotationDialog/ListSelect.cpp:767
-#, fuzzy, kde-format
-#| msgid "%1 (by %2)"
+#, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
-msgstr "%1 (من %2)"
+msgstr "%1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:54
 #, fuzzy, kde-format
@@ -685,20 +683,18 @@ msgid "Remove area"
 msgstr "أحذف العلام"
 
 #: AnnotationDialog/ResizableFrame.cpp:309
-#, fuzzy, kde-format
-#| msgid "%1 to %2  %3"
+#, kde-format
 msgctxt ""
 "%1 is a prefix like 'Associate with', %2 is the tag name and %3 is the tag's "
 "category"
 msgid "%1 %2 (%3)"
-msgstr "%1 إلى %2  %3"
+msgstr "%1 %2 (%3)"
 
 #: AnnotationDialog/ResizableFrame.cpp:313
-#, fuzzy, kde-format
-#| msgid "%1 (by %2)"
+#, kde-format
 msgctxt "%1 is the tag name and %2 is the tag's category"
 msgid "%1 (%2)"
-msgstr "%1 (من %2)"
+msgstr "%1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:354
 #, kde-format
@@ -1549,7 +1545,7 @@ msgstr "تعيينات الــ Iso"
 #, kde-format
 msgctxt "Example 1.6 secs (as in seconds)"
 msgid "secs."
-msgstr ""
+msgstr "ثا"
 
 #: Exif/SearchDialog.cpp:177
 #, kde-format

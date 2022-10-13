@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-05 00:44+0000\n"
-"PO-Revision-Date: 2022-09-10 19:59+0200\n"
+"PO-Revision-Date: 2022-10-06 18:55+0200\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -1047,12 +1047,12 @@ msgstr "Sposta elementi"
 #: DateBar/DateBarWidget.cpp:68
 #, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "Scorri a destra"
 
 #: DateBar/DateBarWidget.cpp:77
 #, kde-format
 msgid "Scroll left"
-msgstr ""
+msgstr "Scorri a sinistra"
 
 #: DateBar/DateBarWidget.cpp:86
 #, kde-format
@@ -2465,10 +2465,9 @@ msgstr ""
 "KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:49
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2021 La squadra di sviluppo di KPhotoAlbum"
+msgstr "Copyright (C) 2020-2022 La squadra di sviluppo di KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:98
 #, kde-format
@@ -2824,10 +2823,9 @@ msgid "KDE Photo Album"
 msgstr "Album fotografico di KDE"
 
 #: main.cpp:90
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2021 La squadra di sviluppo di KPhotoAlbum"
+msgstr "Copyright (C) 2003-2022 La squadra di sviluppo di KPhotoAlbum"
 
 #: main.cpp:111
 #, kde-format
@@ -3950,12 +3948,12 @@ msgstr "Sblocca"
 #: MainWindow/Window.cpp:870
 #, kde-format
 msgid "Lock Away All Other Items"
-msgstr "Metti via tutte gli altri elementi"
+msgstr "Metti via tutti gli altri elementi"
 
 #: MainWindow/Window.cpp:873
 #, kde-format
 msgid "Lock Away Current Set of Items"
-msgstr "Metti via l'insieme corrente di elementi"
+msgstr "Metti via l'insieme attuale di elementi"
 
 #: MainWindow/Window.cpp:876
 #, kde-format
@@ -3983,16 +3981,14 @@ msgid "Show Tooltips in Thumbnails Window"
 msgstr "Mostra suggerimenti nella finestra delle miniature"
 
 #: MainWindow/Window.cpp:911
-#, fuzzy, kde-format
-#| msgid "Show Tooltips in Thumbnails Window"
+#, kde-format
 msgid "Show Labels in Thumbnails Window"
-msgstr "Mostra suggerimenti nella finestra delle miniature"
+msgstr "Mostra etichette nella finestra delle miniature"
 
 #: MainWindow/Window.cpp:921
-#, fuzzy, kde-format
-#| msgid "Show Tooltips in Thumbnails Window"
+#, kde-format
 msgid "Show Categories in Thumbnails Window"
-msgstr "Mostra suggerimenti nella finestra delle miniature"
+msgstr "Mostra categorie nella finestra delle miniature"
 
 #: MainWindow/Window.cpp:935
 #, kde-format
@@ -4170,11 +4166,10 @@ msgid "Viewer"
 msgstr "Visore"
 
 #: MainWindow/Window.cpp:1317
-#, fuzzy, kde-format
-#| msgid "Date Search"
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "Ricerca per data"
+msgstr "Barra della data"
 
 #: MainWindow/Window.cpp:1320
 #, kde-format

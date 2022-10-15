@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-09-27 00:42+0000\n"
+"POT-Creation-Date: 2022-10-05 00:44+0000\n"
 "PO-Revision-Date: 2007-09-11 22:44+0200\n"
 "Last-Translator: Northern Sami translation team <i18n-sme@lister.ping.uio."
 "no>\n"
@@ -34,17 +34,17 @@ msgstr ""
 msgid "Tag is already used for another area"
 msgstr ""
 
-#: AnnotationDialog/DateEdit.cpp:69
+#: AnnotationDialog/DateEdit.cpp:70
 #, kde-format
 msgid "tomorrow"
 msgstr ""
 
-#: AnnotationDialog/DateEdit.cpp:70
+#: AnnotationDialog/DateEdit.cpp:71
 #, kde-format
 msgid "today"
 msgstr ""
 
-#: AnnotationDialog/DateEdit.cpp:71
+#: AnnotationDialog/DateEdit.cpp:72
 #, kde-format
 msgid "yesterday"
 msgstr ""
@@ -370,7 +370,7 @@ msgid "OK dialog"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1315 AnnotationDialog/ListSelect.cpp:354
-#: Settings/CategoryPage.cpp:70
+#: Settings/CategoryPage.cpp:69
 #, kde-format
 msgid "Delete"
 msgstr ""
@@ -395,7 +395,7 @@ msgstr ""
 msgid "Toggle fullscreen preview"
 msgstr ""
 
-#: AnnotationDialog/ImagePreview.cpp:509
+#: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
@@ -404,7 +404,7 @@ msgid ""
 "recognition database anymore, it can be deleted in the settings.</p>"
 msgstr ""
 
-#: AnnotationDialog/ImagePreview.cpp:523
+#: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
@@ -714,22 +714,22 @@ msgstr ""
 msgid "Extracting Thumbnail"
 msgstr ""
 
-#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:35
+#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:34
 #, kde-format
 msgid "Extract Video Thumbnail"
 msgstr ""
 
-#: BackgroundJobs/ReadVideoLengthJob.cpp:31
+#: BackgroundJobs/ReadVideoLengthJob.cpp:30
 #, kde-format
 msgid "Read Video Length"
 msgstr ""
 
-#: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:47
+#: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
 msgid "Search for videos without length information"
 msgstr ""
 
-#: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:52
+#: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:51
 #, kde-format
 msgid "Searching for videos without video thumbnails"
 msgstr ""
@@ -739,25 +739,25 @@ msgstr ""
 msgid "Not Started"
 msgstr ""
 
-#: BackgroundTaskManager/JobModel.cpp:94
+#: BackgroundTaskManager/JobModel.cpp:93
 #, kde-format
 msgctxt "@title:column Background job id"
 msgid "ID"
 msgstr ""
 
-#: BackgroundTaskManager/JobModel.cpp:96
+#: BackgroundTaskManager/JobModel.cpp:95
 #, kde-format
 msgctxt "@title:column Background job title"
 msgid "Title"
 msgstr ""
 
-#: BackgroundTaskManager/JobModel.cpp:98
+#: BackgroundTaskManager/JobModel.cpp:97
 #, kde-format
 msgctxt "@title:column Additional information on background job"
 msgid "Details"
 msgstr ""
 
-#: BackgroundTaskManager/JobModel.cpp:100
+#: BackgroundTaskManager/JobModel.cpp:99
 #, kde-format
 msgctxt "@title:column Elapsed time"
 msgid "Elapsed"
@@ -893,7 +893,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1704
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1705
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -903,7 +903,7 @@ msgid ""
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1711
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1712
 #, kde-format
 msgid "Feature has not been configured"
 msgstr ""
@@ -955,23 +955,33 @@ msgstr[1] ""
 msgid "Move Items"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:74
+#: DateBar/DateBarWidget.cpp:68
+#, kde-format
+msgid "Scroll right"
+msgstr ""
+
+#: DateBar/DateBarWidget.cpp:77
+#, kde-format
+msgid "Scroll left"
+msgstr ""
+
+#: DateBar/DateBarWidget.cpp:86
 #, kde-format
 msgid "Zoom in"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:81
+#: DateBar/DateBarWidget.cpp:97
 #, kde-format
 msgid "Zoom out"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:90
+#: DateBar/DateBarWidget.cpp:109
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:98
+#: DateBar/DateBarWidget.cpp:122
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -982,17 +992,17 @@ msgid ""
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:600
+#: DateBar/DateBarWidget.cpp:645
 #, kde-format
 msgid "Show Ranges"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:606
+#: DateBar/DateBarWidget.cpp:651
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:731
+#: DateBar/DateBarWidget.cpp:776
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1000,7 +1010,7 @@ msgid_plural "%1 exact"
 msgstr[0] ""
 msgstr[1] ""
 
-#: DateBar/DateBarWidget.cpp:732
+#: DateBar/DateBarWidget.cpp:777
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1010,7 +1020,7 @@ msgid_plural " + %1 ranges"
 msgstr[0] ""
 msgstr[1] ""
 
-#: DateBar/DateBarWidget.cpp:733
+#: DateBar/DateBarWidget.cpp:778
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1018,7 +1028,7 @@ msgid_plural " = %1 total"
 msgstr[0] ""
 msgstr[1] ""
 
-#: DateBar/DateBarWidget.cpp:735
+#: DateBar/DateBarWidget.cpp:780
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
@@ -1026,7 +1036,7 @@ msgid_plural "%1 images/videos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: DateBar/DateBarWidget.cpp:737
+#: DateBar/DateBarWidget.cpp:782
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
@@ -1093,73 +1103,73 @@ msgstr ""
 msgid "Error Saving Image"
 msgstr ""
 
-#: DB/ImageDate.cpp:384
+#: DB/ImageDate.cpp:357
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jan"
 msgstr ""
 
-#: DB/ImageDate.cpp:384
+#: DB/ImageDate.cpp:357
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "feb"
 msgstr ""
 
-#: DB/ImageDate.cpp:385
+#: DB/ImageDate.cpp:358
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "mar"
 msgstr ""
 
-#: DB/ImageDate.cpp:385
+#: DB/ImageDate.cpp:358
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "apr"
 msgstr ""
 
-#: DB/ImageDate.cpp:386
+#: DB/ImageDate.cpp:359
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "may"
 msgstr ""
 
-#: DB/ImageDate.cpp:386
+#: DB/ImageDate.cpp:359
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jun"
 msgstr ""
 
-#: DB/ImageDate.cpp:387
+#: DB/ImageDate.cpp:360
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jul"
 msgstr ""
 
-#: DB/ImageDate.cpp:387
+#: DB/ImageDate.cpp:360
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "aug"
 msgstr ""
 
-#: DB/ImageDate.cpp:388
+#: DB/ImageDate.cpp:361
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "sep"
 msgstr ""
 
-#: DB/ImageDate.cpp:388
+#: DB/ImageDate.cpp:361
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "oct"
 msgstr ""
 
-#: DB/ImageDate.cpp:389
+#: DB/ImageDate.cpp:362
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "nov"
 msgstr ""
 
-#: DB/ImageDate.cpp:389
+#: DB/ImageDate.cpp:362
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "dec"
@@ -1221,30 +1231,30 @@ msgstr ""
 msgid "Following files could not be read:"
 msgstr ""
 
-#: Exif/InfoDialog.cpp:32
+#: Exif/InfoDialog.cpp:33
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
 msgstr ""
 
-#: Exif/InfoDialog.cpp:72
+#: Exif/InfoDialog.cpp:73
 #, kde-format
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
 msgstr ""
 
-#: Exif/InfoDialog.cpp:76
+#: Exif/InfoDialog.cpp:77
 #, kde-format
 msgid "IPTC character set:"
 msgstr ""
 
-#: Exif/InfoDialog.cpp:94
+#: Exif/InfoDialog.cpp:95
 #, kde-format
 msgid "Exif info"
 msgstr ""
 
-#: Exif/InfoDialog.cpp:95
+#: Exif/InfoDialog.cpp:96
 #, kde-format
 msgid "File metadata"
 msgstr ""
@@ -1510,52 +1520,52 @@ msgstr ""
 msgid "Error copying %1 to %2"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:473
+#: HTMLGenerator/Generator.cpp:465
 #, kde-format
 msgid "<a href=\"%1\">prev</a>"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:475 HTMLGenerator/Generator.cpp:483
+#: HTMLGenerator/Generator.cpp:467 HTMLGenerator/Generator.cpp:475
 #, kde-format
 msgid "prev"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:487
+#: HTMLGenerator/Generator.cpp:479
 #, kde-format
 msgid "<a href=\"index-%1.html\">index</a>"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:496
+#: HTMLGenerator/Generator.cpp:488
 #, kde-format
 msgid "<a href=\"%1\">next</a>"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:498 HTMLGenerator/Generator.cpp:505
+#: HTMLGenerator/Generator.cpp:490 HTMLGenerator/Generator.cpp:497
 #, kde-format
 msgid "next"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:651
+#: HTMLGenerator/Generator.cpp:643
 #, kde-format
 msgid "Could not create file '%1'."
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:652
+#: HTMLGenerator/Generator.cpp:644
 #, kde-format
 msgid "Could Not Create File"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:671
+#: HTMLGenerator/Generator.cpp:663
 #, kde-format
 msgid "<p>Unable to copy %1 to %2</p>"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:705
+#: HTMLGenerator/Generator.cpp:697
 #, kde-format
 msgid "Unable to write image '%1'."
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:779 HTMLGenerator/HTMLDialog.cpp:146
+#: HTMLGenerator/Generator.cpp:771 HTMLGenerator/HTMLDialog.cpp:146
 #, kde-format
 msgid "Date"
 msgstr ""
@@ -1626,7 +1636,7 @@ msgstr ""
 msgid "Layout"
 msgstr ""
 
-#: HTMLGenerator/HTMLDialog.cpp:185 Settings/CategoryPage.cpp:126
+#: HTMLGenerator/HTMLDialog.cpp:185 Settings/CategoryPage.cpp:125
 #, kde-format
 msgid "Thumbnail size:"
 msgstr ""
@@ -1831,7 +1841,7 @@ msgstr "Amas meattáhus"
 msgid "<p>Error when extracting video thumbnails.<br/>Error was: %1</p>"
 msgstr ""
 
-#: ImageManager/ExtractOneVideoFrame.cpp:141
+#: ImageManager/ExtractOneVideoFrame.cpp:137
 #, kde-format
 msgid ""
 "Unable to extract video thumbnails from some files. Either the file is "
@@ -2094,17 +2104,17 @@ msgstr ""
 msgid "Match Categories"
 msgstr ""
 
-#: ImportExport/ImportDialog.cpp:300
+#: ImportExport/ImportDialog.cpp:296
 #, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr ""
 
-#: ImportExport/ImportDialog.cpp:304
+#: ImportExport/ImportDialog.cpp:300
 #, kde-format
 msgid "Error creating folder %1"
 msgstr ""
 
-#: ImportExport/ImportDialog.cpp:385
+#: ImportExport/ImportDialog.cpp:381
 #, kde-format
 msgid "How to resolve clashes"
 msgstr ""
@@ -2252,7 +2262,7 @@ msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:49
 #, kde-format
-msgid "Copyright (C) 2020 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:98
@@ -2514,7 +2524,7 @@ msgstr ""
 msgid "Main Toolbar"
 msgstr ""
 
-#: lib/kpabase/SettingsData.cpp:228
+#: lib/kpabase/SettingsData.cpp:223
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -2525,17 +2535,17 @@ msgid ""
 "on your images?"
 msgstr ""
 
-#: lib/kpabase/SettingsData.cpp:235
+#: lib/kpabase/SettingsData.cpp:230
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr ""
 
-#: lib/kpabase/SettingsData.cpp:400 XMLDB/FileReader.cpp:508
+#: lib/kpabase/SettingsData.cpp:395 XMLDB/FileReader.cpp:508
 #, kde-format
 msgid "Events"
 msgstr ""
 
-#: lib/kpabase/SettingsData.cpp:401 XMLDB/FileReader.cpp:509
+#: lib/kpabase/SettingsData.cpp:396 XMLDB/FileReader.cpp:509
 #, kde-format
 msgid "untagged"
 msgstr ""
@@ -2582,7 +2592,7 @@ msgstr ""
 
 #: main.cpp:90
 #, kde-format
-msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
 msgstr ""
 
 #: main.cpp:111
@@ -3280,7 +3290,7 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: MainWindow/StatusBar.cpp:103
+#: MainWindow/StatusBar.cpp:104
 #, kde-format
 msgid "Thumbnail settings..."
 msgstr ""
@@ -3440,13 +3450,13 @@ msgid "Unknown error, stack creation failed."
 msgstr ""
 
 #: MainWindow/Window.cpp:451 MainWindow/Window.cpp:577
-#: MainWindow/Window.cpp:1266 MainWindow/Window.cpp:1362
+#: MainWindow/Window.cpp:1266 MainWindow/Window.cpp:1363
 #, kde-format
 msgid "No item is selected."
 msgstr ""
 
 #: MainWindow/Window.cpp:451 MainWindow/Window.cpp:577
-#: MainWindow/Window.cpp:1266 MainWindow/Window.cpp:1363
+#: MainWindow/Window.cpp:1266 MainWindow/Window.cpp:1364
 #, kde-format
 msgid "No Selection"
 msgstr ""
@@ -3789,34 +3799,40 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1315 Settings/SettingsDialog.cpp:47
+#: MainWindow/Window.cpp:1315 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr ""
 
-#: MainWindow/Window.cpp:1316 Settings/SettingsDialog.cpp:53
+#: MainWindow/Window.cpp:1316 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr ""
 
-#: MainWindow/Window.cpp:1319
+#: MainWindow/Window.cpp:1317
+#, kde-format
+msgctxt "I.e. the timeline histogram widget"
+msgid "Date Bar"
+msgstr ""
+
+#: MainWindow/Window.cpp:1320
 #, kde-format
 msgid "Annotation Dialog"
 msgstr ""
 
-#: MainWindow/Window.cpp:1320 Settings/SettingsDialog.cpp:49
+#: MainWindow/Window.cpp:1321 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr ""
 
-#: MainWindow/Window.cpp:1465
+#: MainWindow/Window.cpp:1466
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
 "show-again check box?</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1475
+#: MainWindow/Window.cpp:1476
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -3827,60 +3843,60 @@ msgid ""
 "on due to the missing make install.</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1475
+#: MainWindow/Window.cpp:1476
 #, kde-format
 msgid "Internal Error"
 msgstr ""
 
-#: MainWindow/Window.cpp:1486
+#: MainWindow/Window.cpp:1487
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1489
+#: MainWindow/Window.cpp:1490
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1494
+#: MainWindow/Window.cpp:1495
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1557
+#: MainWindow/Window.cpp:1558
 #, kde-format
 msgid "Open List of Files"
 msgstr ""
 
-#: MainWindow/Window.cpp:1558
+#: MainWindow/Window.cpp:1559
 #, kde-format
 msgid ""
 "You can open a set of files from KPhotoAlbum's image root by listing the "
 "files here."
 msgstr ""
 
-#: MainWindow/Window.cpp:1571
+#: MainWindow/Window.cpp:1572
 #, kde-format
 msgid "No images matching your input were found."
 msgstr ""
 
-#: MainWindow/Window.cpp:1571
+#: MainWindow/Window.cpp:1572
 #, kde-format
 msgid "No Matches"
 msgstr ""
 
-#: MainWindow/Window.cpp:1728
+#: MainWindow/Window.cpp:1729
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr ""
 
-#: MainWindow/Window.cpp:1755
+#: MainWindow/Window.cpp:1756
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr ""
 
-#: MainWindow/Window.cpp:1808
+#: MainWindow/Window.cpp:1809
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -3888,7 +3904,7 @@ msgid ""
 "the ffmpeg package</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1811
+#: MainWindow/Window.cpp:1812
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr ""
@@ -3899,78 +3915,78 @@ msgctxt "The number of images in an area of the map"
 msgid "%1"
 msgstr ""
 
-#: Map/MapView.cpp:169
+#: Map/MapView.cpp:170
 #, kde-format
 msgid "Save the current map settings"
 msgstr ""
 
-#: Map/MapView.cpp:176
+#: Map/MapView.cpp:177
 #, kde-format
 msgid "Go to last map position"
 msgstr ""
 
-#: Map/MapView.cpp:183
+#: Map/MapView.cpp:184
 #, kde-format
 msgid "Show thumbnails"
 msgstr ""
 
-#: Map/MapView.cpp:192
+#: Map/MapView.cpp:193
 #, kde-format
 msgctxt "@action to group, as in aggregate thumbnails into clusters"
 msgid "Group adjacent thumbnails into clickable clusters"
 msgstr ""
 
-#: Map/MapView.cpp:204
+#: Map/MapView.cpp:205
 #, kde-format
 msgctxt ""
 "@action Decrease size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Decrease marker size"
 msgstr ""
 
-#: Map/MapView.cpp:211
+#: Map/MapView.cpp:212
 #, kde-format
 msgctxt ""
 "@action Increase size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Increase marker size"
 msgstr ""
 
-#: Map/MapView.cpp:361
+#: Map/MapView.cpp:362
 #, kde-format
 msgid "Map view"
 msgstr ""
 
-#: Map/MapView.cpp:361
+#: Map/MapView.cpp:362
 #, kde-format
 msgid "Settings saved!"
 msgstr ""
 
-#: Map/MapView.cpp:388
+#: Map/MapView.cpp:389
 #, kde-format
 msgid "<i>Loading coordinates from the images ...</i>"
 msgstr ""
 
-#: Map/MapView.cpp:404
+#: Map/MapView.cpp:405
 #, kde-format
 msgid "<i>This image does not contain geographic coordinates.</i>"
 msgstr ""
 
-#: Map/MapView.cpp:412
+#: Map/MapView.cpp:413
 #, kde-format
 msgid ""
 "<i>Some of the selected images do not contain geographic coordinates.</i>"
 msgstr ""
 
-#: Map/MapView.cpp:422
+#: Map/MapView.cpp:423
 #, kde-format
 msgid "<i>Search for geographic coordinates.</i>"
 msgstr ""
 
-#: Map/MapView.cpp:430
+#: Map/MapView.cpp:431
 #, kde-format
 msgid "<i>None of the selected images contain geographic coordinates.</i>"
 msgstr ""
 
-#: Plugins/PurposeMenu.cpp:38
+#: Plugins/PurposeMenu.cpp:37
 #, kde-format
 msgid "Share"
 msgstr ""
@@ -3992,24 +4008,24 @@ msgstr ""
 msgid "Android device address: "
 msgstr ""
 
-#: RemoteControl/Server.cpp:33
+#: RemoteControl/Server.cpp:32
 #, kde-format
 msgid "Unable to bind to socket"
 msgstr ""
 
-#: RemoteControl/Server.cpp:34
+#: RemoteControl/Server.cpp:33
 #, kde-format
 msgid ""
 "Unable to listen for remote Android connections. This is likely because you "
 "have another KPhotoAlbum application running."
 msgstr ""
 
-#: RemoteControl/Server.cpp:68
+#: RemoteControl/Server.cpp:67
 #, kde-format
 msgid "Invalid Version"
 msgstr ""
 
-#: RemoteControl/Server.cpp:69
+#: RemoteControl/Server.cpp:68
 #, kde-format
 msgid ""
 "Version mismatch between Remote Client and KPhotoAlbum on the desktop.\n"
@@ -4065,64 +4081,64 @@ msgstr ""
 msgid "<i>Select an item on the left to edit the birthday</i>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:45
+#: Settings/CategoryPage.cpp:44
 #, kde-format
 msgid "Category Settings"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:66
+#: Settings/CategoryPage.cpp:65
 #, kde-format
 msgid "New"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:74
+#: Settings/CategoryPage.cpp:73
 #, kde-format
 msgid "Rename"
 msgstr "Rievdat nama"
 
-#: Settings/CategoryPage.cpp:107
+#: Settings/CategoryPage.cpp:106
 #, kde-format
 msgid "Positionable tags:"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:109
+#: Settings/CategoryPage.cpp:108
 #, kde-format
 msgid ""
 "Tags in this category can be\n"
 "associated with areas within images"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:116
+#: Settings/CategoryPage.cpp:115
 #, kde-format
 msgid "Icon:"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:136
+#: Settings/CategoryPage.cpp:135
 #, kde-format
 msgid "Preferred view:"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:141
+#: Settings/CategoryPage.cpp:140
 #, kde-format
 msgid "List View"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:142
+#: Settings/CategoryPage.cpp:141
 #, kde-format
 msgid "List View with Custom Thumbnails"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:143
+#: Settings/CategoryPage.cpp:142
 #, kde-format
 msgid "Icon View"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:144
+#: Settings/CategoryPage.cpp:143
 #, kde-format
 msgid "Icon View with Custom Thumbnails"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:154
+#: Settings/CategoryPage.cpp:153
 #, kde-format
 msgid ""
 "<font color='red'>The database has unsaved changes. As long as those are not "
@@ -4130,36 +4146,36 @@ msgid ""
 "added.</font>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:162
+#: Settings/CategoryPage.cpp:161
 #, kde-format
 msgid "Save the DB now"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:202
+#: Settings/CategoryPage.cpp:201
 #, kde-format
 msgid "Settings for category <b>%1</b>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:205
+#: Settings/CategoryPage.cpp:204
 #, kde-format
 msgid "<i>Pending change: rename to \"%1\"</i>"
 msgstr ""
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: Settings/CategoryPage.cpp:252 ThumbnailView/CellGeometry.cpp:93
-#: ThumbnailView/ThumbnailModel.cpp:349 XMLDB/FileReader.cpp:75
+#: Settings/CategoryPage.cpp:251 ThumbnailView/CellGeometry.cpp:93
+#: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:254 ThumbnailView/ThumbnailModel.cpp:349
+#: Settings/CategoryPage.cpp:253 ThumbnailView/ThumbnailModel.cpp:350
 #: XMLDB/Database.cpp:273 XMLDB/Database.cpp:642 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:259
+#: Settings/CategoryPage.cpp:258
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>\"%2\" is a "
@@ -4167,19 +4183,19 @@ msgid ""
 "category.</p>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:263 Settings/CategoryPage.cpp:274
+#: Settings/CategoryPage.cpp:262 Settings/CategoryPage.cpp:273
 #, kde-format
 msgid "Invalid category name"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:271
+#: Settings/CategoryPage.cpp:270
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>A category with "
 "this name already exists.</p>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:288
+#: Settings/CategoryPage.cpp:287
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>There's a "
@@ -4187,29 +4203,29 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:292
+#: Settings/CategoryPage.cpp:291
 #, kde-format
 msgid "Unsaved pending renaming action"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:324
+#: Settings/CategoryPage.cpp:323
 #, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be deleted!</p>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:363
+#: Settings/CategoryPage.cpp:362
 #, kde-format
 msgid "New category"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:396
+#: Settings/CategoryPage.cpp:395
 #, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:511
+#: Settings/CategoryPage.cpp:510
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
 msgstr ""
@@ -4713,37 +4729,37 @@ msgid ""
 "comment, including all whitespace.</p>"
 msgstr ""
 
-#: Settings/SettingsDialog.cpp:48
+#: Settings/SettingsDialog.cpp:47
 #, kde-format
 msgid "File Searching & Versions"
 msgstr ""
 
-#: Settings/SettingsDialog.cpp:50
+#: Settings/SettingsDialog.cpp:49
 #, kde-format
 msgid "Categories"
 msgstr ""
 
-#: Settings/SettingsDialog.cpp:51
+#: Settings/SettingsDialog.cpp:50
 #, kde-format
 msgid "Birthdays"
 msgstr "Riegadanbeaivi"
 
-#: Settings/SettingsDialog.cpp:52
+#: Settings/SettingsDialog.cpp:51
 #, kde-format
 msgid "Tag Groups"
 msgstr ""
 
-#: Settings/SettingsDialog.cpp:54
+#: Settings/SettingsDialog.cpp:53
 #, kde-format
 msgid "Exif/IPTC Information"
 msgstr ""
 
-#: Settings/SettingsDialog.cpp:55
+#: Settings/SettingsDialog.cpp:54
 #, kde-format
 msgid "Database Backend"
 msgstr ""
 
-#: Settings/SettingsDialog.cpp:75
+#: Settings/SettingsDialog.cpp:74
 #, kde-format
 msgctxt "@title:window"
 msgid "Settings"
@@ -5264,38 +5280,38 @@ msgctxt ""
 msgid "video"
 msgstr ""
 
-#: ThumbnailView/FilterWidget.cpp:16
+#: ThumbnailView/FilterWidget.cpp:15
 #, kde-format
 msgctxt "Name/title of the filter toolbar widget"
 msgid "Filter Toolbar"
 msgstr ""
 
-#: ThumbnailView/FilterWidget.cpp:22
+#: ThumbnailView/FilterWidget.cpp:21
 #, kde-format
 msgctxt ""
 "The action enables/disables filtering of images in the thumbnail view."
 msgid "Toggle filter"
 msgstr ""
 
-#: ThumbnailView/FilterWidget.cpp:24
+#: ThumbnailView/FilterWidget.cpp:23
 #, kde-kuit-format
 msgid "Press <shortcut>Escape</shortcut> to clear filter."
 msgstr ""
 
-#: ThumbnailView/FilterWidget.cpp:31
+#: ThumbnailView/FilterWidget.cpp:30
 #, kde-format
 msgid "Filter view by rating: %1 star"
 msgid_plural "Filter view by rating: %1 stars"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ThumbnailView/FilterWidget.cpp:61
+#: ThumbnailView/FilterWidget.cpp:60
 #, kde-format
 msgctxt "The label gives a textual description of the active filter"
 msgid "Filter: %1"
 msgstr ""
 
-#: ThumbnailView/FilterWidget.cpp:84
+#: ThumbnailView/FilterWidget.cpp:83
 #, kde-kuit-format
 msgid ""
 "Tip: Use <shortcut>Alt+Shift+<placeholder>A-Z</placeholder></shortcut> to "
@@ -5511,18 +5527,18 @@ msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
 msgstr ""
 
-#: Viewer/ImageDisplay.cpp:355 Viewer/ImageDisplay.cpp:379
-#: Viewer/ImageDisplay.cpp:440
+#: Viewer/ImageDisplay.cpp:354 Viewer/ImageDisplay.cpp:378
+#: Viewer/ImageDisplay.cpp:439
 #, kde-format
 msgid "Insufficient color depth for this filter"
 msgstr ""
 
-#: Viewer/ImageDisplay.cpp:499
+#: Viewer/ImageDisplay.cpp:498
 #, kde-format
 msgid "[ zoom x%1 ]"
 msgstr ""
 
-#: Viewer/InfoBox.cpp:61
+#: Viewer/InfoBox.cpp:60
 #, kde-format
 msgid "Show the geographic position of this image on a map"
 msgstr ""
@@ -5532,17 +5548,17 @@ msgstr ""
 msgid "Error playing media"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:28 Viewer/QtAVDisplay.cpp:41
+#: Viewer/QtAVDisplay.cpp:31 Viewer/QtAVDisplay.cpp:44
 #, kde-format
 msgid "Failed to set up video playback"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:28
+#: Viewer/QtAVDisplay.cpp:31
 #, kde-format
 msgid "Failed to set up video playback (renderer wasn't created)"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:41
+#: Viewer/QtAVDisplay.cpp:44
 #, kde-format
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""

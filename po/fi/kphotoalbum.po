@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-05 00:44+0000\n"
-"PO-Revision-Date: 2022-04-28 18:58+0300\n"
+"PO-Revision-Date: 2022-08-19 13:04+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2013-01-13 20:43:13+0000\n"
-"X-Generator: Lokalize 20.04.2\n"
+"X-Generator: Lokalize 20.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -41,7 +41,7 @@ msgstr ""
 #: AnnotationDialog/AreaTagSelectDialog.cpp:91
 #, kde-format
 msgid "Tag is already used for another area"
-msgstr "Luokitus on jo toisen alueen käytössä"
+msgstr "Toinen alue käyttää jo luokitusta"
 
 #: AnnotationDialog/DateEdit.cpp:70
 #, kde-format
@@ -114,13 +114,13 @@ msgid ""
 "The map widget allows you to view the location of images if GPS coordinates "
 "are found in the Exif information."
 msgstr ""
-"Karttasovelmalla voit nähdä kuvan paikan, jos Exif-tiedoista löytyvät GPS-"
-"koordinaatit."
+"Karttasovelma voi näyttää kuvan sijainnin, jos GPS-koordinaatit löytyvät "
+"Exif-tiedoista."
 
 #: AnnotationDialog/Dialog.cpp:229
 #, kde-format
 msgid "Revert This Item"
-msgstr "Peru tähän kuvaan tehdyt muutokset"
+msgstr "Peru tehdyt muutokset"
 
 #: AnnotationDialog/Dialog.cpp:235
 #, kde-format
@@ -135,7 +135,7 @@ msgstr "Asetukset…"
 #: AnnotationDialog/Dialog.cpp:245
 #, kde-format
 msgid "&Done"
-msgstr "Valmis"
+msgstr "&Valmis"
 
 #: AnnotationDialog/Dialog.cpp:248
 #, kde-format
@@ -151,12 +151,12 @@ msgstr "&Etsi"
 #: AnnotationDialog/Dialog.cpp:320
 #, kde-format
 msgid "Label: "
-msgstr "Nimike: "
+msgstr "Selite: "
 
 #: AnnotationDialog/Dialog.cpp:324 ImportExport/MD5CheckPage.cpp:65
 #, kde-format
 msgid "Label"
-msgstr "Nimike"
+msgstr "Selite"
 
 #: AnnotationDialog/Dialog.cpp:333
 #, kde-format
@@ -294,7 +294,7 @@ msgstr "Lajittele aakkosjärjestykseen (puu)"
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
-msgstr "Lajittele aakkosjärjestykseen (lista)"
+msgstr "Lajittele aakkosjärjestykseen (luettelo)"
 
 #: AnnotationDialog/Dialog.cpp:891
 #, kde-format
@@ -4258,10 +4258,11 @@ msgid ""
 "continue execution, but it is not entirely unlikely that it will crash later "
 "on due to the missing make install.</p>"
 msgstr ""
-"<p>KPhotoAlbumin sisäinen virhe tapahtui (liitännäisten valikko puuttuu "
-"MainWindow::Window::setupPluginMenu:sta). Asennus on siis virheellinen ja "
-"”make install” saattaa korjata ongelman.</p><p>KPhotoAlbum jatkaa "
-"suoritustaan, mutta saattaa kaatua myöhemmin tästä johtuvaan ongelmaan.</p>"
+"<p>Tapahtui KPhotoAlbumin sisäinen virhe (liitännäisten valikko puuttuu "
+"MainWindow::Window::setupPluginMenu:sta). Asennus on siis virheellinen, ja "
+"”make install” voi korjata ongelman.</p><p>KPhotoAlbum jatkaa suoritusta, "
+"mutta saattaa myöhemmin kaatua puutteellisesta asennuksesta johtuvaan "
+"ongelmaan.</p>"
 
 #: MainWindow/Window.cpp:1476
 #, kde-format
@@ -4325,13 +4326,13 @@ msgid ""
 "not be able to display video thumbnails and video lengths. Please install "
 "the ffmpeg package</p>"
 msgstr ""
-"<p>ffmpegiä ei löydy järjestelmästä.</p><p>Ilman sitä KPhotoAlbum ei voi "
+"<p>Järjestelmästä ei löydy ffmpegiä.</p><p>Ilman sitä KPhotoAlbum ei voi "
 "näyttää videopienoiskuvia eikä videoiden kestoja. Asenna ffmpeg-paketti.</p>"
 
 #: MainWindow/Window.cpp:1812
 #, kde-format
 msgid "Video thumbnails are not available"
-msgstr "Videoiden pienoiskuvia ei ole saatavilla"
+msgstr "Videopienoiskuvia ei ole saatavilla"
 
 #: Map/GeoCluster.cpp:137
 #, kde-format
@@ -5585,10 +5586,9 @@ msgid ""
 "thumbnails. This window includes a small preview image. This option "
 "configures the image size.</p>"
 msgstr ""
-"<p>Jos valitset <b>Asetukset -&gt; Näytä työkaluvihjeet</b> pienoiskuvissa, "
-"näytetään pieni lisäikkuna, jossa on tietoja sen hetkisestä pienoiskuvasta. "
-"Ikkunassa näytetään esikatselukuva, jonka koko voidaan määrittää tällä "
-"valinnalla.</p>"
+"<p>Jos pienoiskuvanäkymässä on valittu <b>Asetukset → Näytä työkaluvihjeet</"
+"b>, näytetään pienoiskuvasta tietoa työkaluvihjeikkunassa. Ikkunassa on myös "
+"pieni esikatselukuva, jonka koon tämä asetus määrittää.</p>"
 
 #: Settings/ThumbnailsPage.cpp:104
 #, kde-format

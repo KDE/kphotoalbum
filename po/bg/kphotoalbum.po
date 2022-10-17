@@ -6451,6 +6451,3 @@ msgstr ""
 #, kde-format
 msgid "Error while reading database file"
 msgstr "Грешка при четене от файл на базата данни"
-
-#~ msgid "Directory Exists"
-#~ msgstr "Папката съществува."

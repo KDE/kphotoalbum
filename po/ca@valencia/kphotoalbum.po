@@ -2276,7 +2276,7 @@ msgstr "Desselecciona-ho tot"
 #: ImportExport/ImportDialog.cpp:188
 #, kde-format
 msgid "Select Which Images to Import"
-msgstr "Seleccioneu les imatges que s'importaran"
+msgstr "Seleccioneu les imatges que s'han d'importar"
 
 #: ImportExport/ImportDialog.cpp:200
 #, kde-format
@@ -3385,7 +3385,7 @@ msgstr "Busca imatges i vídeos on falten les dates"
 #: MainWindow/InvalidDateFinder.cpp:40
 #, kde-format
 msgid "Which Images and Videos to Display"
-msgstr "Imatges i vídeos a mostrar"
+msgstr "Imatges i vídeos que s'han de mostrar"
 
 #: MainWindow/InvalidDateFinder.cpp:44
 #, kde-format
@@ -3637,7 +3637,8 @@ msgstr "Supressió de símbols"
 #: MainWindow/TokenEditor.cpp:35
 #, kde-format
 msgid "Select tokens to remove from all images and videos:"
-msgstr "Seleccioneu els símbols a suprimir de totes les imatges i vídeos:"
+msgstr ""
+"Seleccioneu els símbols que s'han de suprimir de totes les imatges i vídeos:"
 
 #: MainWindow/TokenEditor.cpp:54
 #, kde-format
@@ -3838,7 +3839,7 @@ msgstr "Guardant... fet"
 #: MainWindow/Window.cpp:650
 #, kde-format
 msgid "There are no images to be shown."
-msgstr "No hi ha imatges a mostrar."
+msgstr "No hi ha imatges que s'hagen de mostrar."
 
 #: MainWindow/Window.cpp:739
 #, kde-format
@@ -4674,7 +4675,7 @@ msgstr " min."
 #: Settings/DatabaseBackendPage.cpp:45
 #, kde-format
 msgid "Number of backups to keep:"
-msgstr "Nombre de còpies de seguretat a mantindre:"
+msgstr "Nombre de còpies de seguretat que s'han de mantindre:"
 
 #: Settings/DatabaseBackendPage.cpp:50
 #, kde-format
@@ -4695,8 +4696,8 @@ msgstr ""
 "<p>KPhotoAlbum és capaç de fer còpies de seguretat del fitxer index.xml "
 "mantenint còpies anomenades index.xml~1~, index.xml~2~, etc. i podeu "
 "utilitzar el botó de selecció de valors per a indicar el nombre de fitxers "
-"de còpia de seguretat a mantindre. KPhotoAlbum eliminarà els fitxers de "
-"còpia de seguretat més antics quan s'arribe al nombre màxim de fitxers de "
+"de còpia de seguretat que es mantindran. KPhotoAlbum eliminarà els fitxers "
+"de còpia de seguretat més antics quan s'arribe al nombre màxim de fitxers de "
 "còpia de seguretat.</p><p>El fitxer index.xml pot créixer considerablement "
 "si teniu moltes imatges, i en este cas és útil indicar-li a KPhotoAlbum que "
 "comprimisca els fitxers de còpia de seguretat per a conservar l'espai en el "
@@ -4720,12 +4721,12 @@ msgstr ""
 #: Settings/ExifPage.cpp:28
 #, kde-format
 msgid "Exif/IPTC info to show in the viewer"
-msgstr "Informació Exif/IPTC a mostrar en el visor"
+msgstr "Informació Exif/IPTC que s'ha de mostrar en el visor"
 
 #: Settings/ExifPage.cpp:31
 #, kde-format
 msgid "Exif/IPTC info to show in the Exif dialog"
-msgstr "Informació Exif/IPTC a mostrar en el diàleg de l'Exif"
+msgstr "Informació Exif/IPTC que s'ha de mostrar en el diàleg de l'Exif"
 
 #: Settings/ExifPage.cpp:34
 #, kde-format
@@ -4761,7 +4762,7 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:49
 #, kde-format
 msgid "Directories to exclude from new file search:"
-msgstr "Directoris a excloure de la nova busca de fitxers:"
+msgstr "Directoris que s'han d'excloure de la nova busca de fitxers:"
 
 #: Settings/FileVersionDetectionPage.cpp:56
 #, kde-format
@@ -4771,10 +4772,10 @@ msgid ""
 "KPhotoAlbum to ignore these two folder names in any folder when searching "
 "for new images.</p>"
 msgstr ""
-"<p>Especifiqueu una llista de noms de carpetes a ignorar, separats per comes."
-"</p><p>Per exemple, especificant ací «<tt>.thumbs,.thumbnails</tt>» causarà "
-"que KPhotoAlbum ignore estos dos noms de carpetes a qualsevol carpeta en "
-"buscar imatges noves.</p>"
+"<p>Especifiqueu una llista de noms de carpetes que s'ignoraran, separats per "
+"comes.</p><p>Per exemple, especificant ací «<tt>.thumbs,.thumbnails</tt>» "
+"causarà que KPhotoAlbum ignore estos dos noms de carpetes a qualsevol "
+"carpeta en buscar imatges noves.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:61
 #, kde-format
@@ -5060,7 +5061,7 @@ msgstr ""
 #, kde-format
 msgid "Number of threads to use for preloading (scouting) images"
 msgstr ""
-"Nombre de fils que s'utilitzaran per a precarregar (explorar) les imatges"
+"Nombre de fils que s'han d'utilitzar per a precarregar (explorar) les imatges"
 
 #: Settings/FileVersionDetectionPage.cpp:224
 #, kde-format
@@ -5080,8 +5081,8 @@ msgstr ""
 #, kde-format
 msgid "Number of threads to use for thumbnailPreloading (scouting) images"
 msgstr ""
-"Nombre de fils que s'utilitzaran per a «thumbnailPreloading» (explorar) les "
-"imatges"
+"Nombre de fils que s'han d'utilitzar per a «thumbnailPreloading» (explorar) "
+"les imatges"
 
 #: Settings/FileVersionDetectionPage.cpp:238
 #, kde-format

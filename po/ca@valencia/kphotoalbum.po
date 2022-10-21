@@ -4756,8 +4756,7 @@ msgstr "Omet els enllaços simbòlics en la busca d'imatges noves"
 #: Settings/FileVersionDetectionPage.cpp:45
 #, kde-format
 msgid "Do not read RAW files if a matching JPEG/TIFF file exists"
-msgstr ""
-"No lliggues els fitxers RAW si ja existix un fitxer JPEG/TIFF coincident"
+msgstr "No lliges els fitxers RAW si ja existix un fitxer JPEG/TIFF coincident"
 
 #: Settings/FileVersionDetectionPage.cpp:49
 #, kde-format

@@ -6807,12 +6807,12 @@ msgid ""
 msgstr ""
 "<p>K Fotoğraf Albümü, öntanımlı bir ayar dosyası yükleyemedi. Bu, kurulum "
 "hatası olduğunu gösterir</p><p>K Fotoğraf Albümü'nü kendiniz kurduysanız "
-"çevresel değişken <b>KDEDIRS</b>'ı en üst kurulum klasörünü gösterecek "
-"şekilde ayarlamayı unutmayın.</p><p>Configure komutunu, örneğin <tt>--"
-"prefix=/usr/local/kde</tt> ile çalıştırdıysanız aşağıdaki çevresel değişken "
-"ayarını kullanmalısınız (bu örnek Bash ve uyumlu kabuklar için geçerlidir):</"
+"çevre değişkeni <b>KDEDIRS</b>'ı en üst kurulum klasörünü gösterecek şekilde "
+"ayarlamayı unutmayın.</p><p>Configure komutunu, örneğin <tt>--prefix=/usr/"
+"local/kde</tt> ile çalıştırdıysanız aşağıdaki çevre değişkeni ayarını "
+"kullanmalısınız (bu örnek Bash ve uyumlu kabuklar için geçerlidir):</"
 "p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>Halihazırda KDEDIRS ayarlı "
-"ise <b>PATH</b> ortam değişkenini ayarladığınız yerde bu diziyi ekleyin.</p>"
+"ise <b>PATH</b> çevre değişkenini ayarladığınız yerde bu diziyi ekleyin.</p>"
 
 #: XMLDB/FileReader.cpp:499
 #, kde-format
@@ -6943,6 +6943,3 @@ msgstr "<p>Veritabanı yolu: <filename>%1</filename></p>"
 #, kde-format
 msgid "Error while reading database file"
 msgstr "Veritabanı dosyası okunurken hata"
-
-#~ msgid "Copyright (C) 2020 The KPhotoAlbum Development Team"
-#~ msgstr "Telif hakkı (C) 2020 K Fotoğraf Albümü Geliştirme Takımı"

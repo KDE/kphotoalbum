@@ -63,7 +63,7 @@ KPhotoAlbum
 +-images
 | +-image
 |   (file, label, startDate, endDate, angle, md5sum, width, height)
-|   (desctiption, stackId, stackOrder, rating, videoLength) [optional]
+|   (description, stackId, stackOrder, rating, videoLength) [optional]
 |   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
 |
 +-blocklist
@@ -84,7 +84,7 @@ KPhotoAlbum
 +-images
 | +-image
 |   (file, label, startDate, endDate, angle, md5sum, width, height)
-|   (desctiption, stackId, stackOrder, rating, videoLength) [optional]
+|   (description, stackId, stackOrder, rating, videoLength) [optional]
 |   +-options
 |     +-option(name=#Categories.Category.name#)
 |       +-value(value=#Categories.Category.value.value#)

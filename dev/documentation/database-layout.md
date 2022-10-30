@@ -1,7 +1,9 @@
 <!--
-SPDX-License-Identifier: CC-BY-SA-4.0
-SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
 SPDX-FileCopyrightText: 2014-2015, 2017-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
+SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+
+SPDX-License-Identifier: CC-BY-SA-4.0
 -->
 
 Image database overview for KPhotoAlbum {#database-layout}
@@ -40,31 +42,6 @@ Tag hierarchies are organized as DAGs (directed acyclic graphs).
 Exif information is stored in an sqlite database called `exif-info.db` in the image root folder.
 If the exif database is removed, it can be recreated from the image files.
 
-
-### Thunmbnails ###
-
-Thumbnails are stored in packed form in `.thumbnails` in the image root folder.  Thumbnails can be recreated from the image files.  The packed format is much more efficient in terms of I/O than storing the thumbnails as individual image files in the filesystem.
-
-The thumbnails themselves are stored in JPEG format, packed into 32 MB container files named `thumb-<n>`, with n starting from 0 and incrementing as needed.  The size of the JPEG images is determined by the user's configuration choice.  The choice of 32 MB is arbitrary, but it combines good I/O efficiency (many thumbnails per file and the ability to stream thumbnails efficiently) with backup efficiency (not modifying very large files constantly).  There is no header, delimiter, or descriptor for the thumbnails in the container files; they require the index described below to be of use.
-
-Additionally, an index file named `thumbnailindex` contains an index allowing KPhotoAlbum to quickly locate the thumbnail for any given file.  The thumbnailindex file is stored in binary form as implemented by QDataStream, as depicted below.  The thumbnailindex cannot be regenerated from the thumbnail containers.
-
-```
-thumbnailindex
-|
-+-Header
-| +-File version (int, currently 4)
-| +-Current file (file index of last written thumbnail) being written to (int)
-| +-Current offset into current file, in bytes (int)
-| +-Total number of thumbnails indexed (int)
-|
-+-images
-| +-image
-|   +-relative pathname (QString)
-|   +-file index (int)
-|   +-file offset (int)
-|   +-thumbnail size (int)
-```
 
 index.xml
 ---------

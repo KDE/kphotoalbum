@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-05 00:44+0000\n"
-"PO-Revision-Date: 2022-10-02 10:40+0200\n"
-"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
+"PO-Revision-Date: 2022-11-01 12:38+0200\n"
+"Last-Translator: Antoni Bella <antonibella5@yahoo.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
 "MIME-Version: 1.0\n"
@@ -370,8 +370,8 @@ msgid ""
 "\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
 msgstr ""
 "<p>Acabeu d'obrir una de les finestres més importants de KPhotoAlbum. Conté "
-"moltes funcionalitats que s'han optimitzat per a un ús ràpid.</p><p>És molt "
-"recomanable que dediqueu 5 minuts per a llegir la <a href=\"help:/"
+"moltes característiques que s'han optimitzat per a un ús ràpid.</p><p>És "
+"molt recomanable que dediqueu 5 minuts per a llegir la <a href=\"help:/"
 "kphotoalbum/chp-typingIn.html\">documentació d'este diàleg</a>.</p>"
 
 #: AnnotationDialog/Dialog.cpp:1291
@@ -664,7 +664,7 @@ msgstr "Sup&rimix"
 #: AnnotationDialog/ListSelect.cpp:447
 #, kde-format
 msgid "Rename Item"
-msgstr "Canvia el nom l'element"
+msgstr "Canvia el nom de l'element"
 
 #: AnnotationDialog/ListSelect.cpp:447
 #, kde-format
@@ -985,7 +985,7 @@ msgstr ""
 #: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1712
 #, kde-format
 msgid "Feature has not been configured"
-msgstr "Funcionalitats sense configurar"
+msgstr "Característiques sense configurar"
 
 #: CategoryListView/CheckDropItem.cpp:110
 #, kde-format
@@ -2646,8 +2646,8 @@ msgid ""
 "Note: Thumbnail storage dimensions are defined in the configuration file "
 "prior to v5.\n"
 msgstr ""
-"Nota: Abans de la versió 5, les dimensions en l'emmagatzematge de miniatures "
-"es definia en el fitxer de configuració.\n"
+"Nota: Abans de la versió 5, les dimensions a l'emmagatzematge de miniatures "
+"es definien en el fitxer de configuració.\n"
 
 #: kpa-thumbnailtool/main.cpp:124
 #, kde-format
@@ -2889,7 +2889,7 @@ msgstr "Wes Hardaker"
 #: main.cpp:114
 #, kde-format
 msgid "Some very useful features to improve workflow"
-msgstr "Algunes funcionalitats molt útils per a millorar el flux de treball"
+msgstr "Algunes característiques molt útils per a millorar el flux de treball"
 
 #: main.cpp:115
 #, kde-format
@@ -2910,7 +2910,7 @@ msgstr "Christoph Moseler"
 #, kde-format
 msgid "Numerous patches for lots of bugs plus patches for a few new features"
 msgstr ""
-"Diversos pedaços per a molts errors, més pedaços per a noves funcionalitats"
+"Diversos pedaços per a molts errors, més pedaços per a noves característiques"
 
 #: main.cpp:117
 #, kde-format
@@ -3199,7 +3199,7 @@ msgstr "Invoca un programa extern"
 #, kde-format
 msgctxt "@title:window"
 msgid "Feature Status"
-msgstr "Estat de les funcionalitats"
+msgstr "Estat de les característiques"
 
 #: MainWindow/FeatureDialog.cpp:33
 #, kde-format
@@ -3208,8 +3208,8 @@ msgid ""
 "features KPhotoAlbum has, and their status:</p>%1"
 msgstr ""
 "<h1>Vista general</h1><p>A davall podeu veure una llista de les "
-"funcionalitats (compilades i en execució) que té KPhotoAlbum, i el seu estat:"
-"</p>%1"
+"característiques (compilades i en execució) que té KPhotoAlbum, i el seu "
+"estat:</p>%1"
 
 #: MainWindow/FeatureDialog.cpp:37
 #, kde-format
@@ -3231,7 +3231,7 @@ msgid ""
 msgstr ""
 "<h1>Què puc fer si falta una funcionalitat?</h1><p>Si heu compilat "
 "KPhotoAlbum vós mateix, llavors repasseu les seccions següents com aprendre "
-"a instal·lar el que falta per a aconseguir la funcionalitat en qüestió. Per "
+"a instal·lar el que falta per a aconseguir la característica en qüestió. Per "
 "altra banda, si heu instal·lat KPhotoAlbum des d'un paquet binari, "
 "comuniqueu este defecte al qui ha construït el paquet, adjuntant la "
 "informació que seguix.</p><p>En cas que falte una funcionalitat i no heu "
@@ -3465,7 +3465,7 @@ msgstr "Escolta les connexions de xarxa."
 #: MainWindow/Options.cpp:48
 #, kde-format
 msgid "Listen for network connections on address <interface_address>."
-msgstr "Escolta les connexions de xarxa a l'adreça <adreça_interficie>."
+msgstr "Escolta les connexions de xarxa en l'adreça <adreça_interficie>."
 
 #: MainWindow/Options.cpp:49
 #, kde-format
@@ -3680,7 +3680,7 @@ msgstr "Carrega una demostració"
 #: MainWindow/WelcomeDialog.cpp:65
 #, kde-format
 msgid "Check My Feature Set"
-msgstr "Verifica les funcionalitats"
+msgstr "Verifica les característiques"
 
 #: MainWindow/WelcomeDialog.cpp:99
 #, kde-format
@@ -3734,20 +3734,20 @@ msgid ""
 "<b>KPhotoAlbum Feature Status</b> from the menus.</p>"
 msgstr ""
 "<p>No pareix que KPhotoAlbum estiga construït amb la compatibilitat de totes "
-"les seues funcionalitats. La següent és una llista que indica el què vos "
+"les seues característiques. La següent és una llista que indica el què vos "
 "podeu perdre:<ul>%1</ul></p><p>Per als detalls de com solucionar este "
 "problema, seleccioneu en els menús «<b>Ajuda</b> -> <b>Estat de les "
-"funcionalitats de KPhotoAlbum</b>».</p>"
+"característiques de KPhotoAlbum</b>».</p>"
 
 #: MainWindow/WelcomeDialog.cpp:184 MainWindow/WelcomeDialog.cpp:187
 #, kde-format
 msgid "Feature Check"
-msgstr "Comprova les funcionalitats"
+msgstr "Comprova les característiques"
 
 #: MainWindow/WelcomeDialog.cpp:186
 #, kde-format
 msgid "Congratulations: all dynamic features have been enabled."
-msgstr "Felicitats: s'han habilitat totes les funcionalitats dinàmiques."
+msgstr "Felicitats: s'han habilitat totes les característiques dinàmiques."
 
 #: MainWindow/Window.cpp:144
 #, kde-format
@@ -4090,7 +4090,7 @@ msgstr "Executa la demostració de KPhotoAlbum"
 #: MainWindow/Window.cpp:1006
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
-msgstr "Estat de les funcionalitats de KPhotoAlbum"
+msgstr "Estat de les característiques de KPhotoAlbum"
 
 #: MainWindow/Window.cpp:1009
 #, kde-format
@@ -5348,7 +5348,7 @@ msgstr "Afig un grup..."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename group \"%1\""
-msgstr "Canvia el nom el grup «%1»"
+msgstr "Canvia el nom del grup «%1»"
 
 #: Settings/TagGroupsPage.cpp:227
 #, kde-format
@@ -5436,7 +5436,7 @@ msgstr "Suprimix un grup"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename \"%1\""
-msgstr "Canvia el nom «%1»"
+msgstr "Canvia el nom de «%1»"
 
 #: Settings/TagGroupsPage.cpp:696
 #, kde-format

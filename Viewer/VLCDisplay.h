@@ -30,7 +30,7 @@ public Q_SLOTS:
     void setPosition(int newPosition);
 
     void playPause() override;
-    void stop() final;
+    void stop() final override;
     void rotate(const DB::ImageInfoPtr &info) override;
 
 protected:

@@ -16,6 +16,7 @@
 #include <DB/GroupCounter.h>
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
+#include <DB/TagInfo.h>
 #include <Utilities/VideoUtil.h>
 #include <kpabase/FileName.h>
 #include <kpabase/Logging.h>
@@ -264,6 +265,11 @@ void XMLDB::Database::forceUpdate(const DB::ImageInfoList &images)
             m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
         m_images.appendList(newImages);
     }
+}
+
+void XMLDB::Database::setUntaggedTag(DB::TagInfo *tag)
+{
+    m_untaggedTag = tag;
 }
 
 void XMLDB::Database::addImages(const DB::ImageInfoList &images,
@@ -589,6 +595,11 @@ int XMLDB::Database::fileVersion()
 {
     // File format version, bump it up every time the format for the file changes.
     return 8;
+}
+
+const DB::TagInfo *XMLDB::Database::untaggedTag() const
+{
+    return m_untaggedTag;
 }
 
 // During profiling of loading, I found that a significant amount of time was spent in Utilities::FastDateTime::fromString.

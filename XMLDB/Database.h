@@ -16,6 +16,7 @@
 #include <DB/ImageSearchInfo.h>
 #include <DB/MD5Map.h>
 #include <DB/MemberMap.h>
+#include <DB/TagInfo.h>
 #include <kpabase/FileNameList.h>
 
 #include <qdom.h>
@@ -72,6 +73,8 @@ public:
 
     static int fileVersion();
 
+    const DB::TagInfo *untaggedTag() const;
+
 protected:
     DB::ImageInfoList searchPrivate(
         const DB::ImageSearchInfo &,
@@ -95,6 +98,7 @@ private:
 
     Database(const QString &configFile, DB::UIDelegate &delegate);
     void forceUpdate(const DB::ImageInfoList &);
+    void setUntaggedTag(DB::TagInfo *tag);
 
     QString m_fileName;
     DB::ImageInfoList m_images;
@@ -103,6 +107,8 @@ private:
     XMLCategoryCollection m_categoryCollection;
     DB::MemberMap m_members;
     DB::MD5Map m_md5map;
+    DB::TagInfo *m_untaggedTag = nullptr;
+    ;
     // QMap<QString, QString> m_settings;
 
     DB::StackID m_nextStackId;

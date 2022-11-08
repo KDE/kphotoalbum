@@ -9,24 +9,31 @@
 namespace DB
 {
 
-TagInfo::TagInfo(const CategoryPtr &category, const QString &tag, QObject *parent)
-    : QObject(parent)
+TagInfo::TagInfo()
+    : QObject()
+    , m_category(nullptr)
+    , m_tag()
+{
+}
+
+TagInfo::TagInfo(Category *category, const QString &tag)
+    : QObject(category)
     , m_category(category)
     , m_tag(tag)
 {
     Q_ASSERT(category->items().contains(tag));
-    connect(m_category.data(), &DB::Category::itemRenamed, this, &DB::TagInfo::updateTagName);
-    connect(m_category.data(), &DB::Category::itemRemoved, this, &DB::TagInfo::removeTagName);
+    connect(m_category, &DB::Category::itemRenamed, this, &DB::TagInfo::updateTagName);
+    connect(m_category, &DB::Category::itemRemoved, this, &DB::TagInfo::removeTagName);
 }
 
-CategoryPtr TagInfo::category() const
+Category *TagInfo::category() const
 {
     return m_category;
 }
 
 QString TagInfo::categoryName() const
 {
-    return m_category->name();
+    return (m_category) ? m_category->name() : QString();
 }
 
 QString TagInfo::tagName() const
@@ -36,7 +43,12 @@ QString TagInfo::tagName() const
 
 bool TagInfo::isValid() const
 {
-    return m_category && !m_tag.isNull();
+    return m_category != nullptr && !m_tag.isNull();
+}
+
+bool TagInfo::isNull() const
+{
+    return m_category == nullptr && m_tag.isNull();
 }
 
 void TagInfo::updateTagName(const QString &oldName, const QString &newName)

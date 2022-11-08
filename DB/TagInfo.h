@@ -6,12 +6,12 @@
 #define DB_TAGINFO_H
 
 #include "Category.h"
-#include "CategoryPtr.h"
 
 #include <QObject>
 
 namespace DB
 {
+class Category;
 
 /**
  * @brief The TagInfo class is a convenience class to bundle category and tag into a single object.
@@ -21,21 +21,24 @@ class TagInfo : public QObject
 {
     Q_OBJECT
 public:
+    TagInfo();
     /**
      * @brief TagInfo
+     * The TagInfo is parented to the DB::Category.
+     *
      * @param category a valid category
      * @param tag a valid tag within the given category
      */
-    TagInfo(const CategoryPtr &category, const QString &tag, QObject *parent = nullptr);
+    TagInfo(Category *category, const QString &tag);
 
     /**
      * @brief category
      * @return A pointer to the DB::Category object for the tag.
      */
-    CategoryPtr category() const;
+    Category *category() const;
     /**
      * @brief categoryName is a pure convenience function.
-     * @return The category name.
+     * @return The category name, or an empty string if the TagInfo is null.
      */
     QString categoryName() const;
     /**
@@ -46,10 +49,21 @@ public:
      */
     QString tagName() const;
 
+    /**
+     * @brief isValid can be used to determine whether the TagInfo is actually usable.
+     * A valid TagInfo can become invalid if the DB::Category or the tag is deleted.
+     *
+     * @return \c true, if both category and tag have valid values, \c false otherwise.
+     */
     bool isValid() const;
+    /**
+     * @brief isNull
+     * @return \c true, if the TagInfo is default-constructed, \c false otherwise.
+     */
+    bool isNull() const;
 
 private:
-    CategoryPtr m_category;
+    Category *m_category;
     QString m_tag;
 
 private Q_SLOTS:

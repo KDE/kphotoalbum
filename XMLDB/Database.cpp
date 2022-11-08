@@ -71,6 +71,7 @@ bool XMLDB::Database::s_anyImageWithEmptySize = false;
 XMLDB::Database::Database(const QString &configFile, DB::UIDelegate &delegate)
     : ImageDB(delegate)
     , m_fileName(configFile)
+    , m_untaggedTag()
 {
     checkForBackupFile(configFile, uiDelegate());
     FileReader reader(this);
@@ -270,6 +271,10 @@ void XMLDB::Database::forceUpdate(const DB::ImageInfoList &images)
 void XMLDB::Database::setUntaggedTag(DB::TagInfo *tag)
 {
     m_untaggedTag = tag;
+    if (m_untaggedTag && m_untaggedTag->isValid()) {
+        Settings::SettingsData::instance()->setUntaggedCategory(m_untaggedTag->categoryName());
+        Settings::SettingsData::instance()->setUntaggedTag(m_untaggedTag->tagName());
+    }
 }
 
 void XMLDB::Database::addImages(const DB::ImageInfoList &images,

@@ -198,6 +198,7 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
 
             // Read values
             QStringList items;
+            QString untaggedTag;
             while (reader->readNextStartOrStopElement(valueString).isStartToken) {
                 QString value = reader->attribute(valueString);
                 if (reader->hasAttribute(idString)) {
@@ -215,6 +216,9 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
                 }
                 if (reader->hasAttribute(birthDateString))
                     cat->setBirthDate(value, QDate::fromString(reader->attribute(birthDateString), Qt::ISODate));
+                if (reader->hasAttribute(metaString) && reader->attribute(metaString) == untaggedString) {
+                    untaggedTag = value;
+                }
                 items.append(value);
                 reader->readEndElement();
             }
@@ -226,6 +230,9 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
                 items.removeDuplicates();
             }
             cat->setItems(items);
+            if (!untaggedTag.isEmpty()) {
+                m_db->setUntaggedTag(cat->itemForName(untaggedTag));
+            }
         }
     }
 

@@ -16,15 +16,16 @@
 #include <DB/ImageSearchInfo.h>
 #include <DB/MD5Map.h>
 #include <DB/MemberMap.h>
-#include <DB/TagInfo.h>
 #include <kpabase/FileNameList.h>
 
+#include <QPointer>
 #include <qdom.h>
 #include <qstringlist.h>
 
 namespace DB
 {
 class ImageInfo;
+class TagInfo;
 }
 
 namespace XMLDB
@@ -98,6 +99,12 @@ private:
 
     Database(const QString &configFile, DB::UIDelegate &delegate);
     void forceUpdate(const DB::ImageInfoList &);
+    /**
+     * @brief setUntaggedTag sets the untaggedTag for the database and also updates the corresponding settings value.
+     * @param tag
+     * @see Settings::SettingsData::untaggedTag()
+     * @see Settings::SettingsData::untaggedCategory()
+     */
     void setUntaggedTag(DB::TagInfo *tag);
 
     QString m_fileName;
@@ -107,8 +114,7 @@ private:
     XMLCategoryCollection m_categoryCollection;
     DB::MemberMap m_members;
     DB::MD5Map m_md5map;
-    DB::TagInfo *m_untaggedTag = nullptr;
-    ;
+    QPointer<DB::TagInfo> m_untaggedTag;
     // QMap<QString, QString> m_settings;
 
     DB::StackID m_nextStackId;

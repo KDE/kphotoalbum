@@ -152,6 +152,7 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
     static QString birthDateString = QString::fromUtf8("birthDate");
     static QString categoriesString = QString::fromUtf8("Categories");
     static QString categoryString = QString::fromUtf8("Category");
+    static QString untaggedString = QString::fromUtf8("mark-untagged");
 
     ElementInfo info = reader->readNextStartOrStopElement(categoriesString);
     if (!info.isStartToken)

@@ -18,6 +18,7 @@ class QPixmap;
 namespace DB
 {
 class CategoryItem;
+class TagInfo;
 
 struct CountWithRange {
     uint count = 0;
@@ -77,6 +78,14 @@ public:
     virtual QStringList items() const = 0;
     virtual QStringList itemsInclCategories() const;
     QExplicitlySharedDataPointer<CategoryItem> itemsCategories() const;
+    /**
+     * @brief itemForName returns a TagInfo for a given tag.
+     * In contrast to the usual tag representation as a QString, a TagInfo maintains a connection to the Category and is notified of tag renaming and deletion.
+     *
+     * @param item the name of the tag
+     * @return a TagInfo object for the given tag name, or a \c null TagInfo if the tag does not exist.
+     */
+    virtual DB::TagInfo *itemForName(const QString &item) = 0;
 
     QPixmap categoryImage(const QString &category, QString, int width, int height) const;
     void setCategoryImage(const QString &category, QString, const QImage &image);

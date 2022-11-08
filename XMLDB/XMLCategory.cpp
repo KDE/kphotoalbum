@@ -6,6 +6,7 @@
 
 #include <DB/ImageDB.h>
 #include <DB/MemberMap.h>
+#include <DB/TagInfo.h>
 #include <Utilities/List.h>
 
 XMLDB::XMLCategory::XMLCategory(const QString &name, const QString &icon, ViewType type, int thumbnailSize, bool show, bool positionable)
@@ -133,6 +134,15 @@ void XMLDB::XMLCategory::addItem(const QString &item)
 QStringList XMLDB::XMLCategory::items() const
 {
     return m_items;
+}
+
+DB::TagInfo *XMLDB::XMLCategory::itemForName(const QString &tag)
+{
+    if (m_items.contains(tag)) {
+        return new DB::TagInfo(this, tag);
+    } else {
+        return new DB::TagInfo();
+    }
 }
 
 int XMLDB::XMLCategory::idForName(const QString &name) const

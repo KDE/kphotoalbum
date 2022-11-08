@@ -47,6 +47,7 @@ public:
     void renameItem(const QString &oldValue, const QString &newValue) override;
     void addItem(const QString &item) override;
     QStringList items() const override;
+    DB::TagInfo *itemForName(const QString &tag) override;
     int idForName(const QString &name) const;
     void initIdMap();
     /**

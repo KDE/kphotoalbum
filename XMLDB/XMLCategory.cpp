@@ -141,7 +141,7 @@ DB::TagInfo *XMLDB::XMLCategory::itemForName(const QString &tag)
     if (m_items.contains(tag)) {
         return new DB::TagInfo(this, tag);
     } else {
-        return new DB::TagInfo();
+        return nullptr;
     }
 }
 

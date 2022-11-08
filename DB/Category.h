@@ -83,7 +83,7 @@ public:
      * In contrast to the usual tag representation as a QString, a TagInfo maintains a connection to the Category and is notified of tag renaming and deletion.
      *
      * @param item the name of the tag
-     * @return a TagInfo object for the given tag name, or a \c null TagInfo if the tag does not exist.
+     * @return a TagInfo object for the given tag name, or a \c nullptr if the tag does not exist.
      */
     virtual DB::TagInfo *itemForName(const QString &item) = 0;
 

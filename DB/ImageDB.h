@@ -17,6 +17,7 @@
 #include <kpabase/FileNameList.h>
 
 #include <QObject>
+#include <QPointer>
 #include <memory>
 
 class QProgressBar;
@@ -29,6 +30,7 @@ class Category;
 class MD5Map;
 class MemberMap;
 class FileName;
+class TagInfo;
 class UIDelegate;
 
 /**
@@ -158,6 +160,8 @@ public:
 
     Exif::Database *exifDB() const;
 
+    const DB::TagInfo *untaggedTag() const;
+
 public Q_SLOTS:
     void setDateRange(const ImageDate &, bool includeFuzzyCounts);
     void clearDateRange();
@@ -183,11 +187,19 @@ protected:
 protected Q_SLOTS:
     virtual void lockDB(bool lock, bool exclude) = 0;
     void markDirty();
+    /**
+     * @brief setUntaggedTag sets the untaggedTag for the database and also updates the corresponding settings value.
+     * @param tag
+     * @see Settings::SettingsData::untaggedTag()
+     * @see Settings::SettingsData::untaggedCategory()
+     */
+    void setUntaggedTag(DB::TagInfo *tag);
 
 private:
     static void connectSlots();
     static ImageDB *s_instance;
     DB::ImageSearchInfo m_currentScope;
+    QPointer<DB::TagInfo> m_untaggedTag;
 };
 }
 #endif /* IMAGEDB_H */

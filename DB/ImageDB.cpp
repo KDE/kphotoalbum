@@ -9,6 +9,7 @@
 #include "CategoryCollection.h"
 #include "MediaCount.h"
 #include "NewImageFinder.h"
+#include "TagInfo.h"
 
 #include <XMLDB/Database.h>
 #include <kpabase/FileName.h>
@@ -122,6 +123,7 @@ ImageDB::ImageDB(UIDelegate &delegate)
     : m_UI(delegate)
     , m_exifDB(std::make_unique<Exif::Database>(::Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("/exif-info.db"), delegate))
     , m_includeFuzzyCounts(false)
+    , m_untaggedTag()
 {
 }
 
@@ -201,6 +203,20 @@ bool ImageDB::untaggedCategoryFeatureConfigured() const
 Exif::Database *ImageDB::exifDB() const
 {
     return m_exifDB.get();
+}
+
+const DB::TagInfo *ImageDB::untaggedTag() const
+{
+    return m_untaggedTag;
+}
+
+void ImageDB::setUntaggedTag(DB::TagInfo *tag)
+{
+    m_untaggedTag = tag;
+    if (m_untaggedTag && m_untaggedTag->isValid()) {
+        Settings::SettingsData::instance()->setUntaggedCategory(m_untaggedTag->categoryName());
+        Settings::SettingsData::instance()->setUntaggedTag(m_untaggedTag->tagName());
+    }
 }
 
 /** \fn void ImageDB::renameCategory( const QString& oldName, const QString newName )

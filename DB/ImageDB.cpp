@@ -194,10 +194,7 @@ DB::FileName ImageDB::findFirstItemInRange(const DB::FileNameList &images,
 
 bool ImageDB::untaggedCategoryFeatureConfigured() const
 {
-    const auto untaggedCategory = Settings::SettingsData::instance()->untaggedCategory();
-    const auto untaggedTag = Settings::SettingsData::instance()->untaggedTag();
-    return categoryCollection()->categoryNames().contains(untaggedCategory)
-        && categoryCollection()->categoryForName(untaggedCategory)->items().contains(untaggedTag);
+    return m_untaggedTag && m_untaggedTag->isValid();
 }
 
 Exif::Database *ImageDB::exifDB() const

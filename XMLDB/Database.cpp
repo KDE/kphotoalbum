@@ -77,6 +77,23 @@ XMLDB::Database::Database(const QString &configFile, DB::UIDelegate &delegate)
     reader.read(configFile);
     m_nextStackId = reader.nextStackId();
 
+    // if reading an index.xml file version < 9, the untaggedTag is stored in the settings, not the database
+    if (!untaggedCategoryFeatureConfigured()) {
+        const auto untaggedCategory = Settings::SettingsData::instance()->untaggedCategory();
+        const auto untaggedTag = Settings::SettingsData::instance()->untaggedTag();
+        auto untaggedCategoryPtr = categoryCollection()->categoryForName(untaggedCategory);
+        if (untaggedCategoryPtr) {
+            if (!untaggedCategoryPtr->items().contains(untaggedTag)) {
+                qCInfo(XMLDBLog) << "Adding 'untagged' tag to database:" << untaggedTag;
+                untaggedCategoryPtr->addItem(untaggedTag);
+            }
+            qCInfo(XMLDBLog) << "No designated 'untagged' tag found in database. Using value configured in settings.";
+            setUntaggedTag(untaggedCategoryPtr->itemForName(untaggedTag));
+        } else {
+            qCWarning(XMLDBLog) << "No designated 'untagged' tag found in database and no viable value configured in settings.";
+        }
+    }
+
     connect(categoryCollection(), &DB::CategoryCollection::itemRemoved,
             this, &Database::deleteItem);
     connect(categoryCollection(), &DB::CategoryCollection::itemRenamed,

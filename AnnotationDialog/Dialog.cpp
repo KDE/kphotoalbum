@@ -705,10 +705,6 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
 {
     ShowHideSearch(false);
 
-    if (DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()) {
-        DB::ImageDB::instance()->categoryCollection()->categoryForName(Settings::SettingsData::instance()->untaggedCategory())->addItem(Settings::SettingsData::instance()->untaggedTag());
-    }
-
     if (oneAtATime) {
         m_setup = InputSingleImageConfigMode;
     } else {

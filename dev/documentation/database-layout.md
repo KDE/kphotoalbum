@@ -12,7 +12,7 @@ Image database overview for KPhotoAlbum {#database-layout}
 Concepts
 --------
 
-### Fuzzy Dates ###
+### Fuzzy Dates
 
 KPhotoAlbum has the concept of fuzzy dates (or date intervals), which are defined by a start date
 and an end date (both include a timestamp). This helps for photos which have been digitized from an
@@ -21,7 +21,7 @@ analog medium.
 When the exact timestamp is known, startDate equals endDate.
 
 
-### Directory structure ###
+### Directory structure
 
 All images are expected to be located below a common root folder. The root folder is the one
 containing the index.xml database file.
@@ -29,7 +29,7 @@ containing the index.xml database file.
 All file names in the index.xml file are relative to the root folder.
 
 
-### Tags ###
+### Tags
 
 Tags (sometimes called Categories in KPhotoAlbum) are arranged in multiple independent
 hierarchies, i.e. there is no common root for all tags.
@@ -37,7 +37,7 @@ hierarchies, i.e. there is no common root for all tags.
 Tag hierarchies are organized as DAGs (directed acyclic graphs).
 
 
-### Additional metadata ###
+### Additional metadata
 
 Exif information is stored in an sqlite database called `exif-info.db` in the image root folder.
 If the exif database is removed, it can be recreated from the image files.
@@ -49,7 +49,7 @@ index.xml
 Below is a visualization of the DOM-Tree of the index.xml file. Attributes are
 within parenthesis, comments in square brackets.
 
-### Version 3 ###
+### Version 3
 Used in KPA v4.4 (and in KPA v4.5, if positionable tags are not used).
 
 ```
@@ -97,7 +97,7 @@ KPhotoAlbum
 ```
 
 
-### Version 4 ###
+### Version 4
 Used in KPA v4.5.
 
 ```
@@ -147,14 +147,14 @@ KPhotoAlbum
   +-member (category,group-name,member)
 ```
 
-#### Differences to version 3 ####
+#### Differences to version 3
  * Tags can be positionable, i.e. the ```images.image.options.option.value```
    elements may have an additional attribute ```area```.
  * In the compressed format, ```images.image``` tags may have sub-elements ```options.option.value```.
    This format is used only for category values when an area attribute is present.
 
 
-### Version 5 ###
+### Version 5
 Not used in an official release.
 
 
@@ -209,16 +209,16 @@ KPhotoAlbum
   +-member (category,group-name,member)
 ```
 
-#### Differences to version 4 ####
+#### Differences to version 4
  * ```Categories.Category.value``` has an optional attribute ```birthDate```
 
 
-### Version 6 ###
+### Version 6
 Used in KPA v4.6.
 
 Same structure as version 5.
 
-#### Differences to version 5 ####
+#### Differences to version 5
  * The legacy categories Keywords, Persons and Locations are not handled special any more.
    Upon upgrade from an older version, "Persons" is renamed to "People", and "Locations"
    is renamed to "Places".
@@ -231,7 +231,7 @@ Same structure as version 5.
    superseded by storing GPS data in the EXIF database.
 
 
-### Version 7 ###
+### Version 7
 Used in KPA v4.7
 
 ```
@@ -289,7 +289,7 @@ KPhotoAlbum
   +-member (category,group-name,member)
 ```
 
-#### Differences to version 6 ####
+#### Differences to version 6
 The concept of translatable "standard" categories led to a lot of problems when users started KPA
 with different locales. Some of them simply can't be solved, so we decided to remove translatable
 category names. Now, each category is stored with it's literal name.
@@ -299,7 +299,7 @@ problems like the old "standard" categories) can be marked as such and does not 
 name anymore.
 
 
-### Version 8 ###
+### Version 8
 Used in KPA v5.4
 
 ```
@@ -357,14 +357,78 @@ KPhotoAlbum
   +-member (category,group-name,member)
 ```
 
-#### Differences to version 7 ####
+#### Differences to version 7
 
  * ```images.image.angle``` is only saved when it differs from the default angle (0)
  * ```images.image.endDate``` is only saved when it differs from the start date
  * ```images.image.label``` is only saved when it differs from the default label
 
+### Version 9
+Used in KPA v5.10
 
-### Attribute values explained ###
+```
+KPhotoAlbum
+| (version=9, compressed=1)
+|
++-Categories
+| +-Category
+|   (name, icon, show, viewtype, thumbnailsize, positionable)
+|   (meta) [optional]
+|   +-value
+|     (value, id)
+|     (birthDate) [optional]
+|     (meta) [optional]
+|
++-images
+| +-image
+|   (file, startDate, md5sum, width, height)
+|   (angle, description, endDate, label, rating, stackId, stackOrder, videoLength) [optional]
+|   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#, area="x y w h")
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+  +-member (category,group-name,members)
+```
+
+```
+KPhotoAlbum
+| (version=9, compressed=0)
+|
++-Categories
+| +-Category
+|   (name, icon, show, viewtype, thumbnailsize, positionable)
+|   (meta) [optional]
+|   +-value
+|     (value, id)
+|     (birthDate) [optional]
+|     (meta) [optional]
+|
++-images
+| +-image
+|   (file, startDate, md5sum, width, height)
+|   (angle, description, endDate, label, rating, stackId, stackOrder, videoLength) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#, area="x y w h")
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+  +-member (category,group-name,member)
+```
+
+#### Differences to version 8
+
+ * ```Categories.Category.value``` has an attribute "meta" with value "mark-untagged" for the untagged category tag.
+
+
+### Attribute values explained
 
 
  * blocklist
@@ -396,6 +460,8 @@ KPhotoAlbum
           * ```birthDate``` (since version=5 / KPA v4.6)<br/>
             Birthdate (```yyyy-mm-dd```) of a person (but allowed on all categories).
             Is used to display the age of a person on an image.
+          * ```meta``` (since version=9 / KPA v5.10)<br/>
+           Meta information that marks special tags (currently only "mark-untagged" for the tag which marks untagged images)
  * images
     - image
       + ```angle```<br/>
@@ -455,7 +521,7 @@ KPhotoAlbum
       + ```members``` (compressed format)<br/>
         Numerical tag ids, separated by comma.
 
-#### Encoding of category names ####
+#### Encoding of category names
 
 In the compressed format, category names are used as attributes to the images.
 In this context, the allowed character set is restricted by the rules for [XML attribute syntax](https://www.w3.org/TR/xml/#NT-NameStartChar),

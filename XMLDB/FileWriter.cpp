@@ -13,6 +13,7 @@
 #include "NumberedBackup.h"
 #include "XMLCategory.h"
 
+#include <DB/TagInfo.h>
 #include <Utilities/List.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
@@ -115,6 +116,7 @@ void XMLDB::FileWriter::saveCategories(QXmlStreamWriter &writer)
     ElementWriter dummy(writer, QStringLiteral("Categories"));
 
     DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
+    const DB::TagInfo *untaggedTag = DB::ImageDB::instance()->untaggedTag();
     for (QString name : categories) {
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(name);
 
@@ -145,6 +147,9 @@ void XMLDB::FileWriter::saveCategories(QXmlStreamWriter &writer)
             QDate birthDate = category->birthDate(tagName);
             if (!birthDate.isNull())
                 writer.writeAttribute(QStringLiteral("birthDate"), birthDate.toString(Qt::ISODate));
+            if (untaggedTag && untaggedTag->category() == category.data() && untaggedTag->tagName() == tagName) {
+                writer.writeAttribute(QStringLiteral("meta"), QStringLiteral("mark-untagged"));
+            }
         }
     }
 }

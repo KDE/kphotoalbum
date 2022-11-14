@@ -606,7 +606,7 @@ void XMLDB::Database::copyData(const DB::FileName &from, const DB::FileName &to)
 int XMLDB::Database::fileVersion()
 {
     // File format version, bump it up every time the format for the file changes.
-    return 8;
+    return 9;
 }
 
 // During profiling of loading, I found that a significant amount of time was spent in Utilities::FastDateTime::fromString.

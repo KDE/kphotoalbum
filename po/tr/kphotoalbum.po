@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-05 00:44+0000\n"
-"PO-Revision-Date: 2022-10-02 13:04+0300\n"
+"PO-Revision-Date: 2022-11-14 14:07+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1045,12 +1045,12 @@ msgstr "Ögeleri Taşı"
 #: DateBar/DateBarWidget.cpp:68
 #, kde-format
 msgid "Scroll right"
-msgstr "Sağa kaydır"
+msgstr "Sağa sar"
 
 #: DateBar/DateBarWidget.cpp:77
 #, kde-format
 msgid "Scroll left"
-msgstr "Sola kaydır"
+msgstr "Sola sar"
 
 #: DateBar/DateBarWidget.cpp:86
 #, kde-format
@@ -1078,9 +1078,9 @@ msgid ""
 "selection: Click/drag below the timeline.</item><item>Jump to a date by "
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
-"<title>Tarih çubuğu</title><para><list><item>Ok düğmelerini, kaydırma "
-"tekerleğini veya orta fare düğmesini kullanarak kaydırın.</item><item>+/- "
-"düğmelerini veya Ctrl + kaydırma tekerleği kullanarak yakınlaştırın.</"
+"<title>Tarih çubuğu</title><para><list><item>Ok düğmelerini, sarma "
+"tekerleğini veya orta fare düğmesini kullanarak sarın.</item><item>+/- "
+"düğmelerini veya Ctrl + sarma tekerleği kullanarak yakınlaştırın.</"
 "item><item>Görünümü, bir tarih seçimi aralığına kısıtlayın: Zaman akışının "
 "altına/altında tıklayın veya sürükleyin.</item><item>Histogram çubuğuna "
 "tıklayarak bir tarihe atlayın.</item></list></para>"

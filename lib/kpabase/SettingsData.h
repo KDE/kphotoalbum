@@ -261,6 +261,14 @@ Q_SIGNALS:
     void colorSchemeChanged();
     void displayLabelsChanged(bool);
     void displayCategoriesChanged(bool);
+    /**
+     * @brief untaggedTagChanged is emitted when untaggedCategory() or untaggedTag() changes.
+     * Note that code in KPhotoAlbum currently calls setUntaggedCategory(const QString&) and setUntaggedTag(const QString&),
+     * const QString&), which may result in the signal being triggered two times instead of once.
+     * @param category
+     * @param tag
+     */
+    void untaggedTagChanged(const QString &category, const QString &tag);
 
 private:
     SettingsData(const QString &imageDirectory, DB::UIDelegate &delegate);

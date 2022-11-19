@@ -209,11 +209,21 @@ const DB::TagInfo *ImageDB::untaggedTag() const
 
 void ImageDB::setUntaggedTag(DB::TagInfo *tag)
 {
+    if (m_untaggedTag)
+        m_untaggedTag->deleteLater();
     m_untaggedTag = tag;
     if (m_untaggedTag && m_untaggedTag->isValid()) {
+        const QSignalBlocker signalBlocker { this };
         Settings::SettingsData::instance()->setUntaggedCategory(m_untaggedTag->categoryName());
         Settings::SettingsData::instance()->setUntaggedTag(m_untaggedTag->tagName());
+        connect(Settings::SettingsData::instance(), &Settings::SettingsData::untaggedTagChanged, this, QOverload<const QString &, const QString &>::of(&DB::ImageDB::setUntaggedTag));
     }
+}
+
+void ImageDB::setUntaggedTag(const QString &category, const QString &tag)
+{
+    auto tagInfo = categoryCollection()->categoryForName(category)->itemForName(tag);
+    setUntaggedTag(tagInfo);
 }
 
 /** \fn void ImageDB::renameCategory( const QString& oldName, const QString newName )

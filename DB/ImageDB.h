@@ -194,6 +194,7 @@ protected Q_SLOTS:
      * @see Settings::SettingsData::untaggedCategory()
      */
     void setUntaggedTag(DB::TagInfo *tag);
+    void setUntaggedTag(const QString &category, const QString &tag);
 
 private:
     static void connectSlots();

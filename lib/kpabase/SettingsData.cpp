@@ -392,8 +392,26 @@ void SettingsData::setSmoothScale(bool b)
 ////////////////////
 
 // clang-format off
-property_ref(untaggedCategory, setUntaggedCategory, QString, General, i18n("Events"))
-property_ref(untaggedTag, setUntaggedTag, QString, General, i18n("untagged"))
+//property_ref(untaggedCategory, setUntaggedCategory, QString, General, i18n("Events"))
+getValueFunc_(QString, untaggedCategory, groupForDatabase("General"), "untaggedCategory", i18n("Events"))
+    void SettingsData::setUntaggedCategory(const QString &value)
+{
+    const bool changed = value != untaggedCategory();
+    setValue(groupForDatabase("General"), "untaggedCategory", value);
+    if (changed)
+        Q_EMIT untaggedTagChanged(value, untaggedTag());
+}
+
+//property_ref(untaggedTag, setUntaggedTag, QString, General, i18n("untagged"))
+getValueFunc_(QString, untaggedTag, groupForDatabase("General"), "untaggedTag", i18n("untagged"))
+    void SettingsData::setUntaggedTag(const QString &value)
+{
+    const bool changed = value != untaggedTag();
+    setValue(groupForDatabase("General"), "untaggedTag", value);
+    if (changed)
+        Q_EMIT untaggedTagChanged(untaggedCategory(), value);
+}
+
 property_copy(untaggedImagesTagVisible, setUntaggedImagesTagVisible, bool, General, false)
     // clang-format on
 

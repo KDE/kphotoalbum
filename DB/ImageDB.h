@@ -71,6 +71,9 @@ public:
     virtual int totalCount() const = 0;
     virtual DB::ImageInfoList search(const ImageSearchInfo &, bool requireOnDisk = false) const = 0;
 
+    /**
+     * @brief Rename category in media items stored in database.
+     */
     virtual void renameCategory(const QString &oldName, const QString newName) = 0;
 
     /**

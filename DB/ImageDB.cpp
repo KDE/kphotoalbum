@@ -209,8 +209,9 @@ const DB::TagInfo *ImageDB::untaggedTag() const
 
 void ImageDB::setUntaggedTag(DB::TagInfo *tag)
 {
-    if (m_untaggedTag)
+    if (m_untaggedTag) {
         m_untaggedTag->deleteLater();
+    }
     m_untaggedTag = tag;
     if (m_untaggedTag && m_untaggedTag->isValid()) {
         const QSignalBlocker signalBlocker { this };
@@ -226,10 +227,6 @@ void ImageDB::setUntaggedTag(const QString &category, const QString &tag)
     setUntaggedTag(tagInfo);
 }
 
-/** \fn void ImageDB::renameCategory( const QString& oldName, const QString newName )
- * \brief Rename category in media items stored in database.
- */
+#include "moc_ImageDB.cpp"
 
 // vi:expandtab:tabstop=4 shiftwidth=4:
-
-#include "moc_ImageDB.cpp"

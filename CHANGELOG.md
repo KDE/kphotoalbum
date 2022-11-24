@@ -21,6 +21,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - View-related actions formerly found in the "Settings" menu were moved to the "View" menu.
  - Make options "Display Labels in Thumbnail View" and "Display Categories in Thumbnail View" reachable via the "View" menu
    and allow both actions to be assigned keyboard shortcuts (Implements: #145346).
+ - Store the untagged tag information inside the index.xml file instead of the Settings (Implements: #461206)
 
 ### Dependencies
  - CMake: 3.18

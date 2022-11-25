@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-05 00:44+0000\n"
+"POT-Creation-Date: 2022-11-25 00:44+0000\n"
 "PO-Revision-Date: 2013-02-24 11:33+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -80,7 +80,7 @@ msgid ""
 "information is imported to this field if available.</para>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:168 DB/ImageDB.cpp:145
+#: AnnotationDialog/Dialog.cpp:168 DB/ImageDB.cpp:147
 #, kde-format
 msgid "Cancel"
 msgstr "रद्द करा"
@@ -125,7 +125,7 @@ msgstr "झाले (&D)"
 msgid "Continue &Later"
 msgstr "नंतर चालू ठेवा (&L)"
 
-#: AnnotationDialog/Dialog.cpp:256 AnnotationDialog/Dialog.cpp:827
+#: AnnotationDialog/Dialog.cpp:256 AnnotationDialog/Dialog.cpp:823
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
@@ -229,98 +229,98 @@ msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:832
+#: AnnotationDialog/Dialog.cpp:828
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "शोधा"
 
-#: AnnotationDialog/Dialog.cpp:835
+#: AnnotationDialog/Dialog.cpp:831
 #, kde-format
 msgid "Done"
 msgstr "झाले"
 
-#: AnnotationDialog/Dialog.cpp:842
+#: AnnotationDialog/Dialog.cpp:838
 #, fuzzy, kde-format
 #| msgid "Orientation"
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "कल"
 
-#: AnnotationDialog/Dialog.cpp:874
+#: AnnotationDialog/Dialog.cpp:870
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:875
+#: AnnotationDialog/Dialog.cpp:871
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:876
+#: AnnotationDialog/Dialog.cpp:872
 #, kde-format
 msgid "Reset layout"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:883 AnnotationDialog/Dialog.cpp:1284
+#: AnnotationDialog/Dialog.cpp:879 AnnotationDialog/Dialog.cpp:1280
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:887 AnnotationDialog/Dialog.cpp:1288
+#: AnnotationDialog/Dialog.cpp:883 AnnotationDialog/Dialog.cpp:1284
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:891
+#: AnnotationDialog/Dialog.cpp:887
 #, kde-format
 msgid "Sort by Date"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:907
+#: AnnotationDialog/Dialog.cpp:903
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:908
+#: AnnotationDialog/Dialog.cpp:904
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:909
+#: AnnotationDialog/Dialog.cpp:905
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:926
+#: AnnotationDialog/Dialog.cpp:922
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:969
+#: AnnotationDialog/Dialog.cpp:965
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
 "of the following error: %2"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:974
+#: AnnotationDialog/Dialog.cpp:970
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
 "of the following error: %2"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1042
+#: AnnotationDialog/Dialog.cpp:1038
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to cancel all "
 "recent changes for each affected file?</p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1148
+#: AnnotationDialog/Dialog.cpp:1144
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -331,7 +331,7 @@ msgid ""
 "kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1156
+#: AnnotationDialog/Dialog.cpp:1152
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -340,58 +340,58 @@ msgid ""
 "\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1291
+#: AnnotationDialog/Dialog.cpp:1287
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1294
+#: AnnotationDialog/Dialog.cpp:1290
 #, kde-format
 msgid "Toggle Sorting"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1299
+#: AnnotationDialog/Dialog.cpp:1295
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1303
+#: AnnotationDialog/Dialog.cpp:1299
 #, kde-format
 msgid "Annotate Next"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1307
+#: AnnotationDialog/Dialog.cpp:1303
 #, kde-format
 msgid "Annotate Previous"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1311
+#: AnnotationDialog/Dialog.cpp:1307
 #, kde-format
 msgid "OK dialog"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1315 AnnotationDialog/ListSelect.cpp:354
+#: AnnotationDialog/Dialog.cpp:1311 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:69
 #, kde-format
 msgid "Delete"
 msgstr "काढून टाका"
 
-#: AnnotationDialog/Dialog.cpp:1319
+#: AnnotationDialog/Dialog.cpp:1315
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1323 MainWindow/Window.cpp:804
+#: AnnotationDialog/Dialog.cpp:1319 MainWindow/Window.cpp:804
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1326 MainWindow/Window.cpp:808
+#: AnnotationDialog/Dialog.cpp:1322 MainWindow/Window.cpp:808
 #, kde-format
 msgid "Rotate clockwise"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1329
+#: AnnotationDialog/Dialog.cpp:1325
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr ""
@@ -1198,7 +1198,7 @@ msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "डिसें"
 
-#: DB/ImageDB.cpp:144
+#: DB/ImageDB.cpp:146
 #, kde-format
 msgid "Loading information from images"
 msgstr ""
@@ -2582,12 +2582,14 @@ msgstr ""
 msgid "Trust Time Stamps?"
 msgstr ""
 
-#: lib/kpabase/SettingsData.cpp:395 XMLDB/FileReader.cpp:508
+#. i18n("Events"))
+#: lib/kpabase/SettingsData.cpp:396 XMLDB/FileReader.cpp:516
 #, kde-format
 msgid "Events"
 msgstr "घटना"
 
-#: lib/kpabase/SettingsData.cpp:396 XMLDB/FileReader.cpp:509
+#. i18n("untagged"))
+#: lib/kpabase/SettingsData.cpp:406 XMLDB/FileReader.cpp:517
 #, kde-format
 msgid "untagged"
 msgstr ""
@@ -4112,7 +4114,7 @@ msgid ""
 "when viewing the images."
 msgstr ""
 
-#: Settings/BirthdayPage.cpp:134 XMLDB/FileReader.cpp:506
+#: Settings/BirthdayPage.cpp:134 XMLDB/FileReader.cpp:514
 #, kde-format
 msgid "People"
 msgstr ""
@@ -4235,7 +4237,7 @@ msgid "Folder"
 msgstr "संचयीका"
 
 #: Settings/CategoryPage.cpp:253 ThumbnailView/ThumbnailModel.cpp:350
-#: XMLDB/Database.cpp:273 XMLDB/Database.cpp:642 XMLDB/FileReader.cpp:125
+#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:660 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
 msgstr "मीडिया प्रकार"
@@ -5434,7 +5436,7 @@ msgid "Unable to copy '%1' to '%2'."
 msgstr ""
 
 #: Utilities/DemoUtil.cpp:34 Utilities/DemoUtil.cpp:51
-#: Utilities/DemoUtil.cpp:85 XMLDB/FileReader.cpp:520
+#: Utilities/DemoUtil.cpp:85 XMLDB/FileReader.cpp:528
 #, kde-format
 msgid "Error Running Demo"
 msgstr ""
@@ -6107,38 +6109,38 @@ msgstr ""
 msgid "Show Rating"
 msgstr ""
 
-#: XMLDB/Database.cpp:48
+#: XMLDB/Database.cpp:49
 #, kde-format
 msgid ""
 "Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
 "autosave file be used?"
 msgstr ""
 
-#: XMLDB/Database.cpp:51
+#: XMLDB/Database.cpp:52
 #, kde-format
 msgid "Found Autosave File"
 msgstr ""
 
-#: XMLDB/Database.cpp:274 XMLDB/Database.cpp:643 XMLDB/FileReader.cpp:127
+#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:127
 #, fuzzy, kde-format
 #| msgctxt "Denotes the media type (video,image)"
 #| msgid "Image"
 msgid "Image"
 msgstr "प्रतिमा"
 
-#: XMLDB/Database.cpp:274 XMLDB/Database.cpp:644 XMLDB/FileReader.cpp:128
+#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:662 XMLDB/FileReader.cpp:128
 #, fuzzy, kde-format
 #| msgctxt "Denotes the media type (video,image)"
 #| msgid "Video"
 msgid "Video"
 msgstr "व्हिडीओ"
 
-#: XMLDB/Database.cpp:789
+#: XMLDB/Database.cpp:807
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr ""
 
-#: XMLDB/Database.cpp:790
+#: XMLDB/Database.cpp:808
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
@@ -6162,7 +6164,7 @@ msgstr ""
 msgid "Tokens"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:180
+#: XMLDB/FileReader.cpp:181
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
@@ -6170,12 +6172,12 @@ msgid ""
 "to quit.</p>"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:186 XMLDB/FileReader.cpp:284
+#: XMLDB/FileReader.cpp:187 XMLDB/FileReader.cpp:292
 #, kde-format
 msgid "Error in database file"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:239
+#: XMLDB/FileReader.cpp:247
 #, kde-format
 msgctxt ""
 "Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
@@ -6189,19 +6191,19 @@ msgid ""
 "and \"Media Type\". You can delete those.</p>"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:247
+#: XMLDB/FileReader.cpp:255
 #, kde-format
 msgid "Changed standard category names"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:279
+#: XMLDB/FileReader.cpp:287
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
 "</p><p>Manual repair required!</p>"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:403
+#: XMLDB/FileReader.cpp:411
 #, kde-format
 msgid ""
 "<p>Your images/videos are not sorted, which means that navigating using the "
@@ -6215,12 +6217,12 @@ msgid ""
 "to sort them in the database. </p>"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:412
+#: XMLDB/FileReader.cpp:420
 #, kde-format
 msgid "Images/Videos Are Not Sorted"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:424
+#: XMLDB/FileReader.cpp:432
 #, kde-format
 msgid ""
 "<p>Not all the images in the database have information about image sizes; "
@@ -6231,12 +6233,12 @@ msgid ""
 "that is all - so there is no urgency in doing it.</p>"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:429
+#: XMLDB/FileReader.cpp:437
 #, kde-format
 msgid "Not All Images Have Size Information"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:443
+#: XMLDB/FileReader.cpp:451
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -6245,25 +6247,25 @@ msgid ""
 "tags require manual inspection:<ul>"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:454
+#: XMLDB/FileReader.cpp:462
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:456
+#: XMLDB/FileReader.cpp:464
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:459
+#: XMLDB/FileReader.cpp:467
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:464
+#: XMLDB/FileReader.cpp:472
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -6271,12 +6273,12 @@ msgid ""
 "<em>KPhotoAlbum - manual repair needed</em>.</p>"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:468
+#: XMLDB/FileReader.cpp:476
 #, kde-format
 msgid "Database repair required"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:491
+#: XMLDB/FileReader.cpp:499
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
@@ -6290,61 +6292,61 @@ msgid ""
 "setting the <b>PATH</b> environment variable</p>"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:499
+#: XMLDB/FileReader.cpp:507
 #, kde-format
 msgid "No default setup file found"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:507
+#: XMLDB/FileReader.cpp:515
 #, kde-format
 msgid "Places"
 msgstr "जागा"
 
-#: XMLDB/FileReader.cpp:520
+#: XMLDB/FileReader.cpp:528
 #, kde-format
 msgid "Unable to open '%1' for reading"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:533
+#: XMLDB/FileReader.cpp:541
 #, kde-format
 msgid "line %1 column %2 in file %3: %4"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:535
+#: XMLDB/FileReader.cpp:543
 #, kde-format
 msgid "Failed to recover the backup: %1"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:546
+#: XMLDB/FileReader.cpp:554
 #, kde-format
 msgid "Error in file %1: No elements found"
 msgstr ""
 
-#: XMLDB/FileReader.cpp:552
+#: XMLDB/FileReader.cpp:560
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr ""
 
-#: XMLDB/FileWriter.cpp:61
+#: XMLDB/FileWriter.cpp:62
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
 "because of the following error: %2"
 msgstr ""
 
-#: XMLDB/FileWriter.cpp:64 XMLDB/FileWriter.cpp:96 XMLDB/FileWriter.cpp:105
+#: XMLDB/FileWriter.cpp:65 XMLDB/FileWriter.cpp:97 XMLDB/FileWriter.cpp:106
 #, kde-format
 msgid "Error while saving..."
 msgstr ""
 
-#: XMLDB/FileWriter.cpp:93
+#: XMLDB/FileWriter.cpp:94
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
 "replace the file %1 with file %2 manually!</p>"
 msgstr ""
 
-#: XMLDB/FileWriter.cpp:102
+#: XMLDB/FileWriter.cpp:103
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "

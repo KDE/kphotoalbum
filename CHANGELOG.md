@@ -32,6 +32,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
 ### Fixed
  - Improve readability of "Show Tooltips in Thumbnails Window" tooltip.
+ - Fix image selection order for newly added images (Fixes: 442325)
 
 ### Removed
  - Default shortcut for "View" images was removed.</br>

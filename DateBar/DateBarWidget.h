@@ -51,6 +51,14 @@ class SelectionHandler;
  *
  * The time resulution is represented by the \c ViewHandler, and the offset is stored in \c m_currentDate.
  *
+ * ## UI Description
+ *
+ * The area below the histogram bars can be used to select a date range using mouse click or drag.
+ * Clicking outside the selected range clears the selection (as does pressing the "Clear date selection" button).
+ *
+ * Clicking within the histogram bar area changes the focus item. The focus item of the DateBar can be used by other
+ * components (e.g. the ThumbnailViewer) to jump to an item at or close to the date unit represented by the focus item.
+ *
  */
 class DateBarWidget : public QWidget
 {

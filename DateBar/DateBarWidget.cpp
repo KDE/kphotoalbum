@@ -16,6 +16,7 @@
 #include <KLocalizedString>
 #include <QAction>
 #include <QContextMenuEvent>
+#include <QDebug>
 #include <QFontMetrics>
 #include <QGuiApplication>
 #include <QIcon>
@@ -190,6 +191,7 @@ void DateBar::DateBarWidget::redraw()
     p.drawRect(barArea);
     p.restore();
 
+    // shift the date bar by m_currentUnit units
     m_currentHandler->init(dateForUnit(-m_currentUnit, m_currentDate));
 
     int right;
@@ -261,6 +263,9 @@ void DateBar::DateBarWidget::drawTickMarks(QPainter &p, const QRect &textRect)
 void DateBar::DateBarWidget::setViewType(ViewType tp, bool redrawNow)
 {
     setViewHandlerForType(tp);
+    if (hasSelection()) {
+        centerDateRange(m_selectionHandler->min(), m_selectionHandler->max());
+    }
     if (redrawNow)
         redraw();
     m_tp = tp;
@@ -316,7 +321,7 @@ void DateBar::DateBarWidget::setImageDateCollection(const QExplicitlySharedDataP
 {
     m_dates = dates;
     if (m_doAutomaticRangeAdjustment && m_dates && !m_dates->lowerLimit().isNull()) {
-        Utilities::FastDateTime start = m_dates->lowerLimit();
+        const Utilities::FastDateTime start = m_dates->lowerLimit();
         Utilities::FastDateTime end = m_dates->upperLimit();
         if (end.isNull())
             end = Utilities::FastDateTime::currentDateTime();
@@ -638,6 +643,24 @@ bool DateBar::DateBarWidget::canZoomOut() const
     return (m_tp != DecadeView);
 }
 
+void DateBar::DateBarWidget::centerDateRange(const DB::ImageDate &range)
+{
+    centerDateRange(range.start(), range.end());
+}
+
+void DateBar::DateBarWidget::centerDateRange(const Utilities::FastDateTime &min, const Utilities::FastDateTime &max)
+{
+    m_currentDate = min;
+    // update reference frame for unitForDate:
+    m_currentHandler->init(m_currentDate);
+    const int maxUnit = unitForDate(max);
+    if (maxUnit != -1) {
+        // center selection if it fits within the date bar
+        const int paddingUnits = (numberOfUnits() - maxUnit) / 2;
+        m_currentUnit = paddingUnits;
+    }
+}
+
 void DateBar::DateBarWidget::contextMenuEvent(QContextMenuEvent *event)
 {
     if (!m_contextMenu) {
@@ -934,6 +957,6 @@ void DateBar::DateBarWidget::wheelEvent(QWheelEvent *e)
     scroll(scrollAmount);
 }
 
-// vi:expandtab:tabstop=4 shiftwidth=4:
-
 #include "moc_DateBarWidget.cpp"
+
+// vi:expandtab:tabstop=4 shiftwidth=4:

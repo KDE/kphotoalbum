@@ -86,6 +86,21 @@ public:
     bool canZoomOut() const;
 
 public Q_SLOTS:
+    /**
+     * @brief centerDateRange centers the view on the given range.
+     * If the date range does not fit withing the current view range,
+     * the view is instead anchored to the \c range.start() date.
+     * @param range
+     */
+    void centerDateRange(const DB::ImageDate &range);
+    /**
+     * @brief centerDateRange centers the view on the given range.
+     * If the date range does not fit withing the current view range,
+     * the view is instead anchored to the \c min date.
+     * @param min
+     * @param max
+     */
+    void centerDateRange(const Utilities::FastDateTime &min, const Utilities::FastDateTime &max);
     void clearSelection();
     void setViewType(ViewType tp, bool redrawNow = true);
     void setDate(const Utilities::FastDateTime &date);
@@ -220,8 +235,8 @@ private:
     QToolButton *m_zoomOut;
     QToolButton *m_cancelSelection;
 
-    int m_currentUnit;
-    Utilities::FastDateTime m_currentDate;
+    int m_currentUnit; ///< focus unit; also offset for drawing.
+    Utilities::FastDateTime m_currentDate; ///< reference frame for date bar. Equals unit 0.
     int m_barWidth; ///< width of a single unit in pixel
     int m_barHeight;
     bool m_includeFuzzyCounts;

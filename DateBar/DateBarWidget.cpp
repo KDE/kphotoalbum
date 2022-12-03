@@ -378,8 +378,17 @@ void DateBar::DateBarWidget::drawHistograms(QPainter &p)
     }
 
     int unit = 0;
+    const int minUnit = unitForDate(m_dates->lowerLimit());
+    const int maxUnit = (unitForDate(m_dates->upperLimit()) != -1) ? unitForDate(m_dates->upperLimit()) : numberOfUnits();
     const bool linearScale = Settings::SettingsData::instance()->histogramUseLinearScale();
     for (int x = rect.x(); x + m_barWidth < rect.right(); x += m_barWidth, unit += 1) {
+        if (unit <= minUnit || unit > maxUnit) {
+            Qt::BrushStyle style = Qt::SolidPattern;
+
+            p.setBrush(QBrush(Qt::lightGray, style));
+            p.drawRect(x, 1, m_barWidth, rect.height() + 2);
+            continue;
+        }
         const DB::ImageCount count = m_dates->count(rangeForUnit(unit));
         int exactPx = 0;
         int rangePx = 0;

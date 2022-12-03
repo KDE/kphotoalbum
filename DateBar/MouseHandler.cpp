@@ -109,8 +109,8 @@ void DateBar::FocusItemDragHandler::mouseMoveEvent(int x)
         return;
     m_dateBar->m_currentUnit = newUnit;
 
-    static double rest = 0;
     if (m_dateBar->m_currentUnit < 0 || m_dateBar->m_currentUnit > m_dateBar->numberOfUnits()) {
+        static double rest = 0;
         // Slow down scrolling outside date bar.
         double newUnit = oldUnit + (m_dateBar->m_currentUnit - oldUnit) / 4.0 + rest;
         m_dateBar->m_currentUnit = (int)floor(newUnit);

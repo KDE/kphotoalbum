@@ -457,6 +457,11 @@ void DateBar::DateBarWidget::scrollRight()
 
 void DateBar::DateBarWidget::scroll(int units)
 {
+    if ((m_dates->lowerLimit() <= dateForUnit(0) && units > 0)
+        || (m_dates->upperLimit() > dateForUnit(numberOfUnits()) && units < 0)) {
+        return;
+    }
+
     m_currentDate = dateForUnit(units, m_currentDate);
     redraw();
     Q_EMIT dateSelected(currentDateRange(), includeFuzzyCounts());

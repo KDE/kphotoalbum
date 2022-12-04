@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-25 00:44+0000\n"
+"POT-Creation-Date: 2022-12-04 00:43+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -1045,36 +1045,36 @@ msgstr[0] ""
 msgid "Move Items"
 msgstr "ផ្លាស់​ទី​ធាតុ​"
 
-#: DateBar/DateBarWidget.cpp:68
+#: DateBar/DateBarWidget.cpp:69
 #, kde-format
 msgid "Scroll right"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:77
+#: DateBar/DateBarWidget.cpp:78
 #, kde-format
 msgid "Scroll left"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:86
+#: DateBar/DateBarWidget.cpp:87
 #, fuzzy, kde-format
 #| msgid "Zoom In"
 msgid "Zoom in"
 msgstr "ពង្រីក​"
 
-#: DateBar/DateBarWidget.cpp:97
+#: DateBar/DateBarWidget.cpp:98
 #, fuzzy, kde-format
 #| msgid "Zoom Out"
 msgid "Zoom out"
 msgstr "បង្រួម​"
 
-#: DateBar/DateBarWidget.cpp:109
+#: DateBar/DateBarWidget.cpp:110
 #, fuzzy, kde-format
 #| msgid "Delete Selected"
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "លុប​ធាតុ​ដែល​បាន​ជ្រើស​"
 
-#: DateBar/DateBarWidget.cpp:122
+#: DateBar/DateBarWidget.cpp:123
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1085,17 +1085,17 @@ msgid ""
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:645
+#: DateBar/DateBarWidget.cpp:682
 #, kde-format
 msgid "Show Ranges"
 msgstr "បង្ហាញ​ជួរ​"
 
-#: DateBar/DateBarWidget.cpp:651
+#: DateBar/DateBarWidget.cpp:688
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr "បង្ហាញ​ទ្រនិច​បង្ហាញ​គុណភាព​បង្ហាញ​"
 
-#: DateBar/DateBarWidget.cpp:776
+#: DateBar/DateBarWidget.cpp:813
 #, fuzzy, kde-format
 #| msgid "1 exact"
 #| msgid_plural "%1 exact"
@@ -1104,7 +1104,7 @@ msgid "1 exact"
 msgid_plural "%1 exact"
 msgstr[0] "%1 ពិតប្រាកដ"
 
-#: DateBar/DateBarWidget.cpp:777
+#: DateBar/DateBarWidget.cpp:814
 #, fuzzy, kde-format
 #| msgid " + 1 range"
 #| msgid_plural " + %1 ranges"
@@ -1115,7 +1115,7 @@ msgid " + 1 range"
 msgid_plural " + %1 ranges"
 msgstr[0] " + %1 ជួរ"
 
-#: DateBar/DateBarWidget.cpp:778
+#: DateBar/DateBarWidget.cpp:815
 #, fuzzy, kde-format
 #| msgid " = 1 total"
 #| msgid_plural " = %1 total"
@@ -1124,7 +1124,7 @@ msgid " = 1 total"
 msgid_plural " = %1 total"
 msgstr[0] " = %1 សរុប"
 
-#: DateBar/DateBarWidget.cpp:780
+#: DateBar/DateBarWidget.cpp:817
 #, fuzzy, kde-format
 #| msgid "%1 image/video"
 #| msgid_plural "%1 images/videos"
@@ -1133,7 +1133,7 @@ msgid "%1 image/video"
 msgid_plural "%1 images/videos"
 msgstr[0] "%1 រូបភាព​/​វីដេអូ"
 
-#: DateBar/DateBarWidget.cpp:782
+#: DateBar/DateBarWidget.cpp:819
 #, fuzzy, kde-format
 #| msgid "%1 | %2"
 msgctxt ""

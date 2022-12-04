@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-11-25 00:44+0000\n"
+"POT-Creation-Date: 2022-12-04 00:43+0000\n"
 "PO-Revision-Date: 2022-10-02 22:34+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -1055,33 +1055,33 @@ msgstr[1] ""
 msgid "Move Items"
 msgstr "Items verplaatsen"
 
-#: DateBar/DateBarWidget.cpp:68
+#: DateBar/DateBarWidget.cpp:69
 #, kde-format
 msgid "Scroll right"
 msgstr "Naar rechts schuiven"
 
-#: DateBar/DateBarWidget.cpp:77
+#: DateBar/DateBarWidget.cpp:78
 #, kde-format
 msgid "Scroll left"
 msgstr "Naar links schuiven"
 
-#: DateBar/DateBarWidget.cpp:86
+#: DateBar/DateBarWidget.cpp:87
 #, kde-format
 msgid "Zoom in"
 msgstr "Inzoomen"
 
-#: DateBar/DateBarWidget.cpp:97
+#: DateBar/DateBarWidget.cpp:98
 #, kde-format
 msgid "Zoom out"
 msgstr "Uitzoomen"
 
-#: DateBar/DateBarWidget.cpp:109
+#: DateBar/DateBarWidget.cpp:110
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "Selectie van datum wissen"
 
-#: DateBar/DateBarWidget.cpp:122
+#: DateBar/DateBarWidget.cpp:123
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1097,17 +1097,17 @@ msgstr ""
 "datumreeksselectie: Klik/sleep onder de tijdlijn.</item><item>Spring naar "
 "een datum door te klikken op de histogrambalk.</item></list></para>"
 
-#: DateBar/DateBarWidget.cpp:645
+#: DateBar/DateBarWidget.cpp:682
 #, kde-format
 msgid "Show Ranges"
 msgstr "Bereiken tonen"
 
-#: DateBar/DateBarWidget.cpp:651
+#: DateBar/DateBarWidget.cpp:688
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr "Resolutie-indicatie tonen"
 
-#: DateBar/DateBarWidget.cpp:776
+#: DateBar/DateBarWidget.cpp:813
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1115,7 +1115,7 @@ msgid_plural "%1 exact"
 msgstr[0] "1 exact"
 msgstr[1] "%1 exact"
 
-#: DateBar/DateBarWidget.cpp:777
+#: DateBar/DateBarWidget.cpp:814
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1125,7 +1125,7 @@ msgid_plural " + %1 ranges"
 msgstr[0] " + 1 reeks"
 msgstr[1] " + %1 reeksen"
 
-#: DateBar/DateBarWidget.cpp:778
+#: DateBar/DateBarWidget.cpp:815
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1133,7 +1133,7 @@ msgid_plural " = %1 total"
 msgstr[0] " = 1 totaal"
 msgstr[1] " = %1 totaal"
 
-#: DateBar/DateBarWidget.cpp:780
+#: DateBar/DateBarWidget.cpp:817
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
@@ -1141,7 +1141,7 @@ msgid_plural "%1 images/videos"
 msgstr[0] "%1 afbeelding/video"
 msgstr[1] "%1 afbeeldingen/video's"
 
-#: DateBar/DateBarWidget.cpp:782
+#: DateBar/DateBarWidget.cpp:819
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."

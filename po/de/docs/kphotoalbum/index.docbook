@@ -1,4 +1,17 @@
 <?xml version="1.0" ?>
+
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2010, 2012 Yuri Chornoivan <yurchor@ukr.net>
+SPDX-FileCopyrightText: 2010, 2013, 2016 Luigi Toscano <luigi.toscano@tiscali.it>
+SPDX-FileCopyrightText: 2012 Burkhard Lück <lueck@hube-lueck.de>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 T.C. Hollingsworth <tchollingsworth@gmail.com>
+SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
   <!ENTITY kphotoalbum "<application
 >KPhotoAlbum</application

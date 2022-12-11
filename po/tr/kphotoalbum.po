@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-04 00:43+0000\n"
-"PO-Revision-Date: 2022-11-14 14:07+0300\n"
+"PO-Revision-Date: 2022-12-10 18:27+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -3277,10 +3277,10 @@ msgid ""
 "p><p>Correct length information is necessary for correct rendering of video "
 "thumbnails.</p>"
 msgstr ""
-"<h1><a name=\"videoInfo\">Video üstveri desteği</a></h1><p>K Fotoğraf "
+"<h1><a name=\"videoInfo\">Video üst veri desteği</a></h1><p>K Fotoğraf "
 "Albümü, videolardan uzunluk bilgisini çıkarmak için <tt>ffprobe</tt> "
 "kullanabilir.</p><p>Doğru uzunluk bilgisi, video küçük görselinin doğru "
-"dokunması için gereklidir.</p>"
+"sunulması için gereklidir.</p>"
 
 #: MainWindow/FeatureDialog.cpp:161
 #, kde-format
@@ -5541,7 +5541,7 @@ msgstr ""
 "görseliniz olmasına rağmen hala cevap vermesini sağlayacaktır.</p><p>Eğer bu "
 "ayarlı değilse KPhotoAlbum her zaman bütün görseller için küçük görseller "
 "oluşturmaya çalışacaktır. Bu da yeni görsel bulunduğu anda KPhotoAlbum onlar "
-"için hemen küçük görsel oluşturacak ve gözatarken bir gecikme "
+"için hemen küçük görsel oluşturacak ve göz atarken bir gecikme "
 "yaşamayacaksınız demektir.</p>"
 
 #: Settings/ThumbnailsPage.cpp:117
@@ -6122,7 +6122,7 @@ msgstr "Video oynatımı ayarlanamadı"
 #: Viewer/QtAVDisplay.cpp:31
 #, kde-format
 msgid "Failed to set up video playback (renderer wasn't created)"
-msgstr "Video oynatımı ayarlanamadı (dokumacı oluşturulmamış)"
+msgstr "Video oynatımı ayarlanamadı (sunucu oluşturulmamış)"
 
 #: Viewer/QtAVDisplay.cpp:44
 #, kde-format

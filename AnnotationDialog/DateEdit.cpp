@@ -290,9 +290,13 @@ bool AnnotationDialog::DateEdit::eventFilter(QObject *obj, QEvent *e)
             QWheelEvent *we = dynamic_cast<QWheelEvent *>(e);
             Q_ASSERT(we != nullptr);
 
+            const auto rawDelta = we->angleDelta();
+            const bool isHorizontal = (qAbs(rawDelta.x()) > qAbs(rawDelta.y()));
+            const auto angleDelta = isHorizontal ? rawDelta.x() : rawDelta.y();
             int step = 0;
             // angleDelta = eigths of a degree
-            step = qBound(-1, (int)(we->angleDelta().x()), 1);
+            // scrolling down/left means back in time, just like in the date picker
+            step = qBound(-1, (int)(-angleDelta), 1);
             setDate(m_value.addDays(step));
         }
     } else {

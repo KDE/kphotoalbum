@@ -958,14 +958,17 @@ void DateBar::DateBarWidget::emitDateSelected()
 
 void DateBar::DateBarWidget::wheelEvent(QWheelEvent *e)
 {
+    const auto pxDelta = e->pixelDelta();
+    const bool isHorizontal = (qAbs(pxDelta.x()) > qAbs(pxDelta.y()));
+    const int delta = isHorizontal ? pxDelta.x() : pxDelta.y();
     if (e->modifiers() & Qt::ControlModifier) {
-        if (e->pixelDelta().y() > 0)
+        if (delta > 0)
             zoomIn();
         else
             zoomOut();
         return;
     }
-    int scrollAmount = e->pixelDelta().y() > 0 ? SCROLL_AMOUNT : -SCROLL_AMOUNT;
+    int scrollAmount = delta > 0 ? SCROLL_AMOUNT : -SCROLL_AMOUNT;
     if (e->modifiers() & Qt::ShiftModifier)
         scrollAmount *= SCROLL_ACCELERATION;
     scroll(scrollAmount);

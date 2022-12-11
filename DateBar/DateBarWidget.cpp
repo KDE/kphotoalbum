@@ -958,9 +958,9 @@ void DateBar::DateBarWidget::emitDateSelected()
 
 void DateBar::DateBarWidget::wheelEvent(QWheelEvent *e)
 {
-    const auto pxDelta = e->pixelDelta();
-    const bool isHorizontal = (qAbs(pxDelta.x()) > qAbs(pxDelta.y()));
-    const int delta = isHorizontal ? pxDelta.x() : pxDelta.y();
+    const auto angleDelta = e->angleDelta();
+    const bool isHorizontal = (qAbs(angleDelta.x()) > qAbs(angleDelta.y()));
+    const int delta = isHorizontal ? angleDelta.x() : angleDelta.y();
     if (e->modifiers() & Qt::ControlModifier) {
         if (delta > 0)
             zoomIn();

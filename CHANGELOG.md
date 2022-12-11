@@ -16,12 +16,15 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
 ### Added
  - Allow setting keyboard shortcuts for Date Bar component.
+ - Visually differentiate the occupied date range in the date bar by graying out the unoccupied edge areas.
 
 ### Changed
  - View-related actions formerly found in the "Settings" menu were moved to the "View" menu.
  - Make options "Display Labels in Thumbnail View" and "Display Categories in Thumbnail View" reachable via the "View" menu
    and allow both actions to be assigned keyboard shortcuts (Implements: #145346).
  - Store the untagged tag information inside the index.xml file instead of the Settings (Implements: #461206)
+ - Change scroll direction in the annotation dialog's date edit fields to match common (western) expectations and the date picker
+ - Prevent scrolling past the occupied areas of the date bar.
 
 ### Dependencies
  - CMake: 3.18
@@ -33,6 +36,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Fixed
  - Improve readability of "Show Tooltips in Thumbnails Window" tooltip.
  - Fix image selection order for newly added images (Fixes: 442325)
+ - Improve date bar behavior when zooming the date bar and changing views (Fixes: 357237)
 
 ### Removed
  - Default shortcut for "View" images was removed.</br>

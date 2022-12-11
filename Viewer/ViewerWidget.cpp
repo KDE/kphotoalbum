@@ -1148,7 +1148,9 @@ void Viewer::ViewerWidget::videoStopped()
 
 void Viewer::ViewerWidget::wheelEvent(QWheelEvent *event)
 {
-    if (event->pixelDelta().y() < 0 || event->pixelDelta().x() < 0) {
+    const auto pxDelta = event->pixelDelta();
+    const bool isHorizontal = (qAbs(pxDelta.x()) > qAbs(pxDelta.y()));
+    if ((!isHorizontal && pxDelta.y() < 0) || (isHorizontal && pxDelta.x() < 0)) {
         showNext();
     } else {
         showPrev();

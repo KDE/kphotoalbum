@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-04 00:43+0000\n"
+"POT-Creation-Date: 2022-12-12 00:44+0000\n"
 "PO-Revision-Date: 2022-10-02 09:24+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -6540,127 +6540,127 @@ msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Зупинити показ слайдів"
 
-#: Viewer/ViewerWidget.cpp:1192
+#: Viewer/ViewerWidget.cpp:1194
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Пошук"
 
-#: Viewer/ViewerWidget.cpp:1213
+#: Viewer/ViewerWidget.cpp:1215
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "на 10 хвилин назад"
 
-#: Viewer/ViewerWidget.cpp:1214
+#: Viewer/ViewerWidget.cpp:1216
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "на 1 хвилину назад"
 
-#: Viewer/ViewerWidget.cpp:1215
+#: Viewer/ViewerWidget.cpp:1217
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "на 10 секунд назад"
 
-#: Viewer/ViewerWidget.cpp:1216
+#: Viewer/ViewerWidget.cpp:1218
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "на 1 секунду назад"
 
-#: Viewer/ViewerWidget.cpp:1217
+#: Viewer/ViewerWidget.cpp:1219
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "на 100 мілісекунд назад"
 
-#: Viewer/ViewerWidget.cpp:1218
+#: Viewer/ViewerWidget.cpp:1220
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "на 100 мілісекунд вперед"
 
-#: Viewer/ViewerWidget.cpp:1219
+#: Viewer/ViewerWidget.cpp:1221
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "на 1 секунду вперед"
 
-#: Viewer/ViewerWidget.cpp:1220
+#: Viewer/ViewerWidget.cpp:1222
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "на 10 секунд вперед"
 
-#: Viewer/ViewerWidget.cpp:1221
+#: Viewer/ViewerWidget.cpp:1223
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "на 1 хвилину вперед"
 
-#: Viewer/ViewerWidget.cpp:1222
+#: Viewer/ViewerWidget.cpp:1224
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "на 10 хвилин вперед"
 
-#: Viewer/ViewerWidget.cpp:1230
+#: Viewer/ViewerWidget.cpp:1232
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Зупинити"
 
-#: Viewer/ViewerWidget.cpp:1243
+#: Viewer/ViewerWidget.cpp:1245
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Використовувати поточну рамку у перегляді мініатюр"
 
-#: Viewer/ViewerWidget.cpp:1249
+#: Viewer/ViewerWidget.cpp:1251
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Перезапустити"
 
-#: Viewer/ViewerWidget.cpp:1264
+#: Viewer/ViewerWidget.cpp:1266
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Фільтри"
 
-#: Viewer/ViewerWidget.cpp:1267
+#: Viewer/ViewerWidget.cpp:1269
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Вилучити всі фільтри"
 
-#: Viewer/ViewerWidget.cpp:1271
+#: Viewer/ViewerWidget.cpp:1273
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Застосувати фільтр перетворення на відтінки сірого"
 
-#: Viewer/ViewerWidget.cpp:1276
+#: Viewer/ViewerWidget.cpp:1278
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Застосувати фільтр розтягування контрастності"
 
-#: Viewer/ViewerWidget.cpp:1281
+#: Viewer/ViewerWidget.cpp:1283
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Застосувати фільтр вирівнювання гістограми"
 
-#: Viewer/ViewerWidget.cpp:1286
+#: Viewer/ViewerWidget.cpp:1288
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Застосувати фільтр перетворення на чорно-біле"
 
-#: Viewer/ViewerWidget.cpp:1338
+#: Viewer/ViewerWidget.cpp:1340
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -6672,7 +6672,7 @@ msgstr ""
 "відтворення відео.</p><p>Натисніть <i>Продовжити</i>, щоб надати KPhotoAlbum "
 "змогу спробувати інший модуль обробки...</p>"
 
-#: Viewer/ViewerWidget.cpp:1342
+#: Viewer/ViewerWidget.cpp:1344
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -6681,7 +6681,7 @@ msgstr ""
 "<p>Роботу модуля обробки відео було перервано: <tt>%1</tt></p><p>Модуль "
 "обробки відео, який буде використано замість перерваного: <tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1355
+#: Viewer/ViewerWidget.cpp:1357
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "

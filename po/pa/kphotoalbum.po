@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-04 00:43+0000\n"
+"POT-Creation-Date: 2022-12-12 00:44+0000\n"
 "PO-Revision-Date: 2010-04-16 06:52+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -6044,142 +6044,142 @@ msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "ਸਲਾਈਡ-ਸ਼ੋ ਰੋਕੋ"
 
-#: Viewer/ViewerWidget.cpp:1192
+#: Viewer/ViewerWidget.cpp:1194
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1213
+#: Viewer/ViewerWidget.cpp:1215
 #, fuzzy, kde-format
 #| msgid "10 minutes backward"
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "੧੦ ਮਿੰਟ ਪਿੱਛੇ"
 
-#: Viewer/ViewerWidget.cpp:1214
+#: Viewer/ViewerWidget.cpp:1216
 #, fuzzy, kde-format
 #| msgid "1 minute backward"
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "੧ ਮਿੰਟ ਪਿੱਛੇ"
 
-#: Viewer/ViewerWidget.cpp:1215
+#: Viewer/ViewerWidget.cpp:1217
 #, fuzzy, kde-format
 #| msgid "10 seconds backward"
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "੧੦ ਸਕਿੰਟ ਪਿੱਛੇ"
 
-#: Viewer/ViewerWidget.cpp:1216
+#: Viewer/ViewerWidget.cpp:1218
 #, fuzzy, kde-format
 #| msgid "1 seconds backward"
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "੧ ਸਕਿੰਟ ਪਿੱਛੇ"
 
-#: Viewer/ViewerWidget.cpp:1217
+#: Viewer/ViewerWidget.cpp:1219
 #, fuzzy, kde-format
 #| msgid "100 milliseconds backward"
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "੧੦੦ ਮਿਲੀਸਕਿੰਟ ਪਿੱਛੇ"
 
-#: Viewer/ViewerWidget.cpp:1218
+#: Viewer/ViewerWidget.cpp:1220
 #, fuzzy, kde-format
 #| msgid "100 milliseconds forward"
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "੧੦੦ ਮਿਲੀਸਕਿੰਟ ਅੱਗੇ"
 
-#: Viewer/ViewerWidget.cpp:1219
+#: Viewer/ViewerWidget.cpp:1221
 #, fuzzy, kde-format
 #| msgid "1 seconds forward"
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "੧ ਸਕਿੰਟ ਅੱਗੇ"
 
-#: Viewer/ViewerWidget.cpp:1220
+#: Viewer/ViewerWidget.cpp:1222
 #, fuzzy, kde-format
 #| msgid "10 seconds forward"
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "੧੦ ਸਕਿੰਟ ਅੱਗੇ"
 
-#: Viewer/ViewerWidget.cpp:1221
+#: Viewer/ViewerWidget.cpp:1223
 #, fuzzy, kde-format
 #| msgid "1 minute forward"
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "੧ ਮਿੰਟ ਅੱਗੇ"
 
-#: Viewer/ViewerWidget.cpp:1222
+#: Viewer/ViewerWidget.cpp:1224
 #, fuzzy, kde-format
 #| msgid "10 minutes forward"
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "੧੦ ਮਿੰਟ ਅੱਗੇ"
 
-#: Viewer/ViewerWidget.cpp:1230
+#: Viewer/ViewerWidget.cpp:1232
 #, fuzzy, kde-format
 #| msgid "Stop"
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "ਰੋਕੋ"
 
-#: Viewer/ViewerWidget.cpp:1243
+#: Viewer/ViewerWidget.cpp:1245
 #, fuzzy, kde-format
 #| msgid "Generate thumbnails"
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "ਆਮ ਥੰਮਨੇਲ"
 
-#: Viewer/ViewerWidget.cpp:1249
+#: Viewer/ViewerWidget.cpp:1251
 #, fuzzy, kde-format
 #| msgid "Restart"
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "ਮੁੜ-ਚਾਲੂ"
 
-#: Viewer/ViewerWidget.cpp:1264
+#: Viewer/ViewerWidget.cpp:1266
 #, fuzzy, kde-format
 #| msgid "Filters"
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "ਫਿਲਟਰ"
 
-#: Viewer/ViewerWidget.cpp:1267
+#: Viewer/ViewerWidget.cpp:1269
 #, fuzzy, kde-format
 #| msgid "Remove All Filters"
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "ਸਭ ਫਿਲਟਰ ਹਟਾਓ"
 
-#: Viewer/ViewerWidget.cpp:1271
+#: Viewer/ViewerWidget.cpp:1273
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1276
+#: Viewer/ViewerWidget.cpp:1278
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1281
+#: Viewer/ViewerWidget.cpp:1283
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1286
+#: Viewer/ViewerWidget.cpp:1288
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1338
+#: Viewer/ViewerWidget.cpp:1340
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -6187,14 +6187,14 @@ msgid ""
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1342
+#: Viewer/ViewerWidget.cpp:1344
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
 "will be used instead: <tt>%2</tt></p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1355
+#: Viewer/ViewerWidget.cpp:1357
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "

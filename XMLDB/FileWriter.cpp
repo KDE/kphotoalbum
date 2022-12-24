@@ -47,6 +47,11 @@
 
 using Utilities::StringSet;
 
+namespace
+{
+constexpr QFileDevice::Permissions FILE_PERMISSIONS { QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup | QFile::ReadOther };
+}
+
 void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
 {
     setUseCompressedFileFormat(Settings::SettingsData::instance()->useCompressedIndexXML());
@@ -64,6 +69,9 @@ void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
                                                                                                                                             out.fileName(), out.errorString()),
             i18n("Error while saving..."));
         return;
+    }
+    if (!out.setPermissions(FILE_PERMISSIONS)) {
+        qCWarning(XMLDBLog, "Could not set permissions on file %s!", qPrintable(out.fileName()));
     }
     QElapsedTimer timer;
     if (TimingLog().isDebugEnabled())

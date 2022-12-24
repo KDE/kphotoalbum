@@ -31,6 +31,7 @@ constexpr size_t LRU_SIZE = 2;
 constexpr int THUMBNAIL_CACHE_SAVE_INTERNAL_MS = (5 * 1000);
 
 constexpr auto INDEXFILE_NAME = "thumbnailindex";
+constexpr QFileDevice::Permissions FILE_PERMISSIONS { QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup | QFile::ReadOther };
 }
 
 namespace ImageManager
@@ -142,6 +143,9 @@ void ImageManager::ThumbnailCache::insert(const DB::FileName &name, const QByteA
         if (!m_currentWriter->open(QIODevice::ReadWrite)) {
             qCWarning(ImageManagerLog, "Failed to open thumbnail file for inserting");
             return;
+        }
+        if (!m_currentWriter->setPermissions(FILE_PERMISSIONS)) {
+            qCWarning(ImageManagerLog) << "Could not set permissions on thumbnail file" << m_currentWriter->fileName();
         }
     }
     if (!m_currentWriter->seek(m_currentOffset)) {
@@ -305,7 +309,7 @@ void ImageManager::ThumbnailCache::saveFull()
         if (!realFile.open(QIODevice::ReadOnly)) {
             qCWarning(ImageManagerLog, "Could not open the file %s for reading!", qPrintable(realFileName));
         } else {
-            if (!realFile.setPermissions(QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup | QFile::ReadOther)) {
+            if (!realFile.setPermissions(FILE_PERMISSIONS)) {
                 qCWarning(ImageManagerLog, "Could not set permissions on file %s!", qPrintable(realFileName));
             } else {
                 realFile.close();

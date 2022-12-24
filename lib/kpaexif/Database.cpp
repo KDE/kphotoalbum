@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -38,7 +39,7 @@ const Database::ElementList elements(int since = 0)
 
         elms.append(new RationalExifElement("Exif.Photo.ApertureValue"));
         elms.append(new RationalExifElement("Exif.Photo.FNumber"));
-        //elms.append( new RationalExifElement( "Exif.Photo.FlashEnergy" ) );
+        // elms.append( new RationalExifElement( "Exif.Photo.FlashEnergy" ) );
 
         elms.append(new IntExifElement("Exif.Photo.Flash"));
         elms.append(new IntExifElement("Exif.Photo.Contrast"));
@@ -84,6 +85,8 @@ bool isSQLiteDriverAvailable()
     return QSqlDatabase::isDriverAvailable(QString::fromLatin1("QSQLITE"));
 #endif
 }
+
+constexpr QFileDevice::Permissions FILE_PERMISSIONS { QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup | QFile::ReadOther };
 }
 
 class Database::DatabasePrivate
@@ -153,9 +156,10 @@ void Exif::Database::DatabasePrivate::init()
     if (!isOpen())
         return;
 
-    if (!dbExists)
+    if (!dbExists) {
+        QFile::setPermissions(m_fileName, FILE_PERMISSIONS);
         populateDatabase();
-    else
+    } else
         updateDatabase();
 }
 

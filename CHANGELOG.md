@@ -25,6 +25,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Store the untagged tag information inside the index.xml file instead of the Settings (Implements: #461206)
  - Change scroll direction in the annotation dialog's date edit fields to match common (western) expectations and the date picker
  - Prevent scrolling past the occupied areas of the date bar.
+ - Files are now always created with group read/write permissions (Fixes: #438128)
 
 ### Dependencies
  - CMake: 3.18

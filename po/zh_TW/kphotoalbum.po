@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-12 00:44+0000\n"
+"POT-Creation-Date: 2022-12-25 00:47+0000\n"
 "PO-Revision-Date: 2019-01-19 19:46+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -755,7 +755,7 @@ msgctxt ""
 msgid "Associate with"
 msgstr ""
 
-#: BackgroundJobs/ExtractOneThumbnailJob.cpp:44
+#: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
 #, kde-format
 msgid "Extracting Thumbnail"
 msgstr "正在展開縮圖"
@@ -2779,7 +2779,7 @@ msgstr "事件"
 msgid "untagged"
 msgstr "無標籤影像"
 
-#: lib/kpaexif/Database.cpp:169
+#: lib/kpaexif/Database.cpp:173
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>There was an error while executing the SQL backend command. The error "
@@ -2798,13 +2798,13 @@ msgstr ""
 "正此錯誤，請到「維護」─「重建 EXIF 搜尋資料庫」。</p><hr/> <p>除錯資訊：執行"
 "的指令為：<br/>%1</p> <p>得到的錯誤訊息為：<br/>%2</p>"
 
-#: lib/kpaexif/Database.cpp:184
+#: lib/kpaexif/Database.cpp:188
 #, fuzzy, kde-format
 #| msgid "Converting database"
 msgid "Error in Exif database"
 msgstr "轉換資料庫"
 
-#: lib/kpaexif/Database.cpp:205
+#: lib/kpaexif/Database.cpp:209
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>There was an error while executing the SQL backend command. The error "
@@ -2821,7 +2821,7 @@ msgstr ""
 "正此錯誤，請到「維護」─「重建 EXIF 搜尋資料庫」。</p><hr/> <p>除錯資訊：執行"
 "的指令為：<br/>%1</p> <p>得到的錯誤訊息為：<br/>%2</p>"
 
-#: lib/kpaexif/Database.cpp:255
+#: lib/kpaexif/Database.cpp:259
 #, kde-format
 msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
@@ -6826,7 +6826,7 @@ msgstr "在檔案 %1 內發生錯誤：找不到元素"
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr "在檔案 %1 內發生錯誤：頂端元素應為 KPhotoAlbum 但是看到的是 %2"
 
-#: XMLDB/FileWriter.cpp:62
+#: XMLDB/FileWriter.cpp:67
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -6834,13 +6834,13 @@ msgid ""
 msgstr ""
 "<p>無法將影像資料庫儲存到 XML。</p>檔案 %1 無法開啟，因為發生以下的錯誤：%2"
 
-#: XMLDB/FileWriter.cpp:65 XMLDB/FileWriter.cpp:97 XMLDB/FileWriter.cpp:106
+#: XMLDB/FileWriter.cpp:70 XMLDB/FileWriter.cpp:105 XMLDB/FileWriter.cpp:114
 #, fuzzy, kde-format
 #| msgid "Error when saving image '%1'."
 msgid "Error while saving..."
 msgstr "儲存影像 %1 時發生錯誤"
 
-#: XMLDB/FileWriter.cpp:94
+#: XMLDB/FileWriter.cpp:102
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -6849,7 +6849,7 @@ msgstr ""
 "<p>移除舊版本的影像資料庫失敗。</p> <p>請再試一次，或是將檔案 %1 手動用檔案 "
 "%2 取代。</p>"
 
-#: XMLDB/FileWriter.cpp:103
+#: XMLDB/FileWriter.cpp:111
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "

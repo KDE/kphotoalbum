@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-12 00:44+0000\n"
+"POT-Creation-Date: 2022-12-25 00:47+0000\n"
 "PO-Revision-Date: 2020-05-05 11:56+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -760,7 +760,7 @@ msgctxt ""
 msgid "Associate with"
 msgstr ""
 
-#: BackgroundJobs/ExtractOneThumbnailJob.cpp:44
+#: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
 #, kde-format
 msgid "Extracting Thumbnail"
 msgstr "Pisipildi ekstraktimine"
@@ -2813,7 +2813,7 @@ msgstr "Sündmused"
 msgid "untagged"
 msgstr "sildistamata"
 
-#: lib/kpaexif/Database.cpp:169
+#: lib/kpaexif/Database.cpp:173
 #, kde-format
 msgid ""
 "<p>There was an error while accessing the Exif search database. The error is "
@@ -2827,12 +2827,12 @@ msgstr ""
 "lahendamiseks vali Hooldus->Loo EXIF-i andmebaas uuesti.</p><hr/><p>Silumise "
 "huvides prooviti kasutada käsku:<br/>%1</p><p>Saadud veateade oli:<br/>%2</p>"
 
-#: lib/kpaexif/Database.cpp:184
+#: lib/kpaexif/Database.cpp:188
 #, kde-format
 msgid "Error in Exif database"
 msgstr "Tõrge Exifi andmebaasis"
 
-#: lib/kpaexif/Database.cpp:205
+#: lib/kpaexif/Database.cpp:209
 #, kde-format
 msgid ""
 "<p>There was an error while opening the Exif search database.</p> <p>To fix "
@@ -2844,7 +2844,7 @@ msgstr ""
 "Hooldus->Loo EXIF-i andmebaas uuesti.</p><hr/><p>Saadud veateade oli:<br/>"
 "%1</p>"
 
-#: lib/kpaexif/Database.cpp:255
+#: lib/kpaexif/Database.cpp:259
 #, kde-format
 msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
@@ -6953,7 +6953,7 @@ msgstr "Tõrge failis %1: ühtegi elementi ei leitud"
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr "time failis %1: oodati ülemelementi 'KPhotoAlbum', aga leiti '%2'"
 
-#: XMLDB/FileWriter.cpp:62
+#: XMLDB/FileWriter.cpp:67
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -6962,12 +6962,12 @@ msgstr ""
 "<p>Piltide andmebaasi salvestamine XML-i nurjus.</p>Faili %1 avamine nurjus "
 "järgmise vea tõttu: %2"
 
-#: XMLDB/FileWriter.cpp:65 XMLDB/FileWriter.cpp:97 XMLDB/FileWriter.cpp:106
+#: XMLDB/FileWriter.cpp:70 XMLDB/FileWriter.cpp:105 XMLDB/FileWriter.cpp:114
 #, kde-format
 msgid "Error while saving..."
 msgstr "Tõrge salvestamisel ..."
 
-#: XMLDB/FileWriter.cpp:94
+#: XMLDB/FileWriter.cpp:102
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -6976,7 +6976,7 @@ msgstr ""
 "<p>Piltide andmebaasi vana versiooni eemaldamine nurjus.</p><p>Palun proovi "
 "uuesti või asenda fail %1 failiga %2 käsitsi!</p>"
 
-#: XMLDB/FileWriter.cpp:103
+#: XMLDB/FileWriter.cpp:111
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "

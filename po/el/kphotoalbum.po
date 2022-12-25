@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-12 00:44+0000\n"
+"POT-Creation-Date: 2022-12-25 00:47+0000\n"
 "PO-Revision-Date: 2017-10-16 18:16+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -788,7 +788,7 @@ msgctxt ""
 msgid "Associate with"
 msgstr ""
 
-#: BackgroundJobs/ExtractOneThumbnailJob.cpp:44
+#: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
 #, kde-format
 msgid "Extracting Thumbnail"
 msgstr "Εξαγωγή εικόνων επισκόπησης"
@@ -2908,7 +2908,7 @@ msgstr "Γεγονότα"
 msgid "untagged"
 msgstr "Αταξινόμητες εικόνες"
 
-#: lib/kpaexif/Database.cpp:169
+#: lib/kpaexif/Database.cpp:173
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>There was an error while executing the SQL backend command. The error "
@@ -2930,13 +2930,13 @@ msgstr ""
 "προσπάθεια εκτέλεσης της εντολής:<br/>%1</p><p>Το σφάλμα που εμφανίστηκε "
 "ήταν:<br/>%2</p>"
 
-#: lib/kpaexif/Database.cpp:184
+#: lib/kpaexif/Database.cpp:188
 #, fuzzy, kde-format
 #| msgid "Converting database"
 msgid "Error in Exif database"
 msgstr "Μετατροπή βάσης δεδομένων"
 
-#: lib/kpaexif/Database.cpp:205
+#: lib/kpaexif/Database.cpp:209
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>There was an error while executing the SQL backend command. The error "
@@ -2956,7 +2956,7 @@ msgstr ""
 "προσπάθεια εκτέλεσης της εντολής:<br/>%1</p><p>Το σφάλμα που εμφανίστηκε "
 "ήταν:<br/>%2</p>"
 
-#: lib/kpaexif/Database.cpp:255
+#: lib/kpaexif/Database.cpp:259
 #, kde-format
 msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
@@ -7173,7 +7173,7 @@ msgstr ""
 "Σφάλμα στο αρχείο %1: Αναμενόταν το 'KPhotoAlbum' ως ανώτατο αντικείμενο "
 "αλλά βρέθηκε το '%2'"
 
-#: XMLDB/FileWriter.cpp:62
+#: XMLDB/FileWriter.cpp:67
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -7182,13 +7182,13 @@ msgstr ""
 "<p>Αδυναμία αποθήκευσης της βάσης δεδομένων εικόνων σε XML.</p>Αδύνατο το "
 "άνοιγμα του αρχείου %1 εξαιτίας του ακόλουθου σφάλματος: %2"
 
-#: XMLDB/FileWriter.cpp:65 XMLDB/FileWriter.cpp:97 XMLDB/FileWriter.cpp:106
+#: XMLDB/FileWriter.cpp:70 XMLDB/FileWriter.cpp:105 XMLDB/FileWriter.cpp:114
 #, fuzzy, kde-format
 #| msgid "Error when saving image '%1'."
 msgid "Error while saving..."
 msgstr "Σφάλμα κατά την αποθήκευση της εικόνας '%1'."
 
-#: XMLDB/FileWriter.cpp:94
+#: XMLDB/FileWriter.cpp:102
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -7197,7 +7197,7 @@ msgstr ""
 "<p>αποτυχία αφαίρεσης της παλιάς έκδοσης της βάσης δεδομένων εικόνων.</"
 "p><p>Προσπαθήστε ξανά ή αντικαταστήστε το αρχείο %1 με το %2 χειροκίνητα!</p>"
 
-#: XMLDB/FileWriter.cpp:103
+#: XMLDB/FileWriter.cpp:111
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "

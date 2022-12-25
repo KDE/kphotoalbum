@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-12 00:44+0000\n"
+"POT-Creation-Date: 2022-12-25 00:47+0000\n"
 "PO-Revision-Date: 2022-09-10 10:47+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
@@ -763,7 +763,7 @@ msgctxt ""
 msgid "Associate with"
 msgstr "Associate with"
 
-#: BackgroundJobs/ExtractOneThumbnailJob.cpp:44
+#: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
 #, kde-format
 msgid "Extracting Thumbnail"
 msgstr "Extracting Thumbnail"
@@ -2746,7 +2746,7 @@ msgstr "Events"
 msgid "untagged"
 msgstr "untagged"
 
-#: lib/kpaexif/Database.cpp:169
+#: lib/kpaexif/Database.cpp:173
 #, kde-format
 msgid ""
 "<p>There was an error while accessing the Exif search database. The error is "
@@ -2761,12 +2761,12 @@ msgstr ""
 "command that was attempted to be executed was:<br/>%1</p><p>The error "
 "message obtained was:<br/>%2</p>"
 
-#: lib/kpaexif/Database.cpp:184
+#: lib/kpaexif/Database.cpp:188
 #, kde-format
 msgid "Error in Exif database"
 msgstr "Error in EXIF database"
 
-#: lib/kpaexif/Database.cpp:205
+#: lib/kpaexif/Database.cpp:209
 #, kde-format
 msgid ""
 "<p>There was an error while opening the Exif search database.</p> <p>To fix "
@@ -2777,7 +2777,7 @@ msgstr ""
 "this problem run Maintenance->Recreate EXIF Search database.</p><hr/><p>The "
 "error message obtained was:<br/>%1</p>"
 
-#: lib/kpaexif/Database.cpp:255
+#: lib/kpaexif/Database.cpp:259
 #, kde-format
 msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
@@ -6833,7 +6833,7 @@ msgstr "Error in file %1: No elements found"
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 
-#: XMLDB/FileWriter.cpp:62
+#: XMLDB/FileWriter.cpp:67
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -6842,12 +6842,12 @@ msgstr ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
 "because of the following error: %2"
 
-#: XMLDB/FileWriter.cpp:65 XMLDB/FileWriter.cpp:97 XMLDB/FileWriter.cpp:106
+#: XMLDB/FileWriter.cpp:70 XMLDB/FileWriter.cpp:105 XMLDB/FileWriter.cpp:114
 #, kde-format
 msgid "Error while saving..."
 msgstr "Error while saving..."
 
-#: XMLDB/FileWriter.cpp:94
+#: XMLDB/FileWriter.cpp:102
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -6856,7 +6856,7 @@ msgstr ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
 "replace the file %1 with file %2 manually!</p>"
 
-#: XMLDB/FileWriter.cpp:103
+#: XMLDB/FileWriter.cpp:111
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "

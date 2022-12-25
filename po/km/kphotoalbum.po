@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-12 00:44+0000\n"
+"POT-Creation-Date: 2022-12-25 00:47+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -754,7 +754,7 @@ msgctxt ""
 msgid "Associate with"
 msgstr ""
 
-#: BackgroundJobs/ExtractOneThumbnailJob.cpp:44
+#: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
 #, fuzzy, kde-format
 #| msgid "Creating thumbnails"
 msgid "Extracting Thumbnail"
@@ -2836,7 +2836,7 @@ msgstr "ព្រឹត្តិការណ៍"
 msgid "untagged"
 msgstr "រូប​ភាព​ដែល​មិន​ដាក់​ស្លាក​"
 
-#: lib/kpaexif/Database.cpp:169
+#: lib/kpaexif/Database.cpp:173
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>There was an error while executing the SQL backend command. The error "
@@ -2856,13 +2856,13 @@ msgstr ""
 "ទិន្នន័យ​ស្វែង​រក​ Exif ​ឡើង​វិញ ។</p><hr/><p>​សម្រាប់​ការ​បំបាត់​កំហុស ៖ ពាក្យ​បញ្ជា​ដែល​ត្រូវ​បាន​ប៉ុនប៉ង​"
 "ប្រតិបត្តិ​គឺ​ ៖<br/>%1</p><p>កំហុស​សារ​ដែល​បាន​ទទួល​បាន​គឺ ៖<br/>%2</p>"
 
-#: lib/kpaexif/Database.cpp:184
+#: lib/kpaexif/Database.cpp:188
 #, fuzzy, kde-format
 #| msgid "Loading Database"
 msgid "Error in Exif database"
 msgstr "កំពុង​ផ្ទុក​មូលដ្ឋាន​ទិន្នន័យ "
 
-#: lib/kpaexif/Database.cpp:205
+#: lib/kpaexif/Database.cpp:209
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>There was an error while executing the SQL backend command. The error "
@@ -2880,7 +2880,7 @@ msgstr ""
 "ទិន្នន័យ​ស្វែង​រក​ Exif ​ឡើង​វិញ ។</p><hr/><p>​សម្រាប់​ការ​បំបាត់​កំហុស ៖ ពាក្យ​បញ្ជា​ដែល​ត្រូវ​បាន​ប៉ុនប៉ង​"
 "ប្រតិបត្តិ​គឺ​ ៖<br/>%1</p><p>កំហុស​សារ​ដែល​បាន​ទទួល​បាន​គឺ ៖<br/>%2</p>"
 
-#: lib/kpaexif/Database.cpp:255
+#: lib/kpaexif/Database.cpp:259
 #, kde-format
 msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
@@ -7041,7 +7041,7 @@ msgstr "កំហុស​ក្នុង​ឯកសារ %1 ៖ រក​ម�
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr "កំហុស​ក្នុង​ឯកសារ %1 ៖ បាន​រំពឹងទុក 'KPhotoAlbum' ជា​ធាតុ​កំពូល​ប៉ុន្តែ​រកឃើញ '%2'"
 
-#: XMLDB/FileWriter.cpp:62
+#: XMLDB/FileWriter.cpp:67
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -7050,13 +7050,13 @@ msgstr ""
 "<p>មិន​អាច​រក្សាទុក​មូលដ្ឋាន​ទិន្នន័យ​រូបភាព​ទៅកាន់ XML ។</p>ឯកសារ %1 មិន​អាច​បើក​បាន​ទេ ដោយសារ​កំហុស​"
 "ដូច​ខាងក្រោម ៖ %2"
 
-#: XMLDB/FileWriter.cpp:65 XMLDB/FileWriter.cpp:97 XMLDB/FileWriter.cpp:106
+#: XMLDB/FileWriter.cpp:70 XMLDB/FileWriter.cpp:105 XMLDB/FileWriter.cpp:114
 #, fuzzy, kde-format
 #| msgid "Error when saving image '%1'."
 msgid "Error while saving..."
 msgstr "កំហុស​ពេល​កំពុង​រក្សា​ទុក​រូបភាព '%1' ។"
 
-#: XMLDB/FileWriter.cpp:94
+#: XMLDB/FileWriter.cpp:102
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -7065,7 +7065,7 @@ msgstr ""
 "<p>បាន​បរាជ័យ​ក្នុង​ការ​យក​កំណែ​មូលដ្ឋាន​ទិន្នន័យ​រូបភាព​ចាស់​ចេញ ។</p><p>សូម​ព្យាយាម​ម្ដងទៀត ឬ​ជំនួស​"
 "ឯកសារ %1 ដោយ​ឯកសារ %2 ដោយ​ដៃ !</p>"
 
-#: XMLDB/FileWriter.cpp:103
+#: XMLDB/FileWriter.cpp:111
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "

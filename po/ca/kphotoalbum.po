@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-12 00:44+0000\n"
+"POT-Creation-Date: 2022-12-25 00:47+0000\n"
 "PO-Revision-Date: 2022-11-01 12:38+0200\n"
 "Last-Translator: Antoni Bella <antonibella5@yahoo.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -774,7 +774,7 @@ msgctxt ""
 msgid "Associate with"
 msgstr "Associa amb"
 
-#: BackgroundJobs/ExtractOneThumbnailJob.cpp:44
+#: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
 #, kde-format
 msgid "Extracting Thumbnail"
 msgstr "S'estan extraient les miniatures"
@@ -2788,7 +2788,7 @@ msgstr "Esdeveniments"
 msgid "untagged"
 msgstr "Sense etiquetar"
 
-#: lib/kpaexif/Database.cpp:169
+#: lib/kpaexif/Database.cpp:173
 #, kde-format
 msgid ""
 "<p>There was an error while accessing the Exif search database. The error is "
@@ -2804,12 +2804,12 @@ msgstr ""
 "s'intenta executar és:<br/>%1</p><p>El missatge d'error que s'ha obtingut és:"
 "<br/>%2</p>"
 
-#: lib/kpaexif/Database.cpp:184
+#: lib/kpaexif/Database.cpp:188
 #, kde-format
 msgid "Error in Exif database"
 msgstr "Error a la base de dades de l'Exif"
 
-#: lib/kpaexif/Database.cpp:205
+#: lib/kpaexif/Database.cpp:209
 #, kde-format
 msgid ""
 "<p>There was an error while opening the Exif search database.</p> <p>To fix "
@@ -2821,7 +2821,7 @@ msgstr ""
 "dades de cerques Exif».</p><hr/><p>El missatge d'error que s'ha obtingut és:"
 "<br/>%1</p>"
 
-#: lib/kpaexif/Database.cpp:255
+#: lib/kpaexif/Database.cpp:259
 #, kde-format
 msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
@@ -6934,7 +6934,7 @@ msgstr ""
 "Error en el fitxer %1: s'esperava «KPhotoAlbum» com a element superior, però "
 "s'ha trobat «%2»"
 
-#: XMLDB/FileWriter.cpp:62
+#: XMLDB/FileWriter.cpp:67
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -6943,12 +6943,12 @@ msgstr ""
 "<p>No s'ha pogut desar la base de dades d'imatges a XML.</p>El fitxer %1 no "
 "s'ha pogut obrir a causa del següent error: %2"
 
-#: XMLDB/FileWriter.cpp:65 XMLDB/FileWriter.cpp:97 XMLDB/FileWriter.cpp:106
+#: XMLDB/FileWriter.cpp:70 XMLDB/FileWriter.cpp:105 XMLDB/FileWriter.cpp:114
 #, kde-format
 msgid "Error while saving..."
 msgstr "Error en desar..."
 
-#: XMLDB/FileWriter.cpp:94
+#: XMLDB/FileWriter.cpp:102
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -6958,7 +6958,7 @@ msgstr ""
 "p><p>Torneu-ho a intentar de nou o substituïu el fitxer %1 amb el fitxer %2 "
 "manualment!</p>"
 
-#: XMLDB/FileWriter.cpp:103
+#: XMLDB/FileWriter.cpp:111
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "

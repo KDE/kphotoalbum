@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-12 00:44+0000\n"
+"POT-Creation-Date: 2022-12-25 00:47+0000\n"
 "PO-Revision-Date: 2022-06-27 20:24+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -774,7 +774,7 @@ msgctxt ""
 msgid "Associate with"
 msgstr "Skojarz z"
 
-#: BackgroundJobs/ExtractOneThumbnailJob.cpp:44
+#: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
 #, kde-format
 msgid "Extracting Thumbnail"
 msgstr "Wydobywanie miniatur"
@@ -2863,7 +2863,7 @@ msgstr "Wydarzenia"
 msgid "untagged"
 msgstr "nieznaczony"
 
-#: lib/kpaexif/Database.cpp:169
+#: lib/kpaexif/Database.cpp:173
 #, kde-format
 msgid ""
 "<p>There was an error while accessing the Exif search database. The error is "
@@ -2878,12 +2878,12 @@ msgstr ""
 "p><hr/><p>Dla debugowania: polecenie, które próbowano wykonać to:<br/>%1</"
 "p><p>Otrzymany wiadomość błędu to:<br/>%2</p>"
 
-#: lib/kpaexif/Database.cpp:184
+#: lib/kpaexif/Database.cpp:188
 #, kde-format
 msgid "Error in Exif database"
 msgstr "Błąd w bazie danych Exif"
 
-#: lib/kpaexif/Database.cpp:205
+#: lib/kpaexif/Database.cpp:209
 #, kde-format
 msgid ""
 "<p>There was an error while opening the Exif search database.</p> <p>To fix "
@@ -2894,7 +2894,7 @@ msgstr ""
 "naprawić problem uruchom Obsługa->Utwórz ponownie bazę danych wyszukiwania "
 "Exif.</p><hr/><p>Otrzymany komunikat błędu to:<br/>%1</p>"
 
-#: lib/kpaexif/Database.cpp:255
+#: lib/kpaexif/Database.cpp:259
 #, kde-format
 msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
@@ -7050,7 +7050,7 @@ msgstr ""
 "Błąd w pliku %1: oczekiwano 'KPhotoAlbum' a znaleziono '%2' jako element "
 "główny"
 
-#: XMLDB/FileWriter.cpp:62
+#: XMLDB/FileWriter.cpp:67
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -7059,12 +7059,12 @@ msgstr ""
 "<p>Nie można zapisać bazy danych obrazów do XML.</p>Nie można otworzyć pliku "
 "%1 ze względu na następujący błąd: %2"
 
-#: XMLDB/FileWriter.cpp:65 XMLDB/FileWriter.cpp:97 XMLDB/FileWriter.cpp:106
+#: XMLDB/FileWriter.cpp:70 XMLDB/FileWriter.cpp:105 XMLDB/FileWriter.cpp:114
 #, kde-format
 msgid "Error while saving..."
 msgstr "Błąd podczas zapisywania..."
 
-#: XMLDB/FileWriter.cpp:94
+#: XMLDB/FileWriter.cpp:102
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -7073,7 +7073,7 @@ msgstr ""
 "<p>Nie udało się usunąć starej wersji bazy danych obrazów.</p><p>Proszę "
 "spróbować ponownie lub ręcznie zastąpić plik %1 z plikiem %2!</p>"
 
-#: XMLDB/FileWriter.cpp:103
+#: XMLDB/FileWriter.cpp:111
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "

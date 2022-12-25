@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-12 00:44+0000\n"
+"POT-Creation-Date: 2022-12-25 00:47+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -775,7 +775,7 @@ msgctxt ""
 msgid "Associate with"
 msgstr "Poveži sa"
 
-#: BackgroundJobs/ExtractOneThumbnailJob.cpp:44
+#: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
 #, kde-format
 msgid "Extracting Thumbnail"
 msgstr "Izvlačenje minijature"
@@ -2904,7 +2904,7 @@ msgstr "Događaji"
 msgid "untagged"
 msgstr "Neoznacene slike"
 
-#: lib/kpaexif/Database.cpp:169
+#: lib/kpaexif/Database.cpp:173
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>There was an error while executing the SQL backend command. The error "
@@ -2926,13 +2926,13 @@ msgstr ""
 "Naredba koja je pokušala da se izvrši je bila: <br/>%1 </p> <p> poruka o "
 "pogrešci je: <br/>%2 </p>"
 
-#: lib/kpaexif/Database.cpp:184
+#: lib/kpaexif/Database.cpp:188
 #, fuzzy, kde-format
 #| msgid "Error while reading database file"
 msgid "Error in Exif database"
 msgstr "Greška prilikom učitavanja datoteke iz baze podataka"
 
-#: lib/kpaexif/Database.cpp:205
+#: lib/kpaexif/Database.cpp:209
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>There was an error while executing the SQL backend command. The error "
@@ -2952,7 +2952,7 @@ msgstr ""
 "Naredba koja je pokušala da se izvrši je bila: <br/>%1 </p> <p> poruka o "
 "pogrešci je: <br/>%2 </p>"
 
-#: lib/kpaexif/Database.cpp:255
+#: lib/kpaexif/Database.cpp:259
 #, kde-format
 msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
@@ -7142,7 +7142,7 @@ msgstr ""
 "Greška u datoteci %1: očekivano 'KPhotoAlbum' kao gornji element, ali je "
 "pronađeno '%2'"
 
-#: XMLDB/FileWriter.cpp:62
+#: XMLDB/FileWriter.cpp:67
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -7151,13 +7151,13 @@ msgstr ""
 "<p>Nije moguće snimiti sliku u bazu podataka za XML.</p>Datoteka %1 ne može "
 "biti otvorena zbog sljedeće greške: %2"
 
-#: XMLDB/FileWriter.cpp:65 XMLDB/FileWriter.cpp:97 XMLDB/FileWriter.cpp:106
+#: XMLDB/FileWriter.cpp:70 XMLDB/FileWriter.cpp:105 XMLDB/FileWriter.cpp:114
 #, fuzzy, kde-format
 #| msgid "Error when saving image '%1'."
 msgid "Error while saving..."
 msgstr "Greška pri spašavanju slike '%1'."
 
-#: XMLDB/FileWriter.cpp:94
+#: XMLDB/FileWriter.cpp:102
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -7166,7 +7166,7 @@ msgstr ""
 "<p>Neuspjelo uklanjanje stare verzije baze podataka slike.</p><p>Molimo "
 "pokušajte ponovo ili zamijenite datoteku %1 sa %2 ručno!</p>"
 
-#: XMLDB/FileWriter.cpp:103
+#: XMLDB/FileWriter.cpp:111
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "

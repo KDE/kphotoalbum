@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-12 00:44+0000\n"
+"POT-Creation-Date: 2022-12-25 00:47+0000\n"
 "PO-Revision-Date: 2020-09-13 15:37+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -765,7 +765,7 @@ msgctxt ""
 msgid "Associate with"
 msgstr ""
 
-#: BackgroundJobs/ExtractOneThumbnailJob.cpp:44
+#: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
 #, kde-format
 msgid "Extracting Thumbnail"
 msgstr "Udtrækker miniature"
@@ -2856,7 +2856,7 @@ msgstr "Begivenheder"
 msgid "untagged"
 msgstr "Ikke-mærkede billeder"
 
-#: lib/kpaexif/Database.cpp:169
+#: lib/kpaexif/Database.cpp:173
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>There was an error while executing the SQL backend command. The error "
@@ -2877,13 +2877,13 @@ msgstr ""
 "var kommandoen der blev forsøgt kørt:<br/>%1</p><p>Fejlbeskeden der "
 "blevmodtaget var: <br/>%2</p>"
 
-#: lib/kpaexif/Database.cpp:184
+#: lib/kpaexif/Database.cpp:188
 #, fuzzy, kde-format
 #| msgid "Converting database"
 msgid "Error in Exif database"
 msgstr "Konverterer database"
 
-#: lib/kpaexif/Database.cpp:205
+#: lib/kpaexif/Database.cpp:209
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>There was an error while executing the SQL backend command. The error "
@@ -2902,7 +2902,7 @@ msgstr ""
 "var kommandoen der blev forsøgt kørt:<br/>%1</p><p>Fejlbeskeden der "
 "blevmodtaget var: <br/>%2</p>"
 
-#: lib/kpaexif/Database.cpp:255
+#: lib/kpaexif/Database.cpp:259
 #, kde-format
 msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
@@ -7090,7 +7090,7 @@ msgstr ""
 "Fejl i filen %1: Forventede \"KPhotoAlbum\" som øverste element, men fandt "
 "\"%2\""
 
-#: XMLDB/FileWriter.cpp:62
+#: XMLDB/FileWriter.cpp:67
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -7099,20 +7099,20 @@ msgstr ""
 "<p>Kunne ikke gemme billeddatabasen til XML.</p>Filen %1 kunne ikke åbnes "
 "pga. følgende fejl: %2"
 
-#: XMLDB/FileWriter.cpp:65 XMLDB/FileWriter.cpp:97 XMLDB/FileWriter.cpp:106
+#: XMLDB/FileWriter.cpp:70 XMLDB/FileWriter.cpp:105 XMLDB/FileWriter.cpp:114
 #, fuzzy, kde-format
 #| msgid "Error when saving image '%1'."
 msgid "Error while saving..."
 msgstr "Fejl under gemning af billedet \"%1\"."
 
-#: XMLDB/FileWriter.cpp:94
+#: XMLDB/FileWriter.cpp:102
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
 "replace the file %1 with file %2 manually!</p>"
 msgstr ""
 
-#: XMLDB/FileWriter.cpp:103
+#: XMLDB/FileWriter.cpp:111
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "

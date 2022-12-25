@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-12 00:44+0000\n"
+"POT-Creation-Date: 2022-12-25 00:47+0000\n"
 "PO-Revision-Date: 2021-01-10 14:24+0100\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -767,7 +767,7 @@ msgctxt ""
 msgid "Associate with"
 msgstr "Asociovať s"
 
-#: BackgroundJobs/ExtractOneThumbnailJob.cpp:44
+#: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
 #, kde-format
 msgid "Extracting Thumbnail"
 msgstr "Extrahujem miniatúru"
@@ -2845,7 +2845,7 @@ msgstr "Udalosti"
 msgid "untagged"
 msgstr "neoznačkované"
 
-#: lib/kpaexif/Database.cpp:169
+#: lib/kpaexif/Database.cpp:173
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>There was an error while executing the SQL backend command. The error "
@@ -2866,12 +2866,12 @@ msgstr ""
 "<p>Pre ladenie: príkaz, ktorý sa spúšťal, bol:<br/>%1</p> <p>Chybová správa "
 "bola:<br/>%2</p>"
 
-#: lib/kpaexif/Database.cpp:184
+#: lib/kpaexif/Database.cpp:188
 #, kde-format
 msgid "Error in Exif database"
 msgstr "Chyba v Exif databáze"
 
-#: lib/kpaexif/Database.cpp:205
+#: lib/kpaexif/Database.cpp:209
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>There was an error while executing the SQL backend command. The error "
@@ -2890,7 +2890,7 @@ msgstr ""
 "<p>Pre ladenie: príkaz, ktorý sa spúšťal, bol:<br/>%1</p> <p>Chybová správa "
 "bola:<br/>%2</p>"
 
-#: lib/kpaexif/Database.cpp:255
+#: lib/kpaexif/Database.cpp:259
 #, kde-format
 msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
@@ -7061,7 +7061,7 @@ msgstr ""
 "Chyba v súbore %1: očakávaný 'KPhotoAlbum' ako vrchný prvok, ale našiel sa "
 "'%2'"
 
-#: XMLDB/FileWriter.cpp:62
+#: XMLDB/FileWriter.cpp:67
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -7070,13 +7070,13 @@ msgstr ""
 "<p>Nemôžem uložiť databázu obrázkov do XML.</p>Súbor %1 nie je možné otvoriť "
 "kvôli nasledovnej chybe: %2"
 
-#: XMLDB/FileWriter.cpp:65 XMLDB/FileWriter.cpp:97 XMLDB/FileWriter.cpp:106
+#: XMLDB/FileWriter.cpp:70 XMLDB/FileWriter.cpp:105 XMLDB/FileWriter.cpp:114
 #, fuzzy, kde-format
 #| msgid "Error when saving image '%1'."
 msgid "Error while saving..."
 msgstr "Chyba pri ukladaní obrázka '%1'."
 
-#: XMLDB/FileWriter.cpp:94
+#: XMLDB/FileWriter.cpp:102
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -7085,7 +7085,7 @@ msgstr ""
 "<p>Zlyhalo odstránenie starej verzie databázy obrázkov.</p> <p>Prosím, "
 "skúste znova alebo nahraďte súbor %1 súborom %2 ručne!</p>"
 
-#: XMLDB/FileWriter.cpp:103
+#: XMLDB/FileWriter.cpp:111
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "

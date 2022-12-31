@@ -311,14 +311,17 @@ bool MainWindow::Window::slotExit()
                                                                   KStandardGuiItem::save(),
                                                                   KStandardGuiItem::cancel(),
                                                                   QString::fromLatin1("deleteDemoDatabase2"));
+        if (answer == KMessageBox::Cancel)
+            return false;
+        else if (answer == KMessageBox::PrimaryAction) {
 #else
         const auto answer = KMessageBox::questionYesNoCancel(this, question, title,
                                                              KStandardGuiItem::yes(), KStandardGuiItem::no(), KStandardGuiItem::cancel(),
                                                              QString::fromLatin1("deleteDemoDatabase"));
-#endif
         if (answer == KMessageBox::Cancel)
             return false;
-        else if (answer == KMessageBox::Yes || answer == KMessageBox::PrimaryAction) {
+        else if (answer == KMessageBox::Yes) {
+#endif
             Utilities::deleteDemo();
         } else {
             slotSave();

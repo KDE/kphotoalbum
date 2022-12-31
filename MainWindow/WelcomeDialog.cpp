@@ -22,6 +22,7 @@
 #include <QPushButton>
 #include <QStandardPaths>
 #include <QVBoxLayout>
+#include <kwidgetsaddons_version.h>
 
 using namespace MainWindow;
 
@@ -151,8 +152,19 @@ QString FileDialog::getFileName()
 
         dir = KShell::tildeExpand(m_lineEdit->text());
         if (!QFileInfo(dir).exists()) {
-            int create = KMessageBox::questionYesNo(this, i18n("Folder does not exist, create it?"));
-            if (create == KMessageBox::Yes) {
+            const auto question = i18n("Folder does not exist, create it?");
+            const auto title = i18n("Create folder?");
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            const auto answer = KMessageBox::questionTwoActions(this,
+                                                                question,
+                                                                title,
+                                                                KGuiItem(i18n("Create")),
+                                                                KStandardGuiItem::cancel());
+            if (answer == KMessageBox::ButtonCode::PrimaryAction) {
+#else
+            const auto answer = KMessageBox::questionYesNo(this, question, title);
+            if (answer == KMessageBox::Yes) {
+#endif
                 bool ok2 = QDir().mkdir(dir);
                 if (!ok2) {
                     KMessageBox::error(this, i18n("Could not create folder %1", dir));

@@ -41,6 +41,7 @@
 #include <QStringMatcher>
 #include <QVBoxLayout>
 #include <kio_version.h>
+#include <kwidgetsaddons_version.h>
 
 using namespace HTMLGenerator;
 
@@ -442,14 +443,26 @@ bool HTMLDialog::checkVars()
 #endif
     KJobWidgets::setWindow(existsJob.data(), MainWindow::Window::theMainWindow());
     if (existsJob->exec()) {
+        const QString question = i18n("<p>Output folder %1 already exists. "
+                                      "Usually, this means you should specify a new folder.</p>"
+                                      "<p>Should %2 be deleted first?</p>",
+                                      outputDir, outputDir);
+        const QString title = i18n("Folder Exists");
+        const QString dontAskAgainName = QString::fromLatin1("html_export_delete_original_directory");
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        const auto answer = KMessageBox::questionTwoActions(this,
+                                                            question,
+                                                            title,
+                                                            KStandardGuiItem::del(),
+                                                            KStandardGuiItem::cancel(), dontAskAgainName);
+        if (answer == KMessageBox::ButtonCode::PrimaryAction) {
+#else
         int answer = KMessageBox::warningYesNo(this,
-                                               i18n("<p>Output folder %1 already exists. "
-                                                    "Usually, this means you should specify a new folder.</p>"
-                                                    "<p>Should %2 be deleted first?</p>",
-                                                    outputDir, outputDir),
-                                               i18n("Folder Exists"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
-                                               QString::fromLatin1("html_export_delete_original_directory"));
+                                               question,
+                                               title, KStandardGuiItem::yes(), KStandardGuiItem::no(),
+                                               dontAskAgainName);
         if (answer == KMessageBox::Yes) {
+#endif
             QScopedPointer<KJob> delJob(KIO::del(QUrl::fromUserInput(outputDir)));
             KJobWidgets::setWindow(delJob.data(), MainWindow::Window::theMainWindow());
             delJob->exec();

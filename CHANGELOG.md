@@ -26,6 +26,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Change scroll direction in the annotation dialog's date edit fields to match common (western) expectations and the date picker
  - Prevent scrolling past the occupied areas of the date bar.
  - Files are now always created with group read/write permissions (Fixes: #438128)
+ - When exiting the demo mode, the demo database is now always saved if it isn't deleted.
 
 ### Dependencies
  - CMake: 3.18

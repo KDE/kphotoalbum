@@ -297,41 +297,36 @@ void MainWindow::Window::delayedInit()
 bool MainWindow::Window::slotExit()
 {
     if (Options::the()->demoMode()) {
-        QString txt = i18n("<p><b>Delete Your Temporary Demo Database</b></p>"
-                           "<p>I hope you enjoyed the KPhotoAlbum demo. The demo database was copied to "
-                           "/tmp, should it be deleted now? If you do not delete it, it will waste disk space; "
-                           "on the other hand, if you want to come back and try the demo again, you "
-                           "might want to keep it around with the changes you made through this session.</p>");
-        int ret = KMessageBox::questionYesNoCancel(this, txt, i18n("Delete Demo Database"),
-                                                   KStandardGuiItem::yes(), KStandardGuiItem::no(), KStandardGuiItem::cancel(),
-                                                   QString::fromLatin1("deleteDemoDatabase"));
-        if (ret == KMessageBox::Cancel)
+        const QString question = i18n("<p><b>Delete Your Temporary Demo Database</b></p>"
+                                      "<p>I hope you enjoyed the KPhotoAlbum demo. The demo database was created in the "
+                                      "folder <tt>/tmp</tt>, should it be deleted now? If you do not delete it, it will waste disk space; "
+                                      "on the other hand, if you want to come back and try the demo again, you "
+                                      "might want to keep it around with the changes you made through this session.</p>");
+        const QString title = i18n("Delete Demo Database");
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        const auto answer = KMessageBox::questionTwoActionsCancel(widget(),
+                                                                  question,
+                                                                  title,
+                                                                  KStandardGuiItem::del(),
+                                                                  KStandardGuiItem::save(),
+                                                                  KStandardGuiItem::cancel(),
+                                                                  QString::fromLatin1("deleteDemoDatabase2"));
+#else
+        const auto answer = KMessageBox::questionYesNoCancel(this, question, title,
+                                                             KStandardGuiItem::yes(), KStandardGuiItem::no(), KStandardGuiItem::cancel(),
+                                                             QString::fromLatin1("deleteDemoDatabase"));
+#endif
+        if (answer == KMessageBox::Cancel)
             return false;
-        else if (ret == KMessageBox::Yes) {
+        else if (answer == KMessageBox::Yes || answer == KMessageBox::PrimaryAction) {
             Utilities::deleteDemo();
-            goto doQuit;
         } else {
-            // pass through to the check for dirtyness.
-        }
-    }
-
-    if (m_statusBar->mp_dirtyIndicator->isSaveDirty()) {
-        int ret = KMessageBox::warningYesNoCancel(this, i18n("Do you want to save the changes?"),
-                                                  i18n("Save Changes?"));
-        if (ret == KMessageBox::Cancel) {
-            return false;
-        }
-        if (ret == KMessageBox::Yes) {
             slotSave();
-        }
-        if (ret == KMessageBox::No) {
-            QDir().remove(Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"));
+            // Flush any remaining thumbnails
+            thumbnailCache()->save();
         }
     }
-    // Flush any remaining thumbnails
-    thumbnailCache()->save();
 
-doQuit:
     ImageManager::AsyncLoader::instance()->requestExit();
     qApp->quit();
     return true;
@@ -359,12 +354,21 @@ void MainWindow::Window::slotCreateImageStack()
 
     bool ok = DB::ImageDB::instance()->stack(list);
     if (!ok) {
-        if (KMessageBox::questionYesNo(this,
-                                       i18n("Some of the selected images already belong to a stack. "
-                                            "Do you want to remove them from their stacks and create a "
-                                            "completely new one?"),
-                                       i18n("Stacking Error"))
-            == KMessageBox::Yes) {
+        const QString question = i18n("Some of the selected images already belong to a stack. "
+                                      "Do you want to remove them from their stacks and create a "
+                                      "completely new one?");
+        const QString title = i18n("Stacking problem");
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        const auto answer = KMessageBox::questionTwoActions(widget(),
+                                                            question,
+                                                            title,
+                                                            KStandardGuiItem::ok(),
+                                                            KStandardGuiItem::cancel());
+        if (answer == KMessageBox::ButtonCode::PrimaryAction) {
+#else
+        const auto answer = KMessageBox::questionYesNo(this, question, title);
+        if (answer == KMessageBox::Yes) {
+#endif
             DB::ImageDB::instance()->unstack(list);
             if (!DB::ImageDB::instance()->stack(list)) {
                 KMessageBox::error(this,
@@ -1166,11 +1170,22 @@ bool MainWindow::Window::load()
         // We use index.xml as the XML backend, thus we want to test for exactly it
         fi.setFile(QString::fromLatin1("%1/index.xml").arg(fi.dir().absolutePath()));
         if (!fi.exists()) {
-            int answer = KMessageBox::questionYesNo(this, i18n("<p>Given index file does not exist, do you want to create following?"
-                                                               "<br />%1/index.xml</p>",
-                                                               fi.absolutePath()));
-            if (answer != KMessageBox::Yes)
+            const QString question = i18n("<p>Given index file does not exist, do you want to create following?"
+                                          "<br />%1/index.xml</p>",
+                                          fi.absolutePath());
+            const QString title = i18n("Create database");
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            const auto answer = KMessageBox::questionTwoActions(this, question,
+                                                                title,
+                                                                KGuiItem(i18n("Create")),
+                                                                KStandardGuiItem::cancel());
+            if (answer != KMessageBox::ButtonCode::PrimaryAction) {
+#else
+            const auto answer = KMessageBox::questionYesNo(this, question);
+            if (answer != KMessageBox::Yes) {
+#endif
                 return false;
+            }
         }
         configFile = fi.absoluteFilePath();
     }
@@ -1463,10 +1478,21 @@ void MainWindow::Window::slotExport()
 
 void MainWindow::Window::slotReenableMessages()
 {
-    int ret = KMessageBox::questionYesNo(this, i18n("<p>Really enable all message boxes where you previously "
-                                                    "checked the do-not-show-again check box?</p>"));
-    if (ret == KMessageBox::Yes)
+    const QString question = i18n("<p>Really enable all message boxes where you previously "
+                                  "checked the do-not-show-again check box?</p>");
+    const QString title = i18n("Reset hidden dialogs");
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+    const auto answer = KMessageBox::questionTwoActions(this, question,
+                                                        title,
+                                                        KStandardGuiItem::reset(),
+                                                        KStandardGuiItem::cancel());
+    if (answer == KMessageBox::ButtonCode::PrimaryAction) {
+#else
+    const auto answer = KMessageBox::questionYesNo(this, question);
+    if (answer == KMessageBox::Yes) {
+#endif
         KMessageBox::enableAllMessages();
+    }
 }
 
 void MainWindow::Window::setupPluginMenu()
@@ -1872,8 +1898,18 @@ UserFeedback MainWindow::Window::askWarningContinueCancel(const QString &msg, co
 
 UserFeedback MainWindow::Window::askQuestionYesNo(const QString &msg, const QString &title, const QString &dialogId)
 {
-    auto answer = KMessageBox::questionYesNo(this, msg, title, KStandardGuiItem::yes(), KStandardGuiItem::no(), dialogId);
-    return (answer == KMessageBox::Yes) ? UserFeedback::Confirm : UserFeedback::Deny;
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+    const auto answer = KMessageBox::questionTwoActions(this, msg,
+                                                        title,
+                                                        KStandardGuiItem::ok(),
+                                                        KStandardGuiItem::cancel(),
+                                                        dialogId);
+    const UserFeedback value = (answer == KMessageBox::ButtonCode::PrimaryAction) ? UserFeedback::Confirm : UserFeedback::Deny;
+#else
+    const auto answer = KMessageBox::questionYesNo(this, msg, title, KStandardGuiItem::yes(), KStandardGuiItem::no(), dialogId);
+    const UserFeedback value = (answer == KMessageBox::Yes) ? UserFeedback::Confirm : UserFeedback::Deny;
+#endif
+    return value;
 }
 
 void MainWindow::Window::showInformation(const QString &msg, const QString &title, const QString &dialogId)

@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "ThumbnailDND.h"
 
 #include "ThumbnailModel.h"
@@ -14,6 +15,7 @@
 #include <KMessageBox>
 #include <QMimeData>
 #include <QTimer>
+#include <kwidgetsaddons_version.h>
 
 ThumbnailView::ThumbnailDND::ThumbnailDND(ThumbnailFactory *factory)
     : ThumbnailComponent(factory)
@@ -85,16 +87,26 @@ void ThumbnailView::ThumbnailDND::contentsDropEvent(QDropEvent *event)
  */
 void ThumbnailView::ThumbnailDND::realDropEvent()
 {
-    QString msg = i18n("<p><b>Really reorder thumbnails?</b></p>"
-                       "<p>By dragging images around in the thumbnail viewer, you actually reorder them. "
-                       "This is very useful where you do not know the exact date for the images. On the other hand, "
-                       "if the images have valid timestamps, you should use "
-                       "<b>Maintenance -&gt; Sort All By Date and Time</b> or "
-                       "<b>View -&gt; Sort Selected By Date and Time</b>.</p>");
+    const QString question = i18n("<p><b>Really reorder thumbnails?</b></p>"
+                                  "<p>By dragging images around in the thumbnail viewer, you actually reorder them. "
+                                  "This is very useful where you do not know the exact date for the images. On the other hand, "
+                                  "if the images have valid timestamps, you should use "
+                                  "<b>Maintenance -&gt; Sort All By Date and Time</b> or "
+                                  "<b>View -&gt; Sort Selected By Date and Time</b>.</p>");
 
-    if (KMessageBox::questionYesNo(widget(), msg, i18n("Reorder Thumbnails"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
-                                   QString::fromLatin1("reorder_images"))
-        == KMessageBox::Yes) {
+    const QString title = i18n("Reorder Thumbnails");
+    const QString dontAskAgainName = QString::fromLatin1("reorder_images");
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+    const auto answer = KMessageBox::questionTwoActions(widget(),
+                                                        question,
+                                                        title,
+                                                        KStandardGuiItem::ok(),
+                                                        KStandardGuiItem::cancel(), dontAskAgainName);
+    if (answer == KMessageBox::ButtonCode::PrimaryAction) {
+#else
+    const auto answer = KMessageBox::questionYesNo(widget(), question, title, KStandardGuiItem::yes(), KStandardGuiItem::no(), dontAskAgainName);
+    if (answer == KMessageBox::Yes) {
+#endif
         // expand selection so that stacks are always selected as a whole:
         const DB::FileNameList selected = widget()->selection(IncludeAllStacks);
 

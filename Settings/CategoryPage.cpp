@@ -323,14 +323,14 @@ void Settings::CategoryPage::positionableChanged(bool positionable)
         const QString question = i18n("<p>Do you really want to make \"%1\" "
                                       "non-positionable?</p>"
                                       "<p>All areas linked against this category "
-                                      "will be deleted!</p>",
+                                      "will be discarded!</p>",
                                       m_currentCategory->text());
 
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActions(this,
                                                             question,
                                                             i18n("Confirm Action"),
-                                                            KStandardGuiItem::cont(),
+                                                            KStandardGuiItem::discard(),
                                                             KStandardGuiItem::cancel());
         if (answer == KMessageBox::ButtonCode::SecondaryAction) {
             m_positionable->setCheckState(Qt::Checked);
@@ -411,13 +411,13 @@ void Settings::CategoryPage::deleteCurrentCategory()
     const auto answer = KMessageBox::questionTwoActions(this,
                                                         question,
                                                         i18n("Confirm Action"),
-                                                        KStandardGuiItem::cont(),
+                                                        KStandardGuiItem::del(),
                                                         KStandardGuiItem::cancel());
     if (answer == KMessageBox::ButtonCode::SecondaryAction) {
         return;
     }
 #else
-    int answer = KMessageBox::questionYesNo(this, question);
+    const auto answer = KMessageBox::questionYesNo(this, question);
     if (answer == KMessageBox::No) {
         return;
     }

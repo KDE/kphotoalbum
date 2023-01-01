@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -30,6 +31,7 @@
 #include <kio/job.h>
 #include <kio_version.h>
 #include <kmessagebox.h>
+#include <kwidgetsaddons_version.h>
 #include <memory>
 
 using namespace ImportExport;
@@ -232,26 +234,33 @@ void ImportExport::ImportHandler::stopCopyingImages()
 
 void ImportExport::ImportHandler::aCopyFailed(QStringList files)
 {
-    int result = m_reportUnreadableFiles ? KMessageBox::warningYesNoCancelList(m_progress,
-                                                                               i18n("Cannot copy from any of the following locations:"),
-                                                                               files, QString(), KStandardGuiItem::cont(), KGuiItem(i18n("Continue without Asking")))
-                                         : KMessageBox::Yes;
-
-    switch (result) {
-    case KMessageBox::Cancel:
-        // This might be late -- if we managed to copy some files, we will
-        // just throw away any changes to the DB, but some new image files
-        // might be in the image directory...
-        m_eventLoop->exit(false);
-        m_pendingCopies.pop_front();
-        break;
-
-    case KMessageBox::No:
-        m_reportUnreadableFiles = false;
-        Q_FALLTHROUGH();
-    default:
-        aCopyJobCompleted(nullptr);
+    if (m_reportUnreadableFiles) {
+        const QString warnMessage = i18n("Cannot copy from any of the following locations:");
+        const QString title = i18n("Copy failed");
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        const auto answer = KMessageBox::warningTwoActionsCancelList(m_progress,
+                                                                     warnMessage,
+                                                                     files,
+                                                                     title,
+                                                                     KStandardGuiItem::cont(),
+                                                                     KGuiItem(i18n("Continue without Asking")));
+        if (answer == KMessageBox::ButtonCode::SecondaryAction) {
+#else
+        const auto answer = KMessageBox::warningYesNoCancelList(m_progress, warnMessage,
+                                                                files, title, KStandardGuiItem::cont(), KGuiItem(i18n("Continue without Asking")));
+        if (answer == KMessageBox::No) {
+#endif
+            m_reportUnreadableFiles = false;
+        } else if (answer == KMessageBox::Cancel) {
+            // This might be late -- if we managed to copy some files, we will
+            // just throw away any changes to the DB, but some new image files
+            // might be in the image directory...
+            m_eventLoop->exit(false);
+            m_pendingCopies.pop_front();
+            return;
+        }
     }
+    aCopyJobCompleted(nullptr);
 }
 
 void ImportExport::ImportHandler::aCopyJobCompleted(KJob *job)

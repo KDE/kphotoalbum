@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -28,6 +29,7 @@
 #include <QPixmap>
 #include <QPushButton>
 #include <QScrollArea>
+#include <kwidgetsaddons_version.h>
 
 using Utilities::StringSet;
 
@@ -293,15 +295,26 @@ void ImportDialog::next()
     if (currentPage() == m_destinationPage) {
         QString dir = m_destinationEdit->text();
         if (!QFileInfo(dir).exists()) {
-            int answer = KMessageBox::questionYesNo(this, i18n("Folder %1 does not exist. Should it be created?", dir));
-            if (answer == KMessageBox::Yes) {
-                bool ok = QDir().mkpath(dir);
-                if (!ok) {
-                    KMessageBox::error(this, i18n("Error creating folder %1", dir));
-                    return;
-                }
-            } else
+            const QString question = i18n("Folder %1 does not exist. Should it be created?", dir);
+            const QString title = i18n("Create folder?");
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+            const auto answer = KMessageBox::questionTwoActions(this,
+                                                                question,
+                                                                title,
+                                                                KGuiItem(i18n("Create")),
+                                                                KStandardGuiItem::cancel());
+            if (answer != KMessageBox::ButtonCode::PrimaryAction)
                 return;
+#else
+            const auto answer = KMessageBox::questionYesNo(this, question, title);
+            if (answer != KMessageBox::Yes)
+                return;
+#endif
+            bool ok = QDir().mkpath(dir);
+            if (!ok) {
+                KMessageBox::error(this, i18n("Error creating folder %1", dir));
+                return;
+            }
         }
     }
     if (!m_hasFilled && currentPage() == m_categoryMatcherPage) {

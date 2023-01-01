@@ -20,6 +20,7 @@
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2022 Friedrich W. H. Kossebau <kossebau@kde.org>
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -46,6 +47,7 @@
 #include <KAcceleratorManager>
 #include <KActionCollection>
 #include <KComboBox>
+#include <KConfigGroup>
 #include <KGuiItem>
 #include <KLineEdit>
 #include <KLocalizedString>
@@ -56,6 +58,7 @@
 #include <QApplication>
 #include <QCloseEvent>
 #include <QCursor>
+#include <QDialogButtonBox>
 #include <QDir>
 #include <QDockWidget>
 #include <QFile>
@@ -72,6 +75,10 @@
 #include <QStandardPaths>
 #include <QTimeEdit>
 #include <QVBoxLayout>
+#include <QtGlobal>
+#include <algorithm>
+#include <kwidgetsaddons_version.h>
+#include <tuple>
 
 #ifdef HAVE_MARBLE
 #include "Map/GeoCoordinates.h"
@@ -79,12 +86,6 @@
 #include <QProgressBar>
 #include <QTimer>
 #endif
-
-#include <KConfigGroup>
-#include <QDialogButtonBox>
-#include <QtGlobal>
-#include <algorithm>
-#include <tuple>
 
 namespace
 {
@@ -1035,9 +1036,21 @@ void AnnotationDialog::Dialog::reject()
 
     m_fullScreenPreview->stopPlayback();
     if (hasChanges()) {
-        int code = KMessageBox::questionYesNo(this, i18n("<p>Some changes are made to annotations. Do you really want to cancel all recent changes for each affected file?</p>"));
+        const QString question = i18n("<p>Some changes are made to annotations. Do you really want to discard all recent changes for each affected file?</p>");
+        const QString title = i18n("Discard changes?");
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        const auto answer = KMessageBox::questionTwoActions(this,
+                                                            question,
+                                                            title,
+                                                            KStandardGuiItem::discard(),
+                                                            KStandardGuiItem::cancel());
+        if (answer != KMessageBox::ButtonCode::PrimaryAction)
+            return;
+#else
+        int code = KMessageBox::questionYesNo(this, question, title);
         if (code == KMessageBox::No)
             return;
+#endif
     }
     closeDialog();
 }

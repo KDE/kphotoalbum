@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2018 Jesper K Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -152,13 +153,13 @@ QString FileDialog::getFileName()
 
         dir = KShell::tildeExpand(m_lineEdit->text());
         if (!QFileInfo(dir).exists()) {
-            const auto question = i18n("Folder does not exist, create it?");
-            const auto title = i18n("Create folder?");
+            const QString question = i18n("Folder does not exist, create it?");
+            const QString title = i18nc("@title", "Create folder?");
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             const auto answer = KMessageBox::questionTwoActions(this,
                                                                 question,
                                                                 title,
-                                                                KGuiItem(i18n("Create")),
+                                                                KGuiItem(i18nc("@action:button", "Create")),
                                                                 KStandardGuiItem::cancel());
             if (answer == KMessageBox::ButtonCode::PrimaryAction) {
 #else

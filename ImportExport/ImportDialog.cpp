@@ -296,12 +296,12 @@ void ImportDialog::next()
         QString dir = m_destinationEdit->text();
         if (!QFileInfo(dir).exists()) {
             const QString question = i18n("Folder %1 does not exist. Should it be created?", dir);
-            const QString title = i18n("Create folder?");
+            const QString title = i18nc("@title", "Create folder?");
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             const auto answer = KMessageBox::questionTwoActions(this,
                                                                 question,
                                                                 title,
-                                                                KGuiItem(i18n("Create")),
+                                                                KGuiItem(i18nc("@action:button", "Create")),
                                                                 KStandardGuiItem::cancel());
             if (answer != KMessageBox::ButtonCode::PrimaryAction)
                 return;

@@ -429,7 +429,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
                                                                  "about it from any image containing the item.</p>",
                                                                  title),
                                                       i18n("Really Delete %1?", item->text(0)),
-                                                      KGuiItem(i18n("&Delete"), QString::fromLatin1("editdelete")));
+                                                      KStandardGuiItem::del());
         if (code == KMessageBox::Continue) {
             if (item->checkState(0) == Qt::Checked && m_positionable) {
                 // An area could be linked against this. We can use positionableTagDeselected
@@ -445,7 +445,7 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
         Q_ASSERT(computedEditMode() == Editable);
         bool ok;
         QString newStr = QInputDialog::getText(this,
-                                               i18n("Rename Item"), i18n("Enter new name:"),
+                                               i18nc("@title", "Rename Item"), i18n("Enter new name:"),
                                                QLineEdit::Normal,
                                                item->text(0), &ok);
 
@@ -454,12 +454,12 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
                                           "Doing so will rename \"%3\" "
                                           "on any image containing it.</p>",
                                           item->text(0), newStr, item->text(0));
-            const QString questionTitle = i18n("Really Rename %1?", item->text(0));
+            const QString questionTitle = i18nc("@title", "Rename %1?", item->text(0));
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             const auto answer = KMessageBox::questionTwoActions(this,
                                                                 question,
                                                                 questionTitle,
-                                                                KGuiItem(i18n("Rename")),
+                                                                KGuiItem(i18nc("@action:button", "Rename")),
                                                                 KStandardGuiItem::cancel());
             if (answer == KMessageBox::ButtonCode::PrimaryAction) {
 #else

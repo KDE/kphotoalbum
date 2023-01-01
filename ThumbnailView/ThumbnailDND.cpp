@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -94,7 +95,7 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
                                   "<b>Maintenance -&gt; Sort All By Date and Time</b> or "
                                   "<b>View -&gt; Sort Selected By Date and Time</b>.</p>");
 
-    const QString title = i18n("Reorder Thumbnails");
+    const QString title = i18nc("@title", "Reorder Thumbnails");
     const QString dontAskAgainName = QString::fromLatin1("reorder_images");
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     const auto answer = KMessageBox::questionTwoActions(widget(),

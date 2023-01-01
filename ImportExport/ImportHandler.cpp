@@ -236,18 +236,18 @@ void ImportExport::ImportHandler::aCopyFailed(QStringList files)
 {
     if (m_reportUnreadableFiles) {
         const QString warnMessage = i18n("Cannot copy from any of the following locations:");
-        const QString title = i18n("Copy failed");
+        const QString title = i18nc("@title", "Copy failed");
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::warningTwoActionsCancelList(m_progress,
                                                                      warnMessage,
                                                                      files,
                                                                      title,
                                                                      KStandardGuiItem::cont(),
-                                                                     KGuiItem(i18n("Continue without Asking")));
+                                                                     KGuiItem(i18nc("@action:button", "Continue without Asking")));
         if (answer == KMessageBox::ButtonCode::SecondaryAction) {
 #else
         const auto answer = KMessageBox::warningYesNoCancelList(m_progress, warnMessage,
-                                                                files, title, KStandardGuiItem::cont(), KGuiItem(i18n("Continue without Asking")));
+                                                                files, title, KStandardGuiItem::cont(), KGuiItem(i18nc("@action:button", "Continue without Asking")));
         if (answer == KMessageBox::No) {
 #endif
             m_reportUnreadableFiles = false;

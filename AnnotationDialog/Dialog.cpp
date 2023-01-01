@@ -1037,7 +1037,7 @@ void AnnotationDialog::Dialog::reject()
     m_fullScreenPreview->stopPlayback();
     if (hasChanges()) {
         const QString question = i18n("<p>Some changes are made to annotations. Do you really want to discard all recent changes for each affected file?</p>");
-        const QString title = i18n("Discard changes?");
+        const QString title = i18nc("@title", "Discard changes?");
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActions(this,
                                                             question,

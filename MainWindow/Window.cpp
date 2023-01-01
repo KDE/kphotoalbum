@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -302,7 +303,7 @@ bool MainWindow::Window::slotExit()
                                       "folder <tt>/tmp</tt>, should it be deleted now? If you do not delete it, it will waste disk space; "
                                       "on the other hand, if you want to come back and try the demo again, you "
                                       "might want to keep it around with the changes you made through this session.</p>");
-        const QString title = i18n("Delete Demo Database");
+        const QString title = i18nc("@title", "Delete Demo Database");
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActionsCancel(widget(),
                                                                   question,
@@ -360,7 +361,7 @@ void MainWindow::Window::slotCreateImageStack()
         const QString question = i18n("Some of the selected images already belong to a stack. "
                                       "Do you want to remove them from their stacks and create a "
                                       "completely new one?");
-        const QString title = i18n("Stacking problem");
+        const QString title = i18nc("@title", "Stacking problem");
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActions(widget(),
                                                             question,
@@ -1176,11 +1177,11 @@ bool MainWindow::Window::load()
             const QString question = i18n("<p>Given index file does not exist, do you want to create following?"
                                           "<br />%1/index.xml</p>",
                                           fi.absolutePath());
-            const QString title = i18n("Create database");
+            const QString title = i18nc("@title", "Create database");
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             const auto answer = KMessageBox::questionTwoActions(this, question,
                                                                 title,
-                                                                KGuiItem(i18n("Create")),
+                                                                KGuiItem(i18nc("@action:button", "Create")),
                                                                 KStandardGuiItem::cancel());
             if (answer != KMessageBox::ButtonCode::PrimaryAction) {
 #else
@@ -1483,7 +1484,7 @@ void MainWindow::Window::slotReenableMessages()
 {
     const QString question = i18n("<p>Really enable all message boxes where you previously "
                                   "checked the do-not-show-again check box?</p>");
-    const QString title = i18n("Reset hidden dialogs");
+    const QString title = i18nc("@title", "Reset hidden dialogs");
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     const auto answer = KMessageBox::questionTwoActions(this, question,
                                                         title,

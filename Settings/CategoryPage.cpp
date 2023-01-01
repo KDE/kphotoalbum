@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -329,7 +330,7 @@ void Settings::CategoryPage::positionableChanged(bool positionable)
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActions(this,
                                                             question,
-                                                            i18n("Confirm Action"),
+                                                            i18nc("@title", "Confirm Action"),
                                                             KStandardGuiItem::discard(),
                                                             KStandardGuiItem::cancel());
         if (answer == KMessageBox::ButtonCode::SecondaryAction) {

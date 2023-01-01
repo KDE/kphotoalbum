@@ -8,15 +8,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-25 00:47+0000\n"
-"PO-Revision-Date: 2022-09-10 10:47+0100\n"
+"PO-Revision-Date: 2022-12-31 15:45+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
-"Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
+"Language-Team: English <kde-i18n-doc@kde.org>\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.08.0\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1038,12 +1038,12 @@ msgstr "Move Items"
 #: DateBar/DateBarWidget.cpp:69
 #, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "Scroll right"
 
 #: DateBar/DateBarWidget.cpp:78
 #, kde-format
 msgid "Scroll left"
-msgstr ""
+msgstr "Scroll left"
 
 #: DateBar/DateBarWidget.cpp:87
 #, kde-format
@@ -2444,10 +2444,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 
 #: kpa-thumbnailtool/main.cpp:49
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+msgstr "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:98
 #, kde-format
@@ -2797,10 +2796,9 @@ msgid "KDE Photo Album"
 msgstr "KDE Photo Album"
 
 #: main.cpp:90
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+msgstr "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
 
 #: main.cpp:111
 #, kde-format
@@ -3944,16 +3942,14 @@ msgid "Show Tooltips in Thumbnails Window"
 msgstr "Show Tooltips in Thumbnails Window"
 
 #: MainWindow/Window.cpp:911
-#, fuzzy, kde-format
-#| msgid "Show Tooltips in Thumbnails Window"
+#, kde-format
 msgid "Show Labels in Thumbnails Window"
-msgstr "Show Tooltips in Thumbnails Window"
+msgstr "Show Labels in Thumbnails Window"
 
 #: MainWindow/Window.cpp:921
-#, fuzzy, kde-format
-#| msgid "Show Tooltips in Thumbnails Window"
+#, kde-format
 msgid "Show Categories in Thumbnails Window"
-msgstr "Show Tooltips in Thumbnails Window"
+msgstr "Show Categories in Thumbnails Window"
 
 #: MainWindow/Window.cpp:935
 #, kde-format
@@ -4131,11 +4127,10 @@ msgid "Viewer"
 msgstr "Viewer"
 
 #: MainWindow/Window.cpp:1317
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "Date: "
+msgstr "Date Bar"
 
 #: MainWindow/Window.cpp:1320
 #, kde-format

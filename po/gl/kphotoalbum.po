@@ -1412,7 +1412,8 @@ msgid "Owner:"
 msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:62
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Group:"
 msgid "Group:"
 msgstr "Grupo:"
 

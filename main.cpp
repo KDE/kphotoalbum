@@ -15,6 +15,7 @@
 // SPDX-FileCopyrightText: 2018, 2020 Tobias Leupold <tl at stonemx dot de>
 // SPDX-FileCopyrightText: 2019 Alexander Potashev <aspotashev@gmail.com>
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -87,7 +88,7 @@ int main(int argc, char **argv)
         QStringLiteral(KPA_VERSION),
         i18n("KDE Photo Album"), // short description
         KAboutLicense::GPL_V3,
-        i18n("Copyright (C) 2003-2022 The KPhotoAlbum Development Team"), // copyright statement
+        i18n("Copyright (C) 2003-2023 The KPhotoAlbum Development Team"), // copyright statement
         QString(), // other text
         QStringLiteral("https://www.kphotoalbum.org") // homepage
     );

@@ -3130,7 +3130,7 @@ msgstr ""
 "<p>A davall hi ha una llista de totes les imatges que estan duplicades en la "
 "base de dades.<br/>Seleccioneu les que voleu combinar, i quines de les "
 "duplicades s'haurien de mantindre.<br/>L'etiqueta i la descripció de les "
-"imatges suprimides es transferiran a la imatge que es manté</p>"
+"imatges suprimides es transferiran cap a la imatge que es manté</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:51
 #, kde-format
@@ -5158,7 +5158,8 @@ msgstr "Utilitza la descripció Exif"
 #: Settings/GeneralPage.cpp:56
 #, kde-format
 msgid "Strip out camera generated default descriptions"
-msgstr "Retira les descripcions generades per defecte per la càmera"
+msgstr ""
+"Retira les descripcions generades de manera predeterminada per la càmera"
 
 #: Settings/GeneralPage.cpp:68
 #, kde-format
@@ -5231,9 +5232,10 @@ msgid ""
 "information into the images at all.</p>"
 msgstr ""
 "<p>Les imatges JPEG poden contindre informació sobre l'orientació. Si teniu "
-"alguna raó per a no utilitzar esta informació per a aconseguir un gir per "
-"defecte de les imatges, desmarqueu esta casella de selecció.</p><p>Nota: la "
-"vostra càmera digital potser no escriu esta informació a les imatges.</p>"
+"alguna raó per a no utilitzar esta informació per a aconseguir un gir "
+"predeterminat de les imatges, desmarqueu esta casella de selecció.</"
+"p><p>Nota: la vostra càmera digital potser no escriurà esta informació a "
+"dins de les imatges.</p>"
 
 #: Settings/GeneralPage.cpp:153
 #, kde-format

@@ -7,20 +7,16 @@ SPDX-License-Identifier: GFDL-1.2-only
 -->
 
 <chapter id="chp-browsing">
-  <title
->Durchblättern der Bilder</title>
-  <para
->Sobald Sie Ihre Bilder und Videos mit Anmerkungen versehen haben, können Sie mit &kphotoalbum; durch diese blättern, siehe <xref linkend="fig-browser-with-images"/>. Wie Sie durch einen Vergleich mit <xref linkend="fig-empty-browser-window"/> sehen können, sind nun in jeder Gruppe, also in <literal
->Personen</literal
->, <literal
->Orte</literal
-> und in der Gruppe <literal
->Stichwörter</literal
-> Einträge vorhanden.</para>
+  <title>Browsing</title>
+  <para>Once you have annotated your images and videos, &kphotoalbum; is ready to let you
+    browse through your images, see <xref
+      linkend="fig-browser-with-images"/>. If you compare that to <xref
+      linkend="fig-empty-browser-window"/> , you will see that there now is
+    items available in each of the categories for <literal>People</literal>,
+    <literal>Places</literal>, and <literal>Keywords</literal>.</para>
   
   <figure id="fig-browser-with-images">
-    <title
->Browser mit Bilder und Videos, die mit Anmerkungen versehen sind</title>
+    <title>Browser when images and videos have been annotated</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="browser-with-images.png"
@@ -29,18 +25,18 @@ SPDX-License-Identifier: GFDL-1.2-only
     </mediaobject>
   </figure>
   
-  <para
->In dem Browserfenster sehen Sie die Kategorien, für die Sie Informationen eingegeben haben als Sie Ihre Bilder und Videos mit Anmerkungen versehen haben. Zusätzlich gibt es Einträge, um nach EXIF-basierenden Informationen zu suchen, die Ordnerstruktur auf Ihrer Festplatte zu betrachten und natürlich die aktuellen Vorschaubilder anzusehen. Im folgenden wird jedes für sich beschrieben.</para
-> 
+  <para>In the browser window you can see the categories you typed
+information into when annotating your images and videos. In addition there
+are items for searching based on EXIF information on images, browsing the
+folder structure of your hard disk, and of course showing the actual
+thumbnails. Lets describe each item in turn.</para> 
   
-  <para
->Wenn Sie mit der Maus auf den Eintrag <literal
->Personen</literal
-> drücken, verändert sich die Ansicht des Browsers. Siehe <xref linkend="fig-browser-for-persons"/>.</para>
+  <para>Pressing the mouse on
+<literal>People</literal>, the browser window will change, as you can see
+in <xref linkend="fig-browser-for-persons"/>.</para>
   
   <figure id="fig-browser-for-persons">
-    <title
->Das Browserfenster, nachdem der Eintrag Personen ausgewählt wurde.</title>
+    <title>Browser window when People was selected.</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="browser-for-persons.png"
@@ -49,22 +45,24 @@ SPDX-License-Identifier: GFDL-1.2-only
     </mediaobject>
   </figure>
   
-  <para
->Nun sehen Sie alle Personen, die Sie für Ihre Bilder und Videos verwendet haben. <footnote
-><para
->Sie haben sicherlich festgestellt, dass der Eintrag <literal
->Haustiere</literal
-> ein besonderes Symbol besitzt. Weitere Informationen hierzu finden Sie im Abschnitt <xref linkend="sec-specifying-categories"/>.</para
-></footnote
-> Nachdem Sie eine Person ausgewählt haben, gelangen Sie zum vorigen Fenster zurück, siehe <xref linkend="fig-browser-with-images"/>. Dieses Mal wurde aber diese Person ausgewählt, um Bilder zu filtern. Das bedeutet, Sie sehen nun nur Informationen über Bilder, auf denen die gewählte Person zu sehen ist. In <xref linkend="fig-browser-for-jesper"/> sehen Sie das Ergebnis einer Auswahl der Person <literal
->Jesper</literal
->. Wenn Sie <xref linkend="fig-browser-with-images"/> mit <xref linkend="fig-browser-for-jesper"/> vergleichen, sehen Sie, dass die Anzahl der Bilder und Videos von 25 auf 12 zurückgegangen ist und dass sich die Anzahl der Einträge für die verschiedenen Kategorien auch verändert hat.</para>
+  <para>The browser is now populated with the people you specified for
+    your images and videos <footnote><para>You may notice that the item
+    <literal>Pets</literal> has a special icon. For details about that, see
+    <xref linkend="sec-specifying-categories"/>.</para></footnote>,
+    selecting a person will bring you back to the original state for the
+    browser, as we saw in <xref linkend="fig-browser-with-images"/>, this
+    time, however, we are <emphasis>in the scope</emphasis> of the person
+    we selected. That means that we only shows information about images and
+    videos containing that person. See <xref linkend="fig-browser-for-jesper"/>
+    below, which is the result of us selecting the Person <literal>Jesper</literal>, you can see an
+    indication of that in the bottom of the window. Please compare <xref
+      linkend="fig-browser-with-images"/> with <xref
+      linkend="fig-browser-for-jesper"/>, where you will see that the number
+    of available images and videos has gone down from 25 to 12, and the amount of
+    items for the different categories have also changed.</para>
   
   <figure id="fig-browser-for-jesper">
-    <title
->Ansicht, nachdem <literal
->Jesper</literal
-> ausgewählt wurde</title>
+    <title>Browser limited to the scope of the person <literal>Jesper</literal></title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="browser-for-jesper.png"
@@ -73,13 +71,14 @@ SPDX-License-Identifier: GFDL-1.2-only
     </mediaobject>
   </figure>
   
-  <para
->Wenn Sie eine weitere Person auswählen, werden nur die Bilder angezeigt, auf denen beide Personen zu sehen sind. Durch diese Auswahlmethode können Sie die Zahl der angezeigten Bilder von ein paar tausend auf wenige einzelne eingrenzen.</para>
+  <para>If we now continue selecting a new person, then we will get to
+the images containing both people. Continuing that way you can narrow the
+set of images that you have in mind down to a few images from a set of
+thousands.</para>
   
-  <para
->Wenn Sie alle Personen, Orte und sonstige Einstellungen ausgewählt haben, können Sie mit <guilabel
->Vorschaubilder anzeigen</guilabel
-> die Bilder Ihres Auswahlbereiches ansehen.</para>
+  <para>When you are done limiting the scope of images, you may select
+the <guilabel>View Thumbnails</guilabel> icon, to see exactly those images
+matching your current scope.</para>
 
 
 
@@ -89,18 +88,16 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 
   <sect1 id="sect-adding-preview-images-to-the-browser">
-  <title
->Vorschaubilder hinzufügen</title>
-  <para
->In <xref linkend="fig-browser-for-persons"/> hat jede Person das gleiche Symbol vor ihrem Namen. Sie können mit &kphotoalbum; jedoch für jede Person ein eigenes Vorschaubild speichern, <footnote
-><para
->Das gilt natürlich auch für Orte, Stichwörter und andere Kategorien, die Sie selbst definiert haben.</para
-></footnote
-> Siehe dazu <xref linkend="fig-imagesForPersons"/>.</para>
+  <title>Adding Preview Images to the Browser</title>
+  <para>Looking at <xref linkend="fig-browser-for-persons"/> you will see
+that each person has the same icon in front of his name. &kphotoalbum; is actually
+capable of showing a preview image for each individual person <footnote><para>This of
+course also applies to places, keywords, and other categories you
+have defined yourself.</para></footnote> as can be seen in  <xref
+linkend="fig-imagesForPersons"/>.</para>
 
   <figure id="fig-imagesForPersons">
-    <title
->Individuelle Bilder für jede Person</title>
+    <title>Images for each Individual Person</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="imagesForPersons.png" format="PNG"/>
@@ -108,26 +105,26 @@ SPDX-License-Identifier: GFDL-1.2-only
     </mediaobject>
   </figure>
 
-<para
->Um Bilder neben den Namen anzuzeigen, wählen Sie <menuchoice
-><guimenu
->Einstellungen</guimenu
-><guisubmenu
->Aktuelle Ansicht</guisubmenu
-></menuchoice
->. Im Menü können Sie dann auswählen, welche Ansicht Sie für die aktuelle Kategorie verwenden möchten. Beachten Sie hierbei bitte, dass Sie die Ansicht für jede Kategorie separat einstellen müssen. Das hat den Vorteil, dass Sie sich z.B. eine Symbolansicht von Personen, aber eine einfache Liste von Stichwörtern anzeigen lassen können (falls Sie für Ihre Stichwörter keine geeigneten Bilder besitzen).</para
->  
+<para>To show images along with the names, choose the tool
+button to the very right of the toolbar, that will bring up a popup menu,
+where you can chose which view you want to use for the given
+category. Notice views must be configured for each category - that way you
+may for example use an icon view for people, but a plain list view for
+keywords (in case you can't come up with good images for your
+keywords).</para>  
 
 
-<para
->Sie müssen jedoch selbst festlegen, welches Bild für jede einzelne Person angezeigt werden soll. Um dies zu tun, müssen Sie das Bild-Ansichts-Fenster (in <xref linkend="chp-viewer"/> näher beschrieben) öffnen und im Kontextmenü den Eintrag <guimenuitem
->Kategorie-Editor anzeigen</guimenuitem
-> auswählen. Nun wird Ihnen ein Kategorien-Editor, wie in <xref linkend="fig-categoryEditor"/> zu sehen, angezeigt. Hier können Sie das Bild für die entsprechende Person auswählen. Im Ansichts-Fenster können Sie den Vergrößerungsfaktor nach Ihren Wünschen anpassen und dadurch auswählen, welcher Teil des Bildes angezeigt beziehungsweise abgeschnitten werden soll.</para>
+<para>It is, however, your job to tell it which images to use for each
+individual person. To do so, you must open the viewer (see <xref
+linkend="chp-viewer"/>), and from the context menu choose <guimenuitem>Show
+Category Editor</guimenuitem>, this will bring up the category editor which
+can be seen in <xref linkend="fig-categoryEditor"/>. In the category editor
+you choose the image for the given person. In the viewer it is possible to zoom to part of
+the image, and that way crop what part should be shown.</para>
 
 
   <figure id="fig-categoryEditor">
-    <title
->Kategorien-Editor</title>
+    <title>Category Editor</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="categoryEditor.png" format="PNG"/>
@@ -148,16 +145,14 @@ SPDX-License-Identifier: GFDL-1.2-only
 
   
   <sect1 id="sect-general-image-searches">
-    <title
->Allgemeine Bildersuche</title>
-    <para
->Wenn Sie im Hauptfenster den Eintrag <guilabel
->Suchen</guilabel
-> aufrufen, wird Ihnen ein Dialog angezeigt, der dem Dialog für das Festlegen der Bild-Eigenschaften sehr ähnlich ist. Diesen Dialog können Sie in <xref linkend="fig-search"/> noch einmal ansehen.</para>
+    <title>General image searches</title>
+    <para>If you chose the <guilabel>Search</guilabel> item in the
+browser, you will get to a dialog with great resemblance to the dialog you
+used for setting properties of your images. You can see this dialog in <xref
+        linkend="fig-search"/> below.</para>
     
     <figure id="fig-search">
-      <title
->Bildsuche-Dialog</title>
+      <title>Search dialog</title>
       <mediaobject>
         <imageobject>
           <imagedata fileref="search.png" format="PNG"/>
@@ -165,28 +160,18 @@ SPDX-License-Identifier: GFDL-1.2-only
       </mediaobject>
     </figure>
     
-    <para
->Wenn Sie eine Zeichenfolge in das Feld <literal
->Beschriftung</literal
-> oder <literal
->Beschreibung</literal
-> eingeben, werden die Beschriftungen beziehungsweise Beschreibungen der Bilder nach diesem Text durchsucht. Wenn Sie möchten, können Sie auch ein Datum eingeben, nach dem gesucht werden soll; das Datum kann entweder ein Teil des Gesamtdatums sein, also zum Beispiel 1971, oder das komplette Datum. Sie können auch einen Bereich von zwei Daten verwenden, wie zum Beispiel 1971-1980.</para>
+    <para>If you type a string in the label or description field, then
+that text will be searched for using substring searches. Likewise you can
+also specify a date to search for, either as part of a date, say 1971, or
+as a complete date. You may also specify date ranges, like 1971-1980.</para>
     
-    <para
->Die Optionen im unteren Teil des Fensters ermöglichen in begrenzter Weise das Suchen mit Ausdrücken, wie Sie in <xref linkend="fig-search"/> sehen können. Hier wird nach Bildern gesucht, auf denen <literal
->Jesper</literal
->, jedoch nicht <literal
->Anne Helene</literal
-> abgebildet sind.</para>
+    <para>The options item allows a very limited form of writing
+an expression, as you can see in the example in <xref
+        linkend="fig-search"/>. Here we search for images with <literal>Jesper</literal>,
+but without <literal>Anne Helene</literal>.</para>
     
-    <para
->Die Operationen, die Sie eingeben können, sind &amp; (bedeutet <quote
->und</quote
->), | (bedeutet <quote
->oder</quote
->) und ! (bedeutet <quote
->nicht</quote
->).</para>
+    <para>The allowed operations are &amp; (meaning: and), | (meaning:
+or), and ! (meaning: not).</para>
     
   </sect1>
 </chapter>

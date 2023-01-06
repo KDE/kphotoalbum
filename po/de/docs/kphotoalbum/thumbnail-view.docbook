@@ -6,16 +6,16 @@ SPDX-License-Identifier: GFDL-1.2-only
 -->
 
 <chapter id="chp-thumbnail-view">
-  <title
->Bildvorschau</title>
-  <para
->Wenn Sie den Eintrag <guilabel
->Vorschaubilder anzeigen</guilabel
-> im Browser auswählen, erhalten Sie einen Überblick mit Vorschaubildern der aktuell ausgewählten Bilder, oder aller Bilder falls Sie keinen Filter gesetzt haben. Ein Beispiel dafür sehen Sie folgend in <xref linkend="fig-thumbnailview"/>. Sie können die Größe der Vorschaubilder durch einfaches Ziehen der Maus bei gedrückter mittlerer Maustaste einstellen. Versuchen Sie es einfach mal.</para>
+  <title>Thumbnail viewer</title>
+  <para>Selecting <guilabel>View Thumbnails</guilabel> in the browser, you get to
+a thumbnail overview of the images currently in scope (or all images if no
+scope have been selected). An example of this can be seen in <xref
+      linkend="fig-thumbnailview"/> below. The size of the thumbnails can be
+configure simply by dragging the mouse with the middle mouse button down
+(try it is really cool).</para>
 
   <figure id="fig-thumbnailview">
-    <title
->Bildvorschau</title>
+    <title>Thumbnail View</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="thumbnailview.png" format="PNG"/>
@@ -23,72 +23,45 @@ SPDX-License-Identifier: GFDL-1.2-only
       </mediaobject>
   </figure>
 
-  <para
->In der Vorschauansicht können Sie Ihre Bilder neu anordnen, indem Sie diese mit der Maus verschieben. Damit die Zeitleiste richtig funktioniert sollten Sie Ihre Bilder immer sortiert lassen. Sie können Ihre Bilder sortieren, indem Sie alle Bilder auswählen und aus dem Menü <menuchoice
-><guimenu
->Bilder</guimenu
-> <guimenuitem
->Auswahl nach Datum &amp; Zeit sortieren</guimenuitem
-></menuchoice
-> ansteuern. Bilder, die am selben Tag und zur selben Zeit aufgenommen wurden, werden nicht umsortiert. Wenn Sie also beispielsweise 100 Bilder aus dem Jahr 1992 haben, können Sie die Reihenfolge ändern, ohne dass die Reihenfolge bei einem Sortieren geändert wird.</para>
+  <para>In the thumbnail overview you can reorder your pictures by dragging
+them around with the mouse. For
+the date bar to work properly you should, however, aim at keeping your
+images sorted at all time. Sorting you images can be done by selecting all
+images, and choosing <menuchoice><guimenu>Images</guimenu><guimenuitem>Sort Selected by
+Date &amp; Time</guimenuitem></menuchoice>. The sorting will not reorder images which has
+the same date and time, so if you have say 100 images with the date 1992
+(i.e. no month, no day, only year), then you may move them around, and their individual order will stay unchanged after a sort.</para>
 
-<para
->Wenn Sie ein Bild aus der Vorschau ziehen und auf dem Hintergrund Ihrer Arbeitsfläche fallenlassen, wird dieses Bild als Hintergrundbild für Ihre Arbeitsfläche eingerichtet.</para>
+<para>Dragging an image from the viewer to the background will set
+the image as the background image of your desktop.</para>
 
-  <para
->Wenn Sie ein Bild anklicken, wird dieses im Bildbetrachter angezeigt. Falls Sie noch kein Fenster mit einem Bildbetrachter geöffnet haben, wird ein neues Anzeigefenster erstellt.</para>
+  <para>By clicking on an image you load it into the viewer, if no viewer
+window is present, a viewer window will be created.</para>
 
-  <para
->Wenn Sie mehrere Bilder auswählen und <keycombo
->&Ctrl;<keycap
->I</keycap
-></keycombo
-> drücken (oder im Menü <menuchoice
-><guimenu
->Bilder</guimenu
-> <guimenuitem
->Ansicht</guimenuitem
-></menuchoice
-> auswählen), werden diese Bilder in ein geöffnetes Bildbetrachter-Fenster geladen (oder ein neues Fenster erstellt, falls Sie noch keines geöffnet haben). Sie können auch das Menü <menuchoice
-><guimenu
->Bilder</guimenu
-><guimenuitem
->Anzeigen (in einem neuen Fenster)</guimenuitem
-></menuchoice
-> benutzen, um das Bild in einem neuen Fenster anzuzeigen. Wenn Sie die Tastenkombination <keycombo
->&Ctrl;<keycap
->R</keycap
-></keycombo
-> drücken (oder im Menü <menuchoice
-><guimenu
->Bilder</guimenu
-> <guimenuitem
->Diaschau starten</guimenuitem
-></menuchoice
-> auswählen), werden die ausgewählten Bilder in einem neuen Fenster des Bildbetrachters angezeigt und eine Diaschau wird gestartet. Zuletzt können Sie über den Menüeintrag <menuchoice
-><guimenu
->Bilder</guimenu
-><guimenuitem
->Diaschau in zufälliger Abfolge starten</guimenuitem
-></menuchoice
-> eine Diaschau anzeigen, die die Bilder in zufälliger Reihenfolge durchläuft.</para>
+  <para>If you select a number of images, and presses <keycombo>&Ctrl;<keycap>I</keycap></keycombo>
+or chooses <menuchoice><guimenu>Images</guimenu><guimenuitem>View 
+Selected</guimenuitem></menuchoice>, the images will be loaded into the 
+existing viewer (if no viewer exists, one will be created). Alternatively you 
+may choose <menuchoice><guimenu>Images</guimenu><guimenuitem>View 
+(in new window)</guimenuitem></menuchoice> to get the images loaded into a 
+new viewer. If you press <keycombo>&Ctrl;<keycap>R</keycap></keycombo> or choose
+<menuchoice><guimenu>Images</guimenu><guimenuitem>Run Slide 
+Show</guimenuitem></menuchoice> the selected images will be loaded into the viewer and a slide show will
+start. Finally choosing <menuchoice><guimenu>Images</guimenu><guimenuitem>Run
+Randomized Slide Show</guimenuitem></menuchoice> will show a slide show of the images
+selected in random order.</para>
 
 
 <sect1 id="sect-deleting-images">
-  <title
->Löschen von Bildern</title>
-  <para
->Sie können in der Bildvorschau auch Bilder löschen. Wählen Sie einfach die entsprechenden Bilder aus, die Sie löschen möchten und drücken Sie entweder die Entfernen-Taste oder wählen Sie im Menü <menuchoice
-><guimenu
->Bearbeiten</guimenu
-><guimenuitem
->Auswahl löschen</guimenuitem
-></menuchoice
->. Nun wird Ihnen das Fenster angezeigt, das Sie in <xref linkend="fig-delete-images"/> sehen können.</para>
+  <title>Deleting Images</title>
+  <para>From the thumbnail view it is also possible to delete images. To
+  do so select the images you want to delete and press the delete key or
+  select <menuchoice><guimenu>Edit</guimenu><guimenuitem>Delete 
+  Selected</guimenuitem></menuchoice> from the menu bar. Doing so &kphotoalbum; 
+  will show you the dialog in <xref linkend="fig-delete-images"/></para>
 
 <figure id="fig-delete-images">
-<title
->Löschen von Bildern</title>
+<title>Deleting Images</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="delete-images.png" format="PNG"/>
@@ -96,25 +69,36 @@ SPDX-License-Identifier: GFDL-1.2-only
 </mediaobject>
 </figure>
 
-  <para
->Es gibt drei verschiedene Möglichkeiten, Bilder in &kphotoalbum;, zu löschen: Sie können die betreffenden Bilder in den Papierkorb verschieben oder von Ihrer Festplatte löschen, wodurch Sie unwiderruflich verloren sind oder Sie geben an, dass das betreffende Bild nicht in der Datenbank aufgenommen werden soll. In diesem Fall wird &kphotoalbum; Ihnen das Bild in Zukunft nicht mehr anzeigen, es wird jedoch nicht gelöscht und befindet sich daher weiterhin auf der Festplatte. Diese Funktion ist beispielsweise dann sehr nützlich, wenn sich <emphasis
->Vorschaubilder</emphasis
-> unter Ihren Bildern befinden. Diese Vorschaubilder stellen eine Übersicht über alle anderen Bilder dar, weshalb sie in &kphotoalbum; überflüssig sind. In anderen Anwendungen aber, z. B. in einem Webbrowser, könnten sie von Nutzen sein.</para>
+  <para>There are three ways of deleting an image in &kphotoalbum;, namely
+move to thrash, delete it from the disk - which means that it will be permanently gone - or
+tell &kphotoalbum; not to include it. In the latter case, &kphotoalbum; will never
+show the image again, but it will keep it on disk. This is useful if
+there for example is <emphasis>thumbnail images</emphasis> stored among
+your images. This thumbnail image would contain an overview of all the
+other images, and would thus be useless in &kphotoalbum;, but for other
+application, say a web browser, it might be needed.</para>
 </sect1>
 
 
 <sect1 id="sect-offline-mode">
-<title
->Offline-Modus</title>
-<para
->Sowohl die Kapazität der Festplatten, als auch die Größe der Daten, die darauf gespeichert sind, nehmen immer mehr zu. Wenn Sie eine sehr große Anzahl an Bildern haben, sind Sie vielleicht in der Situation, dass Sie nicht genügend freien Speicherplatz auf Ihrer Festplatte zur Verfügung haben, um all Ihre Bilder darauf zu speichern. In diesem Fall könnten Sie einige Bilder auf eine CD brennen. Ein anderes Beispiel hierfür ist eine Reise, auf der Sie viele Bilder mitnehmen möchten, jedoch nicht genügend Speicherplatz auf Ihrem Notebook zur Verfügung haben.</para>
+<title>Offline Mode</title>
+<para>There is a constant battle going on between data growing, and hard
+disks getting bigger. If you have a large number of images, you might find
+yourself in the middle of that battle, not having enough hard disk space to
+store all your images. In that situation you might choose to put some of
+the images on CD's. An alternative scenario might be that you are going on a
+business trip, and want to bring your images with you, but do not have the
+20GB disk space requires for that purpose.</para>
 
-<para
->&kphotoalbum; bietet Ihnen für dieses Problem eine Lösung an; Sie können es nämlich auch dann verwenden, wenn die Bilder nicht auf der Festplatte zur Verfügung stehen. Natürlich müssen Sie die Bilder irgendwann einmal verfügbar haben, damit &kphotoalbum; Sie in den Datenbank-Index aufnehmen kann. In <xref linkend="fig-offline-mode"/> sehen Sie die Ansicht von &kphotoalbum;, wenn nicht alle benötigten Bilder von der Festplatte geladen werden können.</para>
+<para>&kphotoalbum; offers a solution to that problem, namely that it allows you
+to use it, without having the images available on disk. You do of course
+need to have them available at some point in time for &kphotoalbum; to realize
+that there are new images for it to index. <xref
+linkend="fig-offline-mode"/> shows &kphotoalbum; when it is not capable of
+finding all needed images on the disk.</para>
 
 <figure id="fig-offline-mode">
-<title
->&kphotoalbum; im Offline-Modus</title>
+<title>&kphotoalbum; in Offline Mode</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="offline-mode.png" format="PNG"/>
@@ -122,55 +106,60 @@ SPDX-License-Identifier: GFDL-1.2-only
 </mediaobject>
 </figure>
 
-<para
->Bilder wie Bild 1-4, bei denen die Ecke abgeschnitten ist, sind nicht auf der Festplatte gespeichert. Für die Bilder 5-9 sind die Vorschaubilder vorhanden, auch wenn die Bilder auf der Festplatte fehlen. Daher können die Vorschaubilder, aber nicht die tatsächlichen Bilder angezeigt werden. Eine abgeschnittene Ecke eines Vorschaubilds zeigt an, dass das Bild auf der Festplatte fehlt, leider funktioniert das zurzeit aber nicht richtig. </para>
+<para>Images which have the corner cut of (that is images 1-4) are not
+available on disk. Thumbnails are, available for images 5-9, even though the
+images are missing from disk.  Therefore &kphotoalbum; can show you the
+thumbnails for these images but you cannot view them in the viewer. (We used to
+cut of the corner of thumbnails to indicate the image is missing from disk but
+that feature seems to be currently broken.)
+</para>
 
-<para
->Wie Sie sehen, verlangt diese Funktion, dass Sie Dateien aus den Ordnern heraus und wieder hineinkopieren. &kphotoalbum; unterstützt es bis jetzt noch nicht, Sie um das Einlegen der betreffenden CD zu bitten. Falls Sie also Ärger wie das Durcheinander-Bringen Ihrer Bilder vermeiden möchten, sorgen Sie statt dessen dafür, dass Sie stets genug Festplattenplatz haben, um all Ihre Bilder zu speichern.</para>
+<para>As you can see, this feature requires you to copy files in and out of
+your directories, &kphotoalbum; does not have any support for asking you to
+insert the CD you labeled blah blah. Thus please forget about this feature
+if you are the kind of person who do not like messing with files etc, and
+instead simply ensure to buy hard disks that is large enough to always
+store all your images.</para>
 
 </sect1>
 
 
 
 <sect1 id="sect-privacy">
-<title
->Privatsphäre</title>
-<para
->Vor einiger Zeit besuchten meine Freundin und ich meine Schwiegereltern. Dabei nahmen wir den Laptop mit, um ihnen unsere letzten Urlaubsbilder zu zeigen. Die vielfältigen Funktionen von &kphotoalbum; waren ein voller Erfolg und es dauerte nicht lange, bis die kleine Schwester meiner Freundin den Laptop in die Hand bekam und die Bilder selbst durchsuchte. Unglücklicherweise brauchte sie auch nicht lange, um – sagen wir – <quote
->unangenehme</quote
-> Jugendbilder von mir zu finden, was zu einem großen Gelächter über mich führte. Diese Situation brachte mich auf die Idee, eine neue Funktion zu &kphotoalbum; hinzuzufügen, nämlich die Funktion <quote
->Bilder sperren</quote
->.</para>
+<title>Privacy</title>
+<para>Some time ago my girlfriend and I brought my laptop with us on a visit to my parents in
+law, to show them the images from our most recent holiday. &kphotoalbum; turned
+out to be a great success, and it didn't last long before my girlfriends
+little sister seized the laptop and started browsing around on her
+own. Unfortunately it didn't take her long either to get to some, let say
+unfortunate, images of me from my youth, and they all had quite a bit of
+laugh on me. That episode inspired me to add a new feature to &kphotoalbum;,
+namely privacy locking.</para>
 
-<para
->Im Menü <guimenu
->Bilder</guimenu
-> finden Sie ein Untermenü mit dem Namen <guimenuitem
->Privatsphäre</guimenuitem
->. Wenn Sie ein wenig mehr Privatsphäre haben möchten, filtern Sie die Bilder so, dass am Ende diejenigen übrig bleiben, die Sie für andere unzugänglich machen möchten und klicken Sie auf <guimenuitem
->Aktuellen Satz von Einträgen sperren</guimenuitem
-> im Menü Privatsphäre. Alternativ dazu können Sie auch alle Bilder, die Ihre kleine Schwester sehen darf, ansteuern und den Menüeintrag <guimenuitem
->Alle anderen Einträge sperren</guimenuitem
-> wählen.</para>
+<para>In the <guimenu>Images</guimenu> menu you will find a sub menu called
+<guimenuitem>privacy</guimenuitem>. To get some privacy, browse - while you
+are on your own - to the images that you want to keep private, and
+select <guimenuitem>Lock Away Current Set of Images</guimenuitem> from the
+privacy sub menu. Alternatively you may browse to the images you want to
+limit your little sister to see, and select <guimenuitem>Lock Away All
+Other Images</guimenuitem>.</para>
 
-<para
->Damit haben Sie festgelegt, welche Bilder im Fall des Falles verborgen werden sollen. Wenn Sie den Laptop nun Ihrer kleinen Schwester geben, wählen Sie einfach den Menüeintrag <guimenuitem
->Bilder sperren</guimenuitem
->, wodurch alle Bilder, die Sie gesperrt haben, ausgeblendet werden. Wenn Sie die Bilder wieder angezeigt bekommen möchten, klicken Sie auf <guimenuitem
->Sperre aufheben</guimenuitem
->.</para>
+<para>Now you have specified what to hide away, and once you hand over your
+laptop to your little sister, simply choose <guimenuitem>Lock
+Images</guimenuitem>, and your sister will not be able to see the locked
+images. When done you may unlock them again using
+<guimenuitem>Unlock</guimenuitem>.</para>
 
-<para
->Es ist auch möglich, ein Passwort festzulegen, das zum Entsperren der Bilder eingegeben werden muss. Um dieses Passwort einzurichten, wählen Sie einfach <guimenuitem
->Passwort ändern</guimenuitem
-> im Menü <guimenuitem
->Privatsphäre</guimenuitem
->.</para>
+<para>It is possible to specify a password that must be entered to unlock the
+database. In the <guimenuitem>privacy</guimenuitem> menu, simply select
+<guimenuitem>Change Password</guimenuitem> to set a password.</para>
 
-<para
->Bitte bedenken Sie, dass dieser Bilderschutz keinesfalls sehr sicher ist. Zum einen befinden sich alle Bilder weiterhin auf der Festplatte und zum anderen kann jeder, der auf die Datei <filename
->index.xml</filename
-> zugreifen kann, das Passwort als unverschlüsselten Text herauslesen oder löschen. Diese Art des Passwort-Schutzes soll nur verhindern, dass jemand, der vor &kphotoalbum; sitzt, unbeabsichtigt auf Ihre privaten Bilder stößt.</para>
+<para>Don't get fooled to believe that this will help you hide away images
+for good. First the images are still on the disk, second, anyone with
+access to the <filename>index.xml</filename> file that &kphotoalbum; uses can read
+the password in clear text and optionally delete it. This feature is only
+meant as a protection against someone sitting with &kphotoalbum; unintentionally
+getting to your private images.</para>
 
 </sect1>
 </chapter>

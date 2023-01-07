@@ -6,14 +6,15 @@ SPDX-License-Identifier: GFDL-1.2-only
 -->
 
 <chapter id="chp-datebar">
-  <title>The Datebar</title>
+  <title
+>Die Zeitleiste</title>
 
-<para>At the bottom of the &kphotoalbum; main window, you will find the data
-bar (see <xref linkend="fig-datebar"/>). As the name indicates it shows date statistics over the images in your
-database.</para>
+<para
+>Am unteren Rand des Hauptfensters von &kphotoalbum; sehen Sie die Zeitleiste. Ein Bild dieser Leiste sehen Sie in <xref linkend="fig-datebar"/>. Wie der Name schon sagt, zeigt diese Leiste Ihnen Datums-Statistiken über die Bilder in Ihrer Datenbank an.</para>
 
 <figure id="fig-datebar">
-<title>The Date Bar</title>
+<title
+>Die Zeitleiste</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="datebar.png" format="PNG"/>
@@ -21,26 +22,15 @@ database.</para>
 </mediaobject>
 </figure>
 
-<para>The individual bars indicates how many images are within the given
-period. In the figure above you may see that I have 261 images from January
-2005. The bars encode two information, namely how many images that have an
-exact date within the given period, and how many have an overlap with the
-given period. A picture which has a date that says 2005 will thus count as
-an overlap for all the month of 2005, while an image from Jan 24th 2005
-will count as an exact date for January 2005. Exact matches are displayed
-with green, while inexact matches are displayed in yellow. Thus in December
-2004 I have 86 images with exact count, and 61 with overlap count. (I know
-the counts by hovering the mouse over the given range, since this displays
-the counts in the status bar).</para>
+<para
+>Die einzelnen Balken zeigen an, wie viele Bilder im jeweiligen Zeitraum eingeordnet sind. Im Bild oben sehen Sie, dass 261 Bilder im Januar 2005 aufgenommen wurden. Die Balken geben Ihnen zwei Informationen, zum einen, wie viele Bilder genau im ausgewählten Zeitraum entstanden sind und zum anderen, wie viele Bilder sich mit dem gewählten Zeitraum überlappen. Ein Bild, das als Datumsangabe das Jahr 2005 hat, überlappt folglich alle Monate des Jahres 2005, wogegen ein Bild, das vom 24 Januar 2005 stammt, nur zum Januar hinzu gezählt wird. Die Bilder, die genau im gewählten Zeitraum aufgenommen wurden, werden grün, die anderen gelb dargestellt. Im Bild oben sehen Sie also, dass im Dezember 2004 genau 86 Bilder aufgenommen wurden und 61 in diesem Monat überlappen. Die genauen Zahlen erfahren Sie, indem Sie die Maus über die Auswahl bewegen. Dann wird Ihnen in der Statusleiste die genaue Zahl angezeigt.</para>
 
-<para>The date bar offers you a number of different granularities, where
-each bar displays a different time range. The range are years, month,
-weeks, days, hours, and 10 minutes. <xref
-linkend="fig-datebar-for-minutes"/> shows you part of my database where
-each bar shows only 10 minutes.</para>
+<para
+>Die Zeitleiste kann Ihnen verschiedene Genauigkeiten anzeigen. Jeder Balken zeigt dann ein anderes Intervall an. Sie können zwischen den Einheiten Jahren, Monaten, Wochen, Stunden und 10 Minuten wechseln. In <xref linkend="fig-datebar-for-minutes"/> sehen Sie einen Teil einer Datenbank, in dem jeder Balken für zehn Minuten steht.</para>
 
 <figure id="fig-datebar-for-minutes">
-<title>The Date Bar Showing 10 Minutes Intervals</title>
+<title
+>Die Zeitleiste in 10-Minuten-Abschnitten</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="datebar-for-minutes.png" format="PNG"/>
@@ -48,17 +38,11 @@ each bar shows only 10 minutes.</para>
 </mediaobject>
 </figure>
 
-<para>The date bar is interactive in two ways, first you may navigate the
-thumbnail view from the database - selecting a date will scroll the
-thumbnail view so the first image from that date is displayed. Second, when
-you navigate around in the thumbnail view, the date bar will update to
-display the date of the images currently displayed.</para>
+<para
+>Die Zeitleiste können Sie auf folgende Weisen interaktiv verwenden: Sie können in den angezeigten Einträgen in der Vorschau-Ansicht aus der Datenbank heraus navigieren (wenn Sie ein Datum auswählen, wird Ihnen das erste Bild dieses Datums in der Vorschau-Ansicht angezeigt) und außerdem zeigt die Zeitleiste immer das Datum der momentan angezeigten Bilder an, wenn Sie in der Vorschau-Ansicht navigieren.</para>
 
-<para>You may also drag out a range in the data bar. You do so by pressing
-and dragging the mouse in the ruler part of the date bar, i.e. on the
-time stamps. When you select a range, the thumbnail viewer will display
-only images from that range. You cancel a selection by pressing the cancel
-button at the left side of the datebar.</para>
+<para
+>Sie können auch einen Bereich in der Zeitleiste auswählen, indem Sie die Maustaste gedrückt halten und die Maus über das Lineal der Zeitleiste, also die Zeitangaben, ziehen. Wenn Sie einen Bereich auswählen, werden Ihnen in der Vorschau-Ansicht nur Bilder dieses Zeitraums angezeigt. Sie können die Auswahl aufheben, indem Sie auf den Knopf „Die Auswahl so erweitern, dass wieder alle Bilder/Videos enthalten sind“ am Linken Rand der Zeitleiste drücken.</para>
 
 </chapter>
 

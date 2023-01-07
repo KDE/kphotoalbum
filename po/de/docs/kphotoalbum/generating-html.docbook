@@ -8,26 +8,37 @@ SPDX-License-Identifier: GFDL-1.2-only
 -->
 
 <chapter id="chp-generating-html">
-    <title>Generating &HTML;</title>
-    <para>&kphotoalbum; offers the possibility for generating &HTML; from your
-      photo album.
-      You may find this in the menubar
-      <menuchoice><guimenu>File</guimenu><guimenuitem>Generate 
-      &HTML;</guimenuitem></menuchoice></para>
+    <title
+>Erstellen von &HTML;-Dateien</title>
+    <para
+>Mit &kphotoalbum; können Sie &HTML;-Webseiten mit Ihren Bildern erstellen. Sie finden diese Funktion im Menü <menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>&HTML; erstellen ...</guimenuitem
+></menuchoice
+>.</para>
     
-    <para>Before &HTML; pages are generated, you need to specify a bit of
-      information, split over the three pages
-      <guilabel>Content</guilabel>, <guilabel>Layout</guilabel> and
-      <guilabel>Destination</guilabel>. The following section describes each
-      page in detail.</para>
+    <para
+>Bevor &HTML;-Seiten erstellt werden, müssen Sie einige Einstellungen vornehmen. Diese sind in die drei Seiten <guilabel
+>Inhalt</guilabel
+>, <guilabel
+>Layout</guilabel
+> und <guilabel
+>Ziel</guilabel
+> aufgeteilt. Im folgenden wird jede Seite genauer beschrieben.</para>
 
     <sect1 id="the_content_page">
-      <title>The <guilabel>Content</guilabel> page</title>
-      <para>In the content page you specify which information should be
-        generated to the &HTML; pages.</para>
+      <title
+>Die Seite <quote
+>Inhalt</quote
+></title>
+      <para
+>Auf der Seite Inhalt legen Sie fest, welche Informationen die &HTML;-Seiten darstellen sollen.</para>
 
 	<figure id="html-content">
-	<title>HTML Generator Content Configuration</title>
+	<title
+>Einstellungen für den Inhalt der &HTML;-Seiten</title>
 	<mediaobject>
 	<imageobject>
 	<imagedata fileref="html-content.png" format="PNG"/>
@@ -35,40 +46,27 @@ SPDX-License-Identifier: GFDL-1.2-only
 	</mediaobject>
 	</figure>
 
-      <para>First you specify the title of the overview pages, plus a
-	description generated on these pages. If the theme you selected supports
-	copyright notice this can also be specified here.
-	<!--
-	See <ulink
-          url="http://www.kphotoalbum.org/rounded-theme/index.html">&kphotoalbum; example &HTML; pages</ulink> 
-        to see an example of this.-->
-	</para>
+      <para
+>Zuerst geben Sie den Titel der Übersicht und eine Beschreibung für die Seiten ein. Unterstützt das gewählte Design Copyright-Information, können sie hier ebenfalls eingetragen werden. </para>
 
-      <para>Next you specify whether a &kphotoalbum; export file should be
-        generated, and put on the overview page. See <xref
-	  linkend="chp-importExport"/> for details on export files. And if you
-	  want to have movies included in-line or as downloadable
-	  objects.</para>
+      <para
+>Als nächstes wählen Sie aus, ob eine &kphotoalbum;-Exportdatei erstellt werden soll, die auf der Übersichtsseite zu sehen ist. Nähere Informationen über die Export-Dateien finden Sie im <xref linkend="chp-importExport"/>. Außerdem müssen Sie festlegen, ob Filme eingefügt oder als herunterzuladende Objekte enthalten sein sollen.</para>
 
-      <para>Finally you may specify which information should be generated
-        on the &HTML; pages. This way you may skip generating information
-        which might be obvious to the reader of the pages (say these images
-        was from the party we all attended). Notice, &kphotoalbum; does currently not
-        allow you to exclude certain categories from the export file, so
-        don't rely on this as a way of excluding information you do not
-        want readers of your pages to see.</para>
+      <para
+>Zuletzt können Sie auswählen, welche Informationen auf den &HTML;-Seiten angezeigt werden sollen. Dadurch können Sie vermeiden, dass Informationen angezeigt werden, die dem Betrachter auch ohne Beschreibung offensichtlich sind. Zum Beispiel dass alle Bilder von einer Party sind. Beachten Sie, dass &kphotoalbum; momentan alle Bilder exportiert. Sie können diese Einstellung deshalb nicht verwenden, um Bilder von bestimmten Kategorien aus der Exportdatei auszuschließen.</para>
     </sect1>
 
     <sect1 id="the_layout_page">
-      <title>The <guilabel>Layout</guilabel> page</title>
-      <para>On the layout page you specify what your &HTML; pages should look
-        like. Most of the options on this page are straight forward, and do
-	not need further description here. A short intro to each theme is shown
-	when you select the theme to give some idea what it should look
-	like.</para>
+      <title
+>Die Seite <quote
+>Layout</quote
+></title>
+      <para
+>Auf dieser Seite können Sie festlegen, wie die &HTML;-Seiten aussehen sollen. Die meisten Einstellungsmöglichkeiten sind eindeutig, weshalb auf diese nicht speziell eingegangen wird. Eine kurze Einführung zu jedem Design wird angezeigt, wenn es ausgewählt wird und vermittelt einen Eindruck des Erscheinungsbilds.</para>
 
 	<figure id="html-layout">
-	<title>HTML Generator Layout Configuration</title>
+	<title
+>Einstellungen für das Layout der &HTML;-Seiten</title>
 	<mediaobject>
 	<imageobject>
 	<imagedata fileref="html-layout.png" format="PNG"/>
@@ -76,29 +74,27 @@ SPDX-License-Identifier: GFDL-1.2-only
 	</mediaobject>
 	</figure>
 
-      <para>At the bottom of this page it is possible to specify several
-        resolution for images. This way people reading your pages are not
-        forced to download images in large resolutions, say 1600x1200, just
-        to see it on a monitor not offering more than say 800x600.</para>
+      <para
+>Unten auf der Seite können Sie verschiedene Auflösungen für die Bilder einstellen. Dadurch müssen diejenigen, die Ihre Webseite betrachten und einen Monitor besitzen, der die maximale Auflösung 800x600 unterstützt, keine Bilder mehr herunterladen die beispielsweise eine Auflösung von 1600x1200 haben.</para>
       
-      <para>At any time your readers may change resolution among those you
-        specified. That way they may browse through your images in low
-        resolution (and thus fast download time), and when they see an
-        image of special interest, they may change to high
-        resolution.</para>
+      <para
+>Der Betrachter Ihrer Seite kann die Auflösung jederzeit zu einer anderen ändern, die Sie festgelegt haben. Er kann also Ihre Bilder mit niedriger Auflösung, was zu einer geringeren Übertragungszeit führt, durchsuchen. Wenn er ein Bild größer angezeigt bekommen möchte, wechselt er zu einer höheren Auflösung.</para>
     </sect1>
 
     <sect1 id="the_destination_page">
-      <title>The <guilabel>Destination</guilabel> page</title>
-      <para>On the destination page you specify several directories and
-        URL's specifying where your pages go.</para>
+      <title
+>Die Seite <quote
+>Ziel</quote
+></title>
+      <para
+>Auf der Seite Ziel legen Sie die verschiedenen Ordner und die Adressen (URLs) fest, wo Ihre Seiten gespeichert werden.</para>
 
-      <para>The philosophy is that you specify a base directory
-        for all your generations, and for each generation specify a new
-        subdirectory.</para>
+      <para
+>Am besten wählen Sie für all Ihre HTML-Dateien einen Basisordner an und für jeden nachfolgenden Satz ein neuen Unterordner.</para>
 
 	<figure id="html-destination">
-	<title>HTML Generator Destination Configuration</title>
+	<title
+>Einstellungen für das Ziel der &HTML;-Seiten</title>
 	<mediaobject>
 	<imageobject>
 	<imagedata fileref="html-destination.png" format="PNG"/>
@@ -106,39 +102,37 @@ SPDX-License-Identifier: GFDL-1.2-only
 	</mediaobject>
 	</figure>
 
-      <para>First you need to specify the base directory for all your
-        images. This directory will be remembered from session to session,
-        and allows you to once and for all tell where all subsequent images
-        should go. Here you may specify a directory, or any <ulink
-          url="help:/kioslave/index.html">protocol</ulink> supported by
-        &kde;. Examples includes:
-        
-        <itemizedlist>
-          <listitem><para>ftp://someserver/my-upload-area/images (upload using FTP)</para></listitem>
-          <listitem><para>fish://someserver/home/foo/images (upload using ssh)</para></listitem>
-          <listitem><para>smb://someserver/c/images (upload to a Windows share)</para></listitem>
+      <para
+>Zunächst müssen Sie den Hauptordner auswählen, in dem all Ihre Bilder gespeichert werden. Dieser Ordner wird gespeichert und beim nächsten Mal automatisch ergänzt. Dadurch können Sie für alle zukünftigen Bilder den Speicherort festlegen. Hier können Sie entweder einen Ordner oder ein von &kde; unterstütztes <ulink url="help:/kioslave/index.html"
+>Protokoll</ulink
+> auswählen, zum Beispiel: <itemizedlist>
+          <listitem
+><para
+>ftp://einserver/mein-bereich-zum-hochladen/bilder (Verwendung von FTP zum Speichern)</para
+></listitem>
+          <listitem
+><para
+>fish://einserver/home/foo/bilder (Verwendung von ssh)</para
+></listitem>
+          <listitem
+><para
+>smb://einserver/c/bilder (Verwendung eines Windows-Ordners)</para
+></listitem>
         </itemizedlist>
       </para>
       
-      <para>Once you are done generating your images, you may want to check
-        whether they are really available to your audience. If you specify a
-        URL in the <guilabel>Base URL</guilabel> line edit, a web browser will
-        be spawned once &HTML; pages has been generated. The URL you specify
-        here should match the directory you specified above. Thus the web
-        browser will be started on the subdirectories of this URL.</para>
+      <para
+>Nachdem Sie Ihren Bilder erstellt haben, können Sie überprüfen, ob diese wirklich alle für Betrachter sichtbar sind. Wenn Sie für den <guilabel
+>Basisordner</guilabel
+> eine URL wählen, wird ein Webbrowser gestartet, nachdem die &HTML;-Seiten erstellt wurden. Die URL, die Sie hier festlegen, sollte dieser Ordner sein. Anderenfalls wird der Webbrowser im falschen Ordner starten.</para>
       
-      <para>Once you have generated &HTML; pages, your pages may still not be
-        in their final destination, you may still need special upload
-        procedures out of the control of &kphotoalbum;. For
-        the Import feature (see <xref linkend="chp-importExport"/>) to
-        work, you need to specify the final destination of the pages. Again
-        this does not include the subdirectory of the current
-        generation.</para>
+      <para
+>Falls sich die von Ihnen erstellten &HTML;-Dateien noch nicht im endgültigen Zielordner befinden, müssen Sie sie außerhalb von &kphotoalbum; manuell dorthin kopieren. Damit die Import-Funktion (siehe <xref linkend="chp-importExport"/>), richtig funktioniert, müssen Sie das endgültige Ziel der Seiten angeben. Dies ist nicht der Unterordner der aktuellen Dateien, sondern der Basisordner, in dem sich alle Unterordner befinden.</para>
 
-      <para>The three line edits described above are all base
-        directories and base URL's. At these locations a new subdirectory will be
-        created named with the name you specify in <guilabel>Output
-          Directory</guilabel>.</para>
+      <para
+>Die gerade beschriebenen Einstellungsmöglichkeiten haben sich alle drei auf Basisordner bzw. -URLs bezogen. In diesen wird ein Unterordner angelegt, dessen Name Sie in <guilabel
+>Ausgabeordner</guilabel
+> festlegen.</para>
     </sect1>
 
 </chapter>

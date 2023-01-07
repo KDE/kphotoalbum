@@ -9,20 +9,19 @@ SPDX-License-Identifier: GFDL-1.2-only
 -->
 
 <chapter id="chp-typingIn">
-  <title>Annotating your images</title>
-  <para>In <xref linkend="fig-empty-browser-window"/> you can see
-an example of the window that will greet you once you have started &kphotoalbum;
-with your own images.</para>
+  <title
+>Bilder kategorisieren</title>
+  <para
+>In <xref linkend="fig-empty-browser-window"/> sehen Sie ein Beispiel für einen Startbildschirm, sobald Sie &kphotoalbum; mit Ihren eigenen Bildern starten.</para>
 
-  <para>At the top of the screen you will find a menu and toolbar, as you
-know from any &kde; application. Below the toolbar you see the browser
-window. In browser window you can select different categories to limit the images you will be inspecting. In <xref
-      linkend="chp-browsing"/> we will get back to the browser, but for
-now, simply press the <guibutton>Show Thumbnails</guibutton> item, which will show
-you a thumbnail view of all your images.</para>
+  <para
+>Wie Sie es von jeder anderen &kde;-Anwendung gewohnt sind, sehen Sie ganz oben eine Menü- und eine Werkzeugleiste. Unter der Werkzeugleiste sehen Sie das Fenster, mit dem Sie Ihre Bild-Datenbank durchsuchen können. Im Fenster können Sie verschiedenen Kategorien auswählen, um die Anzahl der angezeigten Bilder zu begrenzen. In <xref linkend="chp-browsing"/> werden wir auf dieses Fenster zurückkommen, nun klicken Sie aber erst einmal auf den Eintrag <guibutton
+>Vorschaubilder anzeigen</guibutton
+>, der Ihnen einen Überblick mit allen vorhandenen Bildern anzeigt.</para>
 
   <figure id="fig-empty-browser-window">
-    <title>Starting &kphotoalbum; with your own images</title>
+    <title
+>&kphotoalbum; mit Ihren eigenen Bildern starten</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="empty-browser-window.png"
@@ -31,24 +30,27 @@ you a thumbnail view of all your images.</para>
     </mediaobject>
   </figure>
 
-    <para>The key feature of &kphotoalbum; is that you can annotate your images. This includes who is on a given image, where it is taken,
-&etc; You can do this either one image at a time, or you can annotate a number of images simultaneously (For example, all these
-images contain the person <emphasis>Jesper</emphasis>, and is taken in
-<emphasis>Copenhagen</emphasis>.)</para>
+    <para
+>Eine der Hauptfunktionen von &kphotoalbum; ist die Möglichkeit, jedes Bild mit Anmerkungen zu versehen. Dazu gehören Informationen über die Personen, die auf dem Bild zu sehen sind, wo das Bild aufgenommen wurde &etc; Sie können entweder für jedes Bild einzeln oder für eine größere Anzahl an Bildern gleichzeitig bestimmte Anmerkungen setzen, wenn zum Beispiel auf allen Bildern <emphasis
+>Jesper</emphasis
+> abgebildet ist und alle Bilder in <emphasis
+>Kopenhagen</emphasis
+> aufgenommen worden sind.</para>
 
-    <para>To annotate an images, select the images in question,
-and go to <menuchoice><guimenu>Edit</guimenu>
-<guisubmenu>Annotate Individual Items</guisubmenu></menuchoice>. Now you
-annotate your selected images one after the other. If you instead choose
-<guimenuitem>Annotate Multiple Items at a Time</guimenuitem>, you will
-annotate all the selected items as if it was one single item. In other
-words, with this option you mass-annotate your image - e.g. saying all
-these images were shot in Copenhagen. These two options are also available from a context menu, that you
-get by right clicking the mouse in the thumbnail overview or using keyboard shortcut. An example of
-this can be seen in <xref linkend="fig-edit-properies-menu"/>.</para>
+    <para
+>Um Bilder mit Anmerkungen zu versehen, wählen Sie die betreffenden Bilder aus und klicken Sie im Menü <menuchoice
+><guimenu
+>Bearbeiten</guimenu
+><guisubmenu
+>Einzelne Einträge kategorisieren</guisubmenu
+></menuchoice
+>. Danach können Sie ein Bild nach dem anderen mit Anmerkungen versehen. Wenn Sie stattdessen <guimenuitem
+>Mehrere Einträge gleichzeitig kategorisieren</guimenuitem
+> auswählen, ändern Sie damit die Anmerkungen für alle ausgewählten Bilder gleichzeitig. Mit anderen Worten, mit dieser Option versehen Sie Massen von Bildern mit Anmerkungen, z. B. um zu sagen, dass alle diese Bildern in Kopenhagen gemacht wurden. Diese zwei Optionen sind auch im Kontextmenü vorhanden, das Sie durch einen Rechtsklick im Vorschaufenster oder mit einem Kurzbefehl aufrufen. In <xref linkend="fig-edit-properies-menu"/> sehen Sie ein Beispiel dafür.</para>
 
     <figure id="fig-edit-properies-menu">
-      <title>Context menu for editing properties</title>
+      <title
+>Kontextmenü zum Ändern der Eigenschaften</title>
       <mediaobject>
         <imageobject>
           <imagedata fileref="edit-properies-menu.png"
@@ -57,21 +59,24 @@ this can be seen in <xref linkend="fig-edit-properies-menu"/>.</para>
       </mediaobject>
     </figure>
 
-    <para>In <xref linkend="fig-image-config-window"/> below you can see
-the window for annotating images and videos. In this window you can specify
-the date of the item, the label of the item <footnote><para>The label is
-          initialized to the name of the file. The label is used in the
-          browser, and when the images are exported to &HTML;
-          pages</para></footnote>, a description for the item, and most important
-different <emphasis>categories</emphasis> for the item. In the screen shot, these categories are
-<literal>People</literal>, <literal>Places</literal>, and
-<literal>Keywords</literal>, but as you will see in <xref
-        linkend="sec-specifying-categories"/>, these three predefined
-categories may be changed to your preferences.
- </para>
+    <para
+>In der unten angezeigten <xref linkend="fig-image-config-window"/> sehen Sie das Fenster, mit dem Sie Anmerkungen an Bildern und Videos machen können. Hier können Sie das Datum, den Namen<footnote
+><para
+>Der Name des Eintrags wird aus dem Dateinamen ausgelesen. Er wird im Vorschaufenster und beim Exportieren in &HTML;-Dateien verwendet.</para
+></footnote
+>, eine Beschreibung und – am wichtigsten – verschiedene <emphasis
+>Kategorien</emphasis
+> für das Bild bzw. das Video festlegen. Im Beispielbild sind diese Kategorien <literal
+>Personen</literal
+>, <literal
+>Orte</literal
+> und <literal
+>Schlüsselworte</literal
+>, aber wie Sie in <xref linkend="sec-specifying-categories"/> sehen können, können Sie diese drei vordefinierten Kategorien nach Ihren Wünschen verändern. </para>
 
     <figure id="fig-image-config-window">
-      <title>Annotating images and videos</title>
+      <title
+>Bilder und Videos mit Anmerkungen versehen</title>
       <mediaobject>
         <imageobject>
           <imagedata fileref="image-config-window.png"
@@ -80,89 +85,74 @@ categories may be changed to your preferences.
       </mediaobject>
     </figure>
 
-    <para>All these annotations may be used for searching and
-browsing, as we will see in <xref linkend="chp-browsing"/>. On request you
-may see these annotations when viewing the items in the build-in viewer.</para>
+    <para
+>All diese Anmerkungen können für das Suchen und Browsen, wie Sie im <xref linkend="chp-browsing"/> nachlesen können, verwendet werden. Wenn Sie wollen, können Sie diese Anmerkungen sehen, wenn Sie den eingebauten Betrachter benutzen.</para>
 
 
 
 
     <sect1 id="sect-specifying-options">
-      <title>Categories</title>
-      <para>In <xref linkend="fig-image-config-window"/> there are three
-list boxes combined with line edits for specifying people, places and
-keywords. These widget are a very important part of &kphotoalbum;,
-as you will use them over and over again, when specifying information about
-your images.</para>
+      <title
+>Kategorien</title>
+      <para
+>In <xref linkend="fig-image-config-window"/> sehen Sie drei Listen mit einem Textfeld, in dem Sie Personen, Orte und Stichwörter festlegen können. Diese sind ein sehr wichtiger Teil von &kphotoalbum;, den Sie immer wieder benutzen werden, wenn Sie Informationen über Ihre Bilder eingeben.</para>
 
-      <para> You can specify a property from a list box, simply by
-selecting it (Select say <literal>Donna</literal> to specify that Donna is
-on the given image. Alternatively you may type its name in the line edit.
-When you start typing a name in the line edit, &kphotoalbum; will look into the listbox,
-and search for the first item matching what you've typed so far, and fill
-it out. Thus typing <literal>Do</literal> might be enough to find
-<literal>Donna</literal>. Once you have found the item you search for,
-simply press enter to select this item in the listbox. The item will now be
-moved to the top of the view, so next time you need the given item it is
-even easier to find. There is also a "seamless" way of annotating from Image
-Viewer that is described later on in <xref
-linkend="category-selectors-in-viewer" />.</para>
+      <para
+>Sie können eine Kategorie aus der Liste festlegen, indem Sie diese einfach auswählen. Wählen Sie zum Beispiel <literal
+>Donna</literal
+> aus, um anzuzeigen, dass Donna auf dem gewählten Bild abgebildet ist. Alternativ können Sie auch den Namen in das Textfeld eingeben. Wenn Sie anfangen, den Namen einzugeben, wird &kphotoalbum; die Liste durchsuchen und wenn es mit den bisher eingegebenen Buchstaben eine Übereinstimmung in der Liste gibt, wird es den Rest für Sie ausfüllen. Es kann also ausreichen, <literal
+>Do</literal
+> einzugeben und <literal
+>Donna</literal
+> wird automatisch gefunden. Sie müssen dann nur noch die Eingabetaste drücken, um diesen Eintrag der Liste auszuwählen. Der ausgewählte Eintrag wird in der Liste nach oben verschoben, damit Sie ihn nächstes Mal schneller finden, wenn Sie ihn benötigen. Es gibt außerdem auch noch einen direkten Weg, in der Bildvorschau zu kategorisieren. Dies wird später in <xref linkend="category-selectors-in-viewer"/> erläutert.</para>
 
-      <para>The idea behind moving items to the top when they have been
-selected is, that when going to, say a family party, you will get perhaps
-50 images all with the same 5-10 people. When typing in information about these
-50 images you will have the 5-10 people at the top of the listbox as soon as
-you have typed in their name the first time.</para>
+      <para
+>Folgende Idee liegt dem Verschieben der Einträge innerhalb der Liste nach oben zugrunde: Wenn Sie zum Beispiel eine Familienfeier haben und auf allen 50 Bildern die gleichen 5-10 Personen abgebildet sind, können Sie, dadurch dass die verwendeten Namen nach oben verschoben sind, die Personen schneller finden und zuordnen.</para>
 
-     <para>If you prefer to have the list alphabetically sorted instead,
-simply press the icon for sorting under the list box.</para>
+     <para
+>Falls Sie lieber eine alphabetisch sortierte Liste angezeigt bekommen möchten, klicken Sie auf das Symbol für Sortieren nach Datum unter der Liste.</para>
     </sect1>
 
 
     <sect1 id="sect-specifying-properties-for-one-image-at-a-time">
-      <title>Annotating one item at a time</title>
-      <para>When you specify properties for one image at a time, you may
-still of course select a number of images, and say, <emphasis>I want to
-annotate these images</emphasis>. In this situation, you will
-find a next and previous button under the image in the topmost rightmost
-corner. </para>
+      <title
+>Einen Eintrag nach dem anderen mit Anmerkungen versehen</title>
+      <para
+>Wenn Sie <quote
+>Einzelne Einträge kategorisieren</quote
+> ausgewählt haben, möchten Sie eventuell dennoch alle ausgewählten Bilder bearbeiten und <emphasis
+>diese Bilder mit Anmerkungen versehen</emphasis
+>. Klicken Sie in diesem Fall einfach auf die vor- und zurück-Knöpfe, die sich unter der Vorschau des Bildes rechts oben befinden. </para>
     </sect1>
 
     <sect1 id="sect-specifying-properties-for-all-images-simultaneously">
-      <title>Annotating multiple items at a time</title>
-      <para>If you have several images with, say the same person, then it
-might be more convenient to select those images, and specify that this
-person is on all images using the <emphasis>Annotate Multiple Items at a Time</emphasis>.</para>
-      <para>If you want to annotate a stack of images you can do that
-      when the stack is collapsed. You just need to select the top image
-      of the stack and annotate multiple images. (If you annotate single
-      image, only the selected image, the stack head in this case, is
-      being annotated.) Of course expanding the stack and selecting all
-      images works as well.</para>
+      <title
+>Mehrerer Einträge gleichzeitig mit Anmerkungen versehen</title>
+      <para
+>Wenn Sie mehrere Bilder, z. B. mit derselben Person, aufgenommen haben, dann kann es bequemer sein, all diese Bilder zu markieren und den Menüpunkt <emphasis
+>Mehrere Einträge gleichzeitig kategorisieren</emphasis
+> zu verwenden.</para>
+      <para
+>Wenn Sie einen Bilderstapel kategorisieren möchten, können Siedas tun, indem Sie den Stapel einklappen. Wählen Sie dann das oberste Bild auf dem Stapel aus und kategorisieren Sie mehrere Bilder auf einmal. Wenn Sie ein einzelnes Bild kategorisieren, bearbeiten Sie dadurch nur das ausgewählte Bild, also in dem Fall das oberste Bild des Stapels. Wenn Sie den Stapel ausklappen und alle Bilder wählen, können Sie sie ebenfalls gleichzeitig bearbeiten.</para>
 
     </sect1>
 
 
 <sect1 id="sec-member-groups-in-property-editor">
-<title>Sub-categories</title>
-  <para>Las Vegas, San Francisco, Los Angeles, and California are all
-located in USA. Furthermore, San Francisco and Los Angeles are located in
-California.</para>
+<title
+>Unterkategorien</title>
+  <para
+>Las Vegas, San Francisco, Los Angeles und Kalifornien liegen alle in den USA. Außerdem liegen San Francisco und Los Angeles in Kalifornien.</para>
 
-<para>Instead of specifying for each and every image from San Francisco,
-that it is in San Francisco, and in California, and in USA, you may instead
-tell &kphotoalbum; that San Francisco, and Los Angeles are in California, and that California among
-others are in USA. Doing so the browser (see <xref
-linkend="chp-browsing"/>) will offer you an item for USA, and an item for
-California in addition to all your normal items. Selecting California, you
-will see all images from San Francisco, Los Angeles, &etc;</para>
+<para
+>Anstatt nun für jedes Bild, das Sie in San Francisco aufgenommen haben, festzulegen, dass es in San Francisco, in Kalifornien und in den USA aufgenommen wurde, können Sie &kphotoalbum; sagen, dass sich San Francisco und Los Angeles in Kalifornien befinden und dass Kalifornien sich in den USA befindet. Dadurch wird Ihnen das Hauptfenster (nähere Informationen finden Sie im <xref linkend="chp-browsing"/>) einen Eintrag für die USA und einen Eintrag für Kalifornien anzeigen. Wenn Sie Kalifornien auswählen, werden Ihnen alle Bilder aus San Francisco, Los Angeles und so weiter angezeigt.</para>
 
-<para>In <xref linkend="fig-usa-as-a-member"/> you can see a browser
-window, containing USA as a super category. To indicate to you that this is a
-group, a special icon is used.</para>
+<para
+>In <xref linkend="fig-usa-as-a-member"/> sehen Sie ein Browserfenster, das die USA als Übergruppe anzeigt. Um Ihnen anzuzeigen, dass es sich um eine Übergruppe handelt, wird ein spezielles Symbol angezeigt.</para>
 
 <figure id="fig-usa-as-a-member">
-<title>Browser showing USA as a super category</title>
+<title
+>Browser mit USA-Übergruppe</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="usa-as-a-member.png" format="PNG"/>
@@ -170,14 +160,12 @@ group, a special icon is used.</para>
 </mediaobject>
 </figure>
 
-<para>In the context menu for the annotation dialog it is possible to add
-an item to an existing or new super or sub category. In addition you may
-simply drag an item to a category to make it a sub category of that
-item. Notice this requires that you are currently sorting your categories
-alphabetically. See <xref linkend="fig-membergroup-config"/>.</para>
+<para
+>Im Kontextmenü des Kategorisierungsdialogs ist es möglich, einen Eintrag zu einer existierenden oder neuen Über- oder Unterkategorie hinzuzufügen. Zusätzlich können Sie auch einen Eintrag einfach auf eine Kategorie ziehen und dort ablegen, um diesen zu einer Unterkategorie dieses Eintrags zu machen. Achtung, dies setzt voraus, dass Sie gerade Ihre Kategorien alphabetisch sortieren. Siehe auch <xref linkend="fig-membergroup-config"/>.</para>
 
 <figure id="fig-membergroup-config">
-<title>Categories shown in alphabetical view of the annotation dialog</title>
+<title
+>Kategorien in alphabetischer Ansicht des Anmerkungsdialogs</title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="member-group-setting.png" format="PNG"/>
@@ -193,26 +181,27 @@ alphabetically. See <xref linkend="fig-membergroup-config"/>.</para>
 
 
   <sect1 id="sect-changing-layout-of-the-property-window">
-    <title>Changing layout of the annotation dialog</title>
-    <para>It is possible to move the items of the annotation dialog
-around, simply from the bar at the top of the frames, and move them around
-- you can even make a frame into a top level window on its own.</para>
+    <title
+>Das Aussehen des Anmerkungsdialog anpassen</title>
+    <para
+>Sie können die einzelnen Elemente des Anmerkungsdialogs verschieben, indem Sie die Leiste, die die Oberkante der Rahmen bilden, anklicken und verschieben. Sie können aus einem Rahmen auch ein eigenes Fenster machen, indem Sie ihn außerhalb des Fensterbereichs ziehen.</para>
 
-    <para>Once you have found a layout that works well on your screen,
-your usage of &kphotoalbum;, &etc; simply press the <guibutton>Options...</guibutton>
-button, that will display a pop-up menu from which you can save the current
-window layout.</para>
+    <para
+>Wenn Sie das Aussehen des Fensters so an Ihre Bedürfnisse angepasst haben, dass Sie mit den Einstellungen zufrieden sind, klicken Sie auf den Knopf <guibutton
+>Optionen ...</guibutton
+>, der Ihnen in einem Kontextmenü die Möglichkeit bietet, den aktuellen Aufbau und das Aussehen des Fensters zu speichern.</para>
 
-    <para>You may also choose to hide away a frame, or enable some that
-    are not visible by default. You can always
-    revert back to the original layout by going through
-<guibutton>Options...</guibutton> button, and selecting
-<guimenuitem>Reset layout</guimenuitem> from the popup menu. This can be seen in <xref
-        linkend="fig-redisplay-frames"/>.</para>
+    <para
+>Sie können einen Rahmen auch vollständig ausblenden oder einige einblenden, die in der Voreinstellung nicht angezeigt werden. Wenn Sie das ursprüngliche Layout wieder herstellen möchten, benutzen Sie den Knopf <guibutton
+>Optionen ...</guibutton
+> und hier dann <guimenu
+>Layout zurücksetzen</guimenu
+>. Diesen Vorgang sehen Sie in <xref linkend="fig-redisplay-frames"/>.</para>
 
 
   <figure id="fig-redisplay-frames">
-    <title>Showing previously hidden windows.</title>
+    <title
+>Anzeigen von zuvor ausgeblendeten Fenstern</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="redisplay-frames.png" format="PNG"/>

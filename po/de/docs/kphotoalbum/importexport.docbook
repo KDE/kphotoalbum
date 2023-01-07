@@ -6,74 +6,97 @@ SPDX-License-Identifier: GFDL-1.2-only
 -->
 
 <chapter id="chp-importExport">
-  <title>Import/Exporting</title>
-  <para>If you attend a family party, a company meeting, a conference, or
-      any other event where other &kphotoalbum; users may be present, you may
-      wish to share your images with those people. You may of course choose
-      to generate &HTML; pages for them to browse, but given you already have
-    spent time classifying all images (Who is on the images, where were they
-      taken etc), there are no reason for them to redo all that
-      work.</para>
+  <title
+>Import/Export</title>
+  <para
+>Falls Sie sich auf einer Familienfeier, einem Meeting in der Firma, einer Konferenz oder irgendwo anders, mit anderen Benutzer von &kphotoalbum; zusammenkommen, befinden, möchten Sie vielleicht Ihre Bilder mit diesen teilen. Sie können natürlich eine &HTML;-Seite zur Betrachtung der Bilder erstellen. Wenn Sie jedoch schon sehr viel Zeit dafür aufgewendet haben die Bildinformationen, Personen auf den Bildern, Aufnahmeort, usw. einzutragen, dann müssen Sie mit &kphotoalbum; diese Arbeit nicht noch einmal machen.</para>
 
-    <para>&kphotoalbum; allows you to export a set of your images into a
-      <literal role="extension">.kim</literal> file, which other people may import into
-      their database, to get your classification for these images.</para>
+    <para
+>Mit &kphotoalbum; können Sie eine Kopie Ihrer Bilder in eine <literal role="extension"
+>.kim</literal
+>-Datei exportieren. Diese können andere in Ihre Datenbank importieren. Die Bildeigenschaften werden dabei mit ex- und importiert.</para>
 
-    <para>Two different kind of <literal role="extension">.kim</literal> files exists,
-      inlines or externals, referring to whether the images them self are
-      located in the file or at some other location. Placing the images in
-      the file has the obvious advantage that the file is self contained,
-      while it has the equally obvious disadvantage of the file being
-      rather big.</para>
+    <para
+>Es gibt zwei verschiedene Arten von <literal role="extensions"
+>.kim</literal
+>-Dateien, interne und externe. Sie unterscheiden sich darin,ob die Bilder selbst mit in der Datei gespeichert sind oder ob sich in der Datei nur eine Verknüpfung zu Bildern befindet. Der Vorteil alle Bilder in die Datei zu speichern ist, dass Sie alle Bilder beisammen haben und diese Datei so unabhängig weitergeben können. Der offensichtliche Nachteil ist jedoch die Dateigröße.</para>
 
-    <para>There are two places from which you may generate a
-      <literal role="extension">.kim</literal> file, namely directly from
-      <menuchoice><guimenu>File</guimenu><guimenuitem>Export...</guimenuitem></menuchoice>, 
-      or along with &HTML; pages (see <xref linkend="chp-generating-html"/>). Creating a
-      <literal role="extension">.kim</literal> file during &HTML; export will create an
-      external <literal role="extension">.kim</literal> file.</para>
+    <para
+>Sie können eine <literal role="extension"
+>.kim</literal
+>-Datei entweder direkt aus dem Menü <menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>Exportieren...</guimenuitem
+></menuchoice
+> oder zusammen mit &HTML;-Seiten, siehe <xref linkend="chp-generating-html"/>, erstellen. Wenn Sie eine <literal role="extension"
+>.kim</literal
+>-Datei zusammen mit einer &HTML;-Datei erstellen, wird dies eine externe <literal role="extension"
+>.kim</literal
+>-Datei.</para>
 
-    <para>External <literal role="extension">.kim</literal> files will search for images in
-      one of two ways. First it will try to look for the images next to the
-      <literal role="extension">.kim</literal> file, and if not found, it will search for them
-      at the URL specified when the <literal role="extension">.kim</literal> file was
-      created. Notice the later is only possible for
-      <literal role="extension">.kim</literal> files created during &HTML; export.</para>
+    <para
+>Eine externe <literal role="extension"
+>.kim</literal
+>-Datei sucht die Bilder auf zweifache Weise. Zuerst durchsucht es die Bilder, die sich im Ordner der <literal role="extensions"
+>.kim</literal
+>-Datei befinden. Werden die entsprechenden Bilder nicht gefunden, so werden die Bilder der URL, die Sie beim Erstellen der &HTML;-Dateien angegeben haben, durchsucht. Dies ist natürlich nur möglich, wenn Sie Ihre <literal role="extension"
+>.kim</literal
+>-Datei mittels dem &HTML;-Export erstellt haben.</para>
     
     <sect1 id="chp-exportDialog">
-      <title>Export Dialog</title>
-      <para>This section will tell you about the export dialog which you
-        get to from <menuchoice><guimenu>File</guimenu>
-	<guimenuitem>Export...</guimenuitem></menuchoice>.</para>
+      <title
+>Der Dialog Exportieren</title>
+      <para
+>Im folgenden wird der Dialog für das Exportieren von Bildern beschrieben, den Sie über das Menü <menuchoice
+><guimenu
+>Datei</guimenu
+><guimenuitem
+>Exportieren...</guimenuitem
+></menuchoice
+> aufrufen können.</para>
 
-      <para>The most important part of this dialog is specifying whether
-        the <literal role="extension">.kim</literal> file should be internal or external
-        (see description above). You have the following three
-        options:
-      
-        <itemizedlist>
-          <listitem><para>Include in <literal role="extension">.kim</literal> file - this
-              will be an internal file</para></listitem>
-          <listitem><para>Manual copy next to .kim file - Here you must
-              copy the images yourself next to the .kim file</para></listitem>
-          <listitem><para>Automatically copy next to .kim file - here
-              &kphotoalbum; will copy the images for you.</para></listitem>
+      <para
+>Die wichtigste Option dieses Dialoges ist, ob es sich um interne oder externe <literal role="extension"
+>.kim</literal
+>-Dateien handeln soll. Es stehen Ihnen folgende drei Auswahlmöglichkeiten zur Verfügung: <itemizedlist>
+          <listitem
+><para
+><quote
+>In die <literal role="extensions"
+>.kim</literal
+>-Datei einfügen</quote
+> erzeugt eine interne Datei.</para
+></listitem>
+          <listitem
+><para
+>Bei der Option <quote
+>Manuell neben die .kim-Datei kopieren</quote
+> müssen Sie die Bilder in den gleichen Ordner wie die .kim-Datei kopieren.</para
+></listitem>
+          <listitem
+><para
+>Mit der Option <quote
+>Automatisch neben die .kim-Datei kopieren</quote
+> kopiert &kphotoalbum; die Bilder automatisch für Sie.</para
+></listitem>
         </itemizedlist>
       </para>
       
-      <para>Between you and me, <literal role="extension">.kim</literal> files are really
-        just zip files. Normally it is not worth bothering compressing the
-        files because images normally are compressed JPEG already, and the
-        XML file itself are really tiny. If you really want to squish out
-        the last few bytes, you may still do so, by checking
-        <guilabel>Compress Export File</guilabel></para>
+      <para
+><literal role="extensions"
+>.kim</literal
+>-Dateien sind normale Zip-Dateien. Da die meisten Bilder schon mit JPEG komprimiert wurden und die XML-Datei selbst sehr klein ist, lohnt es sich normalerweise nicht, die Dateien zu komprimieren. Falls Sie dies trotzdem möchten, so wählen Sie einfach die Option <guilabel
+>Exportdatei komprimieren</guilabel
+>.</para>
 
-      <para>The final option on the page are <guilabel>Limit maximum image
-          dimension</guilabel>. When sending some images to some friends,
-        you may not want to send images in full size, as the
-        <literal role="extension">.kim</literal> file might be huge. For this, you may
-        specify that the maximum dimension of images should be say maximum 800
-        pixels in each direction.</para>
+      <para
+>Die letzte Option dieser Seite lautet <guilabel
+>Maximale Bildgröße begrenzen</guilabel
+>. Wenn Sie Ihren Freunden Bilder schicken, möchten Sie die Bilder vielleicht nicht in voller Größe schicken, da die <literal role="extensions"
+>.kim</literal
+>-Datei sonst sehr groß wäre. Hier können Sie die Größe begrenzen, indem Sie beispielsweise sagen, dass jedes Bild höchstens 800 Pixel hoch und breit sein soll.</para>
     </sect1>
 
 
@@ -81,29 +104,35 @@ SPDX-License-Identifier: GFDL-1.2-only
 
     
 <sect1 id="chp-importDialog">
-  <title>Import Dialog</title>
-<para>When you select a <literal role="extension">.kim</literal> file from a web
-    browser, or choose
-<menuchoice><guimenu>File</guimenu><guimenuitem>Import...</guimenuitem></menuchoice>, 
-&kphotoalbum; will import the database exported with the functionality described in <xref
-linkend="chp-importExport"/>.</para>
+  <title
+>Der Dialog Importieren</title>
+<para
+>Wenn Sie eine Datei mit der Endung <literal role="extensions"
+>.kim</literal
+> aus dem Webbrowser oder aus dem Menü <menuchoice
+><guimenu
+>Datei</guimenu
+> <guimenuitem
+>Importieren...</guimenuitem
+></menuchoice
+> auswählen, wird &kphotoalbum; die exportierte Datenbank wie in <xref linkend="chp-importExport"/> beschrieben importieren.</para>
 
-<para>The import wizard consist of four steps. First you must specify which
-images you want to import. Next you must specify in which directory to put
-the imported images.</para>
+<para
+>Der Assistent zum Importieren besteht aus vier Schritten. Zuerst müssen Sie auswählen, welche Bilder Sie importieren möchten, danach, in welchen Ordner die importieren Bilder kopiert werden sollen.</para>
 
-<para>Chances are that you call the people category
-<emphasis>personen</emphasis> (if you are German), while I in Danish might
-call this category <emphasis>personer</emphasis>. In the third step of the
-import dialog, you must specify which category from the import file to
-import, plus which categories in your database they match.</para>
+<para
+>Es kann sein, dass Sie die Kategorie Personen der zu importierenden Datei <emphasis
+>personer</emphasis
+> heißt (wenn Sie ein Däne sind), während diese Kategorie bei Ihrer Datenbank <emphasis
+>Personen</emphasis
+> heißt. Deshalb werden Sie im dritten Dialogfenster gefragt, welche Kategorien der zu importierenden Datei importiert werden sollen und welchen Kategorien diese in Ihrer Datenbank entsprechen.</para>
 
-<para>I might call myself in my databases for <emphasis>me</emphasis>,
-while in your database I'm called Jesper K. Pedersen. Step four let you set
-up matching for each of the imported categories. This can be see in <xref linkend="fig-import-dialog"/>.</para>
+<para
+>Im vierten Schritt können Sie die Kategorien der zu importierenden Datei mit den Kategorien Ihrer jetzigen Datenbank abgleichen. Ein Beispiel hierfür sehen Sie in <xref linkend="fig-import-dialog"/>.</para>
 
 <figure id="fig-import-dialog">
-<title>Matching People in the Import Dialog </title>
+<title
+>Abgleich von Personen im Import-Dialog </title>
 <mediaobject>
 <imageobject>
 <imagedata fileref="import-dialog.png" format="PNG"/>
@@ -111,13 +140,8 @@ up matching for each of the imported categories. This can be see in <xref linken
 </mediaobject>
 </figure>
 
-<para>In the screen shot you may see that Donna is the same in both the
-.kim file and in my database - the name is shown in black to indicate a
-perfect match in the database. The other three names was not found in the
-database, though both Jesper and Anne Helene was found matching as
-substring, so these are suggested. Finally in my database I didn't have
-Spiff (or I might have named it quite differently), so &kphotoalbum; simply
-suggest Spiff for the import name.</para>
+<para
+>Auf dem Bild sehen Sie, dass Donna sowohl in der .kim-Datei als auch in der Datenbank den gleichen Namen hat - der Name wird schwarz angezeigt, um Ihnen die Übereinstimmung zu verdeutlichen. Die anderen drei Namen wurden in der Datenbank nicht gefunden, obwohl Jesper und Anne Helene als Bestandteil wiedererkannt wurden, weshalb diese vorgeschlagen werden. Zuletzt sehen Sie, dass Spiff in der Datenbank nicht vorkommt, weshalb &kphotoalbum; vorschlägt, diese Person neu zu übernehmen.</para>
 
 </sect1>
   </chapter>

@@ -13,11 +13,14 @@ SPDX-License-Identifier: GFDL-1.2-only
 -->
 
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
-  <!ENTITY kphotoalbum "<application>KPhotoAlbum</application>">
+  <!ENTITY kphotoalbum "<application
+>KPhotoAlbum</application
+>">
   <!ENTITY kappname "&kphotoalbum;">
   <!ENTITY package "extragear-graphics">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE"> 
+  <!ENTITY % German "INCLUDE"
+> 
 
   <!ENTITY introduction SYSTEM "introduction.docbook">
   <!ENTITY setting-properties SYSTEM "setting-properties.docbook">
@@ -34,65 +37,106 @@ SPDX-License-Identifier: GFDL-1.2-only
 <book id="kphotoalbum" lang="&language;">
   
   <bookinfo>
-    <title>The &kphotoalbum; Handbook</title>
+    <title
+>Das Handbuch zu &kphotoalbum;</title>
     
     <authorgroup>
-      <author>
-        <firstname>Jesper K.</firstname>
-        <surname>Pedersen</surname>
-      </author>
-      <author>
-        <firstname>Miika</firstname>
-        <surname>Turkia</surname>
-      </author>
+      <author
+><firstname
+>Jesper K.</firstname
+> <surname
+>Pedersen</surname
+> </author>
+      <author
+><firstname
+>Miika</firstname
+> <surname
+>Turkia</surname
+> </author>
       
-      <!-- TRANS:ROLES_OF_TRANSLATORS -->
+      <othercredit role="translator"
+><firstname
+>Thomas</firstname
+><surname
+>Bögel</surname
+><affiliation
+><address
+><email
+>boegel.thomas@gmx.de</email
+></address
+></affiliation
+><contrib
+>Übersetzung</contrib
+></othercredit
+> 
     </authorgroup>
     
     <copyright>
-      <year>2003-2007</year>
-      <holder>Jesper K. Pedersen</holder>
+      <year
+>2003-2007</year>
+      <holder
+>Jesper K. Pedersen</holder>
       
     </copyright>
     <copyright>
-      <year>2012</year>
-      <holder>Miika Turkia</holder>
+      <year
+>2012</year>
+      <holder
+>Miika Turkia</holder>
     </copyright>
     
-    <date>2012-02-23</date>
-    <releaseinfo>4.2</releaseinfo>
+    <date
+>2012-02-23</date>
+    <releaseinfo
+>4.2</releaseinfo>
     
     <abstract>
-    <para><inlinemediaobject>
-    <imageobject><imagedata fileref="splash-large.png" format="PNG" scalefit="1" /></imageobject>
-    <textobject><phrase>&kphotoalbum; logo</phrase></textobject>
-    </inlinemediaobject></para>
+    <para
+><inlinemediaobject>
+    <imageobject
+><imagedata fileref="splash-large.png" format="PNG" scalefit="1"/></imageobject>
+    <textobject
+><phrase
+>&kphotoalbum;-Logo</phrase
+></textobject>
+    </inlinemediaobject
+></para>
     
-    <para>
-  This is the user manual for &kphotoalbum; &mdash; a digital image cataloguing
-  software that supports annotation, browsing, searching and viewing of digital
-  images and videos. If you are not the type who likes reading documentation,
-  but rather just want to try out things, here are a few alternatives:
-  <itemizedlist>
-          <listitem><para>Go to the <ulink url="http://www.kphotoalbum.org/">&kphotoalbum; Homepage</ulink>, and look at
-    the quick overview, screen shoots, and introduction videos.</para></listitem>
-          <listitem><para>Start &kphotoalbum;, and accept its offer for a demo (If
-this is your first time you start it), or go to <guimenu>Help</guimenu>
-menu and select <guimenuitem>Run &kphotoalbum; demo</guimenuitem>. That will load
-&kphotoalbum; with a number of images, and let you browse around.</para></listitem>
-        </itemizedlist></para>
+    <para
+>Dies ist das Benutzerhandbuch für &kphotoalbum; &mdash; eine Katalogisierungssoftware für digitale Bilder mit Funktionen wie Anmerkungen, Durchblättern, Suchen und Betrachten von digitalen Bildern und Videos. Wenn Sie nicht gerne Handbücher lesen, sondern lieber gleich Funktionen ausprobieren möchten, haben Sie folgende Alternativen zu diesem Handbuch: <itemizedlist>
+          <listitem
+><para
+>Gehen Sie auf die <ulink url="http://www.kphotoalbum.org/"
+>Webseite von &kphotoalbum;</ulink
+> und schauen Sie sich den Schnelleinstieg, die Bildschirmfotos und die Einführungsvideos an.</para
+></listitem>
+          <listitem
+><para
+>Starten Sie &kphotoalbum; und wählen Sie im ersten Dialog die Demo, falls Sie &kphotoalbum; zum ersten Mal starten, oder wählen Sie im Menü <guimenu
+>Hilfe</guimenu
+> den Menüeintrag <guimenuitem
+>&kphotoalbum;-Demo starten</guimenuitem
+>. Daraufhin werden einige Beispiel-Bilder geladen und Sie können die Funktionen von &kphotoalbum; ausprobieren.</para
+></listitem>
+        </itemizedlist
+></para>
 
-   <para>If you prefer to print out this document, then you may find it as
-on long PDF document at <ulink url="http://docs.kde.org/">&kde;
-docs</ulink>. A direct link is available at <ulink
-url="http://kphotoalbum.org/index.php?page=documentation">&kphotoalbum;'s
-Homepage</ulink>.</para>
+   <para
+>Falls Sie dieses Handbuch lieber ausdrucken möchten, finden Sie ein zusammenhängendes PDF-Dokument auf der Seite <ulink url="http://docs.kde.org/"
+>&kde;-Dokumentation</ulink
+>. Eine direkte Verknüpfung ist auf <ulink url="http://kphotoalbum.org/index.php?page=documentation"
+>&kphotoalbum;s Internetseite</ulink
+> vorhanden.</para>
 </abstract>
     <keywordset>
-      <keyword>KDE</keyword>
-      <keyword>extragear-graphics</keyword>
-      <keyword>KPhotoAlbum</keyword>
-      <keyword>Image Database</keyword>
+      <keyword
+>KDE</keyword>
+      <keyword
+>extragear-graphics</keyword>
+      <keyword
+>KPhotoAlbum</keyword>
+      <keyword
+>Bilddatenbank</keyword>
     </keywordset>
   </bookinfo>
   
@@ -112,18 +156,23 @@ Homepage</ulink>.</para>
   <!--                                 FAQ                                    -->
   <!-- ====================================================================== -->
   <chapter id="faq">
-    <title>Frequently asked questions</title>
+    <title
+>Häufig gestellte Fragen (FAQ)</title>
 
-<para>For a list of frequently asked questions, please see <ulink
-          url="http://userbase.kde.org/KPhotoAlbum_FAQ">http://userbase.kde.org/KPhotoAlbum_FAQ</ulink></para>
+<para
+>Eine Zusammenstellung häufig gestellter Fragen finden Sie unter <ulink url="http://userbase.kde.org/KPhotoAlbum_FAQ"
+>http://userbase.kde.org/KPhotoAlbum_FAQ</ulink
+>.</para>
   </chapter>
 
   <chapter id="credits-and-license">
-    <title>Credits and License</title>
-    <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
-    &underFDL;
-    &underGPL;
-    </chapter>
+    <title
+>Danksagungen und Lizenz</title>
+    <para
+>Übersetzung Thomas Bögel<email
+>boegel.thomas@gmx.de</email
+></para
+> &underFDL; &underGPL; </chapter>
 
 </book>
 

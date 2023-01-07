@@ -7,38 +7,23 @@ SPDX-License-Identifier: GFDL-1.2-only
 -->
 
 <chapter id="work-flow">
-  <title>Workflows with &kphotoalbum;</title>
-  <para>Workflow is rather important aspect in digital imaging. In this
-  chapter we describe different workflows that fit on different needs.
-  There are many different factors that must be considered when
-  developing a workflow. Hopefully these examples will provide you with
-  sufficient ideas of how to tune-up your own method of working with
-  digital imaging.</para>
+  <title
+>Arbeitsablauf mit &kphotoalbum;</title>
+  <para
+>Der Arbeitsablauf ist ein wichtiger Aspekt in der digitalen Bildbearbeitung. In diesem Kapitel werden mehrere Abläufe für verschiedene Anforderungen beschrieben. Es müssen viele verschiedenen Faktoren bei der Entwicklung eines Arbeitsablaufs bedacht werden. Diese Beispiele geben Ihnen hoffentlich einige Anregungen, um Ihren eigenen Arbeitsablauf in der Bildverarbeitung zu finden.</para>
 
   <sect1 id="raw-workflow">
-  <title>RAW workflow using &kphotoalbum; and Bibble5/AfterShot Pro</title>
-  <para>When shooting RAW images the files from camera must be developed
-  to commonly recognized format like JPEG or TIFF. There are a few
-  options to choose from when working on Linux. For example RawTherapee
-  and Ufraw are open-source alternatives when Bibble5/AfterShot Pro are
-  commercial application for this purpose.</para>
+  <title
+>Arbeitsablauf für Rohbilder mit &kphotoalbum; und Bibble5/AfterShot Pro</title>
+  <para
+>Bei der Aufnahme von Rohbildern müssen die Bilder von der Kamera in ein übliches Format wie JPEG oder TIFF umgewandelt werden. Dazu gibt es unter Linux mehrere Alternativen. Zum Beispiel RawTherapee und Ufraw sind Open-Source-Programme, Bibble5/AfterShot Pro dagegen kommerzielle Programme für diese Aufgabe.</para>
 
-  <para>A few settings are recommended for a RAW workflow.
-  First is to enable the using of the embedded thumbnail. This will give
-  a tremendous speed boost over decoding each raw file each time they are
-  viewed (check also the minimum dimension configuration to ensure decent
-  quality). Second one is for the New Image Finder to automatically stack the
-  developed versions over the RAW file (developed image must be on same
-  directory as the original). This requires regular expressions as
-  described in <xref linkend="opt-search-new" />. Two helper scripts are
-  provided in &kphotoalbum; sources to help in RAW workflow. These are
-  open-raw.desktop and open-raw.pl. The first one enables GUI applications to
-  open the RAW files in the open-raw.pl script that tries to find the original
-  RAW file and open that instead of the developed image.
-  </para>
+  <para
+>Einige Einstellungen werden für den Arbeitsablauf mit Roh-Dateien empfohlen. Als erstes aktivieren Sie die Verwendung der eingebetteten Vorschaubilder. Damit erreichen Sie eine erheblich schnellere Anzeige im Vergleich zur Dekodierung jedes einzelnen Rohdaten-Bilds. Überprüfen Sie die Einstellung der minimalen Vorschaugröße, um eine ausreichende Anzeigequalität zu erhalten. Als nächstes überprüfen Sie, dass bei der Suche nach neuen Bildern die entwickelten Versionen automatisch über die Rohdateien gestapelt werden. Die entwickelten Bilder müssen im gleichen Ordner wie das Original gespeichert werden. Das erreichen Sie mit regulären Ausdrücken wie im Abschnitt <xref linkend="opt-search-new"/> beschrieben. Die beiden Skripte open-raw.desktop und open-raw.pl werden mit &kphotoalbum; ausgeliefert, die diesen Arbeitsablauf für Rohdateien unterstützen. Das erste ermöglicht grafischen Anwendungen, Rohdateien mit open-raw.pl zu öffnen, welches wiederum die ursprünglichen Rohdatei sucht und sie anstelle des entwickelten Bilds öffnet. </para>
 
   <figure id="fig-raw-workflow">
-    <title>Sending Images to RAW Editor</title>
+    <title
+>Bilder an die Rohbearbeitung übergeben</title>
     <mediaobject>
       <imageobject>
         <imagedata fileref="raw-external.png" format="PNG"/>
@@ -46,143 +31,137 @@ SPDX-License-Identifier: GFDL-1.2-only
       </mediaobject>
   </figure>
 
-  <para>First step in actual workflow is to copy the images from camera to the
-  computer. A simple copy on a terminal window is all that is needed:
-  </para>
-  <screen><userinput><command>cp</command> <option>-a</option> <filename>/media/.../101CANON/</filename> <filename>~/Pictures/2012/sample</filename>
-  </userinput></screen>
-  <para>
-  Then either start &kphotoalbum; or run
-  <menuchoice><guimenu>Maintenance</guimenu><guimenuitem>Rescan for
-  Images and Videos</guimenuitem></menuchoice>. New images should be
-  found and now is time for initially tagging the images. As I usually photograph while
-  traveling I first insert the place. Select <guilabel>Folder</guilabel>
-  and browse to the new directory. Then go to the
-  <guilabel>Show Thumbnails</guilabel>, select all
-  and <guimenu>Annotate Multiple Items at a Time</guimenu> or <keycombo
-  action="simul">&Ctrl;<keycap>2</keycap></keycombo>. Insert the
-  proper place like Finland-Helsinki (see <xref
-  linkend="sec-member-groups-in-property-editor"/>).
-  </para>
+  <para
+>Der erste eigentliche Schritt im Arbeitsablauf ist das Kopieren der Bilder von der Kamera auf den Rechner. Das kann in einem Terminalfenster mit folgendem Befehl erfolgen: </para>
+  <screen
+><userinput
+><command
+>cp</command
+> <option
+>-a</option
+> <filename
+>/media/.../101CANON/</filename
+> <filename
+>~/Pictures/2012/sample</filename>
+  </userinput
+></screen>
+  <para
+>Dann starten Sie entweder &kphotoalbum; oder wählen <menuchoice
+><guimenu
+>Wartung</guimenu
+><guimenuitem
+>Bilder und Videos neu einlesen</guimenuitem
+></menuchoice
+>. Die neuen Bilder werden gefunden und sollten als erstes mit Stichwörtern versehen werden. Wenn Sie normalerweise auf Reisen fotografieren, sollten Sie als erstes Orte zuweisen. Wählen Sie <guilabel
+>Ordner</guilabel
+> und gehen Sie zum neuen Ordner. Gehen Sie dann zu <guilabel
+>Vorschaubilder anzeigen</guilabel
+>, wählen alle aus und benutzen <guimenu
+>Mehrere Einträge gleichzeitig kategorisieren</guimenu
+> aus dem Kontextmenü oder drücken <keycombo action="simul"
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>. Fügen Sie den richtigen Ort wie zum Beispiel „Finnland-Helsinki“ ein, siehe auch <xref linkend="sec-member-groups-in-property-editor"/>. </para>
 
-  <para>Now that the new images are easy to find I do the
-  initial ranking and deletion. For this I go to the thumbnail
-  view and start the Viewer by hitting &Enter;. I use
-  rating for good images, just press the appropriate number from
-  <keycap>1</keycap> to <keycap>5</keycap>. I only give 3 to 5 ratings
-  and hit <keycombo
-  action="simul">&Ctrl;<keycap>Del</keycap></keycombo>
-  for the bad photos to delete them. At this point I might add also
-  People names if there happens to be a diver in the photo. Once the
-  first round is done I exit the Viewer by hitting &Esc;
-  and select <guimenuitem>Delete file from disk</guimenuitem> to get rid off the
-  bad images for good.
-  </para>
+  <para
+>Da die neuen Bilder nun leicht zu finden sind, sollte eine erste Bewertung und Löschung nicht gelungener Aufnahmen erfolgen. Wechseln Sie zur Vorschauansicht und starten den Betrachter durch Drücken der Taste &Enter;. Zur Bewertung drücken Sie die entsprechenden Zahlen von <keycap
+>1</keycap
+> bis <keycap
+>5</keycap
+>. Zum Löschen von Fotos verwenden Sie <keycombo action="simul"
+>&Ctrl;<keycap
+>Entf</keycap
+></keycombo
+>. Jetzt können auch die Namen der Personen hinzugefügt werden. Verlassen Sie den Betrachter mit &Esc; und wählen dann <guimenuitem
+>Datei von der Festplatte löschen</guimenuitem
+>, um die schlechten Bilder loszuwerden. </para>
 
-  <para>Next I select only the images that have high enough rating using
-  the search function. Naturally the Place has to be set if search is
-  started with <keycombo
-  action="simul">&Ctrl;<keycap>F</keycap></keycombo>.
-  However, if search is invoked from the Main Window the current
-  selection is drilled down to the more precise match. Anyway, at this
-  point I go through the better rated images again doing refining on the
-  rating. E.g. if I have 5 similar photos of one Nudibranch species I
-  generally decrease the rating of the poorer images and might increase
-  the best one. Comparing images can be done by selecting the ones you
-  want to compare and starting the Viewer. Removing images from the
-  Viewer selection can be done with <keycap>Delete</keycap>. This only
-  disables the viewing of the current image while within the Viewer,
-  nothing is removed or deleted. This allows comparing 2 or 3 better
-  images next to each other moving between them with
-  <keycap>PgUp</keycap> and <keycap>PgDn</keycap>. I quite commonly use
-  a <literal>tmp</literal> category to mark &eg; crabs and shrimps to be
-  easily able to display only selected type of images during the later
-  phases of selection and identification.</para>
+  <para
+>Jetzt sollten Sie nur die Bilder mit einer entsprechend hohen Bewertung mit der Suchfunktion auswählen. Natürlich muss ein Ort angegeben werden, wenn die Suche mit <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+> begonnen wird. Wird die Suche dagegen im Hauptfenster gestartet, wird die aktuelle Auswahl durch genauere Übereinstimmung eingegrenzt. Dann sollten Sie die Bewertung der besten Bilder verfeinern. Haben Sie zum Beispiel fünf Bilder einer Nacktschnecke, sollten Sie die Bewertung der schlechteren Bilder verringern und des besten Bilds vergrößern. Bilder können Sie vergleichen, indem Sie sie auswählen und dann den Betrachter starten. Drücken Sie die Taste <keycap
+>Entf</keycap
+>, um Bilder aus der Ansichtsauswahl zu entfernen. Dies erlaubt das Vergleichen von zwei oder drei Bildern, mit den Tasten <keycap
+>Bild auf</keycap
+> und <keycap
+>Bild ab</keycap
+> können Sie zwischen den Bilder wechseln. Benutzen Sie temporäre Kategorien, um nur bestimmte Arten von Bildern bei der späteren Auswahl und Identifizierung anzuzeigen.</para>
 
-  <para>After a reduced amount of images is left I start tagging them. I
-  add the Latin Name of the species and Common Name. Whenever I have
-  these two categories completed I consider the image Done and get rid
-  of the Untagged marking. Note that if you still need to do tagging
-  after developing the RAW image (and auto-stacking them) you need to
-  select the top of collapsed stack (or all images on expanded stack)
-  and select <emphasis>Annotate Multiple Items at a Time</emphasis> to
-  get the whole stack annotated instead of only the topmost
-  image.</para>
+  <para
+>Nachdem jetzt nur noch eine verringerte Anzahl von Bildern übrig ist, sollten Sie mit der Zuweisung von Stichwörtern und Kommentaren weitermachen. Möchten Sie nach der Entwicklung der Rohbilder und automatischer Stapelung Stichwörter zuweisen, müssen Sie das oberste Element eines eingeklappten Stapels oder alle Bilder eines ausgeklappten Stapels auswählen und dann <emphasis
+>Mehrere Einträge gleichzeitig kategorisieren</emphasis
+>, um alle Bilder anstatt des obersten zu ändern.</para>
 
-  <para>The best images are sent to external application for developing.
-  With wanted images selected, right click on selected thumbnail and
-  select <menuchoice><guimenuitem>Invoke External
-  Program</guimenuitem><guimenuitem>All Selected
-  Images</guimenuitem><guimenuitem>Send
-  Bibble5</guimenuitem></menuchoice>. The application
-  selected is actually my script that detects if there is a RAW file for
-  the possibly already developed images available and uses that if possible.
-  Within the external application I do some tuning up and cropping if
-  required and then output the developed JPEGs next to the original RAW file.
-  File naming is rather simple, change the extension or add underscore
-  and running number if needed.
-  </para>
+  <para
+>Die besten Bilder werden nun an das externe Programm zur Entwicklung gesendet. Sind die gewünschten Bilder ausgewählt, klicken Sie mit der &RMBn; auf ein ausgewähltes Vorschaubild und wählen dann <menuchoice
+><guimenuitem
+>Externes Programm starten</guimenuitem
+><guimenuitem
+>Alle ausgewählten Einträge</guimenuitem
+><guimenuitem
+>Bibble5</guimenuitem
+></menuchoice
+>. Das hier ausgewählte Programm ist tatsächlich das mit &kphotoalbum; ausgelieferte Skript, das erkennt, ob eine Rohdatendatei für die möglicherweise bereits entwickelten Bilder verfügbar ist, und das dann benutzt wird. Mit dem externen Programm bearbeiten Sie die Bilder und speichern dann die entwickelten JPG-Dateien zu den ursprünglichen Rohdateien. Beim Dateinamen sollten Sie die Erweiterung anpassen sowie – falls nötig – Unterstrich und fortlaufende Nummer hinzufügen. </para>
 
-  <para>Now that there is plenty of new JPEGs in the image directories I
-  let &kphotoalbum; search for new images and automatically stack the
-  new ones on top of the original RAW (<xref linkend="fig-options-file-versions" />).
-  Then a final round of selection with the developed images and adding some
-  descriptions if needed.</para>
+  <para
+>Da es nun viele neue JPEG-Bilder im Bilderordner gibt, lassen Sie &kphotoalbum; nach neuen Bildern suchen und sie automatisch auf die Rohdateien (<xref linkend="fig-options-file-versions"/>) stapeln. Dann erfolgt eine endgültige Suche mit den entwickelten Bildern und es werden noch einige Beschreibungen hinzugefügt, falls nötig.</para>
 
-  <para>Final step is to generate static &HTML; pages and upload to my web
-  server for the enjoyment of friends and colleagues. This I do with the
-  stacks collapsed to only get the developed images to the web page.
-  &HTML; generation is described in <xref
-  linkend="chp-generating-html"/>.</para>
+  <para
+>Der letzte Schritt ist die Erstellung statischer &HTML;-Seiten, die auf einen Webserver hoch geladen werden, damit die Fotos von Freunden und Kollegen angeschaut werden können. Dies sollten Sie mit dem eingeklappten Stapel ausführen, um nur die entwickelten Bilder auf der Webseite zu haben. Die &HTML;-Generierung wird im <xref linkend="chp-generating-html"/> beschrieben.</para>
   </sect1>
 
   <sect1 id="pano-workflow">
-  <title>Panorama workflow</title>
-  <para>
-  Panoramas require a bit different workflow than normal photo editing.
-  This is due to the requirement for multiple source files. The tool of
-  choice for panoramas is Autopano Pro but latest version of &digikam;
-  should do well and fits zero budget. Following list describes the
-  steps required:
-  <orderedlist>
-  <listitem><para>Tag the photos belonging to a panorama in
-  &kphotoalbum; appropriately. This is done mainly to avoid discarding
-  images by accident, when sorting out the garbage among the photos
-  taken. You probably want also to stack the set of source images at
-  this point.</para></listitem>
-  <listitem><para>You have at least two simple options for next
-  step:
-  <orderedlist>
-  <listitem><para>You can let Autopano Pro find the panoramas
-  automatically from the photo directory.
-  </para></listitem>
-  <listitem><para>Or send the proper images to Autopano Pro on command
-  line to speed things up. This is handy if the image directory contains a
-  lot of images, especially RAW ones.  This requires one to fix the script
-  that starts Autopano Pro to accept input and to create a desktop file or
-  invoking external program with own command line.</para></listitem>
+  <title
+>Arbeitsablauf mit Panoramen</title>
+  <para
+>Panoramen benötigen einen etwas anderen Arbeitsablauf als die Bearbeitung normaler Fotos. Dies wird durch mehrere Quelldateien bedingt. Das Werkzeug der Wahl ist Autopano Pro, aber eine aktuelle Version von &digikam; kann es auch gut und ist zudem kostenlos. Im Folgenden werden die nötigen Schritte erläutert: <orderedlist>
+  <listitem
+><para
+>Verschlagworten Sie die Fotos, die zum Panorama gehören, entsprechend. Damit soll verhindert werden, dass Fotos versehentlich gelöscht werden, wenn der Ausschuss unter den Fotos aussortiert wird. Sie sollten außerdem die zusammengehörenden Fotos in einen Stapel packen.</para
+></listitem>
+  <listitem
+><para
+>Es gibt mindestens zwei einfache Optionen für den nächsten Schritt: <orderedlist>
+  <listitem
+><para
+>Sie können die Panoramen von Autopano Pro automatisch aus dem Fotoverzeichnis ermitteln lassen. </para
+></listitem>
+  <listitem
+><para
+>Oder Sie senden für einen schnelleren Ablauf die korrekten Bilder über die Befehlszeile an Autopano Pro. Das ist dann praktisch, wenn sich viele Dateien, insbesondere im Rohformat, in dem Ordner befinden. Dazu muss das Skript zum Starten von Autopano Pro so geändert werden, dass Eingaben übernommen werden und eine „.desktop“-Datei erstellt werden. Alternativ kann Autopano Pro als externes Programm von der Befehlszeile aus benutzt werden.</para
+></listitem>
   </orderedlist>
-  </para></listitem>
-  <listitem><para>If it happens that the resulting panorama is missing a
-  small part, you can try to craft it e.g. with the Gimp. Gimp works
-  usually quite well if there is enough "structure" to be cloned but there
-  is absolutely no guarantee you will get usable
-  results.</para></listitem>
-  <listitem><para>Save the new image somewhere under &kphotoalbum;'s image
-  directory and run
-  <menuchoice><guimenu>Maintenance</guimenu><guimenuitem>Rescan for Images
-  and Videos</guimenuitem></menuchoice>. This should notice the new
-  panorama and include it in the picture gallery.
-  </para></listitem>
-  <listitem><para>If you have set the AutoStacking of new images properly
-  and name of the new panorama matches the rules for this, the panorama
-  should be on top of the stack. Otherwise sort the images by date, so the
-  new panorama ends up at by the source images and stack them manually.
-  (Autopano Pro seems to write the EXIF info of the first image into the
-   panorama.)</para></listitem>
-  <listitem><para>You can still add tagging at this point to the panorama
-  or you might include all the source images also with
-  <keycombo>&Ctrl;<keycap>2</keycap></keycombo>.</para></listitem>
+  </para
+></listitem>
+  <listitem
+><para
+>Sollte dem resultierende Panorama ein kleiner Teil fehlen, können Sie es z. B. mit Gimp aufbereiten. Das funktioniert für gewöhnlich ganz gut, wenn es genug Strukturen im Bild gibt, die über die Lücke geklont werden können. Es ist jedoch nicht garantiert, dass Sie brauchbare Ergebnisse erhalten.</para
+></listitem>
+  <listitem
+><para
+>Speichern Sie das neue Bild irgendwo im &kphotoalbum;-Baum und rufen Sie <menuchoice
+><guimenu
+>Wartung</guimenu
+><guimenuitem
+>Bilder und Videos neu einlesen</guimenuitem
+></menuchoice
+> aus dem Menü auf. Nun sollte das neue Panorama erkannt und in die Galerie aufgenommen werden. </para
+></listitem>
+  <listitem
+><para
+>Wenn Sie das automatische Stapeln neuer Bilder korrekt eingestellt haben und der Name des neuen Panoramas der Regel entspricht, sollte es nun oben auf dem Stapel liegen. Sortieren Sie andernfalls die Bilder nach Datum, damit das Panorama in der Nähe der Panorama-Quellbilder liegt und stapeln Sie es manuell (Autopano Pro scheint die EXIF-Informationen des ersten Quellbildes in das Panorama einzubetten).</para
+></listitem>
+  <listitem
+><para
+>Sie können nun dem Panorama weitere Stichwörter zuweisen und dabei auch mit <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+> alle Quellbilder mit einschließen.</para
+></listitem>
   </orderedlist>
   </para>
 </sect1>

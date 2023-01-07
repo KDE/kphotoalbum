@@ -7,57 +7,51 @@ SPDX-License-Identifier: GFDL-1.2-only
 -->
 
 <chapter id="introduction">
-  <title>Introduction</title>
-  <para>If you are like me you have thousands of images
-ever since you got your first camera, some taken with a normal camera other
-with a digital camera. Through all the years you believed that until
-eternity you would be able to remember the story behind every single
-picture, you would be able to remember the names of all the people on your
-images, and you would be able to remember the exact date of every single
-image. I personally realized that this was not possible anymore, and
-especially for my digital images - but also for my paper images - I needed
-a tool to help me describe my images, and to search in the pile of
-images. This is exactly what &kphotoalbum; is all about.</para>
+  <title
+>Einleitung</title>
+  <para
+>Wenn Sie wie ich sind, dann haben Sie tausende von Bildern angesammelt, seit Sie Ihre erste Kamera haben. Einige wurden mit einer normalen und andere mit einer digitale Kamera gemacht. All die Jahre haben Sie geglaubt, dass Sie sich bis in alle Ewigkeit an die Geschichte hinter jedem einzelnen Bild, an jeden Namen der Leute auf den Fotos und an den genauen Tag, an dem das Bild gemacht wurde, erinnern können. Sie werden feststellen, dass dies irgendwann nicht mehr möglich ist. Daher benötigen Sie für Ihre digitalen aber auch für die analogen Bilder ein Werkzeug, das Ihnen hilft, die Bilder zu beschreiben und in den Bildern zu suchen. Dies ist die Aufgabe von &kphotoalbum;.</para>
   
   
-  <para>&kphotoalbum; focuses on three key points: 
-<itemizedlist>
-      <listitem><para>It must be easy to annotate a number of images at a
-time. It must for example not take more than a few mouse clicks to mark all
-your images from your holiday as being from Italy, 1992. &kphotoalbum; offers two
-ways of describing images: <guilabel>one at a time</guilabel>, which is
-useful for writing text about images, and <guilabel>All
-Simultaneously</guilabel>, which is useful for selecting a 
-number of images, and setting properties like location, people on images,
-and date of image.</para></listitem>
+  <para
+>&kphotoalbum; wurde entwickelt, um die folgenden drei Punkte zu kombinieren: <itemizedlist>
+      <listitem
+><para
+>Es muss einfach sein, eine große Anzahl von Bildern auf einmal zu beschreiben: Es sollten beispielsweise nur ein paar Mausklicks genügen, um alle Bilder, die beim Italienurlaub im Jahr 1992 gemacht wurden, als solche zu verschlagworten. Mit &kphotoalbum; können Sie Bildbeschreibungen auf zwei Arten hinzufügen. Entweder beschreiben Sie <guilabel
+>Ein Bild nach dem anderen</guilabel
+>, was nützlich ist, wenn Sie für Ihre Bilder einen Text eingeben möchten oder Sie beschreiben <guilabel
+>Alle Bilder gleichzeitig</guilabel
+>, wenn Sie z. B. für eine größere Zahl von Bildern den Ort, die abgebildeten Personen oder das Datum der Aufnahmen eingeben möchten.</para
+></listitem>
       
-      <listitem><para>It must be easy to search for images. &kphotoalbum; offers to
-describe images with a number of properties. These includes date, people,
-places, plus a keyword field the user can use for custom keywords like
-<emphasis>Album 7</emphasis> or <emphasis>Holiday trip to
-Italy</emphasis>. With &kphotoalbum; you can  search for images in each of
-the categories - e.g. find all the images with Jesper on them from the
-holiday in Italy. It is of course possible to create your own categories,
-much more on that later.</para></listitem> 
+      <listitem
+><para
+>Es muss einfach sein, nach Bildern zu suchen: Mit &kphotoalbum; können Sie Ihren Bildern eine Reihe von Eigenschaften und Beschreibungen, wie zum Beispiel das Datum der Aufnahme, abgebildete Personen und Orte oder benutzerdefinierte Stichworte, z.B. <emphasis
+>Album 7</emphasis
+> oder <emphasis
+>Italienurlaub</emphasis
+>, zuweisen. Sie können Bilder in jeder der gerade genannten Kategorien suchen,<abbrev
+>d. h.</abbrev
+>, Sie können zum Beispiel alle Bilder des Italienurlaubs, auf denen eine bestimmte Person abgebildet ist, suchen. Natürlich können Sie auch Ihre eigenen Kategorien erstellen, dazu später mehr.</para
+></listitem
+> 
       
-      <listitem><para>It must be easy to browse and View the images. When viewing
-images, your focus often changes - one moment you are looking at images
-from your holiday in 1992, and when seeing an image of a friend whom you
-spent that holiday with, you focus suddenly changes, so you want to see all
-images of that friend.</para></listitem>
-    </itemizedlist></para>
+      <listitem
+><para
+>Es muss einfach sein, Bilder zu durchsuchen und anzusehen: Wenn man Bilder ansieht, möchte man oft innerhalb von verschiedenen Bildergruppen springen &mdash; wenn Sie zum Beispiel Bilder Ihres Italienurlaubs ansehen und ein Bild mit Ihrem Freund darauf entdecken, möchten Sie vielleicht alle Bilder, auf denen dieser Freund abgebildet ist, sehen.</para
+></listitem>
+    </itemizedlist
+></para>
   
   <!-- ====================================================================== -->
   <sect1 id="sect-overview-of-manual">
-    <title>Overview of the manual</title>
-    <para>In this manual I will take you through the steps of (1)
-annotating your images, (2) browsing and viewing images and (3)
-advanced topics and customization.</para>
+    <title
+>Überblick über den Aufbau des Handbuchs</title>
+    <para
+>In diesem Handbuch werden Sie die verschiedenen Schritte vom (1) Festlegen der Informationen über Ihre Bilder, über (2) das Durchsuchen und Ansehen, bis hin zu (3) fortgeschrittenen Themen und Anpassungsmöglichkeiten durchlaufen.</para>
 
-<para>&kphotoalbum; started out as an application for managing your images,
-but since then it has been extended, so it today also takes care of your
-videos. In many places in this manual I will talk about images, but just as
-often the discussion does include videos.</para>
+<para
+>&kphotoalbum; wurde als ein Programm zum Verwalten Ihrer Bilder begonnen. Es wurde aber erweitert und heute kümmert es sich auch um Ihre Videos. An vielen Stellen in diesem Handbuch wird über Bilder geredet, aber häufig schließt dies auch Videos mit ein.</para>
   
 
   </sect1>
@@ -65,32 +59,42 @@ often the discussion does include videos.</para>
   
   <!-- ====================================================================== -->
   <sect1 id="sec-organization-of-images-and-KPhotoAlbum-files">
-    <title>Organization of images and &kphotoalbum; files</title>
-    <para>&kphotoalbum; uses all the images of a directory and all subdirectories
-below it, first time you start &kphotoalbum;, you will be asked for the location of
-this directory. &kphotoalbum; will not modify any images, so you do not have to
-be afraid of &kphotoalbum; altering your images <footnote><para>The two
-exceptions to this rule is (1) if you ask &kphotoalbum; to delete individual
-images, from <menuchoice><guimenu>Edit</guimenu><guimenuitem>Delete
-Selected</guimenuitem></menuchoice>, and (2) plug-in operations.</para></footnote>, 
-actually if you do not trust &kphotoalbum;, feel free to make all your images 
-write protected.</para>
+    <title
+>Die Organisation von Bildern und &kphotoalbum;-Dateien</title>
+    <para
+>&kphotoalbum; verwendet alle Bilder eines Ordners und all seiner Unterordner als Datenbank. Beim ersten Start von &kphotoalbum; werden Sie nach dem Ort dieses Ordners gefragt. &kphotoalbum; wird keines Ihrer Bilder in irgendeiner Weise verändern; <footnote
+><para
+>Die beiden Ausnahmen hierfür sind (1) das Löschen einzelner Bilder, wenn Sie dies vom Menü <menuchoice
+><guimenu
+>Bearbeiten</guimenu
+><guimenuitem
+>Auswahl löschen</guimenuitem
+></menuchoice
+> anstoßen und (2) Operationen von Modulen.</para
+></footnote
+> Falls Sie &kphotoalbum; noch nicht vertrauen, können Sie natürlich alle Bildern mit einem Schreibschutz versehen.</para>
     
-    <para>&kphotoalbum; will save all its information in the file
-<filename>index.xml</filename> in your topmost image directory. This file
-is a simple XML file, so you can easily back it up using whatever tools
-you prefer, including normal backup utilities, copying the file to a
-floppy disk, or keeping revisions using VCS. There is also a backup script
-(<emphasis>kpa-backup.sh</emphasis>) provided in &kphotoalbum;'s sources that
-backs up not only the index.xml but also the configuration files inside user's
-home directory.</para>
+    <para
+>&kphotoalbum; speichert alle seine Informationen in der Datei <filename
+>index.xml</filename
+> im obersten Ordner ihrer Bilder. Dabei handelt es sich um eine einfache XML-Datei, die Sie mit einem Programm Ihrer Wahl – einschließlich normaler Sicherungsprogramme – sichern, auf eine Diskette kopieren oder als Revisionen in einem Versionsverwaltungssystem ablegen können. Außerdem wird mit &kphotoalbum; ein Sicherungsskript <emphasis
+>kpa-backup.sh</emphasis
+> verteilt, mit dem nicht nur die Datei <filename
+>index.xml</filename
+>, sondern auch die Einrichtungsdateien im persönlichen Ordner des Benutzers gesichert werden können.</para>
     
-    <para>&kphotoalbum; will remember where you told it your images were
-located, and reuse that in future use of &kphotoalbum;. Should you ever want to
-load another database into &kphotoalbum; (i.e. another directory tree of
-images), then you may start it with the  <option>-c</option> option. For
-example: <userinput><command>kphotoalbum</command> <option>-c</option> 
-<filename>~/CompanyImages/index.xml</filename></userinput>.</para>
+    <para
+>&kphotoalbum; merkt sich den Ordner, in dem Ihre Bilder gespeichert sind und verwendet diesen bei zukünftigen Starts automatisch wieder. Falls Sie einmal eine andere Datenbank in &kphotoalbum; einlesen möchten, also einen anderen Ordnerbaum mit Bildern, können Sie &kphotoalbum; mit der Option <option
+>-c</option
+> starten. Als Beispiel: <userinput
+><command
+>kphotoalbum</command
+> <option
+>-c</option
+> <filename
+>~/Firma/Bilder/index.xml</filename
+></userinput
+>.</para>
   </sect1>
 </chapter>
 

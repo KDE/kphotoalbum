@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This file is copyright:
 # This file is distributed under the same license as the kphotoalbum package.
 #
-# Giovanni Sora <g.sora@tiscali.it>, 2021, 2022.
+# Giovanni Sora <g.sora@tiscali.it>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-25 00:47+0000\n"
-"PO-Revision-Date: 2022-12-18 22:57+0100\n"
+"PO-Revision-Date: 2023-01-10 16:33+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.0\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -982,12 +982,12 @@ msgid "Move Items"
 msgstr "Move elementos"
 
 #: DateBar/DateBarWidget.cpp:69
-#, fuzzy, kde-format
+#, kde-format
 msgid "Scroll right"
 msgstr "Rola a dextera"
 
 #: DateBar/DateBarWidget.cpp:78
-#, fuzzy, kde-format
+#, kde-format
 msgid "Scroll left"
 msgstr "Rola a sinistra"
 
@@ -1115,10 +1115,9 @@ msgid "Unable to create folder '%1'."
 msgstr "Il non pote crear dossier  '%1'."
 
 #: DB/Category.cpp:164
-#, fuzzy, kde-format
-#| msgid "Unable to Create Directory"
+#, kde-format
 msgid "Unable to Create Folder"
-msgstr "Il non pote crear dossier  '%1'."
+msgstr "Il non pote crear dossier "
 
 #: DB/Category.cpp:173
 #, kde-format
@@ -1699,20 +1698,17 @@ msgid "Destination"
 msgstr "Destination"
 
 #: HTMLGenerator/HTMLDialog.cpp:295
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgid "Base folder:"
-msgstr "Directorio basic:"
+msgstr "Directorio base:"
 
 #: HTMLGenerator/HTMLDialog.cpp:312
-#, fuzzy, kde-format
-#| msgid "Gallery directory:"
+#, kde-format
 msgid "Gallery folder:"
 msgstr "Directorio de galleria:"
 
 #: HTMLGenerator/HTMLDialog.cpp:319
-#, fuzzy, kde-format
-#| msgid "Output directory:"
+#, kde-format
 msgid "Output folder:"
 msgstr "Directorio de exito:"
 
@@ -1740,29 +1736,23 @@ msgid "You must select at least one resolution."
 msgstr "Tu debe seliger l minus un resolution."
 
 #: HTMLGenerator/HTMLDialog.cpp:384
-#, fuzzy, kde-format
-#| msgid "Select base directory..."
+#, kde-format
 msgid "Select base folder..."
 msgstr "Selige directorio base..."
 
 #: HTMLGenerator/HTMLDialog.cpp:397
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>You did not specify a base directory. This is the topmost directory "
-#| "for your images. Under this directory you will find each generated "
-#| "collection in separate directories.</p>"
+#, kde-format
 msgid ""
 "<p>You did not specify a base folder. This is the topmost folder for your "
 "images. Each generated collection will be contained in this folder in "
 "separate subfolders.</p>"
 msgstr ""
 "<p>Tu non specificava un directorio base. Isto es le directorio plus in alto "
-"per tu images. Infra iste directorio tu trovara cata collection generate in "
-"directorios separate.</p>"
+"per tu images. Cata collection generate essera continite in iste dossier in "
+"subdirectorios separate.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:401
-#, fuzzy, kde-format
-#| msgid "No Base Directory Specified"
+#, kde-format
 msgid "No Base Folder Specified"
 msgstr "Nulle directorio base specificate"
 
@@ -1775,8 +1765,7 @@ msgid ""
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:410
-#, fuzzy, kde-format
-#| msgid "No Output Directory Specified"
+#, kde-format
 msgid "No Output Folder Specified"
 msgstr "Nulle directorio de exito specificate"
 
@@ -1788,9 +1777,7 @@ msgid ""
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:431
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>%1 does not exist, is not a directory or cannot be written to.</p>"
+#, kde-format
 msgid "<p>%1 does not exist, is not a folder or cannot be written to.</p>"
 msgstr ""
 "<p>%1 non existe, illo non es un directorio o on non pote scriber ibi.</p>"
@@ -1803,8 +1790,7 @@ msgid ""
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgid "Folder Exists"
 msgstr "Dossier ja existe"
 
@@ -1845,14 +1831,12 @@ msgstr ""
 " "
 
 #: HTMLGenerator/HTMLDialog.cpp:576
-#, fuzzy, kde-format
-#| msgid "<p>Gallery directory cannot be empty.</p>"
+#, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr "<p>Directorio de galeria non pote esser vacue.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:580
-#, fuzzy, kde-format
-#| msgid "<p>The output directory already exists.</p>"
+#, kde-format
 msgid "<p>The output folder already exists.</p>"
 msgstr "<p>Le directorio de exito ja existe.</p>"
 
@@ -2141,14 +2125,12 @@ msgid "Destination of Images"
 msgstr "Destination de images"
 
 #: ImportExport/ImportDialog.cpp:221
-#, fuzzy, kde-format
-#| msgid "The directory must be a subdirectory of %1"
+#, kde-format
 msgid "The folder must be a subfolder of %1"
 msgstr "Le directorio debe esser un subdirectorio de %1"
 
 #: ImportExport/ImportDialog.cpp:224
-#, fuzzy, kde-format
-#| msgid "This directory is reserved for category images."
+#, kde-format
 msgid "This folder is reserved for category images."
 msgstr "Iste directorio es reservate per images de categoria."
 
@@ -2158,16 +2140,14 @@ msgid "Match Categories"
 msgstr "Categorias coincide"
 
 #: ImportExport/ImportDialog.cpp:296
-#, fuzzy, kde-format
-#| msgid "Directory %1 does not exist. Should it be created?"
+#, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "Directorio %1 non existe. Deberea esser create?"
 
 #: ImportExport/ImportDialog.cpp:300
-#, fuzzy, kde-format
-#| msgid "Error creating zip file %1"
+#, kde-format
 msgid "Error creating folder %1"
-msgstr "Error creante file zip %1"
+msgstr "Error creante dossier %1"
 
 #: ImportExport/ImportDialog.cpp:381
 #, kde-format
@@ -2320,10 +2300,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:49
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2021 Le Equipa de disveloppamento de KPhotoAlbum"
+msgstr "Copyright (C) 2020-2022 Le Equipa de disveloppamento de KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:98
 #, kde-format
@@ -2396,12 +2375,10 @@ msgid "Henner Zeller"
 msgstr "Henner Zeller"
 
 #: kpa-thumbnailtool/main.cpp:71
-#, fuzzy, kde-format
-#| msgctxt "@info:shell"
-#| msgid "The directory containing the .thumbnail directory."
+#, kde-format
 msgctxt "@info:shell"
 msgid "The folder containing the .thumbnail folder."
-msgstr "Le directorio continent ele directorio .thumbnail."
+msgstr "Le directorio continente le directorio .thumbnail."
 
 #: kpa-thumbnailtool/main.cpp:72
 #, kde-format
@@ -2448,12 +2425,10 @@ msgid "Missing argument!\n"
 msgstr "Argumento mancante!\n"
 
 #: kpa-thumbnailtool/main.cpp:103
-#, fuzzy, kde-format
-#| msgctxt "@info:shell"
-#| msgid "%1 is not a directory!\n"
+#, kde-format
 msgctxt "@info:shell"
 msgid "%1 is not a folder!\n"
-msgstr "%1non es un directorio!\n"
+msgstr "%1 non es un directorio!\n"
 
 #: kpa-thumbnailtool/main.cpp:117
 #, kde-format
@@ -2657,10 +2632,9 @@ msgid "KDE Photo Album"
 msgstr ""
 
 #: main.cpp:90
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2021 Le Equipa de disveloppamento de KPhotoAlbum"
+msgstr "Copyright (C) 2003-2022 Le Equipa de disveloppamento de KPhotoAlbum"
 
 #: main.cpp:111
 #, kde-format
@@ -3426,14 +3400,12 @@ msgid "Image/Video root folder: "
 msgstr ""
 
 #: MainWindow/WelcomeDialog.cpp:154
-#, fuzzy, kde-format
-#| msgid "Directory %1 does not exist. Should it be created?"
+#, kde-format
 msgid "Folder does not exist, create it?"
-msgstr "Directorio %1 non existe. Deberea esser create?"
+msgstr "Directorio non existe. Deberea esser create?"
 
 #: MainWindow/WelcomeDialog.cpp:158
-#, fuzzy, kde-format
-#| msgid "Could not create file '%1'."
+#, kde-format
 msgid "Could not create folder %1"
 msgstr "Il non pote crear dossier: %1"
 
@@ -3702,10 +3674,9 @@ msgid "Show Tooltips in Thumbnails Window"
 msgstr ""
 
 #: MainWindow/Window.cpp:911
-#, fuzzy, kde-format
-#| msgid "Show Thumbnails"
+#, kde-format
 msgid "Show Labels in Thumbnails Window"
-msgstr "Monstra miniaturas"
+msgstr "Monstra etiquettas in fenestra de miniaturas (Thumbnails)"
 
 #: MainWindow/Window.cpp:921
 #, kde-format
@@ -3880,11 +3851,10 @@ msgid "Viewer"
 msgstr "Visor "
 
 #: MainWindow/Window.cpp:1317
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "Data: "
+msgstr "Barra de Data"
 
 #: MainWindow/Window.cpp:1320
 #, kde-format
@@ -5423,8 +5393,7 @@ msgid "Error Running Demo"
 msgstr "Error durante que executava demo"
 
 #: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:85
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1' needed for demo."
+#, kde-format
 msgid "Unable to create folder '%1' needed for demo."
 msgstr "Incapace a crear directorio '%1' necessari per demo."
 

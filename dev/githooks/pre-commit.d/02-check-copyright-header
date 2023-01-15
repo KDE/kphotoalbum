@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SPDX-FileCopyrightText: 2019-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2019-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
 # SPDX-License-Identifier: BSD-2-Clause
 
@@ -46,7 +46,7 @@ done
 
 if [[ ${#affected_files[@]} -gt 0 ]]
 then
-	printf "** Please update copyright year for the following files:\n\n${affected_files[*]}\n"
+	printf "** Please update copyright year for the following files:\n\n%s\n" "${affected_files[*]}"
 	# also check if the Copyright statement in main.cpp is ok:
 	if ! grep -q -i "i18n(\"Copyright (C) 2003-$year " main.cpp
 	then
@@ -57,8 +57,8 @@ then
 	printf "** If you have the reuse tool installed and are the author (not just the committer),\n"
 	printf "** you may use the following command as a starting point:\n"
 	# whitespace in filenames is not handled
-	fnames="${affected_files[@]}"
-	printf "**   reuse addheader --year $year --copyright '$copyright' ${fnames}\n"
+	IFS=" " fnames="${affected_files[*]}"
+	printf "**   reuse annotate --merge-copyrights --year %s --copyright '%s' %s\n" "$year " "$copyright" "${fnames}"
 	if ! command -v reuse >/dev/null
 	then
 		printf "** You can usually install the reuse tool by running 'pip install --user reuse' or by following the instructions on https://reuse.software/\n"

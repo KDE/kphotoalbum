@@ -2028,7 +2028,7 @@ msgstr "Fitxers d'importació de KPhotoAlbum"
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Configuration / Copy Images"
-msgstr "Configuració de l'exportació i còpia de les imatges"
+msgstr "Configureu l'exportació i còpia de les imatges"
 
 #: ImportExport/Export.cpp:92
 #, kde-format
@@ -3628,7 +3628,7 @@ msgstr "Total"
 #: MainWindow/StatusBar.cpp:104
 #, kde-format
 msgid "Thumbnail settings..."
-msgstr "Configuració de les miniatures..."
+msgstr "Configureu les miniatures..."
 
 #: MainWindow/TokenEditor.cpp:29
 #, kde-format
@@ -3697,8 +3697,8 @@ msgid ""
 "folder somewhere, point KPhotoAlbum to that folder to start using it again.</"
 "p>"
 msgstr ""
-"<h1>Creació de la base de dades de KPhotoAlbum</h1><p>Necessitareu mostrar "
-"on es troben les fotografies i els vídeos perquè KPhotoAlbum els trobe. Tots "
+"<h1>Creeu la base de dades de KPhotoAlbum</h1><p>Necessitareu mostrar on es "
+"troben les fotografies i els vídeos perquè KPhotoAlbum els trobe. Tots "
 "necessiten estar en una carpeta arrel, per exemple /home/usuari/Imatges. En "
 "esta carpeta podeu tindre tantes subcarpetes com vulgueu, KPhotoAlbum les "
 "trobarà.</p><p>Esteu segur, KPhotoAlbum no modificarà o editarà cap de les "
@@ -4493,7 +4493,7 @@ msgstr ""
 #: Settings/CategoryPage.cpp:44
 #, kde-format
 msgid "Category Settings"
-msgstr "Configuració de les categories"
+msgstr "Configureu les categories"
 
 #: Settings/CategoryPage.cpp:65
 #, kde-format
@@ -4850,7 +4850,7 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:91
 #, kde-format
 msgid "File Version Detection Settings"
-msgstr "Configuració de la detecció de les versions dels fitxers"
+msgstr "Configureu la detecció de les versions dels fitxers"
 
 #: Settings/FileVersionDetectionPage.cpp:95
 #, kde-format
@@ -5744,7 +5744,7 @@ msgstr ""
 "llavors proveu el dorsal <b>QtAV</b>, que pareix admetre molts formats (tot "
 "el que hi posem). El <b>QtAV</b> també té un inconvenient - pareix que el "
 "vídeo i l'àudio es dessincronitzen lleugerament.</p><p><b><font color=red>En "
-"qualsevol moment es pot canviar el dorsal des d'Configuració -> Visor</"
+"qualsevol moment es pot canviar el dorsal des de Configuració -> Visor</"
 "font></b></p></html>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:51
@@ -6449,7 +6449,7 @@ msgstr "Pausa"
 #, kde-format
 msgctxt "Basically 'enter a category name'"
 msgid "<b>Setting Category: </b>"
-msgstr "<b>Configuració de la categoria:</b>"
+msgstr "<b>Configureu la categoria:</b>"
 
 #: Viewer/ViewerWidget.cpp:747
 #, kde-format

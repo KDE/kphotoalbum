@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-25 00:47+0000\n"
-"PO-Revision-Date: 2022-12-04 07:10+0100\n"
+"PO-Revision-Date: 2023-01-21 14:26+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -2238,7 +2238,7 @@ msgstr ""
 #: ImportExport/MD5CheckPage.cpp:61
 #, kde-format
 msgid "Merge data"
-msgstr ""
+msgstr "მონაცემების შერწყმა"
 
 #: ImportExport/MD5CheckPage.cpp:68
 #, kde-format
@@ -2384,7 +2384,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Missing argument!\n"
-msgstr ""
+msgstr "ნაკლული არგუმენტი!\n"
 
 #: kpa-thumbnailtool/main.cpp:103
 #, kde-format
@@ -2897,7 +2897,7 @@ msgstr ""
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:181
 #, kde-format
 msgid "No duplicates found"
-msgstr ""
+msgstr "დუბლიკატები ნაპოვნი არაა"
 
 #: MainWindow/ExternalPopup.cpp:63
 #, kde-format
@@ -3056,7 +3056,7 @@ msgstr[1] ""
 #: MainWindow/ImageCounter.cpp:26
 #, kde-format
 msgid "(%1 selected)"
-msgstr ""
+msgstr "(%1 მონიშნულია)"
 
 #: MainWindow/ImageCounter.cpp:33
 #, kde-format
@@ -3961,7 +3961,7 @@ msgstr ""
 #: Map/MapView.cpp:362
 #, kde-format
 msgid "Settings saved!"
-msgstr ""
+msgstr "პარამეტრები დამახსოვრებულია!"
 
 #: Map/MapView.cpp:389
 #, kde-format
@@ -4062,7 +4062,7 @@ msgstr "ხალხი"
 #: Settings/BirthdayPage.cpp:156
 #, kde-format
 msgid "Name"
-msgstr ""
+msgstr "სახელი"
 
 #: Settings/BirthdayPage.cpp:156
 #, kde-format
@@ -4261,7 +4261,7 @@ msgstr ""
 #: Settings/DatabaseBackendPage.cpp:50
 #, kde-format
 msgid "Infinite"
-msgstr ""
+msgstr "უსასრულო"
 
 #: Settings/DatabaseBackendPage.cpp:57
 #, kde-format
@@ -4671,7 +4671,7 @@ msgstr ""
 #: Settings/GeneralPage.cpp:123
 #, kde-format
 msgid "Show splash screen"
-msgstr ""
+msgstr "მისასალმებელი ეკრანის ჩვენება"
 
 #: Settings/GeneralPage.cpp:127
 #, kde-format
@@ -4840,7 +4840,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename Group"
-msgstr ""
+msgstr "ჯგუფის სახელის გადარქემვა"
 
 #: Settings/TagGroupsPage.cpp:431
 #, kde-format
@@ -4887,7 +4887,7 @@ msgstr "\"%1\"-ის გადარქმევა"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete \"%1\""
-msgstr ""
+msgstr "\"%1\"-ის წაშლა"
 
 #: Settings/TagGroupsPage.cpp:707
 #, kde-format

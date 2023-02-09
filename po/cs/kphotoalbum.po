@@ -2,22 +2,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012, 2013.
-# Vit Pelcak <vit@pelcak.org>, 2021.
+# Vit Pelcak <vit@pelcak.org>, 2021, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-25 00:47+0000\n"
-"PO-Revision-Date: 2021-09-02 12:32+0200\n"
-"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
+"PO-Revision-Date: 2023-02-08 12:35+0100\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 21.08.0\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1119,7 +1119,7 @@ msgstr "Nelze vytvořit složku '%1'."
 #: DB/Category.cpp:164
 #, kde-format
 msgid "Unable to Create Folder"
-msgstr ""
+msgstr "Nelze vytvořit složku"
 
 #: DB/Category.cpp:173
 #, kde-format
@@ -1269,7 +1269,7 @@ msgstr "Následující soubory nelze přečíst:"
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
-msgstr ""
+msgstr "Informace EXIF a metadata souboru"
 
 #: Exif/InfoDialog.cpp:73
 #, kde-format
@@ -1286,17 +1286,17 @@ msgstr "Znaková sada IPTC:"
 #: Exif/InfoDialog.cpp:95
 #, kde-format
 msgid "Exif info"
-msgstr ""
+msgstr "Informace EXIF"
 
 #: Exif/InfoDialog.cpp:96
 #, kde-format
 msgid "File metadata"
-msgstr ""
+msgstr "Metadata souboru"
 
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
 msgid "Absolute path:"
-msgstr ""
+msgstr "Absolutní cesta:"
 
 #: Exif/MetaDataDisplay.cpp:42
 #, kde-format
@@ -1316,7 +1316,7 @@ msgstr "Vytvořeno:"
 #: Exif/MetaDataDisplay.cpp:54
 #, kde-format
 msgid "Changed:"
-msgstr ""
+msgstr "Změněno:"
 
 #: Exif/MetaDataDisplay.cpp:58
 #, kde-format
@@ -1336,7 +1336,7 @@ msgstr "Práva:"
 #: Exif/MetaDataDisplay.cpp:100
 #, kde-format
 msgid "Open folder with a file manager"
-msgstr ""
+msgstr "Otevřít složku ve správci souborů"
 
 #: Exif/MetaDataDisplay.cpp:107
 #, kde-format
@@ -1344,28 +1344,28 @@ msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr ""
+msgstr "%1 (%2 B)"
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
 #, kde-format
 msgctxt "File permission shortcut for \"reading allowed\""
 msgid "r"
-msgstr ""
+msgstr "r"
 
 #: Exif/MetaDataDisplay.cpp:124 Exif/MetaDataDisplay.cpp:130
 #: Exif/MetaDataDisplay.cpp:136
 #, kde-format
 msgctxt "File permission shortcut for \"writing allowed\""
 msgid "w"
-msgstr ""
+msgstr "w"
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
 #, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
-msgstr ""
+msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
 #, kde-format
@@ -1373,7 +1373,7 @@ msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and it's octal representation (e.g. \"0644\")"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2)"
 
 #: Exif/ReReadDialog.cpp:28
 #, kde-format
@@ -1715,12 +1715,12 @@ msgstr "Hlavní složka:"
 #: HTMLGenerator/HTMLDialog.cpp:312
 #, kde-format
 msgid "Gallery folder:"
-msgstr ""
+msgstr "Složka galerie:"
 
 #: HTMLGenerator/HTMLDialog.cpp:319
 #, kde-format
 msgid "Output folder:"
-msgstr ""
+msgstr "Výstupní složka:"
 
 #: HTMLGenerator/HTMLDialog.cpp:330
 #, kde-format
@@ -1748,7 +1748,7 @@ msgstr "Musíte zvolit alespoň jedno rozlišení."
 #: HTMLGenerator/HTMLDialog.cpp:384
 #, kde-format
 msgid "Select base folder..."
-msgstr ""
+msgstr "Vyberte základní složku..."
 
 #: HTMLGenerator/HTMLDialog.cpp:397
 #, kde-format
@@ -1757,11 +1757,13 @@ msgid ""
 "images. Each generated collection will be contained in this folder in "
 "separate subfolders.</p>"
 msgstr ""
+"<p>Neurčili jste základní složku. Je to nejvyšší složka vašich obrázků. Pod "
+"touto složkou naleznete sbírky, vytvořené každou v jiné složce.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:401
 #, kde-format
 msgid "No Base Folder Specified"
-msgstr ""
+msgstr "Nebyla určena základní složka"
 
 #: HTMLGenerator/HTMLDialog.cpp:407
 #, kde-format
@@ -1770,11 +1772,13 @@ msgid ""
 "actual images. The folder will be a subfolder of the base folder specified "
 "above.</p>"
 msgstr ""
+"<p>Neurčili jste výstupní složku. Tato složka obsahuje aktuální obrázky. "
+"Složka bude podsložkou základní složky zadané výše.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:410
 #, kde-format
 msgid "No Output Folder Specified"
-msgstr ""
+msgstr "Nebyla určena výstupní složka"
 
 #: HTMLGenerator/HTMLDialog.cpp:422
 #, kde-format
@@ -1782,11 +1786,13 @@ msgid ""
 "<p>Error while reading information about %1. This is most likely because the "
 "folder does not exist.</p><p>The error message was: %2</p>"
 msgstr ""
+"<p>Chyba při načítání informací o %1. To je nejspíše způsobeno tím, že "
+"složka neexistuje.</p><p>Chybová zpráva je: %2</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:431
 #, kde-format
 msgid "<p>%1 does not exist, is not a folder or cannot be written to.</p>"
-msgstr ""
+msgstr "<p>%1 neexistuje, není složkou, nebo do ní nelze zapisovat.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:446
 #, kde-format
@@ -1794,11 +1800,13 @@ msgid ""
 "<p>Output folder %1 already exists. Usually, this means you should specify a "
 "new folder.</p><p>Should %2 be deleted first?</p>"
 msgstr ""
+"<p>Výstupní složka %1 již existuje. Obvykle to znamená, že byste měli zvolit "
+"složku novou.</p><p>Měla by být %2 nejdříve smazána?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:450
 #, kde-format
 msgid "Folder Exists"
-msgstr ""
+msgstr "Složka existuje"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:534 MainWindow/SplashScreen.cpp:53
@@ -1837,12 +1845,12 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:576
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
-msgstr ""
+msgstr "<p>Složka galerie nemůže být prázdná.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:580
 #, kde-format
 msgid "<p>The output folder already exists.</p>"
-msgstr ""
+msgstr "<p>Výstupní složka již existuje.</p>"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:93
 #, kde-format
@@ -2150,12 +2158,12 @@ msgstr "Umístění obrázků"
 #: ImportExport/ImportDialog.cpp:221
 #, kde-format
 msgid "The folder must be a subfolder of %1"
-msgstr ""
+msgstr "Složka musí být podsložkou %1"
 
 #: ImportExport/ImportDialog.cpp:224
 #, kde-format
 msgid "This folder is reserved for category images."
-msgstr ""
+msgstr "Tato složka je rezervována pro obrázky kategorií."
 
 #: ImportExport/ImportDialog.cpp:264
 #, kde-format
@@ -2165,7 +2173,7 @@ msgstr "Vyhovující kategorie"
 #: ImportExport/ImportDialog.cpp:296
 #, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
-msgstr ""
+msgstr "Složka %1 neexistuje. Má být vytvořena?"
 
 #: ImportExport/ImportDialog.cpp:300
 #, kde-format
@@ -2229,6 +2237,7 @@ msgid ""
 "Error reading folder contents of file %1; it is likely that the file is "
 "broken."
 msgstr ""
+"Chyba při čtení obsahu složky souboru %1; je možné, že soubor je poškozen."
 
 #: ImportExport/KimFileReader.cpp:49
 #, kde-format
@@ -2243,6 +2252,8 @@ msgid ""
 "Thumbnail item in export file was not a folder, this indicates that the file "
 "is broken."
 msgstr ""
+"Položka náhledu v exportním souboru nebyla složkou, což naznačuje, že soubor "
+"je poškozen."
 
 #: ImportExport/KimFileReader.cpp:80
 #, kde-format
@@ -2255,6 +2266,8 @@ msgid ""
 "Export file did not contain a Images subfolder, this indicates that the file "
 "is broken"
 msgstr ""
+"Exportní soubor neobsahuje podsložku s obrázky což naznačuje, že soubor je "
+"poškozen"
 
 #: ImportExport/KimFileReader.cpp:100
 #, kde-format
@@ -2262,6 +2275,8 @@ msgid ""
 "Images item in export file was not a folder, this indicates that the file is "
 "broken"
 msgstr ""
+"Položka obrázků v exportním souboru není složkou, což naznačuje, že soubor "
+"je poškozen"
 
 #: ImportExport/KimFileReader.cpp:108
 #, kde-format
@@ -2333,7 +2348,7 @@ msgstr ""
 #: kpa-thumbnailtool/main.cpp:49
 #, kde-format
 msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
-msgstr ""
+msgstr "Copyright (C) 2003-2022 Vývojářský tým KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:98
 #, kde-format
@@ -2409,7 +2424,7 @@ msgstr "Henner Zeller"
 #, kde-format
 msgctxt "@info:shell"
 msgid "The folder containing the .thumbnail folder."
-msgstr ""
+msgstr "Složka obsahující složku .thumbnail."
 
 #: kpa-thumbnailtool/main.cpp:72
 #, kde-format
@@ -2459,7 +2474,7 @@ msgstr "Chybějící argument.\n"
 #, kde-format
 msgctxt "@info:shell"
 msgid "%1 is not a folder!\n"
-msgstr ""
+msgstr "%1 není složkou.\n"
 
 #: kpa-thumbnailtool/main.cpp:117
 #, kde-format
@@ -2681,7 +2696,7 @@ msgstr "KDE Photo Album"
 #: main.cpp:90
 #, kde-format
 msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
-msgstr ""
+msgstr "Copyright (C) 2003-2022 Vývojářský tým KPhotoAlbum"
 
 #: main.cpp:111
 #, kde-format
@@ -2706,6 +2721,9 @@ msgid ""
 "(.) Patch with folder info made available through the browser. (.) Patch for "
 "adding a check box for \"and/or\" searches in the search page."
 msgstr ""
+"(.) Opravný balíček se zpřístupněním informací o složce prostřednictvím "
+"prohlížeče. (.) Opravný balíček s přidáním zaškrtávacího pole pro "
+"vyhledávání \"a/nebo\" na stránce hledání."
 
 #: main.cpp:113
 #, kde-format
@@ -3489,22 +3507,22 @@ msgstr ""
 #: MainWindow/WelcomeDialog.cpp:114
 #, kde-format
 msgid "Image/Video root folder: "
-msgstr ""
+msgstr "Hlavní složka pro obrázky / video: "
 
 #: MainWindow/WelcomeDialog.cpp:154
 #, kde-format
 msgid "Folder does not exist, create it?"
-msgstr ""
+msgstr "Složka neexistuje, přejete si ji vytvořit?"
 
 #: MainWindow/WelcomeDialog.cpp:158
 #, kde-format
 msgid "Could not create folder %1"
-msgstr ""
+msgstr "Nelze vytvořit složku %1"
 
 #: MainWindow/WelcomeDialog.cpp:163
 #, kde-format
 msgid "%1 exists, but is not a folder"
-msgstr ""
+msgstr "%1 existuje, ale není to složka"
 
 #: MainWindow/WelcomeDialog.cpp:179
 #, kde-format
@@ -3776,12 +3794,12 @@ msgstr "Zobrazovat nástrojové tipy v okně s náhledy"
 #: MainWindow/Window.cpp:911
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
-msgstr ""
+msgstr "Zobrazovat popisky v okně s náhledy"
 
 #: MainWindow/Window.cpp:921
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
-msgstr ""
+msgstr "Zobrazovat kategorie v okně s náhledy"
 
 #: MainWindow/Window.cpp:935
 #, kde-format
@@ -3876,7 +3894,7 @@ msgstr "Zobrazit ukázková videa"
 #: MainWindow/Window.cpp:1013 Viewer/ViewerWidget.cpp:177
 #, kde-format
 msgid "Show Exif Info and file metadata"
-msgstr ""
+msgstr "Zobrazovat informace EXIF a metadata souboru"
 
 #: MainWindow/Window.cpp:1016
 #, kde-format
@@ -5000,7 +5018,7 @@ msgstr "<p>Skupina \"%1\" již existuje.</p>"
 #, kde-format
 msgctxt "@title:window"
 msgid "Cannot add group"
-msgstr ""
+msgstr "Skupinu nelze přidat"
 
 #: Settings/TagGroupsPage.cpp:430 Settings/TagGroupsPage.cpp:448
 #, kde-format
@@ -5317,7 +5335,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:69
 #, kde-format
 msgid " (NOT AVAILABLE)"
-msgstr ""
+msgstr " (NEDOSTUPNÝ)"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:97
 #, kde-format
@@ -5333,25 +5351,25 @@ msgstr ""
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
-msgstr ""
+msgstr "Nebyla nastavena podpůrná vrstva videa"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:162
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
-msgstr ""
+msgstr "Podpůrná vrstva videa Phonon"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:164
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
-msgstr ""
+msgstr "Podpůrná vrstva videa QtAV"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:166
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
-msgstr ""
+msgstr "Podpůrná vrstva videa VLC"
 
 #: Settings/ViewerPage.cpp:25
 #, kde-format
@@ -5482,7 +5500,7 @@ msgstr "Panel nástrojů s filtrem"
 msgctxt ""
 "The action enables/disables filtering of images in the thumbnail view."
 msgid "Toggle filter"
-msgstr ""
+msgstr "Zapnout filtr"
 
 #: ThumbnailView/FilterWidget.cpp:23
 #, kde-kuit-format
@@ -5550,7 +5568,7 @@ msgstr "Chyba běhu dema"
 #: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:85
 #, kde-format
 msgid "Unable to create folder '%1' needed for demo."
-msgstr ""
+msgstr "Nelze vytvořit složku '%1' potřebnou pro ukázku."
 
 #: Utilities/DescriptionUtil.cpp:56
 #, kde-format
@@ -6244,7 +6262,7 @@ msgstr "Video"
 #: XMLDB/Database.cpp:807
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
-msgstr ""
+msgstr "KPhotoAlbum - je potřeba ruční oprava (%1)"
 
 #: XMLDB/Database.cpp:808
 #, kde-format

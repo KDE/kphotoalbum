@@ -1,6 +1,6 @@
 # Oliver Dörr <kde@doerr-privat.de>, 2007, 2008, 2009.
 # Burkhard Lück <lueck@hube-lueck.de>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021.
-# Frederik Schwarzer <schwarzer@kde.org>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2021.
+# Frederik Schwarzer <schwarzer@kde.org>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2021, 2023.
 # Panagiotis Papadopoulos <pano_90@gmx.net>, 2010.
 # Johannes Zarl <isilmendil@gmx.net>, 2012.
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-12-25 00:47+0000\n"
-"PO-Revision-Date: 2021-06-06 15:25+0200\n"
+"PO-Revision-Date: 2023-02-09 00:11+0100\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -576,6 +577,10 @@ msgid ""
 "Untagged Images</interface>). It will not show up here as long as it is "
 "selected for this purpose."
 msgstr ""
+"Das eingegebene Stichwort ist das Stichwort, das automatisch für neu "
+"gefundene, unmarkierte Bilder gesetzt wird (vgl. <Interface>Einstellungen|"
+"KPhotoAlbum einrichten...|Kategorien|Bilder ohne Stichwort</interface>). Es "
+"wird hier nicht angezeigt, solange es für diesen Zweck ausgewählt ist."
 
 #: AnnotationDialog/ListSelect.cpp:344
 #, kde-format
@@ -1009,24 +1014,7 @@ msgid " and \"%1\""
 msgstr " und „%1“"
 
 #: CategoryListView/CheckDropItem.cpp:123
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>You have just dragged an item onto another: this will make the dragged "
-#| "item a sub category of that onto which it was dropped. Sub categories may "
-#| "be used to denote facts such as 'Las Vegas is in the USA', in that "
-#| "example you would drag Las Vegas onto USA. When you have set up sub "
-#| "categories you can, for instance, see all images from the USA by simply "
-#| "selecting that item in the Browser.</p><p>Was it really your intention to "
-#| "make \"%2\" a sub category of \"%3\"?</p>"
-#| msgid_plural ""
-#| "<p>You have just dragged a number of items onto another: this will make "
-#| "the dragged items sub categories of that onto which they were dropped. "
-#| "Sub categories may be used to denote facts such as 'Las Vegas and New "
-#| "York are in the USA' in that example you would drag 'Las Vegas' and 'New "
-#| "York' onto USA. When you have set up sub categories you can, for "
-#| "instance, see all images from the USA by simply selecting that item in "
-#| "the Browser.</p><p>Was it really your intention to make \"%2\" sub "
-#| "categories of \"%3\"?</p>"
+#, kde-format
 msgid ""
 "<p>You have just dragged an item onto another. This will make the target "
 "item a tag group and define the dragged item as a member of this group. Tag "
@@ -1045,23 +1033,24 @@ msgid_plural ""
 "it really your intention to make \"%3\" a tag group and add %2 as members?</"
 "p>"
 msgstr[0] ""
-"<p>Sie haben soeben einen Eintrag auf einem anderen abgelegt. Dies macht den "
-"abgelegten Eintrag zu einer untergeordneten Kategorie des Eintrags, auf dem "
-"er abgelegt wurde. Untergeordnete Kategorien können benutzt werden, um z. B. "
+"<p>Sie haben soeben einen Eintrag auf einem anderen abgelegt. Dies macht das "
+"Zielelement zu einer Stichwort-Gruppe und definiert das gezogene Element als "
+"Mitglied dieser Gruppe. Stichwort-Gruppen können verwendet werden, um z. B. "
 "auszudrücken, dass Berlin in Deutschland liegt. In diesem Beispiel würden "
-"Sie Berlin auf Deutschland ziehen und dort ablegen. Wenn Sie untergeordnete "
-"Kategorien einrichten, können Sie z. B. alle Bilder aus Deutschland sehen, "
-"indem Sie den Eintrag im Browser auswählen.</p><p>Wollten Sie aus „%2“ eine "
-"untergeordnete Kategorie von „%3“ machen?</p>"
+"Sie Berlin auf Deutschland ziehen und dort ablegen. Wenn Sie Stichwort-"
+"Gruppen einrichten, können Sie z. B. alle Bilder aus Deutschland sehen, "
+"indem Sie den Eintrag im Browser auswählen.</p><p>Wollten Sie wirklich „%3“ "
+"zu einer Stichwort-Gruppe machen und „%2“ als Mitglied hinzufügen?</p>"
 msgstr[1] ""
-"<p>Sie haben soeben mehrere Einträge auf einem anderen Eintrag abgelegt. "
-"Dies macht die abgelegten Einträge zu untergeordnete Kategorien des "
-"Eintrags, auf dem sie abgelegt wurden. Untergeordnete Kategorien können "
-"benutzt werden, um z. B. auszudrücken, dass Berlin in Deutschland liegt. In "
-"diesem Beispiel würden Sie Berlin auf Deutschland ziehen und dort ablegen. "
-"Wenn Sie untergeordnete Kategorien einrichten, können Sie z. B. alle Bilder "
-"aus Deutschland sehen, indem Sie den Eintrag im Browser auswählen.</"
-"p><p>Wollten Sie aus „%2“ untergeordnete Kategorien von „%3“ machen?</p>"
+"<p>Sie haben soeben mehrere Einträge auf einem anderen abgelegt. Dies macht "
+"das Zielelement zu einer Stichwort-Gruppe und definiert die gezogenen "
+"Elemente als Mitglieder dieser Gruppe. Stichwort-Gruppen können verwendet "
+"werden, um z. B. auszudrücken, dass Berlin und Hamburg in Deutschland "
+"liegen. In diesem Beispiel würden Sie Berlin und Hamburg auf Deutschland "
+"ziehen und dort ablegen. Wenn Sie Stichwort-Gruppen einrichten, können Sie "
+"z. B. alle Bilder aus Deutschland sehen, indem Sie den Eintrag im Browser "
+"auswählen.</p><p>Wollten Sie wirklich „%3“ zu einer Stichwort-Gruppe machen "
+"und %2 als Mitglieder hinzufügen?</p>"
 
 #: CategoryListView/CheckDropItem.cpp:149
 #, kde-format
@@ -1071,12 +1060,12 @@ msgstr "Einträge verschieben"
 #: DateBar/DateBarWidget.cpp:69
 #, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "nach rechts scrollen"
 
 #: DateBar/DateBarWidget.cpp:78
 #, kde-format
 msgid "Scroll left"
-msgstr ""
+msgstr "nach links scrollen"
 
 #: DateBar/DateBarWidget.cpp:87
 #, kde-format
@@ -1104,6 +1093,12 @@ msgid ""
 "selection: Click/drag below the timeline.</item><item>Jump to a date by "
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
+"<title>Die Datumsleiste</title><para><list><item>Mit den Pfeiltasten, dem "
+"Mausrad oder der mittleren Maustaste scrollen.</item><item>Mit den +/- "
+"Tasten oder Strg + Mausrad zoomen.</item><item>Die Ansicht auf einen "
+"ausgewählten Datumsbereich einschränken: Unterhalb der Zeitleiste klicken/"
+"ziehen.</item><item>Zu einem Datum springen, indem Sie auf den "
+"Histogrammbalken klicken.</item></list></para>"
 
 #: DateBar/DateBarWidget.cpp:682
 #, kde-format
@@ -1197,14 +1192,12 @@ msgid "10 Seconds"
 msgstr "10 Sekunden"
 
 #: DB/Category.cpp:164
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1'."
+#, kde-format
 msgid "Unable to create folder '%1'."
 msgstr "Der Ordner „%1“ lässt sich nicht erstellen."
 
 #: DB/Category.cpp:164
-#, fuzzy, kde-format
-#| msgid "Unable to Create Directory"
+#, kde-format
 msgid "Unable to Create Folder"
 msgstr "Der Ordner lässt sich nicht erstellen"
 
@@ -1353,12 +1346,10 @@ msgid "Following files could not be read:"
 msgstr "Die folgenden Dateien können nicht gelesen werden:"
 
 #: Exif/InfoDialog.cpp:33
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Exif Information"
+#, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
-msgstr "Exif-Informationen"
+msgstr "Exif-Informationen und Datei-Metadaten"
 
 #: Exif/InfoDialog.cpp:73
 #, kde-format
@@ -1373,26 +1364,24 @@ msgid "IPTC character set:"
 msgstr "IPTC-Zeichensatz:"
 
 #: Exif/InfoDialog.cpp:95
-#, fuzzy, kde-format
-#| msgid "Exif Info"
+#, kde-format
 msgid "Exif info"
 msgstr "Exif-Informationen"
 
 #: Exif/InfoDialog.cpp:96
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgid "File metadata"
-msgstr "Unterstützung von Video-Metadaten"
+msgstr "Datei-Metadaten"
 
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
 msgid "Absolute path:"
-msgstr ""
+msgstr "Absoluter Dateiname:"
 
 #: Exif/MetaDataDisplay.cpp:42
 #, kde-format
 msgid "MIME type:"
-msgstr ""
+msgstr "MIME-Typ:"
 
 #: Exif/MetaDataDisplay.cpp:46 Settings/ViewerSizeConfig.cpp:26
 #, kde-format
@@ -1402,71 +1391,64 @@ msgstr "Größe:"
 #: Exif/MetaDataDisplay.cpp:50
 #, kde-format
 msgid "Created:"
-msgstr ""
+msgstr "Erstellt:"
 
 #: Exif/MetaDataDisplay.cpp:54
 #, kde-format
 msgid "Changed:"
-msgstr ""
+msgstr "Geändert:"
 
 #: Exif/MetaDataDisplay.cpp:58
 #, kde-format
 msgid "Owner:"
-msgstr ""
+msgstr "Eigentümer:"
 
 #: Exif/MetaDataDisplay.cpp:62
-#, fuzzy, kde-format
+#, kde-format
 msgid "Group:"
 msgstr "Gruppe:"
 
 #: Exif/MetaDataDisplay.cpp:66
-#, fuzzy, kde-format
-#| msgid "Version: %1"
+#, kde-format
 msgid "Permissions:"
-msgstr "Version: %1"
+msgstr "Berechtigungen:"
 
 #: Exif/MetaDataDisplay.cpp:100
 #, kde-format
 msgid "Open folder with a file manager"
-msgstr ""
+msgstr "Ordner mit Dateiverwaltung öffnen"
 
 #: Exif/MetaDataDisplay.cpp:107
-#, fuzzy, kde-format
-#| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr "%1 (%2)"
+msgstr "%1 (%2 B)"
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
-#, fuzzy, kde-format
-#| msgid "or"
+#, kde-format
 msgctxt "File permission shortcut for \"reading allowed\""
 msgid "r"
-msgstr "oder"
+msgstr "r"
 
 #: Exif/MetaDataDisplay.cpp:124 Exif/MetaDataDisplay.cpp:130
 #: Exif/MetaDataDisplay.cpp:136
 #, kde-format
 msgctxt "File permission shortcut for \"writing allowed\""
 msgid "w"
-msgstr ""
+msgstr "w"
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
-#, fuzzy, kde-format
-#| msgid "x"
+#, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
-msgstr "×"
+msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
-#, fuzzy, kde-format
-#| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and it's octal representation (e.g. \"0644\")"
@@ -1813,20 +1795,17 @@ msgid "Destination"
 msgstr "Ziel"
 
 #: HTMLGenerator/HTMLDialog.cpp:295
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgid "Base folder:"
 msgstr "Basisordner:"
 
 #: HTMLGenerator/HTMLDialog.cpp:312
-#, fuzzy, kde-format
-#| msgid "Gallery directory:"
+#, kde-format
 msgid "Gallery folder:"
 msgstr "Galerieordner:"
 
 #: HTMLGenerator/HTMLDialog.cpp:319
-#, fuzzy, kde-format
-#| msgid "Output directory:"
+#, kde-format
 msgid "Output folder:"
 msgstr "Ausgabeordner:"
 
@@ -1857,38 +1836,28 @@ msgid "You must select at least one resolution."
 msgstr "Sie müssen mindestens eine Auflösung auswählen."
 
 #: HTMLGenerator/HTMLDialog.cpp:384
-#, fuzzy, kde-format
-#| msgid "Select base directory..."
+#, kde-format
 msgid "Select base folder..."
 msgstr "Basisordner auswählen ..."
 
 #: HTMLGenerator/HTMLDialog.cpp:397
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>You did not specify a base directory. This is the topmost directory "
-#| "for your images. Under this directory you will find each generated "
-#| "collection in separate directories.</p>"
+#, kde-format
 msgid ""
 "<p>You did not specify a base folder. This is the topmost folder for your "
 "images. Each generated collection will be contained in this folder in "
 "separate subfolders.</p>"
 msgstr ""
 "<p>Sie haben keinen Basisordner angegeben. Dies ist der oberste Ordner für "
-"Ihre Bilder. Unter diesem Ordner finden Sie alle erstellten Sammlungen in "
-"unterschiedlichen Ordnern.</p>"
+"Ihre Bilder. Alle erstellten Sammlungen finden Sie unter diesem Ordner in "
+"unterschiedlichen Unterordnern.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:401
-#, fuzzy, kde-format
-#| msgid "No Base Directory Specified"
+#, kde-format
 msgid "No Base Folder Specified"
 msgstr "Kein Basisordner angegeben"
 
 #: HTMLGenerator/HTMLDialog.cpp:407
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>You did not specify an output directory. This is a directory "
-#| "containing the actual images. The directory will be in the base directory "
-#| "specified above.</p>"
+#, kde-format
 msgid ""
 "<p>You did not specify an output folder. This is a folder containing the "
 "actual images. The folder will be a subfolder of the base folder specified "
@@ -1899,16 +1868,12 @@ msgstr ""
 "liegen.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:410
-#, fuzzy, kde-format
-#| msgid "No Output Directory Specified"
+#, kde-format
 msgid "No Output Folder Specified"
 msgstr "Kein Ausgabeordner angegeben"
 
 #: HTMLGenerator/HTMLDialog.cpp:422
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Error while reading information about %1. This is most likely because "
-#| "the directory does not exist.</p><p>The error message was: %2</p>"
+#, kde-format
 msgid ""
 "<p>Error while reading information about %1. This is most likely because the "
 "folder does not exist.</p><p>The error message was: %2</p>"
@@ -1917,19 +1882,14 @@ msgstr ""
 "Ordner nicht.</p><p>Die Fehlermeldung lautet: %2</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:431
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>%1 does not exist, is not a directory or cannot be written to.</p>"
+#, kde-format
 msgid "<p>%1 does not exist, is not a folder or cannot be written to.</p>"
 msgstr ""
 "<p>%1 existiert nicht, ist kein Ordner oder Sie haben keine "
 "Schreibberechtigung.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:446
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Output directory %1 already exists. Usually, this means you should "
-#| "specify a new directory.</p><p>Should %2 be deleted first?</p>"
+#, kde-format
 msgid ""
 "<p>Output folder %1 already exists. Usually, this means you should specify a "
 "new folder.</p><p>Should %2 be deleted first?</p>"
@@ -1938,10 +1898,9 @@ msgstr ""
 "Ordner angeben.</p><p>Soll %2 erst gelöscht werden?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgid "Folder Exists"
-msgstr "Ordner"
+msgstr "Ordner existiert bereits"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:534 MainWindow/SplashScreen.cpp:53
@@ -1981,14 +1940,12 @@ msgstr ""
 " "
 
 #: HTMLGenerator/HTMLDialog.cpp:576
-#, fuzzy, kde-format
-#| msgid "<p>Gallery directory cannot be empty.</p>"
+#, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr "<p>Der Galerieordner darf nicht leer sein.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:580
-#, fuzzy, kde-format
-#| msgid "<p>The output directory already exists.</p>"
+#, kde-format
 msgid "<p>The output folder already exists.</p>"
 msgstr "<p>Der Ausgabeordner existiert bereits.</p>"
 
@@ -2039,6 +1996,13 @@ msgid ""
 "(You might need to wait till the video extraction led in your status bar has "
 "stopped blinking, to see all affected videos.)"
 msgstr ""
+"Aus einigen Dateien lassen sich keine Video-Miniaturansichten extrahieren. "
+"Entweder ist die Datei auf irgendeine Weise beschädigt oder das Video ist "
+"sehr kurz. Der Einfachheit halber wurde für diese Videos das Token „%1“ "
+"gesetzt.\n"
+"\n"
+"(Möglicherweise müssen Sie warten, bis die Videoextraktionsanzeige in der "
+"Statusleiste nicht mehr blinkt, um alle betroffenen Videos zu sehen.)"
 
 #: ImageManager/ThumbnailBuilder.cpp:103
 #, kde-format
@@ -2257,27 +2221,7 @@ msgstr ""
 "darauf hin, dass die Datei beschädigt ist.</p>"
 
 #: ImportExport/ImportDialog.cpp:117
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This "
-#| "wizard will take you through the steps of an import operation. The steps "
-#| "are: <ol><li>First you must select which images you want to import from "
-#| "the export file. You do so by selecting the checkbox next to the image.</"
-#| "li><li>Next you must tell KPhotoAlbum in which directory to put the "
-#| "images. This directory must of course be below the directory root "
-#| "KPhotoAlbum uses for images. KPhotoAlbum will take care to avoid name "
-#| "clashes</li><li>The next step is to specify which categories you want to "
-#| "import (People, Places, ... ) and also tell KPhotoAlbum how to match the "
-#| "categories from the file to your categories. Imagine you load from a "
-#| "file, where a category is called <b>Blomst</b> (which is the Danish word "
-#| "for flower), then you would likely want to match this with your category, "
-#| "which might be called <b>Blume</b> (which is the German word for flower) "
-#| "- of course given you are German.</li><li>The final steps, is matching "
-#| "the individual tokens from the categories. I may call myself <b>Jesper</"
-#| "b> in my image database, while you want to call me by my full name, "
-#| "namely <b>Jesper K. Pedersen</b>. In this step non matches will be "
-#| "highlighted in red, so you can see which tokens was not found in your "
-#| "database, or which tokens was only a partial match.</li></ol>"
+#, kde-format
 msgid ""
 "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
 "will take you through the steps of an import operation. The steps are: "
@@ -2304,8 +2248,8 @@ msgstr ""
 "<ol><li>Zuerst müssen Sie die Bilder aus der Exportdatei auswählen, die Sie "
 "importieren möchten. Dies tun Sie mit dem Ankreuzfeld neben dem Bild.</"
 "li><li>Danach müssen Sie KPhotoAlbum mitteilen, in welchem Ordner die Bilder "
-"gespeichert werden sollen. Dieser Ordner muss unterhalb des Basisordners "
-"liegen, den KPhotoAlbum für Bilder benutzt. KPhotoAlbum wird etwaige "
+"gespeichert werden sollen. Dieser Ordner muss im Basisordner enthalten sein, "
+"den KPhotoAlbum für Bilder benutzt. KPhotoAlbum wird etwaige "
 "Namensüberschneidungen automatisch behandeln.</li><li>Der nächste Schritt, "
 "ist das Angeben der Kategorien, wie z. B. Personen, Orte usw., die Sie "
 "importieren möchten und KPhotoAlbum anzuweisen, wie diese auf Ihre "
@@ -2351,14 +2295,12 @@ msgid "Destination of Images"
 msgstr "Ziel der Bilder"
 
 #: ImportExport/ImportDialog.cpp:221
-#, fuzzy, kde-format
-#| msgid "The directory must be a subdirectory of %1"
+#, kde-format
 msgid "The folder must be a subfolder of %1"
 msgstr "Der Ordner muss ein Unterordner von %1 sein"
 
 #: ImportExport/ImportDialog.cpp:224
-#, fuzzy, kde-format
-#| msgid "This directory is reserved for category images."
+#, kde-format
 msgid "This folder is reserved for category images."
 msgstr "Dieser Ordner ist für Bilder von Kategorien reserviert."
 
@@ -2368,16 +2310,14 @@ msgid "Match Categories"
 msgstr "Kategorien abbilden"
 
 #: ImportExport/ImportDialog.cpp:296
-#, fuzzy, kde-format
-#| msgid "Directory %1 does not exist. Should it be created?"
+#, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "Der Ordner %1 existiert nicht. Soll er erstellt werden?"
 
 #: ImportExport/ImportDialog.cpp:300
-#, fuzzy, kde-format
-#| msgid "Error creating zip file %1"
+#, kde-format
 msgid "Error creating folder %1"
-msgstr "Fehler beim Erstellen der Zip-Datei %1"
+msgstr "Fehler beim Erstellen des Ordners %1"
 
 #: ImportExport/ImportDialog.cpp:381
 #, kde-format
@@ -2431,10 +2371,7 @@ msgid "Error Importing Data"
 msgstr "Fehler beim Importieren der Daten"
 
 #: ImportExport/KimFileReader.cpp:36
-#, fuzzy, kde-format
-#| msgid ""
-#| "Error reading directory contents of file %1; it is likely that the file "
-#| "is broken."
+#, kde-format
 msgid ""
 "Error reading folder contents of file %1; it is likely that the file is "
 "broken."
@@ -2451,10 +2388,7 @@ msgstr ""
 "beschädigt."
 
 #: ImportExport/KimFileReader.cpp:69
-#, fuzzy, kde-format
-#| msgid ""
-#| "Thumbnail item in export file was not a directory, this indicates that "
-#| "the file is broken."
+#, kde-format
 msgid ""
 "Thumbnail item in export file was not a folder, this indicates that the file "
 "is broken."
@@ -2468,10 +2402,7 @@ msgid "No thumbnail existed in export file for %1"
 msgstr "Keine Vorschau in der Exportdatei für %1 gefunden"
 
 #: ImportExport/KimFileReader.cpp:95
-#, fuzzy, kde-format
-#| msgid ""
-#| "export file did not contain a Images subdirectory, this indicates that "
-#| "the file is broken"
+#, kde-format
 msgid ""
 "Export file did not contain a Images subfolder, this indicates that the file "
 "is broken"
@@ -2480,10 +2411,7 @@ msgstr ""
 "hin, dass die Datei beschädigt ist."
 
 #: ImportExport/KimFileReader.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "Images item in export file was not a directory, this indicates that the "
-#| "file is broken"
+#, kde-format
 msgid ""
 "Images item in export file was not a folder, this indicates that the file is "
 "broken"
@@ -2558,10 +2486,9 @@ msgstr ""
 "Vorschaubilder"
 
 #: kpa-thumbnailtool/main.cpp:49
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2021 Das KPhotoAlbum-Entwicklerteam"
+msgstr "Copyright (C) 2003-2022 Das KPhotoAlbum-Entwicklerteam"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:98
 #, kde-format
@@ -2634,9 +2561,7 @@ msgid "Henner Zeller"
 msgstr "Henner Zeller"
 
 #: kpa-thumbnailtool/main.cpp:71
-#, fuzzy, kde-format
-#| msgctxt "@info:shell"
-#| msgid "The directory containing the .thumbnail directory."
+#, kde-format
 msgctxt "@info:shell"
 msgid "The folder containing the .thumbnail folder."
 msgstr "Der Ordner in dem sich der Ordner .thumbnail befindet."
@@ -2692,17 +2617,13 @@ msgid "Missing argument!\n"
 msgstr "Fehlendes Argument\n"
 
 #: kpa-thumbnailtool/main.cpp:103
-#, fuzzy, kde-format
-#| msgctxt "@info:shell"
-#| msgid "%1 is not a directory!\n"
+#, kde-format
 msgctxt "@info:shell"
 msgid "%1 is not a folder!\n"
 msgstr "%1 ist kein Ordner\n"
 
 #: kpa-thumbnailtool/main.cpp:117
-#, fuzzy, kde-format
-#| msgctxt "@info:shell"
-#| msgid "Thumbnail cache directory: %1\n"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
 msgstr "Ordner für Vorschau-Zwischenspeicher: %1\n"
@@ -2732,6 +2653,8 @@ msgid ""
 "Note: Thumbnail storage dimensions are defined in the configuration file "
 "prior to v5.\n"
 msgstr ""
+"Hinweis: Die Größe des Miniaturbildspeichers wird in der Konfigurationsdatei "
+"vor v5 definiert.\n"
 
 #: kpa-thumbnailtool/main.cpp:124
 #, kde-format
@@ -2924,10 +2847,9 @@ msgid "KDE Photo Album"
 msgstr "KDE-Fotoalbum"
 
 #: main.cpp:90
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2021 Das KPhotoAlbum-Entwicklerteam"
+msgstr "Copyright (C) 2003-2022 Das KPhotoAlbum-Entwicklerteam"
 
 #: main.cpp:111
 #, kde-format
@@ -2947,10 +2869,7 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:112
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with directory info made available through the browser. (.) "
-#| "Patch for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "(.) Patch with folder info made available through the browser. (.) Patch for "
 "adding a check box for \"and/or\" searches in the search page."
@@ -2967,6 +2886,7 @@ msgstr "Matthias Füssel"
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
 msgstr ""
+"Seite für geografische Position im Browser und verschiedene Fehlerkorrekturen"
 
 #: main.cpp:114
 #, kde-format
@@ -3083,6 +3003,8 @@ msgstr "Original nach oben"
 msgctxt "Label for a QSpinbox that selects a number of seconds."
 msgid "Stack images created within the following time-frame:"
 msgstr ""
+"Bilder, die innerhalb des folgenden Zeitrahmens erstellt wurden, zu einem "
+"Stapel zusammenführen:"
 
 #: MainWindow/AutoStackImages.cpp:79
 #, kde-format
@@ -3299,22 +3221,7 @@ msgstr ""
 "Laufzeitfunktionen die KPhotoAlbum besitzt und deren Status:</p>%1"
 
 #: MainWindow/FeatureDialog.cpp:37
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
-#| "yourself, then please review the sections below to learn what to install "
-#| "to get the feature in question. If on the other hand you installed "
-#| "KPhotoAlbum from a binary package, please tell whoever made the package "
-#| "about this defect, eventually including the information from the section "
-#| "below.</p><p>In case you are missing a feature and you did not compile "
-#| "KPhotoAlbum yourself, please do consider doing so. It really is not that "
-#| "hard. If you need help compiling KPhotoAlbum, feel free to ask on the <a "
-#| "href=\"https://mail.kdab.com/mailman/listinfo/kphotoalbum\">KPhotoAlbum "
-#| "mailing list</a></p><p>The steps to compile KPhotoAlbum can be seen on <a "
-#| "href=\"https://community.kde.org/KPhotoAlbum/build_instructions\">the "
-#| "KPhotoAlbum home page</a>. If you have never compiled a KDE application, "
-#| "then please ensure that you have the developer packages installed, in "
-#| "most distributions they go under names like kdelibs<i>-devel</i></p>"
+#, kde-format
 msgid ""
 "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
 "yourself, then please review the sections below to learn what to install to "
@@ -3340,13 +3247,14 @@ msgstr ""
 "Abschnitt unten hinzufügen.</p><p>Falls Sie eine Fähigkeit vermissen und "
 "KPhotoAlbum nicht selbst kompiliert haben, sollten Sie darüber nachdenken "
 "dies zu tun. Es ist nicht wirklich schwer. Falls Sie Hilfe benötigen, können "
-"Sie auf Englisch auf der <a href=\"http://mail.kdab.com/mailman/listinfo/"
-"kphotoalbum\">KPhotoAlbum-Mailingliste</a> fragen.</p><p>Die benötigten "
-"Schritte zum Kompilieren von KPhotoAlbum finden Sie auf der <a href="
-"\"https://mail.kdab.com/mailman/listinfo/kphotoalbum\">KPhotoAlbum-Webseite</"
-"a>. Wenn Sie noch nie ein KDE-Programm kompiliert haben, sollten Sie "
-"sicherstellen, dass Sie die Entwicklerpakete installiert haben. In den "
-"meisten Distributionen tragen diese Namen wie kdelibs<i>-devel</i>.</p>"
+"Sie auf Englisch auf der <a href=\"https://mail.kde.org/cgi-bin/mailman/"
+"listinfo/kphotoalbum\">KPhotoAlbum-Mailingliste</a> fragen.</p><p>Die "
+"benötigten Schritte zum Kompilieren von KPhotoAlbum finden Sie auf der <a "
+"href=\"https://community.kde.org/KPhotoAlbum/build_instructions"
+"\">KPhotoAlbum-Webseite</a>. Wenn Sie noch nie ein KDE-Programm kompiliert "
+"haben, sollten Sie sicherstellen, dass Sie die Entwicklerpakete installiert "
+"haben. In den meisten Distributionen tragen diese Namen wie kdelibs<i>-"
+"devel</i>.</p>"
 
 #: MainWindow/FeatureDialog.cpp:51
 #, kde-format
@@ -3377,20 +3285,18 @@ msgid ""
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
+"<h1><a name=\"geomap\">Kartenansicht für geolokalisierte Bilder</a></"
+"h1><p>Wenn KPhotoAlbum mit der Unterstützung für Marble erstellt worden ist, "
+"kann KPhotoAlbum Bilder mit GPS-Informationen auf einer Karte anzeigen.</p>"
 
 #: MainWindow/FeatureDialog.cpp:64
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on Qt's "
-#| "Phonon architecture for displaying videos; this in turn relies on "
-#| "GStreamer.</p>"
+#, kde-format
 msgid ""
 "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on QtAv "
 "for displaying videos; this in turn relies on ffmpeg</p>"
 msgstr ""
 "<h1><a name=\"video\">Video-Unterstützung</a></h1><p>KPhotoAlbum verwendet "
-"die Phonon-Architektur von Qt zur Anzeige von Videos. Diese wiederum basiert "
-"auf GStreamer.</p>"
+"QtAv zur Anzeige von Videos. Diese wiederum basiert auf ffmpeg.</p>"
 
 #: MainWindow/FeatureDialog.cpp:67
 #, kde-format
@@ -3430,7 +3336,7 @@ msgstr "SQLite-Datenbankunterstützung (wird für Exif-Suche verwendet)"
 #: MainWindow/FeatureDialog.cpp:163
 #, kde-format
 msgid "Map view for geotagged images."
-msgstr ""
+msgstr "Kartenansicht für geolokalisierte Bilder."
 
 #: MainWindow/FeatureDialog.cpp:164
 #, kde-format
@@ -3593,13 +3499,7 @@ msgstr ""
 "%alle</tt> wird mit einer Liste der Dateien ersetzt</i></p>"
 
 #: MainWindow/RunDialog.cpp:42
-#, fuzzy, no-c-format, kde-format
-#| msgid ""
-#| "<p>Enter the command you want to run on your image file(s). KPhotoAlbum "
-#| "will run your command and replace any '%all' tokens with a list of your "
-#| "files. For example, if you entered:</p><ul><li>cp %all /tmp</li></"
-#| "ul><p>Then the files you selected would be copied to the /tmp directory</"
-#| "p><p>You can also use %each to have a command be run once per file.</p>"
+#, no-c-format, kde-format
 msgid ""
 "<p>Enter the command you want to run on your image file(s). KPhotoAlbum will "
 "run your command and replace any '%all' tokens with a list of your files. "
@@ -3800,17 +3700,7 @@ msgid "Check My Feature Set"
 msgstr "Verfügbare Funktionen prüfen"
 
 #: MainWindow/WelcomeDialog.cpp:99
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>KPhotoAlbum database creation</h1><p>You need to show where the "
-#| "photos and videos are for KPhotoAlbum to find them. They all need to be "
-#| "under one root directory, for example /home/user/Images. In this "
-#| "directory you can have as many subdirectories as you want, KPhotoAlbum "
-#| "will find them all for you.</p><p>Feel safe, KPhotoAlbum will not modify "
-#| "or edit any of your images, so you can simply point KPhotoAlbum to the "
-#| "directory where you already have all your images.</p><p>If you have an "
-#| "existing KPhotoAlbum database and root directory somewhere, point "
-#| "KPhotoAlbum to that directory to start using it again.</p>"
+#, kde-format
 msgid ""
 "<h1>KPhotoAlbum database creation</h1><p>You need to show where the photos "
 "and videos are for KPhotoAlbum to find them. They all need to be contained "
@@ -3834,26 +3724,22 @@ msgstr ""
 "Datenbank befindet.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:114
-#, fuzzy, kde-format
-#| msgid "Image/Video root directory: "
+#, kde-format
 msgid "Image/Video root folder: "
 msgstr "Basisordner für Bilder/Videos: "
 
 #: MainWindow/WelcomeDialog.cpp:154
-#, fuzzy, kde-format
-#| msgid "Directory does not exist, create it?"
+#, kde-format
 msgid "Folder does not exist, create it?"
 msgstr "Der Ordner existiert nicht. Soll er erstellt werden?"
 
 #: MainWindow/WelcomeDialog.cpp:158
-#, fuzzy, kde-format
-#| msgid "Could not create file '%1'."
+#, kde-format
 msgid "Could not create folder %1"
 msgstr "Die Datei „%1“ lässt sich nicht erstellen."
 
 #: MainWindow/WelcomeDialog.cpp:163
-#, fuzzy, kde-format
-#| msgid "%1 exists, but is not a directory"
+#, kde-format
 msgid "%1 exists, but is not a folder"
 msgstr "%1 existiert bereits, ist aber kein Ordner"
 
@@ -4128,16 +4014,14 @@ msgid "Show Tooltips in Thumbnails Window"
 msgstr "Kurzinfos in der Vorschauansicht anzeigen"
 
 #: MainWindow/Window.cpp:911
-#, fuzzy, kde-format
-#| msgid "Show Tooltips in Thumbnails Window"
+#, kde-format
 msgid "Show Labels in Thumbnails Window"
-msgstr "Kurzinfos in der Vorschauansicht anzeigen"
+msgstr "Namen in der Vorschauansicht anzeigen"
 
 #: MainWindow/Window.cpp:921
-#, fuzzy, kde-format
-#| msgid "Show Tooltips in Thumbnails Window"
+#, kde-format
 msgid "Show Categories in Thumbnails Window"
-msgstr "Kurzinfos in der Vorschauansicht anzeigen"
+msgstr "Kategorien in der Vorschauansicht anzeigen"
 
 #: MainWindow/Window.cpp:935
 #, kde-format
@@ -4230,10 +4114,9 @@ msgid "Show Demo Videos"
 msgstr "Demo-Videos anzeigen"
 
 #: MainWindow/Window.cpp:1013 Viewer/ViewerWidget.cpp:177
-#, fuzzy, kde-format
-#| msgid "Show Exif Info"
+#, kde-format
 msgid "Show Exif Info and file metadata"
-msgstr "Exif-Informationen anzeigen"
+msgstr "Exif-Informationen und Datei-Metadaten anzeigen"
 
 #: MainWindow/Window.cpp:1016
 #, kde-format
@@ -4251,23 +4134,17 @@ msgid "Use previous video thumbnail"
 msgstr "Vorheriges Video-Vorschaubild anzeigen"
 
 #: MainWindow/Window.cpp:1027 MainWindow/Window.cpp:1244
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Copy image to ..."
-#| msgid_plural "Copy images to ..."
+#, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Bild kopieren zu  ..."
-msgstr[1] "Bilder kopieren zu ..."
+msgstr[0] "Bild kopieren nach ..."
+msgstr[1] "Bilder kopieren nach ..."
 
 #: MainWindow/Window.cpp:1031 MainWindow/Window.cpp:1248
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Link image to ..."
-#| msgid_plural "Link images to ..."
+#, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Bild verknüpfen mit  ..."
+msgstr[0] "Bild verknüpfen mit ..."
 msgstr[1] "Bilder verknüpfen mit ..."
 
 #: MainWindow/Window.cpp:1057
@@ -4281,16 +4158,13 @@ msgid "Auto saving.... Done"
 msgstr "Automatische Speicherung ist abgeschlossen"
 
 #: MainWindow/Window.cpp:1162
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Could not open given index.xml as provided directory does not exist."
-#| "<br />%1</p>"
+#, kde-format
 msgid ""
 "<p>Could not open given index.xml, as the provided folder does not exist."
 "<br />%1</p>"
 msgstr ""
-"<p>Die gewünschte Datei <tt>index.xml</tt> kann nicht geöffnet werden, da "
-"der Ordner nicht existiert.<br/>%1</p>"
+"<p>Die gewünschte Datei index.xml kann nicht geöffnet werden, da der Ordner "
+"nicht existiert.<br/>%1</p>"
 
 #: MainWindow/Window.cpp:1169
 #, kde-format
@@ -4309,6 +4183,11 @@ msgid ""
 "untagged tag setting under <interface>Settings|Configure KPhotoAlbum...|"
 "Categories</interface></p>"
 msgstr ""
+"<p>Sie haben ein Stichwort für unmarkierte Bilder konfiguriert, aber "
+"entweder das Stichwort selbst oder seine Kategorie existiert nicht in der "
+"Datenbank.</p><p>Bitte überprüfen Sie Ihre Einstellung für Bilder ohne "
+"Stichwort unter <interface>Einstellungen|KPhotoAlbum einrichten ...|"
+"Kategorien</interface></p>"
 
 #: MainWindow/Window.cpp:1315 Settings/SettingsDialog.cpp:46
 #, kde-format
@@ -4321,11 +4200,10 @@ msgid "Viewer"
 msgstr "Betrachter"
 
 #: MainWindow/Window.cpp:1317
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "Datum: "
+msgstr "Zeitleiste"
 
 #: MainWindow/Window.cpp:1320
 #, kde-format
@@ -4372,7 +4250,7 @@ msgstr "Interner Fehler"
 #: MainWindow/Window.cpp:1487
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
-msgstr ""
+msgstr "Bild(er) erfolgreich geteilt. Ort in die Zwischenablage kopiert ..."
 
 #: MainWindow/Window.cpp:1490
 #, kde-format
@@ -4530,6 +4408,14 @@ msgid ""
 "android device's address.\n"
 "The android client can be downloaded from google play."
 msgstr ""
+"Dieses Symbol zeigt an, ob KPhotoAlbum mit einem Android-Gerät verbunden "
+"ist.\n"
+"Auf das Symbol klicken, um das Lauschen nach Gegenstellen im lokalen "
+"Netzwerk einzuschalten.\n"
+"Wenn das lokale Netzwerk keine Broadcast-Pakete zwischen dem Android-Client "
+"und KPhotoAlbum zulässt, mit der rechten Maustaste auf das Symbol klicken "
+"und die Adresse des Android-Geräts angeben.\n"
+"Der Android-Client kann von Google-Play heruntergeladen werden."
 
 #: RemoteControl/ConnectionIndicator.cpp:90
 #, kde-format
@@ -4547,6 +4433,9 @@ msgid ""
 "Unable to listen for remote Android connections. This is likely because you "
 "have another KPhotoAlbum application running."
 msgstr ""
+"Es können keine Verbindungen zu entfernten Android-Geräte abgefragt werden. "
+"Dies liegt wahrscheinlich daran, dass eine andere KPhotoAlbum-Anwendung "
+"ausgeführt wird."
 
 #: RemoteControl/Server.cpp:67
 #, kde-format
@@ -4560,6 +4449,10 @@ msgid ""
 "Desktop protocol version: %1\n"
 "Remote Control protocol version: %2"
 msgstr ""
+"Versionen zwischen entfernter Gegenstelle und KPhotoAlbum auf dem Desktop "
+"stimmen nicht überein.\n"
+"Version des Protokolls am Desktop: %1\n"
+"Version des Protokolls in der Fernbedienung: %2"
 
 #: Settings/BirthdayPage.cpp:58
 #, kde-format
@@ -4894,6 +4787,10 @@ msgid ""
 "KPhotoAlbum to ignore these two folder names in any folder when searching "
 "for new images.</p>"
 msgstr ""
+"<p>Eine durch Komma getrennte Liste von Ordnernamen angeben, die ignoriert "
+"werden sollen.</p> <p>Wenn Sie hier z.B. „<tt>.thumbs,.thumbnails</tt>“ "
+"angeben, ignoriert KPhotoAlbum diese beiden Ordnernamen in jedem Ordner, "
+"wenn nach neuen Bildern gesucht wird.</p> "
 
 #: Settings/FileVersionDetectionPage.cpp:61
 #, kde-format
@@ -4924,12 +4821,7 @@ msgstr ""
 "Dateiendung nicht in Frage kommt.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:72
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum attempts to read all image files whether actual files or "
-#| "symbolic links. If you wish to ignore symbolic links, check this option. "
-#| "This is useful if for some reason you have e.g. both the original files "
-#| "and symbolic links to these files within your image directory.</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum attempts to read all image files whether actual files or "
 "symbolic links. If you wish to ignore symbolic links, check this option. "
@@ -5114,6 +5006,7 @@ msgstr ""
 #, kde-format
 msgid "EXPERIMENTAL: Tune new image loading for best performance."
 msgstr ""
+"EXPERIMENTELL: Das Laden neuer Bilder für die beste Leistung abstimmen."
 
 #: Settings/FileVersionDetectionPage.cpp:184
 #, kde-format
@@ -5158,6 +5051,11 @@ msgid ""
 "media, choose the slowest media type used.</p><p>Use Manual Settings to "
 "configure details of how the loading is performed.</p>"
 msgstr ""
+"<p>Stimmen Sie das Laden von Bildern auf die beste Leistung ab, basierend "
+"auf der Art des Speichers, auf dem sich Ihre Bilddatenbank befindet. Wenn "
+"die Bilddatenbank auf mehreren Medien gespeichert ist, wählen Sie den "
+"langsamsten Medientyp.</p><p>Verwenden Sie die manuellen Einstellungen, um "
+"die Details des Ladevorgangs zu konfigurieren.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:205
 #, kde-format
@@ -5172,6 +5070,11 @@ msgid ""
 "slow, this degrades performance as the checksum calculation has to wait "
 "longer for the images to be preloaded.</p>"
 msgstr ""
+"<p>Berechnen von MD5-Prüfsummen, während die Bilder vorgeladen werden. Dies "
+"funktioniert gut, wenn der Speicher sehr schnell ist, wie z. B. ein NVMe-"
+"Laufwerk. Wenn der Speicher langsam ist, verschlechtert sich die Leistung, "
+"da die Prüfsummenberechnung länger warten muss, bis die Bilder im "
+"Hintergrund geladen sind.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:216
 #, kde-format
@@ -5187,6 +5090,11 @@ msgid ""
 "for faster storage, but not more than the number of cores in your CPU. "
 "Default is 1, which works well for mechanical hard disks.</p>"
 msgstr ""
+"<p>Anzahl der Threads, die für das Laden der Bilder im Hintergrund verwendet "
+"werden, damit sie im Speicher sind, wenn die Prüfsumme berechnet wird. Dies "
+"sollte im Allgemeinen bei schnellen Speichermedien höher eingestellt werden, "
+"aber nicht mehr als die Anzahl der Kerne in Ihrer CPU. Die Voreinstellung "
+"ist 1, welche für mechanische Festplatten gut funktioniert.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:230
 #, kde-format
@@ -5202,6 +5110,10 @@ msgid ""
 "thumbnails.  Normally this should be set to 1; the exception might be if you "
 "have very fast storage.</p>"
 msgstr ""
+"<p>Anzahl der Threads, die für das Laden der Bilder im Hintergrund vor dem "
+"Erstellen der Miniaturbilder verwendet werden sollen. Normalerweise sollte "
+"dies auf 1 gesetzt werden. Eine Ausnahme könnte sein, wenn Sie einen sehr "
+"schnellen Speicher haben.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:244
 #, kde-format
@@ -5218,6 +5130,13 @@ msgid ""
 "may see benefit from setting this to a larger value.</p><p>KPhotoAlbum must "
 "be restarted for changes to take effect.</p>"
 msgstr ""
+"<p>Anzahl der Threads, die für die Erstellung der Miniaturbilder verwendet "
+"werden. Wenn dieser Wert auf 0 gesetzt ist, wird er automatisch auf eins "
+"weniger als die Anzahl der Kerne gesetzt, mindestens eins und nicht mehr als "
+"drei. Wenn Sie über schnellen Speicher und eine CPU mit vielen Kernen "
+"verfügen, kann es von Vorteil sein, diesen Wert höher zu setzen.</"
+"p><p>KPhotoAlbum muss neu gestartet werden, damit die Änderungen wirksam "
+"werden.</p>"
 
 #: Settings/GeneralPage.cpp:28
 #, kde-format
@@ -5365,6 +5284,12 @@ msgid ""
 "automatically on start up. Alternatively, you can click the connection icon "
 "in the status bar to start listening."
 msgstr ""
+"<p>KPhotoAlbum ist in der Lage, Ihre Bilder auf Android-Geräten anzuzeigen. "
+"KPhotoAlbum koppelt sich automatisch mit der Anwendung von Android. Dies "
+"erfordert jedoch, dass KPhotoAlbum auf Ihrem Desktop auf Multicast-"
+"Nachrichten hört. Wenn Sie dieses Ankreuzfeld markieren, wird KPhotoAlbum "
+"dies beim Start automatisch tun. Alternativ können Sie auch auf das "
+"Verbindungssymbol in der Statusleiste klicken, um das Empfangen zu starten."
 
 #: Settings/GeneralPage.cpp:169
 #, kde-format
@@ -5374,6 +5299,11 @@ msgid ""
 "want to ignore in the input field, one per line. Be sure to add the exact "
 "comment, including all whitespace.</p>"
 msgstr ""
+"<p>Einige Kameras speichern automatisch generische Kommentare in jedem Bild. "
+"Diese Kommentare können automatisch ignoriert werden.</p><p>Geben Sie die "
+"Kommentare, die Sie ignorieren möchten, in das Eingabefeld ein, einen pro "
+"Zeile. Achten Sie darauf, dass Sie den genauen Kommentar einschließlich "
+"aller Leerzeichen eingeben.</p>"
 
 #: Settings/SettingsDialog.cpp:47
 #, kde-format
@@ -5699,6 +5629,15 @@ msgid ""
 "immediately build thumbnails for them and you won't have a delay later while "
 "browsing.</p>"
 msgstr ""
+"<p>Wenn diese Option aktiviert ist, werden die Miniaturbilder bei Bedarf "
+"erstellt. Wenn Sie Ihre Bilddatenbank durchsuchen, werden nur die "
+"Miniaturbilder erstellt, die tatsächlich benötigt werden. Das bedeutet, dass "
+"KPhotoAlbum beim Ändern der Miniaturbildgröße auch bei einer großen Anzahl "
+"von Bildern ansprechbar bleibt.</p><p>Wenn dies nicht eingestellt ist, "
+"erstellt KPhotoAlbum die Miniaturbilder für alle Bilder immer so schnell wie "
+"möglich. Das bedeutet, dass KPhotoAlbum, wenn neue Bilder gefunden werden, "
+"sofort Miniaturansichten für sie erstellt und Sie später beim Durchsuchen "
+"keine Verzögerung haben.</p>"
 
 #: Settings/ThumbnailsPage.cpp:117
 #, kde-format
@@ -5758,11 +5697,14 @@ msgid ""
 "automatically, so that they can be easily found. It will be removed as soon "
 "as the image has been annotated."
 msgstr ""
+"Wenn hier ein Stichwort ausgewählt wird, wird es automatisch zu neuen "
+"(unmarkierten) Bildern hinzugefügt, so dass sie leicht gefunden werden "
+"können. Es wird entfernt, sobald das Bild mit einer Anmerkung versehen wurde."
 
 #: Settings/UntaggedGroupBox.cpp:43
 #, kde-format
 msgid "Show the untagged images tag as a normal tag"
-msgstr ""
+msgstr "Das Stichwort „unmarkierte Bilder“ als normales Stichwort anzeigen"
 
 #: Settings/UntaggedGroupBox.cpp:52
 #, kde-format
@@ -5782,11 +5724,16 @@ msgid ""
 "stored in the database. Otherwise, it will be lost, and you will get an "
 "error about this tag being not present on the next start.</p>"
 msgstr ""
+"<p>Das neue Stichwort „%1“ wurde der Kategorie „%2“ hinzugefügt und wird nun "
+"für unmarkierte Bilder verwendet.</p><p>Bitte speichern Sie jetzt, damit "
+"dieses Stichwort in der Datenbank gespeichert wird. Andernfalls geht es "
+"verloren, und Sie erhalten beim nächsten Start eine Fehlermeldung, dass "
+"dieses Tag nicht vorhanden ist.</p>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:25
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
-msgstr ""
+msgstr "<h1>Einen Videoplayer auswählen</h1>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:28
 #, kde-format
@@ -5808,13 +5755,32 @@ msgid ""
 "of sync between video and audio.</p><p><b><font color=red>You can at any "
 "time change the backend from Settings -> Viewer</font></b></p></html>"
 msgstr ""
+"<p>Leider gibt es keinen Videoplayer, der von Haus aus für alle funktioniert."
+"</p><p>KPhotoAlbum kommt daher mit drei verschiedenen Backends, wählen Sie "
+"dasjenige, das für Sie am besten funktioniert.</p><p><b>VLC</b> scheint das "
+"am besten unterstützte Videoplayer-Backend zu sein, das heißt, es kann die "
+"meisten Videoformate abspielen. Es hat allerdings einen Nachteil: Es "
+"benötigt X11. Wenn Sie Wayland verwenden, werden Sie feststellen, dass die "
+"Videos in einem eigenen Fenster angezeigt werden, und in diesem Fall ist VLC "
+"wahrscheinlich nicht sehr gut für Sie geeignet. Wenn Sie hingegen X11 "
+"verwenden, dann ist VLC wahrscheinlich die beste Wahl für Sie.</"
+"p><p>Traditionell hat KPhotoAlbum <b>Phonon</b> als Video-Player-Backend "
+"verwendet. Wir haben leider gesehen, dass es bei vielen verschiedenen "
+"Videoformaten abstürzt - möglicherweise weil unser System nicht richtig "
+"konfiguriert war. Wenn das bei Ihnen der Fall ist (und Sie VLC nicht "
+"verwenden können), dann versuchen Sie das <b>QtAV</b>-Backend, das eine "
+"Menge Formate zu unterstützen scheint (alles, was wir ihm vorgesetzt haben). "
+"<b>QtAV</b> hat leider auch einen Nachteil - es scheint leicht aus der "
+"Synchronisation zwischen Video und Audio zu geraten.</p><p><b><font "
+"color=red>Das Backend kann man jederzeit unter Einstellungen -> Betrachter</"
+"font></b></p> wechseln.</html>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:51
 #: Settings/VideoPlayerSelectorDialog.cpp:60
 #: Settings/VideoPlayerSelectorDialog.cpp:69
 #, kde-format
 msgid " (NOT AVAILABLE)"
-msgstr ""
+msgstr " (Nicht verfügbar)"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:97
 #, kde-format
@@ -5825,39 +5791,41 @@ msgid ""
 "ends. If you on the other hand got KPhotoAlbum from your system, then please "
 "talk to the maintainer of the package.</html>"
 msgstr ""
+"<html><h1>Fehlendes Modul</h1>Die Module, die nicht verfügbar sind, sind auf "
+"die Systemkonfiguration während der Kompilierung von KPhotoAlbum "
+"zurückzuführen. Wenn Sie KPhotoAlbum selbst kompiliert haben, dann suchen "
+"Sie nach den Entwicklerpaketen für die Back-Ends. Wenn Sie andererseits "
+"KPhotoAlbum von Ihrem System erhalten haben, dann sprechen Sie bitte mit dem "
+"Betreuer des Pakets.</html>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:160
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
-msgstr ""
+msgstr "Backend für Video nicht konfiguriert"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:162
-#, fuzzy, kde-format
-#| msgid "Database Backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
-msgstr "Datenbank-Backend"
+msgstr "Phonon-Backend für Video"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:164
-#, fuzzy, kde-format
-#| msgid "Database Backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
-msgstr "Datenbank-Backend"
+msgstr "QtAV-Backend für Video"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:166
-#, fuzzy, kde-format
-#| msgid "Database Backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
-msgstr "Datenbank-Backend"
+msgstr "VLC-Backend für Video"
 
 #: Settings/ViewerPage.cpp:25
-#, fuzzy, kde-format
-#| msgid "Not defined"
+#, kde-format
 msgid "Not Configured"
-msgstr "Nicht definiert"
+msgstr "Nicht eingerichtet"
 
 #: Settings/ViewerPage.cpp:42
 #, kde-format
@@ -5957,10 +5925,9 @@ msgstr ""
 "verwenden.</p>"
 
 #: Settings/ViewerPage.cpp:99
-#, fuzzy, kde-format
-#| msgid "Database Backend"
+#, kde-format
 msgid "Video Backend:"
-msgstr "Datenbank-Backend"
+msgstr "Backend für Video:"
 
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
@@ -6054,8 +6021,7 @@ msgid "Error Running Demo"
 msgstr "Fehler bei der Ausführung der Demo"
 
 #: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:85
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1' needed for demo."
+#, kde-format
 msgid "Unable to create folder '%1' needed for demo."
 msgstr ""
 "Der Ordner „%1“, der für die Demo benötigt wird, lässt sich nicht erstellen."
@@ -6257,17 +6223,20 @@ msgstr "Fehler beim Abspielen des Mediums."
 #: Viewer/QtAVDisplay.cpp:31 Viewer/QtAVDisplay.cpp:44
 #, kde-format
 msgid "Failed to set up video playback"
-msgstr ""
+msgstr "Einrichten der Videowiedergabe fehlgeschlagen"
 
 #: Viewer/QtAVDisplay.cpp:31
 #, kde-format
 msgid "Failed to set up video playback (renderer wasn't created)"
 msgstr ""
+"Einrichten der Videowiedergabe fehlgeschlagen (Renderer wurde nicht angelegt)"
 
 #: Viewer/QtAVDisplay.cpp:44
 #, kde-format
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""
+"Einrichten der Videowiedergabe fehlgeschlagen (Bedienelement wurde nicht "
+"angelegt)"
 
 #: Viewer/SpeedDisplay.cpp:33
 #, kde-format
@@ -6304,22 +6273,16 @@ msgid "Set as First Image in Stack"
 msgstr "Als erstes Bild des Stapels setzen"
 
 #: Viewer/ViewerWidget.cpp:183
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Copy image to ..."
-#| msgid_plural "Copy images to ..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
-msgstr "Bild kopieren zu  ..."
+msgstr "Bild kopieren nach ..."
 
 #: Viewer/ViewerWidget.cpp:188
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Link image to ..."
-#| msgid_plural "Link images to ..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
-msgstr "Bild verknüpfen mit  ..."
+msgstr "Bild verknüpfen mit ..."
 
 #: Viewer/ViewerWidget.cpp:196
 #, kde-format
@@ -6657,6 +6620,10 @@ msgid ""
 "some platforms, this is a common problem with some video players.</"
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 msgstr ""
+"<p>Es scheint, dass KPhotoAlbum zuvor während der Videowiedergabe abgestürzt "
+"ist. Auf einigen Plattformen ist dies ein häufiges Problem mit einigen "
+"Videoplayern.</p><p>Auf <i>Weiter</i> drücken, um KPhotoAlbum ein anderes "
+"Backend ausprobieren zu lassen ...</p>"
 
 #: Viewer/ViewerWidget.cpp:1344
 #, kde-format
@@ -6664,6 +6631,8 @@ msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
 "will be used instead: <tt>%2</tt></p>"
 msgstr ""
+"<p>Backend für Video, das unterbrochen wurde: <tt>%1</tt></p> <p>Backend für "
+"Video, das statt dessen verwendet wird: <tt>%2</tt></p>"
 
 #: Viewer/ViewerWidget.cpp:1357
 #, kde-format
@@ -6671,6 +6640,9 @@ msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 msgstr ""
+"<p>KPhotoAlbum hat alle verfügbaren Backends für Video ausprobiert, aber "
+"alle sind irgendwann abgestürzt.</p><p>Die Absturzerkennung ist jetzt "
+"ausgeschaltet.</p>"
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format
@@ -6769,6 +6741,10 @@ msgid ""
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
+"<p>Die Datenbankdatei (index.xml) ist von einer neueren Version von "
+"KPhotoAlbum!</p><p>Die Chancen stehen gut, dass man diese Datei lesen kann, "
+"aber beim Zurückschreiben gehen die in der neueren Version gespeicherten "
+"Informationen verloren</p>"
 
 #: XMLDB/FileReader.cpp:49
 #, kde-format
@@ -6934,17 +6910,7 @@ msgid "Database repair required"
 msgstr "Datenbankreparatur erforderlich"
 
 #: XMLDB/FileReader.cpp:499
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
-#| "installation error</p><p>If you have installed KPhotoAlbum yourself, then "
-#| "you must remember to set the environment variable <b>KDEDIRS</b>, to "
-#| "point to the topmost installation directory.</p><p>If you for example ran "
-#| "cmake with <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must "
-#| "use the following environment variable setup (this example is for Bash "
-#| "and compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></"
-#| "p><p>In case you already have KDEDIRS set, simply append the string as if "
-#| "you where setting the <b>PATH</b> environment variable</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
 "installation error</p><p>If you have installed KPhotoAlbum yourself, then "

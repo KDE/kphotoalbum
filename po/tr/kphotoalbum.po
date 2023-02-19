@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-25 00:47+0000\n"
+"POT-Creation-Date: 2023-02-19 00:56+0000\n"
 "PO-Revision-Date: 2023-02-01 13:02+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -54,7 +54,7 @@ msgstr "bugün"
 msgid "yesterday"
 msgstr "dün"
 
-#: AnnotationDialog/Dialog.cpp:107
+#: AnnotationDialog/Dialog.cpp:105
 #, kde-format
 msgid ""
 "(You have differing descriptions on individual images, setting text here "
@@ -63,23 +63,23 @@ msgstr ""
 "(Her bir görsel için açıklamalarınız farklı, burada bir metin ayarlamak "
 "hepsinin üzerine yazacaktır)"
 
-#: AnnotationDialog/Dialog.cpp:132
+#: AnnotationDialog/Dialog.cpp:130
 #, kde-format
 msgid "Label and Dates"
 msgstr "Etiket ve Tarihler"
 
-#: AnnotationDialog/Dialog.cpp:134
+#: AnnotationDialog/Dialog.cpp:132
 #, kde-format
 msgid "Image Preview"
 msgstr "Görsel Önizleme"
 
-#: AnnotationDialog/Dialog.cpp:138 AnnotationDialog/Dialog.cpp:147
-#: HTMLGenerator/HTMLDialog.cpp:142 ImportExport/MD5CheckPage.cpp:66
+#: AnnotationDialog/Dialog.cpp:136 AnnotationDialog/Dialog.cpp:145
+#: HTMLGenerator/HTMLDialog.cpp:143 ImportExport/MD5CheckPage.cpp:66
 #, kde-format
 msgid "Description"
 msgstr "Açıklama"
 
-#: AnnotationDialog/Dialog.cpp:142
+#: AnnotationDialog/Dialog.cpp:140
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -93,17 +93,17 @@ msgstr ""
 "<emphasis>Exif açıklamasını kullan</emphasis> etkinleştirilmişse görsel Exif "
 "bilgisinde gömülü açıklama bu alana içe aktarılır (varsa).</para>"
 
-#: AnnotationDialog/Dialog.cpp:168 DB/ImageDB.cpp:147
+#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:147
 #, kde-format
 msgid "Cancel"
 msgstr "İptal"
 
-#: AnnotationDialog/Dialog.cpp:173 AnnotationDialog/Dialog.cpp:175
+#: AnnotationDialog/Dialog.cpp:171 AnnotationDialog/Dialog.cpp:173
 #, kde-format
 msgid "Map"
 msgstr "Harita"
 
-#: AnnotationDialog/Dialog.cpp:181
+#: AnnotationDialog/Dialog.cpp:179
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -113,63 +113,63 @@ msgstr ""
 "Harita araç takımı, Exif bilgisinde GPS koordinatları varsa görsellerin "
 "konumunu görüntülemenize izin verir."
 
-#: AnnotationDialog/Dialog.cpp:229
+#: AnnotationDialog/Dialog.cpp:227
 #, kde-format
 msgid "Revert This Item"
 msgstr "Bu Ögeyi Geri Al"
 
-#: AnnotationDialog/Dialog.cpp:235
+#: AnnotationDialog/Dialog.cpp:233
 #, kde-format
 msgid "Clear Form"
 msgstr "Formu Temizle"
 
-#: AnnotationDialog/Dialog.cpp:239
+#: AnnotationDialog/Dialog.cpp:237
 #, kde-format
 msgid "Options..."
 msgstr "Seçenekler..."
 
-#: AnnotationDialog/Dialog.cpp:245
+#: AnnotationDialog/Dialog.cpp:243
 #, kde-format
 msgid "&Done"
 msgstr "&Bitti"
 
-#: AnnotationDialog/Dialog.cpp:248
+#: AnnotationDialog/Dialog.cpp:246
 #, kde-format
 msgid "Continue &Later"
 msgstr "&Sonra Sürdür"
 
-#: AnnotationDialog/Dialog.cpp:256 AnnotationDialog/Dialog.cpp:823
+#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:821
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
 msgstr "&Ara"
 
-#: AnnotationDialog/Dialog.cpp:320
+#: AnnotationDialog/Dialog.cpp:318
 #, kde-format
 msgid "Label: "
 msgstr "Etiket: "
 
-#: AnnotationDialog/Dialog.cpp:324 ImportExport/MD5CheckPage.cpp:65
+#: AnnotationDialog/Dialog.cpp:322 ImportExport/MD5CheckPage.cpp:65
 #, kde-format
 msgid "Label"
 msgstr "Etiket"
 
-#: AnnotationDialog/Dialog.cpp:333
+#: AnnotationDialog/Dialog.cpp:331
 #, kde-format
 msgid "Date: "
 msgstr "Tarih: "
 
-#: AnnotationDialog/Dialog.cpp:349
+#: AnnotationDialog/Dialog.cpp:347
 #, kde-format
 msgid "Time: "
 msgstr "Zaman: "
 
-#: AnnotationDialog/Dialog.cpp:355
+#: AnnotationDialog/Dialog.cpp:353
 #, kde-format
 msgid "Use Fuzzy Date"
 msgstr "Belirsiz Tarih Kullan"
 
-#: AnnotationDialog/Dialog.cpp:357
+#: AnnotationDialog/Dialog.cpp:355
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -188,137 +188,137 @@ msgstr ""
 "(örn. fotoğraf analog bir fotoğraf makinesinden gelmiş olabilir), "
 "<interface>Belirsiz Tarih Kullan</interface> seçeneğini ayarlamasınız.</para>"
 
-#: AnnotationDialog/Dialog.cpp:372
+#: AnnotationDialog/Dialog.cpp:370
 #, kde-format
 msgid "Minimum megapixels:"
 msgstr "En düşük megapixel:"
 
-#: AnnotationDialog/Dialog.cpp:382
+#: AnnotationDialog/Dialog.cpp:380
 #, kde-format
 msgid "Maximum megapixels:"
 msgstr "En yüksek megapixel:"
 
-#: AnnotationDialog/Dialog.cpp:395
+#: AnnotationDialog/Dialog.cpp:393
 #, kde-format
 msgid "Rating:"
 msgstr "Derecelendirme:"
 
-#: AnnotationDialog/Dialog.cpp:403
+#: AnnotationDialog/Dialog.cpp:401
 #, kde-format
 msgid "Rating search mode:"
 msgstr "Derecelendirma arama kipi:"
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:405
 #, kde-format
 msgid "=="
 msgstr "=="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:405
 #, kde-format
 msgid ">="
 msgstr ">="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:405
 #, kde-format
 msgid "<="
 msgstr "<="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:405
 #, kde-format
 msgid "!="
 msgstr "!="
 
-#: AnnotationDialog/Dialog.cpp:415
+#: AnnotationDialog/Dialog.cpp:413
 #, kde-format
 msgid "File Name Pattern: "
 msgstr "Dosya Adı Dizgisi: "
 
-#: AnnotationDialog/Dialog.cpp:418
+#: AnnotationDialog/Dialog.cpp:416
 #, kde-format
 msgid "File Name Pattern"
 msgstr "Dosya Adı Dizgisi"
 
-#: AnnotationDialog/Dialog.cpp:423
+#: AnnotationDialog/Dialog.cpp:421
 #, kde-format
 msgid "Search only for RAW files"
 msgstr "Yalnızca RAW dosyalarını ara"
 
-#: AnnotationDialog/Dialog.cpp:613
+#: AnnotationDialog/Dialog.cpp:611
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Bilgi Notları (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:828
+#: AnnotationDialog/Dialog.cpp:826
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Ara"
 
-#: AnnotationDialog/Dialog.cpp:831
+#: AnnotationDialog/Dialog.cpp:829
 #, kde-format
 msgid "Done"
 msgstr "Bitti"
 
-#: AnnotationDialog/Dialog.cpp:838
+#: AnnotationDialog/Dialog.cpp:836
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Bilgi Notları"
 
-#: AnnotationDialog/Dialog.cpp:870
+#: AnnotationDialog/Dialog.cpp:868
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Pencere Yerleşimini Yapılandır..."
 
-#: AnnotationDialog/Dialog.cpp:871
+#: AnnotationDialog/Dialog.cpp:869
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "Geçerli Pencere Ayarlarını Kaydet"
 
-#: AnnotationDialog/Dialog.cpp:872
+#: AnnotationDialog/Dialog.cpp:870
 #, kde-format
 msgid "Reset layout"
 msgstr "Yerleşimi sıfırla"
 
-#: AnnotationDialog/Dialog.cpp:879 AnnotationDialog/Dialog.cpp:1280
+#: AnnotationDialog/Dialog.cpp:877 AnnotationDialog/Dialog.cpp:1290
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Abecesel Olarak Sırala (Ağaç)"
 
-#: AnnotationDialog/Dialog.cpp:883 AnnotationDialog/Dialog.cpp:1284
+#: AnnotationDialog/Dialog.cpp:881 AnnotationDialog/Dialog.cpp:1294
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Abecesel Olarak Sırala (Düz)"
 
-#: AnnotationDialog/Dialog.cpp:887
+#: AnnotationDialog/Dialog.cpp:885
 #, kde-format
 msgid "Sort by Date"
 msgstr "Tarihe Göre Sırala"
 
-#: AnnotationDialog/Dialog.cpp:903
+#: AnnotationDialog/Dialog.cpp:901
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "İlk Karakterden Etiketleri Eşleştir"
 
-#: AnnotationDialog/Dialog.cpp:904
+#: AnnotationDialog/Dialog.cpp:902
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "Sözcük Sınırlarından Etiketleri Eşleştir"
 
-#: AnnotationDialog/Dialog.cpp:905
+#: AnnotationDialog/Dialog.cpp:903
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "Her Yerden Etiketleri Eşleştir"
 
-#: AnnotationDialog/Dialog.cpp:922
+#: AnnotationDialog/Dialog.cpp:920
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Yalnızca Seçiliyi Göster Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:965
+#: AnnotationDialog/Dialog.cpp:963
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
@@ -327,7 +327,7 @@ msgstr ""
 "<p>Pencere yerleşimi kaydedilemedi.</p>%1 dosyası, şu hatadan dolayı "
 "açılamadı: %2"
 
-#: AnnotationDialog/Dialog.cpp:970
+#: AnnotationDialog/Dialog.cpp:968
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
@@ -336,16 +336,26 @@ msgstr ""
 "<p>Pencere yerleşimi kaydedilemedi.</p>%1 dosyası, şu hatadan dolayı "
 "yazılamadı: %2"
 
-#: AnnotationDialog/Dialog.cpp:1038
-#, kde-format
+#: AnnotationDialog/Dialog.cpp:1036
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>Some changes are made to annotations. Do you really want to cancel all "
+#| "recent changes for each affected file?</p>"
 msgid ""
-"<p>Some changes are made to annotations. Do you really want to cancel all "
+"<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
 "<p>Bilgi notlarına bazı değişiklikler yapıldı. Etkilenen her dosya için tüm "
 "güncel değişiklikleri gerçekten iptal etmek istiyor musunuz?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1144
+#: AnnotationDialog/Dialog.cpp:1037
+#, fuzzy, kde-format
+#| msgid "Save Changes?"
+msgctxt "@title"
+msgid "Discard changes?"
+msgstr "Değişiklikler Kaydedilsin mi?"
+
+#: AnnotationDialog/Dialog.cpp:1154
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -362,7 +372,7 @@ msgstr ""
 "ipuçlarını <a href=\"help:/kphotoalbum/chp-typingIn.html\">giriş</a> "
 "kullanımını okuyarak bulabilirsiniz.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1152
+#: AnnotationDialog/Dialog.cpp:1162
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -375,58 +385,58 @@ msgstr ""
 "href=\"help:/kphotoalbum/chp-typingIn.html\">belgelerini okumanız tavsiye "
 "edilir</a></p>"
 
-#: AnnotationDialog/Dialog.cpp:1287
+#: AnnotationDialog/Dialog.cpp:1297
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "En Son Kullanılanı Sırala"
 
-#: AnnotationDialog/Dialog.cpp:1290
+#: AnnotationDialog/Dialog.cpp:1300
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Sıralamayı Aç/Kapat"
 
-#: AnnotationDialog/Dialog.cpp:1295
+#: AnnotationDialog/Dialog.cpp:1305
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Yalnızca Seçili Ögelerin Gösterilmesini Aç/Kapat"
 
-#: AnnotationDialog/Dialog.cpp:1299
+#: AnnotationDialog/Dialog.cpp:1309
 #, kde-format
 msgid "Annotate Next"
 msgstr "Bir Sonrakine Not Ekle"
 
-#: AnnotationDialog/Dialog.cpp:1303
+#: AnnotationDialog/Dialog.cpp:1313
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Bir Öncekine Not Ekle"
 
-#: AnnotationDialog/Dialog.cpp:1307
+#: AnnotationDialog/Dialog.cpp:1317
 #, kde-format
 msgid "OK dialog"
 msgstr "Tamam penceresi"
 
-#: AnnotationDialog/Dialog.cpp:1311 AnnotationDialog/ListSelect.cpp:354
-#: Settings/CategoryPage.cpp:69
+#: AnnotationDialog/Dialog.cpp:1321 AnnotationDialog/ListSelect.cpp:354
+#: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Sil"
 
-#: AnnotationDialog/Dialog.cpp:1315
+#: AnnotationDialog/Dialog.cpp:1325
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Önceki görselden etiketleri kopyala"
 
-#: AnnotationDialog/Dialog.cpp:1319 MainWindow/Window.cpp:804
+#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:810
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Saat yönünün tersine döndür"
 
-#: AnnotationDialog/Dialog.cpp:1322 MainWindow/Window.cpp:808
+#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:814
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Saat yönünde döndür"
 
-#: AnnotationDialog/Dialog.cpp:1325
+#: AnnotationDialog/Dialog.cpp:1335
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Tam ekran önizlemeyi aç/kapat"
@@ -651,14 +661,10 @@ msgstr ""
 msgid "Really Delete %1?"
 msgstr "%1 Gerçekten Silinsin mi?"
 
-#: AnnotationDialog/ListSelect.cpp:431 Settings/TagGroupsPage.cpp:516
-#: Settings/TagGroupsPage.cpp:762
-#, kde-format
-msgid "&Delete"
-msgstr "&Sil"
-
 #: AnnotationDialog/ListSelect.cpp:447
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Rename Item"
+msgctxt "@title"
 msgid "Rename Item"
 msgstr "Ögeyi Yeniden Adlandır"
 
@@ -677,31 +683,41 @@ msgstr ""
 "adlandırırsanız içeren bütün görsellerde de \"%3\" değişecektir.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:456
-#, kde-format
-msgid "Really Rename %1?"
-msgstr "%1 Yeniden Adlandırılsın mı?"
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Rename \"%1\""
+msgctxt "@title"
+msgid "Rename %1?"
+msgstr "Yeniden Adlandır: \"%1\""
 
-#: AnnotationDialog/ListSelect.cpp:486
+#: AnnotationDialog/ListSelect.cpp:461
+#, fuzzy, kde-format
+#| msgid "Rename"
+msgctxt "@action:button"
+msgid "Rename"
+msgstr "Yeniden Adlandır"
+
+#: AnnotationDialog/ListSelect.cpp:496
 #, kde-format
 msgid "New tag group"
 msgstr "Yeni etiket grubu"
 
-#: AnnotationDialog/ListSelect.cpp:487
+#: AnnotationDialog/ListSelect.cpp:497
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
 msgstr "Etiketin ekleneceği yeni etiket grubu için ad:"
 
-#: AnnotationDialog/ListSelect.cpp:499
+#: AnnotationDialog/ListSelect.cpp:509
 #, kde-format
 msgid "Add a tag"
 msgstr "Bir etiket ekle"
 
-#: AnnotationDialog/ListSelect.cpp:500
+#: AnnotationDialog/ListSelect.cpp:510
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
 msgstr "Bu etiket grubuna eklenecek etiket adı:"
 
-#: AnnotationDialog/ListSelect.cpp:754
+#: AnnotationDialog/ListSelect.cpp:764
 #, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
@@ -709,7 +725,7 @@ msgctxt ""
 msgid "%1 (%2-%3)"
 msgstr "%1 (%2-%3)"
 
-#: AnnotationDialog/ListSelect.cpp:767
+#: AnnotationDialog/ListSelect.cpp:777
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
@@ -960,7 +976,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "ara"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1705
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1733
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -976,7 +992,7 @@ msgstr ""
 "simgesini seçebilirsiniz</li><li>Burada, <b>Etiketlenmemiş Görseller</"
 "b>bölümünü yapılandırın</li></ul></p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1712
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1740
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Özellik yapılandırılmadı"
@@ -1669,56 +1685,56 @@ msgstr "<p>'%1', '%2' konumuna kopyalanamadı</p>"
 msgid "Unable to write image '%1'."
 msgstr "'%1' görseli yazılamıyor."
 
-#: HTMLGenerator/Generator.cpp:771 HTMLGenerator/HTMLDialog.cpp:146
+#: HTMLGenerator/Generator.cpp:771 HTMLGenerator/HTMLDialog.cpp:147
 #, kde-format
 msgid "Date"
 msgstr "Tarih"
 
-#: HTMLGenerator/HTMLDialog.cpp:51
+#: HTMLGenerator/HTMLDialog.cpp:52
 #, kde-format
 msgctxt "@title:window"
 msgid "HTML Export"
 msgstr "HTML Olarak Dışa Aktar"
 
-#: HTMLGenerator/HTMLDialog.cpp:77 HTMLGenerator/HTMLDialog.cpp:78
+#: HTMLGenerator/HTMLDialog.cpp:78 HTMLGenerator/HTMLDialog.cpp:79
 #, kde-format
 msgid "Content"
 msgstr "İçerik"
 
-#: HTMLGenerator/HTMLDialog.cpp:86
+#: HTMLGenerator/HTMLDialog.cpp:87
 #, kde-format
 msgid "Page title:"
 msgstr "Sayfa başlığı:"
 
-#: HTMLGenerator/HTMLDialog.cpp:93
+#: HTMLGenerator/HTMLDialog.cpp:94
 #, kde-format
 msgid "Copyright:"
 msgstr "Telif hakkı:"
 
-#: HTMLGenerator/HTMLDialog.cpp:102
+#: HTMLGenerator/HTMLDialog.cpp:103
 #, kde-format
 msgid "Description:"
 msgstr "Açıklama:"
 
-#: HTMLGenerator/HTMLDialog.cpp:109
+#: HTMLGenerator/HTMLDialog.cpp:110
 #, kde-format
 msgid "Create .kim export file"
 msgstr ".kim dışa aktarma dosyası oluştur"
 
-#: HTMLGenerator/HTMLDialog.cpp:114
+#: HTMLGenerator/HTMLDialog.cpp:115
 #, kde-format
 msgctxt ""
 "Inline as a verb, i.e. 'please show movies right on the page, not as links'"
 msgid "Inline Movies in pages"
 msgstr "Sayfalardaki Satıriçi Filmler"
 
-#: HTMLGenerator/HTMLDialog.cpp:119
+#: HTMLGenerator/HTMLDialog.cpp:120
 #, kde-format
 msgctxt "Tag as in HTML-tag, not as in image tag"
 msgid "Use HTML5 video tag"
 msgstr "HTML5 video etiketi kullan"
 
-#: HTMLGenerator/HTMLDialog.cpp:128
+#: HTMLGenerator/HTMLDialog.cpp:129
 #, kde-format
 msgid ""
 "<p>This selection will generate video files suitable for displaying on web. "
@@ -1727,77 +1743,77 @@ msgstr ""
 "<p>Bu seçim web'te görüntülemek için uygun video dosyaları oluşturur. Video "
 "dosyası oluşturmak için avconv ve ffmpeg2theora gereklidir.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:130
+#: HTMLGenerator/HTMLDialog.cpp:131
 #, kde-format
 msgid "Generate HTML5 video files (mp4 and ogg)"
 msgstr "HTML5 video dosyası oluştur (mp4 ve ogg)"
 
-#: HTMLGenerator/HTMLDialog.cpp:138
+#: HTMLGenerator/HTMLDialog.cpp:139
 #, kde-format
 msgid "What to Include"
 msgstr "Nelerin İçerileceği"
 
-#: HTMLGenerator/HTMLDialog.cpp:175 HTMLGenerator/HTMLDialog.cpp:176
+#: HTMLGenerator/HTMLDialog.cpp:176 HTMLGenerator/HTMLDialog.cpp:177
 #, kde-format
 msgid "Layout"
 msgstr "Yerleşim"
 
-#: HTMLGenerator/HTMLDialog.cpp:185 Settings/CategoryPage.cpp:125
+#: HTMLGenerator/HTMLDialog.cpp:186 Settings/CategoryPage.cpp:127
 #, kde-format
 msgid "Thumbnail size:"
 msgstr "Küçük görsel boyutu:"
 
-#: HTMLGenerator/HTMLDialog.cpp:200
+#: HTMLGenerator/HTMLDialog.cpp:201
 #, kde-format
 msgid "Number of columns:"
 msgstr "Sütun sayısı:"
 
-#: HTMLGenerator/HTMLDialog.cpp:215
+#: HTMLGenerator/HTMLDialog.cpp:216
 #, kde-format
 msgid "Theme:"
 msgstr "Tema:"
 
-#: HTMLGenerator/HTMLDialog.cpp:223
+#: HTMLGenerator/HTMLDialog.cpp:224
 #, kde-format
 msgid "Theme Description"
 msgstr "Tema Açıklaması"
 
-#: HTMLGenerator/HTMLDialog.cpp:230
+#: HTMLGenerator/HTMLDialog.cpp:231
 #, kde-format
 msgid "Image Sizes"
 msgstr "Görsel Boyutları"
 
-#: HTMLGenerator/HTMLDialog.cpp:239
+#: HTMLGenerator/HTMLDialog.cpp:240
 #, kde-format
 msgid "Full size"
 msgstr "Tam boyut"
 
-#: HTMLGenerator/HTMLDialog.cpp:284 HTMLGenerator/HTMLDialog.cpp:285
+#: HTMLGenerator/HTMLDialog.cpp:285 HTMLGenerator/HTMLDialog.cpp:286
 #, kde-format
 msgid "Destination"
 msgstr "Hedef"
 
-#: HTMLGenerator/HTMLDialog.cpp:295
+#: HTMLGenerator/HTMLDialog.cpp:296
 #, kde-format
 msgid "Base folder:"
 msgstr "Temel klasör:"
 
-#: HTMLGenerator/HTMLDialog.cpp:312
+#: HTMLGenerator/HTMLDialog.cpp:313
 #, kde-format
 msgid "Gallery folder:"
 msgstr "Galeri klasörü:"
 
-#: HTMLGenerator/HTMLDialog.cpp:319
+#: HTMLGenerator/HTMLDialog.cpp:320
 #, kde-format
 msgid "Output folder:"
 msgstr "Çıktı klasörü:"
 
-#: HTMLGenerator/HTMLDialog.cpp:330
+#: HTMLGenerator/HTMLDialog.cpp:331
 #, kde-format
 msgid "URL for final destination of .kim file:"
 msgstr ".kim dosyası için son variş URL'si:"
 
-#: HTMLGenerator/HTMLDialog.cpp:332
+#: HTMLGenerator/HTMLDialog.cpp:333
 #, kde-format
 msgid ""
 "<p>If you move the gallery to a remote location, set this to the destination "
@@ -1808,22 +1824,22 @@ msgstr ""
 "olarak ayarlayın.</p><p>Bu, yalnızca oluşturulan <filename>.kim</filename> "
 "dosyasını etkiler.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:341
+#: HTMLGenerator/HTMLDialog.cpp:342
 #, kde-format
 msgid "Open gallery in browser:"
 msgstr "Galeriyi tarayıcıda aç:"
 
-#: HTMLGenerator/HTMLDialog.cpp:357
+#: HTMLGenerator/HTMLDialog.cpp:358
 #, kde-format
 msgid "You must select at least one resolution."
 msgstr "En az bir çözünürlük seçmelisiniz."
 
-#: HTMLGenerator/HTMLDialog.cpp:384
+#: HTMLGenerator/HTMLDialog.cpp:385
 #, kde-format
 msgid "Select base folder..."
 msgstr "Temel klasörü seç..."
 
-#: HTMLGenerator/HTMLDialog.cpp:397
+#: HTMLGenerator/HTMLDialog.cpp:398
 #, kde-format
 msgid ""
 "<p>You did not specify a base folder. This is the topmost folder for your "
@@ -1834,12 +1850,12 @@ msgstr ""
 "Bu klasör altında, her oluşturulan koleksiyonu ayrı alt klasörlerde "
 "bulacaksınız.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:401
+#: HTMLGenerator/HTMLDialog.cpp:402
 #, kde-format
 msgid "No Base Folder Specified"
 msgstr "Temel Klasör Belirtilmedi"
 
-#: HTMLGenerator/HTMLDialog.cpp:407
+#: HTMLGenerator/HTMLDialog.cpp:408
 #, kde-format
 msgid ""
 "<p>You did not specify an output folder. This is a folder containing the "
@@ -1850,12 +1866,12 @@ msgstr ""
 "klasördür. Bu klasör, yukarıda belirlediğiniz temel klasörün altında yer "
 "alacaktır.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:410
+#: HTMLGenerator/HTMLDialog.cpp:411
 #, kde-format
 msgid "No Output Folder Specified"
 msgstr "Çıktı Klasörü Belirtilmedi"
 
-#: HTMLGenerator/HTMLDialog.cpp:422
+#: HTMLGenerator/HTMLDialog.cpp:423
 #, kde-format
 msgid ""
 "<p>Error while reading information about %1. This is most likely because the "
@@ -1864,7 +1880,7 @@ msgstr ""
 "<p>%1 üzerine bilgi okunurken hata oluştu. Bu, genellikle klasörün "
 "bulunamamasından kaynaklanır.</p><p>Hata iletisi şu idi: %2</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:431
+#: HTMLGenerator/HTMLDialog.cpp:432
 #, kde-format
 msgid "<p>%1 does not exist, is not a folder or cannot be written to.</p>"
 msgstr "<p>%1 bulunamıyor, klasör değil veya yazılamıyor.</p>"
@@ -1879,27 +1895,29 @@ msgstr ""
 "gerektiği anlamına gelir.</p><p>İlk önce %2 silinsin mi?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Folder Exists"
+msgctxt "@title"
 msgid "Folder Exists"
 msgstr "Klasör Var"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
-#: HTMLGenerator/HTMLDialog.cpp:534 MainWindow/SplashScreen.cpp:53
+#: HTMLGenerator/HTMLDialog.cpp:547 MainWindow/SplashScreen.cpp:53
 #, kde-format
 msgid "%1"
 msgstr "%1"
 
-#: HTMLGenerator/HTMLDialog.cpp:545
+#: HTMLGenerator/HTMLDialog.cpp:558
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
 msgstr "Herhangi bir tema bulunamadı - muhtemelen kurulum hatası"
 
-#: HTMLGenerator/HTMLDialog.cpp:552
+#: HTMLGenerator/HTMLDialog.cpp:565
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
 msgstr "Birden fazla tema öntanımlı olarak ayarlanmış, %1 teması kullanılıyor"
 
-#: HTMLGenerator/HTMLDialog.cpp:559
+#: HTMLGenerator/HTMLDialog.cpp:572
 #, kde-format
 msgctxt ""
 "This is to show the author of the theme. E.g. copyright character (&#169;) "
@@ -1908,7 +1926,7 @@ msgctxt ""
 msgid "by "
 msgstr "ile "
 
-#: HTMLGenerator/HTMLDialog.cpp:561
+#: HTMLGenerator/HTMLDialog.cpp:574
 #, kde-format
 msgid ""
 "\n"
@@ -1917,12 +1935,12 @@ msgstr ""
 "\n"
 " "
 
-#: HTMLGenerator/HTMLDialog.cpp:576
+#: HTMLGenerator/HTMLDialog.cpp:589
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr "<p>Galeri klasörü boş olamaz.</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:580
+#: HTMLGenerator/HTMLDialog.cpp:593
 #, kde-format
 msgid "<p>The output folder already exists.</p>"
 msgstr "<p>Çıktı klasörü zaten mevcut.</p>"
@@ -2184,7 +2202,7 @@ msgstr "K Fotoğraf Albümü Dışa Aktarma Dosyaları"
 msgid "Unable to create temporary file"
 msgstr "Geçici dosya oluşturulamadı"
 
-#: ImportExport/ImportDialog.cpp:83
+#: ImportExport/ImportDialog.cpp:84
 #, kde-format
 msgid ""
 "<p>XML file did not specify the source of the images, this is a strong "
@@ -2193,7 +2211,7 @@ msgstr ""
 "<p>XML dosyası görsellerin kaynağını belirtmedi, bu dosyanın bozulduğunun "
 "belirgin bir göstergesidir.</p>"
 
-#: ImportExport/ImportDialog.cpp:117
+#: ImportExport/ImportDialog.cpp:118
 #, kde-format
 msgid ""
 "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
@@ -2235,63 +2253,78 @@ msgstr ""
 "gösterilecektir. Böylece bu işaretin sizin veri tabanınızda bulunmadığını "
 "anlayacaksınız.</li></ol>"
 
-#: ImportExport/ImportDialog.cpp:136
+#: ImportExport/ImportDialog.cpp:137
 #, kde-format
 msgctxt "@title:tab introduction page"
 msgid "Introduction"
 msgstr "Giriş"
 
-#: ImportExport/ImportDialog.cpp:152 MainWindow/TokenEditor.cpp:53
+#: ImportExport/ImportDialog.cpp:153 MainWindow/TokenEditor.cpp:53
 #, kde-format
 msgid "Select All"
 msgstr "Tümünü Seç"
 
-#: ImportExport/ImportDialog.cpp:154
+#: ImportExport/ImportDialog.cpp:155
 #, kde-format
 msgid "Deselect All"
 msgstr "Tümünün Seçimini Kaldır"
 
-#: ImportExport/ImportDialog.cpp:188
+#: ImportExport/ImportDialog.cpp:189
 #, kde-format
 msgid "Select Which Images to Import"
 msgstr "Alınacak Görselleri Seçin"
 
-#: ImportExport/ImportDialog.cpp:200
+#: ImportExport/ImportDialog.cpp:201
 #, kde-format
 msgid "Destination of images: "
 msgstr "Görsellerin hedefi: "
 
-#: ImportExport/ImportDialog.cpp:213
+#: ImportExport/ImportDialog.cpp:214
 #, kde-format
 msgid "Destination of Images"
 msgstr "Görsellerin Hedefi"
 
-#: ImportExport/ImportDialog.cpp:221
+#: ImportExport/ImportDialog.cpp:222
 #, kde-format
 msgid "The folder must be a subfolder of %1"
 msgstr "Klasör, %1 ögesinin bir alt klasörü olmalı"
 
-#: ImportExport/ImportDialog.cpp:224
+#: ImportExport/ImportDialog.cpp:225
 #, kde-format
 msgid "This folder is reserved for category images."
 msgstr "Bu klasör, kategori görselleri için ayrılmıştır."
 
-#: ImportExport/ImportDialog.cpp:264
+#: ImportExport/ImportDialog.cpp:265
 #, kde-format
 msgid "Match Categories"
 msgstr "Sınıfları Eşleştir"
 
-#: ImportExport/ImportDialog.cpp:296
+#: ImportExport/ImportDialog.cpp:297
 #, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "%1 klasörü yok. Oluşturulsun mu?"
 
-#: ImportExport/ImportDialog.cpp:300
+#: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
+#, fuzzy, kde-format
+#| msgid "Base folder:"
+msgctxt "@title"
+msgid "Create folder?"
+msgstr "Temel klasör:"
+
+#: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
+#: MainWindow/Window.cpp:1182
+#, fuzzy, kde-format
+#| msgid "Created:"
+msgctxt "@action:button"
+msgid "Create"
+msgstr "Oluşturma:"
+
+#: ImportExport/ImportDialog.cpp:314
 #, kde-format
 msgid "Error creating folder %1"
 msgstr "%1 klasörü oluşturulurken hata"
 
-#: ImportExport/ImportDialog.cpp:381
+#: ImportExport/ImportDialog.cpp:393
 #, kde-format
 msgid "How to resolve clashes"
 msgstr "Uyuşmazlıklar nice çözüleceği"
@@ -2318,7 +2351,16 @@ msgid "Cannot copy from any of the following locations:"
 msgstr "Aşağıdaki konumların hiçbirinden kopyalanamıyor:"
 
 #: ImportExport/ImportHandler.cpp:237
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Copying image files"
+msgctxt "@title"
+msgid "Copy failed"
+msgstr "Görsel dosyaları kopyalanıyor"
+
+#: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
+#, fuzzy, kde-format
+#| msgid "Continue without Asking"
+msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Sormadan Sürdür"
 
@@ -2439,111 +2481,112 @@ msgstr "Veriyi birleştir"
 msgid "Date and Time"
 msgstr "Tarih ve Saat"
 
-#: kpa-thumbnailtool/main.cpp:33
+#: kpa-thumbnailtool/main.cpp:32
 #, kde-format
 msgctxt "@info:shell"
 msgid "Conflicting commandline options: %1 and %2!\n"
 msgstr "Çakışan komut satırı seçenekleri: %1 ve %2!\n"
 
-#: kpa-thumbnailtool/main.cpp:45
+#: kpa-thumbnailtool/main.cpp:44
 #, kde-format
 msgid "KPhotoAlbum Thumbnail Tool"
 msgstr "K Fotoğraf Albümü Küçük Görsel Aracı"
 
-#: kpa-thumbnailtool/main.cpp:47
+#: kpa-thumbnailtool/main.cpp:46
 #, kde-format
 msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr ""
 "K Fotoğraf Albümü küçük görsel önbelleğini denetlemek ve düzenlemek için araç"
 
-#: kpa-thumbnailtool/main.cpp:49
-#, kde-format
-msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
+#: kpa-thumbnailtool/main.cpp:48
+#, fuzzy, kde-format
+#| msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
 msgstr "Telif hakkı (C) 2003-2022 K Fotoğraf Albümü Geliştirme Takımı"
 
-#: kpa-thumbnailtool/main.cpp:57 main.cpp:98
+#: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
 msgid "Johannes Zarl-Zierl"
 msgstr "Johannes Zarl-Zierl"
 
-#: kpa-thumbnailtool/main.cpp:57 main.cpp:98
+#: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
 msgid "Development, Maintainer"
 msgstr "Geliştirme, Projeyi Sürdüren"
 
-#: kpa-thumbnailtool/main.cpp:58 main.cpp:99
+#: kpa-thumbnailtool/main.cpp:57 main.cpp:98
 #, kde-format
 msgid "Robert Krawitz"
 msgstr "Robert Krawitz"
 
-#: kpa-thumbnailtool/main.cpp:58 main.cpp:99
+#: kpa-thumbnailtool/main.cpp:57 main.cpp:98
 #, kde-format
 msgid "Development, Optimization"
 msgstr "Geliştirme, Eniyileme"
 
-#: kpa-thumbnailtool/main.cpp:59 main.cpp:100
+#: kpa-thumbnailtool/main.cpp:58 main.cpp:99
 #, kde-format
 msgid "Tobias Leupold"
 msgstr "Tobias Leupold"
 
-#: kpa-thumbnailtool/main.cpp:59 main.cpp:100
+#: kpa-thumbnailtool/main.cpp:58 main.cpp:99
 #, kde-format
 msgid "Development, Releases, Website"
 msgstr "Geliştirme, Yayımlar, Web sitesi"
 
-#: kpa-thumbnailtool/main.cpp:60 main.cpp:101
+#: kpa-thumbnailtool/main.cpp:59 main.cpp:100
 #, kde-format
 msgid "Jesper K. Pedersen"
 msgstr "Jesper K. Pedersen"
 
-#: kpa-thumbnailtool/main.cpp:60 main.cpp:101
+#: kpa-thumbnailtool/main.cpp:59 main.cpp:100
 #, kde-format
 msgid "Former Maintainer, Project Creator"
 msgstr "Önceden Projeyi Sürdüren, Projeyi Yaratan"
 
-#: kpa-thumbnailtool/main.cpp:62 main.cpp:103
+#: kpa-thumbnailtool/main.cpp:61 main.cpp:102
 #, kde-format
 msgid "Hassan Ibraheem"
 msgstr "Hassan Ibraheem"
 
-#: kpa-thumbnailtool/main.cpp:63 main.cpp:104
+#: kpa-thumbnailtool/main.cpp:62 main.cpp:103
 #, kde-format
 msgid "Jan Kundr&aacute;t"
 msgstr "Jan Kundr&aacute;t"
 
-#: kpa-thumbnailtool/main.cpp:64 main.cpp:105
+#: kpa-thumbnailtool/main.cpp:63 main.cpp:104
 #, kde-format
 msgid "Andreas Neustifter"
 msgstr "Andreas Neustifter"
 
-#: kpa-thumbnailtool/main.cpp:65 main.cpp:106
+#: kpa-thumbnailtool/main.cpp:64 main.cpp:105
 #, kde-format
 msgid "Tuomas Suutari"
 msgstr "Tuomas Suutari"
 
-#: kpa-thumbnailtool/main.cpp:66 main.cpp:107
+#: kpa-thumbnailtool/main.cpp:65 main.cpp:106
 #, kde-format
 msgid "Miika Turkia"
 msgstr "Miika Turkia"
 
-#: kpa-thumbnailtool/main.cpp:67 main.cpp:108
+#: kpa-thumbnailtool/main.cpp:66 main.cpp:107
 #, kde-format
 msgid "Henner Zeller"
 msgstr "Henner Zeller"
 
-#: kpa-thumbnailtool/main.cpp:71
+#: kpa-thumbnailtool/main.cpp:70
 #, kde-format
 msgctxt "@info:shell"
 msgid "The folder containing the .thumbnail folder."
 msgstr ".thumbnail klasörünü içeren klasör."
 
-#: kpa-thumbnailtool/main.cpp:72
+#: kpa-thumbnailtool/main.cpp:71
 #, kde-format
 msgctxt "@info:shell"
 msgid "Print information about thumbnail cache."
 msgstr "Küçük görsel önbelleği hakkında bilgi yazdır."
 
-#: kpa-thumbnailtool/main.cpp:74
+#: kpa-thumbnailtool/main.cpp:73
 #, kde-format
 msgctxt "@info:shell"
 msgid "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3."
@@ -2551,13 +2594,13 @@ msgstr ""
 "Küçük görsel indeksini, K Fotoğraf Albümü sürüm 4.3 ve sonrası biçimi ile "
 "uyumlu biçime dönüştür"
 
-#: kpa-thumbnailtool/main.cpp:76
+#: kpa-thumbnailtool/main.cpp:75
 #, kde-format
 msgctxt "@info:shell"
 msgid "Check thumbnail cache for consistency of thumbnail dimensions."
 msgstr "Küçük görsel önbelleğini, görsel boyutu tutarlılığı için denetle."
 
-#: kpa-thumbnailtool/main.cpp:78
+#: kpa-thumbnailtool/main.cpp:77
 #, kde-format
 msgctxt "@info:shell"
 msgid ""
@@ -2567,56 +2610,56 @@ msgstr ""
 "Tutarsız küçük görselleri, onları önbellekten kaldırarak düzelt (--check-"
 "thumbnail-dimensions gerektirir)."
 
-#: kpa-thumbnailtool/main.cpp:80
+#: kpa-thumbnailtool/main.cpp:79
 #, kde-format
 msgctxt "@info:shell"
 msgid "Remove unreferenced thumbnails from the thumbnail data files."
 msgstr ""
 "Başvurulmayan küçük görselleri, küçük görsel veri dosyalarından kaldır."
 
-#: kpa-thumbnailtool/main.cpp:82
+#: kpa-thumbnailtool/main.cpp:81
 #, kde-format
 msgctxt "@info:shell"
 msgid "Be less verbose."
 msgstr "Daha az bilgi ver."
 
-#: kpa-thumbnailtool/main.cpp:98
+#: kpa-thumbnailtool/main.cpp:97
 #, kde-format
 msgctxt "@info:shell"
 msgid "Missing argument!\n"
 msgstr "Argüman eksik!\n"
 
-#: kpa-thumbnailtool/main.cpp:103
+#: kpa-thumbnailtool/main.cpp:102
 #, kde-format
 msgctxt "@info:shell"
 msgid "%1 is not a folder!\n"
 msgstr "%1, bir klasör değil!\n"
 
-#: kpa-thumbnailtool/main.cpp:117
+#: kpa-thumbnailtool/main.cpp:116
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
 msgstr "Küçük görsel önbellek klasörü: %1\n"
 
-#: kpa-thumbnailtool/main.cpp:118
+#: kpa-thumbnailtool/main.cpp:117
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index file version: %1\n"
 msgstr "Küçük görsel indeks dosyası sürümü: %1\n"
 
-#: kpa-thumbnailtool/main.cpp:119
+#: kpa-thumbnailtool/main.cpp:118
 #, kde-format
 msgctxt "@info:shell"
 msgid "Maximum supported thumbnailindex file version: %1\n"
 msgstr "En büyük desteklenen thumbnailindex dosyası sürümü: %1\n"
 
-#: kpa-thumbnailtool/main.cpp:120
+#: kpa-thumbnailtool/main.cpp:119
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail storage dimensions: %1 pixels\n"
 msgstr "Küçük görsel depolama boyutları: %1 piksel\n"
 
-#: kpa-thumbnailtool/main.cpp:122
+#: kpa-thumbnailtool/main.cpp:121
 #, kde-format
 msgctxt "@info:shell"
 msgid ""
@@ -2626,25 +2669,25 @@ msgstr ""
 "Not: Sürüm v5 öncesinde, küçük görsel depolama boyutları yapılandırma "
 "dosyasında saklanır.\n"
 
-#: kpa-thumbnailtool/main.cpp:124
+#: kpa-thumbnailtool/main.cpp:123
 #, kde-format
 msgctxt "@info:shell"
 msgid "Number of thumbnails: %1\n"
 msgstr "Küçük görsel sayısı: %1\n"
 
-#: kpa-thumbnailtool/main.cpp:130
+#: kpa-thumbnailtool/main.cpp:129
 #, kde-format
 msgctxt "@info:shell"
 msgid "No inconsistencies found.\n"
 msgstr "Tutarsızlık bulunamadı.\n"
 
-#: kpa-thumbnailtool/main.cpp:134
+#: kpa-thumbnailtool/main.cpp:133
 #, kde-format
 msgctxt "@info:shell This line is printed before a list of file names."
 msgid "The following thumbnails appear to have incorrect sizes:\n"
 msgstr "Aşağıdaki küçük görseller, doğru olmayan boyutlarda:\n"
 
-#: kpa-thumbnailtool/main.cpp:143
+#: kpa-thumbnailtool/main.cpp:142
 #, kde-format
 msgctxt "@info:shell"
 msgid "Removed 1 inconsistent thumbnail from the database.\n"
@@ -2801,38 +2844,39 @@ msgstr ""
 "çözmek için Bakım->Exif Arama Veritabanını Yeniden Oluştur seçeneğini "
 "kullanın.</p>"
 
-#: main.cpp:86
+#: main.cpp:85
 #, kde-format
 msgid "KPhotoAlbum"
 msgstr "K Fotoğraf Albümü"
 
-#: main.cpp:88
+#: main.cpp:87
 #, kde-format
 msgid "KDE Photo Album"
 msgstr "KDE Fotoğraf Albümü"
 
-#: main.cpp:90
-#, kde-format
-msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
+#: main.cpp:89
+#, fuzzy, kde-format
+#| msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
 msgstr "Telif hakkı (C) 2003-2022 K Fotoğraf Albümü Geliştirme Takımı"
 
-#: main.cpp:111
+#: main.cpp:110
 #, kde-format
 msgid "Marco Caldarelli"
 msgstr "Marco Caldarelli"
 
-#: main.cpp:111
+#: main.cpp:110
 #, kde-format
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
 msgstr ""
 "Exif bilgisini hoş bir arabirim ile yeniden okumayı sağlamak için bir yama."
 
-#: main.cpp:112
+#: main.cpp:111
 #, kde-format
 msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
-#: main.cpp:112
+#: main.cpp:111
 #, kde-format
 msgid ""
 "(.) Patch with folder info made available through the browser. (.) Patch for "
@@ -2842,62 +2886,62 @@ msgstr ""
 "Arama sayfasında \"ve/veya\" aramaları için bir onay kutusu eklemek için "
 "yama."
 
-#: main.cpp:113
+#: main.cpp:112
 #, kde-format
 msgid "Matthias Füssel"
 msgstr "Matthias Füssel"
 
-#: main.cpp:113
+#: main.cpp:112
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
 msgstr "Tarayıcıda coğrafi konum sayfası ve çeşitli hata düzeltmeleri"
 
-#: main.cpp:114
+#: main.cpp:113
 #, kde-format
 msgid "Wes Hardaker"
 msgstr "Wes Hardaker"
 
-#: main.cpp:114
+#: main.cpp:113
 #, kde-format
 msgid "Some very useful features to improve workflow"
 msgstr "İş akışını geliştirmek için bazı çok yararlı özellikler"
 
-#: main.cpp:115
+#: main.cpp:114
 #, kde-format
 msgid "Reimar Imhof"
 msgstr "Reimar Imhof"
 
-#: main.cpp:115
+#: main.cpp:114
 #, kde-format
 msgid "Patch to sort items in option listboxes"
 msgstr "Ögeleri seçenek liste kutucuklarında sıralamak için yama"
 
-#: main.cpp:116
+#: main.cpp:115
 #, kde-format
 msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
-#: main.cpp:116
+#: main.cpp:115
 #, kde-format
 msgid "Numerous patches for lots of bugs plus patches for a few new features"
 msgstr "Çok sayıda hata için sayısız yama ve birkaç yeni özellik için yamalar"
 
-#: main.cpp:117
+#: main.cpp:116
 #, kde-format
 msgid "Teemu Rytilahti"
 msgstr "Teemu Rytilahti"
 
-#: main.cpp:118
+#: main.cpp:117
 #, kde-format
 msgid "Theme support for HTML generation"
 msgstr "HTML oluşturma için tema desteği"
 
-#: main.cpp:119
+#: main.cpp:118
 #, kde-format
 msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
-#: main.cpp:119
+#: main.cpp:118
 #, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view, plus reading time info out of "
@@ -2906,32 +2950,32 @@ msgstr ""
 "Görselleri küçük görsel görünümünde sıralamak için yama, artı var olan "
 "görseller için zamanı Exif görsellerinden okuma"
 
-#: main.cpp:120
+#: main.cpp:119
 #, kde-format
 msgid "Clytie Siddall"
 msgstr "Clytie Siddall"
 
-#: main.cpp:120
+#: main.cpp:119
 #, kde-format
 msgid "Tremendous help with the English text in the application."
 msgstr "Uygulamanın İngilizce metnini geliştirme konusunda devasa yardım."
 
-#: main.cpp:121
+#: main.cpp:120
 #, kde-format
 msgid "Will Stephenson"
 msgstr "Will Stephenson"
 
-#: main.cpp:121
+#: main.cpp:120
 #, kde-format
 msgid "Developing an Icon for KPhotoAlbum"
 msgstr "KPhotoAlbum Uygulaması için Simge Geliştirme"
 
-#: main.cpp:122
+#: main.cpp:121
 #, kde-format
 msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
-#: main.cpp:122
+#: main.cpp:121
 #, kde-format
 msgid ""
 "Patch which speed up loading of thumbnails plus preview in image property "
@@ -3613,7 +3657,7 @@ msgstr "Tüm görsel ve videolardan kaldırmak için jetonları seç:"
 msgid "Select None"
 msgstr "Hiçbirini Seçme"
 
-#: MainWindow/WelcomeDialog.cpp:44
+#: MainWindow/WelcomeDialog.cpp:45
 #, kde-format
 msgid ""
 "<h1>Welcome to KPhotoAlbum</h1><p>KPhotoAlbum is a powerful free tool to "
@@ -3635,22 +3679,22 @@ msgstr ""
 "düğmeye basın.</p><p>Eğer hazır yüklü görsel kümeleri ile denemek isterseniz "
 "Tanıtımı Yükle butonuna basın.</p>"
 
-#: MainWindow/WelcomeDialog.cpp:59
+#: MainWindow/WelcomeDialog.cpp:60
 #, kde-format
 msgid "Create My Own Database..."
 msgstr "Veritabanımı Oluştur..."
 
-#: MainWindow/WelcomeDialog.cpp:62
+#: MainWindow/WelcomeDialog.cpp:63
 #, kde-format
 msgid "Load Demo"
 msgstr "Tanıtımı Yükle"
 
-#: MainWindow/WelcomeDialog.cpp:65
+#: MainWindow/WelcomeDialog.cpp:66
 #, kde-format
 msgid "Check My Feature Set"
 msgstr "Özellikleri Denetle"
 
-#: MainWindow/WelcomeDialog.cpp:99
+#: MainWindow/WelcomeDialog.cpp:100
 #, kde-format
 msgid ""
 "<h1>KPhotoAlbum database creation</h1><p>You need to show where the photos "
@@ -3672,27 +3716,27 @@ msgstr ""
 "</p><p>Eğer halihazırda veritabanınız veya görseller klasörünüz varsa o "
 "klasörü göstererek yeniden kullanmaya başlayabilirsiniz.</p>"
 
-#: MainWindow/WelcomeDialog.cpp:114
+#: MainWindow/WelcomeDialog.cpp:115
 #, kde-format
 msgid "Image/Video root folder: "
 msgstr "Görsel/Video kök klasörü: "
 
-#: MainWindow/WelcomeDialog.cpp:154
+#: MainWindow/WelcomeDialog.cpp:155
 #, kde-format
 msgid "Folder does not exist, create it?"
 msgstr "Klasör yok, oluşturulsun mu?"
 
-#: MainWindow/WelcomeDialog.cpp:158
+#: MainWindow/WelcomeDialog.cpp:170
 #, kde-format
 msgid "Could not create folder %1"
 msgstr "'%1' klasörü oluşturulamadı"
 
-#: MainWindow/WelcomeDialog.cpp:163
+#: MainWindow/WelcomeDialog.cpp:175
 #, kde-format
 msgid "%1 exists, but is not a folder"
 msgstr "%1 var; ancak klasör değil"
 
-#: MainWindow/WelcomeDialog.cpp:179
+#: MainWindow/WelcomeDialog.cpp:191
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum does not seem to be built with support for all its features. "
@@ -3705,61 +3749,60 @@ msgstr ""
 "p><p>Bu sorunun nice çözüleceği üzerine ayrıntılar için menülerden "
 "<b>Yardım</b>|<b>K Fotoğraf Albümü Özellik Durumu</b>'nu seçin.</p>"
 
-#: MainWindow/WelcomeDialog.cpp:184 MainWindow/WelcomeDialog.cpp:187
+#: MainWindow/WelcomeDialog.cpp:196 MainWindow/WelcomeDialog.cpp:199
 #, kde-format
 msgid "Feature Check"
 msgstr "Özellik Denetimi"
 
-#: MainWindow/WelcomeDialog.cpp:186
+#: MainWindow/WelcomeDialog.cpp:198
 #, kde-format
 msgid "Congratulations: all dynamic features have been enabled."
 msgstr "Tebrikler: Tüm devingen özellikler etkinleştirildi."
 
-#: MainWindow/Window.cpp:144
+#: MainWindow/Window.cpp:143
 #, kde-format
 msgid "Loading Database"
 msgstr "Veritabanı Yükleniyor"
 
-#: MainWindow/Window.cpp:151
+#: MainWindow/Window.cpp:150
 #, kde-format
 msgid "Loading Main Window"
 msgstr "Ana Pencere Yükleniyor"
 
-#: MainWindow/Window.cpp:264
+#: MainWindow/Window.cpp:263
 #, kde-format
 msgid "Searching for New Files"
 msgstr "Yeni Dosyalar Aranıyor"
 
-#: MainWindow/Window.cpp:300
-#, kde-format
+#: MainWindow/Window.cpp:299
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
+#| "the KPhotoAlbum demo. The demo database was copied to /tmp, should it be "
+#| "deleted now? If you do not delete it, it will waste disk space; on the "
+#| "other hand, if you want to come back and try the demo again, you might "
+#| "want to keep it around with the changes you made through this session.</p>"
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
-"KPhotoAlbum demo. The demo database was copied to /tmp, should it be deleted "
-"now? If you do not delete it, it will waste disk space; on the other hand, "
-"if you want to come back and try the demo again, you might want to keep it "
-"around with the changes you made through this session.</p>"
+"KPhotoAlbum demo. The demo database was created in the folder <tt>/tmp</tt>, "
+"should it be deleted now? If you do not delete it, it will waste disk space; "
+"on the other hand, if you want to come back and try the demo again, you "
+"might want to keep it around with the changes you made through this session."
+"</p>"
 msgstr ""
 "<p><b>Geçici tanıtım veritabanını sil</b></p><p>Umarım K Fotoğraf Albümü "
 "tanıtımıdan hoşlandınız. Tanıtım veritabanı /tmp altına kopyalandı, şimdi "
 "silinsin mi? Silmezseniz diskinizde boşuna yer kaplayacaktır; ancaktanıtımı "
 "ileride yeniden çalıştırmak isterseniz saklamalısınız.</p>"
 
-#: MainWindow/Window.cpp:305
-#, kde-format
+#: MainWindow/Window.cpp:304
+#, fuzzy, kde-format
+#| msgid "Delete Demo Database"
+msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Tanıtım Veritabanını Sil"
 
-#: MainWindow/Window.cpp:319
-#, kde-format
-msgid "Do you want to save the changes?"
-msgstr "Değişiklikleri kaydetmek istiyor musunuz?"
-
-#: MainWindow/Window.cpp:320
-#, kde-format
-msgid "Save Changes?"
-msgstr "Değişiklikler Kaydedilsin mi?"
-
-#: MainWindow/Window.cpp:363
+#: MainWindow/Window.cpp:359
 #, kde-format
 msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
@@ -3768,344 +3811,351 @@ msgstr ""
 "Seçili görsellerin bazıları halihazırda bir yığına aitler. Bu görselleri "
 "yığınlarından kaldırmak ve tamamen yeni bir yığın yaratmak ister misiniz?"
 
-#: MainWindow/Window.cpp:366 MainWindow/Window.cpp:372
-#, kde-format
-msgid "Stacking Error"
+#: MainWindow/Window.cpp:362
+#, fuzzy, kde-format
+#| msgid "Stacking Error"
+msgctxt "@title"
+msgid "Stacking problem"
 msgstr "Yığınlama Hatası"
 
-#: MainWindow/Window.cpp:371
+#: MainWindow/Window.cpp:377
 #, kde-format
 msgid "Unknown error, stack creation failed."
 msgstr "Bilinmeyen hata, yığın oluşturma başarısız."
 
-#: MainWindow/Window.cpp:451 MainWindow/Window.cpp:577
-#: MainWindow/Window.cpp:1266 MainWindow/Window.cpp:1363
+#: MainWindow/Window.cpp:378
+#, kde-format
+msgid "Stacking Error"
+msgstr "Yığınlama Hatası"
+
+#: MainWindow/Window.cpp:457 MainWindow/Window.cpp:583
+#: MainWindow/Window.cpp:1283 MainWindow/Window.cpp:1380
 #, kde-format
 msgid "No item is selected."
 msgstr "Seçili öge yok."
 
-#: MainWindow/Window.cpp:451 MainWindow/Window.cpp:577
-#: MainWindow/Window.cpp:1266 MainWindow/Window.cpp:1364
+#: MainWindow/Window.cpp:457 MainWindow/Window.cpp:583
+#: MainWindow/Window.cpp:1283 MainWindow/Window.cpp:1381
 #, kde-format
 msgid "No Selection"
 msgstr "Seçim Yok"
 
-#: MainWindow/Window.cpp:497
+#: MainWindow/Window.cpp:503
 #, kde-format
 msgid "Saving..."
 msgstr "Kaydediliyor..."
 
-#: MainWindow/Window.cpp:502
+#: MainWindow/Window.cpp:508
 #, kde-format
 msgid "Saving... Done"
 msgstr "Kaydediliyor... Bitti"
 
-#: MainWindow/Window.cpp:650
+#: MainWindow/Window.cpp:656
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "Gösterilecek görsel yok."
 
-#: MainWindow/Window.cpp:739
+#: MainWindow/Window.cpp:745
 #, kde-format
 msgid "Generate HTML..."
 msgstr "HTML Oluştur..."
 
-#: MainWindow/Window.cpp:743
+#: MainWindow/Window.cpp:749
 #, kde-format
 msgid "Import..."
 msgstr "İçe Aktar..."
 
-#: MainWindow/Window.cpp:746
+#: MainWindow/Window.cpp:752
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Görselleri Kopyala/Dışa Aktar..."
 
-#: MainWindow/Window.cpp:773
+#: MainWindow/Window.cpp:779
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Seçiliyi Sil"
 
-#: MainWindow/Window.cpp:779
+#: MainWindow/Window.cpp:785
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "Jetonları Kaldır..."
 
-#: MainWindow/Window.cpp:782
+#: MainWindow/Window.cpp:788
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Dosyaların Listesini Aç..."
 
-#: MainWindow/Window.cpp:785
+#: MainWindow/Window.cpp:791
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Tek Ögeye Bilgi Notu Ekle"
 
-#: MainWindow/Window.cpp:789
+#: MainWindow/Window.cpp:795
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Çoklu Ögelere Bilgi Notu Ekle"
 
-#: MainWindow/Window.cpp:793
+#: MainWindow/Window.cpp:799
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Görselleri Yığına Ekle"
 
-#: MainWindow/Window.cpp:797
+#: MainWindow/Window.cpp:803
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Görselleri Yığından Kaldır"
 
-#: MainWindow/Window.cpp:800
+#: MainWindow/Window.cpp:806
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Yığın İçindeki İlk Görseli Ayarla"
 
-#: MainWindow/Window.cpp:813
+#: MainWindow/Window.cpp:819
 #, kde-format
 msgid "View"
 msgstr "Görüntüle"
 
-#: MainWindow/Window.cpp:816
+#: MainWindow/Window.cpp:822
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Görüntüle (Yeni Pencerede)"
 
-#: MainWindow/Window.cpp:819
+#: MainWindow/Window.cpp:825
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Slayt Gösterisi Yap"
 
-#: MainWindow/Window.cpp:824
+#: MainWindow/Window.cpp:830
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Rastgele Slayt Gösterisi Yap"
 
-#: MainWindow/Window.cpp:830
+#: MainWindow/Window.cpp:836
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Tüm yığınları daralt"
 
-#: MainWindow/Window.cpp:836
+#: MainWindow/Window.cpp:842
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Tüm yığınları genişlet"
 
-#: MainWindow/Window.cpp:841
+#: MainWindow/Window.cpp:847
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "İlk Önce &En Eskiyi Göster"
 
-#: MainWindow/Window.cpp:846
+#: MainWindow/Window.cpp:852
 #, kde-format
 msgid "Show &Newest First"
 msgstr "İlk Önce &En Yeniyi Göster"
 
-#: MainWindow/Window.cpp:851
+#: MainWindow/Window.cpp:857
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Seçiliyi Tarih ve Zamana Göre Sırala"
 
-#: MainWindow/Window.cpp:854
+#: MainWindow/Window.cpp:860
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "Görünümü Seçime Sınırlandır"
 
-#: MainWindow/Window.cpp:857
+#: MainWindow/Window.cpp:863
 #, kde-format
 msgid "Jump to Context"
 msgstr "İçeriğe Git"
 
-#: MainWindow/Window.cpp:863
+#: MainWindow/Window.cpp:869
 #, kde-format
 msgid "Lock Images"
 msgstr "Görselleri Kilitle"
 
-#: MainWindow/Window.cpp:867
+#: MainWindow/Window.cpp:873
 #, kde-format
 msgid "Unlock"
 msgstr "Kilidi Aç"
 
-#: MainWindow/Window.cpp:870
+#: MainWindow/Window.cpp:876
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Diğer Tüm Ögeleri Kilitle"
 
-#: MainWindow/Window.cpp:873
+#: MainWindow/Window.cpp:879
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Geçerli Öge Kümesini Kilitle"
 
-#: MainWindow/Window.cpp:876
+#: MainWindow/Window.cpp:882
 #, kde-format
 msgid "Configure Current View"
 msgstr "Geçerli Görünümü Yapılandır"
 
-#: MainWindow/Window.cpp:888
+#: MainWindow/Window.cpp:894
 #, kde-format
 msgid "Tree"
 msgstr "Ağaç"
 
-#: MainWindow/Window.cpp:893
+#: MainWindow/Window.cpp:899
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Kullanıcı Simgelerini Kullanan Ağaç"
 
-#: MainWindow/Window.cpp:898
+#: MainWindow/Window.cpp:904
 #, kde-format
 msgid "Icons"
 msgstr "Simgeler"
 
-#: MainWindow/Window.cpp:906
+#: MainWindow/Window.cpp:912
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Küçük Görseller Penceresinde İpuçlarını Göster"
 
-#: MainWindow/Window.cpp:911
+#: MainWindow/Window.cpp:917
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
 msgstr "Küçük Görseller Penceresinde Etiketleri Göster"
 
-#: MainWindow/Window.cpp:921
+#: MainWindow/Window.cpp:927
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
 msgstr "Küçük Görseller Penceresinde Kategorileri Göster"
 
-#: MainWindow/Window.cpp:935
+#: MainWindow/Window.cpp:941
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "Renk Teması Seç"
 
-#: MainWindow/Window.cpp:946
+#: MainWindow/Window.cpp:952
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Diskte Olmayan Görselleri ve Videoları Göster"
 
-#: MainWindow/Window.cpp:949
+#: MainWindow/Window.cpp:955
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Eksik Tarih Bilgisi Olan Görselleri ve Videoları Göster..."
 
-#: MainWindow/Window.cpp:953
+#: MainWindow/Window.cpp:959
 #, kde-format
 msgid "Display Images and Videos with Changed MD5 Sum"
 msgstr "MD5 Toplamı Değişmiş Görselleri ve Videoları Göster"
 
-#: MainWindow/Window.cpp:957
+#: MainWindow/Window.cpp:963
 #, kde-format
 msgid "Merge duplicates"
 msgstr "Aynıları Birleştir"
 
-#: MainWindow/Window.cpp:959
+#: MainWindow/Window.cpp:965
 #, kde-format
 msgid "Recalculate Checksum"
 msgstr "Sağlama Toplamını Yeniden Hesapla"
 
-#: MainWindow/Window.cpp:963
+#: MainWindow/Window.cpp:969
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Görseller ve Videolar için Yeniden Tara"
 
-#: MainWindow/Window.cpp:966
+#: MainWindow/Window.cpp:972
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Exif Arama Veritabanını Yeniden Oluştur"
 
-#: MainWindow/Window.cpp:969
+#: MainWindow/Window.cpp:975
 #, kde-format
 msgid "Read Exif Info from Files..."
 msgstr "Dosyalardan Exif Bilgisi Oku..."
 
-#: MainWindow/Window.cpp:972
+#: MainWindow/Window.cpp:978
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Tümünü Tarih ve Zamana Göre Sırala"
 
-#: MainWindow/Window.cpp:976
+#: MainWindow/Window.cpp:982
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Seçili Görselleri Otomatik Olarak Yığınla..."
 
-#: MainWindow/Window.cpp:979
+#: MainWindow/Window.cpp:985
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Küçük Görselleri Yap"
 
-#: MainWindow/Window.cpp:982
+#: MainWindow/Window.cpp:988
 #, kde-format
 msgid "Statistics..."
 msgstr "İstatistikler..."
 
-#: MainWindow/Window.cpp:986
+#: MainWindow/Window.cpp:992
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Etiketlenmemiş Olarak İşaretle"
 
-#: MainWindow/Window.cpp:995
+#: MainWindow/Window.cpp:1001
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Bütün İletileri Etkinleştir"
 
-#: MainWindow/Window.cpp:1003
+#: MainWindow/Window.cpp:1009
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "K Fotoğraf Albümü Tanıtımını Başlat"
 
-#: MainWindow/Window.cpp:1006
+#: MainWindow/Window.cpp:1012
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "K Fotoğraf Albümü Özellik Durumu"
 
-#: MainWindow/Window.cpp:1009
+#: MainWindow/Window.cpp:1015
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Tanıtım Videolarını Göster"
 
-#: MainWindow/Window.cpp:1013 Viewer/ViewerWidget.cpp:177
+#: MainWindow/Window.cpp:1019 Viewer/ViewerWidget.cpp:177
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Exif bilgisini ve dosya üstverisini göster"
 
-#: MainWindow/Window.cpp:1016
+#: MainWindow/Window.cpp:1022
 #, kde-format
 msgid "Recreate Selected Thumbnails"
 msgstr "Seçili Küçük Görselleri Yeniden Oluştur"
 
-#: MainWindow/Window.cpp:1019
+#: MainWindow/Window.cpp:1025
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Bir sonraki video küçük görselini kullan"
 
-#: MainWindow/Window.cpp:1023
+#: MainWindow/Window.cpp:1029
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Önceki video küçük görselini kullan"
 
-#: MainWindow/Window.cpp:1027 MainWindow/Window.cpp:1244
+#: MainWindow/Window.cpp:1033 MainWindow/Window.cpp:1261
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Görselleri şuraya kopyala..."
 msgstr[1] "Görselleri şuraya kopyala..."
 
-#: MainWindow/Window.cpp:1031 MainWindow/Window.cpp:1248
+#: MainWindow/Window.cpp:1037 MainWindow/Window.cpp:1265
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "Görselleri şuraya bağla..."
 msgstr[1] "Görselleri şuraya bağla..."
 
-#: MainWindow/Window.cpp:1057
+#: MainWindow/Window.cpp:1063
 #, kde-format
 msgid "Auto saving...."
 msgstr "Otomatik kaydediliyor...."
 
-#: MainWindow/Window.cpp:1060
+#: MainWindow/Window.cpp:1066
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Otomatik kaydediliyor.... Bitti"
 
-#: MainWindow/Window.cpp:1162
+#: MainWindow/Window.cpp:1168
 #, kde-format
 msgid ""
 "<p>Could not open given index.xml, as the provided folder does not exist."
@@ -4114,7 +4164,7 @@ msgstr ""
 "<p>Sağlanan klasör var olmadığı için verilmiş index.xml açılamıyor.<br />%1</"
 "p>"
 
-#: MainWindow/Window.cpp:1169
+#: MainWindow/Window.cpp:1175
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4123,7 +4173,14 @@ msgstr ""
 "<p>Verilen dizin dosyası yok, aşağıdakini oluşturmak ister misiniz?<br />%1/"
 "index.xml</p>"
 
-#: MainWindow/Window.cpp:1189
+#: MainWindow/Window.cpp:1178
+#, fuzzy, kde-format
+#| msgid "Create My Own Database..."
+msgctxt "@title"
+msgid "Create database"
+msgstr "Veritabanımı Oluştur..."
+
+#: MainWindow/Window.cpp:1206
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4136,33 +4193,33 @@ msgstr ""
 "K Fotoğraf Albümü Uygulamasını Yapılandır...|Kategoriler</interface> altında "
 "etiketlenmemiş etiket ayarını gözden geçirin</p>"
 
-#: MainWindow/Window.cpp:1315 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1332 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Genel"
 
-#: MainWindow/Window.cpp:1316 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1333 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Görüntüleyici"
 
-#: MainWindow/Window.cpp:1317
+#: MainWindow/Window.cpp:1334
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Tarih Çubuğu"
 
-#: MainWindow/Window.cpp:1320
+#: MainWindow/Window.cpp:1337
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Bilgi Notu Penceresi"
 
-#: MainWindow/Window.cpp:1321 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1338 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Küçük Görsel Görünümü"
 
-#: MainWindow/Window.cpp:1466
+#: MainWindow/Window.cpp:1483
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4171,7 +4228,13 @@ msgstr ""
 "<p>Daha önceden 'Bunu bir daha gösterme' kutusunu işaretlediğiniz bütün "
 "iletileri yeniden etkinleştirmek istiyor musunuz?</p>"
 
-#: MainWindow/Window.cpp:1476
+#: MainWindow/Window.cpp:1485
+#, kde-format
+msgctxt "@title"
+msgid "Reset hidden dialogs"
+msgstr ""
+
+#: MainWindow/Window.cpp:1504
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4188,32 +4251,32 @@ msgstr ""
 "Fotoğraf Albümü çalışmayı sürdürecektir; ancak make install yapmadığınız "
 "için ileride çökebilir.</p>"
 
-#: MainWindow/Window.cpp:1476
+#: MainWindow/Window.cpp:1504
 #, kde-format
 msgid "Internal Error"
 msgstr "İç Hata"
 
-#: MainWindow/Window.cpp:1487
+#: MainWindow/Window.cpp:1515
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "Görsel(ler) başarıyla paylaşıldı. Konum panoya kopyalanıyor..."
 
-#: MainWindow/Window.cpp:1490
+#: MainWindow/Window.cpp:1518
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Görsel(ler) başarıyla paylaşıldı."
 
-#: MainWindow/Window.cpp:1495
+#: MainWindow/Window.cpp:1523
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Görsel paylaşımı başarısız oldu, hata iletisi: %1"
 
-#: MainWindow/Window.cpp:1558
+#: MainWindow/Window.cpp:1586
 #, kde-format
 msgid "Open List of Files"
 msgstr "Dosyalar Listesi Aç"
 
-#: MainWindow/Window.cpp:1559
+#: MainWindow/Window.cpp:1587
 #, kde-format
 msgid ""
 "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4222,28 +4285,28 @@ msgstr ""
 "Dosyaları burada listeleyerek K Fotoğraf Albümü'nün görsel kökünden bir küme "
 "dosya açabilirsiniz."
 
-#: MainWindow/Window.cpp:1572
+#: MainWindow/Window.cpp:1600
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Girdinizle uyuşan hiçbir görsel bulunamadı."
 
-#: MainWindow/Window.cpp:1572
+#: MainWindow/Window.cpp:1600
 #, kde-format
 msgid "No Matches"
 msgstr "Eşleşme Yok"
 
-#: MainWindow/Window.cpp:1729
+#: MainWindow/Window.cpp:1757
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Tüm görsellerden Exif bilgileri yeniden okunuyor"
 
-#: MainWindow/Window.cpp:1756
+#: MainWindow/Window.cpp:1784
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Küçük görsel genişliği: %1 pks (depolama alanı: %2 pks)"
 
-#: MainWindow/Window.cpp:1809
+#: MainWindow/Window.cpp:1837
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4254,7 +4317,7 @@ msgstr ""
 "küçük görsellerini ve video uzunluklarını gösteremeyecektir. Lütfen ffmpeg "
 "paketini kurun</p>"
 
-#: MainWindow/Window.cpp:1812
+#: MainWindow/Window.cpp:1840
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Video küçük görselleri kullanılabilir değil"
@@ -4445,27 +4508,27 @@ msgstr "Tarih gir..."
 msgid "<i>Select an item on the left to edit the birthday</i>"
 msgstr "<i>Doğum gününü düzenlemek için soldaki ögeyi seç</i>"
 
-#: Settings/CategoryPage.cpp:44
+#: Settings/CategoryPage.cpp:46
 #, kde-format
 msgid "Category Settings"
 msgstr "Kategori Seçenekleri"
 
-#: Settings/CategoryPage.cpp:65
+#: Settings/CategoryPage.cpp:67
 #, kde-format
 msgid "New"
 msgstr "Yeni"
 
-#: Settings/CategoryPage.cpp:73
+#: Settings/CategoryPage.cpp:75
 #, kde-format
 msgid "Rename"
 msgstr "Yeniden Adlandır"
 
-#: Settings/CategoryPage.cpp:106
+#: Settings/CategoryPage.cpp:108
 #, kde-format
 msgid "Positionable tags:"
 msgstr "Konumlandırılabilir etikeetler:"
 
-#: Settings/CategoryPage.cpp:108
+#: Settings/CategoryPage.cpp:110
 #, kde-format
 msgid ""
 "Tags in this category can be\n"
@@ -4474,37 +4537,37 @@ msgstr ""
 "Bu kategorideki etiketler görsel\n"
 "içindeki alanlarla ilişkilendirilebilir"
 
-#: Settings/CategoryPage.cpp:115
+#: Settings/CategoryPage.cpp:117
 #, kde-format
 msgid "Icon:"
 msgstr "Simge:"
 
-#: Settings/CategoryPage.cpp:135
+#: Settings/CategoryPage.cpp:137
 #, kde-format
 msgid "Preferred view:"
 msgstr "Tercih edilen görünüm:"
 
-#: Settings/CategoryPage.cpp:140
+#: Settings/CategoryPage.cpp:142
 #, kde-format
 msgid "List View"
 msgstr "Liste Görünümü"
 
-#: Settings/CategoryPage.cpp:141
+#: Settings/CategoryPage.cpp:143
 #, kde-format
 msgid "List View with Custom Thumbnails"
 msgstr "Özel Küçük Görselli Liste Görünümü"
 
-#: Settings/CategoryPage.cpp:142
+#: Settings/CategoryPage.cpp:144
 #, kde-format
 msgid "Icon View"
 msgstr "Simge Görünümü"
 
-#: Settings/CategoryPage.cpp:143
+#: Settings/CategoryPage.cpp:145
 #, kde-format
 msgid "Icon View with Custom Thumbnails"
 msgstr "Özel Küçük Görselli Simge Görünümü"
 
-#: Settings/CategoryPage.cpp:153
+#: Settings/CategoryPage.cpp:155
 #, kde-format
 msgid ""
 "<font color='red'>The database has unsaved changes. As long as those are not "
@@ -4515,36 +4578,36 @@ msgstr ""
 "kaydedilmediği sürece,<br/>kategori adları değiştirilemez ve yenileri "
 "eklenemez.</font>"
 
-#: Settings/CategoryPage.cpp:161
+#: Settings/CategoryPage.cpp:163
 #, kde-format
 msgid "Save the DB now"
 msgstr "Veritabanını şimdi kaydet"
 
-#: Settings/CategoryPage.cpp:201
+#: Settings/CategoryPage.cpp:203
 #, kde-format
 msgid "Settings for category <b>%1</b>"
 msgstr "<b>%1</b> kategorisi için ayarlar"
 
-#: Settings/CategoryPage.cpp:204
+#: Settings/CategoryPage.cpp:206
 #, kde-format
 msgid "<i>Pending change: rename to \"%1\"</i>"
 msgstr "<i>Bekleyen değişiklik: \"%1\" olarak yeniden adlandır</i>"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: Settings/CategoryPage.cpp:251 ThumbnailView/CellGeometry.cpp:93
+#: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
 #: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "Klasör"
 
-#: Settings/CategoryPage.cpp:253 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
 #: XMLDB/Database.cpp:291 XMLDB/Database.cpp:660 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
 msgstr "Ortam Türü"
 
-#: Settings/CategoryPage.cpp:258
+#: Settings/CategoryPage.cpp:260
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>\"%2\" is a "
@@ -4554,12 +4617,12 @@ msgstr ""
 "<p>Kategori adı \"%1\" -> \"%2\" olarak değiştirilemiyor:</p><p>\"%2\" "
 "ayrılmış özel bir kategori adıdır ve normal kategori olarak kullanılamaz.</p>"
 
-#: Settings/CategoryPage.cpp:262 Settings/CategoryPage.cpp:273
+#: Settings/CategoryPage.cpp:264 Settings/CategoryPage.cpp:275
 #, kde-format
 msgid "Invalid category name"
 msgstr "Geçersiz kategori adı"
 
-#: Settings/CategoryPage.cpp:270
+#: Settings/CategoryPage.cpp:272
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>A category with "
@@ -4568,7 +4631,7 @@ msgstr ""
 "<p>Kategori adı \"%1\" -> \"%2\" olarak değiştirilemiyor:</p><p>Bu adda bir "
 "kategori zaten var.</p>"
 
-#: Settings/CategoryPage.cpp:287
+#: Settings/CategoryPage.cpp:289
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>There's a "
@@ -4579,31 +4642,45 @@ msgstr ""
 "p><p>Halihazırda bekleyen \"%2\" kategorisi için yeniden adlandırma eylemi "
 "var. Lütfen önce bu değişikliği kaydedin.</p>"
 
-#: Settings/CategoryPage.cpp:291
+#: Settings/CategoryPage.cpp:293
 #, kde-format
 msgid "Unsaved pending renaming action"
 msgstr "Kaydedilmemiş bekleyen yeniden adlandırma eylemi"
 
-#: Settings/CategoryPage.cpp:323
-#, kde-format
+#: Settings/CategoryPage.cpp:324
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
+#| "linked against this category will be deleted!</p>"
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
-"linked against this category will be deleted!</p>"
+"linked against this category will be discarded!</p>"
 msgstr ""
 "<p>\"%1\" i yeniden konumlanamaz yapmak istediğinizden emin misiniz?</"
 "p><p>Bu kategoriye bağlanmış bütün alanlar silinecektir!</p>"
 
-#: Settings/CategoryPage.cpp:362
+#: Settings/CategoryPage.cpp:333
+#, kde-format
+msgctxt "@title"
+msgid "Confirm Action"
+msgstr ""
+
+#: Settings/CategoryPage.cpp:377
 #, kde-format
 msgid "New category"
 msgstr "Yeni kategori"
 
-#: Settings/CategoryPage.cpp:395
+#: Settings/CategoryPage.cpp:409
 #, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
 msgstr "<p>\"%1\" kategorisi gerçekten silinsin mi?</p>"
 
-#: Settings/CategoryPage.cpp:510
+#: Settings/CategoryPage.cpp:414
+#, kde-format
+msgid "Confirm Action"
+msgstr ""
+
+#: Settings/CategoryPage.cpp:536
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>Düzenlemek için bir kategori seçin</i>"
@@ -5370,6 +5447,11 @@ msgctxt "@title:window"
 msgid "Delete Group"
 msgstr "Grubu Sil"
 
+#: Settings/TagGroupsPage.cpp:516 Settings/TagGroupsPage.cpp:762
+#, kde-format
+msgid "&Delete"
+msgstr "&Sil"
+
 #: Settings/TagGroupsPage.cpp:694
 #, kde-format
 msgctxt "@action:inmenu"
@@ -5878,7 +5960,7 @@ msgstr ""
 "İpucu: Bu jeton için bir süzgeç açıp kapatmak için <shortcut>Alt+Shift"
 "+<placeholder>A-Z</placeholder></shortcut> kısayolunu kullanın."
 
-#: ThumbnailView/ThumbnailDND.cpp:88
+#: ThumbnailView/ThumbnailDND.cpp:90
 #, kde-format
 msgid ""
 "<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in the "
@@ -5894,8 +5976,10 @@ msgstr ""
 "&gt; Seçili Görselleri Tarih ve Zamana Göre Sırala</b> yolunu "
 "kullanmalısınız</p>"
 
-#: ThumbnailView/ThumbnailDND.cpp:95
-#, kde-format
+#: ThumbnailView/ThumbnailDND.cpp:97
+#, fuzzy, kde-format
+#| msgid "Reorder Thumbnails"
+msgctxt "@title"
 msgid "Reorder Thumbnails"
 msgstr "Küçük Görselleri Yeniden Sırala"
 
@@ -6945,3 +7029,9 @@ msgstr "<p>Veritabanı yolu: <filename>%1</filename></p>"
 #, kde-format
 msgid "Error while reading database file"
 msgstr "Veritabanı dosyası okunurken hata"
+
+#~ msgid "Really Rename %1?"
+#~ msgstr "%1 Yeniden Adlandırılsın mı?"
+
+#~ msgid "Do you want to save the changes?"
+#~ msgstr "Değişiklikleri kaydetmek istiyor musunuz?"

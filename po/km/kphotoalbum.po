@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-12-25 00:47+0000\n"
+"POT-Creation-Date: 2023-02-19 00:56+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -53,7 +53,7 @@ msgstr "ថ្ងៃ​នេះ​"
 msgid "yesterday"
 msgstr "ម្សិលមិញ​"
 
-#: AnnotationDialog/Dialog.cpp:107
+#: AnnotationDialog/Dialog.cpp:105
 #, kde-format
 msgid ""
 "(You have differing descriptions on individual images, setting text here "
@@ -61,23 +61,23 @@ msgid ""
 msgstr ""
 "(អ្នក​មាន​សេចក្ដី​ពណ៌នា​ផ្សេងគ្នា​នៅ​លើ​រូបភាព​ដាច់ដោយឡែក ការ​កំណត់​អត្ថបទ​នៅ​ទីនេះ នឹង​បដិសេធ​ពួកវា​ទាំងអស់)"
 
-#: AnnotationDialog/Dialog.cpp:132
+#: AnnotationDialog/Dialog.cpp:130
 #, kde-format
 msgid "Label and Dates"
 msgstr "ស្លាក និង​កាល​បរិច្ឆេទ​"
 
-#: AnnotationDialog/Dialog.cpp:134
+#: AnnotationDialog/Dialog.cpp:132
 #, kde-format
 msgid "Image Preview"
 msgstr "មើល​រូបភាព​ជាមុន​"
 
-#: AnnotationDialog/Dialog.cpp:138 AnnotationDialog/Dialog.cpp:147
-#: HTMLGenerator/HTMLDialog.cpp:142 ImportExport/MD5CheckPage.cpp:66
+#: AnnotationDialog/Dialog.cpp:136 AnnotationDialog/Dialog.cpp:145
+#: HTMLGenerator/HTMLDialog.cpp:143 ImportExport/MD5CheckPage.cpp:66
 #, kde-format
 msgid "Description"
 msgstr "សេចក្ដី​ពិពណ៌នា​"
 
-#: AnnotationDialog/Dialog.cpp:142
+#: AnnotationDialog/Dialog.cpp:140
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -87,18 +87,18 @@ msgid ""
 "information is imported to this field if available.</para>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:168 DB/ImageDB.cpp:147
+#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:147
 #, kde-format
 msgid "Cancel"
 msgstr "បោះបង់"
 
-#: AnnotationDialog/Dialog.cpp:173 AnnotationDialog/Dialog.cpp:175
+#: AnnotationDialog/Dialog.cpp:171 AnnotationDialog/Dialog.cpp:173
 #, fuzzy, kde-format
 #| msgid "apr"
 msgid "Map"
 msgstr "មេសា"
 
-#: AnnotationDialog/Dialog.cpp:181
+#: AnnotationDialog/Dialog.cpp:179
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -106,64 +106,64 @@ msgid ""
 "are found in the Exif information."
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:229
+#: AnnotationDialog/Dialog.cpp:227
 #, kde-format
 msgid "Revert This Item"
 msgstr "ត្រឡប់​ធាតុ​នេះ​ទៅ​ដើម​"
 
-#: AnnotationDialog/Dialog.cpp:235
+#: AnnotationDialog/Dialog.cpp:233
 #, kde-format
 msgid "Clear Form"
 msgstr "សម្អាត​សំណុំ​បែបបទ​"
 
-#: AnnotationDialog/Dialog.cpp:239
+#: AnnotationDialog/Dialog.cpp:237
 #, kde-format
 msgid "Options..."
 msgstr "ជម្រើស​..."
 
-#: AnnotationDialog/Dialog.cpp:245
+#: AnnotationDialog/Dialog.cpp:243
 #, kde-format
 msgid "&Done"
 msgstr "ធ្វើ​រួច​"
 
-#: AnnotationDialog/Dialog.cpp:248
+#: AnnotationDialog/Dialog.cpp:246
 #, kde-format
 msgid "Continue &Later"
 msgstr "បន្ត​នៅ​ពេល​ក្រោយ​​"
 
-#: AnnotationDialog/Dialog.cpp:256 AnnotationDialog/Dialog.cpp:823
+#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:821
 #, fuzzy, kde-format
 #| msgid "&Search"
 msgctxt "@action:button"
 msgid "&Search"
 msgstr "ស្វែងរក​"
 
-#: AnnotationDialog/Dialog.cpp:320
+#: AnnotationDialog/Dialog.cpp:318
 #, kde-format
 msgid "Label: "
 msgstr "ស្លាក ៖"
 
-#: AnnotationDialog/Dialog.cpp:324 ImportExport/MD5CheckPage.cpp:65
+#: AnnotationDialog/Dialog.cpp:322 ImportExport/MD5CheckPage.cpp:65
 #, kde-format
 msgid "Label"
 msgstr "ស្លាក"
 
-#: AnnotationDialog/Dialog.cpp:333
+#: AnnotationDialog/Dialog.cpp:331
 #, kde-format
 msgid "Date: "
 msgstr "កាលបរិច្ឆេទ ៖"
 
-#: AnnotationDialog/Dialog.cpp:349
+#: AnnotationDialog/Dialog.cpp:347
 #, kde-format
 msgid "Time: "
 msgstr "ពេលវេលា ៖"
 
-#: AnnotationDialog/Dialog.cpp:355
+#: AnnotationDialog/Dialog.cpp:353
 #, kde-format
 msgid "Use Fuzzy Date"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:357
+#: AnnotationDialog/Dialog.cpp:355
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -175,143 +175,143 @@ msgid ""
 "Fuzzy Date</interface>.</para>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:372
+#: AnnotationDialog/Dialog.cpp:370
 #, kde-format
 msgid "Minimum megapixels:"
 msgstr "មេហ្គា​ភីកសែល​អប្បបរមា ៖"
 
-#: AnnotationDialog/Dialog.cpp:382
+#: AnnotationDialog/Dialog.cpp:380
 #, fuzzy, kde-format
 #| msgid "Minimum megapixels:"
 msgid "Maximum megapixels:"
 msgstr "មេហ្គា​ភីកសែល​អប្បបរមា ៖"
 
-#: AnnotationDialog/Dialog.cpp:395
+#: AnnotationDialog/Dialog.cpp:393
 #, kde-format
 msgid "Rating:"
 msgstr "អត្រា ៖"
 
-#: AnnotationDialog/Dialog.cpp:403
+#: AnnotationDialog/Dialog.cpp:401
 #, kde-format
 msgid "Rating search mode:"
 msgstr "របៀប​ស្វែងរក​ការ​វាយតម្លៃ ៖"
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:405
 #, kde-format
 msgid "=="
 msgstr "=="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:405
 #, kde-format
 msgid ">="
 msgstr ">="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:405
 #, kde-format
 msgid "<="
 msgstr "<="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:405
 #, kde-format
 msgid "!="
 msgstr "!="
 
-#: AnnotationDialog/Dialog.cpp:415
+#: AnnotationDialog/Dialog.cpp:413
 #, kde-format
 msgid "File Name Pattern: "
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:418
+#: AnnotationDialog/Dialog.cpp:416
 #, kde-format
 msgid "File Name Pattern"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:423
+#: AnnotationDialog/Dialog.cpp:421
 #, kde-format
 msgid "Search only for RAW files"
 msgstr "ស្វែងរក​តែ​ឯកសារ​ RAW"
 
-#: AnnotationDialog/Dialog.cpp:613
+#: AnnotationDialog/Dialog.cpp:611
 #, fuzzy, kde-format
 #| msgid "KPhotoAlbum Annotations (%1/%2)"
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "ចំណារ​ពន្យល់​អំពី KPhotoAlbum (%1/%2)​"
 
-#: AnnotationDialog/Dialog.cpp:828
+#: AnnotationDialog/Dialog.cpp:826
 #, fuzzy, kde-format
 #| msgid "Search"
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "ស្វែងរក"
 
-#: AnnotationDialog/Dialog.cpp:831
+#: AnnotationDialog/Dialog.cpp:829
 #, kde-format
 msgid "Done"
 msgstr "ធ្វើ​រួច​"
 
-#: AnnotationDialog/Dialog.cpp:838
+#: AnnotationDialog/Dialog.cpp:836
 #, fuzzy, kde-format
 #| msgid "Annotations"
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "ចំណារ​ពន្យល់​"
 
-#: AnnotationDialog/Dialog.cpp:870
+#: AnnotationDialog/Dialog.cpp:868
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:871
+#: AnnotationDialog/Dialog.cpp:869
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "រក្សា​ទុក​ការ​រៀប​ចំ​បង្អួច​បច្ចុប្បន្ន​"
 
-#: AnnotationDialog/Dialog.cpp:872
+#: AnnotationDialog/Dialog.cpp:870
 #, kde-format
 msgid "Reset layout"
 msgstr "កំណត់​ប្លង់​ឡើង​វិញ​"
 
-#: AnnotationDialog/Dialog.cpp:879 AnnotationDialog/Dialog.cpp:1280
+#: AnnotationDialog/Dialog.cpp:877 AnnotationDialog/Dialog.cpp:1290
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "តម្រៀប​តាម​លំដាប់​អក្សរ​ក្រម (មែក​ធាង)"
 
-#: AnnotationDialog/Dialog.cpp:883 AnnotationDialog/Dialog.cpp:1284
+#: AnnotationDialog/Dialog.cpp:881 AnnotationDialog/Dialog.cpp:1294
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "តម្រៀប​តាម​លំដាប់​អក្សរ​ក្រម (ស្មើ)"
 
-#: AnnotationDialog/Dialog.cpp:887
+#: AnnotationDialog/Dialog.cpp:885
 #, fuzzy, kde-format
 #| msgid "Sort by date"
 msgid "Sort by Date"
 msgstr "តម្រៀប​តាម​កាលបរិច្ឆេទ​"
 
-#: AnnotationDialog/Dialog.cpp:903
+#: AnnotationDialog/Dialog.cpp:901
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:904
+#: AnnotationDialog/Dialog.cpp:902
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:905
+#: AnnotationDialog/Dialog.cpp:903
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:922
+#: AnnotationDialog/Dialog.cpp:920
 #, fuzzy, kde-format
 #| msgid "Show only selected Ctrl+S"
 msgid "Show Only Selected Ctrl+S"
 msgstr "បង្ហាញ​តែ​បញ្ជា​ (Ctrl)+S ដែល​បាន​ជ្រើស​ប៉ុណ្ណោះ"
 
-#: AnnotationDialog/Dialog.cpp:965
+#: AnnotationDialog/Dialog.cpp:963
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
@@ -319,7 +319,7 @@ msgid ""
 msgstr ""
 "<p>មិន​អាច​រក្សាទុក​ប្លង់​បង្អួច​បាន​ទេ ។</p>មិន​អាច​បើក​ឯកសារ %1 បាន​​ដោយសារ​កំហុស​ដូច​ខាងក្រោម ៖ %2"
 
-#: AnnotationDialog/Dialog.cpp:970
+#: AnnotationDialog/Dialog.cpp:968
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
@@ -327,16 +327,26 @@ msgid ""
 msgstr ""
 "<p>មិន​អាច​រក្សាទុក​ប្លង់​បង្អួច​បាន​ទេ ។</p>មិន​អាច​សរសេរ​ឯកសារ %1 បាន​​ដោយសារ​កំហុស​ដូច​ខាងក្រោម ៖ %2"
 
-#: AnnotationDialog/Dialog.cpp:1038
-#, kde-format
+#: AnnotationDialog/Dialog.cpp:1036
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>Some changes are made to annotations. Do you really want to cancel all "
+#| "recent changes for each affected file?</p>"
 msgid ""
-"<p>Some changes are made to annotations. Do you really want to cancel all "
+"<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
 "<p>ការ​ផ្លាស់​ប្តូរ​ខ្លះ​ត្រូវ​បាន​ធ្វើ​​ចំពោះ​ចំណារ​ពន្យល់ ។ តើ​អ្នក​ពិត​ជា​ចង់​បោះបង់​ការ​ផ្លាស់​ប្តូរ​បច្ចុប្បន្ន​ទាំង​"
 "អស់សម្រាប់​ឯកសារ​ដែល​ប៉ះ​ពាល់​នីមួយ​ៗ​ឬ ?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1144
+#: AnnotationDialog/Dialog.cpp:1037
+#, fuzzy, kde-format
+#| msgid "Save Changes?"
+msgctxt "@title"
+msgid "Discard changes?"
+msgstr "រក្សា​ទុក​ការ​ផ្លាស់ប្ដូរ ?​"
+
+#: AnnotationDialog/Dialog.cpp:1154
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -352,7 +362,7 @@ msgstr ""
 "ព័ត៌មាន​អំពី​រូបភាព​ផង​ដែរ  អ្នក​អាច​ស្វែងរក​ព័ត៌មាន​ជំនួយ​បន្ថែម​ទាក់​ទង​នឹង​ការ​ប្រើ​ប្រាស់​របស់​វា​ដោយ​អាន​អំពី "
 "<a href=\"help:/kphotoalbum/chp-typingIn.html\">ដោយ​វាយ​បញ្ចូល​</a>។</p>"
 
-#: AnnotationDialog/Dialog.cpp:1152
+#: AnnotationDialog/Dialog.cpp:1162
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -365,58 +375,58 @@ msgstr ""
 "អ្នក​ត្រូវ​តែ​ចំណាយ​ពេល​ ៥ នាទី ដើម្បី​អាន​ <a href=\"help:/kphotoalbum/chp-typingIn.html"
 "\">ឯកសារ​សម្រាប់​ប្រអប់​នេះ​សិន</a></p>"
 
-#: AnnotationDialog/Dialog.cpp:1287
+#: AnnotationDialog/Dialog.cpp:1297
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "តម្រៀប​​តាម​អ្វី​ដែល​បាន​ប្រើ​ថ្មី​ៗ"
 
-#: AnnotationDialog/Dialog.cpp:1290
+#: AnnotationDialog/Dialog.cpp:1300
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "បិទ​/បើក​ការ​តម្រៀប"
 
-#: AnnotationDialog/Dialog.cpp:1295
+#: AnnotationDialog/Dialog.cpp:1305
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "បិទ/​បើក​តែ​ការ​បង្ហាញ​ធាតុ​ដែល​បាន​ជ្រើស​ប៉ុណ្ណោះ"
 
-#: AnnotationDialog/Dialog.cpp:1299
+#: AnnotationDialog/Dialog.cpp:1309
 #, kde-format
 msgid "Annotate Next"
 msgstr "ចារ​ពន្យល់​បន្ទាប់​"
 
-#: AnnotationDialog/Dialog.cpp:1303
+#: AnnotationDialog/Dialog.cpp:1313
 #, kde-format
 msgid "Annotate Previous"
 msgstr "ចារ​ពន្យល់​មុន"
 
-#: AnnotationDialog/Dialog.cpp:1307
+#: AnnotationDialog/Dialog.cpp:1317
 #, kde-format
 msgid "OK dialog"
 msgstr "ប្រអប់ យល់​ព្រម​"
 
-#: AnnotationDialog/Dialog.cpp:1311 AnnotationDialog/ListSelect.cpp:354
-#: Settings/CategoryPage.cpp:69
+#: AnnotationDialog/Dialog.cpp:1321 AnnotationDialog/ListSelect.cpp:354
+#: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "លុប​"
 
-#: AnnotationDialog/Dialog.cpp:1315
+#: AnnotationDialog/Dialog.cpp:1325
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "ចម្លង​ស្លាក​ពី​រូបភាព​មុន​"
 
-#: AnnotationDialog/Dialog.cpp:1319 MainWindow/Window.cpp:804
+#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:810
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "បង្វិល​បញ្ច្រាស​ទ្រនិច​នាឡិកា"
 
-#: AnnotationDialog/Dialog.cpp:1322 MainWindow/Window.cpp:808
+#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:814
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "បង្វិល​តាម​ទ្រនិច​នាឡិកា"
 
-#: AnnotationDialog/Dialog.cpp:1325
+#: AnnotationDialog/Dialog.cpp:1335
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "បិទ/បើក​ការ​មើល​អេក្រង់​ពេញ​ជា​មុន"
@@ -635,14 +645,10 @@ msgstr ""
 msgid "Really Delete %1?"
 msgstr "ពិត​ជា​លុប​ %1 ឬ ?"
 
-#: AnnotationDialog/ListSelect.cpp:431 Settings/TagGroupsPage.cpp:516
-#: Settings/TagGroupsPage.cpp:762
-#, kde-format
-msgid "&Delete"
-msgstr "លុប​"
-
 #: AnnotationDialog/ListSelect.cpp:447
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Rename Item"
+msgctxt "@title"
 msgid "Rename Item"
 msgstr "ប្ដូរ​ឈ្មោះ​ធាតុ​"
 
@@ -661,32 +667,41 @@ msgstr ""
 "នៅ​លើ​រូបភាព​ណាមួយ​ដែល​មានវា ។</p>"
 
 #: AnnotationDialog/ListSelect.cpp:456
-#, kde-format
-msgid "Really Rename %1?"
-msgstr "ពិត​ជា​ចង់​ប្ដូរ​ឈ្មោះ %1 ឬ ?"
+#, fuzzy, kde-format
+#| msgid "Rename..."
+msgctxt "@title"
+msgid "Rename %1?"
+msgstr "ប្ដូរ​ឈ្មោះ​​..."
 
-#: AnnotationDialog/ListSelect.cpp:486
+#: AnnotationDialog/ListSelect.cpp:461
+#, fuzzy, kde-format
+#| msgid "Rename..."
+msgctxt "@action:button"
+msgid "Rename"
+msgstr "ប្ដូរ​ឈ្មោះ​​..."
+
+#: AnnotationDialog/ListSelect.cpp:496
 #, fuzzy, kde-format
 #| msgid "New Group"
 msgid "New tag group"
 msgstr "ក្រុម​ថ្មី​"
 
-#: AnnotationDialog/ListSelect.cpp:487
+#: AnnotationDialog/ListSelect.cpp:497
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:499
+#: AnnotationDialog/ListSelect.cpp:509
 #, kde-format
 msgid "Add a tag"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:500
+#: AnnotationDialog/ListSelect.cpp:510
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:754
+#: AnnotationDialog/ListSelect.cpp:764
 #, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
@@ -694,7 +709,7 @@ msgctxt ""
 msgid "%1 (%2-%3)"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:767
+#: AnnotationDialog/ListSelect.cpp:777
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
@@ -956,7 +971,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "ស្វែងរក​"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1705
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1733
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -971,7 +986,7 @@ msgstr ""
 "li><li>ឥឡូវ​នេះ ជ្រើស​រូប​​តំណាង​ <b>ប្រភេទ​</b> </li><li>ឥឡូវ​កំណត់​រចនាសម្ព័ន្ធ​ផ្នែក​ <b>រូបភាព​"
 "ដែល​មិន​ដាក់​​ស្លាក​</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1712
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1740
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "លក្ខណៈ​នេះ​មិន​​ទាន់​ត្រូវ​បាន​កំណត់​រចនា​សម្ព័ន្ធ​ទេ​"
@@ -1702,44 +1717,44 @@ msgstr "<p>មិន​អាច​ចម្លង %1 ទៅ %2</p>"
 msgid "Unable to write image '%1'."
 msgstr "មិន​អាច​សរសេរ​រូបភាព '%1' ។​"
 
-#: HTMLGenerator/Generator.cpp:771 HTMLGenerator/HTMLDialog.cpp:146
+#: HTMLGenerator/Generator.cpp:771 HTMLGenerator/HTMLDialog.cpp:147
 #, kde-format
 msgid "Date"
 msgstr "កាល​បរិច្ឆេទ​"
 
-#: HTMLGenerator/HTMLDialog.cpp:51
+#: HTMLGenerator/HTMLDialog.cpp:52
 #, fuzzy, kde-format
 #| msgid "HTML Export"
 msgctxt "@title:window"
 msgid "HTML Export"
 msgstr "នាំចេញ HTML​"
 
-#: HTMLGenerator/HTMLDialog.cpp:77 HTMLGenerator/HTMLDialog.cpp:78
+#: HTMLGenerator/HTMLDialog.cpp:78 HTMLGenerator/HTMLDialog.cpp:79
 #, kde-format
 msgid "Content"
 msgstr "មាតិកា​​"
 
-#: HTMLGenerator/HTMLDialog.cpp:86
+#: HTMLGenerator/HTMLDialog.cpp:87
 #, kde-format
 msgid "Page title:"
 msgstr "ចំណងជើងទំព័រ ៖​"
 
-#: HTMLGenerator/HTMLDialog.cpp:93
+#: HTMLGenerator/HTMLDialog.cpp:94
 #, kde-format
 msgid "Copyright:"
 msgstr "រក្សា​សិទ្ធិ ៖​"
 
-#: HTMLGenerator/HTMLDialog.cpp:102
+#: HTMLGenerator/HTMLDialog.cpp:103
 #, kde-format
 msgid "Description:"
 msgstr "សេចក្ដី​ពិពណ៌នា ៖"
 
-#: HTMLGenerator/HTMLDialog.cpp:109
+#: HTMLGenerator/HTMLDialog.cpp:110
 #, kde-format
 msgid "Create .kim export file"
 msgstr "បង្កើត​ឯកសារ​នាំ​ចេញ​ .kim​"
 
-#: HTMLGenerator/HTMLDialog.cpp:114
+#: HTMLGenerator/HTMLDialog.cpp:115
 #, fuzzy, kde-format
 #| msgid "Inline Movies in pages"
 msgctxt ""
@@ -1747,95 +1762,95 @@ msgctxt ""
 msgid "Inline Movies in pages"
 msgstr "ដាក់​ភាព​យន្ត​ជា​ជួរ​ក្នុង​ទំព័រ​"
 
-#: HTMLGenerator/HTMLDialog.cpp:119
+#: HTMLGenerator/HTMLDialog.cpp:120
 #, fuzzy, kde-format
 #| msgid "Generate thumbnails"
 msgctxt "Tag as in HTML-tag, not as in image tag"
 msgid "Use HTML5 video tag"
 msgstr "បង្កើត​រូបភាព​តូច"
 
-#: HTMLGenerator/HTMLDialog.cpp:128
+#: HTMLGenerator/HTMLDialog.cpp:129
 #, kde-format
 msgid ""
 "<p>This selection will generate video files suitable for displaying on web. "
 "avconv and ffmpeg2theora are required for video file generation.</p>"
 msgstr ""
 
-#: HTMLGenerator/HTMLDialog.cpp:130
+#: HTMLGenerator/HTMLDialog.cpp:131
 #, kde-format
 msgid "Generate HTML5 video files (mp4 and ogg)"
 msgstr ""
 
-#: HTMLGenerator/HTMLDialog.cpp:138
+#: HTMLGenerator/HTMLDialog.cpp:139
 #, kde-format
 msgid "What to Include"
 msgstr "អ្វី​ដែល​ត្រូវ​រួម​បញ្ចូល​"
 
-#: HTMLGenerator/HTMLDialog.cpp:175 HTMLGenerator/HTMLDialog.cpp:176
+#: HTMLGenerator/HTMLDialog.cpp:176 HTMLGenerator/HTMLDialog.cpp:177
 #, kde-format
 msgid "Layout"
 msgstr "ប្លង់​"
 
-#: HTMLGenerator/HTMLDialog.cpp:185 Settings/CategoryPage.cpp:125
+#: HTMLGenerator/HTMLDialog.cpp:186 Settings/CategoryPage.cpp:127
 #, kde-format
 msgid "Thumbnail size:"
 msgstr "ទំហំ​រូបភាព​តូច ៖​"
 
-#: HTMLGenerator/HTMLDialog.cpp:200
+#: HTMLGenerator/HTMLDialog.cpp:201
 #, kde-format
 msgid "Number of columns:"
 msgstr "ចំនួន​ជួរឈរ ៖​"
 
-#: HTMLGenerator/HTMLDialog.cpp:215
+#: HTMLGenerator/HTMLDialog.cpp:216
 #, kde-format
 msgid "Theme:"
 msgstr "ស្បែក ៖​"
 
-#: HTMLGenerator/HTMLDialog.cpp:223
+#: HTMLGenerator/HTMLDialog.cpp:224
 #, kde-format
 msgid "Theme Description"
 msgstr "សេចក្ដី​ពិពណ៌នា​រូបរាង"
 
-#: HTMLGenerator/HTMLDialog.cpp:230
+#: HTMLGenerator/HTMLDialog.cpp:231
 #, kde-format
 msgid "Image Sizes"
 msgstr "ទំហំ​រូបភាព​"
 
-#: HTMLGenerator/HTMLDialog.cpp:239
+#: HTMLGenerator/HTMLDialog.cpp:240
 #, kde-format
 msgid "Full size"
 msgstr "ទំហំ​ពេញ​"
 
-#: HTMLGenerator/HTMLDialog.cpp:284 HTMLGenerator/HTMLDialog.cpp:285
+#: HTMLGenerator/HTMLDialog.cpp:285 HTMLGenerator/HTMLDialog.cpp:286
 #, kde-format
 msgid "Destination"
 msgstr "ទិស​ដៅ​"
 
-#: HTMLGenerator/HTMLDialog.cpp:295
+#: HTMLGenerator/HTMLDialog.cpp:296
 #, fuzzy, kde-format
 #| msgid "Base directory:"
 msgid "Base folder:"
 msgstr "ថត​មូលដ្ឋាន ៖"
 
-#: HTMLGenerator/HTMLDialog.cpp:312
+#: HTMLGenerator/HTMLDialog.cpp:313
 #, fuzzy, kde-format
 #| msgid "Base directory:"
 msgid "Gallery folder:"
 msgstr "ថត​មូលដ្ឋាន ៖"
 
-#: HTMLGenerator/HTMLDialog.cpp:319
+#: HTMLGenerator/HTMLDialog.cpp:320
 #, fuzzy, kde-format
 #| msgid "Output directory:"
 msgid "Output folder:"
 msgstr "ថត​លទ្ធផល ៖"
 
-#: HTMLGenerator/HTMLDialog.cpp:330
+#: HTMLGenerator/HTMLDialog.cpp:331
 #, fuzzy, kde-format
 #| msgid "URL for final destination:"
 msgid "URL for final destination of .kim file:"
 msgstr "URL សម្រាប់​ទិសដៅ​ចុង​ក្រោយ ៖"
 
-#: HTMLGenerator/HTMLDialog.cpp:332
+#: HTMLGenerator/HTMLDialog.cpp:333
 #, kde-format
 msgid ""
 "<p>If you move the gallery to a remote location, set this to the destination "
@@ -1843,23 +1858,23 @@ msgid ""
 "p>"
 msgstr ""
 
-#: HTMLGenerator/HTMLDialog.cpp:341
+#: HTMLGenerator/HTMLDialog.cpp:342
 #, kde-format
 msgid "Open gallery in browser:"
 msgstr ""
 
-#: HTMLGenerator/HTMLDialog.cpp:357
+#: HTMLGenerator/HTMLDialog.cpp:358
 #, kde-format
 msgid "You must select at least one resolution."
 msgstr "អ្នក​ត្រូវ​តែ​ជ្រើស​គុណភាព​បង្ហាញ​ឲ្យ​បាន​យ៉ាង​ហោច​ណាស់​មួយ ។​"
 
-#: HTMLGenerator/HTMLDialog.cpp:384
+#: HTMLGenerator/HTMLDialog.cpp:385
 #, fuzzy, kde-format
 #| msgid "Base directory:"
 msgid "Select base folder..."
 msgstr "ថត​មូលដ្ឋាន ៖"
 
-#: HTMLGenerator/HTMLDialog.cpp:397
+#: HTMLGenerator/HTMLDialog.cpp:398
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>You did not specify a base directory. This is the topmost directory "
@@ -1873,13 +1888,13 @@ msgstr ""
 "<p>​អ្នក​មិន​បាន​បញ្ជាក់​ថត​មូលដ្ឋាន​ទេ​ ។ វា​ជា​ថត​ដែល​នៅ​លើ​បំផុត​សម្រាប់​រូបភាព​របស់​អ្នក​ ។ ​ពី​ខាង​ក្រោម​ថត​"
 "នេះ អ្នក​នឹង​រក​ឃើញ​សម្រាំង​ដែល​បាន​បង្កើត​ឡើង​នីមួយ​ៗ​នៅ​ក្នុង​ថត​ដោយ​ឡែក​ពី​គ្នា ។</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:401
+#: HTMLGenerator/HTMLDialog.cpp:402
 #, fuzzy, kde-format
 #| msgid "No Base Directory Specified"
 msgid "No Base Folder Specified"
 msgstr "គ្មាន​ថត​មូលដ្ឋាន​​បាន​បញ្ជាក់​ឡើយ​​"
 
-#: HTMLGenerator/HTMLDialog.cpp:407
+#: HTMLGenerator/HTMLDialog.cpp:408
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>You did not specify an output directory. This is a directory "
@@ -1893,13 +1908,13 @@ msgstr ""
 "<p>អ្នក​មិន​បាន​បញ្ជាក់​ថត​លទ្ធផល​ទេ ។ នេះ​ជា​ថត​ដែល​មាន​រូបភាព​ពិត ។ ថត​នេះ​នឹង​ស្ថិត​នៅ​ក្នុង​ថត​មូលដ្ឋាន​ដែល​"
 "បាន​បញ្ជាក់​ខាង​លើ​ ។</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:410
+#: HTMLGenerator/HTMLDialog.cpp:411
 #, fuzzy, kde-format
 #| msgid "No Output Directory Specified"
 msgid "No Output Folder Specified"
 msgstr "គ្មាន​ថត​លទ្ធផល​​បាន​បញ្ជាក់​ឡើយ​"
 
-#: HTMLGenerator/HTMLDialog.cpp:422
+#: HTMLGenerator/HTMLDialog.cpp:423
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Error while reading information about %1. This is most likely because "
@@ -1909,7 +1924,7 @@ msgid ""
 "folder does not exist.</p><p>The error message was: %2</p>"
 msgstr "<p>មាន​កំហុស​កើត​ឡើង​​ខណៈ​ពេល​កំពុង​អាន​ព័ត៌មាន​អំពី​ %1 ។ នេះ​ព្រោះ​តែ​មិន​មាន​ថត ។</p>"
 
-#: HTMLGenerator/HTMLDialog.cpp:431
+#: HTMLGenerator/HTMLDialog.cpp:432
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>%1 does not exist, is not a directory or cannot be written to.</p>"
@@ -1931,26 +1946,27 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:450
 #, fuzzy, kde-format
 #| msgid "Folder"
+msgctxt "@title"
 msgid "Folder Exists"
 msgstr "ថត"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
-#: HTMLGenerator/HTMLDialog.cpp:534 MainWindow/SplashScreen.cpp:53
+#: HTMLGenerator/HTMLDialog.cpp:547 MainWindow/SplashScreen.cpp:53
 #, kde-format
 msgid "%1"
 msgstr "%1"
 
-#: HTMLGenerator/HTMLDialog.cpp:545
+#: HTMLGenerator/HTMLDialog.cpp:558
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
 msgstr "មិន​អាច​រក​ឃើញ​ស្បែក​ណា​មួយ​ទេ អាច​បណ្តាល​មក​ពី​កំហុស​ក្នុង​ការដំឡើង"
 
-#: HTMLGenerator/HTMLDialog.cpp:552
+#: HTMLGenerator/HTMLDialog.cpp:565
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
 msgstr "ស្បែក​​ច្រើន​​ជាង​មួយ​ត្រូវ​បាន​កំណត់​ទៅ​ជា​លំនាំ​ដើម ដោយ​ប្រើ​ស្បែក​ %1​"
 
-#: HTMLGenerator/HTMLDialog.cpp:559
+#: HTMLGenerator/HTMLDialog.cpp:572
 #, kde-format
 msgctxt ""
 "This is to show the author of the theme. E.g. copyright character (&#169;) "
@@ -1959,7 +1975,7 @@ msgctxt ""
 msgid "by "
 msgstr "តាម"
 
-#: HTMLGenerator/HTMLDialog.cpp:561
+#: HTMLGenerator/HTMLDialog.cpp:574
 #, kde-format
 msgid ""
 "\n"
@@ -1968,12 +1984,12 @@ msgstr ""
 "\n"
 " "
 
-#: HTMLGenerator/HTMLDialog.cpp:576
+#: HTMLGenerator/HTMLDialog.cpp:589
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr ""
 
-#: HTMLGenerator/HTMLDialog.cpp:580
+#: HTMLGenerator/HTMLDialog.cpp:593
 #, kde-format
 msgid "<p>The output folder already exists.</p>"
 msgstr ""
@@ -2229,14 +2245,14 @@ msgstr "KPhotoAlbum"
 msgid "Unable to create temporary file"
 msgstr "មិន​អាច​បង្កើត​ឯកសារ​បណ្តោះ​អាសន្ន​"
 
-#: ImportExport/ImportDialog.cpp:83
+#: ImportExport/ImportDialog.cpp:84
 #, kde-format
 msgid ""
 "<p>XML file did not specify the source of the images, this is a strong "
 "indication that the file is corrupted</p>"
 msgstr "<p>ឯកសារ XML មិន​បាន​បញ្ជាក់​ប្រភព​នៃ​រូបភាព វា​​បង្ហាញ​យ៉ាង​ច្បាស់​ថា​ឯកសារ​បាន​ខូច</p>"
 
-#: ImportExport/ImportDialog.cpp:117
+#: ImportExport/ImportDialog.cpp:118
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This "
@@ -2295,67 +2311,81 @@ msgstr ""
 "ទេ ដូច្នេះ​អ្នក​អាច​មើល​ឃើញ​ថូខឹន​ណា​មួយ​ដែល​អ្នក​មិន​បាន​ឃើញ​នៅ​ក្នុង​ទិន្នន័យ​របស់​អ្នក​ ឬ​ថូខឹន​ណា​មួយ​ដែល​មានតែ​ការ​"
 "ផ្គូផ្គង​ផ្នែក​ខ្លះ ។</li></ol>"
 
-#: ImportExport/ImportDialog.cpp:136
+#: ImportExport/ImportDialog.cpp:137
 #, fuzzy, kde-format
 #| msgid "Introduction"
 msgctxt "@title:tab introduction page"
 msgid "Introduction"
 msgstr "សេចក្តី​ណែនាំ"
 
-#: ImportExport/ImportDialog.cpp:152 MainWindow/TokenEditor.cpp:53
+#: ImportExport/ImportDialog.cpp:153 MainWindow/TokenEditor.cpp:53
 #, kde-format
 msgid "Select All"
 msgstr "ជ្រើស​ទាំងអស់"
 
-#: ImportExport/ImportDialog.cpp:154
+#: ImportExport/ImportDialog.cpp:155
 #, kde-format
 msgid "Deselect All"
 msgstr "ដោះ​ជ្រើស​ទាំងអស់"
 
-#: ImportExport/ImportDialog.cpp:188
+#: ImportExport/ImportDialog.cpp:189
 #, kde-format
 msgid "Select Which Images to Import"
 msgstr "ជ្រើស​រូបភាព​ដែល​ត្រូវ​នាំចូល"
 
-#: ImportExport/ImportDialog.cpp:200
+#: ImportExport/ImportDialog.cpp:201
 #, kde-format
 msgid "Destination of images: "
 msgstr "ទិសដៅ​រូបភាព: "
 
-#: ImportExport/ImportDialog.cpp:213
+#: ImportExport/ImportDialog.cpp:214
 #, kde-format
 msgid "Destination of Images"
 msgstr "ទិសដៅ​រូបភាព"
 
-#: ImportExport/ImportDialog.cpp:221
+#: ImportExport/ImportDialog.cpp:222
 #, fuzzy, kde-format
 #| msgid "The directory must be a subdirectory of %1"
 msgid "The folder must be a subfolder of %1"
 msgstr "ថត​ត្រូវ​តែ​ជា​ថត​រង​នៃ %1"
 
-#: ImportExport/ImportDialog.cpp:224
+#: ImportExport/ImportDialog.cpp:225
 #, kde-format
 msgid "This folder is reserved for category images."
 msgstr ""
 
-#: ImportExport/ImportDialog.cpp:264
+#: ImportExport/ImportDialog.cpp:265
 #, kde-format
 msgid "Match Categories"
 msgstr "ផ្គូផ្គង​ប្រភេទ"
 
-#: ImportExport/ImportDialog.cpp:296
+#: ImportExport/ImportDialog.cpp:297
 #, fuzzy, kde-format
 #| msgid "Directory %1 does not exist. Should it be created?"
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "មិន​មាន​ថត %1 ។ គួរ​តែ​បង្កើត​វាឬ​ ?"
 
-#: ImportExport/ImportDialog.cpp:300
+#: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
+#, fuzzy, kde-format
+#| msgid "Base directory:"
+msgctxt "@title"
+msgid "Create folder?"
+msgstr "ថត​មូលដ្ឋាន ៖"
+
+#: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
+#: MainWindow/Window.cpp:1182
+#, kde-format
+msgctxt "@action:button"
+msgid "Create"
+msgstr ""
+
+#: ImportExport/ImportDialog.cpp:314
 #, fuzzy, kde-format
 #| msgid "Error creating zip file %1"
 msgid "Error creating folder %1"
 msgstr "កំហុស​ក្នុងកា​របង្កើត​ឯកសារ zip %1"
 
-#: ImportExport/ImportDialog.cpp:381
+#: ImportExport/ImportDialog.cpp:393
 #, kde-format
 msgid "How to resolve clashes"
 msgstr "របៀប​ដោះ​ស្រាយ​ការ​ប៉ះ​ទង្គិច"
@@ -2383,7 +2413,16 @@ msgid "Cannot copy from any of the following locations:"
 msgstr "មិន​អាច​ចម្លង​ឯកសារ​រូបភាព​ពី​ទីតាំង​ដូច​ខាងក្រោម:"
 
 #: ImportExport/ImportHandler.cpp:237
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Copying image files"
+msgctxt "@title"
+msgid "Copy failed"
+msgstr "កំពុង​ចម្លង​ឯកសារ​រូបភាព"
+
+#: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
+#, fuzzy, kde-format
+#| msgid "Continue without Asking"
+msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "បន្ត​ដោយ​មិន​សួរ"
 
@@ -2503,128 +2542,128 @@ msgstr "បញ្ចូល​ទិន្នន័យ​ចូល​គ្នា
 msgid "Date and Time"
 msgstr "កាលបរិច្ឆេទ និង​ពេល​វេលា"
 
-#: kpa-thumbnailtool/main.cpp:33
+#: kpa-thumbnailtool/main.cpp:32
 #, kde-format
 msgctxt "@info:shell"
 msgid "Conflicting commandline options: %1 and %2!\n"
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:45
+#: kpa-thumbnailtool/main.cpp:44
 #, fuzzy, kde-format
 #| msgid "Run KPhotoAlbum Demo"
 msgid "KPhotoAlbum Thumbnail Tool"
 msgstr "ដំណើរ​ការ​ការ​បង្ហាញ​សាក​ល្បង​ KPhotoAlbum​"
 
-#: kpa-thumbnailtool/main.cpp:47
+#: kpa-thumbnailtool/main.cpp:46
 #, kde-format
 msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:49
+#: kpa-thumbnailtool/main.cpp:48
 #, kde-format
-msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:57 main.cpp:98
+#: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, fuzzy, kde-format
 #| msgid "Johannes Zarl"
 msgid "Johannes Zarl-Zierl"
 msgstr "Johannes Zarl"
 
-#: kpa-thumbnailtool/main.cpp:57 main.cpp:98
+#: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, fuzzy, kde-format
 #| msgid "Development"
 msgid "Development, Maintainer"
 msgstr "ការ​អភិវឌ្ឍន៍"
 
-#: kpa-thumbnailtool/main.cpp:58 main.cpp:99
+#: kpa-thumbnailtool/main.cpp:57 main.cpp:98
 #, fuzzy, kde-format
 #| msgid "Robert L Krawitz"
 msgid "Robert Krawitz"
 msgstr "Robert L Krawitz"
 
-#: kpa-thumbnailtool/main.cpp:58 main.cpp:99
+#: kpa-thumbnailtool/main.cpp:57 main.cpp:98
 #, fuzzy, kde-format
 #| msgid "Development"
 msgid "Development, Optimization"
 msgstr "ការ​អភិវឌ្ឍន៍"
 
-#: kpa-thumbnailtool/main.cpp:59 main.cpp:100
+#: kpa-thumbnailtool/main.cpp:58 main.cpp:99
 #, kde-format
 msgid "Tobias Leupold"
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:59 main.cpp:100
+#: kpa-thumbnailtool/main.cpp:58 main.cpp:99
 #, kde-format
 msgid "Development, Releases, Website"
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:60 main.cpp:101
+#: kpa-thumbnailtool/main.cpp:59 main.cpp:100
 #, kde-format
 msgid "Jesper K. Pedersen"
 msgstr "Jesper K. Pedersen"
 
-#: kpa-thumbnailtool/main.cpp:60 main.cpp:101
+#: kpa-thumbnailtool/main.cpp:59 main.cpp:100
 #, kde-format
 msgid "Former Maintainer, Project Creator"
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:62 main.cpp:103
+#: kpa-thumbnailtool/main.cpp:61 main.cpp:102
 #, kde-format
 msgid "Hassan Ibraheem"
 msgstr "Hassan Ibraheem"
 
-#: kpa-thumbnailtool/main.cpp:63 main.cpp:104
+#: kpa-thumbnailtool/main.cpp:62 main.cpp:103
 #, kde-format
 msgid "Jan Kundr&aacute;t"
 msgstr "Jan Kundr&aacute;t"
 
-#: kpa-thumbnailtool/main.cpp:64 main.cpp:105
+#: kpa-thumbnailtool/main.cpp:63 main.cpp:104
 #, kde-format
 msgid "Andreas Neustifter"
 msgstr "Andreas Neustifter"
 
-#: kpa-thumbnailtool/main.cpp:65 main.cpp:106
+#: kpa-thumbnailtool/main.cpp:64 main.cpp:105
 #, kde-format
 msgid "Tuomas Suutari"
 msgstr "Tuomas Suutari"
 
-#: kpa-thumbnailtool/main.cpp:66 main.cpp:107
+#: kpa-thumbnailtool/main.cpp:65 main.cpp:106
 #, kde-format
 msgid "Miika Turkia"
 msgstr "Miika Turkia"
 
-#: kpa-thumbnailtool/main.cpp:67 main.cpp:108
+#: kpa-thumbnailtool/main.cpp:66 main.cpp:107
 #, kde-format
 msgid "Henner Zeller"
 msgstr "Henner Zeller"
 
-#: kpa-thumbnailtool/main.cpp:71
+#: kpa-thumbnailtool/main.cpp:70
 #, fuzzy, kde-format
 #| msgid "The directory must be a subdirectory of %1"
 msgctxt "@info:shell"
 msgid "The folder containing the .thumbnail folder."
 msgstr "ថត​ត្រូវ​តែ​ជា​ថត​រង​នៃ %1"
 
-#: kpa-thumbnailtool/main.cpp:72
+#: kpa-thumbnailtool/main.cpp:71
 #, kde-format
 msgctxt "@info:shell"
 msgid "Print information about thumbnail cache."
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:74
+#: kpa-thumbnailtool/main.cpp:73
 #, kde-format
 msgctxt "@info:shell"
 msgid "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3."
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:76
+#: kpa-thumbnailtool/main.cpp:75
 #, kde-format
 msgctxt "@info:shell"
 msgid "Check thumbnail cache for consistency of thumbnail dimensions."
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:78
+#: kpa-thumbnailtool/main.cpp:77
 #, kde-format
 msgctxt "@info:shell"
 msgid ""
@@ -2632,59 +2671,59 @@ msgid ""
 "check-thumbnail-dimensions)."
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:80
+#: kpa-thumbnailtool/main.cpp:79
 #, kde-format
 msgctxt "@info:shell"
 msgid "Remove unreferenced thumbnails from the thumbnail data files."
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:82
+#: kpa-thumbnailtool/main.cpp:81
 #, kde-format
 msgctxt "@info:shell"
 msgid "Be less verbose."
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:98
+#: kpa-thumbnailtool/main.cpp:97
 #, kde-format
 msgctxt "@info:shell"
 msgid "Missing argument!\n"
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:103
+#: kpa-thumbnailtool/main.cpp:102
 #, fuzzy, kde-format
 #| msgid "%1 exists, but is not a directory"
 msgctxt "@info:shell"
 msgid "%1 is not a folder!\n"
 msgstr "មាន %1 ប៉ុន្តែ​មិន​មែន​ជា​ថត​ទេ "
 
-#: kpa-thumbnailtool/main.cpp:117
+#: kpa-thumbnailtool/main.cpp:116
 #, fuzzy, kde-format
 #| msgid "Thumbnail size:"
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
 msgstr "ទំហំ​រូបភាព​តូច ៖​"
 
-#: kpa-thumbnailtool/main.cpp:118
+#: kpa-thumbnailtool/main.cpp:117
 #, fuzzy, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt "@info:shell"
 msgid "Thumbnail index file version: %1\n"
 msgstr "ទំហំ​រូបភាព​របស់​រូបភាព​​តូច ៗ ៖"
 
-#: kpa-thumbnailtool/main.cpp:119
+#: kpa-thumbnailtool/main.cpp:118
 #, kde-format
 msgctxt "@info:shell"
 msgid "Maximum supported thumbnailindex file version: %1\n"
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:120
+#: kpa-thumbnailtool/main.cpp:119
 #, fuzzy, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt "@info:shell"
 msgid "Thumbnail storage dimensions: %1 pixels\n"
 msgstr "ទំហំ​រូបភាព​របស់​រូបភាព​​តូច ៗ ៖"
 
-#: kpa-thumbnailtool/main.cpp:122
+#: kpa-thumbnailtool/main.cpp:121
 #, kde-format
 msgctxt "@info:shell"
 msgid ""
@@ -2692,27 +2731,27 @@ msgid ""
 "prior to v5.\n"
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:124
+#: kpa-thumbnailtool/main.cpp:123
 #, fuzzy, kde-format
 #| msgid "Number of columns:"
 msgctxt "@info:shell"
 msgid "Number of thumbnails: %1\n"
 msgstr "ចំនួន​ជួរឈរ ៖​"
 
-#: kpa-thumbnailtool/main.cpp:130
+#: kpa-thumbnailtool/main.cpp:129
 #, fuzzy, kde-format
 #| msgid "No default setup file found"
 msgctxt "@info:shell"
 msgid "No inconsistencies found.\n"
 msgstr "រក​មិនឃើញ​ការ​រៀបចំ​ឯកសារ​លំនាំដើម"
 
-#: kpa-thumbnailtool/main.cpp:134
+#: kpa-thumbnailtool/main.cpp:133
 #, kde-format
 msgctxt "@info:shell This line is printed before a list of file names."
 msgid "The following thumbnails appear to have incorrect sizes:\n"
 msgstr ""
 
-#: kpa-thumbnailtool/main.cpp:143
+#: kpa-thumbnailtool/main.cpp:142
 #, kde-format
 msgctxt "@info:shell"
 msgid "Removed 1 inconsistent thumbnail from the database.\n"
@@ -2887,39 +2926,39 @@ msgid ""
 "problem run Maintenance->Recreate Exif Search database.</p>"
 msgstr ""
 
-#: main.cpp:86
+#: main.cpp:85
 #, kde-format
 msgid "KPhotoAlbum"
 msgstr "KPhotoAlbum"
 
-#: main.cpp:88
+#: main.cpp:87
 #, kde-format
 msgid "KDE Photo Album"
 msgstr "អាល់ប៊ុម​រូបថត​របស់ KDE"
 
-#: main.cpp:90
+#: main.cpp:89
 #, kde-format
-msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
 msgstr ""
 
-#: main.cpp:111
+#: main.cpp:110
 #, kde-format
 msgid "Marco Caldarelli"
 msgstr "Marco Caldarelli"
 
-#: main.cpp:111
+#: main.cpp:110
 #, fuzzy, kde-format
 #| msgid ""
 #| "Patch for making it possible to reread EXIF info using a nice dialog."
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
 msgstr "បំណះ​សម្រាប់​ធ្វើ​ឲ្យ​វា​អាច​អាន​ព័ត៌មាន​ EXIF ឡើង​វិញ​ដោយ​ប្រើ​ប្រអប់​ស្អាត ។"
 
-#: main.cpp:112
+#: main.cpp:111
 #, kde-format
 msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
-#: main.cpp:112
+#: main.cpp:111
 #, fuzzy, kde-format
 #| msgid ""
 #| "(.) Patch with directory info made available through the browser. (.) "
@@ -2931,62 +2970,62 @@ msgstr ""
 "(.)បំណះ​ដែល​មាន​ព័ត៌មាន​ថត​ដែល​អាច​ប្រើ​បាន​តាម​រយៈ​កម្មវិធី​រុក​រក​ ។ (.) បំណះ​សម្រាប់​បន្ថែម​ប្រអប់​ធីក​សម្រាប់​"
 "ការស្វែង​រក​ \"និង​/ឬ​\" ​នៅ​ក្នុង​ទំព័រ​ស្វែង​រក​ ។"
 
-#: main.cpp:113
+#: main.cpp:112
 #, kde-format
 msgid "Matthias Füssel"
 msgstr ""
 
-#: main.cpp:113
+#: main.cpp:112
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
 msgstr ""
 
-#: main.cpp:114
+#: main.cpp:113
 #, kde-format
 msgid "Wes Hardaker"
 msgstr "Wes Hardaker"
 
-#: main.cpp:114
+#: main.cpp:113
 #, kde-format
 msgid "Some very useful features to improve workflow"
 msgstr "មាន​លក្ខណ​ពិសេស​មាន​ប្រយោជន៍​មួយ​ចំនួន​ដើម្បី​ធ្វើឲ្យ​លំហូរ​ការងារ​ប្រសើឡើង"
 
-#: main.cpp:115
+#: main.cpp:114
 #, kde-format
 msgid "Reimar Imhof"
 msgstr "Reimar Imhof"
 
-#: main.cpp:115
+#: main.cpp:114
 #, kde-format
 msgid "Patch to sort items in option listboxes"
 msgstr "បំណះ​សម្រាប់​តម្រៀប​ធាតុ​នៅ​ក្នុង​ប្រអប់​បញ្ជី​ជម្រើស"
 
-#: main.cpp:116
+#: main.cpp:115
 #, kde-format
 msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
-#: main.cpp:116
+#: main.cpp:115
 #, kde-format
 msgid "Numerous patches for lots of bugs plus patches for a few new features"
 msgstr "បំណះ​ជា​ច្រើន​សម្រាប់​កំហុស​ច្រើន​ ព្រម​ទាំង​បំណះ​សម្រាប់​លក្ខណ​ពិសេស​ថ្មី​ពីរ​បី"
 
-#: main.cpp:117
+#: main.cpp:116
 #, kde-format
 msgid "Teemu Rytilahti"
 msgstr "Teemu Rytilahti"
 
-#: main.cpp:118
+#: main.cpp:117
 #, kde-format
 msgid "Theme support for HTML generation"
 msgstr ""
 
-#: main.cpp:119
+#: main.cpp:118
 #, kde-format
 msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
-#: main.cpp:119
+#: main.cpp:118
 #, fuzzy, kde-format
 #| msgid ""
 #| "Patch to sort images in the thumbnail view, plus reading time info out of "
@@ -2998,32 +3037,32 @@ msgstr ""
 "បំណះ​សម្រាប់​តម្រៀប​រូបភាព​នៅ​ក្នុង​ទិដ្ឋភាព​រូបភាព​តូច​ៗ​ ព្រម​ទាំង​ព័ត៌​មាន​អំពី​ពេលវេលា​អាន​ចេញ​មក​ពី​រូបភាព​ "
 "EXIF ​សម្រាប់​រូបភាព​ដែល​មាន​ស្រាប់"
 
-#: main.cpp:120
+#: main.cpp:119
 #, kde-format
 msgid "Clytie Siddall"
 msgstr "Clytie Siddall"
 
-#: main.cpp:120
+#: main.cpp:119
 #, kde-format
 msgid "Tremendous help with the English text in the application."
 msgstr "ជំនួយ​ដ៏​អស្ចារ្យ​ដោយ​មាន​អត្ថបទ​ជា​ភាសា​អង់គ្លេស​នៅ​ក្នុង​កម្មវិធី ។"
 
-#: main.cpp:121
+#: main.cpp:120
 #, kde-format
 msgid "Will Stephenson"
 msgstr "Will Stephenson"
 
-#: main.cpp:121
+#: main.cpp:120
 #, kde-format
 msgid "Developing an Icon for KPhotoAlbum"
 msgstr "អភិវឌ្ឍ​រូប​តំណាង​សម្រាប់ KPhotoAlbum"
 
-#: main.cpp:122
+#: main.cpp:121
 #, kde-format
 msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
-#: main.cpp:122
+#: main.cpp:121
 #, kde-format
 msgid ""
 "Patch which speed up loading of thumbnails plus preview in image property "
@@ -3760,7 +3799,7 @@ msgstr "ជ្រើស​ថូខឹន​ត្រូវ​យក​ចេញ
 msgid "Select None"
 msgstr "​មិន​ជ្រើស​អ្វី​ទាំងអស់"
 
-#: MainWindow/WelcomeDialog.cpp:44
+#: MainWindow/WelcomeDialog.cpp:45
 #, kde-format
 msgid ""
 "<h1>Welcome to KPhotoAlbum</h1><p>KPhotoAlbum is a powerful free tool to "
@@ -3780,22 +3819,22 @@ msgstr ""
 "រួចហើយ ហើយ​អ្នក​ចង់​ប្រើ​វា​ម្ដងទៀត ។</p><p>ប្រសិនបើ​អ្នក​គិត​ថា​វា​មាន​សុវត្ថិភាព ជា​ដំបូង​អ្នក​អាច​"
 "សាកល្បង KPhotoAlbum ជាមួយ​សំណុំ​រូបភាព​ដែល​បាន​ស្ថាបនា​ជាមុន ដោយ​ចុច​ប៊ូតុង ផ្ទុក​ការ​បង្ហាញ​សាក​។</p>"
 
-#: MainWindow/WelcomeDialog.cpp:59
+#: MainWindow/WelcomeDialog.cpp:60
 #, kde-format
 msgid "Create My Own Database..."
 msgstr "បង្កើត​មូលដ្ឋាន​ទិន្នន័យ​ផ្ទាល់​ខ្លួន​របស់​ខ្ញុំ​... "
 
-#: MainWindow/WelcomeDialog.cpp:62
+#: MainWindow/WelcomeDialog.cpp:63
 #, kde-format
 msgid "Load Demo"
 msgstr "ផ្ទុក​ការ​បង្ហាញ​សាក​ល្បង "
 
-#: MainWindow/WelcomeDialog.cpp:65
+#: MainWindow/WelcomeDialog.cpp:66
 #, kde-format
 msgid "Check My Feature Set"
 msgstr "ពិនិត្យ​មើល​សំណុំ​លក្ខណ​ពិសេស​របស់​ខ្ញុំ"
 
-#: MainWindow/WelcomeDialog.cpp:99
+#: MainWindow/WelcomeDialog.cpp:100
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1>KPhotoAlbum database creation</h1><p>You need to show where the "
@@ -3826,31 +3865,31 @@ msgstr ""
 "បាន ។</p><p>ប្រសិនបើ​អ្នក​មាន​មូលដ្ឋាន​ទិន្នន័យ KPhotoAlbum នៅ​កន្លែង​ណាមួយ​រួចហើយ អ្នក​អាច​ចង្អុល "
 "KPhotoAlbum ទៅកាន់​ថត​នោះ​ដើម្បី​ចាប់ផ្ដើម​វា​ម្ដងទៀត​បាន ។</p>"
 
-#: MainWindow/WelcomeDialog.cpp:114
+#: MainWindow/WelcomeDialog.cpp:115
 #, fuzzy, kde-format
 #| msgid "Image/Video root directory: "
 msgid "Image/Video root folder: "
 msgstr "ថត  root  រូបភាព​/វីដេអូ ៖    "
 
-#: MainWindow/WelcomeDialog.cpp:154
+#: MainWindow/WelcomeDialog.cpp:155
 #, fuzzy, kde-format
 #| msgid "Directory does not exist, create it?"
 msgid "Folder does not exist, create it?"
 msgstr "មិន​មាន​ថត  បង្កើត​វា​ឬ​ ? "
 
-#: MainWindow/WelcomeDialog.cpp:158
+#: MainWindow/WelcomeDialog.cpp:170
 #, fuzzy, kde-format
 #| msgid "Could not create file '%1'."
 msgid "Could not create folder %1"
 msgstr "មិន​អាច​បង្កើត​ឯកសារ '%1' បាន​ឡើយ ។"
 
-#: MainWindow/WelcomeDialog.cpp:163
+#: MainWindow/WelcomeDialog.cpp:175
 #, fuzzy, kde-format
 #| msgid "%1 exists, but is not a directory"
 msgid "%1 exists, but is not a folder"
 msgstr "មាន %1 ប៉ុន្តែ​មិន​មែន​ជា​ថត​ទេ "
 
-#: MainWindow/WelcomeDialog.cpp:179
+#: MainWindow/WelcomeDialog.cpp:191
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>KPhotoAlbum does not seem to be build with support for all its "
@@ -3868,39 +3907,46 @@ msgstr ""
 "លម្អិត​អំពី​របៀប​ដោះ​ស្រាយ​បញ្ហា​នេះ សូម​ជ្រើស​ <b>ជំនួយ​</b>|<b>​ស្ថានភាព​លក្ខណ​ពិសេស​របស់ ​"
 "KPhotoAlbum</b> ​ពី​ម៉ឺនុយ​ ។</p>"
 
-#: MainWindow/WelcomeDialog.cpp:184 MainWindow/WelcomeDialog.cpp:187
+#: MainWindow/WelcomeDialog.cpp:196 MainWindow/WelcomeDialog.cpp:199
 #, kde-format
 msgid "Feature Check"
 msgstr "ការ​ពិនិត្យ​មើល​លក្ខណ​ពិសេស "
 
-#: MainWindow/WelcomeDialog.cpp:186
+#: MainWindow/WelcomeDialog.cpp:198
 #, kde-format
 msgid "Congratulations: all dynamic features have been enabled."
 msgstr "អបអរ​សាទរ ៖ គ្រប់​លក្ខណ​ពិសេស​ថាមវន្ត ទាំង​អស់​ត្រូវ​បាន​បើក​ ។ "
 
-#: MainWindow/Window.cpp:144
+#: MainWindow/Window.cpp:143
 #, kde-format
 msgid "Loading Database"
 msgstr "កំពុង​ផ្ទុក​មូលដ្ឋាន​ទិន្នន័យ "
 
-#: MainWindow/Window.cpp:151
+#: MainWindow/Window.cpp:150
 #, kde-format
 msgid "Loading Main Window"
 msgstr "កំពុង​ផ្ទុក​បង្អួច​មេ "
 
-#: MainWindow/Window.cpp:264
+#: MainWindow/Window.cpp:263
 #, kde-format
 msgid "Searching for New Files"
 msgstr "កំពុង​ស្វែង​រក​ឯកសារ​ថ្មី "
 
-#: MainWindow/Window.cpp:300
-#, kde-format
+#: MainWindow/Window.cpp:299
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
+#| "the KPhotoAlbum demo. The demo database was copied to /tmp, should it be "
+#| "deleted now? If you do not delete it, it will waste disk space; on the "
+#| "other hand, if you want to come back and try the demo again, you might "
+#| "want to keep it around with the changes you made through this session.</p>"
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
-"KPhotoAlbum demo. The demo database was copied to /tmp, should it be deleted "
-"now? If you do not delete it, it will waste disk space; on the other hand, "
-"if you want to come back and try the demo again, you might want to keep it "
-"around with the changes you made through this session.</p>"
+"KPhotoAlbum demo. The demo database was created in the folder <tt>/tmp</tt>, "
+"should it be deleted now? If you do not delete it, it will waste disk space; "
+"on the other hand, if you want to come back and try the demo again, you "
+"might want to keep it around with the changes you made through this session."
+"</p>"
 msgstr ""
 "<p><b>លុប​មូលដ្ឋាន​ទិន្នន័យ​បង្ហាញ​សាក​ល្បង​​បណ្ដោះ​អាសន្ន​របស់​អ្នក​</b></p><p>​ខ្ញុំ​សង្ឃឹម​ថា​ អ្នក​ពិត​ជា​រីក​"
 "រាយ​ជា​មួយ​ការ​បង្ហាញ​សាក​ល្បង​នូវ​ KPhotoAlbum ។ មូលដ្ឋាន​ទិន្នន័យ​បង្ហាញ​សាក​ល្បង​ត្រូវ​បាន​ចម្លង​ទៅ​ /"
@@ -3908,22 +3954,14 @@ msgstr ""
 "អ្នក​ចង់​ត្រឡប់​ក្រោយ​វិញ និង​ព្យាយាម​ធ្វើ​ការ​​បង្ហាញ​​សាក​ល្បង​ម្ដង​ទៀត អ្នក​ប្រហែល​ជា​ចង់​រក្សា​វា​ទុក​ជា​មួយ​នឹង​ការ​"
 "ផ្លាស់​ប្ដូរ​ដែល​អ្នក​បាន​ធ្វើ​តាម​រយៈ​សម័យ​នេះ ។</p>"
 
-#: MainWindow/Window.cpp:305
-#, kde-format
+#: MainWindow/Window.cpp:304
+#, fuzzy, kde-format
+#| msgid "Delete Demo Database"
+msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "លុប​មូលដ្ឋាន​ទិន្នន័យ​នៃ​ការ​បង្ហាញ​សាក​ល្បង​"
 
-#: MainWindow/Window.cpp:319
-#, kde-format
-msgid "Do you want to save the changes?"
-msgstr "តើ​អ្នក​ពិត​ជា​ចង់​រក្សាទុក​កា​រផ្លាស់​ប្ដូរ​មែនទេ ?​"
-
-#: MainWindow/Window.cpp:320
-#, kde-format
-msgid "Save Changes?"
-msgstr "រក្សា​ទុក​ការ​ផ្លាស់ប្ដូរ ?​"
-
-#: MainWindow/Window.cpp:363
+#: MainWindow/Window.cpp:359
 #, kde-format
 msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
@@ -3932,356 +3970,363 @@ msgstr ""
 "រូប​ភាព​ដែល​បាន​ជ្រើស​មួយ​ចំនួន​ស្ថិត​នៅ​ជា​មួយ​នឹង​ជង់នោះ​ហើយ ។ តើ​អ្នក​ចង់​យក​ពួក​វា​ចេញ​ពី​ជង់​របស់​ពួក​វា​ រួច​បង្កើត​"
 "រូបភាព​ថ្មី​ស្រឡាង​ដែរ​ឬ​ទេ​ ?"
 
-#: MainWindow/Window.cpp:366 MainWindow/Window.cpp:372
-#, kde-format
-msgid "Stacking Error"
+#: MainWindow/Window.cpp:362
+#, fuzzy, kde-format
+#| msgid "Stacking Error"
+msgctxt "@title"
+msgid "Stacking problem"
 msgstr "កំហុស​ក្នុង​ការ​ដាក់​ជា​ជង់​"
 
-#: MainWindow/Window.cpp:371
+#: MainWindow/Window.cpp:377
 #, kde-format
 msgid "Unknown error, stack creation failed."
 msgstr "មិន​ស្គាល់​កំហុស បាន​បរាជ័យ​ក្នុង​ការ​បង្កើត​ជង់ ។​"
 
-#: MainWindow/Window.cpp:451 MainWindow/Window.cpp:577
-#: MainWindow/Window.cpp:1266 MainWindow/Window.cpp:1363
+#: MainWindow/Window.cpp:378
+#, kde-format
+msgid "Stacking Error"
+msgstr "កំហុស​ក្នុង​ការ​ដាក់​ជា​ជង់​"
+
+#: MainWindow/Window.cpp:457 MainWindow/Window.cpp:583
+#: MainWindow/Window.cpp:1283 MainWindow/Window.cpp:1380
 #, kde-format
 msgid "No item is selected."
 msgstr "គ្មាន​​ធាតុ​​ត្រូវ​បាន​ជ្រើស​ឡើយ​ ។"
 
-#: MainWindow/Window.cpp:451 MainWindow/Window.cpp:577
-#: MainWindow/Window.cpp:1266 MainWindow/Window.cpp:1364
+#: MainWindow/Window.cpp:457 MainWindow/Window.cpp:583
+#: MainWindow/Window.cpp:1283 MainWindow/Window.cpp:1381
 #, kde-format
 msgid "No Selection"
 msgstr "គ្មាន​ជម្រើស​"
 
-#: MainWindow/Window.cpp:497
+#: MainWindow/Window.cpp:503
 #, kde-format
 msgid "Saving..."
 msgstr "កំពុង​រក្សា​ទុក...​"
 
-#: MainWindow/Window.cpp:502
+#: MainWindow/Window.cpp:508
 #, kde-format
 msgid "Saving... Done"
 msgstr "កំពុង​រក្សា​ទុក​... ​រួចហើយ​​​"
 
-#: MainWindow/Window.cpp:650
+#: MainWindow/Window.cpp:656
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "គ្មាន​រូបភាព​ត្រូវបង្ហាញ​ទេ ។​"
 
-#: MainWindow/Window.cpp:739
+#: MainWindow/Window.cpp:745
 #, kde-format
 msgid "Generate HTML..."
 msgstr "បង្កើត​ HTML...​"
 
-#: MainWindow/Window.cpp:743
+#: MainWindow/Window.cpp:749
 #, kde-format
 msgid "Import..."
 msgstr "នាំចូល...​"
 
-#: MainWindow/Window.cpp:746
+#: MainWindow/Window.cpp:752
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "នាំ​ចេញ​/ចម្លង​រូបភាព​...​"
 
-#: MainWindow/Window.cpp:773
+#: MainWindow/Window.cpp:779
 #, fuzzy, kde-format
 #| msgid "Delete Selected"
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "លុប​ធាតុ​ដែល​បាន​ជ្រើស​"
 
-#: MainWindow/Window.cpp:779
+#: MainWindow/Window.cpp:785
 #, fuzzy, kde-format
 #| msgid "Remove Tokens"
 msgid "Remove Tokens..."
 msgstr "យក​ថូខឹន​ចេញ​"
 
-#: MainWindow/Window.cpp:782
+#: MainWindow/Window.cpp:788
 #, kde-format
 msgid "Open List of Files..."
 msgstr "បើក​បញ្ជី​ឯកសារ...​"
 
-#: MainWindow/Window.cpp:785
+#: MainWindow/Window.cpp:791
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "ចារ​ពន្យល់​ធាតុ​នីមួយ​ៗ​"
 
-#: MainWindow/Window.cpp:789
+#: MainWindow/Window.cpp:795
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "ចារ​ពន្យល់​ធាតុ​ជា​ច្រើន​ក្នុង​ពេល​តែ​មួយ​"
 
-#: MainWindow/Window.cpp:793
+#: MainWindow/Window.cpp:799
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "បញ្ចូល​រូប​ភាព​ចូល​គ្នា​ទៅ​ក្នុង​ជង់​"
 
-#: MainWindow/Window.cpp:797
+#: MainWindow/Window.cpp:803
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "យក​រូបភាព​ចេញ​ពី​ជង់​"
 
-#: MainWindow/Window.cpp:800
+#: MainWindow/Window.cpp:806
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "កំណត់​ជា​រូបភាព​ដំបូង​នៅ​ក្នុង​ជង់​"
 
-#: MainWindow/Window.cpp:813
+#: MainWindow/Window.cpp:819
 #, kde-format
 msgid "View"
 msgstr "ទិដ្ឋភាព​"
 
-#: MainWindow/Window.cpp:816
+#: MainWindow/Window.cpp:822
 #, kde-format
 msgid "View (In New Window)"
 msgstr "ទិដ្ឋភាព​ (ក្នុង​បង្អួច​ថ្មី)​"
 
-#: MainWindow/Window.cpp:819
+#: MainWindow/Window.cpp:825
 #, kde-format
 msgid "Run Slide Show"
 msgstr "ដំណើរ​ការ​ការ​បញ្ចាំង​ស្លាយ​"
 
-#: MainWindow/Window.cpp:824
+#: MainWindow/Window.cpp:830
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "ដំណើរ​ការការបញ្ចាំង​ស្លាយ​​ដោយ​ព្រាវ​ៗ​"
 
-#: MainWindow/Window.cpp:830
+#: MainWindow/Window.cpp:836
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "វេញ​ជង់​ទាំង​អស់ "
 
-#: MainWindow/Window.cpp:836
+#: MainWindow/Window.cpp:842
 #, kde-format
 msgid "Expand all stacks"
 msgstr "ពង្រីក​ជង់​ទាំងអស់​"
 
-#: MainWindow/Window.cpp:841
+#: MainWindow/Window.cpp:847
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "បង្ហាញ​ធាតុ​ចាស់​​បំផុត​ដំបូង​"
 
-#: MainWindow/Window.cpp:846
+#: MainWindow/Window.cpp:852
 #, kde-format
 msgid "Show &Newest First"
 msgstr "បង្ហាញ​ធាតុ​ថ្មី​​បំផុត​ដំបូង​"
 
-#: MainWindow/Window.cpp:851
+#: MainWindow/Window.cpp:857
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "តម្រៀប​ធាតុ​ដែល​បាន​ជ្រើស​តាម​កាល​បរិច្ឆេទ និង​ពេល​វេលា"
 
-#: MainWindow/Window.cpp:854
+#: MainWindow/Window.cpp:860
 #, fuzzy, kde-format
 #| msgid "Limit View to Marked"
 msgid "Limit View to Selection"
 msgstr "កំណត់​ទិដ្ឋភាព​ដែល​ត្រូវ​សម្គាល់"
 
-#: MainWindow/Window.cpp:857
+#: MainWindow/Window.cpp:863
 #, kde-format
 msgid "Jump to Context"
 msgstr "ទៅកាន់​បរិបទ\t"
 
-#: MainWindow/Window.cpp:863
+#: MainWindow/Window.cpp:869
 #, kde-format
 msgid "Lock Images"
 msgstr "ចាក់​សោ​រូបភាព​"
 
-#: MainWindow/Window.cpp:867
+#: MainWindow/Window.cpp:873
 #, kde-format
 msgid "Unlock"
 msgstr "ដោះសោ​"
 
-#: MainWindow/Window.cpp:870
+#: MainWindow/Window.cpp:876
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "ចាក់​សោ​គ្រប់​ធាតុ​ទាំង​អស់​​"
 
-#: MainWindow/Window.cpp:873
+#: MainWindow/Window.cpp:879
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "ចាក់​សោ​សំណុំ​ធាតុ​បច្ចុប្បន្ន​"
 
-#: MainWindow/Window.cpp:876
+#: MainWindow/Window.cpp:882
 #, kde-format
 msgid "Configure Current View"
 msgstr "កំណត់​​​រចនា​សម្ព័ន្ធ​ទិដ្ឋភាព​បច្ចុប្បន្ន​"
 
-#: MainWindow/Window.cpp:888
+#: MainWindow/Window.cpp:894
 #, kde-format
 msgid "Tree"
 msgstr "មែក​ធាង​"
 
-#: MainWindow/Window.cpp:893
+#: MainWindow/Window.cpp:899
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "មែក​ធាង​ដែល​មាន​រូបតំណាង​​អ្នក​ប្រើ​"
 
-#: MainWindow/Window.cpp:898
+#: MainWindow/Window.cpp:904
 #, kde-format
 msgid "Icons"
 msgstr "រូប​តំណាង​"
 
-#: MainWindow/Window.cpp:906
+#: MainWindow/Window.cpp:912
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "បង្ហាញ​ព័ត៌មាន​ជំនួយ​ឧបករណ៍​នៅ​ក្នុង​បង្អួច​របស់​រូបភាព​តូច​ៗ"
 
-#: MainWindow/Window.cpp:911
+#: MainWindow/Window.cpp:917
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Labels in Thumbnails Window"
 msgstr "បង្ហាញ​ព័ត៌មាន​ជំនួយ​ឧបករណ៍​នៅ​ក្នុង​បង្អួច​របស់​រូបភាព​តូច​ៗ"
 
-#: MainWindow/Window.cpp:921
+#: MainWindow/Window.cpp:927
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Categories in Thumbnails Window"
 msgstr "បង្ហាញ​ព័ត៌មាន​ជំនួយ​ឧបករណ៍​នៅ​ក្នុង​បង្អួច​របស់​រូបភាព​តូច​ៗ"
 
-#: MainWindow/Window.cpp:935
+#: MainWindow/Window.cpp:941
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr ""
 
-#: MainWindow/Window.cpp:946
+#: MainWindow/Window.cpp:952
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "បង្ហាញ​រូបភាព និង​វីដេអូ​ដែល​មិន​នៅ​លើ​ថាស​"
 
-#: MainWindow/Window.cpp:949
+#: MainWindow/Window.cpp:955
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "បង្ហាញ​រូបភាព និង​វីដេអូ​ដែល​មាន​កាល​បរិច្ឆេទ​មិន​ពេញ​លេញ​...​"
 
-#: MainWindow/Window.cpp:953
+#: MainWindow/Window.cpp:959
 #, kde-format
 msgid "Display Images and Videos with Changed MD5 Sum"
 msgstr "បង្ហាញ​រូបភាព និង​វីដេអូ​ដែល​មាន​ MD5 Sum ដែល​បាន​ផ្លាស់​ប្តូរ​"
 
-#: MainWindow/Window.cpp:957
+#: MainWindow/Window.cpp:963
 #, fuzzy, kde-format
 #| msgid "Merge data"
 msgid "Merge duplicates"
 msgstr "បញ្ចូល​ទិន្នន័យ​ចូល​គ្នា"
 
-#: MainWindow/Window.cpp:959
+#: MainWindow/Window.cpp:965
 #, kde-format
 msgid "Recalculate Checksum"
 msgstr "គណនា​ឆេកសាំ​ឡើង​វិញ​​"
 
-#: MainWindow/Window.cpp:963
+#: MainWindow/Window.cpp:969
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "វិភាគ​រក​រូបភាព និង​វីដេអូ​ឡើង​វិញ​​"
 
-#: MainWindow/Window.cpp:966
+#: MainWindow/Window.cpp:972
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "បង្កើត​មូលដ្ឋាន​ទិន្នន័យ​ស្វែង​រក​ Exif ​ឡើងវិញ​"
 
-#: MainWindow/Window.cpp:969
+#: MainWindow/Window.cpp:975
 #, fuzzy, kde-format
 #| msgid "Read EXIF Info From Files..."
 msgid "Read Exif Info from Files..."
 msgstr "អាន​ព័ត៌មាន​ EXIF ​ពី​ឯកសារ​...​"
 
-#: MainWindow/Window.cpp:972
+#: MainWindow/Window.cpp:978
 #, fuzzy, kde-format
 #| msgid "Sort Selected by Date && Time"
 msgid "Sort All by Date && Time"
 msgstr "តម្រៀប​ធាតុ​ដែល​បាន​ជ្រើស​តាម​កាល​បរិច្ឆេទ និង​ពេល​វេលា"
 
-#: MainWindow/Window.cpp:976
+#: MainWindow/Window.cpp:982
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "រូបភាព​ដែល​បាន​ជ្រើស​ជង់​ដោយ​ស្វ័យ​ប្រវត្តិ​..."
 
-#: MainWindow/Window.cpp:979
+#: MainWindow/Window.cpp:985
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "ស្ថាបនា​រូបភាព​តូច​ៗ"
 
-#: MainWindow/Window.cpp:982
+#: MainWindow/Window.cpp:988
 #, fuzzy, kde-format
 #| msgid "Statistics"
 msgid "Statistics..."
 msgstr "ស្ថិតិ​"
 
-#: MainWindow/Window.cpp:986
+#: MainWindow/Window.cpp:992
 #, kde-format
 msgid "Mark As Untagged"
 msgstr ""
 
-#: MainWindow/Window.cpp:995
+#: MainWindow/Window.cpp:1001
 #, kde-format
 msgid "Enable All Messages"
 msgstr "បើក​សារ​ទាំង​អស់​"
 
-#: MainWindow/Window.cpp:1003
+#: MainWindow/Window.cpp:1009
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "ដំណើរ​ការ​ការ​បង្ហាញ​សាក​ល្បង​ KPhotoAlbum​"
 
-#: MainWindow/Window.cpp:1006
+#: MainWindow/Window.cpp:1012
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "ស្ថាន​ភាព​លក្ខណ​ពិសេស​របស់​ KPhotoAlbum​"
 
-#: MainWindow/Window.cpp:1009
+#: MainWindow/Window.cpp:1015
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "បង្ហាញ​វីដេអូ​នៃ​ការ​បង្ហាញ​សាក​ល្បង​"
 
-#: MainWindow/Window.cpp:1013 Viewer/ViewerWidget.cpp:177
+#: MainWindow/Window.cpp:1019 Viewer/ViewerWidget.cpp:177
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "បង្ហាញ​ព័ត៌មាន​អំពី​ Exif​"
 
-#: MainWindow/Window.cpp:1016
+#: MainWindow/Window.cpp:1022
 #, kde-format
 msgid "Recreate Selected Thumbnails"
 msgstr "បង្កើត​រូបភាព​តូច​ៗ​ដែល​បាន​ជ្រើស​ឡើង​វិញ​"
 
-#: MainWindow/Window.cpp:1019
+#: MainWindow/Window.cpp:1025
 #, fuzzy, kde-format
 #| msgid "Generate thumbnails"
 msgid "Use next video thumbnail"
 msgstr "បង្កើត​រូបភាព​តូច"
 
-#: MainWindow/Window.cpp:1023
+#: MainWindow/Window.cpp:1029
 #, fuzzy, kde-format
 #| msgid "Searching for videos without video thumbnails"
 msgid "Use previous video thumbnail"
 msgstr "ស្វែងរក​វីដេអូ​ដោយ​គ្មាន​រូបភាព​វីដេអូ​តូចៗ"
 
-#: MainWindow/Window.cpp:1027 MainWindow/Window.cpp:1244
+#: MainWindow/Window.cpp:1033 MainWindow/Window.cpp:1261
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "នាំ​ចេញ​/ចម្លង​រូបភាព​...​"
 
-#: MainWindow/Window.cpp:1031 MainWindow/Window.cpp:1248
+#: MainWindow/Window.cpp:1037 MainWindow/Window.cpp:1265
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "នាំ​ចេញ​/ចម្លង​រូបភាព​...​"
 
-#: MainWindow/Window.cpp:1057
+#: MainWindow/Window.cpp:1063
 #, kde-format
 msgid "Auto saving...."
 msgstr "កំពុង​រក្សា​ទុក​ដោយ​ស្វ័យ​ប្រវត្តិ....​"
 
-#: MainWindow/Window.cpp:1060
+#: MainWindow/Window.cpp:1066
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "កំពុង​រក្សា​ទុក​ដោយ​ស្វ័យ​ប្រវត្តិ​.... ​រួច​ហើយ​​"
 
-#: MainWindow/Window.cpp:1162
+#: MainWindow/Window.cpp:1168
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Could not open given index.xml as provided directory does not exist."
@@ -4291,7 +4336,7 @@ msgid ""
 "<br />%1</p>"
 msgstr "<p>មិន​អាច​បើក​ឯកសារ index.xml ព្រោះ​មិន​មាន​ថត​ដែល​បាន​ផ្ដល់ ។<br />%1</p>"
 
-#: MainWindow/Window.cpp:1169
+#: MainWindow/Window.cpp:1175
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4300,7 +4345,18 @@ msgstr ""
 "<p>ឯកសារ index ដែល​បាន​ផ្ដល់​គឺ​មិន​មាន​ទេ តើ​អ្នក​ចង់​បង្កើត​ដូច​ខាងក្រោម​ដែរ​ឬទេ ?<br />%1/index."
 "xml</p>"
 
-#: MainWindow/Window.cpp:1189
+#: MainWindow/Window.cpp:1178
+#, fuzzy, kde-format
+#| msgid ""
+#| "Use data from\n"
+#| "Database"
+msgctxt "@title"
+msgid "Create database"
+msgstr ""
+"ប្រើ​ទិន្នន័យ​ពី​\n"
+"មូលដ្ឋាន​ទិន្នន័យ"
+
+#: MainWindow/Window.cpp:1206
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4309,41 +4365,47 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1315 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1332 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "ទូទៅ​"
 
-#: MainWindow/Window.cpp:1316 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1333 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "កម្មវិធី​មើល​"
 
-#: MainWindow/Window.cpp:1317
+#: MainWindow/Window.cpp:1334
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "កាលបរិច្ឆេទ ៖"
 
-#: MainWindow/Window.cpp:1320
+#: MainWindow/Window.cpp:1337
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "ប្រអប់​ចំណារ​ពន្យល់​"
 
-#: MainWindow/Window.cpp:1321 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1338 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "ទិដ្ឋភាព​រូបភាព​តូច​"
 
-#: MainWindow/Window.cpp:1466
+#: MainWindow/Window.cpp:1483
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
 "show-again check box?</p>"
 msgstr "<p>ពិត​ជា​ចង់​បើក​ប្រអប់​សារ​ទាំង​អស់​ដែល​អ្នក​បាន​ធីក​ប្រអប់​ធីក​កុំ​បង្ហាញ​ម្តង​ទៀត ពី​មុ​ន​ឬ​ ?</p>"
 
-#: MainWindow/Window.cpp:1476
+#: MainWindow/Window.cpp:1485
+#, kde-format
+msgctxt "@title"
+msgid "Reset hidden dialogs"
+msgstr ""
+
+#: MainWindow/Window.cpp:1504
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4359,62 +4421,62 @@ msgstr ""
 "ជា​កំហុស ។</p><p>KPhotoAlbum នឹង​បន្ត​ប្រតិបត្តិ​ ប៉ុន្តែ​វា​ពិត​ជា​មិន​ទំនង​ថា វា​នឹង​គាំង​នៅ​ពេល​ក្រោយ​ទៀត​ "
 "ដោយសារ​តែ​បាត់​ make install ។</p>"
 
-#: MainWindow/Window.cpp:1476
+#: MainWindow/Window.cpp:1504
 #, kde-format
 msgid "Internal Error"
 msgstr "កំហុស​ខាង​ក្នុង​"
 
-#: MainWindow/Window.cpp:1487
+#: MainWindow/Window.cpp:1515
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1490
+#: MainWindow/Window.cpp:1518
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1495
+#: MainWindow/Window.cpp:1523
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1558
+#: MainWindow/Window.cpp:1586
 #, kde-format
 msgid "Open List of Files"
 msgstr "បើក​បញ្ជី​ឯកសារ​"
 
-#: MainWindow/Window.cpp:1559
+#: MainWindow/Window.cpp:1587
 #, kde-format
 msgid ""
 "You can open a set of files from KPhotoAlbum's image root by listing the "
 "files here."
 msgstr "អ្នក​អាច​បើក​សំណុំ​ឯកសារ​ពី root រូបភាព​របស់ KPhotoAlbum ដោយ​រាយ​ឯកសារ​នៅ​ទីនេះ ។"
 
-#: MainWindow/Window.cpp:1572
+#: MainWindow/Window.cpp:1600
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "គ្មាន​រូបភាព​ដែល​ផ្គូផ្គង​ជា​មួយ​នឹង​ការ​បញ្ចូល​របស់​អ្នក​ត្រូវ​បាន​រក​ឃើញ​ទេ ។"
 
-#: MainWindow/Window.cpp:1572
+#: MainWindow/Window.cpp:1600
 #, kde-format
 msgid "No Matches"
 msgstr "គ្មាន​ការ​ផ្គូផ្គង "
 
-#: MainWindow/Window.cpp:1729
+#: MainWindow/Window.cpp:1757
 #, fuzzy, kde-format
 #| msgid "Rereading EXIF information from all images"
 msgid "Rereading Exif information from all images"
 msgstr "អាន​ព័ត៌មាន EXIF ពី​រូបភាព​ទាំងអស់"
 
-#: MainWindow/Window.cpp:1756
+#: MainWindow/Window.cpp:1784
 #, fuzzy, no-c-format, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "ទំហំ​រូបភាព​របស់​រូបភាព​​តូច ៗ ៖"
 
-#: MainWindow/Window.cpp:1809
+#: MainWindow/Window.cpp:1837
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4422,7 +4484,7 @@ msgid ""
 "the ffmpeg package</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1812
+#: MainWindow/Window.cpp:1840
 #, fuzzy, kde-format
 #| msgid "File not available"
 msgid "Video thumbnails are not available"
@@ -4611,66 +4673,66 @@ msgstr "ចារ​ពន្យល់​... "
 msgid "<i>Select an item on the left to edit the birthday</i>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:44
+#: Settings/CategoryPage.cpp:46
 #, fuzzy, kde-format
 #| msgid "Categories"
 msgid "Category Settings"
 msgstr "ប្រភេទ​"
 
-#: Settings/CategoryPage.cpp:65
+#: Settings/CategoryPage.cpp:67
 #, kde-format
 msgid "New"
 msgstr "ថ្មី​"
 
-#: Settings/CategoryPage.cpp:73
+#: Settings/CategoryPage.cpp:75
 #, fuzzy, kde-format
 #| msgid "Rename..."
 msgid "Rename"
 msgstr "ប្ដូរ​ឈ្មោះ​​..."
 
-#: Settings/CategoryPage.cpp:106
+#: Settings/CategoryPage.cpp:108
 #, kde-format
 msgid "Positionable tags:"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:108
+#: Settings/CategoryPage.cpp:110
 #, kde-format
 msgid ""
 "Tags in this category can be\n"
 "associated with areas within images"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:115
+#: Settings/CategoryPage.cpp:117
 #, kde-format
 msgid "Icon:"
 msgstr "រូបតំណាង ៖ "
 
-#: Settings/CategoryPage.cpp:135
+#: Settings/CategoryPage.cpp:137
 #, kde-format
 msgid "Preferred view:"
 msgstr "ទិដ្ឋភាព​ដែល​ពេញចិត្ត ៖"
 
-#: Settings/CategoryPage.cpp:140
+#: Settings/CategoryPage.cpp:142
 #, kde-format
 msgid "List View"
 msgstr "ទិដ្ឋភាព​បញ្ជី​"
 
-#: Settings/CategoryPage.cpp:141
+#: Settings/CategoryPage.cpp:143
 #, kde-format
 msgid "List View with Custom Thumbnails"
 msgstr "ទិដ្ឋភាព​បញ្ជី​ដែល​មាន​រូបភាព​តូច​ផ្ទាល់​ខ្លួន​"
 
-#: Settings/CategoryPage.cpp:142
+#: Settings/CategoryPage.cpp:144
 #, kde-format
 msgid "Icon View"
 msgstr "ទិដ្ឋភាព​រូប​តំណាង​"
 
-#: Settings/CategoryPage.cpp:143
+#: Settings/CategoryPage.cpp:145
 #, kde-format
 msgid "Icon View with Custom Thumbnails"
 msgstr "ទិដ្ឋភាព​រូប​តំណាង​ដែល​មាន​រូបភាព​តូច​ផ្ទាល់​ខ្លួន​"
 
-#: Settings/CategoryPage.cpp:153
+#: Settings/CategoryPage.cpp:155
 #, kde-format
 msgid ""
 "<font color='red'>The database has unsaved changes. As long as those are not "
@@ -4678,37 +4740,37 @@ msgid ""
 "added.</font>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:161
+#: Settings/CategoryPage.cpp:163
 #, kde-format
 msgid "Save the DB now"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:201
+#: Settings/CategoryPage.cpp:203
 #, fuzzy, kde-format
 #| msgid "<b>Setting Category: </b>"
 msgid "Settings for category <b>%1</b>"
 msgstr "<b>ប្រភេទ​កំណត់​ ៖ </b>​"
 
-#: Settings/CategoryPage.cpp:204
+#: Settings/CategoryPage.cpp:206
 #, kde-format
 msgid "<i>Pending change: rename to \"%1\"</i>"
 msgstr ""
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: Settings/CategoryPage.cpp:251 ThumbnailView/CellGeometry.cpp:93
+#: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
 #: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "ថត"
 
-#: Settings/CategoryPage.cpp:253 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
 #: XMLDB/Database.cpp:291 XMLDB/Database.cpp:660 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
 msgstr "ប្រភេទ​មេឌៀ"
 
-#: Settings/CategoryPage.cpp:258
+#: Settings/CategoryPage.cpp:260
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>\"%2\" is a "
@@ -4716,20 +4778,20 @@ msgid ""
 "category.</p>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:262 Settings/CategoryPage.cpp:273
+#: Settings/CategoryPage.cpp:264 Settings/CategoryPage.cpp:275
 #, fuzzy, kde-format
 #| msgid "Invalid password."
 msgid "Invalid category name"
 msgstr "ពាក្យ​សម្ងាត់​មិន​ត្រឹម​ត្រូវ​ ។​"
 
-#: Settings/CategoryPage.cpp:270
+#: Settings/CategoryPage.cpp:272
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>A category with "
 "this name already exists.</p>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:287
+#: Settings/CategoryPage.cpp:289
 #, kde-format
 msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>There's a "
@@ -4737,31 +4799,42 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:291
+#: Settings/CategoryPage.cpp:293
 #, kde-format
 msgid "Unsaved pending renaming action"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:323
+#: Settings/CategoryPage.cpp:324
 #, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
-"linked against this category will be deleted!</p>"
+"linked against this category will be discarded!</p>"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:362
+#: Settings/CategoryPage.cpp:333
+#, kde-format
+msgctxt "@title"
+msgid "Confirm Action"
+msgstr ""
+
+#: Settings/CategoryPage.cpp:377
 #, fuzzy, kde-format
 #| msgid "New Category..."
 msgid "New category"
 msgstr "ប្រភេទ​ថ្មី​..."
 
-#: Settings/CategoryPage.cpp:395
+#: Settings/CategoryPage.cpp:409
 #, fuzzy, kde-format
 #| msgid "<p>Really delete category '%1'?</p>"
 msgid "<p>Really delete category \"%1\"?</p>"
 msgstr "<p>ពិត​ជា​ចង់​លុប​ប្រភេទ '%1'?</p>​"
 
-#: Settings/CategoryPage.cpp:510
+#: Settings/CategoryPage.cpp:414
+#, kde-format
+msgid "Confirm Action"
+msgstr ""
+
+#: Settings/CategoryPage.cpp:536
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
 msgstr ""
@@ -5527,6 +5600,11 @@ msgctxt "@title:window"
 msgid "Delete Group"
 msgstr "លុប​ក្រុម​"
 
+#: Settings/TagGroupsPage.cpp:516 Settings/TagGroupsPage.cpp:762
+#, kde-format
+msgid "&Delete"
+msgstr "លុប​"
+
 #: Settings/TagGroupsPage.cpp:694
 #, fuzzy, kde-format
 #| msgid "Rename..."
@@ -6010,7 +6088,7 @@ msgid ""
 "toggle a filter for that token."
 msgstr ""
 
-#: ThumbnailView/ThumbnailDND.cpp:88
+#: ThumbnailView/ThumbnailDND.cpp:90
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p><b>Really reorder thumbnails?</b></p><p>By dragging images around in "
@@ -6030,8 +6108,10 @@ msgstr ""
 "ជាក់​លាក់​សម្រាប់​រូបភាព​ ។ ម្យ៉ាង​វិញ​ទៀត បើ​សិន​រូបភាព​មាន​ត្រា​ពេល​វេលា​ត្រឹម​ត្រូវ​ អ្នក​គួរ​តែ​ប្រើ  "
 "<b>រូបភាព​ -&gt; ​តម្រៀប​ជម្រើស​តាម​កាល​បរិច្ឆេទ និង​ពេល​វេលា</b>។</p>"
 
-#: ThumbnailView/ThumbnailDND.cpp:95
-#, kde-format
+#: ThumbnailView/ThumbnailDND.cpp:97
+#, fuzzy, kde-format
+#| msgid "Reorder Thumbnails"
+msgctxt "@title"
 msgid "Reorder Thumbnails"
 msgstr "រៀប​លំដាប់​រូបភាព​តូច​ៗ​ឡើង​វិញ​"
 
@@ -7139,6 +7219,12 @@ msgstr ""
 msgid "Error while reading database file"
 msgstr "កំពុង​ផ្ទុក​មូលដ្ឋាន​ទិន្នន័យ "
 
+#~ msgid "Really Rename %1?"
+#~ msgstr "ពិត​ជា​ចង់​ប្ដូរ​ឈ្មោះ %1 ឬ ?"
+
+#~ msgid "Do you want to save the changes?"
+#~ msgstr "តើ​អ្នក​ពិត​ជា​ចង់​រក្សាទុក​កា​រផ្លាស់​ប្ដូរ​មែនទេ ?​"
+
 #~ msgid "Directory Exists"
 #~ msgstr "មាន​ថត​"
 
@@ -7928,15 +8014,6 @@ msgstr "កំពុង​ផ្ទុក​មូលដ្ឋាន​ទិន
 #~| msgid "Database backend"
 #~ msgid "Database entry"
 #~ msgstr "កម្មវិធី​ខាង​ក្រោយ​មូលដ្ឋាន​ទិន្នន័យ​"
-
-#, fuzzy
-#~| msgid ""
-#~| "Use data from\n"
-#~| "Database"
-#~ msgid "Erase database"
-#~ msgstr ""
-#~ "ប្រើ​ទិន្នន័យ​ពី​\n"
-#~ "មូលដ្ឋាន​ទិន្នន័យ"
 
 #, fuzzy
 #~| msgid "Do you want to save the changes?"

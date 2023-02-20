@@ -1,9 +1,9 @@
 # Translation of kphotoalbum.po to Catalan
-# Copyright (C) 2007-2022 This_file_is_part_of_KDE
+# Copyright (C) 2007-2023 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Josep M. Ferrer <txemaq@gmail.com>, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Josep M. Ferrer <txemaq@gmail.com>, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Manuel Tortosa Moreno <manutortosa@gmail.com>, 2009.
 # Antoni Bella Pérez <antonibella5@yahoo.com>, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022.
 msgid ""
@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 00:56+0000\n"
-"PO-Revision-Date: 2022-11-01 12:38+0200\n"
-"Last-Translator: Antoni Bella <antonibella5@yahoo.com>\n"
+"PO-Revision-Date: 2023-02-19 11:53+0100\n"
+"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -336,23 +336,19 @@ msgstr ""
 "pogut escriure a causa del següent error: %2"
 
 #: AnnotationDialog/Dialog.cpp:1036
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Some changes are made to annotations. Do you really want to cancel all "
-#| "recent changes for each affected file?</p>"
+#, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
-"<p>S'han fet alguns canvis a les anotacions. Segur que voleu cancel·lar tots "
+"<p>S'han fet alguns canvis a les anotacions. De debò voleu descartar tots "
 "els canvis recents per a cada fitxer afectat?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1037
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Deso els canvis?"
+msgstr "Descarto els canvis?"
 
 #: AnnotationDialog/Dialog.cpp:1154
 #, kde-format
@@ -666,11 +662,10 @@ msgid "Really Delete %1?"
 msgstr "De debò suprimeixo %1?"
 
 #: AnnotationDialog/ListSelect.cpp:447
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
-msgstr "Reanomena l'element"
+msgstr "Canvia de nom l'element"
 
 #: AnnotationDialog/ListSelect.cpp:447
 #, kde-format
@@ -687,16 +682,13 @@ msgstr ""
 "qualsevol imatge que el contingui.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:456
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Reanomena «%1»"
+msgstr "Reanomeno %1?"
 
 #: AnnotationDialog/ListSelect.cpp:461
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Reanomena"
@@ -1914,8 +1906,7 @@ msgstr ""
 "carpeta nova.</p> <p>S'hauria de suprimir abans %2?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder Exists"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
 msgstr "La carpeta existeix"
@@ -2327,19 +2318,17 @@ msgid "Folder %1 does not exist. Should it be created?"
 msgstr "La carpeta %1 no existeix. S'hauria de crear?"
 
 #: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Base folder:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "Carpeta base:"
+msgstr "Creo la carpeta?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1182
-#, fuzzy, kde-format
-#| msgid "Created:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr "Creat:"
+msgstr "Crea"
 
 #: ImportExport/ImportDialog.cpp:314
 #, kde-format
@@ -2373,15 +2362,13 @@ msgid "Cannot copy from any of the following locations:"
 msgstr "No es pot copiar des de cap de les ubicacions següents:"
 
 #: ImportExport/ImportHandler.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "S'estan copiant els fitxers d'imatge"
+msgstr "Ha fallat la còpia"
 
 #: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Continua sense preguntar"
@@ -2521,10 +2508,9 @@ msgstr ""
 "Eina per a inspeccionar i editar la memòria cau de miniatures del KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
+msgstr "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -2885,10 +2871,9 @@ msgid "KDE Photo Album"
 msgstr "Àlbum de fotografies del KDE"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
+msgstr "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
 
 #: main.cpp:110
 #, kde-format
@@ -3809,13 +3794,7 @@ msgid "Searching for New Files"
 msgstr "S'estan cercant fitxers nous"
 
 #: MainWindow/Window.cpp:299
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
-#| "the KPhotoAlbum demo. The demo database was copied to /tmp, should it be "
-#| "deleted now? If you do not delete it, it will waste disk space; on the "
-#| "other hand, if you want to come back and try the demo again, you might "
-#| "want to keep it around with the changes you made through this session.</p>"
+#, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
 "KPhotoAlbum demo. The demo database was created in the folder <tt>/tmp</tt>, "
@@ -3825,15 +3804,14 @@ msgid ""
 "</p>"
 msgstr ""
 "<p><b>Suprimeix la base de dades temporal de demostració</b></p><p>Espero "
-"que us hagi agradat la demostració del KPhotoAlbum. S'ha de suprimir ara la "
-"base de dades de la demostració que es va copiar a /tmp? Si no la suprimiu, "
-"malgastarà espai del disc. Per altra banda, si voleu, torneu enrere i proveu "
-"la demostració un altre cop, hauríeu de desar-la amb els canvis que heu fet "
-"en aquesta sessió.</p>"
+"que us hagi agradat la demostració del KPhotoAlbum. La base de dades de "
+"demostració es va crear en la carpeta <tt>/tmp</tt>, s'hauria de suprimir "
+"ara? Si no la suprimiu, malgastarà espai del disc. Per altra banda, si "
+"voleu, torneu enrere i proveu la demostració un altre cop, hauríeu de desar-"
+"la amb els canvis que heu fet en aquesta sessió.</p>"
 
 #: MainWindow/Window.cpp:304
-#, fuzzy, kde-format
-#| msgid "Delete Demo Database"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Supressió de la base de dades de demostració"
@@ -3848,11 +3826,10 @@ msgstr ""
 "les de la seva pila i crear-ne una completament nova?"
 
 #: MainWindow/Window.cpp:362
-#, fuzzy, kde-format
-#| msgid "Stacking Error"
+#, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr "Error en apilar"
+msgstr "Problema en apilar"
 
 #: MainWindow/Window.cpp:377
 #, kde-format
@@ -4210,11 +4187,10 @@ msgstr ""
 "%1/index.xml</p>"
 
 #: MainWindow/Window.cpp:1178
-#, fuzzy, kde-format
-#| msgid "Create My Own Database..."
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr "Crea la meva pròpia base de dades..."
+msgstr "Creació d'una base de dades"
 
 #: MainWindow/Window.cpp:1206
 #, kde-format
@@ -4269,7 +4245,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
-msgstr ""
+msgstr "Restableix els diàlegs ocults"
 
 #: MainWindow/Window.cpp:1504
 #, kde-format
@@ -4693,22 +4669,19 @@ msgid "Unsaved pending renaming action"
 msgstr "Acció pendent de canvi de nom sense desar"
 
 #: Settings/CategoryPage.cpp:324
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
-#| "linked against this category will be deleted!</p>"
+#, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
-"<p>Esteu segur que voleu que «%1» sigui no posicionable?</p><p>Totes les "
-"àrees enllaçades contra aquesta categoria s'eliminaran.</p>"
+"<p>De debò voleu que «%1» sigui no posicionable?</p><p>Totes les àrees "
+"enllaçades a aquesta categoria es descartaran.</p>"
 
 #: Settings/CategoryPage.cpp:333
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "Confirmació d'acció"
 
 #: Settings/CategoryPage.cpp:377
 #, kde-format
@@ -4723,7 +4696,7 @@ msgstr "<p>De debò suprimeixo la categoria «%1»?</p>"
 #: Settings/CategoryPage.cpp:414
 #, kde-format
 msgid "Confirm Action"
-msgstr ""
+msgstr "Confirma l'acció"
 
 #: Settings/CategoryPage.cpp:536
 #, kde-format
@@ -6050,11 +6023,10 @@ msgstr ""
 "data i hora</b></p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:97
-#, fuzzy, kde-format
-#| msgid "Reorder Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
-msgstr "Reordena les miniatures"
+msgstr "Reordenació de les miniatures"
 
 #: Utilities/DeleteFiles.cpp:37
 #, kde-format
@@ -7115,12 +7087,3 @@ msgstr "<p>Camí de la base de dades: <filename>%1</filename></p>"
 #, kde-format
 msgid "Error while reading database file"
 msgstr "Error en llegir el fitxer de la base de dades"
-
-#~ msgid "Really Rename %1?"
-#~ msgstr "De debò voleu reanomenar %1?"
-
-#~ msgid "Do you want to save the changes?"
-#~ msgstr "Voleu desar els canvis?"
-
-#~ msgid "Copyright (C) 2020 The KPhotoAlbum Development Team"
-#~ msgstr "Copyright (C) 2020, l'equip de desenvolupament del KPhotoAlbum"

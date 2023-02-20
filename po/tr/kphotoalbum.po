@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 00:56+0000\n"
-"PO-Revision-Date: 2023-02-01 13:02+0300\n"
+"PO-Revision-Date: 2023-02-19 11:07+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -337,23 +337,19 @@ msgstr ""
 "yazılamadı: %2"
 
 #: AnnotationDialog/Dialog.cpp:1036
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Some changes are made to annotations. Do you really want to cancel all "
-#| "recent changes for each affected file?</p>"
+#, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
 "<p>Bilgi notlarına bazı değişiklikler yapıldı. Etkilenen her dosya için tüm "
-"güncel değişiklikleri gerçekten iptal etmek istiyor musunuz?</p>"
+"güncel değişiklikleri atmayı gerçekten istiyor musunuz?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1037
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Değişiklikler Kaydedilsin mi?"
+msgstr "Değişiklikler atılsın mı?"
 
 #: AnnotationDialog/Dialog.cpp:1154
 #, kde-format
@@ -662,8 +658,7 @@ msgid "Really Delete %1?"
 msgstr "%1 Gerçekten Silinsin mi?"
 
 #: AnnotationDialog/ListSelect.cpp:447
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Ögeyi Yeniden Adlandır"
@@ -683,16 +678,13 @@ msgstr ""
 "adlandırırsanız içeren bütün görsellerde de \"%3\" değişecektir.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:456
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Yeniden Adlandır: \"%1\""
+msgstr "%1, yeniden adlandırılsın mı?"
 
 #: AnnotationDialog/ListSelect.cpp:461
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Yeniden Adlandır"
@@ -1895,8 +1887,7 @@ msgstr ""
 "gerektiği anlamına gelir.</p><p>İlk önce %2 silinsin mi?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder Exists"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
 msgstr "Klasör Var"
@@ -2305,19 +2296,17 @@ msgid "Folder %1 does not exist. Should it be created?"
 msgstr "%1 klasörü yok. Oluşturulsun mu?"
 
 #: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Base folder:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "Temel klasör:"
+msgstr "Klasör oluşturulsun mu?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1182
-#, fuzzy, kde-format
-#| msgid "Created:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr "Oluşturma:"
+msgstr "Oluştur"
 
 #: ImportExport/ImportDialog.cpp:314
 #, kde-format
@@ -2351,15 +2340,13 @@ msgid "Cannot copy from any of the following locations:"
 msgstr "Aşağıdaki konumların hiçbirinden kopyalanamıyor:"
 
 #: ImportExport/ImportHandler.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "Görsel dosyaları kopyalanıyor"
+msgstr "Kopyalama başarısız"
 
 #: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Sormadan Sürdür"
@@ -2499,10 +2486,9 @@ msgstr ""
 "K Fotoğraf Albümü küçük görsel önbelleğini denetlemek ve düzenlemek için araç"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
-msgstr "Telif hakkı (C) 2003-2022 K Fotoğraf Albümü Geliştirme Takımı"
+msgstr "Telif hakkı (C) 2003-2023 K Fotoğraf Albümü Geliştirme Takımı"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -2855,10 +2841,9 @@ msgid "KDE Photo Album"
 msgstr "KDE Fotoğraf Albümü"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
-msgstr "Telif hakkı (C) 2003-2022 K Fotoğraf Albümü Geliştirme Takımı"
+msgstr "Telif hakkı (C) 2003-2023 K Fotoğraf Albümü Geliştirme Takımı"
 
 #: main.cpp:110
 #, kde-format
@@ -3775,13 +3760,7 @@ msgid "Searching for New Files"
 msgstr "Yeni Dosyalar Aranıyor"
 
 #: MainWindow/Window.cpp:299
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
-#| "the KPhotoAlbum demo. The demo database was copied to /tmp, should it be "
-#| "deleted now? If you do not delete it, it will waste disk space; on the "
-#| "other hand, if you want to come back and try the demo again, you might "
-#| "want to keep it around with the changes you made through this session.</p>"
+#, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
 "KPhotoAlbum demo. The demo database was created in the folder <tt>/tmp</tt>, "
@@ -3790,14 +3769,14 @@ msgid ""
 "might want to keep it around with the changes you made through this session."
 "</p>"
 msgstr ""
-"<p><b>Geçici tanıtım veritabanını sil</b></p><p>Umarım K Fotoğraf Albümü "
-"tanıtımıdan hoşlandınız. Tanıtım veritabanı /tmp altına kopyalandı, şimdi "
-"silinsin mi? Silmezseniz diskinizde boşuna yer kaplayacaktır; ancaktanıtımı "
-"ileride yeniden çalıştırmak isterseniz saklamalısınız.</p>"
+"<p><b>Geçici Tanıtım Veritabanını Sil</b></p><p>Umarım K Fotoğraf Albümü "
+"tanıtımından hoşlandınız. Tanıtım veritabanı <tt>/tmp</tt> klasöründe "
+"oluşturulmuştu, şimdi silinsin mi? Silmezseniz diskinizde boşuna yer "
+"kaplayacaktır; ancak tanıtımı ileride yeniden çalıştırmak isterseniz "
+"saklamalısınız.</p>"
 
 #: MainWindow/Window.cpp:304
-#, fuzzy, kde-format
-#| msgid "Delete Demo Database"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Tanıtım Veritabanını Sil"
@@ -3812,11 +3791,10 @@ msgstr ""
 "yığınlarından kaldırmak ve tamamen yeni bir yığın yaratmak ister misiniz?"
 
 #: MainWindow/Window.cpp:362
-#, fuzzy, kde-format
-#| msgid "Stacking Error"
+#, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr "Yığınlama Hatası"
+msgstr "Yığma sorunu"
 
 #: MainWindow/Window.cpp:377
 #, kde-format
@@ -4174,11 +4152,10 @@ msgstr ""
 "index.xml</p>"
 
 #: MainWindow/Window.cpp:1178
-#, fuzzy, kde-format
-#| msgid "Create My Own Database..."
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr "Veritabanımı Oluştur..."
+msgstr "Veritabanı Oluştur"
 
 #: MainWindow/Window.cpp:1206
 #, kde-format
@@ -4232,7 +4209,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
-msgstr ""
+msgstr "Gizil iletişim kutularını sıfırla"
 
 #: MainWindow/Window.cpp:1504
 #, kde-format
@@ -4648,22 +4625,19 @@ msgid "Unsaved pending renaming action"
 msgstr "Kaydedilmemiş bekleyen yeniden adlandırma eylemi"
 
 #: Settings/CategoryPage.cpp:324
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
-#| "linked against this category will be deleted!</p>"
+#, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
-"<p>\"%1\" i yeniden konumlanamaz yapmak istediğinizden emin misiniz?</"
-"p><p>Bu kategoriye bağlanmış bütün alanlar silinecektir!</p>"
+"<p>\"%1\" ögesini yeniden konumlanamaz yapmak istediğinizden emin misiniz?</"
+"p><p>Bu kategoriye bağlanmış bütün alanlar atılacaktır!</p>"
 
 #: Settings/CategoryPage.cpp:333
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "Eylemi Onayla"
 
 #: Settings/CategoryPage.cpp:377
 #, kde-format
@@ -4678,7 +4652,7 @@ msgstr "<p>\"%1\" kategorisi gerçekten silinsin mi?</p>"
 #: Settings/CategoryPage.cpp:414
 #, kde-format
 msgid "Confirm Action"
-msgstr ""
+msgstr "Eylemi Onayla"
 
 #: Settings/CategoryPage.cpp:536
 #, kde-format
@@ -5977,8 +5951,7 @@ msgstr ""
 "kullanmalısınız</p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:97
-#, fuzzy, kde-format
-#| msgid "Reorder Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
 msgstr "Küçük Görselleri Yeniden Sırala"

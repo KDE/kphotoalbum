@@ -7,20 +7,20 @@
 # Rinse de Vries <RinseDeVries@home.nl>, 2006.
 # Bram Schoenmakers <bramschoenmakers@kde.nl>, 2006.
 # Freek de Kruijf <freekdekruijf@kde.nl>, 2008, 2009, 2010, 2011, 2012.
-# Freek de Kruijf <freekdekruijf@kde.nl>, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Freek de Kruijf <freekdekruijf@kde.nl>, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 00:56+0000\n"
-"PO-Revision-Date: 2022-10-02 22:34+0200\n"
+"PO-Revision-Date: 2023-02-19 18:18+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.12.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -28,7 +28,7 @@ msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 "Rinse de Vries,Sander Koning,Ronald Stroethoff,Freek de Kruijf - 2008 t/m "
-"2022"
+"2023"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
@@ -341,23 +341,19 @@ msgstr ""
 "geschreven vanwege de volgende fout: %2"
 
 #: AnnotationDialog/Dialog.cpp:1036
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Some changes are made to annotations. Do you really want to cancel all "
-#| "recent changes for each affected file?</p>"
+#, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
-"<p>Enkele annotaties zijn gewijzigd. Wit u alle recentelijk gemaakte "
-"bewerkingen voor alle betreffende bestanden ongedaan maken?</p>"
+"<p>Enkele annotaties zijn gewijzigd. Wilt u alle recent gemaakte bewerkingen "
+"voor alle betreffende bestanden weggooien?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1037
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Wijzigingen opslaan?"
+msgstr "Wijzigingen weggooien?"
 
 #: AnnotationDialog/Dialog.cpp:1154
 #, kde-format
@@ -673,8 +669,7 @@ msgid "Really Delete %1?"
 msgstr "%1 verwijderen?"
 
 #: AnnotationDialog/ListSelect.cpp:447
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Item hernoemen"
@@ -694,16 +689,13 @@ msgstr ""
 "in elke afbeelding die dit item bevat.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:456
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Hernoem \"%1\""
+msgstr "Hernoemen %1?"
 
 #: AnnotationDialog/ListSelect.cpp:461
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Hernoemen"
@@ -1909,8 +1901,7 @@ msgstr ""
 "opgegeven.</p><p>Wilt u %2 eerst verwijderen?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder Exists"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
 msgstr "Map bestaat"
@@ -2322,19 +2313,17 @@ msgid "Folder %1 does not exist. Should it be created?"
 msgstr "De map %1 bestaat niet. Wilt u deze aanmaken?"
 
 #: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Base folder:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "Basismap:"
+msgstr "Map aanmaken?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1182
-#, fuzzy, kde-format
-#| msgid "Created:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr "Aangemaakt:"
+msgstr "Aanmaken"
 
 #: ImportExport/ImportDialog.cpp:314
 #, kde-format
@@ -2368,15 +2357,13 @@ msgid "Cannot copy from any of the following locations:"
 msgstr "Kan niet kopiëren vanuit de volgende locaties:"
 
 #: ImportExport/ImportHandler.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "Afbeeldingsbestanden worden gekopieerd"
+msgstr "Kopiëren is mislukt"
 
 #: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Doorgaan zonder te vragen"
@@ -2517,10 +2504,9 @@ msgstr ""
 "KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2022 Het ontwikkelteam van KPhotoAlbum"
+msgstr "Copyright (C) 2003-2023 Het ontwikkelteam van KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -2878,10 +2864,9 @@ msgid "KDE Photo Album"
 msgstr "KDE Foto Album"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2022 Het ontwikkelteam van KPhotoAlbum"
+msgstr "Copyright (C) 2003-2023 Het ontwikkelteam van KPhotoAlbum"
 
 #: main.cpp:110
 #, kde-format
@@ -3807,13 +3792,7 @@ msgid "Searching for New Files"
 msgstr "Naar nieuwe bestanden zoeken"
 
 #: MainWindow/Window.cpp:299
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
-#| "the KPhotoAlbum demo. The demo database was copied to /tmp, should it be "
-#| "deleted now? If you do not delete it, it will waste disk space; on the "
-#| "other hand, if you want to come back and try the demo again, you might "
-#| "want to keep it around with the changes you made through this session.</p>"
+#, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
 "KPhotoAlbum demo. The demo database was created in the folder <tt>/tmp</tt>, "
@@ -3823,14 +3802,14 @@ msgid ""
 "</p>"
 msgstr ""
 "<p><b>Verwijder uw tijdelijke demo-database</b></p> <p>Ik hoop dat u plezier "
-"hebt gehad aan uw KPhotoAlbum-demo. De demo-database is gekopieerd naar /"
-"tmp. Wilt u deze nu verwijderen? Als u deze niet verwijderd, dan zal hij "
-"daar blijven staan en enige schijfruimte in beslag nemen. Echter, als u de "
-"database laat staan kunt u hem altijd in een later stadium weer openen.</p>"
+"hebt gehad aan uw KPhotoAlbum-demo. De demo-database was aangemaakt in de "
+"map <tt>/tmp</tt>. Wilt u deze nu verwijderen? Als u deze niet verwijderd, "
+"dan zal hij daar blijven staan en enige schijfruimte in beslag nemen. "
+"Echter, als u de database laat staan kunt u hem altijd in een later stadium "
+"weer openen.</p>"
 
 #: MainWindow/Window.cpp:304
-#, fuzzy, kde-format
-#| msgid "Delete Demo Database"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Demo-database verwijderen"
@@ -3845,11 +3824,10 @@ msgstr ""
 "deze daaruit verwijderen en een compleet nieuwe aanmaken?"
 
 #: MainWindow/Window.cpp:362
-#, fuzzy, kde-format
-#| msgid "Stacking Error"
+#, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr "Stacking-fout"
+msgstr "Probleem bij stapelen"
 
 #: MainWindow/Window.cpp:377
 #, kde-format
@@ -4207,11 +4185,10 @@ msgstr ""
 ">%1/index.xml</p>"
 
 #: MainWindow/Window.cpp:1178
-#, fuzzy, kde-format
-#| msgid "Erase database"
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr "Database wissen"
+msgstr "Database aanmaken"
 
 #: MainWindow/Window.cpp:1206
 #, kde-format
@@ -4265,7 +4242,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
-msgstr ""
+msgstr "Verborgen dialogen resetten"
 
 #: MainWindow/Window.cpp:1504
 #, kde-format
@@ -4690,22 +4667,19 @@ msgid "Unsaved pending renaming action"
 msgstr "Niet-opgeslagen openstaande actie voor hernoemen"
 
 #: Settings/CategoryPage.cpp:324
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
-#| "linked against this category will be deleted!</p>"
+#, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
 "<p>Wilt u \"%1\" niet te positioneren maken?</p><p>Alle gebieden gekoppeld "
-"aan deze categorie zullen verwijderd worden!</p>"
+"aan deze categorie zullen weggegooid worden!</p>"
 
 #: Settings/CategoryPage.cpp:333
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "Actie bevestigen"
 
 #: Settings/CategoryPage.cpp:377
 #, kde-format
@@ -4720,7 +4694,7 @@ msgstr "<p>Categorie \"%1\" verwijderen?</p>"
 #: Settings/CategoryPage.cpp:414
 #, kde-format
 msgid "Confirm Action"
-msgstr ""
+msgstr "Actie bevestigen"
 
 #: Settings/CategoryPage.cpp:536
 #, kde-format
@@ -6051,8 +6025,7 @@ msgstr ""
 "-&gt; Geselecteerde sorteren op datum en tijd</b>.</p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:97
-#, fuzzy, kde-format
-#| msgid "Reorder Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
 msgstr "Miniaturen opnieuw sorteren"

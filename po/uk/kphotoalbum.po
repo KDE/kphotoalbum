@@ -4,13 +4,13 @@
 # version 3 or later versions approved by the membership of KDE e.V.
 #
 # Ivan Petrouchtchak <fr.ivan@ukrainian-orthodox.org>, 2007, 2008.
-# Yuri Chornoivan <yurchor@ukr.net>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 00:56+0000\n"
-"PO-Revision-Date: 2022-10-02 09:24+0300\n"
+"PO-Revision-Date: 2023-02-19 09:35+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -334,23 +334,19 @@ msgstr ""
 "файла %1 через таку помилку: %2"
 
 #: AnnotationDialog/Dialog.cpp:1036
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Some changes are made to annotations. Do you really want to cancel all "
-#| "recent changes for each affected file?</p>"
+#, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
-"<p>Було зроблено деякі зміни у примітках. Ви справді бажаєте скасувати всі "
+"<p>Було зроблено деякі зміни у примітках. Ви справді бажаєте відкинути усі "
 "нещодавні зміни у кожному з файлів, яких вони торкнулися?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1037
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Зберегти зміни?"
+msgstr "Відкинути зміни?"
 
 #: AnnotationDialog/Dialog.cpp:1154
 #, kde-format
@@ -667,11 +663,10 @@ msgid "Really Delete %1?"
 msgstr "Ви справді бажаєте вилучити %1?"
 
 #: AnnotationDialog/ListSelect.cpp:447
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
-msgstr "Перейменувати елемент"
+msgstr "Перейменування запису"
 
 #: AnnotationDialog/ListSelect.cpp:447
 #, kde-format
@@ -689,16 +684,13 @@ msgstr ""
 "p>"
 
 #: AnnotationDialog/ListSelect.cpp:456
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Перейменувати «%1»"
+msgstr "Перейменувати %1?"
 
 #: AnnotationDialog/ListSelect.cpp:461
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Перейменувати"
@@ -1933,8 +1925,7 @@ msgstr ""
 "вилучити %2?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder Exists"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
 msgstr "Тека вже існує"
@@ -2349,19 +2340,17 @@ msgid "Folder %1 does not exist. Should it be created?"
 msgstr "Теки %1 не існує. Чи слід її створити?"
 
 #: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Base folder:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "Базова тека:"
+msgstr "Створити теку?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1182
-#, fuzzy, kde-format
-#| msgid "Created:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr "Створено:"
+msgstr "Створити"
 
 #: ImportExport/ImportDialog.cpp:314
 #, kde-format
@@ -2395,15 +2384,13 @@ msgid "Cannot copy from any of the following locations:"
 msgstr "Неможливо копіювати файл з будь-якого з таких місць:"
 
 #: ImportExport/ImportHandler.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "Копіювання файлів зображень"
+msgstr "Помилка копіювання"
 
 #: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Продовжити без запитань"
@@ -2548,10 +2535,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr "Засіб для інспектування та редагування кешу мініатюр KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
-msgstr "© Команда розробників KPhotoAlbum, 2020–2022"
+msgstr "© Команда розробників KPhotoAlbum, 2020–2023"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -2912,10 +2898,9 @@ msgid "KDE Photo Album"
 msgstr "Фотоальбом для KDE"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
-msgstr "© Команда розробників KPhotoAlbum, 2003–2022"
+msgstr "© Команда розробників KPhotoAlbum, 2003–2023"
 
 #: main.cpp:110
 #, kde-format
@@ -3860,13 +3845,7 @@ msgid "Searching for New Files"
 msgstr "Пошук нових файлів"
 
 #: MainWindow/Window.cpp:299
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
-#| "the KPhotoAlbum demo. The demo database was copied to /tmp, should it be "
-#| "deleted now? If you do not delete it, it will waste disk space; on the "
-#| "other hand, if you want to come back and try the demo again, you might "
-#| "want to keep it around with the changes you made through this session.</p>"
+#, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
 "KPhotoAlbum demo. The demo database was created in the folder <tt>/tmp</tt>, "
@@ -3877,17 +3856,16 @@ msgid ""
 msgstr ""
 "<p><b>Вилучити вашу тимчасову демонстраційну базу даних</b></p><p>Сподіваюся "
 "вам сподобалася демонстрація можливостей KPhotoAlbum. Демонстраційну базу "
-"даних було скопійовано до /tmp, вилучити її зараз? Якщо ви не вилучите її, "
-"на неї просто витрачатиметься місце на диску; з іншого боку, якщо ви "
+"даних було створено у <tt>/tmp</tt>. Вилучити її зараз? Якщо ви не вилучите "
+"її, на неї просто витрачатиметься місце на диску; з іншого боку, якщо ви "
 "забажаєте повернутися і переглянути демонстрацію ще раз, ви можете зберегти "
 "її з усіма змінами, які ви виконали під час поточного сеансу.</p>"
 
 #: MainWindow/Window.cpp:304
-#, fuzzy, kde-format
-#| msgid "Delete Demo Database"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
-msgstr "Вилучити демонстраційну базу даних"
+msgstr "Вилучення демонстраційної бази даних"
 
 #: MainWindow/Window.cpp:359
 #, kde-format
@@ -3899,11 +3877,10 @@ msgstr ""
 "вилучити їх з відповідних стосів і створити зовсім новий стос?"
 
 #: MainWindow/Window.cpp:362
-#, fuzzy, kde-format
-#| msgid "Stacking Error"
+#, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr "Помилка під час створення стосу"
+msgstr "Проблема зі створенням стосу"
 
 #: MainWindow/Window.cpp:377
 #, kde-format
@@ -4265,11 +4242,10 @@ msgstr ""
 "нижче назвою?<br />%1/index.xml</p>"
 
 #: MainWindow/Window.cpp:1178
-#, fuzzy, kde-format
-#| msgid "Create My Own Database..."
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr "Створити мою власну базу даних..."
+msgstr "Створення бази даних"
 
 #: MainWindow/Window.cpp:1206
 #, kde-format
@@ -4323,7 +4299,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
-msgstr ""
+msgstr "Скидання приховування вікон"
 
 #: MainWindow/Window.cpp:1504
 #, kde-format
@@ -4752,22 +4728,19 @@ msgid "Unsaved pending renaming action"
 msgstr "Незбережена дія з перейменування у черзі"
 
 #: Settings/CategoryPage.cpp:324
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
-#| "linked against this category will be deleted!</p>"
+#, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
 "<p>Ви справді хочете зробити «%1» позбавленим позиції?</p><p>Усі записи "
-"областей, пов’язані із цією категорією буде вилучено!</p>"
+"областей, пов’язані із цією категорією буде відкинуто!</p>"
 
 #: Settings/CategoryPage.cpp:333
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "Підтвердження дії"
 
 #: Settings/CategoryPage.cpp:377
 #, kde-format
@@ -4782,7 +4755,7 @@ msgstr "<p>Ви справді бажаєте вилучити категорі�
 #: Settings/CategoryPage.cpp:414
 #, kde-format
 msgid "Confirm Action"
-msgstr ""
+msgstr "Підтвердити дію"
 
 #: Settings/CategoryPage.cpp:536
 #, kde-format
@@ -6118,11 +6091,10 @@ msgstr ""
 "<b>Зображення → Впорядкувати вибрані за датою і часом</b>.</p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:97
-#, fuzzy, kde-format
-#| msgid "Reorder Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
-msgstr "Перевпорядкувати мініатюри"
+msgstr "Перевпорядкування мініатюр"
 
 #: Utilities/DeleteFiles.cpp:37
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 00:56+0000\n"
-"PO-Revision-Date: 2023-02-03 17:01+0100\n"
+"PO-Revision-Date: 2023-02-20 07:10+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -319,11 +319,10 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1037
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "შევინახო ცვლილებები?"
+msgstr "გავაუქმო ცვლილებები?"
 
 #: AnnotationDialog/Dialog.cpp:1154
 #, kde-format
@@ -601,8 +600,7 @@ msgid "Really Delete %1?"
 msgstr "მართლა წავშალო %1?"
 
 #: AnnotationDialog/ListSelect.cpp:447
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "ჩანაწერის სახელის გადარქმევა"
@@ -620,16 +618,13 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:456
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "\"%1\"-ის გადარქმევა"
+msgstr "გადავარქვა სახელი %1-ს?"
 
 #: AnnotationDialog/ListSelect.cpp:461
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "გადარქმევა"
@@ -1772,8 +1767,7 @@ msgid ""
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder Exists"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
 msgstr "საქაღალდე არსებობს"
@@ -2126,19 +2120,17 @@ msgid "Folder %1 does not exist. Should it be created?"
 msgstr ""
 
 #: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Base folder:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "საბაზსო საქაღალდე:"
+msgstr "შევქმნა საქაღალდე?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1182
-#, fuzzy, kde-format
-#| msgid "Created:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr "შექმნილია:"
+msgstr "შექმნა"
 
 #: ImportExport/ImportDialog.cpp:314
 #, kde-format
@@ -3459,12 +3451,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:304
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete image"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
-msgstr "გამოსახულების წაშლა"
+msgstr "დემო ბაზის წაშლა"
 
 #: MainWindow/Window.cpp:359
 #, kde-format
@@ -3755,7 +3745,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1001
 #, kde-format
 msgid "Enable All Messages"
-msgstr ""
+msgstr "ყველა შეტყობინების ჩართვა"
 
 #: MainWindow/Window.cpp:1009
 #, kde-format
@@ -3831,11 +3821,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:1178
-#, fuzzy, kde-format
-#| msgid "Updating Database"
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr "ბაზის განახლება"
+msgstr "ბაზის შექმნა"
 
 #: MainWindow/Window.cpp:1206
 #, kde-format
@@ -4095,7 +4084,7 @@ msgstr ""
 #: Settings/BirthdayPage.cpp:92
 #, kde-format
 msgid "Remove birthday"
-msgstr ""
+msgstr "დაბადების დღის წაშლა"
 
 #: Settings/BirthdayPage.cpp:98
 #, kde-format
@@ -4272,7 +4261,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "ქმედების დადასტურება"
 
 #: Settings/CategoryPage.cpp:377
 #, kde-format
@@ -4287,7 +4276,7 @@ msgstr ""
 #: Settings/CategoryPage.cpp:414
 #, kde-format
 msgid "Confirm Action"
-msgstr ""
+msgstr "ქმედების დადასტურება"
 
 #: Settings/CategoryPage.cpp:536
 #, kde-format
@@ -4965,7 +4954,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Tag name:"
-msgstr ""
+msgstr "ჭდის სახელი:"
 
 #: Settings/TagGroupsPage.cpp:757
 #, kde-kuit-format
@@ -5244,7 +5233,7 @@ msgstr ""
 #: Settings/ViewerPage.cpp:25
 #, kde-format
 msgid "Not Configured"
-msgstr ""
+msgstr "მორგებული არაა"
 
 #: Settings/ViewerPage.cpp:42
 #, kde-format
@@ -5398,11 +5387,10 @@ msgid ""
 msgstr ""
 
 #: ThumbnailView/ThumbnailDND.cpp:97
-#, fuzzy, kde-format
-#| msgid "Show Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
-msgstr "მინიატურების ჩვენება"
+msgstr "მინიატურების გადალაგება"
 
 #: Utilities/DeleteFiles.cpp:37
 #, kde-format
@@ -5820,7 +5808,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
-msgstr ""
+msgstr "მთელ ეკრანზე გასვლის გადართვა"
 
 #: Viewer/ViewerWidget.cpp:391
 #, kde-format

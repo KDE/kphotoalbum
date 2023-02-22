@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 00:56+0000\n"
-"PO-Revision-Date: 2023-02-20 07:10+0100\n"
+"PO-Revision-Date: 2023-02-21 05:31+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -362,12 +362,12 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:1309
 #, kde-format
 msgid "Annotate Next"
-msgstr ""
+msgstr "შემდეგის ანოტაცია"
 
 #: AnnotationDialog/Dialog.cpp:1313
 #, kde-format
 msgid "Annotate Previous"
-msgstr ""
+msgstr "წინას ანოტაცია"
 
 #: AnnotationDialog/Dialog.cpp:1317
 #, kde-format
@@ -647,7 +647,7 @@ msgstr "ჭდის დამატება"
 #: AnnotationDialog/ListSelect.cpp:510
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
-msgstr ""
+msgstr "ჭდეების ამ ჯგუფში ჩასამატებელი ჭდის სახელი:"
 
 #: AnnotationDialog/ListSelect.cpp:764
 #, kde-format
@@ -705,7 +705,7 @@ msgstr "%1 ჭდის წაშლა (%2)"
 #: AnnotationDialog/ResizableFrame.cpp:469
 #, kde-format
 msgid "Associate with"
-msgstr ""
+msgstr "ასოცირება"
 
 #: AnnotationDialog/ResizableFrame.cpp:491
 #: AnnotationDialog/ResizableFrame.cpp:500
@@ -719,22 +719,22 @@ msgstr ""
 #: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
 #, kde-format
 msgid "Extracting Thumbnail"
-msgstr ""
+msgstr "მინიატურის გაშლა"
 
 #: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:34
 #, kde-format
 msgid "Extract Video Thumbnail"
-msgstr ""
+msgstr "ვიდეოს მინიატურის გაშლა"
 
 #: BackgroundJobs/ReadVideoLengthJob.cpp:30
 #, kde-format
 msgid "Read Video Length"
-msgstr ""
+msgstr "ვიდეოს სიგრძის წაკითხვა"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
 msgid "Search for videos without length information"
-msgstr ""
+msgstr "ვიდეოების სიგრძის ინფორმაციის გარეშე ძებნა"
 
 #: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:51
 #, kde-format
@@ -768,13 +768,13 @@ msgstr "დეტალები"
 #, kde-format
 msgctxt "@title:column Elapsed time"
 msgid "Elapsed"
-msgstr ""
+msgstr "გავიდა"
 
 #: BackgroundTaskManager/JobViewer.cpp:21
 #, kde-format
 msgctxt "@title:window"
 msgid "Background Job Viewer"
-msgstr ""
+msgstr "ფონური დავალებების ნახვა"
 
 #: BackgroundTaskManager/JobViewer.cpp:30
 #: BackgroundTaskManager/JobViewer.cpp:65
@@ -887,7 +887,7 @@ msgstr ""
 #: Browser/OverviewPage.cpp:253 Browser/OverviewPage.cpp:273
 #, kde-format
 msgid "Empty Search Result"
-msgstr ""
+msgstr "ძიების ცარიელი შედეგი"
 
 #: Browser/OverviewPage.cpp:257
 #, kde-format
@@ -913,7 +913,7 @@ msgstr ""
 #: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1740
 #, kde-format
 msgid "Feature has not been configured"
-msgstr ""
+msgstr "ფუნქცია მორგებული არაა"
 
 #: CategoryListView/CheckDropItem.cpp:110
 #, kde-format
@@ -986,7 +986,7 @@ msgstr "დაპატარავება"
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
-msgstr ""
+msgstr "მონიშნულის გასუფთავება"
 
 #: DateBar/DateBarWidget.cpp:123
 #, kde-kuit-format
@@ -1249,7 +1249,7 @@ msgstr ""
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
-msgstr ""
+msgstr "ჭდეების ფილტრი ..."
 
 #: Exif/InfoDialog.cpp:77
 #, kde-format
@@ -1382,7 +1382,7 @@ msgstr ""
 #: Exif/ReReadDialog.cpp:53
 #, kde-format
 msgid "Affected Files"
-msgstr ""
+msgstr "დასამუშავებელი ფაილები"
 
 #: Exif/ReReadDialog.cpp:124
 #, kde-format
@@ -1880,12 +1880,12 @@ msgstr ""
 #: ImportExport/Export.cpp:61
 #, kde-format
 msgid "Save an export file"
-msgstr ""
+msgstr "გატანის ფაილის შენახვა"
 
 #: ImportExport/Export.cpp:63 ImportExport/Import.cpp:28
 #, kde-format
 msgid "KPhotoAlbum import files"
-msgstr ""
+msgstr "KPhotoAlbum-ის შემოსატანი ფაილები"
 
 #: ImportExport/Export.cpp:79
 #, kde-format
@@ -1926,12 +1926,12 @@ msgstr ""
 #: ImportExport/Export.cpp:110
 #, kde-format
 msgid "Compress export file"
-msgstr ""
+msgstr "გატანილი ფაილის შეკუმშვა"
 
 #: ImportExport/Export.cpp:114
 #, kde-format
 msgid "Generate thumbnails"
-msgstr ""
+msgstr "მინიატურების შექმნა"
 
 #: ImportExport/Export.cpp:122
 #, kde-format
@@ -1981,7 +1981,7 @@ msgstr ""
 #: ImportExport/Export.cpp:229
 #, kde-format
 msgid "Error creating zip file"
-msgstr ""
+msgstr "Zip ფაილის შექმნის შეცდომა"
 
 #: ImportExport/Export.cpp:243
 #, kde-format
@@ -1991,7 +1991,7 @@ msgstr "&გაუქმება"
 #: ImportExport/Export.cpp:262
 #, kde-format
 msgid "Creating index file"
-msgstr ""
+msgstr "ინდექსის ფაილის შექმნა"
 
 #: ImportExport/Export.cpp:274
 #, kde-format
@@ -2001,12 +2001,12 @@ msgstr "მინიატურების შექმნა"
 #: ImportExport/Export.cpp:297
 #, kde-format
 msgid "Copying image files"
-msgstr ""
+msgstr "სურათის ფაილების კოპირება"
 
 #: ImportExport/Export.cpp:362
 #, kde-format
 msgid "Error writing file %1"
-msgstr ""
+msgstr "ფაილის ჩაწერის შეცდომა %1"
 
 #: ImportExport/Export.cpp:390
 #, kde-format
@@ -2025,12 +2025,12 @@ msgstr ""
 #: ImportExport/Export.cpp:399
 #, kde-format
 msgid "How to Use the Export File"
-msgstr ""
+msgstr "როგორ გამოვიყენოთ გატანილი ფაილი"
 
 #: ImportExport/Import.cpp:26
 #, kde-format
 msgid "KPhotoAlbum Export Files"
-msgstr ""
+msgstr "KPhotoAlbum-ის გატანილი ფაილები"
 
 #: ImportExport/Import.cpp:58
 #, kde-format
@@ -2167,13 +2167,13 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr ""
+msgstr "კოპირების შეცდომა"
 
 #: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
-msgstr ""
+msgstr "გაგრძელება კითხვის გარეშე"
 
 #: ImportExport/ImportMatcher.cpp:37
 #, kde-format
@@ -2193,7 +2193,7 @@ msgstr ""
 #: ImportExport/KimFileReader.cpp:28
 #, kde-format
 msgid "Error Importing Data"
-msgstr ""
+msgstr "მონაცემების შემოტანის შეცდომა"
 
 #: ImportExport/KimFileReader.cpp:36
 #, kde-format
@@ -2876,7 +2876,7 @@ msgstr ""
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
 #, kde-format
 msgid "Select target:"
-msgstr ""
+msgstr "აირჩიეთ სამიზნე:"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70
 #, kde-format
@@ -2896,12 +2896,12 @@ msgstr ""
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:51
 #, kde-format
 msgid "Move to &trash"
-msgstr ""
+msgstr "&სანაგვე ყუთში გადატანა"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:52
 #, kde-format
 msgid "&Delete from disk"
-msgstr ""
+msgstr "&დისკიდან წაშლა"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:53
 #, kde-format
@@ -2941,12 +2941,12 @@ msgstr ""
 #: MainWindow/ExternalPopup.cpp:69
 #, kde-format
 msgid "Copy and Open"
-msgstr ""
+msgstr "კოპირება და გახსნა"
 
 #: MainWindow/ExternalPopup.cpp:93
 #, kde-format
 msgid "Open With..."
-msgstr ""
+msgstr "გამხსნელი პროგრამა..."
 
 #: MainWindow/ExternalPopup.cpp:116
 #, kde-format
@@ -3143,7 +3143,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Reading File Properties"
-msgstr ""
+msgstr "ფაილის თვისებების წაკითხვა"
 
 #: MainWindow/Options.cpp:25
 #, kde-format
@@ -3240,7 +3240,7 @@ msgstr "ძებნის ზოლი"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Search ..."
-msgstr ""
+msgstr "ძიება..."
 
 #: MainWindow/StatisticsDialog.cpp:31
 #, kde-format
@@ -3309,7 +3309,7 @@ msgstr "ჭდე:"
 #, kde-format
 msgctxt "@item:inlistbox meaning 'no category'"
 msgid "None"
-msgstr ""
+msgstr "არაფერი"
 
 #: MainWindow/StatisticsDialog.cpp:163
 #, kde-format
@@ -3735,7 +3735,7 @@ msgstr ""
 #: MainWindow/Window.cpp:988
 #, kde-format
 msgid "Statistics..."
-msgstr ""
+msgstr "სტატისტიკა..."
 
 #: MainWindow/Window.cpp:992
 #, kde-format
@@ -3854,7 +3854,7 @@ msgstr "თარიღის ზოლი"
 #: MainWindow/Window.cpp:1337
 #, kde-format
 msgid "Annotation Dialog"
-msgstr ""
+msgstr "ანოტაციის ფანჯარა"
 
 #: MainWindow/Window.cpp:1338 Settings/SettingsDialog.cpp:48
 #, kde-format
@@ -3908,7 +3908,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1586
 #, kde-format
 msgid "Open List of Files"
-msgstr ""
+msgstr "ფაილების სიის გახსნა"
 
 #: MainWindow/Window.cpp:1587
 #, kde-format
@@ -3995,7 +3995,7 @@ msgstr ""
 #: Map/MapView.cpp:362
 #, kde-format
 msgid "Map view"
-msgstr ""
+msgstr "რუკის ხედი"
 
 #: Map/MapView.cpp:362
 #, kde-format
@@ -4065,7 +4065,7 @@ msgstr ""
 #: RemoteControl/Server.cpp:67
 #, kde-format
 msgid "Invalid Version"
-msgstr ""
+msgstr "არასწორი ვერსია"
 
 #: RemoteControl/Server.cpp:68
 #, kde-format
@@ -4079,7 +4079,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textedit"
 msgid "Filter ... (%1)"
-msgstr ""
+msgstr "ფილტრ ... (%1)"
 
 #: Settings/BirthdayPage.cpp:92
 #, kde-format
@@ -4291,7 +4291,7 @@ msgstr ""
 #: Settings/DatabaseBackendPage.cpp:27
 #, kde-format
 msgid "Compress backup file"
-msgstr ""
+msgstr "მარქაფის ფაილის შეკუმშვა"
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -4568,12 +4568,12 @@ msgstr "SATA SSD"
 #: Settings/FileVersionDetectionPage.cpp:192
 #, kde-format
 msgid "Slow PCIe/NVMe"
-msgstr ""
+msgstr "ნელი PCIe/NVMe"
 
 #: Settings/FileVersionDetectionPage.cpp:193
 #, kde-format
 msgid "Fast PCIe/NVMe"
-msgstr ""
+msgstr "სწრაფი PCIe/NVMe"
 
 #: Settings/FileVersionDetectionPage.cpp:194
 #, kde-format
@@ -4648,7 +4648,7 @@ msgstr ""
 #: Settings/GeneralPage.cpp:28
 #, kde-format
 msgid "Loading New Images"
-msgstr ""
+msgstr "ახალი გამოსახულებების ჩატვირთვა"
 
 #: Settings/GeneralPage.cpp:36
 #, kde-format
@@ -4706,7 +4706,7 @@ msgstr "ჰისტოგრამა"
 #: Settings/GeneralPage.cpp:93
 #, kde-format
 msgid "Show histogram"
-msgstr ""
+msgstr "ჰისტოგრამის ჩვენება"
 
 #: Settings/GeneralPage.cpp:98
 #, kde-format
@@ -4795,7 +4795,7 @@ msgstr "კატეგორიები"
 #: Settings/SettingsDialog.cpp:50
 #, kde-format
 msgid "Birthdays"
-msgstr ""
+msgstr "დაბადების დღეები"
 
 #: Settings/SettingsDialog.cpp:51
 #, kde-format
@@ -4842,7 +4842,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add group ..."
-msgstr ""
+msgstr "ჯგუფის დამატება ..."
 
 #: Settings/TagGroupsPage.cpp:225
 #, kde-format
@@ -4884,7 +4884,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Cannot add group"
-msgstr ""
+msgstr "ჯგუფის დამატება შეუძლებელია"
 
 #: Settings/TagGroupsPage.cpp:430 Settings/TagGroupsPage.cpp:448
 #, kde-format
@@ -4896,7 +4896,7 @@ msgstr "ჯგუფის სახელის გადარქემვა"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New group name:"
-msgstr ""
+msgstr "ახალი ჯგუფის სახელი"
 
 #: Settings/TagGroupsPage.cpp:443
 #, kde-kuit-format
@@ -4948,7 +4948,7 @@ msgstr "\"%1\"-ის წაშლა"
 #, kde-format
 msgctxt "@title:window"
 msgid "New Tag Name"
-msgstr ""
+msgstr "ახალი ჭდის სახელი"
 
 #: Settings/TagGroupsPage.cpp:708
 #, kde-format
@@ -5837,7 +5837,7 @@ msgstr ""
 #: Viewer/ViewerWidget.cpp:439
 #, kde-format
 msgid "File not available"
-msgstr ""
+msgstr "ფაილი ხელმიუწვდომელია"
 
 #: Viewer/ViewerWidget.cpp:489
 #, kde-format
@@ -5885,61 +5885,61 @@ msgstr "გადახვევა"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
-msgstr ""
+msgstr "10 წუთით უკან"
 
 #: Viewer/ViewerWidget.cpp:1216
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
-msgstr ""
+msgstr "1 წუთით უკან"
 
 #: Viewer/ViewerWidget.cpp:1217
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
-msgstr ""
+msgstr "10 წამით უკან"
 
 #: Viewer/ViewerWidget.cpp:1218
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
-msgstr ""
+msgstr "1 წამით უკან"
 
 #: Viewer/ViewerWidget.cpp:1219
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
-msgstr ""
+msgstr "100 მილიწამით უკან"
 
 #: Viewer/ViewerWidget.cpp:1220
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
-msgstr ""
+msgstr "100 მილიწამით წინ"
 
 #: Viewer/ViewerWidget.cpp:1221
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
-msgstr ""
+msgstr "1 წამით წინ"
 
 #: Viewer/ViewerWidget.cpp:1222
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
-msgstr ""
+msgstr "10 წამით წინ"
 
 #: Viewer/ViewerWidget.cpp:1223
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
-msgstr ""
+msgstr "1 წუთით წინ"
 
 #: Viewer/ViewerWidget.cpp:1224
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
-msgstr ""
+msgstr "10 წუთით წინ"
 
 #: Viewer/ViewerWidget.cpp:1232
 #, kde-format
@@ -5969,7 +5969,7 @@ msgstr "ფილტრები"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
-msgstr ""
+msgstr "ყველა ფილტრის წაშლა"
 
 #: Viewer/ViewerWidget.cpp:1273
 #, kde-format
@@ -6035,17 +6035,17 @@ msgstr ""
 #: Viewer/VisibleOptionsMenu.cpp:35
 #, kde-format
 msgid "Show Label"
-msgstr ""
+msgstr "ჭდის ჩვენება"
 
 #: Viewer/VisibleOptionsMenu.cpp:40
 #, kde-format
 msgid "Show Description"
-msgstr ""
+msgstr "აღწერის ჩვენება"
 
 #: Viewer/VisibleOptionsMenu.cpp:45
 #, kde-format
 msgid "Show Date"
-msgstr ""
+msgstr "თარიღის ჩვენება"
 
 #: Viewer/VisibleOptionsMenu.cpp:50
 #, kde-format
@@ -6055,22 +6055,22 @@ msgstr "დროის ჩვენება"
 #: Viewer/VisibleOptionsMenu.cpp:56
 #, kde-format
 msgid "Show Filename"
-msgstr ""
+msgstr "ფაილის სახელის ჩვენება"
 
 #: Viewer/VisibleOptionsMenu.cpp:61
 #, kde-format
 msgid "Show Exif"
-msgstr ""
+msgstr "Exif-ის ჩვენება"
 
 #: Viewer/VisibleOptionsMenu.cpp:66
 #, kde-format
 msgid "Show Image Size"
-msgstr ""
+msgstr "გამოსახულების ზომის ჩვენება"
 
 #: Viewer/VisibleOptionsMenu.cpp:71
 #, kde-format
 msgid "Show Rating"
-msgstr ""
+msgstr "რეიტინგის ჩვენება"
 
 #: XMLDB/Database.cpp:49
 #, kde-format
@@ -6103,7 +6103,7 @@ msgstr ""
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: XMLDB/FileReader.cpp:46
 #, kde-format

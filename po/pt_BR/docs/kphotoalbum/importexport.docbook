@@ -1,3 +1,10 @@
+<!--
+SPDX-FileCopyrightText: 2004-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
 <chapter id="chp-importExport">
   <title
 >Importando/exportando</title>
@@ -7,7 +14,7 @@
     <para
 >O &kphotoalbum; permite-lhe exportar um conjunto das suas imagens para um arquivo <literal role="extension"
 >.kim</literal
->, o qual poderá ser importado pelas outras pessoas para a sua base de dados, de modo a ter a sua classificação para essas imagens.</para>
+>, o qual poderá ser importado pelas outras pessoas para o seu banco de dados, de modo a ter a sua classificação para essas imagens.</para>
 
     <para
 >Existem dois tipos diferentes de arquivos <literal role="extension"
@@ -104,7 +111,7 @@
 ><guimenuitem
 >Importar...</guimenuitem
 ></menuchoice
->, o &kphotoalbum; irá importar a base de dados exportada com a funcionalidade descrita em <xref linkend="chp-importExport"/>.</para>
+>, o &kphotoalbum; irá importar o banco de dados exportada com a funcionalidade descrita em <xref linkend="chp-importExport"/>.</para>
 
 <para
 >O assistente de importação consiste em quatro passos. Em primeiro lugar, é necessário indicar que imagens deseja importar. Em seguida, deverá indicar em que pasta deseja colocar as imagens importadas.</para>
@@ -114,12 +121,12 @@
 >personen</emphasis
 > (se você for alemão), enquanto o tradutor para português poderá desejar chamar à categoria <emphasis
 >pessoas</emphasis
->. No terceiro passo da janela de importação, deverá indicar a categoria do arquivo de importação envolvido, seguida das categorias na sua base de dados a que correspondem.</para>
+>. No terceiro passo da janela de importação, deverá indicar a categoria do arquivo de importação envolvido, seguida das categorias no seu banco de dados a que correspondem.</para>
 
 <para
->O usuário poderá chamar às bases de dados dele <emphasis
->minhas</emphasis
->, enquanto na sua base de dados, a pessoa poderá chamar Jesper K. Pedersen. O quarto passo permite-lhe estabelecer a correspondência com cada uma das categorias importadas. Isso poderá ser visto em <xref linkend="fig-import-dialog"/>.</para>
+>O usuário poderá chamar aos bancos de dados dele <emphasis
+>meus</emphasis
+>, enquanto no seu banco de dados, a pessoa poderá chamar Jesper K. Pedersen. O quarto passo permite-lhe estabelecer a correspondência com cada uma das categorias importadas. Isso poderá ser visto em <xref linkend="fig-import-dialog"/>.</para>
 
 <figure id="fig-import-dialog">
 <title
@@ -132,7 +139,7 @@
 </figure>
 
 <para
->Na imagem, você poderá ver que a Donna é a mesma no arquivo .kim e na base de dados do autor - o nome é mostrado em preto para indicar uma correspondência perfeita na base de dados. Os outros três nomes não foram encontrados na base de dados ainda que, tanto o Jesper como a Anne Helene, tenham correspondência com partes do texto, como tal estes são sugeridos. Finalmente, na base de dados do autor, não existe o Spiff (ou então poderá ter um nome completamente diferente), como tal o &kphotoalbum; sugere simplesmente Spiff como nome na importação.</para>
+>Na imagem, você poderá ver que a Donna é a mesma no arquivo .kim e na base de dados do autor - o nome é mostrado em preto para indicar uma correspondência perfeita no banco de dados. Os outros três nomes não foram encontrados no banco de dados ainda que, tanto o Jesper como a Anne Helene, tenham correspondência com partes do texto, como tal estes são sugeridos. Finalmente, no banco de dados do autor, não existe o Spiff (ou então poderá ter um nome completamente diferente), como tal o &kphotoalbum; sugere simplesmente Spiff como nome na importação.</para>
 
 </sect1>
   </chapter>

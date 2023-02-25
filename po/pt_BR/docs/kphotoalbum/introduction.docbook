@@ -1,3 +1,11 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
 <chapter id="introduction">
   <title
 >Introdução</title>
@@ -72,7 +80,7 @@
 >) que vem no código do &kphotoalbum; e faz uma cópia do 'index.xml' e dos arquivos de configuração na pasta pessoal do usuário.</para>
     
     <para
->O &kphotoalbum; irá recordar o local que você lhe indicou onde se localizam as suas imagens e irá utilizá-lo de novo nas sessões futuras do &kphotoalbum;. Se alguma vez precisar carregar outra base de dados no &kphotoalbum; (i.e. outra pasta com imagens), então poderá iniciá-lo com a opção <option
+>O &kphotoalbum; irá recordar o local que você lhe indicou onde se localizam as suas imagens e irá utilizá-lo de novo nas sessões futuras do &kphotoalbum;. Se alguma vez precisar carregar outro banco de dados no &kphotoalbum; (i.e. outra pasta com imagens), então poderá iniciá-lo com a opção <option
 >-c</option
 >. Por exemplo: <userinput
 ><command

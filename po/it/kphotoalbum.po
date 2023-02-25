@@ -1,14 +1,14 @@
 # translation of kphotoalbum.po to Italian
 # Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014.
-# Valter Mura <valtermura@gmail.com>, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Valter Mura <valtermura@gmail.com>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 00:56+0000\n"
-"PO-Revision-Date: 2022-10-06 18:55+0200\n"
+"PO-Revision-Date: 2023-02-23 23:46+0100\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.04.0\n"
+"X-Generator: Lokalize 22.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -332,23 +332,19 @@ msgstr ""
 "possibile scrivere il file %1 a causa del seguente errore: %2"
 
 #: AnnotationDialog/Dialog.cpp:1036
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Some changes are made to annotations. Do you really want to cancel all "
-#| "recent changes for each affected file?</p>"
+#, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
-"<p>Alcune annotazioni sono state modificate. Vuoi veramente annullare tutte "
-"le modifiche recenti di ogni file affetto?</p>"
+"<p>Alcune annotazioni sono state modificate. Vuoi davvero scartare tutte le "
+"modifiche recenti di ogni file affetto?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1037
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Salvare i cambiamenti?"
+msgstr "Scartare le modifiche?"
 
 #: AnnotationDialog/Dialog.cpp:1154
 #, kde-format
@@ -662,8 +658,7 @@ msgid "Really Delete %1?"
 msgstr "Eliminare veramente %1?"
 
 #: AnnotationDialog/ListSelect.cpp:447
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Rinomina elemento"
@@ -683,16 +678,13 @@ msgstr ""
 "ogni immagine che lo contiene.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:456
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Rinomina «%1»"
+msgstr "Rinominare %1?"
 
 #: AnnotationDialog/ListSelect.cpp:461
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Rinomina"
@@ -1897,8 +1889,7 @@ msgstr ""
 "che dovresti specificare una nuova cartella.</p><p>Eliminare prima %2?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder Exists"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
 msgstr "La cartella esiste"
@@ -2312,19 +2303,17 @@ msgid "Folder %1 does not exist. Should it be created?"
 msgstr "La cartella %1 non esiste. Vuoi crearla?"
 
 #: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Base folder:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "Cartella principale:"
+msgstr "Creare la cartella?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1182
-#, fuzzy, kde-format
-#| msgid "Created:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr "Creata il:"
+msgstr "Crea"
 
 #: ImportExport/ImportDialog.cpp:314
 #, kde-format
@@ -2358,15 +2347,13 @@ msgid "Cannot copy from any of the following locations:"
 msgstr "Impossibile copiare da una delle seguenti posizioni:"
 
 #: ImportExport/ImportHandler.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "Copia di file immagine"
+msgstr "Copia non riuscita"
 
 #: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Continua senza chiedere"
@@ -2507,10 +2494,9 @@ msgstr ""
 "KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2020-2022 La squadra di sviluppo di KPhotoAlbum"
+msgstr "Copyright (C) 2020-2023 La squadra di sviluppo di KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -2868,10 +2854,9 @@ msgid "KDE Photo Album"
 msgstr "Album fotografico di KDE"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2022 La squadra di sviluppo di KPhotoAlbum"
+msgstr "Copyright (C) 2003-2023 La squadra di sviluppo di KPhotoAlbum"
 
 #: main.cpp:110
 #, kde-format
@@ -3794,13 +3779,7 @@ msgid "Searching for New Files"
 msgstr "Ricerca di nuovi file"
 
 #: MainWindow/Window.cpp:299
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
-#| "the KPhotoAlbum demo. The demo database was copied to /tmp, should it be "
-#| "deleted now? If you do not delete it, it will waste disk space; on the "
-#| "other hand, if you want to come back and try the demo again, you might "
-#| "want to keep it around with the changes you made through this session.</p>"
+#, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
 "KPhotoAlbum demo. The demo database was created in the folder <tt>/tmp</tt>, "
@@ -3811,17 +3790,16 @@ msgid ""
 msgstr ""
 "<p><b>Elimina la banca dati dimostrativa temporanea</b></p><p>Spero che ti "
 "sia piaciuta la dimostrazione di KPhotoAlbum. La banca dati dimostrativa è "
-"stata copiata a /tmp, dovrebbe essere eliminata adesso? Se non la elimini, "
-"sprecherà spazio su disco; d'altro canto, se vuoi ritornare e riprovare la "
+"stata creata nella cartella <tt>/tmp</tt>: va eliminata adesso? Se non la "
+"elimini, occuperà spazio su disco; d'altro canto, se vuoi riprovare la "
 "dimostrazione, potresti preferire tenerla a disposizione con le modifiche "
 "che ci hai fatto in questa sessione.</p>"
 
 #: MainWindow/Window.cpp:304
-#, fuzzy, kde-format
-#| msgid "Delete Demo Database"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
-msgstr "Elimina banca dati dimostrativa"
+msgstr "Elimina la banca dati dimostrativa"
 
 #: MainWindow/Window.cpp:359
 #, kde-format
@@ -3833,11 +3811,10 @@ msgstr ""
 "rimuoverle dalle loro pile e crearne una completamente nuova?"
 
 #: MainWindow/Window.cpp:362
-#, fuzzy, kde-format
-#| msgid "Stacking Error"
+#, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr "Errore di impilamento"
+msgstr "Problema di impilamento"
 
 #: MainWindow/Window.cpp:377
 #, kde-format
@@ -4195,11 +4172,10 @@ msgstr ""
 "xml</p>"
 
 #: MainWindow/Window.cpp:1178
-#, fuzzy, kde-format
-#| msgid "Erase database"
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr "Cancella la banca dati"
+msgstr "Crea la banca dati"
 
 #: MainWindow/Window.cpp:1206
 #, kde-format
@@ -4253,7 +4229,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
-msgstr ""
+msgstr "Reimposta le finestre di dialogo nascoste"
 
 #: MainWindow/Window.cpp:1504
 #, kde-format
@@ -4673,22 +4649,19 @@ msgid "Unsaved pending renaming action"
 msgstr "Azione di rinomina in sospeso non salvata"
 
 #: Settings/CategoryPage.cpp:324
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
-#| "linked against this category will be deleted!</p>"
+#, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
 "<p>Vuoi davvero rendere «%1» non spostabile?</p><p>Tutte le aree collegate a "
-"questa categoria saranno eliminate!</p>"
+"questa categoria saranno scartate.</p>"
 
 #: Settings/CategoryPage.cpp:333
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "Conferma azione"
 
 #: Settings/CategoryPage.cpp:377
 #, kde-format
@@ -4703,7 +4676,7 @@ msgstr "<p>Vuoi davvero eliminare la categoria «%1»?</p>"
 #: Settings/CategoryPage.cpp:414
 #, kde-format
 msgid "Confirm Action"
-msgstr ""
+msgstr "Conferma azione"
 
 #: Settings/CategoryPage.cpp:536
 #, kde-format
@@ -6031,8 +6004,7 @@ msgstr ""
 "data e ora</b>.</p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:97
-#, fuzzy, kde-format
-#| msgid "Reorder Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
 msgstr "Riordina le miniature"

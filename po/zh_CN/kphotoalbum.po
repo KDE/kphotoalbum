@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 00:56+0000\n"
-"PO-Revision-Date: 2023-02-15 11:04\n"
+"PO-Revision-Date: 2023-02-24 12:43\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -318,11 +318,10 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1037
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "保存更改？"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1154
 #, kde-format
@@ -601,11 +600,10 @@ msgid "Really Delete %1?"
 msgstr "真的删除 %1？"
 
 #: AnnotationDialog/ListSelect.cpp:447
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
-msgstr "重命名项目"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:447
 #, kde-format
@@ -621,19 +619,16 @@ msgstr ""
 "<p>您真要将“%1”重命名为“%2”吗？<br>这会将任何包含它的图像重命名为“%3”。</p>"
 
 #: AnnotationDialog/ListSelect.cpp:456
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "重命名 “%1”"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:461
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
-msgstr "重命名"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:496
 #, kde-format
@@ -1769,11 +1764,10 @@ msgid ""
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr "文件夹"
+msgstr ""
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:547 MainWindow/SplashScreen.cpp:53
@@ -2123,11 +2117,10 @@ msgid "Folder %1 does not exist. Should it be created?"
 msgstr ""
 
 #: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Creating index file"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "正在创建索引文件"
+msgstr ""
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1182
@@ -2168,18 +2161,16 @@ msgid "Cannot copy from any of the following locations:"
 msgstr ""
 
 #: ImportExport/ImportHandler.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "正在复制图像文件"
+msgstr ""
 
 #: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
-msgstr "不经询问继续"
+msgstr ""
 
 #: ImportExport/ImportMatcher.cpp:37
 #, kde-format
@@ -3450,11 +3441,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:304
-#, fuzzy, kde-format
-#| msgid "Delete Demo Database"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
-msgstr "删除演示数据库"
+msgstr ""
 
 #: MainWindow/Window.cpp:359
 #, kde-format
@@ -3464,11 +3454,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:362
-#, fuzzy, kde-format
-#| msgid "AutoStacking Options"
+#, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr "自动叠放选项"
+msgstr ""
 
 #: MainWindow/Window.cpp:377
 #, kde-format
@@ -3820,11 +3809,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:1178
-#, fuzzy, kde-format
-#| msgid "Create My Own Database..."
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr "创建我的数据库..."
+msgstr ""
 
 #: MainWindow/Window.cpp:1206
 #, kde-format
@@ -5388,11 +5376,10 @@ msgid ""
 msgstr ""
 
 #: ThumbnailView/ThumbnailDND.cpp:97
-#, fuzzy, kde-format
-#| msgid "Reorder Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
-msgstr "重新整理缩略图"
+msgstr ""
 
 #: Utilities/DeleteFiles.cpp:37
 #, kde-format
@@ -6369,9 +6356,3 @@ msgstr ""
 #, kde-format
 msgid "Error while reading database file"
 msgstr ""
-
-#~ msgid "Really Rename %1?"
-#~ msgstr "真的重命名 %1？"
-
-#~ msgid "Do you want to save the changes?"
-#~ msgstr "您要保存这些更改吗？"

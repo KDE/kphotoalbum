@@ -1,4 +1,13 @@
-  <chapter id="chp-generating-html">
+<!--
+SPDX-FileCopyrightText: 2004-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-generating-html">
     <title
 >Gerando &HTML;</title>
     <para

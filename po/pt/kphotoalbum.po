@@ -718,8 +718,7 @@ msgid "Rename %1?"
 msgstr "Mudar o Nome do \"%1\""
 
 #: AnnotationDialog/ListSelect.cpp:461
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Mudar o Nome"
@@ -2352,11 +2351,10 @@ msgstr "Pasta de base:"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1182
-#, fuzzy, kde-format
-#| msgid "Created:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr "Criado:"
+msgstr "Criar"
 
 #: ImportExport/ImportDialog.cpp:314
 #, kde-format

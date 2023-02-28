@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 00:56+0000\n"
-"PO-Revision-Date: 2023-02-19 11:53+0100\n"
+"PO-Revision-Date: 2023-02-26 18:47+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2704,6 +2704,7 @@ msgid_plural "Removed %1 inconsistent thumbnails from the database.\n"
 msgstr[0] "S'ha eliminat 1 miniatura incoherent de la base de dades.\n"
 msgstr[1] "S'han eliminat %1 miniatures incoherents de la base de dades.\n"
 
+# skip-rule: rst-link0italic
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:20
 #, kde-format
 msgctxt "@info:shell"
@@ -2725,6 +2726,7 @@ msgctxt "@info:shell"
 msgid "Could not open temporary file for writing!\n"
 msgstr "No s'ha pogut obrir el fitxer temporal per a escriptura!\n"
 
+# skip-rule: rst-link0italic
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:35
 #, kde-format
 msgctxt "@info:shell"

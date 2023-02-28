@@ -6702,7 +6702,7 @@ msgid ""
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 msgstr ""
 "<p>Il semble que KPhotoAlbum ait déjà planté lors de lecture vidéo. Sur "
-"certaines plateformes, c’est un problème courant avec certains lecteurs "
+"certaines plateformes, c'est un problème courant avec certains lecteurs "
 "vidéo. </p><p>Appuyez sur <i>Continuer</i> pour laisser KPhotoAlbum essayer "
 "un autre moteur...</p>"
 

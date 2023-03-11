@@ -1647,7 +1647,7 @@ msgid ""
 msgstr ""
 "Certaines images de la base de donnée n'ont pas d'information d'objectifs. "
 "<note>Recréer la base de données de recherche Exif pour garantir des données "
-"d'objectifs pour toute les images.</note>"
+"d'objectifs pour toutes les images.</note>"
 
 #: HTMLGenerator/Generator.cpp:50
 #, kde-format
@@ -1870,9 +1870,9 @@ msgid ""
 "images. Each generated collection will be contained in this folder in "
 "separate subfolders.</p>"
 msgstr ""
-"<qt>Vous n'avez pas spécifié un dossier de base. Il s'agit du dossier racine "
+"<p>Vous n'avez pas spécifié un dossier de base. Il s'agit du dossier racine "
 "pour vos images. Dans ce dossier, vous trouverez un sous dossier séparé pour "
-"chaque collection générée.</qt>"
+"chaque collection générée.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:402
 #, kde-format
@@ -3849,7 +3849,7 @@ msgstr ""
 "maintenant ? Ne pas la supprimer représente une perte de place sur votre "
 "disque dur. Cependant, si vous voulez revenir et relancer la démonstration, "
 "vous pouvez souhaiter la conserver avec les changements que vous avez "
-"effectués au cours de cette session.</p></qt>"
+"effectués au cours de cette session.</p>"
 
 #: MainWindow/Window.cpp:304
 #, kde-format

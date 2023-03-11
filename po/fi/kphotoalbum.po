@@ -5,7 +5,7 @@
 # Author: Lliehu
 # Teemu Rytilahti <teemu.rytilahti@kde-fi.org>, 2003, 2004.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2016, 2019.
-# Tommi Nieminen <translator@legisign.org>, 2012, 2015, 2018, 2019, 2020, 2021, 2022.
+# Tommi Nieminen <translator@legisign.org>, 2012, 2015, 2018, 2019, 2020, 2021, 2022, 2023.
 # Risto H. Kurppa <risto@kurppa.fi>, 2012.
 # Miika Turkia <miika.turkia@gmail.com>, 2012.
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 00:56+0000\n"
-"PO-Revision-Date: 2022-08-19 13:04+0300\n"
+"PO-Revision-Date: 2023-03-05 19:18+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-POT-Import-Date: 2013-01-13 20:43:13+0000\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -340,10 +340,7 @@ msgstr ""
 "kirjoittaa seuraavan virheen takia: %2"
 
 #: AnnotationDialog/Dialog.cpp:1036
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Some changes are made to annotations. Do you really want to cancel all "
-#| "recent changes for each affected file?</p>"
+#, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
@@ -352,11 +349,10 @@ msgstr ""
 "muutokset kaikkiin tiedostoihin?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1037
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Tallennetaanko muutokset?"
+msgstr "Hylätäänkö muutokset?"
 
 #: AnnotationDialog/Dialog.cpp:1154
 #, kde-format
@@ -641,7 +637,7 @@ msgstr "Käyttö"
 #: AnnotationDialog/ListSelect.cpp:401
 #, kde-format
 msgid "Alphabetical (Flat)"
-msgstr "Aakkosjärjestys (lista)"
+msgstr "Aakkosellinen (luettelo)"
 
 #: AnnotationDialog/ListSelect.cpp:402
 #, kde-format
@@ -663,8 +659,7 @@ msgid "Really Delete %1?"
 msgstr "Haluatko varmasti poistaa %1?"
 
 #: AnnotationDialog/ListSelect.cpp:447
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Muuta tietueen nimeä"
@@ -684,16 +679,13 @@ msgstr ""
 "kaikkien kuvien, jotka sisältävät tekstin ”%3”, nimet muutetaan.</qt>"
 
 #: AnnotationDialog/ListSelect.cpp:456
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Muuta ”%1” nimeä"
+msgstr "Muutetaanko nimeä: %1?"
 
 #: AnnotationDialog/ListSelect.cpp:461
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Muuta nimeä"
@@ -1061,12 +1053,12 @@ msgstr "Siirrä luokat"
 #: DateBar/DateBarWidget.cpp:69
 #, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "Vieritä oikealle"
 
 #: DateBar/DateBarWidget.cpp:78
 #, kde-format
 msgid "Scroll left"
-msgstr ""
+msgstr "Vieritä vasemmalle"
 
 #: DateBar/DateBarWidget.cpp:87
 #, kde-format
@@ -1192,16 +1184,14 @@ msgid "10 Seconds"
 msgstr "10 sekuntia"
 
 #: DB/Category.cpp:164
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1'."
+#, kde-format
 msgid "Unable to create folder '%1'."
-msgstr "Ei voitu luoda kansiota %1"
+msgstr "Ei voitu luoda kansiota ”%1”."
 
 #: DB/Category.cpp:164
-#, fuzzy, kde-format
-#| msgid "Unable to Create Directory"
+#, kde-format
 msgid "Unable to Create Folder"
-msgstr "Kansiota ei voitu luoda"
+msgstr "Kansiota ei voi luoda"
 
 #: DB/Category.cpp:173
 #, kde-format
@@ -1415,8 +1405,7 @@ msgid "Permissions:"
 msgstr "Oikeudet:"
 
 #: Exif/MetaDataDisplay.cpp:100
-#, fuzzy, kde-format
-#| msgid "Open directory with a file manager"
+#, kde-format
 msgid "Open folder with a file manager"
 msgstr "Avaa kansio tiedostonhallintaan"
 
@@ -1638,7 +1627,7 @@ msgstr "Luodaan kuvia HTML-sivulle"
 #: HTMLGenerator/Generator.cpp:179
 #, kde-format
 msgid "Error copying %1 to %2"
-msgstr "Virhe kopioitaessa teemaa %1 hakemistoon %2"
+msgstr "Virhe kopioitaessa teemaa %1 kansioon %2"
 
 #: HTMLGenerator/Generator.cpp:465
 #, kde-format
@@ -1794,22 +1783,19 @@ msgid "Destination"
 msgstr "Kohde"
 
 #: HTMLGenerator/HTMLDialog.cpp:296
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgid "Base folder:"
 msgstr "Peruskansio:"
 
 #: HTMLGenerator/HTMLDialog.cpp:313
-#, fuzzy, kde-format
-#| msgid "Gallery directory:"
+#, kde-format
 msgid "Gallery folder:"
 msgstr "Galleriakansio:"
 
 #: HTMLGenerator/HTMLDialog.cpp:320
-#, fuzzy, kde-format
-#| msgid "Output directory:"
+#, kde-format
 msgid "Output folder:"
-msgstr "Tulostekansio:"
+msgstr "Tuloskansio:"
 
 #: HTMLGenerator/HTMLDialog.cpp:331
 #, kde-format
@@ -1837,56 +1823,42 @@ msgid "You must select at least one resolution."
 msgstr "Valitse ainakin yksi tarkkuus."
 
 #: HTMLGenerator/HTMLDialog.cpp:385
-#, fuzzy, kde-format
-#| msgid "Select base directory..."
+#, kde-format
 msgid "Select base folder..."
 msgstr "Valitse peruskansio…"
 
 #: HTMLGenerator/HTMLDialog.cpp:398
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>You did not specify a base directory. This is the topmost directory "
-#| "for your images. Under this directory you will find each generated "
-#| "collection in separate directories.</p>"
+#, kde-format
 msgid ""
 "<p>You did not specify a base folder. This is the topmost folder for your "
 "images. Each generated collection will be contained in this folder in "
 "separate subfolders.</p>"
 msgstr ""
-"<qt>Et määritellyt peruskansiota. Se on kuviesi ylin kansio jonka alta "
-"löydät jokaisen luodun kokoelman omissa kansioissaan.</qt>"
+"<qt>Peruskansiota ei ole määritetty. Se on ylin kuvakansio, jonka alta "
+"luodut kokoelmat löytyvät omista alikansioistaan.</qt>"
 
 #: HTMLGenerator/HTMLDialog.cpp:402
-#, fuzzy, kde-format
-#| msgid "No Base Directory Specified"
+#, kde-format
 msgid "No Base Folder Specified"
-msgstr "Peruskansiota ei määritelty"
+msgstr "Peruskansiota ei ole määritetty"
 
 #: HTMLGenerator/HTMLDialog.cpp:408
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>You did not specify an output directory. This is a directory "
-#| "containing the actual images. The directory will be in the base directory "
-#| "specified above.</p>"
+#, kde-format
 msgid ""
 "<p>You did not specify an output folder. This is a folder containing the "
 "actual images. The folder will be a subfolder of the base folder specified "
 "above.</p>"
 msgstr ""
-"<qt>Et määritellyt tulostekanisota. Tämä kansio sisältää oikeat kuvat ja "
-"tämä tulee olemaan yläpuolella määritellyn peruskansion sisällä.</qt>"
+"<p>Tuloskansiota ei ole määritetty. Tämä on varsinaiset kuvat sisältävä "
+"kansio. Kansiosta tulee yllä määritetyn peruskansion alikansio.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:411
-#, fuzzy, kde-format
-#| msgid "No Output Directory Specified"
+#, kde-format
 msgid "No Output Folder Specified"
-msgstr "Tulostekansiota ei ole määritelty"
+msgstr "Tuloskansiota ei ole määritetty"
 
 #: HTMLGenerator/HTMLDialog.cpp:423
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Error while reading information about %1. This is most likely because "
-#| "the directory does not exist.</p><p>The error message was: %2</p>"
+#, kde-format
 msgid ""
 "<p>Error while reading information about %1. This is most likely because the "
 "folder does not exist.</p><p>The error message was: %2</p>"
@@ -1895,32 +1867,26 @@ msgstr ""
 "kansiota ole olemassa</p><p>Virheilmoitus oli: %2</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:432
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>%1 does not exist, is not a directory or cannot be written to.</p>"
+#, kde-format
 msgid "<p>%1 does not exist, is not a folder or cannot be written to.</p>"
 msgstr ""
-"<qt>Kansiota %1 ei ole olemassa, se ei ole kansio tai siihen ei voida "
-"kirjoittaa.</qt>"
+"<qt>Kansiota %1 ei ole olemassa, ei ole kansio tai siihen ei voi kirjoittaa."
+"</qt>"
 
 #: HTMLGenerator/HTMLDialog.cpp:446
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Output directory %1 already exists. Usually, this means you should "
-#| "specify a new directory.</p><p>Should %2 be deleted first?</p>"
+#, kde-format
 msgid ""
 "<p>Output folder %1 already exists. Usually, this means you should specify a "
 "new folder.</p><p>Should %2 be deleted first?</p>"
 msgstr ""
-"<p>Tulostekansio %1 on jo olemassa. Luultavasti sinun pitäisi määritellä "
-"uusi tulostekansio.</p><p>Poistetaanko %2 ensin?</p>"
+"<p>Tuloskansio %1 on jo olemassa. Yleensä tämä tarkoittaa, että pitäisi "
+"määrittää uusi kansio.</p><p>Poistetaanko %2 ensin?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr "Kansio"
+msgstr "Kansio on olemassa"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:547 MainWindow/SplashScreen.cpp:53
@@ -1957,14 +1923,12 @@ msgstr ""
 " "
 
 #: HTMLGenerator/HTMLDialog.cpp:589
-#, fuzzy, kde-format
-#| msgid "<p>Gallery directory cannot be empty.</p>"
+#, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr "<p>Galleriakansio ei voi olla tyhjä.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:593
-#, fuzzy, kde-format
-#| msgid "<p>The output directory already exists.</p>"
+#, kde-format
 msgid "<p>The output folder already exists.</p>"
 msgstr "<p>Tuloskansio on jo olemassa.</p>"
 
@@ -2195,14 +2159,15 @@ msgid ""
 "that it is a KPhotoAlbum file when clicking on the link, otherwise the web "
 "server will just tell konqueror that it is a plain text file.</p>"
 msgstr ""
-"<p>Nyt muut KPhotoAlbumin käyttäjät voivat ladata tuontitiedoston omaan "
-"tietokantaansa valitsemalla <b>import</b> tiedostovalikosta.</p><p>Oikein "
-"konfiguroitu web-palvelin mahdollistaa tuontitiedoston napsauttamisen web-"
-"selaimella. Tällöin web-palvelimen pitää tunnistaa kim-tiedoston kuuluvan "
-"KPhotoAlbumille. Tämä konfiguroidaan yleensä <b>/etc/httpd/mime.types</b>  -"
-"tiedostoon (tai vastaavaan): <pre>application/vnd.kde.kphotoalbum-import "
-"kim</pre>. Tällöin konqueror-selaimelle kerrotaan, että kyseessä on "
-"KPhotoAlbumin tiedosto, kun tiedosto avataan.</p>"
+"<p>Nyt muut KPhotoAlbumin käyttäjät voivat ladata tuontitiedoston "
+"tietokantaansa valitsemalla tiedostovalikosta <b>tuonnin</b>.</p><p>Jos he "
+"löytävät tiedoston verkkosivulta ja palvelin on oikein asetettu, heidän ei "
+"tarvitse kuin napsauttaa sitä Konquerorissa. Tätä varten verkkopalvelin "
+"tulee määrittää KPhotoAlbumille lisäämällä seuraavan rivin <b>/etc/httpd/"
+"mime.types</b>-tiedostoon tai vastaavaan: <pre>application/vnd.kde."
+"kphotoalbum-import kim</pre>Tämä saa verkkopalvelimen kertomaan linkkiä "
+"napsautettaessa Konquerorille, että kyse on KPhotoAlbum-tiedostosta; muuten "
+"palvelin kertoo kyseessä olevan tavallinen tekstitiedosto.</p>"
 
 #: ImportExport/Export.cpp:399
 #, kde-format
@@ -2229,27 +2194,7 @@ msgstr ""
 "että tiedosto on vioittunut</p>"
 
 #: ImportExport/ImportDialog.cpp:118
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This "
-#| "wizard will take you through the steps of an import operation. The steps "
-#| "are: <ol><li>First you must select which images you want to import from "
-#| "the export file. You do so by selecting the checkbox next to the image.</"
-#| "li><li>Next you must tell KPhotoAlbum in which directory to put the "
-#| "images. This directory must of course be below the directory root "
-#| "KPhotoAlbum uses for images. KPhotoAlbum will take care to avoid name "
-#| "clashes</li><li>The next step is to specify which categories you want to "
-#| "import (People, Places, ... ) and also tell KPhotoAlbum how to match the "
-#| "categories from the file to your categories. Imagine you load from a "
-#| "file, where a category is called <b>Blomst</b> (which is the Danish word "
-#| "for flower), then you would likely want to match this with your category, "
-#| "which might be called <b>Blume</b> (which is the German word for flower) "
-#| "- of course given you are German.</li><li>The final steps, is matching "
-#| "the individual tokens from the categories. I may call myself <b>Jesper</"
-#| "b> in my image database, while you want to call me by my full name, "
-#| "namely <b>Jesper K. Pedersen</b>. In this step non matches will be "
-#| "highlighted in red, so you can see which tokens was not found in your "
-#| "database, or which tokens was only a partial match.</li></ol>"
+#, kde-format
 msgid ""
 "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
 "will take you through the steps of an import operation. The steps are: "
@@ -2271,23 +2216,21 @@ msgid ""
 "not found in your database, or which tokens was only a partial match.</li></"
 "ol>"
 msgstr ""
-"<h1><font size=\"+2\">Tervetuloa KPhotoAlbumin kuvien tuontiin</font></"
-"h1>Tämä opastettu kuvien tuonti auttaa sinua tuontiin liittyvissä asioissa, "
-"joka koostuu seuraavista vaiheista: <ol><li>Valitse ensin, mitkä "
-"siirtotiedoston kuvat halutaan tuodaKPhotoAlbumiin. Valinta tapahtuu "
-"laittamalla rasti kyseisten kuvin ruutuun.</li><li>Seuraavaksi valitse, "
-"mihin hakemistoon uudet kuvat tallennetaan.  Tämän hakemiston pitää "
-"luonnollisesti sijaita KPhotoAlbumin juurihakemiston alla. Ristiriita "
-"päällekkäisissä kuvanimissä selvitetään automattisesti.</li><li>Sitten "
-"valitaan luokka, johon uudet kuvat liitetään (Ihmiset, Paikat, …) ja kuinka "
-"uusien kuvien luokat liitetään olemassaoleviin luokkiin. Esim. tuotavan "
-"kuvan luokaksi on ehkä merkitty <b>Kaverit</b>, mutta haluatkin käyttää "
-"valmiiksi löytyvää luokkaa <b>Ihmiset</b></li><li>Viimeinen vaihe on "
-"yhdistää yksittäisen luokan alaiset \"merkinnät\". Esimerkiksi kutsun "
-"itseäni nimellä <b>Jesper</b> omassa tietokannassani, mutta sinä voit haluta "
-"kutsua minua koko nimelläni <b>Jesper K. Pedersen</b>. Tässä vaiheessa "
-"tuntemattomat muunnokset osoitetaan punaisella värillä, jolloin on helppo "
-"nähdä, mitä merkintää ei omasta tietokannasta löydy.</li></ol>"
+"<h1><font size=\"+2\">Tervetuloa KPhotoAlbumin tuontiin</font></h1>Tämä "
+"toiminto opastaa sinut tuonnin läpi. Vaiheet ovat: <ol><li>Ensin on "
+"valittava, mitkä kuvat vientitiedostosta tuodaan. Osoita tämä valitsemalla "
+"kuvan viereinen valintaruutu.</li><li>Seuraavaksi KPhotoAlbumille kerrotaan, "
+"mihin kansioon kuvat pannaan. Kansion pitää luonnollisesti sijaita "
+"KPhotoAlbumin juurikansion alla. Tiedostonimiristiriidat ratkaistaan "
+"automaattisesti.</li><li>Sitten valitaan tuotavat luokat (Ihmiset, Paikat…) "
+"ja miten uusien kuvien luokat yhdistetään olemassa oleviin luokkiin. Esim. "
+"tuotavan kuvan luokaksi on ehkä merkitty <b>Kaverit</b>, mutta haluatkin "
+"käyttää valmiiksi löytyvää luokkaa <b>Ihmiset</b>.</li><li>Lopuksi "
+"yhdistetään yksittäisen luokan alaiset merkinnät. Esimerkiksi kutsun omassa "
+"tietokannassani itseäni <b>Jesperiksi</b>, mutta sinä voit haluta kutsua "
+"minua koko <b>Jesper K. Pederseniksi</b>. Jollei sopivaa luokka löydy, se "
+"osoitetaan punaisella värillä, jolloin on helppo nähdä, mitä luokkaa ei "
+"omasta tietokannasta löydy.</li></ol>"
 
 #: ImportExport/ImportDialog.cpp:137
 #, kde-format
@@ -2321,14 +2264,12 @@ msgid "Destination of Images"
 msgstr "Kuvien kohde"
 
 #: ImportExport/ImportDialog.cpp:222
-#, fuzzy, kde-format
-#| msgid "The directory must be a subdirectory of %1"
+#, kde-format
 msgid "The folder must be a subfolder of %1"
-msgstr "Kansion tulee olla %1 alikansio"
+msgstr "Kansion tulee olla kansion %1 alikansio"
 
 #: ImportExport/ImportDialog.cpp:225
-#, fuzzy, kde-format
-#| msgid "This directory is reserved for category images."
+#, kde-format
 msgid "This folder is reserved for category images."
 msgstr "Tämä kansio on varattu luokan kuville."
 
@@ -2338,31 +2279,27 @@ msgid "Match Categories"
 msgstr "Yhdistä luokat"
 
 #: ImportExport/ImportDialog.cpp:297
-#, fuzzy, kde-format
-#| msgid "Directory %1 does not exist. Should it be created?"
+#, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
-msgstr "Kansiota %1 ei ole olemassa: luodaanko se?"
+msgstr "Kansiota %1 ei ole olemassa. Luodaanko se?"
 
 #: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "Peruskansio:"
+msgstr "Luodaanko kansio?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1182
-#, fuzzy, kde-format
-#| msgid "Created:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr "Luotu:"
+msgstr "Luo"
 
 #: ImportExport/ImportDialog.cpp:314
-#, fuzzy, kde-format
-#| msgid "Error creating zip file %1"
+#, kde-format
 msgid "Error creating folder %1"
-msgstr "Virhe luotaessa zip-tiedostoa %1"
+msgstr "Virhe luotaessa kansiota %1"
 
 #: ImportExport/ImportDialog.cpp:393
 #, kde-format
@@ -2391,15 +2328,13 @@ msgid "Cannot copy from any of the following locations:"
 msgstr "Seuraavista sijainneista ei voitu kopioida:"
 
 #: ImportExport/ImportHandler.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "Kopioidaan kuvatiedostoja"
+msgstr "Kopiointi epäonnistui"
 
 #: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Jatka kysymättä"
@@ -2425,36 +2360,30 @@ msgid "Error Importing Data"
 msgstr "Virhe tuotaessa tietoja"
 
 #: ImportExport/KimFileReader.cpp:36
-#, fuzzy, kde-format
-#| msgid ""
-#| "Error reading directory contents of file %1; it is likely that the file "
-#| "is broken."
+#, kde-format
 msgid ""
 "Error reading folder contents of file %1; it is likely that the file is "
 "broken."
 msgstr ""
-"Virhe luettaessa tiedoston %1 hakemistolistausta: tiedosto on "
-"todennäköisesti vioittunut."
+"Virhe luettaessa tiedoston %1 kansiosisältöä: tiedosto saattaa olla "
+"vioittunut."
 
 #: ImportExport/KimFileReader.cpp:49
 #, kde-format
 msgid ""
 "Error reading index.xml file from %1; it is likely that the file is broken."
 msgstr ""
-"Virhe luettaessa tiedostoa index.xml hakemistosta %1. Kyseinen "
-"tietokantatiedosto on todennäköisesti korruptoitunut."
+"Virhe luettaessa index.xml-tiedostoa kansiosta %1; tiedosto on "
+"todennäköisesti vioittunut."
 
 #: ImportExport/KimFileReader.cpp:69
-#, fuzzy, kde-format
-#| msgid ""
-#| "Thumbnail item in export file was not a directory, this indicates that "
-#| "the file is broken."
+#, kde-format
 msgid ""
 "Thumbnail item in export file was not a folder, this indicates that the file "
 "is broken."
 msgstr ""
-"Pienoiskuvaelementti tuontitiedostossa ei ollut kansio. Tämä viittaa "
-"vioittuneeseen tiedostoon."
+"Vientitiedoston pienoiskuvakohde ei ole kansio: luultavasti tiedosto on "
+"vioittunut."
 
 #: ImportExport/KimFileReader.cpp:80
 #, kde-format
@@ -2462,28 +2391,21 @@ msgid "No thumbnail existed in export file for %1"
 msgstr "Tuontitiedostossa ei ollut pienoiskuvaa tiedostolle %1"
 
 #: ImportExport/KimFileReader.cpp:95
-#, fuzzy, kde-format
-#| msgid ""
-#| "export file did not contain a Images subdirectory, this indicates that "
-#| "the file is broken"
+#, kde-format
 msgid ""
 "Export file did not contain a Images subfolder, this indicates that the file "
 "is broken"
 msgstr ""
-"tuontitiedostossa ei ollut alikansiota kuville. Tämä viittaa vioittuneeseen "
-"tiedostoon"
+"Vientitiedostossa ei ole Images-alikansiota: luultavasti tiedosto on "
+"vioittunut"
 
 #: ImportExport/KimFileReader.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "Images item in export file was not a directory, this indicates that the "
-#| "file is broken"
+#, kde-format
 msgid ""
 "Images item in export file was not a folder, this indicates that the file is "
 "broken"
 msgstr ""
-"Tuontitiedoston kuvaelementti ei ollut kansio. Luultavasti tuntitiedosto on "
-"vioittunut."
+"Vientitiedoston kohde ei ollut kansio: luultavasti tiedosto on vioittunut"
 
 #: ImportExport/KimFileReader.cpp:108
 #, kde-format
@@ -2551,10 +2473,9 @@ msgstr ""
 "Työkalu KPhotoAlbumin pienoiskuvavälimuistin tarkasteluun ja muokkaukseen"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
-msgstr "Tekijänoikeudet © 2003–2021 KPhotoAlbumin kehitystyöryhmä"
+msgstr "Tekijänoikeudet © 2003–2023 KPhotoAlbumin kehitystyöryhmä"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -2627,9 +2548,7 @@ msgid "Henner Zeller"
 msgstr "Henner Zeller"
 
 #: kpa-thumbnailtool/main.cpp:70
-#, fuzzy, kde-format
-#| msgctxt "@info:shell"
-#| msgid "The directory containing the .thumbnail directory."
+#, kde-format
 msgctxt "@info:shell"
 msgid "The folder containing the .thumbnail folder."
 msgstr ".thumbnail-kansion sisältävä kansio."
@@ -2682,17 +2601,13 @@ msgid "Missing argument!\n"
 msgstr "Puuttuva parametri!\n"
 
 #: kpa-thumbnailtool/main.cpp:102
-#, fuzzy, kde-format
-#| msgctxt "@info:shell"
-#| msgid "%1 is not a directory!\n"
+#, kde-format
 msgctxt "@info:shell"
 msgid "%1 is not a folder!\n"
 msgstr "%1 ei ole kansio!\n"
 
 #: kpa-thumbnailtool/main.cpp:116
-#, fuzzy, kde-format
-#| msgctxt "@info:shell"
-#| msgid "Thumbnail cache directory: %1\n"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
 msgstr "Pienoiskuvien välimuistikansio: %1\n"
@@ -2838,10 +2753,10 @@ msgid ""
 "on your images?"
 msgstr ""
 "Kuvien aikatieto luetaan Exif-tiedoista. Aina tämä ei kuitenkaan ole "
-"mahdollista: asennettu KPhotoAlbumisi ei esimerkiksi välttämättä tue tätä "
-"tai tieto puuttuu kuvista. Aikaleima voidaan tällöin lukea tiedoston "
-"aikaleimasta. Joissakin kuvissa (esim. skannatuissa) tieto ei kuitenkaan "
-"välttämättä ole oikein. Pitäisikö kuvatiedostojen aikaleimaan siis luottaa?"
+"mahdollista: asennettu KPhotoAlbum ei välttämättä tue tätä tai kuvista "
+"puuttuu tieto. Varalla KPhotoAlbum käyttää kuvan aikaleimaa, joka kuitenkin "
+"voi kertoa lähinnä, milloin kuva on luettu. Kyse on siis siitä, tulisiko "
+"KPhotoAlbumin luottaa kuvien aikaleimoihin?"
 
 #: lib/kpabase/SettingsData.cpp:230
 #, kde-format
@@ -2913,10 +2828,9 @@ msgid "KDE Photo Album"
 msgstr "KDE:n valokuva-albumi"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
-msgstr "Tekijänoikeudet © 2003–2021 KPhotoAlbumin kehitystyöryhmä"
+msgstr "Tekijänoikeudet © 2003–2023 KPhotoAlbumin kehitystyöryhmä"
 
 #: main.cpp:110
 #, kde-format
@@ -3277,8 +3191,8 @@ msgid ""
 "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
 "features KPhotoAlbum has, and their status:</p>%1"
 msgstr ""
-"<h1>Yleiskuva</h1><p>Alla on lista käännös- ja ajonaikaisista KPhotoAlbumin "
-"ominaisuuksista ja niiden tilasta:</p>%1"
+"<h1>Yleiskuva</h1><p>Alla on luettelo KPhotoAlbumin  käännös- ja "
+"ajonaikaisista ominaisuuksista tiloineen:</p>%1"
 
 #: MainWindow/FeatureDialog.cpp:37
 #, kde-format
@@ -3545,17 +3459,11 @@ msgid ""
 "<p>Enter your command to run below:</p><p><i>%all will be replaced with a "
 "file list</i></p>"
 msgstr ""
-"<p>Syötä suoritettava komento:</p><p><i>%all korvataan tiedostolistauksella "
-"</i></p>"
+"<p>Syötä suoritettava komento:</p><p><i>%all korvataan tiedostoluettelolla</"
+"i></p>"
 
 #: MainWindow/RunDialog.cpp:42
-#, fuzzy, no-c-format, kde-format
-#| msgid ""
-#| "<p>Enter the command you want to run on your image file(s). KPhotoAlbum "
-#| "will run your command and replace any '%all' tokens with a list of your "
-#| "files. For example, if you entered:</p><ul><li>cp %all /tmp</li></"
-#| "ul><p>Then the files you selected would be copied to the /tmp directory</"
-#| "p><p>You can also use %each to have a command be run once per file.</p>"
+#, no-c-format, kde-format
 msgid ""
 "<p>Enter the command you want to run on your image file(s). KPhotoAlbum will "
 "run your command and replace any '%all' tokens with a list of your files. "
@@ -3564,11 +3472,10 @@ msgid ""
 "%each to have a command be run once per file.</p>"
 msgstr ""
 "<p>Syötä komento, jonka haluat suorittaa kaikille kuvatiedostoille. "
-"KPhotoAlbum suorittaa haluamasi komennon ja korvaa kaikki ”%kaikki” -"
-"merkkijonot tiedostolistalla. Esimerkiksi:</p><ul><li>cp %all /tmp</li></"
-"ul><p>Tällöin valitsemasi tiedostot kopioidaan kansioon /tmp</p><p>Voit myös "
-"käyttää merkkijonoa ”%kullekin” kuvaamaan, että komento pitää suorittaa "
-"kullekin tiedostolle erikseen.</p>"
+"KPhotoAlbum suorittaa komentosi ja korvaa kaikki ”%all”-merkkijonot "
+"tiedostoluettelolla. Esimerkiksi:</p><ul><li>cp %all /tmp</li></"
+"ul><p>Valitsemasi tiedostot kopioidaan /tmp-kansioon</p><p>Merkkijonoa "
+"”%each” käytettäessä komento suoritetaan kullekin tiedostolle erikseen.</p>"
 
 #: MainWindow/RunDialog.cpp:71
 #, no-c-format, kde-format
@@ -3750,17 +3657,7 @@ msgid "Check My Feature Set"
 msgstr "Tarkasta käytettävissä olevat ominaisuudet"
 
 #: MainWindow/WelcomeDialog.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>KPhotoAlbum database creation</h1><p>You need to show where the "
-#| "photos and videos are for KPhotoAlbum to find them. They all need to be "
-#| "under one root directory, for example /home/user/Images. In this "
-#| "directory you can have as many subdirectories as you want, KPhotoAlbum "
-#| "will find them all for you.</p><p>Feel safe, KPhotoAlbum will not modify "
-#| "or edit any of your images, so you can simply point KPhotoAlbum to the "
-#| "directory where you already have all your images.</p><p>If you have an "
-#| "existing KPhotoAlbum database and root directory somewhere, point "
-#| "KPhotoAlbum to that directory to start using it again.</p>"
+#, kde-format
 msgid ""
 "<h1>KPhotoAlbum database creation</h1><p>You need to show where the photos "
 "and videos are for KPhotoAlbum to find them. They all need to be contained "
@@ -3772,39 +3669,34 @@ msgid ""
 "folder somewhere, point KPhotoAlbum to that folder to start using it again.</"
 "p>"
 msgstr ""
-"<h1>KPhotoAlbumin tietokannan luominen</h1><p>KPhotoAlbumille tulee näyttää "
-"missä kuvatiedostot sijaitsevat. Niiden tulee sijaita yhden juurihakemiston "
-"alla, esimerkiksi /home/user/Kuvat. Alihakemistojen määrää ja hierarkiaa ei "
-"sen sijaan erikseen rajoiteta. KPhotoAlbum käy läpi koko hakemistohierarkian "
-"ja etsii sieltä kuva- ja videotiedostot.</p><p>KPhotoAlbum ei muuta "
-"tiedostojasi mitenkään vaan tallentaa kaikki omat tietonsa tietokantaan.</"
-"p><p>Mikäli sinulla on jo olemassa oleva KPhotoAlbumin tietokanta voit "
-"valita kyseisen juurihakemiston ja KPhotoAlbum alkaa jälleen käyttämään tätä "
-"valmista tietokantaa.</p>"
+"<h1>KPhotoAlbum-tietokannan luominen</h1><p>KPhotoAlbumille tulee kertoa, "
+"missä kuva- ja videotiedostot sijaitsevat. Niiden tulee sijaita "
+"yksittäisessä kansiossa, esimerkiksi /home/käyttäjä/Kuvat. Tässä kansiossa "
+"voi alikansioita niin paljon kuin haluat: KPhotoAlbum käy sen läpi "
+"puolestasi.</p><p>Ole rauhassa, KPhotoAlbum ei muuta tiedostojasi mitenkään, "
+"joten voit vain osoittaa sille kansion, jossa kuvasi jo ovat.</p><p>Jos "
+"KPhotoAlbum-tietokanta on jo olemassa, valitse sen kansio, niin KPhotoAlbum "
+"alkaa käyttää valmista tietokantaa uudelleen.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:115
-#, fuzzy, kde-format
-#| msgid "Image/Video root directory: "
+#, kde-format
 msgid "Image/Video root folder: "
-msgstr "Kuvien juurikansio: "
+msgstr "Kuvien tai videoiden juurikansio: "
 
 #: MainWindow/WelcomeDialog.cpp:155
-#, fuzzy, kde-format
-#| msgid "Directory does not exist, create it?"
+#, kde-format
 msgid "Folder does not exist, create it?"
-msgstr "Kansiota ei ole olemassa, luodaanko se?"
+msgstr "Kansiota ei ole olemassa: luodaanko se?"
 
 #: MainWindow/WelcomeDialog.cpp:170
-#, fuzzy, kde-format
-#| msgid "Could not create file '%1'."
+#, kde-format
 msgid "Could not create folder %1"
-msgstr "Tiedostoa '%1' ei voitu luoda."
+msgstr "Kansiota ”%1” ei voitu luoda."
 
 #: MainWindow/WelcomeDialog.cpp:175
-#, fuzzy, kde-format
-#| msgid "%1 exists, but is not a directory"
+#, kde-format
 msgid "%1 exists, but is not a folder"
-msgstr "%1 on jo olemassa, mutta se ei ole kansio"
+msgstr "%1 on olemassa muttei ole kansio"
 
 #: MainWindow/WelcomeDialog.cpp:191
 #, kde-format
@@ -3845,13 +3737,7 @@ msgid "Searching for New Files"
 msgstr "Etsitään uusia tiedostoja"
 
 #: MainWindow/Window.cpp:299
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
-#| "the KPhotoAlbum demo. The demo database was copied to /tmp, should it be "
-#| "deleted now? If you do not delete it, it will waste disk space; on the "
-#| "other hand, if you want to come back and try the demo again, you might "
-#| "want to keep it around with the changes you made through this session.</p>"
+#, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
 "KPhotoAlbum demo. The demo database was created in the folder <tt>/tmp</tt>, "
@@ -3861,14 +3747,13 @@ msgid ""
 "</p>"
 msgstr ""
 "<p><b>Poista tilapäinen esittelytietokanta</b></p><p>Toivottavasti nautit "
-"KPhotoAlbumin esittelystä. Esittelytietokanta kopioitiin /tmp -kansioon. "
-"Haluatko että se poistetaan nyt? Jos et poista sitä, se vie levyltä tilaa "
-"mutta toisaalta jos haluat kokeilla esittelyä uudestaan, haluat ehkä vielä "
-"säilyttää tietokannan ja muutokset jotka olet siihen tehnyt.</p>"
+"KPhotoAlbumin esittelystä. Esittelytietokanta luotiin <tt>/tmp</tt>-"
+"kansioon. Poistetaanko se nyt? Ellet poista sitä, se vie levyltä tilaa, "
+"mutta toisaalta jos haluat kokeilla esittelyä uudestaan, haluat ehkä "
+"säilyttää tietokannan ja siihen tekemäsi muutokset istunnon ajan.</p>"
 
 #: MainWindow/Window.cpp:304
-#, fuzzy, kde-format
-#| msgid "Delete Demo Database"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Poista esittelytietokanta"
@@ -3883,11 +3768,10 @@ msgstr ""
 "nipuistaanja luoda kokonaan uuden?"
 
 #: MainWindow/Window.cpp:362
-#, fuzzy, kde-format
-#| msgid "Stacking Error"
+#, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr "Niputusvirhe"
+msgstr "Niputusongelma"
 
 #: MainWindow/Window.cpp:377
 #, kde-format
@@ -4083,16 +3967,14 @@ msgid "Show Tooltips in Thumbnails Window"
 msgstr "Näytä työkaluvihjeet pienoiskuvissa"
 
 #: MainWindow/Window.cpp:917
-#, fuzzy, kde-format
-#| msgid "Show Tooltips in Thumbnails Window"
+#, kde-format
 msgid "Show Labels in Thumbnails Window"
-msgstr "Näytä työkaluvihjeet pienoiskuvissa"
+msgstr "Näytä pienoiskuvaikkunassa selitteet"
 
 #: MainWindow/Window.cpp:927
-#, fuzzy, kde-format
-#| msgid "Show Tooltips in Thumbnails Window"
+#, kde-format
 msgid "Show Categories in Thumbnails Window"
-msgstr "Näytä työkaluvihjeet pienoiskuvissa"
+msgstr "Näytä pienoiskuvaikkunassa luokat"
 
 #: MainWindow/Window.cpp:941
 #, kde-format
@@ -4229,16 +4111,13 @@ msgid "Auto saving.... Done"
 msgstr "Tallennetaan automaattisesti….  Valmis"
 
 #: MainWindow/Window.cpp:1168
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Could not open given index.xml as provided directory does not exist."
-#| "<br />%1</p>"
+#, kde-format
 msgid ""
 "<p>Could not open given index.xml, as the provided folder does not exist."
 "<br />%1</p>"
 msgstr ""
-"<p>Tietokantaa (index.xml) ei voitu avata, koska kyseinen hakemisto puuttuu."
-"<br/>%1</p>"
+"<p>Annettua index.xml:ää ei voitu avata, koska annettua kansiota ei ole "
+"olemassa.<br />%1</p>"
 
 #: MainWindow/Window.cpp:1175
 #, kde-format
@@ -4250,11 +4129,10 @@ msgstr ""
 "xml</p>"
 
 #: MainWindow/Window.cpp:1178
-#, fuzzy, kde-format
-#| msgid "Erase database"
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr "Tyhjennä tietokanta"
+msgstr "Luo tietokanta"
 
 #: MainWindow/Window.cpp:1206
 #, kde-format
@@ -4280,10 +4158,10 @@ msgid "Viewer"
 msgstr "Kuvannäyttäjä"
 
 #: MainWindow/Window.cpp:1334
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "Päiväyshaku"
+msgstr "Päiväysrivi"
 
 #: MainWindow/Window.cpp:1337
 #, kde-format
@@ -4308,7 +4186,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
-msgstr ""
+msgstr "Palauta piilotetut kyselyikkunat"
 
 #: MainWindow/Window.cpp:1504
 #, kde-format
@@ -4357,8 +4235,8 @@ msgid ""
 "You can open a set of files from KPhotoAlbum's image root by listing the "
 "files here."
 msgstr ""
-"Voit avata tiedostoja KPhotoAlbumin juurihakemiston alta listaamalla ne "
-"tässä."
+"KPhotoAlbumin juurikansiosta voi avata tiedostojoukon luettelemalla "
+"tiedostot tässä."
 
 #: MainWindow/Window.cpp:1600
 #, kde-format
@@ -4721,24 +4599,20 @@ msgstr ""
 msgid "Unsaved pending renaming action"
 msgstr "Tallentamattomia nimenmuutoksia jonossa"
 
-# Tuskin alueita poistetaan (kuvista), kuten id väittää :)
 #: Settings/CategoryPage.cpp:324
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
-#| "linked against this category will be deleted!</p>"
+#, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
 "<p>Haluatko varmasti muuttaa luokan ”%1” ei-sijoitettavaksi?</p><p>Kaikki "
-"alueiden kytkennät tähän luokkaan poistetaan!</p>"
+"alueiden kytkennät tähän luokkaan hylätään!</p>"
 
 #: Settings/CategoryPage.cpp:333
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "Vahvista toimenpide"
 
 #: Settings/CategoryPage.cpp:377
 #, kde-format
@@ -4753,7 +4627,7 @@ msgstr "<p>Poistetaanko luokka ”%1” varmasti?</p>"
 #: Settings/CategoryPage.cpp:414
 #, kde-format
 msgid "Confirm Action"
-msgstr ""
+msgstr "Vahvista toimenpide"
 
 #: Settings/CategoryPage.cpp:536
 #, kde-format
@@ -4867,21 +4741,17 @@ msgid "Directories to exclude from new file search:"
 msgstr "Kansiot jotka jätetään huomioimatta etsittäessä uusia tiedostoja:"
 
 #: Settings/FileVersionDetectionPage.cpp:56
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Specify a comma-separated list of directory names to ignore.</p><p>For "
-#| "example, specifying \"<tt>.thumbs,.thumbnails</tt>\" here will cause "
-#| "KPhotoAlbum to ignore these two directory names in any directory when "
-#| "searching for new images.</p>"
+#, kde-format
 msgid ""
 "<p>Specify a comma-separated list of folder names to ignore.</p><p>For "
 "example, specifying \"<tt>.thumbs,.thumbnails</tt>\" here will cause "
 "KPhotoAlbum to ignore these two folder names in any folder when searching "
 "for new images.</p>"
 msgstr ""
-"<p>Anna pilkuin erotettu luettelo ohitettavien kansioiden nimistä.</"
-"p><p>Esimerkiksi arvo ”<tt>.thumbs,.thumbnails</tt>” saa KPhotoAlbumin "
-"ohittamaan nämä kansionimet kaikista kansioista uusia kuvia etsittäessä.</p>"
+"<p>Anna sivuutettavien kansioiden nimet pilkuin erotettuna luettelona.</"
+"p><p>Esimerkiksi ”<tt>.thumbs,.thumbnails</tt>” saa KPhotoAlbumin "
+"sivuuttamaan uusia kuvia etsittäessä nämä kaksi kansionimeä kaikissa "
+"kansioissa.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:61
 #, kde-format
@@ -4905,28 +4775,24 @@ msgid ""
 "their extension. This will take significantly longer than finding files by "
 "extension!</p>"
 msgstr ""
-"<p>Tavallisesti uusia kuvia ja videoita etsitään tiedostopäätteen "
-"perusteella. Mikäli tämä ominaisuus on valittu <em>kaikkia</em> tiedostot "
-"sekä tietokannassa että mustalla listalla tutkitaan sisällön perusteella, "
-"tiedostopäätteestä huolimatta. Tämä kestää huomattavan kauan, mutta löytää "
-"kuvatiedostot joissa on väärä pääte!</p>"
+"<p>Yleensä KPhotoAlbum etsii uusia kuvia ja videoita niiden tiedostonimen "
+"päätteen mukaan. Jos tämä asetus on käytössä, MIME-tyyppi tarkistetaan "
+"päätteestä riippumatta <em>kaikista</em> kuvista, jotka puuttuvat niin "
+"tietokannasta kuin estoluettelostakin. Tämä kestää huomattavasti pidempään "
+"kuin haku päätteen perusteella!</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:72
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum attempts to read all image files whether actual files or "
-#| "symbolic links. If you wish to ignore symbolic links, check this option. "
-#| "This is useful if for some reason you have e.g. both the original files "
-#| "and symbolic links to these files within your image directory.</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum attempts to read all image files whether actual files or "
 "symbolic links. If you wish to ignore symbolic links, check this option. "
 "This is useful if for some reason you have e.g. both the original files and "
 "symbolic links to these files within your image folder.</p>"
 msgstr ""
-"<p>Normaalisti kaikki kuvatiedostot, olivat ne sitten tiedostoja tai "
-"symbolisia linkkejä luetaan. Tee tämä valinta, mikäli haluat unohtaa linkit "
-"ja käyttää vain todellisia tiedostoja.</p>"
+"<p>KPhotoAlbum yrittää lukea kaikki kuvat, niin todelliset tiedostot kuin "
+"symboliset linkitkin. Jos symboliset linkit pitää sivuuttaa, valitse tämä. "
+"Tästä on apua esimerkiksi, jos kuvakansiossa jostakin syystä on sekä "
+"alkuperäiset tiedostot että symbolisia linkkejä niihin.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:77
 #, kde-format
@@ -4947,11 +4813,9 @@ msgid ""
 "searching for new photos. Thumbnail directories of different tools should be "
 "configured here. E.g. <tt>xml,ThumbNails,.thumbs,.thumbnails</tt>.</p>"
 msgstr ""
-"<p>Tässä määritetty, pilkuilla erotettu hakemistolistaus, aiheuttaa "
-"kyseisten hakemistojen ohittamisen uusia kuvia etsittäessä. Jotkin työkalut "
-"luovat eri nimisiä hakemistoja esim. pienoiskuville, jolloin näitä ei haluta "
-"liittää KPhotoAlbumiin. Esim. <tt>xml,ThumbNails,.thumbs,.thumbnails</tt> on "
-"toimiva perusasetus hakemistojen ohittamiseen.</p>"
+"<p>Tässä annetut (pilkuin <tt>,</tt> erotetut) kansiot sivuutetaan uusia "
+"kuvia etsittäessä. Eri työkalujen pienoiskuvakansiot tulisi määrittää tähän, "
+"esim. <tt>xml,ThumbNails,.thumbs,.thumbnails</tt>.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:91
 #, kde-format
@@ -5024,10 +4888,10 @@ msgid ""
 "string is used to replace the match in the new file's name until an original "
 "file is found or we run out of options.</p>"
 msgstr ""
-"<p>Tätä merkkijonoa käytetään korvaamaan säännöllisen lausekkeen osuma. "
-"Tässä voidaan antaa useita vaihtoehtoisia merkkijonoja erotettuna "
-"puolipisteellä. Näitä merkkijonoja käydään läpi, kunnes sopiva löytyy tai "
-"lista loppuu.</p>"
+"<p>Tällä merkkijonolla korvataan <i>tiedostoversioiden haun säännöllisen "
+"lausekkeen</i> osuma. Tämä voi olla puolipistein erotettu luettelo. Kutakin "
+"merkkijonoa käytetään korvaamaan osuma uuden tiedoston nimessä, kunnes "
+"alkuperäinen tiedosto löytyy tai vaihtoehdot loppuvat.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:139
 #, kde-format
@@ -5692,13 +5556,13 @@ msgid ""
 "immediately build thumbnails for them and you won't have a delay later while "
 "browsing.</p>"
 msgstr ""
-"<p>Jos tämä on käytössä, pienoiskuvat rakennetaan pyydettäessä. Selatessasi "
-"kuvatietokantaa vain tarvittavat pienoiskuvat todellisuudessa rakennetaan, "
-"mikä tarkoittaa, että muuttaessasi pienoiskuvan kokoa KPhotoAlbum pysyy "
-"perässä, vaikka kuvia olisi paljon.</p><p>Ellei asetus ole käytössä, "
-"KPhotoAlbum rakentaa aina kaikkien kuvien pienoiskuvat heti kun mahdollista. "
-"Kun uusia kuvia löytyy, KPhotoAlbum alkaa tällöin heti rakentaa "
-"pienoiskuvia, joten selatessa ei tule tästä aiheutuvaa viivettä.</p>"
+"<p>Jos tämä on asetettu, pienoiskuvat rakennetaan pyydettäessä. "
+"Kuvatietokantaa selatessa rakennetaan todellisuudessa vain tarvittavat "
+"pienoiskuvat, mikä tarkoittaa, että pienoiskuvan kokoa muutettaessa "
+"KPhotoAlbum ei hidastu, vaikka kuvia olisi paljon.</p><p>Ellei asetus ole "
+"käytössä, KPhotoAlbum rakentaa kaikkien pienoiskuvat aina heti kun "
+"mahdollista. Kun siis uusia kuvia löytyy, KPhotoAlbum alkaa heti rakentaa "
+"niille pienoiskuvia, joten selatessa ei tule tästä aiheutuvaa viivettä.</p>"
 
 #: Settings/ThumbnailsPage.cpp:117
 #, kde-format
@@ -6044,8 +5908,7 @@ msgstr ""
 "valitsemalla valikosta kuvien järjestämisen ajan ja päiväyksen mukaan.</p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:97
-#, fuzzy, kde-format
-#| msgid "Reorder Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
 msgstr "Järjestä pienoiskuvat uudelleen"
@@ -6067,10 +5930,9 @@ msgid "Error Running Demo"
 msgstr "Virhe esittelyn suorituksessa"
 
 #: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:85
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1' needed for demo."
+#, kde-format
 msgid "Unable to create folder '%1' needed for demo."
-msgstr "Ei voitu luoda esittelyyn tarvittavaa kansiota ”%1”"
+msgstr "Ei voitu luoda demon vaatimaa kansiota ”%1”"
 
 #: Utilities/DescriptionUtil.cpp:56
 #, kde-format
@@ -6944,17 +6806,7 @@ msgid "Database repair required"
 msgstr "Tietokannan korjaaminen tarpeen"
 
 #: XMLDB/FileReader.cpp:499
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
-#| "installation error</p><p>If you have installed KPhotoAlbum yourself, then "
-#| "you must remember to set the environment variable <b>KDEDIRS</b>, to "
-#| "point to the topmost installation directory.</p><p>If you for example ran "
-#| "cmake with <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must "
-#| "use the following environment variable setup (this example is for Bash "
-#| "and compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></"
-#| "p><p>In case you already have KDEDIRS set, simply append the string as if "
-#| "you where setting the <b>PATH</b> environment variable</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
 "installation error</p><p>If you have installed KPhotoAlbum yourself, then "

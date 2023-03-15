@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 00:56+0000\n"
-"PO-Revision-Date: 2023-01-10 16:33+0100\n"
+"PO-Revision-Date: 2023-03-14 23:37+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -330,23 +330,19 @@ msgstr ""
 "esser scribite a causa del sequente error: %2"
 
 #: AnnotationDialog/Dialog.cpp:1036
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Some changes are made to annotations. Do you really want to cancel all "
-#| "recent changes for each affected file?</p>"
+#, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
-"<p>Alcun cambiamentos es facite a annotationes. Tuu vermente vole deler tote "
+"<p>Alcun cambiamentos es facite a annotationes. Tu vermente vole deler tote "
 "le cambiamentos recente per cata file afficite?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1037
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Salveguarda modificationes ?"
+msgstr "Abandona modificationes?"
 
 #: AnnotationDialog/Dialog.cpp:1154
 #, kde-format
@@ -631,8 +627,7 @@ msgid "Really Delete %1?"
 msgstr "Vermente dele %1?"
 
 #: AnnotationDialog/ListSelect.cpp:447
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Renomina elemento"
@@ -650,16 +645,13 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:456
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Renomina \"%1\""
+msgstr "Renomina %1?"
 
 #: AnnotationDialog/ListSelect.cpp:461
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Renomina"
@@ -1806,11 +1798,10 @@ msgid ""
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder Exists"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr "Dossier ja existe"
+msgstr "Dossier existe"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:547 MainWindow/SplashScreen.cpp:53
@@ -2163,19 +2154,17 @@ msgid "Folder %1 does not exist. Should it be created?"
 msgstr "Directorio %1 non existe. Deberea esser create?"
 
 #: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Base folder:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "Directorio base:"
+msgstr "Crea dossier?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1182
-#, fuzzy, kde-format
-#| msgid "Created:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr "Create:"
+msgstr "Crea"
 
 #: ImportExport/ImportDialog.cpp:314
 #, kde-format
@@ -2209,15 +2198,13 @@ msgid "Cannot copy from any of the following locations:"
 msgstr "Non pote copiar ex ulle del sequente locationes:"
 
 #: ImportExport/ImportHandler.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "Copiante files de imagine"
+msgstr "Copiar falleva"
 
 #: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Condinua sin demandar"
@@ -2342,10 +2329,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2020-2022 Le Equipa de disveloppamento de KPhotoAlbum"
+msgstr "Copyright (C) 2020-2023 Le Equipa de disveloppamento de KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -2675,10 +2661,9 @@ msgid "KDE Photo Album"
 msgstr ""
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2022 Le Equipa de disveloppamento de KPhotoAlbum"
+msgstr "Copyright (C) 2003-2023 Le Equipa de disveloppamento de KPhotoAlbum"
 
 #: main.cpp:110
 #, kde-format
@@ -3504,12 +3489,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:304
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Delete image"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
-msgstr "Dele imagine"
+msgstr "Dele Base de datos de Demo"
 
 #: MainWindow/Window.cpp:359
 #, kde-format
@@ -3876,11 +3859,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:1178
-#, fuzzy, kde-format
-#| msgid "Updating Database"
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr "Actualisante base de datos"
+msgstr "Crea base de datos"
 
 #: MainWindow/Window.cpp:1206
 #, kde-format
@@ -4317,7 +4299,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "Confirma action"
 
 #: Settings/CategoryPage.cpp:377
 #, kde-format
@@ -4332,7 +4314,7 @@ msgstr ""
 #: Settings/CategoryPage.cpp:414
 #, kde-format
 msgid "Confirm Action"
-msgstr ""
+msgstr "Confirma action"
 
 #: Settings/CategoryPage.cpp:536
 #, kde-format
@@ -5445,11 +5427,10 @@ msgid ""
 msgstr ""
 
 #: ThumbnailView/ThumbnailDND.cpp:97
-#, fuzzy, kde-format
-#| msgid "Show Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
-msgstr "Monstra miniaturas"
+msgstr "Reordina miniaturas"
 
 #: Utilities/DeleteFiles.cpp:37
 #, kde-format

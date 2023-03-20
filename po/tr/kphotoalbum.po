@@ -3550,7 +3550,7 @@ msgstr ""
 "etiketin olacağını söyler.</td></tr></table><br/><br/>Bu diyaloga çok "
 "takılmayın, kategoriler VE alt kategorileri saydığı bir soruna sahiptir,<br/"
 ">bu yüzden Kadıköy, İstanbul, Türkiye'de bir fotoğraf çekilmişse bir tane "
-"olması gerekirken,<br/> o görsel için üç etiket sayılır.</br>Bu hatayı "
+"olması gerekirken,<br/>o görsel için üç etiket sayılır.<br/>Bu hatayı "
 "düzeltmeye değer olup olmadığından emin değilim (çözümü oldukça zor),<br/>bu "
 "yüzden belki de diyalog yeniden basitçe yok olabilir"
 
@@ -7002,9 +7002,3 @@ msgstr "<p>Veritabanı yolu: <filename>%1</filename></p>"
 #, kde-format
 msgid "Error while reading database file"
 msgstr "Veritabanı dosyası okunurken hata"
-
-#~ msgid "Really Rename %1?"
-#~ msgstr "%1 Yeniden Adlandırılsın mı?"
-
-#~ msgid "Do you want to save the changes?"
-#~ msgstr "Değişiklikleri kaydetmek istiyor musunuz?"

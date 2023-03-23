@@ -1,4 +1,5 @@
 # Translation of kphotoalbum into esperanto.
+# Copyright (C) 2009 Free Software Foundation, Inc.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
 #
 msgid ""
@@ -6,8 +7,8 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 00:56+0000\n"
-"PO-Revision-Date: 2009-11-15 12:06+0100\n"
-"Last-Translator: Axel Rousseau <axel@esperanto-jeunes.org>\n"
+"PO-Revision-Date: 2023-03-22 19:14+0100\n"
+"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -221,11 +222,10 @@ msgid "Search only for RAW files"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:611
-#, fuzzy, kde-format
-#| msgid "Annotations"
+#, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
-msgstr "Komentarioj"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:826
 #, kde-format
@@ -239,8 +239,7 @@ msgid "Done"
 msgstr "Preta"
 
 #: AnnotationDialog/Dialog.cpp:836
-#, fuzzy, kde-format
-#| msgid "Annotations"
+#, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Komentarioj"
@@ -262,17 +261,15 @@ msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:877 AnnotationDialog/Dialog.cpp:1290
 #: AnnotationDialog/ListSelect.cpp:95
-#, fuzzy, kde-format
-#| msgid "Sort Alphabetically"
+#, kde-format
 msgid "Sort Alphabetically (Tree)"
-msgstr "Ordigi alfabete"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:881 AnnotationDialog/Dialog.cpp:1294
 #: AnnotationDialog/ListSelect.cpp:101
-#, fuzzy, kde-format
-#| msgid "Sort Alphabetically"
+#, kde-format
 msgid "Sort Alphabetically (Flat)"
-msgstr "Ordigi alfabete"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:885
 #, kde-format
@@ -398,10 +395,9 @@ msgid "Rotate clockwise"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1335
-#, fuzzy, kde-format
-#| msgid "Toggle Focus"
+#, kde-format
 msgid "Toggle fullscreen preview"
-msgstr "Komuti la fokuson"
+msgstr ""
 
 #: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
@@ -466,11 +462,10 @@ msgid "Areas on an image can only be shown in single-image annotation mode."
 msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:342
-#, fuzzy, kde-format
-#| msgid "Toggle Focus"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
-msgstr "Komuti la fokuson"
+msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:343
 #, kde-format
@@ -491,18 +486,16 @@ msgid "Copy tags from previously tagged image"
 msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:346
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"
-msgstr "Forigi"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:57
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr "Renomi..."
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:82 DB/ImageSearchInfo.cpp:338
 #, kde-format
@@ -549,16 +542,14 @@ msgid "Rename..."
 msgstr "Renomi..."
 
 #: AnnotationDialog/ListSelect.cpp:357
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "<b>Tag Groups</b>"
-msgstr "Nova grupo"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:365
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "Tag groups"
-msgstr "Nova grupo"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:382
 #, kde-format
@@ -586,16 +577,14 @@ msgid "Usage"
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:401
-#, fuzzy, kde-format
-#| msgid "Alphabetical"
+#, kde-format
 msgid "Alphabetical (Flat)"
-msgstr "Alfabeta"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:402
-#, fuzzy, kde-format
-#| msgid "Alphabetical"
+#, kde-format
 msgid "Alphabetical (Tree)"
-msgstr "Alfabeta"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:426
 #, kde-format
@@ -610,8 +599,7 @@ msgid "Really Delete %1?"
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:447
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Alinomu eron"
@@ -629,24 +617,21 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:456
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Renomi..."
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:461
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Renomi"
 
 #: AnnotationDialog/ListSelect.cpp:496
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "New tag group"
-msgstr "Nova grupo"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:497
 #, kde-format
@@ -664,19 +649,15 @@ msgid "Name for the tag to be added to this tag group:"
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:764
-#, fuzzy, kde-format
-#| msgctxt "%1 is the tag name and %2 is the tag's category"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
 "'People (1-2)'"
 msgid "%1 (%2-%3)"
-msgstr "%1 (%2)"
+msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:777
-#, fuzzy, kde-format
-#| msgctxt "%1 is the tag name and %2 is the tag's category"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
@@ -735,16 +716,14 @@ msgid "Associate with"
 msgstr ""
 
 #: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgid "Extracting Thumbnail"
-msgstr "Kreante bildetojn"
+msgstr ""
 
 #: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:34
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgid "Extract Video Thumbnail"
-msgstr "Kreante bildetojn"
+msgstr ""
 
 #: BackgroundJobs/ReadVideoLengthJob.cpp:30
 #, kde-format
@@ -791,11 +770,10 @@ msgid "Elapsed"
 msgstr ""
 
 #: BackgroundTaskManager/JobViewer.cpp:21
-#, fuzzy, kde-format
-#| msgid "Background Color"
+#, kde-format
 msgctxt "@title:window"
 msgid "Background Job Viewer"
-msgstr "Fonkoloro"
+msgstr ""
 
 #: BackgroundTaskManager/JobViewer.cpp:30
 #: BackgroundTaskManager/JobViewer.cpp:65
@@ -804,10 +782,9 @@ msgid "Pause"
 msgstr "Paŭzi"
 
 #: BackgroundTaskManager/JobViewer.cpp:65
-#, fuzzy, kde-format
-#| msgid "&Connect"
+#, kde-format
 msgid "Continue"
-msgstr "&Konekti"
+msgstr ""
 
 #: BackgroundTaskManager/StatusIndicator.cpp:78
 #, kde-format
@@ -828,11 +805,10 @@ msgid "None"
 msgstr "Neniu"
 
 #: Browser/AbstractCategoryModel.cpp:39
-#, fuzzy, kde-format
-#| msgid "Other"
+#, kde-format
 msgctxt "As in no other persons, or no other locations. "
 msgid "No other"
-msgstr "Alia"
+msgstr ""
 
 #: Browser/AbstractCategoryModel.cpp:82
 #, kde-format
@@ -843,13 +819,12 @@ msgstr[0] "%1 bildo"
 msgstr[1] "%1 bildoj"
 
 #: Browser/AbstractCategoryModel.cpp:84
-#, fuzzy, kde-format
-#| msgid "Video"
+#, kde-format
 msgctxt "@item:intable number of videos with a specific tag."
 msgid "1 video"
 msgid_plural "%1 videos"
-msgstr[0] "Video"
-msgstr[1] "Video"
+msgstr[0] ""
+msgstr[1] ""
 
 #: Browser/AbstractCategoryModel.cpp:146
 #, kde-format
@@ -867,10 +842,9 @@ msgid "Start Date"
 msgstr ""
 
 #: Browser/AbstractCategoryModel.cpp:152
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgid "End Date"
-msgstr "Dato: "
+msgstr ""
 
 #: Browser/Breadcrumb.cpp:27
 #, kde-format
@@ -879,10 +853,9 @@ msgid "All"
 msgstr "Ĉiuj"
 
 #: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:132
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgid "Geo Position"
-msgstr "Priskribo"
+msgstr ""
 
 #: Browser/OverviewPage.cpp:143
 #, kde-format
@@ -916,18 +889,15 @@ msgid "Empty Search Result"
 msgstr ""
 
 #: Browser/OverviewPage.cpp:257
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgid "Exif Search"
-msgstr "Serĉo"
+msgstr ""
 
 #: Browser/OverviewPage.cpp:277
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
-msgstr "Serĉi"
+msgstr ""
 
 #: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1733
 #, kde-format
@@ -1002,24 +972,20 @@ msgid "Scroll left"
 msgstr ""
 
 #: DateBar/DateBarWidget.cpp:87
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Zoom In"
+#, kde-format
 msgid "Zoom in"
-msgstr "Enzomi"
+msgstr ""
 
 #: DateBar/DateBarWidget.cpp:98
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Zoom Out"
+#, kde-format
 msgid "Zoom out"
-msgstr "Elzomi"
+msgstr ""
 
 #: DateBar/DateBarWidget.cpp:110
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
-msgstr "Forigu paĝon"
+msgstr ""
 
 #: DateBar/DateBarWidget.cpp:123
 #, kde-kuit-format
@@ -1114,19 +1080,14 @@ msgid "10 Minutes"
 msgstr "10 Minutoj"
 
 #: DateBar/ViewHandler.cpp:312
-#, fuzzy, kde-format
-#| msgid "10 Minutes"
+#, kde-format
 msgid "1 Minute"
-msgstr "10 Minutoj"
+msgstr ""
 
 #: DateBar/ViewHandler.cpp:347
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "The whole sentence should read: *Stack images that are shot within x "
-#| "seconds of each other*. (This being the text after x.)"
-#| msgid "seconds"
+#, kde-format
 msgid "10 Seconds"
-msgstr "sekundoj"
+msgstr ""
 
 #: DB/Category.cpp:164
 #, kde-format
@@ -1167,11 +1128,10 @@ msgid "mar"
 msgstr "mar"
 
 #: DB/ImageDate.cpp:358
-#, fuzzy, kde-format
-#| msgid "mar"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "apr"
-msgstr "mar"
+msgstr ""
 
 #: DB/ImageDate.cpp:359
 #, kde-format
@@ -1301,10 +1261,9 @@ msgid "Exif info"
 msgstr ""
 
 #: Exif/InfoDialog.cpp:96
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgid "File metadata"
-msgstr "Kreante bildetojn"
+msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
@@ -1342,10 +1301,9 @@ msgid "Group:"
 msgstr "Grupo:"
 
 #: Exif/MetaDataDisplay.cpp:66
-#, fuzzy, kde-format
-#| msgid "Version: %1"
+#, kde-format
 msgid "Permissions:"
-msgstr "Versio: %1"
+msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:100
 #, kde-format
@@ -1353,22 +1311,19 @@ msgid "Open folder with a file manager"
 msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:107
-#, fuzzy, kde-format
-#| msgctxt "%1 is the tag name and %2 is the tag's category"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr "%1 (%2)"
+msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
-#, fuzzy, kde-format
-#| msgid "or"
+#, kde-format
 msgctxt "File permission shortcut for \"reading allowed\""
 msgid "r"
-msgstr "aŭ"
+msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:124 Exif/MetaDataDisplay.cpp:130
 #: Exif/MetaDataDisplay.cpp:136
@@ -1379,16 +1334,13 @@ msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
-#, fuzzy, kde-format
-#| msgid "x"
+#, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
 msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
-#, fuzzy, kde-format
-#| msgctxt "%1 is the tag name and %2 is the tag's category"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and it's octal representation (e.g. \"0644\")"
@@ -1444,12 +1396,10 @@ msgid "Override image dates"
 msgstr ""
 
 #: Exif/SearchDialog.cpp:30
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgctxt "@title:window"
 msgid "Exif Search"
-msgstr "Serĉo"
+msgstr ""
 
 #: Exif/SearchDialog.cpp:34
 #, kde-format
@@ -1479,11 +1429,9 @@ msgid "mm"
 msgstr "mm"
 
 #: Exif/SearchDialog.cpp:98
-#, fuzzy, kde-format
-#| msgctxt "City name (optional, probably does not need a translation)"
-#| msgid "Caserta"
+#, kde-format
 msgid "Camera"
-msgstr "Caserta"
+msgstr ""
 
 #: Exif/SearchDialog.cpp:102
 #, kde-format
@@ -1599,10 +1547,9 @@ msgid "<a href=\"%1\">next</a>"
 msgstr ""
 
 #: HTMLGenerator/Generator.cpp:490 HTMLGenerator/Generator.cpp:497
-#, fuzzy, kde-format
-#| msgid "Next"
+#, kde-format
 msgid "next"
-msgstr "Sekva"
+msgstr ""
 
 #: HTMLGenerator/Generator.cpp:643
 #, kde-format
@@ -1625,28 +1572,25 @@ msgid "Unable to write image '%1'."
 msgstr ""
 
 #: HTMLGenerator/Generator.cpp:771 HTMLGenerator/HTMLDialog.cpp:147
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgid "Date"
-msgstr "Dato: "
+msgstr "Dato"
 
 #: HTMLGenerator/HTMLDialog.cpp:52
-#, fuzzy, kde-format
-#| msgid "Export"
+#, kde-format
 msgctxt "@title:window"
 msgid "HTML Export"
-msgstr "Eksporti"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:78 HTMLGenerator/HTMLDialog.cpp:79
-#, fuzzy, kde-format
-#| msgid "&Connect"
+#, kde-format
 msgid "Content"
-msgstr "&Konekti"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:87
-#, fuzzy, kde-format
+#, kde-format
 msgid "Page title:"
-msgstr "Paĝotitolo:"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:94
 #, kde-format
@@ -1671,11 +1615,10 @@ msgid "Inline Movies in pages"
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:120
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgctxt "Tag as in HTML-tag, not as in image tag"
 msgid "Use HTML5 video tag"
-msgstr "Kreante bildetojn"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:129
 #, kde-format
@@ -1715,10 +1658,9 @@ msgid "Theme:"
 msgstr "Etoso:"
 
 #: HTMLGenerator/HTMLDialog.cpp:224
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgid "Theme Description"
-msgstr "Priskribo"
+msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:231
 #, kde-format
@@ -1824,11 +1766,10 @@ msgid ""
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr "Leterujo"
+msgstr ""
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:547 MainWindow/SplashScreen.cpp:53
@@ -1929,16 +1870,14 @@ msgid "Do you want to rebuild all of your thumbnails?"
 msgstr ""
 
 #: ImageManager/ThumbnailBuilder.cpp:178
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgid "Building thumbnails"
-msgstr "Kreante bildetojn"
+msgstr ""
 
 #: ImportExport/Export.cpp:61
-#, fuzzy, kde-format
-#| msgid "Import"
+#, kde-format
 msgid "Save an export file"
-msgstr "Importi"
+msgstr ""
 
 #: ImportExport/Export.cpp:63 ImportExport/Import.cpp:28
 #, kde-format
@@ -2201,11 +2140,10 @@ msgid "How to resolve clashes"
 msgstr ""
 
 #: ImportExport/ImportHandler.cpp:91 ImportExport/ImportHandler.cpp:157
-#, fuzzy, kde-format
-#| msgid "Images"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
-msgstr "Bildoj"
+msgstr ""
 
 #: ImportExport/ImportHandler.cpp:172
 #, kde-format
@@ -2360,22 +2298,19 @@ msgid "Johannes Zarl-Zierl"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
-#, fuzzy, kde-format
-#| msgid "Development"
+#, kde-format
 msgid "Development, Maintainer"
-msgstr "Evoluigo"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:98
-#, fuzzy, kde-format
-#| msgid "Robert L Krawitz"
+#, kde-format
 msgid "Robert Krawitz"
-msgstr "Robert L Krawitz"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:98
-#, fuzzy, kde-format
-#| msgid "Development"
+#, kde-format
 msgid "Development, Optimization"
-msgstr "Evoluigo"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:99
 #, kde-format
@@ -2403,10 +2338,9 @@ msgid "Hassan Ibraheem"
 msgstr "Hassan Ibraheem"
 
 #: kpa-thumbnailtool/main.cpp:62 main.cpp:103
-#, fuzzy, kde-format
-#| msgid "Jan Kundrat"
+#, kde-format
 msgid "Jan Kundr&aacute;t"
-msgstr "Jan Kundrat"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:63 main.cpp:104
 #, kde-format
@@ -2517,11 +2451,10 @@ msgid ""
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:123
-#, fuzzy, kde-format
-#| msgid "Number of columns:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Number of thumbnails: %1\n"
-msgstr "Nombro da kolumnoj:"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:129
 #, kde-format
@@ -2636,9 +2569,9 @@ msgstr ""
 
 #. i18n("Events"))
 #: lib/kpabase/SettingsData.cpp:396 XMLDB/FileReader.cpp:516
-#, fuzzy, kde-format
+#, kde-format
 msgid "Events"
-msgstr "Eventoj:"
+msgstr ""
 
 #. i18n("untagged"))
 #: lib/kpabase/SettingsData.cpp:406 XMLDB/FileReader.cpp:517
@@ -2835,14 +2768,10 @@ msgid "Stack images created within the following time-frame:"
 msgstr ""
 
 #: MainWindow/AutoStackImages.cpp:79
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "The whole sentence should read: *Stack images that are shot within x "
-#| "seconds of each other*. (This being the text after x.)"
-#| msgid "seconds"
+#, kde-format
 msgctxt "Unit suffix on a QSpinBox; note the space at the beginning."
 msgid " seconds"
-msgstr "sekundoj"
+msgstr " sekundoj"
 
 #: MainWindow/AutoStackImages.cpp:82
 #, kde-format
@@ -2892,11 +2821,10 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: MainWindow/DeleteDialog.cpp:24
-#, fuzzy, kde-format
-#| msgid "Move Items"
+#, kde-format
 msgctxt "@title:window"
 msgid "Removing Items"
-msgstr "Movi erojn"
+msgstr ""
 
 #: MainWindow/DeleteDialog.cpp:64
 #, kde-format
@@ -2938,15 +2866,14 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:44
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid "Merge these images"
-msgstr "Forigi"
+msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
-#, fuzzy, kde-format
+#, kde-format
 msgid "Select target:"
-msgstr "Elektu lokon"
+msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70
 #, kde-format
@@ -2969,10 +2896,9 @@ msgid "Move to &trash"
 msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:52
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgid "&Delete from disk"
-msgstr "Forigi"
+msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:53
 #, kde-format
@@ -2980,15 +2906,14 @@ msgid "&Block from database"
 msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:75
-#, fuzzy, kde-format
-#| msgid "Select All"
+#, kde-format
 msgid "Select &All"
-msgstr "Elekti ĉion"
+msgstr "Elekti Ĉi&an"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:76
-#, fuzzy, kde-format
+#, kde-format
 msgid "Select &None"
-msgstr "Elektu lokon"
+msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:133
 #, kde-format
@@ -3126,16 +3051,14 @@ msgid "Map view for geotagged images."
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:164
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgid "Video thumbnail support"
-msgstr "Kreante bildetojn"
+msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:165
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgid "Video metadata support"
-msgstr "Kreante bildetojn"
+msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:169
 #, kde-format
@@ -3203,8 +3126,7 @@ msgid ""
 msgstr ""
 
 #: MainWindow/InvalidDateFinder.cpp:70
-#, fuzzy, kde-format
-#| msgid "Image Info"
+#, kde-format
 msgctxt "@title:window"
 msgid "Image Info"
 msgstr "Bilda informo"
@@ -3243,10 +3165,9 @@ msgid "Starts KPhotoAlbum with a prebuilt set of demo images."
 msgstr ""
 
 #: MainWindow/Options.cpp:36
-#, fuzzy, kde-format
-#| msgid "Import"
+#, kde-format
 msgid "Import file."
-msgstr "Importi"
+msgstr ""
 
 #: MainWindow/Options.cpp:37
 #, kde-format
@@ -3299,29 +3220,24 @@ msgid "%all"
 msgstr ""
 
 #: MainWindow/RunDialog.cpp:73
-#, fuzzy, no-c-format, kde-format
-#| msgid "Search"
+#, no-c-format, kde-format
 msgctxt ""
 "As in 'Execute a command for each selected file in turn and replace any "
 "occurrence of %each with the filename "
 msgid "%each"
-msgstr "Serĉi"
+msgstr ""
 
 #: MainWindow/SearchBar.cpp:20
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgctxt "Name/title of the search bar toolbar widget"
 msgid "Search Bar"
-msgstr "Serĉo"
+msgstr ""
 
 #: MainWindow/SearchBar.cpp:25
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Search ..."
-msgstr "Serĉo"
+msgstr "Serĉi ..."
 
 #: MainWindow/StatisticsDialog.cpp:31
 #, kde-format
@@ -3420,9 +3336,9 @@ msgid "Select tokens to remove from all images and videos:"
 msgstr ""
 
 #: MainWindow/TokenEditor.cpp:54
-#, fuzzy, kde-format
+#, kde-format
 msgid "Select None"
-msgstr "Elektu lokon"
+msgstr ""
 
 #: MainWindow/WelcomeDialog.cpp:45
 #, kde-format
@@ -3532,11 +3448,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:304
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
-msgstr "Forigi"
+msgstr ""
 
 #: MainWindow/Window.cpp:359
 #, kde-format
@@ -3604,10 +3519,10 @@ msgid "Export/Copy Images..."
 msgstr ""
 
 #: MainWindow/Window.cpp:779
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
-msgstr "Forigu paĝon"
+msgstr ""
 
 #: MainWindow/Window.cpp:785
 #, kde-format
@@ -3690,10 +3605,9 @@ msgid "Sort Selected by Date && Time"
 msgstr ""
 
 #: MainWindow/Window.cpp:860
-#, fuzzy, kde-format
-#| msgid "No Selection"
+#, kde-format
 msgid "Limit View to Selection"
-msgstr "Neniu elekto"
+msgstr ""
 
 #: MainWindow/Window.cpp:863
 #, kde-format
@@ -3816,10 +3730,9 @@ msgid "Build Thumbnails"
 msgstr ""
 
 #: MainWindow/Window.cpp:988
-#, fuzzy, kde-format
-#| msgid "Statistics"
+#, kde-format
 msgid "Statistics..."
-msgstr "Statistikoj"
+msgstr "Statistikoj..."
 
 #: MainWindow/Window.cpp:992
 #, kde-format
@@ -3852,16 +3765,14 @@ msgid "Show Exif Info and file metadata"
 msgstr ""
 
 #: MainWindow/Window.cpp:1022
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgid "Recreate Selected Thumbnails"
-msgstr "Kreante bildetojn"
+msgstr ""
 
 #: MainWindow/Window.cpp:1025
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgid "Use next video thumbnail"
-msgstr "Kreante bildetojn"
+msgstr ""
 
 #: MainWindow/Window.cpp:1029
 #, kde-format
@@ -3932,11 +3843,10 @@ msgid "Viewer"
 msgstr "Rigardilo"
 
 #: MainWindow/Window.cpp:1334
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "Dato: "
+msgstr ""
 
 #: MainWindow/Window.cpp:1337
 #, kde-format
@@ -4034,14 +3944,12 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:1840
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgid "Video thumbnails are not available"
-msgstr "Kreante bildetojn"
+msgstr ""
 
 #: Map/GeoCluster.cpp:137
-#, fuzzy, kde-format
-#| msgid "%1"
+#, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
 msgstr "%1"
@@ -4057,10 +3965,9 @@ msgid "Go to last map position"
 msgstr ""
 
 #: Map/MapView.cpp:184
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgid "Show thumbnails"
-msgstr "Kreante bildetojn"
+msgstr ""
 
 #: Map/MapView.cpp:193
 #, kde-format
@@ -4088,10 +3995,9 @@ msgid "Map view"
 msgstr ""
 
 #: Map/MapView.cpp:362
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Settings saved!"
-msgstr "Agordo"
+msgstr ""
 
 #: Map/MapView.cpp:389
 #, kde-format
@@ -4167,17 +4073,15 @@ msgid ""
 msgstr ""
 
 #: Settings/BirthdayPage.cpp:58
-#, fuzzy, kde-format
-#| msgid "First"
+#, kde-format
 msgctxt "@label:textedit"
 msgid "Filter ... (%1)"
-msgstr "Unua"
+msgstr ""
 
 #: Settings/BirthdayPage.cpp:92
-#, fuzzy, kde-format
-#| msgid "Birthday"
+#, kde-format
 msgid "Remove birthday"
-msgstr "Naskiĝdato"
+msgstr ""
 
 #: Settings/BirthdayPage.cpp:98
 #, kde-format
@@ -4207,10 +4111,9 @@ msgid "Birthday of %1:"
 msgstr ""
 
 #: Settings/BirthdayPage.cpp:232
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgid "Enter a date..."
-msgstr "Renomi..."
+msgstr ""
 
 #: Settings/BirthdayPage.cpp:296
 #, kde-format
@@ -4218,10 +4121,9 @@ msgid "<i>Select an item on the left to edit the birthday</i>"
 msgstr ""
 
 #: Settings/CategoryPage.cpp:46
-#, fuzzy, kde-format
-#| msgid "Categories"
+#, kde-format
 msgid "Category Settings"
-msgstr "Kategorioj"
+msgstr ""
 
 #: Settings/CategoryPage.cpp:67
 #, kde-format
@@ -4359,10 +4261,9 @@ msgid "Confirm Action"
 msgstr ""
 
 #: Settings/CategoryPage.cpp:377
-#, fuzzy, kde-format
-#| msgid "Category"
+#, kde-format
 msgid "New category"
-msgstr "Kategorio"
+msgstr ""
 
 #: Settings/CategoryPage.cpp:409
 #, kde-format
@@ -4647,10 +4548,9 @@ msgid "Type of media on which your images are stored."
 msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:189
-#, fuzzy, kde-format
-#| msgid "Hard"
+#, kde-format
 msgid "Hard Disk"
-msgstr "Malfacila"
+msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:190
 #, kde-format
@@ -4673,10 +4573,9 @@ msgid "Fast PCIe/NVMe"
 msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:194
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Manual Settings"
-msgstr "Agordo"
+msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:197
 #, kde-format
@@ -4777,10 +4676,9 @@ msgid "Use Exif orientation information"
 msgstr ""
 
 #: Settings/GeneralPage.cpp:52
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgid "Use Exif description"
-msgstr "Priskribo"
+msgstr ""
 
 #: Settings/GeneralPage.cpp:56
 #, kde-format
@@ -4803,10 +4701,9 @@ msgid "Histogram"
 msgstr "Histogramo"
 
 #: Settings/GeneralPage.cpp:93
-#, fuzzy, kde-format
-#| msgid "Histogram"
+#, kde-format
 msgid "Show histogram"
-msgstr "Histogramo"
+msgstr ""
 
 #: Settings/GeneralPage.cpp:98
 #, kde-format
@@ -4883,10 +4780,9 @@ msgid ""
 msgstr ""
 
 #: Settings/SettingsDialog.cpp:47
-#, fuzzy, kde-format
-#| msgid "Version %1"
+#, kde-format
 msgid "File Searching & Versions"
-msgstr "Versio %1"
+msgstr ""
 
 #: Settings/SettingsDialog.cpp:49
 #, kde-format
@@ -4899,10 +4795,9 @@ msgid "Birthdays"
 msgstr ""
 
 #: Settings/SettingsDialog.cpp:51
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "Tag Groups"
-msgstr "Nova grupo"
+msgstr ""
 
 #: Settings/SettingsDialog.cpp:53
 #, kde-format
@@ -4915,18 +4810,16 @@ msgid "Database Backend"
 msgstr ""
 
 #: Settings/SettingsDialog.cpp:74
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "Settings"
 msgstr "Agordo"
 
 #: Settings/TagGroupsPage.cpp:33
-#, fuzzy, kde-format
-#| msgid "Categories"
+#, kde-format
 msgctxt "@label"
 msgid "Categories and groups:"
-msgstr "Kategorioj"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:42
 #, kde-format
@@ -4955,11 +4848,10 @@ msgid "Rename group \"%1\""
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:227
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete group \"%1\""
-msgstr "Forigi"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:306
 #, kde-format
@@ -4992,18 +4884,16 @@ msgid "Cannot add group"
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:430 Settings/TagGroupsPage.cpp:448
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "@title:window"
 msgid "Rename Group"
-msgstr "Forigi"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:431
-#, fuzzy, kde-format
-#| msgid "Group name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "New group name:"
-msgstr "Grupnomo:"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:443
 #, kde-kuit-format
@@ -5029,11 +4919,10 @@ msgid "<para>Really delete group \"%1\"?</para>"
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:515
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "@title:window"
 msgid "Delete Group"
-msgstr "Forigi"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:516 Settings/TagGroupsPage.cpp:762
 #, kde-format
@@ -5041,32 +4930,28 @@ msgid "&Delete"
 msgstr "&Forigi"
 
 #: Settings/TagGroupsPage.cpp:694
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename \"%1\""
-msgstr "Renomi..."
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:696
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete \"%1\""
-msgstr "Forigi"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:707
-#, fuzzy, kde-format
-#| msgid "Image"
+#, kde-format
 msgctxt "@title:window"
 msgid "New Tag Name"
-msgstr "Bildo"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:708
-#, fuzzy, kde-format
-#| msgid "Group name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Tag name:"
-msgstr "Grupnomo:"
+msgstr ""
 
 #: Settings/TagGroupsPage.cpp:757
 #, kde-kuit-format
@@ -5099,10 +4984,9 @@ msgid "Thumbnail image size:"
 msgstr ""
 
 #: Settings/ThumbnailsPage.cpp:47
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgid "Build thumbnails on demand"
-msgstr "Kreante bildetojn"
+msgstr ""
 
 #: Settings/ThumbnailsPage.cpp:52
 #, kde-format
@@ -5263,10 +5147,9 @@ msgid "None Selected"
 msgstr ""
 
 #: Settings/UntaggedGroupBox.cpp:113
-#, fuzzy, kde-format
-#| msgid "Image"
+#, kde-format
 msgid "New tag added"
-msgstr "Bildo"
+msgstr ""
 
 #: Settings/UntaggedGroupBox.cpp:114
 #, kde-format
@@ -5345,9 +5228,9 @@ msgid "VLC video backend"
 msgstr ""
 
 #: Settings/ViewerPage.cpp:25
-#, fuzzy, kde-format
+#, kde-format
 msgid "Not Configured"
-msgstr "indeksita"
+msgstr ""
 
 #: Settings/ViewerPage.cpp:42
 #, kde-format
@@ -5445,20 +5328,18 @@ msgid "Launch in full screen"
 msgstr ""
 
 #: ThumbnailView/Delegate.cpp:237
-#, fuzzy, kde-format
-#| msgid "Video"
+#, kde-format
 msgctxt ""
 "No video length could be determined, so we just display 'video' instead of "
 "the video length."
 msgid "video"
-msgstr "Video"
+msgstr ""
 
 #: ThumbnailView/FilterWidget.cpp:15
-#, fuzzy, kde-format
-#| msgid "Main Toolbar"
+#, kde-format
 msgctxt "Name/title of the filter toolbar widget"
 msgid "Filter Toolbar"
-msgstr "Ĉefa ilobreto"
+msgstr ""
 
 #: ThumbnailView/FilterWidget.cpp:21
 #, kde-format
@@ -5480,11 +5361,10 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ThumbnailView/FilterWidget.cpp:60
-#, fuzzy, kde-format
-#| msgid "First"
+#, kde-format
 msgctxt "The label gives a textual description of the active filter"
 msgid "Filter: %1"
-msgstr "Unua"
+msgstr ""
 
 #: ThumbnailView/FilterWidget.cpp:83
 #, kde-kuit-format
@@ -5504,11 +5384,10 @@ msgid ""
 msgstr ""
 
 #: ThumbnailView/ThumbnailDND.cpp:97
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
-msgstr "Kreante bildetojn"
+msgstr ""
 
 #: Utilities/DeleteFiles.cpp:37
 #, kde-format
@@ -5603,22 +5482,20 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: Utilities/DescriptionUtil.cpp:254
-#, fuzzy, kde-format
-#| msgid "1 Month"
+#, kde-format
 msgctxt "As in 'The baby is 1 month old'"
 msgid "1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 monato"
-msgstr[1] "1 monato"
+msgstr[0] ""
+msgstr[1] ""
 
 #: Utilities/DescriptionUtil.cpp:256
-#, fuzzy, kde-format
-#| msgid "1 Month"
+#, kde-format
 msgctxt "As in 'This happened 1 month ago'"
 msgid "1 month ago"
 msgid_plural "%1 months ago"
-msgstr[0] "1 monato"
-msgstr[1] "1 monato"
+msgstr[0] ""
+msgstr[1] ""
 
 #: Utilities/DescriptionUtil.cpp:259
 #, kde-format
@@ -5637,11 +5514,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: Utilities/DescriptionUtil.cpp:351 Utilities/DescriptionUtil.cpp:377
-#, fuzzy, kde-format
-#| msgctxt "aspect ratio"
-#| msgid " (%1:1)"
+#, kde-format
 msgid " (%1)"
-msgstr " (%1:1)"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:353
 #, kde-format
@@ -5649,36 +5524,28 @@ msgid " (&lt; %1)"
 msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:356
-#, fuzzy, kde-format
-#| msgctxt "aspect ratio"
-#| msgid " (%1:1)"
+#, kde-format
 msgctxt "E.g. ' (1-2 years)'"
 msgid " (%1-%2)"
-msgstr " (%1:1)"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:358
-#, fuzzy, kde-format
-#| msgctxt "aspect ratio"
-#| msgid " (%1:1)"
+#, kde-format
 msgctxt "E.g. ' (7 months-1 year)'"
 msgid " (%1-%2)"
-msgstr " (%1:1)"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:380
-#, fuzzy, kde-format
-#| msgctxt "aspect ratio"
-#| msgid " (%1:1)"
+#, kde-format
 msgctxt "E.g. ' (1-2 years ago)'"
 msgid " (%1-%2)"
-msgstr " (%1:1)"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:382
-#, fuzzy, kde-format
-#| msgctxt "aspect ratio"
-#| msgid " (%1:1)"
+#, kde-format
 msgctxt "E.g. '(7 months ago-1 year ago)'"
 msgid " (%1-%2)"
-msgstr " (%1:1)"
+msgstr ""
 
 #: Viewer/CategoryImageConfig.cpp:33
 #, kde-format
@@ -5767,18 +5634,16 @@ msgid ""
 msgstr ""
 
 #: Viewer/SpeedDisplay.cpp:61
-#, fuzzy, kde-format
-#| msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
-msgstr "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:167
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotate..."
-msgstr "Renomi..."
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:172
 #, kde-format
@@ -5841,17 +5706,16 @@ msgid "First"
 msgstr "Unua"
 
 #: Viewer/ViewerWidget.cpp:282
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
-msgstr "Listo:"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:289
-#, fuzzy, kde-format
-#| msgid "Show next"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
-msgstr "Montri la sekvan"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:295
 #, kde-format
@@ -5896,11 +5760,10 @@ msgid "Skip 1000 Backward"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:337
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
-msgstr "Forigi"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:342
 #, kde-format
@@ -5927,11 +5790,10 @@ msgid "Zoom Out"
 msgstr "Elzomi"
 
 #: Viewer/ViewerWidget.cpp:369
-#, fuzzy, kde-format
-#| msgid "View"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
-msgstr "Vido"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:375
 #, kde-format
@@ -5940,25 +5802,22 @@ msgid "Pixel for Pixel View"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:381
-#, fuzzy, kde-format
-#| msgid "Toggle Focus"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
-msgstr "Komuti la fokuson"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:391
-#, fuzzy, kde-format
-#| msgid "Stop slideshow"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
-msgstr "Halti la lumbildon"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:394 Viewer/ViewerWidget.cpp:789
-#, fuzzy, kde-format
-#| msgid "Stop slideshow"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
-msgstr "Halti la lumbildon"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:399
 #, kde-format
@@ -5978,14 +5837,10 @@ msgid "File not available"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:489
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "%1 is a prefix like 'Associate with', %2 is the tag name and %3 is the "
-#| "tag's category"
-#| msgid "%1 %2 (%3)"
+#, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
-msgstr "%1 %2 (%3)"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:505
 #, kde-format
@@ -6012,11 +5867,10 @@ msgid "<b>Assigning: </b>"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:795
-#, fuzzy, kde-format
-#| msgid "Stop slideshow"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
-msgstr "Halti la lumbildon"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1194
 #, kde-format
@@ -6091,11 +5945,10 @@ msgid "Stop"
 msgstr "Halti"
 
 #: Viewer/ViewerWidget.cpp:1245
-#, fuzzy, kde-format
-#| msgid "Creating thumbnails"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
-msgstr "Kreante bildetojn"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1251
 #, kde-format
@@ -6104,11 +5957,10 @@ msgid "Restart"
 msgstr "Relanĉu"
 
 #: Viewer/ViewerWidget.cpp:1266
-#, fuzzy, kde-format
-#| msgid "First"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
-msgstr "Unua"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1269
 #, kde-format
@@ -6203,10 +6055,9 @@ msgid "Show Filename"
 msgstr ""
 
 #: Viewer/VisibleOptionsMenu.cpp:61
-#, fuzzy, kde-format
-#| msgid "Show next"
+#, kde-format
 msgid "Show Exif"
-msgstr "Montri la sekvan"
+msgstr ""
 
 #: Viewer/VisibleOptionsMenu.cpp:66
 #, kde-format
@@ -6214,10 +6065,9 @@ msgid "Show Image Size"
 msgstr ""
 
 #: Viewer/VisibleOptionsMenu.cpp:71
-#, fuzzy, kde-format
-#| msgid "Show next"
+#, kde-format
 msgid "Show Rating"
-msgstr "Montri la sekvan"
+msgstr ""
 
 #: XMLDB/Database.cpp:49
 #, kde-format
@@ -6520,227 +6370,3 @@ msgstr ""
 #, kde-format
 msgid "Error while reading database file"
 msgstr ""
-
-#~ msgctxt "@action:button"
-#~ msgid "Copy"
-#~ msgstr "Kopii"
-
-#~ msgctxt "@label:textbox label on the search bar"
-#~ msgid "Search:"
-#~ msgstr "Serĉi:"
-
-#, fuzzy
-#~| msgid "Creating thumbnails"
-#~ msgid "Really resize the thumbnails?"
-#~ msgstr "Kreante bildetojn"
-
-#, fuzzy
-#~| msgid "Plugins"
-#~ msgctxt ""
-#~ "Add 'Plugin' prefix so that KIPI plugins are obvious in KShortcutsDialog…"
-#~ msgid "Plugin: %1"
-#~ msgstr "Kromaĵoj"
-
-#~ msgctxt "The 'name' of an unnamed image collection."
-#~ msgid "None"
-#~ msgstr "Neniu"
-
-#, fuzzy
-#~| msgid "No Selection"
-#~ msgctxt "As in 'an unknown set of images, created from the selection'."
-#~ msgid "Unknown (Selection)"
-#~ msgstr "Neniu elekto"
-
-#, fuzzy
-#~| msgid "No Selection"
-#~ msgctxt "As in 'A selection of [a generated context description]'"
-#~ msgid " (Selection)"
-#~ msgstr "Neniu elekto"
-
-#~ msgctxt "A set of images with no description."
-#~ msgid "Unknown"
-#~ msgstr "Nekonata"
-
-#~ msgid "Change Password..."
-#~ msgstr "Ŝanĝi pasvorton..."
-
-#, fuzzy
-#~| msgid "Show splash screen"
-#~ msgid "Show search bar"
-#~ msgstr "Montri la lanĉprogreson"
-
-#, fuzzy
-#~| msgid "Background Color"
-#~ msgid "Background color:"
-#~ msgstr "Fonkoloro"
-
-#, fuzzy
-#~| msgid "Description"
-#~ msgid "Geo position"
-#~ msgstr "Priskribo"
-
-#, fuzzy
-#~| msgid "Toggle Focus"
-#~ msgid "Toggle full-screen preview (CTRL+Space)"
-#~ msgstr "Komuti la fokuson"
-
-#~ msgid "Export"
-#~ msgstr "Eksporti"
-
-#~ msgid "Import"
-#~ msgstr "Importi"
-
-#, fuzzy
-#~| msgid "Plugins"
-#~ msgid "Batch Plugins"
-#~ msgstr "Kromaĵoj"
-
-#~ msgid "Tools"
-#~ msgstr "Iloj"
-
-#~ msgid "Robert L Krawitz"
-#~ msgstr "Robert L Krawitz"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Centered"
-#~ msgstr "Centre"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Tiled"
-#~ msgstr "Kahele"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Center Tiled"
-#~ msgstr "Kahele centre"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Centered Maxpect"
-#~ msgstr "Centre etendite"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Tiled Maxpect"
-#~ msgstr "Kahele etendite"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Scaled"
-#~ msgstr "Etendite"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Centered Auto Fit"
-#~ msgstr "Centre aŭtomate adaptita"
-
-#, fuzzy
-#~| msgctxt "%1 is the tag name and %2 is the tag's category"
-#~| msgid "%1 (%2)"
-#~ msgctxt ""
-#~ "Identifying a person; e.g. 'Is this <Person A> (<Category People>)'"
-#~ msgid "Is this %1 (%2)?"
-#~ msgstr "%1 (%2)"
-
-#, fuzzy
-#~| msgid "No Selection"
-#~ msgid "Face detection"
-#~ msgstr "Neniu elekto"
-
-#~ msgid "Accuracy"
-#~ msgstr "Akurateco"
-
-#~ msgid "Close"
-#~ msgstr "Fermi"
-
-#~ msgid "OK"
-#~ msgstr "Bone"
-
-#, fuzzy
-#~ msgid "Config file"
-#~ msgstr "Horizonto"
-
-#~ msgid "Unable to open '%1' for writing."
-#~ msgstr "Ne eblas malfermi « %1 » por skribi."
-
-#~ msgid "Keywords"
-#~ msgstr "Ĉefvortoj"
-
-#, fuzzy
-#~| msgid "No Selection"
-#~ msgid "Face database training"
-#~ msgstr "Neniu elekto"
-
-#, fuzzy
-#~| msgid "Category"
-#~ msgid "Current Category"
-#~ msgstr "Kategorio"
-
-#~ msgid "Label:"
-#~ msgstr "Etikedo:"
-
-#~ msgid "Version %1"
-#~ msgstr "Versio %1"
-
-#~ msgid "unknown"
-#~ msgstr "nekonata"
-
-#~ msgid "none"
-#~ msgstr "nenio"
-
-#~ msgid "Manual"
-#~ msgstr "Manuma"
-
-#, fuzzy
-#~| msgid "Normal"
-#~ msgid "Normal program"
-#~ msgstr "Normala"
-
-#, fuzzy
-#~ msgid "Aperture priority"
-#~ msgstr "Koloraĵoj"
-
-#~ msgid "Average"
-#~ msgstr "Averaĝa"
-
-#, fuzzy
-#~ msgid "Spot"
-#~ msgstr "&Blanka"
-
-#~ msgid "Pattern"
-#~ msgstr "Ŝablono"
-
-#~ msgid "Partial"
-#~ msgstr "Parta"
-
-#~ msgid "Normal"
-#~ msgstr "Normala"
-
-#~ msgid "Soft"
-#~ msgstr "Mildaj"
-
-#~ msgid "Low"
-#~ msgstr "Malalta"
-
-#~ msgid "High"
-#~ msgstr "Alta"
-
-#, fuzzy
-#~ msgid "Server port:"
-#~ msgstr "Servilopordo:"
-
-#~ msgid "Default"
-#~ msgstr "Defaŭlta"
-
-#~ msgid "Username:"
-#~ msgstr "Uzantnomo:"
-
-#~ msgid "Password:"
-#~ msgstr "Pasvorto:"
-
-#~ msgid "ppm"
-#~ msgstr "ppm"
-
-#~ msgid "png"
-#~ msgstr "png"
-
-#~ msgid "jpg"
-#~ msgstr "jpg"
-
-#~ msgid "%1 MB"
-#~ msgstr "%1 MB"

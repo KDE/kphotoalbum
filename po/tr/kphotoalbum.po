@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-02-19 00:56+0000\n"
-"PO-Revision-Date: 2023-02-19 11:07+0300\n"
+"PO-Revision-Date: 2023-03-23 14:38+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -180,7 +180,7 @@ msgid ""
 "the photo comes from an analog camera), then you should set <interface>Use "
 "Fuzzy Date</interface>.</para>"
 msgstr ""
-"<para>K Fotoğraf Albümü'nde, görsellerin tam tarih ve saati olabilir veya "
+"<para>K Fotoğraf Albümü'nde, görsellerin tam tarihi ve zamanı olabilir veya "
 "belirlenmiş bir tarih aralığında herhangi bir zaman oluşmuş "
 "<emphasis>belirsiz</emphasis> tarihi olabilir. Sayısal fotoğraf "
 "makinelerinde üretilen görsellerin normalde tam tarihi vardır.</"
@@ -2466,7 +2466,7 @@ msgstr "Veriyi birleştir"
 #: ImportExport/MD5CheckPage.cpp:68
 #, kde-format
 msgid "Date and Time"
-msgstr "Tarih ve Saat"
+msgstr "Tarih ve Zaman"
 
 #: kpa-thumbnailtool/main.cpp:32
 #, kde-format

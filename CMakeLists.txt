@@ -12,7 +12,7 @@
 # SPDX-FileCopyrightText: 2012-2013 Andreas Neustifter <andreas.neustifter@gmail.com>
 # SPDX-FileCopyrightText: 2012-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 # SPDX-FileCopyrightText: 2014 David Edmundson <kde@davidedmundson.co.uk>
-# SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl at stonemx dot de>
+# SPDX-FileCopyrightText: 2014-2023 Tobias Leupold <tl at stonemx dot de>
 # SPDX-FileCopyrightText: 2016 Christoph Feck <cfeck@kde.org>
 # SPDX-FileCopyrightText: 2016 Luigi Toscano <luigi.toscano@tiscali.it>
 # SPDX-FileCopyrightText: 2016 Michael Palimaka <kensington@gentoo.org>
@@ -23,7 +23,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 cmake_minimum_required(VERSION 3.18.0)
-project(kphotoalbum LANGUAGES CXX VERSION 5.9.1)
+project(kphotoalbum LANGUAGES CXX VERSION 5.10.0)
 
 # set minimum versions here:
 set(MINIMUM_ECM_VERSION 5.78)

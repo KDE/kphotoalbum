@@ -1,8 +1,27 @@
 <!--
 SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-SPDX-FileCopyrightText: 2022 Tobias Leupold <tl@stonemx.de>
+SPDX-FileCopyrightText: 2022-2023 Tobias Leupold <tl at stonemx dot de>
 
 SPDX-License-Identifier: CC-BY-SA-4.0
+
+Template to use after a release:
+
+(Unreleased)
+------------
+
+### Added
+
+### Changed
+
+### Dependencies
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
+### Security
 -->
 Changelog
 =========
@@ -12,7 +31,25 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
-## [UNRELEASED]
+(Unreleased)
+------------
+
+### Added
+
+### Changed
+
+### Dependencies
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
+### Security
+
+[5.10.0] - 2023-03-25
+---------------------
 
 ### Added
  - Allow setting keyboard shortcuts for Date Bar component.
@@ -22,10 +59,10 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - View-related actions formerly found in the "Settings" menu were moved to the "View" menu.
  - Make options "Display Labels in Thumbnail View" and "Display Categories in Thumbnail View" reachable via the "View" menu
    and allow both actions to be assigned keyboard shortcuts (Implements: #145346).
- - Store the untagged tag information inside the index.xml file instead of the Settings (Implements: #461206)
- - Change scroll direction in the annotation dialog's date edit fields to match common (western) expectations and the date picker
+ - Store the untagged tag information inside the index.xml file instead of the Settings (Implements: #461206).
+ - Change scroll direction in the annotation dialog's date edit fields to match common (western) expectations and the date picker.
  - Prevent scrolling past the occupied areas of the date bar.
- - Files are now always created with group read/write permissions (Fixes: #438128)
+ - Files are now always created with group read/write permissions (Fixes: #438128).
  - When exiting the demo mode, the demo database is now always saved if it isn't deleted.
 
 ### Dependencies
@@ -33,19 +70,15 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Qt5: 5.15
  - KDE Frameworks: 5.78
 
-### Deprecated
-
 ### Fixed
  - Improve readability of "Show Tooltips in Thumbnails Window" tooltip.
- - Fix image selection order for newly added images (Fixes: 442325)
- - Improve date bar behavior when zooming the date bar and changing views (Fixes: 357237)
+ - Fix image selection order for newly added images (Fixes: 442325).
+ - Improve date bar behavior when zooming the date bar and changing views (Fixes: 357237).
 
 ### Removed
- - Default shortcut for "View" images was removed.</br>
+ - Default shortcut for "View" images was removed.<br>
    Pressing "Enter" to open the viewer is now the preferred way.
-   To restore the old behavior, reassign the shortcut via "Settings | Configure Keyboard Shortcuts..."
-
-### Security
+   To restore the old behavior, reassign the shortcut via "Settings | Configure Keyboard Shortcuts...".
 
 [5.9.1] - 2022-09-05
 --------------------

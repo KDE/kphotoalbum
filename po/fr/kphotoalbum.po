@@ -357,7 +357,7 @@ msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
-"<p>Certaines modifications ont été faites aux  annotations. Voulez-vous "
+"<p>Certaines modifications ont été faites aux annotations. Voulez-vous "
 "vraiment annuler toutes les modifications récentes pour chacun des fichiers "
 "concernés ?</p>"
 

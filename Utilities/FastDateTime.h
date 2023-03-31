@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2020 the KPhotoAlbum development team
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -7,6 +7,7 @@
 #define UTILITIES_FASTDATETIME_H
 #include <QDate>
 #include <QDateTime>
+#include <QDebug>
 #include <QTime>
 
 namespace Utilities
@@ -122,6 +123,8 @@ private:
     qint64 m_msecsSinceEpoch;
 };
 }
+
+QDebug operator<<(QDebug debug, const Utilities::FastDateTime &d);
 
 #endif /* UTILITIES_FASTDATETIME_H */
 

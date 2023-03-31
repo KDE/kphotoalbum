@@ -1,11 +1,12 @@
 // SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ImageDate.h"
 
 #include <KLocalizedString>
+#include <QDebug>
 #include <QLocale>
 #include <qregexp.h>
 
@@ -375,6 +376,20 @@ QStringList DB::ImageDate::monthNames()
             *it = it->toLower();
     }
     return res;
+}
+
+QDebug operator<<(QDebug debug, const DB::ImageDate &d)
+{
+    QDebugStateSaver saveState(debug);
+
+    if (d.isNull()) {
+        debug << "DB::ImageDate()";
+    } else if (d.isFuzzy()) {
+        debug.nospace() << "DB::ImageDate(" << d.start().date().toString(Qt::ISODate) << ", " << d.end().date().toString(Qt::ISODate) << ")";
+    } else {
+        debug.nospace() << "DB::ImageDate(" << d.start().date().toString(Qt::ISODate) << ")";
+    }
+    return debug;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

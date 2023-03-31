@@ -1,4 +1,5 @@
 /* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+   SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 
    SPDX-License-Identifier: GPL-2.0-or-later
 */
@@ -6,6 +7,7 @@
 #ifndef IMAGEDATE_H
 #define IMAGEDATE_H
 #include <Utilities/FastDateTime.h>
+#include <QDebug>
 #include <qstring.h>
 #include <qstringlist.h>
 
@@ -54,6 +56,8 @@ private:
     Utilities::FastDateTime m_start, m_end;
 };
 }
+
+QDebug operator<<(QDebug debug, const DB::ImageDate &d);
 
 #endif /* IMAGEDATE_H */
 

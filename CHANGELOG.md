@@ -43,6 +43,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Deprecated
 
 ### Fixed
+ - Fix issue where non-empty time units in the date bar were incorrectly greyed out (#467903)
 
 ### Removed
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-19 00:56+0000\n"
+"POT-Creation-Date: 2023-04-02 00:44+0000\n"
 "PO-Revision-Date: 2022-10-02 16:49+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -1051,33 +1051,33 @@ msgstr[1] ""
 msgid "Move Items"
 msgstr "Flytta objekt"
 
-#: DateBar/DateBarWidget.cpp:69
+#: DateBar/DateBarWidget.cpp:68
 #, kde-format
 msgid "Scroll right"
 msgstr "Rulla åt höger"
 
-#: DateBar/DateBarWidget.cpp:78
+#: DateBar/DateBarWidget.cpp:77
 #, kde-format
 msgid "Scroll left"
 msgstr "Rulla åt vänster"
 
-#: DateBar/DateBarWidget.cpp:87
+#: DateBar/DateBarWidget.cpp:86
 #, kde-format
 msgid "Zoom in"
 msgstr "Zooma in"
 
-#: DateBar/DateBarWidget.cpp:98
+#: DateBar/DateBarWidget.cpp:97
 #, kde-format
 msgid "Zoom out"
 msgstr "Zooma ut"
 
-#: DateBar/DateBarWidget.cpp:110
+#: DateBar/DateBarWidget.cpp:109
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "Rensa datumval"
 
-#: DateBar/DateBarWidget.cpp:123
+#: DateBar/DateBarWidget.cpp:122
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1204,73 +1204,73 @@ msgstr "Fel när bild '%1' skulle sparas."
 msgid "Error Saving Image"
 msgstr "Fel när bild skulle sparas"
 
-#: DB/ImageDate.cpp:357
+#: DB/ImageDate.cpp:358
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jan"
 msgstr "jan"
 
-#: DB/ImageDate.cpp:357
+#: DB/ImageDate.cpp:358
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "feb"
 msgstr "feb"
 
-#: DB/ImageDate.cpp:358
+#: DB/ImageDate.cpp:359
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "mar"
 msgstr "mar"
 
-#: DB/ImageDate.cpp:358
+#: DB/ImageDate.cpp:359
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "apr"
 msgstr "apr"
 
-#: DB/ImageDate.cpp:359
+#: DB/ImageDate.cpp:360
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "may"
 msgstr "maj"
 
-#: DB/ImageDate.cpp:359
+#: DB/ImageDate.cpp:360
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jun"
 msgstr "jun"
 
-#: DB/ImageDate.cpp:360
+#: DB/ImageDate.cpp:361
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jul"
 msgstr "jul"
 
-#: DB/ImageDate.cpp:360
+#: DB/ImageDate.cpp:361
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "aug"
 msgstr "aug"
 
-#: DB/ImageDate.cpp:361
+#: DB/ImageDate.cpp:362
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "sep"
 msgstr "sep"
 
-#: DB/ImageDate.cpp:361
+#: DB/ImageDate.cpp:362
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "oct"
 msgstr "okt"
 
-#: DB/ImageDate.cpp:362
+#: DB/ImageDate.cpp:363
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "nov"
 msgstr "nov"
 
-#: DB/ImageDate.cpp:362
+#: DB/ImageDate.cpp:363
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "dec"

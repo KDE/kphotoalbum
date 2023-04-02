@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-02-19 00:56+0000\n"
+"POT-Creation-Date: 2023-04-02 00:44+0000\n"
 "PO-Revision-Date: 2010-04-16 06:52+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -996,36 +996,36 @@ msgstr[1] ""
 msgid "Move Items"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:69
+#: DateBar/DateBarWidget.cpp:68
 #, kde-format
 msgid "Scroll right"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:78
+#: DateBar/DateBarWidget.cpp:77
 #, kde-format
 msgid "Scroll left"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:87
+#: DateBar/DateBarWidget.cpp:86
 #, fuzzy, kde-format
 #| msgid "Zoom In"
 msgid "Zoom in"
 msgstr "ਜ਼ੂਮ ਇਨ"
 
-#: DateBar/DateBarWidget.cpp:98
+#: DateBar/DateBarWidget.cpp:97
 #, fuzzy, kde-format
 #| msgid "Zoom Out"
 msgid "Zoom out"
 msgstr "ਜ਼ੂਮ ਆਉਟ"
 
-#: DateBar/DateBarWidget.cpp:110
+#: DateBar/DateBarWidget.cpp:109
 #, fuzzy, kde-format
 #| msgid "Generate thumbnails"
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "ਆਮ ਥੰਮਨੇਲ"
 
-#: DateBar/DateBarWidget.cpp:123
+#: DateBar/DateBarWidget.cpp:122
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1153,84 +1153,84 @@ msgstr ""
 msgid "Error Saving Image"
 msgstr "ਚਿੱਤਰ ਸੰਭਾਲਣ ਦੌਰਾਨ ਗਲਤੀ"
 
-#: DB/ImageDate.cpp:357
+#: DB/ImageDate.cpp:358
 #, fuzzy, kde-format
 #| msgid "jan"
 msgctxt "Abbreviated month name"
 msgid "jan"
 msgstr "ਜਨ"
 
-#: DB/ImageDate.cpp:357
+#: DB/ImageDate.cpp:358
 #, fuzzy, kde-format
 #| msgid "feb"
 msgctxt "Abbreviated month name"
 msgid "feb"
 msgstr "ਫਰ"
 
-#: DB/ImageDate.cpp:358
+#: DB/ImageDate.cpp:359
 #, fuzzy, kde-format
 #| msgid "mar"
 msgctxt "Abbreviated month name"
 msgid "mar"
 msgstr "ਮਾਰ"
 
-#: DB/ImageDate.cpp:358
+#: DB/ImageDate.cpp:359
 #, fuzzy, kde-format
 #| msgid "apr"
 msgctxt "Abbreviated month name"
 msgid "apr"
 msgstr "ਅਪ"
 
-#: DB/ImageDate.cpp:359
+#: DB/ImageDate.cpp:360
 #, fuzzy, kde-format
 #| msgid "may"
 msgctxt "Abbreviated month name"
 msgid "may"
 msgstr "ਮਈ"
 
-#: DB/ImageDate.cpp:359
+#: DB/ImageDate.cpp:360
 #, fuzzy, kde-format
 #| msgid "jun"
 msgctxt "Abbreviated month name"
 msgid "jun"
 msgstr "ਜੂਨ"
 
-#: DB/ImageDate.cpp:360
+#: DB/ImageDate.cpp:361
 #, fuzzy, kde-format
 #| msgid "jul"
 msgctxt "Abbreviated month name"
 msgid "jul"
 msgstr "ਜੁਲਾ"
 
-#: DB/ImageDate.cpp:360
+#: DB/ImageDate.cpp:361
 #, fuzzy, kde-format
 #| msgid "aug"
 msgctxt "Abbreviated month name"
 msgid "aug"
 msgstr "ਅਗ"
 
-#: DB/ImageDate.cpp:361
+#: DB/ImageDate.cpp:362
 #, fuzzy, kde-format
 #| msgid "sep"
 msgctxt "Abbreviated month name"
 msgid "sep"
 msgstr "ਸਤੰ"
 
-#: DB/ImageDate.cpp:361
+#: DB/ImageDate.cpp:362
 #, fuzzy, kde-format
 #| msgid "oct"
 msgctxt "Abbreviated month name"
 msgid "oct"
 msgstr "ਅਕਤੂ"
 
-#: DB/ImageDate.cpp:362
+#: DB/ImageDate.cpp:363
 #, fuzzy, kde-format
 #| msgid "nov"
 msgctxt "Abbreviated month name"
 msgid "nov"
 msgstr "ਨਵੰ"
 
-#: DB/ImageDate.cpp:362
+#: DB/ImageDate.cpp:363
 #, fuzzy, kde-format
 #| msgid "dec"
 msgctxt "Abbreviated month name"

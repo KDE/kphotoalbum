@@ -25,7 +25,7 @@ void XMLDB::XMLImageDateCollection::buildIndex()
         // have to keep the last pointer as long as we find smaller end-dates.
         // This should be rare as it only occurs if there are images that
         // actually represent a range not just a point in time.
-        if (it.value().end() >= biggestEnd) {
+        if (it.value().end() > biggestEnd) {
             biggestEnd = it.value().end();
             startSearch = it;
         }
@@ -70,11 +70,12 @@ DB::ImageCount XMLDB::XMLImageDateCollection::count(const DB::ImageDate &range)
 
     // We start searching in ranges that overlap our start search range, i.e.
     // where the end-date is higher than our search start.
-    EndIndexMap::Iterator endSearch = m_endIndex.lowerBound(range.start());
+    const EndIndexMap::ConstIterator endSearch = qAsConst(m_endIndex).lowerBound(range.start());
 
-    if (endSearch != m_endIndex.end()) {
+    if (endSearch != m_endIndex.constEnd()) {
+        // qDebug() << "Counting images until" << endSearch.key() << "starting at" << endSearch.value().key();
         for (StartIndexMap::ConstIterator it = endSearch.value();
-             it != m_startIndex.constEnd() && it.key() < range.end();
+             it != m_startIndex.constEnd() && it.key() <= range.end();
              ++it) {
             DB::ImageDate::MatchType tp = it.value().isIncludedIn(range);
             switch (tp) {

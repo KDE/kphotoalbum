@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -41,6 +42,10 @@ private:
     QTimer *m_autoScrollTimer;
 };
 
+/**
+ * @brief The FocusItemDragHandler class handles mouse events for the histogram part of the DateBar.
+ * I.e. the user clicks on the histogram part of the DateBar to jump to the corresponding date/time.
+ */
 class FocusItemDragHandler : public MouseHandler
 {
 public:
@@ -49,6 +54,10 @@ public:
     void mouseMoveEvent(int x) override;
 };
 
+/**
+ * @brief The BarDragHandler class handles moving the DateBar histogram by dragging it.
+ * If a time range selection was set (by the SelectionHandler) and the user clicks outside that range, the selection is cleared.
+ */
 class BarDragHandler : public MouseHandler
 {
 public:
@@ -60,6 +69,11 @@ private:
     int m_movementOffset;
 };
 
+/**
+ * @brief The SelectionHandler class handles mouse events for the area below the DateBar histogram.
+ * I.e. the user clicks somewhere in the area below the histogram part of the DateBar and selects a time range by dragging the mouse.
+ * When the user releases the mouse button, the selection is updated to the selected area.
+ */
 class SelectionHandler : public MouseHandler
 {
 public:

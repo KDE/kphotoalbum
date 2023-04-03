@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -70,17 +70,18 @@ void DateBar::SelectionHandler::mousePressEvent(int x)
 {
     int unit = m_dateBar->unitAtPos(x);
     m_start = m_dateBar->dateForUnit(unit);
-    m_end = m_dateBar->dateForUnit(unit + 1);
+    m_end = m_dateBar->dateForUnit(unit + 1).addSecs(-1);
 }
 
 void DateBar::SelectionHandler::mouseMoveEvent(int x)
 {
     int unit = m_dateBar->unitAtPos(x);
     Utilities::FastDateTime date = m_dateBar->dateForUnit(unit);
-    if (m_start < date)
-        m_end = m_dateBar->dateForUnit(unit + 1);
-    else
+    if (m_start < date) {
+        m_end = m_dateBar->dateForUnit(unit + 1).addSecs(-1);
+    } else {
         m_end = date;
+    }
     m_dateBar->redraw();
 }
 

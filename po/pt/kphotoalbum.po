@@ -937,7 +937,7 @@ msgstr "Vídeos"
 #: Browser/AbstractCategoryModel.cpp:150
 #, kde-format
 msgid "Start Date"
-msgstr "Data Inicial"
+msgstr "Data de Início"
 
 #: Browser/AbstractCategoryModel.cpp:152
 #, kde-format

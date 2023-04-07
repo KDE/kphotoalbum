@@ -62,7 +62,7 @@ public:
      * @param end the end date
      * @param time the start time, if end == start of if end is invalid
      */
-    ImageDate(const QDate &start, QDate end, const QTime &time);
+    ImageDate(const QDate &start, const QDate &end, const QTime &time);
 
     const Utilities::FastDateTime &start() const { return m_start; }
     const Utilities::FastDateTime &end() const { return m_end; }

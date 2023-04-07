@@ -295,21 +295,20 @@ bool ImageDate::hasValidTime() const
     return m_start == m_end;
 }
 
-ImageDate::ImageDate(const QDate &start, QDate end, const QTime &time)
+ImageDate::ImageDate(const QDate &start, const QDate &end, const QTime &time)
 {
-    if (!end.isValid())
-        end = start;
+    const QDate validatedEnd = (end.isValid()) ? end : start;
 
-    if (start == end && time.isValid()) {
+    if (start == validatedEnd && time.isValid()) {
         m_start = Utilities::FastDateTime(start, time);
         m_end = m_start;
     } else {
-        if (start > end) {
+        if (start > validatedEnd) {
             m_end = Utilities::FastDateTime(start, _startOfDay_);
-            m_start = Utilities::FastDateTime(end, _endOfDay_);
+            m_start = Utilities::FastDateTime(validatedEnd, _endOfDay_);
         } else {
             m_start = Utilities::FastDateTime(start, _startOfDay_);
-            m_end = Utilities::FastDateTime(end, _endOfDay_);
+            m_end = Utilities::FastDateTime(validatedEnd, _endOfDay_);
         }
     }
 }

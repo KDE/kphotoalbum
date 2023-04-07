@@ -1,6 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2018 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2020-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -257,9 +256,9 @@ bool AnnotationDialog::DateEdit::readDate(QDate &result, QDate *end) const
         }
         result = today.addDays(i);
     } else {
-        result = DB::ImageDate::parseDate(text, m_IsStartEdit);
+        result = DB::parseDateString(text, m_IsStartEdit);
         if (end)
-            *end = DB::ImageDate::parseDate(text, false);
+            *end = DB::parseDateString(text, false);
         return result.isValid();
     }
 

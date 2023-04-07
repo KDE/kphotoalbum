@@ -66,7 +66,6 @@ public:
 
     const Utilities::FastDateTime &start() const { return m_start; }
     const Utilities::FastDateTime &end() const { return m_end; }
-    static QDate parseDate(const QString &date, bool startDate);
 
     /**
      * @brief operator <
@@ -156,6 +155,43 @@ public:
 private:
     Utilities::FastDateTime m_start, m_end;
 };
+
+/**
+ * @brief DB::parseDateString parses a user-supplied string into a QDate.
+ *
+ * The dateString can be incomplete and the function will do its best to fill in the missing information.
+ *
+ * If \c assumeStartDate is \c true, the missing information is assumed to be the date to be at the
+ * start of the imprecise time period (e.g. "2021" will be parsed as January 1st 2021). If \c assumeStartDate
+ * is \c false, the missing information is assumed to be at the end of the imprecise time perion (e.g.
+ * "2021" will be parsed as December 31st 2021).
+ *
+ * Years can be two-digit numbers. Two-digit years lower than 50 are interpreted as 20xx; other two digit years are interpreted as 19xx.
+ * The general allowed format is:
+ *  - day of month: a one-digit or two-digit number, possibly followed by any of '-', ',', '.', ' ', '/'
+ *  - month: either a number between 1 and 12, or the full or appreviated name of the month (in English or in the current locale), possibly followed by any of '-', ',', '.', ' ', '/'
+ *  - year: a two-digit or four-digit number
+ *
+ *  If the day is missing, it is assumed to be the first or last day of the month, depending on the parameter \c assumeStartDate.
+ *  If the month is missing, it is assumed to be the first or last month of the year, depending on the parameter \c assumeStartDate.
+ *  If the year is missing, it is assumed to be the current year.
+ *
+ * Examples:
+ * ---------
+ *  - parseDateString("Dec", true): QDate(currentYear, 12, 1)
+ *  - parseDateString("Dec", false): QDate(currentYear, 12, 31)
+ *  - parseDateString("2021", false): QDate(2021, 12, 31)
+ *  - parseDateString("3. Feb. 82", true): QDate(1982, 2, 3)
+ *  - parseDateString("3. Feb. 82", false): QDate(1982, 2, 3)
+ *  - parseDateString("3. Feb. 12", true): QDate(2012, 2, 3)
+ *  - parseDateString("3/2/12", true): QDate(2012, 2, 3)
+ *  - parseDateString("03-02-12", true): QDate(2012, 2, 3)
+ *
+ * @param dateString a user-supplied string representing a date
+ * @param assumeStartDate \c true to assume the first possible day of the month/year, \c false to assume the last possible day.
+ * @return a QDate representing the parsed dateString, or an invalid QDate if the string could not be parsed.
+ */
+QDate parseDateString(const QString &dateString, bool assumeStartDate);
 }
 
 QDebug operator<<(QDebug debug, const DB::ImageDate &d);

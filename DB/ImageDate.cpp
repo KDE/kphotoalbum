@@ -278,57 +278,6 @@ ImageDate::ImageDate(int yearFrom, int monthFrom, int dayFrom, int yearTo, int m
     }
 }
 
-QDate ImageDate::parseDate(const QString &date, bool startDate)
-{
-    QRegExp regexp(formatRegexp(), Qt::CaseInsensitive);
-
-    if (regexp.exactMatch(date)) {
-        int year = 0;
-        int month = 0;
-        int day = 0;
-
-        QString dayStr = regexp.cap(2);
-        QString monthStr = regexp.cap(5).toLower();
-        QString yearStr = regexp.cap(7);
-
-        if (dayStr.length() != 0)
-            day = dayStr.toInt();
-
-        if (yearStr.length() != 0) {
-            year = yearStr.toInt();
-            if (year < 50)
-                year += 2000;
-            if (year < 100)
-                year += 1900;
-        }
-        if (monthStr.length() != 0) {
-            int index = monthNames().indexOf(monthStr);
-            if (index != -1)
-                month = (index % 12) + 1;
-            else
-                month = monthStr.toInt();
-        }
-        if (year == 0)
-            year = QDate::currentDate().year();
-        if (month == 0) {
-            if (startDate) {
-                month = 1;
-                day = 1;
-            } else {
-                month = 12;
-                day = 31;
-            }
-        } else if (day == 0) {
-            if (startDate)
-                day = 1;
-            else
-                day = QDate(year, month, 1).daysInMonth();
-        }
-        return QDate(year, month, day);
-    } else
-        return QDate();
-}
-
 bool ImageDate::hasValidTime() const
 {
     return m_start == m_end;
@@ -382,6 +331,57 @@ void ImageDate::extendTo(const ImageDate &other)
         if (other.m_end > m_end)
             m_end = other.m_end;
     }
+}
+
+QDate DB::parseDateString(const QString &dateString, bool assumeStartDate)
+{
+    QRegExp regexp(formatRegexp(), Qt::CaseInsensitive);
+
+    if (regexp.exactMatch(dateString)) {
+        int year = 0;
+        int month = 0;
+        int day = 0;
+
+        QString dayStr = regexp.cap(2);
+        QString monthStr = regexp.cap(5).toLower();
+        QString yearStr = regexp.cap(7);
+
+        if (dayStr.length() != 0)
+            day = dayStr.toInt();
+
+        if (yearStr.length() != 0) {
+            year = yearStr.toInt();
+            if (year < 50)
+                year += 2000;
+            if (year < 100)
+                year += 1900;
+        }
+        if (monthStr.length() != 0) {
+            int index = monthNames().indexOf(monthStr);
+            if (index != -1)
+                month = (index % 12) + 1;
+            else
+                month = monthStr.toInt();
+        }
+        if (year == 0)
+            year = QDate::currentDate().year();
+        if (month == 0) {
+            if (assumeStartDate) {
+                month = 1;
+                day = 1;
+            } else {
+                month = 12;
+                day = 31;
+            }
+        } else if (day == 0) {
+            if (assumeStartDate)
+                day = 1;
+            else
+                day = QDate(year, month, 1).daysInMonth();
+        }
+        return QDate(year, month, day);
+    } else
+        return QDate();
 }
 
 QDebug operator<<(QDebug debug, const DB::ImageDate &d)

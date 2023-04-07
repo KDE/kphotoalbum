@@ -121,14 +121,19 @@ public:
      */
     bool hasValidTime() const;
 
-    enum MatchType { DontMatch,
-                     ExactMatch,
-                     RangeMatch };
+    /**
+     * @brief The MatchType enum is used to qualify the result of ImageDate::isIncludedIn(const ImageDate &)
+     */
+    enum class MatchType {
+        NoMatch, ///< The two ImageDates do not match.
+        IsContained, ///< The ImageDate is fully contained within the range.
+        Overlap ///< The two ImageDates do overlap.
+    };
 
     /**
-     * @brief isIncludedIn
-     * @param searchRange
-     * @return
+     * @brief isIncludedIn checks whether the ImageDate is contained within the given range.
+     * @param searchRange a (fuzzy) ImageDate representing the date range
+     * @return MatchType::IsContained, if the ImageDate is part of the searchRange; MatchType::Overlap, if the ImageDate is not part of the searchRange, but both ranges overlap; or otherwise MatchTape::NoMatch.
      */
     MatchType isIncludedIn(const ImageDate &searchRange) const;
     /**

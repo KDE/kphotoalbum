@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -347,11 +347,12 @@ bool XMLDB::Database::rangeInclude(DB::ImageInfoPtr info) const
     if (m_selectionRange.start().isNull())
         return true;
 
-    DB::ImageDate::MatchType tp = info->date().isIncludedIn(m_selectionRange);
+    using MatchType = DB::ImageDate::MatchType;
+    MatchType tp = info->date().isIncludedIn(m_selectionRange);
     if (m_includeFuzzyCounts)
-        return (tp == DB::ImageDate::ExactMatch || tp == DB::ImageDate::RangeMatch);
+        return (tp == MatchType::IsContained || tp == MatchType::Overlap);
     else
-        return (tp == DB::ImageDate::ExactMatch);
+        return (tp == MatchType::IsContained);
 }
 
 DB::MemberMap &XMLDB::Database::memberMap()

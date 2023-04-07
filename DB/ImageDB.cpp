@@ -1,6 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -178,8 +177,9 @@ DB::FileName ImageDB::findFirstItemInRange(const DB::FileNameList &images,
     for (const DB::FileName &fileName : images) {
         ImageInfoPtr iInfo = info(fileName);
 
-        ImageDate::MatchType match = iInfo->date().isIncludedIn(range);
-        if (match == DB::ImageDate::ExactMatch || (includeRanges && match == DB::ImageDate::RangeMatch)) {
+        using MatchType = DB::ImageDate::MatchType;
+        MatchType match = iInfo->date().isIncludedIn(range);
+        if (match == MatchType::IsContained || (includeRanges && match == MatchType::Overlap)) {
             if (candidate.isNull() || iInfo->date().start() < candidateDateStart) {
                 candidate = fileName;
                 // Looking at this, can't this just be iInfo->date().start()?

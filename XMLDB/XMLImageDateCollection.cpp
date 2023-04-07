@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -77,15 +77,16 @@ DB::ImageCount XMLDB::XMLImageDateCollection::count(const DB::ImageDate &range)
         for (StartIndexMap::ConstIterator it = endSearch.value();
              it != m_startIndex.constEnd() && it.key() <= range.end();
              ++it) {
-            DB::ImageDate::MatchType tp = it.value().isIncludedIn(range);
+            using MatchType = DB::ImageDate::MatchType;
+            MatchType tp = it.value().isIncludedIn(range);
             switch (tp) {
-            case DB::ImageDate::ExactMatch:
+            case MatchType::IsContained:
                 exact++;
                 break;
-            case DB::ImageDate::RangeMatch:
+            case MatchType::Overlap:
                 rangeMatch++;
                 break;
-            case DB::ImageDate::DontMatch:
+            case MatchType::NoMatch:
                 break;
             }
         }

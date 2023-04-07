@@ -355,17 +355,17 @@ ImageDate::ImageDate(const QDate &start, const QDate &end, const QTime &time)
 ImageDate::MatchType ImageDate::isIncludedIn(const ImageDate &searchRange) const
 {
     if (searchRange.start() <= start() && searchRange.end() >= end())
-        return ExactMatch;
+        return MatchType::IsContained;
 
     if (searchRange.start() <= end() && searchRange.end() >= start()) {
-        return RangeMatch;
+        return MatchType::Overlap;
     }
-    return DontMatch;
+    return MatchType::NoMatch;
 }
 
 bool ImageDate::includes(const Utilities::FastDateTime &date) const
 {
-    return ImageDate(date).isIncludedIn(*this) == ExactMatch;
+    return ImageDate(date).isIncludedIn(*this) == MatchType::IsContained;
 }
 
 void ImageDate::extendTo(const ImageDate &other)

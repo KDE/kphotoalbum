@@ -68,9 +68,29 @@ public:
     const Utilities::FastDateTime &end() const { return m_end; }
     static QDate parseDate(const QString &date, bool startDate);
 
+    /**
+     * @brief operator <
+     * @param other
+     * @return \c true, if the ImageDate starts earlier than the other ImageDate, or the ImageDate starts at the same moment as the other one, but ends earlier. \c false otherwise
+     */
     bool operator<(const ImageDate &other) const;
+    /**
+     * @brief operator <=
+     * @param other
+     * @return \c true, if the ImageDate starts earlier than the other ImageDate, or the ImageDate starts at the same moment as the other one, but does not end later. \c false otherwise
+     */
     bool operator<=(const ImageDate &other) const;
+    /**
+     * @brief operator ==
+     * @param other
+     * @return \c true, if both ImageDates start and end at the same time, \c false otherwise
+     */
     bool operator==(const ImageDate &other) const;
+    /**
+     * @brief operator !=
+     * @param other
+     * @return \c true, if the two ImageDates are not equal.
+     */
     bool operator!=(const ImageDate &other) const;
 
     /**

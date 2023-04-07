@@ -16,15 +16,15 @@ static const QTime _startOfDay_(0, 0, 0);
 static const QTime _endOfDay_(23, 59, 59);
 
 ImageDate::ImageDate(const QDate &date)
+    : m_start(date, _startOfDay_)
+    , m_end(m_start)
 {
-    m_start = Utilities::FastDateTime(date, _startOfDay_);
-    m_end = m_start;
 }
 
 ImageDate::ImageDate(const Utilities::FastDateTime &date)
+    : m_start(date)
+    , m_end(date)
 {
-    m_start = date;
-    m_end = date;
 }
 
 bool ImageDate::operator<=(const ImageDate &other) const
@@ -34,6 +34,8 @@ bool ImageDate::operator<=(const ImageDate &other) const
 }
 
 ImageDate::ImageDate()
+    : m_start()
+    , m_end()
 {
 }
 

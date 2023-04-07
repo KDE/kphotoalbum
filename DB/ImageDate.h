@@ -148,10 +148,6 @@ public:
      */
     void extendTo(const ImageDate &other);
 
-protected:
-    static QStringList monthNames();
-    static QString formatRegexp();
-
 private:
     Utilities::FastDateTime m_start, m_end;
 };

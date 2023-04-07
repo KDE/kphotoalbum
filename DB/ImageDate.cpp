@@ -15,6 +15,59 @@ using namespace DB;
 static const QTime _startOfDay_(0, 0, 0);
 static const QTime _endOfDay_(23, 59, 59);
 
+namespace
+{
+
+QStringList monthNames()
+{
+    static QStringList res;
+    if (res.isEmpty()) {
+        for (int i = 1; i <= 12; ++i) {
+            res << QLocale().standaloneMonthName(i, QLocale::ShortFormat);
+        }
+        for (int i = 1; i <= 12; ++i) {
+            res << QLocale().standaloneMonthName(i, QLocale::LongFormat);
+        }
+
+        res << i18nc("Abbreviated month name", "jan") << i18nc("Abbreviated month name", "feb")
+            << i18nc("Abbreviated month name", "mar") << i18nc("Abbreviated month name", "apr")
+            << i18nc("Abbreviated month name", "may") << i18nc("Abbreviated month name", "jun")
+            << i18nc("Abbreviated month name", "jul") << i18nc("Abbreviated month name", "aug")
+            << i18nc("Abbreviated month name", "sep") << i18nc("Abbreviated month name", "oct")
+            << i18nc("Abbreviated month name", "nov") << i18nc("Abbreviated month name", "dec");
+        res << QString::fromLatin1("jan") << QString::fromLatin1("feb") << QString::fromLatin1("mar") << QString::fromLatin1("apr")
+            << QString::fromLatin1("may") << QString::fromLatin1("jun") << QString::fromLatin1("jul") << QString::fromLatin1("aug")
+            << QString::fromLatin1("sep") << QString::fromLatin1("oct") << QString::fromLatin1("nov") << QString::fromLatin1("dec");
+
+        for (int i = 1; i <= 12; ++i) {
+            res << QLocale().monthName(i, QLocale::ShortFormat);
+        }
+        for (int i = 1; i <= 12; ++i) {
+            res << QLocale().monthName(i, QLocale::LongFormat);
+        }
+
+        for (QStringList::iterator it = res.begin(); it != res.end(); ++it)
+            *it = it->toLower();
+    }
+    return res;
+}
+
+QString formatRegexp()
+{
+    static QString str;
+    if (str.isEmpty()) {
+        str = QString::fromLatin1("^((\\d\\d?)([-. /]+|$))?((");
+        QStringList months = monthNames();
+        for (QStringList::ConstIterator monthIt = months.constBegin(); monthIt != months.constEnd(); ++monthIt)
+            str += QString::fromLatin1("%1|").arg(*monthIt);
+
+        str += QString::fromLatin1("\\d?\\d)([-. /]+|$))?(\\d\\d(\\d\\d)?)?$");
+    }
+    return str;
+}
+
+} // namespace
+
 ImageDate::ImageDate(const QDate &date)
     : m_start(date, _startOfDay_)
     , m_end(m_start)
@@ -142,20 +195,6 @@ bool ImageDate::operator!=(const ImageDate &other) const
     return !(*this == other);
 }
 
-QString ImageDate::formatRegexp()
-{
-    static QString str;
-    if (str.isEmpty()) {
-        str = QString::fromLatin1("^((\\d\\d?)([-. /]+|$))?((");
-        QStringList months = monthNames();
-        for (QStringList::ConstIterator monthIt = months.constBegin(); monthIt != months.constEnd(); ++monthIt)
-            str += QString::fromLatin1("%1|").arg(*monthIt);
-
-        str += QString::fromLatin1("\\d?\\d)([-. /]+|$))?(\\d\\d(\\d\\d)?)?$");
-    }
-    return str;
-}
-
 bool ImageDate::operator<(const ImageDate &other) const
 {
     return start() < other.start() || (start() == other.start() && end() < other.end());
@@ -241,13 +280,13 @@ ImageDate::ImageDate(int yearFrom, int monthFrom, int dayFrom, int yearTo, int m
 
 QDate ImageDate::parseDate(const QString &date, bool startDate)
 {
-    int year = 0;
-    int month = 0;
-    int day = 0;
-
     QRegExp regexp(formatRegexp(), Qt::CaseInsensitive);
 
     if (regexp.exactMatch(date)) {
+        int year = 0;
+        int month = 0;
+        int day = 0;
+
         QString dayStr = regexp.cap(2);
         QString monthStr = regexp.cap(5).toLower();
         QString yearStr = regexp.cap(7);
@@ -343,40 +382,6 @@ void ImageDate::extendTo(const ImageDate &other)
         if (other.m_end > m_end)
             m_end = other.m_end;
     }
-}
-
-QStringList DB::ImageDate::monthNames()
-{
-    static QStringList res;
-    if (res.isEmpty()) {
-        for (int i = 1; i <= 12; ++i) {
-            res << QLocale().standaloneMonthName(i, QLocale::ShortFormat);
-        }
-        for (int i = 1; i <= 12; ++i) {
-            res << QLocale().standaloneMonthName(i, QLocale::LongFormat);
-        }
-
-        res << i18nc("Abbreviated month name", "jan") << i18nc("Abbreviated month name", "feb")
-            << i18nc("Abbreviated month name", "mar") << i18nc("Abbreviated month name", "apr")
-            << i18nc("Abbreviated month name", "may") << i18nc("Abbreviated month name", "jun")
-            << i18nc("Abbreviated month name", "jul") << i18nc("Abbreviated month name", "aug")
-            << i18nc("Abbreviated month name", "sep") << i18nc("Abbreviated month name", "oct")
-            << i18nc("Abbreviated month name", "nov") << i18nc("Abbreviated month name", "dec");
-        res << QString::fromLatin1("jan") << QString::fromLatin1("feb") << QString::fromLatin1("mar") << QString::fromLatin1("apr")
-            << QString::fromLatin1("may") << QString::fromLatin1("jun") << QString::fromLatin1("jul") << QString::fromLatin1("aug")
-            << QString::fromLatin1("sep") << QString::fromLatin1("oct") << QString::fromLatin1("nov") << QString::fromLatin1("dec");
-
-        for (int i = 1; i <= 12; ++i) {
-            res << QLocale().monthName(i, QLocale::ShortFormat);
-        }
-        for (int i = 1; i <= 12; ++i) {
-            res << QLocale().monthName(i, QLocale::LongFormat);
-        }
-
-        for (QStringList::iterator it = res.begin(); it != res.end(); ++it)
-            *it = it->toLower();
-    }
-    return res;
 }
 
 QDebug operator<<(QDebug debug, const DB::ImageDate &d)

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-02 00:44+0000\n"
+"POT-Creation-Date: 2023-04-08 00:44+0000\n"
 "PO-Revision-Date: 2017-10-16 18:16+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -37,17 +37,17 @@ msgstr "sng@hellug.gr, manolis@koppermind.homelinux.org,sstavra@gmail.com"
 msgid "Tag is already used for another area"
 msgstr "Η καρτέλα χρησιμοποιείται ήδη για άλλη περιοχή"
 
-#: AnnotationDialog/DateEdit.cpp:70
+#: AnnotationDialog/DateEdit.cpp:69
 #, kde-format
 msgid "tomorrow"
 msgstr "αύριο"
 
-#: AnnotationDialog/DateEdit.cpp:71
+#: AnnotationDialog/DateEdit.cpp:70
 #, kde-format
 msgid "today"
 msgstr "σήμερα"
 
-#: AnnotationDialog/DateEdit.cpp:72
+#: AnnotationDialog/DateEdit.cpp:71
 #, kde-format
 msgid "yesterday"
 msgstr "χθες"
@@ -98,7 +98,7 @@ msgstr ""
 "στις πληροφορίες EXIF της εικόνας εισάγεται σε αυτό το πεδίο αν είναι "
 "διαθέσιμο.</para>"
 
-#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:147
+#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:146
 #, kde-format
 msgid "Cancel"
 msgstr "Ακύρωση"
@@ -1260,79 +1260,79 @@ msgstr "Σφάλμα κατά την αποθήκευση της εικόνας 
 msgid "Error Saving Image"
 msgstr "Σφάλμα αποθήκευσης εικόνας"
 
-#: DB/ImageDate.cpp:358
+#: DB/ImageDate.cpp:32
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jan"
 msgstr "ιαν"
 
-#: DB/ImageDate.cpp:358
+#: DB/ImageDate.cpp:32
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "feb"
 msgstr "φεβ"
 
-#: DB/ImageDate.cpp:359
+#: DB/ImageDate.cpp:33
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "mar"
 msgstr "μαρ"
 
-#: DB/ImageDate.cpp:359
+#: DB/ImageDate.cpp:33
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "apr"
 msgstr "απρ"
 
-#: DB/ImageDate.cpp:360
+#: DB/ImageDate.cpp:34
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "may"
 msgstr "μάι"
 
-#: DB/ImageDate.cpp:360
+#: DB/ImageDate.cpp:34
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jun"
 msgstr "ιούν"
 
-#: DB/ImageDate.cpp:361
+#: DB/ImageDate.cpp:35
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jul"
 msgstr "ιούλ"
 
-#: DB/ImageDate.cpp:361
+#: DB/ImageDate.cpp:35
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "aug"
 msgstr "αυγ"
 
-#: DB/ImageDate.cpp:362
+#: DB/ImageDate.cpp:36
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "sep"
 msgstr "σεπ"
 
-#: DB/ImageDate.cpp:362
+#: DB/ImageDate.cpp:36
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "oct"
 msgstr "οκτ"
 
-#: DB/ImageDate.cpp:363
+#: DB/ImageDate.cpp:37
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "nov"
 msgstr "νοε"
 
-#: DB/ImageDate.cpp:363
+#: DB/ImageDate.cpp:37
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "δεκ"
 
-#: DB/ImageDB.cpp:146
+#: DB/ImageDB.cpp:145
 #, kde-format
 msgid "Loading information from images"
 msgstr "Φόρτωση πληροφοριών από εικόνες"
@@ -4881,7 +4881,7 @@ msgid "Folder"
 msgstr "Φάκελος"
 
 #: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
-#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:660 XMLDB/FileReader.cpp:125
+#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
 msgstr "Τύπος μέσου"
@@ -6989,26 +6989,26 @@ msgstr ""
 msgid "Found Autosave File"
 msgstr "Βρέθηκε αυτόματα αποθηκευμένο αρχείο"
 
-#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:127
+#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:662 XMLDB/FileReader.cpp:127
 #, fuzzy, kde-format
 #| msgctxt "Denotes the media type (video,image)"
 #| msgid "Image"
 msgid "Image"
 msgstr "Εικόνα"
 
-#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:662 XMLDB/FileReader.cpp:128
+#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:663 XMLDB/FileReader.cpp:128
 #, fuzzy, kde-format
 #| msgctxt "Denotes the media type (video,image)"
 #| msgid "Video"
 msgid "Video"
 msgstr "Βίντεο"
 
-#: XMLDB/Database.cpp:807
+#: XMLDB/Database.cpp:808
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr ""
 
-#: XMLDB/Database.cpp:808
+#: XMLDB/Database.cpp:809
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "

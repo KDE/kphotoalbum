@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-02 00:44+0000\n"
+"POT-Creation-Date: 2023-04-08 00:44+0000\n"
 "PO-Revision-Date: 2022-06-27 20:24+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -40,17 +40,17 @@ msgstr ""
 msgid "Tag is already used for another area"
 msgstr "Znacznik jest już używany dla innego obszaru"
 
-#: AnnotationDialog/DateEdit.cpp:70
+#: AnnotationDialog/DateEdit.cpp:69
 #, kde-format
 msgid "tomorrow"
 msgstr "jutro"
 
-#: AnnotationDialog/DateEdit.cpp:71
+#: AnnotationDialog/DateEdit.cpp:70
 #, kde-format
 msgid "today"
 msgstr "dzisiaj"
 
-#: AnnotationDialog/DateEdit.cpp:72
+#: AnnotationDialog/DateEdit.cpp:71
 #, kde-format
 msgid "yesterday"
 msgstr "wczoraj"
@@ -94,7 +94,7 @@ msgstr ""
 "emphasis> to opis osadzony w informacjach o obrazie Exif zostanie "
 "zaimportowany do tego pola, jeśli będzie dostępny.</para>"
 
-#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:147
+#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:146
 #, kde-format
 msgid "Cancel"
 msgstr "Anuluj"
@@ -1233,79 +1233,79 @@ msgstr "Błąd podczas zapisywania obrazu '%1'."
 msgid "Error Saving Image"
 msgstr "Błąd zapisywania obrazu"
 
-#: DB/ImageDate.cpp:358
+#: DB/ImageDate.cpp:32
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jan"
 msgstr "sty"
 
-#: DB/ImageDate.cpp:358
+#: DB/ImageDate.cpp:32
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "feb"
 msgstr "lut"
 
-#: DB/ImageDate.cpp:359
+#: DB/ImageDate.cpp:33
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "mar"
 msgstr "mar"
 
-#: DB/ImageDate.cpp:359
+#: DB/ImageDate.cpp:33
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "apr"
 msgstr "kwi"
 
-#: DB/ImageDate.cpp:360
+#: DB/ImageDate.cpp:34
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "may"
 msgstr "maj"
 
-#: DB/ImageDate.cpp:360
+#: DB/ImageDate.cpp:34
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jun"
 msgstr "cze"
 
-#: DB/ImageDate.cpp:361
+#: DB/ImageDate.cpp:35
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jul"
 msgstr "lip"
 
-#: DB/ImageDate.cpp:361
+#: DB/ImageDate.cpp:35
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "aug"
 msgstr "sie"
 
-#: DB/ImageDate.cpp:362
+#: DB/ImageDate.cpp:36
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "sep"
 msgstr "wrz"
 
-#: DB/ImageDate.cpp:362
+#: DB/ImageDate.cpp:36
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "oct"
 msgstr "paź"
 
-#: DB/ImageDate.cpp:363
+#: DB/ImageDate.cpp:37
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "nov"
 msgstr "lis"
 
-#: DB/ImageDate.cpp:363
+#: DB/ImageDate.cpp:37
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "gru"
 
-#: DB/ImageDB.cpp:146
+#: DB/ImageDB.cpp:145
 #, kde-format
 msgid "Loading information from images"
 msgstr "Wczytywanie informacji z obrazów"
@@ -4747,7 +4747,7 @@ msgid "Folder"
 msgstr "Katalog"
 
 #: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
-#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:660 XMLDB/FileReader.cpp:125
+#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
 msgstr "Typ nośnika"
@@ -6871,22 +6871,22 @@ msgstr ""
 msgid "Found Autosave File"
 msgstr "Znaleziono plik samoczynnego zapisu"
 
-#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:127
+#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:662 XMLDB/FileReader.cpp:127
 #, kde-format
 msgid "Image"
 msgstr "Obraz"
 
-#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:662 XMLDB/FileReader.cpp:128
+#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:663 XMLDB/FileReader.cpp:128
 #, kde-format
 msgid "Video"
 msgstr "Film"
 
-#: XMLDB/Database.cpp:807
+#: XMLDB/Database.cpp:808
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr "KPhotoAlbum - wymagana naprawa ręczna (%1)"
 
-#: XMLDB/Database.cpp:808
+#: XMLDB/Database.cpp:809
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "

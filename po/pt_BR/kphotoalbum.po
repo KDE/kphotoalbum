@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-02 00:44+0000\n"
+"POT-Creation-Date: 2023-04-08 00:44+0000\n"
 "PO-Revision-Date: 2021-02-18 13:51-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -41,17 +41,17 @@ msgstr "alvarenga@kde.org"
 msgid "Tag is already used for another area"
 msgstr ""
 
-#: AnnotationDialog/DateEdit.cpp:70
+#: AnnotationDialog/DateEdit.cpp:69
 #, kde-format
 msgid "tomorrow"
 msgstr "amanhã"
 
-#: AnnotationDialog/DateEdit.cpp:71
+#: AnnotationDialog/DateEdit.cpp:70
 #, kde-format
 msgid "today"
 msgstr "hoje"
 
-#: AnnotationDialog/DateEdit.cpp:72
+#: AnnotationDialog/DateEdit.cpp:71
 #, kde-format
 msgid "yesterday"
 msgstr "ontem"
@@ -102,7 +102,7 @@ msgstr ""
 "informações EXIF da imagem será importada para este campo, caso esteja "
 "disponível.</para>"
 
-#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:147
+#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:146
 #, kde-format
 msgid "Cancel"
 msgstr "Cancelar"
@@ -1234,79 +1234,79 @@ msgstr "Erro ao salvar a imagem '%1'."
 msgid "Error Saving Image"
 msgstr "Erro no salvamento da imagem"
 
-#: DB/ImageDate.cpp:358
+#: DB/ImageDate.cpp:32
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jan"
 msgstr "jan"
 
-#: DB/ImageDate.cpp:358
+#: DB/ImageDate.cpp:32
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "feb"
 msgstr "fev"
 
-#: DB/ImageDate.cpp:359
+#: DB/ImageDate.cpp:33
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "mar"
 msgstr "mar"
 
-#: DB/ImageDate.cpp:359
+#: DB/ImageDate.cpp:33
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "apr"
 msgstr "abr"
 
-#: DB/ImageDate.cpp:360
+#: DB/ImageDate.cpp:34
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "may"
 msgstr "mai"
 
-#: DB/ImageDate.cpp:360
+#: DB/ImageDate.cpp:34
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jun"
 msgstr "jun"
 
-#: DB/ImageDate.cpp:361
+#: DB/ImageDate.cpp:35
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jul"
 msgstr "jul"
 
-#: DB/ImageDate.cpp:361
+#: DB/ImageDate.cpp:35
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "aug"
 msgstr "ago"
 
-#: DB/ImageDate.cpp:362
+#: DB/ImageDate.cpp:36
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "sep"
 msgstr "set"
 
-#: DB/ImageDate.cpp:362
+#: DB/ImageDate.cpp:36
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "oct"
 msgstr "out"
 
-#: DB/ImageDate.cpp:363
+#: DB/ImageDate.cpp:37
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "nov"
 msgstr "nov"
 
-#: DB/ImageDate.cpp:363
+#: DB/ImageDate.cpp:37
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "dez"
 
-#: DB/ImageDB.cpp:146
+#: DB/ImageDB.cpp:145
 #, kde-format
 msgid "Loading information from images"
 msgstr "Carregando informações das imagens"
@@ -4779,7 +4779,7 @@ msgid "Folder"
 msgstr "Pasta"
 
 #: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
-#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:660 XMLDB/FileReader.cpp:125
+#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
 msgstr "Tipo de mídia"
@@ -6845,22 +6845,22 @@ msgstr ""
 msgid "Found Autosave File"
 msgstr "Arquivo de gravação automática encontrado"
 
-#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:127
+#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:662 XMLDB/FileReader.cpp:127
 #, kde-format
 msgid "Image"
 msgstr "Imagem"
 
-#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:662 XMLDB/FileReader.cpp:128
+#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:663 XMLDB/FileReader.cpp:128
 #, kde-format
 msgid "Video"
 msgstr "Vídeo"
 
-#: XMLDB/Database.cpp:807
+#: XMLDB/Database.cpp:808
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr ""
 
-#: XMLDB/Database.cpp:808
+#: XMLDB/Database.cpp:809
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "

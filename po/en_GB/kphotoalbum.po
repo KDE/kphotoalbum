@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-02 00:44+0000\n"
+"POT-Creation-Date: 2023-04-08 00:44+0000\n"
 "PO-Revision-Date: 2023-02-27 20:37+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
@@ -33,17 +33,17 @@ msgstr "andrew_coles@yahoo.co.uk, steve.allewell@gmail.com"
 msgid "Tag is already used for another area"
 msgstr "Tag is already used for another area"
 
-#: AnnotationDialog/DateEdit.cpp:70
+#: AnnotationDialog/DateEdit.cpp:69
 #, kde-format
 msgid "tomorrow"
 msgstr "tomorrow"
 
-#: AnnotationDialog/DateEdit.cpp:71
+#: AnnotationDialog/DateEdit.cpp:70
 #, kde-format
 msgid "today"
 msgstr "today"
 
-#: AnnotationDialog/DateEdit.cpp:72
+#: AnnotationDialog/DateEdit.cpp:71
 #, kde-format
 msgid "yesterday"
 msgstr "yesterday"
@@ -87,7 +87,7 @@ msgstr ""
 "KPhotoAlbum...|General</interface>, a description embedded in the image EXIF "
 "information is imported to this field if available.</para>"
 
-#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:147
+#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:146
 #, kde-format
 msgid "Cancel"
 msgstr "Cancel"
@@ -1196,79 +1196,79 @@ msgstr "Error when saving image '%1'."
 msgid "Error Saving Image"
 msgstr "Error Saving Image"
 
-#: DB/ImageDate.cpp:358
+#: DB/ImageDate.cpp:32
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jan"
 msgstr "Jan"
 
-#: DB/ImageDate.cpp:358
+#: DB/ImageDate.cpp:32
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "feb"
 msgstr "Feb"
 
-#: DB/ImageDate.cpp:359
+#: DB/ImageDate.cpp:33
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "mar"
 msgstr "Mar"
 
-#: DB/ImageDate.cpp:359
+#: DB/ImageDate.cpp:33
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "apr"
 msgstr "Apr"
 
-#: DB/ImageDate.cpp:360
+#: DB/ImageDate.cpp:34
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "may"
 msgstr "May"
 
-#: DB/ImageDate.cpp:360
+#: DB/ImageDate.cpp:34
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jun"
 msgstr "Jun"
 
-#: DB/ImageDate.cpp:361
+#: DB/ImageDate.cpp:35
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jul"
 msgstr "Jul"
 
-#: DB/ImageDate.cpp:361
+#: DB/ImageDate.cpp:35
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "aug"
 msgstr "Aug"
 
-#: DB/ImageDate.cpp:362
+#: DB/ImageDate.cpp:36
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "sep"
 msgstr "Sep"
 
-#: DB/ImageDate.cpp:362
+#: DB/ImageDate.cpp:36
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "oct"
 msgstr "Oct"
 
-#: DB/ImageDate.cpp:363
+#: DB/ImageDate.cpp:37
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "nov"
 msgstr "Nov"
 
-#: DB/ImageDate.cpp:363
+#: DB/ImageDate.cpp:37
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "Dec"
 
-#: DB/ImageDB.cpp:146
+#: DB/ImageDB.cpp:145
 #, kde-format
 msgid "Loading information from images"
 msgstr "Loading information from images"
@@ -4560,7 +4560,7 @@ msgid "Folder"
 msgstr "Folder"
 
 #: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
-#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:660 XMLDB/FileReader.cpp:125
+#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
 msgstr "Media Type"
@@ -6640,22 +6640,22 @@ msgstr ""
 msgid "Found Autosave File"
 msgstr "Found Autosave File"
 
-#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:127
+#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:662 XMLDB/FileReader.cpp:127
 #, kde-format
 msgid "Image"
 msgstr "Image"
 
-#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:662 XMLDB/FileReader.cpp:128
+#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:663 XMLDB/FileReader.cpp:128
 #, kde-format
 msgid "Video"
 msgstr "Video"
 
-#: XMLDB/Database.cpp:807
+#: XMLDB/Database.cpp:808
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr "KPhotoAlbum - manual repair needed (%1)"
 
-#: XMLDB/Database.cpp:808
+#: XMLDB/Database.cpp:809
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "

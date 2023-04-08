@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-02 00:44+0000\n"
+"POT-Creation-Date: 2023-04-08 00:44+0000\n"
 "PO-Revision-Date: 2023-03-23 14:38+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -39,17 +39,17 @@ msgstr "tulliana@gmail.com, emir_sari@icloud.com"
 msgid "Tag is already used for another area"
 msgstr "Bu etiket zaten başka bir alan için kullanıldı"
 
-#: AnnotationDialog/DateEdit.cpp:70
+#: AnnotationDialog/DateEdit.cpp:69
 #, kde-format
 msgid "tomorrow"
 msgstr "yarın"
 
-#: AnnotationDialog/DateEdit.cpp:71
+#: AnnotationDialog/DateEdit.cpp:70
 #, kde-format
 msgid "today"
 msgstr "bugün"
 
-#: AnnotationDialog/DateEdit.cpp:72
+#: AnnotationDialog/DateEdit.cpp:71
 #, kde-format
 msgid "yesterday"
 msgstr "dün"
@@ -93,7 +93,7 @@ msgstr ""
 "<emphasis>Exif açıklamasını kullan</emphasis> etkinleştirilmişse görsel Exif "
 "bilgisinde gömülü açıklama bu alana içe aktarılır (varsa).</para>"
 
-#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:147
+#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:146
 #, kde-format
 msgid "Cancel"
 msgstr "İptal"
@@ -1204,79 +1204,79 @@ msgstr "'%1' görseli kaydedilirken hata."
 msgid "Error Saving Image"
 msgstr "Görsel Kaydedilirken Hata Oluştu"
 
-#: DB/ImageDate.cpp:358
+#: DB/ImageDate.cpp:32
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jan"
 msgstr "oca"
 
-#: DB/ImageDate.cpp:358
+#: DB/ImageDate.cpp:32
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "feb"
 msgstr "şub"
 
-#: DB/ImageDate.cpp:359
+#: DB/ImageDate.cpp:33
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "mar"
 msgstr "mar"
 
-#: DB/ImageDate.cpp:359
+#: DB/ImageDate.cpp:33
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "apr"
 msgstr "nis"
 
-#: DB/ImageDate.cpp:360
+#: DB/ImageDate.cpp:34
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "may"
 msgstr "may"
 
-#: DB/ImageDate.cpp:360
+#: DB/ImageDate.cpp:34
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jun"
 msgstr "haz"
 
-#: DB/ImageDate.cpp:361
+#: DB/ImageDate.cpp:35
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jul"
 msgstr "tem"
 
-#: DB/ImageDate.cpp:361
+#: DB/ImageDate.cpp:35
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "aug"
 msgstr "ağu"
 
-#: DB/ImageDate.cpp:362
+#: DB/ImageDate.cpp:36
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "sep"
 msgstr "eyl"
 
-#: DB/ImageDate.cpp:362
+#: DB/ImageDate.cpp:36
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "oct"
 msgstr "eki"
 
-#: DB/ImageDate.cpp:363
+#: DB/ImageDate.cpp:37
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "nov"
 msgstr "kas"
 
-#: DB/ImageDate.cpp:363
+#: DB/ImageDate.cpp:37
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "ara"
 
-#: DB/ImageDB.cpp:146
+#: DB/ImageDB.cpp:145
 #, kde-format
 msgid "Loading information from images"
 msgstr "Görsellerden bilgi yükleniyor"
@@ -4579,7 +4579,7 @@ msgid "Folder"
 msgstr "Klasör"
 
 #: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
-#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:660 XMLDB/FileReader.cpp:125
+#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
 msgstr "Ortam Türü"
@@ -6662,22 +6662,22 @@ msgstr ""
 msgid "Found Autosave File"
 msgstr "Otomatik Kayıt Dosyası Bulundu"
 
-#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:127
+#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:662 XMLDB/FileReader.cpp:127
 #, kde-format
 msgid "Image"
 msgstr "Görsel"
 
-#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:662 XMLDB/FileReader.cpp:128
+#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:663 XMLDB/FileReader.cpp:128
 #, kde-format
 msgid "Video"
 msgstr "Video"
 
-#: XMLDB/Database.cpp:807
+#: XMLDB/Database.cpp:808
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr "K Fotoğraf Albümü - el ile onarım gerekiyor (%1)"
 
-#: XMLDB/Database.cpp:808
+#: XMLDB/Database.cpp:809
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "

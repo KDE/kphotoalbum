@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -311,23 +311,34 @@ AgeSpec dateDifference(const QDate &priorDate, const QDate &laterDate)
 }
 
 #ifdef TEST_DATEDIFF
+
+bool compare(const QString &actual, const QString &expected)
+{
+    const bool isEqual = (actual == expected);
+    if (!isEqual) {
+        qDebug() << "Expected:" << expected << ", got:" << actual;
+    }
+    return isEqual;
+}
 void testDateDifference()
 {
     using namespace Utilities;
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 7, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("0 days"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 10)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("30 days"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("1 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 12)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("1 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 10)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("1 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("2 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 10)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("10 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("11 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 12)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("11 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 10)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("11 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("12 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 12)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("12 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1972, 12, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("17 month"));
-    Q_ASSERT(dateDifference(QDate(1971, 7, 11), QDate(1973, 7, 11)).format(AgeSpec::I18nContext::Birthday) == QString::fromLatin1("2 years"));
+    bool passed = true;
+    passed &= compare(dateDifference(QDate(1971, 7, 11), QDate(1971, 7, 11)).format(AgeSpec::I18nContext::Birthday), QString::fromLatin1("0 days"));
+    passed &= compare(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 10)).format(AgeSpec::I18nContext::Birthday), QString::fromLatin1("30 days"));
+    passed &= compare(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 11)).format(AgeSpec::I18nContext::Birthday), QString::fromLatin1("1 month"));
+    passed &= compare(dateDifference(QDate(1971, 7, 11), QDate(1971, 8, 12)).format(AgeSpec::I18nContext::Birthday), QString::fromLatin1("1 month"));
+    passed &= compare(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 10)).format(AgeSpec::I18nContext::Birthday), QString::fromLatin1("1 month"));
+    passed &= compare(dateDifference(QDate(1971, 7, 11), QDate(1971, 9, 11)).format(AgeSpec::I18nContext::Birthday), QString::fromLatin1("2 month"));
+    passed &= compare(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 10)).format(AgeSpec::I18nContext::Birthday), QString::fromLatin1("10 month"));
+    passed &= compare(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 11)).format(AgeSpec::I18nContext::Birthday), QString::fromLatin1("11 month"));
+    passed &= compare(dateDifference(QDate(1971, 7, 11), QDate(1972, 6, 12)).format(AgeSpec::I18nContext::Birthday), QString::fromLatin1("11 month"));
+    passed &= compare(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 10)).format(AgeSpec::I18nContext::Birthday), QString::fromLatin1("11 month"));
+    passed &= compare(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 11)).format(AgeSpec::I18nContext::Birthday), QString::fromLatin1("12 month"));
+    passed &= compare(dateDifference(QDate(1971, 7, 11), QDate(1972, 7, 12)).format(AgeSpec::I18nContext::Birthday), QString::fromLatin1("12 month"));
+    passed &= compare(dateDifference(QDate(1971, 7, 11), QDate(1972, 12, 11)).format(AgeSpec::I18nContext::Birthday), QString::fromLatin1("17 month"));
+    passed &= compare(dateDifference(QDate(1971, 7, 11), QDate(1973, 7, 11)).format(AgeSpec::I18nContext::Birthday), QString::fromLatin1("2 years"));
+    Q_ASSERT(passed);
     qDebug() << "Tested dateDifference without problems.";
 }
 #endif

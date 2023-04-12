@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-08 00:44+0000\n"
+"POT-Creation-Date: 2023-04-12 00:47+0000\n"
 "PO-Revision-Date: 2023-02-22 16:55+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -5735,35 +5735,35 @@ msgstr[0] "Před rokem"
 msgstr[1] "Před %1 lety"
 msgstr[2] "Před %1 lety"
 
-#: Utilities/DescriptionUtil.cpp:351 Utilities/DescriptionUtil.cpp:377
+#: Utilities/DescriptionUtil.cpp:362 Utilities/DescriptionUtil.cpp:388
 #, kde-format
 msgid " (%1)"
 msgstr " (%1)"
 
-#: Utilities/DescriptionUtil.cpp:353
+#: Utilities/DescriptionUtil.cpp:364
 #, kde-format
 msgid " (&lt; %1)"
 msgstr " (&lt; %1)"
 
-#: Utilities/DescriptionUtil.cpp:356
+#: Utilities/DescriptionUtil.cpp:367
 #, kde-format
 msgctxt "E.g. ' (1-2 years)'"
 msgid " (%1-%2)"
 msgstr " (%1-%2)"
 
-#: Utilities/DescriptionUtil.cpp:358
+#: Utilities/DescriptionUtil.cpp:369
 #, kde-format
 msgctxt "E.g. ' (7 months-1 year)'"
 msgid " (%1-%2)"
 msgstr " (%1-%2)"
 
-#: Utilities/DescriptionUtil.cpp:380
+#: Utilities/DescriptionUtil.cpp:391
 #, kde-format
 msgctxt "E.g. ' (1-2 years ago)'"
 msgid " (%1-%2)"
 msgstr " (%1-%2)"
 
-#: Utilities/DescriptionUtil.cpp:382
+#: Utilities/DescriptionUtil.cpp:393
 #, kde-format
 msgctxt "E.g. '(7 months ago-1 year ago)'"
 msgid " (%1-%2)"

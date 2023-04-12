@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-08 00:44+0000\n"
+"POT-Creation-Date: 2023-04-12 00:47+0000\n"
 "PO-Revision-Date: 2014-12-09 21:03+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -5792,19 +5792,19 @@ msgid_plural "%1 years ago"
 msgstr[0] "1 év"
 msgstr[1] "%1 év"
 
-#: Utilities/DescriptionUtil.cpp:351 Utilities/DescriptionUtil.cpp:377
+#: Utilities/DescriptionUtil.cpp:362 Utilities/DescriptionUtil.cpp:388
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"
 msgid " (%1)"
 msgstr " (%1MP)"
 
-#: Utilities/DescriptionUtil.cpp:353
+#: Utilities/DescriptionUtil.cpp:364
 #, kde-format
 msgid " (&lt; %1)"
 msgstr ""
 
-#: Utilities/DescriptionUtil.cpp:356
+#: Utilities/DescriptionUtil.cpp:367
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"
@@ -5812,7 +5812,7 @@ msgctxt "E.g. ' (1-2 years)'"
 msgid " (%1-%2)"
 msgstr " (%1MP)"
 
-#: Utilities/DescriptionUtil.cpp:358
+#: Utilities/DescriptionUtil.cpp:369
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"
@@ -5820,7 +5820,7 @@ msgctxt "E.g. ' (7 months-1 year)'"
 msgid " (%1-%2)"
 msgstr " (%1MP)"
 
-#: Utilities/DescriptionUtil.cpp:380
+#: Utilities/DescriptionUtil.cpp:391
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"
@@ -5828,7 +5828,7 @@ msgctxt "E.g. ' (1-2 years ago)'"
 msgid " (%1-%2)"
 msgstr " (%1MP)"
 
-#: Utilities/DescriptionUtil.cpp:382
+#: Utilities/DescriptionUtil.cpp:393
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"

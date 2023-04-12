@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-08 00:44+0000\n"
+"POT-Creation-Date: 2023-04-12 00:47+0000\n"
 "PO-Revision-Date: 2019-01-19 19:46+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -6077,19 +6077,19 @@ msgid "1 year ago"
 msgid_plural "%1 years ago"
 msgstr[0] ""
 
-#: Utilities/DescriptionUtil.cpp:351 Utilities/DescriptionUtil.cpp:377
+#: Utilities/DescriptionUtil.cpp:362 Utilities/DescriptionUtil.cpp:388
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"
 msgid " (%1)"
 msgstr "（%1百萬像素）"
 
-#: Utilities/DescriptionUtil.cpp:353
+#: Utilities/DescriptionUtil.cpp:364
 #, kde-format
 msgid " (&lt; %1)"
 msgstr ""
 
-#: Utilities/DescriptionUtil.cpp:356
+#: Utilities/DescriptionUtil.cpp:367
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"
@@ -6097,7 +6097,7 @@ msgctxt "E.g. ' (1-2 years)'"
 msgid " (%1-%2)"
 msgstr "（%1百萬像素）"
 
-#: Utilities/DescriptionUtil.cpp:358
+#: Utilities/DescriptionUtil.cpp:369
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"
@@ -6105,7 +6105,7 @@ msgctxt "E.g. ' (7 months-1 year)'"
 msgid " (%1-%2)"
 msgstr "（%1百萬像素）"
 
-#: Utilities/DescriptionUtil.cpp:380
+#: Utilities/DescriptionUtil.cpp:391
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"
@@ -6113,7 +6113,7 @@ msgctxt "E.g. ' (1-2 years ago)'"
 msgid " (%1-%2)"
 msgstr "（%1百萬像素）"
 
-#: Utilities/DescriptionUtil.cpp:382
+#: Utilities/DescriptionUtil.cpp:393
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"

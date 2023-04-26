@@ -1,6 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -131,7 +130,7 @@ public:
     /**
      * @brief Check all thumbnails for consistency with thumbnailSize().
      * Only the thumbnails which are saved to disk are checked.
-     * If you have changed changed the cache you need to save it to guarantee correct results.
+     * If you have changed the cache you need to save it to guarantee correct results.
      * @return all thumbnails that do not match the expected image dimensions.
      */
     DB::FileNameList findIncorrectlySizedThumbnails() const;
@@ -194,6 +193,12 @@ Q_SIGNALS:
      * At the time the signal is emitted, the cache is not dirty (i.e. a full save was performed).
      */
     void saveComplete();
+
+    /**
+     * @brief thumbnailChanged is emitted when a thumbnail for a file was inserted.
+     * @param name the name of the inserted or updated file
+     */
+    void thumbnailUpdated(const DB::FileName &name);
 
 private:
     /**

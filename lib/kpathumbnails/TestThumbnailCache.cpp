@@ -1,5 +1,4 @@
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
@@ -134,6 +133,8 @@ void KPATest::TestThumbnailCache::insertRemove()
     QCOMPARE(thumbnailCache.actualFileVersion(), -1);
 
     // insert some images
+    QSignalSpy thumbnailUpdatedSpy { &thumbnailCache, &ImageManager::ThumbnailCache::thumbnailUpdated };
+    QVERIFY2(thumbnailUpdatedSpy.isValid(), msgPreconditionFailed);
     // the image needs to be valid
     QImage nullImage {};
     const auto nullImageFileName = DB::FileName::fromRelativePath(QStringLiteral("nullImage.jpg"));
@@ -141,6 +142,7 @@ void KPATest::TestThumbnailCache::insertRemove()
     thumbnailCache.insert(nullImageFileName, nullImage);
     QCOMPARE(thumbnailCache.size(), 0);
     QVERIFY(!thumbnailCache.contains(nullImageFileName));
+    QCOMPARE(thumbnailUpdatedSpy.count(), 0);
 
     const int thumbnailSize = thumbnailCache.thumbnailSize();
     QVERIFY2(thumbnailSize > 0, "Thumbnail size must be greater than 0!");
@@ -151,6 +153,8 @@ void KPATest::TestThumbnailCache::insertRemove()
     thumbnailCache.insert(someImageFileName, someImage);
     QCOMPARE(thumbnailCache.size(), 1);
     QVERIFY(thumbnailCache.contains(someImageFileName));
+    QCOMPARE(thumbnailUpdatedSpy.count(), 1);
+    thumbnailUpdatedSpy.clear();
 
     QImage otherImage { thumbnailSize, thumbnailSize, QImage::Format_RGB32 };
     otherImage.fill(Qt::green);
@@ -159,6 +163,8 @@ void KPATest::TestThumbnailCache::insertRemove()
     thumbnailCache.insert(otherImageFileName, otherImage);
     QCOMPARE(thumbnailCache.size(), 2);
     QVERIFY(thumbnailCache.contains(otherImageFileName));
+    QCOMPARE(thumbnailUpdatedSpy.count(), 1);
+    thumbnailUpdatedSpy.clear();
 
     // TODO(jzarl) inserted images should be the same as the ones we look up
     QByteArray someImageData;

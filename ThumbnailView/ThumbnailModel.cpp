@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -38,6 +38,7 @@ ThumbnailView::ThumbnailModel::ThumbnailModel(ThumbnailFactory *factory, const I
 
     m_filter.setSearchMode(0);
     connect(this, &ThumbnailModel::filterChanged, this, &ThumbnailModel::updateDisplayModel);
+    connect(m_thumbnailCache, &ImageManager::ThumbnailCache::thumbnailUpdated, this, qOverload<const DB::FileName &>(&ThumbnailModel::updateCell));
 }
 
 static bool stackOrderComparator(const DB::FileName &a, const DB::FileName &b)

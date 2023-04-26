@@ -962,7 +962,7 @@ void MainWindow::Window::setupMenuBar()
     a = actionCollection()->addAction(QLatin1String("mergeDuplicates"), this, &Window::mergeDuplicates);
     a->setText(i18n("Merge duplicates"));
     a = actionCollection()->addAction(QString::fromLatin1("rebuildMD5s"), this, &Window::slotRecalcCheckSums);
-    a->setText(i18n("Recalculate Checksum"));
+    a->setText(i18n("Refresh Selected Thumbnails and Checksums"));
 
     a = actionCollection()->addAction(QString::fromLatin1("rescan"), DB::ImageDB::instance(), &DB::ImageDB::slotRescan);
     a->setIcon(QIcon::fromTheme(QString::fromLatin1("document-import")));
@@ -1018,8 +1018,8 @@ void MainWindow::Window::setupMenuBar()
     m_showExifDialog = actionCollection()->addAction(QString::fromLatin1("showExifInfo"), this, &Window::slotShowExifInfo);
     m_showExifDialog->setText(i18n("Show Exif Info and file metadata"));
 
-    m_recreateThumbnails = actionCollection()->addAction(QString::fromLatin1("recreateThumbnails"), m_thumbnailView, &ThumbnailView::ThumbnailFacade::slotRecreateThumbnail);
-    m_recreateThumbnails->setText(i18n("Recreate Selected Thumbnails"));
+    m_recreateThumbnails = actionCollection()->addAction(QString::fromLatin1("recreateThumbnails"), this, &Window::slotRecalcCheckSums);
+    m_recreateThumbnails->setText(i18n("Refresh Selected Thumbnails and Checksums"));
 
     m_useNextVideoThumbnail = actionCollection()->addAction(QString::fromLatin1("useNextVideoThumbnail"), this, &Window::useNextVideoThumbnail);
     m_useNextVideoThumbnail->setText(i18n("Use next video thumbnail"));

@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -10,6 +10,7 @@
 #include "ImageScout.h"
 #include "MD5Map.h"
 
+#include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <BackgroundJobs/ReadVideoLengthJob.h>
 #include <BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.h>
 #include <BackgroundTaskManager/JobManager.h>
@@ -712,6 +713,7 @@ bool NewImageFinder::calculateMD5sums(
             info->setMD5Sum(md5);
             dirty = true;
             MainWindow::Window::theMainWindow()->thumbnailCache()->removeThumbnail(fileName);
+            BackgroundJobs::HandleVideoThumbnailRequestJob::removeFullScaleFrame(fileName);
         }
 
         md5Map->insert(md5, fileName);

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-graphics/kphotoalbum.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-12 00:47+0000\n"
+"POT-Creation-Date: 2023-04-27 00:46+0000\n"
 "PO-Revision-Date: 2007-06-29 09:44-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -1296,7 +1296,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "Gan %1 eile"
 
-#: DB/NewImageFinder.cpp:466
+#: DB/NewImageFinder.cpp:467
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1304,7 +1304,7 @@ msgid ""
 "new images are found.</p>"
 msgstr ""
 
-#: DB/NewImageFinder.cpp:681
+#: DB/NewImageFinder.cpp:682
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
@@ -1314,14 +1314,14 @@ msgstr[2] ""
 msgstr[3] ""
 msgstr[4] ""
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:683
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
 "images even when you have moved them on the disk.</p>"
 msgstr ""
 
-#: DB/NewImageFinder.cpp:725
+#: DB/NewImageFinder.cpp:727
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "Níorbh fhéidir na comhaid seo a leanas a léamh:"
@@ -3919,10 +3919,11 @@ msgstr ""
 msgid "Merge duplicates"
 msgstr ""
 
-#: MainWindow/Window.cpp:965
-#, kde-format
-msgid "Recalculate Checksum"
-msgstr "Atháirigh an tsuim sheiceála"
+#: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
+#, fuzzy, kde-format
+#| msgid "Recreate Selected Thumbnails"
+msgid "Refresh Selected Thumbnails and Checksums"
+msgstr "Athchruthaigh na Mionsamhlacha Roghnaithe"
 
 #: MainWindow/Window.cpp:969
 #, kde-format
@@ -3991,11 +3992,6 @@ msgstr ""
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "Taispeáin Faisnéis Exif"
-
-#: MainWindow/Window.cpp:1022
-#, kde-format
-msgid "Recreate Selected Thumbnails"
-msgstr "Athchruthaigh na Mionsamhlacha Roghnaithe"
 
 #: MainWindow/Window.cpp:1025
 #, kde-format
@@ -4462,12 +4458,12 @@ msgstr ""
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
-#: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
+#: ThumbnailView/ThumbnailModel.cpp:351 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "Fillteán"
 
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
 #: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
@@ -6764,6 +6760,9 @@ msgstr ""
 #| msgid "Converting database"
 msgid "Error while reading database file"
 msgstr "Bunachar sonraí á thiontú"
+
+#~ msgid "Recalculate Checksum"
+#~ msgstr "Atháirigh an tsuim sheiceála"
 
 #~ msgid "Really Rename %1?"
 #~ msgstr "Athainmnigh %1 i nDáiríre?"

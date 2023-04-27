@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-12 00:47+0000\n"
+"POT-Creation-Date: 2023-04-27 00:46+0000\n"
 "PO-Revision-Date: 2019-01-19 19:46+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -1298,7 +1298,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "沒有其它的 %1"
 
-#: DB/NewImageFinder.cpp:466
+#: DB/NewImageFinder.cpp:467
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1308,13 +1308,13 @@ msgstr ""
 "<p><b>從新檔案載入資訊</b></p> <p>這個動作可能會花一些時間，根據影像數量而"
 "定。<br /> 不過，只有在找到新影像時會有一些延遲。</p>"
 
-#: DB/NewImageFinder.cpp:681
+#: DB/NewImageFinder.cpp:682
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] "<p><b>正在計算 %1 個檔案的檢查碼</b></p>"
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:683
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1323,7 +1323,7 @@ msgstr ""
 "<p>對每張影像計算檢查碼，可以讓 KPhotoAlbum 即使在您將影像移到別處時，還是能"
 "找到影像。</p>"
 
-#: DB/NewImageFinder.cpp:725
+#: DB/NewImageFinder.cpp:727
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "無法讀取以下檔案："
@@ -4099,10 +4099,11 @@ msgstr "用已變更的 MD5 檢查碼顯示影像與影片"
 msgid "Merge duplicates"
 msgstr "合併重複的項目"
 
-#: MainWindow/Window.cpp:965
-#, kde-format
-msgid "Recalculate Checksum"
-msgstr "重新計算檢查碼"
+#: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
+#, fuzzy, kde-format
+#| msgid "Recreate Selected Thumbnails"
+msgid "Refresh Selected Thumbnails and Checksums"
+msgstr "重新建立選取的縮圖"
 
 #: MainWindow/Window.cpp:969
 #, kde-format
@@ -4171,11 +4172,6 @@ msgstr "顯示範例影片"
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "顯示 Exif 資訊"
-
-#: MainWindow/Window.cpp:1022
-#, kde-format
-msgid "Recreate Selected Thumbnails"
-msgstr "重新建立選取的縮圖"
 
 #: MainWindow/Window.cpp:1025
 #, kde-format
@@ -4644,12 +4640,12 @@ msgstr ""
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
-#: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
+#: ThumbnailView/ThumbnailModel.cpp:351 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "資料夾"
 
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
 #: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
@@ -6997,6 +6993,9 @@ msgstr ""
 #| msgid "Converting database"
 msgid "Error while reading database file"
 msgstr "轉換資料庫"
+
+#~ msgid "Recalculate Checksum"
+#~ msgstr "重新計算檢查碼"
 
 #~ msgid "Really Rename %1?"
 #~ msgstr "確定要重新命名 %1 嗎？"

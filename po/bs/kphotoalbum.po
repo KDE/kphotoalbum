@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-12 00:47+0000\n"
+"POT-Creation-Date: 2023-04-27 00:46+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -1357,7 +1357,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "Bez drugog %1"
 
-#: DB/NewImageFinder.cpp:466
+#: DB/NewImageFinder.cpp:467
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1368,7 +1368,7 @@ msgstr ""
 "broja slika, moglo bi potrajati.<br/>Međutim, tu je odgađanje samo kada je "
 "nova slika pronađena.</p>"
 
-#: DB/NewImageFinder.cpp:681
+#: DB/NewImageFinder.cpp:682
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
@@ -1376,7 +1376,7 @@ msgstr[0] "<p><b>Proračunavanje checksum za %1 datoteku</b></p>"
 msgstr[1] "<p><b>Proračunavanje checksum za %1 datoteke</b></p>"
 msgstr[2] "<p><b>Proračunavanje checksum za %1 datoteka</b></p>"
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:683
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1385,7 +1385,7 @@ msgstr ""
 "<p>Stavljanjem kontrolne sume KPhotoAlbum može tražiti slike i kada ste ih "
 "uklonili s diska.</p>"
 
-#: DB/NewImageFinder.cpp:725
+#: DB/NewImageFinder.cpp:727
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "Sljedeći fajlovi nisu mogli biti pročitani:"
@@ -4294,10 +4294,11 @@ msgstr "Prikaži slike i videe sa promijenjenim MD5 Sum"
 msgid "Merge duplicates"
 msgstr "Spoji duplikate"
 
-#: MainWindow/Window.cpp:965
-#, kde-format
-msgid "Recalculate Checksum"
-msgstr "Preračunaj kontrolnu sumu"
+#: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
+#, fuzzy, kde-format
+#| msgid "Recreate Selected Thumbnails"
+msgid "Refresh Selected Thumbnails and Checksums"
+msgstr "Ponovo kreiraj odabrani Thumbnails"
 
 #: MainWindow/Window.cpp:969
 #, kde-format
@@ -4366,11 +4367,6 @@ msgstr "Prikaži demo videe"
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "Prikaži Exif Info"
-
-#: MainWindow/Window.cpp:1022
-#, kde-format
-msgid "Recreate Selected Thumbnails"
-msgstr "Ponovo kreiraj odabrani Thumbnails"
 
 #: MainWindow/Window.cpp:1025
 #, kde-format
@@ -4869,12 +4865,12 @@ msgstr "<i>Najavljujem promjenu: preimenuj u \"%1\"</i>"
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
-#: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
+#: ThumbnailView/ThumbnailModel.cpp:351 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "Direktorij"
 
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
 #: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
@@ -7320,6 +7316,9 @@ msgstr ""
 #, kde-format
 msgid "Error while reading database file"
 msgstr "Greška prilikom učitavanja datoteke iz baze podataka"
+
+#~ msgid "Recalculate Checksum"
+#~ msgstr "Preračunaj kontrolnu sumu"
 
 #~ msgid "Really Rename %1?"
 #~ msgstr "Stvarno preimenovati %1?"

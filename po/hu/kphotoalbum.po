@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-12 00:47+0000\n"
+"POT-Creation-Date: 2023-04-27 00:46+0000\n"
 "PO-Revision-Date: 2014-12-09 21:03+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -1265,7 +1265,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "Nem egyéb %1"
 
-#: DB/NewImageFinder.cpp:466
+#: DB/NewImageFinder.cpp:467
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1273,21 +1273,21 @@ msgid ""
 "new images are found.</p>"
 msgstr ""
 
-#: DB/NewImageFinder.cpp:681
+#: DB/NewImageFinder.cpp:682
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] "<p><b>Ellenőrzőösszeg számítása %1 fájlhoz</b></p>"
 msgstr[1] "<p><b>Ellenőrzőösszegek számítása %1 fájlhoz</b></p>"
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:683
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
 "images even when you have moved them on the disk.</p>"
 msgstr ""
 
-#: DB/NewImageFinder.cpp:725
+#: DB/NewImageFinder.cpp:727
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "A következő fájlok nem olvashatók:"
@@ -3891,10 +3891,11 @@ msgstr "Megváltozott MD5 összegű képek és videók megjelenítése"
 msgid "Merge duplicates"
 msgstr "Azonosak egyesítése"
 
-#: MainWindow/Window.cpp:965
-#, kde-format
-msgid "Recalculate Checksum"
-msgstr "Ellenőrzőösszeg újraszámolása"
+#: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
+#, fuzzy, kde-format
+#| msgid "Recreate Selected Thumbnails"
+msgid "Refresh Selected Thumbnails and Checksums"
+msgstr "A kijelölt bélyegképek újralétrehozása"
 
 #: MainWindow/Window.cpp:969
 #, kde-format
@@ -3963,11 +3964,6 @@ msgstr "Demó videók megjelenítése"
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "EXIF információk megjelenítése"
-
-#: MainWindow/Window.cpp:1022
-#, kde-format
-msgid "Recreate Selected Thumbnails"
-msgstr "A kijelölt bélyegképek újralétrehozása"
 
 #: MainWindow/Window.cpp:1025
 #, kde-format
@@ -4440,12 +4436,12 @@ msgstr ""
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
-#: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
+#: ThumbnailView/ThumbnailModel.cpp:351 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "Mappa"
 
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
 #: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
@@ -6682,6 +6678,9 @@ msgstr ""
 #, kde-format
 msgid "Error while reading database file"
 msgstr "Hiba történt az adatbázisfájl olvasása közben"
+
+#~ msgid "Recalculate Checksum"
+#~ msgstr "Ellenőrzőösszeg újraszámolása"
 
 #~ msgid "Really Rename %1?"
 #~ msgstr "Valóban átnevezi: %1?"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-12 00:47+0000\n"
+"POT-Creation-Date: 2023-04-27 00:46+0000\n"
 "PO-Revision-Date: 2017-10-16 18:16+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -1361,7 +1361,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "Χωρίς άλλα/ες %1"
 
-#: DB/NewImageFinder.cpp:466
+#: DB/NewImageFinder.cpp:467
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1372,14 +1372,14 @@ msgstr ""
 "εικόνων, αυτό μπορεί να διαρκέσει αρκετά.<br/>Ωστόσο, υπάρχει καθυστέρηση "
 "μόνο όταν βρεθούν νέες εικόνες.</p>"
 
-#: DB/NewImageFinder.cpp:681
+#: DB/NewImageFinder.cpp:682
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] "<p><b>Υπολογισμός αθροίσματος ελέγχου για %1 αρχείο</b></p>"
 msgstr[1] "<p><b>Υπολογισμός αθροισμάτων ελέγχου για %1 αρχεία</b></p>"
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:683
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1388,7 +1388,7 @@ msgstr ""
 "<p>Αποθηκεύοντας ένα άθροισμα ελέγχου για κάθε εικόνα το KPhotoAlbum είναι "
 "ικανό να βρει εικόνες ακόμη και αν τις έχετε μετακινήσει στο δίσκο.</p>"
 
-#: DB/NewImageFinder.cpp:725
+#: DB/NewImageFinder.cpp:727
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "Τα παρακάτω αρχεία δεν μπορούν να αναγνωστούν:"
@@ -4309,10 +4309,11 @@ msgstr "Εμφάνιση εικόνων και βίντεο με αλλαγμέ�
 msgid "Merge duplicates"
 msgstr "Συγχώνευση αντιγράφων"
 
-#: MainWindow/Window.cpp:965
-#, kde-format
-msgid "Recalculate Checksum"
-msgstr "Επανυπολογισμός αθροίσματος ελέγχου"
+#: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
+#, fuzzy, kde-format
+#| msgid "Recreate Selected Thumbnails"
+msgid "Refresh Selected Thumbnails and Checksums"
+msgstr "Επανακατασκευή επιλεγμένων εικόνων επισκόπησης"
 
 #: MainWindow/Window.cpp:969
 #, kde-format
@@ -4382,11 +4383,6 @@ msgstr "Εμφάνιση βίντεο επίδειξης"
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "Εμφάνιση πληροφοριών Exif"
-
-#: MainWindow/Window.cpp:1022
-#, kde-format
-msgid "Recreate Selected Thumbnails"
-msgstr "Επανακατασκευή επιλεγμένων εικόνων επισκόπησης"
 
 #: MainWindow/Window.cpp:1025
 #, kde-format
@@ -4875,12 +4871,12 @@ msgstr ""
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
-#: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
+#: ThumbnailView/ThumbnailModel.cpp:351 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "Φάκελος"
 
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
 #: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
@@ -7350,6 +7346,9 @@ msgstr ""
 #| msgid "Converting database"
 msgid "Error while reading database file"
 msgstr "Μετατροπή βάσης δεδομένων"
+
+#~ msgid "Recalculate Checksum"
+#~ msgstr "Επανυπολογισμός αθροίσματος ελέγχου"
 
 #~ msgid "Really Rename %1?"
 #~ msgstr "Πραγματικά μετονομασία του %1;"

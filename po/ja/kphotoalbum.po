@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-12 00:47+0000\n"
+"POT-Creation-Date: 2023-04-27 00:46+0000\n"
 "PO-Revision-Date: 2008-09-24 00:02+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -1333,7 +1333,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "他の \"%1\" なし"
 
-#: DB/NewImageFinder.cpp:466
+#: DB/NewImageFinder.cpp:467
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1344,14 +1344,14 @@ msgstr ""
 "ります。<br/>といっても、遅延は新しい画像が見つかったときにだけ発生します。</"
 "p>"
 
-#: DB/NewImageFinder.cpp:681
+#: DB/NewImageFinder.cpp:682
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:683
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p><b>Calculating checksum for %1 files<b></p><p>By storing a checksum "
@@ -1365,7 +1365,7 @@ msgstr ""
 "によって、画像がディスク上で移動されても KPhotoAlbum はそれを見つけることがで"
 "きます。</p>"
 
-#: DB/NewImageFinder.cpp:725
+#: DB/NewImageFinder.cpp:727
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "以下のファイルを読めませんでした:"
@@ -4150,10 +4150,11 @@ msgstr "MD5 サムが変わった画像と動画を表示"
 msgid "Merge duplicates"
 msgstr "データをマージ"
 
-#: MainWindow/Window.cpp:965
-#, kde-format
-msgid "Recalculate Checksum"
-msgstr "チェックサムを再計算"
+#: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
+#, fuzzy, kde-format
+#| msgid "Recreate Selected Thumbnails"
+msgid "Refresh Selected Thumbnails and Checksums"
+msgstr "選択したサムネイルを再生成"
 
 #: MainWindow/Window.cpp:969
 #, kde-format
@@ -4223,11 +4224,6 @@ msgstr "デモビデオを表示"
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "Exif 情報を表示"
-
-#: MainWindow/Window.cpp:1022
-#, kde-format
-msgid "Recreate Selected Thumbnails"
-msgstr "選択したサムネイルを再生成"
 
 #: MainWindow/Window.cpp:1025
 #, fuzzy, kde-format
@@ -4688,12 +4684,12 @@ msgstr ""
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
-#: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
+#: ThumbnailView/ThumbnailModel.cpp:351 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "フォルダ"
 
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
 #: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
@@ -7129,6 +7125,9 @@ msgstr ""
 #| msgid "Loading Database"
 msgid "Error while reading database file"
 msgstr "データベースを読み込み"
+
+#~ msgid "Recalculate Checksum"
+#~ msgstr "チェックサムを再計算"
 
 #~ msgid "Really Rename %1?"
 #~ msgstr "本当に %1 の名前を変更しますか？"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-12 00:47+0000\n"
+"POT-Creation-Date: 2023-04-27 00:46+0000\n"
 "PO-Revision-Date: 2019-11-07 12:43+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
@@ -1232,7 +1232,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "Ekkert annað %1"
 
-#: DB/NewImageFinder.cpp:466
+#: DB/NewImageFinder.cpp:467
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1243,14 +1243,14 @@ msgstr ""
 "myndanna hvað það tekur langan tíma.<br/>Hinsvegar er eingöngu töf við "
 "yfirferðina þegar nýjar myndir finnast.</p>"
 
-#: DB/NewImageFinder.cpp:681
+#: DB/NewImageFinder.cpp:682
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] "<p><b>Reikna gátsummu fyrir %1 skrá</b></p>"
 msgstr[1] "<p><b>Reikna gátsummur fyrir %1 skrár</b></p>"
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:683
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1259,7 +1259,7 @@ msgstr ""
 "<p>Með því að geyma gátsummu fyrir hverja mynd þá getur KMyndaAlbúm fundið "
 "aftur myndir jafnvel þegar þú hefur flutt þær til á diskinum.</p>"
 
-#: DB/NewImageFinder.cpp:725
+#: DB/NewImageFinder.cpp:727
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "Eftirfarandi skrár tókst ekki að lesa:"
@@ -3827,10 +3827,11 @@ msgstr "Birta myndir og myndskeið með breyttri MD5-gátsummu"
 msgid "Merge duplicates"
 msgstr "Sameina tvítök"
 
-#: MainWindow/Window.cpp:965
-#, kde-format
-msgid "Recalculate Checksum"
-msgstr "Endurreikna gátsummu"
+#: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
+#, fuzzy, kde-format
+#| msgid "Recreate Selected Thumbnails"
+msgid "Refresh Selected Thumbnails and Checksums"
+msgstr "Endurgera valdar smámyndir"
 
 #: MainWindow/Window.cpp:969
 #, kde-format
@@ -3897,11 +3898,6 @@ msgstr "Sýna dæmi um myndskeið"
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "Sýna EXIF upplýsingar"
-
-#: MainWindow/Window.cpp:1022
-#, kde-format
-msgid "Recreate Selected Thumbnails"
-msgstr "Endurgera valdar smámyndir"
 
 #: MainWindow/Window.cpp:1025
 #, kde-format
@@ -4350,12 +4346,12 @@ msgstr ""
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
-#: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
+#: ThumbnailView/ThumbnailModel.cpp:351 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "Mappa"
 
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
 #: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
@@ -6552,6 +6548,9 @@ msgstr "<p>Slóð á gagnagrunnsskrá: <filename>%1</filename></p>"
 #, kde-format
 msgid "Error while reading database file"
 msgstr "Villa við lestur á gagnagrunnsskrá"
+
+#~ msgid "Recalculate Checksum"
+#~ msgstr "Endurreikna gátsummu"
 
 #~ msgid "Really Rename %1?"
 #~ msgstr "Viltu í alvörunni endurnefna %1?"

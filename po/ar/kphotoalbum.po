@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-12 00:47+0000\n"
+"POT-Creation-Date: 2023-04-27 00:46+0000\n"
 "PO-Revision-Date: 2022-10-05 20:32+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -1293,7 +1293,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "لا غير ذلك 1"
 
-#: DB/NewImageFinder.cpp:466
+#: DB/NewImageFinder.cpp:467
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1303,7 +1303,7 @@ msgstr ""
 "<p><b>تحميل معلومات من ملفات جديدة</b></p><p>قد يستغرق ذلك بعض الوقت حسب عدد "
 "الصور.<br/>ولكن سيكون هناك تأخير عند العثور على صور جديدة.</p>"
 
-#: DB/NewImageFinder.cpp:681
+#: DB/NewImageFinder.cpp:682
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
@@ -1314,7 +1314,7 @@ msgstr[3] "<p><b>يحسب تدقيق مجموع %1 ملفات</b></p>"
 msgstr[4] "<p><b>يحسب تدقيق مجموع %1 ملفًا</b></p>"
 msgstr[5] "<p><b>يحسب تدقيق مجموع %1 ملف</b></p>"
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:683
 #, fuzzy, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1324,7 +1324,7 @@ msgstr ""
 "تدقيق المجموع لكل صورة ، يستطيع عندئداً العثور على الصور حتى و لو قمت "
 "بتحريكها على القرص الصلب.</p>"
 
-#: DB/NewImageFinder.cpp:725
+#: DB/NewImageFinder.cpp:727
 #, fuzzy, kde-format
 msgid "Following files could not be read:"
 msgstr "المتابعة ملفات ليس قراءة:"
@@ -3973,10 +3973,11 @@ msgstr "العرض صور و المرئيات مع غُيِّر MD5 مجموع"
 msgid "Merge duplicates"
 msgstr ""
 
-#: MainWindow/Window.cpp:965
-#, kde-format
-msgid "Recalculate Checksum"
-msgstr "إعادة حساب تدقيق المجموع"
+#: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
+#, fuzzy, kde-format
+#| msgid "Recreate Selected Thumbnails"
+msgid "Refresh Selected Thumbnails and Checksums"
+msgstr "إعادة إنشاء الأظافر المحددة"
 
 #: MainWindow/Window.cpp:969
 #, kde-format
@@ -4045,11 +4046,6 @@ msgstr "أعرض المرئيات"
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "أعرض المعلومات لــ EXIF"
-
-#: MainWindow/Window.cpp:1022
-#, kde-format
-msgid "Recreate Selected Thumbnails"
-msgstr "إعادة إنشاء الأظافر المحددة"
 
 #: MainWindow/Window.cpp:1025
 #, fuzzy, kde-format
@@ -4504,12 +4500,12 @@ msgstr ""
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
-#: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
+#: ThumbnailView/ThumbnailModel.cpp:351 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "المجلّد"
 
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
 #: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
@@ -6773,6 +6769,9 @@ msgstr "<p>مسار قاعدة البيانات: <filename>%1</filename></p>"
 #| msgid "Converting database"
 msgid "Error while reading database file"
 msgstr "جاري تحويل قاعدة البيانات"
+
+#~ msgid "Recalculate Checksum"
+#~ msgstr "إعادة حساب تدقيق المجموع"
 
 #~ msgid "Really Rename %1?"
 #~ msgstr "هل حقاً تريد إعادة تسمية %1 ؟"

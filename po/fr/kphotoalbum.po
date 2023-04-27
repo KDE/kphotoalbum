@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-12 00:47+0000\n"
+"POT-Creation-Date: 2023-04-27 00:46+0000\n"
 "PO-Revision-Date: 2023-02-20 19:29+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
@@ -1333,7 +1333,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "Aucun(e) autre %1"
 
-#: DB/NewImageFinder.cpp:466
+#: DB/NewImageFinder.cpp:467
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1345,14 +1345,14 @@ msgstr ""
 ">Cependant, il n'y a de délai que lorsque de nouvelles images sont trouvées."
 "</p>"
 
-#: DB/NewImageFinder.cpp:681
+#: DB/NewImageFinder.cpp:682
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] "<p><b>Calcul de la somme de contrôle pour le fichier %1</b></p>"
 msgstr[1] "<p><b>Calcul des sommes de contrôle pour les fichiers %1</b></p>"
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:683
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1362,7 +1362,7 @@ msgstr ""
 "capable de trouver les images y compris lorsque vous les avez déplacées sur "
 "le disque.</p>"
 
-#: DB/NewImageFinder.cpp:725
+#: DB/NewImageFinder.cpp:727
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "Impossible de lire les fichiers suivants :"
@@ -4100,10 +4100,11 @@ msgstr "Afficher les images et vidéos dont la somme de contrôle MD5 a changé"
 msgid "Merge duplicates"
 msgstr "Fusionner les doublons"
 
-#: MainWindow/Window.cpp:965
-#, kde-format
-msgid "Recalculate Checksum"
-msgstr "Recalculer la somme de contrôle"
+#: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
+#, fuzzy, kde-format
+#| msgid "Recreate Selected Thumbnails"
+msgid "Refresh Selected Thumbnails and Checksums"
+msgstr "Reconstruire les vignettes pour la sélection"
 
 #: MainWindow/Window.cpp:969
 #, kde-format
@@ -4169,11 +4170,6 @@ msgstr "Voir la vidéo de démonstration"
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Afficher les informations « Exif » et les métadonnées de fichier"
-
-#: MainWindow/Window.cpp:1022
-#, kde-format
-msgid "Recreate Selected Thumbnails"
-msgstr "Reconstruire les vignettes pour la sélection"
 
 #: MainWindow/Window.cpp:1025
 #, kde-format
@@ -4656,12 +4652,12 @@ msgstr "<i>Modification prévue : renommer en</i> « %1 »"
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
-#: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
+#: ThumbnailView/ThumbnailModel.cpp:351 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "Dossier"
 
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
 #: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
@@ -7145,6 +7141,9 @@ msgstr "<p>Emplacement de la base de données : <filename>%1</filename></p>"
 #, kde-format
 msgid "Error while reading database file"
 msgstr "Erreur pendant la lecture du fichier de la base de données"
+
+#~ msgid "Recalculate Checksum"
+#~ msgstr "Recalculer la somme de contrôle"
 
 #~ msgid "Really Rename %1?"
 #~ msgstr "Voulez-vous vraiment renommer %1 ?"

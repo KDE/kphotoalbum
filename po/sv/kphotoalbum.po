@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-12 00:47+0000\n"
+"POT-Creation-Date: 2023-04-27 00:46+0000\n"
 "PO-Revision-Date: 2022-10-02 16:49+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -1305,7 +1305,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr "Inga andra %1"
 
-#: DB/NewImageFinder.cpp:466
+#: DB/NewImageFinder.cpp:467
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1316,14 +1316,14 @@ msgstr ""
 "kan detta ta en viss tid.<br/>Det här är dock bara en fördröjning när nya "
 "bilder hittas.</p>"
 
-#: DB/NewImageFinder.cpp:681
+#: DB/NewImageFinder.cpp:682
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] "<p><b>Beräknar checksumma för %1 fil</b></p>"
 msgstr[1] "<p><b>Beräknar checksummor för %1 filer</b></p>"
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:683
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1332,7 +1332,7 @@ msgstr ""
 "<p>Genom att lagra en checksumma för varje bild kan Kfotoalbum hitta bilder "
 "även om du har flyttat dem på disken.</p>"
 
-#: DB/NewImageFinder.cpp:725
+#: DB/NewImageFinder.cpp:727
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "Följande filer kunde inte läsas:"
@@ -4036,10 +4036,11 @@ msgstr "Visa bilder och videor med ändrad MD5-summa"
 msgid "Merge duplicates"
 msgstr "Sammanfoga dubbletter"
 
-#: MainWindow/Window.cpp:965
-#, kde-format
-msgid "Recalculate Checksum"
-msgstr "Beräkna checksumma igen"
+#: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
+#, fuzzy, kde-format
+#| msgid "Recreate Selected Thumbnails"
+msgid "Refresh Selected Thumbnails and Checksums"
+msgstr "Skapa om markerade miniatyrbilder"
 
 #: MainWindow/Window.cpp:969
 #, kde-format
@@ -4105,11 +4106,6 @@ msgstr "Visa demonstrationsvideor"
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Visa Exif-information och filmetadata"
-
-#: MainWindow/Window.cpp:1022
-#, kde-format
-msgid "Recreate Selected Thumbnails"
-msgstr "Skapa om markerade miniatyrbilder"
 
 #: MainWindow/Window.cpp:1025
 #, kde-format
@@ -4584,12 +4580,12 @@ msgstr "<i>Väntande ändring: byt namn till \"%1\"</i>"
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
-#: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
+#: ThumbnailView/ThumbnailModel.cpp:351 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "Katalog"
 
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
 #: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
@@ -7024,6 +7020,9 @@ msgstr "<p>Sökväg till databas: <filename>%1</filename></p>"
 #, kde-format
 msgid "Error while reading database file"
 msgstr "Fel vid läsning av databasfil"
+
+#~ msgid "Recalculate Checksum"
+#~ msgstr "Beräkna checksumma igen"
 
 #~ msgid "Really Rename %1?"
 #~ msgstr "Verkligen byta namn på %1?"

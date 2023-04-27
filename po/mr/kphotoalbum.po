@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-12 00:47+0000\n"
+"POT-Creation-Date: 2023-04-27 00:46+0000\n"
 "PO-Revision-Date: 2013-02-24 11:33+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -1238,7 +1238,7 @@ msgctxt ""
 msgid "No other %1"
 msgstr ""
 
-#: DB/NewImageFinder.cpp:466
+#: DB/NewImageFinder.cpp:467
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1246,21 +1246,21 @@ msgid ""
 "new images are found.</p>"
 msgstr ""
 
-#: DB/NewImageFinder.cpp:681
+#: DB/NewImageFinder.cpp:682
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:683
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
 "images even when you have moved them on the disk.</p>"
 msgstr ""
 
-#: DB/NewImageFinder.cpp:725
+#: DB/NewImageFinder.cpp:727
 #, kde-format
 msgid "Following files could not be read:"
 msgstr ""
@@ -3754,9 +3754,9 @@ msgstr ""
 msgid "Merge duplicates"
 msgstr ""
 
-#: MainWindow/Window.cpp:965
+#: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
 #, kde-format
-msgid "Recalculate Checksum"
+msgid "Refresh Selected Thumbnails and Checksums"
 msgstr ""
 
 #: MainWindow/Window.cpp:969
@@ -3823,11 +3823,6 @@ msgstr ""
 #: MainWindow/Window.cpp:1019 Viewer/ViewerWidget.cpp:177
 #, kde-format
 msgid "Show Exif Info and file metadata"
-msgstr ""
-
-#: MainWindow/Window.cpp:1022
-#, kde-format
-msgid "Recreate Selected Thumbnails"
 msgstr ""
 
 #: MainWindow/Window.cpp:1025
@@ -4274,12 +4269,12 @@ msgstr ""
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
-#: ThumbnailView/ThumbnailModel.cpp:350 XMLDB/FileReader.cpp:75
+#: ThumbnailView/ThumbnailModel.cpp:351 XMLDB/FileReader.cpp:75
 #, kde-format
 msgid "Folder"
 msgstr "संचयीका"
 
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:350
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
 #: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"

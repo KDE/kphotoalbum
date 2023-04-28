@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-27 00:46+0000\n"
-"PO-Revision-Date: 2023-02-19 09:35+0200\n"
+"PO-Revision-Date: 2023-04-27 08:49+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -4111,10 +4111,9 @@ msgid "Merge duplicates"
 msgstr "Об’єднати дублікати"
 
 #: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
-#, fuzzy, kde-format
-#| msgid "Recreate Selected Thumbnails"
+#, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "Наново створити вибрані мініатюри"
+msgstr "Оновити вказані мініатюри і контрольні суми"
 
 #: MainWindow/Window.cpp:969
 #, kde-format

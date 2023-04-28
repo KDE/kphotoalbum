@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-27 00:46+0000\n"
-"PO-Revision-Date: 2023-02-26 18:47+0100\n"
+"PO-Revision-Date: 2023-04-27 11:41+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -4062,10 +4062,9 @@ msgid "Merge duplicates"
 msgstr "Combina els duplicats"
 
 #: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
-#, fuzzy, kde-format
-#| msgid "Recreate Selected Thumbnails"
+#, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "Torna a crear les miniatures seleccionades"
+msgstr "Actualitza les miniatures seleccionades i les sumes de verificació"
 
 #: MainWindow/Window.cpp:969
 #, kde-format
@@ -7085,6 +7084,3 @@ msgstr "<p>Camí de la base de dades: <filename>%1</filename></p>"
 #, kde-format
 msgid "Error while reading database file"
 msgstr "Error en llegir el fitxer de la base de dades"
-
-#~ msgid "Recalculate Checksum"
-#~ msgstr "Torna a calcular la suma de verificació"

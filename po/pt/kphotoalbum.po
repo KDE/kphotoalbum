@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-27 00:46+0000\n"
-"PO-Revision-Date: 2023-03-06 16:32+0000\n"
+"PO-Revision-Date: 2023-04-28 12:30+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -4078,10 +4078,9 @@ msgid "Merge duplicates"
 msgstr "Reunir os duplicados"
 
 #: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
-#, fuzzy, kde-format
-#| msgid "Recreate Selected Thumbnails"
+#, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "Recriar as Miniaturas Seleccionadas"
+msgstr "Actualizar as Miniaturas e Códigos de Validação Seleccionados"
 
 #: MainWindow/Window.cpp:969
 #, kde-format
@@ -7100,6 +7099,3 @@ msgstr "<p>Localização da base de dados: <filename>%1</filename></p>"
 #, kde-format
 msgid "Error while reading database file"
 msgstr "Erro ao ler o ficheiro da base de dados"
-
-#~ msgid "Recalculate Checksum"
-#~ msgstr "Recalcular o Código de Validação"

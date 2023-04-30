@@ -20,11 +20,9 @@ namespace DB
 class ImageInfoList;
 
 /**
- * @brief The ImageCount class represents a count of exact and range matches.
+ * @brief The ImageCount struct represents a count of exact and range matches.
  */
-class ImageCount
-{
-public:
+struct ImageCount {
     ImageCount(int exact, int rangeMatch)
         : mp_exact(exact)
         , mp_rangeMatch(rangeMatch)

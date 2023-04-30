@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-27 00:46+0000\n"
-"PO-Revision-Date: 2023-04-16 12:31\n"
+"PO-Revision-Date: 2023-04-29 08:34\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -3688,10 +3688,9 @@ msgid "Merge duplicates"
 msgstr ""
 
 #: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
-#, fuzzy, kde-format
-#| msgid "Recreate Selected Thumbnails"
+#, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "重新创建选中缩略图"
+msgstr ""
 
 #: MainWindow/Window.cpp:969
 #, kde-format
@@ -6352,6 +6351,3 @@ msgstr ""
 #, kde-format
 msgid "Error while reading database file"
 msgstr ""
-
-#~ msgid "Recalculate Checksum"
-#~ msgstr "重新计算校验值"

@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-27 00:46+0000\n"
-"PO-Revision-Date: 2023-02-20 19:29+0100\n"
+"PO-Revision-Date: 2023-04-28 19:57+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -4101,10 +4101,9 @@ msgid "Merge duplicates"
 msgstr "Fusionner les doublons"
 
 #: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
-#, fuzzy, kde-format
-#| msgid "Recreate Selected Thumbnails"
+#, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "Reconstruire les vignettes pour la sélection"
+msgstr "Rafraîchir les vignettes et les sommes de contrôle sélectionnées"
 
 #: MainWindow/Window.cpp:969
 #, kde-format

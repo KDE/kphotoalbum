@@ -9,11 +9,11 @@
 #include "FileWriter.h"
 #include "Logging.h"
 #include "XMLCategory.h"
-#include "XMLImageDateCollection.h"
 
 #include <Browser/BrowserWidget.h>
 #include <DB/CategoryCollection.h>
 #include <DB/GroupCounter.h>
+#include <DB/ImageDateCollection.h>
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
 #include <DB/TagInfo.h>
@@ -432,7 +432,7 @@ const DB::CategoryCollection *XMLDB::Database::categoryCollection() const
 QExplicitlySharedDataPointer<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
 {
     return QExplicitlySharedDataPointer<DB::ImageDateCollection>(
-        new XMLImageDateCollection(searchPrivate(Browser::BrowserWidget::instance()->currentContext(), false, false)));
+        new DB::ImageDateCollection(searchPrivate(Browser::BrowserWidget::instance()->currentContext(), false, false)));
 }
 
 void XMLDB::Database::reorder(

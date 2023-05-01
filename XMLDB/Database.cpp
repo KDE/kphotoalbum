@@ -10,7 +10,6 @@
 #include "Logging.h"
 #include "XMLCategory.h"
 
-#include <Browser/BrowserWidget.h>
 #include <DB/CategoryCollection.h>
 #include <DB/GroupCounter.h>
 #include <DB/ImageDateCollection.h>
@@ -409,12 +408,6 @@ DB::CategoryCollection *XMLDB::Database::categoryCollection()
 const DB::CategoryCollection *XMLDB::Database::categoryCollection() const
 {
     return &m_categoryCollection;
-}
-
-QExplicitlySharedDataPointer<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
-{
-    return QExplicitlySharedDataPointer<DB::ImageDateCollection>(
-        new DB::ImageDateCollection(search(Browser::BrowserWidget::instance()->currentContext(), DB::SearchOption::AllowRangeMatch)));
 }
 
 void XMLDB::Database::reorder(

@@ -134,7 +134,6 @@ public:
 
     virtual CategoryCollection *categoryCollection() = 0;
     virtual const CategoryCollection *categoryCollection() const = 0;
-    virtual QExplicitlySharedDataPointer<ImageDateCollection> rangeCollection() = 0;
 
     /**
      * Reorder the items in the database by placing all the items given in

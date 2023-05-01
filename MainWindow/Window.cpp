@@ -1612,7 +1612,9 @@ void MainWindow::Window::updateDateBar(const Browser::BreadcrumbList &path)
 
 void MainWindow::Window::updateDateBar()
 {
-    m_dateBar->setImageDateCollection(DB::ImageDB::instance()->rangeCollection());
+    const auto imageList = DB::ImageDB::instance()->search(Browser::BrowserWidget::instance()->currentContext(), DB::SearchOption::AllowRangeMatch);
+    auto imageDates = new DB::ImageDateCollection(imageList);
+    m_dateBar->setImageDateCollection(imageDates);
 }
 
 void MainWindow::Window::slotShowImagesWithInvalidDate()

@@ -64,7 +64,6 @@ public:
     void sortAndMergeBackIn(const DB::FileNameList &idList) override;
     DB::CategoryCollection *categoryCollection() override;
     const DB::CategoryCollection *categoryCollection() const override;
-    QExplicitlySharedDataPointer<DB::ImageDateCollection> rangeCollection() override;
     void reorder(
         const DB::FileName &item,
         const DB::FileNameList &cutList,

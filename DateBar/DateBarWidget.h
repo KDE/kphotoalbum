@@ -31,6 +31,8 @@ class QFontMetrics;
 
 namespace DB
 {
+
+class ImageInfoList;
 class ImageDateCollection;
 class ImageDate;
 }
@@ -109,8 +111,11 @@ public Q_SLOTS:
     void clearSelection();
     void setViewType(ViewType tp, bool redrawNow = true);
     void setDate(const Utilities::FastDateTime &date);
-    void setImageDateCollection(DB::ImageDateCollection *dates);
-    void setImageDateCollection(const QExplicitlySharedDataPointer<DB::ImageDateCollection> &);
+    /**
+     * @brief setImageCollection sets the list of images that are counted for the histogram graph.
+     * @param images
+     */
+    void setImageCollection(const DB::ImageInfoList &images);
     void scrollLeft();
     void scrollRight();
     void scroll(int units);
@@ -207,6 +212,7 @@ protected:
     DB::ImageDate currentSelection() const;
     void emitDateSelected();
     void emitRangeSelection(const DB::ImageDate &);
+    void setImageDateCollection(const QExplicitlySharedDataPointer<DB::ImageDateCollection> &);
 
 private:
     void setViewHandlerForType(ViewType tp);

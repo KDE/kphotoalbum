@@ -31,7 +31,6 @@
 #include <Browser/BrowserWidget.h>
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
-#include <DB/ImageDateCollection.h>
 #include <DB/ImageInfo.h>
 #include <DB/MD5.h>
 #include <DB/MD5Map.h>
@@ -1613,8 +1612,7 @@ void MainWindow::Window::updateDateBar(const Browser::BreadcrumbList &path)
 void MainWindow::Window::updateDateBar()
 {
     const auto imageList = DB::ImageDB::instance()->search(Browser::BrowserWidget::instance()->currentContext(), DB::SearchOption::AllowRangeMatch);
-    auto imageDates = new DB::ImageDateCollection(imageList);
-    m_dateBar->setImageDateCollection(imageDates);
+    m_dateBar->setImageCollection(imageList);
 }
 
 void MainWindow::Window::slotShowImagesWithInvalidDate()

@@ -8,6 +8,7 @@
 #include "MouseHandler.h"
 
 #include <DB/ImageDateCollection.h>
+#include <DB/ImageInfoList.h>
 #include <kpabase/SettingsData.h>
 
 #include <Utilities/FastDateTime.h>
@@ -316,9 +317,10 @@ void DateBar::DateBarWidget::setDate(const Utilities::FastDateTime &date)
     redraw();
 }
 
-void DateBar::DateBarWidget::setImageDateCollection(DB::ImageDateCollection *dates)
+void DateBar::DateBarWidget::setImageCollection(const DB::ImageInfoList &images)
 {
-    setImageDateCollection(QExplicitlySharedDataPointer<DB::ImageDateCollection>(dates));
+    setImageDateCollection(QExplicitlySharedDataPointer<DB::ImageDateCollection>(
+        new DB::ImageDateCollection(images)));
 }
 
 void DateBar::DateBarWidget::setImageDateCollection(const QExplicitlySharedDataPointer<DB::ImageDateCollection> &dates)

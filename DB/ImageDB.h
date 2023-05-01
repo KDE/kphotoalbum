@@ -1,6 +1,12 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003-2010, 2012 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2006-2008, 2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007-2008 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2015-2016, 2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -24,6 +30,7 @@ class QProgressBar;
 
 namespace DB
 {
+Q_NAMESPACE
 
 class CategoryCollection;
 class Category;
@@ -32,6 +39,17 @@ class MemberMap;
 class FileName;
 class TagInfo;
 class UIDelegate;
+
+/**
+ * @brief The SearchOption enum influences the way a search is conducted.
+ */
+enum class SearchOption {
+    NoOption = 0b0000, ///< No special query options
+    RequireOnDisk = 0b0001, ///< Check for each file, if it is currently available on disk and discard any image that is not available.
+    AllowRangeMatch = 0b0010 ///< In addition to the standard date match (returning images within the given range), allow matching on image dates that overlap with the search range ("range match").
+};
+Q_DECLARE_FLAGS(SearchOptions, SearchOption);
+Q_FLAG_NS(SearchOption);
 
 /**
  * @brief The ClassificationMode enum can be used to short-circuit classification in the classify() method.
@@ -69,7 +87,8 @@ public:
     bool untaggedCategoryFeatureConfigured() const;
 
     virtual int totalCount() const = 0;
-    virtual DB::ImageInfoList search(const ImageSearchInfo &, bool requireOnDisk = false) const = 0;
+    virtual DB::ImageInfoList search(const ImageSearchInfo &, bool requireOnDisk) const = 0;
+    virtual DB::ImageInfoList search(const DB::ImageSearchInfo &searchInfo, DB::SearchOptions options = DB::SearchOption::NoOption) const = 0;
 
     /**
      * @brief Rename category in media items stored in database.

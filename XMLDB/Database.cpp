@@ -390,25 +390,7 @@ DB::ImageInfoList XMLDB::Database::search(
     const DB::ImageSearchInfo &info,
     bool requireOnDisk) const
 {
-    return searchPrivate(info, requireOnDisk, true);
-}
-
-DB::ImageInfoList XMLDB::Database::searchPrivate(
-    const DB::ImageSearchInfo &info,
-    bool requireOnDisk,
-    bool onlyItemsMatchingRange) const
-{
-    // When searching for images counts for the datebar, we want matches outside the range too.
-    // When searching for images for the thumbnail view, we only want matches inside the range.
-    DB::ImageInfoList result;
-    for (DB::ImageInfoListConstIterator it = m_images.constBegin(); it != m_images.constEnd(); ++it) {
-        bool match = !(*it)->isLocked() && info.match(*it) && (!onlyItemsMatchingRange || rangeInclude(*it));
-        match &= !requireOnDisk || DB::ImageInfo::imageOnDisk((*it)->fileName());
-
-        if (match)
-            result.append((*it));
-    }
-    return result;
+    return search(info, (requireOnDisk ? DB::SearchOption::RequireOnDisk : DB::SearchOption::NoOption));
 }
 
 void XMLDB::Database::sortAndMergeBackIn(const DB::FileNameList &fileNameList)
@@ -432,7 +414,7 @@ const DB::CategoryCollection *XMLDB::Database::categoryCollection() const
 QExplicitlySharedDataPointer<DB::ImageDateCollection> XMLDB::Database::rangeCollection()
 {
     return QExplicitlySharedDataPointer<DB::ImageDateCollection>(
-        new DB::ImageDateCollection(searchPrivate(Browser::BrowserWidget::instance()->currentContext(), false, false)));
+        new DB::ImageDateCollection(search(Browser::BrowserWidget::instance()->currentContext(), DB::SearchOption::AllowRangeMatch)));
 }
 
 void XMLDB::Database::reorder(
@@ -602,6 +584,24 @@ DB::FileNameList XMLDB::Database::getStackFor(const DB::FileName &referenceImg) 
 void XMLDB::Database::copyData(const DB::FileName &from, const DB::FileName &to)
 {
     (*info(to)).merge(*info(from));
+}
+
+DB::ImageInfoList XMLDB::Database::search(const DB::ImageSearchInfo &searchInfo, DB::SearchOptions options) const
+{
+    const bool onlyItemsMatchingRange = !options.testFlag(DB::SearchOption::AllowRangeMatch);
+    const bool requireOnDisk = options.testFlag(DB::SearchOption::RequireOnDisk);
+
+    // When searching for images counts for the datebar, we want matches outside the range too.
+    // When searching for images for the thumbnail view, we only want matches inside the range.
+    DB::ImageInfoList result;
+    for (DB::ImageInfoListConstIterator it = m_images.constBegin(); it != m_images.constEnd(); ++it) {
+        bool match = !(*it)->isLocked() && searchInfo.match(*it) && (!onlyItemsMatchingRange || rangeInclude(*it));
+        match &= !requireOnDisk || DB::ImageInfo::imageOnDisk((*it)->fileName());
+
+        if (match)
+            result.append((*it));
+    }
+    return result;
 }
 
 int XMLDB::Database::fileVersion()

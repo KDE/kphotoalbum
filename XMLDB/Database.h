@@ -1,5 +1,12 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003-2006, 2008-2010, 2012-2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2006, 2008, 2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2008 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2012, 2015 Andreas Neustifter <andreas.neustifter@gmail.com>
+// SPDX-FileCopyrightText: 2014-2015, 2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -69,14 +76,11 @@ public:
     void unstack(const DB::FileNameList &files) override;
     DB::FileNameList getStackFor(const DB::FileName &referenceId) const override;
     void copyData(const DB::FileName &from, const DB::FileName &to) override;
+    DB::ImageInfoList search(const DB::ImageSearchInfo &searchInfo, DB::SearchOptions options) const override;
 
     static int fileVersion();
 
 protected:
-    DB::ImageInfoList searchPrivate(
-        const DB::ImageSearchInfo &,
-        bool requireOnDisk,
-        bool onlyItemsMatchingRange) const;
     bool rangeInclude(DB::ImageInfoPtr info) const;
 
     DB::ImageInfoList takeImagesFromSelection(const DB::FileNameList &list);

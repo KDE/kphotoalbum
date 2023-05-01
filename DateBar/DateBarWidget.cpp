@@ -316,6 +316,11 @@ void DateBar::DateBarWidget::setDate(const Utilities::FastDateTime &date)
     redraw();
 }
 
+void DateBar::DateBarWidget::setImageDateCollection(DB::ImageDateCollection *dates)
+{
+    setImageDateCollection(QExplicitlySharedDataPointer<DB::ImageDateCollection>(dates));
+}
+
 void DateBar::DateBarWidget::setImageDateCollection(const QExplicitlySharedDataPointer<DB::ImageDateCollection> &dates)
 {
     m_dates = dates;

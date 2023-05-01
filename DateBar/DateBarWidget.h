@@ -1,5 +1,10 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2004 - 2010 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2005, 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
+// SPDX-FileCopyrightText: 2018 - 2020 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2019, 2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2013 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -104,6 +109,7 @@ public Q_SLOTS:
     void clearSelection();
     void setViewType(ViewType tp, bool redrawNow = true);
     void setDate(const Utilities::FastDateTime &date);
+    void setImageDateCollection(DB::ImageDateCollection *dates);
     void setImageDateCollection(const QExplicitlySharedDataPointer<DB::ImageDateCollection> &);
     void scrollLeft();
     void scrollRight();

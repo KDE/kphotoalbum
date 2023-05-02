@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-04-27 00:46+0000\n"
+"POT-Creation-Date: 2023-05-02 00:45+0000\n"
 "PO-Revision-Date: 2023-04-28 19:57+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
@@ -439,12 +439,12 @@ msgstr "Effacer"
 msgid "Copy tags from previous image"
 msgstr "Copier les balises de l'image précédente"
 
-#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:810
+#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:809
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Rotation sens antihoraire"
 
-#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:814
+#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:813
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Rotation sens horaire"
@@ -1078,33 +1078,33 @@ msgstr[1] ""
 msgid "Move Items"
 msgstr "Déplacement des éléments"
 
-#: DateBar/DateBarWidget.cpp:68
+#: DateBar/DateBarWidget.cpp:69
 #, kde-format
 msgid "Scroll right"
 msgstr "Faire défiler vers la droite"
 
-#: DateBar/DateBarWidget.cpp:77
+#: DateBar/DateBarWidget.cpp:78
 #, kde-format
 msgid "Scroll left"
 msgstr "Faire défiler vers la gauche"
 
-#: DateBar/DateBarWidget.cpp:86
+#: DateBar/DateBarWidget.cpp:87
 #, kde-format
 msgid "Zoom in"
 msgstr "Zoom avant"
 
-#: DateBar/DateBarWidget.cpp:97
+#: DateBar/DateBarWidget.cpp:98
 #, kde-format
 msgid "Zoom out"
 msgstr "Zoom arrière"
 
-#: DateBar/DateBarWidget.cpp:109
+#: DateBar/DateBarWidget.cpp:110
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "Effacer la sélection de date"
 
-#: DateBar/DateBarWidget.cpp:122
+#: DateBar/DateBarWidget.cpp:123
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1121,17 +1121,17 @@ msgstr ""
 "glisser sous la chronologie.</item><item>Passez directement à une date en "
 "cliquant sur la barre d'histogramme.</item></list></para>"
 
-#: DateBar/DateBarWidget.cpp:682
+#: DateBar/DateBarWidget.cpp:689
 #, kde-format
 msgid "Show Ranges"
 msgstr "Afficher les échelles"
 
-#: DateBar/DateBarWidget.cpp:688
+#: DateBar/DateBarWidget.cpp:695
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr "Afficher la résolution"
 
-#: DateBar/DateBarWidget.cpp:813
+#: DateBar/DateBarWidget.cpp:820
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1139,7 +1139,7 @@ msgid_plural "%1 exact"
 msgstr[0] "1 exacte"
 msgstr[1] "%1 exactes"
 
-#: DateBar/DateBarWidget.cpp:814
+#: DateBar/DateBarWidget.cpp:821
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1149,7 +1149,7 @@ msgid_plural " + %1 ranges"
 msgstr[0] " + 1 intervalle"
 msgstr[1] " + %1 intervalles"
 
-#: DateBar/DateBarWidget.cpp:815
+#: DateBar/DateBarWidget.cpp:822
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1157,7 +1157,7 @@ msgid_plural " = %1 total"
 msgstr[0] " = 1 au total"
 msgstr[1] " = %1 au total"
 
-#: DateBar/DateBarWidget.cpp:817
+#: DateBar/DateBarWidget.cpp:824
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
@@ -1165,7 +1165,7 @@ msgid_plural "%1 images/videos"
 msgstr[0] "%1 image / vidéo"
 msgstr[1] "%1 images / vidéos"
 
-#: DateBar/DateBarWidget.cpp:819
+#: DateBar/DateBarWidget.cpp:826
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
@@ -2346,7 +2346,7 @@ msgid "Create folder?"
 msgstr "Créer un dossier ?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1182
+#: MainWindow/Window.cpp:1181
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3818,22 +3818,22 @@ msgstr "Vérification des fonctionnalités"
 msgid "Congratulations: all dynamic features have been enabled."
 msgstr "Félicitation : toutes les fonctionnalités dynamiques ont été activées."
 
-#: MainWindow/Window.cpp:143
+#: MainWindow/Window.cpp:142
 #, kde-format
 msgid "Loading Database"
 msgstr "Chargement de la base de données"
 
-#: MainWindow/Window.cpp:150
+#: MainWindow/Window.cpp:149
 #, kde-format
 msgid "Loading Main Window"
 msgstr "Chargement de la fenêtre principale"
 
-#: MainWindow/Window.cpp:263
+#: MainWindow/Window.cpp:262
 #, kde-format
 msgid "Searching for New Files"
 msgstr "Recherche de nouveaux fichiers"
 
-#: MainWindow/Window.cpp:299
+#: MainWindow/Window.cpp:298
 #, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
@@ -3851,13 +3851,13 @@ msgstr ""
 "vous pouvez souhaiter la conserver avec les changements que vous avez "
 "effectués au cours de cette session.</p>"
 
-#: MainWindow/Window.cpp:304
+#: MainWindow/Window.cpp:303
 #, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Supprimer la base de données de démonstration"
 
-#: MainWindow/Window.cpp:359
+#: MainWindow/Window.cpp:358
 #, kde-format
 msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
@@ -3866,345 +3866,345 @@ msgstr ""
 "Certaines des images sélectionnées appartiennent déjà à une pile. Voulez-"
 "vous les enlever de cette pile et en créer une entièrement nouvelle ?"
 
-#: MainWindow/Window.cpp:362
+#: MainWindow/Window.cpp:361
 #, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
 msgstr "Problème de mise en pile"
 
-#: MainWindow/Window.cpp:377
+#: MainWindow/Window.cpp:376
 #, kde-format
 msgid "Unknown error, stack creation failed."
 msgstr "Erreur inconnue, la création de la pile échoué."
 
-#: MainWindow/Window.cpp:378
+#: MainWindow/Window.cpp:377
 #, kde-format
 msgid "Stacking Error"
 msgstr "Erreur de mise en pile"
 
-#: MainWindow/Window.cpp:457 MainWindow/Window.cpp:583
-#: MainWindow/Window.cpp:1283 MainWindow/Window.cpp:1380
+#: MainWindow/Window.cpp:456 MainWindow/Window.cpp:582
+#: MainWindow/Window.cpp:1282 MainWindow/Window.cpp:1379
 #, kde-format
 msgid "No item is selected."
 msgstr "Aucun élément n'est sélectionné."
 
-#: MainWindow/Window.cpp:457 MainWindow/Window.cpp:583
-#: MainWindow/Window.cpp:1283 MainWindow/Window.cpp:1381
+#: MainWindow/Window.cpp:456 MainWindow/Window.cpp:582
+#: MainWindow/Window.cpp:1282 MainWindow/Window.cpp:1380
 #, kde-format
 msgid "No Selection"
 msgstr "Aucune sélection"
 
-#: MainWindow/Window.cpp:503
+#: MainWindow/Window.cpp:502
 #, kde-format
 msgid "Saving..."
 msgstr "Enregistrement..."
 
-#: MainWindow/Window.cpp:508
+#: MainWindow/Window.cpp:507
 #, kde-format
 msgid "Saving... Done"
 msgstr "Enregistrement... Effectué"
 
-#: MainWindow/Window.cpp:656
+#: MainWindow/Window.cpp:655
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "Il n'y a aucune image à afficher."
 
-#: MainWindow/Window.cpp:745
+#: MainWindow/Window.cpp:744
 #, kde-format
 msgid "Generate HTML..."
 msgstr "Exporter en HTML..."
 
-#: MainWindow/Window.cpp:749
+#: MainWindow/Window.cpp:748
 #, kde-format
 msgid "Import..."
 msgstr "Importer..."
 
-#: MainWindow/Window.cpp:752
+#: MainWindow/Window.cpp:751
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Exporter/Copier des images..."
 
-#: MainWindow/Window.cpp:779
+#: MainWindow/Window.cpp:778
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Effacer la sélection"
 
-#: MainWindow/Window.cpp:785
+#: MainWindow/Window.cpp:784
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "Supprimer les symboles"
 
-#: MainWindow/Window.cpp:788
+#: MainWindow/Window.cpp:787
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Ouvrir une liste de fichiers..."
 
-#: MainWindow/Window.cpp:791
+#: MainWindow/Window.cpp:790
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Annoter indépendamment"
 
-#: MainWindow/Window.cpp:795
+#: MainWindow/Window.cpp:794
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Annoter simultanément"
 
-#: MainWindow/Window.cpp:799
+#: MainWindow/Window.cpp:798
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Fusionner les images dans une pile"
 
-#: MainWindow/Window.cpp:803
+#: MainWindow/Window.cpp:802
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Enlever les images de la pile"
 
-#: MainWindow/Window.cpp:806
+#: MainWindow/Window.cpp:805
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Placer comme première image dans la pile"
 
-#: MainWindow/Window.cpp:819
+#: MainWindow/Window.cpp:818
 #, kde-format
 msgid "View"
 msgstr "Afficher"
 
-#: MainWindow/Window.cpp:822
+#: MainWindow/Window.cpp:821
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Afficher dans une nouvelle fenêtre"
 
-#: MainWindow/Window.cpp:825
+#: MainWindow/Window.cpp:824
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Démarrer le diaporama"
 
-#: MainWindow/Window.cpp:830
+#: MainWindow/Window.cpp:829
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Démarrer le diaporama aléatoire"
 
-#: MainWindow/Window.cpp:836
+#: MainWindow/Window.cpp:835
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Replier toutes les piles"
 
-#: MainWindow/Window.cpp:842
+#: MainWindow/Window.cpp:841
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Dépiler toutes les piles"
 
-#: MainWindow/Window.cpp:847
+#: MainWindow/Window.cpp:846
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Afficher les plus &anciens d'abord"
 
-#: MainWindow/Window.cpp:852
+#: MainWindow/Window.cpp:851
 #, kde-format
 msgid "Show &Newest First"
 msgstr "Afficher les plus &récents d'abord"
 
-#: MainWindow/Window.cpp:857
+#: MainWindow/Window.cpp:856
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Trier la sélection par date et heure"
 
-#: MainWindow/Window.cpp:860
+#: MainWindow/Window.cpp:859
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "N'afficher que la sélection"
 
-#: MainWindow/Window.cpp:863
+#: MainWindow/Window.cpp:862
 #, kde-format
 msgid "Jump to Context"
 msgstr "Aller au contexte"
 
-#: MainWindow/Window.cpp:869
+#: MainWindow/Window.cpp:868
 #, kde-format
 msgid "Lock Images"
 msgstr "Verrouiller les images"
 
-#: MainWindow/Window.cpp:873
+#: MainWindow/Window.cpp:872
 #, kde-format
 msgid "Unlock"
 msgstr "Déverrouiller"
 
-#: MainWindow/Window.cpp:876
+#: MainWindow/Window.cpp:875
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Verrouiller tous les autres éléments"
 
-#: MainWindow/Window.cpp:879
+#: MainWindow/Window.cpp:878
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Verrouiller le jeu d'éléments courant"
 
-#: MainWindow/Window.cpp:882
+#: MainWindow/Window.cpp:881
 #, kde-format
 msgid "Configure Current View"
 msgstr "Configurer la vue courante"
 
-#: MainWindow/Window.cpp:894
+#: MainWindow/Window.cpp:893
 #, kde-format
 msgid "Tree"
 msgstr "Arborescence"
 
-#: MainWindow/Window.cpp:899
+#: MainWindow/Window.cpp:898
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Arbre avec icônes utilisateur"
 
-#: MainWindow/Window.cpp:904
+#: MainWindow/Window.cpp:903
 #, kde-format
 msgid "Icons"
 msgstr "Icônes"
 
-#: MainWindow/Window.cpp:912
+#: MainWindow/Window.cpp:911
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Afficher les info-bulles dans la fenêtre des vignettes"
 
-#: MainWindow/Window.cpp:917
+#: MainWindow/Window.cpp:916
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
 msgstr "Afficher les étiquettes dans la fenêtre des vignettes"
 
-#: MainWindow/Window.cpp:927
+#: MainWindow/Window.cpp:926
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
 msgstr "Afficher les catégories dans la fenêtre des vignettes"
 
-#: MainWindow/Window.cpp:941
+#: MainWindow/Window.cpp:940
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "Choisissez le schéma de couleurs"
 
-#: MainWindow/Window.cpp:952
+#: MainWindow/Window.cpp:951
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Afficher les images et vidéos qui ne sont pas sur disque"
 
-#: MainWindow/Window.cpp:955
+#: MainWindow/Window.cpp:954
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Afficher les images et vidéos ayant des dates incomplètes..."
 
-#: MainWindow/Window.cpp:959
+#: MainWindow/Window.cpp:958
 #, kde-format
 msgid "Display Images and Videos with Changed MD5 Sum"
 msgstr "Afficher les images et vidéos dont la somme de contrôle MD5 a changé"
 
-#: MainWindow/Window.cpp:963
+#: MainWindow/Window.cpp:962
 #, kde-format
 msgid "Merge duplicates"
 msgstr "Fusionner les doublons"
 
-#: MainWindow/Window.cpp:965 MainWindow/Window.cpp:1022
+#: MainWindow/Window.cpp:964 MainWindow/Window.cpp:1021
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Rafraîchir les vignettes et les sommes de contrôle sélectionnées"
 
-#: MainWindow/Window.cpp:969
+#: MainWindow/Window.cpp:968
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Rechercher de nouvelles images et vidéos"
 
-#: MainWindow/Window.cpp:972
+#: MainWindow/Window.cpp:971
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Recréer la base de donnée de recherche Exif"
 
-#: MainWindow/Window.cpp:975
+#: MainWindow/Window.cpp:974
 #, kde-format
 msgid "Read Exif Info from Files..."
 msgstr "Lire les informations Exif des fichiers..."
 
-#: MainWindow/Window.cpp:978
+#: MainWindow/Window.cpp:977
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Tout trier par date et heure"
 
-#: MainWindow/Window.cpp:982
+#: MainWindow/Window.cpp:981
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Empiler automatiquement les images sélectionnées..."
 
-#: MainWindow/Window.cpp:985
+#: MainWindow/Window.cpp:984
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Construire les vignettes"
 
-#: MainWindow/Window.cpp:988
+#: MainWindow/Window.cpp:987
 #, kde-format
 msgid "Statistics..."
 msgstr "Statistiques..."
 
-#: MainWindow/Window.cpp:992
+#: MainWindow/Window.cpp:991
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Marqué comme non-étiqueté"
 
-#: MainWindow/Window.cpp:1001
+#: MainWindow/Window.cpp:1000
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Activer tous les messages"
 
-#: MainWindow/Window.cpp:1009
+#: MainWindow/Window.cpp:1008
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Démarrer la démo de KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1012
+#: MainWindow/Window.cpp:1011
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "État des fonctionnalités de KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1015
+#: MainWindow/Window.cpp:1014
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Voir la vidéo de démonstration"
 
-#: MainWindow/Window.cpp:1019 Viewer/ViewerWidget.cpp:177
+#: MainWindow/Window.cpp:1018 Viewer/ViewerWidget.cpp:177
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Afficher les informations « Exif » et les métadonnées de fichier"
 
-#: MainWindow/Window.cpp:1025
+#: MainWindow/Window.cpp:1024
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Utiliser la prochaine vignette vidéo"
 
-#: MainWindow/Window.cpp:1029
+#: MainWindow/Window.cpp:1028
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Utilisez la vignette de la vidéo précédente"
 
-#: MainWindow/Window.cpp:1033 MainWindow/Window.cpp:1261
+#: MainWindow/Window.cpp:1032 MainWindow/Window.cpp:1260
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Copier une image vers..."
 msgstr[1] "Copier des images vers..."
 
-#: MainWindow/Window.cpp:1037 MainWindow/Window.cpp:1265
+#: MainWindow/Window.cpp:1036 MainWindow/Window.cpp:1264
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "Lier une image à..."
 msgstr[1] "Lier des images à..."
 
-#: MainWindow/Window.cpp:1063
+#: MainWindow/Window.cpp:1062
 #, kde-format
 msgid "Auto saving...."
 msgstr "Enregistrement automatique..."
 
-#: MainWindow/Window.cpp:1066
+#: MainWindow/Window.cpp:1065
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Enregistrement automatique... Effectué"
 
-#: MainWindow/Window.cpp:1168
+#: MainWindow/Window.cpp:1167
 #, kde-format
 msgid ""
 "<p>Could not open given index.xml, as the provided folder does not exist."
@@ -4213,7 +4213,7 @@ msgstr ""
 "<p>Il a été impossible d'ouvrir le fichier « index.xml » fourni car le "
 "dossier fourni n'existe pas.<br />%1</p>"
 
-#: MainWindow/Window.cpp:1175
+#: MainWindow/Window.cpp:1174
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4222,13 +4222,13 @@ msgstr ""
 "<p>Le fichier index donné n'existe pas ; voulez-vous créer le fichier "
 "suivant ?<br />%1/index.xml</p>"
 
-#: MainWindow/Window.cpp:1178
+#: MainWindow/Window.cpp:1177
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Créer une base de données"
 
-#: MainWindow/Window.cpp:1206
+#: MainWindow/Window.cpp:1205
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4241,33 +4241,33 @@ msgstr ""
 "vérifier votre configuration de la balise non-étiquetée dans "
 "<interface>Configuration|Configurer KPhotoAlbum...|Catégories</interface></p>"
 
-#: MainWindow/Window.cpp:1332 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1331 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Général"
 
-#: MainWindow/Window.cpp:1333 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1332 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Afficheur"
 
-#: MainWindow/Window.cpp:1334
+#: MainWindow/Window.cpp:1333
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Barre de date"
 
-#: MainWindow/Window.cpp:1337
+#: MainWindow/Window.cpp:1336
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Fenêtre d'annotation"
 
-#: MainWindow/Window.cpp:1338 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1337 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Vignettes"
 
-#: MainWindow/Window.cpp:1483
+#: MainWindow/Window.cpp:1482
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4276,13 +4276,13 @@ msgstr ""
 "<p>Réactiver tous les messages préalablement cochés comme ne devant plus "
 "être affichés ?</p>"
 
-#: MainWindow/Window.cpp:1485
+#: MainWindow/Window.cpp:1484
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Ré-initialiser les boîtes de dialogue masquées"
 
-#: MainWindow/Window.cpp:1504
+#: MainWindow/Window.cpp:1503
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4299,33 +4299,33 @@ msgstr ""
 "ceci comme un bogue.</p><p>KPhotoAlbum va continuer son exécution, mais il "
 "ne serait pas surprenant qu'il se plante plus tard pour ce motif.</p>"
 
-#: MainWindow/Window.cpp:1504
+#: MainWindow/Window.cpp:1503
 #, kde-format
 msgid "Internal Error"
 msgstr "Erreur interne"
 
-#: MainWindow/Window.cpp:1515
+#: MainWindow/Window.cpp:1514
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 "Images partagées avec succès. Copie de l'emplacement vers le presse-papier..."
 
-#: MainWindow/Window.cpp:1518
+#: MainWindow/Window.cpp:1517
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Images partagées avec succès."
 
-#: MainWindow/Window.cpp:1523
+#: MainWindow/Window.cpp:1522
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Échec du partage des images avec le message : %1"
 
-#: MainWindow/Window.cpp:1586
+#: MainWindow/Window.cpp:1585
 #, kde-format
 msgid "Open List of Files"
 msgstr "Ouvrir une liste de fichiers"
 
-#: MainWindow/Window.cpp:1587
+#: MainWindow/Window.cpp:1586
 #, kde-format
 msgid ""
 "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4334,12 +4334,12 @@ msgstr ""
 "Vous pouvez ouvrir un jeu de fichiers depuis le dossier racine d'images de "
 "KPhotoAlbum en listant les fichiers ici."
 
-#: MainWindow/Window.cpp:1600
+#: MainWindow/Window.cpp:1599
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Aucune image correspondant à votre saisie n'a été trouvée."
 
-#: MainWindow/Window.cpp:1600
+#: MainWindow/Window.cpp:1599
 #, kde-format
 msgid "No Matches"
 msgstr "Aucune correspondance"
@@ -4657,7 +4657,7 @@ msgid "Folder"
 msgstr "Dossier"
 
 #: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
-#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:661 XMLDB/FileReader.cpp:125
+#: XMLDB/Database.cpp:290 XMLDB/Database.cpp:654 XMLDB/FileReader.cpp:125
 #, kde-format
 msgid "Media Type"
 msgstr "Type de média"
@@ -6775,7 +6775,7 @@ msgstr "Afficher la taille de l'image"
 msgid "Show Rating"
 msgstr "Afficher les échelles"
 
-#: XMLDB/Database.cpp:49
+#: XMLDB/Database.cpp:48
 #, kde-format
 msgid ""
 "Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
@@ -6784,27 +6784,27 @@ msgstr ""
 "Le fichier de sauvegarde « %1 » (taille %3 Ko) existe et est plus récent que "
 "« %2 ». Le fichier de sauvegarde doit-il être utilisé ?"
 
-#: XMLDB/Database.cpp:52
+#: XMLDB/Database.cpp:51
 #, kde-format
 msgid "Found Autosave File"
 msgstr "Fichier de sauvegarde trouvé"
 
-#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:662 XMLDB/FileReader.cpp:127
+#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:655 XMLDB/FileReader.cpp:127
 #, kde-format
 msgid "Image"
 msgstr "Image"
 
-#: XMLDB/Database.cpp:292 XMLDB/Database.cpp:663 XMLDB/FileReader.cpp:128
+#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:656 XMLDB/FileReader.cpp:128
 #, kde-format
 msgid "Video"
 msgstr "Vidéo"
 
-#: XMLDB/Database.cpp:808
+#: XMLDB/Database.cpp:801
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr "KPhotoAlbum - réparation manuelle nécessaire (%1)"
 
-#: XMLDB/Database.cpp:809
+#: XMLDB/Database.cpp:802
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "

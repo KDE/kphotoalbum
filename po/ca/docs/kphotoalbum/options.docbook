@@ -117,7 +117,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >Configuració del visualitzador</title>
   <para
->Una altra configuració força simple. Principalment podeu seleccionar la mida preferida per a la finestra del visualitzador o de diapositives, o per visualitzar-los en el mode de pantalla completa. L'interval bàsic per a les diapositives es pot establir aquí. L'algorisme d'escalat pot ser <emphasis
+>Una altra configuració força simple. Principalment, podeu seleccionar la mida preferida per a la finestra del visualitzador o de la presentació de diapositives, o per visualitzar-los en el mode de pantalla completa. L'interval bàsic per a la presentació de diapositives es pot establir aquí. L'algorisme d'escalat pot ser <emphasis
 >Millor</emphasis
 > o <emphasis
 >Més ràpid</emphasis

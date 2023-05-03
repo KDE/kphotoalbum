@@ -63,13 +63,13 @@ SPDX-License-Identifier: GFDL-1.2-only
 ><guimenu
 >Imatges</guimenu
 ><guimenuitem
->Executa el passi de diapositives</guimenuitem
+>Executa la presentació de diapositives</guimenuitem
 ></menuchoice
 > les imatges seleccionades es carregaran dins del visualitzador i s'iniciarà una presentació de diapositives. Finalment escolliu <menuchoice
 ><guimenu
 >Imatges</guimenu
 ><guimenuitem
->Executa el passi aleatori de diapositives</guimenuitem
+>Executa la presentació aleatòria de diapositives</guimenuitem
 ></menuchoice
 >, mostrarà una presentació de diapositives de les imatges seleccionades de forma aleatòria.</para>
 

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-02 00:45+0000\n"
-"PO-Revision-Date: 2023-04-27 11:41+0200\n"
+"PO-Revision-Date: 2023-05-02 20:53+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -3939,12 +3939,12 @@ msgstr "Visualitza (en una finestra nova)"
 #: MainWindow/Window.cpp:824
 #, kde-format
 msgid "Run Slide Show"
-msgstr "Executa el passi de diapositives"
+msgstr "Executa la presentació de diapositives"
 
 #: MainWindow/Window.cpp:829
 #, kde-format
 msgid "Run Randomized Slide Show"
-msgstr "Executa el passi aleatori de diapositives"
+msgstr "Executa la presentació aleatòria de diapositives"
 
 #: MainWindow/Window.cpp:835
 #, kde-format
@@ -5852,13 +5852,15 @@ msgstr "Sense configurar"
 #: Settings/ViewerPage.cpp:42
 #, kde-format
 msgid "Running Slide Show From Thumbnail View"
-msgstr "En executar el passi de diapositives des de la vista de miniatures"
+msgstr ""
+"En executar la presentació de diapositives des de la vista de miniatures"
 
 #: Settings/ViewerPage.cpp:45
 #, kde-format
 msgid "Viewing Images and Videos From Thumbnail View"
 msgstr "En mostrar imatges i vídeos des de la vista de miniatures"
 
+# skip-rule: kct-slideshow
 #: Settings/ViewerPage.cpp:52
 #, kde-format
 msgid "Slideshow interval:"
@@ -6271,16 +6273,16 @@ msgid ""
 "<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
 "slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></p>"
 msgstr ""
-"<p><center><font size=\"+4\">Inici de passi de diapositives<br/>«Ctrl++» "
-"accelera el passi de diapositives<br/>«Ctrl+-» alenteix el passi de "
-"diapositives</font></center></p>"
+"<p><center><font size=\"+4\">Inici de presentació de diapositives<br/>«Ctrl+"
+"+» accelera la presentació de diapositives<br/>«Ctrl+-» alenteix la "
+"presentació de diapositives</font></center></p>"
 
 #: Viewer/SpeedDisplay.cpp:61
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
 msgstr ""
-"<p><center><font size=\"+4\">Acabant el passi de diapositives</font></"
+"<p><center><font size=\"+4\">Acabant la presentació de diapositives</font></"
 "center></p>"
 
 #: Viewer/ViewerWidget.cpp:167
@@ -6455,13 +6457,13 @@ msgstr "Commuta a pantalla completa"
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
-msgstr "Passi de diapositives"
+msgstr "Presentació de diapositives"
 
 #: Viewer/ViewerWidget.cpp:394 Viewer/ViewerWidget.cpp:789
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
-msgstr "Executa el passi de diapositives"
+msgstr "Executa la presentació de diapositives"
 
 #: Viewer/ViewerWidget.cpp:399
 #, kde-format
@@ -6514,7 +6516,7 @@ msgstr "<b>Assignació: </b>"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
-msgstr "Atura el passi de diapositives"
+msgstr "Atura la presentació de diapositives"
 
 #: Viewer/ViewerWidget.cpp:1194
 #, kde-format

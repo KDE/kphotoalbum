@@ -1,4 +1,8 @@
-// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2004-2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2006 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -47,37 +51,40 @@ public:
                         MediaTypeCategory,
                         TokensCategory };
 
-    virtual QString name() const = 0;
-    virtual void setName(const QString &name) = 0;
+    Category(const QString &name, const QString &icon, ViewType type, int thumbnailSize, bool show, bool positionable = false);
 
-    virtual void setPositionable(bool) = 0;
-    virtual bool positionable() const = 0;
+    QString name() const;
+    void setName(const QString &name);
 
-    virtual QString iconName() const = 0;
-    virtual void setIconName(const QString &name) = 0;
-    virtual QPixmap icon(int size = 22, KIconLoader::States state = KIconLoader::DefaultState) const;
+    bool positionable() const;
+    void setPositionable(bool positionable);
 
-    virtual void setViewType(ViewType type) = 0;
-    virtual ViewType viewType() const = 0;
+    QString iconName() const;
+    void setIconName(const QString &name);
+    QPixmap icon(int size = 22, KIconLoader::States state = KIconLoader::DefaultState) const;
 
-    virtual void setThumbnailSize(int) = 0;
-    virtual int thumbnailSize() const = 0;
+    ViewType viewType() const;
+    void setViewType(ViewType type);
 
-    virtual void setDoShow(bool b) = 0;
-    virtual bool doShow() const = 0;
+    int thumbnailSize() const;
+    void setThumbnailSize(int size);
 
-    virtual void setType(CategoryType t) = 0;
-    virtual CategoryType type() const = 0;
-    virtual bool isSpecialCategory() const = 0;
+    bool doShow() const;
+    void setDoShow(bool b);
 
-    virtual void addOrReorderItems(const QStringList &items) = 0;
-    virtual void setItems(const QStringList &items) = 0;
-    virtual void removeItem(const QString &item) = 0;
-    virtual void renameItem(const QString &oldValue, const QString &newValue) = 0;
-    virtual void addItem(const QString &item) = 0;
-    virtual QStringList items() const = 0;
-    virtual QStringList itemsInclCategories() const;
+    CategoryType type() const;
+    void setType(CategoryType t);
+
+    bool isSpecialCategory() const;
+
+    QStringList items() const;
+    QStringList itemsInclCategories() const;
     QExplicitlySharedDataPointer<CategoryItem> itemsCategories() const;
+    void addOrReorderItems(const QStringList &items);
+    void setItems(const QStringList &items);
+    void removeItem(const QString &item);
+    void renameItem(const QString &oldValue, const QString &newValue);
+    void addItem(const QString &item);
     /**
      * @brief itemForName returns a TagInfo for a given tag.
      * In contrast to the usual tag representation as a QString, a TagInfo maintains a connection to the Category and is notified of tag renaming and deletion.
@@ -85,16 +92,70 @@ public:
      * @param item the name of the tag
      * @return a TagInfo object for the given tag name, or a \c nullptr if the tag does not exist.
      */
-    virtual DB::TagInfo *itemForName(const QString &item) = 0;
+    DB::TagInfo *itemForName(const QString &tag);
 
     QPixmap categoryImage(const QString &category, QString, int width, int height) const;
     void setCategoryImage(const QString &category, QString, const QImage &image);
     QString fileForCategoryImage(const QString &category, QString member) const;
-    virtual void setBirthDate(const QString &item, const QDate &birthDate) = 0;
-    virtual QDate birthDate(const QString &item) const = 0;
+
+    QDate birthDate(const QString &item) const;
+    void setBirthDate(const QString &item, const QDate &birthDate);
+
+    int idForName(const QString &name) const;
+    /**
+     * @brief initIdMap is needed when writing categories into the XML file.
+     * FIXME: make private and add CategoryCollection as friend class
+     */
+    void initIdMap();
+    /**
+     * @brief setIdMapping sets the mapping from id to name and vice versa.
+     * The id must be a positive value.
+     * @param name
+     * @param id > 0
+     */
+    void setIdMapping(const QString &name, int id);
+    /**
+     * @brief addZeroMapping allows adding of category names with id 0.
+     * This id is not allowed normally, but can happen in corrupted index.xml files.
+     * @param name
+     */
+    void addZeroMapping(const QString &name);
+    QString nameForId(int id) const;
+    /**
+     * @brief namesForIdZero returns all names for id 0.
+     * Obviously, this is not how ids usually work.
+     * The only time when this makes sense is when reading a damaged index.xml file that is to be repaired.
+     * After loading the database is complete, the mapping between id and name must always 1:1!
+     * @return
+     */
+    QStringList namesForIdZero() const;
+    /**
+     * @brief clearNullIds clears the IdMapping for tags with id=0.
+     * Category names with id 0 can only happen when loading a corrupted database file.
+     */
+    void clearNullIds();
+
+    bool shouldSave();
+    void setShouldSave(bool b);
 
 private:
     QString defaultIconName() const;
+
+    QString m_name;
+    QString m_icon;
+    bool m_show;
+    ViewType m_type;
+    int m_thumbnailSize;
+    bool m_positionable;
+
+    CategoryType m_categoryType;
+    QStringList m_items;
+    QMap<QString, int> m_idMap;
+    QMap<int, QString> m_nameMap;
+    QMap<QString, QDate> m_birthDates;
+    QStringList m_namesWithIdZero;
+
+    bool m_shouldSave;
 
 Q_SIGNALS:
     void changed();

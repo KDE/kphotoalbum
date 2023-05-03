@@ -1,6 +1,18 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2006-2007 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2006-2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2007-2009 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2009 Andrew Coles <andrew.i.coles@googlemail.com>
+// SPDX-FileCopyrightText: 2009 Hassan Ibraheem <hasan.ibraheem@gmail.com>
+// SPDX-FileCopyrightText: 2009 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2012-2020 Yuri Chornoivan <yurchor@ukr.net>
+// SPDX-FileCopyrightText: 2012-2013 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2014-2020 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2015 Andreas Neustifter <andreas.neustifter@gmail.com>
+// SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -10,8 +22,8 @@
 #include "CompressFileInfo.h"
 #include "Database.h"
 #include "Logging.h"
-#include "XMLCategory.h"
 
+#include <DB/Category.h>
 #include <DB/MD5Map.h>
 #include <kpabase/UIDelegate.h>
 
@@ -72,17 +84,15 @@ void XMLDB::FileReader::read(const QString &configFile)
 void XMLDB::FileReader::createSpecialCategories()
 {
     // Setup the "Folder" category
-    m_folderCategory = new XMLCategory(i18n("Folder"), QString::fromLatin1("folder"),
-                                       DB::Category::TreeView, 32, false);
+    m_folderCategory = new DB::Category(i18n("Folder"), QString::fromLatin1("folder"),
+                                        DB::Category::TreeView, 32, false);
     m_folderCategory->setType(DB::Category::FolderCategory);
     // The folder category is not stored in the index.xml file,
     // but older versions of KPhotoAlbum stored a stub entry, which we need to remove first:
     if (m_db->m_categoryCollection.categoryForName(m_folderCategory->name()))
         m_db->m_categoryCollection.removeCategory(m_folderCategory->name());
     m_db->m_categoryCollection.addCategory(m_folderCategory);
-    auto xmlCategory = dynamic_cast<XMLCategory *>(m_folderCategory.data());
-    Q_ASSERT(xmlCategory);
-    xmlCategory->setShouldSave(false);
+    m_folderCategory->setShouldSave(false);
 
     // Setup the "Tokens" category
 
@@ -108,8 +118,8 @@ void XMLDB::FileReader::createSpecialCategories()
 
     if (!tokenCat) {
         // Create a new "Tokens" category
-        tokenCat = new XMLCategory(i18n("Tokens"), QString::fromUtf8("tag"),
-                                   DB::Category::TreeView, 32, true);
+        tokenCat = new DB::Category(i18n("Tokens"), QString::fromUtf8("tag"),
+                                    DB::Category::TreeView, 32, true);
         tokenCat->setType(DB::Category::TokensCategory);
         m_db->m_categoryCollection.addCategory(tokenCat);
     }
@@ -122,14 +132,12 @@ void XMLDB::FileReader::createSpecialCategories()
 
     // Setup the "Media Type" category
     DB::CategoryPtr mediaCat;
-    mediaCat = new XMLCategory(i18n("Media Type"), QString::fromLatin1("view-categories"),
-                               DB::Category::TreeView, 32, false);
+    mediaCat = new DB::Category(i18n("Media Type"), QString::fromLatin1("view-categories"),
+                                DB::Category::TreeView, 32, false);
     mediaCat->addItem(i18n("Image"));
     mediaCat->addItem(i18n("Video"));
     mediaCat->setType(DB::Category::MediaTypeCategory);
-    auto mediaCategory = dynamic_cast<XMLCategory *>(mediaCat.data());
-    Q_ASSERT(mediaCategory);
-    mediaCategory->setShouldSave(false);
+    mediaCat->setShouldSave(false);
     // The media type is not stored in the media category,
     // but older versions of KPhotoAlbum stored a stub entry, which we need to remove first:
     if (m_db->m_categoryCollection.categoryForName(mediaCat->name()))
@@ -190,7 +198,7 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
                 else
                     exit(-1);
             } else {
-                cat = new XMLCategory(categoryName, icon, type, thumbnailSize, show, positionable);
+                cat = new DB::Category(categoryName, icon, type, thumbnailSize, show, positionable);
                 if (tokensCat)
                     cat->setType(DB::Category::TokensCategory);
                 m_db->m_categoryCollection.addCategory(cat);
@@ -204,12 +212,12 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
                 if (reader->hasAttribute(idString)) {
                     int id = reader->attribute(idString).toInt();
                     if (id != 0) {
-                        static_cast<XMLCategory *>(cat.data())->setIdMapping(value, id);
+                        cat->setIdMapping(value, id);
                     } else {
                         if (useCompressedFileFormat()) {
                             qCWarning(XMLDBLog) << "Tag" << categoryName << "/" << value << "has id=0!";
                             m_repairTagsWithNullIds = true;
-                            static_cast<XMLCategory *>(cat.data())->addZeroMapping(value);
+                            cat->addZeroMapping(value);
                         }
                         // else just don't set the id mapping so that a new id gets assigned
                     }
@@ -341,11 +349,10 @@ void XMLDB::FileReader::loadMemberGroups(ReaderPtr reader)
                     DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName(category);
                     if (!catPtr) { // category was not declared in "Categories"
                         qCWarning(XMLDBLog) << "File corruption in index.xml. Inserting missing category: " << category;
-                        catPtr = new XMLCategory(category, QString::fromUtf8("dialog-warning"), DB::Category::TreeView, 32, false);
+                        catPtr = new DB::Category(category, QString::fromUtf8("dialog-warning"), DB::Category::TreeView, 32, false);
                         m_db->m_categoryCollection.addCategory(catPtr);
                     }
-                    XMLCategory *cat = static_cast<XMLCategory *>(catPtr.data());
-                    QString member = cat->nameForId(memberItem.toInt());
+                    const QString member = catPtr->nameForId(memberItem.toInt());
                     if (member.isNull()) {
                         qCWarning(XMLDBLog) << "Tag group" << category << "references non-existing tag with id"
                                             << memberItem << "!";
@@ -455,8 +462,7 @@ void XMLDB::FileReader::repairDB()
         QString logSummary = QString::fromLatin1("List of tags where manual inspection is required:\n");
         bool manualRepairNeeded = false;
         for (auto category : m_db->categoryCollection()->categories()) {
-            XMLCategory *xmlCategory = static_cast<XMLCategory *>(category.data());
-            QStringList tags = xmlCategory->namesForIdZero();
+            QStringList tags = category->namesForIdZero();
             if (tags.size() > 1) {
                 manualRepairNeeded = true;
                 message += i18nc("repair merged tags", "<li>%1:<br/>", category->name());
@@ -466,7 +472,7 @@ void XMLDB::FileReader::repairDB()
                 }
                 message += i18nc("repair merged tags", "</li>");
             }
-            xmlCategory->clearNullIds();
+            category->clearNullIds();
         }
         message += i18nc("repair merged tags",
                          "</ul></p>"

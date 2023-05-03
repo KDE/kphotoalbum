@@ -1,6 +1,14 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2006-2008 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2006-2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2008-2011 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+// SPDX-FileCopyrightText: 2012-2013 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2018-2020 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -11,8 +19,8 @@
 #include "ElementWriter.h"
 #include "Logging.h"
 #include "NumberedBackup.h"
-#include "XMLCategory.h"
 
+#include <DB/Category.h>
 #include <DB/TagInfo.h>
 #include <Utilities/List.h>
 #include <kpabase/Logging.h>
@@ -150,8 +158,7 @@ void XMLDB::FileWriter::saveCategories(QXmlStreamWriter &writer)
         for (const QString &tagName : categoryItems) {
             ElementWriter dummy(writer, QStringLiteral("value"));
             writer.writeAttribute(QStringLiteral("value"), tagName);
-            writer.writeAttribute(QStringLiteral("id"),
-                                  QString::number(static_cast<XMLCategory *>(category.data())->idForName(tagName)));
+            writer.writeAttribute(QStringLiteral("id"), QString::number(category->idForName(tagName)));
             QDate birthDate = category->birthDate(tagName);
             if (!birthDate.isNull())
                 writer.writeAttribute(QStringLiteral("birthDate"), birthDate.toString(Qt::ISODate));
@@ -229,10 +236,9 @@ void XMLDB::FileWriter::saveMemberGroups(QXmlStreamWriter &writer)
                 QStringList idList;
                 for (const QString &member : members) {
                     DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName(categoryName);
-                    XMLCategory *category = static_cast<XMLCategory *>(catPtr.data());
-                    if (category->idForName(member) == 0)
+                    if (catPtr->idForName(member) == 0)
                         qCWarning(XMLDBLog) << "Member" << member << "in group" << categoryName << "->" << groupMapIt.key() << "has no id!";
-                    idList.append(QString::number(category->idForName(member)));
+                    idList.append(QString::number(catPtr->idForName(member)));
                 }
                 std::sort(idList.begin(), idList.end());
                 writer.writeAttribute(QStringLiteral("members"), idList.join(QStringLiteral(",")));
@@ -403,7 +409,7 @@ void XMLDB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, cons
                     // so we have to handle them separately
                     positionedTags[categoryName] << QPair<QString, QRect>(itemValue, area);
                 } else {
-                    int id = static_cast<const XMLCategory *>(category.data())->idForName(itemValue);
+                    int id = category->idForName(itemValue);
                     idList.append(QString::number(id));
                 }
             }
@@ -457,7 +463,7 @@ bool XMLDB::FileWriter::shouldSaveCategory(const QString &categoryName) const
         return false;
     }
 
-    const auto category = dynamic_cast<XMLCategory *>(m_db->m_categoryCollection.categoryForName(categoryName).data());
+    const auto category = m_db->m_categoryCollection.categoryForName(categoryName).data();
     Q_ASSERT(category);
     const bool shouldSave = category->shouldSave();
     cache.insert(categoryName, shouldSave);

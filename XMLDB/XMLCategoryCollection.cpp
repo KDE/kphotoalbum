@@ -1,11 +1,15 @@
-// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2005-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2006 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2015-2022 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "XMLCategoryCollection.h"
 
-#include "XMLCategory.h"
-
+#include <DB/Category.h>
 #include <DB/ImageDB.h>
 
 #include <QList>
@@ -69,7 +73,7 @@ QList<DB::CategoryPtr> XMLDB::XMLCategoryCollection::categories() const
 void XMLDB::XMLCategoryCollection::addCategory(const QString &text, const QString &icon,
                                                DB::Category::ViewType type, int thumbnailSize, bool show, bool positionable)
 {
-    addCategory(DB::CategoryPtr(new XMLCategory(text, icon, type, thumbnailSize, show, positionable)));
+    addCategory(DB::CategoryPtr(new DB::Category(text, icon, type, thumbnailSize, show, positionable)));
 }
 
 DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForSpecial(const DB::Category::CategoryType type) const
@@ -80,7 +84,7 @@ DB::CategoryPtr XMLDB::XMLCategoryCollection::categoryForSpecial(const DB::Categ
 void XMLDB::XMLCategoryCollection::initIdMap()
 {
     for (DB::CategoryPtr categoryPtr : qAsConst(m_categories)) {
-        static_cast<XMLCategory *>(categoryPtr.data())->initIdMap();
+        categoryPtr->initIdMap();
     }
 }
 

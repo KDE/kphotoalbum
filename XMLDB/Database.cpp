@@ -8,7 +8,6 @@
 #include "FileReader.h"
 #include "FileWriter.h"
 #include "Logging.h"
-#include "XMLCategory.h"
 
 #include <DB/CategoryCollection.h>
 #include <DB/GroupCounter.h>
@@ -790,10 +789,10 @@ void XMLDB::Database::possibleLoadCompressedCategories(ReaderPtr reader, DB::Ima
             for (const QString &tagString : list) {
                 int id = tagString.toInt();
                 if (id != 0 || categoryPtr->isSpecialCategory()) {
-                    const QString name = static_cast<const XMLCategory *>(categoryPtr.data())->nameForId(id);
+                    const QString name = categoryPtr->nameForId(id);
                     info->addCategoryInfo(categoryName, name);
                 } else {
-                    QStringList tags = static_cast<const XMLCategory *>(categoryPtr.data())->namesForIdZero();
+                    QStringList tags = categoryPtr->namesForIdZero();
                     if (tags.size() == 1) {
                         qCInfo(XMLDBLog) << "Fixing tag " << categoryName << "/" << tags[0] << "with id=0 for image" << info->fileName().relative();
                     } else {

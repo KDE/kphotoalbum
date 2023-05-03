@@ -1,4 +1,9 @@
-// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2004-2010 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2006 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2015-2022 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -27,15 +32,19 @@ public:
         Yes,
         No
     };
-    virtual CategoryPtr categoryForName(const QString &name) const = 0;
-    virtual QStringList categoryNames(IncludeSpecialCategories include = IncludeSpecialCategories::Yes) const = 0;
-    virtual void removeCategory(const QString &name) = 0;
-    virtual void rename(const QString &oldName, const QString &newName) = 0;
-    virtual QList<CategoryPtr> categories() const = 0;
-    virtual void addCategory(const QString &text, const QString &icon, Category::ViewType type,
-                             int thumbnailSize, bool show, bool positionable = false)
-        = 0;
-    virtual CategoryPtr categoryForSpecial(const Category::CategoryType type) const = 0;
+    CategoryPtr categoryForName(const QString &name) const;
+    QStringList categoryNames(IncludeSpecialCategories include = IncludeSpecialCategories::Yes) const;
+    QList<CategoryPtr> categories() const;
+    CategoryPtr categoryForSpecial(const Category::CategoryType type) const;
+
+    void addCategory(DB::CategoryPtr);
+    void addCategory(const QString &text, const QString &icon, Category::ViewType type,
+                     int thumbnailSize, bool show, bool positionable = false);
+    void removeCategory(const QString &name);
+    void rename(const QString &oldName, const QString &newName);
+
+    // FIXME(jzarl): this should be private and FileWriter should be a friend class
+    void initIdMap();
 
 Q_SIGNALS:
     void categoryCollectionChanged();
@@ -46,6 +55,10 @@ Q_SIGNALS:
 protected Q_SLOTS:
     void slotItemRenamed(const QString &oldName, const QString &newName);
     void slotItemRemoved(const QString &item);
+
+private:
+    QList<DB::CategoryPtr> m_categories;
+    QMap<DB::Category::CategoryType, DB::CategoryPtr> m_specialCategories;
 };
 
 }

@@ -14,7 +14,6 @@
 #define XMLDB_DATABASE_H
 
 #include "FileReader.h"
-#include "XMLCategoryCollection.h"
 
 #include <DB/Category.h>
 #include <DB/CategoryCollection.h>
@@ -103,7 +102,7 @@ private:
     DB::ImageInfoList m_images;
     QSet<DB::FileName> m_blockList;
     DB::ImageInfoList m_missingTimes;
-    XMLCategoryCollection m_categoryCollection;
+    DB::CategoryCollection m_categoryCollection;
     DB::MemberMap m_members;
     DB::MD5Map m_md5map;
     // QMap<QString, QString> m_settings;

@@ -143,7 +143,6 @@ set(libSettings_SRCS
     )
 
 set(libxmldb_SRCS
-    "${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/documentation.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/Database.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/NumberedBackup.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileReader.cpp"

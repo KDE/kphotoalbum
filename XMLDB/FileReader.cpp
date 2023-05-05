@@ -20,10 +20,10 @@
 #include "FileReader.h"
 
 #include "CompressFileInfo.h"
-#include "Database.h"
 #include "Logging.h"
 
 #include <DB/Category.h>
+#include <DB/ImageDB.h>
 #include <DB/MD5Map.h>
 #include <kpabase/UIDelegate.h>
 
@@ -52,9 +52,9 @@ void XMLDB::FileReader::read(const QString &configFile)
 
     m_fileVersion = reader->attribute(versionString, QString::fromLatin1("1")).toInt();
 
-    if (m_fileVersion > Database::fileVersion()) {
+    if (m_fileVersion > DB::ImageDB::fileVersion()) {
         DB::UserFeedback ret = m_db->uiDelegate().warningContinueCancel(
-            DB::LogMessage { XMLDBLog(), QString::fromLatin1("index.xml version %1 is newer than %2!").arg(m_fileVersion).arg(Database::fileVersion()) },
+            DB::LogMessage { XMLDBLog(), QString::fromLatin1("index.xml version %1 is newer than %2!").arg(m_fileVersion).arg(DB::ImageDB::fileVersion()) },
             i18n("<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</p>"
                  "<p>Chances are you will be able to read this file, but when writing it back, "
                  "information saved in the newer version will be lost</p>"),
@@ -451,7 +451,7 @@ void XMLDB::FileReader::repairDB()
         // the m_repairTagsWithNullIds is set in loadCategories()
         // -> care is taken so that multiple tags with id=0 all end up in the IdMap
         // afterwards, loadImages() applies fixes to the affected images
-        // -> this happens in XMLDB::Database::possibleLoadCompressedCategories()
+        // -> this happens in DB::ImageDB::possibleLoadCompressedCategories()
         // i.e. the zero ids still require cleanup:
         qCInfo(XMLDBLog) << "Database contained tags with id=0 (possibly related to bug #415415). Assigning new ids for affected categories...";
         QString message = i18nc("repair merged tags",
@@ -486,7 +486,7 @@ void XMLDB::FileReader::repairDB()
 
 DB::ImageInfoPtr XMLDB::FileReader::load(const DB::FileName &fileName, ReaderPtr reader)
 {
-    DB::ImageInfoPtr info = XMLDB::Database::createImageInfo(fileName, reader, m_db);
+    DB::ImageInfoPtr info = DB::ImageDB::createImageInfo(fileName, reader, m_db);
     m_nextStackId = qMax(m_nextStackId, info->stackId() + 1);
     info->createFolderCategoryItem(m_folderCategory, m_db->m_members);
     return info;

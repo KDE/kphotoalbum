@@ -15,12 +15,12 @@
 #include "FileWriter.h"
 
 #include "CompressFileInfo.h"
-#include "Database.h"
 #include "ElementWriter.h"
 #include "Logging.h"
 #include "NumberedBackup.h"
 
 #include <DB/Category.h>
+#include <DB/ImageDB.h>
 #include <DB/TagInfo.h>
 #include <Utilities/List.h>
 #include <kpabase/Logging.h>
@@ -42,7 +42,7 @@
 //
 //
 //
-// Update XMLDB::Database::fileVersion every time you update the file format!
+// Update DB::ImageDB::fileVersion every time you update the file format!
 //
 //
 //
@@ -90,7 +90,7 @@ void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
 
     {
         ElementWriter dummy(writer, QStringLiteral("KPhotoAlbum"));
-        writer.writeAttribute(QStringLiteral("version"), QString::number(Database::fileVersion()));
+        writer.writeAttribute(QStringLiteral("version"), QString::number(DB::ImageDB::fileVersion()));
         writer.writeAttribute(QStringLiteral("compressed"), QString::number(useCompressedFileFormat()));
 
         saveCategories(writer);

@@ -4,9 +4,8 @@
 
 #include "WildcardCategoryMatcher.h"
 
-#include "CategoryCollection.h"
-#include "ImageDB.h"
-
+#include <DB/CategoryCollection.h>
+#include <DB/ImageDB.h>
 #include <kpabase/Logging.h>
 
 void DB::WildcardCategoryMatcher::debug(int level) const

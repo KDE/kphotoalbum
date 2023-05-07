@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2015-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2015-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -10,7 +11,7 @@
 #include "Logging.h"
 
 #include <DB/ImageDB.h>
-#include <DB/ImageSearchInfo.h>
+#include <DB/search/ImageSearchInfo.h>
 #include <MainWindow/Window.h>
 #include <kpabase/Logging.h>
 

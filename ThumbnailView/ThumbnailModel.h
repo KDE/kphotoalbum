@@ -1,4 +1,10 @@
-// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2009-2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2019-2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2020 Robert Krawitz <rlk@alum.mit.edu>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -9,7 +15,7 @@
 #include "enums.h"
 
 #include <DB/ImageInfo.h>
-#include <DB/ImageSearchInfo.h>
+#include <DB/search/ImageSearchInfo.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <ImageManager/enums.h>
 #include <kpabase/FileNameList.h>

@@ -1,5 +1,17 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003-2013 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2005 Stephan Binner <binner@kde.org>
+// SPDX-FileCopyrightText: 2005-2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2007 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007-2008 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2009 Hassan Ibraheem <hasan.ibraheem@gmail.com>
+// SPDX-FileCopyrightText: 2011-2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2012 Andreas Neustifter <andreas.neustifter@gmail.com>
+// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
+// SPDX-FileCopyrightText: 2014 David Edmundson <kde@davidedmundson.co.uk>
+// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2017-2020 Robert Krawitz <rlk@alum.mit.edu>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -13,7 +25,7 @@
 
 #include <DB/Category.h>
 #include <DB/ImageInfoList.h>
-#include <DB/ImageSearchInfo.h>
+#include <DB/search/ImageSearchInfo.h>
 #include <kpabase/StringSet.h>
 #include <kpabase/enums.h>
 

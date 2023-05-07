@@ -14,15 +14,15 @@
 #define IMAGEDB_H
 
 #include "Category.h"
-#include "DB/CategoryCollection.h"
-#include "DB/MD5Map.h"
-#include "DB/MemberMap.h"
 #include "ImageInfoList.h"
 #include "ImageInfoPtr.h"
-#include "ImageSearchInfo.h"
 #include "MediaCount.h"
-#include <DB/XML/FileReader.h>
 
+#include <DB/CategoryCollection.h>
+#include <DB/MD5Map.h>
+#include <DB/MemberMap.h>
+#include <DB/XML/FileReader.h>
+#include <DB/search/ImageSearchInfo.h>
 #include <kpabase/FileNameList.h>
 
 #include <QObject>

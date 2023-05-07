@@ -4,8 +4,7 @@
 */
 #include "ExactCategoryMatcher.h"
 
-#include "ImageInfo.h"
-
+#include <DB/ImageInfo.h>
 #include <kpabase/Logging.h>
 
 DB::ExactCategoryMatcher::ExactCategoryMatcher(const QString category)

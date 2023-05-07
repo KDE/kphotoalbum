@@ -1,11 +1,13 @@
-// SPDX-FileCopyrightText: 2019-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2018-2022 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #ifndef FILTERWIDGET_H
 #define FILTERWIDGET_H
 
-#include <DB/ImageSearchInfo.h>
+#include <DB/search/ImageSearchInfo.h>
 
 #include <KToolBar>
 

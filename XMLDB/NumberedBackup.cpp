@@ -1,13 +1,16 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2005-2010 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2020 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "NumberedBackup.h"
 
-#include "Logging.h"
-
 #include <Utilities/FileUtil.h>
+#include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 #include <kpabase/UIDelegate.h>
 
@@ -35,12 +38,12 @@ void XMLDB::NumberedBackup::makeNumberedBackup()
         const QString fileAndDir = QStringLiteral("%1/%2").arg(Settings::SettingsData::instance()->imageDirectory()).arg(fileNameWithExt);
         KZip zip(fileAndDir);
         if (!zip.open(QIODevice::WriteOnly)) {
-            m_ui.error(DB::LogMessage { XMLDBLog(), QStringLiteral("Error creating zip file %1").arg(fileAndDir) }, i18n("Error creating zip file %1", fileAndDir), i18n("Error Making Numbered Backup"));
+            m_ui.error(DB::LogMessage { DBLog(), QStringLiteral("Error creating zip file %1").arg(fileAndDir) }, i18n("Error creating zip file %1", fileAndDir), i18n("Error Making Numbered Backup"));
             return;
         }
 
         if (!zip.addLocalFile(QStringLiteral("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory()), fileName)) {
-            m_ui.error(DB::LogMessage { XMLDBLog(), QStringLiteral("Error writing file %1 to zip file %2").arg(fileName).arg(fileAndDir) }, i18n("Error writing file %1 to zip file %2", fileName, fileAndDir), i18n("Error Making Numbered Backup"));
+            m_ui.error(DB::LogMessage { DBLog(), QStringLiteral("Error writing file %1 to zip file %2").arg(fileName).arg(fileAndDir) }, i18n("Error writing file %1 to zip file %2", fileName, fileAndDir), i18n("Error Making Numbered Backup"));
         }
         zip.close();
     } else {

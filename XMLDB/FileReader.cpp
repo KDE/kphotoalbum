@@ -20,11 +20,11 @@
 #include "FileReader.h"
 
 #include "CompressFileInfo.h"
-#include "Logging.h"
 
 #include <DB/Category.h>
 #include <DB/ImageDB.h>
 #include <DB/MD5Map.h>
+#include <kpabase/Logging.h>
 #include <kpabase/UIDelegate.h>
 
 // KDE includes
@@ -54,7 +54,7 @@ void XMLDB::FileReader::read(const QString &configFile)
 
     if (m_fileVersion > DB::ImageDB::fileVersion()) {
         DB::UserFeedback ret = m_db->uiDelegate().warningContinueCancel(
-            DB::LogMessage { XMLDBLog(), QString::fromLatin1("index.xml version %1 is newer than %2!").arg(m_fileVersion).arg(DB::ImageDB::fileVersion()) },
+            DB::LogMessage { DBLog(), QString::fromLatin1("index.xml version %1 is newer than %2!").arg(m_fileVersion).arg(DB::ImageDB::fileVersion()) },
             i18n("<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</p>"
                  "<p>Chances are you will be able to read this file, but when writing it back, "
                  "information saved in the newer version will be lost</p>"),
@@ -181,7 +181,7 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
             bool repairMode = false;
             if (cat) {
                 DB::UserFeedback choice = m_db->uiDelegate().warningContinueCancel(
-                    DB::LogMessage { XMLDBLog(),
+                    DB::LogMessage { DBLog(),
                                      QString::fromUtf8("Line %1, column %2: duplicate category '%3'")
                                          .arg(reader->lineNumber())
                                          .arg(reader->columnNumber())
@@ -215,7 +215,7 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
                         cat->setIdMapping(value, id);
                     } else {
                         if (useCompressedFileFormat()) {
-                            qCWarning(XMLDBLog) << "Tag" << categoryName << "/" << value << "has id=0!";
+                            qCWarning(DBLog) << "Tag" << categoryName << "/" << value << "has id=0!";
                             m_repairTagsWithNullIds = true;
                             cat->addZeroMapping(value);
                         }
@@ -232,8 +232,8 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
             }
             if (repairMode) {
                 // merge with duplicate category
-                qCInfo(XMLDBLog) << "Repairing category " << categoryName << ": merging items "
-                                 << cat->items() << " with " << items;
+                qCInfo(DBLog) << "Repairing category " << categoryName << ": merging items "
+                              << cat->items() << " with " << items;
                 items.append(cat->items());
                 items.removeDuplicates();
             }
@@ -248,8 +248,8 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
 
     if (m_fileVersion < 7) {
         m_db->uiDelegate().information(
-            DB::LogMessage { XMLDBLog(), QString::fromLatin1("Standard category names are no longer used since index.xml "
-                                                             "version 7. Standard categories will be left untranslated from now on.") },
+            DB::LogMessage { DBLog(), QString::fromLatin1("Standard category names are no longer used since index.xml "
+                                                          "version 7. Standard categories will be left untranslated from now on.") },
             i18nc("Leave \"Folder\" and \"Media Type\" untranslated below, those will show up with "
                   "these exact names. Thanks :-)",
                   "<p><b>This version of KPhotoAlbum does not translate \"standard\" categories "
@@ -277,7 +277,7 @@ void XMLDB::FileReader::loadImages(ReaderPtr reader)
     while (reader->readNextStartOrStopElement(imageString).isStartToken) {
         const QString fileNameStr = reader->attribute(fileString);
         if (fileNameStr.isNull()) {
-            qCWarning(XMLDBLog, "Element did not contain a file attribute");
+            qCWarning(DBLog, "Element did not contain a file attribute");
             return;
         }
 
@@ -286,12 +286,12 @@ void XMLDB::FileReader::loadImages(ReaderPtr reader)
         DB::ImageInfoPtr info = load(dbFileName, reader);
         if (m_db->md5Map()->containsFile(dbFileName)) {
             if (m_db->md5Map()->contains(info->MD5Sum())) {
-                qCWarning(XMLDBLog) << "Merging duplicate entry for file" << dbFileName.relative();
+                qCWarning(DBLog) << "Merging duplicate entry for file" << dbFileName.relative();
                 DB::ImageInfoPtr existingInfo = m_db->info(dbFileName);
                 existingInfo->merge(*info);
             } else {
                 m_db->uiDelegate().error(
-                    DB::LogMessage { XMLDBLog(), QString::fromUtf8("Conflicting information for file '%1': duplicate entry with different MD5 sum! Bailing out...").arg(dbFileName.relative()) },
+                    DB::LogMessage { DBLog(), QString::fromUtf8("Conflicting information for file '%1': duplicate entry with different MD5 sum! Bailing out...").arg(dbFileName.relative()) },
                     i18n("<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum.</p>"
                          "<p>Manual repair required!</p>",
                          reader->lineNumber(),
@@ -348,14 +348,14 @@ void XMLDB::FileReader::loadMemberGroups(ReaderPtr reader)
                 for (const QString &memberItem : members) {
                     DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName(category);
                     if (!catPtr) { // category was not declared in "Categories"
-                        qCWarning(XMLDBLog) << "File corruption in index.xml. Inserting missing category: " << category;
+                        qCWarning(DBLog) << "File corruption in index.xml. Inserting missing category: " << category;
                         catPtr = new DB::Category(category, QString::fromUtf8("dialog-warning"), DB::Category::TreeView, 32, false);
                         m_db->m_categoryCollection.addCategory(catPtr);
                     }
                     const QString member = catPtr->nameForId(memberItem.toInt());
                     if (member.isNull()) {
-                        qCWarning(XMLDBLog) << "Tag group" << category << "references non-existing tag with id"
-                                            << memberItem << "!";
+                        qCWarning(DBLog) << "Tag group" << category << "references non-existing tag with id"
+                                         << memberItem << "!";
                         continue;
                     }
                     m_db->m_members.addMemberToGroup(category, group, member);
@@ -413,7 +413,7 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
 
     if (wrongOrder) {
         m_db->uiDelegate().information(
-            DB::LogMessage { XMLDBLog(),
+            DB::LogMessage { DBLog(),
                              QString::fromLatin1("Database is not sorted by date.") },
             i18n("<p>Your images/videos are not sorted, which means that navigating using the date bar "
                  "will only work suboptimally.</p>"
@@ -435,7 +435,7 @@ void XMLDB::FileReader::checkIfAllImagesHaveSizeAttributes()
 
     if (m_db->s_anyImageWithEmptySize) {
         m_db->uiDelegate().information(
-            DB::LogMessage { XMLDBLog(), QString::fromLatin1("Found image(s) without size information.") },
+            DB::LogMessage { DBLog(), QString::fromLatin1("Found image(s) without size information.") },
             i18n("<p>Not all the images in the database have information about image sizes; this is needed to "
                  "get the best result in the thumbnail view. To fix this, simply go to the <b>Maintenance</b> menu, "
                  "and first choose <b>Remove All Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</p>"
@@ -453,7 +453,7 @@ void XMLDB::FileReader::repairDB()
         // afterwards, loadImages() applies fixes to the affected images
         // -> this happens in DB::ImageDB::possibleLoadCompressedCategories()
         // i.e. the zero ids still require cleanup:
-        qCInfo(XMLDBLog) << "Database contained tags with id=0 (possibly related to bug #415415). Assigning new ids for affected categories...";
+        qCInfo(DBLog) << "Database contained tags with id=0 (possibly related to bug #415415). Assigning new ids for affected categories...";
         QString message = i18nc("repair merged tags",
                                 "<p>Inconsistencies were found and repaired in your database. "
                                 "Some categories now contain tags that were merged during the repair.</p>"
@@ -479,7 +479,7 @@ void XMLDB::FileReader::repairDB()
                          "<p>All affected images have also been marked with a tag "
                          "<em>KPhotoAlbum - manual repair needed</em>.</p>");
         if (manualRepairNeeded) {
-            m_db->uiDelegate().information(DB::LogMessage { XMLDBLog(), logSummary }, message, i18n("Database repair required"));
+            m_db->uiDelegate().information(DB::LogMessage { DBLog(), logSummary }, message, i18n("Database repair required"));
         }
     }
 }
@@ -501,7 +501,7 @@ XMLDB::ReaderPtr XMLDB::FileReader::readConfigFile(const QString &configFile)
         QFile file(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("default-setup")));
         if (!file.open(QIODevice::ReadOnly)) {
             m_db->uiDelegate().information(
-                DB::LogMessage { XMLDBLog(), QString::fromLatin1("default-setup not found in standard paths.") },
+                DB::LogMessage { DBLog(), QString::fromLatin1("default-setup not found in standard paths.") },
                 i18n("<p>KPhotoAlbum was unable to load a default setup, which indicates an installation error</p>"
                      "<p>If you have installed KPhotoAlbum yourself, then you must remember to set the environment variable "
                      "<b>KDEDIRS</b>, to point to the topmost installation folder.</p>"
@@ -530,7 +530,7 @@ XMLDB::ReaderPtr XMLDB::FileReader::readConfigFile(const QString &configFile)
     } else {
         if (!file.open(QIODevice::ReadOnly)) {
             m_db->uiDelegate().error(
-                DB::LogMessage { XMLDBLog(), QString::fromLatin1("Unable to open '%1' for reading").arg(configFile) },
+                DB::LogMessage { DBLog(), QString::fromLatin1("Unable to open '%1' for reading").arg(configFile) },
                 i18n("Unable to open '%1' for reading", configFile), i18n("Error Running Demo"));
             exit(-1);
         }

@@ -1,6 +1,6 @@
 <!--
 SPDX-License-Identifier: CC-BY-SA-4.0
-SPDX-FileCopyrightText: 2018-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+SPDX-FileCopyrightText: 2018-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 -->
 
 # Getting KPhotoAlbum to print debug output {#debug-output}
@@ -57,7 +57,6 @@ E.g. you can start KPhotoAlbum like this on the commandline:
  - ```kphotoalbum.timingInformation```
  - ```kphotoalbum.Utilities```
  - ```kphotoalbum.Viewer```
- - ```kphotoalbum.XMLDB```
 
 ## Further reading
 

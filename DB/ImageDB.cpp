@@ -30,7 +30,6 @@
 #include <Utilities/FastDateTime.h>
 #include <XMLDB/FileReader.h>
 #include <XMLDB/FileWriter.h>
-#include <XMLDB/Logging.h>
 #include <kpabase/FileName.h>
 #include <kpabase/SettingsData.h>
 #include <kpabase/UIDelegate.h>
@@ -59,14 +58,14 @@ void checkForBackupFile(const QString &fileName, DB::UIDelegate &ui)
 
     const long backupSizeKB = backUpFile.size() >> 10;
     const DB::UserFeedback choice = ui.questionYesNo(
-        DB::LogMessage { XMLDBLog(), QString::fromUtf8("Autosave file found: '%1', %2KB.").arg(backupName).arg(backupSizeKB) },
+        DB::LogMessage { DBLog(), QString::fromUtf8("Autosave file found: '%1', %2KB.").arg(backupName).arg(backupSizeKB) },
         i18n("Autosave file '%1' exists (size %3 KB) and is newer than '%2'. "
              "Should the autosave file be used?",
              backupName, fileName, backupSizeKB),
         i18n("Found Autosave File"));
 
     if (choice == DB::UserFeedback::Confirm) {
-        qCInfo(XMLDBLog) << "Using autosave file:" << backupName;
+        qCInfo(DBLog) << "Using autosave file:" << backupName;
         QFile in(backupName);
         if (in.open(QIODevice::ReadOnly)) {
             QFile out(fileName);
@@ -279,13 +278,13 @@ ImageDB::ImageDB(const QString &configFile, UIDelegate &delegate)
         auto untaggedCategoryPtr = categoryCollection()->categoryForName(untaggedCategory);
         if (untaggedCategoryPtr) {
             if (!untaggedCategoryPtr->items().contains(untaggedTag)) {
-                qCInfo(XMLDBLog) << "Adding 'untagged' tag to database:" << untaggedTag;
+                qCInfo(DBLog) << "Adding 'untagged' tag to database:" << untaggedTag;
                 untaggedCategoryPtr->addItem(untaggedTag);
             }
-            qCInfo(XMLDBLog) << "No designated 'untagged' tag found in database. Using value configured in settings.";
+            qCInfo(DBLog) << "No designated 'untagged' tag found in database. Using value configured in settings.";
             setUntaggedTag(untaggedCategoryPtr->itemForName(untaggedTag));
         } else {
-            qCWarning(XMLDBLog) << "No designated 'untagged' tag found in database and no viable value configured in settings.";
+            qCWarning(DBLog) << "No designated 'untagged' tag found in database and no viable value configured in settings.";
         }
     }
 
@@ -983,15 +982,15 @@ void ImageDB::possibleLoadCompressedCategories(XMLDB::ReaderPtr reader, ImageInf
                 } else {
                     QStringList tags = categoryPtr->namesForIdZero();
                     if (tags.size() == 1) {
-                        qCInfo(XMLDBLog) << "Fixing tag " << categoryName << "/" << tags[0] << "with id=0 for image" << info->fileName().relative();
+                        qCInfo(DBLog) << "Fixing tag " << categoryName << "/" << tags[0] << "with id=0 for image" << info->fileName().relative();
                     } else {
                         // insert marker category
                         QString markerTag = i18n("KPhotoAlbum - manual repair needed (%1)",
                                                  tags.join(i18nc("Separator in a list of tags", ", ")));
                         categoryPtr->addItem(markerTag);
                         info->addCategoryInfo(categoryName, markerTag);
-                        qCWarning(XMLDBLog) << "Manual fix required for image" << info->fileName().relative();
-                        qCWarning(XMLDBLog) << "Image was marked with tag " << categoryName << "/" << markerTag;
+                        qCWarning(DBLog) << "Manual fix required for image" << info->fileName().relative();
+                        qCWarning(DBLog) << "Image was marked with tag " << categoryName << "/" << markerTag;
                     }
                     for (const auto &name : tags) {
                         info->addCategoryInfo(categoryName, name);

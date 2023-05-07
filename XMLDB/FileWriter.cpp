@@ -16,7 +16,6 @@
 
 #include "CompressFileInfo.h"
 #include "ElementWriter.h"
-#include "Logging.h"
 #include "NumberedBackup.h"
 
 #include <DB/Category.h>
@@ -72,14 +71,14 @@ void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
     QFile out(fileName + QStringLiteral(".tmp"));
     if (!out.open(QIODevice::WriteOnly | QIODevice::Text)) {
         m_db->uiDelegate().error(
-            DB::LogMessage { XMLDBLog(), QStringLiteral("Error saving to file '%1': %2").arg(out.fileName()).arg(out.errorString()) }, i18n("<p>Could not save the image database to XML.</p>"
-                                                                                                                                            "File %1 could not be opened because of the following error: %2",
-                                                                                                                                            out.fileName(), out.errorString()),
+            DB::LogMessage { DBLog(), QStringLiteral("Error saving to file '%1': %2").arg(out.fileName()).arg(out.errorString()) }, i18n("<p>Could not save the image database to XML.</p>"
+                                                                                                                                         "File %1 could not be opened because of the following error: %2",
+                                                                                                                                         out.fileName(), out.errorString()),
             i18n("Error while saving..."));
         return;
     }
     if (!out.setPermissions(FILE_PERMISSIONS)) {
-        qCWarning(XMLDBLog, "Could not set permissions on file %s!", qPrintable(out.fileName()));
+        qCWarning(DBLog, "Could not set permissions on file %s!", qPrintable(out.fileName()));
     }
     QElapsedTimer timer;
     if (TimingLog().isDebugEnabled())
@@ -107,18 +106,18 @@ void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
     // original file can be safely deleted
     if ((!QFile::remove(fileName)) && QFile::exists(fileName)) {
         m_db->uiDelegate().error(
-            DB::LogMessage { XMLDBLog(), QStringLiteral("Removal of file '%1' failed.").arg(fileName) }, i18n("<p>Failed to remove old version of image database.</p>"
-                                                                                                              "<p>Please try again or replace the file %1 with file %2 manually!</p>",
-                                                                                                              fileName, out.fileName()),
+            DB::LogMessage { DBLog(), QStringLiteral("Removal of file '%1' failed.").arg(fileName) }, i18n("<p>Failed to remove old version of image database.</p>"
+                                                                                                           "<p>Please try again or replace the file %1 with file %2 manually!</p>",
+                                                                                                           fileName, out.fileName()),
             i18n("Error while saving..."));
         return;
     }
     // State: index.xml doesn't exist, index.xml.tmp has the current version.
     if (!out.rename(fileName)) {
         m_db->uiDelegate().error(
-            DB::LogMessage { XMLDBLog(), QStringLiteral("Renaming index.xml to '%1' failed.").arg(out.fileName()) }, i18n("<p>Failed to move temporary XML file to permanent location.</p>"
-                                                                                                                          "<p>Please try again or rename file %1 to %2 manually!</p>",
-                                                                                                                          out.fileName(), fileName),
+            DB::LogMessage { DBLog(), QStringLiteral("Renaming index.xml to '%1' failed.").arg(out.fileName()) }, i18n("<p>Failed to move temporary XML file to permanent location.</p>"
+                                                                                                                       "<p>Please try again or rename file %1 to %2 manually!</p>",
+                                                                                                                       out.fileName(), fileName),
             i18n("Error while saving..."));
         // State: index.xml.tmp has the current version.
         return;
@@ -237,7 +236,7 @@ void XMLDB::FileWriter::saveMemberGroups(QXmlStreamWriter &writer)
                 for (const QString &member : members) {
                     DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName(categoryName);
                     if (catPtr->idForName(member) == 0)
-                        qCWarning(XMLDBLog) << "Member" << member << "in group" << categoryName << "->" << groupMapIt.key() << "has no id!";
+                        qCWarning(DBLog) << "Member" << member << "in group" << categoryName << "->" << groupMapIt.key() << "has no id!";
                     idList.append(QString::number(catPtr->idForName(member)));
                 }
                 std::sort(idList.begin(), idList.end());
@@ -458,7 +457,7 @@ bool XMLDB::FileWriter::shouldSaveCategory(const QString &categoryName) const
 
     // A few bugs has shown up, where an invalid category name has crashed KPA. It therefore checks for such invalid names here.
     if (!m_db->m_categoryCollection.categoryForName(categoryName)) {
-        qCWarning(XMLDBLog, "Invalid category name: %s", qPrintable(categoryName));
+        qCWarning(DBLog, "Invalid category name: %s", qPrintable(categoryName));
         cache.insert(categoryName, false);
         return false;
     }

@@ -39,7 +39,7 @@
 #include <QTextCodec>
 #include <QTextStream>
 
-void XMLDB::FileReader::read(const QString &configFile)
+void DB::FileReader::read(const QString &configFile)
 {
     static QString versionString = QString::fromUtf8("version");
     static QString compressedString = QString::fromUtf8("compressed");
@@ -81,7 +81,7 @@ void XMLDB::FileReader::read(const QString &configFile)
     checkIfAllImagesHaveSizeAttributes();
 }
 
-void XMLDB::FileReader::createSpecialCategories()
+void DB::FileReader::createSpecialCategories()
 {
     // Setup the "Folder" category
     m_folderCategory = new DB::Category(i18n("Folder"), QString::fromLatin1("folder"),
@@ -145,7 +145,7 @@ void XMLDB::FileReader::createSpecialCategories()
     m_db->m_categoryCollection.addCategory(mediaCat);
 }
 
-void XMLDB::FileReader::loadCategories(ReaderPtr reader)
+void DB::FileReader::loadCategories(ReaderPtr reader)
 {
     static QString nameString = QString::fromUtf8("name");
     static QString iconString = QString::fromUtf8("icon");
@@ -264,7 +264,7 @@ void XMLDB::FileReader::loadCategories(ReaderPtr reader)
     }
 }
 
-void XMLDB::FileReader::loadImages(ReaderPtr reader)
+void DB::FileReader::loadImages(ReaderPtr reader)
 {
     static QString fileString = QString::fromUtf8("file");
     static QString imagesString = QString::fromUtf8("images");
@@ -307,7 +307,7 @@ void XMLDB::FileReader::loadImages(ReaderPtr reader)
     }
 }
 
-void XMLDB::FileReader::loadBlockList(ReaderPtr reader)
+void DB::FileReader::loadBlockList(ReaderPtr reader)
 {
     static QString fileString = QString::fromUtf8("file");
     static QString blockListString = QString::fromUtf8("blocklist");
@@ -325,7 +325,7 @@ void XMLDB::FileReader::loadBlockList(ReaderPtr reader)
     }
 }
 
-void XMLDB::FileReader::loadMemberGroups(ReaderPtr reader)
+void DB::FileReader::loadMemberGroups(ReaderPtr reader)
 {
     static QString categoryString = QString::fromUtf8("category");
     static QString groupNameString = QString::fromUtf8("group-name");
@@ -374,7 +374,7 @@ void XMLDB::FileReader::loadMemberGroups(ReaderPtr reader)
 }
 
 /*
-void XMLDB::FileReader::loadSettings(ReaderPtr reader)
+void DB::FileReader::loadSettings(ReaderPtr reader)
 {
     static QString settingsString = QString::fromUtf8("settings");
     static QString settingString = QString::fromUtf8("setting");
@@ -398,7 +398,7 @@ void XMLDB::FileReader::loadSettings(ReaderPtr reader)
 }
 */
 
-void XMLDB::FileReader::checkIfImagesAreSorted()
+void DB::FileReader::checkIfImagesAreSorted()
 {
     if (m_db->uiDelegate().isDialogDisabled(QString::fromLatin1("checkWhetherImagesAreSorted")))
         return;
@@ -428,7 +428,7 @@ void XMLDB::FileReader::checkIfImagesAreSorted()
     }
 }
 
-void XMLDB::FileReader::checkIfAllImagesHaveSizeAttributes()
+void DB::FileReader::checkIfAllImagesHaveSizeAttributes()
 {
     if (m_db->uiDelegate().isDialogDisabled(QString::fromLatin1("checkWhetherAllImagesIncludesSize")))
         return;
@@ -445,7 +445,7 @@ void XMLDB::FileReader::checkIfAllImagesHaveSizeAttributes()
     }
 }
 
-void XMLDB::FileReader::repairDB()
+void DB::FileReader::repairDB()
 {
     if (m_repairTagsWithNullIds) {
         // the m_repairTagsWithNullIds is set in loadCategories()
@@ -484,7 +484,7 @@ void XMLDB::FileReader::repairDB()
     }
 }
 
-DB::ImageInfoPtr XMLDB::FileReader::load(const DB::FileName &fileName, ReaderPtr reader)
+DB::ImageInfoPtr DB::FileReader::load(const DB::FileName &fileName, ReaderPtr reader)
 {
     DB::ImageInfoPtr info = DB::ImageDB::createImageInfo(fileName, reader, m_db);
     m_nextStackId = qMax(m_nextStackId, info->stackId() + 1);
@@ -492,7 +492,7 @@ DB::ImageInfoPtr XMLDB::FileReader::load(const DB::FileName &fileName, ReaderPtr
     return info;
 }
 
-XMLDB::ReaderPtr XMLDB::FileReader::readConfigFile(const QString &configFile)
+DB::ReaderPtr DB::FileReader::readConfigFile(const QString &configFile)
 {
     ReaderPtr reader = ReaderPtr(new XmlReader(m_db->uiDelegate(), configFile));
     QFile file(configFile);
@@ -575,12 +575,12 @@ XMLDB::ReaderPtr XMLDB::FileReader::readConfigFile(const QString &configFile)
 /**
  * @brief Unescape a string used as an XML attribute name.
  *
- * @see XMLDB::FileWriter::escape
+ * @see DB::FileWriter::escape
  *
  * @param str the string to be unescaped
  * @return the unescaped string
  */
-QString XMLDB::FileReader::unescape(const QString &str)
+QString DB::FileReader::unescape(const QString &str)
 {
     static bool hashUsesCompressedFormat = useCompressedFileFormat();
     static QHash<QString, QString> s_cache;

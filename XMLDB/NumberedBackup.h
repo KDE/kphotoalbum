@@ -1,7 +1,9 @@
-/* SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2005-2006, 2010 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #ifndef NUMBEREDBACKUP_H
 #define NUMBEREDBACKUP_H
 #include <QStringList>
@@ -9,10 +11,7 @@
 namespace DB
 {
 class UIDelegate;
-}
 
-namespace XMLDB
-{
 class NumberedBackup
 {
 public:

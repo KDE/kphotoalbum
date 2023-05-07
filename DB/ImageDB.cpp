@@ -267,7 +267,7 @@ ImageDB::ImageDB(const QString &configFile, UIDelegate &delegate)
     , m_fileName(configFile)
 {
     checkForBackupFile(configFile, uiDelegate());
-    XMLDB::FileReader reader(this);
+    DB::FileReader reader(this);
     reader.read(configFile);
     m_nextStackId = reader.nextStackId();
 
@@ -372,7 +372,7 @@ void ImageDB::insertList(const FileName &fileName, const ImageInfoList &list, bo
     Q_EMIT dirty();
 }
 
-void ImageDB::readOptions(ImageInfoPtr info, XMLDB::ReaderPtr reader, const QMap<QString, QString> *newToOldCategory)
+void ImageDB::readOptions(ImageInfoPtr info, DB::ReaderPtr reader, const QMap<QString, QString> *newToOldCategory)
 {
     static QString _name_ = QString::fromUtf8("name");
     static QString _value_ = QString::fromUtf8("value");
@@ -380,7 +380,7 @@ void ImageDB::readOptions(ImageInfoPtr info, XMLDB::ReaderPtr reader, const QMap
     static QString _area_ = QString::fromUtf8("area");
 
     while (reader->readNextStartOrStopElement(_option_).isStartToken) {
-        QString name = XMLDB::FileReader::unescape(reader->attribute(_name_));
+        QString name = DB::FileReader::unescape(reader->attribute(_name_));
         // If the silent update to db version 6 has been done, use the updated category names.
         if (newToOldCategory) {
             name = newToOldCategory->key(name, name);
@@ -705,7 +705,7 @@ MemberMap &ImageDB::memberMap()
 
 void ImageDB::save(const QString &fileName, bool isAutoSave)
 {
-    XMLDB::FileWriter saver(this);
+    DB::FileWriter saver(this);
     saver.save(fileName, isAutoSave);
 }
 
@@ -853,7 +853,7 @@ int ImageDB::fileVersion()
     return 9;
 }
 
-ImageInfoPtr ImageDB::createImageInfo(const FileName &fileName, XMLDB::ReaderPtr reader, ImageDB *db, const QMap<QString, QString> *newToOldCategory)
+ImageInfoPtr ImageDB::createImageInfo(const FileName &fileName, DB::ReaderPtr reader, ImageDB *db, const QMap<QString, QString> *newToOldCategory)
 {
     static QString _label_ = QString::fromUtf8("label");
     static QString _description_ = QString::fromUtf8("description");
@@ -956,7 +956,7 @@ ImageInfoPtr ImageDB::createImageInfo(const FileName &fileName, XMLDB::ReaderPtr
     return result;
 }
 
-void ImageDB::possibleLoadCompressedCategories(XMLDB::ReaderPtr reader, ImageInfoPtr info, ImageDB *db, const QMap<QString, QString> *newToOldCategory)
+void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPtr info, ImageDB *db, const QMap<QString, QString> *newToOldCategory)
 {
     if (db == nullptr)
         return;
@@ -971,7 +971,7 @@ void ImageDB::possibleLoadCompressedCategories(XMLDB::ReaderPtr reader, ImageInf
         } else {
             oldCategoryName = categoryName;
         }
-        QString str = reader->attribute(XMLDB::FileWriter::escape(oldCategoryName));
+        QString str = reader->attribute(DB::FileWriter::escape(oldCategoryName));
         if (!str.isEmpty()) {
             const QStringList list = str.split(QString::fromLatin1(","), Qt::SkipEmptyParts);
             for (const QString &tagString : list) {

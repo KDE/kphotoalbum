@@ -22,9 +22,7 @@ class QXmlStreamReader;
 namespace DB
 {
 class ImageDB;
-}
-namespace XMLDB
-{
+
 class FileReader
 {
 

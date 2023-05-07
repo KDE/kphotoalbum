@@ -70,11 +70,11 @@ bool ImportDialog::exec(KimFileReader *kimFileReader, const QUrl &kimFileURL)
 
 bool ImportDialog::readFile(const QByteArray &data)
 {
-    XMLDB::ReaderPtr reader = XMLDB::ReaderPtr(new XMLDB::XmlReader(DB::ImageDB::instance()->uiDelegate(),
-                                                                    m_kimFile.toDisplayString()));
+    DB::ReaderPtr reader = DB::ReaderPtr(new DB::XmlReader(DB::ImageDB::instance()->uiDelegate(),
+                                                           m_kimFile.toDisplayString()));
     reader->addData(data);
 
-    XMLDB::ElementInfo info = reader->readNextStartOrStopElement(QString::fromUtf8("KimDaBa-export"));
+    DB::ElementInfo info = reader->readNextStartOrStopElement(QString::fromUtf8("KimDaBa-export"));
     if (!info.isStartToken)
         reader->complainStartElementExpected(QString::fromUtf8("KimDaBa-export"));
 

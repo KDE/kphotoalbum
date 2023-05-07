@@ -19,12 +19,12 @@
 #include <QDir>
 #include <QRegExp>
 
-XMLDB::NumberedBackup::NumberedBackup(DB::UIDelegate &ui)
+DB::NumberedBackup::NumberedBackup(DB::UIDelegate &ui)
     : m_ui(ui)
 {
 }
 
-void XMLDB::NumberedBackup::makeNumberedBackup()
+void DB::NumberedBackup::makeNumberedBackup()
 {
     deleteOldBackupFiles();
 
@@ -52,7 +52,7 @@ void XMLDB::NumberedBackup::makeNumberedBackup()
     }
 }
 
-int XMLDB::NumberedBackup::getMaxId() const
+int DB::NumberedBackup::getMaxId() const
 {
     const QStringList files = backupFiles();
     int max = 0;
@@ -63,13 +63,13 @@ int XMLDB::NumberedBackup::getMaxId() const
     return max;
 }
 
-QStringList XMLDB::NumberedBackup::backupFiles() const
+QStringList DB::NumberedBackup::backupFiles() const
 {
     QDir dir(Settings::SettingsData::instance()->imageDirectory());
     return dir.entryList(QStringList() << QStringLiteral("index.xml~*~*"), QDir::Files);
 }
 
-int XMLDB::NumberedBackup::idForFile(const QString &fileName, bool &OK) const
+int DB::NumberedBackup::idForFile(const QString &fileName, bool &OK) const
 {
     QRegExp reg(QStringLiteral("index\\.xml~([0-9]+)~(.zip)?"));
     if (reg.exactMatch(fileName)) {
@@ -81,7 +81,7 @@ int XMLDB::NumberedBackup::idForFile(const QString &fileName, bool &OK) const
     }
 }
 
-void XMLDB::NumberedBackup::deleteOldBackupFiles()
+void DB::NumberedBackup::deleteOldBackupFiles()
 {
     int maxId = getMaxId();
     int maxBackupFiles = Settings::SettingsData::instance()->backupCount();

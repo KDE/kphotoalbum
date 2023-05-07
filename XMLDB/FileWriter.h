@@ -20,10 +20,7 @@ class QXmlStreamWriter;
 namespace DB
 {
 class ImageDB;
-}
 
-namespace XMLDB
-{
 class Database;
 
 class FileWriter

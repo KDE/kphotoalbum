@@ -12,7 +12,7 @@
 
 #include <KLocalizedString>
 
-namespace XMLDB
+namespace DB
 {
 
 XmlReader::XmlReader(DB::UIDelegate &ui, const QString &friendlyStreamName)

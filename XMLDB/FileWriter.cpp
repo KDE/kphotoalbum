@@ -59,7 +59,7 @@ namespace
 constexpr QFileDevice::Permissions FILE_PERMISSIONS { QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup | QFile::ReadOther };
 }
 
-void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
+void DB::FileWriter::save(const QString &fileName, bool isAutoSave)
 {
     setUseCompressedFileFormat(Settings::SettingsData::instance()->useCompressedIndexXML());
 
@@ -99,7 +99,7 @@ void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
         // saveSettings(writer);
     }
     writer.writeEndDocument();
-    qCDebug(TimingLog) << "XMLDB::FileWriter::save(): Saving took" << timer.elapsed() << "ms";
+    qCDebug(TimingLog) << "DB::FileWriter::save(): Saving took" << timer.elapsed() << "ms";
 
     // State: index.xml has previous DB version, index.xml.tmp has the current version.
 
@@ -125,7 +125,7 @@ void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
     // State: index.xml has the current version.
 }
 
-void XMLDB::FileWriter::saveCategories(QXmlStreamWriter &writer)
+void DB::FileWriter::saveCategories(QXmlStreamWriter &writer)
 {
     QStringList categories = DB::ImageDB::instance()->categoryCollection()->categoryNames();
     ElementWriter dummy(writer, QStringLiteral("Categories"));
@@ -168,7 +168,7 @@ void XMLDB::FileWriter::saveCategories(QXmlStreamWriter &writer)
     }
 }
 
-void XMLDB::FileWriter::saveImages(QXmlStreamWriter &writer)
+void DB::FileWriter::saveImages(QXmlStreamWriter &writer)
 {
     DB::ImageInfoList list = m_db->m_images;
 
@@ -187,7 +187,7 @@ void XMLDB::FileWriter::saveImages(QXmlStreamWriter &writer)
     }
 }
 
-void XMLDB::FileWriter::saveBlockList(QXmlStreamWriter &writer)
+void DB::FileWriter::saveBlockList(QXmlStreamWriter &writer)
 {
     ElementWriter dummy(writer, QStringLiteral("blocklist"));
     QList<DB::FileName> blockList(m_db->m_blockList.begin(), m_db->m_blockList.end());
@@ -199,7 +199,7 @@ void XMLDB::FileWriter::saveBlockList(QXmlStreamWriter &writer)
     }
 }
 
-void XMLDB::FileWriter::saveMemberGroups(QXmlStreamWriter &writer)
+void DB::FileWriter::saveMemberGroups(QXmlStreamWriter &writer)
 {
     if (m_db->m_members.isEmpty())
         return;
@@ -267,7 +267,7 @@ void XMLDB::FileWriter::saveMemberGroups(QXmlStreamWriter &writer)
 /*
 Perhaps, we may need this later ;-)
 
-void XMLDB::FileWriter::saveSettings(QXmlStreamWriter& writer)
+void DB::FileWriter::saveSettings(QXmlStreamWriter& writer)
 {
     ElementWriter dummy(writer, settingsString);
 
@@ -300,7 +300,7 @@ static const QString &stdDateTimeToString(const Utilities::FastDateTime &date)
     return s_lastDateTimeString;
 }
 
-void XMLDB::FileWriter::save(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info)
+void DB::FileWriter::save(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info)
 {
     ElementWriter dummy(writer, QStringLiteral("image"));
     writer.writeAttribute(QStringLiteral("file"), info->fileName().relative());
@@ -341,7 +341,7 @@ void XMLDB::FileWriter::save(QXmlStreamWriter &writer, const DB::ImageInfoPtr &i
         writeCategories(writer, info);
 }
 
-QString XMLDB::FileWriter::areaToString(QRect area) const
+QString DB::FileWriter::areaToString(QRect area) const
 {
     QStringList areaString;
     areaString.append(QString::number(area.x()));
@@ -351,7 +351,7 @@ QString XMLDB::FileWriter::areaToString(QRect area) const
     return areaString.join(QStringLiteral(" "));
 }
 
-void XMLDB::FileWriter::writeCategories(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info)
+void DB::FileWriter::writeCategories(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info)
 {
     ElementWriter topElm(writer, QStringLiteral("options"), false);
 
@@ -385,7 +385,7 @@ void XMLDB::FileWriter::writeCategories(QXmlStreamWriter &writer, const DB::Imag
     }
 }
 
-void XMLDB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info)
+void DB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info)
 {
     QMap<QString, QList<QPair<QString, QRect>>> positionedTags;
 
@@ -448,7 +448,7 @@ void XMLDB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, cons
     }
 }
 
-bool XMLDB::FileWriter::shouldSaveCategory(const QString &categoryName) const
+bool DB::FileWriter::shouldSaveCategory(const QString &categoryName) const
 {
     // Profiling indicated that this function was a hotspot, so this cache improved saving speed with 25%
     static QHash<QString, bool> cache;
@@ -473,12 +473,12 @@ bool XMLDB::FileWriter::shouldSaveCategory(const QString &categoryName) const
  * @brief Escape problematic characters in a string that forms an XML attribute name.
  *
  * N.B.: Attribute values do not need to be escaped!
- * @see XMLDB::FileReader::unescape
+ * @see DB::FileReader::unescape
  *
  * @param str the string to be escaped
  * @return the escaped string
  */
-QString XMLDB::FileWriter::escape(const QString &str)
+QString DB::FileWriter::escape(const QString &str)
 {
     static bool hashUsesCompressedFormat = useCompressedFileFormat();
     static QHash<QString, QString> s_cache;

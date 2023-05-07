@@ -31,7 +31,7 @@
 
 class QProgressBar;
 
-namespace XMLDB
+namespace DB
 {
 class FileWriter;
 }
@@ -188,8 +188,8 @@ public:
     const DB::TagInfo *untaggedTag() const;
 
     static int fileVersion();
-    static DB::ImageInfoPtr createImageInfo(const DB::FileName &fileName, XMLDB::ReaderPtr, ImageDB *db = nullptr, const QMap<QString, QString> *newToOldCategory = nullptr);
-    static void possibleLoadCompressedCategories(XMLDB::ReaderPtr reader, DB::ImageInfoPtr info, ImageDB *db, const QMap<QString, QString> *newToOldCategory = nullptr);
+    static DB::ImageInfoPtr createImageInfo(const DB::FileName &fileName, DB::ReaderPtr, ImageDB *db = nullptr, const QMap<QString, QString> *newToOldCategory = nullptr);
+    static void possibleLoadCompressedCategories(DB::ReaderPtr reader, DB::ImageInfoPtr info, ImageDB *db, const QMap<QString, QString> *newToOldCategory = nullptr);
 public Q_SLOTS:
     void setDateRange(const ImageDate &, bool includeFuzzyCounts);
     void clearDateRange();
@@ -211,7 +211,7 @@ protected:
 
     DB::ImageInfoList takeImagesFromSelection(const DB::FileNameList &selection);
     void insertList(const DB::FileName &fileName, const DB::ImageInfoList &list, bool after);
-    static void readOptions(DB::ImageInfoPtr info, XMLDB::ReaderPtr reader, const QMap<QString, QString> *newToOldCategory = nullptr);
+    static void readOptions(DB::ImageInfoPtr info, DB::ReaderPtr reader, const QMap<QString, QString> *newToOldCategory = nullptr);
 
     ImageInfoList m_clipboard;
     UIDelegate &m_UI;
@@ -234,8 +234,8 @@ protected Q_SLOTS:
     void setUntaggedTag(const QString &category, const QString &tag);
 
 private:
-    friend class XMLDB::FileReader;
-    friend class XMLDB::FileWriter;
+    friend class DB::FileReader;
+    friend class DB::FileWriter;
 
     static void connectSlots();
     static ImageDB *s_instance;

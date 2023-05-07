@@ -21,7 +21,7 @@
 #include "ImageInfoPtr.h"
 #include "ImageSearchInfo.h"
 #include "MediaCount.h"
-#include <XMLDB/FileReader.h>
+#include <DB/XML/FileReader.h>
 
 #include <kpabase/FileNameList.h>
 

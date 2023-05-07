@@ -142,15 +142,6 @@ set(libSettings_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings/VideoPlayerSelectorDialog.cpp"
     )
 
-set(libxmldb_SRCS
-    "${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/NumberedBackup.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileReader.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/FileWriter.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/ElementWriter.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/XmlReader.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/XMLDB/CompressFileInfo.cpp"
-    )
-
 set(libThumbnailView_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/documentation.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/ThumbnailView/FilterWidget.cpp"
@@ -328,6 +319,12 @@ set(libDB_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/RawId.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/SimpleCategoryMatcher.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/TagInfo.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/DB/XML/NumberedBackup.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/DB/XML/FileReader.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/DB/XML/FileWriter.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/DB/XML/ElementWriter.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/DB/XML/XmlReader.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/DB/XML/CompressFileInfo.cpp"
     )
 
 set(libImportExport_SRCS

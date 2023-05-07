@@ -20,17 +20,17 @@
 #include "ImageDB.h"
 
 #include "CategoryCollection.h"
-#include "DB/GroupCounter.h"
 #include "MediaCount.h"
 #include "NewImageFinder.h"
 #include "TagInfo.h"
 #include "Utilities/VideoUtil.h"
-#include "kpabase/Logging.h"
 
+#include <DB/GroupCounter.h>
+#include <DB/XML/FileReader.h>
+#include <DB/XML/FileWriter.h>
 #include <Utilities/FastDateTime.h>
-#include <XMLDB/FileReader.h>
-#include <XMLDB/FileWriter.h>
 #include <kpabase/FileName.h>
+#include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 #include <kpabase/UIDelegate.h>
 

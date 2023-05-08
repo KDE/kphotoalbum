@@ -39,6 +39,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Changed
  - "Recalculate Checksums" in the Maintenance menu and "Refresh Selected Thumbnails" in the thumbnail context menu have been unified to do exactly the same.
    Both actions have been renamed to "Refresh Selected Thumbnails and Checksums".
+ - Simplified logging categories: "kphotoalbum.XMLDB" was merged into "kphotoalbum.DB"
 
 ### Dependencies
 

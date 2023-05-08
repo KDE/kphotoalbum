@@ -1,12 +1,12 @@
-// SPDX-FileCopyrightText: 2003-2010, 2012 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2006-2008, 2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2003-2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2006-2010 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2007-2008 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
-// SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2015-2016, 2022 Tobias Leupold <tl@stonemx.de>
-// SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2012-2015 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2015-2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -14,12 +14,15 @@
 #define IMAGEDB_H
 
 #include "Category.h"
-#include "ImageDateCollection.h"
 #include "ImageInfoList.h"
 #include "ImageInfoPtr.h"
-#include "ImageSearchInfo.h"
 #include "MediaCount.h"
 
+#include <DB/CategoryCollection.h>
+#include <DB/MD5Map.h>
+#include <DB/MemberMap.h>
+#include <DB/XML/FileReader.h>
+#include <DB/search/ImageSearchInfo.h>
 #include <kpabase/FileNameList.h>
 
 #include <QObject>
@@ -28,6 +31,10 @@
 
 class QProgressBar;
 
+namespace DB
+{
+class FileWriter;
+}
 namespace DB
 {
 Q_NAMESPACE
@@ -79,21 +86,18 @@ public:
     UIDelegate &uiDelegate() const;
     DB::FileNameList currentScope(bool requireOnDisk) const;
 
-    virtual DB::FileName findFirstItemInRange(
-        const FileNameList &files,
-        const ImageDate &range,
-        bool includeRanges) const;
+    DB::FileName findFirstItemInRange(const FileNameList &files, const ImageDate &range, bool includeRanges) const;
 
     bool untaggedCategoryFeatureConfigured() const;
 
-    virtual int totalCount() const = 0;
-    virtual DB::ImageInfoList search(const ImageSearchInfo &, bool requireOnDisk) const = 0;
-    virtual DB::ImageInfoList search(const DB::ImageSearchInfo &searchInfo, DB::SearchOptions options = DB::SearchOption::NoOption) const = 0;
+    int totalCount() const;
+    DB::ImageInfoList search(const ImageSearchInfo &, bool requireOnDisk) const;
+    DB::ImageInfoList search(const DB::ImageSearchInfo &searchInfo, DB::SearchOptions options = DB::SearchOption::NoOption) const;
 
     /**
      * @brief Rename category in media items stored in database.
      */
-    virtual void renameCategory(const QString &oldName, const QString newName) = 0;
+    void renameCategory(const QString &oldName, const QString newName);
 
     /**
      * @brief classify computes a histogram of tags within a category.
@@ -106,41 +110,41 @@ public:
      * @param mode whether accurate counts are required or not
      * @return a mapping of sub-category (tags/tag-groups) to the number of images (and the associated date range)
      */
-    virtual QMap<QString, CountWithRange> classify(const ImageSearchInfo &info, const QString &category, MediaType typemask, ClassificationMode mode = ClassificationMode::FullCount) = 0;
-    virtual FileNameList files(MediaType type = anyMediaType) const = 0;
-    virtual ImageInfoList images() const = 0;
+    QMap<QString, CountWithRange> classify(const ImageSearchInfo &info, const QString &category, MediaType typemask, ClassificationMode mode = ClassificationMode::FullCount);
+    FileNameList files(MediaType type = anyMediaType) const;
+    ImageInfoList images() const;
     /**
      * @brief addImages to the database.
      * The parameter \p doUpdate decides whether all bookkeeping should be done right away
      * (\c true; the "normal" use-case), or if it should be deferred until later(\c false).
      * If doUpdate is deferred, either commitDelayedImages() or clearDelayedImages() needs to be called afterwards.
-     * @param files
+     * @param images
      * @param doUpdate
      */
-    virtual void addImages(const ImageInfoList &files, bool doUpdate = true) = 0;
-    virtual void commitDelayedImages() = 0;
-    virtual void clearDelayedImages() = 0;
+    void addImages(const ImageInfoList &images, bool doUpdate = true);
+    void commitDelayedImages();
+    void clearDelayedImages();
     /** @short Update file name stored in the DB */
-    virtual void renameImage(const ImageInfoPtr info, const DB::FileName &newName) = 0;
+    void renameImage(const ImageInfoPtr info, const DB::FileName &newName);
 
-    virtual void addToBlockList(const DB::FileNameList &list) = 0;
-    virtual bool isBlocking(const DB::FileName &fileName) = 0;
-    virtual void deleteList(const DB::FileNameList &list) = 0;
-    virtual ImageInfoPtr info(const DB::FileName &fileName) const = 0;
-    virtual MemberMap &memberMap() = 0;
-    virtual void save(const QString &fileName, bool isAutoSave) = 0;
-    virtual MD5Map *md5Map() = 0;
-    virtual void sortAndMergeBackIn(const DB::FileNameList &list) = 0;
+    void addToBlockList(const DB::FileNameList &list);
+    bool isBlocking(const DB::FileName &fileName);
+    void deleteList(const DB::FileNameList &list);
+    ImageInfoPtr info(const DB::FileName &fileName) const;
+    MemberMap &memberMap();
+    void save(const QString &fileName, bool isAutoSave);
+    MD5Map *md5Map();
+    void sortAndMergeBackIn(const DB::FileNameList &fileNameList);
 
-    virtual CategoryCollection *categoryCollection() = 0;
-    virtual const CategoryCollection *categoryCollection() const = 0;
+    CategoryCollection *categoryCollection();
+    const CategoryCollection *categoryCollection() const;
 
     /**
      * Reorder the items in the database by placing all the items given in
-     * cutList directly before or after the given item.
+     * selection directly before or after the given item.
      * If the parameter "after" determines where to place it.
      */
-    virtual void reorder(const DB::FileName &item, const DB::FileNameList &cutList, bool after) = 0;
+    void reorder(const DB::FileName &item, const DB::FileNameList &selection, bool after);
 
     /** @short Create a stack of images/videos/whatever
      *
@@ -158,7 +162,7 @@ public:
      * the stack. The order of images which were already in the stack is not
      * changed.
      * */
-    virtual bool stack(const DB::FileNameList &items) = 0;
+    bool stack(const DB::FileNameList &items);
 
     /** @short Remove all images from whichever stacks they might be in
      *
@@ -167,7 +171,7 @@ public:
      *
      * This function doesn't touch the order of images at all.
      * */
-    virtual void unstack(const DB::FileNameList &files) = 0;
+    void unstack(const DB::FileNameList &items);
 
     /** @short Return a list of images which are in the same stack as the one specified.
      *
@@ -175,14 +179,17 @@ public:
      *
      * They are returned sorted according to their stackOrder.
      * */
-    virtual DB::FileNameList getStackFor(const DB::FileName &referenceId) const = 0;
+    DB::FileNameList getStackFor(const DB::FileName &referenceImage) const;
 
-    virtual void copyData(const DB::FileName &from, const DB::FileName &to) = 0;
+    void copyData(const DB::FileName &from, const DB::FileName &to);
 
     Exif::Database *exifDB() const;
 
     const DB::TagInfo *untaggedTag() const;
 
+    static int fileVersion();
+    static DB::ImageInfoPtr createImageInfo(const DB::FileName &fileName, DB::ReaderPtr, ImageDB *db = nullptr, const QMap<QString, QString> *newToOldCategory = nullptr);
+    static void possibleLoadCompressedCategories(DB::ReaderPtr reader, DB::ImageInfoPtr info, ImageDB *db, const QMap<QString, QString> *newToOldCategory = nullptr);
 public Q_SLOTS:
     void setDateRange(const ImageDate &, bool includeFuzzyCounts);
     void clearDateRange();
@@ -198,7 +205,14 @@ Q_SIGNALS:
     void imagesDeleted(const DB::FileNameList &);
 
 protected:
-    ImageDB(UIDelegate &delegate);
+    ImageDB(const QString &configFile, UIDelegate &delegate);
+
+    bool rangeInclude(DB::ImageInfoPtr info) const;
+
+    DB::ImageInfoList takeImagesFromSelection(const DB::FileNameList &selection);
+    void insertList(const DB::FileName &fileName, const DB::ImageInfoList &list, bool after);
+    static void readOptions(DB::ImageInfoPtr info, DB::ReaderPtr reader, const QMap<QString, QString> *newToOldCategory = nullptr);
+
     ImageInfoList m_clipboard;
     UIDelegate &m_UI;
     std::unique_ptr<Exif::Database> m_exifDB;
@@ -206,7 +220,9 @@ protected:
     bool m_includeFuzzyCounts;
 
 protected Q_SLOTS:
-    virtual void lockDB(bool lock, bool exclude) = 0;
+    void renameItem(DB::Category *category, const QString &oldName, const QString &newName);
+    void deleteItem(DB::Category *category, const QString &value);
+    void lockDB(bool lock, bool exclude);
     void markDirty();
     /**
      * @brief setUntaggedTag sets the untaggedTag for the database and also updates the corresponding settings value.
@@ -218,10 +234,34 @@ protected Q_SLOTS:
     void setUntaggedTag(const QString &category, const QString &tag);
 
 private:
+    friend class DB::FileReader;
+    friend class DB::FileWriter;
+
     static void connectSlots();
     static ImageDB *s_instance;
     DB::ImageSearchInfo m_currentScope;
     QPointer<DB::TagInfo> m_untaggedTag;
+
+    void forceUpdate(const DB::ImageInfoList &images);
+
+    QString m_fileName;
+    DB::ImageInfoList m_images;
+    QSet<DB::FileName> m_blockList;
+    DB::ImageInfoList m_missingTimes;
+    DB::CategoryCollection m_categoryCollection;
+    DB::MemberMap m_members;
+    DB::MD5Map m_md5map;
+    // QMap<QString, QString> m_settings;
+
+    DB::StackID m_nextStackId;
+    typedef QMap<DB::StackID, DB::FileNameList> StackMap;
+    mutable StackMap m_stackMap;
+    DB::ImageInfoList m_delayedUpdate;
+    mutable QHash<const QString, DB::ImageInfoPtr> m_imageCache;
+    mutable QHash<const QString, DB::ImageInfoPtr> m_delayedCache;
+
+    // used for checking if any images are without image attribute from the database.
+    static bool s_anyImageWithEmptySize;
 };
 }
 #endif /* IMAGEDB_H */

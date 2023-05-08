@@ -1,13 +1,13 @@
-/* SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2012-2013 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ElementWriter.h"
 
 #include <QXmlStreamWriter>
 
-XMLDB::ElementWriter::ElementWriter(QXmlStreamWriter &writer, const QString &elementName, bool writeAtOnce)
+DB::ElementWriter::ElementWriter(QXmlStreamWriter &writer, const QString &elementName, bool writeAtOnce)
     : m_writer(writer)
     , m_elementName(elementName)
     , m_haveWrittenStartTag(writeAtOnce)
@@ -16,7 +16,7 @@ XMLDB::ElementWriter::ElementWriter(QXmlStreamWriter &writer, const QString &ele
         m_writer.writeStartElement(m_elementName);
 }
 
-void XMLDB::ElementWriter::writeStartElement()
+void DB::ElementWriter::writeStartElement()
 {
     if (m_haveWrittenStartTag)
         return;
@@ -25,7 +25,7 @@ void XMLDB::ElementWriter::writeStartElement()
     m_writer.writeStartElement(m_elementName);
 }
 
-XMLDB::ElementWriter::~ElementWriter()
+DB::ElementWriter::~ElementWriter()
 {
     if (m_haveWrittenStartTag)
         m_writer.writeEndElement();

@@ -1,18 +1,25 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2006-2008 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2006-2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2008-2011 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+// SPDX-FileCopyrightText: 2012-2013 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2018-2020 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "FileWriter.h"
 
 #include "CompressFileInfo.h"
-#include "Database.h"
 #include "ElementWriter.h"
-#include "Logging.h"
 #include "NumberedBackup.h"
-#include "XMLCategory.h"
 
+#include <DB/Category.h>
+#include <DB/ImageDB.h>
 #include <DB/TagInfo.h>
 #include <Utilities/List.h>
 #include <kpabase/Logging.h>
@@ -34,7 +41,7 @@
 //
 //
 //
-// Update XMLDB::Database::fileVersion every time you update the file format!
+// Update DB::ImageDB::fileVersion every time you update the file format!
 //
 //
 //
@@ -52,7 +59,7 @@ namespace
 constexpr QFileDevice::Permissions FILE_PERMISSIONS { QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup | QFile::ReadOther };
 }
 
-void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
+void DB::FileWriter::save(const QString &fileName, bool isAutoSave)
 {
     setUseCompressedFileFormat(Settings::SettingsData::instance()->useCompressedIndexXML());
 
@@ -64,14 +71,14 @@ void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
     QFile out(fileName + QStringLiteral(".tmp"));
     if (!out.open(QIODevice::WriteOnly | QIODevice::Text)) {
         m_db->uiDelegate().error(
-            DB::LogMessage { XMLDBLog(), QStringLiteral("Error saving to file '%1': %2").arg(out.fileName()).arg(out.errorString()) }, i18n("<p>Could not save the image database to XML.</p>"
-                                                                                                                                            "File %1 could not be opened because of the following error: %2",
-                                                                                                                                            out.fileName(), out.errorString()),
+            DB::LogMessage { DBLog(), QStringLiteral("Error saving to file '%1': %2").arg(out.fileName()).arg(out.errorString()) }, i18n("<p>Could not save the image database to XML.</p>"
+                                                                                                                                         "File %1 could not be opened because of the following error: %2",
+                                                                                                                                         out.fileName(), out.errorString()),
             i18n("Error while saving..."));
         return;
     }
     if (!out.setPermissions(FILE_PERMISSIONS)) {
-        qCWarning(XMLDBLog, "Could not set permissions on file %s!", qPrintable(out.fileName()));
+        qCWarning(DBLog, "Could not set permissions on file %s!", qPrintable(out.fileName()));
     }
     QElapsedTimer timer;
     if (TimingLog().isDebugEnabled())
@@ -82,7 +89,7 @@ void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
 
     {
         ElementWriter dummy(writer, QStringLiteral("KPhotoAlbum"));
-        writer.writeAttribute(QStringLiteral("version"), QString::number(Database::fileVersion()));
+        writer.writeAttribute(QStringLiteral("version"), QString::number(DB::ImageDB::fileVersion()));
         writer.writeAttribute(QStringLiteral("compressed"), QString::number(useCompressedFileFormat()));
 
         saveCategories(writer);
@@ -92,25 +99,25 @@ void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
         // saveSettings(writer);
     }
     writer.writeEndDocument();
-    qCDebug(TimingLog) << "XMLDB::FileWriter::save(): Saving took" << timer.elapsed() << "ms";
+    qCDebug(TimingLog) << "DB::FileWriter::save(): Saving took" << timer.elapsed() << "ms";
 
     // State: index.xml has previous DB version, index.xml.tmp has the current version.
 
     // original file can be safely deleted
     if ((!QFile::remove(fileName)) && QFile::exists(fileName)) {
         m_db->uiDelegate().error(
-            DB::LogMessage { XMLDBLog(), QStringLiteral("Removal of file '%1' failed.").arg(fileName) }, i18n("<p>Failed to remove old version of image database.</p>"
-                                                                                                              "<p>Please try again or replace the file %1 with file %2 manually!</p>",
-                                                                                                              fileName, out.fileName()),
+            DB::LogMessage { DBLog(), QStringLiteral("Removal of file '%1' failed.").arg(fileName) }, i18n("<p>Failed to remove old version of image database.</p>"
+                                                                                                           "<p>Please try again or replace the file %1 with file %2 manually!</p>",
+                                                                                                           fileName, out.fileName()),
             i18n("Error while saving..."));
         return;
     }
     // State: index.xml doesn't exist, index.xml.tmp has the current version.
     if (!out.rename(fileName)) {
         m_db->uiDelegate().error(
-            DB::LogMessage { XMLDBLog(), QStringLiteral("Renaming index.xml to '%1' failed.").arg(out.fileName()) }, i18n("<p>Failed to move temporary XML file to permanent location.</p>"
-                                                                                                                          "<p>Please try again or rename file %1 to %2 manually!</p>",
-                                                                                                                          out.fileName(), fileName),
+            DB::LogMessage { DBLog(), QStringLiteral("Renaming index.xml to '%1' failed.").arg(out.fileName()) }, i18n("<p>Failed to move temporary XML file to permanent location.</p>"
+                                                                                                                       "<p>Please try again or rename file %1 to %2 manually!</p>",
+                                                                                                                       out.fileName(), fileName),
             i18n("Error while saving..."));
         // State: index.xml.tmp has the current version.
         return;
@@ -118,7 +125,7 @@ void XMLDB::FileWriter::save(const QString &fileName, bool isAutoSave)
     // State: index.xml has the current version.
 }
 
-void XMLDB::FileWriter::saveCategories(QXmlStreamWriter &writer)
+void DB::FileWriter::saveCategories(QXmlStreamWriter &writer)
 {
     QStringList categories = DB::ImageDB::instance()->categoryCollection()->categoryNames();
     ElementWriter dummy(writer, QStringLiteral("Categories"));
@@ -150,8 +157,7 @@ void XMLDB::FileWriter::saveCategories(QXmlStreamWriter &writer)
         for (const QString &tagName : categoryItems) {
             ElementWriter dummy(writer, QStringLiteral("value"));
             writer.writeAttribute(QStringLiteral("value"), tagName);
-            writer.writeAttribute(QStringLiteral("id"),
-                                  QString::number(static_cast<XMLCategory *>(category.data())->idForName(tagName)));
+            writer.writeAttribute(QStringLiteral("id"), QString::number(category->idForName(tagName)));
             QDate birthDate = category->birthDate(tagName);
             if (!birthDate.isNull())
                 writer.writeAttribute(QStringLiteral("birthDate"), birthDate.toString(Qt::ISODate));
@@ -162,7 +168,7 @@ void XMLDB::FileWriter::saveCategories(QXmlStreamWriter &writer)
     }
 }
 
-void XMLDB::FileWriter::saveImages(QXmlStreamWriter &writer)
+void DB::FileWriter::saveImages(QXmlStreamWriter &writer)
 {
     DB::ImageInfoList list = m_db->m_images;
 
@@ -181,7 +187,7 @@ void XMLDB::FileWriter::saveImages(QXmlStreamWriter &writer)
     }
 }
 
-void XMLDB::FileWriter::saveBlockList(QXmlStreamWriter &writer)
+void DB::FileWriter::saveBlockList(QXmlStreamWriter &writer)
 {
     ElementWriter dummy(writer, QStringLiteral("blocklist"));
     QList<DB::FileName> blockList(m_db->m_blockList.begin(), m_db->m_blockList.end());
@@ -193,7 +199,7 @@ void XMLDB::FileWriter::saveBlockList(QXmlStreamWriter &writer)
     }
 }
 
-void XMLDB::FileWriter::saveMemberGroups(QXmlStreamWriter &writer)
+void DB::FileWriter::saveMemberGroups(QXmlStreamWriter &writer)
 {
     if (m_db->m_members.isEmpty())
         return;
@@ -229,10 +235,9 @@ void XMLDB::FileWriter::saveMemberGroups(QXmlStreamWriter &writer)
                 QStringList idList;
                 for (const QString &member : members) {
                     DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName(categoryName);
-                    XMLCategory *category = static_cast<XMLCategory *>(catPtr.data());
-                    if (category->idForName(member) == 0)
-                        qCWarning(XMLDBLog) << "Member" << member << "in group" << categoryName << "->" << groupMapIt.key() << "has no id!";
-                    idList.append(QString::number(category->idForName(member)));
+                    if (catPtr->idForName(member) == 0)
+                        qCWarning(DBLog) << "Member" << member << "in group" << categoryName << "->" << groupMapIt.key() << "has no id!";
+                    idList.append(QString::number(catPtr->idForName(member)));
                 }
                 std::sort(idList.begin(), idList.end());
                 writer.writeAttribute(QStringLiteral("members"), idList.join(QStringLiteral(",")));
@@ -262,7 +267,7 @@ void XMLDB::FileWriter::saveMemberGroups(QXmlStreamWriter &writer)
 /*
 Perhaps, we may need this later ;-)
 
-void XMLDB::FileWriter::saveSettings(QXmlStreamWriter& writer)
+void DB::FileWriter::saveSettings(QXmlStreamWriter& writer)
 {
     ElementWriter dummy(writer, settingsString);
 
@@ -295,7 +300,7 @@ static const QString &stdDateTimeToString(const Utilities::FastDateTime &date)
     return s_lastDateTimeString;
 }
 
-void XMLDB::FileWriter::save(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info)
+void DB::FileWriter::save(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info)
 {
     ElementWriter dummy(writer, QStringLiteral("image"));
     writer.writeAttribute(QStringLiteral("file"), info->fileName().relative());
@@ -336,7 +341,7 @@ void XMLDB::FileWriter::save(QXmlStreamWriter &writer, const DB::ImageInfoPtr &i
         writeCategories(writer, info);
 }
 
-QString XMLDB::FileWriter::areaToString(QRect area) const
+QString DB::FileWriter::areaToString(QRect area) const
 {
     QStringList areaString;
     areaString.append(QString::number(area.x()));
@@ -346,7 +351,7 @@ QString XMLDB::FileWriter::areaToString(QRect area) const
     return areaString.join(QStringLiteral(" "));
 }
 
-void XMLDB::FileWriter::writeCategories(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info)
+void DB::FileWriter::writeCategories(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info)
 {
     ElementWriter topElm(writer, QStringLiteral("options"), false);
 
@@ -380,7 +385,7 @@ void XMLDB::FileWriter::writeCategories(QXmlStreamWriter &writer, const DB::Imag
     }
 }
 
-void XMLDB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info)
+void DB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info)
 {
     QMap<QString, QList<QPair<QString, QRect>>> positionedTags;
 
@@ -403,7 +408,7 @@ void XMLDB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, cons
                     // so we have to handle them separately
                     positionedTags[categoryName] << QPair<QString, QRect>(itemValue, area);
                 } else {
-                    int id = static_cast<const XMLCategory *>(category.data())->idForName(itemValue);
+                    int id = category->idForName(itemValue);
                     idList.append(QString::number(id));
                 }
             }
@@ -443,7 +448,7 @@ void XMLDB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, cons
     }
 }
 
-bool XMLDB::FileWriter::shouldSaveCategory(const QString &categoryName) const
+bool DB::FileWriter::shouldSaveCategory(const QString &categoryName) const
 {
     // Profiling indicated that this function was a hotspot, so this cache improved saving speed with 25%
     static QHash<QString, bool> cache;
@@ -452,12 +457,12 @@ bool XMLDB::FileWriter::shouldSaveCategory(const QString &categoryName) const
 
     // A few bugs has shown up, where an invalid category name has crashed KPA. It therefore checks for such invalid names here.
     if (!m_db->m_categoryCollection.categoryForName(categoryName)) {
-        qCWarning(XMLDBLog, "Invalid category name: %s", qPrintable(categoryName));
+        qCWarning(DBLog, "Invalid category name: %s", qPrintable(categoryName));
         cache.insert(categoryName, false);
         return false;
     }
 
-    const auto category = dynamic_cast<XMLCategory *>(m_db->m_categoryCollection.categoryForName(categoryName).data());
+    const auto category = m_db->m_categoryCollection.categoryForName(categoryName).data();
     Q_ASSERT(category);
     const bool shouldSave = category->shouldSave();
     cache.insert(categoryName, shouldSave);
@@ -468,12 +473,12 @@ bool XMLDB::FileWriter::shouldSaveCategory(const QString &categoryName) const
  * @brief Escape problematic characters in a string that forms an XML attribute name.
  *
  * N.B.: Attribute values do not need to be escaped!
- * @see XMLDB::FileReader::unescape
+ * @see DB::FileReader::unescape
  *
  * @param str the string to be escaped
  * @return the escaped string
  */
-QString XMLDB::FileWriter::escape(const QString &str)
+QString DB::FileWriter::escape(const QString &str)
 {
     static bool hashUsesCompressedFormat = useCompressedFileFormat();
     static QHash<QString, QString> s_cache;

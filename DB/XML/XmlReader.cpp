@@ -1,16 +1,18 @@
-// SPDX-FileCopyrightText: 2013-2019 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2013 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2020 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2022 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "XmlReader.h"
-#include "Logging.h"
 
+#include <kpabase/Logging.h>
 #include <kpabase/UIDelegate.h>
 
 #include <KLocalizedString>
 
-namespace XMLDB
+namespace DB
 {
 
 XmlReader::XmlReader(DB::UIDelegate &ui, const QString &friendlyStreamName)
@@ -88,7 +90,7 @@ void XmlReader::reportError(const QString &text)
         message += i18n("<p>Additional error information:<nl/><message>%1</message></p>", errorString());
     message += xi18n("<p>Database path: <filename>%1</filename></p>", m_streamName);
 
-    m_ui.error(DB::LogMessage { XMLDBLog(), QStringLiteral("XmlReader: error in line %1, column %2 (%3)").arg(lineNumber()).arg(columnNumber()).arg(errorString()) },
+    m_ui.error(DB::LogMessage { DBLog(), QStringLiteral("XmlReader: error in line %1, column %2 (%3)").arg(lineNumber()).arg(columnNumber()).arg(errorString()) },
                message, i18n("Error while reading database file"));
     exit(-1);
 }

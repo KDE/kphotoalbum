@@ -6,8 +6,7 @@
 #ifndef CATEGORYMATCHER_H
 #define CATEGORYMATCHER_H
 
-#include "ImageInfoPtr.h"
-
+#include <DB/ImageInfoPtr.h>
 #include <kpabase/StringSet.h>
 
 #include <QMap>

@@ -10,8 +10,8 @@
 #include "KimFileReader.h"
 #include "MD5CheckPage.h"
 
+#include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
-#include <XMLDB/Database.h>
 #include <kpabase/SettingsData.h>
 
 #include <KHelpClient>
@@ -70,11 +70,11 @@ bool ImportDialog::exec(KimFileReader *kimFileReader, const QUrl &kimFileURL)
 
 bool ImportDialog::readFile(const QByteArray &data)
 {
-    XMLDB::ReaderPtr reader = XMLDB::ReaderPtr(new XMLDB::XmlReader(DB::ImageDB::instance()->uiDelegate(),
-                                                                    m_kimFile.toDisplayString()));
+    DB::ReaderPtr reader = DB::ReaderPtr(new DB::XmlReader(DB::ImageDB::instance()->uiDelegate(),
+                                                           m_kimFile.toDisplayString()));
     reader->addData(data);
 
-    XMLDB::ElementInfo info = reader->readNextStartOrStopElement(QString::fromUtf8("KimDaBa-export"));
+    DB::ElementInfo info = reader->readNextStartOrStopElement(QString::fromUtf8("KimDaBa-export"));
     if (!info.isStartToken)
         reader->complainStartElementExpected(QString::fromUtf8("KimDaBa-export"));
 
@@ -93,7 +93,7 @@ bool ImportDialog::readFile(const QByteArray &data)
 
     while (reader->readNextStartOrStopElement(QString::fromUtf8("image")).isStartToken) {
         const DB::FileName fileName = DB::FileName::fromRelativePath(reader->attribute(QString::fromUtf8("file")));
-        DB::ImageInfoPtr info = XMLDB::Database::createImageInfo(fileName, reader);
+        DB::ImageInfoPtr info = DB::ImageDB::createImageInfo(fileName, reader);
         m_images.append(info);
     }
     // the while loop already read the end element, so we tell readEndElement to not read the next token:

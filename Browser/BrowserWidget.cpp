@@ -1,14 +1,13 @@
-// SPDX-FileCopyrightText: 2003-2010, 2012, 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2005, 2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2006 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
 // SPDX-FileCopyrightText: 2008-2009 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2013, 2015-2016, 2018-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2015, 2017-2018 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2015-2018 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2016 Matthias Füssel <matthias.fuessel@gmx.net>
-// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -23,7 +22,7 @@
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
-#include <DB/ImageSearchInfo.h>
+#include <DB/search/ImageSearchInfo.h>
 #include <Utilities/FileUtil.h>
 #include <Utilities/ShowBusyCursor.h>
 #include <kpabase/SettingsData.h>

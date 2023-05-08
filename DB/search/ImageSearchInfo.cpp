@@ -18,13 +18,13 @@
 #include "CategoryMatcher.h"
 #include "ContainerCategoryMatcher.h"
 #include "ExactCategoryMatcher.h"
-#include "ImageDB.h"
 #include "NegationCategoryMatcher.h"
 #include "NoTagCategoryMatcher.h"
 #include "OrCategoryMatcher.h"
 #include "ValueCategoryMatcher.h"
 #include "WildcardCategoryMatcher.h"
 
+#include <DB/ImageDB.h>
 #include <ImageManager/RawImageDecoder.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>

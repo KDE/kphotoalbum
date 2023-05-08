@@ -5,16 +5,17 @@
 
 #ifndef IMAGESEARCHINFO_H
 #define IMAGESEARCHINFO_H
-#include "ImageDate.h"
-#include "ImageInfoPtr.h"
-#include "WildcardCategoryMatcher.h"
+
+#include <DB/ImageDate.h>
+#include <DB/ImageInfoPtr.h>
+#include <DB/search/WildcardCategoryMatcher.h>
+#include <kpabase/StringSet.h>
 #include <kpabase/config-kpa-marble.h>
+#include <kpaexif/SearchInfo.h>
 
 #ifdef HAVE_MARBLE
 #include <Map/GeoCoordinates.h>
 #endif
-#include <kpabase/StringSet.h>
-#include <kpaexif/SearchInfo.h>
 
 #include <QList>
 #include <QMap>

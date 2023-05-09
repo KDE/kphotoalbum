@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-02 00:45+0000\n"
+"POT-Creation-Date: 2023-05-09 00:45+0000\n"
 "PO-Revision-Date: 2012-01-16 16:58+0700\n"
 "Last-Translator: Lê Hoàng Phương <herophuong93@gmail.com>\n"
 "Language-Team: Vietnamese <kde-i18n-vi@kde.org>\n"
@@ -81,7 +81,7 @@ msgid ""
 "information is imported to this field if available.</para>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:146
+#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:433
 #, kde-format
 msgid "Cancel"
 msgstr "Thôi"
@@ -544,12 +544,12 @@ msgctxt "@label:textbox"
 msgid "Enter a tag ..."
 msgstr "Chú giải..."
 
-#: AnnotationDialog/ListSelect.cpp:82 DB/ImageSearchInfo.cpp:338
+#: AnnotationDialog/ListSelect.cpp:82 DB/search/ImageSearchInfo.cpp:338
 #, kde-format
 msgid "or"
 msgstr "hoặc"
 
-#: AnnotationDialog/ListSelect.cpp:83 DB/ImageSearchInfo.cpp:333
+#: AnnotationDialog/ListSelect.cpp:83 DB/search/ImageSearchInfo.cpp:333
 #, kde-format
 msgid "and"
 msgstr "và"
@@ -1192,24 +1192,24 @@ msgstr "10 phút"
 msgid "10 Seconds"
 msgstr "1 giây"
 
-#: DB/Category.cpp:164
+#: DB/Category.cpp:299
 #, fuzzy, kde-format
 #| msgid "Unable to create directory '%1'."
 msgid "Unable to create folder '%1'."
 msgstr "Không thể tạo thư mục « %1 »."
 
-#: DB/Category.cpp:164
+#: DB/Category.cpp:299
 #, fuzzy, kde-format
 #| msgid "Unable to Create Directory"
 msgid "Unable to Create Folder"
 msgstr "Không thể tạo thư mục"
 
-#: DB/Category.cpp:173
+#: DB/Category.cpp:308
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "Găp lỗi khi lưu ảnh « %1 »."
 
-#: DB/Category.cpp:173
+#: DB/Category.cpp:308
 #, kde-format
 msgid "Error Saving Image"
 msgstr "Gặp lỗi khi lưu ảnh"
@@ -1298,36 +1298,57 @@ msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "th12"
 
-#: DB/ImageDB.cpp:145
+#: DB/ImageDB.cpp:62
+#, fuzzy, kde-format
+#| msgid ""
+#| "Backup file '%1' exists and is newer than '%2'. Should I use the backup "
+#| "file?"
+msgid ""
+"Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
+"autosave file be used?"
+msgstr ""
+"Tệp sao lưu « %1 » đã có : nó mới hơn « %2 ». Trình này nên dùng tệp sao lưu "
+"này không?"
+
+#: DB/ImageDB.cpp:65
+#, fuzzy, kde-format
+#| msgid "Found Backup File"
+msgid "Found Autosave File"
+msgstr "Tìm thấy tệp sao lưu"
+
+#: DB/ImageDB.cpp:432
 #, kde-format
 msgid "Loading information from images"
 msgstr "Đang tải thông tin từ ảnh"
 
-#: DB/ImageSearchInfo.cpp:330
-#, fuzzy, kde-format
-#| msgid "Show %1"
-msgctxt ""
-"As in No persons, no locations etc. I do realize that translators may have "
-"problem with this, but I need some how to indicate the category, and users "
-"may create their own categories, so this is the best I can do - Jesper."
-msgid "No %1"
-msgstr "Hiện %1"
-
-#: DB/ImageSearchInfo.cpp:339
+#: DB/ImageDB.cpp:595 DB/ImageDB.cpp:882 DB/XML/FileReader.cpp:135
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
 #, kde-format
-msgid "not"
-msgstr "không phải"
+msgid "Media Type"
+msgstr "Kiểu vật chứa"
 
-#: DB/ImageSearchInfo.cpp:344
+#: DB/ImageDB.cpp:596 DB/ImageDB.cpp:883 DB/XML/FileReader.cpp:137
 #, fuzzy, kde-format
-#| msgid "No other"
-msgctxt ""
-"As in no other persons, or no other locations. I do realize that translators "
-"may have problem with this, but I need some how to indicate the category, "
-"and users may create their own categories, so this is the best I can do - "
-"Jesper."
-msgid "No other %1"
-msgstr "Không có gì khác"
+#| msgid "Image"
+msgid "Image"
+msgstr "Ảnh"
+
+#: DB/ImageDB.cpp:596 DB/ImageDB.cpp:884 DB/XML/FileReader.cpp:138
+#, fuzzy, kde-format
+#| msgid "Video"
+msgid "Video"
+msgstr "Ảnh động"
+
+#: DB/ImageDB.cpp:988
+#, kde-format
+msgid "KPhotoAlbum - manual repair needed (%1)"
+msgstr ""
+
+#: DB/ImageDB.cpp:989
+#, kde-format
+msgctxt "Separator in a list of tags"
+msgid ", "
+msgstr ""
 
 #: DB/NewImageFinder.cpp:467
 #, kde-format
@@ -1364,6 +1385,394 @@ msgstr ""
 #, kde-format
 msgid "Following files could not be read:"
 msgstr ""
+
+#: DB/search/ImageSearchInfo.cpp:330
+#, fuzzy, kde-format
+#| msgid "Show %1"
+msgctxt ""
+"As in No persons, no locations etc. I do realize that translators may have "
+"problem with this, but I need some how to indicate the category, and users "
+"may create their own categories, so this is the best I can do - Jesper."
+msgid "No %1"
+msgstr "Hiện %1"
+
+#: DB/search/ImageSearchInfo.cpp:339
+#, kde-format
+msgid "not"
+msgstr "không phải"
+
+#: DB/search/ImageSearchInfo.cpp:344
+#, fuzzy, kde-format
+#| msgid "No other"
+msgctxt ""
+"As in no other persons, or no other locations. I do realize that translators "
+"may have problem with this, but I need some how to indicate the category, "
+"and users may create their own categories, so this is the best I can do - "
+"Jesper."
+msgid "No other %1"
+msgstr "Không có gì khác"
+
+#: DB/XML/FileReader.cpp:58
+#, kde-format
+msgid ""
+"<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
+"p><p>Chances are you will be able to read this file, but when writing it "
+"back, information saved in the newer version will be lost</p>"
+msgstr ""
+
+#: DB/XML/FileReader.cpp:61
+#, kde-format
+msgid "index.xml version mismatch"
+msgstr ""
+
+#. i18n("Folder")), and then start KPA with the C locale, which would produce a
+#. doubled "Folder" category.
+#: DB/XML/FileReader.cpp:87 Settings/CategoryPage.cpp:253
+#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:351
+#, kde-format
+msgid "Folder"
+msgstr "Thư mục"
+
+#: DB/XML/FileReader.cpp:109 DB/XML/FileReader.cpp:121
+#, kde-format
+msgid "Tokens"
+msgstr "Hiệu bài"
+
+#: DB/XML/FileReader.cpp:189
+#, kde-format
+msgid ""
+"<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
+"ignore the duplicate category and try an automatic repair, or choose cancel "
+"to quit.</p>"
+msgstr ""
+
+#: DB/XML/FileReader.cpp:195 DB/XML/FileReader.cpp:300
+#, fuzzy, kde-format
+#| msgid "Converting database"
+msgid "Error in database file"
+msgstr "Đang chuyển đổi co sở dữ liệu"
+
+#: DB/XML/FileReader.cpp:255
+#, kde-format
+msgctxt ""
+"Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
+"with these exact names. Thanks :-)"
+msgid ""
+"<p><b>This version of KPhotoAlbum does not translate \"standard\" categories "
+"any more.</b></p><p>This may mean that – if you use a locale other than "
+"English – some of your categories are now displayed in English.</p><p>You "
+"can manually rename your categories any time and then save your database.</"
+"p><p>In some cases, you may get two additional empty categories, \"Folder\" "
+"and \"Media Type\". You can delete those.</p>"
+msgstr ""
+
+#: DB/XML/FileReader.cpp:263
+#, fuzzy, kde-format
+#| msgid "Invalid driver."
+msgid "Changed standard category names"
+msgstr "Trình điều khiển không hợp lệ."
+
+#: DB/XML/FileReader.cpp:295
+#, kde-format
+msgid ""
+"<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
+"</p><p>Manual repair required!</p>"
+msgstr ""
+
+#: DB/XML/FileReader.cpp:418
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>Your images/videos are not sorted, which means that navigating using "
+#| "the date bar will only work suboptimally.</p><p>In the <b>Maintenance</b> "
+#| "menu, you can find <b>Display Images with Incomplete Dates</b> which you "
+#| "can use to find the images that are missing date information.</p>You can "
+#| "then select the images that you have reason to believe have a correct "
+#| "date in either their EXIF data or on the file, and execute "
+#| "<b>Maintainance->Read EXIF Info</b> to reread the information.</"
+#| "p><p>Finally, once all images have their dates set, you can execute "
+#| "<b>Images->Sort Selected by Date & Time</b> to sort them in the database."
+#| "</p>"
+msgid ""
+"<p>Your images/videos are not sorted, which means that navigating using the "
+"date bar will only work suboptimally.</p><p>In the <b>Maintenance</b> menu, "
+"you can find <b>Display Images with Incomplete Dates</b> which you can use "
+"to find the images that are missing date information.</p><p>You can then "
+"select the images that you have reason to believe have a correct date in "
+"either their Exif data or on the file, and execute <b>Maintenance->Read Exif "
+"Info</b> to reread the information.</p><p>Finally, once all images have "
+"their dates set, you can execute <b>Maintenance->Sort All by Date & Time</b> "
+"to sort them in the database. </p>"
+msgstr ""
+"<p>Các ảnh của bạn chưa được sắp xếp, vì vậy việc duyệt qua bằng thanh ngày "
+"tháng sẽ chỉ hoạt động ở mức dưới tối ưu.</p><p>Trong trình đơn <b>Bảo trì</"
+"b> có mục <b>Hiện ảnh có ngày thiếu</b> có ích để tìm ảnh thiếu thông tin "
+"ngày tháng.</p><p>Sau đó, bạn có thể chọn những ảnh nên có ngày tháng đúng "
+"hoặc trong dữ liệu EXIF hoặc trong tệp, và thực hiện <b>Bảo trì > Đọc thông "
+"tin EXIF</b> để đọc lại thông tin đó.</p><p>Cuối cùng, một khi mọi ảnh có "
+"ngày tháng được đặt, bạn có thể thực hiện <b>Ảnh > Sắp điều đã chọn theo "
+"Ngày và Giờ</b> để sắp xếp chúng trong co sở dữ liệu.</p>"
+
+#: DB/XML/FileReader.cpp:427
+#, kde-format
+msgid "Images/Videos Are Not Sorted"
+msgstr "Chưa sắp xếp các Ảnh (động)"
+
+#: DB/XML/FileReader.cpp:439
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>Not all the images in the database have information about image sizes; "
+#| "this is needed to get the best result in the thumbnail view. To fix this, "
+#| "simply go to the <b>Maintainance</b> menu, and first choose <b>Remove All "
+#| "Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</"
+#| "p><p>Not doing so will result in extra space around images in the "
+#| "thumbnail view - that is all - so there is no urgency in doing it.</p>"
+msgid ""
+"<p>Not all the images in the database have information about image sizes; "
+"this is needed to get the best result in the thumbnail view. To fix this, "
+"simply go to the <b>Maintenance</b> menu, and first choose <b>Remove All "
+"Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</p><p>Not "
+"doing so will result in extra space around images in the thumbnail view - "
+"that is all - so there is no urgency in doing it.</p>"
+msgstr ""
+"<p>Không phải tất cả các ảnh trong co sở dữ liệu có thông tin về kích cỡ "
+"ảnh: thông tin này cần thiết để đặt được kết quả tốt nhất trong ô xem mẫu "
+"ảnh. Để sửa chữa trường hợp này, đơn giản hãy tới trình đơn <b>Bảo trì</b> "
+"và chọn mục <b>Gỡ bỏ mọi mẫu ảnh</b>, và sau đó chọn mục <b>Xây dựng các mẫu "
+"ảnh</b>.</p><p>Không thì các ảnh trong ô xem mẫu ảnh sẽ chỉ có độ đệm thêm "
+"chung quanh. Không phải là vấn đề nghiêm trọng.</p>"
+
+#: DB/XML/FileReader.cpp:444
+#, kde-format
+msgid "Not All Images Have Size Information"
+msgstr "Không phải tất cả các ảnh có thông tin kích cỡ"
+
+#: DB/XML/FileReader.cpp:458
+#, kde-format
+msgctxt "repair merged tags"
+msgid ""
+"<p>Inconsistencies were found and repaired in your database. Some categories "
+"now contain tags that were merged during the repair.</p><p>The following "
+"tags require manual inspection:<ul>"
+msgstr ""
+
+#: DB/XML/FileReader.cpp:468
+#, kde-format
+msgctxt "repair merged tags"
+msgid "<li>%1:<br/>"
+msgstr ""
+
+#: DB/XML/FileReader.cpp:470
+#, kde-format
+msgctxt "repair merged tags"
+msgid "%1<br/>"
+msgstr ""
+
+#: DB/XML/FileReader.cpp:473
+#, kde-format
+msgctxt "repair merged tags"
+msgid "</li>"
+msgstr ""
+
+#: DB/XML/FileReader.cpp:478
+#, kde-format
+msgctxt "repair merged tags"
+msgid ""
+"</ul></p><p>All affected images have also been marked with a tag "
+"<em>KPhotoAlbum - manual repair needed</em>.</p>"
+msgstr ""
+
+#: DB/XML/FileReader.cpp:482
+#, fuzzy, kde-format
+#| msgid "Database driver:"
+msgid "Database repair required"
+msgstr "Trình điều khiển co sở dữ liệu :"
+
+#: DB/XML/FileReader.cpp:505
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
+#| "installation error</p><p>If you have installed KPhotoAlbum yourself, then "
+#| "you must remember to set the environment variable <b>KDEDIRS</b>, to "
+#| "point to the topmost installation directory.</p><p>If you for example ran "
+#| "configure with <b>--prefix=/usr/local/kde</b>, then you must use the "
+#| "following environment variable setup (this example is for Bash and "
+#| "compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>In "
+#| "case you already have KDEDIRS set, simply append the string as if you "
+#| "where setting the <b>PATH</b> environment variable</p>"
+msgid ""
+"<p>KPhotoAlbum was unable to load a default setup, which indicates an "
+"installation error</p><p>If you have installed KPhotoAlbum yourself, then "
+"you must remember to set the environment variable <b>KDEDIRS</b>, to point "
+"to the topmost installation folder.</p><p>If you for example ran cmake with "
+"<b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must use the "
+"following environment variable setup (this example is for Bash and "
+"compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>In case "
+"you already have KDEDIRS set, simply append the string as if you where "
+"setting the <b>PATH</b> environment variable</p>"
+msgstr ""
+"<p>Trình KPhotoAlbum không thể nạp thiết lập mặc định, trường hợp mà ngụ ý "
+"lỗi cài đặt.</p><p>Bạn đã tự cài đặt KPhotoAlbum thì cũng cần phải nhớ đặt "
+"biến môi trường <b>KDEDIRS</b> chỉ tới thư mục cài đặt cao nhất.</p><p>Chẳng "
+"hạn, nếu bạn đã chạy tiến trình cấu hình với tuỳ chọn <tt>--prefix=/usr/"
+"local/kde</tt>, bạn cũng cần phải sử dụng thiết lập biến môi trường sau (mẫu "
+"này thích hợp với trình bao bash và tương thích):</p><p><b>export KDEDIRS=/"
+"usr/local/kde</b></p><p>Trong trường hợp bạn đã đặt KDEDIRS, đơn giản cần "
+"phụ thêm chuỗi như khi đặt biến môi trường đường dẫn mặc định <b>PATH</b>.</"
+"p>"
+
+#: DB/XML/FileReader.cpp:513
+#, kde-format
+msgid "No default setup file found"
+msgstr "Không tìm thấy tệp thiết lập mặc định nào"
+
+#: DB/XML/FileReader.cpp:520 Settings/BirthdayPage.cpp:134
+#, kde-format
+msgid "People"
+msgstr "Người"
+
+#: DB/XML/FileReader.cpp:521
+#, kde-format
+msgid "Places"
+msgstr "Nơi"
+
+#. i18n("Events"))
+#: DB/XML/FileReader.cpp:522 lib/kpabase/SettingsData.cpp:396
+#, kde-format
+msgid "Events"
+msgstr ""
+
+#. i18n("untagged"))
+#: DB/XML/FileReader.cpp:523 lib/kpabase/SettingsData.cpp:406
+#, fuzzy, kde-format
+#| msgid "New Images"
+msgid "untagged"
+msgstr "Ảnh mới"
+
+#: DB/XML/FileReader.cpp:534 Utilities/DemoUtil.cpp:34
+#: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:85
+#, kde-format
+msgid "Error Running Demo"
+msgstr "Gặp lỗi khi chạy chứng minh"
+
+#: DB/XML/FileReader.cpp:534
+#, kde-format
+msgid "Unable to open '%1' for reading"
+msgstr "Không thể mở « %1 » để đọc"
+
+#: DB/XML/FileReader.cpp:547
+#, fuzzy, kde-format
+#| msgid "Error on line %1 column %2 in file %3: %4"
+msgid "line %1 column %2 in file %3: %4"
+msgstr "Gặp lỗi trên dòng %1, cột %2, trong tệp %3: %4"
+
+#: DB/XML/FileReader.cpp:549
+#, kde-format
+msgid "Failed to recover the backup: %1"
+msgstr ""
+
+#: DB/XML/FileReader.cpp:560
+#, kde-format
+msgid "Error in file %1: No elements found"
+msgstr "Gặp lỗi trong tệp %1: không tìm thấy yếu tố nào"
+
+#: DB/XML/FileReader.cpp:566
+#, kde-format
+msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
+msgstr ""
+"Gặp lỗi trong tệp %1: yêu cầu « KPhotoAlbum » là yếu tố đầu, còn tìm « %2 »"
+
+#: DB/XML/FileWriter.cpp:74
+#, kde-format
+msgid ""
+"<p>Could not save the image database to XML.</p>File %1 could not be opened "
+"because of the following error: %2"
+msgstr ""
+
+#: DB/XML/FileWriter.cpp:77 DB/XML/FileWriter.cpp:112 DB/XML/FileWriter.cpp:121
+#, fuzzy, kde-format
+#| msgid "Error when saving image '%1'."
+msgid "Error while saving..."
+msgstr "Găp lỗi khi lưu ảnh « %1 »."
+
+#: DB/XML/FileWriter.cpp:109
+#, kde-format
+msgid ""
+"<p>Failed to remove old version of image database.</p><p>Please try again or "
+"replace the file %1 with file %2 manually!</p>"
+msgstr ""
+
+#: DB/XML/FileWriter.cpp:118
+#, kde-format
+msgid ""
+"<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
+"again or rename file %1 to %2 manually!</p>"
+msgstr ""
+
+#: DB/XML/NumberedBackup.cpp:41
+#, kde-format
+msgid "Error creating zip file %1"
+msgstr "Gặp lỗi khi tạo tệp zip %1"
+
+#: DB/XML/NumberedBackup.cpp:41 DB/XML/NumberedBackup.cpp:46
+#, fuzzy, kde-format
+#| msgid "Error Saving Image"
+msgid "Error Making Numbered Backup"
+msgstr "Gặp lỗi khi lưu ảnh"
+
+#: DB/XML/NumberedBackup.cpp:46
+#, fuzzy, kde-format
+#| msgid "Error writing file %1"
+msgid "Error writing file %1 to zip file %2"
+msgstr "Gặp lỗi khi ghi tệp %1"
+
+#: DB/XML/XmlReader.cpp:43
+#, fuzzy, kde-format
+#| msgid "Error creating zip file"
+msgid "Error reading next element"
+msgstr "Gặp lỗi khi tạo tệp nén zip"
+
+#: DB/XML/XmlReader.cpp:46
+#, kde-format
+msgid "Expected to read a start or stop element, but read %1"
+msgstr ""
+
+#: DB/XML/XmlReader.cpp:51
+#, kde-format
+msgid "Expected to read %1, but read %2"
+msgstr ""
+
+#: DB/XML/XmlReader.cpp:62
+#, kde-format
+msgid "Expected to read an end element but read %1"
+msgstr ""
+
+#: DB/XML/XmlReader.cpp:80
+#, kde-format
+msgid "Expected to read start element '%1'"
+msgstr ""
+
+#: DB/XML/XmlReader.cpp:86
+#, kde-format
+msgid ""
+"<p>An error was encountered on line %1, column %2:<nl/><message>%3</"
+"message></p>"
+msgstr ""
+
+#: DB/XML/XmlReader.cpp:90
+#, kde-format
+msgid "<p>Additional error information:<nl/><message>%1</message></p>"
+msgstr ""
+
+#: DB/XML/XmlReader.cpp:91
+#, kde-kuit-format
+msgid "<p>Database path: <filename>%1</filename></p>"
+msgstr ""
+
+#: DB/XML/XmlReader.cpp:94
+#, fuzzy, kde-format
+#| msgid "Converting database"
+msgid "Error while reading database file"
+msgstr "Đang chuyển đổi co sở dữ liệu"
 
 #: Exif/InfoDialog.cpp:33
 #, fuzzy, kde-format
@@ -2343,7 +2752,7 @@ msgctxt "@title:tab introduction page"
 msgid "Introduction"
 msgstr "Giới thiệu"
 
-#: ImportExport/ImportDialog.cpp:153 MainWindow/TokenEditor.cpp:53
+#: ImportExport/ImportDialog.cpp:153 MainWindow/TokenEditor.cpp:58
 #, kde-format
 msgid "Select All"
 msgstr "Chọn tất cả"
@@ -2877,19 +3286,6 @@ msgstr ""
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Theo nhãn thời gian ?"
-
-#. i18n("Events"))
-#: lib/kpabase/SettingsData.cpp:396 XMLDB/FileReader.cpp:516
-#, kde-format
-msgid "Events"
-msgstr ""
-
-#. i18n("untagged"))
-#: lib/kpabase/SettingsData.cpp:406 XMLDB/FileReader.cpp:517
-#, fuzzy, kde-format
-#| msgid "New Images"
-msgid "untagged"
-msgstr "Ảnh mới"
 
 #: lib/kpaexif/Database.cpp:173
 #, kde-format
@@ -3658,7 +4054,7 @@ msgctxt "@label:textbox"
 msgid "Search ..."
 msgstr "Tìm kiếm"
 
-#: MainWindow/StatisticsDialog.cpp:31
+#: MainWindow/StatisticsDialog.cpp:35
 #, kde-format
 msgid ""
 "<h1>Description</h1><table><tr><td># of Items</td><td>This is the number of "
@@ -3673,69 +4069,69 @@ msgid ""
 "hard to fix),<br/>so maybe the dialog will simply go away again"
 msgstr ""
 
-#: MainWindow/StatisticsDialog.cpp:48
+#: MainWindow/StatisticsDialog.cpp:52
 #, kde-format
 msgid "<h1>Statistics</h1>"
 msgstr ""
 
-#: MainWindow/StatisticsDialog.cpp:55
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Category"
 msgstr "Loại"
 
-#: MainWindow/StatisticsDialog.cpp:55
+#: MainWindow/StatisticsDialog.cpp:59
 #, fuzzy, kde-format
 #| msgid "Move Items"
 msgid "# of Items"
 msgstr "Chuyển mục"
 
-#: MainWindow/StatisticsDialog.cpp:55
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Tags Totals"
 msgstr ""
 
-#: MainWindow/StatisticsDialog.cpp:55
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Tags Per Picture"
 msgstr ""
 
-#: MainWindow/StatisticsDialog.cpp:100
+#: MainWindow/StatisticsDialog.cpp:104
 #, kde-format
 msgid "Tag indication completed annotation"
 msgstr ""
 
-#: MainWindow/StatisticsDialog.cpp:106
+#: MainWindow/StatisticsDialog.cpp:110
 #, kde-format
 msgid ""
 "If you use a specific tag to indicate that an image has been tagged, then "
 "specify it here."
 msgstr ""
 
-#: MainWindow/StatisticsDialog.cpp:110 Settings/BirthdayPage.cpp:47
+#: MainWindow/StatisticsDialog.cpp:114 Settings/BirthdayPage.cpp:47
 #: Settings/UntaggedGroupBox.cpp:29
 #, kde-format
 msgid "Category:"
 msgstr "Loại:"
 
-#: MainWindow/StatisticsDialog.cpp:116 Settings/UntaggedGroupBox.cpp:36
+#: MainWindow/StatisticsDialog.cpp:120 Settings/UntaggedGroupBox.cpp:36
 #, kde-format
 msgid "Tag:"
 msgstr ""
 
-#: MainWindow/StatisticsDialog.cpp:123
+#: MainWindow/StatisticsDialog.cpp:127
 #, fuzzy, kde-format
 #| msgid "None"
 msgctxt "@item:inlistbox meaning 'no category'"
 msgid "None"
 msgstr "Không có"
 
-#: MainWindow/StatisticsDialog.cpp:163
+#: MainWindow/StatisticsDialog.cpp:167
 #, kde-format
 msgctxt "As in 'all images'"
 msgid "All"
 msgstr ""
 
-#: MainWindow/StatisticsDialog.cpp:209
+#: MainWindow/StatisticsDialog.cpp:213
 #, fuzzy, kde-format
 #| msgid "Total: %1"
 msgid "Total"
@@ -3747,19 +4143,19 @@ msgstr "Tổng: %1"
 msgid "Thumbnail settings..."
 msgstr "Cỡ mẫu ảnh"
 
-#: MainWindow/TokenEditor.cpp:29
+#: MainWindow/TokenEditor.cpp:34
 #, fuzzy, kde-format
 #| msgid "Remove Tokens"
 msgctxt "@title:window"
 msgid "Remove Tokens"
 msgstr "Gỡ bỏ hiệu bài"
 
-#: MainWindow/TokenEditor.cpp:35
+#: MainWindow/TokenEditor.cpp:40
 #, kde-format
 msgid "Select tokens to remove from all images and videos:"
 msgstr "Chọn những hiệu bài cần gỡ bỏ ra mọi ảnh và ảnh động:"
 
-#: MainWindow/TokenEditor.cpp:54
+#: MainWindow/TokenEditor.cpp:59
 #, kde-format
 msgid "Select None"
 msgstr "Chọn Không gì"
@@ -4428,76 +4824,76 @@ msgctxt "The number of images in an area of the map"
 msgid "%1"
 msgstr ""
 
-#: Map/MapView.cpp:170
+#: Map/MapView.cpp:171
 #, kde-format
 msgid "Save the current map settings"
 msgstr ""
 
-#: Map/MapView.cpp:177
+#: Map/MapView.cpp:178
 #, kde-format
 msgid "Go to last map position"
 msgstr ""
 
-#: Map/MapView.cpp:184
+#: Map/MapView.cpp:185
 #, fuzzy, kde-format
 #| msgid "Show Thumbnails"
 msgid "Show thumbnails"
 msgstr "Hiện các mẫu ảnh"
 
-#: Map/MapView.cpp:193
+#: Map/MapView.cpp:194
 #, kde-format
 msgctxt "@action to group, as in aggregate thumbnails into clusters"
 msgid "Group adjacent thumbnails into clickable clusters"
 msgstr ""
 
-#: Map/MapView.cpp:205
+#: Map/MapView.cpp:206
 #, kde-format
 msgctxt ""
 "@action Decrease size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Decrease marker size"
 msgstr ""
 
-#: Map/MapView.cpp:212
+#: Map/MapView.cpp:213
 #, kde-format
 msgctxt ""
 "@action Increase size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Increase marker size"
 msgstr ""
 
-#: Map/MapView.cpp:362
+#: Map/MapView.cpp:363
 #, kde-format
 msgid "Map view"
 msgstr ""
 
-#: Map/MapView.cpp:362
+#: Map/MapView.cpp:363
 #, fuzzy, kde-format
 #| msgid "Settings"
 msgid "Settings saved!"
 msgstr "Thiết lập"
 
-#: Map/MapView.cpp:389
+#: Map/MapView.cpp:390
 #, fuzzy, kde-format
 #| msgid "Loading information from images"
 msgid "<i>Loading coordinates from the images ...</i>"
 msgstr "Đang tải thông tin từ ảnh"
 
-#: Map/MapView.cpp:405
+#: Map/MapView.cpp:406
 #, kde-format
 msgid "<i>This image does not contain geographic coordinates.</i>"
 msgstr ""
 
-#: Map/MapView.cpp:413
+#: Map/MapView.cpp:414
 #, kde-format
 msgid ""
 "<i>Some of the selected images do not contain geographic coordinates.</i>"
 msgstr ""
 
-#: Map/MapView.cpp:423
+#: Map/MapView.cpp:424
 #, kde-format
 msgid "<i>Search for geographic coordinates.</i>"
 msgstr ""
 
-#: Map/MapView.cpp:431
+#: Map/MapView.cpp:432
 #, kde-format
 msgid "<i>None of the selected images contain geographic coordinates.</i>"
 msgstr ""
@@ -4571,11 +4967,6 @@ msgid ""
 "Set the date of birth for items (say people) here, and then see their age "
 "when viewing the images."
 msgstr ""
-
-#: Settings/BirthdayPage.cpp:134 XMLDB/FileReader.cpp:514
-#, kde-format
-msgid "People"
-msgstr "Người"
 
 #: Settings/BirthdayPage.cpp:156
 #, kde-format
@@ -4685,20 +5076,6 @@ msgstr "<b>Phân loại con</b>"
 #, kde-format
 msgid "<i>Pending change: rename to \"%1\"</i>"
 msgstr ""
-
-#. i18n("Folder")), and then start KPA with the C locale, which would produce a
-#. doubled "Folder" category.
-#: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
-#: ThumbnailView/ThumbnailModel.cpp:351 XMLDB/FileReader.cpp:75
-#, kde-format
-msgid "Folder"
-msgstr "Thư mục"
-
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
-#: XMLDB/Database.cpp:290 XMLDB/Database.cpp:654 XMLDB/FileReader.cpp:125
-#, kde-format
-msgid "Media Type"
-msgstr "Kiểu vật chứa"
 
 #: Settings/CategoryPage.cpp:260
 #, kde-format
@@ -6026,12 +6403,6 @@ msgstr "Gặp lỗi khi xoá tệp"
 msgid "Unable to copy '%1' to '%2'."
 msgstr "Không thể sao chép « %1 » vào « %2 »."
 
-#: Utilities/DemoUtil.cpp:34 Utilities/DemoUtil.cpp:51
-#: Utilities/DemoUtil.cpp:85 XMLDB/FileReader.cpp:528
-#, kde-format
-msgid "Error Running Demo"
-msgstr "Gặp lỗi khi chạy chứng minh"
-
 #: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:85
 #, fuzzy, kde-format
 #| msgid "Unable to create directory '%1' needed for demo."
@@ -6758,377 +7129,6 @@ msgstr "Hiện cỡ ảnh"
 #| msgid "Show Ranges"
 msgid "Show Rating"
 msgstr "Hiện đánh giá"
-
-#: XMLDB/Database.cpp:48
-#, fuzzy, kde-format
-#| msgid ""
-#| "Backup file '%1' exists and is newer than '%2'. Should I use the backup "
-#| "file?"
-msgid ""
-"Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
-"autosave file be used?"
-msgstr ""
-"Tệp sao lưu « %1 » đã có : nó mới hơn « %2 ». Trình này nên dùng tệp sao lưu "
-"này không?"
-
-#: XMLDB/Database.cpp:51
-#, fuzzy, kde-format
-#| msgid "Found Backup File"
-msgid "Found Autosave File"
-msgstr "Tìm thấy tệp sao lưu"
-
-#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:655 XMLDB/FileReader.cpp:127
-#, fuzzy, kde-format
-#| msgid "Image"
-msgid "Image"
-msgstr "Ảnh"
-
-#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:656 XMLDB/FileReader.cpp:128
-#, fuzzy, kde-format
-#| msgid "Video"
-msgid "Video"
-msgstr "Ảnh động"
-
-#: XMLDB/Database.cpp:801
-#, kde-format
-msgid "KPhotoAlbum - manual repair needed (%1)"
-msgstr ""
-
-#: XMLDB/Database.cpp:802
-#, kde-format
-msgctxt "Separator in a list of tags"
-msgid ", "
-msgstr ""
-
-#: XMLDB/FileReader.cpp:46
-#, kde-format
-msgid ""
-"<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
-"p><p>Chances are you will be able to read this file, but when writing it "
-"back, information saved in the newer version will be lost</p>"
-msgstr ""
-
-#: XMLDB/FileReader.cpp:49
-#, kde-format
-msgid "index.xml version mismatch"
-msgstr ""
-
-#: XMLDB/FileReader.cpp:99 XMLDB/FileReader.cpp:111
-#, kde-format
-msgid "Tokens"
-msgstr "Hiệu bài"
-
-#: XMLDB/FileReader.cpp:181
-#, kde-format
-msgid ""
-"<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
-"ignore the duplicate category and try an automatic repair, or choose cancel "
-"to quit.</p>"
-msgstr ""
-
-#: XMLDB/FileReader.cpp:187 XMLDB/FileReader.cpp:292
-#, fuzzy, kde-format
-#| msgid "Converting database"
-msgid "Error in database file"
-msgstr "Đang chuyển đổi co sở dữ liệu"
-
-#: XMLDB/FileReader.cpp:247
-#, kde-format
-msgctxt ""
-"Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
-"with these exact names. Thanks :-)"
-msgid ""
-"<p><b>This version of KPhotoAlbum does not translate \"standard\" categories "
-"any more.</b></p><p>This may mean that – if you use a locale other than "
-"English – some of your categories are now displayed in English.</p><p>You "
-"can manually rename your categories any time and then save your database.</"
-"p><p>In some cases, you may get two additional empty categories, \"Folder\" "
-"and \"Media Type\". You can delete those.</p>"
-msgstr ""
-
-#: XMLDB/FileReader.cpp:255
-#, fuzzy, kde-format
-#| msgid "Invalid driver."
-msgid "Changed standard category names"
-msgstr "Trình điều khiển không hợp lệ."
-
-#: XMLDB/FileReader.cpp:287
-#, kde-format
-msgid ""
-"<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
-"</p><p>Manual repair required!</p>"
-msgstr ""
-
-#: XMLDB/FileReader.cpp:411
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Your images/videos are not sorted, which means that navigating using "
-#| "the date bar will only work suboptimally.</p><p>In the <b>Maintenance</b> "
-#| "menu, you can find <b>Display Images with Incomplete Dates</b> which you "
-#| "can use to find the images that are missing date information.</p>You can "
-#| "then select the images that you have reason to believe have a correct "
-#| "date in either their EXIF data or on the file, and execute "
-#| "<b>Maintainance->Read EXIF Info</b> to reread the information.</"
-#| "p><p>Finally, once all images have their dates set, you can execute "
-#| "<b>Images->Sort Selected by Date & Time</b> to sort them in the database."
-#| "</p>"
-msgid ""
-"<p>Your images/videos are not sorted, which means that navigating using the "
-"date bar will only work suboptimally.</p><p>In the <b>Maintenance</b> menu, "
-"you can find <b>Display Images with Incomplete Dates</b> which you can use "
-"to find the images that are missing date information.</p><p>You can then "
-"select the images that you have reason to believe have a correct date in "
-"either their Exif data or on the file, and execute <b>Maintenance->Read Exif "
-"Info</b> to reread the information.</p><p>Finally, once all images have "
-"their dates set, you can execute <b>Maintenance->Sort All by Date & Time</b> "
-"to sort them in the database. </p>"
-msgstr ""
-"<p>Các ảnh của bạn chưa được sắp xếp, vì vậy việc duyệt qua bằng thanh ngày "
-"tháng sẽ chỉ hoạt động ở mức dưới tối ưu.</p><p>Trong trình đơn <b>Bảo trì</"
-"b> có mục <b>Hiện ảnh có ngày thiếu</b> có ích để tìm ảnh thiếu thông tin "
-"ngày tháng.</p><p>Sau đó, bạn có thể chọn những ảnh nên có ngày tháng đúng "
-"hoặc trong dữ liệu EXIF hoặc trong tệp, và thực hiện <b>Bảo trì > Đọc thông "
-"tin EXIF</b> để đọc lại thông tin đó.</p><p>Cuối cùng, một khi mọi ảnh có "
-"ngày tháng được đặt, bạn có thể thực hiện <b>Ảnh > Sắp điều đã chọn theo "
-"Ngày và Giờ</b> để sắp xếp chúng trong co sở dữ liệu.</p>"
-
-#: XMLDB/FileReader.cpp:420
-#, kde-format
-msgid "Images/Videos Are Not Sorted"
-msgstr "Chưa sắp xếp các Ảnh (động)"
-
-#: XMLDB/FileReader.cpp:432
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Not all the images in the database have information about image sizes; "
-#| "this is needed to get the best result in the thumbnail view. To fix this, "
-#| "simply go to the <b>Maintainance</b> menu, and first choose <b>Remove All "
-#| "Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</"
-#| "p><p>Not doing so will result in extra space around images in the "
-#| "thumbnail view - that is all - so there is no urgency in doing it.</p>"
-msgid ""
-"<p>Not all the images in the database have information about image sizes; "
-"this is needed to get the best result in the thumbnail view. To fix this, "
-"simply go to the <b>Maintenance</b> menu, and first choose <b>Remove All "
-"Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</p><p>Not "
-"doing so will result in extra space around images in the thumbnail view - "
-"that is all - so there is no urgency in doing it.</p>"
-msgstr ""
-"<p>Không phải tất cả các ảnh trong co sở dữ liệu có thông tin về kích cỡ "
-"ảnh: thông tin này cần thiết để đặt được kết quả tốt nhất trong ô xem mẫu "
-"ảnh. Để sửa chữa trường hợp này, đơn giản hãy tới trình đơn <b>Bảo trì</b> "
-"và chọn mục <b>Gỡ bỏ mọi mẫu ảnh</b>, và sau đó chọn mục <b>Xây dựng các mẫu "
-"ảnh</b>.</p><p>Không thì các ảnh trong ô xem mẫu ảnh sẽ chỉ có độ đệm thêm "
-"chung quanh. Không phải là vấn đề nghiêm trọng.</p>"
-
-#: XMLDB/FileReader.cpp:437
-#, kde-format
-msgid "Not All Images Have Size Information"
-msgstr "Không phải tất cả các ảnh có thông tin kích cỡ"
-
-#: XMLDB/FileReader.cpp:451
-#, kde-format
-msgctxt "repair merged tags"
-msgid ""
-"<p>Inconsistencies were found and repaired in your database. Some categories "
-"now contain tags that were merged during the repair.</p><p>The following "
-"tags require manual inspection:<ul>"
-msgstr ""
-
-#: XMLDB/FileReader.cpp:462
-#, kde-format
-msgctxt "repair merged tags"
-msgid "<li>%1:<br/>"
-msgstr ""
-
-#: XMLDB/FileReader.cpp:464
-#, kde-format
-msgctxt "repair merged tags"
-msgid "%1<br/>"
-msgstr ""
-
-#: XMLDB/FileReader.cpp:467
-#, kde-format
-msgctxt "repair merged tags"
-msgid "</li>"
-msgstr ""
-
-#: XMLDB/FileReader.cpp:472
-#, kde-format
-msgctxt "repair merged tags"
-msgid ""
-"</ul></p><p>All affected images have also been marked with a tag "
-"<em>KPhotoAlbum - manual repair needed</em>.</p>"
-msgstr ""
-
-#: XMLDB/FileReader.cpp:476
-#, fuzzy, kde-format
-#| msgid "Database driver:"
-msgid "Database repair required"
-msgstr "Trình điều khiển co sở dữ liệu :"
-
-#: XMLDB/FileReader.cpp:499
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
-#| "installation error</p><p>If you have installed KPhotoAlbum yourself, then "
-#| "you must remember to set the environment variable <b>KDEDIRS</b>, to "
-#| "point to the topmost installation directory.</p><p>If you for example ran "
-#| "configure with <b>--prefix=/usr/local/kde</b>, then you must use the "
-#| "following environment variable setup (this example is for Bash and "
-#| "compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>In "
-#| "case you already have KDEDIRS set, simply append the string as if you "
-#| "where setting the <b>PATH</b> environment variable</p>"
-msgid ""
-"<p>KPhotoAlbum was unable to load a default setup, which indicates an "
-"installation error</p><p>If you have installed KPhotoAlbum yourself, then "
-"you must remember to set the environment variable <b>KDEDIRS</b>, to point "
-"to the topmost installation folder.</p><p>If you for example ran cmake with "
-"<b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must use the "
-"following environment variable setup (this example is for Bash and "
-"compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>In case "
-"you already have KDEDIRS set, simply append the string as if you where "
-"setting the <b>PATH</b> environment variable</p>"
-msgstr ""
-"<p>Trình KPhotoAlbum không thể nạp thiết lập mặc định, trường hợp mà ngụ ý "
-"lỗi cài đặt.</p><p>Bạn đã tự cài đặt KPhotoAlbum thì cũng cần phải nhớ đặt "
-"biến môi trường <b>KDEDIRS</b> chỉ tới thư mục cài đặt cao nhất.</p><p>Chẳng "
-"hạn, nếu bạn đã chạy tiến trình cấu hình với tuỳ chọn <tt>--prefix=/usr/"
-"local/kde</tt>, bạn cũng cần phải sử dụng thiết lập biến môi trường sau (mẫu "
-"này thích hợp với trình bao bash và tương thích):</p><p><b>export KDEDIRS=/"
-"usr/local/kde</b></p><p>Trong trường hợp bạn đã đặt KDEDIRS, đơn giản cần "
-"phụ thêm chuỗi như khi đặt biến môi trường đường dẫn mặc định <b>PATH</b>.</"
-"p>"
-
-#: XMLDB/FileReader.cpp:507
-#, kde-format
-msgid "No default setup file found"
-msgstr "Không tìm thấy tệp thiết lập mặc định nào"
-
-#: XMLDB/FileReader.cpp:515
-#, kde-format
-msgid "Places"
-msgstr "Nơi"
-
-#: XMLDB/FileReader.cpp:528
-#, kde-format
-msgid "Unable to open '%1' for reading"
-msgstr "Không thể mở « %1 » để đọc"
-
-#: XMLDB/FileReader.cpp:541
-#, fuzzy, kde-format
-#| msgid "Error on line %1 column %2 in file %3: %4"
-msgid "line %1 column %2 in file %3: %4"
-msgstr "Gặp lỗi trên dòng %1, cột %2, trong tệp %3: %4"
-
-#: XMLDB/FileReader.cpp:543
-#, kde-format
-msgid "Failed to recover the backup: %1"
-msgstr ""
-
-#: XMLDB/FileReader.cpp:554
-#, kde-format
-msgid "Error in file %1: No elements found"
-msgstr "Gặp lỗi trong tệp %1: không tìm thấy yếu tố nào"
-
-#: XMLDB/FileReader.cpp:560
-#, kde-format
-msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
-msgstr ""
-"Gặp lỗi trong tệp %1: yêu cầu « KPhotoAlbum » là yếu tố đầu, còn tìm « %2 »"
-
-#: XMLDB/FileWriter.cpp:67
-#, kde-format
-msgid ""
-"<p>Could not save the image database to XML.</p>File %1 could not be opened "
-"because of the following error: %2"
-msgstr ""
-
-#: XMLDB/FileWriter.cpp:70 XMLDB/FileWriter.cpp:105 XMLDB/FileWriter.cpp:114
-#, fuzzy, kde-format
-#| msgid "Error when saving image '%1'."
-msgid "Error while saving..."
-msgstr "Găp lỗi khi lưu ảnh « %1 »."
-
-#: XMLDB/FileWriter.cpp:102
-#, kde-format
-msgid ""
-"<p>Failed to remove old version of image database.</p><p>Please try again or "
-"replace the file %1 with file %2 manually!</p>"
-msgstr ""
-
-#: XMLDB/FileWriter.cpp:111
-#, kde-format
-msgid ""
-"<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
-"again or rename file %1 to %2 manually!</p>"
-msgstr ""
-
-#: XMLDB/NumberedBackup.cpp:38
-#, kde-format
-msgid "Error creating zip file %1"
-msgstr "Gặp lỗi khi tạo tệp zip %1"
-
-#: XMLDB/NumberedBackup.cpp:38 XMLDB/NumberedBackup.cpp:43
-#, fuzzy, kde-format
-#| msgid "Error Saving Image"
-msgid "Error Making Numbered Backup"
-msgstr "Gặp lỗi khi lưu ảnh"
-
-#: XMLDB/NumberedBackup.cpp:43
-#, fuzzy, kde-format
-#| msgid "Error writing file %1"
-msgid "Error writing file %1 to zip file %2"
-msgstr "Gặp lỗi khi ghi tệp %1"
-
-#: XMLDB/XmlReader.cpp:41
-#, fuzzy, kde-format
-#| msgid "Error creating zip file"
-msgid "Error reading next element"
-msgstr "Gặp lỗi khi tạo tệp nén zip"
-
-#: XMLDB/XmlReader.cpp:44
-#, kde-format
-msgid "Expected to read a start or stop element, but read %1"
-msgstr ""
-
-#: XMLDB/XmlReader.cpp:49
-#, kde-format
-msgid "Expected to read %1, but read %2"
-msgstr ""
-
-#: XMLDB/XmlReader.cpp:60
-#, kde-format
-msgid "Expected to read an end element but read %1"
-msgstr ""
-
-#: XMLDB/XmlReader.cpp:78
-#, kde-format
-msgid "Expected to read start element '%1'"
-msgstr ""
-
-#: XMLDB/XmlReader.cpp:84
-#, kde-format
-msgid ""
-"<p>An error was encountered on line %1, column %2:<nl/><message>%3</"
-"message></p>"
-msgstr ""
-
-#: XMLDB/XmlReader.cpp:88
-#, kde-format
-msgid "<p>Additional error information:<nl/><message>%1</message></p>"
-msgstr ""
-
-#: XMLDB/XmlReader.cpp:89
-#, kde-kuit-format
-msgid "<p>Database path: <filename>%1</filename></p>"
-msgstr ""
-
-#: XMLDB/XmlReader.cpp:92
-#, fuzzy, kde-format
-#| msgid "Converting database"
-msgid "Error while reading database file"
-msgstr "Đang chuyển đổi co sở dữ liệu"
 
 #~ msgid "Recalculate Checksum"
 #~ msgstr "Tính lại tổng kiểm tra"

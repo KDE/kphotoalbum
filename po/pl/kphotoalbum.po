@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-02 00:45+0000\n"
+"POT-Creation-Date: 2023-05-09 00:45+0000\n"
 "PO-Revision-Date: 2022-06-27 20:24+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -94,7 +94,7 @@ msgstr ""
 "emphasis> to opis osadzony w informacjach o obrazie Exif zostanie "
 "zaimportowany do tego pola, jeśli będzie dostępny.</para>"
 
-#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:146
+#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:433
 #, kde-format
 msgid "Cancel"
 msgstr "Anuluj"
@@ -557,12 +557,12 @@ msgctxt "@label:textbox"
 msgid "Enter a tag ..."
 msgstr "Wpisz znacznik..."
 
-#: AnnotationDialog/ListSelect.cpp:82 DB/ImageSearchInfo.cpp:338
+#: AnnotationDialog/ListSelect.cpp:82 DB/search/ImageSearchInfo.cpp:338
 #, kde-format
 msgid "or"
 msgstr "lub"
 
-#: AnnotationDialog/ListSelect.cpp:83 DB/ImageSearchInfo.cpp:333
+#: AnnotationDialog/ListSelect.cpp:83 DB/search/ImageSearchInfo.cpp:333
 #, kde-format
 msgid "and"
 msgstr "i"
@@ -1211,24 +1211,24 @@ msgstr "1 minuta"
 msgid "10 Seconds"
 msgstr "10 sekund"
 
-#: DB/Category.cpp:164
+#: DB/Category.cpp:299
 #, fuzzy, kde-format
 #| msgid "Unable to create directory '%1'."
 msgid "Unable to create folder '%1'."
 msgstr "Nie można stworzyć katalogu '%1'."
 
-#: DB/Category.cpp:164
+#: DB/Category.cpp:299
 #, fuzzy, kde-format
 #| msgid "Unable to Create Directory"
 msgid "Unable to Create Folder"
 msgstr "Nie można stworzyć katalogu"
 
-#: DB/Category.cpp:173
+#: DB/Category.cpp:308
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "Błąd podczas zapisywania obrazu '%1'."
 
-#: DB/Category.cpp:173
+#: DB/Category.cpp:308
 #, kde-format
 msgid "Error Saving Image"
 msgstr "Błąd zapisywania obrazu"
@@ -1305,34 +1305,51 @@ msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "gru"
 
-#: DB/ImageDB.cpp:145
+#: DB/ImageDB.cpp:62
+#, kde-format
+msgid ""
+"Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
+"autosave file be used?"
+msgstr ""
+"Plik samoczynnego zapisu '%1' istnieje (rozmiar %3 KB) i jest nowszy niż "
+"'%2'. Czy użyć pliku samoczynnego zapisu?"
+
+#: DB/ImageDB.cpp:65
+#, kde-format
+msgid "Found Autosave File"
+msgstr "Znaleziono plik samoczynnego zapisu"
+
+#: DB/ImageDB.cpp:432
 #, kde-format
 msgid "Loading information from images"
 msgstr "Wczytywanie informacji z obrazów"
 
-#: DB/ImageSearchInfo.cpp:330
+#: DB/ImageDB.cpp:595 DB/ImageDB.cpp:882 DB/XML/FileReader.cpp:135
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
 #, kde-format
-msgctxt ""
-"As in No persons, no locations etc. I do realize that translators may have "
-"problem with this, but I need some how to indicate the category, and users "
-"may create their own categories, so this is the best I can do - Jesper."
-msgid "No %1"
-msgstr "Brak %1"
+msgid "Media Type"
+msgstr "Typ nośnika"
 
-#: DB/ImageSearchInfo.cpp:339
+#: DB/ImageDB.cpp:596 DB/ImageDB.cpp:883 DB/XML/FileReader.cpp:137
 #, kde-format
-msgid "not"
-msgstr "nie"
+msgid "Image"
+msgstr "Obraz"
 
-#: DB/ImageSearchInfo.cpp:344
+#: DB/ImageDB.cpp:596 DB/ImageDB.cpp:884 DB/XML/FileReader.cpp:138
 #, kde-format
-msgctxt ""
-"As in no other persons, or no other locations. I do realize that translators "
-"may have problem with this, but I need some how to indicate the category, "
-"and users may create their own categories, so this is the best I can do - "
-"Jesper."
-msgid "No other %1"
-msgstr "Brak innych %1"
+msgid "Video"
+msgstr "Film"
+
+#: DB/ImageDB.cpp:988
+#, kde-format
+msgid "KPhotoAlbum - manual repair needed (%1)"
+msgstr "KPhotoAlbum - wymagana naprawa ręczna (%1)"
+
+#: DB/ImageDB.cpp:989
+#, kde-format
+msgctxt "Separator in a list of tags"
+msgid ", "
+msgstr ","
 
 #: DB/NewImageFinder.cpp:467
 #, kde-format
@@ -1367,6 +1384,397 @@ msgstr ""
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "Następujące pliki nie mogły być odczytane:"
+
+#: DB/search/ImageSearchInfo.cpp:330
+#, kde-format
+msgctxt ""
+"As in No persons, no locations etc. I do realize that translators may have "
+"problem with this, but I need some how to indicate the category, and users "
+"may create their own categories, so this is the best I can do - Jesper."
+msgid "No %1"
+msgstr "Brak %1"
+
+#: DB/search/ImageSearchInfo.cpp:339
+#, kde-format
+msgid "not"
+msgstr "nie"
+
+#: DB/search/ImageSearchInfo.cpp:344
+#, kde-format
+msgctxt ""
+"As in no other persons, or no other locations. I do realize that translators "
+"may have problem with this, but I need some how to indicate the category, "
+"and users may create their own categories, so this is the best I can do - "
+"Jesper."
+msgid "No other %1"
+msgstr "Brak innych %1"
+
+#: DB/XML/FileReader.cpp:58
+#, kde-format
+msgid ""
+"<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
+"p><p>Chances are you will be able to read this file, but when writing it "
+"back, information saved in the newer version will be lost</p>"
+msgstr ""
+"<p>Plik bazy danych (index.xml) pochodzi z nowszej wersji  KPhotoAlbum!</"
+"p><p>Prawdopodobnie będzie możliwość odczytania tego pliku, lecz przy jego "
+"zapisie informacje zapisane przez nowszą wersję zostaną utracone</p>"
+
+#: DB/XML/FileReader.cpp:61
+#, kde-format
+msgid "index.xml version mismatch"
+msgstr "niezgodność wersji index.xml"
+
+#. i18n("Folder")), and then start KPA with the C locale, which would produce a
+#. doubled "Folder" category.
+#: DB/XML/FileReader.cpp:87 Settings/CategoryPage.cpp:253
+#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:351
+#, kde-format
+msgid "Folder"
+msgstr "Katalog"
+
+#: DB/XML/FileReader.cpp:109 DB/XML/FileReader.cpp:121
+#, kde-format
+msgid "Tokens"
+msgstr "Symbol"
+
+#: DB/XML/FileReader.cpp:189
+#, kde-format
+msgid ""
+"<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
+"ignore the duplicate category and try an automatic repair, or choose cancel "
+"to quit.</p>"
+msgstr ""
+"<p>Wiersz %1, kolumna %2: powielona kategoria '%3'</p><p>Wybierz kontynuuj, "
+"aby pominąć powieloną kategorię i spróbować samoczynnego naprawiania lub "
+"wyjdź.</p>"
+
+#: DB/XML/FileReader.cpp:195 DB/XML/FileReader.cpp:300
+#, kde-format
+msgid "Error in database file"
+msgstr "Błąd w pliku bazy danych"
+
+#: DB/XML/FileReader.cpp:255
+#, kde-format
+msgctxt ""
+"Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
+"with these exact names. Thanks :-)"
+msgid ""
+"<p><b>This version of KPhotoAlbum does not translate \"standard\" categories "
+"any more.</b></p><p>This may mean that – if you use a locale other than "
+"English – some of your categories are now displayed in English.</p><p>You "
+"can manually rename your categories any time and then save your database.</"
+"p><p>In some cases, you may get two additional empty categories, \"Folder\" "
+"and \"Media Type\". You can delete those.</p>"
+msgstr ""
+"<p><b>Ta wersja KPhotoAlbum już nie tłumaczy \"standardowych\" kategorii.</"
+"b></p><p>Może to oznaczać – jeśli używasz języka innego niż angielski – że "
+"niektóre z twoich kategorii są teraz wyświetlane w języku angielskim. <p></"
+"p>Możesz ręcznie zmienić nazwy swoich kategorii w każdej chwili, a następnie "
+"zapisać je w swojej bazie danych.</p><p>W pewnych przypadkach, możesz mieć "
+"dwie dodatkowe puste kategorie, \"Katalog\"  oraz \"Rodzaj nośnika\". Możesz "
+"je spokojnie usunąć.</p>"
+
+#: DB/XML/FileReader.cpp:263
+#, kde-format
+msgid "Changed standard category names"
+msgstr "Zmieniono nazwy standardowych kategorii"
+
+#: DB/XML/FileReader.cpp:295
+#, kde-format
+msgid ""
+"<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
+"</p><p>Manual repair required!</p>"
+msgstr ""
+"<p>Wiersz %1, kolumna %2: powielony wpis dla pliku '%3' z inną sumą MD5.</"
+"p><p>Wymagana ręczna naprawa!</p>"
+
+#: DB/XML/FileReader.cpp:418
+#, kde-format
+msgid ""
+"<p>Your images/videos are not sorted, which means that navigating using the "
+"date bar will only work suboptimally.</p><p>In the <b>Maintenance</b> menu, "
+"you can find <b>Display Images with Incomplete Dates</b> which you can use "
+"to find the images that are missing date information.</p><p>You can then "
+"select the images that you have reason to believe have a correct date in "
+"either their Exif data or on the file, and execute <b>Maintenance->Read Exif "
+"Info</b> to reread the information.</p><p>Finally, once all images have "
+"their dates set, you can execute <b>Maintenance->Sort All by Date & Time</b> "
+"to sort them in the database. </p>"
+msgstr ""
+"<p>Twoje obrazy/filmy nie są posortowane, co oznacza, że poruszanie się z "
+"użyciem paska daty nie będzie działać optymalnie.</p><p>W menu <b>Obsługa</"
+"b> możesz znaleźć opcję <b> Wyświetlaj obrazy z niekompletnymi datami</b>, "
+"której możesz użyć, żeby odnaleźć obrazy z brakującą informacją o dacie.</p> "
+"Możesz potem wybrać obrazy, co do których jesteś przekonany o poprawności "
+"daty w polach Exif lub w systemowej dacie pliku, i wykonać polecenie "
+"<b>Obsługa->Czytaj informacje Exif</b>, żeby je ponownie odczytać.</p> "
+"<p>Ostatecznie, kiedy już wszystkie obrazy mają ustawione swoje daty, możesz "
+"wykonać polecenie <b> Obsługa -> Uporządkuj wszystkie wg. daty i czasu</b>, "
+"żeby posortować je w bazie danych.</p>"
+
+#: DB/XML/FileReader.cpp:427
+#, kde-format
+msgid "Images/Videos Are Not Sorted"
+msgstr "Obrazy/filmy nie są posortowane"
+
+#: DB/XML/FileReader.cpp:439
+#, kde-format
+msgid ""
+"<p>Not all the images in the database have information about image sizes; "
+"this is needed to get the best result in the thumbnail view. To fix this, "
+"simply go to the <b>Maintenance</b> menu, and first choose <b>Remove All "
+"Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</p><p>Not "
+"doing so will result in extra space around images in the thumbnail view - "
+"that is all - so there is no urgency in doing it.</p>"
+msgstr ""
+"<p>Nie wszystkie obrazy w bazie zawierają informacje na temat swoich "
+"rozmiarów - jest to niezbędne, żeby uzyskać najlepsze efekty w podglądzie "
+"miniatur. Aby to naprawić, przejdź po prostu do menu <b>Obsługa</b>, wybierz "
+"<b>Usuń wszystkie miniatury</b>, a potem <tt>Zbuduj miniatury</tt>.</p> "
+"<p>Nie zrobienie tego spowoduje dodanie nadmiarowej przestrzeni wokół "
+"obrazów w podglądzie miniatur. Jednak jest to jedyny efekt, więc nie ma się "
+"co spieszyć z wykonywaniem tej operacji.</p>"
+
+#: DB/XML/FileReader.cpp:444
+#, kde-format
+msgid "Not All Images Have Size Information"
+msgstr "Nie wszystkie obrazy posiadają informacje o rozmiarze"
+
+#: DB/XML/FileReader.cpp:458
+#, kde-format
+msgctxt "repair merged tags"
+msgid ""
+"<p>Inconsistencies were found and repaired in your database. Some categories "
+"now contain tags that were merged during the repair.</p><p>The following "
+"tags require manual inspection:<ul>"
+msgstr ""
+"<p>Niespójności zostały znalezione i naprawione w Twojej bazie danych. "
+"Niektóre kategorie zawierają teraz znaczniki, które zostały połączone "
+"podczas naprawy.</p><p>Te znaczniki wymagają ręcznego sprawdzenia:<ul>"
+
+#: DB/XML/FileReader.cpp:468
+#, kde-format
+msgctxt "repair merged tags"
+msgid "<li>%1:<br/>"
+msgstr "<li>%1:<br/>"
+
+#: DB/XML/FileReader.cpp:470
+#, kde-format
+msgctxt "repair merged tags"
+msgid "%1<br/>"
+msgstr "%1<br/>"
+
+#: DB/XML/FileReader.cpp:473
+#, kde-format
+msgctxt "repair merged tags"
+msgid "</li>"
+msgstr "</li>"
+
+#: DB/XML/FileReader.cpp:478
+#, kde-format
+msgctxt "repair merged tags"
+msgid ""
+"</ul></p><p>All affected images have also been marked with a tag "
+"<em>KPhotoAlbum - manual repair needed</em>.</p>"
+msgstr ""
+"</ul></p><p>Wszystkie uszkodzone obrazy również zostały oznaczone "
+"znacznikiem <em>KPhotoAlbum - wymagana ręczna naprawa</em>.</p>"
+
+#: DB/XML/FileReader.cpp:482
+#, kde-format
+msgid "Database repair required"
+msgstr "Wymagana naprawa bazy danych"
+
+#: DB/XML/FileReader.cpp:505
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
+#| "installation error</p><p>If you have installed KPhotoAlbum yourself, then "
+#| "you must remember to set the environment variable <b>KDEDIRS</b>, to "
+#| "point to the topmost installation directory.</p><p>If you for example ran "
+#| "cmake with <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must "
+#| "use the following environment variable setup (this example is for Bash "
+#| "and compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></"
+#| "p><p>In case you already have KDEDIRS set, simply append the string as if "
+#| "you where setting the <b>PATH</b> environment variable</p>"
+msgid ""
+"<p>KPhotoAlbum was unable to load a default setup, which indicates an "
+"installation error</p><p>If you have installed KPhotoAlbum yourself, then "
+"you must remember to set the environment variable <b>KDEDIRS</b>, to point "
+"to the topmost installation folder.</p><p>If you for example ran cmake with "
+"<b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must use the "
+"following environment variable setup (this example is for Bash and "
+"compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>In case "
+"you already have KDEDIRS set, simply append the string as if you where "
+"setting the <b>PATH</b> environment variable</p>"
+msgstr ""
+"<p>KPhotoAlbum nie był w stanie wczytać domyślnych ustawień, co wskazuje na "
+"niepoprawną instalację.</p><p>Jeśli wgrywano program samodzielnie, pamiętaj "
+"o ustawieniu zmiennej środowiskowej <b>KDEDIRS</b> tak, aby wskazywała na "
+"podstawowy katalog instalacji.</p><p>Jeżeli na przykład uruchomiono skrypt "
+"cmake z opcją <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, musisz wtedy "
+"wykonać następujące ustawienie zmiennych środowiskowych (przykład dotyczy "
+"Basha i zgodnych z nim powłok):</p><p><b>export KDEDIRS=/usr/local/kde</b></"
+"p><p>Jeżeli zmienna KDEDIRS już istnieje, po prostuj dodaj odpowiedni "
+"łańcuch tak, jakbyś ustawiał zmienną środowiskową <b>PATH</b></p>"
+
+#: DB/XML/FileReader.cpp:513
+#, kde-format
+msgid "No default setup file found"
+msgstr "Nie znaleziono domyślnego pliku ustawień"
+
+#: DB/XML/FileReader.cpp:520 Settings/BirthdayPage.cpp:134
+#, kde-format
+msgid "People"
+msgstr "Ludzie"
+
+#: DB/XML/FileReader.cpp:521
+#, kde-format
+msgid "Places"
+msgstr "Miejsca"
+
+#. i18n("Events"))
+#: DB/XML/FileReader.cpp:522 lib/kpabase/SettingsData.cpp:396
+#, kde-format
+msgid "Events"
+msgstr "Wydarzenia"
+
+#. i18n("untagged"))
+#: DB/XML/FileReader.cpp:523 lib/kpabase/SettingsData.cpp:406
+#, kde-format
+msgid "untagged"
+msgstr "nieznaczony"
+
+#: DB/XML/FileReader.cpp:534 Utilities/DemoUtil.cpp:34
+#: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:85
+#, kde-format
+msgid "Error Running Demo"
+msgstr "Błąd podczas uruchamiania demo"
+
+#: DB/XML/FileReader.cpp:534
+#, kde-format
+msgid "Unable to open '%1' for reading"
+msgstr "Nie można otworzyć '%1' do odczytu"
+
+#: DB/XML/FileReader.cpp:547
+#, kde-format
+msgid "line %1 column %2 in file %3: %4"
+msgstr "wiersz %1 kolumna %2 w pliku %3: %4"
+
+#: DB/XML/FileReader.cpp:549
+#, kde-format
+msgid "Failed to recover the backup: %1"
+msgstr "Nieudane odzyskiwanie kopii zapasowej: %1"
+
+#: DB/XML/FileReader.cpp:560
+#, kde-format
+msgid "Error in file %1: No elements found"
+msgstr "Błąd w pliku %1: Nie znaleziono jakichkolwiek elementów"
+
+#: DB/XML/FileReader.cpp:566
+#, kde-format
+msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
+msgstr ""
+"Błąd w pliku %1: oczekiwano 'KPhotoAlbum' a znaleziono '%2' jako element "
+"główny"
+
+#: DB/XML/FileWriter.cpp:74
+#, kde-format
+msgid ""
+"<p>Could not save the image database to XML.</p>File %1 could not be opened "
+"because of the following error: %2"
+msgstr ""
+"<p>Nie można zapisać bazy danych obrazów do XML.</p>Nie można otworzyć pliku "
+"%1 ze względu na następujący błąd: %2"
+
+#: DB/XML/FileWriter.cpp:77 DB/XML/FileWriter.cpp:112 DB/XML/FileWriter.cpp:121
+#, kde-format
+msgid "Error while saving..."
+msgstr "Błąd podczas zapisywania..."
+
+#: DB/XML/FileWriter.cpp:109
+#, kde-format
+msgid ""
+"<p>Failed to remove old version of image database.</p><p>Please try again or "
+"replace the file %1 with file %2 manually!</p>"
+msgstr ""
+"<p>Nie udało się usunąć starej wersji bazy danych obrazów.</p><p>Proszę "
+"spróbować ponownie lub ręcznie zastąpić plik %1 z plikiem %2!</p>"
+
+#: DB/XML/FileWriter.cpp:118
+#, kde-format
+msgid ""
+"<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
+"again or rename file %1 to %2 manually!</p>"
+msgstr ""
+"<p>Nie udało się przenieść tymczasowego pliku XML do trwałego położenia. </"
+"p><p>Proszę spróbować ponownie lub ręcznie zmienić nazwę pliku %1 na %2!</p>"
+
+#: DB/XML/NumberedBackup.cpp:41
+#, kde-format
+msgid "Error creating zip file %1"
+msgstr "Błąd podczas tworzenia pliku zip %1"
+
+#: DB/XML/NumberedBackup.cpp:41 DB/XML/NumberedBackup.cpp:46
+#, kde-format
+msgid "Error Making Numbered Backup"
+msgstr "Błąd przy tworzeniu numerowanej kopii zapasowej"
+
+#: DB/XML/NumberedBackup.cpp:46
+#, kde-format
+msgid "Error writing file %1 to zip file %2"
+msgstr "Błąd zapisywania pliku %1 do pliku zip %2"
+
+#: DB/XML/XmlReader.cpp:43
+#, kde-format
+msgid "Error reading next element"
+msgstr "Błąd czytania następnego elementu"
+
+#: DB/XML/XmlReader.cpp:46
+#, kde-format
+msgid "Expected to read a start or stop element, but read %1"
+msgstr ""
+"Oczekiwano odczytu uruchamiającego albo zatrzymującego elementu, lecz "
+"odczytano %1"
+
+#: DB/XML/XmlReader.cpp:51
+#, kde-format
+msgid "Expected to read %1, but read %2"
+msgstr "Oczekiwano odczytu %1, lecz odczytano %2"
+
+#: DB/XML/XmlReader.cpp:62
+#, kde-format
+msgid "Expected to read an end element but read %1"
+msgstr "Oczekiwano odczytu elementu końcowego, lecz odczytano %1"
+
+#: DB/XML/XmlReader.cpp:80
+#, kde-format
+msgid "Expected to read start element '%1'"
+msgstr "Oczekiwano odczytu elementu uruchamiającego, lecz odczytano '%1'"
+
+#: DB/XML/XmlReader.cpp:86
+#, kde-format
+msgid ""
+"<p>An error was encountered on line %1, column %2:<nl/><message>%3</"
+"message></p>"
+msgstr ""
+"<p>Napotkano błąd w wierszu %1, kolumna %2:<nl/><message>%3</message></p>"
+
+#: DB/XML/XmlReader.cpp:90
+#, kde-format
+msgid "<p>Additional error information:<nl/><message>%1</message></p>"
+msgstr "<p>Dodatkowe szczegóły błędu:<nl/><message>%1</message></p>"
+
+#: DB/XML/XmlReader.cpp:91
+#, kde-kuit-format
+msgid "<p>Database path: <filename>%1</filename></p>"
+msgstr "<p>Ścieżka bazy danych: <filename>%1</filename></p>"
+
+#: DB/XML/XmlReader.cpp:94
+#, kde-format
+msgid "Error while reading database file"
+msgstr "Błąd podczas odczytu pliku bazy danych"
 
 #: Exif/InfoDialog.cpp:33
 #, kde-format
@@ -2329,7 +2737,7 @@ msgctxt "@title:tab introduction page"
 msgid "Introduction"
 msgstr "Wprowadzenie"
 
-#: ImportExport/ImportDialog.cpp:153 MainWindow/TokenEditor.cpp:53
+#: ImportExport/ImportDialog.cpp:153 MainWindow/TokenEditor.cpp:58
 #, kde-format
 msgid "Select All"
 msgstr "Zaznacz wszystkie"
@@ -2891,18 +3299,6 @@ msgstr ""
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Czy znaczniki czasu są wiarygodne?"
-
-#. i18n("Events"))
-#: lib/kpabase/SettingsData.cpp:396 XMLDB/FileReader.cpp:516
-#, kde-format
-msgid "Events"
-msgstr "Wydarzenia"
-
-#. i18n("untagged"))
-#: lib/kpabase/SettingsData.cpp:406 XMLDB/FileReader.cpp:517
-#, kde-format
-msgid "untagged"
-msgstr "nieznaczony"
 
 #: lib/kpaexif/Database.cpp:173
 #, kde-format
@@ -3660,7 +4056,7 @@ msgctxt "@label:textbox"
 msgid "Search ..."
 msgstr "Szukaj..."
 
-#: MainWindow/StatisticsDialog.cpp:31
+#: MainWindow/StatisticsDialog.cpp:35
 #, kde-format
 msgid ""
 "<h1>Description</h1><table><tr><td># of Items</td><td>This is the number of "
@@ -3685,37 +4081,37 @@ msgstr ""
 "tylko jeden.<br/>Nie wiem, czy warto naprawiać ten błąd (który zresztą jest "
 "nieco trudny do naprawienia),<br/>więc może po prostu znowu zostanie usunięte"
 
-#: MainWindow/StatisticsDialog.cpp:48
+#: MainWindow/StatisticsDialog.cpp:52
 #, kde-format
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>Statystyki</h1>"
 
-#: MainWindow/StatisticsDialog.cpp:55
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Category"
 msgstr "Kategoria"
 
-#: MainWindow/StatisticsDialog.cpp:55
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "# of Items"
 msgstr "Elementów: #"
 
-#: MainWindow/StatisticsDialog.cpp:55
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Tags Totals"
 msgstr "W sumie znaczników"
 
-#: MainWindow/StatisticsDialog.cpp:55
+#: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Tags Per Picture"
 msgstr "Znaczników na obraz"
 
-#: MainWindow/StatisticsDialog.cpp:100
+#: MainWindow/StatisticsDialog.cpp:104
 #, kde-format
 msgid "Tag indication completed annotation"
 msgstr "Oznaczenie posiadania znaczników"
 
-#: MainWindow/StatisticsDialog.cpp:106
+#: MainWindow/StatisticsDialog.cpp:110
 #, kde-format
 msgid ""
 "If you use a specific tag to indicate that an image has been tagged, then "
@@ -3724,30 +4120,30 @@ msgstr ""
 "Jeśli używasz specyficznego znacznika do określenia obrazów, które mają "
 "znaczniki, podaj go tutaj."
 
-#: MainWindow/StatisticsDialog.cpp:110 Settings/BirthdayPage.cpp:47
+#: MainWindow/StatisticsDialog.cpp:114 Settings/BirthdayPage.cpp:47
 #: Settings/UntaggedGroupBox.cpp:29
 #, kde-format
 msgid "Category:"
 msgstr "Kategoria:"
 
-#: MainWindow/StatisticsDialog.cpp:116 Settings/UntaggedGroupBox.cpp:36
+#: MainWindow/StatisticsDialog.cpp:120 Settings/UntaggedGroupBox.cpp:36
 #, kde-format
 msgid "Tag:"
 msgstr "Znacznik:"
 
-#: MainWindow/StatisticsDialog.cpp:123
+#: MainWindow/StatisticsDialog.cpp:127
 #, kde-format
 msgctxt "@item:inlistbox meaning 'no category'"
 msgid "None"
 msgstr "Brak"
 
-#: MainWindow/StatisticsDialog.cpp:163
+#: MainWindow/StatisticsDialog.cpp:167
 #, kde-format
 msgctxt "As in 'all images'"
 msgid "All"
 msgstr "Wszystkie"
 
-#: MainWindow/StatisticsDialog.cpp:209
+#: MainWindow/StatisticsDialog.cpp:213
 #, kde-format
 msgid "Total"
 msgstr "W sumie"
@@ -3757,18 +4153,18 @@ msgstr "W sumie"
 msgid "Thumbnail settings..."
 msgstr "Ustawienia miniatur..."
 
-#: MainWindow/TokenEditor.cpp:29
+#: MainWindow/TokenEditor.cpp:34
 #, kde-format
 msgctxt "@title:window"
 msgid "Remove Tokens"
 msgstr "Usuń symbole"
 
-#: MainWindow/TokenEditor.cpp:35
+#: MainWindow/TokenEditor.cpp:40
 #, kde-format
 msgid "Select tokens to remove from all images and videos:"
 msgstr "Wybierz symbole do usunięcia ze wszystkich obrazów/filmów:"
 
-#: MainWindow/TokenEditor.cpp:54
+#: MainWindow/TokenEditor.cpp:59
 #, kde-format
 msgid "Select None"
 msgstr "Odznacz wszystkie"
@@ -4466,62 +4862,62 @@ msgctxt "The number of images in an area of the map"
 msgid "%1"
 msgstr "%1"
 
-#: Map/MapView.cpp:170
+#: Map/MapView.cpp:171
 #, kde-format
 msgid "Save the current map settings"
 msgstr "Zapisz bieżące ustawienia mapy"
 
-#: Map/MapView.cpp:177
+#: Map/MapView.cpp:178
 #, kde-format
 msgid "Go to last map position"
 msgstr "Idź do ostatniego położenia na mapie"
 
-#: Map/MapView.cpp:184
+#: Map/MapView.cpp:185
 #, kde-format
 msgid "Show thumbnails"
 msgstr "Pokaż miniatury"
 
-#: Map/MapView.cpp:193
+#: Map/MapView.cpp:194
 #, kde-format
 msgctxt "@action to group, as in aggregate thumbnails into clusters"
 msgid "Group adjacent thumbnails into clickable clusters"
 msgstr "Grupuj sąsiadujące miniatury w klikalne klastry"
 
-#: Map/MapView.cpp:205
+#: Map/MapView.cpp:206
 #, kde-format
 msgctxt ""
 "@action Decrease size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Decrease marker size"
 msgstr "Zmniejsz rozmiar znacznika"
 
-#: Map/MapView.cpp:212
+#: Map/MapView.cpp:213
 #, kde-format
 msgctxt ""
 "@action Increase size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Increase marker size"
 msgstr "Zwiększ rozmiar znacznika"
 
-#: Map/MapView.cpp:362
+#: Map/MapView.cpp:363
 #, kde-format
 msgid "Map view"
 msgstr "Widok mapy"
 
-#: Map/MapView.cpp:362
+#: Map/MapView.cpp:363
 #, kde-format
 msgid "Settings saved!"
 msgstr "Zapisano ustawienia!"
 
-#: Map/MapView.cpp:389
+#: Map/MapView.cpp:390
 #, kde-format
 msgid "<i>Loading coordinates from the images ...</i>"
 msgstr "<i>Wczytywanie współrzędnych z obrazów ...</i>"
 
-#: Map/MapView.cpp:405
+#: Map/MapView.cpp:406
 #, kde-format
 msgid "<i>This image does not contain geographic coordinates.</i>"
 msgstr "<i>Ten obraz nie zawiera współrzędnych geograficznych.</i>"
 
-#: Map/MapView.cpp:413
+#: Map/MapView.cpp:414
 #, kde-format
 msgid ""
 "<i>Some of the selected images do not contain geographic coordinates.</i>"
@@ -4529,12 +4925,12 @@ msgstr ""
 "<i>Niektóre z wybranych obrazów nie zawierają współrzędnych geograficznych.</"
 "i>"
 
-#: Map/MapView.cpp:423
+#: Map/MapView.cpp:424
 #, kde-format
 msgid "<i>Search for geographic coordinates.</i>"
 msgstr "<i>Wyszukaj współrzędnych geograficznych.</i>"
 
-#: Map/MapView.cpp:431
+#: Map/MapView.cpp:432
 #, kde-format
 msgid "<i>None of the selected images contain geographic coordinates.</i>"
 msgstr ""
@@ -4618,11 +5014,6 @@ msgid ""
 msgstr ""
 "Tutaj ustaw daty urodzenia dla elementów (dajmy na to ludzi), a następnie "
 "oglądaj ich wiek przy przeglądaniu obrazów"
-
-#: Settings/BirthdayPage.cpp:134 XMLDB/FileReader.cpp:514
-#, kde-format
-msgid "People"
-msgstr "Ludzie"
 
 #: Settings/BirthdayPage.cpp:156
 #, kde-format
@@ -4733,20 +5124,6 @@ msgstr "Ustawień dla kategorii <b>%1</b>"
 #, kde-format
 msgid "<i>Pending change: rename to \"%1\"</i>"
 msgstr "<i>Oczekująca zmiana: zmiana nazwy na \"%1\"</i>"
-
-#. i18n("Folder")), and then start KPA with the C locale, which would produce a
-#. doubled "Folder" category.
-#: Settings/CategoryPage.cpp:253 ThumbnailView/CellGeometry.cpp:93
-#: ThumbnailView/ThumbnailModel.cpp:351 XMLDB/FileReader.cpp:75
-#, kde-format
-msgid "Folder"
-msgstr "Katalog"
-
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
-#: XMLDB/Database.cpp:290 XMLDB/Database.cpp:654 XMLDB/FileReader.cpp:125
-#, kde-format
-msgid "Media Type"
-msgstr "Typ nośnika"
 
 #: Settings/CategoryPage.cpp:260
 #, kde-format
@@ -6163,12 +6540,6 @@ msgstr "Błąd usuwania pliku"
 msgid "Unable to copy '%1' to '%2'."
 msgstr "Nie można skopiować '%1' do '%2'."
 
-#: Utilities/DemoUtil.cpp:34 Utilities/DemoUtil.cpp:51
-#: Utilities/DemoUtil.cpp:85 XMLDB/FileReader.cpp:528
-#, kde-format
-msgid "Error Running Demo"
-msgstr "Błąd podczas uruchamiania demo"
-
 #: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:85
 #, fuzzy, kde-format
 #| msgid "Unable to create directory '%1' needed for demo."
@@ -6852,377 +7223,6 @@ msgstr "Pokaż wymiary obrazów"
 #, kde-format
 msgid "Show Rating"
 msgstr "Pokaż ocenę"
-
-#: XMLDB/Database.cpp:48
-#, kde-format
-msgid ""
-"Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
-"autosave file be used?"
-msgstr ""
-"Plik samoczynnego zapisu '%1' istnieje (rozmiar %3 KB) i jest nowszy niż "
-"'%2'. Czy użyć pliku samoczynnego zapisu?"
-
-#: XMLDB/Database.cpp:51
-#, kde-format
-msgid "Found Autosave File"
-msgstr "Znaleziono plik samoczynnego zapisu"
-
-#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:655 XMLDB/FileReader.cpp:127
-#, kde-format
-msgid "Image"
-msgstr "Obraz"
-
-#: XMLDB/Database.cpp:291 XMLDB/Database.cpp:656 XMLDB/FileReader.cpp:128
-#, kde-format
-msgid "Video"
-msgstr "Film"
-
-#: XMLDB/Database.cpp:801
-#, kde-format
-msgid "KPhotoAlbum - manual repair needed (%1)"
-msgstr "KPhotoAlbum - wymagana naprawa ręczna (%1)"
-
-#: XMLDB/Database.cpp:802
-#, kde-format
-msgctxt "Separator in a list of tags"
-msgid ", "
-msgstr ","
-
-#: XMLDB/FileReader.cpp:46
-#, kde-format
-msgid ""
-"<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
-"p><p>Chances are you will be able to read this file, but when writing it "
-"back, information saved in the newer version will be lost</p>"
-msgstr ""
-"<p>Plik bazy danych (index.xml) pochodzi z nowszej wersji  KPhotoAlbum!</"
-"p><p>Prawdopodobnie będzie możliwość odczytania tego pliku, lecz przy jego "
-"zapisie informacje zapisane przez nowszą wersję zostaną utracone</p>"
-
-#: XMLDB/FileReader.cpp:49
-#, kde-format
-msgid "index.xml version mismatch"
-msgstr "niezgodność wersji index.xml"
-
-#: XMLDB/FileReader.cpp:99 XMLDB/FileReader.cpp:111
-#, kde-format
-msgid "Tokens"
-msgstr "Symbol"
-
-#: XMLDB/FileReader.cpp:181
-#, kde-format
-msgid ""
-"<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
-"ignore the duplicate category and try an automatic repair, or choose cancel "
-"to quit.</p>"
-msgstr ""
-"<p>Wiersz %1, kolumna %2: powielona kategoria '%3'</p><p>Wybierz kontynuuj, "
-"aby pominąć powieloną kategorię i spróbować samoczynnego naprawiania lub "
-"wyjdź.</p>"
-
-#: XMLDB/FileReader.cpp:187 XMLDB/FileReader.cpp:292
-#, kde-format
-msgid "Error in database file"
-msgstr "Błąd w pliku bazy danych"
-
-#: XMLDB/FileReader.cpp:247
-#, kde-format
-msgctxt ""
-"Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
-"with these exact names. Thanks :-)"
-msgid ""
-"<p><b>This version of KPhotoAlbum does not translate \"standard\" categories "
-"any more.</b></p><p>This may mean that – if you use a locale other than "
-"English – some of your categories are now displayed in English.</p><p>You "
-"can manually rename your categories any time and then save your database.</"
-"p><p>In some cases, you may get two additional empty categories, \"Folder\" "
-"and \"Media Type\". You can delete those.</p>"
-msgstr ""
-"<p><b>Ta wersja KPhotoAlbum już nie tłumaczy \"standardowych\" kategorii.</"
-"b></p><p>Może to oznaczać – jeśli używasz języka innego niż angielski – że "
-"niektóre z twoich kategorii są teraz wyświetlane w języku angielskim. <p></"
-"p>Możesz ręcznie zmienić nazwy swoich kategorii w każdej chwili, a następnie "
-"zapisać je w swojej bazie danych.</p><p>W pewnych przypadkach, możesz mieć "
-"dwie dodatkowe puste kategorie, \"Katalog\"  oraz \"Rodzaj nośnika\". Możesz "
-"je spokojnie usunąć.</p>"
-
-#: XMLDB/FileReader.cpp:255
-#, kde-format
-msgid "Changed standard category names"
-msgstr "Zmieniono nazwy standardowych kategorii"
-
-#: XMLDB/FileReader.cpp:287
-#, kde-format
-msgid ""
-"<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
-"</p><p>Manual repair required!</p>"
-msgstr ""
-"<p>Wiersz %1, kolumna %2: powielony wpis dla pliku '%3' z inną sumą MD5.</"
-"p><p>Wymagana ręczna naprawa!</p>"
-
-#: XMLDB/FileReader.cpp:411
-#, kde-format
-msgid ""
-"<p>Your images/videos are not sorted, which means that navigating using the "
-"date bar will only work suboptimally.</p><p>In the <b>Maintenance</b> menu, "
-"you can find <b>Display Images with Incomplete Dates</b> which you can use "
-"to find the images that are missing date information.</p><p>You can then "
-"select the images that you have reason to believe have a correct date in "
-"either their Exif data or on the file, and execute <b>Maintenance->Read Exif "
-"Info</b> to reread the information.</p><p>Finally, once all images have "
-"their dates set, you can execute <b>Maintenance->Sort All by Date & Time</b> "
-"to sort them in the database. </p>"
-msgstr ""
-"<p>Twoje obrazy/filmy nie są posortowane, co oznacza, że poruszanie się z "
-"użyciem paska daty nie będzie działać optymalnie.</p><p>W menu <b>Obsługa</"
-"b> możesz znaleźć opcję <b> Wyświetlaj obrazy z niekompletnymi datami</b>, "
-"której możesz użyć, żeby odnaleźć obrazy z brakującą informacją o dacie.</p> "
-"Możesz potem wybrać obrazy, co do których jesteś przekonany o poprawności "
-"daty w polach Exif lub w systemowej dacie pliku, i wykonać polecenie "
-"<b>Obsługa->Czytaj informacje Exif</b>, żeby je ponownie odczytać.</p> "
-"<p>Ostatecznie, kiedy już wszystkie obrazy mają ustawione swoje daty, możesz "
-"wykonać polecenie <b> Obsługa -> Uporządkuj wszystkie wg. daty i czasu</b>, "
-"żeby posortować je w bazie danych.</p>"
-
-#: XMLDB/FileReader.cpp:420
-#, kde-format
-msgid "Images/Videos Are Not Sorted"
-msgstr "Obrazy/filmy nie są posortowane"
-
-#: XMLDB/FileReader.cpp:432
-#, kde-format
-msgid ""
-"<p>Not all the images in the database have information about image sizes; "
-"this is needed to get the best result in the thumbnail view. To fix this, "
-"simply go to the <b>Maintenance</b> menu, and first choose <b>Remove All "
-"Thumbnails</b>, and after that choose <tt>Build Thumbnails</tt>.</p><p>Not "
-"doing so will result in extra space around images in the thumbnail view - "
-"that is all - so there is no urgency in doing it.</p>"
-msgstr ""
-"<p>Nie wszystkie obrazy w bazie zawierają informacje na temat swoich "
-"rozmiarów - jest to niezbędne, żeby uzyskać najlepsze efekty w podglądzie "
-"miniatur. Aby to naprawić, przejdź po prostu do menu <b>Obsługa</b>, wybierz "
-"<b>Usuń wszystkie miniatury</b>, a potem <tt>Zbuduj miniatury</tt>.</p> "
-"<p>Nie zrobienie tego spowoduje dodanie nadmiarowej przestrzeni wokół "
-"obrazów w podglądzie miniatur. Jednak jest to jedyny efekt, więc nie ma się "
-"co spieszyć z wykonywaniem tej operacji.</p>"
-
-#: XMLDB/FileReader.cpp:437
-#, kde-format
-msgid "Not All Images Have Size Information"
-msgstr "Nie wszystkie obrazy posiadają informacje o rozmiarze"
-
-#: XMLDB/FileReader.cpp:451
-#, kde-format
-msgctxt "repair merged tags"
-msgid ""
-"<p>Inconsistencies were found and repaired in your database. Some categories "
-"now contain tags that were merged during the repair.</p><p>The following "
-"tags require manual inspection:<ul>"
-msgstr ""
-"<p>Niespójności zostały znalezione i naprawione w Twojej bazie danych. "
-"Niektóre kategorie zawierają teraz znaczniki, które zostały połączone "
-"podczas naprawy.</p><p>Te znaczniki wymagają ręcznego sprawdzenia:<ul>"
-
-#: XMLDB/FileReader.cpp:462
-#, kde-format
-msgctxt "repair merged tags"
-msgid "<li>%1:<br/>"
-msgstr "<li>%1:<br/>"
-
-#: XMLDB/FileReader.cpp:464
-#, kde-format
-msgctxt "repair merged tags"
-msgid "%1<br/>"
-msgstr "%1<br/>"
-
-#: XMLDB/FileReader.cpp:467
-#, kde-format
-msgctxt "repair merged tags"
-msgid "</li>"
-msgstr "</li>"
-
-#: XMLDB/FileReader.cpp:472
-#, kde-format
-msgctxt "repair merged tags"
-msgid ""
-"</ul></p><p>All affected images have also been marked with a tag "
-"<em>KPhotoAlbum - manual repair needed</em>.</p>"
-msgstr ""
-"</ul></p><p>Wszystkie uszkodzone obrazy również zostały oznaczone "
-"znacznikiem <em>KPhotoAlbum - wymagana ręczna naprawa</em>.</p>"
-
-#: XMLDB/FileReader.cpp:476
-#, kde-format
-msgid "Database repair required"
-msgstr "Wymagana naprawa bazy danych"
-
-#: XMLDB/FileReader.cpp:499
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
-#| "installation error</p><p>If you have installed KPhotoAlbum yourself, then "
-#| "you must remember to set the environment variable <b>KDEDIRS</b>, to "
-#| "point to the topmost installation directory.</p><p>If you for example ran "
-#| "cmake with <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must "
-#| "use the following environment variable setup (this example is for Bash "
-#| "and compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></"
-#| "p><p>In case you already have KDEDIRS set, simply append the string as if "
-#| "you where setting the <b>PATH</b> environment variable</p>"
-msgid ""
-"<p>KPhotoAlbum was unable to load a default setup, which indicates an "
-"installation error</p><p>If you have installed KPhotoAlbum yourself, then "
-"you must remember to set the environment variable <b>KDEDIRS</b>, to point "
-"to the topmost installation folder.</p><p>If you for example ran cmake with "
-"<b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must use the "
-"following environment variable setup (this example is for Bash and "
-"compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>In case "
-"you already have KDEDIRS set, simply append the string as if you where "
-"setting the <b>PATH</b> environment variable</p>"
-msgstr ""
-"<p>KPhotoAlbum nie był w stanie wczytać domyślnych ustawień, co wskazuje na "
-"niepoprawną instalację.</p><p>Jeśli wgrywano program samodzielnie, pamiętaj "
-"o ustawieniu zmiennej środowiskowej <b>KDEDIRS</b> tak, aby wskazywała na "
-"podstawowy katalog instalacji.</p><p>Jeżeli na przykład uruchomiono skrypt "
-"cmake z opcją <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, musisz wtedy "
-"wykonać następujące ustawienie zmiennych środowiskowych (przykład dotyczy "
-"Basha i zgodnych z nim powłok):</p><p><b>export KDEDIRS=/usr/local/kde</b></"
-"p><p>Jeżeli zmienna KDEDIRS już istnieje, po prostuj dodaj odpowiedni "
-"łańcuch tak, jakbyś ustawiał zmienną środowiskową <b>PATH</b></p>"
-
-#: XMLDB/FileReader.cpp:507
-#, kde-format
-msgid "No default setup file found"
-msgstr "Nie znaleziono domyślnego pliku ustawień"
-
-#: XMLDB/FileReader.cpp:515
-#, kde-format
-msgid "Places"
-msgstr "Miejsca"
-
-#: XMLDB/FileReader.cpp:528
-#, kde-format
-msgid "Unable to open '%1' for reading"
-msgstr "Nie można otworzyć '%1' do odczytu"
-
-#: XMLDB/FileReader.cpp:541
-#, kde-format
-msgid "line %1 column %2 in file %3: %4"
-msgstr "wiersz %1 kolumna %2 w pliku %3: %4"
-
-#: XMLDB/FileReader.cpp:543
-#, kde-format
-msgid "Failed to recover the backup: %1"
-msgstr "Nieudane odzyskiwanie kopii zapasowej: %1"
-
-#: XMLDB/FileReader.cpp:554
-#, kde-format
-msgid "Error in file %1: No elements found"
-msgstr "Błąd w pliku %1: Nie znaleziono jakichkolwiek elementów"
-
-#: XMLDB/FileReader.cpp:560
-#, kde-format
-msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
-msgstr ""
-"Błąd w pliku %1: oczekiwano 'KPhotoAlbum' a znaleziono '%2' jako element "
-"główny"
-
-#: XMLDB/FileWriter.cpp:67
-#, kde-format
-msgid ""
-"<p>Could not save the image database to XML.</p>File %1 could not be opened "
-"because of the following error: %2"
-msgstr ""
-"<p>Nie można zapisać bazy danych obrazów do XML.</p>Nie można otworzyć pliku "
-"%1 ze względu na następujący błąd: %2"
-
-#: XMLDB/FileWriter.cpp:70 XMLDB/FileWriter.cpp:105 XMLDB/FileWriter.cpp:114
-#, kde-format
-msgid "Error while saving..."
-msgstr "Błąd podczas zapisywania..."
-
-#: XMLDB/FileWriter.cpp:102
-#, kde-format
-msgid ""
-"<p>Failed to remove old version of image database.</p><p>Please try again or "
-"replace the file %1 with file %2 manually!</p>"
-msgstr ""
-"<p>Nie udało się usunąć starej wersji bazy danych obrazów.</p><p>Proszę "
-"spróbować ponownie lub ręcznie zastąpić plik %1 z plikiem %2!</p>"
-
-#: XMLDB/FileWriter.cpp:111
-#, kde-format
-msgid ""
-"<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
-"again or rename file %1 to %2 manually!</p>"
-msgstr ""
-"<p>Nie udało się przenieść tymczasowego pliku XML do trwałego położenia. </"
-"p><p>Proszę spróbować ponownie lub ręcznie zmienić nazwę pliku %1 na %2!</p>"
-
-#: XMLDB/NumberedBackup.cpp:38
-#, kde-format
-msgid "Error creating zip file %1"
-msgstr "Błąd podczas tworzenia pliku zip %1"
-
-#: XMLDB/NumberedBackup.cpp:38 XMLDB/NumberedBackup.cpp:43
-#, kde-format
-msgid "Error Making Numbered Backup"
-msgstr "Błąd przy tworzeniu numerowanej kopii zapasowej"
-
-#: XMLDB/NumberedBackup.cpp:43
-#, kde-format
-msgid "Error writing file %1 to zip file %2"
-msgstr "Błąd zapisywania pliku %1 do pliku zip %2"
-
-#: XMLDB/XmlReader.cpp:41
-#, kde-format
-msgid "Error reading next element"
-msgstr "Błąd czytania następnego elementu"
-
-#: XMLDB/XmlReader.cpp:44
-#, kde-format
-msgid "Expected to read a start or stop element, but read %1"
-msgstr ""
-"Oczekiwano odczytu uruchamiającego albo zatrzymującego elementu, lecz "
-"odczytano %1"
-
-#: XMLDB/XmlReader.cpp:49
-#, kde-format
-msgid "Expected to read %1, but read %2"
-msgstr "Oczekiwano odczytu %1, lecz odczytano %2"
-
-#: XMLDB/XmlReader.cpp:60
-#, kde-format
-msgid "Expected to read an end element but read %1"
-msgstr "Oczekiwano odczytu elementu końcowego, lecz odczytano %1"
-
-#: XMLDB/XmlReader.cpp:78
-#, kde-format
-msgid "Expected to read start element '%1'"
-msgstr "Oczekiwano odczytu elementu uruchamiającego, lecz odczytano '%1'"
-
-#: XMLDB/XmlReader.cpp:84
-#, kde-format
-msgid ""
-"<p>An error was encountered on line %1, column %2:<nl/><message>%3</"
-"message></p>"
-msgstr ""
-"<p>Napotkano błąd w wierszu %1, kolumna %2:<nl/><message>%3</message></p>"
-
-#: XMLDB/XmlReader.cpp:88
-#, kde-format
-msgid "<p>Additional error information:<nl/><message>%1</message></p>"
-msgstr "<p>Dodatkowe szczegóły błędu:<nl/><message>%1</message></p>"
-
-#: XMLDB/XmlReader.cpp:89
-#, kde-kuit-format
-msgid "<p>Database path: <filename>%1</filename></p>"
-msgstr "<p>Ścieżka bazy danych: <filename>%1</filename></p>"
-
-#: XMLDB/XmlReader.cpp:92
-#, kde-format
-msgid "Error while reading database file"
-msgstr "Błąd podczas odczytu pliku bazy danych"
 
 #~ msgid "Recalculate Checksum"
 #~ msgstr "Oblicz ponownie sumę kontrolną"

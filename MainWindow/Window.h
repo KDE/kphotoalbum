@@ -197,6 +197,7 @@ protected Q_SLOTS:
     void clearDateRange();
     void startAutoSaveTimer();
     void slotRecalcCheckSums();
+    void slotRescan();
     void slotShowExifInfo();
     void showFeatures();
     void showImage(const DB::FileName &fileName);

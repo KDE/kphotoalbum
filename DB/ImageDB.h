@@ -82,7 +82,6 @@ public:
     static void deleteInstance();
     static QString NONE();
 
-    DB::FileNameSet imagesWithMD5Changed();
     UIDelegate &uiDelegate() const;
     DB::FileNameList currentScope(bool requireOnDisk) const;
 
@@ -193,8 +192,6 @@ public:
 public Q_SLOTS:
     void setDateRange(const ImageDate &, bool includeFuzzyCounts);
     void clearDateRange();
-    virtual void slotRescan();
-    void slotRecalcCheckSums(const DB::FileNameList &selection);
     virtual MediaCount count(const ImageSearchInfo &info);
     virtual void slotReread(const DB::FileNameList &list, DB::ExifMode mode);
     void setCurrentScope(const DB::ImageSearchInfo &info);

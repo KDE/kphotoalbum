@@ -1168,7 +1168,7 @@ msgstr "دقيقة"
 #: DateBar/ViewHandler.cpp:347
 #, kde-format
 msgid "10 Seconds"
-msgstr "١٠ ثواني"
+msgstr "10 ثواني"
 
 #: DB/Category.cpp:299
 #, fuzzy, kde-format
@@ -6421,19 +6421,19 @@ msgstr "أظهر التالي"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
-msgstr "تخطى ١٠ للأمام"
+msgstr "تخطى 10 للأمام"
 
 #: Viewer/ViewerWidget.cpp:301
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
-msgstr "تخطى ١٠٠ للأمام"
+msgstr "تخطى 100 للأمام"
 
 #: Viewer/ViewerWidget.cpp:307
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
-msgstr "تخطى ١٠٠٠ للأمام"
+msgstr "تخطى 1000 للأمام"
 
 #: Viewer/ViewerWidget.cpp:313
 #, kde-format
@@ -6445,19 +6445,19 @@ msgstr "أعرض السابق"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
-msgstr "تخطى ١٠ للخلف"
+msgstr "تخطى 10 للخلف"
 
 #: Viewer/ViewerWidget.cpp:325
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
-msgstr "تخطى ١٠٠ للخلف"
+msgstr "تخطى 100 للخلف"
 
 #: Viewer/ViewerWidget.cpp:331
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
-msgstr "تخطى ١٠٠٠ للخلف"
+msgstr "تخطى 1000 للخلف"
 
 #: Viewer/ViewerWidget.cpp:337
 #, kde-format

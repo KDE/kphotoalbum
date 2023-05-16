@@ -1,6 +1,24 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003 David Faure <faure@kde.org>
+// SPDX-FileCopyrightText: 2003-2005 Stephan Binner <binner@kde.org>
+// SPDX-FileCopyrightText: 2003-2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2004 Marc Mutz <mutz@kde.org>
+// SPDX-FileCopyrightText: 2006-2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007 Shawn Willden <shawn-kimdaba@willden.org>
+// SPDX-FileCopyrightText: 2007 Thiago Macieira <thiago@kde.org>
+// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2007-2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2008 Luboš Luňák <l.lunak@kde.org>
+// SPDX-FileCopyrightText: 2009, 2022 Yuri Chornoivan <yurchor@ukr.net>
+// SPDX-FileCopyrightText: 2009-2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2015-2020 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Friedrich W. H. Kossebau <kossebau@kde.org>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -42,7 +60,7 @@
 #include <MainWindow/Window.h>
 #include <Settings/VideoPlayerSelectorDialog.h>
 #include <Utilities/DescriptionUtil.h>
-#include <Utilities/VideoUtil.h>
+#include <kpabase/FileExtensions.h>
 #include <kpabase/SettingsData.h>
 #include <kpathumbnails/ThumbnailCache.h>
 
@@ -425,7 +443,7 @@ void Viewer::ViewerWidget::load()
 {
     m_display->stop();
     const bool isReadable = QFileInfo(m_list[m_current].absolute()).isReadable();
-    const bool isVideo = isReadable && Utilities::isVideo(m_list[m_current]);
+    const bool isVideo = isReadable && KPABase::isVideo(m_list[m_current]);
 
     m_crashSentinel.suspend();
     if (isReadable) {

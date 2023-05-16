@@ -19,7 +19,7 @@
 #include <MainWindow/FeatureDialog.h>
 #include <MainWindow/Window.h>
 #include <Utilities/FileUtil.h>
-#include <Utilities/VideoUtil.h>
+#include <kpabase/FileExtensions.h>
 #include <kpabase/FileNameUtil.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
@@ -430,7 +430,7 @@ void NewImageFinder::searchForNewFiles(const DB::FileNameSet &loadedFiles, QStri
         const DB::FileName file = DB::FileName::fromAbsolutePath(directory + QString::fromLatin1("/") + *it);
         if ((*it) == QString::fromLatin1(".") || (*it) == QString::fromLatin1("..")
             || excluded.contains((*it)) || loadedFiles.contains(file)
-            || rawDec.fileCanBeSkipped(loadedFiles, file)
+            || KPABase::fileCanBeSkipped(loadedFiles, file)
             || (*it) == QString::fromLatin1("CategoryImages"))
             continue;
 
@@ -446,7 +446,7 @@ void NewImageFinder::searchForNewFiles(const DB::FileNameSet &loadedFiles, QStri
                 if (canReadImage(file)) {
                     qCDebug(DBFileOpsLog) << "Found new image:" << file.relative();
                     m_pendingLoad.append(qMakePair(file, DB::Image));
-                } else if (Utilities::isVideo(file)) {
+                } else if (KPABase::isVideo(file)) {
                     qCDebug(DBFileOpsLog) << "Found new video:" << file.relative();
                     m_pendingLoad.append(qMakePair(file, DB::Video));
                 }

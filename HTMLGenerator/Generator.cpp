@@ -1,7 +1,14 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-//
+// SPDX-FileCopyrightText: 2006-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2007-2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2007-2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2009-2013 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
+// SPDX-FileCopyrightText: 2016-2022 Tobias Leupold <tl@stonemx.de>
+
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "Generator.h"
@@ -17,7 +24,7 @@
 #include <ImportExport/Export.h>
 #include <MainWindow/Window.h>
 #include <Utilities/FileUtil.h>
-#include <Utilities/VideoUtil.h>
+#include <kpabase/FileExtensions.h>
 #include <kpaexif/Info.h>
 
 #include <KConfig>
@@ -271,7 +278,7 @@ bool HTMLGenerator::Generator::generateIndexPage(int width, int height)
         else
             last = namePage(width, height, fileName);
 
-        if (!Utilities::isVideo(fileName)) {
+        if (!KPABase::isVideo(fileName)) {
             QMimeDatabase db;
             images += QString::fromLatin1("gallery.push([\"%1\", \"%2\", \"%3\", \"%4\", \"")
                           .arg(nameImage(fileName, width))
@@ -435,7 +442,7 @@ bool HTMLGenerator::Generator::generateContentPage(int width, int height,
     content.replace(QString::fromLatin1("**TITLE**"), title);
 
     // Image or video content
-    if (Utilities::isVideo(currentFile)) {
+    if (KPABase::isVideo(currentFile)) {
         QString videoFile = createVideo(currentFile);
         QString videoBase = videoFile.replace(QRegExp(QString::fromLatin1("\\..*")), QString::fromLatin1(""));
         if (m_setup.inlineMovies())
@@ -561,12 +568,12 @@ QString HTMLGenerator::Generator::nameImage(const DB::FileName &fileName, int si
 {
     QString name = m_filenameMapper.uniqNameFor(fileName);
     QString base = QFileInfo(name).completeBaseName();
-    if (size == maxImageSize() && !Utilities::isVideo(fileName)) {
+    if (size == maxImageSize() && !KPABase::isVideo(fileName)) {
         if (name.endsWith(QString::fromLatin1(".jpg"), Qt::CaseSensitive) || name.endsWith(QString::fromLatin1(".jpeg"), Qt::CaseSensitive))
             return name;
         else
             return base + QString::fromLatin1(".jpg");
-    } else if (size == maxImageSize() && Utilities::isVideo(fileName)) {
+    } else if (size == maxImageSize() && KPABase::isVideo(fileName)) {
         return name;
     } else
         return QString::fromLatin1("%1-%2.jpg").arg(base).arg(size);
@@ -697,7 +704,7 @@ void HTMLGenerator::Generator::pixmapLoaded(ImageManager::ImageRequest *request,
         KMessageBox::error(this, i18n("Unable to write image '%1'.", file));
     }
 
-    if (!Utilities::isVideo(fileName)) {
+    if (!KPABase::isVideo(fileName)) {
         try {
             auto imageInfo = DB::ImageDB::instance()->info(fileName);
             Exif::writeExifInfoToFile(fileName, file, imageInfo->description());

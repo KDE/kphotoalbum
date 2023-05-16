@@ -50,8 +50,8 @@
 #include <Utilities/DemoUtil.h>
 #include <Utilities/List.h>
 #include <Utilities/ShowBusyCursor.h>
-#include <Utilities/VideoUtil.h>
 #include <Viewer/ViewerWidget.h>
+#include <kpabase/FileExtensions.h>
 #include <kpabase/FileNameUtil.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
@@ -1855,7 +1855,7 @@ bool MainWindow::Window::anyVideosSelected() const
 {
     const auto selectedFiles = selected();
     for (const DB::FileName &fileName : selectedFiles) {
-        if (Utilities::isVideo(fileName))
+        if (KPABase::isVideo(fileName))
             return true;
     }
     return false;

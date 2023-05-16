@@ -22,12 +22,12 @@
 #include "CategoryCollection.h"
 #include "MediaCount.h"
 #include "TagInfo.h"
-#include "Utilities/VideoUtil.h"
 
 #include <DB/GroupCounter.h>
 #include <DB/XML/FileReader.h>
 #include <DB/XML/FileWriter.h>
 #include <Utilities/FastDateTime.h>
+#include <kpabase/FileExtensions.h>
 #include <kpabase/FileName.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
@@ -894,7 +894,7 @@ ImageInfoPtr ImageDB::createImageInfo(const FileName &fileName, DB::ReaderPtr re
     int h = reader->attribute(_height_, _minus1_).toInt();
     QSize size = QSize(w, h);
 
-    DB::MediaType mediaType = Utilities::isVideo(fileName) ? DB::Video : DB::Image;
+    DB::MediaType mediaType = KPABase::isVideo(fileName) ? DB::Video : DB::Image;
 
     short rating = reader->attribute(_rating_, _minus1_).toShort();
     DB::StackID stackId = reader->attribute(_stackId_, _0_).toULong();

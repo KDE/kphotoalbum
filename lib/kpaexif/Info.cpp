@@ -17,7 +17,6 @@
 #include <QTextCodec>
 #include <exiv2/exv_conf.h>
 #include <exiv2/image.hpp>
-#include <exiv2/version.hpp>
 
 using namespace Exif;
 
@@ -167,11 +166,7 @@ Info::Info()
 void Exif::writeExifInfoToFile(const DB::FileName &srcName, const QString &destName, const QString &imageDescription)
 {
     // Load Exif from source image
-#if EXIV2_TEST_VERSION(0, 28, 0)
-    Exiv2::Image::UniquePtr image = Exiv2::ImageFactory::open(QFile::encodeName(srcName.absolute()).data());
-#else
-    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(QFile::encodeName(srcName.absolute()).data());
-#endif
+    auto image = Exiv2::ImageFactory::open(QFile::encodeName(srcName.absolute()).data());
     image->readMetadata();
     Exiv2::ExifData data = image->exifData();
 
@@ -206,11 +201,7 @@ Exif::Metadata Exif::Info::metadata(const DB::FileName &fileName)
 {
     try {
         Exif::Metadata result;
-#if EXIV2_TEST_VERSION(0, 28, 0)
-        Exiv2::Image::UniquePtr image = Exiv2::ImageFactory::open(QFile::encodeName(fileName.absolute()).data());
-#else
-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(QFile::encodeName(fileName.absolute()).data());
-#endif
+        auto image = Exiv2::ImageFactory::open(QFile::encodeName(fileName.absolute()).data());
         Q_ASSERT(image.get() != nullptr);
         image->readMetadata();
         result.exif = image->exifData();

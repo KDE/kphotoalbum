@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2023 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -21,6 +21,7 @@
 #include <QSqlQuery>
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
+#include <exiv2/version.hpp>
 
 using namespace Exif;
 
@@ -320,7 +321,11 @@ bool Exif::Database::add(const DB::FileName &fileName)
         return false;
 
     try {
+#if EXIV2_TEST_VERSION(0, 28, 0)
+        Exiv2::Image::UniquePtr image = Exiv2::ImageFactory::open(fileName.absolute().toLocal8Bit().data());
+#else
         Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.absolute().toLocal8Bit().data());
+#endif
         Q_ASSERT(image.get() != nullptr);
         image->readMetadata();
         Exiv2::ExifData &exifData = image->exifData();
@@ -341,7 +346,11 @@ bool Exif::Database::add(const DB::FileNameList &list)
 
     for (const DB::FileName &fileName : list) {
         try {
+#if EXIV2_TEST_VERSION(0, 28, 0)
+            Exiv2::Image::UniquePtr image = Exiv2::ImageFactory::open(fileName.absolute().toLocal8Bit().data());
+#else
             Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fileName.absolute().toLocal8Bit().data());
+#endif
             Q_ASSERT(image.get() != nullptr);
             image->readMetadata();
             map << DBExifInfo(fileName, image->exifData());

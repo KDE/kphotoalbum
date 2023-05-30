@@ -80,7 +80,7 @@ QVariant Exif::IntExifElement::valueFromExif(Exiv2::ExifData &data) const
 {
     if (data[m_tag].count() > 0) {
 #if EXIV2_TEST_VERSION(0, 28, 0)
-        return QVariant((int) data[m_tag].toUint32());
+        return QVariant((int) data[m_tag].toInt64());
 #else
         return QVariant((int) data[m_tag].toLong());
 #endif

@@ -84,7 +84,7 @@ void DB::FileInfo::parseEXIV2(const DB::FileName &fileName)
         int orientation = 0;
         if (datum.count() > 0) {
 #if EXIV2_TEST_VERSION(0, 28, 0)
-            orientation = datum.toUint32();
+            orientation = datum.toInt64();
 #else
             orientation = datum.toLong();
 #endif

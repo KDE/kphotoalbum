@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
 
@@ -888,8 +888,7 @@ msgstr "他なし"
 msgctxt "@item:intable number of images with a specific tag."
 msgid "1 image"
 msgid_plural "%1 images"
-msgstr[0] "1 画像"
-msgstr[1] "%1 画像"
+msgstr[0] "%1 画像"
 
 #: Browser/AbstractCategoryModel.cpp:84
 #, fuzzy, kde-format
@@ -898,8 +897,7 @@ msgstr[1] "%1 画像"
 msgctxt "@item:intable number of videos with a specific tag."
 msgid "1 video"
 msgid_plural "%1 videos"
-msgstr[0] "1 動画"
-msgstr[1] "%1 動画"
+msgstr[0] "%1 動画"
 
 #: Browser/AbstractCategoryModel.cpp:146
 #, kde-format
@@ -1051,13 +1049,6 @@ msgstr[0] ""
 "テゴリになります。その後、ブラウザで USA を選択すると、サブカテゴリ Las "
 "Vegas も含めて USA のすべての画像が表示されます。</p><p>本当に \"%1\" を "
 "\"%2\" のサブカテゴリにしますか？</p>"
-msgstr[1] ""
-"<p>一つ以上のアイテムが他のアイテムの上にドラッグされました。この操作はドラッ"
-"グされたアイテムを他のアイテムのサブカテゴリにします。例えば Las Vegas という"
-"カテゴリを USA というカテゴリの上にドラッグすると、Las Vegas が USA のサブカ"
-"テゴリになります。その後、ブラウザで USA を選択すると、サブカテゴリ Las "
-"Vegas も含めて USA のすべての画像が表示されます。</p><p>本当に \"%1\" を "
-"\"%2\" のサブカテゴリにしますか？</p>"
 
 #: CategoryListView/CheckDropItem.cpp:149
 #, kde-format
@@ -1119,7 +1110,6 @@ msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
 msgid_plural "%1 exact"
 msgstr[0] ""
-msgstr[1] ""
 
 #: DateBar/DateBarWidget.cpp:821
 #, kde-format
@@ -1129,7 +1119,6 @@ msgctxt ""
 msgid " + 1 range"
 msgid_plural " + %1 ranges"
 msgstr[0] ""
-msgstr[1] ""
 
 #: DateBar/DateBarWidget.cpp:822
 #, kde-format
@@ -1137,7 +1126,6 @@ msgctxt "@info:status total image count"
 msgid " = 1 total"
 msgid_plural " = %1 total"
 msgstr[0] ""
-msgstr[1] ""
 
 #: DateBar/DateBarWidget.cpp:824
 #, fuzzy, kde-format
@@ -1146,7 +1134,6 @@ msgctxt "@info:status image count"
 msgid "%1 image/video"
 msgid_plural "%1 images/videos"
 msgstr[0] "%1 画像/動画"
-msgstr[1] "%1 画像/動画"
 
 #: DateBar/DateBarWidget.cpp:826
 #, fuzzy, kde-format
@@ -1372,7 +1359,6 @@ msgstr ""
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] ""
-msgstr[1] ""
 
 #: DB/NewImageFinder.cpp:683
 #, fuzzy, kde-format
@@ -2962,7 +2948,6 @@ msgid_plural ""
 "%1 images from the import file, have the same MD5 sum as images in the "
 "Database, how should that be resolved?"
 msgstr[0] ""
-msgstr[1] ""
 
 #: ImportExport/MD5CheckPage.cpp:55
 #, kde-format
@@ -3206,7 +3191,6 @@ msgctxt "@info:shell"
 msgid "Removed 1 inconsistent thumbnail from the database.\n"
 msgid_plural "Removed %1 inconsistent thumbnails from the database.\n"
 msgstr[0] ""
-msgstr[1] ""
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:20
 #, kde-format
@@ -3536,7 +3520,6 @@ msgctxt "@title:window"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "画像をエクスポート/コピー..."
-msgstr[1] "画像をエクスポート/コピー..."
 
 #: MainWindow/CopyLinkEngine.cpp:40
 #, fuzzy, kde-format
@@ -3545,7 +3528,6 @@ msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "画像をエクスポート/コピー..."
-msgstr[1] "画像をエクスポート/コピー..."
 
 #: MainWindow/DeleteDialog.cpp:24
 #, fuzzy, kde-format
@@ -3559,7 +3541,6 @@ msgstr "アイテムを移動"
 msgid "Removing 1 item"
 msgid_plural "Removing %1 items"
 msgstr[0] ""
-msgstr[1] ""
 
 #: MainWindow/DeleteDialog.cpp:65
 #, kde-format
@@ -3570,14 +3551,12 @@ msgid_plural ""
 "Selected %1 items will be removed from the database.<br/>What do you want to "
 "do with the files on disk?"
 msgstr[0] ""
-msgstr[1] ""
 
 #: MainWindow/DeleteDialog.cpp:71
 #, kde-format
 msgid "Move file to Trash"
 msgid_plural "Move %1 files to Trash"
 msgstr[0] ""
-msgstr[1] ""
 
 #: MainWindow/DeleteDialog.cpp:72
 #, fuzzy, kde-format
@@ -3585,7 +3564,6 @@ msgstr[1] ""
 msgid "Delete file from disk"
 msgid_plural "Delete %1 files from disk"
 msgstr[0] "ファイルをディスクからも削除"
-msgstr[1] "ファイルをディスクからも削除"
 
 #: MainWindow/DeleteDialog.cpp:73
 #, fuzzy, kde-format
@@ -3593,7 +3571,6 @@ msgstr[1] "ファイルをディスクからも削除"
 msgid "Only remove the item from database"
 msgid_plural "Only remove %1 items from database"
 msgstr[0] "データベースから削除"
-msgstr[1] "データベースから削除"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:44
 #, fuzzy, kde-format
@@ -3879,8 +3856,7 @@ msgstr "いいえ"
 #, kde-format
 msgid "Showing 1 thumbnail"
 msgid_plural "Showing %1 thumbnails"
-msgstr[0] "1 個のサムネイルを表示しています"
-msgstr[1] "%1 個のサムネイルを表示しています"
+msgstr[0] "%1 個のサムネイルを表示しています"
 
 #: MainWindow/ImageCounter.cpp:26
 #, fuzzy, kde-format
@@ -3898,7 +3874,6 @@ msgstr "合計: %1"
 msgid "1 match"
 msgid_plural "%1 matches"
 msgstr[0] ""
-msgstr[1] ""
 
 #: MainWindow/InvalidDateFinder.cpp:33
 #, fuzzy, kde-format
@@ -4638,7 +4613,6 @@ msgstr ""
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "画像をエクスポート/コピー..."
-msgstr[1] "画像をエクスポート/コピー..."
 
 #: MainWindow/Window.cpp:1036 MainWindow/Window.cpp:1264
 #, fuzzy, kde-format
@@ -4646,7 +4620,6 @@ msgstr[1] "画像をエクスポート/コピー..."
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "画像をエクスポート/コピー..."
-msgstr[1] "画像をエクスポート/コピー..."
 
 #: MainWindow/Window.cpp:1062
 #, kde-format
@@ -6343,7 +6316,6 @@ msgstr ""
 msgid "Filter view by rating: %1 star"
 msgid_plural "Filter view by rating: %1 stars"
 msgstr[0] ""
-msgstr[1] ""
 
 #: ThumbnailView/FilterWidget.cpp:60
 #, fuzzy, kde-format
@@ -6464,7 +6436,6 @@ msgctxt "As in 'The baby is 1 day old'"
 msgid "1 day"
 msgid_plural "%1 days"
 msgstr[0] ""
-msgstr[1] ""
 
 #: Utilities/DescriptionUtil.cpp:251
 #, kde-format
@@ -6472,7 +6443,6 @@ msgctxt "As in 'This happened 1 day ago'"
 msgid "1 day ago"
 msgid_plural "%1 days ago"
 msgstr[0] ""
-msgstr[1] ""
 
 #: Utilities/DescriptionUtil.cpp:254
 #, fuzzy, kde-format
@@ -6481,7 +6451,6 @@ msgctxt "As in 'The baby is 1 month old'"
 msgid "1 month"
 msgid_plural "%1 months"
 msgstr[0] "1 カ月"
-msgstr[1] "1 カ月"
 
 #: Utilities/DescriptionUtil.cpp:256
 #, fuzzy, kde-format
@@ -6490,7 +6459,6 @@ msgctxt "As in 'This happened 1 month ago'"
 msgid "1 month ago"
 msgid_plural "%1 months ago"
 msgstr[0] "1 カ月"
-msgstr[1] "1 カ月"
 
 #: Utilities/DescriptionUtil.cpp:259
 #, kde-format
@@ -6498,7 +6466,6 @@ msgctxt "As in 'The baby is 1 year old'"
 msgid "1 year"
 msgid_plural "%1 years"
 msgstr[0] ""
-msgstr[1] ""
 
 #: Utilities/DescriptionUtil.cpp:261
 #, kde-format
@@ -6506,7 +6473,6 @@ msgctxt "As in 'This happened 1 year ago'"
 msgid "1 year ago"
 msgid_plural "%1 years ago"
 msgstr[0] ""
-msgstr[1] ""
 
 #: Utilities/DescriptionUtil.cpp:362 Utilities/DescriptionUtil.cpp:388
 #, kde-format

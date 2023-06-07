@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-05-09 00:45+0000\n"
-"PO-Revision-Date: 2023-02-22 16:55+0100\n"
+"PO-Revision-Date: 2023-05-02 15:15+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -4192,10 +4192,9 @@ msgid "Merge duplicates"
 msgstr "Sloučit duplicity"
 
 #: MainWindow/Window.cpp:964 MainWindow/Window.cpp:1021
-#, fuzzy, kde-format
-#| msgid "Recreate Selected Thumbnails"
+#, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "Znovu vytvořit vybrané náhledy"
+msgstr "Obnovit vybrané náhledy a kontrolní součty"
 
 #: MainWindow/Window.cpp:968
 #, kde-format
@@ -6601,6 +6600,3 @@ msgstr "Zobrazit velikosti obrázků"
 #, kde-format
 msgid "Show Rating"
 msgstr "Zobrazit hodnocení"
-
-#~ msgid "Recalculate Checksum"
-#~ msgstr "Znovu spočítat kontrolní součet"

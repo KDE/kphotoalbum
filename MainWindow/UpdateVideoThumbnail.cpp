@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2020 Tobias Leupold <tl@stonemx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "UpdateVideoThumbnail.h"
 
@@ -11,7 +12,7 @@
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <ThumbnailView/CellGeometry.h>
 #include <Utilities/FileUtil.h>
-#include <Utilities/VideoUtil.h>
+#include <kpabase/FileExtensions.h>
 #include <kpathumbnails/ThumbnailCache.h>
 
 #include <QLoggingCategory>
@@ -67,7 +68,7 @@ void update(const DB::FileName &fileName, int direction)
 void update(const DB::FileNameList &list, int direction)
 {
     for (const DB::FileName &fileName : list) {
-        if (Utilities::isVideo(fileName))
+        if (KPABase::isVideo(fileName))
             update(fileName, direction);
     }
 }

@@ -1,7 +1,20 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2004 Andrew Coles <andrew.i.coles@googlemail.com>
+// SPDX-FileCopyrightText: 2004-2007 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2004-2005 Stephan Binner <binner@kde.org>
+// SPDX-FileCopyrightText: 2004-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2005-2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007-2011 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2008-2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2009 Hassan Ibraheem <hasan.ibraheem@gmail.com>
+// SPDX-FileCopyrightText: 2012-2013 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2013 Pino Toscano <pino@kde.org>
+// SPDX-FileCopyrightText: 2016-2019 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
+// SPDX-FileCopyrightText: 2018 Yuri Chornoivan <yurchor@ukr.net>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "Export.h"
 
@@ -12,7 +25,7 @@
 #include <ImageManager/AsyncLoader.h>
 #include <ImageManager/RawImageDecoder.h>
 #include <Utilities/FileUtil.h>
-#include <Utilities/VideoUtil.h>
+#include <kpabase/FileExtensions.h>
 #include <kpabase/FileNameList.h>
 #include <kpabase/FileNameUtil.h>
 
@@ -41,7 +54,7 @@ namespace
 {
 bool isRAW(const DB::FileName &fileName)
 {
-    return ImageManager::RAWImageDecoder::isRAW(fileName);
+    return KPABase::isUsableRawImage(fileName);
 }
 } // namespace
 
@@ -301,7 +314,7 @@ void Export::copyImages(const DB::FileNameList &list)
         QString file = fileName.absolute();
         QString zippedName = m_filenameMapper.uniqNameFor(fileName);
 
-        if (m_maxSize == -1 || Utilities::isVideo(fileName) || isRAW(fileName)) {
+        if (m_maxSize == -1 || KPABase::isVideo(fileName) || isRAW(fileName)) {
             const QFileInfo fileInfo(file);
             if (fileInfo.isSymLink()) {
                 file = fileInfo.symLinkTarget();
@@ -344,7 +357,7 @@ void Export::pixmapLoaded(ImageManager::ImageRequest *request, const QImage &ima
     if (!request->loadedOK())
         return;
 
-    const QString ext = (Utilities::isVideo(fileName) || isRAW(fileName)) ? QStringLiteral("jpg") : QFileInfo(m_filenameMapper.uniqNameFor(fileName)).completeSuffix();
+    const QString ext = (KPABase::isVideo(fileName) || isRAW(fileName)) ? QStringLiteral("jpg") : QFileInfo(m_filenameMapper.uniqNameFor(fileName)).completeSuffix();
 
     // Add the file to the zip archive
     QString zipFileName = QStringLiteral("%1/%2.%3").arg(Utilities::stripEndingForwardSlash(m_subdir)).arg(QFileInfo(m_filenameMapper.uniqNameFor(fileName)).baseName()).arg(ext);

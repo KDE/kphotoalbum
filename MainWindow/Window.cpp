@@ -34,6 +34,7 @@
 #include <DB/ImageInfo.h>
 #include <DB/MD5.h>
 #include <DB/MD5Map.h>
+#include <DB/NewImageFinder.h>
 #include <DateBar/DateBarWidget.h>
 #include <Exif/InfoDialog.h>
 #include <Exif/ReReadDialog.h>
@@ -49,8 +50,8 @@
 #include <Utilities/DemoUtil.h>
 #include <Utilities/List.h>
 #include <Utilities/ShowBusyCursor.h>
-#include <Utilities/VideoUtil.h>
 #include <Viewer/ViewerWidget.h>
+#include <kpabase/FileExtensions.h>
 #include <kpabase/FileNameUtil.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
@@ -261,7 +262,7 @@ void MainWindow::Window::delayedInit()
     if (Settings::SettingsData::instance()->searchForImagesOnStart() || Options::the()->searchForImagesOnStart()) {
         splash->message(i18n("Searching for New Files"));
         qApp->processEvents();
-        DB::ImageDB::instance()->slotRescan();
+        DB::NewImageFinder().findImages();
         qCInfo(TimingLog) << "MainWindow: Search for New Files: " << timer.restart() << "ms.";
     }
 
@@ -953,17 +954,12 @@ void MainWindow::Window::setupMenuBar()
     a = actionCollection()->addAction(QString::fromLatin1("findImagesWithInvalidDate"), this, &Window::slotShowImagesWithInvalidDate);
     a->setText(i18n("Display Images and Videos with Incomplete Dates..."));
 
-#ifdef DOES_STILL_NOT_WORK_IN_KPA4
-    a = actionCollection()->addAction(QString::fromLatin1("findImagesWithChangedMD5Sum"), this, SLOT(slotShowImagesWithChangedMD5Sum()));
-    a->setText(i18n("Display Images and Videos with Changed MD5 Sum"));
-#endif // DOES_STILL_NOT_WORK_IN_KPA4
-
     a = actionCollection()->addAction(QLatin1String("mergeDuplicates"), this, &Window::mergeDuplicates);
     a->setText(i18n("Merge duplicates"));
     a = actionCollection()->addAction(QString::fromLatin1("rebuildMD5s"), this, &Window::slotRecalcCheckSums);
     a->setText(i18n("Refresh Selected Thumbnails and Checksums"));
 
-    a = actionCollection()->addAction(QString::fromLatin1("rescan"), DB::ImageDB::instance(), &DB::ImageDB::slotRescan);
+    a = actionCollection()->addAction(QString::fromLatin1("rescan"), this, &Window::slotRescan);
     a->setIcon(QIcon::fromTheme(QString::fromLatin1("document-import")));
     a->setText(i18n("Rescan for Images and Videos"));
 
@@ -1660,7 +1656,21 @@ void MainWindow::Window::showThumbNails(const FileNameList &items)
 
 void MainWindow::Window::slotRecalcCheckSums()
 {
-    DB::ImageDB::instance()->slotRecalcCheckSums(selected());
+    auto images = selected();
+
+    const auto db = DB::ImageDB::instance();
+    if (images.isEmpty()) {
+        images = db->files();
+        // avoid lookups
+        db->md5Map()->clear();
+    }
+
+    DB::NewImageFinder().calculateMD5sums(images, db->md5Map());
+}
+
+void MainWindow::Window::slotRescan()
+{
+    NewImageFinder().findImages();
 }
 
 void MainWindow::Window::slotShowExifInfo()
@@ -1845,7 +1855,7 @@ bool MainWindow::Window::anyVideosSelected() const
 {
     const auto selectedFiles = selected();
     for (const DB::FileName &fileName : selectedFiles) {
-        if (Utilities::isVideo(fileName))
+        if (KPABase::isVideo(fileName))
             return true;
     }
     return false;

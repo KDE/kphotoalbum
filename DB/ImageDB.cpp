@@ -21,14 +21,13 @@
 
 #include "CategoryCollection.h"
 #include "MediaCount.h"
-#include "NewImageFinder.h"
 #include "TagInfo.h"
-#include "Utilities/VideoUtil.h"
 
 #include <DB/GroupCounter.h>
 #include <DB/XML/FileReader.h>
 #include <DB/XML/FileWriter.h>
 #include <Utilities/FastDateTime.h>
+#include <kpabase/FileExtensions.h>
 #include <kpabase/FileName.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
@@ -217,41 +216,6 @@ void ImageDB::setDateRange(const ImageDate &range, bool includeFuzzyCounts)
 void ImageDB::clearDateRange()
 {
     m_selectionRange = ImageDate();
-}
-
-void ImageDB::slotRescan()
-{
-    bool newImages = NewImageFinder().findImages();
-    if (newImages)
-        markDirty();
-
-    Q_EMIT totalChanged(totalCount());
-}
-
-void ImageDB::slotRecalcCheckSums(const DB::FileNameList &inputList)
-{
-    DB::FileNameList list = inputList;
-    if (list.isEmpty()) {
-        list = files();
-        md5Map()->clear();
-    }
-
-    bool d = NewImageFinder().calculateMD5sums(list, md5Map());
-    if (d)
-        markDirty();
-
-    Q_EMIT totalChanged(totalCount());
-}
-
-DB::FileNameSet DB::ImageDB::imagesWithMD5Changed()
-{
-    MD5Map map;
-    bool wasCanceled;
-    NewImageFinder().calculateMD5sums(files(), &map, &wasCanceled);
-    if (wasCanceled)
-        return DB::FileNameSet();
-
-    return md5Map()->diff(map);
 }
 
 UIDelegate &DB::ImageDB::uiDelegate() const
@@ -930,7 +894,7 @@ ImageInfoPtr ImageDB::createImageInfo(const FileName &fileName, DB::ReaderPtr re
     int h = reader->attribute(_height_, _minus1_).toInt();
     QSize size = QSize(w, h);
 
-    DB::MediaType mediaType = Utilities::isVideo(fileName) ? DB::Video : DB::Image;
+    DB::MediaType mediaType = KPABase::isVideo(fileName) ? DB::Video : DB::Image;
 
     short rating = reader->attribute(_rating_, _minus1_).toShort();
     DB::StackID stackId = reader->attribute(_stackId_, _0_).toULong();

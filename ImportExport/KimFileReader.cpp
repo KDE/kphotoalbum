@@ -1,12 +1,11 @@
 // SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "KimFileReader.h"
 
-#include <Utilities/VideoUtil.h>
+#include <kpabase/FileExtensions.h>
 #include <kpabase/FileNameUtil.h>
 
 #include <KLocalizedString>
@@ -73,7 +72,7 @@ QPixmap ImportExport::KimFileReader::loadThumbnail(QString fileName)
     const KArchiveDirectory *thumbnailDir = static_cast<const KArchiveDirectory *>(thumbnails);
 
     const auto fileInfo = QFileInfo(fileName);
-    const QString ext = Utilities::isVideo(DB::FileName::fromRelativePath(fileName)) ? QString::fromLatin1("jpg") : fileInfo.completeSuffix();
+    const QString ext = KPABase::isVideo(DB::FileName::fromRelativePath(fileName)) ? QString::fromLatin1("jpg") : fileInfo.completeSuffix();
     fileName = QString::fromLatin1("%1.%2").arg(fileInfo.baseName()).arg(ext);
     const KArchiveEntry *fileEntry = thumbnailDir->entry(fileName);
     if (fileEntry == nullptr || !fileEntry->isFile()) {

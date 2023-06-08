@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "VideoThumbnailCycler.h"
 
@@ -11,7 +11,7 @@
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
 #include <ImageManager/VideoThumbnails.h>
-#include <Utilities/VideoUtil.h>
+#include <kpabase/FileExtensions.h>
 
 #include <QTimer>
 
@@ -64,7 +64,7 @@ void ThumbnailView::VideoThumbnailCycler::resetPreviousThumbail()
 bool ThumbnailView::VideoThumbnailCycler::isVideo(const DB::FileName &fileName) const
 {
     if (!fileName.isNull())
-        return Utilities::isVideo(fileName);
+        return KPABase::isVideo(fileName);
     else
         return false;
 }

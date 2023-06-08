@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2021 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
@@ -13,6 +13,14 @@ add_custom_target(
     COMMENT "Updating version header."
     BYPRODUCTS "${CMAKE_CURRENT_SOURCE_DIR}/kpabase/version.h"
     )
+
+find_package(KF5KDcraw)
+set_package_properties(KF5KDcraw
+    PROPERTIES
+    TYPE OPTIONAL
+    PURPOSE "Enables RAW image support"
+    )
+set(HAVE_KDCRAW ${KF5KDcraw_FOUND} )
 
 configure_file(kpabase/config-kpa-kdcraw.h.in "${CMAKE_CURRENT_BINARY_DIR}/kpabase/config-kpa-kdcraw.h")
 configure_file(kpabase/config-kpa-plugins.h.in "${CMAKE_CURRENT_BINARY_DIR}/kpabase/config-kpa-plugins.h")
@@ -36,6 +44,8 @@ add_library(kpabase
     kpabase/UIDelegate.h
     kpabase/SettingsData.cpp
     kpabase/SettingsData.h
+    kpabase/FileExtensions.cpp
+    kpabase/FileExtensions.h
     kpabase/FileNameUtil.cpp
     kpabase/FileNameUtil.h
     kpabase/StringSet.cpp
@@ -55,6 +65,9 @@ target_link_libraries(kpabase
     KF5::I18n
     Qt5::Core
     )
+if(KF5KDcraw_FOUND)
+    target_link_libraries(kpabase PRIVATE KF5::KDcraw)
+endif()
 
 install(TARGETS kpabase ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
@@ -85,7 +98,7 @@ install(TARGETS kpathumbnails ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 add_subdirectory(kpathumbnails)
 
 ################################################################################
-### KPA::ExifD
+### KPA::Exif
 add_library(kpaexif
     kpaexif/Database.cpp
     kpaexif/SearchInfo.cpp
@@ -101,7 +114,7 @@ set_target_properties(kpaexif PROPERTIES CXX_VISIBILITY_PRESET default)
 # and only find_package(exiv2) should be used
 find_package(exiv2 CONFIG QUIET)
 if(exiv2_FOUND)
-    # search againg with REQUIRED, so that the feature summary correctly shows exiv as required dependency
+    # search again with REQUIRED, so that the feature summary correctly shows exiv as required dependency
     find_package(exiv2 CONFIG REQUIRED)
     set(EXIV2_LIBRARIES exiv2lib)
 else()

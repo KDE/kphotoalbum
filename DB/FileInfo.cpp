@@ -1,12 +1,12 @@
 // SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2023 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "FileInfo.h"
 
-#include <Utilities/VideoUtil.h>
+#include <kpabase/FileExtensions.h>
 #include <kpabase/SettingsData.h>
 #include <kpaexif/Info.h>
 
@@ -58,7 +58,7 @@ bool DB::FileInfo::updateDataFromFileTimeStamp(const DB::FileName &fileName, DB:
         return true;
 
     // Always trust for videos (this is a way to say that we should not trust for scaned in images - which makes no sense for videos)
-    if (Utilities::isVideo(fileName))
+    if (KPABase::isVideo(fileName))
         return true;
 
     // Finally use the info from the settings dialog

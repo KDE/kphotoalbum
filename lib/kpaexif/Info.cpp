@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2023 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -16,7 +17,6 @@
 #include <QTextCodec>
 #include <exiv2/exv_conf.h>
 #include <exiv2/image.hpp>
-#include <exiv2/version.hpp>
 
 using namespace Exif;
 
@@ -166,7 +166,7 @@ Info::Info()
 void Exif::writeExifInfoToFile(const DB::FileName &srcName, const QString &destName, const QString &imageDescription)
 {
     // Load Exif from source image
-    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(QFile::encodeName(srcName.absolute()).data());
+    auto image = Exiv2::ImageFactory::open(QFile::encodeName(srcName.absolute()).data());
     image->readMetadata();
     Exiv2::ExifData data = image->exifData();
 
@@ -201,7 +201,7 @@ Exif::Metadata Exif::Info::metadata(const DB::FileName &fileName)
 {
     try {
         Exif::Metadata result;
-        Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(QFile::encodeName(fileName.absolute()).data());
+        auto image = Exiv2::ImageFactory::open(QFile::encodeName(fileName.absolute()).data());
         Q_ASSERT(image.get() != nullptr);
         image->readMetadata();
         result.exif = image->exifData();

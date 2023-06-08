@@ -1,13 +1,15 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2023 Tobias Leupold <tl at stonemx dot de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "DatabaseElement.h"
 
 #include <kpabase/Logging.h>
 
 #include <QVariant>
 #include <exiv2/exif.hpp>
+#include <exiv2/version.hpp>
 
 static QString replaceDotWithUnderscore(const char *cstr)
 {
@@ -76,10 +78,15 @@ QString Exif::IntExifElement::queryString() const
 
 QVariant Exif::IntExifElement::valueFromExif(Exiv2::ExifData &data) const
 {
-    if (data[m_tag].count() > 0)
-        return QVariant { (int)data[m_tag].toLong() };
-    else
-        return QVariant { (int)0 };
+    if (data[m_tag].count() > 0) {
+#if EXIV2_TEST_VERSION(0, 28, 0)
+        return QVariant((int) data[m_tag].toInt64());
+#else
+        return QVariant((int) data[m_tag].toLong());
+#endif
+    } else {
+        return QVariant(0);
+    }
 }
 
 Exif::RationalExifElement::RationalExifElement(const char *tag)

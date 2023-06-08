@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2023 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -12,6 +13,8 @@
 #include <Utilities/FastDateTime.h>
 #include <QFileInfo>
 #include <QRegularExpression>
+
+#include <exiv2/version.hpp>
 
 using namespace DB;
 
@@ -79,8 +82,14 @@ void DB::FileInfo::parseEXIV2(const DB::FileName &fileName)
         const Exiv2::Exifdatum &datum = m_exifMap["Exif.Image.Orientation"];
 
         int orientation = 0;
-        if (datum.count() > 0)
+        if (datum.count() > 0) {
+#if EXIV2_TEST_VERSION(0, 28, 0)
+            orientation = datum.toInt64();
+#else
             orientation = datum.toLong();
+#endif
+        }
+
         m_angle = orientationToAngle(orientation);
     }
 

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-05-09 00:45+0000\n"
+"POT-Creation-Date: 2023-06-09 00:45+0000\n"
 "PO-Revision-Date: 2022-06-27 20:24+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -94,7 +94,7 @@ msgstr ""
 "emphasis> to opis osadzony w informacjach o obrazie Exif zostanie "
 "zaimportowany do tego pola, jeśli będzie dostępny.</para>"
 
-#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:433
+#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:397
 #, kde-format
 msgid "Cancel"
 msgstr "Anuluj"
@@ -426,12 +426,12 @@ msgstr "Usuń"
 msgid "Copy tags from previous image"
 msgstr "Skopiuj znaczniki z poprzedniego obrazów"
 
-#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:809
+#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:810
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Obróć w lewo"
 
-#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:813
+#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:814
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Obróć w prawo"
@@ -557,12 +557,12 @@ msgctxt "@label:textbox"
 msgid "Enter a tag ..."
 msgstr "Wpisz znacznik..."
 
-#: AnnotationDialog/ListSelect.cpp:82 DB/search/ImageSearchInfo.cpp:338
+#: AnnotationDialog/ListSelect.cpp:82 DB/search/ImageSearchInfo.cpp:339
 #, kde-format
 msgid "or"
 msgstr "lub"
 
-#: AnnotationDialog/ListSelect.cpp:83 DB/search/ImageSearchInfo.cpp:333
+#: AnnotationDialog/ListSelect.cpp:83 DB/search/ImageSearchInfo.cpp:334
 #, kde-format
 msgid "and"
 msgstr "i"
@@ -983,7 +983,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "znajdź"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1733
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1743
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -999,7 +999,7 @@ msgstr ""
 "li><li>Następnie zmień odpowiednie ustawienia w sekcji <b>Obrazy bez "
 "znaczników</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1740
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1750
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Funkcja nie została ustawiona"
@@ -1305,7 +1305,7 @@ msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "gru"
 
-#: DB/ImageDB.cpp:62
+#: DB/ImageDB.cpp:61
 #, kde-format
 msgid ""
 "Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
@@ -1314,38 +1314,38 @@ msgstr ""
 "Plik samoczynnego zapisu '%1' istnieje (rozmiar %3 KB) i jest nowszy niż "
 "'%2'. Czy użyć pliku samoczynnego zapisu?"
 
-#: DB/ImageDB.cpp:65
+#: DB/ImageDB.cpp:64
 #, kde-format
 msgid "Found Autosave File"
 msgstr "Znaleziono plik samoczynnego zapisu"
 
-#: DB/ImageDB.cpp:432
+#: DB/ImageDB.cpp:396
 #, kde-format
 msgid "Loading information from images"
 msgstr "Wczytywanie informacji z obrazów"
 
-#: DB/ImageDB.cpp:595 DB/ImageDB.cpp:882 DB/XML/FileReader.cpp:135
+#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:846 DB/XML/FileReader.cpp:135
 #: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
 #, kde-format
 msgid "Media Type"
 msgstr "Typ nośnika"
 
-#: DB/ImageDB.cpp:596 DB/ImageDB.cpp:883 DB/XML/FileReader.cpp:137
+#: DB/ImageDB.cpp:560 DB/ImageDB.cpp:847 DB/XML/FileReader.cpp:137
 #, kde-format
 msgid "Image"
 msgstr "Obraz"
 
-#: DB/ImageDB.cpp:596 DB/ImageDB.cpp:884 DB/XML/FileReader.cpp:138
+#: DB/ImageDB.cpp:560 DB/ImageDB.cpp:848 DB/XML/FileReader.cpp:138
 #, kde-format
 msgid "Video"
 msgstr "Film"
 
-#: DB/ImageDB.cpp:988
+#: DB/ImageDB.cpp:952
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr "KPhotoAlbum - wymagana naprawa ręczna (%1)"
 
-#: DB/ImageDB.cpp:989
+#: DB/ImageDB.cpp:953
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
@@ -1385,7 +1385,7 @@ msgstr ""
 msgid "Following files could not be read:"
 msgstr "Następujące pliki nie mogły być odczytane:"
 
-#: DB/search/ImageSearchInfo.cpp:330
+#: DB/search/ImageSearchInfo.cpp:331
 #, kde-format
 msgctxt ""
 "As in No persons, no locations etc. I do realize that translators may have "
@@ -1394,12 +1394,12 @@ msgctxt ""
 msgid "No %1"
 msgstr "Brak %1"
 
-#: DB/search/ImageSearchInfo.cpp:339
+#: DB/search/ImageSearchInfo.cpp:340
 #, kde-format
 msgid "not"
 msgstr "nie"
 
-#: DB/search/ImageSearchInfo.cpp:344
+#: DB/search/ImageSearchInfo.cpp:345
 #, kde-format
 msgctxt ""
 "As in no other persons, or no other locations. I do realize that translators "
@@ -2056,67 +2056,67 @@ msgstr ""
 "ponownie bazę danych wyszukiwania Exif, aby zebrać dane o soczewce dla "
 "wszystkich obrazów.</note>"
 
-#: HTMLGenerator/Generator.cpp:50
+#: HTMLGenerator/Generator.cpp:57
 #, kde-format
 msgid "<p>No file name given!</p>"
 msgstr "<p>Nie podano nazwy pliku!</p>"
 
-#: HTMLGenerator/Generator.cpp:76
+#: HTMLGenerator/Generator.cpp:83
 #, kde-format
 msgid "Generating images for HTML page "
 msgstr "Generowanie obrazów dla strony HTML"
 
-#: HTMLGenerator/Generator.cpp:179
+#: HTMLGenerator/Generator.cpp:186
 #, kde-format
 msgid "Error copying %1 to %2"
 msgstr "Błąd podczas kopiowania %1 do %2"
 
-#: HTMLGenerator/Generator.cpp:465
+#: HTMLGenerator/Generator.cpp:472
 #, kde-format
 msgid "<a href=\"%1\">prev</a>"
 msgstr "<a href=\"%1\">poprz</a>"
 
-#: HTMLGenerator/Generator.cpp:467 HTMLGenerator/Generator.cpp:475
+#: HTMLGenerator/Generator.cpp:474 HTMLGenerator/Generator.cpp:482
 #, kde-format
 msgid "prev"
 msgstr "poprz"
 
-#: HTMLGenerator/Generator.cpp:479
+#: HTMLGenerator/Generator.cpp:486
 #, kde-format
 msgid "<a href=\"index-%1.html\">index</a>"
 msgstr "<a href=\"index-%1.html\">indeks</a>"
 
-#: HTMLGenerator/Generator.cpp:488
+#: HTMLGenerator/Generator.cpp:495
 #, kde-format
 msgid "<a href=\"%1\">next</a>"
 msgstr "<a href=\"%1\">nast</a>"
 
-#: HTMLGenerator/Generator.cpp:490 HTMLGenerator/Generator.cpp:497
+#: HTMLGenerator/Generator.cpp:497 HTMLGenerator/Generator.cpp:504
 #, kde-format
 msgid "next"
 msgstr "nast"
 
-#: HTMLGenerator/Generator.cpp:643
+#: HTMLGenerator/Generator.cpp:650
 #, kde-format
 msgid "Could not create file '%1'."
 msgstr "Nie można utworzyć pliku '%1'."
 
-#: HTMLGenerator/Generator.cpp:644
+#: HTMLGenerator/Generator.cpp:651
 #, kde-format
 msgid "Could Not Create File"
 msgstr "Nie można utworzyć pliku"
 
-#: HTMLGenerator/Generator.cpp:663
+#: HTMLGenerator/Generator.cpp:670
 #, kde-format
 msgid "<p>Unable to copy %1 to %2</p>"
 msgstr "<p>Nie można skopiować %1 do %2</p>"
 
-#: HTMLGenerator/Generator.cpp:697
+#: HTMLGenerator/Generator.cpp:704
 #, kde-format
 msgid "Unable to write image '%1'."
 msgstr "Nie można zapisać obrazów '%1'."
 
-#: HTMLGenerator/Generator.cpp:771 HTMLGenerator/HTMLDialog.cpp:147
+#: HTMLGenerator/Generator.cpp:778 HTMLGenerator/HTMLDialog.cpp:147
 #, kde-format
 msgid "Date"
 msgstr "Data"
@@ -2472,68 +2472,68 @@ msgstr "Czy chcesz ponownie przygotować wszystkie miniatury?"
 msgid "Building thumbnails"
 msgstr "Przygotowywanie miniatur"
 
-#: ImportExport/Export.cpp:61
+#: ImportExport/Export.cpp:74
 #, kde-format
 msgid "Save an export file"
 msgstr "Zapisz plik eksportowany"
 
-#: ImportExport/Export.cpp:63 ImportExport/Import.cpp:28
+#: ImportExport/Export.cpp:76 ImportExport/Import.cpp:28
 #, kde-format
 msgid "KPhotoAlbum import files"
 msgstr "Importer plików KPhotoAlbum"
 
-#: ImportExport/Export.cpp:79
+#: ImportExport/Export.cpp:92
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Configuration / Copy Images"
 msgstr "Wyeksportuj ustawienia / Skopiuj obrazy"
 
-#: ImportExport/Export.cpp:92
+#: ImportExport/Export.cpp:105
 #, kde-format
 msgid "How to Handle Images"
 msgstr "Sposób obsługi obrazów"
 
-#: ImportExport/Export.cpp:96
+#: ImportExport/Export.cpp:109
 #, kde-format
 msgid "Include in .kim file"
 msgstr "Włącz do pliku .kim"
 
-#: ImportExport/Export.cpp:97
+#: ImportExport/Export.cpp:110
 #, kde-format
 msgid "Do not copy files, only generate .kim file"
 msgstr "Nie kopiuj plików, tylko wygeneruj plik .kim"
 
-#: ImportExport/Export.cpp:98
+#: ImportExport/Export.cpp:111
 #, kde-format
 msgid "Automatically copy next to .kim file"
 msgstr "Samoczynnie skopiuj obok pliku .kim"
 
-#: ImportExport/Export.cpp:99
+#: ImportExport/Export.cpp:112
 #, kde-format
 msgid "Hard link next to .kim file"
 msgstr "Twarde dowiązanie obok pliku .kim"
 
-#: ImportExport/Export.cpp:100
+#: ImportExport/Export.cpp:113
 #, kde-format
 msgid "Symbolic link next to .kim file"
 msgstr "Symboliczne dowiązanie obok pliku .kim"
 
-#: ImportExport/Export.cpp:110
+#: ImportExport/Export.cpp:123
 #, kde-format
 msgid "Compress export file"
 msgstr "Skompresuj eksportowany plik"
 
-#: ImportExport/Export.cpp:114
+#: ImportExport/Export.cpp:127
 #, kde-format
 msgid "Generate thumbnails"
 msgstr "Utwórz miniatury"
 
-#: ImportExport/Export.cpp:122
+#: ImportExport/Export.cpp:135
 #, kde-format
 msgid "Limit maximum image dimensions to: "
 msgstr "Ogranicz maksymalne wymiary obrazu do:"
 
-#: ImportExport/Export.cpp:134
+#: ImportExport/Export.cpp:147
 #, kde-format
 msgid ""
 "<p>If your images are stored in a non-compressed file format then you may "
@@ -2548,12 +2548,12 @@ msgstr ""
 "są przechowywane jako jpg, png lub gif; ale zaznacz koniecznie jeśli są typu "
 "tiff.</p>"
 
-#: ImportExport/Export.cpp:140
+#: ImportExport/Export.cpp:153
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
 msgstr "<p>Tworzenie miniatur obrazów</p>"
 
-#: ImportExport/Export.cpp:143
+#: ImportExport/Export.cpp:156
 #, kde-format
 msgid ""
 "<p>With this option you may limit the maximum dimensions (width and height) "
@@ -2566,7 +2566,7 @@ msgstr ""
 "ale też jego jakość będzie gorsza jeśli ktoś będzie go oglądał przy "
 "zwiększonych wymiarach.</p>"
 
-#: ImportExport/Export.cpp:150
+#: ImportExport/Export.cpp:163
 #, kde-format
 msgid ""
 "<p>When exporting images, bear in mind that there are two things the person "
@@ -2592,37 +2592,37 @@ msgstr ""
 "wszystkich plików (tak jak ma to miejsce kiedy są one przechowywane w jednym "
 "dużym pliku) </p>"
 
-#: ImportExport/Export.cpp:229
+#: ImportExport/Export.cpp:242
 #, kde-format
 msgid "Error creating zip file"
 msgstr "Błąd tworzenia archiwum zip"
 
-#: ImportExport/Export.cpp:243
+#: ImportExport/Export.cpp:256
 #, kde-format
 msgid "&Cancel"
 msgstr "&Anuluj"
 
-#: ImportExport/Export.cpp:262
+#: ImportExport/Export.cpp:275
 #, kde-format
 msgid "Creating index file"
 msgstr "Tworzenie pliku indeksowego"
 
-#: ImportExport/Export.cpp:274
+#: ImportExport/Export.cpp:287
 #, kde-format
 msgid "Creating thumbnails"
 msgstr "Tworzenie miniatur"
 
-#: ImportExport/Export.cpp:297
+#: ImportExport/Export.cpp:310
 #, kde-format
 msgid "Copying image files"
 msgstr "Kopiowanie plików obrazów"
 
-#: ImportExport/Export.cpp:362
+#: ImportExport/Export.cpp:375
 #, kde-format
 msgid "Error writing file %1"
 msgstr "Błąd podczas zapisu pliku %1"
 
-#: ImportExport/Export.cpp:390
+#: ImportExport/Export.cpp:403
 #, kde-format
 msgid ""
 "<p>Other KPhotoAlbum users may now load the import file into their database, "
@@ -2645,7 +2645,7 @@ msgstr ""
 "informować Konquerora, że ma do czynienia z plikami KPhotoAlbumu. W innym "
 "wypadku Konqueror będzie je interpretował jako czysty tekst </p>"
 
-#: ImportExport/Export.cpp:399
+#: ImportExport/Export.cpp:412
 #, kde-format
 msgid "How to Use the Export File"
 msgstr "Jak używać pliku eksportu"
@@ -2793,7 +2793,7 @@ msgid "Create folder?"
 msgstr "Katalog bazowy:"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1181
+#: MainWindow/Window.cpp:1177
 #, fuzzy, kde-format
 #| msgid "Created:"
 msgctxt "@action:button"
@@ -2856,17 +2856,17 @@ msgstr "Klucz w pliku"
 msgid "Key in your database"
 msgstr "Klucz w bazie danych"
 
-#: ImportExport/KimFileReader.cpp:28
+#: ImportExport/KimFileReader.cpp:27
 #, kde-format
 msgid "Unable to open '%1' for reading."
 msgstr "Nie można otworzyć '%1' do odczytu."
 
-#: ImportExport/KimFileReader.cpp:28
+#: ImportExport/KimFileReader.cpp:27
 #, kde-format
 msgid "Error Importing Data"
 msgstr "Błąd podczas importu danych"
 
-#: ImportExport/KimFileReader.cpp:36
+#: ImportExport/KimFileReader.cpp:35
 #, fuzzy, kde-format
 #| msgid ""
 #| "Error reading directory contents of file %1; it is likely that the file "
@@ -2878,7 +2878,7 @@ msgstr ""
 "Błąd podczas informacji o zawartości katalogu z pliku %1; prawdopodobnie "
 "plik jest uszkodzony."
 
-#: ImportExport/KimFileReader.cpp:49
+#: ImportExport/KimFileReader.cpp:48
 #, kde-format
 msgid ""
 "Error reading index.xml file from %1; it is likely that the file is broken."
@@ -2886,7 +2886,7 @@ msgstr ""
 "Błąd podczas odczytu pliku index.xml z %1; najprawdopodobniej plik jest "
 "uszkodzony."
 
-#: ImportExport/KimFileReader.cpp:69
+#: ImportExport/KimFileReader.cpp:68
 #, fuzzy, kde-format
 #| msgid ""
 #| "Thumbnail item in export file was not a directory, this indicates that "
@@ -2898,12 +2898,12 @@ msgstr ""
 "Obiekt przechowujący miniatury w pliku eksportowym nie jest katalogiem, co "
 "wskazuje na to, że ten plik jest uszkodzony."
 
-#: ImportExport/KimFileReader.cpp:80
+#: ImportExport/KimFileReader.cpp:79
 #, kde-format
 msgid "No thumbnail existed in export file for %1"
 msgstr "W pliku eksportowym nie było miniatury dla pliku %1"
 
-#: ImportExport/KimFileReader.cpp:95
+#: ImportExport/KimFileReader.cpp:94
 #, fuzzy, kde-format
 #| msgid ""
 #| "export file did not contain a Images subdirectory, this indicates that "
@@ -2915,7 +2915,7 @@ msgstr ""
 "Plik eksportowy nie zawiera podkatalogu z obrazówmi. Wygląda na to, że plik "
 "jest uszkodzony"
 
-#: ImportExport/KimFileReader.cpp:100
+#: ImportExport/KimFileReader.cpp:99
 #, fuzzy, kde-format
 #| msgid ""
 #| "Images item in export file was not a directory, this indicates that the "
@@ -2927,7 +2927,7 @@ msgstr ""
 "Element obrazu w pliku eksportowym nie jest katalogiem, wskazuje to na "
 "uszkodzenie pliku"
 
-#: ImportExport/KimFileReader.cpp:108
+#: ImportExport/KimFileReader.cpp:107
 #, kde-format
 msgid "No image existed in export file for %1"
 msgstr "W pliku eksportowym nie było obrazów dla %1 "
@@ -4287,22 +4287,22 @@ msgstr "Sprawdzanie funkcjonalności"
 msgid "Congratulations: all dynamic features have been enabled."
 msgstr "Gratulacje: wszystkie dynamiczne elementy dodatkowe zostały włączone."
 
-#: MainWindow/Window.cpp:142
+#: MainWindow/Window.cpp:143
 #, kde-format
 msgid "Loading Database"
 msgstr "Wczytywanie bazy danych"
 
-#: MainWindow/Window.cpp:149
+#: MainWindow/Window.cpp:150
 #, kde-format
 msgid "Loading Main Window"
 msgstr "Wczytywanie głównego okna"
 
-#: MainWindow/Window.cpp:262
+#: MainWindow/Window.cpp:263
 #, kde-format
 msgid "Searching for New Files"
 msgstr "Szukanie nowych plików"
 
-#: MainWindow/Window.cpp:298
+#: MainWindow/Window.cpp:299
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
@@ -4325,14 +4325,14 @@ msgstr ""
 "kiedyś przetestować pokazową bazę danych ze zmianami wprowadzonymi w tej "
 "sesji.</p>"
 
-#: MainWindow/Window.cpp:303
+#: MainWindow/Window.cpp:304
 #, fuzzy, kde-format
 #| msgid "Delete Demo Database"
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Usuń pokazową bazę danych"
 
-#: MainWindow/Window.cpp:358
+#: MainWindow/Window.cpp:359
 #, kde-format
 msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
@@ -4341,325 +4341,320 @@ msgstr ""
 "Niektóre z zaznaczonych obrazów już należą do stosu. Czy chcesz usunąć je ze "
 "stosów, do których należą i utworzyć całkiem nowy stos?"
 
-#: MainWindow/Window.cpp:361
+#: MainWindow/Window.cpp:362
 #, fuzzy, kde-format
 #| msgid "Stacking Error"
 msgctxt "@title"
 msgid "Stacking problem"
 msgstr "Błąd wrzucania na stos"
 
-#: MainWindow/Window.cpp:376
+#: MainWindow/Window.cpp:377
 #, kde-format
 msgid "Unknown error, stack creation failed."
 msgstr "Nieznany błąd, nie udało się utworzyć stosu."
 
-#: MainWindow/Window.cpp:377
+#: MainWindow/Window.cpp:378
 #, kde-format
 msgid "Stacking Error"
 msgstr "Błąd wrzucania na stos"
 
-#: MainWindow/Window.cpp:456 MainWindow/Window.cpp:582
-#: MainWindow/Window.cpp:1282 MainWindow/Window.cpp:1379
+#: MainWindow/Window.cpp:457 MainWindow/Window.cpp:583
+#: MainWindow/Window.cpp:1278 MainWindow/Window.cpp:1375
 #, kde-format
 msgid "No item is selected."
 msgstr "Nie zaznaczono żadnych obiektów."
 
-#: MainWindow/Window.cpp:456 MainWindow/Window.cpp:582
-#: MainWindow/Window.cpp:1282 MainWindow/Window.cpp:1380
+#: MainWindow/Window.cpp:457 MainWindow/Window.cpp:583
+#: MainWindow/Window.cpp:1278 MainWindow/Window.cpp:1376
 #, kde-format
 msgid "No Selection"
 msgstr "Nic nie zaznaczono"
 
-#: MainWindow/Window.cpp:502
+#: MainWindow/Window.cpp:503
 #, kde-format
 msgid "Saving..."
 msgstr "Zapisywanie..."
 
-#: MainWindow/Window.cpp:507
+#: MainWindow/Window.cpp:508
 #, kde-format
 msgid "Saving... Done"
 msgstr "Zapisywanie... zakończono"
 
-#: MainWindow/Window.cpp:655
+#: MainWindow/Window.cpp:656
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "Nie ma obrazów do pokazania."
 
-#: MainWindow/Window.cpp:744
+#: MainWindow/Window.cpp:745
 #, kde-format
 msgid "Generate HTML..."
 msgstr "Tworzenie HTML..."
 
-#: MainWindow/Window.cpp:748
+#: MainWindow/Window.cpp:749
 #, kde-format
 msgid "Import..."
 msgstr "Importowanie..."
 
-#: MainWindow/Window.cpp:751
+#: MainWindow/Window.cpp:752
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Eksport/kopiowanie obrazów..."
 
-#: MainWindow/Window.cpp:778
+#: MainWindow/Window.cpp:779
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Usuń zaznaczone"
 
-#: MainWindow/Window.cpp:784
+#: MainWindow/Window.cpp:785
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "Usuń tokeny..."
 
-#: MainWindow/Window.cpp:787
+#: MainWindow/Window.cpp:788
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Otwórz listę plików..."
 
-#: MainWindow/Window.cpp:790
+#: MainWindow/Window.cpp:791
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Opisz pojedyncze elementy"
 
-#: MainWindow/Window.cpp:794
+#: MainWindow/Window.cpp:795
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Ustaw właściwości dla wielu elementów na raz"
 
-#: MainWindow/Window.cpp:798
+#: MainWindow/Window.cpp:799
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Scal obrazy do stosu"
 
-#: MainWindow/Window.cpp:802
+#: MainWindow/Window.cpp:803
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Usuń obrazy ze stosu"
 
-#: MainWindow/Window.cpp:805
+#: MainWindow/Window.cpp:806
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Ustaw jako pierwszy obraz na stosie"
 
-#: MainWindow/Window.cpp:818
+#: MainWindow/Window.cpp:819
 #, kde-format
 msgid "View"
 msgstr "Obejrzyj"
 
-#: MainWindow/Window.cpp:821
+#: MainWindow/Window.cpp:822
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Obejrzyj (w nowym oknie)"
 
-#: MainWindow/Window.cpp:824
+#: MainWindow/Window.cpp:825
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Rozpocznij pokaz slajdów"
 
-#: MainWindow/Window.cpp:829
+#: MainWindow/Window.cpp:830
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Rozpocznij pokaz slajdów w losowej kolejności"
 
-#: MainWindow/Window.cpp:835
+#: MainWindow/Window.cpp:836
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Zwiń wszystkie stosy"
 
-#: MainWindow/Window.cpp:841
+#: MainWindow/Window.cpp:842
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Rozwiń wszystkie stosy"
 
-#: MainWindow/Window.cpp:846
+#: MainWindow/Window.cpp:847
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Pokaż najpierw naj&starsze"
 
-#: MainWindow/Window.cpp:851
+#: MainWindow/Window.cpp:852
 #, kde-format
 msgid "Show &Newest First"
 msgstr "Pokaż najpierw naj&nowsze"
 
-#: MainWindow/Window.cpp:856
+#: MainWindow/Window.cpp:857
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Uporządkuj wybrane wg daty i czasu"
 
-#: MainWindow/Window.cpp:859
+#: MainWindow/Window.cpp:860
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "Ogranicz widok do wybranych"
 
-#: MainWindow/Window.cpp:862
+#: MainWindow/Window.cpp:863
 #, kde-format
 msgid "Jump to Context"
 msgstr "Skocz do kontekstu"
 
-#: MainWindow/Window.cpp:868
+#: MainWindow/Window.cpp:869
 #, kde-format
 msgid "Lock Images"
 msgstr "Zablokuj obrazy"
 
-#: MainWindow/Window.cpp:872
+#: MainWindow/Window.cpp:873
 #, kde-format
 msgid "Unlock"
 msgstr "Odblokuj"
 
-#: MainWindow/Window.cpp:875
+#: MainWindow/Window.cpp:876
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Zablokuj wszystkie pozostałe elementy"
 
-#: MainWindow/Window.cpp:878
+#: MainWindow/Window.cpp:879
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Zablokuj obecny zestaw elementów"
 
-#: MainWindow/Window.cpp:881
+#: MainWindow/Window.cpp:882
 #, kde-format
 msgid "Configure Current View"
 msgstr "Ustawienia obecnego widoku"
 
-#: MainWindow/Window.cpp:893
+#: MainWindow/Window.cpp:894
 #, kde-format
 msgid "Tree"
 msgstr "Drzewo"
 
-#: MainWindow/Window.cpp:898
+#: MainWindow/Window.cpp:899
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Drzewo z ikonami użytkowników"
 
-#: MainWindow/Window.cpp:903
+#: MainWindow/Window.cpp:904
 #, kde-format
 msgid "Icons"
 msgstr "Ikony"
 
-#: MainWindow/Window.cpp:911
+#: MainWindow/Window.cpp:912
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Pokaż podpowiedzi w oknie miniatur"
 
-#: MainWindow/Window.cpp:916
+#: MainWindow/Window.cpp:917
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Labels in Thumbnails Window"
 msgstr "Pokaż podpowiedzi w oknie miniatur"
 
-#: MainWindow/Window.cpp:926
+#: MainWindow/Window.cpp:927
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Categories in Thumbnails Window"
 msgstr "Pokaż podpowiedzi w oknie miniatur"
 
-#: MainWindow/Window.cpp:940
+#: MainWindow/Window.cpp:941
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "Wybierz zestaw kolorów"
 
-#: MainWindow/Window.cpp:951
+#: MainWindow/Window.cpp:952
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Wyświetl obrazy i filmy nie będące na dysku"
 
-#: MainWindow/Window.cpp:954
+#: MainWindow/Window.cpp:955
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Wyświetl obrazy i filmy z niepełną datą..."
 
 #: MainWindow/Window.cpp:958
 #, kde-format
-msgid "Display Images and Videos with Changed MD5 Sum"
-msgstr "Wyświetl obrazy i filmy ze zmienioną sumą MD5"
-
-#: MainWindow/Window.cpp:962
-#, kde-format
 msgid "Merge duplicates"
 msgstr "Scal powielenia"
 
-#: MainWindow/Window.cpp:964 MainWindow/Window.cpp:1021
+#: MainWindow/Window.cpp:960 MainWindow/Window.cpp:1017
 #, fuzzy, kde-format
 #| msgid "Recreate Selected Thumbnails"
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Utwórz ponownie wybrane miniatury"
 
-#: MainWindow/Window.cpp:968
+#: MainWindow/Window.cpp:964
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Ponownie szukaj obrazów i filmów"
 
-#: MainWindow/Window.cpp:971
+#: MainWindow/Window.cpp:967
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Utwórz ponownie bazę danych wyszukiwania Exif"
 
-#: MainWindow/Window.cpp:974
+#: MainWindow/Window.cpp:970
 #, kde-format
 msgid "Read Exif Info from Files..."
 msgstr "Odczytaj informacje Exif z plików..."
 
-#: MainWindow/Window.cpp:977
+#: MainWindow/Window.cpp:973
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Uporządkuj wszystkie wg daty i czasu"
 
-#: MainWindow/Window.cpp:981
+#: MainWindow/Window.cpp:977
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Samoczynnie wrzuć na stos wybrane obrazy..."
 
-#: MainWindow/Window.cpp:984
+#: MainWindow/Window.cpp:980
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Zbuduj miniatury"
 
-#: MainWindow/Window.cpp:987
+#: MainWindow/Window.cpp:983
 #, kde-format
 msgid "Statistics..."
 msgstr "Statystyki..."
 
-#: MainWindow/Window.cpp:991
+#: MainWindow/Window.cpp:987
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Oznacz jako nioznaczone"
 
-#: MainWindow/Window.cpp:1000
+#: MainWindow/Window.cpp:996
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Włącz wszelkie powiadomienia"
 
-#: MainWindow/Window.cpp:1008
+#: MainWindow/Window.cpp:1004
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Uruchom demo KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1011
+#: MainWindow/Window.cpp:1007
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "Stan funkcjonalności KPhotoAlbumu"
 
-#: MainWindow/Window.cpp:1014
+#: MainWindow/Window.cpp:1010
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Pokaż filmy demonstracyjne"
 
-#: MainWindow/Window.cpp:1018 Viewer/ViewerWidget.cpp:177
+#: MainWindow/Window.cpp:1014 Viewer/ViewerWidget.cpp:195
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Pokaż dane Exif oraz metadane pliku"
 
-#: MainWindow/Window.cpp:1024
+#: MainWindow/Window.cpp:1020
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Użyj następnej miniatury filmu"
 
-#: MainWindow/Window.cpp:1028
+#: MainWindow/Window.cpp:1024
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Użyj poprzedniej miniatury filmu"
 
-#: MainWindow/Window.cpp:1032 MainWindow/Window.cpp:1260
+#: MainWindow/Window.cpp:1028 MainWindow/Window.cpp:1256
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
@@ -4667,7 +4662,7 @@ msgstr[0] "Skopiuj obraz do..."
 msgstr[1] "Skopiuj obrazy do..."
 msgstr[2] "Skopiuj obrazy do..."
 
-#: MainWindow/Window.cpp:1036 MainWindow/Window.cpp:1264
+#: MainWindow/Window.cpp:1032 MainWindow/Window.cpp:1260
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4675,17 +4670,17 @@ msgstr[0] "Dowiąż obraz do..."
 msgstr[1] "Dowiąż obrazy do..."
 msgstr[2] "Dowiąż obrazy do..."
 
-#: MainWindow/Window.cpp:1062
+#: MainWindow/Window.cpp:1058
 #, kde-format
 msgid "Auto saving...."
 msgstr "Samoczynne zapisywanie..."
 
-#: MainWindow/Window.cpp:1065
+#: MainWindow/Window.cpp:1061
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Samoczynne zapisywanie... zakończone"
 
-#: MainWindow/Window.cpp:1167
+#: MainWindow/Window.cpp:1163
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Could not open given index.xml as provided directory does not exist."
@@ -4697,7 +4692,7 @@ msgstr ""
 "<p>Nie można otworzyć podanego index.xml, bo podany katalog nie istnieje."
 "<br />%1</p>"
 
-#: MainWindow/Window.cpp:1174
+#: MainWindow/Window.cpp:1170
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4706,14 +4701,14 @@ msgstr ""
 "<p>Podany plik indeksowy nie istnieje, czy chcesz utworzyć taki plik?<br />"
 "%1/index.xml</p>"
 
-#: MainWindow/Window.cpp:1177
+#: MainWindow/Window.cpp:1173
 #, fuzzy, kde-format
 #| msgid "Erase database"
 msgctxt "@title"
 msgid "Create database"
 msgstr "Wymaż bazę danych"
 
-#: MainWindow/Window.cpp:1205
+#: MainWindow/Window.cpp:1201
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4726,34 +4721,34 @@ msgstr ""
 "swoje ustawienia  dotyczące znacznika obrazów bez znacznika "
 "<interface>Ustawienia|Ustawienia KPhotoAlbum...|Kategorie</interface></p>"
 
-#: MainWindow/Window.cpp:1331 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1327 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Ogólne"
 
-#: MainWindow/Window.cpp:1332 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1328 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Przeglądarka"
 
-#: MainWindow/Window.cpp:1333
+#: MainWindow/Window.cpp:1329
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Data: "
 
-#: MainWindow/Window.cpp:1336
+#: MainWindow/Window.cpp:1332
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Okno dialogowe opisu"
 
-#: MainWindow/Window.cpp:1337 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1333 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Widok miniatur"
 
-#: MainWindow/Window.cpp:1482
+#: MainWindow/Window.cpp:1478
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4762,13 +4757,13 @@ msgstr ""
 "<p>Czy na pewno włączyć wszystkie okna dialogowe, w których zaznaczyłeś pole "
 "'nie pokazuj w przyszłości'?</p>"
 
-#: MainWindow/Window.cpp:1484
+#: MainWindow/Window.cpp:1480
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1503
+#: MainWindow/Window.cpp:1499
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4785,32 +4780,32 @@ msgstr ""
 "działał, lecz nie wiadomo, czy niewykonane polecenie make install w "
 "przyszłości nie spowoduje awarii programu.</p>"
 
-#: MainWindow/Window.cpp:1503
+#: MainWindow/Window.cpp:1499
 #, kde-format
 msgid "Internal Error"
 msgstr "Błąd wewnętrzny"
 
-#: MainWindow/Window.cpp:1514
+#: MainWindow/Window.cpp:1510
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "Pomyślnie udostępniono obraz(y). Kopiowanie ścieżki do schowka..."
 
-#: MainWindow/Window.cpp:1517
+#: MainWindow/Window.cpp:1513
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Pomyślnie udostępniono obraz(y)."
 
-#: MainWindow/Window.cpp:1522
+#: MainWindow/Window.cpp:1518
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Nie udało się udostępnić obrazów z wiadomością: %1"
 
-#: MainWindow/Window.cpp:1585
+#: MainWindow/Window.cpp:1581
 #, kde-format
 msgid "Open List of Files"
 msgstr "Otwórz listę plików"
 
-#: MainWindow/Window.cpp:1586
+#: MainWindow/Window.cpp:1582
 #, kde-format
 msgid ""
 "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4819,28 +4814,28 @@ msgstr ""
 "Możesz otworzyć zestaw plików z głównego katalogu obrazów KPhotoAlbum "
 "poprzez stworzenie tutaj listy plików."
 
-#: MainWindow/Window.cpp:1599
+#: MainWindow/Window.cpp:1595
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Nie znaleziono obrazów pasujących do podanych danych."
 
-#: MainWindow/Window.cpp:1599
+#: MainWindow/Window.cpp:1595
 #, kde-format
 msgid "No Matches"
 msgstr "Brak pasujących"
 
-#: MainWindow/Window.cpp:1757
+#: MainWindow/Window.cpp:1767
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Ponowne wczytywanie informacji Exif ze wszystkich obrazów"
 
-#: MainWindow/Window.cpp:1784
+#: MainWindow/Window.cpp:1794
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Szerokość miniatury: %1px (przechowywany rozmiar: %2px)"
 
-#: MainWindow/Window.cpp:1837
+#: MainWindow/Window.cpp:1847
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4851,7 +4846,7 @@ msgstr ""
 "mógł wyświetlać miniatur filmów i długości długości filmów. Wgraj pakiet "
 "ffmpeg</p>"
 
-#: MainWindow/Window.cpp:1840
+#: MainWindow/Window.cpp:1850
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Miniatury filmów nie są dostępne"
@@ -6786,360 +6781,360 @@ msgctxt "OSD for slideshow"
 msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
 msgstr "<p><center><font size=\"+4\">Kończenie pokazu</font></center></p>"
 
-#: Viewer/ViewerWidget.cpp:167
+#: Viewer/ViewerWidget.cpp:185
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotate..."
 msgstr "Opisz..."
 
-#: Viewer/ViewerWidget.cpp:172
+#: Viewer/ViewerWidget.cpp:190
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Ustaw jako pierwszy obraz na stosie"
 
-#: Viewer/ViewerWidget.cpp:183
+#: Viewer/ViewerWidget.cpp:201
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "Skopiuj obraz do..."
 
-#: Viewer/ViewerWidget.cpp:188
+#: Viewer/ViewerWidget.cpp:206
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "Dowiąż obraz do..."
 
-#: Viewer/ViewerWidget.cpp:196
+#: Viewer/ViewerWidget.cpp:214
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Zamknij"
 
-#: Viewer/ViewerWidget.cpp:252
+#: Viewer/ViewerWidget.cpp:270
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Obróć"
 
-#: Viewer/ViewerWidget.cpp:263
+#: Viewer/ViewerWidget.cpp:281
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "Obróć w prawo"
 
-#: Viewer/ViewerWidget.cpp:264
+#: Viewer/ViewerWidget.cpp:282
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Odbij"
 
-#: Viewer/ViewerWidget.cpp:265
+#: Viewer/ViewerWidget.cpp:283
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Obróć w lewo"
 
-#: Viewer/ViewerWidget.cpp:272
+#: Viewer/ViewerWidget.cpp:290
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Pomiń"
 
-#: Viewer/ViewerWidget.cpp:275
+#: Viewer/ViewerWidget.cpp:293
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "Pierwszy"
 
-#: Viewer/ViewerWidget.cpp:282
+#: Viewer/ViewerWidget.cpp:300
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Ostatni"
 
-#: Viewer/ViewerWidget.cpp:289
+#: Viewer/ViewerWidget.cpp:307
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Pokaż następny"
 
-#: Viewer/ViewerWidget.cpp:295
+#: Viewer/ViewerWidget.cpp:313
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "Pomiń następne 10"
 
-#: Viewer/ViewerWidget.cpp:301
+#: Viewer/ViewerWidget.cpp:319
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "Pomiń następne 100"
 
-#: Viewer/ViewerWidget.cpp:307
+#: Viewer/ViewerWidget.cpp:325
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "Pomiń następne 1000"
 
-#: Viewer/ViewerWidget.cpp:313
+#: Viewer/ViewerWidget.cpp:331
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Pokaż poprzedni"
 
-#: Viewer/ViewerWidget.cpp:319
+#: Viewer/ViewerWidget.cpp:337
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "Pomiń poprzednie 10"
 
-#: Viewer/ViewerWidget.cpp:325
+#: Viewer/ViewerWidget.cpp:343
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "Pomiń poprzednie 100"
 
-#: Viewer/ViewerWidget.cpp:331
+#: Viewer/ViewerWidget.cpp:349
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "Pomiń poprzednie 1000"
 
-#: Viewer/ViewerWidget.cpp:337
+#: Viewer/ViewerWidget.cpp:355
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Usuń obraz"
 
-#: Viewer/ViewerWidget.cpp:342
+#: Viewer/ViewerWidget.cpp:360
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Usuń obraz z listy wyświetlania"
 
-#: Viewer/ViewerWidget.cpp:353
+#: Viewer/ViewerWidget.cpp:371
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Powiększenie"
 
-#: Viewer/ViewerWidget.cpp:357
+#: Viewer/ViewerWidget.cpp:375
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Przybliż"
 
-#: Viewer/ViewerWidget.cpp:363
+#: Viewer/ViewerWidget.cpp:381
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Pomniejsz"
 
-#: Viewer/ViewerWidget.cpp:369
+#: Viewer/ViewerWidget.cpp:387
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Pełny widok"
 
-#: Viewer/ViewerWidget.cpp:375
+#: Viewer/ViewerWidget.cpp:393
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Widok piksel po pikselu"
 
-#: Viewer/ViewerWidget.cpp:381
+#: Viewer/ViewerWidget.cpp:399
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Przełącz pełny ekran"
 
-#: Viewer/ViewerWidget.cpp:391
+#: Viewer/ViewerWidget.cpp:409
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Pokaz slajdów"
 
-#: Viewer/ViewerWidget.cpp:394 Viewer/ViewerWidget.cpp:789
+#: Viewer/ViewerWidget.cpp:412 Viewer/ViewerWidget.cpp:807
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Rozpocznij pokaz slajdów"
 
-#: Viewer/ViewerWidget.cpp:399
+#: Viewer/ViewerWidget.cpp:417
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Przechodź szybciej"
 
-#: Viewer/ViewerWidget.cpp:404
+#: Viewer/ViewerWidget.cpp:422
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Przechodź wolniej"
 
-#: Viewer/ViewerWidget.cpp:439
+#: Viewer/ViewerWidget.cpp:457
 #, kde-format
 msgid "File not available"
 msgstr "Plik jest niedostępny"
 
-#: Viewer/ViewerWidget.cpp:489
+#: Viewer/ViewerWidget.cpp:507
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
 msgstr "%1 %2"
 
-#: Viewer/ViewerWidget.cpp:505
+#: Viewer/ViewerWidget.cpp:523
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
 msgstr "Odtwórz"
 
-#: Viewer/ViewerWidget.cpp:507
+#: Viewer/ViewerWidget.cpp:525
 #, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Wstrzymaj"
 
-#: Viewer/ViewerWidget.cpp:742
+#: Viewer/ViewerWidget.cpp:760
 #, kde-format
 msgctxt "Basically 'enter a category name'"
 msgid "<b>Setting Category: </b>"
 msgstr "<b>Kategoria ustawień: </b>"
 
-#: Viewer/ViewerWidget.cpp:747
+#: Viewer/ViewerWidget.cpp:765
 #, kde-format
 msgctxt "Basically 'enter a tag name'"
 msgid "<b>Assigning: </b>"
 msgstr "<b>Przypisywanie: </b>"
 
-#: Viewer/ViewerWidget.cpp:795
+#: Viewer/ViewerWidget.cpp:813
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Zatrzymaj pokaz obrazów"
 
-#: Viewer/ViewerWidget.cpp:1194
+#: Viewer/ViewerWidget.cpp:1212
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Przejdź"
 
-#: Viewer/ViewerWidget.cpp:1215
+#: Viewer/ViewerWidget.cpp:1233
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "10 minut wstecz"
 
-#: Viewer/ViewerWidget.cpp:1216
+#: Viewer/ViewerWidget.cpp:1234
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "1 minuta wstecz"
 
-#: Viewer/ViewerWidget.cpp:1217
+#: Viewer/ViewerWidget.cpp:1235
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "10 sekund wstecz"
 
-#: Viewer/ViewerWidget.cpp:1218
+#: Viewer/ViewerWidget.cpp:1236
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "1 sekunda wstecz"
 
-#: Viewer/ViewerWidget.cpp:1219
+#: Viewer/ViewerWidget.cpp:1237
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "100 milisekund wstecz"
 
-#: Viewer/ViewerWidget.cpp:1220
+#: Viewer/ViewerWidget.cpp:1238
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "100 milisekund wprzód"
 
-#: Viewer/ViewerWidget.cpp:1221
+#: Viewer/ViewerWidget.cpp:1239
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "1 sekunda wprzód"
 
-#: Viewer/ViewerWidget.cpp:1222
+#: Viewer/ViewerWidget.cpp:1240
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "10 sekund wprzód"
 
-#: Viewer/ViewerWidget.cpp:1223
+#: Viewer/ViewerWidget.cpp:1241
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "1 minuta wprzód"
 
-#: Viewer/ViewerWidget.cpp:1224
+#: Viewer/ViewerWidget.cpp:1242
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "10 minut wprzód"
 
-#: Viewer/ViewerWidget.cpp:1232
+#: Viewer/ViewerWidget.cpp:1250
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Zatrzymaj"
 
-#: Viewer/ViewerWidget.cpp:1245
+#: Viewer/ViewerWidget.cpp:1263
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Wyświetl kategorie w widoku miniatur"
 
-#: Viewer/ViewerWidget.cpp:1251
+#: Viewer/ViewerWidget.cpp:1269
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Uruchom ponownie"
 
-#: Viewer/ViewerWidget.cpp:1266
+#: Viewer/ViewerWidget.cpp:1284
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Filtry"
 
-#: Viewer/ViewerWidget.cpp:1269
+#: Viewer/ViewerWidget.cpp:1287
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Usuń wszystkie filtry"
 
-#: Viewer/ViewerWidget.cpp:1273
+#: Viewer/ViewerWidget.cpp:1291
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Zastosuj filtr odcieni szarości"
 
-#: Viewer/ViewerWidget.cpp:1278
+#: Viewer/ViewerWidget.cpp:1296
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Zastosuj filtr rozciągania kontrastu"
 
-#: Viewer/ViewerWidget.cpp:1283
+#: Viewer/ViewerWidget.cpp:1301
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Zastosuj filtr korekcji graficznej histogramu"
 
-#: Viewer/ViewerWidget.cpp:1288
+#: Viewer/ViewerWidget.cpp:1306
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Zastosuj filtr monochromatyczny"
 
-#: Viewer/ViewerWidget.cpp:1340
+#: Viewer/ViewerWidget.cpp:1358
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7151,7 +7146,7 @@ msgstr ""
 "odtwarzaczach filmów.</p><p>Naciśnij <i>Kontynuuj</i>, aby KPhotoAlbum "
 "spróbował innego odtwarzacza...</p>"
 
-#: Viewer/ViewerWidget.cpp:1344
+#: Viewer/ViewerWidget.cpp:1362
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -7160,7 +7155,7 @@ msgstr ""
 "<p>Odtwarzacz, któremu przerwano: <tt>%1</tt></p><p>Odtwarzacz, który "
 "zostanie użyty zamiast tego: <tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1357
+#: Viewer/ViewerWidget.cpp:1375
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
@@ -7223,6 +7218,9 @@ msgstr "Pokaż wymiary obrazów"
 #, kde-format
 msgid "Show Rating"
 msgstr "Pokaż ocenę"
+
+#~ msgid "Display Images and Videos with Changed MD5 Sum"
+#~ msgstr "Wyświetl obrazy i filmy ze zmienioną sumą MD5"
 
 #~ msgid "Recalculate Checksum"
 #~ msgstr "Oblicz ponownie sumę kontrolną"

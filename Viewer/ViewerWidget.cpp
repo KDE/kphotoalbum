@@ -868,9 +868,12 @@ void Viewer::ViewerWidget::changeSlideShowInterval(int delta)
 
 void Viewer::ViewerWidget::editImage()
 {
-    DB::ImageInfoList list;
-    list.append(currentInfo());
-    MainWindow::Window::configureImages(list, true);
+    // don't block this method because the ViewerWidget may already be deleted once configureImages returns
+    QTimer::singleShot(0, [&]() {
+        DB::ImageInfoList list;
+        list.append(currentInfo());
+        MainWindow::Window::configureImages(list, true);
+    });
 }
 
 void Viewer::ViewerWidget::filterNone()

@@ -22,6 +22,7 @@ Template to use after a release:
 ### Removed
 
 ### Security
+
 -->
 Changelog
 =========
@@ -54,8 +55,8 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
 ### Security
 
-[5.10.0] - 2023-03-25
----------------------
+KPhotoAlbum 5.10.0 (2023-03-25)
+-------------------------------
 
 ### Added
  - Allow setting keyboard shortcuts for Date Bar component.
@@ -86,16 +87,16 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
    Pressing "Enter" to open the viewer is now the preferred way.
    To restore the old behavior, reassign the shortcut via "Settings | Configure Keyboard Shortcuts...".
 
-[5.9.1] - 2022-09-05
---------------------
+KPhotoAlbum 5.9.1 (2022-09-05)
+------------------------------
 
 ### Fixed
 - Due to a problem with the tarme.rb releasme script, the 5.9.0 tarball lacked all localisation
   data. We thus had to withdraw the release and tag a new one.
 
 
-[5.9.0] - 2022-09-04
---------------------
+KPhotoAlbum 5.9.0 (2022-09-04)
+------------------------------
 
 ### Added
 - Generic file metadata (size, last changed date etc.) can now be viewed via the Exif

@@ -42,6 +42,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Simplified logging categories: "kphotoalbum.XMLDB" was merged into "kphotoalbum.DB"
 
 ### Dependencies
+ - KPhotoAlbum can now be compiled using exiv2 0.28.
 
 ### Deprecated
 

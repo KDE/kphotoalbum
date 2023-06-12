@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-09 00:45+0000\n"
+"POT-Creation-Date: 2023-06-12 00:48+0000\n"
 "PO-Revision-Date: 2023-04-28 19:57+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
 "Language-Team: fr\n"
@@ -6930,127 +6930,127 @@ msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Arrêter le diaporama"
 
-#: Viewer/ViewerWidget.cpp:1212
+#: Viewer/ViewerWidget.cpp:1215
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Rechercher"
 
-#: Viewer/ViewerWidget.cpp:1233
+#: Viewer/ViewerWidget.cpp:1236
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "Reculer de 10 minutes"
 
-#: Viewer/ViewerWidget.cpp:1234
+#: Viewer/ViewerWidget.cpp:1237
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "Reculer de 1 minute"
 
-#: Viewer/ViewerWidget.cpp:1235
+#: Viewer/ViewerWidget.cpp:1238
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "Reculer de 10 secondes"
 
-#: Viewer/ViewerWidget.cpp:1236
+#: Viewer/ViewerWidget.cpp:1239
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "Reculer de 1 seconde"
 
-#: Viewer/ViewerWidget.cpp:1237
+#: Viewer/ViewerWidget.cpp:1240
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "Reculer de 100 millisecondes"
 
-#: Viewer/ViewerWidget.cpp:1238
+#: Viewer/ViewerWidget.cpp:1241
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "Avancer de 100 millisecondes"
 
-#: Viewer/ViewerWidget.cpp:1239
+#: Viewer/ViewerWidget.cpp:1242
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "Avancer de 1 seconde"
 
-#: Viewer/ViewerWidget.cpp:1240
+#: Viewer/ViewerWidget.cpp:1243
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "Avancer de 10 secondes"
 
-#: Viewer/ViewerWidget.cpp:1241
+#: Viewer/ViewerWidget.cpp:1244
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "Avancer de 1 minute"
 
-#: Viewer/ViewerWidget.cpp:1242
+#: Viewer/ViewerWidget.cpp:1245
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "Avancer de 10 minutes"
 
-#: Viewer/ViewerWidget.cpp:1250
+#: Viewer/ViewerWidget.cpp:1253
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Stop"
 
-#: Viewer/ViewerWidget.cpp:1263
+#: Viewer/ViewerWidget.cpp:1266
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Utiliser le paramétrage actuel dans l'affichage en vignettes"
 
-#: Viewer/ViewerWidget.cpp:1269
+#: Viewer/ViewerWidget.cpp:1272
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Redémarrer"
 
-#: Viewer/ViewerWidget.cpp:1284
+#: Viewer/ViewerWidget.cpp:1287
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Filtres"
 
-#: Viewer/ViewerWidget.cpp:1287
+#: Viewer/ViewerWidget.cpp:1290
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Enlever tous les filtres"
 
-#: Viewer/ViewerWidget.cpp:1291
+#: Viewer/ViewerWidget.cpp:1294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Appliquer le filtre de niveaux de gris"
 
-#: Viewer/ViewerWidget.cpp:1296
+#: Viewer/ViewerWidget.cpp:1299
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Appliquer le filtre d'étirement de contraste"
 
-#: Viewer/ViewerWidget.cpp:1301
+#: Viewer/ViewerWidget.cpp:1304
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Appliquer le filtre d'égalisation par histogramme"
 
-#: Viewer/ViewerWidget.cpp:1306
+#: Viewer/ViewerWidget.cpp:1309
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Applique le filtre monochrome"
 
-#: Viewer/ViewerWidget.cpp:1358
+#: Viewer/ViewerWidget.cpp:1361
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7062,7 +7062,7 @@ msgstr ""
 "vidéo. </p><p>Appuyez sur <i>Continuer</i> pour laisser KPhotoAlbum essayer "
 "un autre moteur...</p>"
 
-#: Viewer/ViewerWidget.cpp:1362
+#: Viewer/ViewerWidget.cpp:1365
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -7071,7 +7071,7 @@ msgstr ""
 "<p>Moteur vidéo ayant été interrompu : <tt>%1</tt></p><p>Moteur vidéo qui "
 "sera utilisé à la place : <tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1375
+#: Viewer/ViewerWidget.cpp:1378
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-06-09 00:45+0000\n"
+"POT-Creation-Date: 2023-06-12 00:48+0000\n"
 "PO-Revision-Date: 2023-05-02 15:15+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -6399,127 +6399,127 @@ msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Zastavit prezentaci"
 
-#: Viewer/ViewerWidget.cpp:1212
+#: Viewer/ViewerWidget.cpp:1215
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Vyhledat"
 
-#: Viewer/ViewerWidget.cpp:1233
+#: Viewer/ViewerWidget.cpp:1236
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "o 10 minut zpět"
 
-#: Viewer/ViewerWidget.cpp:1234
+#: Viewer/ViewerWidget.cpp:1237
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "o 1 minutu zpět"
 
-#: Viewer/ViewerWidget.cpp:1235
+#: Viewer/ViewerWidget.cpp:1238
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "o 10 sekund zpět"
 
-#: Viewer/ViewerWidget.cpp:1236
+#: Viewer/ViewerWidget.cpp:1239
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "o 1 sekundu zpět"
 
-#: Viewer/ViewerWidget.cpp:1237
+#: Viewer/ViewerWidget.cpp:1240
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "o 100 milisekund zpět"
 
-#: Viewer/ViewerWidget.cpp:1238
+#: Viewer/ViewerWidget.cpp:1241
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "o 100 milisekund vpřed"
 
-#: Viewer/ViewerWidget.cpp:1239
+#: Viewer/ViewerWidget.cpp:1242
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "o 1 sekundu vpřed"
 
-#: Viewer/ViewerWidget.cpp:1240
+#: Viewer/ViewerWidget.cpp:1243
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "o 10 sekund vpřed"
 
-#: Viewer/ViewerWidget.cpp:1241
+#: Viewer/ViewerWidget.cpp:1244
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "o 1 minutu vpřed"
 
-#: Viewer/ViewerWidget.cpp:1242
+#: Viewer/ViewerWidget.cpp:1245
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "o 10 minut vpřed"
 
-#: Viewer/ViewerWidget.cpp:1250
+#: Viewer/ViewerWidget.cpp:1253
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Zastavit"
 
-#: Viewer/ViewerWidget.cpp:1263
+#: Viewer/ViewerWidget.cpp:1266
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Použít současný rámec v pohledu s náhledy"
 
-#: Viewer/ViewerWidget.cpp:1269
+#: Viewer/ViewerWidget.cpp:1272
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Restartovat"
 
-#: Viewer/ViewerWidget.cpp:1284
+#: Viewer/ViewerWidget.cpp:1287
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Filtry"
 
-#: Viewer/ViewerWidget.cpp:1287
+#: Viewer/ViewerWidget.cpp:1290
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Odstranit všechny filtry"
 
-#: Viewer/ViewerWidget.cpp:1291
+#: Viewer/ViewerWidget.cpp:1294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Použít filtr odstínů šedi"
 
-#: Viewer/ViewerWidget.cpp:1296
+#: Viewer/ViewerWidget.cpp:1299
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Použít filtr pro zvýraznění kontrastu"
 
-#: Viewer/ViewerWidget.cpp:1301
+#: Viewer/ViewerWidget.cpp:1304
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Použít filtr kompenzace histogramu"
 
-#: Viewer/ViewerWidget.cpp:1306
+#: Viewer/ViewerWidget.cpp:1309
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Použít monochromatický filtr"
 
-#: Viewer/ViewerWidget.cpp:1358
+#: Viewer/ViewerWidget.cpp:1361
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -6527,14 +6527,14 @@ msgid ""
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1362
+#: Viewer/ViewerWidget.cpp:1365
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
 "will be used instead: <tt>%2</tt></p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1375
+#: Viewer/ViewerWidget.cpp:1378
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "

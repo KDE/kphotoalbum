@@ -6595,6 +6595,3 @@ msgstr "Zobrazit velikosti obrázků"
 #, kde-format
 msgid "Show Rating"
 msgstr "Zobrazit hodnocení"
-
-#~ msgid "Display Images and Videos with Changed MD5 Sum"
-#~ msgstr "Zobrazit obrázky a videa se změněným MD5 součtem"

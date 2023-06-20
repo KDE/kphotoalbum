@@ -319,7 +319,7 @@ msgstr "Corresponder etiquetas en todas partes"
 #: AnnotationDialog/Dialog.cpp:920
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
-msgstr "Mostrar só as seleccionadas Ctrl+S"
+msgstr "Amosar só as seleccionadas Ctrl+S"
 
 #: AnnotationDialog/Dialog.cpp:963
 #, kde-format
@@ -401,7 +401,7 @@ msgstr "Conmutar a ordenación"
 #: AnnotationDialog/Dialog.cpp:1305
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
-msgstr "Conmutar mostrando só os elementos escollidos"
+msgstr "Conmutar amosando só os elementos escollidos"
 
 #: AnnotationDialog/Dialog.cpp:1309
 #, kde-format
@@ -503,7 +503,7 @@ msgstr "Categoría para novas zonas:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
-msgstr "Agochar ou mostrar as zonas na imaxe"
+msgstr "Agochar ou amosar as zonas na imaxe"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:308
 #, kde-format
@@ -522,7 +522,7 @@ msgstr ""
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
 msgstr ""
-"As zonas dunha imaxe só poden mostrarse no modo de anotación dunha única "
+"As zonas dunha imaxe só poden amosarse no modo de anotación dunha única "
 "imaxe."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:342
@@ -585,7 +585,7 @@ msgstr "Ordenar pola data"
 #: AnnotationDialog/ListSelect.cpp:113
 #, kde-format
 msgid "Show only selected Ctrl+S"
-msgstr "Mostrar só as seleccionadas Ctrl+S"
+msgstr "Amosar só as seleccionadas Ctrl+S"
 
 #: AnnotationDialog/ListSelect.cpp:162
 #, kde-format
@@ -968,7 +968,7 @@ msgstr "Imaxes sen etiquetar"
 #: Browser/OverviewPage.cpp:172
 #, kde-format
 msgid "Show Thumbnails"
-msgstr "Mostrar as miniaturas"
+msgstr "Amosar as miniaturas"
 
 #: Browser/OverviewPage.cpp:253 Browser/OverviewPage.cpp:273
 #, kde-format
@@ -1122,12 +1122,12 @@ msgstr ""
 #: DateBar/DateBarWidget.cpp:689
 #, kde-format
 msgid "Show Ranges"
-msgstr "Mostrar os intervalos"
+msgstr "Amosar os intervalos"
 
 #: DateBar/DateBarWidget.cpp:695
 #, kde-format
 msgid "Show Resolution Indicator"
-msgstr "Mostrar o indicador de resolución"
+msgstr "Amosar o indicador de resolución"
 
 #: DateBar/DateBarWidget.cpp:820
 #, kde-format
@@ -1316,7 +1316,7 @@ msgstr ""
 #: DB/ImageDB.cpp:64
 #, kde-format
 msgid "Found Autosave File"
-msgstr "Atopouse un ficheiro de copia de seguranza"
+msgstr "Atopouse un ficheiro de copia de seguridade"
 
 #: DB/ImageDB.cpp:396
 #, kde-format
@@ -1467,7 +1467,7 @@ msgid ""
 msgstr ""
 "<p><b>Esta versión de KPhotoAlbum xa non traduce as categorías “estándar”.</"
 "b></p> <p>Isto podería significar que algunhas das súas categorías se "
-"mostrarán agora en inglés.</p> <p>Pode renomear manualmente as categorías en "
+"amosarán agora en inglés.</p> <p>Pode renomear manualmente as categorías en "
 "calquera momento e gardar a súa base de datos para aplicar os cambios.</"
 "p><p>Nalgúns casos, pode que obteña dúas categorías baleiras adicionais, "
 "«Cartafol» e «Tipo de contido»; pode eliminalas.</p>"
@@ -1501,7 +1501,7 @@ msgid ""
 msgstr ""
 "<p>As imaxes e vídeos non están ordenados, o que significa que a navegación "
 "mediante a barra de datas só funcionará de maneira non óptima.</p> <p>Use "
-"<b>Mantemento → Mostrar as imaxes con datas incompletas</b> para atopar as "
+"<b>Mantemento → Amosar as imaxes con datas incompletas</b> para atopar as "
 "imaxes nas que falte información.</p> </p>Poderá entón escoller aquelas nas "
 "que crea que a data é correcta ou nos datos Exif ou no ficheiro, e executar "
 "<b>Mantemento → Ler a información Exif</b> para ler de novo a información.</"
@@ -1656,7 +1656,7 @@ msgstr "liña %1 columna %2 no ficheiro %3: %4"
 #: DB/XML/FileReader.cpp:549
 #, kde-format
 msgid "Failed to recover the backup: %1"
-msgstr "Non se puido recuperar a copia de seguranza: %1"
+msgstr "Non se puido recuperar a copia de seguridade: %1"
 
 #: DB/XML/FileReader.cpp:560
 #, kde-format
@@ -1711,7 +1711,7 @@ msgstr "Produciuse un erro ao crear o ficheiro zip %1"
 #: DB/XML/NumberedBackup.cpp:41 DB/XML/NumberedBackup.cpp:46
 #, kde-format
 msgid "Error Making Numbered Backup"
-msgstr "Erro ao xerar unha copia de seguranza numerada"
+msgstr "Erro ao xerar unha copia de seguridade numerada"
 
 #: DB/XML/NumberedBackup.cpp:46
 #, kde-format
@@ -2173,7 +2173,7 @@ msgid ""
 "<p>This selection will generate video files suitable for displaying on web. "
 "avconv and ffmpeg2theora are required for video file generation.</p>"
 msgstr ""
-"<p>Esta selección xerará ficheiros de vídeo axeitados para mostrar en "
+"<p>Esta selección xerará ficheiros de vídeo axeitados para amosar en "
 "Internet. Para a xeración do ficheiro de vídeo necesítanse «avconv» e "
 "«ffmpeg2theora».</p>"
 
@@ -2257,7 +2257,7 @@ msgid ""
 "URL.</p><p>This only affects the generated <filename>.kim</filename> file.</"
 "p>"
 msgstr ""
-"<p>Se move a galería a un lugar remoto, estabeleza aquí o URL de destino.</"
+"<p>Se move a galería a un lugar remoto, defina aquí o URL de destino.</"
 "p><p>Isto só afecta ao ficheiro <filename>.kim</filename> xerado.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:342
@@ -2372,7 +2372,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:565
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
-msgstr "Hai máis dun tema configurado como predeterminado; emprégase o tema %1"
+msgstr "Hai máis dun tema configurado como predeterminado; úsase o tema %1"
 
 #: HTMLGenerator/HTMLDialog.cpp:572
 #, kde-format
@@ -2955,7 +2955,7 @@ msgid ""
 "Use data from\n"
 "Import File"
 msgstr ""
-"Empregar os datos do\n"
+"Usar os datos do\n"
 "ficheiro importado"
 
 #: ImportExport/MD5CheckPage.cpp:58
@@ -2964,7 +2964,7 @@ msgid ""
 "Use data from\n"
 "Database"
 msgstr ""
-"Empregar os datos da\n"
+"Usar os datos da\n"
 "base de datos"
 
 #: ImportExport/MD5CheckPage.cpp:61
@@ -3280,12 +3280,12 @@ msgid ""
 "is scanned in. So the question is, should KPhotoAlbum trust the time stamp "
 "on your images?"
 msgstr ""
-"Cando se le a información de tempo das imaxes emprégase a información Exif. "
+"Cando se le a información de tempo das imaxes úsase a información Exif. "
 "Porén esta pode non estar admitida pola súa instalación de KPhotoAlbum, ou "
 "poida que o ficheiro non conteña información correcta. Como copia de "
-"seguranza, KPhotoAlbum pode empregar a marca de tempo da imaxe, pero isto "
-"pode non ser correcto no caso de que a imaxe se dixitalice. Polo que a "
-"pregunta é: debe confiar KPhotoAlbum na marca de tempo das imaxes?"
+"seguridade, KPhotoAlbum pode usar a marca de tempo da imaxe, pero isto pode "
+"non ser correcto no caso de que a imaxe se dixitalice. Polo que a pregunta "
+"é: debe confiar KPhotoAlbum na marca de tempo das imaxes?"
 
 #: lib/kpabase/SettingsData.cpp:230
 #, kde-format
@@ -3539,7 +3539,7 @@ msgstr "Omitir as imaxes que xa estean nunha pila"
 #: MainWindow/CategoryImagePopup.cpp:49
 #, kde-format
 msgid "Show Category Editor"
-msgstr "Mostrar o editor de categorías"
+msgstr "Amosar o editor de categorías"
 
 #: MainWindow/CategoryImagePopup.cpp:70
 #, kde-format
@@ -3639,7 +3639,7 @@ msgid ""
 "<br/>The tag and description from the deleted images will be transferred to "
 "the kept image</p>"
 msgstr ""
-"<p>A continuación móstrase unha lista das imaxes que aparecen por duplicado "
+"<p>A continuación amósase unha lista das imaxes que aparecen por duplicado "
 "na base de datos.<br/>Seleccione as que queira xuntar, e cal dos duplicados "
 "debería conservarse.<br/>As etiquetas e a descrición das imaxes eliminadas "
 "transferirase á imaxe que se manteña.</p>"
@@ -3891,8 +3891,8 @@ msgstr "Non"
 #, kde-format
 msgid "Showing 1 thumbnail"
 msgid_plural "Showing %1 thumbnails"
-msgstr[0] "Estase a mostrar unha miniatura"
-msgstr[1] "Estanse a mostrar %1 miniaturas"
+msgstr[0] "Estase a amosar unha miniatura"
+msgstr[1] "Estanse a amosar %1 miniaturas"
 
 #: MainWindow/ImageCounter.cpp:26
 #, kde-format
@@ -3920,7 +3920,7 @@ msgstr "Buscar imaxes e vídeos aos que lles falte a data"
 #: MainWindow/InvalidDateFinder.cpp:40
 #, kde-format
 msgid "Which Images and Videos to Display"
-msgstr "Que imaxes e vídeos se han mostrar"
+msgstr "Que imaxes e vídeos se han amosar"
 
 #: MainWindow/InvalidDateFinder.cpp:44
 #, kde-format
@@ -3953,7 +3953,7 @@ msgstr "Información da imaxe"
 #, kde-format
 msgid "<h1>Here you may see the date changes for the displayed items.</h1>"
 msgstr ""
-"<h1>Aquí pode ver os cambios nas datas dos elementos que se mostran.</h1>"
+"<h1>Aquí pode ver os cambios nas datas dos elementos que se amosan.</h1>"
 
 #: MainWindow/InvalidDateFinder.cpp:88
 #, kde-format
@@ -4141,8 +4141,8 @@ msgid ""
 "If you use a specific tag to indicate that an image has been tagged, then "
 "specify it here."
 msgstr ""
-"Se emprega unha etiqueta específica para indicar que unha imaxe se "
-"etiquetou, indíqueo aquí."
+"Se usa unha etiqueta específica para indicar que unha imaxe se etiquetou, "
+"indíqueo aquí."
 
 #: MainWindow/StatisticsDialog.cpp:114 Settings/BirthdayPage.cpp:47
 #: Settings/UntaggedGroupBox.cpp:29
@@ -4406,7 +4406,7 @@ msgstr "Gardando… Feito."
 #: MainWindow/Window.cpp:656
 #, kde-format
 msgid "There are no images to be shown."
-msgstr "Non hai imaxes para mostrar."
+msgstr "Non hai imaxes para amosar."
 
 #: MainWindow/Window.cpp:745
 #, kde-format
@@ -4497,12 +4497,12 @@ msgstr "Expandir todas as medas"
 #: MainWindow/Window.cpp:847
 #, kde-format
 msgid "Show &Oldest First"
-msgstr "Mostrar primeir&o o máis vello"
+msgstr "Amosar primeir&o o máis vello"
 
 #: MainWindow/Window.cpp:852
 #, kde-format
 msgid "Show &Newest First"
-msgstr "Mostrar primeiro o máis &novo"
+msgstr "Amosar primeiro o máis &novo"
 
 #: MainWindow/Window.cpp:857
 #, kde-format
@@ -4562,7 +4562,7 @@ msgstr "Iconas"
 #: MainWindow/Window.cpp:912
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
-msgstr "Mostrar axudas na xanela de miniaturas"
+msgstr "Amosar axudas na xanela de miniaturas"
 
 #: MainWindow/Window.cpp:917
 #, fuzzy, kde-format
@@ -4584,12 +4584,12 @@ msgstr ""
 #: MainWindow/Window.cpp:952
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
-msgstr "Mostrar as imaxes e vídeos que non estean no disco"
+msgstr "Amosar as imaxes e vídeos que non estean no disco"
 
 #: MainWindow/Window.cpp:955
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
-msgstr "Mostrar as imaxes e vídeos que teñan datas incompletas…"
+msgstr "Amosar as imaxes e vídeos que teñan datas incompletas…"
 
 #: MainWindow/Window.cpp:958
 #, kde-format
@@ -4660,7 +4660,7 @@ msgstr "Estado das funcionalidades de KPhotoAlbum"
 #: MainWindow/Window.cpp:1010
 #, kde-format
 msgid "Show Demo Videos"
-msgstr "Mostrar os vídeos de demostración"
+msgstr "Amosar os vídeos de demostración"
 
 #: MainWindow/Window.cpp:1014 Viewer/ViewerWidget.cpp:195
 #, fuzzy, kde-format
@@ -4782,7 +4782,7 @@ msgid ""
 "show-again check box?</p>"
 msgstr ""
 "<p>Está seguro de que quere activar todas as mensaxes nas que anteriormente "
-"se marcou a opción de non mostrar de novo?</p>"
+"se marcou a opción de non amosar de novo?</p>"
 
 #: MainWindow/Window.cpp:1480
 #, kde-format
@@ -4871,7 +4871,7 @@ msgid ""
 "the ffmpeg package</p>"
 msgstr ""
 "<p>Non se pode atopar ffmpeg no sistema.</p> <p>Sen el, KPhotoAlbum non "
-"poderá mostrar miniaturas de vídeos nin a súa duración. Instale ffmpeg.</p>"
+"poderá amosar miniaturas de vídeos nin a súa duración. Instale ffmpeg.</p>"
 
 #: MainWindow/Window.cpp:1850
 #, kde-format
@@ -5243,7 +5243,7 @@ msgstr "Escoller velocidade antes que lexibilidade no ficheiro index.xml"
 #: Settings/DatabaseBackendPage.cpp:27
 #, kde-format
 msgid "Compress backup file"
-msgstr "Comprimir o ficheiro da copia de seguranza"
+msgstr "Comprimir o ficheiro da copia de seguridade"
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -5258,7 +5258,7 @@ msgstr "min."
 #: Settings/DatabaseBackendPage.cpp:45
 #, kde-format
 msgid "Number of backups to keep:"
-msgstr "Número de copias de seguranza que manter:"
+msgstr "Número de copias de seguridade que manter:"
 
 #: Settings/DatabaseBackendPage.cpp:50
 #, kde-format
@@ -5279,9 +5279,9 @@ msgstr ""
 "<p>KPhotoAlbum pode salvagardar o ficheiro index.xml mantendo copias co nome "
 "index.xml~1~ index.xml~2~ etc. utilizando esta caixa para indicar o número "
 "de ficheiros que manter. KPhotoAlbum eliminará o máis antigo cando acade o "
-"máximo de ficheiros de seguranza.</p><p>O ficheiro index.xml pode tornarse "
+"máximo de ficheiros de seguridade.</p><p>O ficheiro index.xml pode tornarse "
 "grande se tiver moitas imaxes e nese caso é útil pedirlle a KPhotoAlbum que "
-"comprima os ficheiros de seguranza para preservar espazo en disco.</p>"
+"comprima os ficheiros de seguridade para preservar espazo en disco.</p>"
 
 #: Settings/DatabaseBackendPage.cpp:67
 #, kde-format
@@ -5299,12 +5299,12 @@ msgstr ""
 #: Settings/ExifPage.cpp:28
 #, kde-format
 msgid "Exif/IPTC info to show in the viewer"
-msgstr "Información Exif/IPTC que mostrar no visor"
+msgstr "Información Exif/IPTC que amosar no visor"
 
 #: Settings/ExifPage.cpp:31
 #, kde-format
 msgid "Exif/IPTC info to show in the Exif dialog"
-msgstr "Información Exif/IPTC que mostrar no diálogo Exif"
+msgstr "Información Exif/IPTC que amosar no diálogo Exif"
 
 #: Settings/ExifPage.cpp:34
 #, kde-format
@@ -5484,11 +5484,11 @@ msgid ""
 msgstr ""
 "<p>Unha expresión regular en perl que coincida cun ficheiro modificado."
 "<ul><li>Un punto coincide cun único carácter  (<tt>\\.</tt> coincide cun "
-"punto)</li><li>Pódense empregar os cuantificadores <tt>*</tt>,<tt>+</tt>,"
-"<tt>?</tt> ou pódense facer equivaler varias aparicións dunha expresión "
-"empregando chaves (p.ex. <tt>e{0,1}</tt> equivale a 0 ou 1 aparicións do "
-"carácter «e»).</li>   <li>Pódense agrupar partes da expresión empregando "
-"parénteses.</li> </ul>Exemplo: <tt>-modified\\.(jpg|tiff)</tt> </p>"
+"punto)</li><li>Pódense usar os cuantificadores <tt>*</tt>,<tt>+</tt>,<tt>?</"
+"tt> ou pódense facer equivaler varias aparicións dunha expresión usando "
+"chaves (p.ex. <tt>e{0,1}</tt> equivale a 0 ou 1 aparicións do carácter «e»)."
+"</li>   <li>Pódense agrupar partes da expresión usando parénteses.</li> </"
+"ul>Exemplo: <tt>-modified\\.(jpg|tiff)</tt> </p>"
 
 #: Settings/FileVersionDetectionPage.cpp:133
 #, kde-format
@@ -5498,9 +5498,9 @@ msgid ""
 "string is used to replace the match in the new file's name until an original "
 "file is found or we run out of options.</p>"
 msgstr ""
-"<p>Unha cadea que se emprega para substituír a equivalencia da <i>expresión "
+"<p>Unha cadea que se usa para substituír a equivalencia da <i>expresión "
 "regular de busca de versións de ficheiros</i>. Pode ser unha lista separada "
-"por puntos e comas (<tt>;</tt>). Cada cadea emprégase para substituír a "
+"por puntos e comas (<tt>;</tt>). Cada cadea úsase para substituír a "
 "equivalencia do novo nome do ficheiro ata que se atopa un ficheiro orixinal "
 "ou se esgotan as opcións.</p>"
 
@@ -5715,7 +5715,7 @@ msgstr "Eliminar as descricións predeterminadas que xera a cámara"
 #, kde-format
 msgid "Use the embedded thumbnail in RAW file or halfsized RAW"
 msgstr ""
-"Empregar a miniatura incorporada no ficheiro RAW ou RAW da metade de tamaño"
+"Usar a miniatura incorporada no ficheiro RAW ou RAW da metade de tamaño"
 
 #: Settings/GeneralPage.cpp:72
 #, kde-format
@@ -5730,7 +5730,7 @@ msgstr "Histograma"
 #: Settings/GeneralPage.cpp:93
 #, kde-format
 msgid "Show histogram"
-msgstr "Mostrar o histograma"
+msgstr "Amosar o histograma"
 
 #: Settings/GeneralPage.cpp:98
 #, kde-format
@@ -5745,7 +5745,7 @@ msgstr "Tamaño das columnas do histograma na barra de datas:"
 #: Settings/GeneralPage.cpp:123
 #, kde-format
 msgid "Show splash screen"
-msgstr "Mostrar a pantalla de benvida"
+msgstr "Amosar a pantalla de benvida"
 
 #: Settings/GeneralPage.cpp:127
 #, kde-format
@@ -5798,7 +5798,7 @@ msgstr ""
 #: Settings/GeneralPage.cpp:158
 #, kde-format
 msgid "Show the KPhotoAlbum splash screen on start up"
-msgstr "Mostrar a pantalla de presentación de KPhotoAlbum no inicio"
+msgstr "Amosar a pantalla de presentación de KPhotoAlbum no inicio"
 
 #: Settings/GeneralPage.cpp:162
 #, kde-format
@@ -5810,7 +5810,7 @@ msgid ""
 "automatically on start up. Alternatively, you can click the connection icon "
 "in the status bar to start listening."
 msgstr ""
-"<p>KPhotoAlbum pode mostrar as imaxes en dispositivos con Android. "
+"<p>KPhotoAlbum pode amosar as imaxes en dispositivos con Android. "
 "KPhotoAlbum emparellarase automaticamente co aplicativo de Android. Porén, "
 "para usar esta funcionalidade a súa versión de escritorio de KPhotoAlbum "
 "debe ter activada a detección de mensaxes de anuncio. Marque esta opción "
@@ -6101,17 +6101,17 @@ msgstr "Espazo arredor das celas:"
 #: Settings/ThumbnailsPage.cpp:69
 #, kde-format
 msgid "Display grid around thumbnails"
-msgstr "Mostrar unha grade arredor das miniaturas"
+msgstr "Amosar unha grade arredor das miniaturas"
 
 #: Settings/ThumbnailsPage.cpp:74
 #, kde-format
 msgid "Display labels in thumbnail view"
-msgstr "Mostrar as etiquetas na vista de miniaturas"
+msgstr "Amosar as etiquetas na vista de miniaturas"
 
 #: Settings/ThumbnailsPage.cpp:79
 #, kde-format
 msgid "Display categories in thumbnail view"
-msgstr "Mostrar as categorías na vista de miniaturas"
+msgstr "Amosar as categorías na vista de miniaturas"
 
 #: Settings/ThumbnailsPage.cpp:84
 #, kde-format
@@ -6132,8 +6132,8 @@ msgid ""
 "thumbnails. This window includes a small preview image. This option "
 "configures the image size.</p>"
 msgstr ""
-"<p>Se escolle <b>Configuración -&gt; Mostrar suxestións</b> na vista de "
-"miniaturas, verá unha xaneliña con axudas que mostran información sobre as "
+"<p>Se escolle <b>Configuración -&gt; Amosar suxestións</b> na vista de "
+"miniaturas, verá unha xaneliña con axudas que amosan información sobre as "
 "miniaturas. Esta xaneliña inclúe unha pequena vista previa da imaxe. Esta "
 "opción configura o tamaño da imaxe</p>"
 
@@ -6165,7 +6165,7 @@ msgstr ""
 "imaxes que teña.</p> <p>Se non marca esta opción, KPhotoAlbum construirá "
 "sempre miniaturas para todas as imaxes o antes posíbel. Isto significa que "
 "cando atope novas imaxes, KPhotoAlbum contruirá miniaturas para elas "
-"inmediatamente e non tardará un anaco en mostralas máis tarde cando vostede "
+"inmediatamente e non tardará un anaco en amosalas máis tarde cando vostede "
 "navegue polas imaxes.</p>"
 
 #: Settings/ThumbnailsPage.cpp:117
@@ -6213,8 +6213,8 @@ msgid ""
 "showing the browser until you press <i>Show Images</i></p>"
 msgstr ""
 "<p>Cando está a navegar, se o número baixa do valor aquí indicado, as "
-"miniaturas mostraranse automaticamente. A alternativa é continuar a mostrar "
-"o navegador ata que prema <i>Mostrar as imaxes</i></p>"
+"miniaturas mostraranse automaticamente. A alternativa é continuar a amosar o "
+"navegador ata que prema <i>Amosar as imaxes</i></p>"
 
 #: Settings/UntaggedGroupBox.cpp:22
 #, kde-format
@@ -6230,7 +6230,7 @@ msgstr ""
 #: Settings/UntaggedGroupBox.cpp:43
 #, kde-format
 msgid "Show the untagged images tag as a normal tag"
-msgstr "Mostrar a etiqueta das imaxes sen etiquetar como unha etiqueta normal"
+msgstr "Amosar a etiqueta das imaxes sen etiquetar como unha etiqueta normal"
 
 #: Settings/UntaggedGroupBox.cpp:52
 #, kde-format
@@ -6392,11 +6392,11 @@ msgid ""
 "pixel if it would fit the window, otherwise it will be shrunk to fit the "
 "viewer.</p>"
 msgstr ""
-"<p>Configura o tamaño estándar co que se mostran as imaxes no visor.</p> "
+"<p>Configura o tamaño estándar co que se amosan as imaxes no visor.</p> "
 "<p><b>Todo o espazo do visor</b> indica que a imaxe se ampliará ou reducida "
 "para axustarse á xanela do visor.</p> <p><b>Tamaño natural das Imaxes</b> "
-"indica que a imaxe se mostrará píxel por píxel.</p> <p><b>Tamaño natural das "
-"imaxes se é posíbel</b> indica que a imaxe se mostrará píxel por píxel se "
+"indica que a imaxe se amosará píxel por píxel.</p> <p><b>Tamaño natural das "
+"imaxes se é posíbel</b> indica que a imaxe se amosará píxel por píxel se "
 "couber na xanela, e que noutro caso se reducirá ao tamaño do visor.</p>"
 
 #: Settings/ViewerPage.cpp:87
@@ -6421,9 +6421,9 @@ msgid ""
 "the image. If this option is not set, KPhotoAlbum will use a faster but less "
 "smooth scaling method.</p>"
 msgstr ""
-"<p>Ao mostrar imaxes, KPhotoAlbum polo xeral fará unha ampliación ou "
-"redución suave da imaxe. Se esta opción non estiver escollida, KPhotoAlbum "
-"usa un método de axuste do tamaño máis rápido pero menos suave.</p>"
+"<p>Ao amosar imaxes, KPhotoAlbum polo xeral fará unha ampliación ou redución "
+"suave da imaxe. Se esta opción non estiver escollida, KPhotoAlbum usa un "
+"método de axuste do tamaño máis rápido pero menos suave.</p>"
 
 #: Settings/ViewerPage.cpp:99
 #, fuzzy, kde-format
@@ -6712,7 +6712,7 @@ msgstr "[ ampliación x%1 ]"
 #: Viewer/InfoBox.cpp:60
 #, kde-format
 msgid "Show the geographic position of this image on a map"
-msgstr "Mostrar a posición xeográfica desta imaxe nun mapa"
+msgstr "Amosar a posición xeográfica desta imaxe nun mapa"
 
 #: Viewer/PhononDisplay.cpp:183
 #, kde-format
@@ -6837,7 +6837,7 @@ msgstr "Última"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
-msgstr "Mostrar a seguinte"
+msgstr "Amosar a seguinte"
 
 #: Viewer/ViewerWidget.cpp:313
 #, kde-format
@@ -6861,7 +6861,7 @@ msgstr "Saltar 1000 cara diante"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
-msgstr "Mostrar a anterior"
+msgstr "Amosar a anterior"
 
 #: Viewer/ViewerWidget.cpp:337
 #, kde-format
@@ -6945,13 +6945,13 @@ msgstr "Iniciar a presentación"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
-msgstr "Mostrar máis apresa"
+msgstr "Amosar máis apresa"
 
 #: Viewer/ViewerWidget.cpp:422
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
-msgstr "Mostrar máis a modo"
+msgstr "Amosar máis a modo"
 
 #: Viewer/ViewerWidget.cpp:457
 #, kde-format
@@ -7139,57 +7139,57 @@ msgstr ""
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format
 msgid "Show..."
-msgstr "Mostrar…"
+msgstr "Amosar…"
 
 #: Viewer/VisibleOptionsMenu.cpp:24
 #, kde-format
 msgid "Show"
-msgstr "Mostrar"
+msgstr "Amosar"
 
 #: Viewer/VisibleOptionsMenu.cpp:28
 #, kde-format
 msgid "Show Info Box"
-msgstr "Mostrar a xanela de informacións"
+msgstr "Amosar a xanela de informacións"
 
 #: Viewer/VisibleOptionsMenu.cpp:35
 #, kde-format
 msgid "Show Label"
-msgstr "Mostrar a etiqueta"
+msgstr "Amosar a etiqueta"
 
 #: Viewer/VisibleOptionsMenu.cpp:40
 #, kde-format
 msgid "Show Description"
-msgstr "Mostrar a descrición"
+msgstr "Amosar a descrición"
 
 #: Viewer/VisibleOptionsMenu.cpp:45
 #, kde-format
 msgid "Show Date"
-msgstr "Mostrar a data"
+msgstr "Amosar a data"
 
 #: Viewer/VisibleOptionsMenu.cpp:50
 #, kde-format
 msgid "Show Time"
-msgstr "Mostrar a hora"
+msgstr "Amosar a hora"
 
 #: Viewer/VisibleOptionsMenu.cpp:56
 #, kde-format
 msgid "Show Filename"
-msgstr "Mostrar o nome do ficheiro"
+msgstr "Amosar o nome do ficheiro"
 
 #: Viewer/VisibleOptionsMenu.cpp:61
 #, kde-format
 msgid "Show Exif"
-msgstr "Mostrar Exif"
+msgstr "Amosar Exif"
 
 #: Viewer/VisibleOptionsMenu.cpp:66
 #, kde-format
 msgid "Show Image Size"
-msgstr "Mostrar o tamaño da imaxe"
+msgstr "Amosar o tamaño da imaxe"
 
 #: Viewer/VisibleOptionsMenu.cpp:71
 #, kde-format
 msgid "Show Rating"
-msgstr "Mostrar a puntuación"
+msgstr "Amosar a puntuación"
 
 #~ msgid "Display Images and Videos with Changed MD5 Sum"
 #~ msgstr "Mostrar as imaxes e vídeos coa suma MD5 cambiada"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-06-12 00:48+0000\n"
-"PO-Revision-Date: 2023-05-02 15:15+0200\n"
+"PO-Revision-Date: 2023-06-23 08:09+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.04.0\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -880,7 +880,7 @@ msgstr "Geo pozice"
 #: Browser/OverviewPage.cpp:143
 #, kde-format
 msgid "Exif Info"
-msgstr "Informace EXIF"
+msgstr "Informace Exif"
 
 #: Browser/OverviewPage.cpp:154
 #, kde-format
@@ -1627,7 +1627,7 @@ msgstr "Chyba při čtení souboru databáze"
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
-msgstr "Informace EXIF a metadata souboru"
+msgstr "Informace Exif a metadata souboru"
 
 #: Exif/InfoDialog.cpp:73
 #, kde-format
@@ -1644,7 +1644,7 @@ msgstr "Znaková sada IPTC:"
 #: Exif/InfoDialog.cpp:95
 #, kde-format
 msgid "Exif info"
-msgstr "Informace EXIF"
+msgstr "Informace Exif"
 
 #: Exif/InfoDialog.cpp:96
 #, kde-format
@@ -1787,7 +1787,7 @@ msgstr "Přepsat datum obrázků"
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Search"
-msgstr "Hledání v EXIF"
+msgstr "Hledání v Exif"
 
 #: Exif/SearchDialog.cpp:34
 #, kde-format
@@ -3023,14 +3023,14 @@ msgid ""
 msgstr ""
 "<p>Při přístupu k vyhledávací databázi Exif se vyskytla chyba. To je "
 "nejspíše způsobeno poškozeným souborem databáze.</p><p>Pro opravu tohoto "
-"problému spusťte Správa->Znovu vytvořit vyhledávací databázi EXIF.</p><hr/"
+"problému spusťte Správa->Znovu vytvořit vyhledávací databázi Exif.</p><hr/"
 "><p>Pro hledání chyb: příkaz, který se pokoušel o vykonání:<br/>%1</"
 "p><p>Obdržené chybové hlášení:<br/>%2</p>"
 
 #: lib/kpaexif/Database.cpp:188
 #, kde-format
 msgid "Error in Exif database"
-msgstr "Chyba v databázi EXIF"
+msgstr "Chyba v databázi Exif"
 
 #: lib/kpaexif/Database.cpp:209
 #, kde-format
@@ -3040,7 +3040,7 @@ msgid ""
 "error message obtained was:<br/>%1</p>"
 msgstr ""
 "<p>Při otevírání vyhledávací databáze Exif došlo k chybě.</p><p>Pro opravu "
-"tohoto problému spusťte Správa->Znovu vytvořit vyhledávací databázi EXIF.</"
+"tohoto problému spusťte Správa->Znovu vytvořit vyhledávací databázi Exif.</"
 "p><hr/><p>Obdržené chybové hlášení:<br/>%1</p>"
 
 #: lib/kpaexif/Database.cpp:259
@@ -3471,7 +3471,7 @@ msgid ""
 msgstr ""
 "<h1><a name=\"database\">Podpora databáze SQLite</a></h1><p>KPhotoAlbum vám "
 "umožňuje vyhledávat podle určitých značek Exif. K tomu KPhotoAlbum potřebuje "
-"databázi Sqlite. Dodatečně musí být nainstalován Qt balíček pro sqlite (např."
+"databázi SQLite. Dodatečně musí být nainstalován Qt balíček pro sqlite (např."
 "qt-sql-sqlite).</p>"
 
 #: MainWindow/FeatureDialog.cpp:59
@@ -4199,7 +4199,7 @@ msgstr "Znovu vyhledat obrázky a videa"
 #: MainWindow/Window.cpp:967
 #, kde-format
 msgid "Recreate Exif Search Database"
-msgstr "Znovu vytvořit vyhledávací databázi EXIF"
+msgstr "Znovu vytvořit vyhledávací databázi Exif"
 
 #: MainWindow/Window.cpp:970
 #, kde-format
@@ -4254,7 +4254,7 @@ msgstr "Zobrazit ukázková videa"
 #: MainWindow/Window.cpp:1014 Viewer/ViewerWidget.cpp:195
 #, kde-format
 msgid "Show Exif Info and file metadata"
-msgstr "Zobrazovat informace EXIF a metadata souboru"
+msgstr "Zobrazovat informace Exif a metadata souboru"
 
 #: MainWindow/Window.cpp:1020
 #, kde-format
@@ -6584,7 +6584,7 @@ msgstr "Zobrazit název souboru"
 #: Viewer/VisibleOptionsMenu.cpp:61
 #, kde-format
 msgid "Show Exif"
-msgstr "Zobrazit EXIF"
+msgstr "Zobrazit Exif"
 
 #: Viewer/VisibleOptionsMenu.cpp:66
 #, kde-format

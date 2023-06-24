@@ -6193,7 +6193,7 @@ msgid ""
 "<p>Checking this option will show the base name for the file under "
 "thumbnails in the thumbnail view.</p>"
 msgstr ""
-"<p>De marcar esta opción, mostraranse os nomes base dos ficheiros baixo as "
+"<p>De marcar esta opción, amosaranse os nomes base dos ficheiros baixo as "
 "miniaturas na vista das miniaturas</p>"
 
 #: Settings/ThumbnailsPage.cpp:131
@@ -6202,7 +6202,7 @@ msgid ""
 "<p>Checking this option will show the Categories for the file under "
 "thumbnails in the thumbnail view</p>"
 msgstr ""
-"<p>De marcar esta opción, mostraranse as categorías dos ficheiros baixo as "
+"<p>De marcar esta opción, amosaranse as categorías dos ficheiros baixo as "
 "miniaturas na vista das miniaturas</p>"
 
 #: Settings/ThumbnailsPage.cpp:135
@@ -6213,7 +6213,7 @@ msgid ""
 "showing the browser until you press <i>Show Images</i></p>"
 msgstr ""
 "<p>Cando está a navegar, se o número baixa do valor aquí indicado, as "
-"miniaturas mostraranse automaticamente. A alternativa é continuar a amosar o "
+"miniaturas amosaranse automaticamente. A alternativa é continuar a amosar o "
 "navegador ata que prema <i>Amosar as imaxes</i></p>"
 
 #: Settings/UntaggedGroupBox.cpp:22

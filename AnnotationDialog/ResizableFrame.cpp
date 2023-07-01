@@ -1,5 +1,7 @@
-// SPDX-FileCopyrightText: 2014-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2014-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2017 Jonathan Riddell <jr@jriddell.org>
+// SPDX-FileCopyrightText: 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -476,7 +478,9 @@ void AnnotationDialog::ResizableFrame::addTagActions(QMenu *menu)
 
         QList<QPair<QString, QString>> positionableTagCandidates = m_dialog->positionableTagCandidates();
         // If we have a last selected positionable tag: remove it
-        positionableTagCandidates.removeAt(positionableTagCandidates.indexOf(lastSelectedPositionableTag));
+        const auto lastIndex = positionableTagCandidates.indexOf(lastSelectedPositionableTag);
+        if (lastIndex >= 0)
+            positionableTagCandidates.removeAt(lastIndex);
 
         // If we still have candidates:
         if (positionableTagCandidates.length() > 0) {

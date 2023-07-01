@@ -77,9 +77,16 @@
 #include <stdlib.h>
 #endif
 
+#include <kconfigwidgets_version.h>
+#include <kio_version.h> // for #if KIO_VERSION...
+#include <kwidgetsaddons_version.h>
+
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KColorSchemeManager>
+#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(5, 107, 0)
+#include <KColorSchemeMenu>
+#endif
 #include <KConfigGroup>
 #include <KEditToolBar>
 #include <KIconLoader>
@@ -115,10 +122,7 @@
 #include <QTimer>
 #include <QVBoxLayout>
 #include <functional>
-#include <kconfigwidgets_version.h>
-#include <kio_version.h> // for #if KIO_VERSION...
 #include <ktip.h>
-#include <kwidgetsaddons_version.h>
 
 using namespace DB;
 
@@ -937,7 +941,14 @@ void MainWindow::Window::setupMenuBar()
     const QString schemePath = Settings::SettingsData::instance()->colorScheme();
     const auto schemeCfg = KSharedConfig::openConfig(schemePath);
     const QString activeSchemeName = schemeCfg->group("General").readEntry("Name", QFileInfo(schemePath).baseName());
+#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(5, 107, 0)
+    const auto activeSchemeIndex = schemes->indexForScheme(activeSchemeName);
+    if (activeSchemeIndex.isValid())
+        schemes->activateScheme(activeSchemeIndex);
+    m_colorSchemeMenu = KColorSchemeMenu::createMenu(schemes, this);
+#else
     m_colorSchemeMenu = schemes->createSchemeSelectionMenu(activeSchemeName, this);
+#endif
     m_colorSchemeMenu->setText(i18n("Choose Color Scheme"));
     m_colorSchemeMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("color")));
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)

@@ -1,6 +1,13 @@
-Please refer to https://community.kde.org/KPhotoAlbum/build_instructions for a
+Installing KPhotoAlbum
+======================
+
+If you just want to install KPhotoAlbum on your system, please go to https://apps.kde.org/kphotoalbum/ and follow the instructions.
+
+To build and install KPhotoAlbum from source, please refer to https://community.kde.org/KPhotoAlbum/build_instructions for a
 description on how to compile KPhotoAlbum and its dependencies.
+
 
 ----
 SPDX-FileCopyrightText: 2004-2009 Jesper Pedersen <blackie@blackie.dk>
+SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 SPDX-License-Identifier: CC-BY-SA-4.0

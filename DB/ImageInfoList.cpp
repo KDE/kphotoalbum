@@ -1,5 +1,13 @@
-// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2005 Stephan Binner <binner@kde.org>
+// SPDX-FileCopyrightText: 2005-2013 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2007 Baptiste Mathus <ml@batmat.net>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2008 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2020 Robert Krawitz <rlk@alum.mit.edu>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -74,6 +82,9 @@ ImageInfoList ImageInfoList::sort() const
 
 void ImageInfoList::sortAndMergeBackIn(ImageInfoList &subListToSort)
 {
+    if (subListToSort.isEmpty()) {
+        return;
+    }
     ImageInfoList sorted = subListToSort.sort();
 
     const int insertIndex = indexOf(subListToSort[0]);

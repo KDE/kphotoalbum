@@ -19,24 +19,17 @@ KPhotoAlbum uses [KDE Bugzilla](https://bugs.kde.org/buglist.cgi?bug_status=UNCO
 Mailing List
 ============
 
-KPhotoAlbum has a mailing list at
-
-    https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum
-
-where you might find answers to common questions, plus get information
-about KPhotoAlbum development, plus of course ask questions.
+KPhotoAlbum has a [mailing list](https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum),
+where you might find answers to common questions.
+Please use this mailing list to get information about KPhotoAlbum development, or to ask questions.
 
 
 WIKI
 ====
 
-KPhotoAlbum has a user wiki at
+KPhotoAlbum has a wiki page for users at https://userbase.kde.org/KPhotoAlbum.
 
-    https://userbase.kde.org/KPhotoAlbum
-
-For developer topics, there also is a developer-centric wiki at
-
-    https://community.kde.org/KPhotoAlbum
+For developer topics, there also is a developer-centric wiki at https://community.kde.org/KPhotoAlbum
 
 
 Installation Instructions

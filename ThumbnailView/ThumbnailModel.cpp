@@ -1,5 +1,10 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2009-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2015 Andreas Neustifter <andreas.neustifter@gmail.com>
+// SPDX-FileCopyrightText: 2015-2022 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -61,6 +66,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
      * intermingled in the result so we need to know this ahead before
      * creating the display list.
      */
+    m_allStacks.clear();
     typedef QList<DB::FileName> StackList;
     typedef QMap<DB::StackID, StackList> StackMap;
     StackMap stackContents;
@@ -68,6 +74,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
         const DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(fileName);
         if (imageInfo && imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
+            m_allStacks << stackid;
             stackContents[stackid].append(fileName);
         }
     }
@@ -116,7 +123,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     updateIndexCache();
 
     Q_EMIT collapseAllStacksEnabled(m_expandedStacks.size() > 0);
-    Q_EMIT expandAllStacksEnabled(m_allStacks.size() != model()->m_expandedStacks.size());
+    Q_EMIT expandAllStacksEnabled(m_allStacks.size() != m_expandedStacks.size());
     endResetModel();
     qCInfo(TimingLog) << "ThumbnailModel::updateDisplayModel(): " << timer.restart() << "ms.";
 }
@@ -126,13 +133,13 @@ void ThumbnailView::ThumbnailModel::toggleStackExpansion(const DB::FileName &fil
     const DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(fileName);
     if (imageInfo) {
         DB::StackID stackid = imageInfo->stackId();
-        model()->beginResetModel();
+        beginResetModel();
         if (m_expandedStacks.contains(stackid))
             m_expandedStacks.remove(stackid);
         else
             m_expandedStacks.insert(stackid);
+        endResetModel();
         updateDisplayModel();
-        model()->endResetModel();
     }
 }
 
@@ -151,12 +158,6 @@ void ThumbnailView::ThumbnailModel::expandAllStacks()
 void ThumbnailView::ThumbnailModel::setImageList(const DB::FileNameList &items)
 {
     m_imageList = items;
-    m_allStacks.clear();
-    for (const DB::FileName &fileName : items) {
-        const DB::ImageInfoPtr info = DB::ImageDB::instance()->info(fileName);
-        if (info && info->isStacked())
-            m_allStacks << info->stackId();
-    }
     updateDisplayModel();
     preloadThumbnails();
 }

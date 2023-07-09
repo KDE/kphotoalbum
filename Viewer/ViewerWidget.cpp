@@ -245,7 +245,7 @@ void Viewer::ViewerWidget::inhibitScreenSaver(bool inhibit)
         message << QString(QString::fromLatin1("Giving a slideshow"));
         QDBusMessage reply = QDBusConnection::sessionBus().call(message);
         if (reply.type() == QDBusMessage::ReplyMessage)
-            m_screenSaverCookie = reply.arguments().first().toInt();
+            m_screenSaverCookie = reply.arguments().constFirst().toInt();
     } else {
         if (m_screenSaverCookie != -1) {
             message = QDBusMessage::createMethodCall(QString::fromLatin1("org.freedesktop.ScreenSaver"), QString::fromLatin1("/ScreenSaver"),
@@ -511,7 +511,7 @@ void Viewer::ViewerWidget::setCaptionWithDetail(const QString &detail)
 
 void Viewer::ViewerWidget::slotRemoveDeletedImages(const DB::FileNameList &imageList)
 {
-    for (auto filename : imageList) {
+    for (const auto &filename : imageList) {
         m_list.removeAll(filename);
     }
 }

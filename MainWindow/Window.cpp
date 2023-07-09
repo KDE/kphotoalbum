@@ -548,7 +548,7 @@ void MainWindow::Window::slotPasteInformation()
     if (!mimeData->hasUrls() || mimeData->urls().length() != 1)
         return;
 
-    const QUrl url = mimeData->urls().first();
+    const QUrl url = mimeData->urls().constFirst();
     if (!url.isLocalFile())
         return;
 
@@ -1141,7 +1141,7 @@ bool MainWindow::Window::load()
         KConfigGroup config = KSharedConfig::openConfig()->group(QString::fromUtf8("General"));
         if (config.hasKey(QString::fromLatin1("imageDBFile"))) {
             configFile = config.readEntry<QString>(QString::fromLatin1("imageDBFile"), QString());
-            if (!QFileInfo(configFile).exists())
+            if (!QFileInfo::exists(configFile))
                 showWelcome = true;
         } else
             showWelcome = true;
@@ -1291,7 +1291,7 @@ void MainWindow::Window::triggerCopyLinkAction(CopyLinkEngine::Action action)
     }
 
     QList<QUrl> selectedFiles;
-    for (const QString &path : selection) {
+    for (const QString &path : qAsConst(selection)) {
         selectedFiles.append(QUrl::fromLocalFile(path));
     }
 
@@ -1515,7 +1515,7 @@ void MainWindow::Window::setupPluginMenu()
     Plugins::PurposeMenu *purposeMenu = new Plugins::PurposeMenu(menu);
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::selectionChanged,
             purposeMenu, &Plugins::PurposeMenu::slotSelectionChanged);
-    connect(purposeMenu, &Plugins::PurposeMenu::imageShared, [this](QUrl shareLocation) {
+    connect(purposeMenu, &Plugins::PurposeMenu::imageShared, this, [this](QUrl shareLocation) {
         QString message;
         if (shareLocation.isValid()) {
             message = i18n("Successfully shared image(s). Copying location to clipboard...");
@@ -1525,7 +1525,7 @@ void MainWindow::Window::setupPluginMenu()
         }
         m_statusBar->showMessage(message);
     });
-    connect(purposeMenu, &Plugins::PurposeMenu::imageSharingFailed, [this](QString errorMessage) {
+    connect(purposeMenu, &Plugins::PurposeMenu::imageSharingFailed, this, [this](QString errorMessage) {
         QString message = i18n("Image sharing failed with message: %1", errorMessage);
         m_statusBar->showMessage(message);
     });
@@ -1767,7 +1767,7 @@ void MainWindow::Window::setupStatusBar()
     m_statusBar = new MainWindow::StatusBar;
     setStatusBar(m_statusBar);
     setLocked(Settings::SettingsData::instance()->locked(), true, false);
-    connect(m_statusBar, &StatusBar::thumbnailSettingsRequested, [this]() { this->slotOptions(); m_settingsDialog->activatePage(Settings::SettingsPage::ThumbnailsPage); });
+    connect(m_statusBar, &StatusBar::thumbnailSettingsRequested, this, [this]() { this->slotOptions(); m_settingsDialog->activatePage(Settings::SettingsPage::ThumbnailsPage); });
 }
 
 void MainWindow::Window::slotRecreateExifDB()

@@ -503,11 +503,11 @@ QMap<QString, CountWithRange> ImageDB::classify(const ImageSearchInfo &info, con
     if (currentMatchTxt.isEmpty())
         noMatchInfo.setCategoryMatchText(category, DB::ImageDB::NONE());
     else
-        noMatchInfo.setCategoryMatchText(category, QString::fromLatin1("%1 & %2").arg(currentMatchTxt).arg(DB::ImageDB::NONE()));
+        noMatchInfo.setCategoryMatchText(category, QString::fromLatin1("%1 & %2").arg(currentMatchTxt, DB::ImageDB::NONE()));
     noMatchInfo.setCacheable(false);
 
     // Iterate through the whole database of images.
-    for (const auto &imageInfo : m_images) {
+    for (const auto &imageInfo : qAsConst(m_images)) {
         bool match = ((imageInfo)->mediaType() & typemask) && !(imageInfo)->isLocked() && info.match(imageInfo) && rangeInclude(imageInfo);
         if (match) { // If the given image is currently matched.
 
@@ -516,7 +516,7 @@ QMap<QString, CountWithRange> ImageDB::classify(const ImageSearchInfo &info, con
             // to count.
             StringSet items = (imageInfo)->itemsOfCategory(category);
             counter.count(items, imageInfo->date());
-            for (const auto &categoryName : items) {
+            for (const auto &categoryName : qAsConst(items)) {
                 if (!alreadyMatched.contains(categoryName)) // We do not want to match "Jesper & Jesper"
                     map[categoryName].add(imageInfo->date());
             }
@@ -956,7 +956,7 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
                         qCWarning(DBLog) << "Manual fix required for image" << info->fileName().relative();
                         qCWarning(DBLog) << "Image was marked with tag " << categoryName << "/" << markerTag;
                     }
-                    for (const auto &name : tags) {
+                    for (const auto &name : qAsConst(tags)) {
                         info->addCategoryInfo(categoryName, name);
                     }
                 }

@@ -51,6 +51,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix issue where non-empty time units in the date bar were incorrectly greyed out (#467903)
  - Fix bug with the date bar showing and selecting incorrect date ranges (#468045)
  - Fix crash when the annotation dialog is opened from the viewer window and the viewer is closed before the annotation dialog (#470889)
+ - Fix inconsistent UI where menu actions would not immediately be updated to reflect a change (#472109, #472113)
 
 ### Removed
 

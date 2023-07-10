@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-02 00:45+0000\n"
+"POT-Creation-Date: 2023-07-10 00:45+0000\n"
 "PO-Revision-Date: 2020-09-13 15:37+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -1319,7 +1319,7 @@ msgid "Loading information from images"
 msgstr "Indlæser information fra billeder"
 
 #: DB/ImageDB.cpp:559 DB/ImageDB.cpp:846 DB/XML/FileReader.cpp:135
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:352
 #, kde-format
 msgid "Media Type"
 msgstr "Medietype"
@@ -1419,7 +1419,7 @@ msgstr ""
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: DB/XML/FileReader.cpp:87 Settings/CategoryPage.cpp:253
-#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:351
+#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:352
 #, kde-format
 msgid "Folder"
 msgstr "Mappe"
@@ -1630,13 +1630,13 @@ msgid "Places"
 msgstr "Steder"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:522 lib/kpabase/SettingsData.cpp:396
+#: DB/XML/FileReader.cpp:522 lib/kpabase/SettingsData.cpp:411
 #, kde-format
 msgid "Events"
 msgstr "Begivenheder"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:523 lib/kpabase/SettingsData.cpp:406
+#: DB/XML/FileReader.cpp:523 lib/kpabase/SettingsData.cpp:421
 #, fuzzy, kde-format
 #| msgid "Untagged Images"
 msgid "untagged"
@@ -3266,7 +3266,7 @@ msgstr "Plugins"
 msgid "Main Toolbar"
 msgstr "Hovedværktøjslinje"
 
-#: lib/kpabase/SettingsData.cpp:223
+#: lib/kpabase/SettingsData.cpp:238
 #, fuzzy, kde-format
 #| msgid ""
 #| "When reading time information of images, their EXIF info is used. Exif "
@@ -3290,7 +3290,7 @@ msgstr ""
 "gyldigt i tilfælde af at billedet er indscannet. Så spørgsmålet er, skal "
 "KPhotoAlbum have tillid til dine billeders tidsstempel?"
 
-#: lib/kpabase/SettingsData.cpp:230
+#: lib/kpabase/SettingsData.cpp:245
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Stol på tidsstempler?"

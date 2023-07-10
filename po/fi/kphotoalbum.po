@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-02 00:45+0000\n"
+"POT-Creation-Date: 2023-07-10 00:45+0000\n"
 "PO-Revision-Date: 2023-04-02 16:27+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -1295,7 +1295,7 @@ msgid "Loading information from images"
 msgstr "Ladataan tietoa kuvista"
 
 #: DB/ImageDB.cpp:559 DB/ImageDB.cpp:846 DB/XML/FileReader.cpp:135
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:352
 #, kde-format
 msgid "Media Type"
 msgstr "Mediatyyppi"
@@ -1396,7 +1396,7 @@ msgstr "index.xml-tiedoston versioristiriita"
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: DB/XML/FileReader.cpp:87 Settings/CategoryPage.cpp:253
-#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:351
+#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:352
 #, kde-format
 msgid "Folder"
 msgstr "Kansio"
@@ -1588,13 +1588,13 @@ msgid "Places"
 msgstr "Paikat"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:522 lib/kpabase/SettingsData.cpp:396
+#: DB/XML/FileReader.cpp:522 lib/kpabase/SettingsData.cpp:411
 #, kde-format
 msgid "Events"
 msgstr "Tapahtumat"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:523 lib/kpabase/SettingsData.cpp:406
+#: DB/XML/FileReader.cpp:523 lib/kpabase/SettingsData.cpp:421
 #, kde-format
 msgid "untagged"
 msgstr "luokittelematta"
@@ -3133,7 +3133,7 @@ msgstr "Liitännäiset"
 msgid "Main Toolbar"
 msgstr "Päätyökalurivi"
 
-#: lib/kpabase/SettingsData.cpp:223
+#: lib/kpabase/SettingsData.cpp:238
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3149,7 +3149,7 @@ msgstr ""
 "voi kertoa lähinnä, milloin kuva on luettu. Kyse on siis siitä, tulisiko "
 "KPhotoAlbumin luottaa kuvien aikaleimoihin?"
 
-#: lib/kpabase/SettingsData.cpp:230
+#: lib/kpabase/SettingsData.cpp:245
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Luotetaanko aikaleimoihin?"

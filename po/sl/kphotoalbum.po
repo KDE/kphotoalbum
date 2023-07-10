@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-02 00:45+0000\n"
+"POT-Creation-Date: 2023-07-10 00:45+0000\n"
 "PO-Revision-Date: 2023-04-27 06:52+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -1318,7 +1318,7 @@ msgid "Loading information from images"
 msgstr "Nalaganje informacij iz slik"
 
 #: DB/ImageDB.cpp:559 DB/ImageDB.cpp:846 DB/XML/FileReader.cpp:135
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:352
 #, kde-format
 msgid "Media Type"
 msgstr "Vrsta medija"
@@ -1421,7 +1421,7 @@ msgstr "Neskladje različice index.xml"
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: DB/XML/FileReader.cpp:87 Settings/CategoryPage.cpp:253
-#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:351
+#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:352
 #, kde-format
 msgid "Folder"
 msgstr "Mapa"
@@ -1615,13 +1615,13 @@ msgid "Places"
 msgstr "Mesta"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:522 lib/kpabase/SettingsData.cpp:396
+#: DB/XML/FileReader.cpp:522 lib/kpabase/SettingsData.cpp:411
 #, kde-format
 msgid "Events"
 msgstr "Dogodki"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:523 lib/kpabase/SettingsData.cpp:406
+#: DB/XML/FileReader.cpp:523 lib/kpabase/SettingsData.cpp:421
 #, kde-format
 msgid "untagged"
 msgstr "neoznačeno"
@@ -3176,7 +3176,7 @@ msgstr "Vtičniki"
 msgid "Main Toolbar"
 msgstr "Glavna orodna vrstica"
 
-#: lib/kpabase/SettingsData.cpp:223
+#: lib/kpabase/SettingsData.cpp:238
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3193,7 +3193,7 @@ msgstr ""
 "prebrana. Vprašanje se glasi: ali naj KPhotoAlbum zaupa časovnemu žigu vaših "
 "slik?"
 
-#: lib/kpabase/SettingsData.cpp:230
+#: lib/kpabase/SettingsData.cpp:245
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Ali zaupate časovnim žigom?"

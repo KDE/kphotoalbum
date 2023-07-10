@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-02 00:45+0000\n"
+"POT-Creation-Date: 2023-07-10 00:45+0000\n"
 "PO-Revision-Date: 2009-02-17 12:43+0530\n"
 "Last-Translator: Ravishankar Shrivastava <raviratlami@aol.in>\n"
 "Language-Team: Hindi <kde-i18n-doc@lists.kde.org>\n"
@@ -1282,7 +1282,7 @@ msgid "Loading information from images"
 msgstr "फोटू मन से जानकारी लोड करत हे "
 
 #: DB/ImageDB.cpp:559 DB/ImageDB.cpp:846 DB/XML/FileReader.cpp:135
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:351
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:352
 #, kde-format
 msgid "Media Type"
 msgstr "मीडिया किसिम"
@@ -1377,7 +1377,7 @@ msgstr ""
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: DB/XML/FileReader.cpp:87 Settings/CategoryPage.cpp:253
-#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:351
+#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:352
 #, kde-format
 msgid "Folder"
 msgstr "फोल्डर"
@@ -1534,13 +1534,13 @@ msgid "Places"
 msgstr "जगह"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:522 lib/kpabase/SettingsData.cpp:396
+#: DB/XML/FileReader.cpp:522 lib/kpabase/SettingsData.cpp:411
 #, kde-format
 msgid "Events"
 msgstr "घटना"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:523 lib/kpabase/SettingsData.cpp:406
+#: DB/XML/FileReader.cpp:523 lib/kpabase/SettingsData.cpp:421
 #, fuzzy, kde-format
 #| msgid "New Images"
 msgid "untagged"
@@ -3056,7 +3056,7 @@ msgstr "प्लगइन्स"
 msgid "Main Toolbar"
 msgstr "मुख्य औजार पट्टी"
 
-#: lib/kpabase/SettingsData.cpp:223
+#: lib/kpabase/SettingsData.cpp:238
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3067,7 +3067,7 @@ msgid ""
 "on your images?"
 msgstr ""
 
-#: lib/kpabase/SettingsData.cpp:230
+#: lib/kpabase/SettingsData.cpp:245
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "समय चिनहा मं भरोसा करव?"

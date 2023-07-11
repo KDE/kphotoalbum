@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-10 00:45+0000\n"
-"PO-Revision-Date: 2023-02-21 05:31+0100\n"
+"PO-Revision-Date: 2023-07-10 07:05+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -714,7 +714,7 @@ msgctxt ""
 "As in: associate [this marked area of the image] with one of the following "
 "choices/menu items"
 msgid "Associate with"
-msgstr ""
+msgstr "ასოცირება"
 
 #: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
 #, kde-format
@@ -1570,12 +1570,12 @@ msgstr ""
 #: DB/XML/XmlReader.cpp:91
 #, kde-kuit-format
 msgid "<p>Database path: <filename>%1</filename></p>"
-msgstr ""
+msgstr "<p>ბაზის ბილიკი: <filename>%1</filename></p>"
 
 #: DB/XML/XmlReader.cpp:94
 #, kde-format
 msgid "Error while reading database file"
-msgstr ""
+msgstr "შეცდომა ბაზის ფაილის წაკითხვისას"
 
 #: Exif/InfoDialog.cpp:33
 #, kde-format
@@ -1593,7 +1593,7 @@ msgstr "ჭდეების ფილტრი ..."
 #: Exif/InfoDialog.cpp:77
 #, kde-format
 msgid "IPTC character set:"
-msgstr ""
+msgstr "IPTC სიმბოლოების კოდირება:"
 
 #: Exif/InfoDialog.cpp:95
 #, kde-format
@@ -5194,7 +5194,7 @@ msgstr "ჯგუფის სახელის გადარქემვა"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New group name:"
-msgstr "ახალი ჯგუფის სახელი"
+msgstr "ახალი ჯგუფის სახელი:"
 
 #: Settings/TagGroupsPage.cpp:443
 #, kde-kuit-format

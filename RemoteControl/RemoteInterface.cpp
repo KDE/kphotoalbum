@@ -16,7 +16,7 @@
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
 #include <DB/ImageInfoPtr.h>
-#include <DB/ImageSearchInfo.h>
+#include <DB/search/ImageSearchInfo.h>
 #include <ImageManager/AsyncLoader.h>
 #include <MainWindow/DirtyIndicator.h>
 #include <Utilities/DescriptionUtil.h>

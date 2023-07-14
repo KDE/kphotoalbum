@@ -8,7 +8,7 @@
 #include "ImageNameStore.h"
 #include "RemoteCommand.h"
 
-#include <DB/ImageSearchInfo.h>
+#include <DB/search/ImageSearchInfo.h>
 #include <ImageManager/ImageClientInterface.h>
 
 #include <QHostAddress>

@@ -77,3 +77,7 @@ android: qtHaveModule(androidextras) {
     QT += androidextras
     DEFINES += REQUEST_PERMISSIONS_ON_ANDROID
 }
+
+ANDROID_VERSION_CODE="9"
+ANDROID_VERSION_NAME="0.0.9"
+ANDROID_TARGET_SDK_VERSION = 31

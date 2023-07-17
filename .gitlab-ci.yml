@@ -18,7 +18,7 @@ include:
   script:
     - mkdir build && cd $_ && cmake ../ && make -j$(nproc)
     - make install
-    - make test
+    - ctest --rerun-failed --output-on-failure
 
 build:debian-stable:
   stage: build

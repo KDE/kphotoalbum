@@ -7,6 +7,7 @@ include:
 .template: &debian
   variables:
     DEBIAN_FRONTEND: noninteractive
+    QT_QPA_PLATFORM: offscreen
     LANG: C.UTF-8
   interruptible: true
   before_script:

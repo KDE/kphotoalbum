@@ -1,0 +1,225 @@
+{
+    "id": "org.kde.kphotoalbum",
+    "runtime": "org.kde.Platform",
+    "runtime-version": "5.15-22.08",
+    "base": "io.qt.qtwebengine.BaseApp",
+    "base-version": "5.15-22.08",
+    "sdk": "org.kde.Sdk",
+    "command": "kphotoalbum",
+    "rename-icon": "kphotoalbum",
+    "finish-args": [
+        "--device=dri",
+        "--share=ipc",
+        "--share=network",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--filesystem=xdg-pictures"
+    ],
+    "cleanup": [
+        "*.a",
+        "*.la",
+        "/include",
+        "/lib/cmake",
+        "/lib/pkgconfig",
+        "/share/man"
+    ],
+    "add-extensions": {
+        "org.freedesktop.Platform.ffmpeg-full": {
+            "directory": "lib/ffmpeg",
+            "version": "22.08",
+            "add-ld-path": "."
+        }
+    },
+    "cleanup-commands": [
+        "mkdir -p /app/lib/ffmpeg"
+    ],
+    "modules": [
+        {
+            "name": "exiv2",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "config-opts": [
+                "-DBUILD_SHARED_LIBS=ON",
+                "-DEXIV2_ENABLE_XMP=ON",
+                "-DEXIV2_ENABLE_EXTERNAL_XMP=OFF",
+                "-DEXIV2_ENABLE_PNG=ON",
+                "-DEXIV2_ENABLE_NLS=ON",
+                "-DEXIV2_ENABLE_PRINTUCS2=ON",
+                "-DEXIV2_ENABLE_LENSDATA=ON",
+                "-DEXIV2_ENABLE_VIDEO=OFF",
+                "-DEXIV2_ENABLE_WEBREADY=OFF",
+                "-DEXIV2_ENABLE_DYNAMIC_RUNTIME=OFF",
+                "-DEXIV2_ENABLE_CURL=OFF",
+                "-DEXIV2_ENABLE_SSH=OFF",
+                "-DEXIV2_BUILD_SAMPLES=OFF",
+                "-DEXIV2_BUILD_PO=OFF",
+                "-DEXIV2_BUILD_EXIV2_COMMAND=OFF",
+                "-DEXIV2_BUILD_UNIT_TESTS=OFF",
+                "-DEXIV2_BUILD_DOC=OFF",
+                "-DEXIV2_TEAM_EXTRA_WARNINGS=OFF",
+                "-DEXIV2_TEAM_WARNINGS_AS_ERRORS=OFF",
+                "-DEXIV2_TEAM_USE_SANITIZERS=OFF",
+                "-DEXIV2_ENABLE_WIN_UNICODE=OFF",
+                "-DEXIV2_ENABLE_INIH:BOOL=OFF"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/Exiv2/exiv2/releases/download/v0.28.0/exiv2-0.28.0-Source.tar.gz",
+                    "sha256": "89af3b5ef7277753ef7a7b5374ae017c6b9e304db3b688f1948e73e103491f3d",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 769,
+                        "stable-only": true,
+                        "url-template": "https://github.com/Exiv2/exiv2/releases/download/v$version/exiv2-$version-Source.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "libraw",
+            "builddir": true,
+            "config-opts": [
+                "--disable-examples",
+                "--disable-static"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://www.libraw.org/data/LibRaw-0.21.1.tar.gz",
+                    "sha256": "630a6bcf5e65d1b1b40cdb8608bdb922316759bfb981c65091fec8682d1543cd",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 1709,
+                        "stable-only": true,
+                        "url-template": "https://www.libraw.org/data/LibRaw-$version.tar.gz"
+                    }
+                },
+                {
+                    "type": "shell",
+                    "commands": [
+                        "autoreconf -vfi"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "marble",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "config-opts": [
+                "-DBUILD_TESTING=OFF"
+            ],
+            "post-install": [
+                "rm /app/share/applications/org.kde.marble-qt.desktop"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/23.04.3/src/marble-23.04.3.tar.xz",
+                    "sha256": "88feb03e4b3b1fcfc17e7ea4cd4bd4ddc7f08fd30fa550393171406e9d4fda93",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8763,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/release-service/$version/src/marble-$version.tar.xz"
+                    }
+                }
+            ],
+            "modules": [
+                {
+                    "name": "wireless-tools",
+                    "buildsystem": "simple",
+                    "subdir": "wireless_tools",
+                    "build-commands": [
+                        "make",
+                        "make INSTALL_DIR=\"${FLATPAK_DEST}/bin\" INSTALL_LIB=\"${FLATPAK_DEST}/lib\" INSTALL_INC=\"${FLATPAK_DEST}/include\" INSTALL_MAN=\"${FLATPAK_DEST}/share/man\" install"
+                    ],
+                    "sources": [
+                        {
+                            "type": "archive",
+                            "url": "https://github.com/HewlettPackard/wireless-tools/archive/refs/tags/v29.tar.gz",
+                            "sha256": "69c5face9ac9d3273042436408a9a057d3416a814253dedeaaef210fcbc42d40",
+                            "x-checker-data": {
+                                "type": "anitya",
+                                "project-id": 5136,
+                                "stable-only": true,
+                                "url-template": "https://github.com/HewlettPackard/wireless-tools/archive/refs/tags/v$version.tar.gz"
+                            }
+                        }
+                    ],
+                    "cleanup": [
+                        "/share/man",
+                        "/bin"
+                    ]
+                },
+                {
+                    "name": "libwlocate",
+                    "buildsystem": "simple",
+                    "subdir": "master",
+                    "build-commands": [
+                        "make -f Makelib",
+                        "make",
+                        "install -D libwlocate.so ${FLATPAK_DEST}/lib/libwlocate.so",
+                        "install -D libwlocate.h ${FLATPAK_DEST}/include/libwlocate.h"
+                    ],
+                    "sources": [
+                        {
+                            "type": "archive",
+                            "url": "https://github.com/openwifi-su/lwlocate/archive/refs/tags/v0.1.tar.gz",
+                            "sha256": "791899f4890fa88553b4e8417376187d7d533ead962f5fe51f598b6ed9a2c258"
+                        }
+                    ]
+                },
+                {
+                    "name": "shapelib",
+                    "buildsystem": "autotools",
+                    "sources": [
+                        {
+                            "type": "archive",
+                            "url": "http://download.osgeo.org/shapelib/shapelib-1.5.0.tar.gz",
+                            "sha256": "1fc0a480982caef9e7b9423070b47750ba34cd0ba82668f2e638fab1d07adae1",
+                            "x-checker-data": {
+                                "type": "anitya",
+                                "project-id": 4804,
+                                "stable-only": true,
+                                "url-template": "http://download.osgeo.org/shapelib/shapelib-$version.tar.gz"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "libkdcraw",
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DBUILD_TESTING=OFF"
+            ],
+            "builddir": true,
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.kde.org/stable/release-service/23.04.3/src/libkdcraw-23.04.3.tar.xz",
+                    "sha256": "1c859ed548572eb23ee4941a2b4fff57210a9a56edcf7bb5733bb0732421996f",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 8763,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/release-service/$version/src/libkdcraw-$version.tar.xz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "kphotoalbum",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "dir",
+                    "url": "."
+                }
+            ]
+        }
+    ]
+}

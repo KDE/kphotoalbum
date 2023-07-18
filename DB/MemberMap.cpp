@@ -121,7 +121,7 @@ QStringList MemberMap::calculateClosure(QMap<QString, StringSet> &resultSoFar, c
     resultSoFar[group] = StringSet(); // Prevent against cycles.
     StringSet members = m_members[category][group];
     StringSet result = members;
-    for (StringSet::const_iterator it = members.begin(); it != members.end(); ++it) {
+    for (auto it = members.begin(); it != members.end(); ++it) {
         if (resultSoFar.contains(*it)) {
             result += resultSoFar[*it];
         } else if (isGroup(category, *it)) {
@@ -340,7 +340,7 @@ QMap<QString, StringSet> DB::MemberMap::inverseMap(const QString &category) cons
     for (QMap<QString, StringSet>::ConstIterator mapIt = map.begin(); mapIt != map.end(); ++mapIt) {
         QString group = mapIt.key();
         StringSet members = mapIt.value();
-        for (StringSet::const_iterator memberIt = members.begin(); memberIt != members.end(); ++memberIt) {
+        for (auto memberIt = members.begin(); memberIt != members.end(); ++memberIt) {
             res[*memberIt].insert(group);
         }
     }

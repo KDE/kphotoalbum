@@ -59,7 +59,7 @@ ImageManager::ImageRequest *ImageManager::RequestQueue::popNext()
 void ImageManager::RequestQueue::cancelRequests(ImageClientInterface *client, StopAction action)
 {
     // remove from active map
-    for (QSet<ImageRequest *>::const_iterator it = m_activeRequests.begin(); it != m_activeRequests.end();) {
+    for (auto it = m_activeRequests.begin(); it != m_activeRequests.end();) {
         ImageRequest *request = *it;
         ++it; // We need to increase it before removing the element.
         if (client == request->client() && (action == StopAll || (request->priority() < ThumbnailVisible))) {

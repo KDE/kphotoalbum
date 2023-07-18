@@ -123,7 +123,7 @@ void ImageManager::AsyncLoader::loadImage(ImageRequest *request)
     QMutexLocker dummy(&m_lock);
     if (m_exitRequested)
         return;
-    QSet<ImageRequest *>::const_iterator req = m_currentLoading.find(request);
+    auto req = m_currentLoading.find(request);
     if (req != m_currentLoading.end() && m_loadList.isRequestStillValid(request)) {
         // The last part of the test above is needed to not fail on a race condition from AnnotationDialog::ImagePreview, where the preview
         // at startup request the same image numerous time (likely from resize event).

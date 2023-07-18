@@ -61,7 +61,7 @@ bool CategoryListView::CheckDropItem::dataDropped(const QMimeData *data)
     DB::MemberMap &memberMap = DB::ImageDB::instance()->memberMap();
     memberMap.addGroup(m_listView->category()->name(), newParent);
 
-    for (DragItemInfoSet::const_iterator itemIt = items.begin(); itemIt != items.end(); ++itemIt) {
+    for (auto itemIt = items.begin(); itemIt != items.end(); ++itemIt) {
         const QString oldParent = (*itemIt).parent();
         const QString child = (*itemIt).child();
 

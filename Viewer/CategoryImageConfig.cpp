@@ -92,8 +92,7 @@ void Viewer::CategoryImageConfig::groupChanged()
 
     StringSet set = directMembers;
     QMap<QString, StringSet> map = DB::ImageDB::instance()->memberMap().inverseMap(categoryName);
-    for (StringSet::const_iterator directMembersIt = directMembers.begin();
-         directMembersIt != directMembers.end(); ++directMembersIt) {
+    for (auto directMembersIt = directMembers.begin(); directMembersIt != directMembers.end(); ++directMembersIt) {
         set += map[*directMembersIt];
     }
 

@@ -365,7 +365,7 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
                 if (!items.empty()) {
                     QString line;
                     bool first = true;
-                    for (Utilities::StringSet::const_iterator it2 = items.cbegin(); it2 != items.cend(); ++it2) {
+                    for (auto it2 = items.cbegin(); it2 != items.cend(); ++it2) {
                         QString item = *it2;
                         if (first)
                             first = false;

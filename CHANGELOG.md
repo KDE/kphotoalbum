@@ -44,6 +44,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Deprecated
 
 ### Fixed
+ - Fix issue with KPhotoAlbum not asking to save before exit (#472427)
 
 ### Removed
 

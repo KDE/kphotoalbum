@@ -299,6 +299,7 @@ void MainWindow::Window::delayedInit()
 
 bool MainWindow::Window::slotExit()
 {
+    bool deleteDemoDB = false;
     if (Options::the()->demoMode()) {
         const QString question = i18n("<p><b>Delete Your Temporary Demo Database</b></p>"
                                       "<p>I hope you enjoyed the KPhotoAlbum demo. The demo database was created in the "
@@ -325,15 +326,43 @@ bool MainWindow::Window::slotExit()
             return false;
         else if (answer == KMessageBox::Yes) {
 #endif
-            Utilities::deleteDemo();
+            deleteDemoDB = true;
         } else {
             slotSave();
-            // Flush any remaining thumbnails
-            thumbnailCache()->save();
+        }
+    } else if (m_statusBar->mp_dirtyIndicator->isSaveDirty()) {
+        const QString question = i18n("Do you want to save the changes?");
+        const QString title = i18nc("@title", "Save Changes?");
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
+        const auto answer = KMessageBox::questionTwoActionsCancel(widget(),
+                                                                  question,
+                                                                  title,
+                                                                  KStandardGuiItem::save(),
+                                                                  KStandardGuiItem::dontSave(),
+                                                                  KStandardGuiItem::cancel());
+        constexpr auto REPLY_SAVE = KMessageBox::PrimaryAction;
+        constexpr auto REPLY_DONTSAVE = KMessageBox::SecondaryAction;
+#else
+        const auto answer = KMessageBox::questionYesNoCancel(this, question, title);
+        constexpr auto REPLY_SAVE = KMessageBox::Yes;
+        constexpr auto REPLY_DONTSAVE = KMessageBox::No;
+#endif
+        if (answer == KMessageBox::Cancel) {
+            return false;
+        }
+        if (answer == REPLY_SAVE) {
+            slotSave();
+        }
+        if (answer == REPLY_DONTSAVE) {
+            QDir().remove(Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"));
         }
     }
 
     ImageManager::AsyncLoader::instance()->requestExit();
+    // Always flush any remaining thumbnails
+    thumbnailCache()->save();
+    if (deleteDemoDB)
+        Utilities::deleteDemo();
     qApp->quit();
     return true;
 }

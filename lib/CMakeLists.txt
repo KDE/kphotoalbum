@@ -101,9 +101,13 @@ add_subdirectory(kpathumbnails)
 ### KPA::Exif
 add_library(kpaexif
     kpaexif/Database.cpp
+    kpaexif/Database.h
     kpaexif/SearchInfo.cpp
+    kpaexif/SearchInfo.h
     kpaexif/Info.cpp
+    kpaexif/Info.h
     kpaexif/DatabaseElement.cpp
+    kpaexif/DatabaseElement.h
     )
 add_library(KPA::Exif ALIAS kpaexif)
 # FIXME(jzarl): once KPhotoAlbum uses internal libs, export public symbols instead:

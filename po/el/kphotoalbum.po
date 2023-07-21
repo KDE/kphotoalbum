@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-10 00:45+0000\n"
+"POT-Creation-Date: 2023-07-21 00:47+0000\n"
 "PO-Revision-Date: 2017-10-16 18:16+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -445,12 +445,12 @@ msgstr "Διαγραφή"
 msgid "Copy tags from previous image"
 msgstr "Αντιγραφή ετικετών από την προηγούμενη εικόνα"
 
-#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:814
+#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:843
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Περιστροφή προς τα αριστερά"
 
-#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:818
+#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:847
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Περιστροφή προς τα δεξιά"
@@ -1000,7 +1000,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "αναζήτηση"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1754
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1783
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -1016,7 +1016,7 @@ msgstr ""
 "τις <b>Κατηγορίες</b> εικονίδιο</li><li>Τώρα διαμορφώστε την ενότητα "
 "<b>Αταξινόμητες εικόνες</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1761
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1790
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Το χαρακτηριστικό δεν έχει διαμορφωθεί"
@@ -2840,7 +2840,7 @@ msgid "Create folder?"
 msgstr "Βασικός κατάλογος:"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1188
+#: MainWindow/Window.cpp:1217
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4433,7 +4433,7 @@ msgstr "Φόρτωση κύριου παράθυρου"
 msgid "Searching for New Files"
 msgstr "Αναζήτηση για νέα αρχεία"
 
-#: MainWindow/Window.cpp:303
+#: MainWindow/Window.cpp:304
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
@@ -4456,14 +4456,26 @@ msgstr ""
 "επίδειξη, ίσως επιθυμείτε να διατηρήσετε τις αλλαγές που κάνατε σε αυτήν τη "
 "συνεδρία.</p>"
 
-#: MainWindow/Window.cpp:308
+#: MainWindow/Window.cpp:309
 #, fuzzy, kde-format
 #| msgid "Delete Demo Database"
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Διαγραφή βάσης δεδομένων επίδειξης"
 
-#: MainWindow/Window.cpp:363
+#: MainWindow/Window.cpp:334
+#, kde-format
+msgid "Do you want to save the changes?"
+msgstr "Επιθυμείτε την αποθήκευση των τροποποιήσεων;"
+
+#: MainWindow/Window.cpp:335
+#, fuzzy, kde-format
+#| msgid "Save Changes?"
+msgctxt "@title"
+msgid "Save Changes?"
+msgstr "Αποθήκευση αλλαγών;"
+
+#: MainWindow/Window.cpp:392
 #, kde-format
 msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
@@ -4472,325 +4484,325 @@ msgstr ""
 "Κάποιες από τις επιλεγμένες εικόνες ανήκουν ήδη σε μια στοίβα. Επιθυμείτε "
 "την αφαίρεσή τους και τη δημιουργία μιας νέας στοίβας με αυτές;"
 
-#: MainWindow/Window.cpp:366
+#: MainWindow/Window.cpp:395
 #, fuzzy, kde-format
 #| msgid "Stacking Error"
 msgctxt "@title"
 msgid "Stacking problem"
 msgstr "Σφάλμα τοποθέτησης σε στοίβα"
 
-#: MainWindow/Window.cpp:381
+#: MainWindow/Window.cpp:410
 #, kde-format
 msgid "Unknown error, stack creation failed."
 msgstr "Άγνωστο σφάλμα, αποτυχία δημιουργίας στοίβας."
 
-#: MainWindow/Window.cpp:382
+#: MainWindow/Window.cpp:411
 #, kde-format
 msgid "Stacking Error"
 msgstr "Σφάλμα τοποθέτησης σε στοίβα"
 
-#: MainWindow/Window.cpp:461 MainWindow/Window.cpp:587
-#: MainWindow/Window.cpp:1289 MainWindow/Window.cpp:1386
+#: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
+#: MainWindow/Window.cpp:1318 MainWindow/Window.cpp:1415
 #, kde-format
 msgid "No item is selected."
 msgstr "Χωρίς επιλεγμένο αντικείμενο."
 
-#: MainWindow/Window.cpp:461 MainWindow/Window.cpp:587
-#: MainWindow/Window.cpp:1289 MainWindow/Window.cpp:1387
+#: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
+#: MainWindow/Window.cpp:1318 MainWindow/Window.cpp:1416
 #, kde-format
 msgid "No Selection"
 msgstr "Καμία επιλογή"
 
-#: MainWindow/Window.cpp:507
+#: MainWindow/Window.cpp:536
 #, kde-format
 msgid "Saving..."
 msgstr "Αποθήκευση..."
 
-#: MainWindow/Window.cpp:512
+#: MainWindow/Window.cpp:541
 #, kde-format
 msgid "Saving... Done"
 msgstr "Αποθήκευση ... Έγινε"
 
-#: MainWindow/Window.cpp:660
+#: MainWindow/Window.cpp:689
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "Δεν υπάρχουν εικόνες προς εμφάνιση."
 
-#: MainWindow/Window.cpp:749
+#: MainWindow/Window.cpp:778
 #, kde-format
 msgid "Generate HTML..."
 msgstr "Δημιουργία HTML..."
 
-#: MainWindow/Window.cpp:753
+#: MainWindow/Window.cpp:782
 #, kde-format
 msgid "Import..."
 msgstr "Εισαγωγή..."
 
-#: MainWindow/Window.cpp:756
+#: MainWindow/Window.cpp:785
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Εξαγωγή/αντιγραφή εικόνων..."
 
-#: MainWindow/Window.cpp:783
+#: MainWindow/Window.cpp:812
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Διαγραφή επιλεγμένων"
 
-#: MainWindow/Window.cpp:789
+#: MainWindow/Window.cpp:818
 #, fuzzy, kde-format
 #| msgid "Remove Tokens"
 msgid "Remove Tokens..."
 msgstr "Αφαίρεση αναγνωριστικών"
 
-#: MainWindow/Window.cpp:792
+#: MainWindow/Window.cpp:821
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Άνοιγμα λίστας αρχείων..."
 
-#: MainWindow/Window.cpp:795
+#: MainWindow/Window.cpp:824
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Σημείωση μεμονωμένων αντικειμένων"
 
-#: MainWindow/Window.cpp:799
+#: MainWindow/Window.cpp:828
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Σημείωση πολλαπλών αντικειμένων με τη μία"
 
-#: MainWindow/Window.cpp:803
+#: MainWindow/Window.cpp:832
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Συγχώνευση εικόνων στη στοίβα"
 
-#: MainWindow/Window.cpp:807
+#: MainWindow/Window.cpp:836
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Αφαίρεση εικόνων από τη στοίβα"
 
-#: MainWindow/Window.cpp:810
+#: MainWindow/Window.cpp:839
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Ορισμός ως πρώτη εικόνα στη στοίβα"
 
-#: MainWindow/Window.cpp:823
+#: MainWindow/Window.cpp:852
 #, kde-format
 msgid "View"
 msgstr "Προβολή"
 
-#: MainWindow/Window.cpp:826
+#: MainWindow/Window.cpp:855
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Προβολή (σε νέο παράθυρο)"
 
-#: MainWindow/Window.cpp:829
+#: MainWindow/Window.cpp:858
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Εκτέλεση παρουσίασης διαφανειών"
 
-#: MainWindow/Window.cpp:834
+#: MainWindow/Window.cpp:863
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Εκτέλεση παρουσίασης διαφανειών σε τυχαία σειρά"
 
-#: MainWindow/Window.cpp:840
+#: MainWindow/Window.cpp:869
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Σύμπτυξη όλων των στοιβών"
 
-#: MainWindow/Window.cpp:846
+#: MainWindow/Window.cpp:875
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Ανάπτυξη όλων των στοιβών"
 
-#: MainWindow/Window.cpp:851
+#: MainWindow/Window.cpp:880
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Εμφάνιση πρώτα της &παλαιότερης"
 
-#: MainWindow/Window.cpp:856
+#: MainWindow/Window.cpp:885
 #, kde-format
 msgid "Show &Newest First"
 msgstr "Εμφάνιση πρώτα της &νεότερης"
 
-#: MainWindow/Window.cpp:861
+#: MainWindow/Window.cpp:890
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Ταξινόμηση επιλεγμένων ανά ημερομηνία && ώρα"
 
-#: MainWindow/Window.cpp:864
+#: MainWindow/Window.cpp:893
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "Περιορισμός προβολής στην επιλογή"
 
-#: MainWindow/Window.cpp:867
+#: MainWindow/Window.cpp:896
 #, kde-format
 msgid "Jump to Context"
 msgstr "Άλμα στο πλαίσιο"
 
-#: MainWindow/Window.cpp:873
+#: MainWindow/Window.cpp:902
 #, kde-format
 msgid "Lock Images"
 msgstr "Κλείδωμα εικόνων"
 
-#: MainWindow/Window.cpp:877
+#: MainWindow/Window.cpp:906
 #, kde-format
 msgid "Unlock"
 msgstr "Ξεκλείδωμα"
 
-#: MainWindow/Window.cpp:880
+#: MainWindow/Window.cpp:909
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Κλείδωμα όλων των άλλων αντικειμένων"
 
-#: MainWindow/Window.cpp:883
+#: MainWindow/Window.cpp:912
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Κλείδωμα του τρέχοντος συνόλου των αντικειμένων"
 
-#: MainWindow/Window.cpp:886
+#: MainWindow/Window.cpp:915
 #, kde-format
 msgid "Configure Current View"
 msgstr "Διαμόρφωση τρέχουσας προβολής"
 
-#: MainWindow/Window.cpp:898
+#: MainWindow/Window.cpp:927
 #, kde-format
 msgid "Tree"
 msgstr "Δενδρική δομή:"
 
-#: MainWindow/Window.cpp:903
+#: MainWindow/Window.cpp:932
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Δενδρική δομή με εικονίδια του χρήστη"
 
-#: MainWindow/Window.cpp:908
+#: MainWindow/Window.cpp:937
 #, kde-format
 msgid "Icons"
 msgstr "Εικονίδια"
 
-#: MainWindow/Window.cpp:916
+#: MainWindow/Window.cpp:945
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Εμφάνιση υποδείξεων στο παράθυρο εικόνων επισκόπησης"
 
-#: MainWindow/Window.cpp:921
+#: MainWindow/Window.cpp:950
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Labels in Thumbnails Window"
 msgstr "Εμφάνιση υποδείξεων στο παράθυρο εικόνων επισκόπησης"
 
-#: MainWindow/Window.cpp:931
+#: MainWindow/Window.cpp:960
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Categories in Thumbnails Window"
 msgstr "Εμφάνιση υποδείξεων στο παράθυρο εικόνων επισκόπησης"
 
-#: MainWindow/Window.cpp:952
+#: MainWindow/Window.cpp:981
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr ""
 
-#: MainWindow/Window.cpp:963
+#: MainWindow/Window.cpp:992
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Εμφάνιση εικόνων και βίντεο που δεν είναι στο δίσκο"
 
-#: MainWindow/Window.cpp:966
+#: MainWindow/Window.cpp:995
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Εμφάνιση εικόνων και βίντεο με ατελείς ημερομηνίες..."
 
-#: MainWindow/Window.cpp:969
+#: MainWindow/Window.cpp:998
 #, kde-format
 msgid "Merge duplicates"
 msgstr "Συγχώνευση αντιγράφων"
 
-#: MainWindow/Window.cpp:971 MainWindow/Window.cpp:1028
+#: MainWindow/Window.cpp:1000 MainWindow/Window.cpp:1057
 #, fuzzy, kde-format
 #| msgid "Recreate Selected Thumbnails"
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Επανακατασκευή επιλεγμένων εικόνων επισκόπησης"
 
-#: MainWindow/Window.cpp:975
+#: MainWindow/Window.cpp:1004
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Επανασάρωση για εικόνες και βίντεο"
 
-#: MainWindow/Window.cpp:978
+#: MainWindow/Window.cpp:1007
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Επανακατασκευή βάσης δεδομένων αναζήτησης Exif"
 
-#: MainWindow/Window.cpp:981
+#: MainWindow/Window.cpp:1010
 #, fuzzy, kde-format
 #| msgid "Read EXIF Info From Files..."
 msgid "Read Exif Info from Files..."
 msgstr "Ανάγνωση πληροφοριών EXIF από τα αρχεία..."
 
-#: MainWindow/Window.cpp:984
+#: MainWindow/Window.cpp:1013
 #, fuzzy, kde-format
 #| msgid "Sort Selected by Date && Time"
 msgid "Sort All by Date && Time"
 msgstr "Ταξινόμηση επιλεγμένων ανά ημερομηνία && ώρα"
 
-#: MainWindow/Window.cpp:988
+#: MainWindow/Window.cpp:1017
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Αυτόματη τοποθέτηση σε στοίβα επιλεγμένων εικόνων..."
 
-#: MainWindow/Window.cpp:991
+#: MainWindow/Window.cpp:1020
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Κατασκευή εικόνων επισκόπησης"
 
-#: MainWindow/Window.cpp:994
+#: MainWindow/Window.cpp:1023
 #, fuzzy, kde-format
 #| msgid "Statistics"
 msgid "Statistics..."
 msgstr "Στατιστικά"
 
-#: MainWindow/Window.cpp:998
+#: MainWindow/Window.cpp:1027
 #, kde-format
 msgid "Mark As Untagged"
 msgstr ""
 
-#: MainWindow/Window.cpp:1007
+#: MainWindow/Window.cpp:1036
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Ενεργοποίηση όλων των μηνυμάτων"
 
-#: MainWindow/Window.cpp:1015
+#: MainWindow/Window.cpp:1044
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Εκτέλεση της επίδειξης του KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1018
+#: MainWindow/Window.cpp:1047
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "Κατάσταση χαρακτηριστικών του KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1021
+#: MainWindow/Window.cpp:1050
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Εμφάνιση βίντεο επίδειξης"
 
-#: MainWindow/Window.cpp:1025 Viewer/ViewerWidget.cpp:195
+#: MainWindow/Window.cpp:1054 Viewer/ViewerWidget.cpp:195
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "Εμφάνιση πληροφοριών Exif"
 
-#: MainWindow/Window.cpp:1031
+#: MainWindow/Window.cpp:1060
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Χρήση επόμενης εικόνας επισκόπησης βίντεο"
 
-#: MainWindow/Window.cpp:1035
+#: MainWindow/Window.cpp:1064
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Χρήση προηγούμενης εικόνας επισκόπησης βίντεο"
 
-#: MainWindow/Window.cpp:1039 MainWindow/Window.cpp:1267
+#: MainWindow/Window.cpp:1068 MainWindow/Window.cpp:1296
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Copy image to ..."
@@ -4798,7 +4810,7 @@ msgid_plural "Copy images to ..."
 msgstr[0] "Εξαγωγή/αντιγραφή εικόνων..."
 msgstr[1] "Εξαγωγή/αντιγραφή εικόνων..."
 
-#: MainWindow/Window.cpp:1043 MainWindow/Window.cpp:1271
+#: MainWindow/Window.cpp:1072 MainWindow/Window.cpp:1300
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Link image to ..."
@@ -4806,17 +4818,17 @@ msgid_plural "Link images to ..."
 msgstr[0] "Εξαγωγή/αντιγραφή εικόνων..."
 msgstr[1] "Εξαγωγή/αντιγραφή εικόνων..."
 
-#: MainWindow/Window.cpp:1069
+#: MainWindow/Window.cpp:1098
 #, kde-format
 msgid "Auto saving...."
 msgstr "Αυτόματη αποθήκευση...."
 
-#: MainWindow/Window.cpp:1072
+#: MainWindow/Window.cpp:1101
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Αυτόματο αποθήκευση.... Έγινε"
 
-#: MainWindow/Window.cpp:1174
+#: MainWindow/Window.cpp:1203
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Could not open given index.xml as provided directory does not exist."
@@ -4828,7 +4840,7 @@ msgstr ""
 "<p>Αδυναμία ανοίγματος του δοσμένου index.xml καθώς ο παρεχόμενος κατάλογος "
 "δεν υπάρχει.<br />%1</p>"
 
-#: MainWindow/Window.cpp:1181
+#: MainWindow/Window.cpp:1210
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4837,7 +4849,7 @@ msgstr ""
 "<p>Το δοσμένο αρχείο ευρετηρίου δεν υπάρχει, θέλετε να δημιουργήσετε το "
 "ακόλουθο;<br />%1/index.xml</p>"
 
-#: MainWindow/Window.cpp:1184
+#: MainWindow/Window.cpp:1213
 #, fuzzy, kde-format
 #| msgid ""
 #| "Use data from\n"
@@ -4848,7 +4860,7 @@ msgstr ""
 "Χρήση δεδομένων από τη\n"
 "βάση δεδομένων"
 
-#: MainWindow/Window.cpp:1212
+#: MainWindow/Window.cpp:1241
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4857,34 +4869,34 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1338 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1367 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Γενικά"
 
-#: MainWindow/Window.cpp:1339 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1368 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Προβολέας"
 
-#: MainWindow/Window.cpp:1340
+#: MainWindow/Window.cpp:1369
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Ημερομηνία: "
 
-#: MainWindow/Window.cpp:1343
+#: MainWindow/Window.cpp:1372
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Διάλογος σημειώσεων"
 
-#: MainWindow/Window.cpp:1344 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Προβολή εικόνων επισκόπησης"
 
-#: MainWindow/Window.cpp:1489
+#: MainWindow/Window.cpp:1518
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4893,13 +4905,13 @@ msgstr ""
 "<p>Θέλετε πραγματικά να γίνει ενεργοποίηση όλων των μηνυμάτων που επιλέξατε "
 "προηγουμένως να μην εμφανιστούν ξανά;</p>"
 
-#: MainWindow/Window.cpp:1491
+#: MainWindow/Window.cpp:1520
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1510
+#: MainWindow/Window.cpp:1539
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4916,32 +4928,32 @@ msgstr ""
 "KPhotoAlbum θα συνεχίσει να εκτελείται, αλλά δεν είναι εντελώς απίθανο να "
 "καταρρεύσει αργότερα εξαιτίας της παράλειψης του make install.</p>"
 
-#: MainWindow/Window.cpp:1510
+#: MainWindow/Window.cpp:1539
 #, kde-format
 msgid "Internal Error"
 msgstr "Εσωτερικό σφάλμα"
 
-#: MainWindow/Window.cpp:1521
+#: MainWindow/Window.cpp:1550
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1524
+#: MainWindow/Window.cpp:1553
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1529
+#: MainWindow/Window.cpp:1558
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1592
+#: MainWindow/Window.cpp:1621
 #, kde-format
 msgid "Open List of Files"
 msgstr "Άνοιγμα λίστας των αρχείων"
 
-#: MainWindow/Window.cpp:1593
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid ""
 "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4950,30 +4962,30 @@ msgstr ""
 "Μπορείτε να ανοίξετε ένα σύνολο αρχείων από τη θέση του αρχικού (root) "
 "καταλόγου εικόνων του KPhotoAlbum καταγράφοντας τα αρχεία εδώ."
 
-#: MainWindow/Window.cpp:1606
+#: MainWindow/Window.cpp:1635
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Δεν βρέθηκαν εικόνες που να ταιριάζουν στα δεδομένα που δώσατε."
 
-#: MainWindow/Window.cpp:1606
+#: MainWindow/Window.cpp:1635
 #, kde-format
 msgid "No Matches"
 msgstr "Κανένα ταίριασμα"
 
-#: MainWindow/Window.cpp:1778
+#: MainWindow/Window.cpp:1807
 #, fuzzy, kde-format
 #| msgid "Rereading EXIF information from all images"
 msgid "Rereading Exif information from all images"
 msgstr "Ανάγνωση ξανά πληροφοριών EXIF από όλες τις εικόνες"
 
-#: MainWindow/Window.cpp:1805
+#: MainWindow/Window.cpp:1834
 #, fuzzy, no-c-format, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Μέγεθος εικόνας επισκόπησης:"
 
-#: MainWindow/Window.cpp:1858
+#: MainWindow/Window.cpp:1887
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Unable to find MPlayer on the system</p><p>KPhotoAlbum needs MPlayer "
@@ -4988,7 +5000,7 @@ msgstr ""
 "το Mplayer για την εξαγωγή εικόνων επισκόπησης βίντεο εκτός των άλλων. "
 "Εγκαταστήστε το πακέτο Mplayer2</p>"
 
-#: MainWindow/Window.cpp:1861
+#: MainWindow/Window.cpp:1890
 #, fuzzy, kde-format
 #| msgid "File not available"
 msgid "Video thumbnails are not available"
@@ -7350,9 +7362,6 @@ msgstr "Εμφάνιση βαθμολογίας"
 
 #~ msgid "Really Rename %1?"
 #~ msgstr "Πραγματικά μετονομασία του %1;"
-
-#~ msgid "Do you want to save the changes?"
-#~ msgstr "Επιθυμείτε την αποθήκευση των τροποποιήσεων;"
 
 #~ msgid "Directory Exists"
 #~ msgstr "Ο κατάλογος υπάρχει"

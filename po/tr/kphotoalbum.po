@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-10 00:45+0000\n"
+"POT-Creation-Date: 2023-07-21 00:47+0000\n"
 "PO-Revision-Date: 2023-07-14 00:29+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -422,12 +422,12 @@ msgstr "Sil"
 msgid "Copy tags from previous image"
 msgstr "Önceki görselden etiketleri kopyala"
 
-#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:814
+#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:843
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Saat yönünün tersine döndür"
 
-#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:818
+#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:847
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Saat yönünde döndür"
@@ -968,7 +968,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "ara"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1754
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1783
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -984,7 +984,7 @@ msgstr ""
 "simgesini seçebilirsiniz</li><li>Burada, <b>Etiketlenmemiş Görseller</"
 "b>bölümünü yapılandırın</li></ul></p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1761
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1790
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Özellik yapılandırılmadı"
@@ -2694,7 +2694,7 @@ msgid "Create folder?"
 msgstr "Klasör oluşturulsun mu?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1188
+#: MainWindow/Window.cpp:1217
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4139,7 +4139,7 @@ msgstr "Ana Pencere Yükleniyor"
 msgid "Searching for New Files"
 msgstr "Yeni Dosyalar Aranıyor"
 
-#: MainWindow/Window.cpp:303
+#: MainWindow/Window.cpp:304
 #, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
@@ -4155,13 +4155,26 @@ msgstr ""
 "kaplayacaktır; ancak tanıtımı ileride yeniden çalıştırmak isterseniz "
 "saklamalısınız.</p>"
 
-#: MainWindow/Window.cpp:308
+#: MainWindow/Window.cpp:309
 #, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Tanıtım Veritabanını Sil"
 
-#: MainWindow/Window.cpp:363
+#: MainWindow/Window.cpp:334
+#, kde-format
+msgid "Do you want to save the changes?"
+msgstr ""
+
+#: MainWindow/Window.cpp:335
+#, fuzzy, kde-format
+#| msgctxt "@title"
+#| msgid "Discard changes?"
+msgctxt "@title"
+msgid "Save Changes?"
+msgstr "Değişiklikler atılsın mı?"
+
+#: MainWindow/Window.cpp:392
 #, kde-format
 msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
@@ -4170,340 +4183,340 @@ msgstr ""
 "Seçili görsellerin bazıları halihazırda bir yığına aitler. Bu görselleri "
 "yığınlarından kaldırmak ve tamamen yeni bir yığın yaratmak ister misiniz?"
 
-#: MainWindow/Window.cpp:366
+#: MainWindow/Window.cpp:395
 #, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
 msgstr "Yığma sorunu"
 
-#: MainWindow/Window.cpp:381
+#: MainWindow/Window.cpp:410
 #, kde-format
 msgid "Unknown error, stack creation failed."
 msgstr "Bilinmeyen hata, yığın oluşturma başarısız."
 
-#: MainWindow/Window.cpp:382
+#: MainWindow/Window.cpp:411
 #, kde-format
 msgid "Stacking Error"
 msgstr "Yığınlama Hatası"
 
-#: MainWindow/Window.cpp:461 MainWindow/Window.cpp:587
-#: MainWindow/Window.cpp:1289 MainWindow/Window.cpp:1386
+#: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
+#: MainWindow/Window.cpp:1318 MainWindow/Window.cpp:1415
 #, kde-format
 msgid "No item is selected."
 msgstr "Seçili öge yok."
 
-#: MainWindow/Window.cpp:461 MainWindow/Window.cpp:587
-#: MainWindow/Window.cpp:1289 MainWindow/Window.cpp:1387
+#: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
+#: MainWindow/Window.cpp:1318 MainWindow/Window.cpp:1416
 #, kde-format
 msgid "No Selection"
 msgstr "Seçim Yok"
 
-#: MainWindow/Window.cpp:507
+#: MainWindow/Window.cpp:536
 #, kde-format
 msgid "Saving..."
 msgstr "Kaydediliyor..."
 
-#: MainWindow/Window.cpp:512
+#: MainWindow/Window.cpp:541
 #, kde-format
 msgid "Saving... Done"
 msgstr "Kaydediliyor... Bitti"
 
-#: MainWindow/Window.cpp:660
+#: MainWindow/Window.cpp:689
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "Gösterilecek görsel yok."
 
-#: MainWindow/Window.cpp:749
+#: MainWindow/Window.cpp:778
 #, kde-format
 msgid "Generate HTML..."
 msgstr "HTML Oluştur..."
 
-#: MainWindow/Window.cpp:753
+#: MainWindow/Window.cpp:782
 #, kde-format
 msgid "Import..."
 msgstr "İçe Aktar..."
 
-#: MainWindow/Window.cpp:756
+#: MainWindow/Window.cpp:785
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Görselleri Kopyala/Dışa Aktar..."
 
-#: MainWindow/Window.cpp:783
+#: MainWindow/Window.cpp:812
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Seçiliyi Sil"
 
-#: MainWindow/Window.cpp:789
+#: MainWindow/Window.cpp:818
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "Jetonları Kaldır..."
 
-#: MainWindow/Window.cpp:792
+#: MainWindow/Window.cpp:821
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Dosyaların Listesini Aç..."
 
-#: MainWindow/Window.cpp:795
+#: MainWindow/Window.cpp:824
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Tek Ögeye Bilgi Notu Ekle"
 
-#: MainWindow/Window.cpp:799
+#: MainWindow/Window.cpp:828
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Çoklu Ögelere Bilgi Notu Ekle"
 
-#: MainWindow/Window.cpp:803
+#: MainWindow/Window.cpp:832
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Görselleri Yığına Ekle"
 
-#: MainWindow/Window.cpp:807
+#: MainWindow/Window.cpp:836
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Görselleri Yığından Kaldır"
 
-#: MainWindow/Window.cpp:810
+#: MainWindow/Window.cpp:839
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Yığın İçindeki İlk Görseli Ayarla"
 
-#: MainWindow/Window.cpp:823
+#: MainWindow/Window.cpp:852
 #, kde-format
 msgid "View"
 msgstr "Görüntüle"
 
-#: MainWindow/Window.cpp:826
+#: MainWindow/Window.cpp:855
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Görüntüle (Yeni Pencerede)"
 
-#: MainWindow/Window.cpp:829
+#: MainWindow/Window.cpp:858
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Slayt Gösterisi Yap"
 
-#: MainWindow/Window.cpp:834
+#: MainWindow/Window.cpp:863
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Rastgele Slayt Gösterisi Yap"
 
-#: MainWindow/Window.cpp:840
+#: MainWindow/Window.cpp:869
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Tüm yığınları daralt"
 
-#: MainWindow/Window.cpp:846
+#: MainWindow/Window.cpp:875
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Tüm yığınları genişlet"
 
-#: MainWindow/Window.cpp:851
+#: MainWindow/Window.cpp:880
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "İlk Önce &En Eskiyi Göster"
 
-#: MainWindow/Window.cpp:856
+#: MainWindow/Window.cpp:885
 #, kde-format
 msgid "Show &Newest First"
 msgstr "İlk Önce &En Yeniyi Göster"
 
-#: MainWindow/Window.cpp:861
+#: MainWindow/Window.cpp:890
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Seçiliyi Tarih ve Zamana Göre Sırala"
 
-#: MainWindow/Window.cpp:864
+#: MainWindow/Window.cpp:893
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "Görünümü Seçime Sınırlandır"
 
-#: MainWindow/Window.cpp:867
+#: MainWindow/Window.cpp:896
 #, kde-format
 msgid "Jump to Context"
 msgstr "İçeriğe Git"
 
-#: MainWindow/Window.cpp:873
+#: MainWindow/Window.cpp:902
 #, kde-format
 msgid "Lock Images"
 msgstr "Görselleri Kilitle"
 
-#: MainWindow/Window.cpp:877
+#: MainWindow/Window.cpp:906
 #, kde-format
 msgid "Unlock"
 msgstr "Kilidi Aç"
 
-#: MainWindow/Window.cpp:880
+#: MainWindow/Window.cpp:909
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Diğer Tüm Ögeleri Kilitle"
 
-#: MainWindow/Window.cpp:883
+#: MainWindow/Window.cpp:912
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Geçerli Öge Kümesini Kilitle"
 
-#: MainWindow/Window.cpp:886
+#: MainWindow/Window.cpp:915
 #, kde-format
 msgid "Configure Current View"
 msgstr "Geçerli Görünümü Yapılandır"
 
-#: MainWindow/Window.cpp:898
+#: MainWindow/Window.cpp:927
 #, kde-format
 msgid "Tree"
 msgstr "Ağaç"
 
-#: MainWindow/Window.cpp:903
+#: MainWindow/Window.cpp:932
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Kullanıcı Simgelerini Kullanan Ağaç"
 
-#: MainWindow/Window.cpp:908
+#: MainWindow/Window.cpp:937
 #, kde-format
 msgid "Icons"
 msgstr "Simgeler"
 
-#: MainWindow/Window.cpp:916
+#: MainWindow/Window.cpp:945
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Küçük Görseller Penceresinde İpuçlarını Göster"
 
-#: MainWindow/Window.cpp:921
+#: MainWindow/Window.cpp:950
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
 msgstr "Küçük Görseller Penceresinde Etiketleri Göster"
 
-#: MainWindow/Window.cpp:931
+#: MainWindow/Window.cpp:960
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
 msgstr "Küçük Görseller Penceresinde Kategorileri Göster"
 
-#: MainWindow/Window.cpp:952
+#: MainWindow/Window.cpp:981
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "Renk Teması Seç"
 
-#: MainWindow/Window.cpp:963
+#: MainWindow/Window.cpp:992
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Diskte Olmayan Görselleri ve Videoları Göster"
 
-#: MainWindow/Window.cpp:966
+#: MainWindow/Window.cpp:995
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Eksik Tarih Bilgisi Olan Görselleri ve Videoları Göster..."
 
-#: MainWindow/Window.cpp:969
+#: MainWindow/Window.cpp:998
 #, kde-format
 msgid "Merge duplicates"
 msgstr "Aynıları Birleştir"
 
-#: MainWindow/Window.cpp:971 MainWindow/Window.cpp:1028
+#: MainWindow/Window.cpp:1000 MainWindow/Window.cpp:1057
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Seçili Küçük Görselleri ve Sağlama Toplamlarını Yenile"
 
-#: MainWindow/Window.cpp:975
+#: MainWindow/Window.cpp:1004
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Görseller ve Videolar için Yeniden Tara"
 
-#: MainWindow/Window.cpp:978
+#: MainWindow/Window.cpp:1007
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Exif Arama Veritabanını Yeniden Oluştur"
 
-#: MainWindow/Window.cpp:981
+#: MainWindow/Window.cpp:1010
 #, kde-format
 msgid "Read Exif Info from Files..."
 msgstr "Dosyalardan Exif Bilgisi Oku..."
 
-#: MainWindow/Window.cpp:984
+#: MainWindow/Window.cpp:1013
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Tümünü Tarih ve Zamana Göre Sırala"
 
-#: MainWindow/Window.cpp:988
+#: MainWindow/Window.cpp:1017
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Seçili Görselleri Otomatik Olarak Yığınla..."
 
-#: MainWindow/Window.cpp:991
+#: MainWindow/Window.cpp:1020
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Küçük Görselleri Yap"
 
-#: MainWindow/Window.cpp:994
+#: MainWindow/Window.cpp:1023
 #, kde-format
 msgid "Statistics..."
 msgstr "İstatistikler..."
 
-#: MainWindow/Window.cpp:998
+#: MainWindow/Window.cpp:1027
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Etiketlenmemiş Olarak İşaretle"
 
-#: MainWindow/Window.cpp:1007
+#: MainWindow/Window.cpp:1036
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Bütün İletileri Etkinleştir"
 
-#: MainWindow/Window.cpp:1015
+#: MainWindow/Window.cpp:1044
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "K Fotoğraf Albümü Tanıtımını Başlat"
 
-#: MainWindow/Window.cpp:1018
+#: MainWindow/Window.cpp:1047
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "K Fotoğraf Albümü Özellik Durumu"
 
-#: MainWindow/Window.cpp:1021
+#: MainWindow/Window.cpp:1050
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Tanıtım Videolarını Göster"
 
-#: MainWindow/Window.cpp:1025 Viewer/ViewerWidget.cpp:195
+#: MainWindow/Window.cpp:1054 Viewer/ViewerWidget.cpp:195
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Exif bilgisini ve dosya üstverisini göster"
 
-#: MainWindow/Window.cpp:1031
+#: MainWindow/Window.cpp:1060
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Bir sonraki video küçük görselini kullan"
 
-#: MainWindow/Window.cpp:1035
+#: MainWindow/Window.cpp:1064
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Önceki video küçük görselini kullan"
 
-#: MainWindow/Window.cpp:1039 MainWindow/Window.cpp:1267
+#: MainWindow/Window.cpp:1068 MainWindow/Window.cpp:1296
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Görselleri şuraya kopyala..."
 msgstr[1] "Görselleri şuraya kopyala..."
 
-#: MainWindow/Window.cpp:1043 MainWindow/Window.cpp:1271
+#: MainWindow/Window.cpp:1072 MainWindow/Window.cpp:1300
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "Görselleri şuraya bağla..."
 msgstr[1] "Görselleri şuraya bağla..."
 
-#: MainWindow/Window.cpp:1069
+#: MainWindow/Window.cpp:1098
 #, kde-format
 msgid "Auto saving...."
 msgstr "Otomatik kaydediliyor...."
 
-#: MainWindow/Window.cpp:1072
+#: MainWindow/Window.cpp:1101
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Otomatik kaydediliyor.... Bitti"
 
-#: MainWindow/Window.cpp:1174
+#: MainWindow/Window.cpp:1203
 #, kde-format
 msgid ""
 "<p>Could not open given index.xml, as the provided folder does not exist."
@@ -4512,7 +4525,7 @@ msgstr ""
 "<p>Sağlanan klasör var olmadığı için verilmiş index.xml açılamıyor.<br />%1</"
 "p>"
 
-#: MainWindow/Window.cpp:1181
+#: MainWindow/Window.cpp:1210
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4521,13 +4534,13 @@ msgstr ""
 "<p>Verilen dizin dosyası yok, aşağıdakini oluşturmak ister misiniz?<br />%1/"
 "index.xml</p>"
 
-#: MainWindow/Window.cpp:1184
+#: MainWindow/Window.cpp:1213
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Veritabanı Oluştur"
 
-#: MainWindow/Window.cpp:1212
+#: MainWindow/Window.cpp:1241
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4540,33 +4553,33 @@ msgstr ""
 "K Fotoğraf Albümü Uygulamasını Yapılandır...|Kategoriler</interface> altında "
 "etiketlenmemiş etiket ayarını gözden geçirin</p>"
 
-#: MainWindow/Window.cpp:1338 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1367 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Genel"
 
-#: MainWindow/Window.cpp:1339 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1368 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Görüntüleyici"
 
-#: MainWindow/Window.cpp:1340
+#: MainWindow/Window.cpp:1369
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Tarih Çubuğu"
 
-#: MainWindow/Window.cpp:1343
+#: MainWindow/Window.cpp:1372
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Bilgi Notu Penceresi"
 
-#: MainWindow/Window.cpp:1344 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Küçük Görsel Görünümü"
 
-#: MainWindow/Window.cpp:1489
+#: MainWindow/Window.cpp:1518
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4575,13 +4588,13 @@ msgstr ""
 "<p>Daha önceden 'Bunu bir daha gösterme' kutusunu işaretlediğiniz bütün "
 "iletileri yeniden etkinleştirmek istiyor musunuz?</p>"
 
-#: MainWindow/Window.cpp:1491
+#: MainWindow/Window.cpp:1520
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Gizil iletişim kutularını sıfırla"
 
-#: MainWindow/Window.cpp:1510
+#: MainWindow/Window.cpp:1539
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4598,32 +4611,32 @@ msgstr ""
 "Fotoğraf Albümü çalışmayı sürdürecektir; ancak make install yapmadığınız "
 "için ileride çökebilir.</p>"
 
-#: MainWindow/Window.cpp:1510
+#: MainWindow/Window.cpp:1539
 #, kde-format
 msgid "Internal Error"
 msgstr "İç Hata"
 
-#: MainWindow/Window.cpp:1521
+#: MainWindow/Window.cpp:1550
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "Görsel(ler) başarıyla paylaşıldı. Konum panoya kopyalanıyor..."
 
-#: MainWindow/Window.cpp:1524
+#: MainWindow/Window.cpp:1553
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Görsel(ler) başarıyla paylaşıldı."
 
-#: MainWindow/Window.cpp:1529
+#: MainWindow/Window.cpp:1558
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Görsel paylaşımı başarısız oldu, hata iletisi: %1"
 
-#: MainWindow/Window.cpp:1592
+#: MainWindow/Window.cpp:1621
 #, kde-format
 msgid "Open List of Files"
 msgstr "Dosyalar Listesi Aç"
 
-#: MainWindow/Window.cpp:1593
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid ""
 "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4632,28 +4645,28 @@ msgstr ""
 "Dosyaları burada listeleyerek K Fotoğraf Albümü'nün görsel kökünden bir küme "
 "dosya açabilirsiniz."
 
-#: MainWindow/Window.cpp:1606
+#: MainWindow/Window.cpp:1635
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Girdinizle uyuşan hiçbir görsel bulunamadı."
 
-#: MainWindow/Window.cpp:1606
+#: MainWindow/Window.cpp:1635
 #, kde-format
 msgid "No Matches"
 msgstr "Eşleşme Yok"
 
-#: MainWindow/Window.cpp:1778
+#: MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Tüm görsellerden Exif bilgileri yeniden okunuyor"
 
-#: MainWindow/Window.cpp:1805
+#: MainWindow/Window.cpp:1834
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Küçük görsel genişliği: %1 pks (depolama alanı: %2 pks)"
 
-#: MainWindow/Window.cpp:1858
+#: MainWindow/Window.cpp:1887
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4664,7 +4677,7 @@ msgstr ""
 "küçük görsellerini ve video uzunluklarını gösteremeyecektir. Lütfen ffmpeg "
 "paketini kurun</p>"
 
-#: MainWindow/Window.cpp:1861
+#: MainWindow/Window.cpp:1890
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Video küçük görselleri kullanılabilir değil"

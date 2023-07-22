@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-21 00:47+0000\n"
-"PO-Revision-Date: 2023-04-27 08:49+0300\n"
+"PO-Revision-Date: 2023-07-21 08:46+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -4263,12 +4263,10 @@ msgid "Do you want to save the changes?"
 msgstr "Чи бажаєте ви зберегти зміни?"
 
 #: MainWindow/Window.cpp:335
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Discard changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
-msgstr "Відкинути зміни?"
+msgstr "Зберегти зміни?"
 
 #: MainWindow/Window.cpp:392
 #, kde-format

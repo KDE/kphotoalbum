@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-21 00:47+0000\n"
-"PO-Revision-Date: 2023-05-02 20:53+0200\n"
+"PO-Revision-Date: 2023-07-21 08:16+0300\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -4209,15 +4209,13 @@ msgstr "Supressió de la base de dades de demostració"
 #: MainWindow/Window.cpp:334
 #, kde-format
 msgid "Do you want to save the changes?"
-msgstr ""
+msgstr "Voleu desar els canvis?"
 
 #: MainWindow/Window.cpp:335
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Discard changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
-msgstr "Descarto els canvis?"
+msgstr "Deso els canvis?"
 
 #: MainWindow/Window.cpp:392
 #, kde-format
@@ -7094,6 +7092,3 @@ msgstr "Mostra la mida de la imatge"
 #, kde-format
 msgid "Show Rating"
 msgstr "Mostra la valoració"
-
-#~ msgid "Display Images and Videos with Changed MD5 Sum"
-#~ msgstr "Mostra les imatges i vídeos amb la suma MD5 canviada"

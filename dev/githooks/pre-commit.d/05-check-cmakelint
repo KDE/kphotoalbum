@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+#
+# SPDX-License-Identifier: BSD-2-Clause
+
+###
+# Rund cmakelint (if available) against modified cmake files
+###
+
+set -e
+
+declare -a lintfiles=
+IFS=$'\n'
+# if the file is added or modified
+for line in $(git status -s | grep '^ *[AM] .*')
+do
+	filename="${line:3}"
+	case "$(basename "$filename")" in
+		CMakeLists.txt)
+			lintfiles+=("${filename}")
+			;;
+		*.cmake)
+			lintfiles+=("${filename}")
+			;;
+	esac
+done
+
+# Check if cmakelint is even needed before complaining about its absence...
+if [[ -z "${lintfiles[*]}" ]]
+then
+	exit 0
+fi
+
+if ! command -v cmakelint >/dev/null
+then
+	echo "Could not find cmakelint! Run 'pipx install cmakelint' to install cmakelint..."
+	exit 0
+fi
+
+cmakelint "${lintfiles[@]}"

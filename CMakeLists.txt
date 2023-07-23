@@ -43,7 +43,7 @@ set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ";Debug;Release;RelWithDebI
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
 
 find_package(ECM ${MINIMUM_ECM_VERSION} REQUIRED NO_MODULE)
-list(APPEND CMAKE_MODULE_PATH "${ECM_MODULE_PATH}" )
+list(APPEND CMAKE_MODULE_PATH "${ECM_MODULE_PATH}")
 
 include(KDEInstallDirs)
 include(KDECompilerSettings)
@@ -93,7 +93,7 @@ set_package_properties(KF5KDcraw
     TYPE OPTIONAL
     PURPOSE "Enables RAW image support"
     )
-set(HAVE_KDCRAW ${KF5KDcraw_FOUND} )
+set(HAVE_KDCRAW ${KF5KDcraw_FOUND})
 
 find_package(Marble)
 set_package_properties(Marble
@@ -782,7 +782,7 @@ if(LIBVLC_FOUND)
   target_link_libraries(kphotoalbum PRIVATE ${LIBVLC_LIBRARY})
 endif()
 
-if (Phonon4Qt5_FOUND)
+if(Phonon4Qt5_FOUND)
   target_sources(kphotoalbum PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/PhononDisplay.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/PhononDisplay.h"

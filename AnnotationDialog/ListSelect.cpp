@@ -411,7 +411,8 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
         deleteAction->setEnabled(false);
         renameAction->setEnabled(false);
         members->setEnabled(false);
-        newCategoryAction->setEnabled(false);
+        if (newCategoryAction)
+            newCategoryAction->setEnabled(false);
         newSubcategoryAction->setEnabled(false);
         if (takeAction)
             takeAction->setEnabled(false);

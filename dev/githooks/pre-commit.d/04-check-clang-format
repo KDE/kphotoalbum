@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# SPDX-FileCopyrightText: 2019 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-# SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2019-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
 # SPDX-License-Identifier: BSD-2-Clause
 
@@ -32,24 +31,21 @@ check_format()
 
 reformat_files=
 IFS=$'\n'
-for line in $(git status -s)
+# if the file is added or modified
+for line in $(git status -s | grep '^ *[AM] .*')
 do
-	# if the file is added or modified
-	if [[ "$line" == A* || "$line" == M* ]]
+	if [[ "$line" == *.cpp || "$line" == *.h ]]
 	then
-		if [[ "$line" == *.cpp || "$line" == *.h ]]
+		if ! check_format "${line:3}"
 		then
-			if ! check_format "${line:3}"
-			then
-				reformat_files="$reformat_files\n   ${line:3}"
-			fi
+			reformat_files="$reformat_files\n   ${line:3}"
 		fi
 	fi
 done
 
 if [[ -n "$reformat_files" ]]
 then
-	printf "Incorrect coding style:$reformat_files\n"
+	printf "Incorrect coding style:%s\n" "$reformat_files"
 	printf "** Run \"git clang-format\" to reformat all staged changes, or\n"
 	printf "** run \"dev/scripts/clang-format-all.sh\" to reformat all source files...\n"
 	exit 1

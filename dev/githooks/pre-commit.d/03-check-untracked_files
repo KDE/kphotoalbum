@@ -1,5 +1,5 @@
 #!/bin/bash
-# SPDX-FileCopyrightText: 2019 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2019-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 # SPDX-License-Identifier: BSD-2-Clause
 ###
 # Check for untracked C++ source files and cmake files.
@@ -16,11 +16,10 @@ then
 	exit 0
 fi
 
-retval=0
 untracked_files=$(git status -s | grep '^?? ' | grep '\(CMakeLists.txt\)\|\(\.cmake\)\|\(\.cpp\)\|\(\.h\)' | sed 's/^.../   /')
 if [[ -n "$untracked_files" ]]
 then
-	printf "Untracked files:\n$untracked_files\n"
+	printf "Untracked files:\n%s\n" "$untracked_files"
 	printf "** You can suppress this check by setting 'git config kpa.checkUntracked false'\n"
 	printf "** or by setting the environment variable CHECK_UNTRACKED=false\n"
 	exit 1

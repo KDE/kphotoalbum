@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: 2003 David Faure <faure@kde.org>
 // SPDX-FileCopyrightText: 2003-2005 Stephan Binner <binner@kde.org>
 // SPDX-FileCopyrightText: 2003-2007 Dirk Mueller <mueller@kde.org>
-// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2003-2023 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2004 Marc Mutz <mutz@kde.org>
 // SPDX-FileCopyrightText: 2006-2010 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2007 Shawn Willden <shawn-kimdaba@willden.org>
@@ -26,6 +26,7 @@
 #include <config-kpa-videobackends.h>
 
 #include "CategoryImageConfig.h"
+#include "CursorVisiabilityHandler.h"
 #include "ImageDisplay.h"
 #include "InfoBox.h"
 #include "Logging.h"
@@ -131,6 +132,7 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type, QMap<Qt::Key, QPair<QString, 
 
     m_display = m_imageDisplay = new ImageDisplay(this);
     addWidget(m_imageDisplay);
+    m_cursorHandlerForImageDisplay = new CursorVisiabilityHandler(m_imageDisplay);
 
     m_textDisplay = new TextDisplay(this);
     addWidget(m_textDisplay);
@@ -1434,6 +1436,7 @@ void Viewer::ViewerWidget::createVideoViewer()
 
     addWidget(m_videoDisplay);
     connect(m_videoDisplay, &VideoDisplay::stopped, this, &ViewerWidget::videoStopped);
+    m_cursorHandlerForVideoDisplay = new CursorVisiabilityHandler(m_videoDisplay);
 }
 
 void Viewer::ViewerWidget::stopPlayback()

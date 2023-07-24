@@ -254,6 +254,8 @@ set(libViewer_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VideoToolBar.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/Slider.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/Slider.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/CursorVisiabilityHandler.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/CursorVisiabilityHandler.h"
     )
 
 set(libCategoryListView_SRCS

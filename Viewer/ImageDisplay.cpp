@@ -64,58 +64,14 @@ Viewer::ImageDisplay::ImageDisplay(QWidget *parent)
     , m_forward(true)
     , m_curIndex(0)
     , m_busy(false)
-    , m_cursorHiding(true)
 {
     m_viewHandler = new ViewHandler(this);
 
     setMouseTracking(true);
-    m_cursorTimer = new QTimer(this);
-    m_cursorTimer->setSingleShot(true);
-    connect(m_cursorTimer, &QTimer::timeout, this, &ImageDisplay::hideCursor);
-    showCursor();
-}
-
-/**
- * If mouse cursor hiding is enabled, hide the cursor right now
- */
-void Viewer::ImageDisplay::hideCursor()
-{
-    if (m_cursorHiding)
-        setCursor(Qt::BlankCursor);
-}
-
-/**
- * If mouse cursor hiding is enabled, show normal cursor and start a timer that will hide it later
- */
-void Viewer::ImageDisplay::showCursor()
-{
-    if (m_cursorHiding) {
-        unsetCursor();
-        m_cursorTimer->start(1500);
-    }
-}
-
-/**
- * Prevent hideCursor() and showCursor() from altering cursor state
- */
-void Viewer::ImageDisplay::disableCursorHiding()
-{
-    m_cursorHiding = false;
-}
-
-/**
- * Enable automatic mouse cursor hiding
- */
-void Viewer::ImageDisplay::enableCursorHiding()
-{
-    m_cursorHiding = true;
 }
 
 void Viewer::ImageDisplay::mousePressEvent(QMouseEvent *event)
 {
-    // disable cursor hiding till button release
-    disableCursorHiding();
-
     QMouseEvent e(event->type(), mapPos(event->pos()), event->button(), event->buttons(), event->modifiers());
     double ratio = sizeRatio(QSize(m_zEnd.x() - m_zStart.x(), m_zEnd.y() - m_zStart.y()), size());
     bool block = m_viewHandler->mousePressEvent(&e, event->pos(), ratio);
@@ -126,9 +82,6 @@ void Viewer::ImageDisplay::mousePressEvent(QMouseEvent *event)
 
 void Viewer::ImageDisplay::mouseMoveEvent(QMouseEvent *event)
 {
-    // just reset the timer
-    showCursor();
-
     QMouseEvent e(event->type(), mapPos(event->pos()), event->button(), event->buttons(), event->modifiers());
     double ratio = sizeRatio(QSize(m_zEnd.x() - m_zStart.x(), m_zEnd.y() - m_zStart.y()), size());
     bool block = m_viewHandler->mouseMoveEvent(&e, event->pos(), ratio);
@@ -139,10 +92,6 @@ void Viewer::ImageDisplay::mouseMoveEvent(QMouseEvent *event)
 
 void Viewer::ImageDisplay::mouseReleaseEvent(QMouseEvent *event)
 {
-    // enable cursor hiding and reset timer
-    enableCursorHiding();
-    showCursor();
-
     m_cache.remove(m_curIndex);
     QMouseEvent e(event->type(), mapPos(event->pos()), event->button(), event->buttons(), event->modifiers());
     double ratio = sizeRatio(QSize(m_zEnd.x() - m_zStart.x(), m_zEnd.y() - m_zStart.y()), size());
@@ -495,8 +444,8 @@ void Viewer::ImageDisplay::updateZoomCaption()
     }
 
     Q_EMIT setCaptionInfo((ratio > 1.05)
-                            ? ki18n("[ zoom x%1 ]").subs(ratio, 0, 'f', 1).toString()
-                            : QString());
+                              ? ki18n("[ zoom x%1 ]").subs(ratio, 0, 'f', 1).toString()
+                              : QString());
 }
 
 QImage Viewer::ImageDisplay::currentViewAsThumbnail() const

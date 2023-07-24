@@ -25,6 +25,7 @@ class QMenu;
 class QResizeEvent;
 class QStackedWidget;
 class QWheelEvent;
+class CursorVisiabilityHandler;
 
 namespace DB
 {
@@ -265,6 +266,8 @@ private:
     QMap<Qt::Key, QPair<QString, QString>> *m_myInputMacros;
 
     MainWindow::CopyLinkEngine *m_copyLinkEngine;
+    CursorVisiabilityHandler *m_cursorHandlerForImageDisplay;
+    CursorVisiabilityHandler *m_cursorHandlerForVideoDisplay;
 };
 
 }

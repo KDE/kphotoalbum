@@ -69,10 +69,6 @@ public Q_SLOTS:
 
 protected Q_SLOTS:
     bool setImageImpl(DB::ImageInfoPtr info, bool forward) override;
-    void hideCursor();
-    void showCursor();
-    void disableCursorHiding();
-    void enableCursorHiding();
 
 Q_SIGNALS:
     void possibleChange();
@@ -127,9 +123,6 @@ private:
     int m_curIndex;
     bool m_busy;
     ViewerWidget *m_viewer;
-
-    QTimer *m_cursorTimer;
-    bool m_cursorHiding;
 };
 }
 

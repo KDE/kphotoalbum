@@ -358,6 +358,9 @@ QString Utilities::formatAge(DB::CategoryPtr category, const QString &item, DB::
 
     const AgeSpec minAge = dateDifference(birthDate, start);
     const AgeSpec maxAge = dateDifference(birthDate, end);
+
+    if (!minAge.isValid() && !maxAge.isValid())
+        return {}; // This is for example a person on an image before their birth
     if (minAge == maxAge)
         return i18n(" (%1)", minAge.format(AgeSpec::I18nContext::Birthday));
     else if (!minAge.isValid())

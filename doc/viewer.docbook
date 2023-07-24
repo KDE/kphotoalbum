@@ -126,21 +126,48 @@ image, simply by choosing <guimenuitem>Annotate</guimenuitem> in the context men
 
 
 
+<sect1 id="annotating-from-the-viewer">
+<title>Annotating images from the viewer</title>
+<para>Traditionally the main way for tagging images has been though <link linkend="chp-typingIn">the annotation dialog</link>.
+Over the years a few different attempts have been made at integrating tagging into the viewer, first attempt was by assigning tokens in the viewer, a later
+attempt was by making it possible to tag directly by typing part of a category item. In addition category items could be assigned to function keys on the keyboard.
+The code for all of this have now been modernized to make the work flow much more intuitive and discover-able.</para>
+
+<para>There are three modes to annotating images in the viewer:
+<itemizedlist>
+    <listitem><para><emphasis>Locked</emphasis> - This is the default mode when starting the viewer - in here no annotating or tokenizing will happen. This ensure you do not accidentally annotates images when viewing them.</para></listitem>
+    <listitem><para><emphasis>Assign Tokens</emphasis> - This allows you to set tokens on images, by simply pressing a key from A-Z on the keyboard.</para></listitem>
+    <listitem><para><emphasis>Assign Tags</emphasis> - This allows you to assign macros to a keyboard key. As an example, <emphasis>L</emphasis> could mean set the item <emphasis>Las Vegas</emphasis> in the <emphasis>Location</emphasis> category. In addition to that, it also allows you to set any tag on an image.</para></listitem>
+</itemizedlist>
+
+The modes are selected from the context menu as can be seen in <xref linkend="fig-ctxmenu-for-mode-selection"/>.
+
+The two modes are described in details below.
+</para>
+
+  <figure id="fig-ctxmenu-for-mode-selection">
+    <title>Selecting annotation mode from the viewer</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="annotation-mode.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+</sect1>
+
+
+
+
 <sect1 id="tokens">
 <title>Setting Tokens from the Viewer</title>
-<para>When viewing the images you may find that a given image contains a person
-whose name you forgot to set on the images. At this time you may cancel
-your viewing, and rush to the image configuration dialog to specify the
-person. However, you may prefer to just tag the image and continue on
-viewing images.</para>
-
-<para>An alternative situation is if you want to sent a number of images
+<para>Imagine you want to sent a number of images
 to a printer to get them developed on paper. To see which you want, you
-start the viewer on the images, and tag them as good or bad while by
-inspecting see each one.</para>
+start the viewer on the images, and tag them as <emphasis>good</emphasis>, <emphasis>bad</emphasis>, or <emphasis>maybe</emphasis>, while inspecting each one.</para>
 
-<para>For the above two examples the viewer offers you to set tokens on the
-images when viewing them. Tokens are named from A to Z, and you set a token
+<para>You may of course create a few new items (say <emphasis>Good</emphasis>, <emphasis>Bad</emphasis>, <emphasis>Maybe</emphasis>) for an existing category, say the category <emphasis>Album</emphasis>.
+However, given that you likely do not need these tags once you've send the images to the printer, there is an easier way, namely by simply setting tokens on the images. Tokens are named from A to Z, and you set a token
 simply by pressing its letter. In <xref linkend="fig-images-with-tokens"/>
 you may see an image where the tokens A, B and C are set.</para>
 
@@ -154,13 +181,12 @@ you may see an image where the tokens A, B and C are set.</para>
     </mediaobject>
   </figure>
 
+  <para>For this to work, you need to be in the <emphasis>Assign Tokens</emphasis> mode. See <xref linkend="fig-ctxmenu-for-mode-selection"/></para>
+
 <para>Once you've set tokens on your images, they will be available for
 regular browsing in the browser, as can be seen in <xref
 linkend="fig-tokens-in-browser"/>. So when you've marked images that
-needs to be edited, printed, or whatever, simply browse to the images, and
-annotate all images at a time (as described in <xref
-linkend="sect-specifying-properties-for-all-images-simultaneously"/>), use
-a plugin to copy the selected images to a CD, or whatever you need to do.</para>
+needs to be edited, printed, or whatever, simply browse to the images, and process the set from there, e.g. by using <emphasis>copy images to...</emphasis> from the context menu.</para>
 
   <figure id="fig-tokens-in-browser">
     <title>Tokens seen in the Browser</title>
@@ -192,143 +218,54 @@ image is selected, this can be seen in
 
 </sect1>
 
-<sect1 id="category-selectors-in-viewer">
-    <title>Setting Categories from the Viewer</title>
-    <para>Category can be selected on viewer by starting to type the category
-    name. Selection is made immediately when there is only one matching
-    category left.</para>
+<sect1>
+    <title>Tagging images from the viewer</title>
+<para>Tagging images can be tiresome, even in &kphotoalbum;, at least when you've fallen behind and have thousands or tens of thousands of images in need of proper tagging.
+    Fortunately, it is now possible to add tags with the press of a single key when viewing the images. The realization behind this way of working with images is that most images are with the same few people in the same few places, plus a few "guest" appearances from time to time - say the location of your vacation, or some friends who were visiting you for a week.</para>
 
-    <para>To switch to category selection mode simply type slash (/). Possible
-    options are shown after Assigning: text in curly brackets and it is
-    immediately revised once more letters are typed. When a category is
-    selected you can keep on typing to select the item value. Following image
-    shows this in action and below it is explanation how this all works.
-    </para>
+<para>To tag your images while viewing them, you need to enter the <emphasis>Assign Tags mode</emphasis> - see <xref linkend="fig-ctxmenu-for-mode-selection"/>.
+    With this enable, simply press a letter key on your keyboard to either assign or use the assigned tag.</para>
 
+<para>In <xref linkend="fig-assign-macro-step1"/> below, I've just pressed <keycap>s</keycap> while watching images and being in the <emphasis>Assign Tags mode</emphasis>. This brought up the dialog where I can specify what tag to assign to that key.</para>
 
-<figure id="category-selectors">
-<title>Selecting Categories in Viewer</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="category-selectors.png" format="PNG"/>
-</imageobject>
-</mediaobject>
+<figure id="fig-assign-macro-step1">
+  <title>Step 1 - assigning a macro to the key <emphasis>s</emphasis></title>
+  <mediaobject>
+    <imageobject><imagedata fileref="assign-macro-step1.png" format="PNG"/></imageobject>
+   </mediaobject>
 </figure>
 
-<para>
-Follow the category setup below to better understand this explanation.
-Starting by typing "/k" the input selection will shift from "Tokens" to
-"Keywords" (since K is unique). After that, typing "g" will assign the "good"
-keyword immediately to the image. Typing "b" will show B{ad,oring} in the info
-box and typing "a" or "o" next will complete the match and assign the result to
-the image. Typing "/p" will work similarly and show the partial category match
-"P{eople,laces} so you can type "e" or "l" to complete "People" or "Places"
-respectively.
-<itemizedlist mark='opencircle'>
-    <listitem><para>Tokens</para>
-    <itemizedlist mark='opencircle'>
-        <listitem><para>A..Z</para></listitem>
-    </itemizedlist>
-    </listitem>
-    <listitem>
-    <para>Keywords</para>
-    <itemizedlist mark='opencircle'>
-        <listitem><para>Good</para></listitem>
-        <listitem><para>Bad</para></listitem>
-        <listitem><para>Boring</para></listitem>
-    </itemizedlist>
-    </listitem>
-    <listitem>
-    <para>People</para>
-    <itemizedlist mark='opencircle'>
-        <listitem><para>George</para></listitem>
-        <listitem><para>Fred</para></listitem>
-    </itemizedlist>
-    </listitem>
-    <listitem>
-    <para>Places</para>
-    <itemizedlist mark='opencircle'>
-        <listitem><para>Internet</para></listitem>
-    </itemizedlist>
-    </listitem>
-</itemizedlist>
-</para>
+<para>Next, in the line edit I typed <emphasis>sp</emphasis> which suggest "People / Je<emphasis>sp</emphasis>er" and "People / <emphasis>Sp</emphasis>iff".
+    Both matched the letters I typed. Pressing arrow down to select <emphasis>Spiff</emphasis> and pressing enter, will assign the letter <emphasis>s</emphasis> to adding the tag <emphasis>People / Spiff</emphasis> to the image viewed.
+    This assignment, will be saved for future sessions. To re-assign s to another tag, simply press <keycombo action="simul">&Shift;<keycap>s</keycap></keycombo>.</para>
 
-<sect2>
-    <title>Exact words</title>
-<para>
-    If you want to insert a new word or have words like boa and board you need
-    to be able to type in the exact word you want to insert or select. This can
-    be achieved by starting the word with double quote (") and ending with
-    comma (,). If we would select boa immediately when it is typed you could
-    not select board and otherwise we would be waiting for more key presses and
-    you could not select boa.
-
-<figure id="keyword-exact">
-<title>Selecting Exact Words in Viewer</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="keyword-exact.png" format="PNG"/>
-</imageobject>
-</mediaobject>
+<figure id="fig-assign-macro-step2">
+  <title>Step 2 - assigning a macro - typing <emphasis>sp</emphasis></title>
+  <mediaobject>
+    <imageobject><imagedata fileref="assign-macro-step2.png" format="PNG"/></imageobject>
+   </mediaobject>
 </figure>
-</para>
-</sect2>
 
-<sect2>
-    <title>Always start with category selection</title>
-<para>
-    If you type two '/'s in a row it will toggle between two different modes.
-    The default mode described above and a category selection mode. In the
-    latter mode we go straight back to category selection after a match.
-    That way you can continually select items within different categories.
-    It'll still do the fastest match possible so that typing "kbo" will still
-    match "Keywords/Boring" in the example set above.
-</para>
-</sect2>
-<sect2>
-    <title>Assigning shortcuts</title>
-<para>
-    If the current input is blank (e.g. you're not in the middle of selecting
-    anything) and you hit a function key F1 through F12 (or up to F35 if
-    your keyboard supports), it will assign the last
-    matched assignment to that key. You can apply the same assignment to
-    new images just by hitting the shortcut key. To  remove use shift
-    modifier and the shortcut (<keycombo>&Shift;<keycap>F#</keycap></keycombo>). This is useful for quickly assigning
-    frequently repeating items in your current set of images. It
-    remembers both the category and the category item. These shortcuts are
-    remembered until &kphotoalbum; is closed, there is currently no
-    support for replacing the assigned shortcut.
-    </para>
-  </sect2>
+<para>In <xref linkend="fig-assign-macro-overview"/> below you can see existing keybindings in the right side of the dialog.</para>
+<figure id="fig-assign-macro-overview">
+  <title>Overview of assigned key bindings</title>
+  <mediaobject>
+    <imageobject><imagedata fileref="assign-macro-overview.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para>In case the tag you want to assign doesn't already exist in your database, then simply press the <emphasis>Add New</emphasis> button to create it. This can be seen in <xref linkend="fig-assign-macro-add-new-value.png"/> below</para>
+
+<figure id="fig-assign-macro-add-new-value.png">
+  <title>Adding a new tag</title>
+  <mediaobject>
+    <imageobject><imagedata fileref="assign-macro-add-new-value.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para>While tagging images from the viewer, you may want to add a tag, without binding it to a key. To do so simply press <keycombo>&Ctrl;<keycap>a</keycap></keycombo></para>
+
 </sect1>
-
-
-<!-- Drawing on images feature has been dropped
-  <sect1 id="drawing-on-images">
-    <title>Drawing on Images</title>
-    <para>Sometimes it might not be obvious what you want to show with a
-given image, for that purpose &kphotoalbum; allows you to draw on the
-images. </para>
-
-<para>The actual drawing is not saved to the image, but rather to the
-database, that way you can undo your drawing at a later point.</para>
-
-<para>In <xref linkend="fig-draw-on-image"/> you can see an image drawn
-on. To bring &kphotoalbum; in to drawing mode, select <guimenuitem>Draw on
-Image</guimenuitem> from the context menu. To quit drawing, press the cross in
-the toolbar at the top of the window.</para>
-
-<figure id="fig-draw-on-image">
-<title>Drawing on Images</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="draw-on-image.png" format="PNG"/>
-</imageobject>
-</mediaobject>
-</figure>
-  </sect1>
--->
 </chapter>
 
 <!-- Keep this comment at the end of the file

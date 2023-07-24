@@ -43,6 +43,7 @@ protected:
     void loadBlockList(ReaderPtr reader);
     void loadMemberGroups(ReaderPtr reader);
     // void loadSettings(ReaderPtr reader);
+    void loadGlobalSortOrder(ReaderPtr reader);
 
     DB::ImageInfoPtr load(const DB::FileName &filename, ReaderPtr reader);
     ReaderPtr readConfigFile(const QString &configFile);

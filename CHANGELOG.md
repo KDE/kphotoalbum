@@ -36,7 +36,8 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ------------
 
 ### Added
-
+ - Support annotating images from the viewer. Press Ctrl+? in the viewer for details.
+ 
 ### Changed
 
 ### Dependencies

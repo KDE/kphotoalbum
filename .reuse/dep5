@@ -25,3 +25,7 @@ License: CC0-1.0
 Files: demo/*.jpg demo/*.avi demo/index.xml
 Copyright: 2003-2007 Jesper K. Pedersen
 License: CC-BY-SA-4.0
+
+Files: *.ui
+Copyright: 2023 The KPhotoAlbum Development Team
+License: GPL-2.0-or-later

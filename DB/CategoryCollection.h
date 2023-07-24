@@ -12,8 +12,9 @@
 
 #include "Category.h"
 #include "CategoryPtr.h"
-
+#include "GlobalCategorySortOrder.h"
 #include <QList>
+#include <memory>
 
 namespace DB
 {
@@ -28,6 +29,8 @@ class CategoryCollection : public QObject
     Q_OBJECT
 
 public:
+    ~CategoryCollection();
+
     enum class IncludeSpecialCategories {
         Yes,
         No
@@ -42,6 +45,7 @@ public:
                      int thumbnailSize, bool show, bool positionable = false);
     void removeCategory(const QString &name);
     void rename(const QString &oldName, const QString &newName);
+    GlobalCategorySortOrder *globalSortOrder();
 
     // FIXME(jzarl): this should be private and FileWriter should be a friend class
     void initIdMap();
@@ -57,8 +61,12 @@ protected Q_SLOTS:
     void slotItemRemoved(const QString &item);
 
 private:
+    friend class ImageDB;
+    CategoryCollection();
+
     QList<DB::CategoryPtr> m_categories;
     QMap<DB::Category::CategoryType, DB::CategoryPtr> m_specialCategories;
+    std::unique_ptr<GlobalCategorySortOrder> m_globalSortOrder;
 };
 
 }

@@ -700,8 +700,7 @@ void MainWindow::Window::launchViewer(const DB::FileNameList &inputMediaList, bo
         viewer->raise();
         viewer->activateWindow();
     } else {
-        viewer = new Viewer::ViewerWidget(Viewer::ViewerWidget::ViewerWindow,
-                                          &m_viewerInputMacros);
+        viewer = new Viewer::ViewerWidget(Viewer::ViewerWidget::ViewerWindow);
         viewer->setCopyLinkEngine(m_copyLinkEngine);
     }
 

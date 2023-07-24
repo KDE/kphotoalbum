@@ -97,6 +97,7 @@ void DB::FileWriter::save(const QString &fileName, bool isAutoSave)
         saveBlockList(writer);
         saveMemberGroups(writer);
         // saveSettings(writer);
+        saveGlobalSortOrder(writer);
     }
     writer.writeEndDocument();
     qCDebug(TimingLog) << "DB::FileWriter::save(): Saving took" << timer.elapsed() << "ms";
@@ -261,6 +262,16 @@ void DB::FileWriter::saveMemberGroups(QXmlStreamWriter &writer)
                 }
             }
         }
+    }
+}
+
+void DB::FileWriter::saveGlobalSortOrder(QXmlStreamWriter &writer)
+{
+    ElementWriter dummy(writer, QStringLiteral("global-sort-order"));
+    for (const auto &item : m_db->categoryCollection()->globalSortOrder()->modifiedSortOrder()) {
+        ElementWriter dummy(writer, QStringLiteral("item"));
+        writer.writeAttribute(QStringLiteral("category"), item.category);
+        writer.writeAttribute(QStringLiteral("item"), item.item);
     }
 }
 

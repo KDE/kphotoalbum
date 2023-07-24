@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2007 Gustavo P. Boiko <gustavo.boiko@kdemail.net>
 # SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
 # SPDX-FileCopyrightText: 2007-2010 Tuomas Suutari <tuomas@nepnep.net>
-# SPDX-FileCopyrightText: 2007-2014 Jesper K. Pedersen <blackie@kde.org>
+# SPDX-FileCopyrightText: 2007-2023 Jesper K. Pedersen <blackie@kde.org>
 # SPDX-FileCopyrightText: 2008, 2013-2014, 2016 Pino Toscano <pino@kde.org>
 # SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
 # SPDX-FileCopyrightText: 2008-2009 Jan Kundrát <jkt@flaska.net>
@@ -36,6 +36,7 @@ math(EXPR MINIMUM_Qt5_VERSION_HEX "${MINIMUM_Qt5_VERSION_MAJOR} << 24 | ${MINIMU
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_AUTOUIC ON)
 
 # provide drop-down menu for build-type in cmake-gui:
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ";Debug;Release;RelWithDebInfo;MinSizeRel")
@@ -228,8 +229,8 @@ set(libViewer_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/ImageDisplay.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/ViewHandler.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/ViewHandler.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/SpeedDisplay.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/SpeedDisplay.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/TransientDisplay.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/TransientDisplay.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/InfoBox.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/InfoBox.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/CategoryImageConfig.cpp"
@@ -254,7 +255,18 @@ set(libViewer_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/VideoToolBar.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/Slider.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/Slider.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/CursorVisibilityHandler.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/CursorVisibilityHandler.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/AnnotationHandler.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/AnnotationHandler.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/SelectCategoryAndValue.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/SelectCategoryAndValue.h"
     )
+
+ki18n_wrap_ui(libViewer_SRCS
+    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/SelectCategoryAndValue.ui"
+    )
+
 
 set(libCategoryListView_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/CategoryListView/documentation.h"
@@ -488,6 +500,8 @@ set(libDB_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/XML/NumberedBackup.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/XML/XmlReader.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/XML/XmlReader.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/DB/GlobalCategorySortOrder.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/DB/GlobalCategorySortOrder.h"
     )
 
 set(libImportExport_SRCS
@@ -694,7 +708,6 @@ add_subdirectory(themes)
 add_subdirectory(scripts)
 
 add_subdirectory(doc)
-
 
 ########### next target ###############
 

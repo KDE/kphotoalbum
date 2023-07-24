@@ -764,6 +764,7 @@ target_link_libraries(kphotoalbum
     KF5::XmlGui
     KF5::WidgetsAddons
     ${libRemoteControl_LIBS}
+    Qt5::CorePrivate
     )
 
 if(KF5Purpose_FOUND)

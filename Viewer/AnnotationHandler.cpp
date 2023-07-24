@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QKeyEvent>
 #include <QLocale>
+#include <private/qstringiterator_p.h>
 #include <qnamespace.h>
 
 namespace Viewer
@@ -21,12 +22,25 @@ AnnotationHandler::AnnotationHandler(QObject *parent)
     loadSettings();
 }
 
+namespace
+{
+    // See https://www.kdab.com/a-little-hidden-gem-qstringiterator/ for details
+    bool isKeyboardLetter(const QString &txt)
+    {
+        if (txt.isEmpty())
+            return false;
+
+        QStringIterator i(txt);
+        char32_t ch = i.next();
+        return QChar::isLetter(ch);
+    }
+};
+
 bool AnnotationHandler::handle(QKeyEvent *event)
 {
     const auto key = event->text().toLower();
-    const auto upperKey = QLocale().toUpper(key);
 
-    if (key.isEmpty() || upperKey.isEmpty() || key == upperKey || (event->modifiers() != Qt::KeyboardModifiers() && event->modifiers() != Qt::KeyboardModifiers(Qt::ShiftModifier)))
+    if (key.isEmpty() || !isKeyboardLetter(key) || (event->modifiers() != Qt::KeyboardModifiers() && event->modifiers() != Qt::KeyboardModifiers(Qt::ShiftModifier)))
         return false;
 
     if (!m_assignments.contains(key) || event->modifiers().testFlag(Qt::ShiftModifier)) {

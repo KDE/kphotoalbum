@@ -814,7 +814,7 @@ const DB::TagInfo *ImageDB::untaggedTag() const
 int ImageDB::fileVersion()
 {
     // File format version, bump it up every time the format for the file changes.
-    return 9;
+    return 10;
 }
 
 ImageInfoPtr ImageDB::createImageInfo(const FileName &fileName, DB::ReaderPtr reader, ImageDB *db, const QMap<QString, QString> *newToOldCategory)

@@ -294,7 +294,6 @@ private:
     TokenEditor *m_tokenEditor;
     DateBar::DateBarWidget *m_dateBar;
     QFrame *m_dateBarLine;
-    QMap<Qt::Key, QPair<QString, QString>> m_viewerInputMacros;
     MainWindow::StatusBar *m_statusBar;
     QString m_lastTarget;
 #ifdef HAVE_MARBLE

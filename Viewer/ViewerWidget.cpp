@@ -39,6 +39,7 @@
 #include "QtAVDisplay.h"
 #endif
 
+#include "AnnotationHelp.h"
 #include "SpeedDisplay.h"
 #include "TaggedArea.h"
 #include "TextDisplay.h"
@@ -47,6 +48,7 @@
 #include "VLCDisplay.h"
 #endif
 
+#include "AnnotationHandler.h"
 #include "VideoDisplay.h"
 #include "VideoShooter.h"
 #include "VisibleOptionsMenu.h"
@@ -92,6 +94,7 @@
 #include <QWheelEvent>
 #include <qglobal.h>
 
+#include <QInputDialog>
 #include <QMetaEnum>
 #include <functional>
 
@@ -103,7 +106,7 @@ Viewer::ViewerWidget *Viewer::ViewerWidget::latest()
 }
 
 // Notice the parent is zero to allow other windows to come on top of it.
-Viewer::ViewerWidget::ViewerWidget(UsageType type, QMap<Qt::Key, QPair<QString, QString>> *macroStore)
+Viewer::ViewerWidget::ViewerWidget(UsageType type)
     : QStackedWidget(nullptr)
     , m_crashSentinel(QString::fromUtf8("videoBackend"))
     , m_current(0)
@@ -113,9 +116,7 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type, QMap<Qt::Key, QPair<QString, 
     , m_isRunningSlideShow(false)
     , m_videoPlayerStoppedManually(false)
     , m_type(type)
-    , m_currentCategory(DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory)->name())
-    , m_inputMacros(macroStore)
-    , m_myInputMacros(nullptr)
+    , m_annotationHandler(new AnnotationHandler(this))
 {
     if (type == ViewerWindow) {
         setWindowFlags(Qt::Window);
@@ -123,12 +124,7 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type, QMap<Qt::Key, QPair<QString, 
         s_latest = this;
     }
 
-    if (!m_inputMacros) {
-        m_myInputMacros = m_inputMacros = new QMap<Qt::Key, QPair<QString, QString>>;
-    }
-
     m_screenSaverCookie = -1;
-    m_currentInputMode = InACategory;
 
     m_display = m_imageDisplay = new ImageDisplay(this);
     addWidget(m_imageDisplay);
@@ -166,6 +162,9 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type, QMap<Qt::Key, QPair<QString, 
 
     updatePalette();
     connect(Settings::SettingsData::instance(), &Settings::SettingsData::colorSchemeChanged, this, &ViewerWidget::updatePalette);
+
+    connect(m_annotationHandler, &AnnotationHandler::requestToggleCategory,
+            this, &Viewer::ViewerWidget::toggleTag);
 }
 
 void Viewer::ViewerWidget::setupContextMenu()
@@ -173,6 +172,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     m_popup = new QMenu(this);
     m_actions = new KActionCollection(this);
 
+    createAnnotationMenu();
     createSlideShowMenu();
     createZoomMenu();
     createRotateMenu();
@@ -182,11 +182,6 @@ void Viewer::ViewerWidget::setupContextMenu()
     createVideoMenu();
     createCategoryImageMenu();
     createFilterMenu();
-
-    QAction *action = m_actions->addAction(QString::fromLatin1("viewer-edit-image-properties"), this, &ViewerWidget::editImage);
-    action->setText(i18nc("@action:inmenu", "Annotate..."));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_1);
-    m_popup->addAction(action);
 
     m_setStackHead = m_actions->addAction(QString::fromLatin1("viewer-set-stack-head"), this, &ViewerWidget::slotSetStackHead);
     m_setStackHead->setText(i18nc("@action:inmenu", "Set as First Image in Stack"));
@@ -212,13 +207,13 @@ void Viewer::ViewerWidget::setupContextMenu()
     m_popup->addSeparator();
 
     if (m_type == ViewerWindow) {
-        action = m_actions->addAction(QString::fromLatin1("viewer-close"), this, &ViewerWidget::close);
+        auto action = m_actions->addAction(QString::fromLatin1("viewer-close"), this, &ViewerWidget::close);
         action->setText(i18nc("@action:inmenu", "Close"));
         action->setShortcut(Qt::Key_Escape);
         m_actions->setShortcutsConfigurable(action, false);
+        m_popup->addAction(action);
     }
 
-    m_popup->addAction(action);
     m_actions->readSettings();
 
     const auto actions = m_actions->actions();
@@ -580,6 +575,18 @@ void Viewer::ViewerWidget::removeOrDeleteCurrent(RemoveAction action)
         showNextN(0);
 }
 
+void Viewer::ViewerWidget::disableCursorHiding()
+{
+    m_cursorHandlerForImageDisplay->disableCursorHiding();
+    m_cursorHandlerForVideoDisplay->disableCursorHiding();
+}
+
+void Viewer::ViewerWidget::enableCursorHiding()
+{
+    m_cursorHandlerForImageDisplay->enableCursorHiding();
+    m_cursorHandlerForVideoDisplay->enableCursorHiding();
+}
+
 void Viewer::ViewerWidget::showNext10()
 {
     showNextN(10);
@@ -753,35 +760,19 @@ void Viewer::ViewerWidget::resizeEvent(QResizeEvent *e)
 
 void Viewer::ViewerWidget::updateInfoBox()
 {
-    QString tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory)->name();
-    if (currentInfo() || !m_currentInput.isEmpty() || (!m_currentCategory.isEmpty() && m_currentCategory != tokensCategory)) {
+    if (currentInfo()) {
         QMap<int, QPair<QString, QString>> map;
-        QString text = Utilities::createInfoText(currentInfo(), &map);
-        QString selecttext = QString::fromLatin1("");
-        if (m_currentCategory.isEmpty()) {
-            selecttext = i18nc("Basically 'enter a category name'", "<b>Setting Category: </b>") + m_currentInput;
-            if (m_currentInputList.length() > 0) {
-                selecttext += QString::fromLatin1("{") + m_currentInputList + QString::fromLatin1("}");
-            }
-        } else if ((!m_currentInput.isEmpty() && m_currentCategory != tokensCategory)) {
-            selecttext = i18nc("Basically 'enter a tag name'", "<b>Assigning: </b>") + m_currentCategory + QString::fromLatin1("/") + m_currentInput;
-            if (m_currentInputList.length() > 0) {
-                selecttext += QString::fromLatin1("{") + m_currentInputList + QString::fromLatin1("}");
-            }
-        } else if (!m_currentInput.isEmpty() && m_currentCategory == tokensCategory) {
-            m_currentInput = QString::fromLatin1("");
-        }
-        if (!selecttext.isEmpty())
-            text = selecttext + QString::fromLatin1("<br />") + text;
+        const QString text = Utilities::createInfoText(currentInfo(), &map);
+
         if (Settings::SettingsData::instance()->showInfoBox() && !text.isNull() && (m_type != InlineViewer)) {
             m_infoBox->setInfo(text, map);
             m_infoBox->show();
-
         } else
             m_infoBox->hide();
 
         moveInfoBox();
     }
+    m_infoBox->setSize();
 }
 
 Viewer::ViewerWidget::~ViewerWidget()
@@ -790,9 +781,6 @@ Viewer::ViewerWidget::~ViewerWidget()
 
     if (s_latest == this)
         s_latest = nullptr;
-
-    if (m_myInputMacros)
-        delete m_myInputMacros;
 }
 
 void Viewer::ViewerWidget::toggleFullScreen()
@@ -1018,148 +1006,23 @@ KActionCollection *Viewer::ViewerWidget::actions()
     return m_actions;
 }
 
-int Viewer::ViewerWidget::find_tag_in_list(const QStringList &list,
-                                           QString &namefound)
-{
-    int found = 0;
-    m_currentInputList = QString::fromLatin1("");
-    for (QStringList::ConstIterator listIter = list.constBegin();
-         listIter != list.constEnd(); ++listIter) {
-        if (listIter->startsWith(m_currentInput, Qt::CaseInsensitive)) {
-            found++;
-            if (m_currentInputList.length() > 0)
-                m_currentInputList = m_currentInputList + QString::fromLatin1(",");
-            m_currentInputList = m_currentInputList + listIter->right(listIter->length() - m_currentInput.length());
-            if (found > 1 && m_currentInputList.length() > 20) {
-                // already found more than we want to display
-                // bail here for now
-                // XXX: non-ideal?  display more?  certainly config 20
-                return found;
-            } else {
-                namefound = *listIter;
-            }
-        }
-    }
-    return found;
-}
-
 void Viewer::ViewerWidget::keyPressEvent(QKeyEvent *event)
 {
-
-    if (event->key() == Qt::Key_Backspace) {
-        // remove stuff from the current input string
-        m_currentInput.remove(m_currentInput.length() - 1, 1);
-        updateInfoBox();
-        MainWindow::DirtyIndicator::markDirty();
-        m_currentInputList = QString::fromLatin1("");
-        //     } else if (event->modifier & (Qt::AltModifier | Qt::MetaModifier) &&
-        //                event->key() == Qt::Key_Enter) {
-        return; // we've handled it
-    } else if (event->key() == Qt::Key_Comma) {
-        // force set the "new" token
-        if (!m_currentCategory.isEmpty()) {
-            if (m_currentInput.left(1) == QString::fromLatin1("\"") ||
-                // allow a starting ' or " to signal a brand new category
-                // this bypasses the auto-selection of matching characters
-                m_currentInput.left(1) == QString::fromLatin1("\'")) {
-                m_currentInput = m_currentInput.right(m_currentInput.length() - 1);
-            }
-            if (m_currentInput.isEmpty())
-                return;
-            currentInfo()->addCategoryInfo(m_currentCategory, m_currentInput);
-            DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(m_currentCategory);
-            category->addItem(m_currentInput);
-        }
-        m_currentInput = QString::fromLatin1("");
-        updateInfoBox();
-        MainWindow::DirtyIndicator::markDirty();
-        return; // we've handled it
-    } else if (event->modifiers() == 0 && event->key() >= Qt::Key_0 && event->key() <= Qt::Key_5) {
-        bool ok;
-        short rating = event->text().left(1).toShort(&ok, 10);
-        if (ok) {
-            currentInfo()->setRating(rating * 2);
-            updateInfoBox();
-            MainWindow::DirtyIndicator::markDirty();
-        }
-    } else if (event->modifiers() == 0 || event->modifiers() == Qt::ShiftModifier) {
-        // search the category for matches
-        QString namefound;
-        QString incomingKey = event->text().left(1);
-
-        // start searching for a new category name
-        if (incomingKey == QString::fromLatin1("/")) {
-            if (m_currentInput.isEmpty() && m_currentCategory.isEmpty()) {
-                if (m_currentInputMode == InACategory) {
-                    m_currentInputMode = AlwaysStartWithCategory;
-                } else {
-                    m_currentInputMode = InACategory;
-                }
-            } else {
-                // reset the category to search through
-                m_currentInput = QString::fromLatin1("");
-                m_currentCategory = QString::fromLatin1("");
-            }
-
-            // use an assigned key or map to a given key for future reference
-        } else if (m_currentInput.isEmpty() &&
-                   // can map to function keys
-                   event->key() >= Qt::Key_F1 && event->key() <= Qt::Key_F35) {
-
-            // we have a request to assign a macro key or use one
-            Qt::Key key = (Qt::Key)event->key();
-            if (m_inputMacros->contains(key)) {
-                // Use the requested toggle
-                if (event->modifiers() == Qt::ShiftModifier) {
-                    if (currentInfo()->hasCategoryInfo((*m_inputMacros)[key].first, (*m_inputMacros)[key].second)) {
-                        currentInfo()->removeCategoryInfo((*m_inputMacros)[key].first, (*m_inputMacros)[key].second);
-                    }
-                } else {
-                    currentInfo()->addCategoryInfo((*m_inputMacros)[key].first, (*m_inputMacros)[key].second);
-                }
-            } else {
-                (*m_inputMacros)[key] = qMakePair(m_lastCategory, m_lastFound);
-            }
-            updateInfoBox();
-            MainWindow::DirtyIndicator::markDirty();
-            // handled it
-            return;
-        } else if (m_currentCategory.isEmpty()) {
-            // still searching for a category to lock to
-            m_currentInput += incomingKey;
-            QStringList categorynames = DB::ImageDB::instance()->categoryCollection()->categoryNames();
-            if (find_tag_in_list(categorynames, namefound) == 1) {
-                // yay, we have exactly one!
-                m_currentCategory = namefound;
-                m_currentInput = QString::fromLatin1("");
-                m_currentInputList = QString::fromLatin1("");
-            }
-        } else {
-            m_currentInput += incomingKey;
-
-            DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(m_currentCategory);
-            QStringList items = category->items();
-            if (find_tag_in_list(items, namefound) == 1) {
-                // yay, we have exactly one!
-                if (currentInfo()->hasCategoryInfo(category->name(), namefound))
-                    currentInfo()->removeCategoryInfo(category->name(), namefound);
-                else
-                    currentInfo()->addCategoryInfo(category->name(), namefound);
-
-                m_lastFound = namefound;
-                m_lastCategory = m_currentCategory;
-                m_currentInput = QString::fromLatin1("");
-                m_currentInputList = QString::fromLatin1("");
-                if (m_currentInputMode == AlwaysStartWithCategory)
-                    m_currentCategory = QString::fromLatin1("");
-            }
-        }
-
-        updateInfoBox();
-        MainWindow::DirtyIndicator::markDirty();
+    bool dirty = false;
+    // Rating of the image
+    if (event->modifiers() == 0 && event->key() >= Qt::Key_0 && event->key() <= Qt::Key_5) {
+        const auto rating = event->key() - Qt::Key_0;
+        currentInfo()->setRating(rating * 2);
+        dirty = true;
+    } else {
+        disableCursorHiding();
+        dirty = m_annotationHandler->handle(event);
+        enableCursorHiding();
     }
-    QWidget::keyPressEvent(event);
-    return;
+
+    updateInfoBox();
+    if (dirty)
+        MainWindow::DirtyIndicator::markDirty();
 }
 
 void Viewer::ViewerWidget::videoStopped()
@@ -1209,6 +1072,37 @@ void Viewer::ViewerWidget::zoomPixelForPixel()
 void Viewer::ViewerWidget::makeThumbnailImage()
 {
     VideoShooter::go(currentInfo(), this);
+}
+
+void Viewer::ViewerWidget::addTag()
+{
+    disableCursorHiding();
+    const bool dirty = m_annotationHandler->askForTagAndInsert();
+    if (dirty)
+        MainWindow::DirtyIndicator::markDirty();
+    enableCursorHiding();
+}
+
+void Viewer::ViewerWidget::editDescription()
+{
+    disableCursorHiding();
+    const auto description = currentInfo()->description();
+    bool ok;
+    auto newDescription = QInputDialog::getMultiLineText(this, i18n("Image Description"), i18n("Image Description"), description, &ok);
+    if (ok && description != newDescription) {
+        currentInfo()->setDescription(newDescription);
+        MainWindow::DirtyIndicator::markDirty();
+    }
+    enableCursorHiding();
+}
+
+void Viewer::ViewerWidget::showKeyBindings()
+{
+    disableCursorHiding();
+    auto help = new AnnotationHelp(m_actions, m_annotationHandler->assignments(), this);
+    help->setAttribute(Qt::WA_DeleteOnClose);
+    help->show();
+    enableCursorHiding();
 }
 
 void Viewer::ViewerWidget::createVideoMenu()
@@ -1439,6 +1333,37 @@ void Viewer::ViewerWidget::createVideoViewer()
     m_cursorHandlerForVideoDisplay = new CursorVisiabilityHandler(m_videoDisplay);
 }
 
+void Viewer::ViewerWidget::createAnnotationMenu()
+{
+    auto menu = new QMenu(i18n("Annotate"));
+    QAction *action = m_actions->addAction(QString::fromLatin1("viewer-show-keybindings"), this, &ViewerWidget::showKeyBindings);
+    action->setText(i18nc("@action:inmenu", "Show key bindings"));
+    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Question);
+    menu->addAction(action);
+
+    action = m_actions->addAction(QString::fromLatin1("viewer-edit-image-properties"), this, &ViewerWidget::editImage);
+    action->setText(i18nc("@action:inmenu", "Annotation Dialog"));
+    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_1);
+    menu->addAction(action);
+
+    action = m_actions->addAction(QString::fromLatin1("viewer-add-tag"), this, &ViewerWidget::addTag);
+    action->setText(i18nc("@action:inmenu", "Add tag"));
+    m_actions->setDefaultShortcut(action, i18nc("short cut for add tag", "CTRL+a"));
+    menu->addAction(action);
+
+    action = m_actions->addAction(QString::fromLatin1("viewer-copy-tag-from-previous-image"), this, &ViewerWidget::copyTagsFromPreviousImage);
+    action->setText(i18nc("@action:inmenu", "Copy Data from Previous Image"));
+    m_actions->setDefaultShortcut(action, i18nc("Shortcut for copy annotations from previous image", "CTRL+c"));
+    menu->addAction(action);
+
+    action = m_actions->addAction(QString::fromLatin1("viewer-edit-description"), this, &ViewerWidget::editDescription);
+    action->setText(i18nc("@action:inmenu", "Edit Description"));
+    m_actions->setDefaultShortcut(action, i18nc("Shortcut for add description to image", "CTRL+d"));
+    menu->addAction(action);
+
+    m_popup->addMenu(menu);
+}
+
 void Viewer::ViewerWidget::stopPlayback()
 {
     m_videoDisplay->stop();
@@ -1562,6 +1487,66 @@ void Viewer::ViewerWidget::triggerCopyLinkAction(MainWindow::CopyLinkEngine::Act
 {
     auto selectedFiles = QList<QUrl> { QUrl::fromLocalFile(m_list.value(m_current).absolute()) };
     m_copyLinkEngine->selectTarget(this, selectedFiles, action);
+}
+
+void Viewer::ViewerWidget::toggleTag(const QString &category, const QString &value)
+{
+    const bool set = !currentInfo()->hasCategoryInfo(category, value);
+    if (set)
+        currentInfo()->addCategoryInfo(category, value);
+    else
+        currentInfo()->removeCategoryInfo(category, value);
+
+    // Assume we've now annotated this image - this is to avoid removing the untagged item all the time.
+    currentInfo()->removeCategoryInfo(Settings::SettingsData::instance()->untaggedCategory(), Settings::SettingsData::instance()->untaggedTag());
+    updateInfoBox();
+
+    if (!m_transientLabel) {
+        m_transientLabel = new QLabel(this);
+        QFont fnt = qApp->font();
+        fnt.setPointSize(50);
+        m_transientLabel->setFont(fnt);
+
+        m_transientLabel->setAutoFillBackground(true);
+        QPalette pal;
+        pal.setColor(QPalette::WindowText, Qt::black);
+        QColor bg(Qt::white);
+        bg.setAlpha(64);
+        pal.setBrush(QPalette::Window, bg);
+        m_transientLabel->setPalette(pal);
+
+        m_transientLabelTimer = new QTimer;
+        connect(m_transientLabelTimer, &QTimer::timeout, m_transientLabel, &QWidget::hide);
+        m_transientLabelTimer->setSingleShot(true);
+    }
+
+    m_transientLabel->setText(set ? value : QLatin1String("<s>%1</s>").arg(value));
+    m_transientLabel->resize(m_transientLabel->sizeHint());
+    QSize position = (size() - m_transientLabel->sizeHint()) / 2;
+    m_transientLabel->move(position.width(), position.height());
+    m_transientLabel->show();
+    m_transientLabel->raise();
+    m_transientLabelTimer->start(500);
+}
+
+void Viewer::ViewerWidget::copyTagsFromPreviousImage()
+{
+    // Search for the previous image - that is the first one not deleted
+    int index = m_current - 1;
+    while (index >= 0) {
+        const auto fileName = m_list.at(index);
+        if (!m_removed.contains(fileName))
+            break;
+        --index;
+    }
+    if (index == -1)
+        return; // Nothing found
+
+    const auto prevImage = DB::ImageDB::instance()->info(m_list[index]);
+    currentInfo()->merge(*prevImage);
+
+    updateInfoBox();
+    MainWindow::DirtyIndicator::markDirty();
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

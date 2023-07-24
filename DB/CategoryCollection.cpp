@@ -12,6 +12,8 @@
 
 #include <DB/ImageDB.h>
 
+DB::CategoryCollection::~CategoryCollection() = default;
+
 DB::CategoryPtr DB::CategoryCollection::categoryForName(const QString &name) const
 {
     for (QList<DB::CategoryPtr>::ConstIterator it = m_categories.begin(); it != m_categories.end(); ++it) {
@@ -78,6 +80,11 @@ void DB::CategoryCollection::rename(const QString &oldName, const QString &newNa
     Q_EMIT categoryCollectionChanged();
 }
 
+DB::GlobalCategorySortOrder *DB::CategoryCollection::globalSortOrder()
+{
+    return m_globalSortOrder.get();
+}
+
 void DB::CategoryCollection::initIdMap()
 {
     for (DB::CategoryPtr categoryPtr : qAsConst(m_categories)) {
@@ -93,6 +100,11 @@ void DB::CategoryCollection::slotItemRenamed(const QString &oldName, const QStri
 void DB::CategoryCollection::slotItemRemoved(const QString &item)
 {
     Q_EMIT itemRemoved(static_cast<Category *>(const_cast<QObject *>(sender())), item);
+}
+
+DB::CategoryCollection::CategoryCollection()
+    : m_globalSortOrder(new GlobalCategorySortOrder())
+{
 }
 
 #include "moc_CategoryCollection.cpp"

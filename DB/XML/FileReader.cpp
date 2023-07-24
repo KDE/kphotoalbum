@@ -72,6 +72,7 @@ void DB::FileReader::read(const QString &configFile)
     loadBlockList(reader);
     loadMemberGroups(reader);
     // loadSettings(reader);
+    loadGlobalSortOrder(reader);
 
     repairDB();
 
@@ -368,6 +369,22 @@ void DB::FileReader::loadMemberGroups(ReaderPtr reader)
                 }
             }
 
+            reader->readEndElement();
+        }
+    }
+}
+
+void DB::FileReader::loadGlobalSortOrder(ReaderPtr reader)
+{
+    ElementInfo info = reader->peekNext();
+    auto &list = m_db->categoryCollection()->globalSortOrder()->m_sortOrder;
+
+    if (info.isStartToken && info.tokenName == QStringLiteral("global-sort-order")) {
+        reader->readNextStartOrStopElement(QStringLiteral("item"));
+        while (reader->readNextStartOrStopElement(QStringLiteral("item")).isStartToken) {
+            const QString category = reader->attribute(QStringLiteral("category"));
+            const QString item = reader->attribute(QStringLiteral("item"));
+            list.append({ category, item });
             reader->readEndElement();
         }
     }

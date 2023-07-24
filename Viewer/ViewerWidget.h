@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2023 The KPhotoAlbum Development Team
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -26,6 +26,7 @@ class QResizeEvent;
 class QStackedWidget;
 class QWheelEvent;
 class CursorVisiabilityHandler;
+class QLabel;
 
 namespace DB
 {
@@ -43,6 +44,8 @@ class InfoDialog;
 }
 namespace Viewer
 {
+
+class AnnotationHandler;
 class AbstractDisplay;
 class ImageDisplay;
 class InfoBox;
@@ -58,8 +61,7 @@ public:
     enum UsageType { InlineViewer,
                      ViewerWindow };
 
-    ViewerWidget(UsageType type = ViewerWindow,
-                 QMap<Qt::Key, QPair<QString, QString>> *macroStore = nullptr);
+    ViewerWidget(UsageType type = ViewerWindow);
     ~ViewerWidget() override;
     static ViewerWidget *latest();
     void load(const DB::FileNameList &list, int index = 0);
@@ -122,6 +124,7 @@ protected:
     void createFilterMenu();
     void changeSlideShowInterval(int delta);
     void createVideoViewer();
+    void createAnnotationMenu();
     void inhibitScreenSaver(bool inhibit);
     DB::ImageInfoPtr currentInfo() const;
     friend class InfoBox;
@@ -131,11 +134,12 @@ protected:
 private:
     void showNextN(int);
     void showPrevN(int);
-    int find_tag_in_list(const QStringList &list, QString &namefound);
     void invalidateThumbnail() const;
     enum RemoveAction { RemoveImageFromDatabase,
                         OnlyRemoveFromViewer };
     void removeOrDeleteCurrent(RemoveAction);
+    void disableCursorHiding();
+    void enableCursorHiding();
 
 protected Q_SLOTS:
     void showNext();
@@ -175,6 +179,9 @@ protected Q_SLOTS:
     void zoomFull();
     void zoomPixelForPixel();
     void makeThumbnailImage();
+    void addTag();
+    void editDescription();
+    void showKeyBindings();
 
     /** Set the current window title (filename) and add the given detail */
     void setCaptionWithDetail(const QString &detail);
@@ -186,6 +193,8 @@ protected Q_SLOTS:
     void slotRemoveDeletedImages(const DB::FileNameList &imageList);
 
     void triggerCopyLinkAction(MainWindow::CopyLinkEngine::Action action);
+    void toggleTag(const QString &category, const QString &value);
+    void copyTagsFromPreviousImage();
 
 private:
     static ViewerWidget *s_latest;
@@ -234,7 +243,6 @@ private:
     QAction *m_linkToAction;
 
     InfoBox *m_infoBox;
-    QImage m_currentImage;
 
     bool m_showingFullScreen;
 
@@ -252,22 +260,13 @@ private:
     bool m_videoPlayerStoppedManually;
     UsageType m_type;
 
-    enum InputMode { InACategory,
-                     AlwaysStartWithCategory };
-
-    InputMode m_currentInputMode;
-    QString m_currentInput;
-    QString m_currentCategory;
-    QString m_currentInputList;
-
-    QString m_lastFound;
-    QString m_lastCategory;
-    QMap<Qt::Key, QPair<QString, QString>> *m_inputMacros;
-    QMap<Qt::Key, QPair<QString, QString>> *m_myInputMacros;
-
     MainWindow::CopyLinkEngine *m_copyLinkEngine;
     CursorVisiabilityHandler *m_cursorHandlerForImageDisplay;
     CursorVisiabilityHandler *m_cursorHandlerForVideoDisplay;
+    AnnotationHandler *m_annotationHandler;
+
+    QLabel *m_transientLabel = nullptr;
+    QTimer *m_transientLabelTimer = nullptr;
 };
 
 }

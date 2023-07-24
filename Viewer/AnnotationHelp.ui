@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Viewer::AnnotationHelp</class>
+ <widget class="QDialog" name="Viewer::AnnotationHelp">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>948</width>
+    <height>468</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It is possible to annotate images while viewing them, and for most annotation work, this is by far the fastest way to do so.&lt;/p&gt;&lt;p&gt;The idea is that you assign a single tag to a single key, say &lt;span style=&quot; font-weight:700;&quot;&gt;People/Jesper&lt;/span&gt; could be bound to &lt;span style=&quot; font-weight:700;&quot;&gt;j&lt;/span&gt;. &lt;/p&gt;&lt;p&gt;Now pressing &lt;span style=&quot; font-weight:700;&quot;&gt;j&lt;/span&gt; would add that tag to the current image.&lt;/p&gt;&lt;p&gt;The first time you press a new key, KPhotoAlbum will ask for the assignment. If you later want to reassign the key, simply press shift and the key.&lt;/p&gt;&lt;p&gt;Obviously this only works for the amount of keys on your keyboard, and you might even need to be very creative with&lt;br/&gt;your memorization of these keys in cases where multiple tags would start with the same name, e.g &lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;J&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;esper&lt;/span&gt; and &lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;J&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;im&lt;/span&gt; .&lt;/p&gt;&lt;p&gt;For those tags much more seldom used, you can add them by pressing the keybinding for add tag (see below), which allows you to add that tag, without binding it to any keys. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTableView" name="assignments"/>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

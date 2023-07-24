@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-21 00:47+0000\n"
-"PO-Revision-Date: 2023-07-18 11:11\n"
+"POT-Creation-Date: 2023-07-24 07:29+0000\n"
+"PO-Revision-Date: 2023-07-23 12:28\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -586,7 +586,7 @@ msgstr ""
 msgid "Alphabetical (Tree)"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:426
+#: AnnotationDialog/ListSelect.cpp:427
 #, kde-format
 msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
@@ -594,23 +594,23 @@ msgid ""
 msgstr ""
 "<p>您真要删除“%1”？<br>删除此项目会删除所有包含此项目的图像有关它的信息！</p>"
 
-#: AnnotationDialog/ListSelect.cpp:430
+#: AnnotationDialog/ListSelect.cpp:431
 #, kde-format
 msgid "Really Delete %1?"
 msgstr "真的删除 %1？"
 
-#: AnnotationDialog/ListSelect.cpp:447
+#: AnnotationDialog/ListSelect.cpp:448
 #, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:447
+#: AnnotationDialog/ListSelect.cpp:448
 #, kde-format
 msgid "Enter new name:"
 msgstr "输入新名称："
 
-#: AnnotationDialog/ListSelect.cpp:452
+#: AnnotationDialog/ListSelect.cpp:453
 #, kde-format
 msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
@@ -618,39 +618,39 @@ msgid ""
 msgstr ""
 "<p>您真要将“%1”重命名为“%2”吗？<br>这会将任何包含它的图像重命名为“%3”。</p>"
 
-#: AnnotationDialog/ListSelect.cpp:456
+#: AnnotationDialog/ListSelect.cpp:457
 #, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:461
+#: AnnotationDialog/ListSelect.cpp:462
 #, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:496
+#: AnnotationDialog/ListSelect.cpp:497
 #, kde-format
 msgid "New tag group"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:497
+#: AnnotationDialog/ListSelect.cpp:498
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:509
+#: AnnotationDialog/ListSelect.cpp:510
 #, kde-format
 msgid "Add a tag"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:510
+#: AnnotationDialog/ListSelect.cpp:511
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:764
+#: AnnotationDialog/ListSelect.cpp:765
 #, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
@@ -658,7 +658,7 @@ msgctxt ""
 msgid "%1 (%2-%3)"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:777
+#: AnnotationDialog/ListSelect.cpp:778
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"

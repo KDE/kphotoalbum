@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-21 00:47+0000\n"
+"POT-Creation-Date: 2023-07-24 07:29+0000\n"
 "PO-Revision-Date: 2019-11-07 12:43+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic <translation-team-is@lists.sourceforge.net>\n"
@@ -602,38 +602,38 @@ msgstr "Stafrófsröð (flöt)"
 msgid "Alphabetical (Tree)"
 msgstr "Stafrófsröð (kvísluð)"
 
-#: AnnotationDialog/ListSelect.cpp:426
+#: AnnotationDialog/ListSelect.cpp:427
 #, kde-format
 msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
 "any information about it from any image containing the item.</p>"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:430
+#: AnnotationDialog/ListSelect.cpp:431
 #, kde-format
 msgid "Really Delete %1?"
 msgstr "Viltu í alvörunni eyða %1?"
 
-#: AnnotationDialog/ListSelect.cpp:447
+#: AnnotationDialog/ListSelect.cpp:448
 #, fuzzy, kde-format
 #| msgid "Rename Item"
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Endurnefna hlut"
 
-#: AnnotationDialog/ListSelect.cpp:447
+#: AnnotationDialog/ListSelect.cpp:448
 #, kde-format
 msgid "Enter new name:"
 msgstr "Sláðu inn nýtt nafn:"
 
-#: AnnotationDialog/ListSelect.cpp:452
+#: AnnotationDialog/ListSelect.cpp:453
 #, kde-format
 msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
 "\"%3\" on any image containing it.</p>"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:456
+#: AnnotationDialog/ListSelect.cpp:457
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Rename \"%1\""
@@ -641,34 +641,34 @@ msgctxt "@title"
 msgid "Rename %1?"
 msgstr "Endurnefna \"%1\""
 
-#: AnnotationDialog/ListSelect.cpp:461
+#: AnnotationDialog/ListSelect.cpp:462
 #, fuzzy, kde-format
 #| msgid "Rename"
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Endurnefna"
 
-#: AnnotationDialog/ListSelect.cpp:496
+#: AnnotationDialog/ListSelect.cpp:497
 #, kde-format
 msgid "New tag group"
 msgstr "Nýr merkjahópur"
 
-#: AnnotationDialog/ListSelect.cpp:497
+#: AnnotationDialog/ListSelect.cpp:498
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:509
+#: AnnotationDialog/ListSelect.cpp:510
 #, kde-format
 msgid "Add a tag"
 msgstr "Bæta við merki"
 
-#: AnnotationDialog/ListSelect.cpp:510
+#: AnnotationDialog/ListSelect.cpp:511
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:764
+#: AnnotationDialog/ListSelect.cpp:765
 #, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
@@ -676,7 +676,7 @@ msgctxt ""
 msgid "%1 (%2-%3)"
 msgstr "%1 (%2-%3)"
 
-#: AnnotationDialog/ListSelect.cpp:777
+#: AnnotationDialog/ListSelect.cpp:778
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"

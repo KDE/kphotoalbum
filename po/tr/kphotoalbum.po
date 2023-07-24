@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-21 00:47+0000\n"
-"PO-Revision-Date: 2023-07-14 00:29+0300\n"
+"POT-Creation-Date: 2023-07-24 07:29+0000\n"
+"PO-Revision-Date: 2023-07-22 12:20+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -643,7 +643,7 @@ msgstr "Abecesel (Düz)"
 msgid "Alphabetical (Tree)"
 msgstr "Abecesel (Ağaç)"
 
-#: AnnotationDialog/ListSelect.cpp:426
+#: AnnotationDialog/ListSelect.cpp:427
 #, kde-format
 msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
@@ -652,23 +652,23 @@ msgstr ""
 "<p>\"%1\" ögesini gerçekten silmek istiyor musunuz?<br/>Bu ögeyi silmek, bu "
 "bu ögeyi içeren tüm görsellerdeki bilgiyi de kaldırır.</p>"
 
-#: AnnotationDialog/ListSelect.cpp:430
+#: AnnotationDialog/ListSelect.cpp:431
 #, kde-format
 msgid "Really Delete %1?"
 msgstr "%1 Gerçekten Silinsin mi?"
 
-#: AnnotationDialog/ListSelect.cpp:447
+#: AnnotationDialog/ListSelect.cpp:448
 #, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Ögeyi Yeniden Adlandır"
 
-#: AnnotationDialog/ListSelect.cpp:447
+#: AnnotationDialog/ListSelect.cpp:448
 #, kde-format
 msgid "Enter new name:"
 msgstr "Yeni ad gir:"
 
-#: AnnotationDialog/ListSelect.cpp:452
+#: AnnotationDialog/ListSelect.cpp:453
 #, kde-format
 msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
@@ -677,39 +677,39 @@ msgstr ""
 "<p>\"%1\", \"%2\" olarak yeniden adlandırılsın mı?<br/>Yeniden "
 "adlandırırsanız içeren bütün görsellerde de \"%3\" değişecektir.</p>"
 
-#: AnnotationDialog/ListSelect.cpp:456
+#: AnnotationDialog/ListSelect.cpp:457
 #, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
 msgstr "%1, yeniden adlandırılsın mı?"
 
-#: AnnotationDialog/ListSelect.cpp:461
+#: AnnotationDialog/ListSelect.cpp:462
 #, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Yeniden Adlandır"
 
-#: AnnotationDialog/ListSelect.cpp:496
+#: AnnotationDialog/ListSelect.cpp:497
 #, kde-format
 msgid "New tag group"
 msgstr "Yeni etiket grubu"
 
-#: AnnotationDialog/ListSelect.cpp:497
+#: AnnotationDialog/ListSelect.cpp:498
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
 msgstr "Etiketin ekleneceği yeni etiket grubu için ad:"
 
-#: AnnotationDialog/ListSelect.cpp:509
+#: AnnotationDialog/ListSelect.cpp:510
 #, kde-format
 msgid "Add a tag"
 msgstr "Bir etiket ekle"
 
-#: AnnotationDialog/ListSelect.cpp:510
+#: AnnotationDialog/ListSelect.cpp:511
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
 msgstr "Bu etiket grubuna eklenecek etiket adı:"
 
-#: AnnotationDialog/ListSelect.cpp:764
+#: AnnotationDialog/ListSelect.cpp:765
 #, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
@@ -717,7 +717,7 @@ msgctxt ""
 msgid "%1 (%2-%3)"
 msgstr "%1 (%2-%3)"
 
-#: AnnotationDialog/ListSelect.cpp:777
+#: AnnotationDialog/ListSelect.cpp:778
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
@@ -4164,15 +4164,13 @@ msgstr "Tanıtım Veritabanını Sil"
 #: MainWindow/Window.cpp:334
 #, kde-format
 msgid "Do you want to save the changes?"
-msgstr ""
+msgstr "Değişiklikleri kaydetmek istiyor musunuz?"
 
 #: MainWindow/Window.cpp:335
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Discard changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
-msgstr "Değişiklikler atılsın mı?"
+msgstr "Değişiklikler Kaydedilsin mi?"
 
 #: MainWindow/Window.cpp:392
 #, kde-format

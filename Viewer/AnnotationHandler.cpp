@@ -10,7 +10,6 @@
 #include <QDebug>
 #include <QKeyEvent>
 #include <QLocale>
-#include <private/qstringiterator_p.h>
 #include <qnamespace.h>
 
 namespace Viewer
@@ -24,15 +23,20 @@ AnnotationHandler::AnnotationHandler(QObject *parent)
 
 namespace
 {
-    // See https://www.kdab.com/a-little-hidden-gem-qstringiterator/ for details
     bool isKeyboardLetter(const QString &txt)
     {
         if (txt.isEmpty())
             return false;
 
+#if 0
+        // See https://www.kdab.com/a-little-hidden-gem-qstringiterator/ for details
+        // Unfortunately this requires a private header, which our CI doesn't like
         QStringIterator i(txt);
         char32_t ch = i.next();
         return QChar::isLetter(ch);
+#else
+        return QLocale().toUpper(txt) != txt;
+#endif
     }
 };
 

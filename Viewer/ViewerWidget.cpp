@@ -26,7 +26,7 @@
 #include <config-kpa-videobackends.h>
 
 #include "CategoryImageConfig.h"
-#include "CursorVisiabilityHandler.h"
+#include "CursorVisibilityHandler.h"
 #include "ImageDisplay.h"
 #include "InfoBox.h"
 #include "Logging.h"
@@ -128,7 +128,7 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type)
 
     m_display = m_imageDisplay = new ImageDisplay(this);
     addWidget(m_imageDisplay);
-    m_cursorHandlerForImageDisplay = new CursorVisiabilityHandler(m_imageDisplay);
+    m_cursorHandlerForImageDisplay = new CursorVisibilityHandler(m_imageDisplay);
 
     m_textDisplay = new TextDisplay(this);
     addWidget(m_textDisplay);
@@ -165,6 +165,8 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type)
 
     connect(m_annotationHandler, &AnnotationHandler::requestToggleCategory,
             this, &Viewer::ViewerWidget::toggleTag);
+    connect(m_annotationHandler, &AnnotationHandler::requestHelp,
+            this, &Viewer::ViewerWidget::showKeyBindings);
 }
 
 void Viewer::ViewerWidget::setupContextMenu()
@@ -575,16 +577,26 @@ void Viewer::ViewerWidget::removeOrDeleteCurrent(RemoveAction action)
         showNextN(0);
 }
 
-void Viewer::ViewerWidget::disableCursorHiding()
+namespace Viewer
 {
-    m_cursorHandlerForImageDisplay->disableCursorHiding();
-    m_cursorHandlerForVideoDisplay->disableCursorHiding();
-}
+class TemporarilyDisableCursorHandling
+{
+public:
+    TemporarilyDisableCursorHandling(Viewer::ViewerWidget *viewer)
+        : m_viewer(viewer)
+    {
+        viewer->m_cursorHandlerForImageDisplay->disableCursorHiding();
+        viewer->m_cursorHandlerForVideoDisplay->disableCursorHiding();
+    }
+    ~TemporarilyDisableCursorHandling()
+    {
+        m_viewer->m_cursorHandlerForImageDisplay->enableCursorHiding();
+        m_viewer->m_cursorHandlerForVideoDisplay->enableCursorHiding();
+    }
 
-void Viewer::ViewerWidget::enableCursorHiding()
-{
-    m_cursorHandlerForImageDisplay->enableCursorHiding();
-    m_cursorHandlerForVideoDisplay->enableCursorHiding();
+private:
+    Viewer::ViewerWidget *m_viewer;
+};
 }
 
 void Viewer::ViewerWidget::showNext10()
@@ -1015,9 +1027,8 @@ void Viewer::ViewerWidget::keyPressEvent(QKeyEvent *event)
         currentInfo()->setRating(rating * 2);
         dirty = true;
     } else {
-        disableCursorHiding();
+        TemporarilyDisableCursorHandling(this);
         dirty = m_annotationHandler->handle(event);
-        enableCursorHiding();
     }
 
     updateInfoBox();
@@ -1076,33 +1087,30 @@ void Viewer::ViewerWidget::makeThumbnailImage()
 
 void Viewer::ViewerWidget::addTag()
 {
-    disableCursorHiding();
+    TemporarilyDisableCursorHandling(this);
     const bool dirty = m_annotationHandler->askForTagAndInsert();
     if (dirty)
         MainWindow::DirtyIndicator::markDirty();
-    enableCursorHiding();
 }
 
 void Viewer::ViewerWidget::editDescription()
 {
-    disableCursorHiding();
+    TemporarilyDisableCursorHandling(this);
     const auto description = currentInfo()->description();
     bool ok;
-    auto newDescription = QInputDialog::getMultiLineText(this, i18n("Image Description"), i18n("Image Description"), description, &ok);
+    auto newDescription = QInputDialog::getMultiLineText(this, i18nc("@title", "Edit Image Description"), i18nc("@label:textbox", "Image Description"), description, &ok);
     if (ok && description != newDescription) {
         currentInfo()->setDescription(newDescription);
         MainWindow::DirtyIndicator::markDirty();
     }
-    enableCursorHiding();
 }
 
 void Viewer::ViewerWidget::showKeyBindings()
 {
-    disableCursorHiding();
+    TemporarilyDisableCursorHandling(this);
     auto help = new AnnotationHelp(m_actions, m_annotationHandler->assignments(), this);
     help->setAttribute(Qt::WA_DeleteOnClose);
-    help->show();
-    enableCursorHiding();
+    help->exec();
 }
 
 void Viewer::ViewerWidget::createVideoMenu()
@@ -1330,7 +1338,7 @@ void Viewer::ViewerWidget::createVideoViewer()
 
     addWidget(m_videoDisplay);
     connect(m_videoDisplay, &VideoDisplay::stopped, this, &ViewerWidget::videoStopped);
-    m_cursorHandlerForVideoDisplay = new CursorVisiabilityHandler(m_videoDisplay);
+    m_cursorHandlerForVideoDisplay = new CursorVisibilityHandler(m_videoDisplay);
 }
 
 void Viewer::ViewerWidget::createAnnotationMenu()

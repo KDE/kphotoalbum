@@ -17,11 +17,13 @@ AnnotationHelp::AnnotationHelp(KActionCollection *actions, const AnnotationHandl
     ui->setupUi(this);
 
     auto model = new QStandardItemModel(this);
-    model->setHorizontalHeaderLabels(QStringList { i18n("Key"), i18n("Tag"), i18n("Key"), i18n("Tag") });
+    model->setHorizontalHeaderLabels(QStringList { i18n("Key"), i18n("Tag"), QString(), i18n("Key"), i18n("Tag") });
     int row = 0;
     int column = 0;
     auto addAsignment = [&](const QString &key, const QString &assignment) {
-        if (column == 4) {
+        if (column == 2)
+            ++column;
+        if (column == 5) {
             ++row;
             column = 0;
         }

@@ -3,6 +3,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "AnnotationHandler.h"
+#include "AnnotationHelp.h"
 #include "SelectCategoryAndValue.h"
 #include <KConfigGroup>
 #include <KLocalizedString>
@@ -10,6 +11,7 @@
 #include <QDebug>
 #include <QKeyEvent>
 #include <QLocale>
+#include <kpabase/SettingsData.h>
 #include <qnamespace.h>
 
 namespace Viewer
@@ -48,7 +50,7 @@ bool AnnotationHandler::handle(QKeyEvent *event)
         return false;
 
     if (!m_assignments.contains(key) || event->modifiers().testFlag(Qt::ShiftModifier)) {
-        const bool assigned = assingKey(key);
+        const bool assigned = assignKey(key);
         if (!assigned)
             return false;
     }
@@ -59,9 +61,11 @@ bool AnnotationHandler::handle(QKeyEvent *event)
     return true;
 }
 
-bool AnnotationHandler::assingKey(const QString &key)
+bool AnnotationHandler::assignKey(const QString &key)
 {
-    SelectCategoryAndValue dialog(i18n("Assign Macro"), i18n("Select item for macro key <b>%1</b>", key));
+    SelectCategoryAndValue dialog(i18nc("@title", "Assign Macro"), i18n("Select item for macro key <b>%1</b>", key));
+    connect(&dialog, &SelectCategoryAndValue::helpRequest, this, &AnnotationHandler::requestHelp);
+
     auto result = dialog.exec();
     if (result == QDialog::Rejected)
         return false;
@@ -71,9 +75,19 @@ bool AnnotationHandler::assingKey(const QString &key)
     return true;
 }
 
+namespace
+{
+    KConfigGroup configGroup()
+    {
+        const auto section = Settings::SettingsData::instance()->groupForDatabase("viewer keybindings");
+        return KSharedConfig::openConfig(QString::fromLatin1("kphotoalbumrc"))->group(section);
+    }
+}
+
 void AnnotationHandler::saveSettings()
 {
-    KConfigGroup group = KSharedConfig::openConfig(QString::fromLatin1("kphotoalbumrc"))->group("viewer keybindings");
+
+    KConfigGroup group = configGroup();
     for (auto it = m_assignments.cbegin(); it != m_assignments.cend(); ++it) {
         auto subgroup = group.group(it.key());
         const auto item = it.value();
@@ -85,7 +99,7 @@ void AnnotationHandler::saveSettings()
 
 void AnnotationHandler::loadSettings()
 {
-    KConfigGroup group = KSharedConfig::openConfig(QString::fromLatin1("kphotoalbumrc"))->group("viewer keybindings");
+    KConfigGroup group = configGroup();
     const QStringList keys = group.groupList();
     for (const QString &key : keys) {
         auto subgroup = group.group(key);
@@ -96,6 +110,8 @@ void AnnotationHandler::loadSettings()
 bool AnnotationHandler::askForTagAndInsert()
 {
     SelectCategoryAndValue dialog(i18n("Tag Item"), i18n("Select tag for image"));
+    connect(&dialog, &SelectCategoryAndValue::helpRequest, this, &AnnotationHandler::requestHelp);
+
     auto result = dialog.exec();
     if (result == QDialog::Rejected)
         return false;

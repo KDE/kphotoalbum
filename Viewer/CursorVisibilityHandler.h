@@ -13,11 +13,11 @@
   In some situations, e.g. when selecting an area for zooming, or when bringing up the annotation dialog,
   this handling is temporarily disabled.
   */
-class CursorVisiabilityHandler : public QObject
+class CursorVisibilityHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit CursorVisiabilityHandler(QWidget *parentWidget);
+    explicit CursorVisibilityHandler(QWidget *parentWidget);
     void disableCursorHiding();
     void enableCursorHiding();
 

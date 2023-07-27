@@ -33,9 +33,10 @@ public:
 
 Q_SIGNALS:
     void requestToggleCategory(const QString &category, const QString &value);
+    void requestHelp();
 
 private:
-    bool assingKey(const QString &key);
+    bool assignKey(const QString &key);
     void saveSettings();
     void loadSettings();
 

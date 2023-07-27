@@ -25,7 +25,7 @@ class QMenu;
 class QResizeEvent;
 class QStackedWidget;
 class QWheelEvent;
-class CursorVisiabilityHandler;
+class CursorVisibilityHandler;
 class QLabel;
 
 namespace DB
@@ -138,8 +138,6 @@ private:
     enum RemoveAction { RemoveImageFromDatabase,
                         OnlyRemoveFromViewer };
     void removeOrDeleteCurrent(RemoveAction);
-    void disableCursorHiding();
-    void enableCursorHiding();
 
 protected Q_SLOTS:
     void showNext();
@@ -199,6 +197,7 @@ protected Q_SLOTS:
 private:
     static ViewerWidget *s_latest;
     friend class VideoShooter;
+    friend class TemporarilyDisableCursorHandling;
 
     QList<QAction *> m_forwardActions;
     QList<QAction *> m_backwardActions;
@@ -261,8 +260,8 @@ private:
     UsageType m_type;
 
     MainWindow::CopyLinkEngine *m_copyLinkEngine;
-    CursorVisiabilityHandler *m_cursorHandlerForImageDisplay;
-    CursorVisiabilityHandler *m_cursorHandlerForVideoDisplay;
+    CursorVisibilityHandler *m_cursorHandlerForImageDisplay;
+    CursorVisibilityHandler *m_cursorHandlerForVideoDisplay;
     AnnotationHandler *m_annotationHandler;
 
     QLabel *m_transientLabel = nullptr;

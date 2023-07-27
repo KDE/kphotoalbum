@@ -2,21 +2,21 @@
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "CursorVisiabilityHandler.h"
+#include "CursorVisibilityHandler.h"
 #include <QEvent>
 #include <QTimer>
 #include <chrono>
 
 using namespace std::chrono_literals;
 
-CursorVisiabilityHandler::CursorVisiabilityHandler(QWidget *parentWidget)
+CursorVisibilityHandler::CursorVisibilityHandler(QWidget *parentWidget)
     : QObject(parentWidget)
     , m_parentWidget(parentWidget)
     , m_timer(new QTimer(this))
 {
     m_cursorHidingEnabled.push(true);
     m_timer->setSingleShot(true);
-    connect(m_timer, &QTimer::timeout, this, &CursorVisiabilityHandler::hideCursor);
+    connect(m_timer, &QTimer::timeout, this, &CursorVisibilityHandler::hideCursor);
     m_parentWidget->installEventFilter(this);
 
     const auto children = m_parentWidget->findChildren<QWidget *>();
@@ -24,7 +24,7 @@ CursorVisiabilityHandler::CursorVisiabilityHandler(QWidget *parentWidget)
         child->installEventFilter(this);
 }
 
-bool CursorVisiabilityHandler::eventFilter(QObject *watched, QEvent *event)
+bool CursorVisibilityHandler::eventFilter(QObject *watched, QEvent *event)
 {
     switch (event->type()) {
     case QEvent::MouseButtonPress:
@@ -49,7 +49,7 @@ bool CursorVisiabilityHandler::eventFilter(QObject *watched, QEvent *event)
     return QObject::eventFilter(watched, event);
 }
 
-void CursorVisiabilityHandler::showCursorTemporarily()
+void CursorVisibilityHandler::showCursorTemporarily()
 {
     if (!m_cursorHidingEnabled.top())
         return;
@@ -58,19 +58,19 @@ void CursorVisiabilityHandler::showCursorTemporarily()
     m_timer->start(1500ms);
 }
 
-void CursorVisiabilityHandler::disableCursorHiding()
+void CursorVisibilityHandler::disableCursorHiding()
 {
     m_cursorHidingEnabled.push(false);
     m_parentWidget->unsetCursor();
 }
 
-void CursorVisiabilityHandler::enableCursorHiding()
+void CursorVisibilityHandler::enableCursorHiding()
 {
     m_cursorHidingEnabled.pop();
     hideCursor();
 }
 
-void CursorVisiabilityHandler::hideCursor()
+void CursorVisibilityHandler::hideCursor()
 {
     if (!m_cursorHidingEnabled.top())
         return;

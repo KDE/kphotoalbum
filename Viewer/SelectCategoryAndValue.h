@@ -24,6 +24,9 @@ public:
     QString value() const;
     int exec() override;
 
+Q_SIGNALS:
+    void helpRequest();
+
 private:
     void addNew();
 

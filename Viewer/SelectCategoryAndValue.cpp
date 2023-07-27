@@ -122,21 +122,26 @@ SelectCategoryAndValue::SelectCategoryAndValue(const QString &title, const QStri
         ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(completer->currentIndex().isValid());
     });
 
-    connect(ui->value, &QLineEdit::textChanged, [completer, this](const QString &txt) {
+    connect(ui->value, &QLineEdit::textChanged, [this](const QString &txt) {
         ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!txt.isEmpty());
     });
 
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
-    auto help = ui->buttonBox->button(QDialogButtonBox::Help);
-    help->setText(i18n("Add New"));
-    help->setIcon({});
-    connect(help, &QPushButton::clicked, this, &SelectCategoryAndValue::addNew);
+    // I just need one of the buttons, so I can rename it.
+    auto button = ui->buttonBox->button(QDialogButtonBox::RestoreDefaults);
+    button->setText(i18n("Add New"));
+    button->setIcon({});
+    connect(button, &QPushButton::clicked, this, &SelectCategoryAndValue::addNew);
     ui->categoryLabel->hide();
     ui->category->hide();
     ui->titleLabel->hide();
     ui->value->hide();
-    resize(sizeHint());
+
+    connect(ui->buttonBox, &QDialogButtonBox::helpRequested, this, &SelectCategoryAndValue::helpRequest);
+
+    // I want the dialog to be wide enough to separate the ok/cancel from help/add new buttons
+    resize(QSize(size().width(), sizeHint().height()));
 
     const auto categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for (const auto &category : categories) {
@@ -167,7 +172,7 @@ void SelectCategoryAndValue::addNew()
 {
     ui->label->hide();
     ui->lineEdit->hide();
-    ui->buttonBox->button(QDialogButtonBox::Help)->setEnabled(false);
+    ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)->setEnabled(false);
     ui->categoryLabel->show();
     ui->category->show();
     ui->titleLabel->show();

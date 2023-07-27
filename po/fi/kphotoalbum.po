@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-24 07:29+0000\n"
-"PO-Revision-Date: 2023-04-02 16:27+0300\n"
+"PO-Revision-Date: 2023-07-25 13:41+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -4386,10 +4386,9 @@ msgid "Merge duplicates"
 msgstr "Yhdistä kaksoiskappaleet"
 
 #: MainWindow/Window.cpp:1000 MainWindow/Window.cpp:1057
-#, fuzzy, kde-format
-#| msgid "Recreate Selected Thumbnails"
+#, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "Luo valitut pienoiskuvat uudelleen"
+msgstr "Virkistä valitut pienoiskuvat ja tarkistussummat"
 
 #: MainWindow/Window.cpp:1004
 #, kde-format

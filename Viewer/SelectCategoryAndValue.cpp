@@ -68,13 +68,14 @@ enum Role { Category = Qt::UserRole,
 
 } // namespace
 
-SelectCategoryAndValue::SelectCategoryAndValue(const QString &title, const QString &message, QWidget *parent)
+SelectCategoryAndValue::SelectCategoryAndValue(const QString &title, const QString &message, const Viewer::AnnotationHandler::Assignments &assignments, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::SelectCategoryAndValue)
 {
     ui->setupUi(this);
     setWindowTitle(title);
     ui->label->setText(message);
+    setupExistingAssignments(assignments);
 
     auto model = new QStandardItemModel(this);
     int row = 0;
@@ -128,20 +129,14 @@ SelectCategoryAndValue::SelectCategoryAndValue(const QString &title, const QStri
 
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 
-    // I just need one of the buttons, so I can rename it.
-    auto button = ui->buttonBox->button(QDialogButtonBox::RestoreDefaults);
-    button->setText(i18n("Add New"));
-    button->setIcon({});
-    connect(button, &QPushButton::clicked, this, &SelectCategoryAndValue::addNew);
+    ui->addNewTag->setText(i18n("Add New"));
+    connect(ui->addNewTag, &QPushButton::clicked, this, &SelectCategoryAndValue::addNew);
     ui->categoryLabel->hide();
     ui->category->hide();
     ui->titleLabel->hide();
     ui->value->hide();
 
     connect(ui->buttonBox, &QDialogButtonBox::helpRequested, this, &SelectCategoryAndValue::helpRequest);
-
-    // I want the dialog to be wide enough to separate the ok/cancel from help/add new buttons
-    resize(QSize(size().width(), sizeHint().height()));
 
     const auto categories = DB::ImageDB::instance()->categoryCollection()->categories();
     for (const auto &category : categories) {
@@ -172,7 +167,7 @@ void SelectCategoryAndValue::addNew()
 {
     ui->label->hide();
     ui->lineEdit->hide();
-    ui->buttonBox->button(QDialogButtonBox::RestoreDefaults)->setEnabled(false);
+    ui->addNewTag->hide();
     ui->categoryLabel->show();
     ui->category->show();
     ui->titleLabel->show();
@@ -180,6 +175,34 @@ void SelectCategoryAndValue::addNew()
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
     ui->value->setText(ui->lineEdit->text());
     ui->category->setFocus();
+}
+
+void SelectCategoryAndValue::setupExistingAssignments(const Viewer::AnnotationHandler::Assignments &assignments)
+{
+    auto model = new QStandardItemModel(this);
+    model->setHorizontalHeaderLabels(QStringList { i18n("Key"), i18n("Tag"), QString(), i18n("Key"), i18n("Tag") });
+    int row = 0;
+    int column = 0;
+    auto addAssignment = [&](const QString &key, const QString &assignment) {
+        if (column == 2)
+            ++column;
+        if (column == 5) {
+            ++row;
+            column = 0;
+        }
+        model->setItem(row, column++, new QStandardItem(key));
+        model->setItem(row, column++, new QStandardItem(assignment));
+    };
+
+    for (auto it = assignments.cbegin(); it != assignments.cend(); ++it) {
+        const Viewer::AnnotationHandler::Assignment assignment = it.value();
+        addAssignment(it.key(), QLatin1String("%1 / %2").arg(assignment.category, assignment.value));
+    }
+
+    ui->knowAssignments->setModel(model);
+    ui->knowAssignments->verticalHeader()->hide();
+    ui->knowAssignments->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->knowAssignments->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 }
 
 QString SelectCategoryAndValue::category() const

@@ -63,7 +63,7 @@ bool AnnotationHandler::handle(QKeyEvent *event)
 
 bool AnnotationHandler::assignKey(const QString &key)
 {
-    SelectCategoryAndValue dialog(i18nc("@title", "Assign Macro"), i18n("Select item for macro key <b>%1</b>", key));
+    SelectCategoryAndValue dialog(i18nc("@title", "Assign Macro"), i18n("Select item for macro key <b>%1</b>", key), m_assignments);
     connect(&dialog, &SelectCategoryAndValue::helpRequest, this, &AnnotationHandler::requestHelp);
 
     auto result = dialog.exec();
@@ -109,7 +109,7 @@ void AnnotationHandler::loadSettings()
 
 bool AnnotationHandler::askForTagAndInsert()
 {
-    SelectCategoryAndValue dialog(i18n("Tag Item"), i18n("Select tag for image"));
+    SelectCategoryAndValue dialog(i18n("Tag Item"), i18n("Select tag for image"), m_assignments);
     connect(&dialog, &SelectCategoryAndValue::helpRequest, this, &AnnotationHandler::requestHelp);
 
     auto result = dialog.exec();

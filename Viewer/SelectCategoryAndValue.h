@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "AnnotationHandler.h"
 #include <DB/CategoryPtr.h>
 #include <QDialog>
 #include <memory>
@@ -18,7 +19,7 @@ class SelectCategoryAndValue : public QDialog
     Q_OBJECT
 
 public:
-    explicit SelectCategoryAndValue(const QString &title, const QString &message, QWidget *parent = nullptr);
+    explicit SelectCategoryAndValue(const QString &title, const QString &message, const Viewer::AnnotationHandler::Assignments &assignments, QWidget *parent = nullptr);
     ~SelectCategoryAndValue();
     QString category() const;
     QString value() const;
@@ -29,6 +30,7 @@ Q_SIGNALS:
 
 private:
     void addNew();
+    void setupExistingAssignments(const Viewer::AnnotationHandler::Assignments &assignments);
 
     const std::unique_ptr<Ui::SelectCategoryAndValue> ui;
     QString m_category;

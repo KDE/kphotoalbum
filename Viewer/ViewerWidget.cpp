@@ -1143,6 +1143,7 @@ void Viewer::ViewerWidget::editDescription()
 
 void Viewer::ViewerWidget::showKeyBindings()
 {
+    QMessageBox::information(this, i18n("@action::title"), txt);
     TemporarilyDisableCursorHandling dummy(this);
     auto help = new AnnotationHelp(m_actions, m_annotationHandler->assignments(), this);
     help->setAttribute(Qt::WA_DeleteOnClose);

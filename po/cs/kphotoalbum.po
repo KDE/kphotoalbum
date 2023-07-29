@@ -3951,15 +3951,13 @@ msgstr "Smazat demo databázi"
 #: MainWindow/Window.cpp:334
 #, kde-format
 msgid "Do you want to save the changes?"
-msgstr ""
+msgstr "Přejete si uložit změny?"
 
 #: MainWindow/Window.cpp:335
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Discard changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
-msgstr "Zahodit změny?"
+msgstr ""
 
 #: MainWindow/Window.cpp:392
 #, kde-format

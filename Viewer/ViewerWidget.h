@@ -49,7 +49,7 @@ class AnnotationHandler;
 class AbstractDisplay;
 class ImageDisplay;
 class InfoBox;
-class SpeedDisplay;
+class TransientDisplay;
 class TextDisplay;
 class VideoDisplay;
 class VideoShooter;
@@ -139,6 +139,11 @@ private:
                         OnlyRemoveFromViewer };
     void removeOrDeleteCurrent(RemoveAction);
 
+    enum class TagMode { Locked,
+                         Annotating,
+                         Tokenizing };
+    void setTagMode(TagMode tagMode);
+
 protected Q_SLOTS:
     void showNext();
     void showNext10();
@@ -191,7 +196,7 @@ protected Q_SLOTS:
     void slotRemoveDeletedImages(const DB::FileNameList &imageList);
 
     void triggerCopyLinkAction(MainWindow::CopyLinkEngine::Action action);
-    void toggleTag(const QString &category, const QString &value);
+    void toggleTag(const QString &category, QString value);
     void copyTagsFromPreviousImage();
 
 private:
@@ -246,7 +251,7 @@ private:
     bool m_showingFullScreen;
 
     int m_slideShowPause;
-    SpeedDisplay *m_speedDisplay;
+    TransientDisplay *m_transientDisplay;
     KActionCollection *m_actions;
     bool m_forward;
     QTimer *m_slideShowTimer;
@@ -264,8 +269,10 @@ private:
     CursorVisibilityHandler *m_cursorHandlerForVideoDisplay;
     AnnotationHandler *m_annotationHandler;
 
-    QLabel *m_transientLabel = nullptr;
-    QTimer *m_transientLabelTimer = nullptr;
+    TagMode m_tagMode = TagMode::Locked;
+    QAction *m_addTagAction;
+    QAction *m_copyAction;
+    QAction *m_addDescriptionAction;
 };
 
 }

@@ -6,6 +6,7 @@
 #define SPEEDDISPLAY_H
 
 #include <QLabel>
+#include <chrono>
 
 class QTimeLine;
 class QTimer;
@@ -15,24 +16,24 @@ class QHBoxLayout;
 namespace Viewer
 {
 
-class SpeedDisplay : public QLabel
+class TransientDisplay : public QLabel
 {
     Q_OBJECT
 
 public:
-    explicit SpeedDisplay(QWidget *parent);
-    void display(int);
-    void start();
-    void end();
-    void go();
+    explicit TransientDisplay(QWidget *parent);
+    enum FadeAction { FadeOut,
+                      NoFadeOut };
+    void display(const QString &text, std::chrono::milliseconds duration = std::chrono::seconds(1), FadeAction action = FadeOut);
 
-private Q_SLOTS:
+private:
+    void go(std::chrono::milliseconds duration);
     void setAlphaChannel(int alpha);
     void setAlphaChannel(int background, int label);
 
-private:
     QTimer *m_timer;
     QTimeLine *m_timeLine;
+    FadeAction m_nextFadeAction;
 };
 }
 

@@ -15,7 +15,7 @@
  * <li>\ref AbstractDisplay, \ref ImageDisplay, \ref VideoDisplay and \ref TextDisplay - Widgets hierarchy which takes care of the actual displaying of content.
  * <li> \ref ViewHandler - Handler which interprets mouse gestures.
  * <li> \ref InfoBox - Widget implementing the informatiom box
- * <li> \ref SpeedDisplay - Widget implementing the toplevel display used when adjusting slideshow speed.
+ * <li> \ref TransientDisplay - Widget implementing the toplevel display used for transient messages in the viewer.
  * <li> \ref VideoShooter - Utility class helping with taking a screenshot of a video frame
  * </ul>
  */

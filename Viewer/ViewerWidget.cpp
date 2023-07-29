@@ -40,9 +40,9 @@
 #endif
 
 #include "AnnotationHelp.h"
-#include "SpeedDisplay.h"
 #include "TaggedArea.h"
 #include "TextDisplay.h"
+#include "TransientDisplay.h"
 
 #if LIBVLC_FOUND
 #include "VLCDisplay.h"
@@ -98,6 +98,8 @@
 #include <QMetaEnum>
 #include <functional>
 
+using namespace std::chrono_literals;
+
 Viewer::ViewerWidget *Viewer::ViewerWidget::s_latest = nullptr;
 
 Viewer::ViewerWidget *Viewer::ViewerWidget::latest()
@@ -151,8 +153,8 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type)
     m_slideShowTimer->setSingleShot(true);
     m_slideShowPause = Settings::SettingsData::instance()->slideShowInterval() * 1000;
     connect(m_slideShowTimer, &QTimer::timeout, this, &ViewerWidget::slotSlideShowNextFromTimer);
-    m_speedDisplay = new SpeedDisplay(this);
-    m_speedDisplay->hide();
+    m_transientDisplay = new TransientDisplay(this);
+    m_transientDisplay->hide();
 
     setFocusPolicy(Qt::StrongFocus);
 
@@ -414,12 +416,12 @@ void Viewer::ViewerWidget::createSlideShowMenu()
 
     m_slideShowRunFaster = m_actions->addAction(QString::fromLatin1("viewer-run-faster"), this, &ViewerWidget::slotSlideShowFaster);
     m_slideShowRunFaster->setText(i18nc("@action:inmenu", "Run Faster"));
-    m_actions->setDefaultShortcut(m_slideShowRunFaster, Qt::CTRL + Qt::Key_Plus); // if you change this, please update the info in Viewer::SpeedDisplay
+    m_actions->setDefaultShortcut(m_slideShowRunFaster, Qt::CTRL + Qt::Key_Plus); // if you change this, please update the info in Viewer::TransientDisplay
     popup->addAction(m_slideShowRunFaster);
 
     m_slideShowRunSlower = m_actions->addAction(QString::fromLatin1("viewer-run-slower"), this, &ViewerWidget::slotSlideShowSlower);
     m_slideShowRunSlower->setText(i18nc("@action:inmenu", "Run Slower"));
-    m_actions->setDefaultShortcut(m_slideShowRunSlower, Qt::CTRL + Qt::Key_Minus); // if you change this, please update the info in Viewer::SpeedDisplay
+    m_actions->setDefaultShortcut(m_slideShowRunSlower, Qt::CTRL + Qt::Key_Minus); // if you change this, please update the info in Viewer::TransientDisplay
     popup->addAction(m_slideShowRunSlower);
 
     m_popup->addMenu(popup);
@@ -575,6 +577,28 @@ void Viewer::ViewerWidget::removeOrDeleteCurrent(RemoveAction action)
         showPrev();
     else
         showNextN(0);
+}
+
+void Viewer::ViewerWidget::setTagMode(TagMode tagMode)
+{
+    m_tagMode = tagMode;
+    m_addTagAction->setEnabled(tagMode == TagMode::Annotating);
+    m_copyAction->setEnabled(tagMode == TagMode::Annotating);
+    m_addDescriptionAction->setEnabled(tagMode == TagMode::Annotating);
+
+    const auto tagModeText = [&] {
+        switch (tagMode) {
+        case TagMode::Locked:
+            return i18n("locked");
+        case TagMode::Annotating:
+            return i18n("annotating");
+        case TagMode::Tokenizing:
+            return i18n("tokenizing");
+        }
+        return QString();
+    }();
+
+    m_transientDisplay->display(i18n("Change display mode to %1", tagModeText));
 }
 
 namespace Viewer
@@ -809,13 +833,17 @@ void Viewer::ViewerWidget::slotStartStopSlideShow()
         m_startStopSlideShow->setText(i18nc("@action:inmenu", "Run Slideshow"));
         m_slideShowTimer->stop();
         if (m_list.count() != 1)
-            m_speedDisplay->end();
+            m_transientDisplay->display(i18nc("OSD for slideshow", "Ending Slideshow"));
         inhibitScreenSaver(false);
     } else {
         m_startStopSlideShow->setText(i18nc("@action:inmenu", "Stop Slideshow"));
         if (currentInfo()->mediaType() != DB::Video)
             m_slideShowTimer->start(m_slideShowPause);
-        m_speedDisplay->start();
+        const auto faster = m_actions->action(QString::fromLatin1("viewer-run-faster"))->shortcut().toString();
+        const auto slower = m_actions->action(QString::fromLatin1("viewer-run-slower"))->shortcut().toString();
+        m_transientDisplay->display(i18nc("OSD for slideshow", "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the slideshow slower",
+                                          faster, slower),
+                                    1500ms);
         inhibitScreenSaver(true);
     }
 }
@@ -863,7 +891,7 @@ void Viewer::ViewerWidget::changeSlideShowInterval(int delta)
 
     m_slideShowPause += delta;
     m_slideShowPause = qMax(m_slideShowPause, 500);
-    m_speedDisplay->display(m_slideShowPause);
+    m_transientDisplay->display(i18nc("OSD for slideshow, num of seconds per image", "%1&nbsp;s", m_slideShowPause / 1000.0));
     if (m_slideShowTimer->isActive())
         m_slideShowTimer->start(m_slideShowPause);
 }
@@ -1026,8 +1054,16 @@ void Viewer::ViewerWidget::keyPressEvent(QKeyEvent *event)
         const auto rating = event->key() - Qt::Key_0;
         currentInfo()->setRating(rating * 2);
         dirty = true;
+    } else if (m_tagMode == TagMode::Locked) {
+        return;
+    } else if (m_tagMode == TagMode::Tokenizing) {
+        if (event->key() < Qt::Key_A || event->key() > Qt::Key_Z)
+            return;
+
+        auto category = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory)->name();
+        toggleTag(category, event->text());
     } else {
-        TemporarilyDisableCursorHandling(this);
+        TemporarilyDisableCursorHandling dummy(this);
         dirty = m_annotationHandler->handle(event);
     }
 
@@ -1087,7 +1123,7 @@ void Viewer::ViewerWidget::makeThumbnailImage()
 
 void Viewer::ViewerWidget::addTag()
 {
-    TemporarilyDisableCursorHandling(this);
+    TemporarilyDisableCursorHandling dummy(this);
     const bool dirty = m_annotationHandler->askForTagAndInsert();
     if (dirty)
         MainWindow::DirtyIndicator::markDirty();
@@ -1095,7 +1131,7 @@ void Viewer::ViewerWidget::addTag()
 
 void Viewer::ViewerWidget::editDescription()
 {
-    TemporarilyDisableCursorHandling(this);
+    TemporarilyDisableCursorHandling dummy(this);
     const auto description = currentInfo()->description();
     bool ok;
     auto newDescription = QInputDialog::getMultiLineText(this, i18nc("@title", "Edit Image Description"), i18nc("@label:textbox", "Image Description"), description, &ok);
@@ -1107,7 +1143,7 @@ void Viewer::ViewerWidget::editDescription()
 
 void Viewer::ViewerWidget::showKeyBindings()
 {
-    TemporarilyDisableCursorHandling(this);
+    TemporarilyDisableCursorHandling dummy(this);
     auto help = new AnnotationHelp(m_actions, m_annotationHandler->assignments(), this);
     help->setAttribute(Qt::WA_DeleteOnClose);
     help->exec();
@@ -1344,30 +1380,51 @@ void Viewer::ViewerWidget::createVideoViewer()
 void Viewer::ViewerWidget::createAnnotationMenu()
 {
     auto menu = new QMenu(i18n("Annotate"));
-    QAction *action = m_actions->addAction(QString::fromLatin1("viewer-show-keybindings"), this, &ViewerWidget::showKeyBindings);
-    action->setText(i18nc("@action:inmenu", "Show key bindings"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Question);
-    menu->addAction(action);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-edit-image-properties"), this, &ViewerWidget::editImage);
-    action->setText(i18nc("@action:inmenu", "Annotation Dialog"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_1);
-    menu->addAction(action);
+    auto addAction = [&](const char *name, const QString &title, auto slot, auto shortCut) {
+        QAction *action = m_actions->addAction(QString::fromLatin1(name), this, slot);
+        action->setText(title);
+        m_actions->setDefaultShortcut(action, shortCut);
+        menu->addAction(action);
+        return action;
+    };
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-add-tag"), this, &ViewerWidget::addTag);
-    action->setText(i18nc("@action:inmenu", "Add tag"));
-    m_actions->setDefaultShortcut(action, i18nc("short cut for add tag", "CTRL+a"));
-    menu->addAction(action);
+    auto toggleGroup = new QActionGroup(this);
+    auto addTagAction = [&](const char *name, const QString &title, TagMode mode, auto shortCut) {
+        auto action = addAction(
+            name, title, [this, mode] { setTagMode(mode); }, shortCut);
+        action->setCheckable(true);
+        toggleGroup->addAction(action);
+        return action;
+    };
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-copy-tag-from-previous-image"), this, &ViewerWidget::copyTagsFromPreviousImage);
-    action->setText(i18nc("@action:inmenu", "Copy Data from Previous Image"));
-    m_actions->setDefaultShortcut(action, i18nc("Shortcut for copy annotations from previous image", "CTRL+c"));
-    menu->addAction(action);
+    addAction("viewer-show-keybindings", i18nc("@action:inmenu", "Show key bindings"), &ViewerWidget::showKeyBindings, Qt::CTRL + Qt::Key_Question);
 
-    action = m_actions->addAction(QString::fromLatin1("viewer-edit-description"), this, &ViewerWidget::editDescription);
-    action->setText(i18nc("@action:inmenu", "Edit Description"));
-    m_actions->setDefaultShortcut(action, i18nc("Shortcut for add description to image", "CTRL+d"));
-    menu->addAction(action);
+    addAction("viewer-edit-image-properties", i18nc("@action:inmenu", "Annotation Dialog"), &ViewerWidget::editImage, Qt::CTRL + Qt::Key_1);
+    m_addTagAction = addAction("viewer-add-tag", i18nc("@action:inmenu", "Add tag"), &ViewerWidget::addTag, i18nc("short cut for add tag", "CTRL+a"));
+    m_addTagAction->setEnabled(false);
+
+    m_copyAction = addAction("viewer-copy-tag-from-previous-image", i18nc("@action:inmenu", "Copy Data from Previous Image"), &ViewerWidget::copyTagsFromPreviousImage,
+                             i18nc("Shortcut for copy annotations from previous image", "CTRL+c"));
+    m_copyAction->setEnabled(false);
+
+    m_addDescriptionAction = addAction("viewer-edit-description", i18nc("@action:inmenu", "Edit Description"), &ViewerWidget::editDescription,
+                                       i18nc("Shortcut for add description to image", "CTRL+d"));
+    m_addDescriptionAction->setEnabled(false);
+
+    menu->addSection(i18n("Tagging Mode"));
+    auto action = addTagAction(
+        "viewer-tagmode-locked", i18nc("@action:inmenu", "Locked"), TagMode::Locked,
+        i18nc("Shortcut for turning of annotations in the viewer", "CTRL+l"));
+    action->setChecked(true);
+
+    addTagAction(
+        "viewer-tagmode-annotating", i18nc("@action:inmenu", "Annotating"), TagMode::Annotating,
+        i18nc("Shortcut for turning annotations mode to annotating", "F2"));
+
+    addTagAction(
+        "viewer-tagmode-tokenizing", i18nc("@action:inmenu", "Tokenizing"), TagMode::Tokenizing,
+        i18nc("Shortcut for turning annotations mode to tokenizing", "CTRL+t"));
 
     m_popup->addMenu(menu);
 }
@@ -1497,7 +1554,7 @@ void Viewer::ViewerWidget::triggerCopyLinkAction(MainWindow::CopyLinkEngine::Act
     m_copyLinkEngine->selectTarget(this, selectedFiles, action);
 }
 
-void Viewer::ViewerWidget::toggleTag(const QString &category, const QString &value)
+void Viewer::ViewerWidget::toggleTag(const QString &category, QString value)
 {
     const bool set = !currentInfo()->hasCategoryInfo(category, value);
     if (set)
@@ -1509,32 +1566,9 @@ void Viewer::ViewerWidget::toggleTag(const QString &category, const QString &val
     currentInfo()->removeCategoryInfo(Settings::SettingsData::instance()->untaggedCategory(), Settings::SettingsData::instance()->untaggedTag());
     updateInfoBox();
 
-    if (!m_transientLabel) {
-        m_transientLabel = new QLabel(this);
-        QFont fnt = qApp->font();
-        fnt.setPointSize(50);
-        m_transientLabel->setFont(fnt);
-
-        m_transientLabel->setAutoFillBackground(true);
-        QPalette pal;
-        pal.setColor(QPalette::WindowText, Qt::black);
-        QColor bg(Qt::white);
-        bg.setAlpha(64);
-        pal.setBrush(QPalette::Window, bg);
-        m_transientLabel->setPalette(pal);
-
-        m_transientLabelTimer = new QTimer;
-        connect(m_transientLabelTimer, &QTimer::timeout, m_transientLabel, &QWidget::hide);
-        m_transientLabelTimer->setSingleShot(true);
-    }
-
-    m_transientLabel->setText(set ? value : QLatin1String("<s>%1</s>").arg(value));
-    m_transientLabel->resize(m_transientLabel->sizeHint());
-    QSize position = (size() - m_transientLabel->sizeHint()) / 2;
-    m_transientLabel->move(position.width(), position.height());
-    m_transientLabel->show();
-    m_transientLabel->raise();
-    m_transientLabelTimer->start(500);
+    if (category == DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory)->name())
+        value = i18n("Token %1", value.toUpper());
+    m_transientDisplay->display(set ? value : QLatin1String("<s>%1</s>").arg(value), 500ms, TransientDisplay::NoFadeOut);
 }
 
 void Viewer::ViewerWidget::copyTagsFromPreviousImage()

@@ -20,7 +20,7 @@ AnnotationHelp::AnnotationHelp(KActionCollection *actions, const AnnotationHandl
     model->setHorizontalHeaderLabels(QStringList { i18n("Key"), i18n("Tag"), QString(), i18n("Key"), i18n("Tag") });
     int row = 0;
     int column = 0;
-    auto addAsignment = [&](const QString &key, const QString &assignment) {
+    auto addAssignment = [&](const QString &key, const QString &assignment) {
         if (column == 2)
             ++column;
         if (column == 5) {
@@ -31,15 +31,15 @@ AnnotationHelp::AnnotationHelp(KActionCollection *actions, const AnnotationHandl
         model->setItem(row, column++, new QStandardItem(assignment));
     };
 
-    addAsignment(actions->action(QString::fromLatin1("viewer-add-tag"))->shortcut().toString(), i18n("Add Tag"));
-    addAsignment(actions->action(QString::fromLatin1("viewer-edit-description"))->shortcut().toString(), i18n("Add Description"));
-    addAsignment(actions->action(QString::fromLatin1("viewer-copy-tag-from-previous-image"))->shortcut().toString(), i18n("Copy Annotation from Previous Image"));
+    addAssignment(actions->action(QString::fromLatin1("viewer-add-tag"))->shortcut().toString(), i18n("Add Tag"));
+    addAssignment(actions->action(QString::fromLatin1("viewer-edit-description"))->shortcut().toString(), i18n("Add Description"));
+    addAssignment(actions->action(QString::fromLatin1("viewer-copy-tag-from-previous-image"))->shortcut().toString(), i18n("Copy Annotation from Previous Image"));
     row += 2;
     column = 0;
 
     for (auto it = assignments.cbegin(); it != assignments.cend(); ++it) {
         const AnnotationHandler::Assignment assignment = it.value();
-        addAsignment(it.key(), QLatin1String("%1 / %2").arg(assignment.category, assignment.value));
+        addAssignment(it.key(), QLatin1String("%1 / %2").arg(assignment.category, assignment.value));
     }
 
     ui->assignments->setModel(model);

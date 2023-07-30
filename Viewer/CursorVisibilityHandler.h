@@ -21,6 +21,8 @@ public:
     void disableCursorHiding();
     void enableCursorHiding();
 
+    bool cursorHidingEnabled() const;
+
 protected:
     bool eventFilter(QObject *watched, QEvent *event) override;
 

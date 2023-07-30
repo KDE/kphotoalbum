@@ -14,7 +14,6 @@ CursorVisibilityHandler::CursorVisibilityHandler(QWidget *parentWidget)
     , m_parentWidget(parentWidget)
     , m_timer(new QTimer(this))
 {
-    m_cursorHidingEnabled.push(true);
     m_timer->setSingleShot(true);
     connect(m_timer, &QTimer::timeout, this, &CursorVisibilityHandler::hideCursor);
     m_parentWidget->installEventFilter(this);
@@ -51,7 +50,7 @@ bool CursorVisibilityHandler::eventFilter(QObject *watched, QEvent *event)
 
 void CursorVisibilityHandler::showCursorTemporarily()
 {
-    if (!m_cursorHidingEnabled.top())
+    if (!cursorHidingEnabled())
         return;
 
     m_parentWidget->unsetCursor();
@@ -66,13 +65,19 @@ void CursorVisibilityHandler::disableCursorHiding()
 
 void CursorVisibilityHandler::enableCursorHiding()
 {
-    m_cursorHidingEnabled.pop();
+    if (!m_cursorHidingEnabled.isEmpty())
+        m_cursorHidingEnabled.pop();
     hideCursor();
+}
+
+bool CursorVisibilityHandler::cursorHidingEnabled() const
+{
+    return m_cursorHidingEnabled.isEmpty();
 }
 
 void CursorVisibilityHandler::hideCursor()
 {
-    if (!m_cursorHidingEnabled.top())
+    if (!cursorHidingEnabled())
         return;
 
     m_parentWidget->setCursor(Qt::BlankCursor);

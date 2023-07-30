@@ -39,7 +39,6 @@
 #include "QtAVDisplay.h"
 #endif
 
-#include "AnnotationHelp.h"
 #include "TaggedArea.h"
 #include "TextDisplay.h"
 #include "TransientDisplay.h"
@@ -94,6 +93,7 @@
 #include <QWheelEvent>
 #include <qglobal.h>
 
+#include <QDesktopServices>
 #include <QInputDialog>
 #include <QMetaEnum>
 #include <functional>
@@ -168,7 +168,7 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type)
     connect(m_annotationHandler, &AnnotationHandler::requestToggleCategory,
             this, &Viewer::ViewerWidget::toggleTag);
     connect(m_annotationHandler, &AnnotationHandler::requestHelp,
-            this, &Viewer::ViewerWidget::showKeyBindings);
+            this, &Viewer::ViewerWidget::showAnnotationHelp);
 }
 
 void Viewer::ViewerWidget::setupContextMenu()
@@ -1141,13 +1141,9 @@ void Viewer::ViewerWidget::editDescription()
     }
 }
 
-void Viewer::ViewerWidget::showKeyBindings()
+void Viewer::ViewerWidget::showAnnotationHelp()
 {
-    QMessageBox::information(this, i18n("@action::title"), txt);
-    TemporarilyDisableCursorHandling dummy(this);
-    auto help = new AnnotationHelp(m_actions, m_annotationHandler->assignments(), this);
-    help->setAttribute(Qt::WA_DeleteOnClose);
-    help->exec();
+    QDesktopServices::openUrl(QUrl(QLatin1String("help:/kphotoalbum/chp-viewer.html#annotating-from-the-viewer")));
 }
 
 void Viewer::ViewerWidget::createVideoMenu()
@@ -1399,7 +1395,7 @@ void Viewer::ViewerWidget::createAnnotationMenu()
         return action;
     };
 
-    addAction("viewer-show-keybindings", i18nc("@action:inmenu", "Show key bindings"), &ViewerWidget::showKeyBindings, Qt::CTRL + Qt::Key_Question);
+    addAction("viewer-show-keybindings", i18nc("@action:inmenu", "Help"), &ViewerWidget::showAnnotationHelp, Qt::CTRL + Qt::Key_Question);
 
     addAction("viewer-edit-image-properties", i18nc("@action:inmenu", "Annotation Dialog"), &ViewerWidget::editImage, Qt::CTRL + Qt::Key_1);
     m_addTagAction = addAction("viewer-add-tag", i18nc("@action:inmenu", "Add tag"), &ViewerWidget::addTag, i18nc("short cut for add tag", "CTRL+a"));
@@ -1413,18 +1409,18 @@ void Viewer::ViewerWidget::createAnnotationMenu()
                                        i18nc("Shortcut for add description to image", "CTRL+d"));
     m_addDescriptionAction->setEnabled(false);
 
-    menu->addSection(i18n("Tagging Mode"));
+    menu->addSection(i18n("Annotation Mode"));
     auto action = addTagAction(
         "viewer-tagmode-locked", i18nc("@action:inmenu", "Locked"), TagMode::Locked,
         i18nc("Shortcut for turning of annotations in the viewer", "CTRL+l"));
     action->setChecked(true);
 
     addTagAction(
-        "viewer-tagmode-annotating", i18nc("@action:inmenu", "Annotating"), TagMode::Annotating,
+        "viewer-tagmode-annotating", i18nc("@action:inmenu", "Assign Tags"), TagMode::Annotating,
         i18nc("Shortcut for turning annotations mode to annotating", "F2"));
 
     addTagAction(
-        "viewer-tagmode-tokenizing", i18nc("@action:inmenu", "Tokenizing"), TagMode::Tokenizing,
+        "viewer-tagmode-tokenizing", i18nc("@action:inmenu", "Assign Tokens"), TagMode::Tokenizing,
         i18nc("Shortcut for turning annotations mode to tokenizing", "CTRL+t"));
 
     m_popup->addMenu(menu);

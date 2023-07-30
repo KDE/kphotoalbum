@@ -104,9 +104,7 @@ it out. Thus typing <literal>Do</literal> might be enough to find
 <literal>Donna</literal>. Once you have found the item you search for,
 simply press enter to select this item in the listbox. The item will now be
 moved to the top of the view, so next time you need the given item it is
-even easier to find. There is also a "seamless" way of annotating from Image
-Viewer that is described later on in <xref
-linkend="category-selectors-in-viewer" />.</para>
+even easier to find.</para>
 
       <para>The idea behind moving items to the top when they have been
 selected is, that when going to, say a family party, you will get perhaps
@@ -222,7 +220,22 @@ window layout.</para>
 
   </sect1>
 
-  </chapter>
+<sect1>
+    <title>Annotating while viewing images</title>
+    <para>For a few decades we tagged our images as described above, but in the summer of 2023, it started being possible to tag images while viewing them.
+    This facility doesn't support all the features described above, but it offers a much faster workflow to tagging images.</para>
+    <para>Missing features when annotating images from the viewer, which you need to come to this dialog for are:
+    <itemizedlist>
+    <listitem><para>Annotating multiple images at a time</para></listitem>
+    <listitem><para>Tagging individual parts of an image (this face is ...)</para></listitem>
+    <listitem><para>Setting up tag groups (ie. specifying that Las Vegas is in USA, so you will see images tagged Las Vegas when watching images from USA)</para></listitem>
+    <listitem><para>Setting image dates</para></listitem>
+    </itemizedlist>
+
+    <link linkend="annotating-from-the-viewer">See the seciton on annotating from the viewer</link>
+    </para>
+</sect1>
+</chapter>
 
 
 <!-- Keep this comment at the end of the file

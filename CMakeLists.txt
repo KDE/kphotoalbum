@@ -261,13 +261,10 @@ set(libViewer_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/AnnotationHandler.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/SelectCategoryAndValue.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/SelectCategoryAndValue.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/AnnotationHelp.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/AnnotationHelp.h"
     )
 
 ki18n_wrap_ui(libViewer_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/SelectCategoryAndValue.ui"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/AnnotationHelp.ui"
     )
 
 

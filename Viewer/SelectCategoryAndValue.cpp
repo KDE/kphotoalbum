@@ -165,7 +165,6 @@ int SelectCategoryAndValue::exec()
 
 void SelectCategoryAndValue::addNew()
 {
-    ui->label->hide();
     ui->lineEdit->hide();
     ui->addNewTag->hide();
     ui->categoryLabel->show();
@@ -180,18 +179,12 @@ void SelectCategoryAndValue::addNew()
 void SelectCategoryAndValue::setupExistingAssignments(const Viewer::AnnotationHandler::Assignments &assignments)
 {
     auto model = new QStandardItemModel(this);
-    model->setHorizontalHeaderLabels(QStringList { i18n("Key"), i18n("Tag"), QString(), i18n("Key"), i18n("Tag") });
+    model->setHorizontalHeaderLabels(QStringList { i18n("Key"), i18n("Tag") });
     int row = 0;
-    int column = 0;
     auto addAssignment = [&](const QString &key, const QString &assignment) {
-        if (column == 2)
-            ++column;
-        if (column == 5) {
-            ++row;
-            column = 0;
-        }
-        model->setItem(row, column++, new QStandardItem(key));
-        model->setItem(row, column++, new QStandardItem(assignment));
+        model->setItem(row, 0, new QStandardItem(key));
+        model->setItem(row, 1, new QStandardItem(assignment));
+        ++row;
     };
 
     for (auto it = assignments.cbegin(); it != assignments.cend(); ++it) {
@@ -201,7 +194,8 @@ void SelectCategoryAndValue::setupExistingAssignments(const Viewer::AnnotationHa
 
     ui->knowAssignments->setModel(model);
     ui->knowAssignments->verticalHeader()->hide();
-    ui->knowAssignments->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->knowAssignments->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    ui->knowAssignments->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
     ui->knowAssignments->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 }
 

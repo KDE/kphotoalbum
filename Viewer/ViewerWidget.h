@@ -184,7 +184,7 @@ protected Q_SLOTS:
     void makeThumbnailImage();
     void addTag();
     void editDescription();
-    void showKeyBindings();
+    void showAnnotationHelp();
 
     /** Set the current window title (filename) and add the given detail */
     void setCaptionWithDetail(const QString &detail);

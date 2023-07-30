@@ -1,7 +1,6 @@
 <!--
-SPDX-FileCopyrightText: 2014-2015, 2017-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+SPDX-FileCopyrightText: 2014-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
-SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 
 SPDX-License-Identifier: CC-BY-SA-4.0
 -->
@@ -427,6 +426,76 @@ KPhotoAlbum
 
  * ```Categories.Category.value``` has an attribute "meta" with value "mark-untagged" for the untagged category tag.
 
+### Version 10
+
+Not released yet. Used in KPA v5.12
+
+```
+KPhotoAlbum
+| (version=10, compressed=1)
+|
++-Categories
+| +-Category
+|   (name, icon, show, viewtype, thumbnailsize, positionable)
+|   (meta) [optional]
+|   +-value
+|     (value, id)
+|     (birthDate) [optional]
+|     (meta) [optional]
+|
++-images
+| +-image
+|   (file, startDate, md5sum, width, height)
+|   (angle, description, endDate, label, rating, stackId, stackOrder, videoLength) [optional]
+|   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#, area="x y w h")
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+| +-member (category,group-name,members)
+|
++-global-sort-order
+| +-item (category,item)
+```
+
+```
+KPhotoAlbum
+| (version=10, compressed=0)
+|
++-Categories
+| +-Category
+|   (name, icon, show, viewtype, thumbnailsize, positionable)
+|   (meta) [optional]
+|   +-value
+|     (value, id)
+|     (birthDate) [optional]
+|     (meta) [optional]
+|
++-images
+| +-image
+|   (file, startDate, md5sum, width, height)
+|   (angle, description, endDate, label, rating, stackId, stackOrder, videoLength) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#, area="x y w h")
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+| +-member (category,group-name,member)
+|
++-global-sort-order
+| +-item (category,item)
+```
+
+#### Differences to version 9
+
+ * New element ```global-sort-order```
 
 ### Attribute values explained
 
@@ -520,6 +589,12 @@ KPhotoAlbum
         A single tag name.
       + ```members``` (compressed format)<br/>
         Numerical tag ids, separated by comma.
+ * global-sort-order
+    - item
+      + ```category```<br/>
+        Category name; matches one of ```Categories.Category.name```
+      + ```item```<br/>
+        A single tag name.
 
 #### Encoding of category names
 

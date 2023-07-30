@@ -123,8 +123,8 @@ void ImageManager::AsyncLoader::loadImage(ImageRequest *request)
     QMutexLocker dummy(&m_lock);
     if (m_exitRequested)
         return;
-    auto req = m_currentLoading.find(request);
-    if (req != m_currentLoading.end() && m_loadList.isRequestStillValid(request)) {
+    auto req = m_currentLoading.constFind(request);
+    if (req != m_currentLoading.cend() && m_loadList.isRequestStillValid(request)) {
         // The last part of the test above is needed to not fail on a race condition from AnnotationDialog::ImagePreview, where the preview
         // at startup request the same image numerous time (likely from resize event).
         Q_ASSERT(*req != request);
@@ -136,7 +136,7 @@ void ImageManager::AsyncLoader::loadImage(ImageRequest *request)
     // Try harder to find a pending request.  Unfortunately, we can't simply use
     // m_currentLoading.contains() because that will compare pointers
     // when we want to compare values.
-    for (req = m_currentLoading.begin(); req != m_currentLoading.end(); req++) {
+    for (req = m_currentLoading.cbegin(); req != m_currentLoading.cend(); req++) {
         ImageRequest *r = *req;
         if (*request == *r) {
             delete request;

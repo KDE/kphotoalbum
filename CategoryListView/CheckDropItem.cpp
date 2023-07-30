@@ -1,7 +1,15 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2006-2007 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2006-2012 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2009 Andrew Coles <andrew.i.coles@googlemail.com>
+// SPDX-FileCopyrightText: 2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2010 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2015 Yuri Chornoivan <yurchor@ukr.net>
+// SPDX-FileCopyrightText: 2015-2020 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2023 Alexander Lohnau <alexander.lohnau@gmx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 // Local includes
 
@@ -53,7 +61,7 @@ CategoryListView::DragItemInfoSet CategoryListView::CheckDropItem::extractData(c
 
 bool CategoryListView::CheckDropItem::dataDropped(const QMimeData *data)
 {
-    DragItemInfoSet items = extractData(data);
+    const DragItemInfoSet items = extractData(data);
     const QString newParent = text(0);
     if (!verifyDropWasIntended(newParent, items))
         return false;
@@ -61,9 +69,9 @@ bool CategoryListView::CheckDropItem::dataDropped(const QMimeData *data)
     DB::MemberMap &memberMap = DB::ImageDB::instance()->memberMap();
     memberMap.addGroup(m_listView->category()->name(), newParent);
 
-    for (auto itemIt = items.begin(); itemIt != items.end(); ++itemIt) {
-        const QString oldParent = (*itemIt).parent();
-        const QString child = (*itemIt).child();
+    for (const auto &item : items) {
+        const QString oldParent = item.parent();
+        const QString child = item.child();
 
         memberMap.addMemberToGroup(m_listView->category()->name(), newParent, child);
         memberMap.removeMemberFromGroup(m_listView->category()->name(), oldParent, child);

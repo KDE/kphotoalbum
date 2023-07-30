@@ -1,5 +1,14 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 David Faure <faure@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2005-2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2006-2007 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007-2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2018-2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2023 Alexander Lohnau <alexander.lohnau@gmx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -119,13 +128,13 @@ QMap<QString, StringSet> MemberMap::groupMap(const QString &category) const
 QStringList MemberMap::calculateClosure(QMap<QString, StringSet> &resultSoFar, const QString &category, const QString &group) const
 {
     resultSoFar[group] = StringSet(); // Prevent against cycles.
-    StringSet members = m_members[category][group];
+    const StringSet members = m_members[category][group];
     StringSet result = members;
-    for (auto it = members.begin(); it != members.end(); ++it) {
-        if (resultSoFar.contains(*it)) {
-            result += resultSoFar[*it];
-        } else if (isGroup(category, *it)) {
-            const auto closure = calculateClosure(resultSoFar, category, *it);
+    for (const auto &member : members) {
+        if (resultSoFar.contains(member)) {
+            result += resultSoFar[member];
+        } else if (isGroup(category, member)) {
+            const auto closure = calculateClosure(resultSoFar, category, member);
             const StringSet closureSet(closure.begin(), closure.end());
             result += closureSet;
         }
@@ -339,9 +348,9 @@ QMap<QString, StringSet> DB::MemberMap::inverseMap(const QString &category) cons
 
     for (QMap<QString, StringSet>::ConstIterator mapIt = map.begin(); mapIt != map.end(); ++mapIt) {
         QString group = mapIt.key();
-        StringSet members = mapIt.value();
-        for (auto memberIt = members.begin(); memberIt != members.end(); ++memberIt) {
-            res[*memberIt].insert(group);
+        const StringSet members = mapIt.value();
+        for (const auto &member : members) {
+            res[member].insert(group);
         }
     }
     return res;

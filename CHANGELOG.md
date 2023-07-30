@@ -36,13 +36,19 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ------------
 
 ### Added
- - Support annotating images from the viewer. Press Ctrl+? in the viewer for details.
+ - Support annotating images from the viewer by using letters to assign tags.
+   Use the context menu and select "Annotate | Assign Tags" to enable.
+   More information is available in the KPhotoAlbum handbook.
  
 ### Changed
+ - In the viewer window, using the letters A-Z to assign tokens now needs to be explicitly enabled.
+   You can do this by opening the context menu and selecting "Annotate | Assign Tokens".
+ - When KPhotoAlbum is started in demo mode and a previously saved demo database exists, the old demo database is no longer overwritten.
 
 ### Dependencies
 
 ### Deprecated
+ - It is no longer possible to annotate images from the viewer by pressing "/" and typing tag names.
 
 ### Fixed
  - Fix issue with KPhotoAlbum not asking to save before exit (#472427)

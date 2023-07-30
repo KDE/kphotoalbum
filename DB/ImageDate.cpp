@@ -169,20 +169,17 @@ QString ImageDate::toString(bool withTime) const
         } else {
             // A day range
             return QString::fromLatin1("%1 - %2")
-                .arg(m_start.toString(QString::fromLatin1("d. MMM yyyy")))
-                .arg(m_end.toString(QString::fromLatin1("d. MMM yyyy")));
+                .arg(m_start.toString(QString::fromLatin1("d. MMM yyyy")), m_end.toString(QString::fromLatin1("d. MMM yyyy")));
         }
     }
 
     // Range smaller than one day.
     if (withTime && (!isFirstSecOfDay(m_start) || !isLastSecOfDay(m_end)))
         return QString::fromLatin1("%1 - %2")
-            .arg(m_start.toString(QString::fromLatin1("d. MMM yyyy hh:mm")))
-            .arg(m_end.toString(QString::fromLatin1("d. MMM yyyy hh:mm")));
+            .arg(m_start.toString(QString::fromLatin1("d. MMM yyyy hh:mm")), m_end.toString(QString::fromLatin1("d. MMM yyyy hh:mm")));
     else
         return QString::fromLatin1("%1 - %2")
-            .arg(m_start.toString(QString::fromLatin1("d. MMM yyyy")))
-            .arg(m_end.toString(QString::fromLatin1("d. MMM yyyy")));
+            .arg(m_start.toString(QString::fromLatin1("d. MMM yyyy")), m_end.toString(QString::fromLatin1("d. MMM yyyy")));
 }
 
 bool ImageDate::operator==(const ImageDate &other) const

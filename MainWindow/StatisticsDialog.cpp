@@ -175,7 +175,7 @@ void MainWindow::StatisticsDialog::populate()
         info.setCategoryMatchText(category, tag);
         const int imageCount = DB::ImageDB::instance()->count(info).total();
         QTreeWidgetItem *item = new QTreeWidgetItem(m_treeWidget,
-                                                    QStringList() << QString::fromLatin1("%1: %2").arg(category).arg(tag)
+                                                    QStringList() << QString::fromLatin1("%1: %2").arg(category, tag)
                                                                   << QString::number(imageCount));
         item->setTextAlignment(1, Qt::AlignRight);
         populateSubTree(info, imageCount, item);

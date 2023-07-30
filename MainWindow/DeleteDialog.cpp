@@ -66,7 +66,7 @@ int DeleteDialog::exec(const DB::FileNameList &list)
                                "Selected %1 items will be removed from the database.<br/>What do you want to do with the files on disk?",
                                list.size());
 
-    const QString txt = QString::fromLatin1("<p><b><center><font size=\"+3\">%1</font><br/>%2</center></b></p>").arg(msg1).arg(msg2);
+    const QString txt = QString::fromLatin1("<p><b><center><font size=\"+3\">%1</font><br/>%2</center></b></p>").arg(msg1, msg2);
 
     m_useTrash->setText(i18np("Move file to Trash", "Move %1 files to Trash", list.size()));
     m_deleteFile->setText(i18np("Delete file from disk", "Delete %1 files from disk", list.size()));

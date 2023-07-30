@@ -71,9 +71,9 @@ void DB::FileWriter::save(const QString &fileName, bool isAutoSave)
     QFile out(fileName + QStringLiteral(".tmp"));
     if (!out.open(QIODevice::WriteOnly | QIODevice::Text)) {
         m_db->uiDelegate().error(
-            DB::LogMessage { DBLog(), QStringLiteral("Error saving to file '%1': %2").arg(out.fileName()).arg(out.errorString()) }, i18n("<p>Could not save the image database to XML.</p>"
-                                                                                                                                         "File %1 could not be opened because of the following error: %2",
-                                                                                                                                         out.fileName(), out.errorString()),
+            DB::LogMessage { DBLog(), QStringLiteral("Error saving to file '%1': %2").arg(out.fileName(), out.errorString()) }, i18n("<p>Could not save the image database to XML.</p>"
+                                                                                                                                     "File %1 could not be opened because of the following error: %2",
+                                                                                                                                     out.fileName(), out.errorString()),
             i18n("Error while saving..."));
         return;
     }

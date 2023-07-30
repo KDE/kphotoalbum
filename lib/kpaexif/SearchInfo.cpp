@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 - 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2023 Alexander Lohnau <alexander.lohnau@gmx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -120,9 +120,8 @@ QString Exif::SearchInfo::sqlForOneRangeItem(const Range &range) const
         return QString::fromLatin1("%1 >= %2").arg(range.key).arg(range.min * 0.99);
 
     //  x to y     means >=x and <=y
-    return QString::fromLatin1("(%1 <= %2 and %3 <= %4)")
+    return QString::fromLatin1("(%1 <= %2 and %2 <= %4)")
         .arg(range.min * 0.99)
-        .arg(range.key)
         .arg(range.key)
         .arg(range.max * 1.01);
 }
@@ -177,8 +176,7 @@ QString Exif::SearchInfo::buildCameraSearchQuery() const
     QStringList subResults;
     for (CameraList::ConstIterator cameraIt = m_cameras.begin(); cameraIt != m_cameras.end(); ++cameraIt) {
         subResults.append(QString::fromUtf8("(Exif_Image_Make='%1' and Exif_Image_Model='%2')")
-                              .arg((*cameraIt).first)
-                              .arg((*cameraIt).second));
+                              .arg((*cameraIt).first, (*cameraIt).second));
     }
     if (subResults.count() != 0)
         return QString::fromUtf8("(%1)").arg(subResults.join(QString::fromLatin1(" or ")));

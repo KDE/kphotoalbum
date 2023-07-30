@@ -105,10 +105,7 @@ void InvalidDateFinder::accept()
             if (fi.dateTime().date() == date.start().date())
                 show = (fi.dateTime().time() != date.start().time());
             if (show) {
-                edit->append(QString::fromLatin1("%1:<br/>existing = %2<br>new..... = %3")
-                                 .arg(info->fileName().relative())
-                                 .arg(date.start().toString())
-                                 .arg(fi.dateTime().toString()));
+                edit->append(QString::fromLatin1("%1:<br/>existing = %2<br>new..... = %3").arg(info->fileName().relative(), date.start().toString(), fi.dateTime().toString()));
             }
         } else if (m_missingDate->isChecked()) {
             show = !date.start().isValid();

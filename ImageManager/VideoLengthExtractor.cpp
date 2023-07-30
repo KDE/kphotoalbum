@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2012 - 2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2023 Alexander Lohnau <alexander.lohnau@gmx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -67,7 +68,7 @@ void ImageManager::VideoLengthExtractor::processEnded()
     bool ok = false;
     const double length = lenStr.toDouble(&ok);
     if (!ok) {
-        qCWarning(ImageManagerLog) << STR("Unable to convert string \"%1\"to double (for file %2)").arg(lenStr).arg(m_fileName.absolute());
+        qCWarning(ImageManagerLog) << STR("Unable to convert string \"%1\"to double (for file %2)").arg(lenStr, m_fileName.absolute());
         Q_EMIT unableToDetermineLength();
         return;
     }

@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003 - 2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2023 Alexander Lohnau <alexander.lohnau@gmx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "UniqFilenameMapper.h"
 
@@ -38,16 +38,14 @@ QString Utilities::UniqFilenameMapper::uniqNameFor(const DB::FileName &filename)
     const QString extension = QFileInfo(filename.absolute()).completeSuffix();
     QString base = QFileInfo(filename.absolute()).baseName();
     if (!m_targetDirectory.isNull()) {
-        base = QString::fromUtf8("%1/%2")
-                   .arg(m_targetDirectory)
-                   .arg(base);
+        base = QString::fromUtf8("%1/%2").arg(m_targetDirectory, base);
     }
 
     QString uniqFile;
     int i = 0;
     do {
         uniqFile = (i == 0)
-            ? QString::fromUtf8("%1.%2").arg(base).arg(extension)
+            ? QString::fromUtf8("%1.%2").arg(base, extension)
             : QString::fromUtf8("%1-%2.%3").arg(base).arg(i).arg(extension);
         ++i;
     } while (fileClashes(uniqFile));

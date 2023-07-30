@@ -35,7 +35,7 @@ void DB::NumberedBackup::makeNumberedBackup()
 
     if (Settings::SettingsData::instance()->compressBackup()) {
         const QString fileNameWithExt = fileName + QLatin1String(".zip");
-        const QString fileAndDir = QStringLiteral("%1/%2").arg(Settings::SettingsData::instance()->imageDirectory()).arg(fileNameWithExt);
+        const QString fileAndDir = QStringLiteral("%1/%2").arg(Settings::SettingsData::instance()->imageDirectory(), fileNameWithExt);
         KZip zip(fileAndDir);
         if (!zip.open(QIODevice::WriteOnly)) {
             m_ui.error(DB::LogMessage { DBLog(), QStringLiteral("Error creating zip file %1").arg(fileAndDir) }, i18n("Error creating zip file %1", fileAndDir), i18n("Error Making Numbered Backup"));
@@ -43,12 +43,12 @@ void DB::NumberedBackup::makeNumberedBackup()
         }
 
         if (!zip.addLocalFile(QStringLiteral("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory()), fileName)) {
-            m_ui.error(DB::LogMessage { DBLog(), QStringLiteral("Error writing file %1 to zip file %2").arg(fileName).arg(fileAndDir) }, i18n("Error writing file %1 to zip file %2", fileName, fileAndDir), i18n("Error Making Numbered Backup"));
+            m_ui.error(DB::LogMessage { DBLog(), QStringLiteral("Error writing file %1 to zip file %2").arg(fileName, fileAndDir) }, i18n("Error writing file %1 to zip file %2", fileName, fileAndDir), i18n("Error Making Numbered Backup"));
         }
         zip.close();
     } else {
         Utilities::copyOrOverwrite(QStringLiteral("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory()),
-                                   QStringLiteral("%1/%2").arg(Settings::SettingsData::instance()->imageDirectory()).arg(fileName));
+                                   QStringLiteral("%1/%2").arg(Settings::SettingsData::instance()->imageDirectory(), fileName));
     }
 }
 

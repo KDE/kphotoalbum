@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2018-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2020 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2023 Alexander Lohnau <alexander.lohnau@gmx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -42,7 +43,7 @@ void copyList(const QStringList &from, const QString &directoryTo)
 
 QString Utilities::setupDemo()
 {
-    const QString demoDir = QString::fromLatin1("%1/kphotoalbum-demo-%2").arg(QDir::tempPath()).arg(QString::fromLocal8Bit(qgetenv("LOGNAME")));
+    const QString demoDir = QString::fromLatin1("%1/kphotoalbum-demo-%2").arg(QDir::tempPath(), QString::fromLocal8Bit(qgetenv("LOGNAME")));
     QFileInfo fi(demoDir);
     if (!fi.exists()) {
         bool ok = QDir().mkdir(demoDir);
@@ -107,7 +108,7 @@ QString Utilities::setupDemo()
 
 void Utilities::deleteDemo()
 {
-    QString dir = QString::fromLatin1("%1/kphotoalbum-demo-%2").arg(QDir::tempPath()).arg(QString::fromLocal8Bit(qgetenv("LOGNAME")));
+    QString dir = QString::fromLatin1("%1/kphotoalbum-demo-%2").arg(QDir::tempPath(), QString::fromLocal8Bit(qgetenv("LOGNAME")));
     QUrl demoUrl = QUrl::fromLocalFile(dir);
     KJob *delDemoJob = KIO::del(demoUrl);
     KJobWidgets::setWindow(delDemoJob, MainWindow::Window::theMainWindow());

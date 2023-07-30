@@ -360,7 +360,7 @@ void Export::pixmapLoaded(ImageManager::ImageRequest *request, const QImage &ima
     const QString ext = (KPABase::isVideo(fileName) || isRAW(fileName)) ? QStringLiteral("jpg") : QFileInfo(m_filenameMapper.uniqNameFor(fileName)).completeSuffix();
 
     // Add the file to the zip archive
-    QString zipFileName = QStringLiteral("%1/%2.%3").arg(Utilities::stripEndingForwardSlash(m_subdir)).arg(QFileInfo(m_filenameMapper.uniqNameFor(fileName)).baseName()).arg(ext);
+    QString zipFileName = QStringLiteral("%1/%2.%3").arg(Utilities::stripEndingForwardSlash(m_subdir), QFileInfo(m_filenameMapper.uniqNameFor(fileName)).baseName(), ext);
     QByteArray data;
     QBuffer buffer(&data);
     buffer.open(QIODevice::WriteOnly);

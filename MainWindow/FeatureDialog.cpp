@@ -170,10 +170,7 @@ QString MainWindow::FeatureDialog::featureString()
     const QString no = red.arg(i18nc("Feature not available", "No"));
     const QString formatString = QString::fromLatin1("<tr><td><a href=\"%1\">%2</a></td><td><b>%3</b></td></tr>");
     for (QList<Data>::ConstIterator featureIt = features.constBegin(); featureIt != features.constEnd(); ++featureIt) {
-        result += formatString
-                      .arg((*featureIt).tag)
-                      .arg((*featureIt).title)
-                      .arg((*featureIt).featureFound ? yes : no);
+        result += formatString.arg((*featureIt).tag, (*featureIt).title, (*featureIt).featureFound ? yes : no);
     }
     result += QString::fromLatin1("</table></p>");
 

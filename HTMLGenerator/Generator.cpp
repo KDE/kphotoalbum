@@ -179,7 +179,7 @@ void HTMLGenerator::Generator::generate()
     for (QStringList::Iterator it = files.begin(); it != files.end(); ++it) {
         if (*it == QString::fromLatin1("kphotoalbum.theme") || *it == QString::fromLatin1("mainpage.html") || *it == QString::fromLatin1("imagepage.html"))
             continue;
-        QString from = QString::fromLatin1("%1%2").arg(themeDir).arg(*it);
+        QString from = QString::fromLatin1("%1%2").arg(themeDir, *it);
         QString to = m_tempDir.filePath(*it);
         ok = Utilities::copyOrOverwrite(from, to);
         if (!ok) {
@@ -213,9 +213,9 @@ bool HTMLGenerator::Generator::generateIndexPage(int width, int height)
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     position = rx.indexIn(content);
     if ((position += rx.matchedLength()) < 0)
-        content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName).arg(themeAuthor) + content;
+        content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName, themeAuthor) + content;
     else
-        content.insert(position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName).arg(themeAuthor));
+        content.insert(position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName, themeAuthor));
 
     content.replace(QString::fromLatin1("**DESCRIPTION**"), m_setup.description());
     content.replace(QString::fromLatin1("**TITLE**"), m_setup.title());
@@ -421,9 +421,9 @@ bool HTMLGenerator::Generator::generateContentPage(int width, int height,
     rx.setCaseSensitivity(Qt::CaseInsensitive);
     position = rx.indexIn(content);
     if ((position += rx.matchedLength()) < 0)
-        content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName).arg(themeAuthor) + content;
+        content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName, themeAuthor) + content;
     else
-        content.insert(position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName).arg(themeAuthor));
+        content.insert(position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName, themeAuthor));
 
     // TODO: Hardcoded non-standard category names is not good practice
     QString title = QString::fromLatin1("");
@@ -457,8 +457,7 @@ bool HTMLGenerator::Generator::generateContentPage(int width, int height,
         else
             content.replace(QString::fromLatin1("**IMAGE_OR_VIDEO**"), QString::fromLatin1("<a href=\"**NEXTPAGE**\"><img src=\"%2\"/></a>"
                                                                                            "<a href=\"%1\"><img src=\"download.png\"/></a>")
-                                                                           .arg(videoFile)
-                                                                           .arg(createImage(current, 256)));
+                                                                           .arg(videoFile, createImage(current, 256)));
     } else
         content.replace(QString::fromLatin1("**IMAGE_OR_VIDEO**"),
                         QString::fromLatin1("<a href=\"**NEXTPAGE**\"><img src=\"%1\" alt=\"%1\"/></a>")
@@ -561,7 +560,7 @@ QString HTMLGenerator::Generator::namePage(int width, int height, const DB::File
 {
     QString name = m_filenameMapper.uniqNameFor(fileName);
     QString base = QFileInfo(name).completeBaseName();
-    return QString::fromLatin1("%1-%2.html").arg(base).arg(ImageSizeCheckBox::text(width, height, true));
+    return QString::fromLatin1("%1-%2.html").arg(base, ImageSizeCheckBox::text(width, height, true));
 }
 
 QString HTMLGenerator::Generator::nameImage(const DB::FileName &fileName, int size)
@@ -764,7 +763,7 @@ void HTMLGenerator::Generator::showBrowser()
         ImportExport::Export::showUsageDialog();
 
     if (!m_setup.baseURL().isEmpty())
-        new KRun(QUrl::fromUserInput(QString::fromLatin1("%1/%2/index.html").arg(m_setup.baseURL()).arg(m_setup.outputDir())),
+        new KRun(QUrl::fromUserInput(QString::fromLatin1("%1/%2/index.html").arg(m_setup.baseURL(), m_setup.outputDir())),
                  MainWindow::Window::theMainWindow());
 
     m_eventLoop->exit();
@@ -775,7 +774,7 @@ QString HTMLGenerator::Generator::populateDescription(QList<DB::CategoryPtr> cat
     QString description;
 
     if (m_setup.includeCategory(QString::fromLatin1("**DATE**")))
-        description += QString::fromLatin1("<li> <b>%1</b> %2</li>").arg(i18n("Date")).arg(info->date().toString());
+        description += QString::fromLatin1("<li> <b>%1</b> %2</li>").arg(i18n("Date"), info->date().toString());
 
     for (QList<DB::CategoryPtr>::Iterator it = categories.begin(); it != categories.end(); ++it) {
         if ((*it)->isSpecialCategory()) {

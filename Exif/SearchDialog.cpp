@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2023 Alexander Lohnau <alexander.lohnau@gmx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -353,7 +354,7 @@ QWidget *Exif::SearchDialog::makeCamera()
     std::sort(cameras.begin(), cameras.end());
 
     for (QList<QPair<QString, QString>>::ConstIterator cameraIt = cameras.constBegin(); cameraIt != cameras.constEnd(); ++cameraIt) {
-        QCheckBox *cb = new QCheckBox(QString::fromUtf8("%1 - %2").arg((*cameraIt).first.trimmed()).arg((*cameraIt).second.trimmed()));
+        QCheckBox *cb = new QCheckBox(QString::fromUtf8("%1 - %2").arg((*cameraIt).first.trimmed(), (*cameraIt).second.trimmed()));
         layout->addWidget(cb);
         m_cameras.append(Setting<QPair<QString, QString>>(cb, *cameraIt));
     }

@@ -529,7 +529,7 @@ void HTMLDialog::populateThemesCombo()
             qCDebug(HTMLGeneratorLog) << " *" << *it;
             if (*it == QString::fromLatin1(".") || *it == QString::fromLatin1(".."))
                 continue;
-            QString themePath = QString::fromLatin1("%1/%2/").arg(dir.path()).arg(*it);
+            QString themePath = QString::fromLatin1("%1/%2/").arg(dir.path(), *it);
 
             KConfig themeconfig(QString::fromLatin1("%1/kphotoalbum.theme").arg(themePath), KConfig::SimpleConfig);
             KConfigGroup config = themeconfig.group("theme");

@@ -317,7 +317,7 @@ QString DB::Category::fileForCategoryImage(const QString &category, QString memb
     QString dir = Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("CategoryImages");
     member.replace(QChar::fromLatin1(' '), QChar::fromLatin1('_'));
     member.replace(QChar::fromLatin1('/'), QChar::fromLatin1('_'));
-    QString fileName = dir + QString::fromLatin1("/%1-%2.jpg").arg(category).arg(member);
+    QString fileName = dir + QString::fromLatin1("/%1-%2.jpg").arg(category, member);
     return fileName;
 }
 

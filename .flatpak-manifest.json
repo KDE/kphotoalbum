@@ -214,10 +214,11 @@
         {
             "name": "kphotoalbum",
             "buildsystem": "cmake-ninja",
+				"builddir": true,
             "sources": [
                 {
                     "type": "dir",
-                    "url": "."
+                    "path": "."
                 }
             ]
         }

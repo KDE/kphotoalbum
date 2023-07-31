@@ -224,15 +224,15 @@ window layout.</para>
     <title>Annotating while viewing images</title>
     <para>For a few decades we tagged our images as described above, but in the summer of 2023, it started being possible to tag images while viewing them.
     This facility doesn't support all the features described above, but it offers a much faster workflow to tagging images.</para>
-    <para>Missing features when annotating images from the viewer, which you need to come to this dialog for are:
+    <para>Missing features when annotating images from the viewer, which you need to come to this dialog for are:</para>
     <itemizedlist>
     <listitem><para>Annotating multiple images at a time</para></listitem>
     <listitem><para>Tagging individual parts of an image (this face is ...)</para></listitem>
-    <listitem><para>Setting up tag groups (ie. specifying that Las Vegas is in USA, so you will see images tagged Las Vegas when watching images from USA)</para></listitem>
+    <listitem><para>Setting up tag groups (&ie; specifying that Las Vegas is in USA, so you will see images tagged Las Vegas when watching images from USA)</para></listitem>
     <listitem><para>Setting image dates</para></listitem>
     </itemizedlist>
-
-    <link linkend="annotating-from-the-viewer">See the seciton on annotating from the viewer</link>
+    <para>
+    <link linkend="annotating-from-the-viewer">See the section on annotating from the viewer</link>
     </para>
 </sect1>
 </chapter>

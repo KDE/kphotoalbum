@@ -133,15 +133,16 @@ Over the years a few different attempts have been made at integrating tagging in
 attempt was by making it possible to tag directly by typing part of a category item. In addition category items could be assigned to function keys on the keyboard.
 The code for all of this have now been modernized to make the work flow much more intuitive and discover-able.</para>
 
-<para>There are three modes to annotating images in the viewer:
+<para>There are three modes to annotating images in the viewer:</para>
 <itemizedlist>
     <listitem><para><emphasis>Locked</emphasis> - This is the default mode when starting the viewer - in here no annotating or tokenizing will happen. This ensure you do not accidentally annotates images when viewing them.</para></listitem>
     <listitem><para><emphasis>Assign Tokens</emphasis> - This allows you to set tokens on images, by simply pressing a key from A-Z on the keyboard.</para></listitem>
     <listitem><para><emphasis>Assign Tags</emphasis> - This allows you to assign macros to a keyboard key. As an example, <emphasis>L</emphasis> could mean set the item <emphasis>Las Vegas</emphasis> in the <emphasis>Location</emphasis> category. In addition to that, it also allows you to set any tag on an image.</para></listitem>
 </itemizedlist>
-
+<para>
 The modes are selected from the context menu as can be seen in <xref linkend="fig-ctxmenu-for-mode-selection"/>.
-
+</para>
+<para>
 The two modes are described in details below.
 </para>
 

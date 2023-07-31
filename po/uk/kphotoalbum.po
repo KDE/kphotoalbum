@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-24 07:29+0000\n"
+"POT-Creation-Date: 2023-07-31 00:44+0000\n"
 "PO-Revision-Date: 2023-07-21 08:46+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -421,12 +421,12 @@ msgstr "Вилучити"
 msgid "Copy tags from previous image"
 msgstr "Копіювати мітки з попереднього зображення"
 
-#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:843
+#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:842
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Повернути проти годинникової стрілки"
 
-#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:847
+#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:846
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Повернути за годинниковою стрілкою"
@@ -873,8 +873,8 @@ msgstr ""
 "створення мініатюри на основі відеофайла, який зараз показано на панелі "
 "перегляду мініатюр)</li></ul></p>"
 
-#: Browser/AbstractCategoryModel.cpp:37 Exif/SearchDialog.cpp:386
-#: lib/kpaexif/SearchInfo.cpp:193
+#: Browser/AbstractCategoryModel.cpp:37 Exif/SearchDialog.cpp:387
+#: lib/kpaexif/SearchInfo.cpp:191
 #, kde-format
 msgctxt "As in No persons, no locations etc."
 msgid "None"
@@ -979,7 +979,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "пошук"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1783
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1782
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -994,32 +994,32 @@ msgstr ""
 "li><li>перейдіть на сторінку <b>Категорії</b></li><li>налаштуйте мітку у "
 "розділі <b>Без міток</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1790
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1789
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Можливість ще не налаштовано"
 
-#: CategoryListView/CheckDropItem.cpp:110
+#: CategoryListView/CheckDropItem.cpp:118
 #, kde-format
 msgid "\"%1\" and \"%2\""
 msgstr "«%1» і «%2»"
 
-#: CategoryListView/CheckDropItem.cpp:114
+#: CategoryListView/CheckDropItem.cpp:122
 #, kde-format
 msgid "\"%1\""
 msgstr "«%1»"
 
-#: CategoryListView/CheckDropItem.cpp:116
+#: CategoryListView/CheckDropItem.cpp:124
 #, kde-format
 msgid ", \"%1\""
 msgstr ", «%1»"
 
-#: CategoryListView/CheckDropItem.cpp:119
+#: CategoryListView/CheckDropItem.cpp:127
 #, kde-format
 msgid " and \"%1\""
 msgstr " і «%1»"
 
-#: CategoryListView/CheckDropItem.cpp:123
+#: CategoryListView/CheckDropItem.cpp:131
 #, kde-format
 msgid ""
 "<p>You have just dragged an item onto another. This will make the target "
@@ -1074,7 +1074,7 @@ msgstr[3] ""
 "зображення з США, просто вибравши цей елемент у переглядачі.</p><p>Ви "
 "справді маєте намір створити «%2» підкатегорії з «%3»?</p>"
 
-#: CategoryListView/CheckDropItem.cpp:149
+#: CategoryListView/CheckDropItem.cpp:157
 #, kde-format
 msgid "Move Items"
 msgstr "Пересунути елементи"
@@ -1332,18 +1332,18 @@ msgstr "Знайдено файл автоматичної копії"
 msgid "Loading information from images"
 msgstr "Завантаження інформації з зображень"
 
-#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:846 DB/XML/FileReader.cpp:135
+#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:846 DB/XML/FileReader.cpp:136
 #: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:352
 #, kde-format
 msgid "Media Type"
 msgstr "Тип носія"
 
-#: DB/ImageDB.cpp:560 DB/ImageDB.cpp:847 DB/XML/FileReader.cpp:137
+#: DB/ImageDB.cpp:560 DB/ImageDB.cpp:847 DB/XML/FileReader.cpp:138
 #, kde-format
 msgid "Image"
 msgstr "Зображення"
 
-#: DB/ImageDB.cpp:560 DB/ImageDB.cpp:848 DB/XML/FileReader.cpp:138
+#: DB/ImageDB.cpp:560 DB/ImageDB.cpp:848 DB/XML/FileReader.cpp:139
 #, kde-format
 msgid "Video"
 msgstr "Відео"
@@ -1436,18 +1436,18 @@ msgstr "Невідповідність версії index.xml"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: DB/XML/FileReader.cpp:87 Settings/CategoryPage.cpp:253
+#: DB/XML/FileReader.cpp:88 Settings/CategoryPage.cpp:253
 #: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:352
 #, kde-format
 msgid "Folder"
 msgstr "Тека"
 
-#: DB/XML/FileReader.cpp:109 DB/XML/FileReader.cpp:121
+#: DB/XML/FileReader.cpp:110 DB/XML/FileReader.cpp:122
 #, kde-format
 msgid "Tokens"
 msgstr "Позначки"
 
-#: DB/XML/FileReader.cpp:189
+#: DB/XML/FileReader.cpp:190
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
@@ -1459,12 +1459,12 @@ msgstr ""
 "проблему автоматично, або натисніть кнопку «Скасувати», щоб перервати дію.</"
 "p>"
 
-#: DB/XML/FileReader.cpp:195 DB/XML/FileReader.cpp:300
+#: DB/XML/FileReader.cpp:196 DB/XML/FileReader.cpp:301
 #, kde-format
 msgid "Error in database file"
 msgstr "Помилка у файлі бази даних"
 
-#: DB/XML/FileReader.cpp:255
+#: DB/XML/FileReader.cpp:256
 #, kde-format
 msgctxt ""
 "Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
@@ -1484,12 +1484,12 @@ msgstr ""
 "</p><p>У деяких випадках може утворитися дві додаткові порожні категорії: "
 "«Тека» і «Тип носія». Ці категорії можна безпечно вилучати.</p>"
 
-#: DB/XML/FileReader.cpp:263
+#: DB/XML/FileReader.cpp:264
 #, kde-format
 msgid "Changed standard category names"
 msgstr "Змінено стандартні назви категорій"
 
-#: DB/XML/FileReader.cpp:295
+#: DB/XML/FileReader.cpp:296
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
@@ -1498,7 +1498,7 @@ msgstr ""
 "<p>Рядок %1, позиція %2: дублікат запису файла «%3» із іншою контрольною "
 "сумою MD5.</p><p>Доведеться виправляти вручну!</p>"
 
-#: DB/XML/FileReader.cpp:418
+#: DB/XML/FileReader.cpp:435
 #, kde-format
 msgid ""
 "<p>Your images/videos are not sorted, which means that navigating using the "
@@ -1524,12 +1524,12 @@ msgstr ""
 "Впорядкувати усі за датою і часом</b>, щоб впорядкувати зображення у базі "
 "даних.</p>"
 
-#: DB/XML/FileReader.cpp:427
+#: DB/XML/FileReader.cpp:444
 #, kde-format
 msgid "Images/Videos Are Not Sorted"
 msgstr "Зображення/Відео не впорядковано"
 
-#: DB/XML/FileReader.cpp:439
+#: DB/XML/FileReader.cpp:456
 #, kde-format
 msgid ""
 "<p>Not all the images in the database have information about image sizes; "
@@ -1547,12 +1547,12 @@ msgstr ""
 "у полі мініатюр утвориться зайвий простір навколо зображень — нічого "
 "більшого — отже виконувати цю операцію зовсім не обов’язково.</p>"
 
-#: DB/XML/FileReader.cpp:444
+#: DB/XML/FileReader.cpp:461
 #, kde-format
 msgid "Not All Images Have Size Information"
 msgstr "Не всі зображення мають інформацію про розмір"
 
-#: DB/XML/FileReader.cpp:458
+#: DB/XML/FileReader.cpp:475
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1564,25 +1564,25 @@ msgstr ""
 "категоріях містяться мітки, які було об'єднано під час відновлення.</"
 "p><p>Вправлення вручну вимагають такі мітки:<ul>"
 
-#: DB/XML/FileReader.cpp:468
+#: DB/XML/FileReader.cpp:485
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
 msgstr "<li>%1:<br/>"
 
-#: DB/XML/FileReader.cpp:470
+#: DB/XML/FileReader.cpp:487
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
 msgstr "%1<br/>"
 
-#: DB/XML/FileReader.cpp:473
+#: DB/XML/FileReader.cpp:490
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
 msgstr "</li>"
 
-#: DB/XML/FileReader.cpp:478
+#: DB/XML/FileReader.cpp:495
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1592,12 +1592,12 @@ msgstr ""
 "</ul></p><p>Усі відповідні зображення також було позначено міткою "
 "<em>KPhotoAlbum — потрібне відновлення вручну</em>.</p>"
 
-#: DB/XML/FileReader.cpp:482
+#: DB/XML/FileReader.cpp:499
 #, kde-format
 msgid "Database repair required"
 msgstr "Потрібне відновлення бази даних"
 
-#: DB/XML/FileReader.cpp:505
+#: DB/XML/FileReader.cpp:522
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
@@ -1621,60 +1621,60 @@ msgstr ""
 "KDEDIRS вже встановлено, просто додайте рядок так, неначе ви встановлювали "
 "змінну середовища <b>PATH</b>.</p>"
 
-#: DB/XML/FileReader.cpp:513
+#: DB/XML/FileReader.cpp:530
 #, kde-format
 msgid "No default setup file found"
 msgstr "Не знайдено типового файла налаштування"
 
-#: DB/XML/FileReader.cpp:520 Settings/BirthdayPage.cpp:134
+#: DB/XML/FileReader.cpp:537 Settings/BirthdayPage.cpp:134
 #, kde-format
 msgid "People"
 msgstr "Люди"
 
-#: DB/XML/FileReader.cpp:521
+#: DB/XML/FileReader.cpp:538
 #, kde-format
 msgid "Places"
 msgstr "Місця"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:522 lib/kpabase/SettingsData.cpp:411
+#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:411
 #, kde-format
 msgid "Events"
 msgstr "Події"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:523 lib/kpabase/SettingsData.cpp:421
+#: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:421
 #, kde-format
 msgid "untagged"
 msgstr "без міток"
 
-#: DB/XML/FileReader.cpp:534 Utilities/DemoUtil.cpp:34
-#: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:85
+#: DB/XML/FileReader.cpp:551 Utilities/DemoUtil.cpp:36
+#: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "Помилка під час запуску демонстрації"
 
-#: DB/XML/FileReader.cpp:534
+#: DB/XML/FileReader.cpp:551
 #, kde-format
 msgid "Unable to open '%1' for reading"
 msgstr "Неможливо відкрити файл «%1» для читання"
 
-#: DB/XML/FileReader.cpp:547
+#: DB/XML/FileReader.cpp:564
 #, kde-format
 msgid "line %1 column %2 in file %3: %4"
 msgstr "рядок %1 на позиції %2 у файлі %3: %4"
 
-#: DB/XML/FileReader.cpp:549
+#: DB/XML/FileReader.cpp:566
 #, kde-format
 msgid "Failed to recover the backup: %1"
 msgstr "Не вдалося відновити дані з резервної копії: %1"
 
-#: DB/XML/FileReader.cpp:560
+#: DB/XML/FileReader.cpp:577
 #, kde-format
 msgid "Error in file %1: No elements found"
 msgstr "Помилка у файлі %1: Не знайдено жодного елемента"
 
-#: DB/XML/FileReader.cpp:566
+#: DB/XML/FileReader.cpp:583
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr ""
@@ -1690,12 +1690,12 @@ msgstr ""
 "<p>Не вдалося зберегти базу даних зображень до XML.</p>Не вдалося відкрити "
 "файл %1 через таку помилку: %2"
 
-#: DB/XML/FileWriter.cpp:77 DB/XML/FileWriter.cpp:112 DB/XML/FileWriter.cpp:121
+#: DB/XML/FileWriter.cpp:77 DB/XML/FileWriter.cpp:113 DB/XML/FileWriter.cpp:122
 #, kde-format
 msgid "Error while saving..."
 msgstr "Помилка під час спроби зберегти…"
 
-#: DB/XML/FileWriter.cpp:109
+#: DB/XML/FileWriter.cpp:110
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -1704,7 +1704,7 @@ msgstr ""
 "<p>Не вдалося вилучити застарілу базу даних зображень.</p><p>Будь ласка, "
 "повторіть спробу або замініть файл %1 на файла %2 вручну.</p>"
 
-#: DB/XML/FileWriter.cpp:118
+#: DB/XML/FileWriter.cpp:119
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
@@ -1939,116 +1939,116 @@ msgstr ""
 msgid "Override image dates"
 msgstr "Замінити дати зображень"
 
-#: Exif/SearchDialog.cpp:30
+#: Exif/SearchDialog.cpp:31
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Search"
 msgstr "Пошук Exif"
 
-#: Exif/SearchDialog.cpp:34
+#: Exif/SearchDialog.cpp:35
 #, kde-format
 msgid "Settings"
 msgstr "Параметри"
 
-#: Exif/SearchDialog.cpp:55
+#: Exif/SearchDialog.cpp:56
 #, kde-format
 msgid "Aperture (F Number)"
 msgstr "Апертура (F-число)"
 
-#: Exif/SearchDialog.cpp:65
+#: Exif/SearchDialog.cpp:66
 #, kde-format
 msgid "Focal Length"
 msgstr "Фокусна відстань"
 
-#: Exif/SearchDialog.cpp:73
+#: Exif/SearchDialog.cpp:74
 #, kde-format
 msgctxt "As in 'A range from x to y'"
 msgid "to"
 msgstr "до"
 
-#: Exif/SearchDialog.cpp:82
+#: Exif/SearchDialog.cpp:83
 #, kde-format
 msgctxt "This is millimeter for focal length, like 35mm"
 msgid "mm"
 msgstr "мм"
 
-#: Exif/SearchDialog.cpp:98
+#: Exif/SearchDialog.cpp:99
 #, kde-format
 msgid "Camera"
 msgstr "Камера"
 
-#: Exif/SearchDialog.cpp:102
+#: Exif/SearchDialog.cpp:103
 #, kde-format
 msgid "Lens"
 msgstr "Об’єктив"
 
-#: Exif/SearchDialog.cpp:107 Settings/GeneralPage.cpp:115
+#: Exif/SearchDialog.cpp:108 Settings/GeneralPage.cpp:115
 #, kde-format
 msgid "Miscellaneous"
 msgstr "Різне"
 
-#: Exif/SearchDialog.cpp:133
+#: Exif/SearchDialog.cpp:134
 #, kde-format
 msgid "Iso setting"
 msgstr "Значення Iso"
 
-#: Exif/SearchDialog.cpp:138
+#: Exif/SearchDialog.cpp:139
 #, kde-format
 msgctxt "Example 1.6 secs (as in seconds)"
 msgid "secs."
 msgstr "секунд"
 
-#: Exif/SearchDialog.cpp:177
+#: Exif/SearchDialog.cpp:178
 #, kde-format
 msgid "1 second"
 msgstr "1 секунда"
 
-#: Exif/SearchDialog.cpp:194
+#: Exif/SearchDialog.cpp:195
 #, kde-format
 msgid "Exposure time"
 msgstr "Час експозиції"
 
-#: Exif/SearchDialog.cpp:244
+#: Exif/SearchDialog.cpp:245
 #, kde-format
 msgid "Exposure Program"
 msgstr "Програма експозиції"
 
-#: Exif/SearchDialog.cpp:261 ImportExport/MD5CheckPage.cpp:67
+#: Exif/SearchDialog.cpp:262 ImportExport/MD5CheckPage.cpp:67
 #, kde-format
 msgid "Orientation"
 msgstr "Орієнтація"
 
-#: Exif/SearchDialog.cpp:273
+#: Exif/SearchDialog.cpp:274
 #, kde-format
 msgid "Metering Mode"
 msgstr "Режим вимірювання"
 
-#: Exif/SearchDialog.cpp:289
+#: Exif/SearchDialog.cpp:290
 #, kde-format
 msgid "Contrast"
 msgstr "Контраст"
 
-#: Exif/SearchDialog.cpp:300
+#: Exif/SearchDialog.cpp:301
 #, kde-format
 msgid "Sharpness"
 msgstr "Різкість"
 
-#: Exif/SearchDialog.cpp:311
+#: Exif/SearchDialog.cpp:312
 #, kde-format
 msgid "Saturation"
 msgstr "Насиченість"
 
-#: Exif/SearchDialog.cpp:362
+#: Exif/SearchDialog.cpp:363
 #, kde-format
 msgid "No cameras found in the database"
 msgstr "У базі даних не знайдено фотоапаратів"
 
-#: Exif/SearchDialog.cpp:382
+#: Exif/SearchDialog.cpp:383
 #, kde-format
 msgid "No lenses found in the database"
 msgstr "У базі даних не знайдено записів об’єктивів"
 
-#: Exif/SearchDialog.cpp:397
+#: Exif/SearchDialog.cpp:398
 #, kde-format
 msgid ""
 "Not all images in the database have lens information. <note>Recreate the "
@@ -2073,52 +2073,52 @@ msgstr "Створення зображень для HTML-сторінки"
 msgid "Error copying %1 to %2"
 msgstr "Помилка копіювання %1 до %2"
 
-#: HTMLGenerator/Generator.cpp:472
+#: HTMLGenerator/Generator.cpp:471
 #, kde-format
 msgid "<a href=\"%1\">prev</a>"
 msgstr "<a href=\"%1\">попер</a>"
 
-#: HTMLGenerator/Generator.cpp:474 HTMLGenerator/Generator.cpp:482
+#: HTMLGenerator/Generator.cpp:473 HTMLGenerator/Generator.cpp:481
 #, kde-format
 msgid "prev"
 msgstr "попер"
 
-#: HTMLGenerator/Generator.cpp:486
+#: HTMLGenerator/Generator.cpp:485
 #, kde-format
 msgid "<a href=\"index-%1.html\">index</a>"
 msgstr "<a href=\"index-%1.html\">покажчик</a>"
 
-#: HTMLGenerator/Generator.cpp:495
+#: HTMLGenerator/Generator.cpp:494
 #, kde-format
 msgid "<a href=\"%1\">next</a>"
 msgstr "<a href=\"%1\">наст.</a>"
 
-#: HTMLGenerator/Generator.cpp:497 HTMLGenerator/Generator.cpp:504
+#: HTMLGenerator/Generator.cpp:496 HTMLGenerator/Generator.cpp:503
 #, kde-format
 msgid "next"
 msgstr "наст."
 
-#: HTMLGenerator/Generator.cpp:650
+#: HTMLGenerator/Generator.cpp:649
 #, kde-format
 msgid "Could not create file '%1'."
 msgstr "Не вдалося створити файл «%1»."
 
-#: HTMLGenerator/Generator.cpp:651
+#: HTMLGenerator/Generator.cpp:650
 #, kde-format
 msgid "Could Not Create File"
 msgstr "Не вдалося створити файл"
 
-#: HTMLGenerator/Generator.cpp:670
+#: HTMLGenerator/Generator.cpp:669
 #, kde-format
 msgid "<p>Unable to copy %1 to %2</p>"
 msgstr "<p>Неможливо скопіювати %1 до %2</p>"
 
-#: HTMLGenerator/Generator.cpp:704
+#: HTMLGenerator/Generator.cpp:703
 #, kde-format
 msgid "Unable to write image '%1'."
 msgstr "Неможливо записати зображення «%1»."
 
-#: HTMLGenerator/Generator.cpp:778 HTMLGenerator/HTMLDialog.cpp:147
+#: HTMLGenerator/Generator.cpp:777 HTMLGenerator/HTMLDialog.cpp:147
 #, kde-format
 msgid "Date"
 msgstr "Дата"
@@ -2748,7 +2748,7 @@ msgid "Create folder?"
 msgstr "Створити теку?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1217
+#: MainWindow/Window.cpp:1216
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4032,7 +4032,8 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>Статистика</h1>"
 
-#: MainWindow/StatisticsDialog.cpp:59
+#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
+#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
 #, kde-format
 msgid "Category"
 msgstr "Категорія"
@@ -4294,13 +4295,13 @@ msgid "Stacking Error"
 msgstr "Помилка під час створення стосу"
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1318 MainWindow/Window.cpp:1415
+#: MainWindow/Window.cpp:1317 MainWindow/Window.cpp:1414
 #, kde-format
 msgid "No item is selected."
 msgstr "Не вибрано жодного елемента."
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1318 MainWindow/Window.cpp:1416
+#: MainWindow/Window.cpp:1317 MainWindow/Window.cpp:1415
 #, kde-format
 msgid "No Selection"
 msgstr "Нема вибраного"
@@ -4320,273 +4321,273 @@ msgstr "Збереження... Виконано"
 msgid "There are no images to be shown."
 msgstr "Немає зображень для показу."
 
-#: MainWindow/Window.cpp:778
+#: MainWindow/Window.cpp:777
 #, kde-format
 msgid "Generate HTML..."
 msgstr "Створити HTML..."
 
-#: MainWindow/Window.cpp:782
+#: MainWindow/Window.cpp:781
 #, kde-format
 msgid "Import..."
 msgstr "Імпортувати..."
 
-#: MainWindow/Window.cpp:785
+#: MainWindow/Window.cpp:784
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Експортувати/копіювати зображення..."
 
-#: MainWindow/Window.cpp:812
+#: MainWindow/Window.cpp:811
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Вилучити позначене"
 
-#: MainWindow/Window.cpp:818
+#: MainWindow/Window.cpp:817
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "Вилучити позначки…"
 
-#: MainWindow/Window.cpp:821
+#: MainWindow/Window.cpp:820
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Відкрити список файлів..."
 
-#: MainWindow/Window.cpp:824
+#: MainWindow/Window.cpp:823
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Додати примітки до окремих елементів"
 
-#: MainWindow/Window.cpp:828
+#: MainWindow/Window.cpp:827
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Додати примітки до декількох елементів за раз"
 
-#: MainWindow/Window.cpp:832
+#: MainWindow/Window.cpp:831
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Об’єднати зображення до стосу"
 
-#: MainWindow/Window.cpp:836
+#: MainWindow/Window.cpp:835
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Вилучити зображення зі стосу"
 
-#: MainWindow/Window.cpp:839
+#: MainWindow/Window.cpp:838
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Зробити першим зображенням у стосі"
 
-#: MainWindow/Window.cpp:852
+#: MainWindow/Window.cpp:851
 #, kde-format
 msgid "View"
 msgstr "Перегляд"
 
-#: MainWindow/Window.cpp:855
+#: MainWindow/Window.cpp:854
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Переглянути (у новому вікні)"
 
-#: MainWindow/Window.cpp:858
+#: MainWindow/Window.cpp:857
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Почати показ слайдів"
 
-#: MainWindow/Window.cpp:863
+#: MainWindow/Window.cpp:862
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Почати показ випадкових слайдів"
 
-#: MainWindow/Window.cpp:869
+#: MainWindow/Window.cpp:868
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Згорнути всі стоси"
 
-#: MainWindow/Window.cpp:875
+#: MainWindow/Window.cpp:874
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Розгорнути всі стоси"
 
-#: MainWindow/Window.cpp:880
+#: MainWindow/Window.cpp:879
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Показувати най&старше першим"
 
-#: MainWindow/Window.cpp:885
+#: MainWindow/Window.cpp:884
 #, kde-format
 msgid "Show &Newest First"
 msgstr "Показувати най&новіше першим"
 
-#: MainWindow/Window.cpp:890
+#: MainWindow/Window.cpp:889
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Впорядкувати вибрані за датою і часом"
 
-#: MainWindow/Window.cpp:893
+#: MainWindow/Window.cpp:892
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "Обмежити перегляд позначеними"
 
-#: MainWindow/Window.cpp:896
+#: MainWindow/Window.cpp:895
 #, kde-format
 msgid "Jump to Context"
 msgstr "Перейти до контексту"
 
-#: MainWindow/Window.cpp:902
+#: MainWindow/Window.cpp:901
 #, kde-format
 msgid "Lock Images"
 msgstr "Замкнути зображення"
 
-#: MainWindow/Window.cpp:906
+#: MainWindow/Window.cpp:905
 #, kde-format
 msgid "Unlock"
 msgstr "Розблокувати"
 
-#: MainWindow/Window.cpp:909
+#: MainWindow/Window.cpp:908
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Замкнути всі інші елементи"
 
-#: MainWindow/Window.cpp:912
+#: MainWindow/Window.cpp:911
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Замкнути поточний набір елементів"
 
-#: MainWindow/Window.cpp:915
+#: MainWindow/Window.cpp:914
 #, kde-format
 msgid "Configure Current View"
 msgstr "Налаштувати поточний перегляд"
 
-#: MainWindow/Window.cpp:927
+#: MainWindow/Window.cpp:926
 #, kde-format
 msgid "Tree"
 msgstr "Дерево"
 
-#: MainWindow/Window.cpp:932
+#: MainWindow/Window.cpp:931
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Дерево з піктограмами користувача"
 
-#: MainWindow/Window.cpp:937
+#: MainWindow/Window.cpp:936
 #, kde-format
 msgid "Icons"
 msgstr "Піктограми"
 
-#: MainWindow/Window.cpp:945
+#: MainWindow/Window.cpp:944
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Показувати підказки у вікні мініатюр"
 
-#: MainWindow/Window.cpp:950
+#: MainWindow/Window.cpp:949
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
 msgstr "Показувати мітки у вікні мініатюр"
 
-#: MainWindow/Window.cpp:960
+#: MainWindow/Window.cpp:959
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
 msgstr "Показувати категорії у вікні мініатюр"
 
-#: MainWindow/Window.cpp:981
+#: MainWindow/Window.cpp:980
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "Виберіть схему кольорів"
 
-#: MainWindow/Window.cpp:992
+#: MainWindow/Window.cpp:991
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Показати зображення і відеофайли, відсутні на диску"
 
-#: MainWindow/Window.cpp:995
+#: MainWindow/Window.cpp:994
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Показати зображення і відеофайли з неповними датами..."
 
-#: MainWindow/Window.cpp:998
+#: MainWindow/Window.cpp:997
 #, kde-format
 msgid "Merge duplicates"
 msgstr "Об’єднати дублікати"
 
-#: MainWindow/Window.cpp:1000 MainWindow/Window.cpp:1057
+#: MainWindow/Window.cpp:999 MainWindow/Window.cpp:1056
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Оновити вказані мініатюри і контрольні суми"
 
-#: MainWindow/Window.cpp:1004
+#: MainWindow/Window.cpp:1003
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Повторний пошук зображень і відеофайлів"
 
-#: MainWindow/Window.cpp:1007
+#: MainWindow/Window.cpp:1006
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Створити заново базу даних пошуків Exif"
 
-#: MainWindow/Window.cpp:1010
+#: MainWindow/Window.cpp:1009
 #, kde-format
 msgid "Read Exif Info from Files..."
 msgstr "Читати інформацію Exif з файлів..."
 
-#: MainWindow/Window.cpp:1013
+#: MainWindow/Window.cpp:1012
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Впорядкувати усі за датою і часом"
 
-#: MainWindow/Window.cpp:1017
+#: MainWindow/Window.cpp:1016
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Автоматично стосувати позначені зображення…"
 
-#: MainWindow/Window.cpp:1020
+#: MainWindow/Window.cpp:1019
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Створити мініатюри"
 
-#: MainWindow/Window.cpp:1023
+#: MainWindow/Window.cpp:1022
 #, kde-format
 msgid "Statistics..."
 msgstr "Статистика…"
 
-#: MainWindow/Window.cpp:1027
+#: MainWindow/Window.cpp:1026
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Позначити як запис без мітки"
 
-#: MainWindow/Window.cpp:1036
+#: MainWindow/Window.cpp:1035
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Увімкнути всі повідомлення"
 
-#: MainWindow/Window.cpp:1044
+#: MainWindow/Window.cpp:1043
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Запустити демонстрацію KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1047
+#: MainWindow/Window.cpp:1046
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "Стан можливостей KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1050
+#: MainWindow/Window.cpp:1049
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Показати демонстраційні відео"
 
-#: MainWindow/Window.cpp:1054 Viewer/ViewerWidget.cpp:195
+#: MainWindow/Window.cpp:1053 Viewer/ViewerWidget.cpp:196
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Показати інформацію Exif та метадані файла"
 
-#: MainWindow/Window.cpp:1060
+#: MainWindow/Window.cpp:1059
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Використати наступну відеомініатюру"
 
-#: MainWindow/Window.cpp:1064
+#: MainWindow/Window.cpp:1063
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Використати попередню відеомініатюру"
 
-#: MainWindow/Window.cpp:1068 MainWindow/Window.cpp:1296
+#: MainWindow/Window.cpp:1067 MainWindow/Window.cpp:1295
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
@@ -4595,7 +4596,7 @@ msgstr[1] "Копіювати зображення до…"
 msgstr[2] "Копіювати зображення до…"
 msgstr[3] "Копіювати зображення до…"
 
-#: MainWindow/Window.cpp:1072 MainWindow/Window.cpp:1300
+#: MainWindow/Window.cpp:1071 MainWindow/Window.cpp:1299
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4604,17 +4605,17 @@ msgstr[1] "Створити посилання на зображення до…
 msgstr[2] "Створити посилання на зображення до…"
 msgstr[3] "Створити посилання на зображення до…"
 
-#: MainWindow/Window.cpp:1098
+#: MainWindow/Window.cpp:1097
 #, kde-format
 msgid "Auto saving...."
 msgstr "Автозбереження...."
 
-#: MainWindow/Window.cpp:1101
+#: MainWindow/Window.cpp:1100
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Автозбереження.... Готово"
 
-#: MainWindow/Window.cpp:1203
+#: MainWindow/Window.cpp:1202
 #, kde-format
 msgid ""
 "<p>Could not open given index.xml, as the provided folder does not exist."
@@ -4623,7 +4624,7 @@ msgstr ""
 "<p>Не вдалося відкрити вказаний файл index.xml, оскільки вказаної теки не "
 "існує.<br />%1</p>"
 
-#: MainWindow/Window.cpp:1210
+#: MainWindow/Window.cpp:1209
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4632,13 +4633,13 @@ msgstr ""
 "<p>Вказаного файла покажчика не існує, бажаєте створити файл з наведеною "
 "нижче назвою?<br />%1/index.xml</p>"
 
-#: MainWindow/Window.cpp:1213
+#: MainWindow/Window.cpp:1212
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Створення бази даних"
 
-#: MainWindow/Window.cpp:1241
+#: MainWindow/Window.cpp:1240
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4651,33 +4652,33 @@ msgstr ""
 "мітки за допомогою сторінки <interface>Параметри|Налаштувати KPhotoAlbum...|"
 "Категорії</interface></p>"
 
-#: MainWindow/Window.cpp:1367 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1366 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Загальне"
 
-#: MainWindow/Window.cpp:1368 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1367 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Переглядач"
 
-#: MainWindow/Window.cpp:1369
+#: MainWindow/Window.cpp:1368
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Панель дат"
 
-#: MainWindow/Window.cpp:1372
+#: MainWindow/Window.cpp:1371
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Діалогове вікно приміток"
 
-#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1372 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Перегляд мініатюрами"
 
-#: MainWindow/Window.cpp:1518
+#: MainWindow/Window.cpp:1517
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4686,13 +4687,13 @@ msgstr ""
 "<p>Ви справді бажаєте увімкнути всі позначки там, де ви раніше позначили "
 "пункт більше-не-показувати?</p>"
 
-#: MainWindow/Window.cpp:1520
+#: MainWindow/Window.cpp:1519
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Скидання приховування вікон"
 
-#: MainWindow/Window.cpp:1539
+#: MainWindow/Window.cpp:1538
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4710,34 +4711,34 @@ msgstr ""
 "продовжувати роботу, але, ймовірно, програма аварійно завершить роботу "
 "пізніше через те, що не було виконано команди make install.</p>"
 
-#: MainWindow/Window.cpp:1539
+#: MainWindow/Window.cpp:1538
 #, kde-format
 msgid "Internal Error"
 msgstr "Внутрішня помилка"
 
-#: MainWindow/Window.cpp:1550
+#: MainWindow/Window.cpp:1549
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 "Зображення успішно оприлюднено. Копіюємо дані щодо розташування до буфера "
 "обміну…"
 
-#: MainWindow/Window.cpp:1553
+#: MainWindow/Window.cpp:1552
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Зображення успішно оприлюднено."
 
-#: MainWindow/Window.cpp:1558
+#: MainWindow/Window.cpp:1557
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Не вдалося оприлюднити зображення. Повідомлення щодо помилки: %1"
 
-#: MainWindow/Window.cpp:1621
+#: MainWindow/Window.cpp:1620
 #, kde-format
 msgid "Open List of Files"
 msgstr "Відкрити список файлів"
 
-#: MainWindow/Window.cpp:1622
+#: MainWindow/Window.cpp:1621
 #, kde-format
 msgid ""
 "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4746,28 +4747,28 @@ msgstr ""
 "Ви можете відкрити набір файлів з кореневою теки зображень KPhotoAlbum за "
 "допомогою показаного тут списку файлів."
 
-#: MainWindow/Window.cpp:1635
+#: MainWindow/Window.cpp:1634
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Не знайдено жодного зображення, що відповідає введеному критерію."
 
-#: MainWindow/Window.cpp:1635
+#: MainWindow/Window.cpp:1634
 #, kde-format
 msgid "No Matches"
 msgstr "Немає відповідників"
 
-#: MainWindow/Window.cpp:1807
+#: MainWindow/Window.cpp:1806
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Повторне читання інформації Exif з усіх зображень"
 
-#: MainWindow/Window.cpp:1834
+#: MainWindow/Window.cpp:1833
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Ширина мініатюри: %1 пк (розмір сховища даних: %2 пк)"
 
-#: MainWindow/Window.cpp:1887
+#: MainWindow/Window.cpp:1886
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4778,7 +4779,7 @@ msgstr ""
 "та даних щодо тривалості відтворення з відеофайлів KPhotoAlbum, окрім інших "
 "програм, потрібна ця програма. Будь ласка, встановіть пакунок ffmpeg.</p>"
 
-#: MainWindow/Window.cpp:1890
+#: MainWindow/Window.cpp:1889
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Показ мініатюр відео неможливий"
@@ -6473,12 +6474,12 @@ msgstr "Перевпорядкування мініатюр"
 msgid "Error Deleting Files"
 msgstr "Помилка під час вилучення файлів"
 
-#: Utilities/DemoUtil.cpp:34
+#: Utilities/DemoUtil.cpp:36
 #, kde-format
 msgid "Unable to copy '%1' to '%2'."
 msgstr "Не вдалося скопіювати «%1» у «%2»."
 
-#: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:85
+#: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Unable to create folder '%1' needed for demo."
 msgstr "Не вдалося створити теку «%1», яка потрібна для демонстрації."
@@ -6598,39 +6599,64 @@ msgstr[1] "%1 роки тому"
 msgstr[2] "%1 років тому"
 msgstr[3] "1 рік тому"
 
-#: Utilities/DescriptionUtil.cpp:362 Utilities/DescriptionUtil.cpp:388
+#: Utilities/DescriptionUtil.cpp:365 Utilities/DescriptionUtil.cpp:391
 #, kde-format
 msgid " (%1)"
 msgstr " (%1)"
 
-#: Utilities/DescriptionUtil.cpp:364
+#: Utilities/DescriptionUtil.cpp:367
 #, kde-format
 msgid " (&lt; %1)"
 msgstr " (&lt; %1)"
 
-#: Utilities/DescriptionUtil.cpp:367
+#: Utilities/DescriptionUtil.cpp:370
 #, kde-format
 msgctxt "E.g. ' (1-2 years)'"
 msgid " (%1-%2)"
 msgstr " (%1–%2)"
 
-#: Utilities/DescriptionUtil.cpp:369
+#: Utilities/DescriptionUtil.cpp:372
 #, kde-format
 msgctxt "E.g. ' (7 months-1 year)'"
 msgid " (%1-%2)"
 msgstr " (%1–%2)"
 
-#: Utilities/DescriptionUtil.cpp:391
+#: Utilities/DescriptionUtil.cpp:394
 #, kde-format
 msgctxt "E.g. ' (1-2 years ago)'"
 msgid " (%1-%2)"
 msgstr " (%1–%2)"
 
-#: Utilities/DescriptionUtil.cpp:393
+#: Utilities/DescriptionUtil.cpp:396
 #, kde-format
 msgctxt "E.g. '(7 months ago-1 year ago)'"
 msgid " (%1-%2)"
 msgstr " (%1–%2)"
+
+#: Viewer/AnnotationHandler.cpp:65
+#, kde-format
+msgctxt "@title"
+msgid "Assign Macro"
+msgstr ""
+
+#: Viewer/AnnotationHandler.cpp:65
+#, fuzzy, kde-format
+#| msgid "Settings for category <b>%1</b>"
+msgid "Select item for macro key <b>%1</b>"
+msgstr "Параметри категорії <b>%1</b>"
+
+#: Viewer/AnnotationHandler.cpp:111
+#, fuzzy, kde-format
+#| msgctxt "@title"
+#| msgid "Rename Item"
+msgid "Tag Item"
+msgstr "Перейменування запису"
+
+#: Viewer/AnnotationHandler.cpp:111
+#, fuzzy, kde-format
+#| msgid "Select target:"
+msgid "Select tag for image"
+msgstr "Виберіть призначення:"
 
 #: Viewer/CategoryImageConfig.cpp:33
 #, kde-format
@@ -6668,13 +6694,13 @@ msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
 msgstr "Встановити"
 
-#: Viewer/ImageDisplay.cpp:354 Viewer/ImageDisplay.cpp:378
-#: Viewer/ImageDisplay.cpp:439
+#: Viewer/ImageDisplay.cpp:303 Viewer/ImageDisplay.cpp:327
+#: Viewer/ImageDisplay.cpp:388
 #, kde-format
 msgid "Insufficient color depth for this filter"
 msgstr "Недостатня глибина кольорів для застосування фільтра"
 
-#: Viewer/ImageDisplay.cpp:498
+#: Viewer/ImageDisplay.cpp:447
 #, kde-format
 msgid "[ zoom x%1 ]"
 msgstr "[ масштаб x%1 ]"
@@ -6705,384 +6731,465 @@ msgstr ""
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr "Не вдалося налаштувати відтворення відео (не створено віджета)"
 
-#: Viewer/SpeedDisplay.cpp:33
+#: Viewer/SelectCategoryAndValue.cpp:103
 #, kde-format
-msgctxt "OSD for slideshow, num of seconds per image"
-msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
-msgstr "<p><center><font size=\"+4\">%1&nbsp;с</font></center></p>"
-
-#: Viewer/SpeedDisplay.cpp:41
-#, kde-format
-msgctxt "OSD for slideshow"
-msgid ""
-"<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
-"slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></p>"
+msgid "Type name of category and item"
 msgstr ""
-"<p><center><font size=\"+4\">Розпочинаємо показ слайдів<br/>Ctrl + + "
-"пришвидшує показ слайдів<br/>Ctrl + - уповільнює показ слайдів</font></"
-"center></p>"
 
-#: Viewer/SpeedDisplay.cpp:61
+#: Viewer/SelectCategoryAndValue.cpp:132
 #, kde-format
-msgctxt "OSD for slideshow"
-msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
+msgid "Add New"
 msgstr ""
-"<p><center><font size=\"+4\">Завершення показу слайдів</font></center></p>"
 
-#: Viewer/ViewerWidget.cpp:185
+#: Viewer/SelectCategoryAndValue.cpp:182
 #, kde-format
-msgctxt "@action:inmenu"
-msgid "Annotate..."
-msgstr "Анотувати…"
+msgid "Key"
+msgstr ""
 
-#: Viewer/ViewerWidget.cpp:190
+#: Viewer/SelectCategoryAndValue.cpp:182
+#, fuzzy, kde-format
+#| msgid "Tag:"
+msgid "Tag"
+msgstr "Мітка:"
+
+#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
+#: Viewer/SelectCategoryAndValue.ui:14
+#, fuzzy, kde-format
+#| msgid "OK dialog"
+msgid "Dialog"
+msgstr "Діалогове вікно «Гаразд»"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: Viewer/SelectCategoryAndValue.ui:24
+#, fuzzy, kde-format
+#| msgid "Label"
+msgid "TextLabel"
+msgstr "Підпис"
+
+#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
+#: Viewer/SelectCategoryAndValue.ui:43
+#, fuzzy, kde-format
+#| msgid "Add a tag"
+msgid "Add new Tag"
+msgstr "Додати мітку"
+
+#. i18n: ectx: property (text), widget (QLabel, titleLabel)
+#: Viewer/SelectCategoryAndValue.ui:77
+#, fuzzy, kde-format
+#| msgctxt "@title:column Background job title"
+#| msgid "Title"
+msgid "Title"
+msgstr "Заголовок"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: Viewer/SelectCategoryAndValue.ui:120
+#, kde-format
+msgid "Existing Assignments"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:191
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Зробити першим зображенням у стосі"
 
-#: Viewer/ViewerWidget.cpp:201
+#: Viewer/ViewerWidget.cpp:202
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "Копіювати зображення до…"
 
-#: Viewer/ViewerWidget.cpp:206
+#: Viewer/ViewerWidget.cpp:207
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "Створити посилання на зображення до…"
 
-#: Viewer/ViewerWidget.cpp:214
+#: Viewer/ViewerWidget.cpp:215
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Закрити"
 
-#: Viewer/ViewerWidget.cpp:270
+#: Viewer/ViewerWidget.cpp:271
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Повернути"
 
-#: Viewer/ViewerWidget.cpp:281
+#: Viewer/ViewerWidget.cpp:282
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "Повернути за годинниковою стрілкою"
 
-#: Viewer/ViewerWidget.cpp:282
+#: Viewer/ViewerWidget.cpp:283
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Віддзеркалити"
 
-#: Viewer/ViewerWidget.cpp:283
+#: Viewer/ViewerWidget.cpp:284
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Повернути проти годинникової стрілки"
 
-#: Viewer/ViewerWidget.cpp:290
+#: Viewer/ViewerWidget.cpp:291
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Пропустити"
 
-#: Viewer/ViewerWidget.cpp:293
+#: Viewer/ViewerWidget.cpp:294
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "Перше"
 
-#: Viewer/ViewerWidget.cpp:300
+#: Viewer/ViewerWidget.cpp:301
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Останнє"
 
-#: Viewer/ViewerWidget.cpp:307
+#: Viewer/ViewerWidget.cpp:308
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Показати наступне"
 
-#: Viewer/ViewerWidget.cpp:313
+#: Viewer/ViewerWidget.cpp:314
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "На 10 вперед"
 
-#: Viewer/ViewerWidget.cpp:319
+#: Viewer/ViewerWidget.cpp:320
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "На 100 вперед"
 
-#: Viewer/ViewerWidget.cpp:325
+#: Viewer/ViewerWidget.cpp:326
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "На 1000 вперед"
 
-#: Viewer/ViewerWidget.cpp:331
+#: Viewer/ViewerWidget.cpp:332
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Показати попереднє"
 
-#: Viewer/ViewerWidget.cpp:337
+#: Viewer/ViewerWidget.cpp:338
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "На 10 назад"
 
-#: Viewer/ViewerWidget.cpp:343
+#: Viewer/ViewerWidget.cpp:344
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "На 100 назад"
 
-#: Viewer/ViewerWidget.cpp:349
+#: Viewer/ViewerWidget.cpp:350
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "На 1000 назад"
 
-#: Viewer/ViewerWidget.cpp:355
+#: Viewer/ViewerWidget.cpp:356
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Вилучити зображення"
 
-#: Viewer/ViewerWidget.cpp:360
+#: Viewer/ViewerWidget.cpp:361
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Вилучити зображення зі списку показу"
 
-#: Viewer/ViewerWidget.cpp:371
+#: Viewer/ViewerWidget.cpp:372
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Масштабування"
 
-#: Viewer/ViewerWidget.cpp:375
+#: Viewer/ViewerWidget.cpp:376
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Збільшити"
 
-#: Viewer/ViewerWidget.cpp:381
+#: Viewer/ViewerWidget.cpp:382
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Зменшити"
 
-#: Viewer/ViewerWidget.cpp:387
+#: Viewer/ViewerWidget.cpp:388
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Перегляд на повний розмір"
 
-#: Viewer/ViewerWidget.cpp:393
+#: Viewer/ViewerWidget.cpp:394
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Перегляд піксель у піксель"
 
-#: Viewer/ViewerWidget.cpp:399
+#: Viewer/ViewerWidget.cpp:400
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Перемикач повноекранного режиму"
 
-#: Viewer/ViewerWidget.cpp:409
+#: Viewer/ViewerWidget.cpp:410
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Показ слайдів"
 
-#: Viewer/ViewerWidget.cpp:412 Viewer/ViewerWidget.cpp:807
+#: Viewer/ViewerWidget.cpp:413 Viewer/ViewerWidget.cpp:833
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Запустити показ слайдів"
 
-#: Viewer/ViewerWidget.cpp:417
+#: Viewer/ViewerWidget.cpp:418
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Швидше"
 
-#: Viewer/ViewerWidget.cpp:422
+#: Viewer/ViewerWidget.cpp:423
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Повільніше"
 
-#: Viewer/ViewerWidget.cpp:457
+#: Viewer/ViewerWidget.cpp:458
 #, kde-format
 msgid "File not available"
 msgstr "Файл недоступний"
 
-#: Viewer/ViewerWidget.cpp:507
+#: Viewer/ViewerWidget.cpp:508
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
 msgstr "%1 %2"
 
-#: Viewer/ViewerWidget.cpp:523
+#: Viewer/ViewerWidget.cpp:524
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
 msgstr "Пуск"
 
-#: Viewer/ViewerWidget.cpp:525
+#: Viewer/ViewerWidget.cpp:526
 #, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Пауза"
 
-#: Viewer/ViewerWidget.cpp:760
-#, kde-format
-msgctxt "Basically 'enter a category name'"
-msgid "<b>Setting Category: </b>"
-msgstr "<b>Встановлення категорії: </b>"
+#: Viewer/ViewerWidget.cpp:592
+#, fuzzy, kde-format
+#| msgid "Unlock"
+msgid "locked"
+msgstr "Розблокувати"
 
-#: Viewer/ViewerWidget.cpp:765
-#, kde-format
-msgctxt "Basically 'enter a tag name'"
-msgid "<b>Assigning: </b>"
-msgstr "<b>Прив’язка: </b> "
+#: Viewer/ViewerWidget.cpp:594
+#, fuzzy, kde-format
+#| msgctxt "@title:window"
+#| msgid "Annotations"
+msgid "annotating"
+msgstr "Примітки"
 
-#: Viewer/ViewerWidget.cpp:813
+#: Viewer/ViewerWidget.cpp:596
+#, kde-format
+msgid "tokenizing"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:601
+#, kde-format
+msgid "Change display mode to %1"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:836
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Run Slideshow"
+msgctxt "OSD for slideshow"
+msgid "Ending Slideshow"
+msgstr "Запустити показ слайдів"
+
+#: Viewer/ViewerWidget.cpp:839
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Зупинити показ слайдів"
 
-#: Viewer/ViewerWidget.cpp:1215
+#: Viewer/ViewerWidget.cpp:844
+#, fuzzy, kde-format
+#| msgctxt "OSD for slideshow"
+#| msgid ""
+#| "<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
+#| "slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></"
+#| "p>"
+msgctxt "OSD for slideshow"
+msgid ""
+"Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
+"slideshow slower"
+msgstr ""
+"<p><center><font size=\"+4\">Розпочинаємо показ слайдів<br/>Ctrl + + "
+"пришвидшує показ слайдів<br/>Ctrl + - уповільнює показ слайдів</font></"
+"center></p>"
+
+#: Viewer/ViewerWidget.cpp:894
+#, kde-format
+msgctxt "OSD for slideshow, num of seconds per image"
+msgid "%1&nbsp;s"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1137
+#, fuzzy, kde-format
+#| msgid "Theme Description"
+msgctxt "@title"
+msgid "Edit Image Description"
+msgstr "Опис теми"
+
+#: Viewer/ViewerWidget.cpp:1137
+#, fuzzy, kde-format
+#| msgid "Theme Description"
+msgctxt "@label:textbox"
+msgid "Image Description"
+msgstr "Опис теми"
+
+#: Viewer/ViewerWidget.cpp:1152
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Пошук"
 
-#: Viewer/ViewerWidget.cpp:1236
+#: Viewer/ViewerWidget.cpp:1173
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "на 10 хвилин назад"
 
-#: Viewer/ViewerWidget.cpp:1237
+#: Viewer/ViewerWidget.cpp:1174
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "на 1 хвилину назад"
 
-#: Viewer/ViewerWidget.cpp:1238
+#: Viewer/ViewerWidget.cpp:1175
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "на 10 секунд назад"
 
-#: Viewer/ViewerWidget.cpp:1239
+#: Viewer/ViewerWidget.cpp:1176
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "на 1 секунду назад"
 
-#: Viewer/ViewerWidget.cpp:1240
+#: Viewer/ViewerWidget.cpp:1177
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "на 100 мілісекунд назад"
 
-#: Viewer/ViewerWidget.cpp:1241
+#: Viewer/ViewerWidget.cpp:1178
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "на 100 мілісекунд вперед"
 
-#: Viewer/ViewerWidget.cpp:1242
+#: Viewer/ViewerWidget.cpp:1179
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "на 1 секунду вперед"
 
-#: Viewer/ViewerWidget.cpp:1243
+#: Viewer/ViewerWidget.cpp:1180
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "на 10 секунд вперед"
 
-#: Viewer/ViewerWidget.cpp:1244
+#: Viewer/ViewerWidget.cpp:1181
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "на 1 хвилину вперед"
 
-#: Viewer/ViewerWidget.cpp:1245
+#: Viewer/ViewerWidget.cpp:1182
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "на 10 хвилин вперед"
 
-#: Viewer/ViewerWidget.cpp:1253
+#: Viewer/ViewerWidget.cpp:1190
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Зупинити"
 
-#: Viewer/ViewerWidget.cpp:1266
+#: Viewer/ViewerWidget.cpp:1203
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Використовувати поточну рамку у перегляді мініатюр"
 
-#: Viewer/ViewerWidget.cpp:1272
+#: Viewer/ViewerWidget.cpp:1209
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Перезапустити"
 
-#: Viewer/ViewerWidget.cpp:1287
+#: Viewer/ViewerWidget.cpp:1224
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Фільтри"
 
-#: Viewer/ViewerWidget.cpp:1290
+#: Viewer/ViewerWidget.cpp:1227
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Вилучити всі фільтри"
 
-#: Viewer/ViewerWidget.cpp:1294
+#: Viewer/ViewerWidget.cpp:1231
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Застосувати фільтр перетворення на відтінки сірого"
 
-#: Viewer/ViewerWidget.cpp:1299
+#: Viewer/ViewerWidget.cpp:1236
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Застосувати фільтр розтягування контрастності"
 
-#: Viewer/ViewerWidget.cpp:1304
+#: Viewer/ViewerWidget.cpp:1241
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Застосувати фільтр вирівнювання гістограми"
 
-#: Viewer/ViewerWidget.cpp:1309
+#: Viewer/ViewerWidget.cpp:1246
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Застосувати фільтр перетворення на чорно-біле"
 
-#: Viewer/ViewerWidget.cpp:1361
+#: Viewer/ViewerWidget.cpp:1298
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7094,7 +7201,7 @@ msgstr ""
 "відтворення відео.</p><p>Натисніть <i>Продовжити</i>, щоб надати KPhotoAlbum "
 "змогу спробувати інший модуль обробки...</p>"
 
-#: Viewer/ViewerWidget.cpp:1365
+#: Viewer/ViewerWidget.cpp:1302
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -7103,7 +7210,7 @@ msgstr ""
 "<p>Роботу модуля обробки відео було перервано: <tt>%1</tt></p><p>Модуль "
 "обробки відео, який буде використано замість перерваного: <tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1378
+#: Viewer/ViewerWidget.cpp:1315
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
@@ -7112,6 +7219,115 @@ msgstr ""
 "<p>KPhotoAlbum випробувано усі доступні модулі обробки відео, але усі вони "
 "завершили роботу в аварійному режимі.</p><p>Засіб виявлення аварій вимкнено."
 "</p>"
+
+#: Viewer/ViewerWidget.cpp:1379
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Annotate..."
+msgid "Annotate"
+msgstr "Анотувати…"
+
+#: Viewer/ViewerWidget.cpp:1398
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Help"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1400
+#, fuzzy, kde-format
+#| msgid "Annotation Dialog"
+msgctxt "@action:inmenu"
+msgid "Annotation Dialog"
+msgstr "Діалогове вікно приміток"
+
+#: Viewer/ViewerWidget.cpp:1401
+#, fuzzy, kde-format
+#| msgid "Add a tag"
+msgctxt "@action:inmenu"
+msgid "Add tag"
+msgstr "Додати мітку"
+
+#: Viewer/ViewerWidget.cpp:1401
+#, kde-format
+msgctxt "short cut for add tag"
+msgid "CTRL+a"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1404
+#, fuzzy, kde-format
+#| msgid "Copy tags from previous image"
+msgctxt "@action:inmenu"
+msgid "Copy Data from Previous Image"
+msgstr "Копіювати мітки з попереднього зображення"
+
+#: Viewer/ViewerWidget.cpp:1405
+#, kde-format
+msgctxt "Shortcut for copy annotations from previous image"
+msgid "CTRL+c"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1408
+#, fuzzy, kde-format
+#| msgid "Description"
+msgctxt "@action:inmenu"
+msgid "Edit Description"
+msgstr "Опис"
+
+#: Viewer/ViewerWidget.cpp:1409
+#, kde-format
+msgctxt "Shortcut for add description to image"
+msgid "CTRL+d"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1412
+#, fuzzy, kde-format
+#| msgctxt "@title:window"
+#| msgid "Annotations"
+msgid "Annotation Mode"
+msgstr "Примітки"
+
+#: Viewer/ViewerWidget.cpp:1414
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Locked"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1415
+#, kde-format
+msgctxt "Shortcut for turning of annotations in the viewer"
+msgid "CTRL+l"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1419
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Assign Tags"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1420
+#, kde-format
+msgctxt "Shortcut for turning annotations mode to annotating"
+msgid "F2"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1423
+#, fuzzy, kde-format
+#| msgid "Tokens"
+msgctxt "@action:inmenu"
+msgid "Assign Tokens"
+msgstr "Позначки"
+
+#: Viewer/ViewerWidget.cpp:1424
+#, kde-format
+msgctxt "Shortcut for turning annotations mode to tokenizing"
+msgid "CTRL+t"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1567
+#, fuzzy, kde-format
+#| msgid "Tokens"
+msgid "Token %1"
+msgstr "Позначки"
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format
@@ -7167,6 +7383,23 @@ msgstr "Показати розмір зображення"
 #, kde-format
 msgid "Show Rating"
 msgstr "Показати оцінку"
+
+#~ msgctxt "OSD for slideshow, num of seconds per image"
+#~ msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
+#~ msgstr "<p><center><font size=\"+4\">%1&nbsp;с</font></center></p>"
+
+#~ msgctxt "OSD for slideshow"
+#~ msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
+#~ msgstr ""
+#~ "<p><center><font size=\"+4\">Завершення показу слайдів</font></center></p>"
+
+#~ msgctxt "Basically 'enter a category name'"
+#~ msgid "<b>Setting Category: </b>"
+#~ msgstr "<b>Встановлення категорії: </b>"
+
+#~ msgctxt "Basically 'enter a tag name'"
+#~ msgid "<b>Assigning: </b>"
+#~ msgstr "<b>Прив’язка: </b> "
 
 #~ msgid "Display Images and Videos with Changed MD5 Sum"
 #~ msgstr "Показати зображення і відеофайли зі зміненою контрольною сумою MD5"

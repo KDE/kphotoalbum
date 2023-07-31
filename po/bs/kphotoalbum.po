@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-24 07:29+0000\n"
+"POT-Creation-Date: 2023-07-31 00:44+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -427,12 +427,12 @@ msgstr "Izbriši"
 msgid "Copy tags from previous image"
 msgstr "Kopiraj oznake sa prethodne slike"
 
-#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:843
+#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:842
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Rotiraj u lijevo"
 
-#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:847
+#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:846
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Rotiraj u desno"
@@ -880,8 +880,8 @@ msgstr ""
 "pozadinskih poslova, ali izvršava prvi posao (kao vađenje thumbnail za video "
 "fajl, koji je trenutno pokazan u thumbnail posmatraču)</li></ul></p>"
 
-#: Browser/AbstractCategoryModel.cpp:37 Exif/SearchDialog.cpp:386
-#: lib/kpaexif/SearchInfo.cpp:193
+#: Browser/AbstractCategoryModel.cpp:37 Exif/SearchDialog.cpp:387
+#: lib/kpaexif/SearchInfo.cpp:191
 #, kde-format
 msgctxt "As in No persons, no locations etc."
 msgid "None"
@@ -988,7 +988,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "traži"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1783
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1782
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -1004,32 +1004,32 @@ msgstr ""
 "ikona </li> <li> Sada konfiguriranje odjeljak <b> neoznačene slike </b> </"
 "li> </ul> </p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1790
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1789
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Svojstvo nije konfigurisano"
 
-#: CategoryListView/CheckDropItem.cpp:110
+#: CategoryListView/CheckDropItem.cpp:118
 #, kde-format
 msgid "\"%1\" and \"%2\""
 msgstr ""
 
-#: CategoryListView/CheckDropItem.cpp:114
+#: CategoryListView/CheckDropItem.cpp:122
 #, kde-format
 msgid "\"%1\""
 msgstr ""
 
-#: CategoryListView/CheckDropItem.cpp:116
+#: CategoryListView/CheckDropItem.cpp:124
 #, kde-format
 msgid ", \"%1\""
 msgstr ""
 
-#: CategoryListView/CheckDropItem.cpp:119
+#: CategoryListView/CheckDropItem.cpp:127
 #, kde-format
 msgid " and \"%1\""
 msgstr ""
 
-#: CategoryListView/CheckDropItem.cpp:123
+#: CategoryListView/CheckDropItem.cpp:131
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>You have just dragged an item onto another: this will make the dragged "
@@ -1090,7 +1090,7 @@ msgstr[2] ""
 "pregledniku. </p> <p> Je li to stvarno vaša namjera da \"%2\" stavite pod "
 "kategoriju \"%3\"? </p>"
 
-#: CategoryListView/CheckDropItem.cpp:149
+#: CategoryListView/CheckDropItem.cpp:157
 #, kde-format
 msgid "Move Items"
 msgstr "Premjesti stavke"
@@ -1347,20 +1347,20 @@ msgstr "Pronađena datoteka automatskog snimanja"
 msgid "Loading information from images"
 msgstr "Učitavanje informacija sa slika"
 
-#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:846 DB/XML/FileReader.cpp:135
+#: DB/ImageDB.cpp:559 DB/ImageDB.cpp:846 DB/XML/FileReader.cpp:136
 #: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:352
 #, kde-format
 msgid "Media Type"
 msgstr "Tip medija"
 
-#: DB/ImageDB.cpp:560 DB/ImageDB.cpp:847 DB/XML/FileReader.cpp:137
+#: DB/ImageDB.cpp:560 DB/ImageDB.cpp:847 DB/XML/FileReader.cpp:138
 #, fuzzy, kde-format
 #| msgctxt "Denotes the media type (video,image)"
 #| msgid "Image"
 msgid "Image"
 msgstr "Slika"
 
-#: DB/ImageDB.cpp:560 DB/ImageDB.cpp:848 DB/XML/FileReader.cpp:138
+#: DB/ImageDB.cpp:560 DB/ImageDB.cpp:848 DB/XML/FileReader.cpp:139
 #, fuzzy, kde-format
 #| msgctxt "Denotes the media type (video,image)"
 #| msgid "Video"
@@ -1450,18 +1450,18 @@ msgstr "index.xml nepodudaranje verzije"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: DB/XML/FileReader.cpp:87 Settings/CategoryPage.cpp:253
+#: DB/XML/FileReader.cpp:88 Settings/CategoryPage.cpp:253
 #: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:352
 #, kde-format
 msgid "Folder"
 msgstr "Direktorij"
 
-#: DB/XML/FileReader.cpp:109 DB/XML/FileReader.cpp:121
+#: DB/XML/FileReader.cpp:110 DB/XML/FileReader.cpp:122
 #, kde-format
 msgid "Tokens"
 msgstr "Žeton"
 
-#: DB/XML/FileReader.cpp:189
+#: DB/XML/FileReader.cpp:190
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
@@ -1469,13 +1469,13 @@ msgid ""
 "to quit.</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:195 DB/XML/FileReader.cpp:300
+#: DB/XML/FileReader.cpp:196 DB/XML/FileReader.cpp:301
 #, fuzzy, kde-format
 #| msgid "Error while reading database file"
 msgid "Error in database file"
 msgstr "Greška prilikom učitavanja datoteke iz baze podataka"
 
-#: DB/XML/FileReader.cpp:255
+#: DB/XML/FileReader.cpp:256
 #, kde-format
 msgctxt ""
 "Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
@@ -1489,20 +1489,20 @@ msgid ""
 "and \"Media Type\". You can delete those.</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:263
+#: DB/XML/FileReader.cpp:264
 #, fuzzy, kde-format
 #| msgid "Invalid category name"
 msgid "Changed standard category names"
 msgstr "Neispravno ime kategorije"
 
-#: DB/XML/FileReader.cpp:295
+#: DB/XML/FileReader.cpp:296
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
 "</p><p>Manual repair required!</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:418
+#: DB/XML/FileReader.cpp:435
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Your images/videos are not sorted, which means that navigating using "
@@ -1536,12 +1536,12 @@ msgstr ""
 "<b> zahtijeva održavanje > Sortiraj Sve po Datum i vrijeme </b> da ih "
 "razvrstati u bazi podataka. </p>"
 
-#: DB/XML/FileReader.cpp:427
+#: DB/XML/FileReader.cpp:444
 #, kde-format
 msgid "Images/Videos Are Not Sorted"
 msgstr "Slike/videi nisu sortirani"
 
-#: DB/XML/FileReader.cpp:439
+#: DB/XML/FileReader.cpp:456
 #, kde-format
 msgid ""
 "<p>Not all the images in the database have information about image sizes; "
@@ -1558,12 +1558,12 @@ msgstr ""
 "tt>. </p><p> u protivnom će rezultirati dodatni prostor oko slike u prikazu "
 "sličica - to je sve. - tako da nema hitnost u to radiš </p>"
 
-#: DB/XML/FileReader.cpp:444
+#: DB/XML/FileReader.cpp:461
 #, kde-format
 msgid "Not All Images Have Size Information"
 msgstr "Nemaju sve slike informaciju o veličini"
 
-#: DB/XML/FileReader.cpp:458
+#: DB/XML/FileReader.cpp:475
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1572,25 +1572,25 @@ msgid ""
 "tags require manual inspection:<ul>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:468
+#: DB/XML/FileReader.cpp:485
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:470
+#: DB/XML/FileReader.cpp:487
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:473
+#: DB/XML/FileReader.cpp:490
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:478
+#: DB/XML/FileReader.cpp:495
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1598,13 +1598,13 @@ msgid ""
 "<em>KPhotoAlbum - manual repair needed</em>.</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:482
+#: DB/XML/FileReader.cpp:499
 #, fuzzy, kde-format
 #| msgid "Database Update skipped"
 msgid "Database repair required"
 msgstr "Preskočeno ažuriranje baze podataka"
 
-#: DB/XML/FileReader.cpp:505
+#: DB/XML/FileReader.cpp:522
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
@@ -1637,61 +1637,61 @@ msgstr ""
 "već KDEDIRS postavili, jednostavno dodajte string kao da ste u kojima "
 "postavka  <b>PATH</b>  varijabla okruženja </p>"
 
-#: DB/XML/FileReader.cpp:513
+#: DB/XML/FileReader.cpp:530
 #, kde-format
 msgid "No default setup file found"
 msgstr "Nema zadane  datoteke podešavanja"
 
-#: DB/XML/FileReader.cpp:520 Settings/BirthdayPage.cpp:134
+#: DB/XML/FileReader.cpp:537 Settings/BirthdayPage.cpp:134
 #, kde-format
 msgid "People"
 msgstr "Ljudi"
 
-#: DB/XML/FileReader.cpp:521
+#: DB/XML/FileReader.cpp:538
 #, kde-format
 msgid "Places"
 msgstr "Mjesta"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:522 lib/kpabase/SettingsData.cpp:411
+#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:411
 #, kde-format
 msgid "Events"
 msgstr "Događaji"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:523 lib/kpabase/SettingsData.cpp:421
+#: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:421
 #, fuzzy, kde-format
 #| msgid "Untagged Images"
 msgid "untagged"
 msgstr "Neoznacene slike"
 
-#: DB/XML/FileReader.cpp:534 Utilities/DemoUtil.cpp:34
-#: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:85
+#: DB/XML/FileReader.cpp:551 Utilities/DemoUtil.cpp:36
+#: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "Pogreška prilikom pokretanja Demo"
 
-#: DB/XML/FileReader.cpp:534
+#: DB/XML/FileReader.cpp:551
 #, kde-format
 msgid "Unable to open '%1' for reading"
 msgstr "Nemoguće otvoriti '%1' za čitanje"
 
-#: DB/XML/FileReader.cpp:547
+#: DB/XML/FileReader.cpp:564
 #, kde-format
 msgid "line %1 column %2 in file %3: %4"
 msgstr "linija %1 kolona %2 u datoteci %3: %4"
 
-#: DB/XML/FileReader.cpp:549
+#: DB/XML/FileReader.cpp:566
 #, kde-format
 msgid "Failed to recover the backup: %1"
 msgstr "Neuspjelo vraćanje rezerve: %1"
 
-#: DB/XML/FileReader.cpp:560
+#: DB/XML/FileReader.cpp:577
 #, kde-format
 msgid "Error in file %1: No elements found"
 msgstr "Greška u datoteci %1: Elementi nisu pronađeni"
 
-#: DB/XML/FileReader.cpp:566
+#: DB/XML/FileReader.cpp:583
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr ""
@@ -1707,13 +1707,13 @@ msgstr ""
 "<p>Nije moguće snimiti sliku u bazu podataka za XML.</p>Datoteka %1 ne može "
 "biti otvorena zbog sljedeće greške: %2"
 
-#: DB/XML/FileWriter.cpp:77 DB/XML/FileWriter.cpp:112 DB/XML/FileWriter.cpp:121
+#: DB/XML/FileWriter.cpp:77 DB/XML/FileWriter.cpp:113 DB/XML/FileWriter.cpp:122
 #, fuzzy, kde-format
 #| msgid "Error when saving image '%1'."
 msgid "Error while saving..."
 msgstr "Greška pri spašavanju slike '%1'."
 
-#: DB/XML/FileWriter.cpp:109
+#: DB/XML/FileWriter.cpp:110
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -1722,7 +1722,7 @@ msgstr ""
 "<p>Neuspjelo uklanjanje stare verzije baze podataka slike.</p><p>Molimo "
 "pokušajte ponovo ili zamijenite datoteku %1 sa %2 ručno!</p>"
 
-#: DB/XML/FileWriter.cpp:118
+#: DB/XML/FileWriter.cpp:119
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
@@ -1976,119 +1976,119 @@ msgstr ""
 msgid "Override image dates"
 msgstr "Preklopi datume slika"
 
-#: Exif/SearchDialog.cpp:30
+#: Exif/SearchDialog.cpp:31
 #, fuzzy, kde-format
 #| msgid "EXIF Search"
 msgctxt "@title:window"
 msgid "Exif Search"
 msgstr "EXIF Pretraga"
 
-#: Exif/SearchDialog.cpp:34
+#: Exif/SearchDialog.cpp:35
 #, kde-format
 msgid "Settings"
 msgstr "Postavke"
 
-#: Exif/SearchDialog.cpp:55
+#: Exif/SearchDialog.cpp:56
 #, fuzzy, kde-format
 #| msgid "Aperture Value"
 msgid "Aperture (F Number)"
 msgstr "Otvor blende"
 
-#: Exif/SearchDialog.cpp:65
+#: Exif/SearchDialog.cpp:66
 #, kde-format
 msgid "Focal Length"
 msgstr "Dužina fokusa"
 
-#: Exif/SearchDialog.cpp:73
+#: Exif/SearchDialog.cpp:74
 #, kde-format
 msgctxt "As in 'A range from x to y'"
 msgid "to"
 msgstr "to"
 
-#: Exif/SearchDialog.cpp:82
+#: Exif/SearchDialog.cpp:83
 #, kde-format
 msgctxt "This is millimeter for focal length, like 35mm"
 msgid "mm"
 msgstr "mm"
 
-#: Exif/SearchDialog.cpp:98
+#: Exif/SearchDialog.cpp:99
 #, kde-format
 msgid "Camera"
 msgstr "Fotoaparat"
 
-#: Exif/SearchDialog.cpp:102
+#: Exif/SearchDialog.cpp:103
 #, kde-format
 msgid "Lens"
 msgstr ""
 
-#: Exif/SearchDialog.cpp:107 Settings/GeneralPage.cpp:115
+#: Exif/SearchDialog.cpp:108 Settings/GeneralPage.cpp:115
 #, kde-format
 msgid "Miscellaneous"
 msgstr "Razno"
 
-#: Exif/SearchDialog.cpp:133
+#: Exif/SearchDialog.cpp:134
 #, kde-format
 msgid "Iso setting"
 msgstr "Iso postavljanje"
 
-#: Exif/SearchDialog.cpp:138
+#: Exif/SearchDialog.cpp:139
 #, kde-format
 msgctxt "Example 1.6 secs (as in seconds)"
 msgid "secs."
 msgstr "sek."
 
-#: Exif/SearchDialog.cpp:177
+#: Exif/SearchDialog.cpp:178
 #, kde-format
 msgid "1 second"
 msgstr "1 sekunda"
 
-#: Exif/SearchDialog.cpp:194
+#: Exif/SearchDialog.cpp:195
 #, kde-format
 msgid "Exposure time"
 msgstr "Vrijeme eksponiranja"
 
-#: Exif/SearchDialog.cpp:244
+#: Exif/SearchDialog.cpp:245
 #, kde-format
 msgid "Exposure Program"
 msgstr "Program ekspozicije"
 
-#: Exif/SearchDialog.cpp:261 ImportExport/MD5CheckPage.cpp:67
+#: Exif/SearchDialog.cpp:262 ImportExport/MD5CheckPage.cpp:67
 #, kde-format
 msgid "Orientation"
 msgstr "Orijentacija"
 
-#: Exif/SearchDialog.cpp:273
+#: Exif/SearchDialog.cpp:274
 #, kde-format
 msgid "Metering Mode"
 msgstr "Način mjerenja"
 
-#: Exif/SearchDialog.cpp:289
+#: Exif/SearchDialog.cpp:290
 #, kde-format
 msgid "Contrast"
 msgstr "Kontrast"
 
-#: Exif/SearchDialog.cpp:300
+#: Exif/SearchDialog.cpp:301
 #, kde-format
 msgid "Sharpness"
 msgstr "Oštrina"
 
-#: Exif/SearchDialog.cpp:311
+#: Exif/SearchDialog.cpp:312
 #, kde-format
 msgid "Saturation"
 msgstr "Zasićenje"
 
-#: Exif/SearchDialog.cpp:362
+#: Exif/SearchDialog.cpp:363
 #, kde-format
 msgid "No cameras found in the database"
 msgstr "Nijedna kamera nije pronađena u bazi podataka"
 
-#: Exif/SearchDialog.cpp:382
+#: Exif/SearchDialog.cpp:383
 #, fuzzy, kde-format
 #| msgid "No cameras found in the database"
 msgid "No lenses found in the database"
 msgstr "Nijedna kamera nije pronađena u bazi podataka"
 
-#: Exif/SearchDialog.cpp:397
+#: Exif/SearchDialog.cpp:398
 #, kde-format
 msgid ""
 "Not all images in the database have lens information. <note>Recreate the "
@@ -2110,52 +2110,52 @@ msgstr "Generiranje slika za HTML stranicu "
 msgid "Error copying %1 to %2"
 msgstr "Greška kopiranja %1 u %2"
 
-#: HTMLGenerator/Generator.cpp:472
+#: HTMLGenerator/Generator.cpp:471
 #, kde-format
 msgid "<a href=\"%1\">prev</a>"
 msgstr "<a href=\"%1\">pred</a>"
 
-#: HTMLGenerator/Generator.cpp:474 HTMLGenerator/Generator.cpp:482
+#: HTMLGenerator/Generator.cpp:473 HTMLGenerator/Generator.cpp:481
 #, kde-format
 msgid "prev"
 msgstr "prethodna"
 
-#: HTMLGenerator/Generator.cpp:486
+#: HTMLGenerator/Generator.cpp:485
 #, kde-format
 msgid "<a href=\"index-%1.html\">index</a>"
 msgstr "<a href=\"index-%1.html\">indeks</a>"
 
-#: HTMLGenerator/Generator.cpp:495
+#: HTMLGenerator/Generator.cpp:494
 #, kde-format
 msgid "<a href=\"%1\">next</a>"
 msgstr "<a href=\"%1\">dalje</a>"
 
-#: HTMLGenerator/Generator.cpp:497 HTMLGenerator/Generator.cpp:504
+#: HTMLGenerator/Generator.cpp:496 HTMLGenerator/Generator.cpp:503
 #, kde-format
 msgid "next"
 msgstr "slijedeća"
 
-#: HTMLGenerator/Generator.cpp:650
+#: HTMLGenerator/Generator.cpp:649
 #, kde-format
 msgid "Could not create file '%1'."
 msgstr "Nije moguće kreirati datoteku '%1'."
 
-#: HTMLGenerator/Generator.cpp:651
+#: HTMLGenerator/Generator.cpp:650
 #, kde-format
 msgid "Could Not Create File"
 msgstr "Nije mogao kreirai fajl"
 
-#: HTMLGenerator/Generator.cpp:670
+#: HTMLGenerator/Generator.cpp:669
 #, kde-format
 msgid "<p>Unable to copy %1 to %2</p>"
 msgstr "<p>Nemoguće kopirati %1 u %2</p>"
 
-#: HTMLGenerator/Generator.cpp:704
+#: HTMLGenerator/Generator.cpp:703
 #, kde-format
 msgid "Unable to write image '%1'."
 msgstr "Nije mogao napisati sliku '%1'."
 
-#: HTMLGenerator/Generator.cpp:778 HTMLGenerator/HTMLDialog.cpp:147
+#: HTMLGenerator/Generator.cpp:777 HTMLGenerator/HTMLDialog.cpp:147
 #, kde-format
 msgid "Date"
 msgstr "Datum"
@@ -2833,7 +2833,7 @@ msgid "Create folder?"
 msgstr "Osnovni direktorij:"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1217
+#: MainWindow/Window.cpp:1216
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4190,7 +4190,8 @@ msgstr ""
 msgid "<h1>Statistics</h1>"
 msgstr "<h1>Statistika</h1>"
 
-#: MainWindow/StatisticsDialog.cpp:59
+#. i18n: ectx: property (text), widget (QLabel, categoryLabel)
+#: MainWindow/StatisticsDialog.cpp:59 Viewer/SelectCategoryAndValue.ui:67
 #, kde-format
 msgid "Category"
 msgstr "Kategorija"
@@ -4480,13 +4481,13 @@ msgid "Stacking Error"
 msgstr "Greška slaganja"
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1318 MainWindow/Window.cpp:1415
+#: MainWindow/Window.cpp:1317 MainWindow/Window.cpp:1414
 #, kde-format
 msgid "No item is selected."
 msgstr "Nijedna stavka nije odabrana."
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1318 MainWindow/Window.cpp:1416
+#: MainWindow/Window.cpp:1317 MainWindow/Window.cpp:1415
 #, kde-format
 msgid "No Selection"
 msgstr "Nema izbora"
@@ -4506,280 +4507,280 @@ msgstr "Sačuvanje... Učinjeno"
 msgid "There are no images to be shown."
 msgstr "Nema slika za prikazati."
 
-#: MainWindow/Window.cpp:778
+#: MainWindow/Window.cpp:777
 #, kde-format
 msgid "Generate HTML..."
 msgstr "Generiranje HTML..."
 
-#: MainWindow/Window.cpp:782
+#: MainWindow/Window.cpp:781
 #, kde-format
 msgid "Import..."
 msgstr "Uvezi..."
 
-#: MainWindow/Window.cpp:785
+#: MainWindow/Window.cpp:784
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Izvezi/Kopiraj slike..."
 
-#: MainWindow/Window.cpp:812
+#: MainWindow/Window.cpp:811
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Izbriši označene"
 
-#: MainWindow/Window.cpp:818
+#: MainWindow/Window.cpp:817
 #, fuzzy, kde-format
 #| msgid "Remove Tokens"
 msgid "Remove Tokens..."
 msgstr "Ukloni znakove"
 
-#: MainWindow/Window.cpp:821
+#: MainWindow/Window.cpp:820
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Otvori listu fajlova..."
 
-#: MainWindow/Window.cpp:824
+#: MainWindow/Window.cpp:823
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Pribilježi pojedinačne stavke"
 
-#: MainWindow/Window.cpp:828
+#: MainWindow/Window.cpp:827
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "PRibilježi višestruke stavke u vrijeme"
 
-#: MainWindow/Window.cpp:832
+#: MainWindow/Window.cpp:831
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Spoji slike u skladište"
 
-#: MainWindow/Window.cpp:836
+#: MainWindow/Window.cpp:835
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Ukloni slike sa skladišta"
 
-#: MainWindow/Window.cpp:839
+#: MainWindow/Window.cpp:838
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Postavi kao prvu sliku skladišta"
 
-#: MainWindow/Window.cpp:852
+#: MainWindow/Window.cpp:851
 #, kde-format
 msgid "View"
 msgstr "Pogled"
 
-#: MainWindow/Window.cpp:855
+#: MainWindow/Window.cpp:854
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Pogledaj (u novom prozoru)"
 
-#: MainWindow/Window.cpp:858
+#: MainWindow/Window.cpp:857
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Pokreni prikazivanje slika"
 
-#: MainWindow/Window.cpp:863
+#: MainWindow/Window.cpp:862
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Pokreni randomizirano prikazivanje slika"
 
-#: MainWindow/Window.cpp:869
+#: MainWindow/Window.cpp:868
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Srušiti sva skladišta"
 
-#: MainWindow/Window.cpp:875
+#: MainWindow/Window.cpp:874
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Proširiti sva skladišta"
 
-#: MainWindow/Window.cpp:880
+#: MainWindow/Window.cpp:879
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Pokaži &Najstarije prvo"
 
-#: MainWindow/Window.cpp:885
+#: MainWindow/Window.cpp:884
 #, kde-format
 msgid "Show &Newest First"
 msgstr "Pokaži &Najnovije prvo"
 
-#: MainWindow/Window.cpp:890
+#: MainWindow/Window.cpp:889
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Sortiraj odabrane po datumu && vremenu"
 
-#: MainWindow/Window.cpp:893
+#: MainWindow/Window.cpp:892
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "Limitirani pregled za odabir"
 
-#: MainWindow/Window.cpp:896
+#: MainWindow/Window.cpp:895
 #, kde-format
 msgid "Jump to Context"
 msgstr "Skoči na sadržaj"
 
-#: MainWindow/Window.cpp:902
+#: MainWindow/Window.cpp:901
 #, kde-format
 msgid "Lock Images"
 msgstr "Zaključaj slike"
 
-#: MainWindow/Window.cpp:906
+#: MainWindow/Window.cpp:905
 #, kde-format
 msgid "Unlock"
 msgstr "Otključaj"
 
-#: MainWindow/Window.cpp:909
+#: MainWindow/Window.cpp:908
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Zaključaj sve ostale stavke"
 
-#: MainWindow/Window.cpp:912
+#: MainWindow/Window.cpp:911
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Zaključaj trenutni set stavki"
 
-#: MainWindow/Window.cpp:915
+#: MainWindow/Window.cpp:914
 #, kde-format
 msgid "Configure Current View"
 msgstr "Konfiguriši trenutni pogled"
 
-#: MainWindow/Window.cpp:927
+#: MainWindow/Window.cpp:926
 #, kde-format
 msgid "Tree"
 msgstr "Stablo"
 
-#: MainWindow/Window.cpp:932
+#: MainWindow/Window.cpp:931
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Stablo sa korisničkim ikonama"
 
-#: MainWindow/Window.cpp:937
+#: MainWindow/Window.cpp:936
 #, kde-format
 msgid "Icons"
 msgstr "Ikone"
 
-#: MainWindow/Window.cpp:945
+#: MainWindow/Window.cpp:944
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Pokaži savete u prozoru Thumbnails"
 
-#: MainWindow/Window.cpp:950
+#: MainWindow/Window.cpp:949
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Labels in Thumbnails Window"
 msgstr "Pokaži savete u prozoru Thumbnails"
 
-#: MainWindow/Window.cpp:960
+#: MainWindow/Window.cpp:959
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Categories in Thumbnails Window"
 msgstr "Pokaži savete u prozoru Thumbnails"
 
-#: MainWindow/Window.cpp:981
+#: MainWindow/Window.cpp:980
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr ""
 
-#: MainWindow/Window.cpp:992
+#: MainWindow/Window.cpp:991
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Prikaži slike i videe koji nisu na disku"
 
-#: MainWindow/Window.cpp:995
+#: MainWindow/Window.cpp:994
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Prikaži slike i videe sa nekompletnim datumom..."
 
-#: MainWindow/Window.cpp:998
+#: MainWindow/Window.cpp:997
 #, kde-format
 msgid "Merge duplicates"
 msgstr "Spoji duplikate"
 
-#: MainWindow/Window.cpp:1000 MainWindow/Window.cpp:1057
+#: MainWindow/Window.cpp:999 MainWindow/Window.cpp:1056
 #, fuzzy, kde-format
 #| msgid "Recreate Selected Thumbnails"
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Ponovo kreiraj odabrani Thumbnails"
 
-#: MainWindow/Window.cpp:1004
+#: MainWindow/Window.cpp:1003
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Ponovo skeniraj za slike i videe"
 
-#: MainWindow/Window.cpp:1007
+#: MainWindow/Window.cpp:1006
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Ponovo kreiraj Exif Pretragu baze podataka"
 
-#: MainWindow/Window.cpp:1010
+#: MainWindow/Window.cpp:1009
 #, fuzzy, kde-format
 #| msgid "Read EXIF Info From Files..."
 msgid "Read Exif Info from Files..."
 msgstr "Pročitaj EXIF Info iz fajlova..."
 
-#: MainWindow/Window.cpp:1013
+#: MainWindow/Window.cpp:1012
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Sortiraj sve po datumu i vremenu"
 
-#: MainWindow/Window.cpp:1017
+#: MainWindow/Window.cpp:1016
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Automatski složi odabrane slike..."
 
-#: MainWindow/Window.cpp:1020
+#: MainWindow/Window.cpp:1019
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Napravi Thumbnails"
 
-#: MainWindow/Window.cpp:1023
+#: MainWindow/Window.cpp:1022
 #, fuzzy, kde-format
 #| msgid "Statistics"
 msgid "Statistics..."
 msgstr "Statistika"
 
-#: MainWindow/Window.cpp:1027
+#: MainWindow/Window.cpp:1026
 #, kde-format
 msgid "Mark As Untagged"
 msgstr ""
 
-#: MainWindow/Window.cpp:1036
+#: MainWindow/Window.cpp:1035
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Omogući sve poruke"
 
-#: MainWindow/Window.cpp:1044
+#: MainWindow/Window.cpp:1043
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Pokreni KPhotoAlbum demo"
 
-#: MainWindow/Window.cpp:1047
+#: MainWindow/Window.cpp:1046
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "Status osobina KPhotoAlbuma"
 
-#: MainWindow/Window.cpp:1050
+#: MainWindow/Window.cpp:1049
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Prikaži demo videe"
 
-#: MainWindow/Window.cpp:1054 Viewer/ViewerWidget.cpp:195
+#: MainWindow/Window.cpp:1053 Viewer/ViewerWidget.cpp:196
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "Prikaži Exif Info"
 
-#: MainWindow/Window.cpp:1060
+#: MainWindow/Window.cpp:1059
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Koristi sljedeći video thumbnail"
 
-#: MainWindow/Window.cpp:1064
+#: MainWindow/Window.cpp:1063
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Korsiti prethodni video thumbnail"
 
-#: MainWindow/Window.cpp:1068 MainWindow/Window.cpp:1296
+#: MainWindow/Window.cpp:1067 MainWindow/Window.cpp:1295
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -4789,7 +4790,7 @@ msgstr[0] "Kopiraj slike na..."
 msgstr[1] "Kopiraj slike na..."
 msgstr[2] "Kopiraj slike na..."
 
-#: MainWindow/Window.cpp:1072 MainWindow/Window.cpp:1300
+#: MainWindow/Window.cpp:1071 MainWindow/Window.cpp:1299
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -4799,17 +4800,17 @@ msgstr[0] "Kopiraj slike na..."
 msgstr[1] "Kopiraj slike na..."
 msgstr[2] "Kopiraj slike na..."
 
-#: MainWindow/Window.cpp:1098
+#: MainWindow/Window.cpp:1097
 #, kde-format
 msgid "Auto saving...."
 msgstr "Auto sačuvanje..."
 
-#: MainWindow/Window.cpp:1101
+#: MainWindow/Window.cpp:1100
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Auto sačuvanje... Urađeno"
 
-#: MainWindow/Window.cpp:1203
+#: MainWindow/Window.cpp:1202
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Could not open given index.xml as provided directory does not exist."
@@ -4820,7 +4821,7 @@ msgid ""
 msgstr ""
 "<p>Ne mogu otvoriti dati index.xml jer direktorij  ne postoji.<br />%1</p>"
 
-#: MainWindow/Window.cpp:1210
+#: MainWindow/Window.cpp:1209
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4829,14 +4830,14 @@ msgstr ""
 "<p>Data index datoteka ne postoji, želite li kreirati sljedeće?<br />%1/"
 "index.xml</p>"
 
-#: MainWindow/Window.cpp:1213
+#: MainWindow/Window.cpp:1212
 #, fuzzy, kde-format
 #| msgid "Erase database"
 msgctxt "@title"
 msgid "Create database"
 msgstr "Izbriši bazu podataka"
 
-#: MainWindow/Window.cpp:1241
+#: MainWindow/Window.cpp:1240
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4845,34 +4846,34 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1367 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1366 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Opšte"
 
-#: MainWindow/Window.cpp:1368 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1367 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Preglednik"
 
-#: MainWindow/Window.cpp:1369
+#: MainWindow/Window.cpp:1368
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Datum "
 
-#: MainWindow/Window.cpp:1372
+#: MainWindow/Window.cpp:1371
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Dijalog napomene"
 
-#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1372 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Umanjeni pogled"
 
-#: MainWindow/Window.cpp:1518
+#: MainWindow/Window.cpp:1517
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4881,13 +4882,13 @@ msgstr ""
 "<p>Da li zaista želite da uključite sve poruke koje ste prije označili da ih "
 "više ne želite prikazivati u okviru za čekiranje?</p>"
 
-#: MainWindow/Window.cpp:1520
+#: MainWindow/Window.cpp:1519
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1539
+#: MainWindow/Window.cpp:1538
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4904,32 +4905,32 @@ msgstr ""
 "nastaviti izvršavanje, ali to nije sasvim vjerojatno da će srušiti kasnije "
 "zbog instalacije koja nedostaje. </p>"
 
-#: MainWindow/Window.cpp:1539
+#: MainWindow/Window.cpp:1538
 #, kde-format
 msgid "Internal Error"
 msgstr "Unutrašnja greška"
 
-#: MainWindow/Window.cpp:1550
+#: MainWindow/Window.cpp:1549
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1553
+#: MainWindow/Window.cpp:1552
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1558
+#: MainWindow/Window.cpp:1557
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1621
+#: MainWindow/Window.cpp:1620
 #, kde-format
 msgid "Open List of Files"
 msgstr "Otvori listu fajlova"
 
-#: MainWindow/Window.cpp:1622
+#: MainWindow/Window.cpp:1621
 #, kde-format
 msgid ""
 "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4938,29 +4939,29 @@ msgstr ""
 "Možete otvoriti set datoteka iz KPhotoAlbumove slike ovdje listajući "
 "datoteke."
 
-#: MainWindow/Window.cpp:1635
+#: MainWindow/Window.cpp:1634
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Nije pronađeno podudaranje sa slikama koje ste umetli."
 
-#: MainWindow/Window.cpp:1635
+#: MainWindow/Window.cpp:1634
 #, kde-format
 msgid "No Matches"
 msgstr "Nema poklapanja"
 
-#: MainWindow/Window.cpp:1807
+#: MainWindow/Window.cpp:1806
 #, fuzzy, kde-format
 #| msgid "Rereading EXIF information from all images"
 msgid "Rereading Exif information from all images"
 msgstr "Ponovno čitanje EXIF infomracija sa svih slika"
 
-#: MainWindow/Window.cpp:1834
+#: MainWindow/Window.cpp:1833
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Širina sličice: %1px (memorijska veličina: %2px)"
 
-#: MainWindow/Window.cpp:1887
+#: MainWindow/Window.cpp:1886
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Unable to find MPlayer on the system.</p><p>Without MPlayer, "
@@ -4975,7 +4976,7 @@ msgstr ""
 "neće biti u mogućnosti da prikaže sličice i dužinu videa. Molimo "
 "instalirajte paket MPlayer2 </p>"
 
-#: MainWindow/Window.cpp:1890
+#: MainWindow/Window.cpp:1889
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Video thumbnails su nedostupni"
@@ -6605,12 +6606,12 @@ msgstr "Izmijeni poredak sličica"
 msgid "Error Deleting Files"
 msgstr "Greška brisanja fajlova"
 
-#: Utilities/DemoUtil.cpp:34
+#: Utilities/DemoUtil.cpp:36
 #, kde-format
 msgid "Unable to copy '%1' to '%2'."
 msgstr "Nemoguće kopirati '%1' u '%2'."
 
-#: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:85
+#: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:88
 #, fuzzy, kde-format
 #| msgid "Unable to create directory '%1' needed for demo."
 msgid "Unable to create folder '%1' needed for demo."
@@ -6745,19 +6746,19 @@ msgstr[0] "%1 godina"
 msgstr[1] "%1 godina"
 msgstr[2] "%1 godina"
 
-#: Utilities/DescriptionUtil.cpp:362 Utilities/DescriptionUtil.cpp:388
+#: Utilities/DescriptionUtil.cpp:365 Utilities/DescriptionUtil.cpp:391
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"
 msgid " (%1)"
 msgstr " (%1MP)"
 
-#: Utilities/DescriptionUtil.cpp:364
+#: Utilities/DescriptionUtil.cpp:367
 #, kde-format
 msgid " (&lt; %1)"
 msgstr ""
 
-#: Utilities/DescriptionUtil.cpp:367
+#: Utilities/DescriptionUtil.cpp:370
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"
@@ -6765,7 +6766,7 @@ msgctxt "E.g. ' (1-2 years)'"
 msgid " (%1-%2)"
 msgstr " (%1MP)"
 
-#: Utilities/DescriptionUtil.cpp:369
+#: Utilities/DescriptionUtil.cpp:372
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"
@@ -6773,7 +6774,7 @@ msgctxt "E.g. ' (7 months-1 year)'"
 msgid " (%1-%2)"
 msgstr " (%1MP)"
 
-#: Utilities/DescriptionUtil.cpp:391
+#: Utilities/DescriptionUtil.cpp:394
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"
@@ -6781,13 +6782,37 @@ msgctxt "E.g. ' (1-2 years ago)'"
 msgid " (%1-%2)"
 msgstr " (%1MP)"
 
-#: Utilities/DescriptionUtil.cpp:393
+#: Utilities/DescriptionUtil.cpp:396
 #, fuzzy, kde-format
 #| msgctxt "short for: x megapixels"
 #| msgid " (%1MP)"
 msgctxt "E.g. '(7 months ago-1 year ago)'"
 msgid " (%1-%2)"
 msgstr " (%1MP)"
+
+#: Viewer/AnnotationHandler.cpp:65
+#, kde-format
+msgctxt "@title"
+msgid "Assign Macro"
+msgstr ""
+
+#: Viewer/AnnotationHandler.cpp:65
+#, fuzzy, kde-format
+#| msgid "Settings for category"
+msgid "Select item for macro key <b>%1</b>"
+msgstr "Postavke za kategoriju"
+
+#: Viewer/AnnotationHandler.cpp:111
+#, fuzzy, kde-format
+#| msgid "Rename Item"
+msgid "Tag Item"
+msgstr "Preimenuj stavku"
+
+#: Viewer/AnnotationHandler.cpp:111
+#, fuzzy, kde-format
+#| msgid "Select target:"
+msgid "Select tag for image"
+msgstr "Odaberi cilj:"
 
 #: Viewer/CategoryImageConfig.cpp:33
 #, kde-format
@@ -6825,13 +6850,13 @@ msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
 msgstr "Podesi"
 
-#: Viewer/ImageDisplay.cpp:354 Viewer/ImageDisplay.cpp:378
-#: Viewer/ImageDisplay.cpp:439
+#: Viewer/ImageDisplay.cpp:303 Viewer/ImageDisplay.cpp:327
+#: Viewer/ImageDisplay.cpp:388
 #, kde-format
 msgid "Insufficient color depth for this filter"
 msgstr "Nedovoljna dubina boje za ovaj filter"
 
-#: Viewer/ImageDisplay.cpp:498
+#: Viewer/ImageDisplay.cpp:447
 #, kde-format
 msgid "[ zoom x%1 ]"
 msgstr "[ zoom x%1 ]"
@@ -6861,43 +6886,69 @@ msgstr ""
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""
 
-#: Viewer/SpeedDisplay.cpp:33
+#: Viewer/SelectCategoryAndValue.cpp:103
 #, kde-format
-msgctxt "OSD for slideshow, num of seconds per image"
-msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
-msgstr "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
-
-#: Viewer/SpeedDisplay.cpp:41
-#, kde-format
-msgctxt "OSD for slideshow"
-msgid ""
-"<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
-"slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></p>"
+msgid "Type name of category and item"
 msgstr ""
-"<p><center><font size=\"+4\">Pokreni prezentaciju<br/>Ctrl++ ubrzava "
-"prezentaciju<br/>Ctrl + - usporava prezentaciju</font></center></p>"
 
-#: Viewer/SpeedDisplay.cpp:61
+#: Viewer/SelectCategoryAndValue.cpp:132
 #, kde-format
-msgctxt "OSD for slideshow"
-msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
+msgid "Add New"
 msgstr ""
-"<p><center><font size=\"+4\">Završetak prezentacije slajdova</font></"
-"center></p>"
 
-#: Viewer/ViewerWidget.cpp:185
+#: Viewer/SelectCategoryAndValue.cpp:182
 #, kde-format
-msgctxt "@action:inmenu"
-msgid "Annotate..."
-msgstr "Označi..."
+msgid "Key"
+msgstr ""
 
-#: Viewer/ViewerWidget.cpp:190
+#: Viewer/SelectCategoryAndValue.cpp:182
+#, fuzzy, kde-format
+#| msgid "Tag:"
+msgid "Tag"
+msgstr "Oznaka:"
+
+#. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
+#: Viewer/SelectCategoryAndValue.ui:14
+#, fuzzy, kde-format
+#| msgid "OK dialog"
+msgid "Dialog"
+msgstr "Uredu"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: Viewer/SelectCategoryAndValue.ui:24
+#, fuzzy, kde-format
+#| msgid "Label"
+msgid "TextLabel"
+msgstr "Oznaka"
+
+#. i18n: ectx: property (text), widget (QPushButton, addNewTag)
+#: Viewer/SelectCategoryAndValue.ui:43
+#, fuzzy, kde-format
+#| msgid "Add a tag"
+msgid "Add new Tag"
+msgstr "Dodaj oznaku"
+
+#. i18n: ectx: property (text), widget (QLabel, titleLabel)
+#: Viewer/SelectCategoryAndValue.ui:77
+#, fuzzy, kde-format
+#| msgctxt "@title:column Background job title"
+#| msgid "Title"
+msgid "Title"
+msgstr "Naslov"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: Viewer/SelectCategoryAndValue.ui:120
+#, kde-format
+msgid "Existing Assignments"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:191
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Postavi kao prvu sliku skladišta"
 
-#: Viewer/ViewerWidget.cpp:201
+#: Viewer/ViewerWidget.cpp:202
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -6905,7 +6956,7 @@ msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "Kopiraj slike na..."
 
-#: Viewer/ViewerWidget.cpp:206
+#: Viewer/ViewerWidget.cpp:207
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -6913,180 +6964,180 @@ msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "Kopiraj slike na..."
 
-#: Viewer/ViewerWidget.cpp:214
+#: Viewer/ViewerWidget.cpp:215
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Zatvori"
 
-#: Viewer/ViewerWidget.cpp:270
+#: Viewer/ViewerWidget.cpp:271
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Okreni"
 
-#: Viewer/ViewerWidget.cpp:281
+#: Viewer/ViewerWidget.cpp:282
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "Okreni u smijeru kazaljke na satu"
 
-#: Viewer/ViewerWidget.cpp:282
+#: Viewer/ViewerWidget.cpp:283
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Prebaci preko"
 
-#: Viewer/ViewerWidget.cpp:283
+#: Viewer/ViewerWidget.cpp:284
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Okreni u  suprotno od kazaljke na satu"
 
-#: Viewer/ViewerWidget.cpp:290
+#: Viewer/ViewerWidget.cpp:291
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Prekoči"
 
-#: Viewer/ViewerWidget.cpp:293
+#: Viewer/ViewerWidget.cpp:294
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "Prvi"
 
-#: Viewer/ViewerWidget.cpp:300
+#: Viewer/ViewerWidget.cpp:301
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Posljednji"
 
-#: Viewer/ViewerWidget.cpp:307
+#: Viewer/ViewerWidget.cpp:308
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Prikaži sljedeći"
 
-#: Viewer/ViewerWidget.cpp:313
+#: Viewer/ViewerWidget.cpp:314
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "Preskoči 10 naprijed"
 
-#: Viewer/ViewerWidget.cpp:319
+#: Viewer/ViewerWidget.cpp:320
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "Preskoči 100 naprijed"
 
-#: Viewer/ViewerWidget.cpp:325
+#: Viewer/ViewerWidget.cpp:326
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "Preskoči 1000 naprijed"
 
-#: Viewer/ViewerWidget.cpp:331
+#: Viewer/ViewerWidget.cpp:332
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Prikaži prethodno"
 
-#: Viewer/ViewerWidget.cpp:337
+#: Viewer/ViewerWidget.cpp:338
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "Preskoči 10 nazad"
 
-#: Viewer/ViewerWidget.cpp:343
+#: Viewer/ViewerWidget.cpp:344
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "Preskoči 100 nazad"
 
-#: Viewer/ViewerWidget.cpp:349
+#: Viewer/ViewerWidget.cpp:350
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "Preskoči 1000 nazad"
 
-#: Viewer/ViewerWidget.cpp:355
+#: Viewer/ViewerWidget.cpp:356
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Obriši sliku"
 
-#: Viewer/ViewerWidget.cpp:360
+#: Viewer/ViewerWidget.cpp:361
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Ukloni sliku sa liste prikaza"
 
-#: Viewer/ViewerWidget.cpp:371
+#: Viewer/ViewerWidget.cpp:372
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Uvećaj"
 
-#: Viewer/ViewerWidget.cpp:375
+#: Viewer/ViewerWidget.cpp:376
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Uveličaj"
 
-#: Viewer/ViewerWidget.cpp:381
+#: Viewer/ViewerWidget.cpp:382
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Umanji"
 
-#: Viewer/ViewerWidget.cpp:387
+#: Viewer/ViewerWidget.cpp:388
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Puni pogled"
 
-#: Viewer/ViewerWidget.cpp:393
+#: Viewer/ViewerWidget.cpp:394
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Piksel po piksel pogled"
 
-#: Viewer/ViewerWidget.cpp:399
+#: Viewer/ViewerWidget.cpp:400
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Preko cijelog ekrana"
 
-#: Viewer/ViewerWidget.cpp:409
+#: Viewer/ViewerWidget.cpp:410
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Slike u nizu"
 
-#: Viewer/ViewerWidget.cpp:412 Viewer/ViewerWidget.cpp:807
+#: Viewer/ViewerWidget.cpp:413 Viewer/ViewerWidget.cpp:833
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Pokreni slike u nizu"
 
-#: Viewer/ViewerWidget.cpp:417
+#: Viewer/ViewerWidget.cpp:418
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Pokreni brže"
 
-#: Viewer/ViewerWidget.cpp:422
+#: Viewer/ViewerWidget.cpp:423
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Pokreni sporije"
 
-#: Viewer/ViewerWidget.cpp:457
+#: Viewer/ViewerWidget.cpp:458
 #, kde-format
 msgid "File not available"
 msgstr "Datoteka nije dostupna"
 
-#: Viewer/ViewerWidget.cpp:507
+#: Viewer/ViewerWidget.cpp:508
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "%1 is a prefix like 'Associate with', %2 is the tag name and %3 is the "
@@ -7096,157 +7147,210 @@ msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
 msgstr "%1 %2 (%3)"
 
-#: Viewer/ViewerWidget.cpp:523
+#: Viewer/ViewerWidget.cpp:524
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
 msgstr "Reproduciraj"
 
-#: Viewer/ViewerWidget.cpp:525
+#: Viewer/ViewerWidget.cpp:526
 #, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Pauziraj"
 
-#: Viewer/ViewerWidget.cpp:760
-#, kde-format
-msgctxt "Basically 'enter a category name'"
-msgid "<b>Setting Category: </b>"
-msgstr "<b>Postavljanje kategorije: </b>"
+#: Viewer/ViewerWidget.cpp:592
+#, fuzzy, kde-format
+#| msgid "Unlock"
+msgid "locked"
+msgstr "Otključaj"
 
-#: Viewer/ViewerWidget.cpp:765
-#, kde-format
-msgctxt "Basically 'enter a tag name'"
-msgid "<b>Assigning: </b>"
-msgstr "<b>Dodjela: </b>"
+#: Viewer/ViewerWidget.cpp:594
+#, fuzzy, kde-format
+#| msgid "Annotations"
+msgid "annotating"
+msgstr "Zabilješke"
 
-#: Viewer/ViewerWidget.cpp:813
+#: Viewer/ViewerWidget.cpp:596
+#, kde-format
+msgid "tokenizing"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:601
+#, kde-format
+msgid "Change display mode to %1"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:836
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Run Slideshow"
+msgctxt "OSD for slideshow"
+msgid "Ending Slideshow"
+msgstr "Pokreni slike u nizu"
+
+#: Viewer/ViewerWidget.cpp:839
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Zaustavi slajdove"
 
-#: Viewer/ViewerWidget.cpp:1215
+#: Viewer/ViewerWidget.cpp:844
+#, fuzzy, kde-format
+#| msgctxt "OSD for slideshow"
+#| msgid ""
+#| "<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
+#| "slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></"
+#| "p>"
+msgctxt "OSD for slideshow"
+msgid ""
+"Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
+"slideshow slower"
+msgstr ""
+"<p><center><font size=\"+4\">Pokreni prezentaciju<br/>Ctrl++ ubrzava "
+"prezentaciju<br/>Ctrl + - usporava prezentaciju</font></center></p>"
+
+#: Viewer/ViewerWidget.cpp:894
+#, kde-format
+msgctxt "OSD for slideshow, num of seconds per image"
+msgid "%1&nbsp;s"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1137
+#, fuzzy, kde-format
+#| msgid "Theme Description"
+msgctxt "@title"
+msgid "Edit Image Description"
+msgstr "Opis teme"
+
+#: Viewer/ViewerWidget.cpp:1137
+#, fuzzy, kde-format
+#| msgid "Theme Description"
+msgctxt "@label:textbox"
+msgid "Image Description"
+msgstr "Opis teme"
+
+#: Viewer/ViewerWidget.cpp:1152
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Skoči"
 
-#: Viewer/ViewerWidget.cpp:1236
+#: Viewer/ViewerWidget.cpp:1173
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "10 minuta unazad"
 
-#: Viewer/ViewerWidget.cpp:1237
+#: Viewer/ViewerWidget.cpp:1174
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "1 minuta unazad"
 
-#: Viewer/ViewerWidget.cpp:1238
+#: Viewer/ViewerWidget.cpp:1175
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "10 sekundi unazad"
 
-#: Viewer/ViewerWidget.cpp:1239
+#: Viewer/ViewerWidget.cpp:1176
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "1 sekundi unazad"
 
-#: Viewer/ViewerWidget.cpp:1240
+#: Viewer/ViewerWidget.cpp:1177
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "100 milisekundi unazad"
 
-#: Viewer/ViewerWidget.cpp:1241
+#: Viewer/ViewerWidget.cpp:1178
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "100 milisekundi unaprijed"
 
-#: Viewer/ViewerWidget.cpp:1242
+#: Viewer/ViewerWidget.cpp:1179
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "1 sekunda unaprijed"
 
-#: Viewer/ViewerWidget.cpp:1243
+#: Viewer/ViewerWidget.cpp:1180
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "10 sekundi unaprijed"
 
-#: Viewer/ViewerWidget.cpp:1244
+#: Viewer/ViewerWidget.cpp:1181
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "1 minuta unaprijed"
 
-#: Viewer/ViewerWidget.cpp:1245
+#: Viewer/ViewerWidget.cpp:1182
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "10 minuta unaprijed"
 
-#: Viewer/ViewerWidget.cpp:1253
+#: Viewer/ViewerWidget.cpp:1190
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Zaustavi"
 
-#: Viewer/ViewerWidget.cpp:1266
+#: Viewer/ViewerWidget.cpp:1203
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Koristi trenutni okvir u minijaturnom pogledu"
 
-#: Viewer/ViewerWidget.cpp:1272
+#: Viewer/ViewerWidget.cpp:1209
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Ponovo pokreni"
 
-#: Viewer/ViewerWidget.cpp:1287
+#: Viewer/ViewerWidget.cpp:1224
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Filteri"
 
-#: Viewer/ViewerWidget.cpp:1290
+#: Viewer/ViewerWidget.cpp:1227
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Ukloni sve filtere"
 
-#: Viewer/ViewerWidget.cpp:1294
+#: Viewer/ViewerWidget.cpp:1231
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Potvrdi filter sivog skaliranja"
 
-#: Viewer/ViewerWidget.cpp:1299
+#: Viewer/ViewerWidget.cpp:1236
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Potvrdi filter istezanja kontrasta"
 
-#: Viewer/ViewerWidget.cpp:1304
+#: Viewer/ViewerWidget.cpp:1241
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Potvrdi filter ujednačenosti histograma"
 
-#: Viewer/ViewerWidget.cpp:1309
+#: Viewer/ViewerWidget.cpp:1246
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Usvoji filter jednobojne slike"
 
-#: Viewer/ViewerWidget.cpp:1361
+#: Viewer/ViewerWidget.cpp:1298
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7254,19 +7358,127 @@ msgid ""
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1365
+#: Viewer/ViewerWidget.cpp:1302
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
 "will be used instead: <tt>%2</tt></p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1378
+#: Viewer/ViewerWidget.cpp:1315
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1379
+#, fuzzy, kde-format
+#| msgctxt "@action:inmenu"
+#| msgid "Annotate..."
+msgid "Annotate"
+msgstr "Označi..."
+
+#: Viewer/ViewerWidget.cpp:1398
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Help"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1400
+#, fuzzy, kde-format
+#| msgid "Annotation Dialog"
+msgctxt "@action:inmenu"
+msgid "Annotation Dialog"
+msgstr "Dijalog napomene"
+
+#: Viewer/ViewerWidget.cpp:1401
+#, fuzzy, kde-format
+#| msgid "Add a tag"
+msgctxt "@action:inmenu"
+msgid "Add tag"
+msgstr "Dodaj oznaku"
+
+#: Viewer/ViewerWidget.cpp:1401
+#, kde-format
+msgctxt "short cut for add tag"
+msgid "CTRL+a"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1404
+#, fuzzy, kde-format
+#| msgid "Copy tags from previous image"
+msgctxt "@action:inmenu"
+msgid "Copy Data from Previous Image"
+msgstr "Kopiraj oznake sa prethodne slike"
+
+#: Viewer/ViewerWidget.cpp:1405
+#, kde-format
+msgctxt "Shortcut for copy annotations from previous image"
+msgid "CTRL+c"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1408
+#, fuzzy, kde-format
+#| msgid "Description"
+msgctxt "@action:inmenu"
+msgid "Edit Description"
+msgstr "Opis"
+
+#: Viewer/ViewerWidget.cpp:1409
+#, kde-format
+msgctxt "Shortcut for add description to image"
+msgid "CTRL+d"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1412
+#, fuzzy, kde-format
+#| msgid "Annotations"
+msgid "Annotation Mode"
+msgstr "Zabilješke"
+
+#: Viewer/ViewerWidget.cpp:1414
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Locked"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1415
+#, kde-format
+msgctxt "Shortcut for turning of annotations in the viewer"
+msgid "CTRL+l"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1419
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Assign Tags"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1420
+#, kde-format
+msgctxt "Shortcut for turning annotations mode to annotating"
+msgid "F2"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1423
+#, fuzzy, kde-format
+#| msgid "Tokens"
+msgctxt "@action:inmenu"
+msgid "Assign Tokens"
+msgstr "Žeton"
+
+#: Viewer/ViewerWidget.cpp:1424
+#, kde-format
+msgctxt "Shortcut for turning annotations mode to tokenizing"
+msgid "CTRL+t"
+msgstr ""
+
+#: Viewer/ViewerWidget.cpp:1567
+#, fuzzy, kde-format
+#| msgid "Tokens"
+msgid "Token %1"
+msgstr "Žeton"
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format
@@ -7323,6 +7535,24 @@ msgstr "Prikaži veličinu slike"
 #, kde-format
 msgid "Show Rating"
 msgstr "Pokazati rejting"
+
+#~ msgctxt "OSD for slideshow, num of seconds per image"
+#~ msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
+#~ msgstr "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
+
+#~ msgctxt "OSD for slideshow"
+#~ msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
+#~ msgstr ""
+#~ "<p><center><font size=\"+4\">Završetak prezentacije slajdova</font></"
+#~ "center></p>"
+
+#~ msgctxt "Basically 'enter a category name'"
+#~ msgid "<b>Setting Category: </b>"
+#~ msgstr "<b>Postavljanje kategorije: </b>"
+
+#~ msgctxt "Basically 'enter a tag name'"
+#~ msgid "<b>Assigning: </b>"
+#~ msgstr "<b>Dodjela: </b>"
 
 #~ msgid "Display Images and Videos with Changed MD5 Sum"
 #~ msgstr "Prikaži slike i videe sa promijenjenim MD5 Sum"

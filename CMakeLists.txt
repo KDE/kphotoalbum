@@ -26,13 +26,15 @@ cmake_minimum_required(VERSION 3.18.0)
 project(kphotoalbum LANGUAGES CXX VERSION 5.11.0)
 
 # set minimum versions here:
-set(MINIMUM_ECM_VERSION 5.78)
+set(MINIMUM_ECM_VERSION 5.103)
 set(MINIMUM_KF5_VERSION 5.78)
 set(MINIMUM_Qt5_VERSION_MAJOR 5)
 set(MINIMUM_Qt5_VERSION_MINOR 15)
 set(MINIMUM_Qt5_VERSION_PATCH 0)
 set(MINIMUM_Qt5_VERSION "${MINIMUM_Qt5_VERSION_MAJOR}.${MINIMUM_Qt5_VERSION_MINOR}.${MINIMUM_Qt5_VERSION_PATCH}")
 math(EXPR MINIMUM_Qt5_VERSION_HEX "${MINIMUM_Qt5_VERSION_MAJOR} << 24 | ${MINIMUM_Qt5_VERSION_MINOR} << 16 | ${MINIMUM_Qt5_VERSION_PATCH}" OUTPUT_FORMAT HEXADECIMAL)
+
+set(KDE_COMPILERSETTINGS_LEVEL 5.85)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -49,11 +51,18 @@ list(APPEND CMAKE_MODULE_PATH "${ECM_MODULE_PATH}")
 include(KDEInstallDirs)
 include(KDECompilerSettings)
 include(KDECMakeSettings)
-include(FeatureSummary)
+include(KDEGitCommitHooks)
 
 # enable exceptions:
 kde_enable_exceptions()
 
+if(${ECM_VERSION} VERSION_LESS 5.109)
+    # pre ECM 5.109 you need to do some work yourself as described in dev/README-dev.txt
+    kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
+else()
+    file(GLOB_RECURSE PRE_COMMIT_HOOKS ${CMAKE_SOURCE_DIR}/dev/githooks/pre-commit.d/*)
+    kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT CUSTOM_SCRIPTS ${PRE_COMMIT_HOOKS})
+endif()
 
 add_definitions(
     -DQT_NO_CAST_FROM_ASCII

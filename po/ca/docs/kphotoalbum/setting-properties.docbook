@@ -98,13 +98,13 @@ SPDX-License-Identifier: GFDL-1.2-only
 >A la <xref linkend="fig-image-config-window"/> hi ha tres quadres de llista combinats amb la línia d'edició per a especificar les categories gent, llocs i paraules clau. Aquests ginys són una part molt important del &kphotoalbum;, ja que les utilitzareu una vegada i una altra, quan especifiqueu informació sobre les vostres imatges.</para>
 
       <para
->You can specify a property from a list box, simply by selecting it (Select say <literal
+>Podeu especificar una propietat des d'un quadre de llista, simplement seleccionant-la (seleccioneu <literal
 >Donna</literal
-> to specify that Donna is on the given image. Alternatively you may type its name in the line edit. When you start typing a name in the line edit, &kphotoalbum; will look into the listbox, and search for the first item matching what you've typed so far, and fill it out. Thus typing <literal
+> per especificar que es troba a la imatge indicada. De manera alternativa, podeu escriure el seu nom a la línia d'edició. Quan comenceu a escriure un nom a la línia d'edició, el &kphotoalbum; el mostrarà al quadre de llista i cercarà el primer element coincident que heu escrit fins ara, i l'omplirà. De manera que en escriure <literal
 >Do</literal
-> might be enough to find <literal
+> es trobarà <literal
 >Donna</literal
->. Once you have found the item you search for, simply press enter to select this item in the listbox. The item will now be moved to the top of the view, so next time you need the given item it is even easier to find.</para>
+>. Un cop hàgiu trobat l'element que cerqueu, simplement premeu &Intro; per a seleccionar-lo en el quadre de llista. Ara, l'element serà traslladat a la part superior de la vista, de manera que la pròxima vegada que el necessiteu, serà més fàcil de trobar.</para>
 
       <para
 >La idea de moure els últims elements a la part superior quan han estat seleccionats, és que quan per exemple aneu a una festa familiar, potser obtindreu 50 imatges amb les mateixes 5 o 10 persones. Quan escriviu informació sobre aquestes 50 imatges tindreu les 5 o 10 persones a la part superior del quadre de llista tan aviat com hàgiu escrit el seu nom per primera vegada.</para>
@@ -211,31 +211,33 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 <sect1>
     <title
->Annotating while viewing images</title>
+>Anotar en veure imatges</title>
     <para
->For a few decades we tagged our images as described above, but in the summer of 2023, it started being possible to tag images while viewing them. This facility doesn't support all the features described above, but it offers a much faster workflow to tagging images.</para>
+>Durant algunes dècades hem etiquetat les imatges tal com s'ha descrit anteriorment, però a l'estiu de 2023 va començar a ser possible etiquetar les imatges mentre les veiem. Aquesta utilitat no admet totes les característiques descrites anteriorment, però ofereix un flux de treball molt més ràpid per etiquetar imatges.</para>
     <para
->Missing features when annotating images from the viewer, which you need to come to this dialog for are: <itemizedlist
-> <listitem
+>Missing features when annotating images from the viewer, which you need to come to this dialog for are:</para>
+    <itemizedlist>
+    <listitem
 ><para
 >Annotating multiple images at a time</para
-></listitem
-> <listitem
+></listitem>
+    <listitem
 ><para
 >Tagging individual parts of an image (this face is ...)</para
-></listitem
-> <listitem
+></listitem>
+    <listitem
 ><para
->Setting up tag groups (ie. specifying that Las Vegas is in USA, so you will see images tagged Las Vegas when watching images from USA)</para
-></listitem
-> <listitem
+>Setting up tag groups (&ie; specifying that Las Vegas is in USA, so you will see images tagged Las Vegas when watching images from USA)</para
+></listitem>
+    <listitem
 ><para
 >Setting image dates</para
-></listitem
-> </itemizedlist
-> <link linkend="annotating-from-the-viewer"
->See the seciton on annotating from the viewer</link
-> </para>
+></listitem>
+    </itemizedlist>
+    <para>
+    <link linkend="annotating-from-the-viewer"
+>See the section on annotating from the viewer</link>
+    </para>
 </sect1>
 </chapter>
 

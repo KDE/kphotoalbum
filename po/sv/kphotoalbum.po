@@ -1,14 +1,14 @@
 # translation of kphotoalbum.po to Swedish
 #
 # Stefan Asserhäll <stefan.asserhall@bredband.net>, 2006, 2007, 2008, 2009, 2010.
-# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Stefan Asserhall <stefan.asserhall@bredband.net>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Arve Eriksson <031299870@telia.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-31 00:44+0000\n"
-"PO-Revision-Date: 2022-10-02 16:49+0200\n"
+"PO-Revision-Date: 2023-07-31 13:35+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -330,23 +330,19 @@ msgstr ""
 "grund av följande fel: %2"
 
 #: AnnotationDialog/Dialog.cpp:1036
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Some changes are made to annotations. Do you really want to cancel all "
-#| "recent changes for each affected file?</p>"
+#, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
-"<p>Vissa ändringar har gjorts av kommentarer. Vill du verkligen ångra alla "
+"<p>Vissa ändringar har gjorts av kommentarer. Vill du verkligen kassera alla "
 "senaste ändringar för alla filer som påverkas?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1037
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Spara ändringar?"
+msgstr "Kassera ändringar?"
 
 #: AnnotationDialog/Dialog.cpp:1154
 #, kde-format
@@ -397,12 +393,12 @@ msgstr "Växla visning av bara markerade objekt"
 #: AnnotationDialog/Dialog.cpp:1309
 #, kde-format
 msgid "Annotate Next"
-msgstr "Kommentera nästa"
+msgstr "Beskriv nästa"
 
 #: AnnotationDialog/Dialog.cpp:1313
 #, kde-format
 msgid "Annotate Previous"
-msgstr "Kommentera föregående"
+msgstr "Beskriv föregående"
 
 #: AnnotationDialog/Dialog.cpp:1317
 #, kde-format
@@ -655,8 +651,7 @@ msgid "Really Delete %1?"
 msgstr "Verkligen ta bort %1?"
 
 #: AnnotationDialog/ListSelect.cpp:448
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Byt namn på objekt"
@@ -676,16 +671,13 @@ msgstr ""
 "byts namn på \"%3\" på alla bilder som innehåller det.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:457
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Byt namn på \"%1\""
+msgstr "Byt namn %1?"
 
 #: AnnotationDialog/ListSelect.cpp:462
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Byt namn"
@@ -2279,8 +2271,7 @@ msgstr ""
 "ny katalog.</p><p>Ska %2 först tas bort?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder Exists"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
 msgstr "Katalogen finns"
@@ -2686,19 +2677,17 @@ msgid "Folder %1 does not exist. Should it be created?"
 msgstr "Katalogen %1 finns inte. Ska den skapas?"
 
 #: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Base folder:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "Baskatalog:"
+msgstr "Skapa katalog?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1216
-#, fuzzy, kde-format
-#| msgid "Created:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr "Skapad:"
+msgstr "Skapa"
 
 #: ImportExport/ImportDialog.cpp:314
 #, kde-format
@@ -2732,15 +2721,13 @@ msgid "Cannot copy from any of the following locations:"
 msgstr "Kan inte kopiera filer från någon av följande platser:"
 
 #: ImportExport/ImportHandler.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "Kopierar bildfiler"
+msgstr "Kopiering misslyckades"
 
 #: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Fortsätt utan att fråga"
@@ -2880,10 +2867,9 @@ msgstr ""
 "Verktyg för att inspektera och redigera miniatyrbildscachen i Kfotoalbum"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2022 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
-msgstr "Copyright © 2020-2022 Kfotoalbum-utvecklingsgruppen"
+msgstr "Copyright © 2020-2023 Kfotoalbum-utvecklingsgruppen"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3225,10 +3211,9 @@ msgid "KDE Photo Album"
 msgstr "KDE:s fotoalbum"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2022 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
-msgstr "Copyright © 2003-2022 Kfotoalbum-utvecklingsgruppen"
+msgstr "Copyright © 2003-2023 Kfotoalbum-utvecklingsgruppen"
 
 #: main.cpp:110
 #, kde-format
@@ -4145,13 +4130,7 @@ msgid "Searching for New Files"
 msgstr "Söker efter nya filer"
 
 #: MainWindow/Window.cpp:304
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
-#| "the KPhotoAlbum demo. The demo database was copied to /tmp, should it be "
-#| "deleted now? If you do not delete it, it will waste disk space; on the "
-#| "other hand, if you want to come back and try the demo again, you might "
-#| "want to keep it around with the changes you made through this session.</p>"
+#, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
 "KPhotoAlbum demo. The demo database was created in the folder <tt>/tmp</tt>, "
@@ -4162,14 +4141,13 @@ msgid ""
 msgstr ""
 "<p><b>Ta bort den tillfälliga demonstrationsdatabasen</b></p><p>Jag hoppas "
 "att du tyckte om demonstrationen av Kfotoalbum. Demonstrationsdatabasen "
-"kopierades till /tmp. Ska den nu tas bort? Om du inte tar bort den, slösar "
-"du med diskutrymme. Å andra sidan, om du vill komma tillbaka och prova "
-"demonstrationen igen, kan du vilja behålla den med de ändringar du gjort i "
-"denna session.</p>"
+"skapades i katalogen <tt>/tmp</tt>. Ska den nu tas bort? Om du inte tar bort "
+"den, slösar den diskutrymme. Å andra sidan, om du vill komma tillbaka och "
+"prova demonstrationen igen, kan du vilja behålla den med de ändringar du "
+"gjort i denna session.</p>"
 
 #: MainWindow/Window.cpp:309
-#, fuzzy, kde-format
-#| msgid "Delete Demo Database"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Ta bort demonstrationsdatabas"
@@ -4180,8 +4158,7 @@ msgid "Do you want to save the changes?"
 msgstr "Vill du spara ändringarna?"
 
 #: MainWindow/Window.cpp:335
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
 msgstr "Spara ändringar?"
@@ -4196,11 +4173,10 @@ msgstr ""
 "från deras högar och skapa en helt ny?"
 
 #: MainWindow/Window.cpp:395
-#, fuzzy, kde-format
-#| msgid "Stacking Error"
+#, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr "Fel vid tillägg i hög"
+msgstr "Högproblem"
 
 #: MainWindow/Window.cpp:410
 #, kde-format
@@ -4210,7 +4186,7 @@ msgstr "Okänt fel, misslyckades skapa hög."
 #: MainWindow/Window.cpp:411
 #, kde-format
 msgid "Stacking Error"
-msgstr "Fel vid tillägg i hög"
+msgstr "Högfel"
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
 #: MainWindow/Window.cpp:1317 MainWindow/Window.cpp:1414
@@ -4426,10 +4402,9 @@ msgid "Merge duplicates"
 msgstr "Sammanfoga dubbletter"
 
 #: MainWindow/Window.cpp:999 MainWindow/Window.cpp:1056
-#, fuzzy, kde-format
-#| msgid "Recreate Selected Thumbnails"
+#, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "Skapa om markerade miniatyrbilder"
+msgstr "Uppdatera markerade miniatyrbilder och checksummor"
 
 #: MainWindow/Window.cpp:1003
 #, kde-format
@@ -4549,11 +4524,10 @@ msgstr ""
 "xml</p>"
 
 #: MainWindow/Window.cpp:1212
-#, fuzzy, kde-format
-#| msgid "Erase database"
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr "Radera databas"
+msgstr "Skapa databas"
 
 #: MainWindow/Window.cpp:1240
 #, kde-format
@@ -4607,7 +4581,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
-msgstr ""
+msgstr "Återställ dolda dialogrutor"
 
 #: MainWindow/Window.cpp:1538
 #, kde-format
@@ -5002,22 +4976,19 @@ msgid "Unsaved pending renaming action"
 msgstr "Osparad väntande namnbytesåtgärd"
 
 #: Settings/CategoryPage.cpp:324
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
-#| "linked against this category will be deleted!</p>"
+#, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
-"<p>Vill du verkligen göra \"%1\" icke placeringsbar?</p><p>Alla områden "
-"länkade till kategorin kommer att tas bort.</p>"
+"<p>Vill du verkligen göra \"%1\" ej positionerbar?</p><p>Alla områden "
+"länkade till kategorin kommer att kasseras.</p>"
 
 #: Settings/CategoryPage.cpp:333
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "Bekräfta åtgärd"
 
 #: Settings/CategoryPage.cpp:377
 #, kde-format
@@ -5032,7 +5003,7 @@ msgstr "<p>Verkligen ta bort kategorin \"%1\"?</p>"
 #: Settings/CategoryPage.cpp:414
 #, kde-format
 msgid "Confirm Action"
-msgstr ""
+msgstr "Bekräfta åtgärd"
 
 #: Settings/CategoryPage.cpp:536
 #, kde-format
@@ -6338,8 +6309,7 @@ msgstr ""
 "markerade enligt datum och tid</b></p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:97
-#, fuzzy, kde-format
-#| msgid "Reorder Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
 msgstr "Ordna om miniatyrbilder"
@@ -6500,25 +6470,22 @@ msgstr " (%1-%2)"
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
-msgstr ""
+msgstr "Tilldela makro"
 
 #: Viewer/AnnotationHandler.cpp:65
-#, fuzzy, kde-format
-#| msgid "Settings for category <b>%1</b>"
+#, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr "Inställningar för kategori <b>%1</b>"
+msgstr "Markera objekt för makronyckel <b>%1</b>"
 
 #: Viewer/AnnotationHandler.cpp:111
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgid "Tag Item"
-msgstr "Byt namn på objekt"
+msgstr "Etikettobjekt"
 
 #: Viewer/AnnotationHandler.cpp:111
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select tag for image"
-msgstr "Välj mål:"
+msgstr "Välj etikett för bild"
 
 #: Viewer/CategoryImageConfig.cpp:33
 #, kde-format
@@ -6596,50 +6563,44 @@ msgstr ""
 #: Viewer/SelectCategoryAndValue.cpp:103
 #, kde-format
 msgid "Type name of category and item"
-msgstr ""
+msgstr "Skriv in namn på en kategori och ett objekt"
 
 #: Viewer/SelectCategoryAndValue.cpp:132
 #, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "Lägg till ny"
 
 #: Viewer/SelectCategoryAndValue.cpp:182
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "Nyckel"
 
 #: Viewer/SelectCategoryAndValue.cpp:182
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "Etikett:"
+msgstr "Etikett"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "Ok dialogruta"
+msgstr "Dialogruta"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "Namn"
+msgstr "Textetikett"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgid "Add new Tag"
-msgstr "Lägg till en etikett"
+msgstr "Lägg till ny etikett"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "Titel"
 
@@ -6647,7 +6608,7 @@ msgstr "Titel"
 #: Viewer/SelectCategoryAndValue.ui:120
 #, kde-format
 msgid "Existing Assignments"
-msgstr ""
+msgstr "Befintliga tilldelningar"
 
 #: Viewer/ViewerWidget.cpp:191
 #, kde-format
@@ -6859,35 +6820,30 @@ msgid "Pause"
 msgstr "Paus"
 
 #: Viewer/ViewerWidget.cpp:592
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "locked"
-msgstr "Lås upp"
+msgstr "låst"
 
 #: Viewer/ViewerWidget.cpp:594
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "annotating"
-msgstr "Kommentarer"
+msgstr "beskriver"
 
 #: Viewer/ViewerWidget.cpp:596
 #, kde-format
 msgid "tokenizing"
-msgstr ""
+msgstr "värdetilldelning"
 
 #: Viewer/ViewerWidget.cpp:601
 #, kde-format
 msgid "Change display mode to %1"
-msgstr ""
+msgstr "Ändra visningsläge till %1"
 
 #: Viewer/ViewerWidget.cpp:836
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run Slideshow"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "Visa bildspel"
+msgstr "Avslutar bildspel"
 
 #: Viewer/ViewerWidget.cpp:839
 #, kde-format
@@ -6896,39 +6852,32 @@ msgid "Stop Slideshow"
 msgstr "Stoppa bildspel"
 
 #: Viewer/ViewerWidget.cpp:844
-#, fuzzy, kde-format
-#| msgctxt "OSD for slideshow"
-#| msgid ""
-#| "<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
-#| "slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></"
-#| "p>"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
 msgstr ""
-"<p><center><font size=\"+4\">Startar bildspel<br/>Ctrl++ gör bildspelet "
-"snabbare<br/>Ctrl+- gör bildspelet långsammare</font></center></p>"
+"Startar bildspel<br/>%1 gör bildspelet snabbare<br/>%2 gör bildspelet "
+"långsammare"
 
 #: Viewer/ViewerWidget.cpp:894
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
-msgstr ""
+msgstr "%1&nbsp;s"
 
 #: Viewer/ViewerWidget.cpp:1137
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "Temabeskrivning"
+msgstr "Redigera bildbeskrivning"
 
 #: Viewer/ViewerWidget.cpp:1137
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "Temabeskrivning"
+msgstr "Bildbeskrivning"
 
 #: Viewer/ViewerWidget.cpp:1152
 #, kde-format
@@ -7081,113 +7030,103 @@ msgstr ""
 "kraschade vid något tillfälle.</p><p>Kraschdetektering är nu avstängd.</p>"
 
 #: Viewer/ViewerWidget.cpp:1379
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgid "Annotate"
-msgstr "Beskriv..."
+msgstr "Beskriv"
 
 #: Viewer/ViewerWidget.cpp:1398
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "Hjälp"
 
 #: Viewer/ViewerWidget.cpp:1400
-#, fuzzy, kde-format
-#| msgid "Annotation Dialog"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Beskrivningsdialogruta"
 
 #: Viewer/ViewerWidget.cpp:1401
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
-msgstr "Lägg till en etikett"
+msgstr "Lägg till etikett"
 
 #: Viewer/ViewerWidget.cpp:1401
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "CTRL+A"
 
 #: Viewer/ViewerWidget.cpp:1404
-#, fuzzy, kde-format
-#| msgid "Copy tags from previous image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr "Kopiera etiketter från föregående bild"
+msgstr "Kopiera data från föregående bild"
 
 #: Viewer/ViewerWidget.cpp:1405
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "CTRL+C"
 
 #: Viewer/ViewerWidget.cpp:1408
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "Beskrivning"
+msgstr "Redigera beskrivning"
 
 #: Viewer/ViewerWidget.cpp:1409
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr ""
+msgstr "CTRL+D"
 
 #: Viewer/ViewerWidget.cpp:1412
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation Mode"
-msgstr "Kommentarer"
+msgstr "Beskrivningsmetod"
 
 #: Viewer/ViewerWidget.cpp:1414
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "Låst"
 
 #: Viewer/ViewerWidget.cpp:1415
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "CTRL+L"
 
 #: Viewer/ViewerWidget.cpp:1419
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "Tilldela etiketter"
 
 #: Viewer/ViewerWidget.cpp:1420
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1423
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "Värden"
+msgstr "Tilldela värden"
 
 #: Viewer/ViewerWidget.cpp:1424
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr ""
+msgstr "CTRL+T"
 
 #: Viewer/ViewerWidget.cpp:1567
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Token %1"
-msgstr "Värden"
+msgstr "Värde %1"
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format

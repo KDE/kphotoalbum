@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-31 00:44+0000\n"
-"PO-Revision-Date: 2023-07-22 12:20+0300\n"
+"PO-Revision-Date: 2023-07-31 13:47+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.07.70\n"
+"X-Generator: Lokalize 23.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -6475,26 +6475,22 @@ msgstr " (%1-%2)"
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
-msgstr ""
+msgstr "Makro Ata"
 
 #: Viewer/AnnotationHandler.cpp:65
-#, fuzzy, kde-format
-#| msgid "Settings for category <b>%1</b>"
+#, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr "<b>%1</b> kategorisi için ayarlar"
+msgstr "<b>%1</b> makro düğmesi için öge seç"
 
 #: Viewer/AnnotationHandler.cpp:111
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Rename Item"
+#, kde-format
 msgid "Tag Item"
-msgstr "Ögeyi Yeniden Adlandır"
+msgstr "Ögeyi Etiketle"
 
 #: Viewer/AnnotationHandler.cpp:111
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select tag for image"
-msgstr "Hedef seç:"
+msgstr "Görsel için etiket seç"
 
 #: Viewer/CategoryImageConfig.cpp:33
 #, kde-format
@@ -6571,50 +6567,44 @@ msgstr "Video oynatımı ayarlanamadı (araç takımı oluşturulmamış)"
 #: Viewer/SelectCategoryAndValue.cpp:103
 #, kde-format
 msgid "Type name of category and item"
-msgstr ""
+msgstr "Kategorinin adını ve ögesini yaz"
 
 #: Viewer/SelectCategoryAndValue.cpp:132
 #, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "Yeni Ekle"
 
 #: Viewer/SelectCategoryAndValue.cpp:182
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "Düğme"
 
 #: Viewer/SelectCategoryAndValue.cpp:182
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "Etiket:"
+msgstr "Etiket"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "Tamam penceresi"
+msgstr "İletişim Kutusu"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "Etiket"
+msgstr "MetinEtiketi"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgid "Add new Tag"
-msgstr "Bir etiket ekle"
+msgstr "Yeni Etiket Ekle"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "Başlık"
 
@@ -6622,7 +6612,7 @@ msgstr "Başlık"
 #: Viewer/SelectCategoryAndValue.ui:120
 #, kde-format
 msgid "Existing Assignments"
-msgstr ""
+msgstr "Var Olan Atamalar"
 
 #: Viewer/ViewerWidget.cpp:191
 #, kde-format
@@ -6834,35 +6824,30 @@ msgid "Pause"
 msgstr "Duraklat"
 
 #: Viewer/ViewerWidget.cpp:592
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "locked"
-msgstr "Kilidi Aç"
+msgstr "kilitli"
 
 #: Viewer/ViewerWidget.cpp:594
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "annotating"
-msgstr "Bilgi Notları"
+msgstr "bilgi notu ekleniyor"
 
 #: Viewer/ViewerWidget.cpp:596
 #, kde-format
 msgid "tokenizing"
-msgstr ""
+msgstr "jetonlaştırma"
 
 #: Viewer/ViewerWidget.cpp:601
 #, kde-format
 msgid "Change display mode to %1"
-msgstr ""
+msgstr "Görüntüleme kipini %1 olarak değiştir"
 
 #: Viewer/ViewerWidget.cpp:836
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run Slideshow"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "Slayt Gösterisini Çalıştır"
+msgstr "Slayt Gösterisi Bitiriliyor"
 
 #: Viewer/ViewerWidget.cpp:839
 #, kde-format
@@ -6871,40 +6856,32 @@ msgid "Stop Slideshow"
 msgstr "Slayt Gösterisini Durdur"
 
 #: Viewer/ViewerWidget.cpp:844
-#, fuzzy, kde-format
-#| msgctxt "OSD for slideshow"
-#| msgid ""
-#| "<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
-#| "slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></"
-#| "p>"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
 msgstr ""
-"<p><center><font size=\"+4\">Slayt Gösterisi Başlatılıyor<br/>Kontrol++ "
-"slayt gösterisini hızlandırır<br/>Kontrol + - slayt gösterisini yavaşlatır</"
-"font></center></p>"
+"Slayt Gösterisi Başlatılıyor<br/>%1, slayt gösterisini hızlandırır<br/>%2, "
+"slayt gösterisini yavaşlatır"
 
 #: Viewer/ViewerWidget.cpp:894
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
-msgstr ""
+msgstr "%1&nbsp;sn"
 
 #: Viewer/ViewerWidget.cpp:1137
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "Tema Açıklaması"
+msgstr "Görsel Açıklamasını Düzenle"
 
 #: Viewer/ViewerWidget.cpp:1137
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "Tema Açıklaması"
+msgstr "Görsel Açıklaması"
 
 #: Viewer/ViewerWidget.cpp:1152
 #, kde-format
@@ -7056,113 +7033,103 @@ msgstr ""
 "çöküyor.</p><p>Çökme algılama kapatıldı.</p>"
 
 #: Viewer/ViewerWidget.cpp:1379
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgid "Annotate"
-msgstr "Not Ekle..."
+msgstr "Bilgi Notu Ekle"
 
 #: Viewer/ViewerWidget.cpp:1398
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "Yardım"
 
 #: Viewer/ViewerWidget.cpp:1400
-#, fuzzy, kde-format
-#| msgid "Annotation Dialog"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
-msgstr "Bilgi Notu Penceresi"
+msgstr "Bilgi Notu İletişim Kutusu"
 
 #: Viewer/ViewerWidget.cpp:1401
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
-msgstr "Bir etiket ekle"
+msgstr "Etiket Ekle"
 
 #: Viewer/ViewerWidget.cpp:1401
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "Kontrol+A"
 
 #: Viewer/ViewerWidget.cpp:1404
-#, fuzzy, kde-format
-#| msgid "Copy tags from previous image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr "Önceki görselden etiketleri kopyala"
+msgstr "Önceki Görselden Veriyi Kopyala"
 
 #: Viewer/ViewerWidget.cpp:1405
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "Kontrol+C"
 
 #: Viewer/ViewerWidget.cpp:1408
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "Açıklama"
+msgstr "Açıklamayı Düzenle"
 
 #: Viewer/ViewerWidget.cpp:1409
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr ""
+msgstr "Kontrol+D"
 
 #: Viewer/ViewerWidget.cpp:1412
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation Mode"
-msgstr "Bilgi Notları"
+msgstr "Bilgi Notu Kipi"
 
 #: Viewer/ViewerWidget.cpp:1414
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "Kilitli"
 
 #: Viewer/ViewerWidget.cpp:1415
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "Kontrol+L"
 
 #: Viewer/ViewerWidget.cpp:1419
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "Etiketler Ata"
 
 #: Viewer/ViewerWidget.cpp:1420
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1423
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "Jetonlar"
+msgstr "Jetonlar Ata"
 
 #: Viewer/ViewerWidget.cpp:1424
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr ""
+msgstr "Kontrol+T"
 
 #: Viewer/ViewerWidget.cpp:1567
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Token %1"
-msgstr "Jetonlar"
+msgstr "Jeton %1"
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format

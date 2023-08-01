@@ -81,7 +81,7 @@ ImageScoutThread::ImageScoutThread(ImageScoutQueue &queue, QMutex *mutex,
     , m_scoutBufSize(DEFAULT_SCOUT_BUFFER_SIZE)
     , m_maxSeekAhead(DEFAULT_MAX_SEEKAHEAD_IMAGES)
     , m_readLimit(-1)
-    , m_preloadFunc(NULL)
+    , m_preloadFunc(nullptr)
     , m_isStarted(false)
 {
 }
@@ -184,7 +184,7 @@ ImageScout::ImageScout(ImageScoutQueue &images,
     , m_scoutBufSize(DEFAULT_SCOUT_BUFFER_SIZE)
     , m_maxSeekAhead(DEFAULT_MAX_SEEKAHEAD_IMAGES)
     , m_readLimit(-1)
-    , m_preloadFunc(NULL)
+    , m_preloadFunc(nullptr)
 {
     if (threads > 0) {
         for (int i = 0; i < threads; i++) {

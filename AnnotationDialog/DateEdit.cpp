@@ -131,7 +131,7 @@ bool AnnotationDialog::DateEdit::validate(const QDate &)
 QDate AnnotationDialog::DateEdit::date() const
 {
     QDate dt;
-    readDate(dt, 0);
+    readDate(dt, nullptr);
     return dt;
 }
 
@@ -169,7 +169,7 @@ void AnnotationDialog::DateEdit::showPopup()
     m_DateFrame->move(popupPoint);
 
     QDate newDate;
-    readDate(newDate, 0);
+    readDate(newDate, nullptr);
     if (newDate.isValid()) {
         m_DatePicker->setDate(newDate);
     } else {
@@ -221,7 +221,7 @@ void AnnotationDialog::DateEdit::lineEnterPressed()
 bool AnnotationDialog::DateEdit::inputIsValid() const
 {
     QDate inputDate;
-    return readDate(inputDate, 0) && inputDate.isValid();
+    return readDate(inputDate, nullptr) && inputDate.isValid();
 }
 
 /* Reads the text from the line edit. If the text is a keyword, the

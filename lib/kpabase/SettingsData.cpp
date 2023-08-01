@@ -457,10 +457,10 @@ property_copy(updateDescription, setUpdateDescription, bool, ExifImport, false)
     ///////////////////////
 
     // clang-format off
-property_ref_(HTMLBaseDir, setHTMLBaseDir, QString, groupForDatabase("HTML Settings"), QString::fromLocal8Bit(qgetenv("HOME")) + STR("/public_html"))
-property_ref_(HTMLBaseURL, setHTMLBaseURL, QString, groupForDatabase("HTML Settings"), STR("file://") + HTMLBaseDir())
-property_ref_(HTMLDestURL, setHTMLDestURL, QString, groupForDatabase("HTML Settings"), STR("file://") + HTMLBaseDir())
-property_ref_(HTMLCopyright, setHTMLCopyright, QString, groupForDatabase("HTML Settings"), STR(""))
+    property_ref_(HTMLBaseDir, setHTMLBaseDir, QString, groupForDatabase("HTML Settings"), QString::fromLatin1("%1/public_html").arg(QString::fromLocal8Bit(qgetenv("HOME"))))
+property_ref_(HTMLBaseURL, setHTMLBaseURL, QString, groupForDatabase("HTML Settings"), STR("file://%1").arg(HTMLBaseDir()))
+property_ref_(HTMLDestURL, setHTMLDestURL, QString, groupForDatabase("HTML Settings"), STR("file://%1").arg(HTMLBaseDir()))
+property_ref_(HTMLCopyright, setHTMLCopyright, QString, groupForDatabase("HTML Settings"), QString())
 property_ref_(HTMLDate, setHTMLDate, int, groupForDatabase("HTML Settings"), true)
 property_ref_(HTMLTheme, setHTMLTheme, int, groupForDatabase("HTML Settings"), -1)
 property_ref_(HTMLKimFile, setHTMLKimFile, int, groupForDatabase("HTML Settings"), true)
@@ -469,13 +469,13 @@ property_ref_(HTML5Video, setHTML5Video, int, groupForDatabase("HTML Settings"),
 property_ref_(HTML5VideoGenerate, setHTML5VideoGenerate, int, groupForDatabase("HTML Settings"), true)
 property_ref_(HTMLThumbSize, setHTMLThumbSize, int, groupForDatabase("HTML Settings"), 128)
 property_ref_(HTMLNumOfCols, setHTMLNumOfCols, int, groupForDatabase("HTML Settings"), 5)
-property_ref_(HTMLSizes, setHTMLSizes, QString, groupForDatabase("HTML Settings"), STR(""))
-property_ref_(HTMLIncludeSelections, setHTMLIncludeSelections, QString, groupForDatabase("HTML Settings"), STR(""))
+property_ref_(HTMLSizes, setHTMLSizes, QString, groupForDatabase("HTML Settings"), QString())
+property_ref_(HTMLIncludeSelections, setHTMLIncludeSelections, QString, groupForDatabase("HTML Settings"), QString())
     // clang-format on
 
     QDate SettingsData::fromDate() const
 {
-    QString date = cfgValue("Miscellaneous", "fromDate", STR(""));
+    QString date = cfgValue("Miscellaneous", "fromDate", QString());
     return date.isEmpty() ? QDate(QDate::currentDate().year(), 1, 1) : QDate::fromString(date, Qt::ISODate);
 }
 
@@ -487,7 +487,7 @@ void SettingsData::setFromDate(const QDate &date)
 
 QDate SettingsData::toDate() const
 {
-    QString date = cfgValue("Miscellaneous", "toDate", STR(""));
+    QString date = cfgValue("Miscellaneous", "toDate", QString());
     return date.isEmpty() ? QDate(QDate::currentDate().year() + 1, 1, 1) : QDate::fromString(date, Qt::ISODate);
 }
 

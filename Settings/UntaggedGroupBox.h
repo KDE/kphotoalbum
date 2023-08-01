@@ -18,7 +18,7 @@ class UntaggedGroupBox : public QGroupBox
 {
     Q_OBJECT
 public:
-    explicit UntaggedGroupBox(QWidget *parent = 0);
+    explicit UntaggedGroupBox(QWidget *parent = nullptr);
     void loadSettings(Settings::SettingsData *opt);
     void saveSettings(Settings::SettingsData *opt);
     void categoryAdded(const QString &categoryName);

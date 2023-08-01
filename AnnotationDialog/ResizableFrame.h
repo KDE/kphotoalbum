@@ -10,7 +10,6 @@
 #define RESIZABLEFRAME_H
 
 #include "Dialog.h"
-#include "ListSelect.h"
 
 #include <kpabase/enums.h>
 
@@ -44,7 +43,7 @@ class ResizableFrame : public QFrame
     Q_PROPERTY(bool associated READ associated)
 
 public:
-    explicit ResizableFrame(QWidget *parent = 0);
+    explicit ResizableFrame(QWidget *parent = nullptr);
     ~ResizableFrame() override;
 
     void setActualCoordinates(QRect actualCoordinates);

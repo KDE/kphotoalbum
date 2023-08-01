@@ -53,7 +53,7 @@ bool Utilities::loadJPEG(QImage *img, const DB::FileName &imageFile, QSize *full
         FILE *inputFile = fopen(QFile::encodeName(imageFile.absolute()).constData(), "rb");
         if (!inputFile)
             return false;
-        ok = loadJPEGInternal(img, inputFile, fullSize, dim, NULL, 0);
+        ok = loadJPEGInternal(img, inputFile, fullSize, dim, nullptr, 0);
         fclose(inputFile);
     } else {
         // May be more than is needed, but less likely to fragment memory this
@@ -73,7 +73,7 @@ bool Utilities::loadJPEG(QImage *img, const DB::FileName &imageFile, QSize *full
             offset += bytes;
             bytesLeft -= bytes;
         }
-        ok = loadJPEGInternal(img, NULL, fullSize, dim, membuf, statbuf.st_size);
+        ok = loadJPEGInternal(img, nullptr, fullSize, dim, membuf, statbuf.st_size);
         (void)close(inputFD);
     }
     return ok;
@@ -81,7 +81,7 @@ bool Utilities::loadJPEG(QImage *img, const DB::FileName &imageFile, QSize *full
 
 bool Utilities::loadJPEG(QImage *img, const DB::FileName &imageFile, QSize *fullSize, int dim)
 {
-    return loadJPEG(img, imageFile, fullSize, dim, NULL, 0);
+    return loadJPEG(img, imageFile, fullSize, dim, nullptr, 0);
 }
 
 bool Utilities::loadJPEG(QImage *img, const QByteArray &data, QSize *fullSize, int dim)

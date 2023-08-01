@@ -10,7 +10,7 @@ class Slider : public QSlider
 {
     Q_OBJECT
 public:
-    Slider(QWidget *parent = 0);
+    Slider(QWidget *parent = nullptr);
 
 Q_SIGNALS:
     void onEnter();

@@ -16,7 +16,7 @@ class FileName;
 namespace Utilities
 {
 bool loadJPEG(QImage *img, const DB::FileName &imageFile, QSize *fullSize, int dim = -1);
-bool loadJPEG(QImage *img, const DB::FileName &imageFile, QSize *fullSize, int dim = -1, char *membuf = NULL, size_t membufSize = 0);
+bool loadJPEG(QImage *img, const DB::FileName &imageFile, QSize *fullSize, int dim = -1, char *membuf = nullptr, size_t membufSize = 0);
 bool loadJPEG(QImage *img, const QByteArray &data, QSize *fullSize, int dim = -1);
 bool isJPEG(const DB::FileName &fileName);
 }

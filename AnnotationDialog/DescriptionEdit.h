@@ -17,7 +17,7 @@ class DescriptionEdit : public KTextEdit
     Q_OBJECT
 
 public:
-    explicit DescriptionEdit(QWidget *parent = 0);
+    explicit DescriptionEdit(QWidget *parent = nullptr);
     ~DescriptionEdit() override;
 
 Q_SIGNALS:

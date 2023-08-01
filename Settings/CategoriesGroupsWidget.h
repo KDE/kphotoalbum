@@ -20,7 +20,7 @@ class CategoriesGroupsWidget : public QTreeWidget
     Q_OBJECT
 
 public:
-    explicit CategoriesGroupsWidget(QWidget *parent = 0);
+    explicit CategoriesGroupsWidget(QWidget *parent = nullptr);
     ~CategoriesGroupsWidget() override;
 
 private: // Functions

@@ -52,11 +52,11 @@ Settings::SettingsDialog::SettingsDialog(QWidget *parent)
         { SettingsPage::ViewerPage, i18n("Viewer"), "document-preview", m_viewerPage },
         { SettingsPage::ExifPage, i18n("Exif/IPTC Information"), "document-properties", m_exifPage },
         { SettingsPage::DatabaseBackendPage, i18n("Database Backend"), "document-save", m_databaseBackendPage },
-        { SettingsPage::GeneralPage, QString(), "", 0 }
+        { SettingsPage::GeneralPage, QString(), "", nullptr }
     };
 
     int i = 0;
-    while (data[i].widget != 0) {
+    while (data[i].widget) {
         KPageWidgetItem *page = new KPageWidgetItem(data[i].widget, data[i].title);
         page->setHeader(data[i].title);
         page->setIcon(QIcon::fromTheme(QString::fromLatin1(data[i].icon)));

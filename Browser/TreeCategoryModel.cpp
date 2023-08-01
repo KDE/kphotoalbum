@@ -41,7 +41,7 @@ Browser::TreeCategoryModel::TreeCategoryModel(const DB::CategoryPtr &category,
     : AbstractCategoryModel(category, info)
 {
     m_data = new Data(QString());
-    createData(m_category->itemsCategories().data(), 0);
+    createData(m_category->itemsCategories().data(), nullptr);
 
     if (hasNoneEntry()) {
         Data *data = new Data(DB::ImageDB::NONE());

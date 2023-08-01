@@ -190,7 +190,7 @@ void Viewer::ImageDisplay::zoom(QPoint p1, QPoint p2)
 
 QPoint Viewer::ImageDisplay::mapPos(QPoint p)
 {
-    QPoint off = offset(qAbs(m_zEnd.x() - m_zStart.x()), qAbs(m_zEnd.y() - m_zStart.y()), width(), height(), 0);
+    QPoint off = offset(qAbs(m_zEnd.x() - m_zStart.x()), qAbs(m_zEnd.y() - m_zStart.y()), width(), height(), nullptr);
     p -= off;
     int x = (int)(m_zStart.x() + (m_zEnd.x() - m_zStart.x()) * ((double)p.x() / (width() - 2 * off.x())));
     int y = (int)(m_zStart.y() + (m_zEnd.y() - m_zStart.y()) * ((double)p.y() / (height() - 2 * off.y())));
@@ -200,7 +200,7 @@ QPoint Viewer::ImageDisplay::mapPos(QPoint p)
 
 void Viewer::ImageDisplay::xformPainter(QPainter *p)
 {
-    QPoint off = offset(qAbs(m_zEnd.x() - m_zStart.x()), qAbs(m_zEnd.y() - m_zStart.y()), width(), height(), 0);
+    QPoint off = offset(qAbs(m_zEnd.x() - m_zStart.x()), qAbs(m_zEnd.y() - m_zStart.y()), width(), height(), nullptr);
     double s = (width() - 2 * off.x()) / qAbs((double)m_zEnd.x() - m_zStart.x());
     p->scale(s, s);
     p->translate(-m_zStart.x(), -m_zStart.y());

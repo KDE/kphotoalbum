@@ -79,7 +79,7 @@ void DB::Category::setIconName(const QString &name)
 
 QPixmap DB::Category::icon(int size, KIconLoader::States state) const
 {
-    QPixmap pixmap = KIconLoader::global()->loadIcon(iconName(), KIconLoader::Desktop, size, state, QStringList(), 0L, true);
+    QPixmap pixmap = KIconLoader::global()->loadIcon(iconName(), KIconLoader::Desktop, size, state, QStringList(), nullptr, true);
     DB::Category *This = const_cast<DB::Category *>(this);
     if (pixmap.isNull()) {
         This->blockSignals(true);

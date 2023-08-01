@@ -637,7 +637,7 @@ void AnnotationDialog::ListSelect::populateAlphaTree()
     DB::CategoryItemPtr item = m_category->itemsCategories();
 
     m_treeWidget->setRootIsDecorated(true);
-    addItems(item.data(), 0);
+    addItems(item.data(), nullptr);
     m_treeWidget->sortByColumn(0, Qt::AscendingOrder);
     m_treeWidget->setSortingEnabled(true);
 }
@@ -714,7 +714,7 @@ QTreeWidgetItem *AnnotationDialog::ListSelect::getUntaggedImagesTag()
 
     // Be sure not to crash here in case the config points to a non-existent tag
     if (matchingTags.at(0) == nullptr) {
-        return 0;
+        return nullptr;
     } else {
         return matchingTags.at(0);
     }

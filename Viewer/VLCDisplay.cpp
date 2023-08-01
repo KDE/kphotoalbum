@@ -55,7 +55,7 @@ void Viewer::VLCDisplay::setPosition(int newPosition)
     // It's possible that the vlc doesn't play anything
     // so check before
     libvlc_media_t *curMedia = libvlc_media_player_get_media(m_player);
-    if (curMedia == NULL)
+    if (curMedia == nullptr)
         return;
 
     float pos = (float)(newPosition) / (float)m_videoToolBar->maximum();

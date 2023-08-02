@@ -104,7 +104,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Do</literal
 > kan dus voldoende zijn om <literal
 >Donna</literal
-> te vinden. Op het moment dat u het item heeft gevonden, hoeft u alleen maar op &Enter; te drukken om dit item in de keuzelijst te selecteren. Het item zal nu bovenaan de lijst worden geplaatst en is daarom de volgende keer nog makkelijker te vinden. Er ook een "naadloze" manier van annoteren in het afbeeeldingsvenster, de beschrijving hiervan vindt u later in <xref linkend="category-selectors-in-viewer"/>.</para>
+> te vinden. Op het moment dat u het item heeft gevonden, hoeft u alleen maar op &Enter; te drukken om dit item in de keuzelijst te selecteren. Het item zal nu bovenaan de lijst worden geplaatst en is daarom de volgende keer nog makkelijker te vinden.</para>
 
       <para
 >Het idee achter het verplaatsen van items naar de top wanneer ze geselecteerd zijn is dat, wanneer u bijvoorbeeld naar een familiefeestje bent gegaan, u misschien 50 afbeeldingen heeft met allemaal dezelfde 5-10 mensen erop. Tijdens het invoeren van de informatie over deze 50 afbeeldingen heeft u de 5-10 mensen bovenaan de keuzelijst staan vanaf het moment dat u voor de eerste keer hun naam hebt ingevoerd.</para>
@@ -209,7 +209,37 @@ SPDX-License-Identifier: GFDL-1.2-only
 
   </sect1>
 
-  </chapter>
+<sect1>
+    <title
+>Annoteren tijdens bekijken van afbeeldingen</title>
+    <para
+>Gedurende enkele tientallen jaren gaven we tags aan afbeeldingen zoals boven beschreven, maar in de zomer van 2023, begon het mogelijk te worden tags aan afbeeldingen  te geven tijdens het bekijken ervan. Deze functie ondersteunt niet alle boven beschreven functies, maar het biedt een veel snellere werkwijze om afbeeldingen een tag te geven.</para>
+    <para
+>Ontbrekende functies bij annoteren van afbeeldingen vanuit de viewer, die u nodig hebt om in deze dialoog te geraken:</para>
+    <itemizedlist>
+    <listitem
+><para
+>Meerdere afbeeldingen tegelijk van een annotatie voorzien</para
+></listitem>
+    <listitem
+><para
+>Individuele delen van een afbeelding van een tag voorzien (dit gezicht is ...)</para
+></listitem>
+    <listitem
+><para
+>Instellen van groepen tags (&ie; specificeren dat Las Vegas in de VS is, zodat u afbeeldingen met tag Las Vegas ziet wanneer u afbeeldingen bekijkt uit de VS)</para
+></listitem>
+    <listitem
+><para
+>Afbeeldingdatums instellen</para
+></listitem>
+    </itemizedlist>
+    <para>
+    <link linkend="annotating-from-the-viewer"
+>Zie de sectie over annoteren vanuit de viewer</link>
+    </para>
+</sect1>
+</chapter>
 
 
 <!-- Keep this comment at the end of the file

@@ -215,28 +215,28 @@ SPDX-License-Identifier: GFDL-1.2-only
     <para
 >Durant algunes dècades hem etiquetat les imatges tal com s'ha descrit anteriorment, però a l'estiu de 2023 va començar a ser possible etiquetar les imatges mentre les veiem. Aquesta utilitat no admet totes les característiques descrites anteriorment, però ofereix un flux de treball molt més ràpid per etiquetar imatges.</para>
     <para
->Missing features when annotating images from the viewer, which you need to come to this dialog for are:</para>
+>Manquen característiques en anotar imatges des del visualitzador, per a les quals heu d'anar a aquest diàleg:</para>
     <itemizedlist>
     <listitem
 ><para
->Annotating multiple images at a time</para
+>Anotar múltiples imatges alhora</para
 ></listitem>
     <listitem
 ><para
->Tagging individual parts of an image (this face is ...)</para
+>Etiquetar parts individuals d'una imatge (aquesta cara és...)</para
 ></listitem>
     <listitem
 ><para
->Setting up tag groups (&ie; specifying that Las Vegas is in USA, so you will see images tagged Las Vegas when watching images from USA)</para
+>Configuració de grups d'etiquetes (&ead;, especificant que Las Vegas està als EUA, de manera que veureu les imatges etiquetades Las Vegas quan mireu les imatges dels EUA)</para
 ></listitem>
     <listitem
 ><para
->Setting image dates</para
+>Establir les dates de les imatges</para
 ></listitem>
     </itemizedlist>
     <para>
     <link linkend="annotating-from-the-viewer"
->See the section on annotating from the viewer</link>
+>Vegeu la secció sobre anotar des del visualitzador</link>
     </para>
 </sect1>
 </chapter>

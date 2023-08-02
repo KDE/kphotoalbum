@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-31 00:44+0000\n"
-"PO-Revision-Date: 2023-07-31 13:47+0300\n"
+"PO-Revision-Date: 2023-08-02 00:49+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -3408,7 +3408,7 @@ msgstr "Halihazırda yığında olan görselleri atla"
 #: MainWindow/CategoryImagePopup.cpp:49
 #, kde-format
 msgid "Show Category Editor"
-msgstr "Kategori Düzenleyiciyi Göster"
+msgstr "Kategori Düzenleyicisini Göster"
 
 #: MainWindow/CategoryImagePopup.cpp:70
 #, kde-format

@@ -182,8 +182,12 @@ void SelectCategoryAndValue::setupExistingAssignments(const Viewer::AnnotationHa
     model->setHorizontalHeaderLabels(QStringList { i18n("Key"), i18n("Tag") });
     int row = 0;
     auto addAssignment = [&](const QString &key, const QString &assignment) {
-        model->setItem(row, 0, new QStandardItem(key));
-        model->setItem(row, 1, new QStandardItem(assignment));
+        auto *keyItem = new QStandardItem(key);
+        keyItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+        model->setItem(row, 0, keyItem);
+        auto *assignmentItem = new QStandardItem(assignment);
+        assignmentItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+        model->setItem(row, 1, assignmentItem);
         ++row;
     };
 

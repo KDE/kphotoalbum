@@ -6740,26 +6740,3 @@ msgstr "Показване размер на изображението"
 #, kde-format
 msgid "Show Rating"
 msgstr "Показване на оценките"
-
-#~ msgctxt "OSD for slideshow, num of seconds per image"
-#~ msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
-#~ msgstr "<p><center><font size=\"+4\">%1&nbsp;с</font></center></p>"
-
-#~ msgctxt "OSD for slideshow"
-#~ msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
-#~ msgstr ""
-#~ "<p><center><font size=\"+4\">Край на прожекцията</font></center></p>"
-
-#~ msgctxt "Basically 'enter a category name'"
-#~ msgid "<b>Setting Category: </b>"
-#~ msgstr "<b>Задаване на категория: </b> "
-
-#~ msgctxt "Basically 'enter a tag name'"
-#~ msgid "<b>Assigning: </b>"
-#~ msgstr "<b>Задаване: </b> "
-
-#~ msgid "Recalculate Checksum"
-#~ msgstr "Преизчисляване на контролна сума"
-
-#~ msgid "Really Rename %1?"
-#~ msgstr "Наистина ли да се преименува %1?"

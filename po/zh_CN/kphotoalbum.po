@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-31 00:44+0000\n"
-"PO-Revision-Date: 2023-07-30 07:09\n"
+"PO-Revision-Date: 2023-08-02 12:40\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -5854,10 +5854,9 @@ msgid "Tag Item"
 msgstr ""
 
 #: Viewer/AnnotationHandler.cpp:111
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select tag for image"
-msgstr "选择目标:"
+msgstr ""
 
 #: Viewer/CategoryImageConfig.cpp:33
 #, kde-format
@@ -5947,24 +5946,21 @@ msgid "Key"
 msgstr ""
 
 #: Viewer/SelectCategoryAndValue.cpp:182
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "标记："
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "确定对话框"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "标签"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
@@ -5974,11 +5970,9 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
-msgstr "名称"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: Viewer/SelectCategoryAndValue.ui:120
@@ -6196,17 +6190,14 @@ msgid "Pause"
 msgstr "Pause"
 
 #: Viewer/ViewerWidget.cpp:592
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "locked"
-msgstr "解除锁定"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:594
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "annotating"
-msgstr "注释"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:596
 #, kde-format
@@ -6219,12 +6210,10 @@ msgid "Change display mode to %1"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:836
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Slideshow"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "幻灯片放映"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:839
 #, kde-format
@@ -6247,18 +6236,16 @@ msgid "%1&nbsp;s"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1137
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "描述"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1137
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "描述"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1152
 #, kde-format
@@ -6403,11 +6390,9 @@ msgid ""
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1379
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgid "Annotate"
-msgstr "注释..."
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1398
 #, kde-format
@@ -6416,11 +6401,10 @@ msgid "Help"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1400
-#, fuzzy, kde-format
-#| msgid "Annotation Dialog"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
-msgstr "注释对话框"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1401
 #, kde-format
@@ -6435,11 +6419,10 @@ msgid "CTRL+a"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1404
-#, fuzzy, kde-format
-#| msgid "Copy tags from previous image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr "从上一张图像复制标记"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1405
 #, kde-format
@@ -6448,11 +6431,10 @@ msgid "CTRL+c"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1408
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "描述"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1409
 #, kde-format
@@ -6461,11 +6443,9 @@ msgid "CTRL+d"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1412
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation Mode"
-msgstr "注释"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1414
 #, kde-format
@@ -6492,11 +6472,10 @@ msgid "F2"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1423
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "标记"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1424
 #, kde-format
@@ -6505,10 +6484,9 @@ msgid "CTRL+t"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1567
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Token %1"
-msgstr "标记"
+msgstr ""
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format

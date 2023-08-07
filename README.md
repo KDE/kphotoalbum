@@ -1,7 +1,8 @@
 KPhotoAlbum
 ===========
 
-For information about KPhotoAlbum, see the home page at
+For a quick overview, see [KPhotoAlbums page on apps.kde.org](https://apps.kde.org/de/kphotoalbum/).
+For more information about KPhotoAlbum, see the home page at
 https://www.kphotoalbum.org/
 
 ## Continuous Integration Results

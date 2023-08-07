@@ -104,7 +104,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Do</literal
 > kan vara nog för att hitta <literal
 >Donna</literal
->. När du väl har hittat värdet du letade efter, tryck helt enkelt på returtangenten för att välja värdet i listrutan. Värdet flyttas nu överst i listan, så att nästa gång du behöver det angivna värdet är det ännu lättare att hitta. Det finns också ett "sömlöst" sätt att lägga till en beskrivning från bildvisningen som beskrivs senare i <xref linkend="category-selectors-in-viewer"/>.)</para>
+>. När du väl har hittat värdet du letade efter, tryck helt enkelt på returtangenten för att välja värdet i listrutan. Värdet flyttas nu överst i listan, så att nästa gång du behöver det angivna värdet är det ännu lättare att hitta.</para>
 
       <para
 >Idén bakom att flytta bilder längst upp när det har markerats, är att om du till exempel deltar i en familjefest, får du kanske 50 bilder med samma 5-10 personer. När du skriver in information om de 50 bilderna, har du de 5-10 personerna överst i listrutan så fort du har skrivit in deras namn första gången.</para>
@@ -209,7 +209,37 @@ SPDX-License-Identifier: GFDL-1.2-only
 
   </sect1>
 
-  </chapter>
+<sect1>
+    <title
+>Beskriva medan bilder visas</title>
+    <para
+>Några tioårsperioder etiketterade vi våra bilder som beskrevs ovan, men sommaren 2023 började det vara möjligt att etikettera bilder medan man tittar på dem. Funktionen stöder inte allt som beskrivs ovan, men den erbjuder ett mycket snabbare arbetsflöde för att etiketter bilder.</para>
+    <para
+>Funktioner som saknas när bilder beskrivs från visningen, som du måste gå till dialogrutan för är:</para>
+    <itemizedlist>
+    <listitem
+><para
+>Beskriva flera bilder åt gången</para
+></listitem>
+    <listitem
+><para
+>Etiketter individuella delar av en bild (ansiktet är ...)</para
+></listitem>
+    <listitem
+><para
+>Ställa in etikettgrupper (dvs. ange att Las Vegas är i USA, så att du ser bilder etiketterade som Las Vegas när du tittar på bilder från USA)</para
+></listitem>
+    <listitem
+><para
+>Ange bildernas datum</para
+></listitem>
+    </itemizedlist>
+    <para>
+    <link linkend="annotating-from-the-viewer"
+>Se avsnittet om beskriva från visningen</link>
+    </para>
+</sect1>
+</chapter>
 
 
 <!-- Keep this comment at the end of the file

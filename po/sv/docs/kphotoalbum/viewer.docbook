@@ -113,17 +113,85 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 
 
+<sect1 id="annotating-from-the-viewer">
+<title
+>Beskriva bilder från visningen</title>
+<para
+>Traditionellt har det huvudsakliga sättet att etikettera bilder varit genom <link linkend="chp-typingIn"
+>beskrivningsdialogrutan</link
+>. Under årens lopp har ett par olika försök gjorts att integrera beskrivning i visningen. Första försöket var genom att tilldela värden i visningen, ett senare försök var genom att göra det möjligt att etikettera direkt genom att skriva in en del av ett kategoriobjekt. Dessutom kan kategoriobjekt tilldelas funktionstangenter på tangentbordet. Koden för allt detta har nu moderniserats för att göra arbetsflödet mycket mer intuitivt och lättupptäckt.</para>
+
+<para
+>Det finns tre lägen för att beskriva bilder i visningen:</para>
+<itemizedlist>
+    <listitem
+><para
+><emphasis
+>Låst</emphasis
+>: Det är förvalt läge när du startar visningen, här kan ingen anteckning eller värdetillägg ske. Det säkerställer att du inte av misstag beskriver bilder när du tittar på dem.</para
+></listitem>
+    <listitem
+><para
+><emphasis
+>Tilldela värden</emphasis
+>: Det låter dig ange värden för bilder, genom att helt enkelt trycka på en tangent från A-Z på tangentbordet.</para
+></listitem>
+    <listitem
+><para
+><emphasis
+>Tilldela etiketter</emphasis
+>: Det låter dig tilldela makron till en tangent på tangentbordet. Som ett exempel, skulle <emphasis
+>L</emphasis
+> kunna betyda att lägga till <emphasis
+>Las Vegas</emphasis
+> i kategorin <emphasis
+>Plats</emphasis
+>. Förutom det, låter det dig tilldela vilken etikett som helst till en bild.</para
+></listitem>
+</itemizedlist>
+<para
+>Lägena kan väljas från den sammanhangsberoende menyn, som visas i <xref linkend="fig-ctxmenu-for-mode-selection"/>. </para>
+<para
+>De två lägena beskrivs detaljerat nedan. </para>
+
+  <figure id="fig-ctxmenu-for-mode-selection">
+    <title
+>Välja beskrivningsmetod i visningen</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="annotation-mode.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+</sect1>
+
+
+
+
 <sect1 id="tokens">
 <title
 >Ange värden i visningen</title>
 <para
->När du tittar på bilderna kanske du märker att en viss bild innehåller en person som du glömt att ange för bilderna. Nu kan du avbryta visningen, och hasta till bildinställningsdialogrutan för att ange personen. Ofta vill du dock bara markera bilden och fortsätta titta på bilderna.</para>
+>Föreställ dig att du vill skicka ett antal bilder till en skrivare för att skriva ut dem på papper. För att se vilka du vill ha, startar du bildvisningen med bilderna, och markerar dem som <emphasis
+>bra</emphasis
+>, <emphasis
+>dåliga</emphasis
+> eller <emphasis
+>kanske</emphasis
+>, medan du tittar på var och en.</para>
 
 <para
->En alternativ situation är följande: Du vill skicka ett antal bilder till en skrivare för att skriva ut dem på papper. För att se vilka du vill skriva ut, startar du bildvisningen med bilderna, och nu vill du markera bilderna som bra eller dåliga medan du tittar på varje bild.</para>
-
-<para
->För ovanstående två exempel erbjuder bildvisningen möjlighet att ange värden för varje bild medan du tittar på dem. Värden är namn från A till Z, och du anger ett värde genom att helt enkelt trycka på bokstaven för värdet. Du kan se en bild där värdena A, B och C är angivna i <xref linkend="fig-images-with-tokens"/>.</para>
+>Du kan förstås skapa några nya värden (såsom <emphasis
+>Bra</emphasis
+>, <emphasis
+>Dålig</emphasis
+>, <emphasis
+>Kanske</emphasis
+>) för en befintlig kategori, exempelvis kategorin <emphasis
+>Album</emphasis
+>. Dock, givet att du troligen inte behöver etiketterna när du väl har skickat bilderna till skrivaren, finns det ett enklare sätt, nämligen att helt enkelt ange värden för bilderna. Värden är namngivna  från A till Z, och du anger ett värde genom att helt enkelt trycka på bokstaven för värdet. Du kan se en bild där värdena A, B och C är angivna i <xref linkend="fig-images-with-tokens"/>.</para>
 
   <figure id="fig-images-with-tokens">
     <title
@@ -136,8 +204,15 @@ SPDX-License-Identifier: GFDL-1.2-only
     </mediaobject>
   </figure>
 
+  <para
+>För att det ska fungera, måste läget vara <emphasis
+>Tilldela värden</emphasis
+>. Se <xref linkend="fig-ctxmenu-for-mode-selection"/>.</para>
+
 <para
->När du väl har angivit värden för bilderna, är de tillgängliga för vanlig bläddring i bläddraren, som visas i <xref linkend="fig-tokens-in-browser"/>. När du alltså har markerat bilder som ska redigeras, skrivas ut eller något annat, bläddra helt enkelt till bilderna och ange en beskrivning för alla bilder samtidigt (som framgår av <xref linkend="sect-specifying-properties-for-all-images-simultaneously"/>), använd insticksprogrammet för att kopiera valda bilder till en cd, eller vad du än vill göra.</para>
+>När du väl har angivit värden för bilderna, är de tillgängliga för vanlig bläddring i bläddraren, som visas i <xref linkend="fig-tokens-in-browser"/>. Så när du har markerat bilder som ska redigeras, skrivas ut eller något annat, bläddra helt enkelt till bilderna och behandla uppsättningen därifrån, t.ex. genom att använda <emphasis
+>kopiera bilder till...</emphasis
+> i den sammanhangsberoende menyn.</para>
 
   <figure id="fig-tokens-in-browser">
     <title
@@ -168,150 +243,98 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 </sect1>
 
-<sect1 id="category-selectors-in-viewer">
+<sect1>
     <title
->Ange kategorier i visningen</title>
-    <para
->Kategori kan väljas i visaren genom att börja skriva kategorinamnet. Valet görs omedelbart när det bara finns en kategori kvar som passar in.</para>
+>Etikettera bilder i visningen</title>
+<para
+>Att etikettera bilder kan vara tröttsamt, även i &kphotoalbum;, åtminstone när du har hamnat på efterkälken och har tusentals eller tiotusentals bilder i behov av korrekt etikettering. Lyckligtvis är det nu möjligt att lägga till etiketter med en enda knapptryckning när du tittar på bilderna. Insikten bakom det här sättet att arbeta med bilder är att de flesta bilder har samma fåtal personer på samma fåtal ställen, plus några "gästframträdanden" då och då, såsom stället du semestrade, eller några vänner som var på besök hos dig en vecka.</para>
 
-    <para
->Skriv helt enkelt bara in snedstreck (/) för att byta till kategorivalsläge. Möjliga alternativ visas efter Tilldelning:text i krullparenteser, och ändras omedelbart så fort fler bokstäver skrivs in. När en kategori har valts, kan du fortsätta att skriva för att välja objektets värde. Följande bild visar detta i arbete, och nedan följer en förklaring av hur det hela fungerar. </para>
+<para
+>För att etikettera bilder medan du titta på dem, måste du starta <emphasis
+>Tilldela etiketter</emphasis
+>: se <xref linkend="fig-ctxmenu-for-mode-selection"/>. När det är aktiverat, tryck helt enkelt på en bokstavstangent på tangentbordet för att antingen tilldela eller använda den tilldelade etiketten.</para>
 
+<para
+>I <xref linkend="fig-assign-macro-step1"/> nedan, har jag just tryckt på <keycap
+>s</keycap
+> medan jag tittar på bilder och använder läget  <emphasis
+>Tilldela etiketter</emphasis
+>. Det visade en dialogruta där jag kan ange vilken etikett som ska tilldelas till tangenten.</para>
 
-<figure id="category-selectors">
-<title
->Välja kategorier i visningen</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="category-selectors.png" format="PNG"/>
-</imageobject>
-</mediaobject>
+<figure id="fig-assign-macro-step1">
+  <title
+>Steg 1: tilldela ett makro till tangenten <emphasis
+>s</emphasis
+></title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-step1.png" format="PNG"/></imageobject>
+   </mediaobject>
 </figure>
 
 <para
->Följ inställningen av kategori nedan för att förstå förklaringen bättre. Börja med att skriva "/k", så byter indatavalet från "värden" till "Keywords" (eftersom K är unikt). Att därefter skriva "g" tilldelar omedelbart nyckelordet "good" till bilden. Att skriva "b" visar B{ad,oring} i informationsrutan och att därefter skriva "a" eller "o" gör matchningen fullständig och tilldelar resultatet till bilden. Att skriva "/p" fungerar på liknande sätt, och visar den partiella matchningen "P{eople,laces}" så att du kan skriva "e" eller "l" för att antingen komplettera "People" eller "Places". <itemizedlist mark='opencircle'>
-    <listitem
-><para
->Värden</para>
-    <itemizedlist mark='opencircle'>
-        <listitem
-><para
->A..Z</para
-></listitem>
-    </itemizedlist>
-    </listitem>
-    <listitem>
-    <para
->Nyckelord</para>
-    <itemizedlist mark='opencircle'>
-        <listitem
-><para
->Bra</para
-></listitem>
-        <listitem
-><para
->Dålig</para
-></listitem>
-        <listitem
-><para
->Tråkig</para
-></listitem>
-    </itemizedlist>
-    </listitem>
-    <listitem>
-    <para
->Personer</para>
-    <itemizedlist mark='opencircle'>
-        <listitem
-><para
->George</para
-></listitem>
-        <listitem
-><para
->Fred</para
-></listitem>
-    </itemizedlist>
-    </listitem>
-    <listitem>
-    <para
->Platser</para>
-    <itemizedlist mark='opencircle'>
-        <listitem
-><para
->Internet</para
-></listitem>
-    </itemizedlist>
-    </listitem>
-</itemizedlist>
-</para>
-
-<sect2>
-    <title
->Exakta ord</title>
-<para
->Om du vill infoga ett nytt ord, eller ha ord som boa och boaorm måste du kunna skriva in exakt det ord du vill infoga eller välja. Det kan åstadkommas genom att inleda ordet med ett dubbelt citationstecken (") och avsluta med ett kommatecken (,). Om boa skulle väljas omedelbart när det skrivs in skulle du inte kunna välja boaorm, och om vi istället skulle vänta på fler tangentnedtryckningar skulle du inte kunna välja boa. <figure id="keyword-exact">
-<title
->Välja exakta ord i visningen</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="keyword-exact.png" format="PNG"/>
-</imageobject>
-</mediaobject>
-</figure>
-</para>
-</sect2>
-
-<sect2>
-    <title
->Börja alltid med att välja kategori</title>
-<para
->Om du skriver in två '/' i rad byter det mellan två olika lägen. Standardläget som beskrivs ovan och ett läge för kategorival. I det senare läget, går vi direkt tillbaka till ett kategorival efter en träff. På så sätt kan du kontinuerligt välja objekt med inom olika kategorier. Det ger fortfarande den snabbast möjliga matchningen så att skriva "kt", motsvarar fortfarande "Nyckelord/Tråkig" i exemplet som anges ovan. </para>
-</sect2>
-<sect2>
-    <title
->Tilldela genvägar</title>
-<para
->Om pågående inmatning är tom (dvs. du är inte mitt under ett val) och du trycker på en funktionstangent F1 till F12 (eller upp till F35 om tangentbordet stöder det), tilldelas tangenten den senast matchande tilldelningen till tangenten. Samma tilldelning kan göras för nya bilder genom att helt enkelt trycka på snabbtangenten. För att ta bort den använd skifttangenten och snabbtangenten (<keycombo
+>Därefter skrev jag <emphasis
+>sp</emphasis
+> i radeditorn, vilket föreslår  "Personer / Je<emphasis
+>sp</emphasis
+>er" and "Personer / <emphasis
+>Sp</emphasis
+>iff". Båda motsvarade bokstäverna jag skrev in. Genom att trycka på neråtpilen för att välja <emphasis
+>Spiff</emphasis
+> och trycka på returtangenten, tilldelas bokstaven <emphasis
+>s</emphasis
+> till att lägga till etiketten <emphasis
+>Personer / Spiff</emphasis
+> för den visade bilden. Tilldelningen sparas för framtida sessioner. För att tilldela den till en annan etikett, tryck helt enkelt på <keycombo action="simul"
 >&Shift;<keycap
->Fn</keycap
+>s</keycap
 ></keycombo
->). Det är användbart för att snabbt tilldela upprepade objekt i den aktuella bildmängden. Den kommer både ihåg kategorin och kategoriobjektet. Genvägarna är tillgängliga till Kfotoalbum avslutas, det finns för närvarande inget stöd för att ersätta tilldelade genvägar. </para>
-  </sect2>
-</sect1>
+>.</para>
 
-
-<!-- Drawing on images feature has been dropped
-  <sect1 id="drawing-on-images">
-    <title
->Drawing on Images</title>
-    <para
->Sometimes it might not be obvious what you want to show with a
-given image, for that purpose &kphotoalbum; allows you to draw on the
-images. </para>
-
-<para
->The actual drawing is not saved to the image, but rather to the
-database, that way you can undo your drawing at a later point.</para>
-
-<para
->In <xref linkend="fig-draw-on-image"/> you can see an image drawn
-on. To bring &kphotoalbum; in to drawing mode, select <guimenuitem
->Draw on
-Image</guimenuitem
-> from the context menu. To quit drawing, press the cross in
-the toolbar at the top of the window.</para>
-
-<figure id="fig-draw-on-image">
-<title
->Drawing on Images</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="draw-on-image.png" format="PNG"/>
-</imageobject>
-</mediaobject>
+<figure id="fig-assign-macro-step2">
+  <title
+>Steg 2: tilldela ett makro, skriv in <emphasis
+>sp</emphasis
+></title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-step2.png" format="PNG"/></imageobject>
+   </mediaobject>
 </figure>
-  </sect1>
--->
+
+<para
+>I <xref linkend="fig-assign-macro-overview"/> nedan kan du se befintliga tangentbindningar på dialogrutans högra sida.</para>
+<figure id="fig-assign-macro-overview">
+  <title
+>Översikt över tilldelade tangentbindningar</title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-overview.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>Om etiketten du vill tilldela inte redan finns i databasen, tryck helt enkelt på knappen <emphasis
+>Lägg till ny</emphasis
+> för att skapa den. Det visas i <xref linkend="fig-assign-macro-add-new-value.png"/> nedan.</para>
+
+<figure id="fig-assign-macro-add-new-value.png">
+  <title
+>Lägga till en ny etikett</title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-add-new-value.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>Medan bilder etiketteras i visningen, kanske du vill lägga till en etikett utan att tilldela den till en tangent. För att göra det, använd helt enkelt <keycombo
+>&Ctrl;<keycap
+>a</keycap
+></keycombo
+>.</para>
+
+</sect1>
 </chapter>
 
 <!-- Keep this comment at the end of the file

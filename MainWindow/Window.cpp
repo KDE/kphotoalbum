@@ -1626,7 +1626,8 @@ void MainWindow::Window::slotShowListOfFiles()
     DB::FileNameList out;
     for (QStringList::const_iterator it = list.constBegin(); it != list.constEnd(); ++it) {
         const DB::FileName fileName = Utilities::fileNameFromUserData(*it);
-        if (!fileName.isNull())
+        // for opening, only files currently on disk make sense:
+        if (!fileName.isNull() && fileName.exists())
             out.append(fileName);
     }
 

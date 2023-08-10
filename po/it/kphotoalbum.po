@@ -1,14 +1,14 @@
 # translation of kphotoalbum.po to Italian
 # Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
 # Federico Zenith <federico.zenith@member.fsf.org>, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014.
-# Valter Mura <valtermura@gmail.com>, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023 Valter Mura <valtermura@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-07-31 00:44+0000\n"
-"PO-Revision-Date: 2023-07-23 21:00+0200\n"
+"PO-Revision-Date: 2023-08-05 10:55+0200\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 23.07.80\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1408,7 +1408,7 @@ msgstr "Cartella"
 #: DB/XML/FileReader.cpp:110 DB/XML/FileReader.cpp:122
 #, kde-format
 msgid "Tokens"
-msgstr "Elementi"
+msgstr "Token"
 
 #: DB/XML/FileReader.cpp:190
 #, kde-format
@@ -2388,7 +2388,7 @@ msgid ""
 msgstr ""
 "Non è stato possibile estrarre le miniature video da alcuni file. O il file "
 "è in qualche modo danneggiato, o il video è troppo corto. Per tua comodità, "
-"il segnaposto «%1» è stato impostato su questi video.\n"
+"il token «%1» è stato impostato su questi video.\n"
 "\n"
 "(Magari vuoi aspettare fino a quando il segnalatore di estrazione video "
 "nella barra di stato ha smesso di lampeggiare, in modo da vedere tutti i "
@@ -2648,7 +2648,7 @@ msgstr ""
 "uso il mio nome <b>Jesper</b> nella mia banca immagini, mentre tu potresti "
 "usare il mio nome completo, <b>Jesper K. Pedersen</b>. A questo punto le non-"
 "corrispondenze saranno evidenziate in rosso, in modo che tu possa vedere "
-"quali elementi non sono stati trovati nella tua banca dati, o quali elementi "
+"quali elementi non sono stati trovati nella tua banca dati, o quali token "
 "sono solo una corrispondenza parziale.</li></ol>"
 
 #: ImportExport/ImportDialog.cpp:137
@@ -3902,7 +3902,7 @@ msgid ""
 msgstr ""
 "<p>Inserisci il comando da eseguire sui file delle immagini. KPhotoAlbum "
 "eseguirà il comando e sostituirà eventuali token «%tutti» con un elenco dei "
-"tuoi file. Per esempio, se immetti:</p><ul><li>cp %tutti /tmp</li></ul><p>i "
+"tuoi file. Per esempio, se scrivi:</p><ul><li>cp %tutti /tmp</li></ul><p>i "
 "file selezionati saranno copiati nella cartella /tmp.</p><p>Puoi anche usare "
 "«%ogni» per far eseguire un comando una volta per ciascun file.</p>"
 
@@ -4037,12 +4037,12 @@ msgstr "Impostazioni miniature..."
 #, kde-format
 msgctxt "@title:window"
 msgid "Remove Tokens"
-msgstr "Rimuovi elementi"
+msgstr "Rimuovi token"
 
 #: MainWindow/TokenEditor.cpp:40
 #, kde-format
 msgid "Select tokens to remove from all images and videos:"
-msgstr "Seleziona gli elementi da rimuovere da tutte le immagini e filmati:"
+msgstr "Seleziona i token da rimuovere da tutte le immagini e i video:"
 
 #: MainWindow/TokenEditor.cpp:59
 #, kde-format
@@ -4277,7 +4277,7 @@ msgstr "Elimina selezionate"
 #: MainWindow/Window.cpp:817
 #, kde-format
 msgid "Remove Tokens..."
-msgstr "Rimuovi elementi..."
+msgstr "Rimuovi token..."
 
 #: MainWindow/Window.cpp:820
 #, kde-format
@@ -6356,7 +6356,7 @@ msgid ""
 "toggle a filter for that token."
 msgstr ""
 "Suggerimento: utilizza <shortcut>Alt+Maiusc+<placeholder>A-Z</placeholder></"
-"shortcut> per attivare o disattivare un filtro per quell'elemento."
+"shortcut> per attivare o disattivare un filtro per quel token."
 
 #: ThumbnailView/ThumbnailDND.cpp:90
 #, kde-format
@@ -6536,26 +6536,22 @@ msgstr " (%1-%2)"
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
-msgstr ""
+msgstr "Assegna macro"
 
 #: Viewer/AnnotationHandler.cpp:65
-#, fuzzy, kde-format
-#| msgid "Settings for category <b>%1</b>"
+#, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr "Impostazioni per la categoria <b>%1</b>"
+msgstr "Seleziona elemento per il tasto macro <b>%1</b>"
 
 #: Viewer/AnnotationHandler.cpp:111
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Rename Item"
+#, kde-format
 msgid "Tag Item"
-msgstr "Rinomina elemento"
+msgstr "Attribuisci tag a elemento"
 
 #: Viewer/AnnotationHandler.cpp:111
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select tag for image"
-msgstr "Seleziona destinazione:"
+msgstr "Seleziona tag per l'immagine"
 
 #: Viewer/CategoryImageConfig.cpp:33
 #, kde-format
@@ -6636,50 +6632,44 @@ msgstr ""
 #: Viewer/SelectCategoryAndValue.cpp:103
 #, kde-format
 msgid "Type name of category and item"
-msgstr ""
+msgstr "Digita il nome della categoria e dell'elemento"
 
 #: Viewer/SelectCategoryAndValue.cpp:132
 #, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "Aggiungi nuovo"
 
 #: Viewer/SelectCategoryAndValue.cpp:182
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "Tasto"
 
 #: Viewer/SelectCategoryAndValue.cpp:182
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "Tag:"
+msgstr "Tag"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "Finestra di conferma"
+msgstr "Finestra di dialogo"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "Etichetta"
+msgstr "EtichettaDiTesto"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgid "Add new Tag"
-msgstr "Aggiungi un tag"
+msgstr "Aggiungi nuovo tag"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "Titolo"
 
@@ -6687,7 +6677,7 @@ msgstr "Titolo"
 #: Viewer/SelectCategoryAndValue.ui:120
 #, kde-format
 msgid "Existing Assignments"
-msgstr ""
+msgstr "Assegnazioni esistenti"
 
 #: Viewer/ViewerWidget.cpp:191
 #, kde-format
@@ -6899,35 +6889,30 @@ msgid "Pause"
 msgstr "Pausa"
 
 #: Viewer/ViewerWidget.cpp:592
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "locked"
-msgstr "Sblocca"
+msgstr "bloccato"
 
 #: Viewer/ViewerWidget.cpp:594
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "annotating"
-msgstr "Annotazioni"
+msgstr "annotazione in corso"
 
 #: Viewer/ViewerWidget.cpp:596
 #, kde-format
 msgid "tokenizing"
-msgstr ""
+msgstr "creazione token in corso"
 
 #: Viewer/ViewerWidget.cpp:601
 #, kde-format
 msgid "Change display mode to %1"
-msgstr ""
+msgstr "Cambia modalità di visualizzazione in %1"
 
 #: Viewer/ViewerWidget.cpp:836
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run Slideshow"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "Avvia presentazione"
+msgstr "Fine presentazione"
 
 #: Viewer/ViewerWidget.cpp:839
 #, kde-format
@@ -6936,39 +6921,32 @@ msgid "Stop Slideshow"
 msgstr "Ferma la presentazione"
 
 #: Viewer/ViewerWidget.cpp:844
-#, fuzzy, kde-format
-#| msgctxt "OSD for slideshow"
-#| msgid ""
-#| "<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
-#| "slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></"
-#| "p>"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
 msgstr ""
-"<p><center><font size=\"+4\">Avviare la presentazione<br/>Ctrl+ accelera la "
-"presentazione<br/>Ctrl- la rallenta</font></center></p>"
+"Avvio della presentazione<br/>%1 accelera la presentazione<br/>%2 rallenta "
+"la presentazione"
 
 #: Viewer/ViewerWidget.cpp:894
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
-msgstr ""
+msgstr "%1&nbsp;s"
 
 #: Viewer/ViewerWidget.cpp:1137
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "Descrizione del tema"
+msgstr "Modifica descrizione immagine"
 
 #: Viewer/ViewerWidget.cpp:1137
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "Descrizione del tema"
+msgstr "Descrizione dell'immagine"
 
 #: Viewer/ViewerWidget.cpp:1152
 #, kde-format
@@ -7122,113 +7100,103 @@ msgstr ""
 "</p>"
 
 #: Viewer/ViewerWidget.cpp:1379
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgid "Annotate"
-msgstr "Annota..."
+msgstr "Annota"
 
 #: Viewer/ViewerWidget.cpp:1398
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "Aiuto"
 
 #: Viewer/ViewerWidget.cpp:1400
-#, fuzzy, kde-format
-#| msgid "Annotation Dialog"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Finestra di annotazione"
 
 #: Viewer/ViewerWidget.cpp:1401
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
-msgstr "Aggiungi un tag"
+msgstr "Aggiungi tag"
 
 #: Viewer/ViewerWidget.cpp:1401
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "CTRL+a"
 
 #: Viewer/ViewerWidget.cpp:1404
-#, fuzzy, kde-format
-#| msgid "Copy tags from previous image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr "Copia tag dall'immagine precedente"
+msgstr "Copia dati dall'immagine precedente"
 
 #: Viewer/ViewerWidget.cpp:1405
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "CTRL+c"
 
 #: Viewer/ViewerWidget.cpp:1408
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "Descrizione"
+msgstr "Modifica descrizione"
 
 #: Viewer/ViewerWidget.cpp:1409
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr ""
+msgstr "CTRL+d"
 
 #: Viewer/ViewerWidget.cpp:1412
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation Mode"
-msgstr "Annotazioni"
+msgstr "Modalità annotazione"
 
 #: Viewer/ViewerWidget.cpp:1414
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "Bloccato"
 
 #: Viewer/ViewerWidget.cpp:1415
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "CTRL+l"
 
 #: Viewer/ViewerWidget.cpp:1419
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "Assegna i tag"
 
 #: Viewer/ViewerWidget.cpp:1420
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1423
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "Elementi"
+msgstr "Assegna token"
 
 #: Viewer/ViewerWidget.cpp:1424
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr ""
+msgstr "CTRL+t"
 
 #: Viewer/ViewerWidget.cpp:1567
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Token %1"
-msgstr "Elementi"
+msgstr "Token %1"
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format

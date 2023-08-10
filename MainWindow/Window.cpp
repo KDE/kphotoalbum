@@ -1618,7 +1618,7 @@ void MainWindow::Window::slotShowListOfFiles()
 {
     QStringList list = QInputDialog::getMultiLineText(this,
                                                       i18n("Open List of Files"),
-                                                      i18n("You can open a set of files from KPhotoAlbum's image root by listing the files here."))
+                                                      i18n("You can open a set of files in KPhotoAlbum's database by listing the files here."))
                            .split(QChar::fromLatin1('\n'), Qt::SkipEmptyParts);
     if (list.isEmpty())
         return;
@@ -1626,8 +1626,8 @@ void MainWindow::Window::slotShowListOfFiles()
     DB::FileNameList out;
     for (QStringList::const_iterator it = list.constBegin(); it != list.constEnd(); ++it) {
         const DB::FileName fileName = Utilities::fileNameFromUserData(*it);
-        // for opening, only files currently on disk make sense:
-        if (!fileName.isNull() && fileName.exists())
+        // the file has to already be part of the database
+        if (DB::ImageDB::instance()->info(fileName))
             out.append(fileName);
     }
 

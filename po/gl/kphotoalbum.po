@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-31 00:44+0000\n"
+"POT-Creation-Date: 2023-08-11 00:43+0000\n"
 "PO-Revision-Date: 2020-01-12 12:14+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -991,7 +991,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "busca"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1782
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1783
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -1006,7 +1006,7 @@ msgstr ""
 "b></li><li>A continuación escolla a icona <b>Categorías</b></li><li>Por "
 "último, configure a sección <b>Imaxes sen etiquetar</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1789
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1790
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Non se configurou esta funcionalidade"
@@ -4847,36 +4847,39 @@ msgid "Open List of Files"
 msgstr "Abrir unha lista de ficheiros"
 
 #: MainWindow/Window.cpp:1621
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "You can open a set of files from KPhotoAlbum's image root by listing the "
+#| "files here."
 msgid ""
-"You can open a set of files from KPhotoAlbum's image root by listing the "
-"files here."
+"You can open a set of files in KPhotoAlbum's database by listing the files "
+"here."
 msgstr ""
 "Pode abrir un conxunto de ficheiros da raíz de imaxes de KPhotoAlbum "
 "listando os ficheiros aquí."
 
-#: MainWindow/Window.cpp:1634
+#: MainWindow/Window.cpp:1635
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Non se atopou ningunha imaxe que case co que indicou."
 
-#: MainWindow/Window.cpp:1634
+#: MainWindow/Window.cpp:1635
 #, kde-format
 msgid "No Matches"
 msgstr "Ningunha correspondencia"
 
-#: MainWindow/Window.cpp:1806
+#: MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Estase a ler de novo a información Exif de todas as imaxes"
 
-#: MainWindow/Window.cpp:1833
+#: MainWindow/Window.cpp:1834
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Anchura da miniatura: %1px (tamaño de almacenamento: %2px)"
 
-#: MainWindow/Window.cpp:1886
+#: MainWindow/Window.cpp:1887
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4886,7 +4889,7 @@ msgstr ""
 "<p>Non se pode atopar ffmpeg no sistema.</p> <p>Sen el, KPhotoAlbum non "
 "poderá amosar miniaturas de vídeos nin a súa duración. Instale ffmpeg.</p>"
 
-#: MainWindow/Window.cpp:1889
+#: MainWindow/Window.cpp:1890
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "As miniaturas non están dispoñíbeis para os vídeos."

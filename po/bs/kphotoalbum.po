@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-31 00:44+0000\n"
+"POT-Creation-Date: 2023-08-11 00:43+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -988,7 +988,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "traži"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1782
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1783
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -1004,7 +1004,7 @@ msgstr ""
 "ikona </li> <li> Sada konfiguriranje odjeljak <b> neoznačene slike </b> </"
 "li> </ul> </p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1789
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1790
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Svojstvo nije konfigurisano"
@@ -4931,37 +4931,40 @@ msgid "Open List of Files"
 msgstr "Otvori listu fajlova"
 
 #: MainWindow/Window.cpp:1621
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "You can open a set of files from KPhotoAlbum's image root by listing the "
+#| "files here."
 msgid ""
-"You can open a set of files from KPhotoAlbum's image root by listing the "
-"files here."
+"You can open a set of files in KPhotoAlbum's database by listing the files "
+"here."
 msgstr ""
 "Možete otvoriti set datoteka iz KPhotoAlbumove slike ovdje listajući "
 "datoteke."
 
-#: MainWindow/Window.cpp:1634
+#: MainWindow/Window.cpp:1635
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Nije pronađeno podudaranje sa slikama koje ste umetli."
 
-#: MainWindow/Window.cpp:1634
+#: MainWindow/Window.cpp:1635
 #, kde-format
 msgid "No Matches"
 msgstr "Nema poklapanja"
 
-#: MainWindow/Window.cpp:1806
+#: MainWindow/Window.cpp:1807
 #, fuzzy, kde-format
 #| msgid "Rereading EXIF information from all images"
 msgid "Rereading Exif information from all images"
 msgstr "Ponovno čitanje EXIF infomracija sa svih slika"
 
-#: MainWindow/Window.cpp:1833
+#: MainWindow/Window.cpp:1834
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Širina sličice: %1px (memorijska veličina: %2px)"
 
-#: MainWindow/Window.cpp:1886
+#: MainWindow/Window.cpp:1887
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Unable to find MPlayer on the system.</p><p>Without MPlayer, "
@@ -4976,7 +4979,7 @@ msgstr ""
 "neće biti u mogućnosti da prikaže sličice i dužinu videa. Molimo "
 "instalirajte paket MPlayer2 </p>"
 
-#: MainWindow/Window.cpp:1889
+#: MainWindow/Window.cpp:1890
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Video thumbnails su nedostupni"

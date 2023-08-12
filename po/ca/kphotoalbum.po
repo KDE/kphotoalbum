@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-11 00:43+0000\n"
-"PO-Revision-Date: 2023-07-31 12:07+0200\n"
+"PO-Revision-Date: 2023-08-11 09:36+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -4684,16 +4684,13 @@ msgid "Open List of Files"
 msgstr "Obre la llista de fitxers"
 
 #: MainWindow/Window.cpp:1621
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can open a set of files from KPhotoAlbum's image root by listing the "
-#| "files here."
+#, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
-"Podeu obrir un conjunt de fitxers des de l'arrel d'imatges del KPhotoAlbum "
-"amb els fitxers aquí llistats."
+"Podeu obrir un conjunt de fitxers en la base de dades del KPhotoAlbum en "
+"llistar aquí els fitxers."
 
 #: MainWindow/Window.cpp:1635
 #, kde-format

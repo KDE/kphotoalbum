@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-11 00:43+0000\n"
-"PO-Revision-Date: 2023-07-31 09:05+0300\n"
+"PO-Revision-Date: 2023-08-11 09:29+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -4739,16 +4739,13 @@ msgid "Open List of Files"
 msgstr "Відкрити список файлів"
 
 #: MainWindow/Window.cpp:1621
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can open a set of files from KPhotoAlbum's image root by listing the "
-#| "files here."
+#, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
-"Ви можете відкрити набір файлів з кореневою теки зображень KPhotoAlbum за "
-"допомогою показаного тут списку файлів."
+"Ви можете відкрити набір файлів з бази даних KPhotoAlbum за допомогою "
+"показаного тут списку файлів."
 
 #: MainWindow/Window.cpp:1635
 #, kde-format

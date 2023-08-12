@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-11 00:43+0000\n"
-"PO-Revision-Date: 2023-07-31 15:41+0200\n"
+"PO-Revision-Date: 2023-08-11 14:04+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -4677,16 +4677,13 @@ msgid "Open List of Files"
 msgstr "Lijst met bestanden openen"
 
 #: MainWindow/Window.cpp:1621
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can open a set of files from KPhotoAlbum's image root by listing the "
-#| "files here."
+#, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
-"U kunt een set bestanden uit de basismap van KPhotoAlbum door hier een lijst "
-"te maken."
+"U kunt een set bestanden in de database van KPhotoAlbum openen door hier een "
+"lijst te maken."
 
 #: MainWindow/Window.cpp:1635
 #, kde-format

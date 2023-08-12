@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-11 00:43+0000\n"
-"PO-Revision-Date: 2023-08-02 00:49+0300\n"
+"PO-Revision-Date: 2023-08-11 13:53+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -3654,7 +3654,7 @@ msgid ""
 "images with GPS information on a map.</p>"
 msgstr ""
 "<h1><a name=\"geomap\">Konum etiketlenmiş görseller için harita görünümü</"
-"a></h1><p>K Fotoğraf Albümü, dahili Marble desteği ile derlenmişse GPS "
+"a></h1><p>K Fotoğraf Albümü, dahili Bilye desteği ile derlenmişse GPS "
 "bilgisi içeren görselleri bir haritada gösterebilir.</p>"
 
 #: MainWindow/FeatureDialog.cpp:64
@@ -4636,16 +4636,13 @@ msgid "Open List of Files"
 msgstr "Dosyalar Listesi Aç"
 
 #: MainWindow/Window.cpp:1621
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can open a set of files from KPhotoAlbum's image root by listing the "
-#| "files here."
+#, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
-"Dosyaları burada listeleyerek K Fotoğraf Albümü'nün görsel kökünden bir küme "
-"dosya açabilirsiniz."
+"Dosyaları burada listeleyerek K Fotoğraf Albümü'nün veritabanından bir "
+"dosyalar kümesi açabilirsiniz."
 
 #: MainWindow/Window.cpp:1635
 #, kde-format
@@ -6057,7 +6054,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:25
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
-msgstr "<h1>Bir Video Oynatıcı Seçin</h1>"
+msgstr "<h1>Bir Video Oynatıcısı Seçin</h1>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:28
 #, kde-format

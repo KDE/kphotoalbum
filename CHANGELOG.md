@@ -53,6 +53,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Fixed
  - Fix issue with KPhotoAlbum not asking to save before exit (#472427)
  - Fix crash when right-clicking in the empty space of the tag lists of the annotation dialog (#472523)
+ - Prevent showing selected thumbnails only if no thumbnails are selected, so that no crash can occur when showing the context again afterwards (#473324)
 
 ### Removed
 

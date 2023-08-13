@@ -83,6 +83,10 @@ DB::FileName ThumbnailView::ThumbnailFacade::mediaIdUnderCursor() const
 
 DB::FileName ThumbnailView::ThumbnailFacade::currentItem() const
 {
+    const auto index = m_widget->currentIndex();
+    if (!index.isValid()) {
+        return DB::FileName();
+    }
     return m_model->imageAt(m_widget->currentIndex().row());
 }
 

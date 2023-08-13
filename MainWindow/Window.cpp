@@ -764,8 +764,14 @@ void MainWindow::Window::closeEvent(QCloseEvent *e)
 
 void MainWindow::Window::slotLimitToSelected()
 {
+    const auto selectedList = selected();
+    if (selectedList.isEmpty()) {
+        QMessageBox::information(this, i18n("Limit View to Selection"),
+                                 i18n("No images are selected!"));
+        return;
+    }
     Utilities::ShowBusyCursor dummy;
-    showThumbNails(selected());
+    showThumbNails(selectedList);
 }
 
 void MainWindow::Window::setupMenuBar()

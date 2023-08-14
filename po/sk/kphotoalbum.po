@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-11 00:43+0000\n"
+"POT-Creation-Date: 2023-08-14 00:44+0000\n"
 "PO-Revision-Date: 2021-01-10 14:24+0100\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -425,12 +425,12 @@ msgstr "Odstrániť"
 msgid "Copy tags from previous image"
 msgstr "Kopírovať značky z predchádzajúceho obrázka"
 
-#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:842
+#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Otočiť proti smeru hodinových ručičiek"
 
-#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:846
+#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:852
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Otočiť po smere hodinových ručičiek"
@@ -975,7 +975,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "hľadať"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1783
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1789
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -990,7 +990,7 @@ msgstr ""
 "KPhotoAlbum</b></li><li>Teraz vyberte ikonu <b>Kategórie</b></li><li>Teraz "
 "nastavte sekciu <b>Neoznačené obrázky</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1790
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1796
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Funkcia ešte nebola nastavená"
@@ -2786,7 +2786,7 @@ msgid "Create folder?"
 msgstr "Základný adresár:"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1216
+#: MainWindow/Window.cpp:1222
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4411,13 +4411,13 @@ msgid "Stacking Error"
 msgstr "Chyba skladania"
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1317 MainWindow/Window.cpp:1414
+#: MainWindow/Window.cpp:1323 MainWindow/Window.cpp:1420
 #, kde-format
 msgid "No item is selected."
 msgstr "Žiadna vybraná položka."
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1317 MainWindow/Window.cpp:1415
+#: MainWindow/Window.cpp:1323 MainWindow/Window.cpp:1421
 #, kde-format
 msgid "No Selection"
 msgstr "Žiadny výber"
@@ -4437,280 +4437,286 @@ msgstr "Ukladám... hotovo"
 msgid "There are no images to be shown."
 msgstr "Nie sú žiadne obrázku na zobrazenie."
 
-#: MainWindow/Window.cpp:777
+#: MainWindow/Window.cpp:769 MainWindow/Window.cpp:898
+#, kde-format
+msgid "Limit View to Selection"
+msgstr "Obmedziť pohľad na výber"
+
+#: MainWindow/Window.cpp:770
+#, fuzzy, kde-format
+#| msgid "No item is selected."
+msgid "No images are selected!"
+msgstr "Žiadna vybraná položka."
+
+#: MainWindow/Window.cpp:783
 #, kde-format
 msgid "Generate HTML..."
 msgstr "Vygenerovať HTML..."
 
-#: MainWindow/Window.cpp:781
+#: MainWindow/Window.cpp:787
 #, kde-format
 msgid "Import..."
 msgstr "Importovať..."
 
-#: MainWindow/Window.cpp:784
+#: MainWindow/Window.cpp:790
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Exportovať/kopírovať obrázky..."
 
-#: MainWindow/Window.cpp:811
+#: MainWindow/Window.cpp:817
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Odstrániť vybrané"
 
-#: MainWindow/Window.cpp:817
+#: MainWindow/Window.cpp:823
 #, fuzzy, kde-format
 #| msgid "Remove Tokens"
 msgid "Remove Tokens..."
 msgstr "Odstrániť tokeny"
 
-#: MainWindow/Window.cpp:820
+#: MainWindow/Window.cpp:826
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Otvoriť zoznam súborov..."
 
-#: MainWindow/Window.cpp:823
+#: MainWindow/Window.cpp:829
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Anotovať individuálne položky"
 
-#: MainWindow/Window.cpp:827
+#: MainWindow/Window.cpp:833
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Anotovať súčasne viac položiek"
 
-#: MainWindow/Window.cpp:831
+#: MainWindow/Window.cpp:837
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Zlúčiť obrázky do kopy"
 
-#: MainWindow/Window.cpp:835
+#: MainWindow/Window.cpp:841
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Odstrániť obrázky zo zásobníka"
 
-#: MainWindow/Window.cpp:838
+#: MainWindow/Window.cpp:844
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Nastaviť ako prvý obrázok v zásobníku"
 
-#: MainWindow/Window.cpp:851
+#: MainWindow/Window.cpp:857
 #, kde-format
 msgid "View"
 msgstr "Zobraziť"
 
-#: MainWindow/Window.cpp:854
+#: MainWindow/Window.cpp:860
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Zobraziť (v novom okne)"
 
-#: MainWindow/Window.cpp:857
+#: MainWindow/Window.cpp:863
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Spustiť prezentáciu"
 
-#: MainWindow/Window.cpp:862
+#: MainWindow/Window.cpp:868
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Spustiť náhodnú prezentáciu"
 
-#: MainWindow/Window.cpp:868
+#: MainWindow/Window.cpp:874
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Zabaliť všetky zásobníky"
 
-#: MainWindow/Window.cpp:874
+#: MainWindow/Window.cpp:880
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Rozbaliť všetky zásobníky"
 
-#: MainWindow/Window.cpp:879
+#: MainWindow/Window.cpp:885
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Zobraziť najstaršie najskôr"
 
-#: MainWindow/Window.cpp:884
+#: MainWindow/Window.cpp:890
 #, kde-format
 msgid "Show &Newest First"
 msgstr "Zobraziť najnovšie najskôr"
 
-#: MainWindow/Window.cpp:889
+#: MainWindow/Window.cpp:895
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Triediť vybrané podľa dátumu && času"
 
-#: MainWindow/Window.cpp:892
-#, kde-format
-msgid "Limit View to Selection"
-msgstr "Obmedziť pohľad na výber"
-
-#: MainWindow/Window.cpp:895
+#: MainWindow/Window.cpp:901
 #, kde-format
 msgid "Jump to Context"
 msgstr "Skočiť na kontext"
 
-#: MainWindow/Window.cpp:901
+#: MainWindow/Window.cpp:907
 #, kde-format
 msgid "Lock Images"
 msgstr "Zamknúť obrázky"
 
-#: MainWindow/Window.cpp:905
+#: MainWindow/Window.cpp:911
 #, kde-format
 msgid "Unlock"
 msgstr "Odomknúť"
 
-#: MainWindow/Window.cpp:908
+#: MainWindow/Window.cpp:914
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Uzamknúť všetky ostatné položky"
 
-#: MainWindow/Window.cpp:911
+#: MainWindow/Window.cpp:917
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Uzamknúť aktuálnu sadu položiek"
 
-#: MainWindow/Window.cpp:914
+#: MainWindow/Window.cpp:920
 #, kde-format
 msgid "Configure Current View"
 msgstr "Nastaviť aktuálny pohľad"
 
-#: MainWindow/Window.cpp:926
+#: MainWindow/Window.cpp:932
 #, kde-format
 msgid "Tree"
 msgstr "Strom"
 
-#: MainWindow/Window.cpp:931
+#: MainWindow/Window.cpp:937
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Strom s ikonami používateľa"
 
-#: MainWindow/Window.cpp:936
+#: MainWindow/Window.cpp:942
 #, kde-format
 msgid "Icons"
 msgstr "Ikony"
 
-#: MainWindow/Window.cpp:944
+#: MainWindow/Window.cpp:950
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Zobraziť tipy v okne miniatúr"
 
-#: MainWindow/Window.cpp:949
+#: MainWindow/Window.cpp:955
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Labels in Thumbnails Window"
 msgstr "Zobraziť tipy v okne miniatúr"
 
-#: MainWindow/Window.cpp:959
+#: MainWindow/Window.cpp:965
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Categories in Thumbnails Window"
 msgstr "Zobraziť tipy v okne miniatúr"
 
-#: MainWindow/Window.cpp:980
+#: MainWindow/Window.cpp:986
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr ""
 
-#: MainWindow/Window.cpp:991
+#: MainWindow/Window.cpp:997
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Zobraziť obrázky a videá nie na disku"
 
-#: MainWindow/Window.cpp:994
+#: MainWindow/Window.cpp:1000
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Zobraziť obrázky a videá s nekompletnými dátumami..."
 
-#: MainWindow/Window.cpp:997
+#: MainWindow/Window.cpp:1003
 #, kde-format
 msgid "Merge duplicates"
 msgstr "Zlúčiť duplikáty"
 
-#: MainWindow/Window.cpp:999 MainWindow/Window.cpp:1056
+#: MainWindow/Window.cpp:1005 MainWindow/Window.cpp:1062
 #, fuzzy, kde-format
 #| msgid "Recreate Selected Thumbnails"
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Znovu vytvoriť vybrané miniatúry"
 
-#: MainWindow/Window.cpp:1003
+#: MainWindow/Window.cpp:1009
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Znovu prehľadať obrázky a videá"
 
-#: MainWindow/Window.cpp:1006
+#: MainWindow/Window.cpp:1012
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Znovu vytvoriť EXIF databázu hľadania"
 
-#: MainWindow/Window.cpp:1009
+#: MainWindow/Window.cpp:1015
 #, fuzzy, kde-format
 #| msgid "Read EXIF Info From Files..."
 msgid "Read Exif Info from Files..."
 msgstr "Čítať EXIF informácie zo súborov..."
 
-#: MainWindow/Window.cpp:1012
+#: MainWindow/Window.cpp:1018
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Triediť všetko podľa dátumu && času"
 
-#: MainWindow/Window.cpp:1016
+#: MainWindow/Window.cpp:1022
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Automaticky skladať vybrané obrázky..."
 
-#: MainWindow/Window.cpp:1019
+#: MainWindow/Window.cpp:1025
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Zostaviť miniatúry"
 
-#: MainWindow/Window.cpp:1022
+#: MainWindow/Window.cpp:1028
 #, fuzzy, kde-format
 #| msgid "Statistics"
 msgid "Statistics..."
 msgstr "Štatistika"
 
-#: MainWindow/Window.cpp:1026
+#: MainWindow/Window.cpp:1032
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Označiť ako neoznačené"
 
-#: MainWindow/Window.cpp:1035
+#: MainWindow/Window.cpp:1041
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Povoliť všetky správy"
 
-#: MainWindow/Window.cpp:1043
+#: MainWindow/Window.cpp:1049
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Spustiť demo KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1046
+#: MainWindow/Window.cpp:1052
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "Stav funkcie KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1049
+#: MainWindow/Window.cpp:1055
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Zobraziť demo videá"
 
-#: MainWindow/Window.cpp:1053 Viewer/ViewerWidget.cpp:196
+#: MainWindow/Window.cpp:1059 Viewer/ViewerWidget.cpp:196
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "Zobraziť EXIF informácie"
 
-#: MainWindow/Window.cpp:1059
+#: MainWindow/Window.cpp:1065
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Použiť ďalšiu video miniatúru"
 
-#: MainWindow/Window.cpp:1063
+#: MainWindow/Window.cpp:1069
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Použiť predošlú video miniatúru"
 
-#: MainWindow/Window.cpp:1067 MainWindow/Window.cpp:1295
+#: MainWindow/Window.cpp:1073 MainWindow/Window.cpp:1301
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -4720,7 +4726,7 @@ msgstr[0] "Kopírovať obrázky do..."
 msgstr[1] "Kopírovať obrázky do..."
 msgstr[2] "Kopírovať obrázky do..."
 
-#: MainWindow/Window.cpp:1071 MainWindow/Window.cpp:1299
+#: MainWindow/Window.cpp:1077 MainWindow/Window.cpp:1305
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Link images to..."
@@ -4730,17 +4736,17 @@ msgstr[0] "Linkovať obrázky na..."
 msgstr[1] "Linkovať obrázky na..."
 msgstr[2] "Linkovať obrázky na..."
 
-#: MainWindow/Window.cpp:1097
+#: MainWindow/Window.cpp:1103
 #, kde-format
 msgid "Auto saving...."
 msgstr "Automatické uloženie..."
 
-#: MainWindow/Window.cpp:1100
+#: MainWindow/Window.cpp:1106
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Automaticky ukladám... hotovo"
 
-#: MainWindow/Window.cpp:1202
+#: MainWindow/Window.cpp:1208
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Could not open given index.xml as provided directory does not exist."
@@ -4752,7 +4758,7 @@ msgstr ""
 "<p>Nemôžem otvoriť daný index.xml, pretože zadaný adresár neexistuje.<br />"
 "%1</p>"
 
-#: MainWindow/Window.cpp:1209
+#: MainWindow/Window.cpp:1215
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4761,14 +4767,14 @@ msgstr ""
 "<p>Daný index súbor neexistuje, chcete vytvoriť nasledovný?<br />%1/index."
 "xml</p>"
 
-#: MainWindow/Window.cpp:1212
+#: MainWindow/Window.cpp:1218
 #, fuzzy, kde-format
 #| msgid "Erase database"
 msgctxt "@title"
 msgid "Create database"
 msgstr "Vymazať databázu"
 
-#: MainWindow/Window.cpp:1240
+#: MainWindow/Window.cpp:1246
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4781,34 +4787,34 @@ msgstr ""
 "nastavenia neoznačenej značky pod <interface>Nastavenia|Nastaviť "
 "KPhotoAlbum...|Kategórie</interface></p>"
 
-#: MainWindow/Window.cpp:1366 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1372 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Všeobecné"
 
-#: MainWindow/Window.cpp:1367 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Prehliadač"
 
-#: MainWindow/Window.cpp:1368
+#: MainWindow/Window.cpp:1374
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Dátum:"
 
-#: MainWindow/Window.cpp:1371
+#: MainWindow/Window.cpp:1377
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Dialóg anotácie"
 
-#: MainWindow/Window.cpp:1372 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1378 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Zobrazenie náhľadov"
 
-#: MainWindow/Window.cpp:1517
+#: MainWindow/Window.cpp:1523
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4817,13 +4823,13 @@ msgstr ""
 "<p>Naozaj povoliť všetky správy, kde ste predtým zaškrtli Nabudúce "
 "nezobrazovať?</p>"
 
-#: MainWindow/Window.cpp:1519
+#: MainWindow/Window.cpp:1525
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1538
+#: MainWindow/Window.cpp:1544
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4839,32 +4845,32 @@ msgstr ""
 "nie, prosím oznámte to ako chybu.</p> <p>KPhotoAlbum bude bežať ďalej, ale "
 "nie je nemožné, že spadne neskôr kvôli chýbajúcemu make install.</p>"
 
-#: MainWindow/Window.cpp:1538
+#: MainWindow/Window.cpp:1544
 #, kde-format
 msgid "Internal Error"
 msgstr "Interná chyba"
 
-#: MainWindow/Window.cpp:1549
+#: MainWindow/Window.cpp:1555
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1552
+#: MainWindow/Window.cpp:1558
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1557
+#: MainWindow/Window.cpp:1563
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1620
+#: MainWindow/Window.cpp:1626
 #, kde-format
 msgid "Open List of Files"
 msgstr "Otvoriť zoznam súborov"
 
-#: MainWindow/Window.cpp:1621
+#: MainWindow/Window.cpp:1627
 #, fuzzy, kde-format
 #| msgid ""
 #| "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4876,28 +4882,28 @@ msgstr ""
 "Môžete otvoriť sadu súborov z koreňového adresára KPhotoAlbum prechádzaním "
 "cez tieto súbory."
 
-#: MainWindow/Window.cpp:1635
+#: MainWindow/Window.cpp:1641
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Nenašli sa žiadne obrázky vyhovujúce vášmu vstupu."
 
-#: MainWindow/Window.cpp:1635
+#: MainWindow/Window.cpp:1641
 #, kde-format
 msgid "No Matches"
 msgstr "Žiadne zhody"
 
-#: MainWindow/Window.cpp:1807
+#: MainWindow/Window.cpp:1813
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Načítavam Exif informácie zo všetkých obrázkov"
 
-#: MainWindow/Window.cpp:1834
+#: MainWindow/Window.cpp:1840
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Šírka miniatúry: %1px (veľkosť úložiska: %2px)"
 
-#: MainWindow/Window.cpp:1887
+#: MainWindow/Window.cpp:1893
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Unable to find MPlayer on the system.</p><p>Without MPlayer, "
@@ -4912,7 +4918,7 @@ msgstr ""
 "schopný zobraziť video miniatúry a dĺžku videa. Prosím, nainštalujte balík "
 "MPlayer2</p>"
 
-#: MainWindow/Window.cpp:1890
+#: MainWindow/Window.cpp:1896
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Video miniatúry nie sú dostupné"

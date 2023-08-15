@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-14 00:44+0000\n"
-"PO-Revision-Date: 2023-08-11 14:04+0200\n"
+"PO-Revision-Date: 2023-08-14 10:45+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -4271,10 +4271,9 @@ msgid "Limit View to Selection"
 msgstr "Weergave beperken tot selectie"
 
 #: MainWindow/Window.cpp:770
-#, fuzzy, kde-format
-#| msgid "No item is selected."
+#, kde-format
 msgid "No images are selected!"
-msgstr "Er is geen item geselecteerd."
+msgstr "Geen afbeeldingen geselecteerd!"
 
 #: MainWindow/Window.cpp:783
 #, kde-format

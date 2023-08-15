@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-14 00:44+0000\n"
-"PO-Revision-Date: 2023-08-11 13:53+0300\n"
+"PO-Revision-Date: 2023-08-14 13:59+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -4231,10 +4231,9 @@ msgid "Limit View to Selection"
 msgstr "Görünümü Seçime Sınırlandır"
 
 #: MainWindow/Window.cpp:770
-#, fuzzy, kde-format
-#| msgid "No item is selected."
+#, kde-format
 msgid "No images are selected!"
-msgstr "Seçili öge yok."
+msgstr "Seçili görsel yok!"
 
 #: MainWindow/Window.cpp:783
 #, kde-format

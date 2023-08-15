@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-08-14 00:44+0000\n"
-"PO-Revision-Date: 2023-08-11 09:29+0300\n"
+"PO-Revision-Date: 2023-08-14 09:43+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -4327,10 +4327,9 @@ msgid "Limit View to Selection"
 msgstr "Обмежити перегляд позначеними"
 
 #: MainWindow/Window.cpp:770
-#, fuzzy, kde-format
-#| msgid "No item is selected."
+#, kde-format
 msgid "No images are selected!"
-msgstr "Не вибрано жодного елемента."
+msgstr "Не вибрано жодного зображення!"
 
 #: MainWindow/Window.cpp:783
 #, kde-format

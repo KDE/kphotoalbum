@@ -128,12 +128,12 @@ void DB::FileWriter::save(const QString &fileName, bool isAutoSave)
 
 void DB::FileWriter::saveCategories(QXmlStreamWriter &writer)
 {
-    QStringList categories = DB::ImageDB::instance()->categoryCollection()->categoryNames();
+    const QStringList categories = DB::ImageDB::instance()->categoryCollection()->categoryNames();
     ElementWriter dummy(writer, QStringLiteral("Categories"));
 
     DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
     const DB::TagInfo *untaggedTag = DB::ImageDB::instance()->untaggedTag();
-    for (QString name : categories) {
+    for (const QString &name : categories) {
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(name);
 
         if (!shouldSaveCategory(name)) {

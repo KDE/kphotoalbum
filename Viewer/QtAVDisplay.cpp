@@ -1,9 +1,10 @@
-// SPDX-FileCopyrightText: 2021 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021 Ömer Fadıl USTA <omerusta@gmail.com>
+// SPDX-FileCopyrightText: 2021-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-// QtAVWidgets/WidgetRenderer 1.13 is incompativle witch QT_DISABLE_DEPRECATED_BEFORE 5.15:
+// QtAVWidgets/WidgetRenderer 1.13 is incompatible witch QT_DISABLE_DEPRECATED_BEFORE 5.15:
 #undef QT_DISABLE_DEPRECATED_BEFORE
 
 #include "QtAVDisplay.h"
@@ -129,7 +130,7 @@ void Viewer::QtAVDisplay::rotate(const DB::ImageInfoPtr &info)
     if (info->angle() != 0) {
         m_rotateFilter->installTo(m_player);
         // See https://ffmpeg.org/ffmpeg-filters.html
-        m_rotateFilter->setOptions(QString::fromUtf8("rotate=PI*%1/180").arg(m_info->angle()));
+        m_rotateFilter->setOptions(QString::fromUtf8("rotate=PI*%1/180").arg(info->angle()));
     }
 }
 

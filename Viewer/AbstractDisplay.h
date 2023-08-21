@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003 - 2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -29,7 +30,7 @@ public Q_SLOTS:
 
 protected:
     virtual bool setImageImpl(DB::ImageInfoPtr info, bool forward) = 0;
-    DB::ImageInfoPtr m_info;
+    DB::ImageInfoPtr m_info; ///< The pointer to the currently displayed image (may be null)
 };
 
 }

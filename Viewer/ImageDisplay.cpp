@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003 - 2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -170,6 +171,11 @@ QPoint Viewer::ImageDisplay::offset(int logicalWidth, int logicalHeight, int phy
 void Viewer::ImageDisplay::zoom(QPoint p1, QPoint p2)
 {
     qCDebug(ViewerLog, "zoom(%d,%d, %d,%d)", p1.x(), p1.y(), p2.x(), p2.y());
+    if (!m_info) {
+        // should not happen because the user can't click fast enough, but who knows...
+        qCWarning(ViewerLog, "Trying to zoom without an image");
+        return;
+    }
     m_cache.remove(m_curIndex);
     normalize(p1, p2);
 
@@ -475,7 +481,8 @@ void Viewer::ImageDisplay::pixmapLoaded(ImageManager::ImageRequest *request, con
     const int angle = request->angle();
     const bool loadedOK = request->loadedOK();
 
-    if (loadedOK && fileName == m_info->fileName()) {
+    // the image might have changed (even to a null value) while the pixmap was loaded
+    if (loadedOK && m_info && fileName == m_info->fileName()) {
         if (fullSize.isValid() && !m_info->size().isValid())
             m_info->setSize(fullSize);
 
@@ -608,6 +615,11 @@ void Viewer::ImageDisplay::unbusy()
 void Viewer::ImageDisplay::zoomPixelForPixel()
 {
     qCDebug(ViewerLog, "zoomPixelForPixel()");
+    if (!m_info) {
+        // should not happen because the user can't click fast enough, but who knows...
+        qCWarning(ViewerLog, "Trying to zoom without an image");
+        return;
+    }
     // This is rather tricky.
     // We want to zoom to a pixel level for the real image, which we might
     // or might not have loaded yet.
@@ -653,7 +665,7 @@ void Viewer::ImageDisplay::updateZoomPoints(const Settings::StandardViewSize typ
 
 void Viewer::ImageDisplay::potentiallyLoadFullSize()
 {
-    if (m_info->size() != m_loadedImage.size()) {
+    if (m_info && m_info->size() != m_loadedImage.size()) {
         qCDebug(ViewerLog) << "Loading full size image for " << m_info->fileName().relative();
         ImageManager::ImageRequest *request = new ImageManager::ImageRequest(m_info->fileName(), QSize(-1, -1), m_info->angle(), this);
         request->setPriority(ImageManager::Viewer);

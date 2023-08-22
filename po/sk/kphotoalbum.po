@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-14 00:44+0000\n"
+"POT-Creation-Date: 2023-08-22 00:43+0000\n"
 "PO-Revision-Date: 2021-01-10 14:24+0100\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -6785,13 +6785,13 @@ msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
 msgstr "Nastaviť"
 
-#: Viewer/ImageDisplay.cpp:303 Viewer/ImageDisplay.cpp:327
-#: Viewer/ImageDisplay.cpp:388
+#: Viewer/ImageDisplay.cpp:309 Viewer/ImageDisplay.cpp:333
+#: Viewer/ImageDisplay.cpp:394
 #, kde-format
 msgid "Insufficient color depth for this filter"
 msgstr "Nedostatočná farebná hĺbka pre tento filter"
 
-#: Viewer/ImageDisplay.cpp:447
+#: Viewer/ImageDisplay.cpp:453
 #, kde-format
 msgid "[ zoom x%1 ]"
 msgstr "[ priblíženie x%1 ]"
@@ -6806,17 +6806,17 @@ msgstr "Zobraziť geografickú polohu tohto obrázku na mape"
 msgid "Error playing media"
 msgstr "Chyba prehrania média"
 
-#: Viewer/QtAVDisplay.cpp:31 Viewer/QtAVDisplay.cpp:44
+#: Viewer/QtAVDisplay.cpp:32 Viewer/QtAVDisplay.cpp:45
 #, kde-format
 msgid "Failed to set up video playback"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:31
+#: Viewer/QtAVDisplay.cpp:32
 #, kde-format
 msgid "Failed to set up video playback (renderer wasn't created)"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:44
+#: Viewer/QtAVDisplay.cpp:45
 #, kde-format
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""

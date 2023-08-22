@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-14 00:44+0000\n"
+"POT-Creation-Date: 2023-08-22 00:43+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -6709,13 +6709,13 @@ msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
 msgstr "កំណត់"
 
-#: Viewer/ImageDisplay.cpp:303 Viewer/ImageDisplay.cpp:327
-#: Viewer/ImageDisplay.cpp:388
+#: Viewer/ImageDisplay.cpp:309 Viewer/ImageDisplay.cpp:333
+#: Viewer/ImageDisplay.cpp:394
 #, kde-format
 msgid "Insufficient color depth for this filter"
 msgstr "ជម្រៅ​ពណ៌​មិន​គ្រប់​គ្រាន់​សម្រាប់​តម្រង​នេះ​"
 
-#: Viewer/ImageDisplay.cpp:447
+#: Viewer/ImageDisplay.cpp:453
 #, kde-format
 msgid "[ zoom x%1 ]"
 msgstr "[ ពង្រីក x%1 ]"
@@ -6730,17 +6730,17 @@ msgstr ""
 msgid "Error playing media"
 msgstr "កំហុស​ក្នុង​ពេល​កំពុង​ចាក់​មេឌៀ "
 
-#: Viewer/QtAVDisplay.cpp:31 Viewer/QtAVDisplay.cpp:44
+#: Viewer/QtAVDisplay.cpp:32 Viewer/QtAVDisplay.cpp:45
 #, kde-format
 msgid "Failed to set up video playback"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:31
+#: Viewer/QtAVDisplay.cpp:32
 #, kde-format
 msgid "Failed to set up video playback (renderer wasn't created)"
 msgstr ""
 
-#: Viewer/QtAVDisplay.cpp:44
+#: Viewer/QtAVDisplay.cpp:45
 #, kde-format
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""

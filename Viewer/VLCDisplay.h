@@ -1,6 +1,4 @@
-// SPDX-FileCopyrightText: 2021 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2021-2022 The KPhotoAlbum Development Team
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -37,7 +35,6 @@ public Q_SLOTS:
 
 protected:
     bool setImageImpl(DB::ImageInfoPtr info, bool forward) override;
-    virtual void closeEvent(QCloseEvent *event) override;
 
 private:
     void releaseVLC();

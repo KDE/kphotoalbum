@@ -1,13 +1,12 @@
 // SPDX-FileCopyrightText: 2021 Henner Zeller <h.zeller@acm.org>
 // SPDX-FileCopyrightText: 2021 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "VLCDisplay.h"
 #include "VideoToolBar.h"
 #include <DB/ImageInfo.h>
-#include <QCloseEvent>
 #include <QDebug>
 #include <QGuiApplication>
 #include <QLabel>
@@ -43,6 +42,7 @@ Viewer::VLCDisplay::VLCDisplay(QWidget *parent)
 
 Viewer::VLCDisplay::~VLCDisplay()
 {
+    releaseVLC();
 }
 
 void Viewer::VLCDisplay::changeVolume(int newVolume)
@@ -91,9 +91,6 @@ void Viewer::VLCDisplay::updateInterface()
 
 bool Viewer::VLCDisplay::setImageImpl(DB::ImageInfoPtr info, bool /*forward*/)
 {
-    if (m_media) {
-        libvlc_media_release(m_media);
-    }
     m_media = libvlc_media_new_path(m_vlcInstance, info->fileName().absolute().toUtf8().data());
 
     libvlc_media_player_set_media(m_player, m_media);
@@ -105,13 +102,6 @@ bool Viewer::VLCDisplay::setImageImpl(DB::ImageInfoPtr info, bool /*forward*/)
     m_poller->start(100);
 
     return true;
-}
-
-void Viewer::VLCDisplay::closeEvent(QCloseEvent *event)
-{
-    // releasing VLC in the destructor, after the window is already closed will hang indefinitely
-    releaseVLC();
-    event->accept();
 }
 
 bool Viewer::VLCDisplay::isPaused() const
@@ -151,10 +141,6 @@ void Viewer::VLCDisplay::releaseVLC()
         return;
 
     stop();
-    if (m_media) {
-        libvlc_media_release(m_media);
-        m_media = nullptr;
-    }
     libvlc_media_player_release(m_player);
     libvlc_release(m_vlcInstance);
 }

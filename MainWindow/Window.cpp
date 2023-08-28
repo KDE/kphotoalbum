@@ -1133,9 +1133,9 @@ void MainWindow::Window::slotOptionGroupChanged()
     // depend on this behaviour lest we want it to crash:
     if (m_annotationDialog) {
         m_annotationDialog->close();
+        m_annotationDialog->deleteLater();
     }
 
-    delete m_annotationDialog;
     m_annotationDialog = nullptr;
     DirtyIndicator::markDirty();
 }

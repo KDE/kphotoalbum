@@ -295,6 +295,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
 QDockWidget *AnnotationDialog::Dialog::createDock(const QString &title, const QString &name,
                                                   Qt::DockWidgetArea location, QWidget *widget)
 {
+    qCDebug(AnnotationDialogLog) << "Creating dock widget. Title:" << title << ", name:" << name << ", location:" << location;
     QDockWidget *dock = new QDockWidget(title);
     // make sure that no accelerator is set up now - this is done by ShortCutManager instead:
     KAcceleratorManager::setNoAccel(dock);
@@ -957,7 +958,10 @@ void AnnotationDialog::Dialog::slotSaveWindowSetup()
 {
     const QByteArray data = m_dockWindow->saveState();
 
-    QFile file(QString::fromLatin1("%1/layout.dat").arg(Settings::SettingsData::instance()->imageDirectory()));
+    const auto fileName = QString::fromLatin1("%1/layout.dat").arg(Settings::SettingsData::instance()->imageDirectory());
+    qCDebug(AnnotationDialogLog) << "Saving window layout to file:" << fileName;
+
+    QFile file(fileName);
     if (!file.open(QIODevice::WriteOnly)) {
         KMessageBox::error(this,
                            i18n("<p>Could not save the window layout.</p>"
@@ -980,7 +984,7 @@ void AnnotationDialog::Dialog::closeEvent(QCloseEvent *e)
 
 void AnnotationDialog::Dialog::hideTornOfWindows()
 {
-    for (QDockWidget *dock : m_dockWidgets) {
+    for (QDockWidget *dock : qAsConst(m_dockWidgets)) {
         if (dock->isFloating()) {
             qCDebug(AnnotationDialogLog) << "Hiding dock: " << dock->objectName();
             dock->hide();
@@ -990,7 +994,7 @@ void AnnotationDialog::Dialog::hideTornOfWindows()
 
 void AnnotationDialog::Dialog::showTornOfWindows()
 {
-    for (QDockWidget *dock : m_dockWidgets) {
+    for (QDockWidget *dock : qAsConst(m_dockWidgets)) {
         if (dock->isFloating()) {
             qCDebug(AnnotationDialogLog) << "Showing dock: " << dock->objectName();
             dock->show();
@@ -1251,14 +1255,14 @@ void AnnotationDialog::Dialog::slotStartDateChanged(const DB::ImageDate &date)
 void AnnotationDialog::Dialog::loadWindowLayout()
 {
     QString fileName = QString::fromLatin1("%1/layout.dat").arg(Settings::SettingsData::instance()->imageDirectory());
+    qCDebug(AnnotationDialogLog) << "Loading window layout from file:" << fileName;
     bool layoutLoaded = false;
 
     if (QFileInfo::exists(fileName)) {
         QFile file(fileName);
         if (file.open(QIODevice::ReadOnly)) {
             QByteArray data = file.readAll();
-            m_dockWindow->restoreState(data);
-            layoutLoaded = true;
+            layoutLoaded = m_dockWindow->restoreState(data);
         } else {
             qCWarning(AnnotationDialogLog) << "Window layout file" << fileName << "exists but could not be opened!";
         }

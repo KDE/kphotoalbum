@@ -151,8 +151,8 @@ protected:
     void loadInfo(const DB::ImageSearchInfo &);
     int exec() override;
     void closeEvent(QCloseEvent *) override;
-    void showTornOfWindows();
-    void hideTornOfWindows();
+    void showFloatingWindows();
+    void hideFloatingWindows();
     bool hasChanges();
     StringSet changedOptions(const ListSelect *);
     void showHelpDialog(UsageMode);

@@ -944,13 +944,13 @@ void AnnotationDialog::Dialog::slotOptions()
 int AnnotationDialog::Dialog::exec()
 {
     m_stack->setCurrentWidget(m_dockWindow);
-    showTornOfWindows();
+    showFloatingWindows();
     this->setFocus(); // Set temporary focus before show() is called so that extra cursor is not shown on any "random" input widget
     show(); // We need to call show before we call setupFocus() otherwise the widget will not yet all have been moved in place.
     setupFocus();
 
     const int ret = QDialog::exec();
-    hideTornOfWindows();
+    hideFloatingWindows();
     return ret;
 }
 
@@ -982,7 +982,7 @@ void AnnotationDialog::Dialog::closeEvent(QCloseEvent *e)
     reject();
 }
 
-void AnnotationDialog::Dialog::hideTornOfWindows()
+void AnnotationDialog::Dialog::hideFloatingWindows()
 {
     for (QDockWidget *dock : qAsConst(m_dockWidgets)) {
         if (dock->isFloating()) {
@@ -992,7 +992,7 @@ void AnnotationDialog::Dialog::hideTornOfWindows()
     }
 }
 
-void AnnotationDialog::Dialog::showTornOfWindows()
+void AnnotationDialog::Dialog::showFloatingWindows()
 {
     for (QDockWidget *dock : qAsConst(m_dockWidgets)) {
         if (dock->isFloating()) {

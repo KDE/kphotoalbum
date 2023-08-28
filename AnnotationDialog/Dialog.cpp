@@ -1472,6 +1472,8 @@ AnnotationDialog::Dialog::~Dialog()
 {
     qDeleteAll(m_optionList);
     m_optionList.clear();
+    qDeleteAll(m_dockWidgets);
+    m_dockWidgets.clear();
 }
 
 void AnnotationDialog::Dialog::togglePreview()

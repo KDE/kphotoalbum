@@ -56,6 +56,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Prevent showing selected thumbnails only if no thumbnails are selected, so that no crash can occur when showing the context again afterwards (#473324)
  - Fix crash when switching from video to image (#473587)
  - Fix program freeze when the viewer window is closed while playing a video using the VLC backend.
+ - Fix crash when both the annotation dialog and the viewer window is open and the user right-clicks on the viewer window (#473762)
 
 ### Removed
 

@@ -700,6 +700,8 @@ void Viewer::ViewerWidget::closeEvent(QCloseEvent *event)
 
     m_slideShowTimer->stop();
     m_isRunningSlideShow = false;
+    // give the video display time to do cleanup as long as the window handle is still valid:
+    m_videoDisplay->stop();
     event->accept();
 }
 

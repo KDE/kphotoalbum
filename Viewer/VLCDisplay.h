@@ -1,4 +1,6 @@
-// SPDX-FileCopyrightText: 2021-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -11,6 +13,14 @@ class QTimer;
 
 namespace Viewer
 {
+/**
+ * @brief The VLCDisplay class
+ *
+ * \note To ensure proper cleanup, you need to stop playback before deleting the VLCDisplay!
+ * The VLCDisplay is not in the position to do this, since it is not the main widget of the
+ * window and therefore does not receive a QCloseEvent (where the window handle is still valid).
+ * There is no way to call releaseVLC safely from the destructor otherwise.
+ */
 class VLCDisplay : public Viewer::VideoDisplay
 {
     Q_OBJECT

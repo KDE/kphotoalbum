@@ -126,7 +126,7 @@ protected Q_SLOTS:
     void slotRatingChanged(int);
     void togglePreview();
     void descriptionPageUpDownPressed(QKeyEvent *event);
-    void slotNewArea(ResizableFrame *area);
+    void slotNewArea(AnnotationDialog::ResizableFrame *area);
     void positionableTagSelected(QString category, QString tag);
     void positionableTagDeselected(QString category, QString tag);
     void positionableTagRenamed(QString category, QString oldTag, QString newTag);
@@ -135,6 +135,8 @@ protected Q_SLOTS:
     void annotationMapVisibilityChanged(bool visible);
     void populateMap();
 #endif
+    void showEvent(QShowEvent *event) override;
+    void hideEvent(QHideEvent *event) override;
 
 Q_SIGNALS:
     void imageRotated(const DB::FileName &id);

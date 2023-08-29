@@ -944,13 +944,12 @@ void AnnotationDialog::Dialog::slotOptions()
 int AnnotationDialog::Dialog::exec()
 {
     m_stack->setCurrentWidget(m_dockWindow);
-    showFloatingWindows();
     this->setFocus(); // Set temporary focus before show() is called so that extra cursor is not shown on any "random" input widget
     show(); // We need to call show before we call setupFocus() otherwise the widget will not yet all have been moved in place.
     setupFocus();
 
     const int ret = QDialog::exec();
-    hideFloatingWindows();
+    // don't do cleanup here! the dialog may even be deleted already at this point!
     return ret;
 }
 
@@ -1472,8 +1471,6 @@ AnnotationDialog::Dialog::~Dialog()
 {
     qDeleteAll(m_optionList);
     m_optionList.clear();
-    qDeleteAll(m_dockWidgets);
-    m_dockWidgets.clear();
 }
 
 void AnnotationDialog::Dialog::togglePreview()
@@ -1520,7 +1517,7 @@ void AnnotationDialog::Dialog::tidyAreas()
     }
 }
 
-void AnnotationDialog::Dialog::slotNewArea(ResizableFrame *area)
+void AnnotationDialog::Dialog::slotNewArea(AnnotationDialog::ResizableFrame *area)
 {
     area->setDialog(this);
 }
@@ -1761,6 +1758,18 @@ void AnnotationDialog::Dialog::populateMap()
     // at this point either we canceled loading or the map is populated:
     m_mapIsPopulated = !m_cancelMapLoading;
     mapLoadingFinished(imagesWithCoordinates > 0, imagesWithCoordinates == processedImages);
+}
+
+void AnnotationDialog::Dialog::showEvent(QShowEvent *event)
+{
+    showFloatingWindows();
+    event->accept();
+}
+
+void AnnotationDialog::Dialog::hideEvent(QHideEvent *event)
+{
+    hideFloatingWindows();
+    event->accept();
 }
 
 void AnnotationDialog::Dialog::setCancelMapLoading()

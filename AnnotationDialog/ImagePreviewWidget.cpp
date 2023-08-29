@@ -1,8 +1,8 @@
 // SPDX-FileCopyrightText: 2009 Laurent Montel <montel@kde.org>
 // SPDX-FileCopyrightText: 2009-2010 Hassan Ibraheem <hasan.ibraheem@gmail.com>
 // SPDX-FileCopyrightText: 2010 Tuomas Suutari <tuomas@nepnep.net>
-// SPDX-FileCopyrightText: 2010, 2012, 2019, 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2013-2016, 2018-2020, 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2010-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2014-2019 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
@@ -30,6 +30,7 @@ ImagePreviewWidget::ImagePreviewWidget(KActionCollection *actions)
     , m_singleEdit(false)
     , m_actions(actions)
 {
+    Q_ASSERT(actions);
     QVBoxLayout *layout = new QVBoxLayout(this);
     m_preview = new ImagePreview(this);
     layout->addWidget(m_preview, 1);
@@ -333,7 +334,8 @@ void ImagePreviewWidget::setToggleFullscreenPreviewEnabled(bool state)
 void AnnotationDialog::ImagePreviewWidget::showEvent(QShowEvent *)
 {
     auto setToolTip = [this](QWidget *widget, QString tooltip, const char *key) {
-        QKeySequence shortcut = m_actions->action(QString::fromLatin1(key))->shortcut();
+        const auto action = m_actions->action(QString::fromLatin1(key));
+        QKeySequence shortcut = action ? action->shortcut() : QKeySequence();
         if (!shortcut.isEmpty())
             tooltip += QString::fromLatin1(" (%1)").arg(shortcut.toString());
         widget->setToolTip(tooltip);

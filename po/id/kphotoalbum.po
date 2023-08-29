@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-22 00:43+0000\n"
+"POT-Creation-Date: 2023-08-29 00:43+0000\n"
 "PO-Revision-Date: 2022-09-27 17:10+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -123,38 +123,38 @@ msgstr "&Selesai"
 msgid "Continue &Later"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:821
+#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:822
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
 msgstr "&Cari"
 
-#: AnnotationDialog/Dialog.cpp:318
+#: AnnotationDialog/Dialog.cpp:319
 #, kde-format
 msgid "Label: "
 msgstr "Label: "
 
-#: AnnotationDialog/Dialog.cpp:322 ImportExport/MD5CheckPage.cpp:65
+#: AnnotationDialog/Dialog.cpp:323 ImportExport/MD5CheckPage.cpp:65
 #, kde-format
 msgid "Label"
 msgstr "Label"
 
-#: AnnotationDialog/Dialog.cpp:331
+#: AnnotationDialog/Dialog.cpp:332
 #, kde-format
 msgid "Date: "
 msgstr "Tanggal: "
 
-#: AnnotationDialog/Dialog.cpp:347
+#: AnnotationDialog/Dialog.cpp:348
 #, kde-format
 msgid "Time: "
 msgstr "Waktu: "
 
-#: AnnotationDialog/Dialog.cpp:353
+#: AnnotationDialog/Dialog.cpp:354
 #, kde-format
 msgid "Use Fuzzy Date"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:355
+#: AnnotationDialog/Dialog.cpp:356
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -166,165 +166,165 @@ msgid ""
 "Fuzzy Date</interface>.</para>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:370
+#: AnnotationDialog/Dialog.cpp:371
 #, kde-format
 msgid "Minimum megapixels:"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:380
+#: AnnotationDialog/Dialog.cpp:381
 #, kde-format
 msgid "Maximum megapixels:"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:393
+#: AnnotationDialog/Dialog.cpp:394
 #, kde-format
 msgid "Rating:"
 msgstr "Peringkat:"
 
-#: AnnotationDialog/Dialog.cpp:401
+#: AnnotationDialog/Dialog.cpp:402
 #, kde-format
 msgid "Rating search mode:"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:405
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "=="
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:405
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid ">="
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:405
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "<="
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:405
+#: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "!="
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:413
+#: AnnotationDialog/Dialog.cpp:414
 #, kde-format
 msgid "File Name Pattern: "
 msgstr "Pola Nama File: "
 
-#: AnnotationDialog/Dialog.cpp:416
+#: AnnotationDialog/Dialog.cpp:417
 #, kde-format
 msgid "File Name Pattern"
 msgstr "Pola Nama File"
 
-#: AnnotationDialog/Dialog.cpp:421
+#: AnnotationDialog/Dialog.cpp:422
 #, kde-format
 msgid "Search only for RAW files"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:611
+#: AnnotationDialog/Dialog.cpp:612
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Anotasi (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:826
+#: AnnotationDialog/Dialog.cpp:827
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Cari"
 
-#: AnnotationDialog/Dialog.cpp:829
+#: AnnotationDialog/Dialog.cpp:830
 #, kde-format
 msgid "Done"
 msgstr "Selesai"
 
-#: AnnotationDialog/Dialog.cpp:836
+#: AnnotationDialog/Dialog.cpp:837
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Anotasi"
 
-#: AnnotationDialog/Dialog.cpp:868
+#: AnnotationDialog/Dialog.cpp:869
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:869
+#: AnnotationDialog/Dialog.cpp:870
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:870
+#: AnnotationDialog/Dialog.cpp:871
 #, kde-format
 msgid "Reset layout"
 msgstr "Set ulang tata letak"
 
-#: AnnotationDialog/Dialog.cpp:877 AnnotationDialog/Dialog.cpp:1290
+#: AnnotationDialog/Dialog.cpp:878 AnnotationDialog/Dialog.cpp:1294
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:881 AnnotationDialog/Dialog.cpp:1294
+#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1298
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:885
+#: AnnotationDialog/Dialog.cpp:886
 #, kde-format
 msgid "Sort by Date"
 msgstr "Urutkan berdasarkan Tanggal"
 
-#: AnnotationDialog/Dialog.cpp:901
+#: AnnotationDialog/Dialog.cpp:902
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:902
+#: AnnotationDialog/Dialog.cpp:903
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:903
+#: AnnotationDialog/Dialog.cpp:904
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:920
+#: AnnotationDialog/Dialog.cpp:921
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:963
+#: AnnotationDialog/Dialog.cpp:967
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
 "of the following error: %2"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:968
+#: AnnotationDialog/Dialog.cpp:972
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
 "of the following error: %2"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1036
+#: AnnotationDialog/Dialog.cpp:1040
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1037
+#: AnnotationDialog/Dialog.cpp:1041
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Simpan Perubahan?"
 
-#: AnnotationDialog/Dialog.cpp:1154
+#: AnnotationDialog/Dialog.cpp:1158
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -335,7 +335,7 @@ msgid ""
 "kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1162
+#: AnnotationDialog/Dialog.cpp:1166
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -344,58 +344,58 @@ msgid ""
 "\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1297
+#: AnnotationDialog/Dialog.cpp:1301
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1300
+#: AnnotationDialog/Dialog.cpp:1304
 #, kde-format
 msgid "Toggle Sorting"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1305
+#: AnnotationDialog/Dialog.cpp:1309
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1309
+#: AnnotationDialog/Dialog.cpp:1313
 #, kde-format
 msgid "Annotate Next"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1313
+#: AnnotationDialog/Dialog.cpp:1317
 #, kde-format
 msgid "Annotate Previous"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1317
+#: AnnotationDialog/Dialog.cpp:1321
 #, kde-format
 msgid "OK dialog"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1321 AnnotationDialog/ListSelect.cpp:354
+#: AnnotationDialog/Dialog.cpp:1325 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Hapus"
 
-#: AnnotationDialog/Dialog.cpp:1325
+#: AnnotationDialog/Dialog.cpp:1329
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1329 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1333 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Rotasikan lawan arah jarum jam"
 
-#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1336 MainWindow/Window.cpp:852
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Rotasikan searah jarum jam"
 
-#: AnnotationDialog/Dialog.cpp:1335
+#: AnnotationDialog/Dialog.cpp:1339
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr ""
@@ -6239,7 +6239,7 @@ msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Tayangan Slide"
 
-#: Viewer/ViewerWidget.cpp:413 Viewer/ViewerWidget.cpp:833
+#: Viewer/ViewerWidget.cpp:413 Viewer/ViewerWidget.cpp:835
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
@@ -6303,7 +6303,7 @@ msgstr ""
 msgid "Change display mode to %1"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:836
+#: Viewer/ViewerWidget.cpp:838
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Run Slideshow"
@@ -6311,13 +6311,13 @@ msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
 msgstr "Jalankan Tayangan Slide"
 
-#: Viewer/ViewerWidget.cpp:839
+#: Viewer/ViewerWidget.cpp:841
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Hentikan Tayangan Slid"
 
-#: Viewer/ViewerWidget.cpp:844
+#: Viewer/ViewerWidget.cpp:846
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
@@ -6325,147 +6325,147 @@ msgid ""
 "slideshow slower"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:894
+#: Viewer/ViewerWidget.cpp:896
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1137
+#: Viewer/ViewerWidget.cpp:1139
 #, fuzzy, kde-format
 #| msgid "Description"
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "Deskripsi"
 
-#: Viewer/ViewerWidget.cpp:1137
+#: Viewer/ViewerWidget.cpp:1139
 #, fuzzy, kde-format
 #| msgid "Description"
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "Deskripsi"
 
-#: Viewer/ViewerWidget.cpp:1152
+#: Viewer/ViewerWidget.cpp:1154
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Jangka"
 
-#: Viewer/ViewerWidget.cpp:1173
+#: Viewer/ViewerWidget.cpp:1175
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1174
+#: Viewer/ViewerWidget.cpp:1176
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1175
+#: Viewer/ViewerWidget.cpp:1177
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1176
+#: Viewer/ViewerWidget.cpp:1178
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1177
+#: Viewer/ViewerWidget.cpp:1179
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1178
+#: Viewer/ViewerWidget.cpp:1180
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1179
+#: Viewer/ViewerWidget.cpp:1181
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1180
+#: Viewer/ViewerWidget.cpp:1182
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1181
+#: Viewer/ViewerWidget.cpp:1183
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1182
+#: Viewer/ViewerWidget.cpp:1184
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1190
+#: Viewer/ViewerWidget.cpp:1192
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Hentikan"
 
-#: Viewer/ViewerWidget.cpp:1203
+#: Viewer/ViewerWidget.cpp:1205
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1209
+#: Viewer/ViewerWidget.cpp:1211
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Mulai Ulang"
 
-#: Viewer/ViewerWidget.cpp:1224
+#: Viewer/ViewerWidget.cpp:1226
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Filter"
 
-#: Viewer/ViewerWidget.cpp:1227
+#: Viewer/ViewerWidget.cpp:1229
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1231
+#: Viewer/ViewerWidget.cpp:1233
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1236
+#: Viewer/ViewerWidget.cpp:1238
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1241
+#: Viewer/ViewerWidget.cpp:1243
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1246
+#: Viewer/ViewerWidget.cpp:1248
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1298
+#: Viewer/ViewerWidget.cpp:1300
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -6473,34 +6473,34 @@ msgid ""
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1302
+#: Viewer/ViewerWidget.cpp:1304
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
 "will be used instead: <tt>%2</tt></p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1315
+#: Viewer/ViewerWidget.cpp:1317
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1379
+#: Viewer/ViewerWidget.cpp:1381
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Annotate..."
 msgid "Annotate"
 msgstr "Anotasi..."
 
-#: Viewer/ViewerWidget.cpp:1398
+#: Viewer/ViewerWidget.cpp:1400
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1400
+#: Viewer/ViewerWidget.cpp:1402
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Annotations"
@@ -6508,88 +6508,88 @@ msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Anotasi"
 
-#: Viewer/ViewerWidget.cpp:1401
+#: Viewer/ViewerWidget.cpp:1403
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1401
+#: Viewer/ViewerWidget.cpp:1403
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1404
+#: Viewer/ViewerWidget.cpp:1406
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1405
+#: Viewer/ViewerWidget.cpp:1407
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1408
+#: Viewer/ViewerWidget.cpp:1410
 #, fuzzy, kde-format
 #| msgid "Description"
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Deskripsi"
 
-#: Viewer/ViewerWidget.cpp:1409
+#: Viewer/ViewerWidget.cpp:1411
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1412
+#: Viewer/ViewerWidget.cpp:1414
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Annotations"
 msgid "Annotation Mode"
 msgstr "Anotasi"
 
-#: Viewer/ViewerWidget.cpp:1414
+#: Viewer/ViewerWidget.cpp:1416
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1415
+#: Viewer/ViewerWidget.cpp:1417
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1419
+#: Viewer/ViewerWidget.cpp:1421
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1420
+#: Viewer/ViewerWidget.cpp:1422
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1423
+#: Viewer/ViewerWidget.cpp:1425
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Token"
 
-#: Viewer/ViewerWidget.cpp:1424
+#: Viewer/ViewerWidget.cpp:1426
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1567
+#: Viewer/ViewerWidget.cpp:1569
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgid "Token %1"

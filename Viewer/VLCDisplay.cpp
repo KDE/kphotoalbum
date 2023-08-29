@@ -176,7 +176,7 @@ void Viewer::VLCDisplay::setupVLC()
 
 bool Viewer::VLCDisplay::isPlaying() const
 {
-    return libvlc_media_get_state(m_media) == libvlc_Playing;
+    return m_media && libvlc_media_get_state(m_media) == libvlc_Playing;
 }
 
 QImage Viewer::VLCDisplay::screenShoot()

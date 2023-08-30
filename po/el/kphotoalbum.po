@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-29 00:43+0000\n"
+"POT-Creation-Date: 2023-08-30 00:44+0000\n"
 "PO-Revision-Date: 2017-10-16 18:16+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -293,13 +293,13 @@ msgstr "Αποθήκευση τρέχουσας ρύθμισης παραθύρ�
 msgid "Reset layout"
 msgstr "Επαναφορά διάταξης"
 
-#: AnnotationDialog/Dialog.cpp:878 AnnotationDialog/Dialog.cpp:1294
+#: AnnotationDialog/Dialog.cpp:878 AnnotationDialog/Dialog.cpp:1293
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Ταξινόμηση αλφαβητικά (δένδρου)"
 
-#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1298
+#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1297
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
@@ -335,7 +335,7 @@ msgstr "Να γίνει ταίριασμα ετικετών παντού."
 msgid "Show Only Selected Ctrl+S"
 msgstr "Εμφάνιση μόνο επιλεγμένων Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:967
+#: AnnotationDialog/Dialog.cpp:966
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
@@ -344,7 +344,7 @@ msgstr ""
 "<p>Αδυναμία αποθήκευσης της διάταξης παραθύρου.</p>Αδύνατο το άνοιγμα του "
 "αρχείου %1 εξαιτίας του ακόλουθου σφάλματος: %2"
 
-#: AnnotationDialog/Dialog.cpp:972
+#: AnnotationDialog/Dialog.cpp:971
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
@@ -353,7 +353,7 @@ msgstr ""
 "<p>Αδυναμία αποθήκευσης της διάταξης παραθύρου.</p>Αδύνατη η εγγραφή του "
 "αρχείου %1 εξαιτίας του ακόλουθου σφάλματος: %2"
 
-#: AnnotationDialog/Dialog.cpp:1040
+#: AnnotationDialog/Dialog.cpp:1039
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Some changes are made to annotations. Do you really want to cancel all "
@@ -365,14 +365,14 @@ msgstr ""
 "<p>Έγιναν κάποιες αλλαγές στις σημειώσεις. Θέλετε πραγματικά να ακυρώσετε "
 "όλες τις πρόσφατες αλλαγές σε κάθε αρχείο που αλλάχθηκε;</p>"
 
-#: AnnotationDialog/Dialog.cpp:1041
+#: AnnotationDialog/Dialog.cpp:1040
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Αποθήκευση αλλαγών;"
 
-#: AnnotationDialog/Dialog.cpp:1158
+#: AnnotationDialog/Dialog.cpp:1157
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -390,7 +390,7 @@ msgstr ""
 "επιπλέον βοήθεια σχετικά με τη χρήση του, διαβάζοντας σχετικά στο <a href="
 "\"help:/kphotoalbum/chp-typingIn.html\">πληκτρολογώντας</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1166
+#: AnnotationDialog/Dialog.cpp:1165
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -404,58 +404,58 @@ msgstr ""
 "\"help:/kphotoalbum/chp-typingIn.html\">τεκμηρίωση για το διάλογο αυτό</a></"
 "p>"
 
-#: AnnotationDialog/Dialog.cpp:1301
+#: AnnotationDialog/Dialog.cpp:1300
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Ταξινόμηση πρόσφατα χρησιμοποιημένων"
 
-#: AnnotationDialog/Dialog.cpp:1304
+#: AnnotationDialog/Dialog.cpp:1303
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Εναλλαγή ταξινόμησης"
 
-#: AnnotationDialog/Dialog.cpp:1309
+#: AnnotationDialog/Dialog.cpp:1308
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Εναλλαγή εμφάνισης μόνο επιλεγμένων αντικειμένων"
 
-#: AnnotationDialog/Dialog.cpp:1313
+#: AnnotationDialog/Dialog.cpp:1312
 #, kde-format
 msgid "Annotate Next"
 msgstr "Σημείωση επόμενου"
 
-#: AnnotationDialog/Dialog.cpp:1317
+#: AnnotationDialog/Dialog.cpp:1316
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Σημείωση προηγούμενου"
 
-#: AnnotationDialog/Dialog.cpp:1321
+#: AnnotationDialog/Dialog.cpp:1320
 #, kde-format
 msgid "OK dialog"
 msgstr "διάλογος OK"
 
-#: AnnotationDialog/Dialog.cpp:1325 AnnotationDialog/ListSelect.cpp:354
+#: AnnotationDialog/Dialog.cpp:1324 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: AnnotationDialog/Dialog.cpp:1329
+#: AnnotationDialog/Dialog.cpp:1328
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Αντιγραφή ετικετών από την προηγούμενη εικόνα"
 
-#: AnnotationDialog/Dialog.cpp:1333 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Περιστροφή προς τα αριστερά"
 
-#: AnnotationDialog/Dialog.cpp:1336 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1335 MainWindow/Window.cpp:852
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Περιστροφή προς τα δεξιά"
 
-#: AnnotationDialog/Dialog.cpp:1339
+#: AnnotationDialog/Dialog.cpp:1338
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Εναλλαγή προεπισκόπησης πλήρους οθόνης"
@@ -478,19 +478,19 @@ msgid ""
 "recognition database anymore, it can be deleted in the settings dialog.</p>"
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:49
+#: AnnotationDialog/ImagePreviewWidget.cpp:50
 #, fuzzy, kde-format
 #| msgid "Annotate previous image"
 msgid "Annotate previous image (Page Up)"
 msgstr "Σημείωση προηγούμενης εικόνας"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:55
+#: AnnotationDialog/ImagePreviewWidget.cpp:56
 #, fuzzy, kde-format
 #| msgid "Annotate next image"
 msgid "Annotate next image (Page Down)"
 msgstr "Σημείωση επόμενης εικόνας"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:80
+#: AnnotationDialog/ImagePreviewWidget.cpp:81
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -498,19 +498,19 @@ msgid ""
 "date, label, rating, and description are left unchanged.</para>"
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:108
+#: AnnotationDialog/ImagePreviewWidget.cpp:109
 #, fuzzy, kde-format
 #| msgid "Category for virtual albums:"
 msgid "Category for new areas:"
 msgstr "Κατηγορία για εικονικά λευκώματα:"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:303
+#: AnnotationDialog/ImagePreviewWidget.cpp:304
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:308
+#: AnnotationDialog/ImagePreviewWidget.cpp:309
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -519,41 +519,41 @@ msgid ""
 "interface>, you can associate specific image areas with tags."
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:313
+#: AnnotationDialog/ImagePreviewWidget.cpp:314
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:342
+#: AnnotationDialog/ImagePreviewWidget.cpp:344
 #, fuzzy, kde-format
 #| msgid "Toggle fullscreen preview"
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
 msgstr "Εναλλαγή προεπισκόπησης πλήρους οθόνης"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:343
+#: AnnotationDialog/ImagePreviewWidget.cpp:345
 #, fuzzy, kde-format
 #| msgid "Rotate counterclockwise"
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
 msgstr "Περιστροφή προς τα αριστερά"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:344
+#: AnnotationDialog/ImagePreviewWidget.cpp:346
 #, fuzzy, kde-format
 #| msgid "Rotate clockwise"
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
 msgstr "Περιστροφή προς τα δεξιά"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:345
+#: AnnotationDialog/ImagePreviewWidget.cpp:347
 #, fuzzy, kde-format
 #| msgid "Copy tags from previously tagged image"
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
 msgstr "Αντιγραφή ετικετών από άλλη εικόνα"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:346
+#: AnnotationDialog/ImagePreviewWidget.cpp:348
 #, fuzzy, kde-format
 #| msgid "Delete image"
 msgctxt "@info:tooltip"

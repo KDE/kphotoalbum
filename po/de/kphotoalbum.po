@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-29 00:43+0000\n"
+"POT-Creation-Date: 2023-08-30 00:44+0000\n"
 "PO-Revision-Date: 2023-08-14 21:58+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -277,13 +277,13 @@ msgstr "Aktuelle Fenstereinstellung speichern"
 msgid "Reset layout"
 msgstr "Layout zurücksetzen"
 
-#: AnnotationDialog/Dialog.cpp:878 AnnotationDialog/Dialog.cpp:1294
+#: AnnotationDialog/Dialog.cpp:878 AnnotationDialog/Dialog.cpp:1293
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Alphabetisch sortieren (Baum)"
 
-#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1298
+#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1297
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
@@ -314,7 +314,7 @@ msgstr "Stichwortübereinstimmung beliebig"
 msgid "Show Only Selected Ctrl+S"
 msgstr "Nur Ausgewählte anzeigen Strg+S"
 
-#: AnnotationDialog/Dialog.cpp:967
+#: AnnotationDialog/Dialog.cpp:966
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
@@ -323,7 +323,7 @@ msgstr ""
 "<p>Die Anordnung des Fensters kann nicht gespeichert werden.</p>Die Datei %1 "
 "kann aufgrund des folgenden Fehlers nicht geöffnet werden: %2"
 
-#: AnnotationDialog/Dialog.cpp:972
+#: AnnotationDialog/Dialog.cpp:971
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
@@ -332,7 +332,7 @@ msgstr ""
 "<p>Die Anordnung des Fensters kann nicht gespeichert werden.</p>Die Datei %1 "
 "kann aufgrund des folgenden Fehlers nicht geschrieben werden: %2"
 
-#: AnnotationDialog/Dialog.cpp:1040
+#: AnnotationDialog/Dialog.cpp:1039
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
@@ -341,13 +341,13 @@ msgstr ""
 "<p>Einige Kategorien wurden geändert. Möchten Sie wirklich für jedes "
 "betroffene Bild die letzten Änderungen verwerfen?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1041
+#: AnnotationDialog/Dialog.cpp:1040
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Änderungen verwerfen?"
 
-#: AnnotationDialog/Dialog.cpp:1158
+#: AnnotationDialog/Dialog.cpp:1157
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -365,7 +365,7 @@ msgstr ""
 "Sie im Abschnitt <a href=\"help:/kphotoalbum/chp-typingIn.html\">Eingeben</"
 "a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1166
+#: AnnotationDialog/Dialog.cpp:1165
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -379,58 +379,58 @@ msgstr ""
 "nehmen, um die <a href=\"help:/kphotoalbum/chp-typingIn.html\">Dokumentation "
 "zu diesem Dialog</a> zu lesen.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1301
+#: AnnotationDialog/Dialog.cpp:1300
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Nach letzter Nutzung sortieren"
 
-#: AnnotationDialog/Dialog.cpp:1304
+#: AnnotationDialog/Dialog.cpp:1303
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Sortierung umschalten"
 
-#: AnnotationDialog/Dialog.cpp:1309
+#: AnnotationDialog/Dialog.cpp:1308
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Anzeige nur ausgewählter Einträge umschalten"
 
-#: AnnotationDialog/Dialog.cpp:1313
+#: AnnotationDialog/Dialog.cpp:1312
 #, kde-format
 msgid "Annotate Next"
 msgstr "Nächstes kategorisieren"
 
-#: AnnotationDialog/Dialog.cpp:1317
+#: AnnotationDialog/Dialog.cpp:1316
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Vorheriges kategorisieren"
 
-#: AnnotationDialog/Dialog.cpp:1321
+#: AnnotationDialog/Dialog.cpp:1320
 #, kde-format
 msgid "OK dialog"
 msgstr "OK-Dialog"
 
-#: AnnotationDialog/Dialog.cpp:1325 AnnotationDialog/ListSelect.cpp:354
+#: AnnotationDialog/Dialog.cpp:1324 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Löschen"
 
-#: AnnotationDialog/Dialog.cpp:1329
+#: AnnotationDialog/Dialog.cpp:1328
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Stichwörter vom vorherigen Bild kopieren"
 
-#: AnnotationDialog/Dialog.cpp:1333 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Gegen den Uhrzeigersinn drehen"
 
-#: AnnotationDialog/Dialog.cpp:1336 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1335 MainWindow/Window.cpp:852
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Im Uhrzeigersinn drehen"
 
-#: AnnotationDialog/Dialog.cpp:1339
+#: AnnotationDialog/Dialog.cpp:1338
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Vollbildvorschau umschalten"
@@ -465,17 +465,17 @@ msgstr ""
 "mehr in der Erkennungsdatenbank sein soll, kann es in den Einstellungen "
 "gelöscht werden.</p>"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:49
+#: AnnotationDialog/ImagePreviewWidget.cpp:50
 #, kde-format
 msgid "Annotate previous image (Page Up)"
 msgstr "Vorheriges Bild kategorisieren (Bild auf)"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:55
+#: AnnotationDialog/ImagePreviewWidget.cpp:56
 #, kde-format
 msgid "Annotate next image (Page Down)"
 msgstr "Nächstes Bild kategorisieren (Bild  ab)"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:80
+#: AnnotationDialog/ImagePreviewWidget.cpp:81
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -486,18 +486,18 @@ msgstr ""
 "Bild fest. Bilddatum, Name, Bewertung und Beschreibung bleiben unverändert.</"
 "para>"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:108
+#: AnnotationDialog/ImagePreviewWidget.cpp:109
 #, kde-format
 msgid "Category for new areas:"
 msgstr "Kategorie für neue Bereiche:"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:303
+#: AnnotationDialog/ImagePreviewWidget.cpp:304
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
 msgstr "Bereiche im Bild anzeigen oder ausblenden"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:308
+#: AnnotationDialog/ImagePreviewWidget.cpp:309
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -510,7 +510,7 @@ msgstr ""
 "Kategorien</interface> aktivieren, können Sie bestimmte Bildbereiche mit "
 "Stichwörtern verknüpfen."
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:313
+#: AnnotationDialog/ImagePreviewWidget.cpp:314
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
@@ -518,32 +518,32 @@ msgstr ""
 "Bereiche in einem Bild können nur im Anmerkungsmodus für einzelne Bilder "
 "angezeigt werden."
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:342
+#: AnnotationDialog/ImagePreviewWidget.cpp:344
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
 msgstr "Vollbildvorschau umschalten"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:343
+#: AnnotationDialog/ImagePreviewWidget.cpp:345
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
 msgstr "Gegen den Uhrzeigersinn drehen"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:344
+#: AnnotationDialog/ImagePreviewWidget.cpp:346
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
 msgstr "Im Uhrzeigersinn drehen"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:345
+#: AnnotationDialog/ImagePreviewWidget.cpp:347
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
 msgstr ""
 "Die Stichwörter von dem zuletzt mit Stichwörtern versehenden Bild kopieren"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:346
+#: AnnotationDialog/ImagePreviewWidget.cpp:348
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"

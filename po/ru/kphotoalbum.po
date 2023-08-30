@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-29 00:43+0000\n"
+"POT-Creation-Date: 2023-08-30 00:44+0000\n"
 "PO-Revision-Date: 2020-03-22 17:24+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -285,13 +285,13 @@ msgstr "Сохранить текущее состояние окна"
 msgid "Reset layout"
 msgstr "Восстановить расположение элементов"
 
-#: AnnotationDialog/Dialog.cpp:878 AnnotationDialog/Dialog.cpp:1294
+#: AnnotationDialog/Dialog.cpp:878 AnnotationDialog/Dialog.cpp:1293
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Сортировать по алфавиту (иерархический список)"
 
-#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1298
+#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1297
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
@@ -322,7 +322,7 @@ msgstr "Поиск в любой части метки"
 msgid "Show Only Selected Ctrl+S"
 msgstr "Показать только выбранные (Ctrl+S)"
 
-#: AnnotationDialog/Dialog.cpp:967
+#: AnnotationDialog/Dialog.cpp:966
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
@@ -331,7 +331,7 @@ msgstr ""
 "<p>Не удалось сохранить расположение элементов в окне.</p>Ошибка открытия "
 "файла «%1»: %2"
 
-#: AnnotationDialog/Dialog.cpp:972
+#: AnnotationDialog/Dialog.cpp:971
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
@@ -340,7 +340,7 @@ msgstr ""
 "<p>Не удалось сохранить расположение элементов в окне.</p>Ошибка записи в "
 "файл «%1»: %2"
 
-#: AnnotationDialog/Dialog.cpp:1040
+#: AnnotationDialog/Dialog.cpp:1039
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Some changes are made to annotations. Do you really want to cancel all "
@@ -352,14 +352,14 @@ msgstr ""
 "<p>В окне комментирования были внесены изменения. Отменить все текущие "
 "изменения для каждого изменённого файла?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1041
+#: AnnotationDialog/Dialog.cpp:1040
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Сохранение изменений"
 
-#: AnnotationDialog/Dialog.cpp:1158
+#: AnnotationDialog/Dialog.cpp:1157
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -377,7 +377,7 @@ msgstr ""
 "прочитав о <a href=\"help:/kphotoalbum/chp-typingIn.html\">комментировании</"
 "a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1166
+#: AnnotationDialog/Dialog.cpp:1165
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -391,59 +391,59 @@ msgstr ""
 "на чтение <a href=\"help:/kphotoalbum/chp-typingIn.html\">документации к "
 "этому диалоговому окну</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1301
+#: AnnotationDialog/Dialog.cpp:1300
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Сортировать по последнему использованию"
 
-#: AnnotationDialog/Dialog.cpp:1304
+#: AnnotationDialog/Dialog.cpp:1303
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Включить сортировку"
 
-#: AnnotationDialog/Dialog.cpp:1309
+#: AnnotationDialog/Dialog.cpp:1308
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Включить показ только выбранных элементов"
 
-#: AnnotationDialog/Dialog.cpp:1313
+#: AnnotationDialog/Dialog.cpp:1312
 #, kde-format
 msgid "Annotate Next"
 msgstr "Комментировать следующее"
 
-#: AnnotationDialog/Dialog.cpp:1317
+#: AnnotationDialog/Dialog.cpp:1316
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Комментировать предыдущее"
 
-#: AnnotationDialog/Dialog.cpp:1321
+#: AnnotationDialog/Dialog.cpp:1320
 #, kde-format
 msgid "OK dialog"
 msgstr "Завершить работу с окном комментирования"
 
 # BUGME: please disambiguate --aspotashev
-#: AnnotationDialog/Dialog.cpp:1325 AnnotationDialog/ListSelect.cpp:354
+#: AnnotationDialog/Dialog.cpp:1324 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Удалить"
 
-#: AnnotationDialog/Dialog.cpp:1329
+#: AnnotationDialog/Dialog.cpp:1328
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Копировать метки из предыдущего изображения"
 
-#: AnnotationDialog/Dialog.cpp:1333 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Повернуть против часовой стрелки"
 
-#: AnnotationDialog/Dialog.cpp:1336 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1335 MainWindow/Window.cpp:852
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Повернуть по часовой стрелке"
 
-#: AnnotationDialog/Dialog.cpp:1339
+#: AnnotationDialog/Dialog.cpp:1338
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Включить полноэкранный просмотр"
@@ -476,19 +476,19 @@ msgstr ""
 "настройки. Если эта метка больше не нужна, можно удалить её также через "
 "диалог настройки.</p>"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:49
+#: AnnotationDialog/ImagePreviewWidget.cpp:50
 #, fuzzy, kde-format
 #| msgid "Annotate previous image"
 msgid "Annotate previous image (Page Up)"
 msgstr "Комментировать предыдущее изображение"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:55
+#: AnnotationDialog/ImagePreviewWidget.cpp:56
 #, fuzzy, kde-format
 #| msgid "Annotate next image"
 msgid "Annotate next image (Page Down)"
 msgstr "Комментировать следующее изображение"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:80
+#: AnnotationDialog/ImagePreviewWidget.cpp:81
 #, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
@@ -498,18 +498,18 @@ msgstr ""
 "<para>Установить те же метки на этом изображении, что и на предыдущем. Дата, "
 "название, оценка и описание останутся неизменными.</para>"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:108
+#: AnnotationDialog/ImagePreviewWidget.cpp:109
 #, kde-format
 msgid "Category for new areas:"
 msgstr "Категория для новых областей:"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:303
+#: AnnotationDialog/ImagePreviewWidget.cpp:304
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
 msgstr "Скрыть или показать области на изображении"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:308
+#: AnnotationDialog/ImagePreviewWidget.cpp:309
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -521,7 +521,7 @@ msgstr ""
 "одной категории в <interface>Настройка|Настроить KPhotoAlbum...|Категории</"
 "interface>, вы можете присваивать метки выбранным областям изображений."
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:313
+#: AnnotationDialog/ImagePreviewWidget.cpp:314
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
@@ -529,35 +529,35 @@ msgstr ""
 "Области на изображении могут быть показаны только в режиме комментирования "
 "отдельных изображений."
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:342
+#: AnnotationDialog/ImagePreviewWidget.cpp:344
 #, fuzzy, kde-format
 #| msgid "Toggle fullscreen preview"
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
 msgstr "Включить полноэкранный просмотр"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:343
+#: AnnotationDialog/ImagePreviewWidget.cpp:345
 #, fuzzy, kde-format
 #| msgid "Rotate counterclockwise"
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
 msgstr "Повернуть против часовой стрелки"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:344
+#: AnnotationDialog/ImagePreviewWidget.cpp:346
 #, fuzzy, kde-format
 #| msgid "Rotate clockwise"
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
 msgstr "Повернуть по часовой стрелке"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:345
+#: AnnotationDialog/ImagePreviewWidget.cpp:347
 #, fuzzy, kde-format
 #| msgid "Copy tags from previously tagged image"
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
 msgstr "Копировать метки из предыдущего помеченного изображения"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:346
+#: AnnotationDialog/ImagePreviewWidget.cpp:348
 #, fuzzy, kde-format
 #| msgid "Delete image"
 msgctxt "@info:tooltip"

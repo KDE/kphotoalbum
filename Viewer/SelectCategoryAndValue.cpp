@@ -196,11 +196,11 @@ void SelectCategoryAndValue::setupExistingAssignments(const Viewer::AnnotationHa
         addAssignment(it.key(), QLatin1String("%1 / %2").arg(assignment.category, assignment.value));
     }
 
-    ui->knowAssignments->setModel(model);
-    ui->knowAssignments->verticalHeader()->hide();
-    ui->knowAssignments->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
-    ui->knowAssignments->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
-    ui->knowAssignments->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->knownAssignments->setModel(model);
+    ui->knownAssignments->verticalHeader()->hide();
+    ui->knownAssignments->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    ui->knownAssignments->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->knownAssignments->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 }
 
 QString SelectCategoryAndValue::category() const

@@ -4018,10 +4018,9 @@ msgid "Limit View to Selection"
 msgstr "Omezit pohled na vybrané"
 
 #: MainWindow/Window.cpp:770
-#, fuzzy, kde-format
-#| msgid "No item is selected."
+#, kde-format
 msgid "No images are selected!"
-msgstr "Žádná položka není vybrána."
+msgstr ""
 
 #: MainWindow/Window.cpp:783
 #, kde-format
@@ -6097,23 +6096,19 @@ msgid "Assign Macro"
 msgstr ""
 
 #: Viewer/AnnotationHandler.cpp:65
-#, fuzzy, kde-format
-#| msgid "Settings for category <b>%1</b>"
+#, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr "Nastavení pro kategorii <b>%1</b>"
+msgstr ""
 
 #: Viewer/AnnotationHandler.cpp:111
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Rename Item"
+#, kde-format
 msgid "Tag Item"
-msgstr "Přejmenovat položku"
+msgstr ""
 
 #: Viewer/AnnotationHandler.cpp:111
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select tag for image"
-msgstr "Vyberte cíl:"
+msgstr ""
 
 #: Viewer/CategoryImageConfig.cpp:33
 #, kde-format
@@ -6195,45 +6190,39 @@ msgstr ""
 #: Viewer/SelectCategoryAndValue.cpp:132
 #, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "Přidat nové"
 
 #: Viewer/SelectCategoryAndValue.cpp:182
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "Klíč"
 
 #: Viewer/SelectCategoryAndValue.cpp:182
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "Značka:"
+msgstr "Značka"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "Dialog OK"
+msgstr "Dialog"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "Popisek"
+msgstr "Textový štítek"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgid "Add new Tag"
-msgstr "Přidat značku"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "Název"
 
@@ -6453,17 +6442,14 @@ msgid "Pause"
 msgstr "Pozastavit"
 
 #: Viewer/ViewerWidget.cpp:592
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "locked"
-msgstr "Odemknout"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:594
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "annotating"
-msgstr "Poznámky"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:596
 #, kde-format
@@ -6476,12 +6462,10 @@ msgid "Change display mode to %1"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:838
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run Slideshow"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "Spustit prezentaci"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:841
 #, kde-format
@@ -6490,19 +6474,12 @@ msgid "Stop Slideshow"
 msgstr "Zastavit prezentaci"
 
 #: Viewer/ViewerWidget.cpp:846
-#, fuzzy, kde-format
-#| msgctxt "OSD for slideshow"
-#| msgid ""
-#| "<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
-#| "slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></"
-#| "p>"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
 msgstr ""
-"<p><center><font size=\"+4\">Spuštění prezentace<br/>Ctrl++ prezentaci "
-"zrychlí<br/>Ctrl + - prezentaci zpomalí</font></center></p>"
 
 #: Viewer/ViewerWidget.cpp:896
 #, kde-format
@@ -6511,18 +6488,16 @@ msgid "%1&nbsp;s"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1139
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "Popis motivu"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1139
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "Popis motivu"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1154
 #, kde-format
@@ -6667,31 +6642,27 @@ msgid ""
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1381
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgid "Annotate"
-msgstr "Opatřit poznámkami..."
+msgstr "Poznamenat"
 
 #: Viewer/ViewerWidget.cpp:1400
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "Nápověda"
 
 #: Viewer/ViewerWidget.cpp:1402
-#, fuzzy, kde-format
-#| msgid "Annotation Dialog"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
-msgstr "Dialog upřesňujících poznámek"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1403
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
-msgstr "Přidat značku"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1403
 #, kde-format
@@ -6700,11 +6671,10 @@ msgid "CTRL+a"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1406
-#, fuzzy, kde-format
-#| msgid "Copy tags from previous image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr "Zkopírovat značky z předchozího obrázku"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1407
 #, kde-format
@@ -6713,11 +6683,10 @@ msgid "CTRL+c"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1410
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "Popis"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1411
 #, kde-format
@@ -6726,11 +6695,9 @@ msgid "CTRL+d"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1414
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation Mode"
-msgstr "Poznámky"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1416
 #, kde-format
@@ -6757,11 +6724,10 @@ msgid "F2"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1425
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "Tokeny"
+msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1426
 #, kde-format
@@ -6770,10 +6736,9 @@ msgid "CTRL+t"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1569
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Token %1"
-msgstr "Tokeny"
+msgstr ""
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format
@@ -6829,20 +6794,3 @@ msgstr "Zobrazit velikosti obrázků"
 #, kde-format
 msgid "Show Rating"
 msgstr "Zobrazit hodnocení"
-
-#~ msgctxt "OSD for slideshow, num of seconds per image"
-#~ msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
-#~ msgstr "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
-
-#~ msgctxt "OSD for slideshow"
-#~ msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
-#~ msgstr ""
-#~ "<p><center><font size=\"+4\">Ukončení prezentace</font></center></p>"
-
-#~ msgctxt "Basically 'enter a category name'"
-#~ msgid "<b>Setting Category: </b>"
-#~ msgstr "<b>Nastavení kategorie: </b>"
-
-#~ msgctxt "Basically 'enter a tag name'"
-#~ msgid "<b>Assigning: </b>"
-#~ msgstr "<b>Přiřazování: </b>"

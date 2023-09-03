@@ -3,14 +3,17 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "AnnotationHandler.h"
+#include "Logging.h"
 #include "SelectCategoryAndValue.h"
+
+#include <kpabase/SettingsData.h>
+
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
 #include <QDebug>
 #include <QKeyEvent>
 #include <QLocale>
-#include <kpabase/SettingsData.h>
 #include <qnamespace.h>
 
 namespace Viewer
@@ -64,14 +67,23 @@ bool AnnotationHandler::assignKey(const QString &key)
 {
     SelectCategoryAndValue dialog(i18nc("@title", "Assign Macro"), i18n("Select item for macro key <b>%1</b>", key), m_assignments);
     connect(&dialog, &SelectCategoryAndValue::helpRequest, this, &AnnotationHandler::requestHelp);
+    connect(&dialog, &SelectCategoryAndValue::keyRemovalRequested, this, &AnnotationHandler::clearKey);
 
     auto result = dialog.exec();
     if (result == QDialog::Rejected)
         return false;
 
     m_assignments[key] = { dialog.category(), dialog.value() };
+    qCDebug(ViewerLog) << "Added macro assignment of key" << key << "to:" << m_assignments.value(key);
     saveSettings();
     return true;
+}
+
+void AnnotationHandler::clearKey(const QString &key)
+{
+    qCDebug(ViewerLog) << "Removed macro assignment of key" << key << "to:" << m_assignments.value(key);
+    m_assignments.remove(key);
+    saveSettings();
 }
 
 namespace
@@ -87,6 +99,8 @@ void AnnotationHandler::saveSettings()
 {
 
     KConfigGroup group = configGroup();
+    // delete group so that removed keys are removed:
+    group.deleteGroup();
     for (auto it = m_assignments.cbegin(); it != m_assignments.cend(); ++it) {
         auto subgroup = group.group(it.key());
         const auto item = it.value();
@@ -121,6 +135,13 @@ bool AnnotationHandler::askForTagAndInsert()
 AnnotationHandler::Assignments AnnotationHandler::assignments() const
 {
     return m_assignments;
+}
+
+QDebug operator<<(QDebug debug, const AnnotationHandler::Assignment &a)
+{
+    QDebugStateSaver saveState(debug);
+    debug.nospace().noquote() << "\"" << a.category << "/" << a.value << "\"";
+    return debug;
 }
 
 } // namespace Viewer

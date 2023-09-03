@@ -37,10 +37,13 @@ Q_SIGNALS:
 
 private:
     bool assignKey(const QString &key);
+    void clearKey(const QString &key);
     void saveSettings();
     void loadSettings();
 
     Assignments m_assignments;
 };
+
+QDebug operator<<(QDebug debug, const AnnotationHandler::Assignment &a);
 
 } // namespace Viewer

@@ -122,11 +122,11 @@ SelectCategoryAndValue::SelectCategoryAndValue(const QString &title, const QStri
             accept();
         });
 
-    connect(ui->lineEdit, &QLineEdit::textChanged, [completer, this] {
+    connect(ui->lineEdit, &QLineEdit::textChanged, ui->buttonBox, [completer, this] {
         ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(completer->currentIndex().isValid());
     });
 
-    connect(ui->value, &QLineEdit::textChanged, [this](const QString &txt) {
+    connect(ui->value, &QLineEdit::textChanged, ui->buttonBox, [this](const QString &txt) {
         ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!txt.isEmpty());
     });
 

@@ -122,7 +122,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QTableView" name="knowAssignments"/>
+        <widget class="QTableView" name="knownAssignments"/>
        </item>
       </layout>
      </item>

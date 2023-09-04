@@ -27,10 +27,20 @@ public:
 
 Q_SIGNALS:
     void helpRequest();
+    /**
+     * @brief keyRemovalRequested is emitted if the user removes an item from the QTableView showing known assignments.
+     * @param key
+     */
+    void keyRemovalRequested(const QString &key);
 
 private:
     void addNew();
     void setupExistingAssignments(const Viewer::AnnotationHandler::Assignments &assignments);
+    /**
+     * @brief knownAssignmentsContextMenu handles the customContextMenu signal for the knownAssignments QTableView.
+     * @param point
+     */
+    void knownAssignmentsContextMenu(const QPoint &point);
 
     const std::unique_ptr<Ui::SelectCategoryAndValue> ui;
     QString m_category;

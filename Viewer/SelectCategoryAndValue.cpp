@@ -6,11 +6,14 @@
 #include "ui_SelectCategoryAndValue.h"
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
+
 #include <KLocalizedString>
 #include <QCompleter>
 #include <QIdentityProxyModel>
+#include <QMenu>
 #include <QPushButton>
 #include <QStandardItem>
+
 #include <algorithm>
 
 Q_DECLARE_METATYPE(DB::CategoryPtr)
@@ -119,11 +122,11 @@ SelectCategoryAndValue::SelectCategoryAndValue(const QString &title, const QStri
             accept();
         });
 
-    connect(ui->lineEdit, &QLineEdit::textChanged, [completer, this] {
+    connect(ui->lineEdit, &QLineEdit::textChanged, ui->buttonBox, [completer, this] {
         ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(completer->currentIndex().isValid());
     });
 
-    connect(ui->value, &QLineEdit::textChanged, [this](const QString &txt) {
+    connect(ui->value, &QLineEdit::textChanged, ui->buttonBox, [this](const QString &txt) {
         ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!txt.isEmpty());
     });
 
@@ -143,6 +146,9 @@ SelectCategoryAndValue::SelectCategoryAndValue(const QString &title, const QStri
         if (!category->isSpecialCategory())
             ui->category->addItem(category->name(), QVariant::fromValue(category));
     }
+
+    ui->knownAssignments->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->knownAssignments, &QWidget::customContextMenuRequested, this, &SelectCategoryAndValue::knownAssignmentsContextMenu);
 }
 
 SelectCategoryAndValue::~SelectCategoryAndValue() = default;
@@ -181,11 +187,11 @@ void SelectCategoryAndValue::setupExistingAssignments(const Viewer::AnnotationHa
     auto model = new QStandardItemModel(this);
     model->setHorizontalHeaderLabels(QStringList { i18n("Key"), i18n("Tag") });
     int row = 0;
-    auto addAssignment = [&](const QString &key, const QString &assignment) {
+    auto addAssignment = [&](const QString &key, const Viewer::AnnotationHandler::Assignment &assignment) {
         auto *keyItem = new QStandardItem(key);
         keyItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
         model->setItem(row, 0, keyItem);
-        auto *assignmentItem = new QStandardItem(assignment);
+        auto *assignmentItem = new QStandardItem(QLatin1String("%1 / %2").arg(assignment.category, assignment.value));
         assignmentItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
         model->setItem(row, 1, assignmentItem);
         ++row;
@@ -193,14 +199,38 @@ void SelectCategoryAndValue::setupExistingAssignments(const Viewer::AnnotationHa
 
     for (auto it = assignments.cbegin(); it != assignments.cend(); ++it) {
         const Viewer::AnnotationHandler::Assignment assignment = it.value();
-        addAssignment(it.key(), QLatin1String("%1 / %2").arg(assignment.category, assignment.value));
+        addAssignment(it.key(), assignment);
     }
 
-    ui->knowAssignments->setModel(model);
-    ui->knowAssignments->verticalHeader()->hide();
-    ui->knowAssignments->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
-    ui->knowAssignments->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
-    ui->knowAssignments->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->knownAssignments->setModel(model);
+    ui->knownAssignments->verticalHeader()->hide();
+    ui->knownAssignments->horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
+    ui->knownAssignments->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->knownAssignments->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+}
+
+void SelectCategoryAndValue::knownAssignmentsContextMenu(const QPoint &point)
+{
+    const auto &index = ui->knownAssignments->indexAt(point);
+    if (index.isValid()) {
+        QMenu contextMenu { this };
+        QAction deleteItemAction { this };
+        contextMenu.addAction(&deleteItemAction);
+        deleteItemAction.setText(i18nc("@action:inmenu", "Clear assignment"));
+        connect(&deleteItemAction, &QAction::triggered, ui->knownAssignments, [&] {
+            // initiate removal from config:
+            const auto assignmentKey = index.siblingAtColumn(0);
+            if (assignmentKey.isValid()) {
+                // clear assignment:
+                const auto key = ui->knownAssignments->model()->data(assignmentKey).toString();
+                Q_EMIT keyRemovalRequested(key);
+
+                // update table view:
+                ui->knownAssignments->model()->removeRow(index.row());
+            }
+        });
+        contextMenu.exec(ui->knownAssignments->mapToGlobal(point));
+    }
 }
 
 QString SelectCategoryAndValue::category() const

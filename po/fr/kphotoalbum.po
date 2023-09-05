@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-30 00:44+0000\n"
+"POT-Creation-Date: 2023-09-05 00:43+0000\n"
 "PO-Revision-Date: 2023-08-21 14:30+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
@@ -6617,23 +6617,23 @@ msgctxt "E.g. '(7 months ago-1 year ago)'"
 msgid " (%1-%2)"
 msgstr " (%1-%2)"
 
-#: Viewer/AnnotationHandler.cpp:65
+#: Viewer/AnnotationHandler.cpp:68
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
 msgstr "Associer une macro"
 
-#: Viewer/AnnotationHandler.cpp:65
+#: Viewer/AnnotationHandler.cpp:68
 #, kde-format
 msgid "Select item for macro key <b>%1</b>"
 msgstr "Sélectionner un élément pour la touche macro <b>%1</b>"
 
-#: Viewer/AnnotationHandler.cpp:111
+#: Viewer/AnnotationHandler.cpp:125
 #, kde-format
 msgid "Tag Item"
 msgstr "Etiquetter un élément"
 
-#: Viewer/AnnotationHandler.cpp:111
+#: Viewer/AnnotationHandler.cpp:125
 #, kde-format
 msgid "Select tag for image"
 msgstr "Sélectionner une étiquette pour une image"
@@ -6714,25 +6714,31 @@ msgstr ""
 "Impossible de paramétrer la lecture vidéo (le composant graphique n'a pas "
 "été créé)"
 
-#: Viewer/SelectCategoryAndValue.cpp:103
+#: Viewer/SelectCategoryAndValue.cpp:106
 #, kde-format
 msgid "Type name of category and item"
 msgstr "Saisir un nom de catégorie et un élément"
 
-#: Viewer/SelectCategoryAndValue.cpp:132
+#: Viewer/SelectCategoryAndValue.cpp:135
 #, kde-format
 msgid "Add New"
 msgstr "Ajouter un nouveau"
 
-#: Viewer/SelectCategoryAndValue.cpp:182
+#: Viewer/SelectCategoryAndValue.cpp:188
 #, kde-format
 msgid "Key"
 msgstr "Touche"
 
-#: Viewer/SelectCategoryAndValue.cpp:182
+#: Viewer/SelectCategoryAndValue.cpp:188
 #, kde-format
 msgid "Tag"
 msgstr "Étiquette"
+
+#: Viewer/SelectCategoryAndValue.cpp:219
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Clear assignment"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14

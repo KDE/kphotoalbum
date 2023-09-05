@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-30 00:44+0000\n"
+"POT-Creation-Date: 2023-09-05 00:43+0000\n"
 "PO-Revision-Date: 2022-06-27 20:24+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -6706,25 +6706,25 @@ msgctxt "E.g. '(7 months ago-1 year ago)'"
 msgid " (%1-%2)"
 msgstr " (%1-%2)"
 
-#: Viewer/AnnotationHandler.cpp:65
+#: Viewer/AnnotationHandler.cpp:68
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
 msgstr ""
 
-#: Viewer/AnnotationHandler.cpp:65
+#: Viewer/AnnotationHandler.cpp:68
 #, fuzzy, kde-format
 #| msgid "Settings for category <b>%1</b>"
 msgid "Select item for macro key <b>%1</b>"
 msgstr "Ustawień dla kategorii <b>%1</b>"
 
-#: Viewer/AnnotationHandler.cpp:111
+#: Viewer/AnnotationHandler.cpp:125
 #, fuzzy, kde-format
 #| msgid "Rename Item"
 msgid "Tag Item"
 msgstr "Zmień nazwę elementu"
 
-#: Viewer/AnnotationHandler.cpp:111
+#: Viewer/AnnotationHandler.cpp:125
 #, fuzzy, kde-format
 #| msgid "Select target:"
 msgid "Select tag for image"
@@ -6805,26 +6805,32 @@ msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""
 "Nie udało się ustawić odtwarzania filmu (nie utworzono okna do wyświetlania)"
 
-#: Viewer/SelectCategoryAndValue.cpp:103
+#: Viewer/SelectCategoryAndValue.cpp:106
 #, kde-format
 msgid "Type name of category and item"
 msgstr ""
 
-#: Viewer/SelectCategoryAndValue.cpp:132
+#: Viewer/SelectCategoryAndValue.cpp:135
 #, kde-format
 msgid "Add New"
 msgstr ""
 
-#: Viewer/SelectCategoryAndValue.cpp:182
+#: Viewer/SelectCategoryAndValue.cpp:188
 #, kde-format
 msgid "Key"
 msgstr ""
 
-#: Viewer/SelectCategoryAndValue.cpp:182
+#: Viewer/SelectCategoryAndValue.cpp:188
 #, fuzzy, kde-format
 #| msgid "Tag:"
 msgid "Tag"
 msgstr "Znacznik:"
+
+#: Viewer/SelectCategoryAndValue.cpp:219
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Clear assignment"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14

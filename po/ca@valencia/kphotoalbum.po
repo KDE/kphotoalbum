@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-08-30 00:44+0000\n"
+"POT-Creation-Date: 2023-09-05 00:43+0000\n"
 "PO-Revision-Date: 2023-08-14 11:51+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -6560,23 +6560,23 @@ msgctxt "E.g. '(7 months ago-1 year ago)'"
 msgid " (%1-%2)"
 msgstr " (%1-%2)"
 
-#: Viewer/AnnotationHandler.cpp:65
+#: Viewer/AnnotationHandler.cpp:68
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
 msgstr "Assignació de macro"
 
-#: Viewer/AnnotationHandler.cpp:65
+#: Viewer/AnnotationHandler.cpp:68
 #, kde-format
 msgid "Select item for macro key <b>%1</b>"
 msgstr "Seleccioneu un element per a la tecla de macro <b>%1</b>"
 
-#: Viewer/AnnotationHandler.cpp:111
+#: Viewer/AnnotationHandler.cpp:125
 #, kde-format
 msgid "Tag Item"
 msgstr "Etiqueta l'element"
 
-#: Viewer/AnnotationHandler.cpp:111
+#: Viewer/AnnotationHandler.cpp:125
 #, kde-format
 msgid "Select tag for image"
 msgstr "Seleccioneu una etiqueta per a la imatge"
@@ -6656,25 +6656,31 @@ msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""
 "No s'ha pogut configurar el reproductor de vídeo (no s'ha creat el giny)"
 
-#: Viewer/SelectCategoryAndValue.cpp:103
+#: Viewer/SelectCategoryAndValue.cpp:106
 #, kde-format
 msgid "Type name of category and item"
 msgstr "Teclegeu el nom de la categoria i l'element"
 
-#: Viewer/SelectCategoryAndValue.cpp:132
+#: Viewer/SelectCategoryAndValue.cpp:135
 #, kde-format
 msgid "Add New"
 msgstr "Afig nova"
 
-#: Viewer/SelectCategoryAndValue.cpp:182
+#: Viewer/SelectCategoryAndValue.cpp:188
 #, kde-format
 msgid "Key"
 msgstr "Tecla"
 
-#: Viewer/SelectCategoryAndValue.cpp:182
+#: Viewer/SelectCategoryAndValue.cpp:188
 #, kde-format
 msgid "Tag"
 msgstr "Etiqueta"
+
+#: Viewer/SelectCategoryAndValue.cpp:219
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Clear assignment"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14

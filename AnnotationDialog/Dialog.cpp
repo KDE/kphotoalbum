@@ -260,7 +260,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     connect(m_okBut, &QPushButton::clicked, this, &Dialog::doneTagging);
     connect(m_continueLaterBut, &QPushButton::clicked, this, &Dialog::continueLater);
     connect(cancelBut, &QPushButton::clicked, this, &Dialog::reject);
-    connect(m_clearBut, &QPushButton::clicked, this, &Dialog::slotClear);
+    connect(m_clearBut, &QPushButton::clicked, this, &Dialog::slotClearSearchForm);
     connect(optionsBut, &QPushButton::clicked, this, &Dialog::slotOptions);
 
     connect(m_preview, &ImagePreviewWidget::imageRotated, this, &Dialog::rotate);
@@ -517,6 +517,9 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
 
 void AnnotationDialog::Dialog::load()
 {
+    if (m_current < 0)
+        return;
+
     // Remove all areas
     tidyAreas();
 
@@ -624,6 +627,9 @@ void AnnotationDialog::Dialog::load()
 
 void AnnotationDialog::Dialog::writeToInfo()
 {
+    if (m_current + 1 >= m_editList.size())
+        return;
+
     for (ListSelect *ls : qAsConst(m_optionList)) {
         ls->slotReturn();
     }
@@ -702,6 +708,7 @@ DB::TaggedAreas AnnotationDialog::Dialog::taggedAreas() const
 
 int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
 {
+    Q_ASSERT(!list.isEmpty());
     ShowHideSearch(false);
 
     if (oneAtATime) {
@@ -842,7 +849,7 @@ void AnnotationDialog::Dialog::setup()
     }
 }
 
-void AnnotationDialog::Dialog::slotClear()
+void AnnotationDialog::Dialog::slotClearSearchForm()
 {
     loadInfo(DB::ImageSearchInfo());
 }
@@ -1057,7 +1064,18 @@ void AnnotationDialog::Dialog::reject()
 
 void AnnotationDialog::Dialog::closeDialog()
 {
+    // the dialog is usually reused, so clear residual data upon closing it...
+    loadInfo({});
+#ifdef HAVE_MARBLE
+    m_mapIsPopulated = false;
+    m_annotationMap->clear();
+#endif
+    m_origList.clear();
+    m_editList.clear();
+    m_current = -1;
     tidyAreas();
+    m_areasChanged = false;
+
     m_accept = QDialog::Rejected;
     QDialog::reject();
 }
@@ -1075,6 +1093,9 @@ StringSet AnnotationDialog::Dialog::changedOptions(const ListSelect *ls)
 
 bool AnnotationDialog::Dialog::hasChanges()
 {
+    if (m_current < 0)
+        return false;
+
     if (m_setup == InputSingleImageConfigMode) {
         writeToInfo();
         if (m_areasChanged)

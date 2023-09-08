@@ -110,7 +110,7 @@ protected Q_SLOTS:
     void slotIndexChanged(int index);
     void doneTagging();
     void continueLater();
-    void slotClear();
+    void slotClearSearchForm();
     void slotOptions();
     void slotSaveWindowSetup();
     void slotDeleteOption(DB::Category *, const QString &);

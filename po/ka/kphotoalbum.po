@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-05 00:43+0000\n"
+"POT-Creation-Date: 2023-09-09 00:43+0000\n"
 "PO-Revision-Date: 2023-08-15 06:32+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -124,7 +124,7 @@ msgstr "&შესრულებულია"
 msgid "Continue &Later"
 msgstr "&მოგვიანებით გაგრძელება"
 
-#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:822
+#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:829
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
@@ -222,109 +222,109 @@ msgstr "ფაილის სახელის შაბლონი"
 msgid "Search only for RAW files"
 msgstr "მხოლოდ RAW ფაილების მოძებნა"
 
-#: AnnotationDialog/Dialog.cpp:612
+#: AnnotationDialog/Dialog.cpp:615
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "ანოტაციები (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:827
+#: AnnotationDialog/Dialog.cpp:834
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "ძებნა"
 
-#: AnnotationDialog/Dialog.cpp:830
+#: AnnotationDialog/Dialog.cpp:837
 #, kde-format
 msgid "Done"
 msgstr "დასრულება"
 
-#: AnnotationDialog/Dialog.cpp:837
+#: AnnotationDialog/Dialog.cpp:844
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "ანოტაციები"
 
-#: AnnotationDialog/Dialog.cpp:869
+#: AnnotationDialog/Dialog.cpp:876
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "ფანჯრის განლაგების მოძებნა..."
 
-#: AnnotationDialog/Dialog.cpp:870
+#: AnnotationDialog/Dialog.cpp:877
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "ფანჯრის მიმდინარე განლაგების შენახვა"
 
-#: AnnotationDialog/Dialog.cpp:871
+#: AnnotationDialog/Dialog.cpp:878
 #, kde-format
 msgid "Reset layout"
 msgstr "განლაგების საწყის მდგომარეობაში დაბრუნება"
 
-#: AnnotationDialog/Dialog.cpp:878 AnnotationDialog/Dialog.cpp:1293
+#: AnnotationDialog/Dialog.cpp:885 AnnotationDialog/Dialog.cpp:1314
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "ანბანის მიხედვით დალაგება (ხე)"
 
-#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1297
+#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1318
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "ანბანის მიხედვით დალაგება (ბრტყელი)"
 
-#: AnnotationDialog/Dialog.cpp:886
+#: AnnotationDialog/Dialog.cpp:893
 #, kde-format
 msgid "Sort by Date"
 msgstr "თარიღის მიხედვით დალაგება"
 
-#: AnnotationDialog/Dialog.cpp:902
+#: AnnotationDialog/Dialog.cpp:909
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:903
+#: AnnotationDialog/Dialog.cpp:910
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:904
+#: AnnotationDialog/Dialog.cpp:911
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:921
+#: AnnotationDialog/Dialog.cpp:928
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:966
+#: AnnotationDialog/Dialog.cpp:973
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
 "of the following error: %2"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:971
+#: AnnotationDialog/Dialog.cpp:978
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
 "of the following error: %2"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1039
+#: AnnotationDialog/Dialog.cpp:1046
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1040
+#: AnnotationDialog/Dialog.cpp:1047
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "გავაუქმო ცვლილებები?"
 
-#: AnnotationDialog/Dialog.cpp:1157
+#: AnnotationDialog/Dialog.cpp:1178
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -335,7 +335,7 @@ msgid ""
 "kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1165
+#: AnnotationDialog/Dialog.cpp:1186
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -344,58 +344,58 @@ msgid ""
 "\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1300
+#: AnnotationDialog/Dialog.cpp:1321
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "ახლახანს გამოყენებულების დალაგება"
 
-#: AnnotationDialog/Dialog.cpp:1303
+#: AnnotationDialog/Dialog.cpp:1324
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "დალაგების გადართვა"
 
-#: AnnotationDialog/Dialog.cpp:1308
+#: AnnotationDialog/Dialog.cpp:1329
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "მხოლოდ მონიშნული ელემენტების ჩვენების გადართვა"
 
-#: AnnotationDialog/Dialog.cpp:1312
+#: AnnotationDialog/Dialog.cpp:1333
 #, kde-format
 msgid "Annotate Next"
 msgstr "შემდეგის ანოტაცია"
 
-#: AnnotationDialog/Dialog.cpp:1316
+#: AnnotationDialog/Dialog.cpp:1337
 #, kde-format
 msgid "Annotate Previous"
 msgstr "წინას ანოტაცია"
 
-#: AnnotationDialog/Dialog.cpp:1320
+#: AnnotationDialog/Dialog.cpp:1341
 #, kde-format
 msgid "OK dialog"
 msgstr "დაიხ დიალოგი"
 
-#: AnnotationDialog/Dialog.cpp:1324 AnnotationDialog/ListSelect.cpp:354
+#: AnnotationDialog/Dialog.cpp:1345 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Delete"
 
-#: AnnotationDialog/Dialog.cpp:1328
+#: AnnotationDialog/Dialog.cpp:1349
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "ჭდეების წინა გამოსახულებიდან კოპირება"
 
-#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1353 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "საათის ისრის საწინააღმდეგო მიმართულებით შებრუნება"
 
-#: AnnotationDialog/Dialog.cpp:1335 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1356 MainWindow/Window.cpp:852
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "საათის ისრის მიმართულებით შებრუნება"
 
-#: AnnotationDialog/Dialog.cpp:1338
+#: AnnotationDialog/Dialog.cpp:1359
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "სრულ ეკრანზე თვალიერების გადართვა"

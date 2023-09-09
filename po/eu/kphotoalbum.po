@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-05 00:43+0000\n"
+"POT-Creation-Date: 2023-09-09 00:43+0000\n"
 "PO-Revision-Date: 2023-07-30 08:27+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -137,7 +137,7 @@ msgstr "&Eginda"
 msgid "Continue &Later"
 msgstr "Jarraitu &beranduago"
 
-#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:822
+#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:829
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
@@ -241,82 +241,82 @@ msgstr "Fitxategi-izenaren eredua"
 msgid "Search only for RAW files"
 msgstr "Bilatu bakarrik RAW fitxategiak"
 
-#: AnnotationDialog/Dialog.cpp:612
+#: AnnotationDialog/Dialog.cpp:615
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Oharrak (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:827
+#: AnnotationDialog/Dialog.cpp:834
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Bilatu"
 
-#: AnnotationDialog/Dialog.cpp:830
+#: AnnotationDialog/Dialog.cpp:837
 #, kde-format
 msgid "Done"
 msgstr "Eginda"
 
-#: AnnotationDialog/Dialog.cpp:837
+#: AnnotationDialog/Dialog.cpp:844
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Oharrak"
 
-#: AnnotationDialog/Dialog.cpp:869
+#: AnnotationDialog/Dialog.cpp:876
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Konfiguratu leiho diseinua..."
 
-#: AnnotationDialog/Dialog.cpp:870
+#: AnnotationDialog/Dialog.cpp:877
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "Gorde uneko leihoaren konfigurazioa"
 
-#: AnnotationDialog/Dialog.cpp:871
+#: AnnotationDialog/Dialog.cpp:878
 #, kde-format
 msgid "Reset layout"
 msgstr "Berrezarri diseinua"
 
-#: AnnotationDialog/Dialog.cpp:878 AnnotationDialog/Dialog.cpp:1293
+#: AnnotationDialog/Dialog.cpp:885 AnnotationDialog/Dialog.cpp:1314
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Ordenatu alfabetikoki (zuhaitza)"
 
-#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1297
+#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1318
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Ordenatu alfabetikoki (laua)"
 
-#: AnnotationDialog/Dialog.cpp:886
+#: AnnotationDialog/Dialog.cpp:893
 #, kde-format
 msgid "Sort by Date"
 msgstr "Ordenatu dataren arabera"
 
-#: AnnotationDialog/Dialog.cpp:902
+#: AnnotationDialog/Dialog.cpp:909
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "Parekatu etiketak lehen karakteretik"
 
-#: AnnotationDialog/Dialog.cpp:903
+#: AnnotationDialog/Dialog.cpp:910
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "Parekatu etiketak berba mugetatik"
 
-#: AnnotationDialog/Dialog.cpp:904
+#: AnnotationDialog/Dialog.cpp:911
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "Parekatu etiketak edonon"
 
-#: AnnotationDialog/Dialog.cpp:921
+#: AnnotationDialog/Dialog.cpp:928
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Erakutsi hautatutakoak soilik Ktrl+S"
 
-#: AnnotationDialog/Dialog.cpp:966
+#: AnnotationDialog/Dialog.cpp:973
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
@@ -325,7 +325,7 @@ msgstr ""
 "<p>Ezin da gorde leihoaren diseinua.</p>%1 fitxategia ezin da ireki "
 "ondorendo akatsagatik: %2"
 
-#: AnnotationDialog/Dialog.cpp:971
+#: AnnotationDialog/Dialog.cpp:978
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
@@ -334,7 +334,7 @@ msgstr ""
 "<p>Ezin da gorde leihoaren diseinua.</p>%1 fitxategia ezin da idatzi "
 "ondorendo akatsagatik: %2"
 
-#: AnnotationDialog/Dialog.cpp:1039
+#: AnnotationDialog/Dialog.cpp:1046
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Some changes are made to annotations. Do you really want to cancel all "
@@ -346,14 +346,14 @@ msgstr ""
 "<p>Aldaketa batzuk egin zaizkie oharpenei. Fitxategiko egin diren azken "
 "aldaketa guztiak bertan behera uztea nahi dituzu?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1040
+#: AnnotationDialog/Dialog.cpp:1047
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Gorde aldaketak?"
 
-#: AnnotationDialog/Dialog.cpp:1157
+#: AnnotationDialog/Dialog.cpp:1178
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -370,7 +370,7 @@ msgstr ""
 "erabiltzen da, argibide gehiagorako irakurri <a href=\"help:/kphotoalbum/chp-"
 "typingIn.html\">datuak idaztea</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1165
+#: AnnotationDialog/Dialog.cpp:1186
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -383,58 +383,58 @@ msgstr ""
 "zuretzako hartzea <a href=\"help:/kphotoalbum/chp-typingIn.html"
 "\">elkarrizketa-koadro honi buruzko dokumentazioa</a></p>"
 
-#: AnnotationDialog/Dialog.cpp:1300
+#: AnnotationDialog/Dialog.cpp:1321
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Ordenatu erabilitako azkenen arabera"
 
-#: AnnotationDialog/Dialog.cpp:1303
+#: AnnotationDialog/Dialog.cpp:1324
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Txandakatu ordena"
 
-#: AnnotationDialog/Dialog.cpp:1308
+#: AnnotationDialog/Dialog.cpp:1329
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Txandakatu hautatutako elementuak erakustea soilik"
 
-#: AnnotationDialog/Dialog.cpp:1312
+#: AnnotationDialog/Dialog.cpp:1333
 #, kde-format
 msgid "Annotate Next"
 msgstr "Idatzi hurrengoaren oharra"
 
-#: AnnotationDialog/Dialog.cpp:1316
+#: AnnotationDialog/Dialog.cpp:1337
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Idatzi aurrekoaren oharra"
 
-#: AnnotationDialog/Dialog.cpp:1320
+#: AnnotationDialog/Dialog.cpp:1341
 #, kde-format
 msgid "OK dialog"
 msgstr "Ados elkarrizketa-koadroa"
 
-#: AnnotationDialog/Dialog.cpp:1324 AnnotationDialog/ListSelect.cpp:354
+#: AnnotationDialog/Dialog.cpp:1345 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: AnnotationDialog/Dialog.cpp:1328
+#: AnnotationDialog/Dialog.cpp:1349
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Kopiatu etiketak aurreko iruditik"
 
-#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1353 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Biratu erlojuaren norantzaren aurka"
 
-#: AnnotationDialog/Dialog.cpp:1335 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1356 MainWindow/Window.cpp:852
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Biratu erlojuaren norantzan"
 
-#: AnnotationDialog/Dialog.cpp:1338
+#: AnnotationDialog/Dialog.cpp:1359
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Txandakatu pantaila osoaren aurrebista"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-05 00:43+0000\n"
-"PO-Revision-Date: 2023-08-14 11:51+0200\n"
+"POT-Creation-Date: 2023-09-09 00:43+0000\n"
+"PO-Revision-Date: 2023-09-05 10:27+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -137,7 +137,7 @@ msgstr "&Fet"
 msgid "Continue &Later"
 msgstr "Continua més &tard"
 
-#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:822
+#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:829
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
@@ -183,7 +183,7 @@ msgstr ""
 "una data <emphasis>aproximada</emphasis> que ha ocorregut en qualsevol hora "
 "durant un interval de temps especificat. Les imatges produïdes per les "
 "càmeres digitals normalment tenen una data exacta.</para><para>Si no "
-"coneixeu exactament quan es va prendre una fotografia (p. ex. si la "
+"coneixeu exactament quan es va prendre una fotografia (p. ex., si la "
 "fotografia ve d'una càmera analògica), llavors caldria establir "
 "<interface>Utilitza la data aproximada</interface>.</para>"
 
@@ -242,82 +242,82 @@ msgstr "Patró de nom de fitxer"
 msgid "Search only for RAW files"
 msgstr "S'estan només els fitxers RAW"
 
-#: AnnotationDialog/Dialog.cpp:612
+#: AnnotationDialog/Dialog.cpp:615
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Anotacions (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:827
+#: AnnotationDialog/Dialog.cpp:834
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Busca"
 
-#: AnnotationDialog/Dialog.cpp:830
+#: AnnotationDialog/Dialog.cpp:837
 #, kde-format
 msgid "Done"
 msgstr "Fet"
 
-#: AnnotationDialog/Dialog.cpp:837
+#: AnnotationDialog/Dialog.cpp:844
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Anotacions"
 
-#: AnnotationDialog/Dialog.cpp:869
+#: AnnotationDialog/Dialog.cpp:876
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Configura la disposició de la finestra..."
 
-#: AnnotationDialog/Dialog.cpp:870
+#: AnnotationDialog/Dialog.cpp:877
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "Guarda la configuració actual de les finestres"
 
-#: AnnotationDialog/Dialog.cpp:871
+#: AnnotationDialog/Dialog.cpp:878
 #, kde-format
 msgid "Reset layout"
 msgstr "Reinicia la disposició"
 
-#: AnnotationDialog/Dialog.cpp:878 AnnotationDialog/Dialog.cpp:1293
+#: AnnotationDialog/Dialog.cpp:885 AnnotationDialog/Dialog.cpp:1314
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Ordena alfabèticament (arbre)"
 
-#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1297
+#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1318
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Ordena alfabèticament (pla)"
 
-#: AnnotationDialog/Dialog.cpp:886
+#: AnnotationDialog/Dialog.cpp:893
 #, kde-format
 msgid "Sort by Date"
 msgstr "Ordena per data"
 
-#: AnnotationDialog/Dialog.cpp:902
+#: AnnotationDialog/Dialog.cpp:909
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "Coincidència d'etiquetes des del primer caràcter"
 
-#: AnnotationDialog/Dialog.cpp:903
+#: AnnotationDialog/Dialog.cpp:910
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "Coincidència d'etiquetes des de límits de paraula"
 
-#: AnnotationDialog/Dialog.cpp:904
+#: AnnotationDialog/Dialog.cpp:911
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "Coincidència d'etiquetes en qualsevol lloc"
 
-#: AnnotationDialog/Dialog.cpp:921
+#: AnnotationDialog/Dialog.cpp:928
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Mostra només els seleccionats Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:966
+#: AnnotationDialog/Dialog.cpp:973
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
@@ -326,7 +326,7 @@ msgstr ""
 "<p>No s'ha pogut guardar la disposició de la finestra.</p>El fitxer %1 no "
 "s'ha pogut obrir a causa de l'error següent: %2"
 
-#: AnnotationDialog/Dialog.cpp:971
+#: AnnotationDialog/Dialog.cpp:978
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
@@ -335,7 +335,7 @@ msgstr ""
 "<p>No s'ha pogut guardar la disposició de la finestra.</p>El fitxer %1 no "
 "s'ha pogut escriure a causa de l'error següent: %2"
 
-#: AnnotationDialog/Dialog.cpp:1039
+#: AnnotationDialog/Dialog.cpp:1046
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
@@ -344,13 +344,13 @@ msgstr ""
 "<p>S'han fet alguns canvis a les anotacions. De veres voleu descartar tots "
 "els canvis recents per a cada fitxer afectat?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1040
+#: AnnotationDialog/Dialog.cpp:1047
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Voleu descartar els canvis?"
 
-#: AnnotationDialog/Dialog.cpp:1157
+#: AnnotationDialog/Dialog.cpp:1178
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -367,7 +367,7 @@ msgstr ""
 "imatges. Trobareu consells addicionals sobre el seu ús llegint sobre el <a "
 "href=\"help:/kphotoalbum/chp-typingIn.html\">tecleig</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1165
+#: AnnotationDialog/Dialog.cpp:1186
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -380,58 +380,58 @@ msgstr ""
 "molt recomanable que dediqueu 5 minuts per a llegir la <a href=\"help:/"
 "kphotoalbum/chp-typingIn.html\">documentació d'este diàleg</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1300
+#: AnnotationDialog/Dialog.cpp:1321
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Ordena per ús més recent"
 
-#: AnnotationDialog/Dialog.cpp:1303
+#: AnnotationDialog/Dialog.cpp:1324
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Canvia l'ordenació"
 
-#: AnnotationDialog/Dialog.cpp:1308
+#: AnnotationDialog/Dialog.cpp:1329
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Canvia per a mostrar només els elements seleccionats"
 
-#: AnnotationDialog/Dialog.cpp:1312
+#: AnnotationDialog/Dialog.cpp:1333
 #, kde-format
 msgid "Annotate Next"
 msgstr "Anota següent"
 
-#: AnnotationDialog/Dialog.cpp:1316
+#: AnnotationDialog/Dialog.cpp:1337
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Anota l'anterior"
 
-#: AnnotationDialog/Dialog.cpp:1320
+#: AnnotationDialog/Dialog.cpp:1341
 #, kde-format
 msgid "OK dialog"
 msgstr "Diàleg d'acord"
 
-#: AnnotationDialog/Dialog.cpp:1324 AnnotationDialog/ListSelect.cpp:354
+#: AnnotationDialog/Dialog.cpp:1345 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Suprimix"
 
-#: AnnotationDialog/Dialog.cpp:1328
+#: AnnotationDialog/Dialog.cpp:1349
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Copia les etiquetes des de la imatge anterior"
 
-#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1353 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Gira en sentit antihorari"
 
-#: AnnotationDialog/Dialog.cpp:1335 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1356 MainWindow/Window.cpp:852
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Gira en sentit horari"
 
-#: AnnotationDialog/Dialog.cpp:1338
+#: AnnotationDialog/Dialog.cpp:1359
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Canvia a vista prèvia de pantalla completa"
@@ -1039,7 +1039,7 @@ msgstr[0] ""
 "de destinació en un grup d'etiquetes i definirà l'element arrossegat com a "
 "membre d'este grup. Els grups d'etiquetes es poden utilitzar per a indicar "
 "que, per exemple, «Las Vegas és als EUA». En este exemple arrossegaríeu Las "
-"Vegas sobre EUA. Quan establiu grups d'etiquetes podeu veure, p. ex. totes "
+"Vegas sobre EUA. Quan establiu grups d'etiquetes podeu veure, p. ex., totes "
 "les imatges dels EUA seleccionant només este element en el visor.</p><p>De "
 "veres és la vostra intenció fer de «%3» un grup d'etiquetes i afegir «%2» "
 "com a membre?</p>"
@@ -1049,7 +1049,7 @@ msgstr[1] ""
 "arrossegats com a membres d'este grup. Els grups d'etiquetes es poden "
 "utilitzar per a indicar que, per exemple, «Las Vegas i Nova York són als "
 "EUA». En este exemple arrossegaríeu Las Vegas i Nova York sobre EUA. Quan "
-"establiu grups d'etiquetes podeu veure, p. ex. totes les imatges dels EUA "
+"establiu grups d'etiquetes podeu veure, p. ex., totes les imatges dels EUA "
 "seleccionant només este element en el visor.</p><p>De veres és la vostra "
 "intenció fer de «%3» un grup d'etiquetes i afegir «%2» com a membres?</p>"
 
@@ -3686,7 +3686,7 @@ msgstr ""
 "<h1><a name=\"database\">Funcionament de la base de dades SQLite</a></"
 "h1><p>KPhotoAlbum permet fer busques utilitzant alguna de les etiquetes "
 "Exif. Per açò, KPhotoAlbum necessita la base de dades SQLite. De manera "
-"addicional, cal instal·lar el paquet Qt per a SQLite (p. ex. qt-sql-sqlite)."
+"addicional, cal instal·lar el paquet Qt per a SQLite (p. ex., qt-sql-sqlite)."
 "</p>"
 
 #: MainWindow/FeatureDialog.cpp:59
@@ -5244,7 +5244,7 @@ msgid ""
 msgstr ""
 "<p>KPhotoAlbum intenta llegir tots els fitxers d'imatge, siguen fitxers "
 "reals o enllaços simbòlics. Si voleu ignorar els enllaços simbòlics, marqueu "
-"esta opció. Açò és útil si per alguna raó teniu p. ex. tant fitxers "
+"esta opció. Açò és útil si per alguna raó teniu p. ex., tant fitxers "
 "originals com enllaços simbòlics a estos dins de la carpeta d'imatges.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:77
@@ -5338,7 +5338,7 @@ msgstr ""
 "modificat. <ul><li>Un punt detecta un caràcter únic (<tt>\\.</tt> detecta un "
 "punt)</li> <li>Podeu utilitzar els quantificadors <tt>*</tt>,<tt>+</tt>,<tt>?"
 "</tt>, o podeu detectar múltiples ocurrències d'una expressió mitjançant "
-"l'ús de claus (p. ex. <tt>e{0,1}</tt> coincidirà amb les ocurrències 0 o 1 "
+"l'ús de claus (p. ex., <tt>e{0,1}</tt> coincidirà amb les ocurrències 0 o 1 "
 "del caràcter «e»).</li> <li>Podeu agrupar parts de l'expressió utilitzant "
 "parèntesis.</li> </ul> Exemple: <tt>-modificat\\.(jpg|tiff)</tt> </p>"
 
@@ -6680,7 +6680,7 @@ msgstr "Etiqueta"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"
-msgstr ""
+msgstr "Neteja l'assignació"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14

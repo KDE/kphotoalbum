@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-05 00:43+0000\n"
-"PO-Revision-Date: 2023-09-05 13:00+0300\n"
+"POT-Creation-Date: 2023-09-09 00:43+0000\n"
+"PO-Revision-Date: 2023-09-08 05:18+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -138,7 +138,7 @@ msgstr "&Bitti"
 msgid "Continue &Later"
 msgstr "&Sonra Sürdür"
 
-#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:822
+#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:829
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
@@ -243,82 +243,82 @@ msgstr "Dosya Adı Dizgisi"
 msgid "Search only for RAW files"
 msgstr "Yalnızca RAW dosyalarını ara"
 
-#: AnnotationDialog/Dialog.cpp:612
+#: AnnotationDialog/Dialog.cpp:615
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Bilgi Notları (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:827
+#: AnnotationDialog/Dialog.cpp:834
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Ara"
 
-#: AnnotationDialog/Dialog.cpp:830
+#: AnnotationDialog/Dialog.cpp:837
 #, kde-format
 msgid "Done"
 msgstr "Bitti"
 
-#: AnnotationDialog/Dialog.cpp:837
+#: AnnotationDialog/Dialog.cpp:844
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Bilgi Notları"
 
-#: AnnotationDialog/Dialog.cpp:869
+#: AnnotationDialog/Dialog.cpp:876
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Pencere Yerleşimini Yapılandır..."
 
-#: AnnotationDialog/Dialog.cpp:870
+#: AnnotationDialog/Dialog.cpp:877
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "Geçerli Pencere Ayarlarını Kaydet"
 
-#: AnnotationDialog/Dialog.cpp:871
+#: AnnotationDialog/Dialog.cpp:878
 #, kde-format
 msgid "Reset layout"
 msgstr "Yerleşimi sıfırla"
 
-#: AnnotationDialog/Dialog.cpp:878 AnnotationDialog/Dialog.cpp:1293
+#: AnnotationDialog/Dialog.cpp:885 AnnotationDialog/Dialog.cpp:1314
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Abecesel Olarak Sırala (Ağaç)"
 
-#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1297
+#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1318
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Abecesel Olarak Sırala (Düz)"
 
-#: AnnotationDialog/Dialog.cpp:886
+#: AnnotationDialog/Dialog.cpp:893
 #, kde-format
 msgid "Sort by Date"
 msgstr "Tarihe Göre Sırala"
 
-#: AnnotationDialog/Dialog.cpp:902
+#: AnnotationDialog/Dialog.cpp:909
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "İlk Karakterden Etiketleri Eşleştir"
 
-#: AnnotationDialog/Dialog.cpp:903
+#: AnnotationDialog/Dialog.cpp:910
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "Sözcük Sınırlarından Etiketleri Eşleştir"
 
-#: AnnotationDialog/Dialog.cpp:904
+#: AnnotationDialog/Dialog.cpp:911
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "Her Yerden Etiketleri Eşleştir"
 
-#: AnnotationDialog/Dialog.cpp:921
+#: AnnotationDialog/Dialog.cpp:928
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Yalnızca Seçiliyi Göster Kontrol+S"
 
-#: AnnotationDialog/Dialog.cpp:966
+#: AnnotationDialog/Dialog.cpp:973
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
@@ -327,7 +327,7 @@ msgstr ""
 "<p>Pencere yerleşimi kaydedilemedi.</p>%1 dosyası, şu hatadan dolayı "
 "açılamadı: %2"
 
-#: AnnotationDialog/Dialog.cpp:971
+#: AnnotationDialog/Dialog.cpp:978
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
@@ -336,7 +336,7 @@ msgstr ""
 "<p>Pencere yerleşimi kaydedilemedi.</p>%1 dosyası, şu hatadan dolayı "
 "yazılamadı: %2"
 
-#: AnnotationDialog/Dialog.cpp:1039
+#: AnnotationDialog/Dialog.cpp:1046
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
@@ -345,13 +345,13 @@ msgstr ""
 "<p>Bilgi notlarına bazı değişiklikler yapıldı. Etkilenen her dosya için tüm "
 "güncel değişiklikleri atmayı gerçekten istiyor musunuz?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1040
+#: AnnotationDialog/Dialog.cpp:1047
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Değişiklikler atılsın mı?"
 
-#: AnnotationDialog/Dialog.cpp:1157
+#: AnnotationDialog/Dialog.cpp:1178
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -368,7 +368,7 @@ msgstr ""
 "ipuçlarını <a href=\"help:/kphotoalbum/chp-typingIn.html\">giriş</a> "
 "kullanımını okuyarak bulabilirsiniz.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1165
+#: AnnotationDialog/Dialog.cpp:1186
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -381,58 +381,58 @@ msgstr ""
 "href=\"help:/kphotoalbum/chp-typingIn.html\">belgelerini okumanız tavsiye "
 "edilir</a></p>"
 
-#: AnnotationDialog/Dialog.cpp:1300
+#: AnnotationDialog/Dialog.cpp:1321
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "En Son Kullanılanı Sırala"
 
-#: AnnotationDialog/Dialog.cpp:1303
+#: AnnotationDialog/Dialog.cpp:1324
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Sıralamayı Aç/Kapat"
 
-#: AnnotationDialog/Dialog.cpp:1308
+#: AnnotationDialog/Dialog.cpp:1329
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Yalnızca Seçili Ögelerin Gösterilmesini Aç/Kapat"
 
-#: AnnotationDialog/Dialog.cpp:1312
+#: AnnotationDialog/Dialog.cpp:1333
 #, kde-format
 msgid "Annotate Next"
 msgstr "Bir Sonrakine Not Ekle"
 
-#: AnnotationDialog/Dialog.cpp:1316
+#: AnnotationDialog/Dialog.cpp:1337
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Bir Öncekine Not Ekle"
 
-#: AnnotationDialog/Dialog.cpp:1320
+#: AnnotationDialog/Dialog.cpp:1341
 #, kde-format
 msgid "OK dialog"
 msgstr "Tamam penceresi"
 
-#: AnnotationDialog/Dialog.cpp:1324 AnnotationDialog/ListSelect.cpp:354
+#: AnnotationDialog/Dialog.cpp:1345 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Sil"
 
-#: AnnotationDialog/Dialog.cpp:1328
+#: AnnotationDialog/Dialog.cpp:1349
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Önceki görselden etiketleri kopyala"
 
-#: AnnotationDialog/Dialog.cpp:1332 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1353 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Saat yönünün tersine döndür"
 
-#: AnnotationDialog/Dialog.cpp:1335 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1356 MainWindow/Window.cpp:852
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Saat yönünde döndür"
 
-#: AnnotationDialog/Dialog.cpp:1338
+#: AnnotationDialog/Dialog.cpp:1359
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Tam ekran önizlemeyi aç/kapat"
@@ -6082,9 +6082,9 @@ msgid ""
 "time change the backend from Settings -> Viewer</font></b></p></html>"
 msgstr ""
 "<html><p>Ne yazık ki, herkesin tüm gereksinimlerini aynı anda karşılayan bir "
-"video oynatıcı bulunmamaktadır.</p><p>Bu nedenle, K Fotoğraf Albümü üç ayrı "
-"arka uç ile birlikte gelir; sizin gereksinimlerinize hangisi en uygunsa onu "
-"seçin.</p><p><b>VLC</b>, en iyi desteklenen video oynatıcı arka ucu gibi "
+"video oynatıcısı bulunmamaktadır.</p><p>Bu nedenle, K Fotoğraf Albümü üç "
+"ayrı arka uç ile birlikte gelir; sizin gereksinimlerinize hangisi en uygunsa "
+"onu seçin.</p><p><b>VLC</b>, en iyi desteklenen video oynatıcı arka ucu gibi "
 "görünmektedir; çoğu video biçimini oynatabilir. Tek dezavantajı, çalışmak "
 "için X11 gerektirmektedir. Wayland kullanıyorsanız videoların kendi "
 "pencerelerinde açıldığını göreceksiniz; bu durumda VLC sizin için iyi bir "

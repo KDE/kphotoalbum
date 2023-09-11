@@ -1553,21 +1553,25 @@ void Viewer::ViewerWidget::triggerCopyLinkAction(MainWindow::CopyLinkEngine::Act
     m_copyLinkEngine->selectTarget(this, selectedFiles, action);
 }
 
-void Viewer::ViewerWidget::toggleTag(const QString &category, QString value)
+void Viewer::ViewerWidget::toggleTag(const QString &category, const QString &value)
 {
-    const bool set = !currentInfo()->hasCategoryInfo(category, value);
-    if (set)
-        currentInfo()->addCategoryInfo(category, value);
+    QString tag = value;
+    if (category == DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory)->name())
+        tag = value.toUpper();
+
+    const bool tagIsSet = !currentInfo()->hasCategoryInfo(category, tag);
+    if (tagIsSet)
+        currentInfo()->addCategoryInfo(category, tag);
     else
-        currentInfo()->removeCategoryInfo(category, value);
+        currentInfo()->removeCategoryInfo(category, tag);
 
     // Assume we've now annotated this image - this is to avoid removing the untagged item all the time.
     currentInfo()->removeCategoryInfo(Settings::SettingsData::instance()->untaggedCategory(), Settings::SettingsData::instance()->untaggedTag());
     updateInfoBox();
 
     if (category == DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory)->name())
-        value = i18n("Token %1", value.toUpper());
-    m_transientDisplay->display(set ? value : QLatin1String("<s>%1</s>").arg(value), 500ms, TransientDisplay::NoFadeOut);
+        tag = i18n("Token %1", tag);
+    m_transientDisplay->display(tagIsSet ? tag : QLatin1String("<s>%1</s>").arg(tag), 500ms, TransientDisplay::NoFadeOut);
 }
 
 void Viewer::ViewerWidget::copyTagsFromPreviousImage()

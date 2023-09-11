@@ -196,7 +196,7 @@ protected Q_SLOTS:
     void slotRemoveDeletedImages(const DB::FileNameList &imageList);
 
     void triggerCopyLinkAction(MainWindow::CopyLinkEngine::Action action);
-    void toggleTag(const QString &category, QString value);
+    void toggleTag(const QString &category, const QString &value);
     void copyTagsFromPreviousImage();
 
 private:

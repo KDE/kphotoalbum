@@ -627,7 +627,7 @@ void AnnotationDialog::Dialog::load()
 
 void AnnotationDialog::Dialog::writeToInfo()
 {
-    if (m_current + 1 >= m_editList.size())
+    if (m_current + 1 > m_editList.size())
         return;
 
     for (ListSelect *ls : qAsConst(m_optionList)) {

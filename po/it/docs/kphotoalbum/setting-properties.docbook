@@ -104,7 +104,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Ti</literal
 > potrebbe essere abbastanza per trovare <literal
 >Tizia</literal
->. Una volta che avrai trovato l'elemento che stai cercando, premi semplicemente &Enter; e seleziona quell'elemento nella lista. L'elemento sarà ora mosso in cima alla visualizzazione, così la prossima volta che ne avrai bisogno sarà ancora più facile da trovare. C'è anche un modo integrato di annotare dal visore delle immagini descritto in seguito nel<xref linkend="category-selectors-in-viewer"/>.</para>
+>. Una volta che avrai trovato l'elemento che stai cercando, premi semplicemente &Enter; e seleziona quell'elemento nella lista. L'elemento sarà ora mosso in cima alla visualizzazione, così la prossima volta che ne avrai bisogno sarà ancora più facile da trovare.</para>
 
       <para
 >L'idea di muovere gli elementi in cima quando sono selezionati è che quando si va a, per esempio, una festa di famiglia, otterrai magari 50 immagini con le stesse 5&ndash;10 persone. Scrivendo le informazioni di queste 50 immagini avrai le 5&ndash;10 persone in cima alla lista non appena avrai scritto il loro nome la prima volta.</para>
@@ -209,7 +209,37 @@ SPDX-License-Identifier: GFDL-1.2-only
 
   </sect1>
 
-  </chapter>
+<sect1>
+    <title
+>Annotare durante la visualizzazione delle immagini</title>
+    <para
+>Per qualche decennio, abbiamo attribuito tag alle immagini come sopra descritto, ma dall'estate 2023 è possibile attribuire tag alle immagini mentre si visualizzano. Questa opzione non supporta tutte le funzionalità descritte sopra, ma offre un sistema di attribuzione dei tag molto più veloce.</para>
+    <para
+>Le funzionalità mancanti durante l'annotazione delle immagini dal visore, per le quali è necessario utilizzare questa finestra di dialogo sono:</para>
+    <itemizedlist>
+    <listitem
+><para
+>Annotare più immagini alla volta</para
+></listitem>
+    <listitem
+><para
+>Attribuire tag a singole parti di un'immagine (questo volto è ...)</para
+></listitem>
+    <listitem
+><para
+>Impostare gruppi di tag (ossia specificare che Las Vegas è negli USA, in modo da visualizzare le immagini con tag Las Vegas mentre osservi le immagini degli USA)</para
+></listitem>
+    <listitem
+><para
+>Impostare le date delle immagini</para
+></listitem>
+    </itemizedlist>
+    <para>
+    <link linkend="annotating-from-the-viewer"
+>Vedere la sezione riguardo le annotazioni sul visore</link>
+    </para>
+</sect1>
+</chapter>
 
 
 <!-- Keep this comment at the end of the file

@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-09 00:43+0000\n"
+"POT-Creation-Date: 2023-09-12 00:43+0000\n"
 "PO-Revision-Date: 2023-09-09 14:27+0200\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
@@ -7284,7 +7284,7 @@ msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL + t"
 
-#: Viewer/ViewerWidget.cpp:1569
+#: Viewer/ViewerWidget.cpp:1573
 #, kde-format
 msgid "Token %1"
 msgstr "Jeton %1"

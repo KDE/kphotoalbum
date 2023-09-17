@@ -512,8 +512,27 @@ void Viewer::ViewerWidget::setCaptionWithDetail(const QString &detail)
 
 void Viewer::ViewerWidget::slotRemoveDeletedImages(const DB::FileNameList &imageList)
 {
+    const auto currentFile = m_list[m_current];
     for (const auto &filename : imageList) {
         m_list.removeAll(filename);
+    }
+    if (m_list.isEmpty()) {
+        close();
+        return;
+    }
+
+    const int newIndex = m_list.indexOf(currentFile);
+    if (newIndex == -1) {
+        // find some sensible file to display in place of the deleted file
+        if (m_current >= m_list.count()) {
+            m_current = m_list.size();
+            showPrev();
+        } else {
+            showNextN(0);
+        }
+    } else {
+        m_current = newIndex;
+        showNextN(0);
     }
 }
 

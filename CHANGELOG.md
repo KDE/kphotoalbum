@@ -57,7 +57,8 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix crash when switching from video to image (#473587)
  - Fix program freeze when the viewer window is closed while playing a video using the VLC backend.
  - Fix crash when both the annotation dialog and the viewer window is open and the user right-clicks on the viewer window (#473762)
- - Fix crash whenn annotations are not saved and then the user right-clicks on the viewer window (#474151)
+ - Fix crash when annotations are not saved and then the user right-clicks on the viewer window (#474151)
+ - Fix crash when user opens the last image/video in viewer then deletes the image and then accesses the viewer context menu (#474392)
 
 ### Removed
 

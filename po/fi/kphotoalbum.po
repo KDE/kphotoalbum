@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-12 00:43+0000\n"
+"POT-Creation-Date: 2023-09-18 00:43+0000\n"
 "PO-Revision-Date: 2023-07-25 13:41+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -6762,7 +6762,7 @@ msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Kuvaesitys"
 
-#: Viewer/ViewerWidget.cpp:413 Viewer/ViewerWidget.cpp:835
+#: Viewer/ViewerWidget.cpp:413 Viewer/ViewerWidget.cpp:854
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
@@ -6791,42 +6791,42 @@ msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
 msgstr "%1 %2"
 
-#: Viewer/ViewerWidget.cpp:524
+#: Viewer/ViewerWidget.cpp:543
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
 msgstr "Toista"
 
-#: Viewer/ViewerWidget.cpp:526
+#: Viewer/ViewerWidget.cpp:545
 #, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Keskeytä"
 
-#: Viewer/ViewerWidget.cpp:592
+#: Viewer/ViewerWidget.cpp:611
 #, fuzzy, kde-format
 #| msgid "Unlock"
 msgid "locked"
 msgstr "Poista lukitus"
 
-#: Viewer/ViewerWidget.cpp:594
+#: Viewer/ViewerWidget.cpp:613
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Annotations"
 msgid "annotating"
 msgstr "Merkinnät"
 
-#: Viewer/ViewerWidget.cpp:596
+#: Viewer/ViewerWidget.cpp:615
 #, kde-format
 msgid "tokenizing"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:601
+#: Viewer/ViewerWidget.cpp:620
 #, kde-format
 msgid "Change display mode to %1"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:838
+#: Viewer/ViewerWidget.cpp:857
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Run Slideshow"
@@ -6834,13 +6834,13 @@ msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
 msgstr "Aloita kuvaesitys"
 
-#: Viewer/ViewerWidget.cpp:841
+#: Viewer/ViewerWidget.cpp:860
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Pysäytä kuvaesitys"
 
-#: Viewer/ViewerWidget.cpp:846
+#: Viewer/ViewerWidget.cpp:865
 #, fuzzy, kde-format
 #| msgctxt "OSD for slideshow"
 #| msgid ""
@@ -6856,147 +6856,147 @@ msgstr ""
 "etenemään nopeammin<br/>Ctrl + - saa esityksen etenemään hitaammin</font></"
 "center></p>"
 
-#: Viewer/ViewerWidget.cpp:896
+#: Viewer/ViewerWidget.cpp:915
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1139
+#: Viewer/ViewerWidget.cpp:1158
 #, fuzzy, kde-format
 #| msgid "Theme Description"
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "Teeman kuvaus"
 
-#: Viewer/ViewerWidget.cpp:1139
+#: Viewer/ViewerWidget.cpp:1158
 #, fuzzy, kde-format
 #| msgid "Theme Description"
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "Teeman kuvaus"
 
-#: Viewer/ViewerWidget.cpp:1154
+#: Viewer/ViewerWidget.cpp:1173
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Haku"
 
-#: Viewer/ViewerWidget.cpp:1175
+#: Viewer/ViewerWidget.cpp:1194
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "10 minuuttia taaksepäin"
 
-#: Viewer/ViewerWidget.cpp:1176
+#: Viewer/ViewerWidget.cpp:1195
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "1 minuutti taaksepäin"
 
-#: Viewer/ViewerWidget.cpp:1177
+#: Viewer/ViewerWidget.cpp:1196
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "10 sekuntia taaksepäin"
 
-#: Viewer/ViewerWidget.cpp:1178
+#: Viewer/ViewerWidget.cpp:1197
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "1 sekunti taaksepäin"
 
-#: Viewer/ViewerWidget.cpp:1179
+#: Viewer/ViewerWidget.cpp:1198
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "100 millisekuntia taaksepäin"
 
-#: Viewer/ViewerWidget.cpp:1180
+#: Viewer/ViewerWidget.cpp:1199
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "100 millisekuntia eteenpäin"
 
-#: Viewer/ViewerWidget.cpp:1181
+#: Viewer/ViewerWidget.cpp:1200
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "1 sekunti eteenpäin"
 
-#: Viewer/ViewerWidget.cpp:1182
+#: Viewer/ViewerWidget.cpp:1201
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "10 sekuntia eteenpäin"
 
-#: Viewer/ViewerWidget.cpp:1183
+#: Viewer/ViewerWidget.cpp:1202
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "1 minuutti eteenpäin"
 
-#: Viewer/ViewerWidget.cpp:1184
+#: Viewer/ViewerWidget.cpp:1203
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "10 minuuttia eteenpäin"
 
-#: Viewer/ViewerWidget.cpp:1192
+#: Viewer/ViewerWidget.cpp:1211
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Pysäytä"
 
-#: Viewer/ViewerWidget.cpp:1205
+#: Viewer/ViewerWidget.cpp:1224
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Käytä nykyistä ruutua pienoiskuvanäkymässä"
 
-#: Viewer/ViewerWidget.cpp:1211
+#: Viewer/ViewerWidget.cpp:1230
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Aloita alusta"
 
-#: Viewer/ViewerWidget.cpp:1226
+#: Viewer/ViewerWidget.cpp:1245
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Suotimet"
 
-#: Viewer/ViewerWidget.cpp:1229
+#: Viewer/ViewerWidget.cpp:1248
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Poista kaikki suotimet"
 
-#: Viewer/ViewerWidget.cpp:1233
+#: Viewer/ViewerWidget.cpp:1252
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Käytä harmaasävysuodinta"
 
-#: Viewer/ViewerWidget.cpp:1238
+#: Viewer/ViewerWidget.cpp:1257
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Käytä kontrastia venyttävää suodinta"
 
-#: Viewer/ViewerWidget.cpp:1243
+#: Viewer/ViewerWidget.cpp:1262
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Käytä histogrammin tasaavaa suodinta"
 
-#: Viewer/ViewerWidget.cpp:1248
+#: Viewer/ViewerWidget.cpp:1267
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Käytä mustavalkosuodinta"
 
-#: Viewer/ViewerWidget.cpp:1300
+#: Viewer/ViewerWidget.cpp:1319
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7008,7 +7008,7 @@ msgstr ""
 "p><p>Anna KPhotoAlbumin kokeilla toista taustajärjestelmää valitsemalla "
 "<i>Jatka</i>…</p>"
 
-#: Viewer/ViewerWidget.cpp:1304
+#: Viewer/ViewerWidget.cpp:1323
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -7017,7 +7017,7 @@ msgstr ""
 "<p>Keskeytynyt videotaustajärjestelmä: <tt>%1</tt></p><p>Käyttöön otettava "
 "videotaustajärjestelmä: <tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1317
+#: Viewer/ViewerWidget.cpp:1336
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
@@ -7027,110 +7027,110 @@ msgstr ""
 "kaikki kaatuivat jossakin vaiheessa.</p><p>Kaatumisen tunnistus poistettiin "
 "käytöstä.</p>"
 
-#: Viewer/ViewerWidget.cpp:1381
+#: Viewer/ViewerWidget.cpp:1400
 #, fuzzy, kde-format
 #| msgctxt "@action:inmenu"
 #| msgid "Annotate..."
 msgid "Annotate"
 msgstr "Merkitse…"
 
-#: Viewer/ViewerWidget.cpp:1400
+#: Viewer/ViewerWidget.cpp:1419
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1402
+#: Viewer/ViewerWidget.cpp:1421
 #, fuzzy, kde-format
 #| msgid "Annotation Dialog"
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Merkintäikkuna"
 
-#: Viewer/ViewerWidget.cpp:1403
+#: Viewer/ViewerWidget.cpp:1422
 #, fuzzy, kde-format
 #| msgid "Add a tag"
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Lisää luokitus"
 
-#: Viewer/ViewerWidget.cpp:1403
+#: Viewer/ViewerWidget.cpp:1422
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1406
+#: Viewer/ViewerWidget.cpp:1425
 #, fuzzy, kde-format
 #| msgid "Copy tags from previous image"
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Kopioi luokitukset edellisestä kuvasta"
 
-#: Viewer/ViewerWidget.cpp:1407
+#: Viewer/ViewerWidget.cpp:1426
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1410
+#: Viewer/ViewerWidget.cpp:1429
 #, fuzzy, kde-format
 #| msgid "Description"
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Kuvaus"
 
-#: Viewer/ViewerWidget.cpp:1411
+#: Viewer/ViewerWidget.cpp:1430
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1414
+#: Viewer/ViewerWidget.cpp:1433
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Annotations"
 msgid "Annotation Mode"
 msgstr "Merkinnät"
 
-#: Viewer/ViewerWidget.cpp:1416
+#: Viewer/ViewerWidget.cpp:1435
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1417
+#: Viewer/ViewerWidget.cpp:1436
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1421
+#: Viewer/ViewerWidget.cpp:1440
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1422
+#: Viewer/ViewerWidget.cpp:1441
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1425
+#: Viewer/ViewerWidget.cpp:1444
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Merkit"
 
-#: Viewer/ViewerWidget.cpp:1426
+#: Viewer/ViewerWidget.cpp:1445
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1573
+#: Viewer/ViewerWidget.cpp:1592
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgid "Token %1"

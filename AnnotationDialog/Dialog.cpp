@@ -1714,6 +1714,18 @@ AnnotationDialog::ListSelect *AnnotationDialog::Dialog::listSelectForCategory(co
     return m_listSelectList.value(category, nullptr);
 }
 
+void AnnotationDialog::Dialog::showEvent(QShowEvent *event)
+{
+    showFloatingWindows();
+    event->accept();
+}
+
+void AnnotationDialog::Dialog::hideEvent(QHideEvent *event)
+{
+    hideFloatingWindows();
+    event->accept();
+}
+
 #ifdef HAVE_MARBLE
 void AnnotationDialog::Dialog::updateMapForCurrentImage()
 {
@@ -1729,7 +1741,8 @@ void AnnotationDialog::Dialog::updateMapForCurrentImage()
         m_annotationMap->displayStatus(Map::MapStatus::ImageHasNoCoordinates);
     }
 }
-
+#endif
+#ifdef HAVE_MARBLE
 void AnnotationDialog::Dialog::annotationMapVisibilityChanged(bool visible)
 {
     // This populates the map if it's added when the dialog is already open
@@ -1742,7 +1755,8 @@ void AnnotationDialog::Dialog::annotationMapVisibilityChanged(bool visible)
         m_cancelMapLoading = true;
     }
 }
-
+#endif
+#ifdef HAVE_MARBLE
 void AnnotationDialog::Dialog::populateMap()
 {
     // populateMap is called every time the map widget gets visible
@@ -1780,24 +1794,14 @@ void AnnotationDialog::Dialog::populateMap()
     m_mapIsPopulated = !m_cancelMapLoading;
     mapLoadingFinished(imagesWithCoordinates > 0, imagesWithCoordinates == processedImages);
 }
-
-void AnnotationDialog::Dialog::showEvent(QShowEvent *event)
-{
-    showFloatingWindows();
-    event->accept();
-}
-
-void AnnotationDialog::Dialog::hideEvent(QHideEvent *event)
-{
-    hideFloatingWindows();
-    event->accept();
-}
-
+#endif
+#ifdef HAVE_MARBLE
 void AnnotationDialog::Dialog::setCancelMapLoading()
 {
     m_cancelMapLoading = true;
 }
-
+#endif
+#ifdef HAVE_MARBLE
 void AnnotationDialog::Dialog::mapLoadingFinished(bool mapHasImages, bool allImagesHaveCoordinates)
 {
     m_mapLoadingProgress->hide();

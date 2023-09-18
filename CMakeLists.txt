@@ -722,6 +722,7 @@ add_subdirectory(doc)
 
 set(kphotoalbum_SRCS
     main.cpp
+    kphotoalbum.qrc
     ${libdatebar_SRCS}
     ${libSettings_SRCS}
     ${libsurvey_SRCS}
@@ -825,7 +826,6 @@ configure_file(
 install(PROGRAMS org.kde.kphotoalbum.desktop org.kde.kphotoalbum-import.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 install(FILES kphotoalbumrc DESTINATION ${KDE_INSTALL_CONFDIR})
 install(FILES default-setup DESTINATION "${KDE_INSTALL_DATADIR}/kphotoalbum")
-install(FILES kphotoalbumui.rc DESTINATION "${KDE_INSTALL_KXMLGUI5DIR}/kphotoalbum")
 install(FILES org.kde.kphotoalbum.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 ki18n_install(po)
 

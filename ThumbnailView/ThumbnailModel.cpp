@@ -347,6 +347,7 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
 
     if (Settings::SettingsData::instance()->displayCategories()) {
         QStringList grps = info->availableCategories();
+        grps.sort();
         for (QStringList::const_iterator it = grps.constBegin(); it != grps.constEnd(); ++it) {
             QString category = *it;
             if (category != i18n("Folder") && category != i18n("Media Type")) {
@@ -363,16 +364,10 @@ QString ThumbnailView::ThumbnailModel::thumbnailText(const QModelIndex &index) c
                 }
 
                 if (!items.empty()) {
-                    QString line;
-                    bool first = true;
-                    for (auto it2 = items.cbegin(); it2 != items.cend(); ++it2) {
-                        QString item = *it2;
-                        if (first)
-                            first = false;
-                        else
-                            line += QLatin1String(", ");
-                        line += item;
-                    }
+                    auto itemList = items.values();
+                    itemList.sort();
+                    QString line = itemList.join(QLatin1String(", "));
+
                     if (widget()->fontMetrics().horizontalAdvance(line) > thumbnailWidth) {
                         line = line.left(maxCharacters);
                         line += QLatin1String(" ...");

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-18 00:43+0000\n"
+"POT-Creation-Date: 2023-09-24 00:41+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -1348,7 +1348,7 @@ msgid "Loading information from images"
 msgstr "Učitavanje informacija sa slika"
 
 #: DB/ImageDB.cpp:559 DB/ImageDB.cpp:846 DB/XML/FileReader.cpp:136
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:352
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:353
 #, kde-format
 msgid "Media Type"
 msgstr "Tip medija"
@@ -1451,7 +1451,7 @@ msgstr "index.xml nepodudaranje verzije"
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: DB/XML/FileReader.cpp:88 Settings/CategoryPage.cpp:253
-#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:352
+#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:353
 #, kde-format
 msgid "Folder"
 msgstr "Direktorij"

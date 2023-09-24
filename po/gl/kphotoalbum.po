@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-18 00:43+0000\n"
+"POT-Creation-Date: 2023-09-24 00:41+0000\n"
 "PO-Revision-Date: 2023-09-03 12:19+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -1324,7 +1324,7 @@ msgid "Loading information from images"
 msgstr "Estase a cargar a información das imaxes"
 
 #: DB/ImageDB.cpp:559 DB/ImageDB.cpp:846 DB/XML/FileReader.cpp:136
-#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:352
+#: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:353
 #, kde-format
 msgid "Media Type"
 msgstr "Tipo de contido"
@@ -1426,7 +1426,7 @@ msgstr "A versión de index.xml non coincide"
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
 #: DB/XML/FileReader.cpp:88 Settings/CategoryPage.cpp:253
-#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:352
+#: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:353
 #, kde-format
 msgid "Folder"
 msgstr "Cartafol"

@@ -512,7 +512,7 @@ void Viewer::ViewerWidget::setCaptionWithDetail(const QString &detail)
 
 void Viewer::ViewerWidget::slotRemoveDeletedImages(const DB::FileNameList &imageList)
 {
-    const auto currentFile = m_list[m_current];
+    const auto currentFile = m_list.value(m_current);
     for (const auto &filename : imageList) {
         m_list.removeAll(filename);
     }

@@ -7196,27 +7196,3 @@ msgstr "Görsel Boyutunu Göster"
 #, kde-format
 msgid "Show Rating"
 msgstr "Derecelendirmeyi Göster"
-
-#~ msgctxt "OSD for slideshow, num of seconds per image"
-#~ msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
-#~ msgstr "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
-
-#~ msgctxt "OSD for slideshow"
-#~ msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
-#~ msgstr ""
-#~ "<p><center><font size=\"+4\">Slayt Gösterisi Sonlandırılıyor</font></"
-#~ "center></p>"
-
-#~ msgctxt "Basically 'enter a category name'"
-#~ msgid "<b>Setting Category: </b>"
-#~ msgstr "<b>Kategori Ayarlanıyor: </b>"
-
-#~ msgctxt "Basically 'enter a tag name'"
-#~ msgid "<b>Assigning: </b>"
-#~ msgstr "<b>Atanıyor: </b> "
-
-#~ msgid "Display Images and Videos with Changed MD5 Sum"
-#~ msgstr "MD5 Toplamı Değişmiş Görselleri ve Videoları Göster"
-
-#~ msgid "Recalculate Checksum"
-#~ msgstr "Sağlama Toplamını Yeniden Hesapla"

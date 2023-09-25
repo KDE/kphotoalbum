@@ -1,7 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2020-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2020-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2020-2021 Nicolas Fella <nicolas.fella@gmx.de>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -74,7 +73,7 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
         submenu->setEnabled(enabled);
 
         // Fetch set of offers
-        OfferType offers;
+        KService::List offers;
         if (which == PopupAction::OpenCurrent)
             offers = appInfos(DB::FileNameList() << current->fileName());
         else
@@ -85,7 +84,7 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
             action->setIcon(QIcon::fromTheme(offer->icon()));
             action->setEnabled(enabled);
             connect(action, &QAction::triggered, this, [this, offer, which] {
-                runService(offer, relevantUrls(which, offer));
+                runService(offer, relevantUrls(which));
             });
         }
 
@@ -94,7 +93,7 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
         // XXX: action->setIcon( QIcon::fromTheme((*offerIt).second) );
         action->setEnabled(enabled);
         connect(action, &QAction::triggered, this, [this, which] {
-            const QList<QUrl> urls = relevantUrls(which, {});
+            const QList<QUrl> urls = relevantUrls(which);
 
             auto *uiParent = MainWindow::Window::theMainWindow();
 #if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
@@ -124,7 +123,7 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
     }
 }
 
-QList<QUrl> MainWindow::ExternalPopup::relevantUrls(PopupAction which, KService::Ptr service)
+QList<QUrl> MainWindow::ExternalPopup::relevantUrls(PopupAction which)
 {
     if (which == PopupAction::OpenCurrent) {
         return { QUrl(m_currentInfo->fileName().absolute()) };
@@ -133,8 +132,7 @@ QList<QUrl> MainWindow::ExternalPopup::relevantUrls(PopupAction which, KService:
     if (which == PopupAction::OpenAllSelected) {
         QList<QUrl> lst;
         for (const DB::FileName &file : qAsConst(m_list)) {
-            if (service && m_appToMimeTypeMap[service->name()].contains(mimeType(file)))
-                lst.append(QUrl(file.absolute()));
+            lst.append(QUrl(file.absolute()));
         }
         return lst;
     }
@@ -196,8 +194,8 @@ QString MainWindow::ExternalPopup::mimeType(const DB::FileName &file)
 
 Utilities::StringSet MainWindow::ExternalPopup::mimeTypes(const DB::FileNameList &files)
 {
-    StringSet res;
-    StringSet extensions;
+    Utilities::StringSet res;
+    Utilities::StringSet extensions;
     for (const DB::FileName &file : files) {
         const DB::FileName baseFileName = file;
         const int extStart = baseFileName.relative().lastIndexOf(QChar::fromLatin1('.'));
@@ -210,22 +208,51 @@ Utilities::StringSet MainWindow::ExternalPopup::mimeTypes(const DB::FileNameList
     return res;
 }
 
-MainWindow::OfferType MainWindow::ExternalPopup::appInfos(const DB::FileNameList &files)
+namespace
 {
-    const StringSet types = mimeTypes(files);
-    OfferType res;
-    for (const QString &type : types) {
+KService::List getServiceOffers(const QString &type)
+{
 #if KSERVICE_VERSION < QT_VERSION_CHECK(5, 68, 0)
-        const KService::List offers = KMimeTypeTrader::self()->query(type, QLatin1String("Application"));
+    return KMimeTypeTrader::self()->query(type, QLatin1String("Application"));
 #else
-        const KService::List offers = KApplicationTrader::queryByMimeType(type);
+    return KApplicationTrader::queryByMimeType(type);
 #endif
-        for (const KService::Ptr &offer : offers) {
-            res.insert(offer);
-            m_appToMimeTypeMap[offer->name()].insert(type);
-        }
+}
+}
+
+KService::List MainWindow::ExternalPopup::appInfos(const DB::FileNameList &files)
+{
+    const auto types = mimeTypes(files);
+    if (types.isEmpty())
+        return {};
+
+    auto typesIt = types.cbegin();
+
+    // get offers for first mimeType...
+    const auto initialOffers = getServiceOffers(*typesIt);
+    QSet<QString> commonOffers;
+    for (const auto &offer : initialOffers) {
+        commonOffers += offer->name();
     }
-    return res;
+
+    // ... and eliminate any offer that does not support all files
+    while (++typesIt != types.cend()) {
+        const auto offers = getServiceOffers(*typesIt);
+        QSet<QString> offerSet;
+        for (const auto &offer : offers) {
+            offerSet += offer->name();
+        }
+        commonOffers &= offerSet;
+    }
+
+    KService::List result;
+    for (const auto &offer : initialOffers) {
+        // KService::Ptrs will be different for different mime types, so we have to compare by name
+        if (commonOffers.contains(offer->name()))
+            result << offer;
+    }
+
+    return result;
 }
 
 bool operator<(const QPair<QString, QPixmap> &a, const QPair<QString, QPixmap> &b)

@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-24 00:41+0000\n"
-"PO-Revision-Date: 2023-07-25 13:41+0300\n"
+"PO-Revision-Date: 2023-09-04 15:29+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -4141,12 +4141,10 @@ msgid "Do you want to save the changes?"
 msgstr "Haluatko tallentaa muutokset?"
 
 #: MainWindow/Window.cpp:335
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Discard changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
-msgstr "Hylätäänkö muutokset?"
+msgstr "Tallennetaanko muutokset?"
 
 #: MainWindow/Window.cpp:392
 #, kde-format
@@ -4616,16 +4614,13 @@ msgid "Open List of Files"
 msgstr "Avaa tiedostoluettelo"
 
 #: MainWindow/Window.cpp:1627
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can open a set of files from KPhotoAlbum's image root by listing the "
-#| "files here."
+#, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
-"KPhotoAlbumin juurikansiosta voi avata tiedostojoukon luettelemalla "
-"tiedostot tässä."
+"KPhotoAlbumin tietokannasta voi avata tiedostojoukon luettelemalla tiedostot "
+"tässä."
 
 #: MainWindow/Window.cpp:1641
 #, kde-format
@@ -6439,26 +6434,22 @@ msgstr " (%1–%2)"
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
-msgstr ""
+msgstr "Kytke makro"
 
 #: Viewer/AnnotationHandler.cpp:68
-#, fuzzy, kde-format
-#| msgid "Settings for category <b>%1</b>"
+#, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr "Luokan <b>%1</b> asetukset"
+msgstr "Valitse kohde makronäppäimelle <b>%1</b>"
 
 #: Viewer/AnnotationHandler.cpp:125
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Rename Item"
+#, kde-format
 msgid "Tag Item"
-msgstr "Muuta tietueen nimeä"
+msgstr "Luokittele kohde"
 
 #: Viewer/AnnotationHandler.cpp:125
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select tag for image"
-msgstr "Valitse kohde:"
+msgstr "Valitse kuvalle luokitus"
 
 #: Viewer/CategoryImageConfig.cpp:33
 #, kde-format
@@ -6535,23 +6526,22 @@ msgstr "Videotoistoa ei voitu asettaa (sovelmaa ei luotu)"
 #: Viewer/SelectCategoryAndValue.cpp:106
 #, kde-format
 msgid "Type name of category and item"
-msgstr ""
+msgstr "Kirjoita luokan nimi ja kohde"
 
 #: Viewer/SelectCategoryAndValue.cpp:135
 #, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "Lisää uusi"
 
 #: Viewer/SelectCategoryAndValue.cpp:188
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "Näppäin"
 
 #: Viewer/SelectCategoryAndValue.cpp:188
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "Luokitus:"
+msgstr "Luokitus"
 
 #: Viewer/SelectCategoryAndValue.cpp:219
 #, kde-format
@@ -6561,30 +6551,25 @@ msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "OK-kysely"
+msgstr "Kyselyikkuna"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "Selite"
+msgstr "Tekstiselite"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgid "Add new Tag"
-msgstr "Lisää luokitus"
+msgstr "Lisää uusi luokitus"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "Otsikko"
 
@@ -6592,7 +6577,7 @@ msgstr "Otsikko"
 #: Viewer/SelectCategoryAndValue.ui:120
 #, kde-format
 msgid "Existing Assignments"
-msgstr ""
+msgstr "Olemassa olevat kytkökset"
 
 #: Viewer/ViewerWidget.cpp:191
 #, kde-format
@@ -6804,35 +6789,30 @@ msgid "Pause"
 msgstr "Keskeytä"
 
 #: Viewer/ViewerWidget.cpp:611
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "locked"
-msgstr "Poista lukitus"
+msgstr "lukittu"
 
 #: Viewer/ViewerWidget.cpp:613
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "annotating"
-msgstr "Merkinnät"
+msgstr "merkitään"
 
 #: Viewer/ViewerWidget.cpp:615
 #, kde-format
 msgid "tokenizing"
-msgstr ""
+msgstr "merkitetään"
 
 #: Viewer/ViewerWidget.cpp:620
 #, kde-format
 msgid "Change display mode to %1"
-msgstr ""
+msgstr "Aseta näyttötilaksi %1"
 
 #: Viewer/ViewerWidget.cpp:857
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run Slideshow"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "Aloita kuvaesitys"
+msgstr "Lopetetaan kuvaesitystä"
 
 #: Viewer/ViewerWidget.cpp:860
 #, kde-format
@@ -6841,40 +6821,32 @@ msgid "Stop Slideshow"
 msgstr "Pysäytä kuvaesitys"
 
 #: Viewer/ViewerWidget.cpp:865
-#, fuzzy, kde-format
-#| msgctxt "OSD for slideshow"
-#| msgid ""
-#| "<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
-#| "slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></"
-#| "p>"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
 msgstr ""
-"<p><center><font size=\"+4\">Aloitetaan kuvaesitys<br/>Ctrl++ saa esityksen "
-"etenemään nopeammin<br/>Ctrl + - saa esityksen etenemään hitaammin</font></"
-"center></p>"
+"Käynnistetään kuvaesitystä<br/>%1 saa esityksen etenemään nopeammin<br/>%2 "
+"saa esityksen etenemään hitaammin"
 
 #: Viewer/ViewerWidget.cpp:915
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
-msgstr ""
+msgstr "%1&nbsp;s"
 
 #: Viewer/ViewerWidget.cpp:1158
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "Teeman kuvaus"
+msgstr "Muokkaa kuvan kuvausta"
 
 #: Viewer/ViewerWidget.cpp:1158
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "Teeman kuvaus"
+msgstr "Kuvan kuvaus"
 
 #: Viewer/ViewerWidget.cpp:1173
 #, kde-format
@@ -7028,28 +7000,24 @@ msgstr ""
 "käytöstä.</p>"
 
 #: Viewer/ViewerWidget.cpp:1400
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgid "Annotate"
-msgstr "Merkitse…"
+msgstr "Merkitse"
 
 #: Viewer/ViewerWidget.cpp:1419
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "Ohje"
 
 #: Viewer/ViewerWidget.cpp:1421
-#, fuzzy, kde-format
-#| msgid "Annotation Dialog"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Merkintäikkuna"
 
 #: Viewer/ViewerWidget.cpp:1422
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Lisää luokitus"
@@ -7058,83 +7026,77 @@ msgstr "Lisää luokitus"
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "Ctrl+A"
 
 #: Viewer/ViewerWidget.cpp:1425
-#, fuzzy, kde-format
-#| msgid "Copy tags from previous image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr "Kopioi luokitukset edellisestä kuvasta"
+msgstr "Kopioi tiedot edellisestä kuvasta"
 
 #: Viewer/ViewerWidget.cpp:1426
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "Ctrl+C"
 
 #: Viewer/ViewerWidget.cpp:1429
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "Kuvaus"
+msgstr "Muokkaa kuvausta"
 
 #: Viewer/ViewerWidget.cpp:1430
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr ""
+msgstr "Ctrl+D"
 
 #: Viewer/ViewerWidget.cpp:1433
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation Mode"
-msgstr "Merkinnät"
+msgstr "Merkintätila"
 
 #: Viewer/ViewerWidget.cpp:1435
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "Lukittu"
 
 #: Viewer/ViewerWidget.cpp:1436
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "Ctrl+L"
 
 #: Viewer/ViewerWidget.cpp:1440
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "Kytke luokituksia"
 
 #: Viewer/ViewerWidget.cpp:1441
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1444
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "Merkit"
+msgstr "Osoita merkkejä"
 
 #: Viewer/ViewerWidget.cpp:1445
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr ""
+msgstr "Ctrl+T"
 
 #: Viewer/ViewerWidget.cpp:1592
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Token %1"
-msgstr "Merkit"
+msgstr "Merkki %1"
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format

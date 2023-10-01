@@ -1311,17 +1311,17 @@ msgid ""
 "autosave file be used?"
 msgstr ""
 "Existe un ficheiro de garda automática, «%1» (tamaño: %3 KB), que é máis "
-"recente que «%2». Desexa utilizar o ficheiro de garda automática?"
+"recente que «%2». Desexa usar o ficheiro de garda automática?"
 
 #: DB/ImageDB.cpp:64
 #, kde-format
 msgid "Found Autosave File"
-msgstr "Atopouse un ficheiro de copia de seguridade"
+msgstr "Atopouse un ficheiro de salvagarda"
 
 #: DB/ImageDB.cpp:396
 #, kde-format
 msgid "Loading information from images"
-msgstr "Estase a cargar a información das imaxes"
+msgstr "Cargando a información das imaxes"
 
 #: DB/ImageDB.cpp:559 DB/ImageDB.cpp:846 DB/XML/FileReader.cpp:136
 #: Settings/CategoryPage.cpp:255 ThumbnailView/ThumbnailModel.cpp:353
@@ -1380,7 +1380,7 @@ msgstr ""
 #: DB/NewImageFinder.cpp:727
 #, kde-format
 msgid "Following files could not be read:"
-msgstr "Non se puideron ler os ficheiros seguintes:"
+msgstr "Non foi posíbel ler os ficheiros seguintes:"
 
 #: DB/search/ImageSearchInfo.cpp:331
 #, kde-format
@@ -1646,7 +1646,7 @@ msgstr "Erro ao executar a demostración"
 #: DB/XML/FileReader.cpp:551
 #, kde-format
 msgid "Unable to open '%1' for reading"
-msgstr "Non se pode abrir «%1» para lectura"
+msgstr "Non é posíbel abrir «%1» para lectura"
 
 #: DB/XML/FileReader.cpp:564
 #, kde-format
@@ -1656,7 +1656,7 @@ msgstr "liña %1 columna %2 no ficheiro %3: %4"
 #: DB/XML/FileReader.cpp:566
 #, kde-format
 msgid "Failed to recover the backup: %1"
-msgstr "Non se puido recuperar a copia de seguridade: %1"
+msgstr "Non foi posíbel recuperar a salvagarda: %1"
 
 #: DB/XML/FileReader.cpp:577
 #, kde-format
@@ -1711,7 +1711,7 @@ msgstr "Produciuse un erro ao crear o ficheiro zip %1"
 #: DB/XML/NumberedBackup.cpp:41 DB/XML/NumberedBackup.cpp:46
 #, kde-format
 msgid "Error Making Numbered Backup"
-msgstr "Erro ao xerar unha copia de seguridade numerada"
+msgstr "Erro ao xerar unha salvagarda numerada"
 
 #: DB/XML/NumberedBackup.cpp:46
 #, kde-format
@@ -2101,12 +2101,12 @@ msgstr "seguinte"
 #: HTMLGenerator/Generator.cpp:649
 #, kde-format
 msgid "Could not create file '%1'."
-msgstr "Non se puido crear o ficheiro «%1»."
+msgstr "Non foi posíbel crear o ficheiro «%1»."
 
 #: HTMLGenerator/Generator.cpp:650
 #, kde-format
 msgid "Could Not Create File"
-msgstr "Non se puido crear o ficheiro"
+msgstr "Non foi posíbel crear o ficheiro"
 
 #: HTMLGenerator/Generator.cpp:669
 #, kde-format
@@ -2116,7 +2116,7 @@ msgstr "<p>Non se pode copiar %1 en %2</p>"
 #: HTMLGenerator/Generator.cpp:703
 #, kde-format
 msgid "Unable to write image '%1'."
-msgstr "Non se pode escribir a imaxe «%1»."
+msgstr "Non é posíbel escribir a imaxe «%1»."
 
 #: HTMLGenerator/Generator.cpp:777 HTMLGenerator/HTMLDialog.cpp:147
 #, kde-format
@@ -2366,7 +2366,7 @@ msgstr "%1"
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
 msgstr ""
-"Non se puido atopar ningún tema; trátase moi posibelmente dun erro de "
+"Non foi posíbel atopar ningún tema; trátase moi posibelmente dun erro de "
 "instalación"
 
 #: HTMLGenerator/HTMLDialog.cpp:565
@@ -2451,7 +2451,7 @@ msgid ""
 "(You might need to wait till the video extraction led in your status bar has "
 "stopped blinking, to see all affected videos.)"
 msgstr ""
-"Non se poden extraer as miniaturas dalgúns ficheiros de vídeo. Ou os "
+"Non é posíbel extraer as miniaturas dalgúns ficheiros de vídeo. Ou os "
 "ficheiros están danados, ou son extremadamente curtos. Para facilitarlle as "
 "cousas, definiuse o código «%1» a eses vídeos.\n"
 "\n"
@@ -2606,7 +2606,7 @@ msgstr "&Cancelar"
 #: ImportExport/Export.cpp:275
 #, kde-format
 msgid "Creating index file"
-msgstr "Estase a crear o ficheiro índice"
+msgstr "Creando o ficheiro índice"
 
 #: ImportExport/Export.cpp:287
 #, kde-format
@@ -2660,7 +2660,7 @@ msgstr "Ficheiros de exportación de KPhotoAlbum"
 #: ImportExport/Import.cpp:58
 #, kde-format
 msgid "Unable to create temporary file"
-msgstr "Non se pode crear o ficheiro temporal"
+msgstr "Non é posíbel crear o ficheiro temporal"
 
 #: ImportExport/ImportDialog.cpp:84
 #, kde-format
@@ -2827,12 +2827,12 @@ msgstr "Produciuse un erro ao escribir a imaxe %1"
 #: ImportExport/ImportHandler.cpp:191
 #, kde-format
 msgid "Updating Database"
-msgstr "Estase a actualizar a base de datos"
+msgstr "Actualizando a base de datos"
 
 #: ImportExport/ImportHandler.cpp:236
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
-msgstr "Non se pode copiar de ningún dos lugares seguintes:"
+msgstr "Non é posíbel copiar de ningún dos lugares seguintes:"
 
 #: ImportExport/ImportHandler.cpp:237
 #, fuzzy, kde-format
@@ -2861,7 +2861,7 @@ msgstr "Chave na súa base de datos"
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
 msgid "Unable to open '%1' for reading."
-msgstr "Non se pode abrir «%1» para lela."
+msgstr "Non é posíbel abrir «%1» para lela."
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
@@ -3282,10 +3282,10 @@ msgid ""
 msgstr ""
 "Cando se le a información de tempo das imaxes úsase a información Exif. "
 "Porén esta pode non estar admitida pola súa instalación de KPhotoAlbum, ou "
-"poida que o ficheiro non conteña información correcta. Como copia de "
-"seguridade, KPhotoAlbum pode usar a marca de tempo da imaxe, pero isto pode "
-"non ser correcto no caso de que a imaxe se dixitalice. Polo que a pregunta "
-"é: debe confiar KPhotoAlbum na marca de tempo das imaxes?"
+"poida que o ficheiro non conteña información correcta. Como salvagarda, "
+"KPhotoAlbum pode usar a marca de tempo da imaxe, pero isto pode non ser "
+"correcto no caso de que a imaxe se dixitalice. Polo que a pregunta é: debe "
+"confiar KPhotoAlbum na marca de tempo das imaxes?"
 
 #: lib/kpabase/SettingsData.cpp:245
 #, kde-format
@@ -3576,7 +3576,7 @@ msgstr "Retirando os elementos"
 #, kde-format
 msgid "Removing 1 item"
 msgid_plural "Removing %1 items"
-msgstr[0] "Estase a retirar un elemento"
+msgstr[0] "Retirando un elemento"
 msgstr[1] "Estanse a retirar %1 elementos"
 
 #: MainWindow/DeleteDialog.cpp:65
@@ -3891,7 +3891,7 @@ msgstr "Non"
 #, kde-format
 msgid "Showing 1 thumbnail"
 msgid_plural "Showing %1 thumbnails"
-msgstr[0] "Estase a amosar unha miniatura"
+msgstr[0] "Amosando unha miniatura"
 msgstr[1] "Estanse a amosar %1 miniaturas"
 
 #: MainWindow/ImageCounter.cpp:26
@@ -4212,8 +4212,8 @@ msgstr ""
 "atopar facilmente e xestionar as fotos e os vídeos.</p> <p>Comece "
 "indicándolle a KPhotoalbum onde é que están as fotos; para iso prema «Crear "
 "a miña propia base de datos». Prema o botón tamén se xa ten unha base de "
-"datos de KPhotoalbum que queira comezar a utilizar de novo.</p> <p>Se se "
-"sente máis seguro probando primeiro KPhotoalbum cunha colección de imaxes de "
+"datos de KPhotoalbum que queira comezar a usar de novo.</p> <p>Se se sente "
+"máis seguro probando primeiro KPhotoalbum cunha colección de imaxes de "
 "exemplo, prema o botón «Cargar a demostración».</p>"
 
 #: MainWindow/WelcomeDialog.cpp:60
@@ -4314,12 +4314,12 @@ msgstr "Parabéns: Activáronse todas as funcionalidades dinámicas."
 #: MainWindow/Window.cpp:147
 #, kde-format
 msgid "Loading Database"
-msgstr "Estase a cargar a base de datos"
+msgstr "Cargando a base de datos"
 
 #: MainWindow/Window.cpp:154
 #, kde-format
 msgid "Loading Main Window"
-msgstr "Estase a cargar a xanela principal"
+msgstr "Cargando a xanela principal"
 
 #: MainWindow/Window.cpp:267
 #, kde-format
@@ -4409,7 +4409,7 @@ msgstr "Non hai nada escollido"
 #: MainWindow/Window.cpp:536
 #, kde-format
 msgid "Saving..."
-msgstr "Estase a gardar…"
+msgstr "Gardando…"
 
 #: MainWindow/Window.cpp:541
 #, kde-format
@@ -4718,7 +4718,7 @@ msgstr[1] "Ligar as imaxes con…"
 #: MainWindow/Window.cpp:1103
 #, kde-format
 msgid "Auto saving...."
-msgstr "Estase a gardar automaticamente…"
+msgstr "Gardando automaticamente…"
 
 #: MainWindow/Window.cpp:1106
 #, kde-format
@@ -4877,7 +4877,7 @@ msgstr "Ningunha correspondencia"
 #: MainWindow/Window.cpp:1813
 #, kde-format
 msgid "Rereading Exif information from all images"
-msgstr "Estase a ler de novo a información Exif de todas as imaxes"
+msgstr "Lendo de novo a información Exif de todas as imaxes"
 
 #: MainWindow/Window.cpp:1840
 #, no-c-format, kde-format
@@ -5018,7 +5018,7 @@ msgstr "Enderezo do dispositivo Android: "
 #: RemoteControl/Server.cpp:32
 #, kde-format
 msgid "Unable to bind to socket"
-msgstr "Non se pode asociar co sócket"
+msgstr "Non é posíbel asociar co sócket"
 
 #: RemoteControl/Server.cpp:33
 #, kde-format
@@ -5026,8 +5026,8 @@ msgid ""
 "Unable to listen for remote Android connections. This is likely because you "
 "have another KPhotoAlbum application running."
 msgstr ""
-"Non se pode activar a detección de conexións remotas desde Android. A causa "
-"máis probábel é que teña outra aplicación KPhotoAlbum executándose."
+"Non é posíbel activar a detección de conexións remotas desde Android. A "
+"causa máis probábel é que teña outra aplicación KPhotoAlbum executándose."
 
 #: RemoteControl/Server.cpp:67
 #, kde-format
@@ -5265,7 +5265,7 @@ msgstr "Escoller velocidade antes que lexibilidade no ficheiro index.xml"
 #: Settings/DatabaseBackendPage.cpp:27
 #, kde-format
 msgid "Compress backup file"
-msgstr "Comprimir o ficheiro da copia de seguridade"
+msgstr "Comprimir o ficheiro da salvagarda"
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -5280,7 +5280,7 @@ msgstr "min."
 #: Settings/DatabaseBackendPage.cpp:45
 #, kde-format
 msgid "Number of backups to keep:"
-msgstr "Número de copias de seguridade que manter:"
+msgstr "Número de salvagardas que manter:"
 
 #: Settings/DatabaseBackendPage.cpp:50
 #, kde-format
@@ -5299,8 +5299,8 @@ msgid ""
 "disk space.</p>"
 msgstr ""
 "<p>KPhotoAlbum pode salvagardar o ficheiro index.xml mantendo copias co nome "
-"index.xml~1~ index.xml~2~ etc. utilizando esta caixa para indicar o número "
-"de ficheiros que manter. KPhotoAlbum eliminará o máis antigo cando acade o "
+"index.xml~1~ index.xml~2~ etc. usando esta caixa para indicar o número de "
+"ficheiros que manter. KPhotoAlbum eliminará o máis antigo cando acade o "
 "máximo de ficheiros de seguridade.</p><p>O ficheiro index.xml pode tornarse "
 "grande se tiver moitas imaxes e nese caso é útil pedirlle a KPhotoAlbum que "
 "comprima os ficheiros de seguridade para preservar espazo en disco.</p>"
@@ -5313,9 +5313,9 @@ msgid ""
 "down this time to approximately half, by checking this check box. The "
 "disadvantage is that the index.xml file is less readable by human eyes.</p>"
 msgstr ""
-"<p>KPhotoAlbum está a utilizar só un ficheiro index.xml como <i>base de "
-"datos</i>. Con moitas imaxes pode tardar moito tempo en ler este ficheiro. "
-"Pode reducir este tempo á metade marcando esta opción. A desvantaxe é que o "
+"<p>KPhotoAlbum está a usar só un ficheiro index.xml como <i>base de datos</"
+"i>. Con moitas imaxes pode tardar moito tempo en ler este ficheiro. Pode "
+"reducir este tempo á metade marcando esta opción. A desvantaxe é que o "
 "ficheiro index.xml é menos lexíbel por humanos.</p>"
 
 #: Settings/ExifPage.cpp:28
@@ -5960,7 +5960,7 @@ msgstr "<p>Xa existe o grupo «%1».</p>"
 #, kde-format
 msgctxt "@title:window"
 msgid "Cannot add group"
-msgstr "Non se pode engadir o grupo"
+msgstr "Non é posíbel engadir o grupo"
 
 #: Settings/TagGroupsPage.cpp:430 Settings/TagGroupsPage.cpp:448
 #, kde-format
@@ -6356,7 +6356,7 @@ msgstr "Non definido"
 #: Settings/ViewerPage.cpp:42
 #, kde-format
 msgid "Running Slide Show From Thumbnail View"
-msgstr "Estase a executar a presentación desde a vista de miniaturas"
+msgstr "Executando a presentación desde a vista de miniaturas"
 
 #: Settings/ViewerPage.cpp:45
 #, kde-format
@@ -6538,7 +6538,7 @@ msgstr "Produciuse un erro ao eliminar os ficheiros"
 #: Utilities/DemoUtil.cpp:36
 #, kde-format
 msgid "Unable to copy '%1' to '%2'."
-msgstr "Non se pode copiar «%1» en «%2»."
+msgstr "Non é posíbel copiar «%1» en «%2»."
 
 #: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:88
 #, fuzzy, kde-format

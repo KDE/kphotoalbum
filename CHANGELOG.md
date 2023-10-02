@@ -45,6 +45,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
    You can do this by opening the context menu and selecting "Annotate | Assign Tokens".
  - When KPhotoAlbum is started in demo mode and a previously saved demo database exists, the old demo database is no longer overwritten.
  - The ui.rc file (kphotoalbumui.rc) is now deployed as a Qt resource instead of an on-disk file.
+ - Improved usability of "Invoke external program" menu (#474819)
 
 ### Dependencies
 

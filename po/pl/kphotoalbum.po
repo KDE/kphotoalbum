@@ -6,21 +6,21 @@
 # Robert Gomulka <carramba@epf.pl>, 2008, 2009.
 # Marta Rybczyńska <kde-i18n@rybczynska.net>, 2008, 2013.
 # Maciej Wikło <maciej.wiklo@wp.pl>, 2009.
-# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022.
+# Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
 # Marcin Stanclik <<mstanclik@yahoo.com>>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-09-24 00:41+0000\n"
-"PO-Revision-Date: 2022-06-27 20:24+0200\n"
+"PO-Revision-Date: 2023-10-01 09:39+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.03.70\n"
+"X-Generator: Lokalize 23.04.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -337,23 +337,19 @@ msgstr ""
 "na następujący błąd: %2"
 
 #: AnnotationDialog/Dialog.cpp:1046
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Some changes are made to annotations. Do you really want to cancel all "
-#| "recent changes for each affected file?</p>"
+#, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
-"<p>Zmieniono niektóre opisy. Czy na pewno zaniechać wszystkie poprzednie "
+"<p>Zmieniono niektóre opisy. Czy na pewno porzucić wszystkie poprzednie "
 "zmiany dla każdego zmienionego pliku?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1047
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Zachować zmiany?"
+msgstr "Czy porzucić zmiany?"
 
 #: AnnotationDialog/Dialog.cpp:1178
 #, kde-format
@@ -666,11 +662,10 @@ msgid "Really Delete %1?"
 msgstr "Czy na pewno usunąć %1?"
 
 #: AnnotationDialog/ListSelect.cpp:448
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
-msgstr "Zmień nazwę elementu"
+msgstr "Przemianuj rzecz"
 
 #: AnnotationDialog/ListSelect.cpp:448
 #, kde-format
@@ -687,19 +682,16 @@ msgstr ""
 "zmianę nazwy \"%3\" w każdym obrazie, który ją zawiera.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:457
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Zmień nazwę \"%1\""
+msgstr "Czy przemianować %1?"
 
 #: AnnotationDialog/ListSelect.cpp:462
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
-msgstr "Zmień nazwę"
+msgstr "Przemianuj"
 
 #: AnnotationDialog/ListSelect.cpp:497
 #, kde-format
@@ -1076,12 +1068,12 @@ msgstr "Przenieś elementy"
 #: DateBar/DateBarWidget.cpp:69
 #, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "Przewiń w prawo"
 
 #: DateBar/DateBarWidget.cpp:78
 #, kde-format
 msgid "Scroll left"
-msgstr ""
+msgstr "Przewiń w lewo"
 
 #: DateBar/DateBarWidget.cpp:87
 #, kde-format
@@ -1212,16 +1204,14 @@ msgid "10 Seconds"
 msgstr "10 sekund"
 
 #: DB/Category.cpp:299
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1'."
+#, kde-format
 msgid "Unable to create folder '%1'."
-msgstr "Nie można stworzyć katalogu '%1'."
+msgstr "Nie można utworzyć katalogu \"%1\"."
 
 #: DB/Category.cpp:299
-#, fuzzy, kde-format
-#| msgid "Unable to Create Directory"
+#, kde-format
 msgid "Unable to Create Folder"
-msgstr "Nie można stworzyć katalogu"
+msgstr "Nie można utworzyć katalogu"
 
 #: DB/Category.cpp:308
 #, kde-format
@@ -1587,17 +1577,7 @@ msgid "Database repair required"
 msgstr "Wymagana naprawa bazy danych"
 
 #: DB/XML/FileReader.cpp:522
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
-#| "installation error</p><p>If you have installed KPhotoAlbum yourself, then "
-#| "you must remember to set the environment variable <b>KDEDIRS</b>, to "
-#| "point to the topmost installation directory.</p><p>If you for example ran "
-#| "cmake with <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must "
-#| "use the following environment variable setup (this example is for Bash "
-#| "and compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></"
-#| "p><p>In case you already have KDEDIRS set, simply append the string as if "
-#| "you where setting the <b>PATH</b> environment variable</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
 "installation error</p><p>If you have installed KPhotoAlbum yourself, then "
@@ -1845,8 +1825,7 @@ msgid "Permissions:"
 msgstr "Uprawnienia:"
 
 #: Exif/MetaDataDisplay.cpp:100
-#, fuzzy, kde-format
-#| msgid "Open directory with a file manager"
+#, kde-format
 msgid "Open folder with a file manager"
 msgstr "Otwórz katalog w przeglądarce plików"
 
@@ -2225,20 +2204,17 @@ msgid "Destination"
 msgstr "Cel"
 
 #: HTMLGenerator/HTMLDialog.cpp:296
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgid "Base folder:"
-msgstr "Katalog bazowy:"
+msgstr "Katalog podstawowy:"
 
 #: HTMLGenerator/HTMLDialog.cpp:313
-#, fuzzy, kde-format
-#| msgid "Gallery directory:"
+#, kde-format
 msgid "Gallery folder:"
 msgstr "Katalog galerii:"
 
 #: HTMLGenerator/HTMLDialog.cpp:320
-#, fuzzy, kde-format
-#| msgid "Output directory:"
+#, kde-format
 msgid "Output folder:"
 msgstr "Katalog wynikowy:"
 
@@ -2269,58 +2245,44 @@ msgid "You must select at least one resolution."
 msgstr "Musisz zaznaczyć co najmniej jedną rozdzielczość."
 
 #: HTMLGenerator/HTMLDialog.cpp:385
-#, fuzzy, kde-format
-#| msgid "Select base directory..."
+#, kde-format
 msgid "Select base folder..."
 msgstr "Wybierz katalog podstawowy..."
 
 #: HTMLGenerator/HTMLDialog.cpp:398
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>You did not specify a base directory. This is the topmost directory "
-#| "for your images. Under this directory you will find each generated "
-#| "collection in separate directories.</p>"
+#, kde-format
 msgid ""
 "<p>You did not specify a base folder. This is the topmost folder for your "
 "images. Each generated collection will be contained in this folder in "
 "separate subfolders.</p>"
 msgstr ""
 "<p>Nie wybrałeś katalogu podstawowego. To jest katalog nadrzędny dla twoich "
-"obrazów. W podkatalogach tego katalogu znajdziesz stworzone zbiory (każdy w "
-"oddzielnym podkatalogu).</p>"
+"obrazów. Każdy utworzony zbiór będzie zawierał się w tym katalogu w osobnych "
+"podkatalogach.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:402
-#, fuzzy, kde-format
-#| msgid "No Base Directory Specified"
+#, kde-format
 msgid "No Base Folder Specified"
 msgstr "Nie określono katalogu podstawowego"
 
 #: HTMLGenerator/HTMLDialog.cpp:408
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>You did not specify an output directory. This is a directory "
-#| "containing the actual images. The directory will be in the base directory "
-#| "specified above.</p>"
+#, kde-format
 msgid ""
 "<p>You did not specify an output folder. This is a folder containing the "
 "actual images. The folder will be a subfolder of the base folder specified "
 "above.</p>"
 msgstr ""
 "<p>Nie podano katalogu wynikowego. Jest to katalog zawierający właściwe "
-"obrazy. Katalog ten będzie wewnątrz podanego wcześniej katalogu nadrzędnego."
-"</p>"
+"obrazy. Katalog ten będzie podkatalogiem katalogu podstawowego określonego "
+"powyżej.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:411
-#, fuzzy, kde-format
-#| msgid "No Output Directory Specified"
+#, kde-format
 msgid "No Output Folder Specified"
 msgstr "Nie podano katalogu wynikowego"
 
 #: HTMLGenerator/HTMLDialog.cpp:423
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Error while reading information about %1. This is most likely because "
-#| "the directory does not exist.</p><p>The error message was: %2</p>"
+#, kde-format
 msgid ""
 "<p>Error while reading information about %1. This is most likely because the "
 "folder does not exist.</p><p>The error message was: %2</p>"
@@ -2330,19 +2292,14 @@ msgstr ""
 "%2</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:432
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>%1 does not exist, is not a directory or cannot be written to.</p>"
+#, kde-format
 msgid "<p>%1 does not exist, is not a folder or cannot be written to.</p>"
 msgstr ""
 "<p>%1 nie istnieje, nie jest katalogiem, lub nie masz niezbędnych praw do "
 "zapisu w tym katalogu.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:446
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Output directory %1 already exists. Usually, this means you should "
-#| "specify a new directory.</p><p>Should %2 be deleted first?</p>"
+#, kde-format
 msgid ""
 "<p>Output folder %1 already exists. Usually, this means you should specify a "
 "new folder.</p><p>Should %2 be deleted first?</p>"
@@ -2351,11 +2308,10 @@ msgstr ""
 "chcesz najpierw usunąć %2?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr "Katalog"
+msgstr "Katalog już istnieje"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:547 MainWindow/SplashScreen.cpp:53
@@ -2394,14 +2350,12 @@ msgstr ""
 " "
 
 #: HTMLGenerator/HTMLDialog.cpp:589
-#, fuzzy, kde-format
-#| msgid "<p>Gallery directory cannot be empty.</p>"
+#, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
 msgstr "<p>Katalog galerii nie może być pusty.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:593
-#, fuzzy, kde-format
-#| msgid "<p>The output directory already exists.</p>"
+#, kde-format
 msgid "<p>The output folder already exists.</p>"
 msgstr "<p>Katalog wynikowy już istnieje.</p>"
 
@@ -2670,27 +2624,7 @@ msgstr ""
 "uszkodzony.</p>"
 
 #: ImportExport/ImportDialog.cpp:118
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This "
-#| "wizard will take you through the steps of an import operation. The steps "
-#| "are: <ol><li>First you must select which images you want to import from "
-#| "the export file. You do so by selecting the checkbox next to the image.</"
-#| "li><li>Next you must tell KPhotoAlbum in which directory to put the "
-#| "images. This directory must of course be below the directory root "
-#| "KPhotoAlbum uses for images. KPhotoAlbum will take care to avoid name "
-#| "clashes</li><li>The next step is to specify which categories you want to "
-#| "import (People, Places, ... ) and also tell KPhotoAlbum how to match the "
-#| "categories from the file to your categories. Imagine you load from a "
-#| "file, where a category is called <b>Blomst</b> (which is the Danish word "
-#| "for flower), then you would likely want to match this with your category, "
-#| "which might be called <b>Blume</b> (which is the German word for flower) "
-#| "- of course given you are German.</li><li>The final steps, is matching "
-#| "the individual tokens from the categories. I may call myself <b>Jesper</"
-#| "b> in my image database, while you want to call me by my full name, "
-#| "namely <b>Jesper K. Pedersen</b>. In this step non matches will be "
-#| "highlighted in red, so you can see which tokens was not found in your "
-#| "database, or which tokens was only a partial match.</li></ol>"
+#, kde-format
 msgid ""
 "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
 "will take you through the steps of an import operation. The steps are: "
@@ -2763,14 +2697,12 @@ msgid "Destination of Images"
 msgstr "Miejsce docelowe obrazów"
 
 #: ImportExport/ImportDialog.cpp:222
-#, fuzzy, kde-format
-#| msgid "The directory must be a subdirectory of %1"
+#, kde-format
 msgid "The folder must be a subfolder of %1"
-msgstr "Katalog musi znajdować się w %1"
+msgstr "Katalog musi być podkatalogiem %1"
 
 #: ImportExport/ImportDialog.cpp:225
-#, fuzzy, kde-format
-#| msgid "This directory is reserved for category images."
+#, kde-format
 msgid "This folder is reserved for category images."
 msgstr "Ten katalog jest zarezerwowany dla obrazów kategorii."
 
@@ -2780,31 +2712,27 @@ msgid "Match Categories"
 msgstr "Dopasuj kategorie"
 
 #: ImportExport/ImportDialog.cpp:297
-#, fuzzy, kde-format
-#| msgid "Directory %1 does not exist. Should it be created?"
+#, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
 msgstr "Katalog %1 nie istnieje. Czy ma zostać utworzony?"
 
 #: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "Katalog bazowy:"
+msgstr "Czy utworzyć katalog?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1222
-#, fuzzy, kde-format
-#| msgid "Created:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr "Czas utworzenia:"
+msgstr "Utwórz"
 
 #: ImportExport/ImportDialog.cpp:314
-#, fuzzy, kde-format
-#| msgid "Error creating zip file %1"
+#, kde-format
 msgid "Error creating folder %1"
-msgstr "Błąd podczas tworzenia pliku zip %1"
+msgstr "Błąd tworzenia katalogu %1"
 
 #: ImportExport/ImportDialog.cpp:393
 #, kde-format
@@ -2833,15 +2761,13 @@ msgid "Cannot copy from any of the following locations:"
 msgstr "Nie można skopiować pliku z żadnego z następujących miejsc:"
 
 #: ImportExport/ImportHandler.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "Kopiowanie plików obrazów"
+msgstr "Nie udało się skopiować"
 
 #: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Kontynuuj bez pytania"
@@ -2867,10 +2793,7 @@ msgid "Error Importing Data"
 msgstr "Błąd podczas importu danych"
 
 #: ImportExport/KimFileReader.cpp:35
-#, fuzzy, kde-format
-#| msgid ""
-#| "Error reading directory contents of file %1; it is likely that the file "
-#| "is broken."
+#, kde-format
 msgid ""
 "Error reading folder contents of file %1; it is likely that the file is "
 "broken."
@@ -2887,10 +2810,7 @@ msgstr ""
 "uszkodzony."
 
 #: ImportExport/KimFileReader.cpp:68
-#, fuzzy, kde-format
-#| msgid ""
-#| "Thumbnail item in export file was not a directory, this indicates that "
-#| "the file is broken."
+#, kde-format
 msgid ""
 "Thumbnail item in export file was not a folder, this indicates that the file "
 "is broken."
@@ -2904,10 +2824,7 @@ msgid "No thumbnail existed in export file for %1"
 msgstr "W pliku eksportowym nie było miniatury dla pliku %1"
 
 #: ImportExport/KimFileReader.cpp:94
-#, fuzzy, kde-format
-#| msgid ""
-#| "export file did not contain a Images subdirectory, this indicates that "
-#| "the file is broken"
+#, kde-format
 msgid ""
 "Export file did not contain a Images subfolder, this indicates that the file "
 "is broken"
@@ -2916,16 +2833,13 @@ msgstr ""
 "jest uszkodzony"
 
 #: ImportExport/KimFileReader.cpp:99
-#, fuzzy, kde-format
-#| msgid ""
-#| "Images item in export file was not a directory, this indicates that the "
-#| "file is broken"
+#, kde-format
 msgid ""
 "Images item in export file was not a folder, this indicates that the file is "
 "broken"
 msgstr ""
-"Element obrazu w pliku eksportowym nie jest katalogiem, wskazuje to na "
-"uszkodzenie pliku"
+"Obrazu w eksportowanym pliku nie jest katalogiem, wskazuje to na uszkodzenie "
+"pliku"
 
 #: ImportExport/KimFileReader.cpp:107
 #, kde-format
@@ -2997,10 +2911,9 @@ msgstr ""
 "KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2021 Zespół programistów KPhotoAlbum"
+msgstr "Copyright (C) 2003-2023 Zespół programistów KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3073,9 +2986,7 @@ msgid "Henner Zeller"
 msgstr " Henner Zeller"
 
 #: kpa-thumbnailtool/main.cpp:70
-#, fuzzy, kde-format
-#| msgctxt "@info:shell"
-#| msgid "The directory containing the .thumbnail directory."
+#, kde-format
 msgctxt "@info:shell"
 msgid "The folder containing the .thumbnail folder."
 msgstr "Katalog zawierający katalog .thumbnail."
@@ -3130,17 +3041,13 @@ msgid "Missing argument!\n"
 msgstr "Brakujący argument!\n"
 
 #: kpa-thumbnailtool/main.cpp:102
-#, fuzzy, kde-format
-#| msgctxt "@info:shell"
-#| msgid "%1 is not a directory!\n"
+#, kde-format
 msgctxt "@info:shell"
 msgid "%1 is not a folder!\n"
 msgstr "%1 nie jest katalogiem!\n"
 
 #: kpa-thumbnailtool/main.cpp:116
-#, fuzzy, kde-format
-#| msgctxt "@info:shell"
-#| msgid "Thumbnail cache directory: %1\n"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
 msgstr "Katalog pamięci podręcznej miniatur: %1\n"
@@ -3352,10 +3259,9 @@ msgid "KDE Photo Album"
 msgstr "Album zdjęć KDE"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2021 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2021 Zespół programistów KPhotoAlbum"
+msgstr "Copyright (C) 2003-2023 Zespół programistów KPhotoAlbum"
 
 #: main.cpp:110
 #, kde-format
@@ -3375,10 +3281,7 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:111
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with directory info made available through the browser. (.) "
-#| "Patch for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "(.) Patch with folder info made available through the browser. (.) Patch for "
 "adding a check box for \"and/or\" searches in the search page."
@@ -4007,13 +3910,7 @@ msgstr ""
 "listą plików</i></p>"
 
 #: MainWindow/RunDialog.cpp:42
-#, fuzzy, no-c-format, kde-format
-#| msgid ""
-#| "<p>Enter the command you want to run on your image file(s). KPhotoAlbum "
-#| "will run your command and replace any '%all' tokens with a list of your "
-#| "files. For example, if you entered:</p><ul><li>cp %all /tmp</li></"
-#| "ul><p>Then the files you selected would be copied to the /tmp directory</"
-#| "p><p>You can also use %each to have a command be run once per file.</p>"
+#, no-c-format, kde-format
 msgid ""
 "<p>Enter the command you want to run on your image file(s). KPhotoAlbum will "
 "run your command and replace any '%all' tokens with a list of your files. "
@@ -4208,17 +4105,7 @@ msgid "Check My Feature Set"
 msgstr "Obejrzy mój zestaw funkcji"
 
 #: MainWindow/WelcomeDialog.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>KPhotoAlbum database creation</h1><p>You need to show where the "
-#| "photos and videos are for KPhotoAlbum to find them. They all need to be "
-#| "under one root directory, for example /home/user/Images. In this "
-#| "directory you can have as many subdirectories as you want, KPhotoAlbum "
-#| "will find them all for you.</p><p>Feel safe, KPhotoAlbum will not modify "
-#| "or edit any of your images, so you can simply point KPhotoAlbum to the "
-#| "directory where you already have all your images.</p><p>If you have an "
-#| "existing KPhotoAlbum database and root directory somewhere, point "
-#| "KPhotoAlbum to that directory to start using it again.</p>"
+#, kde-format
 msgid ""
 "<h1>KPhotoAlbum database creation</h1><p>You need to show where the photos "
 "and videos are for KPhotoAlbum to find them. They all need to be contained "
@@ -4242,28 +4129,24 @@ msgstr ""
 "jego ponowne używanie.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:115
-#, fuzzy, kde-format
-#| msgid "Image/Video root directory: "
+#, kde-format
 msgid "Image/Video root folder: "
-msgstr "Katalog nadrzędny obrazów/filmów:"
+msgstr "Katalog główny obrazów/filmów: "
 
 #: MainWindow/WelcomeDialog.cpp:155
-#, fuzzy, kde-format
-#| msgid "Directory does not exist, create it?"
+#, kde-format
 msgid "Folder does not exist, create it?"
 msgstr "Katalog nie istnieje. Czy ma zostać utworzony?"
 
 #: MainWindow/WelcomeDialog.cpp:170
-#, fuzzy, kde-format
-#| msgid "Could not create file '%1'."
+#, kde-format
 msgid "Could not create folder %1"
-msgstr "Nie można utworzyć pliku '%1'."
+msgstr "Nie można utworzyć katalogu %1"
 
 #: MainWindow/WelcomeDialog.cpp:175
-#, fuzzy, kde-format
-#| msgid "%1 exists, but is not a directory"
+#, kde-format
 msgid "%1 exists, but is not a folder"
-msgstr "%1 istnieje, ale nie jest katalogiem"
+msgstr "%1 istnieje, lecz nie jest katalogiem"
 
 #: MainWindow/WelcomeDialog.cpp:191
 #, kde-format
@@ -4304,13 +4187,7 @@ msgid "Searching for New Files"
 msgstr "Szukanie nowych plików"
 
 #: MainWindow/Window.cpp:304
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
-#| "the KPhotoAlbum demo. The demo database was copied to /tmp, should it be "
-#| "deleted now? If you do not delete it, it will waste disk space; on the "
-#| "other hand, if you want to come back and try the demo again, you might "
-#| "want to keep it around with the changes you made through this session.</p>"
+#, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
 "KPhotoAlbum demo. The demo database was created in the folder <tt>/tmp</tt>, "
@@ -4321,14 +4198,13 @@ msgid ""
 msgstr ""
 "<p><b>Usuń tymczasową pokazową bazę danych</b></p><p>Mam nadzieję, że "
 "podobało Ci się demo KPhotoAlbumu. Pokazowa baza danych została skopiowana "
-"do /tmp. Czy mam ją usunąć? Jeśli jej nie usuniesz, będzie ona zajmować "
-"miejsce na dysku. Możesz ją jednak zatrzymać, jeśli będziesz chciał jeszcze "
-"kiedyś przetestować pokazową bazę danych ze zmianami wprowadzonymi w tej "
-"sesji.</p>"
+"do <tt>/tmp</tt>. Czy mam ją usunąć? Jeśli jej nie usuniesz, będzie ona "
+"zajmować miejsce na dysku. Możesz ją jednak zatrzymać, jeśli będziesz chciał "
+"jeszcze kiedyś przetestować pokazową bazę danych ze zmianami wprowadzonymi w "
+"tej sesji.</p>"
 
 #: MainWindow/Window.cpp:309
-#, fuzzy, kde-format
-#| msgid "Delete Demo Database"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Usuń pokazową bazę danych"
@@ -4339,11 +4215,10 @@ msgid "Do you want to save the changes?"
 msgstr "Czy chcesz zachować zmiany?"
 
 #: MainWindow/Window.cpp:335
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
-msgstr "Zachować zmiany?"
+msgstr "Czy zachować zmiany?"
 
 #: MainWindow/Window.cpp:392
 #, kde-format
@@ -4355,11 +4230,10 @@ msgstr ""
 "stosów, do których należą i utworzyć całkiem nowy stos?"
 
 #: MainWindow/Window.cpp:395
-#, fuzzy, kde-format
-#| msgid "Stacking Error"
+#, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr "Błąd wrzucania na stos"
+msgstr "Błąd stosu"
 
 #: MainWindow/Window.cpp:410
 #, kde-format
@@ -4404,10 +4278,9 @@ msgid "Limit View to Selection"
 msgstr "Ogranicz widok do wybranych"
 
 #: MainWindow/Window.cpp:770
-#, fuzzy, kde-format
-#| msgid "No item is selected."
+#, kde-format
 msgid "No images are selected!"
-msgstr "Nie zaznaczono żadnych obiektów."
+msgstr "Nie zaznaczono żadnych obrazów!"
 
 #: MainWindow/Window.cpp:783
 #, kde-format
@@ -4561,16 +4434,14 @@ msgid "Show Tooltips in Thumbnails Window"
 msgstr "Pokaż podpowiedzi w oknie miniatur"
 
 #: MainWindow/Window.cpp:955
-#, fuzzy, kde-format
-#| msgid "Show Tooltips in Thumbnails Window"
+#, kde-format
 msgid "Show Labels in Thumbnails Window"
-msgstr "Pokaż podpowiedzi w oknie miniatur"
+msgstr "Pokaż etykiety w oknie miniatur"
 
 #: MainWindow/Window.cpp:965
-#, fuzzy, kde-format
-#| msgid "Show Tooltips in Thumbnails Window"
+#, kde-format
 msgid "Show Categories in Thumbnails Window"
-msgstr "Pokaż podpowiedzi w oknie miniatur"
+msgstr "Pokaż kategorie w oknie miniatur"
 
 #: MainWindow/Window.cpp:986
 #, kde-format
@@ -4593,10 +4464,9 @@ msgid "Merge duplicates"
 msgstr "Scal powielenia"
 
 #: MainWindow/Window.cpp:1005 MainWindow/Window.cpp:1062
-#, fuzzy, kde-format
-#| msgid "Recreate Selected Thumbnails"
+#, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "Utwórz ponownie wybrane miniatury"
+msgstr "Odśwież zaznaczone miniatury i sumy sprawdzające"
 
 #: MainWindow/Window.cpp:1009
 #, kde-format
@@ -4700,10 +4570,7 @@ msgid "Auto saving.... Done"
 msgstr "Samoczynne zapisywanie... zakończone"
 
 #: MainWindow/Window.cpp:1208
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Could not open given index.xml as provided directory does not exist."
-#| "<br />%1</p>"
+#, kde-format
 msgid ""
 "<p>Could not open given index.xml, as the provided folder does not exist."
 "<br />%1</p>"
@@ -4721,11 +4588,10 @@ msgstr ""
 "%1/index.xml</p>"
 
 #: MainWindow/Window.cpp:1218
-#, fuzzy, kde-format
-#| msgid "Erase database"
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr "Wymaż bazę danych"
+msgstr "Utwórz bazę danych"
 
 #: MainWindow/Window.cpp:1246
 #, kde-format
@@ -4751,11 +4617,10 @@ msgid "Viewer"
 msgstr "Przeglądarka"
 
 #: MainWindow/Window.cpp:1374
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "Data: "
+msgstr "Pasek daty"
 
 #: MainWindow/Window.cpp:1377
 #, kde-format
@@ -4780,7 +4645,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
-msgstr ""
+msgstr "Wyzeruj ukrycie okien"
 
 #: MainWindow/Window.cpp:1544
 #, kde-format
@@ -4825,16 +4690,13 @@ msgid "Open List of Files"
 msgstr "Otwórz listę plików"
 
 #: MainWindow/Window.cpp:1627
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can open a set of files from KPhotoAlbum's image root by listing the "
-#| "files here."
+#, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
-"Możesz otworzyć zestaw plików z głównego katalogu obrazów KPhotoAlbum "
-"poprzez stworzenie tutaj listy plików."
+"Możesz otworzyć zestaw plików w bazie danych KPhotoAlbum poprzez wypisanie "
+"tutaj plików."
 
 #: MainWindow/Window.cpp:1641
 #, kde-format
@@ -5184,22 +5046,19 @@ msgid "Unsaved pending renaming action"
 msgstr "Niezapisane oczekujące działanie zmiany nazwy"
 
 #: Settings/CategoryPage.cpp:324
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
-#| "linked against this category will be deleted!</p>"
+#, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
 "<p>Czy na pewno chcesz uczynić \"%1\" nie-do-umieszczania?</p><p>Wszystkie "
-"obszary dowiązane do tej kategorii zostaną usunięte!</p>"
+"obszary dowiązane do tej kategorii zostaną porzucone!</p>"
 
 #: Settings/CategoryPage.cpp:333
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "Potwierdź działanie"
 
 #: Settings/CategoryPage.cpp:377
 #, kde-format
@@ -5214,7 +5073,7 @@ msgstr "<p>Czy na pewno usunąć kategorię \"%1\"?</p>"
 #: Settings/CategoryPage.cpp:414
 #, kde-format
 msgid "Confirm Action"
-msgstr ""
+msgstr "Potwierdź działanie"
 
 #: Settings/CategoryPage.cpp:536
 #, kde-format
@@ -5328,12 +5187,7 @@ msgid "Directories to exclude from new file search:"
 msgstr "Katalogi pomijane przy wyszukiwaniu nowych plików:"
 
 #: Settings/FileVersionDetectionPage.cpp:56
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Specify a comma-separated list of directory names to ignore.</p><p>For "
-#| "example, specifying \"<tt>.thumbs,.thumbnails</tt>\" here will cause "
-#| "KPhotoAlbum to ignore these two directory names in any directory when "
-#| "searching for new images.</p>"
+#, kde-format
 msgid ""
 "<p>Specify a comma-separated list of folder names to ignore.</p><p>For "
 "example, specifying \"<tt>.thumbs,.thumbnails</tt>\" here will cause "
@@ -5373,12 +5227,7 @@ msgstr ""
 "rozszerzeń!</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:72
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum attempts to read all image files whether actual files or "
-#| "symbolic links. If you wish to ignore symbolic links, check this option. "
-#| "This is useful if for some reason you have e.g. both the original files "
-#| "and symbolic links to these files within your image directory.</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum attempts to read all image files whether actual files or "
 "symbolic links. If you wish to ignore symbolic links, check this option. "
@@ -6541,8 +6390,7 @@ msgstr ""
 "&gt; Uporządkuj wybrane wg daty i czasu</b>.</p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:97
-#, fuzzy, kde-format
-#| msgid "Reorder Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
 msgstr "Zmień kolejność miniatur"
@@ -6558,8 +6406,7 @@ msgid "Unable to copy '%1' to '%2'."
 msgstr "Nie można skopiować '%1' do '%2'."
 
 #: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:88
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1' needed for demo."
+#, kde-format
 msgid "Unable to create folder '%1' needed for demo."
 msgstr "Nie można stworzyć katalogu '%1' potrzebnego dla demonstracji."
 
@@ -6710,25 +6557,22 @@ msgstr " (%1-%2)"
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
-msgstr ""
+msgstr "Przypisz makro"
 
 #: Viewer/AnnotationHandler.cpp:68
-#, fuzzy, kde-format
-#| msgid "Settings for category <b>%1</b>"
+#, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr "Ustawień dla kategorii <b>%1</b>"
+msgstr "Wybierz rzecz do klawisza makra <b>%1</b>"
 
 #: Viewer/AnnotationHandler.cpp:125
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgid "Tag Item"
-msgstr "Zmień nazwę elementu"
+msgstr "Oznacz rzecz"
 
 #: Viewer/AnnotationHandler.cpp:125
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select tag for image"
-msgstr "Wybierz miejsce:"
+msgstr "Wybierz znacznik dla obrazu"
 
 #: Viewer/CategoryImageConfig.cpp:33
 #, kde-format
@@ -6808,56 +6652,50 @@ msgstr ""
 #: Viewer/SelectCategoryAndValue.cpp:106
 #, kde-format
 msgid "Type name of category and item"
-msgstr ""
+msgstr "Nazwa rodzaju kategorii oraz rzecz"
 
 #: Viewer/SelectCategoryAndValue.cpp:135
 #, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "Dodaj nowy"
 
 #: Viewer/SelectCategoryAndValue.cpp:188
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "Klucz"
 
 #: Viewer/SelectCategoryAndValue.cpp:188
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "Znacznik:"
+msgstr "Znacznik"
 
 #: Viewer/SelectCategoryAndValue.cpp:219
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"
-msgstr ""
+msgstr "Wyczyść przypisanie"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "Okno dialogowe OK"
+msgstr "Okno dialogowe"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "Etykieta"
+msgstr "EtykietaTekstowa"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgid "Add new Tag"
-msgstr "Dodaj znacznik"
+msgstr "Dodaj nowy znacznik"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "Tytuł"
 
@@ -6865,7 +6703,7 @@ msgstr "Tytuł"
 #: Viewer/SelectCategoryAndValue.ui:120
 #, kde-format
 msgid "Existing Assignments"
-msgstr ""
+msgstr "Istniejące przypisania"
 
 #: Viewer/ViewerWidget.cpp:191
 #, kde-format
@@ -7077,35 +6915,30 @@ msgid "Pause"
 msgstr "Wstrzymaj"
 
 #: Viewer/ViewerWidget.cpp:611
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "locked"
-msgstr "Odblokuj"
+msgstr "zablokowana"
 
 #: Viewer/ViewerWidget.cpp:613
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "annotating"
-msgstr "Przypisy"
+msgstr "przypisywanie"
 
 #: Viewer/ViewerWidget.cpp:615
 #, kde-format
 msgid "tokenizing"
-msgstr ""
+msgstr "tokenowanie"
 
 #: Viewer/ViewerWidget.cpp:620
 #, kde-format
 msgid "Change display mode to %1"
-msgstr ""
+msgstr "Zmień tryb wyświetlania na %1"
 
 #: Viewer/ViewerWidget.cpp:857
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run Slideshow"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "Rozpocznij pokaz slajdów"
+msgstr "Kończenie pokazu obrazów"
 
 #: Viewer/ViewerWidget.cpp:860
 #, kde-format
@@ -7114,39 +6947,32 @@ msgid "Stop Slideshow"
 msgstr "Zatrzymaj pokaz obrazów"
 
 #: Viewer/ViewerWidget.cpp:865
-#, fuzzy, kde-format
-#| msgctxt "OSD for slideshow"
-#| msgid ""
-#| "<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
-#| "slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></"
-#| "p>"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
 msgstr ""
-"<p><center><font size=\"+4\">Rozpoczęcie pokazu<br/>Ctrl++ czyni pokaz "
-"szybszym<br/>Ctrl + - czyni pokaz wolniejszym</font></center></p>"
+"Rozpoczęcie pokazu obrazów<br/>%1 czyni pokaz szybszym<br/>%2 czyni pokaz "
+"wolniejszym"
 
 #: Viewer/ViewerWidget.cpp:915
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
-msgstr ""
+msgstr "%1&nbsp;s"
 
 #: Viewer/ViewerWidget.cpp:1158
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "Opis motywu"
+msgstr "Zmień opis obrazu"
 
 #: Viewer/ViewerWidget.cpp:1158
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "Opis motywu"
+msgstr "Opis obrazu"
 
 #: Viewer/ViewerWidget.cpp:1173
 #, kde-format
@@ -7299,28 +7125,24 @@ msgstr ""
 "nich się wysypał.</p><p>Wykrywanie wysypywania zostało teraz wyłączone.</p>"
 
 #: Viewer/ViewerWidget.cpp:1400
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgid "Annotate"
-msgstr "Opisz..."
+msgstr "Przypisz"
 
 #: Viewer/ViewerWidget.cpp:1419
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "Pomoc"
 
 #: Viewer/ViewerWidget.cpp:1421
-#, fuzzy, kde-format
-#| msgid "Annotation Dialog"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
-msgstr "Okno dialogowe opisu"
+msgstr "Okno przypisów"
 
 #: Viewer/ViewerWidget.cpp:1422
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Dodaj znacznik"
@@ -7329,83 +7151,77 @@ msgstr "Dodaj znacznik"
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "CTRL+a"
 
 #: Viewer/ViewerWidget.cpp:1425
-#, fuzzy, kde-format
-#| msgid "Copy tags from previous image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr "Skopiuj znaczniki z poprzedniego obrazów"
+msgstr "Skopiuj datę z poprzedniego obrazu"
 
 #: Viewer/ViewerWidget.cpp:1426
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "CTRL+c"
 
 #: Viewer/ViewerWidget.cpp:1429
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "Opis"
+msgstr "Zmień opis"
 
 #: Viewer/ViewerWidget.cpp:1430
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr ""
+msgstr "CTRL+d"
 
 #: Viewer/ViewerWidget.cpp:1433
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation Mode"
-msgstr "Przypisy"
+msgstr "Tryb przypisywania"
 
 #: Viewer/ViewerWidget.cpp:1435
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "Zablokowana"
 
 #: Viewer/ViewerWidget.cpp:1436
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "CTRL+l"
 
 #: Viewer/ViewerWidget.cpp:1440
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "Przypisz znaczniki"
 
 #: Viewer/ViewerWidget.cpp:1441
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1444
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "Symbol"
+msgstr "Przypisywanie tokenów"
 
 #: Viewer/ViewerWidget.cpp:1445
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr ""
+msgstr "CTRL+t"
 
 #: Viewer/ViewerWidget.cpp:1592
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Token %1"
-msgstr "Symbol"
+msgstr "Token %1"
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format

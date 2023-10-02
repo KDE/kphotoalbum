@@ -523,9 +523,6 @@ void AnnotationDialog::Dialog::load()
     // Remove all areas
     tidyAreas();
 
-    // No areas have been changed
-    m_areasChanged = false;
-
     // Empty the positionable tag candidate list and the last selected positionable tag
     m_positionableTagCandidates.clear();
     m_lastSelectedPositionableTag = QPair<QString, QString>();
@@ -1074,7 +1071,6 @@ void AnnotationDialog::Dialog::closeDialog()
     m_editList.clear();
     m_current = -1;
     tidyAreas();
-    m_areasChanged = false;
 
     m_accept = QDialog::Rejected;
     QDialog::reject();
@@ -1536,6 +1532,9 @@ void AnnotationDialog::Dialog::tidyAreas()
         area->markTidied();
         area->deleteLater();
     }
+
+    // No areas have been changed
+    m_areasChanged = false;
 }
 
 void AnnotationDialog::Dialog::slotNewArea(AnnotationDialog::ResizableFrame *area)

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-24 00:41+0000\n"
+"POT-Creation-Date: 2023-10-03 00:40+0000\n"
 "PO-Revision-Date: 2023-09-04 15:29+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -142,7 +142,7 @@ msgstr "&Valmis"
 msgid "Continue &Later"
 msgstr "&Jatka myöhemmin"
 
-#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:829
+#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:826
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
@@ -246,82 +246,82 @@ msgstr "Tiedostonimikuvio"
 msgid "Search only for RAW files"
 msgstr "Etsi vain RAW-tiedostoja"
 
-#: AnnotationDialog/Dialog.cpp:615
+#: AnnotationDialog/Dialog.cpp:612
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Merkinnät (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:834
+#: AnnotationDialog/Dialog.cpp:831
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Etsi"
 
-#: AnnotationDialog/Dialog.cpp:837
+#: AnnotationDialog/Dialog.cpp:834
 #, kde-format
 msgid "Done"
 msgstr "Valmis"
 
-#: AnnotationDialog/Dialog.cpp:844
+#: AnnotationDialog/Dialog.cpp:841
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Merkinnät"
 
-#: AnnotationDialog/Dialog.cpp:876
+#: AnnotationDialog/Dialog.cpp:873
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Ikkuna-asettelun asetukset…"
 
-#: AnnotationDialog/Dialog.cpp:877
+#: AnnotationDialog/Dialog.cpp:874
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "Tallenna nykyinen ikkuna-asettelu"
 
-#: AnnotationDialog/Dialog.cpp:878
+#: AnnotationDialog/Dialog.cpp:875
 #, kde-format
 msgid "Reset layout"
 msgstr "Palauta asettelu"
 
-#: AnnotationDialog/Dialog.cpp:885 AnnotationDialog/Dialog.cpp:1314
+#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1310
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Lajittele aakkosjärjestykseen (puu)"
 
-#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1318
+#: AnnotationDialog/Dialog.cpp:886 AnnotationDialog/Dialog.cpp:1314
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Lajittele aakkosjärjestykseen (luettelo)"
 
-#: AnnotationDialog/Dialog.cpp:893
+#: AnnotationDialog/Dialog.cpp:890
 #, kde-format
 msgid "Sort by Date"
 msgstr "Lajittele päiväyksen mukaan"
 
-#: AnnotationDialog/Dialog.cpp:909
+#: AnnotationDialog/Dialog.cpp:906
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "Täsmää luokituksiin ensimmäisestä merkistä"
 
-#: AnnotationDialog/Dialog.cpp:910
+#: AnnotationDialog/Dialog.cpp:907
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "Täsmää luokituksiin sananrajoilta"
 
-#: AnnotationDialog/Dialog.cpp:911
+#: AnnotationDialog/Dialog.cpp:908
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "Täsmää luokituksiin missä tahansa"
 
-#: AnnotationDialog/Dialog.cpp:928
+#: AnnotationDialog/Dialog.cpp:925
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Näytä vain valitut Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:973
+#: AnnotationDialog/Dialog.cpp:970
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
@@ -330,7 +330,7 @@ msgstr ""
 "<p>Ikkunan asettelun tallennus epäonnistui.</p>Tiedostoa %1 ei voitu avata "
 "seuraavan virheen takia: %2"
 
-#: AnnotationDialog/Dialog.cpp:978
+#: AnnotationDialog/Dialog.cpp:975
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
@@ -339,7 +339,7 @@ msgstr ""
 "<p>Ikkunan asettelun tallennus epäonnistu.</p>Tiedostoon %1 ei voitu "
 "kirjoittaa seuraavan virheen takia: %2"
 
-#: AnnotationDialog/Dialog.cpp:1046
+#: AnnotationDialog/Dialog.cpp:1043
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
@@ -348,13 +348,13 @@ msgstr ""
 "<p>Merkintöjä on muutettu. Haluatko varmasti perua kaikki äskettäiset "
 "muutokset kaikkiin tiedostoihin?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1047
+#: AnnotationDialog/Dialog.cpp:1044
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Hylätäänkö muutokset?"
 
-#: AnnotationDialog/Dialog.cpp:1178
+#: AnnotationDialog/Dialog.cpp:1174
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -371,7 +371,7 @@ msgstr ""
 "tämän käytöstä lukemalla ohjeet <a href=\"help:/kphotoalbum/chp-typingIn.html"
 "\">syöttämisestä</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1186
+#: AnnotationDialog/Dialog.cpp:1182
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -384,58 +384,58 @@ msgstr ""
 "suositeltavaa käyttää muutama minuutti <a href=\"help:/kphotoalbum/chp-"
 "typingIn.html\">tätä ikkunaa koskevien ohjeiden</a> lukemiseen.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1321
+#: AnnotationDialog/Dialog.cpp:1317
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Lajittele viimeisimmin käytetyt"
 
-#: AnnotationDialog/Dialog.cpp:1324
+#: AnnotationDialog/Dialog.cpp:1320
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Lajittele"
 
-#: AnnotationDialog/Dialog.cpp:1329
+#: AnnotationDialog/Dialog.cpp:1325
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Näytä vain valitut kohteet"
 
-#: AnnotationDialog/Dialog.cpp:1333
+#: AnnotationDialog/Dialog.cpp:1329
 #, kde-format
 msgid "Annotate Next"
 msgstr "Merkitse seuraava"
 
-#: AnnotationDialog/Dialog.cpp:1337
+#: AnnotationDialog/Dialog.cpp:1333
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Merkitse edellinen"
 
-#: AnnotationDialog/Dialog.cpp:1341
+#: AnnotationDialog/Dialog.cpp:1337
 #, kde-format
 msgid "OK dialog"
 msgstr "OK-kysely"
 
-#: AnnotationDialog/Dialog.cpp:1345 AnnotationDialog/ListSelect.cpp:354
+#: AnnotationDialog/Dialog.cpp:1341 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Poista"
 
-#: AnnotationDialog/Dialog.cpp:1349
+#: AnnotationDialog/Dialog.cpp:1345
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Kopioi luokitukset edellisestä kuvasta"
 
-#: AnnotationDialog/Dialog.cpp:1353 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1349 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Käännä vastapäivään"
 
-#: AnnotationDialog/Dialog.cpp:1356 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1352 MainWindow/Window.cpp:852
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Käännä myötäpäivään"
 
-#: AnnotationDialog/Dialog.cpp:1359
+#: AnnotationDialog/Dialog.cpp:1355
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Vaihda koko näytön tilaan tai tilasta"
@@ -3525,32 +3525,32 @@ msgstr "%1/%2 valittu"
 msgid "No duplicates found"
 msgstr "Kaksoiskappaleita ei löytynyt"
 
-#: MainWindow/ExternalPopup.cpp:63
+#: MainWindow/ExternalPopup.cpp:62
 #, kde-format
 msgid "Current Item"
 msgstr "Nykyinen tietue"
 
-#: MainWindow/ExternalPopup.cpp:66
+#: MainWindow/ExternalPopup.cpp:65
 #, kde-format
 msgid "All Selected Items"
 msgstr "Kaikki valitut tietueet"
 
-#: MainWindow/ExternalPopup.cpp:69
+#: MainWindow/ExternalPopup.cpp:68
 #, kde-format
 msgid "Copy and Open"
 msgstr "Kopioi ja avaa"
 
-#: MainWindow/ExternalPopup.cpp:93
+#: MainWindow/ExternalPopup.cpp:92
 #, kde-format
 msgid "Open With..."
 msgstr "Avaa ohjelmalla…"
 
-#: MainWindow/ExternalPopup.cpp:116
+#: MainWindow/ExternalPopup.cpp:115
 #, kde-format
 msgid "Your Command Line"
 msgstr "Oma komentosi"
 
-#: MainWindow/ExternalPopup.cpp:188
+#: MainWindow/ExternalPopup.cpp:186
 #, kde-format
 msgid "Invoke External Program"
 msgstr "Avaa ulkoinen ohjelma"

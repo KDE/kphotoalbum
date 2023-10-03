@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-24 00:41+0000\n"
+"POT-Creation-Date: 2023-10-03 00:40+0000\n"
 "PO-Revision-Date: 2008-09-24 00:02+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -127,7 +127,7 @@ msgstr "なし"
 msgid "Continue &Later"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:829
+#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:826
 #, fuzzy, kde-format
 #| msgid "&Search"
 msgctxt "@action:button"
@@ -227,103 +227,103 @@ msgstr ""
 msgid "Search only for RAW files"
 msgstr "新しいファイルを検索"
 
-#: AnnotationDialog/Dialog.cpp:615
+#: AnnotationDialog/Dialog.cpp:612
 #, fuzzy, kde-format
 #| msgid "KPhotoAlbum Annotations (%1/%2)"
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "KPhotoAlbum 注釈 (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:834
+#: AnnotationDialog/Dialog.cpp:831
 #, fuzzy, kde-format
 #| msgid "Search"
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "検索"
 
-#: AnnotationDialog/Dialog.cpp:837
+#: AnnotationDialog/Dialog.cpp:834
 #, fuzzy, kde-format
 #| msgid "None"
 msgid "Done"
 msgstr "なし"
 
-#: AnnotationDialog/Dialog.cpp:844
+#: AnnotationDialog/Dialog.cpp:841
 #, fuzzy, kde-format
 #| msgid "Annotations"
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "注釈"
 
-#: AnnotationDialog/Dialog.cpp:876
+#: AnnotationDialog/Dialog.cpp:873
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:877
+#: AnnotationDialog/Dialog.cpp:874
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "現在のウィンドウの設定を保存"
 
-#: AnnotationDialog/Dialog.cpp:878
+#: AnnotationDialog/Dialog.cpp:875
 #, kde-format
 msgid "Reset layout"
 msgstr "レイアウトをリセット"
 
-#: AnnotationDialog/Dialog.cpp:885 AnnotationDialog/Dialog.cpp:1314
+#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1310
 #: AnnotationDialog/ListSelect.cpp:95
 #, fuzzy, kde-format
 #| msgid "Sort Alphabetically"
 msgid "Sort Alphabetically (Tree)"
 msgstr "アルファベット順にソート"
 
-#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1318
+#: AnnotationDialog/Dialog.cpp:886 AnnotationDialog/Dialog.cpp:1314
 #: AnnotationDialog/ListSelect.cpp:101
 #, fuzzy, kde-format
 #| msgid "Sort Alphabetically"
 msgid "Sort Alphabetically (Flat)"
 msgstr "アルファベット順にソート"
 
-#: AnnotationDialog/Dialog.cpp:893
+#: AnnotationDialog/Dialog.cpp:890
 #, fuzzy, kde-format
 #| msgid "Sort Selected by Date && Time"
 msgid "Sort by Date"
 msgstr "選択した画像を日付と時刻でソート"
 
-#: AnnotationDialog/Dialog.cpp:909
+#: AnnotationDialog/Dialog.cpp:906
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:910
+#: AnnotationDialog/Dialog.cpp:907
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:911
+#: AnnotationDialog/Dialog.cpp:908
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:928
+#: AnnotationDialog/Dialog.cpp:925
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:973
+#: AnnotationDialog/Dialog.cpp:970
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
 "of the following error: %2"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:978
+#: AnnotationDialog/Dialog.cpp:975
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
 "of the following error: %2"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1046
+#: AnnotationDialog/Dialog.cpp:1043
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Some changes are made to annotations. Do you really want to cancel all "
@@ -335,14 +335,14 @@ msgstr ""
 "<p>注釈が変更されています。関連するすべてのファイルについて、本当に最近の変更"
 "をすべてキャンセルしますか？</p>"
 
-#: AnnotationDialog/Dialog.cpp:1047
+#: AnnotationDialog/Dialog.cpp:1044
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "変更を保存しますか？"
 
-#: AnnotationDialog/Dialog.cpp:1178
+#: AnnotationDialog/Dialog.cpp:1174
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -358,7 +358,7 @@ msgstr ""
 "は画像に関する情報の入力にも使用します。<a href=\"help:/kphotoalbum/chp-"
 "typingIn.html\">typing in</a> に使い方のヒントがあります。</p>"
 
-#: AnnotationDialog/Dialog.cpp:1186
+#: AnnotationDialog/Dialog.cpp:1182
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>You have just opened one of the most important windows in KPhotoAlbum; "
@@ -377,58 +377,58 @@ msgstr ""
 "kphotoalbum/chp-typingIn.html\">このダイアログについてのドキュメント</a>を読"
 "まれることを強くお勧めします。</p>"
 
-#: AnnotationDialog/Dialog.cpp:1321
+#: AnnotationDialog/Dialog.cpp:1317
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "最も最近使用した順にソート"
 
-#: AnnotationDialog/Dialog.cpp:1324
+#: AnnotationDialog/Dialog.cpp:1320
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "ソートを切り替え"
 
-#: AnnotationDialog/Dialog.cpp:1329
+#: AnnotationDialog/Dialog.cpp:1325
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "選択したアイテムのみの表示を切り替え"
 
-#: AnnotationDialog/Dialog.cpp:1333
+#: AnnotationDialog/Dialog.cpp:1329
 #, kde-format
 msgid "Annotate Next"
 msgstr "次のアイテムに注釈を付ける"
 
-#: AnnotationDialog/Dialog.cpp:1337
+#: AnnotationDialog/Dialog.cpp:1333
 #, kde-format
 msgid "Annotate Previous"
 msgstr "前のアイテムに注釈を付ける"
 
-#: AnnotationDialog/Dialog.cpp:1341
+#: AnnotationDialog/Dialog.cpp:1337
 #, kde-format
 msgid "OK dialog"
 msgstr "OK ダイアログ"
 
-#: AnnotationDialog/Dialog.cpp:1345 AnnotationDialog/ListSelect.cpp:354
+#: AnnotationDialog/Dialog.cpp:1341 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "削除"
 
-#: AnnotationDialog/Dialog.cpp:1349
+#: AnnotationDialog/Dialog.cpp:1345
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "前の画像からタグをコピーする"
 
-#: AnnotationDialog/Dialog.cpp:1353 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1349 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "反時計回りに回転"
 
-#: AnnotationDialog/Dialog.cpp:1356 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1352 MainWindow/Window.cpp:852
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "時計回りに回転"
 
-#: AnnotationDialog/Dialog.cpp:1359
+#: AnnotationDialog/Dialog.cpp:1355
 #, fuzzy, kde-format
 #| msgid "Toggle Full Screen"
 msgid "Toggle fullscreen preview"
@@ -3639,33 +3639,33 @@ msgstr "アイテムが選択されていません"
 msgid "No duplicates found"
 msgstr "標準の設定ファイルが見つかりません"
 
-#: MainWindow/ExternalPopup.cpp:63
+#: MainWindow/ExternalPopup.cpp:62
 #, kde-format
 msgid "Current Item"
 msgstr "現在のアイテム"
 
-#: MainWindow/ExternalPopup.cpp:66
+#: MainWindow/ExternalPopup.cpp:65
 #, kde-format
 msgid "All Selected Items"
 msgstr "選択したすべてのアイテム"
 
-#: MainWindow/ExternalPopup.cpp:69
+#: MainWindow/ExternalPopup.cpp:68
 #, kde-format
 msgid "Copy and Open"
 msgstr ""
 
-#: MainWindow/ExternalPopup.cpp:93
+#: MainWindow/ExternalPopup.cpp:92
 #, fuzzy, kde-format
 #| msgid "Open List of Files..."
 msgid "Open With..."
 msgstr "ファイルのリストを開く..."
 
-#: MainWindow/ExternalPopup.cpp:116
+#: MainWindow/ExternalPopup.cpp:115
 #, kde-format
 msgid "Your Command Line"
 msgstr ""
 
-#: MainWindow/ExternalPopup.cpp:188
+#: MainWindow/ExternalPopup.cpp:186
 #, kde-format
 msgid "Invoke External Program"
 msgstr "外部プログラムを起動"

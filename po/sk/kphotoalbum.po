@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-24 00:41+0000\n"
+"POT-Creation-Date: 2023-10-03 00:40+0000\n"
 "PO-Revision-Date: 2021-01-10 14:24+0100\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -137,7 +137,7 @@ msgstr "Hotovo"
 msgid "Continue &Later"
 msgstr "Pokračovať neskôr"
 
-#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:829
+#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:826
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
@@ -242,82 +242,82 @@ msgstr "Vzor názvu súboru"
 msgid "Search only for RAW files"
 msgstr "Hľadať iba pre RAW súbory"
 
-#: AnnotationDialog/Dialog.cpp:615
+#: AnnotationDialog/Dialog.cpp:612
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Anotácie (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:834
+#: AnnotationDialog/Dialog.cpp:831
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Hľadať"
 
-#: AnnotationDialog/Dialog.cpp:837
+#: AnnotationDialog/Dialog.cpp:834
 #, kde-format
 msgid "Done"
 msgstr "Hotovo"
 
-#: AnnotationDialog/Dialog.cpp:844
+#: AnnotationDialog/Dialog.cpp:841
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Anotácie"
 
-#: AnnotationDialog/Dialog.cpp:876
+#: AnnotationDialog/Dialog.cpp:873
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Nastaviť rozloženie okien..."
 
-#: AnnotationDialog/Dialog.cpp:877
+#: AnnotationDialog/Dialog.cpp:874
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "Uložiť aktuálne nastavenie okna"
 
-#: AnnotationDialog/Dialog.cpp:878
+#: AnnotationDialog/Dialog.cpp:875
 #, kde-format
 msgid "Reset layout"
 msgstr "Vynulovať rozloženie"
 
-#: AnnotationDialog/Dialog.cpp:885 AnnotationDialog/Dialog.cpp:1314
+#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1310
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Triediť abecedne (strom)"
 
-#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1318
+#: AnnotationDialog/Dialog.cpp:886 AnnotationDialog/Dialog.cpp:1314
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Triediť abecedne (plocho)"
 
-#: AnnotationDialog/Dialog.cpp:893
+#: AnnotationDialog/Dialog.cpp:890
 #, kde-format
 msgid "Sort by Date"
 msgstr "Zoradiť podľa dátumu"
 
-#: AnnotationDialog/Dialog.cpp:909
+#: AnnotationDialog/Dialog.cpp:906
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "Párovať značky od prvého znaku"
 
-#: AnnotationDialog/Dialog.cpp:910
+#: AnnotationDialog/Dialog.cpp:907
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "Párovať značky od okrajov slov"
 
-#: AnnotationDialog/Dialog.cpp:911
+#: AnnotationDialog/Dialog.cpp:908
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "Párovať značky kdekoľvek"
 
-#: AnnotationDialog/Dialog.cpp:928
+#: AnnotationDialog/Dialog.cpp:925
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Zobraziť iba vybrané Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:973
+#: AnnotationDialog/Dialog.cpp:970
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
@@ -326,7 +326,7 @@ msgstr ""
 "<p>Nepodarilo sa uložiť rozloženie okien.</p>Súbor %1 nebolo možné otvoriť z "
 "dôvodu nasledujúcej chyby: %2"
 
-#: AnnotationDialog/Dialog.cpp:978
+#: AnnotationDialog/Dialog.cpp:975
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
@@ -335,7 +335,7 @@ msgstr ""
 "<p>Nepodarilo sa uložiť rozloženie okien.</p>Súbor %1 nebolo možné zapísať z "
 "dôvodu nasledujúcej chyby: %2"
 
-#: AnnotationDialog/Dialog.cpp:1046
+#: AnnotationDialog/Dialog.cpp:1043
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Some changes are made to annotations. Do you really want to cancel all "
@@ -347,14 +347,14 @@ msgstr ""
 "<p>Niektoré zmeny sú vykonané v anotáciách. Naozaj chcete zrušiť všetky "
 "nedávne zmeny v každom ovplyvnenom súbore?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1047
+#: AnnotationDialog/Dialog.cpp:1044
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Uložiť zmeny?"
 
-#: AnnotationDialog/Dialog.cpp:1178
+#: AnnotationDialog/Dialog.cpp:1174
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -371,7 +371,7 @@ msgstr ""
 "obrázku; ďalšie tipy na jeho použitie nájdete pri prečítaní o <a href="
 "\"help:/kphotoalbum/chp-typingIn.html\">vkladanie</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1186
+#: AnnotationDialog/Dialog.cpp:1182
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -384,58 +384,58 @@ msgstr ""
 "sa odporúča, aby ste strávili 5 minút pri čítaní <a href=\"help:/kphotoalbum/"
 "chp-typingIn.html\">Dokumentácia k tomuto dialógu</a></p>"
 
-#: AnnotationDialog/Dialog.cpp:1321
+#: AnnotationDialog/Dialog.cpp:1317
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Triediť naposledy použité"
 
-#: AnnotationDialog/Dialog.cpp:1324
+#: AnnotationDialog/Dialog.cpp:1320
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Prepnúť triedenie"
 
-#: AnnotationDialog/Dialog.cpp:1329
+#: AnnotationDialog/Dialog.cpp:1325
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Prepnúť iba zobrazenie vybraných položiek"
 
-#: AnnotationDialog/Dialog.cpp:1333
+#: AnnotationDialog/Dialog.cpp:1329
 #, kde-format
 msgid "Annotate Next"
 msgstr "Anotovať ďalší"
 
-#: AnnotationDialog/Dialog.cpp:1337
+#: AnnotationDialog/Dialog.cpp:1333
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Anotovať predošlý"
 
-#: AnnotationDialog/Dialog.cpp:1341
+#: AnnotationDialog/Dialog.cpp:1337
 #, kde-format
 msgid "OK dialog"
 msgstr "OK dialóg"
 
-#: AnnotationDialog/Dialog.cpp:1345 AnnotationDialog/ListSelect.cpp:354
+#: AnnotationDialog/Dialog.cpp:1341 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Odstrániť"
 
-#: AnnotationDialog/Dialog.cpp:1349
+#: AnnotationDialog/Dialog.cpp:1345
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Kopírovať značky z predchádzajúceho obrázka"
 
-#: AnnotationDialog/Dialog.cpp:1353 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1349 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Otočiť proti smeru hodinových ručičiek"
 
-#: AnnotationDialog/Dialog.cpp:1356 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1352 MainWindow/Window.cpp:852
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Otočiť po smere hodinových ručičiek"
 
-#: AnnotationDialog/Dialog.cpp:1359
+#: AnnotationDialog/Dialog.cpp:1355
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Prepnúť celoobrazovkový náhľad"
@@ -3695,32 +3695,32 @@ msgstr "%1 z %2 označených"
 msgid "No duplicates found"
 msgstr "Duplikáty neboli nájdené!"
 
-#: MainWindow/ExternalPopup.cpp:63
+#: MainWindow/ExternalPopup.cpp:62
 #, kde-format
 msgid "Current Item"
 msgstr "Aktuálna položka"
 
-#: MainWindow/ExternalPopup.cpp:66
+#: MainWindow/ExternalPopup.cpp:65
 #, kde-format
 msgid "All Selected Items"
 msgstr "Všetky vybraté položky"
 
-#: MainWindow/ExternalPopup.cpp:69
+#: MainWindow/ExternalPopup.cpp:68
 #, kde-format
 msgid "Copy and Open"
 msgstr "Kopírovať a otvoriť"
 
-#: MainWindow/ExternalPopup.cpp:93
+#: MainWindow/ExternalPopup.cpp:92
 #, kde-format
 msgid "Open With..."
 msgstr "Otvoriť s..."
 
-#: MainWindow/ExternalPopup.cpp:116
+#: MainWindow/ExternalPopup.cpp:115
 #, kde-format
 msgid "Your Command Line"
 msgstr "Váš príkazový riadok"
 
-#: MainWindow/ExternalPopup.cpp:188
+#: MainWindow/ExternalPopup.cpp:186
 #, kde-format
 msgid "Invoke External Program"
 msgstr "Vyvolať externý program"

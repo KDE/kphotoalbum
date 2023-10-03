@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-09-24 00:41+0000\n"
+"POT-Creation-Date: 2023-10-03 00:40+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -130,7 +130,7 @@ msgstr "&Gotovo"
 msgid "Continue &Later"
 msgstr "Nastavi kasnije"
 
-#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:829
+#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:826
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
@@ -236,90 +236,90 @@ msgstr "Uzorak naziva datoteke"
 msgid "Search only for RAW files"
 msgstr "Pretraži samo RAW  datoteke"
 
-#: AnnotationDialog/Dialog.cpp:615
+#: AnnotationDialog/Dialog.cpp:612
 #, fuzzy, kde-format
 #| msgid "KPhotoAlbum Annotations (%1/%2)"
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "KPhotoAlbum zabilješke (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:834
+#: AnnotationDialog/Dialog.cpp:831
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Traži"
 
-#: AnnotationDialog/Dialog.cpp:837
+#: AnnotationDialog/Dialog.cpp:834
 #, kde-format
 msgid "Done"
 msgstr "Završeno"
 
-#: AnnotationDialog/Dialog.cpp:844
+#: AnnotationDialog/Dialog.cpp:841
 #, fuzzy, kde-format
 #| msgid "Annotations"
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Zabilješke"
 
-#: AnnotationDialog/Dialog.cpp:876
+#: AnnotationDialog/Dialog.cpp:873
 #, fuzzy, kde-format
 #| msgid "Configure window layout..."
 msgid "Configure Window Layout..."
 msgstr "Konfiguriraj izgled prozora..."
 
-#: AnnotationDialog/Dialog.cpp:877
+#: AnnotationDialog/Dialog.cpp:874
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "Spasi trenutne postavke prozora"
 
-#: AnnotationDialog/Dialog.cpp:878
+#: AnnotationDialog/Dialog.cpp:875
 #, kde-format
 msgid "Reset layout"
 msgstr "Resetuj izgled"
 
-#: AnnotationDialog/Dialog.cpp:885 AnnotationDialog/Dialog.cpp:1314
+#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1310
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Poredaj po abeced (drvo)"
 
-#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1318
+#: AnnotationDialog/Dialog.cpp:886 AnnotationDialog/Dialog.cpp:1314
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Poredaj po abecedi (ravno)"
 
-#: AnnotationDialog/Dialog.cpp:893
+#: AnnotationDialog/Dialog.cpp:890
 #, fuzzy, kde-format
 #| msgid "Sort by date"
 msgid "Sort by Date"
 msgstr "Poredaj po datumu"
 
-#: AnnotationDialog/Dialog.cpp:909
+#: AnnotationDialog/Dialog.cpp:906
 #, fuzzy, kde-format
 #| msgid "Match tags from the first character."
 msgid "Match Tags from the First Character"
 msgstr "Uporedi tagove iz prvog lika."
 
-#: AnnotationDialog/Dialog.cpp:910
+#: AnnotationDialog/Dialog.cpp:907
 #, fuzzy, kde-format
 #| msgid "Match tags from word boundaries."
 msgid "Match Tags from Word Boundaries"
 msgstr "Uporedi tagove iz prvog ogranicenja."
 
-#: AnnotationDialog/Dialog.cpp:911
+#: AnnotationDialog/Dialog.cpp:908
 #, fuzzy, kde-format
 #| msgid "Match tags anywhere."
 msgid "Match Tags Anywhere"
 msgstr "Uporedi sve tagove."
 
-#: AnnotationDialog/Dialog.cpp:928
+#: AnnotationDialog/Dialog.cpp:925
 #, fuzzy, kde-format
 #| msgid "Show only selected Ctrl+S"
 msgid "Show Only Selected Ctrl+S"
 msgstr "Prikaži samo označeno Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:973
+#: AnnotationDialog/Dialog.cpp:970
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
@@ -328,7 +328,7 @@ msgstr ""
 "<p>Ne može se spasiti izgled prozora.</p>Datoteka %1 ne može biti otvorena "
 "zbog greške: %2"
 
-#: AnnotationDialog/Dialog.cpp:978
+#: AnnotationDialog/Dialog.cpp:975
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
@@ -337,7 +337,7 @@ msgstr ""
 "<p>Ne može se spasiti izgled prozora.</p>Datoteka %1 ne može biti ispisana "
 "zbog greške: %2"
 
-#: AnnotationDialog/Dialog.cpp:1046
+#: AnnotationDialog/Dialog.cpp:1043
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Some changes are made to annotations. Do you really want to cancel all "
@@ -349,14 +349,14 @@ msgstr ""
 "<p>Na zabilješkama su napravljene neke promjene. Da li stvarno želite "
 "otkazati sve promjenekoje ste nedavno napravili za svaku datoteku?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1047
+#: AnnotationDialog/Dialog.cpp:1044
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Da li da snimim izmjene?"
 
-#: AnnotationDialog/Dialog.cpp:1178
+#: AnnotationDialog/Dialog.cpp:1174
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -373,7 +373,7 @@ msgstr ""
 "možete pronaći dodatne savjete o njegovoj upotrebi čitajući o <a href="
 "\"help:/kphotoalbum/chp-tipkanje In.html\"> upišete u </a>. </p>"
 
-#: AnnotationDialog/Dialog.cpp:1186
+#: AnnotationDialog/Dialog.cpp:1182
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -386,58 +386,58 @@ msgstr ""
 "preporučuje da uzmete 5 minuta da pročitate <a href=\"help:/kphotoalbum/chp-"
 "typingIn.html\"> dokumentaciju za ovaj dijalog </a> </p>"
 
-#: AnnotationDialog/Dialog.cpp:1321
+#: AnnotationDialog/Dialog.cpp:1317
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Poredaj  najčešće korištene"
 
-#: AnnotationDialog/Dialog.cpp:1324
+#: AnnotationDialog/Dialog.cpp:1320
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "(De)aktiviraj sortiranje"
 
-#: AnnotationDialog/Dialog.cpp:1329
+#: AnnotationDialog/Dialog.cpp:1325
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "(De)aktiviraj prikaz samo odabranih predmeta"
 
-#: AnnotationDialog/Dialog.cpp:1333
+#: AnnotationDialog/Dialog.cpp:1329
 #, kde-format
 msgid "Annotate Next"
 msgstr "Zabilježi sljedeće"
 
-#: AnnotationDialog/Dialog.cpp:1337
+#: AnnotationDialog/Dialog.cpp:1333
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Zabilježi prethodno"
 
-#: AnnotationDialog/Dialog.cpp:1341
+#: AnnotationDialog/Dialog.cpp:1337
 #, kde-format
 msgid "OK dialog"
 msgstr "Uredu"
 
-#: AnnotationDialog/Dialog.cpp:1345 AnnotationDialog/ListSelect.cpp:354
+#: AnnotationDialog/Dialog.cpp:1341 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Izbriši"
 
-#: AnnotationDialog/Dialog.cpp:1349
+#: AnnotationDialog/Dialog.cpp:1345
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Kopiraj oznake sa prethodne slike"
 
-#: AnnotationDialog/Dialog.cpp:1353 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1349 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Rotiraj u lijevo"
 
-#: AnnotationDialog/Dialog.cpp:1356 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1352 MainWindow/Window.cpp:852
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Rotiraj u desno"
 
-#: AnnotationDialog/Dialog.cpp:1359
+#: AnnotationDialog/Dialog.cpp:1355
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "(De)aktiviraj prikaz cijelog ekrana"
@@ -3753,32 +3753,32 @@ msgstr "%1 od %2 odabranog"
 msgid "No duplicates found"
 msgstr "Nije pronađen nijedan duplikat"
 
-#: MainWindow/ExternalPopup.cpp:63
+#: MainWindow/ExternalPopup.cpp:62
 #, kde-format
 msgid "Current Item"
 msgstr "Trenutna stavka"
 
-#: MainWindow/ExternalPopup.cpp:66
+#: MainWindow/ExternalPopup.cpp:65
 #, kde-format
 msgid "All Selected Items"
 msgstr "Sve odabrane stavke"
 
-#: MainWindow/ExternalPopup.cpp:69
+#: MainWindow/ExternalPopup.cpp:68
 #, kde-format
 msgid "Copy and Open"
 msgstr "Kopiraj i otvori"
 
-#: MainWindow/ExternalPopup.cpp:93
+#: MainWindow/ExternalPopup.cpp:92
 #, kde-format
 msgid "Open With..."
 msgstr "Otvori sa..."
 
-#: MainWindow/ExternalPopup.cpp:116
+#: MainWindow/ExternalPopup.cpp:115
 #, kde-format
 msgid "Your Command Line"
 msgstr "Vaša komandna linija"
 
-#: MainWindow/ExternalPopup.cpp:188
+#: MainWindow/ExternalPopup.cpp:186
 #, kde-format
 msgid "Invoke External Program"
 msgstr "Eksterni zazvani program"

@@ -216,6 +216,12 @@ void Browser::BrowserWidget::slotLargeIconView()
     changeViewTypeForCurrentView(DB::Category::ThumbedIconView);
 }
 
+void Browser::BrowserWidget::slotSortViewNaturally(bool on)
+{
+    m_filterProxy->setNaturalSortOrder(on);
+    reload();
+}
+
 void Browser::BrowserWidget::changeViewTypeForCurrentView(DB::Category::ViewType type)
 {
     Q_ASSERT(m_list.size() > 0);

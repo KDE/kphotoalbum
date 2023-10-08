@@ -39,6 +39,8 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Support annotating images from the viewer by using letters to assign tags.
    Use the context menu and select "Annotate | Assign Tags" to enable.
    More information is available in the KPhotoAlbum handbook.
+ - Add option to sort category page by natural order (feature #468134).
+   Natural sort order takes the locale into account and sorts numeric values properly (e.g. sort "9" before "10").
  
 ### Changed
  - In the viewer window, using the letters A-Z to assign tokens now needs to be explicitly enabled.

@@ -115,6 +115,7 @@ public:
     property_copy(matchType, setMatchType, AnnotationDialog::MatchType);
     property_copy(tTimeStamps, setTTimeStamps, TimeStampTrust);
     property_copy(excludeDirectories, setExcludeDirectories, QString);
+    property_copy(browserUseNaturalSortOrder, setBrowserUseNaturalSortOrder, bool);
 #ifdef KPA_ENABLE_REMOTECONTROL
     property_copy(recentAndroidAddress, setRecentAndroidAddress, QString);
     property_copy(listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnStartup, bool);

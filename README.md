@@ -19,7 +19,7 @@ If you have hundreds or even thousands of images on your hard drive, it becomes 
 
 With KPhotoAlbum it is possible to find any image in less than 5 seconds based on a powerful tag system, let that be an image with a special person, an image from a special place, or even both.
 
-Adding tags is easy with KPhotoAlbum— it is highly optimised for tagging images. You can tag hundreds of images quickly with just a bit of practice.
+Adding tags is easy with KPhotoAlbum — it is highly optimised for tagging images. You can tag hundreds of images quickly with just a bit of practice.
 
 For a quick overview, see [KPhotoAlbums page on apps.kde.org](https://apps.kde.org/kphotoalbum/).
 

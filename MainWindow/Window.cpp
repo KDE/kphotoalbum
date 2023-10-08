@@ -943,6 +943,15 @@ void MainWindow::Window::setupMenuBar()
     m_viewMenu->addAction(m_largeIconView);
     m_largeIconView->setActionGroup(viewGrp);
 
+    m_viewMenu->addSeparator();
+
+    m_sortViewNaturally = actionCollection()->add<KToggleAction>(QString::fromLatin1("sortViewNaturally"), m_browser, &Browser::BrowserWidget::slotSortViewNaturally);
+    m_sortViewNaturally->setText(i18n("Use natural sort order"));
+    m_sortViewNaturally->setChecked(Settings::SettingsData::instance()->browserUseNaturalSortOrder());
+    m_browser->slotSortViewNaturally(m_sortViewNaturally->isChecked());
+    connect(m_sortViewNaturally, &QAction::toggled, Settings::SettingsData::instance(), &Settings::SettingsData::setBrowserUseNaturalSortOrder);
+    m_viewMenu->addAction(m_sortViewNaturally);
+
     connect(m_browser, &Browser::BrowserWidget::isViewChangeable, viewGrp, &QActionGroup::setEnabled);
     connect(m_browser, &Browser::BrowserWidget::currentViewTypeChanged, this, &Window::slotUpdateViewMenu);
 
@@ -1448,6 +1457,7 @@ void MainWindow::Window::reloadThumbnails(ThumbnailView::SelectionUpdateMethod m
 
 void MainWindow::Window::slotUpdateViewMenu(DB::Category::ViewType type)
 {
+    // the view group takes care of deselecting the other items
     if (type == DB::Category::TreeView)
         m_smallListView->setChecked(true);
     else if (type == DB::Category::ThumbedTreeView)

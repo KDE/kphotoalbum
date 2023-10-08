@@ -276,6 +276,7 @@ private:
     KToggleAction *m_smallListView;
     KToggleAction *m_largeListView;
     KToggleAction *m_largeIconView;
+    KToggleAction *m_sortViewNaturally;
     KActionMenu *m_colorSchemeMenu;
     QAction *m_generateHtml;
     QAction *m_copy;

@@ -173,6 +173,7 @@ property_copy(autoSave, setAutoSave, int, General, 5)
 property_copy(backupCount, setBackupCount, int, General, 5)
 property_enum(tTimeStamps, setTTimeStamps, TimeStampTrust, General, Always)
 property_copy(excludeDirectories, setExcludeDirectories, QString, General, QString::fromLatin1("xml,ThumbNails,.thumbs"))
+property_copy(browserUseNaturalSortOrder, setBrowserUseNaturalSortOrder, bool, General, true);
 #ifdef KPA_ENABLE_REMOTECONTROL
 property_copy(recentAndroidAddress, setRecentAndroidAddress, QString, General, QString())
 property_copy(listenForAndroidDevicesOnStartup, setListenForAndroidDevicesOnStartup, bool, General, false)

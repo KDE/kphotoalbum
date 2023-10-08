@@ -315,7 +315,7 @@ void Browser::BrowserWidget::switchToViewType(DB::Category::ViewType type)
     } else {
         m_curView = m_listView;
         m_filterProxy->invalidate();
-        m_filterProxy->sort(0, Qt::AscendingOrder);
+        m_filterProxy->sort(0, Qt::AscendingOrder); // sort by column 0
 
         m_listView->setViewMode(dynamic_cast<OverviewPage *>(currentAction()) == nullptr ? CenteringIconView::NormalIconView : CenteringIconView::CenterView);
     }

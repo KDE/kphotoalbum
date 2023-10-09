@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-03 00:40+0000\n"
+"POT-Creation-Date: 2023-10-09 00:40+0000\n"
 "PO-Revision-Date: 2023-09-06 17:32+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -979,7 +979,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "пошук"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1789
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1799
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -994,7 +994,7 @@ msgstr ""
 "li><li>перейдіть на сторінку <b>Категорії</b></li><li>налаштуйте мітку у "
 "розділі <b>Без міток</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1796
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1806
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Можливість ще не налаштовано"
@@ -1637,13 +1637,13 @@ msgid "Places"
 msgstr "Місця"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:411
+#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:412
 #, kde-format
 msgid "Events"
 msgstr "Події"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:421
+#: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:422
 #, kde-format
 msgid "untagged"
 msgstr "без міток"
@@ -2748,7 +2748,7 @@ msgid "Create folder?"
 msgstr "Створити теку?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1222
+#: MainWindow/Window.cpp:1231
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3210,7 +3210,7 @@ msgstr "Додатки"
 msgid "Main Toolbar"
 msgstr "Головний пенал"
 
-#: lib/kpabase/SettingsData.cpp:238
+#: lib/kpabase/SettingsData.cpp:239
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3229,7 +3229,7 @@ msgstr ""
 "допомогою сканера. Отже, питання, на яке ви маєте дати відповідь звучить "
 "так: чи слід KPhotoAlbum покладатися на часові штампи ваших зображень?"
 
-#: lib/kpabase/SettingsData.cpp:245
+#: lib/kpabase/SettingsData.cpp:246
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Довіряти часовим штампам?"
@@ -4295,13 +4295,13 @@ msgid "Stacking Error"
 msgstr "Помилка під час створення стосу"
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1323 MainWindow/Window.cpp:1420
+#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1429
 #, kde-format
 msgid "No item is selected."
 msgstr "Не вибрано жодного елемента."
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1323 MainWindow/Window.cpp:1421
+#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1430
 #, kde-format
 msgid "No Selection"
 msgstr "Нема вибраного"
@@ -4477,122 +4477,127 @@ msgstr "Дерево з піктограмами користувача"
 msgid "Icons"
 msgstr "Піктограми"
 
-#: MainWindow/Window.cpp:950
+#: MainWindow/Window.cpp:949
+#, kde-format
+msgid "Use natural sort order"
+msgstr ""
+
+#: MainWindow/Window.cpp:959
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Показувати підказки у вікні мініатюр"
 
-#: MainWindow/Window.cpp:955
+#: MainWindow/Window.cpp:964
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
 msgstr "Показувати мітки у вікні мініатюр"
 
-#: MainWindow/Window.cpp:965
+#: MainWindow/Window.cpp:974
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
 msgstr "Показувати категорії у вікні мініатюр"
 
-#: MainWindow/Window.cpp:986
+#: MainWindow/Window.cpp:995
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "Виберіть схему кольорів"
 
-#: MainWindow/Window.cpp:997
+#: MainWindow/Window.cpp:1006
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Показати зображення і відеофайли, відсутні на диску"
 
-#: MainWindow/Window.cpp:1000
+#: MainWindow/Window.cpp:1009
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Показати зображення і відеофайли з неповними датами..."
 
-#: MainWindow/Window.cpp:1003
+#: MainWindow/Window.cpp:1012
 #, kde-format
 msgid "Merge duplicates"
 msgstr "Об’єднати дублікати"
 
-#: MainWindow/Window.cpp:1005 MainWindow/Window.cpp:1062
+#: MainWindow/Window.cpp:1014 MainWindow/Window.cpp:1071
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Оновити вказані мініатюри і контрольні суми"
 
-#: MainWindow/Window.cpp:1009
+#: MainWindow/Window.cpp:1018
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Повторний пошук зображень і відеофайлів"
 
-#: MainWindow/Window.cpp:1012
+#: MainWindow/Window.cpp:1021
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Створити заново базу даних пошуків Exif"
 
-#: MainWindow/Window.cpp:1015
+#: MainWindow/Window.cpp:1024
 #, kde-format
 msgid "Read Exif Info from Files..."
 msgstr "Читати інформацію Exif з файлів..."
 
-#: MainWindow/Window.cpp:1018
+#: MainWindow/Window.cpp:1027
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Впорядкувати усі за датою і часом"
 
-#: MainWindow/Window.cpp:1022
+#: MainWindow/Window.cpp:1031
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Автоматично стосувати позначені зображення…"
 
-#: MainWindow/Window.cpp:1025
+#: MainWindow/Window.cpp:1034
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Створити мініатюри"
 
-#: MainWindow/Window.cpp:1028
+#: MainWindow/Window.cpp:1037
 #, kde-format
 msgid "Statistics..."
 msgstr "Статистика…"
 
-#: MainWindow/Window.cpp:1032
+#: MainWindow/Window.cpp:1041
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Позначити як запис без мітки"
 
-#: MainWindow/Window.cpp:1041
+#: MainWindow/Window.cpp:1050
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Увімкнути всі повідомлення"
 
-#: MainWindow/Window.cpp:1049
+#: MainWindow/Window.cpp:1058
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Запустити демонстрацію KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1052
+#: MainWindow/Window.cpp:1061
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "Стан можливостей KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1055
+#: MainWindow/Window.cpp:1064
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Показати демонстраційні відео"
 
-#: MainWindow/Window.cpp:1059 Viewer/ViewerWidget.cpp:196
+#: MainWindow/Window.cpp:1068 Viewer/ViewerWidget.cpp:196
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Показати інформацію Exif та метадані файла"
 
-#: MainWindow/Window.cpp:1065
+#: MainWindow/Window.cpp:1074
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Використати наступну відеомініатюру"
 
-#: MainWindow/Window.cpp:1069
+#: MainWindow/Window.cpp:1078
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Використати попередню відеомініатюру"
 
-#: MainWindow/Window.cpp:1073 MainWindow/Window.cpp:1301
+#: MainWindow/Window.cpp:1082 MainWindow/Window.cpp:1310
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
@@ -4601,7 +4606,7 @@ msgstr[1] "Копіювати зображення до…"
 msgstr[2] "Копіювати зображення до…"
 msgstr[3] "Копіювати зображення до…"
 
-#: MainWindow/Window.cpp:1077 MainWindow/Window.cpp:1305
+#: MainWindow/Window.cpp:1086 MainWindow/Window.cpp:1314
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4610,17 +4615,17 @@ msgstr[1] "Створити посилання на зображення до…
 msgstr[2] "Створити посилання на зображення до…"
 msgstr[3] "Створити посилання на зображення до…"
 
-#: MainWindow/Window.cpp:1103
+#: MainWindow/Window.cpp:1112
 #, kde-format
 msgid "Auto saving...."
 msgstr "Автозбереження...."
 
-#: MainWindow/Window.cpp:1106
+#: MainWindow/Window.cpp:1115
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Автозбереження.... Готово"
 
-#: MainWindow/Window.cpp:1208
+#: MainWindow/Window.cpp:1217
 #, kde-format
 msgid ""
 "<p>Could not open given index.xml, as the provided folder does not exist."
@@ -4629,7 +4634,7 @@ msgstr ""
 "<p>Не вдалося відкрити вказаний файл index.xml, оскільки вказаної теки не "
 "існує.<br />%1</p>"
 
-#: MainWindow/Window.cpp:1215
+#: MainWindow/Window.cpp:1224
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4638,13 +4643,13 @@ msgstr ""
 "<p>Вказаного файла покажчика не існує, бажаєте створити файл з наведеною "
 "нижче назвою?<br />%1/index.xml</p>"
 
-#: MainWindow/Window.cpp:1218
+#: MainWindow/Window.cpp:1227
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Створення бази даних"
 
-#: MainWindow/Window.cpp:1246
+#: MainWindow/Window.cpp:1255
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4657,33 +4662,33 @@ msgstr ""
 "мітки за допомогою сторінки <interface>Параметри|Налаштувати KPhotoAlbum...|"
 "Категорії</interface></p>"
 
-#: MainWindow/Window.cpp:1372 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1381 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Загальне"
 
-#: MainWindow/Window.cpp:1373 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Переглядач"
 
-#: MainWindow/Window.cpp:1374
+#: MainWindow/Window.cpp:1383
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Панель дат"
 
-#: MainWindow/Window.cpp:1377
+#: MainWindow/Window.cpp:1386
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Діалогове вікно приміток"
 
-#: MainWindow/Window.cpp:1378 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Перегляд мініатюрами"
 
-#: MainWindow/Window.cpp:1523
+#: MainWindow/Window.cpp:1533
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4692,13 +4697,13 @@ msgstr ""
 "<p>Ви справді бажаєте увімкнути всі позначки там, де ви раніше позначили "
 "пункт більше-не-показувати?</p>"
 
-#: MainWindow/Window.cpp:1525
+#: MainWindow/Window.cpp:1535
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Скидання приховування вікон"
 
-#: MainWindow/Window.cpp:1544
+#: MainWindow/Window.cpp:1554
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4716,34 +4721,34 @@ msgstr ""
 "продовжувати роботу, але, ймовірно, програма аварійно завершить роботу "
 "пізніше через те, що не було виконано команди make install.</p>"
 
-#: MainWindow/Window.cpp:1544
+#: MainWindow/Window.cpp:1554
 #, kde-format
 msgid "Internal Error"
 msgstr "Внутрішня помилка"
 
-#: MainWindow/Window.cpp:1555
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 "Зображення успішно оприлюднено. Копіюємо дані щодо розташування до буфера "
 "обміну…"
 
-#: MainWindow/Window.cpp:1558
+#: MainWindow/Window.cpp:1568
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Зображення успішно оприлюднено."
 
-#: MainWindow/Window.cpp:1563
+#: MainWindow/Window.cpp:1573
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Не вдалося оприлюднити зображення. Повідомлення щодо помилки: %1"
 
-#: MainWindow/Window.cpp:1626
+#: MainWindow/Window.cpp:1636
 #, kde-format
 msgid "Open List of Files"
 msgstr "Відкрити список файлів"
 
-#: MainWindow/Window.cpp:1627
+#: MainWindow/Window.cpp:1637
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4752,28 +4757,28 @@ msgstr ""
 "Ви можете відкрити набір файлів з бази даних KPhotoAlbum за допомогою "
 "показаного тут списку файлів."
 
-#: MainWindow/Window.cpp:1641
+#: MainWindow/Window.cpp:1651
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Не знайдено жодного зображення, що відповідає введеному критерію."
 
-#: MainWindow/Window.cpp:1641
+#: MainWindow/Window.cpp:1651
 #, kde-format
 msgid "No Matches"
 msgstr "Немає відповідників"
 
-#: MainWindow/Window.cpp:1813
+#: MainWindow/Window.cpp:1823
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Повторне читання інформації Exif з усіх зображень"
 
-#: MainWindow/Window.cpp:1840
+#: MainWindow/Window.cpp:1850
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Ширина мініатюри: %1 пк (розмір сховища даних: %2 пк)"
 
-#: MainWindow/Window.cpp:1893
+#: MainWindow/Window.cpp:1903
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4784,7 +4789,7 @@ msgstr ""
 "та даних щодо тривалості відтворення з відеофайлів KPhotoAlbum, окрім інших "
 "програм, потрібна ця програма. Будь ласка, встановіть пакунок ffmpeg.</p>"
 
-#: MainWindow/Window.cpp:1896
+#: MainWindow/Window.cpp:1906
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Показ мініатюр відео неможливий"

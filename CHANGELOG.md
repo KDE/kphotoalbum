@@ -52,7 +52,6 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Dependencies
 
 ### Deprecated
- - It is no longer possible to annotate images from the viewer by pressing "/" and typing tag names.
 
 ### Fixed
  - Fix issue with KPhotoAlbum not asking to save before exit (#472427)
@@ -63,8 +62,11 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix crash when both the annotation dialog and the viewer window is open and the user right-clicks on the viewer window (#473762)
  - Fix crash when annotations are not saved and then the user right-clicks on the viewer window (#474151)
  - Fix crash when user opens the last image/video in viewer then deletes the image and then accesses the viewer context menu (#474392)
+ - Fix several crashes when deleting an image/video that is currently being annotated in the annotation dialog (#475387, #475388)
+ - Correctly discard images from annotation dialog if they are deleted elsewhere (e.g. in the thumbnail view).
 
 ### Removed
+ - It is no longer possible to annotate images from the viewer by pressing "/" and typing tag names.
 
 ### Security
 

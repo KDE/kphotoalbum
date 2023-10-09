@@ -290,6 +290,8 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     shortCutManager.setupShortCuts();
 
     layout->addWidget(buttonBox);
+
+    connect(DB::ImageDB::instance(), &DB::ImageDB::imagesDeleted, this, &Dialog::slotDiscardFiles);
 }
 
 QDockWidget *AnnotationDialog::Dialog::createDock(const QString &title, const QString &name,
@@ -1723,6 +1725,30 @@ void AnnotationDialog::Dialog::hideEvent(QHideEvent *event)
 {
     hideFloatingWindows();
     event->accept();
+}
+
+void AnnotationDialog::Dialog::slotDiscardFiles(const DB::FileNameList &files)
+{
+    // we can't directly compare ImageInfos with the ones in the database, so we work on filenames:
+    auto origFilenames = m_origList.files();
+    for (const auto &filename : files) {
+        const int index = origFilenames.indexOf(filename);
+        if (index >= 0) {
+            qCDebug(AnnotationDialogLog) << "Discarding file" << filename.relative() << "from annotation dialog";
+            origFilenames.removeAt(index);
+            m_origList.removeAt(index);
+            m_editList.removeAt(index);
+            if (0 < index && index <= m_current)
+                m_current--;
+        }
+    }
+    if (m_origList.count() == 0) {
+        reject();
+        return;
+    }
+
+    m_preview->configure(&m_editList, (m_setup == InputSingleImageConfigMode));
+    load();
 }
 
 #ifdef HAVE_MARBLE

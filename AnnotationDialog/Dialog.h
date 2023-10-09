@@ -137,6 +137,14 @@ protected Q_SLOTS:
 #endif
     void showEvent(QShowEvent *event) override;
     void hideEvent(QHideEvent *event) override;
+    /**
+     * @brief slotDiscardFiles removes a list of files from the annotation dialog as if they were discarded.
+     * The main usage is to remove files from the dialog if they are deleted, avoiding stale image data from showing up.
+     *
+     * Files that are not currently in the list of annotated files are silently ignored.
+     * @param files
+     */
+    void slotDiscardFiles(const DB::FileNameList &files);
 
 Q_SIGNALS:
     void imageRotated(const DB::FileName &id);

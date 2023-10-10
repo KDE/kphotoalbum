@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-09 00:40+0000\n"
-"PO-Revision-Date: 2023-09-06 17:32+0300\n"
+"POT-Creation-Date: 2023-10-10 00:40+0000\n"
+"PO-Revision-Date: 2023-10-09 09:11+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -135,38 +135,38 @@ msgstr "&Виконано"
 msgid "Continue &Later"
 msgstr "Продовжити п&ізніше"
 
-#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:826
+#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:828
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
 msgstr "&Шукати"
 
-#: AnnotationDialog/Dialog.cpp:319
+#: AnnotationDialog/Dialog.cpp:321
 #, kde-format
 msgid "Label: "
 msgstr "Мітка: "
 
-#: AnnotationDialog/Dialog.cpp:323 ImportExport/MD5CheckPage.cpp:65
+#: AnnotationDialog/Dialog.cpp:325 ImportExport/MD5CheckPage.cpp:65
 #, kde-format
 msgid "Label"
 msgstr "Підпис"
 
-#: AnnotationDialog/Dialog.cpp:332
+#: AnnotationDialog/Dialog.cpp:334
 #, kde-format
 msgid "Date: "
 msgstr "Дата: "
 
-#: AnnotationDialog/Dialog.cpp:348
+#: AnnotationDialog/Dialog.cpp:350
 #, kde-format
 msgid "Time: "
 msgstr "Час: "
 
-#: AnnotationDialog/Dialog.cpp:354
+#: AnnotationDialog/Dialog.cpp:356
 #, kde-format
 msgid "Use Fuzzy Date"
 msgstr "Використати неточну дату"
 
-#: AnnotationDialog/Dialog.cpp:356
+#: AnnotationDialog/Dialog.cpp:358
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -185,137 +185,137 @@ msgstr ""
 "аналоговим фотоапаратом), вам слід позначити пункт <interface>Використатися "
 "неточну дату</interface>.</para>"
 
-#: AnnotationDialog/Dialog.cpp:371
+#: AnnotationDialog/Dialog.cpp:373
 #, kde-format
 msgid "Minimum megapixels:"
 msgstr "Мін. к-ть мегапікселів:"
 
-#: AnnotationDialog/Dialog.cpp:381
+#: AnnotationDialog/Dialog.cpp:383
 #, kde-format
 msgid "Maximum megapixels:"
 msgstr "Мін. к-ть мегапікселів:"
 
-#: AnnotationDialog/Dialog.cpp:394
+#: AnnotationDialog/Dialog.cpp:396
 #, kde-format
 msgid "Rating:"
 msgstr "Оцінка:"
 
-#: AnnotationDialog/Dialog.cpp:402
+#: AnnotationDialog/Dialog.cpp:404
 #, kde-format
 msgid "Rating search mode:"
 msgstr "Режим пошуку за оцінкою:"
 
-#: AnnotationDialog/Dialog.cpp:406
+#: AnnotationDialog/Dialog.cpp:408
 #, kde-format
 msgid "=="
 msgstr "="
 
-#: AnnotationDialog/Dialog.cpp:406
+#: AnnotationDialog/Dialog.cpp:408
 #, kde-format
 msgid ">="
 msgstr "⩾"
 
-#: AnnotationDialog/Dialog.cpp:406
+#: AnnotationDialog/Dialog.cpp:408
 #, kde-format
 msgid "<="
 msgstr "⩽"
 
-#: AnnotationDialog/Dialog.cpp:406
+#: AnnotationDialog/Dialog.cpp:408
 #, kde-format
 msgid "!="
 msgstr "≠"
 
-#: AnnotationDialog/Dialog.cpp:414
+#: AnnotationDialog/Dialog.cpp:416
 #, kde-format
 msgid "File Name Pattern: "
 msgstr "Шаблон назв файлів:"
 
-#: AnnotationDialog/Dialog.cpp:417
+#: AnnotationDialog/Dialog.cpp:419
 #, kde-format
 msgid "File Name Pattern"
 msgstr "Шаблон назв файлів"
 
-#: AnnotationDialog/Dialog.cpp:422
+#: AnnotationDialog/Dialog.cpp:424
 #, kde-format
 msgid "Search only for RAW files"
 msgstr "Шукати лише файли цифрових негативів"
 
-#: AnnotationDialog/Dialog.cpp:612
+#: AnnotationDialog/Dialog.cpp:614
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Примітки (%1 з %2)"
 
-#: AnnotationDialog/Dialog.cpp:831
+#: AnnotationDialog/Dialog.cpp:833
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Пошук"
 
-#: AnnotationDialog/Dialog.cpp:834
+#: AnnotationDialog/Dialog.cpp:836
 #, kde-format
 msgid "Done"
 msgstr "Виконано"
 
-#: AnnotationDialog/Dialog.cpp:841
+#: AnnotationDialog/Dialog.cpp:843
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Примітки"
 
-#: AnnotationDialog/Dialog.cpp:873
+#: AnnotationDialog/Dialog.cpp:875
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Налаштувати компонування вікна…"
 
-#: AnnotationDialog/Dialog.cpp:874
+#: AnnotationDialog/Dialog.cpp:876
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "Зберегти налаштування поточного вікна"
 
-#: AnnotationDialog/Dialog.cpp:875
+#: AnnotationDialog/Dialog.cpp:877
 #, kde-format
 msgid "Reset layout"
 msgstr "Скинути формат"
 
-#: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1310
+#: AnnotationDialog/Dialog.cpp:884 AnnotationDialog/Dialog.cpp:1312
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Впорядкувати за алфавітом (ієрархія)"
 
-#: AnnotationDialog/Dialog.cpp:886 AnnotationDialog/Dialog.cpp:1314
+#: AnnotationDialog/Dialog.cpp:888 AnnotationDialog/Dialog.cpp:1316
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Впорядкувати за алфавітом (плоский список)"
 
-#: AnnotationDialog/Dialog.cpp:890
+#: AnnotationDialog/Dialog.cpp:892
 #, kde-format
 msgid "Sort by Date"
 msgstr "Впорядкувати за датою"
 
-#: AnnotationDialog/Dialog.cpp:906
+#: AnnotationDialog/Dialog.cpp:908
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "Встановлювати відповідність міток з першого символу."
 
-#: AnnotationDialog/Dialog.cpp:907
+#: AnnotationDialog/Dialog.cpp:909
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "Встановлювати відповідність лише на межі слів."
 
-#: AnnotationDialog/Dialog.cpp:908
+#: AnnotationDialog/Dialog.cpp:910
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "Встановлювати відповідність міток всюди."
 
-#: AnnotationDialog/Dialog.cpp:925
+#: AnnotationDialog/Dialog.cpp:927
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Показувати лише позначені Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:970
+#: AnnotationDialog/Dialog.cpp:972
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
@@ -324,7 +324,7 @@ msgstr ""
 "<p>Не вдалося зберегти компонування вікна.</p>Не вдалося відкрити файл %1 "
 "через таку помилку: %2"
 
-#: AnnotationDialog/Dialog.cpp:975
+#: AnnotationDialog/Dialog.cpp:977
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
@@ -333,7 +333,7 @@ msgstr ""
 "<p>Не вдалося зберегти компонування вікна.</p>Не вдалося виконати запис до "
 "файла %1 через таку помилку: %2"
 
-#: AnnotationDialog/Dialog.cpp:1043
+#: AnnotationDialog/Dialog.cpp:1045
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
@@ -342,13 +342,13 @@ msgstr ""
 "<p>Було зроблено деякі зміни у примітках. Ви справді бажаєте відкинути усі "
 "нещодавні зміни у кожному з файлів, яких вони торкнулися?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1044
+#: AnnotationDialog/Dialog.cpp:1046
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Відкинути зміни?"
 
-#: AnnotationDialog/Dialog.cpp:1174
+#: AnnotationDialog/Dialog.cpp:1176
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -366,7 +366,7 @@ msgstr ""
 "розділі щодо <a href=\"help:/kphotoalbum/chp-typingIn.html\">введення даних</"
 "a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1182
+#: AnnotationDialog/Dialog.cpp:1184
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -380,58 +380,58 @@ msgstr ""
 "хвилин читанню <a href=\"help:/kphotoalbum/chp-typingIn.html\">документації "
 "щодо цього діалогового вікна</a></p>"
 
-#: AnnotationDialog/Dialog.cpp:1317
+#: AnnotationDialog/Dialog.cpp:1319
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Впорядкувати нещодавно використані"
 
-#: AnnotationDialog/Dialog.cpp:1320
+#: AnnotationDialog/Dialog.cpp:1322
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Перемикнути впорядкування"
 
-#: AnnotationDialog/Dialog.cpp:1325
+#: AnnotationDialog/Dialog.cpp:1327
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Перемкнути показ лише вибраних елементів"
 
-#: AnnotationDialog/Dialog.cpp:1329
+#: AnnotationDialog/Dialog.cpp:1331
 #, kde-format
 msgid "Annotate Next"
 msgstr "Додати примітку до наступного"
 
-#: AnnotationDialog/Dialog.cpp:1333
+#: AnnotationDialog/Dialog.cpp:1335
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Додати примітку до попереднього"
 
-#: AnnotationDialog/Dialog.cpp:1337
+#: AnnotationDialog/Dialog.cpp:1339
 #, kde-format
 msgid "OK dialog"
 msgstr "Діалогове вікно «Гаразд»"
 
-#: AnnotationDialog/Dialog.cpp:1341 AnnotationDialog/ListSelect.cpp:354
+#: AnnotationDialog/Dialog.cpp:1343 AnnotationDialog/ListSelect.cpp:354
 #: Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Вилучити"
 
-#: AnnotationDialog/Dialog.cpp:1345
+#: AnnotationDialog/Dialog.cpp:1347
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Копіювати мітки з попереднього зображення"
 
-#: AnnotationDialog/Dialog.cpp:1349 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1351 MainWindow/Window.cpp:848
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Повернути проти годинникової стрілки"
 
-#: AnnotationDialog/Dialog.cpp:1352 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1354 MainWindow/Window.cpp:852
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Повернути за годинниковою стрілкою"
 
-#: AnnotationDialog/Dialog.cpp:1355
+#: AnnotationDialog/Dialog.cpp:1357
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Увімкнути/Вимкнути повноекранний перегляд"
@@ -4480,7 +4480,7 @@ msgstr "Піктограми"
 #: MainWindow/Window.cpp:949
 #, kde-format
 msgid "Use natural sort order"
-msgstr ""
+msgstr "Природній порядок сортування"
 
 #: MainWindow/Window.cpp:959
 #, kde-format

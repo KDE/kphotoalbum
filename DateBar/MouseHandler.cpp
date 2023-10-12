@@ -201,6 +201,25 @@ bool DateBar::SelectionHandler::hasSelection() const
     return min().isValid();
 }
 
+void DateBar::SelectionHandler::setOrExtendSelection(const Utilities::FastDateTime &date)
+{
+    if (hasSelection()) {
+        if (date < m_start) {
+            m_start = date;
+            m_dateBar->emitRangeSelection(dateRange());
+        } else if (date > m_end) {
+            const auto unit = m_dateBar->unitForDate(date);
+            m_end = m_dateBar->dateForUnit(unit + 1).addSecs(-1);
+            m_dateBar->emitRangeSelection(dateRange());
+        }
+    } else {
+        m_start = date;
+        const auto unit = m_dateBar->unitForDate(date);
+        m_end = m_dateBar->dateForUnit(unit + 1).addSecs(-1);
+        m_dateBar->emitRangeSelection(dateRange());
+    }
+}
+
 // vi:expandtab:tabstop=4 shiftwidth=4:
 
 #include "moc_MouseHandler.cpp"

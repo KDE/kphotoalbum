@@ -86,6 +86,12 @@ public:
     DB::ImageDate dateRange() const;
     void clearSelection();
     bool hasSelection() const;
+    /**
+     * @brief setOrExtendSelection extends the selection to the given date.
+     * If the SelectionHandler does not currently have a selection, it selects the unit corrensponding to the date.
+     * @param date a valid FastDateTime
+     */
+    void setOrExtendSelection(const Utilities::FastDateTime &date);
 
 private:
     Utilities::FastDateTime m_start;

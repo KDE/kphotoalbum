@@ -41,6 +41,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
    More information is available in the KPhotoAlbum handbook.
  - Add option to sort category page by natural order (feature #475339).
    Natural sort order takes the locale into account and sorts numeric values properly (e.g. sort "9" before "10").
+ - Allow selecting a date range in the DateBar via keyboard (Use "Shift + Left|Right")
  
 ### Changed
  - In the viewer window, using the letters A-Z to assign tokens now needs to be explicitly enabled.

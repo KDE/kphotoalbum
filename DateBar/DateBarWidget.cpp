@@ -58,6 +58,7 @@ DateBar::DateBarWidget::DateBarWidget(QWidget *parent)
     , m_doAutomaticRangeAdjustment(true)
     , m_actionCollection(new KActionCollection(this))
 {
+    setAccessibleName(i18nc("Accessible name for the date bar widget", "Datebar"));
     setMouseTracking(true);
     setFocusPolicy(Qt::StrongFocus);
 
@@ -855,27 +856,36 @@ void DateBar::DateBarWidget::placeAndSizeButtons()
 void DateBar::DateBarWidget::keyPressEvent(QKeyEvent *event)
 {
     int offset = 0;
-    if (event->key() == Qt::Key_Plus) {
+
+    switch (event->key()) {
+    case Qt::Key_Left:
+        offset = -1;
+        break;
+    case Qt::Key_Right:
+        offset = 1;
+        break;
+    case Qt::Key_PageDown:
+        offset = -10;
+        break;
+    case Qt::Key_PageUp:
+        offset = 10;
+        break;
+    case Qt::Key_Plus:
         if (canZoomIn())
             zoom(1);
         return;
-    }
-    if (event->key() == Qt::Key_Minus) {
+    case Qt::Key_Minus:
         if (canZoomOut())
             zoom(-1);
         return;
+    case Qt::Key_Escape:
+        clearSelection();
+        return;
+    default:
+        return;
     }
 
-    if (event->key() == Qt::Key_Left)
-        offset = -1;
-    else if (event->key() == Qt::Key_Right)
-        offset = 1;
-    else if (event->key() == Qt::Key_PageDown)
-        offset = -10;
-    else if (event->key() == Qt::Key_PageUp)
-        offset = 10;
-    else
-        return;
+    const bool selectionMode = event->modifiers() & Qt::ShiftModifier;
 
     Utilities::FastDateTime newDate = dateForUnit(offset, m_currentDate);
     if ((offset < 0 && newDate >= m_dates->lowerLimit()) || (offset > 0 && newDate <= m_dates->upperLimit())) {
@@ -886,7 +896,9 @@ void DateBar::DateBarWidget::keyPressEvent(QKeyEvent *event)
         if (m_currentUnit > numberOfUnits())
             m_currentUnit = numberOfUnits();
 
-        if (!currentSelection().includes(m_currentDate))
+        if (selectionMode) {
+            m_selectionHandler->setOrExtendSelection(newDate);
+        } else if (!currentSelection().includes(m_currentDate))
             clearSelection();
     }
     redraw();

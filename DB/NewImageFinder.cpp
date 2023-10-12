@@ -1,5 +1,17 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2005-2013 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2006-2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2007-2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
+// SPDX-FileCopyrightText: 2010-2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
+// SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2015 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2017-2019 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -373,8 +385,15 @@ bool canReadImage(const DB::FileName &fileName)
 }
 }
 
+QMutex NewImageFinder::s_imageFinderLock;
+
 bool NewImageFinder::findImages()
 {
+    using namespace std::chrono_literals;
+    if (!s_imageFinderLock.try_lock_for(500ms)) {
+        qCInfo(DBLog) << "NewImageFinder::findImages() called while searching for new images. Try again later...";
+        return false;
+    }
     // Load the information from the XML file.
     DB::FileNameSet loadedFiles;
 
@@ -385,7 +404,8 @@ bool NewImageFinder::findImages()
     // knows about an image ? Here we've to iterate through all of them and it
     // might be more efficient do do this in the database without fetching the
     // whole info.
-    for (const DB::FileName &fileName : DB::ImageDB::instance()->files()) {
+    const auto knownFiles = DB::ImageDB::instance()->files();
+    for (const DB::FileName &fileName : knownFiles) {
         loadedFiles.insert(fileName);
     }
 
@@ -402,6 +422,7 @@ bool NewImageFinder::findImages()
             new BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob);
     }
 
+    s_imageFinderLock.unlock();
     // To avoid deciding if the new images are shown in a given thumbnail view or in a given search
     // we rather just go to home.
     return (!m_pendingLoad.isEmpty()); // returns if new images was found.

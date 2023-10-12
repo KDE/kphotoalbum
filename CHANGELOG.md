@@ -65,6 +65,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix crash when user opens the last image/video in viewer then deletes the image and then accesses the viewer context menu (#474392)
  - Fix several crashes when deleting an image/video that is currently being annotated in the annotation dialog (#475387, #475388)
  - Correctly discard images from annotation dialog if they are deleted elsewhere (e.g. in the thumbnail view).
+ - Fix failed assertion and potential database corruption when searching for new image while the new image search is already running (#475529)
 
 ### Removed
  - It is no longer possible to annotate images from the viewer by pressing "/" and typing tag names.

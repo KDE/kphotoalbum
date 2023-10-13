@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 00:40+0000\n"
+"POT-Creation-Date: 2023-10-13 00:40+0000\n"
 "PO-Revision-Date: 2021-01-10 14:24+0100\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -1064,33 +1064,40 @@ msgstr[2] ""
 msgid "Move Items"
 msgstr "Presunúť položky"
 
-#: DateBar/DateBarWidget.cpp:69
+#: DateBar/DateBarWidget.cpp:61
+#, fuzzy, kde-format
+#| msgid "Date: "
+msgctxt "Accessible name for the date bar widget"
+msgid "Datebar"
+msgstr "Dátum:"
+
+#: DateBar/DateBarWidget.cpp:70
 #, kde-format
 msgid "Scroll right"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:78
+#: DateBar/DateBarWidget.cpp:79
 #, kde-format
 msgid "Scroll left"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:87
+#: DateBar/DateBarWidget.cpp:88
 #, kde-format
 msgid "Zoom in"
 msgstr "Priblížiť"
 
-#: DateBar/DateBarWidget.cpp:98
+#: DateBar/DateBarWidget.cpp:99
 #, kde-format
 msgid "Zoom out"
 msgstr "Oddialiť"
 
-#: DateBar/DateBarWidget.cpp:110
+#: DateBar/DateBarWidget.cpp:111
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "Vymazať výber dátumu"
 
-#: DateBar/DateBarWidget.cpp:123
+#: DateBar/DateBarWidget.cpp:124
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1101,17 +1108,17 @@ msgid ""
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:689
+#: DateBar/DateBarWidget.cpp:690
 #, kde-format
 msgid "Show Ranges"
 msgstr "Zobraziť rozsahy"
 
-#: DateBar/DateBarWidget.cpp:695
+#: DateBar/DateBarWidget.cpp:696
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr "Zobraziť indikátor riešenia"
 
-#: DateBar/DateBarWidget.cpp:820
+#: DateBar/DateBarWidget.cpp:821
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1120,7 +1127,7 @@ msgstr[0] "1 presné"
 msgstr[1] "%1 presné"
 msgstr[2] "%1 presných"
 
-#: DateBar/DateBarWidget.cpp:821
+#: DateBar/DateBarWidget.cpp:822
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1131,7 +1138,7 @@ msgstr[0] " + 1 rozsah"
 msgstr[1] " + %1 rozsahy"
 msgstr[2] " + %1 rozsahov"
 
-#: DateBar/DateBarWidget.cpp:822
+#: DateBar/DateBarWidget.cpp:823
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1140,7 +1147,7 @@ msgstr[0] " = 1 celkovo"
 msgstr[1] " = %1 celkovo"
 msgstr[2] " = %1 celkovo"
 
-#: DateBar/DateBarWidget.cpp:824
+#: DateBar/DateBarWidget.cpp:825
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
@@ -1149,7 +1156,7 @@ msgstr[0] "%1 obrázok/video"
 msgstr[1] "%1 obrázky/videá"
 msgstr[2] "%1 obrázkov/videí"
 
-#: DateBar/DateBarWidget.cpp:826
+#: DateBar/DateBarWidget.cpp:827
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
@@ -1336,7 +1343,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ""
 
-#: DB/NewImageFinder.cpp:467
+#: DB/NewImageFinder.cpp:488
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1347,7 +1354,7 @@ msgstr ""
 "počte obrázkov, môže to chvíľu trvať.<br/>Zdržanie však nastane iba vtedy, "
 "ak sa nájdu nové obrázky.</p>"
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
@@ -1355,7 +1362,7 @@ msgstr[0] "<p><b>Počítanie kontrolného súčtu pre súbor %1</b></p>"
 msgstr[1] "<p><b>Počítanie kontrolných súčtov pre %1 súbory</b></p>"
 msgstr[2] "<p><b>Počítanie kontrolných súčtov pre %1 súborov</b></p>"
 
-#: DB/NewImageFinder.cpp:683
+#: DB/NewImageFinder.cpp:704
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1364,7 +1371,7 @@ msgstr ""
 "<p>Uložením kontrolného súčtu pre každý obrázok je KPhotoAlbum schopný nájsť "
 "obrázky, aj keď ste ich presunuli na disku.</p>"
 
-#: DB/NewImageFinder.cpp:727
+#: DB/NewImageFinder.cpp:748
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "Nasledujúce súbory sa nepodarilo načítať:"

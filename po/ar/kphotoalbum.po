@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 00:40+0000\n"
+"POT-Creation-Date: 2023-10-13 00:40+0000\n"
 "PO-Revision-Date: 2022-10-05 20:32+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -1026,33 +1026,40 @@ msgstr[5] ""
 msgid "Move Items"
 msgstr "أنقل العناصر"
 
-#: DateBar/DateBarWidget.cpp:69
+#: DateBar/DateBarWidget.cpp:61
+#, fuzzy, kde-format
+#| msgid "Date: "
+msgctxt "Accessible name for the date bar widget"
+msgid "Datebar"
+msgstr "التاريخ: "
+
+#: DateBar/DateBarWidget.cpp:70
 #, kde-format
 msgid "Scroll right"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:78
+#: DateBar/DateBarWidget.cpp:79
 #, kde-format
 msgid "Scroll left"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:87
+#: DateBar/DateBarWidget.cpp:88
 #, kde-format
 msgid "Zoom in"
 msgstr "قرّب"
 
-#: DateBar/DateBarWidget.cpp:98
+#: DateBar/DateBarWidget.cpp:99
 #, kde-format
 msgid "Zoom out"
 msgstr "بعّد"
 
-#: DateBar/DateBarWidget.cpp:110
+#: DateBar/DateBarWidget.cpp:111
 #, fuzzy, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "أمحي المحدد"
 
-#: DateBar/DateBarWidget.cpp:123
+#: DateBar/DateBarWidget.cpp:124
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1063,17 +1070,17 @@ msgid ""
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:689
+#: DateBar/DateBarWidget.cpp:690
 #, fuzzy, kde-format
 msgid "Show Ranges"
 msgstr "اعرض النطاقات"
 
-#: DateBar/DateBarWidget.cpp:695
+#: DateBar/DateBarWidget.cpp:696
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr "أعرض مدل الدقة"
 
-#: DateBar/DateBarWidget.cpp:820
+#: DateBar/DateBarWidget.cpp:821
 #, fuzzy, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1085,7 +1092,7 @@ msgstr[3] "بالضبط"
 msgstr[4] "بالضبط"
 msgstr[5] "بالضبط"
 
-#: DateBar/DateBarWidget.cpp:821
+#: DateBar/DateBarWidget.cpp:822
 #, fuzzy, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1099,7 +1106,7 @@ msgstr[3] "النطاقات"
 msgstr[4] "النطاقات"
 msgstr[5] "النطاقات"
 
-#: DateBar/DateBarWidget.cpp:822
+#: DateBar/DateBarWidget.cpp:823
 #, fuzzy, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1111,7 +1118,7 @@ msgstr[3] "المجموع: %1"
 msgstr[4] "المجموع: %1"
 msgstr[5] "المجموع: %1"
 
-#: DateBar/DateBarWidget.cpp:824
+#: DateBar/DateBarWidget.cpp:825
 #, fuzzy, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
@@ -1123,7 +1130,7 @@ msgstr[3] "%1 صور/مرئيات"
 msgstr[4] "%1 صور/مرئيات"
 msgstr[5] "%1 صور/مرئيات"
 
-#: DateBar/DateBarWidget.cpp:826
+#: DateBar/DateBarWidget.cpp:827
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
@@ -1310,7 +1317,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ""
 
-#: DB/NewImageFinder.cpp:467
+#: DB/NewImageFinder.cpp:488
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1320,7 +1327,7 @@ msgstr ""
 "<p><b>تحميل معلومات من ملفات جديدة</b></p><p>قد يستغرق ذلك بعض الوقت حسب عدد "
 "الصور.<br/>ولكن سيكون هناك تأخير عند العثور على صور جديدة.</p>"
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
@@ -1331,7 +1338,7 @@ msgstr[3] "<p><b>يحسب تدقيق مجموع %1 ملفات</b></p>"
 msgstr[4] "<p><b>يحسب تدقيق مجموع %1 ملفًا</b></p>"
 msgstr[5] "<p><b>يحسب تدقيق مجموع %1 ملف</b></p>"
 
-#: DB/NewImageFinder.cpp:683
+#: DB/NewImageFinder.cpp:704
 #, fuzzy, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1341,7 +1348,7 @@ msgstr ""
 "تدقيق المجموع لكل صورة ، يستطيع عندئداً العثور على الصور حتى و لو قمت "
 "بتحريكها على القرص الصلب.</p>"
 
-#: DB/NewImageFinder.cpp:727
+#: DB/NewImageFinder.cpp:748
 #, fuzzy, kde-format
 msgid "Following files could not be read:"
 msgstr "المتابعة ملفات ليس قراءة:"

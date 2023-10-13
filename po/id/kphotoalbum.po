@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 00:40+0000\n"
+"POT-Creation-Date: 2023-10-13 00:40+0000\n"
 "PO-Revision-Date: 2022-09-27 17:10+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -966,33 +966,40 @@ msgstr[1] ""
 msgid "Move Items"
 msgstr "Pindahkan Item"
 
-#: DateBar/DateBarWidget.cpp:69
+#: DateBar/DateBarWidget.cpp:61
+#, fuzzy, kde-format
+#| msgid "Date: "
+msgctxt "Accessible name for the date bar widget"
+msgid "Datebar"
+msgstr "Tanggal: "
+
+#: DateBar/DateBarWidget.cpp:70
 #, kde-format
 msgid "Scroll right"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:78
+#: DateBar/DateBarWidget.cpp:79
 #, kde-format
 msgid "Scroll left"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:87
+#: DateBar/DateBarWidget.cpp:88
 #, kde-format
 msgid "Zoom in"
 msgstr "Zoom perbesar"
 
-#: DateBar/DateBarWidget.cpp:98
+#: DateBar/DateBarWidget.cpp:99
 #, kde-format
 msgid "Zoom out"
 msgstr "Zoom perkecil"
 
-#: DateBar/DateBarWidget.cpp:110
+#: DateBar/DateBarWidget.cpp:111
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:123
+#: DateBar/DateBarWidget.cpp:124
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1003,17 +1010,17 @@ msgid ""
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:689
+#: DateBar/DateBarWidget.cpp:690
 #, kde-format
 msgid "Show Ranges"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:695
+#: DateBar/DateBarWidget.cpp:696
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:820
+#: DateBar/DateBarWidget.cpp:821
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1021,7 +1028,7 @@ msgid_plural "%1 exact"
 msgstr[0] ""
 msgstr[1] ""
 
-#: DateBar/DateBarWidget.cpp:821
+#: DateBar/DateBarWidget.cpp:822
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1031,7 +1038,7 @@ msgid_plural " + %1 ranges"
 msgstr[0] " rentang + 1"
 msgstr[1] " rentang + %1"
 
-#: DateBar/DateBarWidget.cpp:822
+#: DateBar/DateBarWidget.cpp:823
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1039,7 +1046,7 @@ msgid_plural " = %1 total"
 msgstr[0] "Total 1"
 msgstr[1] "Total %1"
 
-#: DateBar/DateBarWidget.cpp:824
+#: DateBar/DateBarWidget.cpp:825
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
@@ -1047,7 +1054,7 @@ msgid_plural "%1 images/videos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: DateBar/DateBarWidget.cpp:826
+#: DateBar/DateBarWidget.cpp:827
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
@@ -1230,7 +1237,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ""
 
-#: DB/NewImageFinder.cpp:467
+#: DB/NewImageFinder.cpp:488
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1241,21 +1248,21 @@ msgstr ""
 "gambar, ini mungkin memakan beberapa waktu.<br/>Namun, hanya ada penundaan "
 "ketika gambar baru ditemukan.</p>"
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: DB/NewImageFinder.cpp:683
+#: DB/NewImageFinder.cpp:704
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
 "images even when you have moved them on the disk.</p>"
 msgstr ""
 
-#: DB/NewImageFinder.cpp:727
+#: DB/NewImageFinder.cpp:748
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "File-file berikut tidak bisa dibaca:"

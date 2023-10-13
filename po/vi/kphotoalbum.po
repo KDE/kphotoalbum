@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 00:40+0000\n"
+"POT-Creation-Date: 2023-10-13 00:40+0000\n"
 "PO-Revision-Date: 2012-01-16 16:58+0700\n"
 "Last-Translator: Lê Hoàng Phương <herophuong93@gmail.com>\n"
 "Language-Team: Vietnamese <kde-i18n-vi@kde.org>\n"
@@ -1061,36 +1061,43 @@ msgstr[0] ""
 msgid "Move Items"
 msgstr "Chuyển mục"
 
-#: DateBar/DateBarWidget.cpp:69
+#: DateBar/DateBarWidget.cpp:61
+#, fuzzy, kde-format
+#| msgid "Date: "
+msgctxt "Accessible name for the date bar widget"
+msgid "Datebar"
+msgstr "Ngày: "
+
+#: DateBar/DateBarWidget.cpp:70
 #, kde-format
 msgid "Scroll right"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:78
+#: DateBar/DateBarWidget.cpp:79
 #, kde-format
 msgid "Scroll left"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:87
+#: DateBar/DateBarWidget.cpp:88
 #, fuzzy, kde-format
 #| msgid "Zoom In"
 msgid "Zoom in"
 msgstr "Phóng to"
 
-#: DateBar/DateBarWidget.cpp:98
+#: DateBar/DateBarWidget.cpp:99
 #, fuzzy, kde-format
 #| msgid "Zoom Out"
 msgid "Zoom out"
 msgstr "Thu nhỏ"
 
-#: DateBar/DateBarWidget.cpp:110
+#: DateBar/DateBarWidget.cpp:111
 #, fuzzy, kde-format
 #| msgid "Delete Selected"
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "Xoá điều chọn"
 
-#: DateBar/DateBarWidget.cpp:123
+#: DateBar/DateBarWidget.cpp:124
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1101,24 +1108,24 @@ msgid ""
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:689
+#: DateBar/DateBarWidget.cpp:690
 #, kde-format
 msgid "Show Ranges"
 msgstr "Hiện khoảng"
 
-#: DateBar/DateBarWidget.cpp:695
+#: DateBar/DateBarWidget.cpp:696
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr "Hiện cái chỉ độ phân giải"
 
-#: DateBar/DateBarWidget.cpp:820
+#: DateBar/DateBarWidget.cpp:821
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
 msgid_plural "%1 exact"
 msgstr[0] ""
 
-#: DateBar/DateBarWidget.cpp:821
+#: DateBar/DateBarWidget.cpp:822
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1127,14 +1134,14 @@ msgid " + 1 range"
 msgid_plural " + %1 ranges"
 msgstr[0] ""
 
-#: DateBar/DateBarWidget.cpp:822
+#: DateBar/DateBarWidget.cpp:823
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
 msgid_plural " = %1 total"
 msgstr[0] ""
 
-#: DateBar/DateBarWidget.cpp:824
+#: DateBar/DateBarWidget.cpp:825
 #, fuzzy, kde-format
 #| msgid "%1 images/videos"
 msgctxt "@info:status image count"
@@ -1142,7 +1149,7 @@ msgid "%1 image/video"
 msgid_plural "%1 images/videos"
 msgstr[0] "%1 ảnh (động)"
 
-#: DateBar/DateBarWidget.cpp:826
+#: DateBar/DateBarWidget.cpp:827
 #, fuzzy, kde-format
 #| msgid "%1 (by %2)"
 msgctxt ""
@@ -1350,7 +1357,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ""
 
-#: DB/NewImageFinder.cpp:467
+#: DB/NewImageFinder.cpp:488
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1361,13 +1368,13 @@ msgstr ""
 "ảnh, việc này có thể kéo dài một lát.<br/>Tuy nhiên, chỉ chạy trễ khi tìm "
 "ảnh mới.</p></p>"
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] ""
 
-#: DB/NewImageFinder.cpp:683
+#: DB/NewImageFinder.cpp:704
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p><b>Calculating checksum for %1 files<b></p><p>By storing a checksum "
@@ -1381,7 +1388,7 @@ msgstr ""
 "tổng kiểm tra (checksum) riêng cho mỗi ảnh, KPhotoAlbum có khả năng tìm ảnh "
 "ngay cả khi bạn đã di chuyển nó vào vị trí khác trên đĩa.</p></p>"
 
-#: DB/NewImageFinder.cpp:727
+#: DB/NewImageFinder.cpp:748
 #, kde-format
 msgid "Following files could not be read:"
 msgstr ""

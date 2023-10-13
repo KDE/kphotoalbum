@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 00:40+0000\n"
+"POT-Creation-Date: 2023-10-13 00:40+0000\n"
 "PO-Revision-Date: 2023-10-09 11:32+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -1063,33 +1063,41 @@ msgstr[1] ""
 msgid "Move Items"
 msgstr "Items verplaatsen"
 
-#: DateBar/DateBarWidget.cpp:69
+#: DateBar/DateBarWidget.cpp:61
+#, fuzzy, kde-format
+#| msgctxt "I.e. the timeline histogram widget"
+#| msgid "Date Bar"
+msgctxt "Accessible name for the date bar widget"
+msgid "Datebar"
+msgstr "Datumbalk"
+
+#: DateBar/DateBarWidget.cpp:70
 #, kde-format
 msgid "Scroll right"
 msgstr "Naar rechts schuiven"
 
-#: DateBar/DateBarWidget.cpp:78
+#: DateBar/DateBarWidget.cpp:79
 #, kde-format
 msgid "Scroll left"
 msgstr "Naar links schuiven"
 
-#: DateBar/DateBarWidget.cpp:87
+#: DateBar/DateBarWidget.cpp:88
 #, kde-format
 msgid "Zoom in"
 msgstr "Inzoomen"
 
-#: DateBar/DateBarWidget.cpp:98
+#: DateBar/DateBarWidget.cpp:99
 #, kde-format
 msgid "Zoom out"
 msgstr "Uitzoomen"
 
-#: DateBar/DateBarWidget.cpp:110
+#: DateBar/DateBarWidget.cpp:111
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "Selectie van datum wissen"
 
-#: DateBar/DateBarWidget.cpp:123
+#: DateBar/DateBarWidget.cpp:124
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1105,17 +1113,17 @@ msgstr ""
 "datumreeksselectie: Klik/sleep onder de tijdlijn.</item><item>Spring naar "
 "een datum door te klikken op de histogrambalk.</item></list></para>"
 
-#: DateBar/DateBarWidget.cpp:689
+#: DateBar/DateBarWidget.cpp:690
 #, kde-format
 msgid "Show Ranges"
 msgstr "Bereiken tonen"
 
-#: DateBar/DateBarWidget.cpp:695
+#: DateBar/DateBarWidget.cpp:696
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr "Resolutie-indicatie tonen"
 
-#: DateBar/DateBarWidget.cpp:820
+#: DateBar/DateBarWidget.cpp:821
 #, kde-format
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
@@ -1123,7 +1131,7 @@ msgid_plural "%1 exact"
 msgstr[0] "1 exact"
 msgstr[1] "%1 exact"
 
-#: DateBar/DateBarWidget.cpp:821
+#: DateBar/DateBarWidget.cpp:822
 #, kde-format
 msgctxt ""
 "@info:status additional images captured in a date range that overlaps with "
@@ -1133,7 +1141,7 @@ msgid_plural " + %1 ranges"
 msgstr[0] " + 1 reeks"
 msgstr[1] " + %1 reeksen"
 
-#: DateBar/DateBarWidget.cpp:822
+#: DateBar/DateBarWidget.cpp:823
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
@@ -1141,7 +1149,7 @@ msgid_plural " = %1 total"
 msgstr[0] " = 1 totaal"
 msgstr[1] " = %1 totaal"
 
-#: DateBar/DateBarWidget.cpp:824
+#: DateBar/DateBarWidget.cpp:825
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
@@ -1149,7 +1157,7 @@ msgid_plural "%1 images/videos"
 msgstr[0] "%1 afbeelding/video"
 msgstr[1] "%1 afbeeldingen/video's"
 
-#: DateBar/DateBarWidget.cpp:826
+#: DateBar/DateBarWidget.cpp:827
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
@@ -1334,7 +1342,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ", "
 
-#: DB/NewImageFinder.cpp:467
+#: DB/NewImageFinder.cpp:488
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1345,14 +1353,14 @@ msgstr ""
 "aantal afbeeldingen kan dit enige tijd in beslag nemen.<br/>Dit geldt echter "
 "alleen als er nieuwe afbeeldingen zijn gevonden.</p>"
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] "<p><b>Bezig de controlesom te bereken voor %1 bestand</b></p>"
 msgstr[1] "<p><b>Bezig de controlesom te bereken voor %1 bestanden</b></p>"
 
-#: DB/NewImageFinder.cpp:683
+#: DB/NewImageFinder.cpp:704
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1361,7 +1369,7 @@ msgstr ""
 "<p>Door een controlesom op te slaan voor elke afbeelding kan KPhotoAlbum "
 "afbeeldingen terugvinden als ze op de schijf zijn verplaatst.</p>"
 
-#: DB/NewImageFinder.cpp:727
+#: DB/NewImageFinder.cpp:748
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "De volgende bestanden konden niet worden gelezen:"

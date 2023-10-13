@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-10 00:40+0000\n"
+"POT-Creation-Date: 2023-10-13 00:40+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -1060,36 +1060,43 @@ msgstr[0] ""
 msgid "Move Items"
 msgstr "ផ្លាស់​ទី​ធាតុ​"
 
-#: DateBar/DateBarWidget.cpp:69
+#: DateBar/DateBarWidget.cpp:61
+#, fuzzy, kde-format
+#| msgid "Date: "
+msgctxt "Accessible name for the date bar widget"
+msgid "Datebar"
+msgstr "កាលបរិច្ឆេទ ៖"
+
+#: DateBar/DateBarWidget.cpp:70
 #, kde-format
 msgid "Scroll right"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:78
+#: DateBar/DateBarWidget.cpp:79
 #, kde-format
 msgid "Scroll left"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:87
+#: DateBar/DateBarWidget.cpp:88
 #, fuzzy, kde-format
 #| msgid "Zoom In"
 msgid "Zoom in"
 msgstr "ពង្រីក​"
 
-#: DateBar/DateBarWidget.cpp:98
+#: DateBar/DateBarWidget.cpp:99
 #, fuzzy, kde-format
 #| msgid "Zoom Out"
 msgid "Zoom out"
 msgstr "បង្រួម​"
 
-#: DateBar/DateBarWidget.cpp:110
+#: DateBar/DateBarWidget.cpp:111
 #, fuzzy, kde-format
 #| msgid "Delete Selected"
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
 msgstr "លុប​ធាតុ​ដែល​បាន​ជ្រើស​"
 
-#: DateBar/DateBarWidget.cpp:123
+#: DateBar/DateBarWidget.cpp:124
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -1100,17 +1107,17 @@ msgid ""
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
 
-#: DateBar/DateBarWidget.cpp:689
+#: DateBar/DateBarWidget.cpp:690
 #, kde-format
 msgid "Show Ranges"
 msgstr "បង្ហាញ​ជួរ​"
 
-#: DateBar/DateBarWidget.cpp:695
+#: DateBar/DateBarWidget.cpp:696
 #, kde-format
 msgid "Show Resolution Indicator"
 msgstr "បង្ហាញ​ទ្រនិច​បង្ហាញ​គុណភាព​បង្ហាញ​"
 
-#: DateBar/DateBarWidget.cpp:820
+#: DateBar/DateBarWidget.cpp:821
 #, fuzzy, kde-format
 #| msgid "1 exact"
 #| msgid_plural "%1 exact"
@@ -1119,7 +1126,7 @@ msgid "1 exact"
 msgid_plural "%1 exact"
 msgstr[0] "%1 ពិតប្រាកដ"
 
-#: DateBar/DateBarWidget.cpp:821
+#: DateBar/DateBarWidget.cpp:822
 #, fuzzy, kde-format
 #| msgid " + 1 range"
 #| msgid_plural " + %1 ranges"
@@ -1130,7 +1137,7 @@ msgid " + 1 range"
 msgid_plural " + %1 ranges"
 msgstr[0] " + %1 ជួរ"
 
-#: DateBar/DateBarWidget.cpp:822
+#: DateBar/DateBarWidget.cpp:823
 #, fuzzy, kde-format
 #| msgid " = 1 total"
 #| msgid_plural " = %1 total"
@@ -1139,7 +1146,7 @@ msgid " = 1 total"
 msgid_plural " = %1 total"
 msgstr[0] " = %1 សរុប"
 
-#: DateBar/DateBarWidget.cpp:824
+#: DateBar/DateBarWidget.cpp:825
 #, fuzzy, kde-format
 #| msgid "%1 image/video"
 #| msgid_plural "%1 images/videos"
@@ -1148,7 +1155,7 @@ msgid "%1 image/video"
 msgid_plural "%1 images/videos"
 msgstr[0] "%1 រូបភាព​/​វីដេអូ"
 
-#: DateBar/DateBarWidget.cpp:826
+#: DateBar/DateBarWidget.cpp:827
 #, fuzzy, kde-format
 #| msgid "%1 | %2"
 msgctxt ""
@@ -1352,7 +1359,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ""
 
-#: DB/NewImageFinder.cpp:467
+#: DB/NewImageFinder.cpp:488
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1362,13 +1369,13 @@ msgstr ""
 "<p><b>ផ្ទុក​ព័ត៌មាន​ពី​ឯកសារ​ថ្មី</b></p><p>អាស្រ័យ​លើ​ចំនួន​រូបភាព​ វា​អាច​ចំណាយ​ពេល​មួយ​រយៈ ។<br/>ទោះ​"
 "ជា​យ៉ាង​ណា​ក៏​ដោយ មាន​តែ​ការ​ពន្យារ​នៅពេល​ដែល​រកឃើញ​រូបភាព​ថ្មី ។</p>"
 
-#: DB/NewImageFinder.cpp:682
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] "<p><b>ការ​គណនា​ឆេកសាំ​សម្រាប់​ឯកសារ %1 </b></p>"
 
-#: DB/NewImageFinder.cpp:683
+#: DB/NewImageFinder.cpp:704
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1377,7 +1384,7 @@ msgstr ""
 "<p>ដោយ​តម្រៀប​ឆែកសាំ​សម្រាប់​រូបភាព​នីមួយៗ KPhotoAlbum អាច​រក​រូបភាព​បាន​សូម្បីតែ​នៅ​ពេល​អ្នក​បាន​ផ្លាស់ទី​"
 "ពួកវា​នៅ​លើ​ថាស​ហើយ​ក៏ដោយ ។</p>"
 
-#: DB/NewImageFinder.cpp:727
+#: DB/NewImageFinder.cpp:748
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "មិនអាច​អាន​ឯកសារ​ដូច​ខាងក្រោម​បានទេ ៖"

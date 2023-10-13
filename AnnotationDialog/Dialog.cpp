@@ -1042,10 +1042,10 @@ void AnnotationDialog::Dialog::reject()
 {
     if (m_stack->currentWidget() == m_fullScreenPreview) {
         togglePreview();
-        return;
+        if (!m_origList.empty())
+            return;
     }
 
-    m_fullScreenPreview->stopPlayback();
     if (hasChanges()) {
         const QString question = i18n("<p>Some changes are made to annotations. Do you really want to discard all recent changes for each affected file?</p>");
         const QString title = i18nc("@title", "Discard changes?");
@@ -1718,6 +1718,7 @@ void AnnotationDialog::Dialog::slotDiscardFiles(const DB::FileNameList &files)
         }
     }
     if (m_origList.count() == 0) {
+        m_current = -1;
         reject();
         return;
     }

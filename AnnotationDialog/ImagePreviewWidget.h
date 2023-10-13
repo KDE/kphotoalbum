@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2019 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -54,7 +54,6 @@ public Q_SLOTS:
     void slotShowAreas(bool show);
 
 Q_SIGNALS:
-    void imageDeleted(const DB::ImageInfo &deletedImage);
     void imageRotated(int angle);
     void imageChanged(const DB::ImageInfo &newImage);
     void indexChanged(int newIndex);

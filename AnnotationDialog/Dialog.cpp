@@ -265,7 +265,6 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
 
     connect(m_preview, &ImagePreviewWidget::imageRotated, this, &Dialog::rotate);
     connect(m_preview, &ImagePreviewWidget::indexChanged, this, &Dialog::slotIndexChanged);
-    connect(m_preview, &ImagePreviewWidget::imageDeleted, this, &Dialog::slotDeleteImage);
     connect(m_preview, &ImagePreviewWidget::copyPrevClicked, this, &Dialog::slotCopyPrevious);
     connect(m_preview, &ImagePreviewWidget::areaVisibilityChanged, this, &Dialog::slotShowAreas);
     connect(m_preview->preview(), &ImagePreview::areaCreated, this, &Dialog::slotNewArea);
@@ -1139,34 +1138,6 @@ void AnnotationDialog::Dialog::slotSetFuzzyDate()
     }
 }
 
-void AnnotationDialog::Dialog::slotDeleteImage()
-{
-    // CTRL+Del is a common key combination when editing text
-    // TODO: The word right of cursor should be deleted as expected also in date and category fields
-    if (m_setup == SearchMode)
-        return;
-
-    // should delete mean "remove from selection" or "delete"?
-    // is the user even aware that the dialog is in multi image mode?
-    // IMO (jzarl) this is too ambiguous to do anything other than bail out:
-    if (m_setup == InputMultiImageConfigMode)
-        return;
-
-    DB::ImageInfoPtr info = m_origList[m_current];
-
-    m_origList.remove(info);
-    m_editList.removeAll(m_editList.at(m_current));
-    MainWindow::DirtyIndicator::markDirty();
-    if (m_origList.count() == 0) {
-        doneTagging();
-        return;
-    }
-    if (m_current == (int)m_origList.count()) // we deleted the last image
-        m_current--;
-
-    load();
-}
-
 void AnnotationDialog::Dialog::showHelpDialog(UsageMode type)
 {
     QString doNotShowKey;
@@ -1338,10 +1309,6 @@ void AnnotationDialog::Dialog::setupActions()
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-OK-dialog"), this, &Dialog::doneTagging);
     action->setText(i18n("OK dialog"));
     m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Return);
-
-    action = m_actions->addAction(QString::fromLatin1("annotationdialog-delete-image"), this, &Dialog::slotDeleteImage);
-    action->setText(i18n("Delete"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Delete);
 
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-copy-previous"), this, &Dialog::slotCopyPrevious);
     action->setText(i18n("Copy tags from previous image"));

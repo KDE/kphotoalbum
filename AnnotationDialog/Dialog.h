@@ -118,7 +118,6 @@ protected Q_SLOTS:
     void reject() override;
     void rotate(int angle);
     void slotSetFuzzyDate();
-    void slotDeleteImage();
     void slotResetLayout();
     void slotStartDateChanged(const DB::ImageDate &);
     void slotCopyPrevious();

@@ -226,17 +226,8 @@ void ImagePreviewWidget::slotDeleteImage()
     int ret = dialog.exec(deleteList);
     if (ret == QDialog::Rejected) // Delete Dialog rejected, do nothing
         return;
-
-    Q_EMIT imageDeleted(m_imageList->at(m_current));
-
-    if (!m_nextBut->isEnabled()) // No next image exists, select previous
-        m_current--;
-
-    if (m_imageList->count() == 0)
-        return; // No images left
-
-    setImage(m_imageList->at(m_current));
 }
+
 void ImagePreviewWidget::setImage(const DB::ImageInfo &info)
 {
     m_nextBut->setEnabled(m_current != (int)m_imageList->count() - 1);

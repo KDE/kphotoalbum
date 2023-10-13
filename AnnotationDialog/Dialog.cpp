@@ -686,6 +686,14 @@ void AnnotationDialog::Dialog::ShowHideSearch(bool show)
     m_ratingSearchLabel->setVisible(show);
 }
 
+#ifdef HAVE_MARBLE
+void AnnotationDialog::Dialog::clearMapData()
+{
+    m_annotationMap->clear();
+    m_mapIsPopulated = false;
+}
+#endif
+
 QList<AnnotationDialog::ResizableFrame *> AnnotationDialog::Dialog::areas() const
 {
     return m_preview->preview()->findChildren<ResizableFrame *>();
@@ -718,8 +726,7 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
     }
 
 #ifdef HAVE_MARBLE
-    m_mapIsPopulated = false;
-    m_annotationMap->clear();
+    clearMapData();
 #endif
     m_origList = list;
     m_editList.clear();
@@ -772,8 +779,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search(DB::ImageSearchInfo *search
     ShowHideSearch(true);
 
 #ifdef HAVE_MARBLE
-    m_mapIsPopulated = false;
-    m_annotationMap->clear();
+    clearMapData();
 #endif
     m_setup = SearchMode;
     if (search)
@@ -1065,8 +1071,7 @@ void AnnotationDialog::Dialog::closeDialog()
     // the dialog is usually reused, so clear residual data upon closing it...
     loadInfo({});
 #ifdef HAVE_MARBLE
-    m_mapIsPopulated = false;
-    m_annotationMap->clear();
+    clearMapData();
 #endif
     m_origList.clear();
     m_editList.clear();
@@ -1696,6 +1701,9 @@ void AnnotationDialog::Dialog::hideEvent(QHideEvent *event)
 
 void AnnotationDialog::Dialog::slotDiscardFiles(const DB::FileNameList &files)
 {
+#ifdef HAVE_MARBLE
+    clearMapData();
+#endif
     // we can't directly compare ImageInfos with the ones in the database, so we work on filenames:
     auto origFilenames = m_origList.files();
     for (const auto &filename : files) {
@@ -1716,6 +1724,11 @@ void AnnotationDialog::Dialog::slotDiscardFiles(const DB::FileNameList &files)
 
     m_preview->configure(&m_editList, (m_setup == InputSingleImageConfigMode));
     load();
+#ifdef HAVE_MARBLE
+    // trigger repopulating the map
+    if (m_annotationMap->isVisible())
+        annotationMapVisibilityChanged(true);
+#endif
 }
 
 #ifdef HAVE_MARBLE

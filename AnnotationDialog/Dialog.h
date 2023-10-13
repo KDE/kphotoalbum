@@ -175,6 +175,9 @@ protected:
     std::tuple<Utilities::StringSet, Utilities::StringSet, Utilities::StringSet> selectionForMultiSelect(const ListSelect *, const DB::ImageInfoList &images);
     void saveAndClose();
     void ShowHideSearch(bool show);
+#ifdef HAVE_MARBLE
+    void clearMapData();
+#endif
 
 private:
     QStackedWidget *m_stack;

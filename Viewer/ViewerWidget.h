@@ -58,10 +58,12 @@ class ViewerWidget : public QStackedWidget
 {
     Q_OBJECT
 public:
-    enum UsageType { InlineViewer,
-                     ViewerWindow };
+    enum class UsageType { CompactPreview, //< Preview ViewerWidget with no (internal) controls. As used in the annotation dialog preview dock.
+                           FullsizePreview, ///< Preview ViewerWidget with minimal context menu that can be used for a full size window. As used in the "fullscreen" preview of tha annotation dialog.
+                           FullFeaturedViewer ///< Full featured ViewerWidget.
+    };
 
-    ViewerWidget(UsageType type = ViewerWindow);
+    ViewerWidget(UsageType type = UsageType::FullFeaturedViewer);
     ~ViewerWidget() override;
     static ViewerWidget *latest();
     void load(const DB::FileNameList &list, int index = 0);
@@ -143,6 +145,7 @@ private:
                          Annotating,
                          Tokenizing };
     void setTagMode(TagMode tagMode);
+    void updateContextMenuState(bool isVideo);
 
 protected Q_SLOTS:
     void showNext();

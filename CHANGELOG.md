@@ -49,6 +49,8 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - When KPhotoAlbum is started in demo mode and a previously saved demo database exists, the old demo database is no longer overwritten.
  - The ui.rc file (kphotoalbumui.rc) is now deployed as a Qt resource instead of an on-disk file.
  - Improved usability of "Invoke external program" menu (#474819)
+ - No longer set the default shortcut for "Use current video frame in thumbnail view" to Ctrl+S and avoid shortcut conflict.
+ - Restrict context menu entries for fullscreen preview of annotation dialog to a sane set of actions.
 
 ### Dependencies
 
@@ -66,6 +68,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix several crashes when deleting an image/video that is currently being annotated in the annotation dialog (#475387, #475388)
  - Correctly discard images from annotation dialog if they are deleted elsewhere (e.g. in the thumbnail view).
  - Fix failed assertion and potential database corruption when searching for new image while the new image search is already running (#475529)
+ - Fix crash when trying to copy or link an image from the annotation dialog's fullscreen preview (#475585)
 
 ### Removed
  - It is no longer possible to annotate images from the viewer by pressing "/" and typing tag names.

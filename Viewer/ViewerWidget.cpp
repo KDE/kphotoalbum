@@ -111,6 +111,7 @@ Viewer::ViewerWidget *Viewer::ViewerWidget::latest()
 Viewer::ViewerWidget::ViewerWidget(UsageType type)
     : QStackedWidget(nullptr)
     , m_crashSentinel(QString::fromUtf8("videoBackend"))
+    , m_screenSaverCookie(-1)
     , m_current(0)
     , m_popup(nullptr)
     , m_showingFullScreen(false)
@@ -118,15 +119,14 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type)
     , m_isRunningSlideShow(false)
     , m_videoPlayerStoppedManually(false)
     , m_type(type)
+    , m_copyLinkEngine(nullptr)
     , m_annotationHandler(new AnnotationHandler(this))
 {
-    if (type == ViewerWindow) {
+    if (type == UsageType::FullFeaturedViewer) {
         setWindowFlags(Qt::Window);
         setAttribute(Qt::WA_DeleteOnClose);
         s_latest = this;
     }
-
-    m_screenSaverCookie = -1;
 
     m_display = m_imageDisplay = new ImageDisplay(this);
     addWidget(m_imageDisplay);
@@ -176,6 +176,9 @@ void Viewer::ViewerWidget::setupContextMenu()
     m_popup = new QMenu(this);
     m_actions = new KActionCollection(this);
 
+    // we make unused features invisible to avoid uninitialized values all over the class
+    const bool showFullFeatures = m_type == UsageType::FullFeaturedViewer;
+
     createAnnotationMenu();
     createSlideShowMenu();
     createZoomMenu();
@@ -189,6 +192,7 @@ void Viewer::ViewerWidget::setupContextMenu()
 
     m_setStackHead = m_actions->addAction(QString::fromLatin1("viewer-set-stack-head"), this, &ViewerWidget::slotSetStackHead);
     m_setStackHead->setText(i18nc("@action:inmenu", "Set as First Image in Stack"));
+    m_setStackHead->setVisible(showFullFeatures);
     m_actions->setDefaultShortcut(m_setStackHead, Qt::CTRL + Qt::Key_4);
     m_popup->addAction(m_setStackHead);
 
@@ -200,23 +204,24 @@ void Viewer::ViewerWidget::setupContextMenu()
 
     m_copyToAction = m_actions->addAction(QStringLiteral("viewer-copy-to"), this, std::bind(&ViewerWidget::triggerCopyLinkAction, this, MainWindow::CopyLinkEngine::Copy));
     m_copyToAction->setText(i18nc("@action:inmenu", "Copy image to ..."));
+    m_copyToAction->setVisible(showFullFeatures);
     m_actions->setDefaultShortcut(m_copyToAction, Qt::Key_F7);
     m_popup->addAction(m_copyToAction);
 
     m_linkToAction = m_actions->addAction(QStringLiteral("viewer-link-to"), this, std::bind(&ViewerWidget::triggerCopyLinkAction, this, MainWindow::CopyLinkEngine::Link));
     m_linkToAction->setText(i18nc("@action:inmenu", "Link image to ..."));
+    m_linkToAction->setVisible(showFullFeatures);
     m_actions->setDefaultShortcut(m_linkToAction, Qt::SHIFT + Qt::Key_F7);
     m_popup->addAction(m_linkToAction);
 
     m_popup->addSeparator();
 
-    if (m_type == ViewerWindow) {
-        auto action = m_actions->addAction(QString::fromLatin1("viewer-close"), this, &ViewerWidget::close);
-        action->setText(i18nc("@action:inmenu", "Close"));
-        action->setShortcut(Qt::Key_Escape);
-        m_actions->setShortcutsConfigurable(action, false);
-        m_popup->addAction(action);
-    }
+    auto action = m_actions->addAction(QString::fromLatin1("viewer-close"), this, &ViewerWidget::close);
+    action->setText(i18nc("@action:inmenu", "Close"));
+    action->setShortcut(Qt::Key_Escape);
+    action->setVisible(showFullFeatures);
+    m_actions->setShortcutsConfigurable(action, false);
+    m_popup->addAction(action);
 
     m_actions->readSettings();
 
@@ -230,9 +235,9 @@ void Viewer::ViewerWidget::setupContextMenu()
 void Viewer::ViewerWidget::createShowContextMenu()
 {
     VisibleOptionsMenu *menu = new VisibleOptionsMenu(this, m_actions);
-    menu->setDisabled(m_type == InlineViewer);
     connect(menu, &VisibleOptionsMenu::visibleOptionsChanged, this, &ViewerWidget::updateInfoBox);
-    m_popup->addMenu(menu);
+    const bool showFullFeatures = m_type == UsageType::FullFeaturedViewer;
+    m_popup->addMenu(menu)->setVisible(showFullFeatures);
 }
 
 void Viewer::ViewerWidget::inhibitScreenSaver(bool inhibit)
@@ -261,7 +266,8 @@ void Viewer::ViewerWidget::inhibitScreenSaver(bool inhibit)
 void Viewer::ViewerWidget::createInvokeExternalMenu()
 {
     m_externalPopup = new MainWindow::ExternalPopup(m_popup);
-    m_popup->addMenu(m_externalPopup);
+    const bool showFullFeatures = m_type == UsageType::FullFeaturedViewer;
+    m_popup->addMenu(m_externalPopup)->setVisible(showFullFeatures);
     connect(m_externalPopup, &MainWindow::ExternalPopup::aboutToShow, this, &ViewerWidget::populateExternalPopup);
 }
 
@@ -282,7 +288,11 @@ void Viewer::ViewerWidget::createRotateMenu()
     addRotateAction(i18nc("@action:inmenu", "Rotate clockwise"), 90, Qt::Key_9, QString::fromLatin1("viewer-rotate90"));
     addRotateAction(i18nc("@action:inmenu", "Flip Over"), 180, Qt::Key_8, QString::fromLatin1("viewer-rotate180"));
     addRotateAction(i18nc("@action:inmenu", "Rotate counterclockwise"), 270, Qt::Key_7, QString::fromLatin1("viewer-rotate270"));
-    m_popup->addMenu(m_rotateMenu);
+    const bool showFullFeatures = m_type == UsageType::FullFeaturedViewer;
+    // hide entries of hidden menus so that they can't be triggered via shortcut:
+    for (auto &action : m_rotateMenu->actions())
+        action->setVisible(showFullFeatures);
+    m_popup->addMenu(m_rotateMenu)->setVisible(showFullFeatures);
 }
 
 void Viewer::ViewerWidget::createSkipMenu()
@@ -363,7 +373,11 @@ void Viewer::ViewerWidget::createSkipMenu()
     m_actions->setShortcutsConfigurable(action, false);
     popup->addAction(action);
 
-    m_popup->addMenu(popup);
+    const bool showFullFeatures = m_type == UsageType::FullFeaturedViewer;
+    // hide entries of hidden menus so that they can't be triggered via shortcut:
+    for (auto &action : popup->actions())
+        action->setVisible(showFullFeatures);
+    m_popup->addMenu(popup)->setVisible(showFullFeatures);
 }
 
 void Viewer::ViewerWidget::createZoomMenu()
@@ -399,6 +413,7 @@ void Viewer::ViewerWidget::createZoomMenu()
     action = m_actions->addAction(QString::fromLatin1("viewer-toggle-fullscreen"), this, &ViewerWidget::toggleFullScreen);
     action->setText(i18nc("@action:inmenu", "Toggle Full Screen"));
     action->setShortcuts(QList<QKeySequence>() << Qt::Key_F11 << Qt::Key_Return);
+    action->setVisible(m_type == UsageType::FullFeaturedViewer);
     popup->addAction(action);
 
     m_popup->addMenu(popup);
@@ -424,7 +439,11 @@ void Viewer::ViewerWidget::createSlideShowMenu()
     m_actions->setDefaultShortcut(m_slideShowRunSlower, Qt::CTRL + Qt::Key_Minus); // if you change this, please update the info in Viewer::TransientDisplay
     popup->addAction(m_slideShowRunSlower);
 
-    m_popup->addMenu(popup);
+    const bool showFullFeatures = m_type == UsageType::FullFeaturedViewer;
+    // hide entries of hidden menus so that they can't be triggered via shortcut:
+    for (auto &action : popup->actions())
+        action->setVisible(showFullFeatures);
+    m_popup->addMenu(popup)->setVisible(showFullFeatures);
 }
 
 void Viewer::ViewerWidget::load(const DB::FileNameList &list, int index)
@@ -433,11 +452,6 @@ void Viewer::ViewerWidget::load(const DB::FileNameList &list, int index)
     m_imageDisplay->setImageList(list);
     m_current = index;
     load();
-
-    bool on = (list.count() > 1);
-    m_startStopSlideShow->setEnabled(on);
-    m_slideShowRunFaster->setEnabled(on);
-    m_slideShowRunSlower->setEnabled(on);
 }
 
 void Viewer::ViewerWidget::load()
@@ -462,15 +476,7 @@ void Viewer::ViewerWidget::load()
     setCurrentWidget(m_display);
     m_infoBox->raise();
 
-    m_categoryImagePopup->setEnabled(!isVideo);
-    m_filterMenu->setEnabled(!isVideo);
-    m_showExifViewer->setEnabled(!isVideo);
-    if (m_exifViewer)
-        m_exifViewer->setImage(m_list[m_current]);
-
-    for (QAction *videoAction : qAsConst(m_videoActions)) {
-        videoAction->setVisible(isVideo);
-    }
+    updateContextMenuState(isVideo);
 
     Q_EMIT soughtTo(m_list[m_current]);
 
@@ -481,14 +487,6 @@ void Viewer::ViewerWidget::load()
     }
 
     setCaptionWithDetail(QString());
-
-    // PENDING(blackie) This needs to be improved, so that it shows the actions only if there are that many images to jump.
-    for (QList<QAction *>::const_iterator it = m_forwardActions.constBegin(); it != m_forwardActions.constEnd(); ++it)
-        (*it)->setEnabled(m_current + 1 < (int)m_list.count());
-    for (QList<QAction *>::const_iterator it = m_backwardActions.constBegin(); it != m_backwardActions.constEnd(); ++it)
-        (*it)->setEnabled(m_current > 0);
-
-    m_setStackHead->setEnabled(currentInfo()->isStacked());
 
     if (isVideo)
         updateCategoryConfig();
@@ -618,6 +616,33 @@ void Viewer::ViewerWidget::setTagMode(TagMode tagMode)
     }();
 
     m_transientDisplay->display(i18n("Change display mode to %1", tagModeText));
+}
+
+void Viewer::ViewerWidget::updateContextMenuState(bool isVideo)
+{
+    m_categoryImagePopup->setEnabled(!isVideo);
+
+    m_showExifViewer->setEnabled(!isVideo);
+    if (m_exifViewer)
+        m_exifViewer->setImage(m_list[m_current]);
+
+    for (QAction *videoAction : qAsConst(m_videoActions)) {
+        videoAction->setVisible(isVideo);
+    }
+
+    // PENDING(blackie) This needs to be improved, so that it shows the actions only if there are that many images to jump.
+    for (QList<QAction *>::const_iterator it = m_forwardActions.constBegin(); it != m_forwardActions.constEnd(); ++it)
+        (*it)->setEnabled(m_current + 1 < (int)m_list.count());
+    for (QList<QAction *>::const_iterator it = m_backwardActions.constBegin(); it != m_backwardActions.constEnd(); ++it)
+        (*it)->setEnabled(m_current > 0);
+
+    m_setStackHead->setEnabled(currentInfo()->isStacked());
+    m_filterMenu->setEnabled(!isVideo);
+
+    bool on = (m_list.count() > 1);
+    m_startStopSlideShow->setEnabled(on);
+    m_slideShowRunFaster->setEnabled(on);
+    m_slideShowRunSlower->setEnabled(on);
 }
 
 namespace Viewer
@@ -821,7 +846,7 @@ void Viewer::ViewerWidget::updateInfoBox()
         QMap<int, QPair<QString, QString>> map;
         const QString text = Utilities::createInfoText(currentInfo(), &map);
 
-        if (Settings::SettingsData::instance()->showInfoBox() && !text.isNull() && (m_type != InlineViewer)) {
+        if (Settings::SettingsData::instance()->showInfoBox() && !text.isNull() && (m_type == UsageType::FullFeaturedViewer)) {
             m_infoBox->setInfo(text, map);
             m_infoBox->show();
         } else
@@ -1171,6 +1196,7 @@ void Viewer::ViewerWidget::createVideoMenu()
 {
     QMenu *menu = new QMenu(m_popup);
     menu->setTitle(i18nc("@title:inmenu", "Seek"));
+
     m_videoActions.append(m_popup->addMenu(menu));
 
     int count = 0;
@@ -1220,8 +1246,8 @@ void Viewer::ViewerWidget::createVideoMenu()
     m_videoActions.append(m_playPause);
 
     m_makeThumbnailImage = m_actions->addAction(QString::fromLatin1("make-thumbnail-image"), this, &ViewerWidget::makeThumbnailImage);
-    m_actions->setDefaultShortcut(m_makeThumbnailImage, Qt::ControlModifier + Qt::Key_S);
     m_makeThumbnailImage->setText(i18nc("@action:inmenu", "Use current frame in thumbnail view"));
+    m_makeThumbnailImage->setVisible(m_type == UsageType::FullFeaturedViewer);
     m_popup->addAction(m_makeThumbnailImage);
     m_videoActions.append(m_makeThumbnailImage);
 
@@ -1235,7 +1261,8 @@ void Viewer::ViewerWidget::createVideoMenu()
 void Viewer::ViewerWidget::createCategoryImageMenu()
 {
     m_categoryImagePopup = new MainWindow::CategoryImagePopup(m_popup);
-    m_popup->addMenu(m_categoryImagePopup);
+    const bool showFullFeatures = m_type == UsageType::FullFeaturedViewer;
+    m_popup->addMenu(m_categoryImagePopup)->setVisible(showFullFeatures);
     connect(m_categoryImagePopup, &MainWindow::CategoryImagePopup::aboutToShow, this, &ViewerWidget::populateCategoryImagePopup);
 }
 
@@ -1268,7 +1295,11 @@ void Viewer::ViewerWidget::createFilterMenu()
     m_filterMono->setCheckable(true);
     m_filterMenu->addAction(m_filterMono);
 
-    m_popup->addMenu(m_filterMenu);
+    const bool showFullFeatures = m_type == UsageType::FullFeaturedViewer;
+    // hide entries of hidden menus so that they can't be triggered via shortcut:
+    for (auto &action : m_filterMenu->actions())
+        action->setVisible(showFullFeatures);
+    m_popup->addMenu(m_filterMenu)->setVisible(showFullFeatures);
 }
 
 void Viewer::ViewerWidget::test()
@@ -1444,7 +1475,11 @@ void Viewer::ViewerWidget::createAnnotationMenu()
         "viewer-tagmode-tokenizing", i18nc("@action:inmenu", "Assign Tokens"), TagMode::Tokenizing,
         i18nc("Shortcut for turning annotations mode to tokenizing", "CTRL+t"));
 
-    m_popup->addMenu(menu);
+    const bool showFullFeatures = m_type == UsageType::FullFeaturedViewer;
+    // hide entries of hidden menus so that they can't be triggered via shortcut:
+    for (auto &action : menu->actions())
+        action->setVisible(showFullFeatures);
+    m_popup->addMenu(menu)->setVisible(showFullFeatures);
 }
 
 void Viewer::ViewerWidget::stopPlayback()
@@ -1568,6 +1603,10 @@ void Viewer::ViewerWidget::setCopyLinkEngine(MainWindow::CopyLinkEngine *copyLin
 
 void Viewer::ViewerWidget::triggerCopyLinkAction(MainWindow::CopyLinkEngine::Action action)
 {
+    if (!m_copyLinkEngine) {
+        qCWarning(ViewerLog) << "ViewerWidget::triggerCopyLinkAction called without CopyLinkEngine. This is a bug!";
+        return;
+    }
     const auto selectedFiles = QList<QUrl> { QUrl::fromLocalFile(m_list.value(m_current).absolute()) };
     m_copyLinkEngine->selectTarget(this, selectedFiles, action);
 }
@@ -1613,6 +1652,6 @@ void Viewer::ViewerWidget::copyTagsFromPreviousImage()
     MainWindow::DirtyIndicator::markDirty();
 }
 
-// vi:expandtab:tabstop=4 shiftwidth=4:
-
 #include "moc_ViewerWidget.cpp"
+
+// vi:expandtab:tabstop=4 shiftwidth=4:

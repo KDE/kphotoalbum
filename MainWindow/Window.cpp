@@ -694,13 +694,14 @@ void MainWindow::Window::launchViewer(const DB::FileNameList &inputMediaList, bo
         mediaList = DB::FileNameList(Utilities::shuffleList(mediaList));
     }
 
-    Viewer::ViewerWidget *viewer;
-    if (reuse && Viewer::ViewerWidget::latest()) {
-        viewer = Viewer::ViewerWidget::latest();
+    using Viewer::ViewerWidget;
+    ViewerWidget *viewer;
+    if (reuse && ViewerWidget::latest()) {
+        viewer = ViewerWidget::latest();
         viewer->raise();
         viewer->activateWindow();
     } else {
-        viewer = new Viewer::ViewerWidget(Viewer::ViewerWidget::ViewerWindow);
+        viewer = new ViewerWidget(ViewerWidget::UsageType::FullFeaturedViewer);
         viewer->setCopyLinkEngine(m_copyLinkEngine);
     }
 

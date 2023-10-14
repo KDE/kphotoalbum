@@ -118,7 +118,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     layout->addWidget(m_stack);
 
     // The Viewer
-    m_fullScreenPreview = new Viewer::ViewerWidget(Viewer::ViewerWidget::InlineViewer);
+    m_fullScreenPreview = new Viewer::ViewerWidget(Viewer::ViewerWidget::UsageType::FullsizePreview);
     m_stack->addWidget(m_fullScreenPreview);
 
     // The dock widget

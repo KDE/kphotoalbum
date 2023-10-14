@@ -1094,6 +1094,12 @@ KActionCollection *Viewer::ViewerWidget::actions()
 
 void Viewer::ViewerWidget::keyPressEvent(QKeyEvent *event)
 {
+    const bool readOnly = m_type != UsageType::FullFeaturedViewer;
+    if (readOnly) {
+        event->ignore();
+        return;
+    }
+
     bool dirty = false;
     // Rating of the image
     if (event->modifiers() == 0 && event->key() >= Qt::Key_0 && event->key() <= Qt::Key_5) {

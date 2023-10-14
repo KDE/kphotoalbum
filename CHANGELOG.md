@@ -42,6 +42,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Add option to sort category page by natural order (feature #475339).
    Natural sort order takes the locale into account and sorts numeric values properly (e.g. sort "9" before "10").
  - Allow selecting a date range in the DateBar via keyboard (Use "Shift + Left|Right")
+ - Allow closing the annotation dialog's fullscreen preview using the Escape key.
  
 ### Changed
  - In the viewer window, using the letters A-Z to assign tokens now needs to be explicitly enabled.
@@ -72,6 +73,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
 ### Removed
  - It is no longer possible to annotate images from the viewer by pressing "/" and typing tag names.
+ - It is no longer possible to change an image through the annotation dialog's fullscreen image preview.
 
 ### Security
 

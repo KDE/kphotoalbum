@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2021-2023 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -24,7 +24,8 @@ public:
     explicit CopyLinkEngine(QObject *parent);
 
 public Q_SLOTS:
-    void selectTarget(QWidget *parent, QList<QUrl> &files, Action action);
+    // files actually does have to be a deep copy, cf. Bug #475585
+    void selectTarget(QWidget *parent, QList<QUrl> files, Action action);
 
 private: // Variables
     QString m_lastTarget;

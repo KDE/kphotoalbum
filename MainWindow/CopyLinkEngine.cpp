@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2021-2023 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -10,6 +10,7 @@
 #include <KLocalizedString>
 
 // Qt includes
+#include <QDebug>
 #include <QFileDialog>
 
 namespace MainWindow
@@ -20,7 +21,7 @@ CopyLinkEngine::CopyLinkEngine(QObject *parent)
 {
 }
 
-void CopyLinkEngine::selectTarget(QWidget *parent, QList<QUrl> &files, Action action)
+void CopyLinkEngine::selectTarget(QWidget *parent, QList<QUrl> files, Action action)
 {
     const auto count = files.count();
     if (count == 0) {

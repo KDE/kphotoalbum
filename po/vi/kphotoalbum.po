@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-13 00:40+0000\n"
+"POT-Creation-Date: 2023-10-14 00:40+0000\n"
 "PO-Revision-Date: 2012-01-16 16:58+0700\n"
 "Last-Translator: Lê Hoàng Phương <herophuong93@gmail.com>\n"
 "Language-Team: Vietnamese <kde-i18n-vi@kde.org>\n"
@@ -127,40 +127,40 @@ msgstr "Tăng"
 msgid "Continue &Later"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:828
+#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:833
 #, fuzzy, kde-format
 #| msgid "&Search"
 msgctxt "@action:button"
 msgid "&Search"
 msgstr "&Tìm kiếm"
 
-#: AnnotationDialog/Dialog.cpp:321
+#: AnnotationDialog/Dialog.cpp:320
 #, kde-format
 msgid "Label: "
 msgstr "Nhãn: "
 
-#: AnnotationDialog/Dialog.cpp:325 ImportExport/MD5CheckPage.cpp:65
+#: AnnotationDialog/Dialog.cpp:324 ImportExport/MD5CheckPage.cpp:65
 #, fuzzy, kde-format
 #| msgid "Label:"
 msgid "Label"
 msgstr "Nhãn:"
 
-#: AnnotationDialog/Dialog.cpp:334
+#: AnnotationDialog/Dialog.cpp:333
 #, kde-format
 msgid "Date: "
 msgstr "Ngày: "
 
-#: AnnotationDialog/Dialog.cpp:350
+#: AnnotationDialog/Dialog.cpp:349
 #, kde-format
 msgid "Time: "
 msgstr "Giờ: "
 
-#: AnnotationDialog/Dialog.cpp:356
+#: AnnotationDialog/Dialog.cpp:355
 #, kde-format
 msgid "Use Fuzzy Date"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:358
+#: AnnotationDialog/Dialog.cpp:357
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -172,159 +172,159 @@ msgid ""
 "Fuzzy Date</interface>.</para>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:373
+#: AnnotationDialog/Dialog.cpp:372
 #, kde-format
 msgid "Minimum megapixels:"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:383
+#: AnnotationDialog/Dialog.cpp:382
 #, kde-format
 msgid "Maximum megapixels:"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:396
+#: AnnotationDialog/Dialog.cpp:395
 #, kde-format
 msgid "Rating:"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:404
+#: AnnotationDialog/Dialog.cpp:403
 #, kde-format
 msgid "Rating search mode:"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:408
+#: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid "=="
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:408
+#: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid ">="
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:408
+#: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid "<="
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:408
+#: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid "!="
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:416
+#: AnnotationDialog/Dialog.cpp:415
 #, kde-format
 msgid "File Name Pattern: "
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:419
+#: AnnotationDialog/Dialog.cpp:418
 #, kde-format
 msgid "File Name Pattern"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:424
+#: AnnotationDialog/Dialog.cpp:423
 #, fuzzy, kde-format
 #| msgid "Searching for New Images and Videos"
 msgid "Search only for RAW files"
 msgstr "Đang tìm kiếm ảnh (động) mới"
 
-#: AnnotationDialog/Dialog.cpp:614
+#: AnnotationDialog/Dialog.cpp:613
 #, fuzzy, kde-format
 #| msgid "KPhotoAlbum Annotations (%1/%2)"
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Chú giải KPhotoAlbum (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:833
+#: AnnotationDialog/Dialog.cpp:838
 #, fuzzy, kde-format
 #| msgid "Search"
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Tìm kiếm"
 
-#: AnnotationDialog/Dialog.cpp:836
+#: AnnotationDialog/Dialog.cpp:841
 #, fuzzy, kde-format
 #| msgid "Donate"
 msgid "Done"
 msgstr "Tăng"
 
-#: AnnotationDialog/Dialog.cpp:843
+#: AnnotationDialog/Dialog.cpp:848
 #, fuzzy, kde-format
 #| msgid "Annotations"
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Chú giải"
 
-#: AnnotationDialog/Dialog.cpp:875
+#: AnnotationDialog/Dialog.cpp:880
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Cấu hình bố cục cửa sổ..."
 
-#: AnnotationDialog/Dialog.cpp:876
+#: AnnotationDialog/Dialog.cpp:881
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "Lưu thiết lập cửa sổ hiện có"
 
-#: AnnotationDialog/Dialog.cpp:877
+#: AnnotationDialog/Dialog.cpp:882
 #, kde-format
 msgid "Reset layout"
 msgstr "Đặt lại bố cục"
 
-#: AnnotationDialog/Dialog.cpp:884 AnnotationDialog/Dialog.cpp:1312
+#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1288
 #: AnnotationDialog/ListSelect.cpp:95
 #, fuzzy, kde-format
 #| msgid "Sort Alphabetically"
 msgid "Sort Alphabetically (Tree)"
 msgstr "Sắp xếp theo thứ tự abc"
 
-#: AnnotationDialog/Dialog.cpp:888 AnnotationDialog/Dialog.cpp:1316
+#: AnnotationDialog/Dialog.cpp:893 AnnotationDialog/Dialog.cpp:1292
 #: AnnotationDialog/ListSelect.cpp:101
 #, fuzzy, kde-format
 #| msgid "Sort Alphabetically"
 msgid "Sort Alphabetically (Flat)"
 msgstr "Sắp xếp theo thứ tự abc"
 
-#: AnnotationDialog/Dialog.cpp:892
+#: AnnotationDialog/Dialog.cpp:897
 #, fuzzy, kde-format
 #| msgid "Sort Selected by Date && Time"
 msgid "Sort by Date"
 msgstr "Sắp xếp điều chọn theo ngày và giờ"
 
-#: AnnotationDialog/Dialog.cpp:908
+#: AnnotationDialog/Dialog.cpp:913
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:909
+#: AnnotationDialog/Dialog.cpp:914
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:910
+#: AnnotationDialog/Dialog.cpp:915
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:927
+#: AnnotationDialog/Dialog.cpp:932
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:972
+#: AnnotationDialog/Dialog.cpp:977
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
 "of the following error: %2"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:977
+#: AnnotationDialog/Dialog.cpp:982
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
 "of the following error: %2"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1045
+#: AnnotationDialog/Dialog.cpp:1050
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Some changes are made to annotations. Do you really want to cancel all "
@@ -336,14 +336,14 @@ msgstr ""
 "<p>Chú giải đã sửa đổi. Bạn có thực sự muốn thôi mọi thay đổi vừa làm cho "
 "mỗi tệp có tác động không?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1046
+#: AnnotationDialog/Dialog.cpp:1051
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Lưu thay đổi ?"
 
-#: AnnotationDialog/Dialog.cpp:1176
+#: AnnotationDialog/Dialog.cpp:1152
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -359,7 +359,7 @@ msgstr ""
 "được dùng để gõ vào thông tin về ảnh. Có mẹo thêm về cách sử dụng trong phần "
 "<a href=\"help:/kphotoalbum/chp-typingIn.html\">gõ vào</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1184
+#: AnnotationDialog/Dialog.cpp:1160
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>You have just opened one of the most important windows in KPhotoAlbum; "
@@ -378,60 +378,54 @@ msgstr ""
 "khuyên bạn mất 5 phút để đọc <a href=\"help:/kphotoalbum/chp-typingIn.html"
 "\">tài liệu hướng dẫn về hộp thoại này</a></p>"
 
-#: AnnotationDialog/Dialog.cpp:1319
+#: AnnotationDialog/Dialog.cpp:1295
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Sắp xếp các điều vừa dùng"
 
-#: AnnotationDialog/Dialog.cpp:1322
+#: AnnotationDialog/Dialog.cpp:1298
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Bật/tắt sắp xếp"
 
-#: AnnotationDialog/Dialog.cpp:1327
+#: AnnotationDialog/Dialog.cpp:1303
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Bật/tắt hiện chỉ các mục đã chọn"
 
-#: AnnotationDialog/Dialog.cpp:1331
+#: AnnotationDialog/Dialog.cpp:1307
 #, kde-format
 msgid "Annotate Next"
 msgstr "Chú giải kế"
 
-#: AnnotationDialog/Dialog.cpp:1335
+#: AnnotationDialog/Dialog.cpp:1311
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Chú giải trước"
 
-#: AnnotationDialog/Dialog.cpp:1339
+#: AnnotationDialog/Dialog.cpp:1315
 #, kde-format
 msgid "OK dialog"
 msgstr "Hộp thoại Đồng ý"
 
-#: AnnotationDialog/Dialog.cpp:1343 AnnotationDialog/ListSelect.cpp:354
-#: Settings/CategoryPage.cpp:71
-#, kde-format
-msgid "Delete"
-msgstr "Xoá"
-
-#: AnnotationDialog/Dialog.cpp:1347
+#: AnnotationDialog/Dialog.cpp:1319
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Chép các thẻ từ ảnh trước"
 
-#: AnnotationDialog/Dialog.cpp:1351 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1323 MainWindow/Window.cpp:848
 #, fuzzy, kde-format
 #| msgid "Rotate contra-clockwise (to the left)"
 msgid "Rotate counterclockwise"
 msgstr "Xoay theo ngược chiều kim đồng hồ"
 
-#: AnnotationDialog/Dialog.cpp:1354 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1326 MainWindow/Window.cpp:852
 #, fuzzy, kde-format
 #| msgid "Rotate clockwise (to the right)"
 msgid "Rotate clockwise"
 msgstr "Xoay theo chiều kim đồng hồ"
 
-#: AnnotationDialog/Dialog.cpp:1357
+#: AnnotationDialog/Dialog.cpp:1329
 #, fuzzy, kde-format
 #| msgid "Toggle Full Screen"
 msgid "Toggle fullscreen preview"
@@ -481,13 +475,13 @@ msgstr ""
 msgid "Category for new areas:"
 msgstr "Phân loại cho tập ảo :"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:304
+#: AnnotationDialog/ImagePreviewWidget.cpp:295
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:309
+#: AnnotationDialog/ImagePreviewWidget.cpp:300
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -496,41 +490,41 @@ msgid ""
 "interface>, you can associate specific image areas with tags."
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:314
+#: AnnotationDialog/ImagePreviewWidget.cpp:305
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:344
+#: AnnotationDialog/ImagePreviewWidget.cpp:335
 #, fuzzy, kde-format
 #| msgid "Toggle Full Screen"
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
 msgstr "Hiện/ẩn toàn màn hình"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:345
+#: AnnotationDialog/ImagePreviewWidget.cpp:336
 #, fuzzy, kde-format
 #| msgid "Rotate contra-clockwise (to the left)"
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
 msgstr "Xoay theo ngược chiều kim đồng hồ"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:346
+#: AnnotationDialog/ImagePreviewWidget.cpp:337
 #, fuzzy, kde-format
 #| msgid "Rotate clockwise (to the right)"
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
 msgstr "Xoay theo chiều kim đồng hồ"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:347
+#: AnnotationDialog/ImagePreviewWidget.cpp:338
 #, fuzzy, kde-format
 #| msgid "Copy tags from previously tagged image"
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
 msgstr "Chép các thẻ từ ảnh đã đặt thẻ trước"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:348
+#: AnnotationDialog/ImagePreviewWidget.cpp:339
 #, fuzzy, kde-format
 #| msgid "Delete image"
 msgctxt "@info:tooltip"
@@ -583,6 +577,11 @@ msgstr "Chưa chọn mục nào"
 #| msgid "<b>Sorting</b>"
 msgid "<b>%1</b>"
 msgstr "<b>Sắp xếp</b>"
+
+#: AnnotationDialog/ListSelect.cpp:354 Settings/CategoryPage.cpp:71
+#, kde-format
+msgid "Delete"
+msgstr "Xoá"
 
 #: AnnotationDialog/ListSelect.cpp:355
 #, kde-format

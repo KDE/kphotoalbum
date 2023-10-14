@@ -24,8 +24,7 @@ public:
     explicit CopyLinkEngine(QObject *parent);
 
 public Q_SLOTS:
-    // files actually does have to be a deep copy, cf. Bug #475585
-    void selectTarget(QWidget *parent, QList<QUrl> files, Action action);
+    void selectTarget(QWidget *parent, const QList<QUrl> &files, Action action);
 
 private: // Variables
     QString m_lastTarget;

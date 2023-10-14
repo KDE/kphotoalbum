@@ -21,7 +21,7 @@ CopyLinkEngine::CopyLinkEngine(QObject *parent)
 {
 }
 
-void CopyLinkEngine::selectTarget(QWidget *parent, QList<QUrl> files, Action action)
+void CopyLinkEngine::selectTarget(QWidget *parent, const QList<QUrl> &files, Action action)
 {
     const auto count = files.count();
     if (count == 0) {

@@ -1568,7 +1568,7 @@ void Viewer::ViewerWidget::setCopyLinkEngine(MainWindow::CopyLinkEngine *copyLin
 
 void Viewer::ViewerWidget::triggerCopyLinkAction(MainWindow::CopyLinkEngine::Action action)
 {
-    auto selectedFiles = QList<QUrl> { QUrl::fromLocalFile(m_list.value(m_current).absolute()) };
+    const auto selectedFiles = QList<QUrl> { QUrl::fromLocalFile(m_list.value(m_current).absolute()) };
     m_copyLinkEngine->selectTarget(this, selectedFiles, action);
 }
 

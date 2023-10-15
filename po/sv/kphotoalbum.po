@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-14 00:40+0000\n"
-"PO-Revision-Date: 2023-10-10 18:48+0200\n"
+"POT-Creation-Date: 2023-10-15 00:40+0000\n"
+"PO-Revision-Date: 2023-10-14 19:52+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -410,12 +410,12 @@ msgstr "Ok dialogruta"
 msgid "Copy tags from previous image"
 msgstr "Kopiera etiketter från föregående bild"
 
-#: AnnotationDialog/Dialog.cpp:1323 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1323 MainWindow/Window.cpp:849
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Rotera moturs"
 
-#: AnnotationDialog/Dialog.cpp:1326 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1326 MainWindow/Window.cpp:853
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Rotera medurs"
@@ -960,7 +960,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "sök"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1799
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -975,7 +975,7 @@ msgstr ""
 "Kfotoalbum</b></li><li>Välj nu ikonen <b>Kategorier</b></li><li>Anpassa "
 "delen <b>Bilder utan etiketter</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1806
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Funktioner har inte ställts in"
@@ -1043,9 +1043,7 @@ msgid "Move Items"
 msgstr "Flytta objekt"
 
 #: DateBar/DateBarWidget.cpp:61
-#, fuzzy, kde-format
-#| msgctxt "I.e. the timeline histogram widget"
-#| msgid "Date Bar"
+#, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
 msgstr "Datumrad"
@@ -2690,7 +2688,7 @@ msgid "Create folder?"
 msgstr "Skapa katalog?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1231
+#: MainWindow/Window.cpp:1232
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3414,7 +3412,7 @@ msgstr "Visa kategorieditor"
 msgid "Make Category Image"
 msgstr "Skapa kategoribild"
 
-#: MainWindow/CopyLinkEngine.cpp:37
+#: MainWindow/CopyLinkEngine.cpp:38
 #, kde-format
 msgctxt "@title:window"
 msgid "Copy image to ..."
@@ -3422,7 +3420,7 @@ msgid_plural "Copy images to ..."
 msgstr[0] "Kopiera bild till..."
 msgstr[1] "Kopiera bilder till..."
 
-#: MainWindow/CopyLinkEngine.cpp:40
+#: MainWindow/CopyLinkEngine.cpp:41
 #, kde-format
 msgctxt "@title:window"
 msgid "Link image to ..."
@@ -4196,13 +4194,13 @@ msgid "Stacking Error"
 msgstr "Högfel"
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1429
+#: MainWindow/Window.cpp:1333 MainWindow/Window.cpp:1430
 #, kde-format
 msgid "No item is selected."
 msgstr "Inget objekt är markerat."
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1430
+#: MainWindow/Window.cpp:1333 MainWindow/Window.cpp:1431
 #, kde-format
 msgid "No Selection"
 msgstr "Ingen markering"
@@ -4222,307 +4220,307 @@ msgstr "Sparar... Klar"
 msgid "There are no images to be shown."
 msgstr "Det finns inga bilder att visa."
 
-#: MainWindow/Window.cpp:769 MainWindow/Window.cpp:898
+#: MainWindow/Window.cpp:770 MainWindow/Window.cpp:899
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "Begränsa visning till markerade"
 
-#: MainWindow/Window.cpp:770
+#: MainWindow/Window.cpp:771
 #, kde-format
 msgid "No images are selected!"
 msgstr "Inga bilder är markerade."
 
-#: MainWindow/Window.cpp:783
+#: MainWindow/Window.cpp:784
 #, kde-format
 msgid "Generate HTML..."
 msgstr "Skapa HTML..."
 
-#: MainWindow/Window.cpp:787
+#: MainWindow/Window.cpp:788
 #, kde-format
 msgid "Import..."
 msgstr "Importera..."
 
-#: MainWindow/Window.cpp:790
+#: MainWindow/Window.cpp:791
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Exportera och kopierar bilder..."
 
-#: MainWindow/Window.cpp:817
+#: MainWindow/Window.cpp:818
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Ta bort markerade"
 
-#: MainWindow/Window.cpp:823
+#: MainWindow/Window.cpp:824
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "Ta bort värden..."
 
-#: MainWindow/Window.cpp:826
+#: MainWindow/Window.cpp:827
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Öppna lista med filer..."
 
-#: MainWindow/Window.cpp:829
+#: MainWindow/Window.cpp:830
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Beskriv enskilda objekt"
 
-#: MainWindow/Window.cpp:833
+#: MainWindow/Window.cpp:834
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Beskriv flera objekt åt gången"
 
-#: MainWindow/Window.cpp:837
+#: MainWindow/Window.cpp:838
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Sammanfoga bilder i en hög"
 
-#: MainWindow/Window.cpp:841
+#: MainWindow/Window.cpp:842
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Ta bort bilder från högen"
 
-#: MainWindow/Window.cpp:844
+#: MainWindow/Window.cpp:845
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Ange som första bild i en hög"
 
-#: MainWindow/Window.cpp:857
+#: MainWindow/Window.cpp:858
 #, kde-format
 msgid "View"
 msgstr "Visa"
 
-#: MainWindow/Window.cpp:860
+#: MainWindow/Window.cpp:861
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Visa (i nytt fönster)"
 
-#: MainWindow/Window.cpp:863
+#: MainWindow/Window.cpp:864
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Visa bildspel"
 
-#: MainWindow/Window.cpp:868
+#: MainWindow/Window.cpp:869
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Visa slumpmässigt bildspel"
 
-#: MainWindow/Window.cpp:874
+#: MainWindow/Window.cpp:875
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Samla ihop alla högar"
 
-#: MainWindow/Window.cpp:880
+#: MainWindow/Window.cpp:881
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Expandera alla högar"
 
-#: MainWindow/Window.cpp:885
+#: MainWindow/Window.cpp:886
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Visa äl&dsta först"
 
-#: MainWindow/Window.cpp:890
+#: MainWindow/Window.cpp:891
 #, kde-format
 msgid "Show &Newest First"
 msgstr "Visa &nyaste först"
 
-#: MainWindow/Window.cpp:895
+#: MainWindow/Window.cpp:896
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Sortera markerade enligt datum och tid"
 
-#: MainWindow/Window.cpp:901
+#: MainWindow/Window.cpp:902
 #, kde-format
 msgid "Jump to Context"
 msgstr "Gå till sammanhang"
 
-#: MainWindow/Window.cpp:907
+#: MainWindow/Window.cpp:908
 #, kde-format
 msgid "Lock Images"
 msgstr "Lås bilder"
 
-#: MainWindow/Window.cpp:911
+#: MainWindow/Window.cpp:912
 #, kde-format
 msgid "Unlock"
 msgstr "Lås upp"
 
-#: MainWindow/Window.cpp:914
+#: MainWindow/Window.cpp:915
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Lås in alla övriga objekt"
 
-#: MainWindow/Window.cpp:917
+#: MainWindow/Window.cpp:918
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Lås in nuvarande uppsättning objekt"
 
-#: MainWindow/Window.cpp:920
+#: MainWindow/Window.cpp:921
 #, kde-format
 msgid "Configure Current View"
 msgstr "Anpassa aktuell vy"
 
-#: MainWindow/Window.cpp:932
+#: MainWindow/Window.cpp:933
 #, kde-format
 msgid "Tree"
 msgstr "Träd"
 
-#: MainWindow/Window.cpp:937
+#: MainWindow/Window.cpp:938
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Träd med användarikoner"
 
-#: MainWindow/Window.cpp:942
+#: MainWindow/Window.cpp:943
 #, kde-format
 msgid "Icons"
 msgstr "Ikoner"
 
-#: MainWindow/Window.cpp:949
+#: MainWindow/Window.cpp:950
 #, kde-format
 msgid "Use natural sort order"
 msgstr "Använd naturlig sorteringsordning"
 
-#: MainWindow/Window.cpp:959
+#: MainWindow/Window.cpp:960
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Visa verktygstips i miniatyrbildsfönstret"
 
-#: MainWindow/Window.cpp:964
+#: MainWindow/Window.cpp:965
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
 msgstr "Visa namn i miniatyrbildsfönstret"
 
-#: MainWindow/Window.cpp:974
+#: MainWindow/Window.cpp:975
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
 msgstr "Visa kategorier i miniatyrbildsfönstret"
 
-#: MainWindow/Window.cpp:995
+#: MainWindow/Window.cpp:996
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "Välj färgschema"
 
-#: MainWindow/Window.cpp:1006
+#: MainWindow/Window.cpp:1007
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Visa bilder och videor som inte finns på disk"
 
-#: MainWindow/Window.cpp:1009
+#: MainWindow/Window.cpp:1010
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Visa bilder och videor med ofullständiga datum..."
 
-#: MainWindow/Window.cpp:1012
+#: MainWindow/Window.cpp:1013
 #, kde-format
 msgid "Merge duplicates"
 msgstr "Sammanfoga dubbletter"
 
-#: MainWindow/Window.cpp:1014 MainWindow/Window.cpp:1071
+#: MainWindow/Window.cpp:1015 MainWindow/Window.cpp:1072
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Uppdatera markerade miniatyrbilder och checksummor"
 
-#: MainWindow/Window.cpp:1018
+#: MainWindow/Window.cpp:1019
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Sök efter bilder och videor igen"
 
-#: MainWindow/Window.cpp:1021
+#: MainWindow/Window.cpp:1022
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Skapa om EXIF-sökdatabasen"
 
-#: MainWindow/Window.cpp:1024
+#: MainWindow/Window.cpp:1025
 #, kde-format
 msgid "Read Exif Info from Files..."
 msgstr "Läs EXIF-information från filer..."
 
-#: MainWindow/Window.cpp:1027
+#: MainWindow/Window.cpp:1028
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Sortera alla enligt datum och tid"
 
-#: MainWindow/Window.cpp:1031
+#: MainWindow/Window.cpp:1032
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Lägg automatiskt markerade bilder i hög..."
 
-#: MainWindow/Window.cpp:1034
+#: MainWindow/Window.cpp:1035
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Bygg miniatyrbilder"
 
-#: MainWindow/Window.cpp:1037
+#: MainWindow/Window.cpp:1038
 #, kde-format
 msgid "Statistics..."
 msgstr "Statistik..."
 
-#: MainWindow/Window.cpp:1041
+#: MainWindow/Window.cpp:1042
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Markera som utan etikett"
 
-#: MainWindow/Window.cpp:1050
+#: MainWindow/Window.cpp:1051
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Aktivera alla meddelanden"
 
-#: MainWindow/Window.cpp:1058
+#: MainWindow/Window.cpp:1059
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Kör Kfotoalbum demonstration"
 
-#: MainWindow/Window.cpp:1061
+#: MainWindow/Window.cpp:1062
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "Status för funktioner i Kfotoalbum"
 
-#: MainWindow/Window.cpp:1064
+#: MainWindow/Window.cpp:1065
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Visa demonstrationsvideor"
 
-#: MainWindow/Window.cpp:1068 Viewer/ViewerWidget.cpp:196
+#: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:200
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Visa Exif-information och filmetadata"
 
-#: MainWindow/Window.cpp:1074
+#: MainWindow/Window.cpp:1075
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Använd nästa videominiatyrbild"
 
-#: MainWindow/Window.cpp:1078
+#: MainWindow/Window.cpp:1079
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Använd föregående videominiatyrbild"
 
-#: MainWindow/Window.cpp:1082 MainWindow/Window.cpp:1310
+#: MainWindow/Window.cpp:1083 MainWindow/Window.cpp:1311
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Kopiera bild till..."
 msgstr[1] "Kopiera bilder till..."
 
-#: MainWindow/Window.cpp:1086 MainWindow/Window.cpp:1314
+#: MainWindow/Window.cpp:1087 MainWindow/Window.cpp:1315
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "Länka bild till..."
 msgstr[1] "Länka bilder till..."
 
-#: MainWindow/Window.cpp:1112
+#: MainWindow/Window.cpp:1113
 #, kde-format
 msgid "Auto saving...."
 msgstr "Sparar automatiskt..."
 
-#: MainWindow/Window.cpp:1115
+#: MainWindow/Window.cpp:1116
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Sparar automatiskt... Klar"
 
-#: MainWindow/Window.cpp:1217
+#: MainWindow/Window.cpp:1218
 #, kde-format
 msgid ""
 "<p>Could not open given index.xml, as the provided folder does not exist."
@@ -4531,7 +4529,7 @@ msgstr ""
 "<p>Kunde inte öppna angiven index.xml eftersom den tillhandahållna katalogen "
 "inte finns.<br />%1</p>"
 
-#: MainWindow/Window.cpp:1224
+#: MainWindow/Window.cpp:1225
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4540,13 +4538,13 @@ msgstr ""
 "<p>Angiven indexfil finns inte. Vill du skapa följande fil?<br />%1/index."
 "xml</p>"
 
-#: MainWindow/Window.cpp:1227
+#: MainWindow/Window.cpp:1228
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Skapa databas"
 
-#: MainWindow/Window.cpp:1255
+#: MainWindow/Window.cpp:1256
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4559,33 +4557,33 @@ msgstr ""
 "inställningen av etiketter utan etikett i <interface>Inställningar|Anpassa "
 "Kfotoalbum...|Kategorier</interface>.</p>"
 
-#: MainWindow/Window.cpp:1381 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Allmänt"
 
-#: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1383 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Visning"
 
-#: MainWindow/Window.cpp:1383
+#: MainWindow/Window.cpp:1384
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Datumrad"
 
-#: MainWindow/Window.cpp:1386
+#: MainWindow/Window.cpp:1387
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Beskrivningsdialogruta"
 
-#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1388 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Miniatyrbildsvisning"
 
-#: MainWindow/Window.cpp:1533
+#: MainWindow/Window.cpp:1534
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4594,13 +4592,13 @@ msgstr ""
 "<p>Vill du verkligen aktivera alla meddelanden där du tidigare markerat "
 "kryssrutan för att inte visa dem igen?</p>"
 
-#: MainWindow/Window.cpp:1535
+#: MainWindow/Window.cpp:1536
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Återställ dolda dialogrutor"
 
-#: MainWindow/Window.cpp:1554
+#: MainWindow/Window.cpp:1555
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4617,32 +4615,32 @@ msgstr ""
 "men det är inte helt otroligt att det senare kommer att krascha beroende på "
 "den saknade 'make install'.</p>"
 
-#: MainWindow/Window.cpp:1554
+#: MainWindow/Window.cpp:1555
 #, kde-format
 msgid "Internal Error"
 msgstr "Internt fel"
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1566
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "Delade bilder med lyckat resultat. Kopierar plats till klippbordet ..."
 
-#: MainWindow/Window.cpp:1568
+#: MainWindow/Window.cpp:1569
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Delade bilder med lyckat resultat."
 
-#: MainWindow/Window.cpp:1573
+#: MainWindow/Window.cpp:1574
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Bilddelning misslyckades med meddelandet: %1"
 
-#: MainWindow/Window.cpp:1636
+#: MainWindow/Window.cpp:1637
 #, kde-format
 msgid "Open List of Files"
 msgstr "Öppna lista med filer"
 
-#: MainWindow/Window.cpp:1637
+#: MainWindow/Window.cpp:1638
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4651,28 +4649,28 @@ msgstr ""
 "Du kan öppna en uppsättning filer i Kfotoalbums databas genom att lista "
 "filerna här."
 
-#: MainWindow/Window.cpp:1651
+#: MainWindow/Window.cpp:1652
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Några bilder som motsvarar indata hittades inte."
 
-#: MainWindow/Window.cpp:1651
+#: MainWindow/Window.cpp:1652
 #, kde-format
 msgid "No Matches"
 msgstr "Inga träffar"
 
-#: MainWindow/Window.cpp:1823
+#: MainWindow/Window.cpp:1824
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Läser in EXIF-information från alla bilder igen"
 
-#: MainWindow/Window.cpp:1850
+#: MainWindow/Window.cpp:1851
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Miniatyrbildstorlek: %1 bildpunkt (lagringsstorlek: %2 bildpunkter)"
 
-#: MainWindow/Window.cpp:1903
+#: MainWindow/Window.cpp:1904
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4682,7 +4680,7 @@ msgstr ""
 "<p>Kan inte hitta ffmpeg på systemet</p><p>Utan det kan inte Kfotoalbum visa "
 "videominiatyrbilder och videolängder. Installera paketet ffmpeg.</p>"
 
-#: MainWindow/Window.cpp:1906
+#: MainWindow/Window.cpp:1907
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Videominiatyrbilder är inte tillgänglig"
@@ -6633,248 +6631,248 @@ msgstr "Titel"
 msgid "Existing Assignments"
 msgstr "Befintliga tilldelningar"
 
-#: Viewer/ViewerWidget.cpp:191
+#: Viewer/ViewerWidget.cpp:194
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Ange som första bild i en hög"
 
-#: Viewer/ViewerWidget.cpp:202
+#: Viewer/ViewerWidget.cpp:206
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "Kopiera bild till..."
 
-#: Viewer/ViewerWidget.cpp:207
+#: Viewer/ViewerWidget.cpp:212
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "Länka bild till..."
 
-#: Viewer/ViewerWidget.cpp:215
+#: Viewer/ViewerWidget.cpp:220
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Stäng"
 
-#: Viewer/ViewerWidget.cpp:271
+#: Viewer/ViewerWidget.cpp:277
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Rotera"
 
-#: Viewer/ViewerWidget.cpp:282
+#: Viewer/ViewerWidget.cpp:288
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "Rotera medurs"
 
-#: Viewer/ViewerWidget.cpp:283
+#: Viewer/ViewerWidget.cpp:289
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Vänd"
 
-#: Viewer/ViewerWidget.cpp:284
+#: Viewer/ViewerWidget.cpp:290
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Rotera moturs"
 
-#: Viewer/ViewerWidget.cpp:291
+#: Viewer/ViewerWidget.cpp:301
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Hoppa över"
 
-#: Viewer/ViewerWidget.cpp:294
+#: Viewer/ViewerWidget.cpp:304
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "Först"
 
-#: Viewer/ViewerWidget.cpp:301
+#: Viewer/ViewerWidget.cpp:311
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Sist"
 
-#: Viewer/ViewerWidget.cpp:308
+#: Viewer/ViewerWidget.cpp:318
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Visa nästa"
 
-#: Viewer/ViewerWidget.cpp:314
+#: Viewer/ViewerWidget.cpp:324
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "Hoppa 10 framåt"
 
-#: Viewer/ViewerWidget.cpp:320
+#: Viewer/ViewerWidget.cpp:330
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "Hoppa 100 framåt"
 
-#: Viewer/ViewerWidget.cpp:326
+#: Viewer/ViewerWidget.cpp:336
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "Hoppa 1000 framåt"
 
-#: Viewer/ViewerWidget.cpp:332
+#: Viewer/ViewerWidget.cpp:342
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Visa föregående"
 
-#: Viewer/ViewerWidget.cpp:338
+#: Viewer/ViewerWidget.cpp:348
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "Hoppa 10 bakåt"
 
-#: Viewer/ViewerWidget.cpp:344
+#: Viewer/ViewerWidget.cpp:354
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "Hoppa 100 bakåt"
 
-#: Viewer/ViewerWidget.cpp:350
+#: Viewer/ViewerWidget.cpp:360
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "Hoppa 1000 bakåt"
 
-#: Viewer/ViewerWidget.cpp:356
+#: Viewer/ViewerWidget.cpp:366
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Ta bort bild"
 
-#: Viewer/ViewerWidget.cpp:361
+#: Viewer/ViewerWidget.cpp:371
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Ta bort bild från visningslistan"
 
-#: Viewer/ViewerWidget.cpp:372
+#: Viewer/ViewerWidget.cpp:386
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Zooma"
 
-#: Viewer/ViewerWidget.cpp:376
+#: Viewer/ViewerWidget.cpp:390
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Zooma in"
 
-#: Viewer/ViewerWidget.cpp:382
+#: Viewer/ViewerWidget.cpp:396
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Zooma ut"
 
-#: Viewer/ViewerWidget.cpp:388
+#: Viewer/ViewerWidget.cpp:402
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Full storlek"
 
-#: Viewer/ViewerWidget.cpp:394
+#: Viewer/ViewerWidget.cpp:408
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Vy med bildpunkt för bildpunkt"
 
-#: Viewer/ViewerWidget.cpp:400
+#: Viewer/ViewerWidget.cpp:414
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Växla fullskärmsläge"
 
-#: Viewer/ViewerWidget.cpp:410
+#: Viewer/ViewerWidget.cpp:425
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Bildspel"
 
-#: Viewer/ViewerWidget.cpp:413 Viewer/ViewerWidget.cpp:854
+#: Viewer/ViewerWidget.cpp:428 Viewer/ViewerWidget.cpp:879
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Visa bildspel"
 
-#: Viewer/ViewerWidget.cpp:418
+#: Viewer/ViewerWidget.cpp:433
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Visa snabbare"
 
-#: Viewer/ViewerWidget.cpp:423
+#: Viewer/ViewerWidget.cpp:438
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Visa långsammare"
 
-#: Viewer/ViewerWidget.cpp:458
+#: Viewer/ViewerWidget.cpp:472
 #, kde-format
 msgid "File not available"
 msgstr "Filen är inte tillgänglig"
 
-#: Viewer/ViewerWidget.cpp:508
+#: Viewer/ViewerWidget.cpp:506
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
 msgstr "%1 %2"
 
-#: Viewer/ViewerWidget.cpp:543
+#: Viewer/ViewerWidget.cpp:541
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
 msgstr "Spela"
 
-#: Viewer/ViewerWidget.cpp:545
+#: Viewer/ViewerWidget.cpp:543
 #, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Paus"
 
-#: Viewer/ViewerWidget.cpp:611
+#: Viewer/ViewerWidget.cpp:609
 #, kde-format
 msgid "locked"
 msgstr "låst"
 
-#: Viewer/ViewerWidget.cpp:613
+#: Viewer/ViewerWidget.cpp:611
 #, kde-format
 msgid "annotating"
 msgstr "beskriver"
 
-#: Viewer/ViewerWidget.cpp:615
+#: Viewer/ViewerWidget.cpp:613
 #, kde-format
 msgid "tokenizing"
 msgstr "värdetilldelning"
 
-#: Viewer/ViewerWidget.cpp:620
+#: Viewer/ViewerWidget.cpp:618
 #, kde-format
 msgid "Change display mode to %1"
 msgstr "Ändra visningsläge till %1"
 
-#: Viewer/ViewerWidget.cpp:857
+#: Viewer/ViewerWidget.cpp:882
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
 msgstr "Avslutar bildspel"
 
-#: Viewer/ViewerWidget.cpp:860
+#: Viewer/ViewerWidget.cpp:885
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Stoppa bildspel"
 
-#: Viewer/ViewerWidget.cpp:865
+#: Viewer/ViewerWidget.cpp:890
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
@@ -6884,145 +6882,145 @@ msgstr ""
 "Startar bildspel<br/>%1 gör bildspelet snabbare<br/>%2 gör bildspelet "
 "långsammare"
 
-#: Viewer/ViewerWidget.cpp:915
+#: Viewer/ViewerWidget.cpp:940
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr "%1&nbsp;s"
 
-#: Viewer/ViewerWidget.cpp:1158
+#: Viewer/ViewerWidget.cpp:1189
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "Redigera bildbeskrivning"
 
-#: Viewer/ViewerWidget.cpp:1158
+#: Viewer/ViewerWidget.cpp:1189
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "Bildbeskrivning"
 
-#: Viewer/ViewerWidget.cpp:1173
+#: Viewer/ViewerWidget.cpp:1204
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Sök"
 
-#: Viewer/ViewerWidget.cpp:1194
+#: Viewer/ViewerWidget.cpp:1226
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "10 minuter bakåt"
 
-#: Viewer/ViewerWidget.cpp:1195
+#: Viewer/ViewerWidget.cpp:1227
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "1 minut bakåt"
 
-#: Viewer/ViewerWidget.cpp:1196
+#: Viewer/ViewerWidget.cpp:1228
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "10 sekunder bakåt"
 
-#: Viewer/ViewerWidget.cpp:1197
+#: Viewer/ViewerWidget.cpp:1229
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "1 sekund bakåt"
 
-#: Viewer/ViewerWidget.cpp:1198
+#: Viewer/ViewerWidget.cpp:1230
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "100 millisekunder bakåt"
 
-#: Viewer/ViewerWidget.cpp:1199
+#: Viewer/ViewerWidget.cpp:1231
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "100 millisekunder framåt"
 
-#: Viewer/ViewerWidget.cpp:1200
+#: Viewer/ViewerWidget.cpp:1232
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "1 sekund framåt"
 
-#: Viewer/ViewerWidget.cpp:1201
+#: Viewer/ViewerWidget.cpp:1233
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "10 sekunder framåt"
 
-#: Viewer/ViewerWidget.cpp:1202
+#: Viewer/ViewerWidget.cpp:1234
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "1 minut framåt"
 
-#: Viewer/ViewerWidget.cpp:1203
+#: Viewer/ViewerWidget.cpp:1235
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "10 minuter framåt"
 
-#: Viewer/ViewerWidget.cpp:1211
+#: Viewer/ViewerWidget.cpp:1243
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Stopp"
 
-#: Viewer/ViewerWidget.cpp:1224
+#: Viewer/ViewerWidget.cpp:1255
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Visa aktuell ram i miniatyrbildsvy"
 
-#: Viewer/ViewerWidget.cpp:1230
+#: Viewer/ViewerWidget.cpp:1262
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Starta om"
 
-#: Viewer/ViewerWidget.cpp:1245
+#: Viewer/ViewerWidget.cpp:1278
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Filter"
 
-#: Viewer/ViewerWidget.cpp:1248
+#: Viewer/ViewerWidget.cpp:1281
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Ta bort alla filter"
 
-#: Viewer/ViewerWidget.cpp:1252
+#: Viewer/ViewerWidget.cpp:1285
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Använd gråskalefilter"
 
-#: Viewer/ViewerWidget.cpp:1257
+#: Viewer/ViewerWidget.cpp:1290
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Använd kontrastutökningsfilter"
 
-#: Viewer/ViewerWidget.cpp:1262
+#: Viewer/ViewerWidget.cpp:1295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Använd histogramutjämningsfilter"
 
-#: Viewer/ViewerWidget.cpp:1267
+#: Viewer/ViewerWidget.cpp:1300
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Använd svartvitfilter"
 
-#: Viewer/ViewerWidget.cpp:1319
+#: Viewer/ViewerWidget.cpp:1356
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7034,7 +7032,7 @@ msgstr ""
 "p><p>Klicka på <i>Fortsätt</i> för att låta Kfotoalbum prova ett annat "
 "gränssnitt...</p>"
 
-#: Viewer/ViewerWidget.cpp:1323
+#: Viewer/ViewerWidget.cpp:1360
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -7043,7 +7041,7 @@ msgstr ""
 "<p>Videogränssnitt som avbröts: <tt>%1</tt></p><p>Videogränssnitt som "
 "används istället: <tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1336
+#: Viewer/ViewerWidget.cpp:1373
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
@@ -7052,101 +7050,101 @@ msgstr ""
 "<p>Kfotoalbum har provat alla tillgängliga videogränssnitt, men alla "
 "kraschade vid något tillfälle.</p><p>Kraschdetektering är nu avstängd.</p>"
 
-#: Viewer/ViewerWidget.cpp:1400
+#: Viewer/ViewerWidget.cpp:1437
 #, kde-format
 msgid "Annotate"
 msgstr "Beskriv"
 
-#: Viewer/ViewerWidget.cpp:1419
+#: Viewer/ViewerWidget.cpp:1456
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "Hjälp"
 
-#: Viewer/ViewerWidget.cpp:1421
+#: Viewer/ViewerWidget.cpp:1458
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Beskrivningsdialogruta"
 
-#: Viewer/ViewerWidget.cpp:1422
+#: Viewer/ViewerWidget.cpp:1459
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Lägg till etikett"
 
-#: Viewer/ViewerWidget.cpp:1422
+#: Viewer/ViewerWidget.cpp:1459
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "CTRL+A"
 
-#: Viewer/ViewerWidget.cpp:1425
+#: Viewer/ViewerWidget.cpp:1462
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Kopiera data från föregående bild"
 
-#: Viewer/ViewerWidget.cpp:1426
+#: Viewer/ViewerWidget.cpp:1463
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "CTRL+C"
 
-#: Viewer/ViewerWidget.cpp:1429
+#: Viewer/ViewerWidget.cpp:1466
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Redigera beskrivning"
 
-#: Viewer/ViewerWidget.cpp:1430
+#: Viewer/ViewerWidget.cpp:1467
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "CTRL+D"
 
-#: Viewer/ViewerWidget.cpp:1433
+#: Viewer/ViewerWidget.cpp:1470
 #, kde-format
 msgid "Annotation Mode"
 msgstr "Beskrivningsmetod"
 
-#: Viewer/ViewerWidget.cpp:1435
+#: Viewer/ViewerWidget.cpp:1472
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "Låst"
 
-#: Viewer/ViewerWidget.cpp:1436
+#: Viewer/ViewerWidget.cpp:1473
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "CTRL+L"
 
-#: Viewer/ViewerWidget.cpp:1440
+#: Viewer/ViewerWidget.cpp:1477
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "Tilldela etiketter"
 
-#: Viewer/ViewerWidget.cpp:1441
+#: Viewer/ViewerWidget.cpp:1478
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1444
+#: Viewer/ViewerWidget.cpp:1481
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Tilldela värden"
 
-#: Viewer/ViewerWidget.cpp:1445
+#: Viewer/ViewerWidget.cpp:1482
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL+T"
 
-#: Viewer/ViewerWidget.cpp:1592
+#: Viewer/ViewerWidget.cpp:1637
 #, kde-format
 msgid "Token %1"
 msgstr "Värde %1"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-14 00:40+0000\n"
+"POT-Creation-Date: 2023-10-15 00:40+0000\n"
 "PO-Revision-Date: 2020-09-13 15:37+0200\n"
 "Last-Translator: Martin Schlander <mschlander@opensuse.org>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -418,12 +418,12 @@ msgstr "OK-dialog"
 msgid "Copy tags from previous image"
 msgstr "Kopiér mærker fra forrige billede"
 
-#: AnnotationDialog/Dialog.cpp:1323 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1323 MainWindow/Window.cpp:849
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Rotér mod uret"
 
-#: AnnotationDialog/Dialog.cpp:1326 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1326 MainWindow/Window.cpp:853
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Rotér med uret"
@@ -972,7 +972,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "søg"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1799
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -987,7 +987,7 @@ msgstr ""
 "KPhotoAlbum</b></li><li>Vælg så ikonet <b>Kategorier</b></li><li>Indstil så "
 "sektionen <b>Ikke-mærkede billeder</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1806
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Funktioner er ikke blevet indstillet"
@@ -2796,7 +2796,7 @@ msgid "Create folder?"
 msgstr "Basismappe:"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1231
+#: MainWindow/Window.cpp:1232
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3569,7 +3569,7 @@ msgstr "Vis kategorieditor"
 msgid "Make Category Image"
 msgstr "Lav kategoribillede"
 
-#: MainWindow/CopyLinkEngine.cpp:37
+#: MainWindow/CopyLinkEngine.cpp:38
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgctxt "@title:window"
@@ -3578,7 +3578,7 @@ msgid_plural "Copy images to ..."
 msgstr[0] "Eksportér/kopiér billeder..."
 msgstr[1] "Eksportér/kopiér billeder..."
 
-#: MainWindow/CopyLinkEngine.cpp:40
+#: MainWindow/CopyLinkEngine.cpp:41
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgctxt "@title:window"
@@ -4431,13 +4431,13 @@ msgid "Stacking Error"
 msgstr "Stakfejl"
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1429
+#: MainWindow/Window.cpp:1333 MainWindow/Window.cpp:1430
 #, kde-format
 msgid "No item is selected."
 msgstr "Intet element er markeret."
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1430
+#: MainWindow/Window.cpp:1333 MainWindow/Window.cpp:1431
 #, kde-format
 msgid "No Selection"
 msgstr "Ingen markering"
@@ -4457,296 +4457,296 @@ msgstr "Gemmer... Færdig"
 msgid "There are no images to be shown."
 msgstr "Der er ingen billeder at vise."
 
-#: MainWindow/Window.cpp:769 MainWindow/Window.cpp:898
+#: MainWindow/Window.cpp:770 MainWindow/Window.cpp:899
 #, fuzzy, kde-format
 #| msgid "Limit View to Marked"
 msgid "Limit View to Selection"
 msgstr "Begræns visning til de markerede"
 
-#: MainWindow/Window.cpp:770
+#: MainWindow/Window.cpp:771
 #, fuzzy, kde-format
 #| msgid "No item is selected."
 msgid "No images are selected!"
 msgstr "Intet element er markeret."
 
-#: MainWindow/Window.cpp:783
+#: MainWindow/Window.cpp:784
 #, kde-format
 msgid "Generate HTML..."
 msgstr "Generér HTML..."
 
-#: MainWindow/Window.cpp:787
+#: MainWindow/Window.cpp:788
 #, kde-format
 msgid "Import..."
 msgstr "Importér..."
 
-#: MainWindow/Window.cpp:790
+#: MainWindow/Window.cpp:791
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Eksportér/kopiér billeder..."
 
-#: MainWindow/Window.cpp:817
+#: MainWindow/Window.cpp:818
 #, fuzzy, kde-format
 #| msgid "Delete Selected"
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Slet markerede"
 
-#: MainWindow/Window.cpp:823
+#: MainWindow/Window.cpp:824
 #, fuzzy, kde-format
 #| msgid "Remove Tokens"
 msgid "Remove Tokens..."
 msgstr "Fjern symboler"
 
-#: MainWindow/Window.cpp:826
+#: MainWindow/Window.cpp:827
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Åbn liste over filer..."
 
-#: MainWindow/Window.cpp:829
+#: MainWindow/Window.cpp:830
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Beskriv de enkelte elementer"
 
-#: MainWindow/Window.cpp:833
+#: MainWindow/Window.cpp:834
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Beskriv flere elementer ad gangen"
 
-#: MainWindow/Window.cpp:837
+#: MainWindow/Window.cpp:838
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Sammenflet billeder i en stak"
 
-#: MainWindow/Window.cpp:841
+#: MainWindow/Window.cpp:842
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Fjern billeder fra stak"
 
-#: MainWindow/Window.cpp:844
+#: MainWindow/Window.cpp:845
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Sæt som første billede i stakken"
 
-#: MainWindow/Window.cpp:857
+#: MainWindow/Window.cpp:858
 #, kde-format
 msgid "View"
 msgstr "Vis"
 
-#: MainWindow/Window.cpp:860
+#: MainWindow/Window.cpp:861
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Vis (i nyt vindue)"
 
-#: MainWindow/Window.cpp:863
+#: MainWindow/Window.cpp:864
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Kør diasshow"
 
-#: MainWindow/Window.cpp:868
+#: MainWindow/Window.cpp:869
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Kør diasshow i tilfældig rækkefølge"
 
-#: MainWindow/Window.cpp:874
+#: MainWindow/Window.cpp:875
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Fold alle stakke sammen"
 
-#: MainWindow/Window.cpp:880
+#: MainWindow/Window.cpp:881
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Fold alle stakke ud"
 
-#: MainWindow/Window.cpp:885
+#: MainWindow/Window.cpp:886
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Vis æ&ldste først"
 
-#: MainWindow/Window.cpp:890
+#: MainWindow/Window.cpp:891
 #, kde-format
 msgid "Show &Newest First"
 msgstr "Vis &nyeste først"
 
-#: MainWindow/Window.cpp:895
+#: MainWindow/Window.cpp:896
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Sortér markerede efter dato og klokkeslæt"
 
-#: MainWindow/Window.cpp:901
+#: MainWindow/Window.cpp:902
 #, kde-format
 msgid "Jump to Context"
 msgstr "Gå til kontekst"
 
-#: MainWindow/Window.cpp:907
+#: MainWindow/Window.cpp:908
 #, kde-format
 msgid "Lock Images"
 msgstr "Lås billeder"
 
-#: MainWindow/Window.cpp:911
+#: MainWindow/Window.cpp:912
 #, kde-format
 msgid "Unlock"
 msgstr "Lås op"
 
-#: MainWindow/Window.cpp:914
+#: MainWindow/Window.cpp:915
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Lås alle øvrige elementer væk"
 
-#: MainWindow/Window.cpp:917
+#: MainWindow/Window.cpp:918
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Lås nuværende sæt af elementer væk"
 
-#: MainWindow/Window.cpp:920
+#: MainWindow/Window.cpp:921
 #, kde-format
 msgid "Configure Current View"
 msgstr "Indstil aktuel visning"
 
-#: MainWindow/Window.cpp:932
+#: MainWindow/Window.cpp:933
 #, kde-format
 msgid "Tree"
 msgstr "Træ"
 
-#: MainWindow/Window.cpp:937
+#: MainWindow/Window.cpp:938
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Træ med brugerikoner"
 
-#: MainWindow/Window.cpp:942
+#: MainWindow/Window.cpp:943
 #, kde-format
 msgid "Icons"
 msgstr "Ikoner"
 
-#: MainWindow/Window.cpp:949
+#: MainWindow/Window.cpp:950
 #, kde-format
 msgid "Use natural sort order"
 msgstr ""
 
-#: MainWindow/Window.cpp:959
+#: MainWindow/Window.cpp:960
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Vis værktøjstips i miniaturevinduet"
 
-#: MainWindow/Window.cpp:964
+#: MainWindow/Window.cpp:965
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Labels in Thumbnails Window"
 msgstr "Vis værktøjstips i miniaturevinduet"
 
-#: MainWindow/Window.cpp:974
+#: MainWindow/Window.cpp:975
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Categories in Thumbnails Window"
 msgstr "Vis værktøjstips i miniaturevinduet"
 
-#: MainWindow/Window.cpp:995
+#: MainWindow/Window.cpp:996
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr ""
 
-#: MainWindow/Window.cpp:1006
+#: MainWindow/Window.cpp:1007
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Vis billeder og videoer ikke på disken"
 
-#: MainWindow/Window.cpp:1009
+#: MainWindow/Window.cpp:1010
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Vis billeder og videoer med ufuldstændig dato..."
 
-#: MainWindow/Window.cpp:1012
+#: MainWindow/Window.cpp:1013
 #, fuzzy, kde-format
 #| msgid "Merge data"
 msgid "Merge duplicates"
 msgstr "Sammenflet data"
 
-#: MainWindow/Window.cpp:1014 MainWindow/Window.cpp:1071
+#: MainWindow/Window.cpp:1015 MainWindow/Window.cpp:1072
 #, fuzzy, kde-format
 #| msgid "Recreate Selected Thumbnails"
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Genopret markerede miniaturebilleder"
 
-#: MainWindow/Window.cpp:1018
+#: MainWindow/Window.cpp:1019
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Genscan for billeder og videoer"
 
-#: MainWindow/Window.cpp:1021
+#: MainWindow/Window.cpp:1022
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Genopret EXIF-søgedatabase"
 
-#: MainWindow/Window.cpp:1024
+#: MainWindow/Window.cpp:1025
 #, fuzzy, kde-format
 #| msgid "Read EXIF Info From Files..."
 msgid "Read Exif Info from Files..."
 msgstr "Læs EXIF-info fra filer..."
 
-#: MainWindow/Window.cpp:1027
+#: MainWindow/Window.cpp:1028
 #, fuzzy, kde-format
 #| msgid "Sort Selected by Date && Time"
 msgid "Sort All by Date && Time"
 msgstr "Sortér markerede efter dato og klokkeslæt"
 
-#: MainWindow/Window.cpp:1031
+#: MainWindow/Window.cpp:1032
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Stabl markerede billeder automatisk"
 
-#: MainWindow/Window.cpp:1034
+#: MainWindow/Window.cpp:1035
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Byg miniaturer"
 
-#: MainWindow/Window.cpp:1037
+#: MainWindow/Window.cpp:1038
 #, fuzzy, kde-format
 #| msgid "Statistics"
 msgid "Statistics..."
 msgstr "Statistik"
 
-#: MainWindow/Window.cpp:1041
+#: MainWindow/Window.cpp:1042
 #, kde-format
 msgid "Mark As Untagged"
 msgstr ""
 
-#: MainWindow/Window.cpp:1050
+#: MainWindow/Window.cpp:1051
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Aktivér alle beskeder"
 
-#: MainWindow/Window.cpp:1058
+#: MainWindow/Window.cpp:1059
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Kør demo af KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1061
+#: MainWindow/Window.cpp:1062
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "Status for funktioner i KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1064
+#: MainWindow/Window.cpp:1065
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Vis demovideoer"
 
-#: MainWindow/Window.cpp:1068 Viewer/ViewerWidget.cpp:196
+#: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:200
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "Vis Exif-info"
 
-#: MainWindow/Window.cpp:1074
+#: MainWindow/Window.cpp:1075
 #, fuzzy, kde-format
 #| msgid "Generate thumbnails"
 msgid "Use next video thumbnail"
 msgstr "Generér miniaturer"
 
-#: MainWindow/Window.cpp:1078
+#: MainWindow/Window.cpp:1079
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr ""
 
-#: MainWindow/Window.cpp:1082 MainWindow/Window.cpp:1310
+#: MainWindow/Window.cpp:1083 MainWindow/Window.cpp:1311
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Copy image to ..."
@@ -4754,7 +4754,7 @@ msgid_plural "Copy images to ..."
 msgstr[0] "Eksportér/kopiér billeder..."
 msgstr[1] "Eksportér/kopiér billeder..."
 
-#: MainWindow/Window.cpp:1086 MainWindow/Window.cpp:1314
+#: MainWindow/Window.cpp:1087 MainWindow/Window.cpp:1315
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Link image to ..."
@@ -4762,17 +4762,17 @@ msgid_plural "Link images to ..."
 msgstr[0] "Eksportér/kopiér billeder..."
 msgstr[1] "Eksportér/kopiér billeder..."
 
-#: MainWindow/Window.cpp:1112
+#: MainWindow/Window.cpp:1113
 #, kde-format
 msgid "Auto saving...."
 msgstr "Auto-gemmer...."
 
-#: MainWindow/Window.cpp:1115
+#: MainWindow/Window.cpp:1116
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Autogemmer.... Færdig"
 
-#: MainWindow/Window.cpp:1217
+#: MainWindow/Window.cpp:1218
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Could not open given index.xml as provided directory does not exist."
@@ -4784,7 +4784,7 @@ msgstr ""
 "<p>Kunne ikke åbne given index.xml da den angivne mappe ikke findes.<br />"
 "%1</p>"
 
-#: MainWindow/Window.cpp:1224
+#: MainWindow/Window.cpp:1225
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4793,7 +4793,7 @@ msgstr ""
 "<p>Den givne index-fil findes ikke, vil du oprette følgende fil?<br />%1/"
 "index.xml</p>"
 
-#: MainWindow/Window.cpp:1227
+#: MainWindow/Window.cpp:1228
 #, fuzzy, kde-format
 #| msgid ""
 #| "Use data from\n"
@@ -4804,7 +4804,7 @@ msgstr ""
 "Brug data fra\n"
 "databasen"
 
-#: MainWindow/Window.cpp:1255
+#: MainWindow/Window.cpp:1256
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4813,34 +4813,34 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1381 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Generelt"
 
-#: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1383 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Fremviser"
 
-#: MainWindow/Window.cpp:1383
+#: MainWindow/Window.cpp:1384
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Dato: "
 
-#: MainWindow/Window.cpp:1386
+#: MainWindow/Window.cpp:1387
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Beskrivelsesdialog"
 
-#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1388 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Miniaturevisning"
 
-#: MainWindow/Window.cpp:1533
+#: MainWindow/Window.cpp:1534
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4849,13 +4849,13 @@ msgstr ""
 "<p>Vil du virkelig aktivere alle beskedfelter hvor du tidligere markerede "
 "afkrydsningsfeltet vis-ikke-igen?</p>"
 
-#: MainWindow/Window.cpp:1535
+#: MainWindow/Window.cpp:1536
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1554
+#: MainWindow/Window.cpp:1555
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4872,32 +4872,32 @@ msgstr ""
 "kørslen, men det er ikke usandsynligt at det vil bryde sammen senerepga. "
 "manglende \"make install\".</p>"
 
-#: MainWindow/Window.cpp:1554
+#: MainWindow/Window.cpp:1555
 #, kde-format
 msgid "Internal Error"
 msgstr "Intern fejl"
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1566
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1568
+#: MainWindow/Window.cpp:1569
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1573
+#: MainWindow/Window.cpp:1574
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1636
+#: MainWindow/Window.cpp:1637
 #, kde-format
 msgid "Open List of Files"
 msgstr "Åbn liste over filer"
 
-#: MainWindow/Window.cpp:1637
+#: MainWindow/Window.cpp:1638
 #, fuzzy, kde-format
 #| msgid ""
 #| "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4909,30 +4909,30 @@ msgstr ""
 "Du kan åbne et sæt filer fra KPhotoAlbums billedrod ved at opliste filerne "
 "her."
 
-#: MainWindow/Window.cpp:1651
+#: MainWindow/Window.cpp:1652
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Ingen billeder som matcher dine input blev fundet."
 
-#: MainWindow/Window.cpp:1651
+#: MainWindow/Window.cpp:1652
 #, kde-format
 msgid "No Matches"
 msgstr "Ingen fund"
 
-#: MainWindow/Window.cpp:1823
+#: MainWindow/Window.cpp:1824
 #, fuzzy, kde-format
 #| msgid "Rereading EXIF information from all images"
 msgid "Rereading Exif information from all images"
 msgstr "Genlæser EXIF-information fra alle billeder"
 
-#: MainWindow/Window.cpp:1850
+#: MainWindow/Window.cpp:1851
 #, fuzzy, no-c-format, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Miniaturebilledstørrelse:"
 
-#: MainWindow/Window.cpp:1903
+#: MainWindow/Window.cpp:1904
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4940,7 +4940,7 @@ msgid ""
 "the ffmpeg package</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1906
+#: MainWindow/Window.cpp:1907
 #, fuzzy, kde-format
 #| msgid "File not available"
 msgid "Video thumbnails are not available"
@@ -6872,277 +6872,277 @@ msgstr "Titel"
 msgid "Existing Assignments"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:191
+#: Viewer/ViewerWidget.cpp:194
 #, fuzzy, kde-format
 #| msgid "Set as First Image in Stack"
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Sæt som første billede i stakken"
 
-#: Viewer/ViewerWidget.cpp:202
+#: Viewer/ViewerWidget.cpp:206
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "Eksportér/kopiér billeder..."
 
-#: Viewer/ViewerWidget.cpp:207
+#: Viewer/ViewerWidget.cpp:212
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "Eksportér/kopiér billeder..."
 
-#: Viewer/ViewerWidget.cpp:215
+#: Viewer/ViewerWidget.cpp:220
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Luk"
 
-#: Viewer/ViewerWidget.cpp:271
+#: Viewer/ViewerWidget.cpp:277
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Rotér"
 
-#: Viewer/ViewerWidget.cpp:282
+#: Viewer/ViewerWidget.cpp:288
 #, fuzzy, kde-format
 #| msgid "Rotate clockwise"
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "&Rotér med uret"
 
-#: Viewer/ViewerWidget.cpp:283
+#: Viewer/ViewerWidget.cpp:289
 #, fuzzy, kde-format
 #| msgid "Flip Over"
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Vend om"
 
-#: Viewer/ViewerWidget.cpp:284
+#: Viewer/ViewerWidget.cpp:290
 #, fuzzy, kde-format
 #| msgid "Rotate counterclockwise"
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Rotér &mod uret"
 
-#: Viewer/ViewerWidget.cpp:291
+#: Viewer/ViewerWidget.cpp:301
 #, fuzzy, kde-format
 #| msgid "Skip"
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Skip"
 
-#: Viewer/ViewerWidget.cpp:294
+#: Viewer/ViewerWidget.cpp:304
 #, fuzzy, kde-format
 #| msgid "First"
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "Første"
 
-#: Viewer/ViewerWidget.cpp:301
+#: Viewer/ViewerWidget.cpp:311
 #, fuzzy, kde-format
 #| msgid "Last"
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Seneste"
 
-#: Viewer/ViewerWidget.cpp:308
+#: Viewer/ViewerWidget.cpp:318
 #, fuzzy, kde-format
 #| msgid "Show Next"
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Vis næste"
 
-#: Viewer/ViewerWidget.cpp:314
+#: Viewer/ViewerWidget.cpp:324
 #, fuzzy, kde-format
 #| msgid "Skip 10 Forward"
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "Skip 10 frem"
 
-#: Viewer/ViewerWidget.cpp:320
+#: Viewer/ViewerWidget.cpp:330
 #, fuzzy, kde-format
 #| msgid "Skip 100 Forward"
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "Skip 100 frem"
 
-#: Viewer/ViewerWidget.cpp:326
+#: Viewer/ViewerWidget.cpp:336
 #, fuzzy, kde-format
 #| msgid "Skip 1000 Forward"
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "Skip 1000 frem"
 
-#: Viewer/ViewerWidget.cpp:332
+#: Viewer/ViewerWidget.cpp:342
 #, fuzzy, kde-format
 #| msgid "Show Previous"
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Vis forrige"
 
-#: Viewer/ViewerWidget.cpp:338
+#: Viewer/ViewerWidget.cpp:348
 #, fuzzy, kde-format
 #| msgid "Skip 10 Backward"
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "Skip 10 tilbage"
 
-#: Viewer/ViewerWidget.cpp:344
+#: Viewer/ViewerWidget.cpp:354
 #, fuzzy, kde-format
 #| msgid "Skip 100 Backward"
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "Skip 100 tilbage"
 
-#: Viewer/ViewerWidget.cpp:350
+#: Viewer/ViewerWidget.cpp:360
 #, fuzzy, kde-format
 #| msgid "Skip 1000 Backward"
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "Skip 1000 tilbage"
 
-#: Viewer/ViewerWidget.cpp:356
+#: Viewer/ViewerWidget.cpp:366
 #, fuzzy, kde-format
 #| msgid "Delete Image"
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Slet billede"
 
-#: Viewer/ViewerWidget.cpp:361
+#: Viewer/ViewerWidget.cpp:371
 #, fuzzy, kde-format
 #| msgid "Remove Image from Display List"
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Fjern billede fra visningslisten"
 
-#: Viewer/ViewerWidget.cpp:372
+#: Viewer/ViewerWidget.cpp:386
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Zoom"
 
-#: Viewer/ViewerWidget.cpp:376
+#: Viewer/ViewerWidget.cpp:390
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Zoom ind"
 
-#: Viewer/ViewerWidget.cpp:382
+#: Viewer/ViewerWidget.cpp:396
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Zoom ud"
 
-#: Viewer/ViewerWidget.cpp:388
+#: Viewer/ViewerWidget.cpp:402
 #, fuzzy, kde-format
 #| msgid "Full View"
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Fuld visning"
 
-#: Viewer/ViewerWidget.cpp:394
+#: Viewer/ViewerWidget.cpp:408
 #, fuzzy, kde-format
 #| msgid "Pixel for Pixel View"
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Pixel-for-pixel-visning"
 
-#: Viewer/ViewerWidget.cpp:400
+#: Viewer/ViewerWidget.cpp:414
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Slå fuldskærm til/fra"
 
-#: Viewer/ViewerWidget.cpp:410
+#: Viewer/ViewerWidget.cpp:425
 #, fuzzy, kde-format
 #| msgid "Slideshow"
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Diasshow"
 
-#: Viewer/ViewerWidget.cpp:413 Viewer/ViewerWidget.cpp:854
+#: Viewer/ViewerWidget.cpp:428 Viewer/ViewerWidget.cpp:879
 #, fuzzy, kde-format
 #| msgid "Run Slideshow"
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Kør diasshow"
 
-#: Viewer/ViewerWidget.cpp:418
+#: Viewer/ViewerWidget.cpp:433
 #, fuzzy, kde-format
 #| msgid "Run Faster"
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Kør hurtigere"
 
-#: Viewer/ViewerWidget.cpp:423
+#: Viewer/ViewerWidget.cpp:438
 #, fuzzy, kde-format
 #| msgid "Run Slower"
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Kør langsommere"
 
-#: Viewer/ViewerWidget.cpp:458
+#: Viewer/ViewerWidget.cpp:472
 #, kde-format
 msgid "File not available"
 msgstr "Filen er ikke tilgængelig"
 
-#: Viewer/ViewerWidget.cpp:508
+#: Viewer/ViewerWidget.cpp:506
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:543
+#: Viewer/ViewerWidget.cpp:541
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
 msgstr "Afspil"
 
-#: Viewer/ViewerWidget.cpp:545
+#: Viewer/ViewerWidget.cpp:543
 #, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Pause"
 
-#: Viewer/ViewerWidget.cpp:611
+#: Viewer/ViewerWidget.cpp:609
 #, fuzzy, kde-format
 #| msgid "Unlock"
 msgid "locked"
 msgstr "Lås op"
 
-#: Viewer/ViewerWidget.cpp:613
+#: Viewer/ViewerWidget.cpp:611
 #, fuzzy, kde-format
 #| msgid "Annotations"
 msgid "annotating"
 msgstr "Kommentarer"
 
-#: Viewer/ViewerWidget.cpp:615
+#: Viewer/ViewerWidget.cpp:613
 #, kde-format
 msgid "tokenizing"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:620
+#: Viewer/ViewerWidget.cpp:618
 #, kde-format
 msgid "Change display mode to %1"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:857
+#: Viewer/ViewerWidget.cpp:882
 #, fuzzy, kde-format
 #| msgid "Run Slideshow"
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
 msgstr "Kør diasshow"
 
-#: Viewer/ViewerWidget.cpp:860
+#: Viewer/ViewerWidget.cpp:885
 #, fuzzy, kde-format
 #| msgid "Stop Slideshow"
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Stop diasshow"
 
-#: Viewer/ViewerWidget.cpp:865
+#: Viewer/ViewerWidget.cpp:890
 #, fuzzy, kde-format
 #| msgid "<p><center><font size=\"+4\">Starting Slideshow</font></center></p>"
 msgctxt "OSD for slideshow"
@@ -7151,164 +7151,164 @@ msgid ""
 "slideshow slower"
 msgstr "<p><center><font size=\"+4\">Starter diasshow</font></center></p>"
 
-#: Viewer/ViewerWidget.cpp:915
+#: Viewer/ViewerWidget.cpp:940
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1158
+#: Viewer/ViewerWidget.cpp:1189
 #, fuzzy, kde-format
 #| msgid "Theme Description"
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "Beskrivelse af tema"
 
-#: Viewer/ViewerWidget.cpp:1158
+#: Viewer/ViewerWidget.cpp:1189
 #, fuzzy, kde-format
 #| msgid "Theme Description"
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "Beskrivelse af tema"
 
-#: Viewer/ViewerWidget.cpp:1173
+#: Viewer/ViewerWidget.cpp:1204
 #, fuzzy, kde-format
 #| msgid "Seek"
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Søge"
 
-#: Viewer/ViewerWidget.cpp:1194
+#: Viewer/ViewerWidget.cpp:1226
 #, fuzzy, kde-format
 #| msgid "10 minutes backward"
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "10 minutter tilbage"
 
-#: Viewer/ViewerWidget.cpp:1195
+#: Viewer/ViewerWidget.cpp:1227
 #, fuzzy, kde-format
 #| msgid "1 minute backward"
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "1 minut tilbage"
 
-#: Viewer/ViewerWidget.cpp:1196
+#: Viewer/ViewerWidget.cpp:1228
 #, fuzzy, kde-format
 #| msgid "10 seconds backward"
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "10 sekunder tilbage"
 
-#: Viewer/ViewerWidget.cpp:1197
+#: Viewer/ViewerWidget.cpp:1229
 #, fuzzy, kde-format
 #| msgid "1 seconds backward"
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "1 sekund tilbage"
 
-#: Viewer/ViewerWidget.cpp:1198
+#: Viewer/ViewerWidget.cpp:1230
 #, fuzzy, kde-format
 #| msgid "100 milliseconds backward"
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "100 millisekunder tilbage"
 
-#: Viewer/ViewerWidget.cpp:1199
+#: Viewer/ViewerWidget.cpp:1231
 #, fuzzy, kde-format
 #| msgid "100 milliseconds forward"
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "100 millisekunder frem"
 
-#: Viewer/ViewerWidget.cpp:1200
+#: Viewer/ViewerWidget.cpp:1232
 #, fuzzy, kde-format
 #| msgid "1 seconds forward"
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "1 sekund frem"
 
-#: Viewer/ViewerWidget.cpp:1201
+#: Viewer/ViewerWidget.cpp:1233
 #, fuzzy, kde-format
 #| msgid "10 seconds forward"
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "10 sekunder frem"
 
-#: Viewer/ViewerWidget.cpp:1202
+#: Viewer/ViewerWidget.cpp:1234
 #, fuzzy, kde-format
 #| msgid "1 minute forward"
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "1 minut frem"
 
-#: Viewer/ViewerWidget.cpp:1203
+#: Viewer/ViewerWidget.cpp:1235
 #, fuzzy, kde-format
 #| msgid "10 minutes forward"
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "10 minutter frem"
 
-#: Viewer/ViewerWidget.cpp:1211
+#: Viewer/ViewerWidget.cpp:1243
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Stop"
 
-#: Viewer/ViewerWidget.cpp:1224
+#: Viewer/ViewerWidget.cpp:1255
 #, fuzzy, kde-format
 #| msgid "Display categories in thumbnail view"
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Viser kategorier i miniaturevisningen"
 
-#: Viewer/ViewerWidget.cpp:1230
+#: Viewer/ViewerWidget.cpp:1262
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Genstart"
 
-#: Viewer/ViewerWidget.cpp:1245
+#: Viewer/ViewerWidget.cpp:1278
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Filtre"
 
-#: Viewer/ViewerWidget.cpp:1248
+#: Viewer/ViewerWidget.cpp:1281
 #, fuzzy, kde-format
 #| msgid "Remove All Filters"
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Fjern alle filtre"
 
-#: Viewer/ViewerWidget.cpp:1252
+#: Viewer/ViewerWidget.cpp:1285
 #, fuzzy, kde-format
 #| msgid "Apply Grayscale Filter"
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Anvend gråskalafilter"
 
-#: Viewer/ViewerWidget.cpp:1257
+#: Viewer/ViewerWidget.cpp:1290
 #, fuzzy, kde-format
 #| msgid "Apply Contrast Stretching Filter"
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Anvend kontraststrækningsfilter"
 
-#: Viewer/ViewerWidget.cpp:1262
+#: Viewer/ViewerWidget.cpp:1295
 #, fuzzy, kde-format
 #| msgid "Apply Histogram Equalization Filter"
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Anvend histogramudligningsfilter"
 
-#: Viewer/ViewerWidget.cpp:1267
+#: Viewer/ViewerWidget.cpp:1300
 #, fuzzy, kde-format
 #| msgid "Apply Monochrome Filter"
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Anvend monokromfilter"
 
-#: Viewer/ViewerWidget.cpp:1319
+#: Viewer/ViewerWidget.cpp:1356
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7316,121 +7316,121 @@ msgid ""
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1323
+#: Viewer/ViewerWidget.cpp:1360
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
 "will be used instead: <tt>%2</tt></p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1336
+#: Viewer/ViewerWidget.cpp:1373
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1400
+#: Viewer/ViewerWidget.cpp:1437
 #, fuzzy, kde-format
 #| msgid "Annotate..."
 msgid "Annotate"
 msgstr "Beskriv..."
 
-#: Viewer/ViewerWidget.cpp:1419
+#: Viewer/ViewerWidget.cpp:1456
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1421
+#: Viewer/ViewerWidget.cpp:1458
 #, fuzzy, kde-format
 #| msgid "Annotation Dialog"
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Beskrivelsesdialog"
 
-#: Viewer/ViewerWidget.cpp:1422
+#: Viewer/ViewerWidget.cpp:1459
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1422
+#: Viewer/ViewerWidget.cpp:1459
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1425
+#: Viewer/ViewerWidget.cpp:1462
 #, fuzzy, kde-format
 #| msgid "Copy tags from previous image"
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Kopiér mærker fra forrige billede"
 
-#: Viewer/ViewerWidget.cpp:1426
+#: Viewer/ViewerWidget.cpp:1463
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1429
+#: Viewer/ViewerWidget.cpp:1466
 #, fuzzy, kde-format
 #| msgid "Description"
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Beskrivelse"
 
-#: Viewer/ViewerWidget.cpp:1430
+#: Viewer/ViewerWidget.cpp:1467
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1433
+#: Viewer/ViewerWidget.cpp:1470
 #, fuzzy, kde-format
 #| msgid "Annotations"
 msgid "Annotation Mode"
 msgstr "Kommentarer"
 
-#: Viewer/ViewerWidget.cpp:1435
+#: Viewer/ViewerWidget.cpp:1472
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1436
+#: Viewer/ViewerWidget.cpp:1473
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1440
+#: Viewer/ViewerWidget.cpp:1477
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1441
+#: Viewer/ViewerWidget.cpp:1478
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1444
+#: Viewer/ViewerWidget.cpp:1481
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Symboler"
 
-#: Viewer/ViewerWidget.cpp:1445
+#: Viewer/ViewerWidget.cpp:1482
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:1592
+#: Viewer/ViewerWidget.cpp:1637
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgid "Token %1"

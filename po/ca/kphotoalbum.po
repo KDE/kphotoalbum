@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-14 00:40+0000\n"
+"POT-Creation-Date: 2023-10-15 00:40+0000\n"
 "PO-Revision-Date: 2023-10-13 16:13+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -415,12 +415,12 @@ msgstr "Diàleg d'acord"
 msgid "Copy tags from previous image"
 msgstr "Copia les etiquetes des de la imatge anterior"
 
-#: AnnotationDialog/Dialog.cpp:1323 MainWindow/Window.cpp:848
+#: AnnotationDialog/Dialog.cpp:1323 MainWindow/Window.cpp:849
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Gira en sentit antihorari"
 
-#: AnnotationDialog/Dialog.cpp:1326 MainWindow/Window.cpp:852
+#: AnnotationDialog/Dialog.cpp:1326 MainWindow/Window.cpp:853
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Gira en sentit horari"
@@ -973,7 +973,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "cerca"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1799
+#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -989,7 +989,7 @@ msgstr ""
 "icona de <b>Categories</b> </li><li>Configureu la secció <b>Imatges sense "
 "etiquetes</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1806
+#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Funcionalitats sense configurar"
@@ -2729,7 +2729,7 @@ msgid "Create folder?"
 msgstr "Creo la carpeta?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1231
+#: MainWindow/Window.cpp:1232
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3462,7 +3462,7 @@ msgstr "Mostra l'editor de categories"
 msgid "Make Category Image"
 msgstr "Crea una categoria d'imatges"
 
-#: MainWindow/CopyLinkEngine.cpp:37
+#: MainWindow/CopyLinkEngine.cpp:38
 #, kde-format
 msgctxt "@title:window"
 msgid "Copy image to ..."
@@ -3470,7 +3470,7 @@ msgid_plural "Copy images to ..."
 msgstr[0] "Copia la imatge a..."
 msgstr[1] "Copia les imatges a..."
 
-#: MainWindow/CopyLinkEngine.cpp:40
+#: MainWindow/CopyLinkEngine.cpp:41
 #, kde-format
 msgctxt "@title:window"
 msgid "Link image to ..."
@@ -4249,13 +4249,13 @@ msgid "Stacking Error"
 msgstr "Error en apilar"
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1429
+#: MainWindow/Window.cpp:1333 MainWindow/Window.cpp:1430
 #, kde-format
 msgid "No item is selected."
 msgstr "No hi ha cap element seleccionat."
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1332 MainWindow/Window.cpp:1430
+#: MainWindow/Window.cpp:1333 MainWindow/Window.cpp:1431
 #, kde-format
 msgid "No Selection"
 msgstr "Cap selecció"
@@ -4275,307 +4275,307 @@ msgstr "Desant... fet"
 msgid "There are no images to be shown."
 msgstr "No hi ha imatges a mostrar."
 
-#: MainWindow/Window.cpp:769 MainWindow/Window.cpp:898
+#: MainWindow/Window.cpp:770 MainWindow/Window.cpp:899
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "Limita la vista a la selecció"
 
-#: MainWindow/Window.cpp:770
+#: MainWindow/Window.cpp:771
 #, kde-format
 msgid "No images are selected!"
 msgstr "No s'ha seleccionat cap imatge!"
 
-#: MainWindow/Window.cpp:783
+#: MainWindow/Window.cpp:784
 #, kde-format
 msgid "Generate HTML..."
 msgstr "Genera l'HTML..."
 
-#: MainWindow/Window.cpp:787
+#: MainWindow/Window.cpp:788
 #, kde-format
 msgid "Import..."
 msgstr "Importa..."
 
-#: MainWindow/Window.cpp:790
+#: MainWindow/Window.cpp:791
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Exporta/copia les imatges..."
 
-#: MainWindow/Window.cpp:817
+#: MainWindow/Window.cpp:818
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Suprimeix la selecció"
 
-#: MainWindow/Window.cpp:823
+#: MainWindow/Window.cpp:824
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "Elimina els símbols..."
 
-#: MainWindow/Window.cpp:826
+#: MainWindow/Window.cpp:827
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Obre la llista de fitxers..."
 
-#: MainWindow/Window.cpp:829
+#: MainWindow/Window.cpp:830
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Anota elements individuals"
 
-#: MainWindow/Window.cpp:833
+#: MainWindow/Window.cpp:834
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Anota múltiples elements a la vegada"
 
-#: MainWindow/Window.cpp:837
+#: MainWindow/Window.cpp:838
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Fusiona les imatges en una pila"
 
-#: MainWindow/Window.cpp:841
+#: MainWindow/Window.cpp:842
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Elimina les imatges d'una pila"
 
-#: MainWindow/Window.cpp:844
+#: MainWindow/Window.cpp:845
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Estableix com a primera imatge en una pila"
 
-#: MainWindow/Window.cpp:857
+#: MainWindow/Window.cpp:858
 #, kde-format
 msgid "View"
 msgstr "Visualitza"
 
-#: MainWindow/Window.cpp:860
+#: MainWindow/Window.cpp:861
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Visualitza (en una finestra nova)"
 
-#: MainWindow/Window.cpp:863
+#: MainWindow/Window.cpp:864
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Executa la presentació de diapositives"
 
-#: MainWindow/Window.cpp:868
+#: MainWindow/Window.cpp:869
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Executa la presentació aleatòria de diapositives"
 
-#: MainWindow/Window.cpp:874
+#: MainWindow/Window.cpp:875
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Redueix totes les piles"
 
-#: MainWindow/Window.cpp:880
+#: MainWindow/Window.cpp:881
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Expandeix totes les piles"
 
-#: MainWindow/Window.cpp:885
+#: MainWindow/Window.cpp:886
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Mostra primer la més &antiga"
 
-#: MainWindow/Window.cpp:890
+#: MainWindow/Window.cpp:891
 #, kde-format
 msgid "Show &Newest First"
 msgstr "Mostra primer la més &nova"
 
-#: MainWindow/Window.cpp:895
+#: MainWindow/Window.cpp:896
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Ordena les seleccionades per data i hora"
 
-#: MainWindow/Window.cpp:901
+#: MainWindow/Window.cpp:902
 #, kde-format
 msgid "Jump to Context"
 msgstr "Ves al context"
 
-#: MainWindow/Window.cpp:907
+#: MainWindow/Window.cpp:908
 #, kde-format
 msgid "Lock Images"
 msgstr "Bloqueja les imatges"
 
-#: MainWindow/Window.cpp:911
+#: MainWindow/Window.cpp:912
 #, kde-format
 msgid "Unlock"
 msgstr "Desbloqueja"
 
-#: MainWindow/Window.cpp:914
+#: MainWindow/Window.cpp:915
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Bloqueja tots els altres elements"
 
-#: MainWindow/Window.cpp:917
+#: MainWindow/Window.cpp:918
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Bloqueja el conjunt actual d'elements"
 
-#: MainWindow/Window.cpp:920
+#: MainWindow/Window.cpp:921
 #, kde-format
 msgid "Configure Current View"
 msgstr "Configura la vista actual"
 
-#: MainWindow/Window.cpp:932
+#: MainWindow/Window.cpp:933
 #, kde-format
 msgid "Tree"
 msgstr "Arbre"
 
-#: MainWindow/Window.cpp:937
+#: MainWindow/Window.cpp:938
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Arbre amb icones d'usuari"
 
-#: MainWindow/Window.cpp:942
+#: MainWindow/Window.cpp:943
 #, kde-format
 msgid "Icons"
 msgstr "Icones"
 
-#: MainWindow/Window.cpp:949
+#: MainWindow/Window.cpp:950
 #, kde-format
 msgid "Use natural sort order"
 msgstr "Usa el criteri d'ordenació natural"
 
-#: MainWindow/Window.cpp:959
+#: MainWindow/Window.cpp:960
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Mostra la informació emergent a la finestra de miniatures"
 
-#: MainWindow/Window.cpp:964
+#: MainWindow/Window.cpp:965
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
 msgstr "Mostra les etiquetes en la finestra de miniatures"
 
-#: MainWindow/Window.cpp:974
+#: MainWindow/Window.cpp:975
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
 msgstr "Mostra les categories en la finestra de miniatures"
 
-#: MainWindow/Window.cpp:995
+#: MainWindow/Window.cpp:996
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "Trieu l'esquema de color"
 
-#: MainWindow/Window.cpp:1006
+#: MainWindow/Window.cpp:1007
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Mostra les imatges i vídeos de fora del disc"
 
-#: MainWindow/Window.cpp:1009
+#: MainWindow/Window.cpp:1010
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Mostra les imatges i vídeos amb dates incompletes..."
 
-#: MainWindow/Window.cpp:1012
+#: MainWindow/Window.cpp:1013
 #, kde-format
 msgid "Merge duplicates"
 msgstr "Combina els duplicats"
 
-#: MainWindow/Window.cpp:1014 MainWindow/Window.cpp:1071
+#: MainWindow/Window.cpp:1015 MainWindow/Window.cpp:1072
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Actualitza les miniatures seleccionades i les sumes de verificació"
 
-#: MainWindow/Window.cpp:1018
+#: MainWindow/Window.cpp:1019
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Torna a explorar les imatges i vídeos"
 
-#: MainWindow/Window.cpp:1021
+#: MainWindow/Window.cpp:1022
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Torna a crear la base de dades de la cerca Exif"
 
-#: MainWindow/Window.cpp:1024
+#: MainWindow/Window.cpp:1025
 #, kde-format
 msgid "Read Exif Info from Files..."
 msgstr "Llegeix la informació Exif des dels fitxers..."
 
-#: MainWindow/Window.cpp:1027
+#: MainWindow/Window.cpp:1028
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Ordena-ho tot per data i hora"
 
-#: MainWindow/Window.cpp:1031
+#: MainWindow/Window.cpp:1032
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Apila automàticament les imatges seleccionades..."
 
-#: MainWindow/Window.cpp:1034
+#: MainWindow/Window.cpp:1035
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Construeix les miniatures"
 
-#: MainWindow/Window.cpp:1037
+#: MainWindow/Window.cpp:1038
 #, kde-format
 msgid "Statistics..."
 msgstr "Estadístiques..."
 
-#: MainWindow/Window.cpp:1041
+#: MainWindow/Window.cpp:1042
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Marca com a sense etiqueta"
 
-#: MainWindow/Window.cpp:1050
+#: MainWindow/Window.cpp:1051
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Habilita tots els missatges"
 
-#: MainWindow/Window.cpp:1058
+#: MainWindow/Window.cpp:1059
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Executa la demostració del KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1061
+#: MainWindow/Window.cpp:1062
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "Estat de les funcionalitats del KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1064
+#: MainWindow/Window.cpp:1065
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Mostra els vídeos de demostració"
 
-#: MainWindow/Window.cpp:1068 Viewer/ViewerWidget.cpp:196
+#: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:200
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Mostra la informació Exif i les metadades de fitxer"
 
-#: MainWindow/Window.cpp:1074
+#: MainWindow/Window.cpp:1075
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Usa la miniatura de vídeo següent"
 
-#: MainWindow/Window.cpp:1078
+#: MainWindow/Window.cpp:1079
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Usa la miniatura de vídeo anterior"
 
-#: MainWindow/Window.cpp:1082 MainWindow/Window.cpp:1310
+#: MainWindow/Window.cpp:1083 MainWindow/Window.cpp:1311
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Copia la imatge a..."
 msgstr[1] "Copia les imatges a..."
 
-#: MainWindow/Window.cpp:1086 MainWindow/Window.cpp:1314
+#: MainWindow/Window.cpp:1087 MainWindow/Window.cpp:1315
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "Enllaça la imatge a..."
 msgstr[1] "Enllaça les imatges a..."
 
-#: MainWindow/Window.cpp:1112
+#: MainWindow/Window.cpp:1113
 #, kde-format
 msgid "Auto saving...."
 msgstr "S'està desant automàticament..."
 
-#: MainWindow/Window.cpp:1115
+#: MainWindow/Window.cpp:1116
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Desant automàticament... fet"
 
-#: MainWindow/Window.cpp:1217
+#: MainWindow/Window.cpp:1218
 #, kde-format
 msgid ""
 "<p>Could not open given index.xml, as the provided folder does not exist."
@@ -4584,7 +4584,7 @@ msgstr ""
 "<p>No s'ha pogut obrir l'index.xml indicat perquè la carpeta subministrada "
 "no existeix.<br />%1</p>"
 
-#: MainWindow/Window.cpp:1224
+#: MainWindow/Window.cpp:1225
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4593,13 +4593,13 @@ msgstr ""
 "<p>Atès que l'índex de fitxer no existeix, el voleu crear tot seguit?<br />"
 "%1/index.xml</p>"
 
-#: MainWindow/Window.cpp:1227
+#: MainWindow/Window.cpp:1228
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Creació d'una base de dades"
 
-#: MainWindow/Window.cpp:1255
+#: MainWindow/Window.cpp:1256
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4613,33 +4613,33 @@ msgstr ""
 "«<interface>Arranjament -> Configura el KPhotoAlbum... -> Categories</"
 "interface>»</p>"
 
-#: MainWindow/Window.cpp:1381 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "General"
 
-#: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1383 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Visualitzador"
 
-#: MainWindow/Window.cpp:1383
+#: MainWindow/Window.cpp:1384
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Barra de dates"
 
-#: MainWindow/Window.cpp:1386
+#: MainWindow/Window.cpp:1387
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Diàleg d'anotacions"
 
-#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1388 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Vista de miniatures"
 
-#: MainWindow/Window.cpp:1533
+#: MainWindow/Window.cpp:1534
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4648,13 +4648,13 @@ msgstr ""
 "<p>De debò habilito tots els quadres de missatge encara que abans heu marcat "
 "la casella de selecció de no mostrar-los una altra vegada?</p>"
 
-#: MainWindow/Window.cpp:1535
+#: MainWindow/Window.cpp:1536
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Restableix els diàlegs ocults"
 
-#: MainWindow/Window.cpp:1554
+#: MainWindow/Window.cpp:1555
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4671,34 +4671,34 @@ msgstr ""
 "continuarà executant-se, però probablement fallarà més endavant, ja que "
 "manca el «make install».</p>"
 
-#: MainWindow/Window.cpp:1554
+#: MainWindow/Window.cpp:1555
 #, kde-format
 msgid "Internal Error"
 msgstr "Error intern"
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1566
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 "La/es imatge/s s'ha/n compartit correctament. Es copia la ubicació al porta-"
 "retalls..."
 
-#: MainWindow/Window.cpp:1568
+#: MainWindow/Window.cpp:1569
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "La/es imatge/s s'ha/n compartit correctament."
 
-#: MainWindow/Window.cpp:1573
+#: MainWindow/Window.cpp:1574
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Ha fallat la compartició de la imatge amb el missatge: %1"
 
-#: MainWindow/Window.cpp:1636
+#: MainWindow/Window.cpp:1637
 #, kde-format
 msgid "Open List of Files"
 msgstr "Obre la llista de fitxers"
 
-#: MainWindow/Window.cpp:1637
+#: MainWindow/Window.cpp:1638
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4707,28 +4707,28 @@ msgstr ""
 "Podeu obrir un conjunt de fitxers en la base de dades del KPhotoAlbum en "
 "llistar aquí els fitxers."
 
-#: MainWindow/Window.cpp:1651
+#: MainWindow/Window.cpp:1652
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "No s'ha trobat cap imatge que coincideixi amb la vostra entrada."
 
-#: MainWindow/Window.cpp:1651
+#: MainWindow/Window.cpp:1652
 #, kde-format
 msgid "No Matches"
 msgstr "Sense coincidències"
 
-#: MainWindow/Window.cpp:1823
+#: MainWindow/Window.cpp:1824
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "S'està tornant a llegir la informació Exif des de totes les imatges"
 
-#: MainWindow/Window.cpp:1850
+#: MainWindow/Window.cpp:1851
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Amplada de la miniatura: %1px (mida de l'emmagatzematge: %2px)"
 
-#: MainWindow/Window.cpp:1903
+#: MainWindow/Window.cpp:1904
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4739,7 +4739,7 @@ msgstr ""
 "KPhotoAlbum no podrà mostrar miniatures de vídeos ni la durada de vídeos. Si "
 "us plau, instal·leu el paquet «ffmpeg»</p>"
 
-#: MainWindow/Window.cpp:1906
+#: MainWindow/Window.cpp:1907
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Les miniatures de vídeo no estan disponibles"
@@ -6722,248 +6722,248 @@ msgstr "Títol"
 msgid "Existing Assignments"
 msgstr "Assignacions existents"
 
-#: Viewer/ViewerWidget.cpp:191
+#: Viewer/ViewerWidget.cpp:194
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Estableix com a primera imatge en una pila"
 
-#: Viewer/ViewerWidget.cpp:202
+#: Viewer/ViewerWidget.cpp:206
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "Copia la imatge a..."
 
-#: Viewer/ViewerWidget.cpp:207
+#: Viewer/ViewerWidget.cpp:212
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "Enllaça la imatge a..."
 
-#: Viewer/ViewerWidget.cpp:215
+#: Viewer/ViewerWidget.cpp:220
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Tanca"
 
-#: Viewer/ViewerWidget.cpp:271
+#: Viewer/ViewerWidget.cpp:277
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Gira"
 
-#: Viewer/ViewerWidget.cpp:282
+#: Viewer/ViewerWidget.cpp:288
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "Gira en sentit horari"
 
-#: Viewer/ViewerWidget.cpp:283
+#: Viewer/ViewerWidget.cpp:289
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Invertir"
 
-#: Viewer/ViewerWidget.cpp:284
+#: Viewer/ViewerWidget.cpp:290
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Gira en sentit antihorari"
 
-#: Viewer/ViewerWidget.cpp:291
+#: Viewer/ViewerWidget.cpp:301
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Salta"
 
-#: Viewer/ViewerWidget.cpp:294
+#: Viewer/ViewerWidget.cpp:304
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "Primera"
 
-#: Viewer/ViewerWidget.cpp:301
+#: Viewer/ViewerWidget.cpp:311
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Última"
 
-#: Viewer/ViewerWidget.cpp:308
+#: Viewer/ViewerWidget.cpp:318
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Mostra la següent"
 
-#: Viewer/ViewerWidget.cpp:314
+#: Viewer/ViewerWidget.cpp:324
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "Salta 10 cap endavant"
 
-#: Viewer/ViewerWidget.cpp:320
+#: Viewer/ViewerWidget.cpp:330
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "Salta 100 cap endavant"
 
-#: Viewer/ViewerWidget.cpp:326
+#: Viewer/ViewerWidget.cpp:336
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "Salta 1000 cap endavant"
 
-#: Viewer/ViewerWidget.cpp:332
+#: Viewer/ViewerWidget.cpp:342
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Mostra l'anterior"
 
-#: Viewer/ViewerWidget.cpp:338
+#: Viewer/ViewerWidget.cpp:348
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "Salta 10 cap enrere"
 
-#: Viewer/ViewerWidget.cpp:344
+#: Viewer/ViewerWidget.cpp:354
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "Salta 100 cap enrere"
 
-#: Viewer/ViewerWidget.cpp:350
+#: Viewer/ViewerWidget.cpp:360
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "Salta 1000 cap enrere"
 
-#: Viewer/ViewerWidget.cpp:356
+#: Viewer/ViewerWidget.cpp:366
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Suprimeix la imatge"
 
-#: Viewer/ViewerWidget.cpp:361
+#: Viewer/ViewerWidget.cpp:371
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Elimina les imatges de la llista de visualització"
 
-#: Viewer/ViewerWidget.cpp:372
+#: Viewer/ViewerWidget.cpp:386
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Zoom"
 
-#: Viewer/ViewerWidget.cpp:376
+#: Viewer/ViewerWidget.cpp:390
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Amplia"
 
-#: Viewer/ViewerWidget.cpp:382
+#: Viewer/ViewerWidget.cpp:396
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Redueix"
 
-#: Viewer/ViewerWidget.cpp:388
+#: Viewer/ViewerWidget.cpp:402
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Mida completa"
 
-#: Viewer/ViewerWidget.cpp:394
+#: Viewer/ViewerWidget.cpp:408
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Mida original"
 
-#: Viewer/ViewerWidget.cpp:400
+#: Viewer/ViewerWidget.cpp:414
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Commuta a pantalla completa"
 
-#: Viewer/ViewerWidget.cpp:410
+#: Viewer/ViewerWidget.cpp:425
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Presentació de diapositives"
 
-#: Viewer/ViewerWidget.cpp:413 Viewer/ViewerWidget.cpp:854
+#: Viewer/ViewerWidget.cpp:428 Viewer/ViewerWidget.cpp:879
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Executa la presentació de diapositives"
 
-#: Viewer/ViewerWidget.cpp:418
+#: Viewer/ViewerWidget.cpp:433
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Més ràpid"
 
-#: Viewer/ViewerWidget.cpp:423
+#: Viewer/ViewerWidget.cpp:438
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Més lent"
 
-#: Viewer/ViewerWidget.cpp:458
+#: Viewer/ViewerWidget.cpp:472
 #, kde-format
 msgid "File not available"
 msgstr "Fitxer no disponible"
 
-#: Viewer/ViewerWidget.cpp:508
+#: Viewer/ViewerWidget.cpp:506
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
 msgstr "%1 %2"
 
-#: Viewer/ViewerWidget.cpp:543
+#: Viewer/ViewerWidget.cpp:541
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
 msgstr "Reprodueix"
 
-#: Viewer/ViewerWidget.cpp:545
+#: Viewer/ViewerWidget.cpp:543
 #, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Pausa"
 
-#: Viewer/ViewerWidget.cpp:611
+#: Viewer/ViewerWidget.cpp:609
 #, kde-format
 msgid "locked"
 msgstr "bloquejat"
 
-#: Viewer/ViewerWidget.cpp:613
+#: Viewer/ViewerWidget.cpp:611
 #, kde-format
 msgid "annotating"
 msgstr "anotació"
 
-#: Viewer/ViewerWidget.cpp:615
+#: Viewer/ViewerWidget.cpp:613
 #, kde-format
 msgid "tokenizing"
 msgstr "creació de símbols"
 
-#: Viewer/ViewerWidget.cpp:620
+#: Viewer/ViewerWidget.cpp:618
 #, kde-format
 msgid "Change display mode to %1"
 msgstr "Canvia el mode de visualització a %1"
 
-#: Viewer/ViewerWidget.cpp:857
+#: Viewer/ViewerWidget.cpp:882
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
 msgstr "Finalització de la presentació de diapositives"
 
-#: Viewer/ViewerWidget.cpp:860
+#: Viewer/ViewerWidget.cpp:885
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Atura la presentació de diapositives"
 
-#: Viewer/ViewerWidget.cpp:865
+#: Viewer/ViewerWidget.cpp:890
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
@@ -6973,145 +6973,145 @@ msgstr ""
 "Inici de presentació de diapositives<br/>%1 accelera la presentació de "
 "diapositives<br/>%2 alenteix la presentació de diapositives"
 
-#: Viewer/ViewerWidget.cpp:915
+#: Viewer/ViewerWidget.cpp:940
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr "%1&nbsp;s"
 
-#: Viewer/ViewerWidget.cpp:1158
+#: Viewer/ViewerWidget.cpp:1189
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "Edició de la descripció d'imatges"
 
-#: Viewer/ViewerWidget.cpp:1158
+#: Viewer/ViewerWidget.cpp:1189
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "Descripció de la imatge"
 
-#: Viewer/ViewerWidget.cpp:1173
+#: Viewer/ViewerWidget.cpp:1204
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Cerca"
 
-#: Viewer/ViewerWidget.cpp:1194
+#: Viewer/ViewerWidget.cpp:1226
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "10 minuts enrere"
 
-#: Viewer/ViewerWidget.cpp:1195
+#: Viewer/ViewerWidget.cpp:1227
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "1 minut enrere"
 
-#: Viewer/ViewerWidget.cpp:1196
+#: Viewer/ViewerWidget.cpp:1228
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "10 segons enrere"
 
-#: Viewer/ViewerWidget.cpp:1197
+#: Viewer/ViewerWidget.cpp:1229
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "1 segon enrere"
 
-#: Viewer/ViewerWidget.cpp:1198
+#: Viewer/ViewerWidget.cpp:1230
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "100 mil·lisegons enrere"
 
-#: Viewer/ViewerWidget.cpp:1199
+#: Viewer/ViewerWidget.cpp:1231
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "100 mil·lisegons endavant"
 
-#: Viewer/ViewerWidget.cpp:1200
+#: Viewer/ViewerWidget.cpp:1232
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "1 segon endavant"
 
-#: Viewer/ViewerWidget.cpp:1201
+#: Viewer/ViewerWidget.cpp:1233
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "10 segons endavant"
 
-#: Viewer/ViewerWidget.cpp:1202
+#: Viewer/ViewerWidget.cpp:1234
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "1 minut endavant"
 
-#: Viewer/ViewerWidget.cpp:1203
+#: Viewer/ViewerWidget.cpp:1235
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "10 minuts endavant"
 
-#: Viewer/ViewerWidget.cpp:1211
+#: Viewer/ViewerWidget.cpp:1243
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Atura"
 
-#: Viewer/ViewerWidget.cpp:1224
+#: Viewer/ViewerWidget.cpp:1255
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Usa el fotograma actual en la vista de miniatures"
 
-#: Viewer/ViewerWidget.cpp:1230
+#: Viewer/ViewerWidget.cpp:1262
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Reinicia"
 
-#: Viewer/ViewerWidget.cpp:1245
+#: Viewer/ViewerWidget.cpp:1278
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Filtres"
 
-#: Viewer/ViewerWidget.cpp:1248
+#: Viewer/ViewerWidget.cpp:1281
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Elimina tots els filtres"
 
-#: Viewer/ViewerWidget.cpp:1252
+#: Viewer/ViewerWidget.cpp:1285
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Aplica el filtre d'escala de grisos"
 
-#: Viewer/ViewerWidget.cpp:1257
+#: Viewer/ViewerWidget.cpp:1290
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Aplica el filtre d'estirament del contrast"
 
-#: Viewer/ViewerWidget.cpp:1262
+#: Viewer/ViewerWidget.cpp:1295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Aplica el filtre d'equalització de l'histograma"
 
-#: Viewer/ViewerWidget.cpp:1267
+#: Viewer/ViewerWidget.cpp:1300
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Aplica el filtre monocrom"
 
-#: Viewer/ViewerWidget.cpp:1319
+#: Viewer/ViewerWidget.cpp:1356
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7123,7 +7123,7 @@ msgstr ""
 "reproductors de vídeo.</p><p>Premeu <i>Continua</i> per permetre que el "
 "KPhotoAlbum provi un dorsal diferent...</p>"
 
-#: Viewer/ViewerWidget.cpp:1323
+#: Viewer/ViewerWidget.cpp:1360
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -7132,7 +7132,7 @@ msgstr ""
 "<p>Dorsal de vídeo que s'ha interromput: <tt>%1</tt></p><p>Dorsal de vídeo "
 "que s'usarà en el seu lloc: <tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1336
+#: Viewer/ViewerWidget.cpp:1373
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
@@ -7142,101 +7142,101 @@ msgstr ""
 "cadascun ha fallat en algun punt.</p><p>La detecció de fallades s'ha "
 "desactivat.</p>"
 
-#: Viewer/ViewerWidget.cpp:1400
+#: Viewer/ViewerWidget.cpp:1437
 #, kde-format
 msgid "Annotate"
 msgstr "Anota"
 
-#: Viewer/ViewerWidget.cpp:1419
+#: Viewer/ViewerWidget.cpp:1456
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "Ajuda"
 
-#: Viewer/ViewerWidget.cpp:1421
+#: Viewer/ViewerWidget.cpp:1458
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Diàleg d'anotacions"
 
-#: Viewer/ViewerWidget.cpp:1422
+#: Viewer/ViewerWidget.cpp:1459
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Afegeix una etiqueta"
 
-#: Viewer/ViewerWidget.cpp:1422
+#: Viewer/ViewerWidget.cpp:1459
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "CTRL+a"
 
-#: Viewer/ViewerWidget.cpp:1425
+#: Viewer/ViewerWidget.cpp:1462
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Copia les dades a partir de la imatge anterior"
 
-#: Viewer/ViewerWidget.cpp:1426
+#: Viewer/ViewerWidget.cpp:1463
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "CTRL+c"
 
-#: Viewer/ViewerWidget.cpp:1429
+#: Viewer/ViewerWidget.cpp:1466
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Edita la descripció"
 
-#: Viewer/ViewerWidget.cpp:1430
+#: Viewer/ViewerWidget.cpp:1467
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "CTRL+d"
 
-#: Viewer/ViewerWidget.cpp:1433
+#: Viewer/ViewerWidget.cpp:1470
 #, kde-format
 msgid "Annotation Mode"
 msgstr "Mode d'anotació"
 
-#: Viewer/ViewerWidget.cpp:1435
+#: Viewer/ViewerWidget.cpp:1472
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "Bloquejat"
 
-#: Viewer/ViewerWidget.cpp:1436
+#: Viewer/ViewerWidget.cpp:1473
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "CTRL+l"
 
-#: Viewer/ViewerWidget.cpp:1440
+#: Viewer/ViewerWidget.cpp:1477
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "Assigna etiquetes"
 
-#: Viewer/ViewerWidget.cpp:1441
+#: Viewer/ViewerWidget.cpp:1478
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1444
+#: Viewer/ViewerWidget.cpp:1481
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Assigna símbols"
 
-#: Viewer/ViewerWidget.cpp:1445
+#: Viewer/ViewerWidget.cpp:1482
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "CTRL+t"
 
-#: Viewer/ViewerWidget.cpp:1592
+#: Viewer/ViewerWidget.cpp:1637
 #, kde-format
 msgid "Token %1"
 msgstr "Símbol %1"

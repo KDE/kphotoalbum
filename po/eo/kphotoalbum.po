@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-15 00:40+0000\n"
-"PO-Revision-Date: 2023-10-14 21:40+0100\n"
+"PO-Revision-Date: 2023-10-15 10:42+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -31,7 +31,7 @@ msgstr "axel@esperanto-jeunes.org,okellogg@users.sourceforge.net"
 #: AnnotationDialog/AreaTagSelectDialog.cpp:91
 #, kde-format
 msgid "Tag is already used for another area"
-msgstr ""
+msgstr "Etikedo jam estas uzata por alia areo"
 
 #: AnnotationDialog/DateEdit.cpp:69
 #, kde-format
@@ -54,16 +54,18 @@ msgid ""
 "(You have differing descriptions on individual images, setting text here "
 "will override them all)"
 msgstr ""
+"(Vi havas malsamajn priskribojn pri unuopaj bildoj, agordi tekston ĉi tie "
+"anstataŭigos ilin ĉiujn)"
 
 #: AnnotationDialog/Dialog.cpp:130
 #, kde-format
 msgid "Label and Dates"
-msgstr ""
+msgstr "Etikedo kaj Datoj"
 
 #: AnnotationDialog/Dialog.cpp:132
 #, kde-format
 msgid "Image Preview"
-msgstr ""
+msgstr "Bilda Antaŭrigardo"
 
 #: AnnotationDialog/Dialog.cpp:136 AnnotationDialog/Dialog.cpp:145
 #: HTMLGenerator/HTMLDialog.cpp:143 ImportExport/MD5CheckPage.cpp:66
@@ -80,6 +82,10 @@ msgid ""
 "KPhotoAlbum...|General</interface>, a description embedded in the image Exif "
 "information is imported to this field if available.</para>"
 msgstr ""
+"<para>Priskriba teksto de la bildo.</para><para >Se <emphasis>Uzu Exif-"
+"priskribon</emphasis> estas ebligita sub <interface>Agordoj|Agordi "
+"KPhotoAlbum...|Ĝenerala</interface>, priskribo enigita en la bildo Exif-"
+"informoj estas importitaj al ĉi tiu kampo se disponebla.</para>"
 
 #: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:397
 #, kde-format
@@ -98,31 +104,33 @@ msgid ""
 "The map widget allows you to view the location of images if GPS coordinates "
 "are found in the Exif information."
 msgstr ""
+"La mapfenestraĵo permesas al vi vidi la lokon de bildoj se GPS-koordinatoj "
+"troviĝas en la Exif-informoj."
 
 #: AnnotationDialog/Dialog.cpp:227
 #, kde-format
 msgid "Revert This Item"
-msgstr ""
+msgstr "Reverti Ĉi tiun Eron"
 
 #: AnnotationDialog/Dialog.cpp:233
 #, kde-format
 msgid "Clear Form"
-msgstr ""
+msgstr "Viŝi Formularon"
 
 #: AnnotationDialog/Dialog.cpp:237
 #, kde-format
 msgid "Options..."
-msgstr ""
+msgstr "Opcioj..."
 
 #: AnnotationDialog/Dialog.cpp:243
 #, kde-format
 msgid "&Done"
-msgstr ""
+msgstr "&Farita"
 
 #: AnnotationDialog/Dialog.cpp:246
 #, kde-format
 msgid "Continue &Later"
-msgstr ""
+msgstr "Daŭrigu &Poste"
 
 #: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:833
 #, kde-format
@@ -153,7 +161,7 @@ msgstr "Tempo: "
 #: AnnotationDialog/Dialog.cpp:355
 #, kde-format
 msgid "Use Fuzzy Date"
-msgstr ""
+msgstr "Uzi Fuzzy-Daton"
 
 #: AnnotationDialog/Dialog.cpp:357
 #, kde-format
@@ -166,16 +174,22 @@ msgid ""
 "the photo comes from an analog camera), then you should set <interface>Use "
 "Fuzzy Date</interface>.</para>"
 msgstr ""
+"<para>En KPhotoAlbum, bildoj povas aŭ havi precizan daton kaj horon, aŭ "
+"<emphasis>malklaran</emphasis> daton kiu okazis iam ajn dum difinita "
+"tempintervalo. Bildoj produktitaj de ciferecaj fotiloj kutime havas precizan "
+"daton.</para><para >Se vi ne scias ĝuste kiam foto estis farita (ekz. se la "
+"foto venas de analoga fotilo), tiam vi devus agordi <interface> Uzu Fuzzy "
+"Date</interface>.</para>"
 
 #: AnnotationDialog/Dialog.cpp:372
 #, kde-format
 msgid "Minimum megapixels:"
-msgstr ""
+msgstr "Minimumaj megarastrumeroj:"
 
 #: AnnotationDialog/Dialog.cpp:382
 #, kde-format
 msgid "Maximum megapixels:"
-msgstr ""
+msgstr "Maksimumaj megarastrumeroj:"
 
 #: AnnotationDialog/Dialog.cpp:395
 #, kde-format
@@ -185,7 +199,7 @@ msgstr "Noto:"
 #: AnnotationDialog/Dialog.cpp:403
 #, kde-format
 msgid "Rating search mode:"
-msgstr ""
+msgstr "Taksa serĉreĝimo:"
 
 #: AnnotationDialog/Dialog.cpp:407
 #, kde-format
@@ -195,12 +209,12 @@ msgstr "=="
 #: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid ">="
-msgstr ""
+msgstr ">="
 
 #: AnnotationDialog/Dialog.cpp:407
 #, kde-format
 msgid "<="
-msgstr ""
+msgstr "<="
 
 #: AnnotationDialog/Dialog.cpp:407
 #, kde-format
@@ -210,23 +224,23 @@ msgstr "!="
 #: AnnotationDialog/Dialog.cpp:415
 #, kde-format
 msgid "File Name Pattern: "
-msgstr ""
+msgstr "Dosiernoma Ŝablono:"
 
 #: AnnotationDialog/Dialog.cpp:418
 #, kde-format
 msgid "File Name Pattern"
-msgstr ""
+msgstr "Dosiernoma Ŝablono"
 
 #: AnnotationDialog/Dialog.cpp:423
 #, kde-format
 msgid "Search only for RAW files"
-msgstr ""
+msgstr "Serĉi nur RAW-dosierojn"
 
 #: AnnotationDialog/Dialog.cpp:613
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
-msgstr ""
+msgstr "Komentarioj (%1/%2)"
 
 #: AnnotationDialog/Dialog.cpp:838
 #, kde-format
@@ -248,54 +262,54 @@ msgstr "Komentarioj"
 #: AnnotationDialog/Dialog.cpp:880
 #, kde-format
 msgid "Configure Window Layout..."
-msgstr ""
+msgstr "Agordi Fenestran Aranĝon..."
 
 #: AnnotationDialog/Dialog.cpp:881
 #, kde-format
 msgid "Save Current Window Setup"
-msgstr ""
+msgstr "Konservi Agordon de Aktuala Fenestro"
 
 #: AnnotationDialog/Dialog.cpp:882
 #, kde-format
 msgid "Reset layout"
-msgstr ""
+msgstr "Restarigi aranĝon"
 
 #: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1288
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
-msgstr ""
+msgstr "Ordigi Alfabete (Arbo)"
 
 #: AnnotationDialog/Dialog.cpp:893 AnnotationDialog/Dialog.cpp:1292
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
-msgstr ""
+msgstr "Ordigi Alfabete (Ebena)"
 
 #: AnnotationDialog/Dialog.cpp:897
 #, kde-format
 msgid "Sort by Date"
-msgstr ""
+msgstr "Ordigi laŭ Dato"
 
 #: AnnotationDialog/Dialog.cpp:913
 #, kde-format
 msgid "Match Tags from the First Character"
-msgstr ""
+msgstr "Kongrui Etikedojn el la Unua Signo"
 
 #: AnnotationDialog/Dialog.cpp:914
 #, kde-format
 msgid "Match Tags from Word Boundaries"
-msgstr ""
+msgstr "Kongrui Etikedojn el Vortaj Limoj"
 
 #: AnnotationDialog/Dialog.cpp:915
 #, kde-format
 msgid "Match Tags Anywhere"
-msgstr ""
+msgstr "Kongrui Etikedojn Ie ajn"
 
 #: AnnotationDialog/Dialog.cpp:932
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
-msgstr ""
+msgstr "Montri Nur Elektitajn Ctrl+S"
 
 #: AnnotationDialog/Dialog.cpp:977
 #, kde-format
@@ -303,6 +317,8 @@ msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
 "of the following error: %2"
 msgstr ""
+"<p>Ne eblis konservi la fenestran aranĝon.</p>Ne eblis malfermi la dosieron "
+"%1 pro la jena eraro: %2"
 
 #: AnnotationDialog/Dialog.cpp:982
 #, kde-format
@@ -310,6 +326,8 @@ msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
 "of the following error: %2"
 msgstr ""
+"<p>Ne eblis konservi la fenestran aranĝon.</p>Ne eblis verki dosieron %1 pro "
+"jena eraro: %2"
 
 #: AnnotationDialog/Dialog.cpp:1050
 #, kde-format
@@ -317,12 +335,14 @@ msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
+"<p>Kelkaj ŝanĝoj estas faritaj al komentarioj. Ĉu vi vere volas forĵeti "
+"ĉiujn lastatempajn ŝanĝojn por ĉiu tuŝita dosiero?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1051
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr ""
+msgstr "Forĵeti ŝanĝojn?"
 
 #: AnnotationDialog/Dialog.cpp:1152
 #, kde-format
@@ -334,6 +354,12 @@ msgid ""
 "you can find extra tips on its usage by reading about <a href=\"help:/"
 "kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
 msgstr ""
+"<p>Vi ĵus malfermis la altnivelan serĉan dialogon; por profiti el ĝi, oni "
+"sugestas, ke vi legu la sekcion en la manlibro pri <a href=\"help:/"
+"kphotoalbum/sect-general-image-searches.html\">altnivela serĉado</a>. </"
+"p><p>Tiu ĉi dialogo estas uzata ankaŭ por tajpi informojn pri bildoj; vi "
+"povas trovi kromajn konsiletojn pri ĝia uzado legante pri <a href=\"help:/"
+"kphotoalbum/chp-typingIn.html\">tajpado</a>.</p>"
 
 #: AnnotationDialog/Dialog.cpp:1160
 #, kde-format
@@ -343,56 +369,61 @@ msgid ""
 "p><p>It is strongly recommended that you take 5 minutes to read the <a href="
 "\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
 msgstr ""
+"<p>Vi ĵus malfermis unu el la plej gravaj fenestroj en KPhotoAlbum; ĝi "
+"enhavas multajn funkciojn, kiuj estis optimumigitaj por rapida uzado.</"
+"p><p>Estas forte rekomendite ke vi prenu 5 minutojn por legi la <a href="
+"\"help:/kphotoalbum/chp-typingIn.html\">dokumentado por ĉi tiu dialogo</a></"
+"p>"
 
 #: AnnotationDialog/Dialog.cpp:1295
 #, kde-format
 msgid "Sort Most Recently Used"
-msgstr ""
+msgstr "Ordigi Plej Laste Uzita"
 
 #: AnnotationDialog/Dialog.cpp:1298
 #, kde-format
 msgid "Toggle Sorting"
-msgstr ""
+msgstr "Baskuligi Ordigon"
 
 #: AnnotationDialog/Dialog.cpp:1303
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
-msgstr ""
+msgstr "Baskuligi Montradon de Elektitaj Eroj Nur"
 
 #: AnnotationDialog/Dialog.cpp:1307
 #, kde-format
 msgid "Annotate Next"
-msgstr ""
+msgstr "Prinoti Sekvan"
 
 #: AnnotationDialog/Dialog.cpp:1311
 #, kde-format
 msgid "Annotate Previous"
-msgstr ""
+msgstr "Prinoti Antaŭan"
 
 #: AnnotationDialog/Dialog.cpp:1315
 #, kde-format
 msgid "OK dialog"
-msgstr ""
+msgstr "OK-dialogo"
 
 #: AnnotationDialog/Dialog.cpp:1319
 #, kde-format
 msgid "Copy tags from previous image"
-msgstr ""
+msgstr "Kopii etikedojn de antaŭa bildo"
 
 #: AnnotationDialog/Dialog.cpp:1323 MainWindow/Window.cpp:849
 #, kde-format
 msgid "Rotate counterclockwise"
-msgstr ""
+msgstr "Rotacii maldekstrume"
 
 #: AnnotationDialog/Dialog.cpp:1326 MainWindow/Window.cpp:853
 #, kde-format
 msgid "Rotate clockwise"
-msgstr ""
+msgstr "Rotacii dekstrume"
 
 #: AnnotationDialog/Dialog.cpp:1329
 #, kde-format
 msgid "Toggle fullscreen preview"
-msgstr ""
+msgstr "Baskuligi plenekranan antaŭrigardon"
 
 #: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
@@ -402,6 +433,10 @@ msgid ""
 "change this in the settings dialog. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings.</p>"
 msgstr ""
+"<p><b>Ne povas asocii etikedon \"%2\"</b></p><p>La kategorio \"%1\" al kiu "
+"apartenas la etikedo \"%2\" ne estas poziciebla. </p><p>Se vi volas uzi ĉi "
+"tiun etikedon, ŝanĝu ĉi tion en la agorda dialogo. Se ĉi tiu etikedo ne plu "
+"estu en la rekona datumbazo, ĝi povas esti forigita en la agordoj.</p>"
 
 #: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
@@ -411,16 +446,21 @@ msgid ""
 "this category and mark it as positionable. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings dialog.</p>"
 msgstr ""
+"<p><b>Ne povas asocii etikedon \"%2\"</b></p><p>La kategorio \"%1\" al kiu "
+"apartenas la etikedo \"%2\" ne ekzistas. </p><p>Se vi volas uzi ĉi tiun "
+"etikedon, aldonu ĉi tiun kategorion kaj marku ĝin kiel poziciebla. Se ĉi tiu "
+"etikedo ne plu estu en la rekona datumbazo, ĝi povas esti forigita en la "
+"agorda dialogo.</p>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:50
 #, kde-format
 msgid "Annotate previous image (Page Up)"
-msgstr ""
+msgstr "Prinoti antaŭan bildon (Paĝo Supre)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:56
 #, kde-format
 msgid "Annotate next image (Page Down)"
-msgstr ""
+msgstr "Prinoti sekvan bildon (Paĝo Malsupre)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:81
 #, kde-format
@@ -429,17 +469,19 @@ msgid ""
 "<para>Set the same tags on this image than on the previous one. The image "
 "date, label, rating, and description are left unchanged.</para>"
 msgstr ""
+"<para>Agordi la samajn etikedojn sur ĉi tiu bildo ol sur la antaŭa. La "
+"bildodato, etikedo, takso kaj priskribo estas lasitaj senŝanĝaj.</para>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:109
 #, kde-format
 msgid "Category for new areas:"
-msgstr ""
+msgstr "Kategorio por novaj areoj:"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:295
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
-msgstr ""
+msgstr "Kaŝi aŭ montri areojn sur la bildo"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:300
 #, kde-format
@@ -449,48 +491,51 @@ msgid ""
 "category in <interface>Settings|Configure KPhotoAlbum...|Categories</"
 "interface>, you can associate specific image areas with tags."
 msgstr ""
+"Se vi ebligas <emphasis>pozicieblajn etikedojn</emphasis> por almenaŭ unu "
+"kategorio en <interface>Agordoj|Agordi KPhotoAlbum...|Kategorioj</"
+"interface>, vi povas asocii specifajn bildajn areojn kun etikedoj."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:305
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
-msgstr ""
+msgstr "Areoj sur bildo povas esti montritaj nur en unubilda komentarioreĝimo."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:335
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
-msgstr ""
+msgstr "Baskuligi plenekranan antaŭrigardon"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:336
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
-msgstr ""
+msgstr "Rotacii maldekstrume"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:337
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
-msgstr ""
+msgstr "Rotacii dekstrume"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:338
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
-msgstr ""
+msgstr "Kopii etikedojn de antaŭe etikedita bildo"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:339
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"
-msgstr ""
+msgstr "Forigi bildon"
 
 #: AnnotationDialog/ListSelect.cpp:57
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr ""
+msgstr "Enigu etikedon..."
 
 #: AnnotationDialog/ListSelect.cpp:82 DB/search/ImageSearchInfo.cpp:339
 #, kde-format
@@ -505,12 +550,12 @@ msgstr "kaj"
 #: AnnotationDialog/ListSelect.cpp:107
 #, kde-format
 msgid "Sort by date"
-msgstr ""
+msgstr "Ordigi laŭ dato"
 
 #: AnnotationDialog/ListSelect.cpp:113
 #, kde-format
 msgid "Show only selected Ctrl+S"
-msgstr ""
+msgstr "Montru nur elektitajn Ctrl+S"
 
 #: AnnotationDialog/ListSelect.cpp:162
 #, kde-format
@@ -520,16 +565,20 @@ msgid ""
 "Untagged Images</interface>). It will not show up here as long as it is "
 "selected for this purpose."
 msgstr ""
+"La etikedo, kiun vi enigis, estas la etikedo agordita aŭtomate por ĵus "
+"trovitaj, neetikeditaj bildoj (kp. <interface>Agordoj|Agordu KPhotoAlbum...|"
+"Kategorioj|Nemarkitaj bildoj</interface>). Ĝi ne aperos ĉi tie dum ĝi estas "
+"elektita por ĉi tiu celo."
 
 #: AnnotationDialog/ListSelect.cpp:344
 #, kde-format
 msgid "No Item Selected"
-msgstr ""
+msgstr "Neniu Ero Elektita"
 
 #: AnnotationDialog/ListSelect.cpp:348
 #, kde-format
 msgid "<b>%1</b>"
-msgstr ""
+msgstr "<b>%1</b>"
 
 #: AnnotationDialog/ListSelect.cpp:354 Settings/CategoryPage.cpp:71
 #, kde-format
@@ -544,47 +593,47 @@ msgstr "Renomi..."
 #: AnnotationDialog/ListSelect.cpp:357
 #, kde-format
 msgid "<b>Tag Groups</b>"
-msgstr ""
+msgstr "<b>Etikedi Grupojn</b>"
 
 #: AnnotationDialog/ListSelect.cpp:365
 #, kde-format
 msgid "Tag groups"
-msgstr ""
+msgstr "Etikedgrupoj"
 
 #: AnnotationDialog/ListSelect.cpp:382
 #, kde-format
 msgid "Add this tag to a new tag group..."
-msgstr ""
+msgstr "Aldoni ĉi tiun etikedon al nova etikedgrupo..."
 
 #: AnnotationDialog/ListSelect.cpp:385
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
-msgstr ""
+msgstr "Igi ĉi tiun etikedon etikedgrupon kaj aldoni etikedon..."
 
 #: AnnotationDialog/ListSelect.cpp:391
 #, kde-format
 msgid "Remove from tag group %1"
-msgstr ""
+msgstr "Forigi el etikedgrupo %1"
 
 #: AnnotationDialog/ListSelect.cpp:394
 #, kde-format
 msgid "<b>Sorting</b>"
-msgstr ""
+msgstr "<b>Ordigo</b>"
 
 #: AnnotationDialog/ListSelect.cpp:400
 #, kde-format
 msgid "Usage"
-msgstr ""
+msgstr "Uzado"
 
 #: AnnotationDialog/ListSelect.cpp:401
 #, kde-format
 msgid "Alphabetical (Flat)"
-msgstr ""
+msgstr "Alfabeta (Ebena)"
 
 #: AnnotationDialog/ListSelect.cpp:402
 #, kde-format
 msgid "Alphabetical (Tree)"
-msgstr ""
+msgstr "Alfabeta (Arbo)"
 
 #: AnnotationDialog/ListSelect.cpp:427
 #, kde-format
@@ -592,11 +641,13 @@ msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
 "any information about it from any image containing the item.</p>"
 msgstr ""
+"<p>Ĉu vi vere volas forigi \"%1\"?<br/>Forigi la eron forigos ajnajn "
+"informojn pri ĝi de iu ajn bildo enhavanta la eron.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:431
 #, kde-format
 msgid "Really Delete %1?"
-msgstr ""
+msgstr "Ĉu vere forigi %1?"
 
 #: AnnotationDialog/ListSelect.cpp:448
 #, kde-format
@@ -607,7 +658,7 @@ msgstr "Alinomu eron"
 #: AnnotationDialog/ListSelect.cpp:448
 #, kde-format
 msgid "Enter new name:"
-msgstr ""
+msgstr "Enigu novan nomon:"
 
 #: AnnotationDialog/ListSelect.cpp:453
 #, kde-format
@@ -615,12 +666,14 @@ msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
 "\"%3\" on any image containing it.</p>"
 msgstr ""
+"<p>Ĉu vi vere volas renomi \"%1\" al \"%2\"?<br/>Ĉu tiel vi alinomigos "
+"\"%3\" sur iu ajn bildo enhavanta ĝin.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:457
 #, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr ""
+msgstr "Ĉu alinomi %1?"
 
 #: AnnotationDialog/ListSelect.cpp:462
 #, kde-format
@@ -631,22 +684,22 @@ msgstr "Renomi"
 #: AnnotationDialog/ListSelect.cpp:497
 #, kde-format
 msgid "New tag group"
-msgstr ""
+msgstr "Nova etikedgrupo"
 
 #: AnnotationDialog/ListSelect.cpp:498
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
-msgstr ""
+msgstr "Nomo por la nova etikedo grupo al kiu la etikedo estos aldonita:"
 
 #: AnnotationDialog/ListSelect.cpp:510
 #, kde-format
 msgid "Add a tag"
-msgstr ""
+msgstr "Aldoni etikedon"
 
 #: AnnotationDialog/ListSelect.cpp:511
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
-msgstr ""
+msgstr "Nomo por la etikedo aldonota al ĉi tiu etikedgrupo:"
 
 #: AnnotationDialog/ListSelect.cpp:765
 #, kde-format
@@ -654,7 +707,7 @@ msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
 "'People (1-2)'"
 msgid "%1 (%2-%3)"
-msgstr ""
+msgstr "%1 (%2-%3)"
 
 #: AnnotationDialog/ListSelect.cpp:778
 #, kde-format
@@ -666,7 +719,7 @@ msgstr "%1 (%2)"
 #, kde-format
 msgctxt "area of an image; rectangle that is overlayed upon the image"
 msgid "Remove area"
-msgstr ""
+msgstr "Forigi areon"
 
 #: AnnotationDialog/ResizableFrame.cpp:311
 #, kde-format
@@ -688,23 +741,25 @@ msgid ""
 "<p>%1 has already been tagged in another area on this image.</p><p>If you "
 "continue, the previous tag will be removed...</p>"
 msgstr ""
+"<p>%1 jam estis etikedita en alia areo sur ĉi tiu bildo.</p><p>Se vi "
+"daŭrigas, la antaŭa etikedo estos forigita...</p>"
 
 #: AnnotationDialog/ResizableFrame.cpp:359
 #, kde-format
 msgid "Replace existing area?"
-msgstr ""
+msgstr "Ĉu anstataŭigi ekzistantan areon?"
 
 #: AnnotationDialog/ResizableFrame.cpp:460
 #, kde-format
 msgctxt ""
 "As in: remove tag %1 in category %2 [from this marked area of the image]"
 msgid "Remove tag %1 (%2)"
-msgstr ""
+msgstr "Forigi etikedon %1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:471
 #, kde-format
 msgid "Associate with"
-msgstr ""
+msgstr "Asocii kun"
 
 #: AnnotationDialog/ResizableFrame.cpp:495
 #: AnnotationDialog/ResizableFrame.cpp:504
@@ -713,43 +768,43 @@ msgctxt ""
 "As in: associate [this marked area of the image] with one of the following "
 "choices/menu items"
 msgid "Associate with"
-msgstr ""
+msgstr "Asocii kun"
 
 #: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
 #, kde-format
 msgid "Extracting Thumbnail"
-msgstr ""
+msgstr "Ekstraktanta Bildeton"
 
 #: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:34
 #, kde-format
 msgid "Extract Video Thumbnail"
-msgstr ""
+msgstr "Ekstrakti Video Bildeton"
 
 #: BackgroundJobs/ReadVideoLengthJob.cpp:30
 #, kde-format
 msgid "Read Video Length"
-msgstr ""
+msgstr "Legi Video-longecon"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
 msgid "Search for videos without length information"
-msgstr ""
+msgstr "Serĉi filmetojn sen longec-informoj"
 
 #: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:51
 #, kde-format
 msgid "Searching for videos without video thumbnails"
-msgstr ""
+msgstr "Serĉante filmetojn sen videobildetoj"
 
 #: BackgroundTaskManager/JobInfo.cpp:55
 #, kde-format
 msgid "Not Started"
-msgstr ""
+msgstr "Ne Komencita"
 
 #: BackgroundTaskManager/JobModel.cpp:93
 #, kde-format
 msgctxt "@title:column Background job id"
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: BackgroundTaskManager/JobModel.cpp:95
 #, kde-format
@@ -767,13 +822,13 @@ msgstr "Detaloj"
 #, kde-format
 msgctxt "@title:column Elapsed time"
 msgid "Elapsed"
-msgstr ""
+msgstr "Pasis"
 
 #: BackgroundTaskManager/JobViewer.cpp:21
 #, kde-format
 msgctxt "@title:window"
 msgid "Background Job Viewer"
-msgstr ""
+msgstr "Fontaska Vidilo"
 
 #: BackgroundTaskManager/JobViewer.cpp:30
 #: BackgroundTaskManager/JobViewer.cpp:65
@@ -784,7 +839,7 @@ msgstr "Paŭzi"
 #: BackgroundTaskManager/JobViewer.cpp:65
 #, kde-format
 msgid "Continue"
-msgstr ""
+msgstr "Daŭrigi"
 
 #: BackgroundTaskManager/StatusIndicator.cpp:78
 #, kde-format
@@ -796,6 +851,13 @@ msgid ""
 "is executing a foreground job (like extracting a thumbnail for a video file, "
 "which is currently shown in the thumbnail viewer)</li></ul></p>"
 msgstr ""
+"<p>Aktivaj labortaskoj: %1<br/>Atendaj labortaskoj: %2<hr/><br/>Kolorkodoj:"
+"<ul><li><b>verde palpebrumante</b>: Aktivaj fontaskoj</li><li><b>griza</b>: "
+"Neniuj aktivaj labortaskoj</li><li><b>plena flava</b>: laborvico estas "
+"paŭzita</li><li><b>flava palpebrumante</b>: Laborvico estas paŭzita por "
+"fonaj labortaskoj, sed efektivigas antaŭplanan labortaskon (kiel ĉerpi "
+"bildeton por videodosiero, kiu estas nuntempe montrita en la "
+"bildetospektilo)</li></ul></p>"
 
 #: Browser/AbstractCategoryModel.cpp:37 Exif/SearchDialog.cpp:387
 #: lib/kpaexif/SearchInfo.cpp:191
@@ -808,7 +870,7 @@ msgstr "Neniu"
 #, kde-format
 msgctxt "As in no other persons, or no other locations. "
 msgid "No other"
-msgstr ""
+msgstr "Neniu alia"
 
 #: Browser/AbstractCategoryModel.cpp:82
 #, kde-format
@@ -823,8 +885,8 @@ msgstr[1] "%1 bildoj"
 msgctxt "@item:intable number of videos with a specific tag."
 msgid "1 video"
 msgid_plural "%1 videos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 filmeto"
+msgstr[1] "%1 filmetoj"
 
 #: Browser/AbstractCategoryModel.cpp:146
 #, kde-format
@@ -834,17 +896,17 @@ msgstr "Bildoj"
 #: Browser/AbstractCategoryModel.cpp:148
 #, kde-format
 msgid "Videos"
-msgstr ""
+msgstr "Videoj"
 
 #: Browser/AbstractCategoryModel.cpp:150
 #, kde-format
 msgid "Start Date"
-msgstr ""
+msgstr "Komenca dato"
 
 #: Browser/AbstractCategoryModel.cpp:152
 #, kde-format
 msgid "End Date"
-msgstr ""
+msgstr "Findato"
 
 #: Browser/Breadcrumb.cpp:27
 #, kde-format
@@ -855,12 +917,12 @@ msgstr "Ĉiuj"
 #: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:132
 #, kde-format
 msgid "Geo Position"
-msgstr ""
+msgstr "Geo Pozicio"
 
 #: Browser/OverviewPage.cpp:143
 #, kde-format
 msgid "Exif Info"
-msgstr ""
+msgstr "Eksifaj Informoj"
 
 #: Browser/OverviewPage.cpp:154
 #, kde-format
@@ -871,33 +933,33 @@ msgstr "Serĉo"
 #: Browser/OverviewPage.cpp:163 Settings/UntaggedGroupBox.cpp:20
 #, kde-format
 msgid "Untagged Images"
-msgstr ""
+msgstr "Nemarkitaj Bildoj"
 
 #: Browser/OverviewPage.cpp:172
 #, kde-format
 msgid "Show Thumbnails"
-msgstr ""
+msgstr "Montri Bildetojn"
 
 #: Browser/OverviewPage.cpp:253 Browser/OverviewPage.cpp:273
 #, kde-format
 msgid "Search did not match any images or videos."
-msgstr ""
+msgstr "Serĉo ne kongruis kun iuj bildoj aŭ filmetoj."
 
 #: Browser/OverviewPage.cpp:253 Browser/OverviewPage.cpp:273
 #, kde-format
 msgid "Empty Search Result"
-msgstr ""
+msgstr "Malplena Serĉrezulto"
 
 #: Browser/OverviewPage.cpp:257
 #, kde-format
 msgid "Exif Search"
-msgstr ""
+msgstr "Eksif-serĉo"
 
 #: Browser/OverviewPage.cpp:277
 #, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
-msgstr ""
+msgstr "serĉi"
 
 #: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1800
 #, kde-format
@@ -908,16 +970,21 @@ msgid ""
 "b></li><li>Now choose the <b>Categories</b> icon</li><li>Now configure "
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
+"<p>Vi ankoraŭ ne agordis kiun etikedon uzi por indiki neetikeditajn bildojn."
+"</p><p>Bonvolu sekvi ĉi tiujn paŝojn por fari tion:<ul><li>En la menubreto "
+"elektu <b>Agordoj</b></li><li>De tie elektu <b>Agordi KPhotoAlbum</b></"
+"li><li>Nun elektu la piktogramon <b>Kategorioj</b></li><li>Nun agordu "
+"sekcion <b>Nemarkitaj Bildoj</b></li></ul></p>"
 
 #: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
-msgstr ""
+msgstr "Trajto ne estis agordita"
 
 #: CategoryListView/CheckDropItem.cpp:118
 #, kde-format
 msgid "\"%1\" and \"%2\""
-msgstr ""
+msgstr "\"%1\" kaj \"%2\""
 
 #: CategoryListView/CheckDropItem.cpp:122
 #, kde-format
@@ -932,7 +999,7 @@ msgstr ", \"%1\""
 #: CategoryListView/CheckDropItem.cpp:127
 #, kde-format
 msgid " and \"%1\""
-msgstr ""
+msgstr " kaj \"%1\""
 
 #: CategoryListView/CheckDropItem.cpp:131
 #, kde-format
@@ -954,7 +1021,21 @@ msgid_plural ""
 "it really your intention to make \"%3\" a tag group and add %2 as members?</"
 "p>"
 msgstr[0] ""
+"<p>Vi ĵus trenis eron sur alia. Ĉi tio igos la celobjekton etikedgrupo kaj "
+"difinos la trenitan eron kiel membro de ĉi grupo. Etikedgrupoj povas esti "
+"uzataj por indiki faktojn kiel 'Las Vegas estas en Usono'. En tiu ekzemplo "
+"vi trenus Las Vegas al Usono. Kiam vi starigis etikedgrupojn, vi povas, "
+"ekzemple, vidi ĉiujn bildojn el Usono simple elektante tiun eron en la "
+"Retumilo.</p><p>Ĉu estis vere via intenco fari \"%3\" etikedgrupon kaj "
+"aldoni %2 kiel membron?</p>"
 msgstr[1] ""
+"<p>Vi ĵus trenis kelkajn erojn sur unu alian objekton. Ĉi tio igos la "
+"celobjekton etikedgrupo kaj difinos la trenitajn erojn kiel membroj de ĉi "
+"grupo. Etikedgrupoj povas esti uzataj por indiki faktojn kiel 'Las Vegas kaj "
+"NovJorko estas en Usono'. En tiu ekzemplo vi trenus Las Vegas kaj Novjorkon "
+"al Usono. Kiam vi starigis etikedgrupojn, vi povas, ekzemple, vidi ĉiujn "
+"bildojn el Usono simple elektante tiun eron en la Retumilo.</p><p>Ĉu estis "
+"vere via intenco fari \"%3\" etikedgrupon kaj aldoni %2 kiel membroj?</p>"
 
 #: CategoryListView/CheckDropItem.cpp:157
 #, kde-format
@@ -991,7 +1072,7 @@ msgstr "Malzomi"
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
-msgstr "Klara elekto de dato"
+msgstr "Forviŝi elekton de dato"
 
 #: DateBar/DateBarWidget.cpp:124
 #, kde-kuit-format
@@ -1024,8 +1105,8 @@ msgstr "Montri Rezolucian Indikilon"
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
 msgid_plural "%1 exact"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 ekzakta"
+msgstr[1] "%1 ekzaktaj"
 
 #: DateBar/DateBarWidget.cpp:822
 #, kde-format
@@ -1034,24 +1115,24 @@ msgctxt ""
 "the given date range,"
 msgid " + 1 range"
 msgid_plural " + %1 ranges"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " + 1 gamo"
+msgstr[1] " + %1 gamoj"
 
 #: DateBar/DateBarWidget.cpp:823
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
 msgid_plural " = %1 total"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " = 1 sume"
+msgstr[1] " = %1 sume"
 
 #: DateBar/DateBarWidget.cpp:825
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
 msgid_plural "%1 images/videos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 bildo/filmeto"
+msgstr[1] "%1 bildoj/filmetoj"
 
 #: DateBar/DateBarWidget.cpp:827
 #, kde-format
@@ -2974,8 +3055,8 @@ msgstr "La jenaj bildetoj ŝajnas havi malĝustajn grandecojn:\n"
 msgctxt "@info:shell"
 msgid "Removed 1 inconsistent thumbnail from the database.\n"
 msgid_plural "Removed %1 inconsistent thumbnails from the database.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Forigis 1 nekoheran bildeton el la datumbazo.\n"
+msgstr[1] "Forigis %1 nekoherajn bildetojn el la datumbazo.\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:20
 #, kde-format
@@ -3321,16 +3402,16 @@ msgstr "Fari Kategorian Bildon"
 msgctxt "@title:window"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kopii bildon al ..."
+msgstr[1] "Kopii bildojn al ..."
 
 #: MainWindow/CopyLinkEngine.cpp:41
 #, kde-format
 msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ligi bildon al ..."
+msgstr[1] "Ligi bildojn al ..."
 
 #: MainWindow/DeleteDialog.cpp:24
 #, kde-format
@@ -3342,8 +3423,8 @@ msgstr "Forigante Erojn"
 #, kde-format
 msgid "Removing 1 item"
 msgid_plural "Removing %1 items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Forigante 1 eron"
+msgstr[1] "Forigante %1 erojn"
 
 #: MainWindow/DeleteDialog.cpp:65
 #, kde-format
@@ -3354,28 +3435,32 @@ msgid_plural ""
 "Selected %1 items will be removed from the database.<br/>What do you want to "
 "do with the files on disk?"
 msgstr[0] ""
+"Elektita ero estos forigata el la datumbazo.<br/>Kion vi volas fari pri la "
+"surdiska dosiero?"
 msgstr[1] ""
+"Elektitaj %1 eroj estos forigataj el la datumbazo.<br/>Kion vi volas fari "
+"pri la surdiskaj dosieroj?"
 
 #: MainWindow/DeleteDialog.cpp:71
 #, kde-format
 msgid "Move file to Trash"
 msgid_plural "Move %1 files to Trash"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Movi dosieron al rubujo"
+msgstr[1] "Movi %1 dosierojn al rubujo"
 
 #: MainWindow/DeleteDialog.cpp:72
 #, kde-format
 msgid "Delete file from disk"
 msgid_plural "Delete %1 files from disk"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Forigi dosieron de disko"
+msgstr[1] "Forigi %1 dosierojn de disko"
 
 #: MainWindow/DeleteDialog.cpp:73
 #, kde-format
 msgid "Only remove the item from database"
 msgid_plural "Only remove %1 items from database"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Nur forigi la eron el datumbazo"
+msgstr[1] "Nur forigi %1 erojn el datumbazo"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:44
 #, kde-format
@@ -3391,7 +3476,7 @@ msgstr "Elekti celon:"
 #, kde-format
 msgctxt "i for info"
 msgid "i"
-msgstr "mi"
+msgstr "i"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:42
 #, kde-format
@@ -3627,8 +3712,8 @@ msgstr "Ne"
 #, kde-format
 msgid "Showing 1 thumbnail"
 msgid_plural "Showing %1 thumbnails"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Montrante 1 bildeton"
+msgstr[1] "Montrante %1 bildetojn"
 
 #: MainWindow/ImageCounter.cpp:26
 #, kde-format
@@ -3644,8 +3729,8 @@ msgstr "Sumo: %1"
 #, kde-format
 msgid "1 match"
 msgid_plural "%1 matches"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 kongruo"
+msgstr[1] "%1 kongruoj"
 
 #: MainWindow/InvalidDateFinder.cpp:33
 #, kde-format
@@ -4401,15 +4486,15 @@ msgstr "Uzi antaŭan videobildeton"
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kopii bildon al..."
+msgstr[1] "Kopii bildojn al..."
 
 #: MainWindow/Window.cpp:1087 MainWindow/Window.cpp:1315
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ligi bildon al..."
+msgstr[1] "Ligi bildojn al..."
 
 #: MainWindow/Window.cpp:1113
 #, kde-format
@@ -6302,48 +6387,48 @@ msgstr "<b>Priskribo: </b>"
 msgctxt "As in 'The baby is 1 day old'"
 msgid "1 day"
 msgid_plural "%1 days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 tago"
+msgstr[1] "%1 tagoj"
 
 #: Utilities/DescriptionUtil.cpp:251
 #, kde-format
 msgctxt "As in 'This happened 1 day ago'"
 msgid "1 day ago"
 msgid_plural "%1 days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "antaŭ 1 tago"
+msgstr[1] "antaŭ %1 tagoj"
 
 #: Utilities/DescriptionUtil.cpp:254
 #, kde-format
 msgctxt "As in 'The baby is 1 month old'"
 msgid "1 month"
 msgid_plural "%1 months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 monato"
+msgstr[1] "%1 monatoj"
 
 #: Utilities/DescriptionUtil.cpp:256
 #, kde-format
 msgctxt "As in 'This happened 1 month ago'"
 msgid "1 month ago"
 msgid_plural "%1 months ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "antaŭ 1 monato"
+msgstr[1] "antaŭ %1 monatoj"
 
 #: Utilities/DescriptionUtil.cpp:259
 #, kde-format
 msgctxt "As in 'The baby is 1 year old'"
 msgid "1 year"
 msgid_plural "%1 years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 jaro"
+msgstr[1] "%1 jaroj"
 
 #: Utilities/DescriptionUtil.cpp:261
 #, kde-format
 msgctxt "As in 'This happened 1 year ago'"
 msgid "1 year ago"
 msgid_plural "%1 years ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "antaŭ 1 jaro"
+msgstr[1] "antaŭ %1 jaroj"
 
 #: Utilities/DescriptionUtil.cpp:365 Utilities/DescriptionUtil.cpp:391
 #, kde-format

@@ -1,13 +1,13 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the kphotoalbum package.
 #
-# Giovanni Sora <g.sora@tiscali.it>, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2021, 2022, 2023 Giovanni Sora <g.sora@tiscali.it>
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-15 00:40+0000\n"
-"PO-Revision-Date: 2023-07-21 12:32+0200\n"
+"PO-Revision-Date: 2023-10-16 14:05+0200\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.1\n"
+"X-Generator: Lokalize 23.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -4239,7 +4239,7 @@ msgstr "Barra de Data"
 #: MainWindow/Window.cpp:1387
 #, kde-format
 msgid "Annotation Dialog"
-msgstr ""
+msgstr "Dialogo de Annotation"
 
 #: MainWindow/Window.cpp:1388 Settings/SettingsDialog.cpp:48
 #, kde-format
@@ -5616,7 +5616,7 @@ msgstr ""
 #: Settings/ViewerPage.cpp:52
 #, kde-format
 msgid "Slideshow interval:"
-msgstr ""
+msgstr "Intervallo de slideshow (sequentia de diapositivas):"
 
 #: Settings/ViewerPage.cpp:58
 #, kde-format
@@ -5626,7 +5626,7 @@ msgstr " sec"
 #: Settings/ViewerPage.cpp:61
 #, kde-format
 msgid "Image cache:"
-msgstr ""
+msgstr "Cache de Imagine:"
 
 #: Settings/ViewerPage.cpp:67
 #, kde-format
@@ -6016,18 +6016,17 @@ msgstr ""
 #: Viewer/SelectCategoryAndValue.cpp:135
 #, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "Adde nove"
 
 #: Viewer/SelectCategoryAndValue.cpp:188
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "Clave"
 
 #: Viewer/SelectCategoryAndValue.cpp:188
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "Etiquetta:"
+msgstr "Etiquetta"
 
 #: Viewer/SelectCategoryAndValue.cpp:219
 #, kde-format
@@ -6037,30 +6036,25 @@ msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "Dialogo de OK"
+msgstr "Dialogo"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "Etiquetta"
+msgstr "Etiquetta de Texto (TextLabel)"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgid "Add new Tag"
-msgstr "Adde  un etiquetta"
+msgstr "Adde nove etiquetta"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "Titulo"
 
@@ -6280,17 +6274,14 @@ msgid "Pause"
 msgstr "Pausa"
 
 #: Viewer/ViewerWidget.cpp:609
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "locked"
-msgstr "Disbloca"
+msgstr "Blocate"
 
 #: Viewer/ViewerWidget.cpp:611
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "annotating"
-msgstr "Annotationes"
+msgstr "annotante"
 
 #: Viewer/ViewerWidget.cpp:613
 #, kde-format
@@ -6338,11 +6329,10 @@ msgid "Edit Image Description"
 msgstr "Description de thema"
 
 #: Viewer/ViewerWidget.cpp:1189
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "Description de thema"
+msgstr "Description de Imagine"
 
 #: Viewer/ViewerWidget.cpp:1204
 #, kde-format
@@ -6487,38 +6477,33 @@ msgid ""
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1437
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgid "Annotate"
-msgstr "Annota..."
+msgstr "Annota"
 
 #: Viewer/ViewerWidget.cpp:1456
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "Adjuta"
 
 #: Viewer/ViewerWidget.cpp:1458
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
-msgstr "Annotationes"
+msgstr "Dialogo de Annotation"
 
 #: Viewer/ViewerWidget.cpp:1459
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
-msgstr "Adde  un etiquetta"
+msgstr "Adde etiquetta"
 
 #: Viewer/ViewerWidget.cpp:1459
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "CTRL+a"
 
 #: Viewer/ViewerWidget.cpp:1462
 #, fuzzy, kde-format
@@ -6531,70 +6516,66 @@ msgstr "Copia etiquettas ex previe image"
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "CTRL+c"
 
 #: Viewer/ViewerWidget.cpp:1466
 #, fuzzy, kde-format
 #| msgid "Description"
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "Description"
+msgstr "Modifica description"
 
 #: Viewer/ViewerWidget.cpp:1467
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr ""
+msgstr "CTRL+d"
 
 #: Viewer/ViewerWidget.cpp:1470
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation Mode"
-msgstr "Annotationes"
+msgstr "Modo de Annotation"
 
 #: Viewer/ViewerWidget.cpp:1472
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "Blocate"
 
 #: Viewer/ViewerWidget.cpp:1473
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "CTRL+l"
 
 #: Viewer/ViewerWidget.cpp:1477
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "Assigna Etiquettas"
 
 #: Viewer/ViewerWidget.cpp:1478
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1481
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "Indicios"
+msgstr "Assigna Indicios (token)"
 
 #: Viewer/ViewerWidget.cpp:1482
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr ""
+msgstr "CTRL+t"
 
 #: Viewer/ViewerWidget.cpp:1637
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Token %1"
-msgstr "Indicios"
+msgstr "Indicio %1"
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format

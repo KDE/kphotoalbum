@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-10-15 00:40+0000\n"
-"PO-Revision-Date: 2023-08-15 06:32+0200\n"
+"PO-Revision-Date: 2023-10-16 06:10+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -962,9 +962,7 @@ msgid "Move Items"
 msgstr "ელემენტების გადატანა"
 
 #: DateBar/DateBarWidget.cpp:61
-#, fuzzy, kde-format
-#| msgctxt "I.e. the timeline histogram widget"
-#| msgid "Date Bar"
+#, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
 msgstr "თარიღის ზოლი"
@@ -3835,7 +3833,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1333 MainWindow/Window.cpp:1431
 #, kde-format
 msgid "No Selection"
-msgstr ""
+msgstr "მონიშნულის გარეშე"
 
 #: MainWindow/Window.cpp:536
 #, kde-format

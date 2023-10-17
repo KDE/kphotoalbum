@@ -6,7 +6,7 @@ grade: stable
 base: core22
 adopt-info: kphotoalbum
 version: 5.11.0
-icon: $CRAFT_PROJECT_DIR/snap/gui/logo.png
+icon: $CRAFT_PROJECT_DIR/icons/global/32-apps-kphotoalbum.png
 apps:
     kphotoalbum:
         # extensions:

@@ -987,11 +987,10 @@ msgid "Move Items"
 msgstr "Přesunout položky"
 
 #: DateBar/DateBarWidget.cpp:61
-#, fuzzy, kde-format
-#| msgid "Date"
+#, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
-msgstr "Datum"
+msgstr ""
 
 #: DateBar/DateBarWidget.cpp:70
 #, kde-format

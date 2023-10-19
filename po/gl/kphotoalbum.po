@@ -672,7 +672,7 @@ msgstr ""
 #: AnnotationDialog/ListSelect.cpp:431
 #, kde-format
 msgid "Really Delete %1?"
-msgstr "Está seguro de que quere eliminar %1?"
+msgstr "Seguro que quere eliminar %1?"
 
 #: AnnotationDialog/ListSelect.cpp:448
 #, fuzzy, kde-format
@@ -4811,8 +4811,8 @@ msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
 "show-again check box?</p>"
 msgstr ""
-"<p>Está seguro de que quere activar todas as mensaxes nas que anteriormente "
-"se marcou a opción de non amosar de novo?</p>"
+"<p>Seguro que quere activar todas as mensaxes nas que anteriormente se "
+"marcou a opción de non amosar de novo?</p>"
 
 #: MainWindow/Window.cpp:1536
 #, kde-format
@@ -5256,7 +5256,7 @@ msgstr "Nova categoría"
 #: Settings/CategoryPage.cpp:409
 #, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
-msgstr "<p>Está seguro de que quere eliminar a categoría «%1»?</p>"
+msgstr "<p>Seguro que quere eliminar a categoría «%1»?</p>"
 
 #: Settings/CategoryPage.cpp:414
 #, kde-format
@@ -6003,15 +6003,15 @@ msgid ""
 "will be moved to the super category of \"%1\" (\"%2\").<nl/> All other "
 "memberships of the sub-categories will stay intact.</para>"
 msgstr ""
-"<para>Está seguro de que quere eliminar o grupo «%1»?</para> <para>As "
-"subcategorías deste grupo moveranse á categoría da que colga «%1» («%2»).<nl/"
-"> O resto de subcategorías permanecerán intactas.</para>"
+"<para>Seguro que quere eliminar o grupo «%1»?</para> <para>As subcategorías "
+"deste grupo moveranse á categoría da que colga «%1» («%2»).<nl/> O resto de "
+"subcategorías permanecerán intactas.</para>"
 
 #: Settings/TagGroupsPage.cpp:510
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<para>Really delete group \"%1\"?</para>"
-msgstr "<para>Está seguro de que quere eliminar o grupo «%1»?</para>"
+msgstr "<para>Seguro que quere eliminar o grupo «%1»?</para>"
 
 #: Settings/TagGroupsPage.cpp:515
 #, kde-format
@@ -6064,7 +6064,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Really delete %1?"
-msgstr "Está seguro de que quere eliminar %1?"
+msgstr "Seguro que quere eliminar %1?"
 
 #: Settings/ThumbnailsPage.cpp:28
 #, kde-format
@@ -6527,12 +6527,11 @@ msgid ""
 "have valid timestamps, you should use <b>Maintenance -&gt; Sort All By Date "
 "and Time</b> or <b>View -&gt; Sort Selected By Date and Time</b>.</p>"
 msgstr ""
-"<p><b>Está seguro de que quere reordenar as miniaturas?</b></p> <p>Se "
-"arrastra as imaxes no visor de miniaturas, en realidade reordénaas. Isto é "
-"moi útil se non sabe exactamente a data das imaxes. No caso de que as imaxes "
-"teñan selos temporais correctos, debería usar <b>Mantemento → Ordenar por "
-"data e hora</b> ou <b>Vista → Ordenar as seleccionadas por data e hora</b>.</"
-"p>"
+"<p><b>Seguro que quere reordenar as miniaturas?</b></p> <p>Se arrastra as "
+"imaxes no visor de miniaturas, en realidade reordénaas. Isto é moi útil se "
+"non sabe exactamente a data das imaxes. No caso de que as imaxes teñan selos "
+"temporais correctos, debería usar <b>Mantemento → Ordenar por data e hora</"
+"b> ou <b>Vista → Ordenar as seleccionadas por data e hora</b>.</p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:97
 #, fuzzy, kde-format

@@ -26,7 +26,7 @@ cmake_minimum_required(VERSION 3.18.0)
 project(kphotoalbum LANGUAGES CXX VERSION 5.11.0)
 
 # set minimum versions here:
-set(MINIMUM_ECM_VERSION 5.103)
+set(MINIMUM_ECM_VERSION 5.92)
 set(MINIMUM_KF5_VERSION 5.78)
 set(MINIMUM_Qt5_VERSION_MAJOR 5)
 set(MINIMUM_Qt5_VERSION_MINOR 15)

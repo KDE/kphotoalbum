@@ -1037,18 +1037,18 @@ msgstr[0] ""
 "<p>Acabeu d'arrossegar un element sobre un altre. Açò convertirà l'element "
 "de destinació en un grup d'etiquetes i definirà l'element arrossegat com a "
 "membre d'este grup. Els grups d'etiquetes es poden utilitzar per a indicar "
-"que, per exemple, «Las Vegas és als EUA». En este exemple arrossegaríeu Las "
-"Vegas sobre EUA. Quan establiu grups d'etiquetes podeu veure, p. ex., totes "
-"les imatges dels EUA seleccionant només este element en el visor.</p><p>De "
-"veres és la vostra intenció fer de «%3» un grup d'etiquetes i afegir «%2» "
-"com a membre?</p>"
+"que, per exemple, «Las Vegas es troba en els EUA». En este exemple "
+"arrossegaríeu Las Vegas sobre EUA. Quan establiu grups d'etiquetes veureu, "
+"p. ex., totes les imatges dels EUA seleccionant només este element en el "
+"visor.</p><p>De veres és la vostra intenció fer de «%3» un grup d'etiquetes "
+"i afegir «%2» com a membre?</p>"
 msgstr[1] ""
 "<p>Acabeu d'arrossegar alguns elements sobre un altre. Açò convertirà "
 "l'element de destinació en un grup d'etiquetes i definirà els elements "
 "arrossegats com a membres d'este grup. Els grups d'etiquetes es poden "
-"utilitzar per a indicar que, per exemple, «Las Vegas i Nova York són als "
-"EUA». En este exemple arrossegaríeu Las Vegas i Nova York sobre EUA. Quan "
-"establiu grups d'etiquetes podeu veure, p. ex., totes les imatges dels EUA "
+"utilitzar per a indicar que, per exemple, «Las Vegas i Nova York es troben "
+"en els EUA». En este exemple arrossegaríeu Las Vegas i Nova York sobre EUA. "
+"Quan establiu grups d'etiquetes veureu, p. ex., totes les imatges dels EUA "
 "seleccionant només este element en el visor.</p><p>De veres és la vostra "
 "intenció fer de «%3» un grup d'etiquetes i afegir «%2» com a membres?</p>"
 
@@ -1103,8 +1103,8 @@ msgstr ""
 "utilitzant els botons de fletxa, la roda del ratolí, o el botó del mig del "
 "ratolí.</item><item>Per al zoom s'utilitzen els botons +/- o «Ctrl+roda del "
 "ratolí».</item><item>Per a restringir la vista a la selecció d'un interval "
-"de dates: Clic/arrossegueu davall la línia de temps.</item><item>Aneu a una "
-"data fent clic en la barra de l'histograma.</item></list></para>"
+"de dates: Clic/arrossegueu davall la línia de temps.</item><item>Aneu fins a "
+"una data fent clic en la barra de l'histograma.</item></list></para>"
 
 #: DateBar/DateBarWidget.cpp:690
 #, kde-format
@@ -1521,11 +1521,11 @@ msgid ""
 msgstr ""
 "<p>No totes les imatges de la base de dades tenen informació sobre la seua "
 "mida; açò cal per a obtindre el millor resultat en la vista de miniatures. "
-"Per a arreglar-ho, només cal anar al menú <b>Manteniment</b>, i primer trieu "
-"<b>Suprimix totes les miniatures</b>, i després trieu <tt>Construïx les "
-"miniatures</tt>.</p><p>Si no ho feu així, es provocarà un espai extra al "
-"voltant de les imatges en la vista de miniatures -només açò-, per tant, no "
-"és urgent fer-ho.</p>"
+"Per a arreglar-ho, només cal anar fins al menú <b>Manteniment</b>, i primer "
+"trieu <b>Suprimix totes les miniatures</b>, i després trieu <tt>Construïx "
+"les miniatures</tt>.</p><p>Si no ho feu així, es provocarà un espai "
+"addicional al voltant de les imatges en la vista de miniatures -només açò-, "
+"per tant, no és urgent fer-ho.</p>"
 
 #: DB/XML/FileReader.cpp:461
 #, kde-format
@@ -3690,7 +3690,7 @@ msgid ""
 msgstr ""
 "<h1><a name=\"database\">Funcionament de la base de dades SQLite</a></"
 "h1><p>KPhotoAlbum permet fer busques utilitzant alguna de les etiquetes "
-"Exif. Per açò, KPhotoAlbum necessita la base de dades SQLite. De manera "
+"Exif. Per a açò, KPhotoAlbum necessita la base de dades SQLite. De manera "
 "addicional, cal instal·lar el paquet Qt per a SQLite (p. ex., qt-sql-sqlite)."
 "</p>"
 
@@ -6103,9 +6103,9 @@ msgid ""
 "the thumbnails will be shown automatically. The alternative is to continue "
 "showing the browser until you press <i>Show Images</i></p>"
 msgstr ""
-"<p>Quan esteu navegant, i el comptador arriba a un valor inferior al que ací "
-"s'indica, es mostraran automàticament les miniatures. L'alternativa és "
-"continuar mostrant el visor fins que premeu <i>Mostra les imatges</i></p>"
+"<p>Quan esteu navegant, i el comptador arriba fins a un valor inferior al "
+"que s'indica ací, es mostraran automàticament les miniatures. L'alternativa "
+"és continuar mostrant el visor fins que premeu <i>Mostra les imatges</i></p>"
 
 #: Settings/UntaggedGroupBox.cpp:22
 #, kde-format
@@ -7170,7 +7170,7 @@ msgstr "Afig una etiqueta"
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr "CTRL+a"
+msgstr "Ctrl+A"
 
 #: Viewer/ViewerWidget.cpp:1462
 #, kde-format
@@ -7182,7 +7182,7 @@ msgstr "Copia les dades a partir de la imatge anterior"
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr "CTRL+c"
+msgstr "Ctrl+C"
 
 #: Viewer/ViewerWidget.cpp:1466
 #, kde-format
@@ -7194,7 +7194,7 @@ msgstr "Edita la descripció"
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr "CTRL+d"
+msgstr "Ctrl+D"
 
 #: Viewer/ViewerWidget.cpp:1470
 #, kde-format
@@ -7211,7 +7211,7 @@ msgstr "Bloquejat"
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr "CTRL+l"
+msgstr "Ctrl+L"
 
 #: Viewer/ViewerWidget.cpp:1477
 #, kde-format
@@ -7235,7 +7235,7 @@ msgstr "Assigna símbols"
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr "CTRL+t"
+msgstr "Ctrl+T"
 
 #: Viewer/ViewerWidget.cpp:1637
 #, kde-format

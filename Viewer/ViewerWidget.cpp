@@ -139,7 +139,7 @@ Viewer::ViewerWidget::ViewerWidget(UsageType type)
 
     connect(m_imageDisplay, &ImageDisplay::possibleChange, this, &ViewerWidget::updateCategoryConfig);
     connect(m_imageDisplay, &ImageDisplay::imageReady, this, &ViewerWidget::updateInfoBox);
-    connect(m_imageDisplay, &ImageDisplay::setCaptionInfo, this, &ViewerWidget::setCaptionWithDetail);
+    connect(m_imageDisplay, &ImageDisplay::imageZoomCaptionChanged, this, &ViewerWidget::setCaptionWithDetail);
     connect(m_imageDisplay, &ImageDisplay::viewGeometryChanged, this, &ViewerWidget::remapAreas);
 
     // This must not be added to the layout, as it is standing on top of
@@ -261,6 +261,11 @@ void Viewer::ViewerWidget::inhibitScreenSaver(bool inhibit)
             m_screenSaverCookie = -1;
         }
     }
+}
+
+DB::FileName Viewer::ViewerWidget::currentFileName() const
+{
+    return m_list.value(m_current);
 }
 
 void Viewer::ViewerWidget::createInvokeExternalMenu()
@@ -456,9 +461,13 @@ void Viewer::ViewerWidget::load(const DB::FileNameList &list, int index)
 
 void Viewer::ViewerWidget::load()
 {
+    const auto currentFile = currentFileName();
+    if (currentFile.isNull())
+        return;
+
     m_display->stop();
-    const bool isReadable = QFileInfo(m_list[m_current].absolute()).isReadable();
-    const bool isVideo = isReadable && KPABase::isVideo(m_list[m_current]);
+    const bool isReadable = QFileInfo(currentFile.absolute()).isReadable();
+    const bool isVideo = isReadable && KPABase::isVideo(currentFile);
 
     m_crashSentinel.suspend();
     if (isReadable) {
@@ -478,7 +487,7 @@ void Viewer::ViewerWidget::load()
 
     updateContextMenuState(isVideo);
 
-    Q_EMIT soughtTo(m_list[m_current]);
+    Q_EMIT soughtTo(currentFile);
 
     bool ok = m_display->setImage(currentInfo(), m_forward);
     if (!ok) {
@@ -503,14 +512,18 @@ void Viewer::ViewerWidget::load()
 
 void Viewer::ViewerWidget::setCaptionWithDetail(const QString &detail)
 {
+    const auto currentFile = currentFileName();
+    if (currentFile.isNull())
+        return;
+
     setWindowTitle(i18nc("@title:window %1 is the filename, %2 its detail info", "%1 %2",
-                         m_list[m_current].absolute(),
+                         currentFile.absolute(),
                          detail));
 }
 
 void Viewer::ViewerWidget::slotRemoveDeletedImages(const DB::FileNameList &imageList)
 {
-    const auto currentFile = m_list.value(m_current);
+    const auto currentFile = currentFileName();
     for (const auto &filename : imageList) {
         m_list.removeAll(filename);
     }
@@ -583,7 +596,9 @@ void Viewer::ViewerWidget::deleteCurrent()
 
 void Viewer::ViewerWidget::removeOrDeleteCurrent(RemoveAction action)
 {
-    const DB::FileName fileName = m_list[m_current];
+    const DB::FileName fileName = currentFileName();
+    if (fileName.isNull())
+        return;
 
     if (action == RemoveImageFromDatabase)
         m_removed.append(fileName);
@@ -620,11 +635,15 @@ void Viewer::ViewerWidget::setTagMode(TagMode tagMode)
 
 void Viewer::ViewerWidget::updateContextMenuState(bool isVideo)
 {
+    const auto currentFile = currentFileName();
+    if (currentFile.isNull())
+        return;
+
     m_categoryImagePopup->setEnabled(!isVideo);
 
     m_showExifViewer->setEnabled(!isVideo);
     if (m_exifViewer)
-        m_exifViewer->setImage(m_list[m_current]);
+        m_exifViewer->setImage(currentFile);
 
     for (QAction *videoAction : qAsConst(m_videoActions)) {
         videoAction->setVisible(isVideo);
@@ -718,11 +737,15 @@ void Viewer::ViewerWidget::showPrev1000()
 
 void Viewer::ViewerWidget::rotate(int angle)
 {
-    currentInfo()->rotate(angle);
-    m_display->rotate(currentInfo());
+    const auto current = currentInfo();
+    if (current->isNull())
+        return;
+
+    current->rotate(angle);
+    m_display->rotate(current);
     invalidateThumbnail();
     MainWindow::DirtyIndicator::markDirty();
-    Q_EMIT imageRotated(m_list[m_current]);
+    Q_EMIT imageRotated(currentFileName());
 }
 
 void Viewer::ViewerWidget::showFirst()
@@ -751,7 +774,11 @@ void Viewer::ViewerWidget::closeEvent(QCloseEvent *event)
 
 DB::ImageInfoPtr Viewer::ViewerWidget::currentInfo() const
 {
-    return DB::ImageDB::instance()->info(m_list[m_current]);
+    const auto currentFile = currentFileName();
+    if (currentFile.isNull())
+        return {};
+
+    return DB::ImageDB::instance()->info(currentFile);
 }
 
 void Viewer::ViewerWidget::updatePalette()
@@ -1022,7 +1049,11 @@ void Viewer::ViewerWidget::filterMono()
 
 void Viewer::ViewerWidget::slotSetStackHead()
 {
-    MainWindow::Window::theMainWindow()->setStackHead(m_list[m_current]);
+    const auto currentFile = currentFileName();
+    if (currentFile.isNull())
+        return;
+
+    MainWindow::Window::theMainWindow()->setStackHead(currentFile);
 }
 
 bool Viewer::ViewerWidget::showingFullScreen() const
@@ -1059,7 +1090,11 @@ void Viewer::ViewerWidget::populateExternalPopup()
 
 void Viewer::ViewerWidget::populateCategoryImagePopup()
 {
-    m_categoryImagePopup->populate(m_imageDisplay->currentViewAsThumbnail(), m_list[m_current]);
+    const auto currentFile = currentFileName();
+    if (currentFile.isNull())
+        return;
+
+    m_categoryImagePopup->populate(m_imageDisplay->currentViewAsThumbnail(), currentFile);
 }
 
 void Viewer::ViewerWidget::show(bool slideShow)
@@ -1144,7 +1179,11 @@ void Viewer::ViewerWidget::wheelEvent(QWheelEvent *event)
 
 void Viewer::ViewerWidget::showExifViewer()
 {
-    m_exifViewer = new Exif::InfoDialog(m_list[m_current], this);
+    const auto currentFile = currentFileName();
+    if (currentFile.isNull())
+        return;
+
+    m_exifViewer = new Exif::InfoDialog(currentFile, this);
     m_exifViewer->show();
 }
 
@@ -1496,7 +1535,11 @@ void Viewer::ViewerWidget::stopPlayback()
 
 void Viewer::ViewerWidget::invalidateThumbnail() const
 {
-    MainWindow::Window::theMainWindow()->thumbnailCache()->removeThumbnail(m_list[m_current]);
+    const auto currentFile = currentFileName();
+    if (currentFile.isNull())
+        return;
+
+    MainWindow::Window::theMainWindow()->thumbnailCache()->removeThumbnail(currentFile);
 }
 
 void Viewer::ViewerWidget::setTaggedAreasFromImage()
@@ -1609,11 +1652,15 @@ void Viewer::ViewerWidget::setCopyLinkEngine(MainWindow::CopyLinkEngine *copyLin
 
 void Viewer::ViewerWidget::triggerCopyLinkAction(MainWindow::CopyLinkEngine::Action action)
 {
+    const auto currentFile = currentFileName();
+    if (currentFile.isNull())
+        return;
+
     if (!m_copyLinkEngine) {
         qCWarning(ViewerLog) << "ViewerWidget::triggerCopyLinkAction called without CopyLinkEngine. This is a bug!";
         return;
     }
-    const auto selectedFiles = QList<QUrl> { QUrl::fromLocalFile(m_list.value(m_current).absolute()) };
+    const auto selectedFiles = QList<QUrl> { QUrl::fromLocalFile(currentFile.absolute()) };
     m_copyLinkEngine->selectTarget(this, selectedFiles, action);
 }
 

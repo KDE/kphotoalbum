@@ -128,6 +128,17 @@ protected:
     void createVideoViewer();
     void createAnnotationMenu();
     void inhibitScreenSaver(bool inhibit);
+    /**
+     * @brief currentFileName accesses the current file name in a safe way.
+     * If the current index is invalid, a \c null DB::FileName is returned.
+     * @return the current DB::FileName
+     */
+    DB::FileName currentFileName() const;
+    /**
+     * @brief currentInfo queries the database for the ImageInfo for the current file.
+     * If the current index is invalid, a \c null DB::ImageInfoPtr is returned.
+     * @return the ImageInfoPtr for the current DB::FileName.
+     */
     DB::ImageInfoPtr currentInfo() const;
     friend class InfoBox;
 

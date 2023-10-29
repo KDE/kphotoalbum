@@ -449,9 +449,9 @@ void Viewer::ImageDisplay::updateZoomCaption()
         ratio = ((double)imgSize.height()) / (m_zEnd.y() - m_zStart.y());
     }
 
-    Q_EMIT setCaptionInfo((ratio > 1.05)
-                              ? ki18n("[ zoom x%1 ]").subs(ratio, 0, 'f', 1).toString()
-                              : QString());
+    Q_EMIT imageZoomCaptionChanged((ratio > 1.05)
+                                       ? ki18n("[ zoom x%1 ]").subs(ratio, 0, 'f', 1).toString()
+                                       : QString());
 }
 
 QImage Viewer::ImageDisplay::currentViewAsThumbnail() const

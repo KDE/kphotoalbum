@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -73,7 +73,7 @@ protected Q_SLOTS:
 Q_SIGNALS:
     void possibleChange();
     void imageReady();
-    void setCaptionInfo(const QString &info);
+    void imageZoomCaptionChanged(const QString &info);
     void viewGeometryChanged(QSize viewSize, QRect zoomWindow, double sizeRatio);
 
 protected:

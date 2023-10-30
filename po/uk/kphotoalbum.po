@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-15 00:40+0000\n"
+"POT-Creation-Date: 2023-10-30 00:40+0000\n"
 "PO-Revision-Date: 2023-10-13 08:51+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -6822,224 +6822,224 @@ msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Закрити"
 
-#: Viewer/ViewerWidget.cpp:277
+#: Viewer/ViewerWidget.cpp:282
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Повернути"
 
-#: Viewer/ViewerWidget.cpp:288
+#: Viewer/ViewerWidget.cpp:293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "Повернути за годинниковою стрілкою"
 
-#: Viewer/ViewerWidget.cpp:289
+#: Viewer/ViewerWidget.cpp:294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Віддзеркалити"
 
-#: Viewer/ViewerWidget.cpp:290
+#: Viewer/ViewerWidget.cpp:295
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Повернути проти годинникової стрілки"
 
-#: Viewer/ViewerWidget.cpp:301
+#: Viewer/ViewerWidget.cpp:306
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Пропустити"
 
-#: Viewer/ViewerWidget.cpp:304
+#: Viewer/ViewerWidget.cpp:309
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "Перше"
 
-#: Viewer/ViewerWidget.cpp:311
+#: Viewer/ViewerWidget.cpp:316
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Останнє"
 
-#: Viewer/ViewerWidget.cpp:318
+#: Viewer/ViewerWidget.cpp:323
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Показати наступне"
 
-#: Viewer/ViewerWidget.cpp:324
+#: Viewer/ViewerWidget.cpp:329
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "На 10 вперед"
 
-#: Viewer/ViewerWidget.cpp:330
+#: Viewer/ViewerWidget.cpp:335
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "На 100 вперед"
 
-#: Viewer/ViewerWidget.cpp:336
+#: Viewer/ViewerWidget.cpp:341
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "На 1000 вперед"
 
-#: Viewer/ViewerWidget.cpp:342
+#: Viewer/ViewerWidget.cpp:347
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Показати попереднє"
 
-#: Viewer/ViewerWidget.cpp:348
+#: Viewer/ViewerWidget.cpp:353
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "На 10 назад"
 
-#: Viewer/ViewerWidget.cpp:354
+#: Viewer/ViewerWidget.cpp:359
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "На 100 назад"
 
-#: Viewer/ViewerWidget.cpp:360
+#: Viewer/ViewerWidget.cpp:365
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "На 1000 назад"
 
-#: Viewer/ViewerWidget.cpp:366
+#: Viewer/ViewerWidget.cpp:371
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Вилучити зображення"
 
-#: Viewer/ViewerWidget.cpp:371
+#: Viewer/ViewerWidget.cpp:376
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Вилучити зображення зі списку показу"
 
-#: Viewer/ViewerWidget.cpp:386
+#: Viewer/ViewerWidget.cpp:391
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Масштабування"
 
-#: Viewer/ViewerWidget.cpp:390
+#: Viewer/ViewerWidget.cpp:395
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Збільшити"
 
-#: Viewer/ViewerWidget.cpp:396
+#: Viewer/ViewerWidget.cpp:401
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Зменшити"
 
-#: Viewer/ViewerWidget.cpp:402
+#: Viewer/ViewerWidget.cpp:407
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Перегляд на повний розмір"
 
-#: Viewer/ViewerWidget.cpp:408
+#: Viewer/ViewerWidget.cpp:413
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Перегляд піксель у піксель"
 
-#: Viewer/ViewerWidget.cpp:414
+#: Viewer/ViewerWidget.cpp:419
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Перемикач повноекранного режиму"
 
-#: Viewer/ViewerWidget.cpp:425
+#: Viewer/ViewerWidget.cpp:430
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Показ слайдів"
 
-#: Viewer/ViewerWidget.cpp:428 Viewer/ViewerWidget.cpp:879
+#: Viewer/ViewerWidget.cpp:433 Viewer/ViewerWidget.cpp:906
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Запустити показ слайдів"
 
-#: Viewer/ViewerWidget.cpp:433
+#: Viewer/ViewerWidget.cpp:438
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Швидше"
 
-#: Viewer/ViewerWidget.cpp:438
+#: Viewer/ViewerWidget.cpp:443
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Повільніше"
 
-#: Viewer/ViewerWidget.cpp:472
+#: Viewer/ViewerWidget.cpp:481
 #, kde-format
 msgid "File not available"
 msgstr "Файл недоступний"
 
-#: Viewer/ViewerWidget.cpp:506
+#: Viewer/ViewerWidget.cpp:519
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
 msgstr "%1 %2"
 
-#: Viewer/ViewerWidget.cpp:541
+#: Viewer/ViewerWidget.cpp:554
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
 msgstr "Пуск"
 
-#: Viewer/ViewerWidget.cpp:543
+#: Viewer/ViewerWidget.cpp:556
 #, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
 msgstr "Пауза"
 
-#: Viewer/ViewerWidget.cpp:609
+#: Viewer/ViewerWidget.cpp:624
 #, kde-format
 msgid "locked"
 msgstr "заблоковано"
 
-#: Viewer/ViewerWidget.cpp:611
+#: Viewer/ViewerWidget.cpp:626
 #, kde-format
 msgid "annotating"
 msgstr "анотування"
 
-#: Viewer/ViewerWidget.cpp:613
+#: Viewer/ViewerWidget.cpp:628
 #, kde-format
 msgid "tokenizing"
 msgstr "призначення позначок"
 
-#: Viewer/ViewerWidget.cpp:618
+#: Viewer/ViewerWidget.cpp:633
 #, kde-format
 msgid "Change display mode to %1"
 msgstr "Змінити режим показу на %1"
 
-#: Viewer/ViewerWidget.cpp:882
+#: Viewer/ViewerWidget.cpp:909
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
 msgstr "Завершення показу слайдів"
 
-#: Viewer/ViewerWidget.cpp:885
+#: Viewer/ViewerWidget.cpp:912
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
 msgstr "Зупинити показ слайдів"
 
-#: Viewer/ViewerWidget.cpp:890
+#: Viewer/ViewerWidget.cpp:917
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
@@ -7049,145 +7049,145 @@ msgstr ""
 "Розпочинаємо показ слайдів<br/>%1 пришвидшує показ слайдів<br/>%2 уповільнює "
 "показ слайдів"
 
-#: Viewer/ViewerWidget.cpp:940
+#: Viewer/ViewerWidget.cpp:967
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
 msgstr "%1&nbsp;с"
 
-#: Viewer/ViewerWidget.cpp:1189
+#: Viewer/ViewerWidget.cpp:1228
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
 msgstr "Редагування опису зображення"
 
-#: Viewer/ViewerWidget.cpp:1189
+#: Viewer/ViewerWidget.cpp:1228
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
 msgstr "Опис зображення"
 
-#: Viewer/ViewerWidget.cpp:1204
+#: Viewer/ViewerWidget.cpp:1243
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
 msgstr "Пошук"
 
-#: Viewer/ViewerWidget.cpp:1226
+#: Viewer/ViewerWidget.cpp:1265
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
 msgstr "на 10 хвилин назад"
 
-#: Viewer/ViewerWidget.cpp:1227
+#: Viewer/ViewerWidget.cpp:1266
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
 msgstr "на 1 хвилину назад"
 
-#: Viewer/ViewerWidget.cpp:1228
+#: Viewer/ViewerWidget.cpp:1267
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
 msgstr "на 10 секунд назад"
 
-#: Viewer/ViewerWidget.cpp:1229
+#: Viewer/ViewerWidget.cpp:1268
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
 msgstr "на 1 секунду назад"
 
-#: Viewer/ViewerWidget.cpp:1230
+#: Viewer/ViewerWidget.cpp:1269
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
 msgstr "на 100 мілісекунд назад"
 
-#: Viewer/ViewerWidget.cpp:1231
+#: Viewer/ViewerWidget.cpp:1270
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
 msgstr "на 100 мілісекунд вперед"
 
-#: Viewer/ViewerWidget.cpp:1232
+#: Viewer/ViewerWidget.cpp:1271
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
 msgstr "на 1 секунду вперед"
 
-#: Viewer/ViewerWidget.cpp:1233
+#: Viewer/ViewerWidget.cpp:1272
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
 msgstr "на 10 секунд вперед"
 
-#: Viewer/ViewerWidget.cpp:1234
+#: Viewer/ViewerWidget.cpp:1273
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
 msgstr "на 1 хвилину вперед"
 
-#: Viewer/ViewerWidget.cpp:1235
+#: Viewer/ViewerWidget.cpp:1274
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
 msgstr "на 10 хвилин вперед"
 
-#: Viewer/ViewerWidget.cpp:1243
+#: Viewer/ViewerWidget.cpp:1282
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
 msgstr "Зупинити"
 
-#: Viewer/ViewerWidget.cpp:1255
+#: Viewer/ViewerWidget.cpp:1294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
 msgstr "Використовувати поточну рамку у перегляді мініатюр"
 
-#: Viewer/ViewerWidget.cpp:1262
+#: Viewer/ViewerWidget.cpp:1301
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
 msgstr "Перезапустити"
 
-#: Viewer/ViewerWidget.cpp:1278
+#: Viewer/ViewerWidget.cpp:1317
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
 msgstr "Фільтри"
 
-#: Viewer/ViewerWidget.cpp:1281
+#: Viewer/ViewerWidget.cpp:1320
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
 msgstr "Вилучити всі фільтри"
 
-#: Viewer/ViewerWidget.cpp:1285
+#: Viewer/ViewerWidget.cpp:1324
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
 msgstr "Застосувати фільтр перетворення на відтінки сірого"
 
-#: Viewer/ViewerWidget.cpp:1290
+#: Viewer/ViewerWidget.cpp:1329
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
 msgstr "Застосувати фільтр розтягування контрастності"
 
-#: Viewer/ViewerWidget.cpp:1295
+#: Viewer/ViewerWidget.cpp:1334
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
 msgstr "Застосувати фільтр вирівнювання гістограми"
 
-#: Viewer/ViewerWidget.cpp:1300
+#: Viewer/ViewerWidget.cpp:1339
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
 msgstr "Застосувати фільтр перетворення на чорно-біле"
 
-#: Viewer/ViewerWidget.cpp:1356
+#: Viewer/ViewerWidget.cpp:1395
 #, kde-format
 msgid ""
 "<p>It seems that KPhotoAlbum previously crashed during video playback. On "
@@ -7199,7 +7199,7 @@ msgstr ""
 "відтворення відео.</p><p>Натисніть <i>Продовжити</i>, щоб надати KPhotoAlbum "
 "змогу спробувати інший модуль обробки...</p>"
 
-#: Viewer/ViewerWidget.cpp:1360
+#: Viewer/ViewerWidget.cpp:1399
 #, kde-format
 msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
@@ -7208,7 +7208,7 @@ msgstr ""
 "<p>Роботу модуля обробки відео було перервано: <tt>%1</tt></p><p>Модуль "
 "обробки відео, який буде використано замість перерваного: <tt>%2</tt></p>"
 
-#: Viewer/ViewerWidget.cpp:1373
+#: Viewer/ViewerWidget.cpp:1412
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
@@ -7218,101 +7218,101 @@ msgstr ""
 "завершили роботу в аварійному режимі.</p><p>Засіб виявлення аварій вимкнено."
 "</p>"
 
-#: Viewer/ViewerWidget.cpp:1437
+#: Viewer/ViewerWidget.cpp:1476
 #, kde-format
 msgid "Annotate"
 msgstr "Анотувати"
 
-#: Viewer/ViewerWidget.cpp:1456
+#: Viewer/ViewerWidget.cpp:1495
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
 msgstr "Довідка"
 
-#: Viewer/ViewerWidget.cpp:1458
+#: Viewer/ViewerWidget.cpp:1497
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Діалогове вікно приміток"
 
-#: Viewer/ViewerWidget.cpp:1459
+#: Viewer/ViewerWidget.cpp:1498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Додати мітку"
 
-#: Viewer/ViewerWidget.cpp:1459
+#: Viewer/ViewerWidget.cpp:1498
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
 msgstr "Ctrl+A"
 
-#: Viewer/ViewerWidget.cpp:1462
+#: Viewer/ViewerWidget.cpp:1501
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
 msgstr "Копіювати дані з попереднього зображення"
 
-#: Viewer/ViewerWidget.cpp:1463
+#: Viewer/ViewerWidget.cpp:1502
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
 msgstr "Ctrl+C"
 
-#: Viewer/ViewerWidget.cpp:1466
+#: Viewer/ViewerWidget.cpp:1505
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Змінити опис"
 
-#: Viewer/ViewerWidget.cpp:1467
+#: Viewer/ViewerWidget.cpp:1506
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
 msgstr "Ctrl+D"
 
-#: Viewer/ViewerWidget.cpp:1470
+#: Viewer/ViewerWidget.cpp:1509
 #, kde-format
 msgid "Annotation Mode"
 msgstr "Режим анотування"
 
-#: Viewer/ViewerWidget.cpp:1472
+#: Viewer/ViewerWidget.cpp:1511
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
 msgstr "Заблоковано"
 
-#: Viewer/ViewerWidget.cpp:1473
+#: Viewer/ViewerWidget.cpp:1512
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
 msgstr "Ctrl+L"
 
-#: Viewer/ViewerWidget.cpp:1477
+#: Viewer/ViewerWidget.cpp:1516
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
 msgstr "Призначити мітки"
 
-#: Viewer/ViewerWidget.cpp:1478
+#: Viewer/ViewerWidget.cpp:1517
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
 msgstr "F2"
 
-#: Viewer/ViewerWidget.cpp:1481
+#: Viewer/ViewerWidget.cpp:1520
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
 msgstr "Призначити позначки"
 
-#: Viewer/ViewerWidget.cpp:1482
+#: Viewer/ViewerWidget.cpp:1521
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
 msgstr "Ctrl+T"
 
-#: Viewer/ViewerWidget.cpp:1637
+#: Viewer/ViewerWidget.cpp:1684
 #, kde-format
 msgid "Token %1"
 msgstr "Позначка %1"

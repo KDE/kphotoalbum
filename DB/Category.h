@@ -42,10 +42,10 @@ class Category : public QObject, public QSharedData
     Q_OBJECT
 
 public:
-    enum ViewType { TreeView,
-                    ThumbedTreeView,
-                    IconView,
-                    ThumbedIconView };
+    enum ViewType { TreeView, ///< TreeView with generic items
+                    ThumbedTreeView, ///< TreeView with user thumbnails
+                    IconView, ///< IconView with generic items
+                    ThumbedIconView }; ///< IconView with user thumbnails
     enum CategoryType { PlainCategory,
                         FolderCategory,
                         MediaTypeCategory,

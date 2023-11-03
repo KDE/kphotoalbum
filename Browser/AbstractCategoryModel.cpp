@@ -57,13 +57,20 @@ QString Browser::AbstractCategoryModel::text(const QString &name) const
 
 QPixmap Browser::AbstractCategoryModel::icon(const QString &name) const
 {
-    const int size = m_category->thumbnailSize();
+    int size = m_category->thumbnailSize();
+    if (m_category->viewType() == DB::Category::TreeView) {
+        // for generic tree view, icons are less important and carry few information
+        // Maybe we should query the system for some sensible value here somehow, but I didn't find
+        // anything reasonable during a cursory search and 22px has been hardcoded in some parts of kphotoalbum
+        // for this kind of items without complaints so far...
+        size = 22;
+    }
 
     if (m_category->viewType() == DB::Category::TreeView || m_category->viewType() == DB::Category::IconView) {
         if (DB::ImageDB::instance()->memberMap().isGroup(m_category->name(), name)) {
             return QIcon::fromTheme(QString::fromUtf8("folder-image")).pixmap(size);
         } else {
-            return m_category->icon();
+            return m_category->icon(size);
         }
     } else {
         // The category images are screenshot from the size of the viewer (Which might very well be considered a bug)

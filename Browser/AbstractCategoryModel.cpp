@@ -1,15 +1,19 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2009 Yuri Chornoivan <yurchor@ukr.net>
+// SPDX-FileCopyrightText: 2009-2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2009-2010 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2015-2016 Tobias Leupold <tl@stonemx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "AbstractCategoryModel.h"
 
-#include "BrowserWidget.h"
 #include "enums.h"
 
 #include <DB/ImageDB.h>
 #include <DB/MemberMap.h>
+#include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>
 #include <QApplication>
@@ -108,7 +112,7 @@ QVariant Browser::AbstractCategoryModel::data(const QModelIndex &index, int role
     else if (role == ValueRole) {
         switch (column) {
         case 0:
-            return name; // Notice we sort by **None** rather than None, which makes it show up at the top for less than searches.
+            return name;
         case 1:
             return m_images[name].count;
         case 2:
@@ -124,6 +128,9 @@ QVariant Browser::AbstractCategoryModel::data(const QModelIndex &index, int role
             return range.end().toSecsSinceEpoch();
         }
         }
+    } else if (role == SortPriorityRole) {
+        // none is to be sorted first
+        return (name == DB::ImageDB::NONE());
     }
 
     return QVariant();

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-30 00:40+0000\n"
+"POT-Creation-Date: 2023-11-04 00:40+0000\n"
 "PO-Revision-Date: 2011-10-31 15:42+0000\n"
 "Last-Translator: Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -819,7 +819,7 @@ msgid ""
 "which is currently shown in the thumbnail viewer)</li></ul></p>"
 msgstr ""
 
-#: Browser/AbstractCategoryModel.cpp:37 Exif/SearchDialog.cpp:387
+#: Browser/AbstractCategoryModel.cpp:41 Exif/SearchDialog.cpp:387
 #: lib/kpaexif/SearchInfo.cpp:191
 #, fuzzy, kde-format
 #| msgid "None"
@@ -827,13 +827,13 @@ msgctxt "As in No persons, no locations etc."
 msgid "None"
 msgstr "Nieko"
 
-#: Browser/AbstractCategoryModel.cpp:39
+#: Browser/AbstractCategoryModel.cpp:43
 #, kde-format
 msgctxt "As in no other persons, or no other locations. "
 msgid "No other"
 msgstr ""
 
-#: Browser/AbstractCategoryModel.cpp:82
+#: Browser/AbstractCategoryModel.cpp:93
 #, fuzzy, kde-format
 #| msgid "1 image"
 #| msgid_plural "%1 images"
@@ -845,7 +845,7 @@ msgstr[1] "%1 paveikslėliai"
 msgstr[2] "%1 paveikslėlių"
 msgstr[3] "%1 paveikslėlis"
 
-#: Browser/AbstractCategoryModel.cpp:84
+#: Browser/AbstractCategoryModel.cpp:95
 #, fuzzy, kde-format
 #| msgid "1 video"
 #| msgid_plural "%1 videos"
@@ -857,23 +857,23 @@ msgstr[1] "%1 video"
 msgstr[2] "%1 video"
 msgstr[3] "%1 video"
 
-#: Browser/AbstractCategoryModel.cpp:146
+#: Browser/AbstractCategoryModel.cpp:160
 #, kde-format
 msgid "Images"
 msgstr "Paveikslai"
 
-#: Browser/AbstractCategoryModel.cpp:148
+#: Browser/AbstractCategoryModel.cpp:162
 #, kde-format
 msgid "Videos"
 msgstr "Video"
 
-#: Browser/AbstractCategoryModel.cpp:150
+#: Browser/AbstractCategoryModel.cpp:164
 #, fuzzy, kde-format
 #| msgid "Show Date"
 msgid "Start Date"
 msgstr "Rodyti datą"
 
-#: Browser/AbstractCategoryModel.cpp:152
+#: Browser/AbstractCategoryModel.cpp:166
 #, fuzzy, kde-format
 #| msgid "Date"
 msgid "End Date"

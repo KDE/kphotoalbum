@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-30 00:40+0000\n"
+"POT-Creation-Date: 2023-11-04 00:40+0000\n"
 "PO-Revision-Date: 2010-09-24 12:18+0530\n"
 "Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
 "Language-Team: Maithili <bhashaghar@googlegroups.com>\n"
@@ -810,7 +810,7 @@ msgid ""
 "which is currently shown in the thumbnail viewer)</li></ul></p>"
 msgstr ""
 
-#: Browser/AbstractCategoryModel.cpp:37 Exif/SearchDialog.cpp:387
+#: Browser/AbstractCategoryModel.cpp:41 Exif/SearchDialog.cpp:387
 #: lib/kpaexif/SearchInfo.cpp:191
 #, fuzzy, kde-format
 #| msgid "None"
@@ -818,14 +818,14 @@ msgctxt "As in No persons, no locations etc."
 msgid "None"
 msgstr "किछु नहि"
 
-#: Browser/AbstractCategoryModel.cpp:39
+#: Browser/AbstractCategoryModel.cpp:43
 #, fuzzy, kde-format
 #| msgid "Other"
 msgctxt "As in no other persons, or no other locations. "
 msgid "No other"
 msgstr "आन"
 
-#: Browser/AbstractCategoryModel.cpp:82
+#: Browser/AbstractCategoryModel.cpp:93
 #, fuzzy, kde-format
 #| msgid "Image"
 msgctxt "@item:intable number of images with a specific tag."
@@ -834,7 +834,7 @@ msgid_plural "%1 images"
 msgstr[0] "चित्र"
 msgstr[1] "चित्र"
 
-#: Browser/AbstractCategoryModel.cpp:84
+#: Browser/AbstractCategoryModel.cpp:95
 #, fuzzy, kde-format
 #| msgid "Video"
 msgctxt "@item:intable number of videos with a specific tag."
@@ -843,22 +843,22 @@ msgid_plural "%1 videos"
 msgstr[0] "वीडियो"
 msgstr[1] "वीडियो"
 
-#: Browser/AbstractCategoryModel.cpp:146
+#: Browser/AbstractCategoryModel.cpp:160
 #, kde-format
 msgid "Images"
 msgstr "बिंब"
 
-#: Browser/AbstractCategoryModel.cpp:148
+#: Browser/AbstractCategoryModel.cpp:162
 #, kde-format
 msgid "Videos"
 msgstr ""
 
-#: Browser/AbstractCategoryModel.cpp:150
+#: Browser/AbstractCategoryModel.cpp:164
 #, kde-format
 msgid "Start Date"
 msgstr ""
 
-#: Browser/AbstractCategoryModel.cpp:152
+#: Browser/AbstractCategoryModel.cpp:166
 #, fuzzy, kde-format
 #| msgid "Date"
 msgid "End Date"

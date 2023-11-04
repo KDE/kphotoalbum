@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-30 00:40+0000\n"
+"POT-Creation-Date: 2023-11-04 00:40+0000\n"
 "PO-Revision-Date: 2023-10-15 10:42+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -859,20 +859,20 @@ msgstr ""
 "bildeton por videodosiero, kiu estas nuntempe montrita en la "
 "bildetospektilo)</li></ul></p>"
 
-#: Browser/AbstractCategoryModel.cpp:37 Exif/SearchDialog.cpp:387
+#: Browser/AbstractCategoryModel.cpp:41 Exif/SearchDialog.cpp:387
 #: lib/kpaexif/SearchInfo.cpp:191
 #, kde-format
 msgctxt "As in No persons, no locations etc."
 msgid "None"
 msgstr "Neniu"
 
-#: Browser/AbstractCategoryModel.cpp:39
+#: Browser/AbstractCategoryModel.cpp:43
 #, kde-format
 msgctxt "As in no other persons, or no other locations. "
 msgid "No other"
 msgstr "Neniu alia"
 
-#: Browser/AbstractCategoryModel.cpp:82
+#: Browser/AbstractCategoryModel.cpp:93
 #, kde-format
 msgctxt "@item:intable number of images with a specific tag."
 msgid "1 image"
@@ -880,7 +880,7 @@ msgid_plural "%1 images"
 msgstr[0] "%1 bildo"
 msgstr[1] "%1 bildoj"
 
-#: Browser/AbstractCategoryModel.cpp:84
+#: Browser/AbstractCategoryModel.cpp:95
 #, kde-format
 msgctxt "@item:intable number of videos with a specific tag."
 msgid "1 video"
@@ -888,22 +888,22 @@ msgid_plural "%1 videos"
 msgstr[0] "1 filmeto"
 msgstr[1] "%1 filmetoj"
 
-#: Browser/AbstractCategoryModel.cpp:146
+#: Browser/AbstractCategoryModel.cpp:160
 #, kde-format
 msgid "Images"
 msgstr "Bildoj"
 
-#: Browser/AbstractCategoryModel.cpp:148
+#: Browser/AbstractCategoryModel.cpp:162
 #, kde-format
 msgid "Videos"
 msgstr "Videoj"
 
-#: Browser/AbstractCategoryModel.cpp:150
+#: Browser/AbstractCategoryModel.cpp:164
 #, kde-format
 msgid "Start Date"
 msgstr "Komenca dato"
 
-#: Browser/AbstractCategoryModel.cpp:152
+#: Browser/AbstractCategoryModel.cpp:166
 #, kde-format
 msgid "End Date"
 msgstr "Findato"

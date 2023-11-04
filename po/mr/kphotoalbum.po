@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-30 00:40+0000\n"
+"POT-Creation-Date: 2023-11-04 00:40+0000\n"
 "PO-Revision-Date: 2013-02-24 11:33+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -812,20 +812,20 @@ msgid ""
 "which is currently shown in the thumbnail viewer)</li></ul></p>"
 msgstr ""
 
-#: Browser/AbstractCategoryModel.cpp:37 Exif/SearchDialog.cpp:387
+#: Browser/AbstractCategoryModel.cpp:41 Exif/SearchDialog.cpp:387
 #: lib/kpaexif/SearchInfo.cpp:191
 #, kde-format
 msgctxt "As in No persons, no locations etc."
 msgid "None"
 msgstr "काही नाही"
 
-#: Browser/AbstractCategoryModel.cpp:39
+#: Browser/AbstractCategoryModel.cpp:43
 #, kde-format
 msgctxt "As in no other persons, or no other locations. "
 msgid "No other"
 msgstr "इतर नाही"
 
-#: Browser/AbstractCategoryModel.cpp:82
+#: Browser/AbstractCategoryModel.cpp:93
 #, kde-format
 msgctxt "@item:intable number of images with a specific tag."
 msgid "1 image"
@@ -833,7 +833,7 @@ msgid_plural "%1 images"
 msgstr[0] "1 प्रतिमा"
 msgstr[1] "%1 प्रतिमा"
 
-#: Browser/AbstractCategoryModel.cpp:84
+#: Browser/AbstractCategoryModel.cpp:95
 #, kde-format
 msgctxt "@item:intable number of videos with a specific tag."
 msgid "1 video"
@@ -841,22 +841,22 @@ msgid_plural "%1 videos"
 msgstr[0] "1 व्हिडीओ"
 msgstr[1] "%1 व्हिडीओ"
 
-#: Browser/AbstractCategoryModel.cpp:146
+#: Browser/AbstractCategoryModel.cpp:160
 #, kde-format
 msgid "Images"
 msgstr "प्रतिमा"
 
-#: Browser/AbstractCategoryModel.cpp:148
+#: Browser/AbstractCategoryModel.cpp:162
 #, kde-format
 msgid "Videos"
 msgstr "व्हिडीओ"
 
-#: Browser/AbstractCategoryModel.cpp:150
+#: Browser/AbstractCategoryModel.cpp:164
 #, kde-format
 msgid "Start Date"
 msgstr ""
 
-#: Browser/AbstractCategoryModel.cpp:152
+#: Browser/AbstractCategoryModel.cpp:166
 #, fuzzy, kde-format
 #| msgid "Date"
 msgid "End Date"

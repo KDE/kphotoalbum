@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-30 00:40+0000\n"
+"POT-Creation-Date: 2023-11-04 00:40+0000\n"
 "PO-Revision-Date: 2021-01-10 14:24+0100\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -870,20 +870,20 @@ msgstr ""
 "ale vykonáva úlohu popredia (ako extrakcia miniatúry pre video súbor, čo je "
 "aktuálne zobrazené v prehliadači miniatúr</li></ul></p>"
 
-#: Browser/AbstractCategoryModel.cpp:37 Exif/SearchDialog.cpp:387
+#: Browser/AbstractCategoryModel.cpp:41 Exif/SearchDialog.cpp:387
 #: lib/kpaexif/SearchInfo.cpp:191
 #, kde-format
 msgctxt "As in No persons, no locations etc."
 msgid "None"
 msgstr "Žiadne"
 
-#: Browser/AbstractCategoryModel.cpp:39
+#: Browser/AbstractCategoryModel.cpp:43
 #, kde-format
 msgctxt "As in no other persons, or no other locations. "
 msgid "No other"
 msgstr "Žiadne iné"
 
-#: Browser/AbstractCategoryModel.cpp:82
+#: Browser/AbstractCategoryModel.cpp:93
 #, kde-format
 msgctxt "@item:intable number of images with a specific tag."
 msgid "1 image"
@@ -892,7 +892,7 @@ msgstr[0] "1 obrázok"
 msgstr[1] "%1 obrázky"
 msgstr[2] "%1 obrázkov"
 
-#: Browser/AbstractCategoryModel.cpp:84
+#: Browser/AbstractCategoryModel.cpp:95
 #, kde-format
 msgctxt "@item:intable number of videos with a specific tag."
 msgid "1 video"
@@ -901,22 +901,22 @@ msgstr[0] "1 video"
 msgstr[1] "%1 videá"
 msgstr[2] "%1 videí"
 
-#: Browser/AbstractCategoryModel.cpp:146
+#: Browser/AbstractCategoryModel.cpp:160
 #, kde-format
 msgid "Images"
 msgstr "Obrázky"
 
-#: Browser/AbstractCategoryModel.cpp:148
+#: Browser/AbstractCategoryModel.cpp:162
 #, kde-format
 msgid "Videos"
 msgstr "Videá"
 
-#: Browser/AbstractCategoryModel.cpp:150
+#: Browser/AbstractCategoryModel.cpp:164
 #, kde-format
 msgid "Start Date"
 msgstr "Dátum začiatku"
 
-#: Browser/AbstractCategoryModel.cpp:152
+#: Browser/AbstractCategoryModel.cpp:166
 #, kde-format
 msgid "End Date"
 msgstr "Dátum konca"

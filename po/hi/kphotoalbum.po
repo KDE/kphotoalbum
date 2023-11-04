@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-10-30 00:40+0000\n"
+"POT-Creation-Date: 2023-11-04 00:40+0000\n"
 "PO-Revision-Date: 2022-02-26 11:47+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: Hindi <kde-l10n-hi@kde.org>\n"
@@ -843,7 +843,7 @@ msgid ""
 "which is currently shown in the thumbnail viewer)</li></ul></p>"
 msgstr ""
 
-#: Browser/AbstractCategoryModel.cpp:37 Exif/SearchDialog.cpp:387
+#: Browser/AbstractCategoryModel.cpp:41 Exif/SearchDialog.cpp:387
 #: lib/kpaexif/SearchInfo.cpp:191
 #, fuzzy, kde-format
 #| msgid "None"
@@ -851,14 +851,14 @@ msgctxt "As in No persons, no locations etc."
 msgid "None"
 msgstr "कुछ नहीं"
 
-#: Browser/AbstractCategoryModel.cpp:39
+#: Browser/AbstractCategoryModel.cpp:43
 #, fuzzy, kde-format
 #| msgid "No other"
 msgctxt "As in no other persons, or no other locations. "
 msgid "No other"
 msgstr "अन्य कोई नहीं"
 
-#: Browser/AbstractCategoryModel.cpp:82
+#: Browser/AbstractCategoryModel.cpp:93
 #, fuzzy, kde-format
 #| msgid "1 image"
 #| msgid_plural "%1 images"
@@ -868,7 +868,7 @@ msgid_plural "%1 images"
 msgstr[0] "१ छवि"
 msgstr[1] "%1 छवियाँ"
 
-#: Browser/AbstractCategoryModel.cpp:84
+#: Browser/AbstractCategoryModel.cpp:95
 #, fuzzy, kde-format
 #| msgid "1 video"
 #| msgid_plural "%1 videos"
@@ -878,23 +878,23 @@ msgid_plural "%1 videos"
 msgstr[0] "१ वीडियो"
 msgstr[1] "%1 वीडियो"
 
-#: Browser/AbstractCategoryModel.cpp:146
+#: Browser/AbstractCategoryModel.cpp:160
 #, kde-format
 msgid "Images"
 msgstr "छवियाँ"
 
-#: Browser/AbstractCategoryModel.cpp:148
+#: Browser/AbstractCategoryModel.cpp:162
 #, kde-format
 msgid "Videos"
 msgstr "वीडियो"
 
-#: Browser/AbstractCategoryModel.cpp:150
+#: Browser/AbstractCategoryModel.cpp:164
 #, fuzzy, kde-format
 #| msgid "Sort Selected by Date && Time"
 msgid "Start Date"
 msgstr "तारीख़ व समय द्वारा छांटना चुना गया (&&)"
 
-#: Browser/AbstractCategoryModel.cpp:152
+#: Browser/AbstractCategoryModel.cpp:166
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgid "End Date"

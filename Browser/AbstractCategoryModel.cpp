@@ -136,8 +136,13 @@ QVariant Browser::AbstractCategoryModel::data(const QModelIndex &index, int role
         }
         }
     } else if (role == SortPriorityRole) {
-        // none is to be sorted first
-        return (name == DB::ImageDB::NONE());
+        switch (column) {
+        case 0:
+            // none is to be sorted first
+            return (name == DB::ImageDB::NONE()) ? -1 : 0;
+        default:
+            return 0;
+        }
     }
 
     return QVariant();

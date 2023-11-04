@@ -65,11 +65,11 @@ void Browser::TreeFilter::setNaturalSortOrder(bool naturalSortOrder)
 
 bool Browser::TreeFilter::lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const
 {
-    const bool sortPriority_left = source_left.data(SortPriorityRole).toBool();
-    const bool sortPriority_right = source_right.data(SortPriorityRole).toBool();
-    // if only one item has priority, it gets prioritized above the other. Otherwise sort normally...
-    if (sortPriority_left xor sortPriority_right) {
-        return sortPriority_left;
+    const int sortPriority_left = source_left.data(SortPriorityRole).toInt();
+    const int sortPriority_right = source_right.data(SortPriorityRole).toInt();
+    // if items have different priorities, sort according to priority. Otherwise sort normally...
+    if (sortPriority_left != sortPriority_right) {
+        return sortPriority_left < sortPriority_right;
     }
     if (m_naturalSortOrder) {
         // numeric sort

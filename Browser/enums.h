@@ -13,8 +13,7 @@ namespace Browser
 
 constexpr int ItemNameRole = Qt::UserRole + 1;
 constexpr int ValueRole = Qt::UserRole + 2;
-constexpr int SortPriorityRole = Qt::UserRole + 3; ///< bool, \c true if item should be sorted before regular items, \c false otherwise.
-
+constexpr int SortPriorityRole = Qt::UserRole + 3; ///< int, can be used to define "sort classes". I.e. items with the same priority are sorted alphabetically, but lower priorities are always sorted before higher priorities.
 }
 
 #endif /* BROWSER_ENUMS_H */

@@ -132,10 +132,6 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     m_previewDock = createDock(i18n("Image Preview"), QString::fromLatin1("Image Preview"), Qt::TopDockWidgetArea, createPreviewWidget());
 
     m_description = new DescriptionEdit(this);
-    m_description->setProperty("WantsFocus", true);
-    m_description->setObjectName(i18n("Description"));
-    m_description->setCheckSpellingEnabled(true);
-    m_description->setTabChangesFocus(true); // this allows tabbing to the next item in the tab order.
     m_description->setWhatsThis(i18nc("@info:whatsthis",
                                       "<para>A descriptive text of the image.</para>"
                                       "<para>If <emphasis>Use Exif description</emphasis> is enabled under "
@@ -546,7 +542,7 @@ void AnnotationDialog::Dialog::load()
         m_endDate->setDate(info.date().end().date());
 
     m_imageLabel->setText(info.label());
-    m_description->setPlainText(info.description());
+    m_description->setDescription(info.description());
 
     if (m_setup == InputSingleImageConfigMode)
         m_rating->setRating(qMax(static_cast<short int>(0), info.rating()));
@@ -655,7 +651,7 @@ void AnnotationDialog::Dialog::writeToInfo()
     DB::TaggedAreas areas = taggedAreas();
 
     info.setLabel(m_imageLabel->text());
-    info.setDescription(m_description->toPlainText());
+    info.setDescription(m_description->description());
 
     for (const ListSelect *ls : qAsConst(m_optionList)) {
         info.setCategoryInfo(ls->category(), ls->itemsOn());
@@ -757,16 +753,17 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
 
         m_imageLabel->setText(QString());
         m_imageFilePattern->setText(QString());
-        m_firstDescription = m_editList[0].description();
+        const QString &firstDescription = m_editList[0].description();
 
         const bool allTextEqual = std::all_of(m_editList.begin(), m_editList.end(),
                                               [=](const DB::ImageInfo &item) -> bool {
-                                                  return item.description() == m_firstDescription;
+                                                  return item.description() == firstDescription;
                                               });
 
         if (!allTextEqual)
-            m_firstDescription = m_conflictText;
-        m_description->setPlainText(m_firstDescription);
+            m_description->setConflictWarning(m_conflictText);
+        else
+            m_description->setDescription(firstDescription);
     }
 
     showHelpDialog(oneAtATime ? InputSingleImageConfigMode : InputMultiImageConfigMode);
@@ -796,7 +793,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search(DB::ImageSearchInfo *search
         const QDate start = m_startDate->date();
         const QDate end = m_endDate->date();
         m_oldSearch = DB::ImageSearchInfo(DB::ImageDate(start, end),
-                                          m_imageLabel->text(), m_description->toPlainText(),
+                                          m_imageLabel->text(), m_description->description(),
                                           m_imageFilePattern->text());
 
         for (const ListSelect *ls : qAsConst(m_optionList)) {
@@ -868,7 +865,7 @@ void AnnotationDialog::Dialog::loadInfo(const DB::ImageSearchInfo &info)
     }
 
     m_imageLabel->setText(info.label());
-    m_description->setText(info.description());
+    m_description->setDescription(info.description());
 }
 
 void AnnotationDialog::Dialog::slotOptions()
@@ -1107,7 +1104,7 @@ bool AnnotationDialog::Dialog::hasChanges()
                 return true;
         }
     } else if (m_setup == InputMultiImageConfigMode) {
-        if ((!m_startDate->date().isNull()) || (!m_endDate->date().isNull()) || (!m_imageLabel->text().isEmpty()) || (m_description->toPlainText() != m_firstDescription) || m_ratingChanged)
+        if ((!m_startDate->date().isNull()) || (!m_endDate->date().isNull()) || (!m_imageLabel->text().isEmpty()) || m_description->changed() || m_ratingChanged)
             return true;
         for (const ListSelect *ls : qAsConst(m_optionList)) {
             if (!(changedOptions(ls).isEmpty()))
@@ -1440,8 +1437,8 @@ void AnnotationDialog::Dialog::saveAndClose()
                 info->setLabel(m_imageLabel->text());
             }
 
-            if (!m_description->toPlainText().isEmpty() && m_description->toPlainText().compare(m_conflictText)) {
-                info->setDescription(m_description->toPlainText());
+            if (!m_description->isEmpty()) {
+                info->setDescription(m_description->description());
             }
 
             if (m_ratingChanged) {

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-04 00:40+0000\n"
+"POT-Creation-Date: 2023-11-05 12:26+0000\n"
 "PO-Revision-Date: 2021-02-18 13:51-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -56,6 +56,12 @@ msgstr "hoje"
 msgid "yesterday"
 msgstr "ontem"
 
+#: AnnotationDialog/DescriptionEdit.cpp:15 AnnotationDialog/Dialog.cpp:141
+#: HTMLGenerator/HTMLDialog.cpp:143 ImportExport/MD5CheckPage.cpp:66
+#, kde-format
+msgid "Description"
+msgstr "Descrição"
+
 #: AnnotationDialog/Dialog.cpp:105
 #, kde-format
 msgid ""
@@ -75,13 +81,7 @@ msgstr "Rótulos e datas"
 msgid "Image Preview"
 msgstr "Visualização de imagem"
 
-#: AnnotationDialog/Dialog.cpp:136 AnnotationDialog/Dialog.cpp:145
-#: HTMLGenerator/HTMLDialog.cpp:143 ImportExport/MD5CheckPage.cpp:66
-#, kde-format
-msgid "Description"
-msgstr "Descrição"
-
-#: AnnotationDialog/Dialog.cpp:140
+#: AnnotationDialog/Dialog.cpp:136
 #, fuzzy, kde-format
 #| msgctxt "@info:whatsthis"
 #| msgid ""
@@ -102,17 +102,17 @@ msgstr ""
 "informações EXIF da imagem será importada para este campo, caso esteja "
 "disponível.</para>"
 
-#: AnnotationDialog/Dialog.cpp:166 DB/ImageDB.cpp:397
+#: AnnotationDialog/Dialog.cpp:162 DB/ImageDB.cpp:397
 #, kde-format
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: AnnotationDialog/Dialog.cpp:171 AnnotationDialog/Dialog.cpp:173
+#: AnnotationDialog/Dialog.cpp:167 AnnotationDialog/Dialog.cpp:169
 #, kde-format
 msgid "Map"
 msgstr "Mapa"
 
-#: AnnotationDialog/Dialog.cpp:179
+#: AnnotationDialog/Dialog.cpp:175
 #, fuzzy, kde-format
 #| msgctxt "@info:whatsthis"
 #| msgid ""
@@ -126,63 +126,63 @@ msgstr ""
 "O widget do mapa permite-lhe ver a localização das imagens, caso as "
 "coordenadas GPS sejam encontradas nas informações EXIF."
 
-#: AnnotationDialog/Dialog.cpp:227
+#: AnnotationDialog/Dialog.cpp:223
 #, kde-format
 msgid "Revert This Item"
 msgstr "Reverter este item"
 
-#: AnnotationDialog/Dialog.cpp:233
+#: AnnotationDialog/Dialog.cpp:229
 #, kde-format
 msgid "Clear Form"
 msgstr "Limpar formulário"
 
-#: AnnotationDialog/Dialog.cpp:237
+#: AnnotationDialog/Dialog.cpp:233
 #, kde-format
 msgid "Options..."
 msgstr "Opções..."
 
-#: AnnotationDialog/Dialog.cpp:243
+#: AnnotationDialog/Dialog.cpp:239
 #, kde-format
 msgid "&Done"
 msgstr "&Concluído"
 
-#: AnnotationDialog/Dialog.cpp:246
+#: AnnotationDialog/Dialog.cpp:242
 #, kde-format
 msgid "Continue &Later"
 msgstr "Continuar mais &tarde"
 
-#: AnnotationDialog/Dialog.cpp:254 AnnotationDialog/Dialog.cpp:833
+#: AnnotationDialog/Dialog.cpp:250 AnnotationDialog/Dialog.cpp:830
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
 msgstr "Pe&squisar"
 
-#: AnnotationDialog/Dialog.cpp:320
+#: AnnotationDialog/Dialog.cpp:316
 #, kde-format
 msgid "Label: "
 msgstr "Rótulo: "
 
-#: AnnotationDialog/Dialog.cpp:324 ImportExport/MD5CheckPage.cpp:65
+#: AnnotationDialog/Dialog.cpp:320 ImportExport/MD5CheckPage.cpp:65
 #, kde-format
 msgid "Label"
 msgstr "Legenda"
 
-#: AnnotationDialog/Dialog.cpp:333
+#: AnnotationDialog/Dialog.cpp:329
 #, kde-format
 msgid "Date: "
 msgstr "Data: "
 
-#: AnnotationDialog/Dialog.cpp:349
+#: AnnotationDialog/Dialog.cpp:345
 #, kde-format
 msgid "Time: "
 msgstr "Hora: "
 
-#: AnnotationDialog/Dialog.cpp:355
+#: AnnotationDialog/Dialog.cpp:351
 #, kde-format
 msgid "Use Fuzzy Date"
 msgstr "Usar uma data aproximada"
 
-#: AnnotationDialog/Dialog.cpp:357
+#: AnnotationDialog/Dialog.cpp:353
 #, kde-format
 msgctxt "@info"
 msgid ""
@@ -201,137 +201,137 @@ msgstr ""
 "com filme), então a opção <interface>Usar uma data aproximada</interface> "
 "deve ser ativada.</para>"
 
-#: AnnotationDialog/Dialog.cpp:372
+#: AnnotationDialog/Dialog.cpp:368
 #, kde-format
 msgid "Minimum megapixels:"
 msgstr "Megapixels mínimos:"
 
-#: AnnotationDialog/Dialog.cpp:382
+#: AnnotationDialog/Dialog.cpp:378
 #, kde-format
 msgid "Maximum megapixels:"
 msgstr "Megapixels máximos:"
 
-#: AnnotationDialog/Dialog.cpp:395
+#: AnnotationDialog/Dialog.cpp:391
 #, kde-format
 msgid "Rating:"
 msgstr "Classificação:"
 
-#: AnnotationDialog/Dialog.cpp:403
+#: AnnotationDialog/Dialog.cpp:399
 #, kde-format
 msgid "Rating search mode:"
 msgstr "Modo de pesquisa de classificação:"
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:403
 #, kde-format
 msgid "=="
 msgstr "=="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:403
 #, kde-format
 msgid ">="
 msgstr ">="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:403
 #, kde-format
 msgid "<="
 msgstr "<="
 
-#: AnnotationDialog/Dialog.cpp:407
+#: AnnotationDialog/Dialog.cpp:403
 #, kde-format
 msgid "!="
 msgstr "!="
 
-#: AnnotationDialog/Dialog.cpp:415
+#: AnnotationDialog/Dialog.cpp:411
 #, kde-format
 msgid "File Name Pattern: "
 msgstr "Padrão de nomes de arquivos: "
 
-#: AnnotationDialog/Dialog.cpp:418
+#: AnnotationDialog/Dialog.cpp:414
 #, kde-format
 msgid "File Name Pattern"
 msgstr "Padrão de nomes de arquivos"
 
-#: AnnotationDialog/Dialog.cpp:423
+#: AnnotationDialog/Dialog.cpp:419
 #, kde-format
 msgid "Search only for RAW files"
 msgstr "Pesquisar somente por arquivos RAW"
 
-#: AnnotationDialog/Dialog.cpp:613
+#: AnnotationDialog/Dialog.cpp:609
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
 msgstr "Anotações (%1/%2)"
 
-#: AnnotationDialog/Dialog.cpp:838
+#: AnnotationDialog/Dialog.cpp:835
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
 msgstr "Pesquisar"
 
-#: AnnotationDialog/Dialog.cpp:841
+#: AnnotationDialog/Dialog.cpp:838
 #, kde-format
 msgid "Done"
 msgstr "Concluído"
 
-#: AnnotationDialog/Dialog.cpp:848
+#: AnnotationDialog/Dialog.cpp:845
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Anotações"
 
-#: AnnotationDialog/Dialog.cpp:880
+#: AnnotationDialog/Dialog.cpp:877
 #, kde-format
 msgid "Configure Window Layout..."
 msgstr "Configurar o layout da janela..."
 
-#: AnnotationDialog/Dialog.cpp:881
+#: AnnotationDialog/Dialog.cpp:878
 #, kde-format
 msgid "Save Current Window Setup"
 msgstr "Salvar configuração da janela atual"
 
-#: AnnotationDialog/Dialog.cpp:882
+#: AnnotationDialog/Dialog.cpp:879
 #, kde-format
 msgid "Reset layout"
 msgstr "Redefinir layout"
 
-#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1288
+#: AnnotationDialog/Dialog.cpp:886 AnnotationDialog/Dialog.cpp:1285
 #: AnnotationDialog/ListSelect.cpp:95
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Ordenar alfabeticamente (Árvore)"
 
-#: AnnotationDialog/Dialog.cpp:893 AnnotationDialog/Dialog.cpp:1292
+#: AnnotationDialog/Dialog.cpp:890 AnnotationDialog/Dialog.cpp:1289
 #: AnnotationDialog/ListSelect.cpp:101
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Ordenar alfabeticamente (Plano)"
 
-#: AnnotationDialog/Dialog.cpp:897
+#: AnnotationDialog/Dialog.cpp:894
 #, kde-format
 msgid "Sort by Date"
 msgstr "Ordenar por data"
 
-#: AnnotationDialog/Dialog.cpp:913
+#: AnnotationDialog/Dialog.cpp:910
 #, kde-format
 msgid "Match Tags from the First Character"
 msgstr "Corresponder às etiquetas do primeiro caractere."
 
-#: AnnotationDialog/Dialog.cpp:914
+#: AnnotationDialog/Dialog.cpp:911
 #, kde-format
 msgid "Match Tags from Word Boundaries"
 msgstr "Corresponder às etiquetas dos limites das palavras."
 
-#: AnnotationDialog/Dialog.cpp:915
+#: AnnotationDialog/Dialog.cpp:912
 #, kde-format
 msgid "Match Tags Anywhere"
 msgstr "Corresponder às etiquetas em qualquer lugar."
 
-#: AnnotationDialog/Dialog.cpp:932
+#: AnnotationDialog/Dialog.cpp:929
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Mostrar somente os selecionados Ctrl+S"
 
-#: AnnotationDialog/Dialog.cpp:977
+#: AnnotationDialog/Dialog.cpp:974
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
@@ -340,7 +340,7 @@ msgstr ""
 "<p>Não foi possível salvar o layout da janela.</p>O arquivo %1 não pôde ser "
 "aberto porque ocorreu o seguinte erro: %2"
 
-#: AnnotationDialog/Dialog.cpp:982
+#: AnnotationDialog/Dialog.cpp:979
 #, kde-format
 msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
@@ -349,7 +349,7 @@ msgstr ""
 "<p>Não foi possível salvar o layout da janela.</p>O arquivo %1 não pôde ser "
 "gravado porque ocorreu o seguinte erro: %2"
 
-#: AnnotationDialog/Dialog.cpp:1050
+#: AnnotationDialog/Dialog.cpp:1047
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Some changes are made to annotations. Do you really want to cancel all "
@@ -361,14 +361,14 @@ msgstr ""
 "<p>Algumas alterações foram feitas nas anotações. Deseja cancelar, para "
 "descartar todas as alterações recentes em cada arquivo afetado?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1051
+#: AnnotationDialog/Dialog.cpp:1048
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "Salvar alterações?"
 
-#: AnnotationDialog/Dialog.cpp:1152
+#: AnnotationDialog/Dialog.cpp:1149
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -385,7 +385,7 @@ msgstr ""
 "você pode encontrar dicas extras sobre sua utilização lendo sobre <a href="
 "\"help:/kphotoalbum/chp-typingIn.html\">digitação</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1160
+#: AnnotationDialog/Dialog.cpp:1157
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -399,52 +399,52 @@ msgstr ""
 "a <a href=\"help:/kphotoalbum/chp-typingIn.html\">documentação sobre este "
 "diálogo</a>.</p>"
 
-#: AnnotationDialog/Dialog.cpp:1295
+#: AnnotationDialog/Dialog.cpp:1292
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "Ordenar por usados mais recentemente"
 
-#: AnnotationDialog/Dialog.cpp:1298
+#: AnnotationDialog/Dialog.cpp:1295
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "Alternar ordenação"
 
-#: AnnotationDialog/Dialog.cpp:1303
+#: AnnotationDialog/Dialog.cpp:1300
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "Alternar mostrando apenas os itens selecionados"
 
-#: AnnotationDialog/Dialog.cpp:1307
+#: AnnotationDialog/Dialog.cpp:1304
 #, kde-format
 msgid "Annotate Next"
 msgstr "Anotar próxima"
 
-#: AnnotationDialog/Dialog.cpp:1311
+#: AnnotationDialog/Dialog.cpp:1308
 #, kde-format
 msgid "Annotate Previous"
 msgstr "Anotar anterior"
 
-#: AnnotationDialog/Dialog.cpp:1315
+#: AnnotationDialog/Dialog.cpp:1312
 #, kde-format
 msgid "OK dialog"
 msgstr "Diálogo de confirmação"
 
-#: AnnotationDialog/Dialog.cpp:1319
+#: AnnotationDialog/Dialog.cpp:1316
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "Copiar etiquetas da imagem anterior"
 
-#: AnnotationDialog/Dialog.cpp:1323 MainWindow/Window.cpp:849
+#: AnnotationDialog/Dialog.cpp:1320 MainWindow/Window.cpp:849
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Girar no sentido anti-horário"
 
-#: AnnotationDialog/Dialog.cpp:1326 MainWindow/Window.cpp:853
+#: AnnotationDialog/Dialog.cpp:1323 MainWindow/Window.cpp:853
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Girar no sentido horário"
 
-#: AnnotationDialog/Dialog.cpp:1329
+#: AnnotationDialog/Dialog.cpp:1326
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "Alternar exibição em tela inteira"
@@ -925,22 +925,22 @@ msgid_plural "%1 videos"
 msgstr[0] "1 vídeo"
 msgstr[1] "%1 vídeos"
 
-#: Browser/AbstractCategoryModel.cpp:160
+#: Browser/AbstractCategoryModel.cpp:165
 #, kde-format
 msgid "Images"
 msgstr "Imagens"
 
-#: Browser/AbstractCategoryModel.cpp:162
+#: Browser/AbstractCategoryModel.cpp:167
 #, kde-format
 msgid "Videos"
 msgstr "Vídeos"
 
-#: Browser/AbstractCategoryModel.cpp:164
+#: Browser/AbstractCategoryModel.cpp:169
 #, kde-format
 msgid "Start Date"
 msgstr "Data inicial"
 
-#: Browser/AbstractCategoryModel.cpp:166
+#: Browser/AbstractCategoryModel.cpp:171
 #, kde-format
 msgid "End Date"
 msgstr "Data final"
@@ -951,54 +951,54 @@ msgctxt "As in 'all pictures'."
 msgid "All"
 msgstr "Todas"
 
-#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:132
+#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:142
 #, kde-format
 msgid "Geo Position"
 msgstr "Posição geográfica"
 
-#: Browser/OverviewPage.cpp:143
+#: Browser/OverviewPage.cpp:154
 #, kde-format
 msgid "Exif Info"
 msgstr "Informações EXIF"
 
-#: Browser/OverviewPage.cpp:154
+#: Browser/OverviewPage.cpp:166
 #, kde-format
 msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "Pesquisar"
 
-#: Browser/OverviewPage.cpp:163 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:177 Settings/UntaggedGroupBox.cpp:20
 #, kde-format
 msgid "Untagged Images"
 msgstr "Imagens sem etiquetas"
 
-#: Browser/OverviewPage.cpp:172
+#: Browser/OverviewPage.cpp:188
 #, kde-format
 msgid "Show Thumbnails"
 msgstr "Mostrar miniaturas"
 
-#: Browser/OverviewPage.cpp:253 Browser/OverviewPage.cpp:273
+#: Browser/OverviewPage.cpp:270 Browser/OverviewPage.cpp:290
 #, kde-format
 msgid "Search did not match any images or videos."
 msgstr "A pesquisa não encontrou imagens ou vídeos."
 
-#: Browser/OverviewPage.cpp:253 Browser/OverviewPage.cpp:273
+#: Browser/OverviewPage.cpp:270 Browser/OverviewPage.cpp:290
 #, kde-format
 msgid "Empty Search Result"
 msgstr "Resultado de pesquisa vazio"
 
-#: Browser/OverviewPage.cpp:257
+#: Browser/OverviewPage.cpp:274
 #, kde-format
 msgid "Exif Search"
 msgstr "Pesquisa EXIF"
 
-#: Browser/OverviewPage.cpp:277
+#: Browser/OverviewPage.cpp:294
 #, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "pesquisar"
 
-#: Browser/OverviewPage.cpp:314 MainWindow/Window.cpp:1800
+#: Browser/OverviewPage.cpp:331 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -1014,7 +1014,7 @@ msgstr ""
 "b></li><li>Em seguida, configure a seção <b>Imagens sem etiquetas</b></li></"
 "ul></p>"
 
-#: Browser/OverviewPage.cpp:320 MainWindow/Window.cpp:1807
+#: Browser/OverviewPage.cpp:337 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "A funcionalidade não foi configurada"

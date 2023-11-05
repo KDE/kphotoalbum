@@ -60,10 +60,11 @@ bool DB::Category::positionable() const
 
 void DB::Category::setPositionable(bool positionable)
 {
-    if (positionable != m_positionable) {
-        m_positionable = positionable;
-        Q_EMIT changed();
-    }
+    if (positionable == m_positionable)
+        return;
+
+    m_positionable = positionable;
+    Q_EMIT changed();
 }
 
 QString DB::Category::iconName() const
@@ -73,6 +74,9 @@ QString DB::Category::iconName() const
 
 void DB::Category::setIconName(const QString &name)
 {
+    if (m_icon == name)
+        return;
+
     m_icon = name;
     Q_EMIT changed();
 }
@@ -97,6 +101,9 @@ DB::Category::ViewType DB::Category::viewType() const
 
 void DB::Category::setViewType(ViewType type)
 {
+    if (m_type == type)
+        return;
+
     m_type = type;
     Q_EMIT changed();
 }
@@ -108,6 +115,9 @@ int DB::Category::thumbnailSize() const
 
 void DB::Category::setThumbnailSize(int size)
 {
+    if (m_thumbnailSize == size)
+        return;
+
     m_thumbnailSize = size;
     Q_EMIT changed();
 }
@@ -119,6 +129,9 @@ bool DB::Category::doShow() const
 
 void DB::Category::setDoShow(bool b)
 {
+    if (b == m_show)
+        return;
+
     m_show = b;
     Q_EMIT changed();
 }

@@ -59,9 +59,6 @@ int Browser::OverviewPage::rowCount(const QModelIndex &parent) const
 
 QVariant Browser::OverviewPage::data(const QModelIndex &index, int role) const
 {
-    if (role == ValueRole)
-        return index.row();
-
     const int row = index.row();
     if (isCategoryIndex(row))
         return categoryInfo(row, role);
@@ -126,7 +123,7 @@ QList<DB::CategoryPtr> Browser::OverviewPage::categories() const
 
 QVariant Browser::OverviewPage::categoryInfo(int row, int role) const
 {
-    if (role == Qt::DisplayRole)
+    if (role == Qt::DisplayRole || role == ValueRole)
         return categories()[row]->name();
     else if (role == Qt::DecorationRole)
         return categories()[row]->icon(THUMBNAILSIZE);
@@ -138,7 +135,7 @@ QVariant Browser::OverviewPage::categoryInfo(int row, int role) const
 
 QVariant Browser::OverviewPage::geoPositionInfo(int role) const
 {
-    if (role == Qt::DisplayRole)
+    if (role == Qt::DisplayRole || role == ValueRole)
         return i18n("Geo Position");
     else if (role == Qt::DecorationRole) {
         return QIcon::fromTheme(QString::fromLatin1("globe")).pixmap(THUMBNAILSIZE);
@@ -150,7 +147,7 @@ QVariant Browser::OverviewPage::geoPositionInfo(int role) const
 
 QVariant Browser::OverviewPage::exivInfo(int role) const
 {
-    if (role == Qt::DisplayRole)
+    if (role == Qt::DisplayRole || role == ValueRole)
         return i18n("Exif Info");
     else if (role == Qt::DecorationRole) {
         return QIcon::fromTheme(QString::fromLatin1("document-properties")).pixmap(THUMBNAILSIZE);
@@ -162,7 +159,7 @@ QVariant Browser::OverviewPage::exivInfo(int role) const
 
 QVariant Browser::OverviewPage::searchInfo(int role) const
 {
-    if (role == Qt::DisplayRole)
+    if (role == Qt::DisplayRole || role == ValueRole)
         return i18nc("@action Search button in the browser view.", "Search");
     else if (role == Qt::DecorationRole)
         return QIcon::fromTheme(QString::fromLatin1("system-search")).pixmap(THUMBNAILSIZE);
@@ -173,7 +170,7 @@ QVariant Browser::OverviewPage::searchInfo(int role) const
 
 QVariant Browser::OverviewPage::untaggedImagesInfo(int role) const
 {
-    if (role == Qt::DisplayRole)
+    if (role == Qt::DisplayRole || role == ValueRole)
         return i18n("Untagged Images");
     else if (role == Qt::DecorationRole)
         return QIcon::fromTheme(QString::fromUtf8("archive-insert")).pixmap(THUMBNAILSIZE);
@@ -184,7 +181,7 @@ QVariant Browser::OverviewPage::untaggedImagesInfo(int role) const
 
 QVariant Browser::OverviewPage::imageInfo(int role) const
 {
-    if (role == Qt::DisplayRole)
+    if (role == Qt::DisplayRole || role == ValueRole)
         return i18n("Show Thumbnails");
     else if (role == Qt::DecorationRole) {
         QIcon icon = QIcon::fromTheme(QString::fromUtf8("view-preview"));

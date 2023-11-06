@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:26+0000\n"
+"POT-Creation-Date: 2023-11-06 00:40+0000\n"
 "PO-Revision-Date: 2010-09-24 12:18+0530\n"
 "Last-Translator: Rajesh Ranjan <rajesh672@gmail.com>\n"
 "Language-Team: Maithili <bhashaghar@googlegroups.com>\n"
@@ -871,58 +871,58 @@ msgctxt "As in 'all pictures'."
 msgid "All"
 msgstr "सभ"
 
-#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:142
+#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:139
 #, fuzzy, kde-format
 #| msgid "Description"
 msgid "Geo Position"
 msgstr "विवरण"
 
-#: Browser/OverviewPage.cpp:154
+#: Browser/OverviewPage.cpp:151
 #, kde-format
 msgid "Exif Info"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:166
+#: Browser/OverviewPage.cpp:163
 #, fuzzy, kde-format
 #| msgid "Search"
 msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "खोजू"
 
-#: Browser/OverviewPage.cpp:177 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:174 Settings/UntaggedGroupBox.cpp:20
 #, kde-format
 msgid "Untagged Images"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:188
+#: Browser/OverviewPage.cpp:185
 #, kde-format
 msgid "Show Thumbnails"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:270 Browser/OverviewPage.cpp:290
+#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
 #, kde-format
 msgid "Search did not match any images or videos."
 msgstr ""
 
-#: Browser/OverviewPage.cpp:270 Browser/OverviewPage.cpp:290
+#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
 #, kde-format
 msgid "Empty Search Result"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:274
+#: Browser/OverviewPage.cpp:271
 #, fuzzy, kde-format
 #| msgid "Search"
 msgid "Exif Search"
 msgstr "खोजू"
 
-#: Browser/OverviewPage.cpp:294
+#: Browser/OverviewPage.cpp:291
 #, fuzzy, kde-format
 #| msgid "Search"
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "खोजू"
 
-#: Browser/OverviewPage.cpp:331 MainWindow/Window.cpp:1800
+#: Browser/OverviewPage.cpp:328 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -932,7 +932,7 @@ msgid ""
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:337 MainWindow/Window.cpp:1807
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr ""
@@ -1123,24 +1123,24 @@ msgstr ""
 msgid "10 Seconds"
 msgstr "1 सकेण्ड"
 
-#: DB/Category.cpp:299
+#: DB/Category.cpp:312
 #, fuzzy, kde-format
 #| msgid "Unable to create temporary file"
 msgid "Unable to create folder '%1'."
 msgstr "अस्थायी फाइल बनाबैमे अक्षम"
 
-#: DB/Category.cpp:299
+#: DB/Category.cpp:312
 #, fuzzy, kde-format
 #| msgid "Unable to create temporary file"
 msgid "Unable to Create Folder"
 msgstr "अस्थायी फाइल बनाबैमे अक्षम"
 
-#: DB/Category.cpp:308
+#: DB/Category.cpp:321
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr ""
 
-#: DB/Category.cpp:308
+#: DB/Category.cpp:321
 #, kde-format
 msgid "Error Saving Image"
 msgstr ""

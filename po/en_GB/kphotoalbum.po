@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:26+0000\n"
+"POT-Creation-Date: 2023-11-06 00:40+0000\n"
 "PO-Revision-Date: 2023-04-29 12:30+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -913,54 +913,54 @@ msgctxt "As in 'all pictures'."
 msgid "All"
 msgstr "All"
 
-#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:142
+#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:139
 #, kde-format
 msgid "Geo Position"
 msgstr "Geo Position"
 
-#: Browser/OverviewPage.cpp:154
+#: Browser/OverviewPage.cpp:151
 #, kde-format
 msgid "Exif Info"
 msgstr "Exif Info"
 
-#: Browser/OverviewPage.cpp:166
+#: Browser/OverviewPage.cpp:163
 #, kde-format
 msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "Search"
 
-#: Browser/OverviewPage.cpp:177 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:174 Settings/UntaggedGroupBox.cpp:20
 #, kde-format
 msgid "Untagged Images"
 msgstr "Untagged Images"
 
-#: Browser/OverviewPage.cpp:188
+#: Browser/OverviewPage.cpp:185
 #, kde-format
 msgid "Show Thumbnails"
 msgstr "Show Thumbnails"
 
-#: Browser/OverviewPage.cpp:270 Browser/OverviewPage.cpp:290
+#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
 #, kde-format
 msgid "Search did not match any images or videos."
 msgstr "Search did not match any images or videos."
 
-#: Browser/OverviewPage.cpp:270 Browser/OverviewPage.cpp:290
+#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
 #, kde-format
 msgid "Empty Search Result"
 msgstr "Empty Search Result"
 
-#: Browser/OverviewPage.cpp:274
+#: Browser/OverviewPage.cpp:271
 #, kde-format
 msgid "Exif Search"
 msgstr "EXIF Search"
 
-#: Browser/OverviewPage.cpp:294
+#: Browser/OverviewPage.cpp:291
 #, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "search"
 
-#: Browser/OverviewPage.cpp:331 MainWindow/Window.cpp:1800
+#: Browser/OverviewPage.cpp:328 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -975,7 +975,7 @@ msgstr ""
 "b></li><li>Now choose the <b>Categories</b> icon</li><li>Now configure "
 "section <b>Untagged Images</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:337 MainWindow/Window.cpp:1807
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Feature has not been configured"
@@ -1183,22 +1183,22 @@ msgstr "1 Minute"
 msgid "10 Seconds"
 msgstr "10 Seconds"
 
-#: DB/Category.cpp:299
+#: DB/Category.cpp:312
 #, kde-format
 msgid "Unable to create folder '%1'."
 msgstr "Unable to create folder '%1'."
 
-#: DB/Category.cpp:299
+#: DB/Category.cpp:312
 #, kde-format
 msgid "Unable to Create Folder"
 msgstr "Unable to Create Folder"
 
-#: DB/Category.cpp:308
+#: DB/Category.cpp:321
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "Error when saving image '%1'."
 
-#: DB/Category.cpp:308
+#: DB/Category.cpp:321
 #, kde-format
 msgid "Error Saving Image"
 msgstr "Error Saving Image"

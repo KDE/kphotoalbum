@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:26+0000\n"
-"PO-Revision-Date: 2023-10-15 10:42+0100\n"
+"POT-Creation-Date: 2023-11-06 00:40+0000\n"
+"PO-Revision-Date: 2023-11-05 17:03+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -914,54 +914,54 @@ msgctxt "As in 'all pictures'."
 msgid "All"
 msgstr "Ĉiuj"
 
-#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:142
+#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:139
 #, kde-format
 msgid "Geo Position"
 msgstr "Geo Pozicio"
 
-#: Browser/OverviewPage.cpp:154
+#: Browser/OverviewPage.cpp:151
 #, kde-format
 msgid "Exif Info"
 msgstr "Eksifaj Informoj"
 
-#: Browser/OverviewPage.cpp:166
+#: Browser/OverviewPage.cpp:163
 #, kde-format
 msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "Serĉo"
 
-#: Browser/OverviewPage.cpp:177 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:174 Settings/UntaggedGroupBox.cpp:20
 #, kde-format
 msgid "Untagged Images"
 msgstr "Nemarkitaj Bildoj"
 
-#: Browser/OverviewPage.cpp:188
+#: Browser/OverviewPage.cpp:185
 #, kde-format
 msgid "Show Thumbnails"
 msgstr "Montri Bildetojn"
 
-#: Browser/OverviewPage.cpp:270 Browser/OverviewPage.cpp:290
+#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
 #, kde-format
 msgid "Search did not match any images or videos."
 msgstr "Serĉo ne kongruis kun iuj bildoj aŭ filmetoj."
 
-#: Browser/OverviewPage.cpp:270 Browser/OverviewPage.cpp:290
+#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
 #, kde-format
 msgid "Empty Search Result"
 msgstr "Malplena Serĉrezulto"
 
-#: Browser/OverviewPage.cpp:274
+#: Browser/OverviewPage.cpp:271
 #, kde-format
 msgid "Exif Search"
 msgstr "Eksif-serĉo"
 
-#: Browser/OverviewPage.cpp:294
+#: Browser/OverviewPage.cpp:291
 #, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "serĉi"
 
-#: Browser/OverviewPage.cpp:331 MainWindow/Window.cpp:1800
+#: Browser/OverviewPage.cpp:328 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -976,7 +976,7 @@ msgstr ""
 "li><li>Nun elektu la piktogramon <b>Kategorioj</b></li><li>Nun agordu "
 "sekcion <b>Nemarkitaj Bildoj</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:337 MainWindow/Window.cpp:1807
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Trajto ne estis agordita"
@@ -1181,22 +1181,22 @@ msgstr "1 Minuto"
 msgid "10 Seconds"
 msgstr "10 Sekundoj"
 
-#: DB/Category.cpp:299
+#: DB/Category.cpp:312
 #, kde-format
 msgid "Unable to create folder '%1'."
 msgstr "Ne eblas krei dosierujon '%1'."
 
-#: DB/Category.cpp:299
+#: DB/Category.cpp:312
 #, kde-format
 msgid "Unable to Create Folder"
 msgstr "Ne eblas Krei Dosierujon"
 
-#: DB/Category.cpp:308
+#: DB/Category.cpp:321
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "Eraro dum konservado de bildo '%1'."
 
-#: DB/Category.cpp:308
+#: DB/Category.cpp:321
 #, kde-format
 msgid "Error Saving Image"
 msgstr "Eraro dum Konservado de Bildo"
@@ -1334,8 +1334,8 @@ msgstr ""
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<p><b>Kalkulante kontrolsumon por %1 dosiero</b></p>"
+msgstr[1] "<p><b>Kalkulante kontrolsumojn por %1 dosieroj</b></p>"
 
 #: DB/NewImageFinder.cpp:704
 #, kde-format
@@ -2819,7 +2819,11 @@ msgid_plural ""
 "%1 images from the import file, have the same MD5 sum as images in the "
 "Database, how should that be resolved?"
 msgstr[0] ""
+"Unu bildo de la importdosiero havas la saman MD5-sumon kiel bildo en la "
+"Datumbazo, kiel tio estu solvita?"
 msgstr[1] ""
+"%1 bildoj de la importdosiero havas la saman MD5-sumon kiel bildoj en la "
+"Datumbazo, kiel tio estu solvita?"
 
 #: ImportExport/MD5CheckPage.cpp:55
 #, kde-format
@@ -6273,8 +6277,8 @@ msgstr "Premu <shortcut>Escape</shortcut> por forigi la filtrilon."
 #, kde-format
 msgid "Filter view by rating: %1 star"
 msgid_plural "Filter view by rating: %1 stars"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Filtri vidon laŭ taksado: %1 stelo"
+msgstr[1] "Filtri vidon laŭ taksado: %1 steloj"
 
 #: ThumbnailView/FilterWidget.cpp:60
 #, kde-format

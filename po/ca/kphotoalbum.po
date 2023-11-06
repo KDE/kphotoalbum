@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:26+0000\n"
+"POT-Creation-Date: 2023-11-06 00:40+0000\n"
 "PO-Revision-Date: 2023-10-13 16:13+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -926,54 +926,54 @@ msgctxt "As in 'all pictures'."
 msgid "All"
 msgstr "Tot"
 
-#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:142
+#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:139
 #, kde-format
 msgid "Geo Position"
 msgstr "Geoposició"
 
-#: Browser/OverviewPage.cpp:154
+#: Browser/OverviewPage.cpp:151
 #, kde-format
 msgid "Exif Info"
 msgstr "Informació Exif"
 
-#: Browser/OverviewPage.cpp:166
+#: Browser/OverviewPage.cpp:163
 #, kde-format
 msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "Cerca"
 
-#: Browser/OverviewPage.cpp:177 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:174 Settings/UntaggedGroupBox.cpp:20
 #, kde-format
 msgid "Untagged Images"
 msgstr "Imatges sense etiquetes"
 
-#: Browser/OverviewPage.cpp:188
+#: Browser/OverviewPage.cpp:185
 #, kde-format
 msgid "Show Thumbnails"
 msgstr "Mostra les miniatures"
 
-#: Browser/OverviewPage.cpp:270 Browser/OverviewPage.cpp:290
+#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
 #, kde-format
 msgid "Search did not match any images or videos."
 msgstr "La cerca no ha trobat cap imatge o vídeo."
 
-#: Browser/OverviewPage.cpp:270 Browser/OverviewPage.cpp:290
+#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
 #, kde-format
 msgid "Empty Search Result"
 msgstr "Resultat de la cerca buit"
 
-#: Browser/OverviewPage.cpp:274
+#: Browser/OverviewPage.cpp:271
 #, kde-format
 msgid "Exif Search"
 msgstr "Cerca Exif"
 
-#: Browser/OverviewPage.cpp:294
+#: Browser/OverviewPage.cpp:291
 #, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "cerca"
 
-#: Browser/OverviewPage.cpp:331 MainWindow/Window.cpp:1800
+#: Browser/OverviewPage.cpp:328 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -989,7 +989,7 @@ msgstr ""
 "icona de <b>Categories</b> </li><li>Configureu la secció <b>Imatges sense "
 "etiquetes</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:337 MainWindow/Window.cpp:1807
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Funcionalitats sense configurar"
@@ -1198,22 +1198,22 @@ msgstr "1 minut"
 msgid "10 Seconds"
 msgstr "10 segons"
 
-#: DB/Category.cpp:299
+#: DB/Category.cpp:312
 #, kde-format
 msgid "Unable to create folder '%1'."
 msgstr "No s'ha pogut crear la carpeta «%1»."
 
-#: DB/Category.cpp:299
+#: DB/Category.cpp:312
 #, kde-format
 msgid "Unable to Create Folder"
 msgstr "No s'ha pogut crear la carpeta"
 
-#: DB/Category.cpp:308
+#: DB/Category.cpp:321
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "Error mentre es desava la imatge «%1»."
 
-#: DB/Category.cpp:308
+#: DB/Category.cpp:321
 #, kde-format
 msgid "Error Saving Image"
 msgstr "Error en desar la imatge"

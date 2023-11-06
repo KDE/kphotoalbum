@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:26+0000\n"
+"POT-Creation-Date: 2023-11-06 00:40+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -919,58 +919,58 @@ msgctxt "As in 'all pictures'."
 msgid "All"
 msgstr "ទាំង​អស់​"
 
-#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:142
+#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:139
 #, fuzzy, kde-format
 #| msgid "Description"
 msgid "Geo Position"
 msgstr "សេចក្ដី​ពិពណ៌នា​"
 
-#: Browser/OverviewPage.cpp:154
+#: Browser/OverviewPage.cpp:151
 #, kde-format
 msgid "Exif Info"
 msgstr "ព័ត៌មាន Exif"
 
-#: Browser/OverviewPage.cpp:166
+#: Browser/OverviewPage.cpp:163
 #, fuzzy, kde-format
 #| msgid "Search"
 msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "ស្វែងរក"
 
-#: Browser/OverviewPage.cpp:177 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:174 Settings/UntaggedGroupBox.cpp:20
 #, kde-format
 msgid "Untagged Images"
 msgstr "រូប​ភាព​ដែល​មិន​ដាក់​ស្លាក​"
 
-#: Browser/OverviewPage.cpp:188
+#: Browser/OverviewPage.cpp:185
 #, kde-format
 msgid "Show Thumbnails"
 msgstr "បង្ហាញ​​រូបភាព​តូចៗ"
 
-#: Browser/OverviewPage.cpp:270 Browser/OverviewPage.cpp:290
+#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
 #, kde-format
 msgid "Search did not match any images or videos."
 msgstr "ការ​ស្វែងរក​មិន​ផ្គូផ្គង​នឹង​រូបភាព ឬ​វីដេអូ​ណាមួយ​ទេ ។"
 
-#: Browser/OverviewPage.cpp:270 Browser/OverviewPage.cpp:290
+#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
 #, kde-format
 msgid "Empty Search Result"
 msgstr "លទ្ធផល​ស្វែងរក​ទទេ"
 
-#: Browser/OverviewPage.cpp:274
+#: Browser/OverviewPage.cpp:271
 #, fuzzy, kde-format
 #| msgid "EXIF Search"
 msgid "Exif Search"
 msgstr "ការ​ស្វែងរក EXIF"
 
-#: Browser/OverviewPage.cpp:294
+#: Browser/OverviewPage.cpp:291
 #, fuzzy, kde-format
 #| msgid "search"
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "ស្វែងរក​"
 
-#: Browser/OverviewPage.cpp:331 MainWindow/Window.cpp:1800
+#: Browser/OverviewPage.cpp:328 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -985,7 +985,7 @@ msgstr ""
 "li><li>ឥឡូវ​នេះ ជ្រើស​រូប​​តំណាង​ <b>ប្រភេទ​</b> </li><li>ឥឡូវ​កំណត់​រចនាសម្ព័ន្ធ​ផ្នែក​ <b>រូបភាព​"
 "ដែល​មិន​ដាក់​​ស្លាក​</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:337 MainWindow/Window.cpp:1807
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "លក្ខណៈ​នេះ​មិន​​ទាន់​ត្រូវ​បាន​កំណត់​រចនា​សម្ព័ន្ធ​ទេ​"
@@ -1204,24 +1204,24 @@ msgstr "១០​ នាទី​"
 msgid "10 Seconds"
 msgstr "១ វិនាទី"
 
-#: DB/Category.cpp:299
+#: DB/Category.cpp:312
 #, fuzzy, kde-format
 #| msgid "Unable to create directory '%1'."
 msgid "Unable to create folder '%1'."
 msgstr "មិន​អាច​បង្កើត​ថត '%1' ។"
 
-#: DB/Category.cpp:299
+#: DB/Category.cpp:312
 #, fuzzy, kde-format
 #| msgid "Unable to Create Directory"
 msgid "Unable to Create Folder"
 msgstr "មិន​អាច​បង្កើត​ថត"
 
-#: DB/Category.cpp:308
+#: DB/Category.cpp:321
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "កំហុស​ពេល​កំពុង​រក្សា​ទុក​រូបភាព '%1' ។"
 
-#: DB/Category.cpp:308
+#: DB/Category.cpp:321
 #, kde-format
 msgid "Error Saving Image"
 msgstr "កំហុស​ពេល​កំពុង​រក្សា​ទុក​រូបភាព"

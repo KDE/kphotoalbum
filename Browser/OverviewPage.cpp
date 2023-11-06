@@ -123,12 +123,18 @@ QList<DB::CategoryPtr> Browser::OverviewPage::categories() const
 
 QVariant Browser::OverviewPage::categoryInfo(int row, int role) const
 {
+    const auto category = categories()[row];
     if (role == Qt::DisplayRole || role == ValueRole)
-        return categories()[row]->name();
+        return category->name();
     else if (role == Qt::DecorationRole)
-        return categories()[row]->icon(THUMBNAILSIZE);
-    else if (role == SortPriorityRole)
-        return 0;
+        return category->icon(THUMBNAILSIZE);
+    else if (role == SortPriorityRole) {
+        if (category->isSpecialCategory()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
     return QVariant();
 }
@@ -140,7 +146,7 @@ QVariant Browser::OverviewPage::geoPositionInfo(int role) const
     else if (role == Qt::DecorationRole) {
         return QIcon::fromTheme(QString::fromLatin1("globe")).pixmap(THUMBNAILSIZE);
     } else if (role == SortPriorityRole)
-        return 1;
+        return 2;
 
     return QVariant();
 }
@@ -152,7 +158,7 @@ QVariant Browser::OverviewPage::exivInfo(int role) const
     else if (role == Qt::DecorationRole) {
         return QIcon::fromTheme(QString::fromLatin1("document-properties")).pixmap(THUMBNAILSIZE);
     } else if (role == SortPriorityRole)
-        return 1;
+        return 2;
 
     return QVariant();
 }
@@ -164,7 +170,7 @@ QVariant Browser::OverviewPage::searchInfo(int role) const
     else if (role == Qt::DecorationRole)
         return QIcon::fromTheme(QString::fromLatin1("system-search")).pixmap(THUMBNAILSIZE);
     else if (role == SortPriorityRole)
-        return 1;
+        return 2;
     return QVariant();
 }
 
@@ -175,7 +181,7 @@ QVariant Browser::OverviewPage::untaggedImagesInfo(int role) const
     else if (role == Qt::DecorationRole)
         return QIcon::fromTheme(QString::fromUtf8("archive-insert")).pixmap(THUMBNAILSIZE);
     else if (role == SortPriorityRole)
-        return 2;
+        return 3;
     return QVariant();
 }
 
@@ -197,7 +203,7 @@ QVariant Browser::OverviewPage::imageInfo(int role) const
         }
         return pixmap;
     } else if (role == SortPriorityRole)
-        return 3;
+        return 4;
     return QVariant();
 }
 

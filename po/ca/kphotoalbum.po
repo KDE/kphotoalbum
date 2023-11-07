@@ -5,14 +5,14 @@
 #
 # SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023 Josep M. Ferrer <txemaq@gmail.com>
 # Manuel Tortosa Moreno <manutortosa@gmail.com>, 2009.
-# Antoni Bella Pérez <antonibella5@yahoo.com>, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022.
+# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022, 2023 Antoni Bella Pérez <antonibella5@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-06 00:40+0000\n"
-"PO-Revision-Date: 2023-10-13 16:13+0200\n"
-"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
+"POT-Creation-Date: 2023-11-07 01:12+0000\n"
+"PO-Revision-Date: 2023-11-06 16:45+0100\n"
+"Last-Translator: Antoni Bella Pérez <antonibella5@yahoo.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 23.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -926,54 +926,54 @@ msgctxt "As in 'all pictures'."
 msgid "All"
 msgstr "Tot"
 
-#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:139
+#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:145
 #, kde-format
 msgid "Geo Position"
 msgstr "Geoposició"
 
-#: Browser/OverviewPage.cpp:151
+#: Browser/OverviewPage.cpp:157
 #, kde-format
 msgid "Exif Info"
 msgstr "Informació Exif"
 
-#: Browser/OverviewPage.cpp:163
+#: Browser/OverviewPage.cpp:169
 #, kde-format
 msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "Cerca"
 
-#: Browser/OverviewPage.cpp:174 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:20
 #, kde-format
 msgid "Untagged Images"
 msgstr "Imatges sense etiquetes"
 
-#: Browser/OverviewPage.cpp:185
+#: Browser/OverviewPage.cpp:191
 #, kde-format
 msgid "Show Thumbnails"
 msgstr "Mostra les miniatures"
 
-#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
+#: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Search did not match any images or videos."
 msgstr "La cerca no ha trobat cap imatge o vídeo."
 
-#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
+#: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Empty Search Result"
 msgstr "Resultat de la cerca buit"
 
-#: Browser/OverviewPage.cpp:271
+#: Browser/OverviewPage.cpp:277
 #, kde-format
 msgid "Exif Search"
 msgstr "Cerca Exif"
 
-#: Browser/OverviewPage.cpp:291
+#: Browser/OverviewPage.cpp:297
 #, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "cerca"
 
-#: Browser/OverviewPage.cpp:328 MainWindow/Window.cpp:1800
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -989,7 +989,7 @@ msgstr ""
 "icona de <b>Categories</b> </li><li>Configureu la secció <b>Imatges sense "
 "etiquetes</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1807
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Funcionalitats sense configurar"
@@ -6090,7 +6090,7 @@ msgid ""
 "<p>Checking this option will show the Categories for the file under "
 "thumbnails in the thumbnail view</p>"
 msgstr ""
-"<p>Marcant aquesta opció es mostrarà les categories del fitxer sota les "
+"<p>Marcant aquesta opció es mostraran les categories del fitxer sota les "
 "miniatures a la vista de miniatures</p>"
 
 #: Settings/ThumbnailsPage.cpp:135

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-06 00:40+0000\n"
+"POT-Creation-Date: 2023-11-07 01:12+0000\n"
 "PO-Revision-Date: 2012-01-16 16:58+0700\n"
 "Last-Translator: Lê Hoàng Phương <herophuong93@gmail.com>\n"
 "Language-Team: Vietnamese <kde-i18n-vi@kde.org>\n"
@@ -933,59 +933,59 @@ msgctxt "As in 'all pictures'."
 msgid "All"
 msgstr ""
 
-#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:139
+#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:145
 #, fuzzy, kde-format
 #| msgid "Description"
 msgid "Geo Position"
 msgstr "Mô tả"
 
-#: Browser/OverviewPage.cpp:151
+#: Browser/OverviewPage.cpp:157
 #, kde-format
 msgid "Exif Info"
 msgstr "Thông tin EXIF"
 
-#: Browser/OverviewPage.cpp:163
+#: Browser/OverviewPage.cpp:169
 #, fuzzy, kde-format
 #| msgid "Search"
 msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "Tìm kiếm"
 
-#: Browser/OverviewPage.cpp:174 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:20
 #, fuzzy, kde-format
 #| msgid "New Images"
 msgid "Untagged Images"
 msgstr "Ảnh mới"
 
-#: Browser/OverviewPage.cpp:185
+#: Browser/OverviewPage.cpp:191
 #, kde-format
 msgid "Show Thumbnails"
 msgstr "Hiện các mẫu ảnh"
 
-#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
+#: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Search did not match any images or videos."
 msgstr "Việc tìm kiếm không khớp với ảnh hay ảnh động nào."
 
-#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
+#: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Empty Search Result"
 msgstr "Kết quả tìm kiếm rỗng"
 
-#: Browser/OverviewPage.cpp:271
+#: Browser/OverviewPage.cpp:277
 #, fuzzy, kde-format
 #| msgid "EXIF Search"
 msgid "Exif Search"
 msgstr "Tìm EXIF"
 
-#: Browser/OverviewPage.cpp:291
+#: Browser/OverviewPage.cpp:297
 #, fuzzy, kde-format
 #| msgid "Search"
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "Tìm kiếm"
 
-#: Browser/OverviewPage.cpp:328 MainWindow/Window.cpp:1800
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -995,7 +995,7 @@ msgid ""
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1807
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr ""

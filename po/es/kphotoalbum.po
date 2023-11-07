@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-06 00:40+0000\n"
+"POT-Creation-Date: 2023-11-07 01:12+0000\n"
 "PO-Revision-Date: 2023-10-13 16:38+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -926,54 +926,54 @@ msgctxt "As in 'all pictures'."
 msgid "All"
 msgstr "Todo"
 
-#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:139
+#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:145
 #, kde-format
 msgid "Geo Position"
 msgstr "Posición geográfica"
 
-#: Browser/OverviewPage.cpp:151
+#: Browser/OverviewPage.cpp:157
 #, kde-format
 msgid "Exif Info"
 msgstr "Información EXIF"
 
-#: Browser/OverviewPage.cpp:163
+#: Browser/OverviewPage.cpp:169
 #, kde-format
 msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "Buscar"
 
-#: Browser/OverviewPage.cpp:174 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:20
 #, kde-format
 msgid "Untagged Images"
 msgstr "Imágenes sin etiquetar"
 
-#: Browser/OverviewPage.cpp:185
+#: Browser/OverviewPage.cpp:191
 #, kde-format
 msgid "Show Thumbnails"
 msgstr "Mostrar miniaturas"
 
-#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
+#: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Search did not match any images or videos."
 msgstr "La búsqueda no encaja con ninguna imagen ni vídeo."
 
-#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
+#: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Empty Search Result"
 msgstr "Resultado de búsqueda vacío"
 
-#: Browser/OverviewPage.cpp:271
+#: Browser/OverviewPage.cpp:277
 #, kde-format
 msgid "Exif Search"
 msgstr "Búsqueda Exif"
 
-#: Browser/OverviewPage.cpp:291
+#: Browser/OverviewPage.cpp:297
 #, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "buscar"
 
-#: Browser/OverviewPage.cpp:328 MainWindow/Window.cpp:1800
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -988,7 +988,7 @@ msgstr ""
 "b></li><li>Seleccione el icono <b>Categorías</b></li><li>Ahora configúrela "
 "en la sección <b>Imágenes sin etiquetar</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1807
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "La función no se ha configurado"

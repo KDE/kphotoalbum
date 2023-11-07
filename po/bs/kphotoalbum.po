@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-06 00:40+0000\n"
+"POT-Creation-Date: 2023-11-07 01:12+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -938,56 +938,56 @@ msgctxt "As in 'all pictures'."
 msgid "All"
 msgstr "Svi"
 
-#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:139
+#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:145
 #, fuzzy, kde-format
 #| msgid "Description"
 msgid "Geo Position"
 msgstr "Opis"
 
-#: Browser/OverviewPage.cpp:151
+#: Browser/OverviewPage.cpp:157
 #, kde-format
 msgid "Exif Info"
 msgstr "Izađi iz informacija"
 
-#: Browser/OverviewPage.cpp:163
+#: Browser/OverviewPage.cpp:169
 #, kde-format
 msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "Pretraga"
 
-#: Browser/OverviewPage.cpp:174 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:20
 #, kde-format
 msgid "Untagged Images"
 msgstr "Neoznacene slike"
 
-#: Browser/OverviewPage.cpp:185
+#: Browser/OverviewPage.cpp:191
 #, kde-format
 msgid "Show Thumbnails"
 msgstr "Prikaži minijature"
 
-#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
+#: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Search did not match any images or videos."
 msgstr "Pretraživač nije pronašao niti jedan snimak ili sliku."
 
-#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
+#: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Empty Search Result"
 msgstr "Prazni rezultati pretrage"
 
-#: Browser/OverviewPage.cpp:271
+#: Browser/OverviewPage.cpp:277
 #, fuzzy, kde-format
 #| msgid "EXIF Search"
 msgid "Exif Search"
 msgstr "EXIF Pretraga"
 
-#: Browser/OverviewPage.cpp:291
+#: Browser/OverviewPage.cpp:297
 #, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "traži"
 
-#: Browser/OverviewPage.cpp:328 MainWindow/Window.cpp:1800
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -1003,7 +1003,7 @@ msgstr ""
 "ikona </li> <li> Sada konfiguriranje odjeljak <b> neoznačene slike </b> </"
 "li> </ul> </p>"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1807
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Svojstvo nije konfigurisano"

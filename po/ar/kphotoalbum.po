@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-06 00:40+0000\n"
+"POT-Creation-Date: 2023-11-07 01:12+0000\n"
 "PO-Revision-Date: 2022-10-05 20:32+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -886,56 +886,56 @@ msgctxt "As in 'all pictures'."
 msgid "All"
 msgstr "الكل"
 
-#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:139
+#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:145
 #, fuzzy, kde-format
 #| msgid "Description"
 msgid "Geo Position"
 msgstr "الوصف"
 
-#: Browser/OverviewPage.cpp:151
+#: Browser/OverviewPage.cpp:157
 #, kde-format
 msgid "Exif Info"
 msgstr "المعلومات EXIF"
 
-#: Browser/OverviewPage.cpp:163
+#: Browser/OverviewPage.cpp:169
 #, kde-format
 msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "ابحث"
 
-#: Browser/OverviewPage.cpp:174 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:20
 #, fuzzy, kde-format
 msgid "Untagged Images"
 msgstr "صور جديدة"
 
-#: Browser/OverviewPage.cpp:185
+#: Browser/OverviewPage.cpp:191
 #, kde-format
 msgid "Show Thumbnails"
 msgstr "أعرض الأظافر"
 
-#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
+#: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Search did not match any images or videos."
 msgstr "البحث لم يتابق أي صور أو أي مرئيات."
 
-#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
+#: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Empty Search Result"
 msgstr "إفراغ نتائج البحث"
 
-#: Browser/OverviewPage.cpp:271
+#: Browser/OverviewPage.cpp:277
 #, fuzzy, kde-format
 #| msgid "EXIF Search"
 msgid "Exif Search"
 msgstr "بحث EXIF"
 
-#: Browser/OverviewPage.cpp:291
+#: Browser/OverviewPage.cpp:297
 #, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "ابحث"
 
-#: Browser/OverviewPage.cpp:328 MainWindow/Window.cpp:1800
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -945,7 +945,7 @@ msgid ""
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1807
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "لم تُضبط الميزة"

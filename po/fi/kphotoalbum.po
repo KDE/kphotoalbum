@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-06 00:40+0000\n"
-"PO-Revision-Date: 2023-09-04 15:29+0300\n"
+"POT-Creation-Date: 2023-11-07 01:12+0000\n"
+"PO-Revision-Date: 2023-09-26 17:53+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -921,54 +921,54 @@ msgctxt "As in 'all pictures'."
 msgid "All"
 msgstr "Kaikki"
 
-#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:139
+#: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:145
 #, kde-format
 msgid "Geo Position"
 msgstr "Sijaintitieto"
 
-#: Browser/OverviewPage.cpp:151
+#: Browser/OverviewPage.cpp:157
 #, kde-format
 msgid "Exif Info"
 msgstr "Exif-tieto"
 
-#: Browser/OverviewPage.cpp:163
+#: Browser/OverviewPage.cpp:169
 #, kde-format
 msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "Etsi"
 
-#: Browser/OverviewPage.cpp:174 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:20
 #, kde-format
 msgid "Untagged Images"
 msgstr "Luokittelemattomat kuvat"
 
-#: Browser/OverviewPage.cpp:185
+#: Browser/OverviewPage.cpp:191
 #, kde-format
 msgid "Show Thumbnails"
 msgstr "Näytä pienoiskuvat"
 
-#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
+#: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Search did not match any images or videos."
 msgstr "Haku ei löytänyt yhtäkään kuvaa tai videota."
 
-#: Browser/OverviewPage.cpp:267 Browser/OverviewPage.cpp:287
+#: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Empty Search Result"
 msgstr "Tyhjä hakutulos"
 
-#: Browser/OverviewPage.cpp:271
+#: Browser/OverviewPage.cpp:277
 #, kde-format
 msgid "Exif Search"
 msgstr "Exif-haku"
 
-#: Browser/OverviewPage.cpp:291
+#: Browser/OverviewPage.cpp:297
 #, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "etsi"
 
-#: Browser/OverviewPage.cpp:328 MainWindow/Window.cpp:1800
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1800
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -983,7 +983,7 @@ msgstr ""
 "li><li>Sitten valitse <b>Luokat</b>-kuvake</li><li>Lopuksi valitse "
 "<b>Luokittelemattomat kuvat</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1807
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1807
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Ominaisuuksia ei ole vielä määritetty"
@@ -4211,10 +4211,9 @@ msgid "Limit View to Selection"
 msgstr "Rajoita näkymä vain valittuihin"
 
 #: MainWindow/Window.cpp:771
-#, fuzzy, kde-format
-#| msgid "No Image Sizes Selected"
+#, kde-format
 msgid "No images are selected!"
-msgstr "Ei kuvakokoja valittuna"
+msgstr "Kuvia ei ole valittu!"
 
 #: MainWindow/Window.cpp:784
 #, kde-format
@@ -6559,7 +6558,7 @@ msgstr "Luokitus"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"
-msgstr ""
+msgstr "Poista kytkös"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14

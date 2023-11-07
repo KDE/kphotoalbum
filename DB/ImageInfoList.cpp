@@ -87,7 +87,8 @@ void ImageInfoList::sortAndMergeBackIn(ImageInfoList &subListToSort)
     }
     ImageInfoList sorted = subListToSort.sort();
 
-    const int insertIndex = indexOf(subListToSort[0]);
+    // depending on view sort order, the first or the last index may be the first index
+    const int insertIndex = qMin(indexOf(subListToSort.constFirst()), indexOf(subListToSort.constLast()));
     Q_ASSERT(insertIndex >= 0);
 
     // Delete the items we will merge in.

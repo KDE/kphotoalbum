@@ -6,34 +6,31 @@
 
 
 getIconList() {
-	echo "QIcon::fromTheme():" >&2
-	git grep QIcon::fromTheme | sed 's/.*QIcon::fromTheme([^"]*"\([^"]*\)".*/\1/' | grep -v fromTheme | sort -u
+	# QIcon::fromTheme:
+	git grep 'QIcon::fromTheme[(]' | sed 's/.*QIcon::fromTheme[(][^"]*"\([^"]*\)".*/\1/' | grep -v fromTheme
 
-	echo >&2
-	echo "Via wrapper smallIcon():" >&2
-	git grep smallIcon | sed 's/.*smallIcon([^"]*"\([^"]*\)".*/\1/' | grep -v smallIcon | sort -u
+	# Via wrapper smallIcon:
+	git grep 'smallIcon[(]' | sed 's/.*smallIcon[(][^"]*"\([^"]*\)".*/\1/' | grep -v smallIcon
 
-	echo >&2
-	echo "From SettingsDialog:" >&2
-	sed -n '/Data data/,/};/ { s/[^,]*,[^,]*, "\([^"]*\)".*/\1/ ; p }' Settings/SettingsDialog.cpp | grep '^[a-z]' | sort -u
+	# From SettingsDialog:
+	sed -n '/Data data/,/};/ { s/[^,]*,[^,]*, "\([^"]*\)".*/\1/ ; p }' Settings/SettingsDialog.cpp | grep '^[a-z]'
 
-	echo >&2
-	echo "Special categories:" >&2
-	grep "new DB::Category" DB/XML/FileReader.cpp | sed 's/.*new DB::Category([^,]*,[^"]*"\([^"]*\)".*/\1/' | grep -v DB::Category | sort -u
+	# Special categories:
+	grep "new DB::Category" DB/XML/FileReader.cpp | sed 's/.*new DB::Category([^,]*,[^"]*"\([^"]*\)".*/\1/' | grep -v DB::Category
 
 }
 
 getIconList | sort -u | {
 	declare -a icons
+   echo "Icon list:"
 	while read -r icon
 	do
-		echo "$icon" >&2
+		echo "$icon"
 		icons+=("$icon")
 	done
-	echo >&2
-	echo "Checking icons:" >&2
+	echo "Checking icons:"
 	for icon in "${icons[@]}"
 	do
-		kiconfinder5 "$icon" || echo "MISSING: $icon" >&2
+		kiconfinder5 "$icon" || echo "MISSING: $icon"
 	done
 }

@@ -38,6 +38,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="sv">Kfotoalbum</name>
   <name xml:lang="tr">K Fotoğraf Albümü</name>
   <name xml:lang="uk">KPhotoAlbum</name>
+  <name xml:lang="x-test">xxKPhotoAlbumxx</name>
   <name xml:lang="zh-CN">KPhotoAlbum</name>
   <name xml:lang="zh-TW">KPhotoAlbum</name>
   <summary>KDE image management software</summary>
@@ -69,6 +70,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="sv">KDE bildhanteringsprogramvara</summary>
   <summary xml:lang="tr">KDE görsel yönetim yazılımı</summary>
   <summary xml:lang="uk">Програма для керування зображеннями у KDE</summary>
+  <summary xml:lang="x-test">xxKDE image management softwarexx</summary>
   <summary xml:lang="zh-CN">KDE 图像管理软件</summary>
   <summary xml:lang="zh-TW">KDE 圖片管理軟體</summary>
   <description>
@@ -101,6 +103,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="sv">Kfotoalbum är ett program för att etikettera och hantera en fotosamling och göra den sökbar.</p>
     <p xml:lang="tr">K Fotoğraf Albümü, bir fotoğraf koleksiyonunu etiketlemek, yönetmek ve onu aranabilir kılmak için bir uygulamadır.</p>
     <p xml:lang="uk">KPhotoAlbum — програма для створення міток у збірці фотографій та керування збіркою із можливостями пошуку зображень.</p>
+    <p xml:lang="x-test">xxKPhotoAlbum is an application for tagging and managing a photo collection and making it searchable.xx</p>
     <p xml:lang="zh-CN">KPhotoAlbum 是一个用于标记和管理照片收藏并使其可以检索的应用程序。</p>
     <p xml:lang="zh-TW">KPhotoAlbum 是個能標籤和管理圖片集合和讓圖片集合能被搜尋的應用程式。</p>
   </description>
@@ -136,6 +139,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="sv">Huvudskärmen i Kfotoalbum</caption>
       <caption xml:lang="tr">K Fotoğraf Albümü ana ekranı</caption>
       <caption xml:lang="uk">Знімок головного вікна KPhotoAlbum</caption>
+      <caption xml:lang="x-test">xxThe main screen in KPhotoAlbumxx</caption>
       <caption xml:lang="zh-CN">KPhotoAlbum 的主界面</caption>
       <caption xml:lang="zh-TW">KPhotoAlbum 中的主螢幕</caption>
     </screenshot>

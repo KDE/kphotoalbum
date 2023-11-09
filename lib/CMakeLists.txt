@@ -120,7 +120,12 @@ find_package(exiv2 CONFIG QUIET)
 if(exiv2_FOUND)
     # search again with REQUIRED, so that the feature summary correctly shows exiv as required dependency
     find_package(exiv2 CONFIG REQUIRED)
-    set(EXIV2_LIBRARIES exiv2lib)
+    # exiv2 0.28.1 moved exiv2lib into the Exiv2 namespace:
+    if(TARGET Exiv2::exiv2lib)
+        set(EXIV2_LIBRARIES Exiv2::exiv2lib)
+    else()
+        set(EXIV2_LIBRARIES exiv2lib)
+    endif()
 else()
     find_package(Exiv2 REQUIRED)
 endif()

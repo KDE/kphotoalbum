@@ -54,6 +54,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Restrict context menu entries for fullscreen preview of annotation dialog to a sane set of actions.
 
 ### Dependencies
+ - Add support for exiv2 0.28.1
 
 ### Deprecated
 

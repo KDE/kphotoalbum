@@ -55,6 +55,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
 ### Dependencies
  - Add support for exiv2 0.28.1
+ - Remove support for exiv2 < 0.27
 
 ### Deprecated
 

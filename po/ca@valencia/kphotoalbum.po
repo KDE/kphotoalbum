@@ -5,14 +5,14 @@
 #
 # SPDX-FileCopyrightText: 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023 Josep M. Ferrer <txemaq@gmail.com>
 # Manuel Tortosa Moreno <manutortosa@gmail.com>, 2009.
-# Antoni Bella Pérez <antonibella5@yahoo.com>, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022.
+# SPDX-FileCopyrightText: 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022, 2023 Antoni Bella Pérez <antonibella5@yahoo.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-07 01:12+0000\n"
-"PO-Revision-Date: 2023-10-13 16:13+0200\n"
-"Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
+"PO-Revision-Date: 2023-11-06 16:45+0100\n"
+"Last-Translator: Antoni Bella Pérez <antonibella5@yahoo.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 23.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -86,7 +86,7 @@ msgid ""
 "KPhotoAlbum...|General</interface>, a description embedded in the image Exif "
 "information is imported to this field if available.</para>"
 msgstr ""
-"<para>Un text descriptiu de la imatge.</para><para>Si s'ha activat "
+"<para>Un text descriptiu de la imatge.</para><para>Si s'ha seleccionat "
 "<emphasis>Utilitza la descripció Exif</emphasis> davall "
 "<interface>Configuració -> Configura KPhotoAlbum... -> General</interface>, "
 "en este camp s'importarà la descripció incrustada en la informació Exif de "
@@ -3690,9 +3690,9 @@ msgid ""
 msgstr ""
 "<h1><a name=\"database\">Funcionament de la base de dades SQLite</a></"
 "h1><p>KPhotoAlbum permet fer busques utilitzant alguna de les etiquetes "
-"Exif. Per a açò, KPhotoAlbum necessita la base de dades SQLite. De manera "
-"addicional, cal instal·lar el paquet Qt per a SQLite (p. ex., qt-sql-sqlite)."
-"</p>"
+"Exif. Per a fer açò, KPhotoAlbum necessita la base de dades SQLite. De "
+"manera addicional, cal instal·lar el paquet Qt per a SQLite (p. ex., qt-sql-"
+"sqlite).</p>"
 
 #: MainWindow/FeatureDialog.cpp:59
 #, kde-format
@@ -5154,9 +5154,9 @@ msgid ""
 msgstr ""
 "<p>KPhotoAlbum està utilitzant un únic fitxer index.xml per a la seua "
 "<i>base de dades</i>. Amb moltes imatges, la lectura d'este fitxer pot durar "
-"una estona. Per a reduir este temps a la meitat aproximadament, marqueu esta "
-"casella de selecció. El desavantatge és que el fitxer index.xml serà menys "
-"llegible als ulls d'un humà.</p>"
+"una estona. Per a reduir este temps a la meitat aproximadament, seleccioneu "
+"esta casella de selecció. El desavantatge és que el fitxer index.xml serà "
+"menys llegible als ulls d'un humà.</p>"
 
 #: Settings/ExifPage.cpp:28
 #, kde-format
@@ -5253,10 +5253,10 @@ msgid ""
 "symbolic links to these files within your image folder.</p>"
 msgstr ""
 "<p>KPhotoAlbum intenta llegir tots els fitxers d'imatge, siguen fitxers "
-"reals o enllaços simbòlics. Si voleu ignorar els enllaços simbòlics, marqueu "
-"esta opció. Açò és útil si per alguna raó teniu p. ex., tant fitxers "
-"originals com enllaços simbòlics cap a estos dins de la carpeta d'imatges.</"
-"p>"
+"reals o enllaços simbòlics. Si voleu ignorar els enllaços simbòlics, "
+"seleccioneu esta opció. Açò és útil si per alguna raó teniu p. ex., tant "
+"fitxers originals com enllaços simbòlics cap a estos dins de la carpeta "
+"d'imatges.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:77
 #, kde-format
@@ -5270,9 +5270,9 @@ msgstr ""
 "<p>KPhotoAlbum és capaç de llegir alguns tipus d'imatges RAW. Algunes "
 "càmeres guarden la imatge RAW i una imatge JPEG o TIFF coincident. Açò "
 "provoca que les imatges duplicades s'emmagatzemen en KPhotoAlbum, el qual "
-"podria ser alguna cosa no desitjat. Si esta opció està marcada, KPhotoAlbum "
-"no llegirà els fitxers RAW que coincidisquen amb els fitxers d'imatge que "
-"també existisquen</p>"
+"podria ser alguna cosa no desitjada. Si se selecciona, KPhotoAlbum no "
+"llegirà els fitxers RAW que coincidisquen amb els fitxers d'imatge que també "
+"existisquen</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:83
 #, kde-format
@@ -5682,9 +5682,9 @@ msgid ""
 "<p>JPEG images may contain a description. Check this checkbox to specify if "
 "you want to use this as a default description for your images.</p>"
 msgstr ""
-"<p>Les imatges JPEG poden contindre una descripció. Marqueu esta casella de "
-"selecció per a indicar que voleu utilitzar-la com a descripció per defecte "
-"de les imatges.</p>"
+"<p>Les imatges JPEG poden contindre una descripció. Seleccioneu esta casella "
+"per a indicar que voleu utilitzar-la com a descripció predeterminada de les "
+"imatges.</p>"
 
 #: Settings/GeneralPage.cpp:158
 #, kde-format
@@ -5704,9 +5704,9 @@ msgstr ""
 "<p>KPhotoAlbum és capaç de mostrar imatges en dispositius Android. "
 "KPhotoAlbum s'aparellarà automàticament amb l'aplicació d'Android. Açò "
 "requerix que KPhotoAlbum en l'escriptori estiga escoltant els missatges de "
-"multidifusió. Activant esta casella de selecció provocarà que KPhotoAlbum ho "
-"faça automàticament en iniciar. De manera alternativa, podeu clicar en la "
-"icona de connexió en la barra d'estat per a iniciar l'escolta."
+"multidifusió. Seleccionant esta casella de selecció provocarà que "
+"KPhotoAlbum ho faça automàticament en iniciar. De manera alternativa, podeu "
+"clicar en la icona de connexió en la barra d'estat per a iniciar l'escolta."
 
 #: Settings/GeneralPage.cpp:169
 #, kde-format
@@ -6047,11 +6047,11 @@ msgid ""
 "immediately build thumbnails for them and you won't have a delay later while "
 "browsing.</p>"
 msgstr ""
-"<p>Si açò està activat, les miniatures es construïxen a demanda. Mentre "
+"<p>Si se selecciona, les miniatures es construïxen a demanda. Mentre "
 "navegueu per la base de dades d'imatges, només es construiran realment les "
 "miniatures que calguen. Açò vol dir que quan canvieu la mida de les "
 "miniatures, KPhotoAlbum mantindrà la fluïdesa encara que tingueu moltes "
-"imatges.</p><p>Si açò no està activat, KPhotoAlbum sempre construirà les "
+"imatges.</p><p>Si no se selecciona, KPhotoAlbum sempre construirà les "
 "miniatures per a totes les imatges tan prompte com siga possible. Açò vol "
 "dir que quan es troben imatges noves, KPhotoAlbum construirà immediatament "
 "les seues miniatures i no tindreu cap retard més tard en navegar.</p>"
@@ -6084,8 +6084,8 @@ msgid ""
 "<p>Checking this option will show the base name for the file under "
 "thumbnails in the thumbnail view.</p>"
 msgstr ""
-"<p>En marcar esta opció es mostrarà el nom base del fitxer davall les "
-"miniatures en la vista de miniatures.</p>"
+"<p>Quan se selecciona esta opció es mostrarà el nom base del fitxer davall "
+"les miniatures en la vista de miniatures.</p>"
 
 #: Settings/ThumbnailsPage.cpp:131
 #, kde-format
@@ -6093,7 +6093,7 @@ msgid ""
 "<p>Checking this option will show the Categories for the file under "
 "thumbnails in the thumbnail view</p>"
 msgstr ""
-"<p>Marcant esta opció es mostrarà les categories del fitxer davall les "
+"<p>Seleccionant esta opció es mostraran les categories del fitxer davall les "
 "miniatures en la vista de miniatures</p>"
 
 #: Settings/ThumbnailsPage.cpp:135

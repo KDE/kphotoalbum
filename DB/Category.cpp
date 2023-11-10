@@ -84,13 +84,6 @@ void DB::Category::setIconName(const QString &name)
 QPixmap DB::Category::icon(int size, KIconLoader::States state) const
 {
     QPixmap pixmap = KIconLoader::global()->loadIcon(iconName(), KIconLoader::Desktop, size, state, QStringList(), nullptr, true);
-    DB::Category *This = const_cast<DB::Category *>(this);
-    if (pixmap.isNull()) {
-        This->blockSignals(true);
-        This->setIconName(defaultIconName());
-        This->blockSignals(false);
-        pixmap = QIcon::fromTheme(iconName()).pixmap(size);
-    }
     return pixmap;
 }
 
@@ -412,24 +405,6 @@ bool DB::Category::shouldSave()
 void DB::Category::setShouldSave(bool b)
 {
     m_shouldSave = b;
-}
-
-QString DB::Category::defaultIconName() const
-{
-    const QString nm = name().toLower();
-    if (nm == QString::fromLatin1("people"))
-        return QString::fromLatin1("system-users");
-    if (nm == QString::fromLatin1("places") || nm == QString::fromLatin1("locations"))
-        return QString::fromLatin1("network-workgroup");
-    if (nm == QString::fromLatin1("events") || nm == QString::fromLatin1("keywords"))
-        return QString::fromLatin1("dialog-password");
-    if (nm == QString::fromLatin1("tokens"))
-        return QString::fromLatin1("preferences-other");
-    if (nm == QString::fromLatin1("folder"))
-        return QString::fromLatin1("folder");
-    if (nm == QString::fromLatin1("media type"))
-        return QString::fromLatin1("video");
-    return QString();
 }
 
 #include "moc_Category.cpp"

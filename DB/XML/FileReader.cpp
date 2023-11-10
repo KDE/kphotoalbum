@@ -133,7 +133,7 @@ void DB::FileReader::createSpecialCategories()
 
     // Setup the "Media Type" category
     DB::CategoryPtr mediaCat;
-    mediaCat = new DB::Category(i18n("Media Type"), QString::fromLatin1("view-categories"),
+    mediaCat = new DB::Category(i18n("Media Type"), QString::fromLatin1("video"),
                                 DB::Category::TreeView, 32, false);
     mediaCat->addItem(i18n("Image"));
     mediaCat->addItem(i18n("Video"));

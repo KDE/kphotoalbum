@@ -69,6 +69,10 @@ public:
     int thumbnailSize() const;
     void setThumbnailSize(int size);
 
+    /**
+     * @brief doShow tells if the Category should be shown as part of the info text.
+     * @return
+     */
     bool doShow() const;
     void setDoShow(bool b);
 
@@ -139,8 +143,6 @@ public:
     void setShouldSave(bool b);
 
 private:
-    QString defaultIconName() const;
-
     QString m_name;
     QString m_icon;
     bool m_show;

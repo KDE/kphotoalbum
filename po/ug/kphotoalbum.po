@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-07 01:12+0000\n"
+"POT-Creation-Date: 2023-11-11 00:40+0000\n"
 "PO-Revision-Date: 2013-09-08 07:04+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -1118,24 +1118,24 @@ msgstr "10 مىنۇت"
 msgid "10 Seconds"
 msgstr "%1 سېكۇنت"
 
-#: DB/Category.cpp:312
+#: DB/Category.cpp:305
 #, fuzzy, kde-format
 #| msgid "Unable to create temporary file"
 msgid "Unable to create folder '%1'."
 msgstr "ۋاقىتلىق ھۆججەت قۇرالمىدى"
 
-#: DB/Category.cpp:312
+#: DB/Category.cpp:305
 #, fuzzy, kde-format
 #| msgid "Unable to create temporary file"
 msgid "Unable to Create Folder"
 msgstr "ۋاقىتلىق ھۆججەت قۇرالمىدى"
 
-#: DB/Category.cpp:321
+#: DB/Category.cpp:314
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr ""
 
-#: DB/Category.cpp:321
+#: DB/Category.cpp:314
 #, kde-format
 msgid "Error Saving Image"
 msgstr ""

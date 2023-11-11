@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-07 01:12+0000\n"
+"POT-Creation-Date: 2023-11-11 00:40+0000\n"
 "PO-Revision-Date: 2023-04-28 12:30+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -1221,22 +1221,22 @@ msgstr "1 Minuto"
 msgid "10 Seconds"
 msgstr "10 Segundos"
 
-#: DB/Category.cpp:312
+#: DB/Category.cpp:305
 #, kde-format
 msgid "Unable to create folder '%1'."
 msgstr "Não foi possível criar a pasta '%1'."
 
-#: DB/Category.cpp:312
+#: DB/Category.cpp:305
 #, kde-format
 msgid "Unable to Create Folder"
 msgstr "Não Foi Possível Criar a Pasta"
 
-#: DB/Category.cpp:321
+#: DB/Category.cpp:314
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "Erro ao gravar a imagem '%1'."
 
-#: DB/Category.cpp:321
+#: DB/Category.cpp:314
 #, kde-format
 msgid "Error Saving Image"
 msgstr "Erro ao Gravar Imagem"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-07 01:12+0000\n"
+"POT-Creation-Date: 2023-11-11 00:40+0000\n"
 "PO-Revision-Date: 2023-07-30 08:27+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -1199,24 +1199,24 @@ msgstr "Minutu 1"
 msgid "10 Seconds"
 msgstr "10 segundo"
 
-#: DB/Category.cpp:312
+#: DB/Category.cpp:305
 #, fuzzy, kde-format
 #| msgid "Unable to create directory '%1'."
 msgid "Unable to create folder '%1'."
 msgstr "Ezin da '%1' direktorioa sortu."
 
-#: DB/Category.cpp:312
+#: DB/Category.cpp:305
 #, fuzzy, kde-format
 #| msgid "Unable to Create Directory"
 msgid "Unable to Create Folder"
 msgstr "Ezin da direktorioa sortu"
 
-#: DB/Category.cpp:321
+#: DB/Category.cpp:314
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "Errorea '%1' irudia gordetzean."
 
-#: DB/Category.cpp:321
+#: DB/Category.cpp:314
 #, kde-format
 msgid "Error Saving Image"
 msgstr "Errorea irudia gordetzean"

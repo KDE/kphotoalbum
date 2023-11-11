@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-07 01:12+0000\n"
+"POT-Creation-Date: 2023-11-11 00:40+0000\n"
 "PO-Revision-Date: 2022-10-05 20:32+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -1176,24 +1176,24 @@ msgstr "دقيقة"
 msgid "10 Seconds"
 msgstr "10 ثواني"
 
-#: DB/Category.cpp:312
+#: DB/Category.cpp:305
 #, fuzzy, kde-format
 #| msgid "Unable to create directory '%1'."
 msgid "Unable to create folder '%1'."
 msgstr "غير قادر على إنشاء الدليل '%1'."
 
-#: DB/Category.cpp:312
+#: DB/Category.cpp:305
 #, fuzzy, kde-format
 #| msgid "Unable to Create Directory"
 msgid "Unable to Create Folder"
 msgstr "غير قادر على إنشاء الدليل"
 
-#: DB/Category.cpp:321
+#: DB/Category.cpp:314
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "خطأ عند حفظ الصورة '%1'."
 
-#: DB/Category.cpp:321
+#: DB/Category.cpp:314
 #, kde-format
 msgid "Error Saving Image"
 msgstr "خطأ حفظ الصورة"

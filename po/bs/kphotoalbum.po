@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-07 01:12+0000\n"
+"POT-Creation-Date: 2023-11-11 00:40+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -1240,24 +1240,24 @@ msgstr "10 minuta"
 msgid "10 Seconds"
 msgstr "1 sekunda"
 
-#: DB/Category.cpp:312
+#: DB/Category.cpp:305
 #, fuzzy, kde-format
 #| msgid "Unable to create directory '%1'."
 msgid "Unable to create folder '%1'."
 msgstr "Nije moguće kreirati direktorij '%1'."
 
-#: DB/Category.cpp:312
+#: DB/Category.cpp:305
 #, fuzzy, kde-format
 #| msgid "Unable to Create Directory"
 msgid "Unable to Create Folder"
 msgstr "Nije moguće kreirati direktorij"
 
-#: DB/Category.cpp:321
+#: DB/Category.cpp:314
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "Greška pri spašavanju slike '%1'."
 
-#: DB/Category.cpp:321
+#: DB/Category.cpp:314
 #, kde-format
 msgid "Error Saving Image"
 msgstr "Greška pri spašavanju slike"

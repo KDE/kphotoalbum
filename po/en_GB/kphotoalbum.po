@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-07 01:12+0000\n"
+"POT-Creation-Date: 2023-11-11 00:40+0000\n"
 "PO-Revision-Date: 2023-04-29 12:30+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
@@ -1183,22 +1183,22 @@ msgstr "1 Minute"
 msgid "10 Seconds"
 msgstr "10 Seconds"
 
-#: DB/Category.cpp:312
+#: DB/Category.cpp:305
 #, kde-format
 msgid "Unable to create folder '%1'."
 msgstr "Unable to create folder '%1'."
 
-#: DB/Category.cpp:312
+#: DB/Category.cpp:305
 #, kde-format
 msgid "Unable to Create Folder"
 msgstr "Unable to Create Folder"
 
-#: DB/Category.cpp:321
+#: DB/Category.cpp:314
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "Error when saving image '%1'."
 
-#: DB/Category.cpp:321
+#: DB/Category.cpp:314
 #, kde-format
 msgid "Error Saving Image"
 msgstr "Error Saving Image"

@@ -1,6 +1,6 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Vít Pelčák <vit@pelcak.org>, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020.
+# SPDX-FileCopyrightText: 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2023 Vít Pelčák <vit@pelcak.org>
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012, 2013.
 # Vit Pelcak <vit@pelcak.org>, 2021, 2023.
 #
@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-07 01:12+0000\n"
-"PO-Revision-Date: 2023-06-23 08:09+0200\n"
+"POT-Creation-Date: 2023-11-11 00:40+0000\n"
+"PO-Revision-Date: 2023-11-10 16:29+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.04.2\n"
+"X-Generator: Lokalize 23.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1124,22 +1124,22 @@ msgstr "1 minuta"
 msgid "10 Seconds"
 msgstr "10 sekund"
 
-#: DB/Category.cpp:312
+#: DB/Category.cpp:305
 #, kde-format
 msgid "Unable to create folder '%1'."
 msgstr "Nelze vytvořit složku '%1'."
 
-#: DB/Category.cpp:312
+#: DB/Category.cpp:305
 #, kde-format
 msgid "Unable to Create Folder"
 msgstr "Nelze vytvořit složku"
 
-#: DB/Category.cpp:321
+#: DB/Category.cpp:314
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "Chyba během ukládání obrázku '%1'."
 
-#: DB/Category.cpp:321
+#: DB/Category.cpp:314
 #, kde-format
 msgid "Error Saving Image"
 msgstr "Chyba během ukládání obrázku"
@@ -1639,7 +1639,7 @@ msgstr "Informace Exif a metadata souboru"
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
-msgstr "Filtrovat štítky..."
+msgstr "Filtrovat popisky..."
 
 #: Exif/InfoDialog.cpp:77
 #, kde-format
@@ -3963,7 +3963,7 @@ msgstr "Přejete si uložit změny?"
 #, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
-msgstr ""
+msgstr "Uložit změny?"
 
 #: MainWindow/Window.cpp:392
 #, kde-format
@@ -4025,7 +4025,7 @@ msgstr "Omezit pohled na vybrané"
 #: MainWindow/Window.cpp:771
 #, kde-format
 msgid "No images are selected!"
-msgstr ""
+msgstr "Nebyl vybrán žádný obrázek."
 
 #: MainWindow/Window.cpp:784
 #, kde-format
@@ -4176,7 +4176,7 @@ msgstr "Ikony"
 #: MainWindow/Window.cpp:950
 #, kde-format
 msgid "Use natural sort order"
-msgstr ""
+msgstr "Použít přirozené řazení"
 
 #: MainWindow/Window.cpp:960
 #, kde-format
@@ -5566,7 +5566,7 @@ msgstr "Zobrazit mřížku okolo náhledů"
 #: Settings/ThumbnailsPage.cpp:74
 #, kde-format
 msgid "Display labels in thumbnail view"
-msgstr "Zobrazit štítky v pohledu s náhledy"
+msgstr "Zobrazit popisky v pohledu s náhledy"
 
 #: Settings/ThumbnailsPage.cpp:79
 #, kde-format
@@ -6103,7 +6103,7 @@ msgstr " (%1-%2)"
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
-msgstr ""
+msgstr "Přiřadit makro"
 
 #: Viewer/AnnotationHandler.cpp:68
 #, kde-format
@@ -6118,7 +6118,7 @@ msgstr ""
 #: Viewer/AnnotationHandler.cpp:125
 #, kde-format
 msgid "Select tag for image"
-msgstr ""
+msgstr "Vyberte pro obrázek značku"
 
 #: Viewer/CategoryImageConfig.cpp:33
 #, kde-format
@@ -6195,7 +6195,7 @@ msgstr ""
 #: Viewer/SelectCategoryAndValue.cpp:106
 #, kde-format
 msgid "Type name of category and item"
-msgstr ""
+msgstr "Název typu kategorie a položky"
 
 #: Viewer/SelectCategoryAndValue.cpp:135
 #, kde-format
@@ -6216,7 +6216,7 @@ msgstr "Značka"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"
-msgstr ""
+msgstr "Vymazat přiřazení"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
@@ -6228,13 +6228,13 @@ msgstr "Dialog"
 #: Viewer/SelectCategoryAndValue.ui:24
 #, kde-format
 msgid "TextLabel"
-msgstr "Textový štítek"
+msgstr "Textový popisek"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
 #, kde-format
 msgid "Add new Tag"
-msgstr ""
+msgstr "Přidat novou značku"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
@@ -6246,7 +6246,7 @@ msgstr "Název"
 #: Viewer/SelectCategoryAndValue.ui:120
 #, kde-format
 msgid "Existing Assignments"
-msgstr ""
+msgstr "Existující přiřazení"
 
 #: Viewer/ViewerWidget.cpp:194
 #, kde-format
@@ -6460,7 +6460,7 @@ msgstr "Pozastavit"
 #: Viewer/ViewerWidget.cpp:624
 #, kde-format
 msgid "locked"
-msgstr ""
+msgstr "uzamčeno"
 
 #: Viewer/ViewerWidget.cpp:626
 #, kde-format
@@ -6475,13 +6475,13 @@ msgstr ""
 #: Viewer/ViewerWidget.cpp:633
 #, kde-format
 msgid "Change display mode to %1"
-msgstr ""
+msgstr "Změnit režim zobrazení na %1?"
 
 #: Viewer/ViewerWidget.cpp:909
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr ""
+msgstr "Ukončuji prezentaci"
 
 #: Viewer/ViewerWidget.cpp:912
 #, kde-format
@@ -6496,24 +6496,25 @@ msgid ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
 msgstr ""
+"Spuštění prezentace<br/>%1 prezentaci zrychlí<br/>%2 prezentaci zpomalí"
 
 #: Viewer/ViewerWidget.cpp:967
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
-msgstr ""
+msgstr "%1&nbsp;s"
 
 #: Viewer/ViewerWidget.cpp:1228
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr ""
+msgstr "Upravit popisek obrázku"
 
 #: Viewer/ViewerWidget.cpp:1228
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr ""
+msgstr "Popis obrázku"
 
 #: Viewer/ViewerWidget.cpp:1243
 #, kde-format
@@ -6672,89 +6673,89 @@ msgstr "Nápověda"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
-msgstr ""
+msgstr "Dialog poznámek"
 
 #: Viewer/ViewerWidget.cpp:1498
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
-msgstr ""
+msgstr "Přidat značku"
 
 #: Viewer/ViewerWidget.cpp:1498
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "CTRL+a"
 
 #: Viewer/ViewerWidget.cpp:1501
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr ""
+msgstr "Zkopírovat data z předchozího obrázku"
 
 #: Viewer/ViewerWidget.cpp:1502
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "CTRL+c"
 
 #: Viewer/ViewerWidget.cpp:1505
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr ""
+msgstr "Upravit popis"
 
 #: Viewer/ViewerWidget.cpp:1506
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr ""
+msgstr "CTRL+d"
 
 #: Viewer/ViewerWidget.cpp:1509
 #, kde-format
 msgid "Annotation Mode"
-msgstr ""
+msgstr "Režim poznámek"
 
 #: Viewer/ViewerWidget.cpp:1511
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "Uzamčeno"
 
 #: Viewer/ViewerWidget.cpp:1512
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "CTRL+l"
 
 #: Viewer/ViewerWidget.cpp:1516
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "Přiřadit značky"
 
 #: Viewer/ViewerWidget.cpp:1517
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1520
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr ""
+msgstr "Přiřadit tokeny"
 
 #: Viewer/ViewerWidget.cpp:1521
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr ""
+msgstr "CTRL+t"
 
 #: Viewer/ViewerWidget.cpp:1684
 #, kde-format
 msgid "Token %1"
-msgstr ""
+msgstr "Token %1"
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format

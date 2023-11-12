@@ -4,10 +4,16 @@
 ##
 # A quick and dirty script to extract all(?) hardcoded icon names and check if they are available on the current system.
 
+BASEDIR="$(dirname "$0")/../.."
+
 
 getIconList() {
+	cd "$BASEDIR" || return
 	# QIcon::fromTheme:
 	git grep 'QIcon::fromTheme[(]' | sed 's/.*QIcon::fromTheme[(][^"]*"\([^"]*\)".*/\1/' | grep -v fromTheme
+
+	# KIconLoader::global()->loadIcon:
+	git grep 'KIconLoader::global()->loadIcon[(]' | sed 's/.*KIconLoader::global()->loadIcon[(][^"]*"\([^"]*\)".*/\1/'  | grep -v KIconLoader::
 
 	# Via wrapper smallIcon:
 	git grep 'smallIcon[(]' | sed 's/.*smallIcon[(][^"]*"\([^"]*\)".*/\1/' | grep -v smallIcon
@@ -21,15 +27,7 @@ getIconList() {
 }
 
 getIconList | sort -u | {
-	declare -a icons
-   echo "Icon list:"
 	while read -r icon
-	do
-		echo "$icon"
-		icons+=("$icon")
-	done
-	echo "Checking icons:"
-	for icon in "${icons[@]}"
 	do
 		kiconfinder5 "$icon" || echo "MISSING: $icon"
 	done

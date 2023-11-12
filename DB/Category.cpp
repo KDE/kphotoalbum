@@ -270,7 +270,7 @@ DB::TagInfo *DB::Category::itemForName(const QString &tag)
     }
 }
 
-QPixmap DB::Category::categoryImage(const QString &category, QString member, int width, int height) const
+QPixmap DB::Category::categoryImage(const QString &category, const QString &member, int width, int height) const
 {
     QString fileName = fileForCategoryImage(category, member);
     QString key = QString::fromLatin1("%1-%2").arg(width).arg(fileName);
@@ -292,7 +292,7 @@ QPixmap DB::Category::categoryImage(const QString &category, QString member, int
     return res;
 }
 
-void DB::Category::setCategoryImage(const QString &category, QString member, const QImage &image)
+void DB::Category::setCategoryImage(const QString &category, const QString &member, const QImage &image)
 {
     QString dir = Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("CategoryImages");
     QFileInfo fi(dir);

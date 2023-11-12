@@ -98,8 +98,8 @@ public:
      */
     DB::TagInfo *itemForName(const QString &tag);
 
-    QPixmap categoryImage(const QString &category, QString, int width, int height) const;
-    void setCategoryImage(const QString &category, QString, const QImage &image);
+    QPixmap categoryImage(const QString &category, const QString &, int width, int height) const;
+    void setCategoryImage(const QString &category, const QString &, const QImage &image);
     QString fileForCategoryImage(const QString &category, QString member) const;
 
     QDate birthDate(const QString &item) const;

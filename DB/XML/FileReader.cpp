@@ -479,7 +479,7 @@ void DB::FileReader::repairDB()
         QString logSummary = QString::fromLatin1("List of tags where manual inspection is required:\n");
         bool manualRepairNeeded = false;
         for (auto category : m_db->categoryCollection()->categories()) {
-            QStringList tags = category->namesForIdZero();
+            const QStringList tags = category->namesForIdZero();
             if (tags.size() > 1) {
                 manualRepairNeeded = true;
                 message += i18nc("repair merged tags", "<li>%1:<br/>", category->name());

@@ -68,14 +68,20 @@ DateBar::SelectionHandler::SelectionHandler(DateBarWidget *dateBar)
 
 void DateBar::SelectionHandler::mousePressEvent(int x)
 {
-    int unit = m_dateBar->unitAtPos(x);
+    const int unit = m_dateBar->unitAtPos(x);
+    if (unit < 0)
+        return;
+
     m_start = m_dateBar->dateForUnit(unit);
     m_end = m_dateBar->dateForUnit(unit + 1).addSecs(-1);
 }
 
 void DateBar::SelectionHandler::mouseMoveEvent(int x)
 {
-    int unit = m_dateBar->unitAtPos(x);
+    const int unit = m_dateBar->unitAtPos(x);
+    if (unit < 0)
+        return;
+
     Utilities::FastDateTime date = m_dateBar->dateForUnit(unit);
     if (m_start < date) {
         m_end = m_dateBar->dateForUnit(unit + 1).addSecs(-1);
@@ -92,8 +98,12 @@ DateBar::FocusItemDragHandler::FocusItemDragHandler(DateBarWidget *dateBar)
 
 void DateBar::FocusItemDragHandler::mousePressEvent(int x)
 {
-    m_dateBar->m_currentUnit = m_dateBar->unitAtPos(x);
-    m_dateBar->m_currentDate = m_dateBar->dateForUnit(m_dateBar->m_currentUnit);
+    const int unit = m_dateBar->unitAtPos(x);
+    if (unit < 0)
+        return;
+
+    m_dateBar->m_currentUnit = unit;
+    m_dateBar->m_currentDate = m_dateBar->dateForUnit(unit);
     if (m_dateBar->hasSelection() && !m_dateBar->currentSelection().includes(m_dateBar->m_currentDate))
         m_dateBar->clearSelection();
 }

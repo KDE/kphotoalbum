@@ -74,6 +74,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix crash when trying to copy or link an image from the annotation dialog's fullscreen preview (#475585)
  - Use consistent icon sizes in category browser ("Tree" and "Tree with User Icons")
  - Fix crash when sorting selected images while thumbnail display order is "Newest First" (#476651)
+ - Fix invalid assertion when date bar selection is extended beyond the valid range (#476862)
 
 ### Removed
  - It is no longer possible to annotate images from the viewer by pressing "/" and typing tag names.

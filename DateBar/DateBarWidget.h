@@ -197,7 +197,7 @@ protected:
     /**
      * @brief unitAtPos maps horizontal screen coordinates to units.
      * @param x a valid pixel offset in the histogram area
-     * @return a unit index between 0 and numberOfUnits
+     * @return a unit index between 0 and numberOfUnits, or -1 if the pixel offset is not valid
      */
     int unitAtPos(int x) const;
     Utilities::FastDateTime dateForUnit(int unit, const Utilities::FastDateTime &offset = Utilities::FastDateTime()) const;

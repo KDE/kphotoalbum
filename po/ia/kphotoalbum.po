@@ -2,12 +2,13 @@
 # This file is distributed under the same license as the kphotoalbum package.
 #
 # SPDX-FileCopyrightText: 2021, 2022, 2023 Giovanni Sora <g.sora@tiscali.it>
+# giovanni <g.sora@tiscali.it>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-11 00:40+0000\n"
-"PO-Revision-Date: 2023-10-16 14:05+0200\n"
+"PO-Revision-Date: 2023-11-13 15:29+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -989,9 +990,7 @@ msgid "Move Items"
 msgstr "Move elementos"
 
 #: DateBar/DateBarWidget.cpp:61
-#, fuzzy, kde-format
-#| msgctxt "I.e. the timeline histogram widget"
-#| msgid "Date Bar"
+#, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
 msgstr "Barra de Data"
@@ -3896,10 +3895,9 @@ msgid "Limit View to Selection"
 msgstr ""
 
 #: MainWindow/Window.cpp:771
-#, fuzzy, kde-format
-#| msgid "No Item Selected"
+#, kde-format
 msgid "No images are selected!"
-msgstr "Nulle elemento seligite"
+msgstr "Nulle imagine seligite!"
 
 #: MainWindow/Window.cpp:784
 #, kde-format
@@ -5924,17 +5922,14 @@ msgid "Select item for macro key <b>%1</b>"
 msgstr ""
 
 #: Viewer/AnnotationHandler.cpp:125
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Rename Item"
+#, kde-format
 msgid "Tag Item"
-msgstr "Renomina elemento"
+msgstr "Elemento de etiquetta"
 
 #: Viewer/AnnotationHandler.cpp:125
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select tag for image"
-msgstr "Selige objectivo :"
+msgstr "Selige etiquetta per imagine"
 
 #: Viewer/CategoryImageConfig.cpp:33
 #, kde-format
@@ -6294,12 +6289,10 @@ msgid "Change display mode to %1"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:909
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run Slideshow"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "Executa Slideshow (Presentation)"
+msgstr "Terminante Slideshow (Presentation)"
 
 #: Viewer/ViewerWidget.cpp:912
 #, kde-format
@@ -6322,11 +6315,10 @@ msgid "%1&nbsp;s"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1228
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "Description de thema"
+msgstr "Modifica Description de Imagine"
 
 #: Viewer/ViewerWidget.cpp:1228
 #, kde-format
@@ -6506,11 +6498,10 @@ msgid "CTRL+a"
 msgstr "CTRL+a"
 
 #: Viewer/ViewerWidget.cpp:1501
-#, fuzzy, kde-format
-#| msgid "Copy tags from previous image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr "Copia etiquettas ex previe image"
+msgstr "Copia datos ex previe imagine"
 
 #: Viewer/ViewerWidget.cpp:1502
 #, kde-format
@@ -6519,8 +6510,7 @@ msgid "CTRL+c"
 msgstr "CTRL+c"
 
 #: Viewer/ViewerWidget.cpp:1505
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
 msgstr "Modifica description"

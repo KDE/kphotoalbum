@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2009, 2012 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2009 2012 Jesper K. Pedersen <blackie@kde.org>
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
@@ -71,7 +71,6 @@
   \li MD5
   \li MD5Map
   \li MediaCount
-  \li MemberMap
   \li NewImageFinder
 **/
 // vi:expandtab:tabstop=4 shiftwidth=4:

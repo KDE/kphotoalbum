@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-11 00:40+0000\n"
-"PO-Revision-Date: 2023-10-21 13:54\n"
+"PO-Revision-Date: 2023-11-19 03:40\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -381,12 +381,12 @@ msgstr "从上一张图像复制标记"
 #: AnnotationDialog/Dialog.cpp:1320 MainWindow/Window.cpp:849
 #, kde-format
 msgid "Rotate counterclockwise"
-msgstr "逆时针旋转"
+msgstr "旋转 (逆时针)"
 
 #: AnnotationDialog/Dialog.cpp:1323 MainWindow/Window.cpp:853
 #, kde-format
 msgid "Rotate clockwise"
-msgstr "顺时针旋转"
+msgstr "旋转 (顺时针)"
 
 #: AnnotationDialog/Dialog.cpp:1326
 #, kde-format
@@ -6035,7 +6035,7 @@ msgstr "旋转"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
-msgstr "顺时针旋转"
+msgstr "旋转 (顺时针)"
 
 #: Viewer/ViewerWidget.cpp:294
 #, kde-format
@@ -6047,7 +6047,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
-msgstr "逆时针旋转"
+msgstr "旋转 (逆时针)"
 
 #: Viewer/ViewerWidget.cpp:306
 #, kde-format

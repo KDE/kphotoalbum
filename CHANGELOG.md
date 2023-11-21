@@ -66,9 +66,9 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix crash when switching from video to image (#473587)
  - Fix program freeze when the viewer window is closed while playing a video using the VLC backend.
  - Fix crash when both the annotation dialog and the viewer window is open and the user right-clicks on the viewer window (#473762)
- - Fix crash when annotations are not saved and then the user right-clicks on the viewer window (#474151)
+ - Fix several crashes when annotations are not saved and then the user right-clicks on the viewer window (#474151, #476561)
  - Fix crash when user opens the last image/video in viewer then deletes the image and then accesses the viewer context menu (#474392)
- - Fix several crashes when deleting an image/video that is currently being annotated in the annotation dialog (#475387, #475388)
+ - Fix several crashes when deleting an image/video that is currently being annotated in the annotation dialog (#475387, #475388, #476131)
  - Correctly discard images from annotation dialog if they are deleted elsewhere (e.g. in the thumbnail view).
  - Fix failed assertion and potential database corruption when searching for new image while the new image search is already running (#475529)
  - Fix crash when trying to copy or link an image from the annotation dialog's fullscreen preview (#475585)
@@ -76,6 +76,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix crash when sorting selected images while thumbnail display order is "Newest First" (#476651)
  - Fix invalid assertion when date bar selection is extended beyond the valid range (#476862)
  - Fix failed assertion when creating a tag group by drag and drop in a category that does not yet have any tag groups (#477195)
+ - Fix crash when opening a list of files with invalid files (#473231)
 
 ### Removed
  - It is no longer possible to annotate images from the viewer by pressing "/" and typing tag names.

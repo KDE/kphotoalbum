@@ -139,7 +139,7 @@ cleanup()
     rm -r "$TEMPDIR"
     unset TEMPDIR
 }
-trap cleanup EXOT
+trap cleanup EXIT
 
 echo "# Checking all changes since version $VERSION..." >&2
 

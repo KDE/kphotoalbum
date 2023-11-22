@@ -128,8 +128,7 @@ check_issue_plausibility()
 }
 
 
-BASEDIR="$(dirname "$0")/../.."
-cd "$BASEDIR" || exit 1
+BASEDIR="$(git rev-parse --show-toplevel)"
 
 CHANGELOG="$BASEDIR/CHANGELOG.md"
 VERSION="$(guess_version "$CHANGELOG")"

@@ -36,6 +36,24 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ------------
 
 ### Added
+
+### Changed
+
+### Dependencies
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
+### Security
+
+
+KPhotoAlbum 5.12.0 (2023-11-27)
+-------------------------------
+
+### Added
  - Support annotating images from the viewer by using letters to assign tags.
    Use the context menu and select "Annotate | Assign Tags" to enable.
    More information is available in the KPhotoAlbum handbook.
@@ -56,8 +74,6 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Dependencies
  - Add support for exiv2 0.28.1
  - Remove support for exiv2 < 0.27
-
-### Deprecated
 
 ### Fixed
  - Fix issue with KPhotoAlbum not asking to save before exit (#472427)
@@ -82,7 +98,6 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - It is no longer possible to annotate images from the viewer by pressing "/" and typing tag names.
  - It is no longer possible to change an image through the annotation dialog's fullscreen image preview.
 
-### Security
 
 KPhotoAlbum 5.11.0 (2023-07-12)
 -------------------------------

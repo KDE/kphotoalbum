@@ -44,6 +44,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Deprecated
 
 ### Fixed
+ - Fix crash when trying to unset the untagged tag via the settings dialog (#477529)
 
 ### Removed
 

@@ -184,6 +184,10 @@ public:
 
     Exif::Database *exifDB() const;
 
+    /**
+     * @brief untaggedTag
+     * @return the untaggedTag, or \c nullptr if the feature is not configured
+     */
     const DB::TagInfo *untaggedTag() const;
 
     static int fileVersion();
@@ -223,6 +227,7 @@ protected Q_SLOTS:
     void markDirty();
     /**
      * @brief setUntaggedTag sets the untaggedTag for the database and also updates the corresponding settings value.
+     * If tag is null, the untaggedTag is cleared.
      * @param tag
      * @see Settings::SettingsData::untaggedTag()
      * @see Settings::SettingsData::untaggedCategory()

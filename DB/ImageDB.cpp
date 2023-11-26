@@ -981,7 +981,11 @@ void ImageDB::setUntaggedTag(DB::TagInfo *tag)
 
 void ImageDB::setUntaggedTag(const QString &category, const QString &tag)
 {
-    auto tagInfo = categoryCollection()->categoryForName(category)->itemForName(tag);
+    const auto categoryPtr = categoryCollection()->categoryForName(category);
+    DB::TagInfo *tagInfo = nullptr;
+    if (categoryPtr) {
+        tagInfo = categoryPtr->itemForName(tag);
+    }
     setUntaggedTag(tagInfo);
 }
 

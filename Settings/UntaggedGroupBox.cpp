@@ -1,7 +1,9 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2009-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2015, 2020 Tobias Leupold <tl@stonemx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "UntaggedGroupBox.h"
 
 #include <DB/CategoryCollection.h>
@@ -62,12 +64,14 @@ void Settings::UntaggedGroupBox::populateTagsCombo()
 {
     m_tag->clear();
     const QString currentCategory = m_category->itemData(m_category->currentIndex()).value<QString>();
+    const auto categoryPtr = DB::ImageDB::instance()->categoryCollection()->categoryForName(currentCategory);
 
-    if (currentCategory.isEmpty()) {
+    // categoryPtr is invalid even though currentCategory is set, when the category is not yet saved to the database...
+    if (currentCategory.isEmpty() || !categoryPtr) {
         m_tag->setEnabled(false);
     } else {
         m_tag->setEnabled(true);
-        const QStringList items = DB::ImageDB::instance()->categoryCollection()->categoryForName(currentCategory)->items();
+        const QStringList items = categoryPtr->items();
         m_tag->addItems(items);
     }
 }

@@ -9,6 +9,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "CategoryCollection.h"
+#include "kpabase/Logging.h"
 
 #include <DB/ImageDB.h>
 
@@ -65,11 +66,13 @@ void DB::CategoryCollection::removeCategory(const QString &name)
     for (QList<DB::CategoryPtr>::iterator it = m_categories.begin(); it != m_categories.end(); ++it) {
         if ((*it)->name() == name) {
             m_categories.erase(it);
+            qCDebug(DBLog) << "CategoryCollection::removeCategory: category" << name << "removed.";
             Q_EMIT categoryRemoved(name);
             Q_EMIT categoryCollectionChanged();
             return;
         }
     }
+    qCWarning(DBLog) << "CategoryCollection::removeCategory: category" << name << "does not exist!";
     Q_ASSERT_X(false, "removeCategory", "trying to remove non-existing category");
 }
 

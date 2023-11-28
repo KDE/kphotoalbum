@@ -455,7 +455,7 @@ void Settings::CategoryPage::enableDisable(bool b)
     m_preferredViewLabel->setEnabled(b);
     m_preferredView->setEnabled(b);
 
-    m_categoriesListWidget->blockSignals(true);
+    auto signalBlocker = QSignalBlocker(m_categoriesListWidget);
 
     if (MainWindow::Window::theMainWindow()->dbIsDirty()) {
         m_dbNotSavedLabel->show();
@@ -478,8 +478,6 @@ void Settings::CategoryPage::enableDisable(bool b)
             currentItem->setFlags(currentItem->flags() | Qt::ItemIsEditable);
         }
     }
-
-    m_categoriesListWidget->blockSignals(false);
 }
 
 void Settings::CategoryPage::saveSettings(Settings::SettingsData *opt, DB::MemberMap *memberMap)
@@ -488,6 +486,7 @@ void Settings::CategoryPage::saveSettings(Settings::SettingsData *opt, DB::Membe
     for (CategoryItem *item : qAsConst(m_deletedCategories)) {
         item->removeFromDatabase();
     }
+    m_deletedCategories.clear();
 
     // Created or Modified items
     for (int i = 0; i < m_categoriesListWidget->count(); ++i) {
@@ -509,7 +508,7 @@ void Settings::CategoryPage::saveSettings(Settings::SettingsData *opt, DB::Membe
 
 void Settings::CategoryPage::loadSettings(Settings::SettingsData *opt)
 {
-    m_categoriesListWidget->blockSignals(true);
+    auto signalBlocker = QSignalBlocker(m_categoriesListWidget);
     m_categoriesListWidget->clear();
 
     const QList<DB::CategoryPtr> categories = DB::ImageDB::instance()->categoryCollection()->categories();
@@ -525,8 +524,6 @@ void Settings::CategoryPage::loadSettings(Settings::SettingsData *opt)
             Q_UNUSED(item)
         }
     }
-
-    m_categoriesListWidget->blockSignals(false);
 
     m_untaggedBox->loadSettings(opt);
 }

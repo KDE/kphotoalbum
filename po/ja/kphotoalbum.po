@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 00:40+0000\n"
+"POT-Creation-Date: 2023-11-28 00:39+0000\n"
 "PO-Revision-Date: 2008-09-24 00:02+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -945,7 +945,7 @@ msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "検索"
 
-#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:22
 #, fuzzy, kde-format
 #| msgid "New Images"
 msgid "Untagged Images"
@@ -4089,12 +4089,12 @@ msgid ""
 msgstr ""
 
 #: MainWindow/StatisticsDialog.cpp:114 Settings/BirthdayPage.cpp:47
-#: Settings/UntaggedGroupBox.cpp:29
+#: Settings/UntaggedGroupBox.cpp:31
 #, kde-format
 msgid "Category:"
 msgstr "カテゴリ:"
 
-#: MainWindow/StatisticsDialog.cpp:120 Settings/UntaggedGroupBox.cpp:36
+#: MainWindow/StatisticsDialog.cpp:120 Settings/UntaggedGroupBox.cpp:38
 #, kde-format
 msgid "Tag:"
 msgstr "タグ:"
@@ -6092,7 +6092,7 @@ msgstr ""
 "的にサムネイルが表示されます。「画像を表示」を押すまでブラウザ表示のままにし"
 "ておくこともできます。</p>"
 
-#: Settings/UntaggedGroupBox.cpp:22
+#: Settings/UntaggedGroupBox.cpp:24
 #, kde-format
 msgid ""
 "If a tag is selected here, it will be added to new (untagged) images "
@@ -6100,24 +6100,24 @@ msgid ""
 "as the image has been annotated."
 msgstr ""
 
-#: Settings/UntaggedGroupBox.cpp:43
+#: Settings/UntaggedGroupBox.cpp:45
 #, kde-format
 msgid "Show the untagged images tag as a normal tag"
 msgstr ""
 
-#: Settings/UntaggedGroupBox.cpp:52
+#: Settings/UntaggedGroupBox.cpp:54
 #, fuzzy, kde-format
 #| msgid "No Item Selected"
 msgid "None Selected"
 msgstr "アイテムが選択されていません"
 
-#: Settings/UntaggedGroupBox.cpp:113
+#: Settings/UntaggedGroupBox.cpp:117
 #, fuzzy, kde-format
 #| msgid "New Sub Category Name:"
 msgid "New tag added"
 msgstr "新しいサブカテゴリの名前:"
 
-#: Settings/UntaggedGroupBox.cpp:114
+#: Settings/UntaggedGroupBox.cpp:118
 #, kde-format
 msgid ""
 "<p>The new tag \"%1\" has been added to the category \"%2\" and will be used "

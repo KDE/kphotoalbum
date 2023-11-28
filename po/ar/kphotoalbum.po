@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 00:40+0000\n"
+"POT-Creation-Date: 2023-11-28 00:39+0000\n"
 "PO-Revision-Date: 2022-10-05 20:32+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -903,7 +903,7 @@ msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "ابحث"
 
-#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:22
 #, fuzzy, kde-format
 msgid "Untagged Images"
 msgstr "صور جديدة"
@@ -3911,12 +3911,12 @@ msgid ""
 msgstr ""
 
 #: MainWindow/StatisticsDialog.cpp:114 Settings/BirthdayPage.cpp:47
-#: Settings/UntaggedGroupBox.cpp:29
+#: Settings/UntaggedGroupBox.cpp:31
 #, kde-format
 msgid "Category:"
 msgstr "الصنف:"
 
-#: MainWindow/StatisticsDialog.cpp:120 Settings/UntaggedGroupBox.cpp:36
+#: MainWindow/StatisticsDialog.cpp:120 Settings/UntaggedGroupBox.cpp:38
 #, kde-format
 msgid "Tag:"
 msgstr "الوسم:"
@@ -5818,7 +5818,7 @@ msgstr ""
 "<p> متى و العدد أسفل قيمة الـ بديل هو إلى متابعة متصفح حتّى ضغط<i> اعرض صور</"
 "i></p>"
 
-#: Settings/UntaggedGroupBox.cpp:22
+#: Settings/UntaggedGroupBox.cpp:24
 #, kde-format
 msgid ""
 "If a tag is selected here, it will be added to new (untagged) images "
@@ -5826,23 +5826,23 @@ msgid ""
 "as the image has been annotated."
 msgstr ""
 
-#: Settings/UntaggedGroupBox.cpp:43
+#: Settings/UntaggedGroupBox.cpp:45
 #, kde-format
 msgid "Show the untagged images tag as a normal tag"
 msgstr ""
 
-#: Settings/UntaggedGroupBox.cpp:52
+#: Settings/UntaggedGroupBox.cpp:54
 #, kde-format
 msgid "None Selected"
 msgstr "غير محدد"
 
-#: Settings/UntaggedGroupBox.cpp:113
+#: Settings/UntaggedGroupBox.cpp:117
 #, fuzzy, kde-format
 #| msgid "New Sub Category Name:"
 msgid "New tag added"
 msgstr "اسم الصنف الفرعي الجديد"
 
-#: Settings/UntaggedGroupBox.cpp:114
+#: Settings/UntaggedGroupBox.cpp:118
 #, kde-format
 msgid ""
 "<p>The new tag \"%1\" has been added to the category \"%2\" and will be used "

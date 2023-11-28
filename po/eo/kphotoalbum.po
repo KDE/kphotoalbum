@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 00:40+0000\n"
+"POT-Creation-Date: 2023-11-28 00:39+0000\n"
 "PO-Revision-Date: 2023-11-26 20:12+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -930,7 +930,7 @@ msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "Serĉo"
 
-#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:22
 #, kde-format
 msgid "Untagged Images"
 msgstr "Nemarkitaj Bildoj"
@@ -3958,12 +3958,12 @@ msgstr ""
 "specifu ĝin ĉi tie."
 
 #: MainWindow/StatisticsDialog.cpp:114 Settings/BirthdayPage.cpp:47
-#: Settings/UntaggedGroupBox.cpp:29
+#: Settings/UntaggedGroupBox.cpp:31
 #, kde-format
 msgid "Category:"
 msgstr "Kategorio:"
 
-#: MainWindow/StatisticsDialog.cpp:120 Settings/UntaggedGroupBox.cpp:36
+#: MainWindow/StatisticsDialog.cpp:120 Settings/UntaggedGroupBox.cpp:38
 #, kde-format
 msgid "Tag:"
 msgstr "Etikedo:"
@@ -6010,7 +6010,7 @@ msgstr ""
 "bildetoj estos montrataj aŭtomate. La alternativo estas daŭre montri la "
 "retumilon ĝis vi premas <i>Montri Bildojn</i></p>"
 
-#: Settings/UntaggedGroupBox.cpp:22
+#: Settings/UntaggedGroupBox.cpp:24
 #, kde-format
 msgid ""
 "If a tag is selected here, it will be added to new (untagged) images "
@@ -6021,22 +6021,22 @@ msgstr ""
 "bildoj aŭtomate, por ke ili facile troveblas. Ĝi estos forigita tuj kiam la "
 "bildo estos komentita."
 
-#: Settings/UntaggedGroupBox.cpp:43
+#: Settings/UntaggedGroupBox.cpp:45
 #, kde-format
 msgid "Show the untagged images tag as a normal tag"
 msgstr "Montri la neetikeditan bildetikedon kiel normala etikedo"
 
-#: Settings/UntaggedGroupBox.cpp:52
+#: Settings/UntaggedGroupBox.cpp:54
 #, kde-format
 msgid "None Selected"
 msgstr "Neniu Elektita"
 
-#: Settings/UntaggedGroupBox.cpp:113
+#: Settings/UntaggedGroupBox.cpp:117
 #, kde-format
 msgid "New tag added"
 msgstr "Nova etikedo aldonita"
 
-#: Settings/UntaggedGroupBox.cpp:114
+#: Settings/UntaggedGroupBox.cpp:118
 #, kde-format
 msgid ""
 "<p>The new tag \"%1\" has been added to the category \"%2\" and will be used "

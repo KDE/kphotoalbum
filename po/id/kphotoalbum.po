@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 00:40+0000\n"
+"POT-Creation-Date: 2023-11-28 00:39+0000\n"
 "PO-Revision-Date: 2022-09-27 17:10+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -872,7 +872,7 @@ msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "Cari"
 
-#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:22
 #, kde-format
 msgid "Untagged Images"
 msgstr "Gambar Tidak Ter-tag"
@@ -3645,12 +3645,12 @@ msgid ""
 msgstr ""
 
 #: MainWindow/StatisticsDialog.cpp:114 Settings/BirthdayPage.cpp:47
-#: Settings/UntaggedGroupBox.cpp:29
+#: Settings/UntaggedGroupBox.cpp:31
 #, kde-format
 msgid "Category:"
 msgstr "Kategori:"
 
-#: MainWindow/StatisticsDialog.cpp:120 Settings/UntaggedGroupBox.cpp:36
+#: MainWindow/StatisticsDialog.cpp:120 Settings/UntaggedGroupBox.cpp:38
 #, kde-format
 msgid "Tag:"
 msgstr "Tag:"
@@ -5519,7 +5519,7 @@ msgid ""
 "showing the browser until you press <i>Show Images</i></p>"
 msgstr ""
 
-#: Settings/UntaggedGroupBox.cpp:22
+#: Settings/UntaggedGroupBox.cpp:24
 #, kde-format
 msgid ""
 "If a tag is selected here, it will be added to new (untagged) images "
@@ -5527,22 +5527,22 @@ msgid ""
 "as the image has been annotated."
 msgstr ""
 
-#: Settings/UntaggedGroupBox.cpp:43
+#: Settings/UntaggedGroupBox.cpp:45
 #, kde-format
 msgid "Show the untagged images tag as a normal tag"
 msgstr ""
 
-#: Settings/UntaggedGroupBox.cpp:52
+#: Settings/UntaggedGroupBox.cpp:54
 #, kde-format
 msgid "None Selected"
 msgstr "Tidak Ada Yang Dipilih"
 
-#: Settings/UntaggedGroupBox.cpp:113
+#: Settings/UntaggedGroupBox.cpp:117
 #, kde-format
 msgid "New tag added"
 msgstr ""
 
-#: Settings/UntaggedGroupBox.cpp:114
+#: Settings/UntaggedGroupBox.cpp:118
 #, kde-format
 msgid ""
 "<p>The new tag \"%1\" has been added to the category \"%2\" and will be used "

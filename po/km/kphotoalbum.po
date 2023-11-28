@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-11 00:40+0000\n"
+"POT-Creation-Date: 2023-11-28 00:39+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -937,7 +937,7 @@ msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "ស្វែងរក"
 
-#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:20
+#: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:22
 #, kde-format
 msgid "Untagged Images"
 msgstr "រូប​ភាព​ដែល​មិន​ដាក់​ស្លាក​"
@@ -4139,12 +4139,12 @@ msgstr ""
 "បើ​សិន​អ្នក​ប្រើ​ស្លាក​ជាក់​លាក់​ ដើម្បី​បង្ហាញ​ថា​រូបភាព​ត្រូវ​បាន​ដាក់​ស្លាក​នោះ​ អញ្ចឹង​សូម​បញ្ជាក់​វា​នៅ​ទីនេះ ។"
 
 #: MainWindow/StatisticsDialog.cpp:114 Settings/BirthdayPage.cpp:47
-#: Settings/UntaggedGroupBox.cpp:29
+#: Settings/UntaggedGroupBox.cpp:31
 #, kde-format
 msgid "Category:"
 msgstr "ប្រភេទ​ ៖​"
 
-#: MainWindow/StatisticsDialog.cpp:120 Settings/UntaggedGroupBox.cpp:36
+#: MainWindow/StatisticsDialog.cpp:120 Settings/UntaggedGroupBox.cpp:38
 #, kde-format
 msgid "Tag:"
 msgstr "ស្លាក ៖​"
@@ -6216,7 +6216,7 @@ msgstr ""
 "ក្រោម​តម្លៃ​នេះ​នឹង​ត្រូវ​បាន​បញ្ជាក់​នៅ​ទីនេះ ។ ជា​ជម្រើស​ គឺ​ត្រូវ​តែ​បន្ត​បង្ហាញ​កម្មវិធី​រុក​រក​ រហូត​ដល់​អ្នក​ចុច​ "
 "<i>បង្ហាញ​រូបភាព</i></p>"
 
-#: Settings/UntaggedGroupBox.cpp:22
+#: Settings/UntaggedGroupBox.cpp:24
 #, kde-format
 msgid ""
 "If a tag is selected here, it will be added to new (untagged) images "
@@ -6224,23 +6224,23 @@ msgid ""
 "as the image has been annotated."
 msgstr ""
 
-#: Settings/UntaggedGroupBox.cpp:43
+#: Settings/UntaggedGroupBox.cpp:45
 #, kde-format
 msgid "Show the untagged images tag as a normal tag"
 msgstr ""
 
-#: Settings/UntaggedGroupBox.cpp:52
+#: Settings/UntaggedGroupBox.cpp:54
 #, kde-format
 msgid "None Selected"
 msgstr "គ្មាន​ធាតុ​ដែល​បាន​ជ្រើស​"
 
-#: Settings/UntaggedGroupBox.cpp:113
+#: Settings/UntaggedGroupBox.cpp:117
 #, fuzzy, kde-format
 #| msgid "New Sub Category Name:"
 msgid "New tag added"
 msgstr "ឈ្មោះ​ប្រភេទ​រង​ថ្មី ៖"
 
-#: Settings/UntaggedGroupBox.cpp:114
+#: Settings/UntaggedGroupBox.cpp:118
 #, kde-format
 msgid ""
 "<p>The new tag \"%1\" has been added to the category \"%2\" and will be used "

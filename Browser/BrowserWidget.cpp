@@ -145,9 +145,11 @@ void Browser::BrowserWidget::emitSignals()
 
     if (isCategoryAction) {
         DB::CategoryPtr category = DB::ImageDB::instance()->categoryCollection()->categoryForName(currentCategory());
-        Q_ASSERT(category.data());
-
-        Q_EMIT currentViewTypeChanged(category->viewType());
+        // category may be deleted by now:
+        if (!category) {
+            home();
+            return;
+        }
     }
 
     Q_EMIT pathChanged(createPath());

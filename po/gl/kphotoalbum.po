@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-28 00:39+0000\n"
+"POT-Creation-Date: 2023-11-29 00:40+0000\n"
 "PO-Revision-Date: 2023-11-23 18:19+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
@@ -5153,7 +5153,7 @@ msgstr "<p>Seguro que quere eliminar a categoría «%1»?</p>"
 msgid "Confirm Action"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:536
+#: Settings/CategoryPage.cpp:533
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>Escolla unha categoría para editala</i>"

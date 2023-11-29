@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-28 00:39+0000\n"
+"POT-Creation-Date: 2023-11-29 00:40+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -5353,7 +5353,7 @@ msgstr "<p>Zaista želite obrisati kategoriju \"%1\"?</p>"
 msgid "Confirm Action"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:536
+#: Settings/CategoryPage.cpp:533
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
 msgstr ""

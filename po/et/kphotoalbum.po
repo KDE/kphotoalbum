@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-28 00:39+0000\n"
+"POT-Creation-Date: 2023-11-29 00:40+0000\n"
 "PO-Revision-Date: 2020-05-05 11:56+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -5176,7 +5176,7 @@ msgstr "<p>Kas tõesti kustutada kategooria \"%1\"?</p>"
 msgid "Confirm Action"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:536
+#: Settings/CategoryPage.cpp:533
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>Muudetava kategooria valimine</i>"

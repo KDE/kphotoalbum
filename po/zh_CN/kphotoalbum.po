@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-28 00:39+0000\n"
+"POT-Creation-Date: 2023-11-29 00:40+0000\n"
 "PO-Revision-Date: 2023-11-25 02:29\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -4591,7 +4591,7 @@ msgstr ""
 msgid "Confirm Action"
 msgstr ""
 
-#: Settings/CategoryPage.cpp:536
+#: Settings/CategoryPage.cpp:533
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
 msgstr ""

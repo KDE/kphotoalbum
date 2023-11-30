@@ -428,7 +428,7 @@ KPhotoAlbum
 
 ### Version 10
 
-Not released yet. Used in KPA v5.12
+Used in KPA v5.12
 
 ```
 KPhotoAlbum
@@ -496,6 +496,88 @@ KPhotoAlbum
 #### Differences to version 9
 
  * New element ```global-sort-order```
+
+### Version 11 (draft)
+
+Unreleased. Used in KPA v5.13
+
+```
+KPhotoAlbum
+| (version=11, compressed=1)
+|
++-Categories
+| +-Category
+|   (name, icon, show, viewtype, thumbnailsize, positionable)
+|   (meta) [optional]
+|   (xmlName) [optional]
+|   +-value
+|     (value, id)
+|     (birthDate) [optional]
+|     (meta) [optional]
+|
++-images
+| +-image
+|   (file, startDate, md5sum, width, height)
+|   (angle, description, endDate, label, rating, stackId, stackOrder, videoLength) [optional]
+|   (#Categories.Category.name#=#Categories.Category.value.id#) [optional]
+|   (#Categories.Category.xmlName#=#Categories.Category.value.id#) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#, area="x y w h")
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+| +-member (category,group-name,members)
+|
++-global-sort-order
+| +-item (category,item)
+```
+
+```
+KPhotoAlbum
+| (version=11, compressed=0)
+|
++-Categories
+| +-Category
+|   (name, icon, show, viewtype, thumbnailsize, positionable)
+|   (xmlName) [optional]
+|   (meta) [optional]
+|   +-value
+|     (value, id)
+|     (birthDate) [optional]
+|     (meta) [optional]
+|
++-images
+| +-image
+|   (file, startDate, md5sum, width, height)
+|   (angle, description, endDate, label, rating, stackId, stackOrder, videoLength) [optional]
+|   +-options
+|     +-option(name=#Categories.Category.name#)
+|       +-value(value=#Categories.Category.value.value#, area="x y w h")
+|
++-blocklist
+| +-block (file)
+|
++-member-groups
+| +-member (category,group-name,member)
+|
++-global-sort-order
+| +-item (category,item)
+```
+
+#### Differences to version 10
+
+Instead of directly using the (escaped) category name as XML attribute name in the compressed format,
+file version 11 introduces `xmlName` to the category, which is used instead.
+When updating from file version 10, KPhotoAlbum will use the existing escaped category name as `xmlName`.
+For any new categories, `xmlName` will be initialized with a known safe value (e.g. "c001").
+
+This change is done to avoid problems with escaping category names to be safe for use as XML attribute names
+
+The uncompressed format preserves the `xmlName` attribute if present.
+
 
 ### Attribute values explained
 

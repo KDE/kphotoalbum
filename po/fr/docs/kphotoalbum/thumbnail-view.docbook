@@ -107,7 +107,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 <title
 >Mode hors-ligne</title>
 <para
->Il y a une bataille constante en cours entre la croissance du volume de données et la taille sans cesse croissante des disques durs. Si vous avez un grand nombre de photos, vous vous trouvez impliquer dans cette bataille en n'ayant pas assez d'espace disque pour stocker toutes vos images. Dans cette situation, vous pourriez avoir fait le choix de mettre certaines de vos photos sur des CDs. Un scénario alternatif pourrait être que vous partiez en voyage d'affaires et que vous vouliez transporter avec vous vos photos mais que vous n'ayez pas les 20 Go nécessaires pour cela. </para>
+>Il y a une bataille constante en cours entre la croissance du volume de données et la taille sans cesse croissante des disques durs. Si vous avez un grand nombre de photos, vous vous trouvez impliquer dans cette bataille en n'ayant pas assez d'espace disque pour stocker toutes vos images. Dans cette situation, vous pourriez avoir fait le choix de mettre certaines de vos photos sur des CD. Un scénario alternatif pourrait être que vous partiez en voyage d'affaires et que vous vouliez transporter avec vous vos photos mais que vous n'ayez pas les 20 Go nécessaires pour cela. </para>
 
 <para
 >&kphotoalbum; offre une solution à ce problème, qui vous permet de l'utiliser sans avoir les photos disponibles sur le disque dur. Il faut bien les avoir eues disponibles à un moment dans &kphotoalbum; pour que &kphotoalbum; puisse les indexer. <xref linkend="fig-offline-mode"/> montre quand &kphotoalbum; n'est pas capable de trouver les photos requises sur le disque dur.</para>

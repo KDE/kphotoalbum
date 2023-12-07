@@ -7,7 +7,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 <chapter id="chp-importExport">
   <title
->Importer/Exporter</title>
+>Importer / Exporter</title>
   <para
 >Si vous assistez à une réunion de famille, une réunion professionnelle, une conférence ou tout autre évènement où d'autres utilisateurs de &kphotoalbum; peuvent être présents, vous pourriez avoir envie de partager vos images avec eux. Vous pourriez bien sûr choisir de générer pour eux des pages &HTML; pour qu'ils naviguent dans les photos. Mais étant donné que vous avez déjà passé du temps à classer les photos (qui est sur les photos, où ont elles été prises, etc.), il n'y a aucune raison pour eux de refaire ce travail. </para>
 
@@ -118,8 +118,8 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 <para
 >Naturellement, vous allez appeler la catégorie « Personne » sous <emphasis
->Personen</emphasis
-> si vous êtes Allemand, pendant que moi, en Danois, je l'appellerais plutôt <emphasis
+>Personne</emphasis
+> si vous êtes Français, pendant que moi, en Danois, je l'appellerais plutôt <emphasis
 >personer</emphasis
 >. Dans la troisième étape de l'assistant d'import, vous devez spécifier quelle catégorie du fichier devra être importée, ainsi qu'avec quelle catégorie de votre base de données elle devra correspondre.</para>
 

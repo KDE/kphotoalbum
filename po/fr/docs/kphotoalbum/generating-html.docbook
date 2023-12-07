@@ -24,7 +24,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Contenu</guilabel
 >, <guilabel
 >Disposition</guilabel
-> and <guilabel
+> et <guilabel
 >Destination</guilabel
 >. Les sections suivantes décrivent chaque page en détail.</para>
 
@@ -112,7 +112,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></listitem>
           <listitem
 ><para
->fish : //someserver/home/foo/images (téléchargement utilisant ssh)</para
+>fish : //someserver/home/foo/images (Téléchargement utilisant le logiciel « ssh »)</para
 ></listitem>
           <listitem
 ><para

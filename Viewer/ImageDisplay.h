@@ -85,7 +85,6 @@ protected:
     void hideEvent(QHideEvent *) override;
     QPoint mapPos(QPoint);
     QPoint offset(int logicalWidth, int logicalHeight, int physicalWidth, int physicalHeight, double *ratio);
-    void xformPainter(QPainter *);
     void cropAndScale();
     void updatePreload();
     int indexOf(const DB::FileName &fileName);

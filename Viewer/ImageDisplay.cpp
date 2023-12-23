@@ -204,14 +204,6 @@ QPoint Viewer::ImageDisplay::mapPos(QPoint p)
     return QPoint(x, y);
 }
 
-void Viewer::ImageDisplay::xformPainter(QPainter *p)
-{
-    QPoint off = offset(qAbs(m_zEnd.x() - m_zStart.x()), qAbs(m_zEnd.y() - m_zStart.y()), width(), height(), nullptr);
-    double s = (width() - 2 * off.x()) / qAbs((double)m_zEnd.x() - m_zStart.x());
-    p->scale(s, s);
-    p->translate(-m_zStart.x(), -m_zStart.y());
-}
-
 void Viewer::ImageDisplay::zoomIn()
 {
     qCDebug(ViewerLog, "zoomIn()");

@@ -48,6 +48,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix crash when renaming or adding a category in the settings dialog and immediately using it as untagged category (#477530)
  - Fix crash when deleting a category via the settings dialog and then opening the settings dialog and clicking "OK" or "Apply" (#477531)
  - Fix crash when deleting a category via the settings dialog while the browser is showing the associated category page (#477532)
+ - Fix background color in Viewer when the image is zoomed (#478944)
 
 ### Removed
 

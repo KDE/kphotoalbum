@@ -260,6 +260,8 @@ void Viewer::ImageDisplay::cropAndScale()
 
     if (m_zStart != QPoint(0, 0) || m_zEnd != QPoint(m_loadedImage.width(), m_loadedImage.height())) {
         qCDebug(ViewerLog) << "cropAndScale(): using cropped image" << m_zStart << "-" << m_zEnd;
+        // we request a copy that is bigger than the loaded image
+        // copy fills the pixels outside the loaded image with transparent pixels
         m_croppedAndScaledImg = m_loadedImage.copy(m_zStart.x(), m_zStart.y(), m_zEnd.x() - m_zStart.x(), m_zEnd.y() - m_zStart.y());
     } else {
         qCDebug(ViewerLog) << "cropAndScale(): using full image.";
@@ -499,7 +501,8 @@ void Viewer::ImageDisplay::pixmapLoaded(ImageManager::ImageRequest *request, con
             m_reloadImageInProgress = false;
         }
 
-        m_loadedImage = image;
+        // for zoom operations we need a format with alpha channel (see cropAndScale())
+        m_loadedImage = image.convertToFormat(QImage::Format_ARGB32_Premultiplied);
         cropAndScale();
         Q_EMIT imageReady();
     } else {

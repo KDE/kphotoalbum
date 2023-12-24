@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-29 00:40+0000\n"
+"POT-Creation-Date: 2023-12-24 00:40+0000\n"
 "PO-Revision-Date: 2019-01-19 19:46+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -6556,13 +6556,13 @@ msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
 msgstr "設定"
 
-#: Viewer/ImageDisplay.cpp:309 Viewer/ImageDisplay.cpp:333
-#: Viewer/ImageDisplay.cpp:394
+#: Viewer/ImageDisplay.cpp:303 Viewer/ImageDisplay.cpp:327
+#: Viewer/ImageDisplay.cpp:388
 #, kde-format
 msgid "Insufficient color depth for this filter"
 msgstr "此過濾器的色彩空間不足"
 
-#: Viewer/ImageDisplay.cpp:453
+#: Viewer/ImageDisplay.cpp:447
 #, kde-format
 msgid "[ zoom x%1 ]"
 msgstr "【縮放 %1 倍】"

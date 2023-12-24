@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-29 00:40+0000\n"
+"POT-Creation-Date: 2023-12-24 00:40+0000\n"
 "PO-Revision-Date: 2017-10-16 18:16+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -6908,13 +6908,13 @@ msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
 msgstr "Ορισμός"
 
-#: Viewer/ImageDisplay.cpp:309 Viewer/ImageDisplay.cpp:333
-#: Viewer/ImageDisplay.cpp:394
+#: Viewer/ImageDisplay.cpp:303 Viewer/ImageDisplay.cpp:327
+#: Viewer/ImageDisplay.cpp:388
 #, kde-format
 msgid "Insufficient color depth for this filter"
 msgstr "Ανεπαρκές βάθος χρώματος για αυτό το φίλτρο"
 
-#: Viewer/ImageDisplay.cpp:453
+#: Viewer/ImageDisplay.cpp:447
 #, kde-format
 msgid "[ zoom x%1 ]"
 msgstr "[ εστίαση x%1 ]"

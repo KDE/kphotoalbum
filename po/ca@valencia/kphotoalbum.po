@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-29 00:40+0000\n"
+"POT-Creation-Date: 2023-12-24 00:40+0000\n"
 "PO-Revision-Date: 2023-11-06 16:45+0100\n"
 "Last-Translator: Antoni Bella Pérez <antonibella5@yahoo.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -6628,13 +6628,13 @@ msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
 msgstr "Establix"
 
-#: Viewer/ImageDisplay.cpp:309 Viewer/ImageDisplay.cpp:333
-#: Viewer/ImageDisplay.cpp:394
+#: Viewer/ImageDisplay.cpp:303 Viewer/ImageDisplay.cpp:327
+#: Viewer/ImageDisplay.cpp:388
 #, kde-format
 msgid "Insufficient color depth for this filter"
 msgstr "La profunditat de color és insuficient per a este filtre"
 
-#: Viewer/ImageDisplay.cpp:453
+#: Viewer/ImageDisplay.cpp:447
 #, kde-format
 msgid "[ zoom x%1 ]"
 msgstr "[ zoom x%1 ]"

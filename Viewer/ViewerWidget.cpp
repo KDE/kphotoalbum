@@ -13,11 +13,10 @@
 // SPDX-FileCopyrightText: 2009, 2022 Yuri Chornoivan <yurchor@ukr.net>
 // SPDX-FileCopyrightText: 2009-2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
-// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2015-2020 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2022 Friedrich W. H. Kossebau <kossebau@kde.org>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
@@ -526,6 +525,7 @@ void Viewer::ViewerWidget::slotRemoveDeletedImages(const DB::FileNameList &image
     const auto currentFile = currentFileName();
     for (const auto &filename : imageList) {
         m_list.removeAll(filename);
+        m_removed.removeAll(filename);
     }
     if (m_list.isEmpty()) {
         close();

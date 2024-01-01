@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: 2020 The KPhotoAlbum development team
-// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2020-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -45,7 +45,7 @@ int main(int argc, char **argv)
         QStringLiteral(KPA_VERSION),
         i18n("Tool for inspecting and editing the KPhotoAlbum thumbnail cache"), // short description
         KAboutLicense::GPL,
-        i18n("Copyright (C) 2020-2023 The KPhotoAlbum Development Team"), // copyright statement
+        i18n("Copyright (C) 2020-2024 The KPhotoAlbum Development Team"), // copyright statement
         QString(), // other text
         QStringLiteral("https://www.kphotoalbum.org") // homepage
     );

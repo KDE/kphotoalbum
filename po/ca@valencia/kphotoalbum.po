@@ -4682,13 +4682,13 @@ msgstr "S'ha produït un error intern"
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
-"Les imatges s'ha/n compartit correctament. Es copia la ubicació al porta-"
-"retalls..."
+"Les imatges s'han compartit correctament. Es copia la ubicació a dins del "
+"porta-retalls..."
 
 #: MainWindow/Window.cpp:1569
 #, kde-format
 msgid "Successfully shared image(s)."
-msgstr "Les imatges s'ha/n compartit correctament."
+msgstr "Les imatges s'han compartit correctament."
 
 #: MainWindow/Window.cpp:1574
 #, kde-format

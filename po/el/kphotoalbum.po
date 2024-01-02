@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-24 00:40+0000\n"
+"POT-Creation-Date: 2024-01-02 00:39+0000\n"
 "PO-Revision-Date: 2017-10-16 18:16+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -3047,7 +3047,7 @@ msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:48
 #, kde-format
-msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
@@ -3421,7 +3421,7 @@ msgstr "Λεύκωμα φωτογραφιών του KDE"
 
 #: main.cpp:89
 #, kde-format
-msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 msgstr ""
 
 #: main.cpp:110
@@ -4804,7 +4804,7 @@ msgstr "Κατάσταση χαρακτηριστικών του KPhotoAlbum"
 msgid "Show Demo Videos"
 msgstr "Εμφάνιση βίντεο επίδειξης"
 
-#: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:200
+#: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:199
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
@@ -7005,200 +7005,200 @@ msgstr "Τitle"
 msgid "Existing Assignments"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:194
+#: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Ορισμός ως πρώτη εικόνα στη στοίβα"
 
-#: Viewer/ViewerWidget.cpp:206
+#: Viewer/ViewerWidget.cpp:205
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "Εξαγωγή/αντιγραφή εικόνων..."
 
-#: Viewer/ViewerWidget.cpp:212
+#: Viewer/ViewerWidget.cpp:211
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "Εξαγωγή/αντιγραφή εικόνων..."
 
-#: Viewer/ViewerWidget.cpp:220
+#: Viewer/ViewerWidget.cpp:219
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: Viewer/ViewerWidget.cpp:282
+#: Viewer/ViewerWidget.cpp:281
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Περιστροφή"
 
-#: Viewer/ViewerWidget.cpp:293
+#: Viewer/ViewerWidget.cpp:292
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "Περιστροφή προς τα δεξιά"
 
-#: Viewer/ViewerWidget.cpp:294
+#: Viewer/ViewerWidget.cpp:293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Αναστροφή"
 
-#: Viewer/ViewerWidget.cpp:295
+#: Viewer/ViewerWidget.cpp:294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Περιστροφή προς τα αριστερά"
 
-#: Viewer/ViewerWidget.cpp:306
+#: Viewer/ViewerWidget.cpp:305
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Παράλειψη"
 
-#: Viewer/ViewerWidget.cpp:309
+#: Viewer/ViewerWidget.cpp:308
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "Πρώτη"
 
-#: Viewer/ViewerWidget.cpp:316
+#: Viewer/ViewerWidget.cpp:315
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Τελευταία"
 
-#: Viewer/ViewerWidget.cpp:323
+#: Viewer/ViewerWidget.cpp:322
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Εμφάνιση επόμενης"
 
-#: Viewer/ViewerWidget.cpp:329
+#: Viewer/ViewerWidget.cpp:328
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "Μετάβαση 10 μπροστά"
 
-#: Viewer/ViewerWidget.cpp:335
+#: Viewer/ViewerWidget.cpp:334
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "Μετάβαση 100 μπροστά"
 
-#: Viewer/ViewerWidget.cpp:341
+#: Viewer/ViewerWidget.cpp:340
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "Μετάβαση 1000 μπροστά"
 
-#: Viewer/ViewerWidget.cpp:347
+#: Viewer/ViewerWidget.cpp:346
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Εμφάνιση προηγούμενης"
 
-#: Viewer/ViewerWidget.cpp:353
+#: Viewer/ViewerWidget.cpp:352
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "Μετάβαση 10 πίσω"
 
-#: Viewer/ViewerWidget.cpp:359
+#: Viewer/ViewerWidget.cpp:358
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "Μετάβαση 100 πίσω"
 
-#: Viewer/ViewerWidget.cpp:365
+#: Viewer/ViewerWidget.cpp:364
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "Μετάβαση 1000 πίσω"
 
-#: Viewer/ViewerWidget.cpp:371
+#: Viewer/ViewerWidget.cpp:370
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Διαγραφή εικόνας"
 
-#: Viewer/ViewerWidget.cpp:376
+#: Viewer/ViewerWidget.cpp:375
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Αφαίρεση εικόνων από τη λίστα εμφάνισης"
 
-#: Viewer/ViewerWidget.cpp:391
+#: Viewer/ViewerWidget.cpp:390
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Εστίαση"
 
-#: Viewer/ViewerWidget.cpp:395
+#: Viewer/ViewerWidget.cpp:394
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Μεγέθυνση"
 
-#: Viewer/ViewerWidget.cpp:401
+#: Viewer/ViewerWidget.cpp:400
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Σμίκρυνση"
 
-#: Viewer/ViewerWidget.cpp:407
+#: Viewer/ViewerWidget.cpp:406
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Πλήρης προβολή"
 
-#: Viewer/ViewerWidget.cpp:413
+#: Viewer/ViewerWidget.cpp:412
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Προβολή ανά εικονοστοιχείο"
 
-#: Viewer/ViewerWidget.cpp:419
+#: Viewer/ViewerWidget.cpp:418
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Εναλλαγή πλήρους οθόνης"
 
-#: Viewer/ViewerWidget.cpp:430
+#: Viewer/ViewerWidget.cpp:429
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Παρουσίαση διαφανειών"
 
-#: Viewer/ViewerWidget.cpp:433 Viewer/ViewerWidget.cpp:906
+#: Viewer/ViewerWidget.cpp:432 Viewer/ViewerWidget.cpp:906
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Εκτέλεση παρουσίασης διαφανειών"
 
-#: Viewer/ViewerWidget.cpp:438
+#: Viewer/ViewerWidget.cpp:437
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Εκτέλεση ταχύτερα"
 
-#: Viewer/ViewerWidget.cpp:443
+#: Viewer/ViewerWidget.cpp:442
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Εκτέλεση βραδύτερα"
 
-#: Viewer/ViewerWidget.cpp:481
+#: Viewer/ViewerWidget.cpp:480
 #, kde-format
 msgid "File not available"
 msgstr "Το αρχείο δεν είναι διαθέσιμο"
 
-#: Viewer/ViewerWidget.cpp:519
+#: Viewer/ViewerWidget.cpp:518
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"

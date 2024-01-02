@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-24 00:40+0000\n"
+"POT-Creation-Date: 2024-01-02 00:39+0000\n"
 "PO-Revision-Date: 2023-11-26 01:26+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
@@ -2883,8 +2883,9 @@ msgstr ""
 "K Fotoğraf Albümü küçük görsel önbelleğini denetlemek ve düzenlemek için araç"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, kde-format
-msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+#, fuzzy, kde-format
+#| msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
 msgstr "Telif hakkı (C) 2003-2023 K Fotoğraf Albümü Geliştirme Takımı"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
@@ -3226,8 +3227,9 @@ msgid "KDE Photo Album"
 msgstr "KDE Fotoğraf Albümü"
 
 #: main.cpp:89
-#, kde-format
-msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+#, fuzzy, kde-format
+#| msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 msgstr "Telif hakkı (C) 2003-2023 K Fotoğraf Albümü Geliştirme Takımı"
 
 #: main.cpp:110
@@ -4491,7 +4493,7 @@ msgstr "K Fotoğraf Albümü Özellik Durumu"
 msgid "Show Demo Videos"
 msgstr "Tanıtım Videolarını Göster"
 
-#: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:200
+#: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:199
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Exif bilgisini ve dosya üstverisini göster"
@@ -6635,198 +6637,198 @@ msgstr "Başlık"
 msgid "Existing Assignments"
 msgstr "Var Olan Atamalar"
 
-#: Viewer/ViewerWidget.cpp:194
+#: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Yığın İçerisindeki İlk görseli Ayarla"
 
-#: Viewer/ViewerWidget.cpp:206
+#: Viewer/ViewerWidget.cpp:205
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "Görselleri şuraya kopyala ..."
 
-#: Viewer/ViewerWidget.cpp:212
+#: Viewer/ViewerWidget.cpp:211
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "Görselleri şuraya bağla ..."
 
-#: Viewer/ViewerWidget.cpp:220
+#: Viewer/ViewerWidget.cpp:219
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Kapat"
 
-#: Viewer/ViewerWidget.cpp:282
+#: Viewer/ViewerWidget.cpp:281
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Döndür"
 
-#: Viewer/ViewerWidget.cpp:293
+#: Viewer/ViewerWidget.cpp:292
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "Saat yönünde döndür"
 
-#: Viewer/ViewerWidget.cpp:294
+#: Viewer/ViewerWidget.cpp:293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Ters Çevir"
 
-#: Viewer/ViewerWidget.cpp:295
+#: Viewer/ViewerWidget.cpp:294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Saat yönünün tersine döndür"
 
-#: Viewer/ViewerWidget.cpp:306
+#: Viewer/ViewerWidget.cpp:305
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Atla"
 
-#: Viewer/ViewerWidget.cpp:309
+#: Viewer/ViewerWidget.cpp:308
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "İlk"
 
-#: Viewer/ViewerWidget.cpp:316
+#: Viewer/ViewerWidget.cpp:315
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Son"
 
-#: Viewer/ViewerWidget.cpp:323
+#: Viewer/ViewerWidget.cpp:322
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Sonrakini Göster"
 
-#: Viewer/ViewerWidget.cpp:329
+#: Viewer/ViewerWidget.cpp:328
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "10 İleri Atla"
 
-#: Viewer/ViewerWidget.cpp:335
+#: Viewer/ViewerWidget.cpp:334
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "100 İleri Atla"
 
-#: Viewer/ViewerWidget.cpp:341
+#: Viewer/ViewerWidget.cpp:340
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "1000 İleri Atla"
 
-#: Viewer/ViewerWidget.cpp:347
+#: Viewer/ViewerWidget.cpp:346
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Öncekini Göster"
 
-#: Viewer/ViewerWidget.cpp:353
+#: Viewer/ViewerWidget.cpp:352
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "10 Geri Atla"
 
-#: Viewer/ViewerWidget.cpp:359
+#: Viewer/ViewerWidget.cpp:358
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "100 Geri Atla"
 
-#: Viewer/ViewerWidget.cpp:365
+#: Viewer/ViewerWidget.cpp:364
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "1000 Geri Atla"
 
-#: Viewer/ViewerWidget.cpp:371
+#: Viewer/ViewerWidget.cpp:370
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Görseli Sil"
 
-#: Viewer/ViewerWidget.cpp:376
+#: Viewer/ViewerWidget.cpp:375
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Görseli Görüntüleme Listesinden Kaldır"
 
-#: Viewer/ViewerWidget.cpp:391
+#: Viewer/ViewerWidget.cpp:390
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Yaklaştır"
 
-#: Viewer/ViewerWidget.cpp:395
+#: Viewer/ViewerWidget.cpp:394
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Yaklaş"
 
-#: Viewer/ViewerWidget.cpp:401
+#: Viewer/ViewerWidget.cpp:400
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Uzaklaştır"
 
-#: Viewer/ViewerWidget.cpp:407
+#: Viewer/ViewerWidget.cpp:406
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Tam Ekran"
 
-#: Viewer/ViewerWidget.cpp:413
+#: Viewer/ViewerWidget.cpp:412
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Tam Piksel Görünüm"
 
-#: Viewer/ViewerWidget.cpp:419
+#: Viewer/ViewerWidget.cpp:418
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Tam Ekran Aç/Kapat"
 
-#: Viewer/ViewerWidget.cpp:430
+#: Viewer/ViewerWidget.cpp:429
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Slayt Gösterisi"
 
-#: Viewer/ViewerWidget.cpp:433 Viewer/ViewerWidget.cpp:906
+#: Viewer/ViewerWidget.cpp:432 Viewer/ViewerWidget.cpp:906
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Slayt Gösterisini Çalıştır"
 
-#: Viewer/ViewerWidget.cpp:438
+#: Viewer/ViewerWidget.cpp:437
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Daha Hızlı Çalıştır"
 
-#: Viewer/ViewerWidget.cpp:443
+#: Viewer/ViewerWidget.cpp:442
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Daha Yavaş Çalıştır"
 
-#: Viewer/ViewerWidget.cpp:481
+#: Viewer/ViewerWidget.cpp:480
 #, kde-format
 msgid "File not available"
 msgstr "Dosya kullanılabilir değil"
 
-#: Viewer/ViewerWidget.cpp:519
+#: Viewer/ViewerWidget.cpp:518
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"

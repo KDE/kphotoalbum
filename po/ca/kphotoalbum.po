@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-24 00:40+0000\n"
+"POT-Creation-Date: 2024-01-02 00:39+0000\n"
 "PO-Revision-Date: 2023-11-06 16:45+0100\n"
 "Last-Translator: Antoni Bella Pérez <antonibella5@yahoo.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -2913,8 +2913,9 @@ msgstr ""
 "Eina per a inspeccionar i editar la memòria cau de miniatures del KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, kde-format
-msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+#, fuzzy, kde-format
+#| msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
 msgstr "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
@@ -3266,8 +3267,9 @@ msgid "KDE Photo Album"
 msgstr "Àlbum de fotografies del KDE"
 
 #: main.cpp:89
-#, kde-format
-msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+#, fuzzy, kde-format
+#| msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 msgstr "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
 
 #: main.cpp:110
@@ -4536,7 +4538,7 @@ msgstr "Estat de les funcionalitats del KPhotoAlbum"
 msgid "Show Demo Videos"
 msgstr "Mostra els vídeos de demostració"
 
-#: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:200
+#: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:199
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Mostra la informació Exif i les metadades de fitxer"
@@ -6722,198 +6724,198 @@ msgstr "Títol"
 msgid "Existing Assignments"
 msgstr "Assignacions existents"
 
-#: Viewer/ViewerWidget.cpp:194
+#: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Estableix com a primera imatge en una pila"
 
-#: Viewer/ViewerWidget.cpp:206
+#: Viewer/ViewerWidget.cpp:205
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "Copia la imatge a..."
 
-#: Viewer/ViewerWidget.cpp:212
+#: Viewer/ViewerWidget.cpp:211
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "Enllaça la imatge a..."
 
-#: Viewer/ViewerWidget.cpp:220
+#: Viewer/ViewerWidget.cpp:219
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Tanca"
 
-#: Viewer/ViewerWidget.cpp:282
+#: Viewer/ViewerWidget.cpp:281
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Gira"
 
-#: Viewer/ViewerWidget.cpp:293
+#: Viewer/ViewerWidget.cpp:292
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "Gira en sentit horari"
 
-#: Viewer/ViewerWidget.cpp:294
+#: Viewer/ViewerWidget.cpp:293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Invertir"
 
-#: Viewer/ViewerWidget.cpp:295
+#: Viewer/ViewerWidget.cpp:294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Gira en sentit antihorari"
 
-#: Viewer/ViewerWidget.cpp:306
+#: Viewer/ViewerWidget.cpp:305
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Salta"
 
-#: Viewer/ViewerWidget.cpp:309
+#: Viewer/ViewerWidget.cpp:308
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "Primera"
 
-#: Viewer/ViewerWidget.cpp:316
+#: Viewer/ViewerWidget.cpp:315
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Última"
 
-#: Viewer/ViewerWidget.cpp:323
+#: Viewer/ViewerWidget.cpp:322
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Mostra la següent"
 
-#: Viewer/ViewerWidget.cpp:329
+#: Viewer/ViewerWidget.cpp:328
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "Salta 10 cap endavant"
 
-#: Viewer/ViewerWidget.cpp:335
+#: Viewer/ViewerWidget.cpp:334
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "Salta 100 cap endavant"
 
-#: Viewer/ViewerWidget.cpp:341
+#: Viewer/ViewerWidget.cpp:340
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "Salta 1000 cap endavant"
 
-#: Viewer/ViewerWidget.cpp:347
+#: Viewer/ViewerWidget.cpp:346
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Mostra l'anterior"
 
-#: Viewer/ViewerWidget.cpp:353
+#: Viewer/ViewerWidget.cpp:352
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "Salta 10 cap enrere"
 
-#: Viewer/ViewerWidget.cpp:359
+#: Viewer/ViewerWidget.cpp:358
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "Salta 100 cap enrere"
 
-#: Viewer/ViewerWidget.cpp:365
+#: Viewer/ViewerWidget.cpp:364
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "Salta 1000 cap enrere"
 
-#: Viewer/ViewerWidget.cpp:371
+#: Viewer/ViewerWidget.cpp:370
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Suprimeix la imatge"
 
-#: Viewer/ViewerWidget.cpp:376
+#: Viewer/ViewerWidget.cpp:375
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Elimina les imatges de la llista de visualització"
 
-#: Viewer/ViewerWidget.cpp:391
+#: Viewer/ViewerWidget.cpp:390
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Zoom"
 
-#: Viewer/ViewerWidget.cpp:395
+#: Viewer/ViewerWidget.cpp:394
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Amplia"
 
-#: Viewer/ViewerWidget.cpp:401
+#: Viewer/ViewerWidget.cpp:400
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Redueix"
 
-#: Viewer/ViewerWidget.cpp:407
+#: Viewer/ViewerWidget.cpp:406
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Mida completa"
 
-#: Viewer/ViewerWidget.cpp:413
+#: Viewer/ViewerWidget.cpp:412
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Mida original"
 
-#: Viewer/ViewerWidget.cpp:419
+#: Viewer/ViewerWidget.cpp:418
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Commuta a pantalla completa"
 
-#: Viewer/ViewerWidget.cpp:430
+#: Viewer/ViewerWidget.cpp:429
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Presentació de diapositives"
 
-#: Viewer/ViewerWidget.cpp:433 Viewer/ViewerWidget.cpp:906
+#: Viewer/ViewerWidget.cpp:432 Viewer/ViewerWidget.cpp:906
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Executa la presentació de diapositives"
 
-#: Viewer/ViewerWidget.cpp:438
+#: Viewer/ViewerWidget.cpp:437
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Més ràpid"
 
-#: Viewer/ViewerWidget.cpp:443
+#: Viewer/ViewerWidget.cpp:442
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Més lent"
 
-#: Viewer/ViewerWidget.cpp:481
+#: Viewer/ViewerWidget.cpp:480
 #, kde-format
 msgid "File not available"
 msgstr "Fitxer no disponible"
 
-#: Viewer/ViewerWidget.cpp:519
+#: Viewer/ViewerWidget.cpp:518
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"

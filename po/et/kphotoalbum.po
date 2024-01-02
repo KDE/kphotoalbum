@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-24 00:40+0000\n"
+"POT-Creation-Date: 2024-01-02 00:39+0000\n"
 "PO-Revision-Date: 2020-05-05 11:56+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -2951,7 +2951,7 @@ msgstr ""
 #: kpa-thumbnailtool/main.cpp:48
 #, fuzzy, kde-format
 #| msgid "Copyright (C) 2003-2019 The KPhotoAlbum Development Team"
-msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
 msgstr "Autoriõigus (C) 2003-2019: KPhotoAlbumi arendusmeeskond"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
@@ -3299,7 +3299,7 @@ msgstr "KDE fotoalbum"
 #: main.cpp:89
 #, fuzzy, kde-format
 #| msgid "Copyright (C) 2003-2019 The KPhotoAlbum Development Team"
-msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 msgstr "Autoriõigus (C) 2003-2019: KPhotoAlbumi arendusmeeskond"
 
 #: main.cpp:110
@@ -4617,7 +4617,7 @@ msgstr "KPhotoAlbumi omaduste olek"
 msgid "Show Demo Videos"
 msgstr "Näita demovideosid"
 
-#: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:200
+#: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:199
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
@@ -6780,13 +6780,13 @@ msgstr "Pealkiri"
 msgid "Existing Assignments"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:194
+#: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Määra paki esimeseks pildiks"
 
-#: Viewer/ViewerWidget.cpp:206
+#: Viewer/ViewerWidget.cpp:205
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -6794,7 +6794,7 @@ msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr "Piltide kopeerimine ..."
 
-#: Viewer/ViewerWidget.cpp:212
+#: Viewer/ViewerWidget.cpp:211
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Link images to..."
@@ -6802,180 +6802,180 @@ msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr "Piltide linkimine ..."
 
-#: Viewer/ViewerWidget.cpp:220
+#: Viewer/ViewerWidget.cpp:219
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Sulge"
 
-#: Viewer/ViewerWidget.cpp:282
+#: Viewer/ViewerWidget.cpp:281
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Pööramine"
 
-#: Viewer/ViewerWidget.cpp:293
+#: Viewer/ViewerWidget.cpp:292
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "Pööra päripäeva"
 
-#: Viewer/ViewerWidget.cpp:294
+#: Viewer/ViewerWidget.cpp:293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Pööra pea peale"
 
-#: Viewer/ViewerWidget.cpp:295
+#: Viewer/ViewerWidget.cpp:294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Pööra vastupäeva"
 
-#: Viewer/ViewerWidget.cpp:306
+#: Viewer/ViewerWidget.cpp:305
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Jäta vahele"
 
-#: Viewer/ViewerWidget.cpp:309
+#: Viewer/ViewerWidget.cpp:308
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "Esimene"
 
-#: Viewer/ViewerWidget.cpp:316
+#: Viewer/ViewerWidget.cpp:315
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Viimane"
 
-#: Viewer/ViewerWidget.cpp:323
+#: Viewer/ViewerWidget.cpp:322
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Näita järgmist"
 
-#: Viewer/ViewerWidget.cpp:329
+#: Viewer/ViewerWidget.cpp:328
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "Hüppa 10 edasi"
 
-#: Viewer/ViewerWidget.cpp:335
+#: Viewer/ViewerWidget.cpp:334
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "Hüppa 100 edasi"
 
-#: Viewer/ViewerWidget.cpp:341
+#: Viewer/ViewerWidget.cpp:340
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "Hüppa 1000 edasi"
 
-#: Viewer/ViewerWidget.cpp:347
+#: Viewer/ViewerWidget.cpp:346
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Näita eelmist"
 
-#: Viewer/ViewerWidget.cpp:353
+#: Viewer/ViewerWidget.cpp:352
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "Hüppa 10 tagasi"
 
-#: Viewer/ViewerWidget.cpp:359
+#: Viewer/ViewerWidget.cpp:358
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "Hüppa 100 tagasi"
 
-#: Viewer/ViewerWidget.cpp:365
+#: Viewer/ViewerWidget.cpp:364
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "Hüppa 1000 tagasi"
 
-#: Viewer/ViewerWidget.cpp:371
+#: Viewer/ViewerWidget.cpp:370
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Kustuta pilt"
 
-#: Viewer/ViewerWidget.cpp:376
+#: Viewer/ViewerWidget.cpp:375
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Eemalda pilt nimekirjast"
 
-#: Viewer/ViewerWidget.cpp:391
+#: Viewer/ViewerWidget.cpp:390
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Suurendus"
 
-#: Viewer/ViewerWidget.cpp:395
+#: Viewer/ViewerWidget.cpp:394
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Suurenda"
 
-#: Viewer/ViewerWidget.cpp:401
+#: Viewer/ViewerWidget.cpp:400
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Vähenda"
 
-#: Viewer/ViewerWidget.cpp:407
+#: Viewer/ViewerWidget.cpp:406
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Täielik vaade"
 
-#: Viewer/ViewerWidget.cpp:413
+#: Viewer/ViewerWidget.cpp:412
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:419
+#: Viewer/ViewerWidget.cpp:418
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Lülitu täisekraani"
 
-#: Viewer/ViewerWidget.cpp:430
+#: Viewer/ViewerWidget.cpp:429
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Slaidiseanss"
 
-#: Viewer/ViewerWidget.cpp:433 Viewer/ViewerWidget.cpp:906
+#: Viewer/ViewerWidget.cpp:432 Viewer/ViewerWidget.cpp:906
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Käivita slaidiseanss"
 
-#: Viewer/ViewerWidget.cpp:438
+#: Viewer/ViewerWidget.cpp:437
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Kiiremini"
 
-#: Viewer/ViewerWidget.cpp:443
+#: Viewer/ViewerWidget.cpp:442
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Aeglasemalt"
 
-#: Viewer/ViewerWidget.cpp:481
+#: Viewer/ViewerWidget.cpp:480
 #, kde-format
 msgid "File not available"
 msgstr "Fail pole kättesaadav"
 
-#: Viewer/ViewerWidget.cpp:519
+#: Viewer/ViewerWidget.cpp:518
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"

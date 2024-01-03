@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-29 00:40+0000\n"
+"POT-Creation-Date: 2024-01-02 00:39+0000\n"
 "PO-Revision-Date: 2014-04-26 20:31+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <l10n-no@lister.huftis.org>\n"
@@ -2731,7 +2731,7 @@ msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:48
 #, kde-format
-msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
@@ -3051,7 +3051,7 @@ msgstr "KDE Fotoalbum"
 
 #: main.cpp:89
 #, kde-format
-msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 msgstr ""
 
 #: main.cpp:110
@@ -4247,7 +4247,7 @@ msgstr "Funksjonsstatus for KPhotoAlbum"
 msgid "Show Demo Videos"
 msgstr "Vis demo-filmer"
 
-#: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:200
+#: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:199
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr ""
@@ -6160,13 +6160,13 @@ msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
 msgstr "Velg"
 
-#: Viewer/ImageDisplay.cpp:309 Viewer/ImageDisplay.cpp:333
-#: Viewer/ImageDisplay.cpp:394
+#: Viewer/ImageDisplay.cpp:303 Viewer/ImageDisplay.cpp:327
+#: Viewer/ImageDisplay.cpp:388
 #, kde-format
 msgid "Insufficient color depth for this filter"
 msgstr "Utilstrekkelig fargedybde for dette filteret"
 
-#: Viewer/ImageDisplay.cpp:453
+#: Viewer/ImageDisplay.cpp:447
 #, kde-format
 msgid "[ zoom x%1 ]"
 msgstr "[ forstørr x%1 ]"
@@ -6252,198 +6252,198 @@ msgstr ""
 msgid "Existing Assignments"
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:194
+#: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
 msgstr "Sett som første bilde i stakken"
 
-#: Viewer/ViewerWidget.cpp:206
+#: Viewer/ViewerWidget.cpp:205
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:212
+#: Viewer/ViewerWidget.cpp:211
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
 msgstr ""
 
-#: Viewer/ViewerWidget.cpp:220
+#: Viewer/ViewerWidget.cpp:219
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Lukk"
 
-#: Viewer/ViewerWidget.cpp:282
+#: Viewer/ViewerWidget.cpp:281
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
 msgstr "Roter"
 
-#: Viewer/ViewerWidget.cpp:293
+#: Viewer/ViewerWidget.cpp:292
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
 msgstr "Roter med klokka"
 
-#: Viewer/ViewerWidget.cpp:294
+#: Viewer/ViewerWidget.cpp:293
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
 msgstr "Vend"
 
-#: Viewer/ViewerWidget.cpp:295
+#: Viewer/ViewerWidget.cpp:294
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
 msgstr "Roter mot klokka"
 
-#: Viewer/ViewerWidget.cpp:306
+#: Viewer/ViewerWidget.cpp:305
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Hopp over"
 
-#: Viewer/ViewerWidget.cpp:309
+#: Viewer/ViewerWidget.cpp:308
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
 msgstr "Første"
 
-#: Viewer/ViewerWidget.cpp:316
+#: Viewer/ViewerWidget.cpp:315
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
 msgstr "Siste"
 
-#: Viewer/ViewerWidget.cpp:323
+#: Viewer/ViewerWidget.cpp:322
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
 msgstr "Vis neste"
 
-#: Viewer/ViewerWidget.cpp:329
+#: Viewer/ViewerWidget.cpp:328
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
 msgstr "Hopp over 10 forover"
 
-#: Viewer/ViewerWidget.cpp:335
+#: Viewer/ViewerWidget.cpp:334
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
 msgstr "Hopp over 100 forover"
 
-#: Viewer/ViewerWidget.cpp:341
+#: Viewer/ViewerWidget.cpp:340
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
 msgstr "Hopp over 1000 forover"
 
-#: Viewer/ViewerWidget.cpp:347
+#: Viewer/ViewerWidget.cpp:346
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
 msgstr "Vis forrige"
 
-#: Viewer/ViewerWidget.cpp:353
+#: Viewer/ViewerWidget.cpp:352
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
 msgstr "Hopp over 10 bakover"
 
-#: Viewer/ViewerWidget.cpp:359
+#: Viewer/ViewerWidget.cpp:358
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
 msgstr "Hopp over 100 bakover"
 
-#: Viewer/ViewerWidget.cpp:365
+#: Viewer/ViewerWidget.cpp:364
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
 msgstr "Hopp over 1000 bakover"
 
-#: Viewer/ViewerWidget.cpp:371
+#: Viewer/ViewerWidget.cpp:370
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
 msgstr "Slett bildet"
 
-#: Viewer/ViewerWidget.cpp:376
+#: Viewer/ViewerWidget.cpp:375
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
 msgstr "Fjern bilde fra visningslista"
 
-#: Viewer/ViewerWidget.cpp:391
+#: Viewer/ViewerWidget.cpp:390
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Forstørre/-minske"
 
-#: Viewer/ViewerWidget.cpp:395
+#: Viewer/ViewerWidget.cpp:394
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
 msgstr "Forstørr"
 
-#: Viewer/ViewerWidget.cpp:401
+#: Viewer/ViewerWidget.cpp:400
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
 msgstr "Forminsk"
 
-#: Viewer/ViewerWidget.cpp:407
+#: Viewer/ViewerWidget.cpp:406
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
 msgstr "Full visning"
 
-#: Viewer/ViewerWidget.cpp:413
+#: Viewer/ViewerWidget.cpp:412
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
 msgstr "Piksel for piksel-visning"
 
-#: Viewer/ViewerWidget.cpp:419
+#: Viewer/ViewerWidget.cpp:418
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
 msgstr "Slå fullskjerm av/på"
 
-#: Viewer/ViewerWidget.cpp:430
+#: Viewer/ViewerWidget.cpp:429
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
 msgstr "Lysbildevisning"
 
-#: Viewer/ViewerWidget.cpp:433 Viewer/ViewerWidget.cpp:906
+#: Viewer/ViewerWidget.cpp:432 Viewer/ViewerWidget.cpp:906
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
 msgstr "Kjør lysbildevisning"
 
-#: Viewer/ViewerWidget.cpp:438
+#: Viewer/ViewerWidget.cpp:437
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
 msgstr "Kjør fortere"
 
-#: Viewer/ViewerWidget.cpp:443
+#: Viewer/ViewerWidget.cpp:442
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
 msgstr "Kjør saktere"
 
-#: Viewer/ViewerWidget.cpp:481
+#: Viewer/ViewerWidget.cpp:480
 #, kde-format
 msgid "File not available"
 msgstr "Fil ikke tilgjengelig"
 
-#: Viewer/ViewerWidget.cpp:519
+#: Viewer/ViewerWidget.cpp:518
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"

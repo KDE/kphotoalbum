@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-02 00:39+0000\n"
-"PO-Revision-Date: 2023-10-13 07:09+0200\n"
+"PO-Revision-Date: 2024-01-02 14:51+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
-"%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 3.4\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
+"%100<=4 ? 2 : 3);\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2910,10 +2910,9 @@ msgstr ""
 "Orodje za pregled in urejanje predpomnilnika oglednih sličic KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
-msgstr "Avtorske pravice (C) 2003-2023 Razvojna ekipa KPhotoAlbum"
+msgstr "Avtorske pravice (C) 2003-2024 Razvojna ekipa KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3257,10 +3256,9 @@ msgid "KDE Photo Album"
 msgstr "Fotoalbum KDE"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr "Avtorske pravice (C) 2003-2023 Razvojna ekipa KPhotoAlbum"
+msgstr "Avtorske pravice (C) 2003-2024 Razvojna ekipa KPhotoAlbum"
 
 #: main.cpp:110
 #, kde-format

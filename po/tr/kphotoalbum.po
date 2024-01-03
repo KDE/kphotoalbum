@@ -8,13 +8,13 @@
 # İsmail Şimşek <simsek@kde.org.tr>, 2005.
 # Serdar Soytetir <tulliana@gmail.com>, 2008, 2009.
 # Volkan Gezer <volkangezer@gmail.com>, 2013, 2014, 2015, 2017.
-# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-02 00:39+0000\n"
-"PO-Revision-Date: 2023-11-26 01:26+0300\n"
+"PO-Revision-Date: 2024-01-02 16:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.11.70\n"
+"X-Generator: Lokalize 24.01.85\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -2883,10 +2883,9 @@ msgstr ""
 "K Fotoğraf Albümü küçük görsel önbelleğini denetlemek ve düzenlemek için araç"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
-msgstr "Telif hakkı (C) 2003-2023 K Fotoğraf Albümü Geliştirme Takımı"
+msgstr "Telif hakkı (C) 2003-2024 K Fotoğraf Albümü Geliştirme Takımı"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3227,10 +3226,9 @@ msgid "KDE Photo Album"
 msgstr "KDE Fotoğraf Albümü"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr "Telif hakkı (C) 2003-2023 K Fotoğraf Albümü Geliştirme Takımı"
+msgstr "Telif hakkı (C) 2003-2024 K Fotoğraf Albümü Geliştirme Takımı"
 
 #: main.cpp:110
 #, kde-format

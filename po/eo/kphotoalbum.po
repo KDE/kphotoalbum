@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-02 00:39+0000\n"
-"PO-Revision-Date: 2023-11-26 20:12+0100\n"
+"PO-Revision-Date: 2024-01-02 19:50+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -2870,10 +2870,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr "Ilo por inspekti kaj redakti la bildetkaŝmemoron de KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
-msgstr "Kopirajto (C) 2020-2023 La Disvolva Teamo de KPhotoAlbum"
+msgstr "Kopirajto (C) 2020-2024 La Disvolva Teamo de KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3211,10 +3210,9 @@ msgid "KDE Photo Album"
 msgstr "KDE Fotoalbumo"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr "Kopirajto (C) 2003-2023 La Disvolva Teamo de KPhotoAlbum"
+msgstr "Kopirajto (C) 2003-2024 La Disvolva Teamo de KPhotoAlbum"
 
 #: main.cpp:110
 #, kde-format

@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the kphotoalbum package.
 #
 # SPDX-FileCopyrightText: 2021, 2022, 2023 Giovanni Sora <g.sora@tiscali.it>
-# giovanni <g.sora@tiscali.it>, 2023.
+# giovanni <g.sora@tiscali.it>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-02 00:39+0000\n"
-"PO-Revision-Date: 2023-11-13 15:29+0100\n"
+"PO-Revision-Date: 2024-01-03 14:53+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -2674,10 +2674,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2020-2023 Le Equipa de disveloppamento de KPhotoAlbum"
+msgstr "Copyright (C) 2020-2024 Le Equipa de disveloppamento de KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -2995,10 +2994,9 @@ msgid "KDE Photo Album"
 msgstr ""
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2023 Le Equipa de disveloppamento de KPhotoAlbum"
+msgstr "Copyright (C) 2003-2024 Le Equipa de disveloppamento de KPhotoAlbum"
 
 #: main.cpp:110
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-02 00:39+0000\n"
-"PO-Revision-Date: 2024-01-02 19:50+0100\n"
+"PO-Revision-Date: 2024-01-03 12:30+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -1317,7 +1317,7 @@ msgstr "KPhotoAlbum - bezonata mana riparo (%1)"
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
-msgstr ","
+msgstr ", "
 
 #: DB/NewImageFinder.cpp:488
 #, kde-format
@@ -4550,7 +4550,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
-msgstr "Ĝeneralo"
+msgstr "Ĝenerala"
 
 #: MainWindow/Window.cpp:1383 Settings/SettingsDialog.cpp:52
 #, kde-format
@@ -4561,7 +4561,7 @@ msgstr "Rigardilo"
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "Datbaro"
+msgstr "Datobreto"
 
 #: MainWindow/Window.cpp:1387
 #, kde-format

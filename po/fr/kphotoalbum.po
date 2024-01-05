@@ -11,7 +11,7 @@
 # Geoffray Levasseur <jeff.levasseur@free.fr>, 2010, 2011, 2012.
 # Sebastien Renard <Sebastien.Renard@digitalfox.org>, 2010.
 # Sébastien Renard <renard@kde.org>, 2011, 2013.
-# SPDX-FileCopyrightText: 2012, 2013, 2020, 2021, 2022, 2023 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2012, 2013, 2020, 2021, 2022, 2023, 2024 Xavier Besnard <xavier.besnard@kde.org>
 # Baptiste Pauget <bap.pauget@orange.fr>, 2017.
 # Simon Depiets <sdepiets@gmail.com>, 2018, 2019, 2020.
 # Johnny Jazeix <jazeix@gmail.com>, 2020.
@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-02 00:39+0000\n"
-"PO-Revision-Date: 2023-12-20 09:32+0100\n"
+"PO-Revision-Date: 2024-01-03 09:49+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -2939,10 +2939,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr "Outil pour inspecter et modifier le cache de vignettes de KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2020-2023 L'équipe de développement de KPhotoAlbum"
+msgstr "Copyright (C) 2020 - 2024 L'équipe de développement de KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3292,10 +3291,9 @@ msgid "KDE Photo Album"
 msgstr "Album photo pour KDE"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2023 L'équipe de développement de KPhotoAlbum"
+msgstr "Copyright (C) 2003 - 2024 L'équipe de développement de KPhotoAlbum"
 
 #: main.cpp:110
 #, kde-format

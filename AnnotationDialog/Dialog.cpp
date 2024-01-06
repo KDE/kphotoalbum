@@ -11,7 +11,7 @@
 // SPDX-FileCopyrightText: 2009-2010 Hassan Ibraheem <hasan.ibraheem@gmail.com>
 // SPDX-FileCopyrightText: 2010-2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2012 Andreas Neustifter <andreas.neustifter@gmail.com>
-// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2014 David Edmundson <kde@davidedmundson.co.uk>
 // SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2017 Raymond Wooninck <tittiatcoke@gmail.com>
@@ -1720,7 +1720,7 @@ void AnnotationDialog::Dialog::slotDiscardFiles(const DB::FileNameList &files)
         return;
     }
 
-    m_preview->configure(&m_editList, (m_setup == InputSingleImageConfigMode));
+    m_preview->reconfigure(&m_editList, m_current);
     load();
 #ifdef HAVE_MARBLE
     // trigger repopulating the map

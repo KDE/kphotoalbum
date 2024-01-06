@@ -50,6 +50,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix crash when deleting a category via the settings dialog while the browser is showing the associated category page (#477532)
  - Fix background color in Viewer when the image is zoomed (#478944)
  - Fix crash when deleting an image that was already marked for deletion via the viewer window.
+ - Avoid jumping to the first image if an image is deleted in the annotation dialog (#479483)
 
 ### Removed
 

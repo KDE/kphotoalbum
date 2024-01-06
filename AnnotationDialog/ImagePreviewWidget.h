@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2019 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -33,6 +33,12 @@ public:
     void setImage(const QString &fileName);
     void setImage(const int index);
     void configure(QList<DB::ImageInfo> *imageList, bool singleEdit);
+    /**
+     * @brief reconfigure configures the ImagePreviewWidget, leaving the edit mode as-is.
+     * @param imageList the new list of images
+     * @param index the index of the currently displayed image
+     */
+    void reconfigure(QList<DB::ImageInfo> *imageList, int index);
     int angle() const;
     void anticipate(DB::ImageInfo &info1);
     const QString &lastImage();

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-02 00:39+0000\n"
+"POT-Creation-Date: 2024-01-07 00:40+0000\n"
 "PO-Revision-Date: 2008-01-01 23:03+0200\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@gmail.com>\n"
 "Language-Team: Belarusian (Official spelling) <i18n@mova.org>\n"
@@ -447,13 +447,13 @@ msgstr ""
 msgid "Category for new areas:"
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:295
+#: AnnotationDialog/ImagePreviewWidget.cpp:302
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:300
+#: AnnotationDialog/ImagePreviewWidget.cpp:307
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -462,37 +462,37 @@ msgid ""
 "interface>, you can associate specific image areas with tags."
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:305
+#: AnnotationDialog/ImagePreviewWidget.cpp:312
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:335
+#: AnnotationDialog/ImagePreviewWidget.cpp:342
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:336
+#: AnnotationDialog/ImagePreviewWidget.cpp:343
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:337
+#: AnnotationDialog/ImagePreviewWidget.cpp:344
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:338
+#: AnnotationDialog/ImagePreviewWidget.cpp:345
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:339
+#: AnnotationDialog/ImagePreviewWidget.cpp:346
 #, fuzzy, kde-format
 #| msgid "Delete"
 msgctxt "@info:tooltip"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-02 00:39+0000\n"
+"POT-Creation-Date: 2024-01-07 00:40+0000\n"
 "PO-Revision-Date: 2009-02-17 12:43+0530\n"
 "Last-Translator: Ravishankar Shrivastava <raviratlami@aol.in>\n"
 "Language-Team: Hindi <kde-i18n-doc@lists.kde.org>\n"
@@ -453,13 +453,13 @@ msgstr ""
 msgid "Category for new areas:"
 msgstr "आभासी एलबम बर वर्ग:"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:295
+#: AnnotationDialog/ImagePreviewWidget.cpp:302
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:300
+#: AnnotationDialog/ImagePreviewWidget.cpp:307
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -468,41 +468,41 @@ msgid ""
 "interface>, you can associate specific image areas with tags."
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:305
+#: AnnotationDialog/ImagePreviewWidget.cpp:312
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
 msgstr ""
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:335
+#: AnnotationDialog/ImagePreviewWidget.cpp:342
 #, fuzzy, kde-format
 #| msgid "Toggle Full Screen"
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
 msgstr "पूरा स्क्रीन टागल करव"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:336
+#: AnnotationDialog/ImagePreviewWidget.cpp:343
 #, fuzzy, kde-format
 #| msgid "Rotate counterclockwise"
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
 msgstr "घड़ी के उलटा दिसा मं घुमाव"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:337
+#: AnnotationDialog/ImagePreviewWidget.cpp:344
 #, fuzzy, kde-format
 #| msgid "Rotate clockwise"
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
 msgstr "घड़ी के दिसा मं घुमाव"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:338
+#: AnnotationDialog/ImagePreviewWidget.cpp:345
 #, fuzzy, kde-format
 #| msgid "Copy tags from previously tagged image"
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
 msgstr "पिछले टैग करे फोटू मं से टैग नकल करव"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:339
+#: AnnotationDialog/ImagePreviewWidget.cpp:346
 #, fuzzy, kde-format
 #| msgid "Delete image"
 msgctxt "@info:tooltip"

@@ -2730,10 +2730,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
-msgstr "Autorská práva (C) 2020-2023 Vývojářský tým KPhotoAlbum"
+msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3067,10 +3066,9 @@ msgid "KDE Photo Album"
 msgstr "KDE Photo Album"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr "Autorská práva (C) 2003-2023 Vývojářský tým KPhotoAlbum"
+msgstr ""
 
 #: main.cpp:110
 #, kde-format

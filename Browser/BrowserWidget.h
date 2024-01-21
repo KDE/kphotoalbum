@@ -45,7 +45,6 @@ class BrowserPage;
 class BrowserWidget : public QWidget
 {
     Q_OBJECT
-    friend class ImageFolderAction;
 
 public:
     explicit BrowserWidget(QWidget *parent);

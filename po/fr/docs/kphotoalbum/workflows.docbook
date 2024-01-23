@@ -14,9 +14,9 @@ SPDX-License-Identifier: GFDL-1.2-only
 
   <sect1 id="raw-workflow">
   <title
->Le flux de production « RAW » utilisant &kphotoalbum; et Bibble5 / AfterShot Pro.</title>
+>Le flux de production « raw » utilisant &kphotoalbum; et Bibble5 / AfterShot Pro.</title>
   <para
->Lors de la prise de photographie au format « RAW », les fichiers contenus dans l'appareil photo doivent être développés dans des formats plus communs tels que « JPEG » ou « TIFF ». Il existe plusieurs possibilités lors de travaux sous Linux. Par exemple, « RawTherapee » et « Ufraw » sont des alternatives « open-source » tandis que Bible5 / AfterShotPro sont des applications commerciales.</para>
+>Lors de la prise de photographie au format « raw », les fichiers contenus dans l'appareil photo doivent être développés dans des formats plus communs tels que « JPEG » ou « TIFF ». Il existe plusieurs possibilités lors de travaux sous Linux. Par exemple, « RawTherapee » et « Ufraw » sont des alternatives « open-source » tandis que Bibble5 / AfterShot Pro sont des applications commerciales.</para>
 
   <para
 >Quelques réglages sont recommandés pour un processus de traitement RAW. D'abord, il faut activer l'utilisation de l'intégration des vignettes. Cela va permettre d'accélérer fortement le décodage de chaque fichier RAW à chaque fois qu'ils seront vus (vérifiez aussi la configuration de la dimension minimale pour s'assurer d'avoir une qualité raisonnable). La deuxième chose concerne le nouveau chercheur d'images qui empile automatiquement les versions développées sur le fichier RAW (une image développée doit être mise dans le même dossier que l'originale). Cela nécessite l'utilisation d'expressions rationnelles comme décrit dans <xref linkend="opt-search-new"/>. Deux scripts d'aide sont fournis avec &kphotoalbum; pour aider l'utilisateur. Ces scripts sont « open-raw.desktop » et « open-raw.pl ». Le premier permet aux applications graphiques d'ouvrir les fichiers RAW dans le script open-raw.pl, qui va tenter de trouver le fichier RAW original pour l'ouvrir, au lieu d'ouvrir l'image développée. </para>
@@ -133,7 +133,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></listitem>
   <listitem
 ><para
->Ou, d'envoyer les images correctes vers « Autopano Pro » en ligne de commandes pour accélérer les choses. Ceci est élégant si le dossier d'images contient un grand nombre de photos, en particulier au format « RAW ». Ceci nécessite de modifier le script démarrant « AutoPano Pro » pour qu'il accepte les entrées et de créer un fichier de bureau ou de lancer un programme externe avec sa propre ligne de commandes.</para
+>Ou, d'envoyer les images correctes vers « Autopano Pro » en ligne de commandes pour accélérer les choses. Ceci est élégant si le dossier d'images contient un grand nombre de photos, en particulier au format « RAW ». Ceci nécessite de modifier le script démarrant « Autopano Pro » pour qu'il accepte les entrées et de créer un fichier de bureau ou de lancer un programme externe avec sa propre ligne de commandes.</para
 ></listitem>
   </orderedlist>
   </para

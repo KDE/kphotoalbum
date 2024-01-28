@@ -68,7 +68,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   </figure>
   
   <para
->Si ara continuem seleccionant una nova persona, llavors obtindrem les imatges que contenen ambdues persones. Continuant d'aquesta manera podreu reduir el conjunt d'imatges que teniu al cap a unes poques imatges d'un conjunt de milers de persones.</para>
+>Si ara continuem seleccionant una persona nova, llavors obtindrem les imatges que contenen ambdues persones. Continuant d'aquesta manera podreu reduir el conjunt d'imatges que teniu al cap a unes poques imatges d'un conjunt de milers de persones.</para>
   
   <para
 >Quan acabeu de limitar l'àmbit de les imatges, podreu seleccionar la icona <guilabel
@@ -108,7 +108,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 
 <para
->No obstant això, és la vostra tasca indicar quines imatges voleu utilitzar individualment per a cada persona. Per fer-ho, heu d'obrir el visualitzador (veure la <xref linkend="chp-viewer"/>), i des del menú contextual escolliu <guimenuitem
+>No obstant això, és la vostra tasca indicar quines imatges voleu utilitzar individualment per a cada persona. Per a fer-ho, heu d'obrir el visualitzador (vegeu la <xref linkend="chp-viewer"/>), i des del menú contextual escolliu <guimenuitem
 >Mostra l'editor de categories</guimenuitem
 >, això obrirà l'editor de categories com podeu veure a la <xref linkend="fig-categoryEditor"/>. A l'editor de categories escolliu la imatge per a la persona indicada. Al visualitzador, és possible fer zoom sobre una part de la imatge, i d'aquesta manera escapçar la part que es mostrarà.</para>
 
@@ -141,7 +141,7 @@ SPDX-License-Identifier: GFDL-1.2-only
     <para
 >Si escolliu l'element <guilabel
 >Cerca</guilabel
-> al navegador, obtindreu un diàleg amb una gran semblança amb el diàleg vau utilitzar per establir les propietats de les vostres imatges. El podeu veure a la <xref linkend="fig-search"/>.</para>
+> al navegador, obtindreu un diàleg amb una gran semblança amb el diàleg vau utilitzar per a establir les propietats de les vostres imatges. El podeu veure a la <xref linkend="fig-search"/>.</para>
     
     <figure id="fig-search">
       <title
@@ -154,10 +154,10 @@ SPDX-License-Identifier: GFDL-1.2-only
     </figure>
     
     <para
->Si escriviu una cadena al camp etiqueta o descripció, després aquest text se cercarà utilitzant cerques de subcadenes. De la mateixa manera també podeu especificar una data per cercar, sigui com a part d'una data, diguem 1971, o com una data completa. També podeu especificar intervals de dates, com des de 1971 a 1980.</para>
+>Si escriviu una cadena al camp etiqueta o descripció, després aquest text se cercarà utilitzant cerques de subcadenes. De la mateixa manera també podeu especificar una data a cercar, sigui com a part d'una data, diguem 1971, o com una data completa. També podeu especificar intervals de dates, com des de 1971 a 1980.</para>
     
     <para
->Les opcions d'element permeten una forma molt limitada per escriure una expressió, com podeu veure a la <xref linkend="fig-search"/>. Aquí cerquem les imatges amb <literal
+>Les opcions d'element permeten una forma molt limitada per a escriure una expressió, com podeu veure a la <xref linkend="fig-search"/>. Aquí cerquem les imatges amb <literal
 >Jesper</literal
 >, però sense <literal
 >Anne Helene</literal

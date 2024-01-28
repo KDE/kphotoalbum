@@ -53,9 +53,9 @@ SPDX-License-Identifier: GFDL-1.2-only
 ><guimenu
 >Imatges</guimenu
 ><guimenuitem
->Visualitza (en una nova finestra)</guimenuitem
+>Visualitza (en una finestra nova)</guimenuitem
 ></menuchoice
-> per obtenir les imatges carregades en un visualitzador nou. Si premeu <keycombo
+> per a obtenir les imatges carregades en un visualitzador nou. Si premeu <keycombo
 >&Ctrl;<keycap
 >R</keycap
 ></keycombo
@@ -78,7 +78,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >Suprimir les imatges</title>
   <para
->A la vista de miniatures, també és possible esborrar les imatges. Per fer-ho, seleccioneu les imatges que voleu esborrar i premeu la tecla Supr o seleccioneu <menuchoice
+>A la vista de miniatures, també és possible esborrar les imatges. Per a fer-ho, seleccioneu les imatges que voleu esborrar i premeu la tecla Supr o seleccioneu <menuchoice
 ><guimenu
 >Edita</guimenu
 ><guimenuitem
@@ -110,7 +110,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Hi ha una batalla constant entre el creixement de les dades, i els discs durs cada vegada més grans. Si teniu un gran nombre d'imatges, potser us trobareu enmig de la batalla, no disposeu de prou espai al disc dur per emmagatzemar totes les imatges. En aquesta situació, podeu optar per posar algunes de les imatges sobre CD. Un escenari alternatiu podria ser que aneu en un viatge de negocis, i voleu dur les vostres imatges, però no disposeu d'un espai de disc de 20 GB, el qual és el que requeriu per aquesta finalitat.</para>
 
 <para
->El &kphotoalbum; ofereix una solució a aquest problema, sense necessitat de tenir les imatges disponibles al disc. Per descomptat, necessitareu tenir a disposició d'algun temps perquè el &kphotoalbum; s'adoni que hi ha noves imatges per indexar. <xref linkend="fig-offline-mode"/> mostra el &kphotoalbum; quan no és capaç de trobar totes les imatges necessàries en el disc.</para>
+>El &kphotoalbum; ofereix una solució a aquest problema, sense necessitat de tenir les imatges disponibles al disc. Per descomptat, necessitareu tenir a disposició d'algun temps perquè el &kphotoalbum; s'adoni que hi ha imatges noves per a indexar. <xref linkend="fig-offline-mode"/> mostra el &kphotoalbum; quan no és capaç de trobar totes les imatges necessàries en el disc.</para>
 
 <figure id="fig-offline-mode">
 <title
@@ -123,10 +123,10 @@ SPDX-License-Identifier: GFDL-1.2-only
 </figure>
 
 <para
->Les imatges tenen el tall de la cantonada (això és, imatges 1-4) no estan disponibles al disc. Les miniatures, d'altra banda, estan disponibles per a imatges 5-9, tot i que les imatges no es troben al disc. Per tant, el &kphotoalbum;, pot mostrar les miniatures d'aquestes imatges, però no pot visualitzar-les al visualitzador. (Utilitzarem el tall de la cantonada de les miniatures per indicar si la imatge no es troba al disc, però aquesta característica sembla no estar funcionant actualment). </para>
+>Les imatges tenen el tall de la cantonada (això és, imatges 1-4) no estan disponibles al disc. Les miniatures, d'altra banda, estan disponibles per a imatges 5-9, tot i que les imatges no es troben al disc. Per tant, el &kphotoalbum;, pot mostrar les miniatures d'aquestes imatges, però no pot visualitzar-les al visualitzador. (Utilitzarem el tall de la cantonada de les miniatures per a indicar si la imatge no es troba al disc, però aquesta característica sembla no estar funcionant actualment). </para>
 
 <para
->Com podeu veure, aquesta característica requereix copiar fitxers dins i fora dels vostres directoris, el &kphotoalbum; no té cap tipus de suport per a demanar-vos que inseriu el CD que heu etiquetat, bla, bla. Per tant, si us plau, oblideu-vos d'aquesta característica si sou el tipus de persona que no us agrada jugar amb els fitxers, &etc;, i en el seu lloc, simplement assegureu-vos de comprar discs durs prou grans com per emmagatzemar sempre totes les vostres imatges.</para>
+>Com podeu veure, aquesta característica requereix copiar fitxers dins i fora dels vostres directoris, el &kphotoalbum; no té cap tipus de suport per a demanar-vos que inseriu el CD que heu etiquetat, bla, bla. Per tant, si us plau, oblideu-vos d'aquesta característica si sou el tipus de persona que no us agrada jugar amb els fitxers, &etc;, i en el seu lloc, simplement assegureu-vos de comprar discs durs prou grans per a emmagatzemar sempre totes les vostres imatges.</para>
 
 </sect1>
 
@@ -136,14 +136,14 @@ SPDX-License-Identifier: GFDL-1.2-only
 <title
 >Privadesa</title>
 <para
->Fa algun temps, la meva xicota i jo portàvem al meu ordinador portàtil en una visita als meus pares, per mostrar-los les imatges de les nostres vacances més recents. El &kphotoalbum; va resultar ser un gran èxit, i no va tardar gaire abans que el nuvi de la meva germana va agafar el portàtil i va començar a navegar per totes les seves. Per desgràcia, tampoc va tardar gaire a arribar a algunes, diguem desafortunades, imatges meves de petit, i foren una gran rialla per la seva part. Aquest episodi em va inspirar per afegir una nova característica al &kphotoalbum;, la qual vaig decidir anomenar bloqueig de privacitat.</para>
+>Fa algun temps, la meva xicota i jo portàvem al meu ordinador portàtil en una visita als meus pares, per a mostrar-los les imatges de les nostres vacances més recents. El &kphotoalbum; va resultar ser un gran èxit, i no va tardar gaire abans que el nuvi de la meva germana va agafar el portàtil i va començar a navegar per totes les seves. Per desgràcia, tampoc va tardar gaire a arribar a algunes, diguem desafortunades, imatges meves de petit, i foren una gran rialla per la seva part. Aquest episodi em va inspirar per a afegir una característica nova al &kphotoalbum;, la qual vaig decidir anomenar bloqueig de privacitat.</para>
 
 <para
 >Al menú <guimenu
 >Imatges</guimenu
 > trobareu un submenú anomenat <guimenuitem
 >Privadesa</guimenuitem
->. Per obtenir una mica de privacitat, navegueu -mentre esteu en les vostres- cap a les imatges que voleu mantenir en privat, i seleccioneu <guimenuitem
+>. Per a obtenir una mica de privacitat, navegueu -mentre esteu en les vostres- cap a les imatges que voleu mantenir en privat, i seleccioneu <guimenuitem
 >Bloqueja el conjunt actual d'elements</guimenuitem
 > des del submenú privadesa. També podeu navegar cap a les imatges que voleu limitar de veure a la vostra germaneta i seleccioneu <guimenuitem
 >Bloqueja tots els altres elements</guimenuitem
@@ -161,10 +161,10 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Privadesa</guimenuitem
 >, simplement seleccioneu <guimenuitem
 >Canvia la contrasenya</guimenuitem
-> per establir una contrasenya.</para>
+> per a establir una contrasenya.</para>
 
 <para
->No creieu que això ajudarà a ocultar les imatges per sempre. En primer lloc, les imatges encara són al disc, en segon lloc, qualsevol persona amb accés al fitxer <filename
+>No cregueu que això ajudarà a ocultar les imatges per sempre. En primer lloc, les imatges encara són al disc, en segon lloc, qualsevol persona amb accés al fitxer <filename
 >index.xml</filename
 > que utilitza el &kphotoalbum;, podrà llegir la contrasenya en text net i, de manera opcional, eliminar-la. Aquesta característica només està destinada com una protecció contra algú que utilitzarà el &kphotoalbum; però que no veurà les vostres imatges privades sense voler.</para>
 

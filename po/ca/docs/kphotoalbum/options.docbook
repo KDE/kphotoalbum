@@ -40,7 +40,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 </figure>
 
 <para
->Utilitzeu la informació d'orientació EXIF ​​per fer girar automàticament les imatges com quan es van prendre. La majoria de càmeres digitals incrusten una miniatura als fitxers en format RAW i molt sovint aquesta miniatura ja té una mida suficient, podria ser fins i tot de mida completa. Quan decidiu utilitzar aquesta miniatura incrustada, totes les operacions d'imatge com la descodificació dels fitxers RAW prendran molt temps, però la miniatura serà molt més ràpida. També podeu especificar la mida mínima de la imatge perquè la imatge RAW sigui descodifica si la imatge té una mida inútil.</para>
+>Utilitzeu la informació d'orientació EXIF ​​per a fer girar automàticament les imatges com quan es van prendre. La majoria de càmeres digitals incrusten una miniatura als fitxers en format RAW i molt sovint aquesta miniatura ja té una mida suficient, podria ser fins i tot de mida completa. Quan decidiu utilitzar aquesta miniatura incrustada, totes les operacions d'imatge com la descodificació dels fitxers RAW prendran molt temps, però la miniatura serà molt més ràpida. També podeu especificar la mida mínima de la imatge perquè la imatge RAW sigui descodifica si la imatge té una mida inútil.</para>
 </sect1>
 
 <sect1 id="opt-search-new">
@@ -67,11 +67,11 @@ SPDX-License-Identifier: GFDL-1.2-only
 <itemizedlist mark='opencircle'>
     <listitem
 ><para
->Possiblement voldreu ometre la cerca a alguns directoris que són generats per diferents visualitzadors d'imatges o navegadors de fitxers. Aquesta és una llista separada per comes i s'hi poden afegir nous directoris amb facilitat quan sigui necessari.</para
+>Possiblement voldreu ometre la cerca a alguns directoris que són generats per diferents visualitzadors d'imatges o navegadors de fitxers. Aquesta és una llista separada per comes i s'hi poden afegir directoris nous amb facilitat quan sigui necessari.</para
 ></listitem>
     <listitem>
         <para
->Podreu detectar les noves versions dels mateixos fitxers de forma automàtica fins a un cert punt. Per exemple, si voleu apilar de forma automàtica les versions noves de la mateixa imatge en una pila, podeu configurar una expressió regular a utilitzar per veure si el nou fitxer és una nova versió d'un fitxer original. Les opcions següents es corresponen a les expressions regulars de cerca i la prova del fitxer original, però potser necessitareu algun afinament per adaptar-ho a la vostra convenció en l'anomenat:</para>
+>Podreu detectar les versions noves dels mateixos fitxers de forma automàtica fins a un cert punt. Per exemple, si voleu apilar de forma automàtica les versions noves de la mateixa imatge en una pila, podeu configurar una expressió regular a utilitzar per a veure si el fitxer nou és una versió nova d'un fitxer original. Les opcions següents es corresponen a les expressions regulars de cerca i la prova del fitxer original, però potser necessitareu algun afinament per a adaptar-ho a la vostra convenció en l'anomenat:</para>
     <orderedlist>
     <listitem
 ><para
@@ -117,7 +117,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >Configuració del visualitzador</title>
   <para
->Una altra configuració força simple. Principalment, podeu seleccionar la mida preferida per a la finestra del visualitzador o de la presentació de diapositives, o per visualitzar-los en el mode de pantalla completa. L'interval bàsic per a la presentació de diapositives es pot establir aquí. L'algorisme d'escalat pot ser <emphasis
+>Una altra configuració força simple. Principalment, podeu seleccionar la mida preferida per a la finestra del visualitzador o de la presentació de diapositives, o per a visualitzar-los en el mode de pantalla completa. L'interval bàsic per a la presentació de diapositives es pot establir aquí. L'algorisme d'escalat pot ser <emphasis
 >Millor</emphasis
 > o <emphasis
 >Més ràpid</emphasis
@@ -176,10 +176,10 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Subcategories</title>
 
 <para
->A la <xref linkend="sec-member-groups-in-property-editor"/> discutim les subcategories. Des del diàleg de configuració, és possible configurar grups de membres sencers, &ead;, configurar tots els membres d'un grup d'una sola vegada en comptes de configurar tots els grups per a un membre que era la situació a la <xref linkend="sec-member-groups-in-property-editor"/>.</para>
+>A la <xref linkend="sec-member-groups-in-property-editor"/> debatem les subcategories. Des del diàleg de configuració, és possible configurar grups de membres sencers, &ead;, configurar tots els membres d'un grup d'una sola vegada en comptes de configurar tots els grups per a un membre que era la situació a la <xref linkend="sec-member-groups-in-property-editor"/>.</para>
 
 <para
->A la <xref linkend="fig-options-member"/> podeu veure la pàgina de configuració per especificar els grups de membres. A la part superior hi ha un quadre combinat, on podreu especificar en quina categoria esteu configurant. A la part esquerra apareix un quadre de llista amb la categoria actual, i a la part dreta apareix un quadre de llista amb les subcategories.</para>
+>A la <xref linkend="fig-options-member"/> podeu veure la pàgina de configuració per a especificar els grups de membres. A la part superior hi ha un quadre combinat, on podreu especificar en quina categoria esteu configurant. A la part esquerra apareix un quadre de llista amb la categoria actual, i a la part dreta apareix un quadre de llista amb les subcategories.</para>
 
 <figure id="fig-options-member">
 <title

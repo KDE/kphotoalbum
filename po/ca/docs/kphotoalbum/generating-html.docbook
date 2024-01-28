@@ -47,13 +47,13 @@ SPDX-License-Identifier: GFDL-1.2-only
 	</figure>
 
       <para
->En primer lloc especifiqueu el títol de les pàgines a la vista general, a més d'una descripció generada sobre aquestes pàgines. Si el tema que heu seleccionat implementa la notificació dels drets d'autor també els podreu especificar aquí. </para>
+>En primer lloc, especifiqueu el títol de les pàgines a la vista general, a més d'una descripció generada sobre aquestes pàgines. Si el tema que heu seleccionat implementa la notificació dels drets d'autor també els podreu especificar aquí. </para>
 
       <para
->A continuació especifiqueu si s'haurà de generar un fitxer d'exportació del &kphotoalbum; i posar-lo a la pàgina de la vista general. Vegeu el <xref linkend="chp-importExport"/> per obtenir els detalls sobre els fitxers d'exportació. I si voleu incloure una línia dels vídeos o com a objectes descarregables (un enllaç).</para>
+>A continuació especifiqueu si s'haurà de generar un fitxer d'exportació del &kphotoalbum; i posar-lo a la pàgina de la vista general. Vegeu el <xref linkend="chp-importExport"/> per a obtenir els detalls sobre els fitxers d'exportació. I si voleu incloure una línia dels vídeos o com a objectes descarregables (un enllaç).</para>
 
       <para
->Finalment podreu especificar quina informació s'haurà de generar a les pàgines &HTML;. D'aquesta manera podreu ometre la generació d'informació que podria resultar òbvia pel lector de les pàgines (dient que aquestes imatges eren del partit de futbol al qual tots hem assistit). Tingueu present que el &kphotoalbum; actualment no permet excloure certes categories del fitxer d'exportació, de manera que no us baseu en això com una manera d'excloure la informació que no voleu que vegin els lectors de les vostres pàgines.</para>
+>Finalment, podreu especificar quina informació s'haurà de generar a les pàgines &HTML;. D'aquesta manera podreu ometre la generació d'informació que podria resultar òbvia pel lector de les pàgines (dient que aquestes imatges eren del partit de futbol al qual tots hem assistit). Tingueu present que el &kphotoalbum; actualment no permet excloure certes categories del fitxer d'exportació, de manera que no us baseu en això com una manera d'excloure la informació que no voleu que vegin els lectors de les vostres pàgines.</para>
     </sect1>
 
     <sect1 id="the_layout_page">
@@ -62,7 +62,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Disposició</guilabel
 ></title>
       <para
->Sobre la pàgina de disposició haureu d'especificar com han de quedar les vostres pàgines &HTML;. La majoria de les opcions en aquesta pàgina són molt senzilles, i no necessiten una descripció més detallada. Es mostrarà una breu introducció sobre cada tema en seleccionar-lo, per donar-vos una idea de com quedaran.</para>
+>Sobre la pàgina de disposició haureu d'especificar com han de quedar les vostres pàgines &HTML;. La majoria de les opcions en aquesta pàgina són molt senzilles, i no necessiten una descripció més detallada. Es mostrarà una breu introducció sobre cada tema en seleccionar-lo, per a donar-vos una idea de com quedaran.</para>
 
 	<figure id="html-layout">
 	<title
@@ -78,7 +78,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >A la part inferior d'aquesta pàgina és possible especificar diverses resolucions per a les imatges. D'aquesta manera la gent que llegeixi les vostres pàgines no es veuran obligats a descarregar imatges en grans resolucions, diguem 1600x1200, per un monitor que no té més de 800x600.</para>
       
       <para
->En qualsevol moment els lectors poden canviar la resolució entre les quals heu especificat. D'aquesta manera podran navegar a través de les imatges en baixa resolució (i per tant amb un ràpid temps de descàrrega), i quan trobin una imatge d'especial interès, després podran canviar a alta resolució.</para>
+>En qualsevol moment els lectors poden canviar la resolució entre les quals heu especificat. D'aquesta manera podran navegar a través de les imatges en baixa resolució (i, per tant, amb un temps ràpid de descàrrega), i quan trobin una imatge d'especial interès, després podran canviar a alta resolució.</para>
     </sect1>
 
     <sect1 id="the_destination_page">
@@ -90,7 +90,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >A la pàgina de destinació especificareu diversos directoris i &URL; on aniran les vostres pàgines.</para>
 
       <para
->La filosofia és que especifiqueu un directori base per a tots els elements generats, i per a cada generació especifiqueu un nou subdirectori.</para>
+>La filosofia és que especifiqueu un directori base per a tots els elements generats, i per a cada generació especifiqueu un subdirectori nou.</para>
 
 	<figure id="html-destination">
 	<title
@@ -127,10 +127,10 @@ SPDX-License-Identifier: GFDL-1.2-only
 >, s'obrirà un navegador web tan aviat com s'hagin generat les pàgines &HTML;. L'&URL; que especifiqueu aquí ha de coincidir amb el directori que heu especificat anteriorment. Així, el navegador web es podrà iniciar en els subdirectoris d'aquest &URL;.</para>
       
       <para
->Una vegada hàgiu generat les pàgines &HTML;, les pàgines podrien no estar encara en la seva destinació final, és possible que necessiteu pujar procediments especials fora del control del &kphotoalbum;. Per treballar amb la característica d'importació (vegeu el <xref linkend="chp-importExport"/>), cal que especifiqueu la destinació final de les pàgines. Una vegada més això no inclou el subdirectori de la generació actual.</para>
+>Una vegada hàgiu generat les pàgines &HTML;, les pàgines podrien no estar encara en la seva destinació final, és possible que necessiteu pujar procediments especials fora del control del &kphotoalbum;. Per a treballar amb la característica d'importació (vegeu el <xref linkend="chp-importExport"/>), cal que especifiqueu la destinació final de les pàgines. Una vegada més això no inclou el subdirectori de la generació actual.</para>
 
       <para
->Les tres línies d'edició descrites anteriorment són tots els directoris de base i &URL; base. En aquests llocs es crearà un nou subdirectori anomenat amb el nom especificat al <guilabel
+>Les tres línies d'edició descrites anteriorment són tots els directoris de base i &URL; base. En aquests llocs es crearà un subdirectori nou anomenat amb el nom especificat al <guilabel
 >Directori de sortida</guilabel
 >.</para>
     </sect1>

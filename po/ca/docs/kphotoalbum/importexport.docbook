@@ -9,12 +9,12 @@ SPDX-License-Identifier: GFDL-1.2-only
   <title
 >Importar/Exportar</title>
   <para
->Si assistiu a una festa familiar, una reunió d'empresa, un congrés, o qualsevol altre esdeveniment en el qual altres usuaris del &kphotoalbum; poden estar presents, és possible que vulgueu compartir les vostres imatges amb aquesta gent. Per descomptat, podeu optar per generar pàgines &HTML; perquè puguin navegar, però com ja s'ha perdut prou temps per ordenar totes les imatges (qui apareix a les imatges, quan es van prendre, &etc;), no hi ha cap raó perquè tornar a fer tot aquest treball.</para>
+>Si assistiu a una festa familiar, una reunió d'empresa, un congrés, o qualsevol altre esdeveniment en el qual altres usuaris del &kphotoalbum; poden estar presents, és possible que vulgueu compartir les vostres imatges amb aquesta gent. Per descomptat, podeu optar per generar pàgines &HTML; perquè puguin navegar, però com ja s'ha perdut prou temps per a ordenar totes les imatges (qui apareix a les imatges, quan es van prendre, &etc;), no hi ha cap raó per la qual tornar a fer tot aquest treball.</para>
 
     <para
 >El &kphotoalbum; permet exportar un conjunt d'imatges dins d'un fitxer <literal role="extension"
 >.kim</literal
->, el qual poden importar les altres persones a la seva base de dades, per obtenir la vostra classificació per aquestes imatges.</para>
+>, el qual poden importar les altres persones a la seva base de dades, per a obtenir la vostra classificació d'aquestes imatges.</para>
 
     <para
 >Existeixen dues classes diferents de fitxers <literal role="extension"
@@ -39,7 +39,7 @@ SPDX-License-Identifier: GFDL-1.2-only
     <para
 >Els fitxers <literal role="extension"
 >.kim</literal
-> externs cerquen les imatges en una de dues maneres. En primer lloc intentarà cercar-les al costat del fitxer <literal role="extension"
+> externs cerquen les imatges en una de dues maneres. En primer lloc, intentarà cercar-les al costat del fitxer <literal role="extension"
 >.kim</literal
 >, i si no les troba, les cercarà a l'&URL; especificat quan es va crear el fitxer <literal role="extension"
 >.kim</literal
@@ -120,7 +120,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >, el &kphotoalbum; importarà la base de dades exportada amb la característica descrita en el <xref linkend="chp-importExport"/>.</para>
 
 <para
->L'assistent d'importació consisteix en quatre passos. Durant el primer heu d'especificar les imatges que voleu importar. A continuació, heu d'especificar en quin directori posar les imatges importades.</para>
+>L'assistent d'importació consisteix en quatre passos. En el primer heu d'especificar les imatges que voleu importar. A continuació, heu d'especificar en quin directori posar les imatges importades.</para>
 
 <para
 >El més probable és que crideu a la categoria de persones, <emphasis
@@ -147,7 +147,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 <para
 >A la captura de pantalla podeu veure que Donna és el mateix tant al fitxer <literal role="extension"
 >.kim</literal
-> com a la meva base de dades -el nom es mostra en negre per indicar una coincidència perfecta a la base de dades-. Els altres tres noms no es troben a la base de dades, encara que s'han trobat resultats coincidents per a tots dos com a subcadena, Jesper i Anne Helene, de manera que se suggereixen aquests. Finalment, a la meva base de dades no tenia Spiff (o es podria anomenar d'una manera molt diferent), de manera que el &kphotoalbum; simplement suggereix Spiff per al nom d'importació.</para>
+> com a la meva base de dades -el nom es mostra en negre per a indicar una coincidència perfecta a la base de dades-. Els altres tres noms no es troben a la base de dades, encara que s'han trobat resultats coincidents per a tots dos com a subcadena, Jesper i Anne Helene, de manera que se suggereixen aquests. Finalment, a la meva base de dades no tenia Spiff (o es podria anomenar d'una manera molt diferent), de manera que el &kphotoalbum; simplement suggereix Spiff per al nom d'importació.</para>
 
 </sect1>
   </chapter>

@@ -64,17 +64,17 @@ SPDX-License-Identifier: GFDL-1.2-only
 >. Aquestes característiques, per descomptat, també estan disponibles des del menú contextual.</para>
 
   <para
->Si es carreguen diverses imatges al visualitzador, podreu demanar que s'executi com una presentació de diapositives, el qual significa que el &kphotoalbum; carregarà una nova imatge cada pocs segons. Amb quina freqüència es carrega una nova imatge es configura prement la tecla de control i la respectiva més (per anar més de pressa) o menys (per anar més lent). Iniciar i aturar la presentació de diapositives es realitza simplement prement <keycombo
+>Si es carreguen diverses imatges al visualitzador, podreu demanar que s'executi com una presentació de diapositives, el qual significa que el &kphotoalbum; carregarà una imatge nova cada pocs segons. Amb quina freqüència es carrega una imatge nova es configura prement la tecla de control i la respectiva més (per a anar més de pressa) o menys (per a anar més lent). Iniciar i aturar la presentació de diapositives es realitza simplement prement <keycombo
 >&Ctrl;<keycap
 >S</keycap
 ></keycombo
 >.</para>
 
   <para
->Una característica molt útil del visualitzador del &kphotoalbum; és la seva capacitat d'entrar en el mode de pantalla completa. En aquest mode, el visualitzador utilitza tot l'espai de la pantalla, només haureu de prémer la tecla Retorn per entrar i sortir del mode de pantalla completa.</para>
+>Una característica molt útil del visualitzador del &kphotoalbum; és la seva capacitat d'entrar en el mode de pantalla completa. En aquest mode, el visualitzador utilitza tot l'espai de la pantalla, només haureu de prémer la tecla Retorn per a entrar i sortir del mode de pantalla completa.</para>
 
   <para
->Utilitzant el visualitzador, podeu fer zoom per apropar i allunyar la imatge, simplement arrossegant un rectangle amb el ratolí. En prémer la tecla de menys s'allunyarà. En prémer la tecla de més s'aproparà al centre de la imatge. La <xref linkend="fig-marking-zoom-rectangle"/> mostra com es marca un rectangle de zoom, i la <xref linkend="fig-zoomed-view"/> mostra el resultat del zoom.</para>
+>Utilitzant el visualitzador, podeu fer zoom per a apropar i allunyar la imatge, simplement arrossegant un rectangle amb el ratolí. En prémer la tecla de menys s'allunyarà. En prémer la tecla de més s'aproparà al centre de la imatge. La <xref linkend="fig-marking-zoom-rectangle"/> mostra com es marca un rectangle de zoom, i la <xref linkend="fig-zoomed-view"/> mostra el resultat del zoom.</para>
 
 <para
 >En prémer la tecla de punt, es reinicia el zoom, de manera que la imatge es mostrarà sense zoom. En prémer la tecla del signe igual, establireu el nivell de zoom de manera que per a cada píxel a la pantalla es correspondrà amb un píxel a la imatge.</para>
@@ -105,7 +105,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   </figure>
 
   <para
->L'elecció de les operacions per girar des del menú contextual, podeu girar la imatge (no funciona pels vídeos). Podeu anotar la imatge actual, simplement escollint <guimenuitem
+>L'elecció de les operacions de gira des del menú contextual, podeu girar la imatge (no funciona pels vídeos). Podeu anotar la imatge actual, simplement escollint <guimenuitem
 >Anota</guimenuitem
 > al menú contextual.</para>
 
@@ -119,7 +119,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 <para
 >Tradicionalment, la manera principal d'etiquetar les imatges ha estat mitjançant <link linkend="chp-typingIn"
 >el diàleg d'anotació</link
->. Al llarg dels anys s'han fet alguns intents diferents per integrar l'etiquetatge en el visualitzador. El primer intent va ser mitjançant l'assignació de símbols en el visualitzador, un intent posterior va ser fent possible etiquetar directament escrivint part d'un element de categoria. A més, els elements de categoria es podrien assignar a les tecles de funció del teclat. El codi de tot això s'ha modernitzat per fer el flux de treball molt més intuïtiu i accessible.</para>
+>. Al llarg dels anys s'han fet alguns intents diferents per a integrar l'etiquetatge en el visualitzador. El primer intent va ser mitjançant l'assignació de símbols en el visualitzador, un intent posterior va ser fent possible etiquetar directament escrivint part d'un element de categoria. A més, els elements de categoria es podrien assignar a les tecles de funció del teclat. El codi de tot això s'ha modernitzat per a fer el flux de treball molt més intuïtiu i accessible.</para>
 
 <para
 >Hi ha tres modes d'anotar les imatges en el visualitzador:</para>
@@ -134,7 +134,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 ><para
 ><emphasis
 >Assigna símbols</emphasis
->: Això permet establir símbols en imatges, senzillament prement una tecla entre A-Z en el teclat.</para
+>: Això permet establir símbols en imatges, senzillament prement una tecla des de l'A a la Z en el teclat.</para
 ></listitem>
     <listitem
 ><para
@@ -250,7 +250,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >L'etiquetatge de les imatges pot ser pesat, fins i tot en el &kphotoalbum;, almenys quan us heu quedat enrere i teniu milers o desenes de milers d'imatges que necessiten un etiquetatge adequat. Afortunadament, ara és possible afegir etiquetes prement una sola tecla en visualitzar les imatges. La lògica darrere d'aquesta manera de treballar amb les imatges és que la majoria de les imatges estan amb les mateixes persones en els mateixos llocs, més algunes aparicions «convidades» de tant en tant, diguem la ubicació de les vostres vacances, o alguns amics que us van visitar durant una setmana.</para>
 
 <para
->Per etiquetar les vostres imatges mentre les veieu, heu d'introduir el mode <emphasis
+>Per a etiquetar les vostres imatges mentre les veieu, heu d'introduir el mode <emphasis
 >Assigna etiquetes</emphasis
 >. Vegeu <xref linkend="fig-ctxmenu-for-mode-selection"/>. Amb aquesta opció, simplement premeu una tecla de lletra del teclat per a assignar o utilitzar l'etiqueta assignada.</para>
 
@@ -279,13 +279,13 @@ SPDX-License-Identifier: GFDL-1.2-only
 >sp</emphasis
 >er» i «People / <emphasis
 >Sp</emphasis
->iff». Tots dos coincidien amb les lletres que he escrit. Prement la fletxa cap avall per seleccionar <emphasis
+>iff». Tots dos coincidien amb les lletres que he escrit. Prement la fletxa cap avall per a seleccionar <emphasis
 >Spiff</emphasis
 > i prement retorn, s'assignarà la lletra <emphasis
 >s</emphasis
-> per afegir l'etiqueta <emphasis
+> per a afegir l'etiqueta <emphasis
 >People / Spiff</emphasis
-> a la imatge visualitzada. Aquesta activitat es desarà per a sessions futures. Per tornar a assignar «s» a una altra etiqueta, simplement premeu <keycombo action="simul"
+> a la imatge visualitzada. Aquesta activitat es desarà per a sessions futures. Per a tornar a assignar «s» a una altra etiqueta, simplement premeu <keycombo action="simul"
 >&Maj;<keycap
 >s</keycap
 ></keycombo
@@ -316,7 +316,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 <para
 >En cas que l'etiqueta que voleu assignar no existeixi a la base de dades, simplement premeu el botó <emphasis
 >Afegeix nova</emphasis
-> per crear-la. Això es pot veure a <xref linkend="fig-assign-macro-add-new-value.png"/> sota</para>
+> per a crear-la. Això es pot veure a <xref linkend="fig-assign-macro-add-new-value.png"/> sota</para>
 
 <figure id="fig-assign-macro-add-new-value.png">
   <title
@@ -328,7 +328,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 </figure>
 
 <para
->Mentre s'etiqueten les imatges des del visualitzador, és possible que vulgueu afegir una etiqueta, sense vincular-la a una tecla. Per fer-ho premeu <keycombo
+>Mentre s'etiqueten les imatges des del visualitzador, és possible que vulgueu afegir una etiqueta, sense vincular-la a una tecla. Per a fer-ho premeu <keycombo
 >&Ctrl;<keycap
 >a</keycap
 ></keycombo

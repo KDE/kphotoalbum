@@ -15,7 +15,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >A la <xref linkend="fig-empty-browser-window"/> podeu veure un exemple de la finestra que us dona la benvinguda una vegada heu iniciat el &kphotoalbum; amb les vostres pròpies imatges.</para>
 
   <para
->A la part superior de la pantalla trobareu un menú i una barra d'eines, com ja coneixeu de qualsevol aplicació del &kde;. Per sota de la barra d'eines veureu la finestra del navegador. A la finestra del navegador, podreu seleccionar diferents categories per limitar les imatges que inspeccionareu. En el <xref linkend="chp-browsing"/> parlem del navegador, però per ara, simplement premeu l'element <guibutton
+>A la part superior de la pantalla trobareu un menú i una barra d'eines, com ja coneixeu de qualsevol aplicació del &kde;. Per sota de la barra d'eines veureu la finestra del navegador. A la finestra del navegador, podreu seleccionar diferents categories per a limitar les imatges que inspeccionareu. En el <xref linkend="chp-browsing"/> parlem del navegador, però per ara, simplement premeu l'element <guibutton
 >Mostra les miniatures</guibutton
 >, el qual mostrarà una vista de miniatures de totes les imatges.</para>
 
@@ -38,19 +38,19 @@ SPDX-License-Identifier: GFDL-1.2-only
 >).</para>
 
     <para
->Per anotar unes quantes imatges, seleccioneu les imatges en qüestió, i aneu a <menuchoice
+>Per a anotar unes quantes imatges, seleccioneu les imatges en qüestió, i aneu a <menuchoice
 ><guimenu
 >Edita</guimenu
 > <guisubmenu
 >Anota elements individuals</guisubmenu
 ></menuchoice
->. Anoteu les vostres imatges seleccionades una a una. Si per contra escolliu <guimenuitem
+>. Anoteu les vostres imatges seleccionades una a una. Per contra, si escolliu <guimenuitem
 >Anota múltiples elements a la vegada</guimenuitem
 >, anotareu tots els elements seleccionats, com si fos un sol element. En altres paraules, amb aquesta opció anotareu de forma massiva les vostres imatges: &pex;, dient que totes aquestes imatges es van prendre a Copenhaguen. Aquestes dues opcions estan disponibles des d'un menú contextual que s'obté fent clic amb el &BDR; sobre la vista de miniatures o utilitzant dreceres de teclat. Podeu veure un exemple a <xref linkend="fig-edit-properies-menu"/>.</para>
 
     <figure id="fig-edit-properies-menu">
       <title
->Menú contextual per editar les propietats</title>
+>Menú contextual per a editar les propietats</title>
       <mediaobject>
         <imageobject>
           <imagedata fileref="edit-properies-menu.png"
@@ -60,7 +60,7 @@ SPDX-License-Identifier: GFDL-1.2-only
     </figure>
 
     <para
->A la <xref linkend="fig-image-config-window"/> a continuació podeu veure la finestra per anotar imatges i vídeos. En aquesta finestra podeu especificar la data, l'etiqueta<footnote
+>A la <xref linkend="fig-image-config-window"/> a continuació podeu veure la finestra per a anotar imatges i vídeos. En aquesta finestra podeu especificar la data, l'etiqueta<footnote
 ><para
 >L'etiqueta s'inicia amb el nom del fitxer. L'etiqueta s'utilitza en el navegador, i quan les imatges s'exporten a les pàgines &HTML;.</para
 ></footnote
@@ -100,7 +100,7 @@ SPDX-License-Identifier: GFDL-1.2-only
       <para
 >Podeu especificar una propietat des d'un quadre de llista, simplement seleccionant-la (seleccioneu <literal
 >Donna</literal
-> per especificar que es troba a la imatge indicada. De manera alternativa, podeu escriure el seu nom a la línia d'edició. Quan comenceu a escriure un nom a la línia d'edició, el &kphotoalbum; el mostrarà al quadre de llista i cercarà el primer element coincident que heu escrit fins ara, i l'omplirà. De manera que en escriure <literal
+> per a especificar que es troba a la imatge indicada. De manera alternativa, podeu escriure el seu nom a la línia d'edició. Quan comenceu a escriure un nom a la línia d'edició, el &kphotoalbum; el mostrarà al quadre de llista i cercarà el primer element coincident que heu escrit fins ara, i l'omplirà. De manera que en escriure <literal
 >Do</literal
 > es trobarà <literal
 >Donna</literal
@@ -110,7 +110,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >La idea de moure els últims elements a la part superior quan han estat seleccionats, és que quan per exemple aneu a una festa familiar, potser obtindreu 50 imatges amb les mateixes 5 o 10 persones. Quan escriviu informació sobre aquestes 50 imatges tindreu les 5 o 10 persones a la part superior del quadre de llista tan aviat com hàgiu escrit el seu nom per primera vegada.</para>
 
      <para
->Si preferiu tenir la llista ordenada alfabèticament, simplement haureu de prémer la icona sota el quadre de llista per ordenar-la.</para>
+>Si preferiu tenir la llista ordenada alfabèticament, simplement haureu de prémer la icona sota el quadre de llista per a ordenar-la.</para>
     </sect1>
 
 
@@ -146,7 +146,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >En lloc d'especificar per a cada imatge de Sant Francisco, que està a San Francisco, Califòrnia, i als EUA, li podeu dir al &kphotoalbum; que San Francisco i Los Angeles estan a Califòrnia, i Califòrnia, entre d'altres es troben als EUA. Si ho feu, el navegador (vegeu <xref linkend="chp-browsing"/>) us oferirà un element dels EUA, i un element de Califòrnia, a més de tots els elements normals. Seleccionant Califòrnia, veureu totes les imatges de San Francisco, Los Angeles, &etc;</para>
 
 <para
->A la <xref linkend="fig-usa-as-a-member"/> podeu veure una finestra del navegador, que conté els EUA com una supercategoria. Per indicar que aquest és un grup que utilitza una icona especial.</para>
+>A la <xref linkend="fig-usa-as-a-member"/> podeu veure una finestra del navegador, que conté els EUA com una supercategoria. Per a indicar que aquest és un grup que utilitza una icona especial.</para>
 
 <figure id="fig-usa-as-a-member">
 <title
@@ -213,7 +213,7 @@ SPDX-License-Identifier: GFDL-1.2-only
     <title
 >Anotar en veure imatges</title>
     <para
->Durant algunes dècades hem etiquetat les imatges tal com s'ha descrit anteriorment, però a l'estiu de 2023 va començar a ser possible etiquetar les imatges mentre les veiem. Aquesta utilitat no admet totes les característiques descrites anteriorment, però ofereix un flux de treball molt més ràpid per etiquetar imatges.</para>
+>Durant algunes dècades hem etiquetat les imatges tal com s'ha descrit anteriorment, però a l'estiu de 2023 va començar a ser possible etiquetar les imatges mentre les veiem. Aquesta utilitat no admet totes les característiques descrites anteriorment, però ofereix un flux de treball molt més ràpid per a etiquetar imatges.</para>
     <para
 >Manquen característiques en anotar imatges des del visualitzador, per a les quals heu d'anar a aquest diàleg:</para>
     <itemizedlist>

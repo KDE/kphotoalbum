@@ -17,9 +17,9 @@ SPDX-License-Identifier: GFDL-1.2-only
 >El &kphotoalbum; se centra en tres punts clau: <itemizedlist>
       <listitem
 ><para
->Hauria de ser fàcil anotar una sèrie d'imatges alhora. No hauria de prendre més que uns quants clics del ratolí per marcar totes les imatges de les vostres vacances a Itàlia, 1992. El &kphotoalbum; ofereix dues formes de descriure les imatges: <guilabel
+>Hauria de ser fàcil anotar una sèrie d'imatges alhora. No hauria de prendre més que uns quants clics del ratolí per a marcar totes les imatges de les vostres vacances a Itàlia, 1992. El &kphotoalbum; ofereix dues formes de descriure les imatges: <guilabel
 >una cada vegada</guilabel
->, el qual és útil per escriure text sobre les imatges, i <guilabel
+>, el qual és útil per a escriure text sobre les imatges, i <guilabel
 >totes alhora</guilabel
 >, el qual és útil per a seleccionar una sèrie d'imatges i establir les propietats com la ubicació, la gent que hi surt i la data de la imatge.</para
 ></listitem>
@@ -60,7 +60,7 @@ SPDX-License-Identifier: GFDL-1.2-only
     <title
 >Organitzar les imatges i fitxers al &kphotoalbum;</title>
     <para
->El &kphotoalbum; utilitza totes les imatges d'un directori i tots els seus subdirectoris, la primera vegada que inicieu el &kphotoalbum;, us demanarà la ubicació d'aquest directori. El &kphotoalbum; no modificarà cap imatge, i per això no heu de tenir por que el &kphotoalbum; alteri les vostres imatges. <footnote
+>El &kphotoalbum; utilitza totes les imatges d'un directori i tots els seus subdirectoris, la primera vegada que inicieu el &kphotoalbum;, us demanarà la ubicació d'aquest directori. El &kphotoalbum; no modificarà cap imatge, i per això no heu de tenir por que el &kphotoalbum; alteri les vostres imatges <footnote
 ><para
 >Hi ha dues excepcions amb aquesta regla (1) si demaneu al &kphotoalbum; que suprimeixi imatges individuals, des de <menuchoice
 ><guimenu

@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-07 00:40+0000\n"
-"PO-Revision-Date: 2023-09-26 17:53+0300\n"
+"PO-Revision-Date: 2023-11-19 19:22+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -1050,9 +1050,7 @@ msgid "Move Items"
 msgstr "Siirrä luokat"
 
 #: DateBar/DateBarWidget.cpp:61
-#, fuzzy, kde-format
-#| msgctxt "I.e. the timeline histogram widget"
-#| msgid "Date Bar"
+#, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
 msgstr "Päiväysrivi"
@@ -4366,7 +4364,7 @@ msgstr "Kuvakkeet"
 #: MainWindow/Window.cpp:950
 #, kde-format
 msgid "Use natural sort order"
-msgstr ""
+msgstr "Käytä luonnollista lajittelujärjestystä"
 
 #: MainWindow/Window.cpp:960
 #, kde-format

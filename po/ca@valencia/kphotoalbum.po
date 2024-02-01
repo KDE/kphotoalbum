@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-07 00:40+0000\n"
-"PO-Revision-Date: 2024-01-02 08:27+0200\n"
+"PO-Revision-Date: 2024-01-29 19:46+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -4729,7 +4729,7 @@ msgstr "S'està tornant a llegir la informació Exif des de totes les imatges"
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
-msgstr "Amplària de la miniatura: %1px (mida de l'emmagatzematge: %2px)"
+msgstr "Amplària de la miniatura: %1 px (mida de l'emmagatzematge: %2px)"
 
 #: MainWindow/Window.cpp:1904
 #, kde-format
@@ -7122,7 +7122,7 @@ msgid ""
 msgstr ""
 "<p>Pareix que KPhotoAlbum ha fallat anteriorment durant la reproducció de "
 "vídeo. Este és un problema habitual en algunes plataformes amb alguns "
-"reproductors de vídeo.</p><p>Premeu <i>Continua</i> per permetre que "
+"reproductors de vídeo.</p><p>Premeu <i>Continua</i> per a permetre que "
 "KPhotoAlbum prove un dorsal diferent...</p>"
 
 #: Viewer/ViewerWidget.cpp:1399

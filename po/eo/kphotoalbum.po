@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-01-07 00:40+0000\n"
-"PO-Revision-Date: 2024-01-04 18:05+0100\n"
+"PO-Revision-Date: 2024-02-04 17:21+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -1098,7 +1098,7 @@ msgstr "Montri Gamojn"
 #: DateBar/DateBarWidget.cpp:696
 #, kde-format
 msgid "Show Resolution Indicator"
-msgstr "Montri Rezolucian Indikilon"
+msgstr "Montri Distingivan Indikilon"
 
 #: DateBar/DateBarWidget.cpp:821
 #, kde-format
@@ -2212,7 +2212,7 @@ msgstr "Malfermi galerion en retumilo:"
 #: HTMLGenerator/HTMLDialog.cpp:358
 #, kde-format
 msgid "You must select at least one resolution."
-msgstr "Vi devas elekti almenaŭ unu rezolucion."
+msgstr "Vi devas elekti almenaŭ unu distingivon."
 
 #: HTMLGenerator/HTMLDialog.cpp:385
 #, kde-format

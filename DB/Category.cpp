@@ -1,10 +1,10 @@
-// SPDX-FileCopyrightText: 2004-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2004 - 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2007 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2008 Laurent Montel <montel@kde.org>
 // SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2018 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2013 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014 - 2018 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -242,23 +242,25 @@ void DB::Category::removeItem(const QString &item)
 
 void DB::Category::renameItem(const QString &oldValue, const QString &newValue)
 {
+    const auto sanitizedNewValue = newValue.trimmed();
     int id = idForName(oldValue);
     m_items.removeAll(oldValue);
     m_nameMap.remove(id);
     m_idMap.remove(oldValue);
 
-    addItem(newValue);
+    addItem(sanitizedNewValue);
     if (id > 0)
-        setIdMapping(newValue, id);
-    Q_EMIT itemRenamed(oldValue, newValue);
+        setIdMapping(sanitizedNewValue, id);
+    Q_EMIT itemRenamed(oldValue, sanitizedNewValue);
 }
 
 void DB::Category::addItem(const QString &item)
 {
+    const auto sanitizedItem = item.trimmed();
     // for the "SortLastUsed" functionality in ListSelect we remove the item and insert it again:
-    if (m_items.contains(item))
-        m_items.removeAll(item);
-    m_items.prepend(item);
+    if (m_items.contains(sanitizedItem))
+        m_items.removeAll(sanitizedItem);
+    m_items.prepend(sanitizedItem);
 }
 
 DB::TagInfo *DB::Category::itemForName(const QString &tag)

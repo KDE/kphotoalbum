@@ -1,13 +1,13 @@
+// SPDX-FileCopyrightText: 2003 - 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2003 David Faure <faure@kde.org>
-// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2005-2007 Dirk Mueller <mueller@kde.org>
-// SPDX-FileCopyrightText: 2006-2007 Tuomas Suutari <tuomas@nepnep.net>
-// SPDX-FileCopyrightText: 2007-2010 Jan Kundrát <jkt@flaska.net>
-// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
-// SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
-// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2005 - 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2006 - 2007 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007 - 2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2007 - 2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2008 - 2009 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2013 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2018 - 2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2018-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2023 Alexander Lohnau <alexander.lohnau@gmx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
@@ -168,23 +168,24 @@ void MemberMap::calculate() const
 
 void MemberMap::renameGroup(const QString &category, const QString &oldName, const QString &newName)
 {
+    const auto sanitizedNewName = newName.trimmed();
     if (!m_members.contains(category))
         return;
     if (!m_members[category].contains(oldName))
         return;
     // Don't allow overwriting to avoid creating cycles
-    if (m_members[category].contains(newName))
+    if (m_members[category].contains(sanitizedNewName))
         return;
 
     m_dirty = true;
     markDirty(category);
     QMap<QString, StringSet> &groupMap = m_members[category];
-    groupMap.insert(newName, m_members[category][oldName]);
+    groupMap.insert(sanitizedNewName, m_members[category][oldName]);
     groupMap.remove(oldName);
     for (StringSet &set : groupMap) {
         if (set.contains(oldName)) {
             set.remove(oldName);
-            set.insert(newName);
+            set.insert(sanitizedNewName);
         }
     }
 }
@@ -213,9 +214,10 @@ void MemberMap::renameItem(DB::Category *category, const QString &oldName, const
 {
     Q_ASSERT(category != nullptr);
     const auto categoryName = category->name();
+    const auto sanitizedNewName = newName.trimmed();
     if (!m_members.contains(categoryName))
         return;
-    if (oldName == newName)
+    if (oldName == sanitizedNewName)
         return;
 
     bool changed = false;
@@ -224,12 +226,12 @@ void MemberMap::renameItem(DB::Category *category, const QString &oldName, const
         if (items.contains(oldName)) {
             changed = true;
             items.remove(oldName);
-            items.insert(newName);
+            items.insert(sanitizedNewName);
         }
     }
     if (groupMap.contains(oldName)) {
         changed = true;
-        groupMap[newName] = groupMap[oldName];
+        groupMap[sanitizedNewName] = groupMap[oldName];
         groupMap.remove(oldName);
     }
 
@@ -317,27 +319,29 @@ void MemberMap::removeMemberFromGroup(const QString &category, const QString &gr
 
 void MemberMap::addGroup(const QString &category, const QString &group)
 {
-    if (group.isEmpty())
+    const auto sanitizedGroup = group.trimmed();
+    if (sanitizedGroup.isEmpty())
         return;
 
-    if (!m_members[category].contains(group)) {
-        m_members[category].insert(group, StringSet());
+    if (!m_members[category].contains(sanitizedGroup)) {
+        m_members[category].insert(sanitizedGroup, StringSet());
         markDirty(category);
     }
 }
 
 void MemberMap::renameCategory(const QString &oldName, const QString &newName)
 {
+    const auto sanitizedNewName = newName.trimmed();
     if (!m_members.contains(oldName))
         return;
-    if (oldName == newName)
+    if (oldName == sanitizedNewName)
         return;
-    if (m_members.contains(newName))
+    if (m_members.contains(sanitizedNewName))
         return;
 
-    m_members[newName] = m_members[oldName];
+    m_members[sanitizedNewName] = m_members[oldName];
     m_members.remove(oldName);
-    m_closureMembers[newName] = m_closureMembers[oldName];
+    m_closureMembers[sanitizedNewName] = m_closureMembers[oldName];
     m_closureMembers.remove(oldName);
     if (!m_loading)
         Q_EMIT dirty();

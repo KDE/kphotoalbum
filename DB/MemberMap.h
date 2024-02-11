@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2003 - 2022 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2023 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -97,6 +97,7 @@ public:
      * @brief renameGroup renames a group in category.
      * Does nothing, if category does not have any groups, if oldName is not a member of category, or if newName does already exist.
      * @param category the category name
+     * The string \c newName is trimmed to disallow leading or trailing whitespace in names.
      * @param oldName
      * @param newName
      */
@@ -104,6 +105,7 @@ public:
     /**
      * @brief renameCategory renames the category from oldName to newName
      * Does nothing, if the oldName does not have any groups, if oldName is the same as newName, or if newName already exists.
+     * The string \c newName is trimmed to disallow leading or trailing whitespace in names.
      * @param oldName
      * @param newName
      */
@@ -111,6 +113,7 @@ public:
 
     /**
      * @brief addGroup adds the tag group to category.
+     * The string \c group is trimmed to disallow leading or trailing whitespace in names.
      * Does nothing if the group name is empty.
      * @param category the category name
      * @param group the tag group name
@@ -203,6 +206,7 @@ public Q_SLOTS:
     /**
      * @brief renameItem renames a tag of the given category.
      * Does nothing if the category is not known, if oldName does not exist, or if the new name is the same as the old name.
+     * The string \c newName is trimmed to disallow leading or trailing whitespace in names.
      * @param category a valid pointer to a category
      * @param oldName
      * @param newName

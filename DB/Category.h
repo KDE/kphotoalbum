@@ -1,8 +1,8 @@
-// SPDX-FileCopyrightText: 2004-2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2004 - 2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2006 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
-// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2013 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014 - 2022 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -87,7 +87,18 @@ public:
     void addOrReorderItems(const QStringList &items);
     void setItems(const QStringList &items);
     void removeItem(const QString &item);
+    /**
+     * @brief renameItem renames an existing tag from the old name to a new name.
+     * The \c newValue string is trimmed to avoid leading or trailing whitespace.
+     * @param oldValue
+     * @param newValue
+     */
     void renameItem(const QString &oldValue, const QString &newValue);
+    /**
+     * @brief addItem adds a new tag with the given name to the category.
+     * The \c item string is trimmed to avoid leading or trailing whitespace.
+     * @param item
+     */
     void addItem(const QString &item);
     /**
      * @brief itemForName returns a TagInfo for a given tag.

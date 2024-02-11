@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2023 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -118,7 +119,7 @@ SelectCategoryAndValue::SelectCategoryAndValue(const QString &title, const QStri
         completer, qOverload<const QModelIndex &>(&QCompleter::activated), this,
         [this](const QModelIndex &index) {
             m_category = index.data(Role::Category).toString();
-            m_item = index.data(Role::Item).toString();
+            m_item = index.data(Role::Item).toString().trimmed();
             accept();
         });
 

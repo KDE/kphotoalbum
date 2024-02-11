@@ -1,7 +1,11 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2009-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2022 Friedrich W. H. Kossebau <kossebau@kde.org>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "TagGroupsPage.h"
 #include "CategoriesGroupsWidget.h"
@@ -338,7 +342,8 @@ void Settings::TagGroupsPage::slotAddGroup()
                                                    i18nc("@label:textbox", "Group name:"),
                                                    QLineEdit::Normal,
                                                    QString(),
-                                                   &ok);
+                                                   &ok)
+                                 .trimmed();
     if (groups.contains(newSubCategory))
         return; // only a workaround until GUI-support for validation is restored
     if (!ok) {
@@ -431,7 +436,8 @@ void Settings::TagGroupsPage::slotRenameGroup()
                                                        i18nc("@label:textbox", "New group name:"),
                                                        QLineEdit::Normal,
                                                        m_currentSubCategory,
-                                                       &ok);
+                                                       &ok)
+                                     .trimmed();
 
     if (!ok || m_currentSubCategory == newSubCategoryName) {
         return;
@@ -708,7 +714,8 @@ void Settings::TagGroupsPage::slotRenameMember()
                                                i18nc("@label:textbox", "Tag name:"),
                                                QLineEdit::Normal,
                                                m_membersListWidget->currentItem()->text(),
-                                               &ok);
+                                               &ok)
+                             .trimmed();
     if (!ok || newTagName == m_membersListWidget->currentItem()->text()) {
         return;
     }

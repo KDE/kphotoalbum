@@ -1,5 +1,20 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 David Faure <faure@kde.org>
+// SPDX-FileCopyrightText: 2003-2005 Stephan Binner <binner@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2004 Andrew Coles <andrew.i.coles@googlemail.com>
+// SPDX-FileCopyrightText: 2004-2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2006-2007 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2008 Jakob Petsovits <jpetso@gmx.at>
+// SPDX-FileCopyrightText: 2009 Hassan Ibraheem <hasan.ibraheem@gmail.com>
+// SPDX-FileCopyrightText: 2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2010-2013 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
+// SPDX-FileCopyrightText: 2013 Reimar Imhof <Reimar.Imhof@netcologne.de>
+// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2015 Yuri Chornoivan <yurchor@ukr.net>
+// SPDX-FileCopyrightText: 2017 Raymond Wooninck <tittiatcoke@gmail.com>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -447,7 +462,8 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
         QString newStr = QInputDialog::getText(this,
                                                i18nc("@title", "Rename Item"), i18n("Enter new name:"),
                                                QLineEdit::Normal,
-                                               item->text(0), &ok);
+                                               item->text(0), &ok)
+                             .trimmed();
 
         if (ok && !newStr.isEmpty() && newStr != item->text(0)) {
             const QString question = i18n("<p>Do you really want to rename \"%1\" to \"%2\"?<br/>"

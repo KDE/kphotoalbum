@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-07 00:40+0000\n"
+"POT-Creation-Date: 2024-02-12 01:36+0000\n"
 "PO-Revision-Date: 2024-01-02 13:23+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -286,13 +286,13 @@ msgid "Reset layout"
 msgstr "Indeling terugzetten"
 
 #: AnnotationDialog/Dialog.cpp:886 AnnotationDialog/Dialog.cpp:1285
-#: AnnotationDialog/ListSelect.cpp:95
+#: AnnotationDialog/ListSelect.cpp:110
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Alfabetisch sorteren (boomstructuur)"
 
 #: AnnotationDialog/Dialog.cpp:890 AnnotationDialog/Dialog.cpp:1289
-#: AnnotationDialog/ListSelect.cpp:101
+#: AnnotationDialog/ListSelect.cpp:116
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Alfabetisch sorteren (vlak)"
@@ -548,33 +548,33 @@ msgctxt "@info:tooltip"
 msgid "Delete image"
 msgstr "Afbeelding verwijderen"
 
-#: AnnotationDialog/ListSelect.cpp:57
+#: AnnotationDialog/ListSelect.cpp:72
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
 msgstr "Voer een tag in ..."
 
-#: AnnotationDialog/ListSelect.cpp:82 DB/search/ImageSearchInfo.cpp:339
+#: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:339
 #, kde-format
 msgid "or"
 msgstr "of"
 
-#: AnnotationDialog/ListSelect.cpp:83 DB/search/ImageSearchInfo.cpp:334
+#: AnnotationDialog/ListSelect.cpp:98 DB/search/ImageSearchInfo.cpp:334
 #, kde-format
 msgid "and"
 msgstr "en"
 
-#: AnnotationDialog/ListSelect.cpp:107
+#: AnnotationDialog/ListSelect.cpp:122
 #, kde-format
 msgid "Sort by date"
 msgstr "Sorteer op datum"
 
-#: AnnotationDialog/ListSelect.cpp:113
+#: AnnotationDialog/ListSelect.cpp:128
 #, kde-format
 msgid "Show only selected Ctrl+S"
 msgstr "Alleen geselecteerde Ctrl+S tonen"
 
-#: AnnotationDialog/ListSelect.cpp:162
+#: AnnotationDialog/ListSelect.cpp:177
 #, kde-format
 msgid ""
 "The tag you entered is the tag that is set automatically for newly found, "
@@ -587,72 +587,72 @@ msgstr ""
 "instellen...|Categorieën|Afbeeldingen zonder tags</interface>). Het zal hier "
 "niet getoond worden zolang het voor dit doel is geselecteerd."
 
-#: AnnotationDialog/ListSelect.cpp:344
+#: AnnotationDialog/ListSelect.cpp:359
 #, kde-format
 msgid "No Item Selected"
 msgstr "Geen item geselecteerd"
 
-#: AnnotationDialog/ListSelect.cpp:348
+#: AnnotationDialog/ListSelect.cpp:363
 #, kde-format
 msgid "<b>%1</b>"
 msgstr "<b>%1</b>"
 
-#: AnnotationDialog/ListSelect.cpp:354 Settings/CategoryPage.cpp:71
+#: AnnotationDialog/ListSelect.cpp:369 Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: AnnotationDialog/ListSelect.cpp:355
+#: AnnotationDialog/ListSelect.cpp:370
 #, kde-format
 msgid "Rename..."
 msgstr "Hernoemen..."
 
-#: AnnotationDialog/ListSelect.cpp:357
+#: AnnotationDialog/ListSelect.cpp:372
 #, kde-format
 msgid "<b>Tag Groups</b>"
 msgstr "<b>Groepen van tags voorzien</b>"
 
-#: AnnotationDialog/ListSelect.cpp:365
+#: AnnotationDialog/ListSelect.cpp:380
 #, kde-format
 msgid "Tag groups"
 msgstr "Groepen van tags voorzien"
 
-#: AnnotationDialog/ListSelect.cpp:382
+#: AnnotationDialog/ListSelect.cpp:397
 #, kde-format
 msgid "Add this tag to a new tag group..."
 msgstr "Deze tag aan een nieuwe taggroep toevoegen..."
 
-#: AnnotationDialog/ListSelect.cpp:385
+#: AnnotationDialog/ListSelect.cpp:400
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
 msgstr "Van deze tag een taggroep maken en een tag toevoegen..."
 
-#: AnnotationDialog/ListSelect.cpp:391
+#: AnnotationDialog/ListSelect.cpp:406
 #, kde-format
 msgid "Remove from tag group %1"
 msgstr "Uit taggroep %1 verwijderen"
 
-#: AnnotationDialog/ListSelect.cpp:394
+#: AnnotationDialog/ListSelect.cpp:409
 #, kde-format
 msgid "<b>Sorting</b>"
 msgstr "<b>Sorteren</b>"
 
-#: AnnotationDialog/ListSelect.cpp:400
+#: AnnotationDialog/ListSelect.cpp:415
 #, kde-format
 msgid "Usage"
 msgstr "Gebruik"
 
-#: AnnotationDialog/ListSelect.cpp:401
+#: AnnotationDialog/ListSelect.cpp:416
 #, kde-format
 msgid "Alphabetical (Flat)"
 msgstr "Alfabetisch (vlak)"
 
-#: AnnotationDialog/ListSelect.cpp:402
+#: AnnotationDialog/ListSelect.cpp:417
 #, kde-format
 msgid "Alphabetical (Tree)"
 msgstr "Alfabetisch (boomstructuur)"
 
-#: AnnotationDialog/ListSelect.cpp:427
+#: AnnotationDialog/ListSelect.cpp:442
 #, kde-format
 msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
@@ -662,23 +662,23 @@ msgstr ""
 "alle bijhorende informatie verwijderen uit alle afbeeldingen die het item "
 "bevatten</p>"
 
-#: AnnotationDialog/ListSelect.cpp:431
+#: AnnotationDialog/ListSelect.cpp:446
 #, kde-format
 msgid "Really Delete %1?"
 msgstr "%1 verwijderen?"
 
-#: AnnotationDialog/ListSelect.cpp:448
+#: AnnotationDialog/ListSelect.cpp:463
 #, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Item hernoemen"
 
-#: AnnotationDialog/ListSelect.cpp:448
+#: AnnotationDialog/ListSelect.cpp:463
 #, kde-format
 msgid "Enter new name:"
 msgstr "Nieuwe naam invoeren:"
 
-#: AnnotationDialog/ListSelect.cpp:453
+#: AnnotationDialog/ListSelect.cpp:469
 #, kde-format
 msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
@@ -687,39 +687,39 @@ msgstr ""
 "<p>Wilt u \"%1\" echt hernoemen in \"%2\"?<br/>Dit zal ook \"%3\" hernoemen "
 "in elke afbeelding die dit item bevat.</p>"
 
-#: AnnotationDialog/ListSelect.cpp:457
+#: AnnotationDialog/ListSelect.cpp:473
 #, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
 msgstr "Hernoemen %1?"
 
-#: AnnotationDialog/ListSelect.cpp:462
+#: AnnotationDialog/ListSelect.cpp:478
 #, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Hernoemen"
 
-#: AnnotationDialog/ListSelect.cpp:497
+#: AnnotationDialog/ListSelect.cpp:513
 #, kde-format
 msgid "New tag group"
 msgstr "Nieuwe taggroep"
 
-#: AnnotationDialog/ListSelect.cpp:498
+#: AnnotationDialog/ListSelect.cpp:514
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
 msgstr "Naam voor de nieuwe taggroep waaraan de tag zal worden toegevoegd:"
 
-#: AnnotationDialog/ListSelect.cpp:510
+#: AnnotationDialog/ListSelect.cpp:526
 #, kde-format
 msgid "Add a tag"
 msgstr "Een tag toevoegen"
 
-#: AnnotationDialog/ListSelect.cpp:511
+#: AnnotationDialog/ListSelect.cpp:527
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
 msgstr "Naam voor de tag die aan deze taggroep wordt toegevoegd:"
 
-#: AnnotationDialog/ListSelect.cpp:765
+#: AnnotationDialog/ListSelect.cpp:781
 #, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
@@ -727,7 +727,7 @@ msgctxt ""
 msgid "%1 (%2-%3)"
 msgstr "%1 (%2-%3)"
 
-#: AnnotationDialog/ListSelect.cpp:778
+#: AnnotationDialog/ListSelect.cpp:794
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
@@ -1201,22 +1201,22 @@ msgstr "1 minuut"
 msgid "10 Seconds"
 msgstr "10 seconden"
 
-#: DB/Category.cpp:305
+#: DB/Category.cpp:307
 #, kde-format
 msgid "Unable to create folder '%1'."
 msgstr "Map '%1' kan niet worden aangemaakt."
 
-#: DB/Category.cpp:305
+#: DB/Category.cpp:307
 #, kde-format
 msgid "Unable to Create Folder"
 msgstr "Map kan niet worden aangemaakt"
 
-#: DB/Category.cpp:314
+#: DB/Category.cpp:316
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "Fout bij opslaan van afbeelding '%1'."
 
-#: DB/Category.cpp:314
+#: DB/Category.cpp:316
 #, kde-format
 msgid "Error Saving Image"
 msgstr "Fout bij opslaan van afbeelding"
@@ -5751,13 +5751,13 @@ msgctxt "@title:window"
 msgid "Settings"
 msgstr "Instellingen"
 
-#: Settings/TagGroupsPage.cpp:33
+#: Settings/TagGroupsPage.cpp:37
 #, kde-format
 msgctxt "@label"
 msgid "Categories and groups:"
 msgstr "Categorieën en groepen"
 
-#: Settings/TagGroupsPage.cpp:42
+#: Settings/TagGroupsPage.cpp:46
 #, kde-format
 msgctxt "@label/rich"
 msgid "<strong>Select a group on the left side to add tags to it</strong>"
@@ -5765,7 +5765,7 @@ msgstr ""
 "<strong>Een groep aan de linkerkant selecteren om er tags aan toe te voegen</"
 "strong>"
 
-#: Settings/TagGroupsPage.cpp:53
+#: Settings/TagGroupsPage.cpp:57
 #, kde-format
 msgctxt "@label/rich"
 msgid ""
@@ -5775,67 +5775,67 @@ msgstr ""
 "<strong>Er wachten niet-opgeslagen wijzigingen in de categoriepagina's.<nl> "
 "Eerst de wijzigingen opslaan alvorens aan groepen tags te werken.</strong>"
 
-#: Settings/TagGroupsPage.cpp:62
+#: Settings/TagGroupsPage.cpp:66
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add group ..."
 msgstr "Groep toevoegen..."
 
-#: Settings/TagGroupsPage.cpp:225
+#: Settings/TagGroupsPage.cpp:229
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename group \"%1\""
 msgstr "Groep \"%1\" hernoemen"
 
-#: Settings/TagGroupsPage.cpp:227
+#: Settings/TagGroupsPage.cpp:231
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete group \"%1\""
 msgstr "Groep \"%1\" verwijderen"
 
-#: Settings/TagGroupsPage.cpp:306
+#: Settings/TagGroupsPage.cpp:310
 #, kde-format
 msgctxt "@label"
 msgid "Tags in group \"%1\" of category \"%2\""
 msgstr "Tags in groep \"%1\" van categorie \"%2\""
 
-#: Settings/TagGroupsPage.cpp:337
+#: Settings/TagGroupsPage.cpp:341
 #, kde-format
 msgctxt "@title:window"
 msgid "New Group"
 msgstr "Nieuwe groep"
 
-#: Settings/TagGroupsPage.cpp:338
+#: Settings/TagGroupsPage.cpp:342
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Group name:"
 msgstr "Groepsnaam:"
 
-#: Settings/TagGroupsPage.cpp:352
+#: Settings/TagGroupsPage.cpp:357
 #, kde-format
 msgctxt "@info"
 msgid "<p>The group \"%1\" already exists.</p>"
 msgstr "<p>De groep \"%1\" bestaat al.</p>"
 
-#: Settings/TagGroupsPage.cpp:353
+#: Settings/TagGroupsPage.cpp:358
 #, kde-format
 msgctxt "@title:window"
 msgid "Cannot add group"
 msgstr "Kan groep niet toevoegen"
 
-#: Settings/TagGroupsPage.cpp:430 Settings/TagGroupsPage.cpp:448
+#: Settings/TagGroupsPage.cpp:435 Settings/TagGroupsPage.cpp:454
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename Group"
 msgstr "Groep hernoemen"
 
-#: Settings/TagGroupsPage.cpp:431
+#: Settings/TagGroupsPage.cpp:436
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New group name:"
 msgstr "Nieuwe groepsnaam:"
 
-#: Settings/TagGroupsPage.cpp:443
+#: Settings/TagGroupsPage.cpp:449
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -5845,7 +5845,7 @@ msgstr ""
 "<para>Kan groep \"%1\" niet hernoemen naar \"%2\": \"%2\" bestaat al in "
 "categorie \"%3\"</para>"
 
-#: Settings/TagGroupsPage.cpp:504
+#: Settings/TagGroupsPage.cpp:510
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -5858,48 +5858,48 @@ msgstr ""
 "Alle andere lidmaatschappen van de subcategorieën zullen intact blijven.</"
 "para>"
 
-#: Settings/TagGroupsPage.cpp:510
+#: Settings/TagGroupsPage.cpp:516
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<para>Really delete group \"%1\"?</para>"
 msgstr "<para>Groep \"%1\" verwijderen?</para>"
 
-#: Settings/TagGroupsPage.cpp:515
+#: Settings/TagGroupsPage.cpp:521
 #, kde-format
 msgctxt "@title:window"
 msgid "Delete Group"
 msgstr "Groep verwijderen"
 
-#: Settings/TagGroupsPage.cpp:516 Settings/TagGroupsPage.cpp:762
+#: Settings/TagGroupsPage.cpp:522 Settings/TagGroupsPage.cpp:769
 #, kde-format
 msgid "&Delete"
 msgstr "Verwij&deren"
 
-#: Settings/TagGroupsPage.cpp:694
+#: Settings/TagGroupsPage.cpp:700
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename \"%1\""
 msgstr "Hernoem \"%1\""
 
-#: Settings/TagGroupsPage.cpp:696
+#: Settings/TagGroupsPage.cpp:702
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete \"%1\""
 msgstr "Verwijder \"%1\""
 
-#: Settings/TagGroupsPage.cpp:707
+#: Settings/TagGroupsPage.cpp:713
 #, kde-format
 msgctxt "@title:window"
 msgid "New Tag Name"
 msgstr "Nieuwe tagnaam"
 
-#: Settings/TagGroupsPage.cpp:708
+#: Settings/TagGroupsPage.cpp:714
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Tag name:"
 msgstr "Tagnaam:"
 
-#: Settings/TagGroupsPage.cpp:757
+#: Settings/TagGroupsPage.cpp:764
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -5911,7 +5911,7 @@ msgstr ""
 "zal ook alle bijhorende informatie verwijderen uit alle afbeeldingen die het "
 "item bevatten</para>"
 
-#: Settings/TagGroupsPage.cpp:761
+#: Settings/TagGroupsPage.cpp:768
 #, kde-format
 msgctxt "@title:window"
 msgid "Really delete %1?"
@@ -6661,27 +6661,27 @@ msgstr ""
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr "Instellen van video afspelen is mislukt (er is geen widget aangemaakt)"
 
-#: Viewer/SelectCategoryAndValue.cpp:106
+#: Viewer/SelectCategoryAndValue.cpp:107
 #, kde-format
 msgid "Type name of category and item"
 msgstr "Naam van categorie en item intypen"
 
-#: Viewer/SelectCategoryAndValue.cpp:135
+#: Viewer/SelectCategoryAndValue.cpp:136
 #, kde-format
 msgid "Add New"
 msgstr "Nieuwe toevoegen"
 
-#: Viewer/SelectCategoryAndValue.cpp:188
+#: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Key"
 msgstr "Toets"
 
-#: Viewer/SelectCategoryAndValue.cpp:188
+#: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Tag"
 msgstr "Tag"
 
-#: Viewer/SelectCategoryAndValue.cpp:219
+#: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"

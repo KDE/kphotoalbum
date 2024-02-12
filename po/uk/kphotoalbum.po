@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-07 00:40+0000\n"
+"POT-Creation-Date: 2024-02-12 01:36+0000\n"
 "PO-Revision-Date: 2024-01-02 08:46+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -279,13 +279,13 @@ msgid "Reset layout"
 msgstr "Скинути формат"
 
 #: AnnotationDialog/Dialog.cpp:886 AnnotationDialog/Dialog.cpp:1285
-#: AnnotationDialog/ListSelect.cpp:95
+#: AnnotationDialog/ListSelect.cpp:110
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "Впорядкувати за алфавітом (ієрархія)"
 
 #: AnnotationDialog/Dialog.cpp:890 AnnotationDialog/Dialog.cpp:1289
-#: AnnotationDialog/ListSelect.cpp:101
+#: AnnotationDialog/ListSelect.cpp:116
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "Впорядкувати за алфавітом (плоский список)"
@@ -542,33 +542,33 @@ msgctxt "@info:tooltip"
 msgid "Delete image"
 msgstr "Вилучити зображення"
 
-#: AnnotationDialog/ListSelect.cpp:57
+#: AnnotationDialog/ListSelect.cpp:72
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
 msgstr "Введіть мітку…"
 
-#: AnnotationDialog/ListSelect.cpp:82 DB/search/ImageSearchInfo.cpp:339
+#: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:339
 #, kde-format
 msgid "or"
 msgstr "або"
 
-#: AnnotationDialog/ListSelect.cpp:83 DB/search/ImageSearchInfo.cpp:334
+#: AnnotationDialog/ListSelect.cpp:98 DB/search/ImageSearchInfo.cpp:334
 #, kde-format
 msgid "and"
 msgstr "і"
 
-#: AnnotationDialog/ListSelect.cpp:107
+#: AnnotationDialog/ListSelect.cpp:122
 #, kde-format
 msgid "Sort by date"
 msgstr "Впорядкувати за датою"
 
-#: AnnotationDialog/ListSelect.cpp:113
+#: AnnotationDialog/ListSelect.cpp:128
 #, kde-format
 msgid "Show only selected Ctrl+S"
 msgstr "Показувати лише позначені Ctrl+S"
 
-#: AnnotationDialog/ListSelect.cpp:162
+#: AnnotationDialog/ListSelect.cpp:177
 #, kde-format
 msgid ""
 "The tag you entered is the tag that is set automatically for newly found, "
@@ -581,72 +581,72 @@ msgstr ""
 "KPhotoAlbum...|Категорії|Зображення без міток</interface>). Її не буде "
 "показано тут, доки мітку використовують із поточною метою."
 
-#: AnnotationDialog/ListSelect.cpp:344
+#: AnnotationDialog/ListSelect.cpp:359
 #, kde-format
 msgid "No Item Selected"
 msgstr "Не вибрано жодного елемента"
 
-#: AnnotationDialog/ListSelect.cpp:348
+#: AnnotationDialog/ListSelect.cpp:363
 #, kde-format
 msgid "<b>%1</b>"
 msgstr "<b>%1</b>"
 
-#: AnnotationDialog/ListSelect.cpp:354 Settings/CategoryPage.cpp:71
+#: AnnotationDialog/ListSelect.cpp:369 Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "Вилучити"
 
-#: AnnotationDialog/ListSelect.cpp:355
+#: AnnotationDialog/ListSelect.cpp:370
 #, kde-format
 msgid "Rename..."
 msgstr "Перейменувати..."
 
-#: AnnotationDialog/ListSelect.cpp:357
+#: AnnotationDialog/ListSelect.cpp:372
 #, kde-format
 msgid "<b>Tag Groups</b>"
 msgstr "<b>Групи міток</b>"
 
-#: AnnotationDialog/ListSelect.cpp:365
+#: AnnotationDialog/ListSelect.cpp:380
 #, kde-format
 msgid "Tag groups"
 msgstr "Групи міток"
 
-#: AnnotationDialog/ListSelect.cpp:382
+#: AnnotationDialog/ListSelect.cpp:397
 #, kde-format
 msgid "Add this tag to a new tag group..."
 msgstr "Додати цю мітку до нової групи міток…"
 
-#: AnnotationDialog/ListSelect.cpp:385
+#: AnnotationDialog/ListSelect.cpp:400
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
 msgstr "Зробити цю мітку групою міток і додати мітку…"
 
-#: AnnotationDialog/ListSelect.cpp:391
+#: AnnotationDialog/ListSelect.cpp:406
 #, kde-format
 msgid "Remove from tag group %1"
 msgstr "Вилучити з групи міток %1"
 
-#: AnnotationDialog/ListSelect.cpp:394
+#: AnnotationDialog/ListSelect.cpp:409
 #, kde-format
 msgid "<b>Sorting</b>"
 msgstr "<b>Впорядкування</b>"
 
-#: AnnotationDialog/ListSelect.cpp:400
+#: AnnotationDialog/ListSelect.cpp:415
 #, kde-format
 msgid "Usage"
 msgstr "Використання"
 
-#: AnnotationDialog/ListSelect.cpp:401
+#: AnnotationDialog/ListSelect.cpp:416
 #, kde-format
 msgid "Alphabetical (Flat)"
 msgstr "За абеткою (плоский список)"
 
-#: AnnotationDialog/ListSelect.cpp:402
+#: AnnotationDialog/ListSelect.cpp:417
 #, kde-format
 msgid "Alphabetical (Tree)"
 msgstr "За абеткою (ієрархія)"
 
-#: AnnotationDialog/ListSelect.cpp:427
+#: AnnotationDialog/ListSelect.cpp:442
 #, kde-format
 msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
@@ -656,23 +656,23 @@ msgstr ""
 "вилучення будь-якої інформації про нього з зображення, що містить елемент.</"
 "p>"
 
-#: AnnotationDialog/ListSelect.cpp:431
+#: AnnotationDialog/ListSelect.cpp:446
 #, kde-format
 msgid "Really Delete %1?"
 msgstr "Ви справді бажаєте вилучити %1?"
 
-#: AnnotationDialog/ListSelect.cpp:448
+#: AnnotationDialog/ListSelect.cpp:463
 #, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Перейменування запису"
 
-#: AnnotationDialog/ListSelect.cpp:448
+#: AnnotationDialog/ListSelect.cpp:463
 #, kde-format
 msgid "Enter new name:"
 msgstr "Введіть нову назву:"
 
-#: AnnotationDialog/ListSelect.cpp:453
+#: AnnotationDialog/ListSelect.cpp:469
 #, kde-format
 msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
@@ -682,39 +682,39 @@ msgstr ""
 "операції також змінить назву «%3» кожного з зображень, що у ній містяться.</"
 "p>"
 
-#: AnnotationDialog/ListSelect.cpp:457
+#: AnnotationDialog/ListSelect.cpp:473
 #, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
 msgstr "Перейменувати %1?"
 
-#: AnnotationDialog/ListSelect.cpp:462
+#: AnnotationDialog/ListSelect.cpp:478
 #, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Перейменувати"
 
-#: AnnotationDialog/ListSelect.cpp:497
+#: AnnotationDialog/ListSelect.cpp:513
 #, kde-format
 msgid "New tag group"
 msgstr "Нова група міток"
 
-#: AnnotationDialog/ListSelect.cpp:498
+#: AnnotationDialog/ListSelect.cpp:514
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
 msgstr "Назва нової групи міток, до якої буде додано мітку:"
 
-#: AnnotationDialog/ListSelect.cpp:510
+#: AnnotationDialog/ListSelect.cpp:526
 #, kde-format
 msgid "Add a tag"
 msgstr "Додати мітку"
 
-#: AnnotationDialog/ListSelect.cpp:511
+#: AnnotationDialog/ListSelect.cpp:527
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
 msgstr "Назва мітки, яку буде додано до цієї групи міток:"
 
-#: AnnotationDialog/ListSelect.cpp:765
+#: AnnotationDialog/ListSelect.cpp:781
 #, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
@@ -722,7 +722,7 @@ msgctxt ""
 msgid "%1 (%2-%3)"
 msgstr "%1 (%2-%3)"
 
-#: AnnotationDialog/ListSelect.cpp:778
+#: AnnotationDialog/ListSelect.cpp:794
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
@@ -1226,22 +1226,22 @@ msgstr "1 хвилина"
 msgid "10 Seconds"
 msgstr "10 секунд"
 
-#: DB/Category.cpp:305
+#: DB/Category.cpp:307
 #, kde-format
 msgid "Unable to create folder '%1'."
 msgstr "Не вдалося створити теку «%1»."
 
-#: DB/Category.cpp:305
+#: DB/Category.cpp:307
 #, kde-format
 msgid "Unable to Create Folder"
 msgstr "Не вдалося створити теку"
 
-#: DB/Category.cpp:314
+#: DB/Category.cpp:316
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "Помилка під час збереження зображення «%1»."
 
-#: DB/Category.cpp:314
+#: DB/Category.cpp:316
 #, kde-format
 msgid "Error Saving Image"
 msgstr "Помилка під час збереження зображення"
@@ -5816,13 +5816,13 @@ msgctxt "@title:window"
 msgid "Settings"
 msgstr "Параметри"
 
-#: Settings/TagGroupsPage.cpp:33
+#: Settings/TagGroupsPage.cpp:37
 #, kde-format
 msgctxt "@label"
 msgid "Categories and groups:"
 msgstr "Категорії і групи:"
 
-#: Settings/TagGroupsPage.cpp:42
+#: Settings/TagGroupsPage.cpp:46
 #, kde-format
 msgctxt "@label/rich"
 msgid "<strong>Select a group on the left side to add tags to it</strong>"
@@ -5830,7 +5830,7 @@ msgstr ""
 "<strong>Щоб додати мітки до групи, позначте пункт групи у списку ліворуч.</"
 "strong>"
 
-#: Settings/TagGroupsPage.cpp:53
+#: Settings/TagGroupsPage.cpp:57
 #, kde-format
 msgctxt "@label/rich"
 msgid ""
@@ -5840,67 +5840,67 @@ msgstr ""
 "<strong>У черзі обробки вже є записи щодо дій зі зміни сторінки категорій."
 "<nl>Будь ласка, збережіть зміни, перш ніж працювати з групами міток.</strong>"
 
-#: Settings/TagGroupsPage.cpp:62
+#: Settings/TagGroupsPage.cpp:66
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add group ..."
 msgstr "Додати групу…"
 
-#: Settings/TagGroupsPage.cpp:225
+#: Settings/TagGroupsPage.cpp:229
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename group \"%1\""
 msgstr "Перейменувати групу «%1»"
 
-#: Settings/TagGroupsPage.cpp:227
+#: Settings/TagGroupsPage.cpp:231
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete group \"%1\""
 msgstr "Вилучити групу «%1»"
 
-#: Settings/TagGroupsPage.cpp:306
+#: Settings/TagGroupsPage.cpp:310
 #, kde-format
 msgctxt "@label"
 msgid "Tags in group \"%1\" of category \"%2\""
 msgstr "Мітки у групі «%1» категорії «%2»"
 
-#: Settings/TagGroupsPage.cpp:337
+#: Settings/TagGroupsPage.cpp:341
 #, kde-format
 msgctxt "@title:window"
 msgid "New Group"
 msgstr "Нова група"
 
-#: Settings/TagGroupsPage.cpp:338
+#: Settings/TagGroupsPage.cpp:342
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Group name:"
 msgstr "Назва групи:"
 
-#: Settings/TagGroupsPage.cpp:352
+#: Settings/TagGroupsPage.cpp:357
 #, kde-format
 msgctxt "@info"
 msgid "<p>The group \"%1\" already exists.</p>"
 msgstr "<p>Група з назвою «%1» вже існує.</p>"
 
-#: Settings/TagGroupsPage.cpp:353
+#: Settings/TagGroupsPage.cpp:358
 #, kde-format
 msgctxt "@title:window"
 msgid "Cannot add group"
 msgstr "Не вдалося додати групу"
 
-#: Settings/TagGroupsPage.cpp:430 Settings/TagGroupsPage.cpp:448
+#: Settings/TagGroupsPage.cpp:435 Settings/TagGroupsPage.cpp:454
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename Group"
 msgstr "Перейменування групи"
 
-#: Settings/TagGroupsPage.cpp:431
+#: Settings/TagGroupsPage.cpp:436
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New group name:"
 msgstr "Нова назва групи:"
 
-#: Settings/TagGroupsPage.cpp:443
+#: Settings/TagGroupsPage.cpp:449
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -5910,7 +5910,7 @@ msgstr ""
 "<para>Не вдалося перейменувати групу «%1» на «%2»: у категорії «%3» вже є "
 "група з назвою «%2».</para>"
 
-#: Settings/TagGroupsPage.cpp:504
+#: Settings/TagGroupsPage.cpp:510
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -5922,48 +5922,48 @@ msgstr ""
 "групи буде пересунуто до надкатегорії «%1» («%2»).<nl/>Записи, включені до "
 "підкатегорій, залишаться незмінними.</para>"
 
-#: Settings/TagGroupsPage.cpp:510
+#: Settings/TagGroupsPage.cpp:516
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<para>Really delete group \"%1\"?</para>"
 msgstr "<para>Ви справді бажаєте вилучити групу «%1»?</para>"
 
-#: Settings/TagGroupsPage.cpp:515
+#: Settings/TagGroupsPage.cpp:521
 #, kde-format
 msgctxt "@title:window"
 msgid "Delete Group"
 msgstr "Вилучення групи"
 
-#: Settings/TagGroupsPage.cpp:516 Settings/TagGroupsPage.cpp:762
+#: Settings/TagGroupsPage.cpp:522 Settings/TagGroupsPage.cpp:769
 #, kde-format
 msgid "&Delete"
 msgstr "&Вилучити"
 
-#: Settings/TagGroupsPage.cpp:694
+#: Settings/TagGroupsPage.cpp:700
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename \"%1\""
 msgstr "Перейменувати «%1»"
 
-#: Settings/TagGroupsPage.cpp:696
+#: Settings/TagGroupsPage.cpp:702
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete \"%1\""
 msgstr "Вилучити «%1»"
 
-#: Settings/TagGroupsPage.cpp:707
+#: Settings/TagGroupsPage.cpp:713
 #, kde-format
 msgctxt "@title:window"
 msgid "New Tag Name"
 msgstr "Нова назва мітки"
 
-#: Settings/TagGroupsPage.cpp:708
+#: Settings/TagGroupsPage.cpp:714
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Tag name:"
 msgstr "Назва мітки:"
 
-#: Settings/TagGroupsPage.cpp:757
+#: Settings/TagGroupsPage.cpp:764
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -5975,7 +5975,7 @@ msgstr ""
 "призведе до вилучення будь-якої інформації про нього з зображення, що "
 "містить елемент.</para>"
 
-#: Settings/TagGroupsPage.cpp:761
+#: Settings/TagGroupsPage.cpp:768
 #, kde-format
 msgctxt "@title:window"
 msgid "Really delete %1?"
@@ -6742,27 +6742,27 @@ msgstr ""
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr "Не вдалося налаштувати відтворення відео (не створено віджета)"
 
-#: Viewer/SelectCategoryAndValue.cpp:106
+#: Viewer/SelectCategoryAndValue.cpp:107
 #, kde-format
 msgid "Type name of category and item"
 msgstr "Введіть назву категорії і запису"
 
-#: Viewer/SelectCategoryAndValue.cpp:135
+#: Viewer/SelectCategoryAndValue.cpp:136
 #, kde-format
 msgid "Add New"
 msgstr "Додати нову"
 
-#: Viewer/SelectCategoryAndValue.cpp:188
+#: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Key"
 msgstr "Клавіша"
 
-#: Viewer/SelectCategoryAndValue.cpp:188
+#: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Tag"
 msgstr "Мітка"
 
-#: Viewer/SelectCategoryAndValue.cpp:219
+#: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"

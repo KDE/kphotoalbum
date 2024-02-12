@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-01-07 00:40+0000\n"
+"POT-Creation-Date: 2024-02-12 01:36+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -273,13 +273,13 @@ msgid "Reset layout"
 msgstr "កំណត់​ប្លង់​ឡើង​វិញ​"
 
 #: AnnotationDialog/Dialog.cpp:886 AnnotationDialog/Dialog.cpp:1285
-#: AnnotationDialog/ListSelect.cpp:95
+#: AnnotationDialog/ListSelect.cpp:110
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "តម្រៀប​តាម​លំដាប់​អក្សរ​ក្រម (មែក​ធាង)"
 
 #: AnnotationDialog/Dialog.cpp:890 AnnotationDialog/Dialog.cpp:1289
-#: AnnotationDialog/ListSelect.cpp:101
+#: AnnotationDialog/ListSelect.cpp:116
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
 msgstr "តម្រៀប​តាម​លំដាប់​អក្សរ​ក្រម (ស្មើ)"
@@ -525,34 +525,34 @@ msgctxt "@info:tooltip"
 msgid "Delete image"
 msgstr "លុប​រូបភាព​"
 
-#: AnnotationDialog/ListSelect.cpp:57
+#: AnnotationDialog/ListSelect.cpp:72
 #, fuzzy, kde-format
 #| msgid "Annotate..."
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
 msgstr "ចារ​ពន្យល់​... "
 
-#: AnnotationDialog/ListSelect.cpp:82 DB/search/ImageSearchInfo.cpp:339
+#: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:339
 #, kde-format
 msgid "or"
 msgstr "ឬ"
 
-#: AnnotationDialog/ListSelect.cpp:83 DB/search/ImageSearchInfo.cpp:334
+#: AnnotationDialog/ListSelect.cpp:98 DB/search/ImageSearchInfo.cpp:334
 #, kde-format
 msgid "and"
 msgstr "និង"
 
-#: AnnotationDialog/ListSelect.cpp:107
+#: AnnotationDialog/ListSelect.cpp:122
 #, kde-format
 msgid "Sort by date"
 msgstr "តម្រៀប​តាម​កាលបរិច្ឆេទ​"
 
-#: AnnotationDialog/ListSelect.cpp:113
+#: AnnotationDialog/ListSelect.cpp:128
 #, kde-format
 msgid "Show only selected Ctrl+S"
 msgstr "បង្ហាញ​តែ​បញ្ជា​ (Ctrl)+S ដែល​បាន​ជ្រើស​ប៉ុណ្ណោះ"
 
-#: AnnotationDialog/ListSelect.cpp:162
+#: AnnotationDialog/ListSelect.cpp:177
 #, kde-format
 msgid ""
 "The tag you entered is the tag that is set automatically for newly found, "
@@ -561,76 +561,76 @@ msgid ""
 "selected for this purpose."
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:344
+#: AnnotationDialog/ListSelect.cpp:359
 #, kde-format
 msgid "No Item Selected"
 msgstr "គ្មាន​ធាតុ​ដែល​ត្រូវ​បាន​ជ្រើស​"
 
-#: AnnotationDialog/ListSelect.cpp:348
+#: AnnotationDialog/ListSelect.cpp:363
 #, fuzzy, kde-format
 #| msgid "<b>Sorting</b>"
 msgid "<b>%1</b>"
 msgstr "<b>កំពុង​តម្រៀប​</b>"
 
-#: AnnotationDialog/ListSelect.cpp:354 Settings/CategoryPage.cpp:71
+#: AnnotationDialog/ListSelect.cpp:369 Settings/CategoryPage.cpp:71
 #, kde-format
 msgid "Delete"
 msgstr "លុប​"
 
-#: AnnotationDialog/ListSelect.cpp:355
+#: AnnotationDialog/ListSelect.cpp:370
 #, kde-format
 msgid "Rename..."
 msgstr "ប្ដូរ​ឈ្មោះ​​..."
 
-#: AnnotationDialog/ListSelect.cpp:357
+#: AnnotationDialog/ListSelect.cpp:372
 #, fuzzy, kde-format
 #| msgid "New Group"
 msgid "<b>Tag Groups</b>"
 msgstr "ក្រុម​ថ្មី​"
 
-#: AnnotationDialog/ListSelect.cpp:365
+#: AnnotationDialog/ListSelect.cpp:380
 #, fuzzy, kde-format
 #| msgid "New Group"
 msgid "Tag groups"
 msgstr "ក្រុម​ថ្មី​"
 
-#: AnnotationDialog/ListSelect.cpp:382
+#: AnnotationDialog/ListSelect.cpp:397
 #, kde-format
 msgid "Add this tag to a new tag group..."
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:385
+#: AnnotationDialog/ListSelect.cpp:400
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:391
+#: AnnotationDialog/ListSelect.cpp:406
 #, fuzzy, kde-format
 #| msgid "Really delete group %1?"
 msgid "Remove from tag group %1"
 msgstr "ពិត​ជា​ចង់​លុប​ក្រុម​ %1 ឬ​ ?"
 
-#: AnnotationDialog/ListSelect.cpp:394
+#: AnnotationDialog/ListSelect.cpp:409
 #, kde-format
 msgid "<b>Sorting</b>"
 msgstr "<b>កំពុង​តម្រៀប​</b>"
 
-#: AnnotationDialog/ListSelect.cpp:400
+#: AnnotationDialog/ListSelect.cpp:415
 #, kde-format
 msgid "Usage"
 msgstr "ការប្រើប្រាស់​"
 
-#: AnnotationDialog/ListSelect.cpp:401
+#: AnnotationDialog/ListSelect.cpp:416
 #, kde-format
 msgid "Alphabetical (Flat)"
 msgstr "តាម​លំដាប់​អក្សរ​ក្រម (ស្មើ)"
 
-#: AnnotationDialog/ListSelect.cpp:402
+#: AnnotationDialog/ListSelect.cpp:417
 #, kde-format
 msgid "Alphabetical (Tree)"
 msgstr "តាម​លំដាប់​អក្សរ​ក្រម (មែកធាង)"
 
-#: AnnotationDialog/ListSelect.cpp:427
+#: AnnotationDialog/ListSelect.cpp:442
 #, kde-format
 msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
@@ -639,24 +639,24 @@ msgstr ""
 "<p>តើ​អ្នក​ពិត​ជា​ចង់​លុប​ \"%1\" ឬ ?<br/>ការ​លុប​ធាតុ​ នឹង​យក​ព័ត៌មាន​ណា​មួយ​ដែល​ទាក់​ទង​នឹង​វា​ចេញ​ពី​រូបភាព​"
 "ដែល​មាន​ធាតុ​នេះ ។</p>"
 
-#: AnnotationDialog/ListSelect.cpp:431
+#: AnnotationDialog/ListSelect.cpp:446
 #, kde-format
 msgid "Really Delete %1?"
 msgstr "ពិត​ជា​លុប​ %1 ឬ ?"
 
-#: AnnotationDialog/ListSelect.cpp:448
+#: AnnotationDialog/ListSelect.cpp:463
 #, fuzzy, kde-format
 #| msgid "Rename Item"
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "ប្ដូរ​ឈ្មោះ​ធាតុ​"
 
-#: AnnotationDialog/ListSelect.cpp:448
+#: AnnotationDialog/ListSelect.cpp:463
 #, kde-format
 msgid "Enter new name:"
 msgstr "បញ្ចូល​ឈ្មោះ​ថ្មី ៖"
 
-#: AnnotationDialog/ListSelect.cpp:453
+#: AnnotationDialog/ListSelect.cpp:469
 #, kde-format
 msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
@@ -665,42 +665,42 @@ msgstr ""
 "<p>តើ​អ្នក​ពិត​ជា​ចង់​ប្ដូរ​ឈ្មោះ​ \"%1\" ទៅ​ជា​ \"%2\" ឬ?<br/>ការ​ធ្វើ​ដូច្នេះ​នឹង​ប្ដូរ​ឈ្មោះ​ \"%3\" "
 "នៅ​លើ​រូបភាព​ណាមួយ​ដែល​មានវា ។</p>"
 
-#: AnnotationDialog/ListSelect.cpp:457
+#: AnnotationDialog/ListSelect.cpp:473
 #, fuzzy, kde-format
 #| msgid "Rename..."
 msgctxt "@title"
 msgid "Rename %1?"
 msgstr "ប្ដូរ​ឈ្មោះ​​..."
 
-#: AnnotationDialog/ListSelect.cpp:462
+#: AnnotationDialog/ListSelect.cpp:478
 #, fuzzy, kde-format
 #| msgid "Rename..."
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "ប្ដូរ​ឈ្មោះ​​..."
 
-#: AnnotationDialog/ListSelect.cpp:497
+#: AnnotationDialog/ListSelect.cpp:513
 #, fuzzy, kde-format
 #| msgid "New Group"
 msgid "New tag group"
 msgstr "ក្រុម​ថ្មី​"
 
-#: AnnotationDialog/ListSelect.cpp:498
+#: AnnotationDialog/ListSelect.cpp:514
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:510
+#: AnnotationDialog/ListSelect.cpp:526
 #, kde-format
 msgid "Add a tag"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:511
+#: AnnotationDialog/ListSelect.cpp:527
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:765
+#: AnnotationDialog/ListSelect.cpp:781
 #, kde-format
 msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
@@ -708,7 +708,7 @@ msgctxt ""
 msgid "%1 (%2-%3)"
 msgstr ""
 
-#: AnnotationDialog/ListSelect.cpp:778
+#: AnnotationDialog/ListSelect.cpp:794
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
@@ -1204,24 +1204,24 @@ msgstr "១០​ នាទី​"
 msgid "10 Seconds"
 msgstr "១ វិនាទី"
 
-#: DB/Category.cpp:305
+#: DB/Category.cpp:307
 #, fuzzy, kde-format
 #| msgid "Unable to create directory '%1'."
 msgid "Unable to create folder '%1'."
 msgstr "មិន​អាច​បង្កើត​ថត '%1' ។"
 
-#: DB/Category.cpp:305
+#: DB/Category.cpp:307
 #, fuzzy, kde-format
 #| msgid "Unable to Create Directory"
 msgid "Unable to Create Folder"
 msgstr "មិន​អាច​បង្កើត​ថត"
 
-#: DB/Category.cpp:314
+#: DB/Category.cpp:316
 #, kde-format
 msgid "Error when saving image '%1'."
 msgstr "កំហុស​ពេល​កំពុង​រក្សា​ទុក​រូបភាព '%1' ។"
 
-#: DB/Category.cpp:314
+#: DB/Category.cpp:316
 #, kde-format
 msgid "Error Saving Image"
 msgstr "កំហុស​ពេល​កំពុង​រក្សា​ទុក​រូបភាព"
@@ -5871,20 +5871,20 @@ msgctxt "@title:window"
 msgid "Settings"
 msgstr "ការ​កំណត់"
 
-#: Settings/TagGroupsPage.cpp:33
+#: Settings/TagGroupsPage.cpp:37
 #, fuzzy, kde-format
 #| msgid "Categories"
 msgctxt "@label"
 msgid "Categories and groups:"
 msgstr "ប្រភេទ​"
 
-#: Settings/TagGroupsPage.cpp:42
+#: Settings/TagGroupsPage.cpp:46
 #, kde-format
 msgctxt "@label/rich"
 msgid "<strong>Select a group on the left side to add tags to it</strong>"
 msgstr ""
 
-#: Settings/TagGroupsPage.cpp:53
+#: Settings/TagGroupsPage.cpp:57
 #, kde-format
 msgctxt "@label/rich"
 msgid ""
@@ -5892,74 +5892,74 @@ msgid ""
 "the changes before working on tag groups.</strong>"
 msgstr ""
 
-#: Settings/TagGroupsPage.cpp:62
+#: Settings/TagGroupsPage.cpp:66
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add group ..."
 msgstr ""
 
-#: Settings/TagGroupsPage.cpp:225
+#: Settings/TagGroupsPage.cpp:229
 #, fuzzy, kde-format
 #| msgid "Really delete group %1?"
 msgctxt "@action:inmenu"
 msgid "Rename group \"%1\""
 msgstr "ពិត​ជា​ចង់​លុប​ក្រុម​ %1 ឬ​ ?"
 
-#: Settings/TagGroupsPage.cpp:227
+#: Settings/TagGroupsPage.cpp:231
 #, fuzzy, kde-format
 #| msgid "Delete Group"
 msgctxt "@action:inmenu"
 msgid "Delete group \"%1\""
 msgstr "លុប​ក្រុម​"
 
-#: Settings/TagGroupsPage.cpp:306
+#: Settings/TagGroupsPage.cpp:310
 #, fuzzy, kde-format
 #| msgid "Take item out of category %1"
 msgctxt "@label"
 msgid "Tags in group \"%1\" of category \"%2\""
 msgstr "យក​ធាតុ​ចេញ​ពី​ប្រភេទ %1​"
 
-#: Settings/TagGroupsPage.cpp:337
+#: Settings/TagGroupsPage.cpp:341
 #, fuzzy, kde-format
 #| msgid "New Group"
 msgctxt "@title:window"
 msgid "New Group"
 msgstr "ក្រុម​ថ្មី​"
 
-#: Settings/TagGroupsPage.cpp:338
+#: Settings/TagGroupsPage.cpp:342
 #, fuzzy, kde-format
 #| msgid "Group name:"
 msgctxt "@label:textbox"
 msgid "Group name:"
 msgstr "ឈ្មោះ​ក្រុម​ ៖​"
 
-#: Settings/TagGroupsPage.cpp:352
+#: Settings/TagGroupsPage.cpp:357
 #, kde-format
 msgctxt "@info"
 msgid "<p>The group \"%1\" already exists.</p>"
 msgstr ""
 
-#: Settings/TagGroupsPage.cpp:353
+#: Settings/TagGroupsPage.cpp:358
 #, kde-format
 msgctxt "@title:window"
 msgid "Cannot add group"
 msgstr ""
 
-#: Settings/TagGroupsPage.cpp:430 Settings/TagGroupsPage.cpp:448
+#: Settings/TagGroupsPage.cpp:435 Settings/TagGroupsPage.cpp:454
 #, fuzzy, kde-format
 #| msgid "Delete Group"
 msgctxt "@title:window"
 msgid "Rename Group"
 msgstr "លុប​ក្រុម​"
 
-#: Settings/TagGroupsPage.cpp:431
+#: Settings/TagGroupsPage.cpp:436
 #, fuzzy, kde-format
 #| msgid "Group name:"
 msgctxt "@label:textbox"
 msgid "New group name:"
 msgstr "ឈ្មោះ​ក្រុម​ ៖​"
 
-#: Settings/TagGroupsPage.cpp:443
+#: Settings/TagGroupsPage.cpp:449
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -5967,7 +5967,7 @@ msgid ""
 "category \"%3\"</para>"
 msgstr ""
 
-#: Settings/TagGroupsPage.cpp:504
+#: Settings/TagGroupsPage.cpp:510
 #, kde-kuit-format
 msgctxt "@info"
 msgid ""
@@ -5976,54 +5976,54 @@ msgid ""
 "memberships of the sub-categories will stay intact.</para>"
 msgstr ""
 
-#: Settings/TagGroupsPage.cpp:510
+#: Settings/TagGroupsPage.cpp:516
 #, fuzzy, kde-kuit-format
 #| msgid "<p>Really delete category '%1'?</p>"
 msgctxt "@info"
 msgid "<para>Really delete group \"%1\"?</para>"
 msgstr "<p>ពិត​ជា​ចង់​លុប​ប្រភេទ '%1'?</p>​"
 
-#: Settings/TagGroupsPage.cpp:515
+#: Settings/TagGroupsPage.cpp:521
 #, fuzzy, kde-format
 #| msgid "Delete Group"
 msgctxt "@title:window"
 msgid "Delete Group"
 msgstr "លុប​ក្រុម​"
 
-#: Settings/TagGroupsPage.cpp:516 Settings/TagGroupsPage.cpp:762
+#: Settings/TagGroupsPage.cpp:522 Settings/TagGroupsPage.cpp:769
 #, kde-format
 msgid "&Delete"
 msgstr "លុប​"
 
-#: Settings/TagGroupsPage.cpp:694
+#: Settings/TagGroupsPage.cpp:700
 #, fuzzy, kde-format
 #| msgid "Rename..."
 msgctxt "@action:inmenu"
 msgid "Rename \"%1\""
 msgstr "ប្ដូរ​ឈ្មោះ​​..."
 
-#: Settings/TagGroupsPage.cpp:696
+#: Settings/TagGroupsPage.cpp:702
 #, fuzzy, kde-format
 #| msgid "Delete"
 msgctxt "@action:inmenu"
 msgid "Delete \"%1\""
 msgstr "លុប​"
 
-#: Settings/TagGroupsPage.cpp:707
+#: Settings/TagGroupsPage.cpp:713
 #, fuzzy, kde-format
 #| msgid "New Sub Category Name:"
 msgctxt "@title:window"
 msgid "New Tag Name"
 msgstr "ឈ្មោះ​ប្រភេទ​រង​ថ្មី ៖"
 
-#: Settings/TagGroupsPage.cpp:708
+#: Settings/TagGroupsPage.cpp:714
 #, fuzzy, kde-format
 #| msgid "Group name:"
 msgctxt "@label:textbox"
 msgid "Tag name:"
 msgstr "ឈ្មោះ​ក្រុម​ ៖​"
 
-#: Settings/TagGroupsPage.cpp:757
+#: Settings/TagGroupsPage.cpp:764
 #, fuzzy, kde-kuit-format
 #| msgid ""
 #| "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
@@ -6037,7 +6037,7 @@ msgstr ""
 "<p>តើ​អ្នក​ពិត​ជា​ចង់​លុប​ \"%1\" ឬ ?<br/>ការ​លុប​ធាតុ​ នឹង​យក​ព័ត៌មាន​ណា​មួយ​ដែល​ទាក់​ទង​នឹង​វា​ចេញ​ពី​រូបភាព​"
 "ដែល​មាន​ធាតុ​នេះ ។</p>"
 
-#: Settings/TagGroupsPage.cpp:761
+#: Settings/TagGroupsPage.cpp:768
 #, fuzzy, kde-format
 #| msgid "Really Delete %1?"
 msgctxt "@title:window"
@@ -6756,28 +6756,28 @@ msgstr ""
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""
 
-#: Viewer/SelectCategoryAndValue.cpp:106
+#: Viewer/SelectCategoryAndValue.cpp:107
 #, kde-format
 msgid "Type name of category and item"
 msgstr ""
 
-#: Viewer/SelectCategoryAndValue.cpp:135
+#: Viewer/SelectCategoryAndValue.cpp:136
 #, kde-format
 msgid "Add New"
 msgstr ""
 
-#: Viewer/SelectCategoryAndValue.cpp:188
+#: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Key"
 msgstr ""
 
-#: Viewer/SelectCategoryAndValue.cpp:188
+#: Viewer/SelectCategoryAndValue.cpp:189
 #, fuzzy, kde-format
 #| msgid "Tag:"
 msgid "Tag"
 msgstr "ស្លាក ៖​"
 
-#: Viewer/SelectCategoryAndValue.cpp:219
+#: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"

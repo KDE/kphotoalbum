@@ -52,7 +52,7 @@ DuplicateMatch::DuplicateMatch(const DB::FileNameList &files)
     QVBoxLayout *optionsLayout = new QVBoxLayout(options);
     connect(m_merge, &QCheckBox::toggled, options, &QWidget::setEnabled);
 
-    QLabel *label = new QLabel(i18n("Select target:"));
+    QLabel *label = new QLabel(i18n("Select image to keep:"));
     optionsLayout->addWidget(label);
 
     bool first = true;

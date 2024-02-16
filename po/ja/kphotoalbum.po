@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-12 01:36+0000\n"
+"POT-Creation-Date: 2024-02-16 01:38+0000\n"
 "PO-Revision-Date: 2008-09-24 00:02+0900\n"
 "Last-Translator: Yukiko Bando <ybando@k6.dion.ne.jp>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
@@ -3587,7 +3587,7 @@ msgstr "画像を削除"
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
 #, fuzzy, kde-format
 #| msgid "Select None"
-msgid "Select target:"
+msgid "Select image to keep:"
 msgstr "すべて選択解除"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70

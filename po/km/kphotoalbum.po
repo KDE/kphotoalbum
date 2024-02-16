@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-12 01:36+0000\n"
+"POT-Creation-Date: 2024-02-16 01:38+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -3598,7 +3598,7 @@ msgstr "លុប​រូបភាព​"
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
 #, fuzzy, kde-format
 #| msgid "Select None"
-msgid "Select target:"
+msgid "Select image to keep:"
 msgstr "​មិន​ជ្រើស​អ្វី​ទាំងអស់"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70

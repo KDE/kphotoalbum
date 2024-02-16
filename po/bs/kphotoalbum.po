@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-12 01:36+0000\n"
+"POT-Creation-Date: 2024-02-16 01:38+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -3702,8 +3702,9 @@ msgid "Merge these images"
 msgstr "Spoji ove slike"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
-#, kde-format
-msgid "Select target:"
+#, fuzzy, kde-format
+#| msgid "Select target:"
+msgid "Select image to keep:"
 msgstr "Odaberi cilj:"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70

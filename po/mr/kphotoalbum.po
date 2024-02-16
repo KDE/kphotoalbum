@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-12 01:36+0000\n"
+"POT-Creation-Date: 2024-02-16 01:38+0000\n"
 "PO-Revision-Date: 2013-02-24 11:33+0530\n"
 "Last-Translator: Chetan Khona <chetan@kompkin.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -3259,9 +3259,10 @@ msgid "Merge these images"
 msgstr ""
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
-#, kde-format
-msgid "Select target:"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Delete image"
+msgid "Select image to keep:"
+msgstr "प्रतिमा काढून टाका"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70
 #, kde-format

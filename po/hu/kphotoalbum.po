@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-12 01:36+0000\n"
+"POT-Creation-Date: 2024-02-16 01:38+0000\n"
 "PO-Revision-Date: 2014-12-09 21:03+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -3378,8 +3378,9 @@ msgid "Merge these images"
 msgstr "Ezen képek egyesítése"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
-#, kde-format
-msgid "Select target:"
+#, fuzzy, kde-format
+#| msgid "Select target:"
+msgid "Select image to keep:"
 msgstr "Cél kiválasztása:"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70

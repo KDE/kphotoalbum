@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-12 01:36+0000\n"
+"POT-Creation-Date: 2024-02-16 01:38+0000\n"
 "PO-Revision-Date: 2012-01-16 16:58+0700\n"
 "Last-Translator: Lê Hoàng Phương <herophuong93@gmail.com>\n"
 "Language-Team: Vietnamese <kde-i18n-vi@kde.org>\n"
@@ -3606,7 +3606,7 @@ msgstr "Xoá ảnh"
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
 #, fuzzy, kde-format
 #| msgid "Select None"
-msgid "Select target:"
+msgid "Select image to keep:"
 msgstr "Chọn Không gì"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70

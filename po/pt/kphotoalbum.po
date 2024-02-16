@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-12 01:36+0000\n"
+"POT-Creation-Date: 2024-02-16 01:38+0000\n"
 "PO-Revision-Date: 2023-04-28 12:30+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -3551,8 +3551,9 @@ msgid "Merge these images"
 msgstr "Reunir estas imagens"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
-#, kde-format
-msgid "Select target:"
+#, fuzzy, kde-format
+#| msgid "Select target:"
+msgid "Select image to keep:"
 msgstr "Seleccionar o alvo:"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70

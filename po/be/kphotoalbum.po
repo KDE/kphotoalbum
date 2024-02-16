@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-02-12 01:36+0000\n"
+"POT-Creation-Date: 2024-02-16 01:38+0000\n"
 "PO-Revision-Date: 2008-01-01 23:03+0200\n"
 "Last-Translator: Darafei Praliaskouski <komzpa@gmail.com>\n"
 "Language-Team: Belarusian (Official spelling) <i18n@mova.org>\n"
@@ -3304,7 +3304,7 @@ msgstr "Выдаліць"
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
 #, fuzzy, kde-format
 #| msgid "Select None"
-msgid "Select target:"
+msgid "Select image to keep:"
 msgstr "Скінуць вылучэнне"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70

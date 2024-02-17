@@ -1,9 +1,10 @@
 // SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "DescriptionUtil.h"
+#include "Timespan.h"
 
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
@@ -58,7 +59,7 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
 
     if (Settings::SettingsData::instance()->showDate()) {
         QString dateString = info->date().toString(Settings::SettingsData::instance()->showTime() ? true : false);
-        dateString.append(timeAgo(info));
+        dateString.append(Timespan::ago(info));
         AddNonEmptyInfo(i18n("<b>Date: </b> "), dateString, &result);
     }
 
@@ -128,7 +129,7 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
                         ++link;
                         (*linkMap)[link] = QPair<QString, QString>(categoryName, item);
                         infoText += QString::fromLatin1("<a href=\"%1\">%2</a>").arg(link).arg(item);
-                        infoText += formatAge(category, item, info);
+                        infoText += Timespan::age(category, item, info);
                     } else
                         infoText += item;
                 }

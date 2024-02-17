@@ -18,7 +18,7 @@
 # SPDX-FileCopyrightText: 2018, 2020 Robert Krawitz <rlk@alum.mit.edu>
 # SPDX-FileCopyrightText: 2020 Wes Hardaker <kpa@capturedonearth.com>
 # SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-# SPDX-FileCopyrightText: 2014-2023 Tobias Leupold <tl at stonemx dot de>
+# SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl at stonemx dot de>
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
@@ -337,6 +337,8 @@ set(libUtilities_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ImageUtil.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/FastDateTime.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/FastDateTime.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Timespan.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Timespan.h"
     )
 
 set(libMainWindow_SRCS

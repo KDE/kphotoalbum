@@ -2,8 +2,8 @@
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#ifndef TEXTUTIL_H
-#define TEXTUTIL_H
+#ifndef DESCRIPTIONUTIL_H
+#define DESCRIPTIONUTIL_H
 
 // Local includes
 #include "DB/ImageInfoPtr.h"
@@ -17,6 +17,6 @@ namespace Utilities
 QString createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString, QString>> *);
 }
 
-#endif /* TEXTUTIL_H */
+#endif // DESCRIPTIONUTIL_H
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

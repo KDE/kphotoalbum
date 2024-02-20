@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -83,13 +83,13 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
     if (Settings::SettingsData::instance()->showRating()) {
         if (info->rating() != -1) {
             if (!result.isEmpty())
-                result += QString::fromLatin1("<br/>");
+                result += QLatin1String("<br/>");
             QUrl rating;
-            rating.setScheme(QString::fromLatin1("kratingwidget"));
+            rating.setScheme(QLatin1String("kratingwidget"));
             // we don't use the host part, but if we don't set it, we can't use port:
-            rating.setHost(QString::fromLatin1("int"));
+            rating.setHost(QLatin1String("int"));
             rating.setPort(qMin(qMax(static_cast<short int>(0), info->rating()), static_cast<short int>(10)));
-            result += QString::fromLatin1("<img src=\"%1\"/>").arg(rating.toString(QUrl::None));
+            result += QLatin1String("<img src=\"%1\"/>").arg(rating.toString(QUrl::None));
         }
     }
 
@@ -111,19 +111,19 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
             }
 
             if (!items.empty()) {
-                QString title = QString::fromUtf8("<b>%1: </b> ").arg(category->name());
+                QString title = QLatin1String("<b>%1: </b> ").arg(category->name());
                 QString infoText;
                 bool first = true;
                 for (const QString &item : qAsConst(items)) {
                     if (first)
                         first = false;
                     else
-                        infoText += QString::fromLatin1(", ");
+                        infoText += QLatin1String(", ");
 
                     if (linkMap) {
                         ++link;
                         (*linkMap)[link] = QPair<QString, QString>(categoryName, item);
-                        infoText += QString::fromLatin1("<a href=\"%1\">%2</a>").arg(link).arg(item);
+                        infoText += QLatin1String("<a href=\"%1\">%2</a>").arg(link).arg(item);
                         infoText += Timespan::age(category, item, info);
                     } else
                         infoText += item;
@@ -149,20 +149,20 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
         ExifMap exifMap = Exif::Info::instance()->infoForViewer(info->fileName(), Settings::SettingsData::instance()->iptcCharset());
 
         for (ExifMapIterator exifIt = exifMap.constBegin(); exifIt != exifMap.constEnd(); ++exifIt) {
-            if (exifIt.key().startsWith(QString::fromLatin1("Exif.")))
+            if (exifIt.key().startsWith(QLatin1String("Exif.")))
                 for (QStringList::const_iterator valuesIt = exifIt.value().constBegin(); valuesIt != exifIt.value().constEnd(); ++valuesIt) {
                     QString exifName = exifIt.key().split(QChar::fromLatin1('.')).last();
-                    AddNonEmptyInfo(QString::fromLatin1("<b>%1: </b> ").arg(exifName),
+                    AddNonEmptyInfo(QLatin1String("<b>%1: </b> ").arg(exifName),
                                     *valuesIt, &exifText);
                 }
         }
 
         QString iptcText;
         for (ExifMapIterator exifIt = exifMap.constBegin(); exifIt != exifMap.constEnd(); ++exifIt) {
-            if (!exifIt.key().startsWith(QString::fromLatin1("Exif.")))
+            if (!exifIt.key().startsWith(QLatin1String("Exif.")))
                 for (QStringList::const_iterator valuesIt = exifIt.value().constBegin(); valuesIt != exifIt.value().constEnd(); ++valuesIt) {
                     QString iptcName = exifIt.key().split(QChar::fromLatin1('.')).last();
-                    AddNonEmptyInfo(QString::fromLatin1("<b>%1: </b> ").arg(iptcName),
+                    AddNonEmptyInfo(QLatin1String("<b>%1: </b> ").arg(iptcName),
                                     *valuesIt, &iptcText);
                 }
         }
@@ -171,12 +171,12 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
             if (exifText.isEmpty())
                 exifText = iptcText;
             else
-                exifText += QString::fromLatin1("<hr>") + iptcText;
+                exifText += QLatin1String("<hr/>") + iptcText;
         }
     }
 
     if (!result.isEmpty() && !exifText.isEmpty())
-        result += QString::fromLatin1("<hr>");
+        result += QLatin1String("<hr/>");
     result += exifText;
 
     return result;

@@ -82,8 +82,9 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
 
     if (Settings::SettingsData::instance()->showRating()) {
         if (info->rating() != -1) {
-            if (!result.isEmpty())
+            if (!result.isEmpty()) {
                 result += QLatin1String("<br/>");
+            }
             QUrl rating;
             rating.setScheme(QLatin1String("kratingwidget"));
             // we don't use the host part, but if we don't set it, we can't use port:
@@ -115,18 +116,20 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
                 QString infoText;
                 bool first = true;
                 for (const QString &item : qAsConst(items)) {
-                    if (first)
+                    if (first) {
                         first = false;
-                    else
+                    } else {
                         infoText += QLatin1String(", ");
+                    }
 
                     if (linkMap) {
                         ++link;
                         (*linkMap)[link] = QPair<QString, QString>(categoryName, item);
                         infoText += QLatin1String("<a href=\"%1\">%2</a>").arg(link).arg(item);
                         infoText += Timespan::age(category, item, info);
-                    } else
+                    } else {
                         infoText += item;
+                    }
                 }
                 AddNonEmptyInfo(title, infoText, &result);
             }
@@ -149,34 +152,38 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
         ExifMap exifMap = Exif::Info::instance()->infoForViewer(info->fileName(), Settings::SettingsData::instance()->iptcCharset());
 
         for (ExifMapIterator exifIt = exifMap.constBegin(); exifIt != exifMap.constEnd(); ++exifIt) {
-            if (exifIt.key().startsWith(QLatin1String("Exif.")))
+            if (exifIt.key().startsWith(QLatin1String("Exif."))) {
                 for (QStringList::const_iterator valuesIt = exifIt.value().constBegin(); valuesIt != exifIt.value().constEnd(); ++valuesIt) {
                     QString exifName = exifIt.key().split(QChar::fromLatin1('.')).last();
                     AddNonEmptyInfo(QLatin1String("<b>%1: </b> ").arg(exifName),
                                     *valuesIt, &exifText);
                 }
+            }
         }
 
         QString iptcText;
         for (ExifMapIterator exifIt = exifMap.constBegin(); exifIt != exifMap.constEnd(); ++exifIt) {
-            if (!exifIt.key().startsWith(QLatin1String("Exif.")))
+            if (!exifIt.key().startsWith(QLatin1String("Exif."))) {
                 for (QStringList::const_iterator valuesIt = exifIt.value().constBegin(); valuesIt != exifIt.value().constEnd(); ++valuesIt) {
                     QString iptcName = exifIt.key().split(QChar::fromLatin1('.')).last();
                     AddNonEmptyInfo(QLatin1String("<b>%1: </b> ").arg(iptcName),
                                     *valuesIt, &iptcText);
                 }
+            }
         }
 
         if (!iptcText.isEmpty()) {
-            if (exifText.isEmpty())
+            if (exifText.isEmpty()) {
                 exifText = iptcText;
-            else
+            } else {
                 exifText += QLatin1String("<hr/>") + iptcText;
+            }
         }
     }
 
-    if (!result.isEmpty() && !exifText.isEmpty())
+    if (!result.isEmpty() && !exifText.isEmpty()) {
         result += QLatin1String("<hr/>");
+    }
     result += exifText;
 
     return result;

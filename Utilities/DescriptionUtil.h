@@ -6,7 +6,6 @@
 #define TEXTUTIL_H
 
 // Local includes
-#include "DB/CategoryPtr.h"
 #include "DB/ImageInfoPtr.h"
 
 // Qt includes

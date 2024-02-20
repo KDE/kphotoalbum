@@ -17,11 +17,6 @@
 #include <QTextCodec>
 #include <QUrl>
 
-namespace
-{
-const QLatin1String LINE_BREAK("<br/>");
-}
-
 /**
  * Add a line label + info text to the result text if info is not empty.
  * If the result already contains something, a HTML newline is added first.
@@ -33,7 +28,7 @@ static void AddNonEmptyInfo(const QString &label, const QString &infoText, QStri
         return;
     }
     if (!result->isEmpty()) {
-        *result += LINE_BREAK;
+        *result += QLatin1String("<br/>");
     }
     result->append(label).append(infoText);
 }

@@ -28,12 +28,18 @@ public:
      */
     QCommandLineParser *parser() const;
 
+    /**
+     * @brief dbFile
+     * @return the XML database file specified on the command line, if any.
+     */
     QUrl dbFile() const;
+
     /**
      * @brief demoMode
      * @return true, if demo mode is set.
      */
     bool demoMode() const;
+
     /**
      * @brief importFile
      * @return the QUrl of the import file, or an empty QUrl, if no import file is set.

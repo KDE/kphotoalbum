@@ -9,6 +9,7 @@
 #include <KLocalizedString>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
+#include <QFileInfo>
 
 MainWindow::Options *MainWindow::Options::s_instance = nullptr;
 
@@ -67,14 +68,30 @@ QCommandLineParser *MainWindow::Options::parser() const
 
 QUrl MainWindow::Options::dbFile() const
 {
-    QUrl db;
+    QString dbFile;
+
     if (d->parser.isSet(d->dbFile)) {
-        db = QUrl::fromLocalFile(d->parser.value(d->dbFile));
+        dbFile = d->parser.value(d->dbFile);
     } else if (d->parser.isSet(d->configFile)) {
         // support for legacy option
-        db = QUrl::fromLocalFile(d->parser.value(d->configFile));
+        dbFile = d->parser.value(d->configFile);
     }
-    return db;
+
+    if (!dbFile.isEmpty()) {
+        QFileInfo fi(dbFile);
+
+        // Did the user passed a directory on the command line?
+        if (fi.isDir()) {
+            QString slash = QString::fromLatin1("/");
+
+            if (!dbFile.endsWith(slash))
+                dbFile += slash;
+
+            dbFile += QString::fromLatin1("index.xml");
+        }
+    }
+
+    return QUrl::fromLocalFile(dbFile);
 }
 
 bool MainWindow::Options::demoMode() const

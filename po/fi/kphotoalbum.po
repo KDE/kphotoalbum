@@ -5,7 +5,7 @@
 # Author: Lliehu
 # Teemu Rytilahti <teemu.rytilahti@kde-fi.org>, 2003, 2004.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2016, 2019.
-# Tommi Nieminen <translator@legisign.org>, 2012, 2015, 2018, 2019, 2020, 2021, 2022, 2023.
+# Tommi Nieminen <translator@legisign.org>, 2012, 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # Risto H. Kurppa <risto@kurppa.fi>, 2012.
 # Miika Turkia <miika.turkia@gmail.com>, 2012.
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-16 01:38+0000\n"
-"PO-Revision-Date: 2023-11-19 19:22+0200\n"
+"PO-Revision-Date: 2024-02-14 18:49+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -2869,10 +2869,9 @@ msgstr ""
 "Työkalu KPhotoAlbumin pienoiskuvavälimuistin tarkasteluun ja muokkaukseen"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
-msgstr "Tekijänoikeudet © 2003–2023 KPhotoAlbumin kehitystyöryhmä"
+msgstr "Tekijänoikeudet © 2020–2024 KPhotoAlbumin kehitystyöryhmä"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3213,10 +3212,9 @@ msgid "KDE Photo Album"
 msgstr "KDE:n valokuva-albumi"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr "Tekijänoikeudet © 2003–2023 KPhotoAlbumin kehitystyöryhmä"
+msgstr "Tekijänoikeudet © 2003–2024 KPhotoAlbumin kehitystyöryhmä"
 
 #: main.cpp:110
 #, kde-format

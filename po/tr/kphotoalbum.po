@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-16 01:38+0000\n"
-"PO-Revision-Date: 2024-02-17 13:48+0300\n"
+"PO-Revision-Date: 2024-03-01 16:09+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.01.95\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -5143,7 +5143,7 @@ msgstr "Eğer eşleşen bir JPEG/TIFF dosyası varsa RAW dosyalarını okuma"
 #: Settings/FileVersionDetectionPage.cpp:49
 #, kde-format
 msgid "Directories to exclude from new file search:"
-msgstr "Yeni dosya ararken dışarıda tutulacak dizinler:"
+msgstr "Yeni dosya ararken dışlanacak dizinler:"
 
 #: Settings/FileVersionDetectionPage.cpp:56
 #, kde-format
@@ -5266,7 +5266,7 @@ msgid ""
 msgstr ""
 "<p>K Fotoğraf Albümü, yeni dosyalar arar ve <i>değiştirilmiş dosya arama "
 "düzenli ifadesi</i> ile eşleşen bir dosya bulursa görselin özgün bir "
-"sürümünün mevcut olabileceği varsayılır. Normal ifade, <i>özgün dosya "
+"sürümünün var olabileceği varsayılır. Düzenli ifade, <i>özgün dosya "
 "değiştirme metni</i> ile değiştirilir ve bu dosya varsa tüm ilişkili üst "
 "veri (kategori bilgileri, derecelendirmeler vb.) kopyalanır veya özgün "
 "dosyadan yenisine taşınır.</p>"

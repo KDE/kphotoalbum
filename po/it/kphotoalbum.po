@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-16 01:38+0000\n"
-"PO-Revision-Date: 2024-01-02 22:55+0100\n"
+"PO-Revision-Date: 2024-02-29 22:14+0100\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3517,10 +3517,9 @@ msgid "Merge these images"
 msgstr "Fondi queste immagini"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select image to keep:"
-msgstr "Seleziona destinazione:"
+msgstr "Seleziona immagine da mantenere:"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70
 #, kde-format

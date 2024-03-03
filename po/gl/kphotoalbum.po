@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-02-16 01:38+0000\n"
-"PO-Revision-Date: 2024-02-17 06:53+0100\n"
+"PO-Revision-Date: 2024-03-02 21:21+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -580,7 +580,7 @@ msgstr ""
 "A etiqueta que inseriu é a que se define automaticamente para as imaxes que "
 "acaba de atopar sen etiquetas (consulte <interface>Configuración|Configurar "
 "KPhotoAlbum…|Categorías|Imaxes sen etiquetar</interface>). Non aparecerá "
-"aquí metres estea configurada con ese porpósito."
+"aquí mentres estea configurada con ese propósito."
 
 #: AnnotationDialog/ListSelect.cpp:359
 #, kde-format
@@ -2976,7 +2976,7 @@ msgstr "Henner Zeller"
 #, kde-format
 msgctxt "@info:shell"
 msgid "The folder containing the .thumbnail folder."
-msgstr "O cartafol que contén o cartafol «.thumbnails»."
+msgstr "O cartafol que contén o cartafol «.thumbnail»."
 
 #: kpa-thumbnailtool/main.cpp:71
 #, kde-format
@@ -3410,7 +3410,7 @@ msgstr " segundos"
 #: MainWindow/AutoStackImages.cpp:82
 #, kde-format
 msgid "AutoStacking Options"
-msgstr "Opcións de apilamento automático"
+msgstr "Opcións de arrimar automaticamente"
 
 #: MainWindow/AutoStackImages.cpp:86
 #, kde-format
@@ -4222,7 +4222,7 @@ msgstr "Produciuse un erro descoñecido; fallou a creación da meda."
 #: MainWindow/Window.cpp:411
 #, kde-format
 msgid "Stacking Error"
-msgstr "Erro de apilamento"
+msgstr "Erro de arrimar"
 
 #: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
 #: MainWindow/Window.cpp:1333 MainWindow/Window.cpp:1430
@@ -4831,7 +4831,7 @@ msgstr "Enderezo do dispositivo Android: "
 #: RemoteControl/Server.cpp:32
 #, kde-format
 msgid "Unable to bind to socket"
-msgstr "Non é posíbel asociar co sócket"
+msgstr "Non é posíbel asociar coa toma"
 
 #: RemoteControl/Server.cpp:33
 #, kde-format
@@ -4875,7 +4875,7 @@ msgid ""
 "Set the date of birth for items (say people) here, and then see their age "
 "when viewing the images."
 msgstr ""
-"Defini a data de nacemento destes elementos (é dicir, persoas) para poder "
+"Definir a data de nacemento destes elementos (é dicir, persoas) para poder "
 "ver a súa idade ao ver as imaxes."
 
 #: Settings/BirthdayPage.cpp:156
@@ -6015,7 +6015,7 @@ msgstr ""
 "cambie o tamaño das miniaturas, KPhotoAlbum non quedará conxelado por moitas "
 "imaxes que teña.</p> <p>Se non marca esta opción, KPhotoAlbum construirá "
 "sempre miniaturas para todas as imaxes o antes posíbel. Isto significa que "
-"cando atope novas imaxes, KPhotoAlbum contruirá miniaturas para elas "
+"cando atope novas imaxes, KPhotoAlbum construirá miniaturas para elas "
 "inmediatamente e non tardará un anaco en amosalas máis tarde cando vostede "
 "navegue polas imaxes.</p>"
 

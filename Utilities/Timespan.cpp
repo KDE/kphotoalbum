@@ -4,7 +4,9 @@
 
 // Local includes
 #include "Timespan.h"
-#include "DB/ImageDB.h"
+
+#include <DB/Category.h>
+#include <DB/ImageInfo.h>
 
 // KDE includes
 #include <KLocalizedString>

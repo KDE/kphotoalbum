@@ -21,18 +21,28 @@ Timespan::DateDifference Timespan::dateDifference(const QDate &date, const QDate
         return dateDifference(reference, date);
     }
 
+    int dateDay = date.day();
+    if (date.month() == 2 && dateDay == 29
+        && !QDate::isLeapYear(reference.year())) {
+        // If we calculate the timespan to a February 29 for a non-leap year, we use February 28
+        // as the reference (the last day in February). This will also make birthdays for people
+        // born on February 29 being calculated correctly (February 28 -- the last day in
+        // February -- for non-leap years)
+        dateDay = 28;
+    }
+
     int years = reference.year() - date.year();
     int months = reference.month() - date.month();
     if (reference.month() < date.month()
-        || ((reference.month() == date.month()) && (reference.day() < date.day()))) {
+        || ((reference.month() == date.month()) && (reference.day() < dateDay))) {
         years--;
         months += 12;
     }
-    if (reference.day() < date.day()) {
+    if (reference.day() < dateDay) {
         months--;
     }
 
-    int remainderMonth = reference.month() - (reference.day() < date.day());
+    int remainderMonth = reference.month() - (reference.day() < dateDay);
     int remainderYear = reference.year();
     if (remainderMonth == 0) {
         remainderMonth = 12;
@@ -40,7 +50,7 @@ Timespan::DateDifference Timespan::dateDifference(const QDate &date, const QDate
     }
 
     const auto daysOfRemainderMonth = QDate(remainderYear, remainderMonth, 1).daysInMonth();
-    const auto remainderDay = date.day() > daysOfRemainderMonth ? daysOfRemainderMonth : date.day();
+    const auto remainderDay = dateDay > daysOfRemainderMonth ? daysOfRemainderMonth : dateDay;
 
     int days = QDate(remainderYear, remainderMonth, remainderDay).daysTo(reference);
 
@@ -68,18 +78,15 @@ QString Timespan::age(DB::CategoryPtr category, const QString &item, DB::ImageIn
 
     } else if (dateStart < birth && dateEnd >= birth) {
         // At least the end date is after the person's birth
-        auto maxAge = dateDifference(birth, dateEnd);
-        correctBornOnFebruary29(birth, dateEnd, maxAge);
+        const auto maxAge = dateDifference(birth, dateEnd);
         return i18nc("Like \"up to 6 years\" old",
                      " (up to %1)",
                      formatAge(maxAge));
     }
 
     // The photo was taken after the person's birth
-    auto minAge = dateDifference(birth, dateStart);
-    correctBornOnFebruary29(birth, dateStart, minAge);
-    auto maxAge = dateDifference(birth, dateEnd);
-    correctBornOnFebruary29(birth, dateEnd, maxAge);
+    const auto minAge = dateDifference(birth, dateStart);
+    const auto maxAge = dateDifference(birth, dateEnd);
 
     if (minAge == maxAge) {
         return i18nc("Like \"6 years\" old",
@@ -87,20 +94,6 @@ QString Timespan::age(DB::CategoryPtr category, const QString &item, DB::ImageIn
     } else {
         return i18nc("Like \"6 years to 7 years\" old",
                      " (%1 to %2)", formatAge(minAge), formatAge(maxAge));
-    }
-}
-
-void Timespan::correctBornOnFebruary29(const QDate &birth, const QDate &date,
-                                       Timespan::DateDifference &difference)
-{
-    // We have to handle one special case: If person's birth date is on February 29, the
-    // birthday in non leap years is on February 28 (not, as commonly thought, on March 1).
-    if (birth.month() == 2 && birth.day() == 29
-        && !QDate::isLeapYear(date.year())
-        && date.month() == 2 && date.day() == 28) {
-        difference.years++;
-        difference.months = 0;
-        difference.days = 0;
     }
 }
 
@@ -131,8 +124,7 @@ QString Timespan::formatAge(const Timespan::DateDifference &age)
         }
 
     } else {
-        // For persons at least three years old, we return the age in (full) years, respecting
-        // the "born on February 29" special case handled by correctBornOnFebruary29().
+        // For persons at least three years old, we return the age in (full) years
         return QString::number(age.years);
     }
 }
@@ -152,8 +144,8 @@ QString Timespan::ago(const DB::ImageInfoPtr info)
         return QString();
     }
 
-    const auto minAgo = dateDifference(today, dateStart);
-    const auto maxAgo = dateDifference(today, dateEnd);
+    const auto minAgo = dateDifference(dateStart, today);
+    const auto maxAgo = dateDifference(dateEnd, today);
 
     if (minAgo == maxAgo) {
         if (minAgo.allDays == 0) {

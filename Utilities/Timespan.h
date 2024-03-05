@@ -46,8 +46,6 @@ struct DateDifference {
 DateDifference dateDifference(const QDate &date, const QDate &reference);
 
 QString age(DB::CategoryPtr category, const QString &item, DB::ImageInfoPtr info);
-void correctBornOnFebruary29(const QDate &birth, const QDate &date,
-                             Timespan::DateDifference &difference);
 QString formatAge(const DateDifference &age);
 
 QString ago(const DB::ImageInfoPtr info);

@@ -9,7 +9,9 @@
 #include <KLocalizedString>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
+#include <QDir>
 #include <QFileInfo>
+#include <iostream>
 
 MainWindow::Options *MainWindow::Options::s_instance = nullptr;
 
@@ -88,6 +90,18 @@ QUrl MainWindow::Options::dbFile() const
                 dbFile += slash;
 
             dbFile += QString::fromLatin1("index.xml");
+        } else if (!fi.isFile()) {
+            // Allow an non-existant index.xml if the parent directory exists
+            // (KPhotoAlbum will offer to create the index.xml).
+            if ((fi.fileName().toStdString() != "index.xml") || !fi.dir().exists()) {
+                std::cerr << "No KPhotoAlbum index.xml database file was found at "
+                          << dbFile.toStdString()
+                          << "."
+                          << std::endl
+                          << "Please specify an image directory or an existing index.xml file."
+                          << std::endl;
+                exit(1);
+            }
         }
     }
 

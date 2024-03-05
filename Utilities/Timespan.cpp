@@ -25,9 +25,9 @@ Timespan::DateDifference Timespan::dateDifference(const QDate &date, const QDate
     if (date.month() == 2 && dateDay == 29
         && !QDate::isLeapYear(reference.year())) {
         // If we calculate the timespan to a February 29 for a non-leap year, we use February 28
-        // as the reference (the last day in February). This will also make birthdays for people
-        // born on February 29 being calculated correctly (February 28 -- the last day in
-        // February -- for non-leap years)
+        // instead (the last day in February). This will also make birthdays for people born on
+        // February 29 being calculated correctly (February 28, the last day in February, for
+        // non-leap years)
         dateDay = 28;
     }
 

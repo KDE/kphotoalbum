@@ -14,6 +14,8 @@ include:
     QT_QPA_PLATFORM: offscreen
     LANG: C.UTF-8
   interruptible: true
+  tags:
+    - Linux
   before_script:
     - >-
       apt-get -qq update && apt-get install -y eatmydata && eatmydata apt-get install -y --no-install-recommends make cmake extra-cmake-modules gettext

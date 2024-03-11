@@ -27,18 +27,18 @@ class ImagePreviewWidget : public QWidget
 {
     Q_OBJECT
 public:
-    ImagePreviewWidget(KActionCollection *actions);
+    ImagePreviewWidget(KActionCollection *actions, const QList<DB::ImageInfo> *imageList);
     void rotate(int angle);
     void setImage(const DB::ImageInfo &info);
     void setImage(const QString &fileName);
     void setImage(const int index);
-    void configure(QList<DB::ImageInfo> *imageList, bool singleEdit);
+    void configure(bool singleEdit);
     /**
      * @brief reconfigure configures the ImagePreviewWidget, leaving the edit mode as-is.
      * @param imageList the new list of images
      * @param index the index of the currently displayed image
      */
-    void reconfigure(QList<DB::ImageInfo> *imageList, int index);
+    void reconfigure(int index);
     int angle() const;
     void anticipate(DB::ImageInfo &info1);
     const QString &lastImage();
@@ -78,6 +78,10 @@ private: // Functions
     void toggleFullscreenPreview();
 
 private: // Variables
+    bool m_singleEdit = false;
+    KActionCollection *m_actions;
+    const QList<DB::ImageInfo> *m_imageList;
+
     ImagePreview *m_preview = nullptr;
     QPushButton *m_prevBut = nullptr;
     QPushButton *m_nextBut = nullptr;
@@ -87,13 +91,10 @@ private: // Variables
     QPushButton *m_delBut = nullptr;
     QPushButton *m_copyPreviousBut = nullptr;
     QPushButton *m_toggleAreasBut = nullptr;
-    QList<DB::ImageInfo> *m_imageList = nullptr;
     int m_current = -1;
-    bool m_singleEdit = false;
     QLabel *m_defaultAreaCategoryLabel = nullptr;
     QComboBox *m_defaultAreaCategory = nullptr;
     QWidget *m_controlWidget = nullptr;
-    KActionCollection *m_actions = nullptr;
 };
 }
 

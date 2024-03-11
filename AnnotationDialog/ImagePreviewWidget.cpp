@@ -25,10 +25,11 @@
 
 using namespace AnnotationDialog;
 
-ImagePreviewWidget::ImagePreviewWidget(KActionCollection *actions)
+ImagePreviewWidget::ImagePreviewWidget(KActionCollection *actions, const QList<DB::ImageInfo> *imageList)
     : QWidget()
     , m_singleEdit(false)
     , m_actions(actions)
+    , m_imageList(imageList)
 {
     Q_ASSERT(actions);
     QVBoxLayout *layout = new QVBoxLayout(this);
@@ -148,9 +149,8 @@ void ImagePreviewWidget::anticipate(DB::ImageInfo &info1)
     m_preview->anticipate(info1);
 }
 
-void ImagePreviewWidget::configure(QList<DB::ImageInfo> *imageList, bool singleEdit)
+void ImagePreviewWidget::configure(bool singleEdit)
 {
-    m_imageList = imageList;
     m_current = 0;
     setImage(m_imageList->at(m_current));
     m_singleEdit = singleEdit;
@@ -161,9 +161,8 @@ void ImagePreviewWidget::configure(QList<DB::ImageInfo> *imageList, bool singleE
     m_rotateRight->setEnabled(m_singleEdit);
 }
 
-void ImagePreviewWidget::reconfigure(QList<DB::ImageInfo> *imageList, int index)
+void ImagePreviewWidget::reconfigure(int index)
 {
-    m_imageList = imageList;
     if (index != -1) {
         m_current = index;
     } else {

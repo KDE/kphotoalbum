@@ -129,7 +129,10 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     // -------------------------------------------------- Dock widgets
     m_generalDock = createDock(i18n("Label and Dates"), QString::fromLatin1("Label and Dates"), Qt::TopDockWidgetArea, createDateWidget(shortCutManager));
 
-    m_previewDock = createDock(i18n("Image Preview"), QString::fromLatin1("Image Preview"), Qt::TopDockWidgetArea, createPreviewWidget());
+    m_preview = new ImagePreviewWidget(m_actions, &m_editList);
+    connect(m_preview, &ImagePreviewWidget::togglePreview, this, &Dialog::togglePreview);
+
+    m_previewDock = createDock(i18n("Image Preview"), QString::fromLatin1("Image Preview"), Qt::TopDockWidgetArea, m_preview);
 
     m_description = new DescriptionEdit(this);
     m_description->setWhatsThis(i18nc("@info:whatsthis",
@@ -423,13 +426,6 @@ QWidget *AnnotationDialog::Dialog::createDateWidget(ShortCutManager &shortCutMan
     lay2->addStretch(1);
 
     return top;
-}
-
-QWidget *AnnotationDialog::Dialog::createPreviewWidget()
-{
-    m_preview = new ImagePreviewWidget(m_actions);
-    connect(m_preview, &ImagePreviewWidget::togglePreview, this, &Dialog::togglePreview);
-    return m_preview;
 }
 
 void AnnotationDialog::Dialog::slotRevert()
@@ -735,10 +731,10 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
 
     if (oneAtATime) {
         m_current = 0;
-        m_preview->configure(&m_editList, true);
+        m_preview->configure(true);
         load();
     } else {
-        m_preview->configure(&m_editList, false);
+        m_preview->configure(false);
         m_preview->canCreateAreas(false);
         m_startDate->setDate(QDate());
         m_endDate->setDate(QDate());
@@ -1720,7 +1716,7 @@ void AnnotationDialog::Dialog::slotDiscardFiles(const DB::FileNameList &files)
         return;
     }
 
-    m_preview->reconfigure(&m_editList, m_current);
+    m_preview->reconfigure(m_current);
     load();
 #ifdef HAVE_MARBLE
     // trigger repopulating the map

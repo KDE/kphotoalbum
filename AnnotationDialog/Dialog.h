@@ -10,7 +10,7 @@
 // SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
 // SPDX-FileCopyrightText: 2014 David Edmundson <kde@davidedmundson.co.uk>
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2017-2020 Robert Krawitz <rlk@alum.mit.edu>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
@@ -151,7 +151,6 @@ Q_SIGNALS:
 protected:
     QDockWidget *createDock(const QString &title, const QString &name, Qt::DockWidgetArea location, QWidget *widget);
     QWidget *createDateWidget(ShortCutManager &shortCutManager);
-    QWidget *createPreviewWidget();
     ListSelect *createListSel(const DB::CategoryPtr &category);
 
     void load();

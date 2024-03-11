@@ -29,7 +29,7 @@ public:
     void setImage(const DB::ImageInfo &info);
     void setImage(const QString &fileName);
     int angle() const;
-    void anticipate(DB::ImageInfo &info1);
+    void anticipate(const DB::ImageInfo &info1);
     void pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image) override;
     QRect areaPreviewToActual(QRect area) const;
     QRect minMaxAreaPreview() const;

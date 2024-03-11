@@ -177,7 +177,7 @@ void ImagePreview::pixmapLoaded(ImageManager::ImageRequest *request, const QImag
     }
 }
 
-void ImagePreview::anticipate(DB::ImageInfo &info1)
+void ImagePreview::anticipate(const DB::ImageInfo &info1)
 {
     // We cannot call m_preloader.preloadImage right here:
     // this function is called before reload(), so if we preload here,

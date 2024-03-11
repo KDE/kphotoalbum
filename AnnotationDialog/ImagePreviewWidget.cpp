@@ -164,7 +164,24 @@ void ImagePreviewWidget::configure(QList<DB::ImageInfo> *imageList, bool singleE
 void ImagePreviewWidget::reconfigure(QList<DB::ImageInfo> *imageList, int index)
 {
     m_imageList = imageList;
-    m_current = index;
+    if (index != -1) {
+        m_current = index;
+    } else {
+        // If multiple images are annotated at once, index is always -1.
+        // Try to find the currently showed image in this case, or fall back on another one.
+        bool found = false;
+        const auto currentFileName = m_preview->currentInfo().fileName().absolute();
+        for (int i = 0; i < m_imageList->count(); i++) {
+            if (m_imageList->at(i).fileName().absolute() == currentFileName) {
+                found = true;
+                m_current = i;
+                break;
+            }
+            if (!found && m_current == m_imageList->count()) {
+                m_current = m_imageList->count() - 1;
+            }
+        }
+    }
     setImage(m_imageList->at(m_current));
 }
 

@@ -20,6 +20,11 @@ class QPushButton;
 class QComboBox;
 class KActionCollection;
 
+namespace DB
+{
+class FileNameList;
+}
+
 namespace AnnotationDialog
 {
 
@@ -33,12 +38,7 @@ public:
     void setImage(const QString &fileName);
     void setImage(const int index);
     void configure(bool singleEdit);
-    /**
-     * @brief reconfigure configures the ImagePreviewWidget, leaving the edit mode as-is.
-     * @param imageList the new list of images
-     * @param index the index of the currently displayed image
-     */
-    void reconfigure(int index);
+    void updateAfterDiscard(int index, const DB::FileNameList &fileNames);
     int angle() const;
     void anticipate(DB::ImageInfo &info1);
     const QString &lastImage();

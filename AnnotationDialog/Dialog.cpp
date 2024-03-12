@@ -1716,7 +1716,7 @@ void AnnotationDialog::Dialog::slotDiscardFiles(const DB::FileNameList &files)
         return;
     }
 
-    m_preview->reconfigure(m_current);
+    m_preview->updateAfterDiscard(m_current, origFilenames);
     load();
 #ifdef HAVE_MARBLE
     // trigger repopulating the map

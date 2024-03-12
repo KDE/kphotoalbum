@@ -168,12 +168,12 @@ void ImagePreviewWidget::updateAfterDiscard(int index, const DB::FileNameList &f
         m_current = index;
     } else {
         // If multiple images are annotated at once, index is always -1.
-        // Try to find the currently showed image in this case, or fall back on another one.
+        // Try to find the currently showed image in this case, or fall back to another one.
         const auto index = fileNames.indexOf(m_preview->currentInfo().fileName());
         if (index != -1) {
             m_current = index;
         } else {
-            if (m_current == m_imageList->count()) {
+            if (m_current >= m_imageList->count()) {
                 m_current = m_imageList->count() - 1;
             }
         }

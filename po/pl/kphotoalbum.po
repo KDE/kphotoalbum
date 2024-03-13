@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-12 01:34+0000\n"
+"POT-Creation-Date: 2024-03-13 01:35+0000\n"
 "PO-Revision-Date: 2023-10-14 12:12+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -484,13 +484,13 @@ msgstr ""
 msgid "Category for new areas:"
 msgstr "Kategoria dla nowych obszarów:"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:318
+#: AnnotationDialog/ImagePreviewWidget.cpp:315
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
 msgstr "Ukryj lub pokaż obszary na obrazie"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:323
+#: AnnotationDialog/ImagePreviewWidget.cpp:320
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -503,7 +503,7 @@ msgstr ""
 "Kategorie</interface>, to będziesz mógł przypisać wybranym obszarom zdjęcia "
 "znaczniki."
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:328
+#: AnnotationDialog/ImagePreviewWidget.cpp:325
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
@@ -511,31 +511,31 @@ msgstr ""
 "Obszary na obrazie można pokazać tylko w trybie przypisywania na pojedynczym "
 "zdjęciu."
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:358
+#: AnnotationDialog/ImagePreviewWidget.cpp:355
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
 msgstr "Przełącz podgląd pełnoekranowy"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:359
+#: AnnotationDialog/ImagePreviewWidget.cpp:356
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
 msgstr "Obróć w lewo"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:360
+#: AnnotationDialog/ImagePreviewWidget.cpp:357
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
 msgstr "Obróć w prawo"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:361
+#: AnnotationDialog/ImagePreviewWidget.cpp:358
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
 msgstr "Skopiuj znaczniki z poprzednio oznaczonego obrazu"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:362
+#: AnnotationDialog/ImagePreviewWidget.cpp:359
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"

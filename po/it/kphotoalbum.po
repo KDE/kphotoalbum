@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-12 01:34+0000\n"
+"POT-Creation-Date: 2024-03-13 01:35+0000\n"
 "PO-Revision-Date: 2024-02-29 22:14+0100\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -481,13 +481,13 @@ msgstr ""
 msgid "Category for new areas:"
 msgstr "Categoria per le nuove aree:"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:318
+#: AnnotationDialog/ImagePreviewWidget.cpp:315
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
 msgstr "Nascondi o mostra le aree nell'immagine"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:323
+#: AnnotationDialog/ImagePreviewWidget.cpp:320
 #, kde-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -499,7 +499,7 @@ msgstr ""
 "<interface>Impostazioni|Configura KPhotoAlbum...|Categorie</interface>, puoi "
 "associare aree specifiche dell'immagine a tag."
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:328
+#: AnnotationDialog/ImagePreviewWidget.cpp:325
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
@@ -507,32 +507,32 @@ msgstr ""
 "Le aree su un'immagine possono essere mostrate solo in modalità annotazione "
 "immagine singola."
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:358
+#: AnnotationDialog/ImagePreviewWidget.cpp:355
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
 msgstr "Commuta l'anteprima a schermo intero"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:359
+#: AnnotationDialog/ImagePreviewWidget.cpp:356
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
 msgstr "Ruota in senso antiorario"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:360
+#: AnnotationDialog/ImagePreviewWidget.cpp:357
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
 msgstr "Ruota in senso orario"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:361
+#: AnnotationDialog/ImagePreviewWidget.cpp:358
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
 msgstr ""
 "Copia i tag dall'immagine a cui sono stati precedentemente assegnati dei tag"
 
-#: AnnotationDialog/ImagePreviewWidget.cpp:362
+#: AnnotationDialog/ImagePreviewWidget.cpp:359
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"

@@ -107,7 +107,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 <title
 >Mode desconnectat</title>
 <para
->Hi ha una batalla constant entre el creixement de les dades, i els discs durs cada vegada més grans. Si teniu un gran nombre d'imatges, potser us trobareu enmig de la batalla, no disposeu de prou espai al disc dur per emmagatzemar totes les imatges. En aquesta situació, podeu optar per posar algunes de les imatges sobre CD. Un escenari alternatiu podria ser que aneu en un viatge de negocis, i voleu dur les vostres imatges, però no disposeu d'un espai de disc de 20 GB, el qual és el que requeriu per aquesta finalitat.</para>
+>Hi ha una batalla constant entre el creixement de les dades, i els discs durs cada vegada més grans. Si teniu un gran nombre d'imatges, potser us trobareu enmig de la batalla, no disposeu de prou espai al disc dur per a emmagatzemar totes les imatges. En aquesta situació, podeu optar per posar algunes de les imatges sobre CD. Un escenari alternatiu podria ser que aneu en un viatge de negocis, i voleu dur les vostres imatges, però no disposeu d'un espai de disc de 20 GB, el qual és el que requeriu per aquesta finalitat.</para>
 
 <para
 >El &kphotoalbum; ofereix una solució a aquest problema, sense necessitat de tenir les imatges disponibles al disc. Per descomptat, necessitareu tenir a disposició d'algun temps perquè el &kphotoalbum; s'adoni que hi ha imatges noves per a indexar. <xref linkend="fig-offline-mode"/> mostra el &kphotoalbum; quan no és capaç de trobar totes les imatges necessàries en el disc.</para>

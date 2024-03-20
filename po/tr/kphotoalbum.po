@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-13 01:35+0000\n"
-"PO-Revision-Date: 2024-03-01 16:09+0300\n"
+"PO-Revision-Date: 2024-03-19 16:13+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -37,7 +37,7 @@ msgstr "tulliana@gmail.com, emir_sari@icloud.com"
 #: AnnotationDialog/AreaTagSelectDialog.cpp:91
 #, kde-format
 msgid "Tag is already used for another area"
-msgstr "Bu etiket zaten başka bir alan için kullanıldı"
+msgstr "Bu künye zaten başka bir alan için kullanıldı"
 
 #: AnnotationDialog/DateEdit.cpp:69
 #, kde-format
@@ -72,12 +72,12 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:130
 #, kde-format
 msgid "Label and Dates"
-msgstr "Etiket ve Tarihler"
+msgstr "Etiketler ve Tarihler"
 
 #: AnnotationDialog/Dialog.cpp:135
 #, kde-format
 msgid "Image Preview"
-msgstr "Görsel Önizleme"
+msgstr "Görsel Önizlemesi"
 
 #: AnnotationDialog/Dialog.cpp:139
 #, kde-format
@@ -89,7 +89,7 @@ msgid ""
 "information is imported to this field if available.</para>"
 msgstr ""
 "<para>Görselin açıklayıcı bir metni.</para><para>Eğer <interface>Ayarlar|K "
-"Fotoğraf Albümü Uygulamasını Yapılandır...|Genel</interface> altında "
+"Fotoğraf Albümü Uygulamasını Yapılandır…|Genel</interface> altında "
 "<emphasis>Exif açıklamasını kullan</emphasis> etkinleştirilmişse görsel Exif "
 "bilgisinde gömülü açıklama bu alana içe aktarılır (varsa).</para>"
 
@@ -126,7 +126,7 @@ msgstr "Formu Temizle"
 #: AnnotationDialog/Dialog.cpp:236
 #, kde-format
 msgid "Options..."
-msgstr "Seçenekler..."
+msgstr "Seçenekler…"
 
 #: AnnotationDialog/Dialog.cpp:242
 #, kde-format
@@ -180,7 +180,7 @@ msgid ""
 "the photo comes from an analog camera), then you should set <interface>Use "
 "Fuzzy Date</interface>.</para>"
 msgstr ""
-"<para>K Fotoğraf Albümü'nde, görsellerin tam tarihi ve zamanı olabilir veya "
+"<para>K Fotoğraf Albümü’nde, görsellerin tam tarihi ve zamanı olabilir veya "
 "belirlenmiş bir tarih aralığında herhangi bir zaman oluşmuş "
 "<emphasis>belirsiz</emphasis> tarihi olabilir. Sayısal fotoğraf "
 "makinelerinde üretilen görsellerin normalde tam tarihi vardır.</"
@@ -269,7 +269,7 @@ msgstr "Bilgi Notları"
 #: AnnotationDialog/Dialog.cpp:873
 #, kde-format
 msgid "Configure Window Layout..."
-msgstr "Pencere Yerleşimini Yapılandır..."
+msgstr "Pencere Yerleşimini Yapılandır…"
 
 #: AnnotationDialog/Dialog.cpp:874
 #, kde-format
@@ -301,17 +301,17 @@ msgstr "Tarihe Göre Sırala"
 #: AnnotationDialog/Dialog.cpp:906
 #, kde-format
 msgid "Match Tags from the First Character"
-msgstr "İlk Karakterden Etiketleri Eşleştir"
+msgstr "İlk Karakterden Künyeleri Eşleştir"
 
 #: AnnotationDialog/Dialog.cpp:907
 #, kde-format
 msgid "Match Tags from Word Boundaries"
-msgstr "Sözcük Sınırlarından Etiketleri Eşleştir"
+msgstr "Sözcük Sınırlarından Künyeleri Eşleştir"
 
 #: AnnotationDialog/Dialog.cpp:908
 #, kde-format
 msgid "Match Tags Anywhere"
-msgstr "Her Yerden Etiketleri Eşleştir"
+msgstr "Her Yerden Künyeleri Eşleştir"
 
 #: AnnotationDialog/Dialog.cpp:925
 #, kde-format
@@ -376,7 +376,7 @@ msgid ""
 "p><p>It is strongly recommended that you take 5 minutes to read the <a href="
 "\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
 msgstr ""
-"<p>K Fotoğraf Albümü'ndeki en önemli pencerelerden birini açtınız. Bu "
+"<p>K Fotoğraf Albümü’ndeki en önemli pencerelerden birini açtınız. Bu "
 "pencere, hızlı kullanım için birçok özellik içerir</p>.<p>Bu pencere için <a "
 "href=\"help:/kphotoalbum/chp-typingIn.html\">belgelerini okumanız tavsiye "
 "edilir</a></p>"
@@ -414,7 +414,7 @@ msgstr "Tamam penceresi"
 #: AnnotationDialog/Dialog.cpp:1312
 #, kde-format
 msgid "Copy tags from previous image"
-msgstr "Önceki görselden etiketleri kopyala"
+msgstr "Önceki görselden künyeleri kopyala"
 
 #: AnnotationDialog/Dialog.cpp:1316 MainWindow/Window.cpp:849
 #, kde-format
@@ -439,10 +439,10 @@ msgid ""
 "change this in the settings dialog. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings.</p>"
 msgstr ""
-"<p><b>\"%2\" etiketi ilişkilendirilemiyor</b></p><p>\"%2\" etiketi, \"%1\" "
-"kategorisine konumlandırılabilir değil.</p><p>Eğer bu etiketi kullanmak "
-"istiyorsanız ayarlar penceresinden bunu değiştirin. Eğer bu etiketin tanıma "
-"veritabanında olmasını istemyorsanız ayarlardan silebilirsiniz.</p>"
+"<p><b>“%2” künyesi ilişkilendirilemiyor</b></p><p>“%2” künyesi, “%1” "
+"kategorisine konumlandırılabilir değil.</p><p>Eğer bu künyeyi kullanmak "
+"istiyorsanız ‘Ayarlar’ penceresinden bunu değiştirin. Eğer bu künyenin "
+"tanıma veritabanında olmasını istemyorsanız ayarlardan silebilirsiniz.</p>"
 
 #: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
@@ -452,10 +452,10 @@ msgid ""
 "this category and mark it as positionable. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings dialog.</p>"
 msgstr ""
-"<p><b>\"%2\" etiketi ilişkilendirilemiyor</b></p><p>\"%2\" etiketi \"%1\" "
-"kategorisinde mevcut değil.</p><p>Eğer bu etiketi kullanmak istiyorsanız bu "
+"<p><b>“%2” künyesi ilişkilendirilemiyor</b></p><p>“%2” künyesi, “%1” "
+"kategorisinde bulunmuyor.</p><p>Eğer bu künyeyi kullanmak istiyorsanız bu "
 "kategoriyi ekleyin ve konumlandırılabilir olarak işaretleyin. Eğer bu "
-"etiketin tanıma veritabanında olmasını istemyorsanız ayarlardan "
+"künyenin tanıma veritabanında olmasını istemyorsanız ayarlardan "
 "silebilirsiniz.</p>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:51
@@ -475,8 +475,8 @@ msgid ""
 "<para>Set the same tags on this image than on the previous one. The image "
 "date, label, rating, and description are left unchanged.</para>"
 msgstr ""
-"<para>Bir önceki görseldeki bütün etiketlerini buna da ayarla. Görsel "
-"tarihi, etiket, derecelendirme ve açıklama değişmemiş kalacaktır.</para>"
+"<para>Bir önceki görseldeki bütün künyeleri buna da ayarla. Görsel tarihi, "
+"künye, derecelendirme ve açıklama değişmemiş kalacaktır.</para>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:110
 #, kde-format
@@ -497,9 +497,9 @@ msgid ""
 "category in <interface>Settings|Configure KPhotoAlbum...|Categories</"
 "interface>, you can associate specific image areas with tags."
 msgstr ""
-"Eğer <emphasis>konumlanabilir etiketleri</emphasis> <interface>Ayarlar|K "
-"Fotoğraf Albümü Uygulamasını Yapılandır...|Kategoriler</interface> içinden "
-"en az bir kategori için etkin hale getirirseniz etiketleri olan belli görsel "
+"Eğer <emphasis>konumlanabilir künyeleri</emphasis> <interface>Ayarlar → K "
+"Fotoğraf Albümü Uygulamasını Yapılandır… → Kategoriler</interface> içinden "
+"en az bir kategori için etkin hale getirirseniz künyeleri olan belli görsel "
 "bölümlerini ilişkilendirebilirsiniz."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:325
@@ -530,7 +530,7 @@ msgstr "Saat yönünde döndür"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
-msgstr "Etiketleri daha önce etiketlenmiş görselden kopyala"
+msgstr "Künyeleri daha önce künye eklenmemiş görselden kopyala"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:359
 #, kde-format
@@ -542,7 +542,7 @@ msgstr "Görseli sil"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr "Bir etiket gir..."
+msgstr "Bir künye gir…"
 
 #: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:339
 #, kde-format
@@ -572,9 +572,9 @@ msgid ""
 "Untagged Images</interface>). It will not show up here as long as it is "
 "selected for this purpose."
 msgstr ""
-"Girmiş olduğunuz etiket, yeni bulunan etiketlenmemiş görseller için otomatik "
-"olarak ayarlanan etikettir (<interface>Ayarlar|K Fotoğraf Albümü "
-"Uygulamasını Yapılandır...|Kategoriler|Etiketlenmemiş Görseller</"
+"Girmiş olduğunuz künye, yeni bulunan künyelenmemiş görseller için otomatik "
+"olarak ayarlanan künyedir (<interface>Ayarlar → K Fotoğraf Albümü "
+"Uygulamasını Yapılandır… → Kategoriler → Künyelenmemiş Görseller</"
 "interface>). Bu amaç için seçilmemişse burada görünmeyecektir."
 
 #: AnnotationDialog/ListSelect.cpp:359
@@ -595,32 +595,32 @@ msgstr "Sil"
 #: AnnotationDialog/ListSelect.cpp:370
 #, kde-format
 msgid "Rename..."
-msgstr "Yeniden adlandır..."
+msgstr "Yeniden Adlandır…"
 
 #: AnnotationDialog/ListSelect.cpp:372
 #, kde-format
 msgid "<b>Tag Groups</b>"
-msgstr "<b>Etiket Grupları</b>"
+msgstr "<b>Künye Grupları</b>"
 
 #: AnnotationDialog/ListSelect.cpp:380
 #, kde-format
 msgid "Tag groups"
-msgstr "Etiket grupları"
+msgstr "Künye grupları"
 
 #: AnnotationDialog/ListSelect.cpp:397
 #, kde-format
 msgid "Add this tag to a new tag group..."
-msgstr "Bu etiketi yeni bir etiket grubuna ekle..."
+msgstr "Bu künyeyi yeni bir künye grubuna ekle…"
 
 #: AnnotationDialog/ListSelect.cpp:400
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
-msgstr "Bu etiketi bir etiket grubu yap ve etiket ekle..."
+msgstr "Bu künyeyi bir künye grubu yap ve künye ekle…"
 
 #: AnnotationDialog/ListSelect.cpp:406
 #, kde-format
 msgid "Remove from tag group %1"
-msgstr "%1 etiket grubundan kaldır"
+msgstr "%1 künye grubundan kaldır"
 
 #: AnnotationDialog/ListSelect.cpp:409
 #, kde-format
@@ -648,8 +648,8 @@ msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
 "any information about it from any image containing the item.</p>"
 msgstr ""
-"<p>\"%1\" ögesini gerçekten silmek istiyor musunuz?<br/>Bu ögeyi silmek, bu "
-"bu ögeyi içeren tüm görsellerdeki bilgiyi de kaldırır.</p>"
+"<p>“%1” ögesini gerçekten silmek istiyor musunuz?<br/>Bu ögeyi silmek, bu bu "
+"ögeyi içeren tüm görsellerdeki bilgiyi de kaldırır.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:446
 #, kde-format
@@ -673,8 +673,8 @@ msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
 "\"%3\" on any image containing it.</p>"
 msgstr ""
-"<p>\"%1\", \"%2\" olarak yeniden adlandırılsın mı?<br/>Yeniden "
-"adlandırırsanız içeren bütün görsellerde de \"%3\" değişecektir.</p>"
+"<p>“%1”, “%2” olarak yeniden adlandırılsın mı?<br/>Yeniden adlandırırsanız "
+"içeren bütün görsellerde de “%3” değişecektir.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:473
 #, kde-format
@@ -691,22 +691,22 @@ msgstr "Yeniden Adlandır"
 #: AnnotationDialog/ListSelect.cpp:513
 #, kde-format
 msgid "New tag group"
-msgstr "Yeni etiket grubu"
+msgstr "Yeni künye grubu"
 
 #: AnnotationDialog/ListSelect.cpp:514
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
-msgstr "Etiketin ekleneceği yeni etiket grubu için ad:"
+msgstr "Künyenin ekleneceği yeni künye grubu için ad:"
 
 #: AnnotationDialog/ListSelect.cpp:526
 #, kde-format
 msgid "Add a tag"
-msgstr "Bir etiket ekle"
+msgstr "Bir künye ekle"
 
 #: AnnotationDialog/ListSelect.cpp:527
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
-msgstr "Bu etiket grubuna eklenecek etiket adı:"
+msgstr "Bu künye grubuna eklenecek künye adı:"
 
 #: AnnotationDialog/ListSelect.cpp:781
 #, kde-format
@@ -714,7 +714,7 @@ msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
 "'People (1-2)'"
 msgid "%1 (%2-%3)"
-msgstr "%1 (%2-%3)"
+msgstr "%1 (%2–%3)"
 
 #: AnnotationDialog/ListSelect.cpp:794
 #, kde-format
@@ -748,8 +748,8 @@ msgid ""
 "<p>%1 has already been tagged in another area on this image.</p><p>If you "
 "continue, the previous tag will be removed...</p>"
 msgstr ""
-"<p>%1, bu görselde zaten başka bir alanda etiketlendi.</p><p>Eğer "
-"sürdürürseniz önceki etiket kaldırılacaktır...</p>"
+"<p>%1, bu görselde zaten başka bir alanda künyelendi.</p><p>Eğer "
+"sürdürürseniz önceki künye kaldırılacaktır…</p>"
 
 #: AnnotationDialog/ResizableFrame.cpp:359
 #, kde-format
@@ -761,7 +761,7 @@ msgstr "Var olan alan değiştirilsin mi?"
 msgctxt ""
 "As in: remove tag %1 in category %2 [from this marked area of the image]"
 msgid "Remove tag %1 (%2)"
-msgstr "%1 etiketini sil (%2)"
+msgstr "%1 künyesini sil (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:471
 #, kde-format
@@ -939,7 +939,7 @@ msgstr "Ara"
 #: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:22
 #, kde-format
 msgid "Untagged Images"
-msgstr "Etiketlenmemiş Görseller"
+msgstr "Künyelenmemiş Görseller"
 
 #: Browser/OverviewPage.cpp:191
 #, kde-format
@@ -976,11 +976,11 @@ msgid ""
 "b></li><li>Now choose the <b>Categories</b> icon</li><li>Now configure "
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
-"<p>Etiketlenmemiş görselleri belirtmek için hangi etiketin kullanılacağını "
+"<p>Künyelenmemiş görselleri belirtmek için hangi künyenin kullanılacağını "
 "yapılandırmadınız.</p><p>Yapmak için şu adımları takip edin:<ul><li>Menü "
-"çubuğunda <b>Ayarlar</b>'ı seçin</li><li>Buradan şunu seçin: <b>K Fotoğraf "
+"çubuğunda <b>Ayarlar</b>’ı seçin</li><li>Buradan şunu seçin: <b>K Fotoğraf "
 "Albümü Uygulamasını Yapılandır</b></li><li>Şimdi, <b>Kategoriler</b> "
-"simgesini seçebilirsiniz</li><li>Burada, <b>Etiketlenmemiş Görseller</"
+"simgesini seçebilirsiniz</li><li>Burada, <b>Künyelenmemiş Görseller</"
 "b>bölümünü yapılandırın</li></ul></p>"
 
 #: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1807
@@ -991,22 +991,22 @@ msgstr "Özellik yapılandırılmadı"
 #: CategoryListView/CheckDropItem.cpp:118
 #, kde-format
 msgid "\"%1\" and \"%2\""
-msgstr "\"%1\" ve \"%2\""
+msgstr "“%1” ve “%2”"
 
 #: CategoryListView/CheckDropItem.cpp:122
 #, kde-format
 msgid "\"%1\""
-msgstr "\"%1\""
+msgstr "“%1”"
 
 #: CategoryListView/CheckDropItem.cpp:124
 #, kde-format
 msgid ", \"%1\""
-msgstr ", \"%1\""
+msgstr ", “%1”"
 
 #: CategoryListView/CheckDropItem.cpp:127
 #, kde-format
 msgid " and \"%1\""
-msgstr " ve \"%1\""
+msgstr " ve “%1”"
 
 #: CategoryListView/CheckDropItem.cpp:131
 #, kde-format
@@ -1028,21 +1028,21 @@ msgid_plural ""
 "it really your intention to make \"%3\" a tag group and add %2 as members?</"
 "p>"
 msgstr[0] ""
-"<p>Bir ögeyi bir diğeri üzerine sürüklediniz. Bu, hedef ögeyi etiket grubu "
-"ve sürüklenen ögeyi bu grubun bir üyesi yapacaktır. Etiket grupları şu "
-"şekilde açıklanabilir: İstanbul Türkiye'dedir - bu örnekte İstanbul'u "
-"Türkiye üzerine sürüklemektesiniz. Etiket grupları belirlediğinizde, "
-"Tarayıcı'daki Türkiye ögesini seçerek içerisindeki tüm görselleri "
-"görebilirsiniz.</p><p>\"%3\" ögesini etiket grubu yapmayı ve \"%2\" ögesini "
-"bunun bir ögesi olarak atamayı gerçekten istiyor musunuz?</p>"
+"<p>Bir ögeyi bir diğeri üzerine sürüklediniz. Bu, hedef ögeyi künye grubu ve "
+"sürüklenen ögeyi bu grubun bir üyesi yapacaktır. Künye grupları şu şekilde "
+"açıklanabilir: İstanbul Türkiye’dedir — bu örnekte İstanbul’u Türkiye "
+"üzerine sürüklemektesiniz. Künye grupları belirlediğinizde, Tarayıcı’daki "
+"Türkiye ögesini seçerek içerisindeki tüm görselleri görebilirsiniz.</"
+"p><p>“%3” ögesini künye grubu yapmayı ve “%2” ögesini bunun bir ögesi olarak "
+"atamayı gerçekten istiyor musunuz?</p>"
 msgstr[1] ""
-"<p>Bazı ögeleri bir diğerinin üzerine sürüklediniz. Bu, hedef ögeyi etiket "
-"grubu ve sürüklenen ögeleri bu grubun bir üyesi yapacaktır. Etiket grupları "
-"şu şekilde açıklanabilir: İstanbul Türkiye'dedir - bu örnekte İstanbul'u ve "
-"Ankara'yı Türkiye üzerine sürüklemektesiniz. Etiket grupları "
-"belirlediğinizde, Tarayıcı'daki Türkiye ögesini seçerek içerisindeki tüm "
-"görselleri görebilirsiniz.</p><p>\"%3\" ögesini etiket grubu yapmayı ve "
-"\"%2\" ögesini bunun bir ögesi olarak atamayı gerçekten istiyor musunuz?</p>"
+"<p>Bazı ögeleri bir diğerinin üzerine sürüklediniz. Bu, hedef ögeyi künye "
+"grubu ve sürüklenen ögeleri bu grubun bir üyesi yapacaktır. Künye grupları "
+"şu şekilde açıklanabilir: İstanbul Türkiye’dedir — bu örnekte İstanbul’u ve "
+"Ankara’yı Türkiye üzerine sürüklemektesiniz. Künye grupları "
+"belirlediğinizde, Tarayıcı’daki Türkiye ögesini seçerek içerisindeki tüm "
+"görselleri görebilirsiniz.</p><p>“%3” ögesini künye grubu yapmayı ve “%2” "
+"ögesini bunun bir ögesi olarak atamayı gerçekten istiyor musunuz?</p>"
 
 #: CategoryListView/CheckDropItem.cpp:157
 #, kde-format
@@ -1192,7 +1192,7 @@ msgstr "10 Saniye"
 #: DB/Category.cpp:307
 #, kde-format
 msgid "Unable to create folder '%1'."
-msgstr "'%1' klasörü oluşturulamadı."
+msgstr "“%1” klasörü oluşturulamadı."
 
 #: DB/Category.cpp:307
 #, kde-format
@@ -1202,7 +1202,7 @@ msgstr "Klasör Oluşturulamadı"
 #: DB/Category.cpp:316
 #, kde-format
 msgid "Error when saving image '%1'."
-msgstr "'%1' görseli kaydedilirken hata."
+msgstr "“%1” görseli kaydedilirken hata."
 
 #: DB/Category.cpp:316
 #, kde-format
@@ -1287,7 +1287,7 @@ msgid ""
 "Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
 "autosave file be used?"
 msgstr ""
-"Otomatik kaydetme dosyası %1 var (boyutu %3 KB) ve '%2' dosyasından daha "
+"Otomatik kaydetme dosyası %1 var (boyutu %3 KB) ve “%2” dosyasından daha "
 "yeni. Yedekleme dosyası kullanılsın mı?"
 
 #: DB/ImageDB.cpp:64
@@ -1319,7 +1319,7 @@ msgstr "Video"
 #: DB/ImageDB.cpp:952
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
-msgstr "K Fotoğraf Albümü - el ile onarım gerekiyor (%1)"
+msgstr "K Fotoğraf Albümü — Elle onarım gerekiyor (%1)"
 
 #: DB/ImageDB.cpp:953
 #, kde-format
@@ -1419,9 +1419,9 @@ msgid ""
 "ignore the duplicate category and try an automatic repair, or choose cancel "
 "to quit.</p>"
 msgstr ""
-"<p>%1. satır, %2. sütun: Yinelenen kategori '%3'</p><p>Yinelenen kategoriyi "
-"yok saymak için Sürdür'e tıklayın ve kendilğinden onarma deneyin. Çıkmak "
-"için İptal'i seçin.</p>"
+"<p>%1. satır, %2. sütun: Yinelenen kategori “%3”</p><p>Yinelenen kategoriyi "
+"yok saymak için Sürdür’e tıklayın ve kendilğinden onarma deneyin. Çıkmak "
+"için İptal’i seçin.</p>"
 
 #: DB/XML/FileReader.cpp:196 DB/XML/FileReader.cpp:301
 #, kde-format
@@ -1441,12 +1441,12 @@ msgid ""
 "p><p>In some cases, you may get two additional empty categories, \"Folder\" "
 "and \"Media Type\". You can delete those.</p>"
 msgstr ""
-"<p><b>K Fotoğraf Albümü'nün bu sürümü \"standart\" kategorileri artık "
-"çevirmiyor.</b></p><p>Bu şu anlama geliyor – eğer İngilizce haricinde bir "
-"yerel kullanıyorsanız – bazı kategorileriniz artık İngilizce "
+"<p><b>K Fotoğraf Albümü’nün bu sürümü “standart” kategorileri artık "
+"çevirmiyor.</b></p><p>Bu şu anlama geliyor –eğer İngilizce haricinde bir "
+"yerel kullanıyorsanız– bazı kategorileriniz artık İngilizce "
 "görüntülenecektir.</p><p>İstediğiniz zaman kategorileri elle yeniden "
-"adlandırıp veritabanınızı kaydedebilirsiniz.</p><p>Bazı durumlarda \"Dizin\" "
-"ve \"Ortam Türü\" adında iki fazla boş kategoriniz olabilir. Bunları "
+"adlandırıp veritabanınızı kaydedebilirsiniz.</p><p>Bazı durumlarda “Dizin” "
+"ve “Ortam Türü” adında iki fazla boş kategoriniz olabilir. Bunları "
 "silebilirsiniz.</p>"
 
 #: DB/XML/FileReader.cpp:264
@@ -1460,7 +1460,7 @@ msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
 "</p><p>Manual repair required!</p>"
 msgstr ""
-"<p>%1. satır, %2. sütun: '%3' dosyası için farklı MD5 toplamlı yinelenmiş "
+"<p>%1. satır, %2. sütun: “%3” dosyası için farklı MD5 toplamlı yinelenmiş "
 "girdi.</p><p>El ile onarım gerekiyor!</p>"
 
 #: DB/XML/FileReader.cpp:435
@@ -1482,9 +1482,9 @@ msgstr ""
 "bulabileceğiniz <b>Eksik Tarihli Görselleri Göster</b> seçeneğini "
 "kullanabilirsiniz.</p>Daha sonra Exif verisinde veya dosyada doğru tarih "
 "bilgisi içerdiğine inandığınız görselleri seçebilir ve bilgiyi yeniden "
-"okumak için <b>Bakım->Exif Bilgisini Oku</b> yolunu çalıştırabilirsiniz.</"
+"okumak için <b>Bakım→Exif Bilgisini Oku</b> yolunu çalıştırabilirsiniz.</"
 "p><p>Son olarak, tüm görsellerin tarihleri belirlendiğinde, görselleri "
-"veritabanında sınıflandırmak için <b>Görseller->Seçili Görselleri Tarih ve "
+"veritabanında sınıflandırmak için <b>Görseller→Seçili Görselleri Tarih ve "
 "Zamana Göre Sırala</b> yolunu çalıştırın.</p>"
 
 #: DB/XML/FileReader.cpp:444
@@ -1505,7 +1505,7 @@ msgstr ""
 "<p>Veritabanındaki bütün görsellerin görsel boyutları bilgileri mevcut "
 "değil; bu bilgi küçük görsel görünümünde en iyi sonuç için gerekmektedir. "
 "Bunu düzeltmek için <b>Bakım</b> menüsüne gidin, önce <b>Bütün Küçük "
-"Görselleri Kaldır...</b>'ı seçin, daha sonra <tt>Küçük Görsel Oluştur</tt> "
+"Görselleri Kaldır…</b>’ı seçin, daha sonra <tt>Küçük Görsel Oluştur</tt> "
 "yapın. </p><p>Bunu yapmazsanız küçük görsel görünümünde görselin etrafında "
 "fazladan boşluk oluşacaktır. </p>"
 
@@ -1523,8 +1523,8 @@ msgid ""
 "tags require manual inspection:<ul>"
 msgstr ""
 "<p>Veritabanınızda bulunan tutarsızlıklar onarıldı. Bazı kategorilerde "
-"onarım sırasında birleştirilen etiketler olabilir.</p><p>Aşağıdaki "
-"etiketlere bir bakmanız gerekiyor:<ul>"
+"onarım sırasında birleştirilen künyeler olabilir.</p><p>Aşağıdaki künyelere "
+"bir bakmanız gerekiyor:<ul>"
 
 #: DB/XML/FileReader.cpp:485
 #, kde-format
@@ -1551,8 +1551,8 @@ msgid ""
 "</ul></p><p>All affected images have also been marked with a tag "
 "<em>KPhotoAlbum - manual repair needed</em>.</p>"
 msgstr ""
-"</ul></p><p>Tüm etkilenen görseller şöyle bir etiketle etiketlendi: <em>K "
-"Fotoğraf Albümü - el ile onarım gerekiyor</em>.</p>"
+"</ul></p><p>Tüm etkilenen görseller şöyle bir künyeyle künyelendi: <em>K "
+"Fotoğraf Albümü — Elle onarım gerekiyor</em>.</p>"
 
 #: DB/XML/FileReader.cpp:499
 #, kde-format
@@ -1573,10 +1573,10 @@ msgid ""
 "setting the <b>PATH</b> environment variable</p>"
 msgstr ""
 "<p>K Fotoğraf Albümü, öntanımlı bir ayar dosyası yükleyemedi. Bu, kurulum "
-"hatası olduğunu gösterir</p><p>K Fotoğraf Albümü'nü kendiniz kurduysanız "
-"çevre değişkeni <b>KDEDIRS</b>'ı en üst kurulum klasörünü gösterecek şekilde "
-"ayarlamayı unutmayın.</p><p>Configure komutunu, örneğin <tt>--prefix=/usr/"
-"local/kde</tt> ile çalıştırdıysanız aşağıdaki çevre değişkeni ayarını "
+"hatası olduğunu gösterir</p><p>K Fotoğraf Albümü’nü kendiniz kurduysanız "
+"çevre değişkeni <b>KDEDIRS</b>’ı en üst kurulum klasörünü gösterecek şekilde "
+"ayarlamayı unutmayın.</p><p>cmake komutunu, örneğin <tt>--prefix=/usr/local/"
+"kde</tt> ile çalıştırdıysanız aşağıdaki çevre değişkeni ayarını "
 "kullanmalısınız (bu örnek Bash ve uyumlu kabuklar için geçerlidir):</"
 "p><p><b>export KDEDIRS=/usr/local/kde</b></p><p>Halihazırda KDEDIRS ayarlı "
 "ise <b>PATH</b> çevre değişkenini ayarladığınız yerde bu diziyi ekleyin.</p>"
@@ -1606,7 +1606,7 @@ msgstr "Olaylar"
 #: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:422
 #, kde-format
 msgid "untagged"
-msgstr "etiketlenmemiş"
+msgstr "künyelenmemiş"
 
 #: DB/XML/FileReader.cpp:551 Utilities/DemoUtil.cpp:36
 #: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:88
@@ -1617,7 +1617,7 @@ msgstr "Tanıtım Çalıştırılırken Hata Oluştu"
 #: DB/XML/FileReader.cpp:551
 #, kde-format
 msgid "Unable to open '%1' for reading"
-msgstr "'%1', okumak için açılamadı"
+msgstr "“%1”, okumak için açılamadı"
 
 #: DB/XML/FileReader.cpp:564
 #, kde-format
@@ -1638,7 +1638,8 @@ msgstr "%1 dosyasında hata. Hiçbir öge bulunamadı"
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr ""
-"%1 dosyasında hata. İlk öge olarak 'KPhotoAlbum' beklenirken '%2' bulundu"
+"%1 dosyasında hata. İlk öge olarak ‘K Fotoğraf Albümü’ beklenirken “%2” "
+"bulundu"
 
 #: DB/XML/FileWriter.cpp:74
 #, kde-format
@@ -1646,13 +1647,13 @@ msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
 "because of the following error: %2"
 msgstr ""
-"<p>Görsel veritabanı XML'e kaydedilemedi.</p>Dosya %1 açılamadı; çünkü şu "
+"<p>Görsel veritabanı XML’ye kaydedilemedi.</p>%1 dosyası açılamadı; çünkü şu "
 "hata oluştu: %2"
 
 #: DB/XML/FileWriter.cpp:77 DB/XML/FileWriter.cpp:113 DB/XML/FileWriter.cpp:122
 #, kde-format
 msgid "Error while saving..."
-msgstr "Kaydedilirken hata..."
+msgstr "Kaydedilirken hata…"
 
 #: DB/XML/FileWriter.cpp:110
 #, kde-format
@@ -1710,7 +1711,7 @@ msgstr "Bitiş ögesi okuma bekleniyordu; ancak %1 okundu"
 #: DB/XML/XmlReader.cpp:80
 #, kde-format
 msgid "Expected to read start element '%1'"
-msgstr "Başlangıç ögesi '%1' bekleniyordu"
+msgstr "Başlangıç ögesi “%1” bekleniyordu"
 
 #: DB/XML/XmlReader.cpp:86
 #, kde-format
@@ -1745,7 +1746,7 @@ msgstr "Exif bilgisi ve dosya üst verisi"
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
-msgstr "Etiketleri süz ..."
+msgstr "Etiketleri süz…"
 
 #: Exif/InfoDialog.cpp:77
 #, kde-format
@@ -1886,7 +1887,7 @@ msgid ""
 "<p>Be aware that setting the data from Exif may <b>overwrite</b> data you "
 "have previously entered manually using the image configuration dialog.</p>"
 msgstr ""
-"<p>Veriyi Exif'ten ayarlamanın, daha önceden görsel yapılandırma "
+"<p>Veriyi Exif’ten ayarlamanın, daha önceden görsel yapılandırma "
 "penceresinden girdiğiniz verinin <b>üzerine yazabileceğine</b> dikkat edin.</"
 "p>"
 
@@ -2057,7 +2058,7 @@ msgstr "sonraki"
 #: HTMLGenerator/Generator.cpp:649
 #, kde-format
 msgid "Could not create file '%1'."
-msgstr "'%1' dosyası oluşturulamadı."
+msgstr "“%1” dosyası oluşturulamadı."
 
 #: HTMLGenerator/Generator.cpp:650
 #, kde-format
@@ -2067,12 +2068,12 @@ msgstr "Dosya Oluşturulamadı"
 #: HTMLGenerator/Generator.cpp:669
 #, kde-format
 msgid "<p>Unable to copy %1 to %2</p>"
-msgstr "<p>'%1', '%2' konumuna kopyalanamadı</p>"
+msgstr "<p>“%1”, “%2” konumuna kopyalanamadı</p>"
 
 #: HTMLGenerator/Generator.cpp:703
 #, kde-format
 msgid "Unable to write image '%1'."
-msgstr "'%1' görseli yazılamıyor."
+msgstr "“%1” görseli yazılamıyor."
 
 #: HTMLGenerator/Generator.cpp:777 HTMLGenerator/HTMLDialog.cpp:147
 #, kde-format
@@ -2121,7 +2122,7 @@ msgstr "Sayfalardaki Satıriçi Filmler"
 #, kde-format
 msgctxt "Tag as in HTML-tag, not as in image tag"
 msgid "Use HTML5 video tag"
-msgstr "HTML5 video etiketi kullan"
+msgstr "HTML5 video künyeyi kullan"
 
 #: HTMLGenerator/HTMLDialog.cpp:129
 #, kde-format
@@ -2129,7 +2130,7 @@ msgid ""
 "<p>This selection will generate video files suitable for displaying on web. "
 "avconv and ffmpeg2theora are required for video file generation.</p>"
 msgstr ""
-"<p>Bu seçim web'te görüntülemek için uygun video dosyaları oluşturur. Video "
+"<p>Bu seçim web’te görüntülemek için uygun video dosyaları oluşturur. Video "
 "dosyası oluşturmak için avconv ve ffmpeg2theora gereklidir.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:131
@@ -2200,7 +2201,7 @@ msgstr "Çıktı klasörü:"
 #: HTMLGenerator/HTMLDialog.cpp:331
 #, kde-format
 msgid "URL for final destination of .kim file:"
-msgstr ".kim dosyası için son variş URL'si:"
+msgstr ".kim dosyası için son variş URL’si:"
 
 #: HTMLGenerator/HTMLDialog.cpp:333
 #, kde-format
@@ -2209,7 +2210,7 @@ msgid ""
 "URL.</p><p>This only affects the generated <filename>.kim</filename> file.</"
 "p>"
 msgstr ""
-"<p>Eğer galeriyi uzak bir konuma taşıyacaksanız burayı da hedef URL'si "
+"<p>Eğer galeriyi uzak bir konuma taşıyacaksanız burayı da hedef URL’si "
 "olarak ayarlayın.</p><p>Bu, yalnızca oluşturulan <filename>.kim</filename> "
 "dosyasını etkiler.</p>"
 
@@ -2226,7 +2227,7 @@ msgstr "En az bir çözünürlük seçmelisiniz."
 #: HTMLGenerator/HTMLDialog.cpp:385
 #, kde-format
 msgid "Select base folder..."
-msgstr "Temel klasörü seç..."
+msgstr "Temel klasörü seç…"
 
 #: HTMLGenerator/HTMLDialog.cpp:398
 #, kde-format
@@ -2298,7 +2299,7 @@ msgstr "%1"
 #: HTMLGenerator/HTMLDialog.cpp:558
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
-msgstr "Herhangi bir tema bulunamadı - muhtemelen kurulum hatası"
+msgstr "Herhangi bir tema bulunamadı — olası kurulum hatası"
 
 #: HTMLGenerator/HTMLDialog.cpp:565
 #, kde-format
@@ -2379,8 +2380,8 @@ msgid ""
 "stopped blinking, to see all affected videos.)"
 msgstr ""
 "Video küçük görselleri bazı dosyalardan çıkarılamadı. Dosya bir şekilde "
-"hasarlı olabilri ya da video çok kısa olabilir. Kolaylık için, bu videolara "
-"'%1' işareti eklenmiştir.\n"
+"hasarlı olabilri ya da video çok kısa olabilir. Kolaylık için bu videolara "
+"“%1” işareti eklenmiştir.\n"
 "\n"
 "(Tüm etkilenmiş videoları görmek için durum çubuğunuzdaki video çıkarma "
 "ışığının yanıp sönmesinin bitmesini beklemeniz gerekebilir.)"
@@ -2511,11 +2512,11 @@ msgid ""
 msgstr ""
 "<p>Görseli dışa aktarırken, bu aktarımı yeniden yapacak kişinin iki şeyi "
 "aklında bulundurması gerekir:<br/>1) Üst veri bilgisi (görsel içeriği, tarih "
-"vb.)<br/>2) görsellerin kendisi.</p><p>Görsellerin kendileri ya .kim "
+"vb.)<br/>2) Görsellerin kendisi.</p><p>Görsellerin kendileri ya .kim "
 "dosyasının yanına yerleştirilir veya .kim dosyasının içine yerleştirilir. "
 "Tüm görselleri ya da çoğunu isteyen birisine e-posta gönderecekseniz örneğin "
 "tüm görsel grubunu epostalarken, görselleri .kim dosyasının içine kopyalamak "
-"doğru çözüm olabilir. Ama diğer yandan görselleri İnternet'e koyarsanız "
+"doğru çözüm olabilir. Ama diğer yandan görselleri İnternet’e koyarsanız "
 "birçok kişi görselleri görüp yalnızca bazılarını indirmek isteyecektir. Bu "
 "durumda herkesin bütün görselleri indirmek zorunda kalmamaları için "
 "görselleri .kim dosyasının yanına koymalısınız.</p>"
@@ -2563,15 +2564,15 @@ msgid ""
 "that it is a KPhotoAlbum file when clicking on the link, otherwise the web "
 "server will just tell konqueror that it is a plain text file.</p>"
 msgstr ""
-"<p>Diğer K Fotoğraf Albümü kullanıcıları, dosya menüsünden <b>içe aktar</b> "
+"<p>Diğer K Fotoğraf Albümü kullanıcıları, dosya menüsünden <b>İçe Aktar</b> "
 "diyerek, içe aktarma dosyasını veritabanlarına yükleyebilirler.</p><p>Eğer "
 "dosyayı bir web sitesinde bulurlarsa ve web hizmeti doğru bir şekilde "
 "yapılandırılmışsa yapmaları gereken tek şey basit olarak Konqueror içinde "
-"ona tıklamaktır. Bunu etkinleştirmek için, web sunucunuzun K Fotoğraf Albümü "
+"ona tıklamaktır. Bunu etkinleştirmek için web sunucunuzun K Fotoğraf Albümü "
 "için yapılandırılması gerekmektedir. Şu satırı <b>/etc/httpd/mime.types</b> "
 "dosyası içerisine ekleyerek bunu yapabilirsiniz:<pre>application/vnd.kde."
 "kphotoalbum-import kim</pre>Bu, bağlantıya tıkladığınız zaman web "
-"sunucunuzun Konqueror'a bunun bir K Fotoğraf Albümü dosyası olduğunu "
+"sunucunuzun Konqueror’a bunun bir K Fotoğraf Albümü dosyası olduğunu "
 "bildirmesini sağlayacaktır, aksi durumlarda bunun yalnızca bir düz metin "
 "dosyası olduğunu bildirecektir.</p>"
 
@@ -2622,24 +2623,23 @@ msgid ""
 "not found in your database, or which tokens was only a partial match.</li></"
 "ol>"
 msgstr ""
-"<h1><font size=\"+2\">K Fotoğraf Albümü İçe Aktarma Sihirbazı'na Hoş "
+"<h1><font size=\"+2\">K Fotoğraf Albümü İçe Aktarma Sihirbazı’na Hoş "
 "Geldiniz</font></h1>Bu sihirbaz, size görsel içe aktarma işleminin "
 "yapılmasında yardımcı olacaktır. Yapılacak işlemler: <ol><li>Önce, aktarma "
 "dosyasından hangi görsellerin içe aktarılacağını seçmelisiniz. Bunu "
 "görsellerin yanındaki kutucuğu işaretleyerek yapabilirsiniz.</li><li>Sonra, "
 "görselleri yerleştireceğininiz klasörü belirtmelisiniz. Bu klasör, K "
-"Fotoğraf Albümü'nün kullandığı temel klasörün altında olmalıdır. K Fotoğraf "
+"Fotoğraf Albümü’nün kullandığı temel klasörün altında olmalıdır. K Fotoğraf "
 "Albümü, ad çakışmalarını dikkate alacaktır.</li><li>Diğer adımda hangi "
-"sınıfları alacağınızı belirtmelisiniz. (Yerler, kişiler...) Aynı zamanda "
-"sizin kategorilerinizle dosyadaki kategorilerin eşleştirmesini de "
-"yapmalısınız. Örneğin dosyada bulunan <b>Flower</b> adlı kategoriyi "
-"seçtiniz. Ama bunu, kendi dilinizde olan <b>Çiçekler</b>sınıfına "
-"yerleştirmek isteyeceksiniz.</li><li>Son adımda kişisel işaretleri "
-"eşleştirmelisiniz. Örneğin ben kendimi veri tabanımda <b>Hakan</b>olarak "
-"adlandırıyorsam, siz de soyadımla beraber <b>Hakan Şimşek</b>kullanmak "
-"istiyor olabilirsiniz. Bu adımda eşleşmeyen işaretler kırmızı "
-"gösterilecektir. Böylece bu işaretin sizin veri tabanınızda bulunmadığını "
-"anlayacaksınız.</li></ol>"
+"sınıfları alacağınızı belirtmelisiniz. (Yerler, kişiler…) Aynı zamanda sizin "
+"kategorilerinizle dosyadaki kategorilerin eşleştirmesini de yapmalısınız. "
+"Örneğin dosyada bulunan <b>Flower</b> adlı kategoriyi seçtiniz. Ama bunu, "
+"kendi dilinizde olan <b>Çiçekler</b>sınıfına yerleştirmek isteyeceksiniz.</"
+"li><li>Son adımda kişisel işaretleri eşleştirmelisiniz. Örneğin ben kendimi "
+"veri tabanımda <b>Hakan</b>olarak adlandırıyorsam, siz de soyadımla beraber "
+"<b>Hakan Şimşek</b>kullanmak istiyor olabilirsiniz. Bu adımda eşleşmeyen "
+"işaretler kırmızı gösterilecektir. Böylece bu işaretin sizin veri "
+"tabanınızda bulunmadığını anlayacaksınız.</li></ol>"
 
 #: ImportExport/ImportDialog.cpp:137
 #, kde-format
@@ -2761,7 +2761,7 @@ msgstr "Veritabanınızdaki anahtar"
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
 msgid "Unable to open '%1' for reading."
-msgstr "'%1' okuma için açılamadı."
+msgstr "“%1” okuma için açılamadı."
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
@@ -2885,12 +2885,12 @@ msgstr ""
 #: kpa-thumbnailtool/main.cpp:48
 #, kde-format
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
-msgstr "Telif hakkı (C) 2003-2024 K Fotoğraf Albümü Geliştirme Takımı"
+msgstr "Telif hakkı (C) 2003–2024 K Fotoğraf Albümü Geliştirme Takımı"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
 msgid "Johannes Zarl-Zierl"
-msgstr "Johannes Zarl-Zierl"
+msgstr "Johannes Zarl–Zierl"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3082,7 +3082,7 @@ msgstr[1] "Veritabanından %1 tutarsız küçük görsel kaldırıldı.\n"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not open file `thumbnailindex`!\n"
-msgstr "'thumbnailindex' dosyası açılamadı!\n"
+msgstr "“thumbnailindex” dosyası açılamadı!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:21
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:27
@@ -3103,7 +3103,7 @@ msgstr "Geçici dosya, yazma için açılamadı!\n"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not back up file `thumbnailindex`!\n"
-msgstr "'thumbnailindex' dosyası yedeklenemedi!\n"
+msgstr "“thumbnailindex” dosyası yedeklenemedi!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:40
 #, kde-format
@@ -3185,7 +3185,7 @@ msgid ""
 msgstr ""
 "<p>Exif arama veritabanına erişirken bir hata oluştu. Hatanın nedeni, büyük "
 "olasılıkla bozuk bir veritabanı dosyası olabilir.</p><p>Bu sorunu çözmek "
-"için Bakım->Exif Aram Veritabanını Yeniden Oluştur seçeneğini kullanın.</"
+"için Bakım→Exif Aram Veritabanını Yeniden Oluştur seçeneğini kullanın.</"
 "p><hr/><p>Hata ayıklama için: Çalıştırılmak istenen komut şuydu:<br/>%1</"
 "p><p>Alınan hata iletisi ise şuydu:<br/>%2</p>"
 
@@ -3202,7 +3202,7 @@ msgid ""
 "error message obtained was:<br/>%1</p>"
 msgstr ""
 "<p>Exif veritabanı açılırken bir hata oluştu.</p> <p>Bu sorunu çözmek için "
-"Bakım->Exif Arama Veritabanını Yeniden Oluştur seçeneğini kullanın.</p><hr/"
+"Bakım→Exif Arama Veritabanını Yeniden Oluştur seçeneğini kullanın.</p><hr/"
 "><p>Alınan hata iletisi:<br/>%1</p>"
 
 #: lib/kpaexif/Database.cpp:259
@@ -3212,7 +3212,7 @@ msgid ""
 "problem run Maintenance->Recreate Exif Search database.</p>"
 msgstr ""
 "<p>Exif arama veritabanı hasar görmüş ve veri içermiyor.</p> <p>Bu sorunu "
-"çözmek için Bakım->Exif Arama Veritabanını Yeniden Oluştur seçeneğini "
+"çözmek için Bakım→Exif Arama Veritabanını Yeniden Oluştur seçeneğini "
 "kullanın.</p>"
 
 #: main.cpp:85
@@ -3228,7 +3228,7 @@ msgstr "KDE Fotoğraf Albümü"
 #: main.cpp:89
 #, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr "Telif hakkı (C) 2003-2024 K Fotoğraf Albümü Geliştirme Takımı"
+msgstr "Telif hakkı (C) 2003–2024 K Fotoğraf Albümü Geliştirme Takımı"
 
 #: main.cpp:110
 #, kde-format
@@ -3244,7 +3244,7 @@ msgstr ""
 #: main.cpp:111
 #, kde-format
 msgid "Jean-Michel FAYARD"
-msgstr "Jean-Michel FAYARD"
+msgstr "Jean–Michel FAYARD"
 
 #: main.cpp:111
 #, kde-format
@@ -3253,8 +3253,7 @@ msgid ""
 "adding a check box for \"and/or\" searches in the search page."
 msgstr ""
 "(.) Tarayıcıyla erişimi olanıklı kılan klasör bilgisine sahip yama. (.) "
-"Arama sayfasında \"ve/veya\" aramaları için bir onay kutusu eklemek için "
-"yama."
+"Arama sayfasında “ve/veya” aramaları için bir onay kutusu eklemek için yama."
 
 #: main.cpp:112
 #, kde-format
@@ -3338,7 +3337,7 @@ msgstr "Will Stephenson"
 #: main.cpp:120
 #, kde-format
 msgid "Developing an Icon for KPhotoAlbum"
-msgstr "KPhotoAlbum Uygulaması için Simge Geliştirme"
+msgstr "K Fotoğraf Albümü için simge tasarımı"
 
 #: main.cpp:121
 #, kde-format
@@ -3425,16 +3424,16 @@ msgstr "Kategori Görseli Yap"
 msgctxt "@title:window"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Görselleri kopyala ..."
-msgstr[1] "Görselleri kopyala ..."
+msgstr[0] "Görselleri Kopyala"
+msgstr[1] "Görselleri Kopyala"
 
 #: MainWindow/CopyLinkEngine.cpp:41
 #, kde-format
 msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Görselleri bağla ..."
-msgstr[1] "Görselleri bağla ..."
+msgstr[0] "Görselleri Bağlantıla"
+msgstr[1] "Görselleri Bağlantıla"
 
 #: MainWindow/DeleteDialog.cpp:24
 #, kde-format
@@ -3511,8 +3510,8 @@ msgid ""
 msgstr ""
 "<p>Aşağıdaki veritabanınızdaki tüm yinelenen görsellerin listesidir.<br/"
 ">Hangisini birleştirmek istediğinizi ve hangi yinelenenlerin kalacağını "
-"seçin.<br/>Silinen görsellerdeki etiket ve açıklama kısımları tutulan "
-"görsele aktarılır</p>"
+"seçin.<br/>Silinen görsellerdeki künye ve açıklama kısımları tutulan görsele "
+"aktarılır</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:51
 #, kde-format
@@ -3567,7 +3566,7 @@ msgstr "Kopyala ve Aç"
 #: MainWindow/ExternalPopup.cpp:92
 #, kde-format
 msgid "Open With..."
-msgstr "Şununla Aç..."
+msgstr "Şununla Aç…"
 
 #: MainWindow/ExternalPopup.cpp:115
 #, kde-format
@@ -3613,17 +3612,17 @@ msgid ""
 "ensure that you have the developer packages installed, in most distributions "
 "they go under names like kdelibs<i>-devel</i></p>"
 msgstr ""
-"<h1>Bir özelliğim eksikse ne yapabilirim?</h1><p>Eğer K Fotoğraf Albümü'nu "
+"<h1>Bir özelliğim eksikse ne yapabilirim?</h1><p>Eğer K Fotoğraf Albümü’nu "
 "kendiniz derlediyseniz o halde lütfen sorudaki özelliği edinmek için neyi "
 "kuracağınızı öğrenmek için aşağıdaki bölümlere göz atınız. Eğer diğer "
-"taraftan K Fotoğraf Albümü'nu bir ikilik paketten kurduysanız lütfen bu "
+"taraftan K Fotoğraf Albümü’nu bir ikilik paketten kurduysanız lütfen bu "
 "eksikliği kim yaptıysa aşağıdaki bölümde yazan bilgilerle birlikte ona bu "
-"eksikliği söyleyin.</p><p>Bir özelliğiniz eksik ve K Fotoğraf Albümü'nu "
+"eksikliği söyleyin.</p><p>Bir özelliğiniz eksik ve K Fotoğraf Albümü’nu "
 "kendiniz derlemediğiniz durumda, lütfen kendiniz derlemeyi gözden geçirin. O "
-"kadar da zor değil. Eğer K Fotoğraf Albümü'nu derleme konusunda yardıma "
+"kadar da zor değil. Eğer K Fotoğraf Albümü’nu derleme konusunda yardıma "
 "gereksiniminiz varsa lütfen <a href=\"http://mail.kdab.net/mailman/listinfo/"
 "kphotoalbum\">K Fotoğraf Albümü posta listesi</a>ne sormaktan çekinmeyin.</"
-"p><p>K Fotoğraf Albümü'nu derlemek için gereken adımlar <a href=\"http://www."
+"p><p>K Fotoğraf Albümü’nu derlemek için gereken adımlar <a href=\"http://www."
 "kphotoalbum.org/download-source.htm\">K Fotoğraf Albümü ana sayfasında</a> "
 "bulunabilir. Eğer daha önce bir KDE uygulaması derlemediyseniz o halde "
 "lütfen geliştirici paketlerinizin kurulu olduğundan emin olun. Çoğu "
@@ -3647,7 +3646,7 @@ msgid ""
 "(e.g. qt-sql-sqlite) must be installed.</p>"
 msgstr ""
 "<h1><a name=\"database\">SQLite veritabanı desteği</a></h1><p>K Fotoğraf "
-"Albümü, belirli sayıda Exif etiketini kullanarak arama yapmanıza izin verir. "
+"Albümü, belirli sayıda Exif künyesini kullanarak arama yapmanıza izin verir. "
 "Bunun için K Fotoğraf Albümü, bir Sqlite veritabanına gerek duyar. Ek "
 "olarak, SQLite için Qt paketi (örn. qt-sql-sqlite) kurulu olmalıdır.</p>"
 
@@ -3658,9 +3657,9 @@ msgid ""
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
-"<h1><a name=\"geomap\">Konum etiketlenmiş görseller için harita görünümü</"
-"a></h1><p>K Fotoğraf Albümü, dahili Bilye desteği ile derlenmişse GPS "
-"bilgisi içeren görselleri bir haritada gösterebilir.</p>"
+"<h1><a name=\"geomap\">Konum künyelenmiş görseller için harita görünümü</a></"
+"h1><p>K Fotoğraf Albümü, dahili Bilye desteği ile derlenmişse GPS bilgisi "
+"içeren görselleri bir haritada gösterebilir.</p>"
 
 #: MainWindow/FeatureDialog.cpp:64
 #, kde-format
@@ -3669,7 +3668,7 @@ msgid ""
 "for displaying videos; this in turn relies on ffmpeg</p>"
 msgstr ""
 "<h1><a name=\"video\">Video desteği</a></h1><p>K Fotoğraf Albümü, videoları "
-"görüntülemek için QtAv desteğine gereksinim duyar; o da ffmpeg ister</p>"
+"görüntülemek için QtAv desteğine gereksinim duyar; o da FFmpeg ister</p>"
 
 #: MainWindow/FeatureDialog.cpp:67
 #, kde-format
@@ -3709,7 +3708,7 @@ msgstr "Sqlite veritabanı desteği (Exif aramaları için kullanılır)"
 #: MainWindow/FeatureDialog.cpp:163
 #, kde-format
 msgid "Map view for geotagged images."
-msgstr "Konum etiketlenmiş görseller için harita görünümü."
+msgstr "Konum künyelenmiş görseller için harita görünümü."
 
 #: MainWindow/FeatureDialog.cpp:164
 #, kde-format
@@ -3813,8 +3812,8 @@ msgid ""
 "Use <databaseFile> instead of the default. Deprecated - use '--db "
 "<databaseFile>' instead."
 msgstr ""
-"Öntanımlı yerine <veritabanıDosyası> kullan. Eski, - yerine '--db "
-"<veritabanıDosyası>' kullanın."
+"Öntanımlı yerine <veritabanıDosyası> kullanın. Eski; yerine “--db "
+"<veritabanıDosyası>” kullanın."
 
 #: MainWindow/Options.cpp:26 MainWindow/Options.cpp:31
 #, kde-format
@@ -3830,7 +3829,7 @@ msgstr "Öntanımlı yerine <veritabanıDosyası> kullanın."
 #, kde-format
 msgid "Starts KPhotoAlbum with a prebuilt set of demo images."
 msgstr ""
-"K Fotoğraf Albümü'nü önceden oluşturulmuş tanıtım görselleri ile başlatır."
+"K Fotoğraf Albümü’nü önceden oluşturulmuş tanıtım görselleri ile başlatır."
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -3881,7 +3880,7 @@ msgid ""
 "%each to have a command be run once per file.</p>"
 msgstr ""
 "<p>Görsel dosya(lar)ınızda çalıştırmak istediğiniz komutu girin. K Fotoğraf "
-"Albümü, komutları çalıştıracak ve bütün '%all' işaretlerini dosya listenizle "
+"Albümü, komutları çalıştıracak ve bütün “%all” işaretlerini dosya listenizle "
 "değiştirecektir. Örneğin, eğer şunu girdiyseniz:</p><ul><li>cp %all /tmp</"
 "li></ul><p>Bütün dosyalarınız /tmp klasörü altına kopyalanacaktır</p><p>Her "
 "dosya için bir komut çalışsın istiyorsanız %each kullanın.</p>"
@@ -3912,7 +3911,7 @@ msgstr "Arama Çubuğu"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Search ..."
-msgstr "Ara ..."
+msgstr "Ara…"
 
 #: MainWindow/StatisticsDialog.cpp:35
 #, kde-format
@@ -3929,13 +3928,13 @@ msgid ""
 "hard to fix),<br/>so maybe the dialog will simply go away again"
 msgstr ""
 "<h1>Açıklama</h1><table><tr><td># Öge</td><td>Bu, kategorideki farklı "
-"ögelerin sayısıdır.</td></tr><tr><td>Toplam Etiket</td><td>Bu, ne kadar "
-"etiket oluşturulacağının sayısıdır,<br/>örn. tüm görsellerin basitçe sayısı</"
-"td></tr><tr><td>Görsel Başına Etiket</td><td>Bu, her görseldeki ortalama kaç "
-"etiketin olacağını söyler.</td></tr></table><br/><br/>Bu diyaloga çok "
+"ögelerin sayısıdır.</td></tr><tr><td>Toplam Künye</td><td>Bu, ne kadar künye "
+"oluşturulacağının sayısıdır,<br/>örn. tüm görsellerin basitçe sayısı</td></"
+"tr><tr><td>Görsel Başına Künye</td><td>Bu, her görseldeki ortalama kaç "
+"künyenin olacağını söyler.</td></tr></table><br/><br/>Bu diyaloga çok "
 "takılmayın, kategoriler VE alt kategorileri saydığı bir soruna sahiptir,<br/"
-">bu yüzden Kadıköy, İstanbul, Türkiye'de bir fotoğraf çekilmişse bir tane "
-"olması gerekirken,<br/>o görsel için üç etiket sayılır.<br/>Bu hatayı "
+">bu yüzden Kadıköy, İstanbul, Türkiye’de bir fotoğraf çekilmişse bir tane "
+"olması gerekirken,<br/>o görsel için üç künye sayılır.<br/>Bu hatayı "
 "düzeltmeye değer olup olmadığından emin değilim (çözümü oldukça zor),<br/>bu "
 "yüzden belki de diyalog yeniden basitçe yok olabilir"
 
@@ -3958,17 +3957,17 @@ msgstr "# Öge"
 #: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Tags Totals"
-msgstr "Toplam Etiket"
+msgstr "Toplam Künye"
 
 #: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Tags Per Picture"
-msgstr "Fotoğraf başına Etiket"
+msgstr "Fotoğraf başına Künye"
 
 #: MainWindow/StatisticsDialog.cpp:104
 #, kde-format
 msgid "Tag indication completed annotation"
-msgstr "Etiket imleme tamamlandı bilgi notu"
+msgstr "Künye imleme tamamlandı bilgi notu"
 
 #: MainWindow/StatisticsDialog.cpp:110
 #, kde-format
@@ -3976,7 +3975,7 @@ msgid ""
 "If you use a specific tag to indicate that an image has been tagged, then "
 "specify it here."
 msgstr ""
-"Bir görselin etiketlendiğini imlemek için belirli bir etiket kullanıyorsanız "
+"Bir görselin künyelendiğini imlemek için belirli bir künye kullanıyorsanız "
 "onu burada belirtebilirsiniz."
 
 #: MainWindow/StatisticsDialog.cpp:114 Settings/BirthdayPage.cpp:47
@@ -3988,7 +3987,7 @@ msgstr "Kategori:"
 #: MainWindow/StatisticsDialog.cpp:120 Settings/UntaggedGroupBox.cpp:38
 #, kde-format
 msgid "Tag:"
-msgstr "Etiket:"
+msgstr "Künye:"
 
 #: MainWindow/StatisticsDialog.cpp:127
 #, kde-format
@@ -4010,7 +4009,7 @@ msgstr "Toplam"
 #: MainWindow/StatusBar.cpp:104
 #, kde-format
 msgid "Thumbnail settings..."
-msgstr "Küçük görsel ayarları..."
+msgstr "Küçük Görsel Ayarları…"
 
 #: MainWindow/TokenEditor.cpp:34
 #, kde-format
@@ -4040,11 +4039,11 @@ msgid ""
 "</p><p>If you feel safer first trying out KPhotoAlbum with prebuilt set of "
 "images, press the Load Demo button.</p>"
 msgstr ""
-"<h1>K Fotoğraf Albümü'ne hoş geldiniz.</h1><p>K Fotoğraf Albümü, "
-"görsellerinizi ve videolarınızı arşivlemek ve etiketlemek için güçlü bir "
+"<h1>K Fotoğraf Albümü’ne hoş geldiniz.</h1><p>K Fotoğraf Albümü, "
+"görsellerinizi ve videolarınızı arşivlemek ve künyelemek için güçlü bir "
 "araçtır. Değerli dosyalarınızı değiştirmez veya düzenlemez, yalnızca "
 "videolarınızı ve görsellerinizi daha kolay bulmanız ve yönetmeniz için "
-"dizinler.</p><p>Veritabanımı Oluştur düğmesine basıp K Fotoğraf Albümü'ne "
+"dizinler.</p><p>Veritabanımı Oluştur düğmesine basıp K Fotoğraf Albümü’ne "
 "görsellerinizin nerede olduğunu göstererek başlayabilirsiniz. Halihazırda K "
 "Fotoğraf Albümü veritabanınız varsa ve yeniden başlamak istiyorsanız da bu "
 "düğmeye basın.</p><p>Eğer hazır yüklü görsel kümeleri ile denemek isterseniz "
@@ -4053,7 +4052,7 @@ msgstr ""
 #: MainWindow/WelcomeDialog.cpp:60
 #, kde-format
 msgid "Create My Own Database..."
-msgstr "Veritabanımı Oluştur..."
+msgstr "Veritabanımı Oluştur…"
 
 #: MainWindow/WelcomeDialog.cpp:63
 #, kde-format
@@ -4078,7 +4077,7 @@ msgid ""
 "folder somewhere, point KPhotoAlbum to that folder to start using it again.</"
 "p>"
 msgstr ""
-"<h1>K Fotoğraf Albümü veritabanı oluşturma</h1><p>K Fotoğraf Albümü'ne, "
+"<h1>K Fotoğraf Albümü veritabanı oluşturma</h1><p>K Fotoğraf Albümü’ne, "
 "görsel ve videolarınızı bulabilmesi için nerede olduğunu göstermeniz "
 "gerekiyor. Hepsinin bir klasör altında olması gerekir, örneğin /home/user/"
 "Görseller. Bu klasörde istediğiniz kadar alt klasörünüz olabilir, K Fotoğraf "
@@ -4100,7 +4099,7 @@ msgstr "Klasör yok, oluşturulsun mu?"
 #: MainWindow/WelcomeDialog.cpp:170
 #, kde-format
 msgid "Could not create folder %1"
-msgstr "'%1' klasörü oluşturulamadı"
+msgstr "“%1” klasörü oluşturulamadı"
 
 #: MainWindow/WelcomeDialog.cpp:175
 #, kde-format
@@ -4118,7 +4117,7 @@ msgstr ""
 "<p>K Fotoğraf Albümü tüm özelliklerle yapılmamış gibi görünüyor. Aşağıda "
 "nelerin eksik olabileceğinin bir listesini görebilirsiniz:<ul>%1</ul></"
 "p><p>Bu sorunun nice çözüleceği üzerine ayrıntılar için menülerden "
-"<b>Yardım</b>|<b>K Fotoğraf Albümü Özellik Durumu</b>'nu seçin.</p>"
+"<b>Yardım</b> → <b>K Fotoğraf Albümü Özellik Durumu</b>’nu seçin.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:196 MainWindow/WelcomeDialog.cpp:199
 #, kde-format
@@ -4218,12 +4217,12 @@ msgstr "Seçim Yok"
 #: MainWindow/Window.cpp:536
 #, kde-format
 msgid "Saving..."
-msgstr "Kaydediliyor..."
+msgstr "Kaydediliyor…"
 
 #: MainWindow/Window.cpp:541
 #, kde-format
 msgid "Saving... Done"
-msgstr "Kaydediliyor... Bitti"
+msgstr "Kaydediliyor… Bitti"
 
 #: MainWindow/Window.cpp:689
 #, kde-format
@@ -4243,17 +4242,17 @@ msgstr "Seçili görsel yok!"
 #: MainWindow/Window.cpp:784
 #, kde-format
 msgid "Generate HTML..."
-msgstr "HTML Oluştur..."
+msgstr "HTML Oluştur…"
 
 #: MainWindow/Window.cpp:788
 #, kde-format
 msgid "Import..."
-msgstr "İçe Aktar..."
+msgstr "İçe Aktar…"
 
 #: MainWindow/Window.cpp:791
 #, kde-format
 msgid "Export/Copy Images..."
-msgstr "Görselleri Kopyala/Dışa Aktar..."
+msgstr "Görselleri Kopyala/Dışa Aktar…"
 
 #: MainWindow/Window.cpp:818
 #, kde-format
@@ -4264,12 +4263,12 @@ msgstr "Seçiliyi Sil"
 #: MainWindow/Window.cpp:824
 #, kde-format
 msgid "Remove Tokens..."
-msgstr "Jetonları Kaldır..."
+msgstr "Jetonları Kaldır…"
 
 #: MainWindow/Window.cpp:827
 #, kde-format
 msgid "Open List of Files..."
-msgstr "Dosyaların Listesini Aç..."
+msgstr "Dosyaların Listesini Aç…"
 
 #: MainWindow/Window.cpp:830
 #, kde-format
@@ -4419,7 +4418,7 @@ msgstr "Diskte Olmayan Görselleri ve Videoları Göster"
 #: MainWindow/Window.cpp:1010
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
-msgstr "Eksik Tarih Bilgisi Olan Görselleri ve Videoları Göster..."
+msgstr "Eksik Tarih Bilgisi Olan Görselleri ve Videoları Göster…"
 
 #: MainWindow/Window.cpp:1013
 #, kde-format
@@ -4444,7 +4443,7 @@ msgstr "Exif Arama Veritabanını Yeniden Oluştur"
 #: MainWindow/Window.cpp:1025
 #, kde-format
 msgid "Read Exif Info from Files..."
-msgstr "Dosyalardan Exif Bilgisi Oku..."
+msgstr "Dosyalardan Exif Bilgisi Oku…"
 
 #: MainWindow/Window.cpp:1028
 #, kde-format
@@ -4454,7 +4453,7 @@ msgstr "Tümünü Tarih ve Zamana Göre Sırala"
 #: MainWindow/Window.cpp:1032
 #, kde-format
 msgid "Automatically Stack Selected Images..."
-msgstr "Seçili Görselleri Otomatik Olarak Yığınla..."
+msgstr "Seçili Görselleri Otomatik Olarak Yığınla…"
 
 #: MainWindow/Window.cpp:1035
 #, kde-format
@@ -4464,12 +4463,12 @@ msgstr "Küçük Görselleri Yap"
 #: MainWindow/Window.cpp:1038
 #, kde-format
 msgid "Statistics..."
-msgstr "İstatistikler..."
+msgstr "İstatistikler…"
 
 #: MainWindow/Window.cpp:1042
 #, kde-format
 msgid "Mark As Untagged"
-msgstr "Etiketlenmemiş Olarak İşaretle"
+msgstr "Künyelenmemiş Olarak İşaretle"
 
 #: MainWindow/Window.cpp:1051
 #, kde-format
@@ -4510,25 +4509,25 @@ msgstr "Önceki video küçük görselini kullan"
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Görselleri şuraya kopyala..."
-msgstr[1] "Görselleri şuraya kopyala..."
+msgstr[0] "Görselleri şuraya kopyala…"
+msgstr[1] "Görselleri şuraya kopyala…"
 
 #: MainWindow/Window.cpp:1087 MainWindow/Window.cpp:1315
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Görselleri şuraya bağla..."
-msgstr[1] "Görselleri şuraya bağla..."
+msgstr[0] "Görselleri şuraya bağla…"
+msgstr[1] "Görselleri şuraya bağla…"
 
 #: MainWindow/Window.cpp:1113
 #, kde-format
 msgid "Auto saving...."
-msgstr "Otomatik kaydediliyor...."
+msgstr "Otomatik kaydediliyor…."
 
 #: MainWindow/Window.cpp:1116
 #, kde-format
 msgid "Auto saving.... Done"
-msgstr "Otomatik kaydediliyor.... Bitti"
+msgstr "Otomatik kaydediliyor…. Bitti"
 
 #: MainWindow/Window.cpp:1218
 #, kde-format
@@ -4562,10 +4561,10 @@ msgid ""
 "untagged tag setting under <interface>Settings|Configure KPhotoAlbum...|"
 "Categories</interface></p>"
 msgstr ""
-"<p>Etiketlenmemiş görseller için bir etiket yapılandırdınız; ancak etiketin "
-"kendisi veya kategorisi veritabanında yok.</p><p>Lütfen, <interface>Ayarlar|"
-"K Fotoğraf Albümü Uygulamasını Yapılandır...|Kategoriler</interface> altında "
-"etiketlenmemiş etiket ayarını gözden geçirin</p>"
+"<p>Künyelenmemiş görseller için bir künye yapılandırdınız; ancak künyenin "
+"kendisi veya kategorisi veritabanında yok.</p><p>Lütfen, <interface>Ayarlar "
+"→ K Fotoğraf Albümü Uygulamasını Yapılandır… → Kategoriler</interface> "
+"altında künyelenmemiş künye ayarını gözden geçirin</p>"
 
 #: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:46
 #, kde-format
@@ -4599,7 +4598,7 @@ msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
 "show-again check box?</p>"
 msgstr ""
-"<p>Daha önceden 'Bunu bir daha gösterme' kutusunu işaretlediğiniz bütün "
+"<p>Daha önceden “Bunu bir daha gösterme’ kutusunu işaretlediğiniz bütün "
 "iletileri yeniden etkinleştirmek istiyor musunuz?</p>"
 
 #: MainWindow/Window.cpp:1536
@@ -4619,11 +4618,11 @@ msgid ""
 "on due to the missing make install.</p>"
 msgstr ""
 "<p>K Fotoğraf Albümü, bir iç hataya denk geldi (MainWindow::Window::"
-"setupPluginMenu'de eksik eklenti menüsü). Bu bir make install işlemini eksik "
-"yaptığınızı gösterir. Eğer K Fotoğraf Albümü'ü kendiniz derlediyseniz lütfen "
-"make install çalıştırın. Değilse bunu bir hata raporu olarak girin.</p><p>K "
-"Fotoğraf Albümü çalışmayı sürdürecektir; ancak make install yapmadığınız "
-"için ileride çökebilir.</p>"
+"setupPluginMenu’de eksik eklenti menüsü). Bu bir make install işlemini eksik "
+"yaptığınızı gösterir. Eğer K Fotoğraf Albümü’nü kendiniz derlediyseniz "
+"lütfen make install çalıştırın. Değilse bunu bir hata raporu olarak girin.</"
+"p><p>K Fotoğraf Albümü çalışmayı sürdürecektir; ancak make install "
+"yapmadığınız için ileride çökebilir.</p>"
 
 #: MainWindow/Window.cpp:1555
 #, kde-format
@@ -4633,7 +4632,7 @@ msgstr "İç Hata"
 #: MainWindow/Window.cpp:1566
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
-msgstr "Görsel(ler) başarıyla paylaşıldı. Konum panoya kopyalanıyor..."
+msgstr "Görsel(ler) başarıyla paylaşıldı. Konum panoya kopyalanıyor…"
 
 #: MainWindow/Window.cpp:1569
 #, kde-format
@@ -4656,7 +4655,7 @@ msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
-"Dosyaları burada listeleyerek K Fotoğraf Albümü'nün veritabanından bir "
+"Dosyaları burada listeleyerek K Fotoğraf Albümü’nün veritabanından bir "
 "dosyalar kümesi açabilirsiniz."
 
 #: MainWindow/Window.cpp:1652
@@ -4750,7 +4749,7 @@ msgstr "Ayarlar kaydedildi!"
 #: Map/MapView.cpp:390
 #, kde-format
 msgid "<i>Loading coordinates from the images ...</i>"
-msgstr "<i>Görsellerden koordinatlar yükleniyor ...</i>"
+msgstr "<i>Görsellerden koordinatlar yükleniyor…</i>"
 
 #: Map/MapView.cpp:406
 #, kde-format
@@ -4789,7 +4788,7 @@ msgid ""
 "android device's address.\n"
 "The android client can be downloaded from google play."
 msgstr ""
-"Bu simge, K Fotoğraf Albümü'nün bir Android aygıta bağlanıp bağlanmadığını "
+"Bu simge, K Fotoğraf Albümü’nün bir Android aygıta bağlanıp bağlanmadığını "
 "gösterir.\n"
 "Yerel dağdaki istemcileri dinlemeyi değiştirmek için simgeye tıklayın.\n"
 "Eğer yerel ağ Android istemcisi ile K Fotoğraf Albümü arasındaki yayın "
@@ -4836,7 +4835,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textedit"
 msgid "Filter ... (%1)"
-msgstr "Süz ... (%1)"
+msgstr "Süz… (%1)"
 
 #: Settings/BirthdayPage.cpp:92
 #, kde-format
@@ -4865,12 +4864,12 @@ msgstr "Doğum Tarihi"
 #: Settings/BirthdayPage.cpp:224
 #, kde-format
 msgid "Birthday of %1:"
-msgstr "%1 'in doğum günü:"
+msgstr "%1 kişisinin doğum günü:"
 
 #: Settings/BirthdayPage.cpp:232
 #, kde-format
 msgid "Enter a date..."
-msgstr "Tarih gir..."
+msgstr "Tarih gir…"
 
 #: Settings/BirthdayPage.cpp:296
 #, kde-format
@@ -4903,7 +4902,7 @@ msgid ""
 "Tags in this category can be\n"
 "associated with areas within images"
 msgstr ""
-"Bu kategorideki etiketler görsel\n"
+"Bu kategorideki künyeler görsel\n"
 "içindeki alanlarla ilişkilendirilebilir"
 
 #: Settings/CategoryPage.cpp:117
@@ -4960,7 +4959,7 @@ msgstr "<b>%1</b> kategorisi için ayarlar"
 #: Settings/CategoryPage.cpp:206
 #, kde-format
 msgid "<i>Pending change: rename to \"%1\"</i>"
-msgstr "<i>Bekleyen değişiklik: \"%1\" olarak yeniden adlandır</i>"
+msgstr "<i>Bekleyen değişiklik: “%1” olarak yeniden adlandır</i>"
 
 #: Settings/CategoryPage.cpp:260
 #, kde-format
@@ -4969,8 +4968,8 @@ msgid ""
 "special category name which is reserved and can't be used for a normal "
 "category.</p>"
 msgstr ""
-"<p>Kategori adı \"%1\" -> \"%2\" olarak değiştirilemiyor:</p><p>\"%2\" "
-"ayrılmış özel bir kategori adıdır ve normal kategori olarak kullanılamaz.</p>"
+"<p>Kategori adı “%1” → “%2” olarak değiştirilemiyor:</p><p>“%2” ayrılmış "
+"özel bir kategori adıdır ve normal kategori olarak kullanılamaz.</p>"
 
 #: Settings/CategoryPage.cpp:264 Settings/CategoryPage.cpp:275
 #, kde-format
@@ -4983,7 +4982,7 @@ msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>A category with "
 "this name already exists.</p>"
 msgstr ""
-"<p>Kategori adı \"%1\" -> \"%2\" olarak değiştirilemiyor:</p><p>Bu adda bir "
+"<p>Kategori adı “%1” → “%2” olarak değiştirilemiyor:</p><p>Bu adda bir "
 "kategori zaten var.</p>"
 
 #: Settings/CategoryPage.cpp:289
@@ -4993,9 +4992,9 @@ msgid ""
 "pending rename action on the category \"%2\". Please save this change first."
 "</p>"
 msgstr ""
-"<p>\"%1\" kategorisinin adı \"%2\" olarak değiştirilemiyor:</"
-"p><p>Halihazırda bekleyen \"%2\" kategorisi için yeniden adlandırma eylemi "
-"var. Lütfen önce bu değişikliği kaydedin.</p>"
+"<p>“%1” kategorisinin adı “%2” olarak değiştirilemiyor:</p><p>Halihazırda "
+"bekleyen “%2” kategorisi için yeniden adlandırma eylemi var. Lütfen önce bu "
+"değişikliği kaydedin.</p>"
 
 #: Settings/CategoryPage.cpp:293
 #, kde-format
@@ -5008,7 +5007,7 @@ msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
-"<p>\"%1\" ögesini yeniden konumlanamaz yapmak istediğinizden emin misiniz?</"
+"<p>“%1” ögesini yeniden konumlanamaz yapmak istediğinizden emin misiniz?</"
 "p><p>Bu kategoriye bağlanmış bütün alanlar atılacaktır!</p>"
 
 #: Settings/CategoryPage.cpp:333
@@ -5025,7 +5024,7 @@ msgstr "Yeni kategori"
 #: Settings/CategoryPage.cpp:409
 #, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
-msgstr "<p>\"%1\" kategorisi gerçekten silinsin mi?</p>"
+msgstr "<p>“%1” kategorisi gerçekten silinsin mi?</p>"
 
 #: Settings/CategoryPage.cpp:414
 #, kde-format
@@ -5080,10 +5079,10 @@ msgid ""
 msgstr ""
 "<p>K Fotoğraf Albümü, index.xmk~1~ index.xml~2~ vs. adlı kopyalar tutarak "
 "index.xml dosyasını yedekleyebilir. Yedekleme dosyalarının sayısını "
-"belirleyebilirsiniz. K Fotoğraf Albümü, asgari yedek dosya sayısına "
+"belirleyebilirsiniz. K Fotoğraf Albümü, en çok yedek dosya sayısına "
 "ulaştığında en eski yedek dosyasını silecektir.</p><p>index.xml dosyası çok "
 "sayıda görsele sahipseniz büyük oranda büyüyebilir ve bu durumda K Fotoğraf "
-"Albümü'nden disk alanını korumak için yedekleme dosyalarını sıkıştırmasını "
+"Albümü’nden disk alanını korumak için yedekleme dosyalarını sıkıştırmasını "
 "istemek faydalıdır.</p>"
 
 #: Settings/DatabaseBackendPage.cpp:67
@@ -5154,8 +5153,8 @@ msgid ""
 "for new images.</p>"
 msgstr ""
 "<p>Yok sayılacak klasörlerin virgülle ayrılmış bir listesini belirtin.</"
-"p><p>Örneğin, burada \"<tt>.thumbs,.thumbnails</tt>\" belirtmek, K Fotoğraf "
-"Albümü'nün herhangi bir klasörde yeni görselleri ararken bu iki klasör adını "
+"p><p>Örneğin, burada “<tt>.thumbs,thumbnails</tt>” belirtmek, K Fotoğraf "
+"Albümü’nün herhangi bir klasörde yeni görselleri ararken bu iki klasör adını "
 "yok saymasına neden olacaktır.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:61
@@ -5167,8 +5166,8 @@ msgid ""
 ">Rescan for new images</b></p>"
 msgstr ""
 "<p>K Fotoğraf Albümü, başlatıldığında yeni görselleri arama yeteneğine "
-"sahiptir; ancak bu biraz zaman alacaktır. Bunun yerine K Fotoğraf Albümü'ne "
-"kendiniz arama yaptırabilirsiniz. <b>Bakım->Görselleri Yeniden Tara</b></p>"
+"sahiptir; ancak bu biraz zaman alacaktır. Bunun yerine K Fotoğraf Albümü’ne "
+"kendiniz arama yaptırabilirsiniz. <b>Bakım→Görselleri Yeniden Tara</b></p>"
 
 #: Settings/FileVersionDetectionPage.cpp:66
 #, kde-format
@@ -5209,7 +5208,7 @@ msgid ""
 msgstr ""
 "<p>K Fotoğraf Albümü, belirli türde RAW görselleri okuyabilir. Bazı "
 "kameralar hem bir RAW görsel hem de eş bir JPEG veya TIFF görseli depolar. "
-"Bu, istenmeyen bir şekilde K Fotoğraf Albümü'nde görselleri çift olarak "
+"Bu, istenmeyen bir şekilde K Fotoğraf Albümü’nde görselleri çift olarak "
 "depolamaya neden olur. Eğer bu seçenek etkinse RAW dosyalar okunmayacaktır.</"
 "p>"
 
@@ -5247,7 +5246,7 @@ msgstr "Özgün dosya değiştirme metni:"
 #: Settings/FileVersionDetectionPage.cpp:110
 #, kde-format
 msgid "Move meta-data (i.e. delete tags from the original)"
-msgstr "Üstveriyi taşı (örn. özgünden etiketleri sil)"
+msgstr "Üstveriyi taşı (örn. özgünden künyeleri sil)"
 
 #: Settings/FileVersionDetectionPage.cpp:113
 #, kde-format
@@ -5282,13 +5281,13 @@ msgid ""
 "<li>You can group parts of the expression using parenthesis.</li> </"
 "ul>Example: <tt>-modified\\.(jpg|tiff)</tt> </p>"
 msgstr ""
-"<p>Perl düzenli ifadersi düzenlenmiş bir dosya ile eşleşmelidir. "
-"<ul><li>Nokta tek karakter eşler (<tt>\\.</tt> nokta eşler)</li>   "
-"<li>Niteleyici kullanabilirsiniz <tt>*</tt>,<tt>+</tt>,<tt>?</tt> ya da      "
-"bir ifadenin çok kez meydana gelmesini eşleyebilirsiniz, bunun için küme "
-"parantesi kullanmalısınız (örn. <tt>e{0,1}</tt> \"e\" karakterinin 0 ya da 1 "
-"kez meydana gelmesini eşler).</li>   <li>Parantezler içinde ifadeyi gruplara "
-"bölebilirsiniz.</li> </ul>Örneğin: <tt>-duzenlenmis\\.(jpg|tiff)</tt> </p>"
+"<p>Perl düzenli ifadersi düzenlenmiş bir dosya ile eşleşmelidir."
+"<ul><li>Nokta tek karakter eşler (<tt>\\.</tt> nokta eşler)</li><li><tt>*</"
+"tt>,<tt>+</tt>,<tt>?</tt> niteyelicilerini kullanabilir veya bir ifadenin "
+"çok kez meydana gelmesini eşleyebilirsiniz, bunun için küme parantesi "
+"kullanmalısınız (örn. <tt>e{0,1}</tt> ‘e’ karakterinin 0 ya da 1 kez meydana "
+"gelmesini eşler).</li><li>Parantezler içinde ifadeyi gruplara bölebilirsiniz."
+"</li></ul>Örneğin: <tt>-modified\\.(jpg|tiff)</tt></p>"
 
 #: Settings/FileVersionDetectionPage.cpp:133
 #, kde-format
@@ -5309,8 +5308,8 @@ msgid ""
 "<p>The tagging is moved from the original file to the new file. This way "
 "only the latest version of an image is tagged.</p>"
 msgstr ""
-"<p>Etiketleme özgün dosyadan yeni dosyaya taşındı. Bu yöntemle görselin "
-"yalnızca son sürümünü etiketlenir.</p>"
+"<p>Künyeleme özgün dosyadan yeni dosyaya taşındı. Bu yöntemle görselin "
+"yalnızca son sürümünü künyelenir.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:143
 #, kde-format
@@ -5321,7 +5320,7 @@ msgid ""
 msgstr ""
 "<p>Eğer bu seçenek ayarlı ise görsellerin yeni sürümleri otomatik olarak "
 "yığılacak ve yığının en üstüne gelecektir. Bu yöntemle, yığın kapatılmış "
-"konumda iken en üstte yeni görsel görünecektir - K Fotoğraf Albümü'nün "
+"konumda iken en üstte yeni görsel görünecektir — K Fotoğraf Albümü’nün "
 "öntanımlı davranışı budur.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:151
@@ -5356,7 +5355,7 @@ msgstr ""
 "kopyasını oluşturabilir. Bu yapılandırma yeni dosyanın nasıl "
 "adlandırılacağını tanımlar.</p><p>Düzenli ifade, özgün dosyanın hangi "
 "bölümünün <i>değişim metni</i> ile değiştirileceğini tanımlar. Örnek regexp "
-"<i>\"\\.(jpg|png)\"</i> ve değişim metni <i>\"-mod.\\1\"</i> ile test.jpg "
+"<i>“\\.(jpg|png)”</i> ve değişim metni <i>“-mod.\\1”</i> ile test.jpg "
 "dosyası test-mod.jpg olacaktır ve yeni dosyayı seçili uygulamada açacaktır.</"
 "p>"
 
@@ -5411,7 +5410,7 @@ msgstr ""
 "<p>Görsel veritabanınızın üzerinde bulunduğu depolama türüne göre görsel "
 "yüklemeyi en iyi başarım için ayarla. Görsel veritabanınız, birden çok "
 "ortamda bulunuyorsa en yavaş ortam türünü seçin.</p><p>Yüklemenin nice "
-"gerçekleştirildiğinin ayrıntılarını yapılandırmak için El İle Ayarlar'ı "
+"gerçekleştirildiğinin ayrıntılarını yapılandırmak için el ile ayarları "
 "kullanın.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:205
@@ -5447,8 +5446,8 @@ msgid ""
 msgstr ""
 "<p>Sağlama toplamları hesaplanırken görselleri belleğe önyüklemek için "
 "kullanılacak iş parçacığı sayısı. Bu, hızlı depolama kullanırken olabilecek "
-"en yüksek sayıda olmalıdır (ancak CPU'nuzun çekirdek sayısından fazla "
-"değil). Öntanımlı sayı, mekanik sabit diskler için iyi çalışan 1'dir.</p>"
+"en yüksek sayıda olmalıdır (ancak CPU’nuzun çekirdek sayısından fazla "
+"değil). Öntanımlı sayı, mekanik sabit diskler için iyi çalışan 1’dir.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:230
 #, kde-format
@@ -5483,7 +5482,7 @@ msgid ""
 msgstr ""
 "<p>Küçük görselleri yapmak için kullanılacak iş parçacığı sayısı. 0 olarak "
 "ayarlanırsa toplam çekirdek sayısından otomatik olarak bir eksiye ayarlanır; "
-"en az bir ve en çok üç. Hızlı bir depolamanız ve çok çekirdekli bir CPU'nuz "
+"en az bir ve en çok üç. Hızlı bir depolamanız ve çok çekirdekli bir CPU’nuz "
 "varsa bunu daha yüksek bir değere ayarlamanın yararını görebilirsiniz.</"
 "p><p>Değişikliklerin etkili olması için K Fotoğraf Albümü yeniden "
 "başlatılmalıdır.</p>"
@@ -5534,7 +5533,7 @@ msgstr "Kameranın ürettiği öntanımlı tanımlamaları çıkar"
 #: Settings/GeneralPage.cpp:68
 #, kde-format
 msgid "Use the embedded thumbnail in RAW file or halfsized RAW"
-msgstr "RAW dosyada veya yarı boyutlu RAW'da gömülü küçük görsel kullan"
+msgstr "RAW dosyada veya yarı boyutlu RAW’da gömülü küçük görsel kullan"
 
 #: Settings/GeneralPage.cpp:72
 #, kde-format
@@ -5587,8 +5586,8 @@ msgstr ""
 "Olmazsa tarihi dosyanın zaman etiketinden almaya çalışacak.</p><p>Ancak, "
 "görseli taradıysanız bu bilgi yanlış olacaktır (Elbette görselin tarandığı "
 "değil çekildiği tarihi istersiniz.).</p><p>Görselleri yalnızca tarıyorsanız "
-"<b>hayır</b>'ı seçmelisiniz. Hiçbir zaman taramıyorsanız<b>evet</b>, dğier "
-"durumlarda <b>sor</b>'u seçmelisiniz. Böylece görselleri tarayıcıdan mı "
+"<b>hayır</b>’ı seçmelisiniz. Hiçbir zaman taramıyorsanız<b>evet</b>, diğer "
+"durumlarda <b>sor</b>’u seçmelisiniz. Böylece görselleri tarayıcıdan mı "
 "sayısal fotoğraf makinenizden mi aldığınıza karar verebilirsiniz.</p>"
 
 #: Settings/GeneralPage.cpp:147
@@ -5628,9 +5627,9 @@ msgid ""
 "in the status bar to start listening."
 msgstr ""
 "<p>K Fotoğraf Albümü, Android aygıttaki görselleri gösterme yeteneğine "
-"sahiptir. K Fotoğraf Albümü, otomatik olarak Android'deki uygulama ile "
-"eşleşir. Bu, masaüstündeki K Fotoğraf Albümü'nün çoklu gönderim iletilerini "
-"dinlemesini gerektirir. Bu kutucuğu işaretlemek K Fotoğraf Albümü'nü "
+"sahiptir. K Fotoğraf Albümü, kendiliğinden Android’deki uygulama ile "
+"eşleşir. Bu, masaüstündeki K Fotoğraf Albümü’nün çoklu gönderim iletilerini "
+"dinlemesini gerektirir. Bu kutucuğu işaretlemek K Fotoğraf Albümü’nü "
 "açılışta bunu otomatik olarak yapacak hale getirir. Alternatif olarak, durum "
 "çubuğundaki bağlantı simgesine tıklayarak dinlemeyi başlatabilirsiniz."
 
@@ -5665,7 +5664,7 @@ msgstr "Doğum Günleri"
 #: Settings/SettingsDialog.cpp:51
 #, kde-format
 msgid "Tag Groups"
-msgstr "Etiket Grupları"
+msgstr "Künye Grupları"
 
 #: Settings/SettingsDialog.cpp:53
 #, kde-format
@@ -5693,7 +5692,7 @@ msgstr "Kategoriler ve gruplar:"
 #, kde-format
 msgctxt "@label/rich"
 msgid "<strong>Select a group on the left side to add tags to it</strong>"
-msgstr "<strong>Üzerine etiket eklemek için sol taraftan bir grup seç</strong>"
+msgstr "<strong>Üzerine künye eklemek için sol taraftan bir grup seç</strong>"
 
 #: Settings/TagGroupsPage.cpp:57
 #, kde-format
@@ -5702,32 +5701,32 @@ msgid ""
 "<strong>There are pending changes on the categories page.<nl> Please save "
 "the changes before working on tag groups.</strong>"
 msgstr ""
-"<strong>Kategoriler sayfasında bekleyen değişiklikler var.<nl>Lütfen etiket "
+"<strong>Kategoriler sayfasında bekleyen değişiklikler var.<nl>Lütfen künye "
 "grupları üzerinde çalışmadan önce değişiklikleri kaydedin.</strong>"
 
 #: Settings/TagGroupsPage.cpp:66
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add group ..."
-msgstr "Grup ekle ..."
+msgstr "Grup Ekle…"
 
 #: Settings/TagGroupsPage.cpp:229
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename group \"%1\""
-msgstr "\"%1\" grubunu yeniden adlandır"
+msgstr "“%1” grubunu yeniden adlandır"
 
 #: Settings/TagGroupsPage.cpp:231
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete group \"%1\""
-msgstr "\"%1\" grubunu sil"
+msgstr "“%1” grubunu sil"
 
 #: Settings/TagGroupsPage.cpp:310
 #, kde-format
 msgctxt "@label"
 msgid "Tags in group \"%1\" of category \"%2\""
-msgstr "\"%2\" kategorisinin \"%1\" grubundaki etiketler"
+msgstr "“%2” kategorisinin “%1” grubundaki künyeler"
 
 #: Settings/TagGroupsPage.cpp:341
 #, kde-format
@@ -5745,7 +5744,7 @@ msgstr "Grup adı:"
 #, kde-format
 msgctxt "@info"
 msgid "<p>The group \"%1\" already exists.</p>"
-msgstr "<p>Grup \"%1\" zaten var.</p>"
+msgstr "<p>Grup “%1” zaten var.</p>"
 
 #: Settings/TagGroupsPage.cpp:358
 #, kde-format
@@ -5772,8 +5771,8 @@ msgid ""
 "<para>Cannot rename group \"%1\" to \"%2\": \"%2\" already exists in "
 "category \"%3\"</para>"
 msgstr ""
-"<para>\"%1\" grubu \"%2\" olarak yeniden adlandırılamıyor: \"%3\" kategorisi "
-"içinde \"%2\" zaten bulunuyor</para>"
+"<para>“%1” grubu “%2” olarak yeniden adlandırılamıyor: “%3” kategorisi "
+"içinde “%2” zaten bulunuyor</para>"
 
 #: Settings/TagGroupsPage.cpp:510
 #, kde-kuit-format
@@ -5783,15 +5782,15 @@ msgid ""
 "will be moved to the super category of \"%1\" (\"%2\").<nl/> All other "
 "memberships of the sub-categories will stay intact.</para>"
 msgstr ""
-"<para>\"%1\" grubunu silmek istediğinizden emin misiniz?</para><para>Bu "
-"kategorilerin alt grupları, \"%1\" in üst kategorisine (\"%2\") taşınacaktır."
-"<nl/>Tüm diğer alt kategorilerin üyelikleri aynı kalacaktır.</para>"
+"<para>“%1” grubunu silmek istediğinizden emin misiniz?</para><para>Bu "
+"kategorilerin alt grupları, “%1” in üst kategorisine (“%2”) taşınacaktır.<nl/"
+">Tüm diğer alt kategorilerin üyelikleri aynı kalacaktır.</para>"
 
 #: Settings/TagGroupsPage.cpp:516
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<para>Really delete group \"%1\"?</para>"
-msgstr "<para>\"%1\" grubu gerçekten silinsin mi?</para>"
+msgstr "<para>“%1” grubu gerçekten silinsin mi?</para>"
 
 #: Settings/TagGroupsPage.cpp:521
 #, kde-format
@@ -5808,25 +5807,25 @@ msgstr "&Sil"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename \"%1\""
-msgstr "Yeniden Adlandır: \"%1\""
+msgstr "Yeniden Adlandır: “%1”"
 
 #: Settings/TagGroupsPage.cpp:702
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete \"%1\""
-msgstr "Sil: \"%1\""
+msgstr "Sil: “%1”"
 
 #: Settings/TagGroupsPage.cpp:713
 #, kde-format
 msgctxt "@title:window"
 msgid "New Tag Name"
-msgstr "Yeni Etiket Adı"
+msgstr "Yeni Künye Adı"
 
 #: Settings/TagGroupsPage.cpp:714
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Tag name:"
-msgstr "Etiket adı:"
+msgstr "Künye adı:"
 
 #: Settings/TagGroupsPage.cpp:764
 #, kde-kuit-format
@@ -5836,7 +5835,7 @@ msgid ""
 "will remove any information about it from any image containing the item.</"
 "para>"
 msgstr ""
-"<para>\"%1\" ögesini gerçekten silmek istiyor musunuz?</para><para>Ögeyi "
+"<para>“%1” ögesini gerçekten silmek istiyor musunuz?</para><para>Ögeyi "
 "silmek bu ögeyi onu içeren her görselden kaldıracaktır.</para>"
 
 #: Settings/TagGroupsPage.cpp:768
@@ -5868,7 +5867,7 @@ msgstr "İstenmesi halinde küçük görselleri oluştur"
 #: Settings/ThumbnailsPage.cpp:52
 #, kde-format
 msgid "Thumbnail table cells aspect ratio:"
-msgstr "Küçük görseller tablo hücreleri en-boy oranı:"
+msgstr "Küçük görseller tablo hücreleri en–boy oranı:"
 
 #: Settings/ThumbnailsPage.cpp:54
 #, kde-format
@@ -5944,9 +5943,9 @@ msgid ""
 "thumbnails. This window includes a small preview image. This option "
 "configures the image size.</p>"
 msgstr ""
-"<p>Küçük görsel görünümünde <b>Ayarlar -&gt; İpuçlarını Göster</b>'i "
-"seçerseniz küçük görseller hakkında bilgi veren küçük bir ipucu görürsünüz. "
-"Bu pencere küçük bir önizleme içerir. Bu seçenek görsel boyutunu ayarlar.</p>"
+"<p>Küçük görsel görünümünde <b>Ayarlar → İpuçlarını Göster</b>’i seçerseniz "
+"küçük görseller hakkında bilgi veren küçük bir ipucu görürsünüz. Bu pencere "
+"küçük bir önizleme içerir. Bu seçenek görsel boyutunu ayarlar.</p>"
 
 #: Settings/ThumbnailsPage.cpp:104
 #, kde-format
@@ -5971,12 +5970,12 @@ msgid ""
 msgstr ""
 "<p>Bu ayarlandıysa küçük görseller istek üzerine oluşturulur. Görsel "
 "veritabanınızı gezdikçe, yalnızca gerekli olan küçük görseller oluşturulur. "
-"Bu, eğer küçük görsel boyutunu değiştirdiyseniz KPhotoAlbum'ün çok fazla "
-"görseliniz olmasına rağmen hala cevap vermesini sağlayacaktır.</p><p>Eğer bu "
-"ayarlı değilse KPhotoAlbum her zaman bütün görseller için küçük görseller "
-"oluşturmaya çalışacaktır. Bu da yeni görsel bulunduğu anda KPhotoAlbum onlar "
-"için hemen küçük görsel oluşturacak ve göz atarken bir gecikme "
-"yaşamayacaksınız demektir.</p>"
+"Bu, eğer küçük görsel boyutunu değiştirdiyseniz K Fotoğraf Albümü’nün çok "
+"fazla görseliniz olmasına rağmen hala cevap vermesini sağlayacaktır.</"
+"p><p>Eğer bu ayarlı değilse KPhotoAlbum her zaman bütün görseller için küçük "
+"görseller oluşturmaya çalışacaktır. Bu da yeni görsel bulunduğu anda K "
+"Fotoğraf Albümü onlar için hemen küçük görsel oluşturacak ve göz atarken bir "
+"gecikme yaşamayacaksınız demektir.</p>"
 
 #: Settings/ThumbnailsPage.cpp:117
 #, kde-format
@@ -6025,7 +6024,7 @@ msgid ""
 msgstr ""
 "<p>Göz atarken ve sayı burada belirttiğiniz değerin altına indiğinde, küçük "
 "görseller otomatik olarak gösterilecektir. Alternatifi, <i>Görselleri "
-"Göster</i>'e basana kadar tarayıcıyı göstermeyi sürdürmektir.</p>"
+"Göster</i>’e basana kadar tarayıcıyı göstermeyi sürdürmektir.</p>"
 
 #: Settings/UntaggedGroupBox.cpp:24
 #, kde-format
@@ -6034,14 +6033,14 @@ msgid ""
 "automatically, so that they can be easily found. It will be removed as soon "
 "as the image has been annotated."
 msgstr ""
-"Burada bir etiket seçilirse kolayca bulunabilmesi için yeni (etiketsiz) "
+"Burada bir künye seçilirse kolayca bulunabilmesi için yeni (künyesiz) "
 "görüntülere otomatik olarak eklenecektir. Görsel, ek açıklandığı anda "
 "kaldırılır."
 
 #: Settings/UntaggedGroupBox.cpp:45
 #, kde-format
 msgid "Show the untagged images tag as a normal tag"
-msgstr "Etiketlenmemiş görsel etiketini normal bir etiketmiş gibi göster"
+msgstr "Künyelenmemiş görsel künyesini normal bir künyemiş gibi göster"
 
 #: Settings/UntaggedGroupBox.cpp:54
 #, kde-format
@@ -6051,7 +6050,7 @@ msgstr "Seçili Yok"
 #: Settings/UntaggedGroupBox.cpp:117
 #, kde-format
 msgid "New tag added"
-msgstr "Yeni etiket eklendi"
+msgstr "Yeni künye eklendi"
 
 #: Settings/UntaggedGroupBox.cpp:118
 #, kde-format
@@ -6061,10 +6060,10 @@ msgid ""
 "stored in the database. Otherwise, it will be lost, and you will get an "
 "error about this tag being not present on the next start.</p>"
 msgstr ""
-"<p>Yeni etiket \"%1\", \"%2\" kategorisine eklendi ve etiketlenmemiş "
-"görseller için şimdi kullanılacak.</p><p>Lütfen şimdi kaydedin, çünkü bu "
-"etiket veritabanında saklanacak. Aksi takdirde, bu kaybolacak ve bir sonraki "
-"başlatmada bu etiketin bulunmaması ile ilgili bir hata alacaksınız.</p>"
+"<p>Yeni künye “%1”, “%2” kategorisine eklendi ve künyelenmemiş görseller "
+"için şimdi kullanılacak.</p><p>Lütfen şimdi kaydedin, çünkü bu künye "
+"veritabanında saklanacak. Aksi takdirde, bu kaybolacak ve bir sonraki "
+"başlatmada bu künyenin bulunmaması ile ilgili bir hata alacaksınız.</p>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:25
 #, kde-format
@@ -6098,14 +6097,14 @@ msgstr ""
 "görünmektedir; çoğu video biçimini oynatabilir. Tek dezavantajı, çalışmak "
 "için X11 gerektirmektedir. Wayland kullanıyorsanız videoların kendi "
 "pencerelerinde açıldığını göreceksiniz; bu durumda VLC sizin için iyi bir "
-"seçim olmayabilir. X11 kullanıyorsanız gözünüz kapalı olarak VLC'yi "
-"seçebilirsiniz.</p><p>Eskiden beri, K Fotoğraf Albümü, arka uç olarak "
+"seçim olmayabilir. X11 kullanıyorsanız gözünüz kapalı olarak VLC’yi "
+"seçebilirsiniz.</p><p>Eskiden beri K Fotoğraf Albümü, arka uç olarak "
 "<b>Phonon</b> kullanıyordu. Ne yazık ki çoğu video biçimini oynatırken "
 "çöktüğünü gözlemledik; büyük olasılıkla bizim sistemimiz düzgünce "
 "yapılandırılmamıştı. Sizin deneyiminiz de bu ise (ve VLC kullanamıyorsanız) "
 "birçok video biçimini destekleyen <b>QtAV</b> arka ucunu deneyin. <b>QtAV</"
-"b>'in bir dezavantajı olarak video ve ses aynı anda gelmeyebiliyor.</"
-"p><p><b><font color=red>Arka ucu, Ayarlar -> Görüntüleyici'den istediğiniz "
+"b>’in bir dezavantajı olarak video ve ses aynı anda gelmeyebiliyor.</"
+"p><p><b><font color=red>Arka ucu, Ayarlar → Görüntüleyici’den istediğiniz "
 "zaman değiştirebilirsiniz</font></b></p></html>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:51
@@ -6125,7 +6124,7 @@ msgid ""
 "talk to the maintainer of the package.</html>"
 msgstr ""
 "<html><h1>Eksik arka uç</h1>Kullanılamayan arka uçların olmasının nedeni, K "
-"Fotoğraf Albümü'nün derlenme sırasında bu arka uçlarla derlenmemesidir. "
+"Fotoğraf Albümü’nün derlenme sırasında bu arka uçlarla derlenmemesidir. "
 "Derlemeyi kendiniz yaptıysanız arka uçların geliştirici paketlerini kurun. K "
 "Fotoğraf Albümü sisteminizde yükle geldiyse paketin bakımcısına başvurun.</"
 "html>"
@@ -6250,7 +6249,7 @@ msgid ""
 "the image. If this option is not set, KPhotoAlbum will use a faster but less "
 "smooth scaling method.</p>"
 msgstr ""
-"<p>Görseller görüntülenirken, KPhotoAlbum normal olarak yumuşak görsel "
+"<p>Görseller görüntülenirken, K Fotoğraf Albümü normal olarak yumuşak görsel "
 "ölçeklenmesini uygular. Eğer bu seçenek belirlenmişse K Fotoğraf Albümü daha "
 "hızlı; ancak daha az yumuşak bir ölçekleme yöntemi kullanacaktır.</p>"
 
@@ -6310,7 +6309,7 @@ msgid ""
 "toggle a filter for that token."
 msgstr ""
 "İpucu: Bu jeton için bir süzgeç açıp kapatmak için <shortcut>Seçenek+Üst "
-"Karakter+<placeholder>A-Z</placeholder></shortcut> kısayolunu kullanın."
+"Karakter+<placeholder>A–Z</placeholder></shortcut> kısayolunu kullanın."
 
 #: ThumbnailView/ThumbnailDND.cpp:90
 #, kde-format
@@ -6324,9 +6323,8 @@ msgstr ""
 "<p><b>Küçük görseller gerçekten yeniden düzenlensin mi?</b></p><p>Görselleri "
 "küçük görsel izleyicisinde sürükleyerek, onları yeniden düzenleyebilirsiniz. "
 "Görsellerin gerçek tarihini bilmediğiniz durumlarda, bu, oldukça faydalıdır. "
-"Diğer taraftan, görseller geçerli zaman damgalarına sahipse <b>Görseller -"
-"&gt; Seçili Görselleri Tarih ve Zamana Göre Sırala</b> yolunu "
-"kullanmalısınız</p>"
+"Diğer taraftan, görseller geçerli zaman damgalarına sahipse <b>Görseller → "
+"Seçili Görselleri Tarih ve Zamana Göre Sırala</b> yolunu kullanmalısınız</p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:97
 #, kde-format
@@ -6342,12 +6340,12 @@ msgstr "Dosyaları Silmede Hata"
 #: Utilities/DemoUtil.cpp:36
 #, kde-format
 msgid "Unable to copy '%1' to '%2'."
-msgstr "'%1', '%2''ye kopyalanamadı."
+msgstr "“%1”, “%2” konumuna kopyalanamadı."
 
 #: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Unable to create folder '%1' needed for demo."
-msgstr "Tanıtım için gereken '%1' klasörü oluşturulamadı."
+msgstr "Tanıtım için gereken “%1” klasörü oluşturulamadı."
 
 #: Utilities/DescriptionUtil.cpp:56
 #, kde-format
@@ -6466,25 +6464,25 @@ msgstr " (&lt; %1)"
 #, kde-format
 msgctxt "E.g. ' (1-2 years)'"
 msgid " (%1-%2)"
-msgstr " (%1-%2)"
+msgstr " (%1–%2)"
 
 #: Utilities/DescriptionUtil.cpp:372
 #, kde-format
 msgctxt "E.g. ' (7 months-1 year)'"
 msgid " (%1-%2)"
-msgstr " (%1-%2)"
+msgstr " (%1–%2)"
 
 #: Utilities/DescriptionUtil.cpp:394
 #, kde-format
 msgctxt "E.g. ' (1-2 years ago)'"
 msgid " (%1-%2)"
-msgstr " (%1-%2)"
+msgstr " (%1–%2)"
 
 #: Utilities/DescriptionUtil.cpp:396
 #, kde-format
 msgctxt "E.g. '(7 months ago-1 year ago)'"
 msgid " (%1-%2)"
-msgstr " (%1-%2)"
+msgstr " (%1–%2)"
 
 #: Viewer/AnnotationHandler.cpp:68
 #, kde-format
@@ -6500,12 +6498,12 @@ msgstr "<b>%1</b> makro düğmesi için öge seç"
 #: Viewer/AnnotationHandler.cpp:125
 #, kde-format
 msgid "Tag Item"
-msgstr "Ögeyi Etiketle"
+msgstr "Ögeyi Künyele"
 
 #: Viewer/AnnotationHandler.cpp:125
 #, kde-format
 msgid "Select tag for image"
-msgstr "Görsel için etiket seç"
+msgstr "Görsel için künye seç"
 
 #: Viewer/CategoryImageConfig.cpp:33
 #, kde-format
@@ -6523,7 +6521,7 @@ msgstr "Kategori:"
 #, kde-format
 msgctxt "@label:listbox As in 'select a tag'"
 msgid "Tag:"
-msgstr "Etiket:"
+msgstr "Künye:"
 
 #: Viewer/CategoryImageConfig.cpp:58
 #, kde-format
@@ -6597,7 +6595,7 @@ msgstr "Düğme"
 #: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Tag"
-msgstr "Etiket"
+msgstr "Künye"
 
 #: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
@@ -6621,7 +6619,7 @@ msgstr "MetinEtiketi"
 #: Viewer/SelectCategoryAndValue.ui:43
 #, kde-format
 msgid "Add new Tag"
-msgstr "Yeni Etiket Ekle"
+msgstr "Yeni Künye Ekle"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
@@ -6645,13 +6643,13 @@ msgstr "Yığın İçerisindeki İlk görseli Ayarla"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
-msgstr "Görselleri şuraya kopyala ..."
+msgstr "Görselleri Şuraya Kopyala…"
 
 #: Viewer/ViewerWidget.cpp:211
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
-msgstr "Görselleri şuraya bağla ..."
+msgstr "Görselleri Şuraya Bağla…"
 
 #: Viewer/ViewerWidget.cpp:219
 #, kde-format
@@ -7033,7 +7031,7 @@ msgid ""
 msgstr ""
 "<p>K Fotoğraf Albümü, video oynatımı sırasında çökmüş görünüyor. Bazı "
 "platformlarda, bu video oynatıcılarla ilgili bilinen bir sorundur.</"
-"p><p>Başka bir arka uç kullanmayı denemek için <i>Sürdür</i>'e basın...</p>"
+"p><p>Başka bir arka uç kullanmayı denemek için <i>Sürdür</i>’e basın…</p>"
 
 #: Viewer/ViewerWidget.cpp:1399
 #, kde-format
@@ -7074,7 +7072,7 @@ msgstr "Bilgi Notu İletişim Kutusu"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
-msgstr "Etiket Ekle"
+msgstr "Künye Ekle"
 
 #: Viewer/ViewerWidget.cpp:1498
 #, kde-format
@@ -7127,7 +7125,7 @@ msgstr "Kontrol+L"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr "Etiketler Ata"
+msgstr "Künyeler Ata"
 
 #: Viewer/ViewerWidget.cpp:1517
 #, kde-format
@@ -7155,7 +7153,7 @@ msgstr "Jeton %1"
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format
 msgid "Show..."
-msgstr "Göster..."
+msgstr "Göster…"
 
 #: Viewer/VisibleOptionsMenu.cpp:24
 #, kde-format

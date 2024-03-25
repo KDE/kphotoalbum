@@ -20,12 +20,12 @@ namespace Timespan
 
 struct DateDifference {
     // These represent the perceived timespan
-    int years;
-    int months;
-    int days;
+    const int years = 0;
+    const int months = 0;
+    const int days = 0;
 
     // This is the exact number of days, used to display short periods < 2 months
-    int allDays;
+    const int allDays = 0;
 
     bool operator==(const DateDifference &other) const
     {

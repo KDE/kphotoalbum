@@ -54,7 +54,7 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
 
     if (Settings::SettingsData::instance()->showDate()) {
         QString dateString = info->date().toString(Settings::SettingsData::instance()->showTime() ? true : false);
-        dateString.append(Timespan::ago(info));
+        dateString.append(Timespan::ago(info->date()));
         AddNonEmptyInfo(i18n("<b>Date: </b> "), dateString, &result);
     }
 
@@ -126,7 +126,8 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
                         ++link;
                         (*linkMap)[link] = QPair<QString, QString>(categoryName, item);
                         infoText += QLatin1String("<a href=\"%1\">%2</a>").arg(link).arg(item);
-                        infoText += Timespan::age(category, item, info);
+                        const auto birth = category->birthDate(item);
+                        infoText += Timespan::age(birth, info->date());
                     } else {
                         infoText += item;
                     }

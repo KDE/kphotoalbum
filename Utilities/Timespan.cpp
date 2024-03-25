@@ -5,9 +5,6 @@
 // Local includes
 #include "Timespan.h"
 
-#include <DB/Category.h>
-#include <DB/ImageInfo.h>
-
 // KDE includes
 #include <KLocalizedString>
 
@@ -64,31 +61,30 @@ Timespan::DateDifference Timespan::dateDifference(const QDate &date, const QDate
     };
 }
 
-QString Timespan::age(DB::CategoryPtr category, const QString &item, DB::ImageInfoPtr info)
+QString Timespan::age(const QDate &birthDate, const DB::ImageDate &imageDate)
 {
-    const auto birth = category->birthDate(item);
-    if (!birth.isValid() || !info->date().isValid()) {
+    if (!birthDate.isValid() || !imageDate.isValid()) {
         return QString();
     }
 
-    const auto dateStart = info->date().start().date();
-    const auto dateEnd = info->date().end().date();
+    const auto dateStart = imageDate.start().date();
+    const auto dateEnd = imageDate.end().date();
 
-    if (dateStart < birth && dateEnd < birth) {
+    if (dateStart < birthDate && dateEnd < birthDate) {
         // It's a photo of a person before their birth
         return QString();
 
-    } else if (dateStart < birth && dateEnd >= birth) {
+    } else if (dateStart < birthDate && dateEnd >= birthDate) {
         // At least the end date is after the person's birth
-        const auto maxAge = dateDifference(birth, dateEnd);
+        const auto maxAge = dateDifference(birthDate, dateEnd);
         return i18nc("Like \"up to 6 years\" old",
                      " (up to %1)",
                      formatAge(maxAge));
     }
 
     // The photo was taken after the person's birth
-    const auto minAge = dateDifference(birth, dateStart);
-    const auto maxAge = dateDifference(birth, dateEnd);
+    const auto minAge = dateDifference(birthDate, dateStart);
+    const auto maxAge = dateDifference(birthDate, dateEnd);
 
     if (minAge == maxAge) {
         return i18nc("Like \"6 years\" old",
@@ -131,14 +127,14 @@ QString Timespan::formatAge(const Timespan::DateDifference &age)
     }
 }
 
-QString Timespan::ago(const DB::ImageInfoPtr info)
+QString Timespan::ago(const DB::ImageDate &imageDate)
 {
-    if (!info->date().isValid()) {
+    if (!imageDate.isValid()) {
         return QString();
     }
 
-    const auto dateStart = info->date().start().date();
-    const auto dateEnd = info->date().end().date();
+    const auto dateStart = imageDate.start().date();
+    const auto dateEnd = imageDate.end().date();
     const auto today = QDate::currentDate();
 
     if (today < dateStart && today < dateEnd) {

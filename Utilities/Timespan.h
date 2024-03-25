@@ -6,8 +6,7 @@
 #define TIMESPAN_H
 
 // Local includes
-#include "DB/CategoryPtr.h"
-#include "DB/ImageInfoPtr.h"
+#include <DB/ImageDate.h>
 
 // Qt includes
 #include <QDebug>
@@ -45,10 +44,33 @@ struct DateDifference {
 
 DateDifference dateDifference(const QDate &date, const QDate &reference);
 
-QString age(DB::CategoryPtr category, const QString &item, DB::ImageInfoPtr info);
+/**
+ * @brief age computes the age of a person or entity, given a birth date and the reference date of an image.
+ * @param birthDate the (exact) birth date
+ * @param imageDate the (possibly fuzzy) reference date, usually of an image
+ * @return a translated, formatted string describing the age or age range
+ */
+QString age(const QDate &birthDate, const DB::ImageDate &imageDate);
+/**
+ * @brief formatAge creates a textual description of a given DateDifference, interpreted as an age.
+ * Colloquially speaking, this method answers the question "How old?".
+ * @param age the DateDifference
+ * @return a translated, formatted string
+ */
 QString formatAge(const DateDifference &age);
 
-QString ago(const DB::ImageInfoPtr info);
+/**
+ * @brief ago computes, how long ago an image was taken, based on the current date.
+ * @param imageDate the (possibly fuzzy) reference date, usually of an image.
+ * @return a translated, formatted string describing the timespan
+ */
+QString ago(const DB::ImageDate &imageDate);
+/**
+ * @brief formatAgo creates a textual description of a given DateDifference, interpreted as a time span.
+ * Colloquially speaking, this method answers the question "How long ago?".
+ * @param ago
+ * @return
+ */
 QString formatAgo(const DateDifference &ago);
 }
 

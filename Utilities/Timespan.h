@@ -29,14 +29,16 @@ struct DateDifference {
 
     bool operator==(const DateDifference &other) const
     {
-        return this->years == other.years
+        return this->allDays == other.allDays
+            && this->years == other.years
             && this->months == other.months
             && this->days == other.days;
     }
 
     bool operator!=(const DateDifference &other) const
     {
-        return this->years != other.years
+        return this->allDays != other.allDays
+            || this->years != other.years
             || this->months != other.months
             || this->days != other.days;
     }

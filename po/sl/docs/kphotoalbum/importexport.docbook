@@ -1,0 +1,157 @@
+<!--
+SPDX-FileCopyrightText: 2004-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-importExport">
+  <title
+>Uvoz/izvoz</title>
+  <para
+>Če se udeležite družinske zabave, sestanka podjetja, konference ali katerega koli drugega dogodka, kjer so morda prisotni drugi uporabniki &kphotoalbum;a, boste morda želeli deliti svoje slike s temi ljudmi. Seveda se lahko odločite za ustvarjanje &HTML; strani, po katerih lahko brskajo, vendar glede na to, da ste že porabili čas za razvrščanje vseh slik (kdo je na slikah, kje so bile posnete itd.), ni razloga, da bi vse to delo ponovili.</para>
+
+    <para
+>&kphotoalbum; vam omogoča, da izvozite nabor svojih slik v datoteko <literal role="extension"
+>.kim</literal
+>, ki jo lahko drugi uvozijo v svojo bazo podatkov, da dobite vašo klasifikacijo za te slike.</para>
+
+    <para
+>Obstajata dve različni vrsti datotek <literal role="extension"
+>.kim</literal
+>, notranje (inlines) ali zunanje (externals), ki se nanašata na to, ali se same slike nahajajo v datoteki ali na drugem mestu. Postavitev slik v datoteko ima očitno prednost, da je datoteka samostojna, medtem ko ima enako očitno pomanjkljivost, da je datoteka precej velika.</para>
+
+    <para
+>Datoteko <literal role="extension"
+>.kim</literal
+> lahko ustvarite na dveh mestih, in sicer neposredno iz menija <menuchoice
+><guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Izvoz...</guimenuitem 
+></menuchoice
+> ali skupaj z &HTML; stranmi (glejte <xref linkend="chp-generating-html"/>). Ustvarjanje datoteke <literal role="extension"
+>.kim</literal
+> med izvozom &HTML; bo ustvaril zunanjo datoteko <literal role="extension"
+>.kim</literal
+>.</para>
+
+    <para
+>Zunanje <literal role="extension"
+>.kim</literal
+> datoteke bodo iskale slike na enega od dveh načinov. Najprej bo poskušal poiskati slike zraven datoteke <literal role="extension"
+>.kim</literal
+> in če jih ne bo našel, jih bo poiskal na naslovu URL, ki je naveden, ko je <literal role="extension"
+>.kim</literal
+> bila ustvarjena. Upoštevajte, da je poznejše možno samo za datoteke <literal role="extension"
+>.kim</literal
+>, ustvarjene med izvozom &HTML;.</para>
+    
+    <sect1 id="chp-exportDialog">
+      <title
+>Pogovorno okno izvoza</title>
+      <para
+>Ta razdelek vam bo povedal podrobnosti o pogovornem oknu izvoza, ki ga odprete iz <menuchoice
+><guimenu
+>Datoteka</guimenu
+> <guimenuitem
+>Izvozi...</guimenuitem
+></menuchoice
+>.</para>
+
+      <para
+>Najpomembnejši del tega pogovornega okna je določanje, ali naj bo datoteka <literal role="extension"
+>.kim</literal
+> notranja ali zunanja (glejte opis zgoraj). Na voljo imate naslednje tri možnosti: <itemizedlist>
+          <listitem
+><para
+>Vključi v datoteko <literal role="extension"
+>.kim</literal
+> - to bo notranja datoteka</para
+></listitem>
+          <listitem
+><para
+>Ročno kopiranje zraven datoteke .kim – tukaj morate sami kopirati slike poleg datoteke .kim</para
+></listitem>
+          <listitem
+><para
+>Samodejno kopiraj poleg datoteke .kim - tukaj vam bo kopiral slike &kphotoalbum;.</para
+></listitem>
+        </itemizedlist>
+      </para>
+      
+      <para
+>Med vami in mano, datoteke <literal role="extension"
+>.kim</literal
+> so v resnici samo datoteke zip. Običajno se ni vredno truditi s stiskanjem datotek, ker so slike običajno že stisnjene v JPEG, sama datoteka XML pa je zelo majhna. Če res želite iztisniti zadnjih nekaj bajtov, lahko to vseeno storite tako, da odkljukate <guilabel
+>Stisni izvozno datoteko</guilabel
+></para>
+
+      <para
+>Zadnja možnost na strani je <guilabel
+>Omeji največjo dimenzijo slike</guilabel
+>. Ko pošiljate nekaj slik nekaterim prijateljem, morda ne boste želeli poslati slik v polni velikosti, saj je lahko datoteka <literal role="extension"
+>.kim</literal
+> ogromna. Za to lahko določite, da mora biti največja dimenzija slik recimo največ 800 slikovnih pik v vsako smer.</para>
+    </sect1>
+
+
+
+
+    
+<sect1 id="chp-importDialog">
+  <title
+>Pogovorno okno uvoza</title>
+<para
+>Ko v spletnem brskalniku izberete datoteko <literal role="extension"
+>.kim</literal
+> ali izberete meni <menuchoice
+><guimenu
+>Datoteka</guimenu
+><guimenuitem
+>Uvoz...</guimenuitem
+></menuchoice
+>, bo &kphotoalbum; uvozil bazo podatkov, izvoženo s funkcijo, opisano v <xref linkend="chp-importExport"/>.</para>
+
+<para
+>Čarovnik za uvoz je sestavljen iz štirih korakov. Najprej morate določiti, katere slike želite uvoziti. Nato morate določiti, v kateri imenik želite shraniti uvožene slike.</para>
+
+<para
+>Verjetno je, da vi kategorijo ljudi imenujete <emphasis
+>personen</emphasis
+> (če ste Nemec), medtem ko bi jaz v danščini to kategorijo lahko imenoval <emphasis
+>personer</emphasis
+>. V tretjem koraku pogovornega okna za uvoz morate določiti, katero kategorijo iz uvozne datoteke želite uvoziti in s katerimi kategorijam v vaši bazi podatkov se ujemajo.</para>
+
+<para
+>V svojih zbirkah podatkov se lahko imenujem <emphasis
+>jaz</emphasis
+>, medtem ko se v vaši zbirki podatkov imenujem Jesper K. Pedersen. Četrti korak vam omogoča nastavitev ujemanja za vsako od uvoženih kategorij. To si lahko ogledate v <xref linkend="fig-import-dialog"/>.</para>
+
+<figure id="fig-import-dialog">
+<title
+>Ujemanje oseb v pogovornem oknu uvoza </title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="import-dialog.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Na posnetku zaslona boste morda videli, da je Donna enaka v datoteki .kim in v moji zbirki podatkov – ime je prikazano v črni barvi, kar pomeni popolno ujemanje v zbirki podatkov. Ostalih treh imen ni bilo mogoče najti v zbirki podatkov, čeprav je bilo ugotovljeno, da se Jesper in Anne Helene ujemata kot podniz, zato sta predlagani. Končno v svoji zbirki podatkov nisem imel imena Spiff (ali pa bi ga poimenoval precej drugače), zato je &kphotoalbum; preprosto predlagal Spiff za ime uvoza.</para>
+
+</sect1>
+  </chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

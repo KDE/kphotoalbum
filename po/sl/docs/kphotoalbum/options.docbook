@@ -1,0 +1,207 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-options">
+  <title
+>Konfiguriranje &kphotoalbum;</title>
+  <para
+>Če v menijski vrstici izberete <menuchoice
+><guimenu
+>Nastavitve</guimenu
+><guimenuitem
+>Konfiguriraj KPhotoAlbum...</guimenuitem
+></menuchoice
+>, se prikaže pogovorno okno z možnostmi. To poglavje vam bo povedalo o možnostih konfiguracije, ki so tam na voljo.</para>
+
+
+<sect1 id="opt-general">
+  <title
+>Splošne nastavitve</title>
+
+<para
+>Spodaj si lahko ogledate konfiguracijsko stran za splošne možnosti. Nekatere od teh možnosti so na kratko opisane tukaj, do informacijskega menija pa lahko dostopate tudi med konfiguracijo, tako da z desno miškino tipko kliknete katero koli možnost in izberete element menija <guimenuitem
+>Kaj je to?</guimenuitem
+>.</para>
+
+<figure id="fig-options-general">
+<title
+>Splošne možnosti</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-general.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Uporaba informacij o orientaciji EXIF bo samodejno zasukala slike med snemanjem. Večina digitalnih fotoaparatov vdela sličico v datoteke formata RAW in pogosto je ta sličica dejansko zadostne velikosti, morda celo polne velikosti. Če izberete uporabo te vdelane sličice, boste pospešili vse slikovne operacije, saj je dekodiranje neobdelanih datotek zelo zamudno, in je sličica mnogokrat hitrejša. Določite lahko tudi najmanjšo velikost sličice, tako da se slika RAW dekodira, če je sličica neuporabne velikosti.</para>
+</sect1>
+
+<sect1 id="opt-search-new">
+  <title
+>Nove nastavitve iskalnika slik</title>
+<para
+>Levo podokno vam omogoča dostop do drugih nastavitev, kot je <guimenuitem
+>Iskanje datotek &amp; Različice</guimenuitem
+>. Te nastavitve določajo obnašanje &kphotoalbum;, ko najde nove slike. Te lahko poišče samodejno ob zagonu ali ročno v meniju <guimenu
+>Vzdrževanje</guimenu
+>. Možnosti so spet dobro opisane v spletnem meniju za pomoč, nekaj pa bi jih bilo treba tukaj na kratko predstaviti.</para>
+
+<figure id="fig-options-file-versions">
+<title
+>Iskanje datotek &amp; Različice</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-file-versions.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para>
+<itemizedlist mark='opencircle'>
+    <listitem
+><para
+>Verjetno želite preskočiti iskanje nekaterih imenikov, ki so jih ustvarili različni pregledovalniki slik ali brskalniki datotek. To je seznam, ločen z vejicami, nove imenike pa lahko po potrebi preprosto dodate.</para
+></listitem>
+    <listitem>
+        <para
+>Nove različice istih datotek je mogoče do neke mere samodejno zaznati. Če želite &eg;. samodejno zložiti nove različice iste slike v sklad lahko konfigurirate regularni izraz, ki se uporablja za preverjanje, ali je nova datoteka nova različica izvirne datoteke. Naslednje nastavitve, pri katerih je prva iskalni regularni izraz, druga pa preizkus izvirne datoteke, bi vam morale olajšati začetek, vendar boste morda potrebovali nekaj prilagoditev, da bodo ustrezale vašemu dogovoru o poimenovanju:</para>
+    <orderedlist>
+    <listitem
+><para
+>(_(v){0,1}([0-9]){1,2}){0,1}\.(jpg|JPG|tif|TIF|png|PNG)</para
+></listitem>
+    <listitem
+><para
+>.CR2;.NEF;.JPG;.jpg</para
+></listitem>
+    </orderedlist>
+    </listitem>
+</itemizedlist
+>Upoštevajte, da ima lahko izvirno nadomestno besedilo datoteke več pripon, ločenih s podpičjem, sklicevanje na ujemanje regularnega izraza pa je mogoče uporabiti v obliki \1. Izvirna datoteka se išče v istem imeniku kot nova datoteka. Oh in primer regularnega izraza se bo ujemal z &eg; naslednjimi datotekami: primer_v1.jpg, primer_12.tif, primer.PNG. </para>
+</sect1>
+
+<sect1 id="opt-thumbnails">
+  <title
+>Nastavitve pregledovalnika sličic</title>
+  <para
+>Pregledovalnik sličic ni treba veliko konfigurirati. Predvsem velikost sličic in velikost namigov orodij (če nameravate uporabiti funkcijo namigov orodij, ki jih lahko omogočite v <menuchoice
+><guimenu
+>Nastavitve</guimenu
+><guimenuitem
+>Pokaži namige orodij v oknu s sličicami</guimenuitem
+></menuchoice
+> ali <keycombo 
+>&Ctrl;<keycap
+>T</keycap
+></keycombo
+>). Izberete lahko tudi ogled dodatnih informacij, kot so oznake in kategorije s sličicami. </para>
+<figure>
+<title
+>Možnosti za pogled sličic</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-thumbnailview.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+<sect1 id="opt-viewer">
+  <title
+>Nastavitve pregledovalnika</title>
+  <para
+>Še ena precej preprosta konfiguracija. V glavnem lahko izberete želeno velikost okna Ogledovalnika ali okna Predstavitve ali pa jih prikažete v celozaslonskem načinu. Tukaj lahko nastavite osnovni interval predstavitve. Algoritem prilagajanja merila je lahko <emphasis
+>Najboljši</emphasis
+> ali <emphasis
+>Najhitrejši</emphasis
+>. Če je vaš računalnik dovolj hiter za najboljše prilagajanje, uporabite metodo primernejšo za hitrost. </para>
+<figure>
+<title
+>Možnosti pregledovalnika</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-viewer.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+
+
+
+<sect1 id="sec-specifying-categories">
+  <title
+>Kategorije</title>
+  <para
+>V <xref linkend="chp-typingIn"/> je bilo opisano, kako lahko določite različne lastnosti za vsako sliko, med drugim <literal
+>Ljudje</literal
+>, <literal
+>Mesta</literal
+> in <literal
+>Ključne besede</literal
+>. Določite lahko lastne kategorije, tako da lahko sami pridobite kategorijo <literal
+>Predmeti</literal
+>, <literal
+>Živali</literal
+> ali <literal
+>Albumi</literal
+>.</para>
+
+<para
+>V <xref linkend="fig-options-group"/> spodaj si lahko ogledate pogovorno okno za konfiguracijo obstoječih kategorij. Za vsako kategorijo določite oznako in ikono.</para>
+
+<figure id="fig-options-group">
+<title
+>Konfiguriranje kategorij</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-groups.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+</sect1>
+
+
+
+
+<sect1 id="sec-member-groups-in-options-dialog">
+<title
+>Podkategorije</title>
+
+<para
+>V <xref linkend="sec-member-groups-in-property-editor"/> smo razpravljali o podkategorijah. V pogovornem oknu z nastavitvami je mogoče konfigurirati celotne skupine članov, &ie; konfigurirajte vse člane skupine naenkrat, namesto da konfigurirate vse skupine za člana, kot je bila situacija v <xref linkend="sec-member-groups-in-property-editor"/>.</para>
+
+<para
+>V <xref linkend="fig-options-member"/> si lahko ogledate konfiguracijsko stran za določanje skupin članov. Na vrhu je kombinirano polje, kjer lahko določite, katero kategorijo trenutno konfigurirate. Na levi strani vidite seznamsko polje s trenutno kategorijo, na desni strani pa vidite seznamsko polje s podkategorijami.</para>
+
+<figure id="fig-options-member">
+<title
+>Konfiguriranje skupin članov</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="options-member.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+</sect1>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

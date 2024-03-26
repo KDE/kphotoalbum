@@ -1,0 +1,184 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-thumbnail-view">
+  <title
+>Pregledovalnik sličic</title>
+  <para
+>Če v brskalniku izberete <guilabel
+>Ogled sličic</guilabel
+>, dobite sličico pregleda slik, ki so trenutno v obsegu (ali vseh slik, če ni bil izbran noben obseg). Primer tega si lahko ogledate v <xref linkend="fig-thumbnailview"/> spodaj. Velikost sličic je mogoče konfigurirati preprosto tako, da miško povlečete s srednjo miškino tipko navzdol (poskusite, res je kul).</para>
+
+  <figure id="fig-thumbnailview">
+    <title
+>Pogled sličic</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="thumbnailview.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>V pregledu sličic lahko prerazporedite slike tako, da jih povlečete z miško. Če želite, da datumska vrstica deluje pravilno, si morate prizadevati, da so vaše slike ves čas razvrščene. Slike lahko razvrstite tako, da izberete vse slike in izberete <menuchoice
+><guimenu
+>Slike</guimenu
+><guimenuitem
+>Razvrsti izbrano po datumu &amp; času</guimenuitem
+></menuchoice
+>. Razvrščanje ne bo prerazporedilo slik z enakim datumom in uro, tako da če imate recimo 100 slik z datumom 1992 (tj. brez meseca, brez dneva, samo leto), jih lahko premikate, njihov posamezen vrstni red pa bo ostal po sortiranju nespremenjena.</para>
+
+<para
+>Če povlečete sliko iz pregledovalnika v ozadje, jo nastavite kot sliko ozadja namizja.</para>
+
+  <para
+>S klikom na sliko jo naložite v pregledovalnik; če okna pregledovalnika ni, se ustvari okno pregledovalnika.</para>
+
+  <para
+>Če izberete več slik in pritisnete <keycombo
+>&Ctrl;<keycap
+>I</keycap
+></keycombo
+> ali izberete <menuchoice
+><guimenu
+>Slike</guimenu
+><guimenuitem
+>Ogled izbranih</guimenuitem
+></menuchoice
+> bodo slike naložene v obstoječi pregledovalnik (če pregledovalnik ne obstaja, bo ustvarjen). Lahko pa izberete <menuchoice
+><guimenu
+>Slike</guimenu
+><guimenuitem
+>Pogled (v novem oknu)</guimenuitem
+></menuchoice
+>, da se slike naložijo v nov pregledovalnik. Če pritisnete <keycombo
+>&Ctrl;<keycap
+>R</keycap
+></keycombo
+> ali izberete <menuchoice
+><guimenu
+>Slike</guimenu
+><guimenuitem
+>Zaženi predstavitev</guimenuitem
+></menuchoice
+> izbrane slike bodo naložene v pregledovalnik in začela se bo predstavitev. Če na koncu izberete <menuchoice
+><guimenu
+>Slike</guimenu
+><guimenuitem
+>Zaženi naključno izbrano predstavitev</guimenuitem
+></menuchoice
+>, bo prikazana predstavitev slik, izbranih v naključnem vrstnem redu.</para>
+
+
+<sect1 id="sect-deleting-images">
+  <title
+>Brisanje slik</title>
+  <para
+>V pogledu sličic je možno tudi izbrisati slike. Če želite to narediti, izberite slike, ki jih želite izbrisati, in pritisnite tipko za brisanje ali izberite <menuchoice
+><guimenu
+>Uredi</guimenu
+><guimenuitem
+>Izbriši izbrano</guimenuitem
+></menuchoice
+> v menijski vrstici. S tem &kphotoalbum; vam bo prikazal pogovorno okno v <xref linkend="fig-delete-images"/></para>
+
+<figure id="fig-delete-images">
+<title
+>Brisanje slik</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="delete-images.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+  <para
+>Sliko v &kphotoalbum; lahko izbrišete na tri načine, in sicer jo premaknete v smeti, jo izbrišete z diska - kar pomeni, da bo trajno izginila - ali poveste &kphotoalbum;u da ga ne vključi. V slednjem primeru ne bo &kphotoalbum; nikoli več prikazal slike, vendar jo bo obdržal na disku. To je uporabno, če so na primer med vašimi slikami shranjene <emphasis
+>sličice</emphasis
+>. Ta sličica bi vsebovala pregled vseh drugih slik in bi bila zato neuporabna v &kphotoalbum;, toda za drugo aplikacijo, na primer spletni brskalnik, bi jo morda potrebovali.</para>
+</sect1>
+
+
+<sect1 id="sect-offline-mode">
+<title
+>Način brez povezave</title>
+<para
+>Med rastjo podatkov in trdimi diski, ki postajajo večji, poteka stalna bitka. Če imate veliko slik, se lahko znajdete sredi te bitke, saj nimate dovolj prostora na trdem disku za shranjevanje vseh slik. V tem primeru se lahko odločite, da boste nekaj slik dali na CD-je. Druga možnost je, da se odpravljate na službeno potovanje in želite s seboj prinesti svoje slike, vendar nimate 20 GB prostora na disku, potrebnega za ta namen.</para>
+
+<para
+>&kphotoalbum; ponuja rešitev za to težavo, in sicer, da vam omogoča uporabo, ne da bi imeli slike na voljo na disku. Seveda jih morate kdaj imeti na voljo za &kphotoalbum; ugotoviti, da obstajajo nove slike za indeksiranje. <xref linkend="fig-offline-mode"/> prikazuje &kphotoalbum; ko ne zmore najti vseh potrebnih slik na disku.</para>
+
+<figure id="fig-offline-mode">
+<title
+>&kphotoalbum; v načinu brez povezave</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="offline-mode.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Slike, ki imajo izrezan kot (to so slike 1-4), niso na voljo na disku. Sličice so na voljo za slike 5-9, čeprav slike manjkajo na disku. Zato vam &kphotoalbum; lahko prikaže sličice za te slike, vendar si jih ne morete ogledati v pregledovalniku. (Včasih smo rezali vogal sličic, da bi pokazali, da slika manjka na disku, vendar se zdi, da ta funkcija trenutno ne deluje.) </para>
+
+<para
+>Kot lahko vidite, ta funkcija zahteva kopiranje datotek v in iz vaših imenikov, &kphotoalbum; nima nobene podpore za prošnjo, da vstavite CD, ki ste ga označili z bla bla. Zato vas prosimo, da pozabite na to funkcijo, če ste oseba, ki se ne mara zapletati z datotekami ipd., in namesto tega preprosto poskrbite za nakup trdih diskov, ki so dovolj veliki, da lahko vedno shranite vse svoje slike.</para>
+
+</sect1>
+
+
+
+<sect1 id="sect-privacy">
+<title
+>Zasebnost</title>
+<para
+>Pred časom sva s punco prinesla prenosni računalnik s seboj na obisk k mojim staršem, da bi jima pokazala slike z zadnjega dopusta. &kphotoalbum; se je izkazal za velik uspeh in ni trajalo dolgo, preden je mlajša sestra mojega dekleta prijela prenosnik in začela sama brskati naokoli. Žal tudi ona ni rabila dolgo, da je prišla do nekaterih, recimo temu ponesrečenih, mojih podob iz mladosti in vse so se mi pošteno nasmejale. Ta epizoda me je navdihnila, da sem v &kphotoalbum; dodal novo funkcijo, in sicer zaklepanje zasebnosti.</para>
+
+<para
+>V meniju <guimenu
+>Slike</guimenu
+> boste našli podmeni z imenom <guimenuitem
+>zasebnost</guimenuitem
+>. Če želite zagotoviti nekaj zasebnosti, brskajte - medtem ko ste sami - po slikah, ki jih želite ohraniti zasebne, in izberite <guimenuitem
+>Zakleni trenutni niz slik</guimenuitem
+> v podmeniju za zasebnost. Lahko pobrskate do slik, za katere želite omejiti ogled vaše sestrice, in izberete <guimenuitem
+>Zakleni vse druge slike</guimenuitem
+>.</para>
+
+<para
+>Zdaj ste določili, kaj želite skriti, in ko predate svoj prenosni računalnik svoji mlajši sestri, preprosto izberite <guimenuitem
+>Zakleni slike</guimenuitem
+> in vaša sestra ne bo mogla videti zaklenjenih slik. Ko končate, jih lahko znova odklenete z <guimenuitem
+>Odkleni</guimenuitem
+>.</para>
+
+<para
+>Možno je določiti geslo, ki ga je treba vnesti za odklepanje podatkovne baze. V meniju <guimenuitem
+>zasebnost</guimenuitem
+> preprosto izberite <guimenuitem
+>Spremeni geslo</guimenuitem
+>, da nastavite geslo.</para>
+
+<para
+>Naj vas ne zavede, da vam bo to pomagalo za vedno skriti slike. Prvič, slike so še vedno na disku, drugič, vsak, ki ima dostop do datoteke <filename
+>index.xml</filename
+>, ki jo uporablja &kphotoalbum; lahko prebere geslo v čistem besedilu in ga po želji izbriše. Ta funkcija je mišljena le kot zaščita pred nekom, ki sedi z &kphotoalbum; nenamerno dostopanje do vaših zasebnih slik.</para>
+
+</sect1>
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

@@ -1,0 +1,349 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-viewer">
+  <title
+>Pregledovalnik</title>
+  <para
+>Razlog, da vse svoje slike spravite v &kphotoalbum; in preživite ure za urami, ko jih opisujete, je seveda ta, da si jih na neki točki želite ogledati. V ta namen ima &kphotoalbum; pregledovalnik, ki lahko prikaže vaše slike in videoposnetke. Pregledovalnik odprete v pogledu sličic, kot je opisano v <xref linkend="chp-thumbnail-view"/>.</para>
+
+  <para
+>Pregledovalnik si lahko ogledate v <xref linkend="fig-viewer"/>. Pregledovalnik vam seveda prikaže sliko, vendar vam poleg tega prikaže tudi informacije, ki ste jih določili za vsako sliko, vključno s tem, kdo je na slikah, kje in kdaj je bila posneta, &etc; </para>
+
+  <figure id="fig-viewer">
+    <title
+>Pregledovalnik</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>V primeru, da se polje z informacijami nahaja na vrhu dela slik, ki jih dejansko želite videti, ga lahko preprosto zgrabite z miško in premaknete drugam na sliki. Možno je konfigurirati, kaj naj bo prikazano v informacijskem polju in seveda, ali naj bo sploh prikazano. Vse te možnosti so na voljo z desnim klikom miške na pregledovalniku. Kontekstni meni si lahko ogledate v <xref linkend="fig-viewer-contextmenu"/> spodaj.</para>
+
+  <figure id="fig-viewer-contextmenu">
+    <title
+>Kontekstni meni pregledovalnika</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="viewer-contextmenu.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Nekatere besede v polju z informacijami so podčrtane. Če z miško kliknete na eno od teh besed, bo brskalnik (glejte <xref linkend="chp-browsing"/>) prešel v obseg te postavke. Če torej kliknete <literal
+>Anne Helene</literal
+>, vam bo brskalnik prikazal vse slike Anne Helene, tako kot bi to storil, če bi v korenu brskalnika izbrali <literal
+>Ljudje</literal
+> in naslednji izbrani <literal
+>Anne Helene</literal
+>.</para>
+
+<para
+>V informacijskem polju lahko vidite majhen gumb z logotipom &kphotoalbum;. S pritiskom na ta gumb se odpre pregledovalnik sličic. V pogledu sličic bodo prikazane vse slike in izbrana bo slika, ki ste jo pravkar imeli v pregledovalniku. Ideja za tem je naslednja: pobrskate do določene osebe in pogledate slike te osebe. Ena od slik je recimo iz vašega srednješolskega časa in zdaj želite videti slike iz tega obdobja. Z gumbom <guilabel
+>Skoči v kontekst</guilabel
+> se prikaže pogled sličic, ki prikazuje vse slike, pri čemer je trenutna v fokusu in verjetno vse vaše srednješolske slike okoli nje.</para>
+
+  <para
+>Če ste v pregledovalnik naložili več slik, se lahko premikate naprej in nazaj z uporabo <keycap
+>Page Up</keycap
+> in <keycap
+>Page Down</keycap
+>. Na prvo in zadnjo sliko se lahko pomaknete s tipkama <keycap
+>Domov</keycap
+> in <keycap
+>Konec</keycap
+>. Te funkcije so seveda na voljo tudi v kontekstnem meniju.</para>
+
+  <para
+>Če je bilo v pregledovalnik naloženih več slik, ga lahko prosite, da jih zažene kot predstavitev, kar pomeni, da &kphotoalbum; naloži novo sliko vsakih nekaj sekund. Kako pogosto naloži novo sliko, se konfigurira s pritiskom na tipko za upravljanje in ustreznim plusom (za hitrejšo vožnjo) ali minusom (počasneje). Predstavitev zaženete in zaustavite preprosto s pritiskom <keycombo
+>&Ctrl;<keycap
+>S</keycap
+></keycombo
+>.</para>
+
+  <para
+>Zelo uporabna funkcija &kphotoalbum; pregledovalnika je možnost preklopa v celozaslonski način. V tem načinu gledalec uporablja celoten prostor na zaslonu, preprosto pritisnite tipko za vrnitev, da preide v celozaslonski način in iz njega.</para>
+
+  <para
+>S pregledovalnikom lahko povečate in pomanjšate sliko tako, da z miško povlečete ven pravokotnik. Če pritisnete tipko minus, boste znova pomanjšali. Če pritisnete tipko plus, se bo sredina slike povečala. <xref linkend="fig-marking-zoom-rectangle"/> spodaj prikazuje, kako je označen pravokotnik povečave, <xref linkend="fig-zoomed-view"/> pa prikazuje rezultat povečave.</para>
+
+<para
+>Če pritisnete tipko s piko, lahko ponastavite povečavo, tako da je slika prikazana brez povečave. Če pritisnete enačaj, boste nastavili stopnjo povečave, tako da vsaka slikovna pika na zaslonu ustreza piksli na sliki.</para>
+
+<para
+>Upoštevajte, da je tehnično edina operacija povečave, ki deluje pri gledanju videoposnetkov, povečava in pomanjšava (tipki plus in minus).</para>
+
+  <figure id="fig-marking-zoom-rectangle">
+    <title
+>Povečanje v pregledovalniku</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="marking-zoom-rectangle.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <figure id="fig-zoomed-view">
+    <title
+>Povečanje v pregledovalniku</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="zoomed-view.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Če v kontekstnem meniju izberete operacijo vrtenja, lahko zasukate sliko (ne deluje za videoposnetke). Trenutno sliko lahko označite tako, da preprosto izberete <guimenuitem
+>Pripomba</guimenuitem
+> v priročnem meniju.</para>
+
+
+
+
+
+<sect1 id="annotating-from-the-viewer">
+<title
+>Označevanje slik iz pregledovalnika</title>
+<para
+>Tradicionalno je bil glavni način za označevanje slik skozi <link linkend="chp-typingIn"
+>pogovorno okno za opombe</link
+>. V preteklih letih je bilo narejenih nekaj različnih poskusov integracije označevanja v pregledovalnik, prvi poskus je bil z dodeljevanjem žetonov v pregledovalniku, kasnejši poskus je bil z omogočanjem neposrednega označevanja s tipkanjem dela postavke kategorije. Poleg tega bi lahko elemente kategorij dodelili funkcijskim tipkam na tipkovnici. Koda za vse to je zdaj posodobljena, tako da je potek dela veliko bolj intuitiven in ga je mogoče odkriti.</para>
+
+<para
+>Za označevanje slik v pregledovalniku so na voljo trije načini:</para>
+<itemizedlist>
+    <listitem
+><para
+><emphasis
+>Zaklenjeno</emphasis
+> – To je privzeti način ob zagonu pregledovalnika – tukaj ne bo prišlo do označevanja ali zaklepa z žetoni. Tako zagotovite, da med ogledovanjem slik po nesreči ne dodate opomb.</para
+></listitem>
+    <listitem
+><para
+><emphasis
+>Dodeljevanje žetonov</emphasis
+> - To vam omogoča, da nastavite žetone na slike s preprostim pritiskom tipke od A do Z na tipkovnici.</para
+></listitem>
+    <listitem
+><para
+><emphasis
+>Dodeljevanje oznak</emphasis
+> – To vam omogoča, da tipki na tipkovnici dodelite makre. Na primer, <emphasis
+>L</emphasis
+> bi lahko pomenil nastavitev elementa <emphasis
+>Las Vegas</emphasis
+> v kategoriji <emphasis
+>Lokacija</emphasis
+>. Poleg tega vam omogoča tudi nastavitev katere koli oznake na sliki.</para
+></listitem>
+</itemizedlist>
+<para
+>Načini so izbrani iz kontekstnega menija, kot je razvidno iz <xref linkend="fig-ctxmenu-for-mode-selection"/>. </para>
+<para
+>Ta dva načina sta podrobno opisana spodaj. </para>
+
+  <figure id="fig-ctxmenu-for-mode-selection">
+    <title
+>Izbira načina opomb v pregledovalniku</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="annotation-mode.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+</sect1>
+
+
+
+
+<sect1 id="tokens">
+<title
+>Nastavitev žetonov iz pregledovalnika</title>
+<para
+>Predstavljajte si, da želite tiskalniku poslati številne slike, da jih razvijete na papir. Če želite videti, katere želite, zaženete pregledovalnik na slikah in jih označite kot <emphasis
+>dobra</emphasis
+>, <emphasis
+>slaba</emphasis
+> ali <emphasis
+>morda</emphasis
+>, medtem ko pregledujete vsako .</para>
+
+<para
+>Seveda lahko ustvarite nekaj novih elementov (recimo <emphasis
+>Dobro</emphasis
+>, <emphasis
+>Slabo</emphasis
+>, <emphasis
+>Morda</emphasis
+>) za obstoječo kategorijo, recimo kategorijo <emphasis
+>Album </emphasis
+>. Vendar glede na to, da teh oznak verjetno ne potrebujete, ko slike pošljete v tiskalnik, obstaja lažji način, in sicer tako, da na slike preprosto nastavite žetone. Žetoni so poimenovani od A do Z, žeton pa nastavite preprosto s pritiskom na njegovo črko. V <xref linkend="fig-images-with-tokens"/> boste morda videli sliko, kjer so nastavljeni žetoni A, B in C.</para>
+
+  <figure id="fig-images-with-tokens">
+    <title
+>Slika z žetoni</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="images-with-tokens.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  <para
+>Da bo to delovalo, morate biti v načinu <emphasis
+>Dodeli žetone</emphasis
+>. Glejte <xref linkend="fig-ctxmenu-for-mode-selection"/></para>
+
+<para
+>Ko nastavite žetone na svoje slike, bodo na voljo za redno brskanje v brskalniku, kot je razvidno v <xref linkend="fig-tokens-in-browser"/>. Torej, ko označite slike, ki jih je treba urediti, natisniti ali karkoli drugega, preprosto pobrskajte po slikah in od tam obdelajte nabor, npr. z uporabo <emphasis
+>kopiraj slike v...</emphasis
+> iz kontekstnega menija.</para>
+
+  <figure id="fig-tokens-in-browser">
+    <title
+>Žetoni, vidni v brskalniku</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-browser.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+<para
+>Kategorije (in posebej žetoni) so lahko prikazane v pregledovalniku sličic. Ko prikazujete kategorije v pregledovalniku sličic, lahko slikam dodate žetone, tako da preprosto pritisnete črko za žeton, ko je slika izbrana, to lahko vidite v <xref linkend="fig-tokens-in-thumbnail-viewer "/></para>
+
+  <figure id="fig-tokens-in-thumbnail-viewer">
+    <title
+>Žetoni, vidni v pregledovalniku sličic</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="tokens-in-thumbnail-viewer.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+
+
+</sect1>
+
+<sect1>
+    <title
+>Označevanje slik iz pregledovalnika</title>
+<para
+>Označevanje slik je lahko naporno, tudi v &kphotoalbum;, vsaj če zaostajate in imate na tisoče ali desettisoče slik, ki jih je treba pravilno označiti. Na srečo je zdaj mogoče dodati oznake s pritiskom ene same tipke med ogledovanjem slik. Spoznanje, ki stoji za tem načinom dela s slikami, je, da je večina slik z istimi nekaj ljudmi na istih nekaj mestih, plus nekaj "gostujočih" nastopov od časa do časa - recimo lokacija vašega dopusta ali nekaj prijateljev, ki so bili na obisku za kak teden.</para>
+
+<para
+>Če želite označiti svoje slike med ogledovanjem, morate vstopiti v <emphasis
+>način za dodelitev oznak</emphasis
+> - glejte <xref linkend="fig-ctxmenu-for-mode-selection"/>. S to možnostjo preprosto pritisnite tipko s črko na tipkovnici, da dodelite ali uporabite dodeljeno oznako.</para>
+
+<para
+>V <xref linkend="fig-assign-macro-step1"/> spodaj sem pravkar pritisnil <keycap
+>s</keycap
+> med gledanjem slik in v <emphasis
+>načinu za dodelitev oznak</emphasis
+>. Prikaže se pogovorno okno, v katerem lahko določim, katero oznako naj dodelim tej tipki.</para>
+
+<figure id="fig-assign-macro-step1">
+  <title
+>1. korak – dodelitev makra tipki <emphasis
+>s</emphasis
+></title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-step1.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>Nato sem v vrstici za urejanje vnesel <emphasis
+>sp</emphasis
+>, ki predlaga "Ljudje / Je<emphasis
+>sp</emphasis
+>er" in "Ljudje / <emphasis
+>Sp</emphasis
+>iff". Oba sta se ujemala s črkami, ki sem jih vtipkal. Če pritisnete puščico navzdol, da izberete <emphasis
+>Spiff</emphasis
+>, in pritisnete enter, dodelite črko <emphasis
+>s</emphasis
+> za dodajanje oznake <emphasis
+>Ljudje / Spiff</emphasis
+> na prikazano sliko. Ta naloga bo shranjena za prihodnje seje. Če želite s ponovno dodeliti drugi oznaki, preprosto pritisnite <keycombo action="simul"
+>&Shift;<keycap
+>s</keycap
+></keycombo
+>.</para>
+
+<figure id="fig-assign-macro-step2">
+  <title
+>2. korak – dodelitev makra – tipkanje <emphasis
+>sp</emphasis
+></title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-step2.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>V <xref linkend="fig-assign-macro-overview"/> spodaj si lahko ogledate obstoječe vezave tipk na desni strani pogovornega okna.</para>
+<figure id="fig-assign-macro-overview">
+  <title
+>Pregled dodeljenih vezav tipk</title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-overview.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>Če oznaka, ki jo želite dodeliti, še ne obstaja v vaši bazi podatkov, preprosto pritisnite gumb <emphasis
+>Dodaj novo</emphasis
+>, da jo ustvarite. To si lahko ogledate v <xref linkend="fig-assign-macro-add-new-value.png"/> spodaj</para>
+
+<figure id="fig-assign-macro-add-new-value.png">
+  <title
+>Dodajanje nove oznake</title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-add-new-value.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>Med označevanjem slik iz pregledovalnika boste morda želeli dodati oznako, ne da bi jo povezali s ključem. To storite tako, da preprosto pritisnete <keycombo
+>&Ctrl;<keycap
+>a</keycap
+></keycombo
+></para>
+
+</sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

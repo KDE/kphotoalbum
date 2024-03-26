@@ -1,0 +1,58 @@
+<!--
+SPDX-FileCopyrightText: 2005-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2010 Burkhard Lück <lueck@hube-lueck.de>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-datebar">
+  <title
+>Datumska vrstica</title>
+
+<para
+>Na dnu glavnega okna &kphotoalbum; boste našli podatkovno vrstico (glejte <xref linkend="fig-datebar"/>). Kot že ime pove, prikazuje datumsko statistiko nad slikami v vaši bazi podatkov.</para>
+
+<figure id="fig-datebar">
+<title
+>Datumska vrstica</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Posamezne vrstice kažejo, koliko slik je v danem obdobju. Na zgornji sliki lahko vidite, da imam 261 slik iz januarja 2005. Vrstici kodirata dve informaciji, in sicer koliko slik ima točen datum znotraj danega obdobja in koliko se jih prekriva z danim obdobjem. Slika z datumom 2005 bo tako štela kot prekrivanje za ves mesec 2005, medtem ko bo slika od 24. januarja 2005 štela kot natančen datum za januar 2005. Natančna ujemanja so prikazana z zeleno, nenatančna pa prikazano rumeno. Tako imam decembra 2004 86 slik z natančnim številom in 61 s številom prekrivanj. (Števce poznam tako, da se z miško pomaknem nad dano območje, saj to prikaže štetje v statusni vrstici).</para>
+
+<para
+>Datumska vrstica vam ponuja številne različne razdrobljenosti, kjer vsaka vrstica prikazuje drugačen časovni obseg. Razpon je leta, mesec, tedni, dnevi, ure in 10 minut. <xref linkend="fig-datebar-for-minutes"/> vam pokaže del moje baze podatkov, kjer vsaka vrstica prikazuje samo 10 minut.</para>
+
+<figure id="fig-datebar-for-minutes">
+<title
+>Datumska vrstica prikazuje 10-minutne intervale</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="datebar-for-minutes.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>Datumska vrstica je interaktivna na dva načina, najprej se lahko pomikate po pogledu sličic iz baze podatkov – z izbiro datuma se bo pogled pomikal po sličicah, tako da se prikaže prva slika od tega datuma. Drugič, ko se premikate v pogledu sličic, se bo datumska vrstica posodobila in prikazala datum trenutno prikazanih slik.</para>
+
+<para
+>Lahko tudi povlečete obseg v podatkovni vrstici. To storite tako, da z miško pritisnete in povlečete v ravnilni del datumske vrstice, torej na časovne žige. Ko izberete obseg, bo pregledovalnik sličic prikazal samo slike iz tega obsega. Izbiro prekličete s pritiskom na gumb za preklic na levi strani datumske vrstice.</para>
+
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

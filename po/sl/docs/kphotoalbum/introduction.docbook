@@ -1,0 +1,106 @@
+<!--
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="introduction">
+  <title
+>Uvod</title>
+  <para
+>Če imate kot jaz na tisoče slik, odkar ste dobili svoj prvi fotoaparat, nekatere posnete še z analognim fotoaparatom, druge z digitalnim fotoaparatom. Skozi vsa leta ste verjeli, da se boste do večnosti lahko spomnili zgodbe za vsako posamezno sliko, da se boste lahko spomnili imen vseh ljudi na svojih slikah in da se boste lahko spomnili točnega datuma vsake ena slika. Osebno sem ugotovil, da to ni več mogoče, in zlasti za svoje digitalne slike - pa tudi za papirnate slike - sem potreboval orodje, ki mi bo pomagalo opisati moje slike in za iskanje po kupu slik. To je točno tisto, kar je &kphotoalbum;.</para>
+  
+  
+  <para
+>&kphotoalbum; se osredotoča na tri ključne točke: <itemizedlist>
+      <listitem
+><para
+>Mora biti enostavno dodajanje opomb številnim slikam hkrati. Na primer, ne sme trajati več kot nekaj klikov miške, da označite vse vaše slike z vašega dopusta kot iz Italije, 1992. &kphotoalbum; ponuja dva načina opisovanja slik: <guilabel
+>eno po eno</guilabel
+>, kar je uporabno za pisanje besedila o slikah, in <guilabel
+>Vse hkrati</guilabel
+>, ki je uporabno za izbiro več slik in nastavitev lastnosti, kot so lokacija, ljudje na slikah in datum slike.</para
+></listitem>
+      
+      <listitem
+><para
+>Iskanje slik mora biti preprosto. &kphotoalbum; ponuja opis slik s številnimi lastnostmi. To vključuje datum, ljudi, kraje in polja za ključne besede, ki ga lahko uporabnik uporabi za ključne besede po meri, kot je <emphasis
+>Album 7</emphasis
+> ali <emphasis
+>Počitniško potovanje v Italijo</emphasis
+>. Z &kphotoalbum; slike lahko iščete v vsaki od kategorij – npr. poiščite vse slike z Jesperjem s počitnic v Italiji. Seveda je možno ustvariti lastne kategorije, a več o tem kasneje.</para
+></listitem
+> 
+      
+      <listitem
+><para
+>Brskanje in ogledovanje slik mora biti enostavno. Ko gledate slike, se vaš fokus pogosto spremeni - v trenutku gledate slike s počitnic leta 1992, ko vidite sliko prijatelja, s katerim ste preživeli tiste počitnice, in fokus se nenadoma spremeni, zato želite videti vse slike tega  prijatelja.</para
+></listitem>
+    </itemizedlist
+></para>
+  
+  <!-- ====================================================================== -->
+  <sect1 id="sect-overview-of-manual">
+    <title
+>Pregled priročnika</title>
+    <para
+>V tem priročniku vas bom popeljal skozi korake (1) označevanja vaših slik, (2) brskanja in ogledovanja slik ter (3) naprednih tem in prilagajanja.</para>
+
+<para
+>&kphotoalbum; se je začel kot aplikacija za upravljanje vaših slik, od takrat pa se je razširila, tako da danes skrbi tudi za vaše video posnetke. Na mnogih mestih v tem priročniku bom govoril o slikah, vendar prav tako pogosto razprava vključuje videoposnetke.</para>
+  
+
+  </sect1>
+  
+  
+  <!-- ====================================================================== -->
+  <sect1 id="sec-organization-of-images-and-KPhotoAlbum-files">
+    <title
+>Organizacija slik in datoteke &kphotoalbum;a</title>
+    <para
+>&kphotoalbum; uporablja vse slike imenika in vseh podimenikov pod njim; ko prvič zaženete &kphotoalbum;, boste vprašani za lokacijo tega imenika. &kphotoalbum; ne bo spremenil nobene slike, zato se vam ni treba bati &kphotoalbum;a glede spreminjanja vaših slik <footnote
+><para
+>Dve izjemi od tega pravila sta (1) če vprašate &kphotoalbum; za brisanje posameznih slik, iz <menuchoice
+><guimenu
+>Uredi</guimenu
+><guimenuitem
+>Izbriši izbrano</guimenuitem
+></menuchoice
+> in (2) operacije vtičnika.</para
+></footnote
+>, pravzaprav če &kphotoalbum;u ne zaupate, poskrbite, da bodo vse vaše slike zaščitene pred pisanjem.</para>
+    
+    <para
+>&kphotoalbum; bo vse svoje podatke shranil v datoteko <filename
+>index.xml</filename
+> v vašem najvišjem imeniku slik. Ta datoteka je preprosta datoteka XML, tako da jo lahko preprosto varnostno kopirate z orodji, ki jih želite, vključno z običajnimi pripomočki za varnostno kopiranje, kopiranjem datoteke na disketo ali ohranjanjem revizij z uporabo VCS. Obstaja tudi skript za varnostno kopiranje (<emphasis
+>kpa-backup.sh</emphasis
+>), ki je na voljo v virih &kphotoalbum;, ki varnostno kopira ne le index.xml, ampak tudi konfiguracijske datoteke znotraj uporabnikovega domačega imenika.</para>
+    
+    <para
+>&kphotoalbum; si bo zapomnil, kje ste mu povedali, da se vaše slike nahajajo, in to ponovno uporabil pri prihodnji uporabi &kphotoalbum;a. Če bi kdaj želeli naložiti drugo zbirko podatkov v &kphotoalbum; (tj. drugo imeniško drevo slik), potem ga lahko zaženete z možnostjo <option
+>-c</option
+>. Na primer: <userinput
+><command
+>kphotoalbum</command
+> <option
+>-c</option
+> <filename
+>~/CompanyImages/index.xml</filename
+></userinput
+>.</para>
+  </sect1>
+</chapter>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

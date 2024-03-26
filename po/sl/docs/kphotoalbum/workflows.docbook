@@ -1,0 +1,180 @@
+<!--
+SPDX-FileCopyrightText: 2012 André Marcelo Alvarenga <alvarenga@kde.org>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="work-flow">
+  <title
+>Poteki dela z &kphotoalbum;om</title>
+  <para
+>Potek dela je precej pomemben vidik pri digitalni obdelavi slik. V tem poglavju opisujemo različne poteke dela, ki ustrezajo različnim potrebam. Pri razvoju poteka dela je treba upoštevati veliko različnih dejavnikov. Upajmo, da vam bodo ti primeri dali dovolj idej o tem, kako prilagoditi svojo metodo dela z digitalnimi slikami.</para>
+
+  <sect1 id="raw-workflow">
+  <title
+>Potek dela RAW z &kphotoalbum; in Bibble5/AfterShot Pro</title>
+  <para
+>Pri snemanju slik RAW je treba datoteke iz fotoaparata razviti v splošno priznan format, kot sta JPEG ali TIFF. Pri delu v Linuxu lahko izbirate med nekaj možnostmi. Na primer, RawTherapee in Ufraw sta odprtokodni alternativi, medtem ko sta Bibble5/AfterShot Pro komercialni aplikaciji za ta namen.</para>
+
+  <para
+>Za potek dela RAW je priporočenih nekaj nastavitev. Najprej omogočite uporabo vdelane sličice. To bo izjemno povečalo hitrost pri dekodiranju vsake neobdelane datoteke ob vsakem ogledu (preverite tudi konfiguracijo najmanjše dimenzije, da zagotovite primerno kakovost). Drugi je, da iskalnik novih slik samodejno zloži razvite različice v datoteko RAW (razvita slika mora biti v istem imeniku kot izvirnik). To zahteva regularne izraze, kot je opisano v <xref linkend="opt-search-new"/>. Dva pomožna skripta sta na voljo v &kphotoalbum; vire za pomoč pri poteku dela RAW. To sta open-raw.desktop in open-raw.pl. Prvi omogoča aplikacijam GUI odpiranje datotek RAW v skriptu open-raw.pl, ki poskuša najti izvirno datoteko RAW in jo odpreti namesto razvite slike. </para>
+
+  <figure id="fig-raw-workflow">
+    <title
+>Pošiljanje slik v urejevalnik RAW</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="raw-external.png" format="PNG"/>
+        </imageobject>
+      </mediaobject>
+  </figure>
+
+  <para
+>Prvi korak v dejanskem delovnem procesu je kopiranje slik iz fotoaparata v računalnik. Enostavna kopija v terminalskem oknu je vse, kar potrebujete: </para>
+  <screen
+><userinput
+><command
+>cp</command
+> <option
+>-a</option
+> <filename
+>/media/.../101CANON/</filename
+> <filename
+>~/Pictures/2012/sample</filename
+> </userinput
+></screen>
+  <para
+>Nato zaženite &kphotoalbum; ali zaženite <menuchoice
+><guimenu
+>Vzdrževanje</guimenu
+><guimenuitem
+>Ponovno skeniranje slik in videoposnetkov</guimenuitem
+></menuchoice
+>. Najti je treba nove slike in zdaj je čas za prvo označevanje slik. Kot običajno fotografiram med potovanjem, najprej vstavim kraj. Izberite <guilabel
+>Mapa</guilabel
+> in poiščite nov imenik. Nato pojdite na <guilabel
+>Pokaži sličice</guilabel
+>, izberite vse in <guimenu
+>Dodajte opombe več elementom hkrati</guimenu
+> ali <keycombo action="simul"
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>. Vstavite ustrezno mesto, kot je Finska-Helsinki (glejte <xref linkend="sec-member-groups-in-property-editor"/>). </para>
+
+  <para
+>Zdaj, ko je nove slike enostavno najti, naredim začetno razvrščanje in brisanje. Za to grem v pogled sličic in zaženem pregledovalnik s pritiskom na &Enter;. Za dobre slike uporabljam oceno, samo pritisnite ustrezno številko od <keycap
+>1</keycap
+> do <keycap
+>5</keycap
+>. Dam samo ocene od 3 do 5 in pritisnem <keycombo action="simul"
+>&Ctrl;<keycap
+>Del</keycap
+></keycombo
+> za slabe fotografije, da jih izbrišem. Na tej točki lahko dodam tudi imena ljudi, če je na fotografiji potapljač. Ko je prvi krog končan, zapustim pregledovalnik tako, da pritisnem &Esc; in izberem <guimenuitem
+>Izbriši datoteko z diska</guimenuitem
+>, da se za vedno znebim slabih slik. </para>
+
+  <para
+>Nato s funkcijo iskanja izberem samo slike, ki imajo dovolj visoko oceno. Seveda mora biti mesto nastavljeno, če se iskanje začne s <keycombo action="simul"
+>&Ctrl;<keycap
+>F</keycap
+></keycombo
+>. Če pa se iskanje prikliče iz glavnega okna, se trenutni izbor poglobi do natančnejšega ujemanja. Kakor koli že, na tej točki ponovno pregledam bolje ocenjene slike in izboljšam oceno. Npr. če imam 5 podobnih fotografij ene vrste Nodibranch, običajno znižam oceno slabših slik in morda povečam najboljšo. Slike lahko primerjate tako, da izberete tiste, ki jih želite primerjati, in zaženete pregledovalnik. Odstranjevanje slik iz izbire pregledovalnika lahko izvedete s <keycap
+>Izbriši</keycap
+>. To onemogoči samo ogled trenutne slike, medtem ko se v pregledovalniku nič ne odstrani ali izbriše. To omogoča primerjavo 2 ali 3 boljših slik eno poleg druge, ki se premikajo med njimi s <keycap
+>PgUp</keycap
+> in <keycap
+>PgDn</keycap
+>. Precej pogosto uporabljam kategorijo <literal
+>tmp</literal
+> za označevanje &eg;. rakov in kozic, da bi v kasnejših fazah izbire in identifikacije enostavno prikazali samo izbrano vrsto slik.</para>
+
+  <para
+>Ko ostane manjša količina slik, jih začnem označevati. Dodam latinsko ime vrste in splošno ime. Kadarkoli izpolnim ti dve kategoriji, menim, da je slika dokončana in se znebim oznake Neoznačeno. Upoštevajte, da če morate po razvijanju slike RAW (in njihovem samodejnem zlaganju) še vedno označevati, morate izbrati vrh strnjenega sklada (ali vse slike v razširjenem skladu) in izbrati <emphasis
+>Označi več elementov hkrati</emphasis
+>, da dobite opombe celotnega sklada namesto le najvišje slike.</para>
+
+  <para
+>Najboljše slike se pošljejo zunanji aplikaciji v razvijanje. Z izbranimi želenimi slikami z desno miškino tipko kliknite izbrano sličico in izberite <menuchoice
+><guimenuitem
+>Prikliči zunanji program</guimenuitem
+><guimenuitem
+>Vse izbrane slike</guimenuitem
+><guimenuitem
+>Pošlji Bibble5</guimenuitem
+></menuchoice
+>. Izbrana aplikacija je pravzaprav moj skript, ki zazna, ali je na voljo datoteka RAW za morebiti že razvite slike, in jo uporabi, če je to mogoče. Znotraj zunanje aplikacije naredim nekaj prilagoditev in obrezovanja, če je potrebno, nato pa izpišem razvite JPEG poleg izvirne datoteke RAW. Poimenovanje datoteke je precej preprosto, po potrebi spremenite končnico ali dodajte podčrtaj in tekočo številko. </para>
+
+  <para
+>Zdaj, ko je v imenikih slik veliko novih datotek JPEG, sem pustil &kphotoalbum; da poišče nove slike in samodejno zloži nove na prvotni RAW (<xref linkend="fig-options-file-versions"/>). Nato zadnji krog izbire z razvitimi slikami in dodajanjem nekaj opisov, če je potrebno.</para>
+
+  <para
+>Zadnji korak je ustvarjanje statične &HTML; strani in prenos na moj spletni strežnik za uživanje prijateljev in sodelavcev. To naredim s strnjenimi skladi, da na spletno stran prenesem samo razvite slike. &HTML; generiranje je opisano v <xref linkend="chp-generating-html"/>.</para>
+  </sect1>
+
+  <sect1 id="pano-workflow">
+  <title
+>Potek dela za panoramo</title>
+  <para
+>Panorame zahtevajo nekoliko drugačen potek dela kot običajno urejanje fotografij. To je posledica zahteve po več izvornih datotekah. Izbrano orodje za panorame je Autopano Pro, vendar najnovejša različica &digikam; mora delovati tudi dobro in ustreza ničelnemu proračunu. Naslednji seznam opisuje potrebne korake: <orderedlist>
+  <listitem
+><para
+>Označite fotografije, ki pripadajo panorami v &kphotoalbum; ustrezno. To je storjeno predvsem zato, da bi se izognili slučajnemu zavrženju slik pri razvrščanju smeti med posnetimi fotografijami. Verjetno boste na tej točki želeli zložiti tudi niz izvornih slik.</para
+></listitem>
+  <listitem
+><para
+>Za naslednji korak imate vsaj dve preprosti možnosti: <orderedlist>
+  <listitem
+><para
+>Programu Autopano Pro lahko dovolite, da samodejno poišče panorame iz imenika fotografij. </para
+></listitem>
+  <listitem
+><para
+>Ali pa pošljite ustrezne slike v Autopano Pro v ukazni vrstici, da pospešite stvari. To je priročno, če imenik slik vsebuje veliko slik, zlasti RAW. Za to je treba popraviti skript, ki zažene Autopano Pro, da sprejme vnos in ustvari namizno datoteko ali prikliče zunanji program z lastno ukazno vrstico.</para
+></listitem>
+  </orderedlist>
+  </para
+></listitem>
+  <listitem
+><para
+>Če se zgodi, da nastali panorami manjka majhen del, jo lahko poskusite izdelati npr. z Gimpom. Gimp običajno deluje precej dobro, če je dovolj "strukture", ki jo je treba klonirati, vendar ni nobenega zagotovila, da boste dobili uporabne rezultate.</para
+></listitem>
+  <listitem
+><para
+>Shranite novo sliko nekam v imenik slik &kphotoalbum; in zaženite <menuchoice
+><guimenu
+>Vzdrževanje</guimenu
+><guimenuitem
+>Ponovno skeniranje slik in videoposnetkov</guimenuitem
+></menuchoice
+>. To bi moralo opaziti novo panoramo in jo vključiti v galerijo slik. </para
+></listitem>
+  <listitem
+><para
+>Če ste pravilno nastavili samodejno zlaganje novih slik in se ime nove panorame ujema s pravili za to, mora biti panorama na vrhu sklada. V nasprotnem primeru razvrstite slike po datumu, tako da se nova panorama konča pri izvornih slikah in jih zložite ročno. (Zdi se, da Autopano Pro zapiše podatke EXIF prve slike v panoramo.)</para
+></listitem>
+  <listitem
+><para
+>Na tej točki lahko panorami še vedno dodate oznake ali pa vključite vse izvorne slike tudi s <keycombo
+>&Ctrl;<keycap
+>2</keycap
+></keycombo
+>.</para
+></listitem>
+  </orderedlist>
+  </para>
+</sect1>
+</chapter>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

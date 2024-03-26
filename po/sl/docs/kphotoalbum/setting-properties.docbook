@@ -1,0 +1,254 @@
+<!--
+SPDX-FileCopyrightText: 2003 Stephan Kulow <coolo@kde.org>
+SPDX-FileCopyrightText: 2003-2006 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+SPDX-FileCopyrightText: 2012 André Marcelo Alvarenga <alvarenga@kde.org>
+SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
+SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+
+SPDX-License-Identifier: GFDL-1.2-only
+-->
+
+<chapter id="chp-typingIn">
+  <title
+>Označevanje vaših slik</title>
+  <para
+>V <xref linkend="fig-empty-browser-window"/> si lahko ogledate primer okna, ki vas bo pozdravilo, ko boste zagnali &kphotoalbum; s svojimi slikami.</para>
+
+  <para
+>Na vrhu zaslona boste našli meni in orodno vrstico, kot ju poznate pri vseh &kde; aplikacijah. Pod orodno vrstico vidite okno brskalnika. V oknu brskalnika lahko izberete različne kategorije, da omejite slike, ki jih boste pregledovali. V <xref linkend="chp-browsing"/> se bomo vrnili v brskalnik, vendar za zdaj preprosto pritisnite element <guibutton
+>Pokaži sličice</guibutton
+>, ki vam bo prikazal pogled sličic vseh vaših slik.</para>
+
+  <figure id="fig-empty-browser-window">
+    <title
+>Zagon &kphotoalbum;a s svojimi slikami</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="empty-browser-window.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+    <para
+>Ključna značilnost &kphotoalbum; je, da lahko svoje slike označite. To vključuje, kdo je na dani sliki, kje je posneta &etc;. To lahko storite bodisi za eno sliko naenkrat ali pa dodate opombe več slikam hkrati (na primer, vse te slike vsebujejo osebo <emphasis
+>Jesper</emphasis
+> in so posnete v <emphasis
+>Kopenhagnu</emphasis 
+>.)</para>
+
+    <para
+>Če želite dodati opombe k slikam, izberite zadevne slike in pojdite na <menuchoice
+><guimenu
+>Uredi</guimenu
+> <guisubmenu
+>Dodaj opombe posameznim elementom</guisubmenu
+></menuchoice
+>. Sedaj označite svoje izbrane slike eno za drugo. Če namesto tega izberete <guimenuitem
+>Označi več elementov hkrati</guimenuitem
+>, boste označili vse izbrane elemente, kot da bi šlo za en sam element. Z drugimi besedami, s to možnostjo svoje slike množično komentirate – npr. pravi, da so bile vse te slike posnete v Kopenhagnu. Ti dve možnosti sta na voljo tudi v kontekstnem meniju, ki ga dobite z desnim klikom miške v pregledu sličic ali z uporabo bližnjice na tipkovnici. Primer tega si lahko ogledate v <xref linkend="fig-edit-properies-menu"/>.</para>
+
+    <figure id="fig-edit-properies-menu">
+      <title
+>Kontekstni meni za urejanje lastnosti</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="edit-properies-menu.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para
+>V <xref linkend="fig-image-config-window"/> spodaj lahko vidite okno za označevanje slik in videoposnetkov. V tem oknu lahko določite datum postavke, oznako postavke <footnote
+><para
+>Oznaka je inicializirana z imenom datoteke. Oznaka se uporablja v brskalniku in ko so slike izvožene v &HTML; strani</para
+></footnote
+>, opis za postavko in najpomembnejše različne <emphasis
+>kategorije</emphasis
+> za postavko. Na posnetku zaslona so te kategorije <literal
+>Ljudje</literal
+>, <literal
+>Mesta</literal
+> in <literal
+>Ključne besede</literal
+>, a kot boste videli v <xref linkend="sec-specifying-categories"/>, lahko te tri vnaprej določene kategorije spremenite po svojih željah. </para>
+
+    <figure id="fig-image-config-window">
+      <title
+>Označevanje slik in videoposnetkov</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="image-config-window.png"
+            format="PNG"/>
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+    <para
+>Vse te opombe je mogoče uporabiti za iskanje in brskanje, kot bomo videli v <xref linkend="chp-browsing"/>. Na zahtevo lahko vidite te opombe, ko si ogledujete elemente v vgrajenem pregledovalniku.</para>
+
+
+
+
+    <sect1 id="sect-specifying-options">
+      <title
+>Kategorije</title>
+      <para
+>V <xref linkend="fig-image-config-window"/> so tri seznamska polja v kombinaciji z urejanjem vrstic za določanje oseb, krajev in ključnih besed. Ti pripomočki so zelo pomemben del &kphotoalbum;a, saj jih boste vedno znova uporabljali, ko boste podajali podatke o svojih slikah.</para>
+
+      <para
+>Lastnost lahko določite v polju s seznamom, tako da jo preprosto izberete (Izberite reci <literal
+>Donna</literal
+>, da določite, da je Donna na dani sliki. Druga možnost je, da njeno ime vnesete v vrstico za urejanje. Ko začnete tipkati ime v vrstici za urejanje, bo &kphotoalbum; pogledal v seznamsko polje in poiskal prvi element, ki se ujema s tem, kar ste vnesli do zdaj, in ga izpolnil. Tako lahko vnesete <literal
+>Do</literal
+>, da bi našli <literal
+>Donna</literal
+>. Ko najdete element, ki ga iščete, preprosto pritisnite enter, da izberete ta element v seznamskem polju. Element bo zdaj premaknjen na vrh pogleda, tako da boste naslednjič potrebovali dani element, ki ga je še lažje najti.</para>
+
+      <para
+>Zamisel za premikanje elementov na vrh, ko so bili izbrani, je, da boste, ko greste na, recimo, družinsko zabavo, dobili morda 50 slik z istimi 5-10 ljudmi. Ko vnašate informacije o teh 50 slikah, boste imeli 5-10 oseb na vrhu seznamskega polja, takoj ko boste prvič vnesli njihovo ime.</para>
+
+     <para
+>Če želite, da je seznam razvrščen po abecedi, preprosto pritisnite ikono za razvrščanje pod poljem s seznamom.</para>
+    </sect1>
+
+
+    <sect1 id="sect-specifying-properties-for-one-image-at-a-time">
+      <title
+>Komentiranje enega elementa naenkrat</title>
+      <para
+>Ko podajate lastnosti za eno sliko naenkrat, lahko še vedno seveda izberete več slik in rečete, <emphasis
+>Tem slikam želim dodati opombe</emphasis
+>. V tem primeru boste pod sliko v skrajnem desnem kotu našli naslednji in prejšnji gumb. </para>
+    </sect1>
+
+    <sect1 id="sect-specifying-properties-for-all-images-simultaneously">
+      <title
+>Označevanje več elementov hkrati</title>
+      <para
+>Če imate več slik, recimo z isto osebo, je morda bolj priročno, da izberete te slike in določite, da je ta oseba na vseh slikah z uporabo <emphasis
+>Označi več elementov hkrati</emphasis
+>.</para>
+      <para
+>Če želite dodati opombe na sveženj slik, lahko to storite, ko je sklad strnjen. Izbrati morate samo zgornjo sliko nabora in označiti več slik. (Če označite posamezno sliko, je označena samo izbrana slika, v tem primeru glava sklada.) Seveda deluje tudi razširitev sklada in izbiranje vseh slik.</para>
+
+    </sect1>
+
+
+<sect1 id="sec-member-groups-in-property-editor">
+<title
+>Podkategorije</title>
+  <para
+>Las Vegas, San Francisco, Los Angeles in Kalifornija se nahajajo v ZDA. Poleg tega se San Francisco in Los Angeles nahajata v Kaliforniji.</para>
+
+<para
+>Namesto da za vsako sliko iz San Francisca navedete, da je v San Franciscu, Kaliforniji in ZDA, lahko poveste &kphotoalbum; da sta San Francisco in Los Angeles v Kaliforniji in da je Kalifornija med drugim v ZDA. S tem vam bo brskalnik (glejte <xref linkend="chp-browsing"/>) poleg vseh običajnih elementov ponudil element za ZDA in element za Kalifornijo. Če izberete Kalifornijo, boste videli vse slike iz San Francisca, Los Angelesa &etc;</para>
+
+<para
+>V <xref linkend="fig-usa-as-a-member"/> lahko vidite okno brskalnika, ki vsebuje ZDA kot super kategorijo. Za prikaz, da gre za skupino, se uporablja posebna ikona.</para>
+
+<figure id="fig-usa-as-a-member">
+<title
+>Brskalnik, ki prikazuje ZDA kot super kategorijo</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="usa-as-a-member.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+<para
+>V kontekstnem meniju za pogovorno okno z opombami je mogoče dodati postavko v obstoječo ali novo nad- ali podkategorijo. Poleg tega lahko element preprosto povlečete v kategorijo, da postane podkategorija tega elementa. Upoštevajte, da to zahteva, da svoje kategorije trenutno razvrščate po abecedi. Glejte <xref linkend="fig-membergroup-config"/>.</para>
+
+<figure id="fig-membergroup-config">
+<title
+>Kategorije, prikazane v abecednem pogledu pogovornega okna z opombami</title>
+<mediaobject>
+<imageobject>
+<imagedata fileref="member-group-setting.png" format="PNG"/>
+</imageobject>
+</mediaobject>
+</figure>
+
+</sect1>
+
+
+
+
+
+
+  <sect1 id="sect-changing-layout-of-the-property-window">
+    <title
+>Spreminjanje postavitve pogovornega okna z opombami</title>
+    <para
+>Elemente pogovornega okna z opombami je mogoče premikati naokoli, preprosto iz vrstice na vrhu okvirjev, in jih premikati naokoli - okvir lahko celo naredite v samostojnem oknu najvišje ravni.</para>
+
+    <para
+>Ko najdete postavitev, ki dobro deluje na vašem zaslonu, lahko uporabite &kphotoalbum;, &etc; da preprosto pritisnite gumb <guibutton
+>Možnosti...</guibutton
+>, ki bo prikazal pojavni meni, iz katerega lahko shranite trenutno postavitev okna.</para>
+
+    <para
+>Lahko se tudi odločite, da skrijete okvir ali omogočite nekatere, ki privzeto niso vidni. Vedno se lahko vrnete nazaj na izvirno postavitev tako, da greste skozi gumb <guibutton
+>Možnosti...</guibutton
+> in izberete <guimenuitem
+>Ponastavi postavitev</guimenuitem
+> v pojavnem meniju. To je mogoče videti v <xref linkend="fig-redisplay-frames"/>.</para>
+
+
+  <figure id="fig-redisplay-frames">
+    <title
+>Prikaz prej skritih oken.</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="redisplay-frames.png" format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+  </sect1>
+
+<sect1>
+    <title
+>Komentiranje med ogledovanjem slik</title>
+    <para
+>Nekaj desetletij smo svoje slike označevali, kot je opisano zgoraj, toda poleti 2023 je bilo mogoče slike označevati med ogledovanjem. Ta možnost ne podpira vseh zgoraj opisanih funkcij, vendar ponuja veliko hitrejši potek dela za označevanje slik.</para>
+    <para
+>Manjkajoče funkcije pri označevanju slik iz pregledovalnika, za katere morate priti v to pogovorno okno, so:</para>
+    <itemizedlist>
+    <listitem
+><para
+>Označevanje več slik hkrati</para
+></listitem>
+    <listitem
+><para
+>Označevanje posameznih delov slike (ta obraz je ...)</para
+></listitem>
+    <listitem
+><para
+>Nastavitev skupin oznak (&ie;. navedba, da je Las Vegas v ZDA, tako da boste videli slike z oznako Las Vegas, ko boste gledali slike iz ZDA)</para
+></listitem>
+    <listitem
+><para
+>Nastavitev datumov slike</para
+></listitem>
+    </itemizedlist>
+    <para>
+    <link linkend="annotating-from-the-viewer"
+>Oglejte si razdelek o označevanju iz pregledovalnika</link>
+    </para>
+</sect1>
+</chapter>
+
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-namecase-general:t
+sgml-general-insert-case:lower
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-parent-document: "index.docbook"
+End:
+-->

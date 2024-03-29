@@ -153,7 +153,7 @@ void Exif::MetaDataDisplay::setFileName(const QString &fileName)
     octalPermissions = octalPermissions.remove(1, 1).prepend(QStringLiteral("0"));
 
     m_permissions->setText(i18nc("File permissions string compiled from a parsed variant (e.g. "
-                                 "\"rw-rw-r--\", %1) and it's octal representation (e.g. \"0644\")",
+                                 "\"rw-rw-r--\", %1) and its octal representation (e.g. \"0644\")",
                                  "%1 (%2)", parsedPermissions, octalPermissions));
 }
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-13 01:35+0000\n"
+"POT-Creation-Date: 2024-03-29 01:58+0000\n"
 "PO-Revision-Date: 2023-08-14 21:58+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -38,12 +38,12 @@ msgstr "Das Stichwort wird bereits für einen anderen Bereich verwendet"
 msgid "tomorrow"
 msgstr "morgen"
 
-#: AnnotationDialog/DateEdit.cpp:70
+#: AnnotationDialog/DateEdit.cpp:70 Utilities/Timespan.cpp:169
 #, kde-format
 msgid "today"
 msgstr "heute"
 
-#: AnnotationDialog/DateEdit.cpp:71
+#: AnnotationDialog/DateEdit.cpp:71 Utilities/Timespan.cpp:172
 #, kde-format
 msgid "yesterday"
 msgstr "gestern"
@@ -6477,47 +6477,47 @@ msgid "Unable to create folder '%1' needed for demo."
 msgstr ""
 "Der Ordner „%1“, der für die Demo benötigt wird, lässt sich nicht erstellen."
 
-#: Utilities/DescriptionUtil.cpp:56
+#: Utilities/DescriptionUtil.cpp:52
 #, kde-format
 msgid "<b>File Name: </b> "
 msgstr "<b>Dateiname: </b> "
 
-#: Utilities/DescriptionUtil.cpp:62
+#: Utilities/DescriptionUtil.cpp:58
 #, kde-format
 msgid "<b>Date: </b> "
 msgstr "<b>Datum: </b> "
 
-#: Utilities/DescriptionUtil.cpp:71
+#: Utilities/DescriptionUtil.cpp:67
 #, kde-format
 msgctxt "width x height"
 msgid "%1x%2"
 msgstr "%1 x %2"
 
-#: Utilities/DescriptionUtil.cpp:73
+#: Utilities/DescriptionUtil.cpp:69
 #, kde-format
 msgctxt "short for: x megapixels"
 msgid " (%1MP)"
 msgstr " (%1 MP)"
 
-#: Utilities/DescriptionUtil.cpp:78
+#: Utilities/DescriptionUtil.cpp:74
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (%1:1)"
 msgstr " (%1:1)"
 
-#: Utilities/DescriptionUtil.cpp:80
+#: Utilities/DescriptionUtil.cpp:76
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (1:1)"
 msgstr " (1:1)"
 
-#: Utilities/DescriptionUtil.cpp:82
+#: Utilities/DescriptionUtil.cpp:78
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (1:%1)"
 msgstr " (1:%1)"
 
-#: Utilities/DescriptionUtil.cpp:83
+#: Utilities/DescriptionUtil.cpp:79
 #, kde-format
 msgid "<b>Image Size: </b> "
 msgstr "<b>Bildgröße: </b> "
@@ -6532,87 +6532,177 @@ msgstr "<b>Name: </b> "
 msgid "<b>Description: </b> "
 msgstr "<b>Beschreibung: </b> "
 
-#: Utilities/DescriptionUtil.cpp:249
-#, kde-format
-msgctxt "As in 'The baby is 1 day old'"
-msgid "1 day"
+#: Utilities/Timespan.cpp:81
+#, fuzzy, kde-format
+#| msgid " (&lt; %1)"
+msgctxt "Like \"up to 6 years\" old"
+msgid " (up to %1)"
+msgstr " (&lt; %1)"
+
+#: Utilities/Timespan.cpp:91
+#, fuzzy, kde-format
+#| msgid " (%1)"
+msgctxt "Like \"6 years\" old"
+msgid " (%1)"
+msgstr " (%1)"
+
+#: Utilities/Timespan.cpp:94
+#, fuzzy, kde-format
+#| msgctxt "E.g. ' (1-2 years)'"
+#| msgid " (%1-%2)"
+msgctxt "Like \"6 years to 7 years\" old"
+msgid " (%1 to %2)"
+msgstr " (%1-%2)"
+
+#: Utilities/Timespan.cpp:103
+#, fuzzy, kde-format
+#| msgctxt "As in 'The baby is 1 day old'"
+#| msgid "1 day"
+#| msgid_plural "%1 days"
+msgctxt "Like \"The baby is '8 days' old\""
+msgid "%1 day"
 msgid_plural "%1 days"
 msgstr[0] "1 Tag"
 msgstr[1] "%1 Tage"
 
-#: Utilities/DescriptionUtil.cpp:251
-#, kde-format
-msgctxt "As in 'This happened 1 day ago'"
-msgid "1 day ago"
-msgid_plural "%1 days ago"
-msgstr[0] "Vor einem Tag"
-msgstr[1] "Vor %1 Tagen"
-
-#: Utilities/DescriptionUtil.cpp:254
-#, kde-format
-msgctxt "As in 'The baby is 1 month old'"
-msgid "1 month"
+#: Utilities/Timespan.cpp:108
+#, fuzzy, kde-format
+#| msgctxt "As in 'The baby is 1 month old'"
+#| msgid "1 month"
+#| msgid_plural "%1 months"
+msgctxt "Like \"The baby is '4 months' old\""
+msgid "%1 month"
 msgid_plural "%1 months"
 msgstr[0] "1 Monat"
 msgstr[1] "%1 Monate"
 
-#: Utilities/DescriptionUtil.cpp:256
-#, kde-format
-msgctxt "As in 'This happened 1 month ago'"
-msgid "1 month ago"
-msgid_plural "%1 months ago"
-msgstr[0] "Vor einem Monat"
-msgstr[1] "Vor %1 Monaten"
-
-#: Utilities/DescriptionUtil.cpp:259
-#, kde-format
-msgctxt "As in 'The baby is 1 year old'"
-msgid "1 year"
+#: Utilities/Timespan.cpp:113
+#, fuzzy, kde-format
+#| msgctxt "As in 'The baby is 1 year old'"
+#| msgid "1 year"
+#| msgid_plural "%1 years"
+msgctxt "Like \"The person is '28 years' old\""
+msgid "%1 year"
 msgid_plural "%1 years"
 msgstr[0] "1 Jahr"
 msgstr[1] "%1 Jahre"
 
-#: Utilities/DescriptionUtil.cpp:261
-#, kde-format
-msgctxt "As in 'This happened 1 year ago'"
-msgid "1 year ago"
-msgid_plural "%1 years ago"
-msgstr[0] "Vor einem Jahr"
-msgstr[1] "Vor %1 Jahren"
+#: Utilities/Timespan.cpp:118
+#, fuzzy, kde-format
+#| msgctxt "As in 'The baby is 1 month old'"
+#| msgid "1 month"
+#| msgid_plural "%1 months"
+msgctxt "Like \"The baby is \"4 months\" old\""
+msgid "%1 month"
+msgid_plural "%1 months"
+msgstr[0] "1 Monat"
+msgstr[1] "%1 Monate"
 
-#: Utilities/DescriptionUtil.cpp:365 Utilities/DescriptionUtil.cpp:391
+#: Utilities/Timespan.cpp:121
 #, kde-format
-msgid " (%1)"
+msgctxt ""
+"This combines an age of a person in years (%1) with the additional months "
+"(%2), like \"The person is '1 year and 3 months' old\""
+msgid "%1, %2"
+msgstr ""
+
+#: Utilities/Timespan.cpp:151
+#, fuzzy, kde-format
+#| msgid "today"
+msgid " (today)"
+msgstr "heute"
+
+#: Utilities/Timespan.cpp:154
+#, fuzzy, kde-format
+#| msgid "yesterday"
+msgid " (yesterday)"
+msgstr "gestern"
+
+#: Utilities/Timespan.cpp:158
+#, fuzzy, kde-format
+#| msgid " (%1)"
+msgctxt "Like \"6 years ago\""
+msgid " (%1 ago)"
 msgstr " (%1)"
 
-#: Utilities/DescriptionUtil.cpp:367
-#, kde-format
-msgid " (&lt; %1)"
-msgstr " (&lt; %1)"
-
-#: Utilities/DescriptionUtil.cpp:370
-#, kde-format
-msgctxt "E.g. ' (1-2 years)'"
-msgid " (%1-%2)"
+#: Utilities/Timespan.cpp:162
+#, fuzzy, kde-format
+#| msgctxt "E.g. ' (1-2 years)'"
+#| msgid " (%1-%2)"
+msgctxt "Like \"6 to 7 years ago\""
+msgid " (%1 to %2 ago)"
 msgstr " (%1-%2)"
 
-#: Utilities/DescriptionUtil.cpp:372
-#, kde-format
-msgctxt "E.g. ' (7 months-1 year)'"
-msgid " (%1-%2)"
-msgstr " (%1-%2)"
+#: Utilities/Timespan.cpp:177
+#, fuzzy, kde-format
+#| msgctxt "As in 'The baby is 1 day old'"
+#| msgid "1 day"
+#| msgid_plural "%1 days"
+msgctxt "Like \"This happened '6 days' ago\""
+msgid "%1 day"
+msgid_plural "%1 days"
+msgstr[0] "1 Tag"
+msgstr[1] "%1 Tage"
 
-#: Utilities/DescriptionUtil.cpp:394
+#: Utilities/Timespan.cpp:184
 #, kde-format
-msgctxt "E.g. ' (1-2 years ago)'"
-msgid " (%1-%2)"
-msgstr " (%1-%2)"
+msgctxt "Like \"This happened '3 weeks' ago\""
+msgid "%1 week"
+msgid_plural "%1 weeks"
+msgstr[0] ""
+msgstr[1] ""
 
-#: Utilities/DescriptionUtil.cpp:396
+#: Utilities/Timespan.cpp:189
 #, kde-format
-msgctxt "E.g. '(7 months ago-1 year ago)'"
-msgid " (%1-%2)"
-msgstr " (%1-%2)"
+msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
+msgid "ca. %1 week"
+msgid_plural "ca. %1 weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: Utilities/Timespan.cpp:197 Utilities/Timespan.cpp:236
+#, fuzzy, kde-format
+#| msgctxt "As in 'The baby is 1 month old'"
+#| msgid "1 month"
+#| msgid_plural "%1 months"
+msgctxt "Like \"This happened '2 months' ago\""
+msgid "%1 month"
+msgid_plural "%1 months"
+msgstr[0] "1 Monat"
+msgstr[1] "%1 Monate"
+
+#: Utilities/Timespan.cpp:202 Utilities/Timespan.cpp:207
+#, fuzzy, kde-format
+#| msgctxt "As in 'The baby is 1 month old'"
+#| msgid "1 month"
+#| msgid_plural "%1 months"
+msgctxt "Like \"This happened 'ca. 2 months' ago\""
+msgid "ca. %1 month"
+msgid_plural "ca. %1 months"
+msgstr[0] "1 Monat"
+msgstr[1] "%1 Monate"
+
+#: Utilities/Timespan.cpp:212 Utilities/Timespan.cpp:231
+#: Utilities/Timespan.cpp:234
+#, fuzzy, kde-format
+#| msgctxt "As in 'The baby is 1 year old'"
+#| msgid "1 year"
+#| msgid_plural "%1 years"
+msgctxt "Like \"This happened '2 years' ago\""
+msgid "%1 year"
+msgid_plural "%1 years"
+msgstr[0] "1 Jahr"
+msgstr[1] "%1 Jahre"
+
+#: Utilities/Timespan.cpp:240
+#, fuzzy, kde-format
+#| msgid "\"%1\" and \"%2\""
+msgctxt ""
+"This combines a number of years and months to a timespan, like \"This "
+"happened 3 years and 1 month\" ago, where the first parameter is the "
+"formatted years string and the second one is the formatted months string"
+msgid "%1 and %2"
+msgstr "„%1“ und „%2“"
 
 #: Viewer/AnnotationHandler.cpp:68
 #, kde-format
@@ -7372,6 +7462,36 @@ msgstr "Bildgröße anzeigen"
 msgid "Show Rating"
 msgstr "Bewertung anzeigen"
 
+#~ msgctxt "As in 'This happened 1 day ago'"
+#~ msgid "1 day ago"
+#~ msgid_plural "%1 days ago"
+#~ msgstr[0] "Vor einem Tag"
+#~ msgstr[1] "Vor %1 Tagen"
+
+#~ msgctxt "As in 'This happened 1 month ago'"
+#~ msgid "1 month ago"
+#~ msgid_plural "%1 months ago"
+#~ msgstr[0] "Vor einem Monat"
+#~ msgstr[1] "Vor %1 Monaten"
+
+#~ msgctxt "As in 'This happened 1 year ago'"
+#~ msgid "1 year ago"
+#~ msgid_plural "%1 years ago"
+#~ msgstr[0] "Vor einem Jahr"
+#~ msgstr[1] "Vor %1 Jahren"
+
+#~ msgctxt "E.g. ' (7 months-1 year)'"
+#~ msgid " (%1-%2)"
+#~ msgstr " (%1-%2)"
+
+#~ msgctxt "E.g. ' (1-2 years ago)'"
+#~ msgid " (%1-%2)"
+#~ msgstr " (%1-%2)"
+
+#~ msgctxt "E.g. '(7 months ago-1 year ago)'"
+#~ msgid " (%1-%2)"
+#~ msgstr " (%1-%2)"
+
 #~ msgctxt "OSD for slideshow, num of seconds per image"
 #~ msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
 #~ msgstr "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
@@ -7981,11 +8101,6 @@ msgstr "Bewertung anzeigen"
 
 #~ msgid "Tools"
 #~ msgstr "Extras"
-
-#, fuzzy
-#~| msgid "\"%1\" and \"%2\""
-#~ msgid "%1 and %2"
-#~ msgstr "„%1“ und „%2“"
 
 #~ msgid "SQL backend and numerous features"
 #~ msgstr "SQL-Treiber und viele weitere Funktionen"

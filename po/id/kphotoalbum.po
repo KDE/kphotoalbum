@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-29 01:58+0000\n"
+"POT-Creation-Date: 2024-03-30 01:33+0000\n"
 "PO-Revision-Date: 2022-09-27 17:10+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -1693,12 +1693,16 @@ msgid "x"
 msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt ""
+#| "File size composed of a pre-formatted (already localized) human-readable "
+#| "file size (%1) and the number of bytes (%2)"
+#| msgid "%1 (%2 B)"
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
-"%1) and it's octal representation (e.g. \"0644\")"
+"%1) and its octal representation (e.g. \"0644\")"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2 B)"
 
 #: Exif/ReReadDialog.cpp:28
 #, kde-format

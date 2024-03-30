@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extragear-graphics/kphotoalbum.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-29 01:58+0000\n"
+"POT-Creation-Date: 2024-03-30 01:33+0000\n"
 "PO-Revision-Date: 2007-06-29 09:44-0500\n"
 "Last-Translator: Kevin Scannell <kscanne@gmail.com>\n"
 "Language-Team: Irish <gaeilge-gnulinux@lists.sourceforge.net>\n"
@@ -1797,7 +1797,7 @@ msgstr "x"
 #| msgid "%1 (by %2)"
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
-"%1) and it's octal representation (e.g. \"0644\")"
+"%1) and its octal representation (e.g. \"0644\")"
 msgid "%1 (%2)"
 msgstr "%1 (le %2)"
 
@@ -7060,6 +7060,14 @@ msgstr "Taispeáin Méid na hÍomhá"
 #, kde-format
 msgid "Show Rating"
 msgstr "Taispeáin Rátáil"
+
+#, fuzzy
+#~| msgid "%1 (by %2)"
+#~ msgctxt ""
+#~ "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--"
+#~ "\", %1) and it's octal representation (e.g. \"0644\")"
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (le %2)"
 
 #, fuzzy
 #~| msgid "1 Month"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-29 01:58+0000\n"
+"POT-Creation-Date: 2024-03-30 01:33+0000\n"
 "PO-Revision-Date: 2019-01-19 19:46+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -1836,7 +1836,7 @@ msgstr ""
 #| msgid "%1 (by %2)"
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
-"%1) and it's octal representation (e.g. \"0644\")"
+"%1) and its octal representation (e.g. \"0644\")"
 msgid "%1 (%2)"
 msgstr "%1（由 %2）"
 
@@ -7296,6 +7296,14 @@ msgstr "顯示影像大小"
 #, kde-format
 msgid "Show Rating"
 msgstr "顯示評分"
+
+#, fuzzy
+#~| msgid "%1 (by %2)"
+#~ msgctxt ""
+#~ "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--"
+#~ "\", %1) and it's octal representation (e.g. \"0644\")"
+#~ msgid "%1 (%2)"
+#~ msgstr "%1（由 %2）"
 
 #, fuzzy
 #~| msgid "1 Month"

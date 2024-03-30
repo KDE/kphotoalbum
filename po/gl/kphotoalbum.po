@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-29 01:58+0000\n"
-"PO-Revision-Date: 2024-03-02 21:21+0100\n"
+"POT-Creation-Date: 2024-03-30 01:33+0000\n"
+"PO-Revision-Date: 2024-03-29 10:53+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.02.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1850,10 +1850,12 @@ msgid "x"
 msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
+#| msgid "%1 (%2)"
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
-"%1) and it's octal representation (e.g. \"0644\")"
+"%1) and its octal representation (e.g. \"0644\")"
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
@@ -6443,69 +6445,53 @@ msgid "<b>Description: </b> "
 msgstr "<b>Descrición: </b> "
 
 #: Utilities/Timespan.cpp:81
-#, fuzzy, kde-format
-#| msgid " (&lt; %1)"
+#, kde-format
 msgctxt "Like \"up to 6 years\" old"
 msgid " (up to %1)"
-msgstr " (&lt; %1)"
+msgstr " (ata %1)"
 
 #: Utilities/Timespan.cpp:91
-#, fuzzy, kde-format
-#| msgid " (%1)"
+#, kde-format
 msgctxt "Like \"6 years\" old"
 msgid " (%1)"
 msgstr " (%1)"
 
 #: Utilities/Timespan.cpp:94
-#, fuzzy, kde-format
-#| msgctxt "E.g. ' (1-2 years)'"
-#| msgid " (%1-%2)"
+#, kde-format
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
-msgstr " (%1-%2)"
+msgstr " (de %1 a %2)"
 
 #: Utilities/Timespan.cpp:103
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 day old'"
-#| msgid "1 day"
-#| msgid_plural "%1 days"
+#, kde-format
 msgctxt "Like \"The baby is '8 days' old\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] "1 día"
+msgstr[0] "%1 día"
 msgstr[1] "%1 días"
 
 #: Utilities/Timespan.cpp:108
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"The baby is '4 months' old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 mes"
+msgstr[0] "%1 mes"
 msgstr[1] "%1 meses"
 
 #: Utilities/Timespan.cpp:113
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 year old'"
-#| msgid "1 year"
-#| msgid_plural "%1 years"
+#, kde-format
 msgctxt "Like \"The person is '28 years' old\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] "1 ano"
+msgstr[0] "%1 ano"
 msgstr[1] "%1 anos"
 
 #: Utilities/Timespan.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"The baby is \"4 months\" old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 mes"
+msgstr[0] "%1 mes"
 msgstr[1] "%1 meses"
 
 #: Utilities/Timespan.cpp:121
@@ -6514,102 +6500,81 @@ msgctxt ""
 "This combines an age of a person in years (%1) with the additional months "
 "(%2), like \"The person is '1 year and 3 months' old\""
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: Utilities/Timespan.cpp:151
-#, fuzzy, kde-format
-#| msgid "today"
+#, kde-format
 msgid " (today)"
-msgstr "hoxe"
+msgstr " (hoxe)"
 
 #: Utilities/Timespan.cpp:154
-#, fuzzy, kde-format
-#| msgid "yesterday"
+#, kde-format
 msgid " (yesterday)"
-msgstr "onte"
+msgstr " (onte)"
 
 #: Utilities/Timespan.cpp:158
-#, fuzzy, kde-format
-#| msgid "%1 ago"
+#, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
-msgstr "hai %1"
+msgstr " (hai %1)"
 
 #: Utilities/Timespan.cpp:162
-#, fuzzy, kde-format
-#| msgid "%1 to %2 ago"
+#, kde-format
 msgctxt "Like \"6 to 7 years ago\""
 msgid " (%1 to %2 ago)"
-msgstr "hai entre %1 e %2"
+msgstr " (hai entre %1 e %2)"
 
 #: Utilities/Timespan.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 day old'"
-#| msgid "1 day"
-#| msgid_plural "%1 days"
+#, kde-format
 msgctxt "Like \"This happened '6 days' ago\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] "1 día"
+msgstr[0] "%1 día"
 msgstr[1] "%1 días"
 
 #: Utilities/Timespan.cpp:184
-#, fuzzy, kde-format
-#| msgid "1 week"
-#| msgid_plural "%1 weeks"
+#, kde-format
 msgctxt "Like \"This happened '3 weeks' ago\""
 msgid "%1 week"
 msgid_plural "%1 weeks"
-msgstr[0] "1 semana"
+msgstr[0] "%1 semana"
 msgstr[1] "%1 semanas"
 
 #: Utilities/Timespan.cpp:189
-#, fuzzy, kde-format
-#| msgid "1 week"
-#| msgid_plural "%1 weeks"
+#, kde-format
 msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
 msgid "ca. %1 week"
 msgid_plural "ca. %1 weeks"
-msgstr[0] "1 semana"
-msgstr[1] "%1 semanas"
+msgstr[0] "como %1 semana"
+msgstr[1] "como %1 semanas"
 
 #: Utilities/Timespan.cpp:197 Utilities/Timespan.cpp:236
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"This happened '2 months' ago\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 mes"
+msgstr[0] "%1 mes"
 msgstr[1] "%1 meses"
 
 #: Utilities/Timespan.cpp:202 Utilities/Timespan.cpp:207
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"This happened 'ca. 2 months' ago\""
 msgid "ca. %1 month"
 msgid_plural "ca. %1 months"
-msgstr[0] "1 mes"
-msgstr[1] "%1 meses"
+msgstr[0] "como %1 mes"
+msgstr[1] "como %1 meses"
 
 #: Utilities/Timespan.cpp:212 Utilities/Timespan.cpp:231
 #: Utilities/Timespan.cpp:234
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 year old'"
-#| msgid "1 year"
-#| msgid_plural "%1 years"
+#, kde-format
 msgctxt "Like \"This happened '2 years' ago\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] "1 ano"
+msgstr[0] "%1 ano"
 msgstr[1] "%1 anos"
 
 #: Utilities/Timespan.cpp:240
-#, fuzzy, kde-format
-#| msgid "%1 and %2"
+#, kde-format
 msgctxt ""
 "This combines a number of years and months to a timespan, like \"This "
 "happened 3 years and 1 month\" ago, where the first parameter is the "
@@ -7341,6 +7306,12 @@ msgstr "Amosar o tamaño da imaxe"
 #, kde-format
 msgid "Show Rating"
 msgstr "Amosar a puntuación"
+
+#~ msgctxt ""
+#~ "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--"
+#~ "\", %1) and it's octal representation (e.g. \"0644\")"
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (%2)"
 
 #~ msgctxt "As in 'This happened 1 day ago'"
 #~ msgid "1 day ago"

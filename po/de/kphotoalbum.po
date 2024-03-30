@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-29 01:58+0000\n"
+"POT-Creation-Date: 2024-03-30 01:33+0000\n"
 "PO-Revision-Date: 2023-08-14 21:58+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1870,10 +1870,12 @@ msgid "x"
 msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
+#| msgid "%1 (%2)"
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
-"%1) and it's octal representation (e.g. \"0644\")"
+"%1) and its octal representation (e.g. \"0644\")"
 msgid "%1 (%2)"
 msgstr "%1 (%2)"
 
@@ -7461,6 +7463,12 @@ msgstr "Bildgröße anzeigen"
 #, kde-format
 msgid "Show Rating"
 msgstr "Bewertung anzeigen"
+
+#~ msgctxt ""
+#~ "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--"
+#~ "\", %1) and it's octal representation (e.g. \"0644\")"
+#~ msgid "%1 (%2)"
+#~ msgstr "%1 (%2)"
 
 #~ msgctxt "As in 'This happened 1 day ago'"
 #~ msgid "1 day ago"

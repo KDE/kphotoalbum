@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-30 01:33+0000\n"
-"PO-Revision-Date: 2024-03-29 18:11+0100\n"
+"PO-Revision-Date: 2024-04-13 08:59+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -1830,9 +1830,7 @@ msgid "x"
 msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
-#, fuzzy, kde-format
-#| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and its octal representation (e.g. \"0644\")"
@@ -7248,9 +7246,3 @@ msgstr "Montri Bildan Grandecon"
 #, kde-format
 msgid "Show Rating"
 msgstr "Montri Takson"
-
-#~ msgctxt ""
-#~ "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--"
-#~ "\", %1) and it's octal representation (e.g. \"0644\")"
-#~ msgid "%1 (%2)"
-#~ msgstr "%1 (%2)"

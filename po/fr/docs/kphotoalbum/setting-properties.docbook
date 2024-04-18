@@ -46,7 +46,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></menuchoice
 >. Maintenant, vous annotez les images sélectionnées les unes après les autres. Si vous choisissez à la place <guimenuitem
 >Annoter de plusieurs photos en même temps</guimenuitem
->, vous allez annoter tous les éléments sélectionnés de la même façon qu'une unique photo. Entre d'autres termes, cette option vous permettra d'annoter en masse vos photos, par exemple, en disant que toutes ces photos ont été prises à Copenhague. Ces deux options sont aussi disponibles dans le menu contextuel que vous obtenez en faisant un clic de souris dans l'icône d'aperçu de la photo ou par un raccourci clavier. Un exemple de ce mode de fonctionnement est donné dans <xref linkend="fig-edit-properies-menu"/>.</para>
+>, vous allez annoter tous les éléments sélectionnés de la même façon qu'une unique photo. Entre d'autres termes, cette option vous permettra d'annoter en masse vos photos, par exemple, en disant que toutes ces photos ont été prises à Copenhague. Ces deux options sont aussi disponibles dans le menu contextuel que vous obtenez en faisant un clic de souris dans la vignette de la photo ou par un raccourci clavier. Un exemple de ce mode de fonctionnement est donné dans <xref linkend="fig-edit-properies-menu"/>.</para>
 
     <figure id="fig-edit-properies-menu">
       <title
@@ -98,13 +98,13 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Dans <xref linkend="fig-image-config-window"/>, il y a trois boîtes avec liste de choix, combinées avec des lignes d'édition pour spécifier les personnes, les endroits et les mots clés. Ces composants graphiques sont une part importante de &kphotoalbum;, puisque vous allez les utiliser encore et encore quand vous insérerez des informations à propos de vos photos.</para>
 
       <para
->Vous pouvez spécifier une propriété à partir de la liste de choix, simplement en cliquant dessus. Sélectionner <literal
+>Vous pouvez spécifier une propriété à partir de la boîte de dialogue avec une liste, simplement en la sélectionnant (Sélectionner <literal
 >Donna</literal
-> pour spécifier que Donna est sur une photo donnée. Alternativement, vous pouvez saisir son nom dans la ligne d'édition. Quand vous commencez à saisir un nom dans la ligne d'édition, &kphotoalbum; va parcourir la liste de choix et va rechercher le premier élément correspondant à ce que vous avez tapé précédemment et va le compléter. Ainsi, saisir <literal
+> pour spécifier que Donna est sur une photo donnée). Alternativement, vous pouvez saisir son nom dans la ligne d'édition. Quand vous commencez à saisir un nom dans la ligne d'édition, &kphotoalbum; va parcourir la boîte de dialogue avec une liste et va rechercher le premier élément correspondant à ce que vous avez saisi précédemment et va le compléter. Ainsi, la saisie de <literal
 >Do</literal
-> peut être suffisant pour trouver <literal
+> peut être suffisant pour retrouver <literal
 >Donna</literal
->. Une fois que vous avez trouvé l'élément que vous recherchiez, saisissez sur &Enter; pour sélectionner l'élément dans la liste de choix. L'élément sera maintenant déplacé vers le haut de la vue, pour que vous puissiez le retrouver plus facilement la prochaine fois que vous aurez besoin. Il y a aussi une façon sans pour l'annotation à partir de l'afficheur d'images qui est décrit plus tard sur la page <xref linkend="category-selectors-in-viewer"/>.</para>
+>. Une fois que vous avez trouvé l'élément que vous recherchiez, veuillez simplement appuyer sur la touche &Enter; pour sélectionner l'élément dans de la boîte de dialogue avec une liste. L'élément sera maintenant déplacé vers le haut de la vue, pour que vous puissiez le retrouver plus facilement la prochaine fois que vous aurez besoin.</para>
 
       <para
 >La mise en tête des éléments que vous avez sélectionnés facilite le traitement de masse. Par exemple, avec une fête de famille, vous aurez peut être 50 photos, toutes avec les 5 à 10 mêmes personnes. En saisissant des informations pour ces 50 photos, vous aurez les mêmes 5 à 10 mêmes personnes en haut de la liste de choix, dès la première fois où vous les avez insérées.</para>
@@ -209,7 +209,37 @@ SPDX-License-Identifier: GFDL-1.2-only
 
   </sect1>
 
-  </chapter>
+<sect1>
+    <title
+>Annotation durant l'affichage des images</title>
+    <para
+>Pendant quelques décennies, nous avons étiqueté nos images comme décrit ci-dessus. Mais, à l'été 2023, il a commencé à être possible de les étiqueter tout en les affichant. Cette fonctionnalité ne prend pas en charge toutes les fonctionnalités décrites ci-dessus, mais elle offre un flux de travail beaucoup plus rapide pour l'étiquetage des images.</para>
+    <para
+>Les fonctionnalités manquantes lors de l'annotation d'images à partir de l'afficheur, pour lesquelles vous devez accéder à cette boîte de dialogue, sont les suivantes :</para>
+    <itemizedlist>
+    <listitem
+><para
+>Annotation de plusieurs images en une seule fois</para
+></listitem>
+    <listitem
+><para
+>Marquage de parties individuelles d'une image (Ce visage est ...)</para
+></listitem>
+    <listitem
+><para
+>Configuration de groupes d'étiquettes (&ie; spécifiant que « Paris » se trouve en France. Ainsi, vous verrez donc les images étiquetées « Paris » lorsque vous regardez des images de France)</para
+></listitem>
+    <listitem
+><para
+>Configuration des dates des images</para
+></listitem>
+    </itemizedlist>
+    <para>
+    <link linkend="annotating-from-the-viewer"
+>Veuillez consulter la section concernant l'annotation à partir de l'afficheur</link>
+    </para>
+</sect1>
+</chapter>
 
 
 <!-- Keep this comment at the end of the file

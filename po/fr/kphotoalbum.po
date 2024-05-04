@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-30 01:33+0000\n"
-"PO-Revision-Date: 2024-03-31 10:57+0200\n"
+"PO-Revision-Date: 2024-05-02 16:43+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -104,10 +104,10 @@ msgid ""
 "information is imported to this field if available.</para>"
 msgstr ""
 "<para>Une description textuelle de l'image.</para><para>Si l'option "
-"<emphasis>Utiliser la description Exif</emphasis> est activée dans "
+"<emphasis>Utiliser la description EXIF</emphasis> est activée dans "
 "<interface>Configuration|Configurer KPhotoAlbum...|Général</interface>, la "
-"description contenue dans les informations Exif sera importée si disponible."
-"</para> "
+"description contenue dans les informations « EXIF » sera importée si "
+"disponible.</para> "
 
 #: AnnotationDialog/Dialog.cpp:165 DB/ImageDB.cpp:397
 #, kde-format
@@ -127,7 +127,7 @@ msgid ""
 "are found in the Exif information."
 msgstr ""
 "Le composant graphique carte vous permet d'afficher le lieu de prise de vue "
-"si les coordonnées GPS sont contenues dans les informations Exif."
+"si les coordonnées GPS sont contenues dans les informations « EXIF »."
 
 #: AnnotationDialog/Dialog.cpp:226
 #, kde-format
@@ -955,7 +955,7 @@ msgstr "Géolocalisation"
 #: Browser/OverviewPage.cpp:157
 #, kde-format
 msgid "Exif Info"
-msgstr "Informations EXIF"
+msgstr "Informations « EXIF »"
 
 #: Browser/OverviewPage.cpp:169
 #, kde-format
@@ -986,7 +986,7 @@ msgstr "Résultat de recherche vide"
 #: Browser/OverviewPage.cpp:277
 #, kde-format
 msgid "Exif Search"
-msgstr "Recherche Exif"
+msgstr "Recherche « EXIF »"
 
 #: Browser/OverviewPage.cpp:297
 #, kde-format
@@ -1513,11 +1513,11 @@ msgstr ""
 "ayant des dates incomplètes</b>que vous pouvez utiliser pour retrouver les "
 "images/vidéos pour lesquelles les informations de date sont incomplètes.</"
 "p>Vous pouvez alors sélectionner les images pour lesquelles vous pensez que "
-"les informations Exif ou les dates de fichier sont exactes et exécuter "
-"<b>Maintenance / Lire les informations Exif</b> pour relire ces informations."
-"</p><p>Enfin, lorsque toutes les images ont leur date, vous pouvez exécuter "
-"<b>Maintenance / Tout trier par date et heure</b> pour les trier dans la "
-"base de données.</p>"
+"les informations « EXIF » ou les dates de fichier sont exactes et exécuter "
+"<b>Maintenance / Lire les informations « EXIF » </b> pour relire ces "
+"informations.</p><p>Enfin, lorsque toutes les images ont leur date, vous "
+"pouvez exécuter <b>Maintenance / Tout trier par date et heure</b> pour les "
+"trier dans la base de données.</p>"
 
 #: DB/XML/FileReader.cpp:444
 #, kde-format
@@ -1780,7 +1780,7 @@ msgstr "Erreur pendant la lecture du fichier de la base de données"
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
-msgstr "Informations « Exif » et métadonnées de fichier"
+msgstr "Informations « EXIF » et métadonnées de fichier"
 
 #: Exif/InfoDialog.cpp:73
 #, kde-format
@@ -1890,12 +1890,12 @@ msgstr "%1 (%2)"
 #, kde-format
 msgctxt "@title:window"
 msgid "Read Exif Info from Files"
-msgstr "Lire les informations Exif des fichiers"
+msgstr "Lire les informations « EXIF » des fichiers"
 
 #: Exif/ReReadDialog.cpp:35
 #, kde-format
 msgid "Update Exif search database"
-msgstr "Mettre à jour la base de données Exif utilisée pour les recherches"
+msgstr "Mettre à jour la base de données « EXIF » utilisée pour les recherches"
 
 #: Exif/ReReadDialog.cpp:41
 #, kde-format
@@ -1906,18 +1906,18 @@ msgstr "Mettre à jour la date de l'image"
 #, kde-format
 msgid "Use modification date if Exif not found"
 msgstr ""
-"Utiliser la date de modification si les informations Exif ne sont pas "
+"Utiliser la date de modification si les informations « EXIF » ne sont pas "
 "disponibles"
 
 #: Exif/ReReadDialog.cpp:47
 #, kde-format
 msgid "Update image orientation from Exif information"
-msgstr "Mettre à jour l'orientation à partir des informations Exif"
+msgstr "Mettre à jour l'orientation à partir des informations « EXIF »"
 
 #: Exif/ReReadDialog.cpp:50
 #, kde-format
 msgid "Update image description from Exif information"
-msgstr "Mettre à jour la description à partir des informations Exif"
+msgstr "Mettre à jour la description à partir des informations « EXIF »"
 
 #: Exif/ReReadDialog.cpp:53
 #, kde-format
@@ -1930,9 +1930,9 @@ msgid ""
 "<p>Be aware that setting the data from Exif may <b>overwrite</b> data you "
 "have previously entered manually using the image configuration dialog.</p>"
 msgstr ""
-"<p>Attention : définir les données depuis les champs Exif peut <b>écraser</"
-"b> des données que vous auriez préalablement saisies via la fenêtre de "
-"définition des propriétés des images.</p>"
+"<p>Attention : définir les données depuis les champs « EXIF » peut "
+"<b>écraser</b> des données que vous auriez préalablement saisies via la "
+"fenêtre de définition des propriétés des images.</p>"
 
 #: Exif/ReReadDialog.cpp:127
 #, kde-format
@@ -1943,7 +1943,7 @@ msgstr "Écraser les dates des images"
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Search"
-msgstr "Recherche Exif"
+msgstr "Recherche « EXIF »"
 
 #: Exif/SearchDialog.cpp:35
 #, kde-format
@@ -2055,8 +2055,8 @@ msgid ""
 "Exif search database to ensure lens data for all images.</note>"
 msgstr ""
 "Certaines images de la base de donnée n'ont pas d'information d'objectifs. "
-"<note>Recréer la base de données de recherche Exif pour garantir des données "
-"d'objectifs pour toutes les images.</note>"
+"<note>Recréer la base de données de recherche « EXIF » pour garantir des "
+"données d'objectifs pour toutes les images.</note>"
 
 #: HTMLGenerator/Generator.cpp:57
 #, kde-format
@@ -3225,13 +3225,13 @@ msgid ""
 "on your images?"
 msgstr ""
 "Lors de la lecture des informations temporelles des images, leurs "
-"informations Exif sont utilisées. Les informations Exif peuvent cependant ne "
-"pas être prises en charge par votre installation de KPhotoAlbum, ou, le "
-"fichier peut ne contenir aucune information valable. En remplacement, "
-"KPhotoAlbum peut utiliser l'horodatage de l'image. Ceci peut, néanmoins, ne "
-"pas être fiable au cas où l'image aurait été numérisée. Par conséquent, la "
-"question est, KPhotoAlbum doit-il faire confiance à l'horodatage de vos "
-"images ?"
+"informations « EXIF » sont utilisées. Les informations « EXIF » peuvent "
+"cependant ne pas être prises en charge par votre installation de "
+"KPhotoAlbum, ou, le fichier peut ne contenir aucune information valable. En "
+"remplacement, KPhotoAlbum peut utiliser l'horodatage de l'image. Ceci peut, "
+"néanmoins, ne pas être fiable au cas où l'image aurait été numérisée. Par "
+"conséquent, la question est, KPhotoAlbum doit-il faire confiance à "
+"l'horodatage de vos images ?"
 
 #: lib/kpabase/SettingsData.cpp:246
 #, kde-format
@@ -3247,16 +3247,16 @@ msgid ""
 "command that was attempted to be executed was:<br/>%1</p><p>The error "
 "message obtained was:<br/>%2</p>"
 msgstr ""
-"<p>Erreur de lors de l'accès à la base de données de recherche Exif. "
+"<p>Erreur de lors de l'accès à la base de données de recherche « EXIF ». "
 "L'erreur est le plus souvent due à un fichier de base de données endommagé.</"
 "p><p>Pour corriger ce problème, lancez « Maintenance / Recréer la base de "
-"donnée de recherche Exif ».</p><hr/><p>Pour débogage : la commande qui a "
+"donnée de recherche « EXIF ».</p><hr/><p>Pour débogage : la commande qui a "
 "échoué était : <br/>%1</p><p>Le message d'erreur renvoyé est : <br/>%2</p>"
 
 #: lib/kpaexif/Database.cpp:188
 #, kde-format
 msgid "Error in Exif database"
-msgstr "Erreur dans la base de données Exif"
+msgstr "Erreur dans la base de données « EXIF »"
 
 #: lib/kpaexif/Database.cpp:209
 #, kde-format
@@ -3265,10 +3265,10 @@ msgid ""
 "this problem run Maintenance->Recreate Exif Search database.</p><hr/><p>The "
 "error message obtained was:<br/>%1</p>"
 msgstr ""
-"<p>Erreur lors de l'ouverture de la base de données de recherche Exif.</p> "
-"<p>Pour corriger ce problème, lancez « Maintenance / Recréer la base de "
-"donnée de recherche Exif ».</p><hr/><p>Le message d'erreur renvoyé est : <br/"
-">%1</p>"
+"<p>Erreur lors de l'ouverture de la base de données de recherche « EXIF ».</"
+"p> <p>Pour corriger ce problème, lancez « Maintenance / Recréer la base de "
+"donnée de recherche « EXIF ».</p><hr/><p>Le message d'erreur renvoyé est : "
+"<br/>%1</p>"
 
 #: lib/kpaexif/Database.cpp:259
 #, kde-format
@@ -3276,9 +3276,9 @@ msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
 "problem run Maintenance->Recreate Exif Search database.</p>"
 msgstr ""
-"<p>La base de données de recherche Exif est corrompue et ne contient aucune "
-"donnée.</p> <p>Pour corriger ce problème, lancez « Maintenance / Recréer la "
-"base de donnée de recherche Exif ».</p>"
+"<p>La base de données de recherche « EXIF » est corrompue et ne contient "
+"aucune donnée.</p> <p>Pour corriger ce problème, lancez « Maintenance / "
+"Recréer la base de donnée de recherche « EXIF ».</p>"
 
 #: main.cpp:85
 #, kde-format
@@ -3304,8 +3304,8 @@ msgstr "Marco Caldarelli"
 #, kde-format
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
 msgstr ""
-"Patch permettant de relire les informations Exif à l'aide d'une jolie boîte "
-"de dialogue."
+"Patch permettant de relire les informations « EXIF » à l'aide d'une jolie "
+"boîte de dialogue."
 
 #: main.cpp:111
 #, kde-format
@@ -3387,7 +3387,7 @@ msgid ""
 "Exif images for existing images"
 msgstr ""
 "Patch pour trier les images dans la vue des vignettes, lecture des "
-"informations temporelles des images Exif pour les images existantes"
+"informations temporelles des images « EXIF » pour les images existantes"
 
 #: main.cpp:119
 #, kde-format
@@ -3722,9 +3722,9 @@ msgid ""
 msgstr ""
 "<h1><a name=\"database\">Prise en charge de base de données SQLite</a></"
 "h1><p>KPhotoAlbum vous permet de faire des recherches en utilisant certaines "
-"balises Exif. Pour ceci, KPhotoAlbum a besoin d'une base de données SQLite. "
-"Par conséquent le paquet Qt de SQLite (par exemple, qt-sql-sqlite) doit être "
-"installé.</p>"
+"balises « EXIF ». Pour ceci, KPhotoAlbum a besoin d'une base de données "
+"SQLite. Par conséquent le paquet Qt de SQLite (par exemple, qt-sql-sqlite) "
+"doit être installé.</p>"
 
 #: MainWindow/FeatureDialog.cpp:59
 #, kde-format
@@ -3782,7 +3782,8 @@ msgstr "Modules externes disponibles"
 #, kde-format
 msgid "SQLite database support (used for Exif searches)"
 msgstr ""
-"Prise en charge des bases de donnée SQLite (utilisé pour les recherches Exif)"
+"Prise en charge des bases de donnée SQLite (utilisé pour les recherches "
+"« EXIF »)"
 
 #: MainWindow/FeatureDialog.cpp:163
 #, kde-format
@@ -4528,12 +4529,12 @@ msgstr "Rechercher de nouvelles images et vidéos"
 #: MainWindow/Window.cpp:1022
 #, kde-format
 msgid "Recreate Exif Search Database"
-msgstr "Recréer la base de donnée de recherche Exif"
+msgstr "Recréer la base de donnée de recherche « EXIF »"
 
 #: MainWindow/Window.cpp:1025
 #, kde-format
 msgid "Read Exif Info from Files..."
-msgstr "Lire les informations Exif des fichiers..."
+msgstr "Lire les informations « EXIF » des fichiers..."
 
 #: MainWindow/Window.cpp:1028
 #, kde-format
@@ -4583,7 +4584,7 @@ msgstr "Voir la vidéo de démonstration"
 #: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:199
 #, kde-format
 msgid "Show Exif Info and file metadata"
-msgstr "Afficher les informations « Exif » et les métadonnées de fichier"
+msgstr "Afficher les informations « EXIF » et les métadonnées de fichier"
 
 #: MainWindow/Window.cpp:1075
 #, kde-format
@@ -4762,7 +4763,7 @@ msgstr "Aucune correspondance"
 #: MainWindow/Window.cpp:1824
 #, kde-format
 msgid "Rereading Exif information from all images"
-msgstr "Relecture des informations Exif de toutes les images"
+msgstr "Relecture des informations « EXIF » de toutes les images"
 
 #: MainWindow/Window.cpp:1851
 #, no-c-format, kde-format
@@ -5200,12 +5201,13 @@ msgstr ""
 #: Settings/ExifPage.cpp:28
 #, kde-format
 msgid "Exif/IPTC info to show in the viewer"
-msgstr "Informations Exif/IPTC visibles dans l'afficheur"
+msgstr "Informations « EXIF / IPTC » visibles dans l'afficheur"
 
 #: Settings/ExifPage.cpp:31
 #, kde-format
 msgid "Exif/IPTC info to show in the Exif dialog"
-msgstr "Informations Exif/IPTC visibles dans la boîte de dialogue Exif"
+msgstr ""
+"Informations « EXIF / IPTC » visibles dans la boîte de dialogue « EXIF »"
 
 #: Settings/ExifPage.cpp:34
 #, kde-format
@@ -5499,12 +5501,12 @@ msgstr "SSD SATA"
 #: Settings/FileVersionDetectionPage.cpp:192
 #, kde-format
 msgid "Slow PCIe/NVMe"
-msgstr "PCIe/NVMe basse vitesse"
+msgstr "PCIE / NVME basse vitesse"
 
 #: Settings/FileVersionDetectionPage.cpp:193
 #, kde-format
 msgid "Fast PCIe/NVMe"
-msgstr "PCIe/NVMe haute vitesse"
+msgstr "PCIE / NVME haute vitesse"
 
 #: Settings/FileVersionDetectionPage.cpp:194
 #, kde-format
@@ -5541,7 +5543,7 @@ msgid ""
 msgstr ""
 "<p>Calculer la somme de contrôle « MD5 » pendant que les images sont "
 "préchargées. Cela fonctionne bien si le stockage est très rapide comme un "
-"lecteur « NVMe ». Si le stockage est lent, cela dégrade la performance "
+"lecteur « NVME ». Si le stockage est lent, cela dégrade la performance "
 "puisque que le calcul de somme de contrôle doit attendre plus longtemps que "
 "les images soient préchargées.</p>"
 
@@ -5638,12 +5640,12 @@ msgstr "Jamais"
 #: Settings/GeneralPage.cpp:47
 #, kde-format
 msgid "Use Exif orientation information"
-msgstr "Utiliser les informations d'orientation Exif"
+msgstr "Utiliser les informations d'orientation « EXIF »"
 
 #: Settings/GeneralPage.cpp:52
 #, kde-format
 msgid "Use Exif description"
-msgstr "Utiliser la description Exif"
+msgstr "Utiliser la description « EXIF »"
 
 #: Settings/GeneralPage.cpp:56
 #, kde-format
@@ -5703,15 +5705,15 @@ msgid ""
 "images are from the scanner or the camera, from session to session.</p>"
 msgstr ""
 "<p>KPhotoAlbum va essayer de lire la date de l'image à partir des "
-"informations Exif. En cas d'échec, il essaiera de l'obtenir à partir de la "
-"date du fichier.</p><p>Cependant, cette information sera fausse si l'image à "
-"été numérisée (vous voulez la date à laquelle la photo à été prise, pas sa "
-"date de numérisation).</p><p>Si vous numérisez seulement vos images, "
-"contrairement à un utilisateur d'appareil photo numérique, vous pouvez "
-"répondre <b>non</b>. Si vous ne numérisez jamais d'images, vous pouvez "
-"répondre <b>oui</b>. Sinon, répondez <b>demander</b>. Cela vous permettra de "
-"préciser à chaque utilisation si les images proviennent d'un scanner ou d'un "
-"appareil photo numérique.</p>"
+"informations « EXIF ». En cas d'échec, il essaiera de l'obtenir à partir de "
+"la date du fichier.</p><p>Cependant, cette information sera fausse si "
+"l'image à été numérisée (vous voulez la date à laquelle la photo à été "
+"prise, pas sa date de numérisation).</p><p>Si vous numérisez seulement vos "
+"images, contrairement à un utilisateur d'appareil photo numérique, vous "
+"pouvez répondre <b>non</b>. Si vous ne numérisez jamais d'images, vous "
+"pouvez répondre <b>oui</b>. Sinon, répondez <b>demander</b>. Cela vous "
+"permettra de préciser à chaque utilisation si les images proviennent d'un "
+"scanner ou d'un appareil photo numérique.</p>"
 
 #: Settings/GeneralPage.cpp:147
 #, kde-format
@@ -5797,7 +5799,7 @@ msgstr "Groupes de balises"
 #: Settings/SettingsDialog.cpp:53
 #, kde-format
 msgid "Exif/IPTC Information"
-msgstr "Informations Exif/IPTC"
+msgstr "Informations « EXIF / IPTC »"
 
 #: Settings/SettingsDialog.cpp:54
 #, kde-format
@@ -7400,7 +7402,7 @@ msgstr "Afficher le nom de fichier"
 #: Viewer/VisibleOptionsMenu.cpp:61
 #, kde-format
 msgid "Show Exif"
-msgstr "Afficher les informations Exif"
+msgstr "Afficher les informations « EXIF »"
 
 #: Viewer/VisibleOptionsMenu.cpp:66
 #, kde-format

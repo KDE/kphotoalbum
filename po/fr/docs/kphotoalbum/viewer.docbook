@@ -59,7 +59,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >Page précédente</keycap
 >. Vous pouvez aller aux premières et dernières photos en utilisant les touches <keycap
 >Début</keycap
-> and <keycap
+> et <keycap
 >Fin</keycap
 >. Ces fonctions sont bien sûr aussi disponibles par le menu contextuel.</para>
 
@@ -113,17 +113,85 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 
 
+<sect1 id="annotating-from-the-viewer">
+<title
+>Annotation des images à partir de l'afficheur</title>
+<para
+>Traditionnellement, le principal moyen d'étiqueter des images est <link linkend="chp-typingIn"
+>la boîte de dialogue d'annotation</link
+>. Au fil des ans, quelques tentatives différentes ont été faites pour intégrer l'étiquetage dans l'afficheur. La première tentative a été d'associer des jetons dans l'afficheur. Une tentative ultérieure a été de permettre de faire un étiquetage directement en saisissant une partie d'un élément de catégorie. En outre, des éléments de catégorie pouvaient être affectés aux touches de fonction du clavier. Le code pour tout cela a maintenant été modernisé pour rendre le flux de travail beaucoup plus intuitif et découvrable.</para>
+
+<para
+>Il y a trois modes pour l'annotation des images à partir de l'afficheur :</para>
+<itemizedlist>
+    <listitem
+><para
+><emphasis
+>Verrouillé</emphasis
+> - C'est le mode par défaut lors du démarrage de l'afficheur - ici, aucune annotation ou allocation de jeton ne se produira. Cela garantit que vous n'annotez pas accidentellement des images lors de leur affichage.</para
+></listitem>
+    <listitem
+><para
+><emphasis
+>Attribuer des jetons</emphasis
+> - Cela vous permet de définir des jetons sur les images, en appuyant simplement sur une touche de « A » à « Z  »sur le clavier.</para
+></listitem>
+    <listitem
+><para
+><emphasis
+>Associer des étiquettes</emphasis
+> - Cela vous permet d'associer des macros à une touche du clavier. Par exemple, <emphasis
+>L</emphasis
+> pourrait signifier définir l'élément <emphasis
+>Paris</emphasis
+> dans la catégorie <emphasis
+>Emplacement</emphasis
+>. En plus de cela, il vous permet également de définir n'importe quelle étiquette sur une image.</para
+></listitem>
+</itemizedlist>
+<para
+>Les modes sont sélectionnés dans le menu contextuel comme on peut le voir dans <xref linkend="fig-ctxmenu-for-mode-selection"/>. </para>
+<para
+>Les deux modes sont décrits en détail ci-dessous. </para>
+
+  <figure id="fig-ctxmenu-for-mode-selection">
+    <title
+>Sélection du mode d'annotation à partir de l'afficheur</title>
+    <mediaobject>
+      <imageobject>
+        <imagedata fileref="annotation-mode.png"
+          format="PNG"/>
+      </imageobject>
+    </mediaobject>
+  </figure>
+
+</sect1>
+
+
+
+
 <sect1 id="tokens">
 <title
 >Positionné des jetons à partir de l'afficheur</title>
 <para
->Quand vous naviguez parmi les photos, vous pouvez trouver qu'une certaine photo contienne une personne dont vous n'avez pas inséré le nom dans les photos. A ce moment, vous pouvez annuler votre navigation et vous précipiter pour ouvrir la boîte de configuration des photos pour y spécifier la personne. Cependant, vous pouvez préférer juste insérer une balise dans l'image et de continuer de naviguer parmi les photos.</para>
+>Imaginez que vous voulez envoyer un nombre de images vers une imprimante pour les avoir développées sur papier. Pour voir lesquelles vous voulez, vous lancez l'afficheur sur les images et vous les étiqueter en tant que <emphasis
+>bon</emphasis
+>, <emphasis
+>mauvais</emphasis
+> ou <emphasis
+>peut être</emphasis
+>, tout en regardant chacune d'entre elles.</para>
 
 <para
->Une situation alternative est si vous voulez envoyer un nombre de photos sur une imprimante pour les avoir développer sur papier. Pour voir lesquelles vous voulez, vous lancez l'afficheur sur les photos et vous insérer les balises lorsque nécessaire sur vos photos.</para>
-
-<para
->Pour les deux exemples ci-dessus, l'afficheur vous offre la possibilité de mettre en place des jetons sur les photos quand vous les regardez. Les jetons sont nommés de A à Z et vous insérez un jeton en saisissant tout simplement une lettre. Vous pouvez voir une photo intégrant les jetons A, B et C dans <xref linkend="fig-images-with-tokens"/>.</para>
+>Vous pouvez bien sûr créer quelques nouveaux éléments (Par exemple <emphasis
+>Bon</emphasis
+>, <emphasis
+>Mauvais</emphasis
+>, <emphasis
+>Peut-être</emphasis
+>) pour une catégorie existante, par exemple <emphasis
+>Album</emphasis
+>. Cependant, étant donné que vous n'avez probablement pas besoin de ces étiquettes une fois que vous avez envoyé les images à l'imprimante, il existe un moyen plus simple, à savoir en définissant simplement des jetons sur les images. Les jetons sont nommés de « A » à « Z ». Vous définissez un jeton simplement en appuyant sur sa lettre. Dans la figure <xref linkend="fig-images-with-tokens"/>, vous pouvez voir une image où les jetons « A », « B » et « C » sont définis.</para>
 
   <figure id="fig-images-with-tokens">
     <title
@@ -136,8 +204,15 @@ SPDX-License-Identifier: GFDL-1.2-only
     </mediaobject>
   </figure>
 
+  <para
+>Pour que cela fonctionne, vous devez être en mode <emphasis
+>Attribuer des jetons</emphasis
+>. Veuillez consulter <xref linkend="fig-ctxmenu-for-mode-selection"/>.</para>
+
 <para
->Une fois que vous avez inséré des jetons dans vos photos, ceux-ci deviennent utilisables pour navigation classique dans le navigateur, comme vous pouvez le voir dans <xref linkend="fig-tokens-in-browser"/>. Ainsi, quand vous avez marqué des photos pour être éditées, imprimées or autre chose, naviguer simplement jusqu'aux photos et annoter les toutes en même temps (Voir la description dans <xref linkend="sect-specifying-properties-for-all-images-simultaneously"/>, utilisez un module externe pour copier les images sélectionnées vers un CD ou faites ce que vous avez à faire.</para>
+>Une fois que vous avez inséré des jetons dans vos photos, ceux-ci deviennent utilisables pour une navigation classique avec le navigateur, comme vous pouvez le voir dans <xref linkend="fig-tokens-in-browser"/>. Ainsi, lorsque vous avez marqué des photos pour être modifiées, imprimées or autre chose, naviguez simplement jusqu'aux images et traiter l'ensemble à partir de là, par exemple en utilisant <emphasis
+>copier des images vers...</emphasis
+> à partir du menu contextuel.</para>
 
   <figure id="fig-tokens-in-browser">
     <title
@@ -151,7 +226,7 @@ SPDX-License-Identifier: GFDL-1.2-only
   </figure>
 
 <para
->Les catégories (et tout particulièrement les jetons) peuvent être affichées dans l'afficheur avec aperçus. Quand vous montrez les catégories dans l'afficheur avec aperçus, vous pouvez aussi ajouter des jetons aux photos, simplement en pressant la lettre associée au jeton quand une image est sélectionnée. A voir dans <xref linkend="fig-tokens-in-thumbnail-viewer"/></para>
+>Les catégories (et tout particulièrement les jetons) peuvent être affichées dans l'afficheur de vignettes. Quand vous montrez les catégories dans l'afficheur de vignettes, vous pouvez aussi ajouter des jetons aux photos, simplement en pressant la lettre associée au jeton quand une image est sélectionnée. A voir dans <xref linkend="fig-tokens-in-thumbnail-viewer"/></para>
 
   <figure id="fig-tokens-in-thumbnail-viewer">
     <title
@@ -168,150 +243,98 @@ SPDX-License-Identifier: GFDL-1.2-only
 
 </sect1>
 
-<sect1 id="category-selectors-in-viewer">
+<sect1>
     <title
->Définition de catégories à partir de l'afficheur</title>
-    <para
->La catégorie peut être sélectionnée dans l'afficheur en commençant à saisir son nom. La sélection est faite immédiatement quand il y n'y a qu'une catégorie qui correspond.</para>
+>Étiquetage des images à partir de l'afficheur</title>
+<para
+>L'étiquetage des images peut être fastidieux, même dans &kphotoalbum;, au moins lorsque vous avez pris du retard et que des milliers ou des dizaines de milliers d'images ont besoin d'un étiquetage approprié. Heureusement, il est maintenant possible d'ajouter des étiquettes en appuyant sur une seule touche lors de l'affichage des images. La raison derrière cette façon de faire avec des images est que la plupart de celles-ci se font avec quelques personnes identiques dans quelques endroits identiques, avec l'apparition de quelques « invités » de temps en temps - disons le lieu de vos vacances ou des amis qui vous rendaient visite pendant une semaine.</para>
 
-    <para
->Pour changer vers le mode de sélection par catégorie, saisissez simplement le slash (/). Les options suivantes sont affichées ci-dessous, Affectation : le texte entre accolades et la catégorie sont immédiatement modifiés dès que d'autres lettres sont saisies. Quand une catégorie est sélectionnée, vous pouvez continuer à saisir des lettres pour sélectionner la valeur de l'élément. La figure suivante présente ce mode en action et une explication est donnée en dessous sur la façon dont cela fonctionne. </para>
+<para
+>Pour étiqueter vos images tout en les affichant, vous devez entrer dans le <emphasis
+>mode « Associer un mode d'étiquettes » </emphasis
+> - Veuillez consulter <xref linkend="fig-ctxmenu-for-mode-selection"/>. Lorsque cette option est sélectionnée, veuillez simplement appuyer sur une touche de lettre de votre clavier soit pour attribuer soit pour utiliser l'étiquette attribuée.</para>
 
+<para
+>Dans <xref linkend="fig-assign-macro-step1"/> ci-dessous, je viens d'appuyer sur la touche <keycap
+>s</keycap
+> tout en regardant des images et en étant en <emphasis
+>mode « Associer un mode d'étiquettes</emphasis
+>. Cela a fait apparaître la boîte de dialogue où je peux spécifier quelle étiquette attribuée à cette touche.</para>
 
-<figure id="category-selectors">
-<title
->Sélection de catégories dans l'afficheur</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="category-selectors.png" format="PNG"/>
-</imageobject>
-</mediaobject>
+<figure id="fig-assign-macro-step1">
+  <title
+>Étape 1 - association d'une macro à la touche <emphasis
+>s</emphasis
+></title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-step1.png" format="PNG"/></imageobject>
+   </mediaobject>
 </figure>
 
 <para
->Veuillez regarder la configuration de catégorie ci-dessous pour mieux comprendre cette explication. En commençant par saisir « /m », la sélection d'entrée se déplacera de la catégorie « Jetons » vers « Mots clés » (puisqu'un seul mot commençant par « m »). Après cela, la saisie de « b » associera le mot clé « Bon » directement à l'image. La saisie de « m » n'affichera dans la boîte d'informations « Mauvais », « Médiocre ». La saisie de « a » ou « é » complétera la correspondance et l'associera à l'image. La saisie de « /p » fonctionnera de façon similaire et affichera la correspondance partielle avec la catégorie, comme « Personnes », « Places ». Ainsi, vous pouvez saisir « e » ou « l » pour un complètement respectivement à « Personnes » ou « Places ». <itemizedlist mark='opencircle'>
-    <listitem
-><para
->Jetons</para>
-    <itemizedlist mark='opencircle'>
-        <listitem
-><para
->A .. Z</para
-></listitem>
-    </itemizedlist>
-    </listitem>
-    <listitem>
-    <para
->Mots clés</para>
-    <itemizedlist mark='opencircle'>
-        <listitem
-><para
->Bon</para
-></listitem>
-        <listitem
-><para
->Mauvais</para
-></listitem>
-        <listitem
-><para
->Ennuyeux</para
-></listitem>
-    </itemizedlist>
-    </listitem>
-    <listitem>
-    <para
->Personnes</para>
-    <itemizedlist mark='opencircle'>
-        <listitem
-><para
->George</para
-></listitem>
-        <listitem
-><para
->Fred</para
-></listitem>
-    </itemizedlist>
-    </listitem>
-    <listitem>
-    <para
->Places</para>
-    <itemizedlist mark='opencircle'>
-        <listitem
-><para
->Internet</para
-></listitem>
-    </itemizedlist>
-    </listitem>
-</itemizedlist>
-</para>
-
-<sect2>
-    <title
->Mots exacts</title>
-<para
->Si vous voulez définir un nouveau mot ou avoir des mots comme « boa » et « bateau », vous devez pouvoir saisir le mot exact que vous voulez définir ou sélectionner. Cela peut être réaliser en commençant le mot avec une double guillemet et en le finissant par une virgule. Si vous sélectionnez « boa » immédiatement durant la saisie, vous ne pourrez pas sélectionner « bateau ». Dans le cas contraire, vous devriez faire plusieurs appuis de touches et vous ne pourriez sélectionner « boa ». <figure id="keyword-exact">
-<title
->Sélection des mots exacts dans l'afficheur</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="keyword-exact.png" format="PNG"/>
-</imageobject>
-</mediaobject>
-</figure>
-</para>
-</sect2>
-
-<sect2>
-    <title
->Toujours démarrer avec la sélection de catégorie</title>
-<para
->La saisie de 2 « / » dans une colonne vous fera passer entre les deux modes différents. Le mode par défaut décrit ci-dessous et le mode de sélection par catégorie. Dans ce dernier mode, il y a un retour direct à la sélection de catégorie après une correspondance. De cette façon, vous pouvez continuellement sélectionner des éléments dans des catégories différentes. Cela permet d'avoir une correspondance la plus rapide possible. Ainsi, la saisie de « men » conduira à la correspondance avec « Mots clés / Ennuyeux » comme dans l'exemple proposé ci-dessous. </para>
-</sect2>
-<sect2>
-    <title
->Association à des raccourcis</title>
-<para
->Si la saisie courante est vide (c'est-à-dire, vous n'êtes pas en position de sélectionner quoi que ce soit) et que vous appuyez sur la touche de fonction de F1 à F12 (ou jusqu'à F35 si votre clavier l'accepte), la touche sera associée à la dernière correspondance. Vous pouvez appliquer la même correspondance à de nouvelles images, simplement en appuyant sur la touche de raccourci. Suppression du modificateur pour majuscules/minuscules et du raccourci (<keycombo
->&Maj; <keycap
->F#</keycap
+>Ensuite, dans la ligne de saisie, j'ai inséré <emphasis
+>sp</emphasis
+> suggérant « Personne / Je<emphasis
+>sp</emphasis
+>er » et « Personne / <emphasis
+>Sp</emphasis
+>iff". Les deux correspondent aux lettres que j'ai saisies. Un appui sur la flèche vers le bas pour sélectionner <emphasis
+>Spiff</emphasis
+> et un appui sur la touche « Entrée » permettront d'associer la lettre <emphasis
+>s</emphasis
+> à l'ajout de l'étiquette <emphasis
+>Personne / Spiff</emphasis
+> à l'image affichée. Cette association sera enregistrée pour les prochaines sessions. Pour associer à nouveau la touche « s » à une autre étiquette, veuillez simplement appuyer sur <keycombo action="simul"
+>&Maj;<keycap
+>s</keycap
 ></keycombo
->). Cela est intéressant pour associer rapidement des éléments apparaissant de façon multiple dans l'ensemble courant de vos photos. Cela mémorise à la fois, la catégorie et l'élément de catégorie. Ces raccourcis sont mémorisés jusque ce que &kphotoalbum; soit fermé ; il n'y a pas actuellement de fonction pour remplacer les raccourcis associés. </para>
-  </sect2>
-</sect1>
+>.</para>
 
-
-<!-- Drawing on images feature has been dropped
-  <sect1 id="drawing-on-images">
-    <title
->Drawing on Images</title>
-    <para
->Sometimes it might not be obvious what you want to show with a
-given image, for that purpose &kphotoalbum; allows you to draw on the
-images. </para>
-
-<para
->The actual drawing is not saved to the image, but rather to the
-database, that way you can undo your drawing at a later point.</para>
-
-<para
->In <xref linkend="fig-draw-on-image"/> you can see an image drawn
-on. To bring &kphotoalbum; in to drawing mode, select <guimenuitem
->Draw on
-Image</guimenuitem
-> from the context menu. To quit drawing, press the cross in
-the toolbar at the top of the window.</para>
-
-<figure id="fig-draw-on-image">
-<title
->Drawing on Images</title>
-<mediaobject>
-<imageobject>
-<imagedata fileref="draw-on-image.png" format="PNG"/>
-</imageobject>
-</mediaobject>
+<figure id="fig-assign-macro-step2">
+  <title
+>Étape 2 - allocation d'une macro - saisie de <emphasis
+>sp</emphasis
+></title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-step2.png" format="PNG"/></imageobject>
+   </mediaobject>
 </figure>
-  </sect1>
--->
+
+<para
+>Dans <xref linkend="fig-assign-macro-overview"/> ci-dessous, vous pouvez voir les associations de touches existants dans le côté droit de la boîte de dialogue.</para>
+<figure id="fig-assign-macro-overview">
+  <title
+>Aperçu des correspondances de touches attribuées</title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-overview.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>Si l'étiquette que vous souhaitez attribuer n'existe pas déjà dans votre base de données, veuillez alors simplement appuyer sur le bouton <emphasis
+>Ajouter une nouvelle</emphasis
+> pour la créer. Cela peut être vu dans la figure <xref linkend="fig-assign-macro-add-new-value.png"/> ci-dessous</para>
+
+<figure id="fig-assign-macro-add-new-value.png">
+  <title
+>Ajouter une nouvelle étiquette</title>
+  <mediaobject>
+    <imageobject
+><imagedata fileref="assign-macro-add-new-value.png" format="PNG"/></imageobject>
+   </mediaobject>
+</figure>
+
+<para
+>Lorsque vous étiquetez des images à partir de l'afficheur, vous pouvez vouloir ajouter une étiquette, sans la lier à une touche. Pour ce faire, veuillez simplement appuyer sur le raccourci <keycombo
+>&Ctrl; <keycap
+>a</keycap
+></keycombo
+></para>
+
+</sect1>
 </chapter>
 
 <!-- Keep this comment at the end of the file

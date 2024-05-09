@@ -80,7 +80,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 >) fourni avec les sources de &kphotoalbum; qui sauvegarde non seulement le fichier index.xml mais aussi les fichiers de configuration dans le dossier racine de l'utilisateur.</para>
     
     <para
->&kphotoalbum; se souviendra de l'endroit que vous lui avez spécifié pour stocker vos photos et le re-utiliser dans une utilisation ultérieure de &kphotoalbum;. Au cas où vous décideriez de charger une autre base de données dans &kphotoalbum; (par exemple une autre arborescence de photos), alors vous devrez le lancer avec l'option <option
+>&kphotoalbum; se souviendra de l'endroit que vous lui avez spécifié pour stocker vos photos et le re-utiliser dans une utilisation ultérieure de &kphotoalbum;. Au cas où vous décideriez de charger une autre base de données dans &kphotoalbum; (Par exemple une autre arborescence de photos), alors vous devrez le lancer avec l'option <option
 >-c</option
 >. Par exemple : <userinput
 ><command

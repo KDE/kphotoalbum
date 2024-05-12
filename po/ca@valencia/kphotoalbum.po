@@ -87,11 +87,11 @@ msgid ""
 "KPhotoAlbum...|General</interface>, a description embedded in the image Exif "
 "information is imported to this field if available.</para>"
 msgstr ""
-"<para>Un text descriptiu de la imatge.</para><para>Si s'ha seleccionat "
+"<para>Un text descriptiu de la imatge.</para><para>Si s'ha marcat "
 "<emphasis>Utilitza la descripció Exif</emphasis> davall "
-"<interface>Configuració -> Configura KPhotoAlbum... -> General</interface>, "
-"en este camp s'importarà la descripció incrustada en la informació Exif de "
-"la imatge, si està disponible.</para>"
+"<interface>Configuració -> Configura KPhotoAlbum… -> General</interface>, en "
+"este camp s'importarà la descripció incrustada en la informació Exif de la "
+"imatge, si està disponible.</para>"
 
 #: AnnotationDialog/Dialog.cpp:165 DB/ImageDB.cpp:397
 #, kde-format
@@ -126,7 +126,7 @@ msgstr "Neteja el formulari"
 #: AnnotationDialog/Dialog.cpp:236
 #, kde-format
 msgid "Options..."
-msgstr "Opcions..."
+msgstr "Opcions…"
 
 #: AnnotationDialog/Dialog.cpp:242
 #, kde-format
@@ -269,7 +269,7 @@ msgstr "Anotacions"
 #: AnnotationDialog/Dialog.cpp:873
 #, kde-format
 msgid "Configure Window Layout..."
-msgstr "Configura la disposició de la finestra..."
+msgstr "Configura la disposició de la finestra…"
 
 #: AnnotationDialog/Dialog.cpp:874
 #, kde-format
@@ -500,8 +500,8 @@ msgid ""
 "interface>, you can associate specific image areas with tags."
 msgstr ""
 "Si s'activen les <emphasis>etiquetes posicionables</emphasis> com a mínim "
-"per a una categoria en <interface>Configuració -> Configura KPhotoAlbum... -"
-"> Categories</interface>, es poden associar àrees específiques de la imatge "
+"per a una categoria en <interface>Configuració -> Configura KPhotoAlbum… -> "
+"Categories</interface>, es poden associar àrees específiques de la imatge "
 "amb etiquetes."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:325
@@ -546,7 +546,7 @@ msgstr "Suprimix la imatge"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr "Introduïu una etiqueta..."
+msgstr "Introduïu una etiqueta…"
 
 #: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:339
 #, kde-format
@@ -578,7 +578,7 @@ msgid ""
 msgstr ""
 "L'etiqueta que heu introduït és l'etiquetà que s'assignarà automàticament a "
 "les imatges noves trobades sense etiqueta (<interface>Configuració -> "
-"Configura KPhotoAlbum... -> Categories -> Imatges sense etiquetes</"
+"Configura KPhotoAlbum… -> Categories -> Imatges sense etiquetes</"
 "interface>). No es mostrarà ací, ja que està seleccionada per a esta "
 "finalitat."
 
@@ -600,7 +600,7 @@ msgstr "Suprimix"
 #: AnnotationDialog/ListSelect.cpp:370
 #, kde-format
 msgid "Rename..."
-msgstr "Canvia el nom..."
+msgstr "Canvia el nom…"
 
 #: AnnotationDialog/ListSelect.cpp:372
 #, kde-format
@@ -615,12 +615,12 @@ msgstr "Grups d'etiquetes"
 #: AnnotationDialog/ListSelect.cpp:397
 #, kde-format
 msgid "Add this tag to a new tag group..."
-msgstr "Afig esta etiqueta a un grup d'etiquetes nou..."
+msgstr "Afig esta etiqueta a un grup d'etiquetes nou…"
 
 #: AnnotationDialog/ListSelect.cpp:400
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
-msgstr "Fes esta etiqueta un grup d'etiquetes i afig una etiqueta..."
+msgstr "Fes esta etiqueta un grup d'etiquetes i afig una etiqueta…"
 
 #: AnnotationDialog/ListSelect.cpp:406
 #, kde-format
@@ -754,7 +754,7 @@ msgid ""
 "continue, the previous tag will be removed...</p>"
 msgstr ""
 "<p>%1 ja s'ha etiquetat en una altra àrea d'esta imatge.</p><p>Si continueu, "
-"s'eliminarà l'etiqueta anterior...</p>"
+"s'eliminarà l'etiqueta anterior…</p>"
 
 #: AnnotationDialog/ResizableFrame.cpp:359
 #, kde-format
@@ -986,7 +986,7 @@ msgstr ""
 "<p>Encara no heu configurat quina etiqueta s'utilitzarà per a indicar les "
 "imatges sense etiquetar.</p><p>Per favor, seguiu els passos següents per a "
 "fer-ho:<ul><li>En la barra de menús seleccioneu <b>Configuració</b></"
-"li><li>Des d'ací seleccioneu <b>Configura KPhotoAlbum...</b></"
+"li><li>Des d'ací seleccioneu <b>Configura KPhotoAlbum…</b></"
 "li><li>Seleccioneu la icona de <b>Categories</b> </li><li>Configureu la "
 "secció <b>Imatges sense etiquetes</b></li></ul></p>"
 
@@ -1674,7 +1674,7 @@ msgstr ""
 #: DB/XML/FileWriter.cpp:77 DB/XML/FileWriter.cpp:113 DB/XML/FileWriter.cpp:122
 #, kde-format
 msgid "Error while saving..."
-msgstr "S'ha produït un error en guardar..."
+msgstr "S'ha produït un error en guardar…"
 
 #: DB/XML/FileWriter.cpp:110
 #, kde-format
@@ -1771,7 +1771,7 @@ msgstr "Informació Exif i metadades del fitxer"
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
-msgstr "Filtre d'etiquetes..."
+msgstr "Filtre d'etiquetes…"
 
 #: Exif/InfoDialog.cpp:77
 #, kde-format
@@ -2253,7 +2253,7 @@ msgstr "Heu de seleccionar una resolució com a mínim."
 #: HTMLGenerator/HTMLDialog.cpp:385
 #, kde-format
 msgid "Select base folder..."
-msgstr "Seleccioneu la carpeta base..."
+msgstr "Seleccioneu la carpeta base…"
 
 #: HTMLGenerator/HTMLDialog.cpp:398
 #, kde-format
@@ -2659,7 +2659,7 @@ msgstr ""
 "en quina carpeta posar les imatges. Esta carpeta ha d'estar continguda dins "
 "la carpeta arrel que utilitza KPhotoAlbum per a les imatges. KPhotoAlbum "
 "s'encarregarà d'evitar les coincidències de nom</li><li>El següent pas és "
-"indicar quines categories voleu importar (gent, llocs,...) i també dir-li a "
+"indicar quines categories voleu importar (gent, llocs…) i també dir-li a "
 "KPhotoAlbum com aparellar les categories del fitxer amb les vostres "
 "categories. Imagineu que carregueu des d'un fitxer, a on hi ha una categoria "
 "anomenada <b>Blomst</b> (que és la paraula danesa per a flor); la voldríeu "
@@ -3306,7 +3306,7 @@ msgstr "Matthias Füssel"
 #: main.cpp:112
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
-msgstr "Pàgina de geoposició en el navegador i diverses correccions d'errors"
+msgstr "Pàgina de geoposició en el navegador i diverses esmenes d'errors"
 
 #: main.cpp:113
 #, kde-format
@@ -3468,16 +3468,16 @@ msgstr "Crea una categoria d'imatges"
 msgctxt "@title:window"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Copia la imatge a..."
-msgstr[1] "Copia les imatges a..."
+msgstr[0] "Copia la imatge a…"
+msgstr[1] "Copia les imatges a…"
 
 #: MainWindow/CopyLinkEngine.cpp:41
 #, kde-format
 msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Enllaça la imatge a..."
-msgstr[1] "Enllaça les imatges a..."
+msgstr[0] "Enllaça la imatge a…"
+msgstr[1] "Enllaça les imatges a…"
 
 #: MainWindow/DeleteDialog.cpp:24
 #, kde-format
@@ -3610,7 +3610,7 @@ msgstr "Copia i obri"
 #: MainWindow/ExternalPopup.cpp:92
 #, kde-format
 msgid "Open With..."
-msgstr "Obri amb..."
+msgstr "Obri amb…"
 
 #: MainWindow/ExternalPopup.cpp:115
 #, kde-format
@@ -3955,7 +3955,7 @@ msgstr "Barra de busca"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Search ..."
-msgstr "Busca..."
+msgstr "Busca…"
 
 #: MainWindow/StatisticsDialog.cpp:35
 #, kde-format
@@ -4054,13 +4054,13 @@ msgstr "Total"
 #: MainWindow/StatusBar.cpp:104
 #, kde-format
 msgid "Thumbnail settings..."
-msgstr "Configureu les miniatures..."
+msgstr "Configureu les miniatures…"
 
 #: MainWindow/TokenEditor.cpp:34
 #, kde-format
 msgctxt "@title:window"
 msgid "Remove Tokens"
-msgstr "Supressió de símbols"
+msgstr "Suprimiu els símbols"
 
 #: MainWindow/TokenEditor.cpp:40
 #, kde-format
@@ -4098,7 +4098,7 @@ msgstr ""
 #: MainWindow/WelcomeDialog.cpp:60
 #, kde-format
 msgid "Create My Own Database..."
-msgstr "Crea la meua pròpia base de dades..."
+msgstr "Crea la meua pròpia base de dades…"
 
 #: MainWindow/WelcomeDialog.cpp:63
 #, kde-format
@@ -4213,7 +4213,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
-msgstr "Supressió de la base de dades de demostració"
+msgstr "Suprimiu la base de dades de demostració"
 
 #: MainWindow/Window.cpp:334
 #, kde-format
@@ -4266,12 +4266,12 @@ msgstr "Cap selecció"
 #: MainWindow/Window.cpp:536
 #, kde-format
 msgid "Saving..."
-msgstr "Guardant..."
+msgstr "Guardant…"
 
 #: MainWindow/Window.cpp:541
 #, kde-format
 msgid "Saving... Done"
-msgstr "Guardant... fet"
+msgstr "Guardant… fet"
 
 #: MainWindow/Window.cpp:689
 #, kde-format
@@ -4291,17 +4291,17 @@ msgstr "No s'ha seleccionat cap imatge!"
 #: MainWindow/Window.cpp:784
 #, kde-format
 msgid "Generate HTML..."
-msgstr "Genera l'HTML..."
+msgstr "Genera l'HTML…"
 
 #: MainWindow/Window.cpp:788
 #, kde-format
 msgid "Import..."
-msgstr "Importa..."
+msgstr "Importa…"
 
 #: MainWindow/Window.cpp:791
 #, kde-format
 msgid "Export/Copy Images..."
-msgstr "Exporta/copia les imatges..."
+msgstr "Exporta i copia les imatges…"
 
 #: MainWindow/Window.cpp:818
 #, kde-format
@@ -4312,12 +4312,12 @@ msgstr "Suprimix la selecció"
 #: MainWindow/Window.cpp:824
 #, kde-format
 msgid "Remove Tokens..."
-msgstr "Elimina els símbols..."
+msgstr "Elimina els símbols…"
 
 #: MainWindow/Window.cpp:827
 #, kde-format
 msgid "Open List of Files..."
-msgstr "Obri la llista de fitxers..."
+msgstr "Obri la llista de fitxers…"
 
 #: MainWindow/Window.cpp:830
 #, kde-format
@@ -4467,7 +4467,7 @@ msgstr "Mostra les imatges i vídeos de fora del disc"
 #: MainWindow/Window.cpp:1010
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
-msgstr "Mostra les imatges i vídeos amb dates incompletes..."
+msgstr "Mostra les imatges i vídeos amb dates incompletes…"
 
 #: MainWindow/Window.cpp:1013
 #, kde-format
@@ -4492,7 +4492,7 @@ msgstr "Torna a crear la base de dades de la busca Exif"
 #: MainWindow/Window.cpp:1025
 #, kde-format
 msgid "Read Exif Info from Files..."
-msgstr "Llig la informació Exif des dels fitxers..."
+msgstr "Llig la informació Exif des dels fitxers…"
 
 #: MainWindow/Window.cpp:1028
 #, kde-format
@@ -4502,7 +4502,7 @@ msgstr "Ordena-ho tot per data i hora"
 #: MainWindow/Window.cpp:1032
 #, kde-format
 msgid "Automatically Stack Selected Images..."
-msgstr "Apila automàticament les imatges seleccionades..."
+msgstr "Apila automàticament les imatges seleccionades…"
 
 #: MainWindow/Window.cpp:1035
 #, kde-format
@@ -4512,7 +4512,7 @@ msgstr "Construïx les miniatures"
 #: MainWindow/Window.cpp:1038
 #, kde-format
 msgid "Statistics..."
-msgstr "Estadístiques..."
+msgstr "Estadístiques…"
 
 #: MainWindow/Window.cpp:1042
 #, kde-format
@@ -4558,25 +4558,25 @@ msgstr "Utilitza la miniatura de vídeo anterior"
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Copia la imatge a..."
-msgstr[1] "Copia les imatges a..."
+msgstr[0] "Copia la imatge a…"
+msgstr[1] "Copia les imatges a…"
 
 #: MainWindow/Window.cpp:1087 MainWindow/Window.cpp:1315
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Enllaça la imatge a..."
-msgstr[1] "Enllaça les imatges a..."
+msgstr[0] "Enllaça la imatge a…"
+msgstr[1] "Enllaça les imatges a…"
 
 #: MainWindow/Window.cpp:1113
 #, kde-format
 msgid "Auto saving...."
-msgstr "S'està guardant automàticament..."
+msgstr "S'està guardant automàticament…"
 
 #: MainWindow/Window.cpp:1116
 #, kde-format
 msgid "Auto saving.... Done"
-msgstr "Guardant automàticament... fet"
+msgstr "Guardant automàticament… fet"
 
 #: MainWindow/Window.cpp:1218
 #, kde-format
@@ -4613,7 +4613,7 @@ msgstr ""
 "<p>Heu configurat una etiqueta per a les imatges sense etiqueta, però la "
 "mateixa etiqueta o la seua categoria no existixen en la base de dades.</"
 "p><p>Reviseu la configuració de l'etiqueta sense etiquetar a "
-"«<interface>Configuració -> Configura KPhotoAlbum... -> Categories</"
+"«<interface>Configuració -> Configura KPhotoAlbum… -> Categories</"
 "interface>»</p>"
 
 #: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:46
@@ -4684,7 +4684,7 @@ msgstr "S'ha produït un error intern"
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 "Les imatges s'han compartit correctament. Es copia la ubicació a dins del "
-"porta-retalls..."
+"porta-retalls…"
 
 #: MainWindow/Window.cpp:1569
 #, kde-format
@@ -4801,7 +4801,7 @@ msgstr "S'ha guardat la configuració!"
 #: Map/MapView.cpp:390
 #, kde-format
 msgid "<i>Loading coordinates from the images ...</i>"
-msgstr "<i>S'estan carregant les coordenades des de les imatges...</i>"
+msgstr "<i>S'estan carregant les coordenades des de les imatges…</i>"
 
 #: Map/MapView.cpp:406
 #, kde-format
@@ -4890,7 +4890,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textedit"
 msgid "Filter ... (%1)"
-msgstr "Filtre... (%1)"
+msgstr "Filtre… (%1)"
 
 #: Settings/BirthdayPage.cpp:92
 #, kde-format
@@ -4924,7 +4924,7 @@ msgstr "Data de naixement de «%1»:"
 #: Settings/BirthdayPage.cpp:232
 #, kde-format
 msgid "Enter a date..."
-msgstr "Introduïu una data..."
+msgstr "Introduïu una data…"
 
 #: Settings/BirthdayPage.cpp:296
 #, kde-format
@@ -5071,7 +5071,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr "Confirmació d'acció"
+msgstr "Confirmeu l'acció"
 
 #: Settings/CategoryPage.cpp:377
 #, kde-format
@@ -5155,9 +5155,9 @@ msgid ""
 msgstr ""
 "<p>KPhotoAlbum està utilitzant un únic fitxer index.xml per a la seua "
 "<i>base de dades</i>. Amb moltes imatges, la lectura d'este fitxer pot durar "
-"una estona. Per a reduir este temps a la meitat aproximadament, seleccioneu "
-"esta casella de selecció. El desavantatge és que el fitxer index.xml serà "
-"menys llegible als ulls d'un humà.</p>"
+"una estona. Per a reduir este temps a la meitat aproximadament, marqueu esta "
+"casella de selecció. El desavantatge és que el fitxer index.xml serà menys "
+"llegible als ulls d'un humà.</p>"
 
 #: Settings/ExifPage.cpp:28
 #, kde-format
@@ -5254,10 +5254,10 @@ msgid ""
 "symbolic links to these files within your image folder.</p>"
 msgstr ""
 "<p>KPhotoAlbum intenta llegir tots els fitxers d'imatge, siguen fitxers "
-"reals o enllaços simbòlics. Si voleu ignorar els enllaços simbòlics, "
-"seleccioneu esta opció. Açò és útil si per alguna raó teniu p. ex., tant "
-"fitxers originals com enllaços simbòlics cap a estos dins de la carpeta "
-"d'imatges.</p>"
+"reals o enllaços simbòlics. Si voleu ignorar els enllaços simbòlics, marqueu "
+"esta opció. Açò és útil si per alguna raó teniu p. ex., tant fitxers "
+"originals com enllaços simbòlics cap a estos dins de la carpeta d'imatges.</"
+"p>"
 
 #: Settings/FileVersionDetectionPage.cpp:77
 #, kde-format
@@ -5271,8 +5271,8 @@ msgstr ""
 "<p>KPhotoAlbum és capaç de llegir alguns tipus d'imatges RAW. Algunes "
 "càmeres guarden la imatge RAW i una imatge JPEG o TIFF coincident. Açò "
 "provoca que les imatges duplicades s'emmagatzemen en KPhotoAlbum, el qual "
-"podria ser alguna cosa no desitjada. Si se selecciona, KPhotoAlbum no "
-"llegirà els fitxers RAW que coincidisquen amb els fitxers d'imatge que també "
+"podria ser alguna cosa no desitjada. Si està marcada, KPhotoAlbum no llegirà "
+"els fitxers RAW que coincidisquen amb els fitxers d'imatge que també "
 "existisquen</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:83
@@ -5683,9 +5683,9 @@ msgid ""
 "<p>JPEG images may contain a description. Check this checkbox to specify if "
 "you want to use this as a default description for your images.</p>"
 msgstr ""
-"<p>Les imatges JPEG poden contindre una descripció. Seleccioneu esta casella "
-"per a indicar que voleu utilitzar-la com a descripció predeterminada de les "
-"imatges.</p>"
+"<p>Les imatges JPEG poden contindre una descripció. Marqueu esta casella de "
+"selecció per a indicar que voleu utilitzar-la com a descripció "
+"predeterminada de les imatges.</p>"
 
 #: Settings/GeneralPage.cpp:158
 #, kde-format
@@ -5705,9 +5705,9 @@ msgstr ""
 "<p>KPhotoAlbum és capaç de mostrar imatges en dispositius Android. "
 "KPhotoAlbum s'aparellarà automàticament amb l'aplicació d'Android. Açò "
 "requerix que KPhotoAlbum en l'escriptori estiga escoltant els missatges de "
-"multidifusió. Seleccionant esta casella de selecció provocarà que "
-"KPhotoAlbum ho faça automàticament en iniciar. De manera alternativa, podeu "
-"clicar en la icona de connexió en la barra d'estat per a iniciar l'escolta."
+"multidifusió. Marcant esta casella de selecció provocarà que KPhotoAlbum ho "
+"faça automàticament en iniciar. De manera alternativa, podeu clicar en la "
+"icona de connexió en la barra d'estat per a iniciar l'escolta."
 
 #: Settings/GeneralPage.cpp:169
 #, kde-format
@@ -5786,7 +5786,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add group ..."
-msgstr "Afig un grup..."
+msgstr "Afig un grup…"
 
 #: Settings/TagGroupsPage.cpp:229
 #, kde-format
@@ -6048,14 +6048,14 @@ msgid ""
 "immediately build thumbnails for them and you won't have a delay later while "
 "browsing.</p>"
 msgstr ""
-"<p>Si se selecciona, les miniatures es construïxen a demanda. Mentre "
-"navegueu per la base de dades d'imatges, només es construiran realment les "
-"miniatures que calguen. Açò vol dir que quan canvieu la mida de les "
-"miniatures, KPhotoAlbum mantindrà la fluïdesa encara que tingueu moltes "
-"imatges.</p><p>Si no se selecciona, KPhotoAlbum sempre construirà les "
-"miniatures per a totes les imatges tan prompte com siga possible. Açò vol "
-"dir que quan es troben imatges noves, KPhotoAlbum construirà immediatament "
-"les seues miniatures i no tindreu cap retard més tard en navegar.</p>"
+"<p>Si està marcada, les miniatures es construïxen a demanda. Mentre navegueu "
+"per la base de dades d'imatges, només es construiran realment les miniatures "
+"que calguen. Açò vol dir que quan canvieu la mida de les miniatures, "
+"KPhotoAlbum mantindrà la fluïdesa encara que tingueu moltes imatges.</"
+"p><p>Si no està marcada, KPhotoAlbum sempre construirà les miniatures per a "
+"totes les imatges tan prompte com siga possible. Açò vol dir que quan es "
+"troben imatges noves, KPhotoAlbum construirà immediatament les seues "
+"miniatures i no tindreu cap retard més tard en navegar.</p>"
 
 #: Settings/ThumbnailsPage.cpp:117
 #, kde-format
@@ -6085,8 +6085,8 @@ msgid ""
 "<p>Checking this option will show the base name for the file under "
 "thumbnails in the thumbnail view.</p>"
 msgstr ""
-"<p>Quan se selecciona esta opció es mostrarà el nom base del fitxer davall "
-"les miniatures en la vista de miniatures.</p>"
+"<p>Quan es marca esta opció, es mostrarà el nom base del fitxer davall les "
+"miniatures en la vista de miniatures.</p>"
 
 #: Settings/ThumbnailsPage.cpp:131
 #, kde-format
@@ -6094,7 +6094,7 @@ msgid ""
 "<p>Checking this option will show the Categories for the file under "
 "thumbnails in the thumbnail view</p>"
 msgstr ""
-"<p>Seleccionant esta opció es mostraran les categories del fitxer davall les "
+"<p>Marcant esta opció es mostraran les categories del fitxer davall les "
 "miniatures en la vista de miniatures</p>"
 
 #: Settings/ThumbnailsPage.cpp:135
@@ -6179,16 +6179,16 @@ msgstr ""
 "diferents. Seleccioneu el que vos funcione millor</p><p><b>VLC</b> pareix "
 "que és el dorsal de reproducció de vídeo que funciona millor, de manera que "
 "pot reproduir la majoria de formats de vídeo. Tanmateix té un inconvenient: "
-"requerix l'X11. Si utilitzeu Wayland, trobareu que els vídeos es mostraran "
-"en una finestra independent, i en este cas VLC segurament no s'ajustarà "
-"gaire a vós. Per altra banda, si utilitzeu l'X11 llavors VLC segurament és "
-"la millor elecció.</p><p>Tradicionalment, KPhotoAlbum ha utilitzat "
-"<b>Phonon</b> com a dorsal del reproductor de vídeo. Tanmateix hem vist que "
-"falla amb molts formats diferents de vídeo - possiblement perquè el sistema "
-"no està configurat correctament. Si és este cas (i no podeu utilitzar VLC), "
-"llavors proveu el dorsal <b>QtAV</b>, que pareix admetre molts formats (tot "
-"el que hi posem). El <b>QtAV</b> també té un inconvenient - pareix que el "
-"vídeo i l'àudio es dessincronitzen lleugerament.</p><p><b><font color=red>En "
+"requerix X11. Si utilitzeu Wayland, trobareu que els vídeos es mostraran en "
+"una finestra independent, i en este cas VLC segurament no s'ajustarà gaire a "
+"vós. Per altra banda, si utilitzeu X11 llavors VLC segurament és la millor "
+"elecció.</p><p>Tradicionalment, KPhotoAlbum ha utilitzat <b>Phonon</b> com a "
+"dorsal del reproductor de vídeo. Tanmateix hem vist que falla amb molts "
+"formats diferents de vídeo - possiblement perquè el sistema no està "
+"configurat correctament. Si és este cas (i no podeu utilitzar VLC), llavors "
+"proveu el dorsal <b>QtAV</b>, que pareix admetre molts formats (tot el que "
+"hi posem). El <b>QtAV</b> també té un inconvenient - pareix que el vídeo i "
+"l'àudio es dessincronitzen lleugerament.</p><p><b><font color=red>En "
 "qualsevol moment es pot canviar el dorsal des de Configuració -> Visor</"
 "font></b></p></html>"
 
@@ -6790,13 +6790,13 @@ msgstr "Establix com a primera imatge en una pila"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
-msgstr "Copia la imatge a..."
+msgstr "Copia la imatge a…"
 
 #: Viewer/ViewerWidget.cpp:211
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
-msgstr "Enllaça la imatge a..."
+msgstr "Enllaça la imatge a…"
 
 #: Viewer/ViewerWidget.cpp:219
 #, kde-format
@@ -7179,7 +7179,7 @@ msgstr ""
 "<p>Pareix que KPhotoAlbum ha fallat anteriorment durant la reproducció de "
 "vídeo. Este és un problema habitual en algunes plataformes amb alguns "
 "reproductors de vídeo.</p><p>Premeu <i>Continua</i> per a permetre que "
-"KPhotoAlbum prove un dorsal diferent...</p>"
+"KPhotoAlbum prove un dorsal diferent…</p>"
 
 #: Viewer/ViewerWidget.cpp:1399
 #, kde-format
@@ -7302,7 +7302,7 @@ msgstr "Símbol %1"
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format
 msgid "Show..."
-msgstr "Mostra..."
+msgstr "Mostra…"
 
 #: Viewer/VisibleOptionsMenu.cpp:24
 #, kde-format

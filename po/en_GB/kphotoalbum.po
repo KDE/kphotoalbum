@@ -2,13 +2,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Andrew Coles <andrew_coles@yahoo.co.uk>, 2009, 2010.
-# Steve Allewell <steve.allewell@gmail.com>, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Steve Allewell <steve.allewell@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-30 01:33+0000\n"
-"PO-Revision-Date: 2023-04-29 12:30+0100\n"
+"PO-Revision-Date: 2024-05-24 19:36+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
 "Language: en_GB\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.03.70\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1043,12 +1043,10 @@ msgid "Move Items"
 msgstr "Move Items"
 
 #: DateBar/DateBarWidget.cpp:61
-#, fuzzy, kde-format
-#| msgctxt "I.e. the timeline histogram widget"
-#| msgid "Date Bar"
+#, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
-msgstr "Date Bar"
+msgstr "Datebar"
 
 #: DateBar/DateBarWidget.cpp:70
 #, kde-format
@@ -1831,9 +1829,7 @@ msgid "x"
 msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
-#, fuzzy, kde-format
-#| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and its octal representation (e.g. \"0644\")"
@@ -2874,10 +2870,9 @@ msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2020-2023 The KPhotoAlbum Development Team"
+msgstr "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3215,10 +3210,9 @@ msgid "KDE Photo Album"
 msgstr "KDE Photo Album"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2023 The KPhotoAlbum Development Team"
+msgstr "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 
 #: main.cpp:110
 #, kde-format
@@ -3479,10 +3473,9 @@ msgid "Merge these images"
 msgstr "Merge these images"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select image to keep:"
-msgstr "Select target:"
+msgstr "Select image to keep:"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70
 #, kde-format
@@ -4160,12 +4153,10 @@ msgid "Do you want to save the changes?"
 msgstr "Do you want to save the changes?"
 
 #: MainWindow/Window.cpp:335
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Discard changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
-msgstr "Discard changes?"
+msgstr "Save Changes?"
 
 #: MainWindow/Window.cpp:392
 #, kde-format
@@ -4225,10 +4216,9 @@ msgid "Limit View to Selection"
 msgstr "Limit View to Selection"
 
 #: MainWindow/Window.cpp:771
-#, fuzzy, kde-format
-#| msgid "No item is selected."
+#, kde-format
 msgid "No images are selected!"
-msgstr "No item is selected."
+msgstr "No images are selected!"
 
 #: MainWindow/Window.cpp:784
 #, kde-format
@@ -4379,7 +4369,7 @@ msgstr "Icons"
 #: MainWindow/Window.cpp:950
 #, kde-format
 msgid "Use natural sort order"
-msgstr ""
+msgstr "Use natural sort order"
 
 #: MainWindow/Window.cpp:960
 #, kde-format
@@ -4641,16 +4631,13 @@ msgid "Open List of Files"
 msgstr "Open List of Files"
 
 #: MainWindow/Window.cpp:1638
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can open a set of files from KPhotoAlbum's image root by listing the "
-#| "files here."
+#, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
-"You can open a set of files from KPhotoAlbum's image root by listing the "
-"files here."
+"You can open a set of files in KPhotoAlbum's database by listing the files "
+"here."
 
 #: MainWindow/Window.cpp:1652
 #, kde-format
@@ -6399,69 +6386,53 @@ msgid "<b>Description: </b> "
 msgstr "<b>Description: </b> "
 
 #: Utilities/Timespan.cpp:81
-#, fuzzy, kde-format
-#| msgid " (&lt; %1)"
+#, kde-format
 msgctxt "Like \"up to 6 years\" old"
 msgid " (up to %1)"
-msgstr " (&lt; %1)"
+msgstr " (up to %1)"
 
 #: Utilities/Timespan.cpp:91
-#, fuzzy, kde-format
-#| msgid " (%1)"
+#, kde-format
 msgctxt "Like \"6 years\" old"
 msgid " (%1)"
 msgstr " (%1)"
 
 #: Utilities/Timespan.cpp:94
-#, fuzzy, kde-format
-#| msgctxt "E.g. ' (1-2 years)'"
-#| msgid " (%1-%2)"
+#, kde-format
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
-msgstr " (%1-%2)"
+msgstr " (%1 to %2)"
 
 #: Utilities/Timespan.cpp:103
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 day old'"
-#| msgid "1 day"
-#| msgid_plural "%1 days"
+#, kde-format
 msgctxt "Like \"The baby is '8 days' old\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] "1 day"
+msgstr[0] "%1 day"
 msgstr[1] "%1 days"
 
 #: Utilities/Timespan.cpp:108
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"The baby is '4 months' old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 month"
+msgstr[0] "%1 month"
 msgstr[1] "%1 months"
 
 #: Utilities/Timespan.cpp:113
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 year old'"
-#| msgid "1 year"
-#| msgid_plural "%1 years"
+#, kde-format
 msgctxt "Like \"The person is '28 years' old\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] "1 year"
+msgstr[0] "%1 year"
 msgstr[1] "%1 years"
 
 #: Utilities/Timespan.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"The baby is \"4 months\" old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 month"
+msgstr[0] "%1 month"
 msgstr[1] "%1 months"
 
 #: Utilities/Timespan.cpp:121
@@ -6470,44 +6441,36 @@ msgctxt ""
 "This combines an age of a person in years (%1) with the additional months "
 "(%2), like \"The person is '1 year and 3 months' old\""
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: Utilities/Timespan.cpp:151
-#, fuzzy, kde-format
-#| msgid "today"
+#, kde-format
 msgid " (today)"
-msgstr "today"
+msgstr " (today)"
 
 #: Utilities/Timespan.cpp:154
-#, fuzzy, kde-format
-#| msgid "yesterday"
+#, kde-format
 msgid " (yesterday)"
-msgstr "yesterday"
+msgstr " (yesterday)"
 
 #: Utilities/Timespan.cpp:158
-#, fuzzy, kde-format
-#| msgid " (%1)"
+#, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
-msgstr " (%1)"
+msgstr " (%1 ago)"
 
 #: Utilities/Timespan.cpp:162
-#, fuzzy, kde-format
-#| msgctxt "E.g. ' (1-2 years)'"
-#| msgid " (%1-%2)"
+#, kde-format
 msgctxt "Like \"6 to 7 years ago\""
 msgid " (%1 to %2 ago)"
-msgstr " (%1-%2)"
+msgstr " (%1 to %2 ago)"
 
 #: Utilities/Timespan.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 day old'"
-#| msgid "1 day"
-#| msgid_plural "%1 days"
+#, kde-format
 msgctxt "Like \"This happened '6 days' ago\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] "1 day"
+msgstr[0] "%1 day"
 msgstr[1] "%1 days"
 
 #: Utilities/Timespan.cpp:184
@@ -6515,85 +6478,71 @@ msgstr[1] "%1 days"
 msgctxt "Like \"This happened '3 weeks' ago\""
 msgid "%1 week"
 msgid_plural "%1 weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 week"
+msgstr[1] "%1 weeks"
 
 #: Utilities/Timespan.cpp:189
 #, kde-format
 msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
 msgid "ca. %1 week"
 msgid_plural "ca. %1 weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ca. %1 week"
+msgstr[1] "ca. %1 weeks"
 
 #: Utilities/Timespan.cpp:197 Utilities/Timespan.cpp:236
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"This happened '2 months' ago\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 month"
+msgstr[0] "%1 month"
 msgstr[1] "%1 months"
 
 #: Utilities/Timespan.cpp:202 Utilities/Timespan.cpp:207
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"This happened 'ca. 2 months' ago\""
 msgid "ca. %1 month"
 msgid_plural "ca. %1 months"
-msgstr[0] "1 month"
-msgstr[1] "%1 months"
+msgstr[0] "ca. %1 month"
+msgstr[1] "ca. %1 months"
 
 #: Utilities/Timespan.cpp:212 Utilities/Timespan.cpp:231
 #: Utilities/Timespan.cpp:234
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 year old'"
-#| msgid "1 year"
-#| msgid_plural "%1 years"
+#, kde-format
 msgctxt "Like \"This happened '2 years' ago\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] "1 year"
+msgstr[0] "%1 year"
 msgstr[1] "%1 years"
 
 #: Utilities/Timespan.cpp:240
-#, fuzzy, kde-format
-#| msgid "\"%1\" and \"%2\""
+#, kde-format
 msgctxt ""
 "This combines a number of years and months to a timespan, like \"This "
 "happened 3 years and 1 month\" ago, where the first parameter is the "
 "formatted years string and the second one is the formatted months string"
 msgid "%1 and %2"
-msgstr "\"%1\" and \"%2\""
+msgstr "%1 and %2"
 
 #: Viewer/AnnotationHandler.cpp:68
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
-msgstr ""
+msgstr "Assign Macro"
 
 #: Viewer/AnnotationHandler.cpp:68
-#, fuzzy, kde-format
-#| msgid "Settings for category <b>%1</b>"
+#, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr "Settings for category <b>%1</b>"
+msgstr "Select item for macro key <b>%1</b>"
 
 #: Viewer/AnnotationHandler.cpp:125
-#, fuzzy, kde-format
-#| msgctxt "@title"
-#| msgid "Rename Item"
+#, kde-format
 msgid "Tag Item"
-msgstr "Rename Item"
+msgstr "Tag Item"
 
 #: Viewer/AnnotationHandler.cpp:125
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select tag for image"
-msgstr "Select target:"
+msgstr "Select tag for image"
 
 #: Viewer/CategoryImageConfig.cpp:33
 #, kde-format
@@ -6670,56 +6619,50 @@ msgstr "Failed to set up video playback (widget wasn't created)"
 #: Viewer/SelectCategoryAndValue.cpp:107
 #, kde-format
 msgid "Type name of category and item"
-msgstr ""
+msgstr "Type name of category and item"
 
 #: Viewer/SelectCategoryAndValue.cpp:136
 #, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "Add New"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "Key"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "Tag:"
+msgstr "Tag"
 
 #: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"
-msgstr ""
+msgstr "Clear assignment"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "OK dialogue box"
+msgstr "Dialog"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "Label"
+msgstr "TextLabel"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgid "Add new Tag"
-msgstr "Add a tag"
+msgstr "Add new Tag"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "Title"
 
@@ -6727,7 +6670,7 @@ msgstr "Title"
 #: Viewer/SelectCategoryAndValue.ui:120
 #, kde-format
 msgid "Existing Assignments"
-msgstr ""
+msgstr "Existing Assignments"
 
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
@@ -6939,35 +6882,30 @@ msgid "Pause"
 msgstr "Pause"
 
 #: Viewer/ViewerWidget.cpp:624
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "locked"
-msgstr "Unlock"
+msgstr "locked"
 
 #: Viewer/ViewerWidget.cpp:626
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "annotating"
-msgstr "Annotations"
+msgstr "annotating"
 
 #: Viewer/ViewerWidget.cpp:628
 #, kde-format
 msgid "tokenizing"
-msgstr ""
+msgstr "tokenising"
 
 #: Viewer/ViewerWidget.cpp:633
 #, kde-format
 msgid "Change display mode to %1"
-msgstr ""
+msgstr "Change display mode to %1"
 
 #: Viewer/ViewerWidget.cpp:909
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run Slideshow"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "Run Slideshow"
+msgstr "Ending Slideshow"
 
 #: Viewer/ViewerWidget.cpp:912
 #, kde-format
@@ -6976,39 +6914,32 @@ msgid "Stop Slideshow"
 msgstr "Stop Slideshow"
 
 #: Viewer/ViewerWidget.cpp:917
-#, fuzzy, kde-format
-#| msgctxt "OSD for slideshow"
-#| msgid ""
-#| "<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
-#| "slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></"
-#| "p>"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
 msgstr ""
-"<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
-"slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></p>"
+"Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
+"slideshow slower"
 
 #: Viewer/ViewerWidget.cpp:967
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
-msgstr ""
+msgstr "%1&nbsp;s"
 
 #: Viewer/ViewerWidget.cpp:1228
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "Theme Description"
+msgstr "Edit Image Description"
 
 #: Viewer/ViewerWidget.cpp:1228
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "Theme Description"
+msgstr "Image Description"
 
 #: Viewer/ViewerWidget.cpp:1243
 #, kde-format
@@ -7160,113 +7091,103 @@ msgstr ""
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 
 #: Viewer/ViewerWidget.cpp:1476
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgid "Annotate"
-msgstr "Annotate..."
+msgstr "Annotate"
 
 #: Viewer/ViewerWidget.cpp:1495
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "Help"
 
 #: Viewer/ViewerWidget.cpp:1497
-#, fuzzy, kde-format
-#| msgid "Annotation Dialog"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Annotation Dialogue Box"
 
 #: Viewer/ViewerWidget.cpp:1498
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
-msgstr "Add a tag"
+msgstr "Add tag"
 
 #: Viewer/ViewerWidget.cpp:1498
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "CTRL+a"
 
 #: Viewer/ViewerWidget.cpp:1501
-#, fuzzy, kde-format
-#| msgid "Copy tags from previous image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr "Copy tags from previous image"
+msgstr "Copy Data from Previous Image"
 
 #: Viewer/ViewerWidget.cpp:1502
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "CTRL+c"
 
 #: Viewer/ViewerWidget.cpp:1505
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "Description"
+msgstr "Edit Description"
 
 #: Viewer/ViewerWidget.cpp:1506
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr ""
+msgstr "CTRL+d"
 
 #: Viewer/ViewerWidget.cpp:1509
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation Mode"
-msgstr "Annotations"
+msgstr "Annotation Mode"
 
 #: Viewer/ViewerWidget.cpp:1511
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "Locked"
 
 #: Viewer/ViewerWidget.cpp:1512
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "CTRL+l"
 
 #: Viewer/ViewerWidget.cpp:1516
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "Assign Tags"
 
 #: Viewer/ViewerWidget.cpp:1517
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1520
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "Tokens"
+msgstr "Assign Tokens"
 
 #: Viewer/ViewerWidget.cpp:1521
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr ""
+msgstr "CTRL+t"
 
 #: Viewer/ViewerWidget.cpp:1684
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Token %1"
-msgstr "Tokens"
+msgstr "Token %1"
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format

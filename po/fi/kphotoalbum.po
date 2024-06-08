@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-03-30 01:33+0000\n"
-"PO-Revision-Date: 2024-02-14 18:49+0200\n"
+"PO-Revision-Date: 2024-04-18 16:10+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -3474,10 +3474,9 @@ msgid "Merge these images"
 msgstr "Yhdistä nämä kuvat"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select image to keep:"
-msgstr "Valitse kohde:"
+msgstr "Valitse pidettävä kuva:"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70
 #, kde-format
@@ -5052,11 +5051,12 @@ msgid ""
 "case it is useful to ask KPhotoAlbum to zip the backup files to preserve "
 "disk space.</p>"
 msgstr ""
-"<p>Tietokanta (index.xml) voidaan varmuuskopioida. Tällä valinnalla voit "
-"määrittää, kuinka monta varmuuskopiota tietokannasta pidetään (index.xml~1~, "
-"index.xml~2~, …). Vanhin varmuuskopio poistetaan automaattisesti, kun "
-"valittu määrä ylittyy.</p><p>Varmuuskopiot voidaan myös pakata "
-"automaattisesti tilan säästämiseksi.</p>"
+"<p>KPhotoAlbum voi varmuuskopioida index.xml-tiedoston säilyttämällä "
+"kopioita nimillä index.xml~1~, index.xml~2~ jne. Pyöräytyssäätimellä voi "
+"valita, montako kopioita säilytetään. Kun enimmäismäärä ylittyy, KPhotoAlbum "
+"poistaa vanhimman varmuuskopiotiedoston.</p><p>index.xml-tiedosto kasvaa "
+"huomattavasti, jos kuvia on paljon, jolloin KPhotoAlbumia voi pyytää "
+"pakkaamaan varmuuskopiotiedostot levytilan säästämiseksi.</p>"
 
 #: Settings/DatabaseBackendPage.cpp:67
 #, kde-format

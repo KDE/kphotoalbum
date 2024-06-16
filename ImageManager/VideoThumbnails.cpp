@@ -1,21 +1,25 @@
-// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2012 - 2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "VideoThumbnails.h"
 
 #include "VideoLengthExtractor.h"
+#include <ImageManager/VideoThumbnailCache.h>
 
 #include <BackgroundJobs/ExtractOneThumbnailJob.h>
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <BackgroundJobs/ReadVideoLengthJob.h>
 #include <BackgroundTaskManager/JobManager.h>
 #include <MainWindow/FeatureDialog.h>
+#include <kpabase/SettingsData.h>
 
 ImageManager::VideoThumbnails::VideoThumbnails(QObject *parent)
     : QObject(parent)
     , m_pendingRequest(false)
     , m_index(0)
+    , m_videoThumbnailCache(std::make_unique<VideoThumbnailCache>(QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath(ImageManager::defaultVideoThumbnailDirectory())))
 {
     m_cache.resize(10);
     m_activeRequests.reserve(10);
@@ -25,8 +29,11 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
 {
     m_index = 0;
     m_videoFile = fileName;
-    if (loadFramesFromCache(fileName))
+    auto frames = m_videoThumbnailCache->lookup(fileName);
+    if (!frames.empty()) {
+        m_cache = std::move(frames);
         return;
+    }
 
     // no video thumbnails without ffmpeg:
     if (!MainWindow::FeatureDialog::hasVideoThumbnailer())
@@ -75,22 +82,6 @@ void ImageManager::VideoThumbnails::gotFrame()
         m_index = index;
         Q_EMIT frameLoaded(m_cache[index]);
     }
-}
-
-bool ImageManager::VideoThumbnails::loadFramesFromCache(const DB::FileName &fileName)
-{
-    for (int i = 0; i < 10; ++i) {
-        const DB::FileName thumbnailFile = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(fileName, i);
-        if (!thumbnailFile.exists())
-            return false;
-
-        QImage image(thumbnailFile.absolute());
-        if (image.isNull())
-            return false;
-
-        m_cache[i] = image;
-    }
-    return true;
 }
 
 void ImageManager::VideoThumbnails::cancelPreviousJobs()

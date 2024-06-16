@@ -24,6 +24,7 @@ ImageManager::VideoThumbnailCache::VideoThumbnailCache(const QString &baseDirect
     , m_baseDir(baseDirectory)
     , m_memcache(LRU_SIZE)
 {
+    qCInfo(ImageManagerLog) << "Using video thumbnail directory" << m_baseDir.absolutePath();
     if (!m_baseDir.exists()) {
         if (!QDir().mkpath(m_baseDir.path())) {
             qCWarning(ImageManagerLog, "Failed to create video thumbnail cache directory!");

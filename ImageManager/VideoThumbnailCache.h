@@ -36,7 +36,7 @@ public:
     /**
      * @brief VideoThumbnailCache
      * Provide access to a KPhotoAlbum-style video thumbnail storage, i.e. to the cycling thumbnail images usually visible when a video is hovered on.
-     * @param baseDirectory The (relative) directory for the video thumbnail directory (@see defaultVideoThumbnailDirectory).
+     * @param baseDirectory The directory for the video thumbnail directory (@see defaultVideoThumbnailDirectory). Must be a subdirectory of the image directory.
      * @param parent
      */
     explicit VideoThumbnailCache(const QString &baseDirectory, QObject *parent = nullptr);

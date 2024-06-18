@@ -61,6 +61,13 @@ bool ImageManager::VideoThumbnailCache::contains(const DB::FileName &name) const
 
 void ImageManager::VideoThumbnailCache::removeThumbnail(const DB::FileName &name)
 {
+    for (int i = 0; i < 10; ++i) {
+        const DB::FileName thumbnailFile = frameName(name, i);
+        if (!thumbnailFile.exists())
+            continue;
+
+        QDir().remove(thumbnailFile.absolute());
+    }
 }
 
 void ImageManager::VideoThumbnailCache::removeThumbnails(const DB::FileNameList &names)

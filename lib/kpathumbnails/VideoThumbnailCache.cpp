@@ -38,9 +38,11 @@ const QVector<QImage> ImageManager::VideoThumbnailCache::lookup(const DB::FileNa
     if (m_memcache.contains(cacheName))
         return *m_memcache.object(cacheName);
 
+    qCDebug(ImageManagerLog) << "Video thumbnail frames for" << name.relative() << "was not cached.";
     std::unique_ptr<QVector<QImage>> frames = std::make_unique<QVector<QImage>>(MAX_FRAMES);
     for (int i = 0; i < 10; ++i) {
         const DB::FileName thumbnailFile = frameName(name, i);
+        qCDebug(ImageManagerLog) << "Thumbnail file" << thumbnailFile.relative() << "exists:" << thumbnailFile.exists();
         if (!thumbnailFile.exists())
             return {};
 
@@ -48,9 +50,11 @@ const QVector<QImage> ImageManager::VideoThumbnailCache::lookup(const DB::FileNa
         if (frame.isNull())
             return {};
 
+        qCDebug(ImageManagerLog) << "Video thumbnail frame" << i << "for" << name.relative() << "is on disk.";
         (*frames)[i] = frame;
     }
 
+    qCDebug(ImageManagerLog) << "Video thumbnail frames for" << name.relative() << "loaded.";
     auto *framesPtr = frames.release();
     m_memcache.insert(cacheName, framesPtr);
     return *framesPtr;
@@ -61,9 +65,12 @@ QImage ImageManager::VideoThumbnailCache::lookup(const DB::FileName &name, int f
     Q_ASSERT_X(0 <= frameNumber && frameNumber < MAX_FRAMES, "VideoThumbnailCache::lookup", "Video thumbnail frame index out of bounds!");
 
     const auto cacheName = nameHash(name);
-    if (m_memcache.contains(cacheName))
+    if (m_memcache.contains(cacheName)) {
+        qCDebug(ImageManagerLog) << "Video thumbnail frame" << frameNumber << "for" << name.relative() << "is cached.";
         return m_memcache.object(cacheName)->at(frameNumber);
+    }
 
+    qCDebug(ImageManagerLog) << "Video thumbnail frame" << frameNumber << "for" << name.relative() << "was not cached.";
     // we need to load all frames into the cache eventually, so let's just trigger that now:
     return lookup(name).value(frameNumber);
 }
@@ -110,7 +117,7 @@ QString ImageManager::VideoThumbnailCache::nameHash(const DB::FileName &videoNam
 DB::FileName ImageManager::VideoThumbnailCache::frameName(const DB::FileName &videoName, int frameNumber) const
 {
     Q_ASSERT_X(0 <= frameNumber && frameNumber < MAX_FRAMES, "VideoThumbnailCache::frameName", "Video thumbnail frame index out of bounds!");
-    const QString frameName = QString::fromUtf8("%1-%2").arg(nameHash(videoName), frameNumber);
+    const QString frameName = QString::fromUtf8("%1-%2").arg(nameHash(videoName)).arg(frameNumber);
     return DB::FileName::fromAbsolutePath(m_baseDir.absoluteFilePath(frameName));
 }
 

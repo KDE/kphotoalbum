@@ -6,7 +6,6 @@
 #include "VideoThumbnails.h"
 
 #include "VideoLengthExtractor.h"
-#include <ImageManager/VideoThumbnailCache.h>
 
 #include <BackgroundJobs/ExtractOneThumbnailJob.h>
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
@@ -14,6 +13,7 @@
 #include <BackgroundTaskManager/JobManager.h>
 #include <MainWindow/FeatureDialog.h>
 #include <kpabase/SettingsData.h>
+#include <kpathumbnails/VideoThumbnailCache.h>
 
 ImageManager::VideoThumbnails::VideoThumbnails(QObject *parent)
     : QObject(parent)

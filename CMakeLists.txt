@@ -419,8 +419,6 @@ set(libImageManager_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/CancelEvent.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoImageRescaleRequest.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoImageRescaleRequest.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnailCache.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnailCache.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnails.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoThumbnails.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/ImageManager/VideoLengthExtractor.cpp"

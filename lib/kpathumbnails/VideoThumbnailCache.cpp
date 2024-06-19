@@ -32,9 +32,13 @@ ImageManager::VideoThumbnailCache::VideoThumbnailCache(const QString &baseDirect
     }
 }
 
-QVector<QImage> ImageManager::VideoThumbnailCache::lookup(const DB::FileName &name) const
+const QVector<QImage> ImageManager::VideoThumbnailCache::lookup(const DB::FileName &name) const
 {
-    QVector<QImage> frames { MAX_FRAMES };
+    const auto cacheName = nameHash(name);
+    if (m_memcache.contains(cacheName))
+        return *m_memcache.object(cacheName);
+
+    std::unique_ptr<QVector<QImage>> frames = std::make_unique<QVector<QImage>>(MAX_FRAMES);
     for (int i = 0; i < 10; ++i) {
         const DB::FileName thumbnailFile = frameName(name, i);
         if (!thumbnailFile.exists())
@@ -44,13 +48,32 @@ QVector<QImage> ImageManager::VideoThumbnailCache::lookup(const DB::FileName &na
         if (frame.isNull())
             return {};
 
-        frames[i] = frame;
+        (*frames)[i] = frame;
     }
-    return frames;
+
+    auto *framesPtr = frames.release();
+    m_memcache.insert(cacheName, framesPtr);
+    return *framesPtr;
+}
+
+QImage ImageManager::VideoThumbnailCache::lookup(const DB::FileName &name, int frameNumber) const
+{
+    Q_ASSERT_X(0 <= frameNumber && frameNumber < MAX_FRAMES, "VideoThumbnailCache::lookup", "Video thumbnail frame index out of bounds!");
+
+    const auto cacheName = nameHash(name);
+    if (m_memcache.contains(cacheName))
+        return m_memcache.object(cacheName)->at(frameNumber);
+
+    // we need to load all frames into the cache eventually, so let's just trigger that now:
+    return lookup(name).value(frameNumber);
 }
 
 bool ImageManager::VideoThumbnailCache::contains(const DB::FileName &name) const
 {
+    const auto cacheName = nameHash(name);
+    if (m_memcache.contains(cacheName))
+        return true;
+
     for (int i = 0; i < 10; ++i) {
         const DB::FileName thumbnailFile = frameName(name, i);
         if (!thumbnailFile.exists())

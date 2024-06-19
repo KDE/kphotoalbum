@@ -27,9 +27,7 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
 {
     m_index = 0;
     m_videoFile = fileName;
-    auto frames = m_videoThumbnailCache->lookup(fileName);
-    if (!frames.empty()) {
-        m_cache = std::move(frames);
+    if (m_videoThumbnailCache->contains(fileName)) {
         return;
     }
 
@@ -60,8 +58,9 @@ void ImageManager::VideoThumbnails::requestNext()
 {
     for (int i = 0; i < 10; ++i) {
         m_index = (m_index + 1) % 10;
-        if (!m_cache[m_index].isNull()) {
-            Q_EMIT frameLoaded(m_cache[m_index]);
+        const auto &frame = m_videoThumbnailCache->lookup(m_videoFile, m_index);
+        if (!frame.isNull()) {
+            Q_EMIT frameLoaded(frame);
             m_pendingRequest = false;
             return;
         }

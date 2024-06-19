@@ -46,7 +46,15 @@ public:
      * @param name the video file name
      * @return a QVector containing all frames, or an empty QVector.
      */
-    QVector<QImage> lookup(const DB::FileName &name) const;
+    const QVector<QImage> lookup(const DB::FileName &name) const;
+
+    /**
+     * @brief lookup and return a specific thumbnail frameNumber for the given file.
+     * @param name the video file name
+     * @param frameNumber
+     * @return a QImage for the requested frameNumber, or a null QImage if no frameNumber was found
+     */
+    QImage lookup(const DB::FileName &name, int frameNumber) const;
 
     /**
      * @brief contains
@@ -60,7 +68,7 @@ public:
 
 private:
     const QDir m_baseDir;
-    QCache<QString, QVector<QImage>> m_memcache;
+    mutable QCache<QString, QVector<QImage>> m_memcache;
 
     /**
      * @brief nameHash transforms the videoName into a name used as base for the video thumbnail frame files.

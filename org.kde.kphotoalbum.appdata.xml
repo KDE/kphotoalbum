@@ -8,6 +8,9 @@ SPDX-License-Identifier: CC0-1.0
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0</project_license>
   <name>KPhotoAlbum </name>
+  <developer id="org.kde">
+    <name translate="no">KDE</name>
+  </developer>
   <name xml:lang="bg">KPhotoAlbum</name>
   <name xml:lang="ca">KPhotoAlbum</name>
   <name xml:lang="ca-valencia">KPhotoAlbum</name>

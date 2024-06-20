@@ -13,9 +13,9 @@
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2019 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -40,12 +40,12 @@ const QString configFile = QString::fromLatin1("kphotoalbumrc");
 #define STR(x) QString::fromLatin1(x)
 
 #define cfgValue(GROUP, OPTION, DEFAULT) \
-    KSharedConfig::openConfig(configFile)->group(GROUP).readEntry(OPTION, DEFAULT)
+    KSharedConfig::openConfig(configFile)->group(QLatin1String(GROUP)).readEntry(QLatin1String(OPTION), DEFAULT)
 
 #define setValue(GROUP, OPTION, VALUE)                                            \
     do {                                                                          \
-        KConfigGroup group = KSharedConfig::openConfig(configFile)->group(GROUP); \
-        group.writeEntry(OPTION, VALUE);                                          \
+        KConfigGroup group = KSharedConfig::openConfig(configFile)->group(QLatin1String(GROUP)); \
+        group.writeEntry(QLatin1String(OPTION), VALUE);                                          \
         group.sync();                                                             \
     } while (0)
 
@@ -68,7 +68,7 @@ const QString configFile = QString::fromLatin1("kphotoalbumrc");
 #define property_(GET_TYPE, GET_FUNC, GET_VALUE, SET_FUNC, SET_TYPE, SET_VALUE, GROUP, OPTION, GET_DEFAULT_1, GET_DEFAULT_2, GET_DEFAULT_2_TYPE) \
     GET_TYPE SettingsData::GET_FUNC() const                                                                                                      \
     {                                                                                                                                            \
-        const KConfigGroup g = KSharedConfig::openConfig(configFile)->group(GROUP);                                                              \
+        const KConfigGroup g = KSharedConfig::openConfig(configFile)->group(QLatin1String(GROUP));                                                              \
                                                                                                                                                  \
         if (!g.hasKey(OPTION))                                                                                                                   \
             return GET_DEFAULT_1;                                                                                                                \
@@ -503,9 +503,9 @@ QString SettingsData::imageDirectory() const
     return m_imageDirectory;
 }
 
-QString SettingsData::groupForDatabase(const char *setting) const
+const char *SettingsData::groupForDatabase(const char *setting) const
 {
-    return STR("%1 - %2").arg(STR(setting), imageDirectory());
+    return QStringLiteral("%1 - %2").arg(QLatin1String(setting), imageDirectory()).toUtf8().data();
 }
 
 QVariantMap SettingsData::currentLock() const
@@ -517,11 +517,12 @@ QVariantMap SettingsData::currentLock() const
     keyValuePairs[STR("label")] = cfgValue(group, "label", {});
     keyValuePairs[STR("description")] = cfgValue(group, "description", {});
     // reading a QVariant containing a stringlist is asking too much of cfgValue:
-    const auto config = KSharedConfig::openConfig(configFile)->group(group);
+    const auto config = KSharedConfig::openConfig(configFile)->group(QLatin1String(group));
     const QStringList categories = config.readEntry<QStringList>(QString::fromUtf8("categories"), QStringList());
     keyValuePairs[STR("categories")] = QVariant(categories);
     for (QStringList::ConstIterator it = categories.constBegin(); it != categories.constEnd(); ++it) {
-        keyValuePairs[*it] = cfgValue(group, *it, {});
+        const auto val = *it;
+        keyValuePairs[*it] = cfgValue(group, val.toUtf8().data(), {});
     }
     return keyValuePairs;
 }
@@ -529,7 +530,7 @@ QVariantMap SettingsData::currentLock() const
 void SettingsData::setCurrentLock(const QVariantMap &pairs, bool exclude)
 {
     for (QVariantMap::const_iterator it = pairs.cbegin(); it != pairs.cend(); ++it) {
-        setValue(groupForDatabase("Privacy Settings"), it.key(), it.value());
+        setValue(groupForDatabase("Privacy Settings"), it.key().toUtf8().data(), it.value());
     }
     setValue(groupForDatabase("Privacy Settings"), "exclude", exclude);
 }

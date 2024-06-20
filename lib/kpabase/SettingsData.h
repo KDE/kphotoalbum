@@ -7,8 +7,8 @@
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2019 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -237,7 +237,7 @@ public:
 
     QString imageDirectory() const;
 
-    QString groupForDatabase(const char *setting) const;
+    const char *groupForDatabase(const char *setting) const;
 
     QVariantMap currentLock() const;
     void setCurrentLock(const QVariantMap &pairs, bool exclude);

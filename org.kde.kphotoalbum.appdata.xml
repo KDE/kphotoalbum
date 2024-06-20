@@ -8,9 +8,6 @@ SPDX-License-Identifier: CC0-1.0
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0</project_license>
   <name>KPhotoAlbum</name>
-  <developer id="org.kde">
-    <name translate="no">KDE</name>
-  </developer>
   <name xml:lang="bg">KPhotoAlbum</name>
   <name xml:lang="ca">KPhotoAlbum</name>
   <name xml:lang="ca-valencia">KPhotoAlbum</name>
@@ -44,6 +41,9 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="x-test">xxKPhotoAlbumxx</name>
   <name xml:lang="zh-CN">KPhotoAlbum</name>
   <name xml:lang="zh-TW">KPhotoAlbum</name>
+  <developer id="org.kde">
+    <name translate="no">KDE</name>
+  </developer>
   <summary>KDE image management software</summary>
   <summary xml:lang="bg">Програма за управление на изображения на KDE</summary>
   <summary xml:lang="ca">Programari de gestió d'imatges del KDE</summary>

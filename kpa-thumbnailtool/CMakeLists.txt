@@ -1,4 +1,5 @@
 # SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2024 Tobias Leupold <tl at stonemx dot de>
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
@@ -11,7 +12,7 @@ add_executable(kpa-thumbnailtool
     )
 target_link_libraries(kpa-thumbnailtool PRIVATE
     KPA::Thumbnails
-    KF5::CoreAddons
+    KF6::CoreAddons
     )
 
 install(TARGETS kpa-thumbnailtool ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
@@ -23,7 +24,7 @@ ecm_add_test(
     ThumbnailCacheConverter.cpp
     ThumbnailCacheConverter.h
     TEST_NAME ThumbnailCacheConverter
-    LINK_LIBRARIES Qt5::Core Qt5::Test KF5::I18n
+    LINK_LIBRARIES Qt6::Core Qt6::Test KF6::I18n
     )
 
 

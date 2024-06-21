@@ -5,7 +5,7 @@
 #include "VideoThumbnailCache.h"
 #include "qglobal.h"
 #include <QCryptographicHash>
-
+#include <kpabase/ImageUtil.h>
 #include <kpabase/Logging.h>
 
 namespace
@@ -17,6 +17,8 @@ constexpr int MAX_FRAMES = 10;
  * I.e. a LRU_SIZE of 1 means that 1 animated thumbnail with MAX_FRAMES frames is kept in memory.
  */
 constexpr size_t LRU_SIZE = 1;
+
+constexpr QFileDevice::Permissions FILE_PERMISSIONS { QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup | QFile::ReadOther };
 }
 
 ImageManager::VideoThumbnailCache::VideoThumbnailCache(const QString &baseDirectory, QObject *parent)
@@ -89,6 +91,24 @@ bool ImageManager::VideoThumbnailCache::contains(const DB::FileName &name) const
     return true;
 }
 
+void ImageManager::VideoThumbnailCache::insertThumbnail(const DB::FileName &name, int frameNumber, const QImage &image)
+{
+    if (!image.isNull())
+        return;
+
+    Utilities::saveImage(frameName(name, frameNumber), image, "JPEG");
+}
+
+void ImageManager::VideoThumbnailCache::blockThumbnail(const DB::FileName &name, int frameNumber)
+{
+    // Create empty file to avoid that we recheck at next start up.
+    QFile file(frameName(name, frameNumber).absolute());
+    if (file.open(QFile::WriteOnly)) {
+        file.setPermissions(FILE_PERMISSIONS);
+        file.close();
+    }
+}
+
 void ImageManager::VideoThumbnailCache::removeThumbnail(const DB::FileName &name)
 {
     for (int i = 0; i < 10; ++i) {
@@ -105,6 +125,11 @@ void ImageManager::VideoThumbnailCache::removeThumbnails(const DB::FileNameList 
     for (const auto &name : names) {
         removeThumbnail(name);
     }
+}
+
+constexpr int ImageManager::VideoThumbnailCache::numberOfFrames() const
+{
+    return MAX_FRAMES;
 }
 
 QString ImageManager::VideoThumbnailCache::nameHash(const DB::FileName &videoName) const

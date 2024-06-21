@@ -16,7 +16,7 @@
 #include "TagInfo.h"
 #include "Utilities/List.h"
 
-#include <Utilities/ImageUtil.h>
+#include <kpabase/ImageUtil.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 #include <kpabase/UIDelegate.h>

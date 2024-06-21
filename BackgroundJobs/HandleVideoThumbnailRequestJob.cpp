@@ -1,15 +1,19 @@
-// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2016-2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2020 Nicolas Fella <nicolas.fella@gmx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "HandleVideoThumbnailRequestJob.h"
+#include "kpabase/ImageUtil.h"
 
 #include <ImageManager/ExtractOneVideoFrame.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <ImageManager/ImageRequest.h>
 #include <MainWindow/FeatureDialog.h>
 #include <ThumbnailView/CellGeometry.h>
-#include <Utilities/ImageUtil.h>
+#include <kpabase/ImageUtil.h>
 #include <kpabase/SettingsData.h>
 #include <kpathumbnails/ThumbnailCache.h>
 

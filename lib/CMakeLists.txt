@@ -51,6 +51,8 @@ add_library(kpabase
     kpabase/StringSet.cpp
     kpabase/StringSet.h
     kpabase/version.h
+    kpabase/ImageUtil.cpp
+    kpabase/ImageUtil.h
     )
 add_library(KPA::Base ALIAS kpabase)
 # FIXME(jzarl): once KPhotoAlbum uses internal libs, export public symbols instead:

@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -9,7 +9,7 @@
 
 #include <DB/ImageDB.h>
 #include <ImageManager/ExtractOneVideoFrame.h>
-#include <Utilities/ImageUtil.h>
+#include <kpabase/ImageUtil.h>
 
 #include <KLocalizedString>
 #include <QFile>

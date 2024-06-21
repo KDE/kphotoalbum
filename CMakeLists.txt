@@ -333,8 +333,6 @@ set(libUtilities_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DemoUtil.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DescriptionUtil.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/DescriptionUtil.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ImageUtil.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/ImageUtil.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/FastDateTime.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/FastDateTime.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Timespan.cpp"

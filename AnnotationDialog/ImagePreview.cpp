@@ -11,7 +11,7 @@
 #include <DB/CategoryCollection.h>
 #include <DB/ImageDB.h>
 #include <ImageManager/AsyncLoader.h>
-#include <Utilities/ImageUtil.h>
+#include <kpabase/ImageUtil.h>
 
 #include <KLocalizedString>
 #include <KMessageBox>

@@ -51,7 +51,7 @@ public:
     /**
      * @brief lookup and return a specific thumbnail frameNumber for the given file.
      * @param name the video file name
-     * @param frameNumber
+     * @param frameNumber between 0 and \c numberOfFrames()
      * @return a QImage for the requested frameNumber, or a null QImage if no frameNumber was found
      */
     QImage lookup(const DB::FileName &name, int frameNumber) const;
@@ -63,8 +63,44 @@ public:
      */
     bool contains(const DB::FileName &name) const;
 
+    /**
+     * @brief insertThumbnail inserts a single thumbnail frame for the given image.
+     *
+     * The frame is stored to disk. Once all frames have been stored to disk, \c contains is \c true and \c lookup can be used to retrieve some or all frames.
+     * I.e. even if \c lookup(const DB::FileName&, int) is called for a frame that has already been inserted, the frame is only available once all frames have been stored.
+     *
+     * @param name the video file name
+     * @param frameNumber the frame number between 0 and \c numberOfFrames()
+     * @param image the thumbnail frame
+     */
+    void insertThumbnail(const DB::FileName &name, int frameNumber, const QImage &image);
+
+    /**
+     * @brief blockThumbnail marks a frame as (permanently) unavailable.
+     * This method can be used if an extracted video thumbnail frame turns out to be invalid.
+     * That way, the other frames can be used even if a single frame extraction fails.
+     * @param name
+     * @param frameNumber between 0 and \c numberOfFrames()
+     */
+    void blockThumbnail(const DB::FileName &name, int frameNumber);
+
+    /**
+     * @brief removeThumbnail removes all frames for the given file name.
+     *
+     * @param name the video file name
+     */
     void removeThumbnail(const DB::FileName &name);
+    /**
+     * @brief removeThumbnails removes all frames for the given file names.
+     * @param names a list of video file names
+     */
     void removeThumbnails(const DB::FileNameList &names);
+
+    /**
+     * @brief numberOfFrames
+     * @return the number of frames of a video thumbnail.
+     */
+    constexpr int numberOfFrames() const;
 
 private:
     const QDir m_baseDir;

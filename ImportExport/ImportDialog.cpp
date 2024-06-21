@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -29,6 +30,8 @@
 #include <QPushButton>
 #include <QScrollArea>
 #include <kwidgetsaddons_version.h>
+
+#include <utility>
 
 using Utilities::StringSet;
 
@@ -347,7 +350,7 @@ void ImportDialog::slotSelectNone()
 
 void ImportDialog::selectImage(bool on)
 {
-    for (ImageRow *row : qAsConst(m_imagesSelect)) {
+    for (ImageRow *row : std::as_const(m_imagesSelect)) {
         row->m_checkbox->setChecked(on);
     }
 }

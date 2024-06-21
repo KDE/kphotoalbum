@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -16,6 +17,8 @@
 #include <QList>
 #include <QTextCodec>
 #include <QUrl>
+
+#include <utility>
 
 /**
  * Add a line label + info text to the result text if info is not empty.
@@ -115,7 +118,7 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
                 QString title = QLatin1String("<b>%1: </b> ").arg(category->name());
                 QString infoText;
                 bool first = true;
-                for (const QString &item : qAsConst(items)) {
+                for (const QString &item : std::as_const(items)) {
                     if (first) {
                         first = false;
                     } else {

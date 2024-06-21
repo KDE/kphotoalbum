@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2009-2020 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -22,6 +23,8 @@
 #include <KRun>
 #endif
 #include <kshell.h>
+
+#include <utility>
 
 MainWindow::RunDialog::RunDialog(QWidget *parent)
     : QDialog(parent)
@@ -74,7 +77,7 @@ void MainWindow::RunDialog::slotMarkGo()
 
     // Replace the %all argument first
     QStringList fileList;
-    for (const DB::FileName &fileName : qAsConst(m_fileList))
+    for (const DB::FileName &fileName : std::as_const(m_fileList))
         fileList.append(fileName.absolute());
 
     cmdString.replace(replaceall, KShell::joinArgs(fileList));
@@ -82,7 +85,7 @@ void MainWindow::RunDialog::slotMarkGo()
     if (cmdString.contains(replaceeach)) {
         // cmdString should be run multiple times, once per "each"
         QString cmdOnce;
-        for (const DB::FileName &filename : qAsConst(m_fileList)) {
+        for (const DB::FileName &filename : std::as_const(m_fileList)) {
             cmdOnce = cmdString;
             cmdOnce.replace(replaceeach, filename.absolute());
             auto *uiParent = MainWindow::Window::theMainWindow();

@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2003 - 2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -21,7 +22,9 @@
 #include <QPainter>
 #include <QResizeEvent>
 #include <QTimer>
+
 #include <cmath>
+#include <utility>
 
 /**
    Area displaying the actual image in the viewer.
@@ -111,7 +114,7 @@ bool Viewer::ImageDisplay::setImageImpl(DB::ImageInfoPtr info, bool forward)
 
     // Find the index of the current image
     m_curIndex = 0;
-    for (const DB::FileName &filename : qAsConst(m_imageList)) {
+    for (const DB::FileName &filename : std::as_const(m_imageList)) {
         if (filename == info->fileName())
             break;
         ++m_curIndex;
@@ -585,7 +588,7 @@ void Viewer::ImageDisplay::updatePreload()
 int Viewer::ImageDisplay::indexOf(const DB::FileName &fileName)
 {
     int i = 0;
-    for (const DB::FileName &name : qAsConst(m_imageList)) {
+    for (const DB::FileName &name : std::as_const(m_imageList)) {
         if (name == fileName)
             break;
         ++i;

@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
+// SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "DuplicateMerger.h"
 
@@ -24,6 +24,8 @@
 #include <QRadioButton>
 #include <QScrollArea>
 #include <QVBoxLayout>
+
+#include <utility>
 
 namespace MainWindow
 {
@@ -112,7 +114,7 @@ void DuplicateMerger::go()
         method = Utilities::DeleteFromDisk;
     }
 
-    for (DuplicateMatch *selector : qAsConst(m_selectors)) {
+    for (DuplicateMatch *selector : std::as_const(m_selectors)) {
         selector->execute(method);
     }
 
@@ -124,7 +126,7 @@ void DuplicateMerger::updateSelectionCount()
     int total = 0;
     int selected = 0;
 
-    for (const DuplicateMatch *selector : qAsConst(m_selectors)) {
+    for (const DuplicateMatch *selector : std::as_const(m_selectors)) {
         ++total;
         if (selector->selected())
             ++selected;
@@ -171,7 +173,7 @@ void DuplicateMerger::addRow(const DB::MD5 &md5)
 
 void DuplicateMerger::selectAll(bool b)
 {
-    for (DuplicateMatch *selector : qAsConst(m_selectors)) {
+    for (DuplicateMatch *selector : std::as_const(m_selectors)) {
         selector->setSelected(b);
     }
 }

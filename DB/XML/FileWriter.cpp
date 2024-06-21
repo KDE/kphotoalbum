@@ -6,9 +6,9 @@
 // SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
 // SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
 // SPDX-FileCopyrightText: 2012-2013 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018-2020 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -32,6 +32,8 @@
 #include <QFileInfo>
 #include <QMutexLocker>
 #include <QXmlStreamWriter>
+
+#include <utility>
 
 //
 //
@@ -182,7 +184,7 @@ void DB::FileWriter::saveImages(QXmlStreamWriter &writer)
     {
         ElementWriter dummy(writer, QStringLiteral("images"));
 
-        for (const DB::ImageInfoPtr &infoPtr : qAsConst(list)) {
+        for (const DB::ImageInfoPtr &infoPtr : std::as_const(list)) {
             save(writer, infoPtr);
         }
     }
@@ -194,7 +196,7 @@ void DB::FileWriter::saveBlockList(QXmlStreamWriter &writer)
     QList<DB::FileName> blockList(m_db->m_blockList.begin(), m_db->m_blockList.end());
     // sort blocklist to get diffable files
     std::sort(blockList.begin(), blockList.end());
-    for (const DB::FileName &block : qAsConst(blockList)) {
+    for (const DB::FileName &block : std::as_const(blockList)) {
         ElementWriter dummy(writer, QStringLiteral("block"));
         writer.writeAttribute(QStringLiteral("file"), block.relative());
     }
@@ -246,7 +248,7 @@ void DB::FileWriter::saveMemberGroups(QXmlStreamWriter &writer)
                 const auto groupMapItValue = groupMapIt.value();
                 QStringList members(groupMapItValue.begin(), groupMapItValue.end());
                 std::sort(members.begin(), members.end());
-                for (const QString &member : qAsConst(members)) {
+                for (const QString &member : std::as_const(members)) {
                     ElementWriter dummy(writer, QStringLiteral("member"));
                     writer.writeAttribute(QStringLiteral("category"), memberMapIt.key());
                     writer.writeAttribute(QStringLiteral("group-name"), groupMapIt.key());
@@ -384,7 +386,7 @@ void DB::FileWriter::writeCategories(QXmlStreamWriter &writer, const DB::ImageIn
             writer.writeAttribute(QStringLiteral("name"), name);
         }
 
-        for (const QString &itemValue : qAsConst(items)) {
+        for (const QString &itemValue : std::as_const(items)) {
             ElementWriter dummy(writer, QStringLiteral("value"));
             writer.writeAttribute(QStringLiteral("value"), itemValue);
 
@@ -450,7 +452,7 @@ void DB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, const D
             QList<QPair<QString, QRect>> areas = categoryWithAreas.value();
             std::sort(areas.begin(), areas.end(),
                       [](QPair<QString, QRect> a, QPair<QString, QRect> b) { return a.first < b.first; });
-            for (const auto &positionedTag : qAsConst(areas)) {
+            for (const auto &positionedTag : std::as_const(areas)) {
                 ElementWriter dummy(writer, QStringLiteral("value"));
                 writer.writeAttribute(QStringLiteral("value"), positionedTag.first);
                 writer.writeAttribute(QStringLiteral("area"), areaToString(positionedTag.second));

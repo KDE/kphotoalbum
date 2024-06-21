@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -16,6 +17,8 @@
 #include <QCheckBox>
 #include <QDebug>
 #include <QList>
+
+#include <utility>
 
 Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget *parent, KActionCollection *actions)
     : QMenu(i18n("Show..."), parent)
@@ -158,7 +161,7 @@ void Viewer::VisibleOptionsMenu::updateState()
     m_showRating->setChecked(Settings::SettingsData::instance()->showRating());
 
     const auto categoryCollection = DB::ImageDB::instance()->categoryCollection();
-    for (KToggleAction *action : qAsConst(m_actionList)) {
+    for (KToggleAction *action : std::as_const(m_actionList)) {
         const auto category = categoryCollection->categoryForName(action->data().value<QString>());
         action->setChecked(category->doShow());
     }

@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2010-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2010-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "AutoStackImages.h"
 
@@ -28,6 +28,8 @@
 #include <QRadioButton>
 #include <QSpinBox>
 #include <QVBoxLayout>
+
+#include <utility>
 
 using namespace MainWindow;
 
@@ -116,7 +118,7 @@ void AutoStackImages::matchingMD5(DB::FileNameList &toBeShown)
 
     // Stacking all images that have the same MD5 sum
     // First make a map of MD5 sums with corresponding images
-    for (const DB::FileName &fileName : qAsConst(m_list)) {
+    for (const DB::FileName &fileName : std::as_const(m_list)) {
         const auto info = DB::ImageDB::instance()->info(fileName);
         DB::MD5 sum = info->MD5Sum();
         if (DB::ImageDB::instance()->md5Map()->contains(sum)) {
@@ -144,7 +146,7 @@ void AutoStackImages::matchingMD5(DB::FileNameList &toBeShown)
             }
             if (stack.size() > 1) {
 
-                for (const DB::FileName &a : qAsConst(showIfStacked)) {
+                for (const DB::FileName &a : std::as_const(showIfStacked)) {
                     if (!DB::ImageDB::instance()->getStackFor(a).isEmpty()) {
                         const auto stackedImages = DB::ImageDB::instance()->getStackFor(a);
                         for (const DB::FileName &b : stackedImages)
@@ -180,7 +182,7 @@ void AutoStackImages::matchingFile(DB::FileNameList &toBeShown)
 
     // Stacking all images based on file version detection
     // First round prepares the stacking
-    for (const DB::FileName &fileName : qAsConst(m_list)) {
+    for (const DB::FileName &fileName : std::as_const(m_list)) {
         if (modifiedFileCompString.length() >= 0 && fileName.relative().contains(modifiedFileComponent)) {
 
             for (QStringList::const_iterator it = originalFileComponents.constBegin();
@@ -225,7 +227,7 @@ void AutoStackImages::matchingFile(DB::FileNameList &toBeShown)
             }
             if (stack.size() > 1) {
 
-                for (const DB::FileName &a : qAsConst(showIfStacked)) {
+                for (const DB::FileName &a : std::as_const(showIfStacked)) {
                     if (!DB::ImageDB::instance()->getStackFor(a).isEmpty()) {
                         const auto stackedImages = DB::ImageDB::instance()->getStackFor(a);
                         for (const DB::FileName &b : stackedImages)
@@ -246,7 +248,7 @@ void AutoStackImages::matchingFile(DB::FileNameList &toBeShown)
 void AutoStackImages::continuousShooting(DB::FileNameList &toBeShown)
 {
     DB::ImageInfoPtr prev;
-    for (const DB::FileName &fileName : qAsConst(m_list)) {
+    for (const DB::FileName &fileName : std::as_const(m_list)) {
         const auto info = DB::ImageDB::instance()->info(fileName);
         // Skipping images that do not have exact time stamp
         if (info->date().start() != info->date().end())

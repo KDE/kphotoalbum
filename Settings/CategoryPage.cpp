@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -33,6 +34,8 @@
 #include <DB/MemberMap.h>
 #include <MainWindow/DirtyIndicator.h>
 #include <MainWindow/Window.h>
+
+#include <utility>
 
 Settings::CategoryPage::CategoryPage(QWidget *parent)
     : QWidget(parent)
@@ -483,7 +486,7 @@ void Settings::CategoryPage::enableDisable(bool b)
 void Settings::CategoryPage::saveSettings(Settings::SettingsData *opt, DB::MemberMap *memberMap)
 {
     // Delete items
-    for (CategoryItem *item : qAsConst(m_deletedCategories)) {
+    for (CategoryItem *item : std::as_const(m_deletedCategories)) {
         item->removeFromDatabase();
     }
     m_deletedCategories.clear();

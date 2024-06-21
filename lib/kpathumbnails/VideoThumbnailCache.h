@@ -102,6 +102,14 @@ public:
      */
     constexpr int numberOfFrames() const;
 
+    /**
+     * @brief frameName
+     * @param videoName
+     * @param frameNumber a frame number between 0 and 9.
+     * @return the filename for the given frame of the video thumbnail for \c videoName
+     */
+    DB::FileName frameName(const DB::FileName &videoName, int frameNumber) const;
+
 private:
     const QDir m_baseDir;
     mutable QCache<QString, QVector<QImage>> m_memcache;
@@ -114,14 +122,6 @@ private:
      * @see frameName
      */
     QString nameHash(const DB::FileName &videoName) const;
-
-    /**
-     * @brief frameName
-     * @param videoName
-     * @param frameNumber a frame number between 0 and 9.
-     * @return the filename for the given frame of the video thumbnail for \c videoName
-     */
-    DB::FileName frameName(const DB::FileName &videoName, int frameNumber) const;
 };
 
 /**

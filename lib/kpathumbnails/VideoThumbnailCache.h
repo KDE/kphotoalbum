@@ -58,10 +58,18 @@ public:
 
     /**
      * @brief contains
-     * @param name
+     * @param name the video file name
      * @return \c true, if all frames for the video file are found, \c false otherwise.
      */
     bool contains(const DB::FileName &name) const;
+
+    /**
+     * @brief contains
+     * @param name the video file name
+     * @param frameNumber between 0 and \c numberOfFrames()
+     * @return \c true, if the given frame for the video file is found, \c false otherwise.
+     */
+    bool contains(const DB::FileName &name, int frameNumber) const;
 
     /**
      * @brief insertThumbnail inserts a single thumbnail frame for the given image.

@@ -91,6 +91,16 @@ bool ImageManager::VideoThumbnailCache::contains(const DB::FileName &name) const
     return true;
 }
 
+bool ImageManager::VideoThumbnailCache::contains(const DB::FileName &name, int frameNumber) const
+{
+    const auto cacheName = nameHash(name);
+    if (m_memcache.contains(cacheName))
+        return true;
+
+    const DB::FileName thumbnailFile = frameName(name, frameNumber);
+    return thumbnailFile.exists();
+}
+
 void ImageManager::VideoThumbnailCache::insertThumbnail(const DB::FileName &name, int frameNumber, const QImage &image)
 {
     if (!image.isNull())

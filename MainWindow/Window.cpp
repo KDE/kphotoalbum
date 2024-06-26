@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -61,6 +61,7 @@
 #include <kpaexif/Database.h>
 #include <kpaexif/Info.h>
 #include <kpathumbnails/ThumbnailCache.h>
+#include <kpathumbnails/VideoThumbnailCache.h>
 
 #ifdef KF5Purpose_FOUND
 #include <Plugins/PurposeMenu.h>
@@ -253,6 +254,7 @@ MainWindow::Window::~Window()
 {
     DB::ImageDB::deleteInstance();
     delete m_thumbnailCache;
+    delete m_videoThumbnailCache;
 }
 
 void MainWindow::Window::delayedInit()
@@ -1248,6 +1250,9 @@ bool MainWindow::Window::load()
     // thumbnail size from cache overrides config value:
     Settings::SettingsData::instance()->setThumbnailSize(m_thumbnailCache->thumbnailSize());
 
+    const auto videoThumbnailDirectory = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath(ImageManager::defaultVideoThumbnailDirectory());
+    m_videoThumbnailCache = new ImageManager::VideoThumbnailCache { videoThumbnailDirectory };
+
     // some sanity checks:
     if (!DB::ImageDB::instance()->untaggedCategoryFeatureConfigured()
         && !(Settings::SettingsData::instance()->untaggedCategory().isEmpty()
@@ -1517,6 +1522,11 @@ MainWindow::Window *MainWindow::Window::theMainWindow()
 ImageManager::ThumbnailCache *MainWindow::Window::thumbnailCache() const
 {
     return m_thumbnailCache;
+}
+
+ImageManager::VideoThumbnailCache *MainWindow::Window::videoThumbnailCache() const
+{
+    return m_videoThumbnailCache;
 }
 
 void MainWindow::Window::slotImport()

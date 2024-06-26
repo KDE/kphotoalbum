@@ -10,6 +10,7 @@
 #include <BackgroundJobs/ReadVideoLengthJob.h>
 #include <BackgroundTaskManager/JobManager.h>
 #include <MainWindow/FeatureDialog.h>
+#include <MainWindow/Window.h>
 #include <kpabase/SettingsData.h>
 #include <kpathumbnails/VideoThumbnailCache.h>
 
@@ -17,7 +18,6 @@ ImageManager::VideoThumbnails::VideoThumbnails(QObject *parent)
     : QObject(parent)
     , m_pendingRequest(false)
     , m_index(0)
-    , m_videoThumbnailCache(std::make_unique<VideoThumbnailCache>(QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath(ImageManager::defaultVideoThumbnailDirectory())))
 {
     m_cache.resize(10);
     m_activeRequests.reserve(10);
@@ -27,7 +27,8 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
 {
     m_index = 0;
     m_videoFile = fileName;
-    if (m_videoThumbnailCache->contains(fileName)) {
+
+    if (MainWindow::Window::theMainWindow()->videoThumbnailCache()->contains(fileName)) {
         return;
     }
 
@@ -58,7 +59,7 @@ void ImageManager::VideoThumbnails::requestNext()
 {
     for (int i = 0; i < 10; ++i) {
         m_index = (m_index + 1) % 10;
-        const auto &frame = m_videoThumbnailCache->lookup(m_videoFile, m_index);
+        const auto &frame = MainWindow::Window::theMainWindow()->videoThumbnailCache()->lookup(m_videoFile, m_index);
         if (!frame.isNull()) {
             Q_EMIT frameLoaded(frame);
             m_pendingRequest = false;

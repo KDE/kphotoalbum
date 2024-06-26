@@ -52,7 +52,6 @@ private:
     bool m_pendingRequest;
     QVector<QPointer<BackgroundJobs::ExtractOneThumbnailJob>> m_activeRequests;
     int m_index;
-    std::unique_ptr<VideoThumbnailCache> m_videoThumbnailCache;
 };
 
 }

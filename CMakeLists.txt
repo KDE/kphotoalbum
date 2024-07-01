@@ -315,8 +315,6 @@ set(libUtilities_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/List.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/UniqFilenameMapper.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/UniqFilenameMapper.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/FileUtil.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/FileUtil.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/BooleanGuard.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/BooleanGuard.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/Utilities/Process.cpp"

@@ -42,7 +42,7 @@ Q_SIGNALS:
     void frameLoaded(const QImage &);
 
 private Q_SLOTS:
-    void gotFrame();
+    void gotFrame(const DB::FileName &fileName, int frameNumber, const QImage &frame);
 
 private:
     void cancelPreviousJobs();
@@ -52,6 +52,7 @@ private:
     bool m_pendingRequest;
     QVector<QPointer<BackgroundJobs::ExtractOneThumbnailJob>> m_activeRequests;
     int m_index;
+    VideoThumbnailCache *m_videoThumbnailCache;
 };
 
 }

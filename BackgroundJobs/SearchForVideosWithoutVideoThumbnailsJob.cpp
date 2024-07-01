@@ -1,4 +1,6 @@
-// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -7,12 +9,13 @@
 #include "ExtractOneThumbnailJob.h"
 #include "HandleVideoThumbnailRequestJob.h"
 #include "ReadVideoLengthJob.h"
+#include "kpathumbnails/VideoThumbnailCache.h"
 
 #include <BackgroundTaskManager/JobInfo.h>
 #include <BackgroundTaskManager/JobManager.h>
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
-
+#include <MainWindow/Window.h>
 #include <KLocalizedString>
 #include <QFile>
 
@@ -21,6 +24,7 @@ using namespace BackgroundJobs;
 void BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::execute()
 {
     const auto images = DB::ImageDB::instance()->images();
+    const auto *videoThumbnailCache = MainWindow::Window::theMainWindow()->videoThumbnailCache();
 
     for (const auto &info : images) {
         if (!info->isVideo())
@@ -30,15 +34,17 @@ void BackgroundJobs::SearchForVideosWithoutVideoThumbnailsJob::execute()
         if (!info->fileName().exists())
             continue;
 
-        const DB::FileName thumbnailName = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(info->fileName(), 9);
-        if (thumbnailName.exists())
+        if (videoThumbnailCache->contains(info->fileName()))
             continue;
 
         BackgroundJobs::ReadVideoLengthJob *readVideoLengthJob = new BackgroundJobs::ReadVideoLengthJob(info->fileName(), BackgroundTaskManager::BackgroundVideoPreviewRequest);
 
         for (int i = 0; i < 10; ++i) {
+            if (videoThumbnailCache->contains(info->fileName(), i))
+                continue;
             ExtractOneThumbnailJob *extractJob = new ExtractOneThumbnailJob(info->fileName(), i, BackgroundTaskManager::BackgroundVideoPreviewRequest);
             extractJob->addDependency(readVideoLengthJob);
+            connect(extractJob, &ExtractOneThumbnailJob::frameAvailable, videoThumbnailCache, &ImageManager::VideoThumbnailCache::insertThumbnail);
         }
 
         BackgroundTaskManager::JobManager::instance()->addJob(readVideoLengthJob);

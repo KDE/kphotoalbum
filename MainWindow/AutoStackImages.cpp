@@ -1,7 +1,12 @@
-/* SPDX-FileCopyrightText: 2010-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2010-2013 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2012 Frederik Schwarzer <schwarzer@kde.org>
+// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
+// SPDX-FileCopyrightText: 2018-2020 Tobias Leupold <tl@stonemx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "AutoStackImages.h"
 
@@ -12,8 +17,8 @@
 #include <DB/ImageDate.h>
 #include <DB/ImageInfo.h>
 #include <DB/MD5Map.h>
-#include <Utilities/FileUtil.h>
 #include <Utilities/ShowBusyCursor.h>
+#include <kpabase/FileUtil.h>
 #include <kpabase/SettingsData.h>
 
 #include <KLocalizedString>

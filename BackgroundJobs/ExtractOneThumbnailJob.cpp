@@ -5,8 +5,6 @@
 
 #include "ExtractOneThumbnailJob.h"
 
-#include "HandleVideoThumbnailRequestJob.h"
-
 #include <DB/ImageDB.h>
 #include <ImageManager/ExtractOneVideoFrame.h>
 #include <kpabase/ImageUtil.h>
@@ -15,11 +13,6 @@
 #include <QFile>
 #include <QImage>
 #include <QPainter>
-
-namespace
-{
-constexpr QFileDevice::Permissions FILE_PERMISSIONS { QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::WriteGroup | QFile::ReadOther };
-}
 
 namespace BackgroundJobs
 {
@@ -35,7 +28,7 @@ ExtractOneThumbnailJob::ExtractOneThumbnailJob(const DB::FileName &fileName, int
 
 void ExtractOneThumbnailJob::execute()
 {
-    if (m_wasCanceled || frameName().exists())
+    if (m_wasCanceled)
         Q_EMIT completed();
     else {
         DB::ImageInfoPtr info = DB::ImageDB::instance()->info(m_fileName);
@@ -66,32 +59,8 @@ void ExtractOneThumbnailJob::cancel()
 
 void ExtractOneThumbnailJob::frameLoaded(const QImage &image)
 {
-    if (!image.isNull()) {
-#if 0
-        QImage img = image;
-        {
-            QPainter painter(&img);
-            QFont fnt;
-            fnt.setPointSize(24);
-            painter.setFont(fnt);
-            painter.drawText(QPoint(100,100),QString::number(m_index));
-        }
-#endif
-        Utilities::saveImage(frameName(), image, "JPEG");
-    } else {
-        // Create empty file to avoid that we recheck at next start up.
-        QFile file(frameName().absolute());
-        if (file.open(QFile::WriteOnly)) {
-            file.setPermissions(FILE_PERMISSIONS);
-            file.close();
-        }
-    }
+    Q_EMIT frameAvailable(m_fileName, m_index, image);
     Q_EMIT completed();
-}
-
-DB::FileName ExtractOneThumbnailJob::frameName() const
-{
-    return BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(m_fileName, m_index);
 }
 
 } // namespace BackgroundJobs

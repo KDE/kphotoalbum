@@ -1,13 +1,13 @@
+// SPDX-FileCopyrightText: 2003 - 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2003 David Faure <faure@kde.org>
 // SPDX-FileCopyrightText: 2003 Simon Hausmann <hausmann@kde.org>
-// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2005-2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2005 - 2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2007 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2008 - 2013 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
-// SPDX-FileCopyrightText: 2008-2013 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2013 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2013 Andreas Neustifter <andreas.neustifter@gmail.com>
-// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2018-2019 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2018 - 2019 Robert Krawitz <rlk@alum.mit.edu>
 
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -114,7 +114,7 @@ bool ImageManager::AsyncLoader::loadVideo(ImageRequest *request)
         : BackgroundTaskManager::BackgroundVideoThumbnailRequest;
 
     BackgroundTaskManager::JobManager::instance()->addJob(
-        new BackgroundJobs::HandleVideoThumbnailRequestJob(request, priority, MainWindow::Window::theMainWindow()->thumbnailCache()));
+        new BackgroundJobs::HandleVideoThumbnailRequestJob(request, priority, MainWindow::Window::theMainWindow()->thumbnailCache(), MainWindow::Window::theMainWindow()->videoThumbnailCache()));
     return true;
 }
 

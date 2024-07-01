@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2018-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 - 2010 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2018 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2020 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2023 Alexander Lohnau <alexander.lohnau@gmx.de>
 //
@@ -7,11 +7,7 @@
 
 #include "DemoUtil.h"
 
-#include "FileUtil.h"
-
 #include <MainWindow/Window.h>
-#include <kpabase/Logging.h>
-
 #include <KIO/DeleteJob>
 #include <KJob>
 #include <KJobWidgets>
@@ -22,6 +18,8 @@
 #include <QFileInfo>
 #include <QStandardPaths>
 #include <QUrl>
+#include <kpabase/FileUtil.h>
+#include <kpabase/Logging.h>
 
 namespace
 {

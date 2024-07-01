@@ -1,10 +1,10 @@
-// SPDX-FileCopyrightText: 2009-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2009 - 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2010 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2010 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2013 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2015 - 2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2015 Andreas Neustifter <andreas.neustifter@gmail.com>
-// SPDX-FileCopyrightText: 2015-2022 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -19,8 +19,8 @@
 
 #include <DB/ImageDB.h>
 #include <ImageManager/AsyncLoader.h>
-#include <Utilities/FileUtil.h>
 #include <kpabase/FileName.h>
+#include <kpabase/FileUtil.h>
 #include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 #include <kpathumbnails/ThumbnailCache.h>

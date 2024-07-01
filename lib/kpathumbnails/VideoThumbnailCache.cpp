@@ -3,10 +3,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "VideoThumbnailCache.h"
-#include "qglobal.h"
 #include <QCryptographicHash>
+#include <kpabase/FileUtil.h>
 #include <kpabase/ImageUtil.h>
 #include <kpabase/Logging.h>
+#include <qglobal.h>
 
 namespace
 {
@@ -34,7 +35,7 @@ ImageManager::VideoThumbnailCache::VideoThumbnailCache(const QString &baseDirect
     }
 }
 
-const QVector<QImage> ImageManager::VideoThumbnailCache::lookup(const DB::FileName &name) const
+const QVector<QImage> ImageManager::VideoThumbnailCache::lookup(const DB::FileName &name, LookupMode mode) const
 {
     const auto cacheName = nameHash(name);
     if (m_memcache.contains(cacheName))
@@ -45,12 +46,21 @@ const QVector<QImage> ImageManager::VideoThumbnailCache::lookup(const DB::FileNa
     for (int i = 0; i < 10; ++i) {
         const DB::FileName thumbnailFile = frameName(name, i);
         qCDebug(ImageManagerLog) << "Thumbnail file" << thumbnailFile.relative() << "exists:" << thumbnailFile.exists();
-        if (!thumbnailFile.exists())
-            return {};
+        if (!thumbnailFile.exists()) {
+            if (mode == LookupMode::Complete)
+                return {};
+            else
+                continue;
+        }
 
         QImage frame { thumbnailFile.absolute() };
-        if (frame.isNull())
-            return {};
+        if (frame.isNull()) {
+            qCDebug(ImageManagerLog) << "Video thumbnail frame" << i << "for" << name.relative() << "is on disk but empty.";
+            if (mode == LookupMode::Complete)
+                return {};
+            else
+                continue;
+        }
 
         qCDebug(ImageManagerLog) << "Video thumbnail frame" << i << "for" << name.relative() << "is on disk.";
         (*frames)[i] = frame;
@@ -75,6 +85,16 @@ QImage ImageManager::VideoThumbnailCache::lookup(const DB::FileName &name, int f
     qCDebug(ImageManagerLog) << "Video thumbnail frame" << frameNumber << "for" << name.relative() << "was not cached.";
     // we need to load all frames into the cache eventually, so let's just trigger that now:
     return lookup(name).value(frameNumber);
+}
+
+QImage ImageManager::VideoThumbnailCache::lookupStillFrame(const DB::FileName &name) const
+{
+    const DB::FileName thumbnailFile = stillFrameName(name);
+    qCDebug(ImageManagerLog) << "Thumbnail file" << thumbnailFile.relative() << "exists:" << thumbnailFile.exists();
+    if (!thumbnailFile.exists())
+        return {};
+
+    return QImage { thumbnailFile.absolute() };
 }
 
 bool ImageManager::VideoThumbnailCache::contains(const DB::FileName &name) const
@@ -103,10 +123,21 @@ bool ImageManager::VideoThumbnailCache::contains(const DB::FileName &name, int f
 
 void ImageManager::VideoThumbnailCache::insertThumbnail(const DB::FileName &name, int frameNumber, const QImage &image)
 {
-    if (!image.isNull())
+    if (0 > frameNumber || frameNumber >= MAX_FRAMES)
         return;
 
+    if (image.isNull())
+        return;
+
+    qCDebug(ImageManagerLog) << "Inserting video thumbnail still frame for" << name.relative() << ":" << frameName(name, frameNumber).relative();
     Utilities::saveImage(frameName(name, frameNumber), image, "JPEG");
+    if (frameNumber == 0)
+        Utilities::copyOrOverwrite(frameName(name, frameNumber).absolute(), stillFrameName(name).absolute());
+    const auto cacheName = nameHash(name);
+    // purge stale data:
+    m_memcache.remove(cacheName);
+    if (contains(name))
+        Q_EMIT frameUpdated(name, frameNumber);
 }
 
 void ImageManager::VideoThumbnailCache::blockThumbnail(const DB::FileName &name, int frameNumber)
@@ -123,11 +154,12 @@ void ImageManager::VideoThumbnailCache::removeThumbnail(const DB::FileName &name
 {
     for (int i = 0; i < 10; ++i) {
         const DB::FileName thumbnailFile = frameName(name, i);
-        if (!thumbnailFile.exists())
-            continue;
-
-        QDir().remove(thumbnailFile.absolute());
+        if (thumbnailFile.exists())
+            QDir().remove(thumbnailFile.absolute());
     }
+    const auto stillFile = stillFrameName(name);
+    if (stillFile.exists())
+        QDir().remove(stillFile.absolute());
 }
 
 void ImageManager::VideoThumbnailCache::removeThumbnails(const DB::FileNameList &names)
@@ -137,7 +169,7 @@ void ImageManager::VideoThumbnailCache::removeThumbnails(const DB::FileNameList 
     }
 }
 
-constexpr int ImageManager::VideoThumbnailCache::numberOfFrames() const
+int ImageManager::VideoThumbnailCache::numberOfFrames() const
 {
     return MAX_FRAMES;
 }
@@ -149,11 +181,47 @@ QString ImageManager::VideoThumbnailCache::nameHash(const DB::FileName &videoNam
     return QString::fromUtf8(md5.result().toHex());
 }
 
+DB::FileName ImageManager::VideoThumbnailCache::stillFrameName(const DB::FileName &videoName) const
+{
+    // the still frame used for the static thumbnail has no trailing frame number (e.g. '-1')
+    return DB::FileName::fromAbsolutePath(m_baseDir.absoluteFilePath(nameHash(videoName)));
+}
+
 DB::FileName ImageManager::VideoThumbnailCache::frameName(const DB::FileName &videoName, int frameNumber) const
 {
     Q_ASSERT_X(0 <= frameNumber && frameNumber < MAX_FRAMES, "VideoThumbnailCache::frameName", "Video thumbnail frame index out of bounds!");
     const QString frameName = QString::fromUtf8("%1-%2").arg(nameHash(videoName)).arg(frameNumber);
     return DB::FileName::fromAbsolutePath(m_baseDir.absoluteFilePath(frameName));
+}
+
+int ImageManager::VideoThumbnailCache::stillFrameIndex(const DB::FileName &name) const
+{
+    const auto stillFrame = lookupStillFrame(name);
+    if (stillFrame.isNull())
+        return MAX_FRAMES;
+
+    const auto frames = lookup(name, LookupMode::Partial);
+    for (int frameNumber = 0; frameNumber < MAX_FRAMES; frameNumber++) {
+        if (stillFrame == frames[frameNumber])
+            return frameNumber;
+    }
+    return MAX_FRAMES;
+}
+
+bool ImageManager::VideoThumbnailCache::setStillFrame(const DB::FileName &name, int frameNumber)
+{
+    if (0 > frameNumber || frameNumber >= MAX_FRAMES)
+        return false;
+
+    const auto newImageName = frameName(name, frameNumber);
+    if (!newImageName.exists()) {
+        qCDebug(ImageManagerLog) << "Video thumbnail still frame (" << newImageName.relative() << ") for" << name.relative() << "could not be set to index" << frameNumber;
+        return false;
+    }
+
+    Utilities::copyOrOverwrite(newImageName.absolute(), stillFrameName(name).absolute());
+    qCDebug(ImageManagerLog) << "Video thumbnail still frame for" << name.relative() << "set to index" << frameNumber;
+    return true;
 }
 
 QString ImageManager::defaultVideoThumbnailDirectory()

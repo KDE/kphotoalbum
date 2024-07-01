@@ -1,13 +1,14 @@
-/* SPDX-FileCopyrightText: 2012-2020 The KPhotoAlbum Development Team
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "VideoShooter.h"
 
 #include "InfoBox.h"
 #include "VideoDisplay.h"
 #include "ViewerWidget.h"
+#include "kpathumbnails/VideoThumbnailCache.h"
 
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <DB/ImageInfo.h>
@@ -67,7 +68,7 @@ void Viewer::VideoShooter::doShoot()
     const QImage image = m_viewer->m_videoDisplay->screenShoot();
     const DB::FileName fileName = m_info->fileName();
     MainWindow::Window::theMainWindow()->thumbnailCache()->removeThumbnail(fileName);
-    BackgroundJobs::HandleVideoThumbnailRequestJob::saveFullScaleFrame(fileName, image);
+    MainWindow::Window::theMainWindow()->videoThumbnailCache()->insertThumbnail(fileName, 0, image);
 
     // Show the infobox again
     if (m_infoboxVisible)

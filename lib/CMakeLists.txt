@@ -48,6 +48,8 @@ add_library(kpabase
     kpabase/FileExtensions.h
     kpabase/FileNameUtil.cpp
     kpabase/FileNameUtil.h
+    kpabase/FileUtil.cpp
+    kpabase/FileUtil.h
     kpabase/StringSet.cpp
     kpabase/StringSet.h
     kpabase/version.h

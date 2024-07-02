@@ -11,6 +11,7 @@
 #include <BackgroundTaskManager/JobManager.h>
 #include <MainWindow/FeatureDialog.h>
 #include <MainWindow/Window.h>
+#include <kpabase/Logging.h>
 #include <kpabase/SettingsData.h>
 #include <kpathumbnails/VideoThumbnailCache.h>
 
@@ -30,8 +31,12 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
     m_videoFile = fileName;
 
     if (m_videoThumbnailCache->contains(fileName)) {
+        m_cache = m_videoThumbnailCache->lookup(fileName);
         return;
     }
+
+    for (int i = 0; i < 10; ++i)
+        m_cache[i] = QImage();
 
     // no video thumbnails without ffmpeg:
     if (!MainWindow::FeatureDialog::hasVideoThumbnailer())
@@ -42,11 +47,10 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
 
     cancelPreviousJobs();
     m_pendingRequest = false;
-    for (int i = 0; i < 10; ++i)
-        m_cache[i] = QImage();
 
     BackgroundJobs::ReadVideoLengthJob *lengthJob = new BackgroundJobs::ReadVideoLengthJob(fileName, BackgroundTaskManager::ForegroundCycleRequest);
 
+    qCDebug(ImageManagerLog) << "VideoThumbnails: Creating thumbnails for" << fileName.relative();
     for (int i = 0; i < 10; ++i) {
         BackgroundJobs::ExtractOneThumbnailJob *extractJob = new BackgroundJobs::ExtractOneThumbnailJob(fileName, i, BackgroundTaskManager::ForegroundCycleRequest);
         extractJob->addDependency(lengthJob);

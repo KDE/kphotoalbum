@@ -54,6 +54,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Avoid jumping to the first image if an image is deleted in the annotation dialog (#479483)
  - Disallow creation of tags with leading/trailing whitespace, as they cannot be selected afterwards (#481181)
  - Fix crash when multiple images are selected for annotation and one is deleted (#483266)
+ - Fix selective rebuilding of video file thumbnails (#444744)
 
 ### Removed
 

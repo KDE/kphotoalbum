@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2012 - 2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -19,8 +20,9 @@ class ExtractOneThumbnailJob;
 namespace ImageManager
 {
 
-class VideoThumbnailsExtractor;
 class VideoLengthExtractor;
+class VideoThumbnailCache;
+class VideoThumbnailsExtractor;
 
 /**
   \brief Helper class for extracting videos for thumbnail cycling
@@ -40,10 +42,9 @@ Q_SIGNALS:
     void frameLoaded(const QImage &);
 
 private Q_SLOTS:
-    void gotFrame();
+    void gotFrame(const DB::FileName &fileName, int frameNumber, const QImage &frame);
 
 private:
-    bool loadFramesFromCache(const DB::FileName &fileName);
     void cancelPreviousJobs();
 
     DB::FileName m_videoFile;
@@ -51,6 +52,7 @@ private:
     bool m_pendingRequest;
     QVector<QPointer<BackgroundJobs::ExtractOneThumbnailJob>> m_activeRequests;
     int m_index;
+    VideoThumbnailCache *m_videoThumbnailCache;
 };
 
 }

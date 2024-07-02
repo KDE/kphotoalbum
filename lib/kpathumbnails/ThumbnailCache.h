@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 - 2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2021 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -42,6 +42,7 @@ class ThumbnailMapping;
  * ## Caveats
  * Note that thumbnails are only ever added, never deleted from the thumbnail files.
  * Old images remain in the thumbnail files - they are just removed from the index file.
+ * Call vacuum() to clear out the removed image data from thumbnail files.
  *
  * ## Further reading
  * - https://specifications.freedesktop.org/thumbnail-spec/thumbnail-spec-latest.html

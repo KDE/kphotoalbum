@@ -1,5 +1,13 @@
-// SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2005-2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2007 Thiago Macieira <thiago@kde.org>
+// SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2008-2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2010 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2018 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -9,7 +17,7 @@
 
 #include <DB/ImageDB.h>
 #include <DB/ImageInfo.h>
-#include <Utilities/FileUtil.h>
+#include <kpabase/FileUtil.h>
 #include <kpabase/SettingsData.h>
 
 #include <QApplication>

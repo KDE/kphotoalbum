@@ -1,11 +1,13 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2009-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
+// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "CenteringIconView.h"
 
 #include <Utilities/BooleanGuard.h>
-#include <Utilities/FileUtil.h>
+#include <kpabase/FileUtil.h>
 #include <kpabase/SettingsData.h>
 
 #include <QApplication>

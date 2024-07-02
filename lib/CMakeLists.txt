@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2021 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2021 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
@@ -48,9 +48,13 @@ add_library(kpabase
     kpabase/FileExtensions.h
     kpabase/FileNameUtil.cpp
     kpabase/FileNameUtil.h
+    kpabase/FileUtil.cpp
+    kpabase/FileUtil.h
     kpabase/StringSet.cpp
     kpabase/StringSet.h
     kpabase/version.h
+    kpabase/ImageUtil.cpp
+    kpabase/ImageUtil.h
     )
 add_library(KPA::Base ALIAS kpabase)
 # FIXME(jzarl): once KPhotoAlbum uses internal libs, export public symbols instead:
@@ -81,6 +85,8 @@ add_library(kpathumbnails
     kpathumbnails/ThumbnailCache.h
     kpathumbnails/CacheFileInfo.cpp
     kpathumbnails/CacheFileInfo.h
+    kpathumbnails/VideoThumbnailCache.cpp
+    kpathumbnails/VideoThumbnailCache.h
     )
 add_library(KPA::Thumbnails ALIAS kpathumbnails)
 # FIXME(jzarl): once KPhotoAlbum uses internal libs, export public symbols instead:

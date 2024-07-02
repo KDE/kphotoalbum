@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2012 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2013 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2020 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
@@ -8,10 +8,10 @@
 
 #include "Logging.h"
 #include "Window.h"
+#include "kpathumbnails/VideoThumbnailCache.h"
 
 #include <BackgroundJobs/HandleVideoThumbnailRequestJob.h>
 #include <ThumbnailView/CellGeometry.h>
-#include <Utilities/FileUtil.h>
 #include <kpabase/FileExtensions.h>
 #include <kpathumbnails/ThumbnailCache.h>
 
@@ -20,47 +20,21 @@
 namespace
 {
 
-DB::FileName nextExistingImage(const DB::FileName &fileName, int frame, int direction)
-{
-    // starting with i=1 is *not* an off-by-one error
-    for (int i = 1; i < 10; ++i) {
-        const int nextIndex = (frame + 10 + direction * i) % 10;
-        const DB::FileName file = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(fileName, nextIndex);
-        if (file.exists()) {
-            qCDebug(MainWindowLog) << "Next frame for video" << file.relative() << " has index" << nextIndex;
-            return file;
-        }
-    }
-    const DB::FileName file = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(fileName, 0);
-    qCDebug(MainWindowLog) << "No next thumbnail found for video" << fileName.relative()
-                           << "(frame:" << frame << ", direction:" << direction << ") - thumbnail base name:" << file.absolute();
-    // the thumbnail may not have been written to disk yet
-    return DB::FileName();
-}
-
 void update(const DB::FileName &fileName, int direction)
 {
-    const DB::FileName baseImageName = BackgroundJobs::HandleVideoThumbnailRequestJob::pathForRequest(fileName);
-    QImage baseImage(baseImageName.absolute());
+    auto videoThumbnailCache = MainWindow::Window::theMainWindow()->videoThumbnailCache();
+    int frameNumber = videoThumbnailCache->stillFrameIndex(fileName);
 
-    int frame = 0;
-    for (; frame < 10; ++frame) {
-        const DB::FileName frameFile = BackgroundJobs::HandleVideoThumbnailRequestJob::frameName(fileName, frame);
-        QImage frameImage(frameFile.absolute());
-        if (frameImage.isNull())
-            continue;
-        if (baseImage == frameImage) {
+    int frame = frameNumber + direction;
+    while (0 <= frame && frame < videoThumbnailCache->numberOfFrames()) {
+        if (videoThumbnailCache->setStillFrame(fileName, frame))
             break;
-        }
+        frame += direction;
     }
+    qCDebug(MainWindowLog) << "No next thumbnail found for video" << fileName.relative()
+                           << "(start frame:" << frameNumber << ", direction:" << direction << ")";
 
-    const DB::FileName newImageName = nextExistingImage(fileName, frame, direction);
-    if (newImageName.isNull())
-        return;
-
-    Utilities::copyOrOverwrite(newImageName.absolute(), baseImageName.absolute());
-
-    QImage image = QImage(newImageName.absolute()).scaled(ThumbnailView::CellGeometry::preferredIconSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QImage image = videoThumbnailCache->lookupStillFrame(fileName).scaled(ThumbnailView::CellGeometry::preferredIconSize(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     MainWindow::Window::theMainWindow()->thumbnailCache()->insert(fileName, image);
     MainWindow::Window::theMainWindow()->reloadThumbnails();
 }

@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2012 - 2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -29,12 +30,13 @@ public:
     int index() const;
     void cancel();
 
+Q_SIGNALS:
+    void frameAvailable(const DB::FileName &fileName, int index, const QImage &frame);
+
 private Q_SLOTS:
     void frameLoaded(const QImage &);
 
 private:
-    DB::FileName frameName() const;
-
     DB::FileName m_fileName;
     int m_index;
     bool m_wasCanceled;

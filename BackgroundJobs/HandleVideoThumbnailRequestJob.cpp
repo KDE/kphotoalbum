@@ -1,31 +1,36 @@
-// SPDX-FileCopyrightText: 2012-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2012-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2016-2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2020 Nicolas Fella <nicolas.fella@gmx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
 #include "HandleVideoThumbnailRequestJob.h"
 
+#include "kpabase/ImageUtil.h"
 #include <ImageManager/ExtractOneVideoFrame.h>
 #include <ImageManager/ImageClientInterface.h>
 #include <ImageManager/ImageRequest.h>
 #include <MainWindow/FeatureDialog.h>
 #include <ThumbnailView/CellGeometry.h>
-#include <Utilities/ImageUtil.h>
-#include <kpabase/SettingsData.h>
-#include <kpathumbnails/ThumbnailCache.h>
-
 #include <KLocalizedString>
 #include <QCryptographicHash>
 #include <QDir>
 #include <QIcon>
 #include <QImage>
+#include <kpabase/ImageUtil.h>
+#include <kpabase/SettingsData.h>
+#include <kpathumbnails/ThumbnailCache.h>
+#include <kpathumbnails/VideoThumbnailCache.h>
 
 namespace BackgroundJobs
 {
 
-HandleVideoThumbnailRequestJob::HandleVideoThumbnailRequestJob(ImageManager::ImageRequest *request, BackgroundTaskManager::Priority priority, ImageManager::ThumbnailCache *thumbnailCache)
+HandleVideoThumbnailRequestJob::HandleVideoThumbnailRequestJob(ImageManager::ImageRequest *request, BackgroundTaskManager::Priority priority, ImageManager::ThumbnailCache *thumbnailCache, ImageManager::VideoThumbnailCache *videoThumbnailCache)
     : BackgroundTaskManager::JobInterface(priority)
     , m_request(request)
     , m_thumbnailCache(thumbnailCache)
+    , m_videoThumbnailCache(videoThumbnailCache)
 {
 }
 
@@ -41,42 +46,22 @@ QString HandleVideoThumbnailRequestJob::details() const
 
 void HandleVideoThumbnailRequestJob::execute()
 {
-    QImage image(pathForRequest(m_request->fileSystemFileName()).absolute());
-    if (!image.isNull())
-        frameLoaded(image);
-    else
+    QImage stillFrame = m_videoThumbnailCache->lookupStillFrame(m_request->databaseFileName());
+    if (!stillFrame.isNull()) {
+        sendResult(stillFrame);
+        Q_EMIT completed();
+    } else {
         ImageManager::ExtractOneVideoFrame::extract(m_request->fileSystemFileName(), 0, this, SLOT(frameLoaded(QImage)));
+    }
 }
 
 void HandleVideoThumbnailRequestJob::frameLoaded(QImage image)
 {
     if (image.isNull())
         image = brokenImage();
-    saveFullScaleFrame(m_request->databaseFileName(), image);
+    m_videoThumbnailCache->insertThumbnail(m_request->databaseFileName(), 0, image);
     sendResult(image);
     Q_EMIT completed();
-}
-
-void HandleVideoThumbnailRequestJob::saveFullScaleFrame(const DB::FileName &fileName, const QImage &image)
-{
-    Utilities::saveImage(pathForRequest(fileName), image, "JPEG");
-}
-
-DB::FileName HandleVideoThumbnailRequestJob::pathForRequest(const DB::FileName &fileName)
-{
-    QCryptographicHash md5(QCryptographicHash::Md5);
-    md5.addData(fileName.absolute().toUtf8());
-    return DB::FileName::fromRelativePath(QString::fromLatin1(".videoThumbnails/%2").arg(QString::fromUtf8(md5.result().toHex())));
-}
-
-DB::FileName HandleVideoThumbnailRequestJob::frameName(const DB::FileName &videoName, int frameNumber)
-{
-    return DB::FileName::fromRelativePath(pathForRequest(videoName).relative() + QLatin1String("-") + QString::number(frameNumber));
-}
-
-void HandleVideoThumbnailRequestJob::removeFullScaleFrame(const DB::FileName &fileName)
-{
-    QDir().remove(BackgroundJobs::HandleVideoThumbnailRequestJob::pathForRequest(fileName).absolute());
 }
 
 void HandleVideoThumbnailRequestJob::sendResult(QImage image)

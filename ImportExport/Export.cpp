@@ -1,16 +1,16 @@
+// SPDX-FileCopyrightText: 2004 - 2005 Stephan Binner <binner@kde.org>
+// SPDX-FileCopyrightText: 2004 - 2007 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2004 - 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2004 Andrew Coles <andrew.i.coles@googlemail.com>
-// SPDX-FileCopyrightText: 2004-2007 Laurent Montel <montel@kde.org>
-// SPDX-FileCopyrightText: 2004-2005 Stephan Binner <binner@kde.org>
-// SPDX-FileCopyrightText: 2004-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2005-2007 Dirk Mueller <mueller@kde.org>
-// SPDX-FileCopyrightText: 2007-2011 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2005 - 2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2007 - 2011 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2008 - 2010 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
-// SPDX-FileCopyrightText: 2008-2010 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2009 Hassan Ibraheem <hasan.ibraheem@gmail.com>
-// SPDX-FileCopyrightText: 2012-2013 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2012 - 2013 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2012 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2013 Pino Toscano <pino@kde.org>
-// SPDX-FileCopyrightText: 2016-2019 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2016 - 2019 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2018 Yuri Chornoivan <yurchor@ukr.net>
 //
@@ -24,10 +24,10 @@
 #include <DB/ImageInfo.h>
 #include <ImageManager/AsyncLoader.h>
 #include <ImageManager/RawImageDecoder.h>
-#include <Utilities/FileUtil.h>
 #include <kpabase/FileExtensions.h>
 #include <kpabase/FileNameList.h>
 #include <kpabase/FileNameUtil.h>
+#include <kpabase/FileUtil.h>
 
 #include <KConfigGroup>
 #include <KHelpClient>

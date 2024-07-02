@@ -2,7 +2,7 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: KPhotoAlbum
 Source: https://invent.kde.org/graphics/kphotoalbum
 
-Files: .gitlab-ci.yml snapcraft.yaml
+Files: snapcraft.yaml
 Copyright: none
 License: CC0-1.0
 

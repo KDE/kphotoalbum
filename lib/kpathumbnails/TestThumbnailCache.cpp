@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
@@ -13,6 +14,7 @@
 #include <QLoggingCategory>
 #include <QRegularExpression>
 #include <QSignalSpy>
+#include <QHashSeed>
 
 namespace
 {
@@ -41,7 +43,7 @@ constexpr auto v5IndexHexData {
 void KPATest::TestThumbnailCache::initTestCase()
 {
     // ThumbnailCache uses QHash, which is randomized by default
-    qSetGlobalQHashSeed(0);
+    QHashSeed::setDeterministicGlobalSeed();
 }
 
 void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()

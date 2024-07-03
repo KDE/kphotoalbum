@@ -7,7 +7,7 @@
 // SPDX-FileCopyrightText: 2010 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2010 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2018 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2018-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -22,7 +22,6 @@
 
 #include <QApplication>
 #include <QCursor>
-#include <QDesktopWidget>
 #include <QScreen>
 
 /**

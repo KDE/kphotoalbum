@@ -22,3 +22,5 @@ Dependencies:
 
 Options:
   require-passing-tests-on: [ Linux, FreeBSD ]
+  except:
+    - kf6

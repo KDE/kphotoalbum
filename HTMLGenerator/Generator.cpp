@@ -1,13 +1,13 @@
-// SPDX-FileCopyrightText: 2006 - 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2007 - 2008 Laurent Montel <montel@kde.org>
-// SPDX-FileCopyrightText: 2007 - 2010 Jan Kundrát <jkt@flaska.net>
-// SPDX-FileCopyrightText: 2007 - 2010 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2006-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2007-2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2007-2010 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
-// SPDX-FileCopyrightText: 2009 - 2013 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2012 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2009-2013 Miika Turkia <miika.turkia@gmail.com>
+// SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
-// SPDX-FileCopyrightText: 2016 - 2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2016-2024 Tobias Leupold <tl@stonemx.de>
 
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -33,11 +33,8 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <kio_version.h>
-#if KIO_VERSION > QT_VERSION_CHECK(5, 69, 0)
 #include <KIO/CommandLauncherJob>
 #include <KIO/JobUiDelegate>
-#endif
-#include <KRun>
 #include <QApplication>
 #include <QDebug>
 #include <QDir>
@@ -616,17 +613,12 @@ QString HTMLGenerator::Generator::createVideo(const DB::FileName &fileName)
                                     .arg(destName.replace(QRegExp(QString::fromLatin1("\\..*")), QString::fromLatin1(".ogg")))
                                     .arg(QString::fromLatin1("320"))
                                     .arg(fileName.absolute());
-#if KIO_VERSION <= QT_VERSION_CHECK(5, 69, 0)
-            KRun::runCommand(avCmd, uiParent);
-            KRun::runCommand(f2tCmd, uiParent);
-#else
             KIO::CommandLauncherJob *avJob = new KIO::CommandLauncherJob(avCmd);
             avJob->setUiDelegate(new KDialogJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
             avJob->start();
             KIO::CommandLauncherJob *f2tJob = new KIO::CommandLauncherJob(f2tCmd);
             f2tJob->setUiDelegate(new KDialogJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
             f2tJob->start();
-#endif
         } else
             Utilities::copyOrOverwrite(fileName.absolute(), destName);
         m_copiedVideos.insert(fileName);

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-03-30 01:33+0000\n"
+"POT-Creation-Date: 2024-07-03 01:45+0000\n"
 "PO-Revision-Date: 2020-05-05 11:56+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -414,12 +414,12 @@ msgstr "OK-dialoog"
 msgid "Copy tags from previous image"
 msgstr "Kopeeri sildid eelmisest pildist"
 
-#: AnnotationDialog/Dialog.cpp:1316 MainWindow/Window.cpp:849
+#: AnnotationDialog/Dialog.cpp:1316 MainWindow/Window.cpp:851
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Pööra vastupäeva"
 
-#: AnnotationDialog/Dialog.cpp:1319 MainWindow/Window.cpp:853
+#: AnnotationDialog/Dialog.cpp:1319 MainWindow/Window.cpp:855
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Pööra päripäeva"
@@ -775,12 +775,12 @@ msgctxt ""
 msgid "Associate with"
 msgstr ""
 
-#: BackgroundJobs/ExtractOneThumbnailJob.cpp:49
+#: BackgroundJobs/ExtractOneThumbnailJob.cpp:42
 #, kde-format
 msgid "Extracting Thumbnail"
 msgstr "Pisipildi ekstraktimine"
 
-#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:34
+#: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:39
 #, kde-format
 msgid "Extract Video Thumbnail"
 msgstr "Videopisipildi ekstraktimine"
@@ -795,7 +795,7 @@ msgstr "Video pikkuse lugemine"
 msgid "Search for videos without length information"
 msgstr "Pikkuseteabeta videode otsing"
 
-#: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:51
+#: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:57
 #, kde-format
 msgid "Searching for videos without video thumbnails"
 msgstr "Videopisipiltideta videode otsing"
@@ -965,7 +965,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "otsing"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1800
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1810
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -980,7 +980,7 @@ msgstr ""
 "li><li>Nüüd vali <b>Kategooriad</b> icon</li><li>Nüüd vali seadistus "
 "sektsioonis <b>Sildistamata pildid</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1807
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1817
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Omadust pole veel seadistatud"
@@ -1325,7 +1325,7 @@ msgctxt "Separator in a list of tags"
 msgid ", "
 msgstr ", "
 
-#: DB/NewImageFinder.cpp:488
+#: DB/NewImageFinder.cpp:487
 #, kde-format
 msgid ""
 "<p><b>Loading information from new files</b></p><p>Depending on the number "
@@ -1336,14 +1336,14 @@ msgstr ""
 "selleks kuluda tükk aega,<br/>kuid ainult sel juhul, kui leitakse uusi pilte."
 "</p>"
 
-#: DB/NewImageFinder.cpp:703
+#: DB/NewImageFinder.cpp:702
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
 msgstr[0] "<p><b>%1 faili kontrollsumma arvutamine</b></p>"
 msgstr[1] "<p><b>%1 faili kontrollsumma arvutamine</b></p>"
 
-#: DB/NewImageFinder.cpp:704
+#: DB/NewImageFinder.cpp:703
 #, kde-format
 msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
@@ -1352,7 +1352,7 @@ msgstr ""
 "<p>Iga pildi kontrollsummat salvestades suudab KPhotoAlbum leida pildi isegi "
 "siis, kui oled selle kettalt eemaldanud.</p>"
 
-#: DB/NewImageFinder.cpp:748
+#: DB/NewImageFinder.cpp:747
 #, kde-format
 msgid "Following files could not be read:"
 msgstr "Järgmiste failide lugemine nurjus:"
@@ -1614,8 +1614,8 @@ msgstr "Sündmused"
 msgid "untagged"
 msgstr "sildistamata"
 
-#: DB/XML/FileReader.cpp:551 Utilities/DemoUtil.cpp:36
-#: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:88
+#: DB/XML/FileReader.cpp:551 Utilities/DemoUtil.cpp:34
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
 #, kde-format
 msgid "Error Running Demo"
 msgstr "Viga demo käivitamisel"
@@ -2757,7 +2757,7 @@ msgid "Create folder?"
 msgstr "Baaskataloog:"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1232
+#: MainWindow/Window.cpp:1234
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3427,34 +3427,34 @@ msgstr ""
 "Paik, mis kiirendab pisipiltide laadimist ning eelvaatlus pildi omaduste "
 "dialoogis."
 
-#: MainWindow/AutoStackImages.cpp:38
+#: MainWindow/AutoStackImages.cpp:43
 #, kde-format
 msgctxt "@title:window"
 msgid "Automatically Stack Images"
 msgstr "Piltide automaatne seadmine pakki"
 
-#: MainWindow/AutoStackImages.cpp:48
+#: MainWindow/AutoStackImages.cpp:53
 #, kde-format
 msgid "Stack images with identical MD5 sum"
 msgstr "Ühesuguse MD5 kontrollsummaga piltide seadmine pakki"
 
-#: MainWindow/AutoStackImages.cpp:56
+#: MainWindow/AutoStackImages.cpp:61
 #, kde-format
 msgid "Stack images based on file version detection"
 msgstr "Piltide seadmine pinusse failiversiooni tuvastamise põhjal"
 
-#: MainWindow/AutoStackImages.cpp:60
+#: MainWindow/AutoStackImages.cpp:65
 #, kde-format
 msgid "Original to top"
 msgstr "Originaal peal"
 
-#: MainWindow/AutoStackImages.cpp:71
+#: MainWindow/AutoStackImages.cpp:76
 #, kde-format
 msgctxt "Label for a QSpinbox that selects a number of seconds."
 msgid "Stack images created within the following time-frame:"
 msgstr ""
 
-#: MainWindow/AutoStackImages.cpp:79
+#: MainWindow/AutoStackImages.cpp:84
 #, fuzzy, kde-format
 #| msgctxt ""
 #| "The whole sentence should read: *Stack images that are shot within x "
@@ -3464,23 +3464,23 @@ msgctxt "Unit suffix on a QSpinBox; note the space at the beginning."
 msgid " seconds"
 msgstr "sekundi jooksul"
 
-#: MainWindow/AutoStackImages.cpp:82
+#: MainWindow/AutoStackImages.cpp:87
 #, kde-format
 msgid "AutoStacking Options"
 msgstr "Automaatse pakki seadmise valikud"
 
-#: MainWindow/AutoStackImages.cpp:86
+#: MainWindow/AutoStackImages.cpp:91
 #, kde-format
 msgid "Include matching image to appropriate stack (if one exists)"
 msgstr "Kattuva pildi kaasamine sobivasse pakki (kui on olemas)"
 
-#: MainWindow/AutoStackImages.cpp:90
+#: MainWindow/AutoStackImages.cpp:95
 #, kde-format
 msgid ""
 "Unstack images from their current stack and create new one for the matches"
 msgstr "Piltide eemaldamine aktiivsest pakist ja sobivatele uue paki loomine"
 
-#: MainWindow/AutoStackImages.cpp:94
+#: MainWindow/AutoStackImages.cpp:99
 #, kde-format
 msgid "Skip images that are already in a stack"
 msgstr "Juba pakis piltide vahelejätmine"
@@ -4244,22 +4244,22 @@ msgstr "Omaduste kontroll"
 msgid "Congratulations: all dynamic features have been enabled."
 msgstr "Õnnitleme: kõik dünaamilised omadused on sisse lülitatud."
 
-#: MainWindow/Window.cpp:147
+#: MainWindow/Window.cpp:148
 #, kde-format
 msgid "Loading Database"
 msgstr "Andmebaasi laadimine"
 
-#: MainWindow/Window.cpp:154
+#: MainWindow/Window.cpp:155
 #, kde-format
 msgid "Loading Main Window"
 msgstr "Peaakna laadimine"
 
-#: MainWindow/Window.cpp:267
+#: MainWindow/Window.cpp:269
 #, kde-format
 msgid "Searching for New Files"
 msgstr "Uute failide otsimine"
 
-#: MainWindow/Window.cpp:304
+#: MainWindow/Window.cpp:306
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
@@ -4281,26 +4281,26 @@ msgstr ""
 "kettaruumi. Samas - kui sa tahad peagi uuesti demo vaadata, võid selle ka "
 "alles hoida.</p>"
 
-#: MainWindow/Window.cpp:309
+#: MainWindow/Window.cpp:311
 #, fuzzy, kde-format
 #| msgid "Delete Demo Database"
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Kustuta demoandmebaas"
 
-#: MainWindow/Window.cpp:334
+#: MainWindow/Window.cpp:336
 #, kde-format
 msgid "Do you want to save the changes?"
 msgstr "Kas soovid muudatused salvestada?"
 
-#: MainWindow/Window.cpp:335
+#: MainWindow/Window.cpp:337
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Save Changes?"
 msgstr "Kas salvestada muudatused?"
 
-#: MainWindow/Window.cpp:392
+#: MainWindow/Window.cpp:394
 #, kde-format
 msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
@@ -4309,332 +4309,332 @@ msgstr ""
 "Osa valitud pilte on juba pakis. Kas eemaldada need oma pakist ja luua "
 "täiesti uus?"
 
-#: MainWindow/Window.cpp:395
+#: MainWindow/Window.cpp:397
 #, fuzzy, kde-format
 #| msgid "Stacking Error"
 msgctxt "@title"
 msgid "Stacking problem"
 msgstr "Paki loomise viga"
 
-#: MainWindow/Window.cpp:410
+#: MainWindow/Window.cpp:412
 #, kde-format
 msgid "Unknown error, stack creation failed."
 msgstr "Tundmatu viga, paki loomine nurjus."
 
-#: MainWindow/Window.cpp:411
+#: MainWindow/Window.cpp:413
 #, kde-format
 msgid "Stacking Error"
 msgstr "Paki loomise viga"
 
-#: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1333 MainWindow/Window.cpp:1430
+#: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
+#: MainWindow/Window.cpp:1338 MainWindow/Window.cpp:1435
 #, kde-format
 msgid "No item is selected."
 msgstr "Ühtki elementi ei ole valitud."
 
-#: MainWindow/Window.cpp:490 MainWindow/Window.cpp:616
-#: MainWindow/Window.cpp:1333 MainWindow/Window.cpp:1431
+#: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
+#: MainWindow/Window.cpp:1338 MainWindow/Window.cpp:1436
 #, kde-format
 msgid "No Selection"
 msgstr "Valik puudub"
 
-#: MainWindow/Window.cpp:536
+#: MainWindow/Window.cpp:538
 #, kde-format
 msgid "Saving..."
 msgstr "Salvestamine..."
 
-#: MainWindow/Window.cpp:541
+#: MainWindow/Window.cpp:543
 #, kde-format
 msgid "Saving... Done"
 msgstr "Salvestamine... Tehtud"
 
-#: MainWindow/Window.cpp:689
+#: MainWindow/Window.cpp:691
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "Pole ühtegi pilti näidata."
 
-#: MainWindow/Window.cpp:770 MainWindow/Window.cpp:899
+#: MainWindow/Window.cpp:772 MainWindow/Window.cpp:901
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "Näita vaates ainult valituid"
 
-#: MainWindow/Window.cpp:771
+#: MainWindow/Window.cpp:773
 #, fuzzy, kde-format
 #| msgid "No item is selected."
 msgid "No images are selected!"
 msgstr "Ühtki elementi ei ole valitud."
 
-#: MainWindow/Window.cpp:784
+#: MainWindow/Window.cpp:786
 #, kde-format
 msgid "Generate HTML..."
 msgstr "Tekita HTML..."
 
-#: MainWindow/Window.cpp:788
+#: MainWindow/Window.cpp:790
 #, kde-format
 msgid "Import..."
 msgstr "Import..."
 
-#: MainWindow/Window.cpp:791
+#: MainWindow/Window.cpp:793
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Piltide eksport/kopeerimine"
 
-#: MainWindow/Window.cpp:818
+#: MainWindow/Window.cpp:820
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Kustuta valitud"
 
-#: MainWindow/Window.cpp:824
+#: MainWindow/Window.cpp:826
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "Eemalda märgised ..."
 
-#: MainWindow/Window.cpp:827
+#: MainWindow/Window.cpp:829
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Ava failide nimekiri..."
 
-#: MainWindow/Window.cpp:830
+#: MainWindow/Window.cpp:832
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Annoteeri üks element korraga"
 
-#: MainWindow/Window.cpp:834
+#: MainWindow/Window.cpp:836
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Annoteeri mitu elementi korraga"
 
-#: MainWindow/Window.cpp:838
+#: MainWindow/Window.cpp:840
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Ühenda pildid pakiks"
 
-#: MainWindow/Window.cpp:842
+#: MainWindow/Window.cpp:844
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Eemalda pildid pakist"
 
-#: MainWindow/Window.cpp:845
+#: MainWindow/Window.cpp:847
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Määra paki esimeseks pildiks"
 
-#: MainWindow/Window.cpp:858
+#: MainWindow/Window.cpp:860
 #, kde-format
 msgid "View"
 msgstr "Näita"
 
-#: MainWindow/Window.cpp:861
+#: MainWindow/Window.cpp:863
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Näita (uues aknas)"
 
-#: MainWindow/Window.cpp:864
+#: MainWindow/Window.cpp:866
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Käivita slaidiseanss"
 
-#: MainWindow/Window.cpp:869
+#: MainWindow/Window.cpp:871
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Käivita juhuslikus järjekorras slaidiseanss"
 
-#: MainWindow/Window.cpp:875
+#: MainWindow/Window.cpp:877
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Keri kõik pakid kokku"
 
-#: MainWindow/Window.cpp:881
+#: MainWindow/Window.cpp:883
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Keri kõik pakid lahti"
 
-#: MainWindow/Window.cpp:886
+#: MainWindow/Window.cpp:888
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Näita &vanimat esimesena"
 
-#: MainWindow/Window.cpp:891
+#: MainWindow/Window.cpp:893
 #, kde-format
 msgid "Show &Newest First"
 msgstr "&Näita uusimat esimesena"
 
-#: MainWindow/Window.cpp:896
+#: MainWindow/Window.cpp:898
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Sordi valitud kuupäeva ja kellaaja järgi"
 
-#: MainWindow/Window.cpp:902
+#: MainWindow/Window.cpp:904
 #, kde-format
 msgid "Jump to Context"
 msgstr "Hüppa kontekstile"
 
-#: MainWindow/Window.cpp:908
+#: MainWindow/Window.cpp:910
 #, kde-format
 msgid "Lock Images"
 msgstr "Lukusta pildid"
 
-#: MainWindow/Window.cpp:912
+#: MainWindow/Window.cpp:914
 #, kde-format
 msgid "Unlock"
 msgstr "Eemalda lukk"
 
-#: MainWindow/Window.cpp:915
+#: MainWindow/Window.cpp:917
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Lukusta kõik muud elemendid"
 
-#: MainWindow/Window.cpp:918
+#: MainWindow/Window.cpp:920
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Lukusta praegune elementide valik"
 
-#: MainWindow/Window.cpp:921
+#: MainWindow/Window.cpp:923
 #, kde-format
 msgid "Configure Current View"
 msgstr "Aktiivse vaate seadistamine"
 
-#: MainWindow/Window.cpp:933
+#: MainWindow/Window.cpp:935
 #, kde-format
 msgid "Tree"
 msgstr "Puu"
 
-#: MainWindow/Window.cpp:938
+#: MainWindow/Window.cpp:940
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Puu kasutaja ikoonidega"
 
-#: MainWindow/Window.cpp:943
+#: MainWindow/Window.cpp:945
 #, kde-format
 msgid "Icons"
 msgstr "Ikoonid"
 
-#: MainWindow/Window.cpp:950
+#: MainWindow/Window.cpp:952
 #, kde-format
 msgid "Use natural sort order"
 msgstr ""
 
-#: MainWindow/Window.cpp:960
+#: MainWindow/Window.cpp:962
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Kohtspikrite näitamine pisipildiaknas"
 
-#: MainWindow/Window.cpp:965
+#: MainWindow/Window.cpp:967
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Labels in Thumbnails Window"
 msgstr "Kohtspikrite näitamine pisipildiaknas"
 
-#: MainWindow/Window.cpp:975
+#: MainWindow/Window.cpp:977
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Categories in Thumbnails Window"
 msgstr "Kohtspikrite näitamine pisipildiaknas"
 
-#: MainWindow/Window.cpp:996
+#: MainWindow/Window.cpp:998
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "Värviskeemi valimine"
 
-#: MainWindow/Window.cpp:1007
+#: MainWindow/Window.cpp:1009
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Näita kettalt puuduvaid pilte ja videoid"
 
-#: MainWindow/Window.cpp:1010
+#: MainWindow/Window.cpp:1012
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Näita ebatäieliku kuupäevaga pilte ja videoid..."
 
-#: MainWindow/Window.cpp:1013
+#: MainWindow/Window.cpp:1015
 #, kde-format
 msgid "Merge duplicates"
 msgstr "Ühenda topeltpildid"
 
-#: MainWindow/Window.cpp:1015 MainWindow/Window.cpp:1072
+#: MainWindow/Window.cpp:1017 MainWindow/Window.cpp:1074
 #, fuzzy, kde-format
 #| msgid "Recreate Selected Thumbnails"
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Valitud pisipiltide taasloomine"
 
-#: MainWindow/Window.cpp:1019
+#: MainWindow/Window.cpp:1021
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Otsi pilte ja videoid uuesti"
 
-#: MainWindow/Window.cpp:1022
+#: MainWindow/Window.cpp:1024
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Loo EXIF-otsingu andmebaas uuesti"
 
-#: MainWindow/Window.cpp:1025
+#: MainWindow/Window.cpp:1027
 #, kde-format
 msgid "Read Exif Info from Files..."
 msgstr "EXIF-teabe lugemine failidest ..."
 
-#: MainWindow/Window.cpp:1028
+#: MainWindow/Window.cpp:1030
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Sordi kõik kuupäeva ja kellaaja järgi"
 
-#: MainWindow/Window.cpp:1032
+#: MainWindow/Window.cpp:1034
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Sea valitud pildid automaatselt pakki..."
 
-#: MainWindow/Window.cpp:1035
+#: MainWindow/Window.cpp:1037
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Tekita pisipildid"
 
-#: MainWindow/Window.cpp:1038
+#: MainWindow/Window.cpp:1040
 #, kde-format
 msgid "Statistics..."
 msgstr "Statistika ..."
 
-#: MainWindow/Window.cpp:1042
+#: MainWindow/Window.cpp:1044
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Märgi sildistamatuks"
 
-#: MainWindow/Window.cpp:1051
+#: MainWindow/Window.cpp:1053
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Kõigi teadete lubamine"
 
-#: MainWindow/Window.cpp:1059
+#: MainWindow/Window.cpp:1061
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "KPhotoAlbumi demo käivitamine"
 
-#: MainWindow/Window.cpp:1062
+#: MainWindow/Window.cpp:1064
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "KPhotoAlbumi omaduste olek"
 
-#: MainWindow/Window.cpp:1065
+#: MainWindow/Window.cpp:1067
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Näita demovideosid"
 
-#: MainWindow/Window.cpp:1069 Viewer/ViewerWidget.cpp:199
+#: MainWindow/Window.cpp:1071 Viewer/ViewerWidget.cpp:199
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "EXIF-info näitamine"
 
-#: MainWindow/Window.cpp:1075
+#: MainWindow/Window.cpp:1077
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Järgmise video pisipildi kasutamine"
 
-#: MainWindow/Window.cpp:1079
+#: MainWindow/Window.cpp:1081
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Eelmise video pisipildi kasutamine"
 
-#: MainWindow/Window.cpp:1083 MainWindow/Window.cpp:1311
+#: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1316
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -4643,7 +4643,7 @@ msgid_plural "Copy images to ..."
 msgstr[0] "Piltide kopeerimine ..."
 msgstr[1] "Piltide kopeerimine ..."
 
-#: MainWindow/Window.cpp:1087 MainWindow/Window.cpp:1315
+#: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1320
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Link images to..."
@@ -4652,17 +4652,17 @@ msgid_plural "Link images to ..."
 msgstr[0] "Piltide linkimine ..."
 msgstr[1] "Piltide linkimine ..."
 
-#: MainWindow/Window.cpp:1113
+#: MainWindow/Window.cpp:1115
 #, kde-format
 msgid "Auto saving...."
 msgstr "Automaatne salvestamine..."
 
-#: MainWindow/Window.cpp:1116
+#: MainWindow/Window.cpp:1118
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Automaatne salvestamine... Tehtud"
 
-#: MainWindow/Window.cpp:1218
+#: MainWindow/Window.cpp:1220
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Could not open given index.xml as provided directory does not exist."
@@ -4674,7 +4674,7 @@ msgstr ""
 "<p>Määratud index.xml-i avamine nurjus, sest antud kataloogi ei ole olemas."
 "<br />%1</p>"
 
-#: MainWindow/Window.cpp:1225
+#: MainWindow/Window.cpp:1227
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4683,7 +4683,7 @@ msgstr ""
 "<p>Määratud indeksifaili ei ole  olemas. Kas luua järgmine fail?<br />%1/"
 "index.xml</p>"
 
-#: MainWindow/Window.cpp:1228
+#: MainWindow/Window.cpp:1230
 #, fuzzy, kde-format
 #| msgid ""
 #| "Use data from\n"
@@ -4694,7 +4694,7 @@ msgstr ""
 "Andmebaasi andmete\n"
 "kasutamine"
 
-#: MainWindow/Window.cpp:1256
+#: MainWindow/Window.cpp:1261
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4707,34 +4707,34 @@ msgstr ""
 "seadistus, mille leiad <interface>Seadistused|KPhotoAlbumi seadistused ...|"
 "Kategooriad</interface> alt.</p>"
 
-#: MainWindow/Window.cpp:1382 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Üldine"
 
-#: MainWindow/Window.cpp:1383 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1388 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Näitaja"
 
-#: MainWindow/Window.cpp:1384
+#: MainWindow/Window.cpp:1389
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Kuupäev: "
 
-#: MainWindow/Window.cpp:1387
+#: MainWindow/Window.cpp:1392
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Annotatsioonidialoog"
 
-#: MainWindow/Window.cpp:1388 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1393 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Pisipildivaade"
 
-#: MainWindow/Window.cpp:1534
+#: MainWindow/Window.cpp:1544
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4743,13 +4743,13 @@ msgstr ""
 "<p>Kas tõesti lubada kõik teatekastid - ka seal, kus oled varem ära märkinud "
 "võimaluse dialoogi mitte näidata?</p>"
 
-#: MainWindow/Window.cpp:1536
+#: MainWindow/Window.cpp:1546
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1555
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4766,32 +4766,32 @@ msgstr ""
 "tööd, kuid on üpris tõenäoline, et mainitud põhjusel tabab teda hiljem krahh."
 "</p>"
 
-#: MainWindow/Window.cpp:1555
+#: MainWindow/Window.cpp:1565
 #, kde-format
 msgid "Internal Error"
 msgstr "Sisemine viga"
 
-#: MainWindow/Window.cpp:1566
+#: MainWindow/Window.cpp:1576
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "Pildid edukalt jagatud. Asukoha kopeerimine lõikepuhvrisse ..."
 
-#: MainWindow/Window.cpp:1569
+#: MainWindow/Window.cpp:1579
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Pildid edukalt jagatud."
 
-#: MainWindow/Window.cpp:1574
+#: MainWindow/Window.cpp:1584
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Pildi jagamine nurjus teatega: %1"
 
-#: MainWindow/Window.cpp:1637
+#: MainWindow/Window.cpp:1647
 #, kde-format
 msgid "Open List of Files"
 msgstr "Failide nimekirja avamine"
 
-#: MainWindow/Window.cpp:1638
+#: MainWindow/Window.cpp:1648
 #, fuzzy, kde-format
 #| msgid ""
 #| "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4803,28 +4803,28 @@ msgstr ""
 "KPhotoAlbumi juurkataloogis asuvate failikogu saab avada faile siin "
 "loetledes."
 
-#: MainWindow/Window.cpp:1652
+#: MainWindow/Window.cpp:1662
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Sisestatutel vastavaid pilte ei leitud."
 
-#: MainWindow/Window.cpp:1652
+#: MainWindow/Window.cpp:1662
 #, kde-format
 msgid "No Matches"
 msgstr "Sobivusi pole"
 
-#: MainWindow/Window.cpp:1824
+#: MainWindow/Window.cpp:1834
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Exifi teabe uuestilugemine kõigist piltidest"
 
-#: MainWindow/Window.cpp:1851
+#: MainWindow/Window.cpp:1861
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Pisipildi laius: %1px (salvesti suurus: %2px)"
 
-#: MainWindow/Window.cpp:1904
+#: MainWindow/Window.cpp:1914
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4834,7 +4834,7 @@ msgstr ""
 "<p>Süsteemist ei leitud ffmpeg'i.</p><p>Ilma selleta ei saa KPhotoAlbum "
 "näidata ei videopisipilte ega videopikkust. Palun paigalda ffmpeg pakett.</p>"
 
-#: MainWindow/Window.cpp:1907
+#: MainWindow/Window.cpp:1917
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Videopisipilte pole saada"
@@ -6475,12 +6475,12 @@ msgstr "Pisipiltide ümberkorraldamine"
 msgid "Error Deleting Files"
 msgstr "Viga failide kustutamisel"
 
-#: Utilities/DemoUtil.cpp:36
+#: Utilities/DemoUtil.cpp:34
 #, kde-format
 msgid "Unable to copy '%1' to '%2'."
 msgstr "Kopeerimine '%1' -> '%2' nurjus."
 
-#: Utilities/DemoUtil.cpp:51 Utilities/DemoUtil.cpp:88
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
 #, fuzzy, kde-format
 #| msgid "Unable to create directory '%1' needed for demo."
 msgid "Unable to create folder '%1' needed for demo."
@@ -6737,37 +6737,37 @@ msgstr "Elemendi ümbernimetamine"
 msgid "Select tag for image"
 msgstr "Sihtmärk:"
 
-#: Viewer/CategoryImageConfig.cpp:33
+#: Viewer/CategoryImageConfig.cpp:41
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure Category Image"
 msgstr "Kategooria pildi seadistamine"
 
-#: Viewer/CategoryImageConfig.cpp:42
+#: Viewer/CategoryImageConfig.cpp:50
 #, kde-format
 msgctxt "@label:listbox As in 'select the tag category'"
 msgid "Category:"
 msgstr "Kategooria:"
 
-#: Viewer/CategoryImageConfig.cpp:49
+#: Viewer/CategoryImageConfig.cpp:57
 #, kde-format
 msgctxt "@label:listbox As in 'select a tag'"
 msgid "Tag:"
 msgstr "Silt:"
 
-#: Viewer/CategoryImageConfig.cpp:58
+#: Viewer/CategoryImageConfig.cpp:66
 #, kde-format
 msgctxt "@label The current category image"
 msgid "Current image:"
 msgstr "Aktiivne pilt:"
 
-#: Viewer/CategoryImageConfig.cpp:66
+#: Viewer/CategoryImageConfig.cpp:74
 #, kde-format
 msgctxt "@label Preview of the new category imape"
 msgid "New image:"
 msgstr "Uus pilt:"
 
-#: Viewer/CategoryImageConfig.cpp:75
+#: Viewer/CategoryImageConfig.cpp:83
 #, kde-format
 msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"

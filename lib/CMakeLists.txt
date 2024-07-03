@@ -69,6 +69,7 @@ target_link_libraries(kpabase
     KF6::ConfigCore
     KF6::I18n
     Qt6::Core
+    Qt6::Gui
     )
 if(KDcrawQt6_FOUND)
     target_link_libraries(kpabase PRIVATE KDcrawQt6)

@@ -26,7 +26,7 @@ namespace
 QString cStringWithEncoding(const char *c_str, const QString &charset)
 {
     // FIXME KF6 port: Check if this does what it should do
-    auto codec = QStringDecoder(charset.toLatin1());
+    auto codec = QStringDecoder(charset.toUtf8().data());
     if (!codec.isValid()) {
         codec = QStringDecoder(QStringConverter::System);
     }

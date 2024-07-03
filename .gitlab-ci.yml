@@ -7,7 +7,7 @@ include:
         #- /gitlab-templates/linux.yml
         #- /gitlab-templates/freebsd.yml
       - /gitlab-templates/reuse-lint.yml
-      - /gitlab-templates/flatpak.yml
+        #- /gitlab-templates/flatpak.yml
 
 ## jzarl: Until KF6 lands in Debian stable, disable CI there
 ##        Same for Debian testing

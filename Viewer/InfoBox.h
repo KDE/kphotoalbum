@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -39,7 +40,7 @@ class InfoBox : public QTextBrowser
 
 public:
     explicit InfoBox(ViewerWidget *parent);
-    void setSource(const QUrl &source) override;
+    void setSource(const QUrl &source);
     void setInfo(const QString &text, const QMap<int, QPair<QString, QString>> &linkMap);
     void setSize();
 

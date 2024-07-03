@@ -1,8 +1,6 @@
-// SPDX-FileCopyrightText: 2009, 2013 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2009 - 2013 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2013, 2015-2016, 2018-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2013 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: CC-BY-SA-4.0
 
@@ -13,6 +11,8 @@
 
 Not every distro ships the latest version of Qt. As a rule of thumb, we aim for compatibility with the latest Ubuntu LTS release.
 Since invent.kde.org makes it easier to get a continuous integration pipeline for Debian stable, we are currently supporting that as well.
+
+For the transition from KDE frameworks 5 (KF5) to KF6, this commitment to compatibility has been temporarily lifted (until Ubuntu LTS/Debian stable support KF6).
 
 <h3>Why Ubuntu and Debian?</h3>
 

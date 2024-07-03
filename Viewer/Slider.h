@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText:  2006-2022 Ricardo Villalba <rvm@escomposlinux.org>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Trolltech-FreeQtFoundation-Accepted-LGPL
 
@@ -18,7 +19,7 @@ Q_SIGNALS:
     void onHover(const QPoint &pos, int value);
 
 private:
-    void enterEvent(QEvent *event) override;
+    void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *e) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;

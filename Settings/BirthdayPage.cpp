@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2014-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -54,7 +55,7 @@ Settings::BirthdayPage::BirthdayPage(QWidget *parent)
     m_filter = new QLineEdit;
     itemsHeaderLayout->addWidget(m_filter);
     connect(m_filter, &QLineEdit::textChanged, this, &BirthdayPage::resetCategory);
-    const auto filterShortcut = new QShortcut(Qt::AltModifier + Qt::Key_F, m_filter, SLOT(setFocus()));
+    const auto filterShortcut = new QShortcut(QKeySequence(Qt::AltModifier, Qt::Key_F), m_filter, SLOT(setFocus()));
     m_filter->setPlaceholderText(i18nc("@label:textedit", "Filter ... (%1)", filterShortcut->key().toString(QKeySequence::NativeText)));
 
     if (QLocale().dateFormat(QLocale::ShortFormat).contains(QString::fromUtf8("yyyy"))) {

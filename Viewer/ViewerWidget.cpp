@@ -193,7 +193,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     m_setStackHead = m_actions->addAction(QString::fromLatin1("viewer-set-stack-head"), this, &ViewerWidget::slotSetStackHead);
     m_setStackHead->setText(i18nc("@action:inmenu", "Set as First Image in Stack"));
     m_setStackHead->setVisible(showFullFeatures);
-    m_actions->setDefaultShortcut(m_setStackHead, Qt::CTRL + Qt::Key_4);
+    m_actions->setDefaultShortcut(m_setStackHead, QKeySequence(Qt::CTRL, Qt::Key_4));
     m_popup->addAction(m_setStackHead);
 
     m_showExifViewer = m_actions->addAction(QString::fromLatin1("viewer-show-exif-viewer"), this, &ViewerWidget::showExifViewer);
@@ -211,7 +211,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     m_linkToAction = m_actions->addAction(QStringLiteral("viewer-link-to"), this, std::bind(&ViewerWidget::triggerCopyLinkAction, this, MainWindow::CopyLinkEngine::Link));
     m_linkToAction->setText(i18nc("@action:inmenu", "Link image to ..."));
     m_linkToAction->setVisible(showFullFeatures);
-    m_actions->setDefaultShortcut(m_linkToAction, Qt::SHIFT + Qt::Key_F7);
+    m_actions->setDefaultShortcut(m_linkToAction, QKeySequence(Qt::SHIFT, Qt::Key_F7));
     m_popup->addAction(m_linkToAction);
 
     m_popup->addSeparator();
@@ -327,19 +327,19 @@ void Viewer::ViewerWidget::createSkipMenu()
 
     action = m_actions->addAction(QString::fromLatin1("viewer-next-10"), this, &ViewerWidget::showNext10);
     action->setText(i18nc("@action:inmenu", "Skip 10 Forward"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_PageDown);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL, Qt::Key_PageDown));
     popup->addAction(action);
     m_forwardActions.append(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-next-100"), this, &ViewerWidget::showNext100);
     action->setText(i18nc("@action:inmenu", "Skip 100 Forward"));
-    m_actions->setDefaultShortcut(action, Qt::SHIFT + Qt::Key_PageDown);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::SHIFT, Qt::Key_PageDown));
     popup->addAction(action);
     m_forwardActions.append(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-next-1000"), this, &ViewerWidget::showNext1000);
     action->setText(i18nc("@action:inmenu", "Skip 1000 Forward"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::SHIFT + Qt::Key_PageDown);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL, Qt::SHIFT, Qt::Key_PageDown));
     popup->addAction(action);
     m_forwardActions.append(action);
 
@@ -351,25 +351,25 @@ void Viewer::ViewerWidget::createSkipMenu()
 
     action = m_actions->addAction(QString::fromLatin1("viewer-prev-10"), this, &ViewerWidget::showPrev10);
     action->setText(i18nc("@action:inmenu", "Skip 10 Backward"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_PageUp);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL, Qt::Key_PageUp));
     popup->addAction(action);
     m_backwardActions.append(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-prev-100"), this, &ViewerWidget::showPrev100);
     action->setText(i18nc("@action:inmenu", "Skip 100 Backward"));
-    m_actions->setDefaultShortcut(action, Qt::SHIFT + Qt::Key_PageUp);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::SHIFT, Qt::Key_PageUp));
     popup->addAction(action);
     m_backwardActions.append(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-prev-1000"), this, &ViewerWidget::showPrev1000);
     action->setText(i18nc("@action:inmenu", "Skip 1000 Backward"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::SHIFT + Qt::Key_PageUp);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL, Qt::SHIFT, Qt::Key_PageUp));
     popup->addAction(action);
     m_backwardActions.append(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-delete-current"), this, &ViewerWidget::deleteCurrent);
     action->setText(i18nc("@action:inmenu", "Delete Image"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Delete);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL, Qt::Key_Delete));
     popup->addAction(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-remove-current"), this, &ViewerWidget::removeCurrent);
@@ -431,17 +431,17 @@ void Viewer::ViewerWidget::createSlideShowMenu()
 
     m_startStopSlideShow = m_actions->addAction(QString::fromLatin1("viewer-start-stop-slideshow"), this, &ViewerWidget::slotStartStopSlideShow);
     m_startStopSlideShow->setText(i18nc("@action:inmenu", "Run Slideshow"));
-    m_actions->setDefaultShortcut(m_startStopSlideShow, Qt::CTRL + Qt::Key_R);
+    m_actions->setDefaultShortcut(m_startStopSlideShow, QKeySequence(Qt::CTRL, Qt::Key_R));
     popup->addAction(m_startStopSlideShow);
 
     m_slideShowRunFaster = m_actions->addAction(QString::fromLatin1("viewer-run-faster"), this, &ViewerWidget::slotSlideShowFaster);
     m_slideShowRunFaster->setText(i18nc("@action:inmenu", "Run Faster"));
-    m_actions->setDefaultShortcut(m_slideShowRunFaster, Qt::CTRL + Qt::Key_Plus); // if you change this, please update the info in Viewer::TransientDisplay
+    m_actions->setDefaultShortcut(m_slideShowRunFaster, QKeySequence(Qt::CTRL, Qt::Key_Plus)); // if you change this, please update the info in Viewer::TransientDisplay
     popup->addAction(m_slideShowRunFaster);
 
     m_slideShowRunSlower = m_actions->addAction(QString::fromLatin1("viewer-run-slower"), this, &ViewerWidget::slotSlideShowSlower);
     m_slideShowRunSlower->setText(i18nc("@action:inmenu", "Run Slower"));
-    m_actions->setDefaultShortcut(m_slideShowRunSlower, Qt::CTRL + Qt::Key_Minus); // if you change this, please update the info in Viewer::TransientDisplay
+    m_actions->setDefaultShortcut(m_slideShowRunSlower, QKeySequence(Qt::CTRL, Qt::Key_Minus)); // if you change this, please update the info in Viewer::TransientDisplay
     popup->addAction(m_slideShowRunSlower);
 
     const bool showFullFeatures = m_type == UsageType::FullFeaturedViewer;
@@ -1493,9 +1493,9 @@ void Viewer::ViewerWidget::createAnnotationMenu()
         return action;
     };
 
-    addAction("viewer-show-keybindings", i18nc("@action:inmenu", "Help"), &ViewerWidget::showAnnotationHelp, Qt::CTRL + Qt::Key_Question);
+    addAction("viewer-show-keybindings", i18nc("@action:inmenu", "Help"), &ViewerWidget::showAnnotationHelp, QKeySequence(Qt::CTRL, Qt::Key_Question));
 
-    addAction("viewer-edit-image-properties", i18nc("@action:inmenu", "Annotation Dialog"), &ViewerWidget::editImage, Qt::CTRL + Qt::Key_1);
+    addAction("viewer-edit-image-properties", i18nc("@action:inmenu", "Annotation Dialog"), &ViewerWidget::editImage, QKeySequence(Qt::CTRL, Qt::Key_1));
     m_addTagAction = addAction("viewer-add-tag", i18nc("@action:inmenu", "Add tag"), &ViewerWidget::addTag, i18nc("short cut for add tag", "CTRL+a"));
     m_addTagAction->setEnabled(false);
 

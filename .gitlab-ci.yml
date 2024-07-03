@@ -31,12 +31,8 @@ build:debian-stable:
   stage: build
   image: "debian:stable"
   <<: *debian
-  except:
-    - kf6
 
 build:debian-testing:
   stage: build
   image: "debian:testing"
   <<: *debian
-  except:
-    - kf6

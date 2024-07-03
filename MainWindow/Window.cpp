@@ -124,7 +124,6 @@
 #include <QTimer>
 #include <QVBoxLayout>
 #include <functional>
-#include <ktip.h>
 
 #include <utility>
 

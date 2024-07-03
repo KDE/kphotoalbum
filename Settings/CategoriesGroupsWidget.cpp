@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2014-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -29,7 +30,7 @@ Settings::CategoriesGroupsWidget::~CategoriesGroupsWidget()
 
 void Settings::CategoriesGroupsWidget::mousePressEvent(QMouseEvent *event)
 {
-    m_draggedItem = itemAt(event->pos());
+    m_draggedItem = itemAt(event->position().toPoint());
 
     if (m_draggedItem != nullptr) {
         if (m_draggedItem->parent() != nullptr) {
@@ -44,7 +45,7 @@ void Settings::CategoriesGroupsWidget::mousePressEvent(QMouseEvent *event)
 
 void Settings::CategoriesGroupsWidget::dragMoveEvent(QDragMoveEvent *event)
 {
-    QTreeWidgetItem *target = itemAt(event->pos());
+    QTreeWidgetItem *target = itemAt(event->position().toPoint());
 
     if (target == nullptr) {
         // We don't have a target, so we don't allow a drop.
@@ -89,7 +90,7 @@ void Settings::CategoriesGroupsWidget::updateHighlight(QTreeWidgetItem *target)
 
 void Settings::CategoriesGroupsWidget::dropEvent(QDropEvent *event)
 {
-    QTreeWidgetItem *target = itemAt(event->pos());
+    QTreeWidgetItem *target = itemAt(event->position().toPoint());
     target->setBackground(0, m_backgroundNoTarget);
     m_oldTarget = nullptr;
 

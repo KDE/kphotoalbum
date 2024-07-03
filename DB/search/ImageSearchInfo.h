@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -43,7 +44,7 @@ public:
     void renameCategory(const QString &oldName, const QString &newName);
 
     QString label() const;
-    QRegExp fnPattern() const;
+    QRegularExpression fnPattern() const;
     QString description() const;
 
     /**
@@ -138,7 +139,7 @@ private:
     QString m_label;
     QString m_description;
     WildcardCategoryMatcher m_freeformMatcher;
-    QRegExp m_fnPattern;
+    QRegularExpression m_fnPattern;
     short m_rating = -1;
     short m_megapixel = 0;
     short m_max_megapixel = 0;

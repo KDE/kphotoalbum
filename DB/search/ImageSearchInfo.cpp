@@ -7,8 +7,8 @@
 // SPDX-FileCopyrightText: 2009 Hassan Ibraheem <hasan.ibraheem@gmail.com>
 // SPDX-FileCopyrightText: 2011-2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2012-2016, 2018-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2017-2020 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -34,7 +34,6 @@
 #include <KLocalizedString>
 #include <KSharedConfig>
 #include <QApplication>
-#include <QRegExp>
 #include <QRegularExpression>
 
 using namespace DB;
@@ -77,7 +76,7 @@ QString ImageSearchInfo::label() const
     return m_label;
 }
 
-QRegExp ImageSearchInfo::fnPattern() const
+QRegularExpression ImageSearchInfo::fnPattern() const
 {
     return m_fnPattern;
 }
@@ -405,7 +404,7 @@ void ImageSearchInfo::compile() const
             andMatcher = new DB::AndCategoryMatcher;
 
             for (QString str : andParts) {
-                static const QRegExp regexp(QString::fromLatin1("^\\s*!\\s*(.*)$"));
+                static const QRegularExpression regexp(QString::fromLatin1("^\\s*!\\s*(.*)$"));
                 if (regexp.exactMatch(str)) { // str is preceded with NOT
                     negate = true;
                     str = regexp.cap(1);

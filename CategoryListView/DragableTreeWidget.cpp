@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -74,7 +75,7 @@ void CategoryListView::DragableTreeWidget::dragMoveEvent(QDragMoveEvent *event)
     if (event->source() != this)
         event->ignore();
 
-    QTreeWidgetItem *item = itemAt(event->pos());
+    QTreeWidgetItem *item = itemAt(event->position().toPoint());
     if (item && static_cast<CheckDropItem *>(item)->isSelfDrop(event->mimeData()))
         event->ignore();
 }

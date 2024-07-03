@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -41,11 +42,13 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent(QDragMoveEvent *event)
 
     const QRect rect = widget()->visualRect(widget()->indexUnderCursor());
 
-    if ((event->pos().y() < 10))
+    if (event->position().y() < 10) {
         widget()->scrollTo(widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter);
-    if ((event->pos().y() > widget()->viewport()->visibleRegion().cbegin()->height() - 10))
+    }
+    if (event->position().y() > widget()->viewport()->visibleRegion().cbegin()->height() - 10) {
         widget()->scrollTo(widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter);
-    const bool isLeftHalfOfItem = (event->pos().x() - rect.x() < rect.width() / 2);
+    }
+    const bool isLeftHalfOfItem = (event->position().x() - rect.x() < rect.width() / 2);
     if (isLeftHalfOfItem) {
         model()->setLeftDropItem(fileName);
         const int index = model()->indexOf(fileName) - 1;

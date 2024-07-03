@@ -76,7 +76,7 @@ Viewer::ImageDisplay::ImageDisplay(QWidget *parent)
 
 void Viewer::ImageDisplay::mousePressEvent(QMouseEvent *event)
 {
-    QMouseEvent e(event->type(), mapPos(event->pos()), event->button(), event->buttons(), event->modifiers());
+    QMouseEvent e(event->type(), QPointF(mapPos(event->position().toPoint())), event->position(), event->button(), event->buttons(), event->modifiers());
     double ratio = sizeRatio(QSize(m_zEnd.x() - m_zStart.x(), m_zEnd.y() - m_zStart.y()), size());
     bool block = m_viewHandler->mousePressEvent(&e, event->pos(), ratio);
     if (!block)
@@ -86,7 +86,7 @@ void Viewer::ImageDisplay::mousePressEvent(QMouseEvent *event)
 
 void Viewer::ImageDisplay::mouseMoveEvent(QMouseEvent *event)
 {
-    QMouseEvent e(event->type(), mapPos(event->pos()), event->button(), event->buttons(), event->modifiers());
+    QMouseEvent e(event->type(), QPointF(mapPos(event->position().toPoint())), event->position(), event->button(), event->buttons(), event->modifiers());
     double ratio = sizeRatio(QSize(m_zEnd.x() - m_zStart.x(), m_zEnd.y() - m_zStart.y()), size());
     bool block = m_viewHandler->mouseMoveEvent(&e, event->pos(), ratio);
     if (!block)
@@ -97,7 +97,7 @@ void Viewer::ImageDisplay::mouseMoveEvent(QMouseEvent *event)
 void Viewer::ImageDisplay::mouseReleaseEvent(QMouseEvent *event)
 {
     m_cache.remove(m_curIndex);
-    QMouseEvent e(event->type(), mapPos(event->pos()), event->button(), event->buttons(), event->modifiers());
+    QMouseEvent e(event->type(), QPointF(mapPos(event->position().toPoint())), event->position(), event->button(), event->buttons(), event->modifiers());
     double ratio = sizeRatio(QSize(m_zEnd.x() - m_zStart.x(), m_zEnd.y() - m_zStart.y()), size());
     bool block = m_viewHandler->mouseReleaseEvent(&e, event->pos(), ratio);
     if (!block) {

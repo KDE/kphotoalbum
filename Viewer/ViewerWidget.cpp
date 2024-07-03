@@ -77,7 +77,6 @@
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <QDebug>
-#include <QDesktopWidget>
 #include <QElapsedTimer>
 #include <QEventLoop>
 #include <QFileDialog>

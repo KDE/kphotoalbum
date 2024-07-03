@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2015-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -34,6 +34,8 @@
 #include <marble/MarbleWidget.h>
 #include <marble/RenderPlugin.h>
 #include <marble/ViewportParams.h>
+
+#include <utility>
 
 namespace
 {
@@ -498,7 +500,7 @@ void Map::MapView::mousePressEvent(QMouseEvent *event)
             qCDebug(MapLog) << "Map clicked.";
             const auto mapPos = event->pos() - m_mapWidget->pos();
 
-            for (const auto *topLevelCluster : qAsConst(m_geoClusters)) {
+            for (const auto *topLevelCluster : std::as_const(m_geoClusters)) {
                 const auto subCluster = topLevelCluster->regionForPoint(mapPos);
                 if (subCluster && !subCluster->isEmpty()) {
                     qCDebug(MapLog) << "Cluster preselected/clicked.";
@@ -530,7 +532,7 @@ void Map::MapView::mouseMoveEvent(QMouseEvent *event)
     if (event->button() == Qt::NoButton) {
         if (m_mapWidget->geometry().contains(event->pos())) {
             const auto mapPos = event->pos() - m_mapWidget->pos();
-            for (const auto *topLevelCluster : qAsConst(m_geoClusters)) {
+            for (const auto *topLevelCluster : std::as_const(m_geoClusters)) {
                 const auto subCluster = topLevelCluster->regionForPoint(mapPos);
                 // Note(jzarl) unfortunately we cannot use QWidget::setCursor here
                 if (subCluster) {
@@ -576,7 +578,7 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *v
     painter->setBrush(palette().brush(QPalette::Dark));
     painter->setPen(palette().color(QPalette::Text));
     ThumbnailParams thumbs { m_pin, MainWindow::Window::theMainWindow()->thumbnailCache(), m_markerSize };
-    for (const auto *bin : qAsConst(m_geoClusters)) {
+    for (const auto *bin : std::as_const(m_geoClusters)) {
         bin->render(painter, *viewPortParams, thumbs, mapStyle());
     }
     if (m_preselectedCluster) {

@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -17,6 +18,8 @@
 #include <QPixmap>
 #include <QTemporaryFile>
 #include <QTimer>
+
+#include <utility>
 
 namespace
 {
@@ -573,7 +576,7 @@ void ImageManager::ThumbnailCache::vacuum()
     // rebuild
     int currentFileIndex { -1 };
     ThumbnailMapping *currentFile { nullptr };
-    for (const auto &entry : qAsConst(cacheEntries)) {
+    for (const auto &entry : std::as_const(cacheEntries)) {
         Q_ASSERT(entry.info.fileIndex != -1);
         if (entry.info.fileIndex != currentFileIndex) {
             currentFileIndex = entry.info.fileIndex;

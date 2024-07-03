@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2020-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2020-2021 Nicolas Fella <nicolas.fella@gmx.de>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -41,6 +42,8 @@
 #include <QStringList>
 #include <QUrl>
 
+#include <utility>
+
 void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::FileNameList &imageList)
 {
     m_list = imageList;
@@ -79,7 +82,7 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
         else
             offers = appInfos(imageList);
 
-        for (KService::Ptr offer : qAsConst(offers)) {
+        for (KService::Ptr offer : std::as_const(offers)) {
             action = submenu->addAction(offer->name());
             action->setIcon(QIcon::fromTheme(offer->icon()));
             action->setEnabled(enabled);
@@ -131,7 +134,7 @@ QList<QUrl> MainWindow::ExternalPopup::relevantUrls(PopupAction which)
 
     if (which == PopupAction::OpenAllSelected) {
         QList<QUrl> lst;
-        for (const DB::FileName &file : qAsConst(m_list)) {
+        for (const DB::FileName &file : std::as_const(m_list)) {
             lst.append(QUrl(file.absolute()));
         }
         return lst;

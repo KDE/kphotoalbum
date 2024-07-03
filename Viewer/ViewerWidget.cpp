@@ -14,10 +14,10 @@
 // SPDX-FileCopyrightText: 2009-2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2015-2020 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2022 Friedrich W. H. Kossebau <kossebau@kde.org>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -95,7 +95,9 @@
 #include <QDesktopServices>
 #include <QInputDialog>
 #include <QMetaEnum>
+
 #include <functional>
+#include <utility>
 
 using namespace std::chrono_literals;
 
@@ -645,7 +647,7 @@ void Viewer::ViewerWidget::updateContextMenuState(bool isVideo)
     if (m_exifViewer)
         m_exifViewer->setImage(currentFile);
 
-    for (QAction *videoAction : qAsConst(m_videoActions)) {
+    for (QAction *videoAction : std::as_const(m_videoActions)) {
         videoAction->setVisible(isVideo);
     }
 

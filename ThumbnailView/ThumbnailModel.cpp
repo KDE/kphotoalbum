@@ -1,10 +1,10 @@
-// SPDX-FileCopyrightText: 2009 - 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2009-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2010 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2010 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2013 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2015 - 2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2015 Andreas Neustifter <andreas.neustifter@gmail.com>
+// SPDX-FileCopyrightText: 2015-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -29,6 +29,8 @@
 #include <QElapsedTimer>
 #include <QIcon>
 #include <QLoggingCategory>
+
+#include <utility>
 
 ThumbnailView::ThumbnailModel::ThumbnailModel(ThumbnailFactory *factory, const ImageManager::ThumbnailCache *thumbnailCache)
     : ThumbnailComponent(factory)
@@ -70,7 +72,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
     typedef QList<DB::FileName> StackList;
     typedef QMap<DB::StackID, StackList> StackMap;
     StackMap stackContents;
-    for (const DB::FileName &fileName : qAsConst(m_imageList)) {
+    for (const DB::FileName &fileName : std::as_const(m_imageList)) {
         const DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(fileName);
         if (imageInfo && imageInfo->isStacked()) {
             DB::StackID stackid = imageInfo->stackId();
@@ -93,7 +95,7 @@ void ThumbnailView::ThumbnailModel::updateDisplayModel()
      */
     m_displayList = DB::FileNameList();
     QSet<DB::StackID> alreadyShownStacks;
-    for (const DB::FileName &fileName : qAsConst(m_imageList)) {
+    for (const DB::FileName &fileName : std::as_const(m_imageList)) {
         const DB::ImageInfoPtr imageInfo = DB::ImageDB::instance()->info(fileName);
         if (!m_filter.match(imageInfo))
             continue;
@@ -203,7 +205,7 @@ void ThumbnailView::ThumbnailModel::updateIndexCache()
 {
     m_fileNameToIndex.clear();
     int index = 0;
-    for (const DB::FileName &fileName : qAsConst(m_displayList)) {
+    for (const DB::FileName &fileName : std::as_const(m_displayList)) {
         m_fileNameToIndex[fileName] = index;
         ++index;
     }
@@ -511,7 +513,7 @@ void ThumbnailView::ThumbnailModel::filterByCategory(const QString &category, co
 void ThumbnailView::ThumbnailModel::toggleCategoryFilter(const QString &category, const QString &tag)
 {
     auto tags = m_filter.categoryMatchText(category).split(QLatin1String("&"), Qt::SkipEmptyParts);
-    for (const auto &existingTag : qAsConst(tags)) {
+    for (const auto &existingTag : std::as_const(tags)) {
         if (tag == existingTag.trimmed()) {
             qCDebug(ThumbnailViewLog) << "Filter removed: category(" << category << "," << tag << ")";
             tags.removeAll(existingTag);
@@ -535,7 +537,7 @@ void ThumbnailView::ThumbnailModel::preloadThumbnails()
 {
     // FIXME: it would make a lot of sense to merge preloadThumbnails() with pixmap()
     // and maybe also move the caching stuff into the ImageManager
-    for (const DB::FileName &fileName : qAsConst(m_displayList)) {
+    for (const DB::FileName &fileName : std::as_const(m_displayList)) {
         if (fileName.isNull())
             continue;
 

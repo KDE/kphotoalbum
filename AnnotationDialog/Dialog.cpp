@@ -13,11 +13,11 @@
 // SPDX-FileCopyrightText: 2012 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2014 David Edmundson <kde@davidedmundson.co.uk>
-// SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2017 Raymond Wooninck <tittiatcoke@gmail.com>
 // SPDX-FileCopyrightText: 2017, 2019-2020 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2022 Friedrich W. H. Kossebau <kossebau@kde.org>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -83,6 +83,8 @@
 #include <QProgressBar>
 #include <QTimer>
 #endif
+
+#include <utility>
 
 namespace
 {
@@ -475,7 +477,7 @@ void AnnotationDialog::Dialog::slotCopyPrevious()
     m_lastSelectedPositionableTag.first = QString();
     m_lastSelectedPositionableTag.second = QString();
 
-    for (ListSelect *ls : qAsConst(m_optionList)) {
+    for (ListSelect *ls : std::as_const(m_optionList)) {
         ls->setSelection(old_info.itemsOfCategory(ls->category()));
 
         // Also set all positionable tag candidates
@@ -550,7 +552,7 @@ void AnnotationDialog::Dialog::load()
 
     QList<QString> positionableCategories;
 
-    for (ListSelect *ls : qAsConst(m_optionList)) {
+    for (ListSelect *ls : std::as_const(m_optionList)) {
         ls->setSelection(info.itemsOfCategory(ls->category()));
         ls->rePopulate();
 
@@ -620,7 +622,7 @@ void AnnotationDialog::Dialog::writeToInfo()
     if (m_current + 1 > m_editList.size())
         return;
 
-    for (ListSelect *ls : qAsConst(m_optionList)) {
+    for (ListSelect *ls : std::as_const(m_optionList)) {
         ls->slotReturn();
     }
 
@@ -649,7 +651,7 @@ void AnnotationDialog::Dialog::writeToInfo()
     info.setLabel(m_imageLabel->text());
     info.setDescription(m_description->description());
 
-    for (const ListSelect *ls : qAsConst(m_optionList)) {
+    for (const ListSelect *ls : std::as_const(m_optionList)) {
         info.setCategoryInfo(ls->category(), ls->itemsOn());
         if (ls->positionable()) {
             info.setPositionedTags(ls->category(), areas[ls->category()]);
@@ -743,7 +745,7 @@ int AnnotationDialog::Dialog::configure(DB::ImageInfoList list, bool oneAtATime)
         m_ratingChanged = false;
         m_areasChanged = false;
 
-        for (ListSelect *ls : qAsConst(m_optionList)) {
+        for (ListSelect *ls : std::as_const(m_optionList)) {
             setUpCategoryListBoxForMultiImageSelection(ls, list);
         }
 
@@ -792,7 +794,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search(DB::ImageSearchInfo *search
                                           m_imageLabel->text(), m_description->description(),
                                           m_imageFilePattern->text());
 
-        for (const ListSelect *ls : qAsConst(m_optionList)) {
+        for (const ListSelect *ls : std::as_const(m_optionList)) {
             m_oldSearch.setCategoryMatchText(ls->category(), ls->text());
         }
         // FIXME: for the user to search for 0-rated images, he must first change the rating to anything > 0
@@ -818,7 +820,7 @@ void AnnotationDialog::Dialog::setup()
 {
     // Repopulate the listboxes in case data has changed
     // An group might for example have been renamed.
-    for (ListSelect *ls : qAsConst(m_optionList)) {
+    for (ListSelect *ls : std::as_const(m_optionList)) {
         ls->populate();
     }
 
@@ -841,7 +843,7 @@ void AnnotationDialog::Dialog::setup()
         setWindowTitle(i18nc("@title:window", "Annotations"));
     }
 
-    for (ListSelect *ls : qAsConst(m_optionList)) {
+    for (ListSelect *ls : std::as_const(m_optionList)) {
         ls->setMode(m_setup);
     }
 }
@@ -856,7 +858,7 @@ void AnnotationDialog::Dialog::loadInfo(const DB::ImageSearchInfo &info)
     m_startDate->setDate(info.date().start().date());
     m_endDate->setDate(info.date().end().date());
 
-    for (ListSelect *ls : qAsConst(m_optionList)) {
+    for (ListSelect *ls : std::as_const(m_optionList)) {
         ls->setText(info.categoryMatchText(ls->category()));
     }
 
@@ -987,7 +989,7 @@ void AnnotationDialog::Dialog::closeEvent(QCloseEvent *e)
 
 void AnnotationDialog::Dialog::hideFloatingWindows()
 {
-    for (QDockWidget *dock : qAsConst(m_dockWidgets)) {
+    for (QDockWidget *dock : std::as_const(m_dockWidgets)) {
         if (dock->isFloating()) {
             qCDebug(AnnotationDialogLog) << "Hiding dock: " << dock->objectName();
             dock->hide();
@@ -997,7 +999,7 @@ void AnnotationDialog::Dialog::hideFloatingWindows()
 
 void AnnotationDialog::Dialog::showFloatingWindows()
 {
-    for (QDockWidget *dock : qAsConst(m_dockWidgets)) {
+    for (QDockWidget *dock : std::as_const(m_dockWidgets)) {
         if (dock->isFloating()) {
             qCDebug(AnnotationDialogLog) << "Showing dock: " << dock->objectName();
             dock->show();
@@ -1102,7 +1104,7 @@ bool AnnotationDialog::Dialog::hasChanges()
     } else if (m_setup == InputMultiImageConfigMode) {
         if ((!m_startDate->date().isNull()) || (!m_endDate->date().isNull()) || (!m_imageLabel->text().isEmpty()) || m_description->changed() || m_ratingChanged)
             return true;
-        for (const ListSelect *ls : qAsConst(m_optionList)) {
+        for (const ListSelect *ls : std::as_const(m_optionList)) {
             if (!(changedOptions(ls).isEmpty()))
                 return true;
         }
@@ -1204,7 +1206,7 @@ void AnnotationDialog::Dialog::setupFocus()
     // now setup tab order.
     QWidget *prev = nullptr;
     QWidget *first = nullptr;
-    for (QWidget *widget : qAsConst(orderedList)) {
+    for (QWidget *widget : std::as_const(orderedList)) {
         if (prev) {
             setTabOrder(prev, widget);
         } else {
@@ -1218,7 +1220,7 @@ void AnnotationDialog::Dialog::setupFocus()
     }
 
     // Finally set focus on the first list select
-    for (QWidget *widget : qAsConst(orderedList)) {
+    for (QWidget *widget : std::as_const(orderedList)) {
         if (widget->property("FocusCandidate").isValid() && widget->isVisible()) {
             widget->setFocus();
             break;
@@ -1407,11 +1409,11 @@ void AnnotationDialog::Dialog::saveAndClose()
             *(m_origList[i]) = m_editList[i];
         }
     } else if (m_setup == InputMultiImageConfigMode) {
-        for (ListSelect *ls : qAsConst(m_optionList)) {
+        for (ListSelect *ls : std::as_const(m_optionList)) {
             ls->slotReturn();
         }
 
-        for (const ListSelect *ls : qAsConst(m_optionList)) {
+        for (const ListSelect *ls : std::as_const(m_optionList)) {
             StringSet changes = changedOptions(ls);
             if (!(changes.isEmpty())) {
                 anyChanges = true;
@@ -1772,7 +1774,7 @@ void AnnotationDialog::Dialog::populateMap()
     int imagesWithCoordinates = 0;
 
     // we can use the coordinates of the original images here, because the are never changed by the annotation dialog
-    for (const DB::ImageInfoPtr &info : qAsConst(m_origList)) {
+    for (const DB::ImageInfoPtr &info : std::as_const(m_origList)) {
         processedImages++;
         m_mapLoadingProgress->setValue(processedImages);
         // keep things responsive by processing events manually:

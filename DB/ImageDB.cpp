@@ -12,8 +12,8 @@
 // SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2012-2015 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2017-2020 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -39,6 +39,8 @@
 #include <QFileInfo>
 #include <QMutex>
 #include <QProgressDialog>
+
+#include <utility>
 
 using namespace DB;
 
@@ -138,7 +140,7 @@ void ImageDB::forceUpdate(const ImageInfoList &images)
     DB::ImageInfoList newImages = images.sort();
     if (m_images.count() == 0) {
         // case 1: The existing imagelist is empty.
-        for (const DB::ImageInfoPtr &imageInfo : qAsConst(newImages))
+        for (const DB::ImageInfoPtr &imageInfo : std::as_const(newImages))
             m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
         m_images = newImages;
     } else if (newImages.count() == 0) {
@@ -146,17 +148,17 @@ void ImageDB::forceUpdate(const ImageInfoList &images)
         return;
     } else if (newImages.first()->date().start() > m_images.last()->date().start()) {
         // case 2: The new list is later than the existsing
-        for (const DB::ImageInfoPtr &imageInfo : qAsConst(newImages))
+        for (const DB::ImageInfoPtr &imageInfo : std::as_const(newImages))
             m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
         m_images.appendList(newImages);
     } else if (m_images.isSorted()) {
         // case 3: The lists overlaps, and the existsing list is sorted
-        for (const DB::ImageInfoPtr &imageInfo : qAsConst(newImages))
+        for (const DB::ImageInfoPtr &imageInfo : std::as_const(newImages))
             m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
         m_images.mergeIn(newImages);
     } else {
         // case 4: The lists overlaps, and the existsing list is not sorted in the overlapping range.
-        for (const DB::ImageInfoPtr &imageInfo : qAsConst(newImages))
+        for (const DB::ImageInfoPtr &imageInfo : std::as_const(newImages))
             m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
         m_images.appendList(newImages);
     }
@@ -507,7 +509,7 @@ QMap<QString, CountWithRange> ImageDB::classify(const ImageSearchInfo &info, con
     noMatchInfo.setCacheable(false);
 
     // Iterate through the whole database of images.
-    for (const auto &imageInfo : qAsConst(m_images)) {
+    for (const auto &imageInfo : std::as_const(m_images)) {
         bool match = ((imageInfo)->mediaType() & typemask) && !(imageInfo)->isLocked() && info.match(imageInfo) && rangeInclude(imageInfo);
         if (match) { // If the given image is currently matched.
 
@@ -516,7 +518,7 @@ QMap<QString, CountWithRange> ImageDB::classify(const ImageSearchInfo &info, con
             // to count.
             StringSet items = (imageInfo)->itemsOfCategory(category);
             counter.count(items, imageInfo->date());
-            for (const auto &categoryName : qAsConst(items)) {
+            for (const auto &categoryName : std::as_const(items)) {
                 if (!alreadyMatched.contains(categoryName)) // We do not want to match "Jesper & Jesper"
                     map[categoryName].add(imageInfo->date());
             }
@@ -620,7 +622,7 @@ void ImageDB::deleteList(const FileNameList &list)
             }
             if (newCache.size() <= 1) {
                 // we're destroying a stack
-                for (const DB::FileName &cacheName : qAsConst(newCache)) {
+                for (const DB::FileName &cacheName : std::as_const(newCache)) {
                     DB::ImageInfoPtr cacheInfo = info(cacheName);
                     cacheInfo->setStackId(0);
                     cacheInfo->setStackOrder(0);
@@ -652,7 +654,7 @@ ImageInfoPtr ImageDB::info(const FileName &fileName) const
     if (m_delayedCache.contains(name))
         return m_delayedCache[name];
 
-    for (const DB::ImageInfoPtr &imageInfo : qAsConst(m_images))
+    for (const DB::ImageInfoPtr &imageInfo : std::as_const(m_images))
         m_imageCache.insert(imageInfo->fileName().absolute(), imageInfo);
 
     if (m_imageCache.contains(name)) {
@@ -725,7 +727,7 @@ bool ImageDB::stack(const FileNameList &items)
         return false; // images already in different stacks -> can't stack
 
     DB::StackID stackId = (stacks.size() == 1) ? *(stacks.begin()) : m_nextStackId++;
-    for (DB::ImageInfoPtr info : qAsConst(images)) {
+    for (DB::ImageInfoPtr info : std::as_const(images)) {
         info->setStackOrder(stackOrder);
         info->setStackId(stackId);
         m_stackMap[stackId].append(info->fileName());
@@ -956,7 +958,7 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
                         qCWarning(DBLog) << "Manual fix required for image" << info->fileName().relative();
                         qCWarning(DBLog) << "Image was marked with tag " << categoryName << "/" << markerTag;
                     }
-                    for (const auto &name : qAsConst(tags)) {
+                    for (const auto &name : std::as_const(tags)) {
                         info->addCategoryInfo(categoryName, name);
                     }
                 }

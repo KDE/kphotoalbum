@@ -1,10 +1,13 @@
-/* SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "CategoryItem.h"
 
 #include <QList>
+
+#include <utility>
 
 DB::CategoryItem::~CategoryItem()
 {
@@ -41,7 +44,7 @@ bool DB::CategoryItem::hasChild(const QString &child) const
     if (mp_name == child)
         return true;
 
-    for (const CategoryItem *subcategory : qAsConst(mp_subcategories)) {
+    for (const CategoryItem *subcategory : std::as_const(mp_subcategories)) {
         if (subcategory->hasChild(child))
             return true;
     }

@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -124,6 +125,8 @@
 #include <QVBoxLayout>
 #include <functional>
 #include <ktip.h>
+
+#include <utility>
 
 using namespace DB;
 
@@ -1340,7 +1343,7 @@ void MainWindow::Window::triggerCopyLinkAction(CopyLinkEngine::Action action)
     }
 
     QList<QUrl> selectedFiles;
-    for (const QString &path : qAsConst(selection)) {
+    for (const QString &path : std::as_const(selection)) {
         selectedFiles.append(QUrl::fromLocalFile(path));
     }
 

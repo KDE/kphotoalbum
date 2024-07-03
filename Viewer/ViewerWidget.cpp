@@ -90,6 +90,7 @@
 #include <QTimer>
 #include <QWheelEvent>
 #include <qglobal.h>
+#include <QActionGroup>
 
 #include <QDesktopServices>
 #include <QInputDialog>

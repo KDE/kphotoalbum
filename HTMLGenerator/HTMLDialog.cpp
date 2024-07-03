@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -514,7 +515,7 @@ QString HTMLDialog::includeSelections() const
 void HTMLDialog::populateThemesCombo()
 {
     QStringList dirs = QStandardPaths::locateAll(
-        QStandardPaths::DataLocation,
+        QStandardPaths::AppLocalDataLocation,
         QString::fromLocal8Bit("themes/"),
         QStandardPaths::LocateDirectory);
     int i = 0;

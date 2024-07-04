@@ -259,7 +259,7 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
         button->setChecked(checked.toBool());
     }
 
-    m_pin = QPixmap(QStandardPaths::locate(QStandardPaths::DataLocation, QStringLiteral("pics/pin.png")));
+    m_pin = QPixmap(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, QStringLiteral("pics/pin.png")));
 }
 
 void Map::MapView::clear()

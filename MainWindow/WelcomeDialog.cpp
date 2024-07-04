@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2018 Jesper K Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -37,7 +38,7 @@ WelcomeDialog::WelcomeDialog(QWidget *parent)
     QLabel *image = new QLabel(this);
     image->setMinimumSize(QSize(273, 204));
     image->setMaximumSize(QSize(273, 204));
-    image->setPixmap(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("pics/splash.png")));
+    image->setPixmap(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, QString::fromLatin1("pics/splash.png")));
     lay2->addWidget(image);
 
     QLabel *textLabel2 = new QLabel(this);

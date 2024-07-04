@@ -9,10 +9,10 @@
 // SPDX-FileCopyrightText: 2012-2020 Yuri Chornoivan <yurchor@ukr.net>
 // SPDX-FileCopyrightText: 2012-2013 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2014-2020 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2015 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -515,7 +515,7 @@ DB::ReaderPtr DB::FileReader::readConfigFile(const QString &configFile)
     QFile file(configFile);
     if (!file.exists()) {
         // Load a default setup
-        QFile file(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("default-setup")));
+        QFile file(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, QString::fromLatin1("default-setup")));
         if (!file.open(QIODevice::ReadOnly)) {
             m_db->uiDelegate().information(
                 DB::LogMessage { DBLog(), QString::fromLatin1("default-setup not found in standard paths.") },

@@ -782,7 +782,7 @@ DB::ImageSearchInfo AnnotationDialog::Dialog::search(DB::ImageSearchInfo *search
 
     setup();
 
-    m_preview->setImage(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("pics/search.jpg")));
+    m_preview->setImage(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, QString::fromLatin1("pics/search.jpg")));
 
     m_ratingChanged = false;
     showHelpDialog(SearchMode);

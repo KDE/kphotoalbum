@@ -33,6 +33,7 @@
 #include <QRadioButton>
 #include <QSpinBox>
 #include <QVBoxLayout>
+#include <QRegularExpression>
 
 #include <utility>
 
@@ -176,11 +177,11 @@ void AutoStackImages::matchingFile(DB::FileNameList &toBeShown)
     QMap<DB::MD5, DB::FileNameList> tostack;
     DB::FileNameList showIfStacked;
     QString modifiedFileCompString;
-    QRegExp modifiedFileComponent;
+    QRegularExpression modifiedFileComponent;
     QStringList originalFileComponents;
 
     modifiedFileCompString = Settings::SettingsData::instance()->modifiedFileComponent();
-    modifiedFileComponent = QRegExp(modifiedFileCompString);
+    modifiedFileComponent = QRegularExpression(modifiedFileCompString);
 
     originalFileComponents << Settings::SettingsData::instance()->originalFileComponent();
     originalFileComponents = originalFileComponents.at(0).split(QString::fromLatin1(";"));

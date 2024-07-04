@@ -45,6 +45,8 @@
 #include <QStandardPaths>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <QDesktopServices>
+#include <QRegularExpression>
 
 namespace
 {
@@ -204,12 +206,13 @@ bool HTMLGenerator::Generator::generateIndexPage(int width, int height)
         return false;
 
     // Adding the copyright comment after DOCTYPE not before (HTML standard requires the DOCTYPE to be first within the document)
-    QRegExp rx(QString::fromLatin1("^(<!DOCTYPE[^>]*>)"));
+    QRegularExpression rx(QLatin1String("^(<!DOCTYPE[^>]*>)"), QRegularExpression::CaseInsensitiveOption);
     int position;
 
-    rx.setCaseSensitivity(Qt::CaseInsensitive);
-    position = rx.indexIn(content);
-    if ((position += rx.matchedLength()) < 0)
+    // FIXME: KF6 port - Please review if this still does the same thing as the old QRegExp code did
+    auto match = rx.match(content);
+    position = match.hasMatch() ? match.capturedStart() : -1;
+    if ((position += match.capturedLength()) < 0)
         content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName, themeAuthor) + content;
     else
         content.insert(position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName, themeAuthor));
@@ -412,12 +415,13 @@ bool HTMLGenerator::Generator::generateContentPage(int width, int height,
     const DB::FileName currentFile = info->fileName();
 
     // Adding the copyright comment after DOCTYPE not before (HTML standard requires the DOCTYPE to be first within the document)
-    QRegExp rx(QString::fromLatin1("^(<!DOCTYPE[^>]*>)"));
+    QRegularExpression rx(QLatin1String("^(<!DOCTYPE[^>]*>)"), QRegularExpression::CaseInsensitiveOption);
     int position;
 
-    rx.setCaseSensitivity(Qt::CaseInsensitive);
-    position = rx.indexIn(content);
-    if ((position += rx.matchedLength()) < 0)
+    // FIXME: KF6 port - Please review if this still does the same thing as the old QRegExp code did
+    auto match = rx.match(content);
+    position = match.hasMatch() ? match.capturedStart() : -1;
+    if ((position += match.capturedLength()) < 0)
         content = QString::fromLatin1("<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName, themeAuthor) + content;
     else
         content.insert(position, QString::fromLatin1("\n<!--\nMade with KPhotoAlbum. (https://www.kphotoalbum.org/)\nCopyright &copy; Jesper K. Pedersen\nTheme %1 by %2\n-->\n").arg(themeName, themeAuthor));
@@ -441,7 +445,7 @@ bool HTMLGenerator::Generator::generateContentPage(int width, int height,
     // Image or video content
     if (KPABase::isVideo(currentFile)) {
         QString videoFile = createVideo(currentFile);
-        QString videoBase = videoFile.replace(QRegExp(QString::fromLatin1("\\..*")), QString::fromLatin1(""));
+        QString videoBase = videoFile.replace(QRegularExpression(QString::fromLatin1("\\..*")), QString::fromLatin1(""));
         if (m_setup.inlineMovies())
             if (m_setup.html5Video())
                 content.replace(QString::fromLatin1("**IMAGE_OR_VIDEO**"), QString::fromLatin1("<video controls><source src=\"%4\" type=\"video/mp4\" /><source src=\"%5\" type=\"video/ogg\" /><object data=\"%1\"><img src=\"%2\" alt=\"download\"/></object></video><a href=\"%3\"><img src=\"download.png\" /></a>").arg(QString::fromLatin1("%1.mp4").arg(videoBase)).arg(createImage(current, 256)).arg(QString::fromLatin1("%1.mp4").arg(videoBase)).arg(QString::fromLatin1("%1.mp4").arg(videoBase)).arg(QString::fromLatin1("%1.ogg").arg(videoBase)));
@@ -608,9 +612,9 @@ QString HTMLGenerator::Generator::createVideo(const DB::FileName &fileName)
                                    .arg(m_avconv)
                                    .arg(fileName.absolute())
                                    .arg(QString::fromLatin1("320x240"))
-                                   .arg(destName.replace(QRegExp(QString::fromLatin1("\\..*")), QString::fromLatin1(".mp4")));
+                                   .arg(destName.replace(QRegularExpression(QString::fromLatin1("\\..*")), QString::fromLatin1(".mp4")));
             const auto f2tCmd = QString::fromLatin1("ffmpeg2theora -v 7 -o %1 -x %2 %3")
-                                    .arg(destName.replace(QRegExp(QString::fromLatin1("\\..*")), QString::fromLatin1(".ogg")))
+                                    .arg(destName.replace(QRegularExpression(QString::fromLatin1("\\..*")), QString::fromLatin1(".ogg")))
                                     .arg(QString::fromLatin1("320"))
                                     .arg(fileName.absolute());
             KIO::CommandLauncherJob *avJob = new KIO::CommandLauncherJob(avCmd);
@@ -718,10 +722,10 @@ void HTMLGenerator::Generator::getThemeInfo(QString *baseDir, QString *name, QSt
 {
     *baseDir = m_setup.themePath();
     KConfig themeconfig(QString::fromLatin1("%1/kphotoalbum.theme").arg(*baseDir), KConfig::SimpleConfig);
-    KConfigGroup config = themeconfig.group("theme");
+    KConfigGroup config = themeconfig.group(QLatin1String("theme"));
 
-    *name = config.readEntry("Name");
-    *author = config.readEntry("Author");
+    *name = config.readEntry(QLatin1String("Name"));
+    *author = config.readEntry(QLatin1String("Author"));
 }
 
 int HTMLGenerator::Generator::maxImageSize()
@@ -754,9 +758,9 @@ void HTMLGenerator::Generator::showBrowser()
     if (m_setup.generateKimFile())
         ImportExport::Export::showUsageDialog();
 
-    if (!m_setup.baseURL().isEmpty())
-        new KRun(QUrl::fromUserInput(QString::fromLatin1("%1/%2/index.html").arg(m_setup.baseURL(), m_setup.outputDir())),
-                 MainWindow::Window::theMainWindow());
+    if (!m_setup.baseURL().isEmpty()) {
+        QDesktopServices::openUrl(QUrl::fromLocalFile(QStringLiteral("%1/%2/index.html").arg(m_setup.baseURL(), m_setup.outputDir())));
+    }
 
     m_eventLoop->exit();
 }

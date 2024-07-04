@@ -123,8 +123,9 @@
 #include <QStackedWidget>
 #include <QTimer>
 #include <QVBoxLayout>
-#include <functional>
+#include <QActionGroup>
 
+#include <functional>
 #include <utility>
 
 using namespace DB;
@@ -804,7 +805,7 @@ void MainWindow::Window::setupMenuBar()
     a->setEnabled(false);
 
     a = KStandardAction::home(m_browser, &Browser::BrowserWidget::home, actionCollection());
-    actionCollection()->setDefaultShortcut(a, Qt::CTRL + Qt::Key_Home);
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL, Qt::Key_Home));
     connect(a, &QAction::triggered, m_dateBar, &DateBar::DateBarWidget::clearSelection);
 
     KStandardAction::redisplay(m_browser, &Browser::BrowserWidget::go, actionCollection());
@@ -832,22 +833,22 @@ void MainWindow::Window::setupMenuBar()
 
     m_configOneAtATime = actionCollection()->addAction(QString::fromLatin1("oneProp"), this, &Window::slotConfigureImagesOneAtATime);
     m_configOneAtATime->setText(i18n("Annotate Individual Items"));
-    actionCollection()->setDefaultShortcut(m_configOneAtATime, Qt::CTRL + Qt::Key_1);
+    actionCollection()->setDefaultShortcut(m_configOneAtATime, QKeySequence(Qt::CTRL, Qt::Key_1));
 
     m_configAllSimultaniously = actionCollection()->addAction(QString::fromLatin1("allProp"), this, &Window::slotConfigureAllImages);
     m_configAllSimultaniously->setText(i18n("Annotate Multiple Items at a Time"));
-    actionCollection()->setDefaultShortcut(m_configAllSimultaniously, Qt::CTRL + Qt::Key_2);
+    actionCollection()->setDefaultShortcut(m_configAllSimultaniously, QKeySequence(Qt::CTRL, Qt::Key_2));
 
     m_createImageStack = actionCollection()->addAction(QString::fromLatin1("createImageStack"), this, &Window::slotCreateImageStack);
     m_createImageStack->setText(i18n("Merge Images into a Stack"));
-    actionCollection()->setDefaultShortcut(m_createImageStack, Qt::CTRL + Qt::Key_3);
+    actionCollection()->setDefaultShortcut(m_createImageStack, QKeySequence(Qt::CTRL, Qt::Key_3));
 
     m_unStackImages = actionCollection()->addAction(QString::fromLatin1("unStackImages"), this, &Window::slotUnStackImages);
     m_unStackImages->setText(i18n("Remove Images from Stack"));
 
     m_setStackHead = actionCollection()->addAction(QString::fromLatin1("setStackHead"), this, &Window::slotSetStackHead);
     m_setStackHead->setText(i18n("Set as First Image in Stack"));
-    actionCollection()->setDefaultShortcut(m_setStackHead, Qt::CTRL + Qt::Key_4);
+    actionCollection()->setDefaultShortcut(m_setStackHead, QKeySequence(Qt::CTRL, Qt::Key_4));
 
     m_rotLeft = actionCollection()->addAction(QString::fromLatin1("rotateLeft"), this, &Window::slotRotateSelectedLeft);
     m_rotLeft->setText(i18n("Rotate counterclockwise"));
@@ -867,7 +868,7 @@ void MainWindow::Window::setupMenuBar()
     m_runSlideShow = actionCollection()->addAction(QString::fromLatin1("runSlideShow"), this, &Window::slotRunSlideShow);
     m_runSlideShow->setText(i18n("Run Slide Show"));
     m_runSlideShow->setIcon(QIcon::fromTheme(QString::fromLatin1("view-presentation")));
-    actionCollection()->setDefaultShortcut(m_runSlideShow, Qt::CTRL + Qt::Key_R);
+    actionCollection()->setDefaultShortcut(m_runSlideShow, QKeySequence(Qt::CTRL, Qt::Key_R));
 
     m_runRandomSlideShow = actionCollection()->addAction(QString::fromLatin1("runRandomizedSlideShow"), this, &Window::slotRunRandomizedSlideShow);
     m_runRandomSlideShow->setText(i18n("Run Randomized Slide Show"));
@@ -904,7 +905,7 @@ void MainWindow::Window::setupMenuBar()
 
     m_jumpToContext = actionCollection()->addAction(QString::fromLatin1("jumpToContext"), this, &Window::slotJumpToContext);
     m_jumpToContext->setText(i18n("Jump to Context"));
-    actionCollection()->setDefaultShortcut(m_jumpToContext, Qt::CTRL + Qt::Key_J);
+    actionCollection()->setDefaultShortcut(m_jumpToContext, QKeySequence(Qt::CTRL, Qt::Key_J));
     m_jumpToContext->setIcon(QIcon::fromTheme(QString::fromLatin1("kphotoalbum"))); // icon suggestion: go-jump (don't know the exact meaning though, so I didn't replace it right away
 
     m_lock = actionCollection()->addAction(QString::fromLatin1("lockToDefaultScope"), this, &Window::lockToDefaultScope);
@@ -962,7 +963,7 @@ void MainWindow::Window::setupMenuBar()
 
     a = actionCollection()->add<KToggleAction>(QString::fromLatin1("showToolTipOnImages"));
     a->setText(i18n("Show Tooltips in Thumbnails Window"));
-    actionCollection()->setDefaultShortcut(a, Qt::CTRL + Qt::Key_T);
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL, Qt::Key_T));
     connect(a, &QAction::toggled, m_thumbnailView, &ThumbnailView::ThumbnailFacade::showToolTipsOnImages);
 
     a = actionCollection()->add<KToggleAction>(QString::fromLatin1("showLabelBelowThumbnail"));
@@ -988,7 +989,7 @@ void MainWindow::Window::setupMenuBar()
     KColorSchemeManager *schemes = new KColorSchemeManager(this);
     const QString schemePath = Settings::SettingsData::instance()->colorScheme();
     const auto schemeCfg = KSharedConfig::openConfig(schemePath);
-    const QString activeSchemeName = schemeCfg->group("General").readEntry("Name", QFileInfo(schemePath).baseName());
+    const QString activeSchemeName = schemeCfg->group(QLatin1String("General")).readEntry(QLatin1String("Name"), QFileInfo(schemePath).baseName());
 #if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(5, 107, 0)
     const auto activeSchemeIndex = schemes->indexForScheme(activeSchemeName);
     if (activeSchemeIndex.isValid())
@@ -1077,11 +1078,11 @@ void MainWindow::Window::setupMenuBar()
 
     m_useNextVideoThumbnail = actionCollection()->addAction(QString::fromLatin1("useNextVideoThumbnail"), this, &Window::useNextVideoThumbnail);
     m_useNextVideoThumbnail->setText(i18n("Use next video thumbnail"));
-    actionCollection()->setDefaultShortcut(m_useNextVideoThumbnail, Qt::CTRL + Qt::Key_Plus);
+    actionCollection()->setDefaultShortcut(m_useNextVideoThumbnail, QKeySequence(Qt::CTRL, Qt::Key_Plus));
 
     m_usePreviousVideoThumbnail = actionCollection()->addAction(QString::fromLatin1("usePreviousVideoThumbnail"), this, &Window::usePreviousVideoThumbnail);
     m_usePreviousVideoThumbnail->setText(i18n("Use previous video thumbnail"));
-    actionCollection()->setDefaultShortcut(m_usePreviousVideoThumbnail, Qt::CTRL + Qt::Key_Minus);
+    actionCollection()->setDefaultShortcut(m_usePreviousVideoThumbnail, QKeySequence(Qt::CTRL, Qt::Key_Minus));
 
     m_copyAction = actionCollection()->addAction(QStringLiteral("copyImagesTo"), this, std::bind(&Window::triggerCopyLinkAction, this, CopyLinkEngine::Copy));
     m_copyAction->setText(i18np("Copy image to ...", "Copy images to ...", 1));
@@ -1089,7 +1090,7 @@ void MainWindow::Window::setupMenuBar()
 
     m_linkAction = actionCollection()->addAction(QStringLiteral("linkImagesTo"), this, std::bind(&Window::triggerCopyLinkAction, this, CopyLinkEngine::Link));
     m_linkAction->setText(i18np("Link image to ...", "Link images to ...", 1));
-    actionCollection()->setDefaultShortcut(m_linkAction, Qt::SHIFT + Qt::Key_F7);
+    actionCollection()->setDefaultShortcut(m_linkAction, QKeySequence(Qt::SHIFT, Qt::Key_F7));
 
     setupGUI(KXmlGuiWindow::ToolBar | Create | Save);
 }

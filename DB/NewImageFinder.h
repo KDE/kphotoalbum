@@ -6,6 +6,7 @@
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2017-2018 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -40,7 +41,7 @@ private:
     LoadList m_pendingLoad;
 
     QString m_modifiedFileCompString;
-    QRegExp m_modifiedFileComponent;
+    QRegularExpression m_modifiedFileComponent;
     QStringList m_originalFileComponents;
     static QMutex s_imageFinderLock; ///< Only one NewImageFinder can accesss the database at any time!
 };

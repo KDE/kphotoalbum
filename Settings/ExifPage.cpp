@@ -56,6 +56,6 @@ void Settings::ExifPage::loadSettings(Settings::SettingsData *opt)
     m_exifForDialog->reload();
     m_exifForViewer->setSelectedExif(Settings::SettingsData::instance()->exifForViewer());
     m_exifForDialog->setSelectedExif(Settings::SettingsData::instance()->exifForDialog());
-    m_iptcCharset->setCurrentIndex(qMax(0, m_availableCodecs.indexOf(opt->iptcCharset().toLatin1())));
+    m_iptcCharset->setCurrentIndex(qMax(0, m_availableCodecs.indexOf(opt->iptcCharset())));
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

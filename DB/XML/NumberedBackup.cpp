@@ -73,10 +73,10 @@ int DB::NumberedBackup::idForFile(const QString &fileName, bool &OK) const
 {
     // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
     QRegularExpression reg(QStringLiteral("index\\.xml~([0-9]+)~(.zip)?"));
-    const auto match = reg.match(fileName)
+    const auto match = reg.match(fileName);
     if (match.hasMatch()) {
         OK = true;
-        return match.capture(1).toInt();
+        return match.captured(1).toInt();
     } else {
         OK = false;
         return -1;

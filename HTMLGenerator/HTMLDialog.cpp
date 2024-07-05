@@ -533,15 +533,15 @@ void HTMLDialog::populateThemesCombo()
             QString themePath = QString::fromLatin1("%1/%2/").arg(dir.path(), *it);
 
             KConfig themeconfig(QString::fromLatin1("%1/kphotoalbum.theme").arg(themePath), KConfig::SimpleConfig);
-            KConfigGroup config = themeconfig.group("theme");
-            QString themeName = config.readEntry("Name");
+            KConfigGroup config = themeconfig.group(QStringLiteral("theme"));
+            QString themeName = config.readEntry(QStringLiteral("Name"));
             // without the name, we can't show anything useful for the user to choose
             if (themeName.trimmed().isEmpty())
                 continue;
-            QString themeAuthor = config.readEntry("Author");
+            QString themeAuthor = config.readEntry(QStringLiteral("Author"));
             m_themeAuthors << themeAuthor; // save author to display later
-            QString themeDefault = config.readEntry("Default");
-            QString themeDescription = config.readEntry("Description");
+            QString themeDefault = config.readEntry(QStringLiteral("Default"));
+            QString themeDescription = config.readEntry(QStringLiteral("Description"));
             m_themeDescriptions << themeDescription; // save description to display later
 
             // m_themeBox->insertItem( i, i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative

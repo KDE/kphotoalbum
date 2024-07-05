@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -28,6 +29,7 @@
 #include <QProgressDialog>
 #include <kio/job.h>
 #include <kio_version.h>
+#include <KIO/FileCopyJob>
 #include <kmessagebox.h>
 #include <kwidgetsaddons_version.h>
 #include <memory>

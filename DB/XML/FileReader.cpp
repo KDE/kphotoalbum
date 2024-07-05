@@ -36,7 +36,6 @@
 #include <QLocale>
 #include <QRegularExpression>
 #include <QStandardPaths>
-#include <QTextCodec>
 #include <QTextStream>
 
 void DB::FileReader::read(const QString &configFile)
@@ -530,7 +529,6 @@ DB::ReaderPtr DB::FileReader::readConfigFile(const QString &configFile)
                 i18n("No default setup file found"));
         } else {
             QTextStream stream(&file);
-            stream.setCodec(QTextCodec::codecForName("UTF-8"));
             QString str = stream.readAll();
 
             // Replace the default setup's category and tag names with localized ones

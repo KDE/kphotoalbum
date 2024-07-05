@@ -127,7 +127,7 @@ QString Utilities::createInfoText(DB::ImageInfoPtr info, QMap<int, QPair<QString
                     if (linkMap) {
                         ++link;
                         (*linkMap)[link] = QPair<QString, QString>(categoryName, item);
-                        infoText += QLatin1String("<a href=\"%1\">%2</a>").arg(link).arg(item);
+                        infoText += QStringLiteral("<a href=\"%1\">%2</a>").arg(QString::number(link), item);
                         const auto birth = category->birthDate(item);
                         infoText += Timespan::age(birth, info->date());
                     } else {

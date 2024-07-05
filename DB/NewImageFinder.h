@@ -16,6 +16,7 @@
 #include "ImageInfoPtr.h"
 
 #include <QMutex>
+#include <QRegularExpression>
 
 namespace DB
 {

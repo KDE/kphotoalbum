@@ -41,6 +41,7 @@
 #include <QPixmap>
 #include <QStringList>
 #include <QUrl>
+#include <QRegularExpression>
 
 #include <utility>
 
@@ -150,7 +151,7 @@ QList<QUrl> MainWindow::ExternalPopup::relevantUrls(PopupAction which)
         QString newFile = origFile;
 
         QString origRegexpString = Settings::SettingsData::instance()->copyFileComponent();
-        QRegExp origRegexp = QRegExp(origRegexpString);
+        auto origRegexp = QRegularExpression(origRegexpString);
         QString copyFileReplacement = Settings::SettingsData::instance()->copyFileReplacementComponent();
 
         if (origRegexpString.length() > 0) {

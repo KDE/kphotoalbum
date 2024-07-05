@@ -1,7 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2019 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2020-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -10,10 +9,10 @@
 #include "ListSelect.h"
 
 #include <QKeyEvent>
-#include <QRegExp>
 #include <QTreeWidgetItem>
 #include <QTreeWidgetItemIterator>
 #include <kcompletion_version.h>
+#include <QRegularExpression>
 
 AnnotationDialog::CompletableLineEdit::CompletableLineEdit(ListSelect *parent)
     : KLineEdit(parent)
@@ -93,7 +92,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent(QKeyEvent *ev)
     QString input = text();
     if (m_mode == SearchMode) {
         input = input.left(cursorPosition());
-        itemStart = input.lastIndexOf(QRegExp(QString::fromLatin1("[!&|]"))) + 1;
+        itemStart = input.lastIndexOf(QRegularExpression(QStringLiteral("[!&|]"))) + 1;
 
         if (itemStart > 0) {
             itemStart++;
@@ -177,7 +176,7 @@ void AnnotationDialog::CompletableLineEdit::handleSpecialKeysInSearch(QKeyEvent 
     deselect();
 
     // Select the item in the listView - not perfect but acceptable for now.
-    int start = txt.lastIndexOf(QRegExp(QString::fromLatin1("[!&|]")), cursorPosition() - 2) + 1;
+    int start = txt.lastIndexOf(QRegularExpression(QStringLiteral("[!&|]")), cursorPosition() - 2) + 1;
     if (start > 0) {
         start++;
     }
@@ -223,7 +222,7 @@ void AnnotationDialog::CompletableLineEdit::selectPrevNextMatch(bool next)
     }
 
     // extract last component of line edit
-    int itemStart = text().lastIndexOf(QRegExp(QString::fromLatin1("[!&|]"))) + 1;
+    int itemStart = text().lastIndexOf(QRegularExpression(QStringLiteral("[!&|]"))) + 1;
     selectItemAndUpdateLineEdit(item, itemStart, text().left(selectionStart()));
 }
 

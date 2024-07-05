@@ -34,7 +34,7 @@
 #include <QFile>
 #include <QHash>
 #include <QLocale>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QStandardPaths>
 #include <QTextCodec>
 #include <QTextStream>
@@ -539,9 +539,9 @@ DB::ReaderPtr DB::FileReader::readConfigFile(const QString &configFile)
             str = str.replace(QString::fromUtf8("Events"), i18n("Events"));
             str = str.replace(QString::fromUtf8("untagged"), i18n("untagged"));
 
-            str = str.replace(QRegExp(QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1(""));
-            str = str.replace(QRegExp(QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1(""));
-            str = str.replace(QRegExp(QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1(""));
+            str = str.replace(QRegularExpression(QStringLiteral("imageDirectory=\"[^\"]*\"")), QString());
+            str = str.replace(QRegularExpression(QStringLiteral("htmlBaseDir=\"[^\"]*\"")), QString());
+            str = str.replace(QRegularExpression(QStringLiteral("htmlBaseURL=\"[^\"]*\"")), QString());
             reader->addData(str);
         }
     } else {
@@ -608,19 +608,23 @@ QString DB::FileReader::unescape(const QString &str)
 
     QString tmp(str);
     // Matches encoded characters in attribute names
-    QRegExp rx(QString::fromLatin1("(_.)([0-9A-F]{2})"));
+    QRegularExpression rx(QStringLiteral("(_.)([0-9A-F]{2})"));
     int pos = 0;
 
     // Unencoding special characters if compressed XML is selected
+    // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
     if (useCompressedFileFormat()) {
-        while ((pos = rx.indexIn(tmp, pos)) != -1) {
-            QString before = rx.cap(1) + rx.cap(2);
-            QString after = QString::fromLatin1(QByteArray::fromHex(rx.cap(2).toLocal8Bit()));
+        auto match = rx.match(tmp);
+        while (match.hasMatch()) {
+            QString before = match.captured(1) + match.captured(2);
+            QString after = QString::fromLatin1(QByteArray::fromHex(match.captured(2).toLocal8Bit()));
             tmp.replace(pos, before.length(), after);
             pos += after.length();
+            rx.match(tmp, pos);
         }
-    } else
-        tmp.replace(QString::fromLatin1("_"), QString::fromLatin1(" "));
+    } else {
+        tmp.replace(QStringLiteral("_"), QStringLiteral(" "));
+    }
 
     s_cache.insert(str, tmp);
     return tmp;

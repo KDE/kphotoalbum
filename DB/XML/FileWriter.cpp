@@ -32,6 +32,7 @@
 #include <QFileInfo>
 #include <QMutexLocker>
 #include <QXmlStreamWriter>
+#include <QRegularExpression>
 
 #include <utility>
 
@@ -503,19 +504,24 @@ QString DB::FileWriter::escape(const QString &str)
 
     QString tmp(str);
     // Regex to match characters that are not allowed to start XML attribute names
-    static const QRegExp rx(QStringLiteral("([^a-zA-Z0-9:_])"));
+    static const QRegularExpression rx(QStringLiteral("([^a-zA-Z0-9:_])"));
     int pos = 0;
 
     // Encoding special characters if compressed XML is selected
+    // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
     if (useCompressedFileFormat()) {
-        while ((pos = rx.indexIn(tmp, pos)) != -1) {
-            QString before = rx.cap(1);
-            QString after = QString::asprintf("_.%0X", rx.cap(1).data()->toLatin1());
+        auto match = rx.match(tmp);
+        while (match.hasMatch()) {
+            QString before = match.captured(1);
+            QString after = QString::asprintf("_.%0X", match.captured(1).data()->toLatin1());
             tmp.replace(pos, before.length(), after);
             pos += after.length();
+            match = rx.match(tmp, pos);
         }
-    } else
+    } else {
         tmp.replace(QStringLiteral(" "), QStringLiteral("_"));
+    }
+
     s_cache.insert(str, tmp);
     return tmp;
 }

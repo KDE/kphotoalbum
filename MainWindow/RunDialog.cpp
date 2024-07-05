@@ -70,10 +70,15 @@ void MainWindow::RunDialog::setImageList(const DB::FileNameList &fileList)
 void MainWindow::RunDialog::slotMarkGo()
 {
     QString cmdString = m_cmd->text();
+
+    // FIXME: KF6 port: Neither replaceall nor replaceeach are actually regular expressions, neither
+    // do we need regular expressions for the simple substitution below. So I suppose we can simply
+    // use QStrings here?!
+
     // xgettext: no-c-format
-    QRegExp replaceall = QRegExp(i18nc("As in 'Execute a command and replace any occurrence of %all with the filenames of all selected files'", "%all"));
+    const QString replaceall = i18nc("As in 'Execute a command and replace any occurrence of %all with the filenames of all selected files'", "%all");
     // xgettext: no-c-format
-    QRegExp replaceeach = QRegExp(i18nc("As in 'Execute a command for each selected file in turn and replace any occurrence of %each with the filename ", "%each"));
+    const QString replaceeach = i18nc("As in 'Execute a command for each selected file in turn and replace any occurrence of %each with the filename ", "%each");
 
     // Replace the %all argument first
     QStringList fileList;

@@ -12,9 +12,9 @@
 // SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
 // SPDX-FileCopyrightText: 2013 Reimar Imhof <Reimar.Imhof@netcologne.de>
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2015 Yuri Chornoivan <yurchor@ukr.net>
 // SPDX-FileCopyrightText: 2017 Raymond Wooninck <tittiatcoke@gmail.com>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -296,8 +296,8 @@ void AnnotationDialog::ListSelect::itemSelected(QTreeWidgetItem *item)
     if (m_mode == SearchMode) {
         QString txt = item->text(0);
         QString res;
-        QRegExp regEnd(QString::fromLatin1("\\s*[&|!]\\s*$"));
-        QRegExp regStart(QString::fromLatin1("^\\s*[&|!]\\s*"));
+        QRegularExpression regEnd(QStringLiteral("\\s*[&|!]\\s*$"));
+        QRegularExpression regStart(QStringLiteral("^\\s*[&|!]\\s*"));
 
         if (item->checkState(0) == Qt::Checked) {
             int matchPos = m_lineEdit->text().indexOf(txt);

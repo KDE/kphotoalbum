@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -8,7 +9,7 @@
 #include <KLocalizedString>
 #include <QDebug>
 #include <QLocale>
-#include <qregexp.h>
+#include <QRegularExpression>
 
 using namespace DB;
 
@@ -332,16 +333,18 @@ void ImageDate::extendTo(const ImageDate &other)
 
 QDate DB::parseDateString(const QString &dateString, bool assumeStartDate)
 {
-    QRegExp regexp(formatRegexp(), Qt::CaseInsensitive);
+    // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
+    QRegularExpression regexp(formatRegexp(), QRegularExpression::CaseInsensitiveOption);
+    const auto match = regexp.match(dateString);
 
-    if (regexp.exactMatch(dateString)) {
+    if (match.hasMatch()) {
         int year = 0;
         int month = 0;
         int day = 0;
 
-        QString dayStr = regexp.cap(2);
-        QString monthStr = regexp.cap(5).toLower();
-        QString yearStr = regexp.cap(7);
+        QString dayStr = match.capture(2);
+        QString monthStr = match.capture(5).toLower();
+        QString yearStr = match.capture(7);
 
         if (dayStr.length() != 0)
             day = dayStr.toInt();

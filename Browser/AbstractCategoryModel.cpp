@@ -3,7 +3,7 @@
 // SPDX-FileCopyrightText: 2009-2010 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2015-2016 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2015-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -18,6 +18,7 @@
 #include <KLocalizedString>
 #include <QApplication>
 #include <QIcon>
+#include <QRegularExpression>
 
 Browser::AbstractCategoryModel::AbstractCategoryModel(const DB::CategoryPtr &category, const DB::ImageSearchInfo &info)
     : m_category(category)
@@ -45,9 +46,9 @@ QString Browser::AbstractCategoryModel::text(const QString &name) const
 
     else {
         if (m_category->type() == DB::Category::FolderCategory) {
-            QRegExp rx(QString::fromLatin1("(.*/)(.*)$"));
+            const QRegularExpression rx(QStringLiteral("(.*/)(.*)$"));
             QString value = name;
-            value.replace(rx, QString::fromLatin1("\\2"));
+            value.replace(rx, QLatin1String("\\2"));
             return value;
         } else {
             return name;

@@ -1,9 +1,9 @@
-// SPDX-FileCopyrightText: 2005 - 2010 Jesper K. Pedersen <jesper.pedersen@kdab.com>
-// SPDX-FileCopyrightText: 2007 - 2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2005-2010 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
 // SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
-// SPDX-FileCopyrightText: 2012 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2020 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2020-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -17,7 +17,7 @@
 #include <KLocalizedString>
 #include <KZip>
 #include <QDir>
-#include <QRegExp>
+#include <QRegularExpression>
 
 DB::NumberedBackup::NumberedBackup(DB::UIDelegate &ui)
     : m_ui(ui)
@@ -71,10 +71,12 @@ QStringList DB::NumberedBackup::backupFiles() const
 
 int DB::NumberedBackup::idForFile(const QString &fileName, bool &OK) const
 {
-    QRegExp reg(QStringLiteral("index\\.xml~([0-9]+)~(.zip)?"));
-    if (reg.exactMatch(fileName)) {
+    // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
+    QRegularExpression reg(QStringLiteral("index\\.xml~([0-9]+)~(.zip)?"));
+    const auto match = reg.match(fileName)
+    if (match.hasMatch()) {
         OK = true;
-        return reg.cap(1).toInt();
+        return match.capture(1).toInt();
     } else {
         OK = false;
         return -1;

@@ -1281,7 +1281,7 @@ void AnnotationDialog::Dialog::setupActions()
     QAction *action = nullptr;
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-sort-alphatree"), m_optionList.at(0), &ListSelect::slotSortAlphaTree);
     action->setText(i18n("Sort Alphabetically (Tree)"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_F4);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL, Qt::Key_F4));
 
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-sort-alphaflat"), m_optionList.at(0), &ListSelect::slotSortAlphaFlat);
     action->setText(i18n("Sort Alphabetically (Flat)"));
@@ -1291,12 +1291,12 @@ void AnnotationDialog::Dialog::setupActions()
 
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-toggle-sort"), m_optionList.at(0), &ListSelect::toggleSortType);
     action->setText(i18n("Toggle Sorting"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_T);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL, Qt::Key_T));
 
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-toggle-showing-selected-only"),
                                   &ShowSelectionOnlyManager::instance(), &ShowSelectionOnlyManager::toggle);
     action->setText(i18n("Toggle Showing Selected Items Only"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_S);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL, Qt::Key_S));
 
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-next-image"), m_preview, &ImagePreviewWidget::slotNext);
     action->setText(i18n("Annotate Next"));
@@ -1308,11 +1308,11 @@ void AnnotationDialog::Dialog::setupActions()
 
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-OK-dialog"), this, &Dialog::doneTagging);
     action->setText(i18n("OK dialog"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Return);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL, Qt::Key_Return));
 
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-copy-previous"), this, &Dialog::slotCopyPrevious);
     action->setText(i18n("Copy tags from previous image"));
-    m_actions->setDefaultShortcut(action, Qt::ALT + Qt::Key_Insert);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::ALT, Qt::Key_Insert));
 
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-rotate-left"), m_preview, &ImagePreviewWidget::rotateLeft);
     action->setText(i18n("Rotate counterclockwise"));
@@ -1322,7 +1322,7 @@ void AnnotationDialog::Dialog::setupActions()
 
     action = m_actions->addAction(QString::fromLatin1("annotationdialog-toggle-viewer"), this, &Dialog::togglePreview);
     action->setText(i18n("Toggle fullscreen preview"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Space);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL, Qt::Key_Space));
 
     const auto allActions = m_actions->actions();
     for (QAction *action : allActions) {

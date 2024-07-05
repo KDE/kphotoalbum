@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2023 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -91,7 +92,7 @@ namespace
     KConfigGroup configGroup()
     {
         const auto section = Settings::SettingsData::instance()->groupForDatabase("viewer keybindings");
-        return KSharedConfig::openConfig(QString::fromLatin1("kphotoalbumrc"))->group(section);
+        return KSharedConfig::openConfig(QString::fromLatin1("kphotoalbumrc"))->group(QString::fromLatin1(section));
     }
 }
 

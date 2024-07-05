@@ -15,7 +15,6 @@
 
 #include <KLocalizedString>
 #include <QList>
-#include <QTextCodec>
 #include <QUrl>
 
 #include <utility>

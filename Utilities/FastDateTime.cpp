@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2020 the KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -19,9 +20,8 @@ Utilities::FastDateTime::FastDateTime()
 {
 }
 
-Utilities::FastDateTime::FastDateTime(const QDate &d, const QTime &t,
-                                      Qt::TimeSpec spec)
-    : m_dateTime(d, t, spec)
+Utilities::FastDateTime::FastDateTime(const QDate &d, const QTime &t)
+    : m_dateTime(d, t)
     , m_msecsSinceEpoch(toValidatedMSecs(m_dateTime))
 {
 }

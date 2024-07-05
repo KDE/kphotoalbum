@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "Import.h"
 
 #include "ImportDialog.h"
@@ -10,6 +11,7 @@
 
 #include <MainWindow/Window.h>
 
+#include <KIO/TransferJob>
 #include <KIO/Job>
 #include <KIO/JobUiDelegate>
 #include <KLocalizedString>

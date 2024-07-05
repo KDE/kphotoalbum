@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -13,11 +14,13 @@
 #include <KLocalizedString>
 #include <QHBoxLayout>
 #include <QLabel>
-#include <QTextCodec>
 #include <QVBoxLayout>
+#include <QStringConverter>
 
 Settings::ExifPage::ExifPage(QWidget *parent)
     : QWidget(parent)
+      , m_availableCodecs(QStringConverter::availableCodecs())
+
 {
     QVBoxLayout *vlay = new QVBoxLayout(this);
     QHBoxLayout *hlay1 = new QHBoxLayout();
@@ -33,11 +36,7 @@ Settings::ExifPage::ExifPage(QWidget *parent)
 
     QLabel *iptcCharsetLabel = new QLabel(i18n("Character set for image metadata:"), this);
     m_iptcCharset = new KComboBox(this);
-    QStringList charsets;
-    QList<QByteArray> charsetsBA = QTextCodec::availableCodecs();
-    for (QList<QByteArray>::const_iterator it = charsetsBA.constBegin(); it != charsetsBA.constEnd(); ++it)
-        charsets << QString::fromLatin1(*it);
-    m_iptcCharset->insertItems(m_iptcCharset->count(), charsets);
+    m_iptcCharset->insertItems(m_iptcCharset->count(), m_availableCodecs);
 
     hlay2->addStretch(1);
     hlay2->addWidget(iptcCharsetLabel);
@@ -57,6 +56,6 @@ void Settings::ExifPage::loadSettings(Settings::SettingsData *opt)
     m_exifForDialog->reload();
     m_exifForViewer->setSelectedExif(Settings::SettingsData::instance()->exifForViewer());
     m_exifForDialog->setSelectedExif(Settings::SettingsData::instance()->exifForDialog());
-    m_iptcCharset->setCurrentIndex(qMax(0, QTextCodec::availableCodecs().indexOf(opt->iptcCharset().toLatin1())));
+    m_iptcCharset->setCurrentIndex(qMax(0, m_availableCodecs.indexOf(opt->iptcCharset().toLatin1())));
 }
 // vi:expandtab:tabstop=4 shiftwidth=4:

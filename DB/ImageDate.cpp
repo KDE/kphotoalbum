@@ -342,9 +342,9 @@ QDate DB::parseDateString(const QString &dateString, bool assumeStartDate)
         int month = 0;
         int day = 0;
 
-        QString dayStr = match.capture(2);
-        QString monthStr = match.capture(5).toLower();
-        QString yearStr = match.capture(7);
+        QString dayStr = match.captured(2);
+        QString monthStr = match.captured(5).toLower();
+        QString yearStr = match.captured(7);
 
         if (dayStr.length() != 0)
             day = dayStr.toInt();

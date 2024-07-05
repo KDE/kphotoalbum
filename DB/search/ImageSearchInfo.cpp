@@ -204,8 +204,12 @@ bool ImageSearchInfo::doMatch(ImageInfoPtr info) const
 #endif
 
     // -------------------------------------------------- File name pattern
-    if (!m_fnPattern.isEmpty() && m_fnPattern.indexIn(info->fileName().relative()) == -1)
-        return false;
+    if (!m_fnPattern.pattern().isEmpty()) {
+        const auto match = m_fnPattern.match(info->fileName().relative());
+        if (!match.hasMatch()) {
+            return false;
+        }
+    }
 
     // -------------------------------------------------- Options
     // alreadyMatched map is used to make it possible to search for
@@ -405,9 +409,10 @@ void ImageSearchInfo::compile() const
 
             for (QString str : andParts) {
                 static const QRegularExpression regexp(QString::fromLatin1("^\\s*!\\s*(.*)$"));
-                if (regexp.exactMatch(str)) { // str is preceded with NOT
+                const auto match = regexp.match(str);
+                if (match.hasMatch()) { // str is preceded with NOT
                     negate = true;
-                    str = regexp.cap(1);
+                    str = match.captured(1);
                 }
                 str = str.trimmed();
                 CategoryMatcher *valueMatcher;

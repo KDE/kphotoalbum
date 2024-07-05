@@ -32,7 +32,7 @@ void CategoryListView::DragableTreeWidget::emitItemsChanged()
     Q_EMIT itemsChanged();
 }
 
-QMimeData *CategoryListView::DragableTreeWidget::mimeData(const QList<QTreeWidgetItem *> items) const
+QMimeData *CategoryListView::DragableTreeWidget::mimeData(const QList<QTreeWidgetItem *> &items) const
 {
     CategoryListView::DragItemInfoSet selected;
     for (QTreeWidgetItem *item : items) {

@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -20,7 +21,7 @@ public:
     void emitItemsChanged();
 
 protected:
-    QMimeData *mimeData(const QList<QTreeWidgetItem *> items) const override;
+    QMimeData *mimeData(const QList<QTreeWidgetItem *> &items) const override;
     QStringList mimeTypes() const override;
     bool dropMimeData(QTreeWidgetItem *parent, int index, const QMimeData *data, Qt::DropAction action) override;
     void dragMoveEvent(QDragMoveEvent *event) override;

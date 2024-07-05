@@ -18,19 +18,11 @@
 #include <KFileItem>
 #include <KLocalizedString>
 #include <kio_version.h>
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 70, 0)
 #include <KIO/ApplicationLauncherJob>
 #include <KIO/JobUiDelegate>
 #include <KIO/JobUiDelegateFactory>
-#endif
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-// KRun::displayOpenWithDialog() was both replaced and deprecated in 5.71
-#include <KRun>
-#endif
 #include <kservice_version.h>
-#if KSERVICE_VERSION >= QT_VERSION_CHECK(5, 68, 0)
 #include <KApplicationTrader>
-#endif
 #include <KService>
 #include <KShell>
 #include <QFile>

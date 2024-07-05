@@ -17,7 +17,6 @@
 
 #include <KFileItem>
 #include <KLocalizedString>
-#include <KMimeTypeTrader>
 #include <kio_version.h>
 #if KIO_VERSION >= QT_VERSION_CHECK(5, 70, 0)
 #include <KIO/ApplicationLauncherJob>
@@ -216,11 +215,7 @@ namespace
 {
 KService::List getServiceOffers(const QString &type)
 {
-#if KSERVICE_VERSION < QT_VERSION_CHECK(5, 68, 0)
-    return KMimeTypeTrader::self()->query(type, QLatin1String("Application"));
-#else
     return KApplicationTrader::queryByMimeType(type);
-#endif
 }
 }
 

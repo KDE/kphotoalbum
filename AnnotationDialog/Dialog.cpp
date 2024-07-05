@@ -73,6 +73,8 @@
 #include <QTimeEdit>
 #include <QVBoxLayout>
 #include <QtGlobal>
+#include <QActionGroup>
+
 #include <algorithm>
 #include <kwidgetsaddons_version.h>
 #include <tuple>
@@ -365,7 +367,7 @@ QWidget *AnnotationDialog::Dialog::createDateWidget(ShortCutManager &shortCutMan
     m_isFuzzyDate->setToolTip(m_isFuzzyDate->whatsThis());
     lay4->addWidget(m_isFuzzyDate);
     lay4->addStretch(1);
-    connect(m_isFuzzyDate, &QCheckBox::stateChanged, this, &Dialog::slotSetFuzzyDate);
+    connect(m_isFuzzyDate, &QCheckBox::checkStateChanged, this, &Dialog::slotSetFuzzyDate);
 
     QHBoxLayout *lay8 = new QHBoxLayout;
     lay2->addLayout(lay8);

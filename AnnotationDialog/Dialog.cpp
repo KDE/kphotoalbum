@@ -367,7 +367,7 @@ QWidget *AnnotationDialog::Dialog::createDateWidget(ShortCutManager &shortCutMan
     m_isFuzzyDate->setToolTip(m_isFuzzyDate->whatsThis());
     lay4->addWidget(m_isFuzzyDate);
     lay4->addStretch(1);
-    connect(m_isFuzzyDate, &QCheckBox::checkStateChanged, this, &Dialog::slotSetFuzzyDate);
+    connect(m_isFuzzyDate, &QCheckBox::toggled, this, &Dialog::slotSetFuzzyDate);
 
     QHBoxLayout *lay8 = new QHBoxLayout;
     lay2->addLayout(lay8);
@@ -677,7 +677,7 @@ void AnnotationDialog::Dialog::ShowHideSearch(bool show)
     m_imageFilePattern->setVisible(show);
     m_isFuzzyDate->setChecked(show);
     m_isFuzzyDate->setVisible(!show);
-    slotSetFuzzyDate();
+    slotSetFuzzyDate(m_isFuzzyDate->isChecked());
     m_ratingSearchMode->setVisible(show);
     m_ratingSearchLabel->setVisible(show);
 }
@@ -1125,19 +1125,12 @@ void AnnotationDialog::Dialog::rotate(int angle)
     }
 }
 
-void AnnotationDialog::Dialog::slotSetFuzzyDate()
+void AnnotationDialog::Dialog::slotSetFuzzyDate(bool checked)
 {
-    if (m_isFuzzyDate->isChecked()) {
-        m_time->hide();
-        m_timeLabel->hide();
-        m_endDate->show();
-        m_endDateLabel->show();
-    } else {
-        m_time->show();
-        m_timeLabel->show();
-        m_endDate->hide();
-        m_endDateLabel->hide();
-    }
+    m_time->setVisible(!checked);
+    m_timeLabel->setVisible(!checked);
+    m_endDate->setVisible(checked);
+    m_endDateLabel->setVisible(checked);
 }
 
 void AnnotationDialog::Dialog::showHelpDialog(UsageMode type)

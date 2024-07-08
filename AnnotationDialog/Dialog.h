@@ -117,7 +117,7 @@ protected Q_SLOTS:
     void slotRenameOption(DB::Category *, const QString &, const QString &);
     void reject() override;
     void rotate(int angle);
-    void slotSetFuzzyDate();
+    void slotSetFuzzyDate(bool checked);
     void slotResetLayout();
     void slotStartDateChanged(const DB::ImageDate &);
     void slotCopyPrevious();

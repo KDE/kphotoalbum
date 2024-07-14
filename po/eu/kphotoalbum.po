@@ -7,13 +7,13 @@
 # Translators:
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2010.
 # Ander Elortondo <ander.elor@gmail.com>, 2020.
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Iñigo Salvador Azurmendi <xalba@ni.eus>
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-07-03 01:45+0000\n"
-"PO-Revision-Date: 2023-07-30 08:27+0200\n"
+"PO-Revision-Date: 2024-07-09 23:30+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -421,12 +421,12 @@ msgstr "Kopiatu etiketak aurreko iruditik"
 #: AnnotationDialog/Dialog.cpp:1316 MainWindow/Window.cpp:851
 #, kde-format
 msgid "Rotate counterclockwise"
-msgstr "Biratu erlojuaren norantzaren aurka"
+msgstr "Biratu erlojuaren aurkako noranzkoan"
 
 #: AnnotationDialog/Dialog.cpp:1319 MainWindow/Window.cpp:855
 #, kde-format
 msgid "Rotate clockwise"
-msgstr "Biratu erlojuaren norantzan"
+msgstr "Biratu erlojuaren noranzkoan"
 
 #: AnnotationDialog/Dialog.cpp:1322
 #, kde-format
@@ -520,13 +520,13 @@ msgstr "Txandakatu pantaila osoaren aurrebista"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
-msgstr "Biratu erlojuaren norabidearen aurka"
+msgstr "Biratu erlojuaren aurkako noranzkoan"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:357
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
-msgstr "Biratu erlojuaren norabidean"
+msgstr "Biratu erlojuaren noranzkoan"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:358
 #, kde-format
@@ -6986,7 +6986,7 @@ msgstr "Biratu"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
-msgstr "Biratu erlojuaren norabidean"
+msgstr "Biratu erlojuaren noranzkoan"
 
 #: Viewer/ViewerWidget.cpp:293
 #, kde-format
@@ -6998,7 +6998,7 @@ msgstr "Irauli"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
-msgstr "Biratu erlojuaren norabidearen aurka"
+msgstr "Biratu erlojuaren aurkako noranzkoan"
 
 #: Viewer/ViewerWidget.cpp:305
 #, kde-format

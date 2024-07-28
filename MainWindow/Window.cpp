@@ -1243,8 +1243,6 @@ bool MainWindow::Window::load()
         // qApp->processEvents();
     }
 
-    setWindowTitle(configFile);
-
     DB::ImageDB::setupXMLDB(configFile, *this);
 
     const QString thumbnailDirectory = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath(ImageManager::defaultThumbnailDirectory());

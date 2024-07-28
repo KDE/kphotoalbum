@@ -9,9 +9,6 @@
 #include <KLocalizedString>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
-#include <QDir>
-#include <QFileInfo>
-#include <iostream>
 
 MainWindow::Options *MainWindow::Options::s_instance = nullptr;
 
@@ -70,42 +67,14 @@ QCommandLineParser *MainWindow::Options::parser() const
 
 QUrl MainWindow::Options::dbFile() const
 {
-    QString dbFile;
-
+    QUrl db;
     if (d->parser.isSet(d->dbFile)) {
-        dbFile = d->parser.value(d->dbFile);
+        db = QUrl::fromLocalFile(d->parser.value(d->dbFile));
     } else if (d->parser.isSet(d->configFile)) {
         // support for legacy option
-        dbFile = d->parser.value(d->configFile);
+        db = QUrl::fromLocalFile(d->parser.value(d->configFile));
     }
-
-    if (!dbFile.isEmpty()) {
-        QFileInfo fi(dbFile);
-
-        // Did the user passed a directory on the command line?
-        if (fi.isDir()) {
-            QString slash = QString::fromLatin1("/");
-
-            if (!dbFile.endsWith(slash))
-                dbFile += slash;
-
-            dbFile += QString::fromLatin1("index.xml");
-        } else if (!fi.isFile()) {
-            // Allow an non-existant index.xml if the parent directory exists
-            // (KPhotoAlbum will offer to create the index.xml).
-            if ((fi.fileName().toStdString() != "index.xml") || !fi.dir().exists()) {
-                std::cerr << "No KPhotoAlbum index.xml database file was found at "
-                          << dbFile.toStdString()
-                          << "."
-                          << std::endl
-                          << "Please specify an image directory or an existing index.xml file."
-                          << std::endl;
-                exit(1);
-            }
-        }
-    }
-
-    return QUrl::fromLocalFile(dbFile);
+    return db;
 }
 
 bool MainWindow::Options::demoMode() const

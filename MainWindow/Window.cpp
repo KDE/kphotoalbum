@@ -1203,22 +1203,23 @@ bool MainWindow::Window::load()
     if (configFile.startsWith(QString::fromLatin1("~")))
         configFile = QDir::home().path() + QString::fromLatin1("/") + configFile.mid(1);
 
-    // To avoid a race conditions where both the image loader thread creates an instance of
-    // Settings, and where the main thread crates an instance, we better get it created now.
-    Settings::SettingsData::setup(QFileInfo(configFile).absolutePath(), *this);
-
-    if (Settings::SettingsData::instance()->showSplashScreen()) {
-        SplashScreen::instance()->show();
-        qApp->processEvents();
-    }
-
     // Doing some validation on user provided index file
     if (Options::the()->dbFile().isValid()) {
         QFileInfo fi(configFile);
 
-        if (!fi.dir().exists()) {
-            KMessageBox::error(this, i18n("<p>Could not open given index.xml, as the provided folder does not exist.<br />%1</p>", fi.absolutePath()));
-            return false;
+        // Did the user passed a directory on the command line?
+        if (fi.isDir()) {
+            fi.setFile(QDir(configFile).filePath(QLatin1String("index.xml")));
+        } else if (!fi.isFile()) {
+            // Allow an non-existant XML database file if the parent directory exists
+            // (KPhotoAlbum will offer to create the file).
+            if ((fi.fileName().toStdString() != "index.xml") || !fi.dir().exists()) {
+                qCWarning(MainWindowLog) << "No KPhotoAlbum index.xml database file was found at"
+                                         << configFile
+                                         << ".";
+                qCWarning(MainWindowLog) << "Please specify an image directory or an existing index.xml file.";
+                return false;
+            }
         }
 
         // We use index.xml as the XML backend, thus we want to test for exactly it
@@ -1243,6 +1244,18 @@ bool MainWindow::Window::load()
         }
         configFile = fi.absoluteFilePath();
     }
+
+    // To avoid a race conditions where both the image loader thread creates an instance of
+    // Settings, and where the main thread creates an instance, we better get it created now.
+    Settings::SettingsData::setup(QFileInfo(configFile).absolutePath(), *this);
+
+    if (Settings::SettingsData::instance()->showSplashScreen()) {
+        SplashScreen::instance()->show();
+        qApp->processEvents();
+    }
+
+    setWindowTitle(configFile);
+
     DB::ImageDB::setupXMLDB(configFile, *this);
 
     const QString thumbnailDirectory = QDir(Settings::SettingsData::instance()->imageDirectory()).absoluteFilePath(ImageManager::defaultThumbnailDirectory());

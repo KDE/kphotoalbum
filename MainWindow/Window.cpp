@@ -1213,8 +1213,8 @@ bool MainWindow::Window::load()
             fi.setFile(QDir(configFile).filePath(QLatin1String("index.xml")));
         } else {
             // fi is not a directory
+            QString errorMessage;
             if (fi.fileName() != QString::fromLatin1("index.xml")) {
-                QString errorMessage;
                 if (fi.isFile() && fi.exists()) {
                     // existing file, wrong name
                     // Note: we don't allow this currently because 'index.xml' is hard-coded at several places
@@ -1222,11 +1222,17 @@ bool MainWindow::Window::load()
                     errorMessage = i18n("KPhotoAlbum only supports database files named 'index.xml'.");
                 } else {
                     // non-existing file, wrong name
-                    qCWarning(MainWindowLog) << "No KPhotoAlbum index.xml database file was found at"
-                                             << configFile
-                                             << ".";
-                    errorMessage = i18n("Please specify an image directory or an existing index.xml file.");
+                    qCWarning(MainWindowLog) << "No KPhotoAlbum index.xml database file was found:"
+                                             << configFile;
+                    errorMessage = i18n("Please specify an existing image directory or an existing index.xml file.");
                 }
+            } else if (!fi.dir().exists()) {
+                // index.xml within a non-existing directory
+                qCWarning(MainWindowLog) << "Directory of index.xml database file does not exist:"
+                                         << configFile;
+                errorMessage = i18n("Please specify an existing image directory or an existing index.xml file.");
+            }
+            if (!errorMessage.isEmpty()) {
                 KMessageBox::error(this, errorMessage, i18n("Invalid database file"));
                 return false;
             }

@@ -1193,26 +1193,34 @@ bool MainWindow::Window::load()
         configFile = QDir::home().path() + QString::fromLatin1("/") + configFile.mid(1);
 
     // Doing some validation on user provided index file
+    // dbFile is a valid QUrl?
     if (Options::the()->dbFile().isValid()) {
         QFileInfo fi(configFile);
 
-        // Did the user passed a directory on the command line?
+        // Did the user pass a directory on the command line?
         if (fi.isDir()) {
             fi.setFile(QDir(configFile).filePath(QLatin1String("index.xml")));
-        } else if (!fi.isFile()) {
-            // Allow an non-existant XML database file if the parent directory exists
-            // (KPhotoAlbum will offer to create the file).
-            if ((fi.fileName().toStdString() != "index.xml") || !fi.dir().exists()) {
-                qCWarning(MainWindowLog) << "No KPhotoAlbum index.xml database file was found at"
-                                         << configFile
-                                         << ".";
-                qCWarning(MainWindowLog) << "Please specify an image directory or an existing index.xml file.";
+        } else {
+            // fi is not a directory
+            if (fi.fileName() != QString::fromLatin1("index.xml")) {
+                QString errorMessage;
+                if (fi.isFile() && fi.exists()) {
+                    // existing file, wrong name
+                    // Note: we don't allow this currently because 'index.xml' is hard-coded at several places
+                    qCWarning(MainWindowLog) << "Config file is incorrectly named:" << fi.filePath();
+                    errorMessage = i18n("KPhotoAlbum only supports database files named 'index.xml'.");
+                } else {
+                    // non-existing file, wrong name
+                    qCWarning(MainWindowLog) << "No KPhotoAlbum index.xml database file was found at"
+                                             << configFile
+                                             << ".";
+                    errorMessage = i18n("Please specify an image directory or an existing index.xml file.");
+                }
+                KMessageBox::error(this, errorMessage, i18n("Invalid database file"));
                 return false;
             }
         }
 
-        // We use index.xml as the XML backend, thus we want to test for exactly it
-        fi.setFile(QString::fromLatin1("%1/index.xml").arg(fi.dir().absolutePath()));
         if (!fi.exists()) {
             const QString question = i18n("<p>Given index file does not exist, do you want to create following?"
                                           "<br />%1/index.xml</p>",

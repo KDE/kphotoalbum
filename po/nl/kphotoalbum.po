@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-03 01:45+0000\n"
+"POT-Creation-Date: 2024-08-03 01:49+0000\n"
 "PO-Revision-Date: 2024-03-30 15:46+0100\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
@@ -979,7 +979,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "zoeken"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1810
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1835
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -995,7 +995,7 @@ msgstr ""
 "pictogram</li><li>Stel nu sectie <b>Afbeeldingen zonder tags</b> in</li></"
 "ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1817
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1842
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Mogelijkheid is niet ingesteld"
@@ -2723,7 +2723,7 @@ msgid "Create folder?"
 msgstr "Map aanmaken?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1234
+#: MainWindow/Window.cpp:1249
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4244,13 +4244,13 @@ msgid "Stacking Error"
 msgstr "Stacking-fout"
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1338 MainWindow/Window.cpp:1435
+#: MainWindow/Window.cpp:1363 MainWindow/Window.cpp:1460
 #, kde-format
 msgid "No item is selected."
 msgstr "Er is geen item geselecteerd."
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1338 MainWindow/Window.cpp:1436
+#: MainWindow/Window.cpp:1363 MainWindow/Window.cpp:1461
 #, kde-format
 msgid "No Selection"
 msgstr "Geen selectie"
@@ -4546,14 +4546,14 @@ msgstr "Volgende videominiatuur gebruiken"
 msgid "Use previous video thumbnail"
 msgstr "Vorige videominiatuur gebruiken"
 
-#: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1316
+#: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1341
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Afbeelding kopiëren naar ..."
 msgstr[1] "Afbeeldingen kopiëren naar ..."
 
-#: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1320
+#: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1345
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4570,16 +4570,24 @@ msgstr "Autom. opslaan...."
 msgid "Auto saving.... Done"
 msgstr "Autom. opslaan... gereed"
 
-#: MainWindow/Window.cpp:1220
+#: MainWindow/Window.cpp:1222
+#, kde-format
+msgid "KPhotoAlbum only supports database files named 'index.xml'."
+msgstr ""
+
+#: MainWindow/Window.cpp:1227 MainWindow/Window.cpp:1233
 #, kde-format
 msgid ""
-"<p>Could not open given index.xml, as the provided folder does not exist."
-"<br />%1</p>"
+"Please specify an existing image directory or an existing index.xml file."
 msgstr ""
-"<p>Kon de gegeven index.xml niet openen, omdat de gegeven map niet bestaat."
-"<br />%1</p>"
 
-#: MainWindow/Window.cpp:1227
+#: MainWindow/Window.cpp:1236
+#, fuzzy, kde-format
+#| msgid "Invalid database backend: %1"
+msgid "Invalid database file"
+msgstr "Ongeldige databasebackend: %1"
+
+#: MainWindow/Window.cpp:1242
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4588,13 +4596,13 @@ msgstr ""
 "<p>Het gegeven index-bestand bestaat niet, wilt u het volgende aanmaken?<br /"
 ">%1/index.xml</p>"
 
-#: MainWindow/Window.cpp:1230
+#: MainWindow/Window.cpp:1245
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Database aanmaken"
 
-#: MainWindow/Window.cpp:1261
+#: MainWindow/Window.cpp:1286
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4607,33 +4615,33 @@ msgstr ""
 "tag-instelling zonder tags onder <interface>Instellingen|KPhotoAlbum "
 "instellen...|Categorieën</interface></p>"
 
-#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1412 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Algemeen"
 
-#: MainWindow/Window.cpp:1388 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1413 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Weergave"
 
-#: MainWindow/Window.cpp:1389
+#: MainWindow/Window.cpp:1414
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Datumbalk"
 
-#: MainWindow/Window.cpp:1392
+#: MainWindow/Window.cpp:1417
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Annotatiedialoog"
 
-#: MainWindow/Window.cpp:1393 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1418 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Miniaturenweergave"
 
-#: MainWindow/Window.cpp:1544
+#: MainWindow/Window.cpp:1569
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4642,13 +4650,13 @@ msgstr ""
 "<p>Wilt u alle berichten activeren waar u eerder het keuzevakje 'Niet "
 "opnieuw tonen' hebt geselecteerd?</p>"
 
-#: MainWindow/Window.cpp:1546
+#: MainWindow/Window.cpp:1571
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Verborgen dialogen resetten"
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1590
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4665,33 +4673,33 @@ msgstr ""
 "p><p>KPhotoAlbum zal doorgaan, maar het is niet geheel onmogelijk dat het "
 "later zal crashen vanwege de ontbrekende 'make install'.</p>"
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1590
 #, kde-format
 msgid "Internal Error"
 msgstr "Interne fout"
 
-#: MainWindow/Window.cpp:1576
+#: MainWindow/Window.cpp:1601
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 "Met succes gedeelde afbeelding(en). Locatie wordt gekopieerd naar klembord..."
 
-#: MainWindow/Window.cpp:1579
+#: MainWindow/Window.cpp:1604
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Met succes gedeelde afbeelding(en)."
 
-#: MainWindow/Window.cpp:1584
+#: MainWindow/Window.cpp:1609
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Delen van afbeelding is mislukt met melding: %1"
 
-#: MainWindow/Window.cpp:1647
+#: MainWindow/Window.cpp:1672
 #, kde-format
 msgid "Open List of Files"
 msgstr "Lijst met bestanden openen"
 
-#: MainWindow/Window.cpp:1648
+#: MainWindow/Window.cpp:1673
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4700,28 +4708,28 @@ msgstr ""
 "U kunt een set bestanden in de database van KPhotoAlbum openen door hier een "
 "lijst te maken."
 
-#: MainWindow/Window.cpp:1662
+#: MainWindow/Window.cpp:1687
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Er kwamen geen afbeeldingen overeen met uw invoer."
 
-#: MainWindow/Window.cpp:1662
+#: MainWindow/Window.cpp:1687
 #, kde-format
 msgid "No Matches"
 msgstr "Geen overeenkomsten"
 
-#: MainWindow/Window.cpp:1834
+#: MainWindow/Window.cpp:1859
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "EXIF-informatie wordt opnieuw ingelezen"
 
-#: MainWindow/Window.cpp:1861
+#: MainWindow/Window.cpp:1886
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Breedte miniatuur: %1px (opslaggrootte: %2px)"
 
-#: MainWindow/Window.cpp:1914
+#: MainWindow/Window.cpp:1939
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4732,7 +4740,7 @@ msgstr ""
 "geen video-miniaturen en lengtes van video's tonen. Installeer het pakket "
 "ffmpeg</p>"
 
-#: MainWindow/Window.cpp:1917
+#: MainWindow/Window.cpp:1942
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Videominiaturen zijn niet beschikbaar"
@@ -7347,6 +7355,13 @@ msgstr "Afbeeldingsgrootte tonen"
 msgid "Show Rating"
 msgstr "Waardering tonen"
 
+#~ msgid ""
+#~ "<p>Could not open given index.xml, as the provided folder does not exist."
+#~ "<br />%1</p>"
+#~ msgstr ""
+#~ "<p>Kon de gegeven index.xml niet openen, omdat de gegeven map niet "
+#~ "bestaat.<br />%1</p>"
+
 #~ msgctxt ""
 #~ "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--"
 #~ "\", %1) and it's octal representation (e.g. \"0644\")"
@@ -8914,9 +8929,6 @@ msgstr "Waardering tonen"
 
 #~ msgid "SQL database support is not compiled in."
 #~ msgstr "Ondersteuning voor SQL-database is niet meegecompileerd."
-
-#~ msgid "Invalid database backend: %1"
-#~ msgstr "Ongeldige databasebackend: %1"
 
 #~ msgid "Do you want to use XML backend instead?"
 #~ msgstr "Wilt u in plaats daarvan de XML-backend gebruiken?"

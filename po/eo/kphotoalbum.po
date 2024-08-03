@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-03 01:45+0000\n"
+"POT-Creation-Date: 2024-08-03 01:49+0000\n"
 "PO-Revision-Date: 2024-04-13 08:59+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -961,7 +961,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "serĉi"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1810
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1835
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -976,7 +976,7 @@ msgstr ""
 "li><li>Nun elektu la piktogramon <b>Kategorioj</b></li><li>Nun agordu "
 "sekcion <b>Nemarkitaj Bildoj</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1817
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1842
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Trajto ne estis agordita"
@@ -2689,7 +2689,7 @@ msgid "Create folder?"
 msgstr "Ĉu krei dosierujon?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1234
+#: MainWindow/Window.cpp:1249
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4184,13 +4184,13 @@ msgid "Stacking Error"
 msgstr "Stak-eraro"
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1338 MainWindow/Window.cpp:1435
+#: MainWindow/Window.cpp:1363 MainWindow/Window.cpp:1460
 #, kde-format
 msgid "No item is selected."
 msgstr "Neniu elemento estas elektita."
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1338 MainWindow/Window.cpp:1436
+#: MainWindow/Window.cpp:1363 MainWindow/Window.cpp:1461
 #, kde-format
 msgid "No Selection"
 msgstr "Neniu elekto"
@@ -4486,14 +4486,14 @@ msgstr "Uzi sekvantan videobildeton"
 msgid "Use previous video thumbnail"
 msgstr "Uzi antaŭan videobildeton"
 
-#: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1316
+#: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1341
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Kopii bildon al..."
 msgstr[1] "Kopii bildojn al..."
 
-#: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1320
+#: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1345
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4510,16 +4510,24 @@ msgstr "Aŭtomata konservado...."
 msgid "Auto saving.... Done"
 msgstr "Auto saving.... Preta"
 
-#: MainWindow/Window.cpp:1220
+#: MainWindow/Window.cpp:1222
+#, kde-format
+msgid "KPhotoAlbum only supports database files named 'index.xml'."
+msgstr ""
+
+#: MainWindow/Window.cpp:1227 MainWindow/Window.cpp:1233
 #, kde-format
 msgid ""
-"<p>Could not open given index.xml, as the provided folder does not exist."
-"<br />%1</p>"
+"Please specify an existing image directory or an existing index.xml file."
 msgstr ""
-"<p>Ne eblis malfermi donitan index.xml, ĉar la provizita dosierujo ne "
-"ekzistas.<br />%1</p>"
 
-#: MainWindow/Window.cpp:1227
+#: MainWindow/Window.cpp:1236
+#, fuzzy, kde-format
+#| msgid "Error in database file"
+msgid "Invalid database file"
+msgstr "Eraro en datumbaza dosiero"
+
+#: MainWindow/Window.cpp:1242
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4528,13 +4536,13 @@ msgstr ""
 "<p>Konsiderante indeksan dosieron ne ekzistas, ĉu vi volas krei sekvantan?"
 "<br />%1/index.xml</p>"
 
-#: MainWindow/Window.cpp:1230
+#: MainWindow/Window.cpp:1245
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Krei datumbazon"
 
-#: MainWindow/Window.cpp:1261
+#: MainWindow/Window.cpp:1286
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4547,33 +4555,33 @@ msgstr ""
 "neetikeditan agordon sub <interface>Agordoj|Agordu KPhotoAlbum...|"
 "Kategorioj</interface></p>"
 
-#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1412 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Ĝenerala"
 
-#: MainWindow/Window.cpp:1388 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1413 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Rigardilo"
 
-#: MainWindow/Window.cpp:1389
+#: MainWindow/Window.cpp:1414
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Datobreto"
 
-#: MainWindow/Window.cpp:1392
+#: MainWindow/Window.cpp:1417
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Komentario Dialogo"
 
-#: MainWindow/Window.cpp:1393 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1418 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Bildeto-Vido"
 
-#: MainWindow/Window.cpp:1544
+#: MainWindow/Window.cpp:1569
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4582,13 +4590,13 @@ msgstr ""
 "<p>Ĉu vere aktivigi ĉiujn mesaĝkestojn kie vi antaŭe markis la markobutono-"
 "ne-montri-denove?</p>"
 
-#: MainWindow/Window.cpp:1546
+#: MainWindow/Window.cpp:1571
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Restarigi kaŝitajn dialogojn"
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1590
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4604,32 +4612,32 @@ msgstr ""
 "raporti ĉi tion kiel cimon.</p><p>KPhotoAlbum daŭrigos la rulon, sed ne "
 "estas tute malprobable ke ĝi paneos poste pro la mankanta make-instalo.</p>"
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1590
 #, kde-format
 msgid "Internal Error"
 msgstr "Interna eraro"
 
-#: MainWindow/Window.cpp:1576
+#: MainWindow/Window.cpp:1601
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "Sukcese kunhavita(j) bildo(j). Kopiante lokon al tondujo..."
 
-#: MainWindow/Window.cpp:1579
+#: MainWindow/Window.cpp:1604
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Sukcese kunhavita(j) bildo(j)."
 
-#: MainWindow/Window.cpp:1584
+#: MainWindow/Window.cpp:1609
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Bilddividado malsukcesis kun mesaĝo: %1"
 
-#: MainWindow/Window.cpp:1647
+#: MainWindow/Window.cpp:1672
 #, kde-format
 msgid "Open List of Files"
 msgstr "Malfermi Liston de Dosieroj"
 
-#: MainWindow/Window.cpp:1648
+#: MainWindow/Window.cpp:1673
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4638,28 +4646,28 @@ msgstr ""
 "Vi povas malfermi aron da dosieroj en la datumbazo de KPhotoAlbum listigante "
 "la dosierojn ĉi tie."
 
-#: MainWindow/Window.cpp:1662
+#: MainWindow/Window.cpp:1687
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Neniuj bildoj kongruaj kun via enigo estis trovitaj."
 
-#: MainWindow/Window.cpp:1662
+#: MainWindow/Window.cpp:1687
 #, kde-format
 msgid "No Matches"
 msgstr "Neniuj Alumetoj"
 
-#: MainWindow/Window.cpp:1834
+#: MainWindow/Window.cpp:1859
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Relegante Exif-informojn de ĉiuj bildoj"
 
-#: MainWindow/Window.cpp:1861
+#: MainWindow/Window.cpp:1886
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Larĝo de bildeto: %1px (grandeco de konservado: %2px)"
 
-#: MainWindow/Window.cpp:1914
+#: MainWindow/Window.cpp:1939
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4669,7 +4677,7 @@ msgstr ""
 "<p>Ne eblas trovi ffmpeg en la sistemo.</p><p>Sen ĝi, KPhotoAlbum ne povos "
 "montri videobildetojn kaj videolongojn. Bonvolu instali la ffmpeg-pakaĵon</p>"
 
-#: MainWindow/Window.cpp:1917
+#: MainWindow/Window.cpp:1942
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Videobildetoj ne haveblas"
@@ -7246,3 +7254,10 @@ msgstr "Montri Bildan Grandecon"
 #, kde-format
 msgid "Show Rating"
 msgstr "Montri Takson"
+
+#~ msgid ""
+#~ "<p>Could not open given index.xml, as the provided folder does not exist."
+#~ "<br />%1</p>"
+#~ msgstr ""
+#~ "<p>Ne eblis malfermi donitan index.xml, ĉar la provizita dosierujo ne "
+#~ "ekzistas.<br />%1</p>"

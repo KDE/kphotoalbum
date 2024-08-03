@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-03 01:45+0000\n"
+"POT-Creation-Date: 2024-08-03 01:49+0000\n"
 "PO-Revision-Date: 2020-05-05 11:56+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -965,7 +965,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "otsing"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1810
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1835
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -980,7 +980,7 @@ msgstr ""
 "li><li>Nüüd vali <b>Kategooriad</b> icon</li><li>Nüüd vali seadistus "
 "sektsioonis <b>Sildistamata pildid</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1817
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1842
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Omadust pole veel seadistatud"
@@ -2757,7 +2757,7 @@ msgid "Create folder?"
 msgstr "Baaskataloog:"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1234
+#: MainWindow/Window.cpp:1249
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4327,13 +4327,13 @@ msgid "Stacking Error"
 msgstr "Paki loomise viga"
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1338 MainWindow/Window.cpp:1435
+#: MainWindow/Window.cpp:1363 MainWindow/Window.cpp:1460
 #, kde-format
 msgid "No item is selected."
 msgstr "Ühtki elementi ei ole valitud."
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1338 MainWindow/Window.cpp:1436
+#: MainWindow/Window.cpp:1363 MainWindow/Window.cpp:1461
 #, kde-format
 msgid "No Selection"
 msgstr "Valik puudub"
@@ -4634,7 +4634,7 @@ msgstr "Järgmise video pisipildi kasutamine"
 msgid "Use previous video thumbnail"
 msgstr "Eelmise video pisipildi kasutamine"
 
-#: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1316
+#: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1341
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -4643,7 +4643,7 @@ msgid_plural "Copy images to ..."
 msgstr[0] "Piltide kopeerimine ..."
 msgstr[1] "Piltide kopeerimine ..."
 
-#: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1320
+#: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1345
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Link images to..."
@@ -4662,19 +4662,24 @@ msgstr "Automaatne salvestamine..."
 msgid "Auto saving.... Done"
 msgstr "Automaatne salvestamine... Tehtud"
 
-#: MainWindow/Window.cpp:1220
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Could not open given index.xml as provided directory does not exist."
-#| "<br />%1</p>"
-msgid ""
-"<p>Could not open given index.xml, as the provided folder does not exist."
-"<br />%1</p>"
+#: MainWindow/Window.cpp:1222
+#, kde-format
+msgid "KPhotoAlbum only supports database files named 'index.xml'."
 msgstr ""
-"<p>Määratud index.xml-i avamine nurjus, sest antud kataloogi ei ole olemas."
-"<br />%1</p>"
 
-#: MainWindow/Window.cpp:1227
+#: MainWindow/Window.cpp:1227 MainWindow/Window.cpp:1233
+#, kde-format
+msgid ""
+"Please specify an existing image directory or an existing index.xml file."
+msgstr ""
+
+#: MainWindow/Window.cpp:1236
+#, fuzzy, kde-format
+#| msgid "Invalid database backend: %1"
+msgid "Invalid database file"
+msgstr "Vigane andmebaasi taustaprogramm: %1"
+
+#: MainWindow/Window.cpp:1242
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4683,7 +4688,7 @@ msgstr ""
 "<p>Määratud indeksifaili ei ole  olemas. Kas luua järgmine fail?<br />%1/"
 "index.xml</p>"
 
-#: MainWindow/Window.cpp:1230
+#: MainWindow/Window.cpp:1245
 #, fuzzy, kde-format
 #| msgid ""
 #| "Use data from\n"
@@ -4694,7 +4699,7 @@ msgstr ""
 "Andmebaasi andmete\n"
 "kasutamine"
 
-#: MainWindow/Window.cpp:1261
+#: MainWindow/Window.cpp:1286
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4707,34 +4712,34 @@ msgstr ""
 "seadistus, mille leiad <interface>Seadistused|KPhotoAlbumi seadistused ...|"
 "Kategooriad</interface> alt.</p>"
 
-#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1412 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Üldine"
 
-#: MainWindow/Window.cpp:1388 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1413 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Näitaja"
 
-#: MainWindow/Window.cpp:1389
+#: MainWindow/Window.cpp:1414
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Kuupäev: "
 
-#: MainWindow/Window.cpp:1392
+#: MainWindow/Window.cpp:1417
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Annotatsioonidialoog"
 
-#: MainWindow/Window.cpp:1393 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1418 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Pisipildivaade"
 
-#: MainWindow/Window.cpp:1544
+#: MainWindow/Window.cpp:1569
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4743,13 +4748,13 @@ msgstr ""
 "<p>Kas tõesti lubada kõik teatekastid - ka seal, kus oled varem ära märkinud "
 "võimaluse dialoogi mitte näidata?</p>"
 
-#: MainWindow/Window.cpp:1546
+#: MainWindow/Window.cpp:1571
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1590
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4766,32 +4771,32 @@ msgstr ""
 "tööd, kuid on üpris tõenäoline, et mainitud põhjusel tabab teda hiljem krahh."
 "</p>"
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1590
 #, kde-format
 msgid "Internal Error"
 msgstr "Sisemine viga"
 
-#: MainWindow/Window.cpp:1576
+#: MainWindow/Window.cpp:1601
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "Pildid edukalt jagatud. Asukoha kopeerimine lõikepuhvrisse ..."
 
-#: MainWindow/Window.cpp:1579
+#: MainWindow/Window.cpp:1604
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Pildid edukalt jagatud."
 
-#: MainWindow/Window.cpp:1584
+#: MainWindow/Window.cpp:1609
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Pildi jagamine nurjus teatega: %1"
 
-#: MainWindow/Window.cpp:1647
+#: MainWindow/Window.cpp:1672
 #, kde-format
 msgid "Open List of Files"
 msgstr "Failide nimekirja avamine"
 
-#: MainWindow/Window.cpp:1648
+#: MainWindow/Window.cpp:1673
 #, fuzzy, kde-format
 #| msgid ""
 #| "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4803,28 +4808,28 @@ msgstr ""
 "KPhotoAlbumi juurkataloogis asuvate failikogu saab avada faile siin "
 "loetledes."
 
-#: MainWindow/Window.cpp:1662
+#: MainWindow/Window.cpp:1687
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Sisestatutel vastavaid pilte ei leitud."
 
-#: MainWindow/Window.cpp:1662
+#: MainWindow/Window.cpp:1687
 #, kde-format
 msgid "No Matches"
 msgstr "Sobivusi pole"
 
-#: MainWindow/Window.cpp:1834
+#: MainWindow/Window.cpp:1859
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Exifi teabe uuestilugemine kõigist piltidest"
 
-#: MainWindow/Window.cpp:1861
+#: MainWindow/Window.cpp:1886
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Pisipildi laius: %1px (salvesti suurus: %2px)"
 
-#: MainWindow/Window.cpp:1914
+#: MainWindow/Window.cpp:1939
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4834,7 +4839,7 @@ msgstr ""
 "<p>Süsteemist ei leitud ffmpeg'i.</p><p>Ilma selleta ei saa KPhotoAlbum "
 "näidata ei videopisipilte ega videopikkust. Palun paigalda ffmpeg pakett.</p>"
 
-#: MainWindow/Window.cpp:1917
+#: MainWindow/Window.cpp:1942
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Videopisipilte pole saada"
@@ -7464,6 +7469,17 @@ msgid "Show Rating"
 msgstr "Näita hinnangut"
 
 #, fuzzy
+#~| msgid ""
+#~| "<p>Could not open given index.xml as provided directory does not exist."
+#~| "<br />%1</p>"
+#~ msgid ""
+#~ "<p>Could not open given index.xml, as the provided folder does not exist."
+#~ "<br />%1</p>"
+#~ msgstr ""
+#~ "<p>Määratud index.xml-i avamine nurjus, sest antud kataloogi ei ole "
+#~ "olemas.<br />%1</p>"
+
+#, fuzzy
 #~| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 #~| msgid "%1 (%2)"
 #~ msgctxt ""
@@ -8761,9 +8777,6 @@ msgstr "Näita hinnangut"
 
 #~ msgid "SQL database support is not compiled in."
 #~ msgstr "SQL-andmebaasi toetus ei ole rakendusse kompileeritud."
-
-#~ msgid "Invalid database backend: %1"
-#~ msgstr "Vigane andmebaasi taustaprogramm: %1"
 
 #~ msgid "Do you want to use XML backend instead?"
 #~ msgstr "Kas soovid kasutada selle asemel XML-taustaprogrammi?"

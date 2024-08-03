@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-03 01:45+0000\n"
+"POT-Creation-Date: 2024-08-03 01:49+0000\n"
 "PO-Revision-Date: 2024-04-14 15:11+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -974,7 +974,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "busca"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1810
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1835
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -989,7 +989,7 @@ msgstr ""
 "b></li><li>A continuación escolla a icona <b>Categorías</b></li><li>Por "
 "último, configure a sección <b>Imaxes sen etiquetar</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1817
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1842
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Non se configurou esta funcionalidade"
@@ -2714,7 +2714,7 @@ msgid "Create folder?"
 msgstr "Quere crear o cartafol?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1234
+#: MainWindow/Window.cpp:1249
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4225,13 +4225,13 @@ msgid "Stacking Error"
 msgstr "Erro de arrimar"
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1338 MainWindow/Window.cpp:1435
+#: MainWindow/Window.cpp:1363 MainWindow/Window.cpp:1460
 #, kde-format
 msgid "No item is selected."
 msgstr "Non se escolleu ningún elemento."
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1338 MainWindow/Window.cpp:1436
+#: MainWindow/Window.cpp:1363 MainWindow/Window.cpp:1461
 #, kde-format
 msgid "No Selection"
 msgstr "Non hai nada escollido"
@@ -4527,14 +4527,14 @@ msgstr "Usar a seguinte miniatura do vídeo"
 msgid "Use previous video thumbnail"
 msgstr "Usar a miniatura anterior do vídeo"
 
-#: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1316
+#: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1341
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Copiar a imaxe a…"
 msgstr[1] "Copiar as imaxes a…"
 
-#: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1320
+#: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1345
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4551,16 +4551,24 @@ msgstr "Gardando automaticamente…"
 msgid "Auto saving.... Done"
 msgstr "Gardando automaticamente… Feito."
 
-#: MainWindow/Window.cpp:1220
+#: MainWindow/Window.cpp:1222
+#, kde-format
+msgid "KPhotoAlbum only supports database files named 'index.xml'."
+msgstr ""
+
+#: MainWindow/Window.cpp:1227 MainWindow/Window.cpp:1233
 #, kde-format
 msgid ""
-"<p>Could not open given index.xml, as the provided folder does not exist."
-"<br />%1</p>"
+"Please specify an existing image directory or an existing index.xml file."
 msgstr ""
-"<p>Non se puido abrir o ficheiro «index.xml» indicado porque o cartafol "
-"fornecido non existe.<br /> %1</p>"
 
-#: MainWindow/Window.cpp:1227
+#: MainWindow/Window.cpp:1236
+#, fuzzy, kde-format
+#| msgid "Invalid database backend: %1"
+msgid "Invalid database file"
+msgstr "A infraestrutura de bases de dados non é válida: %1"
+
+#: MainWindow/Window.cpp:1242
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4569,13 +4577,13 @@ msgstr ""
 "<p>O ficheiro de índice indicado non existe; quere crealo?<br />%1/index."
 "xml</p>"
 
-#: MainWindow/Window.cpp:1230
+#: MainWindow/Window.cpp:1245
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Crear a base de datos"
 
-#: MainWindow/Window.cpp:1261
+#: MainWindow/Window.cpp:1286
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4589,33 +4597,33 @@ msgstr ""
 "etiquetar en <interface>Configuración|Configurar KPhotoAlbum…|Categorías</"
 "interface></p>"
 
-#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1412 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Xeral"
 
-#: MainWindow/Window.cpp:1388 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1413 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Visor"
 
-#: MainWindow/Window.cpp:1389
+#: MainWindow/Window.cpp:1414
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Barra de datas"
 
-#: MainWindow/Window.cpp:1392
+#: MainWindow/Window.cpp:1417
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Diálogo de anotación"
 
-#: MainWindow/Window.cpp:1393 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1418 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Vista de miniaturas"
 
-#: MainWindow/Window.cpp:1544
+#: MainWindow/Window.cpp:1569
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4624,14 +4632,14 @@ msgstr ""
 "<p>Seguro que quere activar todas as mensaxes nas que anteriormente se "
 "marcou a opción de non amosar de novo?</p>"
 
-#: MainWindow/Window.cpp:1546
+#: MainWindow/Window.cpp:1571
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Restabelecer os diálogos agochados"
 
 # skip-rule: trasno-window
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1590
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4648,32 +4656,32 @@ msgstr ""
 "continuará a executarse, pero non é de todo imposíbel que teña unha quebra "
 "máis tarde debido ao «make install» que non se fixo.</p>"
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1590
 #, kde-format
 msgid "Internal Error"
 msgstr "Erro interno"
 
-#: MainWindow/Window.cpp:1576
+#: MainWindow/Window.cpp:1601
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "As imaxes compartíronse correctamente. Copiando a ruta no portapapeis…"
 
-#: MainWindow/Window.cpp:1579
+#: MainWindow/Window.cpp:1604
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "As imaxes compartíronse correctamente."
 
-#: MainWindow/Window.cpp:1584
+#: MainWindow/Window.cpp:1609
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "A compartición de imaxes fallou coa seguinte mensaxe: %1"
 
-#: MainWindow/Window.cpp:1647
+#: MainWindow/Window.cpp:1672
 #, kde-format
 msgid "Open List of Files"
 msgstr "Abrir unha lista de ficheiros"
 
-#: MainWindow/Window.cpp:1648
+#: MainWindow/Window.cpp:1673
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4682,28 +4690,28 @@ msgstr ""
 "Pode abrir un conxunto de ficheiros na base de datos de KPhotoAlbum listando "
 "os ficheiros aquí."
 
-#: MainWindow/Window.cpp:1662
+#: MainWindow/Window.cpp:1687
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Non se atopou ningunha imaxe que case co que indicou."
 
-#: MainWindow/Window.cpp:1662
+#: MainWindow/Window.cpp:1687
 #, kde-format
 msgid "No Matches"
 msgstr "Ningunha correspondencia"
 
-#: MainWindow/Window.cpp:1834
+#: MainWindow/Window.cpp:1859
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Lendo de novo a información Exif de todas as imaxes"
 
-#: MainWindow/Window.cpp:1861
+#: MainWindow/Window.cpp:1886
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Anchura da miniatura: %1px (tamaño de almacenamento: %2px)"
 
-#: MainWindow/Window.cpp:1914
+#: MainWindow/Window.cpp:1939
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4713,7 +4721,7 @@ msgstr ""
 "<p>Non se pode atopar ffmpeg no sistema.</p> <p>Sen el, KPhotoAlbum non "
 "poderá amosar miniaturas de vídeos nin a súa duración. Instale ffmpeg.</p>"
 
-#: MainWindow/Window.cpp:1917
+#: MainWindow/Window.cpp:1942
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "As miniaturas non están dispoñíbeis para os vídeos."
@@ -7305,6 +7313,13 @@ msgstr "Amosar o tamaño da imaxe"
 msgid "Show Rating"
 msgstr "Amosar a puntuación"
 
+#~ msgid ""
+#~ "<p>Could not open given index.xml, as the provided folder does not exist."
+#~ "<br />%1</p>"
+#~ msgstr ""
+#~ "<p>Non se puido abrir o ficheiro «index.xml» indicado porque o cartafol "
+#~ "fornecido non existe.<br /> %1</p>"
+
 #~ msgctxt ""
 #~ "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--"
 #~ "\", %1) and it's octal representation (e.g. \"0644\")"
@@ -8732,9 +8747,6 @@ msgstr "Amosar a puntuación"
 
 #~ msgid "SQL database support is not compiled in."
 #~ msgstr "Non está compilado o soporte para bases de dados SQL."
-
-#~ msgid "Invalid database backend: %1"
-#~ msgstr "A infraestrutura de bases de dados non é válida: %1"
 
 #~ msgid "Do you want to use XML backend instead?"
 #~ msgstr "Desexa usar a infraestrutura XML no seu lugar?"

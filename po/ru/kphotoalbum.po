@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-07-03 01:45+0000\n"
+"POT-Creation-Date: 2024-08-03 01:49+0000\n"
 "PO-Revision-Date: 2020-03-22 17:24+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1002,7 +1002,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "поиск"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1810
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1835
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -1018,7 +1018,7 @@ msgstr ""
 "li><li>Произведите настройку в разделе <b>Изображения без меток</b></li></"
 "ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1817
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1842
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Функция требует настройки"
@@ -2837,7 +2837,7 @@ msgid "Create folder?"
 msgstr "Базовый каталог:"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1234
+#: MainWindow/Window.cpp:1249
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4485,13 +4485,13 @@ msgid "Stacking Error"
 msgstr "Ошибка группировки"
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1338 MainWindow/Window.cpp:1435
+#: MainWindow/Window.cpp:1363 MainWindow/Window.cpp:1460
 #, kde-format
 msgid "No item is selected."
 msgstr "Не выбрано ни одного объекта."
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
-#: MainWindow/Window.cpp:1338 MainWindow/Window.cpp:1436
+#: MainWindow/Window.cpp:1363 MainWindow/Window.cpp:1461
 #, kde-format
 msgid "No Selection"
 msgstr "Ничего не выделено"
@@ -4795,7 +4795,7 @@ msgstr "Использовать следующую миниатюру виде�
 msgid "Use previous video thumbnail"
 msgstr "Использовать предыдущую миниатюру видеозаписи"
 
-#: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1316
+#: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1341
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Copy images to..."
@@ -4806,7 +4806,7 @@ msgstr[1] "Копирование изображений"
 msgstr[2] "Копирование изображений"
 msgstr[3] "Копирование изображений"
 
-#: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1320
+#: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1345
 #, fuzzy, kde-format
 #| msgctxt "@title:window"
 #| msgid "Link images to..."
@@ -4827,19 +4827,24 @@ msgstr "Автоматическое сохранение..."
 msgid "Auto saving.... Done"
 msgstr "Автоматическое сохранение... Завершено"
 
-#: MainWindow/Window.cpp:1220
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Could not open given index.xml as provided directory does not exist."
-#| "<br />%1</p>"
-msgid ""
-"<p>Could not open given index.xml, as the provided folder does not exist."
-"<br />%1</p>"
+#: MainWindow/Window.cpp:1222
+#, kde-format
+msgid "KPhotoAlbum only supports database files named 'index.xml'."
 msgstr ""
-"<p>Не удалось открыть требуемый файл index.xml, потому что путь, по которому "
-"он должен находиться, не существует.<br />%1</p>"
 
-#: MainWindow/Window.cpp:1227
+#: MainWindow/Window.cpp:1227 MainWindow/Window.cpp:1233
+#, kde-format
+msgid ""
+"Please specify an existing image directory or an existing index.xml file."
+msgstr ""
+
+#: MainWindow/Window.cpp:1236
+#, fuzzy, kde-format
+#| msgid "Error in database file"
+msgid "Invalid database file"
+msgstr "Ошибка в файле базы данных"
+
+#: MainWindow/Window.cpp:1242
 #, kde-format
 msgid ""
 "<p>Given index file does not exist, do you want to create following?<br />%1/"
@@ -4848,7 +4853,7 @@ msgstr ""
 "<p>Требуемый файл index.xml не существует. Создать этот файл?<br />%1/index."
 "xml</p>"
 
-#: MainWindow/Window.cpp:1230
+#: MainWindow/Window.cpp:1245
 #, fuzzy, kde-format
 #| msgid ""
 #| "Use data from\n"
@@ -4859,7 +4864,7 @@ msgstr ""
 "Использовать данные из\n"
 "базы данных"
 
-#: MainWindow/Window.cpp:1261
+#: MainWindow/Window.cpp:1286
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4872,34 +4877,34 @@ msgstr ""
 "непомеченных изображений в <interface>Настройка|Настроить KPhotoAlbum...|"
 "Категории</interface>.</p>"
 
-#: MainWindow/Window.cpp:1387 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1412 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Общие"
 
-#: MainWindow/Window.cpp:1388 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1413 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Окно просмотра"
 
-#: MainWindow/Window.cpp:1389
+#: MainWindow/Window.cpp:1414
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Дата:"
 
-#: MainWindow/Window.cpp:1392
+#: MainWindow/Window.cpp:1417
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Окно комментирования"
 
-#: MainWindow/Window.cpp:1393 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1418 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Окно миниатюр"
 
-#: MainWindow/Window.cpp:1544
+#: MainWindow/Window.cpp:1569
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4908,13 +4913,13 @@ msgstr ""
 "<p>Показывать все предупреждающие диалоговые окна, которые до этого были "
 "отключены?</p>"
 
-#: MainWindow/Window.cpp:1546
+#: MainWindow/Window.cpp:1571
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1590
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4931,32 +4936,32 @@ msgstr ""
 "продолжит запуск, но очень вероятно, что произойдёт аварийное завершение по "
 "причине невыполненной команды make install.</p>"
 
-#: MainWindow/Window.cpp:1565
+#: MainWindow/Window.cpp:1590
 #, kde-format
 msgid "Internal Error"
 msgstr "Внутренняя ошибка"
 
-#: MainWindow/Window.cpp:1576
+#: MainWindow/Window.cpp:1601
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1579
+#: MainWindow/Window.cpp:1604
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1584
+#: MainWindow/Window.cpp:1609
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1647
+#: MainWindow/Window.cpp:1672
 #, kde-format
 msgid "Open List of Files"
 msgstr "Открытие файлов по списку"
 
-#: MainWindow/Window.cpp:1648
+#: MainWindow/Window.cpp:1673
 #, fuzzy, kde-format
 #| msgid ""
 #| "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4968,28 +4973,28 @@ msgstr ""
 "Вы можете открыть файлы из корневого каталога изображений KPhotoAlbum, "
 "перечислив их здесь."
 
-#: MainWindow/Window.cpp:1662
+#: MainWindow/Window.cpp:1687
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Не найдено изображений, соответствующих введённым вами данным."
 
-#: MainWindow/Window.cpp:1662
+#: MainWindow/Window.cpp:1687
 #, kde-format
 msgid "No Matches"
 msgstr "Совпадений не найдено"
 
-#: MainWindow/Window.cpp:1834
+#: MainWindow/Window.cpp:1859
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Чтение метаданных EXIF из всех изображений"
 
-#: MainWindow/Window.cpp:1861
+#: MainWindow/Window.cpp:1886
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Ширина миниатюры: %1 пикс. (размер хранения: %2 пикс.)"
 
-#: MainWindow/Window.cpp:1914
+#: MainWindow/Window.cpp:1939
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Unable to find ffmpeg or MPlayer on the system.</p><p>Without either "
@@ -5004,7 +5009,7 @@ msgstr ""
 "<p>KPhotoAlbum не сможет показывать миниатюры и продолжительность "
 "видеозаписей. Установите пакет ffmpeg или MPlayer.</p>"
 
-#: MainWindow/Window.cpp:1917
+#: MainWindow/Window.cpp:1942
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Миниатюры видеозаписей недоступны"
@@ -7661,6 +7666,17 @@ msgstr "Показать размер изображения"
 #, kde-format
 msgid "Show Rating"
 msgstr "Показать оценку"
+
+#, fuzzy
+#~| msgid ""
+#~| "<p>Could not open given index.xml as provided directory does not exist."
+#~| "<br />%1</p>"
+#~ msgid ""
+#~ "<p>Could not open given index.xml, as the provided folder does not exist."
+#~ "<br />%1</p>"
+#~ msgstr ""
+#~ "<p>Не удалось открыть требуемый файл index.xml, потому что путь, по "
+#~ "которому он должен находиться, не существует.<br />%1</p>"
 
 #, fuzzy
 #~| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"

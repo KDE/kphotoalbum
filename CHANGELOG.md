@@ -39,6 +39,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
 ### Changed
  - Reworked the "time ago"/birthday/age calculation. Timespans should now be displayed in a nicer (more natural) way. Also, the age of people born on February 29 is now calculated correctly.
+ - The '--db' command line argument now rejects any file name that is not either an existing directory or an index.xml file within an existing directory (#418647).
 
 ### Dependencies
 

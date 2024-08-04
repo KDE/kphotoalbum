@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 01:49+0000\n"
-"PO-Revision-Date: 2024-03-30 08:41+0100\n"
+"PO-Revision-Date: 2024-08-03 11:41+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -4580,18 +4580,20 @@ msgstr "Desant automàticament... fet"
 #, kde-format
 msgid "KPhotoAlbum only supports database files named 'index.xml'."
 msgstr ""
+"El KPhotoAlbum només admet fitxers de base de dades anomenats «index.xml»."
 
 #: MainWindow/Window.cpp:1227 MainWindow/Window.cpp:1233
 #, kde-format
 msgid ""
 "Please specify an existing image directory or an existing index.xml file."
 msgstr ""
+"Especifiqueu un directori existent d'imatges o un fitxer «index.xml» "
+"existent."
 
 #: MainWindow/Window.cpp:1236
-#, fuzzy, kde-format
-#| msgid "Error in database file"
+#, kde-format
 msgid "Invalid database file"
-msgstr "Error en el fitxer de la base de dades"
+msgstr "Fitxer no vàlid de base de dades"
 
 #: MainWindow/Window.cpp:1242
 #, kde-format

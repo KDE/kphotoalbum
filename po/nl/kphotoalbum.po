@@ -13,14 +13,14 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 01:49+0000\n"
-"PO-Revision-Date: 2024-03-30 15:46+0100\n"
+"PO-Revision-Date: 2024-08-03 10:18+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -4573,19 +4573,19 @@ msgstr "Autom. opslaan... gereed"
 #: MainWindow/Window.cpp:1222
 #, kde-format
 msgid "KPhotoAlbum only supports database files named 'index.xml'."
-msgstr ""
+msgstr "KPhotoAlbum ondersteunt alleen database-bestanden genaamd 'index.xml'."
 
 #: MainWindow/Window.cpp:1227 MainWindow/Window.cpp:1233
 #, kde-format
 msgid ""
 "Please specify an existing image directory or an existing index.xml file."
 msgstr ""
+"Specificeer een bestaande afbeeldingenmap of een bestaand bestand index.xml."
 
 #: MainWindow/Window.cpp:1236
-#, fuzzy, kde-format
-#| msgid "Invalid database backend: %1"
+#, kde-format
 msgid "Invalid database file"
-msgstr "Ongeldige databasebackend: %1"
+msgstr "Ongeldig databasebestand"
 
 #: MainWindow/Window.cpp:1242
 #, kde-format

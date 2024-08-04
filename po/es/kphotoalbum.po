@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 01:49+0000\n"
-"PO-Revision-Date: 2024-03-30 03:25+0100\n"
+"PO-Revision-Date: 2024-08-03 04:45+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -4565,18 +4565,21 @@ msgstr "Autoguardando... Hecho"
 #, kde-format
 msgid "KPhotoAlbum only supports database files named 'index.xml'."
 msgstr ""
+"KPhotoAlbum solo permite usar archivos de bases de datos con el nombre "
+"«index.xml»."
 
 #: MainWindow/Window.cpp:1227 MainWindow/Window.cpp:1233
 #, kde-format
 msgid ""
 "Please specify an existing image directory or an existing index.xml file."
 msgstr ""
+"Indique un directorio de imágenes existente o un archivo «index.xml» "
+"existente."
 
 #: MainWindow/Window.cpp:1236
-#, fuzzy, kde-format
-#| msgid "Error in database file"
+#, kde-format
 msgid "Invalid database file"
-msgstr "Se ha producido un error en el archivo de base de datos"
+msgstr "Archivo de base de datos no válido"
 
 #: MainWindow/Window.cpp:1242
 #, kde-format

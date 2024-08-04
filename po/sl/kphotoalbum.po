@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 01:49+0000\n"
-"PO-Revision-Date: 2024-03-30 06:40+0100\n"
+"PO-Revision-Date: 2024-08-03 08:23+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -4584,19 +4584,18 @@ msgstr "Samodejno shranjevanje ... dokončano"
 #: MainWindow/Window.cpp:1222
 #, kde-format
 msgid "KPhotoAlbum only supports database files named 'index.xml'."
-msgstr ""
+msgstr "KPhotoAlbum podpira samo datoteke zbirk podatkov z imenom 'index.xml'."
 
 #: MainWindow/Window.cpp:1227 MainWindow/Window.cpp:1233
 #, kde-format
 msgid ""
 "Please specify an existing image directory or an existing index.xml file."
-msgstr ""
+msgstr "Določite obstoječi imenik slik ali obstoječo datoteko index.xml."
 
 #: MainWindow/Window.cpp:1236
-#, fuzzy, kde-format
-#| msgid "Error in database file"
+#, kde-format
 msgid "Invalid database file"
-msgstr "Napaka v datoteki zbirke podatkov"
+msgstr "Neveljavna datoteka zbirke podatkov"
 
 #: MainWindow/Window.cpp:1242
 #, kde-format

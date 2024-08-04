@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 01:49+0000\n"
-"PO-Revision-Date: 2024-03-30 14:17+0300\n"
+"PO-Revision-Date: 2024-08-03 13:37+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 24.04.70\n"
+"X-Generator: Lokalize 24.11.70\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -361,12 +361,12 @@ msgid ""
 "you can find extra tips on its usage by reading about <a href=\"help:/"
 "kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
 msgstr ""
-"<p>Gelişmiş arama diyalogunu açtınız; en iyi sonucu elde etmek için şu "
-"bölümü okumanız tavsiye edilir: <a href=\"help:/kphotoalbum/sect-general-"
-"image-searches.html\">Gelişmiş Arama</a>.</p><p>Bu diyalog aynı zamanda "
-"görseller hakkında bilgi yazmak için de kullanılır; kullanım hakkında ek "
-"ipuçlarını <a href=\"help:/kphotoalbum/chp-typingIn.html\">giriş</a> "
-"kullanımını okuyarak bulabilirsiniz.</p>"
+"<p>Gelişmiş arama iletişim kutusunu açtınız; en iyi sonucu elde etmek için "
+"şu bölümü okumanız tavsiye edilir: <a href=\"help:/kphotoalbum/sect-general-"
+"image-searches.html\">Gelişmiş Arama</a>.</p><p>Bu iletişim kutusu aynı "
+"zamanda görseller hakkında bilgi girmek için de kullanılır; kullanım "
+"hakkında ek ipuçlarını <a href=\"help:/kphotoalbum/chp-typingIn.html\">bu "
+"bölümü</a> okuyarak bulabilirsiniz.</p>"
 
 #: AnnotationDialog/Dialog.cpp:1153
 #, kde-format
@@ -2628,15 +2628,15 @@ msgstr ""
 "yapılmasında yardımcı olacaktır. Yapılacak işlemler: <ol><li>Önce, aktarma "
 "dosyasından hangi görsellerin içe aktarılacağını seçmelisiniz. Bunu "
 "görsellerin yanındaki kutucuğu işaretleyerek yapabilirsiniz.</li><li>Sonra, "
-"görselleri yerleştireceğininiz klasörü belirtmelisiniz. Bu klasör, K "
-"Fotoğraf Albümü’nün kullandığı temel klasörün altında olmalıdır. K Fotoğraf "
-"Albümü, ad çakışmalarını dikkate alacaktır.</li><li>Diğer adımda hangi "
-"sınıfları alacağınızı belirtmelisiniz. (Yerler, kişiler…) Aynı zamanda sizin "
+"görselleri yerleştireceğiniz klasörü belirtmelisiniz. Bu klasör, K Fotoğraf "
+"Albümü’nün kullandığı temel klasörün altında olmalıdır. K Fotoğraf Albümü, "
+"ad çakışmalarını dikkate alacaktır.</li><li>Diğer adımda hangi sınıfları "
+"alacağınızı belirtmelisiniz. (Yerler, kişiler…) Aynı zamanda sizin "
 "kategorilerinizle dosyadaki kategorilerin eşleştirmesini de yapmalısınız. "
 "Örneğin dosyada bulunan <b>Flower</b> adlı kategoriyi seçtiniz. Ama bunu, "
 "kendi dilinizde olan <b>Çiçekler</b>sınıfına yerleştirmek isteyeceksiniz.</"
 "li><li>Son adımda kişisel işaretleri eşleştirmelisiniz. Örneğin ben kendimi "
-"veri tabanımda <b>Hakan</b>olarak adlandırıyorsam, siz de soyadımla beraber "
+"veri tabanımda <b>Hakan</b>olarak adlandırıyorsam siz de soyadımla beraber "
 "<b>Hakan Şimşek</b>kullanmak istiyor olabilirsiniz. Bu adımda eşleşmeyen "
 "işaretler kırmızı gösterilecektir. Böylece bu işaretin sizin veri "
 "tabanınızda bulunmadığını anlayacaksınız.</li></ol>"
@@ -4533,18 +4533,19 @@ msgstr "Otomatik kaydediliyor…. Bitti"
 #, kde-format
 msgid "KPhotoAlbum only supports database files named 'index.xml'."
 msgstr ""
+"K Fotoğraf Albümü, yalnızca “index.xml” adındaki veritabanı dosyalarını "
+"destekler."
 
 #: MainWindow/Window.cpp:1227 MainWindow/Window.cpp:1233
 #, kde-format
 msgid ""
 "Please specify an existing image directory or an existing index.xml file."
-msgstr ""
+msgstr "Lütfen var olan bir görsel dizini veya bir index.xml dosyası belirtin."
 
 #: MainWindow/Window.cpp:1236
-#, fuzzy, kde-format
-#| msgid "Error in database file"
+#, kde-format
 msgid "Invalid database file"
-msgstr "Veritabanı dosyasında hata"
+msgstr "Geçersiz Veritabanı Dosyası"
 
 #: MainWindow/Window.cpp:1242
 #, kde-format

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 01:49+0000\n"
-"PO-Revision-Date: 2024-03-30 08:41+0100\n"
+"PO-Revision-Date: 2024-08-03 11:41+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Accelerator-Marker: &\n"
-"X-Generator: Lokalize 24.02.1\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1683,8 +1683,8 @@ msgid ""
 "replace the file %1 with file %2 manually!</p>"
 msgstr ""
 "<p>S'ha produït un error en eliminar la versió antiga de la base de dades "
-"d'imatges.</p><p>Torneu-ho a intentar de nou o substituïu el fitxer %1 amb "
-"el fitxer %2 manualment!</p>"
+"d'imatges.</p><p>Torneu-ho a provar de nou o substituïu el fitxer %1 amb el "
+"fitxer %2 manualment!</p>"
 
 #: DB/XML/FileWriter.cpp:119
 #, kde-format
@@ -1693,7 +1693,7 @@ msgid ""
 "again or rename file %1 to %2 manually!</p>"
 msgstr ""
 "<p>S'ha produït un error en moure el fitxer en XML temporal a una ubicació "
-"permanent.</p><p>Torneu-ho a intentar de nou o canvieu de nom el fitxer %1 a "
+"permanent.</p><p>Torneu-ho a provar de nou o canvieu de nom el fitxer %1 a "
 "%2 manualment!</p>"
 
 #: DB/XML/NumberedBackup.cpp:41
@@ -4582,18 +4582,20 @@ msgstr "Guardant automàticament… fet"
 #, kde-format
 msgid "KPhotoAlbum only supports database files named 'index.xml'."
 msgstr ""
+"KPhotoAlbum només admet fitxers de base de dades anomenats «index.xml»."
 
 #: MainWindow/Window.cpp:1227 MainWindow/Window.cpp:1233
 #, kde-format
 msgid ""
 "Please specify an existing image directory or an existing index.xml file."
 msgstr ""
+"Especifiqueu un directori existent d'imatges o un fitxer «index.xml» "
+"existent."
 
 #: MainWindow/Window.cpp:1236
-#, fuzzy, kde-format
-#| msgid "Error in database file"
+#, kde-format
 msgid "Invalid database file"
-msgstr "S'ha produït un error en el fitxer de la base de dades"
+msgstr "Fitxer no vàlid de base de dades"
 
 #: MainWindow/Window.cpp:1242
 #, kde-format
@@ -7361,10 +7363,3 @@ msgstr "Mostra la mida de la imatge"
 #, kde-format
 msgid "Show Rating"
 msgstr "Mostra la valoració"
-
-#~ msgid ""
-#~ "<p>Could not open given index.xml, as the provided folder does not exist."
-#~ "<br />%1</p>"
-#~ msgstr ""
-#~ "<p>No s'ha pogut obrir l'index.xml indicat perquè la carpeta "
-#~ "subministrada no existix.<br />%1</p>"

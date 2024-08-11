@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 01:49+0000\n"
-"PO-Revision-Date: 2024-04-01 12:44+0200\n"
+"PO-Revision-Date: 2024-08-09 23:50+0200\n"
 "Last-Translator: Valter Mura <valtermura@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -4562,18 +4562,18 @@ msgstr "Salvataggio automatico... completato"
 #, kde-format
 msgid "KPhotoAlbum only supports database files named 'index.xml'."
 msgstr ""
+"KPhotoAlbum supporta solamente file di banca dati con nome «index.xml»."
 
 #: MainWindow/Window.cpp:1227 MainWindow/Window.cpp:1233
 #, kde-format
 msgid ""
 "Please specify an existing image directory or an existing index.xml file."
-msgstr ""
+msgstr "Specifica una cartella immagini o un file index.xml esistente."
 
 #: MainWindow/Window.cpp:1236
-#, fuzzy, kde-format
-#| msgid "Invalid database contents. "
+#, kde-format
 msgid "Invalid database file"
-msgstr "Contenuti della banca dati non validi. "
+msgstr "File della banca dati non valido"
 
 #: MainWindow/Window.cpp:1242
 #, kde-format

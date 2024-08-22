@@ -112,7 +112,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></listitem>
           <listitem
 ><para
->fish : //someserver/home/foo/images (Téléchargement utilisant le logiciel « ssh »)</para
+>fish : //un-serveur/home/perso/images (Téléchargement utilisant le logiciel « ssh »)</para
 ></listitem>
           <listitem
 ><para

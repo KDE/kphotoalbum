@@ -1,6 +1,6 @@
 # Translation of kphotoalbum.po to Euskara/Basque (eu).
 # Copyright (C) 2004, 2005, 2006, 2008 Free Software Foundation, Inc.
-# Copyright (C) 2009-2020, This file is copyright:
+# Copyright (C) 2009-2024 This file is copyright:
 # This file is distributed under the same license as the kphotoalbum package.
 # KDE euskaratzeko proiektuko arduraduna <xalba@euskalnet.net>.
 #
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 01:49+0000\n"
-"PO-Revision-Date: 2024-07-09 23:30+0200\n"
+"PO-Revision-Date: 2024-08-22 16:44+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -36,7 +36,7 @@ msgstr "dooteo@euskalgnu.org,ander.elor@gmail.com"
 #: AnnotationDialog/AreaTagSelectDialog.cpp:91
 #, kde-format
 msgid "Tag is already used for another area"
-msgstr "Etiketa hori lehendik erabilita dago beste eremu batean"
+msgstr "Etiketa jada beste azalera batean erabili da"
 
 #: AnnotationDialog/DateEdit.cpp:69
 #, kde-format
@@ -57,7 +57,7 @@ msgstr "atzo"
 #: HTMLGenerator/HTMLDialog.cpp:143 ImportExport/MD5CheckPage.cpp:66
 #, kde-format
 msgid "Description"
-msgstr "Azalpena"
+msgstr "Deskribapena"
 
 #: AnnotationDialog/Dialog.cpp:105
 #, kde-format
@@ -65,18 +65,18 @@ msgid ""
 "(You have differing descriptions on individual images, setting text here "
 "will override them all)"
 msgstr ""
-"(Deskribapen ezberdinak dituzu irudi bakoitzean, hemen testua ezarriz "
-"guztien gainean idatziko da)"
+"(Bankako irudietan deskribapen ezberdinak dituzu, testua hemen ezarriz gero "
+"haiek guztiak gainidatziko ditu)"
 
 #: AnnotationDialog/Dialog.cpp:130
 #, kde-format
 msgid "Label and Dates"
-msgstr "Etiketak eta datak"
+msgstr "Etiketa eta datak"
 
 #: AnnotationDialog/Dialog.cpp:135
 #, kde-format
 msgid "Image Preview"
-msgstr "Irudiaren aurrebista"
+msgstr "Irudi aurreikuspegia"
 
 #: AnnotationDialog/Dialog.cpp:139
 #, kde-format
@@ -87,10 +87,11 @@ msgid ""
 "KPhotoAlbum...|General</interface>, a description embedded in the image Exif "
 "information is imported to this field if available.</para>"
 msgstr ""
-"<para>Irudiaren azalpen testu bat.</para><para>Baldin eta <emphasis>Erabili "
-"EXIFen azalpena</emphasis> gaitua badago <interface>Ezarpenak|Konfiguratu "
-"KPhotoAlbum...|Orokorra</interface>, Irudiaren Exifean kapsulatutako "
-"azalpeninformazioa eremu honetara inportatuko da erabilgarri badago.</para>"
+"<para>Irudiaren testu deskribatzaile bat.</para><para><interface>Ezarpenak| "
+"Konfiguratu KPhotoAlbum...|Orokorra</interface> barruan <emphasis>Erabili "
+"EXIF deskribapena</emphasis> gaituta badago, irudiaren EXIF informazioan "
+"txertatutako deskribapen bat egonez gero, eremu horretara inportatzen da.</"
+"para>"
 
 #: AnnotationDialog/Dialog.cpp:165 DB/ImageDB.cpp:397
 #, kde-format
@@ -109,8 +110,8 @@ msgid ""
 "The map widget allows you to view the location of images if GPS coordinates "
 "are found in the Exif information."
 msgstr ""
-"Mapa trepetak kokapena erakutsiko dizu irudiaren EXIFean GPS koordenatuak "
-"aurkitzen baditu."
+"Mapa trepetak irudiaren kokapena ikusteko aukera emango dizu, Exif "
+"informazioan GPS koordenatuak aurkitzen badira."
 
 #: AnnotationDialog/Dialog.cpp:226
 #, kde-format
@@ -179,22 +180,22 @@ msgid ""
 "the photo comes from an analog camera), then you should set <interface>Use "
 "Fuzzy Date</interface>.</para>"
 msgstr ""
-"<para>KPhotoAlbum-en irudiek data eta ordu zehatza izan dezakete edo "
-"<emphasis>zalantzazko</emphasis> data bat adierazitako denbora tarte batean "
-"gertatuakoa dena. Kamera digital betekin sortutako irudiak normalean data "
-"zehatzadute.</para><para>Ez badakizu zehazki argazki bat noiz ateratakoa den "
-"(Adibidez argazkia kamera analogiko batetik badator), orduan ezarri ezazu "
-"<interface>erabili zalantzazko data</interface>.</para>"
+"<para>KPhotoAlbum-en, irudiek data eta ordu zehatza izan dezakete, edo "
+"adierazitako denbora tarte batean gertatuakoa den <emphasis>zalantzazko</"
+"emphasis> data bat. Kamera digital betekin sortutako irudiek normalean data "
+"zehatza dute.</para><para>Argazki bat zehazki noiz ateratako ez badakizu "
+"(argazkia kamera analogiko batetik badator adibidez), orduan  "
+"<interface>Erabili zalantzazko data</interface> ezarri beharko zenuke.</para>"
 
 #: AnnotationDialog/Dialog.cpp:371
 #, kde-format
 msgid "Minimum megapixels:"
-msgstr "Gutxienezko megapixelak:"
+msgstr "Megapixel gutxienez:"
 
 #: AnnotationDialog/Dialog.cpp:381
 #, kde-format
 msgid "Maximum megapixels:"
-msgstr "Gehienezko megapixelak:"
+msgstr "Megapixel gehienez:"
 
 #: AnnotationDialog/Dialog.cpp:394
 #, kde-format
@@ -229,23 +230,23 @@ msgstr "!="
 #: AnnotationDialog/Dialog.cpp:414
 #, kde-format
 msgid "File Name Pattern: "
-msgstr "Fitxategi-izenaren eredua: "
+msgstr "Fitxategi-izen eredua: "
 
 #: AnnotationDialog/Dialog.cpp:417
 #, kde-format
 msgid "File Name Pattern"
-msgstr "Fitxategi-izenaren eredua"
+msgstr "Fitxategi-izen eredua"
 
 #: AnnotationDialog/Dialog.cpp:422
 #, kde-format
 msgid "Search only for RAW files"
-msgstr "Bilatu bakarrik RAW fitxategiak"
+msgstr "Bilatu RAW fitxategiak bakarrik"
 
 #: AnnotationDialog/Dialog.cpp:605
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
-msgstr "Oharrak (%1/%2)"
+msgstr "Idatzoharrak (%1/%2)"
 
 #: AnnotationDialog/Dialog.cpp:831
 #, kde-format
@@ -262,49 +263,49 @@ msgstr "Eginda"
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
-msgstr "Oharrak"
+msgstr "Idatzoharrak"
 
 #: AnnotationDialog/Dialog.cpp:873
 #, kde-format
 msgid "Configure Window Layout..."
-msgstr "Konfiguratu leiho diseinua..."
+msgstr "Konfiguratu leihoaren antolamendua..."
 
 #: AnnotationDialog/Dialog.cpp:874
 #, kde-format
 msgid "Save Current Window Setup"
-msgstr "Gorde uneko leihoaren konfigurazioa"
+msgstr "Gorde leihoaren uneko ezarpena"
 
 #: AnnotationDialog/Dialog.cpp:875
 #, kde-format
 msgid "Reset layout"
-msgstr "Berrezarri diseinua"
+msgstr "Berrezarri antolaera"
 
 #: AnnotationDialog/Dialog.cpp:882 AnnotationDialog/Dialog.cpp:1281
 #: AnnotationDialog/ListSelect.cpp:110
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
-msgstr "Ordenatu alfabetikoki (zuhaitza)"
+msgstr "Sailkatu alfabetikoki (zuhaitza)"
 
 #: AnnotationDialog/Dialog.cpp:886 AnnotationDialog/Dialog.cpp:1285
 #: AnnotationDialog/ListSelect.cpp:116
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
-msgstr "Ordenatu alfabetikoki (laua)"
+msgstr "Sailkatu alfabetikoki (laua)"
 
 #: AnnotationDialog/Dialog.cpp:890
 #, kde-format
 msgid "Sort by Date"
-msgstr "Ordenatu dataren arabera"
+msgstr "Sailkatu dataren arabera"
 
 #: AnnotationDialog/Dialog.cpp:906
 #, kde-format
 msgid "Match Tags from the First Character"
-msgstr "Parekatu etiketak lehen karakteretik"
+msgstr "Parekatu etiketak lehenengo karakteretik"
 
 #: AnnotationDialog/Dialog.cpp:907
 #, kde-format
 msgid "Match Tags from Word Boundaries"
-msgstr "Parekatu etiketak berba mugetatik"
+msgstr "Parekatu etiketak hitzen mugetatik"
 
 #: AnnotationDialog/Dialog.cpp:908
 #, kde-format
@@ -314,7 +315,7 @@ msgstr "Parekatu etiketak edonon"
 #: AnnotationDialog/Dialog.cpp:925
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
-msgstr "Erakutsi hautatutakoak soilik Ktrl+S"
+msgstr "Erakutsi hautatutakoak bakarriks Ktrl+S"
 
 #: AnnotationDialog/Dialog.cpp:970
 #, kde-format
@@ -322,8 +323,8 @@ msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be opened because "
 "of the following error: %2"
 msgstr ""
-"<p>Ezin da gorde leihoaren diseinua.</p>%1 fitxategia ezin da ireki "
-"ondorendo akatsagatik: %2"
+"<p>Ezin izan du leihoaren antolaera gorde.</p>Ondoko erroreagatik ezin izan "
+"du %1 fitxategia ireki: %2"
 
 #: AnnotationDialog/Dialog.cpp:975
 #, kde-format
@@ -331,27 +332,23 @@ msgid ""
 "<p>Could not save the window layout.</p>File %1 could not be written because "
 "of the following error: %2"
 msgstr ""
-"<p>Ezin da gorde leihoaren diseinua.</p>%1 fitxategia ezin da idatzi "
-"ondorendo akatsagatik: %2"
+"<p>Ezin izan du leihoaren antolaera gorde.</p>Ondoko erroreagatik ezin izan "
+"du %1 fitxategia idatzi: %2"
 
 #: AnnotationDialog/Dialog.cpp:1043
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Some changes are made to annotations. Do you really want to cancel all "
-#| "recent changes for each affected file?</p>"
+#, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
-"<p>Aldaketa batzuk egin zaizkie oharpenei. Fitxategiko egin diren azken "
-"aldaketa guztiak bertan behera uztea nahi dituzu?</p>"
+"<p>Idatzoharrei aldaketa batzuk egin zaizkie. Eragindako fitxategi "
+"bakoitzari azkenaldian egindako aldaketak benetan baztertu nahi dituzu?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1044
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Gorde aldaketak?"
+msgstr "Aldaketak baztertu?"
 
 #: AnnotationDialog/Dialog.cpp:1145
 #, kde-format
@@ -363,12 +360,13 @@ msgid ""
 "you can find extra tips on its usage by reading about <a href=\"help:/"
 "kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
 msgstr ""
-"<p>Bilaketa aurreratuaren elkarrizketa-koadroa ireki duzu; eskaintzen "
-"dizkizunaren onura lortzeko, irakurri eskuliburuko <a href=\"help:/"
-"kphotoalbum/sect-general-image-searches.html\">bilaketa aurreratua</a> atala."
-"</p><p>Elkarrizketa-koadro hau irudie buruzko informazioa idazteko ere "
-"erabiltzen da, argibide gehiagorako irakurri <a href=\"help:/kphotoalbum/chp-"
-"typingIn.html\">datuak idaztea</a>.</p>"
+"<p>Bilaketa aurreraturako elkarrizketa ireki duzu; hari probetsurik handiena "
+"ateratzeko, eskuliburuan <a href=\"help:/kphotoalbum/sect-general-image-"
+"searches.html\">bilaketa aurreratua<a> atala irakurtzea gomendatzen da.</"
+"p><p>Elkarrizketa hori irudiei buruzko informazioak tekleatzeko ere "
+"erabiltzen da; haren erabilerari buruzko argibide gehigarriak aurki "
+"ditzakezu <a href=\"help:/kphotoalbum/chp-typingIn.html\">tekleatzea</a>ri "
+"buruz irakurrita.</p>"
 
 #: AnnotationDialog/Dialog.cpp:1153
 #, kde-format
@@ -378,35 +376,35 @@ msgid ""
 "p><p>It is strongly recommended that you take 5 minutes to read the <a href="
 "\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
 msgstr ""
-"<p>KPhotoAlbum-eko leiho garrantzitsuenetariko bat ireki duzu; azkar "
-"erabiltzeko eginbide ugari ditu.</p><p>Biziki gomendatzen da 5 minutu "
-"zuretzako hartzea <a href=\"help:/kphotoalbum/chp-typingIn.html"
-"\">elkarrizketa-koadro honi buruzko dokumentazioa</a></p>"
+"<p>KPhotoAlbum-eko leiho garrantzitsuenetako bat ireki duzu; erabilera "
+"azkarrerako optimizatu diren funtzionaltasun asko ditu.</p><p>Biziki "
+"gomendatzen da <a href=\"help:/kphotoalbum/chp-typingIn.html\">elkarrizketa "
+"honetarako dokumentazioa</a> irakurtzeko 5 minutua hartzea</p>"
 
 #: AnnotationDialog/Dialog.cpp:1288
 #, kde-format
 msgid "Sort Most Recently Used"
-msgstr "Ordenatu erabilitako azkenen arabera"
+msgstr "Sailkatu erabilitako azkenak"
 
 #: AnnotationDialog/Dialog.cpp:1291
 #, kde-format
 msgid "Toggle Sorting"
-msgstr "Txandakatu ordena"
+msgstr "Txandakatu sailkatzea"
 
 #: AnnotationDialog/Dialog.cpp:1296
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
-msgstr "Txandakatu hautatutako elementuak erakustea soilik"
+msgstr "Txandakatu hautatutako elementuak bakarrik erakustea"
 
 #: AnnotationDialog/Dialog.cpp:1300
 #, kde-format
 msgid "Annotate Next"
-msgstr "Idatzi hurrengoaren oharra"
+msgstr "Idatzoharra idatzi hurrengoan"
 
 #: AnnotationDialog/Dialog.cpp:1304
 #, kde-format
 msgid "Annotate Previous"
-msgstr "Idatzi aurrekoaren oharra"
+msgstr "Idatzoharra idatzi aurrekoan"
 
 #: AnnotationDialog/Dialog.cpp:1308
 #, kde-format
@@ -431,7 +429,7 @@ msgstr "Biratu erlojuaren noranzkoan"
 #: AnnotationDialog/Dialog.cpp:1322
 #, kde-format
 msgid "Toggle fullscreen preview"
-msgstr "Txandakatu pantaila osoaren aurrebista"
+msgstr "Txandakatu pantaila-osoko aurreikuspegia"
 
 #: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
@@ -441,10 +439,11 @@ msgid ""
 "change this in the settings dialog. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings.</p>"
 msgstr ""
-"<p><b>Ezin da \"%2\" etiketa harremandu</b></p><p>\"%1\" kategoria, \"%2\" "
-"etiketarena ezin da kokatu.</p><p>Etiketa hau erabili nahi baduzu, aldatu "
-"hau ezarpenen elkarrizketa-koadroan. Etiketa hau ez badu jarraitu behar "
-"gehiago datu-basean, ezabatu daiteke ezarpenetan.</p>"
+"<p><b>Ezin da \"%2\" etiketa elkartu</b></p><p>\"%2\" etiketa dagokion "
+"\"%1\" kategoria ez da kokagarria.</p><p>Etiketa hau erabili nahi baduzu, "
+"aldatu hori ezarpenak elkarrizketa-koadroan. Etiketa honek aurrerantzean "
+"antzemateko datu-basean egon behar ez balu, ezarpenak elkarrizketa-koadroan "
+"ezaba daiteke.</p>"
 
 #: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
@@ -454,20 +453,21 @@ msgid ""
 "this category and mark it as positionable. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings dialog.</p>"
 msgstr ""
-"<p><b>Ezin da \"%2\" etiketa harremandu</b></p><p>\"%1\" kategoria, \"%2\" "
-"etiketarena ez da existitzen.</p><p>Etiketa hau erabili nahi baduzu, gehitu "
-"eta markatu kokagarri bezala. Etiketa hau ez badu jarraitu behar gehiago "
-"datu-basean, ezabatu daiteke ezarpenetan.</p>"
+"<p><b>Ezin da \"%2\" etiketa elkartu</b></p><p>\"%2\" etiketa dagokion "
+"\"%1\" kategoria ez da existitzen.</p><p>Etiketa hau erabili nahi baduzu, "
+"gehitu kategoria hau eta markatu kokagarri gisa. Etiketa honek  "
+"aurrerantzean antzemateko datu-basean egon behar ez balu, ezarpenak "
+"elkarrizketa-koadroan ezaba daiteke.</p>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:51
 #, kde-format
 msgid "Annotate previous image (Page Up)"
-msgstr "Idatzi aurreko irudiaren oharra (orria gora)"
+msgstr "Idatzoharra idatzi aurreko irudian (Orrian gora)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:57
 #, kde-format
 msgid "Annotate next image (Page Down)"
-msgstr "Idatzi hurrengo irudiaren oharra (orria behera)"
+msgstr "Idatzoharra idatzi hurrengo irudian (Orrian behera)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:82
 #, kde-format
@@ -476,19 +476,19 @@ msgid ""
 "<para>Set the same tags on this image than on the previous one. The image "
 "date, label, rating, and description are left unchanged.</para>"
 msgstr ""
-"<para>Aurreko irudiaren etiketa berdinak ezarri irudi honi. Irudiaren data, "
+"<para>Ezarri irudi honetan aurrekoan dauden irudi berdinak. Irudiaren data, "
 "etiketa, balorazioa, eta deskribapena aldatu gabe uzten dira.</para>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:110
 #, kde-format
 msgid "Category for new areas:"
-msgstr "Kategoria eremu berrietarako:"
+msgstr "Azalera berrietarako Kategoria:"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:315
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
-msgstr "Erakutsi edo ezkutatu irudiko eremuak"
+msgstr "Erakutsi edo ezkutatu irudiko azalerak"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:320
 #, kde-format
@@ -498,23 +498,23 @@ msgid ""
 "category in <interface>Settings|Configure KPhotoAlbum...|Categories</"
 "interface>, you can associate specific image areas with tags."
 msgstr ""
-"Gutxienez kategoria baten <emphasis>kokatu daitezkeen etiketak</emphasis> "
-"gaitzen badituzu <interface>Ezarpenak|Konfiguratu KPhotoAlbum...|Kategoriak</"
-"interface>, irudiko eremu zehatz bat etiketa batekin harremanean jar "
-"dezakezu."
+"<emphasis>etiketa kokagarriak</emphasis>, gutxienez <interface>Ezarpenak|"
+"Konfiguratu KPhotoAlbum...|Kategoriak</interface> kategoria baterako gaitzen "
+"baduzu, irudiko azalera zehatzak etiketekin elkar ditzakezu."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:325
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
 msgstr ""
-"Irudi bateko eremuak irudi-bakar oharpen moduan bakarrik erakutsi daitezke."
+"Irudi bateko azalerak, irudi-bakarreko idatzohar moduan bakarrik erakuts "
+"daitezke."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:355
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
-msgstr "Txandakatu pantaila osoaren aurrebista"
+msgstr "Txandakatu pantaila osoko aurreikuspegia"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:356
 #, kde-format
@@ -541,11 +541,10 @@ msgid "Delete image"
 msgstr "Ezabatu irudia"
 
 #: AnnotationDialog/ListSelect.cpp:72
-#, fuzzy, kde-format
-#| msgid "Enter a date..."
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr "Sartu data..."
+msgstr "Sartu etiketa bat ..."
 
 #: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:339
 #, kde-format
@@ -565,7 +564,7 @@ msgstr "Ordenatu dataren arabera"
 #: AnnotationDialog/ListSelect.cpp:128
 #, kde-format
 msgid "Show only selected Ctrl+S"
-msgstr "Erakutsi hautatutakoak soilik Ktrl+S"
+msgstr "Erakutsi hautatutakoak bakarrik Ktrl+S"
 
 #: AnnotationDialog/ListSelect.cpp:177
 #, kde-format
@@ -575,10 +574,10 @@ msgid ""
 "Untagged Images</interface>). It will not show up here as long as it is "
 "selected for this purpose."
 msgstr ""
-"Zuk sartutako etiketa aurkitu berriei automatikoki ezartzen zaien etiketa "
-"da, etiketarik gabeko irudiak. (<interface>Ezarpenak|Konfiguratu "
-"KPhotoAlbum...|kategoriak| Etiketarik gabeko irudiak</interface>). Helburu "
-"horretarako hautatua dagoen bitartean ez da hemen agertuko."
+"Sartu duzun etiketa, aurkitu berriei automatikoki ezartzen zaien etiketa da, "
+"etiketatu gabeko irudiak (<interface>Ezarpenak|Konfiguratu KPhotoAlbum...|"
+"kategoriak|Etiketatu gabeko irudiak</interface>). Ez da hemen erakutsiko "
+"asmo horrekin erabiltzen den bitartean."
 
 #: AnnotationDialog/ListSelect.cpp:359
 #, kde-format
@@ -598,7 +597,7 @@ msgstr "Ezabatu"
 #: AnnotationDialog/ListSelect.cpp:370
 #, kde-format
 msgid "Rename..."
-msgstr "Aldatu izena..."
+msgstr "Berrizendatu..."
 
 #: AnnotationDialog/ListSelect.cpp:372
 #, kde-format
@@ -618,17 +617,17 @@ msgstr "Gehitu etiketa hau etiketa talde berri batera..."
 #: AnnotationDialog/ListSelect.cpp:400
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
-msgstr "Egin etiketa honekin etiketa taldea eta gehitu etiketa..."
+msgstr "Etiketa honetatik etiketa talde bat egin eta etiketa bat gehitu..."
 
 #: AnnotationDialog/ListSelect.cpp:406
 #, kde-format
 msgid "Remove from tag group %1"
-msgstr "%1 etiketa taldetik ezabatu nahi duzu?"
+msgstr "%1etiketa taldetik kendu"
 
 #: AnnotationDialog/ListSelect.cpp:409
 #, kde-format
 msgid "<b>Sorting</b>"
-msgstr "<b>Ordenatzea</b>"
+msgstr "<b>Sailkatzea</b>"
 
 #: AnnotationDialog/ListSelect.cpp:415
 #, kde-format
@@ -651,20 +650,19 @@ msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
 "any information about it from any image containing the item.</p>"
 msgstr ""
-"<p>Ziur zaude \"%1\" ezabatzea nahi duzula?<br/>Elementua ezabatzean hari "
-"buruzko informazioa ezabatuko da elementua duen edozein iruditik.</p>"
+"<p>\"%1\" benetan ezabatu nahi duzu?<br/>Elementua ezabatzeak, elementua "
+"duten irudi guztietatik hari buruzko informazio oro ezabatuko du.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:446
 #, kde-format
 msgid "Really Delete %1?"
-msgstr "%1 ezabatzea nahi duzu?"
+msgstr "%1 benetan ezabatu?"
 
 #: AnnotationDialog/ListSelect.cpp:463
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
-msgstr "Aldatu elementuaren izena"
+msgstr "Berrizendatu elementua"
 
 #: AnnotationDialog/ListSelect.cpp:463
 #, kde-format
@@ -677,23 +675,20 @@ msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
 "\"%3\" on any image containing it.</p>"
 msgstr ""
-"<p>Ziur zaude \"%1\" aldatzea nahi duzula \"%2\" izenera?<br/>Horrela "
-"egitean, hau duen edozein irudiren \"%3\" ere izenez aldatuko da.</p>"
+"<p>Benetan berrizendatu nahi duzu \"%1\", \"%2\" gisa?<br/>Horrela egiteak, "
+"hura duten irudi gutietan \"%3\" berrizendatuko du.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:473
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Aldatu izena \"%1\""
+msgstr "%1 berrizendatu?"
 
 #: AnnotationDialog/ListSelect.cpp:478
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
-msgstr "Aldatu izena"
+msgstr "Berrizendatu"
 
 #: AnnotationDialog/ListSelect.cpp:513
 #, kde-format
@@ -703,7 +698,7 @@ msgstr "Etiketa talde berria"
 #: AnnotationDialog/ListSelect.cpp:514
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
-msgstr "Izena etiketa talde berriarentzat non etiketa gehituko den:"
+msgstr "Etiketa gehituko den etiketa-talde berrirako izena:"
 
 #: AnnotationDialog/ListSelect.cpp:526
 #, kde-format
@@ -713,7 +708,7 @@ msgstr "Gehitu etiketa bat"
 #: AnnotationDialog/ListSelect.cpp:527
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
-msgstr "Izena ezarri talde honetara gehituko den etiketari:"
+msgstr "Etiketa talde honetara gehituko den etiketarako izena:"
 
 #: AnnotationDialog/ListSelect.cpp:781
 #, kde-format
@@ -733,7 +728,7 @@ msgstr "%1 (%2)"
 #, kde-format
 msgctxt "area of an image; rectangle that is overlayed upon the image"
 msgid "Remove area"
-msgstr "Ezabatu eremua"
+msgstr "Ezabatu azalera"
 
 #: AnnotationDialog/ResizableFrame.cpp:311
 #, kde-format
@@ -755,13 +750,13 @@ msgid ""
 "<p>%1 has already been tagged in another area on this image.</p><p>If you "
 "continue, the previous tag will be removed...</p>"
 msgstr ""
-"<p>%1 jada ezarri da etiketa gisa irudi honetako beste eremu baten.</"
-"p><p>Jarraituz gero, aurreko etiketa kenduko da...</p>"
+"<p>%1, jada, irudi honetako beste azalera batean etiketatu da.</p> "
+"<p>Jarraituz gero, aurreko etiketa kenduko da...</p>"
 
 #: AnnotationDialog/ResizableFrame.cpp:359
 #, kde-format
 msgid "Replace existing area?"
-msgstr "Ordezkatu dagoen eremua?"
+msgstr "Dagoen azalera ordezkatu?"
 
 #: AnnotationDialog/ResizableFrame.cpp:460
 #, kde-format
@@ -773,7 +768,7 @@ msgstr "Kendu %1 (%2) etiketa"
 #: AnnotationDialog/ResizableFrame.cpp:471
 #, kde-format
 msgid "Associate with"
-msgstr "Esleitu honi"
+msgstr "Honekin elkartu"
 
 #: AnnotationDialog/ResizableFrame.cpp:495
 #: AnnotationDialog/ResizableFrame.cpp:504
@@ -782,7 +777,7 @@ msgctxt ""
 "As in: associate [this marked area of the image] with one of the following "
 "choices/menu items"
 msgid "Associate with"
-msgstr "Esleitu honi"
+msgstr "Honekin elkartu"
 
 #: BackgroundJobs/ExtractOneThumbnailJob.cpp:42
 #, kde-format
@@ -967,7 +962,7 @@ msgstr "Bilaketaren emaitza hutsa"
 #: Browser/OverviewPage.cpp:277
 #, kde-format
 msgid "Exif Search"
-msgstr "EXIFen bilaketa"
+msgstr "EXIF bilaketa"
 
 #: Browser/OverviewPage.cpp:297
 #, kde-format
@@ -1762,12 +1757,10 @@ msgid "Error while reading database file"
 msgstr "Errorea datu-basea irakurtzean"
 
 #: Exif/InfoDialog.cpp:33
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Exif Information"
+#, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
-msgstr "Exif informazioa"
+msgstr "EXIF informazioa eta metadatuak"
 
 #: Exif/InfoDialog.cpp:73
 #, kde-format
@@ -1782,26 +1775,24 @@ msgid "IPTC character set:"
 msgstr "IPTC karaktere-jokoa:"
 
 #: Exif/InfoDialog.cpp:95
-#, fuzzy, kde-format
-#| msgid "Exif Info"
+#, kde-format
 msgid "Exif info"
 msgstr "EXIF informazioa"
 
 #: Exif/InfoDialog.cpp:96
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgid "File metadata"
-msgstr "Bideoen matadatu euskarria"
+msgstr "Fitxategien matadatuak"
 
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
 msgid "Absolute path:"
-msgstr ""
+msgstr "Bide-izen absolutua:"
 
 #: Exif/MetaDataDisplay.cpp:42
 #, kde-format
 msgid "MIME type:"
-msgstr ""
+msgstr "MIME-mota:"
 
 #: Exif/MetaDataDisplay.cpp:46 Settings/ViewerSizeConfig.cpp:26
 #, kde-format
@@ -1811,17 +1802,17 @@ msgstr "Tamaina:"
 #: Exif/MetaDataDisplay.cpp:50
 #, kde-format
 msgid "Created:"
-msgstr ""
+msgstr "Sorrera:"
 
 #: Exif/MetaDataDisplay.cpp:54
 #, kde-format
 msgid "Changed:"
-msgstr ""
+msgstr "Aldatua:"
 
 #: Exif/MetaDataDisplay.cpp:58
 #, kde-format
 msgid "Owner:"
-msgstr ""
+msgstr "Jabea:"
 
 #: Exif/MetaDataDisplay.cpp:62
 #, kde-format
@@ -1829,53 +1820,46 @@ msgid "Group:"
 msgstr "Taldea:"
 
 #: Exif/MetaDataDisplay.cpp:66
-#, fuzzy, kde-format
-#| msgid "Version: %1"
+#, kde-format
 msgid "Permissions:"
-msgstr "Bertsioa: %1"
+msgstr "Baimenak:"
 
 #: Exif/MetaDataDisplay.cpp:100
 #, kde-format
 msgid "Open folder with a file manager"
-msgstr ""
+msgstr "Ireki karpeta fitxategi-kudeatzaile batekin"
 
 #: Exif/MetaDataDisplay.cpp:107
-#, fuzzy, kde-format
-#| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr "%1 (%2)"
+msgstr "%1 (%2 B)"
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
-#, fuzzy, kde-format
-#| msgid "or"
+#, kde-format
 msgctxt "File permission shortcut for \"reading allowed\""
 msgid "r"
-msgstr "edo"
+msgstr "r"
 
 #: Exif/MetaDataDisplay.cpp:124 Exif/MetaDataDisplay.cpp:130
 #: Exif/MetaDataDisplay.cpp:136
 #, kde-format
 msgctxt "File permission shortcut for \"writing allowed\""
 msgid "w"
-msgstr ""
+msgstr "w"
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
-#, fuzzy, kde-format
-#| msgid "x"
+#, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
 msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
-#, fuzzy, kde-format
-#| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and its octal representation (e.g. \"0644\")"
@@ -1886,12 +1870,12 @@ msgstr "%1 (%2)"
 #, kde-format
 msgctxt "@title:window"
 msgid "Read Exif Info from Files"
-msgstr "Irakurri Exif informazioa fitxategietatik"
+msgstr "Irakurri fitxategietako EXIF informazioa"
 
 #: Exif/ReReadDialog.cpp:35
 #, kde-format
 msgid "Update Exif search database"
-msgstr "Eguneratu Exif bilaketaren datu-basea"
+msgstr "Eguneratu EXIF bilaketa datu-basea"
 
 #: Exif/ReReadDialog.cpp:41
 #, kde-format
@@ -1901,17 +1885,17 @@ msgstr "Eguneratu irudiaren data"
 #: Exif/ReReadDialog.cpp:44
 #, kde-format
 msgid "Use modification date if Exif not found"
-msgstr "Erabili dataren aldaketa Exif ez bada aurkitzen"
+msgstr "Erabili aldaketa data EXIF aurkitzen ez bada"
 
 #: Exif/ReReadDialog.cpp:47
 #, kde-format
 msgid "Update image orientation from Exif information"
-msgstr "Eguneratu irudiaren orientazioa Exif informaziotik"
+msgstr "Eguneratu irudiaren orientazioa EXIF informaziotik"
 
 #: Exif/ReReadDialog.cpp:50
 #, kde-format
 msgid "Update image description from Exif information"
-msgstr "Eguneratu irudiaren azalpena Exif informaziotik"
+msgstr "Eguneratu irudiaren deskribapena EXIF informaziotik"
 
 #: Exif/ReReadDialog.cpp:53
 #, kde-format
@@ -1937,7 +1921,7 @@ msgstr "Gainidatzi irudiaren datuak"
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Search"
-msgstr "Exif bilaketa"
+msgstr "EXIF bilaketa"
 
 #: Exif/SearchDialog.cpp:35
 #, kde-format
@@ -1974,7 +1958,7 @@ msgstr "Kamera"
 #: Exif/SearchDialog.cpp:103
 #, kde-format
 msgid "Lens"
-msgstr "Kamera-lentea"
+msgstr "Lenteak"
 
 #: Exif/SearchDialog.cpp:108 Settings/GeneralPage.cpp:115
 #, kde-format
@@ -3304,7 +3288,7 @@ msgstr ""
 #: lib/kpaexif/Database.cpp:188
 #, kde-format
 msgid "Error in Exif database"
-msgstr "Errorea Exif datu-basean"
+msgstr "Errorea EXIF datu-basean"
 
 #: lib/kpaexif/Database.cpp:209
 #, kde-format
@@ -4125,7 +4109,7 @@ msgstr "Etiketak irudiko"
 #: MainWindow/StatisticsDialog.cpp:104
 #, kde-format
 msgid "Tag indication completed annotation"
-msgstr "Etiketa osatutako oharpenaren adierazle"
+msgstr "Osatutako idatzoharraren etiketa-seinalea"
 
 #: MainWindow/StatisticsDialog.cpp:110
 #, kde-format
@@ -4625,12 +4609,12 @@ msgstr "Bilatu irudi eta bideo berriak"
 #: MainWindow/Window.cpp:1024
 #, kde-format
 msgid "Recreate Exif Search Database"
-msgstr "Sortu berriro EXIFen bilaketaren datu-basea"
+msgstr "Birsortu EXIF bilaketa datu-basea"
 
 #: MainWindow/Window.cpp:1027
 #, kde-format
 msgid "Read Exif Info from Files..."
-msgstr "Irakurri Exif informazioa fitxategietatik..."
+msgstr "Irakurri fitxategietako EXIF informazioa..."
 
 #: MainWindow/Window.cpp:1030
 #, kde-format
@@ -4678,10 +4662,9 @@ msgid "Show Demo Videos"
 msgstr "Erakutsi demostrazioaren bideoak"
 
 #: MainWindow/Window.cpp:1071 Viewer/ViewerWidget.cpp:199
-#, fuzzy, kde-format
-#| msgid "Show Exif Info"
+#, kde-format
 msgid "Show Exif Info and file metadata"
-msgstr "Erakutsi EXIFen informazioa"
+msgstr "Erakutsi EXIF informazioa eta fitxategi metadatuak"
 
 #: MainWindow/Window.cpp:1077
 #, kde-format
@@ -4791,7 +4774,7 @@ msgstr "Data: "
 #: MainWindow/Window.cpp:1417
 #, kde-format
 msgid "Annotation Dialog"
-msgstr "Oharra idazteko elkarrizketa-koadroa"
+msgstr "Idatzohar-elkarrizketa"
 
 #: MainWindow/Window.cpp:1418 Settings/SettingsDialog.cpp:48
 #, kde-format
@@ -4880,7 +4863,7 @@ msgstr "Ez dago bat datorrenik"
 #: MainWindow/Window.cpp:1859
 #, kde-format
 msgid "Rereading Exif information from all images"
-msgstr "Irudi guztien Exif informazioa berriro irakurtzen"
+msgstr "Irudi guztietako EXIF informazioa berriro irakurtzen"
 
 #: MainWindow/Window.cpp:1886
 #, no-c-format, kde-format
@@ -5319,17 +5302,17 @@ msgstr ""
 #: Settings/ExifPage.cpp:28
 #, kde-format
 msgid "Exif/IPTC info to show in the viewer"
-msgstr "Exif/IPTC informazioa ikustailean erakusteko"
+msgstr "Erakuslean erakutsi beharreko EXIF/IPTC informazioa"
 
 #: Settings/ExifPage.cpp:31
 #, kde-format
 msgid "Exif/IPTC info to show in the Exif dialog"
-msgstr "Exif/IPTC informazioa Exifen elkarrizketa-koadroan erakusteko"
+msgstr "EXIF elkarrizketa-koadroan erakutsi beharreko EXIF/IPTC informazioa"
 
 #: Settings/ExifPage.cpp:34
 #, kde-format
 msgid "Character set for image metadata:"
-msgstr "Karaktere-jokoa irudien metadatuentzako:"
+msgstr "Irudi metadatuen karaktere-jokoa:"
 
 #: Settings/FileVersionDetectionPage.cpp:31
 #, kde-format
@@ -5745,12 +5728,12 @@ msgstr "Inoiz ez"
 #: Settings/GeneralPage.cpp:47
 #, kde-format
 msgid "Use Exif orientation information"
-msgstr "Erabili Exifen orientazioaren informazioa"
+msgstr "Erabili EXIFeko orientazio informazioa"
 
 #: Settings/GeneralPage.cpp:52
 #, kde-format
 msgid "Use Exif description"
-msgstr "Erabili Exifen azalpena"
+msgstr "Erabili EXIFeko deskribapena"
 
 #: Settings/GeneralPage.cpp:56
 #, kde-format
@@ -5900,7 +5883,7 @@ msgstr "Etiketa taldeak"
 #: Settings/SettingsDialog.cpp:53
 #, kde-format
 msgid "Exif/IPTC Information"
-msgstr "Exif/IPTC informazioa"
+msgstr "EXIF/IPTC informazioa"
 
 #: Settings/SettingsDialog.cpp:54
 #, kde-format
@@ -6800,25 +6783,22 @@ msgstr "\"%1\" eta \"%2\""
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
-msgstr ""
+msgstr "Esleitu makroa"
 
 #: Viewer/AnnotationHandler.cpp:68
-#, fuzzy, kde-format
-#| msgid "Settings for category <b>%1</b>"
+#, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr "<b>%1 kategoriaren ezarpenak</b>"
+msgstr "Hautatu <b>%1</b> makro teklarentzako elementua"
 
 #: Viewer/AnnotationHandler.cpp:125
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgid "Tag Item"
-msgstr "Aldatu elementuaren izena"
+msgstr "Etiketa elementua"
 
 #: Viewer/AnnotationHandler.cpp:125
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select tag for image"
-msgstr "Hautatu jomuga:"
+msgstr "Hautatu irudiarentzako etiketa"
 
 #: Viewer/CategoryImageConfig.cpp:41
 #, kde-format
@@ -7393,14 +7373,13 @@ msgstr "Idatzi oharra..."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "Laguntza"
 
 #: Viewer/ViewerWidget.cpp:1497
-#, fuzzy, kde-format
-#| msgid "Annotation Dialog"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
-msgstr "Oharra idazteko elkarrizketa-koadroa"
+msgstr "Idatzohar-elkarrizketa"
 
 #: Viewer/ViewerWidget.cpp:1498
 #, fuzzy, kde-format
@@ -7426,7 +7405,7 @@ msgstr "Kopiatu etiketak aurreko iruditik"
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "KTRL+c"
 
 #: Viewer/ViewerWidget.cpp:1505
 #, fuzzy, kde-format
@@ -7442,11 +7421,9 @@ msgid "CTRL+d"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1509
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation Mode"
-msgstr "Oharrak"
+msgstr "Idatzohar modua"
 
 #: Viewer/ViewerWidget.cpp:1511
 #, kde-format
@@ -7458,7 +7435,7 @@ msgstr ""
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "KTRL+l"
 
 #: Viewer/ViewerWidget.cpp:1516
 #, kde-format
@@ -7470,7 +7447,7 @@ msgstr ""
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1520
 #, fuzzy, kde-format
@@ -7483,7 +7460,7 @@ msgstr "Tokenak"
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr ""
+msgstr "KTRL+t"
 
 #: Viewer/ViewerWidget.cpp:1684
 #, fuzzy, kde-format
@@ -7534,7 +7511,7 @@ msgstr "Erakutsi fitxategi-izena"
 #: Viewer/VisibleOptionsMenu.cpp:61
 #, kde-format
 msgid "Show Exif"
-msgstr "Erakutsi Exif"
+msgstr "Erakutsi EXIF"
 
 #: Viewer/VisibleOptionsMenu.cpp:66
 #, kde-format

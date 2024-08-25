@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 01:49+0000\n"
-"PO-Revision-Date: 2024-08-22 16:44+0200\n"
+"PO-Revision-Date: 2024-08-24 23:51+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 24.08.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1052,24 +1052,23 @@ msgstr[1] ""
 #: CategoryListView/CheckDropItem.cpp:157
 #, kde-format
 msgid "Move Items"
-msgstr "Aldatu elementuak lekuz"
+msgstr "Mugitu elementuak"
 
 #: DateBar/DateBarWidget.cpp:61
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
-msgstr "Data: "
+msgstr "Data-abarra"
 
 #: DateBar/DateBarWidget.cpp:70
 #, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "Kiribildu eskuinera"
 
 #: DateBar/DateBarWidget.cpp:79
 #, kde-format
 msgid "Scroll left"
-msgstr ""
+msgstr "Kiribildu ezkerrera"
 
 #: DateBar/DateBarWidget.cpp:88
 #, kde-format
@@ -1195,16 +1194,14 @@ msgid "10 Seconds"
 msgstr "10 segundo"
 
 #: DB/Category.cpp:307
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1'."
+#, kde-format
 msgid "Unable to create folder '%1'."
-msgstr "Ezin da '%1' direktorioa sortu."
+msgstr "Ezin du '%1' karpeta sortu:"
 
 #: DB/Category.cpp:307
-#, fuzzy, kde-format
-#| msgid "Unable to Create Directory"
+#, kde-format
 msgid "Unable to Create Folder"
-msgstr "Ezin da direktorioa sortu"
+msgstr "Ezin du karpeta sortu"
 
 #: DB/Category.cpp:316
 #, kde-format
@@ -1567,17 +1564,7 @@ msgid "Database repair required"
 msgstr "Datu-base konponketa behar da"
 
 #: DB/XML/FileReader.cpp:522
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
-#| "installation error</p><p>If you have installed KPhotoAlbum yourself, then "
-#| "you must remember to set the environment variable <b>KDEDIRS</b>, to "
-#| "point to the topmost installation directory.</p><p>If you for example ran "
-#| "cmake with <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b>, then you must "
-#| "use the following environment variable setup (this example is for Bash "
-#| "and compatible shells):</p><p><b>export KDEDIRS=/usr/local/kde</b></"
-#| "p><p>In case you already have KDEDIRS set, simply append the string as if "
-#| "you where setting the <b>PATH</b> environment variable</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
 "installation error</p><p>If you have installed KPhotoAlbum yourself, then "
@@ -1592,7 +1579,7 @@ msgstr ""
 "<p>KPhotoAlbum-ek ezin du konfigurazio lehenetsia kargatu, badirudi "
 "instalazioko errore bat dela.</p><p>KPhotoAlbum zeuk instalatu baduzu, "
 "gogoratu zaitez inguruneko <b>KDEDIRS</b> aldagaian ezartzeaz, "
-"instalazioaren goreneko direktoriora zuzentzeko.</p><p>Adibidez, 'cmake' "
+"instalazioaren goreneko kapetara zuzentzeko.</p><p>Adibidez, 'cmake' "
 "komandoa <b>-DCMAKE_INSTALL_PREFIX=/usr/local/kde</b> parametroarekin "
 "exekutatu baduzu, inguruneko aldagaiaren honako konfigurazioa erabili "
 "(adibidez hau Bash eta bateragarriak diren shell-entzako da):</"
@@ -1767,7 +1754,7 @@ msgstr "EXIF informazioa eta metadatuak"
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
-msgstr ""
+msgstr "Etiketak iragazi..."
 
 #: Exif/InfoDialog.cpp:77
 #, kde-format
@@ -2205,22 +2192,19 @@ msgid "Destination"
 msgstr "Helburua"
 
 #: HTMLGenerator/HTMLDialog.cpp:296
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgid "Base folder:"
-msgstr "Oinarrizko direktorioa:"
+msgstr "Oinarrizko karpeta:"
 
 #: HTMLGenerator/HTMLDialog.cpp:313
-#, fuzzy, kde-format
-#| msgid "Gallery directory:"
+#, kde-format
 msgid "Gallery folder:"
-msgstr "Galeria direktorioa:"
+msgstr "Galeria-karpeta:"
 
 #: HTMLGenerator/HTMLDialog.cpp:320
-#, fuzzy, kde-format
-#| msgid "Output directory:"
+#, kde-format
 msgid "Output folder:"
-msgstr "Irteerako direktorioa:"
+msgstr "Irteerako karpeta:"
 
 #: HTMLGenerator/HTMLDialog.cpp:331
 #, kde-format
@@ -2249,92 +2233,71 @@ msgid "You must select at least one resolution."
 msgstr "Gutxienez bereizmen bat hautatu behar duzu."
 
 #: HTMLGenerator/HTMLDialog.cpp:385
-#, fuzzy, kde-format
-#| msgid "Select base directory..."
+#, kde-format
 msgid "Select base folder..."
-msgstr "Aukeratu oinarrizko direktorioa:"
+msgstr "Aukeratu oinarrizko karpeta..."
 
 #: HTMLGenerator/HTMLDialog.cpp:398
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>You did not specify a base directory. This is the topmost directory "
-#| "for your images. Under this directory you will find each generated "
-#| "collection in separate directories.</p>"
+#, kde-format
 msgid ""
 "<p>You did not specify a base folder. This is the topmost folder for your "
 "images. Each generated collection will be contained in this folder in "
 "separate subfolders.</p>"
 msgstr ""
-"<p>Ez duzu oinarrizko direktoriorik zehaztu. Zure irudien goreneko "
-"direktorioa da hau. Direktorio honen azpian, sortutako bilduma bakoitza "
-"berezitutako direktorioetan aurkituko dituzu.</p>"
+"<p>Ez duzu oinarriz karpeta zehaztu. Zure irudientzako karpeta garaiena da "
+"hori. Sortutako bilduma bakoitza karpeta horretan, azpikarpeta bereizietan "
+"egongo da.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:402
-#, fuzzy, kde-format
-#| msgid "No Base Directory Specified"
+#, kde-format
 msgid "No Base Folder Specified"
-msgstr "Ez da oinarrizko direktoriorik zehaztu"
+msgstr "Ez da oinarrizko karpetarik zehaztu"
 
 #: HTMLGenerator/HTMLDialog.cpp:408
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>You did not specify an output directory. This is a directory "
-#| "containing the actual images. The directory will be in the base directory "
-#| "specified above.</p>"
+#, kde-format
 msgid ""
 "<p>You did not specify an output folder. This is a folder containing the "
 "actual images. The folder will be a subfolder of the base folder specified "
 "above.</p>"
 msgstr ""
-"<p>Ez duzu irteerako direktoriorik zehaztu. Direktorio honek uneko irudiak "
-"ditu. Direktorioa arestian zehaztutako oinarrizko direktorioan egon behar du."
-"</p>"
+"<p>Ez duzu irteerako karpetarik zehaztu. Hori da benetan irudiak dituen "
+"karpeta. Karpeta arestian zehaztutako oinarrizko karpetan egongo da.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:411
-#, fuzzy, kde-format
-#| msgid "No Output Directory Specified"
+#, kde-format
 msgid "No Output Folder Specified"
-msgstr "Ez da irteerako direktoriorik zehaztu"
+msgstr "Ez da irteerako karpetarik zehaztu"
 
 #: HTMLGenerator/HTMLDialog.cpp:423
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Error while reading information about %1. This is most likely because "
-#| "the directory does not exist.</p><p>The error message was: %2</p>"
+#, kde-format
 msgid ""
 "<p>Error while reading information about %1. This is most likely because the "
 "folder does not exist.</p><p>The error message was: %2</p>"
 msgstr ""
-"<p>Errorea %1 buruzko informazioa irakurtzean. Baliteke direktorioa ez "
-"delako existitzen gertatzea.</p><p>Errore mezua: %2</p>"
+"<p>Errorea %1(e)ri buruzko informazioa irakurtzean. Litekeena da, hori, "
+"karpeta ez dagoelako izatea.</p><p>Errore mezua: %2</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:432
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>%1 does not exist, is not a directory or cannot be written to.</p>"
+#, kde-format
 msgid "<p>%1 does not exist, is not a folder or cannot be written to.</p>"
 msgstr ""
-"<p>%1 ez da existitzen, ez da direktorio bat edo ezin da hor idatzi.</p>"
+"<p>%1 ez da existitzen, ez da karpeta bat edo ezin da hartan idatzi.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:446
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Output directory %1 already exists. Usually, this means you should "
-#| "specify a new directory.</p><p>Should %2 be deleted first?</p>"
+#, kde-format
 msgid ""
 "<p>Output folder %1 already exists. Usually, this means you should specify a "
 "new folder.</p><p>Should %2 be deleted first?</p>"
 msgstr ""
-"<p>Irteerako %1 direktorioa badago lehendik ere. Direktorio berri bat "
-"zehaztu behar duzula adieraz ohi du.</p><p>Aurrenik %2 ezabatzea nahi duzu?</"
-"p>"
+"<p>Irteerako %1 direktorioa lehendik ere badago, horrek esan nahi du karpeta "
+"berri bat zehaztu behar zenukeela.</p><p>Aurrena %2 ezabatu beharko "
+"litzateke?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:450
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr "Karpeta"
+msgstr "Karpeta lehendik dago"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:547 MainWindow/SplashScreen.cpp:53
@@ -2371,16 +2334,14 @@ msgstr ""
 " "
 
 #: HTMLGenerator/HTMLDialog.cpp:589
-#, fuzzy, kde-format
-#| msgid "<p>Gallery directory cannot be empty.</p>"
+#, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
-msgstr "<p>Galeria direktorioa ezin da hutsik egon.</p>"
+msgstr "<p>Galeria-direktorioa ezin da hutsik egon.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:593
-#, fuzzy, kde-format
-#| msgid "<p>The output directory already exists.</p>"
+#, kde-format
 msgid "<p>The output folder already exists.</p>"
-msgstr "<p> Irteerako direktorioa jada badago.</p>"
+msgstr "<p>Irteerako direktorioa lehendik ere badago.</p>"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:93
 #, kde-format
@@ -2743,16 +2704,14 @@ msgid "Destination of Images"
 msgstr "Irudien helburua"
 
 #: ImportExport/ImportDialog.cpp:222
-#, fuzzy, kde-format
-#| msgid "The directory must be a subdirectory of %1"
+#, kde-format
 msgid "The folder must be a subfolder of %1"
-msgstr "Direktorioak %1(r)en azpidirektorio bat izan behar du"
+msgstr "Karpetak %1(r)en azpikarpeta izan behar du"
 
 #: ImportExport/ImportDialog.cpp:225
-#, fuzzy, kde-format
-#| msgid "This directory is reserved for category images."
+#, kde-format
 msgid "This folder is reserved for category images."
-msgstr "Direktorio hau irudien kategorientzat gorde da. "
+msgstr "Karpeta hau kategoria irudietarako erreserbatuta dago."
 
 #: ImportExport/ImportDialog.cpp:265
 #, kde-format
@@ -2760,30 +2719,27 @@ msgid "Match Categories"
 msgstr "Bat datozten kategoriak"
 
 #: ImportExport/ImportDialog.cpp:297
-#, fuzzy, kde-format
-#| msgid "Directory %1 does not exist. Should it be created?"
+#, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
-msgstr "%1 direktorioa ez da existitzen. Sortzea nahi duzu?"
+msgstr "%1 karpeta ez da existitzen. Sortu beharko litzateke?"
 
 #: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "Oinarrizko direktorioa:"
+msgstr "Karpeta sortu?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1249
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr ""
+msgstr "Sortu"
 
 #: ImportExport/ImportDialog.cpp:314
-#, fuzzy, kde-format
-#| msgid "Error creating zip file %1"
+#, kde-format
 msgid "Error creating folder %1"
-msgstr "Errorea %1 fitxategi konprimitua sortzean"
+msgstr "Errorea %1 karpeta sortzean"
 
 #: ImportExport/ImportDialog.cpp:393
 #, kde-format
@@ -2812,15 +2768,13 @@ msgid "Cannot copy from any of the following locations:"
 msgstr "Ezin da ezer kopiatu kokaleku hauetatik:"
 
 #: ImportExport/ImportHandler.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "Irudien fitxategiak kopiatzen"
+msgstr "Kopiatzea huts egin du"
 
 #: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Jarraitu galdetu gabe"
@@ -2846,16 +2800,13 @@ msgid "Error Importing Data"
 msgstr "Errorea datuak inportatzean"
 
 #: ImportExport/KimFileReader.cpp:35
-#, fuzzy, kde-format
-#| msgid ""
-#| "Error reading directory contents of file %1; it is likely that the file "
-#| "is broken."
+#, kde-format
 msgid ""
 "Error reading folder contents of file %1; it is likely that the file is "
 "broken."
 msgstr ""
-"Errorea direktorioaren edukia irakurtzean %1 fitxategitik. Badirudi "
-"fitxategia hondatuta dagoela."
+"Errorea %1 fitxategiaren karpetaren edukia irakurtzean; baliteke fitxategia "
+"hautsita egotea."
 
 #: ImportExport/KimFileReader.cpp:48
 #, kde-format
@@ -2866,16 +2817,13 @@ msgstr ""
 "hondatuta dagoela."
 
 #: ImportExport/KimFileReader.cpp:68
-#, fuzzy, kde-format
-#| msgid ""
-#| "Thumbnail item in export file was not a directory, this indicates that "
-#| "the file is broken."
+#, kde-format
 msgid ""
 "Thumbnail item in export file was not a folder, this indicates that the file "
 "is broken."
 msgstr ""
-"Esportatzeko fitxategiko 'Thumbnail' (koadro txikia) elementua ez da "
-"direktorioa. Fitxategia hondatuta dagoela adierazten du."
+"Esportatutako fitxategiaren koadro txiki elementua ez da karpeta bat, horrek "
+"fitxategia hautsita dagoela adierazten du."
 
 #: ImportExport/KimFileReader.cpp:79
 #, kde-format
@@ -2883,28 +2831,22 @@ msgid "No thumbnail existed in export file for %1"
 msgstr "Ez dago %1(r)en koadro txikirik esportatzeko fitxategian"
 
 #: ImportExport/KimFileReader.cpp:94
-#, fuzzy, kde-format
-#| msgid ""
-#| "export file did not contain a Images subdirectory, this indicates that "
-#| "the file is broken"
+#, kde-format
 msgid ""
 "Export file did not contain a Images subfolder, this indicates that the file "
 "is broken"
 msgstr ""
-"esportatzeko fitxategiak ez dauka irudien azpidirektoriorik. Fitxategia "
-"hondatuta dagoela adierazten du."
+"Esportatutako fitxategiak ez dauka 'Images' azpikarpetarik, horrek "
+"Fitxategia hautsita dagoela adierazten du."
 
 #: ImportExport/KimFileReader.cpp:99
-#, fuzzy, kde-format
-#| msgid ""
-#| "Images item in export file was not a directory, this indicates that the "
-#| "file is broken"
+#, kde-format
 msgid ""
 "Images item in export file was not a folder, this indicates that the file is "
 "broken"
 msgstr ""
-"Esportatzeko fitxategiko 'Images' (irudiak) elementua ez da direktorioa. "
-"Fitxategia hondatuta dagoela adierazten du"
+"Esportatutako fitxategiko 'Images' elementua ez da karpeta bat, horrek "
+"fitxategia hautsita dagoela adierazten du."
 
 #: ImportExport/KimFileReader.cpp:107
 #, kde-format
@@ -2958,24 +2900,23 @@ msgstr "Data eta ordua"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Conflicting commandline options: %1 and %2!\n"
-msgstr ""
+msgstr "Komando-lerroan aukera gatazkadunak: %1 eta %2!\n"
 
 #: kpa-thumbnailtool/main.cpp:44
-#, fuzzy, kde-format
-#| msgid "Run KPhotoAlbum Demo"
+#, kde-format
 msgid "KPhotoAlbum Thumbnail Tool"
-msgstr "Exekutatu KPhotoAlbum-en demostrazioa"
+msgstr "KPhotoAlbum-en koadro txikien tresna"
 
 #: kpa-thumbnailtool/main.cpp:46
 #, kde-format
 msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr ""
+"KPhontoAlbum-eko koadro txikien cachea ikuskatzeko eta editatzeko tresna"
 
 #: kpa-thumbnailtool/main.cpp:48
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2019 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2019 KPhotoAlbum garapen taldea"
+msgstr "Copyright (C) 2003-2024 KPhotoAlbum garapen taldea"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3048,29 +2989,30 @@ msgid "Henner Zeller"
 msgstr "Henner Zeller"
 
 #: kpa-thumbnailtool/main.cpp:70
-#, fuzzy, kde-format
-#| msgid "The directory must be a subdirectory of %1"
+#, kde-format
 msgctxt "@info:shell"
 msgid "The folder containing the .thumbnail folder."
-msgstr "Direktorioak %1(r)en azpidirektorio bat izan behar du"
+msgstr ".thumbnail karpeta duen karpeta."
 
 #: kpa-thumbnailtool/main.cpp:71
 #, kde-format
 msgctxt "@info:shell"
 msgid "Print information about thumbnail cache."
-msgstr ""
+msgstr "Inprimatu koadro txikien cacheari buruzko informazioa."
 
 #: kpa-thumbnailtool/main.cpp:73
 #, kde-format
 msgctxt "@info:shell"
 msgid "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3."
-msgstr ""
+msgstr "Bihurtu thumbnailindex KPhontoAlbum >= 4.3rako formatu egokira."
 
 #: kpa-thumbnailtool/main.cpp:75
 #, kde-format
 msgctxt "@info:shell"
 msgid "Check thumbnail cache for consistency of thumbnail dimensions."
 msgstr ""
+"Egiaztatu koadro txikien cachea koadro txikien dimentsioen koherentzia "
+"ikusteko."
 
 #: kpa-thumbnailtool/main.cpp:77
 #, kde-format
@@ -3079,58 +3021,58 @@ msgid ""
 "Fix inconsistent thumbnails by removing them from the cache (requires --"
 "check-thumbnail-dimensions)."
 msgstr ""
+"Konpondu koadro txiki inkoherenteak haiek cachetik ezabatuz (--check-"
+"thumbnail-dimensions behar du)."
 
 #: kpa-thumbnailtool/main.cpp:79
 #, kde-format
 msgctxt "@info:shell"
 msgid "Remove unreferenced thumbnails from the thumbnail data files."
 msgstr ""
+"Kendu erreferentziarik gabeko koadro txikiak koadro txikien datuen "
+"fitxategietatik."
 
 #: kpa-thumbnailtool/main.cpp:81
 #, kde-format
 msgctxt "@info:shell"
 msgid "Be less verbose."
-msgstr ""
+msgstr "Ez izan horren berritsua."
 
 #: kpa-thumbnailtool/main.cpp:97
 #, kde-format
 msgctxt "@info:shell"
 msgid "Missing argument!\n"
-msgstr ""
+msgstr "Argumentua falta da!\n"
 
 #: kpa-thumbnailtool/main.cpp:102
-#, fuzzy, kde-format
-#| msgid "%1 exists, but is not a directory"
+#, kde-format
 msgctxt "@info:shell"
 msgid "%1 is not a folder!\n"
-msgstr "%1 badago lehendik ere, baina ez da direktorioa"
+msgstr "%1 da karpeta bat!\n"
 
 #: kpa-thumbnailtool/main.cpp:116
-#, fuzzy, kde-format
-#| msgid "Thumbnail screen cache:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
-msgstr "Koadro txikien cachea:"
+msgstr "Koadro txikien cachearen karpeta: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:117
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index file version: %1\n"
-msgstr "Koadro txikien tamaina:"
+msgstr "Koadro txikien indize-fitxategiaren bertsioa: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:118
 #, kde-format
 msgctxt "@info:shell"
 msgid "Maximum supported thumbnailindex file version: %1\n"
-msgstr ""
+msgstr "Onartutako thumbnailindex fitxategiaren gehienezko bertsioa: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:119
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail storage dimensions: %1 pixels\n"
-msgstr "Koadro txikien tamaina:"
+msgstr "Koadro txikien biltegiratze dimentsioak: %1 pixel\n"
 
 #: kpa-thumbnailtool/main.cpp:121
 #, kde-format
@@ -3139,41 +3081,40 @@ msgid ""
 "Note: Thumbnail storage dimensions are defined in the configuration file "
 "prior to v5.\n"
 msgstr ""
+"Oharra: Koadro txikien biltegiratze dimentsioak konfigurazio fitxategiaren "
+"v5 aurreko bertsioetan definituta daude.\n"
 
 #: kpa-thumbnailtool/main.cpp:123
-#, fuzzy, kde-format
-#| msgid "Number of columns:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Number of thumbnails: %1\n"
-msgstr "Zutabeen kopurua:"
+msgstr "Koadro txiki kopurua: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:129
-#, fuzzy, kde-format
-#| msgid "No duplicates found"
+#, kde-format
 msgctxt "@info:shell"
 msgid "No inconsistencies found.\n"
-msgstr "Ez da bikoiztutakorik aurkitu"
+msgstr "Ez da inkoherentziarik aurkitu.\n"
 
 #: kpa-thumbnailtool/main.cpp:133
 #, kde-format
 msgctxt "@info:shell This line is printed before a list of file names."
 msgid "The following thumbnails appear to have incorrect sizes:\n"
-msgstr ""
+msgstr "Ondoko koadro txikiek neurri okerrak dituztela dirudi:\n"
 
 #: kpa-thumbnailtool/main.cpp:142
 #, kde-format
 msgctxt "@info:shell"
 msgid "Removed 1 inconsistent thumbnail from the database.\n"
 msgid_plural "Removed %1 inconsistent thumbnails from the database.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Inkoherentzia duen koadro txiki 1 kendu da datu-basetik.\n"
+msgstr[1] "Inkoherentzia duten %1 koadro txiki kendu dira datu-basetik.\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:20
-#, fuzzy, kde-format
-#| msgid "Could not open file '%1'."
+#, kde-format
 msgctxt "@info:shell"
 msgid "Could not open file `thumbnailindex`!\n"
-msgstr "Ezin izan da '%1' fitxategia ireki."
+msgstr "Ezin izan du `thumbnailindex` fitxategia ireki!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:21
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:27
@@ -3182,46 +3123,45 @@ msgstr "Ezin izan da '%1' fitxategia ireki."
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index was not changed.\n"
-msgstr ""
+msgstr "Koadro txikien indizea ez da aldatu.\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:26
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not open temporary file for writing!\n"
-msgstr ""
+msgstr "Ezin izan du aldi baterako fitxategia idazteko ireki!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:35
-#, fuzzy, kde-format
-#| msgid "Could not open file '%1'."
+#, kde-format
 msgctxt "@info:shell"
 msgid "Could not back up file `thumbnailindex`!\n"
-msgstr "Ezin izan da '%1' fitxategia ireki."
+msgstr "Ezin izan du 'thumbnailindex' fitxategiaren babes-kopia egin.\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:40
-#, fuzzy, kde-format
-#| msgid "Could not open file '%1'."
+#, kde-format
 msgctxt "@info:shell"
 msgid "Could not copy temporary thumbnail index file to final location!\n"
-msgstr "Ezin izan da '%1' fitxategia ireki."
+msgstr ""
+"Ezin izan du aldi baterako koadro txikien indize fitxategia azken kokapenera "
+"kopiatu!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:41
 #, kde-format
 msgctxt "@info:shell"
 msgid "Error message was: %1\n"
-msgstr ""
+msgstr "Errore mezua izan da: %1\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:55
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
-msgstr "Koadro txikien tamaina:"
+msgstr "Koadro txikien indizea ez da 5 bertsioko fitxategia!\n"
 
 #. i18n: ectx: Menu (view)
 #: kphotoalbumui.rc:33
 #, kde-format
 msgid "&View"
-msgstr "&Ikusi"
+msgstr "&Ikuspegia"
 
 #. i18n: ectx: Menu (privacy)
 #: kphotoalbumui.rc:48
@@ -3321,10 +3261,9 @@ msgid "KDE Photo Album"
 msgstr "KDEko argazkien albuma"
 
 #: main.cpp:89
-#, fuzzy, kde-format
-#| msgid "Copyright (C) 2003-2019 The KPhotoAlbum Development Team"
+#, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr "Copyright (C) 2003-2019 KPhotoAlbum garapen taldea"
+msgstr "Copyright (C) 2003-2024 KPhotoAlbum garapen taldea"
 
 #: main.cpp:110
 #, kde-format
@@ -3481,14 +3420,10 @@ msgid "Stack images created within the following time-frame:"
 msgstr ""
 
 #: MainWindow/AutoStackImages.cpp:84
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "The whole sentence should read: *Stack images that are shot within x "
-#| "seconds of each other*. (This being the text after x.)"
-#| msgid "seconds"
+#, kde-format
 msgctxt "Unit suffix on a QSpinBox; note the space at the beginning."
 msgid " seconds"
-msgstr "segundo"
+msgstr " segundo"
 
 #: MainWindow/AutoStackImages.cpp:87
 #, kde-format
@@ -3524,24 +3459,20 @@ msgid "Make Category Image"
 msgstr "Sortu irudiaren kategoria"
 
 #: MainWindow/CopyLinkEngine.cpp:38
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Copy images to..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Kopiatu irudiak hona..."
-msgstr[1] "Kopiatu irudiak hona..."
+msgstr[0] "Kopiatu irudia hona ..."
+msgstr[1] "Kopiatu irudiak hona ..."
 
 #: MainWindow/CopyLinkEngine.cpp:41
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Link images to..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Estekatu irudiak hona..."
-msgstr[1] "Estekatu irudiak hona..."
+msgstr[0] "Estekatu irudia hona ..."
+msgstr[1] "Estekatu irudiak hona ..."
 
 #: MainWindow/DeleteDialog.cpp:24
 #, kde-format
@@ -3598,10 +3529,9 @@ msgid "Merge these images"
 msgstr "Batu irudi hauek"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:55
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select image to keep:"
-msgstr "Hautatu jomuga:"
+msgstr "Hautatu mantendu beharreko irudia:"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:70
 #, kde-format
@@ -4039,20 +3969,16 @@ msgid "%each"
 msgstr "%bakoitza"
 
 #: MainWindow/SearchBar.cpp:20
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgctxt "Name/title of the search bar toolbar widget"
 msgid "Search Bar"
-msgstr "Bilatu"
+msgstr "Bilaketa-barra"
 
 #: MainWindow/SearchBar.cpp:25
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Search ..."
-msgstr "Bilatu"
+msgstr "Bilatu ..."
 
 #: MainWindow/StatisticsDialog.cpp:35
 #, kde-format
@@ -4239,28 +4165,24 @@ msgstr ""
 "nahi duzun direktorioan berriz erabiltzen hasteko.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:115
-#, fuzzy, kde-format
-#| msgid "Image/Video root directory: "
+#, kde-format
 msgid "Image/Video root folder: "
-msgstr "Irudien/Bideoen direktorio nagusia: "
+msgstr "Irudien/Bideoen erro-karpeta: "
 
 #: MainWindow/WelcomeDialog.cpp:155
-#, fuzzy, kde-format
-#| msgid "Directory does not exist, create it?"
+#, kde-format
 msgid "Folder does not exist, create it?"
-msgstr "Direktorioa ez dago, sortu?"
+msgstr "Karpeta ez dago, hura sortu?"
 
 #: MainWindow/WelcomeDialog.cpp:170
-#, fuzzy, kde-format
-#| msgid "Could not create file '%1'."
+#, kde-format
 msgid "Could not create folder %1"
-msgstr "Ezin izan du '%1' fitxategia sortu."
+msgstr "Ezin izan du %1 karpeta sortu"
 
 #: MainWindow/WelcomeDialog.cpp:175
-#, fuzzy, kde-format
-#| msgid "%1 exists, but is not a directory"
+#, kde-format
 msgid "%1 exists, but is not a folder"
-msgstr "%1 badago lehendik ere, baina ez da direktorioa"
+msgstr "%1 lehendik ere badago, baina ez da karpeta bat"
 
 #: MainWindow/WelcomeDialog.cpp:191
 #, kde-format
@@ -4325,11 +4247,10 @@ msgstr ""
 "izan dezakezu.</p>"
 
 #: MainWindow/Window.cpp:311
-#, fuzzy, kde-format
-#| msgid "Delete Demo Database"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
-msgstr "Ezabatu demostrazioaren datu-basea"
+msgstr "Ezabatu erakustaldi datu-basea"
 
 #: MainWindow/Window.cpp:336
 #, kde-format
@@ -4337,11 +4258,10 @@ msgid "Do you want to save the changes?"
 msgstr "Aldaketak gordetzea nahi dituzu?"
 
 #: MainWindow/Window.cpp:337
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
-msgstr "Gorde aldaketak?"
+msgstr "Aldaketak gorde?"
 
 #: MainWindow/Window.cpp:394
 #, kde-format
@@ -4402,10 +4322,9 @@ msgid "Limit View to Selection"
 msgstr "Mugatu ikuspegia hautapenera"
 
 #: MainWindow/Window.cpp:773
-#, fuzzy, kde-format
-#| msgid "No item is selected."
+#, kde-format
 msgid "No images are selected!"
-msgstr "Ez da elementurik hautatu."
+msgstr "Ez da irudirik hautatu!"
 
 #: MainWindow/Window.cpp:786
 #, kde-format
@@ -4556,29 +4475,27 @@ msgstr "Ikonoak"
 #: MainWindow/Window.cpp:952
 #, kde-format
 msgid "Use natural sort order"
-msgstr ""
+msgstr "Erabili sailkatzeko ordena naturala"
 
 #: MainWindow/Window.cpp:962
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
-msgstr "Erakutsi argibideak koadro txikien leihoan"
+msgstr "Erakutsi Argibideak Koadro txikiak Leihoan"
 
 #: MainWindow/Window.cpp:967
-#, fuzzy, kde-format
-#| msgid "Show Tooltips in Thumbnails Window"
+#, kde-format
 msgid "Show Labels in Thumbnails Window"
-msgstr "Erakutsi argibideak koadro txikien leihoan"
+msgstr "Erakutsi Etiketak Koadro txikiak Leihoan"
 
 #: MainWindow/Window.cpp:977
-#, fuzzy, kde-format
-#| msgid "Show Tooltips in Thumbnails Window"
+#, kde-format
 msgid "Show Categories in Thumbnails Window"
-msgstr "Erakutsi argibideak koadro txikien leihoan"
+msgstr "Erakutsi Kategoriak Koadro txikiak Leihoan"
 
 #: MainWindow/Window.cpp:998
 #, kde-format
 msgid "Choose Color Scheme"
-msgstr ""
+msgstr "Hautatu kolore-antolaera"
 
 #: MainWindow/Window.cpp:1009
 #, kde-format
@@ -4596,10 +4513,9 @@ msgid "Merge duplicates"
 msgstr "Batu bikoiztuak"
 
 #: MainWindow/Window.cpp:1017 MainWindow/Window.cpp:1074
-#, fuzzy, kde-format
-#| msgid "Recreate Selected Thumbnails"
+#, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "Sortu berriro hautatutako koadro txikiak"
+msgstr "Berritu hautatutako koadro txikiak eta batura-egiaztapenak"
 
 #: MainWindow/Window.cpp:1021
 #, kde-format
@@ -4677,22 +4593,18 @@ msgid "Use previous video thumbnail"
 msgstr "Erabili aurreko bideo koadro txikia"
 
 #: MainWindow/Window.cpp:1085 MainWindow/Window.cpp:1341
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Copy images to..."
+#, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Kopiatu irudiak hona..."
-msgstr[1] "Kopiatu irudiak hona..."
+msgstr[0] "Kopiatu irudia hona ..."
+msgstr[1] "Kopiatu irudiak hona ..."
 
 #: MainWindow/Window.cpp:1089 MainWindow/Window.cpp:1345
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Link images to..."
+#, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Estekatu irudiak hona..."
-msgstr[1] "Estekatu irudiak hona..."
+msgstr[0] "Estekatu irudia hona ..."
+msgstr[1] "Estekatu irudiak hona ..."
 
 #: MainWindow/Window.cpp:1115
 #, kde-format
@@ -4716,10 +4628,9 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:1236
-#, fuzzy, kde-format
-#| msgid "Invalid database backend: %1"
+#, kde-format
 msgid "Invalid database file"
-msgstr "Datu-basearen baliogabeko motorra: %1"
+msgstr "Datu-base fitxategi baliogabea"
 
 #: MainWindow/Window.cpp:1242
 #, kde-format
@@ -4731,15 +4642,10 @@ msgstr ""
 "index.xml</p>"
 
 #: MainWindow/Window.cpp:1245
-#, fuzzy, kde-format
-#| msgid ""
-#| "Use data from\n"
-#| "Database"
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr ""
-"Erabili datuak\n"
-"datu-basetik"
+msgstr "Sortu datu-basea"
 
 #: MainWindow/Window.cpp:1286
 #, kde-format
@@ -4765,11 +4671,10 @@ msgid "Viewer"
 msgstr "Ikustailea"
 
 #: MainWindow/Window.cpp:1414
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "Data: "
+msgstr "Data-barra"
 
 #: MainWindow/Window.cpp:1417
 #, kde-format
@@ -4794,7 +4699,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
-msgstr ""
+msgstr "Berrezarri ezkutuko elkarrizketak"
 
 #: MainWindow/Window.cpp:1590
 #, kde-format
@@ -5028,12 +4933,10 @@ msgstr ""
 "Urruneko protokolo bertsioa: %2"
 
 #: Settings/BirthdayPage.cpp:58
-#, fuzzy, kde-format
-#| msgctxt "The label gives a textual description of the active filter"
-#| msgid "Filter: %1"
+#, kde-format
 msgctxt "@label:textedit"
 msgid "Filter ... (%1)"
-msgstr "Iragazkia: %1"
+msgstr "Iragazkia ... (%1)"
 
 #: Settings/BirthdayPage.cpp:92
 #, kde-format
@@ -5215,7 +5118,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "Baieztatu ekintza"
 
 #: Settings/CategoryPage.cpp:377
 #, kde-format
@@ -5230,7 +5133,7 @@ msgstr "<p>Benetan \"%1\" kategoria ezabatzea nahi duzu?</p>"
 #: Settings/CategoryPage.cpp:414
 #, kde-format
 msgid "Confirm Action"
-msgstr ""
+msgstr "Baieztatu ekintza"
 
 #: Settings/CategoryPage.cpp:533
 #, kde-format
@@ -6286,7 +6189,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:25
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
-msgstr ""
+msgstr "<h1>Hautatu bideo-jotzaile bat</h1>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:28
 #, kde-format
@@ -6314,7 +6217,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:69
 #, kde-format
 msgid " (NOT AVAILABLE)"
-msgstr ""
+msgstr "(EZ ERABILGARRI)"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:97
 #, kde-format
@@ -6333,31 +6236,27 @@ msgid "Unconfigured video backend"
 msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:162
-#, fuzzy, kde-format
-#| msgid "Database Backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
-msgstr "Datu-basearen motorra"
+msgstr "Phonon bideo bizkarraldekoa"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:164
-#, fuzzy, kde-format
-#| msgid "Database Backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
-msgstr "Datu-basearen motorra"
+msgstr "QtAV bideo bizkarraldekoa"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:166
-#, fuzzy, kde-format
-#| msgid "Database Backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
-msgstr "Datu-basearen motorra"
+msgstr "VLC bideo bizkarraldekoa"
 
 #: Settings/ViewerPage.cpp:25
-#, fuzzy, kde-format
-#| msgid "Not defined"
+#, kde-format
 msgid "Not Configured"
-msgstr "Definitu gabe"
+msgstr "Konfiguratu gabe"
 
 #: Settings/ViewerPage.cpp:42
 #, kde-format
@@ -6455,10 +6354,9 @@ msgstr ""
 "baina leuntasun gutxiagokoa landuko du.</p>"
 
 #: Settings/ViewerPage.cpp:99
-#, fuzzy, kde-format
-#| msgid "Database Backend"
+#, kde-format
 msgid "Video Backend:"
-msgstr "Datu-basearen motorra"
+msgstr "Bideo bizkarraldekoa:"
 
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
@@ -6474,11 +6372,10 @@ msgid "video"
 msgstr "Bideoa"
 
 #: ThumbnailView/FilterWidget.cpp:15
-#, fuzzy, kde-format
-#| msgid "Show filter toolbar"
+#, kde-format
 msgctxt "Name/title of the filter toolbar widget"
 msgid "Filter Toolbar"
-msgstr "Erakutsi iragazkien tresna-barra"
+msgstr "Iragazki-barra"
 
 #: ThumbnailView/FilterWidget.cpp:21
 #, kde-format
@@ -6530,11 +6427,10 @@ msgstr ""
 "eta orduaren arabera</b> menua erabil dezakezu.</p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:97
-#, fuzzy, kde-format
-#| msgid "Reorder Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
-msgstr "Ordenatu berriro koadro txikiak"
+msgstr "Koadro txikiak berriz ordenatu"
 
 #: Utilities/DeleteFiles.cpp:37
 #, kde-format
@@ -6547,10 +6443,9 @@ msgid "Unable to copy '%1' to '%2'."
 msgstr "Ezin da '%1' '%2' bezala gorde."
 
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1' needed for demo."
+#, kde-format
 msgid "Unable to create folder '%1' needed for demo."
-msgstr "Ezin da demostrazioak behar duen '%1' direktorioa sortu."
+msgstr "Ezin du erakustaldirako beharrezkoa den '%1' karpeta sortu."
 
 #: Utilities/DescriptionUtil.cpp:52
 #, kde-format
@@ -6608,32 +6503,25 @@ msgid "<b>Description: </b> "
 msgstr "<b>Azalpena:</b> "
 
 #: Utilities/Timespan.cpp:81
-#, fuzzy, kde-format
-#| msgid " (&lt; %1)"
+#, kde-format
 msgctxt "Like \"up to 6 years\" old"
 msgid " (up to %1)"
-msgstr " (&lt; %1)"
+msgstr " (%1 arte)"
 
 #: Utilities/Timespan.cpp:91
-#, fuzzy, kde-format
-#| msgid " (%1)"
+#, kde-format
 msgctxt "Like \"6 years\" old"
 msgid " (%1)"
 msgstr " (%1)"
 
 #: Utilities/Timespan.cpp:94
-#, fuzzy, kde-format
-#| msgctxt "E.g. ' (1-2 years)'"
-#| msgid " (%1-%2)"
+#, kde-format
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
-msgstr " (%1-%2)"
+msgstr " (%1(e)tik %2 arte)"
 
 #: Utilities/Timespan.cpp:103
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 day old'"
-#| msgid "1 day"
-#| msgid_plural "%1 days"
+#, kde-format
 msgctxt "Like \"The baby is '8 days' old\""
 msgid "%1 day"
 msgid_plural "%1 days"
@@ -6641,10 +6529,7 @@ msgstr[0] "Egun 1"
 msgstr[1] "%1 egun"
 
 #: Utilities/Timespan.cpp:108
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"The baby is '4 months' old\""
 msgid "%1 month"
 msgid_plural "%1 months"
@@ -6652,25 +6537,19 @@ msgstr[0] "Hilabete 1"
 msgstr[1] "%1 hilabete"
 
 #: Utilities/Timespan.cpp:113
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 year old'"
-#| msgid "1 year"
-#| msgid_plural "%1 years"
+#, kde-format
 msgctxt "Like \"The person is '28 years' old\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] "Urte bat"
+msgstr[0] "Urte %1"
 msgstr[1] "%1 urte"
 
 #: Utilities/Timespan.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"The baby is \"4 months\" old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "Hilabete 1"
+msgstr[0] "Hilabete %1"
 msgstr[1] "%1 hilabete"
 
 #: Utilities/Timespan.cpp:121
@@ -6679,44 +6558,36 @@ msgctxt ""
 "This combines an age of a person in years (%1) with the additional months "
 "(%2), like \"The person is '1 year and 3 months' old\""
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: Utilities/Timespan.cpp:151
-#, fuzzy, kde-format
-#| msgid "today"
+#, kde-format
 msgid " (today)"
-msgstr "gaur"
+msgstr " (gaur)"
 
 #: Utilities/Timespan.cpp:154
-#, fuzzy, kde-format
-#| msgid "yesterday"
+#, kde-format
 msgid " (yesterday)"
-msgstr "atzo"
+msgstr " (atzo)"
 
 #: Utilities/Timespan.cpp:158
-#, fuzzy, kde-format
-#| msgid " (%1)"
+#, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
-msgstr " (%1)"
+msgstr " (duela %1)"
 
 #: Utilities/Timespan.cpp:162
-#, fuzzy, kde-format
-#| msgctxt "E.g. ' (1-2 years)'"
-#| msgid " (%1-%2)"
+#, kde-format
 msgctxt "Like \"6 to 7 years ago\""
 msgid " (%1 to %2 ago)"
-msgstr " (%1-%2)"
+msgstr " (duela %1(e)tik %2(e)ra)"
 
 #: Utilities/Timespan.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 day old'"
-#| msgid "1 day"
-#| msgid_plural "%1 days"
+#, kde-format
 msgctxt "Like \"This happened '6 days' ago\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] "Egun 1"
+msgstr[0] "Egun %1"
 msgstr[1] "%1 egun"
 
 #: Utilities/Timespan.cpp:184
@@ -6724,60 +6595,50 @@ msgstr[1] "%1 egun"
 msgctxt "Like \"This happened '3 weeks' ago\""
 msgid "%1 week"
 msgid_plural "%1 weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Aste %1"
+msgstr[1] "%1 aste"
 
 #: Utilities/Timespan.cpp:189
 #, kde-format
 msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
 msgid "ca. %1 week"
 msgid_plural "ca. %1 weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ggb. aste %1"
+msgstr[1] "ggb. %1 aste"
 
 #: Utilities/Timespan.cpp:197 Utilities/Timespan.cpp:236
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"This happened '2 months' ago\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "Hilabete 1"
-msgstr[1] "%1 hilabete"
+msgstr[0] "ggb. hilabete %1"
+msgstr[1] "ggb. %1 hilabete"
 
 #: Utilities/Timespan.cpp:202 Utilities/Timespan.cpp:207
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"This happened 'ca. 2 months' ago\""
 msgid "ca. %1 month"
 msgid_plural "ca. %1 months"
-msgstr[0] "Hilabete 1"
-msgstr[1] "%1 hilabete"
+msgstr[0] "ggb. Hilabete %1"
+msgstr[1] "ggb. %1 hilabete"
 
 #: Utilities/Timespan.cpp:212 Utilities/Timespan.cpp:231
 #: Utilities/Timespan.cpp:234
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 year old'"
-#| msgid "1 year"
-#| msgid_plural "%1 years"
+#, kde-format
 msgctxt "Like \"This happened '2 years' ago\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] "Urte bat"
+msgstr[0] "urte %1"
 msgstr[1] "%1 urte"
 
 #: Utilities/Timespan.cpp:240
-#, fuzzy, kde-format
-#| msgid "\"%1\" and \"%2\""
+#, kde-format
 msgctxt ""
 "This combines a number of years and months to a timespan, like \"This "
 "happened 3 years and 1 month\" ago, where the first parameter is the "
 "formatted years string and the second one is the formatted months string"
 msgid "%1 and %2"
-msgstr "\"%1\" eta \"%2\""
+msgstr "%1 eta %2"
 
 #: Viewer/AnnotationHandler.cpp:68
 #, kde-format
@@ -6880,18 +6741,17 @@ msgstr ""
 #: Viewer/SelectCategoryAndValue.cpp:136
 #, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "Gehitu berria"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "Tekla"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "Etiketa:"
+msgstr "Etiketa"
 
 #: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
@@ -6901,30 +6761,25 @@ msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "Ados elkarrizketa-koadroa"
+msgstr "Elkarrizketa"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "Etiketa"
+msgstr "Testu-etiketa"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgid "Add new Tag"
-msgstr "Gehitu etiketa bat"
+msgstr "Gehitu etiketa berria"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "Titulua"
 
@@ -6941,20 +6796,16 @@ msgid "Set as First Image in Stack"
 msgstr "Ezarri multzoko aurreneko irudi gisa"
 
 #: Viewer/ViewerWidget.cpp:205
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Copy images to..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
-msgstr "Kopiatu irudiak hona..."
+msgstr "Kopiatu irudiak hona ..."
 
 #: Viewer/ViewerWidget.cpp:211
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Link images to..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
-msgstr "Estekatu irudiak hona..."
+msgstr "Estekatu irudia hona ..."
 
 #: Viewer/ViewerWidget.cpp:219
 #, kde-format
@@ -7148,10 +6999,9 @@ msgid "Pause"
 msgstr "Pausatu"
 
 #: Viewer/ViewerWidget.cpp:624
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "locked"
-msgstr "Desblokeatu"
+msgstr "Giltzatuta"
 
 #: Viewer/ViewerWidget.cpp:626
 #, fuzzy, kde-format
@@ -7171,18 +7021,16 @@ msgid "Change display mode to %1"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:909
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run Slideshow"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "Exekutatu diapositiba-aurkezpena"
+msgstr "Diapositiba-emanaldia bukatzen"
 
 #: Viewer/ViewerWidget.cpp:912
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
-msgstr "Gelditu diapositiba-aurkezpena"
+msgstr "Gelditu diapositiba-emanaldia"
 
 #: Viewer/ViewerWidget.cpp:917
 #, fuzzy, kde-format
@@ -7204,21 +7052,19 @@ msgstr ""
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
-msgstr ""
+msgstr "%1&nbsp;s"
 
 #: Viewer/ViewerWidget.cpp:1228
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "Gai azalpena"
+msgstr "Editatu irudiaren deskribapena"
 
 #: Viewer/ViewerWidget.cpp:1228
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "Gai azalpena"
+msgstr "Irudiaren deskribapena"
 
 #: Viewer/ViewerWidget.cpp:1243
 #, kde-format
@@ -7363,11 +7209,9 @@ msgid ""
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1476
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgid "Annotate"
-msgstr "Idatzi oharra..."
+msgstr "Idatzoharra egin"
 
 #: Viewer/ViewerWidget.cpp:1495
 #, kde-format
@@ -7382,24 +7226,22 @@ msgid "Annotation Dialog"
 msgstr "Idatzohar-elkarrizketa"
 
 #: Viewer/ViewerWidget.cpp:1498
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
-msgstr "Gehitu etiketa bat"
+msgstr "Gehitu etiketa"
 
 #: Viewer/ViewerWidget.cpp:1498
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "KTRL+a"
 
 #: Viewer/ViewerWidget.cpp:1501
-#, fuzzy, kde-format
-#| msgid "Copy tags from previous image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr "Kopiatu etiketak aurreko iruditik"
+msgstr "Kopiatu datuak aurreko iruditik"
 
 #: Viewer/ViewerWidget.cpp:1502
 #, kde-format
@@ -7408,17 +7250,16 @@ msgid "CTRL+c"
 msgstr "KTRL+c"
 
 #: Viewer/ViewerWidget.cpp:1505
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "Azalpena"
+msgstr "Editatu deskribapena"
 
 #: Viewer/ViewerWidget.cpp:1506
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr ""
+msgstr "KTRL+d"
 
 #: Viewer/ViewerWidget.cpp:1509
 #, kde-format
@@ -7429,7 +7270,7 @@ msgstr "Idatzohar modua"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "Giltzatuta"
 
 #: Viewer/ViewerWidget.cpp:1512
 #, kde-format
@@ -7441,7 +7282,7 @@ msgstr "KTRL+l"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "Esleitu etiketak"
 
 #: Viewer/ViewerWidget.cpp:1517
 #, kde-format
@@ -7450,11 +7291,10 @@ msgid "F2"
 msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1520
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "Tokenak"
+msgstr "Esleitu tokenak"
 
 #: Viewer/ViewerWidget.cpp:1521
 #, kde-format
@@ -7463,10 +7303,9 @@ msgid "CTRL+t"
 msgstr "KTRL+t"
 
 #: Viewer/ViewerWidget.cpp:1684
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Token %1"
-msgstr "Tokenak"
+msgstr "%1 tokena"
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format

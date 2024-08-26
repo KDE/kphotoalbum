@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 01:49+0000\n"
-"PO-Revision-Date: 2024-08-24 23:51+0200\n"
+"PO-Revision-Date: 2024-08-25 22:21+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -26,7 +26,7 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Iñaki Larrañaga,Murgoitio Ander Elortondo"
+msgstr "Iñaki Larrañaga Murgoitio,Ander Elortondo"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
@@ -36,7 +36,7 @@ msgstr "dooteo@euskalgnu.org,ander.elor@gmail.com"
 #: AnnotationDialog/AreaTagSelectDialog.cpp:91
 #, kde-format
 msgid "Tag is already used for another area"
-msgstr "Etiketa jada beste azalera batean erabili da"
+msgstr "Etiketa jada beste azalera batean erabiltzen da"
 
 #: AnnotationDialog/DateEdit.cpp:69
 #, kde-format
@@ -2609,27 +2609,7 @@ msgstr ""
 "hondatuta dagoela adierazten du.</p>"
 
 #: ImportExport/ImportDialog.cpp:118
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This "
-#| "wizard will take you through the steps of an import operation. The steps "
-#| "are: <ol><li>First you must select which images you want to import from "
-#| "the export file. You do so by selecting the checkbox next to the image.</"
-#| "li><li>Next you must tell KPhotoAlbum in which directory to put the "
-#| "images. This directory must of course be below the directory root "
-#| "KPhotoAlbum uses for images. KPhotoAlbum will take care to avoid name "
-#| "clashes</li><li>The next step is to specify which categories you want to "
-#| "import (People, Places, ... ) and also tell KPhotoAlbum how to match the "
-#| "categories from the file to your categories. Imagine you load from a "
-#| "file, where a category is called <b>Blomst</b> (which is the Danish word "
-#| "for flower), then you would likely want to match this with your category, "
-#| "which might be called <b>Blume</b> (which is the German word for flower) "
-#| "- of course given you are German.</li><li>The final steps, is matching "
-#| "the individual tokens from the categories. I may call myself <b>Jesper</"
-#| "b> in my image database, while you want to call me by my full name, "
-#| "namely <b>Jesper K. Pedersen</b>. In this step non matches will be "
-#| "highlighted in red, so you can see which tokens was not found in your "
-#| "database, or which tokens was only a partial match.</li></ol>"
+#, kde-format
 msgid ""
 "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
 "will take you through the steps of an import operation. The steps are: "
@@ -2652,25 +2632,25 @@ msgid ""
 "ol>"
 msgstr ""
 "<h1><font size=\"+2\">Ongi etorri KPhotoAlbum-en inportaziora</font></h1> "
-"Morroi honek inportatzeko eragiketetako urratsetan zehar eramango zaitu. "
-"Hauek dira urratsak:<ol><li>Aurrenik esportatzeko fitxategitik zer irudi "
-"inportatzea nahi dituzun hautatu. Hori egiteko, aktibatu irudi bakoitzaren "
-"alboan dagoen kontrol-koadroa.</li><li>Gero, KPhotoAlbum-ek irudiak jartzeko "
-"zer direktorio erabili behar duen zehaztu. KPhotoAlbum-ek irudientzako "
-"erabiltzen duen direktorio nagusiaren azpian egon beharko du zehaztutako "
-"direktorio horrek. KPhotoAlbum arduratuko da izenen arteko talkak saihesteko."
-"</li><li>Hurrengo urratsean, esportatzea nahi dituzun kategoriak zehaztea da "
-"(Pertsonak, Lekuak, ...) eta KPhotoAlbum-i aipatu fitxategiko kategoriak "
-"nola bat etorri behar duten zure kategoriekin. Demagun fitxategi batetik "
-"kargatu duzula, kategoriaren izena <b>Blomst</b> (Danieran 'lorea' "
-"adierazten du)  izanik, eta zure <b>Loreak</b> izeneko kategoriarekin bat "
-"etortzea nahi izan dezakezu.</li><li>Azken urratsak, banakako tokenak "
-"kategorietatik bat etortzea da. Nire irudien datu-basean neure buruari "
-"<b>Enbata</b> dei dezaket, baina zuk nire izen osoarekin deitzen nauzu: "
-"<b>Enbata Hondamendieta Lurrikaraenea</b>. Urrats honetan bat ez datoztenak "
-"gorri kolorez nabarmenduko direnez, zure datu-basean aurkitu ez diren "
-"tokenak ikus ditzakezu, edo bat etortze partzialeko zer token diren.</li></"
-"ol>"
+"Morroi honek inportatzeko eragiketaren urratsetan zehar eramango zaitu. "
+"Urratsak dira: <ol><li>Aurrena, esportatzeko fitxategitik inportatu nahi "
+"dituzun irudiak hautatu behar dituzu. Hori irudiaren alboko egiaztapen-"
+"laukia hautatuz egiten da.</li><li>Gero, KPhotoAlbum-eri irudiak zein "
+"karpetatan ipini behar dituen esan behar diozu. Karpeta hori KPhotoAlbum-ek "
+"irudietarako erabiltzen duen oinarrizko karpetaren barruan egon behar da "
+"noski. KPhotoAlbum-ek izen-gatazkak saihesteko ardura hartuko du.</"
+"li><li>Hurrengo urratsa inportatu nahi dituzun kategoriak (Jendea, "
+"Lekuak, ...) zehazteko balio du, eta baita KPhotoAlbum-eri fitxategiko "
+"kategoriak zure kategoriekin nola uztartu esateko ere. Demagun <b>Blomst</b> "
+"(danieraz lore esan nahi duen hitza) deitzen den kategoria bat duen "
+"fitxategi batetik zamatzen duzula, orduan, ziurrenik zure kategoriarekin "
+"uztartu nahiko zenuke, <b>Blume</b> (alemanez lore adiera duen hitza) izena "
+"izan dezakeena - noski Alemana zarela pentsatuz.</li><li>Azken urratsa, "
+"kategorietako token indibidualak berdintzea da. Irudien neure datu-basean "
+"neure burua <b>Jesper</b> izenda dezaket, zuk ordea neure izen osoarekin "
+"izendatu nahi nauzu, hau da  <b>Jesper K. Pedersen</b>. Urrats honetan, bat "
+"ez datozenak gorriz nabarmenduko dira, zure datu-basean aurkitu ez diren "
+"tokenak edo zati batean bakarrik datozenak ikus ditzazun.</li></ol>"
 
 #: ImportExport/ImportDialog.cpp:137
 #, kde-format
@@ -3283,16 +3263,14 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:111
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with directory info made available through the browser. (.) "
-#| "Patch for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "(.) Patch with folder info made available through the browser. (.) Patch for "
 "adding a check box for \"and/or\" searches in the search page."
 msgstr ""
-"Direktorioen informazioa arakatzailean erabilgarri jartzeko adabakia."
-"Bilaketa orrialdean 'eta/edo' bilaketak gehitzeko kontrol-koadroa."
+"(.) Karpetaren informazioa duen adabakia arakatzaile bidez erabilgarri jarri "
+"da. (.) Bilaketa orrian \"eta/edo\" bilaketetarako egiaztapen-lauki bat "
+"gehitzeko adabakia."
 
 #: main.cpp:112
 #, kde-format
@@ -3396,28 +3374,28 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Automatically Stack Images"
-msgstr "Automatikoki multzokatu irudiak"
+msgstr "Metatu irudiak automatikoki"
 
 #: MainWindow/AutoStackImages.cpp:53
 #, kde-format
 msgid "Stack images with identical MD5 sum"
-msgstr "Multzokatu MD5 berdineko irudiak"
+msgstr "Metatu MD5 batura berbereko irudiak"
 
 #: MainWindow/AutoStackImages.cpp:61
 #, kde-format
 msgid "Stack images based on file version detection"
-msgstr "Multzokatu irudiak fitxategi bertsio antzematean oinarriturik"
+msgstr "Metatu irudiak antzemandako fitxategi-bertsioan oinarrituz"
 
 #: MainWindow/AutoStackImages.cpp:65
 #, kde-format
 msgid "Original to top"
-msgstr "Originala gainean"
+msgstr "Jatorrizkoa gainean"
 
 #: MainWindow/AutoStackImages.cpp:76
 #, kde-format
 msgctxt "Label for a QSpinbox that selects a number of seconds."
 msgid "Stack images created within the following time-frame:"
-msgstr ""
+msgstr "Metatu ondoko denbora-tartean sortutako irudiak:"
 
 #: MainWindow/AutoStackImages.cpp:84
 #, kde-format
@@ -3428,25 +3406,23 @@ msgstr " segundo"
 #: MainWindow/AutoStackImages.cpp:87
 #, kde-format
 msgid "AutoStacking Options"
-msgstr "Automultzokatze aukerak"
+msgstr "Metatze automatikoaren aukerak"
 
 #: MainWindow/AutoStackImages.cpp:91
 #, kde-format
 msgid "Include matching image to appropriate stack (if one exists)"
-msgstr "Multzo egokian sartu bat datozen irudiak (Baldin baleude)"
+msgstr "Bat datorren irudia meta egokian erantsi (baldin badago)"
 
 #: MainWindow/AutoStackImages.cpp:95
 #, kde-format
 msgid ""
 "Unstack images from their current stack and create new one for the matches"
-msgstr ""
-"Uneko multzoko irudi multzokatzea atzera bota eta sortu beri bat bat "
-"datozenekin."
+msgstr "Irudiak haien egungo metatik kendu eta bat datozenekin berria sortu"
 
 #: MainWindow/AutoStackImages.cpp:99
 #, kde-format
 msgid "Skip images that are already in a stack"
-msgstr "Saltatu jada multzokatuak dauden irudiak"
+msgstr "Saltatu jada meta batean dauden irudiak"
 
 #: MainWindow/CategoryImagePopup.cpp:49
 #, kde-format
@@ -3633,22 +3609,7 @@ msgstr ""
 "eginbideen zerrenda ikus dezakezu azpian, baita haien egoera ere:</p>%1"
 
 #: MainWindow/FeatureDialog.cpp:37
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
-#| "yourself, then please review the sections below to learn what to install "
-#| "to get the feature in question. If on the other hand you installed "
-#| "KPhotoAlbum from a binary package, please tell whoever made the package "
-#| "about this defect, eventually including the information from the section "
-#| "below.</p><p>In case you are missing a feature and you did not compile "
-#| "KPhotoAlbum yourself, please do consider doing so. It really is not that "
-#| "hard. If you need help compiling KPhotoAlbum, feel free to ask on the <a "
-#| "href=\"https://mail.kdab.com/mailman/listinfo/kphotoalbum\">KPhotoAlbum "
-#| "mailing list</a></p><p>The steps to compile KPhotoAlbum can be seen on <a "
-#| "href=\"https://community.kde.org/KPhotoAlbum/build_instructions\">the "
-#| "KPhotoAlbum home page</a>. If you have never compiled a KDE application, "
-#| "then please ensure that you have the developer packages installed, in "
-#| "most distributions they go under names like kdelibs<i>-devel</i></p>"
+#, kde-format
 msgid ""
 "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
 "yourself, then please review the sections below to learn what to install to "
@@ -3665,20 +3626,20 @@ msgid ""
 "ensure that you have the developer packages installed, in most distributions "
 "they go under names like kdelibs<i>-devel</i></p>"
 msgstr ""
-"<h1>Zer egin dezaket eginbide bat falta bazait?</h1><p>Zeuk konpilatu baduzu "
-"KPhotoAlbum, gainbegiratu azpiko atalak eginbide zehatza lortzeko zer "
-"instalatu behar den ikasteko. Bestalde, KPhotoAlbum pakete bitar batetik "
-"instalatu baduzu, mesedez jakinarazi iezaiozu paketea sortu duenari akats "
-"honi buruz, azpiko ataleko informazioa ere emanez.</p><p>Eginbide bat falta "
-"bazaizu, eta ez baduzu KPhotoAlbum zeuk konpilatu, pentsa zenezake zeuk "
-"konpilatzea. Ez da hain zaila. KPhotoAlbum konpilatzeko laguntza behar "
-"baduzu, lasai galdetu <a href=\"https://mail.kdab.net/mailman/listinfo/"
-"kphotoalbum\">KPhotoAlbum posta-zerrendan</a></p><p>KPhotoAlbum konpilatzeko "
-"urratsak honako web orrialdean irakur dezakezu: <a href=\"https://community."
-"kde.org/ KPhotoAlbum/build_instructions\">KPhotoAlbum-en orrialde nagusia</"
-"a>. Inoiz ez baduzu KDEko aplikazio bat konpilatu, ziurtatu zaitez "
-"garatzailearen paketeak instalatuta edukitzeaz,  banaketa gehienetan "
-"kdelibs<i>-devel</i> bezalako izenak dituzte.</p>"
+"<h1>Zer egin dezaket funtzio baten falta sumatzen badut?</h1> <p>KPhotoAlbum "
+"zuk zeuk konpilatu baduzu, berrikusi beheko atalak, funtzio hori lortzeko "
+"zer instalatu ikasteko. Aitzitik, KPhotoAlbum pakete bitar batetik instalatu "
+"baduzu, mesedez, esan paketea egin zuenari akats horri buruz, hala "
+"badagokio, hurrengo ataleko informazioa erantsita.</p><p>Funtzio baten falta "
+"sumatzen baduzu eta ez baduzu KPhotoAlbum zuk zeuk konpilatu, mesedez, "
+"pentsa ezazu hori egiteko aukeraz. Benetan ez da horren zaila. KPhotoAlbum "
+"konpilatzeko laguntza behar baduzu, lasai galdetu <a href=\"https://mail.kde."
+"org/cgi-bin/mailman/listinfo/kphotoalbum\">KPhotoAlbum-en posta-zerrendan</"
+"a>.</p><p>KPhotoAlbum konpilatzeko urratsak <a href=\"https://community.kde."
+"org/KPhotoAlbum/build_instructions\"> KPhotoAlbum-en atariko orrian</a> ikus "
+"daitezeke. KDE aplikazio bat inoiz konpilatu ez baduzu, mesedez, ziurtatu "
+"garatzailearen paketeak instalatuta dituzula, banaketa gehienetan kdelibs<i>-"
+"devel</i> bezalako izenak dituzte.</p>"
 
 #: MainWindow/FeatureDialog.cpp:51
 #, kde-format
@@ -3686,6 +3647,8 @@ msgid ""
 "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports the "
 "<em>Purpose</em> plugin system.</p>"
 msgstr ""
+"<h1><a name=\"purpose\">Plugin euskarria</a></h1><p>KPhotoAlbum-ek "
+"<em>Purpose</em> plugin sistema onartzen du.</p>"
 
 #: MainWindow/FeatureDialog.cpp:54
 #, kde-format
@@ -3713,23 +3676,13 @@ msgstr ""
 "erakutsi ditzake geokokapen informazioaz..</p>"
 
 #: MainWindow/FeatureDialog.cpp:64
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on Qt's "
-#| "Phonon architecture for displaying videos; this in turn relies on "
-#| "GStreamer. If this feature is not enabled for you, have a look at the <a "
-#| "href=\"https://userbase.kde.org/KPhotoAlbum#Video_Support\">KPhotoAlbum "
-#| "wiki article on video support</a>.</p>"
+#, kde-format
 msgid ""
 "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on QtAv "
 "for displaying videos; this in turn relies on ffmpeg</p>"
 msgstr ""
-"<h1><a name=\"video\">Bideoen euskarria</a></h1><p>KPhotoAlbum-ek Qt-ren "
-"Phonon arkitekturan oinarritzen da bideoak bistaratzeko, eta honek bere "
-"aldetik GStreamer-en oinarritzen da. Eginbide hau ez badago zuretzako "
-"gaituta, begiratu honako web orrialdean: <a href=\"https://userbase.kde.org/"
-"KPhotoAlbum#Video_Support\">KPhotoAlbum-ekowiki artikulua bideoaren "
-"euskarriari buruz</a>.</p>"
+"<h1><a name=\"video\">Bideo euskarria</a></h1><p>KPhotoAlbum QtAv-en "
+"oinarritzen da bideoak erakusteko; hura berriz ffmpeg-en oinarritzen da</p>"
 
 #: MainWindow/FeatureDialog.cpp:67
 #, kde-format
@@ -3931,13 +3884,7 @@ msgstr ""
 "ordeztuko da '%denak'</i></p>"
 
 #: MainWindow/RunDialog.cpp:42
-#, fuzzy, no-c-format, kde-format
-#| msgid ""
-#| "<p>Enter the command you want to run on your image file(s). KPhotoAlbum "
-#| "will run your command and replace any '%all' tokens with a list of your "
-#| "files. For example, if you entered:</p><ul><li>cp %all /tmp</li></"
-#| "ul><p>Then the files you selected would be copied to the /tmp directory</"
-#| "p><p>You can also use %each to have a command be run once per file.</p>"
+#, no-c-format, kde-format
 msgid ""
 "<p>Enter the command you want to run on your image file(s). KPhotoAlbum will "
 "run your command and replace any '%all' tokens with a list of your files. "
@@ -3945,12 +3892,12 @@ msgid ""
 "files you selected would be copied to the /tmp folder</p><p>You can also use "
 "%each to have a command be run once per file.</p>"
 msgstr ""
-"<p>Sartu irudientzako exekutatzea nahi duzun komandoa. KPhotoAlbum-ek "
-"komando hori exekutatuko du, edozer '%denak' token fitxategien zerrendarekin "
-"ordeztuz. Adibidez, honakoa idazten baduzu:</p><ul><li>cp %denak /tmp</li></"
-"ul><p>Orduan, hautatu dituzun fitxategiak /tmp direktorioan kopiatuko dira</"
-"p><p>'%bakoitza' tokena ere erabil dezakezu fitxategi bakoitzeko komando bat "
-"exekutatzeko.</p>"
+"<p>Sartu zure irudi-fitxategi(et)an exekutatu nahi duzun komandoa. "
+"KPhotoAlbum-ek zure komandoa exekutatuko du, eta '%all' token guztiak zure "
+"fitxategien zerrenda batekin ordezkatuko ditu. Adibidez, ondokoa sartuko  "
+"bazenu:</p><ul><li>cp %all /tmp</li></ul><p>Zuk hautatutako fitxategiak /tmp "
+"karpetara kopiatuko lirateke</p><p>%each ere erabil dezakezu, komando bat "
+"fitxategiko behin exekutatzeko.</p>"
 
 #: MainWindow/RunDialog.cpp:71
 #, no-c-format, kde-format
@@ -4132,17 +4079,7 @@ msgid "Check My Feature Set"
 msgstr "Egiaztatu eginbideen multzoa"
 
 #: MainWindow/WelcomeDialog.cpp:100
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>KPhotoAlbum database creation</h1><p>You need to show where the "
-#| "photos and videos are for KPhotoAlbum to find them. They all need to be "
-#| "under one root directory, for example /home/user/Images. In this "
-#| "directory you can have as many subdirectories as you want, KPhotoAlbum "
-#| "will find them all for you.</p><p>Feel safe, KPhotoAlbum will not modify "
-#| "or edit any of your images, so you can simply point KPhotoAlbum to the "
-#| "directory where you already have all your images.</p><p>If you have an "
-#| "existing KPhotoAlbum database and root directory somewhere, point "
-#| "KPhotoAlbum to that directory to start using it again.</p>"
+#, kde-format
 msgid ""
 "<h1>KPhotoAlbum database creation</h1><p>You need to show where the photos "
 "and videos are for KPhotoAlbum to find them. They all need to be contained "
@@ -4155,14 +4092,14 @@ msgid ""
 "p>"
 msgstr ""
 "<h1>KPhotoAlbum datu-base sorrera</h1><p>Argazkiak eta bideoak non dauden "
-"erakutsi behar diozu KPhotoAlbumi, berak bila ditzan. Guztiak direktorio "
-"nagusi batekoak izan behar dute, adibidez  /home/erabiltzaile/Irudiak. "
-"Direktorio honetan zuk nahi beste azpikarpeta izan ditzakezu, KPhotoAlbumek "
-"bilatuko dizkizu guztiak.</p><p> Egon lasai, KPhotoAlbum ez du inongo irudi "
-"aldatuko edo editatuko, beraz, zuk bakarrik adierazi KPhotoAlbumi non dagoen "
-"zuk irudi guztiak dituzun direktorio nagusia. </p><p>KPhotoAlbum jada "
-"badaukazu eta direktorio nagusia nonbait, kokatu berriz KPhotoAlbum erabili "
-"nahi duzun direktorioan berriz erabiltzen hasteko.</p>"
+"erakutsi behar duzu KPhotoAlbum-ek aurki ditzan. Guztiak karpeta bakarrean "
+"egon behar dute, adibidez  /home/user/Irudiak. Karpeta honetan zuk nahi "
+"beste azpikarpeta izan ditzakezu, KPhotoAlbum-ek haiek guztiak zuretzat "
+"bilatuko ditu. </p><p>Egon lasai, KPhotoAlbum-ek ez ditu zure irudiak "
+"aldatuko, ez editatuko ere, beraz, KPhotoAlbum-i zure argazki guztiak "
+"dituzun karpeta erakutsi besterik ez duzu egin behar.</p><p>Dagoeneko "
+"KPhotoAlbum-en datu-base bat eta irudi karpeta bat baduzu, erakutsi "
+"KPhotoAlbum-i karpeta hori non dagoen hura erabiltzen hasteko.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:115
 #, kde-format
@@ -4223,13 +4160,7 @@ msgid "Searching for New Files"
 msgstr "Fitxategi berriak bilatzen"
 
 #: MainWindow/Window.cpp:306
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
-#| "the KPhotoAlbum demo. The demo database was copied to /tmp, should it be "
-#| "deleted now? If you do not delete it, it will waste disk space; on the "
-#| "other hand, if you want to come back and try the demo again, you might "
-#| "want to keep it around with the changes you made through this session.</p>"
+#, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
 "KPhotoAlbum demo. The demo database was created in the folder <tt>/tmp</tt>, "
@@ -4238,13 +4169,12 @@ msgid ""
 "might want to keep it around with the changes you made through this session."
 "</p>"
 msgstr ""
-"<p><b>Ezabatu demostrazioaren aldi baterako datu-basea</b></p> "
-"<p>KPhotoAlbum-en demostrazioarekin ongi igaroko zenuelakoan gaude. "
-"Demostrazioaren datu-basea /tmp direktoriopean kopiatu zen, eta orain "
-"ezabatu beharko litzateke. Ez baduzu ezabatzen, disko gogorreko lekua "
-"alferrik beteko du; bestalde, itzultzea eta demostrazioa berriro saiatzea "
-"nahi izanez gero, saio honetan zehar landutako aldaketekin gordetzea nahi "
-"izan dezakezu.</p>"
+"<p><b>Ezabatu zure aldi baterako datu-base erakusgarria</b></p><p>Espero "
+"dugu KPhotoAlbum-en erakustaldia gozatuko zenuela. Datu-base erakusgarria "
+"<tt>/tmp</tt> karpetan sortu zen, orain ezabatu beharko litzateke? Ezabatzen "
+"ez baduzu, diskoan lekua alferrik hartuko du; bestalde, itzuli eta "
+"erakustaldia berriz probatu nahi baduzu, saio honetan zehar egindako "
+"aldaketekin gorde nahi izan dezakezu.</p>"
 
 #: MainWindow/Window.cpp:311
 #, kde-format
@@ -4269,25 +4199,24 @@ msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
 "them from their stacks and create a completely new one?"
 msgstr ""
-"Hautatutako irudi batzuk jadanik multzo batekoak dira. Nahi duzu horiek "
-"dagokien multzotik kentzea eta berri bat erabat sortzea?"
+"Hautatutako irudi batzuk jadanik meta batekoak dira. Haiek dauden metatatik "
+"kendu eta erabat berria den bat sortu nahi duzu?"
 
 #: MainWindow/Window.cpp:397
-#, fuzzy, kde-format
-#| msgid "Stacking Error"
+#, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr "Multzokatze errorea"
+msgstr "Metatze arazoa"
 
 #: MainWindow/Window.cpp:412
 #, kde-format
 msgid "Unknown error, stack creation failed."
-msgstr "Errore ezezaguna, huts egin du multzoa sortzean."
+msgstr "Errore ezezaguna, meta sorrera huts egin du."
 
 #: MainWindow/Window.cpp:413
 #, kde-format
 msgid "Stacking Error"
-msgstr "Multzokatze errorea"
+msgstr "Metatze errorea"
 
 #: MainWindow/Window.cpp:492 MainWindow/Window.cpp:618
 #: MainWindow/Window.cpp:1363 MainWindow/Window.cpp:1460
@@ -4370,17 +4299,17 @@ msgstr "Idatzi hainbat elementuren oharrak aldi berean"
 #: MainWindow/Window.cpp:840
 #, kde-format
 msgid "Merge Images into a Stack"
-msgstr "Batu irudiak multzo batean"
+msgstr "Bateratu irudiak meta batean"
 
 #: MainWindow/Window.cpp:844
 #, kde-format
 msgid "Remove Images from Stack"
-msgstr "Kendu irudiak multzotik"
+msgstr "Kendu irudiak metatik"
 
 #: MainWindow/Window.cpp:847
 #, kde-format
 msgid "Set as First Image in Stack"
-msgstr "Ezarri multzoko aurreneko irudi gisa"
+msgstr "Ezarri metako aurreneko irudi gisa"
 
 #: MainWindow/Window.cpp:860
 #, kde-format
@@ -4405,12 +4334,12 @@ msgstr "Exekutatu diapositiba-aurkezpena ausaz"
 #: MainWindow/Window.cpp:877
 #, kde-format
 msgid "Collapse all stacks"
-msgstr "Tolestu multzo guztiak"
+msgstr "Tolestu meta guztiak"
 
 #: MainWindow/Window.cpp:883
 #, kde-format
 msgid "Expand all stacks"
-msgstr "Zabaldu multzo guztiak"
+msgstr "Zabaldu meta guztiak"
 
 #: MainWindow/Window.cpp:888
 #, kde-format
@@ -4540,7 +4469,7 @@ msgstr "Ordenatu denak data eta orduaren arabera"
 #: MainWindow/Window.cpp:1034
 #, kde-format
 msgid "Automatically Stack Selected Images..."
-msgstr "Automatikoki multzokatu hautatutako irudiak..."
+msgstr "Automatikoki metatu hautatutako irudiak..."
 
 #: MainWindow/Window.cpp:1037
 #, kde-format
@@ -4620,12 +4549,16 @@ msgstr "Automatikoki gordetzen... Eginda"
 #, kde-format
 msgid "KPhotoAlbum only supports database files named 'index.xml'."
 msgstr ""
+"KPhotoAlbum-ek 'index.xml' izeneko datu-base fitxategiak onartzen ditu "
+"bakarrik."
 
 #: MainWindow/Window.cpp:1227 MainWindow/Window.cpp:1233
 #, kde-format
 msgid ""
 "Please specify an existing image directory or an existing index.xml file."
 msgstr ""
+"Mesedez, zehaztu existitzen den irudi direktorio bat edo existitzen den "
+"index.xml fitxategi bat."
 
 #: MainWindow/Window.cpp:1236
 #, kde-format
@@ -4744,15 +4677,12 @@ msgid "Open List of Files"
 msgstr "Ireki fitxategien zerrenda"
 
 #: MainWindow/Window.cpp:1673
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can open a set of files from KPhotoAlbum's image root by listing the "
-#| "files here."
+#, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
-"Fitxategi multzo bat ireki dezakezu KPhotoAlbumeko irudi errotik fitxategiak "
+"KPhotoAlbum-en datu-basean fitxategi multzo bat ireki dezakezu, fitxategiak "
 "hemen zerrendatuz."
 
 #: MainWindow/Window.cpp:1687
@@ -4818,22 +4748,21 @@ msgstr "Erakutsi koadro txikiak"
 msgctxt "@action to group, as in aggregate thumbnails into clusters"
 msgid "Group adjacent thumbnails into clickable clusters"
 msgstr ""
+"Taldekatu elkarren aldamenean dauden koadro txikiak talde klikagarri batean"
 
 #: Map/MapView.cpp:206
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt ""
 "@action Decrease size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Decrease marker size"
-msgstr "Koadro txikien tamaina:"
+msgstr "Txikiagotu markatzaileen neurria"
 
 #: Map/MapView.cpp:213
-#, fuzzy, kde-format
-#| msgid "Thumbnail image size:"
+#, kde-format
 msgctxt ""
 "@action Increase size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Increase marker size"
-msgstr "Koadro txikien tamaina:"
+msgstr "Handiagotu markatzaileen neurria"
 
 #: Map/MapView.cpp:363
 #, kde-format
@@ -4998,12 +4927,13 @@ msgid "Positionable tags:"
 msgstr "Etiketa kokagarriak:"
 
 #: Settings/CategoryPage.cpp:110
-#, fuzzy, kde-format
-#| msgid "Tags in this category can be associated with areas within images"
+#, kde-format
 msgid ""
 "Tags in this category can be\n"
 "associated with areas within images"
-msgstr "Kategoria honetako etiketak irudietako eremuekin harremandu daitezke"
+msgstr ""
+"Kategoria honetako etiketak\n"
+"irudien barruko azalerekin elkartu daitezke"
 
 #: Settings/CategoryPage.cpp:117
 #, kde-format
@@ -5103,16 +5033,13 @@ msgid "Unsaved pending renaming action"
 msgstr "Gorde gabeko izen aldaketa ekintza"
 
 #: Settings/CategoryPage.cpp:324
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
-#| "linked against this category will be deleted!</p>"
+#, kde-format
 msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
-"<p>ziur \"%1\" ez kokagarri egin nahi duzula?</p><p>Kategoria honi lotutako "
-"eremu guztiak ezabatuko dira!</p>"
+"<p>Benetan egin nahi duzu \"%1\" ez kokagarri?</p><p>Azalera honekiko "
+"estekatutako kategoria denak baztertu egingo dira!</p>"
 
 #: Settings/CategoryPage.cpp:333
 #, kde-format
@@ -5257,6 +5184,10 @@ msgid ""
 "KPhotoAlbum to ignore these two folder names in any folder when searching "
 "for new images.</p>"
 msgstr ""
+"<p>Zehaztu ezikusi egiteko koma bidez bereizitako karpeta izenen zerrenda "
+"bat.</p><p>Adibidez, hemen \"<tt>.thumbs,.thumbnails</tt>\" zehaztea, "
+"KPhotoAlbum-ek irudi berriak bilatzean karpeta orotan bi karpeta izen horiei "
+"ezikusi egitea eragingo du.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:61
 #, kde-format
@@ -5287,22 +5218,18 @@ msgstr ""
 "hartuko du!</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:72
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum attempts to read all image files whether actual files or "
-#| "symbolic links. If you wish to ignore symbolic links, check this option. "
-#| "This is useful if for some reason you have e.g. both the original files "
-#| "and symbolic links to these files within your image directory.</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum attempts to read all image files whether actual files or "
 "symbolic links. If you wish to ignore symbolic links, check this option. "
 "This is useful if for some reason you have e.g. both the original files and "
 "symbolic links to these files within your image folder.</p>"
 msgstr ""
-"<p>KPhotoAlbum irudi fitxategia irakurtzen saiatuko da dauden kokapenean edo "
-"esteka sinbolikoan. Esteka sinbolikoak ez-ikusi nahi badituzu gaitu aukera "
-"hau. Hau erabilgarria da, hainbat arrazoiengatik, adibidez bai fitxategia "
-"eta bai esteka sinbolikoa irudien karpetan badaude.</p>"
+"<p>KPhotoAlbum irudi-fitxategi denak irakurtzen saiatzen da, benetakoak izan "
+"edo esteka sinbolikoak izan. Esteka sinbolikoak ezikusi nahi badituzu, "
+"markatu aukera hau. Hori erabilgarria da, hainbat arrazoiengatik, adib. bai "
+"jatorrizko fitxategiak eta haietarako esteka sinbolikoa irudien zure "
+"karpetan badituzu.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:77
 #, kde-format
@@ -5360,7 +5287,7 @@ msgstr "Eraman metadatuak (adib. ezabatu etiketak jatorritik)"
 #: Settings/FileVersionDetectionPage.cpp:113
 #, kde-format
 msgid "Automatically stack new versions of images"
-msgstr "Automatikoki multzokatu irudien bertsioak"
+msgstr "Automatikoki metatu irudien bertsio berriak"
 
 #: Settings/FileVersionDetectionPage.cpp:116
 #, kde-format
@@ -5429,10 +5356,10 @@ msgid ""
 "and placed to the top of the stack. This way the new image is shown when the "
 "stack is in collapsed state - the default state in KPhotoAlbum.</p>"
 msgstr ""
-"<p>Aukera hau ezartzen bada, irudiaren bertsio berriak automatikoki "
-"multzotzen dira eta multzoaren gainean kokatzen dira. Honela irudi berria "
-"erakutsiko da multzoa tolestu egoeran dagoenean. - Egoera lehenetsia "
-"KPhotoAlbumen.</p>"
+"<p>Aukera hau ezarrita badago, irudi baten bertsio berriak automatikoki "
+"metatu eta metaren gainean kokatzen dira. Era horretara, irudi berria "
+"erakutsiko da meta egoera tolestuan dagoenean. - KPhotoAlbum-en egoera "
+"lehenetsia.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:151
 #, kde-format
@@ -6233,7 +6160,7 @@ msgstr ""
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
-msgstr ""
+msgstr "Konfiguratu gabe bideo bizkarraldekoa"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:162
 #, kde-format
@@ -6721,22 +6648,22 @@ msgstr "Errorea multimedia erreproduzitzean"
 #: Viewer/QtAVDisplay.cpp:32 Viewer/QtAVDisplay.cpp:45
 #, kde-format
 msgid "Failed to set up video playback"
-msgstr ""
+msgstr "Bideo jotzea ezartzea huts egin du"
 
 #: Viewer/QtAVDisplay.cpp:32
 #, kde-format
 msgid "Failed to set up video playback (renderer wasn't created)"
-msgstr ""
+msgstr "Bideo jotzea ezartzea huts egin du (errendatzailea sortu gabe dago)"
 
 #: Viewer/QtAVDisplay.cpp:45
 #, kde-format
 msgid "Failed to set up video playback (widget wasn't created)"
-msgstr ""
+msgstr "Bideo jotzea ezartzea huts egin du (trepeta sortu gabe dago)"
 
 #: Viewer/SelectCategoryAndValue.cpp:107
 #, kde-format
 msgid "Type name of category and item"
-msgstr ""
+msgstr "Kategoria eta elementuaren mota-izena"
 
 #: Viewer/SelectCategoryAndValue.cpp:136
 #, kde-format
@@ -6757,7 +6684,7 @@ msgstr "Etiketa"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"
-msgstr ""
+msgstr "Garbitu esleipena"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
@@ -6787,13 +6714,13 @@ msgstr "Titulua"
 #: Viewer/SelectCategoryAndValue.ui:120
 #, kde-format
 msgid "Existing Assignments"
-msgstr ""
+msgstr "Existitzen diren esleipenak"
 
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
-msgstr "Ezarri multzoko aurreneko irudi gisa"
+msgstr "Ezarri metako aurreneko irudi gisa"
 
 #: Viewer/ViewerWidget.cpp:205
 #, kde-format
@@ -7004,21 +6931,19 @@ msgid "locked"
 msgstr "Giltzatuta"
 
 #: Viewer/ViewerWidget.cpp:626
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "annotating"
-msgstr "Oharrak"
+msgstr "idatzoharra egiten"
 
 #: Viewer/ViewerWidget.cpp:628
 #, kde-format
 msgid "tokenizing"
-msgstr ""
+msgstr "tokenak egiten"
 
 #: Viewer/ViewerWidget.cpp:633
 #, kde-format
 msgid "Change display mode to %1"
-msgstr ""
+msgstr "Aldatu azaltzeko modua %1(e)ra"
 
 #: Viewer/ViewerWidget.cpp:909
 #, kde-format
@@ -7033,20 +6958,14 @@ msgid "Stop Slideshow"
 msgstr "Gelditu diapositiba-emanaldia"
 
 #: Viewer/ViewerWidget.cpp:917
-#, fuzzy, kde-format
-#| msgctxt "OSD for slideshow"
-#| msgid ""
-#| "<p><center><font size=\"+4\">Starting Slideshow<br/>Ctrl++ makes the "
-#| "slideshow faster<br/>Ctrl + - makes the slideshow slower</font></center></"
-#| "p>"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
 msgstr ""
-"<p><center><font size=\"+4\">Diapositiba-aurkezpena hasten<br/>Ctrl++ "
-"diapositiba aurkezpena azkartzen du<br/>Ctrl + - diapositiba aurkezpena "
-"moteltzen du</font></center></p>"
+"Diapositiba erakustaldia abiatzen<br/>%1(e)k erakustaldia azkartzen du<br/>"
+"%2(e)k erakustaldia mantsotzen du"
 
 #: Viewer/ViewerWidget.cpp:967
 #, kde-format
@@ -7193,6 +7112,10 @@ msgid ""
 "some platforms, this is a common problem with some video players.</"
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 msgstr ""
+"<p>Ematen du KPhotoAlbum lehenago bideoa jotzean kraskatu egin dela. "
+"Plataforma batzuetan, hori bideo jotzaile batzuekin arazo arazo arrunta da.</"
+"p><p>Sakatu <i>Jarraitu</i> KPhotoAlbum-i beste bizkarraldeko bat probatzen "
+"uzteko...</p>"
 
 #: Viewer/ViewerWidget.cpp:1399
 #, kde-format
@@ -7200,6 +7123,8 @@ msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
 "will be used instead: <tt>%2</tt></p>"
 msgstr ""
+"<p>Gelditu den bideo bizkarraldekoa: <tt>%1</tt></p><p>Horren ordez "
+"erabiliko den bideo bizkarraldekoa: <tt>%2</tt></p>"
 
 #: Viewer/ViewerWidget.cpp:1412
 #, kde-format
@@ -7207,6 +7132,9 @@ msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 msgstr ""
+"<p>KPhotoAlbum-ek bideo bizkarraldeko erabilgarri denak probatu ditu, "
+"guztiak punturen batean kraskatu dira.</p><p>Kraskatzea antzematea orain "
+"itzalita dago.</p>"
 
 #: Viewer/ViewerWidget.cpp:1476
 #, kde-format

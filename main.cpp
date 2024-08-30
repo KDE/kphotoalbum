@@ -127,12 +127,7 @@ int main(int argc, char **argv)
         // MainWindow ctor throws if no config is loaded
         return retVal;
     }
-
-    const auto mainWindowGeometry = Settings::SettingsData::instance()->windowGeometry(Settings::MainWindow);
-    if (mainWindowGeometry.isValid())
-        view->setGeometry(mainWindowGeometry);
-    else
-        view->showMaximized();
+    view->show();
 
 #ifdef KPA_ENABLE_REMOTECONTROL
     (void)RemoteControl::RemoteInterface::instance();

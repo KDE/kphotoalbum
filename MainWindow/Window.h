@@ -32,12 +32,9 @@
 #include <QUrl>
 
 class QAction;
-class QCloseEvent;
 class QContextMenuEvent;
 class QFrame;
 class QLabel;
-class QMoveEvent;
-class QResizeEvent;
 class QStackedWidget;
 class QTimer;
 
@@ -143,7 +140,6 @@ public Q_SLOTS:
 
 protected Q_SLOTS:
     void showThumbNails();
-    bool slotExit();
     void slotOptions();
     void slotConfigureAllImages();
     void slotConfigureImagesOneAtATime();
@@ -222,9 +218,6 @@ protected:
     void configureImages(bool oneAtATime);
     QString welcome();
     bool event(QEvent *event) override;
-    void closeEvent(QCloseEvent *e) override;
-    void resizeEvent(QResizeEvent *) override;
-    void moveEvent(QMoveEvent *) override;
     void setupMenuBar();
     void createAnnotationDialog();
     bool load();
@@ -241,6 +234,7 @@ protected:
     void executeStartupActions();
     void checkIfVideoThumbnailerIsInstalled();
     bool anyVideosSelected() const;
+    bool queryClose() override;
 
 private:
     static Window *s_instance;

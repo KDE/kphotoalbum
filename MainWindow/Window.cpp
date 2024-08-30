@@ -102,7 +102,6 @@
 #include <KToggleAction>
 #include <QApplication>
 #include <QClipboard>
-#include <QCloseEvent>
 #include <QContextMenuEvent>
 #include <QCursor>
 #include <QDesktopServices>
@@ -115,11 +114,9 @@
 #include <QMenu>
 #include <QMessageBox>
 #include <QMimeData>
-#include <QMoveEvent>
 #include <QObject>
 #include <QPixmapCache>
 #include <QProgressDialog>
-#include <QResizeEvent>
 #include <QStackedWidget>
 #include <QTimer>
 #include <QVBoxLayout>
@@ -302,7 +299,7 @@ void MainWindow::Window::delayedInit()
 #endif
 }
 
-bool MainWindow::Window::slotExit()
+bool MainWindow::Window::queryClose()
 {
     bool deleteDemoDB = false;
     if (Options::the()->demoMode()) {
@@ -368,7 +365,7 @@ bool MainWindow::Window::slotExit()
     thumbnailCache()->save();
     if (deleteDemoDB)
         Utilities::deleteDemo();
-    qApp->quit();
+
     return true;
 }
 
@@ -757,17 +754,6 @@ bool MainWindow::Window::event(QEvent *event)
     return KXmlGuiWindow::event(event);
 }
 
-void MainWindow::Window::closeEvent(QCloseEvent *e)
-{
-    bool quit = true;
-    quit = slotExit();
-    // If I made it here, then the user canceled
-    if (!quit)
-        e->ignore();
-    else
-        e->setAccepted(true);
-}
-
 void MainWindow::Window::slotLimitToSelected()
 {
     const auto selectedList = selected();
@@ -784,7 +770,7 @@ void MainWindow::Window::setupMenuBar()
 {
     // File menu
     KStandardAction::save(this, &Window::slotSave, actionCollection());
-    KStandardAction::quit(this, &Window::slotExit, actionCollection());
+    KStandardAction::quit(this, &QWidget::close, actionCollection());
     m_generateHtml = actionCollection()->addAction(QString::fromLatin1("exportHTML"));
     m_generateHtml->setText(i18n("Generate HTML..."));
     connect(m_generateHtml, &QAction::triggered, this, &Window::slotExportToHTML);
@@ -1622,18 +1608,6 @@ DB::ImageSearchInfo MainWindow::Window::currentContext()
 QString MainWindow::Window::currentBrowseCategory() const
 {
     return m_browser->currentCategory();
-}
-
-void MainWindow::Window::resizeEvent(QResizeEvent *)
-{
-    if (Settings::SettingsData::ready() && isVisible())
-        Settings::SettingsData::instance()->setWindowGeometry(Settings::MainWindow, geometry());
-}
-
-void MainWindow::Window::moveEvent(QMoveEvent *)
-{
-    if (Settings::SettingsData::ready() && isVisible())
-        Settings::SettingsData::instance()->setWindowGeometry(Settings::MainWindow, geometry());
 }
 
 void MainWindow::Window::slotRemoveTokens()

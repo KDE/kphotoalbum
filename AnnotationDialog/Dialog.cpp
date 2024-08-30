@@ -1065,6 +1065,9 @@ void AnnotationDialog::Dialog::reject()
 
 void AnnotationDialog::Dialog::closeDialog()
 {
+    // Save the window position and size
+    Settings::SettingsData::instance()->saveWindowGeometry(Settings::AnnotationDialog, windowHandle());
+
     // the dialog is usually reused, so clear residual data upon closing it...
     loadInfo({});
 #ifdef HAVE_MARBLE

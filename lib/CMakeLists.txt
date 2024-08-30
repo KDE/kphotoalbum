@@ -67,6 +67,7 @@ set_property(SOURCE kpabase/version.h PROPERTY SKIP_AUTOMOC ON)
 target_link_libraries(kpabase
     PUBLIC
     KF6::ConfigCore
+    KF6::ConfigGui
     KF6::I18n
     Qt6::Core
     Qt6::Gui

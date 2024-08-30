@@ -30,6 +30,7 @@
 #include <QStringList>
 #include <QThread>
 #include <type_traits>
+#include <KWindowConfig>
 
 namespace
 {
@@ -559,6 +560,13 @@ void SettingsData::setWindowGeometry(WindowType win, const QRect &geometry)
 QRect SettingsData::windowGeometry(WindowType win) const
 {
     return cfgValue("Window Geometry", win, QRect());
+}
+
+void SettingsData::saveWindowGeometry(WindowId id, const QWindow *window)
+{
+    auto stateConfig = KSharedConfig::openStateConfig()->group(QString::fromUtf8(id));
+    KWindowConfig::saveWindowSize(window, stateConfig);
+    KWindowConfig::saveWindowPosition(window, stateConfig);
 }
 
 double Settings::SettingsData::getThumbnailAspectRatio() const

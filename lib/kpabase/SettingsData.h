@@ -21,6 +21,9 @@
 
 #include <QObject>
 
+// Qt classes
+class QWindow;
+
 #define property(GET_TYPE, GET_FUNC, SET_FUNC, SET_TYPE) \
     GET_TYPE GET_FUNC() const;                           \
     void SET_FUNC(const SET_TYPE)
@@ -79,6 +82,9 @@ Q_FLAG_NS(VideoBackend)
 
 typedef const char *WindowType;
 extern const WindowType MainWindow, AnnotationDialog;
+
+typedef const char *WindowId;
+extern const WindowId AnnotationDialog;
 
 class SettingsData : public QObject
 {
@@ -248,6 +254,8 @@ public:
 
     void setWindowGeometry(WindowType, const QRect &geometry);
     QRect windowGeometry(WindowType) const;
+
+    void saveWindowGeometry(WindowId id, const QWindow *window);
 
     double getThumbnailAspectRatio() const;
 

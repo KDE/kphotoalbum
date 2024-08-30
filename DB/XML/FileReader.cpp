@@ -618,7 +618,7 @@ QString DB::FileReader::unescape(const QString &str)
             QString after = QString::fromLatin1(QByteArray::fromHex(match.captured(2).toLocal8Bit()));
             tmp.replace(pos, before.length(), after);
             pos += after.length();
-            rx.match(tmp, pos);
+            match = rx.match(tmp, pos);
         }
     } else {
         tmp.replace(QStringLiteral("_"), QStringLiteral(" "));

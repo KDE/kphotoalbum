@@ -567,6 +567,19 @@ void SettingsData::restoreWindowGeometry(WindowId id, QWindow *window)
     KWindowConfig::restoreWindowSize(window, stateConfig);
 }
 
+void SettingsData::saveWindowState(WindowId id, const QByteArray &state)
+{
+    auto stateConfig = KSharedConfig::openStateConfig()->group(s_windowIdKeys.value(id));
+    stateConfig.writeEntry(QStringLiteral("State"), state.toBase64());
+}
+
+QByteArray SettingsData::windowState(WindowId id)
+{
+    auto stateConfig = KSharedConfig::openStateConfig()->group(s_windowIdKeys.value(id));
+    auto data = stateConfig.readEntry(QStringLiteral("State"), QString());
+    return QByteArray::fromBase64(data.toUtf8());
+}
+
 double Settings::SettingsData::getThumbnailAspectRatio() const
 {
     double ratio = 1.0;

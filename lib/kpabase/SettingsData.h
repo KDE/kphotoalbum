@@ -252,6 +252,8 @@ public:
 
     void saveWindowGeometry(WindowId id, const QWindow *window);
     void restoreWindowGeometry(WindowId id, QWindow *window);
+    void saveWindowState(WindowId id, const QByteArray &state);
+    QByteArray windowState(WindowId id);
 
     double getThumbnailAspectRatio() const;
 

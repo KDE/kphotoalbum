@@ -967,24 +967,8 @@ int AnnotationDialog::Dialog::exec()
 
 void AnnotationDialog::Dialog::slotSaveWindowSetup()
 {
-    const QByteArray data = m_dockWindow->saveState();
-
-    const auto fileName = QString::fromLatin1("%1/layout.dat").arg(Settings::SettingsData::instance()->imageDirectory());
-    qCDebug(AnnotationDialogLog) << "Saving window layout to file:" << fileName;
-
-    QFile file(fileName);
-    if (!file.open(QIODevice::WriteOnly)) {
-        KMessageBox::error(this,
-                           i18n("<p>Could not save the window layout.</p>"
-                                "File %1 could not be opened because of the following error: %2",
-                                file.fileName(), file.errorString()));
-    } else if (!(file.write(data) && file.flush())) {
-        KMessageBox::error(this,
-                           i18n("<p>Could not save the window layout.</p>"
-                                "File %1 could not be written because of the following error: %2",
-                                file.fileName(), file.errorString()));
-    }
-    file.close();
+    Settings::SettingsData::instance()->saveWindowState(Settings::AnnotationDialog, m_dockWindow->saveState());
+    QMessageBox::information(this, i18n("Save current window setup"), i18n("Settings saved!"));
 }
 
 void AnnotationDialog::Dialog::closeEvent(QCloseEvent *e)
@@ -1235,21 +1219,28 @@ void AnnotationDialog::Dialog::slotStartDateChanged(const DB::ImageDate &date)
 
 void AnnotationDialog::Dialog::loadWindowLayout()
 {
-    QString fileName = QString::fromLatin1("%1/layout.dat").arg(Settings::SettingsData::instance()->imageDirectory());
-    qCDebug(AnnotationDialogLog) << "Loading window layout from file:" << fileName;
-    bool layoutLoaded = false;
+    auto state = Settings::SettingsData::instance()->windowState(Settings::AnnotationDialog);
 
-    if (QFileInfo::exists(fileName)) {
-        QFile file(fileName);
-        if (file.open(QIODevice::ReadOnly)) {
-            QByteArray data = file.readAll();
-            layoutLoaded = m_dockWindow->restoreState(data);
+    if (state.isEmpty()) {
+        // Check if we have an old-style layout.dat file
+        qCWarning(AnnotationDialogLog) << "No annotation dialog layout data found."
+                                       << "Checking for a KPA 5 layout.dat file ...";
+        const auto layoutDat = QStringLiteral("%1/layout.dat").arg(Settings::SettingsData::instance()->imageDirectory());
+        if (! QFileInfo::exists(layoutDat)) {
+            qCWarning(AnnotationDialogLog) << "Could not find a KPA 5 layout.dat file";
         } else {
-            qCWarning(AnnotationDialogLog) << "Window layout file" << fileName << "exists but could not be opened!";
+            QFile file(layoutDat);
+            if (file.open(QIODevice::ReadOnly)) {
+                state = file.readAll();
+                Settings::SettingsData::instance()->saveWindowState(Settings::AnnotationDialog, state);
+                qCWarning(AnnotationDialogLog) << "Migrated the KPA 5 layout.dat data";
+            } else {
+                qCWarning(AnnotationDialogLog) << "Could not read the layout.dat file!";
+            }
         }
     }
 
-    if (!layoutLoaded) {
+    if (! m_dockWindow->restoreState(state)) {
         // create default layout
         // label/date/rating in a visual block with description:
         m_dockWindow->splitDockWidget(m_generalDock, m_descriptionDock, Qt::Vertical);

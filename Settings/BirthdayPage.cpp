@@ -55,7 +55,7 @@ Settings::BirthdayPage::BirthdayPage(QWidget *parent)
     m_filter = new QLineEdit;
     itemsHeaderLayout->addWidget(m_filter);
     connect(m_filter, &QLineEdit::textChanged, this, &BirthdayPage::resetCategory);
-    const auto filterShortcut = new QShortcut(QKeySequence(Qt::AltModifier, Qt::Key_F), m_filter, SLOT(setFocus()));
+    const auto filterShortcut = new QShortcut(QKeySequence(Qt::AltModifier | Qt::Key_F), m_filter, SLOT(setFocus()));
     m_filter->setPlaceholderText(i18nc("@label:textedit", "Filter ... (%1)", filterShortcut->key().toString(QKeySequence::NativeText)));
 
     if (QLocale().dateFormat(QLocale::ShortFormat).contains(QString::fromUtf8("yyyy"))) {

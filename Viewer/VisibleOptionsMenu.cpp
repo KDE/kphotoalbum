@@ -29,7 +29,7 @@ Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget *parent, KActionCollectio
 
     m_showInfoBox = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-infobox"));
     m_showInfoBox->setText(i18n("Show Info Box"));
-    actions->setDefaultShortcut(m_showInfoBox, QKeySequence(Qt::CTRL, Qt::Key_I));
+    actions->setDefaultShortcut(m_showInfoBox, QKeySequence(Qt::CTRL | Qt::Key_I));
     m_showInfoBox->setChecked(Settings::SettingsData::instance()->showInfoBox());
     connect(m_showInfoBox, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowInfoBox);
     addAction(m_showInfoBox);

@@ -104,10 +104,11 @@ const QString configFile = QString::fromLatin1("kphotoalbumrc");
  */
 static bool _smoothScale = true;
 
-using namespace Settings;
+static const QHash<Settings::WindowId, QString> s_windowIdKeys {
+    { Settings::AnnotationDialog, QStringLiteral("AnnotationDialog") }
+};
 
-const WindowType Settings::MainWindow = "MainWindow";
-const WindowType Settings::AnnotationDialog = "AnnotationDialog";
+using namespace Settings;
 
 SettingsData *SettingsData::s_instance = nullptr;
 
@@ -552,21 +553,18 @@ getValueFunc_(bool, locked, groupForDatabase("Privacy Settings"), "locked", fals
     Q_EMIT locked(lock, lockExcludes());
 }
 
-void SettingsData::setWindowGeometry(WindowType win, const QRect &geometry)
-{
-    setValue("Window Geometry", win, geometry);
-}
-
-QRect SettingsData::windowGeometry(WindowType win) const
-{
-    return cfgValue("Window Geometry", win, QRect());
-}
-
 void SettingsData::saveWindowGeometry(WindowId id, const QWindow *window)
 {
-    auto stateConfig = KSharedConfig::openStateConfig()->group(QString::fromUtf8(id));
-    KWindowConfig::saveWindowSize(window, stateConfig);
+    auto stateConfig = KSharedConfig::openStateConfig()->group(s_windowIdKeys.value(id));
     KWindowConfig::saveWindowPosition(window, stateConfig);
+    KWindowConfig::saveWindowSize(window, stateConfig);
+}
+
+void SettingsData::restoreWindowGeometry(WindowId id, QWindow *window)
+{
+    auto stateConfig = KSharedConfig::openStateConfig()->group(s_windowIdKeys.value(id));
+    KWindowConfig::restoreWindowPosition(window, stateConfig);
+    KWindowConfig::restoreWindowSize(window, stateConfig);
 }
 
 double Settings::SettingsData::getThumbnailAspectRatio() const

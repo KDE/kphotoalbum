@@ -73,18 +73,16 @@ enum LoadOptimizationPreset { LoadOptimizationHardDisk,
                               LoadOptimizationFastNVME,
                               LoadOptimizationManual };
 
+enum WindowId {
+    AnnotationDialog
+};
+
 enum class VideoBackend { NotConfigured = 0b0000,
                           Phonon = 0b0001,
                           QtAV = 0b0010,
                           VLC = 0b0100 };
 Q_DECLARE_FLAGS(VideoBackends, VideoBackend)
 Q_FLAG_NS(VideoBackend)
-
-typedef const char *WindowType;
-extern const WindowType MainWindow, AnnotationDialog;
-
-typedef const char *WindowId;
-extern const WindowId AnnotationDialog;
 
 class SettingsData : public QObject
 {
@@ -252,10 +250,8 @@ public:
     bool locked() const;
     void setLocked(bool locked, bool force);
 
-    void setWindowGeometry(WindowType, const QRect &geometry);
-    QRect windowGeometry(WindowType) const;
-
     void saveWindowGeometry(WindowId id, const QWindow *window);
+    void restoreWindowGeometry(WindowId id, QWindow *window);
 
     double getThumbnailAspectRatio() const;
 

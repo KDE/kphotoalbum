@@ -286,14 +286,18 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
 
     m_current = -1;
 
-    setGeometry(Settings::SettingsData::instance()->windowGeometry(Settings::AnnotationDialog));
-
     setupActions();
     shortCutManager.setupShortCuts();
 
     layout->addWidget(buttonBox);
 
     connect(DB::ImageDB::instance(), &DB::ImageDB::imagesDeleted, this, &Dialog::slotDiscardFiles);
+
+    // Restore the last position and size
+    QTimer::singleShot(0, this, [this]
+    {
+        Settings::SettingsData::instance()->restoreWindowGeometry(Settings::AnnotationDialog, windowHandle());
+    });
 }
 
 QDockWidget *AnnotationDialog::Dialog::createDock(const QString &title, const QString &name,
@@ -1158,16 +1162,6 @@ void AnnotationDialog::Dialog::showHelpDialog(UsageMode type)
     }
 
     KMessageBox::information(this, txt, QString(), doNotShowKey, KMessageBox::AllowLink);
-}
-
-void AnnotationDialog::Dialog::resizeEvent(QResizeEvent *)
-{
-    Settings::SettingsData::instance()->setWindowGeometry(Settings::AnnotationDialog, geometry());
-}
-
-void AnnotationDialog::Dialog::moveEvent(QMoveEvent *)
-{
-    Settings::SettingsData::instance()->setWindowGeometry(Settings::AnnotationDialog, geometry());
 }
 
 void AnnotationDialog::Dialog::setupFocus()

@@ -23,7 +23,9 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QTabWidget>
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 7, 0))
 #include <QStringConverter>
+#endif
 
 using Utilities::StringSet;
 
@@ -76,7 +78,11 @@ Exif::InfoDialog::InfoDialog(const DB::FileName &fileName, QWidget *parent)
 
     QLabel *iptcLabel = new QLabel(i18n("IPTC character set:"), top);
     m_iptcCharset = new QComboBox(top);
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 7, 0))
     const auto charsets = QStringConverter::availableCodecs();
+#else
+    const QStringList charsets = { QLatin1String("UTF-8") };
+#endif
     m_iptcCharset->insertItems(0, charsets);
     m_iptcCharset->setCurrentIndex(qMax(0, charsets.indexOf(Settings::SettingsData::instance()->iptcCharset())));
     hlay->addWidget(iptcLabel);

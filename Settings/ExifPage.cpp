@@ -15,11 +15,17 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QVBoxLayout>
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 7, 0))
 #include <QStringConverter>
+#endif
 
 Settings::ExifPage::ExifPage(QWidget *parent)
     : QWidget(parent)
-      , m_availableCodecs(QStringConverter::availableCodecs())
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 7, 0))
+    , m_availableCodecs(QStringConverter::availableCodecs())
+#else
+    , m_availableCodecs({ QLatin1String("UTF-8") })
+#endif
 
 {
     QVBoxLayout *vlay = new QVBoxLayout(this);

@@ -27,10 +27,10 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
+#include <KWindowConfig>
 #include <QStringList>
 #include <QThread>
 #include <type_traits>
-#include <KWindowConfig>
 
 namespace
 {
@@ -43,11 +43,11 @@ const QString configFile = QString::fromLatin1("kphotoalbumrc");
 #define cfgValue(GROUP, OPTION, DEFAULT) \
     KSharedConfig::openConfig(configFile)->group(QLatin1String(GROUP)).readEntry(QLatin1String(OPTION), DEFAULT)
 
-#define setValue(GROUP, OPTION, VALUE)                                            \
-    do {                                                                          \
+#define setValue(GROUP, OPTION, VALUE)                                                           \
+    do {                                                                                         \
         KConfigGroup group = KSharedConfig::openConfig(configFile)->group(QLatin1String(GROUP)); \
         group.writeEntry(QLatin1String(OPTION), VALUE);                                          \
-        group.sync();                                                             \
+        group.sync();                                                                            \
     } while (0)
 
 #define getValueFunc_(TYPE, FUNC, GROUP, OPTION, DEFAULT)           \
@@ -69,7 +69,7 @@ const QString configFile = QString::fromLatin1("kphotoalbumrc");
 #define property_(GET_TYPE, GET_FUNC, GET_VALUE, SET_FUNC, SET_TYPE, SET_VALUE, GROUP, OPTION, GET_DEFAULT_1, GET_DEFAULT_2, GET_DEFAULT_2_TYPE) \
     GET_TYPE SettingsData::GET_FUNC() const                                                                                                      \
     {                                                                                                                                            \
-        const KConfigGroup g = KSharedConfig::openConfig(configFile)->group(QLatin1String(GROUP));                                                              \
+        const KConfigGroup g = KSharedConfig::openConfig(configFile)->group(QLatin1String(GROUP));                                               \
                                                                                                                                                  \
         if (!g.hasKey(OPTION))                                                                                                                   \
             return GET_DEFAULT_1;                                                                                                                \
@@ -384,9 +384,9 @@ setValueFunc_(setVideoBackend, VideoBackend, "Viewer", "videoBackend", static_ca
     switch (value) {
     case VideoBackend::NotConfigured:
     case VideoBackend::Phonon:
-    case VideoBackend::QtAV:
     case VideoBackend::VLC:
         break;
+    case VideoBackend::QtAV: // legacy value; no longer used actively
     default:
         qCWarning(BaseLog) << "Ignoring invalid configuration value for Viewer.videoBackend...";
         value = VideoBackend::NotConfigured;

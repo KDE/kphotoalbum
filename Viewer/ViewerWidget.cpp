@@ -34,10 +34,6 @@
 #include "PhononDisplay.h"
 #endif
 
-#if QtAV_FOUND
-#include "QtAVDisplay.h"
-#endif
-
 #include "TaggedArea.h"
 #include "TextDisplay.h"
 #include "TransientDisplay.h"
@@ -72,6 +68,7 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <QAction>
+#include <QActionGroup>
 #include <QApplication>
 #include <QContextMenuEvent>
 #include <QDBusConnection>
@@ -90,7 +87,6 @@
 #include <QTimer>
 #include <QWheelEvent>
 #include <qglobal.h>
-#include <QActionGroup>
 
 #include <QDesktopServices>
 #include <QInputDialog>
@@ -1436,13 +1432,6 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
         qCWarning(ViewerLog) << "Video backend VLC not available. Selecting first available backend...";
 #endif
         break;
-    case Settings::VideoBackend::QtAV:
-#if QtAV_FOUND
-        return new QtAVDisplay(parent);
-#else
-        qCWarning(ViewerLog) << "Video backend QtAV not available. Selecting first available backend...";
-#endif
-        break;
     case Settings::VideoBackend::Phonon:
 #if Phonon4Qt5_FOUND
         return new PhononDisplay(parent);
@@ -1450,11 +1439,12 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
         qCWarning(ViewerLog) << "Video backend Phonon not available. Selecting first available backend...";
 #endif
         break;
+    case Settings::VideoBackend::QtAV: // legacy value
     case Settings::VideoBackend::NotConfigured:
         qCCritical(ViewerLog) << "No viable video backend!";
     }
 
-    static_assert(LIBVLC_FOUND || QtAV_FOUND || Phonon4Qt5_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
+    static_assert(LIBVLC_FOUND || Phonon4Qt5_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
     Q_UNREACHABLE();
     return nullptr;
 }

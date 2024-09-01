@@ -79,7 +79,6 @@ add_definitions(
 
 find_package(Qt6 ${MINIMUM_QT6_VERSION} REQUIRED COMPONENTS Core Sql Xml Widgets Test)
 find_package(Phonon4Qt6)
-find_package(QtAV)
 find_package(LIBVLC)
 find_package(KF6 ${MINIMUM_KF6_VERSION} REQUIRED COMPONENTS Archive Completion Config CoreAddons I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons)
 
@@ -111,8 +110,8 @@ set_package_properties(Marble
     )
 set(HAVE_MARBLE ${Marble_FOUND})
 
-if(NOT Phonon4Qt6_FOUND AND NOT QtAV_FOUND AND NOT LIBVLC_FOUND)
-    message(FATAL_ERROR "A video backend must be provided. CMake failed to find any of Phonon, QtAV, and VLC")
+if(NOT Phonon4Qt6_FOUND AND NOT LIBVLC_FOUND)
+    message(FATAL_ERROR "A video backend must be provided. CMake failed to find any of Phonon and VLC")
 endif()
 
 set(libdatebar_SRCS
@@ -773,17 +772,6 @@ endif()
 
 if(Marble_FOUND)
     target_link_libraries(kphotoalbum PRIVATE Marble)
-endif()
-
-if(QtAV_FOUND)
-  include_directories(${QTAV_CORE_INCLUDE_DIR})
-  target_sources(kphotoalbum PRIVATE
-      "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/QtAVDisplay.cpp"
-      "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/QtAVDisplay.h"
-      "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/QtAVVideoToolBar.cpp"
-      "${CMAKE_CURRENT_SOURCE_DIR}/Viewer/QtAVVideoToolBar.h"
-      )
-  target_link_libraries(kphotoalbum PRIVATE ${QTAV_LIBRARIES})
 endif()
 
 if(LIBVLC_FOUND)

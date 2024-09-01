@@ -141,24 +141,30 @@ MainWindow::Window::Window(QWidget *parent)
 {
     // propagate palette changes to subwindows:
     setAttribute(Qt::WA_WindowPropagation);
-    qCDebug(MainWindowLog) << "Using icon theme: " << QIcon::themeName();
-    qCDebug(MainWindowLog) << "Icon search paths: " << QIcon::themeSearchPaths();
-    QElapsedTimer timer;
-    timer.start();
-    SplashScreen::instance()->message(i18n("Loading Database"));
-    s_instance = this;
 
-    bool gotConfigFile = load();
-    if (!gotConfigFile)
-        throw 0;
-    qCInfo(TimingLog) << "MainWindow: Loading Database: " << timer.restart() << "ms.";
-    SplashScreen::instance()->message(i18n("Loading Main Window"));
+    s_instance = this;
 
     QWidget *top = new QWidget(this);
     QVBoxLayout *lay = new QVBoxLayout(top);
     lay->setSpacing(2);
     lay->setContentsMargins(2, 2, 2, 2);
     setCentralWidget(top);
+
+    setupGUI(KXmlGuiWindow::ToolBar | Create | Save);
+    setAutoSaveSettings();
+
+    qCDebug(MainWindowLog) << "Using icon theme: " << QIcon::themeName();
+    qCDebug(MainWindowLog) << "Icon search paths: " << QIcon::themeSearchPaths();
+    QElapsedTimer timer;
+    timer.start();
+
+    SplashScreen::instance()->message(i18n("Loading Database"));
+
+    bool gotConfigFile = load();
+    if (!gotConfigFile)
+        throw 0;
+    qCInfo(TimingLog) << "MainWindow: Loading Database: " << timer.restart() << "ms.";
+    SplashScreen::instance()->message(i18n("Loading Main Window"));
 
     m_stack = new QStackedWidget(top);
     lay->addWidget(m_stack, 1);
@@ -241,9 +247,6 @@ MainWindow::Window::Window(QWidget *parent)
     qCInfo(TimingLog) << "MainWindow: executeStartupActions " << timer.restart() << "ms.";
     QTimer::singleShot(0, this, &Window::delayedInit);
     updateContextMenuFromSelectionSize(0);
-
-    // Automatically save toolbar settings
-    setAutoSaveSettings();
 
     m_copyLinkEngine = new CopyLinkEngine(this);
 
@@ -1077,8 +1080,6 @@ void MainWindow::Window::setupMenuBar()
     m_linkAction = actionCollection()->addAction(QStringLiteral("linkImagesTo"), this, std::bind(&Window::triggerCopyLinkAction, this, CopyLinkEngine::Link));
     m_linkAction->setText(i18np("Link image to ...", "Link images to ...", 1));
     actionCollection()->setDefaultShortcut(m_linkAction, QKeySequence(Qt::SHIFT | Qt::Key_F7));
-
-    setupGUI(KXmlGuiWindow::ToolBar | Create | Save);
 }
 
 void MainWindow::Window::slotExportToHTML()

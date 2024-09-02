@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 01:49+0000\n"
-"PO-Revision-Date: 2024-08-04 09:37+0200\n"
+"PO-Revision-Date: 2024-09-01 17:15+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -825,7 +825,7 @@ msgstr "Recherche des vidéos sans information sur la taille"
 #: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:57
 #, kde-format
 msgid "Searching for videos without video thumbnails"
-msgstr "Recherche des vidéos sans les vignettes video"
+msgstr "Recherche des vidéos sans leurs vignettes de vidéos"
 
 #: BackgroundTaskManager/JobInfo.cpp:55
 #, kde-format
@@ -2076,12 +2076,12 @@ msgstr "Erreur lors de la copie de %1 vers %2"
 #: HTMLGenerator/Generator.cpp:471
 #, kde-format
 msgid "<a href=\"%1\">prev</a>"
-msgstr "<a href=\"%1\">préc</a>"
+msgstr "<a href=\"%1\">précédent</a>"
 
 #: HTMLGenerator/Generator.cpp:473 HTMLGenerator/Generator.cpp:481
 #, kde-format
 msgid "prev"
-msgstr "préc"
+msgstr "précédent"
 
 #: HTMLGenerator/Generator.cpp:485
 #, kde-format
@@ -2566,12 +2566,12 @@ msgstr ""
 "est sur l'image, date etc.)<br/>2) les images elles-mêmes.</p><p>Les images "
 "elles-mêmes peuvent indifféremment être placées à côté du fichier « ."
 "kim » ou copiées dans le fichier lui-même. Copier les images dans le fichier "
-"« .kim » peut être la bonne solution pour les envoyer par email à quelqu'un "
-"qui souhaite les avoir toutes. En revanche, si vous mettez les images sur "
-"internet pour que tout le monde puisse les voir et télécharger celles qui "
-"l'intéressent, il vaut mieux placer les images à côté du fichier « ."
-"kim » pour éviter aux gens de devoir les télécharger toutes (ce qui est le "
-"cas quand elles sont dans un gros fichier).</p>"
+"« .kim » peut être la bonne solution pour les envoyer par courriel à une "
+"personne souhaitant toutes les recevoir. En revanche, si vous mettez les "
+"images sur internet pour que tout le monde puisse les voir et télécharger "
+"celles qui l'intéressent, il vaut mieux placer les images à côté du fichier "
+"« .kim » pour éviter aux gens de devoir les télécharger toutes (Ce qui est "
+"le cas quand elles sont dans un gros fichier).</p>"
 
 #: ImportExport/Export.cpp:242
 #, kde-format
@@ -3745,7 +3745,7 @@ msgid ""
 "for displaying videos; this in turn relies on ffmpeg</p>"
 msgstr ""
 "<h1><a name=\"video\">Prise en charge de la vidéo</a></h1><p>KPhotoAlbum "
-"s'appuie sur l'architecture « QtAv » pour l'affichage de vidéos. Elle même "
+"s'appuie sur l'architecture « QtAV » pour l'affichage de vidéos. Elle même "
 "s'appuie sur « ffmpeg ». </p>"
 
 #: MainWindow/FeatureDialog.cpp:67
@@ -3768,7 +3768,7 @@ msgid ""
 "p><p>Correct length information is necessary for correct rendering of video "
 "thumbnails.</p>"
 msgstr ""
-"<h1><a name=\"videoInfo\">Prise en charge des métadonnées video</a></"
+"<h1><a name=\"videoInfo\">Prise en charge des métadonnées de vidéos</a></"
 "h1><p>KPhotoAlbum peut utiliser <tt>ffprobe</tt> pour extraire les "
 "informations de longueur des vidéos.</p><p>Ces informations sont nécessaires "
 "pour le rendu correct des vignettes des vidéos.</p>"
@@ -3960,13 +3960,13 @@ msgid ""
 "files you selected would be copied to the /tmp folder</p><p>You can also use "
 "%each to have a command be run once per file.</p>"
 msgstr ""
-"<p>Saisissez la commande que vous voulez lancer sur vos fichiers d'images. "
-"KPhotoAlbum lancera votre commande après avoir remplacé les variables "
-"« %all » avec une liste de vos fichiers. Par exemple, si vous saisissez : </"
-"p><ul><li>cp %all /tmp</li></ul><p>Alors, les fichiers que vous avez "
-"sélectionnés devraient être copiés dans le dossier « /tmp ».</p><p>Vous "
-"pouvez aussi utiliser « %each » pour exécuter votre commande une fois pour "
-"chaque fichier.</p>"
+"<p>Veuillez saisir la commande que vous voulez lancer sur vos fichiers "
+"d'images. KPhotoAlbum lancera votre commande après avoir remplacé les "
+"variables « %all » avec une liste de vos fichiers. Par exemple, si vous "
+"saisissez : </p><ul><li>cp %all /tmp</li></ul><p>Alors, les fichiers que "
+"vous avez sélectionnés devraient être copiés dans le dossier « /tmp ».</"
+"p><p>Vous pouvez aussi utiliser « %each » pour exécuter votre commande une "
+"fois pour chaque fichier.</p>"
 
 #: MainWindow/RunDialog.cpp:71
 #, no-c-format, kde-format
@@ -5339,7 +5339,7 @@ msgstr ""
 "<p>Les dossiers indiqués ici (séparés par une virgule <tt>,</tt>) seront "
 "évités pendant la recherche de nouvelles photos. Les dossiers de vignettes "
 "de différents outils devraient être configurés ici. Par exemple : <tt>xml, "
-"Thumbnails, .thumbs, .thumbnails</tt>.</p>"
+"thumbnails, .thumbs, .thumbnails</tt>.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:91
 #, kde-format
@@ -5533,7 +5533,7 @@ msgid ""
 "configure details of how the loading is performed.</p>"
 msgstr ""
 "<p>Régler le chargement de l'image pour de meilleures performance selon le "
-"type of stockage sur lequel est installé votre base de données d'images. Si "
+"type de stockage sur lequel est installé votre base de données d'images. Si "
 "cette dernière est répartie sur de multiples média, alors, veuillez choisir "
 "le plus lent à utiliser.</p><p>Utiliser les paramètres manuels pour "
 "configurer précisément la façon dont le chargement est réalisé.</p>"
@@ -5766,12 +5766,12 @@ msgid ""
 "automatically on start up. Alternatively, you can click the connection icon "
 "in the status bar to start listening."
 msgstr ""
-"<p>KPhotoAlbum est capable d'afficher vos image d'appareils Android.</p> "
-"<p>KPhotoAlbum s'associera automatiquement à l'application Android. Cela "
+"<p>KPhotoAlbum est capable d'afficher vos image d'appareils Android.</"
+"p><p>KPhotoAlbum s'associera automatiquement à l'application Android. Cela "
 "nécessite cependant que KPhotoAlbum de votre ordinateur détecte les messages "
-"multicast. En cochant cette case, KPhotoAlbum le fera automatiquement à son "
-"démarrage. Vous pouvez alternativement cliquer sur l'icône de connexion de "
-"la barre d'état pour démarrer la détection.</p>"
+"« multicast ». En cochant cette case, KPhotoAlbum le fera automatiquement à "
+"son démarrage. Vous pouvez alternativement cliquer sur l'icône de connexion "
+"de la barre d'état pour démarrer la détection.</p>"
 
 #: Settings/GeneralPage.cpp:169
 #, kde-format
@@ -6712,7 +6712,7 @@ msgstr "Sélectionner un élément pour la touche macro <b>%1</b>"
 #: Viewer/AnnotationHandler.cpp:125
 #, kde-format
 msgid "Tag Item"
-msgstr "Etiquetter un élément"
+msgstr "Étiqueter un élément"
 
 #: Viewer/AnnotationHandler.cpp:125
 #, kde-format

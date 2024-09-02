@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: 2018-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2018 - 2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2022 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -84,6 +84,7 @@ ImageScoutThread::ImageScoutThread(ImageScoutQueue &queue, QMutex *mutex,
     , m_preloadFunc(nullptr)
     , m_isStarted(false)
 {
+    Q_ASSERT(m_mutex);
 }
 
 void ImageScoutThread::doRun(char *tmpBuf)
@@ -189,7 +190,7 @@ ImageScout::ImageScout(ImageScoutQueue &images,
     if (threads > 0) {
         for (int i = 0; i < threads; i++) {
             ImageScoutThread *t = new ImageScoutThread(images,
-                                                       threads > 1 ? &m_mutex : nullptr,
+                                                       &m_mutex,
                                                        count,
                                                        m_preloadedCount,
                                                        m_skippedCount);

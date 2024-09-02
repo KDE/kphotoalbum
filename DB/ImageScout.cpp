@@ -57,11 +57,11 @@ protected:
 
 private:
     void doRun(char *);
-    ImageScoutQueue &m_queue;
-    QMutex *m_mutex;
-    QAtomicInt &m_loadedCount;
-    QAtomicInt &m_preloadedCount;
-    QAtomicInt &m_skippedCount;
+    ImageScoutQueue &m_shared_queue;
+    QMutex *m_shared_mutex;
+    QAtomicInt &m_shared_loadedCount;
+    QAtomicInt &m_shared_preloadedCount;
+    QAtomicInt &m_shared_skippedCount;
     int m_scoutBufSize;
     int m_maxSeekAhead;
     int m_readLimit;
@@ -73,38 +73,38 @@ ImageScoutThread::ImageScoutThread(ImageScoutQueue &queue, QMutex *mutex,
                                    QAtomicInt &count,
                                    QAtomicInt &preloadedCount,
                                    QAtomicInt &skippedCount)
-    : m_queue(queue)
-    , m_mutex(mutex)
-    , m_loadedCount(count)
-    , m_preloadedCount(preloadedCount)
-    , m_skippedCount(skippedCount)
+    : m_shared_queue(queue)
+    , m_shared_mutex(mutex)
+    , m_shared_loadedCount(count)
+    , m_shared_preloadedCount(preloadedCount)
+    , m_shared_skippedCount(skippedCount)
     , m_scoutBufSize(DEFAULT_SCOUT_BUFFER_SIZE)
     , m_maxSeekAhead(DEFAULT_MAX_SEEKAHEAD_IMAGES)
     , m_readLimit(-1)
     , m_preloadFunc(nullptr)
     , m_isStarted(false)
 {
-    Q_ASSERT(m_mutex);
+    Q_ASSERT(m_shared_mutex);
 }
 
 void ImageScoutThread::doRun(char *tmpBuf)
 {
     while (!isInterruptionRequested()) {
-        QMutexLocker locker(m_mutex);
-        if (m_queue.isEmpty()) {
+        QMutexLocker locker(m_shared_mutex);
+        if (m_shared_queue.isEmpty()) {
             return;
         }
-        DB::FileName fileName = m_queue.dequeue();
+        DB::FileName fileName = m_shared_queue.dequeue();
         locker.unlock();
         // If we're behind the reader, move along
-        m_preloadedCount++;
-        if (m_loadedCount.loadRelaxed() >= m_preloadedCount.loadRelaxed()) {
-            m_skippedCount++;
+        m_shared_preloadedCount++;
+        if (m_shared_loadedCount.loadRelaxed() >= m_shared_preloadedCount.loadRelaxed()) {
+            m_shared_skippedCount++;
             continue;
         } else {
             // Don't get too far ahead of the loader, or we just waste memory
             // TODO: wait on something rather than polling
-            while (m_preloadedCount.loadRelaxed() >= m_loadedCount.loadRelaxed() + m_maxSeekAhead && !isInterruptionRequested()) {
+            while (m_shared_preloadedCount.loadRelaxed() >= m_shared_loadedCount.loadRelaxed() + m_maxSeekAhead && !isInterruptionRequested()) {
                 QThread::msleep(SEEKAHEAD_WAIT_MS);
             }
             // qCDebug(DBImageScoutLog) << ">>>>>Scout: preload" << m_preloadedCount.loadRelaxed() << "load" << m_loadedCount.loadRelaxed() << fileName.relative();

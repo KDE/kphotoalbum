@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003 - 2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "InvalidDateFinder.h"
 
@@ -101,7 +101,7 @@ void InvalidDateFinder::accept()
         DB::ImageDate date = info->date();
         bool show = false;
         if (m_dateNotTime->isChecked()) {
-            DB::FileInfo fi = DB::FileInfo::read(info->fileName(), DB::EXIFMODE_DATE);
+            DB::FileInfo fi { info->fileName(), DB::EXIFMODE_DATE };
             if (fi.dateTime().date() == date.start().date())
                 show = (fi.dateTime().time() != date.start().time());
             if (show) {

@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 - 2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2021 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2023 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
@@ -17,11 +17,6 @@
 #include <exiv2/version.hpp>
 
 using namespace DB;
-
-FileInfo FileInfo::read(const DB::FileName &fileName, DB::ExifMode mode)
-{
-    return FileInfo(fileName, mode);
-}
 
 DB::FileInfo::FileInfo(const DB::FileName &fileName, DB::ExifMode mode)
     : m_angle(0)
@@ -57,7 +52,7 @@ bool DB::FileInfo::updateDataFromFileTimeStamp(const DB::FileName &fileName, DB:
     if ((mode & EXIFMODE_USE_IMAGE_DATE_IF_INVALID_EXIF_DATE) != 0)
         return true;
 
-    // Always trust for videos (this is a way to say that we should not trust for scaned in images - which makes no sense for videos)
+    // Always trust for videos (this is a way to say that we should not trust for scanned in images - which makes no sense for videos)
     if (KPABase::isVideo(fileName))
         return true;
 

@@ -151,7 +151,6 @@ MainWindow::Window::Window(QWidget *parent)
     setCentralWidget(top);
 
     setupGUI(KXmlGuiWindow::ToolBar | Create | Save);
-    setAutoSaveSettings();
 
     qCDebug(MainWindowLog) << "Using icon theme: " << QIcon::themeName();
     qCDebug(MainWindowLog) << "Icon search paths: " << QIcon::themeSearchPaths();

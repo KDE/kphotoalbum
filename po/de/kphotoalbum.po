@@ -578,7 +578,7 @@ msgid ""
 "selected for this purpose."
 msgstr ""
 "Das eingegebene Stichwort ist das Stichwort, das automatisch für neu "
-"gefundene, unmarkierte Bilder gesetzt wird (vgl. <Interface>Einstellungen|"
+"gefundene, unmarkierte Bilder gesetzt wird (vgl. <interface>Einstellungen|"
 "KPhotoAlbum einrichten...|Kategorien|Bilder ohne Stichwort</interface>). Es "
 "wird hier nicht angezeigt, solange es für diesen Zweck ausgewählt ist."
 

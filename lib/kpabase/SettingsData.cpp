@@ -102,7 +102,7 @@ const QString configFile = QString::fromLatin1("kphotoalbumrc");
  * smoothScale() is called from the image loading thread, therefore we need
  * to cache it this way, rather than going to KConfig.
  */
-static bool _smoothScale = true;
+static bool s_smoothScale = true;
 
 static const QHash<Settings::WindowId, QString> s_windowIdKeys {
     { Settings::AnnotationDialog, QStringLiteral("AnnotationDialog") }
@@ -141,7 +141,7 @@ SettingsData::SettingsData(const QString &imageDirectory, DB::UIDelegate &delega
     const QString s = STR("/");
     m_imageDirectory = imageDirectory.endsWith(s) ? imageDirectory : imageDirectory + s;
 
-    _smoothScale = cfgValue("Viewer", "smoothScale", true);
+    s_smoothScale = cfgValue("Viewer", "smoothScale", true);
 
     // Split the list of Exif comments that should be stripped automatically to a list
 
@@ -396,12 +396,12 @@ setValueFunc_(setVideoBackend, VideoBackend, "Viewer", "videoBackend", static_ca
 
 bool SettingsData::smoothScale() const
 {
-    return _smoothScale;
+    return s_smoothScale;
 }
 
 void SettingsData::setSmoothScale(bool b)
 {
-    _smoothScale = b;
+    s_smoothScale = b;
     setValue("Viewer", "smoothScale", b);
 }
 

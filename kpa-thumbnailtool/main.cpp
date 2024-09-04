@@ -108,8 +108,7 @@ int main(int argc, char **argv)
     }
 
     int returnValue = 0;
-    DB::DummyUIDelegate uiDelegate;
-    Settings::SettingsData::setup(imageDir.path(), uiDelegate);
+    Settings::SettingsData::setup(imageDir.path());
     const auto thumbnailDir = imageDir.absoluteFilePath(ImageManager::defaultThumbnailDirectory());
     ImageManager::ThumbnailCache cache { thumbnailDir };
     if (parser.isSet(infoOption)) {

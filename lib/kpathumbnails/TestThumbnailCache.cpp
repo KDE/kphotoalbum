@@ -11,10 +11,10 @@
 #include <kpabase/UIDelegate.h>
 
 #include <QBuffer>
+#include <QHashSeed>
 #include <QLoggingCategory>
 #include <QRegularExpression>
 #include <QSignalSpy>
-#include <QHashSeed>
 
 namespace
 {
@@ -52,8 +52,7 @@ void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()
     QVERIFY2(tmpDir.isValid(), msgPreconditionFailed);
     // tmpDir.setAutoRemove(false);
 
-    DB::DummyUIDelegate uiDelegate;
-    Settings::SettingsData::setup(tmpDir.path(), uiDelegate);
+    Settings::SettingsData::setup(tmpDir.path());
 
     const QDir thumbnailDir { tmpDir.filePath(ImageManager::defaultThumbnailDirectory()) };
     QDir().mkdir(thumbnailDir.path());
@@ -114,8 +113,7 @@ void KPATest::TestThumbnailCache::insertRemove()
     QVERIFY2(tmpDir.isValid(), msgPreconditionFailed);
     // tmpDir.setAutoRemove(false);
 
-    DB::DummyUIDelegate uiDelegate;
-    Settings::SettingsData::setup(tmpDir.path(), uiDelegate);
+    Settings::SettingsData::setup(tmpDir.path());
 
     const QDir thumbnailDir { tmpDir.filePath(ImageManager::defaultThumbnailDirectory()) };
     QDir().mkdir(thumbnailDir.path());

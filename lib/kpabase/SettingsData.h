@@ -16,7 +16,6 @@
 #define KPABASE_SETTINGSDATA_H
 
 #include "StringSet.h"
-#include "UIDelegate.h"
 #include "enums.h"
 
 #include <QObject>
@@ -91,7 +90,7 @@ class SettingsData : public QObject
 public:
     static SettingsData *instance();
     static bool ready();
-    static void setup(const QString &imageDirectory, DB::UIDelegate &delegate);
+    static void setup(const QString &imageDirectory);
 
     /////////////////
     //// General ////
@@ -286,8 +285,7 @@ Q_SIGNALS:
     void untaggedTagChanged(const QString &category, const QString &tag);
 
 private:
-    SettingsData(const QString &imageDirectory, DB::UIDelegate &delegate);
-    DB::UIDelegate &uiDelegate() const;
+    SettingsData(const QString &imageDirectory);
 
     bool m_trustTimeStamps;
     bool m_hasAskedAboutTimeStamps;
@@ -297,7 +295,6 @@ private:
     friend class DB::CategoryCollection;
 
     QStringList m_EXIFCommentsToStrip;
-    DB::UIDelegate &m_UI;
 };
 } // end of namespace
 

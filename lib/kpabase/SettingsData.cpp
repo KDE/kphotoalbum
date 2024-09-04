@@ -125,16 +125,15 @@ bool SettingsData::ready()
     return s_instance;
 }
 
-void SettingsData::setup(const QString &imageDirectory, DB::UIDelegate &delegate)
+void SettingsData::setup(const QString &imageDirectory)
 {
     if (!s_instance)
-        s_instance = new SettingsData(imageDirectory, delegate);
+        s_instance = new SettingsData(imageDirectory);
 }
 
-SettingsData::SettingsData(const QString &imageDirectory, DB::UIDelegate &delegate)
+SettingsData::SettingsData(const QString &imageDirectory)
     : m_trustTimeStamps(false)
     , m_hasAskedAboutTimeStamps(false)
-    , m_UI(delegate)
 {
     m_hasAskedAboutTimeStamps = false;
 
@@ -236,6 +235,9 @@ bool SettingsData::trustTimeStamps()
         return true;
     else if (tTimeStamps() == Never)
         return false;
+    return false;
+#warning "trustTimeStamps(): user interaction disabled"
+#if false
     else {
         if (!m_hasAskedAboutTimeStamps) {
             const QString txt = i18n("When reading time information of images, their Exif info is used. "
@@ -254,6 +256,7 @@ bool SettingsData::trustTimeStamps()
         }
         return m_trustTimeStamps;
     }
+#endif
 }
 
 ////////////////////////////////
@@ -680,11 +683,6 @@ int Settings::SettingsData::getThumbnailBuilderThreadCount() const
     default:
         return qMax(1, qMin(16, QThread::idealThreadCount() - 1));
     }
-}
-
-DB::UIDelegate &SettingsData::uiDelegate() const
-{
-    return m_UI;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

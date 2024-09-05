@@ -15,11 +15,13 @@ MainWindow::SplashScreen *MainWindow::SplashScreen::s_instance = nullptr;
 MainWindow::SplashScreen::SplashScreen()
     : QSplashScreen(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, QString::fromLatin1("pics/splash-large.png")))
 {
-    s_instance = this;
 }
 
 MainWindow::SplashScreen *MainWindow::SplashScreen::instance()
 {
+    if (s_instance == nullptr) {
+        s_instance = new MainWindow::SplashScreen;
+    }
     return s_instance;
 }
 

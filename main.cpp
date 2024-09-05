@@ -11,8 +11,8 @@
 // SPDX-FileCopyrightText: 2010-2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
-// SPDX-FileCopyrightText: 2018-2024 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2019 Alexander Potashev <aspotashev@gmail.com>
+// SPDX-FileCopyrightText: 2018-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -115,8 +115,6 @@ int main(int argc, char **argv)
     if (app.styleSheet().isEmpty())
         app.setStyleSheet(STYLE);
     app.setAttribute(Qt::AA_UseStyleSheetPropagationInWidgetStyles);
-
-    new MainWindow::SplashScreen();
 
     // a KXmlGuiWindow per-default is created with the Qt::WA_DeleteOnClose attribute set
     // -> don't delete the view directly!

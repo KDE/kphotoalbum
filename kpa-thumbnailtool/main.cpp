@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2020-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2022-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -109,7 +109,7 @@ int main(int argc, char **argv)
 
     int returnValue = 0;
     DB::DummyUIDelegate uiDelegate;
-    Settings::SettingsData::setup(imageDir.path(), uiDelegate);
+    Settings::SettingsData::setup(imageDir.path(), &uiDelegate);
     const auto thumbnailDir = imageDir.absoluteFilePath(ImageManager::defaultThumbnailDirectory());
     ImageManager::ThumbnailCache cache { thumbnailDir };
     if (parser.isSet(infoOption)) {

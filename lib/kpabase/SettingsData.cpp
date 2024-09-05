@@ -15,7 +15,7 @@
 // SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2019 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -125,13 +125,13 @@ bool SettingsData::ready()
     return s_instance;
 }
 
-void SettingsData::setup(const QString &imageDirectory, DB::UIDelegate &delegate)
+void SettingsData::setup(const QString &imageDirectory, DB::UIDelegate *delegate)
 {
     if (!s_instance)
         s_instance = new SettingsData(imageDirectory, delegate);
 }
 
-SettingsData::SettingsData(const QString &imageDirectory, DB::UIDelegate &delegate)
+SettingsData::SettingsData(const QString &imageDirectory, DB::UIDelegate *delegate)
     : m_trustTimeStamps(false)
     , m_hasAskedAboutTimeStamps(false)
     , m_UI(delegate)
@@ -245,7 +245,7 @@ bool SettingsData::trustTimeStamps()
                                      "however, not be valid in case the image is scanned in. "
                                      "So the question is, should KPhotoAlbum trust the time stamp on your images?");
             const QString logMsg = QString::fromUtf8("Trust timestamps for this session?");
-            auto answer = uiDelegate().questionYesNo(DB::LogMessage { BaseLog(), logMsg }, txt, i18n("Trust Time Stamps?"));
+            auto answer = uiDelegate()->questionYesNo(DB::LogMessage { BaseLog(), logMsg }, txt, i18n("Trust Time Stamps?"));
             if (answer == DB::UserFeedback::Confirm)
                 m_trustTimeStamps = true;
             else
@@ -682,8 +682,11 @@ int Settings::SettingsData::getThumbnailBuilderThreadCount() const
     }
 }
 
-DB::UIDelegate &SettingsData::uiDelegate() const
+DB::UIDelegate *SettingsData::uiDelegate() const
 {
+    if (m_UI == nullptr) {
+        qFatal("Accessed SettingsData::uiDelegate before initializing!");
+    }
     return m_UI;
 }
 

@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
@@ -20,7 +21,7 @@ constexpr auto msgPreconditionFailed = "Precondition for test failed - please fi
 void KPATest::TestFileNameUtil::initTestCase()
 {
     QVERIFY2(m_tmpDir.isValid(), msgPreconditionFailed);
-    Settings::SettingsData::setup(m_tmpDir.path(), m_uiDelegate);
+    Settings::SettingsData::setup(m_tmpDir.path(), &m_uiDelegate);
     // qSetGlobalQHashSeed(0);
 }
 

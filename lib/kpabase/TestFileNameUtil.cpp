@@ -21,7 +21,8 @@ constexpr auto msgPreconditionFailed = "Precondition for test failed - please fi
 void KPATest::TestFileNameUtil::initTestCase()
 {
     QVERIFY2(m_tmpDir.isValid(), msgPreconditionFailed);
-    Settings::SettingsData::setup(m_tmpDir.path(), &m_uiDelegate);
+    Settings::SettingsData::setup(m_tmpDir.path());
+    Settings::SettingsData::instance()->setUiDelegate(&m_uiDelegate);
     // qSetGlobalQHashSeed(0);
 }
 

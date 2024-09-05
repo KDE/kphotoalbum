@@ -125,16 +125,15 @@ bool SettingsData::ready()
     return s_instance;
 }
 
-void SettingsData::setup(const QString &imageDirectory, DB::UIDelegate *delegate)
+void SettingsData::setup(const QString &imageDirectory)
 {
     if (!s_instance)
-        s_instance = new SettingsData(imageDirectory, delegate);
+        s_instance = new SettingsData(imageDirectory);
 }
 
-SettingsData::SettingsData(const QString &imageDirectory, DB::UIDelegate *delegate)
+SettingsData::SettingsData(const QString &imageDirectory)
     : m_trustTimeStamps(false)
     , m_hasAskedAboutTimeStamps(false)
-    , m_UI(delegate)
 {
     m_hasAskedAboutTimeStamps = false;
 
@@ -680,6 +679,11 @@ int Settings::SettingsData::getThumbnailBuilderThreadCount() const
     default:
         return qMax(1, qMin(16, QThread::idealThreadCount() - 1));
     }
+}
+
+void SettingsData::setUiDelegate(DB::UIDelegate *delegate)
+{
+    m_UI = delegate;
 }
 
 DB::UIDelegate *SettingsData::uiDelegate() const

@@ -20,7 +20,8 @@ constexpr auto msgPreconditionFailed = "Precondition for test failed - please fi
 void KPATest::TestFileName::initTestCase()
 {
     QVERIFY2(m_tmpDir.isValid(), msgPreconditionFailed);
-    Settings::SettingsData::setup(m_tmpDir.path(), &m_uiDelegate);
+    Settings::SettingsData::setup(m_tmpDir.path());
+    Settings::SettingsData::instance()->setUiDelegate(&m_uiDelegate);
 }
 
 void KPATest::TestFileName::uninitialized()

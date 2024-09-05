@@ -91,7 +91,9 @@ class SettingsData : public QObject
 public:
     static SettingsData *instance();
     static bool ready();
-    static void setup(const QString &imageDirectory, DB::UIDelegate *delegate);
+    static void setup(const QString &imageDirectory);
+
+    void setUiDelegate(DB::UIDelegate *delegate);
 
     /////////////////
     //// General ////
@@ -286,7 +288,7 @@ Q_SIGNALS:
     void untaggedTagChanged(const QString &category, const QString &tag);
 
 private:
-    SettingsData(const QString &imageDirectory, DB::UIDelegate *delegate);
+    SettingsData(const QString &imageDirectory);
     DB::UIDelegate *uiDelegate() const;
 
     bool m_trustTimeStamps;

@@ -2900,7 +2900,7 @@ msgstr ""
 #: kpa-thumbnailtool/main.cpp:48
 #, kde-format
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
-msgstr "© 2020-2024 Equipo de desenvolvemento de KPhotoAlbum"
+msgstr "© 2020-2024 Equipo desenvolvedor de KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3248,7 +3248,7 @@ msgstr "Álbum de fotos de KDE"
 #: main.cpp:89
 #, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr "© 2003-2024 Equipo de desenvolvemento de KPhotoAlbum"
+msgstr "© 2003-2024 Equipo desenvolvedor de KPhotoAlbum"
 
 #: main.cpp:110
 #, kde-format

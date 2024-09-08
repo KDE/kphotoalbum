@@ -91,8 +91,9 @@ class SettingsData : public QObject
 public:
     static SettingsData *instance();
     static bool ready();
-    static void setup(const QString &imageDirectory);
+    static void setup();
 
+    void setImageDirectory(const QString &directry);
     void setUiDelegate(DB::UIDelegate *delegate);
 
     /////////////////
@@ -288,11 +289,11 @@ Q_SIGNALS:
     void untaggedTagChanged(const QString &category, const QString &tag);
 
 private:
-    SettingsData(const QString &imageDirectory);
+    SettingsData();
     DB::UIDelegate *uiDelegate() const;
 
-    bool m_trustTimeStamps;
-    bool m_hasAskedAboutTimeStamps;
+    bool m_trustTimeStamps = false;
+    bool m_hasAskedAboutTimeStamps = false;
     QString m_imageDirectory;
     static SettingsData *s_instance;
 

@@ -34,7 +34,8 @@ void KPATest::TestExifDatabase::trivialTests()
     QVERIFY2(tmpDir.isValid(), msgPreconditionFailed);
 
     DB::DummyUIDelegate uiDelegate;
-    Settings::SettingsData::setup(tmpDir.path());
+    Settings::SettingsData::setup();
+    Settings::SettingsData::instance()->setImageDirectory(tmpDir.path());
     Settings::SettingsData::instance()->setUiDelegate(&uiDelegate);
 
     // create a new, empty db:

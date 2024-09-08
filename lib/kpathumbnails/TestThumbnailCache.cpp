@@ -53,7 +53,8 @@ void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()
     // tmpDir.setAutoRemove(false);
 
     DB::DummyUIDelegate uiDelegate;
-    Settings::SettingsData::setup(tmpDir.path());
+    Settings::SettingsData::setup();
+    Settings::SettingsData::instance()->setImageDirectory(tmpDir.path());
     Settings::SettingsData::instance()->setUiDelegate(&uiDelegate);
 
     const QDir thumbnailDir { tmpDir.filePath(ImageManager::defaultThumbnailDirectory()) };
@@ -116,7 +117,8 @@ void KPATest::TestThumbnailCache::insertRemove()
     // tmpDir.setAutoRemove(false);
 
     DB::DummyUIDelegate uiDelegate;
-    Settings::SettingsData::setup(tmpDir.path());
+    Settings::SettingsData::setup();
+    Settings::SettingsData::instance()->setImageDirectory(tmpDir.path());
     Settings::SettingsData::instance()->setUiDelegate(&uiDelegate);
 
     const QDir thumbnailDir { tmpDir.filePath(ImageManager::defaultThumbnailDirectory()) };

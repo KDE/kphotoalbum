@@ -104,6 +104,7 @@ const QString configFile = QString::fromLatin1("kphotoalbumrc");
  */
 static bool s_smoothScale = true;
 
+static const QLatin1String s_slash("/");
 static const QHash<Settings::WindowId, QString> s_windowIdKeys {
     { Settings::AnnotationDialog, QStringLiteral("AnnotationDialog") }
 };
@@ -125,28 +126,23 @@ bool SettingsData::ready()
     return s_instance;
 }
 
-void SettingsData::setup(const QString &imageDirectory)
+void SettingsData::setup()
 {
-    if (!s_instance)
-        s_instance = new SettingsData(imageDirectory);
+    if (!s_instance) {
+        s_instance = new SettingsData;
+    }
 }
 
-SettingsData::SettingsData(const QString &imageDirectory)
-    : m_trustTimeStamps(false)
-    , m_hasAskedAboutTimeStamps(false)
+SettingsData::SettingsData()
 {
-    m_hasAskedAboutTimeStamps = false;
-
-    const QString s = STR("/");
-    m_imageDirectory = imageDirectory.endsWith(s) ? imageDirectory : imageDirectory + s;
-
     s_smoothScale = cfgValue("Viewer", "smoothScale", true);
 
     // Split the list of Exif comments that should be stripped automatically to a list
 
     QStringList commentsToStrip = cfgValue("General", "commentsToStrip", QString::fromLatin1("Exif_JPEG_PICTURE-,-OLYMPUS DIGITAL CAMERA-,-JENOPTIK DIGITAL CAMERA-,-")).split(QString::fromLatin1("-,-"), Qt::SkipEmptyParts);
-    for (QString &comment : commentsToStrip)
+    for (QString &comment : commentsToStrip) {
         comment.replace(QString::fromLatin1(",,"), QString::fromLatin1(","));
+    }
 
     m_EXIFCommentsToStrip = commentsToStrip;
 }
@@ -501,6 +497,9 @@ void SettingsData::setToDate(const QDate &date)
 
 QString SettingsData::imageDirectory() const
 {
+    if (m_imageDirectory.isEmpty()) {
+        qFatal("Accessed SettingsData::imageDirectory before initializing!");
+    }
     return m_imageDirectory;
 }
 
@@ -692,6 +691,11 @@ DB::UIDelegate *SettingsData::uiDelegate() const
         qFatal("Accessed SettingsData::uiDelegate before initializing!");
     }
     return m_UI;
+}
+
+void SettingsData::setImageDirectory(const QString &directry)
+{
+    m_imageDirectory = directry.endsWith(s_slash) ? directry : directry + s_slash;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

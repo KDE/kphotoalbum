@@ -129,8 +129,9 @@ using namespace DB;
 
 MainWindow::Window *MainWindow::Window::s_instance = nullptr;
 
-MainWindow::Window::Window(QWidget *parent)
+MainWindow::Window::Window(Settings::SettingsData *settingsData, QWidget *parent)
     : KXmlGuiWindow(parent)
+    , m_settingsData(settingsData)
     , m_annotationDialog(nullptr)
     , m_deleteDialog(nullptr)
     , m_htmlDialog(nullptr)
@@ -143,6 +144,8 @@ MainWindow::Window::Window(QWidget *parent)
     setAttribute(Qt::WA_WindowPropagation);
 
     s_instance = this;
+
+    m_settingsData->setUiDelegate(this);
 
     QWidget *top = new QWidget(this);
     QVBoxLayout *lay = new QVBoxLayout(top);
@@ -1163,10 +1166,6 @@ void MainWindow::Window::runDemo()
 
 bool MainWindow::Window::load()
 {
-    Settings::SettingsData::setup();
-    auto *settings = Settings::SettingsData::instance();
-    settings->setUiDelegate(this);
-
     // Let first try to find a config file.
     QString configFile;
 
@@ -1176,7 +1175,7 @@ bool MainWindow::Window::load()
     } else if (Options::the()->demoMode()) {
         configFile = Utilities::setupDemo();
     } else {
-        configFile = settings->imageDbFile();
+        configFile = m_settingsData->imageDbFile();
         if (configFile.isEmpty() || !QFileInfo::exists(configFile)) {
             SplashScreen::instance()->hide();
             configFile = welcome();
@@ -1186,7 +1185,7 @@ bool MainWindow::Window::load()
         return false;
     }
 
-    settings->setImageDirectory(QFileInfo(configFile).absolutePath());
+    m_settingsData->setImageDirectory(QFileInfo(configFile).absolutePath());
 
     if (Settings::SettingsData::instance()->showSplashScreen()) {
         SplashScreen::instance()->show();

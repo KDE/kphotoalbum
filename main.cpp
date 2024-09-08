@@ -116,11 +116,15 @@ int main(int argc, char **argv)
         app.setStyleSheet(STYLE);
     app.setAttribute(Qt::AA_UseStyleSheetPropagationInWidgetStyles);
 
+    // Setup the settings data object
+    Settings::SettingsData::setup();
+    auto *settingsData = Settings::SettingsData::instance();
+
     // a KXmlGuiWindow per-default is created with the Qt::WA_DeleteOnClose attribute set
     // -> don't delete the view directly!
     MainWindow::Window *view = nullptr;
     try {
-        view = new MainWindow::Window(nullptr);
+        view = new MainWindow::Window(settingsData);
     } catch (int retVal) {
         // MainWindow ctor throws if no config is loaded
         return retVal;

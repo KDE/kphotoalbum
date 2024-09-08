@@ -84,6 +84,10 @@ namespace ThumbnailView
 class ThumbnailFacade;
 class FilterWidget;
 }
+namespace Settings
+{
+class SettingsData;
+}
 
 class BreadcrumbViewer;
 
@@ -101,7 +105,7 @@ class Window : public KXmlGuiWindow, public DB::UIDelegate
     Q_OBJECT
 
 public:
-    explicit Window(QWidget *parent);
+    explicit Window(Settings::SettingsData *settingsData, QWidget *parent = nullptr);
     ~Window() override;
     static void configureImages(const DB::ImageInfoList &list, bool oneAtATime);
     static Window *theMainWindow();
@@ -238,6 +242,7 @@ protected:
 
 private:
     static Window *s_instance;
+    Settings::SettingsData *m_settingsData;
 
     ImageManager::ThumbnailCache *m_thumbnailCache;
     ImageManager::VideoThumbnailCache *m_videoThumbnailCache;

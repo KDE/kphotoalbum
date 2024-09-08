@@ -1163,6 +1163,10 @@ void MainWindow::Window::runDemo()
 
 bool MainWindow::Window::load()
 {
+    Settings::SettingsData::setup();
+    auto *settings = Settings::SettingsData::instance();
+    settings->setUiDelegate(this);
+
     // Let first try to find a config file.
     QString configFile;
 
@@ -1172,31 +1176,17 @@ bool MainWindow::Window::load()
     } else if (Options::the()->demoMode()) {
         configFile = Utilities::setupDemo();
     } else {
-        bool showWelcome = false;
-        KConfigGroup config = KSharedConfig::openConfig()->group(QString::fromUtf8("General"));
-        if (config.hasKey(QString::fromLatin1("imageDBFile"))) {
-            configFile = config.readEntry<QString>(QString::fromLatin1("imageDBFile"), QString());
-            if (!QFileInfo::exists(configFile))
-                showWelcome = true;
-        } else
-            showWelcome = true;
-
-        if (showWelcome) {
+        configFile = settings->imageDbFile();
+        if (configFile.isEmpty() || !QFileInfo::exists(configFile)) {
             SplashScreen::instance()->hide();
             configFile = welcome();
         }
     }
-    if (configFile.isNull())
+    if (configFile.isEmpty()) {
         return false;
+    }
 
-    if (configFile.startsWith(QString::fromLatin1("~")))
-        configFile = QDir::home().path() + QString::fromLatin1("/") + configFile.mid(1);
-
-    // To avoid a race conditions where both the image loader thread creates an instance of
-    // Settings, and where the main thread crates an instance, we better get it created now.
-    Settings::SettingsData::setup();
-    Settings::SettingsData::instance()->setImageDirectory(QFileInfo(configFile).absolutePath());
-    Settings::SettingsData::instance()->setUiDelegate(this);
+    settings->setImageDirectory(QFileInfo(configFile).absolutePath());
 
     if (Settings::SettingsData::instance()->showSplashScreen()) {
         SplashScreen::instance()->show();

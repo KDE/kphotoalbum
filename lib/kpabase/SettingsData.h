@@ -95,6 +95,7 @@ public:
 
     void setImageDirectory(const QString &directry);
     void setUiDelegate(DB::UIDelegate *delegate);
+    QString imageDbFile() const;
 
     /////////////////
     //// General ////

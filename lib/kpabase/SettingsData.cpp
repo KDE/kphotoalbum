@@ -31,6 +31,7 @@
 #include <QStringList>
 #include <QThread>
 #include <type_traits>
+#include <QDir>
 
 namespace
 {
@@ -696,6 +697,15 @@ DB::UIDelegate *SettingsData::uiDelegate() const
 void SettingsData::setImageDirectory(const QString &directry)
 {
     m_imageDirectory = directry.endsWith(s_slash) ? directry : directry + s_slash;
+}
+
+QString SettingsData::imageDbFile() const
+{
+    QString file = cfgValue("General", "imageDBFile", QString());
+    if (file.startsWith(QStringLiteral("~"))) {
+        file = QDir::home().path() + s_slash + file.mid(1);
+    }
+    return file;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

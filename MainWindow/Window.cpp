@@ -150,20 +150,19 @@ MainWindow::Window::Window(QWidget *parent)
     lay->setContentsMargins(2, 2, 2, 2);
     setCentralWidget(top);
 
-    setupGUI(KXmlGuiWindow::ToolBar | Create | Save);
-
     qCDebug(MainWindowLog) << "Using icon theme: " << QIcon::themeName();
     qCDebug(MainWindowLog) << "Icon search paths: " << QIcon::themeSearchPaths();
     QElapsedTimer timer;
     timer.start();
 
-    SplashScreen::instance()->message(i18n("Loading Database"));
+    // FIXME: We apparently can't show the splash screen before calling setupGUI()
+    //SplashScreen::instance()->message(i18n("Loading Database"));
 
     bool gotConfigFile = load();
     if (!gotConfigFile)
         throw 0;
     qCInfo(TimingLog) << "MainWindow: Loading Database: " << timer.restart() << "ms.";
-    SplashScreen::instance()->message(i18n("Loading Main Window"));
+    //SplashScreen::instance()->message(i18n("Loading Main Window"));
 
     m_stack = new QStackedWidget(top);
     lay->addWidget(m_stack, 1);
@@ -191,6 +190,7 @@ MainWindow::Window::Window(QWidget *parent)
     m_settingsDialog = nullptr;
     qCInfo(TimingLog) << "MainWindow: Loading MainWindow: " << timer.restart() << "ms.";
     setupMenuBar();
+    setupGUI(KXmlGuiWindow::ToolBar | Create | Save);
     qCInfo(TimingLog) << "MainWindow: setupMenuBar: " << timer.restart() << "ms.";
     createSearchBar();
     qCInfo(TimingLog) << "MainWindow: createSearchBar: " << timer.restart() << "ms.";
@@ -1182,7 +1182,7 @@ bool MainWindow::Window::load()
             showWelcome = true;
 
         if (showWelcome) {
-            SplashScreen::instance()->hide();
+            //SplashScreen::instance()->hide();
             configFile = welcome();
         }
     }
@@ -1197,8 +1197,8 @@ bool MainWindow::Window::load()
     Settings::SettingsData::setup(QFileInfo(configFile).absolutePath(), *this);
 
     if (Settings::SettingsData::instance()->showSplashScreen()) {
-        SplashScreen::instance()->show();
-        qApp->processEvents();
+        //SplashScreen::instance()->show();
+        //qApp->processEvents();
     }
 
     // Doing some validation on user provided index file

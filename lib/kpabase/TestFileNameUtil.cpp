@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
@@ -20,7 +20,7 @@ constexpr auto msgPreconditionFailed = "Precondition for test failed - please fi
 void KPATest::TestFileNameUtil::initTestCase()
 {
     QVERIFY2(m_tmpDir.isValid(), msgPreconditionFailed);
-    Settings::SettingsData::setup(m_tmpDir.path());
+    Settings::SettingsData::setup(m_tmpDir.path(), m_uiDelegate);
     // qSetGlobalQHashSeed(0);
 }
 
@@ -52,7 +52,7 @@ void KPATest::TestFileNameUtil::folderName()
     QCOMPARE(relativeFolderName(absolutePath + slash), absolutePath);
     QCOMPARE(relativeFolderName(absolutePath + slash + filename), absolutePath);
     // currently not implemented that way:
-    // QCOMPARE(relativeFolderName(absolutePath + slash + slash + filename), absolutePath);
+    //QCOMPARE(relativeFolderName(absolutePath + slash + slash + filename), absolutePath);
     QCOMPARE(relativeFolderName(relativePath + slash), relativePath);
     QCOMPARE(relativeFolderName(relativePath + slash + filename), relativePath);
 }
@@ -102,9 +102,9 @@ void KPATest::TestFileNameUtil::fileNameFromUserData()
     QVERIFY(fileNameFromUserData(nonlocalUrl).isNull());
 }
 
-// void KPATest::TestFileNameUtil::cleanupTestCase()
+//void KPATest::TestFileNameUtil::cleanupTestCase()
 //{
-// }
+//}
 
 QTEST_MAIN(KPATest::TestFileNameUtil)
 

@@ -10,10 +10,10 @@
 #include <kpabase/SettingsData.h>
 #include <kpabase/UIDelegate.h>
 
-#include <QHashSeed>
 #include <QLoggingCategory>
 #include <QRegularExpression>
 #include <QSignalSpy>
+#include <QHashSeed>
 
 namespace
 {
@@ -34,10 +34,10 @@ void KPATest::TestExifDatabase::trivialTests()
     QVERIFY2(tmpDir.isValid(), msgPreconditionFailed);
 
     DB::DummyUIDelegate uiDelegate;
-    Settings::SettingsData::setup(tmpDir.path());
+    Settings::SettingsData::setup(tmpDir.path(), uiDelegate);
 
     // create a new, empty db:
-    Exif::Database db { tmpDir.filePath(QStringLiteral("exif-db.sqlite")), uiDelegate };
+    Exif::Database db(tmpDir.filePath(QStringLiteral("exif-db.sqlite")), uiDelegate);
 
     // this should be usable
     QVERIFY(db.isUsable());

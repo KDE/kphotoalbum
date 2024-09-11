@@ -4,21 +4,21 @@
 Dependencies:
 - 'on': ['@all']
   'require':
-    'libraries/phonon': '@stable'
-    'frameworks/karchive': '@stable'
-    'frameworks/kcompletion': '@stable'
-    'frameworks/kconfig': '@stable'
-    'frameworks/kcoreaddons': '@stable'
-    'frameworks/ki18n': '@stable'
-    'frameworks/kiconthemes': '@stable'
-    'frameworks/kjobwidgets': '@stable'
-    'frameworks/kio': '@stable'
-    'frameworks/ktextwidgets': '@stable'
-    'frameworks/kxmlgui': '@stable'
-    'frameworks/kwidgetsaddons': '@stable'
-    'frameworks/purpose': '@stable'
-    'graphics/libkdcraw': '@stable'
-    'education/marble': '@stable'
+    'libraries/phonon': '@stable-kf6-qt6'
+    'frameworks/karchive': '@stable-kf6-qt6'
+    'frameworks/kcompletion': '@stable-kf6-qt6'
+    'frameworks/kconfig': '@stable-kf6-qt6'
+    'frameworks/kcoreaddons': '@stable-kf6-qt6'
+    'frameworks/ki18n': '@stable-kf6-qt6'
+    'frameworks/kiconthemes': '@stable-kf6-qt6'
+    'frameworks/kjobwidgets': '@stable-kf6-qt6'
+    'frameworks/kio': '@stable-kf6-qt6'
+    'frameworks/ktextwidgets': '@stable-kf6-qt6'
+    'frameworks/kxmlgui': '@stable-kf6-qt6'
+    'frameworks/kwidgetsaddons': '@stable-kf6-qt6'
+    'frameworks/purpose': '@stable-kf6-qt6'
+    'graphics/libkdcraw': '@stable-kf6-qt6'
+    'education/marble': '@stable-kf6-qt6'
 
 Options:
     # jzarl: leave Linux and freebsd CI disabled until we have something that compiles:

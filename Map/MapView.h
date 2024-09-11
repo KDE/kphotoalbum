@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: 2016-2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2014 - 2022 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2016 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -181,10 +181,6 @@ private Q_SLOTS:
     void saveSettings();
     void setLastCenter();
     void updateRegionSelection(const Marble::GeoDataLatLonBox &selection);
-#ifndef MARBLE_HAS_regionSelected_NEW
-    // remove once we don't care about Marble v17.12.3 and older anymore
-    void updateRegionSelectionOld(const QList<double> &selection);
-#endif
 
 private: // Variables
     Marble::MarbleWidget *m_mapWidget;

@@ -30,7 +30,7 @@
 #include "InfoBox.h"
 #include "Logging.h"
 
-#if Phonon4Qt5_FOUND
+#if Phonon4Qt6_FOUND
 #include "PhononDisplay.h"
 #endif
 
@@ -1433,7 +1433,7 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
 #endif
         break;
     case Settings::VideoBackend::Phonon:
-#if Phonon4Qt5_FOUND
+#if Phonon4Qt6_FOUND
         return new PhononDisplay(parent);
 #else
         qCWarning(ViewerLog) << "Video backend Phonon not available. Selecting first available backend...";
@@ -1444,7 +1444,7 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
         qCCritical(ViewerLog) << "No viable video backend!";
     }
 
-    static_assert(LIBVLC_FOUND || Phonon4Qt5_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
+    static_assert(LIBVLC_FOUND || Phonon4Qt6_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
     Q_UNREACHABLE();
     return nullptr;
 }

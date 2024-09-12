@@ -108,10 +108,10 @@ constexpr VideoBackends availableVideoBackends()
 #if LIBVLC_FOUND
     availableBackends |= VideoBackend::VLC;
 #endif
-#if Phonon4Qt5_FOUND
+#if Phonon4Qt6_FOUND
     availableBackends |= VideoBackend::Phonon;
 #endif
-    static_assert(LIBVLC_FOUND || Phonon4Qt5_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
+    static_assert(LIBVLC_FOUND || Phonon4Qt6_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
     return availableBackends;
 }
 

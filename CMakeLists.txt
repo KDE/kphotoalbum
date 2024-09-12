@@ -102,7 +102,8 @@ set_package_properties(KDcrawQt6
     )
 set(HAVE_KDCRAW ${KDcrawQt6_FOUND})
 
-find_package(Marble 24.06)
+# skip marble until there's a KF6Qt6 release:
+#find_package(Marble 24.06)
 set_package_properties(Marble
     PROPERTIES
     TYPE OPTIONAL
@@ -653,10 +654,10 @@ option(KPA_ENABLE_REMOTECONTROL "Build with support for companion Android/QML ap
 set(libRemoteControl_SRCS)
 set(libRemoteControl_LIBS)
 if(KPA_ENABLE_REMOTECONTROL)
-    find_package(Qt5 5.9 REQUIRED COMPONENTS Network)
+    find_package(Qt6 ${MINIMUM_QT6_VERSION} REQUIRED COMPONENTS Network)
     # requires cmake 3.12
     add_compile_definitions(KPA_ENABLE_REMOTECONTROL)
-    set(libRemoteControl_LIBS Qt5::Network)
+    set(libRemoteControl_LIBS Qt6::Network)
     set(libRemoteControl_SRCS
         "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteCommand.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/RemoteCommand.h"

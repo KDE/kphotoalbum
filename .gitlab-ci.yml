@@ -3,39 +3,37 @@
 include:
   - project: sysadmin/ci-utilities
     file:
-        # jzarl: leave Linux and freebsd CI disabled until we have something that compiles:
-        #- /gitlab-templates/linux.yml
-        #- /gitlab-templates/freebsd.yml
-      - /gitlab-templates/reuse-lint.yml
-        #- /gitlab-templates/flatpak.yml
+        - /gitlab-templates/linux.yml
+        - /gitlab-templates/freebsd.yml
+        - /gitlab-templates/reuse-lint.yml
+        - /gitlab-templates/flatpak.yml
 
 ## jzarl: Until KF6 lands in Debian stable, disable CI there
-##        Same for Debian testing
-#.template: &debian
-#  variables:
-#    DEBIAN_FRONTEND: noninteractive
-#    QT_QPA_PLATFORM: offscreen
-#    LANG: C.UTF-8
-#  interruptible: true
-#  tags:
-#    - Linux
-#  before_script:
-#    - >-
-#      apt-get -qq update && apt-get install -y eatmydata && eatmydata apt-get install -y --no-install-recommends make cmake extra-cmake-modules gettext
-#      g++ gcc libkf5kio-dev pkg-config pkg-kde-tools libphonon4qt5-dev libkf5archive-dev libkf5doctools-dev
-#      libqt5sql5-sqlite libkf5textwidgets-dev libjpeg-dev libexiv2-dev libkf5purpose-dev libkf5kdcraw-dev
-#      libmarble-dev curl git libvlc-dev
-#  script:
-#    - mkdir build && cd $_ && cmake ../ && make -j$(nproc)
-#    - make install
-#    - ctest --rerun-failed --output-on-failure
-#
+.template: &debian
+  variables:
+    DEBIAN_FRONTEND: noninteractive
+    QT_QPA_PLATFORM: offscreen
+    LANG: C.UTF-8
+  interruptible: true
+  tags:
+    - Linux
+  before_script:
+    - >-
+      apt-get -qq update && apt-get install -y eatmydata && eatmydata apt-get install -y --no-install-recommends make cmake extra-cmake-modules gettext
+      g++ gcc libkf6kio-dev pkg-config pkg-kde-tools libphonon4qt5-dev libkf6archive-dev libkf6doctools-dev
+      libqt5sql5-sqlite libkf6textwidgets-dev libjpeg-dev libexiv2-dev libkf6purpose-dev libkf6kdcraw-dev
+      libmarble-dev curl git libvlc-dev
+  script:
+    - mkdir build && cd $_ && cmake ../ && make -j$(nproc)
+    - make install
+    - ctest --rerun-failed --output-on-failure
+
 #build:debian-stable:
 #  stage: build
 #  image: "debian:stable"
 #  <<: *debian
 #
-#build:debian-testing:
-#  stage: build
-#  image: "debian:testing"
-#  <<: *debian
+build:debian-testing:
+  stage: build
+  image: "debian:testing"
+  <<: *debian

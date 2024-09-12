@@ -33,7 +33,7 @@ include:
 #  image: "debian:stable"
 #  <<: *debian
 #
-build:debian-testing:
-  stage: build
-  image: "debian:testing"
-  <<: *debian
+#build:debian-testing:
+#  stage: build
+#  image: "debian:testing"
+#  <<: *debian

@@ -20,6 +20,6 @@ Dependencies:
     'graphics/libkdcraw': '@stable-kf6-qt6'
     'education/marble': '@stable-kf6-qt6'
 
-Options:
+#Options:
     # jzarl: leave Linux and freebsd CI disabled until we have something that compiles:
     #require-passing-tests-on: [ Linux, FreeBSD ]

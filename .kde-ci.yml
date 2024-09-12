@@ -16,7 +16,7 @@ Dependencies:
     'frameworks/ktextwidgets': '@stable-kf6-qt6'
     'frameworks/kxmlgui': '@stable-kf6-qt6'
     'frameworks/kwidgetsaddons': '@stable-kf6-qt6'
-    'frameworks/purpose': '@stable-kf6-qt6'
+    'frameworks/purpose': '@latest-kf6'
     'graphics/libkdcraw': '@latest-kf6'
         #'education/marble': '@stable-kf6-qt6'
 

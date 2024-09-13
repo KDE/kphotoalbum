@@ -434,6 +434,7 @@ void ImageManager::ThumbnailCache::load()
     stream >> m_currentFile
         >> m_currentOffset
         >> expectedCount;
+    m_hash.reserve(expectedCount);
     int count = 0;
 
     while (!stream.atEnd()) {

@@ -1,9 +1,9 @@
 {
     "id": "org.kde.kphotoalbum",
     "runtime": "org.kde.Platform",
-    "runtime-version": "5.15-22.08",
+    "runtime-version": "6.7",
     "base": "io.qt.qtwebengine.BaseApp",
-    "base-version": "5.15-22.08",
+    "base-version": "6.7",
     "sdk": "org.kde.Sdk",
     "command": "kphotoalbum",
     "rename-icon": "kphotoalbum",
@@ -104,93 +104,6 @@
             ]
         },
         {
-            "name": "marble",
-            "buildsystem": "cmake-ninja",
-            "builddir": true,
-            "config-opts": [
-                "-DBUILD_TESTING=OFF"
-            ],
-            "post-install": [
-                "rm /app/share/applications/org.kde.marble-qt.desktop"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://download.kde.org/stable/release-service/23.04.3/src/marble-23.04.3.tar.xz",
-                    "sha256": "88feb03e4b3b1fcfc17e7ea4cd4bd4ddc7f08fd30fa550393171406e9d4fda93",
-                    "x-checker-data": {
-                        "type": "anitya",
-                        "project-id": 8763,
-                        "stable-only": true,
-                        "url-template": "https://download.kde.org/stable/release-service/$version/src/marble-$version.tar.xz"
-                    }
-                }
-            ],
-            "modules": [
-                {
-                    "name": "wireless-tools",
-                    "buildsystem": "simple",
-                    "subdir": "wireless_tools",
-                    "build-commands": [
-                        "make",
-                        "make INSTALL_DIR=\"${FLATPAK_DEST}/bin\" INSTALL_LIB=\"${FLATPAK_DEST}/lib\" INSTALL_INC=\"${FLATPAK_DEST}/include\" INSTALL_MAN=\"${FLATPAK_DEST}/share/man\" install"
-                    ],
-                    "sources": [
-                        {
-                            "type": "archive",
-                            "url": "https://github.com/HewlettPackard/wireless-tools/archive/refs/tags/v29.tar.gz",
-                            "sha256": "69c5face9ac9d3273042436408a9a057d3416a814253dedeaaef210fcbc42d40",
-                            "x-checker-data": {
-                                "type": "anitya",
-                                "project-id": 5136,
-                                "stable-only": true,
-                                "url-template": "https://github.com/HewlettPackard/wireless-tools/archive/refs/tags/v$version.tar.gz"
-                            }
-                        }
-                    ],
-                    "cleanup": [
-                        "/share/man",
-                        "/bin"
-                    ]
-                },
-                {
-                    "name": "libwlocate",
-                    "buildsystem": "simple",
-                    "subdir": "master",
-                    "build-commands": [
-                        "make -f Makelib",
-                        "make",
-                        "install -D libwlocate.so ${FLATPAK_DEST}/lib/libwlocate.so",
-                        "install -D libwlocate.h ${FLATPAK_DEST}/include/libwlocate.h"
-                    ],
-                    "sources": [
-                        {
-                            "type": "archive",
-                            "url": "https://github.com/openwifi-su/lwlocate/archive/refs/tags/v0.1.tar.gz",
-                            "sha256": "791899f4890fa88553b4e8417376187d7d533ead962f5fe51f598b6ed9a2c258"
-                        }
-                    ]
-                },
-                {
-                    "name": "shapelib",
-                    "buildsystem": "autotools",
-                    "sources": [
-                        {
-                            "type": "archive",
-                            "url": "http://download.osgeo.org/shapelib/shapelib-1.5.0.tar.gz",
-                            "sha256": "1fc0a480982caef9e7b9423070b47750ba34cd0ba82668f2e638fab1d07adae1",
-                            "x-checker-data": {
-                                "type": "anitya",
-                                "project-id": 4804,
-                                "stable-only": true,
-                                "url-template": "http://download.osgeo.org/shapelib/shapelib-$version.tar.gz"
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "name": "libkdcraw",
             "buildsystem": "cmake-ninja",
             "config-opts": [
@@ -200,8 +113,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.kde.org/stable/release-service/23.04.3/src/libkdcraw-23.04.3.tar.xz",
-                    "sha256": "1c859ed548572eb23ee4941a2b4fff57210a9a56edcf7bb5733bb0732421996f",
+                    "url": "https://download.kde.org/stable/release-service/24.08.1/src/libkdcraw-24.08.1.tar.xz",
+                    "sha256": "dceda2ebbf7479ba232e9108d1cf58d613df0fa76c990106ee59dbba8c9c32f6",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 8763,

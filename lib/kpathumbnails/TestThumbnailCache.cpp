@@ -11,10 +11,10 @@
 #include <kpabase/UIDelegate.h>
 
 #include <QBuffer>
+#include <QHashSeed>
 #include <QLoggingCategory>
 #include <QRegularExpression>
 #include <QSignalSpy>
-#include <QHashSeed>
 
 namespace
 {
@@ -34,9 +34,9 @@ constexpr auto v5IndexHexData {
     "00000003" // current file
     "00033714" // offset in file
     "00000003" // number of thumbnails
-    "000000160062006C00610063006B00690065002E006A00700067000000000000462C00001F0B" // "blackie.jpg"
     "0000001600730070006900660066005F0032002E006A0070006700000000000038A900001DFD" // "spiff_2.jpg"
     "0000001C006E00650077005F0077006100760065005F0032002E006A0070006700000000000000000000229D" // "new_wave_2.jpg"
+    "000000160062006C00610063006B00690065002E006A00700067000000000000462C00001F0B" // "blackie.jpg"
 };
 }
 
@@ -93,6 +93,8 @@ void KPATest::TestThumbnailCache::loadV4ThumbnailIndex()
     QVERIFY2(thumbnailIndex.open(QIODevice::ReadOnly), msgPreconditionFailed);
     const QByteArray v5Index { thumbnailIndex.readAll() };
     thumbnailIndex.close();
+    // qDebug() << "v5Index:" << v5Index.toHex();
+    // qDebug() << "ref:    " << QByteArray::fromHex(v5IndexHexData).toHex();
     QCOMPARE(v5Index, QByteArray::fromHex(v5IndexHexData));
 
     // we only have the index data - trying a lookup won't work, but shouldn't crash or something

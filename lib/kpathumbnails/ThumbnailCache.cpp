@@ -292,7 +292,7 @@ void ImageManager::ThumbnailCache::saveFull()
            << m_thumbnailSize
            << m_currentFile
            << m_currentOffset
-           << m_hash.count();
+           << (uint)m_hash.count(); // using uint instead of size_t is for keeping binary compatibility with Qt5. This should be changed with the next file version.
 
     for (auto it = tempHash.constBegin(); it != tempHash.constEnd(); ++it) {
         const CacheFileInfo &cacheInfo = it.value();
@@ -430,7 +430,7 @@ void ImageManager::ThumbnailCache::load()
         qCDebug(ImageManagerLog) << "Thumbnail cache has thumbnail size" << m_thumbnailSize << "px";
     }
 
-    int expectedCount = 0;
+    uint expectedCount = 0;
     stream >> m_currentFile
         >> m_currentOffset
         >> expectedCount;

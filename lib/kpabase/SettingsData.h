@@ -241,7 +241,7 @@ public:
 
     QString imageDirectory() const;
 
-    const char *groupForDatabase(const char *setting) const;
+    QString groupForDatabase(const char *setting) const;
 
     QVariantMap currentLock() const;
     void setCurrentLock(const QVariantMap &pairs, bool exclude);

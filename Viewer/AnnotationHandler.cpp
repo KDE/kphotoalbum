@@ -92,7 +92,7 @@ namespace
     KConfigGroup configGroup()
     {
         const auto section = Settings::SettingsData::instance()->groupForDatabase("viewer keybindings");
-        return KSharedConfig::openConfig(QString::fromLatin1("kphotoalbumrc"))->group(QString::fromLatin1(section));
+        return KSharedConfig::openConfig(QString::fromLatin1("kphotoalbumrc"))->group(section);
     }
 }
 

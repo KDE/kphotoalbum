@@ -54,13 +54,8 @@ include(KDEGitCommitHooks)
 # enable exceptions:
 kde_enable_exceptions()
 
-if(${ECM_VERSION} VERSION_LESS 5.109)
-    # pre ECM 5.109 you need to do some work yourself as described in dev/README-dev.txt
-    kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT)
-else()
-    file(GLOB_RECURSE PRE_COMMIT_HOOKS ${CMAKE_SOURCE_DIR}/dev/githooks/pre-commit.d/*)
-    kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT CUSTOM_SCRIPTS ${PRE_COMMIT_HOOKS})
-endif()
+file(GLOB_RECURSE PRE_COMMIT_HOOKS ${CMAKE_SOURCE_DIR}/dev/githooks/pre-commit.d/*)
+kde_configure_git_pre_commit_hook(CHECKS CLANG_FORMAT CUSTOM_SCRIPTS ${PRE_COMMIT_HOOKS})
 
 add_definitions(
     -DQT_NO_CAST_FROM_ASCII

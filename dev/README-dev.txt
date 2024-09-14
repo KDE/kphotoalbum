@@ -11,10 +11,8 @@ You can also find some notes about debugging.
 dev/githooks
 ------------
 
-With extra-cmake-modules version 5.108 and newer, you don't have to do anything.
-
-If you have an older version of ECM, you need to enable these githooks yourself.
-To do so, add "$(git rev-parse --git-common-dir)/../dev/githooks/pre-commit" on a line of its own to the file .git/hooks/pre-commit
+Since extra-cmake-modules version 5.108 and newer, you don't have to do anything.
+CMake will install the hooks for you. See https://api.kde.org/ecm/kde-module/KDEGitCommitHooks.html for details.
 
 About the hooks:
  - default-pre-commit: this is the default pre-commit hook supplied with git

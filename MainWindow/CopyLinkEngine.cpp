@@ -49,7 +49,7 @@ void CopyLinkEngine::selectTarget(QWidget *parent, const QList<QUrl> &files, Act
     }
     m_lastTarget = targetDirectory.path();
 
-    KIO::CopyJob *job;
+    KIO::CopyJob *job = nullptr;
     switch (action) {
     case Copy:
         job = KIO::copy(files, targetDirectory);
@@ -57,6 +57,8 @@ void CopyLinkEngine::selectTarget(QWidget *parent, const QList<QUrl> &files, Act
     case Link:
         job = KIO::link(files, targetDirectory);
         break;
+    default:
+        Q_UNREACHABLE();
     }
     connect(job, &KIO::CopyJob::finished, job, &QObject::deleteLater);
 }

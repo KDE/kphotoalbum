@@ -84,10 +84,10 @@ QStringList MemberMap::members(const QString &category, const QString &memberGro
         if (m_dirty) {
             calculate();
         }
-        const auto &members = m_closureMembers[category][memberGroup];
+        const auto &members = m_closureMembers[category].value(memberGroup);
         return QStringList(members.begin(), members.end());
     } else {
-        const auto &members = m_members[category][memberGroup];
+        const auto &members = m_members[category].value(memberGroup);
         return QStringList(members.begin(), members.end());
     }
 }

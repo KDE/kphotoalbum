@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2021-2023 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2021 - 2023 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 

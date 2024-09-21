@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2024 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
@@ -21,7 +21,7 @@ KPABase::CrashSentinel::CrashSentinel(const QString &component, const QByteArray
     auto cfgGroup = KSharedConfig::openConfig()->group(s_cgfGroup);
     m_lastCrashInfo = cfgGroup.readEntry(m_component, QByteArray());
     if (!m_lastCrashInfo.isEmpty()) {
-        const auto historyEntry = m_component + QString::fromUtf8(s_cfgHistory);
+        const QString historyEntry = m_component + QString::fromUtf8(s_cfgHistory);
         auto history = cfgGroup.readEntry(historyEntry, QList<QByteArray>());
         history.append(m_lastCrashInfo);
         cfgGroup.writeEntry(historyEntry, history);

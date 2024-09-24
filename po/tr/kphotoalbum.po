@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-08-03 01:49+0000\n"
-"PO-Revision-Date: 2024-08-03 13:37+0300\n"
+"PO-Revision-Date: 2024-09-23 15:31+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2885,7 +2885,7 @@ msgstr ""
 #: kpa-thumbnailtool/main.cpp:48
 #, kde-format
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
-msgstr "Telif hakkı (C) 2003–2024 K Fotoğraf Albümü Geliştirme Takımı"
+msgstr "Telif hakkı © 2003–2024 K Fotoğraf Albümü Geliştirme Takımı"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -3228,7 +3228,7 @@ msgstr "KDE Fotoğraf Albümü"
 #: main.cpp:89
 #, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr "Telif hakkı (C) 2003–2024 K Fotoğraf Albümü Geliştirme Takımı"
+msgstr "Telif hakkı © 2003–2024 K Fotoğraf Albümü Geliştirme Takımı"
 
 #: main.cpp:110
 #, kde-format

@@ -6866,39 +6866,3 @@ msgstr "Показване размер на изображението"
 #, kde-format
 msgid "Show Rating"
 msgstr "Показване на оценките"
-
-#~ msgctxt ""
-#~ "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--"
-#~ "\", %1) and it's octal representation (e.g. \"0644\")"
-#~ msgid "%1 (%2)"
-#~ msgstr "%1 (%2)"
-
-#~ msgctxt "As in 'This happened 1 day ago'"
-#~ msgid "1 day ago"
-#~ msgid_plural "%1 days ago"
-#~ msgstr[0] "преди един ден"
-#~ msgstr[1] "преди %1 дни"
-
-#~ msgctxt "As in 'This happened 1 month ago'"
-#~ msgid "1 month ago"
-#~ msgid_plural "%1 months ago"
-#~ msgstr[0] "преди 1 месец"
-#~ msgstr[1] "преди %1 месеца"
-
-#~ msgctxt "As in 'This happened 1 year ago'"
-#~ msgid "1 year ago"
-#~ msgid_plural "%1 years ago"
-#~ msgstr[0] "преди една година"
-#~ msgstr[1] "преди %1 години"
-
-#~ msgctxt "E.g. ' (7 months-1 year)'"
-#~ msgid " (%1-%2)"
-#~ msgstr " (%1-%2)"
-
-#~ msgctxt "E.g. ' (1-2 years ago)'"
-#~ msgid " (%1-%2)"
-#~ msgstr " (%1-%2)"
-
-#~ msgctxt "E.g. '(7 months ago-1 year ago)'"
-#~ msgid " (%1-%2)"
-#~ msgstr " (%1-%2)"

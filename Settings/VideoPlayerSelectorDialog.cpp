@@ -1,11 +1,12 @@
-// SPDX-FileCopyrightText: 2021 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021 Yuri Chornoivan <yurchor@ukr.net>
+// SPDX-FileCopyrightText: 2021-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2021-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "VideoPlayerSelectorDialog.h"
 #include "Logging.h"
-#include <config-kpa-videobackends.h>
+#include <kpabase/config-kpa-videobackends.h>
 
 #include <KLocalizedString>
 #include <QDialogButtonBox>

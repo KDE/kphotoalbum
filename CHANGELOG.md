@@ -57,6 +57,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix crash when multiple images are selected for annotation and one is deleted (#483266)
  - Fix selective rebuilding of video file thumbnails (#444744)
  - Fix crash when opening viewer after video playback previously crashed
+ - Fix endless loop if an unavailable video backend is configured (#493849)
 
 ### Removed
 

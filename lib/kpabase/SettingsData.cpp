@@ -1,18 +1,19 @@
-// SPDX-FileCopyrightText: 2003 Lukáš Tinkl <lukas@kde.org>
-// SPDX-FileCopyrightText: 2003-2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2003-2005 Stephan Binner <binner@kde.org>
+// SPDX-FileCopyrightText: 2003-2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2003 Lukáš Tinkl <lukas@kde.org>
 // SPDX-FileCopyrightText: 2006-2008 Tuomas Suutari <tuomas@nepnep.net>
-// SPDX-FileCopyrightText: 2007 Rafael Fernández López <ereslibre@kde.org>
 // SPDX-FileCopyrightText: 2007-2009 Laurent Montel <montel@kde.org>
 // SPDX-FileCopyrightText: 2007-2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2007 Rafael Fernández López <ereslibre@kde.org>
 // SPDX-FileCopyrightText: 2008 David Faure <faure@kde.org>
 // SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
 // SPDX-FileCopyrightText: 2009-2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2010 Pino Toscano <pino@kde.org>
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
-// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2019 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl at stonemx dot de>
@@ -22,6 +23,7 @@
 #include "SettingsData.h"
 
 #include "Logging.h"
+#include <kpabase/config-kpa-videobackends.h>
 
 #include <KConfig>
 #include <KConfigGroup>
@@ -386,11 +388,24 @@ setValueFunc_(setVideoBackend, VideoBackend, "Viewer"_L1, "videoBackend", static
     auto value = static_cast<VideoBackend>(cfgValue("Viewer"_L1, "videoBackend", static_cast<int>(VideoBackend::NotConfigured)));
     // validate input:
     switch (value) {
-    case VideoBackend::NotConfigured:
-    case VideoBackend::Phonon:
     case VideoBackend::VLC:
+#if !LIBVLC_FOUND
+        qCWarning(BaseLog) << "Configuration value for Viewer.videoBackend is not available. Ignoring value...";
+        value = VideoBackend::NotConfigured;
+#endif
         break;
-    case VideoBackend::QtAV: // legacy value; no longer used actively
+    case Settings::VideoBackend::QtAV:
+        qCWarning(BaseLog) << "Configuration value for Viewer.videoBackend is deprecated. Ignoring value...";
+        value = VideoBackend::NotConfigured;
+        break;
+    case Settings::VideoBackend::Phonon:
+#if !Phonon4Qt6_FOUND
+        qCWarning(BaseLog) << "Configuration value for Viewer.videoBackend is not available. Ignoring value...";
+        value = VideoBackend::NotConfigured;
+#endif
+        break;
+    case VideoBackend::NotConfigured:
+        break;
     default:
         qCWarning(BaseLog) << "Ignoring invalid configuration value for Viewer.videoBackend...";
         value = VideoBackend::NotConfigured;

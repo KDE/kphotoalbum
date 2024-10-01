@@ -22,13 +22,13 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "ViewerWidget.h"
-#include <config-kpa-videobackends.h>
 
 #include "CategoryImageConfig.h"
 #include "CursorVisibilityHandler.h"
 #include "ImageDisplay.h"
 #include "InfoBox.h"
 #include "Logging.h"
+#include <kpabase/config-kpa-videobackends.h>
 
 #if Phonon4Qt6_FOUND
 #include "PhononDisplay.h"
@@ -1367,7 +1367,7 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
 {
     auto backend = Settings::SettingsData::instance()->videoBackend();
     if (backend == Settings::VideoBackend::NotConfigured) {
-        // just select a backend for the user if they didn't choose one
+        // just select a backend for the user if no valid one is configured
         backend = Settings::preferredVideoBackend(backend);
     }
     if (sentinel.hasCrashInfo()) {

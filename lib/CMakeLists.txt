@@ -25,6 +25,8 @@ set(HAVE_KDCRAW ${KF5KDcraw_FOUND})
 configure_file(kpabase/config-kpa-kdcraw.h.in "${CMAKE_CURRENT_BINARY_DIR}/kpabase/config-kpa-kdcraw.h")
 configure_file(kpabase/config-kpa-plugins.h.in "${CMAKE_CURRENT_BINARY_DIR}/kpabase/config-kpa-plugins.h")
 configure_file(kpabase/config-kpa-marble.h.in "${CMAKE_CURRENT_BINARY_DIR}/kpabase/config-kpa-marble.h")
+configure_file(kpabase/config-kpa-videobackends.h.in "${CMAKE_CURRENT_BINARY_DIR}/kpabase/config-kpa-videobackends.h")
+
 
 add_library(kpabase
     "${CMAKE_CURRENT_BINARY_DIR}/kpabase/config-kpa-kdcraw.h"

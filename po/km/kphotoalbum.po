@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-03 01:49+0000\n"
+"POT-Creation-Date: 2024-10-02 01:49+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -1626,13 +1626,13 @@ msgid "Places"
 msgstr "ទីកន្លែង"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:412
+#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:428
 #, kde-format
 msgid "Events"
 msgstr "ព្រឹត្តិការណ៍"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:422
+#: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:438
 #, fuzzy, kde-format
 #| msgid "Untagged Images"
 msgid "untagged"
@@ -3238,7 +3238,7 @@ msgstr "កម្មវិធី​ជំនួយ​"
 msgid "Main Toolbar"
 msgstr "របារ​ឧបករណ៍​មេ"
 
-#: lib/kpabase/SettingsData.cpp:239
+#: lib/kpabase/SettingsData.cpp:240
 #, fuzzy, kde-format
 #| msgid ""
 #| "When reading time information of images, their EXIF info is used. Exif "
@@ -3261,7 +3261,7 @@ msgstr ""
 "ទោះ​បី​យ៉ាង​ណា​ វា​អាច​នឹង​មិន​ត្រឹម​ត្រូវ​ នៅ​ក្នុង​ករណី​ដែល​រូបភាព​ត្រូវ​បាន​វិភាគ​រក​ ។ ដូច្នេះ​សំណួរ​ក៏​អញ្ចឹង​ដែរ "
 "តើ  KPhotoAlbum គួរ​តែ​ទុក​ចិត្ត​លើ​ត្រា​ពេល​វេលា​ដែល​នៅ​លើ​រូបភាព​របស់​អ្នក​ដែរ​ឬទេ​ ?"
 
-#: lib/kpabase/SettingsData.cpp:246
+#: lib/kpabase/SettingsData.cpp:247
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "ទុក​ចិត្ត​លើ​ត្រា​ពេល​វេលា​ឬ​អត់ ?​"
@@ -3689,14 +3689,14 @@ msgstr "បន្ទាត់​ពាក្យ​បញ្ជា​របស់
 msgid "Invoke External Program"
 msgstr "ហៅ​កម្មវិធី​ខាង​ក្រៅ​"
 
-#: MainWindow/FeatureDialog.cpp:29
+#: MainWindow/FeatureDialog.cpp:40
 #, fuzzy, kde-format
 #| msgid "Feature Status"
 msgctxt "@title:window"
 msgid "Feature Status"
 msgstr "ស្ថាន​ភាព​លក្ខណ​ពិសេស​"
 
-#: MainWindow/FeatureDialog.cpp:33
+#: MainWindow/FeatureDialog.cpp:44
 #, kde-format
 msgid ""
 "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
@@ -3705,7 +3705,7 @@ msgstr ""
 "<h1>ទិដ្ឋភាព​ទូទៅ​</h1><p>​នៅ​ខាង​ក្រោម​នេះ អ្នក​អាច​មើល​បញ្ជី​លក្ខណ​ពិសេស​នៃ​ការ​ចងក្រង​ និងពេលវេលា​"
 "ដំណើរ​ការ​ដែល​ KPhotoAlbum មាន ព្រម​ទាំង​ស្ថានភាព​របស់​ពួក​វា​ផង​ដែរ ៖</p>%1"
 
-#: MainWindow/FeatureDialog.cpp:37
+#: MainWindow/FeatureDialog.cpp:48
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
@@ -3753,14 +3753,14 @@ msgstr ""
 "the developer packages installed, in most distributions they go under names "
 "like kdelibs<i>-devel</i></p>"
 
-#: MainWindow/FeatureDialog.cpp:51
+#: MainWindow/FeatureDialog.cpp:62
 #, kde-format
 msgid ""
 "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports the "
 "<em>Purpose</em> plugin system.</p>"
 msgstr ""
 
-#: MainWindow/FeatureDialog.cpp:54
+#: MainWindow/FeatureDialog.cpp:65
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1><a name=\"database\">SQL database support</a></h1><p>KPhotoAlbum "
@@ -3778,7 +3778,7 @@ msgstr ""
 "ទិន្នន័យ Sqlite ។ ជាង​​នេះ​ទៅទៀត​កញ្ចប់ qt ​សម្រាប់​ sqlite (ឧ.qt-sql-sqlite) ត្រូវតែ​បាន​"
 "ដំឡើង ។</p>"
 
-#: MainWindow/FeatureDialog.cpp:59
+#: MainWindow/FeatureDialog.cpp:70
 #, kde-format
 msgid ""
 "<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
@@ -3786,7 +3786,7 @@ msgid ""
 "images with GPS information on a map.</p>"
 msgstr ""
 
-#: MainWindow/FeatureDialog.cpp:64
+#: MainWindow/FeatureDialog.cpp:75
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on Qt's "
@@ -3803,7 +3803,7 @@ msgstr ""
 "លក្ខណ​ពិសេស​នេះ​មិន​ត្រូវ​បាន​បើក​សម្រាប់​អ្នក​ទេ សូម​មើល​នៅ <a href=\"http://userbase.kde.org/"
 "KPhotoAlbum#Video_Support\">KPhotoAlbum អត្ថបទ​ wiki  ស្ដី​​អំពី​ការ​គាំ​ទ្រ​វីដេអូ</a>។</p>"
 
-#: MainWindow/FeatureDialog.cpp:67
+#: MainWindow/FeatureDialog.cpp:78
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1><a name=\"videoPreview\">Video preview</a></h1><p>KPhotoAlbum uses "
@@ -3818,7 +3818,7 @@ msgstr ""
 "<tt>mplayer</tt> ដើម្បី​ស្រង់​រូបភាព​តូច​ចេញពី​វីដអូ ។ រូបភាព​តូច​ទាំងនេះ​នឹង​ត្រូវ​បាន​ប្រើ​ដើម្បី​មើល​វីដេអូ​"
 "ជាមុន​នៅ​ក្នុង​កម្មវិធី​មើល​រូបភាព​តូច ។</p>"
 
-#: MainWindow/FeatureDialog.cpp:71
+#: MainWindow/FeatureDialog.cpp:82
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1><a name=\"videoPreview\">Video preview</a></h1><p>KPhotoAlbum uses "
@@ -3834,41 +3834,41 @@ msgstr ""
 "<tt>mplayer</tt> ដើម្បី​ស្រង់​រូបភាព​តូច​ចេញពី​វីដអូ ។ រូបភាព​តូច​ទាំងនេះ​នឹង​ត្រូវ​បាន​ប្រើ​ដើម្បី​មើល​វីដេអូ​"
 "ជាមុន​នៅ​ក្នុង​កម្មវិធី​មើល​រូបភាព​តូច ។</p>"
 
-#: MainWindow/FeatureDialog.cpp:161
+#: MainWindow/FeatureDialog.cpp:172
 #, kde-format
 msgid "Plug-ins available"
 msgstr "មាន​កម្មវិធី​ជំនួយ"
 
-#: MainWindow/FeatureDialog.cpp:162
+#: MainWindow/FeatureDialog.cpp:173
 #, fuzzy, kde-format
 #| msgid "Sqlite database support (used for EXIF searches)"
 msgid "SQLite database support (used for Exif searches)"
 msgstr "ការ​គាំ​ទ្រ​មូលដ្ឋាន​ទិន្នន័យ​ Sqlite  (ត្រូវបាន​​ប្រើ​សម្រាប់​​ការ​ស្វែង​រក EXIF)​"
 
-#: MainWindow/FeatureDialog.cpp:163
+#: MainWindow/FeatureDialog.cpp:174
 #, kde-format
 msgid "Map view for geotagged images."
 msgstr ""
 
-#: MainWindow/FeatureDialog.cpp:164
+#: MainWindow/FeatureDialog.cpp:175
 #, kde-format
 msgid "Video thumbnail support"
 msgstr "ការ​គាំ​ទ្រ​រូបភាព​តូច​របស់​វីដេអូ​"
 
-#: MainWindow/FeatureDialog.cpp:165
+#: MainWindow/FeatureDialog.cpp:176
 #, fuzzy, kde-format
 #| msgid "Video support"
 msgid "Video metadata support"
 msgstr "គាំទ្រ​វីដេអូ​"
 
-#: MainWindow/FeatureDialog.cpp:169
+#: MainWindow/FeatureDialog.cpp:180
 #, fuzzy, kde-format
 #| msgid "Yes"
 msgctxt "Feature available"
 msgid "Yes"
 msgstr "បាទ​ /ចាស​"
 
-#: MainWindow/FeatureDialog.cpp:170
+#: MainWindow/FeatureDialog.cpp:181
 #, fuzzy, kde-format
 #| msgid "No"
 msgctxt "Feature not available"
@@ -6256,12 +6256,12 @@ msgid ""
 "error about this tag being not present on the next start.</p>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:25
+#: Settings/VideoPlayerSelectorDialog.cpp:26
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:28
+#: Settings/VideoPlayerSelectorDialog.cpp:29
 #, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
@@ -6282,14 +6282,14 @@ msgid ""
 "time change the backend from Settings -> Viewer</font></b></p></html>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:51
-#: Settings/VideoPlayerSelectorDialog.cpp:60
-#: Settings/VideoPlayerSelectorDialog.cpp:69
+#: Settings/VideoPlayerSelectorDialog.cpp:52
+#: Settings/VideoPlayerSelectorDialog.cpp:61
+#: Settings/VideoPlayerSelectorDialog.cpp:70
 #, kde-format
 msgid " (NOT AVAILABLE)"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:97
+#: Settings/VideoPlayerSelectorDialog.cpp:98
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6299,27 +6299,27 @@ msgid ""
 "talk to the maintainer of the package.</html>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:160
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:162
+#: Settings/VideoPlayerSelectorDialog.cpp:163
 #, fuzzy, kde-format
 #| msgid "Database backend"
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "កម្មវិធី​ខាង​ក្រោយ​មូលដ្ឋាន​ទិន្នន័យ​"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:164
+#: Settings/VideoPlayerSelectorDialog.cpp:165
 #, fuzzy, kde-format
 #| msgid "Database backend"
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "កម្មវិធី​ខាង​ក្រោយ​មូលដ្ឋាន​ទិន្នន័យ​"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:166
+#: Settings/VideoPlayerSelectorDialog.cpp:167
 #, fuzzy, kde-format
 #| msgid "Database backend"
 msgctxt "A friendly name for the video backend"

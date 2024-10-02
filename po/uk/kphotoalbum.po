@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-03 01:49+0000\n"
+"POT-Creation-Date: 2024-10-02 01:49+0000\n"
 "PO-Revision-Date: 2024-08-03 10:04+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -1642,13 +1642,13 @@ msgid "Places"
 msgstr "Місця"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:412
+#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:428
 #, kde-format
 msgid "Events"
 msgstr "Події"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:422
+#: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:438
 #, kde-format
 msgid "untagged"
 msgstr "без міток"
@@ -3215,7 +3215,7 @@ msgstr "Додатки"
 msgid "Main Toolbar"
 msgstr "Головний пенал"
 
-#: lib/kpabase/SettingsData.cpp:239
+#: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3234,7 +3234,7 @@ msgstr ""
 "допомогою сканера. Отже, питання, на яке ви маєте дати відповідь звучить "
 "так: чи слід KPhotoAlbum покладатися на часові штампи ваших зображень?"
 
-#: lib/kpabase/SettingsData.cpp:246
+#: lib/kpabase/SettingsData.cpp:247
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Довіряти часовим штампам?"
@@ -3666,13 +3666,13 @@ msgstr "Ваш рядок команди"
 msgid "Invoke External Program"
 msgstr "Викликати зовнішню програму"
 
-#: MainWindow/FeatureDialog.cpp:29
+#: MainWindow/FeatureDialog.cpp:40
 #, kde-format
 msgctxt "@title:window"
 msgid "Feature Status"
 msgstr "Стан можливості"
 
-#: MainWindow/FeatureDialog.cpp:33
+#: MainWindow/FeatureDialog.cpp:44
 #, kde-format
 msgid ""
 "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
@@ -3681,7 +3681,7 @@ msgstr ""
 "<h1>Огляд</h1><p>Нижче ви можете бачити список всіх вбудованих і спільних з "
 "іншими програмами можливостей, які має KPhotoAlbum, і їхній стан:</p>%1"
 
-#: MainWindow/FeatureDialog.cpp:37
+#: MainWindow/FeatureDialog.cpp:48
 #, kde-format
 msgid ""
 "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
@@ -3715,7 +3715,7 @@ msgstr ""
 "встановили пакунки для розробки програм, у більшості дистрибутивів вони "
 "мають назви на зразок kdelibs<i>-devel</i></p>"
 
-#: MainWindow/FeatureDialog.cpp:51
+#: MainWindow/FeatureDialog.cpp:62
 #, kde-format
 msgid ""
 "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports the "
@@ -3724,7 +3724,7 @@ msgstr ""
 "<h1><a name=\"purpose\">Підтримка додатків</a></h1><p>У KPhotoAlbum "
 "передбачено підтримку системи додатків <em>Purpose</em>.</p>"
 
-#: MainWindow/FeatureDialog.cpp:54
+#: MainWindow/FeatureDialog.cpp:65
 #, kde-format
 msgid ""
 "<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
@@ -3737,7 +3737,7 @@ msgstr ""
 "KPhotoAlbum потрібна база даних SQlite. Крім того, слід встановити Qt-"
 "пакунок для SQlite (наприклад qt-sql-sqlite).</p>"
 
-#: MainWindow/FeatureDialog.cpp:59
+#: MainWindow/FeatureDialog.cpp:70
 #, kde-format
 msgid ""
 "<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
@@ -3749,7 +3749,7 @@ msgstr ""
 "Marble, програма зможе показувати на карті позиції зображень, у файлах яких "
 "містяться дані GPS.</p>"
 
-#: MainWindow/FeatureDialog.cpp:64
+#: MainWindow/FeatureDialog.cpp:75
 #, kde-format
 msgid ""
 "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on QtAv "
@@ -3759,7 +3759,7 @@ msgstr ""
 "для відтворення відеофайлів програмою QtAv, яка у свою чергу використовує "
 "для показу ffmpeg.</p>"
 
-#: MainWindow/FeatureDialog.cpp:67
+#: MainWindow/FeatureDialog.cpp:78
 #, kde-format
 msgid ""
 "<h1><a name=\"videoPreview\">Video thumbnail support</a></h1><p>KPhotoAlbum "
@@ -3771,7 +3771,7 @@ msgstr ""
 "відео. Ці мініатюри використовуються для показу файлів відео на панелі "
 "мініатюр.</p>"
 
-#: MainWindow/FeatureDialog.cpp:71
+#: MainWindow/FeatureDialog.cpp:82
 #, kde-format
 msgid ""
 "<h1><a name=\"videoInfo\">Video metadata support</a></h1><p>KPhotoAlbum can "
@@ -3784,38 +3784,38 @@ msgstr ""
 "використовує <tt>ffprobe</tt>.</p><p>Точні дані щодо тривалості відтворення "
 "відео потрібні для створення зображень мініатюр відео.</p>"
 
-#: MainWindow/FeatureDialog.cpp:161
+#: MainWindow/FeatureDialog.cpp:172
 #, kde-format
 msgid "Plug-ins available"
 msgstr "Доступні додатки"
 
-#: MainWindow/FeatureDialog.cpp:162
+#: MainWindow/FeatureDialog.cpp:173
 #, kde-format
 msgid "SQLite database support (used for Exif searches)"
 msgstr "Підтримка бази даних SQlite (використовується для пошуків у Exif)"
 
-#: MainWindow/FeatureDialog.cpp:163
+#: MainWindow/FeatureDialog.cpp:174
 #, kde-format
 msgid "Map view for geotagged images."
 msgstr "Перегляд карти для зображень із даними щодо геопозиціювання."
 
-#: MainWindow/FeatureDialog.cpp:164
+#: MainWindow/FeatureDialog.cpp:175
 #, kde-format
 msgid "Video thumbnail support"
 msgstr "Підтримка відеомініатюр"
 
-#: MainWindow/FeatureDialog.cpp:165
+#: MainWindow/FeatureDialog.cpp:176
 #, kde-format
 msgid "Video metadata support"
 msgstr "Підтримка метаданих відео"
 
-#: MainWindow/FeatureDialog.cpp:169
+#: MainWindow/FeatureDialog.cpp:180
 #, kde-format
 msgctxt "Feature available"
 msgid "Yes"
 msgstr "Так"
 
-#: MainWindow/FeatureDialog.cpp:170
+#: MainWindow/FeatureDialog.cpp:181
 #, kde-format
 msgctxt "Feature not available"
 msgid "No"
@@ -6218,12 +6218,12 @@ msgstr ""
 "мітку буде втрачено, а програма показуватиме повідомлення про помилку, "
 "пов’язану із неможливістю знайти мітку, під час наступного запуску.</p>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:25
+#: Settings/VideoPlayerSelectorDialog.cpp:26
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
 msgstr "<h1>Виберіть відеопрогравач</h1>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:28
+#: Settings/VideoPlayerSelectorDialog.cpp:29
 #, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
@@ -6263,14 +6263,14 @@ msgstr ""
 "можете у будь-який момент змінити модуль обробки «Параметри -> Переглядач».</"
 "font></b></p></html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:51
-#: Settings/VideoPlayerSelectorDialog.cpp:60
-#: Settings/VideoPlayerSelectorDialog.cpp:69
+#: Settings/VideoPlayerSelectorDialog.cpp:52
+#: Settings/VideoPlayerSelectorDialog.cpp:61
+#: Settings/VideoPlayerSelectorDialog.cpp:70
 #, kde-format
 msgid " (NOT AVAILABLE)"
 msgstr " (НЕДОСТУПНА)"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:97
+#: Settings/VideoPlayerSelectorDialog.cpp:98
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6286,25 +6286,25 @@ msgstr ""
 "сховища пакунків вашої системи, будь ласка, повідомте про цю помилку "
 "супровідника відповідного пакунка.</html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:160
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr "Не налаштовано модуль обробки відео"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:162
+#: Settings/VideoPlayerSelectorDialog.cpp:163
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "Модуль відео Phonon"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:164
+#: Settings/VideoPlayerSelectorDialog.cpp:165
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "Модуль відео QtAV"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:166
+#: Settings/VideoPlayerSelectorDialog.cpp:167
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"

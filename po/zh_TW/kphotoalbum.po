@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-03 01:49+0000\n"
+"POT-Creation-Date: 2024-10-02 01:49+0000\n"
 "PO-Revision-Date: 2019-01-19 19:46+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
@@ -1583,13 +1583,13 @@ msgid "Places"
 msgstr "地方"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:412
+#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:428
 #, kde-format
 msgid "Events"
 msgstr "事件"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:422
+#: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:438
 #, fuzzy, kde-format
 #| msgid "Untagged Images"
 msgid "untagged"
@@ -3172,7 +3172,7 @@ msgstr "外掛程式"
 msgid "Main Toolbar"
 msgstr "主工具列"
 
-#: lib/kpabase/SettingsData.cpp:239
+#: lib/kpabase/SettingsData.cpp:240
 #, fuzzy, kde-format
 #| msgid ""
 #| "When reading time information of images, their EXIF info is used. Exif "
@@ -3194,7 +3194,7 @@ msgstr ""
 "KPhotoAlbum 可以用影像檔案的時間，只是若該影像是掃描進來的，此時間會不準確。"
 "所以我的問題是，KPhotoAlbum 是否應該相信您影像檔的時間？"
 
-#: lib/kpabase/SettingsData.cpp:246
+#: lib/kpabase/SettingsData.cpp:247
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "信任時間戳記嗎？"
@@ -3605,14 +3605,14 @@ msgstr "您的命令列"
 msgid "Invoke External Program"
 msgstr "啟動外部程式"
 
-#: MainWindow/FeatureDialog.cpp:29
+#: MainWindow/FeatureDialog.cpp:40
 #, fuzzy, kde-format
 #| msgid "KPhotoAlbum Feature Status"
 msgctxt "@title:window"
 msgid "Feature Status"
 msgstr "KPhotoAlbum 功能狀態"
 
-#: MainWindow/FeatureDialog.cpp:33
+#: MainWindow/FeatureDialog.cpp:44
 #, kde-format
 msgid ""
 "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
@@ -3621,7 +3621,7 @@ msgstr ""
 "<h1>概觀</h1> <p>以下您會看到 KPhotoAlbum 編譯與執行期功能的列表與狀態：</p> "
 "%1"
 
-#: MainWindow/FeatureDialog.cpp:37
+#: MainWindow/FeatureDialog.cpp:48
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
@@ -3665,14 +3665,14 @@ msgstr ""
 "定您有安裝開發軟體包，大部份的作業系統軟體包都將此開發軟體包取名為 "
 "kdelibs<i>-devel</i></p>"
 
-#: MainWindow/FeatureDialog.cpp:51
+#: MainWindow/FeatureDialog.cpp:62
 #, kde-format
 msgid ""
 "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports the "
 "<em>Purpose</em> plugin system.</p>"
 msgstr ""
 
-#: MainWindow/FeatureDialog.cpp:54
+#: MainWindow/FeatureDialog.cpp:65
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1><a name=\"database\">SQL database support</a></h1><p>KPhotoAlbum "
@@ -3689,7 +3689,7 @@ msgstr ""
 "數量的 EXIF 標籤來搜尋。此時 KPhotoALbum 需要一個 Sqlite 資料庫。此外需要安"
 "裝 Qt 的 sqlite 支援軟體包（qt-sql-sqlite）。</p>"
 
-#: MainWindow/FeatureDialog.cpp:59
+#: MainWindow/FeatureDialog.cpp:70
 #, kde-format
 msgid ""
 "<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
@@ -3697,7 +3697,7 @@ msgid ""
 "images with GPS information on a map.</p>"
 msgstr ""
 
-#: MainWindow/FeatureDialog.cpp:64
+#: MainWindow/FeatureDialog.cpp:75
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on Qt's "
@@ -3714,7 +3714,7 @@ msgstr ""
 "userbase.kde.org/KPhotoAlbum#Video_Support\">KPhotoAlbum wiki 上關於影片支援"
 "的文章</a>。</p>"
 
-#: MainWindow/FeatureDialog.cpp:67
+#: MainWindow/FeatureDialog.cpp:78
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1><a name=\"videoPreview\">Video preview</a></h1><p>KPhotoAlbum uses "
@@ -3728,7 +3728,7 @@ msgstr ""
 "<h1><a name=\"videoPreview\">影片預覽</a></h1> <p>KPhotoAlbum 用 "
 "<tt>mplayer</tt> 從影片中解開縮圖。這些縮圖用於在縮圖檢視器中預覽影片。</p>"
 
-#: MainWindow/FeatureDialog.cpp:71
+#: MainWindow/FeatureDialog.cpp:82
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1><a name=\"videoPreview\">Video preview</a></h1><p>KPhotoAlbum uses "
@@ -3743,40 +3743,40 @@ msgstr ""
 "<h1><a name=\"videoPreview\">影片預覽</a></h1> <p>KPhotoAlbum 用 "
 "<tt>mplayer</tt> 從影片中解開縮圖。這些縮圖用於在縮圖檢視器中預覽影片。</p>"
 
-#: MainWindow/FeatureDialog.cpp:161
+#: MainWindow/FeatureDialog.cpp:172
 #, kde-format
 msgid "Plug-ins available"
 msgstr "可用的外掛程式"
 
-#: MainWindow/FeatureDialog.cpp:162
+#: MainWindow/FeatureDialog.cpp:173
 #, fuzzy, kde-format
 #| msgid "Sqlite database support (used for EXIF searches)"
 msgid "SQLite database support (used for Exif searches)"
 msgstr "Sqlite 資料庫支援（用於 EXIF 搜尋）"
 
-#: MainWindow/FeatureDialog.cpp:163
+#: MainWindow/FeatureDialog.cpp:174
 #, kde-format
 msgid "Map view for geotagged images."
 msgstr ""
 
-#: MainWindow/FeatureDialog.cpp:164
+#: MainWindow/FeatureDialog.cpp:175
 #, kde-format
 msgid "Video thumbnail support"
 msgstr "影片縮圖支援"
 
-#: MainWindow/FeatureDialog.cpp:165
+#: MainWindow/FeatureDialog.cpp:176
 #, fuzzy, kde-format
 #| msgid "Video support"
 msgid "Video metadata support"
 msgstr "影片支援"
 
-#: MainWindow/FeatureDialog.cpp:169
+#: MainWindow/FeatureDialog.cpp:180
 #, kde-format
 msgctxt "Feature available"
 msgid "Yes"
 msgstr "是"
 
-#: MainWindow/FeatureDialog.cpp:170
+#: MainWindow/FeatureDialog.cpp:181
 #, kde-format
 msgctxt "Feature not available"
 msgid "No"
@@ -6095,12 +6095,12 @@ msgid ""
 "error about this tag being not present on the next start.</p>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:25
+#: Settings/VideoPlayerSelectorDialog.cpp:26
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:28
+#: Settings/VideoPlayerSelectorDialog.cpp:29
 #, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
@@ -6121,14 +6121,14 @@ msgid ""
 "time change the backend from Settings -> Viewer</font></b></p></html>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:51
-#: Settings/VideoPlayerSelectorDialog.cpp:60
-#: Settings/VideoPlayerSelectorDialog.cpp:69
+#: Settings/VideoPlayerSelectorDialog.cpp:52
+#: Settings/VideoPlayerSelectorDialog.cpp:61
+#: Settings/VideoPlayerSelectorDialog.cpp:70
 #, kde-format
 msgid " (NOT AVAILABLE)"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:97
+#: Settings/VideoPlayerSelectorDialog.cpp:98
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6138,27 +6138,27 @@ msgid ""
 "talk to the maintainer of the package.</html>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:160
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:162
+#: Settings/VideoPlayerSelectorDialog.cpp:163
 #, fuzzy, kde-format
 #| msgid "Database backend"
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "資料庫後端介面"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:164
+#: Settings/VideoPlayerSelectorDialog.cpp:165
 #, fuzzy, kde-format
 #| msgid "Database backend"
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "資料庫後端介面"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:166
+#: Settings/VideoPlayerSelectorDialog.cpp:167
 #, fuzzy, kde-format
 #| msgid "Database backend"
 msgctxt "A friendly name for the video backend"

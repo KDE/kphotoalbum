@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-03 01:49+0000\n"
+"POT-Creation-Date: 2024-10-02 01:49+0000\n"
 "PO-Revision-Date: 2020-05-05 11:56+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -1603,13 +1603,13 @@ msgid "Places"
 msgstr "Kohad"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:412
+#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:428
 #, kde-format
 msgid "Events"
 msgstr "Sündmused"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:422
+#: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:438
 #, kde-format
 msgid "untagged"
 msgstr "sildistamata"
@@ -3224,7 +3224,7 @@ msgstr "Pluginad"
 msgid "Main Toolbar"
 msgstr "Peamine tööriistariba"
 
-#: lib/kpabase/SettingsData.cpp:239
+#: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3241,7 +3241,7 @@ msgstr ""
 "puhul. Niisiis pead vastama küsimusele, kas KPhotoAlbum peaks usaldama sinu "
 "piltide ajatemplit?"
 
-#: lib/kpabase/SettingsData.cpp:246
+#: lib/kpabase/SettingsData.cpp:247
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Kas usaldada ajatempleid?"
@@ -3658,13 +3658,13 @@ msgstr "Käsurida"
 msgid "Invoke External Program"
 msgstr "Välise rakenduse väljakutsumine"
 
-#: MainWindow/FeatureDialog.cpp:29
+#: MainWindow/FeatureDialog.cpp:40
 #, kde-format
 msgctxt "@title:window"
 msgid "Feature Status"
 msgstr "Omaduste olek"
 
-#: MainWindow/FeatureDialog.cpp:33
+#: MainWindow/FeatureDialog.cpp:44
 #, kde-format
 msgid ""
 "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
@@ -3673,7 +3673,7 @@ msgstr ""
 "<h1>Ülevaade</h1><p>Allpool näed KPhotoAlbumi kompileerimis- ja "
 "käitamisaegsete omaduste loendit ning nende olekut:</p>%1"
 
-#: MainWindow/FeatureDialog.cpp:37
+#: MainWindow/FeatureDialog.cpp:48
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
@@ -3720,7 +3720,7 @@ msgstr ""
 "kontrolli, et sul oleks olemas kõik vajalikud arenduspaketid, mis enamikus "
 "distributsioonides kannavad nime kdelibs<i>-devel</i> või midagi sellist.</p>"
 
-#: MainWindow/FeatureDialog.cpp:51
+#: MainWindow/FeatureDialog.cpp:62
 #, kde-format
 msgid ""
 "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports the "
@@ -3729,7 +3729,7 @@ msgstr ""
 "<h1><a name=\"purpose\">Plugina toetus</a></h1><p>KPhotoAlbum toetab "
 "<em>Purpose</em> pluginasüsteemi.</p>"
 
-#: MainWindow/FeatureDialog.cpp:54
+#: MainWindow/FeatureDialog.cpp:65
 #, kde-format
 msgid ""
 "<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
@@ -3742,7 +3742,7 @@ msgstr ""
 "SQLite'i andmebaasi. Lisaks peab olema paigaldatud Qt SQLite'i pakett (nt. "
 "qt-sql-sqlite).</p>"
 
-#: MainWindow/FeatureDialog.cpp:59
+#: MainWindow/FeatureDialog.cpp:70
 #, kde-format
 msgid ""
 "<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
@@ -3753,7 +3753,7 @@ msgstr ""
 "KPhotoAlbum on ehitatud Marble toetusega, suudab KPhotoAlbum näidata kaardil "
 "pilte koos GPS-teabega.</p>"
 
-#: MainWindow/FeatureDialog.cpp:64
+#: MainWindow/FeatureDialog.cpp:75
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on Qt's "
@@ -3771,7 +3771,7 @@ msgstr ""
 "KPhotoAlbum#Video_Support\">KPhotoAlbumi wiki artiklit video toetuse kohta</"
 "a>.</p>"
 
-#: MainWindow/FeatureDialog.cpp:67
+#: MainWindow/FeatureDialog.cpp:78
 #, kde-format
 msgid ""
 "<h1><a name=\"videoPreview\">Video thumbnail support</a></h1><p>KPhotoAlbum "
@@ -3782,7 +3782,7 @@ msgstr ""
 "kasutab pisipiltide hankimiseks videoist programmi <tt>ffmpeg</tt>. "
 "Pisipiltide abil näidatakse pisipildivaates videode eelvaatlust.</p>"
 
-#: MainWindow/FeatureDialog.cpp:71
+#: MainWindow/FeatureDialog.cpp:82
 #, kde-format
 msgid ""
 "<h1><a name=\"videoInfo\">Video metadata support</a></h1><p>KPhotoAlbum can "
@@ -3794,38 +3794,38 @@ msgstr ""
 "kasutab pikkuseteabe hankimiseks videoist programmi <tt>ffprobe</tt>. Täpne "
 "pikkuseteave on vajalik videopisipiltide korrektseks renderdamiseks.</p>"
 
-#: MainWindow/FeatureDialog.cpp:161
+#: MainWindow/FeatureDialog.cpp:172
 #, kde-format
 msgid "Plug-ins available"
 msgstr "Saadaolevad pluginad"
 
-#: MainWindow/FeatureDialog.cpp:162
+#: MainWindow/FeatureDialog.cpp:173
 #, kde-format
 msgid "SQLite database support (used for Exif searches)"
 msgstr "SQLite'i andmebaasi toetus (kasutusel EXIF-otsingus)"
 
-#: MainWindow/FeatureDialog.cpp:163
+#: MainWindow/FeatureDialog.cpp:174
 #, kde-format
 msgid "Map view for geotagged images."
 msgstr "Kaardivaade geosildistatud piltidele."
 
-#: MainWindow/FeatureDialog.cpp:164
+#: MainWindow/FeatureDialog.cpp:175
 #, kde-format
 msgid "Video thumbnail support"
 msgstr "Video pisipiltide toetus"
 
-#: MainWindow/FeatureDialog.cpp:165
+#: MainWindow/FeatureDialog.cpp:176
 #, kde-format
 msgid "Video metadata support"
 msgstr "Video metaandmete toetus"
 
-#: MainWindow/FeatureDialog.cpp:169
+#: MainWindow/FeatureDialog.cpp:180
 #, kde-format
 msgctxt "Feature available"
 msgid "Yes"
 msgstr "Jah"
 
-#: MainWindow/FeatureDialog.cpp:170
+#: MainWindow/FeatureDialog.cpp:181
 #, kde-format
 msgctxt "Feature not available"
 msgid "No"
@@ -6222,12 +6222,12 @@ msgstr ""
 "oleks ikka andmebaasis olemas. Vastasel juhul läheb see kaotsi ja sulle "
 "näidatakse järgmisel käivitumisel veateadet sildi puudumise kohta.</p>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:25
+#: Settings/VideoPlayerSelectorDialog.cpp:26
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:28
+#: Settings/VideoPlayerSelectorDialog.cpp:29
 #, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
@@ -6248,14 +6248,14 @@ msgid ""
 "time change the backend from Settings -> Viewer</font></b></p></html>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:51
-#: Settings/VideoPlayerSelectorDialog.cpp:60
-#: Settings/VideoPlayerSelectorDialog.cpp:69
+#: Settings/VideoPlayerSelectorDialog.cpp:52
+#: Settings/VideoPlayerSelectorDialog.cpp:61
+#: Settings/VideoPlayerSelectorDialog.cpp:70
 #, kde-format
 msgid " (NOT AVAILABLE)"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:97
+#: Settings/VideoPlayerSelectorDialog.cpp:98
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6265,27 +6265,27 @@ msgid ""
 "talk to the maintainer of the package.</html>"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:160
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr ""
 
-#: Settings/VideoPlayerSelectorDialog.cpp:162
+#: Settings/VideoPlayerSelectorDialog.cpp:163
 #, fuzzy, kde-format
 #| msgid "Database Backend"
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "Andmebaasi taustaprogramm"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:164
+#: Settings/VideoPlayerSelectorDialog.cpp:165
 #, fuzzy, kde-format
 #| msgid "Database Backend"
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "Andmebaasi taustaprogramm"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:166
+#: Settings/VideoPlayerSelectorDialog.cpp:167
 #, fuzzy, kde-format
 #| msgid "Database Backend"
 msgctxt "A friendly name for the video backend"

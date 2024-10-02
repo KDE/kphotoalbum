@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-08-03 01:49+0000\n"
+"POT-Creation-Date: 2024-10-02 01:49+0000\n"
 "PO-Revision-Date: 2023-08-14 21:58+0200\n"
 "Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1623,13 +1623,13 @@ msgid "Places"
 msgstr "Orte"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:412
+#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:428
 #, kde-format
 msgid "Events"
 msgstr "Ereignisse"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:422
+#: DB/XML/FileReader.cpp:540 lib/kpabase/SettingsData.cpp:438
 #, kde-format
 msgid "untagged"
 msgstr "Ohne Stichwort"
@@ -3205,7 +3205,7 @@ msgstr "Module"
 msgid "Main Toolbar"
 msgstr "Haupt-Werkzeugleiste"
 
-#: lib/kpabase/SettingsData.cpp:239
+#: lib/kpabase/SettingsData.cpp:240
 #, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
@@ -3223,7 +3223,7 @@ msgstr ""
 "eingescannt worden ist. Die Frage ist also: kann KPhotoAlbum den "
 "Zeitstempeln Ihrer Bilder vertrauen?"
 
-#: lib/kpabase/SettingsData.cpp:246
+#: lib/kpabase/SettingsData.cpp:247
 #, kde-format
 msgid "Trust Time Stamps?"
 msgstr "Zeitstempel vertrauenswürdig?"
@@ -3641,13 +3641,13 @@ msgstr "Ihre Befehlszeile"
 msgid "Invoke External Program"
 msgstr "Externes Programm starten"
 
-#: MainWindow/FeatureDialog.cpp:29
+#: MainWindow/FeatureDialog.cpp:40
 #, kde-format
 msgctxt "@title:window"
 msgid "Feature Status"
 msgstr "Funktionsstatus"
 
-#: MainWindow/FeatureDialog.cpp:33
+#: MainWindow/FeatureDialog.cpp:44
 #, kde-format
 msgid ""
 "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
@@ -3656,7 +3656,7 @@ msgstr ""
 "<h1>Überblick</h1><p>Unten sehen Sie eine Liste von Kompilier- und "
 "Laufzeitfunktionen die KPhotoAlbum besitzt und deren Status:</p>%1"
 
-#: MainWindow/FeatureDialog.cpp:37
+#: MainWindow/FeatureDialog.cpp:48
 #, kde-format
 msgid ""
 "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
@@ -3692,7 +3692,7 @@ msgstr ""
 "haben. In den meisten Distributionen tragen diese Namen wie kdelibs<i>-"
 "devel</i>.</p>"
 
-#: MainWindow/FeatureDialog.cpp:51
+#: MainWindow/FeatureDialog.cpp:62
 #, kde-format
 msgid ""
 "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports the "
@@ -3701,7 +3701,7 @@ msgstr ""
 "<h1><a name=\"purpose\">Modul-Unterstützung</a></h1><p>KPhotoAlbum "
 "unterstützt das <em>Purpose</em>-Modulsystem.</p>"
 
-#: MainWindow/FeatureDialog.cpp:54
+#: MainWindow/FeatureDialog.cpp:65
 #, kde-format
 msgid ""
 "<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
@@ -3714,7 +3714,7 @@ msgstr ""
 "benötigt KPhotoAlbum eine SQLite-Datenbank und es muss das Qt-Paket für "
 "SQLite (z. B. qt-sql-sqlite) installiert werden.</p>"
 
-#: MainWindow/FeatureDialog.cpp:59
+#: MainWindow/FeatureDialog.cpp:70
 #, kde-format
 msgid ""
 "<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
@@ -3725,7 +3725,7 @@ msgstr ""
 "h1><p>Wenn KPhotoAlbum mit der Unterstützung für Marble erstellt worden ist, "
 "kann KPhotoAlbum Bilder mit GPS-Informationen auf einer Karte anzeigen.</p>"
 
-#: MainWindow/FeatureDialog.cpp:64
+#: MainWindow/FeatureDialog.cpp:75
 #, kde-format
 msgid ""
 "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on QtAv "
@@ -3734,7 +3734,7 @@ msgstr ""
 "<h1><a name=\"video\">Video-Unterstützung</a></h1><p>KPhotoAlbum verwendet "
 "QtAv zur Anzeige von Videos. Diese wiederum basiert auf ffmpeg.</p>"
 
-#: MainWindow/FeatureDialog.cpp:67
+#: MainWindow/FeatureDialog.cpp:78
 #, kde-format
 msgid ""
 "<h1><a name=\"videoPreview\">Video thumbnail support</a></h1><p>KPhotoAlbum "
@@ -3745,7 +3745,7 @@ msgstr ""
 "verwendet <tt>ffmpeg</tt>, um Vorschaubilder aus Videos zu extrahieren. "
 "Diese Vorschaubilder werden im Vorschaubereich angezeigt.</p>"
 
-#: MainWindow/FeatureDialog.cpp:71
+#: MainWindow/FeatureDialog.cpp:82
 #, kde-format
 msgid ""
 "<h1><a name=\"videoInfo\">Video metadata support</a></h1><p>KPhotoAlbum can "
@@ -3759,38 +3759,38 @@ msgstr ""
 "angezeigt.</p><p>Die richtige Information über die Länge eines Videos ist "
 "für das korrekte Rendern von Video-Vorschaubildern nötig.</p>"
 
-#: MainWindow/FeatureDialog.cpp:161
+#: MainWindow/FeatureDialog.cpp:172
 #, kde-format
 msgid "Plug-ins available"
 msgstr "Verfügbare Module"
 
-#: MainWindow/FeatureDialog.cpp:162
+#: MainWindow/FeatureDialog.cpp:173
 #, kde-format
 msgid "SQLite database support (used for Exif searches)"
 msgstr "SQLite-Datenbankunterstützung (wird für Exif-Suche verwendet)"
 
-#: MainWindow/FeatureDialog.cpp:163
+#: MainWindow/FeatureDialog.cpp:174
 #, kde-format
 msgid "Map view for geotagged images."
 msgstr "Kartenansicht für geolokalisierte Bilder."
 
-#: MainWindow/FeatureDialog.cpp:164
+#: MainWindow/FeatureDialog.cpp:175
 #, kde-format
 msgid "Video thumbnail support"
 msgstr "Video-Vorschaubildunterstützung"
 
-#: MainWindow/FeatureDialog.cpp:165
+#: MainWindow/FeatureDialog.cpp:176
 #, kde-format
 msgid "Video metadata support"
 msgstr "Unterstützung von Video-Metadaten"
 
-#: MainWindow/FeatureDialog.cpp:169
+#: MainWindow/FeatureDialog.cpp:180
 #, kde-format
 msgctxt "Feature available"
 msgid "Yes"
 msgstr "Ja"
 
-#: MainWindow/FeatureDialog.cpp:170
+#: MainWindow/FeatureDialog.cpp:181
 #, kde-format
 msgctxt "Feature not available"
 msgid "No"
@@ -6196,12 +6196,12 @@ msgstr ""
 "verloren, und Sie erhalten beim nächsten Start eine Fehlermeldung, dass "
 "dieses Tag nicht vorhanden ist.</p>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:25
+#: Settings/VideoPlayerSelectorDialog.cpp:26
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
 msgstr "<h1>Einen Videoplayer auswählen</h1>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:28
+#: Settings/VideoPlayerSelectorDialog.cpp:29
 #, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
@@ -6241,14 +6241,14 @@ msgstr ""
 "color=red>Das Backend kann man jederzeit unter Einstellungen -> Betrachter</"
 "font></b></p> wechseln.</html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:51
-#: Settings/VideoPlayerSelectorDialog.cpp:60
-#: Settings/VideoPlayerSelectorDialog.cpp:69
+#: Settings/VideoPlayerSelectorDialog.cpp:52
+#: Settings/VideoPlayerSelectorDialog.cpp:61
+#: Settings/VideoPlayerSelectorDialog.cpp:70
 #, kde-format
 msgid " (NOT AVAILABLE)"
 msgstr " (Nicht verfügbar)"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:97
+#: Settings/VideoPlayerSelectorDialog.cpp:98
 #, kde-format
 msgid ""
 "<html><h1>Missing back-end</h1>The back-ends which are not available are due "
@@ -6264,25 +6264,25 @@ msgstr ""
 "KPhotoAlbum von Ihrem System erhalten haben, dann sprechen Sie bitte mit dem "
 "Betreuer des Pakets.</html>"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:160
+#: Settings/VideoPlayerSelectorDialog.cpp:161
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
 msgstr "Backend für Video nicht konfiguriert"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:162
+#: Settings/VideoPlayerSelectorDialog.cpp:163
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
 msgstr "Phonon-Backend für Video"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:164
+#: Settings/VideoPlayerSelectorDialog.cpp:165
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
 msgstr "QtAV-Backend für Video"
 
-#: Settings/VideoPlayerSelectorDialog.cpp:166
+#: Settings/VideoPlayerSelectorDialog.cpp:167
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"

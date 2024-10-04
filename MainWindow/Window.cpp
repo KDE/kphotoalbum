@@ -974,7 +974,11 @@ void MainWindow::Window::setupMenuBar()
     });
     connect(Settings::SettingsData::instance(), &Settings::SettingsData::displayCategoriesChanged, a, &QAction::setChecked);
 
+#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+    KColorSchemeManager *schemes = KColorSchemeManager::instance();
+#else
     KColorSchemeManager *schemes = new KColorSchemeManager(this);
+#endif
     const QString schemePath = Settings::SettingsData::instance()->colorScheme();
     const auto schemeCfg = KSharedConfig::openConfig(schemePath);
     const QString activeSchemeName = schemeCfg->group(QLatin1String("General")).readEntry(QLatin1String("Name"), QFileInfo(schemePath).baseName());

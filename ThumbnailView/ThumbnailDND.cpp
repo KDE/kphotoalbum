@@ -99,17 +99,12 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
 
     const QString title = i18nc("@title", "Reorder Thumbnails");
     const QString dontAskAgainName = QString::fromLatin1("reorder_images");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     const auto answer = KMessageBox::questionTwoActions(widget(),
                                                         question,
                                                         title,
                                                         KStandardGuiItem::ok(),
                                                         KStandardGuiItem::cancel(), dontAskAgainName);
     if (answer == KMessageBox::ButtonCode::PrimaryAction) {
-#else
-    const auto answer = KMessageBox::questionYesNo(widget(), question, title, KStandardGuiItem::yes(), KStandardGuiItem::no(), dontAskAgainName);
-    if (answer == KMessageBox::Yes) {
-#endif
         // expand selection so that stacks are always selected as a whole:
         const DB::FileNameList selected = widget()->selection(IncludeAllStacks);
 

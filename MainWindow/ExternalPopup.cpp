@@ -15,14 +15,12 @@
 #include <kpabase/FileNameList.h>
 #include <kpabase/SettingsData.h>
 
+#include <KApplicationTrader>
 #include <KFileItem>
-#include <KLocalizedString>
-#include <kio_version.h>
 #include <KIO/ApplicationLauncherJob>
 #include <KIO/JobUiDelegate>
 #include <KIO/JobUiDelegateFactory>
-#include <kservice_version.h>
-#include <KApplicationTrader>
+#include <KLocalizedString>
 #include <KService>
 #include <KShell>
 #include <QFile>
@@ -30,9 +28,11 @@
 #include <QLabel>
 #include <QMimeDatabase>
 #include <QPixmap>
+#include <QRegularExpression>
 #include <QStringList>
 #include <QUrl>
-#include <QRegularExpression>
+#include <kio_version.h>
+#include <kservice_version.h>
 
 #include <utility>
 
@@ -91,18 +91,10 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
             const QList<QUrl> urls = relevantUrls(which);
 
             auto *uiParent = MainWindow::Window::theMainWindow();
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-            KRun::displayOpenWithDialog(urls, uiParent);
-#else
-                auto job = new KIO::ApplicationLauncherJob();
-                job->setUrls(urls);
-#if KIO_VERSION < QT_VERSION_CHECK(5, 98, 0)
-                job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
-#else
-                job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
-#endif
-                job->start();
-#endif
+            auto job = new KIO::ApplicationLauncherJob();
+            job->setUrls(urls);
+            job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
+            job->start();
         });
 
         // A personal command
@@ -161,18 +153,10 @@ QList<QUrl> MainWindow::ExternalPopup::relevantUrls(PopupAction which)
 void MainWindow::ExternalPopup::runService(KService::Ptr service, QList<QUrl> urls)
 {
     auto *uiParent = MainWindow::Window::theMainWindow();
-#if KIO_VERSION < QT_VERSION_CHECK(5, 70, 0)
-    KRun::runService(*service, urls, uiParent);
-#else
     auto job = new KIO::ApplicationLauncherJob(service);
     job->setUrls(urls);
-#if KIO_VERSION < QT_VERSION_CHECK(5, 98, 0)
-    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
-#else
     job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
-#endif
     job->start();
-#endif
 }
 
 MainWindow::ExternalPopup::ExternalPopup(QWidget *parent)

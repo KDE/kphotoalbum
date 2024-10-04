@@ -330,7 +330,6 @@ void Settings::CategoryPage::positionableChanged(bool positionable)
                                       "will be discarded!</p>",
                                       m_currentCategory->text());
 
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActions(this,
                                                             question,
                                                             i18nc("@title", "Confirm Action"),
@@ -340,13 +339,6 @@ void Settings::CategoryPage::positionableChanged(bool positionable)
             m_positionable->setCheckState(Qt::Checked);
             return;
         }
-#else
-        int answer = KMessageBox::questionYesNo(this, question);
-        if (answer == KMessageBox::No) {
-            m_positionable->setCheckState(Qt::Checked);
-            return;
-        }
-#endif
     }
 
     m_currentCategory->setPositionable(positionable);
@@ -411,7 +403,6 @@ void Settings::CategoryPage::deleteCurrentCategory()
 {
     const QString question = i18n("<p>Really delete category \"%1\"?</p>",
                                   m_currentCategory->text());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     const auto answer = KMessageBox::questionTwoActions(this,
                                                         question,
                                                         i18n("Confirm Action"),
@@ -420,12 +411,6 @@ void Settings::CategoryPage::deleteCurrentCategory()
     if (answer == KMessageBox::ButtonCode::SecondaryAction) {
         return;
     }
-#else
-    const auto answer = KMessageBox::questionYesNo(this, question);
-    if (answer == KMessageBox::No) {
-        return;
-    }
-#endif
 
     m_untaggedBox->categoryDeleted(m_currentCategory->text());
     m_deletedCategories.append(m_currentCategory);

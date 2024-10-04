@@ -442,20 +442,12 @@ bool HTMLDialog::checkVars()
                                       outputDir, outputDir);
         const QString title = i18nc("@title", "Folder Exists");
         const QString dontAskAgainName = QString::fromLatin1("html_export_delete_original_directory");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActions(this,
                                                             question,
                                                             title,
                                                             KStandardGuiItem::del(),
                                                             KStandardGuiItem::cancel(), dontAskAgainName);
         if (answer == KMessageBox::ButtonCode::PrimaryAction) {
-#else
-        int answer = KMessageBox::warningYesNo(this,
-                                               question,
-                                               title, KStandardGuiItem::yes(), KStandardGuiItem::no(),
-                                               dontAskAgainName);
-        if (answer == KMessageBox::Yes) {
-#endif
             QScopedPointer<KJob> delJob(KIO::del(QUrl::fromUserInput(outputDir)));
             KJobWidgets::setWindow(delJob.data(), MainWindow::Window::theMainWindow());
             delJob->exec();

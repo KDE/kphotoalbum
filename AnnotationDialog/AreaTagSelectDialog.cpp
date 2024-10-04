@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2016 Tobias Leupold <tl at stonemx dot de>
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -59,11 +59,7 @@ AnnotationDialog::AreaTagSelectDialog::AreaTagSelectDialog(AnnotationDialog::Res
     mainLayout->addWidget(tagMenu, 2, 0, 1, 2);
     connect(tagMenu, &QMenu::triggered, this, &QDialog::accept);
 
-#if KCOMPLETION_VERSION >= QT_VERSION_CHECK(5, 81, 0)
     connect(tagSelect, &KLineEdit::returnKeyPressed, this, &AreaTagSelectDialog::slotSetTag);
-#else
-    connect(tagSelect, &KLineEdit::returnPressed, this, &AreaTagSelectDialog::slotSetTag);
-#endif
     connect(tagSelect, &QLineEdit::textChanged, this, &AreaTagSelectDialog::slotValidateTag);
     connect(this, &QDialog::finished, this, &AreaTagSelectDialog::slotFinished);
 }

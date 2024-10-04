@@ -155,17 +155,12 @@ QString FileDialog::getFileName()
         if (!QFileInfo::exists(dir)) {
             const QString question = i18n("Folder does not exist, create it?");
             const QString title = i18nc("@title", "Create folder?");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             const auto answer = KMessageBox::questionTwoActions(this,
                                                                 question,
                                                                 title,
                                                                 KGuiItem(i18nc("@action:button", "Create")),
                                                                 KStandardGuiItem::cancel());
             if (answer == KMessageBox::ButtonCode::PrimaryAction) {
-#else
-            const auto answer = KMessageBox::questionYesNo(this, question, title);
-            if (answer == KMessageBox::Yes) {
-#endif
                 bool ok2 = QDir().mkdir(dir);
                 if (!ok2) {
                     KMessageBox::error(this, i18n("Could not create folder %1", dir));

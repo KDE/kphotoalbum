@@ -86,9 +86,7 @@
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KColorSchemeManager>
-#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(5, 107, 0)
 #include <KColorSchemeMenu>
-#endif
 #include <KConfigGroup>
 #include <KEditToolBar>
 #include <KIconLoader>
@@ -284,11 +282,6 @@ void MainWindow::Window::delayedInit()
         // I need to do this in delayed init to get the import window on top of the normal window
         ImportExport::Import::imageImport(importUrl);
         qCInfo(TimingLog) << "MainWindow: imageImport:" << timer.restart() << "ms.";
-    } else {
-#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 83, 0)
-        // I need to postpone this otherwise the tip dialog will not get focus on start up
-        KTipDialog::showTip(this);
-#endif
     }
 
     qCInfo(TimingLog) << "MainWindow: Loading Exif DB:" << timer.restart() << "ms.";
@@ -311,7 +304,6 @@ bool MainWindow::Window::queryClose()
                                       "on the other hand, if you want to come back and try the demo again, you "
                                       "might want to keep it around with the changes you made through this session.</p>");
         const QString title = i18nc("@title", "Delete Demo Database");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActionsCancel(widget(),
                                                                   question,
                                                                   title,
@@ -322,14 +314,6 @@ bool MainWindow::Window::queryClose()
         if (answer == KMessageBox::Cancel)
             return false;
         else if (answer == KMessageBox::PrimaryAction) {
-#else
-        const auto answer = KMessageBox::questionYesNoCancel(this, question, title,
-                                                             KStandardGuiItem::yes(), KStandardGuiItem::no(), KStandardGuiItem::cancel(),
-                                                             QString::fromLatin1("deleteDemoDatabase"));
-        if (answer == KMessageBox::Cancel)
-            return false;
-        else if (answer == KMessageBox::Yes) {
-#endif
             deleteDemoDB = true;
         } else {
             slotSave();
@@ -337,7 +321,6 @@ bool MainWindow::Window::queryClose()
     } else if (m_statusBar->mp_dirtyIndicator->isSaveDirty()) {
         const QString question = i18n("Do you want to save the changes?");
         const QString title = i18nc("@title", "Save Changes?");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActionsCancel(widget(),
                                                                   question,
                                                                   title,
@@ -346,11 +329,6 @@ bool MainWindow::Window::queryClose()
                                                                   KStandardGuiItem::cancel());
         constexpr auto REPLY_SAVE = KMessageBox::PrimaryAction;
         constexpr auto REPLY_DONTSAVE = KMessageBox::SecondaryAction;
-#else
-        const auto answer = KMessageBox::questionYesNoCancel(this, question, title);
-        constexpr auto REPLY_SAVE = KMessageBox::Yes;
-        constexpr auto REPLY_DONTSAVE = KMessageBox::No;
-#endif
         if (answer == KMessageBox::Cancel) {
             return false;
         }
@@ -397,17 +375,12 @@ void MainWindow::Window::slotCreateImageStack()
                                       "Do you want to remove them from their stacks and create a "
                                       "completely new one?");
         const QString title = i18nc("@title", "Stacking problem");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActions(widget(),
                                                             question,
                                                             title,
                                                             KStandardGuiItem::ok(),
                                                             KStandardGuiItem::cancel());
         if (answer == KMessageBox::ButtonCode::PrimaryAction) {
-#else
-        const auto answer = KMessageBox::questionYesNo(this, question, title);
-        if (answer == KMessageBox::Yes) {
-#endif
             DB::ImageDB::instance()->unstack(list);
             if (!DB::ImageDB::instance()->stack(list)) {
                 KMessageBox::error(this,
@@ -913,11 +886,7 @@ void MainWindow::Window::setupMenuBar()
     m_viewMenu = actionCollection()->add<KActionMenu>(QString::fromLatin1("configureView"));
     m_viewMenu->setText(i18n("Configure Current View"));
     m_viewMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("view-list-details")));
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
     m_viewMenu->setPopupMode(QToolButton::InstantPopup);
-#else
-    m_viewMenu->setDelayed(false);
-#endif
 
     QActionGroup *viewGrp = new QActionGroup(this);
     viewGrp->setExclusive(true);
@@ -974,29 +943,17 @@ void MainWindow::Window::setupMenuBar()
     });
     connect(Settings::SettingsData::instance(), &Settings::SettingsData::displayCategoriesChanged, a, &QAction::setChecked);
 
-#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(6, 6, 0)
     KColorSchemeManager *schemes = KColorSchemeManager::instance();
-#else
-    KColorSchemeManager *schemes = new KColorSchemeManager(this);
-#endif
     const QString schemePath = Settings::SettingsData::instance()->colorScheme();
     const auto schemeCfg = KSharedConfig::openConfig(schemePath);
     const QString activeSchemeName = schemeCfg->group(QLatin1String("General")).readEntry(QLatin1String("Name"), QFileInfo(schemePath).baseName());
-#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(5, 107, 0)
     const auto activeSchemeIndex = schemes->indexForScheme(activeSchemeName);
     if (activeSchemeIndex.isValid())
         schemes->activateScheme(activeSchemeIndex);
     m_colorSchemeMenu = KColorSchemeMenu::createMenu(schemes, this);
-#else
-    m_colorSchemeMenu = schemes->createSchemeSelectionMenu(activeSchemeName, this);
-#endif
     m_colorSchemeMenu->setText(i18n("Choose Color Scheme"));
     m_colorSchemeMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("color")));
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
     m_colorSchemeMenu->setPopupMode(QToolButton::InstantPopup);
-#else
-    m_colorSchemeMenu->setDelayed(false);
-#endif
     actionCollection()->addAction(QString::fromLatin1("colorScheme"), m_colorSchemeMenu);
 
     // Maintenance
@@ -1048,10 +1005,6 @@ void MainWindow::Window::setupMenuBar()
     a->setText(i18n("Enable All Messages"));
 
     // The help menu
-#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 83, 0)
-    KStandardAction::tipOfDay(this, &Window::showTipOfDay, actionCollection());
-#endif
-
     a = actionCollection()->addAction(QString::fromLatin1("runDemo"), this, &Window::runDemo);
     a->setText(i18n("Run KPhotoAlbum Demo"));
 
@@ -1148,14 +1101,6 @@ void MainWindow::Window::slotOptionGroupChanged()
 void MainWindow::Window::slotFilterChanged()
 {
     m_statusBar->mp_partial->showBrowserMatches(m_thumbnailView->imageList(ThumbnailView::ViewOrder).size());
-}
-
-void MainWindow::Window::showTipOfDay()
-{
-    // deprecated without in-program replacement
-#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 83, 0)
-    KTipDialog::showTip(this, QString(), true);
-#endif
 }
 
 void MainWindow::Window::runDemo()

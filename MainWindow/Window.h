@@ -164,7 +164,6 @@ protected Q_SLOTS:
     void showBrowser();
     void slotOptionGroupChanged();
     void slotFilterChanged();
-    void showTipOfDay();
     void lockToDefaultScope();
     void setDefaultScopePositive();
     void setDefaultScopeNegative();

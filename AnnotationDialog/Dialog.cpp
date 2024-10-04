@@ -52,6 +52,7 @@
 #include <KRatingWidget>
 #include <KTextEdit>
 #include <QAction>
+#include <QActionGroup>
 #include <QApplication>
 #include <QCloseEvent>
 #include <QCursor>
@@ -73,7 +74,6 @@
 #include <QTimeEdit>
 #include <QVBoxLayout>
 #include <QtGlobal>
-#include <QActionGroup>
 
 #include <algorithm>
 #include <kwidgetsaddons_version.h>
@@ -294,8 +294,7 @@ AnnotationDialog::Dialog::Dialog(QWidget *parent)
     connect(DB::ImageDB::instance(), &DB::ImageDB::imagesDeleted, this, &Dialog::slotDiscardFiles);
 
     // Restore the last position and size
-    QTimer::singleShot(0, this, [this]
-    {
+    QTimer::singleShot(0, this, [this] {
         Settings::SettingsData::instance()->restoreWindowGeometry(Settings::AnnotationDialog, windowHandle());
     });
 }
@@ -1034,7 +1033,6 @@ void AnnotationDialog::Dialog::reject()
     if (hasChanges()) {
         const QString question = i18n("<p>Some changes are made to annotations. Do you really want to discard all recent changes for each affected file?</p>");
         const QString title = i18nc("@title", "Discard changes?");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActions(this,
                                                             question,
                                                             title,
@@ -1042,11 +1040,6 @@ void AnnotationDialog::Dialog::reject()
                                                             KStandardGuiItem::cancel());
         if (answer != KMessageBox::ButtonCode::PrimaryAction)
             return;
-#else
-        int code = KMessageBox::questionYesNo(this, question, title);
-        if (code == KMessageBox::No)
-            return;
-#endif
     }
     closeDialog();
 }
@@ -1226,7 +1219,7 @@ void AnnotationDialog::Dialog::loadWindowLayout()
         qCWarning(AnnotationDialogLog) << "No annotation dialog layout data found."
                                        << "Checking for a KPA 5 layout.dat file ...";
         const auto layoutDat = QStringLiteral("%1/layout.dat").arg(Settings::SettingsData::instance()->imageDirectory());
-        if (! QFileInfo::exists(layoutDat)) {
+        if (!QFileInfo::exists(layoutDat)) {
             qCWarning(AnnotationDialogLog) << "Could not find a KPA 5 layout.dat file";
         } else {
             QFile file(layoutDat);
@@ -1240,7 +1233,7 @@ void AnnotationDialog::Dialog::loadWindowLayout()
         }
     }
 
-    if (! m_dockWindow->restoreState(state)) {
+    if (!m_dockWindow->restoreState(state)) {
         // create default layout
         // label/date/rating in a visual block with description:
         m_dockWindow->splitDockWidget(m_generalDock, m_descriptionDock, Qt::Vertical);

@@ -8,6 +8,8 @@
 
 #include "Window.h"
 
+#include <KIO/CommandLauncherJob>
+#include <KIO/JobUiDelegate>
 #include <KLocalizedString>
 #include <QDialog>
 #include <QDialogButtonBox>
@@ -16,12 +18,6 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <kio_version.h>
-#if KIO_VERSION > QT_VERSION_CHECK(5, 69, 0)
-#include <KIO/CommandLauncherJob>
-#include <KIO/JobUiDelegate>
-#else
-#include <KRun>
-#endif
 #include <kshell.h>
 
 #include <utility>
@@ -94,23 +90,15 @@ void MainWindow::RunDialog::slotMarkGo()
             cmdOnce = cmdString;
             cmdOnce.replace(replaceeach, filename.absolute());
             auto *uiParent = MainWindow::Window::theMainWindow();
-#if KIO_VERSION <= QT_VERSION_CHECK(5, 69, 0)
-            KRun::runCommand(cmdOnce, uiParent);
-#else
             KIO::CommandLauncherJob *job = new KIO::CommandLauncherJob(cmdOnce);
             job->setUiDelegate(new KDialogJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
             job->start();
-#endif
         }
     } else {
         auto *uiParent = MainWindow::Window::theMainWindow();
-#if KIO_VERSION <= QT_VERSION_CHECK(5, 69, 0)
-        KRun::runCommand(cmdString, uiParent);
-#else
         KIO::CommandLauncherJob *job = new KIO::CommandLauncherJob(cmdString);
         job->setUiDelegate(new KDialogJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
         job->start();
-#endif
     }
 }
 

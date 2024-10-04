@@ -9,10 +9,10 @@
 #include "ListSelect.h"
 
 #include <QKeyEvent>
+#include <QRegularExpression>
 #include <QTreeWidgetItem>
 #include <QTreeWidgetItemIterator>
 #include <kcompletion_version.h>
-#include <QRegularExpression>
 
 AnnotationDialog::CompletableLineEdit::CompletableLineEdit(ListSelect *parent)
     : KLineEdit(parent)
@@ -63,11 +63,7 @@ void AnnotationDialog::CompletableLineEdit::keyPressEvent(QKeyEvent *ev)
         // If final Return is handled by the default implementation,
         // it can "leak" to other widgets. So we swallow it here:
         if (ev->key() == Qt::Key_Return || ev->key() == Qt::Key_Enter)
-#if KCOMPLETION_VERSION >= QT_VERSION_CHECK(5, 81, 0)
             Q_EMIT KLineEdit::returnKeyPressed(text());
-#else
-            Q_EMIT KLineEdit::returnPressed(text());
-#endif
         else
             KLineEdit::keyPressEvent(ev);
         if (prevContent != text())

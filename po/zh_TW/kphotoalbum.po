@@ -5,20 +5,21 @@
 # Franklin Weng <franklin@goodhorse.idv.tw>, 2010, 2011, 2012, 2013, 2014.
 # Frank Weng (a.k.a. Franklin) <franklin at goodhorse dot idv dot tw>, 2008, 2009, 2010.
 # pan93412 <pan93412@gmail.com>, 2019.
+# SPDX-FileCopyrightText: 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-02 01:49+0000\n"
-"PO-Revision-Date: 2019-01-19 19:46+0800\n"
-"Last-Translator: pan93412 <pan93412@gmail.com>\n"
-"Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
+"PO-Revision-Date: 2024-10-07 15:40+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 18.12.1\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -204,12 +205,12 @@ msgstr "=="
 #: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid ">="
-msgstr ""
+msgstr ">="
 
 #: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "<="
-msgstr ""
+msgstr "<="
 
 #: AnnotationDialog/Dialog.cpp:406
 #, kde-format
@@ -256,10 +257,9 @@ msgid "Annotations"
 msgstr "註記"
 
 #: AnnotationDialog/Dialog.cpp:873
-#, fuzzy, kde-format
-#| msgid "Configure window layout..."
+#, kde-format
 msgid "Configure Window Layout..."
-msgstr "設定視窗佈局..."
+msgstr "設定視窗佈局…"
 
 #: AnnotationDialog/Dialog.cpp:874
 #, kde-format
@@ -284,8 +284,7 @@ msgid "Sort Alphabetically (Flat)"
 msgstr "依字母排序（平面）"
 
 #: AnnotationDialog/Dialog.cpp:890
-#, fuzzy, kde-format
-#| msgid "Sort by date"
+#, kde-format
 msgid "Sort by Date"
 msgstr "依日期排序"
 
@@ -772,27 +771,27 @@ msgstr ""
 #: BackgroundJobs/ExtractOneThumbnailJob.cpp:42
 #, kde-format
 msgid "Extracting Thumbnail"
-msgstr "正在展開縮圖"
+msgstr "正在取出縮圖"
 
 #: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:39
 #, kde-format
 msgid "Extract Video Thumbnail"
-msgstr "展開影像縮圖"
+msgstr "取出影片縮圖"
 
 #: BackgroundJobs/ReadVideoLengthJob.cpp:30
 #, kde-format
 msgid "Read Video Length"
-msgstr "讀取影像長度"
+msgstr "讀取影片長度"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
 msgid "Search for videos without length information"
-msgstr "搜尋沒有長度資訊的影像"
+msgstr "搜尋沒有長度資訊的影片"
 
 #: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:57
 #, kde-format
 msgid "Searching for videos without video thumbnails"
-msgstr "搜尋沒有影像縮圖的影像"
+msgstr "搜尋沒有影片縮圖的影片"
 
 #: BackgroundTaskManager/JobInfo.cpp:55
 #, kde-format
@@ -853,7 +852,7 @@ msgstr ""
 "<p>作用中工作：%1<br/>暫停的工作：%2<hr/><br/>顏色代碼：<ul><li><b>閃爍綠色</"
 "b>：作用中的背景工作</li><li><b>灰色</b>：沒有作用中的工作</li><li><b>實心黃"
 "色</b>：工作佇列已被暫停</li><li><b>閃爍黃色</b>：工作佇列中的背景工作已暫"
-"停，前景工作執行中（例如正在縮圖檢視器中展開影片檔縮圖）</li></ul></p>"
+"停，前景工作執行中（例如正在縮圖檢視器中取出影片檔縮圖）</li></ul></p>"
 
 #: Browser/AbstractCategoryModel.cpp:41 Exif/SearchDialog.cpp:387
 #: lib/kpaexif/SearchInfo.cpp:191
@@ -1474,7 +1473,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:444
 #, kde-format
 msgid "Images/Videos Are Not Sorted"
-msgstr "圖片或影像未排序"
+msgstr "圖片或影片未排序"
 
 #: DB/XML/FileReader.cpp:456
 #, kde-format
@@ -1734,7 +1733,7 @@ msgstr "EXIF 資訊"
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
-msgstr ""
+msgstr "過濾標籤…"
 
 #: Exif/InfoDialog.cpp:77
 #, kde-format
@@ -1756,12 +1755,12 @@ msgstr "影片支援"
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
 msgid "Absolute path:"
-msgstr ""
+msgstr "絕對路徑："
 
 #: Exif/MetaDataDisplay.cpp:42
 #, kde-format
 msgid "MIME type:"
-msgstr ""
+msgstr "MIME 類型："
 
 #: Exif/MetaDataDisplay.cpp:46 Settings/ViewerSizeConfig.cpp:26
 #, kde-format
@@ -1771,17 +1770,17 @@ msgstr "大小："
 #: Exif/MetaDataDisplay.cpp:50
 #, kde-format
 msgid "Created:"
-msgstr ""
+msgstr "建立時間："
 
 #: Exif/MetaDataDisplay.cpp:54
 #, kde-format
 msgid "Changed:"
-msgstr ""
+msgstr "變更時間："
 
 #: Exif/MetaDataDisplay.cpp:58
 #, kde-format
 msgid "Owner:"
-msgstr ""
+msgstr "擁有者："
 
 #: Exif/MetaDataDisplay.cpp:62
 #, fuzzy, kde-format
@@ -1793,12 +1792,12 @@ msgstr "群組名稱："
 #: Exif/MetaDataDisplay.cpp:66
 #, kde-format
 msgid "Permissions:"
-msgstr ""
+msgstr "權限："
 
 #: Exif/MetaDataDisplay.cpp:100
 #, kde-format
 msgid "Open folder with a file manager"
-msgstr ""
+msgstr "使用檔案管理員開啟資料夾"
 
 #: Exif/MetaDataDisplay.cpp:107
 #, fuzzy, kde-format
@@ -1940,7 +1939,7 @@ msgstr "相機"
 #: Exif/SearchDialog.cpp:103
 #, kde-format
 msgid "Lens"
-msgstr ""
+msgstr "鏡頭"
 
 #: Exif/SearchDialog.cpp:108 Settings/GeneralPage.cpp:115
 #, kde-format
@@ -2131,13 +2130,13 @@ msgid ""
 "<p>This selection will generate video files suitable for displaying on web. "
 "avconv and ffmpeg2theora are required for video file generation.</p>"
 msgstr ""
-"<p>這個選項會產生適用於在網頁上顯示的影像檔。要產生影像檔需要 avconv 與 "
+"<p>這個選項會產生適用於在網頁上顯示的影片檔。要產生影片檔需要 avconv 與 "
 "ffmpeg2theora 兩支程式。</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:131
 #, kde-format
 msgid "Generate HTML5 video files (mp4 and ogg)"
-msgstr "產生 HTML5 影像檔（mp4 與 ogg）"
+msgstr "產生 HTML5 影片檔（mp4 與 ogg）"
 
 #: HTMLGenerator/HTMLDialog.cpp:139
 #, kde-format
@@ -2385,7 +2384,7 @@ msgstr "未知的錯誤"
 #: ImageManager/ExtractOneVideoFrame.cpp:113
 #, kde-format
 msgid "<p>Error when extracting video thumbnails.<br/>Error was: %1</p>"
-msgstr "<p>展開影像縮圖時發生錯誤。<br/>錯誤為：%1</p>"
+msgstr "<p>取出影片縮圖時發生錯誤。<br/>錯誤為：%1</p>"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:137
 #, kde-format
@@ -2397,6 +2396,10 @@ msgid ""
 "(You might need to wait till the video extraction led in your status bar has "
 "stopped blinking, to see all affected videos.)"
 msgstr ""
+"無法從某些檔案取出影片縮圖。這可能是因為檔案已毀損，或是因為影片太短。為了您"
+"的方便，已將這些影片標記為「%1」。\n"
+"\n"
+"（您可能需要等到影片取出）"
 
 #: ImageManager/ThumbnailBuilder.cpp:103
 #, kde-format
@@ -2520,7 +2523,7 @@ msgid ""
 "place them next to each other, so the user can access the images s/he wants."
 "</p>"
 msgstr ""
-"<p>匯出影像時，請記住有兩件事是在將這些影像再度匯入時需要的：<br/> 1)輔助資訊"
+"<p>匯出影像時，請記住有兩件事是在將這些影像再度匯入時需要的：<br/> 1)中繼資料"
 "（影像內容、日期等）<br/> 2)這些影像本身。</p> <p>影像本身可以放在 .kim 檔之"
 "後，或複製到 .kim 檔中。複製影像到 .kim 檔中對需要全部或大部份影像的接收者來"
 "說是 ok 的，例如要將整個群組的影像寄出去。不過，若您將影像放在網頁中，可能會"
@@ -2550,7 +2553,7 @@ msgstr "正在建立縮圖"
 #: ImportExport/Export.cpp:310
 #, kde-format
 msgid "Copying image files"
-msgstr "正在覆製影像檔"
+msgstr "正在複製影像檔"
 
 #: ImportExport/Export.cpp:375
 #, kde-format
@@ -2602,27 +2605,7 @@ msgid ""
 msgstr "<p>XML 檔未指定影像來源，這很有可能表示檔案已損毀。</p>"
 
 #: ImportExport/ImportDialog.cpp:118
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This "
-#| "wizard will take you through the steps of an import operation. The steps "
-#| "are: <ol><li>First you must select which images you want to import from "
-#| "the export file. You do so by selecting the checkbox next to the image.</"
-#| "li><li>Next you must tell KPhotoAlbum in which directory to put the "
-#| "images. This directory must of course be below the directory root "
-#| "KPhotoAlbum uses for images. KPhotoAlbum will take care to avoid name "
-#| "clashes</li><li>The next step is to specify which categories you want to "
-#| "import (People, Places, ... ) and also tell KPhotoAlbum how to match the "
-#| "categories from the file to your categories. Imagine you load from a "
-#| "file, where a category is called <b>Blomst</b> (which is the Danish word "
-#| "for flower), then you would likely want to match this with your category, "
-#| "which might be called <b>Blume</b> (which is the German word for flower) "
-#| "- of course given you are German.</li><li>The final steps, is matching "
-#| "the individual tokens from the categories. I may call myself <b>Jesper</"
-#| "b> in my image database, while you want to call me by my full name, "
-#| "namely <b>Jesper K. Pedersen</b>. In this step non matches will be "
-#| "highlighted in red, so you can see which tokens was not found in your "
-#| "database, or which tokens was only a partial match.</li></ol>"
+#, kde-format
 msgid ""
 "<h1><font size=\"+2\">Welcome to KPhotoAlbum Import</font></h1>This wizard "
 "will take you through the steps of an import operation. The steps are: "
@@ -2647,14 +2630,14 @@ msgstr ""
 "<h1><font size=\"+2\">歡迎使用 KPhotoAlbum 匯入精靈</font></h1> 此精靈會帶領"
 "您一步步進行匯入的操作。這些步驟包括：<ol><li>首先，您必須選擇您要從匯出檔中"
 "匯入哪些影像。您可以用影像後面的勾選盒選取。</li> <li>再來，您要告訴 "
-"KPhotoAlbum 影像要放在哪個目錄。此目錄當然必須要在 KPhotoAlbum 用於存影像的根"
-"目錄之下。KPhotoAlbum 將會負責避免檔名重覆。</li> <li>再下一步是指定您要匯入"
-"哪一種類別（如人物、地點等），並告訴 KPhotoAlbum 如何從檔案比對類別。比方說您"
-"從一個檔案中載入，有一個類別叫做 <b>Flower</b>，您可寧會讓它與您的名為「花」"
-"的類別「綁」在一起。</li> <li>最後，比對類別中的每個項目。例如說，您在自己的"
-"影像資料庫中有一個屬於您自己的類別，而別人送來的您的照片的影像標籤可能與您的"
-"類別不同，您可以將它們綁在一起。在這裡，未比對的會以紅色標出，您可以看到哪些"
-"不在您的資料庫中。</li></ol>"
+"KPhotoAlbum 影像要放在哪個資料夾中。此資料夾當然必須要在 KPhotoAlbum 用於儲存"
+"影像的基礎資料夾之中。KPhotoAlbum 將會負責避免檔名重複。</li> <li>再下一步是"
+"指定您要匯入哪一種類別（如人物、地點等），並告訴 KPhotoAlbum 如何從檔案比對類"
+"別。比方說您從一個檔案中載入，有一個類別叫做 <b>Flower</b>，您可寧會讓它與您"
+"的名為「花」的類別「綁」在一起。</li> <li>最後，比對類別中的每個項目。例如"
+"說，您在自己的影像資料庫中有一個屬於您自己的類別，而別人送來的您的照片的影像"
+"標籤可能與您的類別不同，您可以將它們綁在一起。在這裡，未比對的會以紅色標出，"
+"您可以看到哪些不在您的資料庫中。</li></ol>"
 
 #: ImportExport/ImportDialog.cpp:137
 #, kde-format
@@ -2721,7 +2704,7 @@ msgstr "基礎目錄："
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr ""
+msgstr "建立"
 
 #: ImportExport/ImportDialog.cpp:314
 #, fuzzy, kde-format
@@ -2756,11 +2739,10 @@ msgid "Cannot copy from any of the following locations:"
 msgstr "無法從以下任何位置中複製："
 
 #: ImportExport/ImportHandler.cpp:237
-#, fuzzy, kde-format
-#| msgid "Copying image files"
+#, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr "正在覆製影像檔"
+msgstr "複製失敗"
 
 #: ImportExport/ImportHandler.cpp:244 ImportExport/ImportHandler.cpp:248
 #, fuzzy, kde-format
@@ -3261,7 +3243,7 @@ msgstr "KDE 相簿"
 #: main.cpp:89
 #, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr ""
+msgstr "Copyright (c) 2003-2024 KPhotoAlbum 開發團隊"
 
 #: main.cpp:110
 #, kde-format
@@ -3293,7 +3275,7 @@ msgstr "用瀏覽器取得目錄資訊，及新增搜尋頁面中「且/或」�
 #: main.cpp:112
 #, kde-format
 msgid "Matthias Füssel"
-msgstr ""
+msgstr "Matthias Füssel"
 
 #: main.cpp:112
 #, kde-format
@@ -3715,33 +3697,26 @@ msgstr ""
 "的文章</a>。</p>"
 
 #: MainWindow/FeatureDialog.cpp:78
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"videoPreview\">Video preview</a></h1><p>KPhotoAlbum uses "
-#| "<tt>mplayer</tt> to extract thumbnails from videos. These thumbnails are "
-#| "used to preview videos in the thumbnail viewer.</p>"
+#, kde-format
 msgid ""
 "<h1><a name=\"videoPreview\">Video thumbnail support</a></h1><p>KPhotoAlbum "
 "can use <tt>ffmpeg</tt> to extract thumbnails from videos. These thumbnails "
 "are used to preview videos in the thumbnail viewer.</p>"
 msgstr ""
-"<h1><a name=\"videoPreview\">影片預覽</a></h1> <p>KPhotoAlbum 用 "
-"<tt>mplayer</tt> 從影片中解開縮圖。這些縮圖用於在縮圖檢視器中預覽影片。</p>"
+"<h1><a name=\"videoPreview\">影片縮圖支援</a></h1><p>KPhotoAlbum 可以使用 "
+"<tt>ffmpeg</tt> 來從影片取出縮圖。這些縮圖會在縮圖檢視器中用來預覽影片。</p>"
 
 #: MainWindow/FeatureDialog.cpp:82
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"videoPreview\">Video preview</a></h1><p>KPhotoAlbum uses "
-#| "<tt>mplayer</tt> to extract thumbnails from videos. These thumbnails are "
-#| "used to preview videos in the thumbnail viewer.</p>"
+#, kde-format
 msgid ""
 "<h1><a name=\"videoInfo\">Video metadata support</a></h1><p>KPhotoAlbum can "
 "use <tt>ffprobe</tt> to extract length information from videos.</"
 "p><p>Correct length information is necessary for correct rendering of video "
 "thumbnails.</p>"
 msgstr ""
-"<h1><a name=\"videoPreview\">影片預覽</a></h1> <p>KPhotoAlbum 用 "
-"<tt>mplayer</tt> 從影片中解開縮圖。這些縮圖用於在縮圖檢視器中預覽影片。</p>"
+"<h1><a name=\"videoInfo\">影片中繼資料支援</a></h1><p>KPhotoAlbum 可以使用 "
+"<tt>ffprobe</tt> 來從影片取出長度資訊。</p><p>要正確繪製影片縮圖時會需要正確"
+"長度資訊。</p>"
 
 #: MainWindow/FeatureDialog.cpp:172
 #, kde-format
@@ -3765,10 +3740,9 @@ msgid "Video thumbnail support"
 msgstr "影片縮圖支援"
 
 #: MainWindow/FeatureDialog.cpp:176
-#, fuzzy, kde-format
-#| msgid "Video support"
+#, kde-format
 msgid "Video metadata support"
-msgstr "影片支援"
+msgstr "影片中繼資料支援"
 
 #: MainWindow/FeatureDialog.cpp:180
 #, kde-format
@@ -3916,13 +3890,7 @@ msgstr ""
 "<p>在底下輸入您要執行的指令：</p><p><i>%all 會被取代為檔案清單。</i></p>"
 
 #: MainWindow/RunDialog.cpp:42
-#, fuzzy, no-c-format, kde-format
-#| msgid ""
-#| "<p>Enter the command you want to run on your image file(s). KPhotoAlbum "
-#| "will run your command and replace any '%all' tokens with a list of your "
-#| "files. For example, if you entered:</p><ul><li>cp %all /tmp</li></"
-#| "ul><p>Then the files you selected would be copied to the /tmp directory</"
-#| "p><p>You can also use %each to have a command be run once per file.</p>"
+#, no-c-format, kde-format
 msgid ""
 "<p>Enter the command you want to run on your image file(s). KPhotoAlbum will "
 "run your command and replace any '%all' tokens with a list of your files. "
@@ -3932,8 +3900,8 @@ msgid ""
 msgstr ""
 "<p>輸入您要在您的影像檔上執行的指令。KPhotoAlbum 會執行您所指定的指令，並將所"
 "有的 '%all' 取代為您的檔案清單。例如，當您輸入：</p><ul><li>cp %all /tmp</"
-"li></ul><p>您所選取的檔案就會被複製到 /tmp 目錄下。</p> <p>您可以用 %each 來"
-"對每個檔案都做相同的事情。</p>"
+"li></ul><p>您所選取的檔案就會被複製到 /tmp 資料夾內。</p> <p>您可以用 %each "
+"來對每個檔案都做相同的事情。</p>"
 
 #: MainWindow/RunDialog.cpp:71
 #, no-c-format, kde-format
@@ -4143,10 +4111,9 @@ msgstr ""
 "方即可。</p>"
 
 #: MainWindow/WelcomeDialog.cpp:115
-#, fuzzy, kde-format
-#| msgid "Image/Video root directory: "
+#, kde-format
 msgid "Image/Video root folder: "
-msgstr "影像/影片根目錄："
+msgstr "影像/影片根資料夾："
 
 #: MainWindow/WelcomeDialog.cpp:155
 #, fuzzy, kde-format
@@ -4333,10 +4300,9 @@ msgid "Delete Selected"
 msgstr "刪除所選取的項目"
 
 #: MainWindow/Window.cpp:826
-#, fuzzy, kde-format
-#| msgid "Remove Tokens"
+#, kde-format
 msgid "Remove Tokens..."
-msgstr "移除標記"
+msgstr "移除標記…"
 
 #: MainWindow/Window.cpp:829
 #, kde-format
@@ -4762,18 +4728,14 @@ msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "縮圖影像大小："
 
 #: MainWindow/Window.cpp:1939
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Unable to find MPlayer on the system.</p><p>Without MPlayer, "
-#| "KPhotoAlbum will not be able to display video thumbnails and video "
-#| "lengths. Please install the MPlayer2 package</p>"
+#, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
 "not be able to display video thumbnails and video lengths. Please install "
 "the ffmpeg package</p>"
 msgstr ""
-"<p>系統中找不到 MPlayer。</p> <p>KPhotoAlbum 需要 MPlayer 來展開影片的縮圖與"
-"長度。請安裝 MPlayer2 軟體包。</p>"
+"<p>系統中找不到 ffmpeg。</p> <p>KPhotoAlbum 需要 ffmpeg 才能顯示影片縮圖和長"
+"度。請安裝 ffmpeg 軟體包。</p>"
 
 #: MainWindow/Window.cpp:1942
 #, kde-format
@@ -4826,7 +4788,7 @@ msgstr ""
 #: Map/MapView.cpp:363
 #, kde-format
 msgid "Map view"
-msgstr ""
+msgstr "地圖檢視"
 
 #: Map/MapView.cpp:363
 #, fuzzy, kde-format
@@ -4935,17 +4897,17 @@ msgstr ""
 #: Settings/BirthdayPage.cpp:156
 #, kde-format
 msgid "Name"
-msgstr ""
+msgstr "姓名"
 
 #: Settings/BirthdayPage.cpp:156
 #, kde-format
 msgid "Birthday"
-msgstr ""
+msgstr "生日"
 
 #: Settings/BirthdayPage.cpp:224
 #, kde-format
 msgid "Birthday of %1:"
-msgstr ""
+msgstr "%1 的生日："
 
 #: Settings/BirthdayPage.cpp:232
 #, fuzzy, kde-format
@@ -5029,7 +4991,7 @@ msgstr ""
 #: Settings/CategoryPage.cpp:163
 #, kde-format
 msgid "Save the DB now"
-msgstr ""
+msgstr "現在儲存資料庫"
 
 #: Settings/CategoryPage.cpp:203
 #, fuzzy, kde-format
@@ -5185,7 +5147,7 @@ msgstr "EXIF 對話框內要顯示的 EXIF/IPTC 資訊"
 #: Settings/ExifPage.cpp:34
 #, kde-format
 msgid "Character set for image metadata:"
-msgstr "影像輔助資料的字元集："
+msgstr "影像中繼資料的字元集："
 
 #: Settings/FileVersionDetectionPage.cpp:31
 #, kde-format
@@ -6145,25 +6107,22 @@ msgid "Unconfigured video backend"
 msgstr ""
 
 #: Settings/VideoPlayerSelectorDialog.cpp:163
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
-msgstr "資料庫後端介面"
+msgstr "Phonon 影片後端"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:165
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
-msgstr "資料庫後端介面"
+msgstr "QtAV 影片後端"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:167
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
-msgstr "資料庫後端介面"
+msgstr "VLC 影片後端"
 
 #: Settings/ViewerPage.cpp:25
 #, kde-format
@@ -6263,10 +6222,9 @@ msgstr ""
 "KPhotoAlbum 會使用較快但是較不平滑的演算法。</p>"
 
 #: Settings/ViewerPage.cpp:99
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgid "Video Backend:"
-msgstr "資料庫後端介面"
+msgstr "影片後端："
 
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
@@ -6442,7 +6400,7 @@ msgstr "（%1百萬像素）"
 msgctxt "Like \"The baby is '8 days' old\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] ""
+msgstr[0] "%1 天"
 
 #: Utilities/Timespan.cpp:108
 #, fuzzy, kde-format
@@ -6457,7 +6415,7 @@ msgstr[0] "1 個月"
 msgctxt "Like \"The person is '28 years' old\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] ""
+msgstr[0] "%1 年"
 
 #: Utilities/Timespan.cpp:118
 #, fuzzy, kde-format
@@ -6473,7 +6431,7 @@ msgctxt ""
 "This combines an age of a person in years (%1) with the additional months "
 "(%2), like \"The person is '1 year and 3 months' old\""
 msgid "%1, %2"
-msgstr ""
+msgstr "%1 %2"
 
 #: Utilities/Timespan.cpp:151
 #, fuzzy, kde-format
@@ -6508,14 +6466,14 @@ msgstr "（%1百萬像素）"
 msgctxt "Like \"This happened '6 days' ago\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] ""
+msgstr[0] "%1 天"
 
 #: Utilities/Timespan.cpp:184
 #, kde-format
 msgctxt "Like \"This happened '3 weeks' ago\""
 msgid "%1 week"
 msgid_plural "%1 weeks"
-msgstr[0] ""
+msgstr[0] "%1 週"
 
 #: Utilities/Timespan.cpp:189
 #, kde-format
@@ -6546,7 +6504,7 @@ msgstr[0] "1 個月"
 msgctxt "Like \"This happened '2 years' ago\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] ""
+msgstr[0] "%1 年"
 
 #: Utilities/Timespan.cpp:240
 #, kde-format
@@ -6555,20 +6513,18 @@ msgctxt ""
 "happened 3 years and 1 month\" ago, where the first parameter is the "
 "formatted years string and the second one is the formatted months string"
 msgid "%1 and %2"
-msgstr ""
+msgstr "%1 又 %2"
 
 #: Viewer/AnnotationHandler.cpp:68
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
-msgstr ""
+msgstr "指定巨集"
 
 #: Viewer/AnnotationHandler.cpp:68
-#, fuzzy, kde-format
-#| msgctxt "Basically 'enter a category name'"
-#| msgid "<b>Setting Category: </b>"
+#, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr "<b>設定類別：</b>"
+msgstr "選擇巨集鍵 <b>%1</b> 的項目"
 
 #: Viewer/AnnotationHandler.cpp:125
 #, fuzzy, kde-format
@@ -6662,12 +6618,12 @@ msgstr ""
 #: Viewer/SelectCategoryAndValue.cpp:136
 #, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "新增"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "鍵"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
 #, fuzzy, kde-format
@@ -6679,7 +6635,7 @@ msgstr "標籤："
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"
-msgstr ""
+msgstr "清除指定"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
@@ -6699,7 +6655,7 @@ msgstr "標籤"
 #: Viewer/SelectCategoryAndValue.ui:43
 #, kde-format
 msgid "Add new Tag"
-msgstr ""
+msgstr "新增標籤"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
@@ -6713,7 +6669,7 @@ msgstr "標題"
 #: Viewer/SelectCategoryAndValue.ui:120
 #, kde-format
 msgid "Existing Assignments"
-msgstr ""
+msgstr "現有的指定"
 
 #: Viewer/ViewerWidget.cpp:193
 #, kde-format
@@ -6912,7 +6868,7 @@ msgstr "找不到檔案"
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
-msgstr ""
+msgstr "%1 %2"
 
 #: Viewer/ViewerWidget.cpp:554
 #, kde-format
@@ -6947,7 +6903,7 @@ msgstr ""
 #: Viewer/ViewerWidget.cpp:633
 #, kde-format
 msgid "Change display mode to %1"
-msgstr ""
+msgstr "變更顯示模式為%1"
 
 #: Viewer/ViewerWidget.cpp:909
 #, fuzzy, kde-format
@@ -6982,7 +6938,7 @@ msgstr ""
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
-msgstr ""
+msgstr "%1&nbsp;秒"
 
 #: Viewer/ViewerWidget.cpp:1228
 #, fuzzy, kde-format
@@ -7151,7 +7107,7 @@ msgstr "註記....."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "說明"
 
 #: Viewer/ViewerWidget.cpp:1497
 #, fuzzy, kde-format
@@ -7164,13 +7120,13 @@ msgstr "註記對話框"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
-msgstr ""
+msgstr "新增標籤"
 
 #: Viewer/ViewerWidget.cpp:1498
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "CTRL+a"
 
 #: Viewer/ViewerWidget.cpp:1501
 #, fuzzy, kde-format
@@ -7183,7 +7139,7 @@ msgstr "從前一張影像複製標籤"
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "CTRL+c"
 
 #: Viewer/ViewerWidget.cpp:1505
 #, fuzzy, kde-format
@@ -7196,7 +7152,7 @@ msgstr "敘述"
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr ""
+msgstr "CTRL+d"
 
 #: Viewer/ViewerWidget.cpp:1509
 #, fuzzy, kde-format
@@ -7209,44 +7165,42 @@ msgstr "註記"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "已鎖定"
 
 #: Viewer/ViewerWidget.cpp:1512
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "CTRL+l"
 
 #: Viewer/ViewerWidget.cpp:1516
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "指定標籤"
 
 #: Viewer/ViewerWidget.cpp:1517
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1520
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr "標記"
+msgstr "指定標記"
 
 #: Viewer/ViewerWidget.cpp:1521
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr ""
+msgstr "CTRL+t"
 
 #: Viewer/ViewerWidget.cpp:1684
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Token %1"
-msgstr "標記"
+msgstr "標記 %1"
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format
@@ -7289,8 +7243,7 @@ msgid "Show Filename"
 msgstr "顯示檔名"
 
 #: Viewer/VisibleOptionsMenu.cpp:61
-#, fuzzy, kde-format
-#| msgid "Show Exif Info"
+#, kde-format
 msgid "Show Exif"
 msgstr "顯示 Exif 資訊"
 

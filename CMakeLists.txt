@@ -88,8 +88,7 @@ set_package_properties(KDcrawQt6
     )
 set(HAVE_KDCRAW ${KDcrawQt6_FOUND})
 
-# skip marble until there's a KF6Qt6 release:
-#find_package(Marble 24.06)
+find_package(Marble 24.11.70)
 set_package_properties(Marble
     PROPERTIES
     TYPE OPTIONAL

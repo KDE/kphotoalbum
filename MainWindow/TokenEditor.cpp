@@ -2,9 +2,9 @@
 // SPDX-FileCopyrightText: 2006 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2015-2020 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2018 Yuri Chornoivan <yurchor@ukr.net>
+// SPDX-FileCopyrightText: 2015-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -25,6 +25,8 @@
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
+
+#include <utility>
 
 using namespace MainWindow;
 
@@ -76,7 +78,7 @@ void TokenEditor::show()
 {
     QStringList tokens = tokensInUse();
 
-    for (QCheckBox *box : qAsConst(m_checkBoxes)) {
+    for (QCheckBox *box : std::as_const(m_checkBoxes)) {
         box->setChecked(false);
         QString txt = box->text().remove(QString::fromLatin1("&"));
         box->setEnabled(tokens.contains(txt));
@@ -86,14 +88,14 @@ void TokenEditor::show()
 
 void TokenEditor::selectAll()
 {
-    for (QCheckBox *box : qAsConst(m_checkBoxes)) {
+    for (QCheckBox *box : std::as_const(m_checkBoxes)) {
         box->setChecked(true);
     }
 }
 
 void TokenEditor::selectNone()
 {
-    for (QCheckBox *box : qAsConst(m_checkBoxes)) {
+    for (QCheckBox *box : std::as_const(m_checkBoxes)) {
         box->setChecked(false);
     }
 }
@@ -118,7 +120,7 @@ QStringList TokenEditor::tokensInUse()
 void TokenEditor::accept()
 {
     DB::CategoryPtr tokensCategory = DB::ImageDB::instance()->categoryCollection()->categoryForSpecial(DB::Category::TokensCategory);
-    for (const QCheckBox *box : qAsConst(m_checkBoxes)) {
+    for (const QCheckBox *box : std::as_const(m_checkBoxes)) {
         if (box->isChecked() && box->isEnabled()) {
             QString txt = box->text().remove(QString::fromLatin1("&"));
             tokensCategory->removeItem(txt);

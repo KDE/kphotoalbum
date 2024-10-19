@@ -1,14 +1,14 @@
-// SPDX-FileCopyrightText: 2003 - 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2003 David Faure <faure@kde.org>
-// SPDX-FileCopyrightText: 2005 - 2007 Dirk Mueller <mueller@kde.org>
-// SPDX-FileCopyrightText: 2006 - 2007 Tuomas Suutari <tuomas@nepnep.net>
-// SPDX-FileCopyrightText: 2007 - 2008 Laurent Montel <montel@kde.org>
-// SPDX-FileCopyrightText: 2007 - 2010 Jan Kundrát <jkt@flaska.net>
-// SPDX-FileCopyrightText: 2008 - 2009 Henner Zeller <h.zeller@acm.org>
-// SPDX-FileCopyrightText: 2013 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2018 - 2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2005-2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2006-2007 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007-2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2007-2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2023 Alexander Lohnau <alexander.lohnau@gmx.de>
+// SPDX-FileCopyrightText: 2018-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -17,6 +17,8 @@
 #include "Category.h"
 
 #include <kpabase/Logging.h>
+
+#include <utility>
 
 using namespace DB;
 
@@ -82,10 +84,10 @@ QStringList MemberMap::members(const QString &category, const QString &memberGro
         if (m_dirty) {
             calculate();
         }
-        const auto &members = m_closureMembers[category][memberGroup];
+        const auto &members = m_closureMembers[category].value(memberGroup);
         return QStringList(members.begin(), members.end());
     } else {
-        const auto &members = m_members[category][memberGroup];
+        const auto &members = m_members[category].value(memberGroup);
         return QStringList(members.begin(), members.end());
     }
 }
@@ -247,7 +249,7 @@ void MemberMap::regenerateFlatList(const QString &category)
         return;
 
     m_flatMembers[category].clear();
-    for (const auto &group : qAsConst(m_members[category])) {
+    for (const auto &group : std::as_const(m_members[category])) {
         for (const auto &tag : group) {
             m_flatMembers[category].insert(tag);
         }

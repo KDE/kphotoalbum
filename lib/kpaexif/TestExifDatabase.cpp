@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: LicenseRef-KDE-Accepted-GPL
 
@@ -12,6 +13,7 @@
 #include <QLoggingCategory>
 #include <QRegularExpression>
 #include <QSignalSpy>
+#include <QHashSeed>
 
 namespace
 {
@@ -21,7 +23,7 @@ constexpr auto msgPreconditionFailed = "Precondition for test failed - please fi
 void KPATest::TestExifDatabase::initTestCase()
 {
     // ThumbnailCache uses QHash, which is randomized by default
-    qSetGlobalQHashSeed(0);
+    QHashSeed::setDeterministicGlobalSeed();
 
     QVERIFY2(Exif::Database::isAvailable(), msgPreconditionFailed);
 }

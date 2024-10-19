@@ -40,6 +40,10 @@ KPhotoAlbum 5.13.0 (2024-10-09)
  - Reworked the "time ago"/birthday/age calculation. Timespans should now be displayed in a nicer (more natural) way. Also, the age of people born on February 29 is now calculated correctly.
  - The '--db' command line argument now rejects any file name that is not either an existing directory or an index.xml file within an existing directory (#418647).
 
+### Dependencies
+
+### Deprecated
+
 ### Fixed
  - Fix crash when trying to unset the untagged tag via the settings dialog (#477529)
  - Fix crash when renaming or adding a category in the settings dialog and immediately using it as untagged category (#477530)
@@ -52,7 +56,11 @@ KPhotoAlbum 5.13.0 (2024-10-09)
  - Fix crash when multiple images are selected for annotation and one is deleted (#483266)
  - Fix selective rebuilding of video file thumbnails (#444744)
  - Fix crash when opening viewer after video playback previously crashed
- - Fix infinte loop if an unavailable video backend is configured (#493849)
+ - Fix endless loop if an unavailable video backend is configured (#493849)
+
+### Removed
+
+### Security
 
 
 KPhotoAlbum 5.12.0 (2023-11-27)

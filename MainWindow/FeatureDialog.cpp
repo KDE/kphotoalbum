@@ -73,7 +73,7 @@ FeatureDialog::FeatureDialog(QWidget *parent)
                  "</p>");
 
     text += i18n("<h1><a name=\"video\">Video support</a></h1>"
-                 "<p>KPhotoAlbum relies on QtAv for displaying videos; this in turn relies on ffmpeg</p>");
+                 "<p>KPhotoAlbum relies on phonon or VLC for displaying videos</p>");
 
     text += i18n("<h1><a name=\"videoPreview\">Video thumbnail support</a></h1>"
                  "<p>KPhotoAlbum can use <tt>ffmpeg</tt> to extract thumbnails from videos. These thumbnails are used to preview "

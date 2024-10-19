@@ -3,11 +3,12 @@
 include:
   - project: sysadmin/ci-utilities
     file:
-      - /gitlab-templates/linux.yml
-      - /gitlab-templates/freebsd.yml
-      - /gitlab-templates/reuse-lint.yml
-      - /gitlab-templates/flatpak.yml
+        - /gitlab-templates/linux-qt6.yml
+        - /gitlab-templates/freebsd-qt6.yml
+        - /gitlab-templates/reuse-lint.yml
+        - /gitlab-templates/flatpak.yml
 
+## jzarl: Until KF6 lands in Debian stable, disable CI there
 .template: &debian
   variables:
     DEBIAN_FRONTEND: noninteractive
@@ -19,20 +20,20 @@ include:
   before_script:
     - >-
       apt-get -qq update && apt-get install -y eatmydata && eatmydata apt-get install -y --no-install-recommends make cmake extra-cmake-modules gettext
-      g++ gcc libkf5kio-dev pkg-config pkg-kde-tools libphonon4qt5-dev libkf5archive-dev libkf5doctools-dev
-      libqt5sql5-sqlite libkf5textwidgets-dev libjpeg-dev libexiv2-dev libkf5purpose-dev libkf5kdcraw-dev
+      g++ gcc libkf6kio-dev pkg-config pkg-kde-tools libphonon4qt5-dev libkf6archive-dev libkf6doctools-dev
+      libqt5sql5-sqlite libkf6textwidgets-dev libjpeg-dev libexiv2-dev libkf6purpose-dev libkdcrawqt6-dev
       libmarble-dev curl git libvlc-dev
   script:
     - mkdir build && cd $_ && cmake ../ && make -j$(nproc)
     - make install
     - ctest --rerun-failed --output-on-failure
 
-build:debian-stable:
-  stage: build
-  image: "debian:stable"
-  <<: *debian
-
-build:debian-testing:
-  stage: build
-  image: "debian:testing"
-  <<: *debian
+#build:debian-stable:
+#  stage: build
+#  image: "debian:stable"
+#  <<: *debian
+#
+#build:debian-testing:
+#  stage: build
+#  image: "debian:testing"
+#  <<: *debian

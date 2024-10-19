@@ -35,10 +35,7 @@ VideoPlayerSelectorDialog::VideoPlayerSelectorDialog(QWidget *parent)
                        "VLC is likely not a very good fit for you. If on the other hand you do use X11 then VLC is likely your best choice.</p>"
 
                        "<p>Traditionally KPhotoAlbum has been using <b>Phonon</b> as the video player back-end. We've unfortunately seen it crash "
-                       "on many different video formats - possibly because our system wasn't correctly configured. "
-                       "If this is the case for you (and you can't use VLC), then try the <b>QtAV</b> back-end, "
-                       "which seems to support a lot of formats (everything we threw at it). "
-                       "<b>QtAV</b> unfortunately also has a drawback - it seems to get slightly out of sync between video and audio.</p>"
+                       "on many different video formats - possibly because our system wasn't correctly configured.</p>"
 
                        "<p><b><font color=red>You can at any time change the backend from Settings -> Viewer</font></b></p></html>");
     label = new QLabel(txt);
@@ -54,15 +51,6 @@ VideoPlayerSelectorDialog::VideoPlayerSelectorDialog(QWidget *parent)
         somethingNotAvailable = true;
     }
     layout->addWidget(m_vlc);
-
-    if (availableVideoBackends().testFlag(VideoBackend::QtAV)) {
-        m_qtav = new QRadioButton(QString::fromUtf8("QtAV"));
-    } else {
-        m_qtav = new QRadioButton(QString::fromUtf8("QtAV") + i18n(" (NOT AVAILABLE)"));
-        m_qtav->setEnabled(false);
-        somethingNotAvailable = true;
-    }
-    layout->addWidget(m_qtav);
 
     if (availableVideoBackends().testFlag(VideoBackend::Phonon)) {
         m_phonon = new QRadioButton(QString::fromUtf8("Phonon"));
@@ -80,12 +68,10 @@ VideoPlayerSelectorDialog::VideoPlayerSelectorDialog(QWidget *parent)
         case VideoBackend::Phonon:
             candidate = m_phonon;
             break;
-        case VideoBackend::QtAV:
-            candidate = m_qtav;
-            break;
         case VideoBackend::VLC:
             candidate = m_vlc;
             break;
+        case VideoBackend::QtAV: // legacy value
         default:
             Q_UNREACHABLE();
         }
@@ -113,8 +99,6 @@ VideoBackend VideoPlayerSelectorDialog::backend() const
 {
     if (m_vlc->isChecked())
         return VideoBackend::VLC;
-    else if (m_qtav->isChecked())
-        return VideoBackend::QtAV;
     else
         return VideoBackend::Phonon;
 }
@@ -125,13 +109,10 @@ constexpr VideoBackends availableVideoBackends()
 #if LIBVLC_FOUND
     availableBackends |= VideoBackend::VLC;
 #endif
-#if QtAV_FOUND
-    availableBackends |= VideoBackend::QtAV;
-#endif
-#if Phonon4Qt5_FOUND
+#if Phonon4Qt6_FOUND
     availableBackends |= VideoBackend::Phonon;
 #endif
-    static_assert(LIBVLC_FOUND || QtAV_FOUND || Phonon4Qt5_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
+    static_assert(LIBVLC_FOUND || Phonon4Qt6_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
     return availableBackends;
 }
 
@@ -143,7 +124,7 @@ VideoBackend preferredVideoBackend(const VideoBackend configuredBackend, const V
     }
 
     // change backend priority here:
-    for (const VideoBackend candidate : { VideoBackend::Phonon, VideoBackend::VLC, VideoBackend::QtAV }) {
+    for (const VideoBackend candidate : { VideoBackend::Phonon, VideoBackend::VLC }) {
         if (availableVideoBackends().testFlag(candidate) && !exclusions.testFlag(candidate)) {
             qCDebug(SettingsLog) << "preferredVideoBackend(): backend is viable:" << candidate;
             return candidate;
@@ -161,7 +142,7 @@ QString localizedEnumName(const VideoBackend backend)
         return i18nc("A friendly name for the video backend", "Unconfigured video backend");
     case VideoBackend::Phonon:
         return i18nc("A friendly name for the video backend", "Phonon video backend");
-    case VideoBackend::QtAV:
+    case VideoBackend::QtAV: // legacy value; no longer used actively
         return i18nc("A friendly name for the video backend", "QtAV video backend");
     case VideoBackend::VLC:
         return i18nc("A friendly name for the video backend", "VLC video backend");

@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2009-2020 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -7,6 +8,8 @@
 
 #include "Window.h"
 
+#include <KIO/CommandLauncherJob>
+#include <KIO/JobUiDelegate>
 #include <KLocalizedString>
 #include <QDialog>
 #include <QDialogButtonBox>
@@ -15,13 +18,9 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <kio_version.h>
-#if KIO_VERSION > QT_VERSION_CHECK(5, 69, 0)
-#include <KIO/CommandLauncherJob>
-#include <KIO/JobUiDelegate>
-#else
-#include <KRun>
-#endif
 #include <kshell.h>
+
+#include <utility>
 
 MainWindow::RunDialog::RunDialog(QWidget *parent)
     : QDialog(parent)
@@ -67,14 +66,19 @@ void MainWindow::RunDialog::setImageList(const DB::FileNameList &fileList)
 void MainWindow::RunDialog::slotMarkGo()
 {
     QString cmdString = m_cmd->text();
+
+    // FIXME: KF6 port: Neither replaceall nor replaceeach are actually regular expressions, neither
+    // do we need regular expressions for the simple substitution below. So I suppose we can simply
+    // use QStrings here?!
+
     // xgettext: no-c-format
-    QRegExp replaceall = QRegExp(i18nc("As in 'Execute a command and replace any occurrence of %all with the filenames of all selected files'", "%all"));
+    const QString replaceall = i18nc("As in 'Execute a command and replace any occurrence of %all with the filenames of all selected files'", "%all");
     // xgettext: no-c-format
-    QRegExp replaceeach = QRegExp(i18nc("As in 'Execute a command for each selected file in turn and replace any occurrence of %each with the filename ", "%each"));
+    const QString replaceeach = i18nc("As in 'Execute a command for each selected file in turn and replace any occurrence of %each with the filename ", "%each");
 
     // Replace the %all argument first
     QStringList fileList;
-    for (const DB::FileName &fileName : qAsConst(m_fileList))
+    for (const DB::FileName &fileName : std::as_const(m_fileList))
         fileList.append(fileName.absolute());
 
     cmdString.replace(replaceall, KShell::joinArgs(fileList));
@@ -82,27 +86,19 @@ void MainWindow::RunDialog::slotMarkGo()
     if (cmdString.contains(replaceeach)) {
         // cmdString should be run multiple times, once per "each"
         QString cmdOnce;
-        for (const DB::FileName &filename : qAsConst(m_fileList)) {
+        for (const DB::FileName &filename : std::as_const(m_fileList)) {
             cmdOnce = cmdString;
             cmdOnce.replace(replaceeach, filename.absolute());
             auto *uiParent = MainWindow::Window::theMainWindow();
-#if KIO_VERSION <= QT_VERSION_CHECK(5, 69, 0)
-            KRun::runCommand(cmdOnce, uiParent);
-#else
             KIO::CommandLauncherJob *job = new KIO::CommandLauncherJob(cmdOnce);
             job->setUiDelegate(new KDialogJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
             job->start();
-#endif
         }
     } else {
         auto *uiParent = MainWindow::Window::theMainWindow();
-#if KIO_VERSION <= QT_VERSION_CHECK(5, 69, 0)
-        KRun::runCommand(cmdString, uiParent);
-#else
         KIO::CommandLauncherJob *job = new KIO::CommandLauncherJob(cmdString);
         job->setUiDelegate(new KDialogJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
         job->start();
-#endif
     }
 }
 

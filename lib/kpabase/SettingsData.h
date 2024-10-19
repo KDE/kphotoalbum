@@ -7,8 +7,8 @@
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2011 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2019 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -20,6 +20,9 @@
 #include "enums.h"
 
 #include <QObject>
+
+// Qt classes
+class QWindow;
 
 #define property(GET_TYPE, GET_FUNC, SET_FUNC, SET_TYPE) \
     GET_TYPE GET_FUNC() const;                           \
@@ -70,15 +73,16 @@ enum LoadOptimizationPreset { LoadOptimizationHardDisk,
                               LoadOptimizationFastNVME,
                               LoadOptimizationManual };
 
+enum WindowId {
+    AnnotationDialog
+};
+
 enum class VideoBackend { NotConfigured = 0b0000,
                           Phonon = 0b0001,
-                          QtAV = 0b0010,
+                          QtAV = 0b0010, ///< deprecated legacy value. No longer used except for backwards-compatibility with existing configuration files.
                           VLC = 0b0100 };
 Q_DECLARE_FLAGS(VideoBackends, VideoBackend)
 Q_FLAG_NS(VideoBackend)
-
-typedef const char *WindowType;
-extern const WindowType MainWindow, AnnotationDialog;
 
 class SettingsData : public QObject
 {
@@ -246,8 +250,10 @@ public:
     bool locked() const;
     void setLocked(bool locked, bool force);
 
-    void setWindowGeometry(WindowType, const QRect &geometry);
-    QRect windowGeometry(WindowType) const;
+    void saveWindowGeometry(WindowId id, const QWindow *window);
+    void restoreWindowGeometry(WindowId id, QWindow *window);
+    void saveWindowState(WindowId id, const QByteArray &state);
+    QByteArray windowState(WindowId id);
 
     double getThumbnailAspectRatio() const;
 

@@ -25,7 +25,7 @@ static QString videoBackendTextFromEnum(Settings::VideoBackend backend)
         return i18n("Not Configured");
     case Settings::VideoBackend::VLC:
         return QString::fromUtf8("VLC");
-    case Settings::VideoBackend::QtAV:
+    case Settings::VideoBackend::QtAV: // legacy value; no longer used actively
         return QString::fromUtf8("QtAV");
     case Settings::VideoBackend::Phonon:
         return QString::fromUtf8("Phonon");

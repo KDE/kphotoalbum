@@ -10,7 +10,7 @@
 // SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2018 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2020 Nicolas Fella <nicolas.fella@gmx.de>
-// SPDX-FileCopyrightText: 2020 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2020-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -29,8 +29,6 @@
 #include <QApplication>
 #include <QFileInfo>
 #include <QLoggingCategory>
-
-#include <qmatrix.h>
 
 namespace ImageManager
 {

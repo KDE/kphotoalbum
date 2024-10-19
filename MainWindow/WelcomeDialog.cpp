@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2018 Jesper K Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -37,7 +38,7 @@ WelcomeDialog::WelcomeDialog(QWidget *parent)
     QLabel *image = new QLabel(this);
     image->setMinimumSize(QSize(273, 204));
     image->setMaximumSize(QSize(273, 204));
-    image->setPixmap(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("pics/splash.png")));
+    image->setPixmap(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, QString::fromLatin1("pics/splash.png")));
     lay2->addWidget(image);
 
     QLabel *textLabel2 = new QLabel(this);
@@ -154,17 +155,12 @@ QString FileDialog::getFileName()
         if (!QFileInfo::exists(dir)) {
             const QString question = i18n("Folder does not exist, create it?");
             const QString title = i18nc("@title", "Create folder?");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             const auto answer = KMessageBox::questionTwoActions(this,
                                                                 question,
                                                                 title,
                                                                 KGuiItem(i18nc("@action:button", "Create")),
                                                                 KStandardGuiItem::cancel());
             if (answer == KMessageBox::ButtonCode::PrimaryAction) {
-#else
-            const auto answer = KMessageBox::questionYesNo(this, question, title);
-            if (answer == KMessageBox::Yes) {
-#endif
                 bool ok2 = QDir().mkdir(dir);
                 if (!ok2) {
                     KMessageBox::error(this, i18n("Could not create folder %1", dir));

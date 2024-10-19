@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -17,6 +18,8 @@
 #include <QPixmap>
 #include <QTemporaryFile>
 #include <QTimer>
+
+#include <utility>
 
 namespace
 {
@@ -289,7 +292,7 @@ void ImageManager::ThumbnailCache::saveFull()
            << m_thumbnailSize
            << m_currentFile
            << m_currentOffset
-           << m_hash.count();
+           << (uint)m_hash.count(); // using uint instead of size_t is for keeping binary compatibility with Qt5. This should be changed with the next file version.
 
     for (auto it = tempHash.constBegin(); it != tempHash.constEnd(); ++it) {
         const CacheFileInfo &cacheInfo = it.value();
@@ -427,10 +430,11 @@ void ImageManager::ThumbnailCache::load()
         qCDebug(ImageManagerLog) << "Thumbnail cache has thumbnail size" << m_thumbnailSize << "px";
     }
 
-    int expectedCount = 0;
+    uint expectedCount = 0;
     stream >> m_currentFile
         >> m_currentOffset
         >> expectedCount;
+    m_hash.reserve(expectedCount);
     int count = 0;
 
     while (!stream.atEnd()) {
@@ -573,7 +577,7 @@ void ImageManager::ThumbnailCache::vacuum()
     // rebuild
     int currentFileIndex { -1 };
     ThumbnailMapping *currentFile { nullptr };
-    for (const auto &entry : qAsConst(cacheEntries)) {
+    for (const auto &entry : std::as_const(cacheEntries)) {
         Q_ASSERT(entry.info.fileIndex != -1);
         if (entry.info.fileIndex != currentFileIndex) {
             currentFileIndex = entry.info.fileIndex;

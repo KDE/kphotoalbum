@@ -4,21 +4,21 @@
 Dependencies:
 - 'on': ['@all']
   'require':
-    'libraries/phonon': '@stable'
-    'frameworks/karchive': '@stable'
-    'frameworks/kcompletion': '@stable'
-    'frameworks/kconfig': '@stable'
-    'frameworks/kcoreaddons': '@stable'
-    'frameworks/ki18n': '@stable'
-    'frameworks/kiconthemes': '@stable'
-    'frameworks/kjobwidgets': '@stable'
-    'frameworks/kio': '@stable'
-    'frameworks/ktextwidgets': '@stable'
-    'frameworks/kxmlgui': '@stable'
-    'frameworks/kwidgetsaddons': '@stable'
-    'frameworks/purpose': '@stable'
-    'graphics/libkdcraw': '@stable'
-    'education/marble': '@stable'
+    'libraries/phonon': '@latest-kf6'
+    'frameworks/karchive': '@latest-kf6'
+    'frameworks/kcompletion': '@latest-kf6'
+    'frameworks/kconfig': '@latest-kf6'
+    'frameworks/kcoreaddons': '@latest-kf6'
+    'frameworks/ki18n': '@latest-kf6'
+    'frameworks/kiconthemes': '@latest-kf6'
+    'frameworks/kjobwidgets': '@latest-kf6'
+    'frameworks/kio': '@latest-kf6'
+    'frameworks/ktextwidgets': '@latest-kf6'
+    'frameworks/kxmlgui': '@latest-kf6'
+    'frameworks/kwidgetsaddons': '@latest-kf6'
+    'frameworks/purpose': '@latest-kf6'
+    'graphics/libkdcraw': '@latest-kf6'
+        #'education/marble': '@latest-kf6'
 
 Options:
-  require-passing-tests-on: [ Linux, FreeBSD ]
+    require-passing-tests-on: [ Linux, FreeBSD ]

@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2019-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -29,7 +30,7 @@ ThumbnailView::FilterWidget::FilterWidget(QWidget *parent)
     for (short i = 1; i <= 5; i++) {
         QAction *ratingAction = new QAction(i18np("Filter view by rating: %1 star", "Filter view by rating: %1 stars", i));
         m_actions->addAction(QString::fromLatin1("FilterWidget/rating/%1").arg(i), ratingAction);
-        m_actions->setDefaultShortcut(ratingAction, Qt::ALT + (Qt::Key_0 + i));
+        m_actions->setDefaultShortcut(ratingAction, QKeySequence(Qt::ALT | (Qt::Key_0 + i)));
         connect(ratingAction, &QAction::triggered, this, [=]() {
             short rating = i * 2;
             if (static_cast<short>(m_rating->rating()) == rating)

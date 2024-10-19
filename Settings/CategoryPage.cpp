@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -33,6 +34,8 @@
 #include <DB/MemberMap.h>
 #include <MainWindow/DirtyIndicator.h>
 #include <MainWindow/Window.h>
+
+#include <utility>
 
 Settings::CategoryPage::CategoryPage(QWidget *parent)
     : QWidget(parent)
@@ -327,7 +330,6 @@ void Settings::CategoryPage::positionableChanged(bool positionable)
                                       "will be discarded!</p>",
                                       m_currentCategory->text());
 
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActions(this,
                                                             question,
                                                             i18nc("@title", "Confirm Action"),
@@ -337,13 +339,6 @@ void Settings::CategoryPage::positionableChanged(bool positionable)
             m_positionable->setCheckState(Qt::Checked);
             return;
         }
-#else
-        int answer = KMessageBox::questionYesNo(this, question);
-        if (answer == KMessageBox::No) {
-            m_positionable->setCheckState(Qt::Checked);
-            return;
-        }
-#endif
     }
 
     m_currentCategory->setPositionable(positionable);
@@ -408,7 +403,6 @@ void Settings::CategoryPage::deleteCurrentCategory()
 {
     const QString question = i18n("<p>Really delete category \"%1\"?</p>",
                                   m_currentCategory->text());
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     const auto answer = KMessageBox::questionTwoActions(this,
                                                         question,
                                                         i18n("Confirm Action"),
@@ -417,12 +411,6 @@ void Settings::CategoryPage::deleteCurrentCategory()
     if (answer == KMessageBox::ButtonCode::SecondaryAction) {
         return;
     }
-#else
-    const auto answer = KMessageBox::questionYesNo(this, question);
-    if (answer == KMessageBox::No) {
-        return;
-    }
-#endif
 
     m_untaggedBox->categoryDeleted(m_currentCategory->text());
     m_deletedCategories.append(m_currentCategory);
@@ -483,7 +471,7 @@ void Settings::CategoryPage::enableDisable(bool b)
 void Settings::CategoryPage::saveSettings(Settings::SettingsData *opt, DB::MemberMap *memberMap)
 {
     // Delete items
-    for (CategoryItem *item : qAsConst(m_deletedCategories)) {
+    for (CategoryItem *item : std::as_const(m_deletedCategories)) {
         item->removeFromDatabase();
     }
     m_deletedCategories.clear();

@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2020 the KPhotoAlbum development team
-// SPDX-FileCopyrightText: 2022 - 2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -30,7 +31,11 @@ class FastDateTime
 {
 public:
     FastDateTime();
-    FastDateTime(const QDate &d, const QTime &t, Qt::TimeSpec spec = Qt::LocalTime);
+    // FIXME: KF6 port: The "Qt::TimeSpec spec = Qt::LocalTime" parameter used in the removed
+    // QDateTime::QDateTime(QDate date, QTime time, Qt::TimeSpec spec, int offsetSeconds = 0)
+    // overload doesn't seem to be used anywhere.
+    // Please somebody review if we really can simply use QDateTime(date, time) here instead!
+    FastDateTime(const QDate &d, const QTime &t);
     FastDateTime(const QDate &d);
     FastDateTime(const FastDateTime &other) = default;
     FastDateTime(FastDateTime &&other) = default;

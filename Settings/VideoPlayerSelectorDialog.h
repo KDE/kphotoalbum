@@ -42,7 +42,6 @@ public:
 
 private:
     QRadioButton *m_vlc;
-    QRadioButton *m_qtav;
     QRadioButton *m_phonon;
 };
 

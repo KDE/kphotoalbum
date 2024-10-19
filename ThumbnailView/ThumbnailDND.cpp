@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -41,11 +42,13 @@ void ThumbnailView::ThumbnailDND::contentsDragMoveEvent(QDragMoveEvent *event)
 
     const QRect rect = widget()->visualRect(widget()->indexUnderCursor());
 
-    if ((event->pos().y() < 10))
+    if (event->position().y() < 10) {
         widget()->scrollTo(widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter);
-    if ((event->pos().y() > widget()->viewport()->visibleRegion().cbegin()->height() - 10))
+    }
+    if (event->position().y() > widget()->viewport()->visibleRegion().cbegin()->height() - 10) {
         widget()->scrollTo(widget()->indexUnderCursor(), QAbstractItemView::PositionAtCenter);
-    const bool isLeftHalfOfItem = (event->pos().x() - rect.x() < rect.width() / 2);
+    }
+    const bool isLeftHalfOfItem = (event->position().x() - rect.x() < rect.width() / 2);
     if (isLeftHalfOfItem) {
         model()->setLeftDropItem(fileName);
         const int index = model()->indexOf(fileName) - 1;
@@ -96,17 +99,12 @@ void ThumbnailView::ThumbnailDND::realDropEvent()
 
     const QString title = i18nc("@title", "Reorder Thumbnails");
     const QString dontAskAgainName = QString::fromLatin1("reorder_images");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
     const auto answer = KMessageBox::questionTwoActions(widget(),
                                                         question,
                                                         title,
                                                         KStandardGuiItem::ok(),
                                                         KStandardGuiItem::cancel(), dontAskAgainName);
     if (answer == KMessageBox::ButtonCode::PrimaryAction) {
-#else
-    const auto answer = KMessageBox::questionYesNo(widget(), question, title, KStandardGuiItem::yes(), KStandardGuiItem::no(), dontAskAgainName);
-    if (answer == KMessageBox::Yes) {
-#endif
         // expand selection so that stacks are always selected as a whole:
         const DB::FileNameList selected = widget()->selection(IncludeAllStacks);
 

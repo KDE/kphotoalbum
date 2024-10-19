@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -17,6 +18,8 @@
 #include <QDebug>
 #include <QList>
 
+#include <utility>
+
 Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget *parent, KActionCollection *actions)
     : QMenu(i18n("Show..."), parent)
 {
@@ -26,7 +29,7 @@ Viewer::VisibleOptionsMenu::VisibleOptionsMenu(QWidget *parent, KActionCollectio
 
     m_showInfoBox = actions->add<KToggleAction>(QString::fromLatin1("viewer-show-infobox"));
     m_showInfoBox->setText(i18n("Show Info Box"));
-    actions->setDefaultShortcut(m_showInfoBox, Qt::CTRL + Qt::Key_I);
+    actions->setDefaultShortcut(m_showInfoBox, QKeySequence(Qt::CTRL | Qt::Key_I));
     m_showInfoBox->setChecked(Settings::SettingsData::instance()->showInfoBox());
     connect(m_showInfoBox, &KToggleAction::toggled, this, &VisibleOptionsMenu::toggleShowInfoBox);
     addAction(m_showInfoBox);
@@ -158,7 +161,7 @@ void Viewer::VisibleOptionsMenu::updateState()
     m_showRating->setChecked(Settings::SettingsData::instance()->showRating());
 
     const auto categoryCollection = DB::ImageDB::instance()->categoryCollection();
-    for (KToggleAction *action : qAsConst(m_actionList)) {
+    for (KToggleAction *action : std::as_const(m_actionList)) {
         const auto category = categoryCollection->categoryForName(action->data().value<QString>());
         action->setChecked(category->doShow());
     }

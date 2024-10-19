@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -19,6 +20,7 @@
 #include <Utilities/UniqFilenameMapper.h>
 
 #include <KConfigGroup>
+#include <KIO/FileCopyJob>
 #include <KIO/StatJob>
 #include <KJobUiDelegate>
 #include <KJobWidgets>
@@ -127,11 +129,7 @@ void ImportExport::ImportHandler::copyNextFromExternal()
         QUrl src(url);
         src.setPath(src.path() + fileName.relative());
 
-#if KIO_VERSION < QT_VERSION_CHECK(5, 69, 0)
-        std::unique_ptr<KIO::StatJob> statJob { KIO::stat(src, KIO::StatJob::SourceSide, 0 /* just query for existence */) };
-#else
-        std::unique_ptr<KIO::StatJob> statJob { KIO::statDetails(src, KIO::StatJob::SourceSide, KIO::StatDetail::StatNoDetails) };
-#endif
+        std::unique_ptr<KIO::StatJob> statJob { KIO::stat(src, KIO::StatJob::SourceSide, KIO::StatDetail::StatNoDetails) };
         KJobWidgets::setWindow(statJob.get(), MainWindow::Window::theMainWindow());
         if (statJob->exec()) {
             QUrl dest = QUrl::fromLocalFile(m_fileMapper->uniqNameFor(fileName));
@@ -235,7 +233,6 @@ void ImportExport::ImportHandler::aCopyFailed(QStringList files)
     if (m_reportUnreadableFiles) {
         const QString warnMessage = i18n("Cannot copy from any of the following locations:");
         const QString title = i18nc("@title", "Copy failed");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::warningTwoActionsCancelList(m_progress,
                                                                      warnMessage,
                                                                      files,
@@ -243,11 +240,6 @@ void ImportExport::ImportHandler::aCopyFailed(QStringList files)
                                                                      KStandardGuiItem::cont(),
                                                                      KGuiItem(i18nc("@action:button", "Continue without Asking")));
         if (answer == KMessageBox::ButtonCode::SecondaryAction) {
-#else
-        const auto answer = KMessageBox::warningYesNoCancelList(m_progress, warnMessage,
-                                                                files, title, KStandardGuiItem::cont(), KGuiItem(i18nc("@action:button", "Continue without Asking")));
-        if (answer == KMessageBox::No) {
-#endif
             m_reportUnreadableFiles = false;
         } else if (answer == KMessageBox::Cancel) {
             // This might be late -- if we managed to copy some files, we will

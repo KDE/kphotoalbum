@@ -16,6 +16,7 @@
 // SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2019 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -28,9 +29,14 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
+#include <KWindowConfig>
 #include <QStringList>
+#include <QStringLiteral>
 #include <QThread>
 #include <type_traits>
+
+// enable _L1 string literal operator
+using namespace Qt::Literals::StringLiterals;
 
 namespace
 {
@@ -41,12 +47,12 @@ const QString configFile = QString::fromLatin1("kphotoalbumrc");
 #define STR(x) QString::fromLatin1(x)
 
 #define cfgValue(GROUP, OPTION, DEFAULT) \
-    KSharedConfig::openConfig(configFile)->group(GROUP).readEntry(OPTION, DEFAULT)
+    KSharedConfig::openConfig(configFile)->group(GROUP).readEntry(QLatin1String(OPTION), DEFAULT)
 
 #define setValue(GROUP, OPTION, VALUE)                                            \
     do {                                                                          \
         KConfigGroup group = KSharedConfig::openConfig(configFile)->group(GROUP); \
-        group.writeEntry(OPTION, VALUE);                                          \
+        group.writeEntry(QLatin1String(OPTION), VALUE);                           \
         group.sync();                                                             \
     } while (0)
 
@@ -62,14 +68,14 @@ const QString configFile = QString::fromLatin1("kphotoalbumrc");
         setValue(GROUP, OPTION, VALUE);                 \
     }
 
-#define getValueFunc(TYPE, FUNC, GROUP, DEFAULT) getValueFunc_(TYPE, FUNC, #GROUP, #FUNC, DEFAULT)
+#define getValueFunc(TYPE, FUNC, GROUP, DEFAULT) getValueFunc_(TYPE, FUNC, QLatin1StringView(#GROUP), #FUNC, DEFAULT)
 #define setValueFunc(FUNC, TYPE, GROUP, OPTION) setValueFunc_(FUNC, TYPE, #GROUP, #OPTION, v)
 
 // TODO(mfwitten): document parameters.
 #define property_(GET_TYPE, GET_FUNC, GET_VALUE, SET_FUNC, SET_TYPE, SET_VALUE, GROUP, OPTION, GET_DEFAULT_1, GET_DEFAULT_2, GET_DEFAULT_2_TYPE) \
     GET_TYPE SettingsData::GET_FUNC() const                                                                                                      \
     {                                                                                                                                            \
-        const KConfigGroup g = KSharedConfig::openConfig(configFile)->group(GROUP);                                                              \
+        const KConfigGroup g = KSharedConfig::openConfig(configFile)->group(QLatin1String(GROUP));                                               \
                                                                                                                                                  \
         if (!g.hasKey(OPTION))                                                                                                                   \
             return GET_DEFAULT_1;                                                                                                                \
@@ -84,30 +90,31 @@ const QString configFile = QString::fromLatin1("kphotoalbumrc");
         setValueFunc_(SET_FUNC, SET_TYPE, GROUP, OPTION, SET_VALUE)
 
 #define property_copy(GET_FUNC, SET_FUNC, TYPE, GROUP, GET_DEFAULT) \
-    property(TYPE, GET_FUNC, SET_FUNC, TYPE, v, #GROUP, #GET_FUNC, GET_DEFAULT)
+    property(TYPE, GET_FUNC, SET_FUNC, TYPE, v, QLatin1StringView(#GROUP), #GET_FUNC, GET_DEFAULT)
 
 #define property_ref_(GET_FUNC, SET_FUNC, TYPE, GROUP, GET_DEFAULT) \
     property(TYPE, GET_FUNC, SET_FUNC, TYPE &, v, GROUP, #GET_FUNC, GET_DEFAULT)
 
 #define property_ref(GET_FUNC, SET_FUNC, TYPE, GROUP, GET_DEFAULT) \
-    property(TYPE, GET_FUNC, SET_FUNC, TYPE &, v, #GROUP, #GET_FUNC, GET_DEFAULT)
+    property(TYPE, GET_FUNC, SET_FUNC, TYPE &, v, QLatin1StringView(#GROUP), #GET_FUNC, GET_DEFAULT)
 
 #define property_enum(GET_FUNC, SET_FUNC, TYPE, GROUP, GET_DEFAULT) \
-    property(TYPE, GET_FUNC, SET_FUNC, TYPE, static_cast<int>(v), #GROUP, #GET_FUNC, static_cast<int>(GET_DEFAULT))
+    property(TYPE, GET_FUNC, SET_FUNC, TYPE, static_cast<int>(v), QLatin1StringView(#GROUP), #GET_FUNC, static_cast<int>(GET_DEFAULT))
 
 #define property_sset(GET_FUNC, SET_FUNC, GROUP, GET_DEFAULT) \
-    property_(StringSet, GET_FUNC, (StringSet { v.begin(), v.end() }), SET_FUNC, StringSet &, (QStringList { v.begin(), v.end() }), #GROUP, #GET_FUNC, GET_DEFAULT, QStringList(), QStringList)
+    property_(StringSet, GET_FUNC, (StringSet { v.begin(), v.end() }), SET_FUNC, StringSet &, (QStringList { v.begin(), v.end() }), QLatin1StringView(#GROUP), #GET_FUNC, GET_DEFAULT, QStringList(), QStringList)
 
 /**
  * smoothScale() is called from the image loading thread, therefore we need
  * to cache it this way, rather than going to KConfig.
  */
-static bool _smoothScale = true;
+static bool s_smoothScale = true;
+
+static const QHash<Settings::WindowId, QString> s_windowIdKeys {
+    { Settings::AnnotationDialog, QStringLiteral("AnnotationDialog") }
+};
 
 using namespace Settings;
-
-const WindowType Settings::MainWindow = "MainWindow";
-const WindowType Settings::AnnotationDialog = "AnnotationDialog";
 
 SettingsData *SettingsData::s_instance = nullptr;
 
@@ -140,11 +147,11 @@ SettingsData::SettingsData(const QString &imageDirectory, DB::UIDelegate &delega
     const QString s = STR("/");
     m_imageDirectory = imageDirectory.endsWith(s) ? imageDirectory : imageDirectory + s;
 
-    _smoothScale = cfgValue("Viewer", "smoothScale", true);
+    s_smoothScale = cfgValue("Viewer"_L1, "smoothScale", true);
 
     // Split the list of Exif comments that should be stripped automatically to a list
 
-    QStringList commentsToStrip = cfgValue("General", "commentsToStrip", QString::fromLatin1("Exif_JPEG_PICTURE-,-OLYMPUS DIGITAL CAMERA-,-JENOPTIK DIGITAL CAMERA-,-")).split(QString::fromLatin1("-,-"), Qt::SkipEmptyParts);
+    QStringList commentsToStrip = cfgValue("General"_L1, "commentsToStrip", QString::fromLatin1("Exif_JPEG_PICTURE-,-OLYMPUS DIGITAL CAMERA-,-JENOPTIK DIGITAL CAMERA-,-")).split(QString::fromLatin1("-,-"), Qt::SkipEmptyParts);
     for (QString &comment : commentsToStrip)
         comment.replace(QString::fromLatin1(",,"), QString::fromLatin1(","));
 
@@ -183,7 +190,7 @@ getValueFunc(QString, colorScheme, General, QString())
 void SettingsData::setColorScheme(const QString &path) {
     if (path != colorScheme())
     {
-        setValue("General", "colorScheme", path);
+        setValue("General"_L1, "colorScheme", path);
         Q_EMIT colorSchemeChanged();
     }
 }
@@ -199,7 +206,7 @@ getValueFunc(bool, histogramUseLinearScale, General, false)
     if (useLinearScale == histogramUseLinearScale())
         return;
 
-    setValue("General", "histogramUseLinearScale", useLinearScale);
+    setValue("General"_L1, "histogramUseLinearScale", useLinearScale);
     Q_EMIT histogramScaleChanged();
 }
 
@@ -208,7 +215,7 @@ void SettingsData::setHistogramSize(const QSize &size)
     if (size == histogramSize())
         return;
 
-    setValue("General", "histogramSize", size);
+    setValue("General"_L1, "histogramSize", size);
     Q_EMIT histogramSizeChanged(size);
 }
 
@@ -217,7 +224,7 @@ void SettingsData::setViewSortType(const ViewSortType tp)
     if (tp == viewSortType())
         return;
 
-    setValue("General", "viewSortType", static_cast<int>(tp));
+    setValue("General"_L1, "viewSortType", static_cast<int>(tp));
     Q_EMIT viewSortTypeChanged(tp);
 }
 void SettingsData::setMatchType(const AnnotationDialog::MatchType mt)
@@ -225,7 +232,7 @@ void SettingsData::setMatchType(const AnnotationDialog::MatchType mt)
     if (mt == matchType())
         return;
 
-    setValue("General", "matchType", static_cast<int>(mt));
+    setValue("General"_L1, "matchType", static_cast<int>(mt));
     Q_EMIT matchTypeChanged(mt);
 }
 
@@ -373,12 +380,12 @@ property_copy(infoBoxHeight, setInfoBoxHeight, int, Viewer, 300)
 property_enum(infoBoxPosition, setInfoBoxPosition, Position, Viewer, Bottom)
 property_enum(viewerStandardSize, setViewerStandardSize, StandardViewSize, Viewer, FullSize)
 //property_enum(videoBackend, setVideoBackend, VideoBackend, Viewer, VideoBackend::NotConfigured)
-setValueFunc_(setVideoBackend, VideoBackend, "Viewer", "videoBackend", static_cast<int>(v))
+setValueFunc_(setVideoBackend, VideoBackend, "Viewer"_L1, "videoBackend", static_cast<int>(v))
     // clang-format on
 
     VideoBackend SettingsData::videoBackend() const
 {
-    auto value = static_cast<VideoBackend>(cfgValue("Viewer", "videoBackend", static_cast<int>(VideoBackend::NotConfigured)));
+    auto value = static_cast<VideoBackend>(cfgValue("Viewer"_L1, "videoBackend", static_cast<int>(VideoBackend::NotConfigured)));
     // validate input:
     switch (value) {
     case VideoBackend::VLC:
@@ -388,13 +395,11 @@ setValueFunc_(setVideoBackend, VideoBackend, "Viewer", "videoBackend", static_ca
 #endif
         break;
     case Settings::VideoBackend::QtAV:
-#if !QtAV_FOUND
-        qCWarning(BaseLog) << "Configuration value for Viewer.videoBackend is not available. Ignoring value...";
+        qCWarning(BaseLog) << "Configuration value for Viewer.videoBackend is deprecated. Ignoring value...";
         value = VideoBackend::NotConfigured;
-#endif
         break;
     case Settings::VideoBackend::Phonon:
-#if !Phonon4Qt5_FOUND
+#if !Phonon4Qt6_FOUND
         qCWarning(BaseLog) << "Configuration value for Viewer.videoBackend is not available. Ignoring value...";
         value = VideoBackend::NotConfigured;
 #endif
@@ -410,13 +415,13 @@ setValueFunc_(setVideoBackend, VideoBackend, "Viewer", "videoBackend", static_ca
 
 bool SettingsData::smoothScale() const
 {
-    return _smoothScale;
+    return s_smoothScale;
 }
 
 void SettingsData::setSmoothScale(bool b)
 {
-    _smoothScale = b;
-    setValue("Viewer", "smoothScale", b);
+    s_smoothScale = b;
+    setValue("Viewer"_L1, "smoothScale", b);
 }
 
 ////////////////////
@@ -425,21 +430,21 @@ void SettingsData::setSmoothScale(bool b)
 
 // clang-format off
 //property_ref(untaggedCategory, setUntaggedCategory, QString, General, i18n("Events"))
-getValueFunc_(QString, untaggedCategory, "General", "untaggedCategory", i18n("Events"))
+getValueFunc_(QString, untaggedCategory, "General"_L1, "untaggedCategory", i18n("Events"))
     void SettingsData::setUntaggedCategory(const QString &value)
 {
     const bool changed = value != untaggedCategory();
-    setValue("General", "untaggedCategory", value);
+    setValue("General"_L1, "untaggedCategory", value);
     if (changed)
         Q_EMIT untaggedTagChanged(value, untaggedTag());
 }
 
 //property_ref(untaggedTag, setUntaggedTag, QString, General, i18n("untagged"))
-getValueFunc_(QString, untaggedTag, "General", "untaggedTag", i18n("untagged"))
+getValueFunc_(QString, untaggedTag, "General"_L1, "untaggedTag", i18n("untagged"))
     void SettingsData::setUntaggedTag(const QString &value)
 {
     const bool changed = value != untaggedTag();
-    setValue("General", "untaggedTag", value);
+    setValue("General"_L1, "untaggedTag", value);
     if (changed)
         Q_EMIT untaggedTagChanged(untaggedCategory(), value);
 }
@@ -492,26 +497,26 @@ property_ref_(HTMLIncludeSelections, setHTMLIncludeSelections, QString, groupFor
 
     QDate SettingsData::fromDate() const
 {
-    QString date = cfgValue("Miscellaneous", "fromDate", QString());
+    QString date = cfgValue("Miscellaneous"_L1, "fromDate", QString());
     return date.isEmpty() ? QDate(QDate::currentDate().year(), 1, 1) : QDate::fromString(date, Qt::ISODate);
 }
 
 void SettingsData::setFromDate(const QDate &date)
 {
     if (date.isValid())
-        setValue("Miscellaneous", "fromDate", date.toString(Qt::ISODate));
+        setValue("Miscellaneous"_L1, "fromDate", date.toString(Qt::ISODate));
 }
 
 QDate SettingsData::toDate() const
 {
-    QString date = cfgValue("Miscellaneous", "toDate", QString());
+    QString date = cfgValue("Miscellaneous"_L1, "toDate", QString());
     return date.isEmpty() ? QDate(QDate::currentDate().year() + 1, 1, 1) : QDate::fromString(date, Qt::ISODate);
 }
 
 void SettingsData::setToDate(const QDate &date)
 {
     if (date.isValid())
-        setValue("Miscellaneous", "toDate", date.toString(Qt::ISODate));
+        setValue("Miscellaneous"_L1, "toDate", date.toString(Qt::ISODate));
 }
 
 QString SettingsData::imageDirectory() const
@@ -521,7 +526,7 @@ QString SettingsData::imageDirectory() const
 
 QString SettingsData::groupForDatabase(const char *setting) const
 {
-    return STR("%1 - %2").arg(STR(setting), imageDirectory());
+    return QLatin1StringView("%1 - %2").arg(QLatin1String(setting), imageDirectory());
 }
 
 QVariantMap SettingsData::currentLock() const
@@ -537,7 +542,8 @@ QVariantMap SettingsData::currentLock() const
     const QStringList categories = config.readEntry<QStringList>(QString::fromUtf8("categories"), QStringList());
     keyValuePairs[STR("categories")] = QVariant(categories);
     for (QStringList::ConstIterator it = categories.constBegin(); it != categories.constEnd(); ++it) {
-        keyValuePairs[*it] = cfgValue(group, *it, {});
+        const auto val = *it;
+        keyValuePairs[*it] = cfgValue(group, val.toUtf8().data(), {});
     }
     return keyValuePairs;
 }
@@ -545,7 +551,7 @@ QVariantMap SettingsData::currentLock() const
 void SettingsData::setCurrentLock(const QVariantMap &pairs, bool exclude)
 {
     for (QVariantMap::const_iterator it = pairs.cbegin(); it != pairs.cend(); ++it) {
-        setValue(groupForDatabase("Privacy Settings"), it.key(), it.value());
+        setValue(groupForDatabase("Privacy Settings"), it.key().toUtf8().data(), it.value());
     }
     setValue(groupForDatabase("Privacy Settings"), "exclude", exclude);
 }
@@ -566,14 +572,31 @@ getValueFunc_(bool, locked, groupForDatabase("Privacy Settings"), "locked", fals
     Q_EMIT locked(lock, lockExcludes());
 }
 
-void SettingsData::setWindowGeometry(WindowType win, const QRect &geometry)
+void SettingsData::saveWindowGeometry(WindowId id, const QWindow *window)
 {
-    setValue("Window Geometry", win, geometry);
+    auto stateConfig = KSharedConfig::openStateConfig()->group(s_windowIdKeys.value(id));
+    KWindowConfig::saveWindowPosition(window, stateConfig);
+    KWindowConfig::saveWindowSize(window, stateConfig);
 }
 
-QRect SettingsData::windowGeometry(WindowType win) const
+void SettingsData::restoreWindowGeometry(WindowId id, QWindow *window)
 {
-    return cfgValue("Window Geometry", win, QRect());
+    auto stateConfig = KSharedConfig::openStateConfig()->group(s_windowIdKeys.value(id));
+    KWindowConfig::restoreWindowPosition(window, stateConfig);
+    KWindowConfig::restoreWindowSize(window, stateConfig);
+}
+
+void SettingsData::saveWindowState(WindowId id, const QByteArray &state)
+{
+    auto stateConfig = KSharedConfig::openStateConfig()->group(s_windowIdKeys.value(id));
+    stateConfig.writeEntry(QStringLiteral("State"), state.toBase64());
+}
+
+QByteArray SettingsData::windowState(WindowId id)
+{
+    auto stateConfig = KSharedConfig::openStateConfig()->group(s_windowIdKeys.value(id));
+    auto data = stateConfig.readEntry(QStringLiteral("State"), QString());
+    return QByteArray::fromBase64(data.toUtf8());
 }
 
 double Settings::SettingsData::getThumbnailAspectRatio() const

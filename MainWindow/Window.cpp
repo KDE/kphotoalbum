@@ -1,5 +1,6 @@
-// SPDX-FileCopyrightText: 2003 - 2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -85,9 +86,7 @@
 #include <KActionCollection>
 #include <KActionMenu>
 #include <KColorSchemeManager>
-#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(5, 107, 0)
 #include <KColorSchemeMenu>
-#endif
 #include <KConfigGroup>
 #include <KEditToolBar>
 #include <KIconLoader>
@@ -99,9 +98,9 @@
 #include <KShortcutsDialog>
 #include <KStandardAction>
 #include <KToggleAction>
+#include <QActionGroup>
 #include <QApplication>
 #include <QClipboard>
-#include <QCloseEvent>
 #include <QContextMenuEvent>
 #include <QCursor>
 #include <QDesktopServices>
@@ -114,16 +113,15 @@
 #include <QMenu>
 #include <QMessageBox>
 #include <QMimeData>
-#include <QMoveEvent>
 #include <QObject>
 #include <QPixmapCache>
 #include <QProgressDialog>
-#include <QResizeEvent>
 #include <QStackedWidget>
 #include <QTimer>
 #include <QVBoxLayout>
+
 #include <functional>
-#include <ktip.h>
+#include <utility>
 
 using namespace DB;
 
@@ -141,24 +139,28 @@ MainWindow::Window::Window(QWidget *parent)
 {
     // propagate palette changes to subwindows:
     setAttribute(Qt::WA_WindowPropagation);
-    qCDebug(MainWindowLog) << "Using icon theme: " << QIcon::themeName();
-    qCDebug(MainWindowLog) << "Icon search paths: " << QIcon::themeSearchPaths();
-    QElapsedTimer timer;
-    timer.start();
-    SplashScreen::instance()->message(i18n("Loading Database"));
-    s_instance = this;
 
-    bool gotConfigFile = load();
-    if (!gotConfigFile)
-        throw 0;
-    qCInfo(TimingLog) << "MainWindow: Loading Database: " << timer.restart() << "ms.";
-    SplashScreen::instance()->message(i18n("Loading Main Window"));
+    s_instance = this;
 
     QWidget *top = new QWidget(this);
     QVBoxLayout *lay = new QVBoxLayout(top);
     lay->setSpacing(2);
     lay->setContentsMargins(2, 2, 2, 2);
     setCentralWidget(top);
+
+    qCDebug(MainWindowLog) << "Using icon theme: " << QIcon::themeName();
+    qCDebug(MainWindowLog) << "Icon search paths: " << QIcon::themeSearchPaths();
+    QElapsedTimer timer;
+    timer.start();
+
+    // FIXME: We apparently can't show the splash screen before calling setupGUI()
+    // SplashScreen::instance()->message(i18n("Loading Database"));
+
+    bool gotConfigFile = load();
+    if (!gotConfigFile)
+        throw 0;
+    qCInfo(TimingLog) << "MainWindow: Loading Database: " << timer.restart() << "ms.";
+    // SplashScreen::instance()->message(i18n("Loading Main Window"));
 
     m_stack = new QStackedWidget(top);
     lay->addWidget(m_stack, 1);
@@ -186,6 +188,7 @@ MainWindow::Window::Window(QWidget *parent)
     m_settingsDialog = nullptr;
     qCInfo(TimingLog) << "MainWindow: Loading MainWindow: " << timer.restart() << "ms.";
     setupMenuBar();
+    setupGUI(KXmlGuiWindow::ToolBar | Create | Save);
     qCInfo(TimingLog) << "MainWindow: setupMenuBar: " << timer.restart() << "ms.";
     createSearchBar();
     qCInfo(TimingLog) << "MainWindow: createSearchBar: " << timer.restart() << "ms.";
@@ -242,9 +245,6 @@ MainWindow::Window::Window(QWidget *parent)
     QTimer::singleShot(0, this, &Window::delayedInit);
     updateContextMenuFromSelectionSize(0);
 
-    // Automatically save toolbar settings
-    setAutoSaveSettings();
-
     m_copyLinkEngine = new CopyLinkEngine(this);
 
     qCInfo(TimingLog) << "MainWindow: misc setup time: " << timer.restart() << "ms.";
@@ -282,11 +282,6 @@ void MainWindow::Window::delayedInit()
         // I need to do this in delayed init to get the import window on top of the normal window
         ImportExport::Import::imageImport(importUrl);
         qCInfo(TimingLog) << "MainWindow: imageImport:" << timer.restart() << "ms.";
-    } else {
-#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 83, 0)
-        // I need to postpone this otherwise the tip dialog will not get focus on start up
-        KTipDialog::showTip(this);
-#endif
     }
 
     qCInfo(TimingLog) << "MainWindow: Loading Exif DB:" << timer.restart() << "ms.";
@@ -299,7 +294,7 @@ void MainWindow::Window::delayedInit()
 #endif
 }
 
-bool MainWindow::Window::slotExit()
+bool MainWindow::Window::queryClose()
 {
     bool deleteDemoDB = false;
     if (Options::the()->demoMode()) {
@@ -309,7 +304,6 @@ bool MainWindow::Window::slotExit()
                                       "on the other hand, if you want to come back and try the demo again, you "
                                       "might want to keep it around with the changes you made through this session.</p>");
         const QString title = i18nc("@title", "Delete Demo Database");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActionsCancel(widget(),
                                                                   question,
                                                                   title,
@@ -320,14 +314,6 @@ bool MainWindow::Window::slotExit()
         if (answer == KMessageBox::Cancel)
             return false;
         else if (answer == KMessageBox::PrimaryAction) {
-#else
-        const auto answer = KMessageBox::questionYesNoCancel(this, question, title,
-                                                             KStandardGuiItem::yes(), KStandardGuiItem::no(), KStandardGuiItem::cancel(),
-                                                             QString::fromLatin1("deleteDemoDatabase"));
-        if (answer == KMessageBox::Cancel)
-            return false;
-        else if (answer == KMessageBox::Yes) {
-#endif
             deleteDemoDB = true;
         } else {
             slotSave();
@@ -335,7 +321,6 @@ bool MainWindow::Window::slotExit()
     } else if (m_statusBar->mp_dirtyIndicator->isSaveDirty()) {
         const QString question = i18n("Do you want to save the changes?");
         const QString title = i18nc("@title", "Save Changes?");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActionsCancel(widget(),
                                                                   question,
                                                                   title,
@@ -344,11 +329,6 @@ bool MainWindow::Window::slotExit()
                                                                   KStandardGuiItem::cancel());
         constexpr auto REPLY_SAVE = KMessageBox::PrimaryAction;
         constexpr auto REPLY_DONTSAVE = KMessageBox::SecondaryAction;
-#else
-        const auto answer = KMessageBox::questionYesNoCancel(this, question, title);
-        constexpr auto REPLY_SAVE = KMessageBox::Yes;
-        constexpr auto REPLY_DONTSAVE = KMessageBox::No;
-#endif
         if (answer == KMessageBox::Cancel) {
             return false;
         }
@@ -365,7 +345,7 @@ bool MainWindow::Window::slotExit()
     thumbnailCache()->save();
     if (deleteDemoDB)
         Utilities::deleteDemo();
-    qApp->quit();
+
     return true;
 }
 
@@ -395,17 +375,12 @@ void MainWindow::Window::slotCreateImageStack()
                                       "Do you want to remove them from their stacks and create a "
                                       "completely new one?");
         const QString title = i18nc("@title", "Stacking problem");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActions(widget(),
                                                             question,
                                                             title,
                                                             KStandardGuiItem::ok(),
                                                             KStandardGuiItem::cancel());
         if (answer == KMessageBox::ButtonCode::PrimaryAction) {
-#else
-        const auto answer = KMessageBox::questionYesNo(this, question, title);
-        if (answer == KMessageBox::Yes) {
-#endif
             DB::ImageDB::instance()->unstack(list);
             if (!DB::ImageDB::instance()->stack(list)) {
                 KMessageBox::error(this,
@@ -754,17 +729,6 @@ bool MainWindow::Window::event(QEvent *event)
     return KXmlGuiWindow::event(event);
 }
 
-void MainWindow::Window::closeEvent(QCloseEvent *e)
-{
-    bool quit = true;
-    quit = slotExit();
-    // If I made it here, then the user canceled
-    if (!quit)
-        e->ignore();
-    else
-        e->setAccepted(true);
-}
-
 void MainWindow::Window::slotLimitToSelected()
 {
     const auto selectedList = selected();
@@ -781,7 +745,7 @@ void MainWindow::Window::setupMenuBar()
 {
     // File menu
     KStandardAction::save(this, &Window::slotSave, actionCollection());
-    KStandardAction::quit(this, &Window::slotExit, actionCollection());
+    KStandardAction::quit(this, &QWidget::close, actionCollection());
     m_generateHtml = actionCollection()->addAction(QString::fromLatin1("exportHTML"));
     m_generateHtml->setText(i18n("Generate HTML..."));
     connect(m_generateHtml, &QAction::triggered, this, &Window::slotExportToHTML);
@@ -802,7 +766,7 @@ void MainWindow::Window::setupMenuBar()
     a->setEnabled(false);
 
     a = KStandardAction::home(m_browser, &Browser::BrowserWidget::home, actionCollection());
-    actionCollection()->setDefaultShortcut(a, Qt::CTRL + Qt::Key_Home);
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_Home));
     connect(a, &QAction::triggered, m_dateBar, &DateBar::DateBarWidget::clearSelection);
 
     KStandardAction::redisplay(m_browser, &Browser::BrowserWidget::go, actionCollection());
@@ -830,22 +794,22 @@ void MainWindow::Window::setupMenuBar()
 
     m_configOneAtATime = actionCollection()->addAction(QString::fromLatin1("oneProp"), this, &Window::slotConfigureImagesOneAtATime);
     m_configOneAtATime->setText(i18n("Annotate Individual Items"));
-    actionCollection()->setDefaultShortcut(m_configOneAtATime, Qt::CTRL + Qt::Key_1);
+    actionCollection()->setDefaultShortcut(m_configOneAtATime, QKeySequence(Qt::CTRL | Qt::Key_1));
 
     m_configAllSimultaniously = actionCollection()->addAction(QString::fromLatin1("allProp"), this, &Window::slotConfigureAllImages);
     m_configAllSimultaniously->setText(i18n("Annotate Multiple Items at a Time"));
-    actionCollection()->setDefaultShortcut(m_configAllSimultaniously, Qt::CTRL + Qt::Key_2);
+    actionCollection()->setDefaultShortcut(m_configAllSimultaniously, QKeySequence(Qt::CTRL | Qt::Key_2));
 
     m_createImageStack = actionCollection()->addAction(QString::fromLatin1("createImageStack"), this, &Window::slotCreateImageStack);
     m_createImageStack->setText(i18n("Merge Images into a Stack"));
-    actionCollection()->setDefaultShortcut(m_createImageStack, Qt::CTRL + Qt::Key_3);
+    actionCollection()->setDefaultShortcut(m_createImageStack, QKeySequence(Qt::CTRL | Qt::Key_3));
 
     m_unStackImages = actionCollection()->addAction(QString::fromLatin1("unStackImages"), this, &Window::slotUnStackImages);
     m_unStackImages->setText(i18n("Remove Images from Stack"));
 
     m_setStackHead = actionCollection()->addAction(QString::fromLatin1("setStackHead"), this, &Window::slotSetStackHead);
     m_setStackHead->setText(i18n("Set as First Image in Stack"));
-    actionCollection()->setDefaultShortcut(m_setStackHead, Qt::CTRL + Qt::Key_4);
+    actionCollection()->setDefaultShortcut(m_setStackHead, QKeySequence(Qt::CTRL | Qt::Key_4));
 
     m_rotLeft = actionCollection()->addAction(QString::fromLatin1("rotateLeft"), this, &Window::slotRotateSelectedLeft);
     m_rotLeft->setText(i18n("Rotate counterclockwise"));
@@ -865,7 +829,7 @@ void MainWindow::Window::setupMenuBar()
     m_runSlideShow = actionCollection()->addAction(QString::fromLatin1("runSlideShow"), this, &Window::slotRunSlideShow);
     m_runSlideShow->setText(i18n("Run Slide Show"));
     m_runSlideShow->setIcon(QIcon::fromTheme(QString::fromLatin1("view-presentation")));
-    actionCollection()->setDefaultShortcut(m_runSlideShow, Qt::CTRL + Qt::Key_R);
+    actionCollection()->setDefaultShortcut(m_runSlideShow, QKeySequence(Qt::CTRL | Qt::Key_R));
 
     m_runRandomSlideShow = actionCollection()->addAction(QString::fromLatin1("runRandomizedSlideShow"), this, &Window::slotRunRandomizedSlideShow);
     m_runRandomSlideShow->setText(i18n("Run Randomized Slide Show"));
@@ -902,7 +866,7 @@ void MainWindow::Window::setupMenuBar()
 
     m_jumpToContext = actionCollection()->addAction(QString::fromLatin1("jumpToContext"), this, &Window::slotJumpToContext);
     m_jumpToContext->setText(i18n("Jump to Context"));
-    actionCollection()->setDefaultShortcut(m_jumpToContext, Qt::CTRL + Qt::Key_J);
+    actionCollection()->setDefaultShortcut(m_jumpToContext, QKeySequence(Qt::CTRL | Qt::Key_J));
     m_jumpToContext->setIcon(QIcon::fromTheme(QString::fromLatin1("kphotoalbum"))); // icon suggestion: go-jump (don't know the exact meaning though, so I didn't replace it right away
 
     m_lock = actionCollection()->addAction(QString::fromLatin1("lockToDefaultScope"), this, &Window::lockToDefaultScope);
@@ -922,11 +886,7 @@ void MainWindow::Window::setupMenuBar()
     m_viewMenu = actionCollection()->add<KActionMenu>(QString::fromLatin1("configureView"));
     m_viewMenu->setText(i18n("Configure Current View"));
     m_viewMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("view-list-details")));
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
     m_viewMenu->setPopupMode(QToolButton::InstantPopup);
-#else
-    m_viewMenu->setDelayed(false);
-#endif
 
     QActionGroup *viewGrp = new QActionGroup(this);
     viewGrp->setExclusive(true);
@@ -960,7 +920,7 @@ void MainWindow::Window::setupMenuBar()
 
     a = actionCollection()->add<KToggleAction>(QString::fromLatin1("showToolTipOnImages"));
     a->setText(i18n("Show Tooltips in Thumbnails Window"));
-    actionCollection()->setDefaultShortcut(a, Qt::CTRL + Qt::Key_T);
+    actionCollection()->setDefaultShortcut(a, QKeySequence(Qt::CTRL | Qt::Key_T));
     connect(a, &QAction::toggled, m_thumbnailView, &ThumbnailView::ThumbnailFacade::showToolTipsOnImages);
 
     a = actionCollection()->add<KToggleAction>(QString::fromLatin1("showLabelBelowThumbnail"));
@@ -983,25 +943,17 @@ void MainWindow::Window::setupMenuBar()
     });
     connect(Settings::SettingsData::instance(), &Settings::SettingsData::displayCategoriesChanged, a, &QAction::setChecked);
 
-    KColorSchemeManager *schemes = new KColorSchemeManager(this);
+    KColorSchemeManager *schemes = KColorSchemeManager::instance();
     const QString schemePath = Settings::SettingsData::instance()->colorScheme();
     const auto schemeCfg = KSharedConfig::openConfig(schemePath);
-    const QString activeSchemeName = schemeCfg->group("General").readEntry("Name", QFileInfo(schemePath).baseName());
-#if KCONFIGWIDGETS_VERSION >= QT_VERSION_CHECK(5, 107, 0)
+    const QString activeSchemeName = schemeCfg->group(QLatin1String("General")).readEntry(QLatin1String("Name"), QFileInfo(schemePath).baseName());
     const auto activeSchemeIndex = schemes->indexForScheme(activeSchemeName);
     if (activeSchemeIndex.isValid())
         schemes->activateScheme(activeSchemeIndex);
     m_colorSchemeMenu = KColorSchemeMenu::createMenu(schemes, this);
-#else
-    m_colorSchemeMenu = schemes->createSchemeSelectionMenu(activeSchemeName, this);
-#endif
     m_colorSchemeMenu->setText(i18n("Choose Color Scheme"));
     m_colorSchemeMenu->setIcon(QIcon::fromTheme(QString::fromLatin1("color")));
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 77, 0)
     m_colorSchemeMenu->setPopupMode(QToolButton::InstantPopup);
-#else
-    m_colorSchemeMenu->setDelayed(false);
-#endif
     actionCollection()->addAction(QString::fromLatin1("colorScheme"), m_colorSchemeMenu);
 
     // Maintenance
@@ -1053,10 +1005,6 @@ void MainWindow::Window::setupMenuBar()
     a->setText(i18n("Enable All Messages"));
 
     // The help menu
-#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 83, 0)
-    KStandardAction::tipOfDay(this, &Window::showTipOfDay, actionCollection());
-#endif
-
     a = actionCollection()->addAction(QString::fromLatin1("runDemo"), this, &Window::runDemo);
     a->setText(i18n("Run KPhotoAlbum Demo"));
 
@@ -1075,11 +1023,11 @@ void MainWindow::Window::setupMenuBar()
 
     m_useNextVideoThumbnail = actionCollection()->addAction(QString::fromLatin1("useNextVideoThumbnail"), this, &Window::useNextVideoThumbnail);
     m_useNextVideoThumbnail->setText(i18n("Use next video thumbnail"));
-    actionCollection()->setDefaultShortcut(m_useNextVideoThumbnail, Qt::CTRL + Qt::Key_Plus);
+    actionCollection()->setDefaultShortcut(m_useNextVideoThumbnail, QKeySequence(Qt::CTRL | Qt::Key_Plus));
 
     m_usePreviousVideoThumbnail = actionCollection()->addAction(QString::fromLatin1("usePreviousVideoThumbnail"), this, &Window::usePreviousVideoThumbnail);
     m_usePreviousVideoThumbnail->setText(i18n("Use previous video thumbnail"));
-    actionCollection()->setDefaultShortcut(m_usePreviousVideoThumbnail, Qt::CTRL + Qt::Key_Minus);
+    actionCollection()->setDefaultShortcut(m_usePreviousVideoThumbnail, QKeySequence(Qt::CTRL | Qt::Key_Minus));
 
     m_copyAction = actionCollection()->addAction(QStringLiteral("copyImagesTo"), this, std::bind(&Window::triggerCopyLinkAction, this, CopyLinkEngine::Copy));
     m_copyAction->setText(i18np("Copy image to ...", "Copy images to ...", 1));
@@ -1087,9 +1035,7 @@ void MainWindow::Window::setupMenuBar()
 
     m_linkAction = actionCollection()->addAction(QStringLiteral("linkImagesTo"), this, std::bind(&Window::triggerCopyLinkAction, this, CopyLinkEngine::Link));
     m_linkAction->setText(i18np("Link image to ...", "Link images to ...", 1));
-    actionCollection()->setDefaultShortcut(m_linkAction, Qt::SHIFT + Qt::Key_F7);
-
-    setupGUI(KXmlGuiWindow::ToolBar | Create | Save);
+    actionCollection()->setDefaultShortcut(m_linkAction, QKeySequence(Qt::SHIFT | Qt::Key_F7));
 }
 
 void MainWindow::Window::slotExportToHTML()
@@ -1157,14 +1103,6 @@ void MainWindow::Window::slotFilterChanged()
     m_statusBar->mp_partial->showBrowserMatches(m_thumbnailView->imageList(ThumbnailView::ViewOrder).size());
 }
 
-void MainWindow::Window::showTipOfDay()
-{
-    // deprecated without in-program replacement
-#if KCONFIGWIDGETS_VERSION < QT_VERSION_CHECK(5, 83, 0)
-    KTipDialog::showTip(this, QString(), true);
-#endif
-}
-
 void MainWindow::Window::runDemo()
 {
     KProcess *process = new KProcess;
@@ -1193,7 +1131,7 @@ bool MainWindow::Window::load()
             showWelcome = true;
 
         if (showWelcome) {
-            SplashScreen::instance()->hide();
+            // SplashScreen::instance()->hide();
             configFile = welcome();
         }
     }
@@ -1264,8 +1202,8 @@ bool MainWindow::Window::load()
     Settings::SettingsData::setup(QFileInfo(configFile).absolutePath(), *this);
 
     if (Settings::SettingsData::instance()->showSplashScreen()) {
-        SplashScreen::instance()->show();
-        qApp->processEvents();
+        // SplashScreen::instance()->show();
+        // qApp->processEvents();
     }
 
     DB::ImageDB::setupXMLDB(configFile, *this);
@@ -1365,7 +1303,7 @@ void MainWindow::Window::triggerCopyLinkAction(CopyLinkEngine::Action action)
     }
 
     QList<QUrl> selectedFiles;
-    for (const QString &path : qAsConst(selection)) {
+    for (const QString &path : std::as_const(selection)) {
         selectedFiles.append(QUrl::fromLocalFile(path));
     }
 
@@ -1644,18 +1582,6 @@ DB::ImageSearchInfo MainWindow::Window::currentContext()
 QString MainWindow::Window::currentBrowseCategory() const
 {
     return m_browser->currentCategory();
-}
-
-void MainWindow::Window::resizeEvent(QResizeEvent *)
-{
-    if (Settings::SettingsData::ready() && isVisible())
-        Settings::SettingsData::instance()->setWindowGeometry(Settings::MainWindow, geometry());
-}
-
-void MainWindow::Window::moveEvent(QMoveEvent *)
-{
-    if (Settings::SettingsData::ready() && isVisible())
-        Settings::SettingsData::instance()->setWindowGeometry(Settings::MainWindow, geometry());
 }
 
 void MainWindow::Window::slotRemoveTokens()

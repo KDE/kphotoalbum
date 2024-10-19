@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -413,11 +414,7 @@ bool HTMLDialog::checkVars()
     }
 
     // ensure base dir exists
-#if KIO_VERSION < QT_VERSION_CHECK(5, 69, 0)
-    QScopedPointer<KIO::StatJob> statJob(KIO::stat(QUrl::fromUserInput(baseDir), KIO::StatJob::DestinationSide, 1 /*only basic info*/));
-#else
-    QScopedPointer<KIO::StatJob> statJob(KIO::statDetails(QUrl::fromUserInput(baseDir), KIO::StatJob::DestinationSide, KIO::StatDetail::StatNoDetails));
-#endif
+    QScopedPointer<KIO::StatJob> statJob(KIO::stat(QUrl::fromUserInput(baseDir), KIO::StatJob::DestinationSide, KIO::StatDetail::StatNoDetails));
     KJobWidgets::setWindow(statJob.data(), MainWindow::Window::theMainWindow());
     if (!statJob->exec()) {
         KMessageBox::error(this, i18n("<p>Error while reading information about %1. "
@@ -436,11 +433,7 @@ bool HTMLDialog::checkVars()
     }
 
     // test if destination directory exists.
-#if KIO_VERSION < QT_VERSION_CHECK(5, 69, 0)
-    QScopedPointer<KIO::StatJob> existsJob(KIO::stat(QUrl::fromUserInput(outputDir), KIO::StatJob::DestinationSide, 0 /*only minimal info*/));
-#else
-    QScopedPointer<KIO::StatJob> existsJob(KIO::statDetails(QUrl::fromUserInput(outputDir), KIO::StatJob::DestinationSide, KIO::StatDetail::StatNoDetails));
-#endif
+    QScopedPointer<KIO::StatJob> existsJob(KIO::stat(QUrl::fromUserInput(outputDir), KIO::StatJob::DestinationSide, KIO::StatDetail::StatNoDetails));
     KJobWidgets::setWindow(existsJob.data(), MainWindow::Window::theMainWindow());
     if (existsJob->exec()) {
         const QString question = i18n("<p>Output folder %1 already exists. "
@@ -449,20 +442,12 @@ bool HTMLDialog::checkVars()
                                       outputDir, outputDir);
         const QString title = i18nc("@title", "Folder Exists");
         const QString dontAskAgainName = QString::fromLatin1("html_export_delete_original_directory");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
         const auto answer = KMessageBox::questionTwoActions(this,
                                                             question,
                                                             title,
                                                             KStandardGuiItem::del(),
                                                             KStandardGuiItem::cancel(), dontAskAgainName);
         if (answer == KMessageBox::ButtonCode::PrimaryAction) {
-#else
-        int answer = KMessageBox::warningYesNo(this,
-                                               question,
-                                               title, KStandardGuiItem::yes(), KStandardGuiItem::no(),
-                                               dontAskAgainName);
-        if (answer == KMessageBox::Yes) {
-#endif
             QScopedPointer<KJob> delJob(KIO::del(QUrl::fromUserInput(outputDir)));
             KJobWidgets::setWindow(delJob.data(), MainWindow::Window::theMainWindow());
             delJob->exec();
@@ -514,7 +499,7 @@ QString HTMLDialog::includeSelections() const
 void HTMLDialog::populateThemesCombo()
 {
     QStringList dirs = QStandardPaths::locateAll(
-        QStandardPaths::DataLocation,
+        QStandardPaths::AppLocalDataLocation,
         QString::fromLocal8Bit("themes/"),
         QStandardPaths::LocateDirectory);
     int i = 0;
@@ -532,15 +517,15 @@ void HTMLDialog::populateThemesCombo()
             QString themePath = QString::fromLatin1("%1/%2/").arg(dir.path(), *it);
 
             KConfig themeconfig(QString::fromLatin1("%1/kphotoalbum.theme").arg(themePath), KConfig::SimpleConfig);
-            KConfigGroup config = themeconfig.group("theme");
-            QString themeName = config.readEntry("Name");
+            KConfigGroup config = themeconfig.group(QStringLiteral("theme"));
+            QString themeName = config.readEntry(QStringLiteral("Name"));
             // without the name, we can't show anything useful for the user to choose
             if (themeName.trimmed().isEmpty())
                 continue;
-            QString themeAuthor = config.readEntry("Author");
+            QString themeAuthor = config.readEntry(QStringLiteral("Author"));
             m_themeAuthors << themeAuthor; // save author to display later
-            QString themeDefault = config.readEntry("Default");
-            QString themeDescription = config.readEntry("Description");
+            QString themeDefault = config.readEntry(QStringLiteral("Default"));
+            QString themeDescription = config.readEntry(QStringLiteral("Description"));
             m_themeDescriptions << themeDescription; // save description to display later
 
             // m_themeBox->insertItem( i, i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative

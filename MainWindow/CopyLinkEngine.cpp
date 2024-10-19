@@ -1,4 +1,5 @@
-// SPDX-FileCopyrightText: 2021-2023 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2021 - 2023 Tobias Leupold <tl at stonemx dot de>
+// SPDX-FileCopyrightText: 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -49,7 +50,7 @@ void CopyLinkEngine::selectTarget(QWidget *parent, const QList<QUrl> &files, Act
     }
     m_lastTarget = targetDirectory.path();
 
-    KIO::CopyJob *job;
+    KIO::CopyJob *job = nullptr;
     switch (action) {
     case Copy:
         job = KIO::copy(files, targetDirectory);
@@ -57,6 +58,8 @@ void CopyLinkEngine::selectTarget(QWidget *parent, const QList<QUrl> &files, Act
     case Link:
         job = KIO::link(files, targetDirectory);
         break;
+    default:
+        Q_UNREACHABLE();
     }
     connect(job, &KIO::CopyJob::finished, job, &QObject::deleteLater);
 }

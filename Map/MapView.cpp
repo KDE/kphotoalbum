@@ -1,6 +1,6 @@
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2015-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -34,6 +34,8 @@
 #include <marble/MarbleWidget.h>
 #include <marble/RenderPlugin.h>
 #include <marble/ViewportParams.h>
+
+#include <utility>
 
 namespace
 {
@@ -143,13 +145,8 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
     m_mapWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     m_mapWidget->setProjection(Marble::Mercator);
     m_mapWidget->setMapThemeId(QStringLiteral("earth/openstreetmap/openstreetmap.dgml"));
-#ifdef MARBLE_HAS_regionSelected_NEW
     connect(m_mapWidget, &Marble::MarbleWidget::regionSelected,
             this, &Map::MapView::updateRegionSelection);
-#else
-    connect(m_mapWidget, &Marble::MarbleWidget::regionSelected,
-            this, &Map::MapView::updateRegionSelectionOld);
-#endif
 
     m_mapWidget->addLayer(this);
 
@@ -257,7 +254,7 @@ Map::MapView::MapView(QWidget *parent, UsageType type)
         button->setChecked(checked.toBool());
     }
 
-    m_pin = QPixmap(QStandardPaths::locate(QStandardPaths::DataLocation, QStringLiteral("pics/pin.png")));
+    m_pin = QPixmap(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, QStringLiteral("pics/pin.png")));
 }
 
 void Map::MapView::clear()
@@ -465,16 +462,6 @@ void Map::MapView::setMarkerSize(int markerSizePx)
     m_mapWidget->update();
 }
 
-#ifndef MARBLE_HAS_regionSelected_NEW
-void Map::MapView::updateRegionSelectionOld(const QList<double> &selection)
-{
-    Q_ASSERT(selection.length() == 4);
-    // see also: https://commits.kde.org/marble/ec1f7f554e9f6ca248b4a3b01dbf08507870687e
-    Marble::GeoDataLatLonBox sel { selection.at(1), selection.at(3), selection.at(2), selection.at(0), Marble::GeoDataCoordinates::Degree };
-    updateRegionSelection(sel);
-}
-#endif
-
 Map::GeoCoordinates::LatLonBox Map::MapView::getRegionSelection() const
 {
     return GeoCoordinates::LatLonBox(m_regionSelection);
@@ -498,7 +485,7 @@ void Map::MapView::mousePressEvent(QMouseEvent *event)
             qCDebug(MapLog) << "Map clicked.";
             const auto mapPos = event->pos() - m_mapWidget->pos();
 
-            for (const auto *topLevelCluster : qAsConst(m_geoClusters)) {
+            for (const auto *topLevelCluster : std::as_const(m_geoClusters)) {
                 const auto subCluster = topLevelCluster->regionForPoint(mapPos);
                 if (subCluster && !subCluster->isEmpty()) {
                     qCDebug(MapLog) << "Cluster preselected/clicked.";
@@ -530,7 +517,7 @@ void Map::MapView::mouseMoveEvent(QMouseEvent *event)
     if (event->button() == Qt::NoButton) {
         if (m_mapWidget->geometry().contains(event->pos())) {
             const auto mapPos = event->pos() - m_mapWidget->pos();
-            for (const auto *topLevelCluster : qAsConst(m_geoClusters)) {
+            for (const auto *topLevelCluster : std::as_const(m_geoClusters)) {
                 const auto subCluster = topLevelCluster->regionForPoint(mapPos);
                 // Note(jzarl) unfortunately we cannot use QWidget::setCursor here
                 if (subCluster) {
@@ -576,7 +563,7 @@ bool Map::MapView::render(Marble::GeoPainter *painter, Marble::ViewportParams *v
     painter->setBrush(palette().brush(QPalette::Dark));
     painter->setPen(palette().color(QPalette::Text));
     ThumbnailParams thumbs { m_pin, MainWindow::Window::theMainWindow()->thumbnailCache(), m_markerSize };
-    for (const auto *bin : qAsConst(m_geoClusters)) {
+    for (const auto *bin : std::as_const(m_geoClusters)) {
         bin->render(painter, *viewPortParams, thumbs, mapStyle());
     }
     if (m_preselectedCluster) {

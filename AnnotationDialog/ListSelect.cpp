@@ -12,9 +12,9 @@
 // SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
 // SPDX-FileCopyrightText: 2013 Reimar Imhof <Reimar.Imhof@netcologne.de>
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2015 Yuri Chornoivan <yurchor@ukr.net>
 // SPDX-FileCopyrightText: 2017 Raymond Wooninck <tittiatcoke@gmail.com>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -296,8 +296,8 @@ void AnnotationDialog::ListSelect::itemSelected(QTreeWidgetItem *item)
     if (m_mode == SearchMode) {
         QString txt = item->text(0);
         QString res;
-        QRegExp regEnd(QString::fromLatin1("\\s*[&|!]\\s*$"));
-        QRegExp regStart(QString::fromLatin1("^\\s*[&|!]\\s*"));
+        QRegularExpression regEnd(QStringLiteral("\\s*[&|!]\\s*$"));
+        QRegularExpression regStart(QStringLiteral("^\\s*[&|!]\\s*"));
 
         if (item->checkState(0) == Qt::Checked) {
             int matchPos = m_lineEdit->text().indexOf(txt);
@@ -471,17 +471,12 @@ void AnnotationDialog::ListSelect::showContextMenu(const QPoint &pos)
                                           "on any image containing it.</p>",
                                           item->text(0), newStr, item->text(0));
             const QString questionTitle = i18nc("@title", "Rename %1?", item->text(0));
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             const auto answer = KMessageBox::questionTwoActions(this,
                                                                 question,
                                                                 questionTitle,
                                                                 KGuiItem(i18nc("@action:button", "Rename")),
                                                                 KStandardGuiItem::cancel());
             if (answer == KMessageBox::ButtonCode::PrimaryAction) {
-#else
-            const auto answer = KMessageBox::questionYesNo(this, question, questionTitle);
-            if (answer == KMessageBox::Yes) {
-#endif
                 QString oldStr = item->text(0);
                 m_category->renameItem(oldStr, newStr);
                 bool checked = item->checkState(0) == Qt::Checked;
@@ -898,11 +893,7 @@ void ListSelect::connectLineEdit(CompletableLineEdit *le)
 {
     le->setObjectName(m_category->name());
     le->setListView(m_treeWidget);
-#if KCOMPLETION_VERSION >= QT_VERSION_CHECK(5, 81, 0)
     connect(le, &KLineEdit::returnKeyPressed, this, &ListSelect::slotExternalReturn);
-#else
-    connect(le, &KLineEdit::returnPressed, this, &ListSelect::slotExternalReturn);
-#endif
 }
 
 void AnnotationDialog::ListSelect::ensureTagIsSelected(QString category, QString tag)

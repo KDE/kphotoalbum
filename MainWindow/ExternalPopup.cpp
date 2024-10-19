@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2020-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2020-2021 Nicolas Fella <nicolas.fella@gmx.de>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -14,23 +15,12 @@
 #include <kpabase/FileNameList.h>
 #include <kpabase/SettingsData.h>
 
+#include <KApplicationTrader>
 #include <KFileItem>
-#include <KLocalizedString>
-#include <KMimeTypeTrader>
-#include <kio_version.h>
-#if KIO_VERSION >= QT_VERSION_CHECK(5, 70, 0)
 #include <KIO/ApplicationLauncherJob>
 #include <KIO/JobUiDelegate>
 #include <KIO/JobUiDelegateFactory>
-#endif
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-// KRun::displayOpenWithDialog() was both replaced and deprecated in 5.71
-#include <KRun>
-#endif
-#include <kservice_version.h>
-#if KSERVICE_VERSION >= QT_VERSION_CHECK(5, 68, 0)
-#include <KApplicationTrader>
-#endif
+#include <KLocalizedString>
 #include <KService>
 #include <KShell>
 #include <QFile>
@@ -38,8 +28,13 @@
 #include <QLabel>
 #include <QMimeDatabase>
 #include <QPixmap>
+#include <QRegularExpression>
 #include <QStringList>
 #include <QUrl>
+#include <kio_version.h>
+#include <kservice_version.h>
+
+#include <utility>
 
 void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::FileNameList &imageList)
 {
@@ -79,7 +74,7 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
         else
             offers = appInfos(imageList);
 
-        for (KService::Ptr offer : qAsConst(offers)) {
+        for (KService::Ptr offer : std::as_const(offers)) {
             action = submenu->addAction(offer->name());
             action->setIcon(QIcon::fromTheme(offer->icon()));
             action->setEnabled(enabled);
@@ -96,18 +91,10 @@ void MainWindow::ExternalPopup::populate(DB::ImageInfoPtr current, const DB::Fil
             const QList<QUrl> urls = relevantUrls(which);
 
             auto *uiParent = MainWindow::Window::theMainWindow();
-#if KIO_VERSION < QT_VERSION_CHECK(5, 71, 0)
-            KRun::displayOpenWithDialog(urls, uiParent);
-#else
-                auto job = new KIO::ApplicationLauncherJob();
-                job->setUrls(urls);
-#if KIO_VERSION < QT_VERSION_CHECK(5, 98, 0)
-                job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
-#else
-                job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
-#endif
-                job->start();
-#endif
+            auto job = new KIO::ApplicationLauncherJob();
+            job->setUrls(urls);
+            job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
+            job->start();
         });
 
         // A personal command
@@ -131,7 +118,7 @@ QList<QUrl> MainWindow::ExternalPopup::relevantUrls(PopupAction which)
 
     if (which == PopupAction::OpenAllSelected) {
         QList<QUrl> lst;
-        for (const DB::FileName &file : qAsConst(m_list)) {
+        for (const DB::FileName &file : std::as_const(m_list)) {
             lst.append(QUrl(file.absolute()));
         }
         return lst;
@@ -147,7 +134,7 @@ QList<QUrl> MainWindow::ExternalPopup::relevantUrls(PopupAction which)
         QString newFile = origFile;
 
         QString origRegexpString = Settings::SettingsData::instance()->copyFileComponent();
-        QRegExp origRegexp = QRegExp(origRegexpString);
+        auto origRegexp = QRegularExpression(origRegexpString);
         QString copyFileReplacement = Settings::SettingsData::instance()->copyFileReplacementComponent();
 
         if (origRegexpString.length() > 0) {
@@ -166,18 +153,10 @@ QList<QUrl> MainWindow::ExternalPopup::relevantUrls(PopupAction which)
 void MainWindow::ExternalPopup::runService(KService::Ptr service, QList<QUrl> urls)
 {
     auto *uiParent = MainWindow::Window::theMainWindow();
-#if KIO_VERSION < QT_VERSION_CHECK(5, 70, 0)
-    KRun::runService(*service, urls, uiParent);
-#else
     auto job = new KIO::ApplicationLauncherJob(service);
     job->setUrls(urls);
-#if KIO_VERSION < QT_VERSION_CHECK(5, 98, 0)
-    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
-#else
     job->setUiDelegate(KIO::createDefaultJobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, uiParent));
-#endif
     job->start();
-#endif
 }
 
 MainWindow::ExternalPopup::ExternalPopup(QWidget *parent)
@@ -212,11 +191,7 @@ namespace
 {
 KService::List getServiceOffers(const QString &type)
 {
-#if KSERVICE_VERSION < QT_VERSION_CHECK(5, 68, 0)
-    return KMimeTypeTrader::self()->query(type, QLatin1String("Application"));
-#else
     return KApplicationTrader::queryByMimeType(type);
-#endif
 }
 }
 

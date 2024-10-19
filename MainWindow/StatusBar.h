@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2022 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -43,7 +44,7 @@ Q_SIGNALS:
     void thumbnailSettingsRequested();
 
 protected:
-    void enterEvent(QEvent *event) override;
+    void enterEvent(QEnterEvent *event) override;
 
 private Q_SLOTS:
     void hideStatusBar();

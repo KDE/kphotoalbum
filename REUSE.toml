@@ -1,0 +1,55 @@
+# SPDX-FileCopyrightText: 2024 none
+#
+# SPDX-License-Identifier: CC0-1.0
+
+version = 1
+SPDX-PackageName = "KPhotoAlbum"
+SPDX-PackageDownloadLocation = "https://invent.kde.org/graphics/kphotoalbum"
+
+[[annotations]]
+path = "snapcraft.yaml"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "none"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "testcases/integration-tests/**.xml"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "none"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "testcases/db/**/**.xml"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "none"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "testcases/db/**/**.log"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "none"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "testcases/import/**.kim"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "none"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "**.qrc"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "none"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = ["demo/**.jpg", "demo/**.avi", "demo/index.xml"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2003-2007 Jesper K. Pedersen"
+SPDX-License-Identifier = "CC-BY-SA-4.0"
+
+[[annotations]]
+path = "**.ui"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2023 The KPhotoAlbum Development Team"
+SPDX-License-Identifier = "GPL-2.0-or-later"

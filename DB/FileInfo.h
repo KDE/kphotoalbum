@@ -1,5 +1,5 @@
-// SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003 - 2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2021 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -20,7 +20,7 @@ class FileName;
 class FileInfo
 {
 public:
-    static FileInfo read(const DB::FileName &fileName, DB::ExifMode mode);
+    FileInfo(const DB::FileName &fileName, DB::ExifMode mode);
     Utilities::FastDateTime dateTime() { return m_date; }
     int angle() { return m_angle; }
     QString description() { return m_description; }
@@ -34,7 +34,6 @@ protected:
     int orientationToAngle(int orientation);
 
 private:
-    FileInfo(const DB::FileName &fileName, DB::ExifMode mode);
     bool updateDataFromFileTimeStamp(const DB::FileName &fileName, DB::ExifMode mode);
     Utilities::FastDateTime m_date;
     int m_angle;

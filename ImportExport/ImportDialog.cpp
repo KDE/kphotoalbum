@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2022-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -29,6 +30,8 @@
 #include <QPushButton>
 #include <QScrollArea>
 #include <kwidgetsaddons_version.h>
+
+#include <utility>
 
 using Utilities::StringSet;
 
@@ -296,7 +299,6 @@ void ImportDialog::next()
         if (!QFileInfo::exists(dir)) {
             const QString question = i18n("Folder %1 does not exist. Should it be created?", dir);
             const QString title = i18nc("@title", "Create folder?");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             const auto answer = KMessageBox::questionTwoActions(this,
                                                                 question,
                                                                 title,
@@ -304,12 +306,7 @@ void ImportDialog::next()
                                                                 KStandardGuiItem::cancel());
             if (answer != KMessageBox::ButtonCode::PrimaryAction)
                 return;
-#else
-            const auto answer = KMessageBox::questionYesNo(this, question, title);
-            if (answer != KMessageBox::Yes)
-                return;
-#endif
-            bool ok = QDir().mkpath(dir);
+            const bool ok = QDir().mkpath(dir);
             if (!ok) {
                 KMessageBox::error(this, i18n("Error creating folder %1", dir));
                 return;
@@ -347,7 +344,7 @@ void ImportDialog::slotSelectNone()
 
 void ImportDialog::selectImage(bool on)
 {
-    for (ImageRow *row : qAsConst(m_imagesSelect)) {
+    for (ImageRow *row : std::as_const(m_imagesSelect)) {
         row->m_checkbox->setChecked(on);
     }
 }

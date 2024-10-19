@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2018 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2020-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -25,7 +26,6 @@
 #include <KLocalizedString>
 #include <QApplication>
 #include <QDate>
-#include <QDesktopWidget>
 #include <QEvent>
 #include <QKeyEvent>
 #include <QLineEdit>
@@ -150,7 +150,7 @@ void AnnotationDialog::DateEdit::showPopup()
     if (m_ReadOnly)
         return;
 
-    QRect desk = QApplication::desktop()->availableGeometry(this);
+    QRect desk = this->screen()->availableGeometry();
 
     // ensure that the popup is fully visible even when the DateEdit is off-screen
     QPoint popupPoint = mapToGlobal(QPoint(0, 0));

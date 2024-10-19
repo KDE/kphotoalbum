@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2023 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -6,8 +7,10 @@
 #include "CategoryCollection.h"
 #include "ImageDB.h"
 #include <QDebug>
+
 #include <algorithm>
 #include <set>
+#include <utility>
 
 namespace DB
 {
@@ -45,7 +48,7 @@ QList<GlobalCategorySortOrder::Item> GlobalCategorySortOrder::completeSortOrder(
         if (!category->isSpecialCategory() || category->type() == DB::Category::TokensCategory) {
             auto items = category->items();
 
-            for (const auto &categoryItem : qAsConst(items)) {
+            for (const auto &categoryItem : std::as_const(items)) {
                 const Item item { category->name(), categoryItem };
                 unknownSet.remove(item);
                 if (!currentSet.contains(item))

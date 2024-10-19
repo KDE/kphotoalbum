@@ -1,6 +1,21 @@
-// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2003-2013 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2004 Malcolm Hunter <malcolm.hunter@gmx.co.uk>
+// SPDX-FileCopyrightText: 2004 Stephan Binner <binner@kde.org>
+// SPDX-FileCopyrightText: 2005-2007 Dirk Mueller <mueller@kde.org>
+// SPDX-FileCopyrightText: 2006-2008 Tuomas Suutari <tuomas@nepnep.net>
+// SPDX-FileCopyrightText: 2007-2010 Jan Kundrát <jkt@flaska.net>
+// SPDX-FileCopyrightText: 2008 Henner Zeller <h.zeller@acm.org>
+// SPDX-FileCopyrightText: 2008 Laurent Montel <montel@kde.org>
+// SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
+// SPDX-FileCopyrightText: 2013 Dominik Broj <broj.dominik@gmail.com>
+// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2015 Reimar Imhof <Reimar.Imhof@netcologne.de>
+// SPDX-FileCopyrightText: 2015 Yuri Chornoivan <yurchor@ukr.net>
+// SPDX-FileCopyrightText: 2016 Luigi Toscano <luigi.toscano@tiscali.it>
+// SPDX-FileCopyrightText: 2017 Raymond Wooninck <tittiatcoke@gmail.com>
+// SPDX-FileCopyrightText: 2017-2020 Robert Krawitz <rlk@alum.mit.edu>
+// SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -405,7 +420,7 @@ bool ImageInfo::isLocked() const
 
 void ImageInfo::readExif(const DB::FileName &fullPath, DB::ExifMode mode)
 {
-    DB::FileInfo exifInfo = DB::FileInfo::read(fullPath, mode);
+    DB::FileInfo exifInfo { fullPath, mode };
 
     // Date
     if (updateDateInformation(mode)) {

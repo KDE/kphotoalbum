@@ -9,10 +9,10 @@
 // SPDX-FileCopyrightText: 2012-2020 Yuri Chornoivan <yurchor@ukr.net>
 // SPDX-FileCopyrightText: 2012-2013 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2014-2020 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2015 Andreas Neustifter <andreas.neustifter@gmail.com>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2013-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -34,9 +34,8 @@
 #include <QFile>
 #include <QHash>
 #include <QLocale>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QStandardPaths>
-#include <QTextCodec>
 #include <QTextStream>
 
 void DB::FileReader::read(const QString &configFile)
@@ -515,7 +514,7 @@ DB::ReaderPtr DB::FileReader::readConfigFile(const QString &configFile)
     QFile file(configFile);
     if (!file.exists()) {
         // Load a default setup
-        QFile file(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("default-setup")));
+        QFile file(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, QString::fromLatin1("default-setup")));
         if (!file.open(QIODevice::ReadOnly)) {
             m_db->uiDelegate().information(
                 DB::LogMessage { DBLog(), QString::fromLatin1("default-setup not found in standard paths.") },
@@ -530,7 +529,6 @@ DB::ReaderPtr DB::FileReader::readConfigFile(const QString &configFile)
                 i18n("No default setup file found"));
         } else {
             QTextStream stream(&file);
-            stream.setCodec(QTextCodec::codecForName("UTF-8"));
             QString str = stream.readAll();
 
             // Replace the default setup's category and tag names with localized ones
@@ -539,9 +537,9 @@ DB::ReaderPtr DB::FileReader::readConfigFile(const QString &configFile)
             str = str.replace(QString::fromUtf8("Events"), i18n("Events"));
             str = str.replace(QString::fromUtf8("untagged"), i18n("untagged"));
 
-            str = str.replace(QRegExp(QString::fromLatin1("imageDirectory=\"[^\"]*\"")), QString::fromLatin1(""));
-            str = str.replace(QRegExp(QString::fromLatin1("htmlBaseDir=\"[^\"]*\"")), QString::fromLatin1(""));
-            str = str.replace(QRegExp(QString::fromLatin1("htmlBaseURL=\"[^\"]*\"")), QString::fromLatin1(""));
+            str = str.replace(QRegularExpression(QStringLiteral("imageDirectory=\"[^\"]*\"")), QString());
+            str = str.replace(QRegularExpression(QStringLiteral("htmlBaseDir=\"[^\"]*\"")), QString());
+            str = str.replace(QRegularExpression(QStringLiteral("htmlBaseURL=\"[^\"]*\"")), QString());
             reader->addData(str);
         }
     } else {
@@ -608,19 +606,23 @@ QString DB::FileReader::unescape(const QString &str)
 
     QString tmp(str);
     // Matches encoded characters in attribute names
-    QRegExp rx(QString::fromLatin1("(_.)([0-9A-F]{2})"));
+    QRegularExpression rx(QStringLiteral("(_.)([0-9A-F]{2})"));
     int pos = 0;
 
     // Unencoding special characters if compressed XML is selected
+    // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
     if (useCompressedFileFormat()) {
-        while ((pos = rx.indexIn(tmp, pos)) != -1) {
-            QString before = rx.cap(1) + rx.cap(2);
-            QString after = QString::fromLatin1(QByteArray::fromHex(rx.cap(2).toLocal8Bit()));
+        auto match = rx.match(tmp);
+        while (match.hasMatch()) {
+            QString before = match.captured(1) + match.captured(2);
+            QString after = QString::fromLatin1(QByteArray::fromHex(match.captured(2).toLocal8Bit()));
             tmp.replace(pos, before.length(), after);
             pos += after.length();
+            match = rx.match(tmp, pos);
         }
-    } else
-        tmp.replace(QString::fromLatin1("_"), QString::fromLatin1(" "));
+    } else {
+        tmp.replace(QStringLiteral("_"), QStringLiteral(" "));
+    }
 
     s_cache.insert(str, tmp);
     return tmp;

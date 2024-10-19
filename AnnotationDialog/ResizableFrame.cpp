@@ -1,7 +1,7 @@
-// SPDX-FileCopyrightText: 2014-2020 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2014-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2017 Jonathan Riddell <jr@jriddell.org>
 // SPDX-FileCopyrightText: 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -87,7 +87,7 @@ void AnnotationDialog::ResizableFrame::getMinMaxCoordinates()
 void AnnotationDialog::ResizableFrame::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
-        m_dragStartPosition = event->pos();
+        m_dragStartPosition = event->position().toPoint();
         m_dragStartGeometry = geometry();
 
         // Just in case this will be a drag/resize and not just a click
@@ -97,31 +97,32 @@ void AnnotationDialog::ResizableFrame::mousePressEvent(QMouseEvent *event)
 
 void AnnotationDialog::ResizableFrame::mouseMoveEvent(QMouseEvent *event)
 {
+    const auto eventPos = event->position().toPoint();
     static int moveAction = 0;
     if (!(event->buttons() & Qt::LeftButton)) {
         // No drag, just change the cursor and return
-        if (event->x() <= 3 && event->y() <= 3) {
+        if (eventPos.x() <= 3 && eventPos.y() <= 3) {
             moveAction = SCALE_TOP | SCALE_LEFT;
             setCursor(Qt::SizeFDiagCursor);
-        } else if (event->x() <= 3 && event->y() >= height() - 3) {
+        } else if (eventPos.x() <= 3 && eventPos.y() >= height() - 3) {
             moveAction = SCALE_BOTTOM | SCALE_LEFT;
             setCursor(Qt::SizeBDiagCursor);
-        } else if (event->x() >= width() - 3 && event->y() <= 3) {
+        } else if (eventPos.x() >= width() - 3 && eventPos.y() <= 3) {
             moveAction = SCALE_TOP | SCALE_RIGHT;
             setCursor(Qt::SizeBDiagCursor);
-        } else if (event->x() >= width() - 3 && event->y() >= height() - 3) {
+        } else if (eventPos.x() >= width() - 3 && eventPos.y() >= height() - 3) {
             moveAction = SCALE_BOTTOM | SCALE_RIGHT;
             setCursor(Qt::SizeFDiagCursor);
-        } else if (event->x() <= 3) {
+        } else if (eventPos.x() <= 3) {
             moveAction = SCALE_LEFT;
             setCursor(Qt::SizeHorCursor);
-        } else if (event->x() >= width() - 3) {
+        } else if (eventPos.x() >= width() - 3) {
             moveAction = SCALE_RIGHT;
             setCursor(Qt::SizeHorCursor);
-        } else if (event->y() <= 3) {
+        } else if (eventPos.y() <= 3) {
             moveAction = SCALE_TOP;
             setCursor(Qt::SizeVerCursor);
-        } else if (event->y() >= height() - 3) {
+        } else if (eventPos.y() >= height() - 3) {
             moveAction = SCALE_BOTTOM;
             setCursor(Qt::SizeVerCursor);
         } else {
@@ -139,8 +140,8 @@ void AnnotationDialog::ResizableFrame::mouseMoveEvent(QMouseEvent *event)
     h = height();
 
     if (moveAction & MOVE) {
-        x = m_dragStartGeometry.left() - (m_dragStartPosition.x() - event->x());
-        y = m_dragStartGeometry.top() - (m_dragStartPosition.y() - event->y());
+        x = m_dragStartGeometry.left() - (m_dragStartPosition.x() - eventPos.x());
+        y = m_dragStartGeometry.top() - (m_dragStartPosition.y() - eventPos.y());
         w = width();
 
         // Be sure not to move out of the preview
@@ -163,7 +164,7 @@ void AnnotationDialog::ResizableFrame::mouseMoveEvent(QMouseEvent *event)
         w = m_dragStartGeometry.width();
 
         if (moveAction & SCALE_TOP) {
-            y = m_dragStartGeometry.top() - (m_dragStartPosition.y() - event->y());
+            y = m_dragStartGeometry.top() - (m_dragStartPosition.y() - eventPos.y());
 
             if (y >= geometry().y() + geometry().height()) {
                 y = m_dragStartGeometry.top() + m_dragStartGeometry.height();
@@ -174,11 +175,11 @@ void AnnotationDialog::ResizableFrame::mouseMoveEvent(QMouseEvent *event)
                 y = m_minMaxCoordinates.top();
                 h = m_dragStartGeometry.top() + m_dragStartGeometry.height() - m_minMaxCoordinates.y();
             } else {
-                h = height() + (m_dragStartPosition.y() - event->y());
+                h = height() + (m_dragStartPosition.y() - eventPos.y());
             }
         } else if (moveAction & SCALE_BOTTOM) {
             y = m_dragStartGeometry.top();
-            h = event->y();
+            h = eventPos.y();
 
             if (h <= 0) {
                 h = 0;
@@ -193,7 +194,7 @@ void AnnotationDialog::ResizableFrame::mouseMoveEvent(QMouseEvent *event)
 
         if (moveAction & SCALE_RIGHT) {
             x = m_dragStartGeometry.left();
-            w = event->x();
+            w = eventPos.x();
 
             if (w <= 0) {
                 w = 0;
@@ -205,7 +206,7 @@ void AnnotationDialog::ResizableFrame::mouseMoveEvent(QMouseEvent *event)
                 w = m_minMaxCoordinates.width() - x;
             }
         } else if (moveAction & SCALE_LEFT) {
-            x = m_dragStartGeometry.left() - (m_dragStartPosition.x() - event->x());
+            x = m_dragStartGeometry.left() - (m_dragStartPosition.x() - eventPos.x());
 
             if (x >= geometry().left() + geometry().width()) {
                 x = m_dragStartGeometry.left() + m_dragStartGeometry.width();
@@ -216,7 +217,7 @@ void AnnotationDialog::ResizableFrame::mouseMoveEvent(QMouseEvent *event)
                 x = m_minMaxCoordinates.left();
                 w = m_dragStartGeometry.x() + m_dragStartGeometry.width() - m_minMaxCoordinates.x();
             } else {
-                w = m_dragStartGeometry.width() + (m_dragStartPosition.x() - event->x());
+                w = m_dragStartGeometry.width() + (m_dragStartPosition.x() - eventPos.x());
             }
         }
     }

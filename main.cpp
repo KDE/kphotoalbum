@@ -11,8 +11,7 @@
 // SPDX-FileCopyrightText: 2010-2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2012-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
-// SPDX-FileCopyrightText: 2018-2020 Tobias Leupold <tl at stonemx dot de>
-// SPDX-FileCopyrightText: 2018-2022 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2018-2024 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2019 Alexander Potashev <aspotashev@gmail.com>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
@@ -31,7 +30,6 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KSharedConfig>
-#include <Kdelibs4ConfigMigrator>
 #include <QApplication>
 #include <QCommandLineOption>
 #include <QCommandLineParser>
@@ -56,29 +54,11 @@ const auto STYLE = QStringLiteral(
     "AnnotationDialog--ResizableFrame:hover { background-color: rgb(255,255,255,30); }"
     "AnnotationDialog--ResizableFrame[associated=true] { color: rgb(0,255,0); }");
 }
-void migrateKDE4Config()
-{
-    Kdelibs4ConfigMigrator migrator(QStringLiteral("kphotoalbum")); // the same name defined in the aboutData
-    migrator.setConfigFiles(QStringList() << QStringLiteral("kphotoalbumrc"));
-    migrator.setUiFiles(QStringList() << QStringLiteral("kphotoalbumui.rc"));
-    if (migrator.migrate()) {
-        KConfigGroup unnamedConfig = KSharedConfig::openConfig()->group(QString());
-        if (unnamedConfig.hasKey(QStringLiteral("configfile"))) {
-            // rename config file entry on update
-            KConfigGroup generalConfig = KSharedConfig::openConfig()->group(QStringLiteral("General"));
-            generalConfig.writeEntry(QStringLiteral("imageDBFile"),
-                                     unnamedConfig.readEntry(QStringLiteral("configfile")));
-            unnamedConfig.deleteEntry(QStringLiteral("configfile"));
-            qCWarning(MainLog) << "Renamed config entry configfile to General.imageDBFile.";
-        }
-    }
-}
 
 int main(int argc, char **argv)
 {
     KLocalizedString::setApplicationDomain("kphotoalbum");
     QApplication app(argc, argv);
-    migrateKDE4Config();
 
     KAboutData aboutData(
         QStringLiteral("kphotoalbum"), // component name
@@ -129,7 +109,7 @@ int main(int argc, char **argv)
     parser->process(app);
     aboutData.processCommandLine(parser);
 
-    const QString schemePath = KSharedConfig::openConfig()->group("General").readEntry(QStringLiteral("colorScheme"), QString());
+    const QString schemePath = KSharedConfig::openConfig()->group(QLatin1String("General")).readEntry(QStringLiteral("colorScheme"), QString());
     qCDebug(MainLog) << "Loading color scheme from " << (schemePath.isEmpty() ? QStringLiteral("system default") : schemePath);
     app.setPalette(KColorScheme::createApplicationPalette(KSharedConfig::openConfig(schemePath)));
     if (app.styleSheet().isEmpty())
@@ -147,12 +127,7 @@ int main(int argc, char **argv)
         // MainWindow ctor throws if no config is loaded
         return retVal;
     }
-
-    const auto mainWindowGeometry = Settings::SettingsData::instance()->windowGeometry(Settings::MainWindow);
-    if (mainWindowGeometry.isValid())
-        view->setGeometry(mainWindowGeometry);
-    else
-        view->showMaximized();
+    view->show();
 
 #ifdef KPA_ENABLE_REMOTECONTROL
     (void)RemoteControl::RemoteInterface::instance();

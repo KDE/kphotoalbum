@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2021 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl at stonemx dot de>
 //
 // SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
@@ -9,21 +10,18 @@
 #include <KSharedConfig>
 #include <QLoggingCategory>
 
-namespace
-{
-constexpr auto CFG_GROUP { "CrashInfo" };
-constexpr auto CFG_HISTORY { "_crashHistory" };
-constexpr auto CFG_DISABLED { "_disabled" };
-}
+static const QLatin1String s_cgfGroup("CrashInfo");
+static const QLatin1String s_cfgHistory("_crashHistory");
+static const QLatin1String s_cfgDisabled("_disabled");
 
 KPABase::CrashSentinel::CrashSentinel(const QString &component, const QByteArray &crashInfo)
     : m_component(component)
     , m_crashInfo(crashInfo)
 {
-    auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
+    auto cfgGroup = KSharedConfig::openConfig()->group(s_cgfGroup);
     m_lastCrashInfo = cfgGroup.readEntry(m_component, QByteArray());
     if (!m_lastCrashInfo.isEmpty()) {
-        const QString historyEntry = m_component + QString::fromUtf8(CFG_HISTORY);
+        const QString historyEntry = m_component + QString::fromUtf8(s_cfgHistory);
         auto history = cfgGroup.readEntry(historyEntry, QList<QByteArray>());
         history.append(m_lastCrashInfo);
         cfgGroup.writeEntry(historyEntry, history);
@@ -55,15 +53,15 @@ QList<QByteArray> KPABase::CrashSentinel::crashHistory() const
 {
     if (isDisabled())
         return {};
-    const auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
-    return cfgGroup.readEntry(m_component + QString::fromUtf8(CFG_HISTORY), QList<QByteArray>());
+    const auto cfgGroup = KSharedConfig::openConfig()->group(s_cgfGroup);
+    return cfgGroup.readEntry(m_component + QString::fromUtf8(s_cfgHistory), QList<QByteArray>());
 }
 
 void KPABase::CrashSentinel::clearCrashHistory()
 {
-    auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
-    cfgGroup.deleteEntry(m_component + QString::fromUtf8(CFG_HISTORY));
-    cfgGroup.deleteEntry(m_component + QString::fromUtf8(CFG_DISABLED));
+    auto cfgGroup = KSharedConfig::openConfig()->group(s_cgfGroup);
+    cfgGroup.deleteEntry(m_component + QString::fromUtf8(s_cfgHistory));
+    cfgGroup.deleteEntry(m_component + QString::fromUtf8(s_cfgDisabled));
 }
 
 void KPABase::CrashSentinel::setCrashInfo(const QByteArray &crashInfo)
@@ -88,13 +86,13 @@ QByteArray KPABase::CrashSentinel::crashInfo() const
 
 bool KPABase::CrashSentinel::isSuspended() const
 {
-    const auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
+    const auto cfgGroup = KSharedConfig::openConfig()->group(s_cgfGroup);
     return !cfgGroup.hasKey(m_component);
 }
 
 void KPABase::CrashSentinel::suspend()
 {
-    auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
+    auto cfgGroup = KSharedConfig::openConfig()->group(s_cgfGroup);
     cfgGroup.deleteEntry(m_component);
     cfgGroup.sync();
     qCDebug(BaseLog) << "CrashSentinel for component" << m_component << "suspended.";
@@ -102,7 +100,7 @@ void KPABase::CrashSentinel::suspend()
 
 void KPABase::CrashSentinel::activate()
 {
-    auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
+    auto cfgGroup = KSharedConfig::openConfig()->group(s_cgfGroup);
     cfgGroup.writeEntry(m_component, m_crashInfo);
     cfgGroup.sync();
     qCDebug(BaseLog) << "CrashSentinel for component" << m_component << "activated. Crash info:" << m_crashInfo;
@@ -110,16 +108,16 @@ void KPABase::CrashSentinel::activate()
 
 void KPABase::CrashSentinel::disablePermanently()
 {
-    auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
-    cfgGroup.writeEntry(m_component + QString::fromUtf8(CFG_DISABLED), true);
+    auto cfgGroup = KSharedConfig::openConfig()->group(s_cgfGroup);
+    cfgGroup.writeEntry(m_component + QString::fromUtf8(s_cfgDisabled), true);
     cfgGroup.sync();
     qCDebug(BaseLog) << "CrashSentinel for component" << m_component << "permanently disabled.";
 }
 
 bool KPABase::CrashSentinel::isDisabled() const
 {
-    auto cfgGroup = KSharedConfig::openConfig()->group(CFG_GROUP);
-    return cfgGroup.readEntry(m_component + QString::fromUtf8(CFG_DISABLED), false);
+    auto cfgGroup = KSharedConfig::openConfig()->group(s_cgfGroup);
+    return cfgGroup.readEntry(m_component + QString::fromUtf8(s_cfgDisabled), false);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

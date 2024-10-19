@@ -1,20 +1,19 @@
-/* SPDX-FileCopyrightText: 2003-2018 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2018 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "SplashScreen.h"
 
 #include <KAboutData>
 #include <KLocalizedString>
 #include <QPainter>
-#include <QRegExp>
 #include <QStandardPaths>
 
 MainWindow::SplashScreen *MainWindow::SplashScreen::s_instance = nullptr;
 
 MainWindow::SplashScreen::SplashScreen()
-    : QSplashScreen(QStandardPaths::locate(QStandardPaths::DataLocation, QString::fromLatin1("pics/splash-large.png")))
+    : QSplashScreen(QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, QString::fromLatin1("pics/splash-large.png")))
 {
     s_instance = this;
 }

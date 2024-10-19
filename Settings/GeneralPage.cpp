@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
 #include "GeneralPage.h"
 
 #include <DB/Category.h>
@@ -51,10 +52,10 @@ Settings::GeneralPage::GeneralPage(QWidget *parent)
     row++;
     m_useEXIFComments = new QCheckBox(i18n("Use Exif description"), box);
     lay->addWidget(m_useEXIFComments, row, 0, 1, 4);
-    connect(m_useEXIFComments, &QCheckBox::stateChanged, this, &GeneralPage::useEXIFCommentsChanged);
+    connect(m_useEXIFComments, &QCheckBox::toggled, this, &GeneralPage::useEXIFCommentsChanged);
 
     m_stripEXIFComments = new QCheckBox(i18n("Strip out camera generated default descriptions"), box);
-    connect(m_stripEXIFComments, &QCheckBox::stateChanged, this, &GeneralPage::stripEXIFCommentsChanged);
+    connect(m_stripEXIFComments, &QCheckBox::toggled, this, &GeneralPage::stripEXIFCommentsChanged);
     lay->addWidget(m_stripEXIFComments, row, 1, 1, 4);
 
     row++;
@@ -93,7 +94,7 @@ Settings::GeneralPage::GeneralPage(QWidget *parent)
     m_showHistogram = new QCheckBox(i18n("Show histogram"), box);
     lay->addWidget(m_showHistogram, row, 0);
     row++;
-    connect(m_showHistogram, &QCheckBox::stateChanged, this, &GeneralPage::showHistogramChanged);
+    connect(m_showHistogram, &QCheckBox::toggled, this, &GeneralPage::showHistogramChanged);
 
     m_histogramUseLinearScale = new QCheckBox(i18n("Use linear scale for histogram"));
     lay->addWidget(m_histogramUseLinearScale, row, 0);
@@ -250,24 +251,23 @@ QSize Settings::GeneralPage::useRawThumbnailSize()
     return QSize(m_useRawThumbnailWidth->value(), m_useRawThumbnailHeight->value());
 }
 
-void Settings::GeneralPage::showHistogramChanged(int state) const
+void Settings::GeneralPage::showHistogramChanged(bool checked) const
 {
-    const bool checked = state == Qt::Checked;
     m_histogramUseLinearScale->setChecked(checked);
     m_barHeight->setEnabled(checked);
     m_barWidth->setEnabled(checked);
     MainWindow::Window::theMainWindow()->setHistogramVisibilty(checked);
 }
 
-void Settings::GeneralPage::useEXIFCommentsChanged(int state)
+void Settings::GeneralPage::useEXIFCommentsChanged(bool checked)
 {
-    m_stripEXIFComments->setEnabled(state);
-    m_commentsToStrip->setEnabled(state && m_stripEXIFComments->isChecked());
+    m_stripEXIFComments->setEnabled(checked);
+    m_commentsToStrip->setEnabled(checked && m_stripEXIFComments->isChecked());
 }
 
-void Settings::GeneralPage::stripEXIFCommentsChanged(int state)
+void Settings::GeneralPage::stripEXIFCommentsChanged(bool checked)
 {
-    m_commentsToStrip->setEnabled(state);
+    m_commentsToStrip->setEnabled(checked);
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

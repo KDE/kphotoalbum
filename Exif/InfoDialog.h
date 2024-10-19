@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2016 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2016 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #ifndef INFODIALOG_H
 #define INFODIALOG_H
@@ -39,7 +39,7 @@ public:
     void setImage(const DB::FileName &fileName);
 
     QSize sizeHint() const override;
-    void enterEvent(QEvent *) override;
+    void enterEvent(QEnterEvent *) override;
 
     // ImageManager::ImageClient interface.
     void pixmapLoaded(ImageManager::ImageRequest *request, const QImage &image) override;

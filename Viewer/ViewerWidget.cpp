@@ -14,10 +14,10 @@
 // SPDX-FileCopyrightText: 2009-2012 Miika Turkia <miika.turkia@gmail.com>
 // SPDX-FileCopyrightText: 2010 Wes Hardaker <kpa@capturedonearth.com>
 // SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014-2022 Tobias Leupold <tl@stonemx.de>
 // SPDX-FileCopyrightText: 2015-2020 Robert Krawitz <rlk@alum.mit.edu>
 // SPDX-FileCopyrightText: 2018 Antoni Bella Pérez <antonibella5@yahoo.com>
 // SPDX-FileCopyrightText: 2022 Friedrich W. H. Kossebau <kossebau@kde.org>
+// SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -30,12 +30,8 @@
 #include "Logging.h"
 #include <kpabase/config-kpa-videobackends.h>
 
-#if Phonon4Qt5_FOUND
+#if Phonon4Qt6_FOUND
 #include "PhononDisplay.h"
-#endif
-
-#if QtAV_FOUND
-#include "QtAVDisplay.h"
 #endif
 
 #include "TaggedArea.h"
@@ -72,12 +68,12 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <QAction>
+#include <QActionGroup>
 #include <QApplication>
 #include <QContextMenuEvent>
 #include <QDBusConnection>
 #include <QDBusMessage>
 #include <QDebug>
-#include <QDesktopWidget>
 #include <QElapsedTimer>
 #include <QEventLoop>
 #include <QFileDialog>
@@ -95,7 +91,9 @@
 #include <QDesktopServices>
 #include <QInputDialog>
 #include <QMetaEnum>
+
 #include <functional>
+#include <utility>
 
 using namespace std::chrono_literals;
 
@@ -192,7 +190,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     m_setStackHead = m_actions->addAction(QString::fromLatin1("viewer-set-stack-head"), this, &ViewerWidget::slotSetStackHead);
     m_setStackHead->setText(i18nc("@action:inmenu", "Set as First Image in Stack"));
     m_setStackHead->setVisible(showFullFeatures);
-    m_actions->setDefaultShortcut(m_setStackHead, Qt::CTRL + Qt::Key_4);
+    m_actions->setDefaultShortcut(m_setStackHead, QKeySequence(Qt::CTRL | Qt::Key_4));
     m_popup->addAction(m_setStackHead);
 
     m_showExifViewer = m_actions->addAction(QString::fromLatin1("viewer-show-exif-viewer"), this, &ViewerWidget::showExifViewer);
@@ -210,7 +208,7 @@ void Viewer::ViewerWidget::setupContextMenu()
     m_linkToAction = m_actions->addAction(QStringLiteral("viewer-link-to"), this, std::bind(&ViewerWidget::triggerCopyLinkAction, this, MainWindow::CopyLinkEngine::Link));
     m_linkToAction->setText(i18nc("@action:inmenu", "Link image to ..."));
     m_linkToAction->setVisible(showFullFeatures);
-    m_actions->setDefaultShortcut(m_linkToAction, Qt::SHIFT + Qt::Key_F7);
+    m_actions->setDefaultShortcut(m_linkToAction, QKeySequence(Qt::SHIFT | Qt::Key_F7));
     m_popup->addAction(m_linkToAction);
 
     m_popup->addSeparator();
@@ -326,19 +324,19 @@ void Viewer::ViewerWidget::createSkipMenu()
 
     action = m_actions->addAction(QString::fromLatin1("viewer-next-10"), this, &ViewerWidget::showNext10);
     action->setText(i18nc("@action:inmenu", "Skip 10 Forward"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_PageDown);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL | Qt::Key_PageDown));
     popup->addAction(action);
     m_forwardActions.append(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-next-100"), this, &ViewerWidget::showNext100);
     action->setText(i18nc("@action:inmenu", "Skip 100 Forward"));
-    m_actions->setDefaultShortcut(action, Qt::SHIFT + Qt::Key_PageDown);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::SHIFT | Qt::Key_PageDown));
     popup->addAction(action);
     m_forwardActions.append(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-next-1000"), this, &ViewerWidget::showNext1000);
     action->setText(i18nc("@action:inmenu", "Skip 1000 Forward"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::SHIFT + Qt::Key_PageDown);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_PageDown));
     popup->addAction(action);
     m_forwardActions.append(action);
 
@@ -350,25 +348,25 @@ void Viewer::ViewerWidget::createSkipMenu()
 
     action = m_actions->addAction(QString::fromLatin1("viewer-prev-10"), this, &ViewerWidget::showPrev10);
     action->setText(i18nc("@action:inmenu", "Skip 10 Backward"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_PageUp);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL | Qt::Key_PageUp));
     popup->addAction(action);
     m_backwardActions.append(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-prev-100"), this, &ViewerWidget::showPrev100);
     action->setText(i18nc("@action:inmenu", "Skip 100 Backward"));
-    m_actions->setDefaultShortcut(action, Qt::SHIFT + Qt::Key_PageUp);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::SHIFT | Qt::Key_PageUp));
     popup->addAction(action);
     m_backwardActions.append(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-prev-1000"), this, &ViewerWidget::showPrev1000);
     action->setText(i18nc("@action:inmenu", "Skip 1000 Backward"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::SHIFT + Qt::Key_PageUp);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_PageUp));
     popup->addAction(action);
     m_backwardActions.append(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-delete-current"), this, &ViewerWidget::deleteCurrent);
     action->setText(i18nc("@action:inmenu", "Delete Image"));
-    m_actions->setDefaultShortcut(action, Qt::CTRL + Qt::Key_Delete);
+    m_actions->setDefaultShortcut(action, QKeySequence(Qt::CTRL | Qt::Key_Delete));
     popup->addAction(action);
 
     action = m_actions->addAction(QString::fromLatin1("viewer-remove-current"), this, &ViewerWidget::removeCurrent);
@@ -430,17 +428,17 @@ void Viewer::ViewerWidget::createSlideShowMenu()
 
     m_startStopSlideShow = m_actions->addAction(QString::fromLatin1("viewer-start-stop-slideshow"), this, &ViewerWidget::slotStartStopSlideShow);
     m_startStopSlideShow->setText(i18nc("@action:inmenu", "Run Slideshow"));
-    m_actions->setDefaultShortcut(m_startStopSlideShow, Qt::CTRL + Qt::Key_R);
+    m_actions->setDefaultShortcut(m_startStopSlideShow, QKeySequence(Qt::CTRL | Qt::Key_R));
     popup->addAction(m_startStopSlideShow);
 
     m_slideShowRunFaster = m_actions->addAction(QString::fromLatin1("viewer-run-faster"), this, &ViewerWidget::slotSlideShowFaster);
     m_slideShowRunFaster->setText(i18nc("@action:inmenu", "Run Faster"));
-    m_actions->setDefaultShortcut(m_slideShowRunFaster, Qt::CTRL + Qt::Key_Plus); // if you change this, please update the info in Viewer::TransientDisplay
+    m_actions->setDefaultShortcut(m_slideShowRunFaster, QKeySequence(Qt::CTRL | Qt::Key_Plus)); // if you change this, please update the info in Viewer::TransientDisplay
     popup->addAction(m_slideShowRunFaster);
 
     m_slideShowRunSlower = m_actions->addAction(QString::fromLatin1("viewer-run-slower"), this, &ViewerWidget::slotSlideShowSlower);
     m_slideShowRunSlower->setText(i18nc("@action:inmenu", "Run Slower"));
-    m_actions->setDefaultShortcut(m_slideShowRunSlower, Qt::CTRL + Qt::Key_Minus); // if you change this, please update the info in Viewer::TransientDisplay
+    m_actions->setDefaultShortcut(m_slideShowRunSlower, QKeySequence(Qt::CTRL | Qt::Key_Minus)); // if you change this, please update the info in Viewer::TransientDisplay
     popup->addAction(m_slideShowRunSlower);
 
     const bool showFullFeatures = m_type == UsageType::FullFeaturedViewer;
@@ -645,7 +643,7 @@ void Viewer::ViewerWidget::updateContextMenuState(bool isVideo)
     if (m_exifViewer)
         m_exifViewer->setImage(currentFile);
 
-    for (QAction *videoAction : qAsConst(m_videoActions)) {
+    for (QAction *videoAction : std::as_const(m_videoActions)) {
         videoAction->setVisible(isVideo);
     }
 
@@ -1434,25 +1432,19 @@ static VideoDisplay *instantiateVideoDisplay(QWidget *parent, KPABase::CrashSent
         qCWarning(ViewerLog) << "Video backend VLC not available. Selecting first available backend...";
 #endif
         break;
-    case Settings::VideoBackend::QtAV:
-#if QtAV_FOUND
-        return new QtAVDisplay(parent);
-#else
-        qCWarning(ViewerLog) << "Video backend QtAV not available. Selecting first available backend...";
-#endif
-        break;
     case Settings::VideoBackend::Phonon:
-#if Phonon4Qt5_FOUND
+#if Phonon4Qt6_FOUND
         return new PhononDisplay(parent);
 #else
         qCWarning(ViewerLog) << "Video backend Phonon not available. Selecting first available backend...";
 #endif
         break;
+    case Settings::VideoBackend::QtAV: // legacy value
     case Settings::VideoBackend::NotConfigured:
         qCCritical(ViewerLog) << "No viable video backend!";
     }
 
-    static_assert(LIBVLC_FOUND || QtAV_FOUND || Phonon4Qt5_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
+    static_assert(LIBVLC_FOUND || Phonon4Qt6_FOUND, "A video backend must be provided. The build system should bail out if none is available.");
     Q_UNREACHABLE();
     return nullptr;
 }
@@ -1492,9 +1484,9 @@ void Viewer::ViewerWidget::createAnnotationMenu()
         return action;
     };
 
-    addAction("viewer-show-keybindings", i18nc("@action:inmenu", "Help"), &ViewerWidget::showAnnotationHelp, Qt::CTRL + Qt::Key_Question);
+    addAction("viewer-show-keybindings", i18nc("@action:inmenu", "Help"), &ViewerWidget::showAnnotationHelp, QKeySequence(Qt::CTRL | Qt::Key_Question));
 
-    addAction("viewer-edit-image-properties", i18nc("@action:inmenu", "Annotation Dialog"), &ViewerWidget::editImage, Qt::CTRL + Qt::Key_1);
+    addAction("viewer-edit-image-properties", i18nc("@action:inmenu", "Annotation Dialog"), &ViewerWidget::editImage, QKeySequence(Qt::CTRL | Qt::Key_1));
     m_addTagAction = addAction("viewer-add-tag", i18nc("@action:inmenu", "Add tag"), &ViewerWidget::addTag, i18nc("short cut for add tag", "CTRL+a"));
     m_addTagAction->setEnabled(false);
 

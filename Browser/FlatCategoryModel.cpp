@@ -1,13 +1,15 @@
-/* SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "FlatCategoryModel.h"
 
 #include <DB/ImageDB.h>
 
 #include <KLocalizedString>
+
+#include <utility>
 
 Browser::FlatCategoryModel::FlatCategoryModel(const DB::CategoryPtr &category, const DB::ImageSearchInfo &info)
     : AbstractCategoryModel(category, info)
@@ -18,7 +20,7 @@ Browser::FlatCategoryModel::FlatCategoryModel(const DB::CategoryPtr &category, c
     QStringList items = m_category->itemsInclCategories();
     items.sort();
 
-    for (const QString &name : qAsConst(items)) {
+    for (const QString &name : std::as_const(items)) {
         const int imageCount = m_images.contains(name) ? m_images[name].count : 0;
         const int videoCount = m_videos.contains(name) ? m_videos[name].count : 0;
 

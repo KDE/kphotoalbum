@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
 // SPDX-FileCopyrightText: 2021-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -553,21 +554,21 @@ void DateBar::DateBarWidget::zoom(int steps)
 
 void DateBar::DateBarWidget::mousePressEvent(QMouseEvent *event)
 {
-    if ((event->button() & (Qt::MiddleButton | Qt::LeftButton)) == 0 || event->x() > barAreaGeometry().right() || event->x() < barAreaGeometry().left())
+    if ((event->button() & (Qt::MiddleButton | Qt::LeftButton)) == 0 || event->position().x() > barAreaGeometry().right() || event->position().x() < barAreaGeometry().left())
         return;
 
     if ((event->button() & Qt::MiddleButton)
         || event->modifiers() & Qt::ControlModifier) {
         m_currentMouseHandler = m_barDragHandler;
     } else {
-        bool onBar = event->y() > barAreaGeometry().bottom();
+        bool onBar = event->position().y() > barAreaGeometry().bottom();
         if (onBar)
             m_currentMouseHandler = m_selectionHandler;
         else {
             m_currentMouseHandler = m_focusItemDragHandler;
         }
     }
-    m_currentMouseHandler->mousePressEvent(event->x());
+    m_currentMouseHandler->mousePressEvent(event->position().x());
     Q_EMIT dateSelected(currentDateRange(), includeFuzzyCounts());
     showStatusBarTip(event->pos());
     redraw();

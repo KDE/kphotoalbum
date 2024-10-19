@@ -1,5 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 Jesper K. Pedersen <blackie@kde.org>
 // SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -7,6 +8,7 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QTreeWidgetItemIterator>
+#include <QRegularExpression>
 
 // Local includes
 #include "ListSelect.h"
@@ -75,10 +77,8 @@ bool AnnotationDialog::ListViewTextMatchHider::shouldItemBeShown(QTreeWidgetItem
     case AnnotationDialog::MatchFromBeginning:
         return item->text(0).toLower().startsWith(m_text.toLower());
     case AnnotationDialog::MatchFromWordStart: {
-        const QStringList itemWords = item->text(0).toLower().split(QRegExp(QString::fromUtf8("\\W+")),
-                                                                    Qt::SkipEmptyParts);
-        const QStringList searchWords = m_text.toLower().split(QRegExp(QString::fromUtf8("\\W+")),
-                                                               Qt::SkipEmptyParts);
+        const QStringList itemWords = item->text(0).toLower().split(QRegularExpression(QStringLiteral("\\W+")), Qt::SkipEmptyParts);
+        const QStringList searchWords = m_text.toLower().split(QRegularExpression(QStringLiteral("\\W+")), Qt::SkipEmptyParts);
 
         // all search words ...
         for (const auto &searchWord : searchWords) {

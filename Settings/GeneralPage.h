@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: 2003-2022 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -28,9 +29,9 @@ public:
     QSize useRawThumbnailSize();
 
 private Q_SLOTS:
-    void showHistogramChanged(int state) const;
-    void useEXIFCommentsChanged(int state);
-    void stripEXIFCommentsChanged(int state);
+    void showHistogramChanged(bool checked) const;
+    void useEXIFCommentsChanged(bool checked);
+    void stripEXIFCommentsChanged(bool checked);
 
 private:
     KComboBox *m_trustTimeStamps;

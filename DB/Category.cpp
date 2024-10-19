@@ -1,10 +1,10 @@
-// SPDX-FileCopyrightText: 2004 - 2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
+// SPDX-FileCopyrightText: 2004-2022 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2007 Tuomas Suutari <tuomas@nepnep.net>
 // SPDX-FileCopyrightText: 2008 Laurent Montel <montel@kde.org>
 // SPDX-FileCopyrightText: 2012 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2013 - 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2014 - 2018 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2013-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2014-2014 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -28,6 +28,8 @@
 #include <QPixmap>
 #include <QPixmapCache>
 #include <kiconloader.h>
+
+#include <utility>
 
 using Utilities::StringSet;
 
@@ -355,7 +357,7 @@ void DB::Category::initIdMap()
         i = m_nameMap.lastKey();
     }
 
-    for (const QString &tag : qAsConst(m_items)) {
+    for (const QString &tag : std::as_const(m_items)) {
         if (!m_idMap.contains(tag))
             setIdMapping(tag, ++i);
     }

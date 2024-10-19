@@ -43,10 +43,8 @@ class KTextEdit;
 class QCloseEvent;
 class QDockWidget;
 class QMainWindow;
-class QMoveEvent;
 class QProgressBar;
 class QPushButton;
-class QResizeEvent;
 class QSplitter;
 class QStackedWidget;
 class QTimeEdit;
@@ -117,7 +115,7 @@ protected Q_SLOTS:
     void slotRenameOption(DB::Category *, const QString &, const QString &);
     void reject() override;
     void rotate(int angle);
-    void slotSetFuzzyDate();
+    void slotSetFuzzyDate(bool checked);
     void slotResetLayout();
     void slotStartDateChanged(const DB::ImageDate &);
     void slotCopyPrevious();
@@ -164,8 +162,6 @@ protected:
     bool hasChanges();
     StringSet changedOptions(const ListSelect *);
     void showHelpDialog(UsageMode);
-    void resizeEvent(QResizeEvent *) override;
-    void moveEvent(QMoveEvent *) override;
     void setupFocus();
     void closeDialog();
     void loadWindowLayout();

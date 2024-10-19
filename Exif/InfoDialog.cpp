@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2003-2020 The KPhotoAlbum Development Team
-// SPDX-FileCopyrightText: 2021 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-// SPDX-FileCopyrightText: 2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2021-2022 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2024 Tobias Leupold <tl@stonemx.de>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -23,7 +23,9 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QTabWidget>
-#include <QTextCodec>
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 7, 0))
+#include <QStringConverter>
+#endif
 
 using Utilities::StringSet;
 
@@ -76,12 +78,13 @@ Exif::InfoDialog::InfoDialog(const DB::FileName &fileName, QWidget *parent)
 
     QLabel *iptcLabel = new QLabel(i18n("IPTC character set:"), top);
     m_iptcCharset = new QComboBox(top);
-    QStringList charsets;
-    QList<QByteArray> charsetsBA = QTextCodec::availableCodecs();
-    for (QList<QByteArray>::const_iterator it = charsetsBA.constBegin(); it != charsetsBA.constEnd(); ++it)
-        charsets << QLatin1String(*it);
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 7, 0))
+    const auto charsets = QStringConverter::availableCodecs();
+#else
+    const QStringList charsets = { QLatin1String("UTF-8") };
+#endif
     m_iptcCharset->insertItems(0, charsets);
-    m_iptcCharset->setCurrentIndex(qMax(0, QTextCodec::availableCodecs().indexOf(Settings::SettingsData::instance()->iptcCharset().toLatin1())));
+    m_iptcCharset->setCurrentIndex(qMax(0, charsets.indexOf(Settings::SettingsData::instance()->iptcCharset())));
     hlay->addWidget(iptcLabel);
     hlay->addWidget(m_iptcCharset);
 
@@ -126,7 +129,7 @@ void Exif::InfoDialog::setImage(const DB::FileName &fileName)
     ImageManager::AsyncLoader::instance()->load(request);
 }
 
-void Exif::InfoDialog::enterEvent(QEvent *)
+void Exif::InfoDialog::enterEvent(QEnterEvent *)
 {
     m_grid->setFocus();
 }

@@ -78,13 +78,7 @@ msgid "Image Preview"
 msgstr "Προεπισκόπηση εικόνας"
 
 #: AnnotationDialog/Dialog.cpp:143
-#, fuzzy, kde-format
-#| msgctxt "@info:whatsthis"
-#| msgid ""
-#| "<para>A descriptive text of the image.</para><para>If <emphasis>Use EXIF "
-#| "description</emphasis> is enabled under <interface>Settings|Configure "
-#| "KPhotoAlbum...|General</interface>, a description embedded in the image "
-#| "EXIF information is imported to this field if available.</para>"
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "<para>A descriptive text of the image.</para><para>If <emphasis>Use Exif "
@@ -93,9 +87,9 @@ msgid ""
 "information is imported to this field if available.</para>"
 msgstr ""
 "<para>Ένα περιγραφικό κείμενο για την εικόνα.</para><para>Αν <emphasis>η "
-"χρήση περιγραφής EXIF</emphasis> είναι ενεργή στο <interface>Ρυθμίσεις|"
+"χρήση περιγραφής exif</emphasis> είναι ενεργή στο <interface>Ρυθμίσεις|"
 "Διαμόρφωση KPhotoAlbum...|Γενικά</interface>, μια περιγραφή ενσωματωμένη "
-"στις πληροφορίες EXIF της εικόνας εισάγεται σε αυτό το πεδίο αν είναι "
+"στις πληροφορίες Exif της εικόνας εισάγεται σε αυτό το πεδίο αν είναι "
 "διαθέσιμο.</para>"
 
 #: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:399
@@ -109,18 +103,14 @@ msgid "Map"
 msgstr "Χάρτης"
 
 #: AnnotationDialog/Dialog.cpp:182
-#, fuzzy, kde-format
-#| msgctxt "@info:whatsthis"
-#| msgid ""
-#| "The map widget allows you to view the location of images if GPS "
-#| "coordinates are found in the EXIF information."
+#, kde-format
 msgctxt "@info:whatsthis"
 msgid ""
 "The map widget allows you to view the location of images if GPS coordinates "
 "are found in the Exif information."
 msgstr ""
 "Το συστατικό χάρτη σας επιτρέπει να προβάλλετε τη θέση των εικόνων αν οι GPS "
-"συντεταγμένες υπάρχουν στις πληροφορίες EXIF."
+"συντεταγμένες υπάρχουν στις πληροφορίες Exif."
 
 #: AnnotationDialog/Dialog.cpp:230
 #, kde-format
@@ -271,15 +261,13 @@ msgid "Done"
 msgstr "Τέλος"
 
 #: AnnotationDialog/Dialog.cpp:848
-#, fuzzy, kde-format
-#| msgid "Annotations"
+#, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
 msgstr "Σημειώσεις"
 
 #: AnnotationDialog/Dialog.cpp:880
-#, fuzzy, kde-format
-#| msgid "Configure window layout..."
+#, kde-format
 msgid "Configure Window Layout..."
 msgstr "Διαμόρφωση διάταξης παραθύρου..."
 
@@ -306,28 +294,24 @@ msgid "Sort Alphabetically (Flat)"
 msgstr "Ταξινόμηση αλφαβητικά (επίπεδη)"
 
 #: AnnotationDialog/Dialog.cpp:897
-#, fuzzy, kde-format
-#| msgid "Sort by date"
+#, kde-format
 msgid "Sort by Date"
 msgstr "Ταξινόμηση ανά ημέρα"
 
 #: AnnotationDialog/Dialog.cpp:913
-#, fuzzy, kde-format
-#| msgid "Match tags from the first character."
+#, kde-format
 msgid "Match Tags from the First Character"
-msgstr "Να γίνει ταίριασμα ετικετών από τον πρώτο χαρακτήρα."
+msgstr "Να γίνει ταίριασμα ετικετών από τον πρώτο χαρακτήρα"
 
 #: AnnotationDialog/Dialog.cpp:914
-#, fuzzy, kde-format
-#| msgid "Match tags from word boundaries."
+#, kde-format
 msgid "Match Tags from Word Boundaries"
-msgstr "Να γίνει ταίριασμα ετικετών από τα όρια της λέξης."
+msgstr "Να γίνει ταίριασμα ετικετών από τα όρια της λέξης"
 
 #: AnnotationDialog/Dialog.cpp:915
-#, fuzzy, kde-format
-#| msgid "Match tags anywhere."
+#, kde-format
 msgid "Match Tags Anywhere"
-msgstr "Να γίνει ταίριασμα ετικετών παντού."
+msgstr "Να γίνει ταίριασμα ετικετών παντού"
 
 #: AnnotationDialog/Dialog.cpp:932
 #, fuzzy, kde-format
@@ -342,8 +326,7 @@ msgid "Settings saved!"
 msgstr "Ρυθμίσεις"
 
 #: AnnotationDialog/Dialog.cpp:970
-#, fuzzy, kde-format
-#| msgid "Save Current Window Setup"
+#, kde-format
 msgid "Save current window setup"
 msgstr "Αποθήκευση τρέχουσας ρύθμισης παραθύρων"
 
@@ -521,29 +504,25 @@ msgid "Toggle full-screen preview"
 msgstr "Εναλλαγή προεπισκόπησης πλήρους οθόνης"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:356
-#, fuzzy, kde-format
-#| msgid "Rotate counterclockwise"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
 msgstr "Περιστροφή προς τα αριστερά"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:357
-#, fuzzy, kde-format
-#| msgid "Rotate clockwise"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
 msgstr "Περιστροφή προς τα δεξιά"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:358
-#, fuzzy, kde-format
-#| msgid "Copy tags from previously tagged image"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
 msgstr "Αντιγραφή ετικετών από άλλη εικόνα"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:359
-#, fuzzy, kde-format
-#| msgid "Delete image"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"
 msgstr "Διαγραφή εικόνας"
@@ -670,8 +649,7 @@ msgid "Really Delete %1?"
 msgstr "Πραγματικά διαγραφή του %1;"
 
 #: AnnotationDialog/ListSelect.cpp:463
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Μετονομασία αντικειμένου"
@@ -698,11 +676,10 @@ msgid "Rename %1?"
 msgstr "Μετονομασία..."
 
 #: AnnotationDialog/ListSelect.cpp:477
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
-msgstr "Μετονομασία..."
+msgstr "Μετονομασία"
 
 #: AnnotationDialog/ListSelect.cpp:508
 #, fuzzy, kde-format
@@ -851,8 +828,7 @@ msgid "Elapsed"
 msgstr "Παρήλθε"
 
 #: BackgroundTaskManager/JobViewer.cpp:21
-#, fuzzy, kde-format
-#| msgid "Background Job Viewer"
+#, kde-format
 msgctxt "@title:window"
 msgid "Background Job Viewer"
 msgstr "Προβολέας εργασιών παρασκηνίου"
@@ -982,10 +958,9 @@ msgid "Empty Search Result"
 msgstr "Κενό αποτέλεσμα αναζήτησης"
 
 #: Browser/OverviewPage.cpp:277
-#, fuzzy, kde-format
-#| msgid "EXIF Search"
+#, kde-format
 msgid "Exif Search"
-msgstr "Αναζήτηση EXIF"
+msgstr "Αναζήτηση Exif"
 
 #: Browser/OverviewPage.cpp:297
 #, kde-format
@@ -1113,16 +1088,12 @@ msgid "Scroll left"
 msgstr ""
 
 #: DateBar/DateBarWidget.cpp:89
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Zoom In"
+#, kde-format
 msgid "Zoom in"
 msgstr "Μεγέθυνση"
 
 #: DateBar/DateBarWidget.cpp:100
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Zoom Out"
+#, kde-format
 msgid "Zoom out"
 msgstr "Σμίκρυνση"
 
@@ -1358,16 +1329,12 @@ msgid "Media Type"
 msgstr "Τύπος μέσου"
 
 #: DB/ImageDB.cpp:562 DB/ImageDB.cpp:849 DB/XML/FileReader.cpp:137
-#, fuzzy, kde-format
-#| msgctxt "Denotes the media type (video,image)"
-#| msgid "Image"
+#, kde-format
 msgid "Image"
 msgstr "Εικόνα"
 
 #: DB/ImageDB.cpp:562 DB/ImageDB.cpp:850 DB/XML/FileReader.cpp:138
-#, fuzzy, kde-format
-#| msgctxt "Denotes the media type (video,image)"
-#| msgid "Video"
+#, kde-format
 msgid "Video"
 msgstr "Βίντεο"
 
@@ -1506,18 +1473,7 @@ msgid ""
 msgstr ""
 
 #: DB/XML/FileReader.cpp:434
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Your images/videos are not sorted, which means that navigating using "
-#| "the date bar will only work suboptimally.</p><p>In the <b>Maintenance</b> "
-#| "menu, you can find <b>Display Images with Incomplete Dates</b> which you "
-#| "can use to find the images that are missing date information.</p><p>You "
-#| "can then select the images that you have reason to believe have a correct "
-#| "date in either their EXIF data or on the file, and execute <b>Maintenance-"
-#| ">Read EXIF Info</b> to reread the information.</p><p>Finally, once all "
-#| "images have their dates set, you can execute <b>Images->Sort Selected by "
-#| "Date & Time</b> to sort them in the database. Note that you should expand "
-#| "all stacks for sorting.</p>"
+#, kde-format
 msgid ""
 "<p>Your images/videos are not sorted, which means that navigating using the "
 "date bar will only work suboptimally.</p><p>In the <b>Maintenance</b> menu, "
@@ -1535,13 +1491,12 @@ msgstr ""
 "εικόνων με ελλιπείς ημερομηνίες</b> την οποία μπορείτε να χρησιμοποιήσετε "
 "για να βρείτε τις εικόνες που έχουν ελλιπείς πληροφορίες ημερομηνίας.</"
 "p><p>Έπειτα μπορείτε να επιλέξετε τις εικόνες που πιστεύετε ότι έχουν σωστή "
-"ημερομηνία στα EXIF δεδομένα τους ή στο αρχείο, και να εκτελέσετε τη "
-"<b>Συντήρηση->Ανάγνωση πληροφοριών EXIF</b> για δεύτερη ανάγνωση των "
+"ημερομηνία στα Exif δεδομένα τους ή στο αρχείο, και να εκτελέσετε τη "
+"<b>Συντήρηση->Ανάγνωση πληροφοριών Exif</b> για δεύτερη ανάγνωση των "
 "πληροφοριών.</p><p>Τέλος, όταν έχουν οριστεί ημερομηνίες για όλες τις "
 "εικόνες, μπορείτε να εκτελέσετε την επιλογή <b>Εικόνες->Ταξινόμηση "
 "επιλεγμένων κατά ημερομηνία & ώρα</b> για να ταξινομηθούν στη βάση "
-"δεδομένων. Σημειώστε ότι πρέπει να επεκτείνετε όλες τις στοίβες για να γίνει "
-"η ταξινόμηση.</p>"
+"δεδομένων. </p>"
 
 #: DB/XML/FileReader.cpp:443
 #, kde-format
@@ -1824,11 +1779,10 @@ msgstr ""
 #: Exif/InfoDialog.cpp:79
 #, kde-format
 msgid "IPTC character set:"
-msgstr "Σύνολο χαρακτήρων IPTC"
+msgstr "Σύνολο χαρακτήρων IPTC:"
 
 #: Exif/InfoDialog.cpp:98
-#, fuzzy, kde-format
-#| msgid "Exif Info"
+#, kde-format
 msgid "Exif info"
 msgstr "Πληροφορίες Exif"
 
@@ -1910,8 +1864,7 @@ msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
-#, fuzzy, kde-format
-#| msgid "x"
+#, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
 msgstr "x"
@@ -1926,17 +1879,15 @@ msgid "%1 (%2)"
 msgstr "%1 (από %2)"
 
 #: Exif/ReReadDialog.cpp:28
-#, fuzzy, kde-format
-#| msgid "Read EXIF info from files"
+#, kde-format
 msgctxt "@title:window"
 msgid "Read Exif Info from Files"
-msgstr "Ανάγνωση πληροφοριών EXIF από τα αρχεία"
+msgstr "Ανάγνωση πληροφοριών Exif από τα αρχεία"
 
 #: Exif/ReReadDialog.cpp:35
-#, fuzzy, kde-format
-#| msgid "Update EXIF search database"
+#, kde-format
 msgid "Update Exif search database"
-msgstr "Ενημέρωση βάσης δεδομένων αναζήτησης EXIF"
+msgstr "Ενημέρωση βάσης δεδομένων αναζήτησης Exif"
 
 #: Exif/ReReadDialog.cpp:41
 #, kde-format
@@ -1944,22 +1895,19 @@ msgid "Update image date"
 msgstr "Ενημέρωση ημερομηνίας εικόνας"
 
 #: Exif/ReReadDialog.cpp:44
-#, fuzzy, kde-format
-#| msgid "Use modification date if EXIF not found"
+#, kde-format
 msgid "Use modification date if Exif not found"
-msgstr "Χρήση ημερομηνίας τροποποίησης αν δε βρεθεί η EXIF"
+msgstr "Χρήση ημερομηνίας τροποποίησης αν δε βρεθεί η Exif"
 
 #: Exif/ReReadDialog.cpp:47
-#, fuzzy, kde-format
-#| msgid "Update image orientation from EXIF information"
+#, kde-format
 msgid "Update image orientation from Exif information"
-msgstr "Ενημέρωση περιστροφής εικόνας από πληροφορίες EXIF"
+msgstr "Ενημέρωση περιστροφής εικόνας από πληροφορίες Exif"
 
 #: Exif/ReReadDialog.cpp:50
-#, fuzzy, kde-format
-#| msgid "Update image description from EXIF information"
+#, kde-format
 msgid "Update image description from Exif information"
-msgstr "Ενημέρωση περιγραφής εικόνας από πληροφορίες EXIF"
+msgstr "Ενημέρωση περιγραφής εικόνας από πληροφορίες Exif"
 
 #: Exif/ReReadDialog.cpp:53
 #, kde-format
@@ -1967,15 +1915,12 @@ msgid "Affected Files"
 msgstr "Αρχεία που επηρεάζονται"
 
 #: Exif/ReReadDialog.cpp:124
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>Be aware that setting the data from EXIF may <b>overwrite</b> data you "
-#| "have previously entered manually using the image configuration dialog.</p>"
+#, kde-format
 msgid ""
 "<p>Be aware that setting the data from Exif may <b>overwrite</b> data you "
 "have previously entered manually using the image configuration dialog.</p>"
 msgstr ""
-"<p>Σημειώστε ότι ο ορισμός δεδομένων από πληροφορίες EXIF μπορεί να "
+"<p>σημειώστε ότι ο ορισμός δεδομένων από πληροφορίες exif μπορεί να "
 "<b>αντικαταστήσει</b> δεδομένα που είχαν προηγουμένως εισαχθεί χειροκίνητα "
 "χρησιμοποιώντας το παράθυρο διαλόγου για διαμόρφωση της εικόνας.</p>"
 
@@ -1985,11 +1930,10 @@ msgid "Override image dates"
 msgstr "Αντικατάσταση ημερομηνιών εικόνων"
 
 #: Exif/SearchDialog.cpp:31
-#, fuzzy, kde-format
-#| msgid "EXIF Search"
+#, kde-format
 msgctxt "@title:window"
 msgid "Exif Search"
-msgstr "Αναζήτηση EXIF"
+msgstr "Αναζήτηση Exif"
 
 #: Exif/SearchDialog.cpp:35
 #, kde-format
@@ -2169,8 +2113,7 @@ msgid "Date"
 msgstr "Ημερομηνία"
 
 #: HTMLGenerator/HTMLDialog.cpp:53
-#, fuzzy, kde-format
-#| msgid "HTML Export"
+#, kde-format
 msgctxt "@title:window"
 msgid "HTML Export"
 msgstr "Εξαγωγή HTML"
@@ -2201,8 +2144,7 @@ msgid "Create .kim export file"
 msgstr "Δημιουργία αρχείου εξαγωγής .kim"
 
 #: HTMLGenerator/HTMLDialog.cpp:116
-#, fuzzy, kde-format
-#| msgid "Inline Movies in pages"
+#, kde-format
 msgctxt ""
 "Inline as a verb, i.e. 'please show movies right on the page, not as links'"
 msgid "Inline Movies in pages"
@@ -2522,8 +2464,7 @@ msgid "KPhotoAlbum import files"
 msgstr "Αρχεία βάσης δεδομένων KPhotoAlbum (*.db)"
 
 #: ImportExport/Export.cpp:92
-#, fuzzy, kde-format
-#| msgid "Export Configuration / Copy Images"
+#, kde-format
 msgctxt "@title:window"
 msgid "Export Configuration / Copy Images"
 msgstr "Διαμόρφωση εξαγωγής / αντιγραφή εικόνων"
@@ -2858,8 +2799,7 @@ msgid "How to resolve clashes"
 msgstr "Μέθοδος χειρισμού συγκρούσεων"
 
 #: ImportExport/ImportHandler.cpp:93 ImportExport/ImportHandler.cpp:155
-#, fuzzy, kde-format
-#| msgid "Copying Images"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
 msgstr "Αντιγραφή εικόνων"
@@ -2887,8 +2827,7 @@ msgid "Copy failed"
 msgstr "Αντιγραφή αρχείων εικόνας"
 
 #: ImportExport/ImportHandler.cpp:241
-#, fuzzy, kde-format
-#| msgid "Continue without Asking"
+#, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
 msgstr "Συνέχιση χωρίς ερώτηση"
@@ -3319,14 +3258,7 @@ msgid "Main Toolbar"
 msgstr "Κύρια γραμμή εργαλείων"
 
 #: lib/kpabase/SettingsData.cpp:247
-#, fuzzy, kde-format
-#| msgid ""
-#| "When reading time information of images, their EXIF info is used. Exif "
-#| "info may, however, not be supported by your KPhotoAlbum installation, or "
-#| "no valid information may be in the file. As a backup, KPhotoAlbum may use "
-#| "the timestamp of the image - this may, however, not be valid in case the "
-#| "image is scanned in. So the question is, should KPhotoAlbum trust the "
-#| "time stamp on your images?"
+#, kde-format
 msgid ""
 "When reading time information of images, their Exif info is used. Exif info "
 "may, however, not be supported by your KPhotoAlbum installation, or no valid "
@@ -3336,7 +3268,7 @@ msgid ""
 "on your images?"
 msgstr ""
 "Κατά την ανάγνωση πληροφοριών ώρας των εικόνων, χρησιμοποιούνται οι "
-"πληροφορίες EXIF. Οι πληροφορίες Exif υπάρχει περίπτωση να μην "
+"πληροφορίες Exif. Οι πληροφορίες Exif υπάρχει περίπτωση να μην "
 "υποστηρίζονται από την εγκατάστασή σας του KPhotoAlbum ή να μην υπάρχουν "
 "έγκυρες πληροφορίες στο αρχείο. Ως εφεδρεία μπορεί να χρησιμοποιηθεί από το "
 "KPhotoAlbum η χρονική σφραγίδα του αρχείου της εικόνας - αυτό όμως μπορεί να "
@@ -3349,13 +3281,7 @@ msgid "Trust Time Stamps?"
 msgstr "Εμπιστοσύνη στις χρονικές σφραγίδες;"
 
 #: lib/kpaexif/Database.cpp:173
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>There was an error while executing the SQL backend command. The error "
-#| "is likely due to a broken database file.</p><p>To fix this problem run "
-#| "Maintenance->Recreate Exif Search database.</p><hr/><p>For debugging: the "
-#| "command that was attempted to be executed was:<br/>%1</p><p>The error "
-#| "message obtained was:<br/>%2</p>"
+#, kde-format
 msgid ""
 "<p>There was an error while accessing the Exif search database. The error is "
 "likely due to a broken database file.</p><p>To fix this problem run "
@@ -3363,38 +3289,29 @@ msgid ""
 "command that was attempted to be executed was:<br/>%1</p><p>The error "
 "message obtained was:<br/>%2</p>"
 msgstr ""
-"<p>Υπήρξε ένα σφάλμα εκτέλεσης εντολής του συστήματος υποστήριξης SQL. Το "
-"σφάλμα πιθανότατα να οφείλεται σε κατεστραμμένο αρχείο βάσης δεδομένων.</"
+"<p>Υπήρξε ένα σφάλμα κατά την πρόσβαση στη βάση δεδομένων αναζήτησης Exif. "
+"Το σφάλμα πιθανότατα να οφείλεται σε κατεστραμμένο αρχείο βάσης δεδομένων.</"
 "p><p>Για να διορθώσετε το πρόβλημα εκτελέστε το Συντήρηση->Ανακατασκευή "
 "βάσης δεδομένων αναζήτησης Exif.</p><hr/><p>Για την αποσφαλμάτωση: έγινε "
 "προσπάθεια εκτέλεσης της εντολής:<br/>%1</p><p>Το σφάλμα που εμφανίστηκε "
 "ήταν:<br/>%2</p>"
 
 #: lib/kpaexif/Database.cpp:188
-#, fuzzy, kde-format
-#| msgid "Converting database"
+#, kde-format
 msgid "Error in Exif database"
-msgstr "Μετατροπή βάσης δεδομένων"
+msgstr "Σφάλμα στη βάση δεδομένων Exif"
 
 #: lib/kpaexif/Database.cpp:209
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>There was an error while executing the SQL backend command. The error "
-#| "is likely due to a broken database file.</p><p>To fix this problem run "
-#| "Maintenance->Recreate Exif Search database.</p><hr/><p>For debugging: the "
-#| "command that was attempted to be executed was:<br/>%1</p><p>The error "
-#| "message obtained was:<br/>%2</p>"
+#, kde-format
 msgid ""
 "<p>There was an error while opening the Exif search database.</p> <p>To fix "
 "this problem run Maintenance->Recreate Exif Search database.</p><hr/><p>The "
 "error message obtained was:<br/>%1</p>"
 msgstr ""
-"<p>Υπήρξε ένα σφάλμα εκτέλεσης εντολής του συστήματος υποστήριξης SQL. Το "
-"σφάλμα πιθανότατα να οφείλεται σε κατεστραμμένο αρχείο βάσης δεδομένων.</"
-"p><p>Για να διορθώσετε το πρόβλημα εκτελέστε το Συντήρηση->Ανακατασκευή "
-"βάσης δεδομένων αναζήτησης Exif.</p><hr/><p>Για την αποσφαλμάτωση: έγινε "
-"προσπάθεια εκτέλεσης της εντολής:<br/>%1</p><p>Το σφάλμα που εμφανίστηκε "
-"ήταν:<br/>%2</p>"
+"<p>Υπήρξε ένα σφάλμα κατά την πρόσβαση στη βάση δεδομένων αναζήτησης Exif.</"
+"p> <p>Για να διορθώσετε το πρόβλημα εκτελέστε το Συντήρηση->Ανακατασκευή "
+"βάσης δεδομένων αναζήτησης Exif.</p><hr/><p>Το σφάλμα που εμφανίστηκε ήταν:"
+"<br/>%1</p>"
 
 #: lib/kpaexif/Database.cpp:259
 #, kde-format
@@ -3416,7 +3333,7 @@ msgstr "Λεύκωμα φωτογραφιών του KDE"
 #: main.cpp:69
 #, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr ""
+msgstr "Πνευματικά δικαιώματα (c) 2003-2024 η ομάδα του KPhotoAlbum"
 
 #: main.cpp:90
 #, kde-format
@@ -3424,12 +3341,10 @@ msgid "Marco Caldarelli"
 msgstr "Marco Caldarelli"
 
 #: main.cpp:90
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch for making it possible to reread EXIF info using a nice dialog."
+#, kde-format
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
 msgstr ""
-"Διόρθωση ανάγνωσης πληροφοριών EXIF μέσα από ένα όμορφο παράθυρο διαλόγου."
+"Διόρθωση ανάγνωσης πληροφοριών Exif μέσα από ένα όμορφο παράθυρο διαλόγου."
 
 #: main.cpp:91
 #, kde-format
@@ -3437,10 +3352,7 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:91
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with directory info made available through the browser. (.) "
-#| "Patch for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "(.) Patch with folder info made available through the browser. (.) Patch for "
 "adding a check box for \"and/or\" searches in the search page."
@@ -3451,7 +3363,7 @@ msgstr ""
 #: main.cpp:92
 #, kde-format
 msgid "Matthias Füssel"
-msgstr ""
+msgstr "Matthias Füssel"
 
 #: main.cpp:92
 #, kde-format
@@ -3506,16 +3418,13 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:98
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "EXIF images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view, plus reading time info out of "
 "Exif images for existing images"
 msgstr ""
 "Διόρθωση ταξινόμησης εικόνων στην προβολή επισκοπήσεων, επιπλέον της "
-"ανάγνωσης πληροφοριών ώρας από τις εικόνες EXIF"
+"ανάγνωσης πληροφοριών ώρας από τις εικόνες Exif"
 
 #: main.cpp:99
 #, kde-format
@@ -3552,8 +3461,7 @@ msgstr ""
 "ιδιοτήτων εικόνας."
 
 #: MainWindow/AutoStackImages.cpp:46
-#, fuzzy, kde-format
-#| msgid "Automatically Stack Images"
+#, kde-format
 msgctxt "@title:window"
 msgid "Automatically Stack Images"
 msgstr "Αυτόματη τοποθέτηση εικόνων σε στοίβα"
@@ -3580,11 +3488,7 @@ msgid "Stack images created within the following time-frame:"
 msgstr ""
 
 #: MainWindow/AutoStackImages.cpp:87
-#, fuzzy, kde-format
-#| msgctxt ""
-#| "The whole sentence should read: *Stack images that are shot within x "
-#| "seconds of each other*. (This being the text after x.)"
-#| msgid "seconds"
+#, kde-format
 msgctxt "Unit suffix on a QSpinBox; note the space at the beginning."
 msgid " seconds"
 msgstr "δευτερολέπτων"
@@ -3641,8 +3545,7 @@ msgstr[0] "Εξαγωγή/αντιγραφή εικόνων..."
 msgstr[1] "Εξαγωγή/αντιγραφή εικόνων..."
 
 #: MainWindow/DeleteDialog.cpp:24
-#, fuzzy, kde-format
-#| msgid "Removing items"
+#, kde-format
 msgctxt "@title:window"
 msgid "Removing Items"
 msgstr "Αφαίρεση αντικειμένων"
@@ -3786,8 +3689,7 @@ msgid "Invoke External Program"
 msgstr "Κλήση εξωτερικού προγράμματος"
 
 #: MainWindow/FeatureDialog.cpp:40
-#, fuzzy, kde-format
-#| msgid "Feature Status"
+#, kde-format
 msgctxt "@title:window"
 msgid "Feature Status"
 msgstr "Κατάσταση χαρακτηριστικών"
@@ -3803,22 +3705,7 @@ msgstr ""
 "κατάστασή τους:</p>%1"
 
 #: MainWindow/FeatureDialog.cpp:48
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
-#| "yourself, then please review the sections below to learn what to install "
-#| "to get the feature in question. If on the other hand you installed "
-#| "KPhotoAlbum from a binary package, please tell whoever made the package "
-#| "about this defect, eventually including the information from the section "
-#| "below.</p><p>In case you are missing a feature and you did not compile "
-#| "KPhotoAlbum yourself, please do consider doing so. It really is not that "
-#| "hard. If you need help compiling KPhotoAlbum, feel free to ask on the <a "
-#| "href=\"http://mail.kdab.net/mailman/listinfo/kphotoalbum\">KPhotoAlbum "
-#| "mailing list</a></p><p>The steps to compile KPhotoAlbum can be seen on <a "
-#| "href=\"http://www.kphotoalbum.org/index.php?page=compile\">the "
-#| "KPhotoAlbum home page</a>. If you have never compiled a KDE application, "
-#| "then please ensure that you have the developer packages installed, in "
-#| "most distributions they go under names like kdelibs<i>-devel</i></p>"
+#, kde-format
 msgid ""
 "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
 "yourself, then please review the sections below to learn what to install to "
@@ -3844,11 +3731,11 @@ msgstr ""
 "περίπτωση που σας λείπει κάποιο χαρακτηριστικό και δεν μεταγλωττίσατε μόνοι "
 "σας το KPhotoAlbum, θα ήταν καλό να το κάνετε. Δεν είναι τόσο δύσκολο. Αν "
 "χρειάζεστε βοήθεια για τη μεταγλώττιση του KPhotoAlbum, ζητήστε ελεύθερα στη "
-"<a href=\"http://mail.kdab.net/mailman/listinfo/kphotoalbum\">λίστα "
+"<a href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum\">λίστα "
 "αλληλογραφίας του KPhotoAlbum</a></p><p>Τα βήματα για τη μεταγλώττιση του "
-"KPhotoAlbum μπορούν να βρεθούν στην <a href=\"http://www.kphotoalbum.org/"
-"index.php?page=compile\">αρχική σελίδα του KPhotoAlbum</a>. Αν ποτέ δεν "
-"έχετε μεταγλωττίσει μια εφαρμογή του KDE, σιγουρευτείτε ότι έχετε "
+"KPhotoAlbum μπορούν να βρεθούν στην <a href=\"https://community.kde.org/"
+"KPhotoAlbum/build_instructions\">αρχική σελίδα του KPhotoAlbum</a>. Αν ποτέ "
+"δεν έχετε μεταγλωττίσει μια εφαρμογή του KDE, σιγουρευτείτε ότι έχετε "
 "εγκατεστημένα τα πακέτα ανάπτυξης: στις περισσότερες διανομές έχουν ονόματα "
 "όπως το kdelibs<i>-devel</i></p>"
 
@@ -3860,22 +3747,17 @@ msgid ""
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:65
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"database\">SQL database support</a></h1><p>KPhotoAlbum "
-#| "allows you to search using a certain number of EXIF tags. For this "
-#| "KPhotoAlbum needs an Sqlite database. In addition the qt package for "
-#| "sqlite (e.g.qt-sql-sqlite) must be installed.</p>"
+#, kde-format
 msgid ""
 "<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
 "allows you to search using a certain number of Exif tags. For this "
 "KPhotoAlbum needs an SQLite database. In addition the Qt package for SQLite "
 "(e.g. qt-sql-sqlite) must be installed.</p>"
 msgstr ""
-"<h1><a name=\"database\">Υποστήριξη βάσης δεδομένων SQL</a></h1><p>Το "
+"<h1><a name=\"database\">Υποστήριξη βάσης δεδομένων SQLite</a></h1><p>Το "
 "KPhotoAlbum σάς επιτρέπει να κάνετε αναζήτηση με τη χρήση ορισμένου αριθμού "
-"ετικετών EXIF. Για αυτήν τη λειτουργία το KPhotoAlbum χρειάζεται μια βάση "
-"δεδομένων Sqlite. Επιπλέον το πακέτο qt για την sqlite (π.χ.qt-sql-sqlite) "
+"ετικετών Exif. Για αυτήν τη λειτουργία το KPhotoAlbum χρειάζεται μια βάση "
+"δεδομένων Sqlite. Επιπλέον το πακέτο Qt για την SQLite (π.χ.qt-sql-sqlite) "
 "πρέπει να εγκατασταθεί.</p>"
 
 #: MainWindow/FeatureDialog.cpp:70
@@ -3887,23 +3769,13 @@ msgid ""
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on Qt's "
-#| "Phonon architecture for displaying videos; this in turn relies on "
-#| "GStreamer. If this feature is not enabled for you, have a look at the <a "
-#| "href=\"http://userbase.kde.org/KPhotoAlbum#Video_Support\">KPhotoAlbum "
-#| "wiki article on video support</a>.</p>"
+#, kde-format
 msgid ""
 "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on phonon "
 "or VLC for displaying videos</p>"
 msgstr ""
 "<h1><a name=\"video\">Υποστήριξη βίντεο</a></h1><p>Το KPhotoAlbum εξαρτάται "
-"από την αρχιτεκτονική Phonon του Qt για την προβολή βίντεο, το οποίο με τη "
-"σειρά του εξαρτάται από το GStreamer. Αν αυτό το χαρακτηριστικό δεν είναι "
-"ενεργοποιημένο στο σύστημά σας, μπορείτε να ρίξετε μια ματιά στο <a href="
-"\"http://userbase.kde.org/KPhotoAlbum#Video_Support\">άρθρο στο wiki του "
-"KPhotoAlbum σχετικά με την υποστήριξη βίντεο</a>.</p>"
+"από το Phonon ή το VLC για την προβολή βίντεο</p>"
 
 #: MainWindow/FeatureDialog.cpp:78
 #, fuzzy, kde-format
@@ -3944,10 +3816,9 @@ msgid "Plug-ins available"
 msgstr "Διαθέσιμα πρόσθετα"
 
 #: MainWindow/FeatureDialog.cpp:173
-#, fuzzy, kde-format
-#| msgid "Sqlite database support (used for EXIF searches)"
+#, kde-format
 msgid "SQLite database support (used for Exif searches)"
-msgstr "Υποστήριξη βάσης δεδομένων Sqlite (για αναζητήσεις EXIF)"
+msgstr "Υποστήριξη βάσης δεδομένων Sqlite (για αναζητήσεις Exif)"
 
 #: MainWindow/FeatureDialog.cpp:174
 #, kde-format
@@ -3960,10 +3831,9 @@ msgid "Video thumbnail support"
 msgstr "Υποστήριξη επισκόπησης βίντεο"
 
 #: MainWindow/FeatureDialog.cpp:176
-#, fuzzy, kde-format
-#| msgid "Video support"
+#, kde-format
 msgid "Video metadata support"
-msgstr "Υποστήριξη βίντεο"
+msgstr "Υποστήριξη μεταδεδομένων βίντεο"
 
 #: MainWindow/FeatureDialog.cpp:180
 #, kde-format
@@ -4002,8 +3872,7 @@ msgstr[0] "1 αποτέλεσμα σύγκρισης"
 msgstr[1] "%1 αποτελέσματα σύγκρισης"
 
 #: MainWindow/InvalidDateFinder.cpp:33
-#, fuzzy, kde-format
-#| msgid "Search for Images and Videos with Missing Dates"
+#, kde-format
 msgctxt "@title:window"
 msgid "Search for Images and Videos with Missing Dates"
 msgstr "Αναζήτηση εικόνων και βίντεο χωρίς ημερομηνίες"
@@ -4036,8 +3905,7 @@ msgstr ""
 "11/7-1971)"
 
 #: MainWindow/InvalidDateFinder.cpp:70
-#, fuzzy, kde-format
-#| msgid "Image Info"
+#, kde-format
 msgctxt "@title:window"
 msgid "Image Info"
 msgstr "Πληροφορίες εικόνας"
@@ -4050,8 +3918,7 @@ msgstr ""
 "αντικειμένων.</h1>"
 
 #: MainWindow/InvalidDateFinder.cpp:88
-#, fuzzy, kde-format
-#| msgid "Reading File Properties"
+#, kde-format
 msgctxt "@title:window"
 msgid "Reading File Properties"
 msgstr "Ανάγνωση ιδιοτήτων αρχείου"
@@ -4075,17 +3942,15 @@ msgid "Use <databaseFile> instead of the default."
 msgstr ""
 
 #: MainWindow/Options.cpp:33
-#, fuzzy, kde-format
-#| msgid "Starts KPhotoAlbum with a prebuilt set of demo images"
+#, kde-format
 msgid "Starts KPhotoAlbum with a prebuilt set of demo images."
 msgstr ""
-"Εκκινεί το KPhotoAlbum με ένα προκατασκευασμένο σύνολο εικόνων επίδειξης"
+"Εκκινεί το KPhotoAlbum με ένα προκατασκευασμένο σύνολο εικόνων επίδειξης."
 
 #: MainWindow/Options.cpp:36
-#, fuzzy, kde-format
-#| msgid "Import file"
+#, kde-format
 msgid "Import file."
-msgstr "Εισαγωγή αρχείου"
+msgstr "Εισαγωγή αρχείου."
 
 #: MainWindow/Options.cpp:37
 #, kde-format
@@ -4169,12 +4034,10 @@ msgid "Search Bar"
 msgstr "Αναζήτηση"
 
 #: MainWindow/SearchBar.cpp:25
-#, fuzzy, kde-format
-#| msgctxt "@title:window title of the 'find images' window"
-#| msgid "Search"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Search ..."
-msgstr "Αναζήτηση"
+msgstr "Αναζήτηση..."
 
 #: MainWindow/StatisticsDialog.cpp:35
 #, kde-format
@@ -4277,8 +4140,7 @@ msgid "Thumbnail settings..."
 msgstr "Μέγεθος εικόνας επισκόπησης:"
 
 #: MainWindow/TokenEditor.cpp:36
-#, fuzzy, kde-format
-#| msgid "Remove Tokens"
+#, kde-format
 msgctxt "@title:window"
 msgid "Remove Tokens"
 msgstr "Αφαίρεση αναγνωριστικών"
@@ -4449,8 +4311,7 @@ msgstr ""
 "συνεδρία.</p>"
 
 #: MainWindow/Window.cpp:306
-#, fuzzy, kde-format
-#| msgid "Delete Demo Database"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Διαγραφή βάσης δεδομένων επίδειξης"
@@ -4461,8 +4322,7 @@ msgid "Do you want to save the changes?"
 msgstr "Επιθυμείτε την αποθήκευση των τροποποιήσεων;"
 
 #: MainWindow/Window.cpp:323
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
 msgstr "Αποθήκευση αλλαγών;"
@@ -4553,10 +4413,9 @@ msgid "Delete Selected"
 msgstr "Διαγραφή επιλεγμένων"
 
 #: MainWindow/Window.cpp:790
-#, fuzzy, kde-format
-#| msgid "Remove Tokens"
+#, kde-format
 msgid "Remove Tokens..."
-msgstr "Αφαίρεση αναγνωριστικών"
+msgstr "Αφαίρεση αναγνωριστικών..."
 
 #: MainWindow/Window.cpp:793
 #, kde-format
@@ -4737,10 +4596,9 @@ msgid "Recreate Exif Search Database"
 msgstr "Επανακατασκευή βάσης δεδομένων αναζήτησης Exif"
 
 #: MainWindow/Window.cpp:979
-#, fuzzy, kde-format
-#| msgid "Read EXIF Info From Files..."
+#, kde-format
 msgid "Read Exif Info from Files..."
-msgstr "Ανάγνωση πληροφοριών EXIF από τα αρχεία..."
+msgstr "Ανάγνωση πληροφοριών Exif από τα αρχεία..."
 
 #: MainWindow/Window.cpp:982
 #, fuzzy, kde-format
@@ -4759,10 +4617,9 @@ msgid "Build Thumbnails"
 msgstr "Κατασκευή εικόνων επισκόπησης"
 
 #: MainWindow/Window.cpp:992
-#, fuzzy, kde-format
-#| msgid "Statistics"
+#, kde-format
 msgid "Statistics..."
-msgstr "Στατιστικά"
+msgstr "Στατιστικά..."
 
 #: MainWindow/Window.cpp:996
 #, kde-format
@@ -4790,10 +4647,9 @@ msgid "Show Demo Videos"
 msgstr "Εμφάνιση βίντεο επίδειξης"
 
 #: MainWindow/Window.cpp:1019 Viewer/ViewerWidget.cpp:197
-#, fuzzy, kde-format
-#| msgid "Show Exif Info"
+#, kde-format
 msgid "Show Exif Info and file metadata"
-msgstr "Εμφάνιση πληροφοριών Exif"
+msgstr "Εμφάνιση πληροφοριών Exif και μεταδεδομένων αρχείου"
 
 #: MainWindow/Window.cpp:1025
 #, kde-format
@@ -4806,12 +4662,11 @@ msgid "Use previous video thumbnail"
 msgstr "Χρήση προηγούμενης εικόνας επισκόπησης βίντεο"
 
 #: MainWindow/Window.cpp:1033 MainWindow/Window.cpp:1279
-#, fuzzy, kde-format
-#| msgid "Export/Copy Images..."
+#, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Εξαγωγή/αντιγραφή εικόνων..."
-msgstr[1] "Εξαγωγή/αντιγραφή εικόνων..."
+msgstr[0] "Αντιγραφή εικόνας σε ..."
+msgstr[1] "Αντιγραφή εικόνων σε ..."
 
 #: MainWindow/Window.cpp:1037 MainWindow/Window.cpp:1283
 #, fuzzy, kde-format
@@ -4984,17 +4839,15 @@ msgid "No Matches"
 msgstr "Κανένα ταίριασμα"
 
 #: MainWindow/Window.cpp:1785
-#, fuzzy, kde-format
-#| msgid "Rereading EXIF information from all images"
+#, kde-format
 msgid "Rereading Exif information from all images"
-msgstr "Ανάγνωση ξανά πληροφοριών EXIF από όλες τις εικόνες"
+msgstr "Ανάγνωση ξανά πληροφοριών Exif από όλες τις εικόνες"
 
 #: MainWindow/Window.cpp:1812
-#, fuzzy, no-c-format, kde-format
-#| msgid "Thumbnail image size:"
+#, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
-msgstr "Μέγεθος εικόνας επισκόπησης:"
+msgstr "Πλάτος εικόνας επισκόπησης: %1px (μέγεθος αποθήκευσης: %2px)"
 
 #: MainWindow/Window.cpp:1865
 #, fuzzy, kde-format
@@ -5012,14 +4865,12 @@ msgstr ""
 "Εγκαταστήστε το πακέτο Mplayer2</p>"
 
 #: MainWindow/Window.cpp:1868
-#, fuzzy, kde-format
-#| msgid "File not available"
+#, kde-format
 msgid "Video thumbnails are not available"
-msgstr "Το αρχείο δεν είναι διαθέσιμο"
+msgstr "Οι εικόνες επισκόπησης βίντεο δεν είναι διαθέσιμες"
 
 #: Map/GeoCluster.cpp:137
-#, fuzzy, kde-format
-#| msgid "%1"
+#, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
 msgstr "%1"
@@ -5035,8 +4886,7 @@ msgid "Go to last map position"
 msgstr ""
 
 #: Map/MapView.cpp:182
-#, fuzzy, kde-format
-#| msgid "Show Thumbnails"
+#, kde-format
 msgid "Show thumbnails"
 msgstr "Εμφάνιση εικόνων επισκόπησης"
 
@@ -5204,10 +5054,9 @@ msgid "New"
 msgstr "Νέο"
 
 #: Settings/CategoryPage.cpp:78
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgid "Rename"
-msgstr "Μετονομασία..."
+msgstr "Μετονομασία"
 
 #: Settings/CategoryPage.cpp:111
 #, kde-format
@@ -5324,16 +5173,14 @@ msgid "Confirm Action"
 msgstr ""
 
 #: Settings/CategoryPage.cpp:372
-#, fuzzy, kde-format
-#| msgid "New Category..."
+#, kde-format
 msgid "New category"
-msgstr "Νέα κατηγορία..."
+msgstr "Νέα κατηγορία"
 
 #: Settings/CategoryPage.cpp:404
-#, fuzzy, kde-format
-#| msgid "<p>Really delete category '%1'?</p>"
+#, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
-msgstr "<p>Θέλετε πραγματικά τη διαγραφή της κατηγορίας '%1';</p>"
+msgstr "<p>Θέλετε πραγματικά τη διαγραφή της κατηγορίας «%1»;</p>"
 
 #: Settings/CategoryPage.cpp:408
 #, kde-format
@@ -5410,16 +5257,14 @@ msgstr ""
 "xml θα είναι λιγότερο ευανάγνωστο.</p>"
 
 #: Settings/ExifPage.cpp:37
-#, fuzzy, kde-format
-#| msgid "EXIF/IPTC info to show in the Viewer"
+#, kde-format
 msgid "Exif/IPTC info to show in the viewer"
-msgstr "Οι πληροφορίες EXIF/IPTC που θα εμφανιστούν στον προβολέα"
+msgstr "Οι πληροφορίες Exif/IPTC που θα εμφανιστούν στον προβολέα"
 
 #: Settings/ExifPage.cpp:40
-#, fuzzy, kde-format
-#| msgid "EXIF/IPTC info to show in the EXIF dialog"
+#, kde-format
 msgid "Exif/IPTC info to show in the Exif dialog"
-msgstr "Οι πληροφορίες EXIF/IPTC που θα εμφανιστούν στο διάλογο EXIF"
+msgstr "Οι πληροφορίες Exif/IPTC που θα εμφανιστούν στο διάλογο Exif"
 
 #: Settings/ExifPage.cpp:43
 #, kde-format
@@ -5496,12 +5341,7 @@ msgstr ""
 "διαρκέσει πολύ περισσότερο από την εύρεση αρχείων με βάση την επέκταση!</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:72
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum attempts to read all image files whether actual files or "
-#| "symbolic links. If you wish to ignore symbolic links, check this option. "
-#| "This is useful if for some reason you have e.g. both the original files "
-#| "and symbolic links to these files within your image directory.</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum attempts to read all image files whether actual files or "
 "symbolic links. If you wish to ignore symbolic links, check this option. "
@@ -5516,13 +5356,7 @@ msgstr ""
 "των εικόνων σας.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:77
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum is capable of reading certain kinds of RAW images.  Some "
-#| "cameras store both a RAW image and a matching JPEG or TIFF image.  This "
-#| "causes duplicate images to be stored in KPhotoAlbum, which may be "
-#| "undesirable.  If this option is checked, KPhotoAlbum will not read RAW "
-#| "files for which matching image files also exist.</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum is capable of reading certain kinds of RAW images. Some "
 "cameras store both a RAW image and a matching JPEG or TIFF image. This "
@@ -5531,10 +5365,10 @@ msgid ""
 "for which matching image files also exist.</p>"
 msgstr ""
 "<p>Το KPhotoAlbum έχει τη δυνατότητα να διαβάζει ορισμένα είδη ακατέργαστων "
-"εικόνων RAW. Μερικές φωτογραφικές μηχανές αποθηκεύουν τόσο την εικόνα RAW "
-"όσο και μια αντίστοιχη JPEG ή TIFF εικόνα.  Αυτό έχει σαν αποτέλεσμα διπλά "
+"εικόνων RAW. μερικές φωτογραφικές μηχανές αποθηκεύουν τόσο την εικόνα RAW "
+"όσο και μια αντίστοιχη JPEG ή TIFF εικόνα. Αυτό έχει σαν αποτέλεσμα διπλά "
 "αντίγραφα της κάθε εικόνας να αποθηκεύονται στο KPhotoAlbum, το οποίο ίσως "
-"να μην είναι επιθυμητό.  Αν ενεργοποιήσετε αυτή την επιλογή το KPhotoAlbum "
+"να μην είναι επιθυμητό. Αν ενεργοποιήσετε αυτή την επιλογή το KPhotoAlbum "
 "δεν θα διαβάζει αρχεία RAW όταν υπάρχουν επίσης τα αντίστοιχα αρχεία εικόνας."
 "</p>"
 
@@ -5571,10 +5405,9 @@ msgid "Original file replacement text:"
 msgstr "Κείμενο αντικατάστασης αρχικού αρχείου:"
 
 #: Settings/FileVersionDetectionPage.cpp:110
-#, fuzzy, kde-format
-#| msgid "Move meta-data (i.e. delete tags from the original):"
+#, kde-format
 msgid "Move meta-data (i.e. delete tags from the original)"
-msgstr "Μετακίνηση μεταδεδομένων (δηλ. διαγραφή ετικετών από το αρχικό):"
+msgstr "Μετακίνηση μεταδεδομένων (δηλ. διαγραφή ετικετών από το αρχικό)"
 
 #: Settings/FileVersionDetectionPage.cpp:113
 #, kde-format
@@ -5582,14 +5415,7 @@ msgid "Automatically stack new versions of images"
 msgstr "Αυτόματη τοποθέτηση νέων εκδόσεων εικόνων σε στοίβα"
 
 #: Settings/FileVersionDetectionPage.cpp:116
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>When KPhotoAlbum searches for new files and finds a file that matches "
-#| "the <i>modified file search regexp</i> it is assumed that an original "
-#| "version of the image may exist.  The regexp pattern will be replaced with "
-#| "the <i>original file replacement text</i> and if that file exists, all "
-#| "associated metadata (category information, ratings, etc) will be copied "
-#| "or moved from the original file to the new one.</p>"
+#, kde-format
 msgid ""
 "<p>When KPhotoAlbum searches for new files and finds a file that matches the "
 "<i>modified file search regexp</i> it is assumed that an original version of "
@@ -5598,7 +5424,7 @@ msgid ""
 "associated metadata (category information, ratings, etc) will be copied or "
 "moved from the original file to the new one.</p>"
 msgstr ""
-"<p>Όταν το KPhotoAlbum αναζητάει νέα αρχεία και βρίσκει ένα με την "
+"<p>Όταν το kphotoalbum αναζητάει νέα αρχεία και βρίσκει ένα με την "
 "<i>αναζήτηση τροποποιημένου αρχείου με regexp</i> υποτίθεται ότι η αρχική "
 "έκδοση της εικόνας πρέπει να υπάρχει. Το σχήμα της regexp έκφρασης θα "
 "αντικατασταθεί με το <i>κείμενο αντικατάστασης του πρωτότυπου αρχείου</i> "
@@ -5833,16 +5659,14 @@ msgid "Never"
 msgstr "Ποτέ"
 
 #: Settings/GeneralPage.cpp:48
-#, fuzzy, kde-format
-#| msgid "Use EXIF orientation information"
+#, kde-format
 msgid "Use Exif orientation information"
-msgstr "Χρήση πληροφοριών προσανατολισμού EXIF"
+msgstr "Χρήση πληροφοριών προσανατολισμού Exif"
 
 #: Settings/GeneralPage.cpp:53
-#, fuzzy, kde-format
-#| msgid "Use EXIF description"
+#, kde-format
 msgid "Use Exif description"
-msgstr "Χρήση της περιγραφής EXIF"
+msgstr "Χρήση της περιγραφής Exif"
 
 #: Settings/GeneralPage.cpp:57
 #, kde-format
@@ -5865,10 +5689,9 @@ msgid "Histogram"
 msgstr "Ιστόγραμμα"
 
 #: Settings/GeneralPage.cpp:94
-#, fuzzy, kde-format
-#| msgid "Show histogram:"
+#, kde-format
 msgid "Show histogram"
-msgstr "Εμφάνιση ιστογράμματος:"
+msgstr "Εμφάνιση ιστογράμματος"
 
 #: Settings/GeneralPage.cpp:99
 #, kde-format
@@ -5892,17 +5715,7 @@ msgid "Listen for Android devices on startup"
 msgstr "Αναζήτηση για νέες εικόνες και βίντεο κατά την εκκίνηση"
 
 #: Settings/GeneralPage.cpp:137
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum will try to read the image date from EXIF information in "
-#| "the image. If that fails it will try to get the date from the file's time "
-#| "stamp.</p><p>However, this information will be wrong if the image was "
-#| "scanned in (you want the date the image was taken, not the date of the "
-#| "scan).</p><p>If you only scan images, in contrast to sometimes using a "
-#| "digital camera, you should reply <b>no</b>. If you never scan images, you "
-#| "should reply <b>yes</b>, otherwise reply <b>ask</b>. This will allow you "
-#| "to decide whether the images are from the scanner or the camera, from "
-#| "session to session.</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum will try to read the image date from Exif information in the "
 "image. If that fails it will try to get the date from the file's time stamp."
@@ -5913,8 +5726,8 @@ msgid ""
 "b>, otherwise reply <b>ask</b>. This will allow you to decide whether the "
 "images are from the scanner or the camera, from session to session.</p>"
 msgstr ""
-"<p>Το KPhotoAlbum θα προσπαθήσει να διαβάσει την ημερομηνία της εικόνας από "
-"πληροφορίες EXIF μέσα στην εικόνα. Αν αυτό αποτύχει θα προσπαθήσει να "
+"<p>Το kphotoalbum θα προσπαθήσει να διαβάσει την ημερομηνία της εικόνας από "
+"πληροφορίες Exif μέσα στην εικόνα. Αν αυτό αποτύχει θα προσπαθήσει να "
 "ανακτήσει την ημερομηνία από τη χρονική σφραγίδα του αρχείου.</p><p>Ωστόσο, "
 "αυτή η πληροφορία μπορεί να είναι λανθασμένη αν η εικόνα σαρώθηκε (ζητάτε "
 "την ημερομηνία που τραβήχτηκε η φωτογραφία, όχι την ημερομηνία της σάρωσης)."
@@ -5995,20 +5808,17 @@ msgid "Tag Groups"
 msgstr "Νέα ομάδα"
 
 #: Settings/SettingsDialog.cpp:53
-#, fuzzy, kde-format
-#| msgid "EXIF/IPTC Information"
+#, kde-format
 msgid "Exif/IPTC Information"
-msgstr "Πληροφορίες EXIF/IPTC"
+msgstr "Πληροφορίες Exif/IPTC"
 
 #: Settings/SettingsDialog.cpp:54
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgid "Database Backend"
 msgstr "Σύστημα υποστήριξης βάσης δεδομένων"
 
 #: Settings/SettingsDialog.cpp:74
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "Settings"
 msgstr "Ρυθμίσεις"
@@ -6062,15 +5872,13 @@ msgid "Tags in group \"%1\" of category \"%2\""
 msgstr "Αφαίρεση του αντικειμένου από την κατηγορία %1"
 
 #: Settings/TagGroupsPage.cpp:341
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgctxt "@title:window"
 msgid "New Group"
 msgstr "Νέα ομάδα"
 
 #: Settings/TagGroupsPage.cpp:342
-#, fuzzy, kde-format
-#| msgid "Group name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Group name:"
 msgstr "Όνομα ομάδας:"
@@ -6126,8 +5934,7 @@ msgid "<para>Really delete group \"%1\"?</para>"
 msgstr "<p>Θέλετε πραγματικά τη διαγραφή της κατηγορίας '%1';</p>"
 
 #: Settings/TagGroupsPage.cpp:521
-#, fuzzy, kde-format
-#| msgid "Delete Group"
+#, kde-format
 msgctxt "@title:window"
 msgid "Delete Group"
 msgstr "Διαγραφή ομάδας"
@@ -6181,8 +5988,7 @@ msgstr ""
 "εικόνες που περιέχουν το αντικείμενο.</p>"
 
 #: Settings/TagGroupsPage.cpp:768
-#, fuzzy, kde-format
-#| msgid "Really Delete %1?"
+#, kde-format
 msgctxt "@title:window"
 msgid "Really delete %1?"
 msgstr "Πραγματικά διαγραφή του %1;"
@@ -6209,10 +6015,9 @@ msgid "Build thumbnails on demand"
 msgstr "Κατασκευή εικόνων επισκόπησης"
 
 #: Settings/ThumbnailsPage.cpp:52
-#, fuzzy, kde-format
-#| msgid "Thumbnail table cells aspect ratio"
+#, kde-format
 msgid "Thumbnail table cells aspect ratio:"
-msgstr "Λόγος διαστάσεων των κελιών του πίνακα εικόνων επισκόπησης"
+msgstr "Λόγος διαστάσεων των κελιών του πίνακα εικόνων επισκόπησης:"
 
 #: Settings/ThumbnailsPage.cpp:54
 #, kde-format
@@ -6250,10 +6055,9 @@ msgid "9:16"
 msgstr "9:16"
 
 #: Settings/ThumbnailsPage.cpp:61
-#, fuzzy, kde-format
-#| msgid "Space around cells"
+#, kde-format
 msgid "Space around cells:"
-msgstr "Κενό γύρω από τα κελιά"
+msgstr "Κενό γύρω από τα κελιά:"
 
 #: Settings/ThumbnailsPage.cpp:69
 #, kde-format
@@ -6544,10 +6348,9 @@ msgstr ""
 "σμικρυνθεί για να χωρέσει στον προβολέα.</p>"
 
 #: Settings/ViewerPage.cpp:87
-#, fuzzy, kde-format
-#| msgid "Scaling Algorithm"
+#, kde-format
 msgid "Scaling algorithm:"
-msgstr "Αλγόριθμος κλιμάκωσης"
+msgstr "Αλγόριθμος κλιμάκωσης:"
 
 #: Settings/ViewerPage.cpp:89
 #, kde-format
@@ -6653,8 +6456,7 @@ msgstr ""
 "με επιλογή κατά ημερομηνία και ώρα</b>.</p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:100
-#, fuzzy, kde-format
-#| msgid "Reorder Thumbnails"
+#, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
 msgstr "Αναταξινόμηση εικόνων επισκόπησης"
@@ -6983,10 +6785,9 @@ msgid "Key"
 msgstr ""
 
 #: Viewer/SelectCategoryAndValue.cpp:189
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "Ετικέτα:"
+msgstr "Ετικέτα"
 
 #: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
@@ -7016,9 +6817,7 @@ msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "Τitle"
 
@@ -7453,11 +7252,9 @@ msgid ""
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1468
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgid "Annotate"
-msgstr "Σχολιασμός..."
+msgstr "Σχολιασμός"
 
 #: Viewer/ViewerWidget.cpp:1487
 #, kde-format
@@ -7466,8 +7263,7 @@ msgid "Help"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1489
-#, fuzzy, kde-format
-#| msgid "Annotation Dialog"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Διάλογος σημειώσεων"

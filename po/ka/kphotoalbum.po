@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-07-07 07:33+0200\n"
+"PO-Revision-Date: 2024-10-20 16:54+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -60,6 +60,8 @@ msgid ""
 "(You have differing descriptions on individual images, setting text here "
 "will override them all)"
 msgstr ""
+"(გაქვთ განსხვავებული აღწერები თითოეული გამოსახულებისთვის. ტექსტის აქ "
+"დაყენება მათ ყველას გადაფარავს)"
 
 #: AnnotationDialog/Dialog.cpp:134
 #, kde-format
@@ -153,7 +155,7 @@ msgstr "დრო: "
 #: AnnotationDialog/Dialog.cpp:361
 #, kde-format
 msgid "Use Fuzzy Date"
-msgstr ""
+msgstr "არაზუსტი თარიღის გამოყენება"
 
 #: AnnotationDialog/Dialog.cpp:363
 #, kde-format
@@ -280,22 +282,22 @@ msgstr "თარიღის მიხედვით დალაგება"
 #: AnnotationDialog/Dialog.cpp:913
 #, kde-format
 msgid "Match Tags from the First Character"
-msgstr ""
+msgstr "ძებნა ჭდის პირველი სიმბოლოდან"
 
 #: AnnotationDialog/Dialog.cpp:914
 #, kde-format
 msgid "Match Tags from Word Boundaries"
-msgstr ""
+msgstr "ჭდეში სიტყვის დასაწყისიდან ძებნა"
 
 #: AnnotationDialog/Dialog.cpp:915
 #, kde-format
 msgid "Match Tags Anywhere"
-msgstr ""
+msgstr "ძებნა ჭდის ყველა ნაწილში"
 
 #: AnnotationDialog/Dialog.cpp:932
 #, kde-format
 msgid "Show Only Selected Ctrl+S"
-msgstr ""
+msgstr "მხოლოდ მონიშნულების ჩვენება Ctrl+S"
 
 #: AnnotationDialog/Dialog.cpp:970 Map/MapView.cpp:360
 #, kde-format
@@ -303,8 +305,7 @@ msgid "Settings saved!"
 msgstr "პარამეტრები დამახსოვრებულია!"
 
 #: AnnotationDialog/Dialog.cpp:970
-#, fuzzy, kde-format
-#| msgid "Save Current Window Setup"
+#, kde-format
 msgid "Save current window setup"
 msgstr "ფანჯრის მიმდინარე განლაგების შენახვა"
 
@@ -412,12 +413,12 @@ msgstr ""
 #: AnnotationDialog/ImagePreviewWidget.cpp:51
 #, kde-format
 msgid "Annotate previous image (Page Up)"
-msgstr ""
+msgstr "წინა სურათის ანოტაცია"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:57
 #, kde-format
 msgid "Annotate next image (Page Down)"
-msgstr ""
+msgstr "შემდეგი სურათის ანოტაცია"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:82
 #, kde-format
@@ -436,7 +437,7 @@ msgstr "კატეგორიები ახალი ადგილებ�
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
-msgstr ""
+msgstr "ალაგების ჩვენება ან დამალვა სურათზე"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:320
 #, kde-format
@@ -551,17 +552,17 @@ msgstr "ჯგუფების ჭდე"
 #: AnnotationDialog/ListSelect.cpp:397
 #, kde-format
 msgid "Add this tag to a new tag group..."
-msgstr ""
+msgstr "ამ ჭდის ჩამატება ახალი ჭდის ჯგუფში..."
 
 #: AnnotationDialog/ListSelect.cpp:400
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
-msgstr ""
+msgstr "ამ ჭდის ჭდეების ჯგუფად გადაკეთება და ჭდის დამატება..."
 
 #: AnnotationDialog/ListSelect.cpp:406
 #, kde-format
 msgid "Remove from tag group %1"
-msgstr ""
+msgstr "წაშლა ჭდეების ჯგუფიდან %1"
 
 #: AnnotationDialog/ListSelect.cpp:409
 #, kde-format
@@ -633,7 +634,7 @@ msgstr "ახალი ჭდის ჯგუფი"
 #: AnnotationDialog/ListSelect.cpp:509
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
-msgstr ""
+msgstr "ახალი ჭდის ჯგუფის სახელი, რომელშიც ჭდე ჩაემატება:"
 
 #: AnnotationDialog/ListSelect.cpp:521
 #, kde-format
@@ -735,7 +736,7 @@ msgstr "ვიდეოების სიგრძის ინფორმა�
 #: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:57
 #, kde-format
 msgid "Searching for videos without video thumbnails"
-msgstr ""
+msgstr "ვიდეორგოლების ძებნა ვიდეო მინიატურების გარეშე"
 
 #: BackgroundTaskManager/JobInfo.cpp:55
 #, kde-format
@@ -878,7 +879,7 @@ msgstr "მინიატურების ჩვენება"
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Search did not match any images or videos."
-msgstr ""
+msgstr "ძებნამ ვიდეოები ან გამოსახულებები ვერ აღმოაჩინა."
 
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
@@ -1009,7 +1010,7 @@ msgstr "დიაპაზონების ჩვენება"
 #: DateBar/DateBarWidget.cpp:697
 #, kde-format
 msgid "Show Resolution Indicator"
-msgstr ""
+msgstr "გაფართოების მაჩვენებლის ჩვენება"
 
 #: DateBar/DateBarWidget.cpp:822
 #, kde-format
@@ -1220,7 +1221,7 @@ msgstr "ვიდეო"
 #: DB/ImageDB.cpp:954
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
-msgstr ""
+msgstr "KPhotoAlbum - საჭიროა ხელით შეკეთება (%1)"
 
 #: DB/ImageDB.cpp:955
 #, kde-format
@@ -1240,8 +1241,8 @@ msgstr ""
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<p><b>საკონტროლო ჯამის გამოთვლა %1 ფაილისთვის</b></p>"
+msgstr[1] "<p><b>საკონტროლო ჯამის გამოთვლა %1 ფაილისთვის</b></p>"
 
 #: DB/NewImageFinder.cpp:703
 #, kde-format
@@ -1377,7 +1378,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:460
 #, kde-format
 msgid "Not All Images Have Size Information"
-msgstr ""
+msgstr "ყველა სურათს არ აქვს ზომის ინფორმაცია"
 
 #: DB/XML/FileReader.cpp:474
 #, kde-format
@@ -1417,7 +1418,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:498
 #, kde-format
 msgid "Database repair required"
-msgstr ""
+msgstr "საჭიროა მონაცემთა ბაზის შეკეთება"
 
 #: DB/XML/FileReader.cpp:521
 #, kde-format
@@ -1479,17 +1480,19 @@ msgstr "ხაზი %1 სვეტი %2 ფაილში %3: %4"
 #: DB/XML/FileReader.cpp:564
 #, kde-format
 msgid "Failed to recover the backup: %1"
-msgstr ""
+msgstr "მარქაფის აღდგენა ჩავარდა: %1"
 
 #: DB/XML/FileReader.cpp:575
 #, kde-format
 msgid "Error in file %1: No elements found"
-msgstr ""
+msgstr "შეცდომა ფაილში %1: ელემენტები აღმოჩენილი არაა"
 
 #: DB/XML/FileReader.cpp:581
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr ""
+"შეცდომა ფაილში %1: ელემენტის თავში მოველოდი სტრიქონს 'KPhotoAlbum', მაგრამ "
+"აღმოჩენილია '%2'"
 
 #: DB/XML/FileWriter.cpp:77
 #, kde-format
@@ -1525,12 +1528,12 @@ msgstr "შეცდომა Zip ფაილის %1 შექმნისა
 #: DB/XML/NumberedBackup.cpp:41 DB/XML/NumberedBackup.cpp:46
 #, kde-format
 msgid "Error Making Numbered Backup"
-msgstr ""
+msgstr "დანომრილი მარქაფის შექმნის შეცდომა"
 
 #: DB/XML/NumberedBackup.cpp:46
 #, kde-format
 msgid "Error writing file %1 to zip file %2"
-msgstr ""
+msgstr "ფაილის %1 zip ფაილში %2 ჩაწერის შეცდომა"
 
 #: DB/XML/XmlReader.cpp:43
 #, kde-format
@@ -1540,22 +1543,22 @@ msgstr "შემდეგი ელემენტის წაკითხვ�
 #: DB/XML/XmlReader.cpp:46
 #, kde-format
 msgid "Expected to read a start or stop element, but read %1"
-msgstr ""
+msgstr "მოველოდი დაწყების ან დასრულების ელემენტს, მაგრამ წავიკითხე %1"
 
 #: DB/XML/XmlReader.cpp:51
 #, kde-format
 msgid "Expected to read %1, but read %2"
-msgstr ""
+msgstr "მოველოდი %1-ის წაკითხვას, მაგრამ წავიკითხე %2"
 
 #: DB/XML/XmlReader.cpp:62
 #, kde-format
 msgid "Expected to read an end element but read %1"
-msgstr ""
+msgstr "მოველოდი ელემენტის დასრულების წაკითხვას, მაგრამ წავიკითხე %1"
 
 #: DB/XML/XmlReader.cpp:80
 #, kde-format
 msgid "Expected to read start element '%1'"
-msgstr ""
+msgstr "მოველოდი, რომ წამეკითხა დაწყების ელემენტი '%1'"
 
 #: DB/XML/XmlReader.cpp:86
 #, kde-format
@@ -1567,7 +1570,7 @@ msgstr ""
 #: DB/XML/XmlReader.cpp:90
 #, kde-format
 msgid "<p>Additional error information:<nl/><message>%1</message></p>"
-msgstr ""
+msgstr "<p>შეცდომის დამატებითი ინფორმაცია:<nl/><message>%1</message></p>"
 
 #: DB/XML/XmlReader.cpp:91
 #, kde-kuit-format
@@ -1583,7 +1586,7 @@ msgstr "შეცდომა ბაზის ფაილის წაკით
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
-msgstr ""
+msgstr "Exif ინფორმაცია და ფაილის მეტამონაცემები"
 
 #: Exif/InfoDialog.cpp:75
 #, kde-format
@@ -1693,12 +1696,12 @@ msgstr "%1 (%2)"
 #, kde-format
 msgctxt "@title:window"
 msgid "Read Exif Info from Files"
-msgstr ""
+msgstr "Exif ინფორმაციის წაკითხვა ფაილებიდან"
 
 #: Exif/ReReadDialog.cpp:35
 #, kde-format
 msgid "Update Exif search database"
-msgstr ""
+msgstr "Exif-ის ძებნის მონაცემთა ბაზის განახლება"
 
 #: Exif/ReReadDialog.cpp:41
 #, kde-format
@@ -1708,17 +1711,17 @@ msgstr "გამოსახულების თარიღის გან�
 #: Exif/ReReadDialog.cpp:44
 #, kde-format
 msgid "Use modification date if Exif not found"
-msgstr ""
+msgstr "შეცვლის თარიღის გამოყენება, თუ Exif ვერ მოიძებნა"
 
 #: Exif/ReReadDialog.cpp:47
 #, kde-format
 msgid "Update image orientation from Exif information"
-msgstr ""
+msgstr "გამოსახულების ორიენტაციის განახლება Exif ინფორმაციიდან"
 
 #: Exif/ReReadDialog.cpp:50
 #, kde-format
 msgid "Update image description from Exif information"
-msgstr ""
+msgstr "გამოსახულების აღწერის განახლება Exif ინფორმაციიდან"
 
 #: Exif/ReReadDialog.cpp:53
 #, kde-format
@@ -1735,7 +1738,7 @@ msgstr ""
 #: Exif/ReReadDialog.cpp:127
 #, kde-format
 msgid "Override image dates"
-msgstr ""
+msgstr "სურათის თარიღების გადაფარვა"
 
 #: Exif/SearchDialog.cpp:31
 #, kde-format
@@ -1751,7 +1754,7 @@ msgstr "მორგება"
 #: Exif/SearchDialog.cpp:56
 #, kde-format
 msgid "Aperture (F Number)"
-msgstr ""
+msgstr "დიაფრაგმა (F ნომერი)"
 
 #: Exif/SearchDialog.cpp:66
 #, kde-format
@@ -1861,12 +1864,12 @@ msgstr "<p>სახელი მინიჭებული არ აქვს
 #: HTMLGenerator/Generator.cpp:82
 #, kde-format
 msgid "Generating images for HTML page "
-msgstr ""
+msgstr "სურათების გენერირება HTML გვერდისთვის "
 
 #: HTMLGenerator/Generator.cpp:185
 #, kde-format
 msgid "Error copying %1 to %2"
-msgstr ""
+msgstr "%1-ის %2-ში კოპირები შეცდომა"
 
 #: HTMLGenerator/Generator.cpp:472
 #, kde-format
@@ -1947,7 +1950,7 @@ msgstr "აღწერა:"
 #: HTMLGenerator/HTMLDialog.cpp:111
 #, kde-format
 msgid "Create .kim export file"
-msgstr ""
+msgstr ".kim გატანის ფაილის შექმნა"
 
 #: HTMLGenerator/HTMLDialog.cpp:116
 #, kde-format
@@ -1960,7 +1963,7 @@ msgstr ""
 #, kde-format
 msgctxt "Tag as in HTML-tag, not as in image tag"
 msgid "Use HTML5 video tag"
-msgstr ""
+msgstr "HTML5-ის video ჭდის გამოყენება"
 
 #: HTMLGenerator/HTMLDialog.cpp:130
 #, kde-format
@@ -1972,7 +1975,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:132
 #, kde-format
 msgid "Generate HTML5 video files (mp4 and ogg)"
-msgstr ""
+msgstr "HTML5 ვიდეოფაილების (mp4 და off) შექმნა"
 
 #: HTMLGenerator/HTMLDialog.cpp:140
 #, kde-format
@@ -2037,7 +2040,7 @@ msgstr "გამოტანის საქაღალდე:"
 #: HTMLGenerator/HTMLDialog.cpp:332
 #, kde-format
 msgid "URL for final destination of .kim file:"
-msgstr ""
+msgstr "ბმული .kim ფაილის საბოლოო სამიზნისთვის:"
 
 #: HTMLGenerator/HTMLDialog.cpp:334
 #, kde-format
@@ -2055,12 +2058,12 @@ msgstr "გალერეის ბრაუზერში გახსნა:
 #: HTMLGenerator/HTMLDialog.cpp:359
 #, kde-format
 msgid "You must select at least one resolution."
-msgstr ""
+msgstr "თქვენ უნდა აირჩიოთ მინიმუმ ერთი გაფართოება."
 
 #: HTMLGenerator/HTMLDialog.cpp:386
 #, kde-format
 msgid "Select base folder..."
-msgstr ""
+msgstr "აირჩიეთ საბაზისო საქაღალდე..."
 
 #: HTMLGenerator/HTMLDialog.cpp:399
 #, kde-format
@@ -2073,7 +2076,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:403
 #, kde-format
 msgid "No Base Folder Specified"
-msgstr ""
+msgstr "საბაზისო საქაღალდე მითითებული არაა"
 
 #: HTMLGenerator/HTMLDialog.cpp:409
 #, kde-format
@@ -2086,7 +2089,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:412
 #, kde-format
 msgid "No Output Folder Specified"
-msgstr ""
+msgstr "გამოტანის საქაღალდე მითითებული არაა"
 
 #: HTMLGenerator/HTMLDialog.cpp:420
 #, kde-format
@@ -2098,7 +2101,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:429
 #, kde-format
 msgid "<p>%1 does not exist, is not a folder or cannot be written to.</p>"
-msgstr ""
+msgstr "<p>%1 არ არსებობს, საქაღალდე არაა, ან მასში ჩაწერა შეუძლებელია.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:439
 #, kde-format
@@ -2122,12 +2125,12 @@ msgstr "%1"
 #: HTMLGenerator/HTMLDialog.cpp:543
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
-msgstr ""
+msgstr "თემები აღმოჩენილი არაა - ეს, სავარაუდოდ, დაყენების შეცდომაა"
 
 #: HTMLGenerator/HTMLDialog.cpp:550
 #, kde-format
 msgid "More than one theme is set as default, using theme %1"
-msgstr ""
+msgstr "ერთზე მეტი თემა დაყენებულია როგორც ნაგულისხმევი. გამოიყენება თემა %1"
 
 #: HTMLGenerator/HTMLDialog.cpp:557
 #, kde-format
@@ -2150,12 +2153,12 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:574
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
-msgstr ""
+msgstr "<p>გალერეის საქაღალდე არ შეიძლება, ცარიელი იყოს.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:578
 #, kde-format
 msgid "<p>The output folder already exists.</p>"
-msgstr ""
+msgstr "<p>გამოტანი საქაღალდე უკვე არსებობს.</p>"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:93
 #, kde-format
@@ -2170,7 +2173,7 @@ msgstr "ავარიულია"
 #: ImageManager/ExtractOneVideoFrame.cpp:99
 #, kde-format
 msgid "Timedout"
-msgstr ""
+msgstr "დრო ამოიწურა"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:102
 #, kde-format
@@ -2190,7 +2193,7 @@ msgstr "უცნობი შეცდომა"
 #: ImageManager/ExtractOneVideoFrame.cpp:113
 #, kde-format
 msgid "<p>Error when extracting video thumbnails.<br/>Error was: %1</p>"
-msgstr ""
+msgstr "<p>ვიდეოს მინიატურების გაშლის შეცდომა.<br/>შეცდომა იყო: %1</p>"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:137
 #, kde-format
@@ -2206,17 +2209,17 @@ msgstr ""
 #: ImageManager/ThumbnailBuilder.cpp:103
 #, kde-format
 msgid "Building all thumbnails may take a long time."
-msgstr ""
+msgstr "ყველა მინიატურის აგებას, შეიძლება, დიდი დრო დასჭირდეს."
 
 #: ImageManager/ThumbnailBuilder.cpp:104
 #, kde-format
 msgid "Do you want to rebuild all of your thumbnails?"
-msgstr ""
+msgstr "მართლა გნებავთ ყველა თქვენი მინიატურის თავიდან აგება?"
 
 #: ImageManager/ThumbnailBuilder.cpp:178
 #, kde-format
 msgid "Building thumbnails"
-msgstr ""
+msgstr "მინიატურების აგება"
 
 #: ImportExport/Export.cpp:74
 #, kde-format
@@ -2232,37 +2235,37 @@ msgstr "KPhotoAlbum-ის შემოსატანი ფაილები"
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Configuration / Copy Images"
-msgstr ""
+msgstr "გატანის მორგება / სურათების კოპირება"
 
 #: ImportExport/Export.cpp:105
 #, kde-format
 msgid "How to Handle Images"
-msgstr ""
+msgstr "როგორ დამუშავდეს სურათები"
 
 #: ImportExport/Export.cpp:109
 #, kde-format
 msgid "Include in .kim file"
-msgstr ""
+msgstr "ჩასმა .kim ფაილში"
 
 #: ImportExport/Export.cpp:110
 #, kde-format
 msgid "Do not copy files, only generate .kim file"
-msgstr ""
+msgstr "ფაილები არ დაკოპირდება, მხოლოდ, .kim ფაილი შეიქმნება"
 
 #: ImportExport/Export.cpp:111
 #, kde-format
 msgid "Automatically copy next to .kim file"
-msgstr ""
+msgstr "ავტომატური კოპირება .kim ფაილთან"
 
 #: ImportExport/Export.cpp:112
 #, kde-format
 msgid "Hard link next to .kim file"
-msgstr ""
+msgstr "მყარი ბმული .kim ფაილამდე"
 
 #: ImportExport/Export.cpp:113
 #, kde-format
 msgid "Symbolic link next to .kim file"
-msgstr ""
+msgstr "სიმბოლური ბმული .kim ფაილის შემდეგ"
 
 #: ImportExport/Export.cpp:123
 #, kde-format
@@ -2277,7 +2280,7 @@ msgstr "მინიატურების შექმნა"
 #: ImportExport/Export.cpp:135
 #, kde-format
 msgid "Limit maximum image dimensions to: "
-msgstr ""
+msgstr "გამოსახულების მაქსიმალური ზომების შეზღუდვა: "
 
 #: ImportExport/Export.cpp:147
 #, kde-format
@@ -2292,7 +2295,7 @@ msgstr ""
 #: ImportExport/Export.cpp:153
 #, kde-format
 msgid "<p>Generate thumbnail images</p>"
-msgstr ""
+msgstr "<p>მინიატურული სურათების გენერაცია</p>"
 
 #: ImportExport/Export.cpp:156
 #, kde-format
@@ -2428,7 +2431,7 @@ msgstr "მონიშვნის მოხსნა"
 #: ImportExport/ImportDialog.cpp:192
 #, kde-format
 msgid "Select Which Images to Import"
-msgstr ""
+msgstr "მონიშნეთ, რომელი გამოსახულებების შემოტანა გნებავთ"
 
 #: ImportExport/ImportDialog.cpp:204
 #, kde-format
@@ -2443,22 +2446,22 @@ msgstr "გამოსახულებების სამიზნე"
 #: ImportExport/ImportDialog.cpp:225
 #, kde-format
 msgid "The folder must be a subfolder of %1"
-msgstr ""
+msgstr "საქაღალდე %1-ის ქვესაქაღალდე უნდა იყოს"
 
 #: ImportExport/ImportDialog.cpp:228
 #, kde-format
 msgid "This folder is reserved for category images."
-msgstr ""
+msgstr "ეს საქაღალდე დაცულია კატეგორიის გამოსახულებებისთვის."
 
 #: ImportExport/ImportDialog.cpp:268
 #, kde-format
 msgid "Match Categories"
-msgstr ""
+msgstr "კატეგორიების დამთხვევა"
 
 #: ImportExport/ImportDialog.cpp:300
 #, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
-msgstr ""
+msgstr "საქაღალდე %1 არ არსებობს. შეიქმნას?"
 
 #: ImportExport/ImportDialog.cpp:301 MainWindow/WelcomeDialog.cpp:157
 #, kde-format
@@ -2481,7 +2484,7 @@ msgstr "შეცდომა საქაღალდის შექმნი�
 #: ImportExport/ImportDialog.cpp:390
 #, kde-format
 msgid "How to resolve clashes"
-msgstr ""
+msgstr "როგორ გადავჭრათ კონფლიქტები"
 
 #: ImportExport/ImportHandler.cpp:93 ImportExport/ImportHandler.cpp:155
 #, kde-format
@@ -2502,7 +2505,7 @@ msgstr "ბაზის განახლება"
 #: ImportExport/ImportHandler.cpp:234
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
-msgstr ""
+msgstr "ვერ დავაკოპირე ერთ-ერთი შემდეგი მდებარეობიდან:"
 
 #: ImportExport/ImportHandler.cpp:235
 #, kde-format
@@ -2519,17 +2522,17 @@ msgstr "გაგრძელება კითხვის გარეშე"
 #: ImportExport/ImportMatcher.cpp:37
 #, kde-format
 msgid "Key in file"
-msgstr ""
+msgstr "გასაღები ფაილში"
 
 #: ImportExport/ImportMatcher.cpp:44
 #, kde-format
 msgid "Key in your database"
-msgstr ""
+msgstr "გასაღები თქვენს მონაცემთა ბაზაში"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
 msgid "Unable to open '%1' for reading."
-msgstr ""
+msgstr "'%1'-ის წასაკითხად გახსნა შეუძლებელია."
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
@@ -2542,12 +2545,15 @@ msgid ""
 "Error reading folder contents of file %1; it is likely that the file is "
 "broken."
 msgstr ""
+"ფაილის %1 საქაღალდის შემცველობის წაკითხვის შეცდომა. როგორც ჩანს, ფაილი "
+"დაზიანებულია."
 
 #: ImportExport/KimFileReader.cpp:48
 #, kde-format
 msgid ""
 "Error reading index.xml file from %1; it is likely that the file is broken."
 msgstr ""
+"%1-დან index.xml ფაილის წაკითხვის შეცდომა. სავარაუდოდ, ფაილი დაზიანებულია."
 
 #: ImportExport/KimFileReader.cpp:68
 #, kde-format
@@ -2559,7 +2565,7 @@ msgstr ""
 #: ImportExport/KimFileReader.cpp:79
 #, kde-format
 msgid "No thumbnail existed in export file for %1"
-msgstr ""
+msgstr "გატანის ფაილში %1-სთვის მინიატურა არ არსებობდა"
 
 #: ImportExport/KimFileReader.cpp:94
 #, kde-format
@@ -2578,7 +2584,7 @@ msgstr ""
 #: ImportExport/KimFileReader.cpp:107
 #, kde-format
 msgid "No image existed in export file for %1"
-msgstr ""
+msgstr "გატანილ ფაილში არ არსებობს გამოსახულება %1-სთვის"
 
 #: ImportExport/MD5CheckPage.cpp:40
 #, kde-format
@@ -2597,6 +2603,8 @@ msgid ""
 "Use data from\n"
 "Import File"
 msgstr ""
+"მონაცემების გამოყენება\n"
+"შემოტანილი ფაილიდან"
 
 #: ImportExport/MD5CheckPage.cpp:58
 #, kde-format
@@ -2604,6 +2612,8 @@ msgid ""
 "Use data from\n"
 "Database"
 msgstr ""
+"მონაცემების გამოყენება\n"
+"მონაცემთა ბაზიდან"
 
 #: ImportExport/MD5CheckPage.cpp:61
 #, kde-format
@@ -2619,22 +2629,23 @@ msgstr "თარიღი და დრო"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Conflicting commandline options: %1 and %2!\n"
-msgstr ""
+msgstr "ურთიერთგამომრიცხავი ბრძანების სტრიქონის პარამეტრები: %1 და %2!\n"
 
 #: kpa-thumbnailtool/main.cpp:44
 #, kde-format
 msgid "KPhotoAlbum Thumbnail Tool"
-msgstr ""
+msgstr "KPhotoAlbum-ის მინიატურების ხელსაწყო"
 
 #: kpa-thumbnailtool/main.cpp:46
 #, kde-format
 msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
 msgstr ""
+"ხელსაწყო KPhotoAlbum-ის მინიატურების კეშის შესამოწმებლად და ჩასასწორებლად"
 
 #: kpa-thumbnailtool/main.cpp:48
 #, kde-format
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
-msgstr ""
+msgstr "საავტორო უფლებები (C) 2020-2024 KPhotoAlbum-ის პროგრამიტების გუნდი"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:77
 #, kde-format
@@ -2644,7 +2655,7 @@ msgstr "Johannes Zarl-Zierl"
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:77
 #, kde-format
 msgid "Development, Maintainer"
-msgstr ""
+msgstr "პროექტის წამყვანი"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:78
 #, kde-format
@@ -2654,7 +2665,7 @@ msgstr "Robert Krawitz"
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:78
 #, kde-format
 msgid "Development, Optimization"
-msgstr ""
+msgstr "პროგრამირება, ოპტიმიზაცია"
 
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:79
 #, kde-format
@@ -2664,7 +2675,7 @@ msgstr "Tobias Leupold"
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:79
 #, kde-format
 msgid "Development, Releases, Website"
-msgstr ""
+msgstr "პროგრამირება, რელიზები, ვებგვერდი"
 
 #: kpa-thumbnailtool/main.cpp:59 main.cpp:80
 #, kde-format
@@ -2674,7 +2685,7 @@ msgstr "Jesper K. Pedersen"
 #: kpa-thumbnailtool/main.cpp:59 main.cpp:80
 #, kde-format
 msgid "Former Maintainer, Project Creator"
-msgstr ""
+msgstr "ყოფილი წამყვანი პროგრამისტი, პროექტის შემქმნელი"
 
 #: kpa-thumbnailtool/main.cpp:61 main.cpp:82
 #, kde-format
@@ -2710,25 +2721,25 @@ msgstr "Henner Zeller"
 #, kde-format
 msgctxt "@info:shell"
 msgid "The folder containing the .thumbnail folder."
-msgstr ""
+msgstr "საქაღალდე, რომელიც შეიცავს .thumbnail საქაღალდეს."
 
 #: kpa-thumbnailtool/main.cpp:71
 #, kde-format
 msgctxt "@info:shell"
 msgid "Print information about thumbnail cache."
-msgstr ""
+msgstr "ინფორმაციის გამოტანა მინიატურების კეშის შესახებ."
 
 #: kpa-thumbnailtool/main.cpp:73
 #, kde-format
 msgctxt "@info:shell"
 msgid "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3."
-msgstr ""
+msgstr "Thumbnailindex-ის გადაყვანა KPhotoAlbum >= 4.3-თან თავსებად ფორმატში."
 
 #: kpa-thumbnailtool/main.cpp:75
 #, kde-format
 msgctxt "@info:shell"
 msgid "Check thumbnail cache for consistency of thumbnail dimensions."
-msgstr ""
+msgstr "მინიატურების კეშის შემოწემბა მინიატურის ზომების მდგრადობაზე."
 
 #: kpa-thumbnailtool/main.cpp:77
 #, kde-format
@@ -2748,7 +2759,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Be less verbose."
-msgstr ""
+msgstr "ნაკლები შეტყობინების გამოტანა."
 
 #: kpa-thumbnailtool/main.cpp:97
 #, kde-format
@@ -2766,13 +2777,13 @@ msgstr "%1 საქაღალდე არაა!\n"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
-msgstr ""
+msgstr "მინიატური კეშის საქაღალდე: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:117
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index file version: %1\n"
-msgstr ""
+msgstr "მინიატურის ინდექსის ფაილის ვერსია: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:118
 #, kde-format
@@ -2784,7 +2795,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail storage dimensions: %1 pixels\n"
-msgstr ""
+msgstr "მინიატურის საცავის ზომები: %1 პიქსელი\n"
 
 #: kpa-thumbnailtool/main.cpp:121
 #, kde-format
@@ -2798,19 +2809,19 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Number of thumbnails: %1\n"
-msgstr ""
+msgstr "მინიატურების რაოდენობა: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:129
 #, kde-format
 msgctxt "@info:shell"
 msgid "No inconsistencies found.\n"
-msgstr ""
+msgstr "შეუსაბამობები ვერ მოიძებნა.\n"
 
 #: kpa-thumbnailtool/main.cpp:133
 #, kde-format
 msgctxt "@info:shell This line is printed before a list of file names."
 msgid "The following thumbnails appear to have incorrect sizes:\n"
-msgstr ""
+msgstr "როგორც ჩანს, შემდეგ მინიატურებს არასწორი ზომები აქვთ:\n"
 
 #: kpa-thumbnailtool/main.cpp:142
 #, kde-format
@@ -2824,7 +2835,7 @@ msgstr[1] ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not open file `thumbnailindex`!\n"
-msgstr ""
+msgstr "ვერ გავხსენი ფაილი `thumbnailindex`!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:21
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:27
@@ -2833,19 +2844,19 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index was not changed.\n"
-msgstr ""
+msgstr "მინიატურების ინდექსი არ შეცვლილა.\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:26
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not open temporary file for writing!\n"
-msgstr ""
+msgstr "ვერ გავხსენი დროებითი ფაილი ჩაწერისთვის!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:35
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not back up file `thumbnailindex`!\n"
-msgstr ""
+msgstr "ვერ დავამარქაფე ფაილი `thumbnailindex`!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:40
 #, kde-format
@@ -2909,7 +2920,7 @@ msgstr ""
 #: lib/kpabase/SettingsData.cpp:254
 #, kde-format
 msgid "Trust Time Stamps?"
-msgstr ""
+msgstr "ვენდო დროის შტამპებს?"
 
 #: lib/kpaexif/Database.cpp:173
 #, kde-format
@@ -2924,7 +2935,7 @@ msgstr ""
 #: lib/kpaexif/Database.cpp:188
 #, kde-format
 msgid "Error in Exif database"
-msgstr ""
+msgstr "შეცდომა Exif მონაცემთა ბაზაში"
 
 #: lib/kpaexif/Database.cpp:209
 #, kde-format
@@ -2949,12 +2960,12 @@ msgstr "KPhotoAlbum"
 #: main.cpp:67
 #, kde-format
 msgid "KDE Photo Album"
-msgstr ""
+msgstr "KDE-ის ფოტო ალბომი"
 
 #: main.cpp:69
 #, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr ""
+msgstr "საავტორო უფლებები (C) 2003-2024 KPhotoAlbum-ის პროგრამისტების გუნდი"
 
 #: main.cpp:90
 #, kde-format
@@ -3076,22 +3087,22 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Automatically Stack Images"
-msgstr ""
+msgstr "გამოსახულებების ავტომატური დაჯგუფება"
 
 #: MainWindow/AutoStackImages.cpp:56
 #, kde-format
 msgid "Stack images with identical MD5 sum"
-msgstr ""
+msgstr "დაჯგუფდება ტოლი MD5 ჯამის მქონე გამოსახულებები"
 
 #: MainWindow/AutoStackImages.cpp:64
 #, kde-format
 msgid "Stack images based on file version detection"
-msgstr ""
+msgstr "გამოსახულებების დაჯგუფება ფაილის ვერსიის დადგენის მიხედვით"
 
 #: MainWindow/AutoStackImages.cpp:68
 #, kde-format
 msgid "Original to top"
-msgstr ""
+msgstr "ორიგინალი დასაწყისში"
 
 #: MainWindow/AutoStackImages.cpp:79
 #, kde-format
@@ -3108,7 +3119,7 @@ msgstr " წამი"
 #: MainWindow/AutoStackImages.cpp:90
 #, kde-format
 msgid "AutoStacking Options"
-msgstr ""
+msgstr "ავტოდაჯგუფების მორგება"
 
 #: MainWindow/AutoStackImages.cpp:94
 #, kde-format
@@ -3124,46 +3135,46 @@ msgstr ""
 #: MainWindow/AutoStackImages.cpp:102
 #, kde-format
 msgid "Skip images that are already in a stack"
-msgstr ""
+msgstr "უკვე ჯგუფში მყოფი გამოსახულებების გამოტოვება"
 
 #: MainWindow/CategoryImagePopup.cpp:49
 #, kde-format
 msgid "Show Category Editor"
-msgstr ""
+msgstr "კატეგორიის რედაქტორის ჩვენება"
 
 #: MainWindow/CategoryImagePopup.cpp:70
 #, kde-format
 msgid "Make Category Image"
-msgstr ""
+msgstr "კატეგორიის სურათად დაყენება"
 
 #: MainWindow/CopyLinkEngine.cpp:39
 #, kde-format
 msgctxt "@title:window"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "გამოსახულების კოპირება სად..."
+msgstr[1] "გამოსახულებების კოპირება სად..."
 
 #: MainWindow/CopyLinkEngine.cpp:42
 #, kde-format
 msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "გამოსახულების ბმული სად..."
+msgstr[1] "გამოსახულებების ბმული სად..."
 
 #: MainWindow/DeleteDialog.cpp:24
 #, kde-format
 msgctxt "@title:window"
 msgid "Removing Items"
-msgstr ""
+msgstr "ელემენტების წაშლა"
 
 #: MainWindow/DeleteDialog.cpp:64
 #, kde-format
 msgid "Removing 1 item"
 msgid_plural "Removing %1 items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "იშლება 1 ელემენტი"
+msgstr[1] "იშლება %1 ელემენტი"
 
 #: MainWindow/DeleteDialog.cpp:65
 #, kde-format
@@ -3180,15 +3191,15 @@ msgstr[1] ""
 #, kde-format
 msgid "Move file to Trash"
 msgid_plural "Move %1 files to Trash"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ფაილის გადატანა ნაგვის ყუთში"
+msgstr[1] "%1 ფაილის გადატანა ნაგვის ყუთში"
 
 #: MainWindow/DeleteDialog.cpp:72
 #, kde-format
 msgid "Delete file from disk"
 msgid_plural "Delete %1 files from disk"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ფაილის წაშლა დისკიდან"
+msgstr[1] "%1 ფაილის წაშლა დისკიდან"
 
 #: MainWindow/DeleteDialog.cpp:73
 #, kde-format
@@ -3200,7 +3211,7 @@ msgstr[1] ""
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:46
 #, kde-format
 msgid "Merge these images"
-msgstr ""
+msgstr "ამ სურათების შერწყმა"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:57
 #, kde-format
@@ -3235,7 +3246,7 @@ msgstr "&დისკიდან წაშლა"
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:55
 #, kde-format
 msgid "&Block from database"
-msgstr ""
+msgstr "&დაბლოკვა მონაცემთა ბაზიდან"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:77
 #, kde-format
@@ -3250,7 +3261,7 @@ msgstr "მონიშვნის &მოხსნა"
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:135
 #, kde-format
 msgid "%1 of %2 selected"
-msgstr ""
+msgstr "მონიშნულია %1 %2-დან"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:183
 #, kde-format
@@ -3260,12 +3271,12 @@ msgstr "დუბლიკატები ნაპოვნი არაა"
 #: MainWindow/ExternalPopup.cpp:57
 #, kde-format
 msgid "Current Item"
-msgstr ""
+msgstr "მიმდინარე ელემენტი"
 
 #: MainWindow/ExternalPopup.cpp:60
 #, kde-format
 msgid "All Selected Items"
-msgstr ""
+msgstr "ყველა მონიშნული ელემენტი"
 
 #: MainWindow/ExternalPopup.cpp:63
 #, kde-format
@@ -3280,18 +3291,18 @@ msgstr "გამხსნელი პროგრამა..."
 #: MainWindow/ExternalPopup.cpp:102
 #, kde-format
 msgid "Your Command Line"
-msgstr ""
+msgstr "თქვენი ბრძანების სტრიქონი"
 
 #: MainWindow/ExternalPopup.cpp:165
 #, kde-format
 msgid "Invoke External Program"
-msgstr ""
+msgstr "გარე პროგრამის ჩაწოდება"
 
 #: MainWindow/FeatureDialog.cpp:40
 #, kde-format
 msgctxt "@title:window"
 msgid "Feature Status"
-msgstr ""
+msgstr "ფუნქციის სტატუსი"
 
 #: MainWindow/FeatureDialog.cpp:44
 #, kde-format
@@ -3370,27 +3381,27 @@ msgstr ""
 #: MainWindow/FeatureDialog.cpp:172
 #, kde-format
 msgid "Plug-ins available"
-msgstr ""
+msgstr "მხარდაჭერილი დამატებები"
 
 #: MainWindow/FeatureDialog.cpp:173
 #, kde-format
 msgid "SQLite database support (used for Exif searches)"
-msgstr ""
+msgstr "SQLite მონაცემთა ბაზის მხარდაჭერა (გამოიყენება Exif ძიებისთვის)"
 
 #: MainWindow/FeatureDialog.cpp:174
 #, kde-format
 msgid "Map view for geotagged images."
-msgstr ""
+msgstr "რუკის ხედი გეოლოკაციის მქონე სურათებისთვის."
 
 #: MainWindow/FeatureDialog.cpp:175
 #, kde-format
 msgid "Video thumbnail support"
-msgstr ""
+msgstr "ვიდეოს მინიატურის მხარდაჭერა"
 
 #: MainWindow/FeatureDialog.cpp:176
 #, kde-format
 msgid "Video metadata support"
-msgstr ""
+msgstr "ვიდეოს მეტამონაცემების მხარდაჭერა"
 
 #: MainWindow/FeatureDialog.cpp:180
 #, kde-format
@@ -3408,8 +3419,8 @@ msgstr "არა"
 #, kde-format
 msgid "Showing 1 thumbnail"
 msgid_plural "Showing %1 thumbnails"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ნაჩვენებია 1 მინიატურა"
+msgstr[1] "ნაჩვენებია %1 მინიატურა"
 
 #: MainWindow/ImageCounter.cpp:26
 #, kde-format
@@ -3432,12 +3443,12 @@ msgstr[1] "%1 დამთხვევა"
 #, kde-format
 msgctxt "@title:window"
 msgid "Search for Images and Videos with Missing Dates"
-msgstr ""
+msgstr "ნაკლული თარიღების მქონე ვიდეოების და გამოსახულებების ძებნა"
 
 #: MainWindow/InvalidDateFinder.cpp:40
 #, kde-format
 msgid "Which Images and Videos to Display"
-msgstr ""
+msgstr "რომელი სურათები და ვიდეოები უნდა გამოჩნდეს"
 
 #: MainWindow/InvalidDateFinder.cpp:44
 #, kde-format
@@ -3484,7 +3495,7 @@ msgstr ""
 #: MainWindow/Options.cpp:26 MainWindow/Options.cpp:31
 #, kde-format
 msgid "databaseFile"
-msgstr ""
+msgstr "მონაცემთა_ბაზის_ფაილი"
 
 #: MainWindow/Options.cpp:30
 #, kde-format
@@ -3509,22 +3520,22 @@ msgstr "file.kim"
 #: MainWindow/Options.cpp:44
 #, kde-format
 msgid "Listen for network connections."
-msgstr ""
+msgstr "ქსელური მიერთებების მოსმენა."
 
 #: MainWindow/Options.cpp:48
 #, kde-format
 msgid "Listen for network connections on address <interface_address>."
-msgstr ""
+msgstr "ქსელური მიერთებების მოსმენა მისამართზე <ინტერფეისის_მისამართი>."
 
 #: MainWindow/Options.cpp:49
 #, kde-format
 msgid "interface_address"
-msgstr ""
+msgstr "ინტერფეისის_მისამართი"
 
 #: MainWindow/Options.cpp:52
 #, kde-format
 msgid "Search for new images on startup."
-msgstr ""
+msgstr "ახალი სურათების მოძებნა გაშვებისას."
 
 #: MainWindow/RunDialog.cpp:32
 #, no-c-format, kde-format
@@ -3600,22 +3611,22 @@ msgstr "კატეგორია"
 #: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "# of Items"
-msgstr ""
+msgstr "ელემენტების რაოდენობა"
 
 #: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Tags Totals"
-msgstr ""
+msgstr "ჭდეები სულ"
 
 #: MainWindow/StatisticsDialog.cpp:59
 #, kde-format
 msgid "Tags Per Picture"
-msgstr ""
+msgstr "ჭდეები თითოეულ სურათზე"
 
 #: MainWindow/StatisticsDialog.cpp:104
 #, kde-format
 msgid "Tag indication completed annotation"
-msgstr ""
+msgstr "ანოტაციის მქონე ჭდის მაჩვენებელი"
 
 #: MainWindow/StatisticsDialog.cpp:110
 #, kde-format
@@ -3623,6 +3634,7 @@ msgid ""
 "If you use a specific tag to indicate that an image has been tagged, then "
 "specify it here."
 msgstr ""
+"თუ იყენებთ კონკრეტულ ჭდეს, რომ მიუთითოთ, რომ მას ჭდეები აქვს, მიუთითეთ ის აქ."
 
 #: MainWindow/StatisticsDialog.cpp:114 Settings/BirthdayPage.cpp:48
 #: Settings/UntaggedGroupBox.cpp:31
@@ -3655,18 +3667,18 @@ msgstr "ჯამში"
 #: MainWindow/StatusBar.cpp:104
 #, kde-format
 msgid "Thumbnail settings..."
-msgstr ""
+msgstr "მინიატურის მორგება..."
 
 #: MainWindow/TokenEditor.cpp:36
 #, kde-format
 msgctxt "@title:window"
 msgid "Remove Tokens"
-msgstr ""
+msgstr "კოდების წაშლა"
 
 #: MainWindow/TokenEditor.cpp:42
 #, kde-format
 msgid "Select tokens to remove from all images and videos:"
-msgstr ""
+msgstr "აირჩიეთ კოდები, რომლებიც ყველა გამოსახულებიდან და ვიდეოდან წაიშლება:"
 
 #: MainWindow/TokenEditor.cpp:61
 #, kde-format
@@ -3689,17 +3701,17 @@ msgstr ""
 #: MainWindow/WelcomeDialog.cpp:61
 #, kde-format
 msgid "Create My Own Database..."
-msgstr ""
+msgstr "ჩემი საკუთარი მონაცემთა ბაზის შექმნა..."
 
 #: MainWindow/WelcomeDialog.cpp:64
 #, kde-format
 msgid "Load Demo"
-msgstr ""
+msgstr "დემოს ჩატვირთვა"
 
 #: MainWindow/WelcomeDialog.cpp:67
 #, kde-format
 msgid "Check My Feature Set"
-msgstr ""
+msgstr "ხელმისაწვდომი ფუნქციების შემოწმება"
 
 #: MainWindow/WelcomeDialog.cpp:101
 #, kde-format
@@ -3718,22 +3730,22 @@ msgstr ""
 #: MainWindow/WelcomeDialog.cpp:116
 #, kde-format
 msgid "Image/Video root folder: "
-msgstr ""
+msgstr "გამოსახულების/ვიდეოს ძირითადი საქაღალდე: "
 
 #: MainWindow/WelcomeDialog.cpp:156
 #, kde-format
 msgid "Folder does not exist, create it?"
-msgstr ""
+msgstr "საქაღალდე არ არსებობს. შევქმნა?"
 
 #: MainWindow/WelcomeDialog.cpp:166
 #, kde-format
 msgid "Could not create folder %1"
-msgstr ""
+msgstr "საქაღალდის შექმნის შეცდომა: %1"
 
 #: MainWindow/WelcomeDialog.cpp:171
 #, kde-format
 msgid "%1 exists, but is not a folder"
-msgstr ""
+msgstr "%1 არსებობს, მაგრამ საქაღალდე არაა"
 
 #: MainWindow/WelcomeDialog.cpp:187
 #, kde-format
@@ -3747,17 +3759,17 @@ msgstr ""
 #: MainWindow/WelcomeDialog.cpp:192 MainWindow/WelcomeDialog.cpp:195
 #, kde-format
 msgid "Feature Check"
-msgstr ""
+msgstr "ფუნქციების შემოწმება"
 
 #: MainWindow/WelcomeDialog.cpp:194
 #, kde-format
 msgid "Congratulations: all dynamic features have been enabled."
-msgstr ""
+msgstr "გილოცავთ: ყველა დინამიური ფუნქცია ჩართულია."
 
 #: MainWindow/Window.cpp:269
 #, kde-format
 msgid "Searching for New Files"
-msgstr ""
+msgstr "ახალი ფაილების ძებნა"
 
 #: MainWindow/Window.cpp:301
 #, kde-format
@@ -3798,23 +3810,23 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr ""
+msgstr "დაჯგუფების პრობლემა"
 
 #: MainWindow/Window.cpp:387
 #, kde-format
 msgid "Unknown error, stack creation failed."
-msgstr ""
+msgstr "უცნობი შეცდომა. ჯგუფის შექმნა ჩავარდა."
 
 #: MainWindow/Window.cpp:388
 #, kde-format
 msgid "Stacking Error"
-msgstr ""
+msgstr "დაჯგუფების შეცდომა"
 
 #: MainWindow/Window.cpp:467 MainWindow/Window.cpp:593
 #: MainWindow/Window.cpp:1301 MainWindow/Window.cpp:1398
 #, kde-format
 msgid "No item is selected."
-msgstr ""
+msgstr "ელემენტი მონიშნული არაა."
 
 #: MainWindow/Window.cpp:467 MainWindow/Window.cpp:593
 #: MainWindow/Window.cpp:1301 MainWindow/Window.cpp:1399
@@ -3830,17 +3842,17 @@ msgstr "Შენახვა..."
 #: MainWindow/Window.cpp:518
 #, kde-format
 msgid "Saving... Done"
-msgstr ""
+msgstr "შენახვა... მზადაა"
 
 #: MainWindow/Window.cpp:666
 #, kde-format
 msgid "There are no images to be shown."
-msgstr ""
+msgstr "საჩვენებელი სურათების გარეშე."
 
 #: MainWindow/Window.cpp:736 MainWindow/Window.cpp:865
 #, kde-format
 msgid "Limit View to Selection"
-msgstr ""
+msgstr "ხედის შეზღუდვა მონიშნულზე"
 
 #: MainWindow/Window.cpp:737
 #, kde-format
@@ -3850,7 +3862,7 @@ msgstr "გამოსახულებები არ მოგინიშ�
 #: MainWindow/Window.cpp:750
 #, kde-format
 msgid "Generate HTML..."
-msgstr ""
+msgstr "HTML-ის გენერაცია..."
 
 #: MainWindow/Window.cpp:754
 #, kde-format
@@ -3860,7 +3872,7 @@ msgstr "შემოტანა..."
 #: MainWindow/Window.cpp:757
 #, kde-format
 msgid "Export/Copy Images..."
-msgstr ""
+msgstr "გამოსახულებების გატანა/კოპირება..."
 
 #: MainWindow/Window.cpp:784
 #, kde-format
@@ -3871,37 +3883,37 @@ msgstr "მონიშნულის წაშლა"
 #: MainWindow/Window.cpp:790
 #, kde-format
 msgid "Remove Tokens..."
-msgstr ""
+msgstr "კოდების წაშლა.."
 
 #: MainWindow/Window.cpp:793
 #, kde-format
 msgid "Open List of Files..."
-msgstr ""
+msgstr "ფაილების სიის გახსნა..."
 
 #: MainWindow/Window.cpp:796
 #, kde-format
 msgid "Annotate Individual Items"
-msgstr ""
+msgstr "ცალ-ცალკე ელემენტების ანოტაცია"
 
 #: MainWindow/Window.cpp:800
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
-msgstr ""
+msgstr "ერთზე მეტი ელემენტის ანოტაცია"
 
 #: MainWindow/Window.cpp:804
 #, kde-format
 msgid "Merge Images into a Stack"
-msgstr ""
+msgstr "სურათების გაერთიანება ჯგუფში"
 
 #: MainWindow/Window.cpp:808
 #, kde-format
 msgid "Remove Images from Stack"
-msgstr ""
+msgstr "სურათების წაშლა ჯგუფიდან"
 
 #: MainWindow/Window.cpp:811
 #, kde-format
 msgid "Set as First Image in Stack"
-msgstr ""
+msgstr "ჯგუფის პირველ სურათად დაყენება"
 
 #: MainWindow/Window.cpp:824
 #, kde-format
@@ -3911,52 +3923,52 @@ msgstr "ნახვა"
 #: MainWindow/Window.cpp:827
 #, kde-format
 msgid "View (In New Window)"
-msgstr ""
+msgstr "ნახვა (ახალ ფანჯარაში)"
 
 #: MainWindow/Window.cpp:830
 #, kde-format
 msgid "Run Slide Show"
-msgstr ""
+msgstr "სლაიდშოუს გაშვება"
 
 #: MainWindow/Window.cpp:835
 #, kde-format
 msgid "Run Randomized Slide Show"
-msgstr ""
+msgstr "შემთხვევითი სლაიდშოუს გაშვება"
 
 #: MainWindow/Window.cpp:841
 #, kde-format
 msgid "Collapse all stacks"
-msgstr ""
+msgstr "ყველა ჯგუფის ჩაკეცვა"
 
 #: MainWindow/Window.cpp:847
 #, kde-format
 msgid "Expand all stacks"
-msgstr ""
+msgstr "ყველა ჯგუფი ამოკეცვა"
 
 #: MainWindow/Window.cpp:852
 #, kde-format
 msgid "Show &Oldest First"
-msgstr ""
+msgstr "&ჯერ უძველესები"
 
 #: MainWindow/Window.cpp:857
 #, kde-format
 msgid "Show &Newest First"
-msgstr ""
+msgstr "ჯერ &უახლესები"
 
 #: MainWindow/Window.cpp:862
 #, kde-format
 msgid "Sort Selected by Date && Time"
-msgstr ""
+msgstr "მონიშნულის დალაგება თარიღითა და დროით"
 
 #: MainWindow/Window.cpp:868
 #, kde-format
 msgid "Jump to Context"
-msgstr ""
+msgstr "კონტექსტზე გადასვლა"
 
 #: MainWindow/Window.cpp:874
 #, kde-format
 msgid "Lock Images"
-msgstr ""
+msgstr "გამოსახულებების დაბლოკვა"
 
 #: MainWindow/Window.cpp:878
 #, kde-format
@@ -3966,17 +3978,17 @@ msgstr "განბლოკვა"
 #: MainWindow/Window.cpp:881
 #, kde-format
 msgid "Lock Away All Other Items"
-msgstr ""
+msgstr "ყველა სხვა ელემენტის დაბლოკვა"
 
 #: MainWindow/Window.cpp:884
 #, kde-format
 msgid "Lock Away Current Set of Items"
-msgstr ""
+msgstr "ელემენტების მიმდინარე ნაკრების დაბლოკვა"
 
 #: MainWindow/Window.cpp:887
 #, kde-format
 msgid "Configure Current View"
-msgstr ""
+msgstr "მიმდინარე ხედის მორგება"
 
 #: MainWindow/Window.cpp:895
 #, kde-format
@@ -3986,7 +3998,7 @@ msgstr "ხე"
 #: MainWindow/Window.cpp:900
 #, kde-format
 msgid "Tree with User Icons"
-msgstr ""
+msgstr "ხე მომხმარებლის ხატულებით"
 
 #: MainWindow/Window.cpp:905
 #, kde-format
@@ -3996,22 +4008,22 @@ msgstr "ხატულები"
 #: MainWindow/Window.cpp:912
 #, kde-format
 msgid "Use natural sort order"
-msgstr ""
+msgstr "ბუნებრივი მიმდევრობის გამოყენება"
 
 #: MainWindow/Window.cpp:922
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
-msgstr ""
+msgstr "მინიშნებების ჩვენება მინიატურების ფანჯარაში"
 
 #: MainWindow/Window.cpp:927
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
-msgstr ""
+msgstr "ჭდეების ჩვენება მინიატურების ფანჯარაში"
 
 #: MainWindow/Window.cpp:937
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
-msgstr ""
+msgstr "კატეგორიების ჩვენება მინიატურების ფანჯარაში"
 
 #: MainWindow/Window.cpp:954
 #, kde-format
@@ -4021,52 +4033,52 @@ msgstr "აირჩიეთ ფერის სქემა"
 #: MainWindow/Window.cpp:961
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
-msgstr ""
+msgstr "დისკზე არმყოფი გამოსახულებებისა და ვიდეოების ჩვენება"
 
 #: MainWindow/Window.cpp:964
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
-msgstr ""
+msgstr "არასრული თარიღების მქონე გამოსახულებებისა და ვიდეოების ჩვენება..."
 
 #: MainWindow/Window.cpp:967
 #, kde-format
 msgid "Merge duplicates"
-msgstr ""
+msgstr "დუბლიკატების შერწყმა"
 
 #: MainWindow/Window.cpp:969 MainWindow/Window.cpp:1022
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr ""
+msgstr "მონიშნული მინიატურების და საკონტროლო ჯამების განახლება"
 
 #: MainWindow/Window.cpp:973
 #, kde-format
 msgid "Rescan for Images and Videos"
-msgstr ""
+msgstr "სურათებისა და ვიდეოების თავიდან სკანირება"
 
 #: MainWindow/Window.cpp:976
 #, kde-format
 msgid "Recreate Exif Search Database"
-msgstr ""
+msgstr "Exif-ის ძებნის მონაცემთა ბაზის თავიდან შექმნა"
 
 #: MainWindow/Window.cpp:979
 #, kde-format
 msgid "Read Exif Info from Files..."
-msgstr ""
+msgstr "Exif ინფორმაციის წაკითხვა ფაილებიდან..."
 
 #: MainWindow/Window.cpp:982
 #, kde-format
 msgid "Sort All by Date && Time"
-msgstr ""
+msgstr "ყველას დალაგება თარიღისა და დროის მიხედვით"
 
 #: MainWindow/Window.cpp:986
 #, kde-format
 msgid "Automatically Stack Selected Images..."
-msgstr ""
+msgstr "მონიშნული გამოსახულებების ავტომატური დაჯგუფება..."
 
 #: MainWindow/Window.cpp:989
 #, kde-format
 msgid "Build Thumbnails"
-msgstr ""
+msgstr "მინიატურების აგება"
 
 #: MainWindow/Window.cpp:992
 #, kde-format
@@ -4076,7 +4088,7 @@ msgstr "სტატისტიკა..."
 #: MainWindow/Window.cpp:996
 #, kde-format
 msgid "Mark As Untagged"
-msgstr ""
+msgstr "მონიშვნა, როგორც ჭდის გარეშე"
 
 #: MainWindow/Window.cpp:1005
 #, kde-format
@@ -4086,56 +4098,56 @@ msgstr "ყველა შეტყობინების ჩართვა"
 #: MainWindow/Window.cpp:1009
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
-msgstr ""
+msgstr "KPhotoAlbum-ის დემოს გაშვება"
 
 #: MainWindow/Window.cpp:1012
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
-msgstr ""
+msgstr "KPhotoAlbum-ის ფუნქციის სტატუსი"
 
 #: MainWindow/Window.cpp:1015
 #, kde-format
 msgid "Show Demo Videos"
-msgstr ""
+msgstr "დემო ვიდეოების ჩვენება"
 
 #: MainWindow/Window.cpp:1019 Viewer/ViewerWidget.cpp:197
 #, kde-format
 msgid "Show Exif Info and file metadata"
-msgstr ""
+msgstr "Exif ინფრმაციისა და ფაილის მეტამონაცემების ჩვენება"
 
 #: MainWindow/Window.cpp:1025
 #, kde-format
 msgid "Use next video thumbnail"
-msgstr ""
+msgstr "შემდეგი ვიდეოს მინიატურის გამოყენება"
 
 #: MainWindow/Window.cpp:1029
 #, kde-format
 msgid "Use previous video thumbnail"
-msgstr ""
+msgstr "წინა ვიდეოს მინიატურის გამოყეება"
 
 #: MainWindow/Window.cpp:1033 MainWindow/Window.cpp:1279
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "გამოსახულების კოპირება სად..."
+msgstr[1] "გამოსახულების კოპირება სად..."
 
 #: MainWindow/Window.cpp:1037 MainWindow/Window.cpp:1283
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "გამოსახულების ბმული სად..."
+msgstr[1] "გამოსახულების ბმული სად..."
 
 #: MainWindow/Window.cpp:1061
 #, kde-format
 msgid "Auto saving...."
-msgstr ""
+msgstr "ავტოშენახვა..."
 
 #: MainWindow/Window.cpp:1064
 #, kde-format
 msgid "Auto saving.... Done"
-msgstr ""
+msgstr "ავტოშენახვა... მზადაა"
 
 #: MainWindow/Window.cpp:1160
 #, kde-format
@@ -4149,8 +4161,7 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:1174
-#, fuzzy, kde-format
-#| msgid "Error in database file"
+#, kde-format
 msgid "Invalid database file"
 msgstr "ბაზის ფაილის შეცდომა"
 
@@ -4213,7 +4224,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
-msgstr ""
+msgstr "დამალული დიალოგების ჩამოყრა"
 
 #: MainWindow/Window.cpp:1528
 #, kde-format
@@ -4239,12 +4250,12 @@ msgstr ""
 #: MainWindow/Window.cpp:1542
 #, kde-format
 msgid "Successfully shared image(s)."
-msgstr ""
+msgstr "გამოსახულებები წარმატებით გაზიარდა."
 
 #: MainWindow/Window.cpp:1547
 #, kde-format
 msgid "Image sharing failed with message: %1"
-msgstr ""
+msgstr "გამოსახულების გაზიარება ჩავარდა შეტყობინებით: %1"
 
 #: MainWindow/Window.cpp:1598
 #, kde-format
@@ -4261,7 +4272,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1613
 #, kde-format
 msgid "No images matching your input were found."
-msgstr ""
+msgstr "თქვენი შეყვანის შესაბამისი სურათები აღმოჩენილი არაა."
 
 #: MainWindow/Window.cpp:1613
 #, kde-format
@@ -4271,13 +4282,13 @@ msgstr "დამთხვევის გარეშე"
 #: MainWindow/Window.cpp:1785
 #, kde-format
 msgid "Rereading Exif information from all images"
-msgstr ""
+msgstr "Exif ინფორმაციის თავიდან წაკითხვა ყველა სურათიდან"
 
 #: MainWindow/Window.cpp:1812
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
-msgstr ""
+msgstr "მინიატურის სიგანე: %1px (საცავის ზომა: %2px)"
 
 #: MainWindow/Window.cpp:1865
 #, kde-format
@@ -4290,7 +4301,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1868
 #, kde-format
 msgid "Video thumbnails are not available"
-msgstr ""
+msgstr "ვიდეო მინიატურები მიუწვდომელია"
 
 #: Map/GeoCluster.cpp:137
 #, kde-format
@@ -4301,12 +4312,12 @@ msgstr "%1"
 #: Map/MapView.cpp:168
 #, kde-format
 msgid "Save the current map settings"
-msgstr ""
+msgstr "მიმდინარე რუკის პარამეტრების შენახვა"
 
 #: Map/MapView.cpp:175
 #, kde-format
 msgid "Go to last map position"
-msgstr ""
+msgstr "რუკის ბოლო პოზიციაზე გადასვლა"
 
 #: Map/MapView.cpp:182
 #, kde-format
@@ -4357,7 +4368,7 @@ msgstr ""
 #: Map/MapView.cpp:421
 #, kde-format
 msgid "<i>Search for geographic coordinates.</i>"
-msgstr ""
+msgstr "<i>გეოგრაფიული კოორდინატების ძებნა.</i>"
 
 #: Map/MapView.cpp:429
 #, kde-format
@@ -4384,12 +4395,12 @@ msgstr ""
 #: RemoteControl/ConnectionIndicator.cpp:90
 #, kde-format
 msgid "Android device address: "
-msgstr ""
+msgstr "Android მოწყობილობის მისამართი: "
 
 #: RemoteControl/Server.cpp:32
 #, kde-format
 msgid "Unable to bind to socket"
-msgstr ""
+msgstr "სოკეტზე მიბმა შეუძლებელია"
 
 #: RemoteControl/Server.cpp:33
 #, kde-format
@@ -4442,12 +4453,12 @@ msgstr "დაბადების დღე"
 #: Settings/BirthdayPage.cpp:225
 #, kde-format
 msgid "Birthday of %1:"
-msgstr ""
+msgstr "%1-ის დაბადების დღე:"
 
 #: Settings/BirthdayPage.cpp:233
 #, kde-format
 msgid "Enter a date..."
-msgstr ""
+msgstr "შეიყვანეთ თარიღი..."
 
 #: Settings/BirthdayPage.cpp:297
 #, kde-format
@@ -4457,7 +4468,7 @@ msgstr ""
 #: Settings/CategoryPage.cpp:49
 #, kde-format
 msgid "Category Settings"
-msgstr ""
+msgstr "კატეგორიის პარამეტრები"
 
 #: Settings/CategoryPage.cpp:70
 #, kde-format
@@ -4472,7 +4483,7 @@ msgstr "გადარქმევა"
 #: Settings/CategoryPage.cpp:111
 #, kde-format
 msgid "Positionable tags:"
-msgstr ""
+msgstr "პოზიცირებადი ჭდეები:"
 
 #: Settings/CategoryPage.cpp:113
 #, kde-format
@@ -4489,7 +4500,7 @@ msgstr "ხატულა:"
 #: Settings/CategoryPage.cpp:140
 #, kde-format
 msgid "Preferred view:"
-msgstr ""
+msgstr "სასურველი ხედი:"
 
 #: Settings/CategoryPage.cpp:145
 #, kde-format
@@ -4499,7 +4510,7 @@ msgstr "სიის ხედი"
 #: Settings/CategoryPage.cpp:146
 #, kde-format
 msgid "List View with Custom Thumbnails"
-msgstr ""
+msgstr "სიის ხედი მორგებული მინიატურებით"
 
 #: Settings/CategoryPage.cpp:147
 #, kde-format
@@ -4509,7 +4520,7 @@ msgstr "ხატულებით ჩვენება"
 #: Settings/CategoryPage.cpp:148
 #, kde-format
 msgid "Icon View with Custom Thumbnails"
-msgstr ""
+msgstr "ხატულების ხედი მორგებული მინიატურებით"
 
 #: Settings/CategoryPage.cpp:158
 #, kde-format
@@ -4522,12 +4533,12 @@ msgstr ""
 #: Settings/CategoryPage.cpp:166
 #, kde-format
 msgid "Save the DB now"
-msgstr ""
+msgstr "DB-ის შენახვა"
 
 #: Settings/CategoryPage.cpp:206
 #, kde-format
 msgid "Settings for category <b>%1</b>"
-msgstr ""
+msgstr "პარამეტრები კატეგორიისთვის <b>%1</b>"
 
 #: Settings/CategoryPage.cpp:209
 #, kde-format
@@ -4545,7 +4556,7 @@ msgstr ""
 #: Settings/CategoryPage.cpp:267 Settings/CategoryPage.cpp:278
 #, kde-format
 msgid "Invalid category name"
-msgstr ""
+msgstr "არასწორი კატეგორიის სახელი"
 
 #: Settings/CategoryPage.cpp:275
 #, kde-format
@@ -4588,7 +4599,7 @@ msgstr "ახალი კატეგორია"
 #: Settings/CategoryPage.cpp:404
 #, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
-msgstr ""
+msgstr "<p>ნამდვილად წავშალო კატეგორია \"%1\"?</p>"
 
 #: Settings/CategoryPage.cpp:408
 #, kde-format
@@ -4598,12 +4609,12 @@ msgstr "ქმედების დადასტურება"
 #: Settings/CategoryPage.cpp:521
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
-msgstr ""
+msgstr "<i>აირჩიეთ ჩასასწრორებელი კატეგორია</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
 #, kde-format
 msgid "Choose speed over readability for index.xml file"
-msgstr ""
+msgstr "სიჩქარე წაკითხვადობის მაგიერ index.xml ფაილისთვის"
 
 #: Settings/DatabaseBackendPage.cpp:27
 #, kde-format
@@ -4613,7 +4624,7 @@ msgstr "მარქაფის ფაილის შეკუმშვა"
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
 msgid "Auto save every:"
-msgstr ""
+msgstr "ავტოშენახვა ყოველ:"
 
 #: Settings/DatabaseBackendPage.cpp:34
 #, kde-format
@@ -4623,7 +4634,7 @@ msgstr "წთ."
 #: Settings/DatabaseBackendPage.cpp:45
 #, kde-format
 msgid "Number of backups to keep:"
-msgstr ""
+msgstr "შესანარჩუნებელი მარქაფების რაოდენობა:"
 
 #: Settings/DatabaseBackendPage.cpp:50
 #, kde-format
@@ -4654,47 +4665,48 @@ msgstr ""
 #: Settings/ExifPage.cpp:37
 #, kde-format
 msgid "Exif/IPTC info to show in the viewer"
-msgstr ""
+msgstr "Exif/IPTC ინფორმაცია დათვალიერებისას საჩვენებლად"
 
 #: Settings/ExifPage.cpp:40
 #, kde-format
 msgid "Exif/IPTC info to show in the Exif dialog"
-msgstr ""
+msgstr "Exif/IPTC ინფორმაცია Exif დიალოგში საჩვენებლად"
 
 #: Settings/ExifPage.cpp:43
 #, kde-format
 msgid "Character set for image metadata:"
-msgstr ""
+msgstr "სიმბოლოების კოდირება გამოსახულების მეტამონაცემებისთვის:"
 
 #: Settings/FileVersionDetectionPage.cpp:31
 #, kde-format
 msgid "New File Searches"
-msgstr ""
+msgstr "ახალი ფაილის ძებნა"
 
 #: Settings/FileVersionDetectionPage.cpp:36
 #, kde-format
 msgid "Search for new images and videos on startup"
-msgstr ""
+msgstr "ახალი გამოსახულებებისა და ვიდეოების ძებნა გაშვებისას"
 
 #: Settings/FileVersionDetectionPage.cpp:39
 #, kde-format
 msgid "Ignore file extensions when searching for new images and videos"
 msgstr ""
+"ფაილის გაფართოებების გამოტოვება ახალი გამოსახულებებისა და ვიდეოების ძებნისას"
 
 #: Settings/FileVersionDetectionPage.cpp:42
 #, kde-format
 msgid "Skip symbolic links when searching for new images"
-msgstr ""
+msgstr "სიმბოლური ბმულების გამოტოვება ახალი გამოსახულებების ძებნისას"
 
 #: Settings/FileVersionDetectionPage.cpp:45
 #, kde-format
 msgid "Do not read RAW files if a matching JPEG/TIFF file exists"
-msgstr ""
+msgstr "RAW ფაილი წაკითხული არ იქნება, თუ არსებობს შესაბამისი JPEG/TIFF ფაილი"
 
 #: Settings/FileVersionDetectionPage.cpp:49
 #, kde-format
 msgid "Directories to exclude from new file search:"
-msgstr ""
+msgstr "საქაღალდეები, რომლებიც ამოღებულია ახალი ფაილის ძებნდან:"
 
 #: Settings/FileVersionDetectionPage.cpp:56
 #, kde-format
@@ -4754,32 +4766,32 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:91
 #, kde-format
 msgid "File Version Detection Settings"
-msgstr ""
+msgstr "ფაილის ვერსიის დადგენის პარამეტრები"
 
 #: Settings/FileVersionDetectionPage.cpp:95
 #, kde-format
 msgid "Try to detect multiple versions of files"
-msgstr ""
+msgstr "ფაილების მრავალი ვერსიის დადგენის ცდა"
 
 #: Settings/FileVersionDetectionPage.cpp:98
 #, kde-format
 msgid "File versions search regexp:"
-msgstr ""
+msgstr "ფაილს ვერსიის მოსაძებნი რეგგამოსი:"
 
 #: Settings/FileVersionDetectionPage.cpp:104
 #, kde-format
 msgid "Original file replacement text:"
-msgstr ""
+msgstr "ორიგინალი ფაილის ჩანაცვლების ტექსტი:"
 
 #: Settings/FileVersionDetectionPage.cpp:110
 #, kde-format
 msgid "Move meta-data (i.e. delete tags from the original)"
-msgstr ""
+msgstr "მეტამონაცემების გადატანა (ანუ, ორიგინალიდან ჭდეები წაიშლება)"
 
 #: Settings/FileVersionDetectionPage.cpp:113
 #, kde-format
 msgid "Automatically stack new versions of images"
-msgstr ""
+msgstr "სურათების ახალი ვერსიების ავტომატურად დაჯგუფება"
 
 #: Settings/FileVersionDetectionPage.cpp:116
 #, kde-format
@@ -4839,12 +4851,12 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:155
 #, kde-format
 msgid "Copy file search regexp:"
-msgstr ""
+msgstr "რეგგამოსი დასაკოპირებელი ფაილების მოსაძებნად:"
 
 #: Settings/FileVersionDetectionPage.cpp:161
 #, kde-format
 msgid "Copy file replacement text:"
-msgstr ""
+msgstr "ჩასანაცვლებელი ტექსტი დასაკოპირებელი ფაილებისთვის:"
 
 #: Settings/FileVersionDetectionPage.cpp:167
 #, kde-format
@@ -4865,7 +4877,7 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:184
 #, kde-format
 msgid "Type of media on which your images are stored."
-msgstr ""
+msgstr "მედიის ტიპი, რომელზეც ინახება თქვენი სურათები."
 
 #: Settings/FileVersionDetectionPage.cpp:189
 #, kde-format
@@ -4895,7 +4907,7 @@ msgstr "სწრაფი PCIe/NVMe"
 #: Settings/FileVersionDetectionPage.cpp:194
 #, kde-format
 msgid "Manual Settings"
-msgstr ""
+msgstr "მორგებული პარამეტრები"
 
 #: Settings/FileVersionDetectionPage.cpp:197
 #, kde-format
@@ -4970,7 +4982,7 @@ msgstr "ახალი გამოსახულებების ჩატ�
 #: Settings/GeneralPage.cpp:37
 #, kde-format
 msgid "Trust image dates:"
-msgstr ""
+msgstr "გამოსახულების თარიღების ნდობა:"
 
 #: Settings/GeneralPage.cpp:39
 #, kde-format
@@ -4993,17 +5005,17 @@ msgstr "არასდროს"
 #: Settings/GeneralPage.cpp:48
 #, kde-format
 msgid "Use Exif orientation information"
-msgstr ""
+msgstr "Exif-ის ორიენტაციის ინფორმაციის გამოყენება"
 
 #: Settings/GeneralPage.cpp:53
 #, kde-format
 msgid "Use Exif description"
-msgstr ""
+msgstr "Exif-ის აღწერის გამოყენება"
 
 #: Settings/GeneralPage.cpp:57
 #, kde-format
 msgid "Strip out camera generated default descriptions"
-msgstr ""
+msgstr "კამერის დაგენერირებული ნაგულისხმევი აღწერების წაშლა"
 
 #: Settings/GeneralPage.cpp:69
 #, kde-format
@@ -5013,7 +5025,7 @@ msgstr ""
 #: Settings/GeneralPage.cpp:73
 #, kde-format
 msgid "Required size for the thumbnail:"
-msgstr ""
+msgstr "საჭირო ზომა მინიატურისთვის:"
 
 #: Settings/GeneralPage.cpp:87
 #, kde-format
@@ -5028,12 +5040,12 @@ msgstr "ჰისტოგრამის ჩვენება"
 #: Settings/GeneralPage.cpp:99
 #, kde-format
 msgid "Use linear scale for histogram"
-msgstr ""
+msgstr "წრფივი მასშტაბის გამოყენება ჰისტოგრამისთვის"
 
 #: Settings/GeneralPage.cpp:103
 #, kde-format
 msgid "Size of histogram columns in date bar:"
-msgstr ""
+msgstr "ჰისტოგრამის სვეტების ზომა თარიღის ზოლში:"
 
 #: Settings/GeneralPage.cpp:124
 #, kde-format
@@ -5043,7 +5055,7 @@ msgstr "მისასალმებელი ეკრანის ჩვე�
 #: Settings/GeneralPage.cpp:128
 #, kde-format
 msgid "Listen for Android devices on startup"
-msgstr ""
+msgstr "Android მოწყობილობების მოსმენა გაშვებისას"
 
 #: Settings/GeneralPage.cpp:137
 #, kde-format
@@ -5077,7 +5089,7 @@ msgstr ""
 #: Settings/GeneralPage.cpp:159
 #, kde-format
 msgid "Show the KPhotoAlbum splash screen on start up"
-msgstr ""
+msgstr "KPhotoAlbum-ის საწყისი სურათის ჩვენება გაშვებისას"
 
 #: Settings/GeneralPage.cpp:163
 #, kde-format
@@ -5102,7 +5114,7 @@ msgstr ""
 #: Settings/SettingsDialog.cpp:47
 #, kde-format
 msgid "File Searching & Versions"
-msgstr ""
+msgstr "ფაილის ძებნა და ვერსიები"
 
 #: Settings/SettingsDialog.cpp:49
 #, kde-format
@@ -5117,17 +5129,17 @@ msgstr "დაბადების დღეები"
 #: Settings/SettingsDialog.cpp:51
 #, kde-format
 msgid "Tag Groups"
-msgstr ""
+msgstr "ჭდის ჯგუფები"
 
 #: Settings/SettingsDialog.cpp:53
 #, kde-format
 msgid "Exif/IPTC Information"
-msgstr ""
+msgstr "Exif/IPTC ინფორმაცია"
 
 #: Settings/SettingsDialog.cpp:54
 #, kde-format
 msgid "Database Backend"
-msgstr ""
+msgstr "მონაცემთა ბაზის უკანაბოლო"
 
 #: Settings/SettingsDialog.cpp:74
 #, kde-format
@@ -5139,7 +5151,7 @@ msgstr "მორგება"
 #, kde-format
 msgctxt "@label"
 msgid "Categories and groups:"
-msgstr ""
+msgstr "კატეგორია და ჯგუფები:"
 
 #: Settings/TagGroupsPage.cpp:46
 #, kde-format
@@ -5165,13 +5177,13 @@ msgstr "ჯგუფის დამატება ..."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename group \"%1\""
-msgstr ""
+msgstr "სახელის გადარქმევა ჯგუფისთვის \"%1\""
 
 #: Settings/TagGroupsPage.cpp:231
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete group \"%1\""
-msgstr ""
+msgstr "ჯგუფის \"%1\" წაშლა"
 
 #: Settings/TagGroupsPage.cpp:310
 #, kde-format
@@ -5236,7 +5248,7 @@ msgstr ""
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<para>Really delete group \"%1\"?</para>"
-msgstr ""
+msgstr "<para>ნამდვილად წავშალო ჯგუფი \"%1\"?</para>"
 
 #: Settings/TagGroupsPage.cpp:521
 #, kde-format
@@ -5286,32 +5298,32 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Really delete %1?"
-msgstr ""
+msgstr "მართლა წავშალო %1?"
 
 #: Settings/ThumbnailsPage.cpp:28
 #, kde-format
 msgid "Tooltip preview image size:"
-msgstr ""
+msgstr "მინიშნების გადახედვის გამოსახულების ზომა:"
 
 #: Settings/ThumbnailsPage.cpp:32
 #, kde-format
 msgid "No Image Preview"
-msgstr ""
+msgstr "გამოსახულების მინიატურის გარეშე"
 
 #: Settings/ThumbnailsPage.cpp:38
 #, kde-format
 msgid "Thumbnail image size:"
-msgstr ""
+msgstr "მინიატურა სურათის ზომა:"
 
 #: Settings/ThumbnailsPage.cpp:47
 #, kde-format
 msgid "Build thumbnails on demand"
-msgstr ""
+msgstr "მინიატურების აგება მოთხოვნის მიხედვით"
 
 #: Settings/ThumbnailsPage.cpp:52
 #, kde-format
 msgid "Thumbnail table cells aspect ratio:"
-msgstr ""
+msgstr "მინიატურის ცხრილის უჯრედების ზომების ფარდობა:"
 
 #: Settings/ThumbnailsPage.cpp:54
 #, kde-format
@@ -5351,27 +5363,27 @@ msgstr "9:16"
 #: Settings/ThumbnailsPage.cpp:61
 #, kde-format
 msgid "Space around cells:"
-msgstr ""
+msgstr "სივრცე უჯრედების გარშემო:"
 
 #: Settings/ThumbnailsPage.cpp:69
 #, kde-format
 msgid "Display grid around thumbnails"
-msgstr ""
+msgstr "ბადის ჩვენება მინიატურების გარშემო"
 
 #: Settings/ThumbnailsPage.cpp:74
 #, kde-format
 msgid "Display labels in thumbnail view"
-msgstr ""
+msgstr "ჭდეების ჩვენება მინიატურის ხედში"
 
 #: Settings/ThumbnailsPage.cpp:79
 #, kde-format
 msgid "Display categories in thumbnail view"
-msgstr ""
+msgstr "კატეგორიების ჩვენება მინიატურის ხედში"
 
 #: Settings/ThumbnailsPage.cpp:84
 #, kde-format
 msgid "Threshold for automatic thumbnail view: "
-msgstr ""
+msgstr "შეზღუდვა ავტომატური მინიატურის ხედისთვის: "
 
 #: Settings/ThumbnailsPage.cpp:88
 #, kde-format
@@ -5417,7 +5429,7 @@ msgstr ""
 #: Settings/ThumbnailsPage.cpp:120
 #, kde-format
 msgid "<p>How thick the cell padding should be.</p>"
-msgstr ""
+msgstr "<p>რამდენად სქელი უნდა იყოს უჯრედის შეწევები.</p>"
 
 #: Settings/ThumbnailsPage.cpp:123
 #, kde-format
@@ -5469,7 +5481,7 @@ msgstr "არაფერია მონიშნული"
 #: Settings/UntaggedGroupBox.cpp:117
 #, kde-format
 msgid "New tag added"
-msgstr ""
+msgstr "ახალი ჭდე დაემატა"
 
 #: Settings/UntaggedGroupBox.cpp:118
 #, kde-format
@@ -5483,7 +5495,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:26
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
-msgstr ""
+msgstr "<h1>აირჩიეთ ვიდეოდამკვრელი</h1>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:29
 #, kde-format
@@ -5507,7 +5519,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:58
 #, kde-format
 msgid " (NOT AVAILABLE)"
-msgstr ""
+msgstr " (ხელმიუწვდომელია)"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:84
 #, kde-format
@@ -5523,25 +5535,25 @@ msgstr ""
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
-msgstr ""
+msgstr "მოურგებელი ვიდეო უკანაბოლო"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:144
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
-msgstr ""
+msgstr "ვიდეო უკანაბოლო Phonon"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:146
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
-msgstr ""
+msgstr "ვიდეო უკანაბოლო QtAV"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:148
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
-msgstr ""
+msgstr "ვიდეო უკანაბოლო VLC"
 
 #: Settings/ViewerPage.cpp:25
 #, kde-format
@@ -5551,7 +5563,7 @@ msgstr "მორგებული არაა"
 #: Settings/ViewerPage.cpp:42
 #, kde-format
 msgid "Running Slide Show From Thumbnail View"
-msgstr ""
+msgstr "სლაიდშოუ მინიატურის ხედიდან"
 
 #: Settings/ViewerPage.cpp:45
 #, kde-format
@@ -5571,32 +5583,32 @@ msgstr " წმ"
 #: Settings/ViewerPage.cpp:61
 #, kde-format
 msgid "Image cache:"
-msgstr ""
+msgstr "გამოსახულებების კეში:"
 
 #: Settings/ViewerPage.cpp:67
 #, kde-format
 msgid " Mbytes"
-msgstr ""
+msgstr " მბაიტი"
 
 #: Settings/ViewerPage.cpp:73
 #, kde-format
 msgid "Standard size in viewer:"
-msgstr ""
+msgstr "სტანდარტული ზომა დამთვალიერებელში:"
 
 #: Settings/ViewerPage.cpp:75
 #, kde-format
 msgid "Full Viewer Size"
-msgstr ""
+msgstr "სრული დამთვალიერებლის ზომა"
 
 #: Settings/ViewerPage.cpp:75
 #, kde-format
 msgid "Natural Image Size"
-msgstr ""
+msgstr "ბუნებრივი სურათის ზომა"
 
 #: Settings/ViewerPage.cpp:75
 #, kde-format
 msgid "Natural Image Size If Possible"
-msgstr ""
+msgstr "ბუნებრივი სურათის ზომა, თუ ეს შესაძლებელია"
 
 #: Settings/ViewerPage.cpp:80
 #, kde-format
@@ -5613,7 +5625,7 @@ msgstr ""
 #: Settings/ViewerPage.cpp:87
 #, kde-format
 msgid "Scaling algorithm:"
-msgstr ""
+msgstr "დამასშტაბების ალგორითმი:"
 
 #: Settings/ViewerPage.cpp:89
 #, kde-format
@@ -5636,12 +5648,12 @@ msgstr ""
 #: Settings/ViewerPage.cpp:99
 #, kde-format
 msgid "Video Backend:"
-msgstr ""
+msgstr "ვიდეო უკანაბოლო:"
 
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
 msgid "Launch in full screen"
-msgstr ""
+msgstr "გაშვება სრულ ეკრანზე"
 
 #: ThumbnailView/Delegate.cpp:237
 #, kde-format
@@ -5662,7 +5674,7 @@ msgstr "ფილტრის პანელი"
 msgctxt ""
 "The action enables/disables filtering of images in the thumbnail view."
 msgid "Toggle filter"
-msgstr ""
+msgstr "ფილტრის გადართვა"
 
 #: ThumbnailView/FilterWidget.cpp:24
 #, kde-kuit-format
@@ -5673,8 +5685,8 @@ msgstr ""
 #, kde-format
 msgid "Filter view by rating: %1 star"
 msgid_plural "Filter view by rating: %1 stars"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ხედის გაფილტვრა რეტინგით: %1 ვარსკვლავი"
+msgstr[1] "ხედის გაფილტვრა რეტინგით: %1 ვარსკვლავი"
 
 #: ThumbnailView/FilterWidget.cpp:61
 #, kde-format
@@ -5708,17 +5720,17 @@ msgstr "მინიატურების გადალაგება"
 #: Utilities/DeleteFiles.cpp:37
 #, kde-format
 msgid "Error Deleting Files"
-msgstr ""
+msgstr "ფაილების წაშლის შეცდომა"
 
 #: Utilities/DemoUtil.cpp:34
 #, kde-format
 msgid "Unable to copy '%1' to '%2'."
-msgstr ""
+msgstr "%1 -დან %2 -ში კოპირება შეუძლებელია."
 
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
 #, kde-format
 msgid "Unable to create folder '%1' needed for demo."
-msgstr ""
+msgstr "დემოსთვის საჭიროა საქაღალდის '%1' შექმნა."
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format
@@ -5831,7 +5843,7 @@ msgctxt ""
 "This combines an age of a person in years (%1) with the additional months "
 "(%2), like \"The person is '1 year and 3 months' old\""
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: Utilities/Timespan.cpp:151
 #, kde-format
@@ -5876,8 +5888,8 @@ msgstr[1] "%1 კვირა"
 msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
 msgid "ca. %1 week"
 msgid_plural "ca. %1 weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "დაახლ. %1 კვირა"
+msgstr[1] "დაახლ. %1 კვირა"
 
 #: Utilities/Timespan.cpp:197 Utilities/Timespan.cpp:236
 #, kde-format
@@ -5922,7 +5934,7 @@ msgstr "მაკროს მინიჭება"
 #: Viewer/AnnotationHandler.cpp:69
 #, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr ""
+msgstr "აირჩიეთ ელემენტი მაკრო ღილაკისთვის <b>%1</b>"
 
 #: Viewer/AnnotationHandler.cpp:126
 #, kde-format
@@ -5938,7 +5950,7 @@ msgstr "აირჩიეთ ჭდე გამოსახულების�
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure Category Image"
-msgstr ""
+msgstr "კატეგორიის სურათის მორგებ"
 
 #: Viewer/CategoryImageConfig.cpp:50
 #, kde-format
@@ -5974,12 +5986,12 @@ msgstr "დაყენება"
 #: Viewer/ImageDisplay.cpp:391
 #, kde-format
 msgid "Insufficient color depth for this filter"
-msgstr ""
+msgstr "არასაკმარისი ფერის სიღრმე ამ ფილტრისთვის"
 
 #: Viewer/ImageDisplay.cpp:450
 #, kde-format
 msgid "[ zoom x%1 ]"
-msgstr ""
+msgstr "[ გადიდება x%1 ]"
 
 #: Viewer/InfoBox.cpp:60
 #, kde-format
@@ -5989,12 +6001,12 @@ msgstr ""
 #: Viewer/PhononDisplay.cpp:183
 #, kde-format
 msgid "Error playing media"
-msgstr ""
+msgstr "მედიის დაკვრის შეცდომა"
 
 #: Viewer/SelectCategoryAndValue.cpp:107
 #, kde-format
 msgid "Type name of category and item"
-msgstr ""
+msgstr "აკრიფეთ კატეგორიის სახელი და ელემენტი"
 
 #: Viewer/SelectCategoryAndValue.cpp:136
 #, kde-format
@@ -6004,7 +6016,7 @@ msgstr "ახლის დამატება"
 #: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "გასაღები"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
@@ -6015,7 +6027,7 @@ msgstr "ჭდე"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"
-msgstr ""
+msgstr "მინიჭების გასუფთავება"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
@@ -6045,25 +6057,25 @@ msgstr "სათაური"
 #: Viewer/SelectCategoryAndValue.ui:120
 #, kde-format
 msgid "Existing Assignments"
-msgstr ""
+msgstr "არსებული მინიჭებები"
 
 #: Viewer/ViewerWidget.cpp:191
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
-msgstr ""
+msgstr "ჯგუფის პირველ სურათად დაყენება"
 
 #: Viewer/ViewerWidget.cpp:203
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
-msgstr ""
+msgstr "გამოსახულების კოპირება სად..."
 
 #: Viewer/ViewerWidget.cpp:209
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
-msgstr ""
+msgstr "გამოსახულების ბმული სად..."
 
 #: Viewer/ViewerWidget.cpp:217
 #, kde-format
@@ -6087,7 +6099,7 @@ msgstr "საათის ისრის მიმართულებით 
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
-msgstr ""
+msgstr "გადაბრუნება"
 
 #: Viewer/ViewerWidget.cpp:292
 #, kde-format
@@ -6123,19 +6135,19 @@ msgstr "შემდეგის ჩვენება"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
-msgstr ""
+msgstr "10-ის გამოტოვება წინ"
 
 #: Viewer/ViewerWidget.cpp:332
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
-msgstr ""
+msgstr "100-ის გამოტოვება წინ"
 
 #: Viewer/ViewerWidget.cpp:338
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
-msgstr ""
+msgstr "1000-ის გამოტოვება წინ"
 
 #: Viewer/ViewerWidget.cpp:344
 #, kde-format
@@ -6147,19 +6159,19 @@ msgstr "წინას ჩვენება"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
-msgstr ""
+msgstr "10-ის გამოტოვება უკან"
 
 #: Viewer/ViewerWidget.cpp:356
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
-msgstr ""
+msgstr "100-ის გამოტოვება უკან"
 
 #: Viewer/ViewerWidget.cpp:362
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
-msgstr ""
+msgstr "1000-ის გამოტოვება უკან"
 
 #: Viewer/ViewerWidget.cpp:368
 #, kde-format
@@ -6171,7 +6183,7 @@ msgstr "გამოსახულების წაშლა"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
-msgstr ""
+msgstr "სურათის წაშლა ჩვენების სიიდან"
 
 #: Viewer/ViewerWidget.cpp:388
 #, kde-format
@@ -6195,13 +6207,13 @@ msgstr "დაპატარავება"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
-msgstr ""
+msgstr "სრული ხედი"
 
 #: Viewer/ViewerWidget.cpp:410
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
-msgstr ""
+msgstr "პიქსელი პიქსელის ხედისთვის"
 
 #: Viewer/ViewerWidget.cpp:416
 #, kde-format
@@ -6219,19 +6231,19 @@ msgstr "სლაიდშოუ"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
-msgstr ""
+msgstr "სლაიდშოუს გაშვება"
 
 #: Viewer/ViewerWidget.cpp:435
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
-msgstr ""
+msgstr "უფრო სწრაფად"
 
 #: Viewer/ViewerWidget.cpp:440
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
-msgstr ""
+msgstr "უფრო ნელა"
 
 #: Viewer/ViewerWidget.cpp:478
 #, kde-format
@@ -6269,12 +6281,12 @@ msgstr "ანოტაციები"
 #: Viewer/ViewerWidget.cpp:626
 #, kde-format
 msgid "tokenizing"
-msgstr ""
+msgstr "tokenizing"
 
 #: Viewer/ViewerWidget.cpp:631
 #, kde-format
 msgid "Change display mode to %1"
-msgstr ""
+msgstr "ეკრანის რეჟიმის შეცვლა %1-ზე"
 
 #: Viewer/ViewerWidget.cpp:907
 #, kde-format
@@ -6300,7 +6312,7 @@ msgstr ""
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
-msgstr ""
+msgstr "%1&nbsp;წმ"
 
 #: Viewer/ViewerWidget.cpp:1226
 #, kde-format
@@ -6390,7 +6402,7 @@ msgstr "შეჩერება"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
-msgstr ""
+msgstr "მიმდინარე კადრის გამოყენება მინიატურის ხედში"
 
 #: Viewer/ViewerWidget.cpp:1299
 #, kde-format
@@ -6414,25 +6426,25 @@ msgstr "ყველა ფილტრის წაშლა"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
-msgstr ""
+msgstr "ნაცრისფერი ფილტრის გადატარება"
 
 #: Viewer/ViewerWidget.cpp:1327
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
-msgstr ""
+msgstr "კონტრასტის გაჭიმვირს ფილტრის გადატარება"
 
 #: Viewer/ViewerWidget.cpp:1332
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
-msgstr ""
+msgstr "ჰისტოგრამის გათანაბრების ფილტრის გადატარება"
 
 #: Viewer/ViewerWidget.cpp:1337
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
-msgstr ""
+msgstr "მონოქრომული ფილტრის გადატარება"
 
 #: Viewer/ViewerWidget.cpp:1393
 #, kde-format

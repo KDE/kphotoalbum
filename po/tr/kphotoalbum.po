@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-09-23 15:31+0300\n"
+"PO-Revision-Date: 2024-10-20 12:34+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -324,10 +324,9 @@ msgid "Settings saved!"
 msgstr "Ayarlar kaydedildi!"
 
 #: AnnotationDialog/Dialog.cpp:970
-#, fuzzy, kde-format
-#| msgid "Save Current Window Setup"
+#, kde-format
 msgid "Save current window setup"
-msgstr "Geçerli Pencere Ayarlarını Kaydet"
+msgstr "Geçerli pencere ayarlarını kaydet"
 
 #: AnnotationDialog/Dialog.cpp:1034
 #, kde-format
@@ -1475,9 +1474,9 @@ msgstr ""
 "bulabileceğiniz <b>Eksik Tarihli Görselleri Göster</b> seçeneğini "
 "kullanabilirsiniz.</p>Daha sonra Exif verisinde veya dosyada doğru tarih "
 "bilgisi içerdiğine inandığınız görselleri seçebilir ve bilgiyi yeniden "
-"okumak için <b>Bakım→Exif Bilgisini Oku</b> yolunu çalıştırabilirsiniz.</"
+"okumak için <b>Bakım → Exif Bilgisini Oku</b> yolunu çalıştırabilirsiniz.</"
 "p><p>Son olarak, tüm görsellerin tarihleri belirlendiğinde, görselleri "
-"veritabanında sınıflandırmak için <b>Görseller→Seçili Görselleri Tarih ve "
+"veritabanında sınıflandırmak için <b>Görseller → Seçili Görselleri Tarih ve "
 "Zamana Göre Sırala</b> yolunu çalıştırın.</p>"
 
 #: DB/XML/FileReader.cpp:443
@@ -3178,7 +3177,7 @@ msgid ""
 msgstr ""
 "<p>Exif arama veritabanına erişirken bir hata oluştu. Hatanın nedeni, büyük "
 "olasılıkla bozuk bir veritabanı dosyası olabilir.</p><p>Bu sorunu çözmek "
-"için Bakım→Exif Aram Veritabanını Yeniden Oluştur seçeneğini kullanın.</"
+"için “Bakım → Exif Arama Veritabanını Yeniden Oluştur” seçeneğini kullanın.</"
 "p><hr/><p>Hata ayıklama için: Çalıştırılmak istenen komut şuydu:<br/>%1</"
 "p><p>Alınan hata iletisi ise şuydu:<br/>%2</p>"
 
@@ -3195,8 +3194,8 @@ msgid ""
 "error message obtained was:<br/>%1</p>"
 msgstr ""
 "<p>Exif veritabanı açılırken bir hata oluştu.</p> <p>Bu sorunu çözmek için "
-"Bakım→Exif Arama Veritabanını Yeniden Oluştur seçeneğini kullanın.</p><hr/"
-"><p>Alınan hata iletisi:<br/>%1</p>"
+"“Bakım → Exif Arama Veritabanını Yeniden Oluştur” seçeneğini kullanın.</"
+"p><hr/><p>Alınan hata iletisi:<br/>%1</p>"
 
 #: lib/kpaexif/Database.cpp:259
 #, kde-format
@@ -3205,7 +3204,7 @@ msgid ""
 "problem run Maintenance->Recreate Exif Search database.</p>"
 msgstr ""
 "<p>Exif arama veritabanı hasar görmüş ve veri içermiyor.</p> <p>Bu sorunu "
-"çözmek için Bakım→Exif Arama Veritabanını Yeniden Oluştur seçeneğini "
+"çözmek için “Bakım → Exif Arama Veritabanını Yeniden Oluştur” seçeneğini "
 "kullanın.</p>"
 
 #: main.cpp:65
@@ -3655,16 +3654,13 @@ msgstr ""
 "içeren görselleri bir haritada gösterebilir.</p>"
 
 #: MainWindow/FeatureDialog.cpp:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on QtAv "
-#| "for displaying videos; this in turn relies on ffmpeg</p>"
+#, kde-format
 msgid ""
 "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on phonon "
 "or VLC for displaying videos</p>"
 msgstr ""
 "<h1><a name=\"video\">Video desteği</a></h1><p>K Fotoğraf Albümü, videoları "
-"görüntülemek için QtAv desteğine gereksinim duyar; o da FFmpeg ister</p>"
+"görüntülemek için VLC veya Phonon desteğine gereksinim duyar.</p>"
 
 #: MainWindow/FeatureDialog.cpp:78
 #, kde-format
@@ -4973,7 +4969,7 @@ msgid ""
 "this name already exists.</p>"
 msgstr ""
 "<p>Kategori adı “%1” → “%2” olarak değiştirilemiyor:</p><p>Bu adda bir "
-"kategori zaten var.</p>"
+"kategori halihazırda var.</p>"
 
 #: Settings/CategoryPage.cpp:292
 #, kde-format
@@ -5157,7 +5153,8 @@ msgid ""
 msgstr ""
 "<p>K Fotoğraf Albümü, başlatıldığında yeni görselleri arama yeteneğine "
 "sahiptir; ancak bu biraz zaman alacaktır. Bunun yerine K Fotoğraf Albümü’ne "
-"kendiniz arama yaptırabilirsiniz. <b>Bakım→Görselleri Yeniden Tara</b></p>"
+"<b>Bakım → Görselleri Yeniden Tara</b> ile yeniden arama yaptırabilirsiniz.</"
+"p>"
 
 #: Settings/FileVersionDetectionPage.cpp:66
 #, kde-format
@@ -6061,25 +6058,7 @@ msgid "<h1>Choose a Video Player</h1>"
 msgstr "<h1>Bir Video Oynatıcısı Seçin</h1>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:29
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html><p>Unfortunately, there is no video player which just works out of "
-#| "the box for everyone.</p><p>KPhotoAlbum therefore comes with three "
-#| "different back-ends, choose the one that works the best for you</"
-#| "p><p><b>VLC</b> seems to be the best supported video player back-end, "
-#| "meaning it can play most video formats. It has one drawback though, it "
-#| "requires X11. If you use Wayland, then you will find that the videos "
-#| "shows up in a window of their own, and in this case VLC is likely not a "
-#| "very good fit for you. If on the other hand you do use X11 then VLC is "
-#| "likely your best choice.</p><p>Traditionally KPhotoAlbum has been using "
-#| "<b>Phonon</b> as the video player back-end. We've unfortunately seen it "
-#| "crash on many different video formats - possibly because our system "
-#| "wasn't correctly configured. If this is the case for you (and you can't "
-#| "use VLC), then try the <b>QtAV</b> back-end, which seems to support a lot "
-#| "of formats (everything we threw at it). <b>QtAV</b> unfortunately also "
-#| "has a drawback - it seems to get slightly out of sync between video and "
-#| "audio.</p><p><b><font color=red>You can at any time change the backend "
-#| "from Settings -> Viewer</font></b></p></html>"
+#, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
 "box for everyone.</p><p>KPhotoAlbum therefore comes with three different "
@@ -6106,11 +6085,9 @@ msgstr ""
 "seçebilirsiniz.</p><p>Eskiden beri K Fotoğraf Albümü, arka uç olarak "
 "<b>Phonon</b> kullanıyordu. Ne yazık ki çoğu video biçimini oynatırken "
 "çöktüğünü gözlemledik; büyük olasılıkla bizim sistemimiz düzgünce "
-"yapılandırılmamıştı. Sizin deneyiminiz de bu ise (ve VLC kullanamıyorsanız) "
-"birçok video biçimini destekleyen <b>QtAV</b> arka ucunu deneyin. <b>QtAV</"
-"b>’in bir dezavantajı olarak video ve ses aynı anda gelmeyebiliyor.</"
-"p><p><b><font color=red>Arka ucu, Ayarlar → Görüntüleyici’den istediğiniz "
-"zaman değiştirebilirsiniz</font></b></p></html>"
+"yapılandırılmamıştı.</p><p><b><font color=red>Arka ucu, “Ayarlar → "
+"Görüntüleyici” menüsünden istediğiniz zaman değiştirebilirsiniz</font></b></"
+"p></html>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:49
 #: Settings/VideoPlayerSelectorDialog.cpp:58

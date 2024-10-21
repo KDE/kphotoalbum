@@ -22,6 +22,7 @@ SPDX-License-Identifier: CC0-1.0
   <name xml:lang="fi">KPhotoAlbum</name>
   <name xml:lang="fr">KPhotoAlbum</name>
   <name xml:lang="gl">KPhotoAlbum</name>
+  <name xml:lang="he">KPhotoAlbum</name>
   <name xml:lang="ia">KPhotoAlbum</name>
   <name xml:lang="id">KPhotoAlbum</name>
   <name xml:lang="it">KPhotoAlbum</name>
@@ -58,10 +59,11 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="fi">KDE:n kuvanhallintaohjelma</summary>
   <summary xml:lang="fr">Logiciel de gestion d'images KDE</summary>
   <summary xml:lang="gl">Software de xestión de imaxes de KDE</summary>
+  <summary xml:lang="he">תוכנת ניהול תמונות מבית KDE</summary>
   <summary xml:lang="ia">Software de gerer image de KDE</summary>
   <summary xml:lang="id">Software pengelolaan citra KDE</summary>
   <summary xml:lang="it">Software KDE per la gestione delle immagini</summary>
-  <summary xml:lang="ka">KDE-ის გამოსახულებების მართვის პროგრაა</summary>
+  <summary xml:lang="ka">KDE-ის გამოსახულებების მართვის პროგრამა</summary>
   <summary xml:lang="ko">KDE 사진 관리 소프트웨어</summary>
   <summary xml:lang="nl">Software voor beheer van afbeeldingen</summary>
   <summary xml:lang="nn">KDE-basert bilethandsaming</summary>
@@ -71,7 +73,7 @@ SPDX-License-Identifier: CC0-1.0
   <summary xml:lang="sk">KDE softvér na manipuláciu s obrázkami</summary>
   <summary xml:lang="sl">Programska oprema za upravljanje slik v namizju KDE</summary>
   <summary xml:lang="sv">KDE bildhanteringsprogramvara</summary>
-  <summary xml:lang="tr">KDE görsel yönetim yazılımı</summary>
+  <summary xml:lang="tr">KDE görsel yönetimi yazılımı</summary>
   <summary xml:lang="uk">Програма для керування зображеннями у KDE</summary>
   <summary xml:lang="x-test">xxKDE image management softwarexx</summary>
   <summary xml:lang="zh-CN">KDE 图像管理软件</summary>
@@ -91,6 +93,7 @@ SPDX-License-Identifier: CC0-1.0
     <p xml:lang="fi">KPhotoAlbum on sovellus valokuvakokoelmien tunnistetietojen hallintaan ja etsimiseen.</p>
     <p xml:lang="fr">KPhotoAlbum est une application permettant de gérer une collection de photos, en y définissant des balises et en y effectuant des recherches.</p>
     <p xml:lang="gl">KPhotoAlbum é unha aplicación para etiquetar e xestionar unha colección de fotos e permitir buscar nela.</p>
+    <p xml:lang="he">KPhotoAlbum הוא יישום לתיוג וניהול אוסף תמונות והפיכתו לנגיש לחיפוש.</p>
     <p xml:lang="ia">KPhotoAlbum es un application per etiquettar e gere un collection de photo e facer lo cercabile.</p>
     <p xml:lang="id">KPhotoAlbum adalah sebuah aplikasi untuk penandaan dan pengelolaan sebuah koleksi foto dan membuatnya dapat dicari.</p>
     <p xml:lang="it">KPhotoAlbum è un'applicazione per etichettare e gestire una raccolta di immagini in modo da poter eseguire ricerche al suo interno.</p>
@@ -127,6 +130,7 @@ SPDX-License-Identifier: CC0-1.0
       <caption xml:lang="fi">KPhotoAlbumin päänäkymä</caption>
       <caption xml:lang="fr">L'écran principal de KPhotoAlbum</caption>
       <caption xml:lang="gl">A pantalla principal de KPhotoAlbum</caption>
+      <caption xml:lang="he">המסך הראשי של KPhotoAlbum</caption>
       <caption xml:lang="ia">Le schermo principal de KPhotoAlbum</caption>
       <caption xml:lang="id">Layar utama di KPhotoAlbum</caption>
       <caption xml:lang="it">La schermata principale in KPhotoAlbum</caption>

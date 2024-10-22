@@ -14,8 +14,8 @@ msgstr ""
 "X-Crowdin-Project: kdeorg\n"
 "X-Crowdin-Project-ID: 269464\n"
 "X-Crowdin-Language: zh-CN\n"
-"X-Crowdin-File: /kf5-trunk/messages/kphotoalbum/kphotoalbum.pot\n"
-"X-Crowdin-File-ID: 4779\n"
+"X-Crowdin-File: /kf6-trunk/messages/kphotoalbum/kphotoalbum.pot\n"
+"X-Crowdin-File-ID: 56268\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -302,10 +302,9 @@ msgid "Settings saved!"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:970
-#, fuzzy, kde-format
-#| msgid "Save Current Window Setup"
+#, kde-format
 msgid "Save current window setup"
-msgstr "保存当前窗口设置"
+msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1034
 #, kde-format
@@ -6587,9 +6586,3 @@ msgstr "显示图像大小"
 #, kde-format
 msgid "Show Rating"
 msgstr ""
-
-#~ msgid "Loading Database"
-#~ msgstr "正在加载数据库"
-
-#~ msgid "Loading Main Window"
-#~ msgstr "正在加载主窗口"

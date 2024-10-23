@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-10-21 13:12+0200\n"
+"PO-Revision-Date: 2024-10-22 05:54+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -174,6 +174,12 @@ msgid ""
 "the photo comes from an analog camera), then you should set <interface>Use "
 "Fuzzy Date</interface>.</para>"
 msgstr ""
+"<para>KPhotoAlbum–ში სურათებს, შეიძლება, ჰქონდეთ ზუსტი თარიღი და დრო, ან "
+"<emphasis>ბუნდოვანი</emphasis> თარიღი, რომელიც მოხდა ნებისმიერ დროს "
+"განსაზღვრულ დროის ინტერვალში. ციფრული კამერების მიერ წარმოებულ სურათებს, "
+"როგორც წესი, ზუსტი თარიღი აქვთ.</para><para>თუ ზუსტად არ იცით როდის "
+"გადაღებულია ფოტო (მაგ., თუ ფოტო ანალოგური კამერიდანაა), მაშინ უნდა "
+"<interface>გამოიყენოთ ბუნდოვანი თარიღი</interface>.</para>"
 
 #: AnnotationDialog/Dialog.cpp:378
 #, kde-format
@@ -340,6 +346,12 @@ msgid ""
 "you can find extra tips on its usage by reading about <a href=\"help:/"
 "kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
 msgstr ""
+"<p>თქვენ ახლა დამატებით ძებნის დიალოგი გახსენით. იმისათვის, რომ ის "
+"მაქსიმალურად გამოიყენოთ, გირჩევთ, რომ წაიკითხოთ სექცია სახელმძღვანელოში <a "
+"href=\"help:/kphotoalbum/sect-general-image-searches.html\">დამატებითი "
+"ძებნის შესახებ</a>.</p><p>ეს დიალოგი ასევე შეგიძლიათ, გამოსახულების შესახებ "
+"ინფორმაციის შესაყვანად გამოიყენოთ. დამატებითი მინიშნებები <a href=\"help:/"
+"kphotoalbum/chp-typingIn.html\">აქ შეგიძლიათ, იხილოთ</a>.</p>"
 
 #: AnnotationDialog/Dialog.cpp:1134
 #, kde-format
@@ -349,6 +361,10 @@ msgid ""
 "p><p>It is strongly recommended that you take 5 minutes to read the <a href="
 "\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
 msgstr ""
+"<p>თქვენ ახლახან გახსენით KPhotoAlbum– ის ერთ-ერთი ყველაზე მნიშვნელოვანი "
+"ფანჯარა; იგი შეიცავს ფუნქციას, რომელიც ოპტიმიზებულია სწრაფი გამოყენებისთვის."
+"</p><p>მკაცრად რეკომენდირებულია, რომ გამონახოთ 5 წუთი <a href=\"help:/"
+"kphotoalbum/chp-typingIn.html\">ამ დიალოგის დოკუმენტაციის</a> წასაკითხად</p>"
 
 #: AnnotationDialog/Dialog.cpp:1266
 #, kde-format
@@ -408,6 +424,10 @@ msgid ""
 "change this in the settings dialog. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings.</p>"
 msgstr ""
+"<p><b>ჭდის \"%2\"</b> ასოცირება შეუძლებელია</p><p>კატეგორია \"%1\" რომელსაც "
+"ჭდე \"%2\" ეკუთვნის, გადაადგილებადი არაა.</p><p>თუ მაინც გნებავთ, ეს ჭდე "
+"გამოიყენოთ, შეცვალეთ ეს მორგების დიალოგში. თუ ეს ჭდე ამოცნობის მონაცემთა "
+"ბაზაში აღა უნდა იყოს, მიწი წაშლა მორგების ფანჯარაში შეგიძლიათ.</p>"
 
 #: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
@@ -417,6 +437,10 @@ msgid ""
 "this category and mark it as positionable. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings dialog.</p>"
 msgstr ""
+"<p>ჭდის <b>\"%2\"</b> ასოცირება შეუძლებელია</p><p>კატეგორია \"%1\", რომელსაც "
+"ჭდე \"%2\" ეკუთვნის, არ არსებობს.</p><p>თუ ამ ჭდის გამოყენება გნებავთ, "
+"დაამატეთ ეს კატეგორია და გახადეთ ის გადაადგილებადი. თუ ეს ჭდე აღარ უნდა იყოს "
+"ამოცნობის მონაცემთა ბაზაში, მისი წაშლა მორგების დიალოგიდან შეგიძლიათ.</p>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:51
 #, kde-format
@@ -457,6 +481,9 @@ msgid ""
 "category in <interface>Settings|Configure KPhotoAlbum...|Categories</"
 "interface>, you can associate specific image areas with tags."
 msgstr ""
+"თუ ჩართავთ <emphasis>გადაადგილებად ჭდეებს</emphasis> ერთი კატეგორიისთვის "
+"მაინც მენუში <interface>მორგება|KPhotoAlbum-ის მორგება...|კატეგორიები</"
+"interface>, შეგიძლიათ, გამოსახულების სასურველი ადგილები ჭდეებს დაუკავშიროთ."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:325
 #, kde-format
@@ -530,6 +557,10 @@ msgid ""
 "Untagged Images</interface>). It will not show up here as long as it is "
 "selected for this purpose."
 msgstr ""
+"ჭდე, რომელიც შეიყვანეთ, ჭდეა, რომელიც ახლად აღმოჩენილ, ჭდეების არმქონე "
+"სურათებზეა დაყენებული (იხ <interface>მორგება|KPhotoAlbum-ის მორგება...|"
+"კატეგორიები|გამოსახულებები ჭდის გარეშე</interface>). ეს ჭდე აქ არ "
+"გამოჩნდება, სანამ ამ მიზნით გამოიყენება."
 
 #: AnnotationDialog/ListSelect.cpp:359
 #, kde-format
@@ -602,6 +633,8 @@ msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
 "any information about it from any image containing the item.</p>"
 msgstr ""
+"<p>მართლა გნებავთ, წაშალოთ \"%1\"?<br/>ელემენტის წაშლა ასევე წაშლის ყველა "
+"ინფორმაციას მის შესახებ ყველა გამოსახულებიდან, რომელიც მას შეიცავდა.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:446
 #, kde-format
@@ -625,6 +658,8 @@ msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
 "\"%3\" on any image containing it.</p>"
 msgstr ""
+"<p>მართლა გნებავთ, \"%1\"-ის სახელის \"%2\"-ზე გადარქმევა?<br/>თუ ასე იზამთ, "
+"\"%3\"-ის სახელი შეიცვლება ყველა გამოსახულებაზე, რომელიც მას შეიცავს.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:473
 #, kde-format
@@ -698,6 +733,8 @@ msgid ""
 "<p>%1 has already been tagged in another area on this image.</p><p>If you "
 "continue, the previous tag will be removed...</p>"
 msgstr ""
+"<p>%1-ს უკვე აქვს ჭდე გამოსახულების სხვა ადგილას.</p><p>თუ გააგრძელებთ, წინა "
+"ჭდე წაიშლება...</p>"
 
 #: AnnotationDialog/ResizableFrame.cpp:360
 #, kde-format
@@ -3364,6 +3401,8 @@ msgid ""
 "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports the "
 "<em>Purpose</em> plugin system.</p>"
 msgstr ""
+"<h1><a name=\"purpose\">დამატებების მხარდაჭერა</a></h1><p>KPhotoAlbum-ს "
+"დამატებითი მოდულების სისტემა<em>Purpose</em>-ის მხარდაჭერა გააჩნია .</p>"
 
 #: MainWindow/FeatureDialog.cpp:65
 #, kde-format

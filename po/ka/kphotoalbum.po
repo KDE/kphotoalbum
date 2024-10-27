@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-10-22 05:54+0200\n"
+"PO-Revision-Date: 2024-10-26 04:50+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -5490,6 +5490,8 @@ msgid ""
 "<p>Thumbnail image size. Changing the thumbnail size here triggers a rebuild "
 "of the thumbnail database.</p>"
 msgstr ""
+"<p>მინიატურის სურათის ზომა. მინიატურის ზომის შეცვლა აქ იწვევს მინიატურის "
+"მონაცემთა ბაზის თავიდან აგებას.</p>"
 
 #: Settings/ThumbnailsPage.cpp:108
 #, kde-format
@@ -5532,6 +5534,8 @@ msgid ""
 "<p>Checking this option will show the base name for the file under "
 "thumbnails in the thumbnail view.</p>"
 msgstr ""
+"<p>ამ პარამეტრის ჩართვა მინიატურების ხედში მინიატურების ქვეშ ფაილისთვის "
+"საბაზისო სახელს აჩვენებს.</p>"
 
 #: Settings/ThumbnailsPage.cpp:131
 #, kde-format
@@ -5539,6 +5543,8 @@ msgid ""
 "<p>Checking this option will show the Categories for the file under "
 "thumbnails in the thumbnail view</p>"
 msgstr ""
+"<p>ამ პარამეტრის ჩართვა აჩვენებს მინიატურების ქვეშ მყოფი ფაილის კატეგორიებს "
+"მინიატურების ხედში</p>"
 
 #: Settings/ThumbnailsPage.cpp:135
 #, kde-format
@@ -5732,6 +5738,9 @@ msgid ""
 "the image. If this option is not set, KPhotoAlbum will use a faster but less "
 "smooth scaling method.</p>"
 msgstr ""
+"<p>გამოსახულებების ჩვენებისას KPhotoAlbum, ჩვეულებრივ, მათ მოგლუვებულ "
+"დამასშტაბებას ახდენს. თუ ეს პარამეტრი ჩართული არაა, KPhotoAlbum უფრო სწრაფ, "
+"მაგრამ ნაკლებად გლუვ დამასშტაბების მეთოდს გამოიყენებს.</p>"
 
 #: Settings/ViewerPage.cpp:99
 #, kde-format
@@ -5788,6 +5797,8 @@ msgid ""
 "Tip: Use <shortcut>Alt+Shift+<placeholder>A-Z</placeholder></shortcut> to "
 "toggle a filter for that token."
 msgstr ""
+"რჩევა: გამოიყენეთ <shortcut>Alt + Shift + <placeholder>A-Z</placeholder></"
+"shortcut> რომ გადართოთ ფილტრი ამ კოდისთვის."
 
 #: ThumbnailView/ThumbnailDND.cpp:93
 #, kde-format
@@ -6542,6 +6553,9 @@ msgid ""
 "some platforms, this is a common problem with some video players.</"
 "p><p>Press <i>Continue</i> to let KPhotoAlbum try a different backend...</p>"
 msgstr ""
+"<p>როგორც ჩანს, KPhotoAlbum ავარიულად დასრულდა ვიდეოს დაკვრის დროს. ზოგიერთ "
+"პლატფორმაზე, ეს არის საერთო პრობლემა ზოგიერთ ვიდეოდაკვრელთან.</p><p>დააჭირეთ "
+"<i>გაგრძელებას</i>, რომ KPhotoAlbum–მა სხვა უკანაბოლო სცადოს..</p>"
 
 #: Viewer/ViewerWidget.cpp:1397
 #, kde-format
@@ -6549,6 +6563,8 @@ msgid ""
 "<p>Video backend that was interrupted: <tt>%1</tt></p><p>Video backend that "
 "will be used instead: <tt>%2</tt></p>"
 msgstr ""
+"<p>ვიდეოს უკანაბოლო, რომელიც შეწყდა: <tt> %1</tt></p><p>მის ნაცვლად "
+"გამოყენებული ვიდეოს უკანაბოლო: <tt>%2</tt></p>"
 
 #: Viewer/ViewerWidget.cpp:1410
 #, kde-format
@@ -6556,6 +6572,9 @@ msgid ""
 "<p>KPhotoAlbum has tried out all available video backends, but every one "
 "crashed at some point.</p><p>Crash detection is now turned off.</p>"
 msgstr ""
+"<p>KPhotoAlbum–მა სცადა ყველა ხელმისაწვდომი ვიდეო უკანაბოლო, მაგრამ ყველა "
+"რაღაც მომენტში ავარიულად დასრულდა.</p><p>ავარიის გამოვლენა ახლა გამორთულია.</"
+"p>"
 
 #: Viewer/ViewerWidget.cpp:1468
 #, kde-format

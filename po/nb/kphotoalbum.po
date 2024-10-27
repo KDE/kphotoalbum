@@ -6837,23 +6837,3 @@ msgstr "Vis bildestørrelse"
 #, kde-format
 msgid "Show Rating"
 msgstr "Vis karakter"
-
-#~ msgid ""
-#~ "<p>Could not save the window layout.</p>File %1 could not be opened "
-#~ "because of the following error: %2"
-#~ msgstr ""
-#~ "<p>Klarte ikke å lagre vindusutformingen.</p> Fila %1 kunne ikke åpnes på "
-#~ "grunn av denne feilen: %2"
-
-#~ msgid ""
-#~ "<p>Could not save the window layout.</p>File %1 could not be written "
-#~ "because of the following error: %2"
-#~ msgstr ""
-#~ "<p>Klarte ikke å lagre vindusutformingen.</p> Fila %1 kunne ikke skrives "
-#~ "på grunn av denne feilen: %2"
-
-#~ msgid "Loading Database"
-#~ msgstr "Laster inn database"
-
-#~ msgid "Loading Main Window"
-#~ msgstr "Laster hovedvinduet"

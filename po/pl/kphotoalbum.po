@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-08-10 12:56+0200\n"
+"PO-Revision-Date: 2024-10-26 12:39+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -324,8 +324,7 @@ msgid "Settings saved!"
 msgstr "Zapisano ustawienia!"
 
 #: AnnotationDialog/Dialog.cpp:970
-#, fuzzy, kde-format
-#| msgid "Save Current Window Setup"
+#, kde-format
 msgid "Save current window setup"
 msgstr "Zachowaj obecne ustawienia okna"
 
@@ -3701,16 +3700,13 @@ msgstr ""
 "Marble, to KPhotoAlbum ma możliwość pokazywania szczegółów GPS na mapie.</p>"
 
 #: MainWindow/FeatureDialog.cpp:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on QtAv "
-#| "for displaying videos; this in turn relies on ffmpeg</p>"
+#, kde-format
 msgid ""
 "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on phonon "
 "or VLC for displaying videos</p>"
 msgstr ""
-"<h1><a name=\"video\">Obsługa filmów</a></h1><p>KPhotoAlbum do wyświetlania "
-"filmów polega na QtAv; to z kolei polega na ffmpeg</p>"
+"<h1><a name=\"video\">Obsługa filmów</a></h1><p>KPhotoAlbum do odtwarzania "
+"filmów polega na phonon lub VLC</p>"
 
 #: MainWindow/FeatureDialog.cpp:78
 #, kde-format
@@ -6129,25 +6125,7 @@ msgid "<h1>Choose a Video Player</h1>"
 msgstr "<h1>Wybierz odtwarzacz filmów</h1>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:29
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html><p>Unfortunately, there is no video player which just works out of "
-#| "the box for everyone.</p><p>KPhotoAlbum therefore comes with three "
-#| "different back-ends, choose the one that works the best for you</"
-#| "p><p><b>VLC</b> seems to be the best supported video player back-end, "
-#| "meaning it can play most video formats. It has one drawback though, it "
-#| "requires X11. If you use Wayland, then you will find that the videos "
-#| "shows up in a window of their own, and in this case VLC is likely not a "
-#| "very good fit for you. If on the other hand you do use X11 then VLC is "
-#| "likely your best choice.</p><p>Traditionally KPhotoAlbum has been using "
-#| "<b>Phonon</b> as the video player back-end. We've unfortunately seen it "
-#| "crash on many different video formats - possibly because our system "
-#| "wasn't correctly configured. If this is the case for you (and you can't "
-#| "use VLC), then try the <b>QtAV</b> back-end, which seems to support a lot "
-#| "of formats (everything we threw at it). <b>QtAV</b> unfortunately also "
-#| "has a drawback - it seems to get slightly out of sync between video and "
-#| "audio.</p><p><b><font color=red>You can at any time change the backend "
-#| "from Settings -> Viewer</font></b></p></html>"
+#, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
 "box for everyone.</p><p>KPhotoAlbum therefore comes with three different "
@@ -6173,12 +6151,8 @@ msgstr ""
 "będzie najlepszym wyborem.</p><p>Tradycyjnie KPhotoAlbum używało <b>Phonona</"
 "b> jako odtwarzacza filmów. Niestety zauważyliśmy, że wysypuje się ona na "
 "wielu różnych rodzajach filmów - prawdopodobnie przez to, że nasz system nie "
-"był dobrze ustawiony. Jeśli też tak masz (i nie możesz użyć VLC), to spróbuj "
-"odtwarzacza <b>QtAV</b>, który wydaje się obsługiwać wiele formatów "
-"(cokolwiek byśmy na niego nie wrzucili). <b>QtAV</b> niestety także ma wadę "
-"- obraz i dźwięk zaczynają się trochę rozjeżdżać.</p><p><b><font "
-"color=red>Odtwarzacz możesz zmienić w każdej chwili w Ustawienia -> "
-"Przeglądarka</font></b></p></html>"
+"był dobrze ustawiony.</p><p><b><font color=red>Odtwarzacz możesz zmienić w "
+"każdej chwili w Ustawienia -> Przeglądarka</font></b></p></html>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:49
 #: Settings/VideoPlayerSelectorDialog.cpp:58

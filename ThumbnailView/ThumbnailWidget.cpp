@@ -376,7 +376,7 @@ DB::FileNameList ThumbnailView::ThumbnailWidget::selection(ThumbnailView::Select
     auto indexSelection = selectedIndexes();
     // selectedIndexes() is not sorted:
     std::sort(indexSelection.begin(), indexSelection.end());
-    for (const QModelIndex &index : indexSelection) {
+    for (const QModelIndex &index : std::as_const(indexSelection)) {
         const DB::FileName currFileName = model()->imageAt(index.row());
         bool includeAllStacks = false;
         switch (mode) {

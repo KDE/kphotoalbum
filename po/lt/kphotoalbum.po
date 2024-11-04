@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2011-10-31 15:42+0000\n"
+"PO-Revision-Date: 2024-11-04 00:51+0200\n"
 "Last-Translator: Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -15,17 +15,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Andrius Štikonas"
+msgstr "Andrius Štikonas, Moo"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "andrius@stikonas.eu"
+msgstr "andrius@stikonas.eu, <>"
 
 #: AnnotationDialog/AreaTagSelectDialog.cpp:87
 #, kde-format
@@ -40,7 +40,7 @@ msgstr "rytoj"
 #: AnnotationDialog/DateEdit.cpp:70 Utilities/Timespan.cpp:169
 #, kde-format
 msgid "today"
-msgstr ""
+msgstr "šiandien"
 
 #: AnnotationDialog/DateEdit.cpp:71 Utilities/Timespan.cpp:172
 #, kde-format
@@ -51,7 +51,7 @@ msgstr "vakar"
 #: HTMLGenerator/HTMLDialog.cpp:144 ImportExport/MD5CheckPage.cpp:66
 #, kde-format
 msgid "Description"
-msgstr "Aprašymas"
+msgstr "Aprašas"
 
 #: AnnotationDialog/Dialog.cpp:109
 #, kde-format
@@ -68,7 +68,7 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:139
 #, kde-format
 msgid "Image Preview"
-msgstr "Paveikslėlio peržiūra"
+msgstr "Paveikslo peržiūra"
 
 #: AnnotationDialog/Dialog.cpp:143
 #, kde-format
@@ -83,7 +83,7 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:399
 #, kde-format
 msgid "Cancel"
-msgstr "Atsisakau"
+msgstr "Atsisakyti"
 
 #: AnnotationDialog/Dialog.cpp:174 AnnotationDialog/Dialog.cpp:176
 #, fuzzy, kde-format
@@ -117,7 +117,7 @@ msgstr "Parinktys..."
 #: AnnotationDialog/Dialog.cpp:246
 #, kde-format
 msgid "&Done"
-msgstr "&Baigta"
+msgstr "&Atlikta"
 
 #: AnnotationDialog/Dialog.cpp:249
 #, kde-format
@@ -125,8 +125,7 @@ msgid "Continue &Later"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:257 AnnotationDialog/Dialog.cpp:833
-#, fuzzy, kde-format
-#| msgid "&Search"
+#, kde-format
 msgctxt "@action:button"
 msgid "&Search"
 msgstr "&Ieškoti"
@@ -134,12 +133,12 @@ msgstr "&Ieškoti"
 #: AnnotationDialog/Dialog.cpp:326
 #, kde-format
 msgid "Label: "
-msgstr "Žymė: "
+msgstr "Etiketė: "
 
 #: AnnotationDialog/Dialog.cpp:330 ImportExport/MD5CheckPage.cpp:65
 #, kde-format
 msgid "Label"
-msgstr "Žymė"
+msgstr "Etiketė"
 
 #: AnnotationDialog/Dialog.cpp:339
 #, kde-format
@@ -191,22 +190,22 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:413
 #, kde-format
 msgid "=="
-msgstr ""
+msgstr "=="
 
 #: AnnotationDialog/Dialog.cpp:413
 #, kde-format
 msgid ">="
-msgstr ""
+msgstr ">="
 
 #: AnnotationDialog/Dialog.cpp:413
 #, kde-format
 msgid "<="
-msgstr ""
+msgstr "<="
 
 #: AnnotationDialog/Dialog.cpp:413
 #, kde-format
 msgid "!="
-msgstr ""
+msgstr "!="
 
 #: AnnotationDialog/Dialog.cpp:421
 #, kde-format
@@ -230,16 +229,15 @@ msgid "Annotations (%1/%2)"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:838
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
-msgstr "Ieškoti"
+msgstr "Paieška"
 
 #: AnnotationDialog/Dialog.cpp:841
 #, kde-format
 msgid "Done"
-msgstr "Baigta"
+msgstr "Atlikta"
 
 #: AnnotationDialog/Dialog.cpp:848
 #, fuzzy, kde-format
@@ -278,10 +276,9 @@ msgid "Sort Alphabetically (Flat)"
 msgstr "Rūšiuoti pagal abėcėlę"
 
 #: AnnotationDialog/Dialog.cpp:897
-#, fuzzy, kde-format
-#| msgid "Show Date"
+#, kde-format
 msgid "Sort by Date"
-msgstr "Rodyti datą"
+msgstr "Rikiuoti pagal datą"
 
 #: AnnotationDialog/Dialog.cpp:913
 #, kde-format
@@ -304,10 +301,9 @@ msgid "Show Only Selected Ctrl+S"
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:970 Map/MapView.cpp:360
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Settings saved!"
-msgstr "Nuostatos"
+msgstr "Nuostatos įrašytos!"
 
 #: AnnotationDialog/Dialog.cpp:970
 #, kde-format
@@ -322,11 +318,10 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/Dialog.cpp:1035
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Įrašyti pakeitimus?"
+msgstr "Atmesti pakeitimus?"
 
 #: AnnotationDialog/Dialog.cpp:1126
 #, kde-format
@@ -485,11 +480,10 @@ msgid "Copy tags from previously tagged image"
 msgstr ""
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:359
-#, fuzzy, kde-format
-#| msgid "Delete image"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"
-msgstr "Trinti paveikslėlį"
+msgstr "Ištrinti paveikslą"
 
 #: AnnotationDialog/ListSelect.cpp:72
 #, fuzzy, kde-format
@@ -533,20 +527,19 @@ msgid "No Item Selected"
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:363
-#, fuzzy, kde-format
-#| msgid "<b>Sorting</b>"
+#, kde-format
 msgid "<b>%1</b>"
-msgstr "<b>Rikiavimas</b>"
+msgstr "<b>%1</b>"
 
 #: AnnotationDialog/ListSelect.cpp:369 Settings/CategoryPage.cpp:74
 #, kde-format
 msgid "Delete"
-msgstr "Pašalinti"
+msgstr "Ištrinti"
 
 #: AnnotationDialog/ListSelect.cpp:370
 #, kde-format
 msgid "Rename..."
-msgstr "Pervardinti..."
+msgstr "Pervadinti..."
 
 #: AnnotationDialog/ListSelect.cpp:372
 #, fuzzy, kde-format
@@ -583,7 +576,7 @@ msgstr "<b>Rikiavimas</b>"
 #: AnnotationDialog/ListSelect.cpp:415
 #, kde-format
 msgid "Usage"
-msgstr "Panaudojimas"
+msgstr "Naudojimas"
 
 #: AnnotationDialog/ListSelect.cpp:416
 #, fuzzy, kde-format
@@ -610,11 +603,10 @@ msgid "Really Delete %1?"
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:463
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
-msgstr "Pervardinti..."
+msgstr "Pervadinti elementą"
 
 #: AnnotationDialog/ListSelect.cpp:463
 #, kde-format
@@ -629,18 +621,16 @@ msgid ""
 msgstr ""
 
 #: AnnotationDialog/ListSelect.cpp:473
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Pervardinti..."
+msgstr "Pervadinti %1?"
 
 #: AnnotationDialog/ListSelect.cpp:477
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
-msgstr "Pervardinti..."
+msgstr "Pervadinti"
 
 #: AnnotationDialog/ListSelect.cpp:508
 #, fuzzy, kde-format
@@ -797,13 +787,12 @@ msgstr "Fono spalva"
 #: BackgroundTaskManager/JobViewer.cpp:65
 #, kde-format
 msgid "Pause"
-msgstr ""
+msgstr "Pristabdyti"
 
 #: BackgroundTaskManager/JobViewer.cpp:65
-#, fuzzy, kde-format
-#| msgid "Content"
+#, kde-format
 msgid "Continue"
-msgstr "Turinys"
+msgstr "Tęsti"
 
 #: BackgroundTaskManager/StatusIndicator.cpp:78
 #, kde-format
@@ -818,11 +807,10 @@ msgstr ""
 
 #: Browser/AbstractCategoryModel.cpp:42 Exif/SearchDialog.cpp:387
 #: lib/kpaexif/SearchInfo.cpp:191
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "As in No persons, no locations etc."
 msgid "None"
-msgstr "Nieko"
+msgstr "Nėra"
 
 #: Browser/AbstractCategoryModel.cpp:44
 #, kde-format
@@ -862,23 +850,20 @@ msgstr "Paveikslai"
 #: Browser/AbstractCategoryModel.cpp:168
 #, kde-format
 msgid "Videos"
-msgstr "Video"
+msgstr "Vaizdo įrašai"
 
 #: Browser/AbstractCategoryModel.cpp:170
-#, fuzzy, kde-format
-#| msgid "Show Date"
+#, kde-format
 msgid "Start Date"
-msgstr "Rodyti datą"
+msgstr "Pradžios data"
 
 #: Browser/AbstractCategoryModel.cpp:172
-#, fuzzy, kde-format
-#| msgid "Date"
+#, kde-format
 msgid "End Date"
-msgstr "Data"
+msgstr "Pabaigos data"
 
 #: Browser/Breadcrumb.cpp:27
-#, fuzzy, kde-format
-#| msgid "All"
+#, kde-format
 msgctxt "As in 'all pictures'."
 msgid "All"
 msgstr "Visi"
@@ -895,8 +880,7 @@ msgid "Exif Info"
 msgstr "Exif informacija"
 
 #: Browser/OverviewPage.cpp:169
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgctxt "@action Search button in the browser view."
 msgid "Search"
 msgstr "Ieškoti"
@@ -996,7 +980,7 @@ msgstr[3] ""
 #: CategoryListView/CheckDropItem.cpp:157
 #, kde-format
 msgid "Move Items"
-msgstr "Perkelti objektus"
+msgstr "Perkelti elementus"
 
 #: DateBar/DateBarWidget.cpp:62
 #, fuzzy, kde-format
@@ -1016,16 +1000,14 @@ msgid "Scroll left"
 msgstr ""
 
 #: DateBar/DateBarWidget.cpp:89
-#, fuzzy, kde-format
-#| msgid "Zoom In"
+#, kde-format
 msgid "Zoom in"
-msgstr "Padidinti"
+msgstr "Didinti"
 
 #: DateBar/DateBarWidget.cpp:100
-#, fuzzy, kde-format
-#| msgid "Zoom Out"
+#, kde-format
 msgid "Zoom out"
-msgstr "Sumažinti"
+msgstr "Mažinti"
 
 #: DateBar/DateBarWidget.cpp:112
 #, fuzzy, kde-format
@@ -1138,16 +1120,14 @@ msgid "10 Minutes"
 msgstr "10 minučių"
 
 #: DateBar/ViewHandler.cpp:312
-#, fuzzy, kde-format
-#| msgid "10 Minutes"
+#, kde-format
 msgid "1 Minute"
-msgstr "10 minučių"
+msgstr "1 minutė"
 
 #: DateBar/ViewHandler.cpp:347
-#, fuzzy, kde-format
-#| msgid "1 second"
+#, kde-format
 msgid "10 Seconds"
-msgstr "1 sekundę"
+msgstr "10 sekundžių"
 
 #: DB/Category.cpp:309
 #, kde-format
@@ -1155,10 +1135,9 @@ msgid "Unable to create folder '%1'."
 msgstr ""
 
 #: DB/Category.cpp:309
-#, fuzzy, kde-format
-#| msgid "Could Not Create File"
+#, kde-format
 msgid "Unable to Create Folder"
-msgstr "Nepavyksta sukurti failo"
+msgstr "Nepavyko sukurti aplanko"
 
 #: DB/Category.cpp:318
 #, kde-format
@@ -1168,91 +1147,79 @@ msgstr ""
 #: DB/Category.cpp:318
 #, kde-format
 msgid "Error Saving Image"
-msgstr "Klaida išsaugant paveikslėlį"
+msgstr "Klaida įrašant paveikslą"
 
 #: DB/ImageDate.cpp:33
-#, fuzzy, kde-format
-#| msgid "jan"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "jan"
-msgstr "saus"
+msgstr "sau"
 
 #: DB/ImageDate.cpp:33
-#, fuzzy, kde-format
-#| msgid "feb"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "feb"
 msgstr "vas"
 
 #: DB/ImageDate.cpp:34
-#, fuzzy, kde-format
-#| msgid "mar"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "mar"
 msgstr "kov"
 
 #: DB/ImageDate.cpp:34
-#, fuzzy, kde-format
-#| msgid "apr"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "apr"
 msgstr "bal"
 
 #: DB/ImageDate.cpp:35
-#, fuzzy, kde-format
-#| msgid "may"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "may"
 msgstr "geg"
 
 #: DB/ImageDate.cpp:35
-#, fuzzy, kde-format
-#| msgid "jun"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "jun"
 msgstr "bir"
 
 #: DB/ImageDate.cpp:36
-#, fuzzy, kde-format
-#| msgid "jul"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "jul"
-msgstr "liep"
+msgstr "lie"
 
 #: DB/ImageDate.cpp:36
-#, fuzzy, kde-format
-#| msgid "aug"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "aug"
 msgstr "rugp"
 
 #: DB/ImageDate.cpp:37
-#, fuzzy, kde-format
-#| msgid "sep"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "sep"
 msgstr "rugs"
 
 #: DB/ImageDate.cpp:37
-#, fuzzy, kde-format
-#| msgid "oct"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "oct"
-msgstr "sp"
+msgstr "spa"
 
 #: DB/ImageDate.cpp:38
-#, fuzzy, kde-format
-#| msgid "nov"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "nov"
 msgstr "lap"
 
 #: DB/ImageDate.cpp:38
-#, fuzzy, kde-format
-#| msgid "dec"
+#, kde-format
 msgctxt "Abbreviated month name"
 msgid "dec"
-msgstr "gr"
+msgstr "gru"
 
 #: DB/ImageDB.cpp:63
 #, kde-format
@@ -1262,10 +1229,9 @@ msgid ""
 msgstr ""
 
 #: DB/ImageDB.cpp:66
-#, fuzzy, kde-format
-#| msgid "Could Not Create File"
+#, kde-format
 msgid "Found Autosave File"
-msgstr "Nepavyksta sukurti failo"
+msgstr "Rastas automatinio įrašymo failas"
 
 #: DB/ImageDB.cpp:398
 #, kde-format
@@ -1389,10 +1355,9 @@ msgid ""
 msgstr ""
 
 #: DB/XML/FileReader.cpp:195 DB/XML/FileReader.cpp:300
-#, fuzzy, kde-format
-#| msgid "Loading Database"
+#, kde-format
 msgid "Error in database file"
-msgstr "Įkeliama duombazė"
+msgstr "Klaida duomenų bazės faile"
 
 #: DB/XML/FileReader.cpp:255
 #, kde-format
@@ -1469,13 +1434,13 @@ msgstr ""
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
-msgstr ""
+msgstr "<li>%1:<br/>"
 
 #: DB/XML/FileReader.cpp:486
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
-msgstr ""
+msgstr "%1<br/>"
 
 #: DB/XML/FileReader.cpp:489
 #, kde-format
@@ -1578,7 +1543,7 @@ msgstr ""
 #: DB/XML/FileWriter.cpp:80 DB/XML/FileWriter.cpp:116 DB/XML/FileWriter.cpp:125
 #, kde-format
 msgid "Error while saving..."
-msgstr ""
+msgstr "Klaida įrašant..."
 
 #: DB/XML/FileWriter.cpp:113
 #, kde-format
@@ -1652,17 +1617,15 @@ msgid "<p>Database path: <filename>%1</filename></p>"
 msgstr ""
 
 #: DB/XML/XmlReader.cpp:94
-#, fuzzy, kde-format
-#| msgid "Loading Database"
+#, kde-format
 msgid "Error while reading database file"
-msgstr "Įkeliama duombazė"
+msgstr "Klaida skaitant duomenų bazės failą"
 
 #: Exif/InfoDialog.cpp:35
-#, fuzzy, kde-format
-#| msgid "Exif Info"
+#, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
-msgstr "Exif informacija"
+msgstr "Exif informacija ir failo metaduomenys"
 
 #: Exif/InfoDialog.cpp:75
 #, kde-format
@@ -1677,16 +1640,14 @@ msgid "IPTC character set:"
 msgstr ""
 
 #: Exif/InfoDialog.cpp:98
-#, fuzzy, kde-format
-#| msgid "Exif Info"
+#, kde-format
 msgid "Exif info"
 msgstr "Exif informacija"
 
 #: Exif/InfoDialog.cpp:99
-#, fuzzy, kde-format
-#| msgid "Building thumbnails"
+#, kde-format
 msgid "File metadata"
-msgstr "Kuriamos miniatiūros"
+msgstr "Failo metaduomenys"
 
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
@@ -1696,7 +1657,7 @@ msgstr ""
 #: Exif/MetaDataDisplay.cpp:42
 #, kde-format
 msgid "MIME type:"
-msgstr ""
+msgstr "MIME tipas:"
 
 #: Exif/MetaDataDisplay.cpp:46 Settings/ViewerSizeConfig.cpp:26
 #, kde-format
@@ -1719,16 +1680,14 @@ msgid "Owner:"
 msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:62
-#, fuzzy, kde-format
-#| msgid "Group name:"
+#, kde-format
 msgid "Group:"
-msgstr "Grupės pavadinimas:"
+msgstr "Grupė:"
 
 #: Exif/MetaDataDisplay.cpp:66
-#, fuzzy, kde-format
-#| msgid "Version: %1"
+#, kde-format
 msgid "Permissions:"
-msgstr "Version: %1"
+msgstr "Leidimai:"
 
 #: Exif/MetaDataDisplay.cpp:100
 #, kde-format
@@ -1842,11 +1801,10 @@ msgstr ""
 #: Exif/SearchDialog.cpp:66
 #, kde-format
 msgid "Focal Length"
-msgstr "Objektyvo ilgis"
+msgstr "Židinio nuotolis"
 
 #: Exif/SearchDialog.cpp:74
-#, fuzzy, kde-format
-#| msgid "to"
+#, kde-format
 msgctxt "As in 'A range from x to y'"
 msgid "to"
 msgstr "iki"
@@ -1875,7 +1833,7 @@ msgstr "Įvairūs"
 #: Exif/SearchDialog.cpp:134
 #, kde-format
 msgid "Iso setting"
-msgstr "Iso nuostatos"
+msgstr "Iso nuostata"
 
 #: Exif/SearchDialog.cpp:139
 #, kde-format
@@ -1886,12 +1844,12 @@ msgstr "sek."
 #: Exif/SearchDialog.cpp:178
 #, kde-format
 msgid "1 second"
-msgstr "1 sekundę"
+msgstr "1 sekundė"
 
 #: Exif/SearchDialog.cpp:195
 #, kde-format
 msgid "Exposure time"
-msgstr "Išlaikymo trukmė"
+msgstr "Išlaikymas"
 
 #: Exif/SearchDialog.cpp:245
 #, kde-format
@@ -1921,7 +1879,7 @@ msgstr ""
 #: Exif/SearchDialog.cpp:312
 #, kde-format
 msgid "Saturation"
-msgstr "Sodrumas"
+msgstr "Grynis"
 
 #: Exif/SearchDialog.cpp:363
 #, kde-format
@@ -1988,7 +1946,7 @@ msgstr ""
 #: HTMLGenerator/Generator.cpp:646
 #, kde-format
 msgid "Could Not Create File"
-msgstr "Nepavyksta sukurti failo"
+msgstr "Nepavyko sukurti failo"
 
 #: HTMLGenerator/Generator.cpp:665
 #, kde-format
@@ -2030,7 +1988,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:104
 #, kde-format
 msgid "Description:"
-msgstr "Aprašymas:"
+msgstr "Aprašas:"
 
 #: HTMLGenerator/HTMLDialog.cpp:111
 #, kde-format
@@ -2071,7 +2029,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:177 HTMLGenerator/HTMLDialog.cpp:178
 #, kde-format
 msgid "Layout"
-msgstr "Maketas"
+msgstr "Išdėstymas"
 
 #: HTMLGenerator/HTMLDialog.cpp:187 Settings/CategoryPage.cpp:130
 #, kde-format
@@ -2086,7 +2044,7 @@ msgstr "Stulpelių skaičius:"
 #: HTMLGenerator/HTMLDialog.cpp:217
 #, kde-format
 msgid "Theme:"
-msgstr "Tema:"
+msgstr "Apipavidalinimas:"
 
 #: HTMLGenerator/HTMLDialog.cpp:225
 #, fuzzy, kde-format
@@ -2097,7 +2055,7 @@ msgstr "Rodyti aprašymą"
 #: HTMLGenerator/HTMLDialog.cpp:232
 #, kde-format
 msgid "Image Sizes"
-msgstr "Paveikslėlių dydžiai"
+msgstr "Paveikslų dydžiai"
 
 #: HTMLGenerator/HTMLDialog.cpp:241
 #, kde-format
@@ -2198,11 +2156,10 @@ msgid ""
 msgstr ""
 
 #: HTMLGenerator/HTMLDialog.cpp:443
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr "Aplankas"
+msgstr "Aplankas yra"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:532 MainWindow/SplashScreen.cpp:52
@@ -2272,10 +2229,9 @@ msgid "Write error"
 msgstr ""
 
 #: ImageManager/ExtractOneVideoFrame.cpp:108
-#, fuzzy, kde-format
-#| msgid "Unknown"
+#, kde-format
 msgid "Unknown error"
-msgstr "Nežinoma"
+msgstr "Nežinoma klaida"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:113
 #, kde-format
@@ -2306,7 +2262,7 @@ msgstr ""
 #: ImageManager/ThumbnailBuilder.cpp:178
 #, kde-format
 msgid "Building thumbnails"
-msgstr "Kuriamos miniatiūros"
+msgstr "Sudaromos miniatiūros"
 
 #: ImportExport/Export.cpp:74
 #, fuzzy, kde-format
@@ -2419,7 +2375,7 @@ msgstr ""
 #: ImportExport/Export.cpp:256
 #, kde-format
 msgid "&Cancel"
-msgstr "&Atšaukti"
+msgstr "&Atsisakyti"
 
 #: ImportExport/Export.cpp:275
 #, kde-format
@@ -2503,8 +2459,7 @@ msgid ""
 msgstr ""
 
 #: ImportExport/ImportDialog.cpp:140
-#, fuzzy, kde-format
-#| msgid "Introduction"
+#, kde-format
 msgctxt "@title:tab introduction page"
 msgid "Introduction"
 msgstr "Įžanga"
@@ -2555,11 +2510,10 @@ msgid "Folder %1 does not exist. Should it be created?"
 msgstr ""
 
 #: ImportExport/ImportDialog.cpp:301 MainWindow/WelcomeDialog.cpp:157
-#, fuzzy, kde-format
-#| msgid "Could Not Create File"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "Nepavyksta sukurti failo"
+msgstr "Sukurti aplanką?"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1187
@@ -2579,11 +2533,10 @@ msgid "How to resolve clashes"
 msgstr ""
 
 #: ImportExport/ImportHandler.cpp:93 ImportExport/ImportHandler.cpp:155
-#, fuzzy, kde-format
-#| msgid "Copying Images"
+#, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
-msgstr "Kopijuojami paveikslėliai"
+msgstr "Kopijuojami paveikslai"
 
 #: ImportExport/ImportHandler.cpp:170
 #, kde-format
@@ -2593,7 +2546,7 @@ msgstr ""
 #: ImportExport/ImportHandler.cpp:189
 #, kde-format
 msgid "Updating Database"
-msgstr "Atnaujinama duombazė"
+msgstr "Atnaujinama duomenų bazė"
 
 #: ImportExport/ImportHandler.cpp:234
 #, kde-format
@@ -2630,7 +2583,7 @@ msgstr ""
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
 msgid "Error Importing Data"
-msgstr "Klaida, importuojant duomenis"
+msgstr "Klaida importuojant duomenis"
 
 #: ImportExport/KimFileReader.cpp:35
 #, kde-format
@@ -2720,10 +2673,9 @@ msgid "Conflicting commandline options: %1 and %2!\n"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:44
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "KPhotoAlbum Thumbnail Tool"
-msgstr "KPhotoAlbum"
+msgstr "KPhotoAlbum miniatiūrų įrankis"
 
 #: kpa-thumbnailtool/main.cpp:46
 #, kde-format
@@ -2747,10 +2699,9 @@ msgid "Development, Maintainer"
 msgstr "Prog. įrangos kūrimas"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:78
-#, fuzzy, kde-format
-#| msgid "Robert L Krawitz"
+#, kde-format
 msgid "Robert Krawitz"
-msgstr "Robert L Krawitz"
+msgstr "Robert Krawitz"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:78
 #, fuzzy, kde-format
@@ -2865,11 +2816,10 @@ msgid "%1 is not a folder!\n"
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:116
-#, fuzzy, kde-format
-#| msgid "Thumbnail size:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
-msgstr "Miniatiūrų dydis:"
+msgstr "Miniatiūrų podėlio aplankas: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:117
 #, fuzzy, kde-format
@@ -2900,11 +2850,10 @@ msgid ""
 msgstr ""
 
 #: kpa-thumbnailtool/main.cpp:123
-#, fuzzy, kde-format
-#| msgid "Number of columns:"
+#, kde-format
 msgctxt "@info:shell"
 msgid "Number of thumbnails: %1\n"
-msgstr "Stulpelių skaičius:"
+msgstr "Miniatiūrų skaičius: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:129
 #, kde-format
@@ -2975,7 +2924,7 @@ msgstr ""
 
 #. i18n: ectx: Menu (view)
 #: kphotoalbumui.rc:33
-#, kde-format
+#, fuzzy, kde-format
 msgid "&View"
 msgstr "&Rodyti"
 
@@ -2995,13 +2944,13 @@ msgstr ""
 #: kphotoalbumui.rc:85
 #, kde-format
 msgid "Plugins"
-msgstr "Papildiniai"
+msgstr "Įskiepiai"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: kphotoalbumui.rc:97
 #, kde-format
 msgid "Main Toolbar"
-msgstr "Pagrindinė įrankinė"
+msgstr "Pagrindinė įrankių juosta"
 
 #: lib/kpabase/SettingsData.cpp:247
 #, kde-format
@@ -3030,10 +2979,9 @@ msgid ""
 msgstr ""
 
 #: lib/kpaexif/Database.cpp:188
-#, fuzzy, kde-format
-#| msgid "Loading Database"
+#, kde-format
 msgid "Error in Exif database"
-msgstr "Įkeliama duombazė"
+msgstr "Klaida Exif duomenų bazėje"
 
 #: lib/kpaexif/Database.cpp:209
 #, kde-format
@@ -3058,7 +3006,7 @@ msgstr "KPhotoAlbum"
 #: main.cpp:67
 #, kde-format
 msgid "KDE Photo Album"
-msgstr "KDE nuotraukų albumas"
+msgstr "KDE Photo Album"
 
 #: main.cpp:69
 #, kde-format
@@ -3269,21 +3217,19 @@ msgstr[2] "Kopijuojami paveikslėliai"
 msgstr[3] "Kopijuojami paveikslėliai"
 
 #: MainWindow/DeleteDialog.cpp:24
-#, fuzzy, kde-format
-#| msgid "Removing 1 item"
-#| msgid_plural "Removing %1 items"
+#, kde-format
 msgctxt "@title:window"
 msgid "Removing Items"
-msgstr "Šalinamas %1 objektas"
+msgstr "Šalinami elementai"
 
 #: MainWindow/DeleteDialog.cpp:64
 #, kde-format
 msgid "Removing 1 item"
 msgid_plural "Removing %1 items"
-msgstr[0] "Šalinamas %1 objektas"
-msgstr[1] "Šalinamas %1 objektai"
-msgstr[2] "Šalinamas %1 objektų"
-msgstr[3] "Šalinamas %1 objektas"
+msgstr[0] "Šalinamas %1 elementas"
+msgstr[1] "Šalinami %1 elementai"
+msgstr[2] "Šalinama %1 elementų"
+msgstr[3] "Šalinamas %1 elementas"
 
 #: MainWindow/DeleteDialog.cpp:65
 #, kde-format
@@ -3407,7 +3353,7 @@ msgstr "Kopijuoti ir atverti"
 #: MainWindow/ExternalPopup.cpp:87
 #, kde-format
 msgid "Open With..."
-msgstr "Atverti su..."
+msgstr "Atverti naudojant..."
 
 #: MainWindow/ExternalPopup.cpp:102
 #, kde-format
@@ -3527,15 +3473,13 @@ msgid "Video metadata support"
 msgstr "Kuriamos miniatiūros"
 
 #: MainWindow/FeatureDialog.cpp:180
-#, fuzzy, kde-format
-#| msgid "Yes"
+#, kde-format
 msgctxt "Feature available"
 msgid "Yes"
 msgstr "Taip"
 
 #: MainWindow/FeatureDialog.cpp:181
-#, fuzzy, kde-format
-#| msgid "No"
+#, kde-format
 msgctxt "Feature not available"
 msgid "No"
 msgstr "Ne"
@@ -3704,18 +3648,16 @@ msgid "%each"
 msgstr "Ieškoti"
 
 #: MainWindow/SearchBar.cpp:20
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgctxt "Name/title of the search bar toolbar widget"
 msgid "Search Bar"
-msgstr "Ieškoti"
+msgstr "Paieškos juosta"
 
 #: MainWindow/SearchBar.cpp:25
-#, fuzzy, kde-format
-#| msgid "Search"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Search ..."
-msgstr "Ieškoti"
+msgstr "Ieškoti..."
 
 #: MainWindow/StatisticsDialog.cpp:35
 #, kde-format
@@ -3782,15 +3724,13 @@ msgid "Tag:"
 msgstr ""
 
 #: MainWindow/StatisticsDialog.cpp:127
-#, fuzzy, kde-format
-#| msgid "None"
+#, kde-format
 msgctxt "@item:inlistbox meaning 'no category'"
 msgid "None"
-msgstr "Nieko"
+msgstr "Nėra"
 
 #: MainWindow/StatisticsDialog.cpp:167
-#, fuzzy, kde-format
-#| msgid "All"
+#, kde-format
 msgctxt "As in 'all images'"
 msgid "All"
 msgstr "Visi"
@@ -3798,7 +3738,7 @@ msgstr "Visi"
 #: MainWindow/StatisticsDialog.cpp:213
 #, kde-format
 msgid "Total"
-msgstr "Viso"
+msgstr "Iš viso"
 
 #: MainWindow/StatusBar.cpp:104
 #, fuzzy, kde-format
@@ -3820,7 +3760,7 @@ msgstr ""
 #: MainWindow/TokenEditor.cpp:61
 #, kde-format
 msgid "Select None"
-msgstr "Pasirinkti nieko"
+msgstr "Nuimti žymėjimą nuo visų"
 
 #: MainWindow/WelcomeDialog.cpp:46
 #, kde-format
@@ -3875,10 +3815,9 @@ msgid "Folder does not exist, create it?"
 msgstr ""
 
 #: MainWindow/WelcomeDialog.cpp:166
-#, fuzzy, kde-format
-#| msgid "Could Not Create File"
+#, kde-format
 msgid "Could not create folder %1"
-msgstr "Nepavyksta sukurti failo"
+msgstr "Nepavyko sukurti aplanko %1"
 
 #: MainWindow/WelcomeDialog.cpp:171
 #, kde-format
@@ -3921,11 +3860,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:306
-#, fuzzy, kde-format
-#| msgid "Delete image"
+#, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
-msgstr "Trinti paveikslėlį"
+msgstr "Ištrinti demonstracinę duomenų bazę"
 
 #: MainWindow/Window.cpp:322
 #, kde-format
@@ -3933,8 +3871,7 @@ msgid "Do you want to save the changes?"
 msgstr ""
 
 #: MainWindow/Window.cpp:323
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
 msgstr "Įrašyti pakeitimus?"
@@ -3977,7 +3914,7 @@ msgstr ""
 #: MainWindow/Window.cpp:513
 #, kde-format
 msgid "Saving..."
-msgstr "Išsaugoma..."
+msgstr "Įrašoma..."
 
 #: MainWindow/Window.cpp:518
 #, kde-format
@@ -4059,7 +3996,7 @@ msgstr ""
 #: MainWindow/Window.cpp:824
 #, kde-format
 msgid "View"
-msgstr "Vaizdas"
+msgstr "Rodyti"
 
 #: MainWindow/Window.cpp:827
 #, kde-format
@@ -4144,7 +4081,7 @@ msgstr ""
 #: MainWindow/Window.cpp:905
 #, kde-format
 msgid "Icons"
-msgstr "Ženkliukai"
+msgstr "Piktogramos"
 
 #: MainWindow/Window.cpp:912
 #, kde-format
@@ -4311,10 +4248,9 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:1174
-#, fuzzy, kde-format
-#| msgid "Loading Database"
+#, kde-format
 msgid "Invalid database file"
-msgstr "Įkeliama duombazė"
+msgstr "Neteisingas duomenų bazės failas"
 
 #: MainWindow/Window.cpp:1180
 #, kde-format
@@ -4324,11 +4260,10 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:1183
-#, fuzzy, kde-format
-#| msgid "Loading Database"
+#, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr "Įkeliama duombazė"
+msgstr "Sukurti duomenų bazę"
 
 #: MainWindow/Window.cpp:1224
 #, kde-format
@@ -4347,7 +4282,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1351 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
-msgstr "Žiūriklis"
+msgstr "Žiūryklė"
 
 #: MainWindow/Window.cpp:1352
 #, fuzzy, kde-format
@@ -4364,7 +4299,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1356 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
-msgstr "Miniatiūrų rodymas"
+msgstr "Miniatiūrų rodinys"
 
 #: MainWindow/Window.cpp:1507
 #, kde-format
@@ -4474,8 +4409,7 @@ msgid "Go to last map position"
 msgstr ""
 
 #: Map/MapView.cpp:182
-#, fuzzy, kde-format
-#| msgid "Show Thumbnails"
+#, kde-format
 msgid "Show thumbnails"
 msgstr "Rodyti miniatiūras"
 
@@ -4565,10 +4499,9 @@ msgid ""
 msgstr ""
 
 #: RemoteControl/Server.cpp:67
-#, fuzzy, kde-format
-#| msgid "Invalid password."
+#, kde-format
 msgid "Invalid Version"
-msgstr "Neteisingas slaptažodis."
+msgstr "Neteisinga versija"
 
 #: RemoteControl/Server.cpp:68
 #, kde-format
@@ -4635,10 +4568,9 @@ msgid "New"
 msgstr "Naujas"
 
 #: Settings/CategoryPage.cpp:78
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgid "Rename"
-msgstr "Pervardinti..."
+msgstr "Pervadinti"
 
 #: Settings/CategoryPage.cpp:111
 #, kde-format
@@ -4655,7 +4587,7 @@ msgstr ""
 #: Settings/CategoryPage.cpp:120
 #, kde-format
 msgid "Icon:"
-msgstr "Ženkliukas:"
+msgstr "Piktograma:"
 
 #: Settings/CategoryPage.cpp:140
 #, kde-format
@@ -4665,7 +4597,7 @@ msgstr ""
 #: Settings/CategoryPage.cpp:145
 #, kde-format
 msgid "List View"
-msgstr "Sąrašo vaizdas"
+msgstr "Sąrašo rodinys"
 
 #: Settings/CategoryPage.cpp:146
 #, kde-format
@@ -4675,7 +4607,7 @@ msgstr ""
 #: Settings/CategoryPage.cpp:147
 #, kde-format
 msgid "Icon View"
-msgstr "Rodyti tik ženkliukus"
+msgstr "Piktogramų rodinys"
 
 #: Settings/CategoryPage.cpp:148
 #, kde-format
@@ -4715,10 +4647,9 @@ msgid ""
 msgstr ""
 
 #: Settings/CategoryPage.cpp:267 Settings/CategoryPage.cpp:278
-#, fuzzy, kde-format
-#| msgid "Invalid password."
+#, kde-format
 msgid "Invalid category name"
-msgstr "Neteisingas slaptažodis."
+msgstr "Neteisingas kategorijos pavadinimas"
 
 #: Settings/CategoryPage.cpp:275
 #, kde-format
@@ -4754,10 +4685,9 @@ msgid "Confirm Action"
 msgstr ""
 
 #: Settings/CategoryPage.cpp:372
-#, fuzzy, kde-format
-#| msgid "New Category..."
+#, kde-format
 msgid "New category"
-msgstr "Nauja kategorija..."
+msgstr "Nauja kategorija"
 
 #: Settings/CategoryPage.cpp:404
 #, kde-format
@@ -5067,10 +4997,9 @@ msgid "Fast PCIe/NVMe"
 msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:194
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Manual Settings"
-msgstr "Nuostatos"
+msgstr "Rankinės nuostatos"
 
 #: Settings/FileVersionDetectionPage.cpp:197
 #, kde-format
@@ -5140,7 +5069,7 @@ msgstr ""
 #: Settings/GeneralPage.cpp:29
 #, kde-format
 msgid "Loading New Images"
-msgstr "Kraunami nauji paveikslėliai"
+msgstr "Įkeliami nauji paveikslai"
 
 #: Settings/GeneralPage.cpp:37
 #, kde-format
@@ -5148,22 +5077,19 @@ msgid "Trust image dates:"
 msgstr ""
 
 #: Settings/GeneralPage.cpp:39
-#, fuzzy, kde-format
-#| msgid "Always"
+#, kde-format
 msgctxt "As in 'always trust image dates'"
 msgid "Always"
 msgstr "Visada"
 
 #: Settings/GeneralPage.cpp:40
-#, fuzzy, kde-format
-#| msgid "Ask"
+#, kde-format
 msgctxt "As in 'ask whether to trust image dates'"
 msgid "Ask"
 msgstr "Klausti"
 
 #: Settings/GeneralPage.cpp:41
-#, fuzzy, kde-format
-#| msgid "Never"
+#, kde-format
 msgctxt "As in 'never trust image dates'"
 msgid "Never"
 msgstr "Niekada"
@@ -5174,10 +5100,9 @@ msgid "Use Exif orientation information"
 msgstr ""
 
 #: Settings/GeneralPage.cpp:53
-#, fuzzy, kde-format
-#| msgid "Show Description"
+#, kde-format
 msgid "Use Exif description"
-msgstr "Rodyti aprašymą"
+msgstr "Naudoti Exif aprašą"
 
 #: Settings/GeneralPage.cpp:57
 #, kde-format
@@ -5218,7 +5143,7 @@ msgstr ""
 #: Settings/GeneralPage.cpp:124
 #, kde-format
 msgid "Show splash screen"
-msgstr "Rodyti pasveikinimo langą"
+msgstr "Rodyti prisistatymo langą"
 
 #: Settings/GeneralPage.cpp:128
 #, kde-format
@@ -5302,10 +5227,9 @@ msgid "Tag Groups"
 msgstr "Nauja grupė"
 
 #: Settings/SettingsDialog.cpp:53
-#, fuzzy, kde-format
-#| msgid "Exif Info"
+#, kde-format
 msgid "Exif/IPTC Information"
-msgstr "Exif informacija"
+msgstr "Exif/IPTC informacija"
 
 #: Settings/SettingsDialog.cpp:54
 #, kde-format
@@ -5313,18 +5237,16 @@ msgid "Database Backend"
 msgstr ""
 
 #: Settings/SettingsDialog.cpp:74
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgctxt "@title:window"
 msgid "Settings"
 msgstr "Nuostatos"
 
 #: Settings/TagGroupsPage.cpp:37
-#, fuzzy, kde-format
-#| msgid "Categories"
+#, kde-format
 msgctxt "@label"
 msgid "Categories and groups:"
-msgstr "Kategorijos"
+msgstr "Kategorijos ir grupės:"
 
 #: Settings/TagGroupsPage.cpp:46
 #, kde-format
@@ -5365,15 +5287,13 @@ msgid "Tags in group \"%1\" of category \"%2\""
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:341
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgctxt "@title:window"
 msgid "New Group"
 msgstr "Nauja grupė"
 
 #: Settings/TagGroupsPage.cpp:342
-#, fuzzy, kde-format
-#| msgid "Group name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Group name:"
 msgstr "Grupės pavadinimas:"
@@ -5391,18 +5311,16 @@ msgid "Cannot add group"
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:435 Settings/TagGroupsPage.cpp:454
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@title:window"
 msgid "Rename Group"
-msgstr "Pervardinti..."
+msgstr "Pervadinti grupę"
 
 #: Settings/TagGroupsPage.cpp:436
-#, fuzzy, kde-format
-#| msgid "Group name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "New group name:"
-msgstr "Grupės pavadinimas:"
+msgstr "Naujas grupės pavadinimas:"
 
 #: Settings/TagGroupsPage.cpp:449
 #, kde-kuit-format
@@ -5428,30 +5346,27 @@ msgid "<para>Really delete group \"%1\"?</para>"
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:521
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "@title:window"
 msgid "Delete Group"
-msgstr "Pašalinti"
+msgstr "Ištrinti grupę"
 
 #: Settings/TagGroupsPage.cpp:522 Settings/TagGroupsPage.cpp:769
 #, kde-format
 msgid "&Delete"
-msgstr "Paša&linti"
+msgstr "Iš&trinti"
 
 #: Settings/TagGroupsPage.cpp:700
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename \"%1\""
-msgstr "Pervardinti..."
+msgstr "Pervadinti „%1“"
 
 #: Settings/TagGroupsPage.cpp:702
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete \"%1\""
-msgstr "Pašalinti"
+msgstr "Ištrinti „%1“"
 
 #: Settings/TagGroupsPage.cpp:713
 #, fuzzy, kde-format
@@ -5461,11 +5376,10 @@ msgid "New Tag Name"
 msgstr "Naujas paveikslėlis:"
 
 #: Settings/TagGroupsPage.cpp:714
-#, fuzzy, kde-format
-#| msgid "Group name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Tag name:"
-msgstr "Grupės pavadinimas:"
+msgstr "Žymės pavadinimas:"
 
 #: Settings/TagGroupsPage.cpp:764
 #, kde-kuit-format
@@ -5788,7 +5702,7 @@ msgstr ""
 #: Settings/ViewerPage.cpp:75
 #, kde-format
 msgid "Natural Image Size"
-msgstr "Natūralus paveikslėlio dydis"
+msgstr "Natūralus paveikslo dydis"
 
 #: Settings/ViewerPage.cpp:75
 #, kde-format
@@ -5841,14 +5755,12 @@ msgid "Launch in full screen"
 msgstr "Paleisti visame ekrane"
 
 #: ThumbnailView/Delegate.cpp:237
-#, fuzzy, kde-format
-#| msgid "1 video"
-#| msgid_plural "%1 videos"
+#, kde-format
 msgctxt ""
 "No video length could be determined, so we just display 'video' instead of "
 "the video length."
 msgid "video"
-msgstr "%1 video"
+msgstr "vaizdo įrašas"
 
 #: ThumbnailView/FilterWidget.cpp:16
 #, fuzzy, kde-format
@@ -5904,10 +5816,9 @@ msgstr ""
 
 #: ThumbnailView/ThumbnailDND.cpp:100
 #, fuzzy, kde-format
-#| msgid "Show Thumbnails"
 msgctxt "@title"
 msgid "Reorder Thumbnails"
-msgstr "Rodyti miniatiūras"
+msgstr "Pertvarkyti miniatiūras"
 
 #: Utilities/DeleteFiles.cpp:37
 #, kde-format
@@ -5967,17 +5878,17 @@ msgstr ""
 #: Utilities/DescriptionUtil.cpp:81
 #, kde-format
 msgid "<b>Image Size: </b> "
-msgstr "<b>Paveikslėlio dydis: </b> "
+msgstr "<b>Paveikslo dydis: </b> "
 
 #: Utilities/DescriptionUtil.cpp:143
 #, kde-format
 msgid "<b>Label: </b> "
-msgstr "<b>Žymė: </b> "
+msgstr "<b>Etiketė: </b> "
 
 #: Utilities/DescriptionUtil.cpp:147
 #, kde-format
 msgid "<b>Description: </b> "
-msgstr "<b>Aprašymas: </b> "
+msgstr "<b>Aprašas: </b> "
 
 #: Utilities/Timespan.cpp:81
 #, kde-format
@@ -6053,10 +5964,9 @@ msgid " (today)"
 msgstr ""
 
 #: Utilities/Timespan.cpp:154
-#, fuzzy, kde-format
-#| msgid "yesterday"
+#, kde-format
 msgid " (yesterday)"
-msgstr "vakar"
+msgstr " (vakar)"
 
 #: Utilities/Timespan.cpp:158
 #, kde-format
@@ -6173,8 +6083,7 @@ msgid "Configure Category Image"
 msgstr ""
 
 #: Viewer/CategoryImageConfig.cpp:50
-#, fuzzy, kde-format
-#| msgid "Category:"
+#, kde-format
 msgctxt "@label:listbox As in 'select the tag category'"
 msgid "Category:"
 msgstr "Kategorija:"
@@ -6193,15 +6102,13 @@ msgid "Current image:"
 msgstr "Naujas paveikslėlis:"
 
 #: Viewer/CategoryImageConfig.cpp:74
-#, fuzzy, kde-format
-#| msgid "New image:"
+#, kde-format
 msgctxt "@label Preview of the new category imape"
 msgid "New image:"
-msgstr "Naujas paveikslėlis:"
+msgstr "Naujas paveikslas:"
 
 #: Viewer/CategoryImageConfig.cpp:83
-#, fuzzy, kde-format
-#| msgid "Set"
+#, kde-format
 msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
 msgstr "Nustatyti"
@@ -6243,10 +6150,9 @@ msgid "Key"
 msgstr ""
 
 #: Viewer/SelectCategoryAndValue.cpp:189
-#, fuzzy, kde-format
-#| msgid "aug"
+#, kde-format
 msgid "Tag"
-msgstr "rugp"
+msgstr "Žymė"
 
 #: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
@@ -6306,18 +6212,16 @@ msgid "Link image to ..."
 msgstr "Kopijuojami paveikslėliai"
 
 #: Viewer/ViewerWidget.cpp:217
-#, fuzzy, kde-format
-#| msgid "Close"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
 msgstr "Užverti"
 
 #: Viewer/ViewerWidget.cpp:279
-#, fuzzy, kde-format
-#| msgid "Rotate"
+#, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
-msgstr "Sukti"
+msgstr "Pasukti"
 
 #: Viewer/ViewerWidget.cpp:290
 #, kde-format
@@ -6338,8 +6242,7 @@ msgid "Rotate counterclockwise"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:303
-#, fuzzy, kde-format
-#| msgid "Skip"
+#, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
 msgstr "Praleisti"
@@ -6359,11 +6262,10 @@ msgid "Last"
 msgstr "Paskutinis"
 
 #: Viewer/ViewerWidget.cpp:320
-#, fuzzy, kde-format
-#| msgid "Show Date"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
-msgstr "Rodyti datą"
+msgstr "Rodyti kitą"
 
 #: Viewer/ViewerWidget.cpp:326
 #, kde-format
@@ -6408,11 +6310,10 @@ msgid "Skip 1000 Backward"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:368
-#, fuzzy, kde-format
-#| msgid "Delete Image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
-msgstr "Trinti paveikslėlį"
+msgstr "Ištrinti paveikslą"
 
 #: Viewer/ViewerWidget.cpp:373
 #, kde-format
@@ -6421,25 +6322,22 @@ msgid "Remove Image from Display List"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:388
-#, fuzzy, kde-format
-#| msgid "Zoom"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
 msgstr "Mastelis"
 
 #: Viewer/ViewerWidget.cpp:392
-#, fuzzy, kde-format
-#| msgid "Zoom In"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
-msgstr "Padidinti"
+msgstr "Didinti"
 
 #: Viewer/ViewerWidget.cpp:398
-#, fuzzy, kde-format
-#| msgid "Zoom Out"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
-msgstr "Sumažinti"
+msgstr "Mažinti"
 
 #: Viewer/ViewerWidget.cpp:404
 #, fuzzy, kde-format
@@ -6496,11 +6394,10 @@ msgid "%1 %2"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:552
-#, fuzzy, kde-format
-#| msgid "Play"
+#, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
-msgstr "Groti"
+msgstr "Atkurti"
 
 #: Viewer/ViewerWidget.cpp:554
 #, kde-format
@@ -6655,11 +6552,10 @@ msgid "Use current frame in thumbnail view"
 msgstr "Sukuriamos miniatiūros"
 
 #: Viewer/ViewerWidget.cpp:1299
-#, fuzzy, kde-format
-#| msgid "Restart"
+#, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
-msgstr "Perstartuoti"
+msgstr "Paleisti iš naujo"
 
 #: Viewer/ViewerWidget.cpp:1315
 #, fuzzy, kde-format
@@ -6766,11 +6662,10 @@ msgid "CTRL+c"
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1497
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "Aprašymas"
+msgstr "Taisyti aprašą"
 
 #: Viewer/ViewerWidget.cpp:1498
 #, kde-format
@@ -6843,12 +6738,12 @@ msgstr ""
 #: Viewer/VisibleOptionsMenu.cpp:38
 #, kde-format
 msgid "Show Label"
-msgstr "Rodyti žymę"
+msgstr "Rodyti etiketę"
 
 #: Viewer/VisibleOptionsMenu.cpp:43
 #, kde-format
 msgid "Show Description"
-msgstr "Rodyti aprašymą"
+msgstr "Rodyti aprašą"
 
 #: Viewer/VisibleOptionsMenu.cpp:48
 #, kde-format
@@ -6866,15 +6761,14 @@ msgid "Show Filename"
 msgstr "Rodyti failo pavadinimą"
 
 #: Viewer/VisibleOptionsMenu.cpp:64
-#, fuzzy, kde-format
-#| msgid "Show EXIF"
+#, kde-format
 msgid "Show Exif"
-msgstr "Rodyti EXIF"
+msgstr "Rodyti Exif"
 
 #: Viewer/VisibleOptionsMenu.cpp:69
 #, kde-format
 msgid "Show Image Size"
-msgstr "Rodyti paveikslėlio dydį"
+msgstr "Rodyti paveikslo dydį"
 
 #: Viewer/VisibleOptionsMenu.cpp:74
 #, fuzzy, kde-format

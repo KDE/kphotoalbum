@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-10-20 19:42+0300\n"
+"PO-Revision-Date: 2024-11-06 06:22+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -435,7 +435,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
-msgstr ""
+msgstr "הסתרת או הצגת אזורים בתמונה"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:320
 #, kde-format
@@ -491,22 +491,22 @@ msgstr ""
 #: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:342
 #, kde-format
 msgid "or"
-msgstr ""
+msgstr "או"
 
 #: AnnotationDialog/ListSelect.cpp:98 DB/search/ImageSearchInfo.cpp:337
 #, kde-format
 msgid "and"
-msgstr ""
+msgstr "וגם"
 
 #: AnnotationDialog/ListSelect.cpp:122
 #, kde-format
 msgid "Sort by date"
-msgstr ""
+msgstr "מיון לפי תאריך"
 
 #: AnnotationDialog/ListSelect.cpp:128
 #, kde-format
 msgid "Show only selected Ctrl+S"
-msgstr ""
+msgstr "הצגת הנבחרים בלבד Ctrl+S"
 
 #: AnnotationDialog/ListSelect.cpp:177
 #, kde-format
@@ -520,67 +520,67 @@ msgstr ""
 #: AnnotationDialog/ListSelect.cpp:359
 #, kde-format
 msgid "No Item Selected"
-msgstr ""
+msgstr "לא נבחרו פריטים"
 
 #: AnnotationDialog/ListSelect.cpp:363
 #, kde-format
 msgid "<b>%1</b>"
-msgstr ""
+msgstr "<b>%1</b>"
 
 #: AnnotationDialog/ListSelect.cpp:369 Settings/CategoryPage.cpp:74
 #, kde-format
 msgid "Delete"
-msgstr ""
+msgstr "מחיקה"
 
 #: AnnotationDialog/ListSelect.cpp:370
 #, kde-format
 msgid "Rename..."
-msgstr ""
+msgstr "שינוי שם…"
 
 #: AnnotationDialog/ListSelect.cpp:372
 #, kde-format
 msgid "<b>Tag Groups</b>"
-msgstr ""
+msgstr "<b>קבוצות תגיות</b>"
 
 #: AnnotationDialog/ListSelect.cpp:380
 #, kde-format
 msgid "Tag groups"
-msgstr ""
+msgstr "קבוצות תגיות"
 
 #: AnnotationDialog/ListSelect.cpp:397
 #, kde-format
 msgid "Add this tag to a new tag group..."
-msgstr ""
+msgstr "הוספת התגית הזאת לקבוצת תגיות חדשה…"
 
 #: AnnotationDialog/ListSelect.cpp:400
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
-msgstr ""
+msgstr "להפוך את התגית הזאת לקבוצת תגיות ולהוסיף תגית…"
 
 #: AnnotationDialog/ListSelect.cpp:406
 #, kde-format
 msgid "Remove from tag group %1"
-msgstr ""
+msgstr "הסרה מקבוצת התגיות %1"
 
 #: AnnotationDialog/ListSelect.cpp:409
 #, kde-format
 msgid "<b>Sorting</b>"
-msgstr ""
+msgstr "<b>מיון</b>"
 
 #: AnnotationDialog/ListSelect.cpp:415
 #, kde-format
 msgid "Usage"
-msgstr ""
+msgstr "שימוש"
 
 #: AnnotationDialog/ListSelect.cpp:416
 #, kde-format
 msgid "Alphabetical (Flat)"
-msgstr ""
+msgstr "אלפבתי (שטוח)"
 
 #: AnnotationDialog/ListSelect.cpp:417
 #, kde-format
 msgid "Alphabetical (Tree)"
-msgstr ""
+msgstr "אלפבתי (עץ)"
 
 #: AnnotationDialog/ListSelect.cpp:442
 #, kde-format
@@ -588,22 +588,24 @@ msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
 "any information about it from any image containing the item.</p>"
 msgstr ""
+"<p>למחוק את „%1”?<br/>מחיקת הפריט תסיר פרטים עליו מכל תמונה שמכילה את הפריט."
+"</p>"
 
 #: AnnotationDialog/ListSelect.cpp:446
 #, kde-format
 msgid "Really Delete %1?"
-msgstr ""
+msgstr "למחוק את %1?"
 
 #: AnnotationDialog/ListSelect.cpp:463
 #, kde-format
 msgctxt "@title"
 msgid "Rename Item"
-msgstr ""
+msgstr "שינוי שם פריט"
 
 #: AnnotationDialog/ListSelect.cpp:463
 #, kde-format
 msgid "Enter new name:"
-msgstr ""
+msgstr "נא למלא שם חדש:"
 
 #: AnnotationDialog/ListSelect.cpp:469
 #, kde-format
@@ -616,28 +618,28 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr ""
+msgstr "לשנות את השם של %1?"
 
 #: AnnotationDialog/ListSelect.cpp:477
 #, kde-format
 msgctxt "@action:button"
 msgid "Rename"
-msgstr ""
+msgstr "שינוי שם"
 
 #: AnnotationDialog/ListSelect.cpp:508
 #, kde-format
 msgid "New tag group"
-msgstr ""
+msgstr "קבוצת תגיות חדשה"
 
 #: AnnotationDialog/ListSelect.cpp:509
 #, kde-format
 msgid "Name for the new tag group the tag will be added to:"
-msgstr ""
+msgstr "שם לקבוצת התגיות החדשה אליה תתווסף התגית:"
 
 #: AnnotationDialog/ListSelect.cpp:521
 #, kde-format
 msgid "Add a tag"
-msgstr ""
+msgstr "הוספת תגית"
 
 #: AnnotationDialog/ListSelect.cpp:522
 #, kde-format
@@ -650,19 +652,19 @@ msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
 "'People (1-2)'"
 msgid "%1 (%2-%3)"
-msgstr ""
+msgstr "%1 (%2-%3)"
 
 #: AnnotationDialog/ListSelect.cpp:789
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:56
 #, kde-format
 msgctxt "area of an image; rectangle that is overlayed upon the image"
 msgid "Remove area"
-msgstr ""
+msgstr "הסרת אזור"
 
 #: AnnotationDialog/ResizableFrame.cpp:312
 #, kde-format
@@ -670,13 +672,13 @@ msgctxt ""
 "%1 is a prefix like 'Associate with', %2 is the tag name and %3 is the tag's "
 "category"
 msgid "%1 %2 (%3)"
-msgstr ""
+msgstr "%1 %2 (%3)"
 
 #: AnnotationDialog/ResizableFrame.cpp:316
 #, kde-format
 msgctxt "%1 is the tag name and %2 is the tag's category"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:357
 #, kde-format
@@ -688,19 +690,19 @@ msgstr ""
 #: AnnotationDialog/ResizableFrame.cpp:360
 #, kde-format
 msgid "Replace existing area?"
-msgstr ""
+msgstr "להחליף אזור קיים?"
 
 #: AnnotationDialog/ResizableFrame.cpp:461
 #, kde-format
 msgctxt ""
 "As in: remove tag %1 in category %2 [from this marked area of the image]"
 msgid "Remove tag %1 (%2)"
-msgstr ""
+msgstr "להסיר את התגית %1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:472
 #, kde-format
 msgid "Associate with"
-msgstr ""
+msgstr "שיוך אל"
 
 #: AnnotationDialog/ResizableFrame.cpp:496
 #: AnnotationDialog/ResizableFrame.cpp:505
@@ -709,22 +711,22 @@ msgctxt ""
 "As in: associate [this marked area of the image] with one of the following "
 "choices/menu items"
 msgid "Associate with"
-msgstr ""
+msgstr "שיוך אל"
 
 #: BackgroundJobs/ExtractOneThumbnailJob.cpp:42
 #, kde-format
 msgid "Extracting Thumbnail"
-msgstr ""
+msgstr "מחולצת תמונה ממוזערת"
 
 #: BackgroundJobs/HandleVideoThumbnailRequestJob.cpp:39
 #, kde-format
 msgid "Extract Video Thumbnail"
-msgstr ""
+msgstr "מחולצת תמונה ממוזערת מווידאו"
 
 #: BackgroundJobs/ReadVideoLengthJob.cpp:30
 #, kde-format
 msgid "Read Video Length"
-msgstr ""
+msgstr "קריאת אורך הווידאו"
 
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
@@ -745,19 +747,19 @@ msgstr ""
 #, kde-format
 msgctxt "@title:column Background job id"
 msgid "ID"
-msgstr ""
+msgstr "מזהה"
 
 #: BackgroundTaskManager/JobModel.cpp:95
 #, kde-format
 msgctxt "@title:column Background job title"
 msgid "Title"
-msgstr ""
+msgstr "כותרת"
 
 #: BackgroundTaskManager/JobModel.cpp:97
 #, kde-format
 msgctxt "@title:column Additional information on background job"
 msgid "Details"
-msgstr ""
+msgstr "פרטים"
 
 #: BackgroundTaskManager/JobModel.cpp:99
 #, kde-format
@@ -769,18 +771,18 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Background Job Viewer"
-msgstr ""
+msgstr "מציג משימות רקע"
 
 #: BackgroundTaskManager/JobViewer.cpp:30
 #: BackgroundTaskManager/JobViewer.cpp:65
 #, kde-format
 msgid "Pause"
-msgstr ""
+msgstr "השהיה"
 
 #: BackgroundTaskManager/JobViewer.cpp:65
 #, kde-format
 msgid "Continue"
-msgstr ""
+msgstr "להמשיך"
 
 #: BackgroundTaskManager/StatusIndicator.cpp:78
 #, kde-format
@@ -798,85 +800,85 @@ msgstr ""
 #, kde-format
 msgctxt "As in No persons, no locations etc."
 msgid "None"
-msgstr ""
+msgstr "אין"
 
 #: Browser/AbstractCategoryModel.cpp:44
 #, kde-format
 msgctxt "As in no other persons, or no other locations. "
 msgid "No other"
-msgstr ""
+msgstr "אין עוד"
 
 #: Browser/AbstractCategoryModel.cpp:94
 #, kde-format
 msgctxt "@item:intable number of images with a specific tag."
 msgid "1 image"
 msgid_plural "%1 images"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "תמונה"
+msgstr[1] "שתי תמונות"
+msgstr[2] "%1 תמונות"
+msgstr[3] "%1 תמונות"
 
 #: Browser/AbstractCategoryModel.cpp:96
 #, kde-format
 msgctxt "@item:intable number of videos with a specific tag."
 msgid "1 video"
 msgid_plural "%1 videos"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "סרטון"
+msgstr[1] "שני סרטונים"
+msgstr[2] "%1 סרטונים"
+msgstr[3] "%1 סרטונים"
 
 #: Browser/AbstractCategoryModel.cpp:166
 #, kde-format
 msgid "Images"
-msgstr ""
+msgstr "תמונות"
 
 #: Browser/AbstractCategoryModel.cpp:168
 #, kde-format
 msgid "Videos"
-msgstr ""
+msgstr "סרטונים"
 
 #: Browser/AbstractCategoryModel.cpp:170
 #, kde-format
 msgid "Start Date"
-msgstr ""
+msgstr "תאריך התחלה"
 
 #: Browser/AbstractCategoryModel.cpp:172
 #, kde-format
 msgid "End Date"
-msgstr ""
+msgstr "תאריך סיום"
 
 #: Browser/Breadcrumb.cpp:27
 #, kde-format
 msgctxt "As in 'all pictures'."
 msgid "All"
-msgstr ""
+msgstr "הכול"
 
 #: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:145
 #, kde-format
 msgid "Geo Position"
-msgstr ""
+msgstr "מקום גאוגרפי"
 
 #: Browser/OverviewPage.cpp:157
 #, kde-format
 msgid "Exif Info"
-msgstr ""
+msgstr "פרטי Exif"
 
 #: Browser/OverviewPage.cpp:169
 #, kde-format
 msgctxt "@action Search button in the browser view."
 msgid "Search"
-msgstr ""
+msgstr "חיפוש"
 
 #: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:22
 #, kde-format
 msgid "Untagged Images"
-msgstr ""
+msgstr "תמונות לא מתויגות"
 
 #: Browser/OverviewPage.cpp:191
 #, kde-format
 msgid "Show Thumbnails"
-msgstr ""
+msgstr "הצגת תמונות ממוזערות"
 
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
@@ -886,18 +888,18 @@ msgstr ""
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Empty Search Result"
-msgstr ""
+msgstr "תוצאת חיפוש ריקה"
 
 #: Browser/OverviewPage.cpp:277
 #, kde-format
 msgid "Exif Search"
-msgstr ""
+msgstr "חיפוש Exif"
 
 #: Browser/OverviewPage.cpp:297
 #, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
-msgstr ""
+msgstr "חיפוש"
 
 #: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1761
 #, kde-format
@@ -961,39 +963,39 @@ msgstr[3] ""
 #: CategoryListView/CheckDropItem.cpp:157
 #, kde-format
 msgid "Move Items"
-msgstr ""
+msgstr "העברת פריטים"
 
 #: DateBar/DateBarWidget.cpp:62
 #, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
-msgstr ""
+msgstr "סרגל תאריך"
 
 #: DateBar/DateBarWidget.cpp:71
 #, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "גלילה ימינה"
 
 #: DateBar/DateBarWidget.cpp:80
 #, kde-format
 msgid "Scroll left"
-msgstr ""
+msgstr "גלילה שמאלה"
 
 #: DateBar/DateBarWidget.cpp:89
 #, kde-format
 msgid "Zoom in"
-msgstr ""
+msgstr "התקרבות"
 
 #: DateBar/DateBarWidget.cpp:100
 #, kde-format
 msgid "Zoom out"
-msgstr ""
+msgstr "התרחקות"
 
 #: DateBar/DateBarWidget.cpp:112
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
-msgstr ""
+msgstr "פינוי בחירת תאריכים"
 
 #: DateBar/DateBarWidget.cpp:125
 #, kde-kuit-format
@@ -1009,12 +1011,12 @@ msgstr ""
 #: DateBar/DateBarWidget.cpp:691
 #, kde-format
 msgid "Show Ranges"
-msgstr ""
+msgstr "הצגת טווחים"
 
 #: DateBar/DateBarWidget.cpp:697
 #, kde-format
 msgid "Show Resolution Indicator"
-msgstr ""
+msgstr "הצגת מחוון רזולוציה"
 
 #: DateBar/DateBarWidget.cpp:822
 #, kde-format
@@ -1063,7 +1065,7 @@ msgstr[3] ""
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
 msgid "%1 | %2"
-msgstr ""
+msgstr "%1 | %2"
 
 #: DateBar/ViewHandler.cpp:106
 #, kde-format
@@ -1207,7 +1209,7 @@ msgstr ""
 #: DB/ImageDB.cpp:66
 #, kde-format
 msgid "Found Autosave File"
-msgstr ""
+msgstr "נמצא קובץ שמירה אוטומטית"
 
 #: DB/ImageDB.cpp:398
 #, kde-format
@@ -1218,28 +1220,28 @@ msgstr ""
 #: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Media Type"
-msgstr ""
+msgstr "סוג מדיה"
 
 #: DB/ImageDB.cpp:562 DB/ImageDB.cpp:849 DB/XML/FileReader.cpp:137
 #, kde-format
 msgid "Image"
-msgstr ""
+msgstr "תמונה"
 
 #: DB/ImageDB.cpp:562 DB/ImageDB.cpp:850 DB/XML/FileReader.cpp:138
 #, kde-format
 msgid "Video"
-msgstr ""
+msgstr "וידאו"
 
 #: DB/ImageDB.cpp:954
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
-msgstr ""
+msgstr "KPhotoAlbum - יש לתקן ידנית (%1)"
 
 #: DB/ImageDB.cpp:955
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: DB/NewImageFinder.cpp:487
 #, kde-format
@@ -1313,12 +1315,12 @@ msgstr ""
 #: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Folder"
-msgstr ""
+msgstr "תיקייה"
 
 #: DB/XML/FileReader.cpp:109 DB/XML/FileReader.cpp:121
 #, kde-format
 msgid "Tokens"
-msgstr ""
+msgstr "אסימונים"
 
 #: DB/XML/FileReader.cpp:189
 #, kde-format
@@ -1331,7 +1333,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:195 DB/XML/FileReader.cpp:300
 #, kde-format
 msgid "Error in database file"
-msgstr ""
+msgstr "שגיאה בקובץ מסד הנתונים"
 
 #: DB/XML/FileReader.cpp:255
 #, kde-format
@@ -1756,12 +1758,12 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Search"
-msgstr ""
+msgstr "חיפוש Exif"
 
 #: Exif/SearchDialog.cpp:35
 #, kde-format
 msgid "Settings"
-msgstr ""
+msgstr "הגדרות"
 
 #: Exif/SearchDialog.cpp:56
 #, kde-format
@@ -1771,65 +1773,65 @@ msgstr ""
 #: Exif/SearchDialog.cpp:66
 #, kde-format
 msgid "Focal Length"
-msgstr ""
+msgstr "אורך מוקד"
 
 #: Exif/SearchDialog.cpp:74
 #, kde-format
 msgctxt "As in 'A range from x to y'"
 msgid "to"
-msgstr ""
+msgstr "עד"
 
 #: Exif/SearchDialog.cpp:83
 #, kde-format
 msgctxt "This is millimeter for focal length, like 35mm"
 msgid "mm"
-msgstr ""
+msgstr "מ״מ"
 
 #: Exif/SearchDialog.cpp:99
 #, kde-format
 msgid "Camera"
-msgstr ""
+msgstr "מצלמה"
 
 #: Exif/SearchDialog.cpp:103
 #, kde-format
 msgid "Lens"
-msgstr ""
+msgstr "עדשה"
 
 #: Exif/SearchDialog.cpp:108 Settings/GeneralPage.cpp:116
 #, kde-format
 msgid "Miscellaneous"
-msgstr ""
+msgstr "שונות"
 
 #: Exif/SearchDialog.cpp:134
 #, kde-format
 msgid "Iso setting"
-msgstr ""
+msgstr "הגדרות ISO"
 
 #: Exif/SearchDialog.cpp:139
 #, kde-format
 msgctxt "Example 1.6 secs (as in seconds)"
 msgid "secs."
-msgstr ""
+msgstr "שניות"
 
 #: Exif/SearchDialog.cpp:178
 #, kde-format
 msgid "1 second"
-msgstr ""
+msgstr "שנייה"
 
 #: Exif/SearchDialog.cpp:195
 #, kde-format
 msgid "Exposure time"
-msgstr ""
+msgstr "זמן חשיפה"
 
 #: Exif/SearchDialog.cpp:245
 #, kde-format
 msgid "Exposure Program"
-msgstr ""
+msgstr "תוכנית חשיפה"
 
 #: Exif/SearchDialog.cpp:262 ImportExport/MD5CheckPage.cpp:67
 #, kde-format
 msgid "Orientation"
-msgstr ""
+msgstr "כיוון"
 
 #: Exif/SearchDialog.cpp:274
 #, kde-format
@@ -1839,27 +1841,27 @@ msgstr ""
 #: Exif/SearchDialog.cpp:290
 #, kde-format
 msgid "Contrast"
-msgstr ""
+msgstr "ניגודיות"
 
 #: Exif/SearchDialog.cpp:301
 #, kde-format
 msgid "Sharpness"
-msgstr ""
+msgstr "חדות"
 
 #: Exif/SearchDialog.cpp:312
 #, kde-format
 msgid "Saturation"
-msgstr ""
+msgstr "רוויה"
 
 #: Exif/SearchDialog.cpp:363
 #, kde-format
 msgid "No cameras found in the database"
-msgstr ""
+msgstr "לא נמצאו מצלמות במסד הנתונים"
 
 #: Exif/SearchDialog.cpp:383
 #, kde-format
 msgid "No lenses found in the database"
-msgstr ""
+msgstr "לא נמצאו עדשות במסד הנתונים"
 
 #: Exif/SearchDialog.cpp:398
 #, kde-format
@@ -1871,7 +1873,7 @@ msgstr ""
 #: HTMLGenerator/Generator.cpp:56
 #, kde-format
 msgid "<p>No file name given!</p>"
-msgstr ""
+msgstr "<p>לא סופק שם קובץ!</p>"
 
 #: HTMLGenerator/Generator.cpp:82
 #, kde-format
@@ -1931,38 +1933,38 @@ msgstr ""
 #: HTMLGenerator/Generator.cpp:773 HTMLGenerator/HTMLDialog.cpp:148
 #, kde-format
 msgid "Date"
-msgstr ""
+msgstr "תאריך"
 
 #: HTMLGenerator/HTMLDialog.cpp:53
 #, kde-format
 msgctxt "@title:window"
 msgid "HTML Export"
-msgstr ""
+msgstr "ייצוא HTML"
 
 #: HTMLGenerator/HTMLDialog.cpp:79 HTMLGenerator/HTMLDialog.cpp:80
 #, kde-format
 msgid "Content"
-msgstr ""
+msgstr "תוכן"
 
 #: HTMLGenerator/HTMLDialog.cpp:88
 #, kde-format
 msgid "Page title:"
-msgstr ""
+msgstr "כותרת העמוד:"
 
 #: HTMLGenerator/HTMLDialog.cpp:95
 #, kde-format
 msgid "Copyright:"
-msgstr ""
+msgstr "זכויות יוצרים:"
 
 #: HTMLGenerator/HTMLDialog.cpp:104
 #, kde-format
 msgid "Description:"
-msgstr ""
+msgstr "תיאור:"
 
 #: HTMLGenerator/HTMLDialog.cpp:111
 #, kde-format
 msgid "Create .kim export file"
-msgstr ""
+msgstr "יצירת קובץ ייצוא ‎.kim"
 
 #: HTMLGenerator/HTMLDialog.cpp:116
 #, kde-format
@@ -1997,57 +1999,57 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:177 HTMLGenerator/HTMLDialog.cpp:178
 #, kde-format
 msgid "Layout"
-msgstr ""
+msgstr "פריסה"
 
 #: HTMLGenerator/HTMLDialog.cpp:187 Settings/CategoryPage.cpp:130
 #, kde-format
 msgid "Thumbnail size:"
-msgstr ""
+msgstr "גודל תמונה מוקטנת:"
 
 #: HTMLGenerator/HTMLDialog.cpp:202
 #, kde-format
 msgid "Number of columns:"
-msgstr ""
+msgstr "מספר העמודות:"
 
 #: HTMLGenerator/HTMLDialog.cpp:217
 #, kde-format
 msgid "Theme:"
-msgstr ""
+msgstr "ערכת עיצוב:"
 
 #: HTMLGenerator/HTMLDialog.cpp:225
 #, kde-format
 msgid "Theme Description"
-msgstr ""
+msgstr "תיאור ערכת עיצוב"
 
 #: HTMLGenerator/HTMLDialog.cpp:232
 #, kde-format
 msgid "Image Sizes"
-msgstr ""
+msgstr "גודלי תמונות"
 
 #: HTMLGenerator/HTMLDialog.cpp:241
 #, kde-format
 msgid "Full size"
-msgstr ""
+msgstr "גודל מלא"
 
 #: HTMLGenerator/HTMLDialog.cpp:286 HTMLGenerator/HTMLDialog.cpp:287
 #, kde-format
 msgid "Destination"
-msgstr ""
+msgstr "יעד"
 
 #: HTMLGenerator/HTMLDialog.cpp:297
 #, kde-format
 msgid "Base folder:"
-msgstr ""
+msgstr "תיקיית בסיס:"
 
 #: HTMLGenerator/HTMLDialog.cpp:314
 #, kde-format
 msgid "Gallery folder:"
-msgstr ""
+msgstr "תיקיית גלריה:"
 
 #: HTMLGenerator/HTMLDialog.cpp:321
 #, kde-format
 msgid "Output folder:"
-msgstr ""
+msgstr "תיקיית פלט:"
 
 #: HTMLGenerator/HTMLDialog.cpp:332
 #, kde-format
@@ -2065,17 +2067,17 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:343
 #, kde-format
 msgid "Open gallery in browser:"
-msgstr ""
+msgstr "פתיחת גלריה בדפדפן:"
 
 #: HTMLGenerator/HTMLDialog.cpp:359
 #, kde-format
 msgid "You must select at least one resolution."
-msgstr ""
+msgstr "חובה לבחור ברזולוציה אחת לפחות."
 
 #: HTMLGenerator/HTMLDialog.cpp:386
 #, kde-format
 msgid "Select base folder..."
-msgstr ""
+msgstr "בחירת תיקיית בסיס…"
 
 #: HTMLGenerator/HTMLDialog.cpp:399
 #, kde-format
@@ -2088,7 +2090,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:403
 #, kde-format
 msgid "No Base Folder Specified"
-msgstr ""
+msgstr "לא צוינה תיקיית בסיס"
 
 #: HTMLGenerator/HTMLDialog.cpp:409
 #, kde-format
@@ -2101,7 +2103,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:412
 #, kde-format
 msgid "No Output Folder Specified"
-msgstr ""
+msgstr "לא צוינה תיקיית פלט"
 
 #: HTMLGenerator/HTMLDialog.cpp:420
 #, kde-format
@@ -2113,7 +2115,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:429
 #, kde-format
 msgid "<p>%1 does not exist, is not a folder or cannot be written to.</p>"
-msgstr ""
+msgstr "<p>%1 לא קיימת, אינה תיקייה או שלא ניתן לכתוב אליה.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:439
 #, kde-format
@@ -2126,13 +2128,13 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr ""
+msgstr "התיקייה קיימת"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:532 MainWindow/SplashScreen.cpp:52
 #, kde-format
 msgid "%1"
-msgstr ""
+msgstr "%1"
 
 #: HTMLGenerator/HTMLDialog.cpp:543
 #, kde-format
@@ -5786,92 +5788,92 @@ msgstr ""
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (%1:1)"
-msgstr ""
+msgstr " (%1:1)"
 
 #: Utilities/DescriptionUtil.cpp:78
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (1:1)"
-msgstr ""
+msgstr " (1:1)"
 
 #: Utilities/DescriptionUtil.cpp:80
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (1:%1)"
-msgstr ""
+msgstr " (1:%1)"
 
 #: Utilities/DescriptionUtil.cpp:81
 #, kde-format
 msgid "<b>Image Size: </b> "
-msgstr ""
+msgstr "<b>גודל תמונה: </b> "
 
 #: Utilities/DescriptionUtil.cpp:143
 #, kde-format
 msgid "<b>Label: </b> "
-msgstr ""
+msgstr "<b>תווית: </b> "
 
 #: Utilities/DescriptionUtil.cpp:147
 #, kde-format
 msgid "<b>Description: </b> "
-msgstr ""
+msgstr "<b>תווית: </b> "
 
 #: Utilities/Timespan.cpp:81
 #, kde-format
 msgctxt "Like \"up to 6 years\" old"
 msgid " (up to %1)"
-msgstr ""
+msgstr " (עד %1)"
 
 #: Utilities/Timespan.cpp:91
 #, kde-format
 msgctxt "Like \"6 years\" old"
 msgid " (%1)"
-msgstr ""
+msgstr " (%1)"
 
 #: Utilities/Timespan.cpp:94
 #, kde-format
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
-msgstr ""
+msgstr " (%1 עד %2)"
 
 #: Utilities/Timespan.cpp:103
 #, kde-format
 msgctxt "Like \"The baby is '8 days' old\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "יום"
+msgstr[1] "יומיים"
+msgstr[2] "%1 ימים"
+msgstr[3] "%1 ימים"
 
 #: Utilities/Timespan.cpp:108
 #, kde-format
 msgctxt "Like \"The baby is '4 months' old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "חודש"
+msgstr[1] "חודשיים"
+msgstr[2] "%1 חודשים"
+msgstr[3] "%1 חודשים"
 
 #: Utilities/Timespan.cpp:113
 #, kde-format
 msgctxt "Like \"The person is '28 years' old\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "שנה"
+msgstr[1] "שנתיים"
+msgstr[2] "%1 שנים"
+msgstr[3] "%1 שנים"
 
 #: Utilities/Timespan.cpp:118
 #, kde-format
 msgctxt "Like \"The baby is \"4 months\" old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "חודש"
+msgstr[1] "חודשיים"
+msgstr[2] "%1 חודשים"
+msgstr[3] "%1 חודשים"
 
 #: Utilities/Timespan.cpp:121
 #, kde-format
@@ -5879,49 +5881,49 @@ msgctxt ""
 "This combines an age of a person in years (%1) with the additional months "
 "(%2), like \"The person is '1 year and 3 months' old\""
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: Utilities/Timespan.cpp:151
 #, kde-format
 msgid " (today)"
-msgstr ""
+msgstr " (היום)"
 
 #: Utilities/Timespan.cpp:154
 #, kde-format
 msgid " (yesterday)"
-msgstr ""
+msgstr " (אתמול)"
 
 #: Utilities/Timespan.cpp:158
 #, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
-msgstr ""
+msgstr " (לפני %1)"
 
 #: Utilities/Timespan.cpp:162
 #, kde-format
 msgctxt "Like \"6 to 7 years ago\""
 msgid " (%1 to %2 ago)"
-msgstr ""
+msgstr " (לפני %1 עד %2)"
 
 #: Utilities/Timespan.cpp:177
 #, kde-format
 msgctxt "Like \"This happened '6 days' ago\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "יום"
+msgstr[1] "יומיים"
+msgstr[2] "%1 ימים"
+msgstr[3] "%1 ימים"
 
 #: Utilities/Timespan.cpp:184
 #, kde-format
 msgctxt "Like \"This happened '3 weeks' ago\""
 msgid "%1 week"
 msgid_plural "%1 weeks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "שבוע"
+msgstr[1] "שבועיים"
+msgstr[2] "%1 שבועות"
+msgstr[3] "%1 שבועות"
 
 #: Utilities/Timespan.cpp:189
 #, kde-format
@@ -5959,10 +5961,10 @@ msgstr[3] ""
 msgctxt "Like \"This happened '2 years' ago\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "שנה"
+msgstr[1] "שנתיים"
+msgstr[2] "%1 שנים"
+msgstr[3] "%1 שנים"
 
 #: Utilities/Timespan.cpp:240
 #, kde-format
@@ -5971,7 +5973,7 @@ msgctxt ""
 "happened 3 years and 1 month\" ago, where the first parameter is the "
 "formatted years string and the second one is the formatted months string"
 msgid "%1 and %2"
-msgstr ""
+msgstr "%1 ו%2"
 
 #: Viewer/AnnotationHandler.cpp:69
 #, kde-format
@@ -6004,349 +6006,349 @@ msgstr ""
 #, kde-format
 msgctxt "@label:listbox As in 'select the tag category'"
 msgid "Category:"
-msgstr ""
+msgstr "קטגוריה:"
 
 #: Viewer/CategoryImageConfig.cpp:57
 #, kde-format
 msgctxt "@label:listbox As in 'select a tag'"
 msgid "Tag:"
-msgstr ""
+msgstr "תגית:"
 
 #: Viewer/CategoryImageConfig.cpp:66
 #, kde-format
 msgctxt "@label The current category image"
 msgid "Current image:"
-msgstr ""
+msgstr "תמונה נוכחית:"
 
 #: Viewer/CategoryImageConfig.cpp:74
 #, kde-format
 msgctxt "@label Preview of the new category imape"
 msgid "New image:"
-msgstr ""
+msgstr "תמונה חדשה:"
 
 #: Viewer/CategoryImageConfig.cpp:83
 #, kde-format
 msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
-msgstr ""
+msgstr "הגדרה"
 
 #: Viewer/ImageDisplay.cpp:306 Viewer/ImageDisplay.cpp:330
 #: Viewer/ImageDisplay.cpp:391
 #, kde-format
 msgid "Insufficient color depth for this filter"
-msgstr ""
+msgstr "אין מספיק עומק צבעים למסנן הזה"
 
 #: Viewer/ImageDisplay.cpp:450
 #, kde-format
 msgid "[ zoom x%1 ]"
-msgstr ""
+msgstr "[ תקריב ×%1 ]"
 
 #: Viewer/InfoBox.cpp:60
 #, kde-format
 msgid "Show the geographic position of this image on a map"
-msgstr ""
+msgstr "הצגת המקום הגאוגרפי של התמונה במפה"
 
 #: Viewer/PhononDisplay.cpp:183
 #, kde-format
 msgid "Error playing media"
-msgstr ""
+msgstr "שגיאה בנגינת מדיה"
 
 #: Viewer/SelectCategoryAndValue.cpp:107
 #, kde-format
 msgid "Type name of category and item"
-msgstr ""
+msgstr "נא למלא שם לקטגוריה ולפריט"
 
 #: Viewer/SelectCategoryAndValue.cpp:136
 #, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "הוספת חדש"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "מפתח"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Tag"
-msgstr ""
+msgstr "תגית"
 
 #: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"
-msgstr ""
+msgstr "פינוי הצבה"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
 #, kde-format
 msgid "Dialog"
-msgstr ""
+msgstr "חלונית"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
 #, kde-format
 msgid "TextLabel"
-msgstr ""
+msgstr "תווית טקסט"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
 #, kde-format
 msgid "Add new Tag"
-msgstr ""
+msgstr "הוספת תגית חדשה"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
 #, kde-format
 msgid "Title"
-msgstr ""
+msgstr "כותרת"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: Viewer/SelectCategoryAndValue.ui:120
 #, kde-format
 msgid "Existing Assignments"
-msgstr ""
+msgstr "הקצאות נוכחיות"
 
 #: Viewer/ViewerWidget.cpp:191
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
-msgstr ""
+msgstr "הגדרה כתמונה הראשונה בערימה"
 
 #: Viewer/ViewerWidget.cpp:203
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
-msgstr ""
+msgstr "העתקת תמונה אל…"
 
 #: Viewer/ViewerWidget.cpp:209
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
-msgstr ""
+msgstr "קישור תמונה אל…"
 
 #: Viewer/ViewerWidget.cpp:217
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
-msgstr ""
+msgstr "סגירה"
 
 #: Viewer/ViewerWidget.cpp:279
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
-msgstr ""
+msgstr "סיבוב"
 
 #: Viewer/ViewerWidget.cpp:290
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate clockwise"
-msgstr ""
+msgstr "סיבוב עם כיוון השעון"
 
 #: Viewer/ViewerWidget.cpp:291
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
-msgstr ""
+msgstr "היפוך"
 
 #: Viewer/ViewerWidget.cpp:292
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rotate counterclockwise"
-msgstr ""
+msgstr "סיבוב נגד כיוון השעון"
 
 #: Viewer/ViewerWidget.cpp:303
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
-msgstr ""
+msgstr "דילוג"
 
 #: Viewer/ViewerWidget.cpp:306
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
-msgstr ""
+msgstr "הראשון"
 
 #: Viewer/ViewerWidget.cpp:313
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
-msgstr ""
+msgstr "האחרון"
 
 #: Viewer/ViewerWidget.cpp:320
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
-msgstr ""
+msgstr "הצגת הבא"
 
 #: Viewer/ViewerWidget.cpp:326
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
-msgstr ""
+msgstr "דילוג 10 קדימה"
 
 #: Viewer/ViewerWidget.cpp:332
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
-msgstr ""
+msgstr "דילוג 100 קדימה"
 
 #: Viewer/ViewerWidget.cpp:338
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
-msgstr ""
+msgstr "דילוג 1000 קדימה"
 
 #: Viewer/ViewerWidget.cpp:344
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
-msgstr ""
+msgstr "הצגת הקודם"
 
 #: Viewer/ViewerWidget.cpp:350
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
-msgstr ""
+msgstr "דילוג 10 אחורה"
 
 #: Viewer/ViewerWidget.cpp:356
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
-msgstr ""
+msgstr "דילוג 100 אחורה"
 
 #: Viewer/ViewerWidget.cpp:362
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
-msgstr ""
+msgstr "דילוג 1000 אחורה"
 
 #: Viewer/ViewerWidget.cpp:368
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
-msgstr ""
+msgstr "מחיקת תמונה"
 
 #: Viewer/ViewerWidget.cpp:373
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
-msgstr ""
+msgstr "הסרת תמונה מרשימת התצוגה"
 
 #: Viewer/ViewerWidget.cpp:388
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
-msgstr ""
+msgstr "תקריב"
 
 #: Viewer/ViewerWidget.cpp:392
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
-msgstr ""
+msgstr "התקרבות"
 
 #: Viewer/ViewerWidget.cpp:398
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
-msgstr ""
+msgstr "התרחקות"
 
 #: Viewer/ViewerWidget.cpp:404
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
-msgstr ""
+msgstr "תצוגה מלאה"
 
 #: Viewer/ViewerWidget.cpp:410
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
-msgstr ""
+msgstr "תצוגת פיקסל לפיקסל"
 
 #: Viewer/ViewerWidget.cpp:416
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
-msgstr ""
+msgstr "החלפת מצב מסך מלא"
 
 #: Viewer/ViewerWidget.cpp:427
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
-msgstr ""
+msgstr "מצגת"
 
 #: Viewer/ViewerWidget.cpp:430 Viewer/ViewerWidget.cpp:904
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
-msgstr ""
+msgstr "הפעלת מצגת"
 
 #: Viewer/ViewerWidget.cpp:435
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
-msgstr ""
+msgstr "מהר יותר"
 
 #: Viewer/ViewerWidget.cpp:440
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
-msgstr ""
+msgstr "לאט יותר"
 
 #: Viewer/ViewerWidget.cpp:478
 #, kde-format
 msgid "File not available"
-msgstr ""
+msgstr "הקובץ לא זמין"
 
 #: Viewer/ViewerWidget.cpp:516
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
-msgstr ""
+msgstr "%1 %2"
 
 #: Viewer/ViewerWidget.cpp:552
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
-msgstr ""
+msgstr "נגינה"
 
 #: Viewer/ViewerWidget.cpp:554
 #, kde-format
 msgctxt "@action:inmenu Pause video playback"
 msgid "Pause"
-msgstr ""
+msgstr "השהיה"
 
 #: Viewer/ViewerWidget.cpp:622
 #, kde-format
 msgid "locked"
-msgstr ""
+msgstr "נעול"
 
 #: Viewer/ViewerWidget.cpp:624
 #, kde-format
 msgid "annotating"
-msgstr ""
+msgstr "הוספת פירוש"
 
 #: Viewer/ViewerWidget.cpp:626
 #, kde-format
 msgid "tokenizing"
-msgstr ""
+msgstr "פירוק לאסימונים"
 
 #: Viewer/ViewerWidget.cpp:631
 #, kde-format
 msgid "Change display mode to %1"
-msgstr ""
+msgstr "החלפת מצב התצוגה למצב %1"
 
 #: Viewer/ViewerWidget.cpp:907
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr ""
+msgstr "סיום מצגת"
 
 #: Viewer/ViewerWidget.cpp:910
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
-msgstr ""
+msgstr "עצירת מצגת"
 
 #: Viewer/ViewerWidget.cpp:915
 #, kde-format
@@ -6360,139 +6362,139 @@ msgstr ""
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
-msgstr ""
+msgstr "%1&nbsp;שנ׳"
 
 #: Viewer/ViewerWidget.cpp:1226
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr ""
+msgstr "עריכת תיאור התמונה"
 
 #: Viewer/ViewerWidget.cpp:1226
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr ""
+msgstr "תיאור התמונה"
 
 #: Viewer/ViewerWidget.cpp:1241
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
-msgstr ""
+msgstr "חתירה"
 
 #: Viewer/ViewerWidget.cpp:1263
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
-msgstr ""
+msgstr "10 שניות אחורה"
 
 #: Viewer/ViewerWidget.cpp:1264
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
-msgstr ""
+msgstr "דקה אחורה"
 
 #: Viewer/ViewerWidget.cpp:1265
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
-msgstr ""
+msgstr "10 שניות אחורה"
 
 #: Viewer/ViewerWidget.cpp:1266
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
-msgstr ""
+msgstr "שנייה אחורה"
 
 #: Viewer/ViewerWidget.cpp:1267
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
-msgstr ""
+msgstr "100 מילישניות אחורה"
 
 #: Viewer/ViewerWidget.cpp:1268
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
-msgstr ""
+msgstr "100 מילישניות קדימה"
 
 #: Viewer/ViewerWidget.cpp:1269
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
-msgstr ""
+msgstr "שנייה קדימה"
 
 #: Viewer/ViewerWidget.cpp:1270
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
-msgstr ""
+msgstr "10 שניות קדימה"
 
 #: Viewer/ViewerWidget.cpp:1271
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
-msgstr ""
+msgstr "דקה קדימה"
 
 #: Viewer/ViewerWidget.cpp:1272
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
-msgstr ""
+msgstr "10 דקות קדימה"
 
 #: Viewer/ViewerWidget.cpp:1280
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
-msgstr ""
+msgstr "עצירה"
 
 #: Viewer/ViewerWidget.cpp:1292
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
-msgstr ""
+msgstr "להשתמש בתמונית הנוכחית בתצוגת תמונות ממוזערות"
 
 #: Viewer/ViewerWidget.cpp:1299
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
-msgstr ""
+msgstr "התחלה מחדש"
 
 #: Viewer/ViewerWidget.cpp:1315
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
-msgstr ""
+msgstr "מסננים"
 
 #: Viewer/ViewerWidget.cpp:1318
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
-msgstr ""
+msgstr "הסרת כל המסננים"
 
 #: Viewer/ViewerWidget.cpp:1322
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
-msgstr ""
+msgstr "החלת מסנן גווני אפור"
 
 #: Viewer/ViewerWidget.cpp:1327
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
-msgstr ""
+msgstr "החלת מסנן מתיחת ניגודיות"
 
 #: Viewer/ViewerWidget.cpp:1332
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
-msgstr ""
+msgstr "החלת מסנן השוואת הסטוגרמה"
 
 #: Viewer/ViewerWidget.cpp:1337
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
-msgstr ""
+msgstr "החלת מסנן חד גוני"
 
 #: Viewer/ViewerWidget.cpp:1393
 #, kde-format
@@ -6519,153 +6521,153 @@ msgstr ""
 #: Viewer/ViewerWidget.cpp:1468
 #, kde-format
 msgid "Annotate"
-msgstr ""
+msgstr "פירוש"
 
 #: Viewer/ViewerWidget.cpp:1487
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "עזרה"
 
 #: Viewer/ViewerWidget.cpp:1489
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
-msgstr ""
+msgstr "חלונית פירוש"
 
 #: Viewer/ViewerWidget.cpp:1490
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
-msgstr ""
+msgstr "הוספת תגית"
 
 #: Viewer/ViewerWidget.cpp:1490
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "CTRL+a"
 
 #: Viewer/ViewerWidget.cpp:1493
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr ""
+msgstr "העתקת נתונים מהתמונה הקודמת"
 
 #: Viewer/ViewerWidget.cpp:1494
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "CTRL+c"
 
 #: Viewer/ViewerWidget.cpp:1497
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr ""
+msgstr "עריכת תיאור"
 
 #: Viewer/ViewerWidget.cpp:1498
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr ""
+msgstr "CTRL+d"
 
 #: Viewer/ViewerWidget.cpp:1501
 #, kde-format
 msgid "Annotation Mode"
-msgstr ""
+msgstr "מצב פירוש"
 
 #: Viewer/ViewerWidget.cpp:1503
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "נעול"
 
 #: Viewer/ViewerWidget.cpp:1504
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "CTRL+l"
 
 #: Viewer/ViewerWidget.cpp:1508
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "הקצאת תגיות"
 
 #: Viewer/ViewerWidget.cpp:1509
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1512
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr ""
+msgstr "הקצאת אסימונים"
 
 #: Viewer/ViewerWidget.cpp:1513
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr ""
+msgstr "CTRL+t"
 
 #: Viewer/ViewerWidget.cpp:1676
 #, kde-format
 msgid "Token %1"
-msgstr ""
+msgstr "אסימון %1"
 
 #: Viewer/VisibleOptionsMenu.cpp:24
 #, kde-format
 msgid "Show..."
-msgstr ""
+msgstr "הצגה…"
 
 #: Viewer/VisibleOptionsMenu.cpp:27
 #, kde-format
 msgid "Show"
-msgstr ""
+msgstr "הצגה"
 
 #: Viewer/VisibleOptionsMenu.cpp:31
 #, kde-format
 msgid "Show Info Box"
-msgstr ""
+msgstr "הצגת תיבת פרטים"
 
 #: Viewer/VisibleOptionsMenu.cpp:38
 #, kde-format
 msgid "Show Label"
-msgstr ""
+msgstr "הצגת תווית"
 
 #: Viewer/VisibleOptionsMenu.cpp:43
 #, kde-format
 msgid "Show Description"
-msgstr ""
+msgstr "הצגת תיאור"
 
 #: Viewer/VisibleOptionsMenu.cpp:48
 #, kde-format
 msgid "Show Date"
-msgstr ""
+msgstr "הצגת תאריך"
 
 #: Viewer/VisibleOptionsMenu.cpp:53
 #, kde-format
 msgid "Show Time"
-msgstr ""
+msgstr "הצגת שעה"
 
 #: Viewer/VisibleOptionsMenu.cpp:59
 #, kde-format
 msgid "Show Filename"
-msgstr ""
+msgstr "הצגת שם קובץ"
 
 #: Viewer/VisibleOptionsMenu.cpp:64
 #, kde-format
 msgid "Show Exif"
-msgstr ""
+msgstr "הצגת Exif"
 
 #: Viewer/VisibleOptionsMenu.cpp:69
 #, kde-format
 msgid "Show Image Size"
-msgstr ""
+msgstr "הצגת גודל תמונה"
 
 #: Viewer/VisibleOptionsMenu.cpp:74
 #, kde-format
 msgid "Show Rating"
-msgstr ""
+msgstr "הצגת דירוג"

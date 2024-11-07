@@ -314,8 +314,7 @@ msgid "Match Tags Anywhere"
 msgstr "Να γίνει ταίριασμα ετικετών παντού"
 
 #: AnnotationDialog/Dialog.cpp:932
-#, fuzzy, kde-format
-#| msgid "Show only selected Ctrl+S"
+#, kde-format
 msgid "Show Only Selected Ctrl+S"
 msgstr "Εμφάνιση μόνο επιλεγμένων Ctrl+S"
 

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-11-06 06:22+0200\n"
+"PO-Revision-Date: 2024-11-08 09:28+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Lokalize 24.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -102,12 +102,12 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:230
 #, kde-format
 msgid "Revert This Item"
-msgstr ""
+msgstr "שחזור הפריט הזה"
 
 #: AnnotationDialog/Dialog.cpp:236
 #, kde-format
 msgid "Clear Form"
-msgstr ""
+msgstr "פינוי טופס"
 
 #: AnnotationDialog/Dialog.cpp:240
 #, kde-format
@@ -358,37 +358,37 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:1278
 #, kde-format
 msgid "Annotate Next"
-msgstr ""
+msgstr "הוספת פירוש לבאה"
 
 #: AnnotationDialog/Dialog.cpp:1282
 #, kde-format
 msgid "Annotate Previous"
-msgstr ""
+msgstr "הוספת פירוש לקודמת"
 
 #: AnnotationDialog/Dialog.cpp:1286
 #, kde-format
 msgid "OK dialog"
-msgstr ""
+msgstr "חלונית אישור"
 
 #: AnnotationDialog/Dialog.cpp:1290
 #, kde-format
 msgid "Copy tags from previous image"
-msgstr ""
+msgstr "העתקת תגיות מתמונה קודמת"
 
 #: AnnotationDialog/Dialog.cpp:1294 MainWindow/Window.cpp:815
 #, kde-format
 msgid "Rotate counterclockwise"
-msgstr ""
+msgstr "סיבוב נגד כיוון השעון"
 
 #: AnnotationDialog/Dialog.cpp:1297 MainWindow/Window.cpp:819
 #, kde-format
 msgid "Rotate clockwise"
-msgstr ""
+msgstr "סיבוב עם כיוון השעון"
 
 #: AnnotationDialog/Dialog.cpp:1300
 #, kde-format
 msgid "Toggle fullscreen preview"
-msgstr ""
+msgstr "החלפת מצב תצוגה מקדימה במסך מלא"
 
 #: AnnotationDialog/ImagePreview.cpp:514
 #, kde-format
@@ -429,7 +429,7 @@ msgstr ""
 #: AnnotationDialog/ImagePreviewWidget.cpp:110
 #, kde-format
 msgid "Category for new areas:"
-msgstr ""
+msgstr "קטגוריה לאזורים חדשים:"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:315
 #, kde-format
@@ -456,37 +456,37 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
-msgstr ""
+msgstr "החלפת מצב תצוגה מקדימה במסך מלא"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:356
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate counterclockwise"
-msgstr ""
+msgstr "סיבוב נגד כיוון השעון"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:357
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Rotate clockwise"
-msgstr ""
+msgstr "סיבוב עם כיוון השעון"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:358
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
-msgstr ""
+msgstr "העתקת תגיות מתמונה שתויגה בעבר"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:359
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"
-msgstr ""
+msgstr "מחיקת תמונה"
 
 #: AnnotationDialog/ListSelect.cpp:72
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr ""
+msgstr "נא למלא תגית…"
 
 #: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:342
 #, kde-format
@@ -4407,7 +4407,7 @@ msgstr ""
 #: Plugins/PurposeMenu.cpp:37
 #, kde-format
 msgid "Share"
-msgstr ""
+msgstr "שיתוף"
 
 #: RemoteControl/ConnectionIndicator.cpp:30
 #, kde-format
@@ -4455,12 +4455,12 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textedit"
 msgid "Filter ... (%1)"
-msgstr ""
+msgstr "סינון… (%1)"
 
 #: Settings/BirthdayPage.cpp:93
 #, kde-format
 msgid "Remove birthday"
-msgstr ""
+msgstr "הסרת יום הולדת"
 
 #: Settings/BirthdayPage.cpp:99
 #, kde-format
@@ -4472,22 +4472,22 @@ msgstr ""
 #: Settings/BirthdayPage.cpp:157
 #, kde-format
 msgid "Name"
-msgstr ""
+msgstr "שם"
 
 #: Settings/BirthdayPage.cpp:157
 #, kde-format
 msgid "Birthday"
-msgstr ""
+msgstr "יום הולדת"
 
 #: Settings/BirthdayPage.cpp:225
 #, kde-format
 msgid "Birthday of %1:"
-msgstr ""
+msgstr "יום ההולדת של %1:"
 
 #: Settings/BirthdayPage.cpp:233
 #, kde-format
 msgid "Enter a date..."
-msgstr ""
+msgstr "נא למלא תאריך…"
 
 #: Settings/BirthdayPage.cpp:297
 #, kde-format
@@ -4910,32 +4910,32 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:189
 #, kde-format
 msgid "Hard Disk"
-msgstr ""
+msgstr "כונן קשיח"
 
 #: Settings/FileVersionDetectionPage.cpp:190
 #, kde-format
 msgid "Network"
-msgstr ""
+msgstr "רשת"
 
 #: Settings/FileVersionDetectionPage.cpp:191
 #, kde-format
 msgid "SATA SSD"
-msgstr ""
+msgstr "SSD בחיבור SATA"
 
 #: Settings/FileVersionDetectionPage.cpp:192
 #, kde-format
 msgid "Slow PCIe/NVMe"
-msgstr ""
+msgstr "PCIe/NVMe איטי"
 
 #: Settings/FileVersionDetectionPage.cpp:193
 #, kde-format
 msgid "Fast PCIe/NVMe"
-msgstr ""
+msgstr "PCIe/NVMe מהיר"
 
 #: Settings/FileVersionDetectionPage.cpp:194
 #, kde-format
 msgid "Manual Settings"
-msgstr ""
+msgstr "הגדרות ידניות"
 
 #: Settings/FileVersionDetectionPage.cpp:197
 #, kde-format
@@ -5016,19 +5016,19 @@ msgstr ""
 #, kde-format
 msgctxt "As in 'always trust image dates'"
 msgid "Always"
-msgstr ""
+msgstr "תמיד"
 
 #: Settings/GeneralPage.cpp:40
 #, kde-format
 msgctxt "As in 'ask whether to trust image dates'"
 msgid "Ask"
-msgstr ""
+msgstr "לשאול"
 
 #: Settings/GeneralPage.cpp:41
 #, kde-format
 msgctxt "As in 'never trust image dates'"
 msgid "Never"
-msgstr ""
+msgstr "אף פעם"
 
 #: Settings/GeneralPage.cpp:48
 #, kde-format
@@ -5142,50 +5142,50 @@ msgstr ""
 #: Settings/SettingsDialog.cpp:47
 #, kde-format
 msgid "File Searching & Versions"
-msgstr ""
+msgstr "חיפוש קבצים וגרסאות"
 
 #: Settings/SettingsDialog.cpp:49
 #, kde-format
 msgid "Categories"
-msgstr ""
+msgstr "קטגוריות"
 
 #: Settings/SettingsDialog.cpp:50
 #, kde-format
 msgid "Birthdays"
-msgstr ""
+msgstr "ימי הולדת"
 
 #: Settings/SettingsDialog.cpp:51
 #, kde-format
 msgid "Tag Groups"
-msgstr ""
+msgstr "קבוצות תגיות"
 
 #: Settings/SettingsDialog.cpp:53
 #, kde-format
 msgid "Exif/IPTC Information"
-msgstr ""
+msgstr "פרטי Exif/IPTC"
 
 #: Settings/SettingsDialog.cpp:54
 #, kde-format
 msgid "Database Backend"
-msgstr ""
+msgstr "מנגנוני מסדי נתונים"
 
 #: Settings/SettingsDialog.cpp:74
 #, kde-format
 msgctxt "@title:window"
 msgid "Settings"
-msgstr ""
+msgstr "הגדרות"
 
 #: Settings/TagGroupsPage.cpp:37
 #, kde-format
 msgctxt "@label"
 msgid "Categories and groups:"
-msgstr ""
+msgstr "קטגוריות וקבוצות:"
 
 #: Settings/TagGroupsPage.cpp:46
 #, kde-format
 msgctxt "@label/rich"
 msgid "<strong>Select a group on the left side to add tags to it</strong>"
-msgstr ""
+msgstr "<strong>נא לבחור קבוצה מימין כדי להוסיף אליה תגיות</strong>"
 
 #: Settings/TagGroupsPage.cpp:57
 #, kde-format
@@ -5194,66 +5194,68 @@ msgid ""
 "<strong>There are pending changes on the categories page.<nl> Please save "
 "the changes before working on tag groups.</strong>"
 msgstr ""
+"<strong>יש שינויים ממתינים בעמוד הקטגוריות.<nl> נא לשמור את השינויים בטרם "
+"עבודה על קבוצות תגיות.</strong>"
 
 #: Settings/TagGroupsPage.cpp:66
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add group ..."
-msgstr ""
+msgstr "הוספת קבוצה…"
 
 #: Settings/TagGroupsPage.cpp:229
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename group \"%1\""
-msgstr ""
+msgstr "שינוי שם הקבוצה „%1”"
 
 #: Settings/TagGroupsPage.cpp:231
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete group \"%1\""
-msgstr ""
+msgstr "מחיקת הקבוצה „%1”"
 
 #: Settings/TagGroupsPage.cpp:310
 #, kde-format
 msgctxt "@label"
 msgid "Tags in group \"%1\" of category \"%2\""
-msgstr ""
+msgstr "תגיות בקבוצה „%1” של הקטגוריה „%2”"
 
 #: Settings/TagGroupsPage.cpp:341
 #, kde-format
 msgctxt "@title:window"
 msgid "New Group"
-msgstr ""
+msgstr "קבוצה חדשה"
 
 #: Settings/TagGroupsPage.cpp:342
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Group name:"
-msgstr ""
+msgstr "שם הקבוצה:"
 
 #: Settings/TagGroupsPage.cpp:357
 #, kde-format
 msgctxt "@info"
 msgid "<p>The group \"%1\" already exists.</p>"
-msgstr ""
+msgstr "<p>הקבוצה „%1” כבר קיימת.</p>"
 
 #: Settings/TagGroupsPage.cpp:358
 #, kde-format
 msgctxt "@title:window"
 msgid "Cannot add group"
-msgstr ""
+msgstr "לא ניתן להוסיף קבוצה"
 
 #: Settings/TagGroupsPage.cpp:435 Settings/TagGroupsPage.cpp:454
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename Group"
-msgstr ""
+msgstr "שינוי שם הקבוצה"
 
 #: Settings/TagGroupsPage.cpp:436
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New group name:"
-msgstr ""
+msgstr "שם חדש לקבוצה:"
 
 #: Settings/TagGroupsPage.cpp:449
 #, kde-kuit-format
@@ -5262,6 +5264,8 @@ msgid ""
 "<para>Cannot rename group \"%1\" to \"%2\": \"%2\" already exists in "
 "category \"%3\"</para>"
 msgstr ""
+"<para>לא ניתן לשנות את שם הקבוצה „%1” לשם „%2”: „%2” כבר קיים בקטגוריה „%3„</"
+"para>"
 
 #: Settings/TagGroupsPage.cpp:510
 #, kde-kuit-format
@@ -5282,36 +5286,36 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Delete Group"
-msgstr ""
+msgstr "מחיקת קבוצה"
 
 #: Settings/TagGroupsPage.cpp:522 Settings/TagGroupsPage.cpp:769
 #, kde-format
 msgid "&Delete"
-msgstr ""
+msgstr "מ&חיקה"
 
 #: Settings/TagGroupsPage.cpp:700
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename \"%1\""
-msgstr ""
+msgstr "לשנות את השם של „%1”"
 
 #: Settings/TagGroupsPage.cpp:702
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete \"%1\""
-msgstr ""
+msgstr "למחוק את „%1”"
 
 #: Settings/TagGroupsPage.cpp:713
 #, kde-format
 msgctxt "@title:window"
 msgid "New Tag Name"
-msgstr ""
+msgstr "שם תגית חדשה"
 
 #: Settings/TagGroupsPage.cpp:714
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Tag name:"
-msgstr ""
+msgstr "שם התגית:"
 
 #: Settings/TagGroupsPage.cpp:764
 #, kde-kuit-format
@@ -5321,12 +5325,14 @@ msgid ""
 "will remove any information about it from any image containing the item.</"
 "para>"
 msgstr ""
+"<para>למחוק את „%1”?</para><para>מחיקת הפריט תסיר את המידע עליו מכל תמונה "
+"שמכילה את הפריט.</para>"
 
 #: Settings/TagGroupsPage.cpp:768
 #, kde-format
 msgctxt "@title:window"
 msgid "Really delete %1?"
-msgstr ""
+msgstr "למחוק את %1?"
 
 #: Settings/ThumbnailsPage.cpp:28
 #, kde-format
@@ -5336,7 +5342,7 @@ msgstr ""
 #: Settings/ThumbnailsPage.cpp:32
 #, kde-format
 msgid "No Image Preview"
-msgstr ""
+msgstr "אין תצוגה מקדימה לתמונה"
 
 #: Settings/ThumbnailsPage.cpp:38
 #, kde-format
@@ -5356,68 +5362,68 @@ msgstr ""
 #: Settings/ThumbnailsPage.cpp:54
 #, kde-format
 msgid "1:1"
-msgstr ""
+msgstr "1:1"
 
 #: Settings/ThumbnailsPage.cpp:54
 #, kde-format
 msgid "4:3"
-msgstr ""
+msgstr "4:3"
 
 #: Settings/ThumbnailsPage.cpp:55
 #, kde-format
 msgid "3:2"
-msgstr ""
+msgstr "3:2"
 
 #: Settings/ThumbnailsPage.cpp:55
 #, kde-format
 msgid "16:9"
-msgstr ""
+msgstr "16:9"
 
 #: Settings/ThumbnailsPage.cpp:55
 #, kde-format
 msgid "3:4"
-msgstr ""
+msgstr "3:4"
 
 #: Settings/ThumbnailsPage.cpp:55
 #, kde-format
 msgid "2:3"
-msgstr ""
+msgstr "2:3"
 
 #: Settings/ThumbnailsPage.cpp:55
 #, kde-format
 msgid "9:16"
-msgstr ""
+msgstr "9:16"
 
 #: Settings/ThumbnailsPage.cpp:61
 #, kde-format
 msgid "Space around cells:"
-msgstr ""
+msgstr "רווח מסביב לתאים:"
 
 #: Settings/ThumbnailsPage.cpp:69
 #, kde-format
 msgid "Display grid around thumbnails"
-msgstr ""
+msgstr "הצגת רשת מסביב לתמונות ממוזערות"
 
 #: Settings/ThumbnailsPage.cpp:74
 #, kde-format
 msgid "Display labels in thumbnail view"
-msgstr ""
+msgstr "הצגות תוויות בתצוגת תמונות ממוזערות"
 
 #: Settings/ThumbnailsPage.cpp:79
 #, kde-format
 msgid "Display categories in thumbnail view"
-msgstr ""
+msgstr "הצגות קטגוריות בתצוגת תמונות ממוזערות"
 
 #: Settings/ThumbnailsPage.cpp:84
 #, kde-format
 msgid "Threshold for automatic thumbnail view: "
-msgstr ""
+msgstr "סף לתצוגת תמונות ממוזערות אוטומטית: "
 
 #: Settings/ThumbnailsPage.cpp:88
 #, kde-format
 msgctxt "Describing: 'ThumbnailView will not be automatically shown'"
 msgid "Disabled"
-msgstr ""
+msgstr "מושבת"
 
 #: Settings/ThumbnailsPage.cpp:98
 #, kde-format
@@ -5606,37 +5612,37 @@ msgstr ""
 #: Settings/ViewerPage.cpp:58
 #, kde-format
 msgid " sec"
-msgstr ""
+msgstr " שנ׳"
 
 #: Settings/ViewerPage.cpp:61
 #, kde-format
 msgid "Image cache:"
-msgstr ""
+msgstr "מטמון תמונות:"
 
 #: Settings/ViewerPage.cpp:67
 #, kde-format
 msgid " Mbytes"
-msgstr ""
+msgstr " מגהבתים"
 
 #: Settings/ViewerPage.cpp:73
 #, kde-format
 msgid "Standard size in viewer:"
-msgstr ""
+msgstr "גודל רגיל במציג:"
 
 #: Settings/ViewerPage.cpp:75
 #, kde-format
 msgid "Full Viewer Size"
-msgstr ""
+msgstr "גודל מציג מלא"
 
 #: Settings/ViewerPage.cpp:75
 #, kde-format
 msgid "Natural Image Size"
-msgstr ""
+msgstr "גודל תמונה טבעי"
 
 #: Settings/ViewerPage.cpp:75
 #, kde-format
 msgid "Natural Image Size If Possible"
-msgstr ""
+msgstr "גודל תמונה טבעי אם ניתן"
 
 #: Settings/ViewerPage.cpp:80
 #, kde-format
@@ -5653,17 +5659,17 @@ msgstr ""
 #: Settings/ViewerPage.cpp:87
 #, kde-format
 msgid "Scaling algorithm:"
-msgstr ""
+msgstr "אלגוריתם שינוי קנה מידה:"
 
 #: Settings/ViewerPage.cpp:89
 #, kde-format
 msgid "Fastest"
-msgstr ""
+msgstr "המהיר ביותר"
 
 #: Settings/ViewerPage.cpp:89
 #, kde-format
 msgid "Best"
-msgstr ""
+msgstr "הטוב ביותר"
 
 #: Settings/ViewerPage.cpp:94
 #, kde-format
@@ -5770,7 +5776,7 @@ msgstr ""
 #: Utilities/DescriptionUtil.cpp:60
 #, kde-format
 msgid "<b>Date: </b> "
-msgstr ""
+msgstr "<b>תאריך: </b> "
 
 #: Utilities/DescriptionUtil.cpp:69
 #, kde-format
@@ -5979,28 +5985,28 @@ msgstr "%1 ו%2"
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
-msgstr ""
+msgstr "הקצאת מאקרו"
 
 #: Viewer/AnnotationHandler.cpp:69
 #, kde-format
 msgid "Select item for macro key <b>%1</b>"
-msgstr ""
+msgstr "נא לבחור פריט למקש המאקרו <b>%1</b>"
 
 #: Viewer/AnnotationHandler.cpp:126
 #, kde-format
 msgid "Tag Item"
-msgstr ""
+msgstr "תיוג פריט"
 
 #: Viewer/AnnotationHandler.cpp:126
 #, kde-format
 msgid "Select tag for image"
-msgstr ""
+msgstr "נא לבחור תגית לתמונה"
 
 #: Viewer/CategoryImageConfig.cpp:41
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure Category Image"
-msgstr ""
+msgstr "הגדרת תמונת קטגוריה"
 
 #: Viewer/CategoryImageConfig.cpp:50
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-10-26 19:03+0200\n"
+"PO-Revision-Date: 2024-11-09 20:09+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -432,11 +432,11 @@ msgid ""
 "change this in the settings dialog. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings.</p>"
 msgstr ""
-"<p><b> Не може да се свърже етикет  \"%2\"</b></p><p> Категорията \"%1\", "
-"към която етикетът\"%2\" принадлежи, не може да се позиционира. </p><p> Ако "
-"искате да използвате този етикет,трябва да го промените в диалоговия "
-"прозорец за настройки. Ако този етикет не трябва да бъде вбазата данни за "
-"разпознаване, той може да бъде изтрит в настройките.</p>"
+"<p><b> Не може да се свърже етикет  „%2“</b></p><p> Категорията „%1“, към "
+"която етикетът„%2“ принадлежи, не може да се позиционира. </p><p> Ако искате "
+"да използвате този етикет,трябва да го промените в диалоговия прозорец за "
+"настройки. Ако този етикет не трябва да бъде вбазата данни за разпознаване, "
+"той може да бъде изтрит в настройките.</p>"
 
 #: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
@@ -446,8 +446,8 @@ msgid ""
 "this category and mark it as positionable. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings dialog.</p>"
 msgstr ""
-"<p><b> Не може да се свърже етикет \"%2\"</b></p><p>Категорията \"%1\", към "
-"която етикетът\"%2\" принадлежи не съществува. </p><p> Ако искате да "
+"<p><b> Не може да се свърже етикет „%2“</b></p><p>Категорията „%1“, към "
+"която етикетът„%2“ принадлежи не съществува. </p><p> Ако искате да "
 "използвате този маркер, добавететази категория и я маркирайте като "
 "позиционираща се. Ако този етикет не трябва да бъде вбазата данни за "
 "разпознаване вече може да бъде изтрит в диалоговия прозорец за настройки.</p>"
@@ -645,7 +645,7 @@ msgid ""
 "<p>Do you really want to delete \"%1\"?<br/>Deleting the item will remove "
 "any information about it from any image containing the item.</p>"
 msgstr ""
-"<p>Наистина ли искате да изтриете \"%1\"? <br/> Изтриването на елемента ще "
+"<p>Наистина ли искате да изтриете „%1“? <br/> Изтриването на елемента ще "
 "премахне всяка информация за него от всяко изображение, което го съдържащо.</"
 "p>"
 
@@ -672,8 +672,8 @@ msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
 "\"%3\" on any image containing it.</p>"
 msgstr ""
-"<p>Наистина ли искате да преименувате \"%1\" на \"%2\"? <br/> Това ще "
-"преименува ще преименува \"%3\" на всяко изображение, което го съдържа.</p>"
+"<p>Наистина ли искате да преименувате „%1“ на „%2“? <br/> Това ще преименува "
+"ще преименува „%3“ на всяко изображение, което го съдържа.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:473
 #, fuzzy, kde-format
@@ -681,7 +681,7 @@ msgstr ""
 #| msgid "Rename \"%1\""
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Преименуване \"%1\""
+msgstr "Преименуване „%1“"
 
 #: AnnotationDialog/ListSelect.cpp:477
 #, fuzzy, kde-format
@@ -993,22 +993,22 @@ msgstr "Функцията не е конфигурирана"
 #: CategoryListView/CheckDropItem.cpp:118
 #, kde-format
 msgid "\"%1\" and \"%2\""
-msgstr "\"%1\" и \"%2\""
+msgstr "„%1“ и „%2“"
 
 #: CategoryListView/CheckDropItem.cpp:122
 #, kde-format
 msgid "\"%1\""
-msgstr "\"%1\""
+msgstr "„%1“"
 
 #: CategoryListView/CheckDropItem.cpp:124
 #, kde-format
 msgid ", \"%1\""
-msgstr ", \"%1\""
+msgstr ", „%1“"
 
 #: CategoryListView/CheckDropItem.cpp:127
 #, kde-format
 msgid " and \"%1\""
-msgstr " и \"%1\""
+msgstr " и „%1“"
 
 #: CategoryListView/CheckDropItem.cpp:131
 #, kde-format
@@ -1036,8 +1036,8 @@ msgstr[0] ""
 "В рамките на този пример ще трябва да завлечете Лас Вегас в САЩ. Когато сте "
 "настроили групов етикет, можете ,например, да видите всички изображения от "
 "САЩ просто като изберете този елемент в браузъра. </p><p>Наистина ли имате "
-"намерение да направите \"%3\" групов етикет и да добавете \"%2\" като неин "
-"член? </p>"
+"намерение да направите „%3“ групов етикет и да добавете „%2“ като неин член? "
+"</p>"
 msgstr[1] ""
 "<p>Току що завлякохте няколко елемента в друг. Това ще направи целевия "
 "елемент групов етикет, а завлечения елемент член на тази група. Груповите "
@@ -1045,8 +1045,8 @@ msgstr[1] ""
 "Йорк се намират в САЩ \". В рамките на този пример ще трябва да завлечете "
 "Лас Вегас и Ню Йорк в САЩ. Когато сте настроили групов етикет, можете ,"
 "например, да видите всички изображения от САЩ просто като изберете този "
-"елемент в браузъра. </p><p>Наистина ли имате намерение да направите \"%3\" "
-"групов етикет и да добавете \"%2\" като неин член? </p>"
+"елемент в браузъра. </p><p>Наистина ли имате намерение да направите „%3“ "
+"групов етикет и да добавете „%2“ като неин член? </p>"
 
 #: CategoryListView/CheckDropItem.cpp:157
 #, kde-format
@@ -1197,7 +1197,7 @@ msgstr "10 секунди"
 #: DB/Category.cpp:309
 #, kde-format
 msgid "Unable to create folder '%1'."
-msgstr "Не може да се създаде папка \"%1\"."
+msgstr "Не може да се създаде папка „%1“."
 
 #: DB/Category.cpp:309
 #, kde-format
@@ -1207,7 +1207,7 @@ msgstr "Папката не може да се създаде"
 #: DB/Category.cpp:318
 #, kde-format
 msgid "Error when saving image '%1'."
-msgstr "Грешка при записване на изображението \"%1\"."
+msgstr "Грешка при записване на изображението „%1“."
 
 #: DB/Category.cpp:318
 #, kde-format
@@ -1988,7 +1988,7 @@ msgstr "Грешка при копиране на %1 в %2"
 #: HTMLGenerator/Generator.cpp:472
 #, kde-format
 msgid "<a href=\"%1\">prev</a>"
-msgstr "<a href=\"%1\">предишно</a>"
+msgstr "<a href=„%1“>предишно</a>"
 
 #: HTMLGenerator/Generator.cpp:474 HTMLGenerator/Generator.cpp:482
 #, kde-format
@@ -2003,7 +2003,7 @@ msgstr "<a href=\"index-%1.html\">начало</a>"
 #: HTMLGenerator/Generator.cpp:495
 #, kde-format
 msgid "<a href=\"%1\">next</a>"
-msgstr "<a href=\"%1\">следващо</a>"
+msgstr "<a href=„%1“>следващо</a>"
 
 #: HTMLGenerator/Generator.cpp:497 HTMLGenerator/Generator.cpp:504
 #, kde-format
@@ -2013,7 +2013,7 @@ msgstr "следващо"
 #: HTMLGenerator/Generator.cpp:645
 #, kde-format
 msgid "Could not create file '%1'."
-msgstr "Не може да се създаде файл : \"%1\"."
+msgstr "Не може да се създаде файл : „%1“."
 
 #: HTMLGenerator/Generator.cpp:646
 #, kde-format
@@ -2028,7 +2028,7 @@ msgstr "<p>Не може да се копира %1 в %2</p>"
 #: HTMLGenerator/Generator.cpp:699
 #, kde-format
 msgid "Unable to write image '%1'."
-msgstr "Не може да се запише изображение \"%1\"."
+msgstr "Не може да се запише изображение „%1“."
 
 #: HTMLGenerator/Generator.cpp:773 HTMLGenerator/HTMLDialog.cpp:148
 #, kde-format
@@ -4744,7 +4744,7 @@ msgstr "Нова категория"
 #: Settings/CategoryPage.cpp:404
 #, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
-msgstr "<p>Наистина ли да се изтрие категория \"%1\"?</p>"
+msgstr "<p>Наистина ли да се изтрие категория „%1“?</p>"
 
 #: Settings/CategoryPage.cpp:408
 #, kde-format
@@ -5327,7 +5327,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete group \"%1\""
-msgstr "Изтриване на група \"%1\""
+msgstr "Изтриване на група „%1“"
 
 #: Settings/TagGroupsPage.cpp:310
 #, kde-format
@@ -5392,7 +5392,7 @@ msgstr ""
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<para>Really delete group \"%1\"?</para>"
-msgstr "<para>Наистина ли да се изтрие група \"%1\"?</para>"
+msgstr "<para>Наистина ли да се изтрие група „%1“?</para>"
 
 #: Settings/TagGroupsPage.cpp:521
 #, kde-format
@@ -5409,13 +5409,13 @@ msgstr "&Изтриване"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename \"%1\""
-msgstr "Преименуване \"%1\""
+msgstr "Преименуване „%1“"
 
 #: Settings/TagGroupsPage.cpp:702
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete \"%1\""
-msgstr "Изтриване на \"%1\""
+msgstr "Изтриване на „%1“"
 
 #: Settings/TagGroupsPage.cpp:713
 #, kde-format
@@ -5875,7 +5875,7 @@ msgstr ""
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
 #, kde-format
 msgid "Unable to create folder '%1' needed for demo."
-msgstr "Не може да се създаде папка \"%1\", необходима за демонстрацията."
+msgstr "Не може да се създаде папка „%1“, необходима за демонстрацията."
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format
@@ -6102,7 +6102,7 @@ msgctxt ""
 "happened 3 years and 1 month\" ago, where the first parameter is the "
 "formatted years string and the second one is the formatted months string"
 msgid "%1 and %2"
-msgstr "\"%1\" и \"%2\""
+msgstr "„%1“ и „%2“"
 
 #: Viewer/AnnotationHandler.cpp:69
 #, kde-format

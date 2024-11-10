@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-11-08 09:28+0200\n"
+"PO-Revision-Date: 2024-11-09 12:02+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -914,27 +914,27 @@ msgstr ""
 #: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1768
 #, kde-format
 msgid "Feature has not been configured"
-msgstr ""
+msgstr "היכולת לא הוגדרה עדיין"
 
 #: CategoryListView/CheckDropItem.cpp:118
 #, kde-format
 msgid "\"%1\" and \"%2\""
-msgstr ""
+msgstr "„%1” וגם „%2”"
 
 #: CategoryListView/CheckDropItem.cpp:122
 #, kde-format
 msgid "\"%1\""
-msgstr ""
+msgstr "„%1”"
 
 #: CategoryListView/CheckDropItem.cpp:124
 #, kde-format
 msgid ", \"%1\""
-msgstr ""
+msgstr ", „%1”"
 
 #: CategoryListView/CheckDropItem.cpp:127
 #, kde-format
 msgid " and \"%1\""
-msgstr ""
+msgstr " וגם „%1”"
 
 #: CategoryListView/CheckDropItem.cpp:131
 #, kde-format
@@ -1214,7 +1214,7 @@ msgstr "נמצא קובץ שמירה אוטומטית"
 #: DB/ImageDB.cpp:398
 #, kde-format
 msgid "Loading information from images"
-msgstr ""
+msgstr "נטען מידע מתמונות"
 
 #: DB/ImageDB.cpp:561 DB/ImageDB.cpp:848 DB/XML/FileReader.cpp:135
 #: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:355
@@ -1279,12 +1279,12 @@ msgctxt ""
 "problem with this, but I need some how to indicate the category, and users "
 "may create their own categories, so this is the best I can do - Jesper."
 msgid "No %1"
-msgstr ""
+msgstr "אין %1"
 
 #: DB/search/ImageSearchInfo.cpp:343
 #, kde-format
 msgid "not"
-msgstr ""
+msgstr "לא"
 
 #: DB/search/ImageSearchInfo.cpp:348
 #, kde-format
@@ -1294,7 +1294,7 @@ msgctxt ""
 "and users may create their own categories, so this is the best I can do - "
 "Jesper."
 msgid "No other %1"
-msgstr ""
+msgstr "אין %1 נוספים"
 
 #: DB/XML/FileReader.cpp:57
 #, kde-format
@@ -1378,7 +1378,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:443
 #, kde-format
 msgid "Images/Videos Are Not Sorted"
-msgstr ""
+msgstr "התמונות/הסרטונים לא מסודרים"
 
 #: DB/XML/FileReader.cpp:455
 #, kde-format
@@ -1394,7 +1394,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:460
 #, kde-format
 msgid "Not All Images Have Size Information"
-msgstr ""
+msgstr "לא לכל התמונות יש פרטי גודל"
 
 #: DB/XML/FileReader.cpp:474
 #, kde-format
@@ -1409,19 +1409,19 @@ msgstr ""
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
-msgstr ""
+msgstr "<li>%1:<br/>"
 
 #: DB/XML/FileReader.cpp:486
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
-msgstr ""
+msgstr "%1<br/>"
 
 #: DB/XML/FileReader.cpp:489
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
-msgstr ""
+msgstr "</li>"
 
 #: DB/XML/FileReader.cpp:494
 #, kde-format
@@ -1434,7 +1434,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:498
 #, kde-format
 msgid "Database repair required"
-msgstr ""
+msgstr "צריך לתקן את מסד הנתונים"
 
 #: DB/XML/FileReader.cpp:521
 #, kde-format
@@ -1453,55 +1453,55 @@ msgstr ""
 #: DB/XML/FileReader.cpp:529
 #, kde-format
 msgid "No default setup file found"
-msgstr ""
+msgstr "לא נמצא קובץ הגדרות כברירת מחדל"
 
 #: DB/XML/FileReader.cpp:535 Settings/BirthdayPage.cpp:135
 #, kde-format
 msgid "People"
-msgstr ""
+msgstr "אנשים"
 
 #: DB/XML/FileReader.cpp:536
 #, kde-format
 msgid "Places"
-msgstr ""
+msgstr "מקומות"
 
 #. i18n("Events"))
 #: DB/XML/FileReader.cpp:537 lib/kpabase/SettingsData.cpp:433
 #, kde-format
 msgid "Events"
-msgstr ""
+msgstr "אירועים"
 
 #. i18n("untagged"))
 #: DB/XML/FileReader.cpp:538 lib/kpabase/SettingsData.cpp:443
 #, kde-format
 msgid "untagged"
-msgstr ""
+msgstr "ללא תיוג"
 
 #: DB/XML/FileReader.cpp:549 Utilities/DemoUtil.cpp:34
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
 #, kde-format
 msgid "Error Running Demo"
-msgstr ""
+msgstr "שגיאה בהרצת ההדגמה"
 
 #: DB/XML/FileReader.cpp:549
 #, kde-format
 msgid "Unable to open '%1' for reading"
-msgstr ""
+msgstr "לא ניתן לפתוח את ‚%1’ לקריאה"
 
 #: DB/XML/FileReader.cpp:562
 #, kde-format
 msgid "line %1 column %2 in file %3: %4"
-msgstr ""
+msgstr "שורה %1 עמודה %2 בקובץ %3:‏ %4"
 
 #: DB/XML/FileReader.cpp:564
 #, kde-format
 msgid "Failed to recover the backup: %1"
-msgstr ""
+msgstr "שחזור הגיבוי נכשל: %1"
 
 #: DB/XML/FileReader.cpp:575
 #, kde-format
 msgid "Error in file %1: No elements found"
-msgstr ""
+msgstr "שגיאה בקובץ %1: לא נמצאו רכיבים"
 
 #: DB/XML/FileReader.cpp:581
 #, kde-format
@@ -1607,7 +1607,7 @@ msgstr ""
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
-msgstr ""
+msgstr "סינון תוויות…"
 
 #: Exif/InfoDialog.cpp:79
 #, kde-format
@@ -1617,57 +1617,57 @@ msgstr ""
 #: Exif/InfoDialog.cpp:98
 #, kde-format
 msgid "Exif info"
-msgstr ""
+msgstr "פרטי Exif"
 
 #: Exif/InfoDialog.cpp:99
 #, kde-format
 msgid "File metadata"
-msgstr ""
+msgstr "נתוני על של קובץ"
 
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
 msgid "Absolute path:"
-msgstr ""
+msgstr "נתיב מוחלט:"
 
 #: Exif/MetaDataDisplay.cpp:42
 #, kde-format
 msgid "MIME type:"
-msgstr ""
+msgstr "סוג תוכן/MIME:"
 
 #: Exif/MetaDataDisplay.cpp:46 Settings/ViewerSizeConfig.cpp:26
 #, kde-format
 msgid "Size:"
-msgstr ""
+msgstr "גודל:"
 
 #: Exif/MetaDataDisplay.cpp:50
 #, kde-format
 msgid "Created:"
-msgstr ""
+msgstr "יצירה:"
 
 #: Exif/MetaDataDisplay.cpp:54
 #, kde-format
 msgid "Changed:"
-msgstr ""
+msgstr "שינוי:"
 
 #: Exif/MetaDataDisplay.cpp:58
 #, kde-format
 msgid "Owner:"
-msgstr ""
+msgstr "בעלות:"
 
 #: Exif/MetaDataDisplay.cpp:62
 #, kde-format
 msgid "Group:"
-msgstr ""
+msgstr "קבוצה:"
 
 #: Exif/MetaDataDisplay.cpp:66
 #, kde-format
 msgid "Permissions:"
-msgstr ""
+msgstr "הרשאות:"
 
 #: Exif/MetaDataDisplay.cpp:100
 #, kde-format
 msgid "Open folder with a file manager"
-msgstr ""
+msgstr "פתיחת התיקייה עם מנהל קבצים"
 
 #: Exif/MetaDataDisplay.cpp:107
 #, kde-format
@@ -1675,28 +1675,28 @@ msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr ""
+msgstr "%1 (%2 ב׳)"
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
 #, kde-format
 msgctxt "File permission shortcut for \"reading allowed\""
 msgid "r"
-msgstr ""
+msgstr "ק"
 
 #: Exif/MetaDataDisplay.cpp:124 Exif/MetaDataDisplay.cpp:130
 #: Exif/MetaDataDisplay.cpp:136
 #, kde-format
 msgctxt "File permission shortcut for \"writing allowed\""
 msgid "w"
-msgstr ""
+msgstr "כ"
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
 #, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
-msgstr ""
+msgstr "ה"
 
 #: Exif/MetaDataDisplay.cpp:157
 #, kde-format
@@ -1704,43 +1704,43 @@ msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and its octal representation (e.g. \"0644\")"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2)"
 
 #: Exif/ReReadDialog.cpp:28
 #, kde-format
 msgctxt "@title:window"
 msgid "Read Exif Info from Files"
-msgstr ""
+msgstr "לקרוא פרטי Exif מקבצים"
 
 #: Exif/ReReadDialog.cpp:35
 #, kde-format
 msgid "Update Exif search database"
-msgstr ""
+msgstr "עדכון מסד נתוני חיפוש Exif"
 
 #: Exif/ReReadDialog.cpp:41
 #, kde-format
 msgid "Update image date"
-msgstr ""
+msgstr "עדכון תאריך תמונה"
 
 #: Exif/ReReadDialog.cpp:44
 #, kde-format
 msgid "Use modification date if Exif not found"
-msgstr ""
+msgstr "להשתמש בתאריך השינוי אם לא נמצא Exif"
 
 #: Exif/ReReadDialog.cpp:47
 #, kde-format
 msgid "Update image orientation from Exif information"
-msgstr ""
+msgstr "עדכון כיוון התמונה מפרטי Exif"
 
 #: Exif/ReReadDialog.cpp:50
 #, kde-format
 msgid "Update image description from Exif information"
-msgstr ""
+msgstr "עדכון תיאור התמונה מפרטי Exif"
 
 #: Exif/ReReadDialog.cpp:53
 #, kde-format
 msgid "Affected Files"
-msgstr ""
+msgstr "קבצים מושפעים"
 
 #: Exif/ReReadDialog.cpp:124
 #, kde-format
@@ -1752,7 +1752,7 @@ msgstr ""
 #: Exif/ReReadDialog.cpp:127
 #, kde-format
 msgid "Override image dates"
-msgstr ""
+msgstr "שכתוב תאריכי תמונות"
 
 #: Exif/SearchDialog.cpp:31
 #, kde-format
@@ -1768,7 +1768,7 @@ msgstr "הגדרות"
 #: Exif/SearchDialog.cpp:56
 #, kde-format
 msgid "Aperture (F Number)"
-msgstr ""
+msgstr "פתיחת צמצם (מספר F)"
 
 #: Exif/SearchDialog.cpp:66
 #, kde-format
@@ -1836,7 +1836,7 @@ msgstr "כיוון"
 #: Exif/SearchDialog.cpp:274
 #, kde-format
 msgid "Metering Mode"
-msgstr ""
+msgstr "מצב מדידה"
 
 #: Exif/SearchDialog.cpp:290
 #, kde-format
@@ -1883,7 +1883,7 @@ msgstr ""
 #: HTMLGenerator/Generator.cpp:185
 #, kde-format
 msgid "Error copying %1 to %2"
-msgstr ""
+msgstr "שגיאה בהעתקת %1 אל %2"
 
 #: HTMLGenerator/Generator.cpp:472
 #, kde-format
@@ -1898,7 +1898,7 @@ msgstr ""
 #: HTMLGenerator/Generator.cpp:486
 #, kde-format
 msgid "<a href=\"index-%1.html\">index</a>"
-msgstr ""
+msgstr "<a href=\"index-%1.html\">מפתח</a>"
 
 #: HTMLGenerator/Generator.cpp:495
 #, kde-format
@@ -2153,7 +2153,7 @@ msgctxt ""
 "by itself will work fine on this context if no proper word is available in "
 "your language."
 msgid "by "
-msgstr ""
+msgstr "מאת"
 
 #: HTMLGenerator/HTMLDialog.cpp:559
 #, kde-format
@@ -2161,46 +2161,48 @@ msgid ""
 "\n"
 " "
 msgstr ""
+"\n"
+" "
 
 #: HTMLGenerator/HTMLDialog.cpp:574
 #, kde-format
 msgid "<p>Gallery folder cannot be empty.</p>"
-msgstr ""
+msgstr "<p>תיקיית גלריה לא יכולה להיות ריקה.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:578
 #, kde-format
 msgid "<p>The output folder already exists.</p>"
-msgstr ""
+msgstr "<p>תיקיית הפלט כבר קיימת.</p>"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:93
 #, kde-format
 msgid "Failed to start"
-msgstr ""
+msgstr "ההפעלה נכשלה"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:96
 #, kde-format
 msgid "Crashed"
-msgstr ""
+msgstr "קרס"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:99
 #, kde-format
 msgid "Timedout"
-msgstr ""
+msgstr "תם הזמן המוקצב"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:102
 #, kde-format
 msgid "Read error"
-msgstr ""
+msgstr "שגיאת קריאה"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:105
 #, kde-format
 msgid "Write error"
-msgstr ""
+msgstr "שגיאת כתיבה"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:108
 #, kde-format
 msgid "Unknown error"
-msgstr ""
+msgstr "שגיאה לא ידועה"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:113
 #, kde-format
@@ -2262,7 +2264,7 @@ msgstr ""
 #: ImportExport/Export.cpp:110
 #, kde-format
 msgid "Do not copy files, only generate .kim file"
-msgstr ""
+msgstr "לא להעתיק קבצים, רק לייצר קובץ ‎.kim"
 
 #: ImportExport/Export.cpp:111
 #, kde-format
@@ -2337,12 +2339,12 @@ msgstr ""
 #: ImportExport/Export.cpp:242
 #, kde-format
 msgid "Error creating zip file"
-msgstr ""
+msgstr "שגיאה ביצירת קובץ zip"
 
 #: ImportExport/Export.cpp:256
 #, kde-format
 msgid "&Cancel"
-msgstr ""
+msgstr "&ביטול"
 
 #: ImportExport/Export.cpp:275
 #, kde-format
@@ -2357,12 +2359,12 @@ msgstr ""
 #: ImportExport/Export.cpp:310
 #, kde-format
 msgid "Copying image files"
-msgstr ""
+msgstr "העתקת קובצי תמונות"
 
 #: ImportExport/Export.cpp:375
 #, kde-format
 msgid "Error writing file %1"
-msgstr ""
+msgstr "שגיאה בכתיבה לקובץ %1"
 
 #: ImportExport/Export.cpp:403
 #, kde-format
@@ -2381,17 +2383,17 @@ msgstr ""
 #: ImportExport/Export.cpp:412
 #, kde-format
 msgid "How to Use the Export File"
-msgstr ""
+msgstr "איך להשתמש בקובץ הייצוא"
 
 #: ImportExport/Import.cpp:28
 #, kde-format
 msgid "KPhotoAlbum Export Files"
-msgstr ""
+msgstr "ייצוא קבצים מ־KPhotoAlbum"
 
 #: ImportExport/Import.cpp:60
 #, kde-format
 msgid "Unable to create temporary file"
-msgstr ""
+msgstr "לא ניתן ליצור קובץ זמני"
 
 #: ImportExport/ImportDialog.cpp:87
 #, kde-format
@@ -2428,7 +2430,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:tab introduction page"
 msgid "Introduction"
-msgstr ""
+msgstr "היכרות"
 
 #: ImportExport/ImportDialog.cpp:156 MainWindow/TokenEditor.cpp:60
 #, kde-format
@@ -2458,105 +2460,105 @@ msgstr ""
 #: ImportExport/ImportDialog.cpp:225
 #, kde-format
 msgid "The folder must be a subfolder of %1"
-msgstr ""
+msgstr "התיקייה חייבת להיות תת־תיקייה של %1"
 
 #: ImportExport/ImportDialog.cpp:228
 #, kde-format
 msgid "This folder is reserved for category images."
-msgstr ""
+msgstr "התיקייה הזאת שמורה לתמונות קטגוריה."
 
 #: ImportExport/ImportDialog.cpp:268
 #, kde-format
 msgid "Match Categories"
-msgstr ""
+msgstr "התאמת קטגוריות"
 
 #: ImportExport/ImportDialog.cpp:300
 #, kde-format
 msgid "Folder %1 does not exist. Should it be created?"
-msgstr ""
+msgstr "התיקייה %1 לא קיימת. ליצור אותה?"
 
 #: ImportExport/ImportDialog.cpp:301 MainWindow/WelcomeDialog.cpp:157
 #, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr ""
+msgstr "ליצור תיקייה?"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1187
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr ""
+msgstr "ליצור"
 
 #: ImportExport/ImportDialog.cpp:311
 #, kde-format
 msgid "Error creating folder %1"
-msgstr ""
+msgstr "שגיאה ביצירת התיקייה %1"
 
 #: ImportExport/ImportDialog.cpp:390
 #, kde-format
 msgid "How to resolve clashes"
-msgstr ""
+msgstr "איך לפתור סתירות"
 
 #: ImportExport/ImportHandler.cpp:93 ImportExport/ImportHandler.cpp:155
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
-msgstr ""
+msgstr "העתקת תמונות"
 
 #: ImportExport/ImportHandler.cpp:170
 #, kde-format
 msgid "Error when writing image %1"
-msgstr ""
+msgstr "שגיאה בכתיבת התמונה %1"
 
 #: ImportExport/ImportHandler.cpp:189
 #, kde-format
 msgid "Updating Database"
-msgstr ""
+msgstr "מסד הנתונים מתעדכן"
 
 #: ImportExport/ImportHandler.cpp:234
 #, kde-format
 msgid "Cannot copy from any of the following locations:"
-msgstr ""
+msgstr "לא ניתן להעתיק מאף אחד מהמקומות הבאים:"
 
 #: ImportExport/ImportHandler.cpp:235
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr ""
+msgstr "ההעתקה נכשלה"
 
 #: ImportExport/ImportHandler.cpp:241
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
-msgstr ""
+msgstr "להמשיך בלי לשאול"
 
 #: ImportExport/ImportMatcher.cpp:37
 #, kde-format
 msgid "Key in file"
-msgstr ""
+msgstr "מפתח בקובץ"
 
 #: ImportExport/ImportMatcher.cpp:44
 #, kde-format
 msgid "Key in your database"
-msgstr ""
+msgstr "מפתח במסד הנתוני םשלך"
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
 msgid "Unable to open '%1' for reading."
-msgstr ""
+msgstr "לא ניתן לפתוח את ‚%1’ לקריאה."
 
 #: ImportExport/KimFileReader.cpp:27
 #, kde-format
 msgid "Error Importing Data"
-msgstr ""
+msgstr "שגיאה בייבוא נתונים"
 
 #: ImportExport/KimFileReader.cpp:35
 #, kde-format
 msgid ""
 "Error reading folder contents of file %1; it is likely that the file is "
 "broken."
-msgstr ""
+msgstr "שגיאה בקריאת תוכן תיקיית הקובץ %1, כנראה שהקובץ פגום."
 
 #: ImportExport/KimFileReader.cpp:48
 #, kde-format
@@ -2625,12 +2627,12 @@ msgstr ""
 #: ImportExport/MD5CheckPage.cpp:61
 #, kde-format
 msgid "Merge data"
-msgstr ""
+msgstr "מיזוג נתונים"
 
 #: ImportExport/MD5CheckPage.cpp:68
 #, kde-format
 msgid "Date and Time"
-msgstr ""
+msgstr "תאריך ושעה"
 
 #: kpa-thumbnailtool/main.cpp:32
 #, kde-format
@@ -2641,17 +2643,17 @@ msgstr ""
 #: kpa-thumbnailtool/main.cpp:44
 #, kde-format
 msgid "KPhotoAlbum Thumbnail Tool"
-msgstr ""
+msgstr "כלי תמונות ממוזערות של KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:46
 #, kde-format
 msgid "Tool for inspecting and editing the KPhotoAlbum thumbnail cache"
-msgstr ""
+msgstr "כלי לחקירת ועריכת מטמון התמונות הממוזערות של KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:48
 #, kde-format
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
-msgstr ""
+msgstr "כל הזכויות שמורות (C) 2020-2024 לצוות הפיתוח של KPhotoAlbum"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:77
 #, kde-format
@@ -2661,42 +2663,42 @@ msgstr ""
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:77
 #, kde-format
 msgid "Development, Maintainer"
-msgstr ""
+msgstr "פיתוח, תחזוקה"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:78
 #, kde-format
 msgid "Robert Krawitz"
-msgstr ""
+msgstr "רוברט קרוויץ"
 
 #: kpa-thumbnailtool/main.cpp:57 main.cpp:78
 #, kde-format
 msgid "Development, Optimization"
-msgstr ""
+msgstr "פיתוח, מיטוב"
 
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:79
 #, kde-format
 msgid "Tobias Leupold"
-msgstr ""
+msgstr "טוביאס לאופולד"
 
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:79
 #, kde-format
 msgid "Development, Releases, Website"
-msgstr ""
+msgstr "פיתוח, הוצאת גרסאות לאור, אתר"
 
 #: kpa-thumbnailtool/main.cpp:59 main.cpp:80
 #, kde-format
 msgid "Jesper K. Pedersen"
-msgstr ""
+msgstr "ג׳ספר ק. פדרסן"
 
 #: kpa-thumbnailtool/main.cpp:59 main.cpp:80
 #, kde-format
 msgid "Former Maintainer, Project Creator"
-msgstr ""
+msgstr "מתחזק לשעבר, מייסד המיזם"
 
 #: kpa-thumbnailtool/main.cpp:61 main.cpp:82
 #, kde-format
 msgid "Hassan Ibraheem"
-msgstr ""
+msgstr "חסאן איברהים"
 
 #: kpa-thumbnailtool/main.cpp:62 main.cpp:83
 #, kde-format
@@ -2711,23 +2713,23 @@ msgstr ""
 #: kpa-thumbnailtool/main.cpp:64 main.cpp:85
 #, kde-format
 msgid "Tuomas Suutari"
-msgstr ""
+msgstr "תומאס סוטארי"
 
 #: kpa-thumbnailtool/main.cpp:65 main.cpp:86
 #, kde-format
 msgid "Miika Turkia"
-msgstr ""
+msgstr "מיקה טורקיה"
 
 #: kpa-thumbnailtool/main.cpp:66 main.cpp:87
 #, kde-format
 msgid "Henner Zeller"
-msgstr ""
+msgstr "הנר צלר"
 
 #: kpa-thumbnailtool/main.cpp:70
 #, kde-format
 msgctxt "@info:shell"
 msgid "The folder containing the .thumbnail folder."
-msgstr ""
+msgstr "התיקייה מכילה את תיקיית ‎.thmbnail."
 
 #: kpa-thumbnailtool/main.cpp:71
 #, kde-format
@@ -5515,7 +5517,7 @@ msgstr ""
 #: Settings/UntaggedGroupBox.cpp:117
 #, kde-format
 msgid "New tag added"
-msgstr ""
+msgstr "נוספה תגית חדשה"
 
 #: Settings/UntaggedGroupBox.cpp:118
 #, kde-format
@@ -5529,7 +5531,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:26
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
-msgstr ""
+msgstr "<h1>נא לבחור נגן וידאו</h1>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:29
 #, kde-format
@@ -5569,30 +5571,30 @@ msgstr ""
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
-msgstr ""
+msgstr "מנגנון וידאו לא מוגדר"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:144
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
-msgstr ""
+msgstr "מנגנון וידאו Phonon"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:146
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
-msgstr ""
+msgstr "מנגנון וידאו QtAV"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:148
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
-msgstr ""
+msgstr "מנגנון וידאו VLC"
 
 #: Settings/ViewerPage.cpp:25
 #, kde-format
 msgid "Not Configured"
-msgstr ""
+msgstr "לא מוגדר"
 
 #: Settings/ViewerPage.cpp:42
 #, kde-format

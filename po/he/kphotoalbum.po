@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-11-09 12:02+0200\n"
+"PO-Revision-Date: 2024-11-10 21:18+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -4620,57 +4620,57 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "אישור פעולה"
 
 #: Settings/CategoryPage.cpp:372
 #, kde-format
 msgid "New category"
-msgstr ""
+msgstr "קטגוריה חדשה"
 
 #: Settings/CategoryPage.cpp:404
 #, kde-format
 msgid "<p>Really delete category \"%1\"?</p>"
-msgstr ""
+msgstr "<p>למחוק את הקטגוריה „%1”?</p>"
 
 #: Settings/CategoryPage.cpp:408
 #, kde-format
 msgid "Confirm Action"
-msgstr ""
+msgstr "אישור פעולה"
 
 #: Settings/CategoryPage.cpp:521
 #, kde-format
 msgid "<i>Choose a category to edit it</i>"
-msgstr ""
+msgstr "<i>נא לבחור קטגוריה לערוך</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
 #, kde-format
 msgid "Choose speed over readability for index.xml file"
-msgstr ""
+msgstr "להעדיף מהירות על פני קריאות קובץ index.xml"
 
 #: Settings/DatabaseBackendPage.cpp:27
 #, kde-format
 msgid "Compress backup file"
-msgstr ""
+msgstr "דחיסת קובץ גיבוי"
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
 msgid "Auto save every:"
-msgstr ""
+msgstr "לשמור אוטומטית כל:"
 
 #: Settings/DatabaseBackendPage.cpp:34
 #, kde-format
 msgid "min."
-msgstr ""
+msgstr "דק׳"
 
 #: Settings/DatabaseBackendPage.cpp:45
 #, kde-format
 msgid "Number of backups to keep:"
-msgstr ""
+msgstr "מספר הגיבויים לשמירה:"
 
 #: Settings/DatabaseBackendPage.cpp:50
 #, kde-format
 msgid "Infinite"
-msgstr ""
+msgstr "אינסופי"
 
 #: Settings/DatabaseBackendPage.cpp:57
 #, kde-format
@@ -4696,47 +4696,47 @@ msgstr ""
 #: Settings/ExifPage.cpp:37
 #, kde-format
 msgid "Exif/IPTC info to show in the viewer"
-msgstr ""
+msgstr "פרטי Exif/IPTC להצגה במציג"
 
 #: Settings/ExifPage.cpp:40
 #, kde-format
 msgid "Exif/IPTC info to show in the Exif dialog"
-msgstr ""
+msgstr "פרטי Exif/IPTC להצגה בחלונית ה־Exif"
 
 #: Settings/ExifPage.cpp:43
 #, kde-format
 msgid "Character set for image metadata:"
-msgstr ""
+msgstr "סדרת תווים לנתוני־על של תמונות:"
 
 #: Settings/FileVersionDetectionPage.cpp:31
 #, kde-format
 msgid "New File Searches"
-msgstr ""
+msgstr "חיפושי קבצים חדשים"
 
 #: Settings/FileVersionDetectionPage.cpp:36
 #, kde-format
 msgid "Search for new images and videos on startup"
-msgstr ""
+msgstr "חיפוש אחר תמונות וסרטונים חדשים עם העלייה"
 
 #: Settings/FileVersionDetectionPage.cpp:39
 #, kde-format
 msgid "Ignore file extensions when searching for new images and videos"
-msgstr ""
+msgstr "התעלמות מסיומות קבצים בעת חיפוש אחר תמונות וסרטונים חדשים"
 
 #: Settings/FileVersionDetectionPage.cpp:42
 #, kde-format
 msgid "Skip symbolic links when searching for new images"
-msgstr ""
+msgstr "דילוג על קישורים סמליים בעת חיפוש אחר תמונות חדשות"
 
 #: Settings/FileVersionDetectionPage.cpp:45
 #, kde-format
 msgid "Do not read RAW files if a matching JPEG/TIFF file exists"
-msgstr ""
+msgstr "לא לקרוא קבצים גולמיים/RAW אם יש קובץ JPEG/TIFF תואם"
 
 #: Settings/FileVersionDetectionPage.cpp:49
 #, kde-format
 msgid "Directories to exclude from new file search:"
-msgstr ""
+msgstr "תיקיות להחרגה מחיפוש קבצים חדשים:"
 
 #: Settings/FileVersionDetectionPage.cpp:56
 #, kde-format
@@ -5503,16 +5503,18 @@ msgid ""
 "automatically, so that they can be easily found. It will be removed as soon "
 "as the image has been annotated."
 msgstr ""
+"אם נבחרת כאן תגית, היא תתווסף לתמונות (שאין מתויגות) אוטומטית, כדי שאפשר "
+"יהיה למצוא אותן אוטומטית. היא תוסר ברגע שיתווסף לתמונה הסבר."
 
 #: Settings/UntaggedGroupBox.cpp:45
 #, kde-format
 msgid "Show the untagged images tag as a normal tag"
-msgstr ""
+msgstr "הצגת תגית התמונות הלא מתויגות כתגית רגילה"
 
 #: Settings/UntaggedGroupBox.cpp:54
 #, kde-format
 msgid "None Selected"
-msgstr ""
+msgstr "לא נבחרה אף אחת"
 
 #: Settings/UntaggedGroupBox.cpp:117
 #, kde-format
@@ -5555,7 +5557,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:58
 #, kde-format
 msgid " (NOT AVAILABLE)"
-msgstr ""
+msgstr " (לא זמין)"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:84
 #, kde-format

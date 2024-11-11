@@ -1,20 +1,20 @@
 # translation of kphotoalbum.po to Slovak
 # Richard Fric <Richard.Fric@kdemail.net>, 2007, 2009.
-# Roman Paholík <wizzardsk@gmail.com>, 2012, 2013, 2016.
+# SPDX-FileCopyrightText: 2012, 2013, 2016, 2024 Roman Paholík <wizzardsk@gmail.com>
 # Matej Mrenica <matejm98mthw@gmail.com>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-02 01:49+0000\n"
-"PO-Revision-Date: 2021-01-10 14:24+0100\n"
-"Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
-"Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2024-11-10 18:19+0100\n"
+"Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
+"Language-Team: Slovak <kde-sk@linux.sk>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.12.1\n"
+"X-Generator: Lokalize 24.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #, kde-format
@@ -348,11 +348,10 @@ msgstr ""
 "nedávne zmeny v každom ovplyvnenom súbore?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1044
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "Uložiť zmeny?"
+msgstr "Zahodiť zmeny?"
 
 #: AnnotationDialog/Dialog.cpp:1145
 #, kde-format
@@ -545,7 +544,7 @@ msgstr "Odstrániť obrázok"
 #| msgid "Enter a date..."
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr "Zadajte dátum..."
+msgstr "Zadajte značku"
 
 #: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:339
 #, kde-format
@@ -660,8 +659,7 @@ msgid "Really Delete %1?"
 msgstr "Naozaj vymazať %1?"
 
 #: AnnotationDialog/ListSelect.cpp:463
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
 msgstr "Premenovať položku"
@@ -686,11 +684,10 @@ msgstr ""
 #| msgid "Rename \"%1\""
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "Premenovať \"%1\""
+msgstr "Premenovať"
 
 #: AnnotationDialog/ListSelect.cpp:478
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Premenovať"
@@ -1071,14 +1068,14 @@ msgid "Datebar"
 msgstr "Dátum:"
 
 #: DateBar/DateBarWidget.cpp:70
-#, kde-format
+#, fuzzy, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "Posunúť doprava"
 
 #: DateBar/DateBarWidget.cpp:79
-#, kde-format
+#, fuzzy, kde-format
 msgid "Scroll left"
-msgstr ""
+msgstr "Posunúť doľava"
 
 #: DateBar/DateBarWidget.cpp:88
 #, kde-format
@@ -1203,16 +1200,15 @@ msgid "10 Seconds"
 msgstr "10 sekúnd"
 
 #: DB/Category.cpp:307
-#, fuzzy, kde-format
-#| msgid "Unable to create directory '%1'."
+#, kde-format
 msgid "Unable to create folder '%1'."
-msgstr "Nepodarilo sa vytvoriť adresár '%1'."
+msgstr "Nepodarilo sa vytvoriť priečinok '%1'."
 
 #: DB/Category.cpp:307
 #, fuzzy, kde-format
 #| msgid "Unable to Create Directory"
 msgid "Unable to Create Folder"
-msgstr "Nepodarilo sa vytvoriť adresár"
+msgstr "Nepodarilo sa vytvoriť priečinok. %1"
 
 #: DB/Category.cpp:316
 #, kde-format
@@ -1684,7 +1680,7 @@ msgstr ""
 #, fuzzy, kde-format
 #| msgid "Error when saving image '%1'."
 msgid "Error while saving..."
-msgstr "Chyba pri ukladaní obrázka '%1'."
+msgstr "Chyba počas ukladania"
 
 #: DB/XML/FileWriter.cpp:110
 #, kde-format
@@ -1803,14 +1799,14 @@ msgid "File metadata"
 msgstr "Podpora videa"
 
 #: Exif/MetaDataDisplay.cpp:37
-#, kde-format
+#, fuzzy, kde-format
 msgid "Absolute path:"
-msgstr ""
+msgstr "Absolútna cesta"
 
 #: Exif/MetaDataDisplay.cpp:42
 #, kde-format
 msgid "MIME type:"
-msgstr ""
+msgstr "Typ MIME:"
 
 #: Exif/MetaDataDisplay.cpp:46 Settings/ViewerSizeConfig.cpp:26
 #, kde-format
@@ -1818,31 +1814,31 @@ msgid "Size:"
 msgstr "Veľkosť:"
 
 #: Exif/MetaDataDisplay.cpp:50
-#, kde-format
+#, fuzzy, kde-format
 msgid "Created:"
-msgstr ""
+msgstr "Vytvorené:"
 
 #: Exif/MetaDataDisplay.cpp:54
-#, kde-format
+#, fuzzy, kde-format
 msgid "Changed:"
-msgstr ""
+msgstr "Zmenené"
 
 #: Exif/MetaDataDisplay.cpp:58
 #, kde-format
 msgid "Owner:"
-msgstr ""
+msgstr "Vlastník:"
 
 #: Exif/MetaDataDisplay.cpp:62
 #, fuzzy, kde-format
 #| msgctxt "@label:textbox"
 #| msgid "Group name:"
 msgid "Group:"
-msgstr "Názov skupiny:"
+msgstr "Skupina:"
 
 #: Exif/MetaDataDisplay.cpp:66
 #, kde-format
 msgid "Permissions:"
-msgstr ""
+msgstr "Práva:"
 
 #: Exif/MetaDataDisplay.cpp:100
 #, kde-format
@@ -1857,29 +1853,28 @@ msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr "%1 (%2)"
+msgstr "B"
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
-#, fuzzy, kde-format
-#| msgid "or"
+#, kde-format
 msgctxt "File permission shortcut for \"reading allowed\""
 msgid "r"
-msgstr "alebo"
+msgstr "r"
 
 #: Exif/MetaDataDisplay.cpp:124 Exif/MetaDataDisplay.cpp:130
 #: Exif/MetaDataDisplay.cpp:136
 #, kde-format
 msgctxt "File permission shortcut for \"writing allowed\""
 msgid "w"
-msgstr ""
+msgstr "w"
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
 #, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
-msgstr ""
+msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
 #, fuzzy, kde-format
@@ -2247,7 +2242,7 @@ msgstr "Adresár galérie:"
 #, fuzzy, kde-format
 #| msgid "Output directory:"
 msgid "Output folder:"
-msgstr "Výstupný adresár:"
+msgstr "Výstupný priečin&ok"
 
 #: HTMLGenerator/HTMLDialog.cpp:331
 #, fuzzy, kde-format
@@ -2357,7 +2352,7 @@ msgstr ""
 #| msgid "Folder"
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr "Priečinok"
+msgstr "Priečinok existuje"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:547 MainWindow/SplashScreen.cpp:53
@@ -2785,24 +2780,22 @@ msgid "Folder %1 does not exist. Should it be created?"
 msgstr "Adresár %1 neexistuje. Má sa vytvoriť?"
 
 #: ImportExport/ImportDialog.cpp:298 MainWindow/WelcomeDialog.cpp:156
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr "Základný adresár:"
+msgstr "Vytvoriť priečinok?"
 
 #: ImportExport/ImportDialog.cpp:303 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1249
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr ""
+msgstr "Vytvoriť"
 
 #: ImportExport/ImportDialog.cpp:314
-#, fuzzy, kde-format
-#| msgid "Error creating zip file %1"
+#, kde-format
 msgid "Error creating folder %1"
-msgstr "Chyba vytvárania zip súboru %1"
+msgstr "Chyba pri vytváraní priečinku %1"
 
 #: ImportExport/ImportDialog.cpp:393
 #, kde-format
@@ -3525,7 +3518,7 @@ msgstr ""
 #| msgid "seconds"
 msgctxt "Unit suffix on a QSpinBox; note the space at the beginning."
 msgid " seconds"
-msgstr "sekúnd"
+msgstr " sekundy"
 
 #: MainWindow/AutoStackImages.cpp:87
 #, kde-format
@@ -3585,7 +3578,7 @@ msgstr[2] "Linkovať obrázky na..."
 #| msgid "Removing items"
 msgctxt "@title:window"
 msgid "Removing Items"
-msgstr "Odstraňujem položky"
+msgstr "Odstraňujem %1 položky"
 
 #: MainWindow/DeleteDialog.cpp:64
 #, kde-format
@@ -3966,8 +3959,7 @@ msgid ""
 msgstr "Hľadať obrázky a videá s čiastočnými dátumami (ako 1971 vs. 11/7-1971)"
 
 #: MainWindow/InvalidDateFinder.cpp:70
-#, fuzzy, kde-format
-#| msgid "Image Info"
+#, kde-format
 msgctxt "@title:window"
 msgid "Image Info"
 msgstr "Info o obrázku"
@@ -4089,7 +4081,7 @@ msgstr "%each"
 #| msgid "Search"
 msgctxt "Name/title of the search bar toolbar widget"
 msgid "Search Bar"
-msgstr "Hľadať"
+msgstr "Pruh hľadania"
 
 #: MainWindow/SearchBar.cpp:25
 #, fuzzy, kde-format
@@ -4299,7 +4291,7 @@ msgstr "Adresár neexistuje, má sa vytvoriť?"
 #, fuzzy, kde-format
 #| msgid "Could not create file '%1'."
 msgid "Could not create folder %1"
-msgstr "Nepodarilo sa vytvoriť súbor '%1'."
+msgstr "Nie je možné vytvoriť priečinok: %1"
 
 #: MainWindow/WelcomeDialog.cpp:175
 #, fuzzy, kde-format
@@ -4385,8 +4377,7 @@ msgid "Do you want to save the changes?"
 msgstr "Chcete uložiť zmeny?"
 
 #: MainWindow/Window.cpp:337
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
 msgstr "Uložiť zmeny?"
@@ -4625,9 +4616,9 @@ msgid "Show Categories in Thumbnails Window"
 msgstr "Zobraziť tipy v okne miniatúr"
 
 #: MainWindow/Window.cpp:998
-#, kde-format
+#, fuzzy, kde-format
 msgid "Choose Color Scheme"
-msgstr ""
+msgstr "Vybrať farebnú schému"
 
 #: MainWindow/Window.cpp:1009
 #, kde-format
@@ -4664,7 +4655,7 @@ msgstr "Znovu vytvoriť EXIF databázu hľadania"
 #, fuzzy, kde-format
 #| msgid "Read EXIF Info From Files..."
 msgid "Read Exif Info from Files..."
-msgstr "Čítať EXIF informácie zo súborov..."
+msgstr "Prečítať Exif informácie zo súborov"
 
 #: MainWindow/Window.cpp:1030
 #, kde-format
@@ -4685,7 +4676,7 @@ msgstr "Zostaviť miniatúry"
 #, fuzzy, kde-format
 #| msgid "Statistics"
 msgid "Statistics..."
-msgstr "Štatistika"
+msgstr "<h1>Štatistika</h1>"
 
 #: MainWindow/Window.cpp:1044
 #, kde-format
@@ -4961,7 +4952,7 @@ msgstr "Prejsť na poslednú pozíciu mapy"
 #, fuzzy, kde-format
 #| msgid "Show Thumbnails"
 msgid "Show thumbnails"
-msgstr "Zobraziť náhľady"
+msgstr "Zobraziť miniatúry"
 
 #: Map/MapView.cpp:194
 #, kde-format
@@ -4991,10 +4982,9 @@ msgid "Map view"
 msgstr "Zobraznie mapy"
 
 #: Map/MapView.cpp:363
-#, fuzzy, kde-format
-#| msgid "Settings saved"
+#, kde-format
 msgid "Settings saved!"
-msgstr "Nastavenia uložené"
+msgstr "Nastavenia uložené!"
 
 #: Map/MapView.cpp:390
 #, kde-format
@@ -5027,7 +5017,7 @@ msgstr "<i>Žiadny z vybraných obrázkov neobsahuje geografické súradnice.</i
 #, fuzzy, kde-format
 #| msgid "Sharpness"
 msgid "Share"
-msgstr "Ostrosť"
+msgstr "Zdieľať"
 
 #: RemoteControl/ConnectionIndicator.cpp:30
 #, kde-format
@@ -5087,7 +5077,7 @@ msgstr ""
 #| msgid "Filters"
 msgctxt "@label:textedit"
 msgid "Filter ... (%1)"
-msgstr "Filtre"
+msgstr "Filter"
 
 #: Settings/BirthdayPage.cpp:92
 #, kde-format
@@ -5653,7 +5643,7 @@ msgstr "Rýchle PCIe/NVMe"
 #, fuzzy, kde-format
 #| msgid "Settings"
 msgid "Manual Settings"
-msgstr "Nastavenia"
+msgstr "Ručné n&astavenia:"
 
 #: Settings/FileVersionDetectionPage.cpp:197
 #, kde-format
@@ -6352,9 +6342,9 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:52
 #: Settings/VideoPlayerSelectorDialog.cpp:61
 #: Settings/VideoPlayerSelectorDialog.cpp:70
-#, kde-format
+#, fuzzy, kde-format
 msgid " (NOT AVAILABLE)"
-msgstr ""
+msgstr "Nedostupné"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:98
 #, kde-format
@@ -6396,7 +6386,7 @@ msgstr "Backend databázy"
 #: Settings/ViewerPage.cpp:25
 #, kde-format
 msgid "Not Configured"
-msgstr ""
+msgstr "Nenastavené"
 
 #: Settings/ViewerPage.cpp:42
 #, kde-format
@@ -6541,12 +6531,10 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: ThumbnailView/FilterWidget.cpp:60
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Filters"
+#, kde-format
 msgctxt "The label gives a textual description of the active filter"
 msgid "Filter: %1"
-msgstr "Filtre"
+msgstr "Filter: %1"
 
 #: ThumbnailView/FilterWidget.cpp:83
 #, kde-kuit-format
@@ -6667,53 +6655,41 @@ msgstr " (%1)"
 #| msgid " (%1-%2)"
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
-msgstr " (%1-%2)"
+msgstr "do"
 
 #: Utilities/Timespan.cpp:103
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 day old'"
-#| msgid "1 day"
-#| msgid_plural "%1 days"
+#, kde-format
 msgctxt "Like \"The baby is '8 days' old\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] "1 deň"
+msgstr[0] "%1 deň"
 msgstr[1] "%1 dni"
 msgstr[2] "%1 dní"
 
 #: Utilities/Timespan.cpp:108
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"The baby is '4 months' old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 mesiac"
+msgstr[0] "%1 mesiac"
 msgstr[1] "%1 mesiace"
 msgstr[2] "%1 mesiacov"
 
 #: Utilities/Timespan.cpp:113
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 year old'"
-#| msgid "1 year"
-#| msgid_plural "%1 years"
+#, kde-format
 msgctxt "Like \"The person is '28 years' old\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] "1 rok"
+msgstr[0] "%1 rok"
 msgstr[1] "%1 roky"
 msgstr[2] "%1 rokov"
 
 #: Utilities/Timespan.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"The baby is \"4 months\" old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 mesiac"
+msgstr[0] "%1 mesiac"
 msgstr[1] "%1 mesiace"
 msgstr[2] "%1 mesiacov"
 
@@ -6742,7 +6718,7 @@ msgstr "včera"
 #| msgid " (%1)"
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
-msgstr " (%1)"
+msgstr "dozadu"
 
 #: Utilities/Timespan.cpp:162
 #, fuzzy, kde-format
@@ -6753,25 +6729,22 @@ msgid " (%1 to %2 ago)"
 msgstr " (%1-%2)"
 
 #: Utilities/Timespan.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 day old'"
-#| msgid "1 day"
-#| msgid_plural "%1 days"
+#, kde-format
 msgctxt "Like \"This happened '6 days' ago\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] "1 deň"
+msgstr[0] "%1 deň"
 msgstr[1] "%1 dni"
 msgstr[2] "%1 dní"
 
 #: Utilities/Timespan.cpp:184
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "Like \"This happened '3 weeks' ago\""
 msgid "%1 week"
 msgid_plural "%1 weeks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%1 týždeň"
+msgstr[1] "%1 týždne"
+msgstr[2] "%1 týždňov"
 
 #: Utilities/Timespan.cpp:189
 #, kde-format
@@ -6783,14 +6756,11 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: Utilities/Timespan.cpp:197 Utilities/Timespan.cpp:236
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"This happened '2 months' ago\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 mesiac"
+msgstr[0] "%1 mesiac"
 msgstr[1] "%1 mesiace"
 msgstr[2] "%1 mesiacov"
 
@@ -6808,26 +6778,22 @@ msgstr[2] "%1 mesiacov"
 
 #: Utilities/Timespan.cpp:212 Utilities/Timespan.cpp:231
 #: Utilities/Timespan.cpp:234
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 year old'"
-#| msgid "1 year"
-#| msgid_plural "%1 years"
+#, kde-format
 msgctxt "Like \"This happened '2 years' ago\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] "1 rok"
+msgstr[0] "%1 rok"
 msgstr[1] "%1 roky"
 msgstr[2] "%1 rokov"
 
 #: Utilities/Timespan.cpp:240
-#, fuzzy, kde-format
-#| msgid "\"%1\" and \"%2\""
+#, kde-format
 msgctxt ""
 "This combines a number of years and months to a timespan, like \"This "
 "happened 3 years and 1 month\" ago, where the first parameter is the "
 "formatted years string and the second one is the formatted months string"
 msgid "%1 and %2"
-msgstr "\"%1\" a \"%2\""
+msgstr "%1 a %2"
 
 #: Viewer/AnnotationHandler.cpp:68
 #, kde-format
@@ -6931,20 +6897,20 @@ msgid "Type name of category and item"
 msgstr ""
 
 #: Viewer/SelectCategoryAndValue.cpp:136
-#, kde-format
+#, fuzzy, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "Pridať nový"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
-#, kde-format
+#, fuzzy, kde-format
 msgid "Key"
-msgstr ""
+msgstr "Kľúč"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
 #, fuzzy, kde-format
 #| msgid "Tag:"
 msgid "Tag"
-msgstr "Tag:"
+msgstr "Značka"
 
 #: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
@@ -6957,21 +6923,21 @@ msgstr ""
 #, fuzzy, kde-format
 #| msgid "OK dialog"
 msgid "Dialog"
-msgstr "OK dialóg"
+msgstr "Dialóg"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
 #, fuzzy, kde-format
 #| msgid "Label"
 msgid "TextLabel"
-msgstr "Štítok"
+msgstr "TextLabel"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
 #, fuzzy, kde-format
 #| msgid "Add a tag"
 msgid "Add new Tag"
-msgstr "Pridať značku"
+msgstr "Pridať nový štítok..."
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
@@ -7204,7 +7170,7 @@ msgstr "Pozastaviť"
 #, fuzzy, kde-format
 #| msgid "Unlock"
 msgid "locked"
-msgstr "Odomknúť"
+msgstr "Zamknuté"
 
 #: Viewer/ViewerWidget.cpp:626
 #, fuzzy, kde-format
@@ -7419,33 +7385,31 @@ msgstr ""
 #| msgctxt "@action:inmenu"
 #| msgid "Annotate..."
 msgid "Annotate"
-msgstr "Anotácia..."
+msgstr "Pridať poznámku"
 
 #: Viewer/ViewerWidget.cpp:1495
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "Pomocník"
 
 #: Viewer/ViewerWidget.cpp:1497
-#, fuzzy, kde-format
-#| msgid "Annotation Dialog"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "Dialóg anotácie"
 
 #: Viewer/ViewerWidget.cpp:1498
-#, fuzzy, kde-format
-#| msgid "Add a tag"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
 msgstr "Pridať značku"
 
 #: Viewer/ViewerWidget.cpp:1498
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "Ctrl+A"
 
 #: Viewer/ViewerWidget.cpp:1501
 #, fuzzy, kde-format
@@ -7455,17 +7419,17 @@ msgid "Copy Data from Previous Image"
 msgstr "Kopírovať značky z predchádzajúceho obrázka"
 
 #: Viewer/ViewerWidget.cpp:1502
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "Ctrl+C"
 
 #: Viewer/ViewerWidget.cpp:1505
 #, fuzzy, kde-format
 #| msgid "Description"
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "Popis"
+msgstr "Upraviť popis..."
 
 #: Viewer/ViewerWidget.cpp:1506
 #, kde-format
@@ -7484,25 +7448,25 @@ msgstr "Anotácie"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "Zamknuté"
 
 #: Viewer/ViewerWidget.cpp:1512
-#, kde-format
+#, fuzzy, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "Ctrl+L"
 
 #: Viewer/ViewerWidget.cpp:1516
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "Priradiť značky"
 
 #: Viewer/ViewerWidget.cpp:1517
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1520
 #, fuzzy, kde-format
@@ -7521,7 +7485,7 @@ msgstr ""
 #, fuzzy, kde-format
 #| msgid "Tokens"
 msgid "Token %1"
-msgstr "Tokeny"
+msgstr "Žetón"
 
 #: Viewer/VisibleOptionsMenu.cpp:21
 #, kde-format

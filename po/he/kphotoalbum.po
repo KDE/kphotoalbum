@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-11-10 21:18+0200\n"
+"PO-Revision-Date: 2024-11-11 03:43+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -5007,7 +5007,7 @@ msgstr ""
 #: Settings/GeneralPage.cpp:29
 #, kde-format
 msgid "Loading New Images"
-msgstr ""
+msgstr "תמונות חדשות נטענות"
 
 #: Settings/GeneralPage.cpp:37
 #, kde-format
@@ -5686,12 +5686,12 @@ msgstr ""
 #: Settings/ViewerPage.cpp:99
 #, kde-format
 msgid "Video Backend:"
-msgstr ""
+msgstr "מננון וידאו:"
 
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
 msgid "Launch in full screen"
-msgstr ""
+msgstr "הפעלה במסך מלא"
 
 #: ThumbnailView/Delegate.cpp:237
 #, kde-format
@@ -5699,25 +5699,25 @@ msgctxt ""
 "No video length could be determined, so we just display 'video' instead of "
 "the video length."
 msgid "video"
-msgstr ""
+msgstr "סרטון"
 
 #: ThumbnailView/FilterWidget.cpp:16
 #, kde-format
 msgctxt "Name/title of the filter toolbar widget"
 msgid "Filter Toolbar"
-msgstr ""
+msgstr "סרגל כלי סינון"
 
 #: ThumbnailView/FilterWidget.cpp:22
 #, kde-format
 msgctxt ""
 "The action enables/disables filtering of images in the thumbnail view."
 msgid "Toggle filter"
-msgstr ""
+msgstr "החלפת מצב סינון"
 
 #: ThumbnailView/FilterWidget.cpp:24
 #, kde-kuit-format
 msgid "Press <shortcut>Escape</shortcut> to clear filter."
-msgstr ""
+msgstr "לחיצה <shortcut>Escape</shortcut> תפנה את הסינון."
 
 #: ThumbnailView/FilterWidget.cpp:31
 #, kde-format
@@ -5732,7 +5732,7 @@ msgstr[3] ""
 #, kde-format
 msgctxt "The label gives a textual description of the active filter"
 msgid "Filter: %1"
-msgstr ""
+msgstr "סינון: %1"
 
 #: ThumbnailView/FilterWidget.cpp:84
 #, kde-kuit-format

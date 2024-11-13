@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-11-04 00:51+0200\n"
+"PO-Revision-Date: 2024-11-12 23:49+0200\n"
 "Last-Translator: Remigijus Jarmalavičius <remigijus@jarmalavicius.lt>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -2712,7 +2712,7 @@ msgstr "Prog. įrangos kūrimas"
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:79
 #, kde-format
 msgid "Tobias Leupold"
-msgstr ""
+msgstr "Tobias Leupold"
 
 #: kpa-thumbnailtool/main.cpp:58 main.cpp:79
 #, kde-format
@@ -2742,7 +2742,7 @@ msgstr "Jan Kundr&aacute;t"
 #: kpa-thumbnailtool/main.cpp:63 main.cpp:84
 #, kde-format
 msgid "Andreas Neustifter"
-msgstr ""
+msgstr "Andreas Neustifter"
 
 #: kpa-thumbnailtool/main.cpp:64 main.cpp:85
 #, kde-format
@@ -3287,7 +3287,7 @@ msgstr "Pasirinkti nieko"
 #, kde-format
 msgctxt "i for info"
 msgid "i"
-msgstr ""
+msgstr "i"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:44
 #, kde-format
@@ -3301,17 +3301,17 @@ msgstr ""
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:53
 #, kde-format
 msgid "Move to &trash"
-msgstr ""
+msgstr "Perkelti į ši&ukšlinę"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:54
 #, kde-format
 msgid "&Delete from disk"
-msgstr ""
+msgstr "&Ištrinti iš disko"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:55
 #, kde-format
 msgid "&Block from database"
-msgstr ""
+msgstr "&Blokuoti iš duomenų bazės"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:77
 #, fuzzy, kde-format
@@ -4163,7 +4163,7 @@ msgstr ""
 #: MainWindow/Window.cpp:992
 #, kde-format
 msgid "Statistics..."
-msgstr ""
+msgstr "Statistika..."
 
 #: MainWindow/Window.cpp:996
 #, kde-format
@@ -4328,7 +4328,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1528
 #, kde-format
 msgid "Internal Error"
-msgstr ""
+msgstr "Vidinė klaida"
 
 #: MainWindow/Window.cpp:1539
 #, kde-format
@@ -4348,7 +4348,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1598
 #, kde-format
 msgid "Open List of Files"
-msgstr ""
+msgstr "Atverti failų sąrašą"
 
 #: MainWindow/Window.cpp:1599
 #, kde-format
@@ -4974,27 +4974,27 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:189
 #, kde-format
 msgid "Hard Disk"
-msgstr ""
+msgstr "Standusis diskas"
 
 #: Settings/FileVersionDetectionPage.cpp:190
 #, kde-format
 msgid "Network"
-msgstr ""
+msgstr "Tinklas"
 
 #: Settings/FileVersionDetectionPage.cpp:191
 #, kde-format
 msgid "SATA SSD"
-msgstr ""
+msgstr "SATA SSD"
 
 #: Settings/FileVersionDetectionPage.cpp:192
 #, kde-format
 msgid "Slow PCIe/NVMe"
-msgstr ""
+msgstr "Lėtas PCIe/NVMe"
 
 #: Settings/FileVersionDetectionPage.cpp:193
 #, kde-format
 msgid "Fast PCIe/NVMe"
-msgstr ""
+msgstr "Greitas PCIe/NVMe"
 
 #: Settings/FileVersionDetectionPage.cpp:194
 #, kde-format
@@ -6628,7 +6628,7 @@ msgstr "Pervardinti..."
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "Pagalba"
 
 #: Viewer/ViewerWidget.cpp:1489
 #, fuzzy, kde-format

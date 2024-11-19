@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-11-13 23:56+0200\n"
+"PO-Revision-Date: 2024-11-17 07:17+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3945,12 +3945,12 @@ msgstr ""
 #: MainWindow/Window.cpp:824
 #, kde-format
 msgid "View"
-msgstr ""
+msgstr "הצגה"
 
 #: MainWindow/Window.cpp:827
 #, kde-format
 msgid "View (In New Window)"
-msgstr ""
+msgstr "הצגה (בחלון חדש)"
 
 #: MainWindow/Window.cpp:830
 #, kde-format
@@ -3990,17 +3990,17 @@ msgstr ""
 #: MainWindow/Window.cpp:868
 #, kde-format
 msgid "Jump to Context"
-msgstr ""
+msgstr "קפיצה לתוכן"
 
 #: MainWindow/Window.cpp:874
 #, kde-format
 msgid "Lock Images"
-msgstr ""
+msgstr "נעילת תמונות"
 
 #: MainWindow/Window.cpp:878
 #, kde-format
 msgid "Unlock"
-msgstr ""
+msgstr "שחרור נעילה"
 
 #: MainWindow/Window.cpp:881
 #, kde-format
@@ -4015,27 +4015,27 @@ msgstr ""
 #: MainWindow/Window.cpp:887
 #, kde-format
 msgid "Configure Current View"
-msgstr ""
+msgstr "הגדרת התצוגה הנוכחית"
 
 #: MainWindow/Window.cpp:895
 #, kde-format
 msgid "Tree"
-msgstr ""
+msgstr "עץ"
 
 #: MainWindow/Window.cpp:900
 #, kde-format
 msgid "Tree with User Icons"
-msgstr ""
+msgstr "עץ עם סמלי משתמשים"
 
 #: MainWindow/Window.cpp:905
 #, kde-format
 msgid "Icons"
-msgstr ""
+msgstr "סמלים"
 
 #: MainWindow/Window.cpp:912
 #, kde-format
 msgid "Use natural sort order"
-msgstr ""
+msgstr "להשתמש בסדר טבעי"
 
 #: MainWindow/Window.cpp:922
 #, kde-format

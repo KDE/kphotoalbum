@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-11-17 07:17+0200\n"
+"PO-Revision-Date: 2024-11-23 14:52+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -411,12 +411,12 @@ msgstr ""
 #: AnnotationDialog/ImagePreviewWidget.cpp:51
 #, kde-format
 msgid "Annotate previous image (Page Up)"
-msgstr ""
+msgstr "הוספת הסברים לתמונה הקודמת (Page Up)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:57
 #, kde-format
 msgid "Annotate next image (Page Down)"
-msgstr ""
+msgstr "הוספת הסברים לתמונה הבאה (Page Down)"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:82
 #, kde-format
@@ -2254,12 +2254,12 @@ msgstr ""
 #: ImportExport/Export.cpp:105
 #, kde-format
 msgid "How to Handle Images"
-msgstr ""
+msgstr "איך לטפל בתמונות"
 
 #: ImportExport/Export.cpp:109
 #, kde-format
 msgid "Include in .kim file"
-msgstr ""
+msgstr "לכלול בקובץ ‎.kim"
 
 #: ImportExport/Export.cpp:110
 #, kde-format
@@ -2274,17 +2274,17 @@ msgstr ""
 #: ImportExport/Export.cpp:112
 #, kde-format
 msgid "Hard link next to .kim file"
-msgstr ""
+msgstr "קישור קשיח ליד קובץ ‎.kim"
 
 #: ImportExport/Export.cpp:113
 #, kde-format
 msgid "Symbolic link next to .kim file"
-msgstr ""
+msgstr "קישור סמלי ליד קובץ ‎.kim"
 
 #: ImportExport/Export.cpp:123
 #, kde-format
 msgid "Compress export file"
-msgstr ""
+msgstr "דחיסת קובץ הייצוא"
 
 #: ImportExport/Export.cpp:127
 #, kde-format
@@ -2349,12 +2349,12 @@ msgstr "&ביטול"
 #: ImportExport/Export.cpp:275
 #, kde-format
 msgid "Creating index file"
-msgstr ""
+msgstr "נוצר קובץ מפתח"
 
 #: ImportExport/Export.cpp:287
 #, kde-format
 msgid "Creating thumbnails"
-msgstr ""
+msgstr "נוצרות תמונות ממוזערות"
 
 #: ImportExport/Export.cpp:310
 #, kde-format
@@ -2435,27 +2435,27 @@ msgstr "היכרות"
 #: ImportExport/ImportDialog.cpp:156 MainWindow/TokenEditor.cpp:60
 #, kde-format
 msgid "Select All"
-msgstr ""
+msgstr "בחירה בהכול"
 
 #: ImportExport/ImportDialog.cpp:158
 #, kde-format
 msgid "Deselect All"
-msgstr ""
+msgstr "ביטול בחירה"
 
 #: ImportExport/ImportDialog.cpp:192
 #, kde-format
 msgid "Select Which Images to Import"
-msgstr ""
+msgstr "נא לבחור אילו תמונות לייבא"
 
 #: ImportExport/ImportDialog.cpp:204
 #, kde-format
 msgid "Destination of images: "
-msgstr ""
+msgstr "יעד התמונות: "
 
 #: ImportExport/ImportDialog.cpp:217
 #, kde-format
 msgid "Destination of Images"
-msgstr ""
+msgstr "יעד התמונות"
 
 #: ImportExport/ImportDialog.cpp:225
 #, kde-format
@@ -2767,19 +2767,19 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Be less verbose."
-msgstr ""
+msgstr "לצמצם את הפירוט."
 
 #: kpa-thumbnailtool/main.cpp:97
 #, kde-format
 msgctxt "@info:shell"
 msgid "Missing argument!\n"
-msgstr ""
+msgstr "ארגומנט חסר!\n"
 
 #: kpa-thumbnailtool/main.cpp:102
 #, kde-format
 msgctxt "@info:shell"
 msgid "%1 is not a folder!\n"
-msgstr ""
+msgstr "%1 אינה תיקייה!\n"
 
 #: kpa-thumbnailtool/main.cpp:116
 #, kde-format
@@ -2817,13 +2817,13 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Number of thumbnails: %1\n"
-msgstr ""
+msgstr "מספר התמונות הממוזערות: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:129
 #, kde-format
 msgctxt "@info:shell"
 msgid "No inconsistencies found.\n"
-msgstr ""
+msgstr "לא נמצאו פערי רציפות.\n"
 
 #: kpa-thumbnailtool/main.cpp:133
 #, kde-format
@@ -2845,7 +2845,7 @@ msgstr[3] ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not open file `thumbnailindex`!\n"
-msgstr ""
+msgstr "לא ניתן לפתוח את הקובץ`thumbnailindex`!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:21
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:27
@@ -2854,19 +2854,19 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index was not changed.\n"
-msgstr ""
+msgstr "מפתח התמונות הממוזערות לא השתנה.\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:26
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not open temporary file for writing!\n"
-msgstr ""
+msgstr "לא ניתן לפתוח קובץ זמני לכתיבה!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:35
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not back up file `thumbnailindex`!\n"
-msgstr ""
+msgstr "לא ניתן לגבות את הקובץ`thumbnailindex`!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:40
 #, kde-format
@@ -2878,7 +2878,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Error message was: %1\n"
-msgstr ""
+msgstr "הודעת השגיאה הייתה: %1\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:55
 #, kde-format
@@ -2890,31 +2890,31 @@ msgstr ""
 #: kphotoalbumui.rc:33
 #, kde-format
 msgid "&View"
-msgstr ""
+msgstr "ת&צוגה"
 
 #. i18n: ectx: Menu (privacy)
 #: kphotoalbumui.rc:48
 #, kde-format
 msgid "Privacy"
-msgstr ""
+msgstr "פרטיות"
 
 #. i18n: ectx: Menu (maintenance)
 #: kphotoalbumui.rc:63
 #, kde-format
 msgid "&Maintenance"
-msgstr ""
+msgstr "ת&חזוקה"
 
 #. i18n: ectx: Menu (plugins)
 #: kphotoalbumui.rc:85
 #, kde-format
 msgid "Plugins"
-msgstr ""
+msgstr "תוספים"
 
 #. i18n: ectx: ToolBar (mainToolBar)
 #: kphotoalbumui.rc:97
 #, kde-format
 msgid "Main Toolbar"
-msgstr ""
+msgstr "סרגל כלים ראשי"
 
 #: lib/kpabase/SettingsData.cpp:247
 #, kde-format
@@ -2930,7 +2930,7 @@ msgstr ""
 #: lib/kpabase/SettingsData.cpp:254
 #, kde-format
 msgid "Trust Time Stamps?"
-msgstr ""
+msgstr "לסמוך על חותמות הזמן?"
 
 #: lib/kpaexif/Database.cpp:173
 #, kde-format
@@ -2945,7 +2945,7 @@ msgstr ""
 #: lib/kpaexif/Database.cpp:188
 #, kde-format
 msgid "Error in Exif database"
-msgstr ""
+msgstr "שגיאה אם מסד נתוני Exif"
 
 #: lib/kpaexif/Database.cpp:209
 #, kde-format
@@ -2965,32 +2965,32 @@ msgstr ""
 #: main.cpp:65
 #, kde-format
 msgid "KPhotoAlbum"
-msgstr ""
+msgstr "KPhotoAlbum"
 
 #: main.cpp:67
 #, kde-format
 msgid "KDE Photo Album"
-msgstr ""
+msgstr "אלבום תמונות מבית KDE"
 
 #: main.cpp:69
 #, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
-msgstr ""
+msgstr "כל הזכויות שמורות (C) 2003‏-2024 לצוות פיתוח KPhotoAlbum"
 
 #: main.cpp:90
 #, kde-format
 msgid "Marco Caldarelli"
-msgstr ""
+msgstr "מרקו קלדרלי"
 
 #: main.cpp:90
 #, kde-format
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
-msgstr ""
+msgstr "טלאי שמאפשר לקרוא פרטי Exit מחדש בעזרת חלונית פשוטה."
 
 #: main.cpp:91
 #, kde-format
 msgid "Jean-Michel FAYARD"
-msgstr ""
+msgstr "ז׳אן מישל פאיארד"
 
 #: main.cpp:91
 #, kde-format
@@ -3227,26 +3227,26 @@ msgstr[3] ""
 #, kde-format
 msgid "Only remove the item from database"
 msgid_plural "Only remove %1 items from database"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "להסיר רק את הפריט ממסד הנתונים"
+msgstr[1] "להסיר רק שני פריטים ממסד הנתונים"
+msgstr[2] "להסיר רק %1 פריטים ממסד הנתונים"
+msgstr[3] "להסיר רק %1 פריטים ממסד הנתונים"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:46
 #, kde-format
 msgid "Merge these images"
-msgstr ""
+msgstr "מיזוג התמונות האלה"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:57
 #, kde-format
 msgid "Select image to keep:"
-msgstr ""
+msgstr "נא לבחור תמונה לשמירה:"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:72
 #, kde-format
 msgctxt "i for info"
 msgid "i"
-msgstr ""
+msgstr "מ"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:44
 #, kde-format

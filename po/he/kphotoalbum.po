@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-20 00:39+0000\n"
-"PO-Revision-Date: 2024-11-25 11:38+0200\n"
+"PO-Revision-Date: 2024-11-25 23:02+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -741,7 +741,7 @@ msgstr ""
 #: BackgroundTaskManager/JobInfo.cpp:55
 #, kde-format
 msgid "Not Started"
-msgstr ""
+msgstr "לא החל"
 
 #: BackgroundTaskManager/JobModel.cpp:93
 #, kde-format
@@ -765,7 +765,7 @@ msgstr "פרטים"
 #, kde-format
 msgctxt "@title:column Elapsed time"
 msgid "Elapsed"
-msgstr ""
+msgstr "זמן שעבר"
 
 #: BackgroundTaskManager/JobViewer.cpp:21
 #, kde-format
@@ -794,6 +794,11 @@ msgid ""
 "is executing a foreground job (like extracting a thumbnail for a video file, "
 "which is currently shown in the thumbnail viewer)</li></ul></p>"
 msgstr ""
+"<p>משימות פעילות: %1<br/>משימות ממתינות: %2<hr/><br/>קודים צבעוניים:"
+"<ul><li><b>ירוק מהבהב</b>: משימות פעילות ברקע</li><li><b>אפור</b>: אין "
+"משימות פעילות</li><li><b>צהוב אחיד</b>: תור המשימות מושהה</li><li><b>צהוב "
+"מהבהב</b>: תור משימות הרקע מושהה, אך משימות החזית פועלות (כגון חילוץ תמונה "
+"ממוזערת לקובץ וידאו, שמופיעה כרגע במציג התמונות הממוזערות)</li></ul></p>"
 
 #: Browser/AbstractCategoryModel.cpp:42 Exif/SearchDialog.cpp:387
 #: lib/kpaexif/SearchInfo.cpp:191
@@ -883,7 +888,7 @@ msgstr "הצגת תמונות ממוזערות"
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format
 msgid "Search did not match any images or videos."
-msgstr ""
+msgstr "החיפוש לא מצא תמונות או סרטונים."
 
 #: Browser/OverviewPage.cpp:273 Browser/OverviewPage.cpp:293
 #, kde-format

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-10-20 00:39+0000\n"
+"POT-Creation-Date: 2024-11-30 00:39+0000\n"
 "PO-Revision-Date: 2024-04-13 08:59+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -2867,72 +2867,72 @@ msgstr "Ilo por inspekti kaj redakti la bildetkaŝmemoron de KPhotoAlbum"
 msgid "Copyright (C) 2020-2024 The KPhotoAlbum Development Team"
 msgstr "Kopirajto (C) 2020-2024 La Disvolva Teamo de KPhotoAlbum"
 
-#: kpa-thumbnailtool/main.cpp:56 main.cpp:77
+#: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
 msgid "Johannes Zarl-Zierl"
 msgstr "Johannes Zarl-Zierl"
 
-#: kpa-thumbnailtool/main.cpp:56 main.cpp:77
+#: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
 msgid "Development, Maintainer"
 msgstr "Evoluo, Prizorganto"
 
-#: kpa-thumbnailtool/main.cpp:57 main.cpp:78
+#: kpa-thumbnailtool/main.cpp:57 main.cpp:98
 #, kde-format
 msgid "Robert Krawitz"
 msgstr "Robert Krawitz"
 
-#: kpa-thumbnailtool/main.cpp:57 main.cpp:78
+#: kpa-thumbnailtool/main.cpp:57 main.cpp:98
 #, kde-format
 msgid "Development, Optimization"
 msgstr "Disvolviĝo, Optimumigo"
 
-#: kpa-thumbnailtool/main.cpp:58 main.cpp:79
+#: kpa-thumbnailtool/main.cpp:58 main.cpp:99
 #, kde-format
 msgid "Tobias Leupold"
 msgstr "Tobias Leupold"
 
-#: kpa-thumbnailtool/main.cpp:58 main.cpp:79
+#: kpa-thumbnailtool/main.cpp:58 main.cpp:99
 #, kde-format
 msgid "Development, Releases, Website"
 msgstr "Evoluo, Eldonoj, Retejo"
 
-#: kpa-thumbnailtool/main.cpp:59 main.cpp:80
+#: kpa-thumbnailtool/main.cpp:59 main.cpp:100
 #, kde-format
 msgid "Jesper K. Pedersen"
 msgstr "Jesper K. Pedersen"
 
-#: kpa-thumbnailtool/main.cpp:59 main.cpp:80
+#: kpa-thumbnailtool/main.cpp:59 main.cpp:100
 #, kde-format
 msgid "Former Maintainer, Project Creator"
 msgstr "Iama prizorganto, Projekto-Kreinto"
 
-#: kpa-thumbnailtool/main.cpp:61 main.cpp:82
+#: kpa-thumbnailtool/main.cpp:61 main.cpp:102
 #, kde-format
 msgid "Hassan Ibraheem"
 msgstr "Hassan Ibraheem"
 
-#: kpa-thumbnailtool/main.cpp:62 main.cpp:83
+#: kpa-thumbnailtool/main.cpp:62 main.cpp:103
 #, kde-format
 msgid "Jan Kundr&aacute;t"
 msgstr "Jan Kundr&aacute;t"
 
-#: kpa-thumbnailtool/main.cpp:63 main.cpp:84
+#: kpa-thumbnailtool/main.cpp:63 main.cpp:104
 #, kde-format
 msgid "Andreas Neustifter"
 msgstr "Andreas Neustifter"
 
-#: kpa-thumbnailtool/main.cpp:64 main.cpp:85
+#: kpa-thumbnailtool/main.cpp:64 main.cpp:105
 #, kde-format
 msgid "Tuomas Suutari"
 msgstr "Tuomas Suutari"
 
-#: kpa-thumbnailtool/main.cpp:65 main.cpp:86
+#: kpa-thumbnailtool/main.cpp:65 main.cpp:106
 #, kde-format
 msgid "Miika Turkia"
 msgstr "Miika Turkia"
 
-#: kpa-thumbnailtool/main.cpp:66 main.cpp:87
+#: kpa-thumbnailtool/main.cpp:66 main.cpp:107
 #, kde-format
 msgid "Henner Zeller"
 msgstr "Henner Zeller"
@@ -3192,37 +3192,37 @@ msgstr ""
 "<p>La Exif-serĉa datumbazo estas difektita kaj ne havas datumojn.</p> <p>Por "
 "solvi ĉi tiun problemon, rulu Maintenance->Rekrei Exif-serĉan datumbazon.</p>"
 
-#: main.cpp:65
+#: main.cpp:85
 #, kde-format
 msgid "KPhotoAlbum"
 msgstr "KPhotoAlbum"
 
-#: main.cpp:67
+#: main.cpp:87
 #, kde-format
 msgid "KDE Photo Album"
 msgstr "KDE Fotoalbumo"
 
-#: main.cpp:69
+#: main.cpp:89
 #, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 msgstr "Kopirajto (C) 2003-2024 La Disvolva Teamo de KPhotoAlbum"
 
-#: main.cpp:90
+#: main.cpp:110
 #, kde-format
 msgid "Marco Caldarelli"
 msgstr "Marco Caldarelli"
 
-#: main.cpp:90
+#: main.cpp:110
 #, kde-format
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
 msgstr "Flikaĵo por ebligi relegi Exif-informojn uzante belan dialogon."
 
-#: main.cpp:91
+#: main.cpp:111
 #, kde-format
 msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
-#: main.cpp:91
+#: main.cpp:111
 #, kde-format
 msgid ""
 "(.) Patch with folder info made available through the browser. (.) Patch for "
@@ -3231,63 +3231,63 @@ msgstr ""
 "(.) Flikaĵo kun dosierujoj disponeblaj per la retumilo. (.) Flikaĵo por "
 "aldoni markobutonon por serĉoj \"kaj/aŭ\" en la serĉpaĝo."
 
-#: main.cpp:92
+#: main.cpp:112
 #, kde-format
 msgid "Matthias Füssel"
 msgstr "Matthias Füssel"
 
-#: main.cpp:92
+#: main.cpp:112
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
 msgstr "Paĝo de Geo Pozicio en retumilo kaj diversaj eraroj korektoj"
 
-#: main.cpp:93
+#: main.cpp:113
 #, kde-format
 msgid "Wes Hardaker"
 msgstr "Wes Hardaker"
 
-#: main.cpp:93
+#: main.cpp:113
 #, kde-format
 msgid "Some very useful features to improve workflow"
 msgstr "Iuj tre utilaj funkcioj por plibonigi laborfluon"
 
-#: main.cpp:94
+#: main.cpp:114
 #, kde-format
 msgid "Reimar Imhof"
 msgstr "Reimar Imhof"
 
-#: main.cpp:94
+#: main.cpp:114
 #, kde-format
 msgid "Patch to sort items in option listboxes"
 msgstr "Flikaĵo por ordigi erojn en opciolistoskatoloj"
 
-#: main.cpp:95
+#: main.cpp:115
 #, kde-format
 msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
-#: main.cpp:95
+#: main.cpp:115
 #, kde-format
 msgid "Numerous patches for lots of bugs plus patches for a few new features"
 msgstr ""
 "Multnombraj diakiloj por multaj cimoj plus diakiloj por kelkaj novaj funkcioj"
 
-#: main.cpp:96
+#: main.cpp:116
 #, kde-format
 msgid "Teemu Rytilahti"
 msgstr "Teemu Rytilahti"
 
-#: main.cpp:97
+#: main.cpp:117
 #, kde-format
 msgid "Theme support for HTML generation"
 msgstr "Temsubteno por HTML-generacio"
 
-#: main.cpp:98
+#: main.cpp:118
 #, kde-format
 msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
-#: main.cpp:98
+#: main.cpp:118
 #, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view, plus reading time info out of "
@@ -3296,32 +3296,32 @@ msgstr ""
 "Flikaĵo por ordigi bildojn en la bildeto-vido, krom legado de tempo-informoj "
 "el Exif-bildoj por ekzistantaj bildoj"
 
-#: main.cpp:99
+#: main.cpp:119
 #, kde-format
 msgid "Clytie Siddall"
 msgstr "Clytie Siddall"
 
-#: main.cpp:99
+#: main.cpp:119
 #, kde-format
 msgid "Tremendous help with the English text in the application."
 msgstr "Terura helpo kun la angla teksto en la aplikaĵo."
 
-#: main.cpp:100
+#: main.cpp:120
 #, kde-format
 msgid "Will Stephenson"
 msgstr "Will Stephenson"
 
-#: main.cpp:100
+#: main.cpp:120
 #, kde-format
 msgid "Developing an Icon for KPhotoAlbum"
 msgstr "Evoluigante Piktogramon por KPhotoAlbum"
 
-#: main.cpp:101
+#: main.cpp:121
 #, kde-format
 msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
-#: main.cpp:101
+#: main.cpp:121
 #, kde-format
 msgid ""
 "Patch which speed up loading of thumbnails plus preview in image property "

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-30 00:39+0000\n"
-"PO-Revision-Date: 2024-10-26 04:50+0200\n"
+"PO-Revision-Date: 2024-11-30 05:09+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -3189,7 +3189,7 @@ msgstr "ავტოდაჯგუფების მორგება"
 #: MainWindow/AutoStackImages.cpp:94
 #, kde-format
 msgid "Include matching image to appropriate stack (if one exists)"
-msgstr ""
+msgstr "შესაბამისი სურათის ჩასმა სწორ დასტაში (თუ ის არებობს)"
 
 #: MainWindow/AutoStackImages.cpp:98
 #, kde-format
@@ -3634,7 +3634,7 @@ msgctxt ""
 "As in 'Execute a command and replace any occurrence of %all with the "
 "filenames of all selected files'"
 msgid "%all"
-msgstr ""
+msgstr "%all"
 
 #: MainWindow/RunDialog.cpp:77
 #, no-c-format, kde-format
@@ -3642,7 +3642,7 @@ msgctxt ""
 "As in 'Execute a command for each selected file in turn and replace any "
 "occurrence of %each with the filename "
 msgid "%each"
-msgstr ""
+msgstr "%each"
 
 #: MainWindow/SearchBar.cpp:20
 #, kde-format
@@ -4442,7 +4442,7 @@ msgstr "<i>ეს გამოსახულება გეოგრაფი�
 #, kde-format
 msgid ""
 "<i>Some of the selected images do not contain geographic coordinates.</i>"
-msgstr ""
+msgstr "<i>ზოგიერთი მონიშნული სურათი არ შეიცავს გეოგრაფიულ კოორდინატებს.</i>"
 
 #: Map/MapView.cpp:421
 #, kde-format
@@ -4928,7 +4928,7 @@ msgctxt ""
 "Configure the feature to make a copy of a file first and then open the "
 "copied file with an external application"
 msgid "Copy File and Open with an External Application"
-msgstr ""
+msgstr "ფაილის კოპირება და გახსნა გარე აპლიკაციით"
 
 #: Settings/FileVersionDetectionPage.cpp:155
 #, kde-format
@@ -5019,7 +5019,7 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:216
 #, kde-format
 msgid "Number of threads to use for preloading (scouting) images"
-msgstr ""
+msgstr "ნაკადების რაოდენობა გამოსახულებების წინასწარი ჩატვირთვისთვის"
 
 #: Settings/FileVersionDetectionPage.cpp:224
 #, kde-format
@@ -5033,7 +5033,7 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:230
 #, kde-format
 msgid "Number of threads to use for thumbnailPreloading (scouting) images"
-msgstr ""
+msgstr "ნაკადების რაოდენობა გამოსახულებების მინიატურის წინასწარ ჩასატვირთად"
 
 #: Settings/FileVersionDetectionPage.cpp:238
 #, kde-format

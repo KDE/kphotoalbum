@@ -3,9 +3,9 @@
 # KDE Finnish translation sprint participants:
 # Author: Artnay
 # Author: Lliehu
+# SPDX-FileCopyrightText: 2012, 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Tommi Nieminen <translator@legisign.org>
 # Teemu Rytilahti <teemu.rytilahti@kde-fi.org>, 2003, 2004.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2016, 2019.
-# Tommi Nieminen <translator@legisign.org>, 2012, 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
 # Risto H. Kurppa <risto@kurppa.fi>, 2012.
 # Miika Turkia <miika.turkia@gmail.com>, 2012.
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-30 00:39+0000\n"
-"PO-Revision-Date: 2024-04-18 16:10+0300\n"
+"PO-Revision-Date: 2024-11-06 20:55+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -21,8 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2013-01-13 20:43:13+0000\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -327,8 +326,7 @@ msgid "Settings saved!"
 msgstr "Asetukset tallennettu!"
 
 #: AnnotationDialog/Dialog.cpp:970
-#, fuzzy, kde-format
-#| msgid "Save Current Window Setup"
+#, kde-format
 msgid "Save current window setup"
 msgstr "Tallenna nykyinen ikkuna-asettelu"
 
@@ -1828,9 +1826,7 @@ msgid "x"
 msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
-#, fuzzy, kde-format
-#| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and its octal representation (e.g. \"0644\")"
@@ -3634,16 +3630,13 @@ msgstr ""
 "kuvien GPS-tiedon kartalla.</p>"
 
 #: MainWindow/FeatureDialog.cpp:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on QtAv "
-#| "for displaying videos; this in turn relies on ffmpeg</p>"
+#, kde-format
 msgid ""
 "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on phonon "
 "or VLC for displaying videos</p>"
 msgstr ""
 "<h1><a name=\"video\">Videotuki</a></h1><p>KPhotoAlbum tukeutuu videoiden "
-"näyttämisessä QtAv:hen, joka puolestaan tukeutuu ffmpegiin</p>"
+"näyttämisessä Phononiin tai VLC:hen</p>"
 
 #: MainWindow/FeatureDialog.cpp:78
 #, kde-format
@@ -4494,19 +4487,18 @@ msgstr "Tallennetaan automaattisesti….  Valmis"
 #: MainWindow/Window.cpp:1160
 #, kde-format
 msgid "KPhotoAlbum only supports database files named 'index.xml'."
-msgstr ""
+msgstr "KPhotoAlbum tukee vain ”index.xml”-nimisiä tietokantatiedostoja."
 
 #: MainWindow/Window.cpp:1165 MainWindow/Window.cpp:1171
 #, kde-format
 msgid ""
 "Please specify an existing image directory or an existing index.xml file."
-msgstr ""
+msgstr "Anna olemassa oleva kuvakansio tai index.xml-tiedosto."
 
 #: MainWindow/Window.cpp:1174
-#, fuzzy, kde-format
-#| msgid "Invalid database backend: %1"
+#, kde-format
 msgid "Invalid database file"
-msgstr "Kelvoton tietokantataustaosa: %1"
+msgstr "Virheellinen tietokantatiedosto"
 
 #: MainWindow/Window.cpp:1180
 #, kde-format
@@ -6020,25 +6012,7 @@ msgid "<h1>Choose a Video Player</h1>"
 msgstr "<h1>Valitse videosoitin</h1>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:29
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html><p>Unfortunately, there is no video player which just works out of "
-#| "the box for everyone.</p><p>KPhotoAlbum therefore comes with three "
-#| "different back-ends, choose the one that works the best for you</"
-#| "p><p><b>VLC</b> seems to be the best supported video player back-end, "
-#| "meaning it can play most video formats. It has one drawback though, it "
-#| "requires X11. If you use Wayland, then you will find that the videos "
-#| "shows up in a window of their own, and in this case VLC is likely not a "
-#| "very good fit for you. If on the other hand you do use X11 then VLC is "
-#| "likely your best choice.</p><p>Traditionally KPhotoAlbum has been using "
-#| "<b>Phonon</b> as the video player back-end. We've unfortunately seen it "
-#| "crash on many different video formats - possibly because our system "
-#| "wasn't correctly configured. If this is the case for you (and you can't "
-#| "use VLC), then try the <b>QtAV</b> back-end, which seems to support a lot "
-#| "of formats (everything we threw at it). <b>QtAV</b> unfortunately also "
-#| "has a drawback - it seems to get slightly out of sync between video and "
-#| "audio.</p><p><b><font color=red>You can at any time change the backend "
-#| "from Settings -> Viewer</font></b></p></html>"
+#, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
 "box for everyone.</p><p>KPhotoAlbum therefore comes with three different "
@@ -6064,12 +6038,8 @@ msgstr ""
 "paras valinta.</p><p>Perinteisesti KPhotoAlbum on käyttänyt "
 "videotoistotaustajärjestelmänään <b>Phononia</b>. Sen on kuitenkin havaittu "
 "kaatuvan monilla eri videotiedostomuodoilla, olettavasti koskei järjestelmää "
-"ole asetettu oikein. Jos näin käy (eikä VLC:tä voi käyttää), kannattaa "
-"kokeilla <b>QtAV</b>-taustajärjestelmää, joka tukee monia tiedostomuotoja "
-"(kaikkia mitä kokeilimme). <b>QtAV</b>:ssakin valitettavasti on puutteensa – "
-"kuva ja ääni vaikuttavat helposti kulkevan eri tahtiin.</p><p><b><font color="
-"\"red\">Taustajärjestelmän voi aina vaihtaa: Asetukset → Katselin</font></"
-"b></p>"
+"ole asetettu oikein.</p><p><b><font color=\"red\">Taustajärjestelmän voi "
+"aina vaihtaa kohdasta Asetukset → Katselin</font></b></p>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:49
 #: Settings/VideoPlayerSelectorDialog.cpp:58
@@ -6364,54 +6334,41 @@ msgid "<b>Description: </b> "
 msgstr "<b>Kuvaus: </b> "
 
 #: Utilities/Timespan.cpp:81
-#, fuzzy, kde-format
-#| msgid " (&lt; %1)"
+#, kde-format
 msgctxt "Like \"up to 6 years\" old"
 msgid " (up to %1)"
-msgstr " (&lt; %1)"
+msgstr " (alle %1)"
 
 #: Utilities/Timespan.cpp:91
-#, fuzzy, kde-format
-#| msgid " (%1)"
+#, kde-format
 msgctxt "Like \"6 years\" old"
 msgid " (%1)"
 msgstr " (%1)"
 
 #: Utilities/Timespan.cpp:94
-#, fuzzy, kde-format
-#| msgctxt "E.g. ' (1-2 years)'"
-#| msgid " (%1-%2)"
+#, kde-format
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
 msgstr " (%1–%2)"
 
 #: Utilities/Timespan.cpp:103
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 day old'"
-#| msgid "1 day"
-#| msgid_plural "%1 days"
+#, kde-format
 msgctxt "Like \"The baby is '8 days' old\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] "1 päivä"
+msgstr[0] "%1 päivä"
 msgstr[1] "%1 päivää"
 
 #: Utilities/Timespan.cpp:108
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"The baby is '4 months' old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 kuukausi"
+msgstr[0] "%1 kuukausi"
 msgstr[1] "%1 kuukautta"
 
 #: Utilities/Timespan.cpp:113
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 year old'"
-#| msgid "1 year"
-#| msgid_plural "%1 years"
+#, kde-format
 msgctxt "Like \"The person is '28 years' old\""
 msgid "%1 year"
 msgid_plural "%1 years"
@@ -6419,14 +6376,11 @@ msgstr[0] "1 vuosi"
 msgstr[1] "%1 vuotta"
 
 #: Utilities/Timespan.cpp:118
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"The baby is \"4 months\" old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 kuukausi"
+msgstr[0] "%1 kuukausi"
 msgstr[1] "%1 kuukautta"
 
 #: Utilities/Timespan.cpp:121
@@ -6435,44 +6389,36 @@ msgctxt ""
 "This combines an age of a person in years (%1) with the additional months "
 "(%2), like \"The person is '1 year and 3 months' old\""
 msgid "%1, %2"
-msgstr ""
+msgstr "%1 %2"
 
 #: Utilities/Timespan.cpp:151
-#, fuzzy, kde-format
-#| msgid "today"
+#, kde-format
 msgid " (today)"
-msgstr "tänään"
+msgstr " (tänään)"
 
 #: Utilities/Timespan.cpp:154
-#, fuzzy, kde-format
-#| msgid "yesterday"
+#, kde-format
 msgid " (yesterday)"
-msgstr "eilen"
+msgstr " (eilen)"
 
 #: Utilities/Timespan.cpp:158
-#, fuzzy, kde-format
-#| msgid " (%1)"
+#, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
-msgstr " (%1)"
+msgstr " (%1 sitten)"
 
 #: Utilities/Timespan.cpp:162
-#, fuzzy, kde-format
-#| msgctxt "E.g. ' (1-2 years)'"
-#| msgid " (%1-%2)"
+#, kde-format
 msgctxt "Like \"6 to 7 years ago\""
 msgid " (%1 to %2 ago)"
-msgstr " (%1–%2)"
+msgstr " (%1–%2 sitten)"
 
 #: Utilities/Timespan.cpp:177
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 day old'"
-#| msgid "1 day"
-#| msgid_plural "%1 days"
+#, kde-format
 msgctxt "Like \"This happened '6 days' ago\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] "1 päivä"
+msgstr[0] "%1 päivä"
 msgstr[1] "%1 päivää"
 
 #: Utilities/Timespan.cpp:184
@@ -6480,45 +6426,36 @@ msgstr[1] "%1 päivää"
 msgctxt "Like \"This happened '3 weeks' ago\""
 msgid "%1 week"
 msgid_plural "%1 weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 viikko"
+msgstr[1] "%1 viikkoa"
 
 #: Utilities/Timespan.cpp:189
 #, kde-format
 msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
 msgid "ca. %1 week"
 msgid_plural "ca. %1 weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "n. %1 viikko"
+msgstr[1] "n. %1 viikkoa"
 
 #: Utilities/Timespan.cpp:197 Utilities/Timespan.cpp:236
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"This happened '2 months' ago\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 kuukausi"
+msgstr[0] "%1 kuukausi"
 msgstr[1] "%1 kuukautta"
 
 #: Utilities/Timespan.cpp:202 Utilities/Timespan.cpp:207
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 month old'"
-#| msgid "1 month"
-#| msgid_plural "%1 months"
+#, kde-format
 msgctxt "Like \"This happened 'ca. 2 months' ago\""
 msgid "ca. %1 month"
 msgid_plural "ca. %1 months"
-msgstr[0] "1 kuukausi"
-msgstr[1] "%1 kuukautta"
+msgstr[0] "n. %1 kuukausi"
+msgstr[1] "n. %1 kuukautta"
 
 #: Utilities/Timespan.cpp:212 Utilities/Timespan.cpp:231
 #: Utilities/Timespan.cpp:234
-#, fuzzy, kde-format
-#| msgctxt "As in 'The baby is 1 year old'"
-#| msgid "1 year"
-#| msgid_plural "%1 years"
+#, kde-format
 msgctxt "Like \"This happened '2 years' ago\""
 msgid "%1 year"
 msgid_plural "%1 years"
@@ -6526,14 +6463,13 @@ msgstr[0] "1 vuosi"
 msgstr[1] "%1 vuotta"
 
 #: Utilities/Timespan.cpp:240
-#, fuzzy, kde-format
-#| msgid "\"%1\" and \"%2\""
+#, kde-format
 msgctxt ""
 "This combines a number of years and months to a timespan, like \"This "
 "happened 3 years and 1 month\" ago, where the first parameter is the "
 "formatted years string and the second one is the formatted months string"
 msgid "%1 and %2"
-msgstr "”%1” ja ”%2”"
+msgstr "%1 ja %2"
 
 #: Viewer/AnnotationHandler.cpp:69
 #, kde-format

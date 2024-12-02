@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-30 00:39+0000\n"
-"PO-Revision-Date: 2024-11-25 23:02+0200\n"
+"PO-Revision-Date: 2024-12-01 09:47+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1312,7 +1312,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:60
 #, kde-format
 msgid "index.xml version mismatch"
-msgstr ""
+msgstr "גרסת index.xml לא תואמת"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -1334,6 +1334,8 @@ msgid ""
 "ignore the duplicate category and try an automatic repair, or choose cancel "
 "to quit.</p>"
 msgstr ""
+"<p>שורה %1, עמודה %2: קטגוריה כפולה ‚%3’</p><p>נא לבחור להמשיך כדי להתעלם "
+"מקטגוריות כפולות ולנסות לתקן אוטומטית, או לבחור בביטול כדי לצאת.</p>"
 
 #: DB/XML/FileReader.cpp:195 DB/XML/FileReader.cpp:300
 #, kde-format
@@ -1523,7 +1525,7 @@ msgstr ""
 #: DB/XML/FileWriter.cpp:80 DB/XML/FileWriter.cpp:116 DB/XML/FileWriter.cpp:125
 #, kde-format
 msgid "Error while saving..."
-msgstr ""
+msgstr "שגיאה בשמירה…"
 
 #: DB/XML/FileWriter.cpp:113
 #, kde-format
@@ -1542,22 +1544,22 @@ msgstr ""
 #: DB/XML/NumberedBackup.cpp:41
 #, kde-format
 msgid "Error creating zip file %1"
-msgstr ""
+msgstr "שגיאה ביצירת קובץ zip‏ %1"
 
 #: DB/XML/NumberedBackup.cpp:41 DB/XML/NumberedBackup.cpp:46
 #, kde-format
 msgid "Error Making Numbered Backup"
-msgstr ""
+msgstr "שגיאה ביצירת גיבוי ממוספר"
 
 #: DB/XML/NumberedBackup.cpp:46
 #, kde-format
 msgid "Error writing file %1 to zip file %2"
-msgstr ""
+msgstr "שגיאה בכתיבת הקובץ %1 לקובץ ה־zip‏ %2"
 
 #: DB/XML/XmlReader.cpp:43
 #, kde-format
 msgid "Error reading next element"
-msgstr ""
+msgstr "שגיאה בקריאת הרכיב הבא"
 
 #: DB/XML/XmlReader.cpp:46
 #, kde-format
@@ -2228,33 +2230,33 @@ msgstr ""
 #: ImageManager/ThumbnailBuilder.cpp:103
 #, kde-format
 msgid "Building all thumbnails may take a long time."
-msgstr ""
+msgstr "בניית כל התמונות הממוזערות עשויה לארוך זמן מה."
 
 #: ImageManager/ThumbnailBuilder.cpp:104
 #, kde-format
 msgid "Do you want to rebuild all of your thumbnails?"
-msgstr ""
+msgstr "לבנות מחדש את כל התמונות הממוזערות שלך?"
 
 #: ImageManager/ThumbnailBuilder.cpp:178
 #, kde-format
 msgid "Building thumbnails"
-msgstr ""
+msgstr "התמונות הממוזערות נבנות"
 
 #: ImportExport/Export.cpp:74
 #, kde-format
 msgid "Save an export file"
-msgstr ""
+msgstr "שמירת קובץ ייצוא"
 
 #: ImportExport/Export.cpp:76 ImportExport/Import.cpp:30
 #, kde-format
 msgid "KPhotoAlbum import files"
-msgstr ""
+msgstr "ייבוא קבצים ל־KPhotoAlbum"
 
 #: ImportExport/Export.cpp:92
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Configuration / Copy Images"
-msgstr ""
+msgstr "ייצוא ההגדרות / העתקת תמונות"
 
 #: ImportExport/Export.cpp:105
 #, kde-format
@@ -2274,7 +2276,7 @@ msgstr "לא להעתיק קבצים, רק לייצר קובץ ‎.kim"
 #: ImportExport/Export.cpp:111
 #, kde-format
 msgid "Automatically copy next to .kim file"
-msgstr ""
+msgstr "להעתיק ליד קובץ ה־‎.kim אוטומטית"
 
 #: ImportExport/Export.cpp:112
 #, kde-format
@@ -2621,6 +2623,8 @@ msgid ""
 "Use data from\n"
 "Import File"
 msgstr ""
+"להשתמש בנתונים מתוך\n"
+"קובץ ייבוא"
 
 #: ImportExport/MD5CheckPage.cpp:58
 #, kde-format
@@ -2628,6 +2632,8 @@ msgid ""
 "Use data from\n"
 "Database"
 msgstr ""
+"להשתמש בנתונים מתוך\n"
+"מסד נתונים"
 
 #: ImportExport/MD5CheckPage.cpp:61
 #, kde-format
@@ -2663,7 +2669,7 @@ msgstr "כל הזכויות שמורות (C) 2020-2024 לצוות הפיתוח �
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
 msgid "Johannes Zarl-Zierl"
-msgstr ""
+msgstr "יוהאן צארל-צירל"
 
 #: kpa-thumbnailtool/main.cpp:56 main.cpp:97
 #, kde-format
@@ -2708,12 +2714,12 @@ msgstr "חסאן איברהים"
 #: kpa-thumbnailtool/main.cpp:62 main.cpp:103
 #, kde-format
 msgid "Jan Kundr&aacute;t"
-msgstr ""
+msgstr "יאן קונדראט"
 
 #: kpa-thumbnailtool/main.cpp:63 main.cpp:104
 #, kde-format
 msgid "Andreas Neustifter"
-msgstr ""
+msgstr "אנדראס נוישטיפר"
 
 #: kpa-thumbnailtool/main.cpp:64 main.cpp:105
 #, kde-format
@@ -2740,7 +2746,7 @@ msgstr "התיקייה מכילה את תיקיית ‎.thmbnail."
 #, kde-format
 msgctxt "@info:shell"
 msgid "Print information about thumbnail cache."
-msgstr ""
+msgstr "הצגת מידע על מטמון התמונות הממוזערות."
 
 #: kpa-thumbnailtool/main.cpp:73
 #, kde-format
@@ -3017,22 +3023,22 @@ msgstr ""
 #: main.cpp:113
 #, kde-format
 msgid "Wes Hardaker"
-msgstr ""
+msgstr "וס הרדאקר"
 
 #: main.cpp:113
 #, kde-format
 msgid "Some very useful features to improve workflow"
-msgstr ""
+msgstr "יכולות שימושיות לשיפור תהליכי העבודה"
 
 #: main.cpp:114
 #, kde-format
 msgid "Reimar Imhof"
-msgstr ""
+msgstr "ריימאר אימהוף"
 
 #: main.cpp:114
 #, kde-format
 msgid "Patch to sort items in option listboxes"
-msgstr ""
+msgstr "טלאי לסידור פריטים בתיבות רשימות של אפשרויות"
 
 #: main.cpp:115
 #, kde-format
@@ -3057,7 +3063,7 @@ msgstr ""
 #: main.cpp:118
 #, kde-format
 msgid "Thomas Schwarzgruber"
-msgstr ""
+msgstr "תומס שווארצגרובר"
 
 #: main.cpp:118
 #, kde-format
@@ -3065,6 +3071,8 @@ msgid ""
 "Patch to sort images in the thumbnail view, plus reading time info out of "
 "Exif images for existing images"
 msgstr ""
+"טלאי לסידור התמונות בתצוגת תמונות ממוזערות, לצד קריאת פרטי הזמנים מתמונות עם "
+"Exif לתמונות קיימות"
 
 #: main.cpp:119
 #, kde-format
@@ -3102,12 +3110,12 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Automatically Stack Images"
-msgstr ""
+msgstr "לערום תמונות אוטומטית"
 
 #: MainWindow/AutoStackImages.cpp:56
 #, kde-format
 msgid "Stack images with identical MD5 sum"
-msgstr ""
+msgstr "לערום תמונות שסיכום ביקורת ה־MD5 שלהן זהה"
 
 #: MainWindow/AutoStackImages.cpp:64
 #, kde-format
@@ -3129,7 +3137,7 @@ msgstr ""
 #, kde-format
 msgctxt "Unit suffix on a QSpinBox; note the space at the beginning."
 msgid " seconds"
-msgstr ""
+msgstr " שניות"
 
 #: MainWindow/AutoStackImages.cpp:90
 #, kde-format

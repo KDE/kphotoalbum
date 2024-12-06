@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-30 00:39+0000\n"
-"PO-Revision-Date: 2024-12-01 09:47+0200\n"
+"PO-Revision-Date: 2024-12-03 20:29+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1596,18 +1596,18 @@ msgstr ""
 #: DB/XML/XmlReader.cpp:91
 #, kde-kuit-format
 msgid "<p>Database path: <filename>%1</filename></p>"
-msgstr ""
+msgstr "<p>נתיב מסד הנתונים: <filename>%1</filename></p>"
 
 #: DB/XML/XmlReader.cpp:94
 #, kde-format
 msgid "Error while reading database file"
-msgstr ""
+msgstr "שגיאה בקריאת קובץ מסד הנתונים"
 
 #: Exif/InfoDialog.cpp:35
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
-msgstr ""
+msgstr "פרטי Exif ונתוני העל של הקובץ"
 
 #: Exif/InfoDialog.cpp:75
 #, kde-format
@@ -1617,9 +1617,9 @@ msgid "Filter labels ..."
 msgstr "סינון תוויות…"
 
 #: Exif/InfoDialog.cpp:79
-#, kde-format
+#, fuzzy, kde-format
 msgid "IPTC character set:"
-msgstr ""
+msgstr "ערכת תווי IPTC:"
 
 #: Exif/InfoDialog.cpp:98
 #, kde-format

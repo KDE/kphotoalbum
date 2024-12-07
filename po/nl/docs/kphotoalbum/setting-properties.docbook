@@ -38,7 +38,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 > zijn genomen.)</para>
 
     <para
->Om een afbeelding van een annotatie te voorzien, selecteert u de desbetreffende afbeeldingen en gaat u vervolgens naar <menuchoice
+>Om afbeelding van een annotatie te voorzien, selecteert u de desbetreffende afbeeldingen en gaat u vervolgens naar <menuchoice
 ><guimenu
 >Bewerken</guimenu
 > <guisubmenu
@@ -46,7 +46,7 @@ SPDX-License-Identifier: GFDL-1.2-only
 ></menuchoice
 >. Vervolgens kunt u de geselecteerde afbeeldingen achter elkaar annoteren. Als u in plaats daarvan <guimenuitem
 >Meerdere items tegelijk annoteren</guimenuitem
-> selecteert, dan kunt u alle geselecteerde items tegelijk annoteren alsof het een enkel item is. Met andere woorden, met deze keuzemogelijkheid kunt u uw afbeeldingen en masse annoteren - b.v. al deze afbeeldingen zijn gemaakt in Kopenhagen. Deze twee keuzemogelijkheden zijn ook beschikbaar via het contextmenu, dat beschikbaar als u met de &RMB; klikt op het overzichtvenster of de sneltoets gebruikt. Een voorbeeld hiervan is te zien in <xref linkend="fig-edit-properies-menu"/>.</para>
+> selecteert, dan kunt u alle geselecteerde items tegelijk annoteren alsof het een enkel item is. Met andere woorden, met deze keuzemogelijkheid kunt u uw afbeeldingen en masse annoteren - b.v. al deze afbeeldingen zijn gemaakt in Kopenhagen. Deze twee keuzemogelijkheden zijn ook beschikbaar via het contextmenu, dat beschikbaar als u met de &RMB; klikt op het overzichtsvenster of de sneltoets gebruikt. Een voorbeeld hiervan is te zien in <xref linkend="fig-edit-properies-menu"/>.</para>
 
     <figure id="fig-edit-properies-menu">
       <title

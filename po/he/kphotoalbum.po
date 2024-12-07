@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-30 00:39+0000\n"
-"PO-Revision-Date: 2024-12-03 20:29+0200\n"
+"PO-Revision-Date: 2024-12-06 08:27+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -80,6 +80,10 @@ msgid ""
 "KPhotoAlbum...|General</interface>, a description embedded in the image Exif "
 "information is imported to this field if available.</para>"
 msgstr ""
+"<para>טקסט מפורט על התמונה.</para><para>אם האפשרות <emphasis>להשתמשבתיאור "
+"Exif</emphasis> פעילה תחת <interface>הגדרות|הגדרת KPhotoAlbum…|כללי</"
+"interface>, תיאור שמוטמע בפרטי ה־Exif של התמונה מיובא לשדה הזה אם הוא זמין.</"
+"para>"
 
 #: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:399
 #, kde-format
@@ -98,6 +102,8 @@ msgid ""
 "The map widget allows you to view the location of images if GPS coordinates "
 "are found in the Exif information."
 msgstr ""
+"וידג׳ט המפה מאפשר לך לצפות במקום הצילום של התמונות אם יש נקודות ציון של GPS "
+"בפרטי ה־Exif."
 
 #: AnnotationDialog/Dialog.cpp:230
 #, kde-format
@@ -313,6 +319,8 @@ msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
 "recent changes for each affected file?</p>"
 msgstr ""
+"<p>בוצעו כמה שינויים בהסברים. להשליך את כל השינויים האחרונים בכל אחד מהקבצים "
+"שהושפעו מכך?</p>"
 
 #: AnnotationDialog/Dialog.cpp:1035
 #, kde-format
@@ -339,21 +347,24 @@ msgid ""
 "p><p>It is strongly recommended that you take 5 minutes to read the <a href="
 "\"help:/kphotoalbum/chp-typingIn.html\">documentation for this dialog</a></p>"
 msgstr ""
+"<p>הרגע פתחת את אחד החלונות החשובים ביותר ב־KPhotoAlbum, הוא מכיל שלל יכולות "
+"שמוטבו לשימוש מהיר.</p><p>מומלץ להקדיש 5 דקות לקרוא את <a href=\"help:/"
+"kphotoalbum/chp-typingIn.html\">תיעוד החלונית הזאת</a></p>"
 
 #: AnnotationDialog/Dialog.cpp:1266
 #, kde-format
 msgid "Sort Most Recently Used"
-msgstr ""
+msgstr "סידור לפי השמישים ביותר"
 
 #: AnnotationDialog/Dialog.cpp:1269
 #, kde-format
 msgid "Toggle Sorting"
-msgstr ""
+msgstr "החלפת מצב סידור"
 
 #: AnnotationDialog/Dialog.cpp:1274
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
-msgstr ""
+msgstr "החלפת הצגת הפריטים הנבחרים בלבד"
 
 #: AnnotationDialog/Dialog.cpp:1278
 #, kde-format
@@ -1885,7 +1896,7 @@ msgstr "<p>לא סופק שם קובץ!</p>"
 #: HTMLGenerator/Generator.cpp:82
 #, kde-format
 msgid "Generating images for HTML page "
-msgstr ""
+msgstr "נוצרות תמונות לעמוד HTML "
 
 #: HTMLGenerator/Generator.cpp:185
 #, kde-format
@@ -1920,22 +1931,22 @@ msgstr ""
 #: HTMLGenerator/Generator.cpp:645
 #, kde-format
 msgid "Could not create file '%1'."
-msgstr ""
+msgstr "לא ניתן ליצור את הקובץ ‚%1’."
 
 #: HTMLGenerator/Generator.cpp:646
 #, kde-format
 msgid "Could Not Create File"
-msgstr ""
+msgstr "לא ניתן ליצור קובץ"
 
 #: HTMLGenerator/Generator.cpp:665
 #, kde-format
 msgid "<p>Unable to copy %1 to %2</p>"
-msgstr ""
+msgstr "<p>לא ניתן להעתיק את %1 אל %2</p>"
 
 #: HTMLGenerator/Generator.cpp:699
 #, kde-format
 msgid "Unable to write image '%1'."
-msgstr ""
+msgstr "לא ניתן לכתוב את התמונה ‚%1’."
 
 #: HTMLGenerator/Generator.cpp:773 HTMLGenerator/HTMLDialog.cpp:148
 #, kde-format
@@ -1978,13 +1989,13 @@ msgstr "יצירת קובץ ייצוא ‎.kim"
 msgctxt ""
 "Inline as a verb, i.e. 'please show movies right on the page, not as links'"
 msgid "Inline Movies in pages"
-msgstr ""
+msgstr "סרטים מובנים בעמודים"
 
 #: HTMLGenerator/HTMLDialog.cpp:121
 #, kde-format
 msgctxt "Tag as in HTML-tag, not as in image tag"
 msgid "Use HTML5 video tag"
-msgstr ""
+msgstr "להשתמש בתגית וידאו HTML5"
 
 #: HTMLGenerator/HTMLDialog.cpp:130
 #, kde-format
@@ -2001,7 +2012,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:140
 #, kde-format
 msgid "What to Include"
-msgstr ""
+msgstr "מה לכלול"
 
 #: HTMLGenerator/HTMLDialog.cpp:177 HTMLGenerator/HTMLDialog.cpp:178
 #, kde-format

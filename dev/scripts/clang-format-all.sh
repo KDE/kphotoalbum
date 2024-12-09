@@ -25,5 +25,5 @@ clang-format -style=file -i \
 	ThumbnailView/*.{cpp,h} \
 	Utilities/*.{cpp,h} \
 	Viewer/*.{cpp,h} \
-	XMLDB/*.{cpp,h} \
+	lib/*/*.{cpp,h} \
 	main.cpp

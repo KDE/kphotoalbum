@@ -35,6 +35,7 @@
 
 #include <KLocalizedString>
 #include <QApplication>
+#include <QDir>
 #include <QElapsedTimer>
 #include <QFileInfo>
 #include <QMutex>
@@ -50,7 +51,7 @@ namespace
 {
 void checkForBackupFile(const QString &fileName, DB::UIDelegate &ui)
 {
-    QString backupName = QFileInfo(fileName).absolutePath() + QString::fromLatin1("/.#") + QFileInfo(fileName).fileName();
+    QString backupName = DB::ImageDB::autoSaveFileName(fileName);
     QFileInfo backUpFile(backupName);
     QFileInfo indexFile(fileName);
 
@@ -237,7 +238,7 @@ ImageDB::ImageDB(const QString &configFile, UIDelegate &delegate)
     reader.read(configFile);
     m_nextStackId = reader.nextStackId();
 
-    // if reading an index.xml file version < 9, the untaggedTag is stored in the settings, not the database
+    // if reading an XML database file version < 9, the untaggedTag is stored in the settings, not the database
     if (!untaggedCategoryFeatureConfigured()) {
         const auto untaggedCategory = Settings::SettingsData::instance()->untaggedCategory();
         const auto untaggedTag = Settings::SettingsData::instance()->untaggedTag();
@@ -669,10 +670,29 @@ MemberMap &ImageDB::memberMap()
     return m_members;
 }
 
-void ImageDB::save(const QString &fileName, bool isAutoSave)
+void ImageDB::save()
 {
     DB::FileWriter saver(this);
-    saver.save(fileName, isAutoSave);
+    saver.save(m_fileName, false);
+}
+
+void ImageDB::autosave()
+{
+    DB::FileWriter saver(this);
+    saver.save(autoSaveFileName(), true);
+}
+
+QString ImageDB::autoSaveFileName(const QString &xmlFilename)
+{
+    QFileInfo fi(xmlFilename);
+    // If xmlFileName == "/home/user/pictures/database.xml", then
+    // autoname = "/home/user/pictures/.#database.xml"
+    return fi.dir().filePath(QLatin1String(".#%1").arg(fi.fileName()));
+}
+
+QString ImageDB::autoSaveFileName() const
+{
+    return autoSaveFileName(m_fileName);
 }
 
 MD5Map *ImageDB::md5Map()

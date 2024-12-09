@@ -53,11 +53,11 @@ void DB::FileReader::read(const QString &configFile)
 
     if (m_fileVersion > DB::ImageDB::fileVersion()) {
         DB::UserFeedback ret = m_db->uiDelegate().warningContinueCancel(
-            DB::LogMessage { DBLog(), QString::fromLatin1("index.xml version %1 is newer than %2!").arg(m_fileVersion).arg(DB::ImageDB::fileVersion()) },
-            i18n("<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</p>"
+            DB::LogMessage { DBLog(), QString::fromLatin1("%1 version %2 is newer than %3!").arg(configFile).arg(m_fileVersion).arg(DB::ImageDB::fileVersion()) },
+            i18n("<p>The XML database file is from a newer version of KPhotoAlbum!</p>"
                  "<p>Chances are you will be able to read this file, but when writing it back, "
                  "information saved in the newer version will be lost</p>"),
-            i18n("index.xml version mismatch"), QString::fromLatin1("checkDatabaseFileVersion"));
+            i18n("XML database file version mismatch"), QString::fromLatin1("checkDatabaseFileVersion"));
         if (ret != DB::UserFeedback::Confirm)
             exit(-1);
     }
@@ -87,7 +87,7 @@ void DB::FileReader::createSpecialCategories()
     m_folderCategory = new DB::Category(i18n("Folder"), QString::fromLatin1("folder"),
                                         DB::Category::TreeView, 32, false);
     m_folderCategory->setType(DB::Category::FolderCategory);
-    // The folder category is not stored in the index.xml file,
+    // The folder category is not stored in the XML database file,
     // but older versions of KPhotoAlbum stored a stub entry, which we need to remove first:
     if (m_db->m_categoryCollection.categoryForName(m_folderCategory->name()))
         m_db->m_categoryCollection.removeCategory(m_folderCategory->name());
@@ -248,7 +248,7 @@ void DB::FileReader::loadCategories(ReaderPtr reader)
 
     if (m_fileVersion < 7) {
         m_db->uiDelegate().information(
-            DB::LogMessage { DBLog(), QString::fromLatin1("Standard category names are no longer used since index.xml "
+            DB::LogMessage { DBLog(), QString::fromLatin1("Standard category names are no longer used since XML database "
                                                           "version 7. Standard categories will be left untranslated from now on.") },
             i18nc("Leave \"Folder\" and \"Media Type\" untranslated below, those will show up with "
                   "these exact names. Thanks :-)",
@@ -348,7 +348,7 @@ void DB::FileReader::loadMemberGroups(ReaderPtr reader)
                 for (const QString &memberItem : members) {
                     DB::CategoryPtr catPtr = m_db->m_categoryCollection.categoryForName(category);
                     if (!catPtr) { // category was not declared in "Categories"
-                        qCWarning(DBLog) << "File corruption in index.xml. Inserting missing category: " << category;
+                        qCWarning(DBLog) << "File corruption in XML database file. Inserting missing category: " << category;
                         catPtr = new DB::Category(category, QString::fromUtf8("dialog-warning"), DB::Category::TreeView, 32, false);
                         m_db->m_categoryCollection.addCategory(catPtr);
                     }
@@ -405,7 +405,7 @@ void DB::FileReader::loadSettings(ReaderPtr reader)
                 m_db->m_settings.insert(unescape(reader->attribute(keyString)),
                                         unescape(reader->attribute(valueString)));
             } else {
-                qWarning() << "File corruption in index.xml. Setting either lacking a key or a "
+                qWarning() << "File corruption in XML database file. Setting either lacking a key or a "
                            << "value attribute. Ignoring this entry.";
             }
             reader->readEndElement();
@@ -558,7 +558,7 @@ DB::ReaderPtr DB::FileReader::readConfigFile(const QString &configFile)
 
         if ( !doc.setContent( &file, false, &errMsg, &errLine, &errCol )) {
             file.close();
-            // If parsing index.xml fails let's see if we could use a backup instead
+            // If parsing XML database file fails let's see if we could use a backup instead
             Utilities::checkForBackupFile( configFile, i18n( "line %1 column %2 in file %3: %4", errLine , errCol , configFile , errMsg ) );
             if ( !file.open( QIODevice::ReadOnly ) || ( !doc.setContent( &file, false, &errMsg, &errLine, &errCol ) ) ) {
                 KMessageBox::error( messageParent(), i18n( "Failed to recover the backup: %1", errMsg ) );

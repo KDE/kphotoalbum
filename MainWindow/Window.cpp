@@ -336,7 +336,7 @@ bool MainWindow::Window::queryClose()
             slotSave();
         }
         if (answer == REPLY_DONTSAVE) {
-            QDir().remove(Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"));
+            QDir().remove(DB::ImageDB::instance()->autoSaveFileName());
         }
     }
 
@@ -511,10 +511,10 @@ void MainWindow::Window::slotSave()
 {
     Utilities::ShowBusyCursor dummy;
     m_statusBar->showMessage(i18n("Saving..."), 5000);
-    DB::ImageDB::instance()->save(Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1("index.xml"), false);
+    DB::ImageDB::instance()->save();
     thumbnailCache()->save();
     m_statusBar->mp_dirtyIndicator->saved();
-    QDir().remove(Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"));
+    QDir().remove(DB::ImageDB::instance()->autoSaveFileName());
     m_statusBar->showMessage(i18n("Saving... Done"), 5000);
 }
 
@@ -1059,7 +1059,7 @@ void MainWindow::Window::slotAutoSave()
     if (m_statusBar->mp_dirtyIndicator->isAutoSaveDirty()) {
         Utilities::ShowBusyCursor dummy;
         m_statusBar->showMessage(i18n("Auto saving...."));
-        DB::ImageDB::instance()->save(Settings::SettingsData::instance()->imageDirectory() + QString::fromLatin1(".#index.xml"), true);
+        DB::ImageDB::instance()->autosave();
         thumbnailCache()->save();
         m_statusBar->showMessage(i18n("Auto saving.... Done"), 5000);
         m_statusBar->mp_dirtyIndicator->autoSaved();
@@ -1146,40 +1146,26 @@ bool MainWindow::Window::load()
     if (Options::the()->dbFile().isValid()) {
         QFileInfo fi(configFile);
 
-        // Did the user pass a directory on the command line?
+        // Did the user passed a directory on the command line?
         if (fi.isDir()) {
+            // The user supplied a directory so assume the default filename.
             fi.setFile(QDir(configFile).filePath(QLatin1String("index.xml")));
-        } else {
-            // fi is not a directory
-            QString errorMessage;
-            if (fi.fileName() != QString::fromLatin1("index.xml")) {
-                if (fi.isFile() && fi.exists()) {
-                    // existing file, wrong name
-                    // Note: we don't allow this currently because 'index.xml' is hard-coded at several places
-                    qCWarning(MainWindowLog) << "Config file is incorrectly named:" << fi.filePath();
-                    errorMessage = i18n("KPhotoAlbum only supports database files named 'index.xml'.");
-                } else {
-                    // non-existing file, wrong name
-                    qCWarning(MainWindowLog) << "No KPhotoAlbum index.xml database file was found:"
-                                             << configFile;
-                    errorMessage = i18n("Please specify an existing image directory or an existing index.xml file.");
-                }
-            } else if (!fi.dir().exists()) {
-                // index.xml within a non-existing directory
-                qCWarning(MainWindowLog) << "Directory of index.xml database file does not exist:"
-                                         << configFile;
-                errorMessage = i18n("Please specify an existing image directory or an existing index.xml file.");
-            }
-            if (!errorMessage.isEmpty()) {
-                KMessageBox::error(this, errorMessage, i18n("Invalid database file"));
+        } else if (!fi.isFile()) {
+            // Allow an non-existant XML database file if the parent directory exists
+            // (KPhotoAlbum will offer to create the file).
+            if ((fi.fileName().toStdString() != "index.xml") || !fi.dir().exists()) {
+                qCWarning(MainWindowLog) << "No KPhotoAlbum index.xml database file was found at"
+                                         << configFile
+                                         << ".";
+                qCWarning(MainWindowLog) << "Please specify an image directory or an existing XML database file.";
                 return false;
             }
         }
 
         if (!fi.exists()) {
-            const QString question = i18n("<p>Given index file does not exist, do you want to create following?"
-                                          "<br />%1/index.xml</p>",
-                                          fi.absolutePath());
+            const QString question = i18n("<p>Do you want to create this database file?"
+                                          "<br />%1</p>",
+                                          fi.absoluteFilePath());
             const QString title = i18nc("@title", "Create database");
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5, 100, 0)
             const auto answer = KMessageBox::questionTwoActions(this, question,
@@ -1197,13 +1183,16 @@ bool MainWindow::Window::load()
         configFile = fi.absoluteFilePath();
     }
 
+    QFileInfo fi(configFile);
+    setWindowTitle(fi.fileName());
+
     // To avoid a race conditions where both the image loader thread creates an instance of
     // Settings, and where the main thread creates an instance, we better get it created now.
-    Settings::SettingsData::setup(QFileInfo(configFile).absolutePath(), *this);
+    Settings::SettingsData::setup(fi.absolutePath(), *this);
 
     if (Settings::SettingsData::instance()->showSplashScreen()) {
-        // SplashScreen::instance()->show();
-        // qApp->processEvents();
+        SplashScreen::instance()->show();
+        qApp->processEvents();
     }
 
     DB::ImageDB::setupXMLDB(configFile, *this);

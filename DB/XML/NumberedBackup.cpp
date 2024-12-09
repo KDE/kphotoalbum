@@ -19,8 +19,9 @@
 #include <QDir>
 #include <QRegularExpression>
 
-DB::NumberedBackup::NumberedBackup(DB::UIDelegate &ui)
+DB::NumberedBackup::NumberedBackup(DB::UIDelegate &ui, const QString &xmlFileName)
     : m_ui(ui)
+    , m_xmlFileInfo(xmlFileName)
 {
 }
 
@@ -28,27 +29,27 @@ void DB::NumberedBackup::makeNumberedBackup()
 {
     deleteOldBackupFiles();
 
-    const QString fileName = QStringLiteral("index.xml~%1~").arg(getMaxId() + 1, 4, 10, QLatin1Char('0'));
-
-    if (!QFileInfo::exists(QStringLiteral("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory())))
+    if (!m_xmlFileInfo.exists())
         return;
 
+    const QString fileName = QStringLiteral("%1~%2~").arg(m_xmlFileInfo.fileName()).arg(getMaxId() + 1, 4, 10, QLatin1Char('0'));
+    const QDir dir = m_xmlFileInfo.dir();
+
     if (Settings::SettingsData::instance()->compressBackup()) {
-        const QString fileNameWithExt = fileName + QLatin1String(".zip");
-        const QString fileAndDir = QStringLiteral("%1/%2").arg(Settings::SettingsData::instance()->imageDirectory(), fileNameWithExt);
-        KZip zip(fileAndDir);
+        const QString zipName = fileName + QLatin1String(".zip");
+        const QString zipPath = dir.filePath(zipName);
+        KZip zip(zipPath);
         if (!zip.open(QIODevice::WriteOnly)) {
-            m_ui.error(DB::LogMessage { DBLog(), QStringLiteral("Error creating zip file %1").arg(fileAndDir) }, i18n("Error creating zip file %1", fileAndDir), i18n("Error Making Numbered Backup"));
+            m_ui.error(DB::LogMessage { DBLog(), QStringLiteral("Error creating zip file %1").arg(zipPath) }, i18n("Error creating zip file %1", zipPath), i18n("Error Making Numbered Backup"));
             return;
         }
 
-        if (!zip.addLocalFile(QStringLiteral("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory()), fileName)) {
-            m_ui.error(DB::LogMessage { DBLog(), QStringLiteral("Error writing file %1 to zip file %2").arg(fileName, fileAndDir) }, i18n("Error writing file %1 to zip file %2", fileName, fileAndDir), i18n("Error Making Numbered Backup"));
+        if (!zip.addLocalFile(m_xmlFileInfo.filePath(), fileName)) {
+            m_ui.error(DB::LogMessage { DBLog(), QStringLiteral("Error writing file %1 to zip file %2").arg(fileName, zipPath) }, i18n("Error writing file %1 to zip file %2", fileName, zipPath), i18n("Error Making Numbered Backup"));
         }
         zip.close();
     } else {
-        Utilities::copyOrOverwrite(QStringLiteral("%1/index.xml").arg(Settings::SettingsData::instance()->imageDirectory()),
-                                   QStringLiteral("%1/%2").arg(Settings::SettingsData::instance()->imageDirectory(), fileName));
+        Utilities::copyOrOverwrite(m_xmlFileInfo.filePath(), dir.filePath(fileName));
     }
 }
 
@@ -65,16 +66,14 @@ int DB::NumberedBackup::getMaxId() const
 
 QStringList DB::NumberedBackup::backupFiles() const
 {
-    QDir dir(Settings::SettingsData::instance()->imageDirectory());
-    return dir.entryList(QStringList() << QStringLiteral("index.xml~*~*"), QDir::Files);
+    const QDir dir = m_xmlFileInfo.dir();
+    return dir.entryList(QStringList() << QStringLiteral("%1~*~*").arg(m_xmlFileInfo.fileName()), QDir::Files);
 }
 
 int DB::NumberedBackup::idForFile(const QString &fileName, bool &OK) const
 {
-    // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
-    QRegularExpression reg(QStringLiteral("index\\.xml~([0-9]+)~(.zip)?"));
-    const auto match = reg.match(fileName);
-    if (match.hasMatch()) {
+    QRegExp reg(QStringLiteral("%1~([0-9]+)~(.zip)?").arg(m_xmlFileInfo.fileName()));
+    if (reg.exactMatch(fileName)) {
         OK = true;
         return match.captured(1).toInt();
     } else {
@@ -92,11 +91,13 @@ void DB::NumberedBackup::deleteOldBackupFiles()
 
     QStringList files = backupFiles();
 
+    QDir dir = m_xmlFileInfo.dir();
+
     for (QStringList::ConstIterator fileIt = files.constBegin(); fileIt != files.constEnd(); ++fileIt) {
         bool OK;
         int num = idForFile(*fileIt, OK);
         if (OK && num <= maxId + 1 - maxBackupFiles) {
-            (QDir(Settings::SettingsData::instance()->imageDirectory())).remove(*fileIt);
+            dir.remove(*fileIt);
         }
     }
 }

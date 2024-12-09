@@ -131,7 +131,28 @@ public:
     void deleteList(const DB::FileNameList &list);
     ImageInfoPtr info(const DB::FileName &fileName) const;
     MemberMap &memberMap();
-    void save(const QString &fileName, bool isAutoSave);
+
+    /**
+     * Saves the database to m_fileName.
+     */
+    void save();
+
+    /**
+     * Writes an auto-save file.  The filename is derived from m_fileName.
+     */
+    void autosave();
+
+    /**
+     * Returns the auto-save filename derived from the given XML database
+     * filename.
+     */
+    static QString autoSaveFileName(const QString &xmlFilename);
+
+    /**
+     * Returns the auto-save filename derived from  m_fileName.
+     */
+    QString autoSaveFileName() const;
+
     MD5Map *md5Map();
     void sortAndMergeBackIn(const DB::FileNameList &fileNameList);
 

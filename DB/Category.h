@@ -131,7 +131,7 @@ public:
     void setIdMapping(const QString &name, int id);
     /**
      * @brief addZeroMapping allows adding of category names with id 0.
-     * This id is not allowed normally, but can happen in corrupted index.xml files.
+     * This id is not allowed normally, but can happen in corrupted XML database files.
      * @param name
      */
     void addZeroMapping(const QString &name);
@@ -139,7 +139,7 @@ public:
     /**
      * @brief namesForIdZero returns all names for id 0.
      * Obviously, this is not how ids usually work.
-     * The only time when this makes sense is when reading a damaged index.xml file that is to be repaired.
+     * The only time when this makes sense is when reading a damaged XML database file that is to be repaired.
      * After loading the database is complete, the mapping between id and name must always 1:1!
      * @return
      */

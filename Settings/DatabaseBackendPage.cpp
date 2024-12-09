@@ -19,12 +19,12 @@ Settings::DatabaseBackendPage::DatabaseBackendPage(QWidget *parent)
 {
     QVBoxLayout *topLayout = new QVBoxLayout(this);
 
-    // Compressed index.xml
-    m_compressedIndexXML = new QCheckBox(i18n("Choose speed over readability for index.xml file"), this);
+    // Compressed XML database file.
+    m_compressedIndexXML = new QCheckBox(i18n("Choose speed over readability for the XML database file"), this);
     topLayout->addWidget(m_compressedIndexXML);
     connect(m_compressedIndexXML, &QCheckBox::clicked, this, &DatabaseBackendPage::markDirty);
 
-    m_compressBackup = new QCheckBox(i18n("Compress backup file"), this);
+    m_compressBackup = new QCheckBox(i18n("Compress backup files"), this);
     topLayout->addWidget(m_compressBackup);
 
     // Auto save
@@ -54,19 +54,20 @@ Settings::DatabaseBackendPage::DatabaseBackendPage(QWidget *parent)
     topLayout->addStretch(1);
 
     QString txt;
-    txt = i18n("<p>KPhotoAlbum is capable of backing up the index.xml file by keeping copies named index.xml~1~ index.xml~2~ etc. "
+    txt = i18n("<p>KPhotoAlbum is capable of backing up the the XML database file by keeping copies "
+               "(for example, for a database file named index.xml, the backups are named index.xml~0001~, index.xml~0002~ etc.) "
                "and you can use the spinbox to specify the number of backup files to keep. "
                "KPhotoAlbum will delete the oldest backup file when it reaches "
                "the maximum number of backup files.</p>"
-               "<p>The index.xml file may grow substantially if you have many images, and in that case it is useful to ask KPhotoAlbum to zip "
+               "<p>The the XML database file may grow substantially if you have many images, and in that case it is useful to ask KPhotoAlbum to zip "
                "the backup files to preserve disk space.</p>");
     backupLabel->setWhatsThis(txt);
     m_backupCount->setWhatsThis(txt);
     m_compressBackup->setWhatsThis(txt);
 
-    txt = i18n("<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. With lots of images it may take "
+    txt = i18n("<p>KPhotoAlbum is using a single XML file as its <i>data base</i>. With lots of images it may take "
                "a long time to read this file. You may cut down this time to approximately half, by checking this check box. "
-               "The disadvantage is that the index.xml file is less readable by human eyes.</p>");
+               "The disadvantage is that the XML database file is less readable by human eyes.</p>");
     m_compressedIndexXML->setWhatsThis(txt);
 }
 

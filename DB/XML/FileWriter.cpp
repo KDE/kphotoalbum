@@ -67,7 +67,7 @@ void DB::FileWriter::save(const QString &fileName, bool isAutoSave)
     setUseCompressedFileFormat(Settings::SettingsData::instance()->useCompressedIndexXML());
 
     if (!isAutoSave)
-        NumberedBackup(m_db->uiDelegate()).makeNumberedBackup();
+        NumberedBackup(m_db->uiDelegate(), fileName).makeNumberedBackup();
 
     // prepare XML document for saving:
     m_db->m_categoryCollection.initIdMap();
@@ -105,7 +105,7 @@ void DB::FileWriter::save(const QString &fileName, bool isAutoSave)
     writer.writeEndDocument();
     qCDebug(TimingLog) << "DB::FileWriter::save(): Saving took" << timer.elapsed() << "ms";
 
-    // State: index.xml has previous DB version, index.xml.tmp has the current version.
+    // State: XML file has previous DB version, temp file has the current version.
 
     // original file can be safely deleted
     if ((!QFile::remove(fileName)) && QFile::exists(fileName)) {
@@ -116,17 +116,17 @@ void DB::FileWriter::save(const QString &fileName, bool isAutoSave)
             i18n("Error while saving..."));
         return;
     }
-    // State: index.xml doesn't exist, index.xml.tmp has the current version.
+    // State: XML file doesn't exist, temp file has the current version.
     if (!out.rename(fileName)) {
         m_db->uiDelegate().error(
-            DB::LogMessage { DBLog(), QStringLiteral("Renaming index.xml to '%1' failed.").arg(out.fileName()) }, i18n("<p>Failed to move temporary XML file to permanent location.</p>"
-                                                                                                                       "<p>Please try again or rename file %1 to %2 manually!</p>",
-                                                                                                                       out.fileName(), fileName),
+            DB::LogMessage { DBLog(), QStringLiteral("Renaming '%1' to '%2' failed.").arg(out.fileName().arg(fileName)) }, i18n("<p>Failed to move temporary XML file to permanent location.</p>"
+                                                                                                                                "<p>Please try again or rename file %1 to %2 manually!</p>",
+                                                                                                                                out.fileName(), fileName),
             i18n("Error while saving..."));
-        // State: index.xml.tmp has the current version.
+        // State: temp file has the current version.
         return;
     }
-    // State: index.xml has the current version.
+    // State: XML file has the current version.
 }
 
 void DB::FileWriter::saveCategories(QXmlStreamWriter &writer)
@@ -156,7 +156,7 @@ void DB::FileWriter::saveCategories(QXmlStreamWriter &writer)
 
         // As bug 423334 shows, it is easy to forget to add a group to the respective category
         // when it's created. We can not enforce correct creation of member groups in our API,
-        // but we can prevent incorrect data from entering index.xml.
+        // but we can prevent incorrect data from entering the XML file.
         const auto categoryItems = Utilities::mergeListsUniqly(category->items(), m_db->memberMap().groups(name));
         for (const QString &tagName : categoryItems) {
             ElementWriter dummy(writer, QStringLiteral("value"));

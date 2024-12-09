@@ -17,7 +17,7 @@ class TestFileNameUtil : public QObject
     Q_OBJECT
 private Q_SLOTS:
     void initTestCase();
-    //void cleanupTestCase();
+    // void cleanupTestCase();
 
     void stripEndingForwardSlash();
     void folderName();

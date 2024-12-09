@@ -41,7 +41,7 @@ public:
     FastDateTime(FastDateTime &&other) = default;
     // Needed for QDate(Y, M, D).startOfDay()
     FastDateTime(const QDateTime &other);
-    ~FastDateTime() {};
+    ~FastDateTime() { };
 
     Q_DECL_CONSTEXPR bool operator==(const FastDateTime &other) const
     {

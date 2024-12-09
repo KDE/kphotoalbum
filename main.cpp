@@ -46,32 +46,31 @@ namespace
 
 const auto STYLE = QStringLiteral(
     "Viewer--TaggedArea {"
-        "border: none;"
-        "background-color: none;"
+    "border: none;"
+    "background-color: none;"
     "}"
 
     "Viewer--TaggedArea:hover, Viewer--TaggedArea[selected=\"true\"] {"
-        "border: 1px solid rgba(0, 255, 0, 99);"
-        "background-color: rgba(255, 255, 255, 30);"
+    "border: 1px solid rgba(0, 255, 0, 99);"
+    "background-color: rgba(255, 255, 255, 30);"
     "}"
 
     "Viewer--TaggedArea[highlighted=\"true\"] {"
-        "border: 1px solid rgba(255, 128, 0, 99);"
-        "background-color: rgba(255, 255, 255, 30);"
+    "border: 1px solid rgba(255, 128, 0, 99);"
+    "background-color: rgba(255, 255, 255, 30);"
     "}"
 
     "AnnotationDialog--ResizableFrame {"
-        "color: rgb(255, 0, 0);"
+    "color: rgb(255, 0, 0);"
     "}"
 
     "AnnotationDialog--ResizableFrame:hover {"
-        "background-color: rgba(255, 255, 255, 30);"
+    "background-color: rgba(255, 255, 255, 30);"
     "}"
 
     "AnnotationDialog--ResizableFrame[associated=true] {"
-        "color: rgb(0, 255, 0);"
-    "}"
-);
+    "color: rgb(0, 255, 0);"
+    "}");
 
 }
 

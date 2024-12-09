@@ -31,9 +31,9 @@
 #include <QLayout>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QRegularExpression>
 #include <QSpinBox>
 #include <QVBoxLayout>
-#include <QRegularExpression>
 
 #include <utility>
 

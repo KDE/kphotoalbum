@@ -139,7 +139,7 @@ public:
     virtual bool wasCanceled() const = 0;
 
 protected:
-    virtual ~AbstractProgressIndicator() {};
+    virtual ~AbstractProgressIndicator() { };
 };
 
 template <class Super>

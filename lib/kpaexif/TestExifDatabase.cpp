@@ -10,10 +10,10 @@
 #include <kpabase/SettingsData.h>
 #include <kpabase/UIDelegate.h>
 
+#include <QHashSeed>
 #include <QLoggingCategory>
 #include <QRegularExpression>
 #include <QSignalSpy>
-#include <QHashSeed>
 
 namespace
 {

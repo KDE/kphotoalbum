@@ -5,10 +5,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 // Qt includes
+#include <QRegularExpression>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <QTreeWidgetItemIterator>
-#include <QRegularExpression>
 
 // Local includes
 #include "ListSelect.h"

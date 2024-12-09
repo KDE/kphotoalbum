@@ -21,10 +21,10 @@ public:
     bool setImage(DB::ImageInfoPtr info, bool forward);
 
 public Q_SLOTS:
-    virtual void zoomIn() {};
-    virtual void zoomOut() {};
-    virtual void zoomFull() {};
-    virtual void zoomPixelForPixel() {};
+    virtual void zoomIn() { };
+    virtual void zoomOut() { };
+    virtual void zoomFull() { };
+    virtual void zoomPixelForPixel() { };
     virtual void stop() = 0;
     virtual void rotate(const DB::ImageInfoPtr &info) = 0;
 

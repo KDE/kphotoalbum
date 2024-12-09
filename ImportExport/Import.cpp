@@ -11,9 +11,9 @@
 
 #include <MainWindow/Window.h>
 
-#include <KIO/TransferJob>
 #include <KIO/Job>
 #include <KIO/JobUiDelegate>
+#include <KIO/TransferJob>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <QFileDialog>

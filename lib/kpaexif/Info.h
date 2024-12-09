@@ -49,12 +49,12 @@ private:
 };
 
 /**
-     * @brief Writes the exif information from one file to another.
-     * The given description is overwrites the exif description field of the destination file.
-     * @param srcName the image file in the database
-     * @param destName the destination image file
-     * @param imageDescription the image description text (usually DB::ImageInfo::description())
-     */
+ * @brief Writes the exif information from one file to another.
+ * The given description is overwrites the exif description field of the destination file.
+ * @param srcName the image file in the database
+ * @param destName the destination image file
+ * @param imageDescription the image description text (usually DB::ImageInfo::description())
+ */
 void writeExifInfoToFile(const DB::FileName &srcName, const QString &destName, const QString &imageDescription);
 
 }

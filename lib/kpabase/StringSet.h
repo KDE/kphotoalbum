@@ -14,8 +14,8 @@
 namespace Utilities
 {
 /* there is no Set<> anymore since QSet<> is now provided by Qt.
-     * For backwards compatibility we still use a useful typedef, the StringSet
-     */
+ * For backwards compatibility we still use a useful typedef, the StringSet
+ */
 typedef QSet<QString> StringSet;
 }
 

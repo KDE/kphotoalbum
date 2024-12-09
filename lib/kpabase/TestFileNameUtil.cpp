@@ -52,7 +52,7 @@ void KPATest::TestFileNameUtil::folderName()
     QCOMPARE(relativeFolderName(absolutePath + slash), absolutePath);
     QCOMPARE(relativeFolderName(absolutePath + slash + filename), absolutePath);
     // currently not implemented that way:
-    //QCOMPARE(relativeFolderName(absolutePath + slash + slash + filename), absolutePath);
+    // QCOMPARE(relativeFolderName(absolutePath + slash + slash + filename), absolutePath);
     QCOMPARE(relativeFolderName(relativePath + slash), relativePath);
     QCOMPARE(relativeFolderName(relativePath + slash + filename), relativePath);
 }
@@ -102,9 +102,9 @@ void KPATest::TestFileNameUtil::fileNameFromUserData()
     QVERIFY(fileNameFromUserData(nonlocalUrl).isNull());
 }
 
-//void KPATest::TestFileNameUtil::cleanupTestCase()
+// void KPATest::TestFileNameUtil::cleanupTestCase()
 //{
-//}
+// }
 
 QTEST_MAIN(KPATest::TestFileNameUtil)
 

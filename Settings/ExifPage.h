@@ -7,8 +7,8 @@
 #define EXIFPAGE_H
 
 #include <QComboBox>
-#include <QWidget>
 #include <QStringList>
+#include <QWidget>
 
 namespace Exif
 {

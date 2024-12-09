@@ -29,24 +29,24 @@
 
 #include <KConfig>
 #include <KConfigGroup>
+#include <KIO/CommandLauncherJob>
 #include <KIO/CopyJob>
+#include <KIO/JobUiDelegate>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <kio_version.h>
-#include <KIO/CommandLauncherJob>
-#include <KIO/JobUiDelegate>
 #include <QApplication>
 #include <QDebug>
+#include <QDesktopServices>
 #include <QDir>
 #include <QDomDocument>
 #include <QFile>
 #include <QList>
 #include <QMimeDatabase>
+#include <QRegularExpression>
 #include <QStandardPaths>
+#include <kio_version.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <QDesktopServices>
-#include <QRegularExpression>
 
 namespace
 {

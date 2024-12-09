@@ -28,7 +28,7 @@ public:
     explicit MouseHandler(DateBarWidget *dateBar);
     virtual void mousePressEvent(int x) = 0;
     virtual void mouseMoveEvent(int x) = 0;
-    virtual void mouseReleaseEvent() {};
+    virtual void mouseReleaseEvent() { };
     void startAutoScroll();
     void endAutoScroll();
 

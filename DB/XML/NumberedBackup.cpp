@@ -72,8 +72,9 @@ QStringList DB::NumberedBackup::backupFiles() const
 
 int DB::NumberedBackup::idForFile(const QString &fileName, bool &OK) const
 {
-    QRegExp reg(QStringLiteral("%1~([0-9]+)~(.zip)?").arg(m_xmlFileInfo.fileName()));
-    if (reg.exactMatch(fileName)) {
+    QRegularExpression reg(QStringLiteral("%1~([0-9]+)~(.zip)?").arg(m_xmlFileInfo.fileName()));
+    const auto match = reg.match(fileName);
+    if (match.hasMatch()) {
         OK = true;
         return match.captured(1).toInt();
     } else {

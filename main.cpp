@@ -91,6 +91,7 @@ int main(int argc, char **argv)
         QStringLiteral("https://www.kphotoalbum.org") // homepage
     );
     aboutData.setOrganizationDomain("kde.org");
+    aboutData.setDesktopFileName(QStringLiteral("org.kde.kphotoalbum"));
     // maintainer is expected to be the first entry
     // Note: I like to sort by name, grouped by active/inactive;
     //       Jesper gets ranked with the active authors for obvious reasons

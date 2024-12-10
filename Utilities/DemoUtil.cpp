@@ -54,7 +54,10 @@ QString Utilities::setupDemo()
     // index.xml
     const QString demoDB = QStandardPaths::locate(QStandardPaths::AppLocalDataLocation, QString::fromLatin1("demo/index.xml"));
     if (demoDB.isEmpty()) {
-        qCDebug(UtilitiesLog) << "No demo database in standard locations:" << QStandardPaths::standardLocations(QStandardPaths::AppLocalDataLocation);
+        QString displayLocations;
+        const auto locations = QStandardPaths::standardLocations(QStandardPaths::AppLocalDataLocation);
+        KMessageBox::error(nullptr, i18n("<p>Could not locate the demo database in any of the following standard locations:</p><p>%1</p>", locations.join(QStringLiteral("\n").toHtmlEscaped().replace(QStringLiteral("\n"), QStringLiteral("<br/>")))), i18n("Error Running Demo"));
+        qCDebug(UtilitiesLog) << "No demo database in standard locations:" << locations;
         exit(-1);
     }
     const QString configFile = demoDir + QString::fromLatin1("/index.xml");

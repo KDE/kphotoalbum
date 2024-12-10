@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-30 00:39+0000\n"
+"POT-Creation-Date: 2024-12-10 00:38+0000\n"
 "PO-Revision-Date: 2024-10-24 09:25+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -82,7 +82,7 @@ msgid ""
 "information is imported to this field if available.</para>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:399
+#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:400
 #, kde-format
 msgid "Cancel"
 msgstr "ألغِ"
@@ -933,7 +933,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "ابحث"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1761
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1750
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -943,7 +943,7 @@ msgid ""
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1768
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1757
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "لم تُضبط الميزة"
@@ -1267,7 +1267,7 @@ msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "ديسمبر"
 
-#: DB/ImageDB.cpp:63
+#: DB/ImageDB.cpp:64
 #, fuzzy, kde-format
 msgid ""
 "Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
@@ -1276,38 +1276,38 @@ msgstr ""
 "ملف النسخ الإحتياطي '%1' موجود مسبقاً و هو أجدد من '%2'. هل أستعمل ملف النسخ "
 "الإحتياطي ؟"
 
-#: DB/ImageDB.cpp:66
+#: DB/ImageDB.cpp:67
 #, fuzzy, kde-format
 msgid "Found Autosave File"
 msgstr "وجدتُ ملف نسخ إحتياطي"
 
-#: DB/ImageDB.cpp:398
+#: DB/ImageDB.cpp:399
 #, kde-format
 msgid "Loading information from images"
 msgstr "جاري تحميل المعلومات من الصور"
 
-#: DB/ImageDB.cpp:561 DB/ImageDB.cpp:848 DB/XML/FileReader.cpp:135
+#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:868 DB/XML/FileReader.cpp:135
 #: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Media Type"
 msgstr "نوع الوسائط"
 
-#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:849 DB/XML/FileReader.cpp:137
+#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:869 DB/XML/FileReader.cpp:137
 #, kde-format
 msgid "Image"
 msgstr "صورة"
 
-#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:850 DB/XML/FileReader.cpp:138
+#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:870 DB/XML/FileReader.cpp:138
 #, kde-format
 msgid "Video"
 msgstr "فيديو"
 
-#: DB/ImageDB.cpp:954
+#: DB/ImageDB.cpp:974
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr ""
 
-#: DB/ImageDB.cpp:955
+#: DB/ImageDB.cpp:975
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
@@ -1376,15 +1376,16 @@ msgstr "لا غير ذلك 1"
 #: DB/XML/FileReader.cpp:57
 #, kde-format
 msgid ""
-"<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
+"<p>The XML database file is from a newer version of KPhotoAlbum!</"
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
 
 #: DB/XML/FileReader.cpp:60
-#, kde-format
-msgid "index.xml version mismatch"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Database conversion is ready."
+msgid "XML database file version mismatch"
+msgstr "تحويل قاعدة البيانات جاهز."
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -1629,17 +1630,17 @@ msgid ""
 "again or rename file %1 to %2 manually!</p>"
 msgstr ""
 
-#: DB/XML/NumberedBackup.cpp:41
+#: DB/XML/NumberedBackup.cpp:43
 #, kde-format
 msgid "Error creating zip file %1"
 msgstr "خطأ خلال إنشاء ملف zip %1"
 
-#: DB/XML/NumberedBackup.cpp:41 DB/XML/NumberedBackup.cpp:46
+#: DB/XML/NumberedBackup.cpp:43 DB/XML/NumberedBackup.cpp:48
 #, fuzzy, kde-format
 msgid "Error Making Numbered Backup"
 msgstr "خطأ حفظ الصورة"
 
-#: DB/XML/NumberedBackup.cpp:46
+#: DB/XML/NumberedBackup.cpp:48
 #, fuzzy, kde-format
 msgid "Error writing file %1 to zip file %2"
 msgstr "خطأ عند كتابة الملف %1"
@@ -2646,7 +2647,7 @@ msgid "Create folder?"
 msgstr "المجلّد الأساسي:"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1187
+#: MainWindow/Window.cpp:1173
 #, fuzzy, kde-format
 #| msgid "Created:"
 msgctxt "@action:button"
@@ -3158,17 +3159,17 @@ msgid ""
 "problem run Maintenance->Recreate Exif Search database.</p>"
 msgstr ""
 
-#: main.cpp:85
+#: main.cpp:84
 #, kde-format
 msgid "KPhotoAlbum"
 msgstr ""
 
-#: main.cpp:87
+#: main.cpp:86
 #, kde-format
 msgid "KDE Photo Album"
 msgstr "دفتر الصور KDE"
 
-#: main.cpp:89
+#: main.cpp:88
 #, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 msgstr ""
@@ -4105,13 +4106,13 @@ msgid "Stacking Error"
 msgstr ""
 
 #: MainWindow/Window.cpp:467 MainWindow/Window.cpp:593
-#: MainWindow/Window.cpp:1301 MainWindow/Window.cpp:1398
+#: MainWindow/Window.cpp:1290 MainWindow/Window.cpp:1387
 #, kde-format
 msgid "No item is selected."
 msgstr "لم تحدد عنصر"
 
 #: MainWindow/Window.cpp:467 MainWindow/Window.cpp:593
-#: MainWindow/Window.cpp:1301 MainWindow/Window.cpp:1399
+#: MainWindow/Window.cpp:1290 MainWindow/Window.cpp:1388
 #, kde-format
 msgid "No Selection"
 msgstr "لا خيار"
@@ -4415,7 +4416,7 @@ msgstr "أنشئ الأظافر"
 msgid "Use previous video thumbnail"
 msgstr "أنشئ الأظافر"
 
-#: MainWindow/Window.cpp:1033 MainWindow/Window.cpp:1279
+#: MainWindow/Window.cpp:1033 MainWindow/Window.cpp:1268
 #, fuzzy, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
@@ -4426,7 +4427,7 @@ msgstr[3] "صدِّر نسخ صور."
 msgstr[4] "صدِّر نسخ صور."
 msgstr[5] "صدِّر نسخ صور."
 
-#: MainWindow/Window.cpp:1037 MainWindow/Window.cpp:1283
+#: MainWindow/Window.cpp:1037 MainWindow/Window.cpp:1272
 #, fuzzy, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4447,36 +4448,19 @@ msgstr "جاري الحفظ التلقائي..."
 msgid "Auto saving.... Done"
 msgstr "إنتهى الحفظ التلقائي...."
 
-#: MainWindow/Window.cpp:1160
-#, kde-format
-msgid "KPhotoAlbum only supports database files named 'index.xml'."
-msgstr ""
-
-#: MainWindow/Window.cpp:1165 MainWindow/Window.cpp:1171
-#, kde-format
-msgid ""
-"Please specify an existing image directory or an existing index.xml file."
-msgstr ""
-
-#: MainWindow/Window.cpp:1174
+#: MainWindow/Window.cpp:1166
 #, fuzzy, kde-format
-msgid "Invalid database file"
-msgstr "غير صحيح قاعدة بيانات منتهى خلفي 1"
+#| msgid "Do you want to save the changes?"
+msgid "<p>Do you want to create this database file?<br />%1</p>"
+msgstr "هل تريد حفظ التغييرات ؟"
 
-#: MainWindow/Window.cpp:1180
-#, kde-format
-msgid ""
-"<p>Given index file does not exist, do you want to create following?<br />%1/"
-"index.xml</p>"
-msgstr ""
-
-#: MainWindow/Window.cpp:1183
+#: MainWindow/Window.cpp:1169
 #, fuzzy, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "التحديث قاعدة بيانات"
 
-#: MainWindow/Window.cpp:1224
+#: MainWindow/Window.cpp:1213
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4485,47 +4469,47 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1350 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1339 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "عم"
 
-#: MainWindow/Window.cpp:1351 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1340 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "المستعرض"
 
-#: MainWindow/Window.cpp:1352
+#: MainWindow/Window.cpp:1341
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "التاريخ: "
 
-#: MainWindow/Window.cpp:1355
+#: MainWindow/Window.cpp:1344
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "حوار إضافة التعليق"
 
-#: MainWindow/Window.cpp:1356 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1345 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "عرض الأظافر"
 
-#: MainWindow/Window.cpp:1507
+#: MainWindow/Window.cpp:1496
 #, fuzzy, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
 "show-again check box?</p>"
 msgstr "<p> حقا تمكين الكل مؤكّد ليس إظهار تفقّد مربّع</p>"
 
-#: MainWindow/Window.cpp:1509
+#: MainWindow/Window.cpp:1498
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1528
+#: MainWindow/Window.cpp:1517
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4536,61 +4520,61 @@ msgid ""
 "on due to the missing make install.</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1528
+#: MainWindow/Window.cpp:1517
 #, kde-format
 msgid "Internal Error"
 msgstr "خطأ داخليّ"
 
-#: MainWindow/Window.cpp:1539
+#: MainWindow/Window.cpp:1528
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1531
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1547
+#: MainWindow/Window.cpp:1536
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1598
+#: MainWindow/Window.cpp:1587
 #, kde-format
 msgid "Open List of Files"
 msgstr ""
 
-#: MainWindow/Window.cpp:1599
+#: MainWindow/Window.cpp:1588
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
 
-#: MainWindow/Window.cpp:1613
+#: MainWindow/Window.cpp:1602
 #, kde-format
 msgid "No images matching your input were found."
 msgstr ""
 
-#: MainWindow/Window.cpp:1613
+#: MainWindow/Window.cpp:1602
 #, kde-format
 msgid "No Matches"
 msgstr "لا يوجد تطابق"
 
-#: MainWindow/Window.cpp:1785
+#: MainWindow/Window.cpp:1774
 #, fuzzy, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "جاري تحميل المعلومات من الصور"
 
-#: MainWindow/Window.cpp:1812
+#: MainWindow/Window.cpp:1801
 #, fuzzy, no-c-format, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "قياس صورة الظفر:"
 
-#: MainWindow/Window.cpp:1865
+#: MainWindow/Window.cpp:1854
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4598,7 +4582,7 @@ msgid ""
 "the ffmpeg package</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1868
+#: MainWindow/Window.cpp:1857
 #, fuzzy, kde-format
 msgid "Video thumbnails are not available"
 msgstr "الملف غير موجود"
@@ -4922,12 +4906,13 @@ msgstr ""
 
 #: Settings/DatabaseBackendPage.cpp:23
 #, fuzzy, kde-format
-msgid "Choose speed over readability for index.xml file"
+msgid "Choose speed over readability for the XML database file"
 msgstr "اختر سرعة لـ فهرس ملفّ"
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, kde-format
-msgid "Compress backup file"
+#, fuzzy, kde-format
+#| msgid "Compress backup file"
+msgid "Compress backup files"
 msgstr "إضغط ملف النسخة الإحتياطية"
 
 #: Settings/DatabaseBackendPage.cpp:31
@@ -4953,26 +4938,27 @@ msgstr "لا نهائي"
 #: Settings/DatabaseBackendPage.cpp:57
 #, fuzzy, kde-format
 msgid ""
-"<p>KPhotoAlbum is capable of backing up the index.xml file by keeping copies "
-"named index.xml~1~ index.xml~2~ etc. and you can use the spinbox to specify "
-"the number of backup files to keep. KPhotoAlbum will delete the oldest "
-"backup file when it reaches the maximum number of backup files.</p><p>The "
-"index.xml file may grow substantially if you have many images, and in that "
-"case it is useful to ask KPhotoAlbum to zip the backup files to preserve "
-"disk space.</p>"
+"<p>KPhotoAlbum is capable of backing up the the XML database file by keeping "
+"copies (for example, for a database file named index.xml, the backups are "
+"named index.xml~0001~, index.xml~0002~ etc.) and you can use the spinbox to "
+"specify the number of backup files to keep. KPhotoAlbum will delete the "
+"oldest backup file when it reaches the maximum number of backup files.</"
+"p><p>The the XML database file may grow substantially if you have many "
+"images, and in that case it is useful to ask KPhotoAlbum to zip the backup "
+"files to preserve disk space.</p>"
 msgstr ""
 "<p> هو من أعلى فهرس ملفّ أداء مسمى فهرس فهرس و استخدام إلى تحديد رقم من "
 "احتياطي ملفات إلى إبقاء حذف احتياطي ملفّ الإيطالية الأقصى رقم من احتياطي "
 "ملفات</p><p> الـ فهرس ملفّ أيار IF و بوصة حالة الإيطالية هو إلى اسأل إلى "
 "احتياطي ملفات إلى قرص فراغ</p>"
 
-#: Settings/DatabaseBackendPage.cpp:67
+#: Settings/DatabaseBackendPage.cpp:68
 #, fuzzy, kde-format
 msgid ""
-"<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
-"With lots of images it may take a long time to read this file. You may cut "
-"down this time to approximately half, by checking this check box. The "
-"disadvantage is that the index.xml file is less readable by human eyes.</p>"
+"<p>KPhotoAlbum is using a single XML file as its <i>data base</i>. With lots "
+"of images it may take a long time to read this file. You may cut down this "
+"time to approximately half, by checking this check box. The disadvantage is "
+"that the XML database file is less readable by human eyes.</p>"
 msgstr ""
 "<p> هو a فريد فهرس ملفّ<i> البيانات القاعدة</i> مع من الإيطالية أيار a وقت "
 "إلى قراءة ملفّ أنت أيار قص أسفل وقت إلى أداء فحص تفقّد مربّع الـ هو فهرس ملفّ هو "
@@ -7049,6 +7035,10 @@ msgstr "أعرض قياس الصورة"
 msgid "Show Rating"
 msgstr "أظهر التقييم"
 
+#, fuzzy
+#~ msgid "Invalid database file"
+#~ msgstr "غير صحيح قاعدة بيانات منتهى خلفي 1"
+
 #~ msgid "Loading Database"
 #~ msgstr "جاري تحميل قاعدة البيانات"
 
@@ -7588,11 +7578,6 @@ msgstr "أظهر التقييم"
 #~ msgstr "هل تريد حفظ التغييرات ؟"
 
 #, fuzzy
-#~| msgid "Do you want to save the changes?"
-#~ msgid "Do you really want to erase the database?"
-#~ msgstr "هل تريد حفظ التغييرات ؟"
-
-#, fuzzy
 #~ msgid ""
 #~ "<h1><a name=\"exiv2\">EXIF support</a></h1><p>Images store information "
 #~ "like the date the image was shot, the shooting angle, focal length, and "
@@ -7967,9 +7952,6 @@ msgstr "أظهر التقييم"
 
 #~ msgid "Please wait."
 #~ msgstr "الرجاء الإنتظار."
-
-#~ msgid "Database conversion is ready."
-#~ msgstr "تحويل قاعدة البيانات جاهز."
 
 #~ msgid ""
 #~ "Database conversion failed, because following error occurred:\n"

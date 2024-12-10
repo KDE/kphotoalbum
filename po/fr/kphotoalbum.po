@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-30 00:39+0000\n"
+"POT-Creation-Date: 2024-12-10 00:38+0000\n"
 "PO-Revision-Date: 2024-10-24 12:57+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
@@ -109,7 +109,7 @@ msgstr ""
 "description contenue dans les informations « EXIF » sera importée si "
 "disponible.</para> "
 
-#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:399
+#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:400
 #, kde-format
 msgid "Cancel"
 msgstr "Annuler"
@@ -986,7 +986,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "recherche"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1761
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1750
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -1002,7 +1002,7 @@ msgstr ""
 "li><li>Choisissez alors l'icône <b>Catégories</b></li><li>Enfin configurer "
 "la section <b>Images non balisées</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1768
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1757
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "La fonctionnalité n'a pas été configuré"
@@ -1302,7 +1302,7 @@ msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "déc"
 
-#: DB/ImageDB.cpp:63
+#: DB/ImageDB.cpp:64
 #, kde-format
 msgid ""
 "Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
@@ -1311,38 +1311,38 @@ msgstr ""
 "Le fichier de sauvegarde « %1 » (taille %3 Ko) existe et est plus récent que "
 "« %2 ». Le fichier de sauvegarde doit-il être utilisé ?"
 
-#: DB/ImageDB.cpp:66
+#: DB/ImageDB.cpp:67
 #, kde-format
 msgid "Found Autosave File"
 msgstr "Fichier de sauvegarde trouvé"
 
-#: DB/ImageDB.cpp:398
+#: DB/ImageDB.cpp:399
 #, kde-format
 msgid "Loading information from images"
 msgstr "Lecture des informations contenues dans les images"
 
-#: DB/ImageDB.cpp:561 DB/ImageDB.cpp:848 DB/XML/FileReader.cpp:135
+#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:868 DB/XML/FileReader.cpp:135
 #: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Media Type"
 msgstr "Type de média"
 
-#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:849 DB/XML/FileReader.cpp:137
+#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:869 DB/XML/FileReader.cpp:137
 #, kde-format
 msgid "Image"
 msgstr "Image"
 
-#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:850 DB/XML/FileReader.cpp:138
+#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:870 DB/XML/FileReader.cpp:138
 #, kde-format
 msgid "Video"
 msgstr "Vidéo"
 
-#: DB/ImageDB.cpp:954
+#: DB/ImageDB.cpp:974
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr "KPhotoAlbum - réparation manuelle nécessaire (%1)"
 
-#: DB/ImageDB.cpp:955
+#: DB/ImageDB.cpp:975
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
@@ -1407,9 +1407,13 @@ msgid "No other %1"
 msgstr "Aucun(e) autre %1"
 
 #: DB/XML/FileReader.cpp:57
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
+#| "p><p>Chances are you will be able to read this file, but when writing it "
+#| "back, information saved in the newer version will be lost</p>"
 msgid ""
-"<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
+"<p>The XML database file is from a newer version of KPhotoAlbum!</"
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
@@ -1419,8 +1423,9 @@ msgstr ""
 "nouvelle version seront perdes</p>"
 
 #: DB/XML/FileReader.cpp:60
-#, kde-format
-msgid "index.xml version mismatch"
+#, fuzzy, kde-format
+#| msgid "index.xml version mismatch"
+msgid "XML database file version mismatch"
 msgstr "Incohérence de version de « index.xml »"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
@@ -1703,17 +1708,17 @@ msgstr ""
 "p><p>Veuillez réessayer ou renommer le fichier %1 vers le fichier %2 "
 "manuellement !</p>"
 
-#: DB/XML/NumberedBackup.cpp:41
+#: DB/XML/NumberedBackup.cpp:43
 #, kde-format
 msgid "Error creating zip file %1"
 msgstr "Erreur pendant la création du fichier zip « %1 »"
 
-#: DB/XML/NumberedBackup.cpp:41 DB/XML/NumberedBackup.cpp:46
+#: DB/XML/NumberedBackup.cpp:43 DB/XML/NumberedBackup.cpp:48
 #, kde-format
 msgid "Error Making Numbered Backup"
 msgstr "Erreur durant la sauvegarde numérotée"
 
-#: DB/XML/NumberedBackup.cpp:46
+#: DB/XML/NumberedBackup.cpp:48
 #, kde-format
 msgid "Error writing file %1 to zip file %2"
 msgstr "Erreur lors de l'écriture du fichier %1 dans le fichier compressé %2"
@@ -2748,7 +2753,7 @@ msgid "Create folder?"
 msgstr "Créer un dossier ?"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1187
+#: MainWindow/Window.cpp:1173
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3272,17 +3277,17 @@ msgstr ""
 "aucune donnée.</p> <p>Pour corriger ce problème, lancez « Maintenance / "
 "Recréer la base de donnée de recherche « EXIF ».</p>"
 
-#: main.cpp:85
+#: main.cpp:84
 #, kde-format
 msgid "KPhotoAlbum"
 msgstr "KPhotoAlbum"
 
-#: main.cpp:87
+#: main.cpp:86
 #, kde-format
 msgid "KDE Photo Album"
 msgstr "Album photo pour KDE"
 
-#: main.cpp:89
+#: main.cpp:88
 #, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 msgstr "Copyright (C) 2003 - 2024 L'équipe de développement de KPhotoAlbum"
@@ -4275,13 +4280,13 @@ msgid "Stacking Error"
 msgstr "Erreur de mise en pile"
 
 #: MainWindow/Window.cpp:467 MainWindow/Window.cpp:593
-#: MainWindow/Window.cpp:1301 MainWindow/Window.cpp:1398
+#: MainWindow/Window.cpp:1290 MainWindow/Window.cpp:1387
 #, kde-format
 msgid "No item is selected."
 msgstr "Aucun élément n'est sélectionné."
 
 #: MainWindow/Window.cpp:467 MainWindow/Window.cpp:593
-#: MainWindow/Window.cpp:1301 MainWindow/Window.cpp:1399
+#: MainWindow/Window.cpp:1290 MainWindow/Window.cpp:1388
 #, kde-format
 msgid "No Selection"
 msgstr "Aucune sélection"
@@ -4577,14 +4582,14 @@ msgstr "Utiliser la prochaine vignette vidéo"
 msgid "Use previous video thumbnail"
 msgstr "Utilisez la vignette de la vidéo précédente"
 
-#: MainWindow/Window.cpp:1033 MainWindow/Window.cpp:1279
+#: MainWindow/Window.cpp:1033 MainWindow/Window.cpp:1268
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Copier une image vers..."
 msgstr[1] "Copier des images vers..."
 
-#: MainWindow/Window.cpp:1037 MainWindow/Window.cpp:1283
+#: MainWindow/Window.cpp:1037 MainWindow/Window.cpp:1272
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4601,42 +4606,19 @@ msgstr "Enregistrement automatique..."
 msgid "Auto saving.... Done"
 msgstr "Enregistrement automatique... Effectué"
 
-#: MainWindow/Window.cpp:1160
-#, kde-format
-msgid "KPhotoAlbum only supports database files named 'index.xml'."
-msgstr ""
-"KPhotoAlbum ne prend en charge que les fichiers de base de données nommés "
-"« index.xml »."
+#: MainWindow/Window.cpp:1166
+#, fuzzy, kde-format
+#| msgid "Do you really want to erase the database?"
+msgid "<p>Do you want to create this database file?<br />%1</p>"
+msgstr "Voulez-vous vraiment effacer la base de données ?"
 
-#: MainWindow/Window.cpp:1165 MainWindow/Window.cpp:1171
-#, kde-format
-msgid ""
-"Please specify an existing image directory or an existing index.xml file."
-msgstr ""
-"Veuillez spécifier un dossier existant d'images ou un fichier « index.xml » "
-"existant."
-
-#: MainWindow/Window.cpp:1174
-#, kde-format
-msgid "Invalid database file"
-msgstr "Fichier de la base de données non valable"
-
-#: MainWindow/Window.cpp:1180
-#, kde-format
-msgid ""
-"<p>Given index file does not exist, do you want to create following?<br />%1/"
-"index.xml</p>"
-msgstr ""
-"<p>Le fichier index donné n'existe pas ; voulez-vous créer le fichier "
-"suivant ?<br />%1/index.xml</p>"
-
-#: MainWindow/Window.cpp:1183
+#: MainWindow/Window.cpp:1169
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Créer une base de données"
 
-#: MainWindow/Window.cpp:1224
+#: MainWindow/Window.cpp:1213
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4649,33 +4631,33 @@ msgstr ""
 "vérifier votre configuration de la balise non-étiquetée dans "
 "<interface>Configuration|Configurer KPhotoAlbum...|Catégories</interface></p>"
 
-#: MainWindow/Window.cpp:1350 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1339 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Général"
 
-#: MainWindow/Window.cpp:1351 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1340 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Afficheur"
 
-#: MainWindow/Window.cpp:1352
+#: MainWindow/Window.cpp:1341
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Barre de date"
 
-#: MainWindow/Window.cpp:1355
+#: MainWindow/Window.cpp:1344
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Fenêtre d'annotation"
 
-#: MainWindow/Window.cpp:1356 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1345 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Vignettes"
 
-#: MainWindow/Window.cpp:1507
+#: MainWindow/Window.cpp:1496
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4684,13 +4666,13 @@ msgstr ""
 "<p>Réactiver tous les messages préalablement cochés comme ne devant plus "
 "être affichés ?</p>"
 
-#: MainWindow/Window.cpp:1509
+#: MainWindow/Window.cpp:1498
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Ré-initialiser les boîtes de dialogue masquées"
 
-#: MainWindow/Window.cpp:1528
+#: MainWindow/Window.cpp:1517
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4707,33 +4689,33 @@ msgstr ""
 "ceci comme un bogue.</p><p>KPhotoAlbum va continuer son exécution, mais il "
 "ne serait pas surprenant qu'il se plante plus tard pour ce motif.</p>"
 
-#: MainWindow/Window.cpp:1528
+#: MainWindow/Window.cpp:1517
 #, kde-format
 msgid "Internal Error"
 msgstr "Erreur interne"
 
-#: MainWindow/Window.cpp:1539
+#: MainWindow/Window.cpp:1528
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 "Images partagées avec succès. Copie de l'emplacement vers le presse-papier..."
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1531
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Images partagées avec succès."
 
-#: MainWindow/Window.cpp:1547
+#: MainWindow/Window.cpp:1536
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Échec du partage des images avec le message : %1"
 
-#: MainWindow/Window.cpp:1598
+#: MainWindow/Window.cpp:1587
 #, kde-format
 msgid "Open List of Files"
 msgstr "Ouvrir une liste de fichiers"
 
-#: MainWindow/Window.cpp:1599
+#: MainWindow/Window.cpp:1588
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4742,28 +4724,28 @@ msgstr ""
 "Vous pouvez ouvrir un jeu de fichiers depuis la base de données de "
 "KPhotoAlbum en listant les fichiers ici."
 
-#: MainWindow/Window.cpp:1613
+#: MainWindow/Window.cpp:1602
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Aucune image correspondant à votre saisie n'a été trouvée."
 
-#: MainWindow/Window.cpp:1613
+#: MainWindow/Window.cpp:1602
 #, kde-format
 msgid "No Matches"
 msgstr "Aucune correspondance"
 
-#: MainWindow/Window.cpp:1785
+#: MainWindow/Window.cpp:1774
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Relecture des informations « EXIF » de toutes les images"
 
-#: MainWindow/Window.cpp:1812
+#: MainWindow/Window.cpp:1801
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Largeur des vignettes : %1px (taille du stockage : %2px)"
 
-#: MainWindow/Window.cpp:1865
+#: MainWindow/Window.cpp:1854
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4774,7 +4756,7 @@ msgstr ""
 "ne sera pas capable d'afficher les vignettes vidéos et les tailles des "
 "vidéos. Veuillez installer le paquet ffmpeg</p>"
 
-#: MainWindow/Window.cpp:1868
+#: MainWindow/Window.cpp:1857
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Les vignettes vidéos ne sont pas disponibles"
@@ -5123,13 +5105,15 @@ msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>Choisissez une catégorie pour la modifier</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
-#, kde-format
-msgid "Choose speed over readability for index.xml file"
+#, fuzzy, kde-format
+#| msgid "Choose speed over readability for index.xml file"
+msgid "Choose speed over readability for the XML database file"
 msgstr "Privilégier la vitesse plutôt que la lisibilité du fichier index.xml"
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, kde-format
-msgid "Compress backup file"
+#, fuzzy, kde-format
+#| msgid "Compress backup file"
+msgid "Compress backup files"
 msgstr "Compresser le fichier de sauvegarde"
 
 #: Settings/DatabaseBackendPage.cpp:31
@@ -5153,15 +5137,24 @@ msgid "Infinite"
 msgstr "Infini"
 
 #: Settings/DatabaseBackendPage.cpp:57
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>KPhotoAlbum is capable of backing up the index.xml file by keeping "
+#| "copies named index.xml~1~ index.xml~2~ etc. and you can use the spinbox "
+#| "to specify the number of backup files to keep. KPhotoAlbum will delete "
+#| "the oldest backup file when it reaches the maximum number of backup files."
+#| "</p><p>The index.xml file may grow substantially if you have many images, "
+#| "and in that case it is useful to ask KPhotoAlbum to zip the backup files "
+#| "to preserve disk space.</p>"
 msgid ""
-"<p>KPhotoAlbum is capable of backing up the index.xml file by keeping copies "
-"named index.xml~1~ index.xml~2~ etc. and you can use the spinbox to specify "
-"the number of backup files to keep. KPhotoAlbum will delete the oldest "
-"backup file when it reaches the maximum number of backup files.</p><p>The "
-"index.xml file may grow substantially if you have many images, and in that "
-"case it is useful to ask KPhotoAlbum to zip the backup files to preserve "
-"disk space.</p>"
+"<p>KPhotoAlbum is capable of backing up the the XML database file by keeping "
+"copies (for example, for a database file named index.xml, the backups are "
+"named index.xml~0001~, index.xml~0002~ etc.) and you can use the spinbox to "
+"specify the number of backup files to keep. KPhotoAlbum will delete the "
+"oldest backup file when it reaches the maximum number of backup files.</"
+"p><p>The the XML database file may grow substantially if you have many "
+"images, and in that case it is useful to ask KPhotoAlbum to zip the backup "
+"files to preserve disk space.</p>"
 msgstr ""
 "<p>KPhotoAlbum permet de sauvegarder le fichier index.xml sous la forme de "
 "copies nommées index.xml~1~ index.xml~2~ etc. KPhotoAlbum supprimera les "
@@ -5171,13 +5164,19 @@ msgstr ""
 "KPhotoAlbum de compresser au format zip les fichiers de sauvegarde pour "
 "économiser de la place sur le disque dur.</p>"
 
-#: Settings/DatabaseBackendPage.cpp:67
-#, kde-format
+#: Settings/DatabaseBackendPage.cpp:68
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
+#| "With lots of images it may take a long time to read this file. You may "
+#| "cut down this time to approximately half, by checking this check box. The "
+#| "disadvantage is that the index.xml file is less readable by human eyes.</"
+#| "p>"
 msgid ""
-"<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
-"With lots of images it may take a long time to read this file. You may cut "
-"down this time to approximately half, by checking this check box. The "
-"disadvantage is that the index.xml file is less readable by human eyes.</p>"
+"<p>KPhotoAlbum is using a single XML file as its <i>data base</i>. With lots "
+"of images it may take a long time to read this file. You may cut down this "
+"time to approximately half, by checking this check box. The disadvantage is "
+"that the XML database file is less readable by human eyes.</p>"
 msgstr ""
 "<p>KPhotoAlbum utilise un simple fichier index.xml comme <i>base de données</"
 "i>. Si vous avez beaucoup d'images la lecture de ce fichier peut être "
@@ -7374,6 +7373,27 @@ msgstr "Afficher la taille de l'image"
 msgid "Show Rating"
 msgstr "Afficher les échelles"
 
+#~ msgid "KPhotoAlbum only supports database files named 'index.xml'."
+#~ msgstr ""
+#~ "KPhotoAlbum ne prend en charge que les fichiers de base de données nommés "
+#~ "« index.xml »."
+
+#~ msgid ""
+#~ "Please specify an existing image directory or an existing index.xml file."
+#~ msgstr ""
+#~ "Veuillez spécifier un dossier existant d'images ou un fichier « index."
+#~ "xml » existant."
+
+#~ msgid "Invalid database file"
+#~ msgstr "Fichier de la base de données non valable"
+
+#~ msgid ""
+#~ "<p>Given index file does not exist, do you want to create following?<br />"
+#~ "%1/index.xml</p>"
+#~ msgstr ""
+#~ "<p>Le fichier index donné n'existe pas ; voulez-vous créer le fichier "
+#~ "suivant ?<br />%1/index.xml</p>"
+
 #~ msgid ""
 #~ "<p>Could not save the window layout.</p>File %1 could not be opened "
 #~ "because of the following error: %2"
@@ -8416,9 +8436,6 @@ msgstr "Afficher les échelles"
 
 #~ msgid "Do you really want to delete the selected tags?"
 #~ msgstr "Voulez-vous vraiment supprimer les balises sélectionnées ? "
-
-#~ msgid "Do you really want to erase the database?"
-#~ msgstr "Voulez-vous vraiment effacer la base de données ?"
 
 #~ msgid "Face management"
 #~ msgstr "Gestionnaire de visages"

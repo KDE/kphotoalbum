@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-11-30 00:39+0000\n"
+"POT-Creation-Date: 2024-12-10 00:38+0000\n"
 "PO-Revision-Date: 2017-10-16 18:16+0200\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -92,7 +92,7 @@ msgstr ""
 "στις πληροφορίες Exif της εικόνας εισάγεται σε αυτό το πεδίο αν είναι "
 "διαθέσιμο.</para>"
 
-#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:399
+#: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:400
 #, kde-format
 msgid "Cancel"
 msgstr "Ακύρωση"
@@ -967,7 +967,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "αναζήτηση"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1761
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1750
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -983,7 +983,7 @@ msgstr ""
 "τις <b>Κατηγορίες</b> εικονίδιο</li><li>Τώρα διαμορφώστε την ενότητα "
 "<b>Αταξινόμητες εικόνες</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1768
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1757
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Το χαρακτηριστικό δεν έχει διαμορφωθεί"
@@ -1302,7 +1302,7 @@ msgctxt "Abbreviated month name"
 msgid "dec"
 msgstr "δεκ"
 
-#: DB/ImageDB.cpp:63
+#: DB/ImageDB.cpp:64
 #, kde-format
 msgid ""
 "Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
@@ -1311,38 +1311,38 @@ msgstr ""
 "Το αυτόματα αποθηκευμένο αρχείο '%1' υπάρχει (μέγεθος %3 KB) και είναι "
 "νεότερο από το '%2'. Να χρησιμοποιηθεί το αυτόματα αποθηκευμένο;"
 
-#: DB/ImageDB.cpp:66
+#: DB/ImageDB.cpp:67
 #, kde-format
 msgid "Found Autosave File"
 msgstr "Βρέθηκε αυτόματα αποθηκευμένο αρχείο"
 
-#: DB/ImageDB.cpp:398
+#: DB/ImageDB.cpp:399
 #, kde-format
 msgid "Loading information from images"
 msgstr "Φόρτωση πληροφοριών από εικόνες"
 
-#: DB/ImageDB.cpp:561 DB/ImageDB.cpp:848 DB/XML/FileReader.cpp:135
+#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:868 DB/XML/FileReader.cpp:135
 #: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Media Type"
 msgstr "Τύπος μέσου"
 
-#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:849 DB/XML/FileReader.cpp:137
+#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:869 DB/XML/FileReader.cpp:137
 #, kde-format
 msgid "Image"
 msgstr "Εικόνα"
 
-#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:850 DB/XML/FileReader.cpp:138
+#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:870 DB/XML/FileReader.cpp:138
 #, kde-format
 msgid "Video"
 msgstr "Βίντεο"
 
-#: DB/ImageDB.cpp:954
+#: DB/ImageDB.cpp:974
 #, kde-format
 msgid "KPhotoAlbum - manual repair needed (%1)"
 msgstr ""
 
-#: DB/ImageDB.cpp:955
+#: DB/ImageDB.cpp:975
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
@@ -1407,15 +1407,16 @@ msgstr "Χωρίς άλλα/ες %1"
 #: DB/XML/FileReader.cpp:57
 #, kde-format
 msgid ""
-"<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
+"<p>The XML database file is from a newer version of KPhotoAlbum!</"
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
 
 #: DB/XML/FileReader.cpp:60
-#, kde-format
-msgid "index.xml version mismatch"
-msgstr ""
+#, fuzzy, kde-format
+#| msgid "Database conversion is ready."
+msgid "XML database file version mismatch"
+msgstr "Η μετατροπή της βάσης ολοκληρώθηκε."
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -1696,18 +1697,18 @@ msgstr ""
 "<p>Αποτυχία μετακίνησης του προσωρινού XML αρχείου σε μόνιμη θέση. </"
 "p><p>Προσπαθήστε ξανά ή μετονομάστε το αρχείο %1 σε %2 χειροκίνητα!</p>"
 
-#: DB/XML/NumberedBackup.cpp:41
+#: DB/XML/NumberedBackup.cpp:43
 #, kde-format
 msgid "Error creating zip file %1"
 msgstr "Σφάλμα κατά τη δημιουργία του συμπιεσμένου αρχείου %1"
 
-#: DB/XML/NumberedBackup.cpp:41 DB/XML/NumberedBackup.cpp:46
+#: DB/XML/NumberedBackup.cpp:43 DB/XML/NumberedBackup.cpp:48
 #, fuzzy, kde-format
 #| msgid "Error playing media"
 msgid "Error Making Numbered Backup"
 msgstr "Σφάλμα αναπαραγωγής μέσου"
 
-#: DB/XML/NumberedBackup.cpp:46
+#: DB/XML/NumberedBackup.cpp:48
 #, kde-format
 msgid "Error writing file %1 to zip file %2"
 msgstr "Σφάλμα εγγραφής του αρχείου %1 στο συμπιεσμένο zip αρχείο %2"
@@ -2780,7 +2781,7 @@ msgid "Create folder?"
 msgstr "Βασικός κατάλογος:"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1187
+#: MainWindow/Window.cpp:1173
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3319,17 +3320,17 @@ msgid ""
 "problem run Maintenance->Recreate Exif Search database.</p>"
 msgstr ""
 
-#: main.cpp:85
+#: main.cpp:84
 #, kde-format
 msgid "KPhotoAlbum"
 msgstr "KPhotoAlbum"
 
-#: main.cpp:87
+#: main.cpp:86
 #, kde-format
 msgid "KDE Photo Album"
 msgstr "Λεύκωμα φωτογραφιών του KDE"
 
-#: main.cpp:89
+#: main.cpp:88
 #, kde-format
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 msgstr "Πνευματικά δικαιώματα (c) 2003-2024 η ομάδα του KPhotoAlbum"
@@ -4353,13 +4354,13 @@ msgid "Stacking Error"
 msgstr "Σφάλμα τοποθέτησης σε στοίβα"
 
 #: MainWindow/Window.cpp:467 MainWindow/Window.cpp:593
-#: MainWindow/Window.cpp:1301 MainWindow/Window.cpp:1398
+#: MainWindow/Window.cpp:1290 MainWindow/Window.cpp:1387
 #, kde-format
 msgid "No item is selected."
 msgstr "Χωρίς επιλεγμένο αντικείμενο."
 
 #: MainWindow/Window.cpp:467 MainWindow/Window.cpp:593
-#: MainWindow/Window.cpp:1301 MainWindow/Window.cpp:1399
+#: MainWindow/Window.cpp:1290 MainWindow/Window.cpp:1388
 #, kde-format
 msgid "No Selection"
 msgstr "Καμία επιλογή"
@@ -4660,14 +4661,14 @@ msgstr "Χρήση επόμενης εικόνας επισκόπησης βίν
 msgid "Use previous video thumbnail"
 msgstr "Χρήση προηγούμενης εικόνας επισκόπησης βίντεο"
 
-#: MainWindow/Window.cpp:1033 MainWindow/Window.cpp:1279
+#: MainWindow/Window.cpp:1033 MainWindow/Window.cpp:1268
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Αντιγραφή εικόνας σε ..."
 msgstr[1] "Αντιγραφή εικόνων σε ..."
 
-#: MainWindow/Window.cpp:1037 MainWindow/Window.cpp:1283
+#: MainWindow/Window.cpp:1037 MainWindow/Window.cpp:1272
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Link image to ..."
@@ -4685,33 +4686,13 @@ msgstr "Αυτόματη αποθήκευση...."
 msgid "Auto saving.... Done"
 msgstr "Αυτόματο αποθήκευση.... Έγινε"
 
-#: MainWindow/Window.cpp:1160
-#, kde-format
-msgid "KPhotoAlbum only supports database files named 'index.xml'."
-msgstr ""
-
-#: MainWindow/Window.cpp:1165 MainWindow/Window.cpp:1171
-#, kde-format
-msgid ""
-"Please specify an existing image directory or an existing index.xml file."
-msgstr ""
-
-#: MainWindow/Window.cpp:1174
+#: MainWindow/Window.cpp:1166
 #, fuzzy, kde-format
-#| msgid "Invalid database backend: %1"
-msgid "Invalid database file"
-msgstr "Μη έγκυρο σύστημα υποστήριξης βάσης δεδομένων: %1"
+#| msgid "Do you want to save the changes?"
+msgid "<p>Do you want to create this database file?<br />%1</p>"
+msgstr "Επιθυμείτε την αποθήκευση των τροποποιήσεων;"
 
-#: MainWindow/Window.cpp:1180
-#, kde-format
-msgid ""
-"<p>Given index file does not exist, do you want to create following?<br />%1/"
-"index.xml</p>"
-msgstr ""
-"<p>Το δοσμένο αρχείο ευρετηρίου δεν υπάρχει, θέλετε να δημιουργήσετε το "
-"ακόλουθο;<br />%1/index.xml</p>"
-
-#: MainWindow/Window.cpp:1183
+#: MainWindow/Window.cpp:1169
 #, fuzzy, kde-format
 #| msgid ""
 #| "Use data from\n"
@@ -4722,7 +4703,7 @@ msgstr ""
 "Χρήση δεδομένων από τη\n"
 "βάση δεδομένων"
 
-#: MainWindow/Window.cpp:1224
+#: MainWindow/Window.cpp:1213
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4731,34 +4712,34 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1350 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1339 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Γενικά"
 
-#: MainWindow/Window.cpp:1351 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1340 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Προβολέας"
 
-#: MainWindow/Window.cpp:1352
+#: MainWindow/Window.cpp:1341
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Ημερομηνία: "
 
-#: MainWindow/Window.cpp:1355
+#: MainWindow/Window.cpp:1344
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Διάλογος σημειώσεων"
 
-#: MainWindow/Window.cpp:1356 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1345 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Προβολή εικόνων επισκόπησης"
 
-#: MainWindow/Window.cpp:1507
+#: MainWindow/Window.cpp:1496
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4767,13 +4748,13 @@ msgstr ""
 "<p>Θέλετε πραγματικά να γίνει ενεργοποίηση όλων των μηνυμάτων που επιλέξατε "
 "προηγουμένως να μην εμφανιστούν ξανά;</p>"
 
-#: MainWindow/Window.cpp:1509
+#: MainWindow/Window.cpp:1498
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1528
+#: MainWindow/Window.cpp:1517
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4790,32 +4771,32 @@ msgstr ""
 "KPhotoAlbum θα συνεχίσει να εκτελείται, αλλά δεν είναι εντελώς απίθανο να "
 "καταρρεύσει αργότερα εξαιτίας της παράλειψης του make install.</p>"
 
-#: MainWindow/Window.cpp:1528
+#: MainWindow/Window.cpp:1517
 #, kde-format
 msgid "Internal Error"
 msgstr "Εσωτερικό σφάλμα"
 
-#: MainWindow/Window.cpp:1539
+#: MainWindow/Window.cpp:1528
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1531
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1547
+#: MainWindow/Window.cpp:1536
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1598
+#: MainWindow/Window.cpp:1587
 #, kde-format
 msgid "Open List of Files"
 msgstr "Άνοιγμα λίστας των αρχείων"
 
-#: MainWindow/Window.cpp:1599
+#: MainWindow/Window.cpp:1588
 #, fuzzy, kde-format
 #| msgid ""
 #| "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4827,28 +4808,28 @@ msgstr ""
 "Μπορείτε να ανοίξετε ένα σύνολο αρχείων από τη θέση του αρχικού (root) "
 "καταλόγου εικόνων του KPhotoAlbum καταγράφοντας τα αρχεία εδώ."
 
-#: MainWindow/Window.cpp:1613
+#: MainWindow/Window.cpp:1602
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Δεν βρέθηκαν εικόνες που να ταιριάζουν στα δεδομένα που δώσατε."
 
-#: MainWindow/Window.cpp:1613
+#: MainWindow/Window.cpp:1602
 #, kde-format
 msgid "No Matches"
 msgstr "Κανένα ταίριασμα"
 
-#: MainWindow/Window.cpp:1785
+#: MainWindow/Window.cpp:1774
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Ανάγνωση ξανά πληροφοριών Exif από όλες τις εικόνες"
 
-#: MainWindow/Window.cpp:1812
+#: MainWindow/Window.cpp:1801
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Πλάτος εικόνας επισκόπησης: %1px (μέγεθος αποθήκευσης: %2px)"
 
-#: MainWindow/Window.cpp:1865
+#: MainWindow/Window.cpp:1854
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Unable to find MPlayer on the system</p><p>KPhotoAlbum needs MPlayer "
@@ -4863,7 +4844,7 @@ msgstr ""
 "το Mplayer για την εξαγωγή εικόνων επισκόπησης βίντεο εκτός των άλλων. "
 "Εγκαταστήστε το πακέτο Mplayer2</p>"
 
-#: MainWindow/Window.cpp:1868
+#: MainWindow/Window.cpp:1857
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Οι εικόνες επισκόπησης βίντεο δεν είναι διαθέσιμες"
@@ -5192,13 +5173,15 @@ msgid "<i>Choose a category to edit it</i>"
 msgstr ""
 
 #: Settings/DatabaseBackendPage.cpp:23
-#, kde-format
-msgid "Choose speed over readability for index.xml file"
+#, fuzzy, kde-format
+#| msgid "Choose speed over readability for index.xml file"
+msgid "Choose speed over readability for the XML database file"
 msgstr "Επιλογή ταχύτητας αντί της αναγνωσιμότητας για το αρχείο index.xml"
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, kde-format
-msgid "Compress backup file"
+#, fuzzy, kde-format
+#| msgid "Compress backup file"
+msgid "Compress backup files"
 msgstr "Συμπίεση αρχείου εφεδρικού αντιγράφου"
 
 #: Settings/DatabaseBackendPage.cpp:31
@@ -5222,15 +5205,24 @@ msgid "Infinite"
 msgstr "Απεριόριστα"
 
 #: Settings/DatabaseBackendPage.cpp:57
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>KPhotoAlbum is capable of backing up the index.xml file by keeping "
+#| "copies named index.xml~1~ index.xml~2~ etc. and you can use the spinbox "
+#| "to specify the number of backup files to keep. KPhotoAlbum will delete "
+#| "the oldest backup file when it reaches the maximum number of backup files."
+#| "</p><p>The index.xml file may grow substantially if you have many images, "
+#| "and in that case it is useful to ask KPhotoAlbum to zip the backup files "
+#| "to preserve disk space.</p>"
 msgid ""
-"<p>KPhotoAlbum is capable of backing up the index.xml file by keeping copies "
-"named index.xml~1~ index.xml~2~ etc. and you can use the spinbox to specify "
-"the number of backup files to keep. KPhotoAlbum will delete the oldest "
-"backup file when it reaches the maximum number of backup files.</p><p>The "
-"index.xml file may grow substantially if you have many images, and in that "
-"case it is useful to ask KPhotoAlbum to zip the backup files to preserve "
-"disk space.</p>"
+"<p>KPhotoAlbum is capable of backing up the the XML database file by keeping "
+"copies (for example, for a database file named index.xml, the backups are "
+"named index.xml~0001~, index.xml~0002~ etc.) and you can use the spinbox to "
+"specify the number of backup files to keep. KPhotoAlbum will delete the "
+"oldest backup file when it reaches the maximum number of backup files.</"
+"p><p>The the XML database file may grow substantially if you have many "
+"images, and in that case it is useful to ask KPhotoAlbum to zip the backup "
+"files to preserve disk space.</p>"
 msgstr ""
 "<p>Το KPhotoAlbum έχει τη δυνατότητα υποστηρικτικής αποθήκευσης του αρχείου "
 "index.xml διατηρώντας αντίγραφα με ονόματα index.xml~1~ index.xml~2~ κτλ. Με "
@@ -5241,13 +5233,19 @@ msgstr ""
 "περίπτωση είναι χρήσιμο να ζητήσετε από το KPhotoAlbum να συμπιέσει τα "
 "εφεδρικά αντίγραφα για να έχετε μικρότερη κατανάλωση αποθηκευτικού χώρου.</p>"
 
-#: Settings/DatabaseBackendPage.cpp:67
-#, kde-format
+#: Settings/DatabaseBackendPage.cpp:68
+#, fuzzy, kde-format
+#| msgid ""
+#| "<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
+#| "With lots of images it may take a long time to read this file. You may "
+#| "cut down this time to approximately half, by checking this check box. The "
+#| "disadvantage is that the index.xml file is less readable by human eyes.</"
+#| "p>"
 msgid ""
-"<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
-"With lots of images it may take a long time to read this file. You may cut "
-"down this time to approximately half, by checking this check box. The "
-"disadvantage is that the index.xml file is less readable by human eyes.</p>"
+"<p>KPhotoAlbum is using a single XML file as its <i>data base</i>. With lots "
+"of images it may take a long time to read this file. You may cut down this "
+"time to approximately half, by checking this check box. The disadvantage is "
+"that the XML database file is less readable by human eyes.</p>"
 msgstr ""
 "<p>Το KPhotoAlbum χρησιμοποιεί ένα απλό αρχείο index.xml ως τη <i>βάση "
 "δεδομένων</i> του. Με αρκετές εικόνες μπορεί να διαρκέσει αρκετά η ανάγνωση "
@@ -7410,6 +7408,18 @@ msgstr "Εμφάνιση μεγέθους εικόνας"
 msgid "Show Rating"
 msgstr "Εμφάνιση βαθμολογίας"
 
+#, fuzzy
+#~| msgid "Invalid database backend: %1"
+#~ msgid "Invalid database file"
+#~ msgstr "Μη έγκυρο σύστημα υποστήριξης βάσης δεδομένων: %1"
+
+#~ msgid ""
+#~ "<p>Given index file does not exist, do you want to create following?<br />"
+#~ "%1/index.xml</p>"
+#~ msgstr ""
+#~ "<p>Το δοσμένο αρχείο ευρετηρίου δεν υπάρχει, θέλετε να δημιουργήσετε το "
+#~ "ακόλουθο;<br />%1/index.xml</p>"
+
 #~ msgid ""
 #~ "<p>Could not save the window layout.</p>File %1 could not be opened "
 #~ "because of the following error: %2"
@@ -8395,11 +8405,6 @@ msgstr "Εμφάνιση βαθμολογίας"
 #~ msgstr "Επιθυμείτε την αποθήκευση των τροποποιήσεων;"
 
 #, fuzzy
-#~| msgid "Do you want to save the changes?"
-#~ msgid "Do you really want to erase the database?"
-#~ msgstr "Επιθυμείτε την αποθήκευση των τροποποιήσεων;"
-
-#, fuzzy
 #~| msgid ""
 #~| "<h1><a name=\"exiv2\">EXIF support</a></h1><p>Images store information "
 #~| "like the date the image was shot, the shooting angle, focal length, and "
@@ -8821,9 +8826,6 @@ msgstr "Εμφάνιση βαθμολογίας"
 
 #~ msgid "Please wait."
 #~ msgstr "Παρακαλώ περιμένετε."
-
-#~ msgid "Database conversion is ready."
-#~ msgstr "Η μετατροπή της βάσης ολοκληρώθηκε."
 
 #~ msgid ""
 #~ "Database conversion failed, because following error occurred:\n"

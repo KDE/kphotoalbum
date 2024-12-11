@@ -2,7 +2,7 @@
 # Copyright (C) 2004, 2005, 2006, 2008 Free Software Foundation, Inc.
 # Copyright (C) 2009-2024 This file is copyright:
 # This file is distributed under the same license as the kphotoalbum package.
-# KDE euskaratzeko proiektuko arduraduna <xalba@euskalnet.net>.
+# SPDX-FileCopyrightText: 2024 KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>
 #
 # Translators:
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2010.
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-10 00:38+0000\n"
-"PO-Revision-Date: 2024-10-27 07:03+0100\n"
+"POT-Creation-Date: 2024-12-11 00:39+0000\n"
+"PO-Revision-Date: 2024-12-10 23:40+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1380,25 +1380,20 @@ msgid "No other %1"
 msgstr "Bestelako %1(r)ik ez"
 
 #: DB/XML/FileReader.cpp:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
-#| "p><p>Chances are you will be able to read this file, but when writing it "
-#| "back, information saved in the newer version will be lost</p>"
+#, kde-format
 msgid ""
 "<p>The XML database file is from a newer version of KPhotoAlbum!</"
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
-"<p>Datu-base fitxategia (index.xml) KPhotoAlbum bertsio berriago batekoa da!"
-"</p><p>Baliteke fitxategi hau irakurtzeko gai izatea, baina bertan berriz "
+"<p>XML datu-base fitxategia KPhotoAlbum bertsio berriago bati dagokio!</"
+"p><p>Baliteke fitxategi hau irakurtzeko gai izatea, baina bertan berriz "
 "idaztean, bertsio berriagoan idatzitako informazioa galdu egingo da</p>"
 
 #: DB/XML/FileReader.cpp:60
-#, fuzzy, kde-format
-#| msgid "index.xml version mismatch"
+#, kde-format
 msgid "XML database file version mismatch"
-msgstr "index.xml bertsioak ez datoz bat"
+msgstr "XML datu-base fitxategi bertsio desegokia"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -1611,7 +1606,8 @@ msgid "untagged"
 msgstr "Etiketarik gabeak"
 
 #: DB/XML/FileReader.cpp:549 Utilities/DemoUtil.cpp:34
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
+#: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "Errorea demostrazioa exekutatzean"
@@ -4533,10 +4529,9 @@ msgid "Auto saving.... Done"
 msgstr "Automatikoki gordetzen... Eginda"
 
 #: MainWindow/Window.cpp:1166
-#, fuzzy, kde-format
-#| msgid "Do you want to save the changes?"
+#, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
-msgstr "Aldaketak gordetzea nahi dituzu?"
+msgstr "<p>Datu-base fitxategi hori sortu nahi duzu?<br />%1</p>"
 
 #: MainWindow/Window.cpp:1169
 #, kde-format
@@ -5027,16 +5022,15 @@ msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>Hautatu kategoria editatzeko</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
-#, fuzzy, kde-format
-#| msgid "Choose speed over readability for index.xml file"
+#, kde-format
 msgid "Choose speed over readability for the XML database file"
-msgstr "Aukeratu abiadura index.xml fitxategiaren fidagarritasunaren gainetik "
+msgstr ""
+"Aukeratu abiadura irakurgarritasunaren gainetik XML datu-base fitxategirako"
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, fuzzy, kde-format
-#| msgid "Compress backup file"
+#, kde-format
 msgid "Compress backup files"
-msgstr "Konprimitu babeskopia"
+msgstr "Konprimitu babeskopia fitxategiak"
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -5059,15 +5053,7 @@ msgid "Infinite"
 msgstr "Mugagabea"
 
 #: Settings/DatabaseBackendPage.cpp:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum is capable of backing up the index.xml file by keeping "
-#| "copies named index.xml~1~ index.xml~2~ etc. and you can use the spinbox "
-#| "to specify the number of backup files to keep. KPhotoAlbum will delete "
-#| "the oldest backup file when it reaches the maximum number of backup files."
-#| "</p><p>The index.xml file may grow substantially if you have many images, "
-#| "and in that case it is useful to ask KPhotoAlbum to zip the backup files "
-#| "to preserve disk space.</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum is capable of backing up the the XML database file by keeping "
 "copies (for example, for a database file named index.xml, the backups are "
@@ -5078,32 +5064,29 @@ msgid ""
 "images, and in that case it is useful to ask KPhotoAlbum to zip the backup "
 "files to preserve disk space.</p>"
 msgstr ""
-"<p>KPhotoAlbum-ek index.xml fitxategiaren hainbat babeskopia mantendu "
-"ditzakezu index.xml~1~ index.xml~2~ e.a. izeneko  kopiak erabiliz. "
-"KPhotoAlbum-ek babeskopiaren fitxategi zaharrena ezaba dezake babeskopien "
-"gehienezko kopurura iristean.</p><p>index.xml fitxategia asko hazi daiteke "
-"irudi ugari badituzu, eta kasu horretan egokia da KPhotoAlbum aplikazioak "
-"babeskopien fitxategiak konprimitzea eskatzea diskoan lekua mantentzeko.</p>"
+"<p>KPhotoAlbum, kopiak mantenduz, XML datu-base fitxategiaren babeskopiak "
+"egiteko gai da (adibidez, index.xml izeneko datu-base fitxategi baterako, "
+"babes-kopiak index.xml~0001~, index.xml~0002~ etab. izendatzen dira), , eta "
+"biraketa-laukia erabil dezakezu mantendu beharreko babes-kopia fitxategi "
+"kopurua zehazteko. KPhotoAlbum-ek babes-kopia fitxategi zaharrena ezabatuko "
+"du babeskopia fitxategien gehienezko kopurura iristean.</p><p>Irudi asko "
+"badituzu, XML datu-base fitxategia nabarmen haz daiteke, eta kasu horretan, "
+"diskoan lekua aurrezteko, KPhotoAlbum-i babeskopia fitxategiak konprimatzeko "
+"eskatzea erabilgarria da.</p>"
 
 #: Settings/DatabaseBackendPage.cpp:68
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
-#| "With lots of images it may take a long time to read this file. You may "
-#| "cut down this time to approximately half, by checking this check box. The "
-#| "disadvantage is that the index.xml file is less readable by human eyes.</"
-#| "p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum is using a single XML file as its <i>data base</i>. With lots "
 "of images it may take a long time to read this file. You may cut down this "
 "time to approximately half, by checking this check box. The disadvantage is "
 "that the XML database file is less readable by human eyes.</p>"
 msgstr ""
-"<p>KPhotoAlbum-ek index.xml fitxategi bakuna erabiltzen du bere <i>datu-"
-"base</i> gisa. Irudi askorekin denbora luzea igaro dezake fitxategi hau "
-"irakurtzen. Denbora hau erdira jaitsi dezakezu, kontrol-koadro hau "
-"aktibatuz. Honen desabantaila index.xml fitxategia ez dela hain erraza "
-"izango pertsonek irakurtzeko.</p>"
+"<p>KPhotoAlbum bere <i>datu-base</i> gisa,  XML fitxategi bakarra erabiltzen "
+"ari da. Irudi askorekin denbora luzea igaro dezake fitxategi hau irakurtzen. "
+"Denbora hau erdira jaitsi dezakezu, kontrol-koadro hau aktibatuz. "
+"Desabantaila da, XML datu-base fitxategia gizakiontzako irakurtzeko zailagoa "
+"dela.</p>"
 
 #: Settings/ExifPage.cpp:37
 #, kde-format
@@ -6361,10 +6344,17 @@ msgstr "Errorea fitxategiak ezabatzean"
 msgid "Unable to copy '%1' to '%2'."
 msgstr "Ezin da '%1' '%2' bezala gorde."
 
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Unable to create folder '%1' needed for demo."
 msgstr "Ezin du erakustaldirako beharrezkoa den '%1' karpeta sortu."
+
+#: Utilities/DemoUtil.cpp:58
+#, kde-format
+msgid ""
+"<p>Could not locate the demo database in any of the following standard "
+"locations:</p><p>%1</p>"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

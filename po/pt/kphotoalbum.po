@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-10 00:38+0000\n"
+"POT-Creation-Date: 2024-12-11 00:39+0000\n"
 "PO-Revision-Date: 2023-04-28 12:30+0100\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
@@ -1642,7 +1642,8 @@ msgid "untagged"
 msgstr "sem marcas"
 
 #: DB/XML/FileReader.cpp:549 Utilities/DemoUtil.cpp:34
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
+#: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "Erro ao Correr a Demonstração"
@@ -6458,10 +6459,17 @@ msgstr "Erro ao Apagar os Ficheiros"
 msgid "Unable to copy '%1' to '%2'."
 msgstr "Não é possível copiar '%1' para '%2'."
 
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Unable to create folder '%1' needed for demo."
 msgstr "Não foi possível criar a pasta '%1' necessária para a demonstração."
+
+#: Utilities/DemoUtil.cpp:58
+#, kde-format
+msgid ""
+"<p>Could not locate the demo database in any of the following standard "
+"locations:</p><p>%1</p>"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

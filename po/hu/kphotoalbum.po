@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-10 00:38+0000\n"
+"POT-Creation-Date: 2024-12-11 00:39+0000\n"
 "PO-Revision-Date: 2014-12-09 21:03+0100\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -1524,7 +1524,8 @@ msgid "untagged"
 msgstr "Címkézetlen képek"
 
 #: DB/XML/FileReader.cpp:549 Utilities/DemoUtil.cpp:34
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
+#: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "Hiba a demó futtatásakor"
@@ -5966,11 +5967,18 @@ msgstr "Hiba a fájlok törlésekor"
 msgid "Unable to copy '%1' to '%2'."
 msgstr "Nem lehet a(z) „%1” fájlt másolni ide: „%2”."
 
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:88
 #, fuzzy, kde-format
 #| msgid "Unable to create directory '%1' needed for demo."
 msgid "Unable to create folder '%1' needed for demo."
 msgstr "Nem sikerült létrehozni a demóhoz szükséges „%1” könyvtárat."
+
+#: Utilities/DemoUtil.cpp:58
+#, kde-format
+msgid ""
+"<p>Could not locate the demo database in any of the following standard "
+"locations:</p><p>%1</p>"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-10 00:38+0000\n"
+"POT-Creation-Date: 2024-12-11 00:39+0000\n"
 "PO-Revision-Date: 2010-04-16 06:52+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -1523,7 +1523,8 @@ msgid "untagged"
 msgstr "ਅਣ-ਟੈਗ ਕੀਤੇ ਚਿੱਤਰ"
 
 #: DB/XML/FileReader.cpp:549 Utilities/DemoUtil.cpp:34
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
+#: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "ਡੈਮੋ ਚਲਾਉਣ ਦੌਰਾਨ ਗਲਤੀ"
@@ -5900,11 +5901,18 @@ msgstr "ਜ਼ਿੱਪ ਫਾਇਲ ਬਣਾਉਣ ਦੌਰਾਨ ਗਲਤ�
 msgid "Unable to copy '%1' to '%2'."
 msgstr ""
 
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:88
 #, fuzzy, kde-format
 #| msgid "Unable to open '%1' for reading."
 msgid "Unable to create folder '%1' needed for demo."
 msgstr "'%1' ਪੜ੍ਹਨ ਲਈ ਖੋਲ੍ਹਣ ਵਾਸਤੇ ਅਸਮਰੱਥ।"
+
+#: Utilities/DemoUtil.cpp:58
+#, kde-format
+msgid ""
+"<p>Could not locate the demo database in any of the following standard "
+"locations:</p><p>%1</p>"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

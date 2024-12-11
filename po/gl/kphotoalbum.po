@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-10 00:38+0000\n"
+"POT-Creation-Date: 2024-12-11 00:39+0000\n"
 "PO-Revision-Date: 2024-12-08 12:48+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
@@ -1616,7 +1616,8 @@ msgid "untagged"
 msgstr "sen etiquetar"
 
 #: DB/XML/FileReader.cpp:549 Utilities/DemoUtil.cpp:34
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
+#: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "Erro ao executar a demostración"
@@ -6361,11 +6362,18 @@ msgstr "Produciuse un erro ao eliminar os ficheiros"
 msgid "Unable to copy '%1' to '%2'."
 msgstr "Non é posíbel copiar «%1» en «%2»."
 
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Unable to create folder '%1' needed for demo."
 msgstr ""
 "Non é posíbel crear o cartafol «%1», que é necesario para a demostración."
+
+#: Utilities/DemoUtil.cpp:58
+#, kde-format
+msgid ""
+"<p>Could not locate the demo database in any of the following standard "
+"locations:</p><p>%1</p>"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

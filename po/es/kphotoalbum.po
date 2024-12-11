@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-10 00:38+0000\n"
-"PO-Revision-Date: 2024-10-20 14:03+0200\n"
+"POT-Creation-Date: 2024-12-11 00:39+0000\n"
+"PO-Revision-Date: 2024-12-10 12:27+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 24.08.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1288,13 +1288,13 @@ msgid ""
 "Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
 "autosave file be used?"
 msgstr ""
-"El archivo de respaldo «%1» existe (con un tamaño de %3 KB) y es más "
-"reciente que «%2». ¿Se debe usar el archivo de respaldo?"
+"El archivo de copia de seguridad «%1» existe (con un tamaño de %3 KB) y es "
+"más reciente que «%2». ¿Se debe usar el archivo de respaldo?"
 
 #: DB/ImageDB.cpp:67
 #, kde-format
 msgid "Found Autosave File"
-msgstr "Archivo de respaldo encontrado"
+msgstr "Archivo de copia de seguridad encontrado"
 
 #: DB/ImageDB.cpp:399
 #, kde-format
@@ -1385,26 +1385,21 @@ msgid "No other %1"
 msgstr "No hay más %1"
 
 #: DB/XML/FileReader.cpp:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
-#| "p><p>Chances are you will be able to read this file, but when writing it "
-#| "back, information saved in the newer version will be lost</p>"
+#, kde-format
 msgid ""
 "<p>The XML database file is from a newer version of KPhotoAlbum!</"
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
-"<p>El archivo de base de datos (index.xml) es de una versión más reciente de "
+"<p>El archivo XML de la base de datos es de una versión más reciente de "
 "KPhotoAlbum</p><p>Es posible que pueda leer este archivo, pero cuando "
 "escriba en él se perderá la información que se guarde en la nueva versión.</"
 "p>"
 
 #: DB/XML/FileReader.cpp:60
-#, fuzzy, kde-format
-#| msgid "index.xml version mismatch"
+#, kde-format
 msgid "XML database file version mismatch"
-msgstr "Versión incorrecta de index.xml"
+msgstr "Versión incorrecta de archivo XML de la base de datos"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -1433,7 +1428,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:195 DB/XML/FileReader.cpp:300
 #, kde-format
 msgid "Error in database file"
-msgstr "Se ha producido un error en el archivo de base de datos"
+msgstr "Se ha producido un error en el archivo de la base de datos"
 
 #: DB/XML/FileReader.cpp:255
 #, kde-format
@@ -1618,7 +1613,8 @@ msgid "untagged"
 msgstr "sin etiquetar"
 
 #: DB/XML/FileReader.cpp:549 Utilities/DemoUtil.cpp:34
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
+#: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "Error al ejecutar demo"
@@ -1636,7 +1632,7 @@ msgstr "línea %1, columna %2 del archivo %3: %4"
 #: DB/XML/FileReader.cpp:564
 #, kde-format
 msgid "Failed to recover the backup: %1"
-msgstr "Ha fallado la recuperación de la copia de respaldo: %1"
+msgstr "Ha fallado la recuperación de la copia de seguridad: %1"
 
 #: DB/XML/FileReader.cpp:575
 #, kde-format
@@ -3123,7 +3119,7 @@ msgstr "No se ha podido abrir un archivo temporal para escritura.\n"
 msgctxt "@info:shell"
 msgid "Could not back up file `thumbnailindex`!\n"
 msgstr ""
-"No se ha podido hacer una copia de respaldo del archivo «thumbnailindex».\n"
+"No se ha podido hacer una copia de seguridad del archivo «thumbnailindex».\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:40
 #, kde-format
@@ -3186,11 +3182,11 @@ msgid ""
 "on your images?"
 msgstr ""
 "Al leer la información temporal de las imágenes se usa su información Exif, "
-"aunque esta podría no estar soportada en su instalación de KPhotoAlbum o que "
-"el archivo contuviese información no válida. Como respaldo, KPhotoAlbum "
+"aunque es posible que no sea compatible con su instalación de KPhotoAlbum o "
+"que el archivo contenga información no válida. Como respaldo, KPhotoAlbum "
 "puede usar la marca de tiempo de la imagen (aunque también podría ser no "
-"válida si la imagen es escaneada). Por tanto, ¿debe confiar KPhotoAlbum en "
-"la marca de tiempo de sus imágenes?"
+"válida si la imagen ha sido escaneada). La pregunta es, ¿debe confiar "
+"KPhotoAlbum en la marca de tiempo de sus imágenes?"
 
 #: lib/kpabase/SettingsData.cpp:254
 #, kde-format
@@ -4549,10 +4545,9 @@ msgid "Auto saving.... Done"
 msgstr "Autoguardando... Hecho"
 
 #: MainWindow/Window.cpp:1166
-#, fuzzy, kde-format
-#| msgid "Do you really want to erase the database?"
+#, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
-msgstr "¿Realmente desea borrar la base de datos?"
+msgstr "<p>¿Desea crear este archivo de base de datos?<br />%1</p>"
 
 #: MainWindow/Window.cpp:1169
 #, kde-format
@@ -5048,16 +5043,15 @@ msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>Escoja la categoría a editar</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
-#, fuzzy, kde-format
-#| msgid "Choose speed over readability for index.xml file"
+#, kde-format
 msgid "Choose speed over readability for the XML database file"
-msgstr "Preferir velocidad sobre legibilidad en el archivo index.xml"
+msgstr ""
+"Preferir velocidad sobre legibilidad en el archivo XML de la base de datos"
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, fuzzy, kde-format
-#| msgid "Compress backup file"
+#, kde-format
 msgid "Compress backup files"
-msgstr "Comprimir archivo de respaldo"
+msgstr "Comprimir archivos de copia de seguridad"
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -5072,7 +5066,7 @@ msgstr "min."
 #: Settings/DatabaseBackendPage.cpp:45
 #, kde-format
 msgid "Number of backups to keep:"
-msgstr "Número de copias de respaldo a guardar:"
+msgstr "Número de copias de seguridad que se mantienen:"
 
 #: Settings/DatabaseBackendPage.cpp:50
 #, kde-format
@@ -5080,15 +5074,7 @@ msgid "Infinite"
 msgstr "Infinitas"
 
 #: Settings/DatabaseBackendPage.cpp:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum is capable of backing up the index.xml file by keeping "
-#| "copies named index.xml~1~ index.xml~2~ etc. and you can use the spinbox "
-#| "to specify the number of backup files to keep. KPhotoAlbum will delete "
-#| "the oldest backup file when it reaches the maximum number of backup files."
-#| "</p><p>The index.xml file may grow substantially if you have many images, "
-#| "and in that case it is useful to ask KPhotoAlbum to zip the backup files "
-#| "to preserve disk space.</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum is capable of backing up the the XML database file by keeping "
 "copies (for example, for a database file named index.xml, the backups are "
@@ -5099,32 +5085,29 @@ msgid ""
 "images, and in that case it is useful to ask KPhotoAlbum to zip the backup "
 "files to preserve disk space.</p>"
 msgstr ""
-"<p>KPhotoAlbum puede crear respaldos del archivo index.xml manteniendo "
-"copias llamadas index.xml~1~, index.xml~2~, etc., y puede usar la casilla "
-"numérica para indicar el número de archivos de respaldo a mantener. Cuando "
-"alcancen dicho número, KPhotoAlbum eliminará el más antiguo.</p><p>El "
-"archivo index.xml crecerá sustancialmente si tiene muchas imágenes, en cuyo "
-"caso es útil solicitar a KPhotoAlbum que comprima los archivos de respaldo "
-"para ahorrar espacio en disco.</p>"
+"<p>KPhotoAlbum puede crear copias de seguridad del archivo XML de la base de "
+"datos (por ejemplo, para un archivo de base de datos llamado «index.xml», "
+"las copias de seguridad tendrían el nombre «index.xml~1~», «index.xml~2~», "
+"etc.). Puede usar la casilla numérica para indicar el número de archivos de "
+"copia de seguridad que se deben mantener. Cuando se alcance dicho número, "
+"KPhotoAlbum borrará el más antiguo.</p><p>El archivo XML de la base de datos "
+"crecerá sustancialmente si tiene muchas imágenes, en cuyo caso resulta de "
+"utilidad solicitar a KPhotoAlbum que comprima los archivos de copia de "
+"seguridad para ahorrar espacio en disco.</p>"
 
 #: Settings/DatabaseBackendPage.cpp:68
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
-#| "With lots of images it may take a long time to read this file. You may "
-#| "cut down this time to approximately half, by checking this check box. The "
-#| "disadvantage is that the index.xml file is less readable by human eyes.</"
-#| "p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum is using a single XML file as its <i>data base</i>. With lots "
 "of images it may take a long time to read this file. You may cut down this "
 "time to approximately half, by checking this check box. The disadvantage is "
 "that the XML database file is less readable by human eyes.</p>"
 msgstr ""
-"<p>KPhotoAlbum está usando un solo archivo index.xml como <i>base de datos</"
-"i>. Cuando tiene muchas imágenes puede llevar bastante tiempo leerlo, pero "
-"marcando esta casilla puede reducirlo aproximadamente a la mitad. La "
-"contrapartida es que el archivo será menos legible para una persona.</p>"
+"<p>KPhotoAlbum está usando un solo archivo XML como <i>base de datos</i>. "
+"Cuando se tienen muchas imágenes puede tardar bastante tiempo leerlo, aunque "
+"marcando esta casilla se puede reducir aproximadamente a la mitad. La "
+"contrapartida es que el archivo XML de la base de datos será menos legible "
+"para una persona.</p>"
 
 #: Settings/ExifPage.cpp:37
 #, kde-format
@@ -6385,10 +6368,17 @@ msgstr "Error al eliminar archivos"
 msgid "Unable to copy '%1' to '%2'."
 msgstr "No se pudo copiar «%1» a «%2»."
 
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Unable to create folder '%1' needed for demo."
 msgstr "No se ha podido crear la carpeta «%1» necesaria para la demo."
+
+#: Utilities/DemoUtil.cpp:58
+#, kde-format
+msgid ""
+"<p>Could not locate the demo database in any of the following standard "
+"locations:</p><p>%1</p>"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

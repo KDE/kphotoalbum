@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-10 00:38+0000\n"
-"PO-Revision-Date: 2024-11-30 05:09+0100\n"
+"POT-Creation-Date: 2024-12-11 00:39+0000\n"
+"PO-Revision-Date: 2024-12-10 05:48+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1338,10 +1338,9 @@ msgid ""
 msgstr ""
 
 #: DB/XML/FileReader.cpp:60
-#, fuzzy, kde-format
-#| msgid "index.xml version mismatch"
+#, kde-format
 msgid "XML database file version mismatch"
-msgstr "index.xml-ის ვერსია არ ემთხვევა"
+msgstr "XML მონაცემთა ბაზის ფაილის ვერსია არ ემთხვევა"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -1512,7 +1511,8 @@ msgid "untagged"
 msgstr "ჭდის გარეშე"
 
 #: DB/XML/FileReader.cpp:549 Utilities/DemoUtil.cpp:34
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
+#: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "დემოს გაშვების შეცდომა"
@@ -4674,16 +4674,14 @@ msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>აირჩიეთ ჩასასწრორებელი კატეგორია</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
-#, fuzzy, kde-format
-#| msgid "Choose speed over readability for index.xml file"
+#, kde-format
 msgid "Choose speed over readability for the XML database file"
-msgstr "სიჩქარე წაკითხვადობის მაგიერ index.xml ფაილისთვის"
+msgstr "სიჩქარე წაკითხვადობის მაგიერ XML მონაცემთა ბაზის ფაილისთვის"
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, fuzzy, kde-format
-#| msgid "Compress backup file"
+#, kde-format
 msgid "Compress backup files"
-msgstr "მარქაფის ფაილის შეკუმშვა"
+msgstr "მარქაფის ფაილების შეკუმშვა"
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -5809,10 +5807,17 @@ msgstr "ფაილების წაშლის შეცდომა"
 msgid "Unable to copy '%1' to '%2'."
 msgstr "%1 -დან %2 -ში კოპირება შეუძლებელია."
 
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Unable to create folder '%1' needed for demo."
 msgstr "დემოსთვის საჭიროა საქაღალდის '%1' შექმნა."
+
+#: Utilities/DemoUtil.cpp:58
+#, kde-format
+msgid ""
+"<p>Could not locate the demo database in any of the following standard "
+"locations:</p><p>%1</p>"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

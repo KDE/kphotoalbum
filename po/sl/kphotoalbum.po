@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-10 00:38+0000\n"
-"PO-Revision-Date: 2024-10-20 10:47+0200\n"
+"POT-Creation-Date: 2024-12-11 00:39+0000\n"
+"PO-Revision-Date: 2024-12-10 07:21+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -1400,25 +1400,20 @@ msgid "No other %1"
 msgstr "Ni drugega %1"
 
 #: DB/XML/FileReader.cpp:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
-#| "p><p>Chances are you will be able to read this file, but when writing it "
-#| "back, information saved in the newer version will be lost</p>"
+#, kde-format
 msgid ""
 "<p>The XML database file is from a newer version of KPhotoAlbum!</"
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
-"<p>Datoteka zbirke podatkov (index.xml) je iz novejše različice KPhotoAlbum!"
-"</p><p>Obstaja možnost, da boste lahko prebrali to datoteko, vendar bodo pri "
-"pisanju nazaj informacije, shranjene v novejšo različico, izgubljene</p>"
+"<p>Datoteka podatkovne baze XML je iz novejše različice KPhotoAlbuma!</"
+"p><p>Verjetno je, da boste lahko prebrali to datoteko, a ko jo zapisujete "
+"nazaj bodo informacije shranjene v novejši različici izgubljene</ p>"
 
 #: DB/XML/FileReader.cpp:60
-#, fuzzy, kde-format
-#| msgid "index.xml version mismatch"
+#, kde-format
 msgid "XML database file version mismatch"
-msgstr "Neskladje različice index.xml"
+msgstr "Neujemanje različic datoteke baze podatkov XML"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -1629,7 +1624,8 @@ msgid "untagged"
 msgstr "neoznačeno"
 
 #: DB/XML/FileReader.cpp:549 Utilities/DemoUtil.cpp:34
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
+#: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "Napaka pri izvajanju dema"
@@ -4571,7 +4567,7 @@ msgstr "Samodejno shranjevanje ... dokončano"
 #: MainWindow/Window.cpp:1166
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
-msgstr ""
+msgstr "<p>Ali želite ustvariti to datoteko zbirke podatkov?<br />%1</p>"
 
 #: MainWindow/Window.cpp:1169
 #, kde-format
@@ -5059,16 +5055,14 @@ msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>Izberite kategorijo, ki jo želite urediti</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
-#, fuzzy, kde-format
-#| msgid "Choose speed over readability for index.xml file"
+#, kde-format
 msgid "Choose speed over readability for the XML database file"
-msgstr "Izberite hitrost pred berljivostjo za datoteko index.html"
+msgstr "Izberite hitrost namesto berljivosti za datoteko zbirke podatkov XML"
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, fuzzy, kde-format
-#| msgid "Compress backup file"
+#, kde-format
 msgid "Compress backup files"
-msgstr "Stisni varnostno kopijo datoteke"
+msgstr "Stisni varnostne kopije datotek"
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -5091,15 +5085,7 @@ msgid "Infinite"
 msgstr "Neskončno"
 
 #: Settings/DatabaseBackendPage.cpp:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum is capable of backing up the index.xml file by keeping "
-#| "copies named index.xml~1~ index.xml~2~ etc. and you can use the spinbox "
-#| "to specify the number of backup files to keep. KPhotoAlbum will delete "
-#| "the oldest backup file when it reaches the maximum number of backup files."
-#| "</p><p>The index.xml file may grow substantially if you have many images, "
-#| "and in that case it is useful to ask KPhotoAlbum to zip the backup files "
-#| "to preserve disk space.</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum is capable of backing up the the XML database file by keeping "
 "copies (for example, for a database file named index.xml, the backups are "
@@ -5110,34 +5096,29 @@ msgid ""
 "images, and in that case it is useful to ask KPhotoAlbum to zip the backup "
 "files to preserve disk space.</p>"
 msgstr ""
-"<p>KPhotoAlbum je sposoben varnostnega kopiranja datoteke index.xml tako, da "
-"hrani kopije, imenovane index.xml~1~ index.xml~2~ itn., in uporabite lahko "
-"sukalno polje, s katerim določite število varnostnih kopij datotek, ki jih "
-"želite obdržati. KPhotoAlbum bo izbrisal najstarejšo varnostno kopijo "
-"datoteke, ko doseže največje število varnostnih kopij datotek.</"
-"p><p>Datoteka indec.xml lahko znatno naraste, če imate veliko slik, in v tem "
-"primeru je koristno, da od KPhotoAlbum zahtevate, da stiska varnostne kopije "
-"datotek za prihranek prostora na disku.</p>"
+"<p>KPhotoAlbum lahko varnostno kopira datoteko zbirke podatkov XML tako, da "
+"hrani kopije (na primer, za datoteko zbirke podatkov z imenom index.xml se "
+"varnostne kopije imenujejo index.xml~0001~, index.xml~0002~ itd.) in lahko "
+"uporabite številski krožnik, da določite število datotek varnostne kopije, "
+"ki jih želite obdržati. KPhotoAlbum bo izbrisal najstarejšo datoteko "
+"varnostne kopije, ko bo dosegla največje število datotek varnostne kopije.</"
+"p><p>Datoteka zbirke podatkov XML se lahko znatno poveča, če imate veliko "
+"slik, in v tem primeru je koristno, da KPhotoAlbum zahtevate, da stisne "
+"varnostne kopije, da ohranite prostor na disku.</p>"
 
 #: Settings/DatabaseBackendPage.cpp:68
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
-#| "With lots of images it may take a long time to read this file. You may "
-#| "cut down this time to approximately half, by checking this check box. The "
-#| "disadvantage is that the index.xml file is less readable by human eyes.</"
-#| "p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum is using a single XML file as its <i>data base</i>. With lots "
 "of images it may take a long time to read this file. You may cut down this "
 "time to approximately half, by checking this check box. The disadvantage is "
 "that the XML database file is less readable by human eyes.</p>"
 msgstr ""
-"<p>KPhotoAlbum uporablja eno samo datoteko index.xml kot svojo <i>zbirko "
-"podatkov</i>. Z veliko slikami lahko branje takšne datoteke traja dolgo "
-"časa. Ta čas lahko zmanjšate na približno polovico, tako da potrdite to "
-"polje. Pomanjkljivost je v tem, da je datoteka index.xml manj berljiva za "
-"človeško branje.</p>"
+"<p>KPhotoAlbum uporablja eno samo datoteko XML kot svojo <i>bazo podatkov</"
+"i>. Ker je veliko slik, lahko branje te datoteke traja dolgo. Ta čas lahko "
+"skrajšate na približno polovico, če označite to potrditveno polje. "
+"Pomanjkljivost je, da je datoteka baze podatkov XML slabše berljiva s "
+"človeškimi očmi.</p>"
 
 #: Settings/ExifPage.cpp:37
 #, kde-format
@@ -6377,10 +6358,17 @@ msgstr "Napaka pri brisanju datotek"
 msgid "Unable to copy '%1' to '%2'."
 msgstr "Ni mogoče kopirati »%1« v »%2«."
 
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Unable to create folder '%1' needed for demo."
 msgstr "Ni mogoče ustvariti mape '%1', potrebne za demo."
+
+#: Utilities/DemoUtil.cpp:58
+#, kde-format
+msgid ""
+"<p>Could not locate the demo database in any of the following standard "
+"locations:</p><p>%1</p>"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

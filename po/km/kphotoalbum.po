@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-10 00:38+0000\n"
+"POT-Creation-Date: 2024-12-11 00:39+0000\n"
 "PO-Revision-Date: 2012-07-09 10:31+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer <support@khmeros.info>\n"
@@ -1635,7 +1635,8 @@ msgid "untagged"
 msgstr "រូប​ភាព​ដែល​មិន​ដាក់​ស្លាក​"
 
 #: DB/XML/FileReader.cpp:549 Utilities/DemoUtil.cpp:34
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
+#: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "កំហុស​ក្នុងការ​រត់​ការ​បង្ហាញ​សាកល្បង"
@@ -6495,11 +6496,18 @@ msgstr "កំហុស​ក្នុង​ការ​លុប​ឯកសា
 msgid "Unable to copy '%1' to '%2'."
 msgstr "មិន​អាច​ចម្លង​ឯកសារ​ '%1' ទៅ '%2' បាន​ទេ ។​"
 
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:88
 #, fuzzy, kde-format
 #| msgid "Unable to create directory '%1' needed for demo."
 msgid "Unable to create folder '%1' needed for demo."
 msgstr "មិន​អាច​បង្កើត​ថត​ '%1' ដែល​ត្រូវ​ការ​សម្រាប់​ការ​បង្ហាញ​សាក​មើល ។​"
+
+#: Utilities/DemoUtil.cpp:58
+#, kde-format
+msgid ""
+"<p>Could not locate the demo database in any of the following standard "
+"locations:</p><p>%1</p>"
+msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

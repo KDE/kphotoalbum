@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-10 00:38+0000\n"
-"PO-Revision-Date: 2024-12-09 08:54+0200\n"
+"POT-Creation-Date: 2024-12-11 00:39+0000\n"
+"PO-Revision-Date: 2024-12-10 06:41+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1497,7 +1497,8 @@ msgid "untagged"
 msgstr "ללא תיוג"
 
 #: DB/XML/FileReader.cpp:549 Utilities/DemoUtil.cpp:34
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
+#: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "שגיאה בהרצת ההדגמה"
@@ -1591,7 +1592,7 @@ msgstr ""
 #: DB/XML/XmlReader.cpp:80
 #, kde-format
 msgid "Expected to read start element '%1'"
-msgstr ""
+msgstr "אמור היה להיקרא רכיב ההתחלה ‚%1’"
 
 #: DB/XML/XmlReader.cpp:86
 #, kde-format
@@ -2008,7 +2009,7 @@ msgstr ""
 #: HTMLGenerator/HTMLDialog.cpp:132
 #, kde-format
 msgid "Generate HTML5 video files (mp4 and ogg)"
-msgstr ""
+msgstr "יצירת קובצי וידאו של HTML5 ‏(mp4 ו־ogg)"
 
 #: HTMLGenerator/HTMLDialog.cpp:140
 #, kde-format
@@ -2073,7 +2074,7 @@ msgstr "תיקיית פלט:"
 #: HTMLGenerator/HTMLDialog.cpp:332
 #, kde-format
 msgid "URL for final destination of .kim file:"
-msgstr ""
+msgstr "כתובת ליעד הסופי של קובץ ה־‎.kim:"
 
 #: HTMLGenerator/HTMLDialog.cpp:334
 #, kde-format
@@ -2313,7 +2314,7 @@ msgstr "יצירת תמונות ממוזערות"
 #: ImportExport/Export.cpp:135
 #, kde-format
 msgid "Limit maximum image dimensions to: "
-msgstr ""
+msgstr "הגבלת ממדי התמונה המרביים לכדי: "
 
 #: ImportExport/Export.cpp:147
 #, kde-format
@@ -2614,7 +2615,7 @@ msgstr ""
 #: ImportExport/KimFileReader.cpp:107
 #, kde-format
 msgid "No image existed in export file for %1"
-msgstr ""
+msgstr "לא קיימות תמונות בקובץ הייצוא עבור %1"
 
 #: ImportExport/MD5CheckPage.cpp:40
 #, kde-format
@@ -2814,7 +2815,7 @@ msgstr "תיקיית מטמון תמונות ממוזערות: %1\n"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index file version: %1\n"
-msgstr ""
+msgstr "גרסת קובץ מפתח תמונות ממוזערות: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:118
 #, kde-format
@@ -2826,7 +2827,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail storage dimensions: %1 pixels\n"
-msgstr ""
+msgstr "ממדי אחסון תמונות ממוזערות: %1 פיקסלים\n"
 
 #: kpa-thumbnailtool/main.cpp:121
 #, kde-format
@@ -3170,7 +3171,7 @@ msgstr ""
 #: MainWindow/AutoStackImages.cpp:102
 #, kde-format
 msgid "Skip images that are already in a stack"
-msgstr ""
+msgstr "דילוג על תמונות שהן כבר בערימה"
 
 #: MainWindow/CategoryImagePopup.cpp:49
 #, kde-format
@@ -3187,20 +3188,20 @@ msgstr "יצירת תמונת קטגוריה"
 msgctxt "@title:window"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "העתקת תמונה אל…"
+msgstr[1] "העתקת תמונות אל…"
+msgstr[2] "העתקת תמונות אל…"
+msgstr[3] "העתקת תמונות אל…"
 
 #: MainWindow/CopyLinkEngine.cpp:42
 #, kde-format
 msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "קישור תמונה אל…"
+msgstr[1] "קישור תמונות אל…"
+msgstr[2] "קישור תמונות אל…"
+msgstr[3] "קישור תמונות אל…"
 
 #: MainWindow/DeleteDialog.cpp:24
 #, kde-format
@@ -3234,10 +3235,10 @@ msgstr[3] ""
 #, kde-format
 msgid "Move file to Trash"
 msgid_plural "Move %1 files to Trash"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "העברת קובץ לאשפה"
+msgstr[1] "העברת שני קבצים לאשפה"
+msgstr[2] "העברת %1 קבצים לאשפה"
+msgstr[3] "העברת %1 קבצים לאשפה"
 
 #: MainWindow/DeleteDialog.cpp:72
 #, kde-format
@@ -3468,10 +3469,10 @@ msgstr "לא"
 #, kde-format
 msgid "Showing 1 thumbnail"
 msgid_plural "Showing %1 thumbnails"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "תמונה ממוזערת מוצגת"
+msgstr[1] "שתי תמונות ממוזערות מוצגות"
+msgstr[2] "%1 תמונות ממוזערות מוצגות"
+msgstr[3] "%1 תמונות ממוזערות מוצגות"
 
 #: MainWindow/ImageCounter.cpp:26
 #, kde-format
@@ -3679,7 +3680,7 @@ msgstr "תגיות לתמונה"
 #: MainWindow/StatisticsDialog.cpp:104
 #, kde-format
 msgid "Tag indication completed annotation"
-msgstr ""
+msgstr "חיווי התגיות השלים את ההסברים"
 
 #: MainWindow/StatisticsDialog.cpp:110
 #, kde-format
@@ -4310,7 +4311,7 @@ msgstr ""
 #: MainWindow/Window.cpp:1602
 #, kde-format
 msgid "No images matching your input were found."
-msgstr ""
+msgstr "לא נמצאו תמונות שעונות על הקלט שלך."
 
 #: MainWindow/Window.cpp:1602
 #, kde-format
@@ -4583,7 +4584,7 @@ msgstr "הגדרת לקטגוריה <b>%1</b>"
 #: Settings/CategoryPage.cpp:209
 #, kde-format
 msgid "<i>Pending change: rename to \"%1\"</i>"
-msgstr ""
+msgstr "<i>שינוי ממתין: שינוי לשם „%1”</i>"
 
 #: Settings/CategoryPage.cpp:263
 #, kde-format
@@ -5087,7 +5088,7 @@ msgstr "להשתמש בקנה מידה לינארי להיסטוגרמה"
 #: Settings/GeneralPage.cpp:103
 #, kde-format
 msgid "Size of histogram columns in date bar:"
-msgstr ""
+msgstr "גודל עמודות ההיסטוגרמה בסרגל התאריכים:"
 
 #: Settings/GeneralPage.cpp:124
 #, kde-format
@@ -5294,7 +5295,7 @@ msgstr ""
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<para>Really delete group \"%1\"?</para>"
-msgstr ""
+msgstr "<para>באמת למחוק את הקבוצה „%1”?</para>"
 
 #: Settings/TagGroupsPage.cpp:521
 #, kde-format
@@ -5371,7 +5372,7 @@ msgstr "בניית תמונות ממוזערות לפני דרישה"
 #: Settings/ThumbnailsPage.cpp:52
 #, kde-format
 msgid "Thumbnail table cells aspect ratio:"
-msgstr ""
+msgstr "יחס גובה רוחב של תאי טבלת תמונות ממוזערות:"
 
 #: Settings/ThumbnailsPage.cpp:54
 #, kde-format
@@ -5613,7 +5614,7 @@ msgstr "לא מוגדר"
 #: Settings/ViewerPage.cpp:42
 #, kde-format
 msgid "Running Slide Show From Thumbnail View"
-msgstr ""
+msgstr "מופעלת מצגת מתצוגת תמונות ממוזערות"
 
 #: Settings/ViewerPage.cpp:45
 #, kde-format
@@ -5779,9 +5780,16 @@ msgstr "שגיאה במחיקת קבצים"
 msgid "Unable to copy '%1' to '%2'."
 msgstr "לא ניתן להעתיק את ‚%1’ אל ‚%2’."
 
-#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:86
+#: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Unable to create folder '%1' needed for demo."
+msgstr ""
+
+#: Utilities/DemoUtil.cpp:58
+#, kde-format
+msgid ""
+"<p>Could not locate the demo database in any of the following standard "
+"locations:</p><p>%1</p>"
 msgstr ""
 
 #: Utilities/DescriptionUtil.cpp:54

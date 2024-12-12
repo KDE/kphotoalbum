@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-11 00:39+0000\n"
-"PO-Revision-Date: 2024-12-10 13:34+0300\n"
+"PO-Revision-Date: 2024-12-11 14:56+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -6316,6 +6316,8 @@ msgid ""
 "<p>Could not locate the demo database in any of the following standard "
 "locations:</p><p>%1</p>"
 msgstr ""
+"<p>Tanıtım veritabanı, aşağıdaki standart konumların hiçbirinde bulunamadı:</"
+"p><p>%1</p>"
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

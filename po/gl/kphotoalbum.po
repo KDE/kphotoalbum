@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-11 00:39+0000\n"
-"PO-Revision-Date: 2024-12-08 12:48+0100\n"
+"PO-Revision-Date: 2024-12-11 20:31+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -1386,26 +1386,21 @@ msgid "No other %1"
 msgstr "Ningún outro %1"
 
 #: DB/XML/FileReader.cpp:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
-#| "p><p>Chances are you will be able to read this file, but when writing it "
-#| "back, information saved in the newer version will be lost</p>"
+#, kde-format
 msgid ""
 "<p>The XML database file is from a newer version of KPhotoAlbum!</"
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
-"<p>O ficheiro da base de datos (index.xml) corresponde a unha versión máis "
-"recente de KPhotoAlbum!</p> <p>Quizais poida ler o ficheiro, pero á hora de "
-"volvelo a escribir, perderase a información que gardase coa versión máis "
-"recente de KPhotoAlbum.</p>"
+"<p>O ficheiro XML da base de datos corresponde a unha versión máis recente "
+"de KPhotoAlbum!</p> <p>Quizais poida ler o ficheiro, pero á hora de volvelo "
+"a escribir, perderase a información que gardase coa versión máis recente de "
+"KPhotoAlbum.</p>"
 
 #: DB/XML/FileReader.cpp:60
-#, fuzzy, kde-format
-#| msgid "index.xml version mismatch"
+#, kde-format
 msgid "XML database file version mismatch"
-msgstr "A versión de index.xml non coincide"
+msgstr "A versión do ficheiro XML da base de datos non coincide."
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -4540,10 +4535,9 @@ msgid "Auto saving.... Done"
 msgstr "Gardando automaticamente… Feito."
 
 #: MainWindow/Window.cpp:1166
-#, fuzzy, kde-format
-#| msgid "Do you really want to erase the database?"
+#, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
-msgstr "Seguro que quere borrar a base de datos?"
+msgstr "<p>Quere crear este ficheiro de base de datos?<br />%1</p>"
 
 #: MainWindow/Window.cpp:1169
 #, kde-format
@@ -5038,16 +5032,15 @@ msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>Escolla unha categoría para editala</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
-#, fuzzy, kde-format
-#| msgid "Choose speed over readability for index.xml file"
+#, kde-format
 msgid "Choose speed over readability for the XML database file"
-msgstr "Escoller velocidade antes que lexibilidade no ficheiro index.xml"
+msgstr ""
+"Escoller velocidade antes que lexibilidade no ficheiro XML da base de datos."
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, fuzzy, kde-format
-#| msgid "Compress backup file"
+#, kde-format
 msgid "Compress backup files"
-msgstr "Comprimir o ficheiro da salvagarda"
+msgstr "Comprimir os ficheiros de salvagarda."
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -5070,15 +5063,7 @@ msgid "Infinite"
 msgstr "Infinitas"
 
 #: Settings/DatabaseBackendPage.cpp:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum is capable of backing up the index.xml file by keeping "
-#| "copies named index.xml~1~ index.xml~2~ etc. and you can use the spinbox "
-#| "to specify the number of backup files to keep. KPhotoAlbum will delete "
-#| "the oldest backup file when it reaches the maximum number of backup files."
-#| "</p><p>The index.xml file may grow substantially if you have many images, "
-#| "and in that case it is useful to ask KPhotoAlbum to zip the backup files "
-#| "to preserve disk space.</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum is capable of backing up the the XML database file by keeping "
 "copies (for example, for a database file named index.xml, the backups are "
@@ -5089,31 +5074,27 @@ msgid ""
 "images, and in that case it is useful to ask KPhotoAlbum to zip the backup "
 "files to preserve disk space.</p>"
 msgstr ""
-"<p>KPhotoAlbum pode salvagardar o ficheiro index.xml mantendo copias co nome "
-"index.xml~1~ index.xml~2~ etc. usando esta caixa para indicar o número de "
-"ficheiros que manter. KPhotoAlbum eliminará o máis antigo cando acade o "
-"máximo de ficheiros de seguridade.</p><p>O ficheiro index.xml pode tornarse "
-"grande se tiver moitas imaxes e nese caso é útil pedirlle a KPhotoAlbum que "
-"comprima os ficheiros de seguridade para preservar espazo en disco.</p>"
+"<p>KPhotoAlbum pode salvagardar o ficheiro XML da base de datos mantendo "
+"copias (por exemplo, se o ficheiro da base de datos se chama «index.xml», as "
+"salvagardas chamaranse «index.xml~0001~», «index.xml~0002~», etc.), e pode "
+"usar esta caixa para indicar o número de ficheiros que manter. KPhotoAlbum "
+"eliminará o máis antigo cando acade o máximo de ficheiros de seguridade.</"
+"p><p>O ficheiro XML da base de datos pode tornarse grande se tiver moitas "
+"imaxes e nese caso é útil pedirlle a KPhotoAlbum que comprima os ficheiros "
+"de seguridade para preservar espazo en disco.</p>"
 
 #: Settings/DatabaseBackendPage.cpp:68
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
-#| "With lots of images it may take a long time to read this file. You may "
-#| "cut down this time to approximately half, by checking this check box. The "
-#| "disadvantage is that the index.xml file is less readable by human eyes.</"
-#| "p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum is using a single XML file as its <i>data base</i>. With lots "
 "of images it may take a long time to read this file. You may cut down this "
 "time to approximately half, by checking this check box. The disadvantage is "
 "that the XML database file is less readable by human eyes.</p>"
 msgstr ""
-"<p>KPhotoAlbum está a usar só un ficheiro index.xml como <i>base de datos</"
-"i>. Con moitas imaxes pode tardar moito tempo en ler este ficheiro. Pode "
-"reducir este tempo á metade marcando esta opción. A desvantaxe é que o "
-"ficheiro index.xml é menos lexíbel por humanos.</p>"
+"<p>KPhotoAlbum está a usar só un ficheiro XML como <i>base de datos</i>. Con "
+"moitas imaxes pode tardar moito tempo en ler este ficheiro. Pode reducir "
+"este tempo á metade marcando esta opción. A desvantaxe é que o ficheiro XML "
+"da base de datos é máis difícil de ler para as persoas.</p>"
 
 #: Settings/ExifPage.cpp:37
 #, kde-format
@@ -6374,6 +6355,8 @@ msgid ""
 "<p>Could not locate the demo database in any of the following standard "
 "locations:</p><p>%1</p>"
 msgstr ""
+"<p>Non foi posíbel localizar a base de datos de demostración en ningunha das "
+"seguintes localizacións estándar:</p><p>%1</p>"
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

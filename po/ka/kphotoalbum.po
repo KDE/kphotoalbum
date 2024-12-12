@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-11 00:39+0000\n"
-"PO-Revision-Date: 2024-12-10 05:48+0100\n"
+"PO-Revision-Date: 2024-12-11 08:36+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -4227,7 +4227,7 @@ msgstr "ავტოშენახვა... მზადაა"
 #: MainWindow/Window.cpp:1166
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
-msgstr ""
+msgstr "<p>მართლა გნებავთ ამ მონაცემთა ბაზის ფაილის შექმნა?<br />%1</p>"
 
 #: MainWindow/Window.cpp:1169
 #, kde-format

@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-02 01:49+0000\n"
-"PO-Revision-Date: 2024-12-08 12:48+0100\n"
+"PO-Revision-Date: 2024-12-13 22:52+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -2383,6 +2383,7 @@ msgstr ""
 "<p>Produciuse un erro ao extraer as miniaturas do vídeo.<br/>O erro foi o "
 "seguinte: %1</p>"
 
+# skip-rule: trasno-sound_reverse
 #: ImageManager/ExtractOneVideoFrame.cpp:137
 #, kde-format
 msgid ""
@@ -5526,7 +5527,7 @@ msgstr ""
 "usarase automaticamente o número de núcleos menos 1, polo menos 1, e non "
 "máis de 3. Se ten un almacenamento rápido e un procesador con moitos "
 "núcleos, pode que aumentar este valor mellore o rendemento.</"
-"p><p>KPhotoAlbum debe reiniciarse para que isto xurda efecto.</p>"
+"p><p>KPhotoAlbum debe reiniciarse para que os cambios xurdan efecto.</p>"
 
 #: Settings/GeneralPage.cpp:28
 #, kde-format
@@ -5992,10 +5993,10 @@ msgid ""
 "thumbnails. This window includes a small preview image. This option "
 "configures the image size.</p>"
 msgstr ""
-"<p>Se escolle <b>Configuración -&gt; Amosar suxestións</b> na vista de "
-"miniaturas, verá unha xaneliña con axudas que amosan información sobre as "
-"miniaturas. Esta xaneliña inclúe unha pequena vista previa da imaxe. Esta "
-"opción configura o tamaño da imaxe</p>"
+"<p>Se escolle <b>Configuración → Amosar suxestións</b> na vista de "
+"miniaturas, verá unha xanela emerxente con axudas que amosan información "
+"sobre as miniaturas. Esta xaneliña inclúe unha pequena vista previa da "
+"imaxe. Esta opción configura o tamaño da imaxe</p>"
 
 #: Settings/ThumbnailsPage.cpp:104
 #, kde-format
@@ -6683,7 +6684,7 @@ msgstr ""
 #, kde-format
 msgid "Failed to set up video playback (widget wasn't created)"
 msgstr ""
-"Non foi posíbel configurar a reprodución de vídeo (non se creou o elemento)"
+"Non foi posíbel configurar a reprodución de vídeo (non se creou o trebello)"
 
 #: Viewer/SelectCategoryAndValue.cpp:107
 #, kde-format
@@ -7272,7 +7273,7 @@ msgstr "Amosar"
 #: Viewer/VisibleOptionsMenu.cpp:28
 #, kde-format
 msgid "Show Info Box"
-msgstr "Amosar a xanela de informacións"
+msgstr "Amosar a caixa de información"
 
 #: Viewer/VisibleOptionsMenu.cpp:35
 #, kde-format

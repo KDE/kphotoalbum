@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-11 00:39+0000\n"
-"PO-Revision-Date: 2024-12-11 20:31+0100\n"
+"PO-Revision-Date: 2024-12-13 22:52+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -2376,6 +2376,7 @@ msgstr ""
 "<p>Produciuse un erro ao extraer as miniaturas do vídeo.<br/>O erro foi o "
 "seguinte: %1</p>"
 
+# skip-rule: trasno-sound_reverse
 #: ImageManager/ExtractOneVideoFrame.cpp:137
 #, kde-format
 msgid ""
@@ -5486,7 +5487,7 @@ msgstr ""
 "usarase automaticamente o número de núcleos menos 1, polo menos 1, e non "
 "máis de 3. Se ten un almacenamento rápido e un procesador con moitos "
 "núcleos, pode que aumentar este valor mellore o rendemento.</"
-"p><p>KPhotoAlbum debe reiniciarse para que isto xurda efecto.</p>"
+"p><p>KPhotoAlbum debe reiniciarse para que os cambios xurdan efecto.</p>"
 
 #: Settings/GeneralPage.cpp:29
 #, kde-format
@@ -5952,10 +5953,10 @@ msgid ""
 "thumbnails. This window includes a small preview image. This option "
 "configures the image size.</p>"
 msgstr ""
-"<p>Se escolle <b>Configuración -&gt; Amosar suxestións</b> na vista de "
-"miniaturas, verá unha xaneliña con axudas que amosan información sobre as "
-"miniaturas. Esta xaneliña inclúe unha pequena vista previa da imaxe. Esta "
-"opción configura o tamaño da imaxe</p>"
+"<p>Se escolle <b>Configuración → Amosar suxestións</b> na vista de "
+"miniaturas, verá unha xanela emerxente con axudas que amosan información "
+"sobre as miniaturas. Esta xaneliña inclúe unha pequena vista previa da "
+"imaxe. Esta opción configura o tamaño da imaxe</p>"
 
 #: Settings/ThumbnailsPage.cpp:104
 #, kde-format
@@ -6355,7 +6356,7 @@ msgid ""
 "<p>Could not locate the demo database in any of the following standard "
 "locations:</p><p>%1</p>"
 msgstr ""
-"<p>Non foi posíbel localizar a base de datos de demostración en ningunha das "
+"<p>Non foi posíbel atopar a base de datos de demostración en ningunha das "
 "seguintes localizacións estándar:</p><p>%1</p>"
 
 #: Utilities/DescriptionUtil.cpp:54
@@ -7216,7 +7217,7 @@ msgstr "Amosar"
 #: Viewer/VisibleOptionsMenu.cpp:31
 #, kde-format
 msgid "Show Info Box"
-msgstr "Amosar a xanela de informacións"
+msgstr "Amosar a caixa de información"
 
 #: Viewer/VisibleOptionsMenu.cpp:38
 #, kde-format

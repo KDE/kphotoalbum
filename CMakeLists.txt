@@ -63,7 +63,7 @@ add_definitions(
 
 ########### dependencies  ###############
 
-find_package(Qt6 ${MINIMUM_QT6_VERSION} REQUIRED COMPONENTS Core Sql Xml Widgets Test)
+find_package(Qt6 ${MINIMUM_QT6_VERSION} REQUIRED COMPONENTS Core Sql Xml Widgets DBus Test)
 find_package(Phonon4Qt6)
 find_package(LIBVLC)
 find_package(KF6 ${MINIMUM_KF6_VERSION} REQUIRED COMPONENTS Archive Completion Config CoreAddons I18n IconThemes JobWidgets KIO TextWidgets XmlGui WidgetsAddons)
@@ -727,6 +727,11 @@ target_include_directories(kphotoalbum PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 # External components
 target_link_libraries(kphotoalbum
     PRIVATE
+    Qt6::Core
+    Qt6::Sql
+    Qt6::Xml
+    Qt6::Widgets
+    Qt6::DBus
     KPA::Base
     KPA::Thumbnails
     KPA::Exif

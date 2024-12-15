@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-11 00:39+0000\n"
-"PO-Revision-Date: 2024-12-13 20:20+0530\n"
+"PO-Revision-Date: 2024-12-14 01:42+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -22,12 +22,12 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "भवतः नामानि"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "भवतः ईमेलपत्राणि"
 
 #: AnnotationDialog/AreaTagSelectDialog.cpp:87
 #, kde-format
@@ -83,6 +83,10 @@ msgid ""
 "KPhotoAlbum...|General</interface>, a description embedded in the image Exif "
 "information is imported to this field if available.</para>"
 msgstr ""
+"<para>प्रतिबिम्बस्य वर्णनात्मकः पाठः ।</para><para>यदि <emphasis>Use Exif "
+"description</emphasis> <interface>Settings|Configure KPhotoAlbum...|General</"
+"interface> इत्यस्य अधः सक्षमः अस्ति, तर्हि वर्णनम् चित्रे embedded Exif सूचना उपलब्धा "
+"चेत् अस्मिन् क्षेत्रे आयातिता भवति ।</para>"
 
 #: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:400
 #, kde-format
@@ -101,6 +105,8 @@ msgid ""
 "The map widget allows you to view the location of images if GPS coordinates "
 "are found in the Exif information."
 msgstr ""
+"नक्शाविजेट् भवन्तं चित्राणां स्थानं द्रष्टुं शक्नोति यदि Exif सूचनायां GPS निर्देशांकाः प्राप्यन्ते "
+"।"
 
 #: AnnotationDialog/Dialog.cpp:230
 #, kde-format
@@ -131,7 +137,7 @@ msgstr "Continue &Later इति"
 #, kde-format
 msgctxt "@action:button"
 msgid "&Search"
-msgstr ""
+msgstr "&अन्वेषण"
 
 #: AnnotationDialog/Dialog.cpp:326
 #, kde-format
@@ -169,6 +175,12 @@ msgid ""
 "the photo comes from an analog camera), then you should set <interface>Use "
 "Fuzzy Date</interface>.</para>"
 msgstr ""
+"<para>KPhotoAlbum इत्यस्मिन् चित्रेषु सटीकतिथिः समयः च भवितुम् अर्हति, अथवा "
+"<emphasis>fuzzy</emphasis> तिथिः भवितुम् अर्हति या निर्दिष्टसमयान्तरे कदापि घटिता "
+"डिजिटलकैमरेण निर्मितानाम् चित्राणां सामान्यतया सटीकतिथिः भवति एव ।</para><para>यदि "
+"भवान् सम्यक् न जानाति यत् कदा फोटो गृहीतः (उदा. यदि फोटो एनालॉग् कॅमेरातः आगतः), "
+"तर्हि भवान् <interface> सेट् कर्तव्यः Fuzzy Date</interface> इत्यस्य उपयोगं कुर्वन्तु ।</"
+"para>"
 
 #: AnnotationDialog/Dialog.cpp:378
 #, kde-format
@@ -229,13 +241,13 @@ msgstr "केवलं RAW सञ्चिकाः अन्वेष्टु
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
-msgstr ""
+msgstr "टिप्पणी (%1/%2) २."
 
 #: AnnotationDialog/Dialog.cpp:838
 #, kde-format
 msgctxt "@title:window title of the 'find images' window"
 msgid "Search"
-msgstr ""
+msgstr "अन्वेषण"
 
 #: AnnotationDialog/Dialog.cpp:841
 #, kde-format
@@ -246,7 +258,7 @@ msgstr "कृतम्‌"
 #, kde-format
 msgctxt "@title:window"
 msgid "Annotations"
-msgstr ""
+msgstr "टिप्पणी"
 
 #: AnnotationDialog/Dialog.cpp:880
 #, kde-format
@@ -323,7 +335,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr ""
+msgstr "परिवर्तनं परित्यजन्तु ?"
 
 #: AnnotationDialog/Dialog.cpp:1126
 #, kde-format
@@ -447,6 +459,8 @@ msgid ""
 "<para>Set the same tags on this image than on the previous one. The image "
 "date, label, rating, and description are left unchanged.</para>"
 msgstr ""
+"<para>पूर्वस्य अपेक्षया अस्मिन् चित्रे समानानि टैग्स् सेट् कुर्वन्तु । चित्रतिथिः, लेबलं, रेटिंग्, "
+"विवरणं च अपरिवर्तितं त्यक्तम् अस्ति ।</para>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:110
 #, kde-format
@@ -457,7 +471,7 @@ msgstr "नूतनक्षेत्राणां कृते श्रे�
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Hide or show areas on the image"
-msgstr ""
+msgstr "चित्रे क्षेत्राणि गोपयन्तु अथवा दर्शयन्तु"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:320
 #, kde-format
@@ -467,18 +481,21 @@ msgid ""
 "category in <interface>Settings|Configure KPhotoAlbum...|Categories</"
 "interface>, you can associate specific image areas with tags."
 msgstr ""
+"यदि भवान् <emphasis>positionable tags</emphasis> <interface>Settings|"
+"Configure KPhotoAlbum...|Categories</interface> इत्यस्मिन् न्यूनातिन्यूनं एकस्य वर्गस्य "
+"कृते सक्षमं करोति तर्हि भवान् विशिष्टानि चित्रक्षेत्राणि टैग् इत्यनेन सह सम्बद्धं कर्तुं शक्नोति ।"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:325
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
-msgstr ""
+msgstr "चित्रे क्षेत्राणि केवलं एकप्रतिबिम्ब-टिप्पणी-विधाने एव दर्शयितुं शक्यन्ते ।"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:355
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Toggle full-screen preview"
-msgstr ""
+msgstr "पूर्ण-पर्दे पूर्वावलोकनं टॉगल कुर्वन्तु"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:356
 #, kde-format
@@ -496,19 +513,19 @@ msgstr "घण्टायाः दिशि परिभ्रमन्तु"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Copy tags from previously tagged image"
-msgstr ""
+msgstr "पूर्वं टैग् कृतस्य चित्रात् टैग् प्रतिलिपिं कुर्वन्तु"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:359
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Delete image"
-msgstr ""
+msgstr "चित्रं विलोपयन्तु"
 
 #: AnnotationDialog/ListSelect.cpp:72
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr ""
+msgstr "एकं टैगं प्रविशतु ..."
 
 #: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:342
 #, kde-format
@@ -625,7 +642,7 @@ msgstr "वास्तवम् %1 विलोपयतु?"
 #, kde-format
 msgctxt "@title"
 msgid "Rename Item"
-msgstr ""
+msgstr "Item इत्यस्य नामकरणं कुर्वन्तु"
 
 #: AnnotationDialog/ListSelect.cpp:463
 #, kde-format
@@ -646,7 +663,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr ""
+msgstr "%1 इत्यस्य नाम परिवर्तनं कुर्वन्तु?"
 
 #: AnnotationDialog/ListSelect.cpp:477
 #, kde-format
@@ -680,19 +697,19 @@ msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
 "'People (1-2)'"
 msgid "%1 (%2-%3)"
-msgstr ""
+msgstr "%1 (%2-%3) २."
 
 #: AnnotationDialog/ListSelect.cpp:789
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2) २."
 
 #: AnnotationDialog/ResizableFrame.cpp:56
 #, kde-format
 msgctxt "area of an image; rectangle that is overlayed upon the image"
 msgid "Remove area"
-msgstr ""
+msgstr "क्षेत्रं निष्कासयन्तु"
 
 #: AnnotationDialog/ResizableFrame.cpp:312
 #, kde-format
@@ -700,13 +717,13 @@ msgctxt ""
 "%1 is a prefix like 'Associate with', %2 is the tag name and %3 is the tag's "
 "category"
 msgid "%1 %2 (%3)"
-msgstr ""
+msgstr "%1 %2 (%3) २."
 
 #: AnnotationDialog/ResizableFrame.cpp:316
 #, kde-format
 msgctxt "%1 is the tag name and %2 is the tag's category"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2) २."
 
 #: AnnotationDialog/ResizableFrame.cpp:357
 #, kde-format
@@ -727,7 +744,7 @@ msgstr "विद्यमानं क्षेत्रं प्रतिस�
 msgctxt ""
 "As in: remove tag %1 in category %2 [from this marked area of the image]"
 msgid "Remove tag %1 (%2)"
-msgstr ""
+msgstr "%1 (%2) टैगं निष्कासयन्तु ।"
 
 #: AnnotationDialog/ResizableFrame.cpp:472
 #, kde-format
@@ -777,7 +794,7 @@ msgstr "न आरब्धम्"
 #, kde-format
 msgctxt "@title:column Background job id"
 msgid "ID"
-msgstr ""
+msgstr "आईडी"
 
 #: BackgroundTaskManager/JobModel.cpp:95
 #, kde-format
@@ -789,19 +806,19 @@ msgstr "शीर्षक"
 #, kde-format
 msgctxt "@title:column Additional information on background job"
 msgid "Details"
-msgstr ""
+msgstr "वर्णन"
 
 #: BackgroundTaskManager/JobModel.cpp:99
 #, kde-format
 msgctxt "@title:column Elapsed time"
 msgid "Elapsed"
-msgstr ""
+msgstr "व्यतीतः"
 
 #: BackgroundTaskManager/JobViewer.cpp:21
 #, kde-format
 msgctxt "@title:window"
 msgid "Background Job Viewer"
-msgstr ""
+msgstr "पृष्ठभूमि नौकरी दर्शक"
 
 #: BackgroundTaskManager/JobViewer.cpp:30
 #: BackgroundTaskManager/JobViewer.cpp:65
@@ -836,29 +853,29 @@ msgstr ""
 #, kde-format
 msgctxt "As in No persons, no locations etc."
 msgid "None"
-msgstr ""
+msgstr "न कश्चित्"
 
 #: Browser/AbstractCategoryModel.cpp:44
 #, kde-format
 msgctxt "As in no other persons, or no other locations. "
 msgid "No other"
-msgstr ""
+msgstr "न अन्यः"
 
 #: Browser/AbstractCategoryModel.cpp:94
 #, kde-format
 msgctxt "@item:intable number of images with a specific tag."
 msgid "1 image"
 msgid_plural "%1 images"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "१ बिम्बम्"
+msgstr[1] "%1 चित्राणि"
 
 #: Browser/AbstractCategoryModel.cpp:96
 #, kde-format
 msgctxt "@item:intable number of videos with a specific tag."
 msgid "1 video"
 msgid_plural "%1 videos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "१ विडियो"
+msgstr[1] "%1 विडियो"
 
 #: Browser/AbstractCategoryModel.cpp:166
 #, kde-format
@@ -884,7 +901,7 @@ msgstr "समाप्तितिथि"
 #, kde-format
 msgctxt "As in 'all pictures'."
 msgid "All"
-msgstr ""
+msgstr "सर्वे"
 
 #: Browser/GeoPositionPage.cpp:53 Browser/OverviewPage.cpp:145
 #, kde-format
@@ -900,7 +917,7 @@ msgstr "Exif Info"
 #, kde-format
 msgctxt "@action Search button in the browser view."
 msgid "Search"
-msgstr ""
+msgstr "अन्वेषण"
 
 #: Browser/OverviewPage.cpp:180 Settings/UntaggedGroupBox.cpp:22
 #, kde-format
@@ -931,7 +948,7 @@ msgstr "Exif अन्वेषणम्"
 #, kde-format
 msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
-msgstr ""
+msgstr "अन्वेषण"
 
 #: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1750
 #, kde-format
@@ -993,7 +1010,21 @@ msgid_plural ""
 "it really your intention to make \"%3\" a tag group and add %2 as members?</"
 "p>"
 msgstr[0] ""
+"<p>भवता अधुना एव अन्यस्मिन् द्रव्यं कर्षितम् । एतेन लक्ष्यवस्तु टैग् समूहः भविष्यति तथा च "
+"कर्षितं द्रव्यम् अस्य समूहस्य सदस्यत्वेन परिभाषितं भविष्यति । &#39;लास वेगास् अमेरिकादेशे "
+"अस्ति&#39; इत्यादीनां तथ्यानां सूचनाय टैग्-समूहानां उपयोगः भवितुं शक्नोति । तस्मिन् उदाहरणे "
+"भवन्तः लास् वेगास् -नगरं USA -नगरं प्रति कर्षन्ति स्म । यदा भवान् टैग्-समूहान् स्थापयति तदा "
+"भवान्, उदाहरणार्थं, केवलं ब्राउजर्-मध्ये तत् द्रव्यं चित्वा USA-देशस्य सर्वाणि चित्राणि द्रष्टुं "
+"शक्नोति ।</p><p> किं वास्तवमेव भवतः अभिप्रायः आसीत् यत् &quot;%3&quot; इत्येतत् टैग् समूहं "
+"कृत्वा &quot;%2&quot; सदस्यत्वेन योजयितुं?</p>"
 msgstr[1] ""
+"<p>भवता अधुना एव केचन वस्तूनि अन्यस्मिन् द्रव्ये कर्षितानि । एतेन लक्ष्यवस्तु टैग् समूहः "
+"भविष्यति तथा च कर्षितवस्तूनि अस्य समूहस्य सदस्यत्वेन परिभाषितानि भविष्यन्ति । &#39;लास "
+"वेगास् न्यूयॉर्क च अमेरिकादेशे सन्ति&#39; इत्यादीनां तथ्यानां सूचनाय टैग्-समूहानां उपयोगः भवितुं "
+"शक्नोति । तस्मिन् उदाहरणे भवान् लासवेगास् न्यूयॉर्कं च USA -नगरं प्रति कर्षति स्म । यदा "
+"भवान् टैग्-समूहान् स्थापयति तदा भवान्, उदाहरणार्थं, केवलं ब्राउजर्-मध्ये तत् द्रव्यं चित्वा USA-"
+"देशस्य सर्वाणि चित्राणि द्रष्टुं शक्नोति ।</p><p> किं वास्तवमेव &quot;%3&quot; इत्येतत् टैग् "
+"समूहं कृत्वा %2 सदस्यत्वेन योजयितुं भवतः अभिप्रायः आसीत्?</p>"
 
 #: CategoryListView/CheckDropItem.cpp:157
 #, kde-format
@@ -1004,7 +1035,7 @@ msgstr "द्रव्यं चालयन्तु"
 #, kde-format
 msgctxt "Accessible name for the date bar widget"
 msgid "Datebar"
-msgstr ""
+msgstr "तिथियोग्यः"
 
 #: DateBar/DateBarWidget.cpp:71
 #, kde-format
@@ -1030,7 +1061,7 @@ msgstr "जूम आउट् कुर्वन्तु"
 #, kde-format
 msgctxt "The button clears the selection of a date range in the date bar."
 msgid "Clear date selection"
-msgstr ""
+msgstr "तिथिचयनं स्वच्छं कुर्वन्तु"
 
 #: DateBar/DateBarWidget.cpp:125
 #, kde-kuit-format
@@ -1042,6 +1073,11 @@ msgid ""
 "selection: Click/drag below the timeline.</item><item>Jump to a date by "
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
+"<title>तिथिपट्टिका</title><para><list><item> बाणबटनं, स्क्रॉलचक्रं, मध्यमूषकबटनं वा "
+"उपयुज्य स्क्रॉलं कुर्वन्तु ।</item><item> +/- बटन् अथवा Ctrl + स्क्रॉलव्हील इत्यस्य उपयोगेन "
+"जूम् कुर्वन्तु ।</item><item> दृश्यं तिथिपरिधिचयनं प्रति प्रतिबन्धयन्तु: समयरेखायाः अधः क्लिक्/"
+"कर्षयन्तु ।</item><item> हिस्टोग्राम-पट्टिकायां क्लिक् कृत्वा तिथिं प्रति कूदन्तु ।</item></"
+"list></para>"
 
 #: DateBar/DateBarWidget.cpp:691
 #, kde-format
@@ -1058,8 +1094,8 @@ msgstr "संकल्प सूचकं दर्शयतु"
 msgctxt "@info:status images that fall in the given date range"
 msgid "1 exact"
 msgid_plural "%1 exact"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "१ सटीकम्"
+msgstr[1] "%1 सटीकम्"
 
 #: DateBar/DateBarWidget.cpp:823
 #, kde-format
@@ -1068,31 +1104,31 @@ msgctxt ""
 "the given date range,"
 msgid " + 1 range"
 msgid_plural " + %1 ranges"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " + १ परिधिः"
+msgstr[1] " + %1 परिधिः"
 
 #: DateBar/DateBarWidget.cpp:824
 #, kde-format
 msgctxt "@info:status total image count"
 msgid " = 1 total"
 msgid_plural " = %1 total"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " = १ कुल"
+msgstr[1] " = %1 कुल"
 
 #: DateBar/DateBarWidget.cpp:826
 #, kde-format
 msgctxt "@info:status image count"
 msgid "%1 image/video"
 msgid_plural "%1 images/videos"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 चित्रम्/वीडियो"
+msgstr[1] "%1 चित्राणि/वीडियो"
 
 #: DateBar/DateBarWidget.cpp:828
 #, kde-format
 msgctxt ""
 "@info:status Time range vs. image count (e.g. 'Jun 2012 | 4 images/videos')."
 msgid "%1 | %2"
-msgstr ""
+msgstr "%1 | %2"
 
 #: DateBar/ViewHandler.cpp:106
 #, kde-format
@@ -1158,73 +1194,73 @@ msgstr "त्रुटिः चित्रं रक्षति"
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jan"
-msgstr ""
+msgstr "जन"
 
 #: DB/ImageDate.cpp:33
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "feb"
-msgstr ""
+msgstr "feb"
 
 #: DB/ImageDate.cpp:34
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "mar"
-msgstr ""
+msgstr "mar"
 
 #: DB/ImageDate.cpp:34
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "apr"
-msgstr ""
+msgstr "अप्र०"
 
 #: DB/ImageDate.cpp:35
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "may"
-msgstr ""
+msgstr "स्यात्‌"
 
 #: DB/ImageDate.cpp:35
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jun"
-msgstr ""
+msgstr "जुन"
 
 #: DB/ImageDate.cpp:36
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "jul"
-msgstr ""
+msgstr "jul"
 
 #: DB/ImageDate.cpp:36
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "aug"
-msgstr ""
+msgstr "aug"
 
 #: DB/ImageDate.cpp:37
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "sep"
-msgstr ""
+msgstr "सेप्"
 
 #: DB/ImageDate.cpp:37
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "oct"
-msgstr ""
+msgstr "oct"
 
 #: DB/ImageDate.cpp:38
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "nov"
-msgstr ""
+msgstr "nov"
 
 #: DB/ImageDate.cpp:38
 #, kde-format
 msgctxt "Abbreviated month name"
 msgid "dec"
-msgstr ""
+msgstr "dec"
 
 #: DB/ImageDB.cpp:64
 #, kde-format
@@ -1270,7 +1306,7 @@ msgstr "KPhotoAlbum - मैनुअल् मरम्मतस्य आव�
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
-msgstr ""
+msgstr ", ९. "
 
 #: DB/NewImageFinder.cpp:487
 #, kde-format
@@ -1287,8 +1323,8 @@ msgstr ""
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<p><b>%1 सञ्चिकायाः कृते चेकसमस्य गणना</b></p>"
+msgstr[1] "<p><b>%1 सञ्चिकानां कृते चेकसमस्य गणना</b></p>"
 
 #: DB/NewImageFinder.cpp:703
 #, kde-format
@@ -1311,7 +1347,7 @@ msgctxt ""
 "problem with this, but I need some how to indicate the category, and users "
 "may create their own categories, so this is the best I can do - Jesper."
 msgid "No %1"
-msgstr ""
+msgstr "न %1"
 
 #: DB/search/ImageSearchInfo.cpp:343
 #, kde-format
@@ -1326,7 +1362,7 @@ msgctxt ""
 "and users may create their own categories, so this is the best I can do - "
 "Jesper."
 msgid "No other %1"
-msgstr ""
+msgstr "न अन्यः %1"
 
 #: DB/XML/FileReader.cpp:57
 #, kde-format
@@ -1385,6 +1421,12 @@ msgid ""
 "p><p>In some cases, you may get two additional empty categories, \"Folder\" "
 "and \"Media Type\". You can delete those.</p>"
 msgstr ""
+"<p><b>KPhotoAlbum इत्यस्य एतत् संस्करणं &quot;मानक&quot; श्रेणीनां अनुवादं न करोति ।</"
+"b></p><p> अस्य अर्थः भवितुम् अर्हति यत् – यदि भवान् आङ्ग्लभाषायाः अतिरिक्तं अन्यं स्थानीयं "
+"उपयुङ्क्ते – तर्हि भवतः केचन वर्गाः इदानीं आङ्ग्लभाषायां प्रदर्शिताः सन्ति ।</p><p> भवान् "
+"कदापि स्ववर्गाणां नामकरणं स्वहस्तेन कर्तुं शक्नोति ततः स्वस्य दत्तांशकोशं रक्षितुं शक्नोति ।</"
+"p><p> केषुचित् सन्दर्भेषु भवन्तः &quot;Folder&quot; &quot;Media Type&quot; इति "
+"अतिरिक्तं रिक्तवर्गद्वयं प्राप्तुं शक्नुवन्ति । तानि भवन्तः लोपयितुं शक्नुवन्ति।</p>"
 
 #: DB/XML/FileReader.cpp:263
 #, kde-format
@@ -1457,24 +1499,26 @@ msgid ""
 "now contain tags that were merged during the repair.</p><p>The following "
 "tags require manual inspection:<ul>"
 msgstr ""
+"<p>भवतः दत्तांशकोशे असङ्गतिः प्राप्ता, मरम्मतं च कृतम् । इदानीं केषुचित् वर्गेषु मरम्मतकाले "
+"विलीनाः टैग्स् सन्ति ।</p><p> निम्नलिखित टैग्स् इत्यस्य हस्तनिरीक्षणस्य आवश्यकता भवति:<ul>"
 
 #: DB/XML/FileReader.cpp:484
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
-msgstr ""
+msgstr "<li>%1: १.<br/>"
 
 #: DB/XML/FileReader.cpp:486
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
-msgstr ""
+msgstr "%1<br/>"
 
 #: DB/XML/FileReader.cpp:489
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
-msgstr ""
+msgstr "</li> इति"
 
 #: DB/XML/FileReader.cpp:494
 #, kde-format
@@ -1483,6 +1527,8 @@ msgid ""
 "</ul></p><p>All affected images have also been marked with a tag "
 "<em>KPhotoAlbum - manual repair needed</em>.</p>"
 msgstr ""
+"</ul></p><p>सर्वाणि प्रभावितानि चित्राणि अपि <em>KPhotoAlbum - manual repair "
+"needed</em> इति टैग् इत्यनेन चिह्नितानि सन्ति |</p>"
 
 #: DB/XML/FileReader.cpp:498
 #, kde-format
@@ -1670,14 +1716,14 @@ msgstr "दत्तांशकोशसञ्चिकां पठन् त�
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Information and file metadata"
-msgstr ""
+msgstr "Exif सूचना तथा सञ्चिका मेटाडाटा"
 
 #: Exif/InfoDialog.cpp:75
 #, kde-format
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
-msgstr ""
+msgstr "लेबल् फ़िल्टर ..."
 
 #: Exif/InfoDialog.cpp:79
 #, kde-format
@@ -1745,28 +1791,28 @@ msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr ""
+msgstr "%1 (%2 ख) २."
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
 #, kde-format
 msgctxt "File permission shortcut for \"reading allowed\""
 msgid "r"
-msgstr ""
+msgstr "र"
 
 #: Exif/MetaDataDisplay.cpp:124 Exif/MetaDataDisplay.cpp:130
 #: Exif/MetaDataDisplay.cpp:136
 #, kde-format
 msgctxt "File permission shortcut for \"writing allowed\""
 msgid "w"
-msgstr ""
+msgstr "इत्यस्मिन्‌"
 
 #: Exif/MetaDataDisplay.cpp:126 Exif/MetaDataDisplay.cpp:132
 #: Exif/MetaDataDisplay.cpp:138
 #, kde-format
 msgctxt "File permission shortcut for \"executing allowed\""
 msgid "x"
-msgstr ""
+msgstr "x"
 
 #: Exif/MetaDataDisplay.cpp:157
 #, kde-format
@@ -1774,13 +1820,13 @@ msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and its octal representation (e.g. \"0644\")"
 msgid "%1 (%2)"
-msgstr ""
+msgstr "%1 (%2) २."
 
 #: Exif/ReReadDialog.cpp:28
 #, kde-format
 msgctxt "@title:window"
 msgid "Read Exif Info from Files"
-msgstr ""
+msgstr "Files तः Exif Info पठन्तु"
 
 #: Exif/ReReadDialog.cpp:35
 #, kde-format
@@ -1851,13 +1897,13 @@ msgstr "फोकल लंबाई"
 #, kde-format
 msgctxt "As in 'A range from x to y'"
 msgid "to"
-msgstr ""
+msgstr "इत्यस्मै"
 
 #: Exif/SearchDialog.cpp:83
 #, kde-format
 msgctxt "This is millimeter for focal length, like 35mm"
 msgid "mm"
-msgstr ""
+msgstr "मि.मी"
 
 #: Exif/SearchDialog.cpp:99
 #, kde-format
@@ -1883,7 +1929,7 @@ msgstr "आइसो सेटिंग्"
 #, kde-format
 msgctxt "Example 1.6 secs (as in seconds)"
 msgid "secs."
-msgstr ""
+msgstr "सेक."
 
 #: Exif/SearchDialog.cpp:178
 #, kde-format
@@ -2013,7 +2059,7 @@ msgstr "दिनाङ्कः"
 #, kde-format
 msgctxt "@title:window"
 msgid "HTML Export"
-msgstr ""
+msgstr "HTML निर्यातः"
 
 #: HTMLGenerator/HTMLDialog.cpp:79 HTMLGenerator/HTMLDialog.cpp:80
 #, kde-format
@@ -2045,13 +2091,13 @@ msgstr ".kim निर्यातसञ्चिकां रचयन्तु
 msgctxt ""
 "Inline as a verb, i.e. 'please show movies right on the page, not as links'"
 msgid "Inline Movies in pages"
-msgstr ""
+msgstr "पृष्ठेषु Inline Movies"
 
 #: HTMLGenerator/HTMLDialog.cpp:121
 #, kde-format
 msgctxt "Tag as in HTML-tag, not as in image tag"
 msgid "Use HTML5 video tag"
-msgstr ""
+msgstr "HTML5 विडियो टैगस्य उपयोगं कुर्वन्तु"
 
 #: HTMLGenerator/HTMLDialog.cpp:130
 #, kde-format
@@ -2214,7 +2260,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr ""
+msgstr "फोल्डर् विद्यते"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:532 MainWindow/SplashScreen.cpp:52
@@ -2239,7 +2285,7 @@ msgctxt ""
 "by itself will work fine on this context if no proper word is available in "
 "your language."
 msgid "by "
-msgstr ""
+msgstr "इत्यनेन "
 
 #: HTMLGenerator/HTMLDialog.cpp:559
 #, kde-format
@@ -2341,7 +2387,7 @@ msgstr "KPhotoAlbum आयात सञ्चिकाः"
 #, kde-format
 msgctxt "@title:window"
 msgid "Export Configuration / Copy Images"
-msgstr ""
+msgstr "विन्यास निर्यातयन्तु / चित्राणि प्रतिलिपयन्तु"
 
 #: ImportExport/Export.cpp:105
 #, kde-format
@@ -2566,7 +2612,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:tab introduction page"
 msgid "Introduction"
-msgstr ""
+msgstr "आमुख"
 
 #: ImportExport/ImportDialog.cpp:156 MainWindow/TokenEditor.cpp:60
 #, kde-format
@@ -2617,14 +2663,14 @@ msgstr "%1 पुटं नास्ति । किं तस्य सृष�
 #, kde-format
 msgctxt "@title"
 msgid "Create folder?"
-msgstr ""
+msgstr "पुटं रचयन्तु?"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1173
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr ""
+msgstr "निर्मियताम्"
 
 #: ImportExport/ImportDialog.cpp:311
 #, kde-format
@@ -2640,7 +2686,7 @@ msgstr "संघर्षस्य समाधानं कथं करणी
 #, kde-format
 msgctxt "@title:window"
 msgid "Copying Images"
-msgstr ""
+msgstr "चित्राणां प्रतिलिपिः"
 
 #: ImportExport/ImportHandler.cpp:170
 #, kde-format
@@ -2661,13 +2707,13 @@ msgstr "निम्नलिखितस्थानेषु कस्मा�
 #, kde-format
 msgctxt "@title"
 msgid "Copy failed"
-msgstr ""
+msgstr "प्रतिलिपिः असफलः अभवत्"
 
 #: ImportExport/ImportHandler.cpp:241
 #, kde-format
 msgctxt "@action:button"
 msgid "Continue without Asking"
-msgstr ""
+msgstr "अपृच्छन् निरन्तरं कुर्वन्तु"
 
 #: ImportExport/ImportMatcher.cpp:37
 #, kde-format
@@ -2742,7 +2788,11 @@ msgid_plural ""
 "%1 images from the import file, have the same MD5 sum as images in the "
 "Database, how should that be resolved?"
 msgstr[0] ""
+"आयातसञ्चिकातः एकं चित्रं, Database मध्ये चित्रस्य समानं MD5 योगं भवति, तस्य समाधानं कथं "
+"कर्तव्यम्?"
 msgstr[1] ""
+"आयातसञ्चिकातः %1 चित्राणि, Database मध्ये चित्राणि इव समानानि MD5 योगाः सन्ति, तस्य "
+"समाधानं कथं कर्तव्यम्?"
 
 #: ImportExport/MD5CheckPage.cpp:55
 #, kde-format
@@ -2776,7 +2826,7 @@ msgstr "दिनाङ्कः समयः च"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Conflicting commandline options: %1 and %2!\n"
-msgstr ""
+msgstr "परस्परविरोधिनः आदेशपङ्क्तिविकल्पाः: %1 तथा %2!\n"
 
 #: kpa-thumbnailtool/main.cpp:44
 #, kde-format
@@ -2867,25 +2917,25 @@ msgstr "हेनर ज़ेलर"
 #, kde-format
 msgctxt "@info:shell"
 msgid "The folder containing the .thumbnail folder."
-msgstr ""
+msgstr ".thumbnail पुटं युक्तं पुटम् ।"
 
 #: kpa-thumbnailtool/main.cpp:71
 #, kde-format
 msgctxt "@info:shell"
 msgid "Print information about thumbnail cache."
-msgstr ""
+msgstr "लघुचित्रसञ्चयस्य विषये सूचनां मुद्रयन्तु ।"
 
 #: kpa-thumbnailtool/main.cpp:73
 #, kde-format
 msgctxt "@info:shell"
 msgid "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3."
-msgstr ""
+msgstr "thumbnailindex इत्येतत् KPhotoAlbum >= 4.3 कृते उपयुक्तं प्रारूपं परिवर्तयन्तु ।"
 
 #: kpa-thumbnailtool/main.cpp:75
 #, kde-format
 msgctxt "@info:shell"
 msgid "Check thumbnail cache for consistency of thumbnail dimensions."
-msgstr ""
+msgstr "लघुचित्रपरिमाणानां स्थिरतायाः कृते लघुचित्रसञ्चयस्य जाँचं कुर्वन्तु ।"
 
 #: kpa-thumbnailtool/main.cpp:77
 #, kde-format
@@ -2894,54 +2944,55 @@ msgid ""
 "Fix inconsistent thumbnails by removing them from the cache (requires --"
 "check-thumbnail-dimensions)."
 msgstr ""
+"असङ्गत लघुचित्रं संग्रहात् निष्कास्य निवारयन्तु ( --check-thumbnail-dimensions आवश्यकम्) ।"
 
 #: kpa-thumbnailtool/main.cpp:79
 #, kde-format
 msgctxt "@info:shell"
 msgid "Remove unreferenced thumbnails from the thumbnail data files."
-msgstr ""
+msgstr "लघुचित्रदत्तांशसञ्चिकाभ्यः असन्दर्भितानि लघुचित्रं निष्कासयन्तु ।"
 
 #: kpa-thumbnailtool/main.cpp:81
 #, kde-format
 msgctxt "@info:shell"
 msgid "Be less verbose."
-msgstr ""
+msgstr "न्यूनवाचकता भवतु।"
 
 #: kpa-thumbnailtool/main.cpp:97
 #, kde-format
 msgctxt "@info:shell"
 msgid "Missing argument!\n"
-msgstr ""
+msgstr "तर्कः गम्यते !\n"
 
 #: kpa-thumbnailtool/main.cpp:102
 #, kde-format
 msgctxt "@info:shell"
 msgid "%1 is not a folder!\n"
-msgstr ""
+msgstr "%1 पुटं नास्ति!\n"
 
 #: kpa-thumbnailtool/main.cpp:116
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail cache folder: %1\n"
-msgstr ""
+msgstr "लघुचित्रसञ्चयपुटम्: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:117
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index file version: %1\n"
-msgstr ""
+msgstr "लघुचित्र अनुक्रमणिका सञ्चिकासंस्करणम्: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:118
 #, kde-format
 msgctxt "@info:shell"
 msgid "Maximum supported thumbnailindex file version: %1\n"
-msgstr ""
+msgstr "अधिकतमं समर्थितं thumbnailindex सञ्चिकासंस्करणम्: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:119
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail storage dimensions: %1 pixels\n"
-msgstr ""
+msgstr "लघुचित्रसञ्चयस्य आयामाः: %1 पिक्सेल्\n"
 
 #: kpa-thumbnailtool/main.cpp:121
 #, kde-format
@@ -2950,38 +3001,39 @@ msgid ""
 "Note: Thumbnail storage dimensions are defined in the configuration file "
 "prior to v5.\n"
 msgstr ""
+"नोट्: v5 इत्यस्मात् पूर्वं विन्याससञ्चिकायां लघुचित्रसञ्चयपरिमाणाः परिभाषिताः सन्ति ।\n"
 
 #: kpa-thumbnailtool/main.cpp:123
 #, kde-format
 msgctxt "@info:shell"
 msgid "Number of thumbnails: %1\n"
-msgstr ""
+msgstr "लघुचित्रसङ्ख्या: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:129
 #, kde-format
 msgctxt "@info:shell"
 msgid "No inconsistencies found.\n"
-msgstr ""
+msgstr "न विसंगतिः प्राप्ता।\n"
 
 #: kpa-thumbnailtool/main.cpp:133
 #, kde-format
 msgctxt "@info:shell This line is printed before a list of file names."
 msgid "The following thumbnails appear to have incorrect sizes:\n"
-msgstr ""
+msgstr "निम्नलिखित लघुचित्रेषु अशुद्ध आकारः दृश्यते ।\n"
 
 #: kpa-thumbnailtool/main.cpp:142
 #, kde-format
 msgctxt "@info:shell"
 msgid "Removed 1 inconsistent thumbnail from the database.\n"
 msgid_plural "Removed %1 inconsistent thumbnails from the database.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "दत्तांशकोशात् १ असङ्गतं लघुचित्रं निष्कासितम् ।\n"
+msgstr[1] "दत्तांशकोशात् %1 असङ्गतलघुचित्रं निष्कासितम् ।\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:20
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not open file `thumbnailindex`!\n"
-msgstr ""
+msgstr "`thumbnailindex` सञ्चिकां उद्घाटयितुं न शक्तवती!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:21
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:27
@@ -2990,37 +3042,37 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index was not changed.\n"
-msgstr ""
+msgstr "लघुचित्रसूचकाङ्कः परिवर्तितः नासीत् ।\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:26
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not open temporary file for writing!\n"
-msgstr ""
+msgstr "लेखनार्थं अस्थायीसञ्चिकां उद्घाटयितुं न शक्तवान्!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:35
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not back up file `thumbnailindex`!\n"
-msgstr ""
+msgstr "`thumbnailindex` सञ्चिकायाः बैकअपं ग्रहीतुं न शक्तवान्!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:40
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not copy temporary thumbnail index file to final location!\n"
-msgstr ""
+msgstr "अस्थायी लघुचित्रसूचकाङ्कसञ्चिकां अन्तिमस्थाने प्रतिलिपिं कर्तुं न शक्तवान्!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:41
 #, kde-format
 msgctxt "@info:shell"
 msgid "Error message was: %1\n"
-msgstr ""
+msgstr "त्रुटिसन्देशः आसीत्: %1\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:55
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
-msgstr ""
+msgstr "लघुचित्र अनुक्रमणिका संस्करण 5 सञ्चिका नास्ति!\n"
 
 #. i18n: ectx: Menu (view)
 #: kphotoalbumui.rc:33
@@ -3251,7 +3303,7 @@ msgstr "पैच् यत् इमेज् गुण संवादे ल�
 #, kde-format
 msgctxt "@title:window"
 msgid "Automatically Stack Images"
-msgstr ""
+msgstr "स्वचालितरूपेण चित्राणि स्तम्भयन्तु"
 
 #: MainWindow/AutoStackImages.cpp:56
 #, kde-format
@@ -3272,13 +3324,13 @@ msgstr "मूलतः शीर्षं यावत्"
 #, kde-format
 msgctxt "Label for a QSpinbox that selects a number of seconds."
 msgid "Stack images created within the following time-frame:"
-msgstr ""
+msgstr "निम्नलिखितसमय-सीमायाः अन्तः निर्मिताः चित्राणि स्तम्भयन्तु ।"
 
 #: MainWindow/AutoStackImages.cpp:87
 #, kde-format
 msgctxt "Unit suffix on a QSpinBox; note the space at the beginning."
 msgid " seconds"
-msgstr ""
+msgstr " सेकण्ड्"
 
 #: MainWindow/AutoStackImages.cpp:90
 #, kde-format
@@ -3316,29 +3368,29 @@ msgstr "श्रेणी प्रतिबिम्बं कुरुत"
 msgctxt "@title:window"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "चित्रं प्रतिलिख्य ..."
+msgstr[1] "चित्राणि प्रतिलिख्य ..."
 
 #: MainWindow/CopyLinkEngine.cpp:42
 #, kde-format
 msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "चित्रं लिङ्क् कुर्वन्तु ..."
+msgstr[1] "चित्राणि लिङ्क् कुर्वन्तु ..."
 
 #: MainWindow/DeleteDialog.cpp:24
 #, kde-format
 msgctxt "@title:window"
 msgid "Removing Items"
-msgstr ""
+msgstr "द्रव्यं निष्कासयन्"
 
 #: MainWindow/DeleteDialog.cpp:64
 #, kde-format
 msgid "Removing 1 item"
 msgid_plural "Removing %1 items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "१ द्रव्यं निष्कासयन्"
+msgstr[1] "%1 वस्तूनि निष्कासयन्"
 
 #: MainWindow/DeleteDialog.cpp:65
 #, kde-format
@@ -3349,28 +3401,32 @@ msgid_plural ""
 "Selected %1 items will be removed from the database.<br/>What do you want to "
 "do with the files on disk?"
 msgstr[0] ""
+"चयनितं द्रव्यं दत्तांशकोशात् निष्कासितम् भविष्यति ।<br/> डिस्क-स्थले सञ्चिकायाः किं कर्तुम् "
+"इच्छसि ?"
 msgstr[1] ""
+"चयनितानि %1 वस्तूनि दत्तांशकोशात् निष्कासितानि भविष्यन्ति ।<br/> डिस्क-स्थैः सञ्चिकाभिः "
+"सह किं कर्तुम् इच्छति ?"
 
 #: MainWindow/DeleteDialog.cpp:71
 #, kde-format
 msgid "Move file to Trash"
 msgid_plural "Move %1 files to Trash"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "सञ्चिकां Trash इत्यत्र स्थानान्तरयन्तु"
+msgstr[1] "%1 सञ्चिकाः Trash मध्ये स्थानान्तरयन्तु"
 
 #: MainWindow/DeleteDialog.cpp:72
 #, kde-format
 msgid "Delete file from disk"
 msgid_plural "Delete %1 files from disk"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "डिस्कतः सञ्चिकां विलोपयन्तु"
+msgstr[1] "डिस्कतः %1 सञ्चिकाः विलोपयन्तु"
 
 #: MainWindow/DeleteDialog.cpp:73
 #, kde-format
 msgid "Only remove the item from database"
 msgid_plural "Only remove %1 items from database"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "केवलं दत्तांशकोशात् द्रव्यं निष्कासयन्तु"
+msgstr[1] "केवलं %1 वस्तूनि दत्तांशकोशात् निष्कासयन्तु"
 
 #: MainWindow/DuplicateMerger/DuplicateMatch.cpp:46
 #, kde-format
@@ -3386,7 +3442,7 @@ msgstr "स्थापयितुं चित्रं चिनोतु:"
 #, kde-format
 msgctxt "i for info"
 msgid "i"
-msgstr ""
+msgstr "अहम्‌"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:44
 #, kde-format
@@ -3469,7 +3525,7 @@ msgstr "बाह्य कार्यक्रम आह्वान करे
 #, kde-format
 msgctxt "@title:window"
 msgid "Feature Status"
-msgstr ""
+msgstr "विशेषता स्थिति"
 
 #: MainWindow/FeatureDialog.cpp:44
 #, kde-format
@@ -3607,20 +3663,20 @@ msgstr "विडियो मेटाडाटा समर्थनम्"
 #, kde-format
 msgctxt "Feature available"
 msgid "Yes"
-msgstr ""
+msgstr "आम्‌"
 
 #: MainWindow/FeatureDialog.cpp:181
 #, kde-format
 msgctxt "Feature not available"
 msgid "No"
-msgstr ""
+msgstr "नहि"
 
 #: MainWindow/ImageCounter.cpp:20
 #, kde-format
 msgid "Showing 1 thumbnail"
 msgid_plural "Showing %1 thumbnails"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "१ लघुचित्रं दर्शयति"
+msgstr[1] "%1 लघुचित्रं दर्शयति"
 
 #: MainWindow/ImageCounter.cpp:26
 #, kde-format
@@ -3636,14 +3692,14 @@ msgstr "कुलम् : %1"
 #, kde-format
 msgid "1 match"
 msgid_plural "%1 matches"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "१ मेलः"
+msgstr[1] "%1 मेलति"
 
 #: MainWindow/InvalidDateFinder.cpp:33
 #, kde-format
 msgctxt "@title:window"
 msgid "Search for Images and Videos with Missing Dates"
-msgstr ""
+msgstr "अनुपलब्धतिथियुक्तानि चित्राणि विडियो च अन्वेष्टुम्"
 
 #: MainWindow/InvalidDateFinder.cpp:40
 #, kde-format
@@ -3672,7 +3728,7 @@ msgstr "केवलं आंशिकतिथियुक्तानि च�
 #, kde-format
 msgctxt "@title:window"
 msgid "Image Info"
-msgstr ""
+msgstr "छवि सूचना"
 
 #: MainWindow/InvalidDateFinder.cpp:74
 #, kde-format
@@ -3683,7 +3739,7 @@ msgstr "<h1>अत्र भवन्तः प्रदर्शितवस्
 #, kde-format
 msgctxt "@title:window"
 msgid "Reading File Properties"
-msgstr ""
+msgstr "सञ्चिकागुणानां पठनम्"
 
 #: MainWindow/Options.cpp:25
 #, kde-format
@@ -3770,7 +3826,7 @@ msgctxt ""
 "As in 'Execute a command and replace any occurrence of %all with the "
 "filenames of all selected files'"
 msgid "%all"
-msgstr ""
+msgstr "%सर्वे"
 
 #: MainWindow/RunDialog.cpp:77
 #, no-c-format, kde-format
@@ -3778,19 +3834,19 @@ msgctxt ""
 "As in 'Execute a command for each selected file in turn and replace any "
 "occurrence of %each with the filename "
 msgid "%each"
-msgstr ""
+msgstr "%एकैकम्‌"
 
 #: MainWindow/SearchBar.cpp:20
 #, kde-format
 msgctxt "Name/title of the search bar toolbar widget"
 msgid "Search Bar"
-msgstr ""
+msgstr "अन्वेषणपट्टिका"
 
 #: MainWindow/SearchBar.cpp:25
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Search ..."
-msgstr ""
+msgstr "अन्वेषण ..."
 
 #: MainWindow/StatisticsDialog.cpp:35
 #, kde-format
@@ -3869,13 +3925,13 @@ msgstr "सूचकपत्त्र:"
 #, kde-format
 msgctxt "@item:inlistbox meaning 'no category'"
 msgid "None"
-msgstr ""
+msgstr "न कश्चित्"
 
 #: MainWindow/StatisticsDialog.cpp:167
 #, kde-format
 msgctxt "As in 'all images'"
 msgid "All"
-msgstr ""
+msgstr "सर्वे"
 
 #: MainWindow/StatisticsDialog.cpp:213
 #, kde-format
@@ -3891,7 +3947,7 @@ msgstr "लघुचित्र सेटिंग्स्..."
 #, kde-format
 msgctxt "@title:window"
 msgid "Remove Tokens"
-msgstr ""
+msgstr "टोकन निष्कासित करें"
 
 #: MainWindow/TokenEditor.cpp:42
 #, kde-format
@@ -4029,7 +4085,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
-msgstr ""
+msgstr "Demo Database विलोपयन्तु"
 
 #: MainWindow/Window.cpp:322
 #, kde-format
@@ -4040,7 +4096,7 @@ msgstr "परिवर्तनं रक्षितुम् इच्छत�
 #, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
-msgstr ""
+msgstr "परिवर्तनं रक्षतु?"
 
 #: MainWindow/Window.cpp:374
 #, kde-format
@@ -4055,7 +4111,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
-msgstr ""
+msgstr "स्टैकिंग समस्या"
 
 #: MainWindow/Window.cpp:387
 #, kde-format
@@ -4123,7 +4179,7 @@ msgstr "चित्राणि निर्यातयन्तु/प्र�
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
-msgstr ""
+msgstr "चयनितं विलोपयतु"
 
 #: MainWindow/Window.cpp:790
 #, kde-format
@@ -4374,15 +4430,15 @@ msgstr "पूर्वस्य विडियो लघुचित्रस�
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "चित्रं प्रतिलिख्य ..."
+msgstr[1] "चित्राणि प्रतिलिख्य ..."
 
 #: MainWindow/Window.cpp:1037 MainWindow/Window.cpp:1272
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "चित्रं लिङ्क् कुर्वन्तु ..."
+msgstr[1] "चित्राणि लिङ्क् कुर्वन्तु ..."
 
 #: MainWindow/Window.cpp:1061
 #, kde-format
@@ -4403,7 +4459,7 @@ msgstr "<p>किं भवान् एतां दत्तांशकोश
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
-msgstr ""
+msgstr "दत्तांशकोशं रचयन्तु"
 
 #: MainWindow/Window.cpp:1213
 #, kde-format
@@ -4431,7 +4487,7 @@ msgstr "दर्शक"
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr ""
+msgstr "तिथि बार"
 
 #: MainWindow/Window.cpp:1344
 #, kde-format
@@ -4456,7 +4512,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
-msgstr ""
+msgstr "गुप्तसंवादं पुनः सेट् कुर्वन्तु"
 
 #: MainWindow/Window.cpp:1517
 #, kde-format
@@ -4528,7 +4584,7 @@ msgstr "सर्वेभ्यः चित्रेभ्यः Exif सू�
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
-msgstr ""
+msgstr "लघुचित्रविस्तारः %1px (भण्डारणस्य आकारः %2px)"
 
 #: MainWindow/Window.cpp:1854
 #, kde-format
@@ -4570,21 +4626,21 @@ msgstr "लघुचित्रं दर्शयतु"
 #, kde-format
 msgctxt "@action to group, as in aggregate thumbnails into clusters"
 msgid "Group adjacent thumbnails into clickable clusters"
-msgstr ""
+msgstr "समीपस्थं लघुचित्रं क्लिक् कर्तुं योग्येषु समूहेषु समूहयन्तु"
 
 #: Map/MapView.cpp:203
 #, kde-format
 msgctxt ""
 "@action Decrease size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Decrease marker size"
-msgstr ""
+msgstr "मार्करस्य आकारं न्यूनीकरोतु"
 
 #: Map/MapView.cpp:210
 #, kde-format
 msgctxt ""
 "@action Increase size of the markers (i.e. thumbnails) drawn on the map"
 msgid "Increase marker size"
-msgstr ""
+msgstr "मार्करस्य आकारं वर्धयन्तु"
 
 #: Map/MapView.cpp:360
 #, kde-format
@@ -4679,7 +4735,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textedit"
 msgid "Filter ... (%1)"
-msgstr ""
+msgstr "फ़िल्टर ... (%1) ."
 
 #: Settings/BirthdayPage.cpp:93
 #, kde-format
@@ -5169,7 +5225,7 @@ msgctxt ""
 "Configure the feature to make a copy of a file first and then open the "
 "copied file with an external application"
 msgid "Copy File and Open with an External Application"
-msgstr ""
+msgstr "File प्रतिलिख्य बाह्य अनुप्रयोगेन उद्घाटयन्तु"
 
 #: Settings/FileVersionDetectionPage.cpp:155
 #, kde-format
@@ -5335,19 +5391,19 @@ msgstr "विश्वासप्रतिबिम्बतिथिः : १
 #, kde-format
 msgctxt "As in 'always trust image dates'"
 msgid "Always"
-msgstr ""
+msgstr "सर्वदा"
 
 #: Settings/GeneralPage.cpp:40
 #, kde-format
 msgctxt "As in 'ask whether to trust image dates'"
 msgid "Ask"
-msgstr ""
+msgstr "पृच्छतु"
 
 #: Settings/GeneralPage.cpp:41
 #, kde-format
 msgctxt "As in 'never trust image dates'"
 msgid "Never"
-msgstr ""
+msgstr "कदापि न"
 
 #: Settings/GeneralPage.cpp:48
 #, kde-format
@@ -5519,13 +5575,13 @@ msgstr "सेटिंग्स्"
 #, kde-format
 msgctxt "@label"
 msgid "Categories and groups:"
-msgstr ""
+msgstr "श्रेणयः समूहाः च : १."
 
 #: Settings/TagGroupsPage.cpp:46
 #, kde-format
 msgctxt "@label/rich"
 msgid "<strong>Select a group on the left side to add tags to it</strong>"
-msgstr ""
+msgstr "<strong>तस्मिन् टैग् योजयितुं वामभागे एकं समूहं चिनोतु</strong>"
 
 #: Settings/TagGroupsPage.cpp:57
 #, kde-format
@@ -5534,66 +5590,68 @@ msgid ""
 "<strong>There are pending changes on the categories page.<nl> Please save "
 "the changes before working on tag groups.</strong>"
 msgstr ""
+"<strong>श्रेणीपृष्ठे लम्बितपरिवर्तनानि सन्ति ।</strong><nl> <strong>कृपया टैग् समूहेषु "
+"कार्यं कर्तुं पूर्वं परिवर्तनं रक्षन्तु ।</strong>"
 
 #: Settings/TagGroupsPage.cpp:66
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add group ..."
-msgstr ""
+msgstr "समूहं योजयन्तु ..."
 
 #: Settings/TagGroupsPage.cpp:229
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename group \"%1\""
-msgstr ""
+msgstr "समूहस्य नाम परिवर्तनं \"%1\" ।"
 
 #: Settings/TagGroupsPage.cpp:231
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete group \"%1\""
-msgstr ""
+msgstr "\"%1\" इति समूहं विलोपयतु।"
 
 #: Settings/TagGroupsPage.cpp:310
 #, kde-format
 msgctxt "@label"
 msgid "Tags in group \"%1\" of category \"%2\""
-msgstr ""
+msgstr "\"%2\" श्रेणीयाः \"%1\" समूहे टैग्स्।"
 
 #: Settings/TagGroupsPage.cpp:341
 #, kde-format
 msgctxt "@title:window"
 msgid "New Group"
-msgstr ""
+msgstr "नवीन समूह"
 
 #: Settings/TagGroupsPage.cpp:342
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Group name:"
-msgstr ""
+msgstr "समूहनाम : १."
 
 #: Settings/TagGroupsPage.cpp:357
 #, kde-format
 msgctxt "@info"
 msgid "<p>The group \"%1\" already exists.</p>"
-msgstr ""
+msgstr "<p>&quot;%1&quot; इति समूहः पूर्वमेव अस्ति ।</p>"
 
 #: Settings/TagGroupsPage.cpp:358
 #, kde-format
 msgctxt "@title:window"
 msgid "Cannot add group"
-msgstr ""
+msgstr "समूहं योजयितुं न शक्यते"
 
 #: Settings/TagGroupsPage.cpp:435 Settings/TagGroupsPage.cpp:454
 #, kde-format
 msgctxt "@title:window"
 msgid "Rename Group"
-msgstr ""
+msgstr "समूहस्य नाम परिवर्तनं कुर्वन्तु"
 
 #: Settings/TagGroupsPage.cpp:436
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New group name:"
-msgstr ""
+msgstr "नवीनं समूहनाम : १."
 
 #: Settings/TagGroupsPage.cpp:449
 #, kde-kuit-format
@@ -5602,6 +5660,8 @@ msgid ""
 "<para>Cannot rename group \"%1\" to \"%2\": \"%2\" already exists in "
 "category \"%3\"</para>"
 msgstr ""
+"<para>\"%1\" समूहस्य नाम \"%2\" इति परिवर्तयितुं न शक्यते: \"%2\" \"%3\" श्रेण्यां "
+"पूर्वमेव अस्ति</para>"
 
 #: Settings/TagGroupsPage.cpp:510
 #, kde-kuit-format
@@ -5611,18 +5671,21 @@ msgid ""
 "will be moved to the super category of \"%1\" (\"%2\").<nl/> All other "
 "memberships of the sub-categories will stay intact.</para>"
 msgstr ""
+"<para>वास्तवतः \"%1\" समूहं विलोपयतु?</para><para>अस्य समूहस्य उपवर्गाः "
+"\"%1\" (\"%2\") इत्यस्य सुपरवर्गे स्थानान्तरिताः भविष्यन्ति।<nl/> अन्ये सर्वे सदस्यताः "
+"उपवर्गाणां अक्षुण्णं तिष्ठति।</para>"
 
 #: Settings/TagGroupsPage.cpp:516
 #, kde-kuit-format
 msgctxt "@info"
 msgid "<para>Really delete group \"%1\"?</para>"
-msgstr ""
+msgstr "<para>वास्तवमेव \"%1\" इति समूहं विलोपयतु?</para>"
 
 #: Settings/TagGroupsPage.cpp:521
 #, kde-format
 msgctxt "@title:window"
 msgid "Delete Group"
-msgstr ""
+msgstr "समूहं विलोपयन्तु"
 
 #: Settings/TagGroupsPage.cpp:522 Settings/TagGroupsPage.cpp:769
 #, kde-format
@@ -5633,25 +5696,25 @@ msgstr "&लुप्"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename \"%1\""
-msgstr ""
+msgstr "\"%1\" इति पुनर्नाम ।"
 
 #: Settings/TagGroupsPage.cpp:702
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete \"%1\""
-msgstr ""
+msgstr "\"%1\" विलोपयतु।"
 
 #: Settings/TagGroupsPage.cpp:713
 #, kde-format
 msgctxt "@title:window"
 msgid "New Tag Name"
-msgstr ""
+msgstr "नवीन टैग नाम"
 
 #: Settings/TagGroupsPage.cpp:714
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Tag name:"
-msgstr ""
+msgstr "टैग नाम : १."
 
 #: Settings/TagGroupsPage.cpp:764
 #, kde-kuit-format
@@ -5661,12 +5724,14 @@ msgid ""
 "will remove any information about it from any image containing the item.</"
 "para>"
 msgstr ""
+"<para>किं भवान् वास्तवमेव \"%1\" विलोपयितुम् इच्छति?</para><para>वस्तुं विलोपनेन द्रव्यं "
+"विद्यमानस्य कस्यापि चित्रस्य तस्य विषये किमपि सूचना अपास्यति ।</para>"
 
 #: Settings/TagGroupsPage.cpp:768
 #, kde-format
 msgctxt "@title:window"
 msgid "Really delete %1?"
-msgstr ""
+msgstr "वास्तवम् %1 विलोपयतु?"
 
 #: Settings/ThumbnailsPage.cpp:28
 #, kde-format
@@ -5757,7 +5822,7 @@ msgstr "स्वचालितलघुचित्रदृश्यस्य
 #, kde-format
 msgctxt "Describing: 'ThumbnailView will not be automatically shown'"
 msgid "Disabled"
-msgstr ""
+msgstr "अक्षमित"
 
 #: Settings/ThumbnailsPage.cpp:98
 #, kde-format
@@ -5945,25 +6010,25 @@ msgstr ""
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
-msgstr ""
+msgstr "अविन्यस्तं विडियो पृष्ठभागः"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:144
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Phonon video backend"
-msgstr ""
+msgstr "Phonon विडियो पृष्ठभाग"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:146
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "QtAV video backend"
-msgstr ""
+msgstr "QtAV विडियो बैकएंड"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:148
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "VLC video backend"
-msgstr ""
+msgstr "VLC विडियो पृष्ठभाग"
 
 #: Settings/ViewerPage.cpp:25
 #, kde-format
@@ -6080,20 +6145,20 @@ msgctxt ""
 "No video length could be determined, so we just display 'video' instead of "
 "the video length."
 msgid "video"
-msgstr ""
+msgstr "विडिओ"
 
 #: ThumbnailView/FilterWidget.cpp:16
 #, kde-format
 msgctxt "Name/title of the filter toolbar widget"
 msgid "Filter Toolbar"
-msgstr ""
+msgstr "फ़िल्टर टूलबार"
 
 #: ThumbnailView/FilterWidget.cpp:22
 #, kde-format
 msgctxt ""
 "The action enables/disables filtering of images in the thumbnail view."
 msgid "Toggle filter"
-msgstr ""
+msgstr "टॉगल फ़िल्टर"
 
 #: ThumbnailView/FilterWidget.cpp:24
 #, kde-kuit-format
@@ -6104,14 +6169,14 @@ msgstr "फ़िल्टर स्वच्छं कर्तुं <shortcut
 #, kde-format
 msgid "Filter view by rating: %1 star"
 msgid_plural "Filter view by rating: %1 stars"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "रेटिंग् द्वारा दृश्यं छानन्तु: %1 तारा"
+msgstr[1] "रेटिंग् द्वारा दृश्यं छानन्तु: %1 तारा"
 
 #: ThumbnailView/FilterWidget.cpp:61
 #, kde-format
 msgctxt "The label gives a textual description of the active filter"
 msgid "Filter: %1"
-msgstr ""
+msgstr "फ़िल्टर: %1"
 
 #: ThumbnailView/FilterWidget.cpp:84
 #, kde-kuit-format
@@ -6141,7 +6206,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Reorder Thumbnails"
-msgstr ""
+msgstr "लघुचित्र पुनः क्रमबद्ध करें"
 
 #: Utilities/DeleteFiles.cpp:37
 #, kde-format
@@ -6181,31 +6246,31 @@ msgstr "<b>दिनाङ्कः:</b> "
 #, kde-format
 msgctxt "width x height"
 msgid "%1x%2"
-msgstr ""
+msgstr "%1x%2"
 
 #: Utilities/DescriptionUtil.cpp:71
 #, kde-format
 msgctxt "short for: x megapixels"
 msgid " (%1MP)"
-msgstr ""
+msgstr " (%1MP) २."
 
 #: Utilities/DescriptionUtil.cpp:76
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (%1:1)"
-msgstr ""
+msgstr " (%1:१) २."
 
 #: Utilities/DescriptionUtil.cpp:78
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (1:1)"
-msgstr ""
+msgstr " (१:१) २."
 
 #: Utilities/DescriptionUtil.cpp:80
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (1:%1)"
-msgstr ""
+msgstr " (१:%1) २."
 
 #: Utilities/DescriptionUtil.cpp:81
 #, kde-format
@@ -6226,51 +6291,51 @@ msgstr "<b>वर्णनम्‌:</b> "
 #, kde-format
 msgctxt "Like \"up to 6 years\" old"
 msgid " (up to %1)"
-msgstr ""
+msgstr " (%1 पर्यन्तम्) २."
 
 #: Utilities/Timespan.cpp:91
 #, kde-format
 msgctxt "Like \"6 years\" old"
 msgid " (%1)"
-msgstr ""
+msgstr " (%1) ९."
 
 #: Utilities/Timespan.cpp:94
 #, kde-format
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
-msgstr ""
+msgstr " (%1 तः %2 पर्यन्तम्) २."
 
 #: Utilities/Timespan.cpp:103
 #, kde-format
 msgctxt "Like \"The baby is '8 days' old\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 दिवसः"
+msgstr[1] "%1 दिवसाः"
 
 #: Utilities/Timespan.cpp:108
 #, kde-format
 msgctxt "Like \"The baby is '4 months' old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 मासः"
+msgstr[1] "%1 मासाः"
 
 #: Utilities/Timespan.cpp:113
 #, kde-format
 msgctxt "Like \"The person is '28 years' old\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 वर्ष"
+msgstr[1] "%1 वर्षाणि"
 
 #: Utilities/Timespan.cpp:118
 #, kde-format
 msgctxt "Like \"The baby is \"4 months\" old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 मासः"
+msgstr[1] "%1 मासाः"
 
 #: Utilities/Timespan.cpp:121
 #, kde-format
@@ -6278,7 +6343,7 @@ msgctxt ""
 "This combines an age of a person in years (%1) with the additional months "
 "(%2), like \"The person is '1 year and 3 months' old\""
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: Utilities/Timespan.cpp:151
 #, kde-format
@@ -6294,53 +6359,53 @@ msgstr " (ह्यः)"
 #, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
-msgstr ""
+msgstr " (%1 पूर्वम्) २."
 
 #: Utilities/Timespan.cpp:162
 #, kde-format
 msgctxt "Like \"6 to 7 years ago\""
 msgid " (%1 to %2 ago)"
-msgstr ""
+msgstr " (%1 तः %2 पर्यन्तं पूर्वम्)"
 
 #: Utilities/Timespan.cpp:177
 #, kde-format
 msgctxt "Like \"This happened '6 days' ago\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 दिवसः"
+msgstr[1] "%1 दिवसाः"
 
 #: Utilities/Timespan.cpp:184
 #, kde-format
 msgctxt "Like \"This happened '3 weeks' ago\""
 msgid "%1 week"
 msgid_plural "%1 weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 सप्ताहः"
+msgstr[1] "%1 सप्ताहाः"
 
 #: Utilities/Timespan.cpp:189
 #, kde-format
 msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
 msgid "ca. %1 week"
 msgid_plural "ca. %1 weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "तत्‌। %1 सप्ताहः"
+msgstr[1] "ca. %1 सप्ताहाः"
 
 #: Utilities/Timespan.cpp:197 Utilities/Timespan.cpp:236
 #, kde-format
 msgctxt "Like \"This happened '2 months' ago\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 मासः"
+msgstr[1] "%1 मासाः"
 
 #: Utilities/Timespan.cpp:202 Utilities/Timespan.cpp:207
 #, kde-format
 msgctxt "Like \"This happened 'ca. 2 months' ago\""
 msgid "ca. %1 month"
 msgid_plural "ca. %1 months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ca. %1 मासः"
+msgstr[1] "ca. %1 मासाः"
 
 #: Utilities/Timespan.cpp:212 Utilities/Timespan.cpp:231
 #: Utilities/Timespan.cpp:234
@@ -6348,8 +6413,8 @@ msgstr[1] ""
 msgctxt "Like \"This happened '2 years' ago\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%1 वर्ष"
+msgstr[1] "%1 वर्षाणि"
 
 #: Utilities/Timespan.cpp:240
 #, kde-format
@@ -6358,13 +6423,13 @@ msgctxt ""
 "happened 3 years and 1 month\" ago, where the first parameter is the "
 "formatted years string and the second one is the formatted months string"
 msgid "%1 and %2"
-msgstr ""
+msgstr "%1 तथा %2"
 
 #: Viewer/AnnotationHandler.cpp:69
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
-msgstr ""
+msgstr "मैक्रो नियुक्तं कुर्वन्तु"
 
 #: Viewer/AnnotationHandler.cpp:69
 #, kde-format
@@ -6385,7 +6450,7 @@ msgstr "चित्रस्य कृते टैग् चिनोतु"
 #, kde-format
 msgctxt "@title:window"
 msgid "Configure Category Image"
-msgstr ""
+msgstr "श्रेणी चित्रं विन्यस्यताम्"
 
 #: Viewer/CategoryImageConfig.cpp:50
 #, kde-format
@@ -6403,19 +6468,19 @@ msgstr "सूचकपत्त्र:"
 #, kde-format
 msgctxt "@label The current category image"
 msgid "Current image:"
-msgstr ""
+msgstr "वर्तमान चित्रम् : १."
 
 #: Viewer/CategoryImageConfig.cpp:74
 #, kde-format
 msgctxt "@label Preview of the new category imape"
 msgid "New image:"
-msgstr ""
+msgstr "नवीनं चित्रम् : १."
 
 #: Viewer/CategoryImageConfig.cpp:83
 #, kde-format
 msgctxt "@action:button As in 'Set the category image'"
 msgid "Set"
-msgstr ""
+msgstr "दृढः"
 
 #: Viewer/ImageDisplay.cpp:306 Viewer/ImageDisplay.cpp:330
 #: Viewer/ImageDisplay.cpp:391
@@ -6462,7 +6527,7 @@ msgstr "सूचकपत्त्र"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Clear assignment"
-msgstr ""
+msgstr "स्पष्टं नियुक्तिम्"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
@@ -6504,25 +6569,25 @@ msgstr "Stack मध्ये First Image इति सेट् कुर्व
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
-msgstr ""
+msgstr "चित्रं प्रतिलिख्य ..."
 
 #: Viewer/ViewerWidget.cpp:209
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
-msgstr ""
+msgstr "चित्रं लिङ्क् कुर्वन्तु ..."
 
 #: Viewer/ViewerWidget.cpp:217
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Close"
-msgstr ""
+msgstr "पिधानं करोतु"
 
 #: Viewer/ViewerWidget.cpp:279
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Rotate"
-msgstr ""
+msgstr "परिभ्रमतु"
 
 #: Viewer/ViewerWidget.cpp:290
 #, kde-format
@@ -6534,7 +6599,7 @@ msgstr "घण्टायाः दिशि परिभ्रमन्तु"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Flip Over"
-msgstr ""
+msgstr "Flip Over इति"
 
 #: Viewer/ViewerWidget.cpp:292
 #, kde-format
@@ -6546,139 +6611,139 @@ msgstr "घड़ीयाः विपरीतदिशायां परि�
 #, kde-format
 msgctxt "@title:inmenu As in 'skip 2 images'"
 msgid "Skip"
-msgstr ""
+msgstr "क्षिपते"
 
 #: Viewer/ViewerWidget.cpp:306
 #, kde-format
 msgctxt "@action:inmenu Go to first image"
 msgid "First"
-msgstr ""
+msgstr "प्रथमः"
 
 #: Viewer/ViewerWidget.cpp:313
 #, kde-format
 msgctxt "@action:inmenu Go to last image"
 msgid "Last"
-msgstr ""
+msgstr "अन्तिमः"
 
 #: Viewer/ViewerWidget.cpp:320
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Next"
-msgstr ""
+msgstr "अग्रिमम् दर्शयतु"
 
 #: Viewer/ViewerWidget.cpp:326
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Forward"
-msgstr ""
+msgstr "Skip 10 अग्रे"
 
 #: Viewer/ViewerWidget.cpp:332
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Forward"
-msgstr ""
+msgstr "100 अग्रे त्यजन्तु"
 
 #: Viewer/ViewerWidget.cpp:338
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Forward"
-msgstr ""
+msgstr "1000 अग्रे त्यजन्तु"
 
 #: Viewer/ViewerWidget.cpp:344
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Previous"
-msgstr ""
+msgstr "पूर्वं दर्शयतु"
 
 #: Viewer/ViewerWidget.cpp:350
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 10 Backward"
-msgstr ""
+msgstr "Skip 10 पश्चात्तापः"
 
 #: Viewer/ViewerWidget.cpp:356
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 100 Backward"
-msgstr ""
+msgstr "Skip 100 पश्चात्ताप"
 
 #: Viewer/ViewerWidget.cpp:362
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Skip 1000 Backward"
-msgstr ""
+msgstr "Skip 1000 पश्चात्ताप"
 
 #: Viewer/ViewerWidget.cpp:368
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete Image"
-msgstr ""
+msgstr "चित्रं विलोपयन्तु"
 
 #: Viewer/ViewerWidget.cpp:373
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove Image from Display List"
-msgstr ""
+msgstr "प्रदर्शनसूचिकातः चित्रं निष्कासयन्तु"
 
 #: Viewer/ViewerWidget.cpp:388
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom"
-msgstr ""
+msgstr "जूम"
 
 #: Viewer/ViewerWidget.cpp:392
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom In"
-msgstr ""
+msgstr "Zoom In इति"
 
 #: Viewer/ViewerWidget.cpp:398
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Zoom Out इति"
 
 #: Viewer/ViewerWidget.cpp:404
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Full View"
-msgstr ""
+msgstr "सम्पूर्ण दृश्य"
 
 #: Viewer/ViewerWidget.cpp:410
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Pixel for Pixel View"
-msgstr ""
+msgstr "Pixel View कृते Pixel"
 
 #: Viewer/ViewerWidget.cpp:416
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Toggle Full Screen"
-msgstr ""
+msgstr "पूर्ण स्क्रीन टॉगल करें"
 
 #: Viewer/ViewerWidget.cpp:427
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Slideshow"
-msgstr ""
+msgstr "स्लाइड शो"
 
 #: Viewer/ViewerWidget.cpp:430 Viewer/ViewerWidget.cpp:904
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slideshow"
-msgstr ""
+msgstr "स्लाइड शो चालयन्तु"
 
 #: Viewer/ViewerWidget.cpp:435
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Faster"
-msgstr ""
+msgstr "द्रुततरं धावतु"
 
 #: Viewer/ViewerWidget.cpp:440
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Run Slower"
-msgstr ""
+msgstr "मन्दतरं धावतु"
 
 #: Viewer/ViewerWidget.cpp:478
 #, kde-format
@@ -6689,13 +6754,13 @@ msgstr "सञ्चिका उपलब्धा नास्ति"
 #, kde-format
 msgctxt "@title:window %1 is the filename, %2 its detail info"
 msgid "%1 %2"
-msgstr ""
+msgstr "%1 %2"
 
 #: Viewer/ViewerWidget.cpp:552
 #, kde-format
 msgctxt "@action:inmenu Start video playback"
 msgid "Play"
-msgstr ""
+msgstr "क्रीडतु"
 
 #: Viewer/ViewerWidget.cpp:554
 #, kde-format
@@ -6727,13 +6792,13 @@ msgstr "प्रदर्शनविधिं %1 इति परिवर्�
 #, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr ""
+msgstr "स्लाइड शो समाप्तम्"
 
 #: Viewer/ViewerWidget.cpp:910
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
-msgstr ""
+msgstr "स्लाइड शो स्थगयन्तु"
 
 #: Viewer/ViewerWidget.cpp:915
 #, kde-format
@@ -6742,144 +6807,146 @@ msgid ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
 msgstr ""
+"स्लाइड शो आरभ्यते<br/> %1 स्लाइड्-प्रदर्शनं द्रुततरं करोति<br/> %2 स्लाइड्-प्रदर्शनं मन्दतरं "
+"करोति"
 
 #: Viewer/ViewerWidget.cpp:965
 #, kde-format
 msgctxt "OSD for slideshow, num of seconds per image"
 msgid "%1&nbsp;s"
-msgstr ""
+msgstr "%1&nbsp;s"
 
 #: Viewer/ViewerWidget.cpp:1226
 #, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr ""
+msgstr "चित्रविवरणं सम्पादयतु"
 
 #: Viewer/ViewerWidget.cpp:1226
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr ""
+msgstr "चित्रविवरणम्"
 
 #: Viewer/ViewerWidget.cpp:1241
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Seek"
-msgstr ""
+msgstr "अन्विष्यति"
 
 #: Viewer/ViewerWidget.cpp:1263
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes backward"
-msgstr ""
+msgstr "१० मिनिट् पश्चात्"
 
 #: Viewer/ViewerWidget.cpp:1264
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute backward"
-msgstr ""
+msgstr "१ मिनिट् पश्चात्"
 
 #: Viewer/ViewerWidget.cpp:1265
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds backward"
-msgstr ""
+msgstr "१० सेकण्ड् पश्चात्"
 
 #: Viewer/ViewerWidget.cpp:1266
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds backward"
-msgstr ""
+msgstr "१ सेकण्ड् पश्चात्"
 
 #: Viewer/ViewerWidget.cpp:1267
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds backward"
-msgstr ""
+msgstr "१०० मिलीसेकेण्ड् पश्चात्"
 
 #: Viewer/ViewerWidget.cpp:1268
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "100 milliseconds forward"
-msgstr ""
+msgstr "१०० मिलीसेकेण्ड् अग्रे"
 
 #: Viewer/ViewerWidget.cpp:1269
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 seconds forward"
-msgstr ""
+msgstr "१ सेकण्ड् अग्रे"
 
 #: Viewer/ViewerWidget.cpp:1270
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 seconds forward"
-msgstr ""
+msgstr "१० सेकेण्ड् अग्रे"
 
 #: Viewer/ViewerWidget.cpp:1271
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "1 minute forward"
-msgstr ""
+msgstr "१ मिनिट् अग्रे"
 
 #: Viewer/ViewerWidget.cpp:1272
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "10 minutes forward"
-msgstr ""
+msgstr "१० मिनिट् अग्रे"
 
 #: Viewer/ViewerWidget.cpp:1280
 #, kde-format
 msgctxt "@action:inmenu Stop video playback"
 msgid "Stop"
-msgstr ""
+msgstr "विरमतु"
 
 #: Viewer/ViewerWidget.cpp:1292
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Use current frame in thumbnail view"
-msgstr ""
+msgstr "लघुचित्रदृश्ये वर्तमानस्य फ्रेमस्य उपयोगं कुर्वन्तु"
 
 #: Viewer/ViewerWidget.cpp:1299
 #, kde-format
 msgctxt "@action:inmenu Restart video playback."
 msgid "Restart"
-msgstr ""
+msgstr "पुनः आरभत"
 
 #: Viewer/ViewerWidget.cpp:1315
 #, kde-format
 msgctxt "@title:inmenu"
 msgid "Filters"
-msgstr ""
+msgstr "फ़िल्टर"
 
 #: Viewer/ViewerWidget.cpp:1318
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Remove All Filters"
-msgstr ""
+msgstr "सर्वाणि फ़िल्टर्स् निष्कासयन्तु"
 
 #: Viewer/ViewerWidget.cpp:1322
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Grayscale Filter"
-msgstr ""
+msgstr "Grayscale Filter इत्येतत् प्रयोजयन्तु"
 
 #: Viewer/ViewerWidget.cpp:1327
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Contrast Stretching Filter"
-msgstr ""
+msgstr "Contrast Stretching Filter इत्येतत् प्रयोजयन्तु"
 
 #: Viewer/ViewerWidget.cpp:1332
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Histogram Equalization Filter"
-msgstr ""
+msgstr "हिस्टोग्राम समीकरण फ़िल्टरं प्रयोजयन्तु"
 
 #: Viewer/ViewerWidget.cpp:1337
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Apply Monochrome Filter"
-msgstr ""
+msgstr "एकवर्णीय फ़िल्टरं प्रयोजयन्तु"
 
 #: Viewer/ViewerWidget.cpp:1393
 #, kde-format
@@ -6919,7 +6986,7 @@ msgstr "टिप्पणीं कुरुत"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "साहाय्यम्‌"
 
 #: Viewer/ViewerWidget.cpp:1489
 #, kde-format
@@ -6931,37 +6998,37 @@ msgstr "एनोटेशन संवाद"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add tag"
-msgstr ""
+msgstr "टैगं योजयन्तु"
 
 #: Viewer/ViewerWidget.cpp:1490
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "सीटीआरएल+क"
 
 #: Viewer/ViewerWidget.cpp:1493
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr ""
+msgstr "पूर्वचित्रात् आँकडानां प्रतिलिपिं कुर्वन्तु"
 
 #: Viewer/ViewerWidget.cpp:1494
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "सीटीआरएल+ग"
 
 #: Viewer/ViewerWidget.cpp:1497
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr ""
+msgstr "विवरणं सम्पादयतु"
 
 #: Viewer/ViewerWidget.cpp:1498
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr ""
+msgstr "सीटीआरएल+घ"
 
 #: Viewer/ViewerWidget.cpp:1501
 #, kde-format
@@ -6972,37 +7039,37 @@ msgstr "एनोटेशन मोड"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Locked"
-msgstr ""
+msgstr "तालाबद्धः"
 
 #: Viewer/ViewerWidget.cpp:1504
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "सीटीआरएल+ल"
 
 #: Viewer/ViewerWidget.cpp:1508
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tags"
-msgstr ""
+msgstr "टैग्स नियुक्त करें"
 
 #: Viewer/ViewerWidget.cpp:1509
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to annotating"
 msgid "F2"
-msgstr ""
+msgstr "F2"
 
 #: Viewer/ViewerWidget.cpp:1512
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Assign Tokens"
-msgstr ""
+msgstr "टोकन नियुक्तं कुर्वन्तु"
 
 #: Viewer/ViewerWidget.cpp:1513
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr ""
+msgstr "सीटीआरएल+ट"
 
 #: Viewer/ViewerWidget.cpp:1676
 #, kde-format

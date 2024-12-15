@@ -45,8 +45,6 @@
 #include <QRegularExpression>
 #include <QStandardPaths>
 #include <kio_version.h>
-#include <sys/types.h>
-#include <sys/wait.h>
 
 namespace
 {

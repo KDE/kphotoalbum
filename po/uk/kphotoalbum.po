@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-11 00:39+0000\n"
+"POT-Creation-Date: 2024-12-16 00:40+0000\n"
 "PO-Revision-Date: 2024-12-11 10:59+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -2055,67 +2055,67 @@ msgstr ""
 "зображень у базі даних. <note>Виконайте повторне створення бази даних для "
 "пошуку Exif для отримання даних щодо об’єктивів для усіх зображень.</note>"
 
-#: HTMLGenerator/Generator.cpp:56
+#: HTMLGenerator/Generator.cpp:54
 #, kde-format
 msgid "<p>No file name given!</p>"
 msgstr "<p>Не вказано назви файла!</p>"
 
-#: HTMLGenerator/Generator.cpp:82
+#: HTMLGenerator/Generator.cpp:80
 #, kde-format
 msgid "Generating images for HTML page "
 msgstr "Створення зображень для HTML-сторінки"
 
-#: HTMLGenerator/Generator.cpp:185
+#: HTMLGenerator/Generator.cpp:183
 #, kde-format
 msgid "Error copying %1 to %2"
 msgstr "Помилка копіювання %1 до %2"
 
-#: HTMLGenerator/Generator.cpp:472
+#: HTMLGenerator/Generator.cpp:470
 #, kde-format
 msgid "<a href=\"%1\">prev</a>"
 msgstr "<a href=\"%1\">попер</a>"
 
-#: HTMLGenerator/Generator.cpp:474 HTMLGenerator/Generator.cpp:482
+#: HTMLGenerator/Generator.cpp:472 HTMLGenerator/Generator.cpp:480
 #, kde-format
 msgid "prev"
 msgstr "попер"
 
-#: HTMLGenerator/Generator.cpp:486
+#: HTMLGenerator/Generator.cpp:484
 #, kde-format
 msgid "<a href=\"index-%1.html\">index</a>"
 msgstr "<a href=\"index-%1.html\">покажчик</a>"
 
-#: HTMLGenerator/Generator.cpp:495
+#: HTMLGenerator/Generator.cpp:493
 #, kde-format
 msgid "<a href=\"%1\">next</a>"
 msgstr "<a href=\"%1\">наст.</a>"
 
-#: HTMLGenerator/Generator.cpp:497 HTMLGenerator/Generator.cpp:504
+#: HTMLGenerator/Generator.cpp:495 HTMLGenerator/Generator.cpp:502
 #, kde-format
 msgid "next"
 msgstr "наст."
 
-#: HTMLGenerator/Generator.cpp:645
+#: HTMLGenerator/Generator.cpp:643
 #, kde-format
 msgid "Could not create file '%1'."
 msgstr "Не вдалося створити файл «%1»."
 
-#: HTMLGenerator/Generator.cpp:646
+#: HTMLGenerator/Generator.cpp:644
 #, kde-format
 msgid "Could Not Create File"
 msgstr "Не вдалося створити файл"
 
-#: HTMLGenerator/Generator.cpp:665
+#: HTMLGenerator/Generator.cpp:663
 #, kde-format
 msgid "<p>Unable to copy %1 to %2</p>"
 msgstr "<p>Неможливо скопіювати %1 до %2</p>"
 
-#: HTMLGenerator/Generator.cpp:699
+#: HTMLGenerator/Generator.cpp:697
 #, kde-format
 msgid "Unable to write image '%1'."
 msgstr "Неможливо записати зображення «%1»."
 
-#: HTMLGenerator/Generator.cpp:773 HTMLGenerator/HTMLDialog.cpp:148
+#: HTMLGenerator/Generator.cpp:771 HTMLGenerator/HTMLDialog.cpp:148
 #, kde-format
 msgid "Date"
 msgstr "Дата"

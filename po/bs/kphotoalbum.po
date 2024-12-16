@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bosnianuniversetranslation\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-11 00:39+0000\n"
+"POT-Creation-Date: 2024-12-16 00:40+0000\n"
 "PO-Revision-Date: 2015-02-26 23:46+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: Bosnian <bs@li.org>\n"
@@ -2097,67 +2097,67 @@ msgid ""
 "Exif search database to ensure lens data for all images.</note>"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:56
+#: HTMLGenerator/Generator.cpp:54
 #, kde-format
 msgid "<p>No file name given!</p>"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:82
+#: HTMLGenerator/Generator.cpp:80
 #, kde-format
 msgid "Generating images for HTML page "
 msgstr "Generiranje slika za HTML stranicu "
 
-#: HTMLGenerator/Generator.cpp:185
+#: HTMLGenerator/Generator.cpp:183
 #, kde-format
 msgid "Error copying %1 to %2"
 msgstr "Greška kopiranja %1 u %2"
 
-#: HTMLGenerator/Generator.cpp:472
+#: HTMLGenerator/Generator.cpp:470
 #, kde-format
 msgid "<a href=\"%1\">prev</a>"
 msgstr "<a href=\"%1\">pred</a>"
 
-#: HTMLGenerator/Generator.cpp:474 HTMLGenerator/Generator.cpp:482
+#: HTMLGenerator/Generator.cpp:472 HTMLGenerator/Generator.cpp:480
 #, kde-format
 msgid "prev"
 msgstr "prethodna"
 
-#: HTMLGenerator/Generator.cpp:486
+#: HTMLGenerator/Generator.cpp:484
 #, kde-format
 msgid "<a href=\"index-%1.html\">index</a>"
 msgstr "<a href=\"index-%1.html\">indeks</a>"
 
-#: HTMLGenerator/Generator.cpp:495
+#: HTMLGenerator/Generator.cpp:493
 #, kde-format
 msgid "<a href=\"%1\">next</a>"
 msgstr "<a href=\"%1\">dalje</a>"
 
-#: HTMLGenerator/Generator.cpp:497 HTMLGenerator/Generator.cpp:504
+#: HTMLGenerator/Generator.cpp:495 HTMLGenerator/Generator.cpp:502
 #, kde-format
 msgid "next"
 msgstr "slijedeća"
 
-#: HTMLGenerator/Generator.cpp:645
+#: HTMLGenerator/Generator.cpp:643
 #, kde-format
 msgid "Could not create file '%1'."
 msgstr "Nije moguće kreirati datoteku '%1'."
 
-#: HTMLGenerator/Generator.cpp:646
+#: HTMLGenerator/Generator.cpp:644
 #, kde-format
 msgid "Could Not Create File"
 msgstr "Nije mogao kreirai fajl"
 
-#: HTMLGenerator/Generator.cpp:665
+#: HTMLGenerator/Generator.cpp:663
 #, kde-format
 msgid "<p>Unable to copy %1 to %2</p>"
 msgstr "<p>Nemoguće kopirati %1 u %2</p>"
 
-#: HTMLGenerator/Generator.cpp:699
+#: HTMLGenerator/Generator.cpp:697
 #, kde-format
 msgid "Unable to write image '%1'."
 msgstr "Nije mogao napisati sliku '%1'."
 
-#: HTMLGenerator/Generator.cpp:773 HTMLGenerator/HTMLDialog.cpp:148
+#: HTMLGenerator/Generator.cpp:771 HTMLGenerator/HTMLDialog.cpp:148
 #, kde-format
 msgid "Date"
 msgstr "Datum"

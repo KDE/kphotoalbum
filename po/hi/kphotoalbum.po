@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-11 00:39+0000\n"
+"POT-Creation-Date: 2024-12-16 00:40+0000\n"
 "PO-Revision-Date: 2022-02-26 11:47+0530\n"
 "Last-Translator: Raghavendra Kamath <raghu@raghukamath.com>\n"
 "Language-Team: Hindi <kde-l10n-hi@kde.org>\n"
@@ -1974,67 +1974,67 @@ msgid ""
 "Exif search database to ensure lens data for all images.</note>"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:56
+#: HTMLGenerator/Generator.cpp:54
 #, kde-format
 msgid "<p>No file name given!</p>"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:82
+#: HTMLGenerator/Generator.cpp:80
 #, kde-format
 msgid "Generating images for HTML page "
 msgstr "एचटीएमएल पृष्ठ के लिए छवियाँ बनाई जा रही हैं"
 
-#: HTMLGenerator/Generator.cpp:185
+#: HTMLGenerator/Generator.cpp:183
 #, kde-format
 msgid "Error copying %1 to %2"
 msgstr "%1 को %2 पर नक़ल करने में त्रुटि"
 
-#: HTMLGenerator/Generator.cpp:472
+#: HTMLGenerator/Generator.cpp:470
 #, kde-format
 msgid "<a href=\"%1\">prev</a>"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:474 HTMLGenerator/Generator.cpp:482
+#: HTMLGenerator/Generator.cpp:472 HTMLGenerator/Generator.cpp:480
 #, kde-format
 msgid "prev"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:486
+#: HTMLGenerator/Generator.cpp:484
 #, kde-format
 msgid "<a href=\"index-%1.html\">index</a>"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:495
+#: HTMLGenerator/Generator.cpp:493
 #, kde-format
 msgid "<a href=\"%1\">next</a>"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:497 HTMLGenerator/Generator.cpp:504
+#: HTMLGenerator/Generator.cpp:495 HTMLGenerator/Generator.cpp:502
 #, kde-format
 msgid "next"
 msgstr ""
 
-#: HTMLGenerator/Generator.cpp:645
+#: HTMLGenerator/Generator.cpp:643
 #, kde-format
 msgid "Could not create file '%1'."
 msgstr "फ़ाइल '%1' को तैयार नहीं कर सका"
 
-#: HTMLGenerator/Generator.cpp:646
+#: HTMLGenerator/Generator.cpp:644
 #, kde-format
 msgid "Could Not Create File"
 msgstr "फ़ाइल तैयार नहीं कर सका"
 
-#: HTMLGenerator/Generator.cpp:665
+#: HTMLGenerator/Generator.cpp:663
 #, kde-format
 msgid "<p>Unable to copy %1 to %2</p>"
 msgstr "<p>'%1' की नक़ल '%2' में करने में अक्षम</p>"
 
-#: HTMLGenerator/Generator.cpp:699
+#: HTMLGenerator/Generator.cpp:697
 #, kde-format
 msgid "Unable to write image '%1'."
 msgstr "छवि '%1' लिखने में असमर्थ."
 
-#: HTMLGenerator/Generator.cpp:773 HTMLGenerator/HTMLDialog.cpp:148
+#: HTMLGenerator/Generator.cpp:771 HTMLGenerator/HTMLDialog.cpp:148
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgid "Date"

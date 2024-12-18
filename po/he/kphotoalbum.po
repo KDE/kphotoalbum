@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-16 00:40+0000\n"
-"PO-Revision-Date: 2024-12-10 06:41+0200\n"
+"PO-Revision-Date: 2024-12-17 22:50+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1371,7 +1371,7 @@ msgstr ""
 #: DB/XML/FileReader.cpp:263
 #, kde-format
 msgid "Changed standard category names"
-msgstr ""
+msgstr "שמות הקטגוריות התקניות השתנו"
 
 #: DB/XML/FileReader.cpp:295
 #, kde-format
@@ -3213,10 +3213,10 @@ msgstr "הסרת פריטים"
 #, kde-format
 msgid "Removing 1 item"
 msgid_plural "Removing %1 items"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "פריט יוסר"
+msgstr[1] "שני פריטים יוסרו"
+msgstr[2] "%1 פריטים יוסרו"
+msgstr[3] "%1 פריטים יוסרו"
 
 #: MainWindow/DeleteDialog.cpp:65
 #, kde-format
@@ -3244,10 +3244,10 @@ msgstr[3] "העברת %1 קבצים לאשפה"
 #, kde-format
 msgid "Delete file from disk"
 msgid_plural "Delete %1 files from disk"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "מחיקה מהכונן"
+msgstr[1] "מחיקת שני קבצים מהכונן"
+msgstr[2] "מחיקת %1 קבצים מהכונן"
+msgstr[3] "מחיקת %1 קבצים מהכונן"
 
 #: MainWindow/DeleteDialog.cpp:73
 #, kde-format
@@ -3436,7 +3436,7 @@ msgstr "תוספים זמינים"
 #: MainWindow/FeatureDialog.cpp:173
 #, kde-format
 msgid "SQLite database support (used for Exif searches)"
-msgstr ""
+msgstr "תמיכה במסד נתונים מסוג SQLite (משמש לחיפושי Exif)"
 
 #: MainWindow/FeatureDialog.cpp:174
 #, kde-format
@@ -3497,7 +3497,7 @@ msgstr[3] "%1 תוצאות"
 #, kde-format
 msgctxt "@title:window"
 msgid "Search for Images and Videos with Missing Dates"
-msgstr ""
+msgstr "חיפוש אחר תמונות וסרטונים שחסרים להם תאריכים"
 
 #: MainWindow/InvalidDateFinder.cpp:40
 #, kde-format
@@ -4367,7 +4367,7 @@ msgstr "הצגת תמונות ממוזערות"
 #, kde-format
 msgctxt "@action to group, as in aggregate thumbnails into clusters"
 msgid "Group adjacent thumbnails into clickable clusters"
-msgstr ""
+msgstr "קיבוץ תמונות ממוזערות סמוכות לצבירים שניתן ללחוץ עליהם"
 
 #: Map/MapView.cpp:203
 #, kde-format
@@ -4391,7 +4391,7 @@ msgstr "תצוגת מפה"
 #: Map/MapView.cpp:387
 #, kde-format
 msgid "<i>Loading coordinates from the images ...</i>"
-msgstr ""
+msgstr "<i>נקודות הציון נטענות מהתמונות…</i>"
 
 #: Map/MapView.cpp:403
 #, kde-format
@@ -4889,7 +4889,7 @@ msgctxt ""
 "Configure the feature to make a copy of a file first and then open the "
 "copied file with an external application"
 msgid "Copy File and Open with an External Application"
-msgstr ""
+msgstr "העתקת קובץ ופתיחתו ביישום חיצוני"
 
 #: Settings/FileVersionDetectionPage.cpp:155
 #, kde-format
@@ -4920,7 +4920,7 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:184
 #, kde-format
 msgid "Type of media on which your images are stored."
-msgstr ""
+msgstr "סוג אמצעי האחסון עליו מאוחסנות התמונות שלך."
 
 #: Settings/FileVersionDetectionPage.cpp:189
 #, kde-format
@@ -5005,7 +5005,7 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:244
 #, kde-format
 msgid "Number of threads to use for building thumbnails"
-msgstr ""
+msgstr "מספר התהליכונים לבניית תמונות ממוזערות"
 
 #: Settings/FileVersionDetectionPage.cpp:252
 #, kde-format
@@ -5058,7 +5058,7 @@ msgstr "להשתמש בתיאור Exif"
 #: Settings/GeneralPage.cpp:57
 #, kde-format
 msgid "Strip out camera generated default descriptions"
-msgstr ""
+msgstr "הפשטת תיאורי ברירת מחדל שנוצרו על ידי המצלמה"
 
 #: Settings/GeneralPage.cpp:69
 #, kde-format
@@ -5132,7 +5132,7 @@ msgstr ""
 #: Settings/GeneralPage.cpp:159
 #, kde-format
 msgid "Show the KPhotoAlbum splash screen on start up"
-msgstr ""
+msgstr "הצגת מסך הפתיחה של KPhotoAlbum עם העלייה"
 
 #: Settings/GeneralPage.cpp:163
 #, kde-format
@@ -5783,7 +5783,7 @@ msgstr "לא ניתן להעתיק את ‚%1’ אל ‚%2’."
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Unable to create folder '%1' needed for demo."
-msgstr ""
+msgstr "לא ניתן ליצור את התיקייה ‚%1’ שנחוצה להדגמה."
 
 #: Utilities/DemoUtil.cpp:58
 #, kde-format

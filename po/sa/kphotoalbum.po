@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-16 00:40+0000\n"
-"PO-Revision-Date: 2024-12-14 01:42+0530\n"
+"PO-Revision-Date: 2024-12-19 21:41+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -225,7 +225,7 @@ msgstr "!="
 #: AnnotationDialog/Dialog.cpp:421
 #, kde-format
 msgid "File Name Pattern: "
-msgstr "सञ्चिकानाम प्रतिरूपः : १. "
+msgstr "सञ्चिकानाम प्रतिरूपः : "
 
 #: AnnotationDialog/Dialog.cpp:424
 #, kde-format
@@ -2632,7 +2632,7 @@ msgstr "कति चित्राणि आयातितव्यानि 
 #: ImportExport/ImportDialog.cpp:204
 #, kde-format
 msgid "Destination of images: "
-msgstr "बिम्बानां गन्तव्यं : १. "
+msgstr "बिम्बानां गन्तव्यं : "
 
 #: ImportExport/ImportDialog.cpp:217
 #, kde-format
@@ -4020,7 +4020,7 @@ msgstr ""
 #: MainWindow/WelcomeDialog.cpp:116
 #, kde-format
 msgid "Image/Video root folder: "
-msgstr "चित्र/वीडियो मूलपुटम् : १. "
+msgstr "चित्र/वीडियो मूलपुटम् : "
 
 #: MainWindow/WelcomeDialog.cpp:156
 #, kde-format
@@ -4699,7 +4699,7 @@ msgstr ""
 #: RemoteControl/ConnectionIndicator.cpp:90
 #, kde-format
 msgid "Android device address: "
-msgstr "एण्ड्रॉयड् उपकरणस्य पताः : १. "
+msgstr "एण्ड्रॉयड् उपकरणस्य पताः : "
 
 #: RemoteControl/Server.cpp:32
 #, kde-format

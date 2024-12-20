@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-02 01:49+0000\n"
-"PO-Revision-Date: 2024-12-14 11:30+0100\n"
+"PO-Revision-Date: 2024-12-19 22:46+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1671,7 +1671,7 @@ msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
 "replace the file %1 with file %2 manually!</p>"
 msgstr ""
-"<p>Non se puido rectificar a versión antiga da base de datos de imaxes.</"
+"<p>Non foi posíbel retirar a versión antiga da base de datos de imaxes.</"
 "p><p>Intente de novo ou substitúa o ficheiro %1 polo ficheiro %2 manualmente!"
 "</p>"
 
@@ -3418,6 +3418,7 @@ msgstr "Opcións de arrimar automaticamente"
 msgid "Include matching image to appropriate stack (if one exists)"
 msgstr "Incluír a imaxe correspondente na pila axeitada (de existir)"
 
+# skip-rule: trasno-remove_reverse
 #: MainWindow/AutoStackImages.cpp:95
 #, kde-format
 msgid ""

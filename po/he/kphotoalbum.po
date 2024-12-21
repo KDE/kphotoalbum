@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-16 00:40+0000\n"
-"PO-Revision-Date: 2024-12-17 22:50+0200\n"
+"PO-Revision-Date: 2024-12-19 22:27+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -5486,6 +5486,7 @@ msgid ""
 "<p>If you want to see grid around your thumbnail images, select this option."
 "</p>"
 msgstr ""
+"<p>כדי להציג רשת מסביב לתמונות הממוזערות שלך, יש לבחור באפשרות הזאת</p>"
 
 #: Settings/ThumbnailsPage.cpp:127
 #, kde-format
@@ -6386,7 +6387,7 @@ msgctxt "OSD for slideshow"
 msgid ""
 "Starting Slideshow<br/>%1 makes the slideshow faster<br/>%2 makes the "
 "slideshow slower"
-msgstr ""
+msgstr "מצגת מתחילה<br/>%1 יאיץ את המצגת<br/>%2 יאט את המצגת"
 
 #: Viewer/ViewerWidget.cpp:965
 #, kde-format

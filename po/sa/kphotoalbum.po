@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-16 00:40+0000\n"
-"PO-Revision-Date: 2024-12-19 21:41+0530\n"
+"PO-Revision-Date: 2024-12-20 22:01+0530\n"
 "Last-Translator: kali <skkalwar999@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
 "Language: sa\n"
@@ -185,22 +185,22 @@ msgstr ""
 #: AnnotationDialog/Dialog.cpp:378
 #, kde-format
 msgid "Minimum megapixels:"
-msgstr "न्यूनतमं मेगापिक्सेलम् : १."
+msgstr "न्यूनतमं मेगापिक्सेलम् :"
 
 #: AnnotationDialog/Dialog.cpp:388
 #, kde-format
 msgid "Maximum megapixels:"
-msgstr "अधिकतमं मेगापिक्सेलम् : १."
+msgstr "अधिकतमं मेगापिक्सेलम् :"
 
 #: AnnotationDialog/Dialog.cpp:401
 #, kde-format
 msgid "Rating:"
-msgstr "रेटिंग् : १."
+msgstr "रेटिंग् :"
 
 #: AnnotationDialog/Dialog.cpp:409
 #, kde-format
 msgid "Rating search mode:"
-msgstr "रेटिंग् अन्वेषणविधिः : १."
+msgstr "रेटिंग् अन्वेषणविधिः :"
 
 #: AnnotationDialog/Dialog.cpp:413
 #, kde-format
@@ -241,7 +241,7 @@ msgstr "केवलं RAW सञ्चिकाः अन्वेष्टु
 #, kde-format
 msgctxt "@title:window image %1 of %2 images"
 msgid "Annotations (%1/%2)"
-msgstr "टिप्पणी (%1/%2) २."
+msgstr "टिप्पणी (%1/%2)"
 
 #: AnnotationDialog/Dialog.cpp:838
 #, kde-format
@@ -279,7 +279,7 @@ msgstr "विन्यासं पुनः सेट् कुर्वन्
 #: AnnotationDialog/ListSelect.cpp:110
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
-msgstr "वर्णमालानुसारं क्रमणं कुर्वन्तु (वृक्षः) २."
+msgstr "वर्णमालानुसारं क्रमणं कुर्वन्तु (वृक्षः)"
 
 #: AnnotationDialog/Dialog.cpp:893 AnnotationDialog/Dialog.cpp:1263
 #: AnnotationDialog/ListSelect.cpp:116
@@ -465,7 +465,7 @@ msgstr ""
 #: AnnotationDialog/ImagePreviewWidget.cpp:110
 #, kde-format
 msgid "Category for new areas:"
-msgstr "नूतनक्षेत्राणां कृते श्रेणी : १."
+msgstr "नूतनक्षेत्राणां कृते श्रेणी :"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:315
 #, kde-format
@@ -617,12 +617,12 @@ msgstr "प्रयोगः"
 #: AnnotationDialog/ListSelect.cpp:416
 #, kde-format
 msgid "Alphabetical (Flat)"
-msgstr "वर्णमाला (सपाट) २."
+msgstr "वर्णमाला (सपाट)"
 
 #: AnnotationDialog/ListSelect.cpp:417
 #, kde-format
 msgid "Alphabetical (Tree)"
-msgstr "वर्णमाला (वृक्षः) २."
+msgstr "वर्णमाला (वृक्षः)"
 
 #: AnnotationDialog/ListSelect.cpp:442
 #, kde-format
@@ -697,13 +697,13 @@ msgctxt ""
 "Category name, then min-max of selected tags across several images. E.g. "
 "'People (1-2)'"
 msgid "%1 (%2-%3)"
-msgstr "%1 (%2-%3) २."
+msgstr "%1 (%2-%3)"
 
 #: AnnotationDialog/ListSelect.cpp:789
 #, kde-format
 msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
 msgid "%1 (%2)"
-msgstr "%1 (%2) २."
+msgstr "%1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:56
 #, kde-format
@@ -717,13 +717,13 @@ msgctxt ""
 "%1 is a prefix like 'Associate with', %2 is the tag name and %3 is the tag's "
 "category"
 msgid "%1 %2 (%3)"
-msgstr "%1 %2 (%3) २."
+msgstr "%1 %2 (%3)"
 
 #: AnnotationDialog/ResizableFrame.cpp:316
 #, kde-format
 msgctxt "%1 is the tag name and %2 is the tag's category"
 msgid "%1 (%2)"
-msgstr "%1 (%2) २."
+msgstr "%1 (%2)"
 
 #: AnnotationDialog/ResizableFrame.cpp:357
 #, kde-format
@@ -1743,12 +1743,12 @@ msgstr "सञ्चिका मेटाडाटा"
 #: Exif/MetaDataDisplay.cpp:37
 #, kde-format
 msgid "Absolute path:"
-msgstr "निरपेक्षमार्गः १."
+msgstr "निरपेक्षमार्गः"
 
 #: Exif/MetaDataDisplay.cpp:42
 #, kde-format
 msgid "MIME type:"
-msgstr "MIME प्रकारः : १."
+msgstr "MIME प्रकारः :"
 
 #: Exif/MetaDataDisplay.cpp:46 Settings/ViewerSizeConfig.cpp:26
 #, kde-format
@@ -1758,12 +1758,12 @@ msgstr "आकृति:"
 #: Exif/MetaDataDisplay.cpp:50
 #, kde-format
 msgid "Created:"
-msgstr "निर्मितः : १."
+msgstr "निर्मितः :"
 
 #: Exif/MetaDataDisplay.cpp:54
 #, kde-format
 msgid "Changed:"
-msgstr "परिवर्तितम् : १."
+msgstr "परिवर्तितम् :"
 
 #: Exif/MetaDataDisplay.cpp:58
 #, kde-format
@@ -1778,7 +1778,7 @@ msgstr "समूह:"
 #: Exif/MetaDataDisplay.cpp:66
 #, kde-format
 msgid "Permissions:"
-msgstr "अनुमतिः : १."
+msgstr "अनुमतिः :"
 
 #: Exif/MetaDataDisplay.cpp:100
 #, kde-format
@@ -1791,7 +1791,7 @@ msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr "%1 (%2 ख) २."
+msgstr "%1 (%2 ख)"
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
@@ -1820,7 +1820,7 @@ msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and its octal representation (e.g. \"0644\")"
 msgid "%1 (%2)"
-msgstr "%1 (%2) २."
+msgstr "%1 (%2)"
 
 #: Exif/ReReadDialog.cpp:28
 #, kde-format
@@ -2074,7 +2074,7 @@ msgstr "पृष्ठस्य शीर्षक: ."
 #: HTMLGenerator/HTMLDialog.cpp:95
 #, kde-format
 msgid "Copyright:"
-msgstr "प्रतिलिपिधर्मः : १."
+msgstr "प्रतिलिपिधर्मः :"
 
 #: HTMLGenerator/HTMLDialog.cpp:104
 #, kde-format
@@ -2126,12 +2126,12 @@ msgstr "प्रारूपं"
 #: HTMLGenerator/HTMLDialog.cpp:187 Settings/CategoryPage.cpp:130
 #, kde-format
 msgid "Thumbnail size:"
-msgstr "लघुचित्रस्य आकारः : १."
+msgstr "लघुचित्रस्य आकारः :"
 
 #: HTMLGenerator/HTMLDialog.cpp:202
 #, kde-format
 msgid "Number of columns:"
-msgstr "स्तम्भानां संख्या : १."
+msgstr "स्तम्भानां संख्या :"
 
 #: HTMLGenerator/HTMLDialog.cpp:217
 #, kde-format
@@ -2161,17 +2161,17 @@ msgstr "गन्तव्य"
 #: HTMLGenerator/HTMLDialog.cpp:297
 #, kde-format
 msgid "Base folder:"
-msgstr "आधारपुटम् : १."
+msgstr "आधारपुटम् :"
 
 #: HTMLGenerator/HTMLDialog.cpp:314
 #, kde-format
 msgid "Gallery folder:"
-msgstr "गैलरी पुटम् : १."
+msgstr "गैलरी पुटम् :"
 
 #: HTMLGenerator/HTMLDialog.cpp:321
 #, kde-format
 msgid "Output folder:"
-msgstr "आउटपुट् फोल्डर् : १."
+msgstr "आउटपुट् फोल्डर् :"
 
 #: HTMLGenerator/HTMLDialog.cpp:332
 #, kde-format
@@ -3681,7 +3681,7 @@ msgstr[1] "%1 लघुचित्रं दर्शयति"
 #: MainWindow/ImageCounter.cpp:26
 #, kde-format
 msgid "(%1 selected)"
-msgstr "(%1 चयनितम्) २."
+msgstr "(%1 चयनितम्)"
 
 #: MainWindow/ImageCounter.cpp:33
 #, kde-format
@@ -4763,7 +4763,7 @@ msgstr "जन्मदिवस"
 #: Settings/BirthdayPage.cpp:225
 #, kde-format
 msgid "Birthday of %1:"
-msgstr "%1 इत्यस्य जन्मदिनम् : १."
+msgstr "%1 इत्यस्य जन्मदिनम् :"
 
 #: Settings/BirthdayPage.cpp:233
 #, kde-format
@@ -4793,7 +4793,7 @@ msgstr "पुनर्नाम"
 #: Settings/CategoryPage.cpp:111
 #, kde-format
 msgid "Positionable tags:"
-msgstr "स्थितियोग्य टैग्स : १."
+msgstr "स्थितियोग्य टैग्स :"
 
 #: Settings/CategoryPage.cpp:113
 #, kde-format
@@ -4807,12 +4807,12 @@ msgstr ""
 #: Settings/CategoryPage.cpp:120
 #, kde-format
 msgid "Icon:"
-msgstr "चिह्नम् : १."
+msgstr "चिह्नम् :"
 
 #: Settings/CategoryPage.cpp:140
 #, kde-format
 msgid "Preferred view:"
-msgstr "प्राधान्यदृश्यम् : १."
+msgstr "प्राधान्यदृश्यम् :"
 
 #: Settings/CategoryPage.cpp:145
 #, kde-format
@@ -4957,7 +4957,7 @@ msgstr "मि."
 #: Settings/DatabaseBackendPage.cpp:45
 #, kde-format
 msgid "Number of backups to keep:"
-msgstr "स्थापनीयानां बैकअपानाम् संख्या : १."
+msgstr "स्थापनीयानां बैकअपानाम् संख्या :"
 
 #: Settings/DatabaseBackendPage.cpp:50
 #, kde-format
@@ -5011,7 +5011,7 @@ msgstr "Exif संवादे दर्शयितुं Exif/IPTC info"
 #: Settings/ExifPage.cpp:43
 #, kde-format
 msgid "Character set for image metadata:"
-msgstr "प्रतिबिम्बमेटाडाटा कृते वर्णसमूहः : १."
+msgstr "प्रतिबिम्बमेटाडाटा कृते वर्णसमूहः :"
 
 #: Settings/FileVersionDetectionPage.cpp:31
 #, kde-format
@@ -5139,7 +5139,7 @@ msgstr "सञ्चिकासंस्करणं अन्वेष्ट�
 #: Settings/FileVersionDetectionPage.cpp:104
 #, kde-format
 msgid "Original file replacement text:"
-msgstr "मूलसञ्चिकाप्रतिस्थापनपाठः : १."
+msgstr "मूलसञ्चिकाप्रतिस्थापनपाठः :"
 
 #: Settings/FileVersionDetectionPage.cpp:110
 #, kde-format
@@ -5235,7 +5235,7 @@ msgstr "सञ्चिका अन्वेषणं प्रतिलिख�
 #: Settings/FileVersionDetectionPage.cpp:161
 #, kde-format
 msgid "Copy file replacement text:"
-msgstr "सञ्चिकाप्रतिस्थापनपाठं प्रतिलिख्यताम् : १."
+msgstr "सञ्चिकाप्रतिस्थापनपाठं प्रतिलिख्यताम् :"
 
 #: Settings/FileVersionDetectionPage.cpp:167
 #, kde-format
@@ -5385,7 +5385,7 @@ msgstr "नवीनचित्रं लोड् भवति"
 #: Settings/GeneralPage.cpp:37
 #, kde-format
 msgid "Trust image dates:"
-msgstr "विश्वासप्रतिबिम्बतिथिः : १."
+msgstr "विश्वासप्रतिबिम्बतिथिः :"
 
 #: Settings/GeneralPage.cpp:39
 #, kde-format
@@ -5428,7 +5428,7 @@ msgstr "RAW सञ्चिकायां अथवा अर्धआकार
 #: Settings/GeneralPage.cpp:73
 #, kde-format
 msgid "Required size for the thumbnail:"
-msgstr "लघुचित्रस्य कृते आवश्यकः आकारः : १."
+msgstr "लघुचित्रस्य कृते आवश्यकः आकारः :"
 
 #: Settings/GeneralPage.cpp:87
 #, kde-format
@@ -5448,7 +5448,7 @@ msgstr "हिस्टोग्रामस्य कृते रेखीय�
 #: Settings/GeneralPage.cpp:103
 #, kde-format
 msgid "Size of histogram columns in date bar:"
-msgstr "तिथिपट्टिकायां हिस्टोग्रामस्तम्भानां आकारः : १."
+msgstr "तिथिपट्टिकायां हिस्टोग्रामस्तम्भानां आकारः :"
 
 #: Settings/GeneralPage.cpp:124
 #, kde-format
@@ -5575,7 +5575,7 @@ msgstr "सेटिंग्स्"
 #, kde-format
 msgctxt "@label"
 msgid "Categories and groups:"
-msgstr "श्रेणयः समूहाः च : १."
+msgstr "श्रेणयः समूहाः च :"
 
 #: Settings/TagGroupsPage.cpp:46
 #, kde-format
@@ -5627,7 +5627,7 @@ msgstr "नवीन समूह"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Group name:"
-msgstr "समूहनाम : १."
+msgstr "समूहनाम :"
 
 #: Settings/TagGroupsPage.cpp:357
 #, kde-format
@@ -5651,7 +5651,7 @@ msgstr "समूहस्य नाम परिवर्तनं कुर्
 #, kde-format
 msgctxt "@label:textbox"
 msgid "New group name:"
-msgstr "नवीनं समूहनाम : १."
+msgstr "नवीनं समूहनाम :"
 
 #: Settings/TagGroupsPage.cpp:449
 #, kde-kuit-format
@@ -5714,7 +5714,7 @@ msgstr "नवीन टैग नाम"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Tag name:"
-msgstr "टैग नाम : १."
+msgstr "टैग नाम :"
 
 #: Settings/TagGroupsPage.cpp:764
 #, kde-kuit-format
@@ -5736,7 +5736,7 @@ msgstr "वास्तवम् %1 विलोपयतु?"
 #: Settings/ThumbnailsPage.cpp:28
 #, kde-format
 msgid "Tooltip preview image size:"
-msgstr "टूलटिप् पूर्वावलोकनप्रतिबिम्बस्य आकारः : १."
+msgstr "टूलटिप् पूर्वावलोकनप्रतिबिम्बस्य आकारः :"
 
 #: Settings/ThumbnailsPage.cpp:32
 #, kde-format
@@ -5746,7 +5746,7 @@ msgstr "न चित्रपूर्वावलोकनम्"
 #: Settings/ThumbnailsPage.cpp:38
 #, kde-format
 msgid "Thumbnail image size:"
-msgstr "लघुचित्रस्य चित्रस्य आकारः : १."
+msgstr "लघुचित्रस्य चित्रस्य आकारः :"
 
 #: Settings/ThumbnailsPage.cpp:47
 #, kde-format
@@ -5756,7 +5756,7 @@ msgstr "आग्रहेण लघुचित्रं निर्माय�
 #: Settings/ThumbnailsPage.cpp:52
 #, kde-format
 msgid "Thumbnail table cells aspect ratio:"
-msgstr "लघुचित्रसारणीकोष्ठकानां पक्षानुपातः : १."
+msgstr "लघुचित्रसारणीकोष्ठकानां पक्षानुपातः :"
 
 #: Settings/ThumbnailsPage.cpp:54
 #, kde-format
@@ -5796,7 +5796,7 @@ msgstr "९ - १६"
 #: Settings/ThumbnailsPage.cpp:61
 #, kde-format
 msgid "Space around cells:"
-msgstr "कोष्ठकानां परितः अन्तरिक्षम् : १."
+msgstr "कोष्ठकानां परितः अन्तरिक्षम् :"
 
 #: Settings/ThumbnailsPage.cpp:69
 #, kde-format
@@ -5990,7 +5990,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:58
 #, kde-format
 msgid " (NOT AVAILABLE)"
-msgstr " (न उपलब्धम्) २."
+msgstr " (न उपलब्धम्)"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:84
 #, kde-format
@@ -6048,7 +6048,7 @@ msgstr "लघुचित्रदृश्यात् चित्राण�
 #: Settings/ViewerPage.cpp:52
 #, kde-format
 msgid "Slideshow interval:"
-msgstr "स्लाइड शो अन्तरालः : १."
+msgstr "स्लाइड शो अन्तरालः :"
 
 #: Settings/ViewerPage.cpp:58
 #, kde-format
@@ -6058,7 +6058,7 @@ msgstr " सेक"
 #: Settings/ViewerPage.cpp:61
 #, kde-format
 msgid "Image cache:"
-msgstr "चित्रसञ्चयम् : १."
+msgstr "चित्रसञ्चयम् :"
 
 #: Settings/ViewerPage.cpp:67
 #, kde-format
@@ -6068,7 +6068,7 @@ msgstr " Mbytes इति"
 #: Settings/ViewerPage.cpp:73
 #, kde-format
 msgid "Standard size in viewer:"
-msgstr "दर्शके मानक आकारः : १."
+msgstr "दर्शके मानक आकारः :"
 
 #: Settings/ViewerPage.cpp:75
 #, kde-format
@@ -6106,7 +6106,7 @@ msgstr ""
 #: Settings/ViewerPage.cpp:87
 #, kde-format
 msgid "Scaling algorithm:"
-msgstr "स्केलिंग एल्गोरिदम् : १."
+msgstr "स्केलिंग एल्गोरिदम् :"
 
 #: Settings/ViewerPage.cpp:89
 #, kde-format
@@ -6132,7 +6132,7 @@ msgstr ""
 #: Settings/ViewerPage.cpp:99
 #, kde-format
 msgid "Video Backend:"
-msgstr "विडियो पृष्ठभागः : १."
+msgstr "विडियो पृष्ठभागः :"
 
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
@@ -6252,25 +6252,25 @@ msgstr "%1x%2"
 #, kde-format
 msgctxt "short for: x megapixels"
 msgid " (%1MP)"
-msgstr " (%1MP) २."
+msgstr " (%1MP)"
 
 #: Utilities/DescriptionUtil.cpp:76
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (%1:1)"
-msgstr " (%1:१) २."
+msgstr " (%1:१)"
 
 #: Utilities/DescriptionUtil.cpp:78
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (1:1)"
-msgstr " (१:१) २."
+msgstr " (१:१)"
 
 #: Utilities/DescriptionUtil.cpp:80
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (1:%1)"
-msgstr " (१:%1) २."
+msgstr " (१:%1)"
 
 #: Utilities/DescriptionUtil.cpp:81
 #, kde-format
@@ -6291,19 +6291,19 @@ msgstr "<b>वर्णनम्‌:</b> "
 #, kde-format
 msgctxt "Like \"up to 6 years\" old"
 msgid " (up to %1)"
-msgstr " (%1 पर्यन्तम्) २."
+msgstr " (%1 पर्यन्तम्)"
 
 #: Utilities/Timespan.cpp:91
 #, kde-format
 msgctxt "Like \"6 years\" old"
 msgid " (%1)"
-msgstr " (%1) ९."
+msgstr " (%1)"
 
 #: Utilities/Timespan.cpp:94
 #, kde-format
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
-msgstr " (%1 तः %2 पर्यन्तम्) २."
+msgstr " (%1 तः %2 पर्यन्तम्)"
 
 #: Utilities/Timespan.cpp:103
 #, kde-format
@@ -6359,7 +6359,7 @@ msgstr " (ह्यः)"
 #, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
-msgstr " (%1 पूर्वम्) २."
+msgstr " (%1 पूर्वम्)"
 
 #: Utilities/Timespan.cpp:162
 #, kde-format
@@ -6468,13 +6468,13 @@ msgstr "सूचकपत्त्र:"
 #, kde-format
 msgctxt "@label The current category image"
 msgid "Current image:"
-msgstr "वर्तमान चित्रम् : १."
+msgstr "वर्तमान चित्रम् :"
 
 #: Viewer/CategoryImageConfig.cpp:74
 #, kde-format
 msgctxt "@label Preview of the new category imape"
 msgid "New image:"
-msgstr "नवीनं चित्रम् : १."
+msgstr "नवीनं चित्रम् :"
 
 #: Viewer/CategoryImageConfig.cpp:83
 #, kde-format

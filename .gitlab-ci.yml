@@ -7,6 +7,7 @@ include:
         - /gitlab-templates/freebsd-qt6.yml
         - /gitlab-templates/reuse-lint.yml
         - /gitlab-templates/flatpak.yml
+        - /gitlab-templates/craft-appimage-qt6.yml
 
 ## jzarl: Until KF6 lands in Debian stable, disable CI there
 .template: &debian

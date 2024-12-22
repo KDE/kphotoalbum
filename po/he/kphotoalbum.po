@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-16 00:40+0000\n"
-"PO-Revision-Date: 2024-12-19 22:27+0200\n"
+"PO-Revision-Date: 2024-12-20 14:36+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -3508,7 +3508,7 @@ msgstr "אילו תמונות וסרטונים להציג"
 #, kde-format
 msgid ""
 "Search for images and videos with a valid date but an invalid time stamp"
-msgstr ""
+msgstr "חיפוש אחר תמונות וסרטונים עם תאריך תקף אבל חותמת זמן שגויה"
 
 #: MainWindow/InvalidDateFinder.cpp:45
 #, kde-format
@@ -4964,7 +4964,7 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:205
 #, kde-format
 msgid "Calculate MD5 checksum while images are being preloaded"
-msgstr ""
+msgstr "חישוב סיכום ביקורת MD5 בזמן שהתמונות נטענות מראש"
 
 #: Settings/FileVersionDetectionPage.cpp:210
 #, kde-format

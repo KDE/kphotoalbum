@@ -3711,7 +3711,7 @@ msgstr "Videolar için küçük görsel desteği"
 #: MainWindow/FeatureDialog.cpp:176
 #, kde-format
 msgid "Video metadata support"
-msgstr "Video üstveri desteği"
+msgstr "Video üst verisi desteği"
 
 #: MainWindow/FeatureDialog.cpp:180
 #, kde-format
@@ -4476,7 +4476,7 @@ msgstr "Tanıtım Videolarını Göster"
 #: MainWindow/Window.cpp:1019 Viewer/ViewerWidget.cpp:197
 #, kde-format
 msgid "Show Exif Info and file metadata"
-msgstr "Exif bilgisini ve dosya üstverisini göster"
+msgstr "Exif bilgisini ve dosya üst verisini göster"
 
 #: MainWindow/Window.cpp:1025
 #, kde-format
@@ -5080,7 +5080,7 @@ msgstr "Exif penceresinde gösterilecek Exif/IPTC bilgileri"
 #: Settings/ExifPage.cpp:43
 #, kde-format
 msgid "Character set for image metadata:"
-msgstr "Görsel üstverisi için karakter kümesi:"
+msgstr "Görsel üst verisi için karakter kümesi:"
 
 #: Settings/FileVersionDetectionPage.cpp:31
 #, kde-format
@@ -5215,7 +5215,7 @@ msgstr "Özgün dosya değiştirme metni:"
 #: Settings/FileVersionDetectionPage.cpp:110
 #, kde-format
 msgid "Move meta-data (i.e. delete tags from the original)"
-msgstr "Üstveriyi taşı (örn. özgünden künyeleri sil)"
+msgstr "Üst veriyi taşı (örn. özgünden künyeleri sil)"
 
 #: Settings/FileVersionDetectionPage.cpp:113
 #, kde-format
@@ -7217,95 +7217,3 @@ msgstr "Görsel Boyutunu Göster"
 #, kde-format
 msgid "Show Rating"
 msgstr "Derecelendirmeyi Göster"
-
-#~ msgid "KPhotoAlbum only supports database files named 'index.xml'."
-#~ msgstr ""
-#~ "K Fotoğraf Albümü, yalnızca “index.xml” adındaki veritabanı dosyalarını "
-#~ "destekler."
-
-#~ msgid ""
-#~ "Please specify an existing image directory or an existing index.xml file."
-#~ msgstr ""
-#~ "Lütfen var olan bir görsel dizini veya bir index.xml dosyası belirtin."
-
-#~ msgid "Invalid database file"
-#~ msgstr "Geçersiz Veritabanı Dosyası"
-
-#~ msgid ""
-#~ "<p>Given index file does not exist, do you want to create following?<br />"
-#~ "%1/index.xml</p>"
-#~ msgstr ""
-#~ "<p>Verilen dizin dosyası yok, aşağıdakini oluşturmak ister misiniz?<br />"
-#~ "%1/index.xml</p>"
-
-#~ msgid ""
-#~ "<p>Could not save the window layout.</p>File %1 could not be opened "
-#~ "because of the following error: %2"
-#~ msgstr ""
-#~ "<p>Pencere yerleşimi kaydedilemedi.</p>%1 dosyası, şu hatadan dolayı "
-#~ "açılamadı: %2"
-
-#~ msgid ""
-#~ "<p>Could not save the window layout.</p>File %1 could not be written "
-#~ "because of the following error: %2"
-#~ msgstr ""
-#~ "<p>Pencere yerleşimi kaydedilemedi.</p>%1 dosyası, şu hatadan dolayı "
-#~ "yazılamadı: %2"
-
-#~ msgid "Loading Database"
-#~ msgstr "Veritabanı Yükleniyor"
-
-#~ msgid "Loading Main Window"
-#~ msgstr "Ana Pencere Yükleniyor"
-
-#~ msgid "Failed to set up video playback"
-#~ msgstr "Video oynatımı ayarlanamadı"
-
-#~ msgid "Failed to set up video playback (renderer wasn't created)"
-#~ msgstr "Video oynatımı ayarlanamadı (sunucu oluşturulmamış)"
-
-#~ msgid "Failed to set up video playback (widget wasn't created)"
-#~ msgstr "Video oynatımı ayarlanamadı (araç takımı oluşturulmamış)"
-
-#~ msgid ""
-#~ "<p>Could not open given index.xml, as the provided folder does not exist."
-#~ "<br />%1</p>"
-#~ msgstr ""
-#~ "<p>Sağlanan klasör var olmadığı için verilmiş index.xml açılamıyor.<br />"
-#~ "%1</p>"
-
-#~ msgctxt ""
-#~ "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--"
-#~ "\", %1) and it's octal representation (e.g. \"0644\")"
-#~ msgid "%1 (%2)"
-#~ msgstr "%1 (%2)"
-
-#~ msgctxt "As in 'This happened 1 day ago'"
-#~ msgid "1 day ago"
-#~ msgid_plural "%1 days ago"
-#~ msgstr[0] "1 gün önce"
-#~ msgstr[1] "%1 gün önce"
-
-#~ msgctxt "As in 'This happened 1 month ago'"
-#~ msgid "1 month ago"
-#~ msgid_plural "%1 months ago"
-#~ msgstr[0] "1 ay önce"
-#~ msgstr[1] "%1 ay önce"
-
-#~ msgctxt "As in 'This happened 1 year ago'"
-#~ msgid "1 year ago"
-#~ msgid_plural "%1 years ago"
-#~ msgstr[0] "1 yıl önce"
-#~ msgstr[1] "%1 yıl önce"
-
-#~ msgctxt "E.g. ' (7 months-1 year)'"
-#~ msgid " (%1-%2)"
-#~ msgstr " (%1–%2)"
-
-#~ msgctxt "E.g. ' (1-2 years ago)'"
-#~ msgid " (%1-%2)"
-#~ msgstr " (%1–%2)"
-
-#~ msgctxt "E.g. '(7 months ago-1 year ago)'"
-#~ msgid " (%1-%2)"
-#~ msgstr " (%1–%2)"

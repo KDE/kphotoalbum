@@ -3,9 +3,13 @@
 include:
   - project: sysadmin/ci-utilities
     file:
+        # validate:
+        - /gitlab-templates/reuse-lint.yml
+        - /gitlab-templates/xml-lint.yml
+        # build:
         - /gitlab-templates/linux-qt6.yml
         - /gitlab-templates/freebsd-qt6.yml
-        - /gitlab-templates/reuse-lint.yml
+        # deploy:
         - /gitlab-templates/flatpak.yml
         - /gitlab-templates/craft-appimage-qt6.yml
 

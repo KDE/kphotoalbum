@@ -189,6 +189,14 @@ MainWindow::Window::Window(QWidget *parent)
     qCInfo(TimingLog) << "MainWindow: Loading MainWindow: " << timer.restart() << "ms.";
     setupMenuBar();
     setupGUI(KXmlGuiWindow::ToolBar | Create | Save);
+
+    // FIXME: This was originally called inside load(), but showing the splash screen
+    // before calling setupGUI() breaks window position and size saving and restoring
+    if (Settings::SettingsData::instance()->showSplashScreen()) {
+        SplashScreen::instance()->show();
+        qApp->processEvents();
+    }
+
     qCInfo(TimingLog) << "MainWindow: setupMenuBar: " << timer.restart() << "ms.";
     createSearchBar();
     qCInfo(TimingLog) << "MainWindow: createSearchBar: " << timer.restart() << "ms.";
@@ -1190,10 +1198,8 @@ bool MainWindow::Window::load()
     // Settings, and where the main thread creates an instance, we better get it created now.
     Settings::SettingsData::setup(fi.absolutePath(), *this);
 
-    if (Settings::SettingsData::instance()->showSplashScreen()) {
-        SplashScreen::instance()->show();
-        qApp->processEvents();
-    }
+    // FIXME: Showing the splash screen was called here, but this broke
+    // window size and position saving and restoring ...
 
     DB::ImageDB::setupXMLDB(configFile, *this);
 

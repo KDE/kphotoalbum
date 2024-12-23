@@ -1,7 +1,7 @@
-/* SPDX-FileCopyrightText: 2003-2010 Jesper K. Pedersen <blackie@kde.org>
-
-   SPDX-License-Identifier: GPL-2.0-or-later
-*/
+// SPDX-FileCopyrightText: 2003 - 2010 Jesper K. Pedersen <blackie@kde.org>
+// SPDX-FileCopyrightText: 2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "FastJpeg.h"
 
@@ -185,6 +185,8 @@ bool Utilities::loadJPEGInternal(QImage *img, FILE *inputFile, QSize *fullSize, 
 
 bool Utilities::isJPEG(const DB::FileName &fileName)
 {
+    if (fileName.isNull())
+        return false;
     QString format = QString::fromLocal8Bit(QImageReader::imageFormat(fileName.absolute()));
     return format == QString::fromLocal8Bit("jpeg");
 }

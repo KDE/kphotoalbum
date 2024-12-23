@@ -36,6 +36,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ------------
 
 ### Added
+ - Support database file names other than index.xml (#418647)
 
 ### Changed
 
@@ -44,6 +45,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Deprecated
 
 ### Fixed
+ - Fix application icon on Wayland
  - Fix crash when video thumbnail cache contains empty files (#497831)
 
 ### Removed

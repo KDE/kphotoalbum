@@ -72,6 +72,7 @@ public:
 
     /**
      * @brief contains
+     * Note: to see if the thumbnails are actually valid, you have to call \c lookup and check if the result is valid.
      * @param name the video file name
      * @return \c true, if all frames for the video file are found, \c false otherwise.
      */
@@ -79,6 +80,7 @@ public:
 
     /**
      * @brief contains
+     * Note: to see if the thumbnail frame is actually valid, you have to call \c lookup and check if the result is valid.
      * @param name the video file name
      * @param frameNumber between 0 and \c numberOfFrames()
      * @return \c true, if the given frame for the video file is found, \c false otherwise.

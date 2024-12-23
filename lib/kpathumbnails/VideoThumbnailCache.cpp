@@ -103,7 +103,7 @@ bool ImageManager::VideoThumbnailCache::contains(const DB::FileName &name) const
     if (m_memcache.contains(cacheName))
         return true;
 
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < MAX_FRAMES; ++i) {
         const DB::FileName thumbnailFile = frameName(name, i);
         if (!thumbnailFile.exists())
             return false;
@@ -201,7 +201,7 @@ int ImageManager::VideoThumbnailCache::stillFrameIndex(const DB::FileName &name)
         return MAX_FRAMES;
 
     const auto frames = lookup(name, LookupMode::Partial);
-    for (int frameNumber = 0; frameNumber < MAX_FRAMES; frameNumber++) {
+    for (int frameNumber = 0; frameNumber < frames.size(); frameNumber++) {
         if (stillFrame == frames[frameNumber])
             return frameNumber;
     }

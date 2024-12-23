@@ -32,6 +32,23 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
+(Unreleased)
+------------
+
+### Added
+
+### Changed
+
+### Dependencies
+
+### Deprecated
+
+### Fixed
+ - Fix crash when video thumbnail cache contains empty files (#497831)
+
+### Removed
+
+### Security
 
 KPhotoAlbum 6.0.0 (2024-12-07)
 ------------------------------

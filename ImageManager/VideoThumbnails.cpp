@@ -31,8 +31,12 @@ void ImageManager::VideoThumbnails::setVideoFile(const DB::FileName &fileName)
     m_videoFile = fileName;
 
     if (m_videoThumbnailCache->contains(fileName)) {
-        m_cache = m_videoThumbnailCache->lookup(fileName);
-        return;
+        auto lookupResult = m_videoThumbnailCache->lookup(fileName);
+        // if a thumbnail frame can not be read, the result is empty and cannot be used:
+        if (!lookupResult.isEmpty()) {
+            m_cache = lookupResult;
+            return;
+        }
     }
 
     for (int i = 0; i < 10; ++i)

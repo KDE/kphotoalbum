@@ -85,6 +85,8 @@
       <text>Plugins</text>
    </Menu>
    <Menu name="settings">
+     <Action name="configure_kpa"/>
+     <Separator/>
      <Action name="readdAllMessages"/>
    </Menu>
    <Menu name="help">

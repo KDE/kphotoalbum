@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-24 00:39+0000\n"
-"PO-Revision-Date: 2024-04-13 08:59+0100\n"
+"POT-Creation-Date: 2024-12-28 00:39+0000\n"
+"PO-Revision-Date: 2024-12-27 17:40+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -120,7 +120,7 @@ msgstr "Viŝi Formularon"
 #: AnnotationDialog/Dialog.cpp:240
 #, kde-format
 msgid "Options..."
-msgstr "Opcioj..."
+msgstr "Elektebloj..."
 
 #: AnnotationDialog/Dialog.cpp:246
 #, kde-format
@@ -317,10 +317,9 @@ msgid "Settings saved!"
 msgstr "Agordoj konservitaj!"
 
 #: AnnotationDialog/Dialog.cpp:970
-#, fuzzy, kde-format
-#| msgid "Save Current Window Setup"
+#, kde-format
 msgid "Save current window setup"
-msgstr "Konservi Agordon de Aktuala Fenestro"
+msgstr "Konservi agordon de aktuala fenestro"
 
 #: AnnotationDialog/Dialog.cpp:1034
 #, kde-format
@@ -954,7 +953,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "serĉi"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1756
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1757
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -969,7 +968,7 @@ msgstr ""
 "li><li>Nun elektu la piktogramon <b>Kategorioj</b></li><li>Nun agordu "
 "sekcion <b>Nemarkitaj Bildoj</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1763
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1764
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Trajto ne estis agordita"
@@ -1369,25 +1368,20 @@ msgid "No other %1"
 msgstr "Neniu alia %1"
 
 #: DB/XML/FileReader.cpp:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
-#| "p><p>Chances are you will be able to read this file, but when writing it "
-#| "back, information saved in the newer version will be lost</p>"
+#, kde-format
 msgid ""
 "<p>The XML database file is from a newer version of KPhotoAlbum!</"
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
-"<p>La datumbaza dosiero (index.xml) estas el pli nova versio de KPhotoAlbum!"
-"</p><p>Ŝajnas, ke vi povos legi ĉi tiun dosieron, sed reskribante ĝin, "
+"<p>La XML-datumbaza dosiero estas el pli nova versio de KPhotoAlbum!</"
+"p><p>Ŝajnas, ke vi povos legi ĉi tiun dosieron, sed reskribante ĝin, "
 "informoj konservitaj en la pli nova versio estos perditaj</p>"
 
 #: DB/XML/FileReader.cpp:60
-#, fuzzy, kde-format
-#| msgid "index.xml version mismatch"
+#, kde-format
 msgid "XML database file version mismatch"
-msgstr "index.xml versio miskongruo"
+msgstr "XML-datumbazdosiera versiomiskongruo"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -1400,7 +1394,7 @@ msgstr "Leterujo"
 #: DB/XML/FileReader.cpp:109 DB/XML/FileReader.cpp:121
 #, kde-format
 msgid "Tokens"
-msgstr "ĵetonoj"
+msgstr "Ĵetonoj"
 
 #: DB/XML/FileReader.cpp:189
 #, kde-format
@@ -2479,9 +2473,9 @@ msgid ""
 "will of course also make the quality worse if someone wants to see the "
 "exported images with larger dimensions.</p>"
 msgstr ""
-"<p>Per ĉi tiu opcio vi povas limigi la maksimumajn dimensiojn (larĝo kaj "
-"alteco) de viaj bildoj. Farante tion malgrandigos la rezultan "
-"eksportdosieron, sed kompreneble ankaŭ plimalbonigos la kvaliton se iu volas "
+"<p>Per ĉi tiu elekteblo vi povas limigi la maksimumajn dimensiojn (larĝeco "
+"kaj alteco) de viaj bildoj. Farante tion, pli malgrandiĝos la rezulta "
+"eksportdosiero, sed kompreneble ankaŭ pli malboniĝos la kvalito se iu volas "
 "vidi la eksportitajn bildojn kun pli grandaj dimensioj.</p>"
 
 #: ImportExport/Export.cpp:163
@@ -2688,7 +2682,7 @@ msgid "Create folder?"
 msgstr "Ĉu krei dosierujon?"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1181
+#: MainWindow/Window.cpp:1182
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3131,7 +3125,7 @@ msgid "Plugins"
 msgstr "Kromaĵoj"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:97
+#: kphotoalbumui.rc:99
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Ĉefa ilobreto"
@@ -3265,7 +3259,7 @@ msgstr "Reimar Imhof"
 #: main.cpp:114
 #, kde-format
 msgid "Patch to sort items in option listboxes"
-msgstr "Flikaĵo por ordigi erojn en opciolistoskatoloj"
+msgstr "Flikaĵo por ordigi erojn en elekteblolistaj skatoloj"
 
 #: main.cpp:115
 #, kde-format
@@ -3372,7 +3366,7 @@ msgstr " sekundoj"
 #: MainWindow/AutoStackImages.cpp:90
 #, kde-format
 msgid "AutoStacking Options"
-msgstr "Aŭtomata Stacking Opcioj"
+msgstr "AŭtoStacking-Elektebloj"
 
 #: MainWindow/AutoStackImages.cpp:94
 #, kde-format
@@ -3641,16 +3635,13 @@ msgstr ""
 "montri bildojn kun GPSaj informoj sur mapo. </p>"
 
 #: MainWindow/FeatureDialog.cpp:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on QtAv "
-#| "for displaying videos; this in turn relies on ffmpeg</p>"
+#, kde-format
 msgid ""
 "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on phonon "
 "or VLC for displaying videos</p>"
 msgstr ""
-"<h1><a name=\"video\">Videosubteno</a></h1><p>KPhotoAlbum dependas de QtAv "
-"por montri filmetojn; ĉi tio siavice dependas de ffmpeg</p>"
+"<h1><a name=\"video\">Videosubteno</a></h1><p>KPhotoAlbum dependas de phonon "
+"aŭ VLC por montri filmetojn</p>"
 
 #: MainWindow/FeatureDialog.cpp:78
 #, kde-format
@@ -4176,13 +4167,13 @@ msgid "Stacking Error"
 msgstr "Stak-eraro"
 
 #: MainWindow/Window.cpp:475 MainWindow/Window.cpp:601
-#: MainWindow/Window.cpp:1296 MainWindow/Window.cpp:1393
+#: MainWindow/Window.cpp:1297 MainWindow/Window.cpp:1394
 #, kde-format
 msgid "No item is selected."
 msgstr "Neniu elemento estas elektita."
 
 #: MainWindow/Window.cpp:475 MainWindow/Window.cpp:601
-#: MainWindow/Window.cpp:1296 MainWindow/Window.cpp:1394
+#: MainWindow/Window.cpp:1297 MainWindow/Window.cpp:1395
 #, kde-format
 msgid "No Selection"
 msgstr "Neniu elekto"
@@ -4398,7 +4389,7 @@ msgstr "Montri Bildojn kaj Videojn kun Nekompletaj Datoj..."
 msgid "Merge duplicates"
 msgstr "Kunfandi duplikatojn"
 
-#: MainWindow/Window.cpp:977 MainWindow/Window.cpp:1030
+#: MainWindow/Window.cpp:977 MainWindow/Window.cpp:1031
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Refreŝigi Elektitajn Bildetojn kaj Kontrolsumojn"
@@ -4443,77 +4434,77 @@ msgstr "Statistikoj..."
 msgid "Mark As Untagged"
 msgstr "Marki Kiel Neetikedita"
 
-#: MainWindow/Window.cpp:1013
+#: MainWindow/Window.cpp:1014
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Ebligi Ĉiujn Mesaĝojn"
 
-#: MainWindow/Window.cpp:1017
+#: MainWindow/Window.cpp:1018
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Ruli KPhotoAlbum-Demonstron"
 
-#: MainWindow/Window.cpp:1020
+#: MainWindow/Window.cpp:1021
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "KPhotoAlbum Feature Statuso"
 
-#: MainWindow/Window.cpp:1023
+#: MainWindow/Window.cpp:1024
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Montri Demo-Videojn"
 
-#: MainWindow/Window.cpp:1027 Viewer/ViewerWidget.cpp:197
+#: MainWindow/Window.cpp:1028 Viewer/ViewerWidget.cpp:197
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Montri Exif-informojn kaj metadatumojn de dosiero"
 
-#: MainWindow/Window.cpp:1033
+#: MainWindow/Window.cpp:1034
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Uzi sekvantan videobildeton"
 
-#: MainWindow/Window.cpp:1037
+#: MainWindow/Window.cpp:1038
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Uzi antaŭan videobildeton"
 
-#: MainWindow/Window.cpp:1041 MainWindow/Window.cpp:1274
+#: MainWindow/Window.cpp:1042 MainWindow/Window.cpp:1275
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Kopii bildon al..."
 msgstr[1] "Kopii bildojn al..."
 
-#: MainWindow/Window.cpp:1045 MainWindow/Window.cpp:1278
+#: MainWindow/Window.cpp:1046 MainWindow/Window.cpp:1279
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "Ligi bildon al..."
 msgstr[1] "Ligi bildojn al..."
 
-#: MainWindow/Window.cpp:1069
+#: MainWindow/Window.cpp:1070
 #, kde-format
 msgid "Auto saving...."
 msgstr "Aŭtomata konservado...."
 
-#: MainWindow/Window.cpp:1072
+#: MainWindow/Window.cpp:1073
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Auto saving.... Preta"
 
-#: MainWindow/Window.cpp:1174
+#: MainWindow/Window.cpp:1175
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1177
+#: MainWindow/Window.cpp:1178
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Krei datumbazon"
 
-#: MainWindow/Window.cpp:1219
+#: MainWindow/Window.cpp:1220
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4526,33 +4517,33 @@ msgstr ""
 "neetikeditan agordon sub <interface>Agordoj|Agordu KPhotoAlbum...|"
 "Kategorioj</interface></p>"
 
-#: MainWindow/Window.cpp:1345 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1346 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Ĝenerala"
 
-#: MainWindow/Window.cpp:1346 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1347 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Rigardilo"
 
-#: MainWindow/Window.cpp:1347
+#: MainWindow/Window.cpp:1348
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Datobreto"
 
-#: MainWindow/Window.cpp:1350
+#: MainWindow/Window.cpp:1351
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Komentario Dialogo"
 
-#: MainWindow/Window.cpp:1351 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1352 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Bildeto-Vido"
 
-#: MainWindow/Window.cpp:1502
+#: MainWindow/Window.cpp:1503
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4561,13 +4552,13 @@ msgstr ""
 "<p>Ĉu vere aktivigi ĉiujn mesaĝkestojn kie vi antaŭe markis la markobutono-"
 "ne-montri-denove?</p>"
 
-#: MainWindow/Window.cpp:1504
+#: MainWindow/Window.cpp:1505
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Restarigi kaŝitajn dialogojn"
 
-#: MainWindow/Window.cpp:1523
+#: MainWindow/Window.cpp:1524
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4583,32 +4574,32 @@ msgstr ""
 "raporti ĉi tion kiel cimon.</p><p>KPhotoAlbum daŭrigos la rulon, sed ne "
 "estas tute malprobable ke ĝi paneos poste pro la mankanta make-instalo.</p>"
 
-#: MainWindow/Window.cpp:1523
+#: MainWindow/Window.cpp:1524
 #, kde-format
 msgid "Internal Error"
 msgstr "Interna eraro"
 
-#: MainWindow/Window.cpp:1534
+#: MainWindow/Window.cpp:1535
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "Sukcese kunhavita(j) bildo(j). Kopiante lokon al tondujo..."
 
-#: MainWindow/Window.cpp:1537
+#: MainWindow/Window.cpp:1538
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Sukcese kunhavita(j) bildo(j)."
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1543
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Bilddividado malsukcesis kun mesaĝo: %1"
 
-#: MainWindow/Window.cpp:1593
+#: MainWindow/Window.cpp:1594
 #, kde-format
 msgid "Open List of Files"
 msgstr "Malfermi Liston de Dosieroj"
 
-#: MainWindow/Window.cpp:1594
+#: MainWindow/Window.cpp:1595
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4617,28 +4608,28 @@ msgstr ""
 "Vi povas malfermi aron da dosieroj en la datumbazo de KPhotoAlbum listigante "
 "la dosierojn ĉi tie."
 
-#: MainWindow/Window.cpp:1608
+#: MainWindow/Window.cpp:1609
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Neniuj bildoj kongruaj kun via enigo estis trovitaj."
 
-#: MainWindow/Window.cpp:1608
+#: MainWindow/Window.cpp:1609
 #, kde-format
 msgid "No Matches"
 msgstr "Neniuj Alumetoj"
 
-#: MainWindow/Window.cpp:1780
+#: MainWindow/Window.cpp:1781
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Relegante Exif-informojn de ĉiuj bildoj"
 
-#: MainWindow/Window.cpp:1807
+#: MainWindow/Window.cpp:1808
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Larĝo de bildeto: %1px (grandeco de konservado: %2px)"
 
-#: MainWindow/Window.cpp:1860
+#: MainWindow/Window.cpp:1861
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4648,7 +4639,7 @@ msgstr ""
 "<p>Ne eblas trovi ffmpeg en la sistemo.</p><p>Sen ĝi, KPhotoAlbum ne povos "
 "montri videobildetojn kaj videolongojn. Bonvolu instali la ffmpeg-pakaĵon</p>"
 
-#: MainWindow/Window.cpp:1863
+#: MainWindow/Window.cpp:1864
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Videobildetoj ne haveblas"
@@ -4992,16 +4983,14 @@ msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>Elekti kategorion por redakti ĝin</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
-#, fuzzy, kde-format
-#| msgid "Choose speed over readability for index.xml file"
+#, kde-format
 msgid "Choose speed over readability for the XML database file"
-msgstr "Elekti rapidecon super legebleco por index.xml dosiero"
+msgstr "Elekti rapidecon super legebleco por XML-datumbaza dosiero"
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, fuzzy, kde-format
-#| msgid "Compress backup file"
+#, kde-format
 msgid "Compress backup files"
-msgstr "Kunpremi sekurkopian dosieron"
+msgstr "Kunpremi sekurkopiajn dosierojn"
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -5024,15 +5013,7 @@ msgid "Infinite"
 msgstr "Senfina"
 
 #: Settings/DatabaseBackendPage.cpp:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum is capable of backing up the index.xml file by keeping "
-#| "copies named index.xml~1~ index.xml~2~ etc. and you can use the spinbox "
-#| "to specify the number of backup files to keep. KPhotoAlbum will delete "
-#| "the oldest backup file when it reaches the maximum number of backup files."
-#| "</p><p>The index.xml file may grow substantially if you have many images, "
-#| "and in that case it is useful to ask KPhotoAlbum to zip the backup files "
-#| "to preserve disk space.</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum is capable of backing up the the XML database file by keeping "
 "copies (for example, for a database file named index.xml, the backups are "
@@ -5043,33 +5024,28 @@ msgid ""
 "images, and in that case it is useful to ask KPhotoAlbum to zip the backup "
 "files to preserve disk space.</p>"
 msgstr ""
-"<p>KPhotoAlbum kapablas konservi la index.xml-dosieron konservante kopiojn "
-"nomitajn index.xml~1~ index.xml~2~ ktp. kaj vi povas uzi la spinkeston por "
+"<p>KPhotoAlbum kapablas konservi la XML-datumbazdosieron konservante kopiojn "
+"(ekzemple, por datumbazdosiero nomita index.xml, la savkopioj estas nomataj "
+"index.xml~0001~, index.xml~0002~ ktp.) kaj vi povas uzi la turbokeston por "
 "specifi la nombron da sekurkopioj por konservi. KPhotoAlbum forigos la plej "
 "malnovan rezervan dosieron kiam ĝi atingos la maksimuman nombron da rezervaj "
-"dosieroj.</p><p>La index.xml-dosiero povas multe kreski se vi havas multajn "
-"bildojn, kaj en tiu kazo estas utile peti KPhotoAlbum zipi. la rezervajn "
-"dosierojn por konservi diskospacon.</p>"
+"dosieroj.</p><p>La XML-datumbazdosiero povas multe kreski se vi havas "
+"multajn bildojn, kaj en tiu kazo estas utila peti KPhotoAlbum zipi la "
+"rezervajn dosierojn por konservi diskospacon.</p>"
 
 #: Settings/DatabaseBackendPage.cpp:68
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
-#| "With lots of images it may take a long time to read this file. You may "
-#| "cut down this time to approximately half, by checking this check box. The "
-#| "disadvantage is that the index.xml file is less readable by human eyes.</"
-#| "p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum is using a single XML file as its <i>data base</i>. With lots "
 "of images it may take a long time to read this file. You may cut down this "
 "time to approximately half, by checking this check box. The disadvantage is "
 "that the XML database file is less readable by human eyes.</p>"
 msgstr ""
-"<p>KPhotoAlbum uzas ununuran index.xml dosieron kiel sian <i>datumbazon</i>. "
-"Kun multaj bildoj povas daŭri longan tempon por legi ĉi tiun dosieron. Vi "
-"povas redukti ĉi tiun tempon al proksimume duono, markante ĉi tiun "
-"markobutonon. La malavantaĝo estas, ke la dosiero index.xml estas malpli "
-"legebla de homaj okuloj.</p>"
+"<p>KPhotoAlbum uzas ununuran XML-dosieron kiel sian <i>datumbazon</i>. Kun "
+"multaj bildoj povas daŭri longan tempon por legi ĉi tiun dosieron. Vi povas "
+"redukti ĉi tiun tempon al proksimume duono, markante ĉi tiun markobutonon. "
+"La malavantaĝo estas, ke la XML-datumbazdosiero estas malpli legebla de "
+"homaj okuloj.</p>"
 
 #: Settings/ExifPage.cpp:37
 #, kde-format
@@ -5152,8 +5128,8 @@ msgid ""
 "extension!</p>"
 msgstr ""
 "<p>KPhotoAlbum kutime serĉos novajn bildojn kaj filmetojn laŭ sia dosier-"
-"etendaĵo. Se ĉi tiu opcio estas agordita, <em>ĉiuj</em> dosieroj nek en la "
-"datumbazo nek en la bloklisto estos kontrolitaj laŭ ilia Mime-tipo, "
+"etendaĵo. Se ĉi tiu elekteblo estas agordita, <em>ĉiuj</em> dosieroj nek en "
+"la datumbazo nek en la bloklisto estos kontrolitaj laŭ ilia Mime-tipo, "
 "sendepende de ilia etendaĵo. Ĉi tio daŭros multe pli longe ol trovi "
 "dosierojn per etendaĵo!</p>"
 
@@ -5167,8 +5143,8 @@ msgid ""
 msgstr ""
 "<p>KPhotoAlbum provas legi ĉiujn bilddosierojn ĉu efektivaj dosieroj aŭ "
 "simbolaj ligiloj. Se vi volas ignori simbolajn ligilojn, kontrolu ĉi tiun "
-"opcion. Ĉi tio utilas, se ial vi havas ekz. kaj la originalajn dosierojn kaj "
-"simbolajn ligilojn al ĉi tiuj dosieroj ene de via bilda dosierujo.</p>"
+"elekteblon. Ĉi tio utilas, se ial vi havas ekz. kaj la originalajn dosierojn "
+"kaj simbolajn ligilojn al ĉi tiuj dosieroj ene de via bilda dosierujo.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:77
 #, kde-format
@@ -5182,8 +5158,8 @@ msgstr ""
 "<p>KPhotoAlbum kapablas legi iujn specojn de RAW-bildoj. Iuj fotiloj "
 "konservas kaj RAW-bildon kaj kongruan JPEG aŭ TIFF-bildon. Ĉi tio igas "
 "duplikatajn bildojn konservitajn en KPhotoAlbum, kio povas esti nedezirinda. "
-"Se ĉi tiu opcio estas markita, KPhotoAlbum ne legos RAW-dosierojn por kiuj "
-"ankaŭ ekzistas kongruaj bilddosieroj.</p>"
+"Se ĉi tiu elekteblo estas markita, KPhotoAlbum ne legos RAW-dosierojn por "
+"kiuj ankaŭ ekzistas kongruaj bilddosieroj.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:83
 #, kde-format
@@ -5292,7 +5268,7 @@ msgid ""
 "and placed to the top of the stack. This way the new image is shown when the "
 "stack is in collapsed state - the default state in KPhotoAlbum.</p>"
 msgstr ""
-"<p>Se ĉi tiu opcio estas agordita, novaj versioj de bildo estas aŭtomate "
+"<p>Se ĉi tiu elekteblo estas agordita, novaj versioj de bildo estas aŭtomate "
 "stakigitaj kaj metitaj al la supro de la stako. Tiel la nova bildo montriĝas "
 "kiam la stako estas en kolapsita stato - la defaŭlta stato en KPhotoAlbum.</"
 "p>"
@@ -5921,7 +5897,7 @@ msgstr ""
 "<p>Se vi elektas <b>Agordoj -&gt; Montri Konsiletojn</b> en la bildeto, tiam "
 "vi vidos malgrandan ilan konsileton fenestron kiu montras informojn pri la "
 "bildetoj. Ĉi tiu fenestro inkluzivas malgrandan antaŭrigardan bildon. Ĉi tiu "
-"opcio agordas la grandecon de la bildo.</p>"
+"elekteblo agordas la grandecon de la bildo.</p>"
 
 #: Settings/ThumbnailsPage.cpp:104
 #, kde-format
@@ -5978,7 +5954,7 @@ msgid ""
 "<p>Checking this option will show the base name for the file under "
 "thumbnails in the thumbnail view.</p>"
 msgstr ""
-"<p>Markante ĉi tiun opcion montros la bazan nomon por la dosiero sub "
+"<p>Markante ĉi tiun elekteblon montros la bazan nomon por la dosiero sub "
 "bildetoj en la bildetovido.</p>"
 
 #: Settings/ThumbnailsPage.cpp:131
@@ -5987,7 +5963,7 @@ msgid ""
 "<p>Checking this option will show the Categories for the file under "
 "thumbnails in the thumbnail view</p>"
 msgstr ""
-"<p>Markante ĉi tiun opcion montros la Kategoriojn por la dosiero sub "
+"<p>Markante ĉi tiun oelekteblon montros la Kategoriojn por la dosiero sub "
 "bildetoj en la bildetovido</p>"
 
 #: Settings/ThumbnailsPage.cpp:135
@@ -6046,25 +6022,7 @@ msgid "<h1>Choose a Video Player</h1>"
 msgstr "<h1>Elekti Videoludilon</h1>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:29
-#, fuzzy, kde-format
-#| msgid ""
-#| "<html><p>Unfortunately, there is no video player which just works out of "
-#| "the box for everyone.</p><p>KPhotoAlbum therefore comes with three "
-#| "different back-ends, choose the one that works the best for you</"
-#| "p><p><b>VLC</b> seems to be the best supported video player back-end, "
-#| "meaning it can play most video formats. It has one drawback though, it "
-#| "requires X11. If you use Wayland, then you will find that the videos "
-#| "shows up in a window of their own, and in this case VLC is likely not a "
-#| "very good fit for you. If on the other hand you do use X11 then VLC is "
-#| "likely your best choice.</p><p>Traditionally KPhotoAlbum has been using "
-#| "<b>Phonon</b> as the video player back-end. We've unfortunately seen it "
-#| "crash on many different video formats - possibly because our system "
-#| "wasn't correctly configured. If this is the case for you (and you can't "
-#| "use VLC), then try the <b>QtAV</b> back-end, which seems to support a lot "
-#| "of formats (everything we threw at it). <b>QtAV</b> unfortunately also "
-#| "has a drawback - it seems to get slightly out of sync between video and "
-#| "audio.</p><p><b><font color=red>You can at any time change the backend "
-#| "from Settings -> Viewer</font></b></p></html>"
+#, kde-format
 msgid ""
 "<html><p>Unfortunately, there is no video player which just works out of the "
 "box for everyone.</p><p>KPhotoAlbum therefore comes with three different "
@@ -6090,12 +6048,8 @@ msgstr ""
 "uzas X11, tiam VLC verŝajne estas via plej bona elekto.</p><p>Tradicie "
 "KPhotoAlbum uzis <b>Phonon</b> kiel la videoludilon malantaŭa. Ni bedaŭrinde "
 "vidis ĝin panei sur multaj malsamaj videoformatoj - eble ĉar nia sistemo ne "
-"estis ĝuste agordita. Se ĉi tiu estas la kazo por vi (kaj vi ne povas uzi "
-"VLC), tiam provu la back-end <b>QtAV</b>, kiu ŝajnas subteni multajn "
-"formatojn (ĉion, kion ni ĵetis al ĝi). <b>QtAV</b> bedaŭrinde ankaŭ havas "
-"malavantaĝon - ĝi ŝajnas iomete malsinkronigi inter video kaj audio.</"
-"p><p><b><font color=red>Vi povas iam ajn ŝanĝi la backend de Agordoj -> "
-"Vidilo</font></b></p></html>"
+"estis ĝuste agordita.</p><p><b><font color=red>Vi povas iam ajn ŝanĝi la "
+"backend per Agordoj -> Vidilo</font></b></p></html>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:49
 #: Settings/VideoPlayerSelectorDialog.cpp:58
@@ -6239,8 +6193,8 @@ msgid ""
 "smooth scaling method.</p>"
 msgstr ""
 "<p>Kiam montras bildojn, KPhotoAlbum kutime faras glatan skalon de la bildo. "
-"Se ĉi tiu opcio ne estas agordita, KPhotoAlbum uzos pli rapidan sed malpli "
-"glatan skalmetodon.</p>"
+"Se ĉi tiu elekteblo ne estas agordita, KPhotoAlbum uzos pli rapidan sed "
+"malpli glatan skalmetodon.</p>"
 
 #: Settings/ViewerPage.cpp:99
 #, kde-format
@@ -7243,51 +7197,3 @@ msgstr "Montri Bildan Grandecon"
 #, kde-format
 msgid "Show Rating"
 msgstr "Montri Takson"
-
-#, fuzzy
-#~| msgid "Error in database file"
-#~ msgid "Invalid database file"
-#~ msgstr "Eraro en datumbaza dosiero"
-
-#~ msgid ""
-#~ "<p>Given index file does not exist, do you want to create following?<br />"
-#~ "%1/index.xml</p>"
-#~ msgstr ""
-#~ "<p>Konsiderante indeksan dosieron ne ekzistas, ĉu vi volas krei sekvantan?"
-#~ "<br />%1/index.xml</p>"
-
-#~ msgid ""
-#~ "<p>Could not save the window layout.</p>File %1 could not be opened "
-#~ "because of the following error: %2"
-#~ msgstr ""
-#~ "<p>Ne eblis konservi la fenestran aranĝon.</p>Ne eblis malfermi la "
-#~ "dosieron %1 pro la jena eraro: %2"
-
-#~ msgid ""
-#~ "<p>Could not save the window layout.</p>File %1 could not be written "
-#~ "because of the following error: %2"
-#~ msgstr ""
-#~ "<p>Ne eblis konservi la fenestran aranĝon.</p>Ne eblis verki dosieron %1 "
-#~ "pro jena eraro: %2"
-
-#~ msgid "Loading Database"
-#~ msgstr "Ŝargante Datumbazon"
-
-#~ msgid "Loading Main Window"
-#~ msgstr "Ŝargante Ĉeffenestron"
-
-#~ msgid "Failed to set up video playback"
-#~ msgstr "Malsukcesis agordi videoludadon"
-
-#~ msgid "Failed to set up video playback (renderer wasn't created)"
-#~ msgstr "Malsukcesis agordi videoludadon (bildilo ne estis kreita)"
-
-#~ msgid "Failed to set up video playback (widget wasn't created)"
-#~ msgstr "Malsukcesis agordi videoludadon (fenestraĵo ne estis kreita)"
-
-#~ msgid ""
-#~ "<p>Could not open given index.xml, as the provided folder does not exist."
-#~ "<br />%1</p>"
-#~ msgstr ""
-#~ "<p>Ne eblis malfermi donitan index.xml, ĉar la provizita dosierujo ne "
-#~ "ekzistas.<br />%1</p>"

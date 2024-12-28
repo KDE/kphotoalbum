@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-24 00:39+0000\n"
+"POT-Creation-Date: 2024-12-28 00:39+0000\n"
 "PO-Revision-Date: 2024-11-24 19:22+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -952,7 +952,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "sök"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1756
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1757
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -967,7 +967,7 @@ msgstr ""
 "Kfotoalbum</b></li><li>Välj nu ikonen <b>Kategorier</b></li><li>Anpassa "
 "delen <b>Bilder utan etiketter</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1763
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1764
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Funktioner har inte ställts in"
@@ -2686,7 +2686,7 @@ msgid "Create folder?"
 msgstr "Skapa katalog?"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1181
+#: MainWindow/Window.cpp:1182
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3137,7 +3137,7 @@ msgid "Plugins"
 msgstr "Insticksprogram"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: kphotoalbumui.rc:97
+#: kphotoalbumui.rc:99
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Huvudverktygsrad"
@@ -4182,13 +4182,13 @@ msgid "Stacking Error"
 msgstr "Högfel"
 
 #: MainWindow/Window.cpp:475 MainWindow/Window.cpp:601
-#: MainWindow/Window.cpp:1296 MainWindow/Window.cpp:1393
+#: MainWindow/Window.cpp:1297 MainWindow/Window.cpp:1394
 #, kde-format
 msgid "No item is selected."
 msgstr "Inget objekt är markerat."
 
 #: MainWindow/Window.cpp:475 MainWindow/Window.cpp:601
-#: MainWindow/Window.cpp:1296 MainWindow/Window.cpp:1394
+#: MainWindow/Window.cpp:1297 MainWindow/Window.cpp:1395
 #, kde-format
 msgid "No Selection"
 msgstr "Ingen markering"
@@ -4404,7 +4404,7 @@ msgstr "Visa bilder och videor med ofullständiga datum..."
 msgid "Merge duplicates"
 msgstr "Sammanfoga dubbletter"
 
-#: MainWindow/Window.cpp:977 MainWindow/Window.cpp:1030
+#: MainWindow/Window.cpp:977 MainWindow/Window.cpp:1031
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Uppdatera markerade miniatyrbilder och checksummor"
@@ -4449,78 +4449,78 @@ msgstr "Statistik..."
 msgid "Mark As Untagged"
 msgstr "Markera som utan etikett"
 
-#: MainWindow/Window.cpp:1013
+#: MainWindow/Window.cpp:1014
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Aktivera alla meddelanden"
 
-#: MainWindow/Window.cpp:1017
+#: MainWindow/Window.cpp:1018
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Kör Kfotoalbum demonstration"
 
-#: MainWindow/Window.cpp:1020
+#: MainWindow/Window.cpp:1021
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "Status för funktioner i Kfotoalbum"
 
-#: MainWindow/Window.cpp:1023
+#: MainWindow/Window.cpp:1024
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Visa demonstrationsvideor"
 
-#: MainWindow/Window.cpp:1027 Viewer/ViewerWidget.cpp:197
+#: MainWindow/Window.cpp:1028 Viewer/ViewerWidget.cpp:197
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Visa Exif-information och filmetadata"
 
-#: MainWindow/Window.cpp:1033
+#: MainWindow/Window.cpp:1034
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Använd nästa videominiatyrbild"
 
-#: MainWindow/Window.cpp:1037
+#: MainWindow/Window.cpp:1038
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Använd föregående videominiatyrbild"
 
-#: MainWindow/Window.cpp:1041 MainWindow/Window.cpp:1274
+#: MainWindow/Window.cpp:1042 MainWindow/Window.cpp:1275
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Kopiera bild till..."
 msgstr[1] "Kopiera bilder till..."
 
-#: MainWindow/Window.cpp:1045 MainWindow/Window.cpp:1278
+#: MainWindow/Window.cpp:1046 MainWindow/Window.cpp:1279
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "Länka bild till..."
 msgstr[1] "Länka bilder till..."
 
-#: MainWindow/Window.cpp:1069
+#: MainWindow/Window.cpp:1070
 #, kde-format
 msgid "Auto saving...."
 msgstr "Sparar automatiskt..."
 
-#: MainWindow/Window.cpp:1072
+#: MainWindow/Window.cpp:1073
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Sparar automatiskt... Klar"
 
-#: MainWindow/Window.cpp:1174
+#: MainWindow/Window.cpp:1175
 #, fuzzy, kde-format
 #| msgid "Do you really want to erase the database?"
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr "Vill du verkligen radera databasen?"
 
-#: MainWindow/Window.cpp:1177
+#: MainWindow/Window.cpp:1178
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Skapa databas"
 
-#: MainWindow/Window.cpp:1219
+#: MainWindow/Window.cpp:1220
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4533,33 +4533,33 @@ msgstr ""
 "inställningen av etiketter utan etikett i <interface>Inställningar|Anpassa "
 "Kfotoalbum...|Kategorier</interface>.</p>"
 
-#: MainWindow/Window.cpp:1345 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1346 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Allmänt"
 
-#: MainWindow/Window.cpp:1346 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1347 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Visning"
 
-#: MainWindow/Window.cpp:1347
+#: MainWindow/Window.cpp:1348
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Datumrad"
 
-#: MainWindow/Window.cpp:1350
+#: MainWindow/Window.cpp:1351
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Beskrivningsdialogruta"
 
-#: MainWindow/Window.cpp:1351 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1352 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Miniatyrbildsvisning"
 
-#: MainWindow/Window.cpp:1502
+#: MainWindow/Window.cpp:1503
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4568,13 +4568,13 @@ msgstr ""
 "<p>Vill du verkligen aktivera alla meddelanden där du tidigare markerat "
 "kryssrutan för att inte visa dem igen?</p>"
 
-#: MainWindow/Window.cpp:1504
+#: MainWindow/Window.cpp:1505
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Återställ dolda dialogrutor"
 
-#: MainWindow/Window.cpp:1523
+#: MainWindow/Window.cpp:1524
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4591,32 +4591,32 @@ msgstr ""
 "men det är inte helt otroligt att det senare kommer att krascha beroende på "
 "den saknade 'make install'.</p>"
 
-#: MainWindow/Window.cpp:1523
+#: MainWindow/Window.cpp:1524
 #, kde-format
 msgid "Internal Error"
 msgstr "Internt fel"
 
-#: MainWindow/Window.cpp:1534
+#: MainWindow/Window.cpp:1535
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "Delade bilder med lyckat resultat. Kopierar plats till klippbordet ..."
 
-#: MainWindow/Window.cpp:1537
+#: MainWindow/Window.cpp:1538
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Delade bilder med lyckat resultat."
 
-#: MainWindow/Window.cpp:1542
+#: MainWindow/Window.cpp:1543
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Bilddelning misslyckades med meddelandet: %1"
 
-#: MainWindow/Window.cpp:1593
+#: MainWindow/Window.cpp:1594
 #, kde-format
 msgid "Open List of Files"
 msgstr "Öppna lista med filer"
 
-#: MainWindow/Window.cpp:1594
+#: MainWindow/Window.cpp:1595
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4625,28 +4625,28 @@ msgstr ""
 "Du kan öppna en uppsättning filer i Kfotoalbums databas genom att lista "
 "filerna här."
 
-#: MainWindow/Window.cpp:1608
+#: MainWindow/Window.cpp:1609
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Några bilder som motsvarar indata hittades inte."
 
-#: MainWindow/Window.cpp:1608
+#: MainWindow/Window.cpp:1609
 #, kde-format
 msgid "No Matches"
 msgstr "Inga träffar"
 
-#: MainWindow/Window.cpp:1780
+#: MainWindow/Window.cpp:1781
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Läser in EXIF-information från alla bilder igen"
 
-#: MainWindow/Window.cpp:1807
+#: MainWindow/Window.cpp:1808
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Miniatyrbildstorlek: %1 bildpunkt (lagringsstorlek: %2 bildpunkter)"
 
-#: MainWindow/Window.cpp:1860
+#: MainWindow/Window.cpp:1861
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4656,7 +4656,7 @@ msgstr ""
 "<p>Kan inte hitta ffmpeg på systemet</p><p>Utan det kan inte Kfotoalbum visa "
 "videominiatyrbilder och videolängder. Installera paketet ffmpeg.</p>"
 
-#: MainWindow/Window.cpp:1863
+#: MainWindow/Window.cpp:1864
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Videominiatyrbilder är inte tillgänglig"

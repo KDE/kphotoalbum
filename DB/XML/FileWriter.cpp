@@ -502,28 +502,30 @@ QString DB::FileWriter::escape(const QString &str)
     if (s_cache.contains(str))
         return s_cache[str];
 
-    QString tmp(str);
-    // Regex to match characters that are not allowed to start XML attribute names
-    static const QRegularExpression rx(QStringLiteral("([^a-zA-Z0-9:_])"));
-    int pos = 0;
+    QString escaped;
 
     // Encoding special characters if compressed XML is selected
-    // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
     if (useCompressedFileFormat()) {
-        auto match = rx.match(tmp);
-        while (match.hasMatch()) {
-            QString before = match.captured(1);
-            QString after = QString::asprintf("_.%0X", match.captured(1).data()->toLatin1());
-            tmp.replace(pos, before.length(), after);
-            pos += after.length();
-            match = rx.match(tmp, pos);
+        static const QRegularExpression rx(QStringLiteral("([^a-zA-Z0-9:_])"));
+        QString tmp(str);
+        while (true) {
+            const auto match = rx.match(tmp);
+            if (match.hasMatch()) {
+                escaped += tmp.left(match.capturedStart())
+                           + QString::asprintf("_.%0X", match.captured().data()->toLatin1());
+                tmp = tmp.mid(match.capturedStart() + match.capturedLength(), -1);
+            } else {
+                escaped += tmp;
+                break;
+            }
         }
     } else {
-        tmp.replace(QStringLiteral(" "), QStringLiteral("_"));
+        escaped = str;
+        escaped.replace(QStringLiteral(" "), QStringLiteral("_"));
     }
 
-    s_cache.insert(str, tmp);
-    return tmp;
+    s_cache.insert(str, escaped);
+    return escaped;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

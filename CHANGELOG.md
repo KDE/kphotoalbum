@@ -50,6 +50,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - The "Configure KPhotoAlbum" menu entry is now shown again
  - Category names containing non-ASCII characters saved using the "fast" database format are escaped correctly again
  - Clicking on a tag in the Viewers's info box shows the respective tag in the browser again
+ - When the main window is closed and the viewer is opened, it is also closed now automatically. This is what one would expect, and it also fixes crashing e.g. when the user clicks on an info box link with the main window already closed. Additionally, if the annotation dialog is open, we now also try to close it. If this doesn't succeed (e.g. because there are pending changes and the user didn't agree to discard them) the close query is aborted.
 
 ### Removed
 

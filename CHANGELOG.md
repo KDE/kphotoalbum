@@ -1,6 +1,6 @@
 <!--
 SPDX-FileCopyrightText: 2022-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-SPDX-FileCopyrightText: 2022-2024 Tobias Leupold <tl at stonemx dot de>
+SPDX-FileCopyrightText: 2022-2024 Tobias Leupold <tl@stonemx.de>
 
 SPDX-License-Identifier: CC-BY-SA-4.0
 
@@ -39,6 +39,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Support database file names other than index.xml (#418647)
 
 ### Changed
+ - The way XML attribute names are escaped for the "compressed" db format has been changed, along with a db version bump to 11. The escaping we used until now wasn't reliable for strings containing spaces and underscores, also it only worked for strings with Latin-1 characters. Now. the whole Unicode range is covered.
 
 ### Dependencies
 
@@ -48,7 +49,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix application icon on Wayland
  - Fix crash when video thumbnail cache contains empty files (#497831)
  - The "Configure KPhotoAlbum" menu entry is now shown again
- - Category names containing non-ASCII characters saved using the "fast" database format are escaped correctly again
+ - Category names containing non-ASCII characters saved using the "fast" database format using older KPA versions are now read correctly again. Unfortunately, with v6.0.0, all tag associations with categories containing non-ASCII characters were discarded (and would be lost on the next saving) due to a faulty port of the escaping algorithm. Sorry for the inconvenience!
 
 ### Removed
 

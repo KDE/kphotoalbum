@@ -347,7 +347,7 @@ void ImageDB::readOptions(ImageInfoPtr info, DB::ReaderPtr reader, const QMap<QS
     static QString _area_ = QString::fromUtf8("area");
 
     while (reader->readNextStartOrStopElement(_option_).isStartToken) {
-        QString name = DB::FileReader::unescape(reader->attribute(_name_));
+        QString name = DB::FileReader::unescape(reader->attribute(_name_), reader->fileVersion());
         // If the silent update to db version 6 has been done, use the updated category names.
         if (newToOldCategory) {
             name = newToOldCategory->key(name, name);
@@ -836,7 +836,7 @@ const DB::TagInfo *ImageDB::untaggedTag() const
 int ImageDB::fileVersion()
 {
     // File format version, bump it up every time the format for the file changes.
-    return 10;
+    return 11;
 }
 
 ImageInfoPtr ImageDB::createImageInfo(const FileName &fileName, DB::ReaderPtr reader, ImageDB *db, const QMap<QString, QString> *newToOldCategory)
@@ -957,7 +957,7 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
         } else {
             oldCategoryName = categoryName;
         }
-        QString str = reader->attribute(DB::FileWriter::escape(oldCategoryName));
+        QString str = reader->attribute(DB::FileWriter::escape(oldCategoryName, reader->fileVersion()));
         if (!str.isEmpty()) {
             const QStringList list = str.split(QString::fromLatin1(","), Qt::SkipEmptyParts);
             for (const QString &tagString : list) {

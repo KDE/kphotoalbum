@@ -31,7 +31,7 @@ public:
     {
     }
     void save(const QString &fileName, bool isAutoSave);
-    static QString escape(const QString &);
+    static QString escape(const QString &, int fileVersion);
 
 protected:
     void saveCategories(QXmlStreamWriter &);

@@ -45,11 +45,13 @@ void DB::FileReader::read(const QString &configFile)
 
     ReaderPtr reader = readConfigFile(configFile);
 
+
     ElementInfo info = reader->readNextStartOrStopElement(QString::fromUtf8("KPhotoAlbum"));
     if (!info.isStartToken)
         reader->complainStartElementExpected(QString::fromUtf8("KPhotoAlbum"));
 
     m_fileVersion = reader->attribute(versionString, QString::fromLatin1("1")).toInt();
+    reader->setFileVersion(m_fileVersion);
 
     if (m_fileVersion > DB::ImageDB::fileVersion()) {
         DB::UserFeedback ret = m_db->uiDelegate().warningContinueCancel(
@@ -167,7 +169,7 @@ void DB::FileReader::loadCategories(ReaderPtr reader)
         reader->complainStartElementExpected(categoriesString);
 
     while (reader->readNextStartOrStopElement(categoryString).isStartToken) {
-        const QString categoryName = unescape(reader->attribute(nameString));
+        const QString categoryName = unescape(reader->attribute(nameString), m_fileVersion);
         if (!categoryName.isNull()) {
             // Read Category info
             QString icon = reader->attribute(iconString);
@@ -593,39 +595,66 @@ DB::ReaderPtr DB::FileReader::readConfigFile(const QString &configFile)
  * @see DB::FileWriter::escape
  *
  * @param str the string to be unescaped
+ * @param int the db version we want to unescape from
  * @return the unescaped string
  */
-QString DB::FileReader::unescape(const QString &str)
+QString DB::FileReader::unescape(const QString &str, int fileVersion)
 {
     static bool hashUsesCompressedFormat = useCompressedFileFormat();
     static QHash<QString, QString> s_cache;
-    if (hashUsesCompressedFormat != useCompressedFileFormat())
+    static int s_cacheVersion = -1;
+
+    if (hashUsesCompressedFormat != useCompressedFileFormat() || s_cacheVersion != fileVersion) {
         s_cache.clear();
-    if (s_cache.contains(str))
-        return s_cache[str];
-
-    QString tmp(str);
-    // Matches encoded characters in attribute names
-    QRegularExpression rx(QStringLiteral("(_.)([0-9A-F]{2})"));
-    int pos = 0;
-
-    // Unencoding special characters if compressed XML is selected
-    // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
-    if (useCompressedFileFormat()) {
-        auto match = rx.match(tmp);
-        while (match.hasMatch()) {
-            QString before = match.captured(1) + match.captured(2);
-            QString after = QString::fromLatin1(QByteArray::fromHex(match.captured(2).toLocal8Bit()));
-            tmp.replace(pos, before.length(), after);
-            pos += after.length();
-            match = rx.match(tmp, pos);
-        }
-    } else {
-        tmp.replace(QStringLiteral("_"), QStringLiteral(" "));
+        s_cacheVersion = fileVersion;
     }
 
-    s_cache.insert(str, tmp);
-    return tmp;
+    if (s_cache.contains(str)) {
+        return s_cache[str];
+    }
+
+    auto unEscaped = str;
+
+    if (!useCompressedFileFormat()) {
+        unEscaped.replace(QStringLiteral("_"), QStringLiteral(" "));
+        s_cache.insert(str, unEscaped);
+        return unEscaped;
+    }
+
+    // If we use the "compressed" file format, we have to do some un-escaping,
+    // because the category names have been used as attributes.
+
+    // Up to db v10, some Latin-1-only compatible escaping has been done using regular expressions.
+    // For backwards compatibility, we still provide the custom un-escaping algorithm here:
+
+    if (fileVersion <= 10) {
+        // Matches encoded characters in attribute names
+        QRegularExpression rx(QStringLiteral("(_.)([0-9A-F]{2})"));
+        int pos = 0;
+
+        // Unencoding special characters if compressed XML is selected
+        // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
+        if (useCompressedFileFormat()) {
+            auto match = rx.match(unEscaped);
+            while (match.hasMatch()) {
+                QString before = match.captured(1) + match.captured(2);
+                QString after = QString::fromLatin1(QByteArray::fromHex(match.captured(2).toLocal8Bit()));
+                unEscaped.replace(pos, before.length(), after);
+                pos += after.length();
+                match = rx.match(unEscaped, pos);
+            }
+        }
+
+    // Beginning from db v11, we use a modified percent encoding provided by QByteArray that will
+    // work for all input strings and covers the whole Unicode range:
+
+    } else {
+        unEscaped = QString::fromUtf8(QByteArray::fromPercentEncoding(unEscaped.toUtf8(), '_'));
+    }
+
+    // Update the cache and return the un-escaped string
+    s_cache.insert(str, unEscaped);
+    return unEscaped;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

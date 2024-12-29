@@ -109,6 +109,16 @@ QXmlStreamReader::TokenType XmlReader::readNextInternal()
     }
 }
 
+void XmlReader::setFileVersion(int version)
+{
+    m_fileVersion = version;
+}
+
+int XmlReader::fileVersion() const
+{
+    return m_fileVersion;
+}
+
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

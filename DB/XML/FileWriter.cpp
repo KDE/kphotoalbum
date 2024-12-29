@@ -431,7 +431,8 @@ void DB::FileWriter::writeCategoriesCompressed(QXmlStreamWriter &writer, const D
             // write the category attribute if there are actually ids to write
             if (!idList.isEmpty()) {
                 std::sort(idList.begin(), idList.end());
-                writer.writeAttribute(escape(categoryName), idList.join(QStringLiteral(",")));
+                writer.writeAttribute(escape(categoryName, DB::ImageDB::fileVersion()),
+                                      idList.join(QStringLiteral(",")));
             }
         }
     }
@@ -490,40 +491,78 @@ bool DB::FileWriter::shouldSaveCategory(const QString &categoryName) const
  * @see DB::FileReader::unescape
  *
  * @param str the string to be escaped
+ * @param int the db version we want to escape for
  * @return the escaped string
  */
-QString DB::FileWriter::escape(const QString &str)
+QString DB::FileWriter::escape(const QString &str, int fileVersion)
 {
     static bool hashUsesCompressedFormat = useCompressedFileFormat();
     static QHash<QString, QString> s_cache;
-    if (hashUsesCompressedFormat != useCompressedFileFormat())
-        s_cache.clear();
+    static int s_cacheVersion = -1;
 
-    if (s_cache.contains(str))
+    if (hashUsesCompressedFormat != useCompressedFileFormat() || s_cacheVersion != fileVersion) {
+        s_cache.clear();
+        s_cacheVersion = fileVersion;
+    }
+
+    if (s_cache.contains(str)) {
         return s_cache[str];
+    }
 
     QString escaped;
 
-    // Encoding special characters if compressed XML is selected
-    if (useCompressedFileFormat()) {
-        static const QRegularExpression rx(QStringLiteral("([^a-zA-Z0-9:_])"));
-        QString tmp(str);
-        while (true) {
-            const auto match = rx.match(tmp);
-            if (match.hasMatch()) {
-                escaped += tmp.left(match.capturedStart())
-                           + QString::asprintf("_.%0X", match.captured().data()->toLatin1());
-                tmp = tmp.mid(match.capturedStart() + match.capturedLength(), -1);
-            } else {
-                escaped += tmp;
-                break;
-            }
-        }
-    } else {
+    if (!useCompressedFileFormat()) {
         escaped = str;
         escaped.replace(QStringLiteral(" "), QStringLiteral("_"));
+        s_cache.insert(str, escaped);
+        return escaped;
     }
 
+    // If we use the "compressed" file format, we have to do some escaping,
+    // because the category names are used as attributes.
+
+    // Up to db v10, some Latin-1-only compatible escaping has been done using regular expressions.
+    // For backwards compatibility, we still provide this algorithm here:
+
+    if (fileVersion <= 10) {
+        // Encoding special characters if compressed XML is selected
+        if (useCompressedFileFormat()) {
+            static const QRegularExpression rx(QStringLiteral("([^a-zA-Z0-9:_])"));
+            QString tmp(str);
+            while (true) {
+                const auto match = rx.match(tmp);
+                if (match.hasMatch()) {
+                    escaped += tmp.left(match.capturedStart())
+                            + QString::asprintf("_.%0X", match.captured().data()->toLatin1());
+                    tmp = tmp.mid(match.capturedStart() + match.capturedLength(), -1);
+                } else {
+                    escaped += tmp;
+                    break;
+                }
+            }
+        }
+
+    // Beginning from db v11, we use a modified percent encoding provided by QByteArray that will
+    // work for all input strings and covers the whole Unicode range:
+
+    } else {
+        // The first character of an XML attribute must be a NameStartChar. That is a-z,
+        // A-Z, ":" or "_". From the second position on, also 0-9, "." and "-" are allowed
+        // (cf. https://www.w3.org/TR/xml/ for the full specification).
+        //
+        // To keep it simple, we escape everything that is not a small or capital letter, and use
+        // the underscore as our escaping char. This way, nothing can go wrong, no matter what the
+        // given string contains, and at which position.
+
+        // By default, QByteArray::toPercentEncoding encodes everything that is not a-z, A-Z, 0-9,
+        // "-", ".", "_" or "~". We thus have to add some more chars to include:
+        static const QByteArray s_escapeIncludes = QStringLiteral("-._~0123456789").toUtf8();
+
+        escaped = QString::fromUtf8(str.toUtf8().toPercentEncoding(QByteArray(), s_escapeIncludes,
+                                                                   '_'));
+    }
+
+    // Update the cache and return the escaped string
     s_cache.insert(str, escaped);
     return escaped;
 }

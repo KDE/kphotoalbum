@@ -511,7 +511,7 @@ QString DB::FileWriter::escape(const QString &str, int fileVersion)
 
     // Up to db v10, some Latin-1-only compatible escaping has been done using regular expressions
     // for the "compressed" format. Also, there was some space-underscore substitution for the
-    // "readable" format. We need this when reading a db <v11, so we still provide this algorithm
+    // "readable" format. We need this when reading a pre-v11 db, so we still provide this algorithm
     // here:
 
     if (fileVersion <= 10) {
@@ -566,8 +566,7 @@ QString DB::FileWriter::escape(const QString &str, int fileVersion)
         // "-", ".", "_" or "~". We thus have to add some more chars to include:
         static const QByteArray s_escapeIncludes = QStringLiteral("-._~0123456789").toUtf8();
 
-        escaped = QString::fromUtf8(str.toUtf8().toPercentEncoding(QByteArray(), s_escapeIncludes,
-                                                                   '_'));
+        escaped = QString::fromUtf8(str.toUtf8().toPercentEncoding(QByteArray(), s_escapeIncludes, '_'));
     }
 
     s_cache.insert(str, escaped);

@@ -169,7 +169,15 @@ void DB::FileReader::loadCategories(ReaderPtr reader)
         reader->complainStartElementExpected(categoriesString);
 
     while (reader->readNextStartOrStopElement(categoryString).isStartToken) {
-        const QString categoryName = reader->attribute(nameString);
+        QString categoryName;
+        if (m_fileVersion >= 11) {
+            categoryName = reader->attribute(nameString);
+        } else {
+            // Category names are attribute values and do not have to be escaped or unescaped.
+            // However, before db v11, KPA did this. To be able to read pre-11 dbs correctly, we
+            // have to call unescape() here:
+            categoryName = unescape(reader->attribute(nameString), m_fileVersion);
+        }
         if (!categoryName.isNull()) {
             // Read Category info
             QString icon = reader->attribute(iconString);
@@ -620,7 +628,7 @@ QString DB::FileReader::unescape(const QString &str, int fileVersion)
 
     // Up to db v10, some Latin-1-only compatible escaping has been done using regular expressions
     // for the "compressed" format. Also, there was some space-underscore substitution for the
-    // "readable" format. We need this when reading a db <v11, so we still provide this algorithm
+    // "readable" format. We need this when reading a pre-v11 db, so we still provide this algorithm
     // here:
 
     if (fileVersion <= 10) {
@@ -649,7 +657,7 @@ QString DB::FileReader::unescape(const QString &str, int fileVersion)
     }
 
     // Beginning from db v11, we use a modified percent encoding provided by QByteArray that will
-    // work for all input strings and covers the whole Unicode range. We only do thids for the
+    // work for all input strings and covers the whole Unicode range. We only do this for the
     // "compressed" format. For the "readble" format, the string is used as-is (unEscaped is already
     // set to str above):
     if (useCompressedFileFormat()) {

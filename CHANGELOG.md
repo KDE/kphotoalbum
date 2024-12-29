@@ -49,6 +49,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Fix crash when video thumbnail cache contains empty files (#497831)
  - The "Configure KPhotoAlbum" menu entry is now shown again
  - Category names containing non-ASCII characters saved using the "fast" database format are escaped correctly again
+ - Clicking on a tag in the Viewers's info box shows the respective tag in the browser again
 
 ### Removed
 

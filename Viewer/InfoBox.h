@@ -40,7 +40,6 @@ class InfoBox : public QTextBrowser
 
 public:
     explicit InfoBox(ViewerWidget *parent);
-    void setSource(const QUrl &source);
     void setInfo(const QString &text, const QMap<int, QPair<QString, QString>> &linkMap);
     void setSize();
 
@@ -70,6 +69,9 @@ protected Q_SLOTS:
 Q_SIGNALS:
     void tagHovered(const QPair<QString, QString> &tagData);
     void noTagHovered();
+
+private Q_SLOTS:
+    void browseTag(const QUrl &link);
 
 private: // Variables
     QMap<int, QPair<QString, QString>> m_linkMap;

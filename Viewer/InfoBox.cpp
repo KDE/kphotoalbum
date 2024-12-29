@@ -80,6 +80,9 @@ Viewer::InfoBox::InfoBox(Viewer::ViewerWidget *viewer)
     }
 
     delete rating;
+
+    setOpenLinks(false);
+    connect(this, &QTextBrowser::anchorClicked, this, &InfoBox::browseTag);
 }
 
 QVariant Viewer::InfoBox::loadResource(int type, const QUrl &name)
@@ -92,13 +95,10 @@ QVariant Viewer::InfoBox::loadResource(int type, const QUrl &name)
     return QTextBrowser::loadResource(type, name);
 }
 
-void Viewer::InfoBox::setSource(const QUrl &source)
+void Viewer::InfoBox::browseTag(const QUrl &link)
 {
-    int index = source.path().toInt();
-    QPair<QString, QString> p = m_linkMap[index];
-    QString category = p.first;
-    QString value = p.second;
-    Browser::BrowserWidget::instance()->load(category, value);
+    const auto &tagData = m_linkMap[link.path().toInt()];
+    Browser::BrowserWidget::instance()->load(tagData.first, tagData.second);
     showBrowser();
 }
 

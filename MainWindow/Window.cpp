@@ -354,6 +354,13 @@ bool MainWindow::Window::queryClose()
     if (deleteDemoDB)
         Utilities::deleteDemo();
 
+    // If we have a viewer, also close it. It has no parent so that other
+    // windows can get on top of it, so this has to be done manually.
+    auto *viewer = Viewer::ViewerWidget::latest();
+    if (viewer) {
+        viewer->close();
+    }
+
     return true;
 }
 

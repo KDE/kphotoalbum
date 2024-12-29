@@ -169,7 +169,7 @@ void DB::FileReader::loadCategories(ReaderPtr reader)
         reader->complainStartElementExpected(categoriesString);
 
     while (reader->readNextStartOrStopElement(categoryString).isStartToken) {
-        const QString categoryName = unescape(reader->attribute(nameString), m_fileVersion);
+        const QString categoryName = reader->attribute(nameString);
         if (!categoryName.isNull()) {
             // Read Category info
             QString icon = reader->attribute(iconString);

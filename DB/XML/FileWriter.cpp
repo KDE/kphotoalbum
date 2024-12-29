@@ -509,42 +509,50 @@ QString DB::FileWriter::escape(const QString &str, int fileVersion)
         return s_cache[str];
     }
 
-    QString escaped;
-
-    if (!useCompressedFileFormat()) {
-        escaped = str;
-        escaped.replace(QStringLiteral(" "), QStringLiteral("_"));
-        s_cache.insert(str, escaped);
-        return escaped;
-    }
-
-    // If we use the "compressed" file format, we have to do some escaping,
-    // because the category names are used as attributes.
-
-    // Up to db v10, some Latin-1-only compatible escaping has been done using regular expressions.
-    // For backwards compatibility, we still provide this algorithm here:
+    // Up to db v10, some Latin-1-only compatible escaping has been done using regular expressions
+    // for the "compressed" format. Also, there was some space-underscore substitution for the
+    // "readable" format. We need this when reading a db <v11, so we still provide this algorithm
+    // here:
 
     if (fileVersion <= 10) {
-        // Encoding special characters if compressed XML is selected
-        if (useCompressedFileFormat()) {
-            static const QRegularExpression rx(QStringLiteral("([^a-zA-Z0-9:_])"));
-            QString tmp(str);
-            while (true) {
-                const auto match = rx.match(tmp);
-                if (match.hasMatch()) {
-                    escaped += tmp.left(match.capturedStart())
-                            + QString::asprintf("_.%0X", match.captured().data()->toLatin1());
-                    tmp = tmp.mid(match.capturedStart() + match.capturedLength(), -1);
-                } else {
-                    escaped += tmp;
-                    break;
+        QString escaped;
+
+        if (!useCompressedFileFormat()) {
+            escaped = str;
+            escaped.replace(QStringLiteral(" "), QStringLiteral("_"));
+
+        } else {
+            if (useCompressedFileFormat()) {
+                static const QRegularExpression rx(QStringLiteral("([^a-zA-Z0-9:_])"));
+                QString tmp(str);
+                while (true) {
+                    const auto match = rx.match(tmp);
+                    if (match.hasMatch()) {
+                        escaped += tmp.left(match.capturedStart())
+                                + QString::asprintf("_.%0X", match.captured().data()->toLatin1());
+                        tmp = tmp.mid(match.capturedStart() + match.capturedLength(), -1);
+                    } else {
+                        escaped += tmp;
+                        break;
+                    }
                 }
             }
         }
 
-    // Beginning from db v11, we use a modified percent encoding provided by QByteArray that will
-    // work for all input strings and covers the whole Unicode range:
+        s_cache.insert(str, escaped);
+        return escaped;
+    }
 
+    QString escaped;
+
+    // If we use the "readable" format, we don't need escaping:
+    if (!useCompressedFileFormat()) {
+        escaped = str;
+
+    // If we use the "compressed" file format, we have to do some escaping, because the category
+    // names are used as XML attributes and we can't use all characters for them. Beginning from
+    // db v11, we use a modified percent encoding provided by QByteArray that will work for all
+    // input strings and covers the whole Unicode range:
     } else {
         // The first character of an XML attribute must be a NameStartChar. That is a-z,
         // A-Z, ":" or "_". From the second position on, also 0-9, "." and "-" are allowed
@@ -562,7 +570,6 @@ QString DB::FileWriter::escape(const QString &str, int fileVersion)
                                                                    '_'));
     }
 
-    // Update the cache and return the escaped string
     s_cache.insert(str, escaped);
     return escaped;
 }

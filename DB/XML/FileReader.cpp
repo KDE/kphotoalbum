@@ -613,46 +613,49 @@ QString DB::FileReader::unescape(const QString &str, int fileVersion)
         return s_cache[str];
     }
 
+    // If we use the "compressed" file format, we have to do some un-escaping, because the category
+    // names have been used as XML attributes and have been escaped before saving.
+
     auto unEscaped = str;
 
-    if (!useCompressedFileFormat()) {
-        unEscaped.replace(QStringLiteral("_"), QStringLiteral(" "));
+    // Up to db v10, some Latin-1-only compatible escaping has been done using regular expressions
+    // for the "compressed" format. Also, there was some space-underscore substitution for the
+    // "readable" format. We need this when reading a db <v11, so we still provide this algorithm
+    // here:
+
+    if (fileVersion <= 10) {
+        if (!useCompressedFileFormat()) {
+            unEscaped.replace(QStringLiteral("_"), QStringLiteral(" "));
+
+        } else {
+            QRegularExpression rx(QStringLiteral("(_.)([0-9A-F]{2})"));
+            int pos = 0;
+
+            // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
+            if (useCompressedFileFormat()) {
+                auto match = rx.match(unEscaped);
+                while (match.hasMatch()) {
+                    QString before = match.captured(1) + match.captured(2);
+                    QString after = QString::fromLatin1(QByteArray::fromHex(match.captured(2).toLocal8Bit()));
+                    unEscaped.replace(pos, before.length(), after);
+                    pos += after.length();
+                    match = rx.match(unEscaped, pos);
+                }
+            }
+        }
+
         s_cache.insert(str, unEscaped);
         return unEscaped;
     }
 
-    // If we use the "compressed" file format, we have to do some un-escaping,
-    // because the category names have been used as attributes.
-
-    // Up to db v10, some Latin-1-only compatible escaping has been done using regular expressions.
-    // For backwards compatibility, we still provide the custom un-escaping algorithm here:
-
-    if (fileVersion <= 10) {
-        // Matches encoded characters in attribute names
-        QRegularExpression rx(QStringLiteral("(_.)([0-9A-F]{2})"));
-        int pos = 0;
-
-        // Unencoding special characters if compressed XML is selected
-        // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
-        if (useCompressedFileFormat()) {
-            auto match = rx.match(unEscaped);
-            while (match.hasMatch()) {
-                QString before = match.captured(1) + match.captured(2);
-                QString after = QString::fromLatin1(QByteArray::fromHex(match.captured(2).toLocal8Bit()));
-                unEscaped.replace(pos, before.length(), after);
-                pos += after.length();
-                match = rx.match(unEscaped, pos);
-            }
-        }
-
     // Beginning from db v11, we use a modified percent encoding provided by QByteArray that will
-    // work for all input strings and covers the whole Unicode range:
-
-    } else {
+    // work for all input strings and covers the whole Unicode range. We only do thids for the
+    // "compressed" format. For the "readble" format, the string is used as-is (unEscaped is already
+    // set to str above):
+    if (useCompressedFileFormat()) {
         unEscaped = QString::fromUtf8(QByteArray::fromPercentEncoding(unEscaped.toUtf8(), '_'));
     }
 
-    // Update the cache and return the un-escaped string
     s_cache.insert(str, unEscaped);
     return unEscaped;
 }

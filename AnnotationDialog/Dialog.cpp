@@ -1022,12 +1022,13 @@ void AnnotationDialog::Dialog::slotRenameOption(DB::Category *category, const QS
     }
 }
 
-void AnnotationDialog::Dialog::reject()
+bool AnnotationDialog::Dialog::requestClose()
 {
     if (m_stack->currentWidget() == m_fullScreenPreview) {
         togglePreview();
-        if (!m_origList.empty())
-            return;
+        if (!m_origList.empty()) {
+            return false;
+        }
     }
 
     if (hasChanges()) {
@@ -1038,10 +1039,18 @@ void AnnotationDialog::Dialog::reject()
                                                             title,
                                                             KStandardGuiItem::discard(),
                                                             KStandardGuiItem::cancel());
-        if (answer != KMessageBox::ButtonCode::PrimaryAction)
-            return;
+        if (answer != KMessageBox::ButtonCode::PrimaryAction) {
+            return false;
+        }
     }
-    closeDialog();
+
+    QTimer::singleShot(0, this, &Dialog::closeDialog);
+    return true;
+}
+
+void AnnotationDialog::Dialog::reject()
+{
+    requestClose();
 }
 
 void AnnotationDialog::Dialog::closeDialog()

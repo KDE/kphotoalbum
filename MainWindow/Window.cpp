@@ -304,6 +304,12 @@ void MainWindow::Window::delayedInit()
 
 bool MainWindow::Window::queryClose()
 {
+    // If we have an annotation dialog, try to close it. If there are pending
+    // changes and the user aborts the closing, reject this close query.
+    if (m_annotationDialog && !m_annotationDialog->requestClose()) {
+        return false;
+    }
+
     bool deleteDemoDB = false;
     if (Options::the()->demoMode()) {
         const QString question = i18n("<p><b>Delete Your Temporary Demo Database</b></p>"

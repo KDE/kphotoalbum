@@ -102,6 +102,7 @@ public:
      */
     DB::TaggedAreas taggedAreas() const;
     ListSelect *listSelectForCategory(const QString &category);
+    bool requestClose();
 
 protected Q_SLOTS:
     void slotRevert();
@@ -163,7 +164,6 @@ protected:
     StringSet changedOptions(const ListSelect *);
     void showHelpDialog(UsageMode);
     void setupFocus();
-    void closeDialog();
     void loadWindowLayout();
     void setupActions();
     void setUpCategoryListBoxForMultiImageSelection(ListSelect *, const DB::ImageInfoList &images);
@@ -173,6 +173,9 @@ protected:
 #ifdef HAVE_MARBLE
     void clearMapData();
 #endif
+
+private Q_SLOTS:
+    void closeDialog();
 
 private:
     QStackedWidget *m_stack;

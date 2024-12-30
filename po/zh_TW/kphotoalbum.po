@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-28 00:39+0000\n"
+"POT-Creation-Date: 2024-12-30 00:39+0000\n"
 "PO-Revision-Date: 2024-10-07 15:40+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -271,13 +271,13 @@ msgstr "儲存目前的視窗設定"
 msgid "Reset layout"
 msgstr "重置佈局"
 
-#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1259
+#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1268
 #: AnnotationDialog/ListSelect.cpp:110
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "依字母排序（樹狀）"
 
-#: AnnotationDialog/Dialog.cpp:893 AnnotationDialog/Dialog.cpp:1263
+#: AnnotationDialog/Dialog.cpp:893 AnnotationDialog/Dialog.cpp:1272
 #: AnnotationDialog/ListSelect.cpp:116
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
@@ -324,7 +324,7 @@ msgstr "設定"
 msgid "Save current window setup"
 msgstr "儲存目前的視窗設定"
 
-#: AnnotationDialog/Dialog.cpp:1034
+#: AnnotationDialog/Dialog.cpp:1035
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Some changes are made to annotations. Do you really want to cancel all "
@@ -334,14 +334,14 @@ msgid ""
 "recent changes for each affected file?</p>"
 msgstr "<p>有些註記做了變更。您要取消所有最近對被影響檔案的變更嗎？</p>"
 
-#: AnnotationDialog/Dialog.cpp:1035
+#: AnnotationDialog/Dialog.cpp:1036
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "儲存更改嗎？"
 
-#: AnnotationDialog/Dialog.cpp:1126
+#: AnnotationDialog/Dialog.cpp:1135
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -357,7 +357,7 @@ msgstr ""
 "\"help:/kphotoalbum/chp-typeingIn.html\">輸入</a>」取得此用法更多的資訊與提"
 "示。</p>"
 
-#: AnnotationDialog/Dialog.cpp:1134
+#: AnnotationDialog/Dialog.cpp:1143
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -369,52 +369,52 @@ msgstr ""
 "功能。</p> <p>強烈建議您花五分鐘時間閱讀一下「<a href=\"help:/kphotoalbum/"
 "chp-typingIn.html\">關於此對話框</a>」的文件說明。</p>"
 
-#: AnnotationDialog/Dialog.cpp:1266
+#: AnnotationDialog/Dialog.cpp:1275
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "排序最常使用的"
 
-#: AnnotationDialog/Dialog.cpp:1269
+#: AnnotationDialog/Dialog.cpp:1278
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "切換排序"
 
-#: AnnotationDialog/Dialog.cpp:1274
+#: AnnotationDialog/Dialog.cpp:1283
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "只切換顯示選取的項目"
 
-#: AnnotationDialog/Dialog.cpp:1278
+#: AnnotationDialog/Dialog.cpp:1287
 #, kde-format
 msgid "Annotate Next"
 msgstr "註記下一個"
 
-#: AnnotationDialog/Dialog.cpp:1282
+#: AnnotationDialog/Dialog.cpp:1291
 #, kde-format
 msgid "Annotate Previous"
 msgstr "註記前一個"
 
-#: AnnotationDialog/Dialog.cpp:1286
+#: AnnotationDialog/Dialog.cpp:1295
 #, kde-format
 msgid "OK dialog"
 msgstr "確定對話框"
 
-#: AnnotationDialog/Dialog.cpp:1290
+#: AnnotationDialog/Dialog.cpp:1299
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "從前一張影像複製標籤"
 
-#: AnnotationDialog/Dialog.cpp:1294 MainWindow/Window.cpp:823
+#: AnnotationDialog/Dialog.cpp:1303 MainWindow/Window.cpp:836
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "逆時針方向旋轉"
 
-#: AnnotationDialog/Dialog.cpp:1297 MainWindow/Window.cpp:827
+#: AnnotationDialog/Dialog.cpp:1306 MainWindow/Window.cpp:840
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "順時針方向旋轉"
 
-#: AnnotationDialog/Dialog.cpp:1300
+#: AnnotationDialog/Dialog.cpp:1309
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "切換全螢幕預覽"
@@ -956,7 +956,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "搜尋"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1757
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1770
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -969,7 +969,7 @@ msgstr ""
 "<ul><li>點選「設定」選單</li> <li>點選「設定 KPhotoAlbum」</li> <li>點選「類"
 "別」圖示</li> <li>設定「無標籤影像」的區塊</li> </ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1764
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1777
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "功能尚未設定"
@@ -2699,7 +2699,7 @@ msgid "Create folder?"
 msgstr "基礎目錄："
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1182
+#: MainWindow/Window.cpp:1195
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -4164,7 +4164,7 @@ msgstr "恭喜：所有動態的功能都已開啟。"
 msgid "Searching for New Files"
 msgstr "搜尋新檔案"
 
-#: MainWindow/Window.cpp:309
+#: MainWindow/Window.cpp:315
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed "
@@ -4184,26 +4184,26 @@ msgstr ""
 "料庫是複製到 /tmp 的，現在要將它刪除嗎？若不刪除，它會浪費硬碟空間。不過若您"
 "要再試試範例，您可能需要保存它。</p>"
 
-#: MainWindow/Window.cpp:314
+#: MainWindow/Window.cpp:320
 #, fuzzy, kde-format
 #| msgid "Delete Demo Database"
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "刪除範例資料庫"
 
-#: MainWindow/Window.cpp:330
+#: MainWindow/Window.cpp:336
 #, kde-format
 msgid "Do you want to save the changes?"
 msgstr "您要儲存變更嗎？"
 
-#: MainWindow/Window.cpp:331
+#: MainWindow/Window.cpp:337
 #, fuzzy, kde-format
 #| msgid "Save Changes?"
 msgctxt "@title"
 msgid "Save Changes?"
 msgstr "儲存更改嗎？"
 
-#: MainWindow/Window.cpp:382
+#: MainWindow/Window.cpp:395
 #, kde-format
 msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
@@ -4212,370 +4212,370 @@ msgstr ""
 "有些選取的影像已經隸屬於某個堆疊。您要將它們從所屬堆疊中移除並完全建立一個新"
 "的堆疊嗎？"
 
-#: MainWindow/Window.cpp:385
+#: MainWindow/Window.cpp:398
 #, fuzzy, kde-format
 #| msgid "Stacking Error"
 msgctxt "@title"
 msgid "Stacking problem"
 msgstr "堆疊錯誤"
 
-#: MainWindow/Window.cpp:395
+#: MainWindow/Window.cpp:408
 #, kde-format
 msgid "Unknown error, stack creation failed."
 msgstr "未知的錯誤，堆疊建立失敗。"
 
-#: MainWindow/Window.cpp:396
+#: MainWindow/Window.cpp:409
 #, kde-format
 msgid "Stacking Error"
 msgstr "堆疊錯誤"
 
-#: MainWindow/Window.cpp:475 MainWindow/Window.cpp:601
-#: MainWindow/Window.cpp:1297 MainWindow/Window.cpp:1394
+#: MainWindow/Window.cpp:488 MainWindow/Window.cpp:614
+#: MainWindow/Window.cpp:1310 MainWindow/Window.cpp:1407
 #, kde-format
 msgid "No item is selected."
 msgstr "沒有選擇任何項目。"
 
-#: MainWindow/Window.cpp:475 MainWindow/Window.cpp:601
-#: MainWindow/Window.cpp:1297 MainWindow/Window.cpp:1395
+#: MainWindow/Window.cpp:488 MainWindow/Window.cpp:614
+#: MainWindow/Window.cpp:1310 MainWindow/Window.cpp:1408
 #, kde-format
 msgid "No Selection"
 msgstr "無選擇區"
 
-#: MainWindow/Window.cpp:521
+#: MainWindow/Window.cpp:534
 #, kde-format
 msgid "Saving..."
 msgstr "儲存中..."
 
-#: MainWindow/Window.cpp:526
+#: MainWindow/Window.cpp:539
 #, kde-format
 msgid "Saving... Done"
 msgstr "儲存中... 完成"
 
-#: MainWindow/Window.cpp:674
+#: MainWindow/Window.cpp:687
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "沒有影像可顯示。"
 
-#: MainWindow/Window.cpp:744 MainWindow/Window.cpp:873
+#: MainWindow/Window.cpp:757 MainWindow/Window.cpp:886
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "限制檢視到選取項目"
 
-#: MainWindow/Window.cpp:745
+#: MainWindow/Window.cpp:758
 #, fuzzy, kde-format
 #| msgid "No item is selected."
 msgid "No images are selected!"
 msgstr "沒有選擇任何項目。"
 
-#: MainWindow/Window.cpp:758
+#: MainWindow/Window.cpp:771
 #, kde-format
 msgid "Generate HTML..."
 msgstr "產生 HTML..."
 
-#: MainWindow/Window.cpp:762
+#: MainWindow/Window.cpp:775
 #, kde-format
 msgid "Import..."
 msgstr "匯入..."
 
-#: MainWindow/Window.cpp:765
+#: MainWindow/Window.cpp:778
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "匯出/複製影像..."
 
-#: MainWindow/Window.cpp:792
+#: MainWindow/Window.cpp:805
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "刪除所選取的項目"
 
-#: MainWindow/Window.cpp:798
+#: MainWindow/Window.cpp:811
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "移除標記…"
 
-#: MainWindow/Window.cpp:801
+#: MainWindow/Window.cpp:814
 #, kde-format
 msgid "Open List of Files..."
 msgstr "開啟檔案清單..."
 
-#: MainWindow/Window.cpp:804
+#: MainWindow/Window.cpp:817
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "註記個別項目"
 
-#: MainWindow/Window.cpp:808
+#: MainWindow/Window.cpp:821
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "同時註記多個項目"
 
-#: MainWindow/Window.cpp:812
+#: MainWindow/Window.cpp:825
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "將影像合併到堆疊"
 
-#: MainWindow/Window.cpp:816
+#: MainWindow/Window.cpp:829
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "從堆疊移除影像"
 
-#: MainWindow/Window.cpp:819
+#: MainWindow/Window.cpp:832
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "設為堆疊內第一個影像"
 
-#: MainWindow/Window.cpp:832
+#: MainWindow/Window.cpp:845
 #, kde-format
 msgid "View"
 msgstr "檢視"
 
-#: MainWindow/Window.cpp:835
+#: MainWindow/Window.cpp:848
 #, kde-format
 msgid "View (In New Window)"
 msgstr "檢視（在新視窗）"
 
-#: MainWindow/Window.cpp:838
+#: MainWindow/Window.cpp:851
 #, kde-format
 msgid "Run Slide Show"
 msgstr "執行投影播放"
 
-#: MainWindow/Window.cpp:843
+#: MainWindow/Window.cpp:856
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "執行隨機投影播放"
 
-#: MainWindow/Window.cpp:849
+#: MainWindow/Window.cpp:862
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "折起所有的堆疊"
 
-#: MainWindow/Window.cpp:855
+#: MainWindow/Window.cpp:868
 #, kde-format
 msgid "Expand all stacks"
 msgstr "展開所有的堆疊"
 
-#: MainWindow/Window.cpp:860
+#: MainWindow/Window.cpp:873
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "最舊的先顯示(&O)"
 
-#: MainWindow/Window.cpp:865
+#: MainWindow/Window.cpp:878
 #, kde-format
 msgid "Show &Newest First"
 msgstr "最新的先顯示(&N)"
 
-#: MainWindow/Window.cpp:870
+#: MainWindow/Window.cpp:883
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "依日期與時間排序選取項目"
 
-#: MainWindow/Window.cpp:876
+#: MainWindow/Window.cpp:889
 #, kde-format
 msgid "Jump to Context"
 msgstr "跳到內文"
 
-#: MainWindow/Window.cpp:882
+#: MainWindow/Window.cpp:895
 #, kde-format
 msgid "Lock Images"
 msgstr "鎖定影像"
 
-#: MainWindow/Window.cpp:886
+#: MainWindow/Window.cpp:899
 #, kde-format
 msgid "Unlock"
 msgstr "解除鎖定"
 
-#: MainWindow/Window.cpp:889
+#: MainWindow/Window.cpp:902
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "鎖定所有其它的項目"
 
-#: MainWindow/Window.cpp:892
+#: MainWindow/Window.cpp:905
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "鎖定目前的項目設定"
 
-#: MainWindow/Window.cpp:895
+#: MainWindow/Window.cpp:908
 #, kde-format
 msgid "Configure Current View"
 msgstr "設定目前檢視"
 
-#: MainWindow/Window.cpp:903
+#: MainWindow/Window.cpp:916
 #, kde-format
 msgid "Tree"
 msgstr "樹狀圖"
 
-#: MainWindow/Window.cpp:908
+#: MainWindow/Window.cpp:921
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "使用者圖示樹狀圖"
 
-#: MainWindow/Window.cpp:913
+#: MainWindow/Window.cpp:926
 #, kde-format
 msgid "Icons"
 msgstr "圖示"
 
-#: MainWindow/Window.cpp:920
+#: MainWindow/Window.cpp:933
 #, kde-format
 msgid "Use natural sort order"
 msgstr ""
 
-#: MainWindow/Window.cpp:930
+#: MainWindow/Window.cpp:943
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "在縮圖視窗中顯示工具提示"
 
-#: MainWindow/Window.cpp:935
+#: MainWindow/Window.cpp:948
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Labels in Thumbnails Window"
 msgstr "在縮圖視窗中顯示工具提示"
 
-#: MainWindow/Window.cpp:945
+#: MainWindow/Window.cpp:958
 #, fuzzy, kde-format
 #| msgid "Show Tooltips in Thumbnails Window"
 msgid "Show Categories in Thumbnails Window"
 msgstr "在縮圖視窗中顯示工具提示"
 
-#: MainWindow/Window.cpp:962
+#: MainWindow/Window.cpp:975
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr ""
 
-#: MainWindow/Window.cpp:969
+#: MainWindow/Window.cpp:982
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "顯示不在磁碟上的影像與影片"
 
-#: MainWindow/Window.cpp:972
+#: MainWindow/Window.cpp:985
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "用不完整的日期顯示影像與影片..."
 
-#: MainWindow/Window.cpp:975
+#: MainWindow/Window.cpp:988
 #, kde-format
 msgid "Merge duplicates"
 msgstr "合併重複的項目"
 
-#: MainWindow/Window.cpp:977 MainWindow/Window.cpp:1031
+#: MainWindow/Window.cpp:990 MainWindow/Window.cpp:1044
 #, fuzzy, kde-format
 #| msgid "Recreate Selected Thumbnails"
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "重新建立選取的縮圖"
 
-#: MainWindow/Window.cpp:981
+#: MainWindow/Window.cpp:994
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "重新掃描影像與影片"
 
-#: MainWindow/Window.cpp:984
+#: MainWindow/Window.cpp:997
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "重建 Exif 搜尋資料庫"
 
-#: MainWindow/Window.cpp:987
+#: MainWindow/Window.cpp:1000
 #, fuzzy, kde-format
 #| msgid "Read EXIF Info From Files..."
 msgid "Read Exif Info from Files..."
 msgstr "從檔案中讀取 EXIF..."
 
-#: MainWindow/Window.cpp:990
+#: MainWindow/Window.cpp:1003
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "全部依日期與時間排序"
 
-#: MainWindow/Window.cpp:994
+#: MainWindow/Window.cpp:1007
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "自動堆疊選取的影像..."
 
-#: MainWindow/Window.cpp:997
+#: MainWindow/Window.cpp:1010
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "建立縮圖"
 
-#: MainWindow/Window.cpp:1000
+#: MainWindow/Window.cpp:1013
 #, fuzzy, kde-format
 #| msgid "Statistics"
 msgid "Statistics..."
 msgstr "統計"
 
-#: MainWindow/Window.cpp:1004
+#: MainWindow/Window.cpp:1017
 #, kde-format
 msgid "Mark As Untagged"
 msgstr ""
 
-#: MainWindow/Window.cpp:1014
+#: MainWindow/Window.cpp:1027
 #, kde-format
 msgid "Enable All Messages"
 msgstr "開啟所有訊息"
 
-#: MainWindow/Window.cpp:1018
+#: MainWindow/Window.cpp:1031
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "執行 KPhotoAlbum 範例"
 
-#: MainWindow/Window.cpp:1021
+#: MainWindow/Window.cpp:1034
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "KPhotoAlbum 功能狀態"
 
-#: MainWindow/Window.cpp:1024
+#: MainWindow/Window.cpp:1037
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "顯示範例影片"
 
-#: MainWindow/Window.cpp:1028 Viewer/ViewerWidget.cpp:197
+#: MainWindow/Window.cpp:1041 Viewer/ViewerWidget.cpp:197
 #, fuzzy, kde-format
 #| msgid "Show Exif Info"
 msgid "Show Exif Info and file metadata"
 msgstr "顯示 Exif 資訊"
 
-#: MainWindow/Window.cpp:1034
+#: MainWindow/Window.cpp:1047
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "使用下一個影片縮圖"
 
-#: MainWindow/Window.cpp:1038
+#: MainWindow/Window.cpp:1051
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "使用前一個影片縮圖"
 
-#: MainWindow/Window.cpp:1042 MainWindow/Window.cpp:1275
+#: MainWindow/Window.cpp:1055 MainWindow/Window.cpp:1288
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "匯出/複製影像..."
 
-#: MainWindow/Window.cpp:1046 MainWindow/Window.cpp:1279
+#: MainWindow/Window.cpp:1059 MainWindow/Window.cpp:1292
 #, fuzzy, kde-format
 #| msgid "Export/Copy Images..."
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "匯出/複製影像..."
 
-#: MainWindow/Window.cpp:1070
+#: MainWindow/Window.cpp:1083
 #, kde-format
 msgid "Auto saving...."
 msgstr "自動儲存..."
 
-#: MainWindow/Window.cpp:1073
+#: MainWindow/Window.cpp:1086
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "自動儲存... 完成"
 
-#: MainWindow/Window.cpp:1175
+#: MainWindow/Window.cpp:1188
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1178
+#: MainWindow/Window.cpp:1191
 #, fuzzy, kde-format
 #| msgid "Create My Own Database..."
 msgctxt "@title"
 msgid "Create database"
 msgstr "建立我的資料庫..."
 
-#: MainWindow/Window.cpp:1220
+#: MainWindow/Window.cpp:1233
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4584,47 +4584,47 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1346 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1359 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "一般"
 
-#: MainWindow/Window.cpp:1347 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1360 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "檢視器"
 
-#: MainWindow/Window.cpp:1348
+#: MainWindow/Window.cpp:1361
 #, fuzzy, kde-format
 #| msgid "Date: "
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "日期： "
 
-#: MainWindow/Window.cpp:1351
+#: MainWindow/Window.cpp:1364
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "註記對話框"
 
-#: MainWindow/Window.cpp:1352 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1365 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "縮圖檢視"
 
-#: MainWindow/Window.cpp:1503
+#: MainWindow/Window.cpp:1516
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
 "show-again check box?</p>"
 msgstr "<p>確定要重新開啟先前您選擇不要再顯示的訊息嗎？</p>"
 
-#: MainWindow/Window.cpp:1505
+#: MainWindow/Window.cpp:1518
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr ""
 
-#: MainWindow/Window.cpp:1524
+#: MainWindow/Window.cpp:1537
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4639,32 +4639,32 @@ msgstr ""
 "make install。若不是，請回報此錯誤。</p> <p>KPhotoAlbum 會繼續執行，但是稍候"
 "有可能會因為某些東西未安裝而出現錯誤。</p>"
 
-#: MainWindow/Window.cpp:1524
+#: MainWindow/Window.cpp:1537
 #, kde-format
 msgid "Internal Error"
 msgstr "內部錯誤"
 
-#: MainWindow/Window.cpp:1535
+#: MainWindow/Window.cpp:1548
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1538
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr ""
 
-#: MainWindow/Window.cpp:1543
+#: MainWindow/Window.cpp:1556
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr ""
 
-#: MainWindow/Window.cpp:1594
+#: MainWindow/Window.cpp:1607
 #, kde-format
 msgid "Open List of Files"
 msgstr "開啟檔案清單"
 
-#: MainWindow/Window.cpp:1595
+#: MainWindow/Window.cpp:1608
 #, fuzzy, kde-format
 #| msgid ""
 #| "You can open a set of files from KPhotoAlbum's image root by listing the "
@@ -4674,30 +4674,30 @@ msgid ""
 "here."
 msgstr "您可以在此列出檔案，一次從 KPhotoAlbum 的影像集中開啟許多檔案。"
 
-#: MainWindow/Window.cpp:1609
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "沒有符合您輸入條件的影像。"
 
-#: MainWindow/Window.cpp:1609
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid "No Matches"
 msgstr "沒有符合的。"
 
-#: MainWindow/Window.cpp:1781
+#: MainWindow/Window.cpp:1794
 #, fuzzy, kde-format
 #| msgid "Rereading EXIF information from all images"
 msgid "Rereading Exif information from all images"
 msgstr "重新從所有影像讀取 EXIF 資訊"
 
-#: MainWindow/Window.cpp:1808
+#: MainWindow/Window.cpp:1821
 #, fuzzy, no-c-format, kde-format
 #| msgid "Thumbnail image size:"
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "縮圖影像大小："
 
-#: MainWindow/Window.cpp:1861
+#: MainWindow/Window.cpp:1874
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4707,7 +4707,7 @@ msgstr ""
 "<p>系統中找不到 ffmpeg。</p> <p>KPhotoAlbum 需要 ffmpeg 才能顯示影片縮圖和長"
 "度。請安裝 ffmpeg 軟體包。</p>"
 
-#: MainWindow/Window.cpp:1864
+#: MainWindow/Window.cpp:1877
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "無法使用影片縮圖"

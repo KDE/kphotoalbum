@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-28 00:39+0000\n"
+"POT-Creation-Date: 2024-12-30 00:39+0000\n"
 "PO-Revision-Date: 2024-12-20 14:36+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -266,13 +266,13 @@ msgstr "שמירת תצורת החלון הנוכחית"
 msgid "Reset layout"
 msgstr "איפוס פריסה"
 
-#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1259
+#: AnnotationDialog/Dialog.cpp:889 AnnotationDialog/Dialog.cpp:1268
 #: AnnotationDialog/ListSelect.cpp:110
 #, kde-format
 msgid "Sort Alphabetically (Tree)"
 msgstr "מיון בסדר אלפבתי (עץ)"
 
-#: AnnotationDialog/Dialog.cpp:893 AnnotationDialog/Dialog.cpp:1263
+#: AnnotationDialog/Dialog.cpp:893 AnnotationDialog/Dialog.cpp:1272
 #: AnnotationDialog/ListSelect.cpp:116
 #, kde-format
 msgid "Sort Alphabetically (Flat)"
@@ -313,7 +313,7 @@ msgstr "ההגדרות נשמרו!"
 msgid "Save current window setup"
 msgstr "שמירת תצורת החלון הנוכחית"
 
-#: AnnotationDialog/Dialog.cpp:1034
+#: AnnotationDialog/Dialog.cpp:1035
 #, kde-format
 msgid ""
 "<p>Some changes are made to annotations. Do you really want to discard all "
@@ -322,13 +322,13 @@ msgstr ""
 "<p>בוצעו כמה שינויים בהסברים. להשליך את כל השינויים האחרונים בכל אחד מהקבצים "
 "שהושפעו מכך?</p>"
 
-#: AnnotationDialog/Dialog.cpp:1035
+#: AnnotationDialog/Dialog.cpp:1036
 #, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
 msgstr "להתעלם מהשינויים?"
 
-#: AnnotationDialog/Dialog.cpp:1126
+#: AnnotationDialog/Dialog.cpp:1135
 #, kde-format
 msgid ""
 "<p>You have just opened the advanced search dialog; to get the most out of "
@@ -339,7 +339,7 @@ msgid ""
 "kphotoalbum/chp-typingIn.html\">typing in</a>.</p>"
 msgstr ""
 
-#: AnnotationDialog/Dialog.cpp:1134
+#: AnnotationDialog/Dialog.cpp:1143
 #, kde-format
 msgid ""
 "<p>You have just opened one of the most important windows in KPhotoAlbum; it "
@@ -351,52 +351,52 @@ msgstr ""
 "שמוטבו לשימוש מהיר.</p><p>מומלץ להקדיש 5 דקות לקרוא את <a href=\"help:/"
 "kphotoalbum/chp-typingIn.html\">תיעוד החלונית הזאת</a></p>"
 
-#: AnnotationDialog/Dialog.cpp:1266
+#: AnnotationDialog/Dialog.cpp:1275
 #, kde-format
 msgid "Sort Most Recently Used"
 msgstr "סידור לפי השמישים ביותר"
 
-#: AnnotationDialog/Dialog.cpp:1269
+#: AnnotationDialog/Dialog.cpp:1278
 #, kde-format
 msgid "Toggle Sorting"
 msgstr "החלפת מצב סידור"
 
-#: AnnotationDialog/Dialog.cpp:1274
+#: AnnotationDialog/Dialog.cpp:1283
 #, kde-format
 msgid "Toggle Showing Selected Items Only"
 msgstr "החלפת הצגת הפריטים הנבחרים בלבד"
 
-#: AnnotationDialog/Dialog.cpp:1278
+#: AnnotationDialog/Dialog.cpp:1287
 #, kde-format
 msgid "Annotate Next"
 msgstr "הוספת פירוש לבאה"
 
-#: AnnotationDialog/Dialog.cpp:1282
+#: AnnotationDialog/Dialog.cpp:1291
 #, kde-format
 msgid "Annotate Previous"
 msgstr "הוספת פירוש לקודמת"
 
-#: AnnotationDialog/Dialog.cpp:1286
+#: AnnotationDialog/Dialog.cpp:1295
 #, kde-format
 msgid "OK dialog"
 msgstr "חלונית אישור"
 
-#: AnnotationDialog/Dialog.cpp:1290
+#: AnnotationDialog/Dialog.cpp:1299
 #, kde-format
 msgid "Copy tags from previous image"
 msgstr "העתקת תגיות מתמונה קודמת"
 
-#: AnnotationDialog/Dialog.cpp:1294 MainWindow/Window.cpp:823
+#: AnnotationDialog/Dialog.cpp:1303 MainWindow/Window.cpp:836
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "סיבוב נגד כיוון השעון"
 
-#: AnnotationDialog/Dialog.cpp:1297 MainWindow/Window.cpp:827
+#: AnnotationDialog/Dialog.cpp:1306 MainWindow/Window.cpp:840
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "סיבוב עם כיוון השעון"
 
-#: AnnotationDialog/Dialog.cpp:1300
+#: AnnotationDialog/Dialog.cpp:1309
 #, kde-format
 msgid "Toggle fullscreen preview"
 msgstr "החלפת מצב תצוגה מקדימה במסך מלא"
@@ -917,7 +917,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "חיפוש"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1757
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1770
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -927,7 +927,7 @@ msgid ""
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1764
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1777
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "היכולת לא הוגדרה עדיין"
@@ -2504,7 +2504,7 @@ msgid "Create folder?"
 msgstr "ליצור תיקייה?"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1182
+#: MainWindow/Window.cpp:1195
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3824,7 +3824,7 @@ msgstr "הגדרות: כל היכולות הדינמיות הופעלו."
 msgid "Searching for New Files"
 msgstr "מתבצע חיפוש אחר קבצים חדשים"
 
-#: MainWindow/Window.cpp:309
+#: MainWindow/Window.cpp:315
 #, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
@@ -3835,350 +3835,350 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:314
+#: MainWindow/Window.cpp:320
 #, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "למחוק מסד נתוני דגמה"
 
-#: MainWindow/Window.cpp:330
+#: MainWindow/Window.cpp:336
 #, kde-format
 msgid "Do you want to save the changes?"
 msgstr "לשמור את השינויים?"
 
-#: MainWindow/Window.cpp:331
+#: MainWindow/Window.cpp:337
 #, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
 msgstr "לשמור את השינויים?"
 
-#: MainWindow/Window.cpp:382
+#: MainWindow/Window.cpp:395
 #, kde-format
 msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
 "them from their stacks and create a completely new one?"
 msgstr ""
 
-#: MainWindow/Window.cpp:385
+#: MainWindow/Window.cpp:398
 #, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
 msgstr "בעיית ערימה"
 
-#: MainWindow/Window.cpp:395
+#: MainWindow/Window.cpp:408
 #, kde-format
 msgid "Unknown error, stack creation failed."
 msgstr "שגיאה לא ידועה, יצירת הערימה בוטלה."
 
-#: MainWindow/Window.cpp:396
+#: MainWindow/Window.cpp:409
 #, kde-format
 msgid "Stacking Error"
 msgstr "שגיאת ערימה"
 
-#: MainWindow/Window.cpp:475 MainWindow/Window.cpp:601
-#: MainWindow/Window.cpp:1297 MainWindow/Window.cpp:1394
+#: MainWindow/Window.cpp:488 MainWindow/Window.cpp:614
+#: MainWindow/Window.cpp:1310 MainWindow/Window.cpp:1407
 #, kde-format
 msgid "No item is selected."
 msgstr "לא נבחרו פריטים."
 
-#: MainWindow/Window.cpp:475 MainWindow/Window.cpp:601
-#: MainWindow/Window.cpp:1297 MainWindow/Window.cpp:1395
+#: MainWindow/Window.cpp:488 MainWindow/Window.cpp:614
+#: MainWindow/Window.cpp:1310 MainWindow/Window.cpp:1408
 #, kde-format
 msgid "No Selection"
 msgstr "אין בחירה"
 
-#: MainWindow/Window.cpp:521
+#: MainWindow/Window.cpp:534
 #, kde-format
 msgid "Saving..."
 msgstr "מתבצעת שמירה…"
 
-#: MainWindow/Window.cpp:526
+#: MainWindow/Window.cpp:539
 #, kde-format
 msgid "Saving... Done"
 msgstr "מתבצעת שמירה… הסתיימה"
 
-#: MainWindow/Window.cpp:674
+#: MainWindow/Window.cpp:687
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "אין תמונות להצגה."
 
-#: MainWindow/Window.cpp:744 MainWindow/Window.cpp:873
+#: MainWindow/Window.cpp:757 MainWindow/Window.cpp:886
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "הגבלת הצפייה לבחירה"
 
-#: MainWindow/Window.cpp:745
+#: MainWindow/Window.cpp:758
 #, kde-format
 msgid "No images are selected!"
 msgstr "לא נבחרו תמונות!"
 
-#: MainWindow/Window.cpp:758
+#: MainWindow/Window.cpp:771
 #, kde-format
 msgid "Generate HTML..."
 msgstr "יצירת HTML…"
 
-#: MainWindow/Window.cpp:762
+#: MainWindow/Window.cpp:775
 #, kde-format
 msgid "Import..."
 msgstr "ייבוא…"
 
-#: MainWindow/Window.cpp:765
+#: MainWindow/Window.cpp:778
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "ייצוא/העתקת תמונות…"
 
-#: MainWindow/Window.cpp:792
+#: MainWindow/Window.cpp:805
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "מחיקת הבחירה"
 
-#: MainWindow/Window.cpp:798
+#: MainWindow/Window.cpp:811
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "הסרת אסימונים…"
 
-#: MainWindow/Window.cpp:801
+#: MainWindow/Window.cpp:814
 #, kde-format
 msgid "Open List of Files..."
 msgstr "פתיחת רשימת הקבצים…"
 
-#: MainWindow/Window.cpp:804
+#: MainWindow/Window.cpp:817
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "הוספת הסבר על פריטים מסוימים"
 
-#: MainWindow/Window.cpp:808
+#: MainWindow/Window.cpp:821
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "הוספת הסברים על מספר פריטים יחד"
 
-#: MainWindow/Window.cpp:812
+#: MainWindow/Window.cpp:825
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "מיזוג תמונות לערימה"
 
-#: MainWindow/Window.cpp:816
+#: MainWindow/Window.cpp:829
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "הסרת תמונות מערימה"
 
-#: MainWindow/Window.cpp:819
+#: MainWindow/Window.cpp:832
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "הגדרה כתמונה הראשונה בערימה"
 
-#: MainWindow/Window.cpp:832
+#: MainWindow/Window.cpp:845
 #, kde-format
 msgid "View"
 msgstr "הצגה"
 
-#: MainWindow/Window.cpp:835
+#: MainWindow/Window.cpp:848
 #, kde-format
 msgid "View (In New Window)"
 msgstr "הצגה (בחלון חדש)"
 
-#: MainWindow/Window.cpp:838
+#: MainWindow/Window.cpp:851
 #, kde-format
 msgid "Run Slide Show"
 msgstr "הרצת מצגת"
 
-#: MainWindow/Window.cpp:843
+#: MainWindow/Window.cpp:856
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "הרצת מצגת אקראית"
 
-#: MainWindow/Window.cpp:849
+#: MainWindow/Window.cpp:862
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "צמצום כל הערימות"
 
-#: MainWindow/Window.cpp:855
+#: MainWindow/Window.cpp:868
 #, kde-format
 msgid "Expand all stacks"
 msgstr "הרחבת כל הערימות"
 
-#: MainWindow/Window.cpp:860
+#: MainWindow/Window.cpp:873
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "הצגת הי&שנים ביותר בהתחלה"
 
-#: MainWindow/Window.cpp:865
+#: MainWindow/Window.cpp:878
 #, kde-format
 msgid "Show &Newest First"
 msgstr "הצגת ה&חדשים ביותר בהתחלה"
 
-#: MainWindow/Window.cpp:870
+#: MainWindow/Window.cpp:883
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "מיון הנבחרים לפי תאריך ושעה"
 
-#: MainWindow/Window.cpp:876
+#: MainWindow/Window.cpp:889
 #, kde-format
 msgid "Jump to Context"
 msgstr "קפיצה לתוכן"
 
-#: MainWindow/Window.cpp:882
+#: MainWindow/Window.cpp:895
 #, kde-format
 msgid "Lock Images"
 msgstr "נעילת תמונות"
 
-#: MainWindow/Window.cpp:886
+#: MainWindow/Window.cpp:899
 #, kde-format
 msgid "Unlock"
 msgstr "שחרור נעילה"
 
-#: MainWindow/Window.cpp:889
+#: MainWindow/Window.cpp:902
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "לנעול את כל הפריטים האחרים"
 
-#: MainWindow/Window.cpp:892
+#: MainWindow/Window.cpp:905
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "לנעול את סדרת הפריטים הנוכחיים"
 
-#: MainWindow/Window.cpp:895
+#: MainWindow/Window.cpp:908
 #, kde-format
 msgid "Configure Current View"
 msgstr "הגדרת התצוגה הנוכחית"
 
-#: MainWindow/Window.cpp:903
+#: MainWindow/Window.cpp:916
 #, kde-format
 msgid "Tree"
 msgstr "עץ"
 
-#: MainWindow/Window.cpp:908
+#: MainWindow/Window.cpp:921
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "עץ עם סמלי משתמשים"
 
-#: MainWindow/Window.cpp:913
+#: MainWindow/Window.cpp:926
 #, kde-format
 msgid "Icons"
 msgstr "סמלים"
 
-#: MainWindow/Window.cpp:920
+#: MainWindow/Window.cpp:933
 #, kde-format
 msgid "Use natural sort order"
 msgstr "להשתמש בסדר טבעי"
 
-#: MainWindow/Window.cpp:930
+#: MainWindow/Window.cpp:943
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "הצגת חלוניות עצה בחלון תמונות ממוזערות"
 
-#: MainWindow/Window.cpp:935
+#: MainWindow/Window.cpp:948
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
 msgstr "הצגת תוויות בחלון תמונות ממוזערתו"
 
-#: MainWindow/Window.cpp:945
+#: MainWindow/Window.cpp:958
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
 msgstr "הצגת קטגוריות בחלון תמונות ממוזערות"
 
-#: MainWindow/Window.cpp:962
+#: MainWindow/Window.cpp:975
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "בחירת ערכת צבעים"
 
-#: MainWindow/Window.cpp:969
+#: MainWindow/Window.cpp:982
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "הצגת תמונות וסרטונים שאינם בכונן"
 
-#: MainWindow/Window.cpp:972
+#: MainWindow/Window.cpp:985
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "הצגת תמונות וסרטונים עם תאריכים חלקיים…"
 
-#: MainWindow/Window.cpp:975
+#: MainWindow/Window.cpp:988
 #, kde-format
 msgid "Merge duplicates"
 msgstr "מיזוג כפילויות"
 
-#: MainWindow/Window.cpp:977 MainWindow/Window.cpp:1031
+#: MainWindow/Window.cpp:990 MainWindow/Window.cpp:1044
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "רענון התמונות הממוזערות וסיכומי הביקורת הנבחרים"
 
-#: MainWindow/Window.cpp:981
+#: MainWindow/Window.cpp:994
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "סריקת תמונות וסרטונים מחדש"
 
-#: MainWindow/Window.cpp:984
+#: MainWindow/Window.cpp:997
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "יצירת מסד נתוני חיפוש Exif מחדש"
 
-#: MainWindow/Window.cpp:987
+#: MainWindow/Window.cpp:1000
 #, kde-format
 msgid "Read Exif Info from Files..."
 msgstr "קריאת נתוני Exif מקבצים…"
 
-#: MainWindow/Window.cpp:990
+#: MainWindow/Window.cpp:1003
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "סידור של כולם לפי תאריך ושעה"
 
-#: MainWindow/Window.cpp:994
+#: MainWindow/Window.cpp:1007
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "לערום את התמונות הנבחרות אוטומטית…"
 
-#: MainWindow/Window.cpp:997
+#: MainWindow/Window.cpp:1010
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "בניית תמונות ממוזערות"
 
-#: MainWindow/Window.cpp:1000
+#: MainWindow/Window.cpp:1013
 #, kde-format
 msgid "Statistics..."
 msgstr "סטטיסטיקה…"
 
-#: MainWindow/Window.cpp:1004
+#: MainWindow/Window.cpp:1017
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "סימון כבלתי מתויגת"
 
-#: MainWindow/Window.cpp:1014
+#: MainWindow/Window.cpp:1027
 #, kde-format
 msgid "Enable All Messages"
 msgstr "הפעלת כל ההודעות"
 
-#: MainWindow/Window.cpp:1018
+#: MainWindow/Window.cpp:1031
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "הרצת הדגמה של KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1021
+#: MainWindow/Window.cpp:1034
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "מצב יכולות של KPhotoAlbum"
 
-#: MainWindow/Window.cpp:1024
+#: MainWindow/Window.cpp:1037
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "הצגת סרטוני הדגמה"
 
-#: MainWindow/Window.cpp:1028 Viewer/ViewerWidget.cpp:197
+#: MainWindow/Window.cpp:1041 Viewer/ViewerWidget.cpp:197
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "הצגת פרטי Exif ונתוני על של קובץ"
 
-#: MainWindow/Window.cpp:1034
+#: MainWindow/Window.cpp:1047
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "להשתמש בתמונה הממוזערת של הסרטון הבא"
 
-#: MainWindow/Window.cpp:1038
+#: MainWindow/Window.cpp:1051
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "להשתמש בתמונה הממוזערת של הסרטון הקודם"
 
-#: MainWindow/Window.cpp:1042 MainWindow/Window.cpp:1275
+#: MainWindow/Window.cpp:1055 MainWindow/Window.cpp:1288
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
@@ -4187,7 +4187,7 @@ msgstr[1] "העתקת תמונות אל…"
 msgstr[2] "העתקת תמונות אל…"
 msgstr[3] "העתקת תמונות אל…"
 
-#: MainWindow/Window.cpp:1046 MainWindow/Window.cpp:1279
+#: MainWindow/Window.cpp:1059 MainWindow/Window.cpp:1292
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
@@ -4196,28 +4196,28 @@ msgstr[1] "קישור תמונות אל…"
 msgstr[2] "קישור תמונות אל…"
 msgstr[3] "קישור תמונות אל…"
 
-#: MainWindow/Window.cpp:1070
+#: MainWindow/Window.cpp:1083
 #, kde-format
 msgid "Auto saving...."
 msgstr "שמירה אוטומטית…"
 
-#: MainWindow/Window.cpp:1073
+#: MainWindow/Window.cpp:1086
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "שמירה אוטומטית… בוצעה"
 
-#: MainWindow/Window.cpp:1175
+#: MainWindow/Window.cpp:1188
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1178
+#: MainWindow/Window.cpp:1191
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "יצירת מסד נתונים"
 
-#: MainWindow/Window.cpp:1220
+#: MainWindow/Window.cpp:1233
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4226,46 +4226,46 @@ msgid ""
 "Categories</interface></p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1346 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1359 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "כללי"
 
-#: MainWindow/Window.cpp:1347 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1360 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "מציג"
 
-#: MainWindow/Window.cpp:1348
+#: MainWindow/Window.cpp:1361
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "סרגל תאריך"
 
-#: MainWindow/Window.cpp:1351
+#: MainWindow/Window.cpp:1364
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "חלונית פירוש"
 
-#: MainWindow/Window.cpp:1352 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1365 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "תצוגת תמונות ממוזערות"
 
-#: MainWindow/Window.cpp:1503
+#: MainWindow/Window.cpp:1516
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
 "show-again check box?</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1505
+#: MainWindow/Window.cpp:1518
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "איפוס חלוניות מוסתרות"
 
-#: MainWindow/Window.cpp:1524
+#: MainWindow/Window.cpp:1537
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4276,60 +4276,60 @@ msgid ""
 "on due to the missing make install.</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1524
+#: MainWindow/Window.cpp:1537
 #, kde-format
 msgid "Internal Error"
 msgstr "שגיאה פנימית"
 
-#: MainWindow/Window.cpp:1535
+#: MainWindow/Window.cpp:1548
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 
-#: MainWindow/Window.cpp:1538
+#: MainWindow/Window.cpp:1551
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "התמונות שותפו בהצלחה."
 
-#: MainWindow/Window.cpp:1543
+#: MainWindow/Window.cpp:1556
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "שיתוף תמונה נכשל עם ההודעה: %1"
 
-#: MainWindow/Window.cpp:1594
+#: MainWindow/Window.cpp:1607
 #, kde-format
 msgid "Open List of Files"
 msgstr "פתיחת רשימת קבצים"
 
-#: MainWindow/Window.cpp:1595
+#: MainWindow/Window.cpp:1608
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
 
-#: MainWindow/Window.cpp:1609
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "לא נמצאו תמונות שעונות על הקלט שלך."
 
-#: MainWindow/Window.cpp:1609
+#: MainWindow/Window.cpp:1622
 #, kde-format
 msgid "No Matches"
 msgstr "אין תוצאות"
 
-#: MainWindow/Window.cpp:1781
+#: MainWindow/Window.cpp:1794
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr ""
 
-#: MainWindow/Window.cpp:1808
+#: MainWindow/Window.cpp:1821
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr ""
 
-#: MainWindow/Window.cpp:1861
+#: MainWindow/Window.cpp:1874
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4337,7 +4337,7 @@ msgid ""
 "the ffmpeg package</p>"
 msgstr ""
 
-#: MainWindow/Window.cpp:1864
+#: MainWindow/Window.cpp:1877
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "תמונות ממוזערות של וידאו אינן זמינות"

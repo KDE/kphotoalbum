@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-30 00:39+0000\n"
-"PO-Revision-Date: 2024-12-16 04:30+0100\n"
+"PO-Revision-Date: 2024-12-30 03:11+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1395,6 +1395,8 @@ msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
 "</p><p>Manual repair required!</p>"
 msgstr ""
+"<p>ხაზი %1, სვეტი %2: აღმოჩენილია გამეორებადი ჩანაწერი ფაილისთვის '%3' "
+"განსხვავებული MD5 ჯამით.</p><p>საჭიროა ხელით ჩარევა!</p>"
 
 #: DB/XML/FileReader.cpp:434
 #, kde-format
@@ -1465,6 +1467,8 @@ msgid ""
 "</ul></p><p>All affected images have also been marked with a tag "
 "<em>KPhotoAlbum - manual repair needed</em>.</p>"
 msgstr ""
+"</ul></p><p>ყველა გამოყენებულ ფაილს ასევე აქვს ჭდე <em>KPhotoAlbum - საჭიროა "
+"ხელით ჩარევა</em>.</p>"
 
 #: DB/XML/FileReader.cpp:498
 #, kde-format
@@ -1552,6 +1556,8 @@ msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
 "because of the following error: %2"
 msgstr ""
+"<p>გამოსახულებების მონაცემთა ბაზის XML-ში შენახვა შეუძლებელია</p>ფაილის %1 "
+"გახსნა შეუძლებელია შემდეგი შეცდომის გამო: %2"
 
 #: DB/XML/FileWriter.cpp:80 DB/XML/FileWriter.cpp:116 DB/XML/FileWriter.cpp:125
 #, kde-format
@@ -1564,6 +1570,8 @@ msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
 "replace the file %1 with file %2 manually!</p>"
 msgstr ""
+"<p>გამოსახულებების მონაცემთა ბაზის ძველი ვერსიის წაშლა ჩავარდა.</p><p>სცადეთ "
+"თავიდან, ხელით ან ჩაანაცვლეთ ფაილი %1 ფაილით %2!</p>"
 
 #: DB/XML/FileWriter.cpp:122
 #, kde-format
@@ -1571,6 +1579,8 @@ msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
 "again or rename file %1 to %2 manually!</p>"
 msgstr ""
+"<p>დროებითი XML ფაილის მუდმივ მდებარეობაზე გადატანა ჩავარდა.</p><p>სცადეთ, "
+"ფაილს %1 სახელი %2-ზე ხელით გადაარქვათ!</p>"
 
 #: DB/XML/NumberedBackup.cpp:43
 #, kde-format

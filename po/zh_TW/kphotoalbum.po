@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-30 00:39+0000\n"
-"PO-Revision-Date: 2024-10-07 15:40+0900\n"
+"PO-Revision-Date: 2024-12-30 17:29+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 24.08.1\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -83,6 +83,9 @@ msgid ""
 "KPhotoAlbum...|General</interface>, a description embedded in the image Exif "
 "information is imported to this field if available.</para>"
 msgstr ""
+"<para>影像的描述文字。</para><para>如果在<interface>設定|設定 KPhotoAlbum…|一"
+"般</interface>有啟用<emphasis>使用 Exif 描述</emphasis>的話，會嘗試將影像 "
+"Exif 資訊當中嵌入的描述匯入到這個欄位。</para>"
 
 #: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:400
 #, kde-format
@@ -90,11 +93,9 @@ msgid "Cancel"
 msgstr "取消"
 
 #: AnnotationDialog/Dialog.cpp:174 AnnotationDialog/Dialog.cpp:176
-#, fuzzy, kde-format
-#| msgctxt "Abbreviated month name"
-#| msgid "apr"
+#, kde-format
 msgid "Map"
-msgstr "四月"
+msgstr "地圖"
 
 #: AnnotationDialog/Dialog.cpp:182
 #, kde-format
@@ -102,7 +103,7 @@ msgctxt "@info:whatsthis"
 msgid ""
 "The map widget allows you to view the location of images if GPS coordinates "
 "are found in the Exif information."
-msgstr ""
+msgstr "地圖元件讓您檢視影像的位置（如果影像 Exif 資訊中有 GPS 座標的話）。"
 
 #: AnnotationDialog/Dialog.cpp:230
 #, kde-format
@@ -4262,10 +4263,9 @@ msgid "Limit View to Selection"
 msgstr "限制檢視到選取項目"
 
 #: MainWindow/Window.cpp:758
-#, fuzzy, kde-format
-#| msgid "No item is selected."
+#, kde-format
 msgid "No images are selected!"
-msgstr "沒有選擇任何項目。"
+msgstr "沒有選擇任何影像！"
 
 #: MainWindow/Window.cpp:771
 #, kde-format
@@ -4416,7 +4416,7 @@ msgstr "圖示"
 #: MainWindow/Window.cpp:933
 #, kde-format
 msgid "Use natural sort order"
-msgstr ""
+msgstr "使用自然排序方向"
 
 #: MainWindow/Window.cpp:943
 #, kde-format
@@ -4424,16 +4424,14 @@ msgid "Show Tooltips in Thumbnails Window"
 msgstr "在縮圖視窗中顯示工具提示"
 
 #: MainWindow/Window.cpp:948
-#, fuzzy, kde-format
-#| msgid "Show Tooltips in Thumbnails Window"
+#, kde-format
 msgid "Show Labels in Thumbnails Window"
-msgstr "在縮圖視窗中顯示工具提示"
+msgstr "在縮圖視窗中顯示文字標籤"
 
 #: MainWindow/Window.cpp:958
-#, fuzzy, kde-format
-#| msgid "Show Tooltips in Thumbnails Window"
+#, kde-format
 msgid "Show Categories in Thumbnails Window"
-msgstr "在縮圖視窗中顯示工具提示"
+msgstr "在縮圖視窗中顯示分類"
 
 #: MainWindow/Window.cpp:975
 #, kde-format
@@ -4595,11 +4593,10 @@ msgid "Viewer"
 msgstr "檢視器"
 
 #: MainWindow/Window.cpp:1361
-#, fuzzy, kde-format
-#| msgid "Date: "
+#, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
-msgstr "日期： "
+msgstr "日期列"
 
 #: MainWindow/Window.cpp:1364
 #, kde-format
@@ -5039,14 +5036,12 @@ msgid "<i>Choose a category to edit it</i>"
 msgstr ""
 
 #: Settings/DatabaseBackendPage.cpp:23
-#, fuzzy, kde-format
-#| msgid "Choose speed over readability for index.xml file"
+#, kde-format
 msgid "Choose speed over readability for the XML database file"
-msgstr "對 index.xml 檔，選擇使用速度較快的格式，而非易讀的格式"
+msgstr "對 XML 資料庫檔案偏好優先速度而非易讀性"
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, fuzzy, kde-format
-#| msgid "Compress backup file"
+#, kde-format
 msgid "Compress backup files"
 msgstr "壓縮備份檔"
 
@@ -5375,33 +5370,32 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:189
 #, kde-format
 msgid "Hard Disk"
-msgstr ""
+msgstr "硬碟"
 
 #: Settings/FileVersionDetectionPage.cpp:190
 #, kde-format
 msgid "Network"
-msgstr ""
+msgstr "網路"
 
 #: Settings/FileVersionDetectionPage.cpp:191
 #, kde-format
 msgid "SATA SSD"
-msgstr ""
+msgstr "SATA SSD"
 
 #: Settings/FileVersionDetectionPage.cpp:192
 #, kde-format
 msgid "Slow PCIe/NVMe"
-msgstr ""
+msgstr "較慢的 PCIe/NVMe"
 
 #: Settings/FileVersionDetectionPage.cpp:193
 #, kde-format
 msgid "Fast PCIe/NVMe"
-msgstr ""
+msgstr "較快的 PCIe/NVMe"
 
 #: Settings/FileVersionDetectionPage.cpp:194
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Manual Settings"
-msgstr "設定"
+msgstr "手動設定"
 
 #: Settings/FileVersionDetectionPage.cpp:197
 #, kde-format
@@ -5476,7 +5470,7 @@ msgstr "載入新影像中"
 #: Settings/GeneralPage.cpp:37
 #, kde-format
 msgid "Trust image dates:"
-msgstr "可信的影像日期："
+msgstr "信任影像日期："
 
 #: Settings/GeneralPage.cpp:39
 #, kde-format
@@ -5497,21 +5491,19 @@ msgid "Never"
 msgstr "從不"
 
 #: Settings/GeneralPage.cpp:48
-#, fuzzy, kde-format
-#| msgid "Use EXIF orientation information"
+#, kde-format
 msgid "Use Exif orientation information"
-msgstr "使用 EXIF 方向資訊"
+msgstr "使用 Exif 方向資訊"
 
 #: Settings/GeneralPage.cpp:53
-#, fuzzy, kde-format
-#| msgid "Use EXIF description"
+#, kde-format
 msgid "Use Exif description"
-msgstr "使用 EXIF 描述"
+msgstr "使用 Exif 描述"
 
 #: Settings/GeneralPage.cpp:57
 #, kde-format
 msgid "Strip out camera generated default descriptions"
-msgstr ""
+msgstr "移除相機所產生的預設描述"
 
 #: Settings/GeneralPage.cpp:69
 #, kde-format
@@ -5529,15 +5521,14 @@ msgid "Histogram"
 msgstr "直方圖"
 
 #: Settings/GeneralPage.cpp:94
-#, fuzzy, kde-format
-#| msgid "Show histogram:"
+#, kde-format
 msgid "Show histogram"
-msgstr "顯示直方圖："
+msgstr "顯示直方圖"
 
 #: Settings/GeneralPage.cpp:99
 #, kde-format
 msgid "Use linear scale for histogram"
-msgstr ""
+msgstr "為直方圖使用線性比例"
 
 #: Settings/GeneralPage.cpp:103
 #, kde-format
@@ -5550,10 +5541,9 @@ msgid "Show splash screen"
 msgstr "顯示啟動畫面"
 
 #: Settings/GeneralPage.cpp:128
-#, fuzzy, kde-format
-#| msgid "Search for new images and videos on startup"
+#, kde-format
 msgid "Listen for Android devices on startup"
-msgstr "啟動時搜尋新影像與影片"
+msgstr "啟動時偵測 Android 裝置"
 
 #: Settings/GeneralPage.cpp:137
 #, fuzzy, kde-format
@@ -5636,30 +5626,27 @@ msgstr "檔案搜尋與版本"
 #: Settings/SettingsDialog.cpp:49
 #, kde-format
 msgid "Categories"
-msgstr "類別"
+msgstr "分類"
 
 #: Settings/SettingsDialog.cpp:50
 #, kde-format
 msgid "Birthdays"
-msgstr ""
+msgstr "生日"
 
 #: Settings/SettingsDialog.cpp:51
-#, fuzzy, kde-format
-#| msgid "New Group"
+#, kde-format
 msgid "Tag Groups"
-msgstr "新增群組"
+msgstr "標籤群組"
 
 #: Settings/SettingsDialog.cpp:53
-#, fuzzy, kde-format
-#| msgid "EXIF/IPTC Information"
+#, kde-format
 msgid "Exif/IPTC Information"
-msgstr "EXIF/IPTC 資訊"
+msgstr "Exif/IPTC 資訊"
 
 #: Settings/SettingsDialog.cpp:54
-#, fuzzy, kde-format
-#| msgid "Database backend"
+#, kde-format
 msgid "Database Backend"
-msgstr "資料庫後端介面"
+msgstr "資料庫後端"
 
 #: Settings/SettingsDialog.cpp:74
 #, kde-format
@@ -5668,11 +5655,10 @@ msgid "Settings"
 msgstr "設定"
 
 #: Settings/TagGroupsPage.cpp:37
-#, fuzzy, kde-format
-#| msgid "Categories"
+#, kde-format
 msgctxt "@label"
 msgid "Categories and groups:"
-msgstr "類別"
+msgstr "分類與群組："
 
 #: Settings/TagGroupsPage.cpp:46
 #, kde-format
@@ -5695,18 +5681,16 @@ msgid "Add group ..."
 msgstr ""
 
 #: Settings/TagGroupsPage.cpp:229
-#, fuzzy, kde-format
-#| msgid "Really delete group %1?"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename group \"%1\""
-msgstr "確定要刪除群組 %1 嗎？"
+msgstr "重新命名群組「%1」"
 
 #: Settings/TagGroupsPage.cpp:231
-#, fuzzy, kde-format
-#| msgid "Delete Group"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete group \"%1\""
-msgstr "刪除群組"
+msgstr "刪除群組「%1」"
 
 #: Settings/TagGroupsPage.cpp:310
 #, fuzzy, kde-format
@@ -5731,27 +5715,25 @@ msgstr "群組名稱："
 #, kde-format
 msgctxt "@info"
 msgid "<p>The group \"%1\" already exists.</p>"
-msgstr ""
+msgstr "<p>群組「%1」已存在。</p>"
 
 #: Settings/TagGroupsPage.cpp:358
 #, kde-format
 msgctxt "@title:window"
 msgid "Cannot add group"
-msgstr ""
+msgstr "無法新增群組"
 
 #: Settings/TagGroupsPage.cpp:435 Settings/TagGroupsPage.cpp:454
-#, fuzzy, kde-format
-#| msgid "Delete Group"
+#, kde-format
 msgctxt "@title:window"
 msgid "Rename Group"
-msgstr "刪除群組"
+msgstr "重新命名群組"
 
 #: Settings/TagGroupsPage.cpp:436
-#, fuzzy, kde-format
-#| msgid "Group name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "New group name:"
-msgstr "群組名稱："
+msgstr "新群組名稱："
 
 #: Settings/TagGroupsPage.cpp:449
 #, kde-kuit-format
@@ -5789,32 +5771,28 @@ msgid "&Delete"
 msgstr "刪除(&D)"
 
 #: Settings/TagGroupsPage.cpp:700
-#, fuzzy, kde-format
-#| msgid "Rename..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Rename \"%1\""
-msgstr "重新命名..."
+msgstr "重新命名「%1」"
 
 #: Settings/TagGroupsPage.cpp:702
-#, fuzzy, kde-format
-#| msgid "Delete"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Delete \"%1\""
-msgstr "刪除"
+msgstr "刪除「%1」"
 
 #: Settings/TagGroupsPage.cpp:713
-#, fuzzy, kde-format
-#| msgid "New Sub Category Name:"
+#, kde-format
 msgctxt "@title:window"
 msgid "New Tag Name"
-msgstr "新子類別名稱："
+msgstr "新標籤名稱"
 
 #: Settings/TagGroupsPage.cpp:714
-#, fuzzy, kde-format
-#| msgid "Database name:"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Tag name:"
-msgstr "資料庫名稱："
+msgstr "標籤名稱："
 
 #: Settings/TagGroupsPage.cpp:764
 #, fuzzy, kde-kuit-format
@@ -5831,8 +5809,7 @@ msgstr ""
 "的任何資訊一起刪除。</p>"
 
 #: Settings/TagGroupsPage.cpp:768
-#, fuzzy, kde-format
-#| msgid "Really Delete %1?"
+#, kde-format
 msgctxt "@title:window"
 msgid "Really delete %1?"
 msgstr "確定要刪除 %1 嗎？"
@@ -5853,10 +5830,9 @@ msgid "Thumbnail image size:"
 msgstr "縮圖影像大小："
 
 #: Settings/ThumbnailsPage.cpp:47
-#, fuzzy, kde-format
-#| msgid "Build Thumbnails"
+#, kde-format
 msgid "Build thumbnails on demand"
-msgstr "建立縮圖"
+msgstr "需要時再建立縮圖"
 
 #: Settings/ThumbnailsPage.cpp:52
 #, fuzzy, kde-format
@@ -6024,10 +6000,9 @@ msgid "None Selected"
 msgstr "沒有選取"
 
 #: Settings/UntaggedGroupBox.cpp:117
-#, fuzzy, kde-format
-#| msgid "New Sub Category Name:"
+#, kde-format
 msgid "New tag added"
-msgstr "新子類別名稱："
+msgstr "已新增標籤"
 
 #: Settings/UntaggedGroupBox.cpp:118
 #, kde-format
@@ -6041,7 +6016,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:26
 #, kde-format
 msgid "<h1>Choose a Video Player</h1>"
-msgstr ""
+msgstr "<h1>選擇影片播放器</h1>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:29
 #, kde-format
@@ -6065,7 +6040,7 @@ msgstr ""
 #: Settings/VideoPlayerSelectorDialog.cpp:58
 #, kde-format
 msgid " (NOT AVAILABLE)"
-msgstr ""
+msgstr " (不可用)"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:84
 #, kde-format
@@ -6081,7 +6056,7 @@ msgstr ""
 #, kde-format
 msgctxt "A friendly name for the video backend"
 msgid "Unconfigured video backend"
-msgstr ""
+msgstr "未設定影片後端"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:144
 #, kde-format
@@ -6173,10 +6148,9 @@ msgstr ""
 "大小，否則會被縮小為檢視器的大小。</p>"
 
 #: Settings/ViewerPage.cpp:87
-#, fuzzy, kde-format
-#| msgid "Scaling Algorithm"
+#, kde-format
 msgid "Scaling algorithm:"
-msgstr "調整影像演算法"
+msgstr "縮放演算法："
 
 #: Settings/ViewerPage.cpp:89
 #, kde-format
@@ -6217,23 +6191,22 @@ msgid "video"
 msgstr "影片"
 
 #: ThumbnailView/FilterWidget.cpp:16
-#, fuzzy, kde-format
-#| msgid "Show Category Editor"
+#, kde-format
 msgctxt "Name/title of the filter toolbar widget"
 msgid "Filter Toolbar"
-msgstr "顯示類別編輯器"
+msgstr "過濾器工具列"
 
 #: ThumbnailView/FilterWidget.cpp:22
 #, kde-format
 msgctxt ""
 "The action enables/disables filtering of images in the thumbnail view."
 msgid "Toggle filter"
-msgstr ""
+msgstr "切換過濾器"
 
 #: ThumbnailView/FilterWidget.cpp:24
 #, kde-kuit-format
 msgid "Press <shortcut>Escape</shortcut> to clear filter."
-msgstr ""
+msgstr "按下 <shortcut>Escape</shortcut> 來清除過濾器。"
 
 #: ThumbnailView/FilterWidget.cpp:31
 #, kde-format
@@ -6242,12 +6215,10 @@ msgid_plural "Filter view by rating: %1 stars"
 msgstr[0] ""
 
 #: ThumbnailView/FilterWidget.cpp:61
-#, fuzzy, kde-format
-#| msgctxt "@title:inmenu"
-#| msgid "Filters"
+#, kde-format
 msgctxt "The label gives a textual description of the active filter"
 msgid "Filter: %1"
-msgstr "過濾器"
+msgstr "過濾器：%1"
 
 #: ThumbnailView/FilterWidget.cpp:84
 #, kde-kuit-format
@@ -6323,24 +6294,22 @@ msgid " (%1MP)"
 msgstr "（%1百萬像素）"
 
 #: Utilities/DescriptionUtil.cpp:76
-#, fuzzy, kde-format
-#| msgctxt "short for: x megapixels"
-#| msgid " (%1MP)"
+#, kde-format
 msgctxt "aspect ratio"
 msgid " (%1:1)"
-msgstr "（%1百萬像素）"
+msgstr " (%1:1)"
 
 #: Utilities/DescriptionUtil.cpp:78
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (1:1)"
-msgstr ""
+msgstr " (1:1)"
 
 #: Utilities/DescriptionUtil.cpp:80
 #, kde-format
 msgctxt "aspect ratio"
 msgid " (1:%1)"
-msgstr ""
+msgstr " (1:%1)"
 
 #: Utilities/DescriptionUtil.cpp:81
 #, kde-format
@@ -6361,23 +6330,19 @@ msgstr "<b>描述：</b> "
 #, kde-format
 msgctxt "Like \"up to 6 years\" old"
 msgid " (up to %1)"
-msgstr ""
+msgstr " (至多 %1)"
 
 #: Utilities/Timespan.cpp:91
-#, fuzzy, kde-format
-#| msgctxt "short for: x megapixels"
-#| msgid " (%1MP)"
+#, kde-format
 msgctxt "Like \"6 years\" old"
 msgid " (%1)"
-msgstr "（%1百萬像素）"
+msgstr " (%1)"
 
 #: Utilities/Timespan.cpp:94
-#, fuzzy, kde-format
-#| msgctxt "short for: x megapixels"
-#| msgid " (%1MP)"
+#, kde-format
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
-msgstr "（%1百萬像素）"
+msgstr " (%1 到 %2)"
 
 #: Utilities/Timespan.cpp:103
 #, kde-format
@@ -6387,12 +6352,11 @@ msgid_plural "%1 days"
 msgstr[0] "%1 天"
 
 #: Utilities/Timespan.cpp:108
-#, fuzzy, kde-format
-#| msgid "1 Month"
+#, kde-format
 msgctxt "Like \"The baby is '4 months' old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 個月"
+msgstr[0] "%1 個月"
 
 #: Utilities/Timespan.cpp:113
 #, kde-format
@@ -6402,12 +6366,11 @@ msgid_plural "%1 years"
 msgstr[0] "%1 年"
 
 #: Utilities/Timespan.cpp:118
-#, fuzzy, kde-format
-#| msgid "1 Month"
+#, kde-format
 msgctxt "Like \"The baby is \"4 months\" old\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 個月"
+msgstr[0] "%1 個月"
 
 #: Utilities/Timespan.cpp:121
 #, kde-format
@@ -6418,24 +6381,20 @@ msgid "%1, %2"
 msgstr "%1 %2"
 
 #: Utilities/Timespan.cpp:151
-#, fuzzy, kde-format
-#| msgid "today"
+#, kde-format
 msgid " (today)"
-msgstr "今天"
+msgstr " (今天)"
 
 #: Utilities/Timespan.cpp:154
-#, fuzzy, kde-format
-#| msgid "yesterday"
+#, kde-format
 msgid " (yesterday)"
-msgstr "昨天"
+msgstr " (昨天)"
 
 #: Utilities/Timespan.cpp:158
-#, fuzzy, kde-format
-#| msgctxt "short for: x megapixels"
-#| msgid " (%1MP)"
+#, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
-msgstr "（%1百萬像素）"
+msgstr " (%1 前)"
 
 #: Utilities/Timespan.cpp:162
 #, fuzzy, kde-format
@@ -6464,23 +6423,21 @@ msgstr[0] "%1 週"
 msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
 msgid "ca. %1 week"
 msgid_plural "ca. %1 weeks"
-msgstr[0] ""
+msgstr[0] "大約 %1 週"
 
 #: Utilities/Timespan.cpp:197 Utilities/Timespan.cpp:236
-#, fuzzy, kde-format
-#| msgid "1 Month"
+#, kde-format
 msgctxt "Like \"This happened '2 months' ago\""
 msgid "%1 month"
 msgid_plural "%1 months"
-msgstr[0] "1 個月"
+msgstr[0] "%1 個月"
 
 #: Utilities/Timespan.cpp:202 Utilities/Timespan.cpp:207
-#, fuzzy, kde-format
-#| msgid "1 Month"
+#, kde-format
 msgctxt "Like \"This happened 'ca. 2 months' ago\""
 msgid "ca. %1 month"
 msgid_plural "ca. %1 months"
-msgstr[0] "1 個月"
+msgstr[0] "大約 %1 個月"
 
 #: Utilities/Timespan.cpp:212 Utilities/Timespan.cpp:231
 #: Utilities/Timespan.cpp:234
@@ -6511,16 +6468,14 @@ msgid "Select item for macro key <b>%1</b>"
 msgstr "選擇巨集鍵 <b>%1</b> 的項目"
 
 #: Viewer/AnnotationHandler.cpp:126
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgid "Tag Item"
-msgstr "重新命名項目"
+msgstr "為項目加上標籤"
 
 #: Viewer/AnnotationHandler.cpp:126
-#, fuzzy, kde-format
-#| msgid "Select target:"
+#, kde-format
 msgid "Select tag for image"
-msgstr "選擇目標："
+msgstr "選擇影像的標籤"
 
 #: Viewer/CategoryImageConfig.cpp:41
 #, kde-format
@@ -6572,7 +6527,7 @@ msgstr "【縮放 %1 倍】"
 #: Viewer/InfoBox.cpp:60
 #, kde-format
 msgid "Show the geographic position of this image on a map"
-msgstr ""
+msgstr "在地圖上顯示這張影像的地理位置"
 
 #: Viewer/PhononDisplay.cpp:183
 #, kde-format
@@ -6595,10 +6550,9 @@ msgid "Key"
 msgstr "鍵"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "標籤："
+msgstr "標籤"
 
 #: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
@@ -6608,17 +6562,15 @@ msgstr "清除指定"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "確定對話框"
+msgstr "對話框"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
-#, fuzzy, kde-format
-#| msgid "Label"
+#, kde-format
 msgid "TextLabel"
-msgstr "標籤"
+msgstr "文字標籤"
 
 #. i18n: ectx: property (text), widget (QPushButton, addNewTag)
 #: Viewer/SelectCategoryAndValue.ui:43
@@ -6628,9 +6580,7 @@ msgstr "新增標籤"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "標題"
 
@@ -6647,18 +6597,16 @@ msgid "Set as First Image in Stack"
 msgstr "設為堆疊內第一個影像"
 
 #: Viewer/ViewerWidget.cpp:203
-#, fuzzy, kde-format
-#| msgid "Export/Copy Images..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
-msgstr "匯出/複製影像..."
+msgstr "複製影像到 ..."
 
 #: Viewer/ViewerWidget.cpp:209
-#, fuzzy, kde-format
-#| msgid "Export/Copy Images..."
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
-msgstr "匯出/複製影像..."
+msgstr "連結影像到 ..."
 
 #: Viewer/ViewerWidget.cpp:217
 #, kde-format
@@ -6852,17 +6800,14 @@ msgid "Pause"
 msgstr "暫停"
 
 #: Viewer/ViewerWidget.cpp:622
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "locked"
-msgstr "解除鎖定"
+msgstr "已鎖定"
 
 #: Viewer/ViewerWidget.cpp:624
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "annotating"
-msgstr "註記"
+msgstr "註記中"
 
 #: Viewer/ViewerWidget.cpp:626
 #, kde-format
@@ -6875,12 +6820,10 @@ msgid "Change display mode to %1"
 msgstr "變更顯示模式為%1"
 
 #: Viewer/ViewerWidget.cpp:907
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Run Slideshow"
+#, kde-format
 msgctxt "OSD for slideshow"
 msgid "Ending Slideshow"
-msgstr "執行投影播放"
+msgstr "正在完成投影播放"
 
 #: Viewer/ViewerWidget.cpp:910
 #, kde-format
@@ -6910,18 +6853,16 @@ msgid "%1&nbsp;s"
 msgstr "%1&nbsp;秒"
 
 #: Viewer/ViewerWidget.cpp:1226
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@title"
 msgid "Edit Image Description"
-msgstr "主題描述"
+msgstr "編輯影像描述"
 
 #: Viewer/ViewerWidget.cpp:1226
-#, fuzzy, kde-format
-#| msgid "Theme Description"
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image Description"
-msgstr "主題描述"
+msgstr "影像描述"
 
 #: Viewer/ViewerWidget.cpp:1241
 #, kde-format
@@ -7066,11 +7007,9 @@ msgid ""
 msgstr ""
 
 #: Viewer/ViewerWidget.cpp:1468
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Annotate..."
+#, kde-format
 msgid "Annotate"
-msgstr "註記....."
+msgstr "註記"
 
 #: Viewer/ViewerWidget.cpp:1487
 #, kde-format
@@ -7079,8 +7018,7 @@ msgid "Help"
 msgstr "說明"
 
 #: Viewer/ViewerWidget.cpp:1489
-#, fuzzy, kde-format
-#| msgid "Annotation Dialog"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Annotation Dialog"
 msgstr "註記對話框"
@@ -7098,11 +7036,10 @@ msgid "CTRL+a"
 msgstr "CTRL+a"
 
 #: Viewer/ViewerWidget.cpp:1493
-#, fuzzy, kde-format
-#| msgid "Copy tags from previous image"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy Data from Previous Image"
-msgstr "從前一張影像複製標籤"
+msgstr "從前一張影像複製資料"
 
 #: Viewer/ViewerWidget.cpp:1494
 #, kde-format
@@ -7111,11 +7048,10 @@ msgid "CTRL+c"
 msgstr "CTRL+c"
 
 #: Viewer/ViewerWidget.cpp:1497
-#, fuzzy, kde-format
-#| msgid "Description"
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Edit Description"
-msgstr "敘述"
+msgstr "編輯描述"
 
 #: Viewer/ViewerWidget.cpp:1498
 #, kde-format
@@ -7124,11 +7060,9 @@ msgid "CTRL+d"
 msgstr "CTRL+d"
 
 #: Viewer/ViewerWidget.cpp:1501
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Annotations"
+#, kde-format
 msgid "Annotation Mode"
-msgstr "註記"
+msgstr "註記模式"
 
 #: Viewer/ViewerWidget.cpp:1503
 #, kde-format

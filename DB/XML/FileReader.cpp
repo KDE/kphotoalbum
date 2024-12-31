@@ -625,14 +625,14 @@ QString DB::FileReader::unescape(const QString &str, int fileVersion)
     // If we use the "compressed" file format, we have to do some un-escaping, because the category
     // names have been used as XML attributes and have been escaped before saving.
 
-    auto unEscaped = str;
-
     // Up to db v10, some Latin-1-only compatible escaping has been done using regular expressions
     // for the "compressed" format. Also, there was some space-underscore substitution for the
     // "readable" format. We need this when reading a pre-v11 db, so we still provide this algorithm
     // here:
 
     if (fileVersion <= 10) {
+        auto unEscaped = str;
+
         if (!useCompressedFileFormat()) {
             unEscaped.replace(QStringLiteral("_"), QStringLiteral(" "));
 
@@ -645,7 +645,8 @@ QString DB::FileReader::unescape(const QString &str, int fileVersion)
                 auto match = rx.match(unEscaped);
                 while (match.hasMatch()) {
                     QString before = match.captured(1) + match.captured(2);
-                    QString after = QString::fromLatin1(QByteArray::fromHex(match.captured(2).toLocal8Bit()));
+                    QString after = QString::fromLatin1(
+                        QByteArray::fromHex(match.captured(2).toLocal8Bit()));
                     unEscaped.replace(pos, before.length(), after);
                     pos += after.length();
                     match = rx.match(unEscaped, pos);
@@ -659,14 +660,15 @@ QString DB::FileReader::unescape(const QString &str, int fileVersion)
 
     // Beginning from db v11, we use a modified percent encoding provided by QByteArray that will
     // work for all input strings and covers the whole Unicode range. We only do this for the
-    // "compressed" format. For the "readble" format, the string is used as-is (unEscaped is already
-    // set to str above):
-    if (useCompressedFileFormat()) {
+    // "compressed" format. For the "readble" format, the string is used as-is.
+    if (!useCompressedFileFormat()) {
+        return str;
+    } else {
+        auto unEscaped = str;
         unEscaped = QString::fromUtf8(QByteArray::fromPercentEncoding(unEscaped.toUtf8(), '_'));
+        s_cache.insert(str, unEscaped);
+        return unEscaped;
     }
-
-    s_cache.insert(str, unEscaped);
-    return unEscaped;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

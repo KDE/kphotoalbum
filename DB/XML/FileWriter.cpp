@@ -544,17 +544,16 @@ QString DB::FileWriter::escape(const QString &str, int fileVersion)
         return escaped;
     }
 
-    QString escaped;
-
-    // If we use the "readable" format, we don't need escaping:
     if (!useCompressedFileFormat()) {
-        escaped = str;
+        // If we use the "readable" format, we don't need escaping:
+        return str;
 
-    // If we use the "compressed" file format, we have to do some escaping, because the category
-    // names are used as XML attributes and we can't use all characters for them. Beginning from
-    // db v11, we use a modified percent encoding provided by QByteArray that will work for all
-    // input strings and covers the whole Unicode range:
     } else {
+        // If we use the "compressed" file format, we have to do some escaping, because the category
+        // names are used as XML attributes and we can't use all characters for them. Beginning from
+        // db v11, we use a modified percent encoding provided by QByteArray that will work for all
+        // input strings and covers the whole Unicode range:
+
         // The first character of an XML attribute must be a NameStartChar. That is a-z,
         // A-Z, ":" or "_". From the second position on, also 0-9, "." and "-" are allowed
         // (cf. https://www.w3.org/TR/xml/ for the full specification).
@@ -567,11 +566,11 @@ QString DB::FileWriter::escape(const QString &str, int fileVersion)
         // "-", ".", "_" or "~". We thus have to add some more chars to include:
         static const QByteArray s_escapeIncludes = QStringLiteral("-._~0123456789").toUtf8();
 
-        escaped = QString::fromUtf8(str.toUtf8().toPercentEncoding(QByteArray(), s_escapeIncludes, '_'));
+        const auto escaped = QString::fromUtf8(
+            str.toUtf8().toPercentEncoding(QByteArray(), s_escapeIncludes, '_'));
+        s_cache.insert(str, escaped);
+        return escaped;
     }
-
-    s_cache.insert(str, escaped);
-    return escaped;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

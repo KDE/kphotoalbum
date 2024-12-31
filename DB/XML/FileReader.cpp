@@ -641,6 +641,17 @@ QString DB::FileReader::unescape(const QString &str, int fileVersion)
             int pos = 0;
 
             // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
+            //
+            // Well, it looks like this brokt long time ago anyway, because e.g. "Schlagwörter"
+            // will be escaped to "Schlagw_.FFFFFFF6rter" by the old escaping algorithm. I suppose
+            // this was "Schlagw_.F6rter" at some point in the past, because the above regexp
+            // searches for "_." followed by two chars.
+            // Anyway, it doesn't matter, because the unescaped strings aren't actually used when
+            // reading a database; instead, the escaped category names are compared to what is found
+            // and the values are mapped anyway.
+            //
+            // Also, with the new db v11 escaping and unescaping, this is obsolete anyway.
+
             if (useCompressedFileFormat()) {
                 auto match = rx.match(unEscaped);
                 while (match.hasMatch()) {

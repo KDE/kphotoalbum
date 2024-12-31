@@ -496,17 +496,18 @@ bool DB::FileWriter::shouldSaveCategory(const QString &categoryName) const
  */
 QString DB::FileWriter::escape(const QString &str, int fileVersion)
 {
-    static bool hashUsesCompressedFormat = useCompressedFileFormat();
+    static bool s_hashUsesCompressedFormat = useCompressedFileFormat();
     static QHash<QString, QString> s_cache;
     static int s_cacheVersion = -1;
 
-    if (hashUsesCompressedFormat != useCompressedFileFormat() || s_cacheVersion != fileVersion) {
+    if (s_hashUsesCompressedFormat != useCompressedFileFormat() || s_cacheVersion != fileVersion) {
         s_cache.clear();
         s_cacheVersion = fileVersion;
+        s_hashUsesCompressedFormat = useCompressedFileFormat();
     }
 
     if (s_cache.contains(str)) {
-        return s_cache[str];
+        return s_cache.value(str);
     }
 
     // Up to db v10, some Latin-1-only compatible escaping has been done using regular expressions
@@ -529,7 +530,7 @@ QString DB::FileWriter::escape(const QString &str, int fileVersion)
                     const auto match = rx.match(tmp);
                     if (match.hasMatch()) {
                         escaped += tmp.left(match.capturedStart())
-                                + QString::asprintf("_.%0X", match.captured().data()->toLatin1());
+                                   + QString::asprintf("_.%0X", match.captured().data()->toLatin1());
                         tmp = tmp.mid(match.capturedStart() + match.capturedLength(), -1);
                     } else {
                         escaped += tmp;

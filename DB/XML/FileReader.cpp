@@ -608,17 +608,18 @@ DB::ReaderPtr DB::FileReader::readConfigFile(const QString &configFile)
  */
 QString DB::FileReader::unescape(const QString &str, int fileVersion)
 {
-    static bool hashUsesCompressedFormat = useCompressedFileFormat();
+    static bool s_hashUsesCompressedFormat = useCompressedFileFormat();
     static QHash<QString, QString> s_cache;
     static int s_cacheVersion = -1;
 
-    if (hashUsesCompressedFormat != useCompressedFileFormat() || s_cacheVersion != fileVersion) {
+    if (s_hashUsesCompressedFormat != useCompressedFileFormat() || s_cacheVersion != fileVersion) {
         s_cache.clear();
         s_cacheVersion = fileVersion;
+        s_hashUsesCompressedFormat = useCompressedFileFormat();
     }
 
     if (s_cache.contains(str)) {
-        return s_cache[str];
+        return s_cache.value(str);
     }
 
     // If we use the "compressed" file format, we have to do some un-escaping, because the category

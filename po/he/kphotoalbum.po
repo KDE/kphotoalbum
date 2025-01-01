@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-12-30 00:39+0000\n"
-"PO-Revision-Date: 2024-12-20 14:36+0200\n"
+"PO-Revision-Date: 2024-12-31 08:45+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1321,10 +1321,9 @@ msgid ""
 msgstr ""
 
 #: DB/XML/FileReader.cpp:60
-#, fuzzy, kde-format
-#| msgid "index.xml version mismatch"
+#, kde-format
 msgid "XML database file version mismatch"
-msgstr "גרסת index.xml לא תואמת"
+msgstr "גרסת קובץ מסד נתונים ב־XML אינה תואמת"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -3031,7 +3030,7 @@ msgstr "מתיאס פוסל"
 #: main.cpp:112
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
-msgstr ""
+msgstr "עמוד מקום גאוגרפי בדפדפן ומגוון תיקוני תקלות"
 
 #: main.cpp:113
 #, kde-format
@@ -3061,7 +3060,7 @@ msgstr "קריסטוף מוזלר"
 #: main.cpp:115
 #, kde-format
 msgid "Numerous patches for lots of bugs plus patches for a few new features"
-msgstr ""
+msgstr "מגוון טלאים למגוון תקלות וגם טלאים לכמה יכולות חדשות"
 
 #: main.cpp:116
 #, kde-format
@@ -3095,7 +3094,7 @@ msgstr "קליטי סידאל"
 #: main.cpp:119
 #, kde-format
 msgid "Tremendous help with the English text in the application."
-msgstr ""
+msgstr "עזרה נרחבת בטקסט באנגלית ביישום."
 
 #: main.cpp:120
 #, kde-format
@@ -3118,6 +3117,7 @@ msgid ""
 "Patch which speed up loading of thumbnails plus preview in image property "
 "dialog."
 msgstr ""
+"טלאי שמאיץ טעינת תמונות ממוזערות לצד תצוגה מקדימה של חלונית מאפייני תמונה."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format
@@ -3133,7 +3133,7 @@ msgstr "לערום תמונות שסיכום ביקורת ה־MD5 שלהן זה�
 #: MainWindow/AutoStackImages.cpp:64
 #, kde-format
 msgid "Stack images based on file version detection"
-msgstr ""
+msgstr "ערימת תמונות לפי זיהוי גרסת קובץ"
 
 #: MainWindow/AutoStackImages.cpp:68
 #, kde-format
@@ -3160,7 +3160,7 @@ msgstr "אפשרויות ערימה אוטומטית"
 #: MainWindow/AutoStackImages.cpp:94
 #, kde-format
 msgid "Include matching image to appropriate stack (if one exists)"
-msgstr ""
+msgstr "לכלול תמונה תואמת בערימה מתאימה (אם יש)"
 
 #: MainWindow/AutoStackImages.cpp:98
 #, kde-format
@@ -4653,16 +4653,14 @@ msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>נא לבחור קטגוריה לערוך</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
-#, fuzzy, kde-format
-#| msgid "Choose speed over readability for index.xml file"
+#, kde-format
 msgid "Choose speed over readability for the XML database file"
-msgstr "להעדיף מהירות על פני קריאות קובץ index.xml"
+msgstr "להעדיף מהירות על פני קריאות קובץ מסד הנתונים ב־XML"
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, fuzzy, kde-format
-#| msgid "Compress backup file"
+#, kde-format
 msgid "Compress backup files"
-msgstr "דחיסת קובץ גיבוי"
+msgstr "דחיסת קובצי גיבוי"
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format

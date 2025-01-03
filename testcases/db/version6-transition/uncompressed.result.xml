@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KPhotoAlbum version="8" compressed="0">
+<KPhotoAlbum version="10" compressed="0">
     <Categories>
         <Category name="Locations" icon="applications-internet" show="1" viewtype="1" thumbnailsize="32" positionable="0">
             <value value="Place 1" id="1"/>
@@ -82,4 +82,5 @@
         <member category="Locations" group-name="Country 1" member="Place 1"/>
         <member category="Locations" group-name="Country 1" member="Place 2"/>
     </member-groups>
+    <global-sort-order/>
 </KPhotoAlbum>

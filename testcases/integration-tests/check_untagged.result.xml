@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KPhotoAlbum version="8" compressed="1">
+<KPhotoAlbum version="10" compressed="1">
     <Categories>
         <Category name="Events" icon="dialog-password" show="1" viewtype="0" thumbnailsize="32" positionable="0">
             <value value="scanned in" id="1"/>
@@ -7,7 +7,7 @@
             <value value="desktop" id="3"/>
             <value value="new wave" id="4"/>
             <value value="fun" id="5"/>
-            <value value="untagged" id="6"/>
+            <value value="untagged" id="6" meta="mark-untagged"/>
         </Category>
         <Category name="Places" icon="applications-internet" show="1" viewtype="0" thumbnailsize="32" positionable="0">
             <value value="Grand Canyon" id="1"/>
@@ -109,4 +109,5 @@
         <member category="Places" group-name="Denmark" members="2,4,8"/>
         <member category="Places" group-name="USA" members="1,3,5,6,7"/>
     </member-groups>
+    <global-sort-order/>
 </KPhotoAlbum>

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-30 00:39+0000\n"
+"POT-Creation-Date: 2025-01-06 00:40+0000\n"
 "PO-Revision-Date: 2012-01-16 16:58+0700\n"
 "Last-Translator: Lê Hoàng Phương <herophuong93@gmail.com>\n"
 "Language-Team: Vietnamese <kde-i18n-vi@kde.org>\n"
@@ -1325,19 +1325,19 @@ msgstr "Tìm thấy tệp sao lưu"
 msgid "Loading information from images"
 msgstr "Đang tải thông tin từ ảnh"
 
-#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:868 DB/XML/FileReader.cpp:135
+#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:868 DB/XML/FileReader.cpp:136
 #: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Media Type"
 msgstr "Kiểu vật chứa"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:869 DB/XML/FileReader.cpp:137
+#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:869 DB/XML/FileReader.cpp:138
 #, fuzzy, kde-format
 #| msgid "Image"
 msgid "Image"
 msgstr "Ảnh"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:870 DB/XML/FileReader.cpp:138
+#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:870 DB/XML/FileReader.cpp:139
 #, fuzzy, kde-format
 #| msgid "Video"
 msgid "Video"
@@ -1431,18 +1431,18 @@ msgstr ""
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: DB/XML/FileReader.cpp:87 Settings/CategoryPage.cpp:256
+#: DB/XML/FileReader.cpp:88 Settings/CategoryPage.cpp:256
 #: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Folder"
 msgstr "Thư mục"
 
-#: DB/XML/FileReader.cpp:109 DB/XML/FileReader.cpp:121
+#: DB/XML/FileReader.cpp:110 DB/XML/FileReader.cpp:122
 #, kde-format
 msgid "Tokens"
 msgstr "Hiệu bài"
 
-#: DB/XML/FileReader.cpp:189
+#: DB/XML/FileReader.cpp:190
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
@@ -1450,13 +1450,13 @@ msgid ""
 "to quit.</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:195 DB/XML/FileReader.cpp:300
+#: DB/XML/FileReader.cpp:196 DB/XML/FileReader.cpp:301
 #, fuzzy, kde-format
 #| msgid "Converting database"
 msgid "Error in database file"
 msgstr "Đang chuyển đổi co sở dữ liệu"
 
-#: DB/XML/FileReader.cpp:255
+#: DB/XML/FileReader.cpp:256
 #, kde-format
 msgctxt ""
 "Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
@@ -1470,20 +1470,20 @@ msgid ""
 "and \"Media Type\". You can delete those.</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:263
+#: DB/XML/FileReader.cpp:264
 #, fuzzy, kde-format
 #| msgid "Invalid driver."
 msgid "Changed standard category names"
 msgstr "Trình điều khiển không hợp lệ."
 
-#: DB/XML/FileReader.cpp:295
+#: DB/XML/FileReader.cpp:296
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
 "</p><p>Manual repair required!</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:434
+#: DB/XML/FileReader.cpp:435
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Your images/videos are not sorted, which means that navigating using "
@@ -1516,12 +1516,12 @@ msgstr ""
 "ngày tháng được đặt, bạn có thể thực hiện <b>Ảnh > Sắp điều đã chọn theo "
 "Ngày và Giờ</b> để sắp xếp chúng trong co sở dữ liệu.</p>"
 
-#: DB/XML/FileReader.cpp:443
+#: DB/XML/FileReader.cpp:444
 #, kde-format
 msgid "Images/Videos Are Not Sorted"
 msgstr "Chưa sắp xếp các Ảnh (động)"
 
-#: DB/XML/FileReader.cpp:455
+#: DB/XML/FileReader.cpp:456
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>Not all the images in the database have information about image sizes; "
@@ -1545,12 +1545,12 @@ msgstr ""
 "ảnh</b>.</p><p>Không thì các ảnh trong ô xem mẫu ảnh sẽ chỉ có độ đệm thêm "
 "chung quanh. Không phải là vấn đề nghiêm trọng.</p>"
 
-#: DB/XML/FileReader.cpp:460
+#: DB/XML/FileReader.cpp:461
 #, kde-format
 msgid "Not All Images Have Size Information"
 msgstr "Không phải tất cả các ảnh có thông tin kích cỡ"
 
-#: DB/XML/FileReader.cpp:474
+#: DB/XML/FileReader.cpp:475
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1559,25 +1559,25 @@ msgid ""
 "tags require manual inspection:<ul>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:484
+#: DB/XML/FileReader.cpp:485
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:486
+#: DB/XML/FileReader.cpp:487
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:489
+#: DB/XML/FileReader.cpp:490
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:494
+#: DB/XML/FileReader.cpp:495
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1585,13 +1585,13 @@ msgid ""
 "<em>KPhotoAlbum - manual repair needed</em>.</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:498
+#: DB/XML/FileReader.cpp:499
 #, fuzzy, kde-format
 #| msgid "Database driver:"
 msgid "Database repair required"
 msgstr "Trình điều khiển co sở dữ liệu :"
 
-#: DB/XML/FileReader.cpp:521
+#: DB/XML/FileReader.cpp:522
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
@@ -1624,89 +1624,89 @@ msgstr ""
 "phụ thêm chuỗi như khi đặt biến môi trường đường dẫn mặc định <b>PATH</b>.</"
 "p>"
 
-#: DB/XML/FileReader.cpp:529
+#: DB/XML/FileReader.cpp:530
 #, kde-format
 msgid "No default setup file found"
 msgstr "Không tìm thấy tệp thiết lập mặc định nào"
 
-#: DB/XML/FileReader.cpp:535 Settings/BirthdayPage.cpp:135
+#: DB/XML/FileReader.cpp:536 Settings/BirthdayPage.cpp:135
 #, kde-format
 msgid "People"
 msgstr "Người"
 
-#: DB/XML/FileReader.cpp:536
+#: DB/XML/FileReader.cpp:537
 #, kde-format
 msgid "Places"
 msgstr "Nơi"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:537 lib/kpabase/SettingsData.cpp:433
+#: DB/XML/FileReader.cpp:538 lib/kpabase/SettingsData.cpp:433
 #, kde-format
 msgid "Events"
 msgstr ""
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:538 lib/kpabase/SettingsData.cpp:443
+#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:443
 #, fuzzy, kde-format
 #| msgid "New Images"
 msgid "untagged"
 msgstr "Ảnh mới"
 
-#: DB/XML/FileReader.cpp:549 Utilities/DemoUtil.cpp:34
+#: DB/XML/FileReader.cpp:550 Utilities/DemoUtil.cpp:34
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
 #: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "Gặp lỗi khi chạy chứng minh"
 
-#: DB/XML/FileReader.cpp:549
+#: DB/XML/FileReader.cpp:550
 #, kde-format
 msgid "Unable to open '%1' for reading"
 msgstr "Không thể mở « %1 » để đọc"
 
-#: DB/XML/FileReader.cpp:562
+#: DB/XML/FileReader.cpp:563
 #, fuzzy, kde-format
 #| msgid "Error on line %1 column %2 in file %3: %4"
 msgid "line %1 column %2 in file %3: %4"
 msgstr "Gặp lỗi trên dòng %1, cột %2, trong tệp %3: %4"
 
-#: DB/XML/FileReader.cpp:564
+#: DB/XML/FileReader.cpp:565
 #, kde-format
 msgid "Failed to recover the backup: %1"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:575
+#: DB/XML/FileReader.cpp:576
 #, kde-format
 msgid "Error in file %1: No elements found"
 msgstr "Gặp lỗi trong tệp %1: không tìm thấy yếu tố nào"
 
-#: DB/XML/FileReader.cpp:581
+#: DB/XML/FileReader.cpp:582
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr ""
 "Gặp lỗi trong tệp %1: yêu cầu « KPhotoAlbum » là yếu tố đầu, còn tìm « %2 »"
 
-#: DB/XML/FileWriter.cpp:77
+#: DB/XML/FileWriter.cpp:78
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
 "because of the following error: %2"
 msgstr ""
 
-#: DB/XML/FileWriter.cpp:80 DB/XML/FileWriter.cpp:116 DB/XML/FileWriter.cpp:125
+#: DB/XML/FileWriter.cpp:81 DB/XML/FileWriter.cpp:117 DB/XML/FileWriter.cpp:126
 #, fuzzy, kde-format
 #| msgid "Error when saving image '%1'."
 msgid "Error while saving..."
 msgstr "Găp lỗi khi lưu ảnh « %1 »."
 
-#: DB/XML/FileWriter.cpp:113
+#: DB/XML/FileWriter.cpp:114
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
 "replace the file %1 with file %2 manually!</p>"
 msgstr ""
 
-#: DB/XML/FileWriter.cpp:122
+#: DB/XML/FileWriter.cpp:123
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "

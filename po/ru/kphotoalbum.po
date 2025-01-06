@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-30 00:39+0000\n"
+"POT-Creation-Date: 2025-01-06 00:40+0000\n"
 "PO-Revision-Date: 2020-03-22 17:24+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1352,18 +1352,18 @@ msgstr "Найти автоматически сохранённый файл"
 msgid "Loading information from images"
 msgstr "Загрузка информации из изображений"
 
-#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:868 DB/XML/FileReader.cpp:135
+#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:868 DB/XML/FileReader.cpp:136
 #: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Media Type"
 msgstr "Тип данных"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:869 DB/XML/FileReader.cpp:137
+#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:869 DB/XML/FileReader.cpp:138
 #, kde-format
 msgid "Image"
 msgstr "Изображение"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:870 DB/XML/FileReader.cpp:138
+#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:870 DB/XML/FileReader.cpp:139
 #, kde-format
 msgid "Video"
 msgstr "Видеозапись"
@@ -1462,18 +1462,18 @@ msgstr "Несовпадение версии index.xml"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: DB/XML/FileReader.cpp:87 Settings/CategoryPage.cpp:256
+#: DB/XML/FileReader.cpp:88 Settings/CategoryPage.cpp:256
 #: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Folder"
 msgstr "Папка"
 
-#: DB/XML/FileReader.cpp:109 DB/XML/FileReader.cpp:121
+#: DB/XML/FileReader.cpp:110 DB/XML/FileReader.cpp:122
 #, kde-format
 msgid "Tokens"
 msgstr "Ярлыки"
 
-#: DB/XML/FileReader.cpp:189
+#: DB/XML/FileReader.cpp:190
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
@@ -1484,12 +1484,12 @@ msgstr ""
 "«Продолжить», чтобы проигнорировать повторяющуюся категорию и попытаться "
 "восстановить данные, либо нажмите «Отмена» для выхода.</p>"
 
-#: DB/XML/FileReader.cpp:195 DB/XML/FileReader.cpp:300
+#: DB/XML/FileReader.cpp:196 DB/XML/FileReader.cpp:301
 #, kde-format
 msgid "Error in database file"
 msgstr "Ошибка в файле базы данных"
 
-#: DB/XML/FileReader.cpp:255
+#: DB/XML/FileReader.cpp:256
 #, kde-format
 msgctxt ""
 "Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
@@ -1510,12 +1510,12 @@ msgstr ""
 "дополнительные пустые категории: «Folder» и «Media Type», их можно удалить.</"
 "p>"
 
-#: DB/XML/FileReader.cpp:263
+#: DB/XML/FileReader.cpp:264
 #, kde-format
 msgid "Changed standard category names"
 msgstr "Изменены названия стандартных категорий"
 
-#: DB/XML/FileReader.cpp:295
+#: DB/XML/FileReader.cpp:296
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
@@ -1524,7 +1524,7 @@ msgstr ""
 "<p>Строка %1, столбец %2: повторяющаяся запись для файла «%3» с другой "
 "контрольной суммой MD5.</p><p>Требуется исправить ошибку вручную.</p>"
 
-#: DB/XML/FileReader.cpp:434
+#: DB/XML/FileReader.cpp:435
 #, kde-format
 msgid ""
 "<p>Your images/videos are not sorted, which means that navigating using the "
@@ -1548,12 +1548,12 @@ msgstr ""
 "<p>После настройки дат изображений запустите <b>Обслуживание -> Сортировать "
 "все по дате и времени</b> для их сортировки в базе данных.</p>"
 
-#: DB/XML/FileReader.cpp:443
+#: DB/XML/FileReader.cpp:444
 #, kde-format
 msgid "Images/Videos Are Not Sorted"
 msgstr "Изображения/видеозаписи не отсортированы"
 
-#: DB/XML/FileReader.cpp:455
+#: DB/XML/FileReader.cpp:456
 #, kde-format
 msgid ""
 "<p>Not all the images in the database have information about image sizes; "
@@ -1571,12 +1571,12 @@ msgstr ""
 "пространства вокруг изображений в окне миниатюр. Таким образом, это действие "
 "не является обязательным.</p>"
 
-#: DB/XML/FileReader.cpp:460
+#: DB/XML/FileReader.cpp:461
 #, kde-format
 msgid "Not All Images Have Size Information"
 msgstr "Не все изображения имеют информацию о размерах"
 
-#: DB/XML/FileReader.cpp:474
+#: DB/XML/FileReader.cpp:475
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1585,25 +1585,25 @@ msgid ""
 "tags require manual inspection:<ul>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:484
+#: DB/XML/FileReader.cpp:485
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:486
+#: DB/XML/FileReader.cpp:487
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:489
+#: DB/XML/FileReader.cpp:490
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:494
+#: DB/XML/FileReader.cpp:495
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1611,13 +1611,13 @@ msgid ""
 "<em>KPhotoAlbum - manual repair needed</em>.</p>"
 msgstr ""
 
-#: DB/XML/FileReader.cpp:498
+#: DB/XML/FileReader.cpp:499
 #, fuzzy, kde-format
 #| msgid "Database backend"
 msgid "Database repair required"
 msgstr "Модуль работы с базой данных"
 
-#: DB/XML/FileReader.cpp:521
+#: DB/XML/FileReader.cpp:522
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
@@ -1653,67 +1653,67 @@ msgstr ""
 "добавьте необходимое значение подобно тому, как вы настраиваете переменную "
 "окружения <b>PATH</b>.</p>"
 
-#: DB/XML/FileReader.cpp:529
+#: DB/XML/FileReader.cpp:530
 #, kde-format
 msgid "No default setup file found"
 msgstr "Файл параметров по умолчанию не найден"
 
-#: DB/XML/FileReader.cpp:535 Settings/BirthdayPage.cpp:135
+#: DB/XML/FileReader.cpp:536 Settings/BirthdayPage.cpp:135
 #, kde-format
 msgid "People"
 msgstr "Люди"
 
-#: DB/XML/FileReader.cpp:536
+#: DB/XML/FileReader.cpp:537
 #, kde-format
 msgid "Places"
 msgstr "Места"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:537 lib/kpabase/SettingsData.cpp:433
+#: DB/XML/FileReader.cpp:538 lib/kpabase/SettingsData.cpp:433
 #, kde-format
 msgid "Events"
 msgstr "События"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:538 lib/kpabase/SettingsData.cpp:443
+#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:443
 #, kde-format
 msgid "untagged"
 msgstr "Без меток"
 
-#: DB/XML/FileReader.cpp:549 Utilities/DemoUtil.cpp:34
+#: DB/XML/FileReader.cpp:550 Utilities/DemoUtil.cpp:34
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
 #: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "Ошибка запуска демонстрации"
 
-#: DB/XML/FileReader.cpp:549
+#: DB/XML/FileReader.cpp:550
 #, kde-format
 msgid "Unable to open '%1' for reading"
 msgstr "Не удалось открыть файл «%1» для чтения"
 
-#: DB/XML/FileReader.cpp:562
+#: DB/XML/FileReader.cpp:563
 #, kde-format
 msgid "line %1 column %2 in file %3: %4"
 msgstr "Произошла ошибка в строке %1, в столбце %2 в файле %3: %4"
 
-#: DB/XML/FileReader.cpp:564
+#: DB/XML/FileReader.cpp:565
 #, kde-format
 msgid "Failed to recover the backup: %1"
 msgstr "Не удалось восстановить данные из резервной копии: %1"
 
-#: DB/XML/FileReader.cpp:575
+#: DB/XML/FileReader.cpp:576
 #, kde-format
 msgid "Error in file %1: No elements found"
 msgstr "Ошибка в файле %1: не найдено элементов"
 
-#: DB/XML/FileReader.cpp:581
+#: DB/XML/FileReader.cpp:582
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr ""
 "Ошибка в файле %1: ожидался корневой элемент «KPhotoAlbum», но обнаружен «%2»"
 
-#: DB/XML/FileWriter.cpp:77
+#: DB/XML/FileWriter.cpp:78
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -1722,12 +1722,12 @@ msgstr ""
 "<p>Не удалось сохранить базу данных изображений в XML.</p>Не удалось открыть "
 "файл %1 из-за следующей ошибки: %2"
 
-#: DB/XML/FileWriter.cpp:80 DB/XML/FileWriter.cpp:116 DB/XML/FileWriter.cpp:125
+#: DB/XML/FileWriter.cpp:81 DB/XML/FileWriter.cpp:117 DB/XML/FileWriter.cpp:126
 #, kde-format
 msgid "Error while saving..."
 msgstr "Ошибка сохранения"
 
-#: DB/XML/FileWriter.cpp:113
+#: DB/XML/FileWriter.cpp:114
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -1737,7 +1737,7 @@ msgstr ""
 "изображений.</p><p>Повторите попытку или вручную замените файл %1 на файл %2."
 "</p>"
 
-#: DB/XML/FileWriter.cpp:122
+#: DB/XML/FileWriter.cpp:123
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-12-30 00:39+0000\n"
+"POT-Creation-Date: 2025-01-06 00:40+0000\n"
 "PO-Revision-Date: 2020-05-05 11:56+0300\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -1291,18 +1291,18 @@ msgstr "Leiti automaatsalvestuse fail"
 msgid "Loading information from images"
 msgstr "Info laadimine piltidest"
 
-#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:868 DB/XML/FileReader.cpp:135
+#: DB/ImageDB.cpp:562 DB/ImageDB.cpp:868 DB/XML/FileReader.cpp:136
 #: Settings/CategoryPage.cpp:258 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Media Type"
 msgstr "Andmekandja tüüp"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:869 DB/XML/FileReader.cpp:137
+#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:869 DB/XML/FileReader.cpp:138
 #, kde-format
 msgid "Image"
 msgstr "Pilt"
 
-#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:870 DB/XML/FileReader.cpp:138
+#: DB/ImageDB.cpp:563 DB/ImageDB.cpp:870 DB/XML/FileReader.cpp:139
 #, kde-format
 msgid "Video"
 msgstr "Video"
@@ -1397,18 +1397,18 @@ msgstr "Faili index.xml versiooni ei sobi kokku"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
-#: DB/XML/FileReader.cpp:87 Settings/CategoryPage.cpp:256
+#: DB/XML/FileReader.cpp:88 Settings/CategoryPage.cpp:256
 #: ThumbnailView/CellGeometry.cpp:93 ThumbnailView/ThumbnailModel.cpp:355
 #, kde-format
 msgid "Folder"
 msgstr "Kataloog"
 
-#: DB/XML/FileReader.cpp:109 DB/XML/FileReader.cpp:121
+#: DB/XML/FileReader.cpp:110 DB/XML/FileReader.cpp:122
 #, kde-format
 msgid "Tokens"
 msgstr "Märgised"
 
-#: DB/XML/FileReader.cpp:189
+#: DB/XML/FileReader.cpp:190
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate category '%3'</p><p>Choose continue to "
@@ -1419,12 +1419,12 @@ msgstr ""
 "topeltkategooria eiramiseks ja selle automaatseks parandamiseks või vali "
 "väljumiseks Loobu.</p>"
 
-#: DB/XML/FileReader.cpp:195 DB/XML/FileReader.cpp:300
+#: DB/XML/FileReader.cpp:196 DB/XML/FileReader.cpp:301
 #, kde-format
 msgid "Error in database file"
 msgstr "Tõrge andmebaasifailis"
 
-#: DB/XML/FileReader.cpp:255
+#: DB/XML/FileReader.cpp:256
 #, kde-format
 msgctxt ""
 "Leave \"Folder\" and \"Media Type\" untranslated below, those will show up "
@@ -1444,12 +1444,12 @@ msgstr ""
 "andmebaasi.</p><p>Mõnel juhul võib näha kaht täiendavat tühja kategooriat, "
 "nimelt \"Folder\" ja \"Media Type\". Need võib kustutada.</p>"
 
-#: DB/XML/FileReader.cpp:263
+#: DB/XML/FileReader.cpp:264
 #, kde-format
 msgid "Changed standard category names"
 msgstr "Muudeti standardseid kategoorianimesid"
 
-#: DB/XML/FileReader.cpp:295
+#: DB/XML/FileReader.cpp:296
 #, kde-format
 msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
@@ -1458,7 +1458,7 @@ msgstr ""
 "<p>Rida %1, veerg %2: faili \"%3\" topeltkirje teistsuguse MD5 summaga.</"
 "p><p>See vajab käsitsi parandamist!</p>"
 
-#: DB/XML/FileReader.cpp:434
+#: DB/XML/FileReader.cpp:435
 #, kde-format
 msgid ""
 "<p>Your images/videos are not sorted, which means that navigating using the "
@@ -1481,12 +1481,12 @@ msgstr ""
 "sortida käsuga <b>Pildid -> Sorteeri valitud kuupäeva ja kellaaja järgi</b>. "
 "Pane tähele, et sortimiseks tuleks laiendada kõik pakid.</p>"
 
-#: DB/XML/FileReader.cpp:443
+#: DB/XML/FileReader.cpp:444
 #, kde-format
 msgid "Images/Videos Are Not Sorted"
 msgstr "Pildid/videod pole sorditud"
 
-#: DB/XML/FileReader.cpp:455
+#: DB/XML/FileReader.cpp:456
 #, kde-format
 msgid ""
 "<p>Not all the images in the database have information about image sizes; "
@@ -1503,12 +1503,12 @@ msgstr ""
 "tee, tekib pisipildivaates piltide ümber lihtsalt tühja ruumi. Kui see sind "
 "ei häiri, siis ei pruugi sa ka midagi ette võtta.</p>"
 
-#: DB/XML/FileReader.cpp:460
+#: DB/XML/FileReader.cpp:461
 #, kde-format
 msgid "Not All Images Have Size Information"
 msgstr "Kõigil piltidel pole suuruseinfot"
 
-#: DB/XML/FileReader.cpp:474
+#: DB/XML/FileReader.cpp:475
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1520,25 +1520,25 @@ msgstr ""
 "nüüd silte, mis parandamise käigus ühendati.</p><p>Järgmised sildid nõuavad "
 "käsitsi ülevaatamist:<ul>"
 
-#: DB/XML/FileReader.cpp:484
+#: DB/XML/FileReader.cpp:485
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
 msgstr "<li>%1:<br/>"
 
-#: DB/XML/FileReader.cpp:486
+#: DB/XML/FileReader.cpp:487
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
 msgstr "%1<br/>"
 
-#: DB/XML/FileReader.cpp:489
+#: DB/XML/FileReader.cpp:490
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
 msgstr "</li>"
 
-#: DB/XML/FileReader.cpp:494
+#: DB/XML/FileReader.cpp:495
 #, kde-format
 msgctxt "repair merged tags"
 msgid ""
@@ -1548,12 +1548,12 @@ msgstr ""
 "</ul></p><p>Kõik mõjutatud pildid märgiti ühtlasi sildiga <em>KPhotoAlbum - "
 "vajalik on käsitsi parandamine</em>.</p>"
 
-#: DB/XML/FileReader.cpp:498
+#: DB/XML/FileReader.cpp:499
 #, kde-format
 msgid "Database repair required"
 msgstr "Andmebaas vajab parandamist"
 
-#: DB/XML/FileReader.cpp:521
+#: DB/XML/FileReader.cpp:522
 #, fuzzy, kde-format
 #| msgid ""
 #| "<p>KPhotoAlbum was unable to load a default setup, which indicates an "
@@ -1585,66 +1585,66 @@ msgstr ""
 "local/kde</b></p><p>Kui KDEDIRS on juba seatud, lisa lihtsalt string, nagu "
 "määraksid keskkonnamuutujat <b>PATH</b></p>"
 
-#: DB/XML/FileReader.cpp:529
+#: DB/XML/FileReader.cpp:530
 #, kde-format
 msgid "No default setup file found"
 msgstr "Vaikimisi seadistusfaili ei leitud"
 
-#: DB/XML/FileReader.cpp:535 Settings/BirthdayPage.cpp:135
+#: DB/XML/FileReader.cpp:536 Settings/BirthdayPage.cpp:135
 #, kde-format
 msgid "People"
 msgstr "Inimesed"
 
-#: DB/XML/FileReader.cpp:536
+#: DB/XML/FileReader.cpp:537
 #, kde-format
 msgid "Places"
 msgstr "Kohad"
 
 #. i18n("Events"))
-#: DB/XML/FileReader.cpp:537 lib/kpabase/SettingsData.cpp:433
+#: DB/XML/FileReader.cpp:538 lib/kpabase/SettingsData.cpp:433
 #, kde-format
 msgid "Events"
 msgstr "Sündmused"
 
 #. i18n("untagged"))
-#: DB/XML/FileReader.cpp:538 lib/kpabase/SettingsData.cpp:443
+#: DB/XML/FileReader.cpp:539 lib/kpabase/SettingsData.cpp:443
 #, kde-format
 msgid "untagged"
 msgstr "sildistamata"
 
-#: DB/XML/FileReader.cpp:549 Utilities/DemoUtil.cpp:34
+#: DB/XML/FileReader.cpp:550 Utilities/DemoUtil.cpp:34
 #: Utilities/DemoUtil.cpp:49 Utilities/DemoUtil.cpp:58
 #: Utilities/DemoUtil.cpp:88
 #, kde-format
 msgid "Error Running Demo"
 msgstr "Viga demo käivitamisel"
 
-#: DB/XML/FileReader.cpp:549
+#: DB/XML/FileReader.cpp:550
 #, kde-format
 msgid "Unable to open '%1' for reading"
 msgstr "'%1' avamine lugemiseks nurjus"
 
-#: DB/XML/FileReader.cpp:562
+#: DB/XML/FileReader.cpp:563
 #, kde-format
 msgid "line %1 column %2 in file %3: %4"
 msgstr "real %1 veerus %2 failis %3: %4"
 
-#: DB/XML/FileReader.cpp:564
+#: DB/XML/FileReader.cpp:565
 #, kde-format
 msgid "Failed to recover the backup: %1"
 msgstr "Varukoopia taastamine nurjus: %1"
 
-#: DB/XML/FileReader.cpp:575
+#: DB/XML/FileReader.cpp:576
 #, kde-format
 msgid "Error in file %1: No elements found"
 msgstr "Tõrge failis %1: ühtegi elementi ei leitud"
 
-#: DB/XML/FileReader.cpp:581
+#: DB/XML/FileReader.cpp:582
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr "time failis %1: oodati ülemelementi 'KPhotoAlbum', aga leiti '%2'"
 
-#: DB/XML/FileWriter.cpp:77
+#: DB/XML/FileWriter.cpp:78
 #, kde-format
 msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
@@ -1653,12 +1653,12 @@ msgstr ""
 "<p>Piltide andmebaasi salvestamine XML-i nurjus.</p>Faili %1 avamine nurjus "
 "järgmise vea tõttu: %2"
 
-#: DB/XML/FileWriter.cpp:80 DB/XML/FileWriter.cpp:116 DB/XML/FileWriter.cpp:125
+#: DB/XML/FileWriter.cpp:81 DB/XML/FileWriter.cpp:117 DB/XML/FileWriter.cpp:126
 #, kde-format
 msgid "Error while saving..."
 msgstr "Tõrge salvestamisel ..."
 
-#: DB/XML/FileWriter.cpp:113
+#: DB/XML/FileWriter.cpp:114
 #, kde-format
 msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
@@ -1667,7 +1667,7 @@ msgstr ""
 "<p>Piltide andmebaasi vana versiooni eemaldamine nurjus.</p><p>Palun proovi "
 "uuesti või asenda fail %1 failiga %2 käsitsi!</p>"
 
-#: DB/XML/FileWriter.cpp:122
+#: DB/XML/FileWriter.cpp:123
 #, kde-format
 msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "

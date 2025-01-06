@@ -50,7 +50,7 @@ check_dbv6-transition()
 			log notice "$check_name/$subcheck: Mismatch in index.xml!"
 			return $result_failed
 		fi
-		if ! grep -q '^kphotoalbum.DB: "Standard category names are no longer used since index.xml version 7. Standard categories will be left untranslated from now on."$' "$subcheck_dir/log"
+		if ! grep -q '^kphotoalbum.DB: "Standard category names are no longer used since XML database version 7. Standard categories will be left untranslated from now on."$' "$subcheck_dir/log"
 		then
 			log notice "$check_name/$subcheck: Missing expected log message!"
 			return $result_failed

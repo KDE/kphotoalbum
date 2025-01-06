@@ -1,6 +1,6 @@
 <!--
 SPDX-FileCopyrightText: 2022-2024 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
-SPDX-FileCopyrightText: 2022-2024 Tobias Leupold <tl at stonemx dot de>
+SPDX-FileCopyrightText: 2022-2025 Tobias Leupold <tl@stonemx.de>
 
 SPDX-License-Identifier: CC-BY-SA-4.0
 
@@ -32,17 +32,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
-(Unreleased)
-------------
+KPhotoAlbum 6.0.1 (2025-01-06)
+------------------------------
 
 ### Added
  - Support database file names other than index.xml (#418647)
-
-### Changed
-
-### Dependencies
-
-### Deprecated
 
 ### Fixed
  - Fix application icon on Wayland
@@ -52,9 +46,6 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
  - Clicking on a tag in the Viewers's info box shows the respective tag in the browser again
  - When the main window is closed and the viewer is opened, it is also closed now automatically. This is what one would expect, and it also fixes crashing e.g. when the user clicks on an info box link with the main window already closed. Additionally, if the annotation dialog is open, we now also try to close it. If this doesn't succeed (e.g. because there are pending changes and the user didn't agree to discard them) the close query is aborted.
 
-### Removed
-
-### Security
 
 KPhotoAlbum 6.0.0 (2024-12-07)
 ------------------------------

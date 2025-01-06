@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-02 01:49+0000\n"
-"PO-Revision-Date: 2024-04-13 08:59+0100\n"
+"PO-Revision-Date: 2024-12-28 17:41+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -120,7 +120,7 @@ msgstr "Viŝi Formularon"
 #: AnnotationDialog/Dialog.cpp:236
 #, kde-format
 msgid "Options..."
-msgstr "Opcioj..."
+msgstr "Elektebloj..."
 
 #: AnnotationDialog/Dialog.cpp:242
 #, kde-format
@@ -1402,7 +1402,7 @@ msgstr "Leterujo"
 #: DB/XML/FileReader.cpp:110 DB/XML/FileReader.cpp:122
 #, kde-format
 msgid "Tokens"
-msgstr "ĵetonoj"
+msgstr "Ĵetonoj"
 
 #: DB/XML/FileReader.cpp:190
 #, kde-format
@@ -2480,9 +2480,9 @@ msgid ""
 "will of course also make the quality worse if someone wants to see the "
 "exported images with larger dimensions.</p>"
 msgstr ""
-"<p>Per ĉi tiu opcio vi povas limigi la maksimumajn dimensiojn (larĝo kaj "
-"alteco) de viaj bildoj. Farante tion malgrandigos la rezultan "
-"eksportdosieron, sed kompreneble ankaŭ plimalbonigos la kvaliton se iu volas "
+"<p>Per ĉi tiu elekteblo vi povas limigi la maksimumajn dimensiojn (larĝeco "
+"kaj alteco) de viaj bildoj. Farante tion, pli malgrandiĝos la rezulta "
+"eksportdosiero, sed kompreneble ankaŭ pli malboniĝos la kvalito se iu volas "
 "vidi la eksportitajn bildojn kun pli grandaj dimensioj.</p>"
 
 #: ImportExport/Export.cpp:163
@@ -3266,7 +3266,7 @@ msgstr "Reimar Imhof"
 #: main.cpp:114
 #, kde-format
 msgid "Patch to sort items in option listboxes"
-msgstr "Flikaĵo por ordigi erojn en opciolistoskatoloj"
+msgstr "Flikaĵo por ordigi erojn en elekteblolistaj skatoloj"
 
 #: main.cpp:115
 #, kde-format
@@ -3373,7 +3373,7 @@ msgstr " sekundoj"
 #: MainWindow/AutoStackImages.cpp:87
 #, kde-format
 msgid "AutoStacking Options"
-msgstr "Aŭtomata Stacking Opcioj"
+msgstr "AŭtoStacking-Elektebloj"
 
 #: MainWindow/AutoStackImages.cpp:91
 #, kde-format
@@ -3407,7 +3407,7 @@ msgctxt "@title:window"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Kopii bildon al ..."
-msgstr[1] "Kopii bildojn al ..."
+msgstr[1] "Kopii bildojn al..."
 
 #: MainWindow/CopyLinkEngine.cpp:41
 #, kde-format
@@ -3415,7 +3415,7 @@ msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "Ligi bildon al ..."
-msgstr[1] "Ligi bildojn al ..."
+msgstr[1] "Ligi bildojn al..."
 
 #: MainWindow/DeleteDialog.cpp:24
 #, kde-format
@@ -4522,10 +4522,9 @@ msgid ""
 msgstr ""
 
 #: MainWindow/Window.cpp:1236
-#, fuzzy, kde-format
-#| msgid "Error in database file"
+#, kde-format
 msgid "Invalid database file"
-msgstr "Eraro en datumbaza dosiero"
+msgstr ""
 
 #: MainWindow/Window.cpp:1242
 #, kde-format
@@ -4574,7 +4573,7 @@ msgstr "Datobreto"
 #: MainWindow/Window.cpp:1417
 #, kde-format
 msgid "Annotation Dialog"
-msgstr "Komentario Dialogo"
+msgstr "Prinota Dialogo"
 
 #: MainWindow/Window.cpp:1418 Settings/SettingsDialog.cpp:48
 #, kde-format
@@ -5169,8 +5168,8 @@ msgid ""
 "extension!</p>"
 msgstr ""
 "<p>KPhotoAlbum kutime serĉos novajn bildojn kaj filmetojn laŭ sia dosier-"
-"etendaĵo. Se ĉi tiu opcio estas agordita, <em>ĉiuj</em> dosieroj nek en la "
-"datumbazo nek en la bloklisto estos kontrolitaj laŭ ilia Mime-tipo, "
+"etendaĵo. Se ĉi tiu elekteblo estas agordita, <em>ĉiuj</em> dosieroj nek en "
+"la datumbazo nek en la bloklisto estos kontrolitaj laŭ ilia Mime-tipo, "
 "sendepende de ilia etendaĵo. Ĉi tio daŭros multe pli longe ol trovi "
 "dosierojn per etendaĵo!</p>"
 
@@ -5184,8 +5183,8 @@ msgid ""
 msgstr ""
 "<p>KPhotoAlbum provas legi ĉiujn bilddosierojn ĉu efektivaj dosieroj aŭ "
 "simbolaj ligiloj. Se vi volas ignori simbolajn ligilojn, kontrolu ĉi tiun "
-"opcion. Ĉi tio utilas, se ial vi havas ekz. kaj la originalajn dosierojn kaj "
-"simbolajn ligilojn al ĉi tiuj dosieroj ene de via bilda dosierujo.</p>"
+"elekteblon. Ĉi tio utilas, se ial vi havas ekz. kaj la originalajn dosierojn "
+"kaj simbolajn ligilojn al ĉi tiuj dosieroj ene de via bilda dosierujo.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:77
 #, kde-format
@@ -5199,8 +5198,8 @@ msgstr ""
 "<p>KPhotoAlbum kapablas legi iujn specojn de RAW-bildoj. Iuj fotiloj "
 "konservas kaj RAW-bildon kaj kongruan JPEG aŭ TIFF-bildon. Ĉi tio igas "
 "duplikatajn bildojn konservitajn en KPhotoAlbum, kio povas esti nedezirinda. "
-"Se ĉi tiu opcio estas markita, KPhotoAlbum ne legos RAW-dosierojn por kiuj "
-"ankaŭ ekzistas kongruaj bilddosieroj.</p>"
+"Se ĉi tiu elekteblo estas markita, KPhotoAlbum ne legos RAW-dosierojn por "
+"kiuj ankaŭ ekzistas kongruaj bilddosieroj.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:83
 #, kde-format
@@ -5309,7 +5308,7 @@ msgid ""
 "and placed to the top of the stack. This way the new image is shown when the "
 "stack is in collapsed state - the default state in KPhotoAlbum.</p>"
 msgstr ""
-"<p>Se ĉi tiu opcio estas agordita, novaj versioj de bildo estas aŭtomate "
+"<p>Se ĉi tiu elekteblo estas agordita, novaj versioj de bildo estas aŭtomate "
 "stakigitaj kaj metitaj al la supro de la stako. Tiel la nova bildo montriĝas "
 "kiam la stako estas en kolapsita stato - la defaŭlta stato en KPhotoAlbum.</"
 "p>"
@@ -5938,7 +5937,7 @@ msgstr ""
 "<p>Se vi elektas <b>Agordoj -&gt; Montri Konsiletojn</b> en la bildeto, tiam "
 "vi vidos malgrandan ilan konsileton fenestron kiu montras informojn pri la "
 "bildetoj. Ĉi tiu fenestro inkluzivas malgrandan antaŭrigardan bildon. Ĉi tiu "
-"opcio agordas la grandecon de la bildo.</p>"
+"elekteblo agordas la grandecon de la bildo.</p>"
 
 #: Settings/ThumbnailsPage.cpp:104
 #, kde-format
@@ -5995,7 +5994,7 @@ msgid ""
 "<p>Checking this option will show the base name for the file under "
 "thumbnails in the thumbnail view.</p>"
 msgstr ""
-"<p>Markante ĉi tiun opcion montros la bazan nomon por la dosiero sub "
+"<p>Markante ĉi tiun elekteblon montros la bazan nomon por la dosiero sub "
 "bildetoj en la bildetovido.</p>"
 
 #: Settings/ThumbnailsPage.cpp:131
@@ -6004,7 +6003,7 @@ msgid ""
 "<p>Checking this option will show the Categories for the file under "
 "thumbnails in the thumbnail view</p>"
 msgstr ""
-"<p>Markante ĉi tiun opcion montros la Kategoriojn por la dosiero sub "
+"<p>Markante ĉi tiun oelekteblon montros la Kategoriojn por la dosiero sub "
 "bildetoj en la bildetovido</p>"
 
 #: Settings/ThumbnailsPage.cpp:135
@@ -6242,8 +6241,8 @@ msgid ""
 "smooth scaling method.</p>"
 msgstr ""
 "<p>Kiam montras bildojn, KPhotoAlbum kutime faras glatan skalon de la bildo. "
-"Se ĉi tiu opcio ne estas agordita, KPhotoAlbum uzos pli rapidan sed malpli "
-"glatan skalmetodon.</p>"
+"Se ĉi tiu elekteblo ne estas agordita, KPhotoAlbum uzos pli rapidan sed "
+"malpli glatan skalmetodon.</p>"
 
 #: Settings/ViewerPage.cpp:99
 #, kde-format
@@ -6417,8 +6416,8 @@ msgstr " (%1 ĝis %2)"
 msgctxt "Like \"The baby is '8 days' old\""
 msgid "%1 day"
 msgid_plural "%1 days"
-msgstr[0] "%1 tagon"
-msgstr[1] "%1 tagojn"
+msgstr[0] "%1 tago"
+msgstr[1] "%1 tagoj"
 
 #: Utilities/Timespan.cpp:108
 #, kde-format
@@ -6433,8 +6432,8 @@ msgstr[1] "%1 monatojn"
 msgctxt "Like \"The person is '28 years' old\""
 msgid "%1 year"
 msgid_plural "%1 years"
-msgstr[0] "%1 jaron"
-msgstr[1] "%1 jarojn"
+msgstr[0] "%1 jaro"
+msgstr[1] "%1 jaroj"
 
 #: Utilities/Timespan.cpp:118
 #, kde-format
@@ -7254,10 +7253,3 @@ msgstr "Montri Bildan Grandecon"
 #, kde-format
 msgid "Show Rating"
 msgstr "Montri Takson"
-
-#~ msgid ""
-#~ "<p>Could not open given index.xml, as the provided folder does not exist."
-#~ "<br />%1</p>"
-#~ msgstr ""
-#~ "<p>Ne eblis malfermi donitan index.xml, ĉar la provizita dosierujo ne "
-#~ "ekzistas.<br />%1</p>"

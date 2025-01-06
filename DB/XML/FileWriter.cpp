@@ -2,13 +2,13 @@
 // SPDX-FileCopyrightText: 2006-2014 Jesper K. Pedersen <jesper.pedersen@kdab.com>
 // SPDX-FileCopyrightText: 2007 Dirk Mueller <mueller@kde.org>
 // SPDX-FileCopyrightText: 2007 Laurent Montel <montel@kde.org>
-// SPDX-FileCopyrightText: 2008-2011 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2008-2009 Henner Zeller <h.zeller@acm.org>
-// SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
+// SPDX-FileCopyrightText: 2008-2011 Jan Kundrát <jkt@flaska.net>
 // SPDX-FileCopyrightText: 2012-2013 Miika Turkia <miika.turkia@gmail.com>
-// SPDX-FileCopyrightText: 2018-2020 Robert Krawitz <rlk@alum.mit.edu>
-// SPDX-FileCopyrightText: 2012-2023 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2012-2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+// SPDX-FileCopyrightText: 2012 Yuri Chornoivan <yurchor@ukr.net>
 // SPDX-FileCopyrightText: 2014-2024 Tobias Leupold <tl@stonemx.de>
+// SPDX-FileCopyrightText: 2018-2020 Robert Krawitz <rlk@alum.mit.edu>
 //
 // SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -31,8 +31,8 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QMutexLocker>
-#include <QXmlStreamWriter>
 #include <QRegularExpression>
+#include <QXmlStreamWriter>
 
 #include <utility>
 
@@ -65,6 +65,7 @@ constexpr QFileDevice::Permissions FILE_PERMISSIONS { QFile::ReadOwner | QFile::
 void DB::FileWriter::save(const QString &fileName, bool isAutoSave)
 {
     setUseCompressedFileFormat(Settings::SettingsData::instance()->useCompressedIndexXML());
+    qCDebug(DBLog) << "Saving" << (useCompressedFileFormat() ? "compressed" : "uncompressed") << "file format.";
 
     if (!isAutoSave)
         NumberedBackup(m_db->uiDelegate(), fileName).makeNumberedBackup();
@@ -512,7 +513,7 @@ QString DB::FileWriter::escape(const QString &str)
             const auto match = rx.match(tmp);
             if (match.hasMatch()) {
                 escaped += tmp.left(match.capturedStart())
-                           + QString::asprintf("_.%0X", match.captured().data()->toLatin1());
+                    + QString::asprintf("_.%0X", match.captured().data()->toLatin1());
                 tmp = tmp.mid(match.capturedStart() + match.capturedLength(), -1);
             } else {
                 escaped += tmp;

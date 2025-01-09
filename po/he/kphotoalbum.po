@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-06 00:40+0000\n"
-"PO-Revision-Date: 2025-01-05 08:28+0200\n"
+"PO-Revision-Date: 2025-01-08 16:33+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -655,7 +655,7 @@ msgstr "הוספת תגית"
 #: AnnotationDialog/ListSelect.cpp:522
 #, kde-format
 msgid "Name for the tag to be added to this tag group:"
-msgstr ""
+msgstr "שם התגית להוספה לקבוצת התגיות הזאת:"
 
 #: AnnotationDialog/ListSelect.cpp:776
 #, kde-format
@@ -742,12 +742,12 @@ msgstr "קריאת אורך הווידאו"
 #: BackgroundJobs/SearchForVideosWithoutLengthInfo.cpp:46
 #, kde-format
 msgid "Search for videos without length information"
-msgstr ""
+msgstr "חיפוש אחר סרטונים בלי פרטי אורך"
 
 #: BackgroundJobs/SearchForVideosWithoutVideoThumbnailsJob.cpp:57
 #, kde-format
 msgid "Searching for videos without video thumbnails"
-msgstr ""
+msgstr "חיפוש אחר סרטונים בלי סרטונים ממוזערים"
 
 #: BackgroundTaskManager/JobInfo.cpp:55
 #, kde-format
@@ -1586,7 +1586,7 @@ msgstr "אמור היה להיקרא %1, אבל נקרא %2"
 #: DB/XML/XmlReader.cpp:62
 #, kde-format
 msgid "Expected to read an end element but read %1"
-msgstr ""
+msgstr "אמור היה להיקרא רכיב סגירה אבל נקרא %1"
 
 #: DB/XML/XmlReader.cpp:80
 #, kde-format
@@ -2595,7 +2595,7 @@ msgstr ""
 #: ImportExport/KimFileReader.cpp:79
 #, kde-format
 msgid "No thumbnail existed in export file for %1"
-msgstr ""
+msgstr "לא היו תמונות ממוזערות קיימות בקובץ הייצוא עבור %1"
 
 #: ImportExport/KimFileReader.cpp:94
 #, kde-format
@@ -2661,7 +2661,7 @@ msgstr "תאריך ושעה"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Conflicting commandline options: %1 and %2!\n"
-msgstr ""
+msgstr "אפשרויות שורת פקודה סותרות: %1 לעומת %2!\n"
 
 #: kpa-thumbnailtool/main.cpp:44
 #, kde-format
@@ -2820,7 +2820,7 @@ msgstr "גרסת קובץ מפתח תמונות ממוזערות: %1\n"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Maximum supported thumbnailindex file version: %1\n"
-msgstr ""
+msgstr "הגרסה המרבית של קובץ מפתח תמונות ממוזערות: %1\n"
 
 #: kpa-thumbnailtool/main.cpp:119
 #, kde-format
@@ -2895,7 +2895,7 @@ msgstr "לא ניתן לגבות את הקובץ`thumbnailindex`!\n"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Could not copy temporary thumbnail index file to final location!\n"
-msgstr ""
+msgstr "לא ניתן להעתיק את קובץ מפתח התמונות הממוזערות הזמניות למקום הסופי!\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:41
 #, kde-format
@@ -2907,7 +2907,7 @@ msgstr "הודעת השגיאה הייתה: %1\n"
 #, kde-format
 msgctxt "@info:shell"
 msgid "Thumbnail index is not a version 5 file!\n"
-msgstr ""
+msgstr "מפתח התמונות הממוזערות אינו קובץ בגרסה 5!\n"
 
 #. i18n: ectx: Menu (view)
 #: kphotoalbumui.rc:33
@@ -3021,6 +3021,8 @@ msgid ""
 "(.) Patch with folder info made available through the browser. (.) Patch for "
 "adding a check box for \"and/or\" searches in the search page."
 msgstr ""
+"(.) טלאי כדי שפרטי התיקייה יהיו זמינים דרך הדפדפן. (.) טלאי להוספת תיבת "
+"סימון לחיפוש „ו/או” בעמוד החיפוש."
 
 #: main.cpp:112
 #, kde-format
@@ -3144,7 +3146,7 @@ msgstr "מקור לראש"
 #, kde-format
 msgctxt "Label for a QSpinbox that selects a number of seconds."
 msgid "Stack images created within the following time-frame:"
-msgstr ""
+msgstr "ערימת תמונות שנוצרו בטווח הזמן הבא:"
 
 #: MainWindow/AutoStackImages.cpp:87
 #, kde-format
@@ -3513,7 +3515,7 @@ msgstr "חיפוש אחר תמונות וסרטונים עם תאריך תקף �
 #: MainWindow/InvalidDateFinder.cpp:45
 #, kde-format
 msgid "Search for images and videos missing date and time"
-msgstr ""
+msgstr "חיפוש אחר תמונות וסרטונים עם תאריכים או שמות חסרים"
 
 #: MainWindow/InvalidDateFinder.cpp:46
 #, kde-format
@@ -3554,7 +3556,7 @@ msgstr "קובץ מסד נתונים"
 #: MainWindow/Options.cpp:30
 #, kde-format
 msgid "Use <databaseFile> instead of the default."
-msgstr ""
+msgstr "להשתמש ב־<databaseFile> במקום בברירת המחדל."
 
 #: MainWindow/Options.cpp:33
 #, kde-format
@@ -3731,7 +3733,7 @@ msgstr "הסרת אסימונים"
 #: MainWindow/TokenEditor.cpp:42
 #, kde-format
 msgid "Select tokens to remove from all images and videos:"
-msgstr ""
+msgstr "בחירת אסימונים להסרה מכל התמונות והסרטונים:"
 
 #: MainWindow/TokenEditor.cpp:61
 #, kde-format
@@ -4321,13 +4323,13 @@ msgstr "אין תוצאות"
 #: MainWindow/Window.cpp:1794
 #, kde-format
 msgid "Rereading Exif information from all images"
-msgstr ""
+msgstr "פרטי ה־Exif נקראים מחדש מכל התמונות"
 
 #: MainWindow/Window.cpp:1821
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
-msgstr ""
+msgstr "גודל תמונות ממוזערות: %1 פיקסלים (גודל אחסון: %2 פיקסלים)"
 
 #: MainWindow/Window.cpp:1874
 #, kde-format
@@ -5478,7 +5480,7 @@ msgstr ""
 #: Settings/ThumbnailsPage.cpp:120
 #, kde-format
 msgid "<p>How thick the cell padding should be.</p>"
-msgstr ""
+msgstr "<p>עובי מסגרת התמונות הממוזערות.</p>"
 
 #: Settings/ThumbnailsPage.cpp:123
 #, kde-format
@@ -5623,7 +5625,7 @@ msgstr "מופעלת מצגת מתצוגת תמונות ממוזערות"
 #: Settings/ViewerPage.cpp:45
 #, kde-format
 msgid "Viewing Images and Videos From Thumbnail View"
-msgstr ""
+msgstr "הצגת תמונות וסרטונים מתצוגת תמונות ממוזערות"
 
 #: Settings/ViewerPage.cpp:52
 #, kde-format

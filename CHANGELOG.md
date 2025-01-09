@@ -32,6 +32,24 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
+(Unreleased)
+------------
+
+### Added
+ - Add command line option "--config"
+
+### Changed
+
+### Dependencies
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
+### Security
+
 KPhotoAlbum 6.0.1 (2025-01-06)
 ------------------------------
 

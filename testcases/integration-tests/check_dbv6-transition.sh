@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2018-2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2018 - 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
 # SPDX-License-Identifier: BSD-2-Clause
 
@@ -43,7 +43,7 @@ check_dbv6-transition()
 		cp "$data_dir/$subcheck.orig.xml" "$subcheck_dir/index.xml" || return $result_err_setup
 
 		export XDG_CONFIG_HOME="$subcheck_dir"
-		kphotoalbum --db "$subcheck_dir/index.xml" > "$subcheck_dir/log" 2>&1 || return $result_err_crash
+		kphotoalbum --config "$subcheck_dir/kphotoalbumrc" --db "$subcheck_dir/index.xml" > "$subcheck_dir/log" 2>&1 || return $result_err_crash
 
 		if ! diff -u "$data_dir/$subcheck.result.xml" "$subcheck_dir/index.xml"
 		then

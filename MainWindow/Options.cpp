@@ -1,7 +1,8 @@
-/* SPDX-FileCopyrightText: 2016-2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2016 - 2020 The KPhotoAlbum Development Team
+// SPDX-FileCopyrightText: 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
 
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
 #include "Options.h"
 
 #include "Logging.h"
@@ -24,6 +25,11 @@ public:
         QLatin1String("c"),
         i18n("Use <databaseFile> instead of the default. Deprecated - use '--db <databaseFile>' instead."),
         i18n("databaseFile")
+    };
+    QCommandLineOption config {
+        QLatin1String("config"),
+        i18n("Application rc file."),
+        i18n("kphotoalbumrc")
     };
     QCommandLineOption dbFile {
         QLatin1String("db"),
@@ -63,6 +69,11 @@ MainWindow::Options *MainWindow::Options::the()
 QCommandLineParser *MainWindow::Options::parser() const
 {
     return &(d->parser);
+}
+
+QString MainWindow::Options::config() const
+{
+    return d->parser.value(d->config);
 }
 
 QUrl MainWindow::Options::dbFile() const
@@ -122,6 +133,7 @@ MainWindow::Options::Options()
     d->parser.addOptions(
         QList<QCommandLineOption>()
         << d->configFile
+        << d->config
         << d->dbFile
         << d->demoOption
         << d->importFile

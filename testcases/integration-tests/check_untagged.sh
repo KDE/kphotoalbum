@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2020 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+# SPDX-FileCopyrightText: 2020 - 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
 #
 # SPDX-License-Identifier: BSD-2-Clause
 
@@ -28,7 +28,7 @@ prepare_check_untagged()
 call_check_untagged()
 {
 	local check_dir="$1"
-	kphotoalbum --db "$check_dir/db/index.xml" --search
+	kphotoalbum --config "$check_dir/kphotoalbumrc" --db "$check_dir/db/index.xml" --search
 }
 check_untagged()
 {

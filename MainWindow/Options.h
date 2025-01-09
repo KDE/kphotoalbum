@@ -1,7 +1,9 @@
-/* SPDX-FileCopyrightText: 2016 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+/*
+ * SPDX-FileCopyrightText: 2016 - 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+ *
+ * SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
+ */
 
-   SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL
-*/
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
@@ -27,6 +29,16 @@ public:
      * @return
      */
     QCommandLineParser *parser() const;
+
+    /**
+     * @brief config
+     *
+     * Note: this value is not directly used in kphotoalbum, but by KSharedConfig::openConfig.
+     * It needs to be allowed (and documented) as a commandline option here so that it is available for KConfig::mainConfigName() to use.
+     *
+     * @return the path to kphotoalbumrc
+     */
+    QString config() const;
 
     /**
      * @brief dbFile

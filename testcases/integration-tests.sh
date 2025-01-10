@@ -19,6 +19,7 @@ result_ok=0
 result_failed=1
 result_err_crash=2
 result_err_setup=3
+result_err_other=4
 
 declare -A LOG_LEVELS
 LOG_LEVELS[debug]=0
@@ -57,7 +58,7 @@ log()
 
 print_help()
 {
-	echo "Usage: $myname --check ] [PARAMETERS...] [--all|CHECKS...]" >&2
+	echo "Usage: $myname [--check] [PARAMETERS...] [--all|CHECKS...]" >&2
 	echo "       $myname --help" >&2
 	echo "       $myname --list" >&2
 	echo "       $myname --print" >&2
@@ -72,6 +73,7 @@ print_help()
 	echo "" >&2
 	echo "Parameters:" >&2
 	echo "--all                                       Run all tests (only valid for --check)." >&2
+	echo "--automatic                                 Run tests non-interactively." >&2
 	echo "--keep-tempdir                              Do not remove temporary files." >&2
 	echo "--log-level debug|info|notice|warning|err   Set log level (default: notice)." >&2
 	echo "--tempdir DIR                               Use DIR for temporary files (implies --keep-tempdir)." >&2
@@ -129,9 +131,11 @@ do_checks()
 	let num_failed=0
 	let num_err_crash=0
 	let num_err_setup=0
+	let num_err_other=0
 	local names_failed=
 	local names_err_crash=
 	local names_err_setup=
+	local names_err_other=
 
 	for name
 	do
@@ -157,13 +161,18 @@ do_checks()
 				let num_err_setup++
 				names_err_setup="$names_err_setup $name"
 				;;
+			$result_err_other)
+				log info "$name: ERROR (undetermined error)"
+				let num_err_other++
+				names_err_other="$names_err_other $name"
+				;;
 			*)
 				log err "Internal error: invalid return code while running '$name'!"
 				exit 1
 		esac
 	done
 
-	log notice "Summary: $num_ok of $num_total OK, $num_failed failed, $(( num_err_crash + num_err_setup)) errors."
+	log notice "Summary: $num_ok of $num_total OK, $num_failed failed, $(( num_err_crash + num_err_setup + num_err_other)) errors."
 	log notice "Failed: $names_failed"
 	log notice "Crashed: $names_err_crash"
 	log notice "Setup error: $names_err_setup"
@@ -199,7 +208,10 @@ generic_check()
 	local check_name="$1"
 	local check_dir="$TEMPDIR/$check_name"
 	setup_check "$check_dir" || return $result_err_setup
-	kdialog --msgbox "<h1>$check_name</h1>${_context[$check_name]}"
+	if [ -z "$NON_INTERACTIVE" ]
+	then
+		kdialog --msgbox "<h1>$check_name</h1>${_context[$check_name]}"
+	fi
 	export XDG_CONFIG_HOME="$check_dir"
 	prepare_$check_name "$check_dir"
 	call_$check_name "$check_dir" > "$check_dir/log" 2>&1 || return $result_err_crash
@@ -216,6 +228,11 @@ generic_check()
 		fi
 	fi
 	# fallback: ask the user to verify
+	if [ -n "$NON_INTERACTIVE" ]
+	then
+		log err "$check_name: Error - test result could not be determined automatically!"
+		return $result_err_other
+	fi
 	if kdialog --yesno "<h1>$check_name &mdash; Did KPhotoAlbum pass the test?</h1><p>As a reminder what you should check:</p><hr/><div style='text-size=small'>${_context[$check_name]}</div>"
 	then
 		return $result_ok
@@ -239,7 +256,7 @@ done
 
 version=`kphotoalbum --version 2>&1`
 
-TEMP=`getopt -o clhp --long "all,check,help,keep-tempdir,list,log-level:,print,tempdir:" -n "$myname" -- "$@"`
+TEMP=`getopt -o clhp --long "all,automatic,check,help,keep-tempdir,list,log-level:,print,tempdir:" -n "$myname" -- "$@"`
 if [ $? != 0 ] ; then log err "Terminating..." ; exit 1 ; fi
 
 # Note the quotes around `$TEMP': they are essential!
@@ -255,6 +272,7 @@ while true ; do
 		--keep-tempdir) KEEP_TEMPDIR=1 ; shift ;;
 		--tempdir) TEMPDIR="$2" ; KEEP_TEMPDIR=1 ; shift 2 ;;
 		--all) RUN_ALL=1 ; shift ;;
+		--automatic) export NON_INTERACTIVE=1 ; shift ;;
 		--log-level) LOG_LEVEL="${LOG_LEVELS[$2]}" ; shift 2 ;;
 		--) shift ; break ;;
 		*) echo "Internal error!" ; exit 1 ;;

@@ -33,7 +33,12 @@ prepare_check_autostacking()
 call_check_autostacking()
 {
 	local check_dir="$1"
-	kphotoalbum --config "$check_dir/kphotoalbumrc" --db "$check_dir/db/index.xml" --search
+	local automatic
+	if [ -n "$NON_INTERACTIVE" ]
+	then
+		automatic="--save-and-quit"
+	fi
+	kphotoalbum $automatic --config "$check_dir/kphotoalbumrc" --db "$check_dir/db/index.xml" --search
 }
 check_autostacking()
 {

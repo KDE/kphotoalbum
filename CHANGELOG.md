@@ -37,6 +37,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 
 ### Added
  - Add command line option "--config"
+ - Add command line option "--save-and-quit"
 
 ### Changed
 

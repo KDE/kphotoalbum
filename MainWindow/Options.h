@@ -57,12 +57,24 @@ public:
      * @return the QUrl of the import file, or an empty QUrl, if no import file is set.
      */
     QUrl importFile() const;
+
     /**
      * @brief listen
      * Access the address that was givent to the commandline "--listen" argument.
      * @return a null address if listening is disabled, otherwise an address to bind to.
      */
     QHostAddress listen() const;
+
+    /**
+     * @brief saveAndQuit
+     * Immediately save the database and quit after showing the main window.
+     * This can be used by automated testing, but also to search for new images an exit immediately aferwards.
+     *
+     * Note: KPhotoAlbum may still show some interactive dialog that causes the window to stay open longer than anticipated.
+     * @return
+     */
+    bool saveAndQuit() const;
+
     /**
      * @brief searchOnStartup
      * @return true, if we want to search for images on startup

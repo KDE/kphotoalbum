@@ -281,6 +281,11 @@ void MainWindow::Window::delayedInit()
     }
 
     splash->done();
+    if (Options::the()->saveAndQuit()) {
+        qCInfo(MainWindowLog) << "Saving the database and quitting...";
+        slotSave();
+        close();
+    }
     show();
     updateDateBar();
     qCInfo(TimingLog) << "MainWindow: MainWindow.show():" << timer.restart() << "ms.";
@@ -311,7 +316,7 @@ bool MainWindow::Window::queryClose()
     }
 
     bool deleteDemoDB = false;
-    if (Options::the()->demoMode()) {
+    if (Options::the()->demoMode() && !Options::the()->saveAndQuit()) {
         const QString question = i18n("<p><b>Delete Your Temporary Demo Database</b></p>"
                                       "<p>I hope you enjoyed the KPhotoAlbum demo. The demo database was created in the "
                                       "folder <tt>/tmp</tt>, should it be deleted now? If you do not delete it, it will waste disk space; "

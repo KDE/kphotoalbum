@@ -22,7 +22,13 @@ check_old-index.xml()
 	# not needed in this scenario:
 	rm -r "$check_dir/db"
 
-	kdialog --msgbox "<h1>$check_name</h1>${_context[$check_name]}"
+	local automatic
+	if [ -n "$NON_INTERACTIVE" ]
+	then
+		automatic="--save-and-quit"
+	else
+		kdialog --msgbox "<h1>$check_name</h1>${_context[$check_name]}"
+	fi
 
 	for subcheck in v2.2 v3.0
 	do
@@ -38,7 +44,7 @@ check_old-index.xml()
 		cp "$data_dir/$subcheck.orig.xml" "$subcheck_dir/index.xml" || return $result_err_setup
 
 		export XDG_CONFIG_HOME="$subcheck_dir"
-		kphotoalbum --config "$subcheck_dir/kphotoalbumrc" --db "$subcheck_dir/index.xml" > "$subcheck_dir/log" 2>&1 || return $result_err_crash
+		kphotoalbum $automatic --config "$subcheck_dir/kphotoalbumrc" --db "$subcheck_dir/index.xml" > "$subcheck_dir/log" 2>&1 || return $result_err_crash
 
 		if ! diff -u "$data_dir/$subcheck.result.xml" "$subcheck_dir/index.xml"
 		then

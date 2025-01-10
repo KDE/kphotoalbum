@@ -55,6 +55,7 @@ public:
         i18n("interface_address")
     };
 #endif
+    QCommandLineOption saveAndQuit { QLatin1String("save-and-quit"), i18n("Save the database and immediately quit after showing the main window.") };
     QCommandLineOption searchOnStartup { QLatin1String("search"), i18n("Search for new images on startup.") };
 };
 }
@@ -121,6 +122,11 @@ QHostAddress MainWindow::Options::listen() const
 #endif
 }
 
+bool MainWindow::Options::saveAndQuit() const
+{
+    return d->parser.isSet(d->saveAndQuit);
+}
+
 bool MainWindow::Options::searchForImagesOnStart() const
 {
     return d->parser.isSet(d->searchOnStartup);
@@ -141,6 +147,7 @@ MainWindow::Options::Options()
         << d->listen
         << d->listenAddress
 #endif
+        << d->saveAndQuit
         << d->searchOnStartup);
 }
 

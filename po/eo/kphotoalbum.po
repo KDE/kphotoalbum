@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-06 00:40+0000\n"
+"POT-Creation-Date: 2025-01-10 09:26+0000\n"
 "PO-Revision-Date: 2024-12-28 17:41+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -402,12 +402,12 @@ msgstr "OK-dialogo"
 msgid "Copy tags from previous image"
 msgstr "Kopii etikedojn de antaŭa bildo"
 
-#: AnnotationDialog/Dialog.cpp:1303 MainWindow/Window.cpp:836
+#: AnnotationDialog/Dialog.cpp:1303 MainWindow/Window.cpp:841
 #, kde-format
 msgid "Rotate counterclockwise"
 msgstr "Rotacii maldekstrume"
 
-#: AnnotationDialog/Dialog.cpp:1306 MainWindow/Window.cpp:840
+#: AnnotationDialog/Dialog.cpp:1306 MainWindow/Window.cpp:845
 #, kde-format
 msgid "Rotate clockwise"
 msgstr "Rotacii dekstrume"
@@ -953,7 +953,7 @@ msgctxt "Breadcrumb denoting that we 'browsed' to a search result."
 msgid "search"
 msgstr "serĉi"
 
-#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1770
+#: Browser/OverviewPage.cpp:334 MainWindow/Window.cpp:1775
 #, kde-format
 msgid ""
 "<p>You have not yet configured which tag to use for indicating untagged "
@@ -968,7 +968,7 @@ msgstr ""
 "li><li>Nun elektu la piktogramon <b>Kategorioj</b></li><li>Nun agordu "
 "sekcion <b>Nemarkitaj Bildoj</b></li></ul></p>"
 
-#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1777
+#: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1782
 #, kde-format
 msgid "Feature has not been configured"
 msgstr "Trajto ne estis agordita"
@@ -2682,7 +2682,7 @@ msgid "Create folder?"
 msgstr "Ĉu krei dosierujon?"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
-#: MainWindow/Window.cpp:1195
+#: MainWindow/Window.cpp:1200
 #, kde-format
 msgctxt "@action:button"
 msgid "Create"
@@ -3777,7 +3777,7 @@ msgctxt "@title:window"
 msgid "Reading File Properties"
 msgstr "Legante Dosierajn Propraĵojn"
 
-#: MainWindow/Options.cpp:25
+#: MainWindow/Options.cpp:26
 #, kde-format
 msgid ""
 "Use <databaseFile> instead of the default. Deprecated - use '--db "
@@ -3786,47 +3786,63 @@ msgstr ""
 "Uzi <databaseFile> anstataŭ la defaŭltan. Malrekomendita - uzu '--db "
 "<databaseFile>' anstataŭe."
 
-#: MainWindow/Options.cpp:26 MainWindow/Options.cpp:31
+#: MainWindow/Options.cpp:27 MainWindow/Options.cpp:37
 #, kde-format
 msgid "databaseFile"
 msgstr "datumbaza Dosiero"
 
-#: MainWindow/Options.cpp:30
+#: MainWindow/Options.cpp:31
+#, kde-format
+msgid "Application rc file."
+msgstr ""
+
+#: MainWindow/Options.cpp:32
+#, fuzzy, kde-format
+#| msgid "KPhotoAlbum"
+msgid "kphotoalbumrc"
+msgstr "KPhotoAlbum"
+
+#: MainWindow/Options.cpp:36
 #, kde-format
 msgid "Use <databaseFile> instead of the default."
 msgstr "Uzi <databaseFile> anstataŭ la defaŭltan."
 
-#: MainWindow/Options.cpp:33
+#: MainWindow/Options.cpp:39
 #, kde-format
 msgid "Starts KPhotoAlbum with a prebuilt set of demo images."
 msgstr "Lanĉas KPhotoAlbum kun antaŭkonstruita aro de pruvbildoj."
 
-#: MainWindow/Options.cpp:36
+#: MainWindow/Options.cpp:42
 #, kde-format
 msgid "Import file."
 msgstr "Importi dosieron."
 
-#: MainWindow/Options.cpp:37
+#: MainWindow/Options.cpp:43
 #, kde-format
 msgid "file.kim"
 msgstr "dosiero.kim"
 
-#: MainWindow/Options.cpp:44
+#: MainWindow/Options.cpp:50
 #, kde-format
 msgid "Listen for network connections."
 msgstr "Aŭskulti pri retaj konektoj."
 
-#: MainWindow/Options.cpp:48
+#: MainWindow/Options.cpp:54
 #, kde-format
 msgid "Listen for network connections on address <interface_address>."
 msgstr "Aŭskulti pri retaj konektoj ĉe adreso <interface_address>."
 
-#: MainWindow/Options.cpp:49
+#: MainWindow/Options.cpp:55
 #, kde-format
 msgid "interface_address"
 msgstr "interfaco_adreso"
 
-#: MainWindow/Options.cpp:52
+#: MainWindow/Options.cpp:58
+#, kde-format
+msgid "Save the database and immediately quit after showing the main window."
+msgstr ""
+
+#: MainWindow/Options.cpp:59
 #, kde-format
 msgid "Search for new images on startup."
 msgstr "Serĉi novajn bildojn dum ekfunkciigo."
@@ -4107,7 +4123,7 @@ msgstr "Gratulon: ĉiuj dinamikaj funkcioj estas ebligitaj."
 msgid "Searching for New Files"
 msgstr "Serĉante novajn dosierojn"
 
-#: MainWindow/Window.cpp:315
+#: MainWindow/Window.cpp:320
 #, kde-format
 msgid ""
 "<p><b>Delete Your Temporary Demo Database</b></p><p>I hope you enjoyed the "
@@ -4124,24 +4140,24 @@ msgstr ""
 "denove, vi eble volas konservi ĝin kun la ŝanĝoj kiujn vi faris per ĉi tiu "
 "seanco.</p>"
 
-#: MainWindow/Window.cpp:320
+#: MainWindow/Window.cpp:325
 #, kde-format
 msgctxt "@title"
 msgid "Delete Demo Database"
 msgstr "Forigi Demo-Datumbazon"
 
-#: MainWindow/Window.cpp:336
+#: MainWindow/Window.cpp:341
 #, kde-format
 msgid "Do you want to save the changes?"
 msgstr "Ĉu vi volas konservi la ŝanĝojn?"
 
-#: MainWindow/Window.cpp:337
+#: MainWindow/Window.cpp:342
 #, kde-format
 msgctxt "@title"
 msgid "Save Changes?"
 msgstr "Ĉu Konservi Ŝanĝojn?"
 
-#: MainWindow/Window.cpp:395
+#: MainWindow/Window.cpp:400
 #, kde-format
 msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
@@ -4150,361 +4166,361 @@ msgstr ""
 "Kelkaj el la elektitaj bildoj jam apartenas al stako. Ĉu vi volas forigi "
 "ilin el iliaj stakoj kaj krei tute novan?"
 
-#: MainWindow/Window.cpp:398
+#: MainWindow/Window.cpp:403
 #, kde-format
 msgctxt "@title"
 msgid "Stacking problem"
 msgstr "Stakproblemo"
 
-#: MainWindow/Window.cpp:408
+#: MainWindow/Window.cpp:413
 #, kde-format
 msgid "Unknown error, stack creation failed."
 msgstr "Nekonata eraro, kreado de stako malsukcesis."
 
-#: MainWindow/Window.cpp:409
+#: MainWindow/Window.cpp:414
 #, kde-format
 msgid "Stacking Error"
 msgstr "Stak-eraro"
 
-#: MainWindow/Window.cpp:488 MainWindow/Window.cpp:614
-#: MainWindow/Window.cpp:1310 MainWindow/Window.cpp:1407
+#: MainWindow/Window.cpp:493 MainWindow/Window.cpp:619
+#: MainWindow/Window.cpp:1315 MainWindow/Window.cpp:1412
 #, kde-format
 msgid "No item is selected."
 msgstr "Neniu elemento estas elektita."
 
-#: MainWindow/Window.cpp:488 MainWindow/Window.cpp:614
-#: MainWindow/Window.cpp:1310 MainWindow/Window.cpp:1408
+#: MainWindow/Window.cpp:493 MainWindow/Window.cpp:619
+#: MainWindow/Window.cpp:1315 MainWindow/Window.cpp:1413
 #, kde-format
 msgid "No Selection"
 msgstr "Neniu elekto"
 
-#: MainWindow/Window.cpp:534
+#: MainWindow/Window.cpp:539
 #, kde-format
 msgid "Saving..."
 msgstr "Konservanta..."
 
-#: MainWindow/Window.cpp:539
+#: MainWindow/Window.cpp:544
 #, kde-format
 msgid "Saving... Done"
 msgstr "Konservanta... Preta"
 
-#: MainWindow/Window.cpp:687
+#: MainWindow/Window.cpp:692
 #, kde-format
 msgid "There are no images to be shown."
 msgstr "Ne estas bildoj por montriĝi."
 
-#: MainWindow/Window.cpp:757 MainWindow/Window.cpp:886
+#: MainWindow/Window.cpp:762 MainWindow/Window.cpp:891
 #, kde-format
 msgid "Limit View to Selection"
 msgstr "Limigi Vidon al Elekto"
 
-#: MainWindow/Window.cpp:758
+#: MainWindow/Window.cpp:763
 #, kde-format
 msgid "No images are selected!"
 msgstr "Neniuj bildoj estas elektitaj!"
 
-#: MainWindow/Window.cpp:771
+#: MainWindow/Window.cpp:776
 #, kde-format
 msgid "Generate HTML..."
 msgstr "Generi HTML..."
 
-#: MainWindow/Window.cpp:775
+#: MainWindow/Window.cpp:780
 #, kde-format
 msgid "Import..."
 msgstr "Importi..."
 
-#: MainWindow/Window.cpp:778
+#: MainWindow/Window.cpp:783
 #, kde-format
 msgid "Export/Copy Images..."
 msgstr "Eksporti/Kopii Bildojn..."
 
-#: MainWindow/Window.cpp:805
+#: MainWindow/Window.cpp:810
 #, kde-format
 msgctxt "Delete selected images"
 msgid "Delete Selected"
 msgstr "Forigi Elektitajn"
 
-#: MainWindow/Window.cpp:811
+#: MainWindow/Window.cpp:816
 #, kde-format
 msgid "Remove Tokens..."
 msgstr "Forigi ĵetonojn..."
 
-#: MainWindow/Window.cpp:814
+#: MainWindow/Window.cpp:819
 #, kde-format
 msgid "Open List of Files..."
 msgstr "Malfermi Liston de Dosieroj..."
 
-#: MainWindow/Window.cpp:817
+#: MainWindow/Window.cpp:822
 #, kde-format
 msgid "Annotate Individual Items"
 msgstr "Prinoti Individuajn Erojn"
 
-#: MainWindow/Window.cpp:821
+#: MainWindow/Window.cpp:826
 #, kde-format
 msgid "Annotate Multiple Items at a Time"
 msgstr "Prinoti Multoblajn Erojn samtempe"
 
-#: MainWindow/Window.cpp:825
+#: MainWindow/Window.cpp:830
 #, kde-format
 msgid "Merge Images into a Stack"
 msgstr "Kunfandi Bildojn en Stakon"
 
-#: MainWindow/Window.cpp:829
+#: MainWindow/Window.cpp:834
 #, kde-format
 msgid "Remove Images from Stack"
 msgstr "Forigi Bildojn el Stako"
 
-#: MainWindow/Window.cpp:832
+#: MainWindow/Window.cpp:837
 #, kde-format
 msgid "Set as First Image in Stack"
 msgstr "Agordi kiel Unua Bildo en Stako"
 
-#: MainWindow/Window.cpp:845
+#: MainWindow/Window.cpp:850
 #, kde-format
 msgid "View"
 msgstr "Vido"
 
-#: MainWindow/Window.cpp:848
+#: MainWindow/Window.cpp:853
 #, kde-format
 msgid "View (In New Window)"
 msgstr "Vido (En Nova Fenestro)"
 
-#: MainWindow/Window.cpp:851
+#: MainWindow/Window.cpp:856
 #, kde-format
 msgid "Run Slide Show"
 msgstr "Ruli Slide Show"
 
-#: MainWindow/Window.cpp:856
+#: MainWindow/Window.cpp:861
 #, kde-format
 msgid "Run Randomized Slide Show"
 msgstr "Run Randomized Slide Show"
 
-#: MainWindow/Window.cpp:862
+#: MainWindow/Window.cpp:867
 #, kde-format
 msgid "Collapse all stacks"
 msgstr "Kolapsi ĉiujn stakojn"
 
-#: MainWindow/Window.cpp:868
+#: MainWindow/Window.cpp:873
 #, kde-format
 msgid "Expand all stacks"
 msgstr "Pligrandigi ĉiujn stakojn"
 
-#: MainWindow/Window.cpp:873
+#: MainWindow/Window.cpp:878
 #, kde-format
 msgid "Show &Oldest First"
 msgstr "Montri Plej Maln&ovan Unue"
 
-#: MainWindow/Window.cpp:878
+#: MainWindow/Window.cpp:883
 #, kde-format
 msgid "Show &Newest First"
 msgstr "Montri Plej &Novan Unue"
 
-#: MainWindow/Window.cpp:883
+#: MainWindow/Window.cpp:888
 #, kde-format
 msgid "Sort Selected by Date && Time"
 msgstr "Ordigi Elektitajn laŭ Dato && Tempo"
 
-#: MainWindow/Window.cpp:889
+#: MainWindow/Window.cpp:894
 #, kde-format
 msgid "Jump to Context"
 msgstr "Salti al Kunteksto"
 
-#: MainWindow/Window.cpp:895
+#: MainWindow/Window.cpp:900
 #, kde-format
 msgid "Lock Images"
 msgstr "Ŝlosi Bildojn"
 
-#: MainWindow/Window.cpp:899
+#: MainWindow/Window.cpp:904
 #, kde-format
 msgid "Unlock"
 msgstr "Malŝlosi"
 
-#: MainWindow/Window.cpp:902
+#: MainWindow/Window.cpp:907
 #, kde-format
 msgid "Lock Away All Other Items"
 msgstr "Ŝlosi Ĉiujn Aliajn Erojn"
 
-#: MainWindow/Window.cpp:905
+#: MainWindow/Window.cpp:910
 #, kde-format
 msgid "Lock Away Current Set of Items"
 msgstr "Ŝlosi Aktualan Aron de Eroj"
 
-#: MainWindow/Window.cpp:908
+#: MainWindow/Window.cpp:913
 #, kde-format
 msgid "Configure Current View"
 msgstr "Agordi Nunan Vidon"
 
-#: MainWindow/Window.cpp:916
+#: MainWindow/Window.cpp:921
 #, kde-format
 msgid "Tree"
 msgstr "Arbo"
 
-#: MainWindow/Window.cpp:921
+#: MainWindow/Window.cpp:926
 #, kde-format
 msgid "Tree with User Icons"
 msgstr "Arbo kun Uzanto-Piktogramoj"
 
-#: MainWindow/Window.cpp:926
+#: MainWindow/Window.cpp:931
 #, kde-format
 msgid "Icons"
 msgstr "Piktogramoj"
 
-#: MainWindow/Window.cpp:933
+#: MainWindow/Window.cpp:938
 #, kde-format
 msgid "Use natural sort order"
 msgstr "Uzi naturan ordigon"
 
-#: MainWindow/Window.cpp:943
+#: MainWindow/Window.cpp:948
 #, kde-format
 msgid "Show Tooltips in Thumbnails Window"
 msgstr "Montri konsiletojn en la Fenestro de Bildetoj"
 
-#: MainWindow/Window.cpp:948
+#: MainWindow/Window.cpp:953
 #, kde-format
 msgid "Show Labels in Thumbnails Window"
 msgstr "Montri Etikedojn en Bildetoj-Fenestro"
 
-#: MainWindow/Window.cpp:958
+#: MainWindow/Window.cpp:963
 #, kde-format
 msgid "Show Categories in Thumbnails Window"
 msgstr "Montri Kategoriojn en Bildetoj-Fenestro"
 
-#: MainWindow/Window.cpp:975
+#: MainWindow/Window.cpp:980
 #, kde-format
 msgid "Choose Color Scheme"
 msgstr "Elekti Koloran Skemon"
 
-#: MainWindow/Window.cpp:982
+#: MainWindow/Window.cpp:987
 #, kde-format
 msgid "Display Images and Videos Not on Disk"
 msgstr "Montri Bildojn kaj Videojn Ne sur Disko"
 
-#: MainWindow/Window.cpp:985
+#: MainWindow/Window.cpp:990
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
 msgstr "Montri Bildojn kaj Videojn kun Nekompletaj Datoj..."
 
-#: MainWindow/Window.cpp:988
+#: MainWindow/Window.cpp:993
 #, kde-format
 msgid "Merge duplicates"
 msgstr "Kunfandi duplikatojn"
 
-#: MainWindow/Window.cpp:990 MainWindow/Window.cpp:1044
+#: MainWindow/Window.cpp:995 MainWindow/Window.cpp:1049
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
 msgstr "Refreŝigi Elektitajn Bildetojn kaj Kontrolsumojn"
 
-#: MainWindow/Window.cpp:994
+#: MainWindow/Window.cpp:999
 #, kde-format
 msgid "Rescan for Images and Videos"
 msgstr "Reskani por Bildoj kaj Videoj"
 
-#: MainWindow/Window.cpp:997
+#: MainWindow/Window.cpp:1002
 #, kde-format
 msgid "Recreate Exif Search Database"
 msgstr "Rekrei Exif Serĉan datumbazon"
 
-#: MainWindow/Window.cpp:1000
+#: MainWindow/Window.cpp:1005
 #, kde-format
 msgid "Read Exif Info from Files..."
 msgstr "Legi Exif-informojn el Dosieroj..."
 
-#: MainWindow/Window.cpp:1003
+#: MainWindow/Window.cpp:1008
 #, kde-format
 msgid "Sort All by Date && Time"
 msgstr "Ordigi Ĉion laŭ Dato && Tempo"
 
-#: MainWindow/Window.cpp:1007
+#: MainWindow/Window.cpp:1012
 #, kde-format
 msgid "Automatically Stack Selected Images..."
 msgstr "Aŭtomate Staki Elektitajn Bildojn..."
 
-#: MainWindow/Window.cpp:1010
+#: MainWindow/Window.cpp:1015
 #, kde-format
 msgid "Build Thumbnails"
 msgstr "Konstrui Bildetojn"
 
-#: MainWindow/Window.cpp:1013
+#: MainWindow/Window.cpp:1018
 #, kde-format
 msgid "Statistics..."
 msgstr "Statistikoj..."
 
-#: MainWindow/Window.cpp:1017
+#: MainWindow/Window.cpp:1022
 #, kde-format
 msgid "Mark As Untagged"
 msgstr "Marki Kiel Neetikedita"
 
-#: MainWindow/Window.cpp:1027
+#: MainWindow/Window.cpp:1032
 #, kde-format
 msgid "Enable All Messages"
 msgstr "Ebligi Ĉiujn Mesaĝojn"
 
-#: MainWindow/Window.cpp:1031
+#: MainWindow/Window.cpp:1036
 #, kde-format
 msgid "Run KPhotoAlbum Demo"
 msgstr "Ruli KPhotoAlbum-Demonstron"
 
-#: MainWindow/Window.cpp:1034
+#: MainWindow/Window.cpp:1039
 #, kde-format
 msgid "KPhotoAlbum Feature Status"
 msgstr "KPhotoAlbum Feature Statuso"
 
-#: MainWindow/Window.cpp:1037
+#: MainWindow/Window.cpp:1042
 #, kde-format
 msgid "Show Demo Videos"
 msgstr "Montri Demo-Videojn"
 
-#: MainWindow/Window.cpp:1041 Viewer/ViewerWidget.cpp:197
+#: MainWindow/Window.cpp:1046 Viewer/ViewerWidget.cpp:197
 #, kde-format
 msgid "Show Exif Info and file metadata"
 msgstr "Montri Exif-informojn kaj metadatumojn de dosiero"
 
-#: MainWindow/Window.cpp:1047
+#: MainWindow/Window.cpp:1052
 #, kde-format
 msgid "Use next video thumbnail"
 msgstr "Uzi sekvantan videobildeton"
 
-#: MainWindow/Window.cpp:1051
+#: MainWindow/Window.cpp:1056
 #, kde-format
 msgid "Use previous video thumbnail"
 msgstr "Uzi antaŭan videobildeton"
 
-#: MainWindow/Window.cpp:1055 MainWindow/Window.cpp:1288
+#: MainWindow/Window.cpp:1060 MainWindow/Window.cpp:1293
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
 msgstr[0] "Kopii bildon al..."
 msgstr[1] "Kopii bildojn al..."
 
-#: MainWindow/Window.cpp:1059 MainWindow/Window.cpp:1292
+#: MainWindow/Window.cpp:1064 MainWindow/Window.cpp:1297
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
 msgstr[0] "Ligi bildon al..."
 msgstr[1] "Ligi bildojn al..."
 
-#: MainWindow/Window.cpp:1083
+#: MainWindow/Window.cpp:1088
 #, kde-format
 msgid "Auto saving...."
 msgstr "Aŭtomata konservado...."
 
-#: MainWindow/Window.cpp:1086
+#: MainWindow/Window.cpp:1091
 #, kde-format
 msgid "Auto saving.... Done"
 msgstr "Auto saving.... Preta"
 
-#: MainWindow/Window.cpp:1188
+#: MainWindow/Window.cpp:1193
 #, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
 msgstr "<p>Ĉu vi volas krei ĉi tiun datumbazdosieron?<br />%1</p>"
 
-#: MainWindow/Window.cpp:1191
+#: MainWindow/Window.cpp:1196
 #, kde-format
 msgctxt "@title"
 msgid "Create database"
 msgstr "Krei datumbazon"
 
-#: MainWindow/Window.cpp:1233
+#: MainWindow/Window.cpp:1238
 #, kde-format
 msgid ""
 "<p>You have configured a tag for untagged images, but either the tag itself "
@@ -4517,33 +4533,33 @@ msgstr ""
 "neetikeditan agordon sub <interface>Agordoj|Agordu KPhotoAlbum...|"
 "Kategorioj</interface></p>"
 
-#: MainWindow/Window.cpp:1359 Settings/SettingsDialog.cpp:46
+#: MainWindow/Window.cpp:1364 Settings/SettingsDialog.cpp:46
 #, kde-format
 msgid "General"
 msgstr "Ĝenerala"
 
-#: MainWindow/Window.cpp:1360 Settings/SettingsDialog.cpp:52
+#: MainWindow/Window.cpp:1365 Settings/SettingsDialog.cpp:52
 #, kde-format
 msgid "Viewer"
 msgstr "Rigardilo"
 
-#: MainWindow/Window.cpp:1361
+#: MainWindow/Window.cpp:1366
 #, kde-format
 msgctxt "I.e. the timeline histogram widget"
 msgid "Date Bar"
 msgstr "Datobreto"
 
-#: MainWindow/Window.cpp:1364
+#: MainWindow/Window.cpp:1369
 #, kde-format
 msgid "Annotation Dialog"
 msgstr "Komentario Dialogo"
 
-#: MainWindow/Window.cpp:1365 Settings/SettingsDialog.cpp:48
+#: MainWindow/Window.cpp:1370 Settings/SettingsDialog.cpp:48
 #, kde-format
 msgid "Thumbnail View"
 msgstr "Bildeto-Vido"
 
-#: MainWindow/Window.cpp:1516
+#: MainWindow/Window.cpp:1521
 #, kde-format
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
@@ -4552,13 +4568,13 @@ msgstr ""
 "<p>Ĉu vere aktivigi ĉiujn mesaĝkestojn kie vi antaŭe markis la markobutono-"
 "ne-montri-denove?</p>"
 
-#: MainWindow/Window.cpp:1518
+#: MainWindow/Window.cpp:1523
 #, kde-format
 msgctxt "@title"
 msgid "Reset hidden dialogs"
 msgstr "Restarigi kaŝitajn dialogojn"
 
-#: MainWindow/Window.cpp:1537
+#: MainWindow/Window.cpp:1542
 #, kde-format
 msgid ""
 "<p>KPhotoAlbum hit an internal error (missing plug-in menu in MainWindow::"
@@ -4574,32 +4590,32 @@ msgstr ""
 "raporti ĉi tion kiel cimon.</p><p>KPhotoAlbum daŭrigos la rulon, sed ne "
 "estas tute malprobable ke ĝi paneos poste pro la mankanta make-instalo.</p>"
 
-#: MainWindow/Window.cpp:1537
+#: MainWindow/Window.cpp:1542
 #, kde-format
 msgid "Internal Error"
 msgstr "Interna eraro"
 
-#: MainWindow/Window.cpp:1548
+#: MainWindow/Window.cpp:1553
 #, kde-format
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr "Sukcese kunhavita(j) bildo(j). Kopiante lokon al tondujo..."
 
-#: MainWindow/Window.cpp:1551
+#: MainWindow/Window.cpp:1556
 #, kde-format
 msgid "Successfully shared image(s)."
 msgstr "Sukcese kunhavita(j) bildo(j)."
 
-#: MainWindow/Window.cpp:1556
+#: MainWindow/Window.cpp:1561
 #, kde-format
 msgid "Image sharing failed with message: %1"
 msgstr "Bilddividado malsukcesis kun mesaĝo: %1"
 
-#: MainWindow/Window.cpp:1607
+#: MainWindow/Window.cpp:1612
 #, kde-format
 msgid "Open List of Files"
 msgstr "Malfermi Liston de Dosieroj"
 
-#: MainWindow/Window.cpp:1608
+#: MainWindow/Window.cpp:1613
 #, kde-format
 msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
@@ -4608,28 +4624,28 @@ msgstr ""
 "Vi povas malfermi aron da dosieroj en la datumbazo de KPhotoAlbum listigante "
 "la dosierojn ĉi tie."
 
-#: MainWindow/Window.cpp:1622
+#: MainWindow/Window.cpp:1627
 #, kde-format
 msgid "No images matching your input were found."
 msgstr "Neniuj bildoj kongruaj kun via enigo estis trovitaj."
 
-#: MainWindow/Window.cpp:1622
+#: MainWindow/Window.cpp:1627
 #, kde-format
 msgid "No Matches"
 msgstr "Neniuj Alumetoj"
 
-#: MainWindow/Window.cpp:1794
+#: MainWindow/Window.cpp:1799
 #, kde-format
 msgid "Rereading Exif information from all images"
 msgstr "Relegante Exif-informojn de ĉiuj bildoj"
 
-#: MainWindow/Window.cpp:1821
+#: MainWindow/Window.cpp:1826
 #, no-c-format, kde-format
 msgctxt "@info:status"
 msgid "Thumbnail width: %1px (storage size: %2px)"
 msgstr "Larĝo de bildeto: %1px (grandeco de konservado: %2px)"
 
-#: MainWindow/Window.cpp:1874
+#: MainWindow/Window.cpp:1879
 #, kde-format
 msgid ""
 "<p>Unable to find ffmpeg on the system.</p><p>Without it, KPhotoAlbum will "
@@ -4639,7 +4655,7 @@ msgstr ""
 "<p>Ne eblas trovi ffmpeg en la sistemo.</p><p>Sen ĝi, KPhotoAlbum ne povos "
 "montri videobildetojn kaj videolongojn. Bonvolu instali la ffmpeg-pakaĵon</p>"
 
-#: MainWindow/Window.cpp:1877
+#: MainWindow/Window.cpp:1882
 #, kde-format
 msgid "Video thumbnails are not available"
 msgstr "Videobildetoj ne haveblas"

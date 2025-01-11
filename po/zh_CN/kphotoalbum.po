@@ -3482,10 +3482,9 @@ msgid "Application rc file."
 msgstr ""
 
 #: MainWindow/Options.cpp:32
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "kphotoalbumrc"
-msgstr "KPhotoAlbum"
+msgstr ""
 
 #: MainWindow/Options.cpp:36
 #, kde-format

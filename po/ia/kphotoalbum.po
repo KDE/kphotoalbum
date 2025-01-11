@@ -1,14 +1,14 @@
 # Copyright (C) 2023 This file is copyright:
 # This file is distributed under the same license as the kphotoalbum package.
 #
-# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024 Giovanni Sora <g.sora@tiscali.it>
+# SPDX-FileCopyrightText: 2021, 2022, 2023, 2024, 2025 Giovanni Sora <g.sora@tiscali.it>
 # giovanni <g.sora@tiscali.it>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2024-12-16 18:39+0100\n"
+"PO-Revision-Date: 2025-01-10 11:26+0100\n"
 "Last-Translator: giovanni <g.sora@tiscali.it>\n"
 "Language-Team: Interlingua <kde-i18n-doc@kde.org>\n"
 "Language: ia\n"
@@ -3527,10 +3527,9 @@ msgid "Application rc file."
 msgstr ""
 
 #: MainWindow/Options.cpp:32
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "kphotoalbumrc"
-msgstr "KPhotoAlbum"
+msgstr "kphotoalbumrc"
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -5671,7 +5670,7 @@ msgstr ""
 #: Settings/ViewerPage.cpp:99
 #, kde-format
 msgid "Video Backend:"
-msgstr ""
+msgstr "Retro-Administration de Video:"
 
 #: Settings/ViewerSizeConfig.cpp:19
 #, kde-format
@@ -5690,7 +5689,7 @@ msgstr "Video"
 #, kde-format
 msgctxt "Name/title of the filter toolbar widget"
 msgid "Filter Toolbar"
-msgstr ""
+msgstr "Barra de instrumento de filtro"
 
 #: ThumbnailView/FilterWidget.cpp:22
 #, kde-format
@@ -5873,7 +5872,7 @@ msgctxt ""
 "This combines an age of a person in years (%1) with the additional months "
 "(%2), like \"The person is '1 year and 3 months' old\""
 msgid "%1, %2"
-msgstr ""
+msgstr "%1, %2"
 
 #: Utilities/Timespan.cpp:151
 #, kde-format
@@ -5918,8 +5917,8 @@ msgstr[1] "%1 septimanas"
 msgctxt "Like \"This happened 'ca. 6 weeks' ago\""
 msgid "ca. %1 week"
 msgid_plural "ca. %1 weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ca. %1 septimana"
+msgstr[1] "ca. %1 septimanas"
 
 #: Utilities/Timespan.cpp:197 Utilities/Timespan.cpp:236
 #, kde-format
@@ -5959,7 +5958,7 @@ msgstr "%1 e %2"
 #, kde-format
 msgctxt "@title"
 msgid "Assign Macro"
-msgstr ""
+msgstr "Assigna Macro"
 
 #: Viewer/AnnotationHandler.cpp:69
 #, kde-format
@@ -6610,7 +6609,7 @@ msgstr "Monstra "
 #: Viewer/VisibleOptionsMenu.cpp:31
 #, kde-format
 msgid "Show Info Box"
-msgstr ""
+msgstr "Monstra Cassa de Info"
 
 #: Viewer/VisibleOptionsMenu.cpp:38
 #, kde-format

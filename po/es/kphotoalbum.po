@@ -2,7 +2,7 @@
 # Copyright (C) 2009 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kphotoalbum package.
 #
-# SPDX-FileCopyrightText: 2009, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2009, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 # SPDX-FileCopyrightText: 2009 Cristina Yenyxe Gonzalez Garcia <the.blue.valkyrie@gmail.com>
 # SPDX-FileCopyrightText: 2009 Adrián Martínez <sfxgt3@gmail.com>
 # SPDX-FileCopyrightText: 2010, 2011 Pablo Pita Leira <pablo.pita@gmail.com>
@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2024-12-11 11:46+0100\n"
+"PO-Revision-Date: 2025-01-10 14:48+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3842,13 +3842,12 @@ msgstr "databaseFile"
 #: MainWindow/Options.cpp:31
 #, kde-format
 msgid "Application rc file."
-msgstr ""
+msgstr "Archivo rc de la aplicación."
 
 #: MainWindow/Options.cpp:32
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "kphotoalbumrc"
-msgstr "KPhotoAlbum"
+msgstr "kphotoalbumrc"
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -3892,6 +3891,8 @@ msgstr "interface_address"
 #, kde-format
 msgid "Save the database and immediately quit after showing the main window."
 msgstr ""
+"Guardar la base de datos y salir inmediatamente tras mostrar la ventana "
+"principal."
 
 #: MainWindow/Options.cpp:59
 #, kde-format

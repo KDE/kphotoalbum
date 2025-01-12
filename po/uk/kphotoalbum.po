@@ -4,13 +4,13 @@
 # version 3 or later versions approved by the membership of KDE e.V.
 #
 # Ivan Petrouchtchak <fr.ivan@ukrainian-orthodox.org>, 2007, 2008.
-# Yuri Chornoivan <yurchor@ukr.net>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2024-12-11 10:59+0200\n"
+"PO-Revision-Date: 2025-01-11 13:52+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -3907,13 +3907,12 @@ msgstr "файл_бази_даних"
 #: MainWindow/Options.cpp:31
 #, kde-format
 msgid "Application rc file."
-msgstr ""
+msgstr "Файл rc програми."
 
 #: MainWindow/Options.cpp:32
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "kphotoalbumrc"
-msgstr "KPhotoAlbum"
+msgstr "kphotoalbumrc"
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -3953,7 +3952,7 @@ msgstr "адреса_інтерфейсу"
 #: MainWindow/Options.cpp:58
 #, kde-format
 msgid "Save the database and immediately quit after showing the main window."
-msgstr ""
+msgstr "Зберегти базу даних і негайно вийти після показу головного вікна."
 
 #: MainWindow/Options.cpp:59
 #, kde-format

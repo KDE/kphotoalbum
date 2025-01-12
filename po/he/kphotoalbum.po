@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-01-09 22:15+0200\n"
+"PO-Revision-Date: 2025-01-10 23:13+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -3388,6 +3388,8 @@ msgid ""
 "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports the "
 "<em>Purpose</em> plugin system.</p>"
 msgstr ""
+"<h1><a name=\"purpose\">תמיכה בתוספים</a></h1><p>KPhotoAlbum תומך במערכת "
+"התוספים <em>Purpose</em>.</p>"
 
 #: MainWindow/FeatureDialog.cpp:65
 #, kde-format
@@ -3572,7 +3574,7 @@ msgstr "להשתמש ב־<databaseFile> במקום בברירת המחדל."
 #: MainWindow/Options.cpp:39
 #, kde-format
 msgid "Starts KPhotoAlbum with a prebuilt set of demo images."
-msgstr ""
+msgstr "הפעלת KPhotoAlbum עם סדרת תמונות להדגמה שהורכבה מראש."
 
 #: MainWindow/Options.cpp:42
 #, kde-format
@@ -3592,7 +3594,7 @@ msgstr "האזנה לחיבורי רשת."
 #: MainWindow/Options.cpp:54
 #, kde-format
 msgid "Listen for network connections on address <interface_address>."
-msgstr ""
+msgstr "האזנה לחיבורי רשת בכתובת <interface_address>."
 
 #: MainWindow/Options.cpp:55
 #, kde-format
@@ -3602,7 +3604,7 @@ msgstr "כתובת_ממשק"
 #: MainWindow/Options.cpp:58
 #, kde-format
 msgid "Save the database and immediately quit after showing the main window."
-msgstr ""
+msgstr "לשמור את מסד הנתונים ולצאת מיד לאחר הצגת החלון הראשי."
 
 #: MainWindow/Options.cpp:59
 #, kde-format
@@ -3615,6 +3617,7 @@ msgid ""
 "<p>Enter your command to run below:</p><p><i>%all will be replaced with a "
 "file list</i></p>"
 msgstr ""
+"<p>נא למלא את הפקודה שלך להרצה להלן:</p><p><i>‎%all יוחלף ברשימת קבצים</i></p>"
 
 #: MainWindow/RunDialog.cpp:41
 #, no-c-format, kde-format
@@ -4933,7 +4936,7 @@ msgstr ""
 #: Settings/FileVersionDetectionPage.cpp:178
 #, kde-format
 msgid "EXPERIMENTAL: Tune new image loading for best performance."
-msgstr ""
+msgstr "ניסיוני: כוונון טעינת תמונות חדשות לביצועים מיטביים."
 
 #: Settings/FileVersionDetectionPage.cpp:184
 #, kde-format

@@ -1,15 +1,15 @@
 # Translation of kphotoalbum into esperanto.
 # Copyright (C) 2009 Free Software Foundation, Inc.
 # Axel Rousseau <axel@esperanto-jeunes.org>, 2009.
-# Oliver Kellogg <okellogg@users.sourceforge.net>, 2023.
+# Oliver Kellogg <olivermkellogg@gmail.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2024-12-28 17:41+0100\n"
-"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
+"PO-Revision-Date: 2025-01-11 22:49+0100\n"
+"Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "Axel Rousseau,Oliver Kellogg"
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "axel@esperanto-jeunes.org,okellogg@users.sourceforge.net"
+msgstr "axel@esperanto-jeunes.org,olivermkellogg@gmail.com"
 
 #: AnnotationDialog/AreaTagSelectDialog.cpp:87
 #, kde-format
@@ -3794,13 +3794,12 @@ msgstr "datumbaza Dosiero"
 #: MainWindow/Options.cpp:31
 #, kde-format
 msgid "Application rc file."
-msgstr ""
+msgstr "Aplikaĵa rc-dosiero."
 
 #: MainWindow/Options.cpp:32
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "kphotoalbumrc"
-msgstr "KPhotoAlbum"
+msgstr "kphotoalbumrc"
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -3840,7 +3839,7 @@ msgstr "interfaco_adreso"
 #: MainWindow/Options.cpp:58
 #, kde-format
 msgid "Save the database and immediately quit after showing the main window."
-msgstr ""
+msgstr "Konservi la datumbazon kaj tuj eliri montrinte la ĉefan fenestron."
 
 #: MainWindow/Options.cpp:59
 #, kde-format

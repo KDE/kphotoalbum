@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2024-12-15 22:11+0100\n"
+"PO-Revision-Date: 2025-01-11 09:45+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -3861,13 +3861,12 @@ msgstr "datotekaZbirkePodatkov"
 #: MainWindow/Options.cpp:31
 #, kde-format
 msgid "Application rc file."
-msgstr ""
+msgstr "Datoteka aplikacije rc."
 
 #: MainWindow/Options.cpp:32
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "kphotoalbumrc"
-msgstr "KPhotoAlbum"
+msgstr "kphotoalbumrc"
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -3908,6 +3907,7 @@ msgstr "naslov_vmesnika"
 #, kde-format
 msgid "Save the database and immediately quit after showing the main window."
 msgstr ""
+"Shrani zbirko podatkov in takoj zapusti aplikacijo po prikazu glavnega okna."
 
 #: MainWindow/Options.cpp:59
 #, kde-format

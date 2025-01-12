@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2024-12-30 03:11+0100\n"
+"PO-Revision-Date: 2025-01-11 14:09+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -3587,13 +3587,12 @@ msgstr "მონაცემთა_ბაზის_ფაილი"
 #: MainWindow/Options.cpp:31
 #, kde-format
 msgid "Application rc file."
-msgstr ""
+msgstr "აპლიკაციის rc faili."
 
 #: MainWindow/Options.cpp:32
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "kphotoalbumrc"
-msgstr "KPhotoAlbum"
+msgstr "kphotoalbumrc"
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -3634,6 +3633,8 @@ msgstr "ინტერფეისის_მისამართი"
 #, kde-format
 msgid "Save the database and immediately quit after showing the main window."
 msgstr ""
+"მონაცემთა ბაზის შენახვა და დაუყოვნებლივი გასვლა მთავარი ფანჯრის ჩვენების "
+"შემდეგ."
 
 #: MainWindow/Options.cpp:59
 #, kde-format

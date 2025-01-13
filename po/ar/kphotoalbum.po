@@ -1,5 +1,5 @@
 # translation of kphotoalbum.po to
-# SPDX-FileCopyrightText: 2022, 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2022, 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 # محمد سعد  Mohamed SAAD <metehyi@free.fr>, 2006.
 # Youssef Chahibi <chahibi@gmail.com>, 2007.
 # Safa Alfulaij <safaalfulaij@hotmail.con>, 2013.
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2024-10-24 09:25+0400\n"
+"PO-Revision-Date: 2025-01-12 12:41+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -306,8 +306,7 @@ msgid "Settings saved!"
 msgstr "التعيينات"
 
 #: AnnotationDialog/Dialog.cpp:970
-#, fuzzy, kde-format
-#| msgid "Save Current Window Setup"
+#, kde-format
 msgid "Save current window setup"
 msgstr "أحفظ تعيين النافذة الحالي"
 
@@ -319,11 +318,10 @@ msgid ""
 msgstr "<p> بعض إلى تنفيذ إلى إلغاء الكل لـ ملفّ</p>"
 
 #: AnnotationDialog/Dialog.cpp:1036
-#, fuzzy, kde-format
-#| msgid "Save Changes?"
+#, kde-format
 msgctxt "@title"
 msgid "Discard changes?"
-msgstr "حفظ التغييرات ؟"
+msgstr "ارفض التّغييرات"
 
 #: AnnotationDialog/Dialog.cpp:1135
 #, fuzzy, kde-format
@@ -615,11 +613,10 @@ msgid "Really Delete %1?"
 msgstr "محو %1 حقاً ؟"
 
 #: AnnotationDialog/ListSelect.cpp:463
-#, fuzzy, kde-format
-#| msgid "Rename Item"
+#, kde-format
 msgctxt "@title"
 msgid "Rename Item"
-msgstr "إعادة تسمية العنصر"
+msgstr "أعد التسمية"
 
 #: AnnotationDialog/ListSelect.cpp:463
 #, kde-format
@@ -636,16 +633,13 @@ msgstr ""
 "\"%3\" على اسم أي صورة تحتويه.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:473
-#, fuzzy, kde-format
-#| msgctxt "@action:inmenu"
-#| msgid "Rename \"%1\""
+#, kde-format
 msgctxt "@title"
 msgid "Rename %1?"
-msgstr "غيّر الاسم \"%1\""
+msgstr "هل أغيّر الاسم %1؟"
 
 #: AnnotationDialog/ListSelect.cpp:477
-#, fuzzy, kde-format
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "غيّر الاسم"
@@ -1033,7 +1027,7 @@ msgstr "التاريخ: "
 #: DateBar/DateBarWidget.cpp:71
 #, kde-format
 msgid "Scroll right"
-msgstr ""
+msgstr "تمرير لليمين"
 
 #: DateBar/DateBarWidget.cpp:80
 #, kde-format
@@ -1180,10 +1174,9 @@ msgid "Unable to create folder '%1'."
 msgstr "تعذّر إنشاء المجلّد ’%1‘."
 
 #: DB/Category.cpp:309
-#, fuzzy, kde-format
-#| msgid "Unable to Create Directory"
+#, kde-format
 msgid "Unable to Create Folder"
-msgstr "غير قادر على إنشاء الدليل"
+msgstr "تعذّر إنشاء المجلّد"
 
 #: DB/Category.cpp:318
 #, kde-format
@@ -1350,13 +1343,13 @@ msgid "Following files could not be read:"
 msgstr "المتابعة ملفات ليس قراءة:"
 
 #: DB/search/ImageSearchInfo.cpp:334
-#, fuzzy, kde-format
+#, kde-format
 msgctxt ""
 "As in No persons, no locations etc. I do realize that translators may have "
 "problem with this, but I need some how to indicate the category, and users "
 "may create their own categories, so this is the best I can do - Jesper."
 msgid "No %1"
-msgstr "لا"
+msgstr "لا يوجد %1"
 
 #: DB/search/ImageSearchInfo.cpp:343
 #, kde-format
@@ -1769,13 +1762,12 @@ msgid "Open folder with a file manager"
 msgstr ""
 
 #: Exif/MetaDataDisplay.cpp:107
-#, fuzzy, kde-format
-#| msgid "%1 (by %2)"
+#, kde-format
 msgctxt ""
 "File size composed of a pre-formatted (already localized) human-readable "
 "file size (%1) and the number of bytes (%2)"
 msgid "%1 (%2 B)"
-msgstr "%1 بايت"
+msgstr "%1 (%2 بايت)"
 
 #: Exif/MetaDataDisplay.cpp:122 Exif/MetaDataDisplay.cpp:128
 #: Exif/MetaDataDisplay.cpp:134
@@ -1799,9 +1791,7 @@ msgid "x"
 msgstr "ت"
 
 #: Exif/MetaDataDisplay.cpp:157
-#, fuzzy, kde-format
-#| msgctxt "Category name, then number of selected tags. E.g. 'People (1)'"
-#| msgid "%1 (%2)"
+#, kde-format
 msgctxt ""
 "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--\", "
 "%1) and its octal representation (e.g. \"0644\")"
@@ -2158,16 +2148,14 @@ msgid "Base folder:"
 msgstr "المجلّد الأساسي:"
 
 #: HTMLGenerator/HTMLDialog.cpp:314
-#, fuzzy, kde-format
-#| msgid "Base directory:"
+#, kde-format
 msgid "Gallery folder:"
-msgstr "المجلّد الأساسي:"
+msgstr "مجلد المعرض :"
 
 #: HTMLGenerator/HTMLDialog.cpp:321
-#, fuzzy, kde-format
-#| msgid "Output directory:"
+#, kde-format
 msgid "Output folder:"
-msgstr "مجلّد للإخراج:"
+msgstr "مجلد المخرجات:"
 
 #: HTMLGenerator/HTMLDialog.cpp:332
 #, fuzzy, kde-format
@@ -2258,11 +2246,10 @@ msgstr ""
 "يجب أن أمحي %2  أولاً ؟</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:443
-#, fuzzy, kde-format
-#| msgid "Folder"
+#, kde-format
 msgctxt "@title"
 msgid "Folder Exists"
-msgstr "المجلّد"
+msgstr "المجلد موجود"
 
 #. i18n( "%1 (by %2)",themeName, themeAuthor ) ); // combined alternative
 #: HTMLGenerator/HTMLDialog.cpp:532 MainWindow/SplashScreen.cpp:52
@@ -2649,11 +2636,10 @@ msgstr "المجلّد الأساسي:"
 
 #: ImportExport/ImportDialog.cpp:305 MainWindow/WelcomeDialog.cpp:161
 #: MainWindow/Window.cpp:1200
-#, fuzzy, kde-format
-#| msgid "Created:"
+#, kde-format
 msgctxt "@action:button"
 msgid "Create"
-msgstr "أُنشئ في:"
+msgstr "أنشئ"
 
 #: ImportExport/ImportDialog.cpp:311
 #, kde-format
@@ -3395,11 +3381,11 @@ msgstr "يزيل العناصر"
 msgid "Removing 1 item"
 msgid_plural "Removing %1 items"
 msgstr[0] ""
-msgstr[1] "يزيل العناصريزيل العناصر"
-msgstr[2] "يزيل العناصريزيل العناصر"
-msgstr[3] "يزيل العناصريزيل العناصر"
-msgstr[4] "يزيل العناصريزيل العناصر"
-msgstr[5] "يزيل العناصريزيل العناصر"
+msgstr[1] "يزيل العناصريزيل العناصريزيل العناصريزيل العناصر"
+msgstr[2] "يزيل العناصريزيل العناصريزيل العناصريزيل العناصر"
+msgstr[3] "يزيل العناصريزيل العناصريزيل العناصريزيل العناصر"
+msgstr[4] "يزيل العناصريزيل العناصريزيل العناصريزيل العناصر"
+msgstr[5] "يزيل العناصريزيل العناصريزيل العناصريزيل العناصر"
 
 #: MainWindow/DeleteDialog.cpp:65
 #, kde-format
@@ -3843,20 +3829,20 @@ msgid ""
 msgstr ""
 
 #: MainWindow/RunDialog.cpp:75
-#, fuzzy, no-c-format, kde-format
+#, no-c-format, kde-format
 msgctxt ""
 "As in 'Execute a command and replace any occurrence of %all with the "
 "filenames of all selected files'"
 msgid "%all"
-msgstr "الكل"
+msgstr "%الكل"
 
 #: MainWindow/RunDialog.cpp:77
-#, fuzzy, no-c-format, kde-format
+#, no-c-format, kde-format
 msgctxt ""
 "As in 'Execute a command for each selected file in turn and replace any "
 "occurrence of %each with the filename "
 msgid "%each"
-msgstr "إبحث"
+msgstr "%لكل"
 
 #: MainWindow/SearchBar.cpp:20
 #, kde-format
@@ -4028,10 +4014,9 @@ msgid "Folder does not exist, create it?"
 msgstr "الدليل غير موجود ، هل أقوم بإنشائه ؟"
 
 #: MainWindow/WelcomeDialog.cpp:166
-#, fuzzy, kde-format
-#| msgid "Could not create file '%1'."
+#, kde-format
 msgid "Could not create folder %1"
-msgstr "لم أتمكن من إنشاء الملف '%1'."
+msgstr "تعذّر إنشاء المجلد %1"
 
 #: MainWindow/WelcomeDialog.cpp:171
 #, fuzzy, kde-format
@@ -4898,7 +4883,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title"
 msgid "Confirm Action"
-msgstr ""
+msgstr "أكّد إجراء"
 
 #: Settings/CategoryPage.cpp:372
 #, kde-format
@@ -5227,10 +5212,9 @@ msgid "Fast PCIe/NVMe"
 msgstr ""
 
 #: Settings/FileVersionDetectionPage.cpp:194
-#, fuzzy, kde-format
-#| msgid "Settings"
+#, kde-format
 msgid "Manual Settings"
-msgstr "التعيينات"
+msgstr "الإعدادات اليدوية"
 
 #: Settings/FileVersionDetectionPage.cpp:197
 #, kde-format
@@ -6148,9 +6132,9 @@ msgid "<b>Image Size: </b> "
 msgstr "<b>قياس الصورة: </b> "
 
 #: Utilities/DescriptionUtil.cpp:143
-#, fuzzy, kde-format
+#, kde-format
 msgid "<b>Label: </b> "
-msgstr "اللاصقة: "
+msgstr "<b>التسمية: </b> "
 
 #: Utilities/DescriptionUtil.cpp:147
 #, kde-format
@@ -6164,18 +6148,16 @@ msgid " (up to %1)"
 msgstr ""
 
 #: Utilities/Timespan.cpp:91
-#, fuzzy, kde-format
-#| msgctxt "short for: x megapixels"
-#| msgid " (%1MP)"
+#, kde-format
 msgctxt "Like \"6 years\" old"
 msgid " (%1)"
-msgstr " (%1م.بكسل)"
+msgstr " (%1)"
 
 #: Utilities/Timespan.cpp:94
 #, kde-format
 msgctxt "Like \"6 years to 7 years\" old"
 msgid " (%1 to %2)"
-msgstr ""
+msgstr " (%1 إلى %2)"
 
 #: Utilities/Timespan.cpp:103
 #, kde-format
@@ -6236,24 +6218,20 @@ msgid "%1, %2"
 msgstr ""
 
 #: Utilities/Timespan.cpp:151
-#, fuzzy, kde-format
-#| msgid "today"
+#, kde-format
 msgid " (today)"
-msgstr "اليوم"
+msgstr " (اليوم)"
 
 #: Utilities/Timespan.cpp:154
-#, fuzzy, kde-format
-#| msgid "yesterday"
+#, kde-format
 msgid " (yesterday)"
-msgstr "البارحة"
+msgstr " (الأمس)"
 
 #: Utilities/Timespan.cpp:158
-#, fuzzy, kde-format
-#| msgctxt "short for: x megapixels"
-#| msgid " (%1MP)"
+#, kde-format
 msgctxt "Like \"6 years ago\""
 msgid " (%1 ago)"
-msgstr " (%1م.بكسل)"
+msgstr " (منذ %1)"
 
 #: Utilities/Timespan.cpp:162
 #, kde-format
@@ -6432,18 +6410,17 @@ msgstr ""
 #: Viewer/SelectCategoryAndValue.cpp:136
 #, kde-format
 msgid "Add New"
-msgstr ""
+msgstr "أضف جديدًا"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
 #, kde-format
 msgid "Key"
-msgstr ""
+msgstr "المفتاح"
 
 #: Viewer/SelectCategoryAndValue.cpp:189
-#, fuzzy, kde-format
-#| msgid "Tag:"
+#, kde-format
 msgid "Tag"
-msgstr "الوسم:"
+msgstr "الوسم"
 
 #: Viewer/SelectCategoryAndValue.cpp:220
 #, kde-format
@@ -6453,10 +6430,9 @@ msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, SelectCategoryAndValue)
 #: Viewer/SelectCategoryAndValue.ui:14
-#, fuzzy, kde-format
-#| msgid "OK dialog"
+#, kde-format
 msgid "Dialog"
-msgstr "حوار الموافقة"
+msgstr "حواريّ"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: Viewer/SelectCategoryAndValue.ui:24
@@ -6468,13 +6444,11 @@ msgstr "لصيقة نصّيّة"
 #: Viewer/SelectCategoryAndValue.ui:43
 #, kde-format
 msgid "Add new Tag"
-msgstr ""
+msgstr "أضف وسمًا جديدًا"
 
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #: Viewer/SelectCategoryAndValue.ui:77
-#, fuzzy, kde-format
-#| msgctxt "@title:column Background job title"
-#| msgid "Title"
+#, kde-format
 msgid "Title"
 msgstr "العنوان"
 
@@ -6694,10 +6668,9 @@ msgid "Pause"
 msgstr "ألبث"
 
 #: Viewer/ViewerWidget.cpp:622
-#, fuzzy, kde-format
-#| msgid "Unlock"
+#, kde-format
 msgid "locked"
-msgstr "فك القفل"
+msgstr "مقفل"
 
 #: Viewer/ViewerWidget.cpp:624
 #, fuzzy, kde-format
@@ -6725,10 +6698,10 @@ msgid "Ending Slideshow"
 msgstr "شغل عرض الشرائح"
 
 #: Viewer/ViewerWidget.cpp:910
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Stop Slideshow"
-msgstr "قف عرض شرائح"
+msgstr "أوقف عرض الشرائح"
 
 #: Viewer/ViewerWidget.cpp:915
 #, fuzzy, kde-format
@@ -6907,7 +6880,7 @@ msgstr "اشرح"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Help"
-msgstr ""
+msgstr "مساعدة"
 
 #: Viewer/ViewerWidget.cpp:1489
 #, kde-format
@@ -6925,7 +6898,7 @@ msgstr "أضف وسمًا"
 #, kde-format
 msgctxt "short cut for add tag"
 msgid "CTRL+a"
-msgstr ""
+msgstr "CTRL+a"
 
 #: Viewer/ViewerWidget.cpp:1493
 #, fuzzy, kde-format
@@ -6937,7 +6910,7 @@ msgstr "نسخ من السابق صورة"
 #, kde-format
 msgctxt "Shortcut for copy annotations from previous image"
 msgid "CTRL+c"
-msgstr ""
+msgstr "CTRL+c"
 
 #: Viewer/ViewerWidget.cpp:1497
 #, fuzzy, kde-format
@@ -6969,7 +6942,7 @@ msgstr "مقفل"
 #, kde-format
 msgctxt "Shortcut for turning of annotations in the viewer"
 msgid "CTRL+l"
-msgstr ""
+msgstr "CTRL+l"
 
 #: Viewer/ViewerWidget.cpp:1508
 #, kde-format
@@ -6994,13 +6967,12 @@ msgstr "العلّامات"
 #, kde-format
 msgctxt "Shortcut for turning annotations mode to tokenizing"
 msgid "CTRL+t"
-msgstr ""
+msgstr "CTRL+t"
 
 #: Viewer/ViewerWidget.cpp:1676
-#, fuzzy, kde-format
-#| msgid "Tokens"
+#, kde-format
 msgid "Token %1"
-msgstr "العلّامات"
+msgstr "الرّمز %1"
 
 #: Viewer/VisibleOptionsMenu.cpp:24
 #, kde-format
@@ -7018,9 +6990,9 @@ msgid "Show Info Box"
 msgstr "أعرض صندوق المعلومات"
 
 #: Viewer/VisibleOptionsMenu.cpp:38
-#, fuzzy, kde-format
+#, kde-format
 msgid "Show Label"
-msgstr "اعرض تسمية"
+msgstr "اعرض التسمية"
 
 #: Viewer/VisibleOptionsMenu.cpp:43
 #, kde-format

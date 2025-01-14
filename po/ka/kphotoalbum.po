@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-01-11 14:09+0100\n"
+"PO-Revision-Date: 2025-01-13 05:25+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -1287,6 +1287,10 @@ msgid ""
 "of images, this may take some time.<br/>However, there is only a delay when "
 "new images are found.</p>"
 msgstr ""
+"<p><b>ინფორმაციის ჩატვირთვა ახალი ფაილებიდან</b></p><p>გამოსახულებების "
+"რაოდენობაზე დამოკიდებულებით, ამას, შეიძლება, საკმაო დრო დასჭირდეს.<br/"
+">მაგრამ არსებობს, მხოლოდ, დაყოვნება, მას შემდეგ, რაც ახალ გამოსახულები "
+"იქნება აღმოჩენილი.</p>"
 
 #: DB/NewImageFinder.cpp:702
 #, kde-format
@@ -1301,6 +1305,8 @@ msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
 "images even when you have moved them on the disk.</p>"
 msgstr ""
+"<p>თითოეული გამოსახულებების საკონტროლო ჯამის შენახვით KPhotoAlbum-ს შეუძლია "
+"იპოვოს გამოსახულებები მაშინაც კი, თუ მათ სხვა საქაღალდეში გადაიტანთ.</p>"
 
 #: DB/NewImageFinder.cpp:747
 #, kde-format
@@ -1338,6 +1344,9 @@ msgid ""
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
+"<p>XML მონაცემთა ბაზა KPhotoAlbum-ის უფრო ახალი ვერსიისაა!</p><p>არსებობს "
+"შანსი, რომ წაიკითხავთ ამ ფაილს, მაგრამ, როცა ჩაწერას დააპირებთ, ახალ "
+"ვერსიაში ხელმისაწვდომი ინფორმაცია დაიკარგება</p>"
 
 #: DB/XML/FileReader.cpp:60
 #, kde-format
@@ -1364,6 +1373,9 @@ msgid ""
 "ignore the duplicate category and try an automatic repair, or choose cancel "
 "to quit.</p>"
 msgstr ""
+"<p>ხაზი %1, სვეტი %2: გამეორებადი კატეგორია '%3'</p><p>გააგრძელეთ "
+"გაგრძელება, რომ გამოტოვოთ გამეორებული კატეგორია და ამის შესწორება "
+"ავტომატურად მოხდეს, ან აირჩიეთ გაუქმება, რომ გახვიდეთ.</p>"
 
 #: DB/XML/FileReader.cpp:196 DB/XML/FileReader.cpp:301
 #, kde-format
@@ -1441,6 +1453,9 @@ msgid ""
 "now contain tags that were merged during the repair.</p><p>The following "
 "tags require manual inspection:<ul>"
 msgstr ""
+"<p>თქვენს მონაცემთა ბაზაში აღმოჩენილი და გასწორებულია რამდენიმე შეუსაბამობა. "
+"ზოგიერთი კატეგორია ახლა შეიცავს ჭდეს, რომლებიც გასწორებისას გაერთიანდა</"
+"p><p>ხელით ჩასწორებას საჭიროებს შემდეგი ჭდეები:<ul>"
 
 #: DB/XML/FileReader.cpp:485
 #, kde-format
@@ -1797,6 +1812,9 @@ msgid ""
 "<p>Be aware that setting the data from Exif may <b>overwrite</b> data you "
 "have previously entered manually using the image configuration dialog.</p>"
 msgstr ""
+"<p>გაითვალისწინეთ, რომ Exif-ის მონაცემების დაყენებამ, შეიძლება, <b>თავზე "
+"გადააწეროს</b> მონაცემებს, რომლებიც ადრე გამოსახულების მორგების დიალოგში "
+"ხელით შეიყვანეთ.</p>"
 
 #: Exif/ReReadDialog.cpp:127
 #, kde-format
@@ -1918,6 +1936,9 @@ msgid ""
 "Not all images in the database have lens information. <note>Recreate the "
 "Exif search database to ensure lens data for all images.</note>"
 msgstr ""
+"ლინზის შესახებ ინფორმაცია ბაზაში არსებულ ყველა გამოსახულებას არ გააჩნია. "
+"<note>შექმენით თავიდან Exif-ის მონაცემთა ბაზა, რომ დარწმუნდეთ, რომ ლინზის "
+"ინფორმაცია ყველას გამოსახულებისთვის ჩაიტვირთება.</note>"
 
 #: HTMLGenerator/Generator.cpp:54
 #, kde-format
@@ -2034,6 +2055,8 @@ msgid ""
 "<p>This selection will generate video files suitable for displaying on web. "
 "avconv and ffmpeg2theora are required for video file generation.</p>"
 msgstr ""
+"<p>ეს არჩევანი შექმნის ვიდეოფაილებს, რომლებიც ვებისთვისაა განკუთვნილი. "
+"ვიდეოფაილის გენერაციას სჭირდება პროგრამები avconv და ffmpeg2theora.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:132
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-01-13 18:24+0200\n"
+"PO-Revision-Date: 2025-01-15 11:14+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -60,6 +60,7 @@ msgid ""
 "(You have differing descriptions on individual images, setting text here "
 "will override them all)"
 msgstr ""
+"(יש הבדלים בין התיאורים של תמונות נקודתיות, הגדרת טקסט כאן תשתכתב את כולם)"
 
 #: AnnotationDialog/Dialog.cpp:134
 #, kde-format
@@ -1598,7 +1599,7 @@ msgstr "אמור היה להיקרא רכיב ההתחלה ‚%1’"
 msgid ""
 "<p>An error was encountered on line %1, column %2:<nl/><message>%3</"
 "message></p>"
-msgstr ""
+msgstr "<p>אירעה שגיאה בשורה %1, עמודה %2:<nl/><message>%3</message></p>"
 
 #: DB/XML/XmlReader.cpp:90
 #, kde-format
@@ -2324,6 +2325,10 @@ msgid ""
 "stored in jpg, png or gif; but do check this if your images are stored in "
 "tiff.</p>"
 msgstr ""
+"<p>אם התמונות שלך מאוחסנות בסוג קובץ ללא דחיסה אז כדאי לסמן את זה,אחרת, "
+"יתבזבז המון זמן במהלך פעולות ייבוא וייצוא.</p><p>במילים אחרות, לא לסמן את זה "
+"אם התמונות שלך מאוחסנות ב־jpg,‏ png או gif, אבל כדאי לסמן את זה אם התמונות "
+"שלך מאוחסנות כ־tiff.</p>"
 
 #: ImportExport/Export.cpp:153
 #, kde-format
@@ -3173,7 +3178,7 @@ msgstr "לכלול תמונה תואמת בערימה מתאימה (אם יש)"
 #, kde-format
 msgid ""
 "Unstack images from their current stack and create new one for the matches"
-msgstr ""
+msgstr "הפרדת תמונות מהערימה הנוכחית שלן וליצור ערימה חדשה להתאמות"
 
 #: MainWindow/AutoStackImages.cpp:102
 #, kde-format
@@ -3289,6 +3294,9 @@ msgid ""
 "<br/>The tag and description from the deleted images will be transferred to "
 "the kept image</p>"
 msgstr ""
+"<p>להלן רשימת כל התמונות הכפולות במסד הנתונים שלך.<br/>נא לבחור אילו מהן "
+"למזג ואילו מהכפילויות לשמור.<br/>התגית והתיאור מהתמונות שנמחקו יתווספו "
+"לתמונה שנשארה</p>"
 
 #: MainWindow/DuplicateMerger/DuplicateMerger.cpp:53
 #, kde-format
@@ -4260,6 +4268,9 @@ msgid ""
 "untagged tag setting under <interface>Settings|Configure KPhotoAlbum...|"
 "Categories</interface></p>"
 msgstr ""
+"<p>הגדרת תגית לתמונות לא מתויגות אבל או שהתגית עצמה או שהקטגוריה שלה לא "
+"קיימות במסד הנתונים.</p><p>נא לאמת את הגדרות התגית ללא מתויגות תחת "
+"<interface>הגדרות|הגדרת KPhotoAlbum…|קטגוריות</interface></p>"
 
 #: MainWindow/Window.cpp:1364 Settings/SettingsDialog.cpp:46
 #, kde-format
@@ -4342,6 +4353,8 @@ msgid ""
 "You can open a set of files in KPhotoAlbum's database by listing the files "
 "here."
 msgstr ""
+"אפשר לפתוח קבוצה של תמונות במסד הנתונים של KPhotoAlbum על ידי הצגת הקבצים "
+"כאן."
 
 #: MainWindow/Window.cpp:1627
 #, kde-format
@@ -4794,6 +4807,9 @@ msgid ""
 "KPhotoAlbum to ignore these two folder names in any folder when searching "
 "for new images.</p>"
 msgstr ""
+"<p>הגדרת רשימת שמות תיקיות עם פסיקים ביניהן להתעלמות.</p><p>למשל, ציון של "
+"„<tt>.thumbs,‏‎.thumbnails</tt>” כאן יגרום ל־KPhotoAlbum להתעלם משמות שתי "
+"התיקיות האלו בכל תיקייה שהיא בעת חיפוש אחר תמונות חדשות.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:61
 #, kde-format
@@ -4813,6 +4829,10 @@ msgid ""
 "their extension. This will take significantly longer than finding files by "
 "extension!</p>"
 msgstr ""
+"<p>KPhotoAlbum בדרך כלל יחפש תמונות וסרטונים חדשים לפי הסיומת שלהם.אם "
+"האפשרות הזאת מוגדרת, ל<em>כל</em> הקבצים שאינם במסד הנתונים או ברשימת החסימה "
+"ייבדק סוג התוכן (MIME), ללא תלות בסיומת שלהם. הפעולה הזאת תארוך משמעותית זמן "
+"רב יותר מאשר איתור קבצים לפי סיומת!</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:72
 #, kde-format
@@ -4840,6 +4860,9 @@ msgid ""
 "searching for new photos. Thumbnail directories of different tools should be "
 "configured here. E.g. <tt>xml,ThumbNails,.thumbs,.thumbnails</tt>.</p>"
 msgstr ""
+"<p>תיקיות שמוגדרות כאן (מופרדות בפסיק <tt>,</tt>) נפסחות בעת חיפוש אחר "
+"תמונות חדשות. כאן יש להגדיר תמונות ממוזערות לתיקיות של כלים שונים. למשל: "
+"<tt>xml,‏ThumbNails,‏‎.thumbs,‏‎.thumbnails</tt>.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:91
 #, kde-format
@@ -4917,6 +4940,9 @@ msgid ""
 "and placed to the top of the stack. This way the new image is shown when the "
 "stack is in collapsed state - the default state in KPhotoAlbum.</p>"
 msgstr ""
+"<p>אם האפשרות הזאת מוגדרת, גרסאות חדשות של התמונה נערמות אוטומטית ומוצבות "
+"בראש הערימה. כך התמונה החדשה מופיעה כשהערימה במצב אסוף - מצב ברירת המחדל ב־"
+"KPhotoAlbum.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:151
 #, kde-format
@@ -5544,6 +5570,9 @@ msgid ""
 "the thumbnails will be shown automatically. The alternative is to continue "
 "showing the browser until you press <i>Show Images</i></p>"
 msgstr ""
+"<p>בזמן עיון, כשהספירה יורדת מתחת לערך שצוין כאן, התמונות הממוזערות תופענה "
+"אוטומטית. החלופה היא להמשיך להציג את הדפדפן עד ללחיצה על <i>הצגת תמונות</i></"
+"p>"
 
 #: Settings/UntaggedGroupBox.cpp:24
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-10-02 01:49+0000\n"
-"PO-Revision-Date: 2025-01-12 12:41+0400\n"
+"PO-Revision-Date: 2025-01-18 17:06+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -196,12 +196,12 @@ msgstr "=="
 #: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid ">="
-msgstr ""
+msgstr ">="
 
 #: AnnotationDialog/Dialog.cpp:406
 #, kde-format
 msgid "<="
-msgstr ""
+msgstr "<="
 
 #: AnnotationDialog/Dialog.cpp:406
 #, kde-format
@@ -538,10 +538,9 @@ msgid "No Item Selected"
 msgstr "لم يتم إختيار عنصر"
 
 #: AnnotationDialog/ListSelect.cpp:363
-#, fuzzy, kde-format
-#| msgid "<b>Sorting</b>"
+#, kde-format
 msgid "<b>%1</b>"
-msgstr "<b>الفرز</b>"
+msgstr "<b>%1</b>"
 
 #: AnnotationDialog/ListSelect.cpp:369 Settings/CategoryPage.cpp:71
 #, kde-format
@@ -661,7 +660,7 @@ msgstr ""
 #: AnnotationDialog/ListSelect.cpp:526
 #, kde-format
 msgid "Add a tag"
-msgstr ""
+msgstr "أضف وسمًا"
 
 #: AnnotationDialog/ListSelect.cpp:527
 #, kde-format
@@ -1307,7 +1306,7 @@ msgstr ""
 #, kde-format
 msgctxt "Separator in a list of tags"
 msgid ", "
-msgstr ""
+msgstr "، "
 
 #: DB/NewImageFinder.cpp:487
 #, kde-format
@@ -1493,19 +1492,19 @@ msgstr ""
 #, kde-format
 msgctxt "repair merged tags"
 msgid "<li>%1:<br/>"
-msgstr ""
+msgstr "<li>%1:<br/>"
 
 #: DB/XML/FileReader.cpp:487
 #, kde-format
 msgctxt "repair merged tags"
 msgid "%1<br/>"
-msgstr ""
+msgstr "%1<br/>"
 
 #: DB/XML/FileReader.cpp:490
 #, kde-format
 msgctxt "repair merged tags"
 msgid "</li>"
-msgstr ""
+msgstr "</li>"
 
 #: DB/XML/FileReader.cpp:495
 #, kde-format
@@ -3774,7 +3773,7 @@ msgstr "استورد ملف %1"
 #: MainWindow/Options.cpp:37
 #, kde-format
 msgid "file.kim"
-msgstr ""
+msgstr "file.kim"
 
 #: MainWindow/Options.cpp:44
 #, kde-format
@@ -4602,8 +4601,7 @@ msgid "Video thumbnails are not available"
 msgstr "الملف غير موجود"
 
 #: Map/GeoCluster.cpp:137
-#, fuzzy, kde-format
-#| msgid "%1"
+#, kde-format
 msgctxt "The number of images in an area of the map"
 msgid "%1"
 msgstr "%1"
@@ -5216,7 +5214,7 @@ msgstr "الشبكة"
 #: Settings/FileVersionDetectionPage.cpp:191
 #, kde-format
 msgid "SATA SSD"
-msgstr ""
+msgstr "SATA SSD"
 
 #: Settings/FileVersionDetectionPage.cpp:192
 #, kde-format
@@ -6952,7 +6950,7 @@ msgstr "الوصف"
 #, kde-format
 msgctxt "Shortcut for add description to image"
 msgid "CTRL+d"
-msgstr ""
+msgstr "CTRL+d"
 
 #: Viewer/ViewerWidget.cpp:1509
 #, fuzzy, kde-format

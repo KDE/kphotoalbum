@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-01-15 11:14+0200\n"
+"PO-Revision-Date: 2025-01-18 21:31+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -2083,6 +2083,8 @@ msgid ""
 "URL.</p><p>This only affects the generated <filename>.kim</filename> file.</"
 "p>"
 msgstr ""
+"<p>העברת הגלריה למקום מרוחק, יש להגדיר את זה לכתובת היעד.</p><p>משפיע רק על "
+"קובץ <filename>‎.kim</filename> שנוצר.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:343
 #, kde-format
@@ -2106,6 +2108,8 @@ msgid ""
 "images. Each generated collection will be contained in this folder in "
 "separate subfolders.</p>"
 msgstr ""
+"<p>לא ציינת תיקייה בסיס. זאת התיקייה העליונה לתמונות שלך. כל אוסף שנוצר "
+"ייווצר בתיקייה הזאת בתת־תיקיות נפרדות.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:403
 #, kde-format
@@ -2119,6 +2123,8 @@ msgid ""
 "actual images. The folder will be a subfolder of the base folder specified "
 "above.</p>"
 msgstr ""
+"<p>לא ציינת תיקיית פלט. זאת התיקייה שמכילה את התמונות בפועל. התיקייה תהיה תת־"
+"תיקייה של תיקיית הבסיס שצוינה לעיל.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:412
 #, kde-format
@@ -4384,6 +4390,8 @@ msgid ""
 "not be able to display video thumbnails and video lengths. Please install "
 "the ffmpeg package</p>"
 msgstr ""
+"<p>לא ניתן למצוא ffmpeg במערכת.</p><p>בלעדיו, KPhotoAlbum לא יוכל להציג "
+"תמוניות ממוזערות של סרטונים ואת אורכי הסרטונים. נא להתקין את חבילת ffmpeg</p>"
 
 #: MainWindow/Window.cpp:1882
 #, kde-format
@@ -4620,6 +4628,8 @@ msgid ""
 "saved,<br/>the names of categories can't be changed and new ones can't be "
 "added.</font>"
 msgstr ""
+"<font color='red'>במסד הנתונים יש שינויים שלא נשמרו. כל עוד הם לא יישמרו,<br/"
+">אי אפשר לשנות את שמות הקטגוריות ולא ניתן להוסיף חדשות.</font>"
 
 #: Settings/CategoryPage.cpp:166
 #, kde-format

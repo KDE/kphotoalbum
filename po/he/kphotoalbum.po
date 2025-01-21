@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-01-18 21:31+0200\n"
+"PO-Revision-Date: 2025-01-20 14:24+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -437,6 +437,8 @@ msgid ""
 "<para>Set the same tags on this image than on the previous one. The image "
 "date, label, rating, and description are left unchanged.</para>"
 msgstr ""
+"<para>להגדיר בתמונה הזאת את אותן התגיות כמו בתמונה הקודמת. התאריך, התווית, "
+"הדירוג והתיאור של התמונה יישארו כמו שהיו.</para>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:110
 #, kde-format
@@ -1222,6 +1224,8 @@ msgid ""
 "Autosave file '%1' exists (size %3 KB) and is newer than '%2'. Should the "
 "autosave file be used?"
 msgstr ""
+"קובץ השמירה האוטומטית ‚%1’ קיים (גודלו %3 ק״ב) והוא יותר חדש מ־‚%2’. האם "
+"להשתמש בקובץ השמירה האוטומטית?"
 
 #: DB/ImageDB.cpp:67
 #, kde-format
@@ -1272,10 +1276,10 @@ msgstr ""
 #, kde-format
 msgid "<p><b>Calculating checksum for %1 file</b></p>"
 msgid_plural "<p><b>Calculating checksums for %1 files</b></p>"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "<p><b>מתבצע חישוב סיכום ביקורת של קובץ</b></p>"
+msgstr[1] "<p><b>מתבצע חישוב סיכום ביקורת של שני קבצים</b></p>"
+msgstr[2] "<p><b>מתבצע חישוב סיכום ביקורת של %1 קבצים</b></p>"
+msgstr[3] "<p><b>מתבצע חישוב סיכום ביקורת של %1 קבצים</b></p>"
 
 #: DB/NewImageFinder.cpp:703
 #, kde-format
@@ -1527,6 +1531,7 @@ msgstr "שגיאה בקובץ %1: לא נמצאו רכיבים"
 #, kde-format
 msgid "Error in file %1: expected 'KPhotoAlbum' as top element but found '%2'"
 msgstr ""
+"שגיאה בקובץ %1: הרכיב העליון אמור להיות ‚KPhotoAlbum’ אך במקום זאת נמצא ‚%2’"
 
 #: DB/XML/FileWriter.cpp:78
 #, kde-format
@@ -2005,6 +2010,8 @@ msgid ""
 "<p>This selection will generate video files suitable for displaying on web. "
 "avconv and ffmpeg2theora are required for video file generation.</p>"
 msgstr ""
+"<p>הבחירה הזאת תייצר קובצי וידאו שמתאימים להצגה דרך האינטרנט. avconv ו־"
+"ffmpeg2theora נחוצות ליצירת קובצי וידאו.</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:132
 #, kde-format
@@ -3083,7 +3090,7 @@ msgstr "מגוון טלאים למגוון תקלות וגם טלאים לכמה
 #: main.cpp:116
 #, kde-format
 msgid "Teemu Rytilahti"
-msgstr ""
+msgstr "טימו רייטילאהטי"
 
 #: main.cpp:117
 #, kde-format
@@ -3589,10 +3596,9 @@ msgid "Application rc file."
 msgstr "קובץ rc של יישום."
 
 #: MainWindow/Options.cpp:32
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "kphotoalbumrc"
-msgstr "KPhotoAlbum"
+msgstr "kphotoalbumrc"
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -3736,7 +3742,7 @@ msgstr "חיווי התגיות השלים את ההסברים"
 msgid ""
 "If you use a specific tag to indicate that an image has been tagged, then "
 "specify it here."
-msgstr ""
+msgstr "אם יש איזו תגית מסוימת לציין שתמונה תויגה, יש לציין אותה כאן."
 
 #: MainWindow/StatisticsDialog.cpp:114 Settings/BirthdayPage.cpp:48
 #: Settings/UntaggedGroupBox.cpp:31
@@ -4309,7 +4315,7 @@ msgstr "תצוגת תמונות ממוזערות"
 msgid ""
 "<p>Really enable all message boxes where you previously checked the do-not-"
 "show-again check box?</p>"
-msgstr ""
+msgstr "<p>להפעיל את כל תיבות ההודעה שסימנת בהן בעבר שלא להציג אותן?</p>"
 
 #: MainWindow/Window.cpp:1523
 #, kde-format
@@ -4518,6 +4524,9 @@ msgid ""
 "Desktop protocol version: %1\n"
 "Remote Control protocol version: %2"
 msgstr ""
+"סתירת גרסאות בין הלקוח המרוחק לבין KPhotoAlbum בשולחן העבודה.\n"
+"גרסת פרוטוקול שולחן העבודה: %1\n"
+"גרסת פרוטוקול הצד המרוחק: %2"
 
 #: Settings/BirthdayPage.cpp:59
 #, kde-format
@@ -4536,6 +4545,8 @@ msgid ""
 "Set the date of birth for items (say people) here, and then see their age "
 "when viewing the images."
 msgstr ""
+"כאן ניתן להגדיר תאריך לידה של פריטים (למשל בני אדם), ואז לראות את הגיל שלהם "
+"בעת הצפייה בתמונות."
 
 #: Settings/BirthdayPage.cpp:157
 #, kde-format
@@ -5199,6 +5210,8 @@ msgid ""
 "<p>JPEG images may contain a description. Check this checkbox to specify if "
 "you want to use this as a default description for your images.</p>"
 msgstr ""
+"<p>תמונות JPEG עשויות להכיל תיאור. יש לסמן את התיבה הזאת כדי להשתמש בו "
+"כתיאור כברירת המחדל של התמונות שלך.</p>"
 
 #: Settings/GeneralPage.cpp:159
 #, kde-format
@@ -5545,6 +5558,7 @@ msgstr ""
 msgid ""
 "<p>Choose what aspect ratio the cells holding thumbnails should have.</p>"
 msgstr ""
+"<p>נא לבחור את יחס גובה־רוחב של התאים שמחזיקים את התמונות הממוזערות.</p>"
 
 #: Settings/ThumbnailsPage.cpp:120
 #, kde-format

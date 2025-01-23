@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-01-20 14:24+0200\n"
+"PO-Revision-Date: 2025-01-22 12:01+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -464,7 +464,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Areas on an image can only be shown in single-image annotation mode."
-msgstr ""
+msgstr "ניתן להציג אזורים בתמונה רק במצב הסברים על תמונה בודדה."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:355
 #, kde-format
@@ -1383,6 +1383,8 @@ msgid ""
 "<p>Line %1, column %2: duplicate entry for file '%3' with different MD5 sum."
 "</p><p>Manual repair required!</p>"
 msgstr ""
+"<p>שורה %1, עמודה %2: רשומה כפולה לקובץ ‚%3’ עם סיכום ביקורת MD5 שונה.</"
+"p><p>נדרש תיקון ידני!</p>"
 
 #: DB/XML/FileReader.cpp:435
 #, kde-format
@@ -1453,6 +1455,8 @@ msgid ""
 "</ul></p><p>All affected images have also been marked with a tag "
 "<em>KPhotoAlbum - manual repair needed</em>.</p>"
 msgstr ""
+"</ul></p><p>כל התמונות שהושפעו גם סומנות בתגית <em>KPhotoAlbum - נדרש תיקון "
+"ידני</em>.</p>"
 
 #: DB/XML/FileReader.cpp:499
 #, kde-format
@@ -1539,6 +1543,8 @@ msgid ""
 "<p>Could not save the image database to XML.</p>File %1 could not be opened "
 "because of the following error: %2"
 msgstr ""
+"<p>לא ניתן לשמור את מסד נתוני התמונות ל־XML.</p>לא ניתן לפתוח את הקובץ %1 "
+"עקב השגיאה הבאה: %2"
 
 #: DB/XML/FileWriter.cpp:81 DB/XML/FileWriter.cpp:117 DB/XML/FileWriter.cpp:126
 #, kde-format
@@ -1894,6 +1900,8 @@ msgid ""
 "Not all images in the database have lens information. <note>Recreate the "
 "Exif search database to ensure lens data for all images.</note>"
 msgstr ""
+"לא לכל התמונות במסד הנתונים יש פרטי עדשה. <note>יש ליצור מחדש את מסד נתוני "
+"חיפוש Exif כדי לוודא שיש נתוני עדשה לכל התמונות.</note>"
 
 #: HTMLGenerator/Generator.cpp:54
 #, kde-format
@@ -2144,6 +2152,8 @@ msgid ""
 "<p>Error while reading information about %1. This is most likely because the "
 "folder does not exist.</p><p>The error message was: %2</p>"
 msgstr ""
+"<p>שגיאה בקריאת המידע על %1. סביר להניח שזה כיוון שהתיקייה לא קיימת.</"
+"p><p>הודעת השגיאה הייתה: %2</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:429
 #, kde-format
@@ -2156,6 +2166,8 @@ msgid ""
 "<p>Output folder %1 already exists. Usually, this means you should specify a "
 "new folder.</p><p>Should %2 be deleted first?</p>"
 msgstr ""
+"<p>תיקיית הפלט %1 כבר קיימת. בדרך כלל, משמעות הדבר היא שעליך לציין תיקייה "
+"חדשה.</p><p>למחוק את %2 קודם לכן?</p>"
 
 #: HTMLGenerator/HTMLDialog.cpp:443
 #, kde-format
@@ -2172,7 +2184,7 @@ msgstr "%1"
 #: HTMLGenerator/HTMLDialog.cpp:543
 #, kde-format
 msgid "Could not find any themes - this is very likely an installation error"
-msgstr ""
+msgstr "לא ניתן למצוא ערכות עיצוב כלשהן - סביר להניח שמדובר בתקלת התקנה"
 
 #: HTMLGenerator/HTMLDialog.cpp:550
 #, kde-format
@@ -2438,6 +2450,7 @@ msgid ""
 "<p>XML file did not specify the source of the images, this is a strong "
 "indication that the file is corrupted</p>"
 msgstr ""
+"<p>קובץ ה־XML לא ציין את מקור התמונות, זאת עדות מהותית לכך שהקובץ פגום</p>"
 
 #: ImportExport/ImportDialog.cpp:121
 #, kde-format
@@ -2784,12 +2797,14 @@ msgstr "הצגת מידע על מטמון התמונות הממוזערות."
 msgctxt "@info:shell"
 msgid "Convert thumbnailindex to format suitable for KPhotoAlbum >= 4.3."
 msgstr ""
+"להמיר את thumbnailindex (מפתח תמונות ממוזערות) לתסדיר שמתאים ל־KPhotoAlbum "
+">= 4.3."
 
 #: kpa-thumbnailtool/main.cpp:75
 #, kde-format
 msgctxt "@info:shell"
 msgid "Check thumbnail cache for consistency of thumbnail dimensions."
-msgstr ""
+msgstr "לבדוק האם ממדי התמונות הממוזערות עקביים במטמון התמונות הממוזערות."
 
 #: kpa-thumbnailtool/main.cpp:77
 #, kde-format
@@ -2803,7 +2818,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:shell"
 msgid "Remove unreferenced thumbnails from the thumbnail data files."
-msgstr ""
+msgstr "הסרת תמונות ממוזערות שאין אליהן הפניות מקובצי נתוני תמונות ממוזערות."
 
 #: kpa-thumbnailtool/main.cpp:81
 #, kde-format
@@ -3007,6 +3022,8 @@ msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
 "problem run Maintenance->Recreate Exif Search database.</p>"
 msgstr ""
+"<p>מסד נתוני חיפוש ה־Exif פגום ואין בו נתונים.</p> <p>כדי לתקן את הבעיה "
+"הזאת, יש להריץ את תחזוקה->יצירת מסד נתוני חיפוש Exif מחדש.</p>"
 
 #: main.cpp:84
 #, kde-format
@@ -4676,6 +4693,8 @@ msgid ""
 "<p>Can't change the name of category \"%1\" to \"%2\":</p><p>A category with "
 "this name already exists.</p>"
 msgstr ""
+"<p>אי אפשר לשנות את שם הקטגוריה מהשם „%1” לשם „%2”:</p><p>כבר קיימת קטגוריה "
+"בשם הזה.</p>"
 
 #: Settings/CategoryPage.cpp:292
 #, kde-format
@@ -5579,6 +5598,8 @@ msgid ""
 "<p>Checking this option will show the base name for the file under "
 "thumbnails in the thumbnail view.</p>"
 msgstr ""
+"<p>סימון האפשרות הזאת יציג את שם הבסיס של הקובץ תחת התמונות הממוזערות בתצוגת "
+"התמונות הממוזערות.</p>"
 
 #: Settings/ThumbnailsPage.cpp:131
 #, kde-format
@@ -5586,6 +5607,8 @@ msgid ""
 "<p>Checking this option will show the Categories for the file under "
 "thumbnails in the thumbnail view</p>"
 msgstr ""
+"<p>סימון האפשרות הזאת יציג את הקטגוריות של הקובץ תחת התמונות הממוזערות "
+"בתצוגת התמונות הממוזערות</p>"
 
 #: Settings/ThumbnailsPage.cpp:135
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-01-22 12:01+0200\n"
+"PO-Revision-Date: 2025-01-24 09:27+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1371,6 +1371,11 @@ msgid ""
 "p><p>In some cases, you may get two additional empty categories, \"Folder\" "
 "and \"Media Type\". You can delete those.</p>"
 msgstr ""
+"<p><b>הגרסה הזאת של KPhotoAlbum לא מתרגמת יותר קטגוריות „רגילות”.</b></"
+"p><p>כלומר – בשימוש בשפה שאינה אנגלית - חלק מהקטגוריות שלך תופענה מעתה "
+"באנגלית.</p><p>אפשר לשנות את שמות הקטגוריות שלך ידנית בכל עת ואז לשמור את "
+"מסד הנתונים שלך.</p><p>בחלק מהמקרים עשויות להתקבל שתי קטגוריות ריקות נוספות, "
+"„Folder” (תיקייה) ו־„Media Type” (סוג אחסון), אפשר למחוק אותן.</p>"
 
 #: DB/XML/FileReader.cpp:264
 #, kde-format
@@ -3268,10 +3273,13 @@ msgid ""
 msgid_plural ""
 "Selected %1 items will be removed from the database.<br/>What do you want to "
 "do with the files on disk?"
-msgstr[0] ""
+msgstr[0] "הפריט הנבחר יוסר ממסד הנתונים.<br/>מה לעשות עם הקובץ בכונן?"
 msgstr[1] ""
+"שני הפריטים הנבחרים יוסרו ממסד הנתונים.<br/>מה לעשות עם הקבצים בכונן?"
 msgstr[2] ""
+"%1 הפריטים הנבחרים יוסרו ממסד הנתונים.<br/>מה לעשות עם הקבצים בכונן?"
 msgstr[3] ""
+"%1 הפריטים הנבחרים יוסרו ממסד הנתונים.<br/>מה לעשות עם הקבצים בכונן?"
 
 #: MainWindow/DeleteDialog.cpp:71
 #, kde-format
@@ -3405,6 +3413,8 @@ msgid ""
 "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
 "features KPhotoAlbum has, and their status:</p>%1"
 msgstr ""
+"<h1>סקירה</h1><p>להלן רשימת יכולות מההידור וההרצה שיש ל־KPhotoAlbum והמצב "
+"שלהן:</p>%1"
 
 #: MainWindow/FeatureDialog.cpp:48
 #, kde-format
@@ -4173,7 +4183,7 @@ msgstr "מיזוג כפילויות"
 #: MainWindow/Window.cpp:995 MainWindow/Window.cpp:1049
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "רענון התמונות הממוזערות וסיכומי הביקורת הנבחרים"
+msgstr "ריענון התמונות הממוזערות וסיכומי הביקורת הנבחרים"
 
 #: MainWindow/Window.cpp:999
 #, kde-format
@@ -5061,6 +5071,10 @@ msgid ""
 "media, choose the slowest media type used.</p><p>Use Manual Settings to "
 "configure details of how the loading is performed.</p>"
 msgstr ""
+"<p>כיוון טעינת התמונה למיטוב הביצועים על סמך סוג אחסון בו נמצא מסד נתוני "
+"התמונות. אם מסד נתוני התמונות שלך פרוס על פני מגוון סוגי אחסון, יש לבחור את "
+"הסוג האיטי ביותר.</p><p>הגדרות ידניות תאפשרנה לך להגדיר פרטים על אופן ביצוע "
+"הטעינה.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:205
 #, kde-format
@@ -5075,6 +5089,10 @@ msgid ""
 "slow, this degrades performance as the checksum calculation has to wait "
 "longer for the images to be preloaded.</p>"
 msgstr ""
+"<p>חישוב סיכומי ביקורת MD5 בזמן קדם הטעינה של התמונות.  זה עובד היטב אם "
+"האחסון עובד ממש מהיר, כמו למשל בכונני NVMe.  אם האחסון איטי, הוא יפגע "
+"בביצועים כיוון שחישוב סיכום הביקורת ייאלץ להמתין זמן רב יותר לקדם הטעינה של "
+"התמונה.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:216
 #, kde-format
@@ -5102,6 +5120,9 @@ msgid ""
 "thumbnails.  Normally this should be set to 1; the exception might be if you "
 "have very fast storage.</p>"
 msgstr ""
+"<p>מספר התהליכונים לשימוש לקדם טעינה של תמונות בטרם בניית התמונות "
+"הממוזערות.  בדרך כלל זה אמור להיות מוגדר ל־1, היוצא מהכלל הוא מקרה שבו יש לך "
+"אחסון מהיר מאוד.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:244
 #, kde-format

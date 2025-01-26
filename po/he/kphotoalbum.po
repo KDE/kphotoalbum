@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-01-24 09:27+0200\n"
+"PO-Revision-Date: 2025-01-25 16:14+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1271,6 +1271,8 @@ msgid ""
 "of images, this may take some time.<br/>However, there is only a delay when "
 "new images are found.</p>"
 msgstr ""
+"<p><b>טעינת מידע מקבצים חדשים</b></p><p>כתלות במספר התמונות, הפעולה הזאת "
+"עלולה לארוך זמן מה.<br/>עם זאת, התהליך יתעכב רק כשנמצאות תמונות חדשות.</p>"
 
 #: DB/NewImageFinder.cpp:702
 #, kde-format
@@ -1287,6 +1289,8 @@ msgid ""
 "<p>By storing a checksum for each image KPhotoAlbum is capable of finding "
 "images even when you have moved them on the disk.</p>"
 msgstr ""
+"<p>אחסון סיכום ביקורת לכל אחת מהתמונות מאפשר ל־KPhotoAlbum למצוא תמונות "
+"אפילו לאחר שהועברו למקום אחר בכונן.</p>"
 
 #: DB/NewImageFinder.cpp:747
 #, kde-format
@@ -1324,6 +1328,9 @@ msgid ""
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
+"<p>קובץ מסד הנתונים ב־XML הוא מגרסה חדשה יותר של KPhotoAlbum!</p><p>כנראה "
+"שיתאפשר לך לקרוא את הקובץ הזה, אבל הכתיבה אליו חזרה, המידע שנשמר בגרסה החדשה "
+"יותר ילך לאיבוד</p>"
 
 #: DB/XML/FileReader.cpp:60
 #, kde-format
@@ -1434,6 +1441,8 @@ msgid ""
 "now contain tags that were merged during the repair.</p><p>The following "
 "tags require manual inspection:<ul>"
 msgstr ""
+"<p>נמצאו ותוקנו מספר תקלות אחידות במסד הנתונים שלך. חלק מהקטגוריות מכילות "
+"מעתה תגיות שמוזגו במהלך התיקון.</p><p>התגיות הבאות דורשות בחינה ידנית:<ul>"
 
 #: DB/XML/FileReader.cpp:485
 #, kde-format
@@ -1562,6 +1571,8 @@ msgid ""
 "<p>Failed to remove old version of image database.</p><p>Please try again or "
 "replace the file %1 with file %2 manually!</p>"
 msgstr ""
+"<p>הסרת גרסה ישנה של מסד נתוני התמונות נכשלה.</p><p>נא לנסות שוב או להחליף "
+"את הקובץ %1 בקובץ %2 ידנית!</p>"
 
 #: DB/XML/FileWriter.cpp:123
 #, kde-format
@@ -4183,7 +4194,7 @@ msgstr "מיזוג כפילויות"
 #: MainWindow/Window.cpp:995 MainWindow/Window.cpp:1049
 #, kde-format
 msgid "Refresh Selected Thumbnails and Checksums"
-msgstr "ריענון התמונות הממוזערות וסיכומי הביקורת הנבחרים"
+msgstr "רענון התמונות הממוזערות וסיכומי הביקורת הנבחרים"
 
 #: MainWindow/Window.cpp:999
 #, kde-format

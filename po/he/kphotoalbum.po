@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-01-25 16:14+0200\n"
+"PO-Revision-Date: 2025-01-27 08:29+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -530,6 +530,9 @@ msgid ""
 "Untagged Images</interface>). It will not show up here as long as it is "
 "selected for this purpose."
 msgstr ""
+"התגית שבחרת היא התגית שמוגדרת אוטומטית לתמונות חדשות, בלתי מתויגות שנמצאו "
+"(להשוואה: <interface>הגדרות|הגדרת KPhotoAlbum…|קטגוריות|תמונות לא מתויגות</"
+"interface>). היא לא תופיע כאן כל עוד היא נבחרה למטרה הזאת."
 
 #: AnnotationDialog/ListSelect.cpp:359
 #, kde-format
@@ -627,6 +630,8 @@ msgid ""
 "<p>Do you really want to rename \"%1\" to \"%2\"?<br/>Doing so will rename "
 "\"%3\" on any image containing it.</p>"
 msgstr ""
+"<p>לשנות את השם של „%1” לשם „%2”?<br/>ביצוע הפעולה הזאת ישנה את השם של „%3” "
+"בכל תמונה שמכילה אותו.</p>"
 
 #: AnnotationDialog/ListSelect.cpp:473
 #, kde-format
@@ -700,6 +705,8 @@ msgid ""
 "<p>%1 has already been tagged in another area on this image.</p><p>If you "
 "continue, the previous tag will be removed...</p>"
 msgstr ""
+"<p>%1 כבר תויגה באזור אחר בתמונה הזאת.</p><p>המשך בתהליך יסיר את התגית "
+"הקודמת…</p>"
 
 #: AnnotationDialog/ResizableFrame.cpp:360
 #, kde-format

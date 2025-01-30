@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-01-27 08:29+0200\n"
+"PO-Revision-Date: 2025-01-27 13:10+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -403,13 +403,17 @@ msgid "Toggle fullscreen preview"
 msgstr "החלפת מצב תצוגה מקדימה במסך מלא"
 
 #: AnnotationDialog/ImagePreview.cpp:514
-#, kde-format
+#, fuzzy, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
 "\"%2\" belongs to is not positionable.</p><p>If you want to use this tag, "
 "change this in the settings dialog. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings.</p>"
 msgstr ""
+"<p><b>לא ניתן לשייך את התגית „%2”</b></p><p>הקטגוריה „%1” אליה שייכת התגית "
+"„%2” אינה positionable.</p><p>If you want to use this tag, change this in "
+"the settings dialog. If this tag shouldn't be in the recognition database "
+"anymore, it can be deleted in the settings.</p>"
 
 #: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-01-27 13:10+0200\n"
+"PO-Revision-Date: 2025-01-31 14:12+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -1037,6 +1037,11 @@ msgid ""
 "selection: Click/drag below the timeline.</item><item>Jump to a date by "
 "clicking on the histogram bar.</item></list></para>"
 msgstr ""
+"<title>סרגל התאריכים</title><para><list><item>אפשר לגלול בעזרת מקשי החיצים, "
+"גלגלת העכבר, או הכפתור האמצעי בעכבר.</item><item>להתקרב באמצעות המקשים +/- "
+"או Ctrl + גלגלת העכבר.</item><item>להגביל את התצוגה לטווח תאריכים נבחר: "
+"Click/גרירה מתחת לציר הזמן.</item><item>אפשר לקפוץ לתאריך על ידי לחיצה על "
+"סרגל ההיסטוגרמה.</item></list></para>"
 
 #: DateBar/DateBarWidget.cpp:691
 #, kde-format
@@ -1591,6 +1596,8 @@ msgid ""
 "<p>Failed to move temporary XML file to permanent location.</p><p>Please try "
 "again or rename file %1 to %2 manually!</p>"
 msgstr ""
+"<p>העברת קובץ XML למקום זמני נכשלה.</p><p>נא לנסות שוב או לשנות את שם הקובץ "
+"%1 לשם %2 ידנית!</p>"
 
 #: DB/XML/NumberedBackup.cpp:43
 #, kde-format
@@ -1806,6 +1813,8 @@ msgid ""
 "<p>Be aware that setting the data from Exif may <b>overwrite</b> data you "
 "have previously entered manually using the image configuration dialog.</p>"
 msgstr ""
+"<p>נא לשים לב שהגדרת הנתונים מ־Exif עלול <b>לשכתב</b> נתונים שמילאת בעבר "
+"בעזרת חלונית הגדרות התמונה.</p>"
 
 #: Exif/ReReadDialog.cpp:127
 #, kde-format
@@ -3486,6 +3495,9 @@ msgid ""
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
+"<h1><a name=\"geomap\">תצוגת מפה לתמונות עם תיוג גאוגרפי</a></h1><p>אם "
+"KPhotoAlbum נבנה עם תמיכה ב־Marble,‏ KPhotoAlbum יוכל להציג תמונות עם פרטי "
+"GPS (נווטן) במפה.</p>"
 
 #: MainWindow/FeatureDialog.cpp:75
 #, kde-format
@@ -4924,6 +4936,11 @@ msgid ""
 "undesirable. If this option is checked, KPhotoAlbum will not read RAW files "
 "for which matching image files also exist.</p>"
 msgstr ""
+"<p>KPhotoAlbum יכול לקרוא סוגים מסוימים של תמונות גולמיות/RAW. חלק מהמצלמות "
+"יכולות לאחסן תמונה גולמית וגם תמונת JPG או TIFF תואמת. המצב הזה גורם לאחסון "
+"של תמונות כפולות ב־KPhotoAlbum, שזאת כפי הנראה לא רצוי. אם האפשרות הזאת "
+"מסומנת, KPhotoAlbum לא יקרא קבצים גולמיים שעבורם קיימים קובצי תמונות תואמים."
+"</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:83
 #, kde-format
@@ -5004,6 +5021,8 @@ msgid ""
 "<p>The tagging is moved from the original file to the new file. This way "
 "only the latest version of an image is tagged.</p>"
 msgstr ""
+"<p>התיוג מועבר מהקובץ המקורי לקובץ החדש. כך רק הגרסה העדכנית ביותר של התמונה "
+"מתויגת.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:143
 #, kde-format
@@ -5265,6 +5284,10 @@ msgid ""
 "uncheck this check box.</p><p>Note: Your digital camera may not write this "
 "information into the images at all.</p>"
 msgstr ""
+"<p>תמונות JPEG עשויות להכיל מידע על זווית הצילום ביחס לאופק. אם יש לך סיבה "
+"לא להשתמש במיגע הזה כדי לקבל הטייה לתמונות שלך כברירת מחדל, יש לבטל את "
+"הסימון הזה.</p><p>לתשומת ליבך: יכול להיות שהמצלמה הדיגיטלית שלך בכלל לא "
+"יכולה לכתוב את הפרטים האלה לתמונות.</p>"
 
 #: Settings/GeneralPage.cpp:154
 #, kde-format
@@ -5739,6 +5762,10 @@ msgid ""
 "ends. If you on the other hand got KPhotoAlbum from your system, then please "
 "talk to the maintainer of the package.</html>"
 msgstr ""
+"<html><h1>חסר מנגנון</h1>המנגנונים חסרים עקב הגדרות המערכת שחלו בזמן ההידור "
+"של KPhotoAlbum. אם הידרת את KPhotoAlbum בעצמך, יש לחפש בחבילות המפתחים אחר "
+"מנגנונים. אם קיבלת את KPhotoAlbum מהמערכת שלך, נא לדבר עם מתחזקי החבילה.</"
+"html>"
 
 #: Settings/VideoPlayerSelectorDialog.cpp:142
 #, kde-format

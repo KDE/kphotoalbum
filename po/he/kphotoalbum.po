@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-01-31 14:12+0200\n"
+"PO-Revision-Date: 2025-02-01 09:27+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -3238,18 +3238,18 @@ msgstr "אפשרויות ערימה אוטומטית"
 #: MainWindow/AutoStackImages.cpp:94
 #, kde-format
 msgid "Include matching image to appropriate stack (if one exists)"
-msgstr "לכלול תמונה תואמת בערימה מתאימה (אם יש)"
+msgstr "לכלול תמונה תואמת בערמה מתאימה (אם יש)"
 
 #: MainWindow/AutoStackImages.cpp:98
 #, kde-format
 msgid ""
 "Unstack images from their current stack and create new one for the matches"
-msgstr "הפרדת תמונות מהערימה הנוכחית שלן וליצור ערימה חדשה להתאמות"
+msgstr "הפרדת תמונות מהערמה הנוכחית שלן וליצור ערמה חדשה להתאמות"
 
 #: MainWindow/AutoStackImages.cpp:102
 #, kde-format
 msgid "Skip images that are already in a stack"
-msgstr "דילוג על תמונות שהן כבר בערימה"
+msgstr "דילוג על תמונות שהן כבר בערמה"
 
 #: MainWindow/CategoryImagePopup.cpp:49
 #, kde-format
@@ -3974,6 +3974,8 @@ msgid ""
 "Some of the selected images already belong to a stack. Do you want to remove "
 "them from their stacks and create a completely new one?"
 msgstr ""
+"חלק מהתמונות הנבחרות כבר שייכות לערמות. להסיר אותן מהערמות שלהן וליצור ערמה "
+"חדשה?"
 
 #: MainWindow/Window.cpp:403
 #, kde-format
@@ -3984,7 +3986,7 @@ msgstr "בעיית ערימה"
 #: MainWindow/Window.cpp:413
 #, kde-format
 msgid "Unknown error, stack creation failed."
-msgstr "שגיאה לא ידועה, יצירת הערימה בוטלה."
+msgstr "שגיאה לא ידועה, יצירת הערמה בוטלה."
 
 #: MainWindow/Window.cpp:414
 #, kde-format
@@ -4072,17 +4074,17 @@ msgstr "הוספת הסברים על מספר פריטים יחד"
 #: MainWindow/Window.cpp:830
 #, kde-format
 msgid "Merge Images into a Stack"
-msgstr "מיזוג תמונות לערימה"
+msgstr "מיזוג תמונות לערמה"
 
 #: MainWindow/Window.cpp:834
 #, kde-format
 msgid "Remove Images from Stack"
-msgstr "הסרת תמונות מערימה"
+msgstr "הסרת תמונות מערמה"
 
 #: MainWindow/Window.cpp:837
 #, kde-format
 msgid "Set as First Image in Stack"
-msgstr "הגדרה כתמונה הראשונה בערימה"
+msgstr "הגדרה כתמונה הראשונה בערמה"
 
 #: MainWindow/Window.cpp:850
 #, kde-format
@@ -4107,12 +4109,12 @@ msgstr "הרצת מצגת אקראית"
 #: MainWindow/Window.cpp:867
 #, kde-format
 msgid "Collapse all stacks"
-msgstr "צמצום כל הערימות"
+msgstr "צמצום כל הערמות"
 
 #: MainWindow/Window.cpp:873
 #, kde-format
 msgid "Expand all stacks"
-msgstr "הרחבת כל הערימות"
+msgstr "הרחבת כל הערמות"
 
 #: MainWindow/Window.cpp:878
 #, kde-format
@@ -5032,7 +5034,7 @@ msgid ""
 "stack is in collapsed state - the default state in KPhotoAlbum.</p>"
 msgstr ""
 "<p>אם האפשרות הזאת מוגדרת, גרסאות חדשות של התמונה נערמות אוטומטית ומוצבות "
-"בראש הערימה. כך התמונה החדשה מופיעה כשהערימה במצב אסוף - מצב ברירת המחדל ב־"
+"בראש הערמה. כך התמונה החדשה מופיעה כשהערמה במצב אסוף - מצב ברירת המחדל ב־"
 "KPhotoAlbum.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:151
@@ -5313,6 +5315,11 @@ msgid ""
 "automatically on start up. Alternatively, you can click the connection icon "
 "in the status bar to start listening."
 msgstr ""
+"<p>KPhotoAlbum יכול להציג את התמונות שלך מהתקני Android. KPhotoAlbum יבצע "
+"צימוד מול היישומון מ־Android. המצב הזה, עם זאת, דורש ש־KPhotoAlbum בשולחן "
+"העבודה שלך מאזין להודעות בהפצה מוגבלת (multicast). סימון התיבה הזאת יגרום ל־"
+"KPhotoAlbum לעשות את זה אוטומטית עם עליית היישום. לחלופין, ניתן ללחוץ על סמל "
+"החיבור בסרגל המשימות כדי להתחיל להאזין."
 
 #: Settings/GeneralPage.cpp:170
 #, kde-format
@@ -6331,7 +6338,7 @@ msgstr "הקצאות נוכחיות"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Set as First Image in Stack"
-msgstr "הגדרה כתמונה הראשונה בערימה"
+msgstr "הגדרה כתמונה הראשונה בערמה"
 
 #: Viewer/ViewerWidget.cpp:203
 #, kde-format

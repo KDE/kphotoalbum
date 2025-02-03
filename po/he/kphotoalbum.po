@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-02-01 09:27+0200\n"
+"PO-Revision-Date: 2025-02-02 08:06+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -4555,6 +4555,11 @@ msgid ""
 "android device's address.\n"
 "The android client can be downloaded from google play."
 msgstr ""
+"הסמל הזה מציין האם KPhotoAlbum מחובר להתקן Android.\n"
+"לחיצה על הסמל תחליף את מצב ההאזנה ללקוחות ברשת המקומית.\n"
+"אם הרשת המקומית לא מרשה שידורים כלליים (broadcast) בין לקוח ה־Android לבין "
+"KPhotoAlbum, יש ללחוץ על הסמל עם המקש הימני ולציין את כתובת התקן ה־Android.\n"
+"אפשר להוריד את הלקוח ל־Android מ־Google Play."
 
 #: RemoteControl/ConnectionIndicator.cpp:90
 #, kde-format
@@ -4727,6 +4732,8 @@ msgid ""
 "special category name which is reserved and can't be used for a normal "
 "category.</p>"
 msgstr ""
+"<p>אי אפשר לשנות את שם הקטגוריה „%1” לשם „%2”:</p><p>„%2” הוא שם קטגוריה "
+"שמור מיוחד שלא ניתן להשתמש בו כשם לקטגוריה רגילה.</p>"
 
 #: Settings/CategoryPage.cpp:267 Settings/CategoryPage.cpp:278
 #, kde-format
@@ -4749,6 +4756,8 @@ msgid ""
 "pending rename action on the category \"%2\". Please save this change first."
 "</p>"
 msgstr ""
+"<p>אי אפשר לשנות את שם הקטגוריה „%1” לשם „%2”:</p><p>יש פעולת שינוי שינוי שם "
+"ממתינה עבור הקטגוריה „%2”. נא לשמור את השינוי הזה תחילה.</p>"
 
 #: Settings/CategoryPage.cpp:296
 #, kde-format
@@ -4839,6 +4848,10 @@ msgid ""
 "time to approximately half, by checking this check box. The disadvantage is "
 "that the XML database file is less readable by human eyes.</p>"
 msgstr ""
+"<p>KPhotoAlbum משתמש בקובץ XML יחיד בתור <i>מסד הנתונים</i> שלו. כשיש הרבה "
+"תמונות עלול לקחת הרבה זמן לקרוא את הקובץ הזה. אפשר לחתוך את הזמן הזה בערך "
+"בחצי, על ידי סימון התיבה הזאת. החיסרון בזה הוא שקובץ מסד הנתונים ב־XML יהיה "
+"פחות קריא לבני אדם.</p>"
 
 #: Settings/ExifPage.cpp:37
 #, kde-format
@@ -4995,6 +5008,11 @@ msgid ""
 "associated metadata (category information, ratings, etc) will be copied or "
 "moved from the original file to the new one.</p>"
 msgstr ""
+"<p>כש־KPhotoAlbum מחפש אחר קבצים חדשים ומוצא קבצים שתואמים ל<i>ביטוי הרגולרי "
+"לחיפוש קבצים שהשתנו</i> הוא מניח שיש גרסה מקורית של התמונה. תבנית הביטוי "
+"הרגולרי תוחלף ב<i>טקסט חלופת הקובץ המקורי</i> ואם הקובץ הזה קיים, כל נתוני "
+"העל המשויכים לו (פרטי קטגוריה, דירוגים וכו׳) יועתקו או יועברו מהקובץ המקורי "
+"לקובץ החדש.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:123
 #, kde-format

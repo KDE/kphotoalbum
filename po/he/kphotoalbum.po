@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-02-02 08:06+0200\n"
+"PO-Revision-Date: 2025-02-03 09:45+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -5905,6 +5905,8 @@ msgid ""
 "the image. If this option is not set, KPhotoAlbum will use a faster but less "
 "smooth scaling method.</p>"
 msgstr ""
+"<p>בעת הצגת תמונות, KPhotoAlbum בדרך כלל מבצע שינוי קנה מידה חלק של התמונה. "
+"אם האפשרות הזאת לא מוגדרת, KPhotoAlbum ישתמש בשיטת שינוי קנה פחות חלקה.</p>"
 
 #: Settings/ViewerPage.cpp:99
 #, kde-format
@@ -5975,6 +5977,11 @@ msgid ""
 "have valid timestamps, you should use <b>Maintenance -&gt; Sort All By Date "
 "and Time</b> or <b>View -&gt; Sort Selected By Date and Time</b>.</p>"
 msgstr ""
+"<p><b>באמת לסדר תמונות ממוזערות מחדש?</b></p><p>גרירת התמונות ברחבי מציג "
+"התמונות הממוזערות מסדרת אותן בפועל. שימושי למצבים בהם התאריך המדויק של "
+"התמונה לא ידוע. מצד שני, אם לתמונות יש חותמות זמן תקפות, יש להשתמש "
+"ב<b>תחזוקה -&gt; סידור הכול לפי תאריך ושעה</b> או <b>תצוגה -&gt; סידור "
+"הנבחרים לפי תאריך ושעה</b>.</p>"
 
 #: ThumbnailView/ThumbnailDND.cpp:100
 #, kde-format

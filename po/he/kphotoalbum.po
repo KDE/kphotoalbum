@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-02-03 09:45+0200\n"
+"PO-Revision-Date: 2025-02-04 08:26+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -5347,6 +5347,9 @@ msgid ""
 "want to ignore in the input field, one per line. Be sure to add the exact "
 "comment, including all whitespace.</p>"
 msgstr ""
+"<p>חלק מהתמונות מאחסנות הערות כלליות בכל תמונה ותמונה. אפשר להתעלם מההערות "
+"האלה אוטומטית.</p><p>נא למלא את ההערות להתעלמות בשדה הקלט, כל הערה בשורה "
+"נפרדת. נא לוודא שציינת את ההערה בצורה מדויקת, כולל כל הרווחים.</p>"
 
 #: Settings/SettingsDialog.cpp:47
 #, kde-format
@@ -5484,6 +5487,9 @@ msgid ""
 "will be moved to the super category of \"%1\" (\"%2\").<nl/> All other "
 "memberships of the sub-categories will stay intact.</para>"
 msgstr ""
+"<para>באמת למחוק את הקבוצה „%1”?</para><para>תת־קטגוריות של הקבוצה הזאת "
+"יועברו לקטגוריית העל של „%1” („%2”).<nl/> כל שאר החברויות תחת תת־הקטגוריות "
+"האלו תישאר כמו שהן.</para>"
 
 #: Settings/TagGroupsPage.cpp:516
 #, kde-kuit-format
@@ -5649,6 +5655,8 @@ msgid ""
 "<p>Thumbnail image size. Changing the thumbnail size here triggers a rebuild "
 "of the thumbnail database.</p>"
 msgstr ""
+"<p>גודל התמונות הממוזערות. שינוי גודל התמונות הממוזערות כאן יזניק בנייה מחדש "
+"של מסד נתוני התמונות הממוזערות.</p>"
 
 #: Settings/ThumbnailsPage.cpp:108
 #, kde-format
@@ -5662,6 +5670,12 @@ msgid ""
 "immediately build thumbnails for them and you won't have a delay later while "
 "browsing.</p>"
 msgstr ""
+"<p>אם זה מוגדר, תמונות ממוזערות תיבננה לפי דרישה. תוך עיון במסד נתוני "
+"התמונות שלך, רק התמונות הממוזערות הנחוצות נבנות. משמעות הדבר היא שלאחר שינוי "
+"גודל התמונה הממוזערת, KPhotoAlbum יוכל להמשיך להגיב אפילו אם יש לך תמונות "
+"רבות.</p><p>אם זה לא מוגדר, KPhotoAlbum תמיד יבנה את התמונות הממוזערות כמה "
+"שיותר מוקדם. משמעות הדבר היא שברגע שתמונות חדשות נמצאות, KPhotoAlbum יבנה "
+"מיידית את התמונות הממוזערות עבורן ולא יהיה אף עיכוב לאחר מכן בזמן העיון.</p>"
 
 #: Settings/ThumbnailsPage.cpp:117
 #, kde-format
@@ -5882,6 +5896,11 @@ msgid ""
 "pixel if it would fit the window, otherwise it will be shrunk to fit the "
 "viewer.</p>"
 msgstr ""
+"<p>הגדרת הגודל התקני לתמונות להופעה במציג.</p> <p><b>גודל מציג מלא</b> מציין "
+"שהתמונה תימתח או תתכווץ כך שתמלא את חלון המציג.</p> <p><b>גודל התמונה הרגיל</"
+"b> מציין שהתמונה תוצג במלוא ייצוג הפיקסלים שלה.</p> <p><b>גודל התמונה הרגיל "
+"אם ניתן</b> מציין שהתמונה תוצג במלוא ייצוג הפיקסלים שלה אם גודל החלון מתאים "
+"מתאים לכך, אם לא אז היא תכווץ כדי שתופיע בחלון במלואה.</p>"
 
 #: Settings/ViewerPage.cpp:87
 #, kde-format

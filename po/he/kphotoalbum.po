@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-02-04 08:26+0200\n"
+"PO-Revision-Date: 2025-02-05 09:58+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -5034,6 +5034,9 @@ msgid ""
 "string is used to replace the match in the new file's name until an original "
 "file is found or we run out of options.</p>"
 msgstr ""
+"<p>מחרוזת שמשמשת להחליף את התוצאה מ<i>הביטוי הרגולרי לגרסאות קבצים</i>. יכול "
+"להיות רשימה עם נקודה־פסיק (<tt>;</tt>) בין הפריטים. כל מחרוזת משמשת להחליף "
+"את התוצאה בשם הקובץ החדש עד שנמצא קובץ מקורי או שייגמרו האפשרויות.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:139
 #, kde-format

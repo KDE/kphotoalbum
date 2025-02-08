@@ -1,13 +1,13 @@
 # Copyright (C) 2024 This file is copyright:
 # This file is distributed under the same license as the kphotoalbum package.
 #
-# SPDX-FileCopyrightText: 2024 Yaron Shahrabani <sh.yaron@gmail.com>
+# SPDX-FileCopyrightText: 2024, 2025 Yaron Shahrabani <sh.yaron@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-02-05 09:58+0200\n"
+"PO-Revision-Date: 2025-02-07 09:57+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -1443,6 +1443,12 @@ msgid ""
 "doing so will result in extra space around images in the thumbnail view - "
 "that is all - so there is no urgency in doing it.</p>"
 msgstr ""
+"<p>לא לכל התמונות במסד הנתונים יש פרטים על גודלי התמונות, הפרטים האלו נחוצים "
+"כדי לקבל את התוצאות המיטביות בתצוגת התמונות הממוזערות. כדי לתקן זאת יש לגשת "
+"אל התפריט <b>תחזוקה</b> ואז קודם לבחור ב<b>הסרת כל התמונות הממוזערות</b>, "
+"ולאחר מכן לבחור ב<tt>בניית תמונות ממוזערות</tt>.</p><p>אי ביצוע הפעולה הזאת "
+"יוביל לרווח מסביב לתמונות בתצוגת התמונות הממוזערות - זה הכול - לכן זאת לא "
+"פעולה הרת גורל במיוחד.</p>"
 
 #: DB/XML/FileReader.cpp:461
 #, kde-format
@@ -2300,6 +2306,11 @@ msgid ""
 "(You might need to wait till the video extraction led in your status bar has "
 "stopped blinking, to see all affected videos.)"
 msgstr ""
+"לא ניתן לחלץ סרטון ממוזער מחלק מהקבצים. או שהקובץ פגום באופן כלשהו, או "
+"שהסרטון קצר במיוחד. לנוחותך, לסרטונים האלו הוצמד האסימון ‚%1’.\n"
+"\n"
+"(כנראה שעליך לחכות עד להפסקת הבהוב נורית חילוץ הסרטונים בשורת המצב שלך כדי "
+"לצפות בכל הסרטונים שזה השפיע עליהם.)"
 
 #: ImageManager/ThumbnailBuilder.cpp:103
 #, kde-format
@@ -2404,6 +2415,9 @@ msgid ""
 "will of course also make the quality worse if someone wants to see the "
 "exported images with larger dimensions.</p>"
 msgstr ""
+"<p>עם האפשרות הזאת אפשר להגביל את הממדים המרביים (רוחב וגובה) של התמונות "
+"שלך. הגדרת הערך הזה תוביל להקטנת הקובץ המיוצא, אבל תפחית מהאיכות, באופן "
+"טבעי, במקרה של הצגת התמונות בגדול.</p>"
 
 #: ImportExport/Export.cpp:163
 #, kde-format
@@ -2464,6 +2478,14 @@ msgid ""
 "that it is a KPhotoAlbum file when clicking on the link, otherwise the web "
 "server will just tell konqueror that it is a plain text file.</p>"
 msgstr ""
+"<p>משתמשים אחרים של KPhotoAlbum יכולים מעתה לטעון את קובץ הייבוא למסד "
+"הנתונים על ידי בחירה ב<b>ייבוא</b> בתפריט קובץ.</p><p>אם הם מוצאים אותו "
+"והשרת מוגדר כראוי, כל שעליהם לעשות זה ללחוץ עליו ב־Konqueror. כדי להפעיל את "
+"האפשרות הזאת, יש להגדיר את השרת שלך ב־KPhotoAlbum. אפשר לעשות זאת על ידי "
+"הוספת השורה הבאה ל־<b>/etc/httpd/mime.types</b> או כל קובץ דומה:"
+"<pre>application/vnd.kde.kphotoalbum-import kim</pre>ההגדרה הזאת תגרום לשרת "
+"שלך להנחות את Konqueror שזה קובץ של KPhotoAlbum עם לחיצה על הקישור, אחרת "
+"השרת ינחה את Konqueror שזה קובץ טקסט רגיל.</p>"
 
 #: ImportExport/Export.cpp:412
 #, kde-format
@@ -4918,6 +4940,9 @@ msgid ""
 "manually tell KPhotoAlbum to search for new images using <b>Maintenance-"
 ">Rescan for new images</b></p>"
 msgstr ""
+"<p>KPhotoAlbum יכול לחפש תמונות וסרטונים חדשים עם הפעלתו, הפעולה הזאת עלולה "
+"לארוך זמן מה, לכן, כדאי במקום לבקש מ־KPhotoAlbum לחיפוש פריטים חדשים ידנית "
+"דרך <b>תחזוקה->סריקה אחר תמונות חדשות מחדש</b></p>"
 
 #: Settings/FileVersionDetectionPage.cpp:66
 #, kde-format

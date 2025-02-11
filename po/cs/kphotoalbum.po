@@ -3637,10 +3637,9 @@ msgid "Application rc file."
 msgstr ""
 
 #: MainWindow/Options.cpp:32
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "kphotoalbumrc"
-msgstr "KPhotoAlbum"
+msgstr ""
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -4769,16 +4768,14 @@ msgid "<i>Choose a category to edit it</i>"
 msgstr ""
 
 #: Settings/DatabaseBackendPage.cpp:23
-#, fuzzy, kde-format
-#| msgid "Choose speed over readability for index.xml file"
+#, kde-format
 msgid "Choose speed over readability for the XML database file"
-msgstr "Upřednostnit rychlost před čitelností pro soubor index.xml"
+msgstr ""
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, fuzzy, kde-format
-#| msgid "Compress backup file"
+#, kde-format
 msgid "Compress backup files"
-msgstr "Komprimovat záložní soubor"
+msgstr ""
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -6851,15 +6848,3 @@ msgstr "Zobrazit velikosti obrázků"
 #, kde-format
 msgid "Show Rating"
 msgstr "Zobrazit hodnocení"
-
-#~ msgid "Invalid database file"
-#~ msgstr "Neplatný soubor databáze"
-
-#~ msgid "Loading Database"
-#~ msgstr "Načítám databázi"
-
-#~ msgid "Loading Main Window"
-#~ msgstr "Načítá se hlavní okno"
-
-#~ msgid "Failed to set up video playback"
-#~ msgstr "Nastavení přehrávání videa selhalo"

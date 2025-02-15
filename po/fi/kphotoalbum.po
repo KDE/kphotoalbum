@@ -3,7 +3,7 @@
 # KDE Finnish translation sprint participants:
 # Author: Artnay
 # Author: Lliehu
-# SPDX-FileCopyrightText: 2012, 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2012, 2015, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Tommi Nieminen <translator@legisign.org>
 # Teemu Rytilahti <teemu.rytilahti@kde-fi.org>, 2003, 2004.
 # Lasse Liehu <lasse.liehu@gmail.com>, 2011, 2012, 2013, 2014, 2015, 2016, 2019.
 # Risto H. Kurppa <risto@kurppa.fi>, 2012.
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2024-11-06 20:55+0200\n"
+"PO-Revision-Date: 2025-01-12 19:59+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -1374,25 +1374,20 @@ msgid "No other %1"
 msgstr "Ei toista luokkaa: %1"
 
 #: DB/XML/FileReader.cpp:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>The database file (index.xml) is from a newer version of KPhotoAlbum!</"
-#| "p><p>Chances are you will be able to read this file, but when writing it "
-#| "back, information saved in the newer version will be lost</p>"
+#, kde-format
 msgid ""
 "<p>The XML database file is from a newer version of KPhotoAlbum!</"
 "p><p>Chances are you will be able to read this file, but when writing it "
 "back, information saved in the newer version will be lost</p>"
 msgstr ""
-"<p>Tietokantatiedosto (index.xml) on uudemmasta KPhotoAlbumin versiosta!</"
-"p><p>Tiedostoa pystytään ehkä lukemaan, mutta kirjoitettaessa siihen "
-"uudemman version tietoja voidaan menettää.</p>"
+"<p>XML-tietokanta on KPhotoAlbumin uudemmasta versiosta!</p><p>Tiedostoa "
+"pystytään ehkä lukemaan, mutta kirjoitettaessa siihen uudemman version "
+"tietoja voidaan menettää.</p>"
 
 #: DB/XML/FileReader.cpp:60
-#, fuzzy, kde-format
-#| msgid "index.xml version mismatch"
+#, kde-format
 msgid "XML database file version mismatch"
-msgstr "index.xml-tiedoston versioristiriita"
+msgstr "XML-tietokannan versioristiriita"
 
 #. i18n("Folder")), and then start KPA with the C locale, which would produce a
 #. doubled "Folder" category.
@@ -4509,10 +4504,9 @@ msgid "Auto saving.... Done"
 msgstr "Tallennetaan automaattisesti….  Valmis"
 
 #: MainWindow/Window.cpp:1193
-#, fuzzy, kde-format
-#| msgid "Do you really want to erase the database?"
+#, kde-format
 msgid "<p>Do you want to create this database file?<br />%1</p>"
-msgstr "Haluatko varmasti tyhjentää tietokannan?"
+msgstr "<p>Haluatko luoda tämän tietokannan?<br />%1</p>"
 
 #: MainWindow/Window.cpp:1196
 #, kde-format
@@ -4997,16 +4991,14 @@ msgid "<i>Choose a category to edit it</i>"
 msgstr "<i>Muokkaa luokkaa valitsemalla se</i>"
 
 #: Settings/DatabaseBackendPage.cpp:23
-#, fuzzy, kde-format
-#| msgid "Choose speed over readability for index.xml file"
+#, kde-format
 msgid "Choose speed over readability for the XML database file"
-msgstr "Suosi nopeutta luettavuuden sijaan index.xml-tiedostossa"
+msgstr "Suosi XML-tietokannassa luettavuuden sijaan nopeutta"
 
 #: Settings/DatabaseBackendPage.cpp:27
-#, fuzzy, kde-format
-#| msgid "Compress backup file"
+#, kde-format
 msgid "Compress backup files"
-msgstr "Pakkaa varmuuskopiotiedosto"
+msgstr "Pakkaa varmuuskopiotiedostot"
 
 #: Settings/DatabaseBackendPage.cpp:31
 #, kde-format
@@ -5029,15 +5021,7 @@ msgid "Infinite"
 msgstr "Rajaton"
 
 #: Settings/DatabaseBackendPage.cpp:57
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum is capable of backing up the index.xml file by keeping "
-#| "copies named index.xml~1~ index.xml~2~ etc. and you can use the spinbox "
-#| "to specify the number of backup files to keep. KPhotoAlbum will delete "
-#| "the oldest backup file when it reaches the maximum number of backup files."
-#| "</p><p>The index.xml file may grow substantially if you have many images, "
-#| "and in that case it is useful to ask KPhotoAlbum to zip the backup files "
-#| "to preserve disk space.</p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum is capable of backing up the the XML database file by keeping "
 "copies (for example, for a database file named index.xml, the backups are "
@@ -5048,31 +5032,27 @@ msgid ""
 "images, and in that case it is useful to ask KPhotoAlbum to zip the backup "
 "files to preserve disk space.</p>"
 msgstr ""
-"<p>KPhotoAlbum voi varmuuskopioida index.xml-tiedoston säilyttämällä "
-"kopioita nimillä index.xml~1~, index.xml~2~ jne. Pyöräytyssäätimellä voi "
-"valita, montako kopioita säilytetään. Kun enimmäismäärä ylittyy, KPhotoAlbum "
-"poistaa vanhimman varmuuskopiotiedoston.</p><p>index.xml-tiedosto kasvaa "
-"huomattavasti, jos kuvia on paljon, jolloin KPhotoAlbumia voi pyytää "
-"pakkaamaan varmuuskopiotiedostot levytilan säästämiseksi.</p>"
+"<p>KPhotoAlbum voi varmuuskopioida XML-tietokannan säilyttämällä kopioita "
+"(esim. jos nimi on index.xml, varmuuskopiot ovat index.xml~0001~, index."
+"xml~0002~ jne.). Pyöräytyssäätimellä voi valita, montako kopioita "
+"säilytetään. Kun enimmäismäärä ylittyy, KPhotoAlbum poistaa vanhimman "
+"varmuuskopiotiedoston, kun enimmäismäärä saavutetaan.</p><p>XML-"
+"tietokantatiedosto kasvaa huomattavasti, jos kuvia on paljon, jolloin "
+"KPhotoAlbumia voi pyytää pakkaamaan varmuuskopiotiedostot levytilan "
+"säästämiseksi.</p>"
 
 #: Settings/DatabaseBackendPage.cpp:68
-#, fuzzy, kde-format
-#| msgid ""
-#| "<p>KPhotoAlbum is using a single index.xml file as its <i>data base</i>. "
-#| "With lots of images it may take a long time to read this file. You may "
-#| "cut down this time to approximately half, by checking this check box. The "
-#| "disadvantage is that the index.xml file is less readable by human eyes.</"
-#| "p>"
+#, kde-format
 msgid ""
 "<p>KPhotoAlbum is using a single XML file as its <i>data base</i>. With lots "
 "of images it may take a long time to read this file. You may cut down this "
 "time to approximately half, by checking this check box. The disadvantage is "
 "that the XML database file is less readable by human eyes.</p>"
 msgstr ""
-"<p>KPhotoAlbum käyttää tietokantanaan yhtä index.xml -tiedostoa. Ison "
-"tietokannan lukeminen voi viedä tovin, jolloin tämä valinta nopeuttaa "
-"latausta noin puoleen. Kääntöpuolena XML-tiedosto on ihmiselle "
-"vaikealukuisempi.</p>"
+"<p>KPhotoAlbum käyttää yhtä XML-tiedostoa <i>tietokantanaan</i>. Kun kuvia "
+"on paljon, tiedoston lukeminen voi kestää pitkään. Ajan voi noin puolittaa "
+"valitsemalla tämän ruudun. Haittapuolena on, ettei XML-tietokanta ole "
+"ihmissilmin luettavissa.</p>"
 
 #: Settings/ExifPage.cpp:37
 #, kde-format
@@ -6306,6 +6286,7 @@ msgid ""
 "<p>Could not locate the demo database in any of the following standard "
 "locations:</p><p>%1</p>"
 msgstr ""
+"<p>Demotietokantaa ei löydetty seuraavista vakiosijainneista:</p><p>%1</p>"
 
 #: Utilities/DescriptionUtil.cpp:54
 #, kde-format

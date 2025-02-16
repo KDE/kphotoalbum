@@ -129,6 +129,8 @@ int main(int argc, char **argv)
     parser->process(app);
     aboutData.processCommandLine(parser);
 
+    app.setWindowIcon(QIcon::fromTheme(QStringLiteral("kphotoalbum")));
+
     const QString schemePath = KSharedConfig::openConfig()->group(QLatin1String("General")).readEntry(QStringLiteral("colorScheme"), QString());
     qCDebug(MainLog) << "Loading color scheme from " << (schemePath.isEmpty() ? QStringLiteral("system default") : schemePath);
     app.setPalette(KColorScheme::createApplicationPalette(KSharedConfig::openConfig(schemePath)));

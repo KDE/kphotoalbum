@@ -1202,7 +1202,7 @@ msgstr "No s'ha pogut crear la carpeta"
 #: DB/Category.cpp:318
 #, kde-format
 msgid "Error when saving image '%1'."
-msgstr "Error mentre es guardava la imatge «%1»."
+msgstr "S'ha produït un error mentre es guardava la imatge «%1»."
 
 #: DB/Category.cpp:318
 #, kde-format
@@ -2375,7 +2375,7 @@ msgstr "S'ha produït un error de lectura"
 #: ImageManager/ExtractOneVideoFrame.cpp:105
 #, kde-format
 msgid "Write error"
-msgstr "S'ha produït un error d'escriptura"
+msgstr "S'ha produït un error mentre s'escrivia"
 
 #: ImageManager/ExtractOneVideoFrame.cpp:108
 #, kde-format

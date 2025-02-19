@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-02-16 08:15+0200\n"
+"PO-Revision-Date: 2025-02-18 08:02+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -4866,6 +4866,13 @@ msgid ""
 "images, and in that case it is useful to ask KPhotoAlbum to zip the backup "
 "files to preserve disk space.</p>"
 msgstr ""
+"<p>KPhotoAlbum יכול לגבות את קובץ ה־XML של מסד הנתונים על ידי שמירת עותקים "
+"(למשל, לקובץ מסד נתונים בשם index.xml, שמות קובצי הגיבוי יהיוindex."
+"xml~0001~,‏ index.xml~0002~ וכן הלאה) וניתן להשתמש בתיבת הטווח כדי לציין את "
+"מספר קובצי הגיבוי לשמירה. KPhotoAlbum ימחק את קובץ הגיבוי הישן ביותר כשמספר "
+"קובצי הגיבוי מגיע לכמות המרבית.</p><p>קובץ ה־XML של מסד הנתונים יכול לגדול "
+"משמעותית אם יש לך כמות גדולה של תמונות ובמקרה שכזה, כדאי לבקש מ־KPhotoAlbum "
+"לדחוס את קובצי הגיבוי ב־zip כדי לחסוך נפח בכונן.</p>"
 
 #: Settings/DatabaseBackendPage.cpp:68
 #, kde-format
@@ -4971,6 +4978,10 @@ msgid ""
 "This is useful if for some reason you have e.g. both the original files and "
 "symbolic links to these files within your image folder.</p>"
 msgstr ""
+"<p>KPhotoAlbum מנסה לקרוא את כל קובצי התמונות בין אם קבצים בפועל או קישורים "
+"סמליים. כדי להתעלם מקישורים סמליים, יש לסמן את האפשרות הזאת. שימושי ממגוון "
+"סיבות, כמו למשל שיש לך את הקבצים המקוריים וגם קישורים סמליים לקבצים האלה "
+"בתוך תיקיית התמונות שלך.</p>"
 
 #: Settings/FileVersionDetectionPage.cpp:77
 #, kde-format

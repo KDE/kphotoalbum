@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-02-18 08:02+0200\n"
+"PO-Revision-Date: 2025-02-25 08:22+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Lokalize 24.12.1\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -403,7 +403,7 @@ msgid "Toggle fullscreen preview"
 msgstr "החלפת מצב תצוגה מקדימה במסך מלא"
 
 #: AnnotationDialog/ImagePreview.cpp:514
-#, fuzzy, kde-format
+#, kde-format
 msgid ""
 "<p><b>Can't associate tag \"%2\"</b></p><p>The category \"%1\" the tag "
 "\"%2\" belongs to is not positionable.</p><p>If you want to use this tag, "
@@ -411,9 +411,9 @@ msgid ""
 "recognition database anymore, it can be deleted in the settings.</p>"
 msgstr ""
 "<p><b>לא ניתן לשייך את התגית „%2”</b></p><p>הקטגוריה „%1” אליה שייכת התגית "
-"„%2” אינה positionable.</p><p>If you want to use this tag, change this in "
-"the settings dialog. If this tag shouldn't be in the recognition database "
-"anymore, it can be deleted in the settings.</p>"
+"„%2” אינה נקודתית.</p><p>כדי להשתמש בתגית הזאת, יש לשנות את זה בהגדרות. אם "
+"התגית הזאת לא אמורה להיות עוד במסד נתוני הזיהוי, אפשר למחוק אותה דרך ההגדרות."
+"</p>"
 
 #: AnnotationDialog/ImagePreview.cpp:528
 #, kde-format
@@ -423,6 +423,10 @@ msgid ""
 "this category and mark it as positionable. If this tag shouldn't be in the "
 "recognition database anymore, it can be deleted in the settings dialog.</p>"
 msgstr ""
+"<p><b>לא ניתן לשייך את התגית „%2”</b></p><p>הקטגוריה „%1” אליה שייכת התגית "
+"„%2” לא קיימת.</p><p>כדי להשתמש בתגית הזאת, יש להוסיף את הקטגוריה הזאת ולסמן "
+"אותה כנקודתית. אם התגית הזאת לא אמורה להיות במסד נתוני הזיהוי עוד, אפשר "
+"למחוק אותה דרך חלונית ההגדרות.</p>"
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:51
 #, kde-format
@@ -2715,9 +2719,17 @@ msgid_plural ""
 "%1 images from the import file, have the same MD5 sum as images in the "
 "Database, how should that be resolved?"
 msgstr[0] ""
+"לאחת התמונות מקובץ הייבוא יש את אותו סיכום ביקורת MD5 כמו לתמונה ממסד "
+"הנתונים, איך לפתור את זה?"
 msgstr[1] ""
+"לשתיים מהתמונות מקובץ הייבוא יש את אותו סיכום ביקורת MD5 כמו לתמונות ממסד "
+"הנתונים, איך לפתור את זה?"
 msgstr[2] ""
+"ל־%1 מהתמונות מקובץ הייבוא יש את אותו סיכום ביקורת MD5 כמו לתמונות ממסד "
+"הנתונים, איך לפתור את זה?"
 msgstr[3] ""
+"ל־%1 מהתמונות מקובץ הייבוא יש את אותו סיכום ביקורת MD5 כמו לתמונות ממסד "
+"הנתונים, איך לפתור את זה?"
 
 #: ImportExport/MD5CheckPage.cpp:55
 #, kde-format
@@ -2871,6 +2883,8 @@ msgid ""
 "Fix inconsistent thumbnails by removing them from the cache (requires --"
 "check-thumbnail-dimensions)."
 msgstr ""
+"אפשר לתקן תמונות ממוזערות על ידי הסרתן מהמטמון (דורש ‎--check-thumbnail-"
+"dimensions)."
 
 #: kpa-thumbnailtool/main.cpp:79
 #, kde-format
@@ -2927,6 +2941,7 @@ msgid ""
 "Note: Thumbnail storage dimensions are defined in the configuration file "
 "prior to v5.\n"
 msgstr ""
+"לתשומת ליבך: ממדי אחסון תמונות ממוזערות מוגדרים בקובץ הגדרות שלפני גרסה 5.\n"
 
 #: kpa-thumbnailtool/main.cpp:123
 #, kde-format
@@ -2951,10 +2966,10 @@ msgstr "נראה שלתמונות הממוזערות הבאות יש גדלים 
 msgctxt "@info:shell"
 msgid "Removed 1 inconsistent thumbnail from the database.\n"
 msgid_plural "Removed %1 inconsistent thumbnails from the database.\n"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "הוסרה תמונה ממוזערת חריגה ממסד הנתונים.\n"
+msgstr[1] "הוסרו שתי תמונות ממוזערות חריגות ממסד הנתונים.\n"
+msgstr[2] "הוסרו %1 תמונות ממוזערות חריגות ממסד הנתונים.\n"
+msgstr[3] "הוסרו %1 תמונות ממוזערות חריגות ממסד הנתונים.\n"
 
 #: kpa-thumbnailtool/ThumbnailCacheConverter.cpp:20
 #, kde-format
@@ -3073,6 +3088,9 @@ msgid ""
 "this problem run Maintenance->Recreate Exif Search database.</p><hr/><p>The "
 "error message obtained was:<br/>%1</p>"
 msgstr ""
+"<p>אירעה שגיאה בפתיחת מסד נתוני חיפוש Exif.</p> <p>כדי לתקן את הבעיה הזאת יש "
+"להריץ תחזוקה->יצירת מסד נתוני חיפוש Exif מחדש.</p><hr/><p>הודעת השגיאה "
+"שהתקבלה הייתה:<br/>%1</p>"
 
 #: lib/kpaexif/Database.cpp:259
 #, kde-format
@@ -3537,6 +3555,10 @@ msgid ""
 "can use <tt>ffmpeg</tt> to extract thumbnails from videos. These thumbnails "
 "are used to preview videos in the thumbnail viewer.</p>"
 msgstr ""
+"<h1><a name=\"videoPreview\">תמיכה בתצוגות וידאו ממוזערות</a></"
+"h1><p>KPhotoAlbum יכול להשתמש ב־<tt>ffmpeg</tt> כדי לחלץ תמונות ממוזערות "
+"מסרטונים. התמונות הממוזערות האלה משמשות בתצוגות מקדימות של סרטונים במציג "
+"התמונות הממוזערות.</p>"
 
 #: MainWindow/FeatureDialog.cpp:82
 #, kde-format
@@ -3546,6 +3568,9 @@ msgid ""
 "p><p>Correct length information is necessary for correct rendering of video "
 "thumbnails.</p>"
 msgstr ""
+"<h1><a name=\"videoInfo\">תמיכה בנתוני על של וידאו</a></h1><p>KPhotoAlbum "
+"יכול להשתמש ב־<tt>ffprobe</tt> יכול לחלץ פרטי אורך מסרטונים.</p><p>פרטי "
+"האורך הנכונים נחוצים לעיבוד נכון של תצוגות וידאו ממוזערות.</p>"
 
 #: MainWindow/FeatureDialog.cpp:172
 #, kde-format
@@ -4797,6 +4822,8 @@ msgid ""
 "<p>Do you really want to make \"%1\" non-positionable?</p><p>All areas "
 "linked against this category will be discarded!</p>"
 msgstr ""
+"<p>להפוך את „%1” לבלתי נקודתיות?</p><p>כל האזורים שמקושרים כנגד הקטגוריה "
+"הזאת יושלכו!</p>"
 
 #: Settings/CategoryPage.cpp:335
 #, kde-format
@@ -5344,6 +5371,13 @@ msgid ""
 "b>, otherwise reply <b>ask</b>. This will allow you to decide whether the "
 "images are from the scanner or the camera, from session to session.</p>"
 msgstr ""
+"<p>KPhotoAlbum ינסה לקרוא את תאריך התמונה מפרטי ה־Exif שבתמונה. אם התהליך "
+"הזה ייכשל יתבצע ניסיון למשוך את התאריך מחותמת הזמן של הקובץ.</p><p>עם זאת, "
+"הפרטים האלו עלולים להיות שגויים אם התמונה נסרקה (המועד הרצוי הוא מועד צילום "
+"התמונה, לא מועד הסריקה).</p><p>אם התמונות שלך נוספות בסריקה, בניגוד לשימוש "
+"במצלמה דיגיטלית מדי פעם, כדאי לענות <b>לא</b>. אם לא יוצא לך לסרוק תמונות אף "
+"פעם, כדאי לענות <b>כן</b>, אחרת עדיף לענות <b>לשאול</b>. כך יתאפשר לך להחליט "
+"האם התמונות הן מהסורק או מהמצלמה בכל הפעלה מחדש.</p>"
 
 #: Settings/GeneralPage.cpp:148
 #, kde-format
@@ -5697,6 +5731,9 @@ msgid ""
 "thumbnails. This window includes a small preview image. This option "
 "configures the image size.</p>"
 msgstr ""
+"<p>בחירה ב<b>הגדרות -&gt; הצגת חלוניות עצה</b> בתצוגת התמונות הממוזערות, "
+"תציג חלוניות צצות קטנות עם מידע על התמונות הממוזערות. החלון הזה כולל תמונת "
+"תצוגה מקדימה קטנה. האפשרות מגדירה את גודל התמונה.</p>"
 
 #: Settings/ThumbnailsPage.cpp:104
 #, kde-format

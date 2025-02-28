@@ -107,18 +107,65 @@ int main(int argc, char **argv)
     aboutData.addAuthor(i18n("Henner Zeller"), QString(), QStringLiteral("h.zeller@acm.org"));
 
     // sort alphabetically:
-    aboutData.addCredit(i18n("Marco Caldarelli"), i18n("Patch for making it possible to reread Exif info using a nice dialog."), QStringLiteral("caldarel@yahoo.it"));
-    aboutData.addCredit(i18n("Jean-Michel FAYARD"), i18n("(.) Patch with folder info made available through the browser. (.) Patch for adding a check box for \"and/or\" searches in the search page."), QStringLiteral("jmfayard@gmail.com"));
-    aboutData.addCredit(i18n("Matthias Füssel"), i18n("Geo Position page in browser and various bug fixes"), QStringLiteral("matthias.fuessel@gmx.net"));
-    aboutData.addCredit(i18n("Wes Hardaker"), i18n("Some very useful features to improve workflow"), QStringLiteral("kpa@capturedonearth.com"));
-    aboutData.addCredit(i18n("Reimar Imhof"), i18n("Patch to sort items in option listboxes"), QStringLiteral("Reimar.Imhof@netCologne.de"));
-    aboutData.addCredit(i18n("Christoph Moseler"), i18n("Numerous patches for lots of bugs plus patches for a few new features"), QStringLiteral("forums@moseler.net"));
-    aboutData.addCredit(i18n("Teemu Rytilahti"),
-                        i18n("Theme support for HTML generation"), QStringLiteral("teemu.rytilahti@kde-fi.org"));
-    aboutData.addCredit(i18n("Thomas Schwarzgruber"), i18n("Patch to sort images in the thumbnail view, plus reading time info out of Exif images for existing images"), QStringLiteral("possebaer@gmx.at"));
-    aboutData.addCredit(i18n("Clytie Siddall"), i18n("Tremendous help with the English text in the application."), QStringLiteral("clytie@riverland.net.au"));
-    aboutData.addCredit(i18n("Will Stephenson"), i18n("Developing an Icon for KPhotoAlbum"), QStringLiteral("will@stevello.free-online.co.uk"));
-    aboutData.addCredit(i18n("Marcel Wiesweg"), i18n("Patch which speed up loading of thumbnails plus preview in image property dialog."), QStringLiteral("marcel.wiesweg@gmx.de"));
+    aboutData.addCredit(
+        i18n("Marco Caldarelli"),
+        i18n("Patch for making it possible to reread Exif info using a nice dialog."),
+        QStringLiteral("caldarel@yahoo.it")
+    );
+    aboutData.addCredit(
+        i18n("Jean-Michel FAYARD"),
+        i18n("Patch with folder info made available through the browser.\n"
+             "Patch for adding a check box for \"and/or\" searches in the search page."),
+        QStringLiteral("jmfayard@gmail.com")
+    );
+    aboutData.addCredit(
+        i18n("Matthias Füssel"),
+        i18n("Geo Position page in browser and various bug fixes"),
+        QStringLiteral("matthias.fuessel@gmx.net")
+    );
+    aboutData.addCredit(
+        i18n("Wes Hardaker"),
+        i18n("Some very useful features to improve workflow"),
+        QStringLiteral("kpa@capturedonearth.com")
+    );
+    aboutData.addCredit(
+        i18n("Reimar Imhof"),
+        i18n("Patch to sort items in option listboxes"),
+        QStringLiteral("Reimar.Imhof@netCologne.de")
+    );
+    aboutData.addCredit(
+        i18n("Christoph Moseler"),
+        i18n("Numerous patches for lots of bugs,\n"
+             "patches for a few new features"),
+        QStringLiteral("forums@moseler.net")
+    );
+    aboutData.addCredit(
+        i18n("Teemu Rytilahti"),
+        i18n("Theme support for HTML generation"),
+        QStringLiteral("teemu.rytilahti@kde-fi.org")
+    );
+    aboutData.addCredit(
+        i18n("Thomas Schwarzgruber"),
+        i18n("Patch to sort images in the thumbnail view,\n"
+             "reading time info out of Exif images for existing images"),
+        QStringLiteral("possebaer@gmx.at")
+    );
+    aboutData.addCredit(
+        i18n("Clytie Siddall"),
+        i18n("Tremendous help with the English text in the application."),
+        QStringLiteral("clytie@riverland.net.au")
+    );
+    aboutData.addCredit(
+        i18n("Will Stephenson"),
+        i18n("Developing an Icon for KPhotoAlbum"),
+        QStringLiteral("will@stevello.free-online.co.uk")
+    );
+    aboutData.addCredit(
+        i18n("Marcel Wiesweg"),
+        i18n("Patch which speeds up loading of thumbnails,\n"
+             "preview in image property dialog."),
+        QStringLiteral("marcel.wiesweg@gmx.de")
+    );
 
     // initialize the commandline parser
     QCommandLineParser *parser = MainWindow::Options::the()->parser();

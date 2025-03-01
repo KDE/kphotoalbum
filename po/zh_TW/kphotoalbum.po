@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-10 09:26+0000\n"
+"POT-Creation-Date: 2025-03-01 00:42+0000\n"
 "PO-Revision-Date: 2024-12-30 17:29+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -3245,128 +3245,135 @@ msgstr "KDE 相簿"
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 msgstr "Copyright (c) 2003-2024 KPhotoAlbum 開發團隊"
 
-#: main.cpp:110
+#: main.cpp:111
 #, kde-format
 msgid "Marco Caldarelli"
 msgstr "Marco Caldarelli"
 
-#: main.cpp:110
+#: main.cpp:112
 #, fuzzy, kde-format
 #| msgid ""
 #| "Patch for making it possible to reread EXIF info using a nice dialog."
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
 msgstr "寫一個對話框來重新讀取 EXIF 資訊"
 
-#: main.cpp:111
+#: main.cpp:116
 #, kde-format
 msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
-#: main.cpp:111
+#: main.cpp:117
 #, fuzzy, kde-format
 #| msgid ""
 #| "(.) Patch with directory info made available through the browser. (.) "
 #| "Patch for adding a check box for \"and/or\" searches in the search page."
 msgid ""
-"(.) Patch with folder info made available through the browser. (.) Patch for "
-"adding a check box for \"and/or\" searches in the search page."
+"Patch with folder info made available through the browser.\n"
+"Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr "用瀏覽器取得目錄資訊，及新增搜尋頁面中「且/或」的勾選盒"
 
-#: main.cpp:112
+#: main.cpp:122
 #, kde-format
 msgid "Matthias Füssel"
 msgstr "Matthias Füssel"
 
-#: main.cpp:112
+#: main.cpp:123
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
 msgstr ""
 
-#: main.cpp:113
+#: main.cpp:127
 #, kde-format
 msgid "Wes Hardaker"
 msgstr "Wes Hardaker"
 
-#: main.cpp:113
+#: main.cpp:128
 #, kde-format
 msgid "Some very useful features to improve workflow"
 msgstr "一些非常有用的功能，並改進流程"
 
-#: main.cpp:114
+#: main.cpp:132
 #, kde-format
 msgid "Reimar Imhof"
 msgstr "Reimar Imhof"
 
-#: main.cpp:114
+#: main.cpp:133
 #, kde-format
 msgid "Patch to sort items in option listboxes"
 msgstr "在條列盒中的項目排序功能"
 
-#: main.cpp:115
+#: main.cpp:137
 #, kde-format
 msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
-#: main.cpp:115
-#, kde-format
-msgid "Numerous patches for lots of bugs plus patches for a few new features"
+#: main.cpp:138
+#, fuzzy, kde-format
+#| msgid ""
+#| "Numerous patches for lots of bugs plus patches for a few new features"
+msgid ""
+"Numerous patches for lots of bugs,\n"
+"patches for a few new features"
 msgstr "修正許多錯誤，以及提供一些新功能"
 
-#: main.cpp:116
+#: main.cpp:143
 #, kde-format
 msgid "Teemu Rytilahti"
 msgstr "Teemu Rytilahti"
 
-#: main.cpp:117
+#: main.cpp:144
 #, kde-format
 msgid "Theme support for HTML generation"
 msgstr ""
 
-#: main.cpp:118
+#: main.cpp:148
 #, kde-format
 msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
-#: main.cpp:118
+#: main.cpp:149
 #, fuzzy, kde-format
 #| msgid ""
 #| "Patch to sort images in the thumbnail view, plus reading time info out of "
 #| "EXIF images for existing images"
 msgid ""
-"Patch to sort images in the thumbnail view, plus reading time info out of "
-"Exif images for existing images"
+"Patch to sort images in the thumbnail view,\n"
+"reading time info out of Exif images for existing images"
 msgstr "在縮圖檢視中的排序功能，還有從 EXIF 影像中讀取時間資訊"
 
-#: main.cpp:119
+#: main.cpp:154
 #, kde-format
 msgid "Clytie Siddall"
 msgstr "Clytie Siddall"
 
-#: main.cpp:119
+#: main.cpp:155
 #, kde-format
 msgid "Tremendous help with the English text in the application."
 msgstr "幫忙找出應用程式中英文的問題"
 
-#: main.cpp:120
+#: main.cpp:159
 #, kde-format
 msgid "Will Stephenson"
 msgstr "Will Stephenson"
 
-#: main.cpp:120
+#: main.cpp:160
 #, kde-format
 msgid "Developing an Icon for KPhotoAlbum"
 msgstr "開發 KPhotoAlbum 的圖示"
 
-#: main.cpp:121
+#: main.cpp:164
 #, kde-format
 msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
-#: main.cpp:121
-#, kde-format
+#: main.cpp:165
+#, fuzzy, kde-format
+#| msgid ""
+#| "Patch which speed up loading of thumbnails plus preview in image property "
+#| "dialog."
 msgid ""
-"Patch which speed up loading of thumbnails plus preview in image property "
-"dialog."
+"Patch which speeds up loading of thumbnails,\n"
+"preview in image property dialog."
 msgstr "加速影像屬性對話匡中縮圖與預覽的載入"
 
 #: MainWindow/AutoStackImages.cpp:46

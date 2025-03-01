@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-10 09:26+0000\n"
+"POT-Creation-Date: 2025-03-01 00:42+0000\n"
 "PO-Revision-Date: 2025-01-12 19:59+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -3208,124 +3208,137 @@ msgstr "KDE:n valokuva-albumi"
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 msgstr "Tekijänoikeudet © 2003–2024 KPhotoAlbumin kehitystyöryhmä"
 
-#: main.cpp:110
+#: main.cpp:111
 #, kde-format
 msgid "Marco Caldarelli"
 msgstr "Marco Caldarelli"
 
-#: main.cpp:110
+#: main.cpp:112
 #, kde-format
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
 msgstr "Exif-tietojen uudelleenlukukäyttöliittymän toteuttanut korjaus."
 
-#: main.cpp:111
+#: main.cpp:116
 #, kde-format
 msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
-#: main.cpp:111
-#, kde-format
+#: main.cpp:117
+#, fuzzy, kde-format
+#| msgid ""
+#| "(.) Patch with folder info made available through the browser. (.) Patch "
+#| "for adding a check box for \"and/or\" searches in the search page."
 msgid ""
-"(.) Patch with folder info made available through the browser. (.) Patch for "
-"adding a check box for \"and/or\" searches in the search page."
+"Patch with folder info made available through the browser.\n"
+"Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
 "(.) Korjaus kansiotietoihin selaimen kautta. (.) Korjaus valintaruudun "
 "lisäämiseksi hakusivun ja/tai-hakuihin."
 
-#: main.cpp:112
+#: main.cpp:122
 #, kde-format
 msgid "Matthias Füssel"
 msgstr "Matthias Füssel"
 
-#: main.cpp:112
+#: main.cpp:123
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
 msgstr "Maantieteellisen sijainnin sivu selaimessa ja eri virheenkorjaukset"
 
-#: main.cpp:113
+#: main.cpp:127
 #, kde-format
 msgid "Wes Hardaker"
 msgstr "Wes Hardaker"
 
-#: main.cpp:113
+#: main.cpp:128
 #, kde-format
 msgid "Some very useful features to improve workflow"
 msgstr "Hyödyllisiä ominaisuuksia työnkulun tehostamiseen"
 
-#: main.cpp:114
+#: main.cpp:132
 #, kde-format
 msgid "Reimar Imhof"
 msgstr "Reimar Imhof"
 
-#: main.cpp:114
+#: main.cpp:133
 #, kde-format
 msgid "Patch to sort items in option listboxes"
 msgstr "Paikkaus tietueiden lajittelemiseksi valintakentissä"
 
-#: main.cpp:115
+#: main.cpp:137
 #, kde-format
 msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
-#: main.cpp:115
-#, kde-format
-msgid "Numerous patches for lots of bugs plus patches for a few new features"
+#: main.cpp:138
+#, fuzzy, kde-format
+#| msgid ""
+#| "Numerous patches for lots of bugs plus patches for a few new features"
+msgid ""
+"Numerous patches for lots of bugs,\n"
+"patches for a few new features"
 msgstr "Useita korjauksia ja uusia ominaisuuksia"
 
-#: main.cpp:116
+#: main.cpp:143
 #, kde-format
 msgid "Teemu Rytilahti"
 msgstr "Teemu Rytilahti"
 
-#: main.cpp:117
+#: main.cpp:144
 #, kde-format
 msgid "Theme support for HTML generation"
 msgstr "Teematuki HTML-luonnissa"
 
-#: main.cpp:118
+#: main.cpp:148
 #, kde-format
 msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
-#: main.cpp:118
-#, kde-format
+#: main.cpp:149
+#, fuzzy, kde-format
+#| msgid ""
+#| "Patch to sort images in the thumbnail view, plus reading time info out of "
+#| "Exif images for existing images"
 msgid ""
-"Patch to sort images in the thumbnail view, plus reading time info out of "
-"Exif images for existing images"
+"Patch to sort images in the thumbnail view,\n"
+"reading time info out of Exif images for existing images"
 msgstr ""
 "Paikkaus kuvien lajittelemiseksi pienoiskuvanäkymässä sekä olemassa olevien "
 "kuvien ajan lukemiseksi Exif-tiedoista"
 
-#: main.cpp:119
+#: main.cpp:154
 #, kde-format
 msgid "Clytie Siddall"
 msgstr "Clytie Siddall"
 
-#: main.cpp:119
+#: main.cpp:155
 #, kde-format
 msgid "Tremendous help with the English text in the application."
 msgstr "Englanninkielisten tekstien parantaminen sovelluksessa."
 
-#: main.cpp:120
+#: main.cpp:159
 #, kde-format
 msgid "Will Stephenson"
 msgstr "Will Stephenson"
 
-#: main.cpp:120
+#: main.cpp:160
 #, kde-format
 msgid "Developing an Icon for KPhotoAlbum"
 msgstr "KPhotoAlbumin kuvakkeen luominen"
 
-#: main.cpp:121
+#: main.cpp:164
 #, kde-format
 msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
-#: main.cpp:121
-#, kde-format
+#: main.cpp:165
+#, fuzzy, kde-format
+#| msgid ""
+#| "Patch which speed up loading of thumbnails plus preview in image property "
+#| "dialog."
 msgid ""
-"Patch which speed up loading of thumbnails plus preview in image property "
-"dialog."
+"Patch which speeds up loading of thumbnails,\n"
+"preview in image property dialog."
 msgstr ""
 "Pienoiskuvien latauksen nopeuttaminen ja esikatselukuva ominaisuus ikkunassa."
 

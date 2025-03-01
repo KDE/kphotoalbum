@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-10 09:26+0000\n"
-"PO-Revision-Date: 2025-02-25 08:22+0200\n"
+"POT-Creation-Date: 2025-03-01 00:42+0000\n"
+"PO-Revision-Date: 2025-02-28 12:21+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -3116,124 +3116,137 @@ msgstr "אלבום תמונות מבית KDE"
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 msgstr "כל הזכויות שמורות (C) 2003‏-2024 לצוות הפיתוח של KPhotoAlbum"
 
-#: main.cpp:110
+#: main.cpp:111
 #, kde-format
 msgid "Marco Caldarelli"
 msgstr "מרקו קלדרלי"
 
-#: main.cpp:110
+#: main.cpp:112
 #, kde-format
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
 msgstr "טלאי שמאפשר לקרוא פרטי Exit מחדש בעזרת חלונית פשוטה."
 
-#: main.cpp:111
+#: main.cpp:116
 #, kde-format
 msgid "Jean-Michel FAYARD"
 msgstr "ז׳אן מישל פאיארד"
 
-#: main.cpp:111
-#, kde-format
+#: main.cpp:117
+#, fuzzy, kde-format
+#| msgid ""
+#| "(.) Patch with folder info made available through the browser. (.) Patch "
+#| "for adding a check box for \"and/or\" searches in the search page."
 msgid ""
-"(.) Patch with folder info made available through the browser. (.) Patch for "
-"adding a check box for \"and/or\" searches in the search page."
+"Patch with folder info made available through the browser.\n"
+"Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
 "(.) טלאי כדי שפרטי התיקייה יהיו זמינים דרך הדפדפן. (.) טלאי להוספת תיבת "
 "סימון לחיפוש „ו/או” בעמוד החיפוש."
 
-#: main.cpp:112
+#: main.cpp:122
 #, kde-format
 msgid "Matthias Füssel"
 msgstr "מתיאס פוסל"
 
-#: main.cpp:112
+#: main.cpp:123
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
 msgstr "עמוד מקום גאוגרפי בדפדפן ומגוון תיקוני תקלות"
 
-#: main.cpp:113
+#: main.cpp:127
 #, kde-format
 msgid "Wes Hardaker"
 msgstr "וס הרדאקר"
 
-#: main.cpp:113
+#: main.cpp:128
 #, kde-format
 msgid "Some very useful features to improve workflow"
 msgstr "יכולות שימושיות לשיפור תהליכי העבודה"
 
-#: main.cpp:114
+#: main.cpp:132
 #, kde-format
 msgid "Reimar Imhof"
 msgstr "ריימאר אימהוף"
 
-#: main.cpp:114
+#: main.cpp:133
 #, kde-format
 msgid "Patch to sort items in option listboxes"
 msgstr "טלאי לסידור פריטים בתיבות רשימות של אפשרויות"
 
-#: main.cpp:115
+#: main.cpp:137
 #, kde-format
 msgid "Christoph Moseler"
 msgstr "קריסטוף מוזלר"
 
-#: main.cpp:115
-#, kde-format
-msgid "Numerous patches for lots of bugs plus patches for a few new features"
+#: main.cpp:138
+#, fuzzy, kde-format
+#| msgid ""
+#| "Numerous patches for lots of bugs plus patches for a few new features"
+msgid ""
+"Numerous patches for lots of bugs,\n"
+"patches for a few new features"
 msgstr "מגוון טלאים למגוון תקלות וגם טלאים לכמה יכולות חדשות"
 
-#: main.cpp:116
+#: main.cpp:143
 #, kde-format
 msgid "Teemu Rytilahti"
 msgstr "טימו רייטילאהטי"
 
-#: main.cpp:117
+#: main.cpp:144
 #, kde-format
 msgid "Theme support for HTML generation"
 msgstr "תמיכה בערכת עיצוב ליצירת HTML"
 
-#: main.cpp:118
+#: main.cpp:148
 #, kde-format
 msgid "Thomas Schwarzgruber"
 msgstr "תומס שווארצגרובר"
 
-#: main.cpp:118
-#, kde-format
+#: main.cpp:149
+#, fuzzy, kde-format
+#| msgid ""
+#| "Patch to sort images in the thumbnail view, plus reading time info out of "
+#| "Exif images for existing images"
 msgid ""
-"Patch to sort images in the thumbnail view, plus reading time info out of "
-"Exif images for existing images"
+"Patch to sort images in the thumbnail view,\n"
+"reading time info out of Exif images for existing images"
 msgstr ""
 "טלאי לסידור התמונות בתצוגת תמונות ממוזערות, לצד קריאת פרטי הזמנים מתמונות עם "
 "Exif לתמונות קיימות"
 
-#: main.cpp:119
+#: main.cpp:154
 #, kde-format
 msgid "Clytie Siddall"
 msgstr "קליטי סידאל"
 
-#: main.cpp:119
+#: main.cpp:155
 #, kde-format
 msgid "Tremendous help with the English text in the application."
 msgstr "עזרה נרחבת בטקסט באנגלית ביישום."
 
-#: main.cpp:120
+#: main.cpp:159
 #, kde-format
 msgid "Will Stephenson"
 msgstr "ויל סטיבנסון"
 
-#: main.cpp:120
+#: main.cpp:160
 #, kde-format
 msgid "Developing an Icon for KPhotoAlbum"
 msgstr "פיתוח סמל ל־KPhotoAlbum"
 
-#: main.cpp:121
+#: main.cpp:164
 #, kde-format
 msgid "Marcel Wiesweg"
 msgstr "מרסל ויסווג"
 
-#: main.cpp:121
-#, kde-format
+#: main.cpp:165
+#, fuzzy, kde-format
+#| msgid ""
+#| "Patch which speed up loading of thumbnails plus preview in image property "
+#| "dialog."
 msgid ""
-"Patch which speed up loading of thumbnails plus preview in image property "
-"dialog."
+"Patch which speeds up loading of thumbnails,\n"
+"preview in image property dialog."
 msgstr ""
 "טלאי שמאיץ טעינת תמונות ממוזערות לצד תצוגה מקדימה של חלונית מאפייני תמונה."
 
@@ -3913,6 +3926,14 @@ msgid ""
 "</p><p>If you feel safer first trying out KPhotoAlbum with prebuilt set of "
 "images, press the Load Demo button.</p>"
 msgstr ""
+"<h1>ברוך בואך ל־KPhotoAlbum</h1><p>KPhotoAlbum הוא כלי חזק וחופשי לניהול "
+"ארכיון, תיוג וניהול התמונות והסרטונים שלך. הוא לא יערוך או ישנה את קבציך "
+"היקרים, הוא רק מתעד אותם במפתח ומאפשר לך למצוא ולנהל את הקבצים והסרטונים שלך "
+"בקלות.</p><p>אפשר להתחיל על ידי הנחיית KPhotoAlbum איפה למצוא את התמונות שלך "
+"על ידי לחיצה על יצירת מסד נתונים משלי. יש לבחור בכפתור הזה גם אם יש לך מסד "
+"נתונים קיים של KPhotoAlbum שברצונך לחזור להשתמש בו.</p><p>אם שימוש בסביבה "
+"מבוקרת של KPhotoAlbum עם סדרה של תמונות שהורכבה מראש מתאימה לך יותר, אפשר "
+"ללחוץ על כפתור טעינת הדגמה.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:61
 #, kde-format
@@ -3971,6 +3992,9 @@ msgid ""
 "p><p>For details on how to solve this problem, please choose <b>Help</b>|"
 "<b>KPhotoAlbum Feature Status</b> from the menus.</p>"
 msgstr ""
+"<p>נראה ש־KPhotoAlbum לא נבנה עם תמיכה בשלל היכולות שלו. זאת רשימה שמתארת מה "
+"כנראה חסר:<ul>%1</ul></p><p>לפרטים בנוגע לפתרון הבעיה הזאת, נא לבחור "
+"ב<b>עזרה</b>|<b>מצב יכולות KPhotoAlbum</b> דרך התפריטים.</p>"
 
 #: MainWindow/WelcomeDialog.cpp:192 MainWindow/WelcomeDialog.cpp:195
 #, kde-format
@@ -3997,6 +4021,10 @@ msgid ""
 "might want to keep it around with the changes you made through this session."
 "</p>"
 msgstr ""
+"<p><b>מחיקת מסד נתוני ההדגמה הזמני שלך</b></p><p>מקווים שנהנית מההדגמה של "
+"KPhotoAlbum. מסד נתוני ההדגמה נוצר בתיקייה <tt>‎/tmp</tt>, למחוק אותו? השארתו "
+"תבזבז נפח בכונן, מצד שני, כדי לחזור להדגמה אולי כדאי להשאיר את השינויים "
+"שערכת בהפעלה הזאת.</p>"
 
 #: MainWindow/Window.cpp:325
 #, kde-format

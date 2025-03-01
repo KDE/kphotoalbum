@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-01-10 09:26+0000\n"
+"POT-Creation-Date: 2025-03-01 00:42+0000\n"
 "PO-Revision-Date: 2024-12-25 19:45+0530\n"
 "Last-Translator: kali <shreekantkalwar@gmail.com>\n"
 "Language-Team: Sanskrit <kde-i18n-doc@kde.org>\n"
@@ -3179,124 +3179,137 @@ msgstr "केडीई फोटो एल्बम"
 msgid "Copyright (C) 2003-2024 The KPhotoAlbum Development Team"
 msgstr "प्रतिलिपि अधिकार (C) 2003-2024 द केफोटोएल्बम विकास दल"
 
-#: main.cpp:110
+#: main.cpp:111
 #, kde-format
 msgid "Marco Caldarelli"
 msgstr "मार्को काल्डारेल्लि"
 
-#: main.cpp:110
+#: main.cpp:112
 #, kde-format
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
 msgstr "एकं सुन्दरं संवादं उपयुज्य Exif info पुनः पठितुं सम्भवं कर्तुं पैच् कुर्वन्तु ।"
 
-#: main.cpp:111
+#: main.cpp:116
 #, kde-format
 msgid "Jean-Michel FAYARD"
 msgstr "जीन-मिशेल FAYARD"
 
-#: main.cpp:111
-#, kde-format
+#: main.cpp:117
+#, fuzzy, kde-format
+#| msgid ""
+#| "(.) Patch with folder info made available through the browser. (.) Patch "
+#| "for adding a check box for \"and/or\" searches in the search page."
 msgid ""
-"(.) Patch with folder info made available through the browser. (.) Patch for "
-"adding a check box for \"and/or\" searches in the search page."
+"Patch with folder info made available through the browser.\n"
+"Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
 "(.) ब्राउजर् मार्गेण उपलब्धं कृत्वा समुच्चय इन्फो सह पैच् कुर्वन्तु। (.) अन्वेषणपृष्ठे \"तथा/वा\" "
 "अन्वेषणार्थं चेकबॉक्सं योजयितुं पैच् ।"
 
-#: main.cpp:112
+#: main.cpp:122
 #, kde-format
 msgid "Matthias Füssel"
 msgstr "मथियस फुसेल"
 
-#: main.cpp:112
+#: main.cpp:123
 #, kde-format
 msgid "Geo Position page in browser and various bug fixes"
 msgstr "ब्राउजर् मध्ये Geo Position पृष्ठं तथा च विभिन्नानि दोषनिराकरणानि"
 
-#: main.cpp:113
+#: main.cpp:127
 #, kde-format
 msgid "Wes Hardaker"
 msgstr "वेस् हरडाकर"
 
-#: main.cpp:113
+#: main.cpp:128
 #, kde-format
 msgid "Some very useful features to improve workflow"
 msgstr "कार्यप्रवाहस्य उन्नयनार्थं केचन अतीव उपयोगिनो विशेषताः"
 
-#: main.cpp:114
+#: main.cpp:132
 #, kde-format
 msgid "Reimar Imhof"
 msgstr "रेइमार इम्होफ"
 
-#: main.cpp:114
+#: main.cpp:133
 #, kde-format
 msgid "Patch to sort items in option listboxes"
 msgstr "विकल्पसूचीपेटिकासु वस्तूनि क्रमेण क्रमयितुं पैच कुर्वन्तु"
 
-#: main.cpp:115
+#: main.cpp:137
 #, kde-format
 msgid "Christoph Moseler"
 msgstr "क्रिस्टोफ मोसेलर"
 
-#: main.cpp:115
-#, kde-format
-msgid "Numerous patches for lots of bugs plus patches for a few new features"
+#: main.cpp:138
+#, fuzzy, kde-format
+#| msgid ""
+#| "Numerous patches for lots of bugs plus patches for a few new features"
+msgid ""
+"Numerous patches for lots of bugs,\n"
+"patches for a few new features"
 msgstr "बहुधा दोषाणां कृते असंख्यानि पट्टिकाः प्लस् कतिपयानां नूतनानां विशेषतानां कृते पट्टिकाः"
 
-#: main.cpp:116
+#: main.cpp:143
 #, kde-format
 msgid "Teemu Rytilahti"
 msgstr "तीमु र्यतिलहति"
 
-#: main.cpp:117
+#: main.cpp:144
 #, kde-format
 msgid "Theme support for HTML generation"
 msgstr "HTML जननस्य विषयसमर्थनम्"
 
-#: main.cpp:118
+#: main.cpp:148
 #, kde-format
 msgid "Thomas Schwarzgruber"
 msgstr "थॉमस श्वार्जग्रुबर"
 
-#: main.cpp:118
-#, kde-format
+#: main.cpp:149
+#, fuzzy, kde-format
+#| msgid ""
+#| "Patch to sort images in the thumbnail view, plus reading time info out of "
+#| "Exif images for existing images"
 msgid ""
-"Patch to sort images in the thumbnail view, plus reading time info out of "
-"Exif images for existing images"
+"Patch to sort images in the thumbnail view,\n"
+"reading time info out of Exif images for existing images"
 msgstr ""
 "लघुचित्रदृश्ये चित्राणि क्रमयितुं पैच कुर्वन्तु, अपि च विद्यमानचित्रेषु Exif चित्रेभ्यः बहिः "
 "पठनसमयसूचनाः"
 
-#: main.cpp:119
+#: main.cpp:154
 #, kde-format
 msgid "Clytie Siddall"
 msgstr "क्लाइटी सिडल"
 
-#: main.cpp:119
+#: main.cpp:155
 #, kde-format
 msgid "Tremendous help with the English text in the application."
 msgstr "अनुप्रयोगे आङ्ग्लपाठस्य प्रचण्डा सहायता।"
 
-#: main.cpp:120
+#: main.cpp:159
 #, kde-format
 msgid "Will Stephenson"
 msgstr "विल स्टीफन्सन्"
 
-#: main.cpp:120
+#: main.cpp:160
 #, kde-format
 msgid "Developing an Icon for KPhotoAlbum"
 msgstr "KPhotoAlbum कृते एकं चिह्नं विकसितुं"
 
-#: main.cpp:121
+#: main.cpp:164
 #, kde-format
 msgid "Marcel Wiesweg"
 msgstr "मार्सेल् विस्वेग्"
 
-#: main.cpp:121
-#, kde-format
+#: main.cpp:165
+#, fuzzy, kde-format
+#| msgid ""
+#| "Patch which speed up loading of thumbnails plus preview in image property "
+#| "dialog."
 msgid ""
-"Patch which speed up loading of thumbnails plus preview in image property "
-"dialog."
+"Patch which speeds up loading of thumbnails,\n"
+"preview in image property dialog."
 msgstr "पैच् यत् इमेज् गुण संवादे लघुचित्रस्य लोडिंग् प्लस् पूर्वावलोकनं त्वरयति ।"
 
 #: MainWindow/AutoStackImages.cpp:46

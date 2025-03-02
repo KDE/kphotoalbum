@@ -1,5 +1,5 @@
-# Translation of kphotoalbum to Spanish
-# Copyright (C) 2009 This_file_is_part_of_KDE
+# Translation of kphotoalbum.po to Spanish
+# Copyright (C) 2009-2025 This_file_is_part_of_KDE
 # This file is distributed under the same license as the kphotoalbum package.
 #
 # SPDX-FileCopyrightText: 2009, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-01 00:42+0000\n"
-"PO-Revision-Date: 2025-01-10 14:48+0100\n"
+"PO-Revision-Date: 2025-03-01 10:59+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -88,7 +88,7 @@ msgid ""
 msgstr ""
 "<para>Un texto descriptivo para la imagen.</para><para>Si está activado "
 "<emphasis>Usar descripción Exif</emphasis> en <interface>Preferencias|"
-"Configurar KPhotoAlbum...|General</interface>, se importará en este campo la "
+"Configurar KPhotoAlbum…|General</interface>, se importará en este campo la "
 "descripción insertada en la información Exif de la imagen, si está "
 "disponible.</para>"
 
@@ -125,7 +125,7 @@ msgstr "Borrar el formulario"
 #: AnnotationDialog/Dialog.cpp:240
 #, kde-format
 msgid "Options..."
-msgstr "Opciones..."
+msgstr "Opciones…"
 
 #: AnnotationDialog/Dialog.cpp:246
 #, kde-format
@@ -268,7 +268,7 @@ msgstr "Anotaciones"
 #: AnnotationDialog/Dialog.cpp:880
 #, kde-format
 msgid "Configure Window Layout..."
-msgstr "Configurar la distribución de la ventana..."
+msgstr "Configurar la distribución de la ventana…"
 
 #: AnnotationDialog/Dialog.cpp:881
 #, kde-format
@@ -492,7 +492,7 @@ msgid ""
 "interface>, you can associate specific image areas with tags."
 msgstr ""
 "Si activa <emphasis>etiquetas posicionales</emphasis> para al menos una "
-"categoría en <interface>Preferencias|Configurar KPhotoAlbum...|Categorías</"
+"categoría en <interface>Preferencias|Configurar KPhotoAlbum…|Categorías</"
 "interface>, podrá asociar determinadas áreas de la imagen con etiquetas."
 
 #: AnnotationDialog/ImagePreviewWidget.cpp:325
@@ -537,7 +537,7 @@ msgstr "Borrar imagen"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Enter a tag ..."
-msgstr "Introduzca una etiqueta..."
+msgstr "Introduzca una etiqueta…"
 
 #: AnnotationDialog/ListSelect.cpp:97 DB/search/ImageSearchInfo.cpp:342
 #, kde-format
@@ -569,7 +569,7 @@ msgid ""
 msgstr ""
 "La etiqueta que ha introducido que se usará automáticamente para las "
 "imágenes sin etiquetar encontradas recientemente (consulte "
-"<interface>Preferencias|Configurar KPhotoAlbum...|Categorías|Imágenes sin "
+"<interface>Preferencias|Configurar KPhotoAlbum…|Categorías|Imágenes sin "
 "etiquetar</interface>). No se mostrará aquí porque se ha seleccionado para "
 "este propósito."
 
@@ -591,7 +591,7 @@ msgstr "Eliminar"
 #: AnnotationDialog/ListSelect.cpp:370
 #, kde-format
 msgid "Rename..."
-msgstr "Cambiar nombre..."
+msgstr "Cambiar nombre…"
 
 #: AnnotationDialog/ListSelect.cpp:372
 #, kde-format
@@ -606,13 +606,13 @@ msgstr "Grupos de etiquetas"
 #: AnnotationDialog/ListSelect.cpp:397
 #, kde-format
 msgid "Add this tag to a new tag group..."
-msgstr "Añadir esta etiqueta a un nuevo grupo de etiquetas..."
+msgstr "Añadir esta etiqueta a un nuevo grupo de etiquetas…"
 
 #: AnnotationDialog/ListSelect.cpp:400
 #, kde-format
 msgid "Make this tag a tag group and add a tag..."
 msgstr ""
-"Convertir esta etiqueta en un grupo de etiquetas y añadir una etiqueta..."
+"Convertir esta etiqueta en un grupo de etiquetas y añadir una etiqueta…"
 
 #: AnnotationDialog/ListSelect.cpp:406
 #, kde-format
@@ -1658,7 +1658,7 @@ msgstr ""
 #: DB/XML/FileWriter.cpp:81 DB/XML/FileWriter.cpp:117 DB/XML/FileWriter.cpp:126
 #, kde-format
 msgid "Error while saving..."
-msgstr "Ha ocurrido un error al guardar..."
+msgstr "Ha ocurrido un error al guardar…"
 
 #: DB/XML/FileWriter.cpp:114
 #, kde-format
@@ -1756,7 +1756,7 @@ msgstr "Información Exif y metadatos del archivo"
 msgctxt ""
 "@label:textbox The search box allows the user to filter by exif label names"
 msgid "Filter labels ..."
-msgstr "Filtrar emblemas..."
+msgstr "Filtrar emblemas…"
 
 #: Exif/InfoDialog.cpp:79
 #, kde-format
@@ -2238,7 +2238,7 @@ msgstr "Debe seleccionar al menos una solución."
 #: HTMLGenerator/HTMLDialog.cpp:386
 #, kde-format
 msgid "Select base folder..."
-msgstr "Seleccione la carpeta base..."
+msgstr "Seleccione la carpeta base…"
 
 #: HTMLGenerator/HTMLDialog.cpp:399
 #, kde-format
@@ -2643,7 +2643,7 @@ msgstr ""
 "a KPhotoAlbum en qué carpeta guardar las imágenes. Dicha carpeta debe estar "
 "contenida en la carpeta base que KPhotoAlbum usa para las imágenes. "
 "KPhotoAlbum intentará evitar colisiones de nombres.</li><li>Especificar las "
-"categorías que desea importar (personas, lugares...) e indicar a KPhotoAlbum "
+"categorías que desea importar (personas, lugares…) e indicar a KPhotoAlbum "
 "cómo hacer corresponder las categorías del archivo con las suyas. Imagine "
 "que carga un archivo con una categoría llamada <b>Blomst</b> (la palabra "
 "danesa para «flor») y que quiere hacerla corresponder con una de sus "
@@ -3265,17 +3265,13 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with folder info made available through the browser. (.) Patch "
-#| "for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
-"(.) Parche que pone a disposición la información de carpetas en el "
-"explorador. (.) Parche que añade una casilla de verificación para búsquedas "
-"«y/o»."
+"Parche que pone a disposición la información de carpetas en el explorador.\n"
+"Parche que añade una casilla de verificación para búsquedas «y/o»."
 
 #: main.cpp:122
 #, kde-format
@@ -3315,13 +3311,13 @@ msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
-msgstr "Muchos parches para montones de fallos y algunas funciones nuevas"
+msgstr ""
+"Muchos parches para montones de fallos\n"
+"y algunas funciones nuevas"
 
 #: main.cpp:143
 #, kde-format
@@ -3339,16 +3335,13 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:149
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "Exif images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
-"Parche para ordenar imágenes en la vista de miniaturas y lectura de "
-"información temporal desde imágenes Exif para imágenes existentes"
+"Parche para ordenar imágenes en la vista de miniaturas y lectura\n"
+"de información temporal desde imágenes Exif para imágenes existentes"
 
 #: main.cpp:154
 #, kde-format
@@ -3376,16 +3369,13 @@ msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
 #: main.cpp:165
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
+#, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
-"Parche que acelera la carga de miniaturas, y vista preliminar en el diálogo "
-"de propiedades."
+"Parche que acelera la carga de miniaturas,\n"
+"y vista preliminar en el diálogo de propiedades."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format
@@ -3457,16 +3447,16 @@ msgstr "Crear imagen de categoría"
 msgctxt "@title:window"
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Copiar imagen en..."
-msgstr[1] "Copiar imágenes en..."
+msgstr[0] "Copiar imagen en…"
+msgstr[1] "Copiar imágenes en…"
 
 #: MainWindow/CopyLinkEngine.cpp:42
 #, kde-format
 msgctxt "@title:window"
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Enlazar imagen en..."
-msgstr[1] "Enlazar imágenes en..."
+msgstr[0] "Enlazar imagen en…"
+msgstr[1] "Enlazar imágenes en…"
 
 #: MainWindow/DeleteDialog.cpp:24
 #, kde-format
@@ -3599,7 +3589,7 @@ msgstr "Copiar y abrir"
 #: MainWindow/ExternalPopup.cpp:87
 #, kde-format
 msgid "Open With..."
-msgstr "Abrir con..."
+msgstr "Abrir con…"
 
 #: MainWindow/ExternalPopup.cpp:102
 #, kde-format
@@ -3963,7 +3953,7 @@ msgstr "Barra de búsqueda"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Search ..."
-msgstr "Buscar..."
+msgstr "Buscar…"
 
 #: MainWindow/StatisticsDialog.cpp:35
 #, kde-format
@@ -4062,7 +4052,7 @@ msgstr "Total"
 #: MainWindow/StatusBar.cpp:104
 #, kde-format
 msgid "Thumbnail settings..."
-msgstr "Preferencias de las miniaturas..."
+msgstr "Preferencias de las miniaturas…"
 
 #: MainWindow/TokenEditor.cpp:36
 #, kde-format
@@ -4106,7 +4096,7 @@ msgstr ""
 #: MainWindow/WelcomeDialog.cpp:61
 #, kde-format
 msgid "Create My Own Database..."
-msgstr "Crear mi propia base de datos..."
+msgstr "Crear mi propia base de datos…"
 
 #: MainWindow/WelcomeDialog.cpp:64
 #, kde-format
@@ -4262,12 +4252,12 @@ msgstr "Sin selección"
 #: MainWindow/Window.cpp:539
 #, kde-format
 msgid "Saving..."
-msgstr "Guardando..."
+msgstr "Guardando…"
 
 #: MainWindow/Window.cpp:544
 #, kde-format
 msgid "Saving... Done"
-msgstr "Guardando... Listo"
+msgstr "Guardando… Listo"
 
 #: MainWindow/Window.cpp:692
 #, kde-format
@@ -4287,17 +4277,17 @@ msgstr "No se ha seleccionado ninguna imagen."
 #: MainWindow/Window.cpp:776
 #, kde-format
 msgid "Generate HTML..."
-msgstr "Generar HTML..."
+msgstr "Generar HTML…"
 
 #: MainWindow/Window.cpp:780
 #, kde-format
 msgid "Import..."
-msgstr "Importar..."
+msgstr "Importar…"
 
 #: MainWindow/Window.cpp:783
 #, kde-format
 msgid "Export/Copy Images..."
-msgstr "Exportar/copiar imágenes..."
+msgstr "Exportar/copiar imágenes…"
 
 #: MainWindow/Window.cpp:810
 #, kde-format
@@ -4308,12 +4298,12 @@ msgstr "Eliminar seleccionadas"
 #: MainWindow/Window.cpp:816
 #, kde-format
 msgid "Remove Tokens..."
-msgstr "Eliminar identificadores..."
+msgstr "Eliminar identificadores…"
 
 #: MainWindow/Window.cpp:819
 #, kde-format
 msgid "Open List of Files..."
-msgstr "Abrir lista de archivos..."
+msgstr "Abrir lista de archivos…"
 
 #: MainWindow/Window.cpp:822
 #, kde-format
@@ -4463,7 +4453,7 @@ msgstr "Mostrar imágenes y vídeos que no están en disco"
 #: MainWindow/Window.cpp:990
 #, kde-format
 msgid "Display Images and Videos with Incomplete Dates..."
-msgstr "Mostrar imágenes y vídeos con fechas incompletas..."
+msgstr "Mostrar imágenes y vídeos con fechas incompletas…"
 
 #: MainWindow/Window.cpp:993
 #, kde-format
@@ -4488,7 +4478,7 @@ msgstr "Reconstruir la base de datos de búsqueda EXIF"
 #: MainWindow/Window.cpp:1005
 #, kde-format
 msgid "Read Exif Info from Files..."
-msgstr "Leer información Exif de los archivos..."
+msgstr "Leer información Exif de los archivos…"
 
 #: MainWindow/Window.cpp:1008
 #, kde-format
@@ -4508,7 +4498,7 @@ msgstr "Generar miniaturas"
 #: MainWindow/Window.cpp:1018
 #, kde-format
 msgid "Statistics..."
-msgstr "Estadísticas..."
+msgstr "Estadísticas…"
 
 #: MainWindow/Window.cpp:1022
 #, kde-format
@@ -4554,25 +4544,25 @@ msgstr "Usar la anterior miniatura de vídeo"
 #, kde-format
 msgid "Copy image to ..."
 msgid_plural "Copy images to ..."
-msgstr[0] "Copiar imagen en..."
-msgstr[1] "Copiar imágenes en..."
+msgstr[0] "Copiar imagen en…"
+msgstr[1] "Copiar imágenes en…"
 
 #: MainWindow/Window.cpp:1064 MainWindow/Window.cpp:1297
 #, kde-format
 msgid "Link image to ..."
 msgid_plural "Link images to ..."
-msgstr[0] "Enlazar imagen en..."
-msgstr[1] "Enlazar imágenes en..."
+msgstr[0] "Enlazar imagen en…"
+msgstr[1] "Enlazar imágenes en…"
 
 #: MainWindow/Window.cpp:1088
 #, kde-format
 msgid "Auto saving...."
-msgstr "Autoguardando..."
+msgstr "Autoguardando…"
 
 #: MainWindow/Window.cpp:1091
 #, kde-format
 msgid "Auto saving.... Done"
-msgstr "Autoguardando... Hecho"
+msgstr "Autoguardando… Hecho"
 
 #: MainWindow/Window.cpp:1193
 #, kde-format
@@ -4596,7 +4586,7 @@ msgstr ""
 "<p>Ha configurado una etiqueta para las imágenes sin etiquetas, aunque dicha "
 "etiqueta o su categoría no existen en la base de datos.</p><p>Por favor, "
 "revise las preferencias de dicha etiqueta en <interface>Preferencias|"
-"Configurar KPhotoAlbum...|Categorías</interface></p>"
+"Configurar KPhotoAlbum…|Categorías</interface></p>"
 
 #: MainWindow/Window.cpp:1364 Settings/SettingsDialog.cpp:46
 #, kde-format
@@ -4666,7 +4656,7 @@ msgstr "Error interno"
 msgid "Successfully shared image(s). Copying location to clipboard..."
 msgstr ""
 "Las imágenes se han compartido con éxito. Copiando la ubicación en el "
-"portapapeles..."
+"portapapeles…"
 
 #: MainWindow/Window.cpp:1556
 #, kde-format
@@ -4778,7 +4768,7 @@ msgstr "Vista de mapa"
 #: Map/MapView.cpp:387
 #, kde-format
 msgid "<i>Loading coordinates from the images ...</i>"
-msgstr "<i>Cargando coordenadas de las imágenes...</i>"
+msgstr "<i>Cargando coordenadas de las imágenes…</i>"
 
 #: Map/MapView.cpp:403
 #, kde-format
@@ -4868,7 +4858,7 @@ msgstr ""
 #, kde-format
 msgctxt "@label:textedit"
 msgid "Filter ... (%1)"
-msgstr "Filtrar... (%1)"
+msgstr "Filtrar… (%1)"
 
 #: Settings/BirthdayPage.cpp:93
 #, kde-format
@@ -4902,7 +4892,7 @@ msgstr "Fecha de nacimiento de %1:"
 #: Settings/BirthdayPage.cpp:233
 #, kde-format
 msgid "Enter a date..."
-msgstr "Introduzca una fecha..."
+msgstr "Introduzca una fecha…"
 
 #: Settings/BirthdayPage.cpp:297
 #, kde-format
@@ -5762,7 +5752,7 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Add group ..."
-msgstr "Añadir grupo..."
+msgstr "Añadir grupo…"
 
 #: Settings/TagGroupsPage.cpp:229
 #, kde-format
@@ -6749,13 +6739,13 @@ msgstr "Establecer como primera imagen de la pila"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Copy image to ..."
-msgstr "Copiar imagen en..."
+msgstr "Copiar imagen en…"
 
 #: Viewer/ViewerWidget.cpp:209
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Link image to ..."
-msgstr "Enlazar imagen en..."
+msgstr "Enlazar imagen en…"
 
 #: Viewer/ViewerWidget.cpp:217
 #, kde-format
@@ -7261,7 +7251,7 @@ msgstr "Token %1"
 #: Viewer/VisibleOptionsMenu.cpp:24
 #, kde-format
 msgid "Show..."
-msgstr "Mostrar..."
+msgstr "Mostrar…"
 
 #: Viewer/VisibleOptionsMenu.cpp:27
 #, kde-format
@@ -7312,1274 +7302,3 @@ msgstr "Mostrar tamaño de imagen"
 #, kde-format
 msgid "Show Rating"
 msgstr "Mostrar puntuación"
-
-#~ msgid "KPhotoAlbum only supports database files named 'index.xml'."
-#~ msgstr ""
-#~ "KPhotoAlbum solo permite usar archivos de bases de datos con el nombre "
-#~ "«index.xml»."
-
-#~ msgid ""
-#~ "Please specify an existing image directory or an existing index.xml file."
-#~ msgstr ""
-#~ "Indique un directorio de imágenes existente o un archivo «index.xml» "
-#~ "existente."
-
-#~ msgid "Invalid database file"
-#~ msgstr "Archivo de base de datos no válido"
-
-#~ msgid ""
-#~ "<p>Given index file does not exist, do you want to create following?<br />"
-#~ "%1/index.xml</p>"
-#~ msgstr ""
-#~ "<p>El archivo de índice indicado no existe. ¿Desea crear el siguiente "
-#~ "archivo?<br />%1/index.xml</p>"
-
-#~ msgid ""
-#~ "<p>Could not save the window layout.</p>File %1 could not be opened "
-#~ "because of the following error: %2"
-#~ msgstr ""
-#~ "<p>No se ha podido guardar la disposición de las ventanas.</p>El archivo "
-#~ "%1 no se puede abrir a causa del siguiente error: %2"
-
-#~ msgid ""
-#~ "<p>Could not save the window layout.</p>File %1 could not be written "
-#~ "because of the following error: %2"
-#~ msgstr ""
-#~ "<p>No se ha podido guardar la disposición de las ventanas.</p>No se puede "
-#~ "escribir en el archivo %1 a causa del siguiente error: %2"
-
-#~ msgid "Loading Database"
-#~ msgstr "Cargando base de datos"
-
-#~ msgid "Loading Main Window"
-#~ msgstr "Cargando ventana principal"
-
-#~ msgid "Failed to set up video playback"
-#~ msgstr "No se ha podido configurar la reproducción de vídeo"
-
-#~ msgid "Failed to set up video playback (renderer wasn't created)"
-#~ msgstr ""
-#~ "No se ha podido configurar la reproducción de vídeo (no se ha creado el "
-#~ "rendedizador)"
-
-#~ msgid "Failed to set up video playback (widget wasn't created)"
-#~ msgstr ""
-#~ "No se ha podido configurar la reproducción de vídeo (no se ha creado el "
-#~ "widget)"
-
-#~ msgid ""
-#~ "<p>Could not open given index.xml, as the provided folder does not exist."
-#~ "<br />%1</p>"
-#~ msgstr ""
-#~ "<p>No se ha podido abrir el archivo «index.xml» indicado, ya que la "
-#~ "carpeta indicada no existe.<br />%1</p>"
-
-#~ msgctxt ""
-#~ "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--"
-#~ "\", %1) and it's octal representation (e.g. \"0644\")"
-#~ msgid "%1 (%2)"
-#~ msgstr "%1 (%2)"
-
-#~ msgctxt "As in 'This happened 1 day ago'"
-#~ msgid "1 day ago"
-#~ msgid_plural "%1 days ago"
-#~ msgstr[0] "hace 1 día"
-#~ msgstr[1] "hace %1 días"
-
-#~ msgctxt "As in 'This happened 1 month ago'"
-#~ msgid "1 month ago"
-#~ msgid_plural "%1 months ago"
-#~ msgstr[0] "hace 1 mes"
-#~ msgstr[1] "hace %1 meses"
-
-#~ msgctxt "As in 'This happened 1 year ago'"
-#~ msgid "1 year ago"
-#~ msgid_plural "%1 years ago"
-#~ msgstr[0] "hace 1 año"
-#~ msgstr[1] "hace %1 años"
-
-#~ msgctxt "E.g. ' (7 months-1 year)'"
-#~ msgid " (%1-%2)"
-#~ msgstr " (%1-%2)"
-
-#~ msgctxt "E.g. ' (1-2 years ago)'"
-#~ msgid " (%1-%2)"
-#~ msgstr " (%1-%2)"
-
-#~ msgctxt "E.g. '(7 months ago-1 year ago)'"
-#~ msgid " (%1-%2)"
-#~ msgstr " (%1-%2)"
-
-#~ msgctxt "OSD for slideshow, num of seconds per image"
-#~ msgid "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
-#~ msgstr "<p><center><font size=\"+4\">%1&nbsp;s</font></center></p>"
-
-#~ msgctxt "OSD for slideshow"
-#~ msgid "<p><center><font size=\"+4\">Ending Slideshow</font></center></p>"
-#~ msgstr ""
-#~ "<p><center><font size=\"+4\">Terminando la presentación</font></center></"
-#~ "p>"
-
-#~ msgctxt "Basically 'enter a category name'"
-#~ msgid "<b>Setting Category: </b>"
-#~ msgstr "<b>Definir categoría: </b>"
-
-#~ msgctxt "Basically 'enter a tag name'"
-#~ msgid "<b>Assigning: </b>"
-#~ msgstr "<b>Asignando: </b>"
-
-#~ msgid "Display Images and Videos with Changed MD5 Sum"
-#~ msgstr "Mostrar imágenes y vídeos con cambios en la suma MD5"
-
-#~ msgid "Recalculate Checksum"
-#~ msgstr "Recalcular suma de comprobación"
-
-#~ msgid "Really Rename %1?"
-#~ msgstr "¿Seguro que desea cambiar el nombre de %1?"
-
-#~ msgid "Copyright (C) 2020 The KPhotoAlbum Development Team"
-#~ msgstr "Copyright © 2020 El equipo de desarrollo de KPhotoAlbum"
-
-#~ msgid "Directory Exists"
-#~ msgstr "La carpeta ya existe"
-
-#~ msgid "Error creating directory %1"
-#~ msgstr "Error al crear la carpeta %1"
-
-#~ msgid "Could not create directory %1"
-#~ msgstr "No se pudo crear la carpeta %1"
-
-#~ msgid ""
-#~ "<p>It is possible to create new categories - that are alternatives\n"
-#~ "to <resource>People</resource>, <resource>Places</resource>, and "
-#~ "<resource>Events</resource> - in the annotation\n"
-#~ "dialog.\n"
-#~ "To add new categories or remove existing ones, go to the "
-#~ "<interface>Settings|Configure KPhotoAlbum...</interface> dialog, and "
-#~ "choose\n"
-#~ "<interface>Categories</interface> in the side bar.</p>\n"
-#~ msgstr ""
-#~ "<p>Es posible crear nuevas categorías (alternativas a las de\n"
-#~ "<resource>Personas</resource>, <resource>Lugares</resource> y "
-#~ "<resource>Eventos</resource>) en el diálogo de anotación. \n"
-#~ "Para añadir categorías o eliminar las ya existentes, vaya al diálogo "
-#~ "<interface>Preferencias | Configurar KPhotoAlbum...</interface> y elija\n"
-#~ "<interface>Categorías</interface> en la barra lateral.</p>\n"
-
-#~ msgid ""
-#~ "<p>You may rename or delete a tag (i.e. a person, location, keyword or "
-#~ "similar) by\n"
-#~ "right-clicking on the item in the image property dialog.</p>\n"
-#~ msgstr ""
-#~ "<p>Puede cambiar el nombre o borrar una etiqueta (por ejemplo, una "
-#~ "persona, una ubicación, una palabra clave o similar)\n"
-#~ "haciendo clic derecho en el elemento en el diálogo de propiedades de "
-#~ "imagen.</p>\n"
-
-#~ msgid ""
-#~ "<p>When generating HTML you must specify a base directory for\n"
-#~ "the images. Here you can specify any protocol supported by KDE, like ftp "
-#~ "or\n"
-#~ "fish.</p>\n"
-#~ "<p>Examples:\n"
-#~ "<ul>\n"
-#~ "  <li> ftp://someserver/my-upload-area/images (upload using FTP)\n"
-#~ "  <li> fish://someserver/home/foo/images (upload using ssh)\n"
-#~ "  <li> smb://someserver/c/images (upload to a Windows share)\n"
-#~ "</ul>\n"
-#~ "</p>\n"
-#~ msgstr ""
-#~ "<p>Al generar el HTML debe especificar una carpeta base para\n"
-#~ "las imágenes. Aquí puede especificar cualquier protocolo permitido\n"
-#~ "por KDE, como ftp o fish.</p>\n"
-#~ "<p>Ejemplos:\n"
-#~ "<ul>\n"
-#~ "  <li> ftp://someserver/my-upload-area/images (enviar usando FTP)\n"
-#~ "  <li> fish://someserver/home/foo/images (enviar usando ssh)\n"
-#~ "  <li> smb://someserver/c/images (enviar a una carpeta compartida de "
-#~ "Windows)\n"
-#~ "</ul>\n"
-#~ "</p>\n"
-
-#~ msgid ""
-#~ "<p>New images are automatically marked as <emphasis>untagged</emphasis>.</"
-#~ "br>\n"
-#~ "You can easily search for these images from main window by clicking the "
-#~ "appropriate icon.</p>\n"
-#~ "<p>\n"
-#~ "Once you are done tagging an image just click <interface>Done</interface> "
-#~ "and the\n"
-#~ "<emphasis>untagged</emphasis> flag is automatically removed. On the other "
-#~ "hand, the\n"
-#~ "<interface>Continue Later</interface> button finishes the tagging but "
-#~ "leaves the\n"
-#~ "<emphasis>untagged</emphasis> flag intact.</p>\n"
-#~ msgstr ""
-#~ "<p>Las nuevas imágenes se marcan automáticamente como <emphasis>sin "
-#~ "etiquetar</emphasis>.<br/>\n"
-#~ "Puede localizar fácilmente estas imágenes desde la ventana principal "
-#~ "haciendo clic en el icono adecuado.</p>\n"
-#~ "<p>\n"
-#~ "Cuando haya terminado de etiquetar una imagen, pulse "
-#~ "<interface>Terminado</interface>,\n"
-#~ "con lo que se eliminará el indicador <emphasis>sin etiquetar</emphasis>. "
-#~ "Por otra parte,\n"
-#~ "el botón <interface>Continuar más tarde</interface> termina el "
-#~ "etiquetado, pero deja\n"
-#~ "el indicador <emphasis>sin etiquetar</emphasis> intacto.</p>\n"
-
-#~ msgid ""
-#~ "<p>You can reorder images on your hard disk after having loaded them "
-#~ "into\n"
-#~ "KPhotoAlbum. KPhotoAlbum will still remember them, as it calculates "
-#~ "checksums for\n"
-#~ "the images.</p>\n"
-#~ msgstr ""
-#~ "<p>Puede reordenar las imágenes en su disco duro tras haberlas cargado "
-#~ "en\n"
-#~ "KPhotoAlbum. KPhotoAlbum las recordará, puesto que ya habrá calculado "
-#~ "sus\n"
-#~ "sumas de verificación.</p>\n"
-
-#~ msgid ""
-#~ "<p>It is possible to associate images with categories.</p>\n"
-#~ "<p>That way when browsing, say people, you may get a small icon for each "
-#~ "person with\n"
-#~ "e.g. the person's face.</p>\n"
-#~ "<p>To specify an icon for a person, load the person in the viewer, zoom "
-#~ "to\n"
-#~ "the part which you want to make into an icon, and choose\n"
-#~ "<interface>Show Category Editor</interface>. This will bring up a dialog "
-#~ "where you can\n"
-#~ "find the person, and set the image.\n"
-#~ "</p>\n"
-#~ msgstr ""
-#~ "<p>Puede asociar imágenes con categorías.</p>\n"
-#~ "<p>Así, por ejemplo, cuando esté explorando personas\n"
-#~ "verá un pequeño icono junto a cada una con su cara.</p>\n"
-#~ "<p>Para asignar un icono a una persona, cargue la persona en el visor, \n"
-#~ "amplíe la parte que quiera convertir en icono y seleccione\n"
-#~ "<interface>Mostrar editor de categorías</interface>. Esto mostrará un "
-#~ "diálogo donde\n"
-#~ "buscar la persona y asignar la imagen.\n"
-#~ "</p>\n"
-
-#~ msgid ""
-#~ "<p>You may close the image annotation dialog (the one where you specify\n"
-#~ "people, places, etc. for the images) by pressing Ctrl+Enter.\n"
-#~ "</p>\n"
-#~ msgstr ""
-#~ "<p>Puede cerrar el diálogo de anotación de imágenes (donde especifica "
-#~ "gente,\n"
-#~ "lugares, etc., de las imágenes) pulsando Ctrl+Intro.\n"
-#~ "</p>\n"
-
-#~ msgid ""
-#~ "<p>To hear more about latest changes in KPhotoAlbum and to get help in "
-#~ "using and developing KPhotoAlbum, you are welcome to join the KPhotoAlbum "
-#~ "mailing list at <a href=\"http://mail.kde.org/cgi-bin/mailman/listinfo/"
-#~ "kphotoalbum\">http://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum</"
-#~ "a>.</p>\n"
-#~ msgstr ""
-#~ "<p>Para tener más noticias sobre los últimos cambios en KPhotoAlbum y "
-#~ "para obtener ayuda sobre el uso y el desarrollo de KPhotoAlbum, le "
-#~ "animamos a unirse a la lista de distribución de correo de KPhotoAlbum en "
-#~ "<a href=\"http://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum"
-#~ "\">http://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum</a>.</p>\n"
-
-#~ msgid ""
-#~ "<p>To discuss KPhotoAlbum with other users and developers and ask any "
-#~ "questions that come into your mind, feel free to join our IRC channel "
-#~ "<b>#kphotoalbum@irc.libera.chat</b> or using the <a href=\"https://web."
-#~ "libera.chat/\">web chat</a></p>\n"
-#~ msgstr ""
-#~ "<p>Para hablar de KPhotoAlbum con otros usuarios y desarrolladores y "
-#~ "hacer cualquier pregunta que se le ocurra, no dude en unirse a nuestro "
-#~ "canal de IRC <b>#kphotoalbum@irc.libera.chat</b> o usar el <a href="
-#~ "\"https://web.libera.chat/\">chat web</a>.</p>\n"
-
-#~ msgid ""
-#~ "<p>You may reorder images by dragging and dropping one image onto\n"
-#~ "another.</p>\n"
-#~ "<p>If you drop it on the left edge, it will end up in front of\n"
-#~ "the other, if you drop it on the right edge it will be inserted behind.</"
-#~ "p>\n"
-#~ "<p align=\"right\">-- Tip contributed by Eivind Kjorstad</p>\n"
-#~ msgstr ""
-#~ "<p>Puede reordenar las imágenes arrastrando y soltando unas sobre\n"
-#~ "otras.</p>\n"
-#~ "<p>Si las suelta sobre el margen izquierdo se colocará delante\n"
-#~ "de la otra, y si la suelta en el derecho se insertará detrás.</p>\n"
-#~ "<p align=\"right\">-- Consejo escrito por Eivind Kjorstad</p>\n"
-
-#~ msgid ""
-#~ "<p>\n"
-#~ "On the thumbnail view, you can resize the grid to your needs just by "
-#~ "clicking\n"
-#~ "the middle mouse button and dragging around. On most systems you can "
-#~ "emulate\n"
-#~ "the middle mouse button by left and right clicking at the same time.\n"
-#~ "</p>\n"
-#~ "<p align=\"right\">-- Tip contributed by Rafael Beccar</p>\n"
-#~ msgstr ""
-#~ "<p>\n"
-#~ "En la vista de miniaturas puede redimensionar la cuadrícula haciendo clic "
-#~ "con\n"
-#~ "el botón central del ratón y arrastrando. En la mayoría de sistemas puede "
-#~ "emular\n"
-#~ "el botón central del ratón haciendo clic izquierdo y derecho a la vez.\n"
-#~ "</p>\n"
-#~ "<p align=\"right\">-- Consejo proporcionado por Rafael Beccar</p>\n"
-
-#~ msgid ""
-#~ "<p>You can rate images using the numbers from 0 to 5 on the keyboard "
-#~ "whilst in\n"
-#~ "thumbnail view or the image viewer. In the annotation dialog, you can "
-#~ "rate\n"
-#~ "images by selecting the appropriate star rating.</p>\n"
-#~ msgstr ""
-#~ "<p>Podrá clasificar as imágenes, con números de 0 a 5 en el teclado, en "
-#~ "la vista\n"
-#~ "de miniaturas y en el visor de imágenes. Clasifique as imágenes en la "
-#~ "ventana\n"
-#~ "de anotaciones, seleccionando el número de estrellas apropiado.</p>\n"
-
-#~ msgid ""
-#~ "<p>Sometimes it is useful to group several related images into an image "
-#~ "stack.\n"
-#~ "You can merge several images into a stack by first selecting them on "
-#~ "Thumbnail\n"
-#~ "View and then pressing <shortcut>Ctrl+3</shortcut> or selecting "
-#~ "<interface>Merge Images into a\n"
-#~ "Stack</interface> from menu.</p>\n"
-#~ msgstr ""
-#~ "<p>A veces resulta útil agrupar varias imágenes relacionadas en una pila "
-#~ "de imágenes.\n"
-#~ "Puede fusionar varias imágenes en una pila seleccionándolas en primer "
-#~ "lugar en la vista\n"
-#~ "de miniaturas y pulsando <shortcut>Ctrl+3</shortcut> o seleccionando "
-#~ "<interface>Fusionar imágenes en\n"
-#~ "una pila</interface> en el menú.</p>\n"
-
-#~ msgid ""
-#~ "<p>When searching for new images, KPhotoAlbum can automatically put new "
-#~ "versions\n"
-#~ "of images into stacks by looking at their filenames. To configure this "
-#~ "feature,\n"
-#~ "choose <interface>Settings|Configure KPhotoalbum...</interface> and set "
-#~ "appropriate\n"
-#~ "values in the <interface>File Searching &amp; Versions</interface> tab.</"
-#~ "p>\n"
-#~ "<p>\n"
-#~ "<ul>\n"
-#~ "<li>Enable the checkbox <interface>Try to detect multiple versions of "
-#~ "files</interface></li>\n"
-#~ "<li>Enter a regular expression for your modified files:<br/><bcode>^(.*)-"
-#~ "adjusted\\.(.*)</bcode></li>\n"
-#~ "<li>Enter a regular expression for your original file:<br/><bcode>\\1."
-#~ "\\2</bcode></li>\n"
-#~ "</ul>\n"
-#~ "</p>\n"
-#~ msgstr ""
-#~ "<p>Cuando busca imágenes nuevas, KPhotoAlbum puede situar nuevas "
-#~ "versiones de\n"
-#~ "las imágenes automáticamente en pilas según sus nombres de archivos. Para "
-#~ "ello,\n"
-#~ "vaya a <interface>Preferencias|Configurar KPhotoAlbum...</interface> y "
-#~ "defina los\n"
-#~ "valores apropiados en la pestaña <interface>Búsqueda de archivos y "
-#~ "versiones</interface>.</p>\n"
-#~ "<p>\n"
-#~ "<ul>\n"
-#~ "<li>Marque la casilla <interface>Tratar de detectar múltiples versiones "
-#~ "de los archivos</interface></li>\n"
-#~ "<li>Introduzca una expresión regular para los archivos modificados:<br/"
-#~ "><bcode>^(.*)-ajustado\\.(.*)</bcode></li>\n"
-#~ "<li>Introduzca una expresión regular para los archivos originales:<br/"
-#~ "><bcode>\\1.\\2</bcode></li>\n"
-#~ "</ul>\n"
-#~ "</p>\n"
-
-#~ msgid ""
-#~ "<p>KPhotoAlbum can display the age of people on an image.</p>\n"
-#~ "<p>\n"
-#~ "To enable this, enter the birthdate of a person under "
-#~ "<interface>Maintenance|Edit Birth Dates</interface>.\n"
-#~ "The age of the person will then be shown in the info box of the viewer "
-#~ "window.\n"
-#~ "</p>\n"
-#~ msgstr ""
-#~ "<p>KPhotoAlbum puede mostrar la edad de las personas de una imagen.</p>\n"
-#~ "<p>\n"
-#~ "Para activar esto, introduzca la fecha de nacimiento de una persona en "
-#~ "<interface>Mantenimiento|Editar fechas de nacimiento</interface>.\n"
-#~ "La edad de la persona se mostrará en el cuadro informativo de la ventana "
-#~ "del visor.\n"
-#~ "</p>\n"
-
-#~ msgid ""
-#~ "<p>You can associate tags to an area of an image (e.g. to connect a name "
-#~ "to a face).</p>\n"
-#~ "<p>\n"
-#~ "To do so, make sure that the checkbox <interface>Positionable Tags</"
-#~ "interface> under\n"
-#~ "<interface>Settings|Configure KPhotoAlbum...|Categories</interface> is "
-#~ "enabled for the\n"
-#~ "given category.\n"
-#~ "</p>\n"
-#~ "<p>\n"
-#~ "When this is done, you can drag the mouse on the image preview of the "
-#~ "annotation dialog to\n"
-#~ "mark an area. Open the context menu (right mouse button) on the area to "
-#~ "associate it with a tag.\n"
-#~ "</p>\n"
-#~ msgstr ""
-#~ "<p>Puede asociar etiquetas con un área de una imagen (por ejemplo, para "
-#~ "conectar un nombre con una cara).</p>\n"
-#~ "<p>\n"
-#~ "Para ello, asegúrese de que la casilla <interface>Etiquetas posicionales</"
-#~ "interface> de\n"
-#~ "<interface>Preferencias|Configurar KPhotoAlbum...|Categorías</interface> "
-#~ "esté marcada para\n"
-#~ "la categoría indicada.\n"
-#~ "</p>\n"
-#~ "<p>\n"
-#~ "Cuando está marcada, puede arrastrar el ratón sobre la vista previa de la "
-#~ "imagen en el diálogo de notas\n"
-#~ "para marcar un área. Abra el menú de contexto (con el botón derecho del "
-#~ "ratón) del área para asociarla con una etiqueta.\n"
-#~ "</p>\n"
-
-#~ msgid ""
-#~ "<p>\n"
-#~ "In the annotation dialog, you can hit <shortcut>Ctrl+Space</shortcut> any "
-#~ "time to enlarge the current image.\n"
-#~ "To go back to the standard view, press <shortcut>Ctrl+Space</shortcut> "
-#~ "again.\n"
-#~ "</p>\n"
-#~ msgstr ""
-#~ "<p>\n"
-#~ "En el diálogo de anotación, puede pulsar <shortcut>Ctrl+Espacio</"
-#~ "shortcut> en cualquier momento para agrandar la imagen.\n"
-#~ "Para volver a la vista estándar, pulse <shortcut>Ctrl+Espacio</shortcut> "
-#~ "de nuevo.\n"
-#~ "</p>\n"
-
-#~ msgid ""
-#~ "<p>This is the last tip. If you know any additional tips or tricks, then "
-#~ "please\n"
-#~ "send an email to <a href=\"mailto:kphotoalbum@kde.org\">kphotoalbum@kde."
-#~ "org</a>.</p>\n"
-#~ msgstr ""
-#~ "<p>Este es el último consejo. Si se le ocurre algún consejo o truco "
-#~ "adicional,\n"
-#~ "envíe un correo a <a href=\"mailto:kphotoalbum@kde.org\">kphotoalbum@kde."
-#~ "org</a>.</p>\n"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Show Exif Viewer"
-#~ msgstr "Mostrar visor Exif"
-
-#~ msgid ""
-#~ "<p>No video mime types found, which indicates that either Qt was compiled "
-#~ "without phonon support, or there were missing codecs</p>"
-#~ msgstr ""
-#~ "<p>No se encontró ningún tipo MIME de vídeo, lo que significa que o Qt se "
-#~ "compiló sin soporte de Phonon o que faltan códecs</p>"
-
-#~ msgid ""
-#~ "<p>Phonon is capable of playing movies of these mime types:<ul><li>%1</"
-#~ "li></ul></p>"
-#~ msgstr ""
-#~ "<p>Phonon puede reproducir vídeos con los siguientes tipos MIME:<ul><li>"
-#~ "%1</li></ul></p>"
-
-#~ msgid "Video support"
-#~ msgstr "Soporte de vídeo"
-
-#~ msgid "Copy image(s) to..."
-#~ msgstr "Copiar imágenes en..."
-
-#~ msgid "Copy currently selected image to..."
-#~ msgstr "Copar las imágenes seleccionadas en..."
-
-#~ msgid "Copy all selected images to..."
-#~ msgstr "Copiar todas las imágenes seleccionadas en..."
-
-#~ msgid "Link currently selected image to..."
-#~ msgstr "Enlazar las imágenes seleccionadas a..."
-
-#~ msgid "Link image(s) to..."
-#~ msgstr "Enlazar imágenes a..."
-
-#~ msgid "Link all selected images to..."
-#~ msgstr "Enlazar todas las imágenes seleccionadas a..."
-
-#~ msgctxt "@title:window"
-#~ msgid "Copy Image to..."
-#~ msgstr "Copiar imagen en..."
-
-#~ msgctxt "@action:button"
-#~ msgid "Copy"
-#~ msgstr "Copiar"
-
-#~ msgctxt "@title:window"
-#~ msgid "Link Image to..."
-#~ msgstr "Enlazar imagen en..."
-
-#~ msgctxt "@action:button"
-#~ msgid "Link"
-#~ msgstr "Enlazar"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Copy Image to..."
-#~ msgstr "Copiar imagen en..."
-
-#~ msgid "Exif label search: "
-#~ msgstr "Búsqueda de etiqueta Exif: "
-
-#~ msgctxt "@label:textbox label on the search bar"
-#~ msgid "Search:"
-#~ msgstr "Buscar:"
-
-#~ msgid "Filter (Alt+f)"
-#~ msgstr "Filtrar (Alt+f)"
-
-#~ msgid ""
-#~ "<p>On KPhotoAlbum's home page <a href=\"http://www.kphotoalbum.org/\">www."
-#~ "kphotoalbum.org</a> you may see a few videos featuring a number of\n"
-#~ "different KPhotoAlbum features.</p>\n"
-#~ msgstr ""
-#~ "<p>En la página web de KPhotoAlbum <a href=\"http://www.kphotoalbum.org/"
-#~ "\">www.kphotoalbum.org</a> puede ver varios vídeos que muestran diversas "
-#~ "funciones\n"
-#~ "de KPhotoAlbum.</p>\n"
-
-#~ msgid ""
-#~ "<p>KPhotoAlbum's Handbook is available from Help menu. <a href=\"http://"
-#~ "docs.kde.org/development/en/extragear-graphics/kphotoalbum/index.html"
-#~ "\">Online</a> and <a href=\"http://docs.kde.org/development/en/extragear-"
-#~ "graphics/kphotoalbum/kphotoalbum.pdf\">PDF</a> versions are available at "
-#~ "<a href=\"http://docs.kde.org\">KDE documentation site</a>.</p>\n"
-#~ msgstr ""
-#~ "<p>El manual de KPhotoAlbum está disponible en el menú de Ayuda. Las "
-#~ "versiones <a href=\"http://docs.kde.org/development/en/extragear-graphics/"
-#~ "kphotoalbum/index.html\">en línea</a> y <a href=\"http://docs.kde.org/"
-#~ "development/en/extragear-graphics/kphotoalbum/kphotoalbum.pdf\">PDF</a> "
-#~ "están disponibles en el <a href=\"http://docs.kde.org\">sitio web de "
-#~ "documentación de KDE</a>.</p>\n"
-
-#~ msgid ""
-#~ "<p>KPhotoAlbum can detect and recognize faces on images.</p>\n"
-#~ "<p>\n"
-#~ "To use this functionality, use the <interface>Search for faces on the "
-#~ "current image</interface>\n"
-#~ "button below the image preview in the annotation dialog.\n"
-#~ "</p>\n"
-#~ "<note>To see if face recognition support is enabled, open the feature "
-#~ "dialog\n"
-#~ "(<interface>Help|KPhotoAlbum feature status</interface>), and check the "
-#~ "item\n"
-#~ "<resource>Face detection and recognition support</resource>.\n"
-#~ "</note>\n"
-#~ msgstr ""
-#~ "<p>KPhotoAlbum puede detectar y reconocer caras en las imágenes.</p>\n"
-#~ "<p>\n"
-#~ "Para usar esta función, pulse el botón <interface>Buscar caras en la "
-#~ "imagen actual</interface>\n"
-#~ "que hay debajo de la vista previa de la imagen en el diálogo de "
-#~ "anotación.\n"
-#~ "</p>\n"
-#~ "<note>Para comprobar si está activado el reconocimiento de caras, abra el "
-#~ "diálogo\n"
-#~ "de la función (<interface>Ayuda|Estado de las funciones de KPhotoAlbum</"
-#~ "interface>)\n"
-#~ "y marque la casilla <resource>Implementación de detección y "
-#~ "reconocimiento facial</resource>.\n"
-#~ "</note>\n"
-
-#~ msgctxt ""
-#~ "The whole sentence should read: *Stack images that are shot within x "
-#~ "seconds of each other*. So images that are shot in one burst are "
-#~ "automatically stacked together. (This sentence is before the x.)"
-#~ msgid "Stack images that are shot within"
-#~ msgstr "Apilar imágenes hechas en"
-
-#~ msgid "Category for virtual albums:"
-#~ msgstr "Categoría para álbumes virtuales:"
-
-#~ msgid ""
-#~ "<p>KPhotoAlbum shares plugins with other imaging applications, some of "
-#~ "which have the concept of albums. KPhotoAlbum does not have this concept; "
-#~ "nevertheless, for certain plugins to function, KPhotoAlbum behaves to the "
-#~ "plugin system as if it did.</p><p>KPhotoAlbum does this by defining the "
-#~ "current album to be the current view - that is, all the images the "
-#~ "browser offers to display.</p><p>In addition to the current album, "
-#~ "KPhotoAlbum must also be able to give a list of all albums; the list of "
-#~ "all albums is defined in the following way:<ul><li>When KPhotoAlbum's "
-#~ "browser displays the content of a category, say all People, then each "
-#~ "item in this category will look like an album to the plugin.</"
-#~ "li><li>Otherwise, the category you specify using this option will be "
-#~ "used; e.g. if you specify People with this option, then KPhotoAlbum will "
-#~ "act as if you had just chosen to display people and then invoke the "
-#~ "plugin which needs to know about all albums.</li></ul></p><p>Most users "
-#~ "would probably want to specify Events here.</p>"
-#~ msgstr ""
-#~ "<p>KPhotoAlbum comparte complementos con otras aplicaciones de imágenes, "
-#~ "algunas de las cuales tienen el concepto de «álbumes». KPhotoAlbum no lo "
-#~ "posee pero, para que algunos complementos funcionen, actúa como si lo "
-#~ "hiciera.</p> <p>Para ello, asigna el álbum actual a la vista actual, es "
-#~ "decir, a las imágenes que se mostrarán en el explorador.</p><p>Además del "
-#~ "álbum actual, KPhotoAlbum debe proporcionar una lista de todos los "
-#~ "álbumes, que se define de la siguiente forma:<ul><li>Cuando el explorador "
-#~ "de KPhotoAlbum muestra el contenido de una categoría como Personas, cada "
-#~ "elemento de esta se comportará como un álbum de cara al complemento.</"
-#~ "li><li>En cualquier otro caso, se usará la categoría especificada "
-#~ "mediante esta opción, por ejemplo, si especifica Personas KPhotoAlbum "
-#~ "actuará como si hubiera elegido mostrar gente e invocará al complemento "
-#~ "que necesitaba saber datos de los álbumes.</li></ul></p><p>Aquí, la "
-#~ "mayoría de usuarios querrían especificar Eventos.</p>"
-
-#~ msgid ""
-#~ "Really resize the stored thumbnail size? It will result in all thumbnails "
-#~ "being regenerated!"
-#~ msgstr ""
-#~ "¿Realmente desea cambiar el tamaño de todas las miniaturas guardadas? "
-#~ "Esto ocasionará que se vuelvan a generar todas las miniaturas."
-
-#~ msgid "Really resize the thumbnails?"
-#~ msgstr "¿Realmente desea cambiar el tamaño de las miniaturas?"
-
-#~ msgid "Legacy Plugins (KIPI)"
-#~ msgstr "Complementos heredados (KIPI)"
-
-#~ msgid ""
-#~ "<h1><a name=\"kipi\">Plug-ins support</a></h1><p>KPhotoAlbum has a plug-"
-#~ "in system with lots of extensions. You may among other things find plug-"
-#~ "ins for:<ul><li>Writing images to cds or dvd's</li><li>Adjusting "
-#~ "timestamps on your images</li><li>Making a calendar featuring your "
-#~ "images</li><li>Uploading your images to flickr</li><li>Upload your images "
-#~ "to facebook</li></ul></p><p>The plug-in library is called KIPI, and may "
-#~ "be downloaded from the <a href=\"https://userbase.kde.org/KIPI\">KDE "
-#~ "Userbase Wiki</a></p>"
-#~ msgstr ""
-#~ "<h1><a name=\"kipi\">Uso de complementos</a></h1><p>KPhotoAlbum posee un "
-#~ "sistema de componentes con muchas extensiones. Entre otros, puede "
-#~ "encontrar complementos para:<ul><li>Grabar imágenes en CD o "
-#~ "DVD<li>Ajustar marcas de tiempo de las imágenes<li>Crear un calendario "
-#~ "con sus imágenes<li>Subir sus imágenes a flickr<li>Subir sus imágenes a "
-#~ "facebook</ul></p><p>La biblioteca de complementos se llama KIPI, y puede "
-#~ "descargarla desde <a href=\"http://https://userbase.kde.org/KIPI\">KDE "
-#~ "Userbase Wiki</a></p>"
-
-#~ msgid "Loading Plug-ins"
-#~ msgstr "Cargando complementos"
-
-#~ msgctxt ""
-#~ "Add 'Plugin' prefix so that KIPI plugins are obvious in KShortcutsDialog…"
-#~ msgid "Plugin: %1"
-#~ msgstr "Complemento: %1"
-
-#~ msgctxt "The 'name' of an unnamed image collection."
-#~ msgid "None"
-#~ msgstr "Ninguna"
-
-#~ msgctxt "As in 'an unknown set of images, created from the selection'."
-#~ msgid "Unknown (Selection)"
-#~ msgstr "Desconocida (selección)"
-
-#~ msgctxt "As in 'A selection of [a generated context description]'"
-#~ msgid " (Selection)"
-#~ msgstr " (Selección)"
-
-#~ msgctxt "A set of images with no description."
-#~ msgid "Unknown"
-#~ msgstr "Desconocidas"
-
-#~ msgctxt "'Name' of the image directory"
-#~ msgid "Image/Video root directory"
-#~ msgstr "Carpeta raíz de imágenes/vídeos"
-
-#~ msgid ""
-#~ "<p>Image needs to be placed in a sub directory of your photo album, which "
-#~ "is rooted at %1. Image path was %2</p>"
-#~ msgstr ""
-#~ "<p>Debe colocar la imagen en una subcarpeta de su álbum de fotos, cuya "
-#~ "raíz es %1. La ruta de la imagen era %2</p>"
-
-#~ msgid "Choose Plugins to load:"
-#~ msgstr "Seleccione los complementos a cargar:"
-
-#~ msgid "Delay loading plugins until the plugin menu is opened"
-#~ msgstr ""
-#~ "Retrasar la cargar de complementos hasta que se abra el menú asociado"
-
-#~ msgid "Change Password..."
-#~ msgstr "Cambiar contraseña..."
-
-#~ msgid "Show search bar"
-#~ msgstr "Mostrar barra de búsqueda"
-
-#~ msgid ""
-#~ "<p>The password protection is only a means of allowing your little sister "
-#~ "to look in your images, without getting to those embarrassing images from "
-#~ "your last party.</p><p><b>In other words, anyone with access to the index."
-#~ "xml file can easily circumvent this password.</b></p>"
-#~ msgstr ""
-#~ "<p>La protección con contraseña le permite que su hermana pequeña vea sus "
-#~ "imágenes sin tener acceso a esas imágenes comprometidas de su última "
-#~ "fiesta.</p><p><b>En otras palabras: cualquiera con acceso al archivo "
-#~ "index.xml puede romper fácilmente esta contraseña.</b></p>"
-
-#~ msgid "Password Protection"
-#~ msgstr "Protección con contraseña"
-
-#~ msgid "Type in Password to Unlock"
-#~ msgstr "Introduzca la contraseña a desbloquear"
-
-#~ msgid "Invalid password."
-#~ msgstr "Contraseña no válida."
-
-#~ msgid "Type in Old Password"
-#~ msgstr "Introduzca la contraseña antigua"
-
-#~ msgid "Type in New Password"
-#~ msgstr "Introduzca la contraseña nueva"
-
-#~ msgid "Background color:"
-#~ msgstr "Color de fondo:"
-
-#~ msgid "<p>Background color to use in the thumbnail viewer</p>"
-#~ msgstr "<p>Color de fondo a usar en el visor de miniaturas</p>"
-
-#~ msgid "Geo position"
-#~ msgstr "Posición geográfica"
-
-#~ msgid "F Number"
-#~ msgstr "Número F"
-
-#~ msgid "Toggle full-screen preview (CTRL+Space)"
-#~ msgstr "Conmutar la vista previa a pantalla completa (CTRL+espacio)"
-
-#~ msgid "Export"
-#~ msgstr "Exportar"
-
-#~ msgid "Import"
-#~ msgstr "Importar"
-
-#~ msgid "Batch Plugins"
-#~ msgstr "Extensiones Batch"
-
-#~ msgid "Tools"
-#~ msgstr "Herramientas"
-
-#~ msgid "SQL backend and numerous features"
-#~ msgstr "Motor SQL y muchas funciones"
-
-#~ msgid ""
-#~ "Sending patches implementing (.) the \"Set As Wallpaper\" menu in the "
-#~ "viewer.(.) Theme support for HTML generation"
-#~ msgstr ""
-#~ "Envío de parches que implementan (.) el menú «Establecer como fondo de "
-#~ "escritorio» en el visor.(.) Soporte de temas para generación de HTML"
-
-#~ msgid "Robert L Krawitz"
-#~ msgstr "Robert L Krawitz"
-
-#~ msgid "Numerous patches plus profiling KPhotoAlbum again and again."
-#~ msgstr ""
-#~ "Muchos parches, además de analizar el rendimiento de KPhotoAlbum una y "
-#~ "otra vez."
-
-#~ msgid ""
-#~ "<h1><a name=\"videoPreview\">Video thumbnail support</a></"
-#~ "h1><p>KPhotoAlbum can use <tt>ffmpeg</tt> or <tt>MPlayer</tt> to extract "
-#~ "thumbnails from videos. These thumbnails are used to preview videos in "
-#~ "the thumbnail viewer.</p><p>In the past, MPlayer (in contrast to "
-#~ "MPlayer2) often had problems extracting the length of videos and also "
-#~ "often fails to extract the thumbnails used for cycling video thumbnails. "
-#~ "For that reason, you should prefer ffmpeg or MPlayer2 over MPlayer, if "
-#~ "possible.</p>"
-#~ msgstr ""
-#~ "<h1><a name=\"videoPreview\">Uso de miniaturas de vídeo</a></"
-#~ "h1><p>KPhotoAlbum puede usar <tt>ffmpeg</tt> o <tt>MPlayer</tt> para "
-#~ "extraer miniaturas de vídeos. Estas miniaturas se usan para previsualizar "
-#~ "vídeos en el visor de miniaturas.</p><p>En el pasado, MPlayer (al "
-#~ "contrario que MPlayer2) solía tener problemas para extraer la longitud de "
-#~ "los vídeos y también solía fallar al extraer las miniaturas que se usaban "
-#~ "como miniaturas cíclicas de vídeo. Por este motivo, debería preferir "
-#~ "ffmpeg o MPlayer2 en lugar de MPlayer, si es posible.</p>"
-
-#~ msgid "Only with MPlayer1"
-#~ msgstr "Solo con MPlayer1"
-
-#~ msgid ""
-#~ "<p>You have MPlayer installed on your system, but it is unfortunately not "
-#~ "version 2. MPlayer2 is on most systems a separate package, please install "
-#~ "that if at all possible, as that version has much better support for "
-#~ "extracting thumbnails from videos.</p>"
-#~ msgstr ""
-#~ "<p>MPlayer está instalado en su sistema, pero no es la versión 2. "
-#~ "MPlayer2 suele estar en un paquete separado en casi todos los sistemas. "
-#~ "Por favor, instálelo si es posible, ya que esta versión es mucho más "
-#~ "adecuada para extraer miniaturas de los vídeos.</p>"
-
-#~ msgid "MPlayer is too old"
-#~ msgstr "MPlayer es demasiado antiguo"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "<title>The date bar</title><para>The date bar gives you an overview of "
-#~ "the approximate number of images taken in a given time frame.Time units "
-#~ "are shown on the <emphasis>timeline</emphasis>. Above it, a histogram "
-#~ "indicates the number of images for that time range.</para><para>You can "
-#~ "interact with the date bar in several ways:<list><item>Zoom in or out by "
-#~ "using the +/- buttons or Ctrl + scrollwheel.</item><item>Scroll the "
-#~ "timeline either by using the arrow buttons or the scroll wheel, or by "
-#~ "dragging it using the middle mouse button.</item><item>Restrict the "
-#~ "current view to a given time frame by clicking below the timeline and "
-#~ "marking the time frame.</item><item>Clicking on the timeline sets the "
-#~ "<emphasis>focus</emphasis> for the thumbnail view, i.e. jumps to the "
-#~ "first thumbnail of the time unit in focus.</item></list></para>"
-#~ msgstr ""
-#~ "<title>La barra de fecha</title><para>La barra de fecha le proporciona un "
-#~ "resumen del número aproximado de imágenes tomadas en un intervalo de "
-#~ "tiempo dado. Las unidades del tiempo se muestran en la <emphasis>línea "
-#~ "temporal</emphasis>. Sobre ella, un histograma indica el número de "
-#~ "imágenes para dicho intervalo.</para><para>Puede interactuar con la barra "
-#~ "de fecha de distintos modos:<list><item>Amplíela o redúzcala usando los "
-#~ "botones +/- o Ctrl + rueda de desplazamiento.</item><item>Desplace la "
-#~ "línea temporal usando los botones de las flechas o la rueda de "
-#~ "desplazamiento, o bien arrastrándola con el botón central del ratón.</"
-#~ "item><item>Restrinja la vista actual a un determinado intervalo de tiempo "
-#~ "pulsando debajo de la línea temporal y marcando el intervalo de tiempo.</"
-#~ "item><item>Al pulsar sobre la línea de tiempo se define el "
-#~ "<emphasis>foco</emphasis> para la vista de miniaturas (es decir, se salta "
-#~ "a la primera miniatura de la unidad de tiempo en el foco.</item></list></"
-#~ "para>"
-
-#~ msgid "Widen selection to include all images and videos again"
-#~ msgstr "Ampliar selección para incluir de nuevo todas las imágenes y vídeos"
-
-#~ msgid ""
-#~ "<p>Error: Cannot use current database file '%1':</p><p>%2</p><p>Do you "
-#~ "want to use autosave (%3 - size %4 KB) instead of exiting?</"
-#~ "p><p><small>(Manually verifying and copying the file might be a good "
-#~ "idea)</small></p>"
-#~ msgstr ""
-#~ "<p>Error: No se puede usar el archivo de base de datos «%1»:</p><p>%2</"
-#~ "p><p>¿Desea usar el archivo de respaldo (%3, con un tamaño de %4 KB) en "
-#~ "lugar de salir?</p><p><small>(Comprobar y copiar este archivo a mano "
-#~ "puede ser una buena idea)</small></p>"
-
-#~ msgid "Recover from Autosave?"
-#~ msgstr "¿Recuperar usando el archivo de respaldo?"
-
-#~ msgid ""
-#~ "<p>Error: %1</p><p>Also autosave file is empty, check manually if "
-#~ "numbered backup files exist and can be used to restore index.xml.</p>"
-#~ msgstr ""
-#~ "<p>Error: %1</p><p>El archivo de respaldo también está vacío. Compruebe "
-#~ "manualmente si existen archivos de copia de seguridad numerados y si se "
-#~ "pueden usar para restaurar el archivo «index.xml».</p>"
-
-#~ msgid ""
-#~ "<p>Did you know that there is an Android client for KPhotoAlbum?<br/>With "
-#~ "the Android client you can view your images from your desktop.</p><p><a "
-#~ "href=\"https://www.youtube.com/results?search_query=kphotoalbum+on+android"
-#~ "\">See youtube video</a> or <a href=\"https://play.google.com/store/apps/"
-#~ "details?id=org.kde.kphotoalbum\">install from google play</a></p>"
-#~ msgstr ""
-#~ "<p>¿Sabía que existe un cliente para Android de KPhotoAlbum?<br/>Con el "
-#~ "cliente para Android podrá ver sus imágenes desde el escritorio.</p><p><a "
-#~ "href=\"https://www.youtube.com/results?search_query=kphotoalbum+on+android"
-#~ "\">Vea este vídeo de youtube</a> o <a href=\"https://play.google.com/"
-#~ "store/apps/details?id=org.kde.kphotoalbum\">instálelo desde Google Play</"
-#~ "a>.</p>"
-
-#~ msgctxt "@title:inmenu"
-#~ msgid "Set as Wallpaper"
-#~ msgstr "Establecer como fondo de pantalla"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Centered"
-#~ msgstr "Centrado"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Tiled"
-#~ msgstr "Mosaico"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Center Tiled"
-#~ msgstr "Mosaico centrado"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Centered Maxpect"
-#~ msgstr "Maxpect centrado"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Tiled Maxpect"
-#~ msgstr "Maxpect en mosaico"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Scaled"
-#~ msgstr "Escalado"
-
-#~ msgctxt "@action:inmenu"
-#~ msgid "Centered Auto Fit"
-#~ msgstr "Centrado autoajustado"
-
-#~ msgid "Reading file properties"
-#~ msgstr "Leyendo propiedades de archivo"
-
-#~ msgid "Thumbnail Size:"
-#~ msgstr "Tamaño de la miniatura:"
-
-#~ msgid "Show EXIF"
-#~ msgstr "Mostrar EXIF"
-
-#~ msgid "Error Executing Exif Command"
-#~ msgstr "Error al ejecutar la orden EXIF"
-
-#~ msgid ""
-#~ "EXIF database cannot be opened. Check that the image root directory is "
-#~ "writable."
-#~ msgstr ""
-#~ "No se puede abrir la base de datos EXIF. Compruebe que puede escribir "
-#~ "sobre la carpeta raíz de imágenes."
-
-#~ msgid "&gt;="
-#~ msgstr "&gt;="
-
-#~ msgid "&lt;="
-#~ msgstr "&lt;="
-
-#~ msgid "Train face recognition database automatically"
-#~ msgstr "Entrenar la base de datos de reconocimiento facial automáticamente"
-
-#~ msgctxt "@info:tooltip"
-#~ msgid "Search for faces on the current image"
-#~ msgstr "Buscar caras en la imagen actual"
-
-#~ msgctxt "@info:whatsthis"
-#~ msgid ""
-#~ "If a tag for an area found by the face detector is set manually, the face "
-#~ "recognition database will be trained automatically with that tag."
-#~ msgstr ""
-#~ "Si se introduce manualmente una etiqueta para un área encontrada por el "
-#~ "detector de caras, se instruirá automáticamente a la base de datos de "
-#~ "reconocimiento facial con dicha etiqueta."
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "To use face detection, enable <emphasis>positionable tags</emphasis> for "
-#~ "at least one category in <interface>Settings|Configure KPhotoAlbum...|"
-#~ "Categories</interface>."
-#~ msgstr ""
-#~ "Para usar la detección facial, active las <emphasis>etiquetas "
-#~ "posicionales</emphasis> para al menos una categoría en "
-#~ "<interface>Preferencias|Configurar KPhotoAlbum...|Categorías</interface>."
-
-#~ msgctxt "@info"
-#~ msgid "Face detection is only available in single-image annotation mode."
-#~ msgstr ""
-#~ "La detección facial solo está disponible en el modo de anotación de "
-#~ "imágenes individuales."
-
-#~ msgid "Try to recognize this face"
-#~ msgstr "Intentar reconocer esta cara"
-
-#~ msgid "Train the recognition database with the face of %1"
-#~ msgstr "Entrenar la base de datos de reconocimiento con la cara de %1"
-
-#, fuzzy
-#~| msgid "Use EXIF orientation information"
-#~ msgid "Print timing information."
-#~ msgstr "Usar información de orientación EXIF"
-
-#~ msgctxt ""
-#~ "Identifying a person; e.g. 'Is this <Person A> (<Category People>)'"
-#~ msgid "Is this %1 (%2)?"
-#~ msgstr "¿Es %1 (%2)?"
-
-#~ msgid ""
-#~ "<h1><a name=\"kface\">Face detection and recognition support</a></"
-#~ "h1><p>If KPhotoAlbum has been built with support for libkface, face "
-#~ "detection and recognition features are enabled in the annotation dialog.</"
-#~ "p>"
-#~ msgstr ""
-#~ "<h1><a name=\"kface\">Implementación de detección y reconocimiento "
-#~ "facial</a></h1><p>Si se ha compilado KPhotoAlbum con el soporte para la "
-#~ "libkface, las funciones de detección y reconocimiento facial estarán "
-#~ "activadas en el diálogo de anotación.</p>"
-
-#~ msgid "Face detection and recognition support"
-#~ msgstr "Implementación de detección y reconocimiento facial"
-
-#~ msgid "Face detection"
-#~ msgstr "Detección de caras"
-
-#~ msgid "Accuracy"
-#~ msgstr "Precisión"
-
-#~ msgid "fast"
-#~ msgstr "rápida"
-
-#~ msgid "accurate"
-#~ msgstr "precisa"
-
-#~ msgid "Sensitivity"
-#~ msgstr "Sensibilidad"
-
-#~ msgid "more false positives"
-#~ msgstr "más falsos positivos"
-
-#~ msgid "more missed faces"
-#~ msgstr "más caras perdidas"
-
-#~ msgid "Face recognition"
-#~ msgstr "Reconocimiento facial"
-
-#~ msgid "Database entry"
-#~ msgstr "Entrada de base de datos"
-
-#~ msgid "Trained faces"
-#~ msgstr "Caras entrenadas"
-
-#~ msgid ""
-#~ "<b>Caution:</b> Changes to category names or category deletions are not "
-#~ "adopted by the recognition database until the changes are saved!"
-#~ msgstr ""
-#~ "<b>Atención:</b> los cambios en los nombres de categorías o las "
-#~ "categorías borradas no se tienen en cuenta en la base de datos de "
-#~ "reconocimiento hasta que guarde los cambios."
-
-#~ msgid "Do you really want to delete the selected tags?"
-#~ msgstr "¿Realmente desea borrar las etiquetas seleccionadas?"
-
-#~ msgid "Face management"
-#~ msgstr "Gestión de caras"
-
-#~ msgid ""
-#~ "<h1><a name=\"exiv2\">EXIF support</a></h1><p>Images store information "
-#~ "like the date the image was shot, the shooting angle, focal length, and "
-#~ "shutter-speed in what is known as EXIF information.</p><p>KPhotoAlbum "
-#~ "uses the <a href=\"http://www.exiv2.org/\">EXIV2 library</a> to read EXIF "
-#~ "information from images</p>"
-#~ msgstr ""
-#~ "<h1><a name=\"exiv2\">Uso de EXIF</a></h1><p>La información que almacenan "
-#~ "las imágenes, como la fecha en que se tomaron, el ángulo, la distancia "
-#~ "focal o la velocidad del obturador, se conoce como «información EXIF».</"
-#~ "p><p>KPhotoAlbum usa la <a href=\"http://www.exiv2.org/\">biblioteca "
-#~ "EXIV2</a> para leer dicha información de las imágenes.</p>"
-
-#~ msgid "EXIF info supported"
-#~ msgstr "Información EXIF soportada"
-
-#~ msgid ""
-#~ "Recreate Exif Search Database (need to compile KPhotoAlbum with Exif "
-#~ "support)"
-#~ msgstr ""
-#~ "Volver a crear la base de datos de búsqueda Exif (necesita que "
-#~ "KPhotoAlbum esté compilado con soporte para Exif)"
-
-#~ msgid ""
-#~ "Read EXIF Info From Files... (need to compile KPhotoAlbum with Exif "
-#~ "support)"
-#~ msgstr ""
-#~ "Leer información EXIF de los archivos... (necesita que KPhotoAlbum esté "
-#~ "compilado con soporte de EXIF)"
-
-#~ msgid ""
-#~ "<p>Your images/videos are not sorted, which means that navigating using "
-#~ "the date bar will only work suboptimally.</p><p>You also do not have EXIF "
-#~ "support available, which means that you cannot read image dates from JPEG "
-#~ "metadata. It is strongly recommended to recompile KPhotoAlbum with the "
-#~ "<code>exiv2</code> library. After you have done so, you will be asked "
-#~ "what to do to correct all the missing information.</p>"
-#~ msgstr ""
-#~ "<p>Sus imágenes/vídeos no están ordenados, por lo que la navegación por "
-#~ "la barra de fechas no funcionará de manera óptima.</p><p>El soporte a "
-#~ "EXIF tampoco está disponible, por lo que no podrá leer las fechas de los "
-#~ "metadatos JPEG. Le recomendamos encarecidamente que recompile KPhotoAlbum "
-#~ "con la biblioteca <code>exiv2</code>. Tras hacerlo se le preguntará cómo "
-#~ "completar la información perdida.</p>"
-
-#~ msgid "Close"
-#~ msgstr "Cerrar"
-
-#~ msgid "OK"
-#~ msgstr "Aceptar"
-
-#~ msgid ".kim files"
-#~ msgstr "Archivos .kim"
-
-#~ msgid "Base URL:"
-#~ msgstr "URL base:"
-
-#~ msgid "<b>Hint: Press the help button for descriptions of the fields</b>"
-#~ msgstr ""
-#~ "<b>Consejo: Pulse el botón de ayuda para ver descripciones de los campos</"
-#~ "b>"
-
-#~ msgid "Config file"
-#~ msgstr "Archivo de configuración"
-
-#~ msgid "Don't start listening for android devices on startup."
-#~ msgstr "No prestar atención a dispositivos Android durante el inicio."
-
-#~ msgid "Unable to open '%1' for writing."
-#~ msgstr "No se pudo abrir «%1» para escritura."
-
-#~ msgid "<p>Unable to find file %1</p>"
-#~ msgstr "<p>No se pudo encontrar el archivo %1</p>"
-
-#~ msgid ""
-#~ "<p>Due to a shortcoming in KPhotoAlbum, you need to save your database "
-#~ "after renaming categories; otherwise all the filenames of the category "
-#~ "thumbnails will be wrong, and thus lost.</p><p>So either press Cancel now "
-#~ "(and it will not be renamed), or press Continue, and as your next step "
-#~ "save the database.</p>"
-#~ msgstr ""
-#~ "<p>Debido a una limitación de KPhotoAlbum, debe guardar su base de datos "
-#~ "después de renombrar categorías. Si no lo hace, los nombres de archivo de "
-#~ "las miniaturas de la categoría no serán correctos y se perderán.</"
-#~ "p><p>Así que pulse «Cancelar» (y su nombre no se cambiará) o «Continuar», "
-#~ "y como paso siguiente guarde la base de datos.</p>"
-
-#~ msgid ""
-#~ "<p><b>You skipped the database update!</b></p><p>If you save your "
-#~ "database now, the file moves and configuration updates can't be done "
-#~ "automatically anymore and <b>you will lose the concerned category and tag "
-#~ "thumbnails, and probably your \"untagged images\" tags permanently. Also, "
-#~ "face recognition will probably be broken.</b> (unless you do the "
-#~ "necessary updates by hand).</p><p>Do you really want to save your "
-#~ "database?</p>"
-#~ msgstr ""
-#~ "<p><b>Ha omitido la actualización de la base de datos.</b></p><p>Si "
-#~ "guarda la base de datos ahora, los movimientos del archivo y las "
-#~ "actualizaciones de la configuración no se podrán llevar a cabo "
-#~ "automáticamente en lo sucesivo y <b>perderá permanentemente la categoría "
-#~ "en cuestión, las miniaturas de las etiquetas y, probablemente, las "
-#~ "«imágenes sin etiquetar». Además, el reconocimiento de caras dejará de "
-#~ "funcionar casi con toda seguridad</b> (a menos que realice a mano las "
-#~ "actualizaciones necesarias).</p><p>¿Realmente desea guardar la base de "
-#~ "datos?</p>"
-
-#~ msgid "Keywords"
-#~ msgstr "Palabras clave"
-
-#~ msgid "Error in file %1: unexpected element: '%2'"
-#~ msgstr "Error en el archivo %1, elemento no esperado: «%2»"
-
-#~ msgid "Unable to find 'Options' tag in configuration file %1."
-#~ msgstr ""
-#~ "No se pudo encontrar la etiqueta «Opciones» en el archivo de "
-#~ "configuración %1."
-
-#~ msgid "Unable to find 'Images' tag in configuration file %1."
-#~ msgstr ""
-#~ "No se pudo encontrar la etiqueta «Imágenes» en el archivo de "
-#~ "configuración %1."
-
-#, fuzzy
-#~| msgid ""
-#~| "Use data from\n"
-#~| "Database"
-#~ msgid "Face database training"
-#~ msgstr ""
-#~ "Usar datos de\n"
-#~ "base de datos"
-
-#, fuzzy
-#~| msgid "Database backend"
-#~ msgid "Database Update"
-#~ msgstr "Motor de base de datos"
-
-#, fuzzy
-#~| msgid "Configure Current View"
-#~ msgid "Configure Birth Dates"
-#~ msgstr "Configurar la vista actual"
-
-#, fuzzy
-#~| msgid "Current Item"
-#~ msgid "Current Category"
-#~ msgstr "Elemento actual"
-
-#~ msgid "<b>Sub Categories</b>"
-#~ msgstr "<b>Subcategorías</b>"
-
-#~ msgid "Super Categories"
-#~ msgstr "Supercategorías"
-
-#~ msgid "New Category..."
-#~ msgstr "Nueva categoría..."
-
-#~ msgid "Create Subcategory..."
-#~ msgstr "Crear subcategoría..."
-
-#~ msgid "Take item out of category %1"
-#~ msgstr "Quitar elemento de la categoría %1"
-
-#~ msgid "New Super Category"
-#~ msgstr "Nueva supercategoría"
-
-#~ msgid "New Super Category Name:"
-#~ msgstr "Nombre de la nueva supercategoría:"
-
-#~ msgid "New Sub Category"
-#~ msgstr "Nueva subcategoría"
-
-#~ msgid "New Sub Category Name:"
-#~ msgstr "Nombre de la nueva subcategoría:"
-
-#~ msgid ""
-#~ "<p>Thumbnail image size. You may also set the size simply by dragging the "
-#~ "thumbnail view using the middle mouse button.</p>"
-#~ msgstr ""
-#~ "<p>Tamaño de miniatura. También puede fijar el tamaño arrastrando la "
-#~ "vista de miniaturas con el botón central del ratón.</p>"
-
-#~ msgid "Really resize grid?"
-#~ msgstr "¿Seguro que desea cambiar el tamaño de la rejilla?"
-
-#~ msgid "SQL database support"
-#~ msgstr "Soporte a base de datos SQL"
-
-#~ msgid "Subcategories"
-#~ msgstr "Subcategorías"
-
-#~ msgid "Super Categories:"
-#~ msgstr "Supercategorías:"
-
-#~ msgid "Items of Category:"
-#~ msgstr "Elementos de la categoría:"
-
-#~ msgid "Add Super Category..."
-#~ msgstr "Añadir supercategoría..."
-
-#~ msgid "Rename Super Category..."
-#~ msgstr "Renombrar supercategoría..."
-
-#~ msgid "Delete Super Category"
-#~ msgstr "Eliminar supercategoría"
-
-#~ msgid ""
-#~ "<b>Notice:</b> It is also possible to set up subcategories in the "
-#~ "annotation dialog, simply by dragging items."
-#~ msgstr ""
-#~ "<b>Nota:</b> También puede configurar las categorías en el diálogo de "
-#~ "anotaciones solo con arrastrar elementos."
-
-#~ msgid "Label:"
-#~ msgstr "Etiqueta:"
-
-#~ msgid ""
-#~ "On line %1, column %2:\n"
-#~ "%3"
-#~ msgstr ""
-#~ "En la línea %1, columna %2.\n"
-#~ "%3"
-
-#~ msgid "Version %1"
-#~ msgstr "Versión %1"

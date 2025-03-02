@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-01 00:42+0000\n"
-"PO-Revision-Date: 2025-01-10 20:37+0100\n"
+"PO-Revision-Date: 2025-03-01 09:41+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -3281,16 +3281,13 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with folder info made available through the browser. (.) Patch "
-#| "for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
-"Pedaç amb informació de carpeta disponible a través del navegador. Pedaç per "
-"a afegir una casella de selecció per a les busques «i/o» en la pàgina de "
+"Pedaç amb informació de carpeta disponible a través del navegador.\n"
+"Pedaç per a afegir una casella de selecció de busques «i/o» en la pàgina de "
 "busca."
 
 #: main.cpp:122
@@ -3329,14 +3326,13 @@ msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
 msgstr ""
-"Diversos pedaços per a molts errors, més pedaços per a noves característiques"
+"Diversos pedaços per a molts errors,\n"
+"pedaços per a característiques noves"
 
 #: main.cpp:143
 #, kde-format
@@ -3354,16 +3350,14 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:149
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "Exif images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
-"Pedaç per a ordenar imatges en la vista de miniatures, a més de llegir la "
-"informació del temps de les imatges Exif per a les imatges existents"
+"Pedaç per a ordenar imatges en la vista de miniatures,\n"
+"llegir la informació del temps de les imatges Exif per a les imatges "
+"existents"
 
 #: main.cpp:154
 #, kde-format
@@ -3391,16 +3385,13 @@ msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
 #: main.cpp:165
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
+#, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
-"Pedaç per a accelerar la càrrega de les miniatures, a més la vista prèvia en "
-"el diàleg de propietats de la imatge."
+"Pedaç per a accelerar la càrrega de les miniatures,\n"
+"vista prèvia en el diàleg de propietats de la imatge."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-01 00:42+0000\n"
-"PO-Revision-Date: 2025-01-13 05:25+0100\n"
+"PO-Revision-Date: 2025-03-01 03:14+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -3123,14 +3123,13 @@ msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
 msgstr ""
-"უამრავი პაჩი უამრავი შეცდომის გასასწორებლად, პლუს პაჩები ახალი ფუნქციებისთვის"
+"უამრავი პაჩი უამრავი შეცდომის გასასწორებლად,\n"
+"პლუს პაჩები ახალი ფუნქციებისთვის"
 
 #: main.cpp:143
 #, kde-format
@@ -3180,16 +3179,13 @@ msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
 #: main.cpp:165
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
+#, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
-"პაჩი, რომელმაც ააჩქარა მინიატურების ჩატვირთვა, პლუს გადახედვა გამოსახულების "
-"ფუნქციის დიალოგში."
+"პაჩი, რომელმაც ააჩქარა მინიატურების ჩატვირთვა,\n"
+"პლუს გადახედვა გამოსახულების ფუნქციის დიალოგში."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format
@@ -5281,7 +5277,7 @@ msgstr "კატეგორია და ჯგუფები:"
 #, kde-format
 msgctxt "@label/rich"
 msgid "<strong>Select a group on the left side to add tags to it</strong>"
-msgstr ""
+msgstr "<strong>აირჩიეთ ჯგუფი მარცხენა მხარეს, რომ ჭდეები დაამატოთ</strong>"
 
 #: Settings/TagGroupsPage.cpp:57
 #, kde-format
@@ -5290,6 +5286,8 @@ msgid ""
 "<strong>There are pending changes on the categories page.<nl> Please save "
 "the changes before working on tag groups.</strong>"
 msgstr ""
+"<strong>კატეგორიების გვერდზე დარჩენილია ცვლილებები.<nl> შეინახეთ ისინი ჭდის "
+"ჯგუფებზე მუშაობამდე.</strong>"
 
 #: Settings/TagGroupsPage.cpp:66
 #, kde-format
@@ -5358,6 +5356,8 @@ msgid ""
 "<para>Cannot rename group \"%1\" to \"%2\": \"%2\" already exists in "
 "category \"%3\"</para>"
 msgstr ""
+"<para>ჯგუფის სახელის გადარქმევა \"%1\"-დან \"%2\"-ზე ჩავარდა: \"%2\" უკვე "
+"არსებობს კატეგორიაში\"%3\"</para>"
 
 #: Settings/TagGroupsPage.cpp:510
 #, kde-kuit-format

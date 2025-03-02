@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-01 00:42+0000\n"
-"PO-Revision-Date: 2025-01-11 13:52+0200\n"
+"PO-Revision-Date: 2025-03-01 12:22+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -3306,15 +3306,12 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with folder info made available through the browser. (.) Patch "
-#| "for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
-"(.) Латка, яка зробила доступною інформацію про теку з переглядача. (.) "
+"Латка, яка зробила доступною інформацію про теку з переглядача.\n"
 "Латка для додавання для визначення способу об’єднання «і/або» елементів "
 "пошуку на пошуковій сторінці."
 
@@ -3356,15 +3353,13 @@ msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
 msgstr ""
-"Велика кількість латок, що усунули багато вад, плюс латки, що додавали нові "
-"можливості"
+"Велика кількість латок, що усунули багато вад,\n"
+"латки, що додавали нові можливості"
 
 #: main.cpp:143
 #, kde-format
@@ -3382,16 +3377,13 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:149
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "Exif images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
-"Латка для впорядкування зображень у перегляді мініатюр, плюс читання "
-"інформації про час з Exif зображень для існуючих зображень"
+"Латка для впорядкування зображень у перегляді мініатюр,\n"
+"плюс читання інформації про час з Exif зображень для наявних зображень"
 
 #: main.cpp:154
 #, kde-format
@@ -3419,16 +3411,13 @@ msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
 #: main.cpp:165
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
+#, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
-"Латка, як пришвидшила завантаження мініатюр плюс діалогове вікно перегляду "
-"властивостей зображення."
+"Латка, як пришвидшила завантаження мініатюр,\n"
+"діалогове вікно перегляду властивостей зображення."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-01 00:42+0000\n"
-"PO-Revision-Date: 2025-01-10 20:37+0100\n"
+"PO-Revision-Date: 2025-03-01 09:41+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -3281,16 +3281,13 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with folder info made available through the browser. (.) Patch "
-#| "for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
-"Pedaç amb informació de carpeta disponible a través del navegador. Pedaç per "
-"a afegir una casella de selecció per a les cerques «i/o» a la pàgina de "
+"Pedaç amb informació de carpeta disponible a través del navegador.\n"
+"Pedaç per a afegir una casella de selecció de cerques «i/o» a la pàgina de "
 "cerca."
 
 #: main.cpp:122
@@ -3329,14 +3326,13 @@ msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
 msgstr ""
-"Diversos pedaços per a molts errors, més pedaços per a noves funcionalitats"
+"Diversos pedaços per a molts errors,\n"
+"pedaços per a funcionalitats noves"
 
 #: main.cpp:143
 #, kde-format
@@ -3354,16 +3350,14 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:149
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "Exif images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
-"Pedaç per a ordenar imatges a la vista de miniatures, a més de llegir la "
-"informació del temps de les imatges Exif per a les imatges existents"
+"Pedaç per a ordenar imatges a la vista de miniatures,\n"
+"llegir la informació del temps de les imatges Exif per a les imatges "
+"existents"
 
 #: main.cpp:154
 #, kde-format
@@ -3391,16 +3385,13 @@ msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
 #: main.cpp:165
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
+#, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
-"Pedaç per a accelerar la càrrega de les miniatures, a més la vista prèvia en "
-"el diàleg de propietats de la imatge."
+"Pedaç per a accelerar la càrrega de les miniatures,\n"
+"vista prèvia en el diàleg de propietats de la imatge."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format
@@ -7331,98 +7322,3 @@ msgstr "Mostra la mida de la imatge"
 #, kde-format
 msgid "Show Rating"
 msgstr "Mostra la valoració"
-
-#~ msgid "KPhotoAlbum only supports database files named 'index.xml'."
-#~ msgstr ""
-#~ "El KPhotoAlbum només admet fitxers de base de dades anomenats «index.xml»."
-
-#~ msgid ""
-#~ "Please specify an existing image directory or an existing index.xml file."
-#~ msgstr ""
-#~ "Especifiqueu un directori existent d'imatges o un fitxer «index.xml» "
-#~ "existent."
-
-#~ msgid "Invalid database file"
-#~ msgstr "Fitxer no vàlid de base de dades"
-
-#~ msgid ""
-#~ "<p>Given index file does not exist, do you want to create following?<br />"
-#~ "%1/index.xml</p>"
-#~ msgstr ""
-#~ "<p>Atès que l'índex de fitxer no existeix, el voleu crear tot seguit?<br /"
-#~ ">%1/index.xml</p>"
-
-#~ msgid ""
-#~ "<p>Could not save the window layout.</p>File %1 could not be opened "
-#~ "because of the following error: %2"
-#~ msgstr ""
-#~ "<p>No s'ha pogut desar la disposició de la finestra.</p>El fitxer %1 no "
-#~ "s'ha pogut obrir a causa del següent error: %2"
-
-#~ msgid ""
-#~ "<p>Could not save the window layout.</p>File %1 could not be written "
-#~ "because of the following error: %2"
-#~ msgstr ""
-#~ "<p>No s'ha pogut desar la disposició de la finestra.</p>El fitxer %1 no "
-#~ "s'ha pogut escriure a causa del següent error: %2"
-
-#~ msgid "Loading Database"
-#~ msgstr "S'està carregant la base de dades"
-
-#~ msgid "Loading Main Window"
-#~ msgstr "S'està carregant la finestra principal"
-
-#~ msgid "Failed to set up video playback"
-#~ msgstr "Ha fallat en configurar el reproductor de vídeo"
-
-#~ msgid "Failed to set up video playback (renderer wasn't created)"
-#~ msgstr ""
-#~ "Ha fallat en configurar el reproductor de vídeo (no s'ha creat el "
-#~ "renderitzador)"
-
-#~ msgid "Failed to set up video playback (widget wasn't created)"
-#~ msgstr ""
-#~ "Ha fallat en configurar el reproductor de vídeo (no s'ha creat el giny)"
-
-#~ msgid ""
-#~ "<p>Could not open given index.xml, as the provided folder does not exist."
-#~ "<br />%1</p>"
-#~ msgstr ""
-#~ "<p>No s'ha pogut obrir l'index.xml indicat perquè la carpeta "
-#~ "subministrada no existeix.<br />%1</p>"
-
-#~ msgctxt ""
-#~ "File permissions string compiled from a parsed variant (e.g. \"rw-rw-r--"
-#~ "\", %1) and it's octal representation (e.g. \"0644\")"
-#~ msgid "%1 (%2)"
-#~ msgstr "%1 (%2)"
-
-#~ msgctxt "As in 'This happened 1 day ago'"
-#~ msgid "1 day ago"
-#~ msgid_plural "%1 days ago"
-#~ msgstr[0] "Fa 1 dia"
-#~ msgstr[1] "Fa %1 dies"
-
-#~ msgctxt "As in 'This happened 1 month ago'"
-#~ msgid "1 month ago"
-#~ msgid_plural "%1 months ago"
-#~ msgstr[0] "Fa 1 mes"
-#~ msgstr[1] "Fa %1 mesos"
-
-#~ msgctxt "As in 'This happened 1 year ago'"
-#~ msgid "1 year ago"
-#~ msgid_plural "%1 years ago"
-#~ msgstr[0] "Fa 1 any"
-#~ msgstr[1] "Fa %1 anys"
-
-#~ msgctxt "E.g. ' (7 months-1 year)'"
-#~ msgid " (%1-%2)"
-#~ msgstr " (%1-%2)"
-
-#~ msgctxt "E.g. ' (1-2 years ago)'"
-#~ msgid " (%1-%2)"
-#~ msgstr " (%1-%2)"
-
-#~ msgctxt "E.g. '(7 months ago-1 year ago)'"
-#~ msgid " (%1-%2)"
-#~ msgstr " (%1-%2)"

@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-01 00:42+0000\n"
-"PO-Revision-Date: 2025-01-10 16:08+0300\n"
+"PO-Revision-Date: 2025-03-01 13:12+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -3240,15 +3240,12 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean–Michel FAYARD"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with folder info made available through the browser. (.) Patch "
-#| "for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
-"(.) Tarayıcıyla erişimi olanıklı kılan klasör bilgisine sahip yama. (.) "
+"Tarayıcıyla erişimi olanaklı kılan klasör bilgisine sahip yama.\n"
 "Arama sayfasında “ve/veya” aramaları için bir onay kutusu eklemek için yama."
 
 #: main.cpp:122
@@ -3287,13 +3284,13 @@ msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
-msgstr "Çok sayıda hata için sayısız yama ve birkaç yeni özellik için yamalar"
+msgstr ""
+"Çok sayıda hata için sayısız yama ve\n"
+"birkaç yeni özellik için yamalar"
 
 #: main.cpp:143
 #, kde-format
@@ -3311,16 +3308,14 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:149
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "Exif images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
-"Görselleri küçük görsel görünümünde sıralamak için yama, artı var olan "
-"görseller için zamanı Exif görsellerinden okuma"
+"Görselleri küçük görsel görünümünde sıralamak\n"
+"için yama, artı var olan görseller için zamanı\n"
+"Exif görsellerinden okuma"
 
 #: main.cpp:154
 #, kde-format
@@ -3348,16 +3343,14 @@ msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
 #: main.cpp:165
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
+#, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
-"Görsel özellik diyalogundaki küçük görsellerin ön izleme yüklenişini "
-"hızlandıran yama"
+"Görsel özelliği iletişim kutusunda küçük\n"
+"görsellerin ön izleme yüklenişini hızlandıran\n"
+"yama"
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format

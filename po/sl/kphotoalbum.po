@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-01 00:42+0000\n"
-"PO-Revision-Date: 2025-01-11 09:45+0100\n"
+"PO-Revision-Date: 2025-03-01 06:25+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -3270,16 +3270,14 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with folder info made available through the browser. (.) Patch "
-#| "for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
-"(.) Popravek s podatki mape, ki so na voljo prek brskalnika. (.) Popravek za "
-"dodajanje potrditvenega polja za »in/ali« iskanja na strani iskanja."
+"Popravek z informacijami o mapi, ki so na voljo prek brskalnika.\n"
+"Popravek za dodajanje potrditvenega polja za iskanja \"in/ali\" na strani "
+"iskanja."
 
 #: main.cpp:122
 #, kde-format
@@ -3317,13 +3315,13 @@ msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
-msgstr "Številni popravki za mnoge hrošče ter popravki za nekaj novih funkcij"
+msgstr ""
+"Številni popravki za veliko hroščev,\n"
+"popravki za nekaj novih zmožnosti"
 
 #: main.cpp:143
 #, kde-format
@@ -3341,16 +3339,13 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:149
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "Exif images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
-"Popravek za razvrščanje slik v pogledu sličic, ter branje časovnih podatkov "
-"iz slik Exif za obstoječe slike"
+"Popravek za razvrščanje slik v pogledu predoglednih sličic,\n"
+"branje informacij o času iz slik Exif za obstoječe slike"
 
 #: main.cpp:154
 #, kde-format
@@ -3378,16 +3373,13 @@ msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
 #: main.cpp:165
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
+#, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
-"Popravek, ki pospeši nalaganje sličic in predogled v pogovornem oknu "
-"lastnosti slike."
+"Popravek, ki pospeši nalaganje predoglednih sličic,\n"
+"predogled v pogovornem oknu lastnosti slike."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format

@@ -15,15 +15,15 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-01 00:42+0000\n"
-"PO-Revision-Date: 2025-01-26 19:42+0100\n"
-"Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
+"PO-Revision-Date: 2025-03-02 07:38+0100\n"
+"Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.gal>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.1\n"
+"X-Generator: Lokalize 24.12.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -3261,16 +3261,13 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with folder info made available through the browser. (.) Patch "
-#| "for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
-"(.) Parche que dá información do cartafol no navegador. (.) Parche para "
-"engadir unha caixa para marcar para buscas con «e» e «ou»."
+"Parche que dá información do cartafol no navegador.\n"
+"Parche para engadir unha caixa para marcar para buscas con «e» e «ou»."
 
 #: main.cpp:122
 #, kde-format
@@ -3309,13 +3306,13 @@ msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
-msgstr "Moitos parches para distintos fallos e novas funcionalidades"
+msgstr ""
+"Moitos parches para distintos fallos\n"
+"e novas funcionalidades."
 
 #: main.cpp:143
 #, kde-format
@@ -3333,16 +3330,13 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:149
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "Exif images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
-"Parche para ordenar as imaxes na vista de miniaturas, ademais da lectura da "
-"información de datas Exif das imaxes existentes"
+"Parche para ordenar as imaxes na vista de miniaturas,\n"
+"e lectura da información de datas Exif das imaxes existentes."
 
 #: main.cpp:154
 #, kde-format
@@ -3370,16 +3364,13 @@ msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
 #: main.cpp:165
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
+#, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
-"Parche que acelera a carga de miniaturas e a vista previa do diálogo de "
-"propiedades da imaxe."
+"Parche que acelera a carga de miniaturas,\n"
+"e vista previa do diálogo de propiedades da imaxe."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format

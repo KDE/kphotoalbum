@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-01 00:42+0000\n"
-"PO-Revision-Date: 2025-02-28 12:21+0200\n"
+"PO-Revision-Date: 2025-03-02 07:41+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -173,6 +173,11 @@ msgid ""
 "the photo comes from an analog camera), then you should set <interface>Use "
 "Fuzzy Date</interface>.</para>"
 msgstr ""
+"<para>ב־KPhotoAlbum, לתמונות יכולים להיות התאריך והשעה המדויקות, או תאריך "
+"<emphasis>משוערך</emphasis> שאירע בכל שעה במערך טווח השעות שצוין. לתמונות "
+"שנוצרו על ידי מצלמות דיגיטליות יש בדרך כלל תאריך מדויק.</para><para>אם לא "
+"ברור לך מתי התמונה צולמה (כלומר: אם התמונה מגיעה ממצלמה ישנה), אז יש להגדיר "
+"את האפשרות <interface>להשתמש בתאריך משוערך</interface>.</para>"
 
 #: AnnotationDialog/Dialog.cpp:378
 #, kde-format
@@ -3132,16 +3137,13 @@ msgid "Jean-Michel FAYARD"
 msgstr "ז׳אן מישל פאיארד"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with folder info made available through the browser. (.) Patch "
-#| "for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
-"(.) טלאי כדי שפרטי התיקייה יהיו זמינים דרך הדפדפן. (.) טלאי להוספת תיבת "
-"סימון לחיפוש „ו/או” בעמוד החיפוש."
+"טלאי כדי שפרטי התיקייה יהיו זמינים דרך הדפדפן.\n"
+"טלאי להוספת תיבת סימון לחיפוש „ו/או” בעמוד החיפוש."
 
 #: main.cpp:122
 #, kde-format
@@ -3179,13 +3181,13 @@ msgid "Christoph Moseler"
 msgstr "קריסטוף מוזלר"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
-msgstr "מגוון טלאים למגוון תקלות וגם טלאים לכמה יכולות חדשות"
+msgstr ""
+"מגוון טלאים למגוון תקלות,\n"
+"וגם טלאים לכמה יכולות חדשות"
 
 #: main.cpp:143
 #, kde-format
@@ -3203,16 +3205,13 @@ msgid "Thomas Schwarzgruber"
 msgstr "תומס שווארצגרובר"
 
 #: main.cpp:149
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "Exif images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
-"טלאי לסידור התמונות בתצוגת תמונות ממוזערות, לצד קריאת פרטי הזמנים מתמונות עם "
-"Exif לתמונות קיימות"
+"טלאי לסידור התמונות בתצוגת תמונות ממוזערות,\n"
+"לצד קריאת פרטי הזמנים מתמונות עם Exif לתמונות קיימות"
 
 #: main.cpp:154
 #, kde-format
@@ -3240,15 +3239,13 @@ msgid "Marcel Wiesweg"
 msgstr "מרסל ויסווג"
 
 #: main.cpp:165
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
+#, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
-"טלאי שמאיץ טעינת תמונות ממוזערות לצד תצוגה מקדימה של חלונית מאפייני תמונה."
+"טלאי שמאיץ טעינת תמונות ממוזערות,\n"
+"לצד תצוגה מקדימה של חלונית מאפייני תמונה."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format

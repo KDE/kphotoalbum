@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-01 00:42+0000\n"
-"PO-Revision-Date: 2025-01-24 13:50+0100\n"
+"PO-Revision-Date: 2025-03-03 09:57+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 24.12.1\n"
+"X-Generator: Lokalize 24.12.2\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -3306,17 +3306,14 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with folder info made available through the browser. (.) Patch "
-#| "for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
-"(.) Correctif pour les informations de dossier affichables par le "
-"navigateur. (.) Correctif pour l'ajout d'une case à cocher pour les "
-"recherches « et / ou » dans la page de recherche."
+"Correctif pour les informations de dossier pouvant être affichées dans le "
+"navigateur. Correctif pour l'ajout d'une case à cocher pour les recherches "
+"« et / ou » dans la page de recherche."
 
 #: main.cpp:122
 #, kde-format
@@ -3355,15 +3352,13 @@ msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
 msgstr ""
-"Nombreux patches pour beaucoup de bogues et quelques patches pour de "
-"nouvelles fonctionnalités"
+"Nombreux correctifs pour beaucoup de bogues \n"
+"et quelques correctifs pour de nouvelles fonctionnalités."
 
 #: main.cpp:143
 #, kde-format
@@ -3381,16 +3376,14 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:149
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "Exif images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
-"Patch pour trier les images dans la vue des vignettes, lecture des "
-"informations temporelles des images « EXIF » pour les images existantes"
+"Correctif pour le tri d'images dans la vue en vignettes, \n"
+"lecture des informations de datation des images existantes, sauf pour les "
+"images « EXIF »."
 
 #: main.cpp:154
 #, kde-format
@@ -3418,16 +3411,13 @@ msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
 #: main.cpp:165
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
+#, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
-"Patch accélérant le chargement des vignettes, aperçu des images dans le "
-"dialogue de propriété."
+"Correctif pour l'accélération du chargement des vignettes, \n"
+"Réalisation d'un aperçu dans la boîte de dialogue de propriétés."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format

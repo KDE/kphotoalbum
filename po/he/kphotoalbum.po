@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-01 00:42+0000\n"
-"PO-Revision-Date: 2025-03-02 07:41+0200\n"
+"PO-Revision-Date: 2025-03-04 08:07+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -3061,6 +3061,11 @@ msgid ""
 "is scanned in. So the question is, should KPhotoAlbum trust the time stamp "
 "on your images?"
 msgstr ""
+"כשקוראים את פרטי הזמן של התמונות, נעשה שימוש בפרטי ה־Exif שלהם. פרטי Exif "
+"עלולים לא להיתמך על ידי התקנת ה־KPhotoAlbum שלך, או שאין פרטים תקפים בקובץ. "
+"כגיבוי, KPhotoAlbum עלול להשתמש בחותמת הזמן של התמונה- יתכן שזה לא תמיד "
+"מדויק למשל במקרה של תמונה סרוקה. לכן השאלה היא, האם על KPhotoAlbum להאמין "
+"לחותמות הזמן של התמונות שלך?"
 
 #: lib/kpabase/SettingsData.cpp:254
 #, kde-format
@@ -3780,6 +3785,10 @@ msgid ""
 "files you selected would be copied to the /tmp folder</p><p>You can also use "
 "%each to have a command be run once per file.</p>"
 msgstr ""
+"<p>נא למלא פקודה להרצה כלפי קובצי התמונות שלך. KPhotoAlbum יריץ את הפקודה "
+"שלך ויחליף את אסימוני ‚‎%all’ ברשימת הקבצים שלך. למשל, אם הקלדת:</"
+"p><ul><li>cp %all /tmp</li></ul><p>אז הקבצים שבחרת יועתקו לתיקיית ‎/tmp</"
+"p><p>אפשר גם להשתמש ב־‎%each כדי שהפקודה תרוץ על כל קובץ בנפרד.</p>"
 
 #: MainWindow/RunDialog.cpp:75
 #, no-c-format, kde-format

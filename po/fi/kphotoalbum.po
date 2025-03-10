@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-01 00:42+0000\n"
-"PO-Revision-Date: 2025-01-12 19:59+0200\n"
+"PO-Revision-Date: 2025-02-14 19:37+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -3802,15 +3802,14 @@ msgstr "tietokantatiedosto"
 #: MainWindow/Options.cpp:31
 #, kde-format
 msgid "Application rc file."
-msgstr ""
+msgstr "Sovelluksen rc-tiedosto."
 
 # pmap: =:gen=KPhotoAlbumin:
 # pmap: =:elat=KPhotoAlbumista:
 #: MainWindow/Options.cpp:32
-#, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
+#, kde-format
 msgid "kphotoalbumrc"
-msgstr "KPhotoAlbum"
+msgstr "kphotoalbumrc"
 
 #: MainWindow/Options.cpp:36
 #, kde-format
@@ -3851,6 +3850,7 @@ msgstr "liittymäosoite"
 #, kde-format
 msgid "Save the database and immediately quit after showing the main window."
 msgstr ""
+"Tallenna tietokanta ja lopeta välittömästi pääikkunan näyttämisen jälkeen."
 
 #: MainWindow/Options.cpp:59
 #, kde-format

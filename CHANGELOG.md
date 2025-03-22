@@ -46,6 +46,7 @@ The change log for older releases (before 5.9.0) can be found in CHANGELOG.old.
 ### Deprecated
 
 ### Fixed
+ - Fix purpose plugin support (#501885)
 
 ### Removed
 

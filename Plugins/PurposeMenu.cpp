@@ -10,7 +10,7 @@
 
 #include <KLocalizedString>
 #include <Purpose/AlternativesModel>
-#include <PurposeWidgets/Menu>
+#include <Purpose/Menu>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QMenu>

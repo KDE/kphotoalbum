@@ -7,7 +7,7 @@
 
 #include <kpabase/config-kpa-plugins.h>
 
-#include <PurposeWidgets/Menu>
+#include <Purpose/Menu>
 #include <QString>
 #include <QUrl>
 

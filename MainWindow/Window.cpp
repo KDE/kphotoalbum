@@ -64,7 +64,7 @@
 #include <kpathumbnails/ThumbnailCache.h>
 #include <kpathumbnails/VideoThumbnailCache.h>
 
-#ifdef KF5Purpose_FOUND
+#ifdef KF6Purpose_FOUND
 #include <Plugins/PurposeMenu.h>
 #endif
 #ifdef HAVE_MARBLE
@@ -1543,7 +1543,7 @@ void MainWindow::Window::setupPluginMenu()
         return; // This is no good, but lets try and continue.
     }
 
-#ifdef KF5Purpose_FOUND
+#ifdef KF6Purpose_FOUND
     Plugins::PurposeMenu *purposeMenu = new Plugins::PurposeMenu(menu);
     connect(m_thumbnailView, &ThumbnailView::ThumbnailFacade::selectionChanged,
             purposeMenu, &Plugins::PurposeMenu::slotSelectionChanged);

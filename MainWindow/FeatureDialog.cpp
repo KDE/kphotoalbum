@@ -104,7 +104,7 @@ QSize FeatureDialog::sizeHint() const
 
 bool MainWindow::FeatureDialog::hasPurposeSupport()
 {
-#ifdef KF5Purpose_FOUND
+#ifdef KF6Purpose_FOUND
     return true;
 #else
     return false;

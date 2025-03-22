@@ -199,7 +199,7 @@ set(libPlugins_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/Plugins/Logging.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Plugins/Logging.h"
     )
-if(KF5Purpose_FOUND)
+if(KF6Purpose_FOUND)
     set(libPlugins_SRCS ${libPlugins_SRCS}
         "${CMAKE_CURRENT_SOURCE_DIR}/Plugins/PurposeMenu.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/Plugins/PurposeMenu.h"

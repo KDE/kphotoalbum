@@ -34,6 +34,21 @@
 
 using namespace MainWindow;
 
+namespace
+{
+struct Data {
+    Data(const QString &title, const QString &tag, bool featureFound)
+        : title(title)
+        , tag(tag)
+        , featureFound(featureFound)
+    {
+    }
+    QString title;
+    QString tag;
+    bool featureFound = false;
+};
+}
+
 FeatureDialog::FeatureDialog(QWidget *parent)
     : QDialog(parent)
 {
@@ -42,47 +57,64 @@ FeatureDialog::FeatureDialog(QWidget *parent)
     QTextBrowser *browser = new QTextBrowser(this);
 
     QString text = i18n("<h1>Overview</h1>"
-                        "<p>Below you may see the list of compile- and runtime features KPhotoAlbum has, and their status:</p>"
+                        "<p>Optional features in KPhotoAlbum:</p>"
                         "%1",
                         featureString());
-    text += i18n("<h1>What can I do if I miss a feature?</h1>"
 
-                 "<p>If you compiled KPhotoAlbum yourself, then please review the sections below to learn what to install "
-                 "to get the feature in question. If on the other hand you installed KPhotoAlbum from a binary package, please tell "
-                 "whoever made the package about this defect, eventually including the information from the section below.</p>"
+    text += i18n(
+        "<h1>Build time features</h1>"
 
-                 "<p>In case you are missing a feature and you did not compile KPhotoAlbum yourself, please do consider doing so. "
-                 "It really is not that hard. If you need help compiling KPhotoAlbum, feel free to ask on the "
-                 "<a href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a></p>"
+        "<p>Build time features are optional features that need to be enabled when building KPhotoAlbum.</p>"
 
-                 "<p>The steps to compile KPhotoAlbum can be seen on <a href=\"https://community.kde.org/KPhotoAlbum/build_instructions\">"
-                 "the KPhotoAlbum home page</a>. If you have never compiled a KDE application, then please ensure that "
-                 "you have the developer packages installed, in most distributions they go under names like kdelibs<i>-devel</i></p>");
+        "<p>If you built KPhotoAlbum yourself, please check the "
+        "<a href=\"https://community.kde.org/KPhotoAlbum/build_instructions\">build instructions</a> "
+        "if you missed something. If you need help compiling KPhotoAlbum, feel free to ask on the "
+        "<a href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing list</a> "
+        "for help.</p>"
 
-    text += i18n("<h1><a name=\"purpose\">Plugin support</a></h1>"
-                 "<p>KPhotoAlbum supports the <em>Purpose</em> plugin system.</p>");
+        "<p>If you installed KPhotoAlbum from the package manager or an app store, "
+        "you can file a bug report with the supplier of the package.</>");
 
-    text += i18n("<h1><a name=\"database\">SQLite database support</a></h1>"
-                 "<p>KPhotoAlbum allows you to search using a certain number of Exif tags. For this KPhotoAlbum "
-                 "needs an SQLite database. "
-                 "In addition the Qt package for SQLite (e.g. qt-sql-sqlite) must be installed.</p>");
+    text += i18n(
+        "<h2><a name=\"purpose\">Purpose plugin support</a></h2>"
+        "<p>KPhotoAlbum supports the <em>Purpose</em> plugin system which is part of KDE Frameworks.</p>");
 
-    text += i18n("<h1><a name=\"geomap\">Map view for geotagged images</a></h1>"
-                 "<p>If KPhotoAlbum has been built with support for Marble, "
-                 "KPhotoAlbum can show images with GPS information on a map."
-                 "</p>");
+    text += i18n(
+        "<h2><a name=\"geomap\">Map view for geotagged images</a></h2>"
+        "<p>If KPhotoAlbum has been built with support for Marble, "
+        "KPhotoAlbum can show images with GPS information on a map.</p>");
 
-    text += i18n("<h1><a name=\"video\">Video support</a></h1>"
-                 "<p>KPhotoAlbum relies on phonon or VLC for displaying videos</p>");
+    text += i18n(
+        "<h1>Run time features</h1>"
 
-    text += i18n("<h1><a name=\"videoPreview\">Video thumbnail support</a></h1>"
-                 "<p>KPhotoAlbum can use <tt>ffmpeg</tt> to extract thumbnails from videos. These thumbnails are used to preview "
-                 "videos in the thumbnail viewer.</p>");
+        "<p>Run time features are optional features that depend on another package or program being available "
+        "during runtime. I.e. you can enable these features by installing the right package.</p>");
 
-    text += i18n("<h1><a name=\"videoInfo\">Video metadata support</a></h1>"
-                 "<p>KPhotoAlbum can use <tt>ffprobe</tt> to extract length information from videos."
-                 "</p>"
-                 "<p>Correct length information is necessary for correct rendering of video thumbnails.</p>");
+    text += i18n(
+        "<h2><a name=\"database\">SQLite database support</a></h2>"
+
+        "<p>KPhotoAlbum allows you to search using a certain number of Exif tags.</p>"
+
+        "<p>This feature is only available if the Qt SQLite driver is installed. "
+        "On Debian-based distributions this package is usually called libqt6sql6-sqlite.</p>");
+
+    text += i18n(
+        "<h2><a name=\"video\">Video support</a></h2>"
+        "<p>KPhotoAlbum relies on phonon or VLC for displaying videos</p>"
+
+        "<h2><a name=\"videoPreview\">Video thumbnail support</a></h2>"
+
+        "<p>KPhotoAlbum can use <tt>ffmpeg</tt> to extract thumbnails from videos. These thumbnails are used to preview "
+        "videos in the thumbnail viewer.</p>"
+
+        "<p>This feature is only available if FFmpeg is installed.</p>"
+
+        "<h2><a name=\"videoInfo\">Video metadata support</a></h2>"
+
+        "<p>KPhotoAlbum can use <tt>ffprobe</tt> to extract length information from videos."
+        "Correct length information is necessary for correct rendering of video thumbnails.</p>"
+
+        "This feature is only available if ffprobe is installed. Usually, ffprobe is also part of the FFmpeg package.");
 
     browser->setText(text);
 
@@ -97,12 +129,47 @@ FeatureDialog::FeatureDialog(QWidget *parent)
     connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
 }
 
+QString MainWindow::FeatureDialog::featureString()
+{
+    QList<Data> features;
+    features << Data(i18nc("This should match the heading in the text above", "Purpose plugin support"),
+                     QString::fromLatin1("#purpose"),
+                     hasPurposeSupport());
+    features << Data(i18nc("This should match the heading in the text above", "Map view for geotagged images."),
+                     QString::fromLatin1("#geomap"),
+                     hasGeoMapSupport());
+    features << Data(i18nc("This should match the heading in the text above", "SQLite database support"),
+                     QString::fromLatin1("#database"),
+                     hasEXIV2DBSupport());
+    features << Data(i18nc("This should match the heading in the text above", "Video thumbnail support"),
+                     QString::fromLatin1("#videoPreview"),
+                     hasVideoThumbnailer());
+    features << Data(i18nc("This should match the heading in the text above", "Video metadata support"),
+                     QString::fromLatin1("#videoInfo"),
+                     hasVideoProber());
+
+    QString result = QString::fromLatin1("<p><table>");
+    result += QString::fromLatin1("<tr><th>Feature name</th><th>Available</th></tr>");
+    const QString red = QString::fromLatin1("<font color=\"red\">%1</font>");
+    const QString yes = i18nc("Feature available", "Yes");
+    const QString no = red.arg(i18nc("Feature not available", "No"));
+    const QString formatString = QString::fromLatin1("<tr><td><a href=\"%1\">%2</a></td><td><b>%3</b></td></tr>");
+    for (QList<Data>::ConstIterator featureIt = features.constBegin(); featureIt != features.constEnd(); ++featureIt) {
+        result += formatString.arg(
+            (*featureIt).tag, (*featureIt).title,
+            (*featureIt).featureFound ? yes : no);
+    }
+    result += QString::fromLatin1("</table></p>");
+
+    return result;
+}
+
 QSize FeatureDialog::sizeHint() const
 {
     return QSize(800, 600);
 }
 
-bool MainWindow::FeatureDialog::hasPurposeSupport()
+constexpr bool MainWindow::FeatureDialog::hasPurposeSupport()
 {
 #ifdef KF6Purpose_FOUND
     return true;
@@ -116,7 +183,7 @@ bool MainWindow::FeatureDialog::hasEXIV2DBSupport()
     return Exif::Database::isAvailable();
 }
 
-bool MainWindow::FeatureDialog::hasGeoMapSupport()
+constexpr bool MainWindow::FeatureDialog::hasGeoMapSupport()
 {
 #ifdef HAVE_MARBLE
     return true;
@@ -151,41 +218,6 @@ bool MainWindow::FeatureDialog::hasAllFeaturesAvailable()
 {
     // Only answer those that are compile time tests, otherwise we will pay a penalty each time we start up.
     return hasPurposeSupport() && hasEXIV2DBSupport() && hasGeoMapSupport() && hasVideoThumbnailer() && hasVideoProber();
-}
-
-struct Data {
-    Data() { }
-    Data(const QString &title, const QString &tag, bool featureFound)
-        : title(title)
-        , tag(tag)
-        , featureFound(featureFound)
-    {
-    }
-    QString title;
-    QString tag;
-    bool featureFound = false;
-};
-
-QString MainWindow::FeatureDialog::featureString()
-{
-    QList<Data> features;
-    features << Data(i18n("Plug-ins available"), QString::fromLatin1("#purpose"), hasPurposeSupport());
-    features << Data(i18n("SQLite database support (used for Exif searches)"), QString::fromLatin1("#database"), hasEXIV2DBSupport());
-    features << Data(i18n("Map view for geotagged images."), QString::fromLatin1("#geomap"), hasGeoMapSupport());
-    features << Data(i18n("Video thumbnail support"), QString::fromLatin1("#videoPreview"), hasVideoThumbnailer());
-    features << Data(i18n("Video metadata support"), QString::fromLatin1("#videoInfo"), hasVideoProber());
-
-    QString result = QString::fromLatin1("<p><table>");
-    const QString red = QString::fromLatin1("<font color=\"red\">%1</font>");
-    const QString yes = i18nc("Feature available", "Yes");
-    const QString no = red.arg(i18nc("Feature not available", "No"));
-    const QString formatString = QString::fromLatin1("<tr><td><a href=\"%1\">%2</a></td><td><b>%3</b></td></tr>");
-    for (QList<Data>::ConstIterator featureIt = features.constBegin(); featureIt != features.constEnd(); ++featureIt) {
-        result += formatString.arg((*featureIt).tag, (*featureIt).title, (*featureIt).featureFound ? yes : no);
-    }
-    result += QString::fromLatin1("</table></p>");
-
-    return result;
 }
 
 // vi:expandtab:tabstop=4 shiftwidth=4:

@@ -37,10 +37,9 @@ public:
     static bool hasVideoProber();
 
 protected:
-    static bool hasPurposeSupport();
-    static bool hasEXIV2Support();
+    static constexpr bool hasPurposeSupport();
     static bool hasEXIV2DBSupport();
-    static bool hasGeoMapSupport();
+    static constexpr bool hasGeoMapSupport();
 };
 }
 

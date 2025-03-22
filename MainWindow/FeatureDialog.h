@@ -22,7 +22,6 @@ public:
 
     static bool hasAllFeaturesAvailable();
     static QString featureString();
-    static QStringList supportedVideoMimeTypes();
     static QString ffmpegBinary();
     static QString ffprobeBinary();
     /**

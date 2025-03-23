@@ -111,10 +111,10 @@ FeatureDialog::FeatureDialog(QWidget *parent)
 
         "<h2><a name=\"videoInfo\">Video metadata support</a></h2>"
 
-        "<p>KPhotoAlbum can use <tt>ffprobe</tt> to extract length information from videos."
+        "<p>KPhotoAlbum can use <tt>ffprobe</tt> to extract length information from videos. "
         "Correct length information is necessary for correct rendering of video thumbnails.</p>"
 
-        "This feature is only available if ffprobe is installed. Usually, ffprobe is also part of the FFmpeg package.");
+        "<p>This feature is only available if ffprobe is installed. Usually, ffprobe is also part of the FFmpeg package.</p>");
 
     browser->setText(text);
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-01 00:42+0000\n"
+"POT-Creation-Date: 2025-03-23 00:40+0000\n"
 "PO-Revision-Date: 2012-01-16 16:58+0700\n"
 "Last-Translator: Lê Hoàng Phương <herophuong93@gmail.com>\n"
 "Language-Team: Vietnamese <kde-i18n-vi@kde.org>\n"
@@ -3700,83 +3700,57 @@ msgstr ""
 msgid "Invoke External Program"
 msgstr "Gọi trình bên ngoài"
 
-#: MainWindow/FeatureDialog.cpp:40
+#: MainWindow/FeatureDialog.cpp:55
 #, fuzzy, kde-format
 #| msgid "Feature Status"
 msgctxt "@title:window"
 msgid "Feature Status"
 msgstr "Trạng thái tính năng"
 
-#: MainWindow/FeatureDialog.cpp:44
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
-#| "features KPhotoAlbum has, and their status:</p>%1"
-msgid ""
-"<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
-"features KPhotoAlbum has, and their status:</p>%1"
-msgstr ""
-"<h1>Toàn cảnh</h1><p>Bên dưới có danh sách các tính năng KPhotoAlbum chạy "
-"vào lúc biên dịch và chạy, và trạng thái của chúng:</p>%1"
-
-#: MainWindow/FeatureDialog.cpp:48
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
-#| "yourself, then please review the sections below to learn what to install "
-#| "to get the feature in question. If on the other hand you installed "
-#| "KPhotoAlbum from a binary package, please tell whoever made the package "
-#| "about this defect, eventually including the information from the section "
-#| "below.<p><p>In case you are missing a feature and you did not compile "
-#| "KPhotoAlbum yourself, please do consider doing so. It really isn't that "
-#| "hard. If you need help compiling KPhotoAlbum, feel free to ask on the <a "
-#| "href=\"http://mail.kdab.net/mailman/listinfo/kphotoalbum\">KPhotoAlbum "
-#| "mailing list</a></p><p>The steps to compile KPhotoAlbum can be seen on <a "
-#| "href=\"http://www.kphotoalbum.org/download-source.htm\">the KPhotoAlbum "
-#| "home page</a>. If you have never compiled a KDE application, then please "
-#| "ensure that you have the developer packages installed, in most "
-#| "distributions they go under names like kdelibs<i>-devel</i></p>"
-msgid ""
-"<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
-"yourself, then please review the sections below to learn what to install to "
-"get the feature in question. If on the other hand you installed KPhotoAlbum "
-"from a binary package, please tell whoever made the package about this "
-"defect, eventually including the information from the section below.</"
-"p><p>In case you are missing a feature and you did not compile KPhotoAlbum "
-"yourself, please do consider doing so. It really is not that hard. If you "
-"need help compiling KPhotoAlbum, feel free to ask on the <a href=\"https://"
-"mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing "
-"list</a></p><p>The steps to compile KPhotoAlbum can be seen on <a href="
-"\"https://community.kde.org/KPhotoAlbum/build_instructions\">the KPhotoAlbum "
-"home page</a>. If you have never compiled a KDE application, then please "
-"ensure that you have the developer packages installed, in most distributions "
-"they go under names like kdelibs<i>-devel</i></p>"
-msgstr ""
-"<h1>Nếu còn thiếu tính năng nào, tôi nên làm gì vậy?</h1><p>Nếu bạn đã tự "
-"biên dịch KPhotoAlbum, hãy xem lại các phần bên dưới, để biết nên cài đặt gì "
-"để được tính năng đó. Mặc khác, nếu bạn đã cài đặt KPhotoAlbum từ gói nhị "
-"phân (binary package), vui lòng báo nhà dui trì gói đó biết về lỗi này, cuối "
-"cùng gồm thông tin từ phần bên dưới.<p><p>Trong trường hợp là bạn còn thiếu "
-"tính năng, và đã không tự biên dịch KPhotoAlbum, vui lòng suy tính làm như "
-"thế. Việc biên dịch cũng hơi khó. Nếu bạn cần sự giúp đỡ để biên dịch "
-"KPhotoAlbum, mời bạn gởi thư cho <a href=\"http://mail.kdab.net/mailman/"
-"listinfo/kphotoalbum\">hộp thư chung KPhotoAlbum</a> (tiếng Anh)</p><p>[Nếu "
-"bạn gặp khó khăn đọc/viết tiếng Anh, bạn gởi thư cho <a href=\"mailto:kde-"
-"l10n-vi@kde.org\">Nhóm Viết hoá KDE</a>, và chúng tôi sẽ dịch cho bạn.]</"
-"p><p>Có sẵn các bước cần theo khi biên dịch KPhotoAlbum trên <a href="
-"\"http://www.kphotoalbum.org/download-source.htm\">trang chủ KPhotoAlbum</"
-"a>. Nếu bạn chưa biên dịch ứng dụng KDE nào, hãy đảm bảo bạn đã cài đặt các "
-"gói phát triển: trong phần lớn bản phân phối, những gói này có tên như "
-"<b>kdelibs<i>-devel</i></b>.</p>"
-
-#: MainWindow/FeatureDialog.cpp:62
+#: MainWindow/FeatureDialog.cpp:59
 #, kde-format
-msgid ""
-"<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports the "
-"<em>Purpose</em> plugin system.</p>"
+msgid "<h1>Overview</h1><p>Optional features in KPhotoAlbum:</p>%1"
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:65
+#, kde-format
+msgid ""
+"<h1>Build time features</h1><p>Build time features are optional features "
+"that need to be enabled when building KPhotoAlbum.</p><p>If you built "
+"KPhotoAlbum yourself, please check the <a href=\"https://community.kde.org/"
+"KPhotoAlbum/build_instructions\">build instructions</a> if you missed "
+"something. If you need help compiling KPhotoAlbum, feel free to ask on the "
+"<a href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum"
+"\">KPhotoAlbum mailing list</a> for help.</p><p>If you installed KPhotoAlbum "
+"from the package manager or an app store, you can file a bug report with the "
+"supplier of the package.</>"
+msgstr ""
+
+#: MainWindow/FeatureDialog.cpp:79
+#, kde-format
+msgid ""
+"<h2><a name=\"purpose\">Purpose plugin support</a></h2><p>KPhotoAlbum "
+"supports the <em>Purpose</em> plugin system which is part of KDE Frameworks."
+"</p>"
+msgstr ""
+
+#: MainWindow/FeatureDialog.cpp:83
+#, kde-format
+msgid ""
+"<h2><a name=\"geomap\">Map view for geotagged images</a></h2><p>If "
+"KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
+"images with GPS information on a map.</p>"
+msgstr ""
+
+#: MainWindow/FeatureDialog.cpp:88
+#, kde-format
+msgid ""
+"<h1>Run time features</h1><p>Run time features are optional features that "
+"depend on another package or program being available during runtime. I.e. "
+"you can enable these features by installing the right package.</p>"
+msgstr ""
+
+#: MainWindow/FeatureDialog.cpp:94
 #, fuzzy, kde-format
 #| msgid ""
 #| "<h1><a name=\"database\">SQL Database Support</a></h1><p>KPhotoAlbum "
@@ -3786,10 +3760,10 @@ msgstr ""
 #| "is installed on your system.In addition the qt package for sqlite (e.g.qt-"
 #| "sql-sqlite) must be installed.</p>"
 msgid ""
-"<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
-"allows you to search using a certain number of Exif tags. For this "
-"KPhotoAlbum needs an SQLite database. In addition the Qt package for SQLite "
-"(e.g. qt-sql-sqlite) must be installed.</p>"
+"<h2><a name=\"database\">SQLite database support</a></h2><p>KPhotoAlbum "
+"allows you to search using a certain number of Exif tags.</p><p>This feature "
+"is only available if the Qt SQLite driver is installed. On Debian-based "
+"distributions this package is usually called libqt6sql6-sqlite.</p>"
 msgstr ""
 "<h1><a name=\"database\">Hỗ trợ cơ sở dữ liệu SQL</a></h1><p>Trình "
 "KPhotoAlbum cho bạn có khả năng tìm kiếm theo một số thẻ EXIF. Để cung cấp "
@@ -3797,86 +3771,62 @@ msgstr ""
 "cần thiết bạn chạy phần mềm Sqlite phiên bản 2.8.16, vì vậy hãy kiểm tra xem "
 "phiên bản này được cài đặt vào hệ thống của bạn.</p>"
 
-#: MainWindow/FeatureDialog.cpp:70
+#: MainWindow/FeatureDialog.cpp:102
 #, kde-format
 msgid ""
-"<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
-"KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
-"images with GPS information on a map.</p>"
+"<h2><a name=\"video\">Video support</a></h2><p>KPhotoAlbum relies on phonon "
+"or VLC for displaying videos</p><h2><a name=\"videoPreview\">Video thumbnail "
+"support</a></h2><p>KPhotoAlbum can use <tt>ffmpeg</tt> to extract thumbnails "
+"from videos. These thumbnails are used to preview videos in the thumbnail "
+"viewer.</p><p>This feature is only available if FFmpeg is installed.</"
+"p><h2><a name=\"videoInfo\">Video metadata support</a></h2><p>KPhotoAlbum "
+"can use <tt>ffprobe</tt> to extract length information from videos.Correct "
+"length information is necessary for correct rendering of video thumbnails.</"
+"p>This feature is only available if ffprobe is installed. Usually, ffprobe "
+"is also part of the FFmpeg package."
 msgstr ""
 
-#: MainWindow/FeatureDialog.cpp:75
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"video\">Video Support</a></h1><p>KPhotoAlbum relies on the "
-#| "KDE plug-in subsystem for support for displaying videos. If this feature "
-#| "is not enabled for you, have a look at the <a href=\"http://wiki.kde.org/"
-#| "tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum wiki article "
-#| "on video support</a>.</p>"
-msgid ""
-"<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on phonon "
-"or VLC for displaying videos</p>"
-msgstr ""
-"<h1><a name=\"video\">Hỗ trợ ảnh động</a></h1><p>Trình KPhotoAlbum nhờ hệ "
-"thống con bổ sung của KDE để hỗ trợ khả năng hiển thị ảnh động. Nếu tính "
-"năng không được bật cho bạn, xem <a href=\"http://wiki.kde.org/tiki-index."
-"php?page=KPhotoAlbum+Video+Support\">bài wiki KPhotoAlbum về sự hỗ trợ ảnh "
-"động</a>.</p>"
-
-#: MainWindow/FeatureDialog.cpp:78
+#: MainWindow/FeatureDialog.cpp:135
 #, kde-format
-msgid ""
-"<h1><a name=\"videoPreview\">Video thumbnail support</a></h1><p>KPhotoAlbum "
-"can use <tt>ffmpeg</tt> to extract thumbnails from videos. These thumbnails "
-"are used to preview videos in the thumbnail viewer.</p>"
+msgctxt "This should match the heading in the text above"
+msgid "Purpose plugin support"
 msgstr ""
 
-#: MainWindow/FeatureDialog.cpp:82
+#: MainWindow/FeatureDialog.cpp:138
 #, kde-format
-msgid ""
-"<h1><a name=\"videoInfo\">Video metadata support</a></h1><p>KPhotoAlbum can "
-"use <tt>ffprobe</tt> to extract length information from videos.</"
-"p><p>Correct length information is necessary for correct rendering of video "
-"thumbnails.</p>"
-msgstr ""
-
-#: MainWindow/FeatureDialog.cpp:172
-#, fuzzy, kde-format
-#| msgid "Plug-ins available"
-msgid "Plug-ins available"
-msgstr "Bổ sung có sẵn"
-
-#: MainWindow/FeatureDialog.cpp:173
-#, fuzzy, kde-format
-#| msgid "Sqlite Database Support (used for EXIF searches)"
-msgid "SQLite database support (used for Exif searches)"
-msgstr "Hỗ trợ co sở dữ liệu Sqlite (dùng để tìm EXIF)"
-
-#: MainWindow/FeatureDialog.cpp:174
-#, kde-format
+msgctxt "This should match the heading in the text above"
 msgid "Map view for geotagged images."
 msgstr ""
 
-#: MainWindow/FeatureDialog.cpp:175
+#: MainWindow/FeatureDialog.cpp:141
+#, fuzzy, kde-format
+#| msgid "AVI video support"
+msgctxt "This should match the heading in the text above"
+msgid "SQLite database support"
+msgstr "Hỗ trợ ảnh động AVI"
+
+#: MainWindow/FeatureDialog.cpp:144
 #, fuzzy, kde-format
 #| msgid "Video Thumbnails support"
+msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
 msgstr "Hỗ trợ mẫu ảnh ảnh động"
 
-#: MainWindow/FeatureDialog.cpp:176
+#: MainWindow/FeatureDialog.cpp:147
 #, fuzzy, kde-format
 #| msgid "AVI video support"
+msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
 msgstr "Hỗ trợ ảnh động AVI"
 
-#: MainWindow/FeatureDialog.cpp:180
+#: MainWindow/FeatureDialog.cpp:154
 #, fuzzy, kde-format
 #| msgid "Yes"
 msgctxt "Feature available"
 msgid "Yes"
 msgstr "Có"
 
-#: MainWindow/FeatureDialog.cpp:181
+#: MainWindow/FeatureDialog.cpp:155
 #, fuzzy, kde-format
 #| msgid "No"
 msgctxt "Feature not available"
@@ -7414,6 +7364,95 @@ msgstr "Hiện cỡ ảnh"
 #| msgid "Show Ranges"
 msgid "Show Rating"
 msgstr "Hiện đánh giá"
+
+#, fuzzy
+#~| msgid ""
+#~| "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
+#~| "features KPhotoAlbum has, and their status:</p>%1"
+#~ msgid ""
+#~ "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
+#~ "features KPhotoAlbum has, and their status:</p>%1"
+#~ msgstr ""
+#~ "<h1>Toàn cảnh</h1><p>Bên dưới có danh sách các tính năng KPhotoAlbum chạy "
+#~ "vào lúc biên dịch và chạy, và trạng thái của chúng:</p>%1"
+
+#, fuzzy
+#~| msgid ""
+#~| "<h1>What can I do if I miss a feature?</h1><p>If you compiled "
+#~| "KPhotoAlbum yourself, then please review the sections below to learn "
+#~| "what to install to get the feature in question. If on the other hand you "
+#~| "installed KPhotoAlbum from a binary package, please tell whoever made "
+#~| "the package about this defect, eventually including the information from "
+#~| "the section below.<p><p>In case you are missing a feature and you did "
+#~| "not compile KPhotoAlbum yourself, please do consider doing so. It really "
+#~| "isn't that hard. If you need help compiling KPhotoAlbum, feel free to "
+#~| "ask on the <a href=\"http://mail.kdab.net/mailman/listinfo/kphotoalbum"
+#~| "\">KPhotoAlbum mailing list</a></p><p>The steps to compile KPhotoAlbum "
+#~| "can be seen on <a href=\"http://www.kphotoalbum.org/download-source.htm"
+#~| "\">the KPhotoAlbum home page</a>. If you have never compiled a KDE "
+#~| "application, then please ensure that you have the developer packages "
+#~| "installed, in most distributions they go under names like kdelibs<i>-"
+#~| "devel</i></p>"
+#~ msgid ""
+#~ "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
+#~ "yourself, then please review the sections below to learn what to install "
+#~ "to get the feature in question. If on the other hand you installed "
+#~ "KPhotoAlbum from a binary package, please tell whoever made the package "
+#~ "about this defect, eventually including the information from the section "
+#~ "below.</p><p>In case you are missing a feature and you did not compile "
+#~ "KPhotoAlbum yourself, please do consider doing so. It really is not that "
+#~ "hard. If you need help compiling KPhotoAlbum, feel free to ask on the <a "
+#~ "href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum"
+#~ "\">KPhotoAlbum mailing list</a></p><p>The steps to compile KPhotoAlbum "
+#~ "can be seen on <a href=\"https://community.kde.org/KPhotoAlbum/"
+#~ "build_instructions\">the KPhotoAlbum home page</a>. If you have never "
+#~ "compiled a KDE application, then please ensure that you have the "
+#~ "developer packages installed, in most distributions they go under names "
+#~ "like kdelibs<i>-devel</i></p>"
+#~ msgstr ""
+#~ "<h1>Nếu còn thiếu tính năng nào, tôi nên làm gì vậy?</h1><p>Nếu bạn đã tự "
+#~ "biên dịch KPhotoAlbum, hãy xem lại các phần bên dưới, để biết nên cài đặt "
+#~ "gì để được tính năng đó. Mặc khác, nếu bạn đã cài đặt KPhotoAlbum từ gói "
+#~ "nhị phân (binary package), vui lòng báo nhà dui trì gói đó biết về lỗi "
+#~ "này, cuối cùng gồm thông tin từ phần bên dưới.<p><p>Trong trường hợp là "
+#~ "bạn còn thiếu tính năng, và đã không tự biên dịch KPhotoAlbum, vui lòng "
+#~ "suy tính làm như thế. Việc biên dịch cũng hơi khó. Nếu bạn cần sự giúp đỡ "
+#~ "để biên dịch KPhotoAlbum, mời bạn gởi thư cho <a href=\"http://mail.kdab."
+#~ "net/mailman/listinfo/kphotoalbum\">hộp thư chung KPhotoAlbum</a> (tiếng "
+#~ "Anh)</p><p>[Nếu bạn gặp khó khăn đọc/viết tiếng Anh, bạn gởi thư cho <a "
+#~ "href=\"mailto:kde-l10n-vi@kde.org\">Nhóm Viết hoá KDE</a>, và chúng tôi "
+#~ "sẽ dịch cho bạn.]</p><p>Có sẵn các bước cần theo khi biên dịch "
+#~ "KPhotoAlbum trên <a href=\"http://www.kphotoalbum.org/download-source.htm"
+#~ "\">trang chủ KPhotoAlbum</a>. Nếu bạn chưa biên dịch ứng dụng KDE nào, "
+#~ "hãy đảm bảo bạn đã cài đặt các gói phát triển: trong phần lớn bản phân "
+#~ "phối, những gói này có tên như <b>kdelibs<i>-devel</i></b>.</p>"
+
+#, fuzzy
+#~| msgid ""
+#~| "<h1><a name=\"video\">Video Support</a></h1><p>KPhotoAlbum relies on the "
+#~| "KDE plug-in subsystem for support for displaying videos. If this feature "
+#~| "is not enabled for you, have a look at the <a href=\"http://wiki.kde.org/"
+#~| "tiki-index.php?page=KPhotoAlbum+Video+Support\">KPhotoAlbum wiki article "
+#~| "on video support</a>.</p>"
+#~ msgid ""
+#~ "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on "
+#~ "phonon or VLC for displaying videos</p>"
+#~ msgstr ""
+#~ "<h1><a name=\"video\">Hỗ trợ ảnh động</a></h1><p>Trình KPhotoAlbum nhờ hệ "
+#~ "thống con bổ sung của KDE để hỗ trợ khả năng hiển thị ảnh động. Nếu tính "
+#~ "năng không được bật cho bạn, xem <a href=\"http://wiki.kde.org/tiki-index."
+#~ "php?page=KPhotoAlbum+Video+Support\">bài wiki KPhotoAlbum về sự hỗ trợ "
+#~ "ảnh động</a>.</p>"
+
+#, fuzzy
+#~| msgid "Plug-ins available"
+#~ msgid "Plug-ins available"
+#~ msgstr "Bổ sung có sẵn"
+
+#, fuzzy
+#~| msgid "Sqlite Database Support (used for EXIF searches)"
+#~ msgid "SQLite database support (used for Exif searches)"
+#~ msgstr "Hỗ trợ co sở dữ liệu Sqlite (dùng để tìm EXIF)"
 
 #, fuzzy
 #~| msgid "Converting database"

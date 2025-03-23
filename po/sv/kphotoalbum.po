@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-01 00:42+0000\n"
+"POT-Creation-Date: 2025-03-23 00:40+0000\n"
 "PO-Revision-Date: 2025-01-11 15:37+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -3577,80 +3577,52 @@ msgstr "Kommandorad"
 msgid "Invoke External Program"
 msgstr "Starta externt program"
 
-#: MainWindow/FeatureDialog.cpp:40
+#: MainWindow/FeatureDialog.cpp:55
 #, kde-format
 msgctxt "@title:window"
 msgid "Feature Status"
 msgstr "Funktionsstatus"
 
-#: MainWindow/FeatureDialog.cpp:44
+#: MainWindow/FeatureDialog.cpp:59
 #, kde-format
-msgid ""
-"<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
-"features KPhotoAlbum has, and their status:</p>%1"
+msgid "<h1>Overview</h1><p>Optional features in KPhotoAlbum:</p>%1"
 msgstr ""
-"<h1>Översikt</h1><p>Nedan ser du listan över kompilerings- och körfunktioner "
-"som Kfotoalbum har, och deras status:</p>%1"
-
-#: MainWindow/FeatureDialog.cpp:48
-#, kde-format
-msgid ""
-"<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
-"yourself, then please review the sections below to learn what to install to "
-"get the feature in question. If on the other hand you installed KPhotoAlbum "
-"from a binary package, please tell whoever made the package about this "
-"defect, eventually including the information from the section below.</"
-"p><p>In case you are missing a feature and you did not compile KPhotoAlbum "
-"yourself, please do consider doing so. It really is not that hard. If you "
-"need help compiling KPhotoAlbum, feel free to ask on the <a href=\"https://"
-"mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing "
-"list</a></p><p>The steps to compile KPhotoAlbum can be seen on <a href="
-"\"https://community.kde.org/KPhotoAlbum/build_instructions\">the KPhotoAlbum "
-"home page</a>. If you have never compiled a KDE application, then please "
-"ensure that you have the developer packages installed, in most distributions "
-"they go under names like kdelibs<i>-devel</i></p>"
-msgstr ""
-"<h1>Vad kan man göra om en funktion saknas?</h1><p>Om du själv kompilerar "
-"Kfotoalbum, se avsnitten nedan för att få reda på vad som ska installeras "
-"för att få funktionen i fråga. Om du å andra sidan installerade Kfotoalbum "
-"från ett binärpaket, tala gärna om felaktigheten för vem det nu än är som "
-"skapat paketet, och infoga eventuellt informationen från avsnittet nedan.</"
-"p><p>I fallet då du saknar en funktion och du inte själv kompilerade "
-"Kfotoalbum, fundera på att göra det. Det är verkligen inte så svårt. Om du "
-"behöver hjälp med att kompilera Kfotoalbum, fråga gärna på <a href=\"https://"
-"mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum\">Kfotoalbums e-postlista</"
-"a></p><p>Stegen för att kompilera Kfotoalbum kan ses på <a href=\"https://"
-"community.kde.org/KPhotoAlbum/build_instructions\">Kfotoalbums hemsida</a>. "
-"Om du aldrig tidigare har kompilerat ett KDE-program, försäkra dig om att du "
-"har installerat utvecklingspaketen, som i de flesta distributioner har namn "
-"som liknar kdelibs<i>-devel</i></p>"
-
-#: MainWindow/FeatureDialog.cpp:62
-#, kde-format
-msgid ""
-"<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports the "
-"<em>Purpose</em> plugin system.</p>"
-msgstr ""
-"<h1><a name=\"purpose\">Stöd för insticksprogram</a></h1><p>Kfotoalbum "
-"stöder instickssystemet <em>Purpose</em>.</p>"
 
 #: MainWindow/FeatureDialog.cpp:65
 #, kde-format
 msgid ""
-"<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
-"allows you to search using a certain number of Exif tags. For this "
-"KPhotoAlbum needs an SQLite database. In addition the Qt package for SQLite "
-"(e.g. qt-sql-sqlite) must be installed.</p>"
+"<h1>Build time features</h1><p>Build time features are optional features "
+"that need to be enabled when building KPhotoAlbum.</p><p>If you built "
+"KPhotoAlbum yourself, please check the <a href=\"https://community.kde.org/"
+"KPhotoAlbum/build_instructions\">build instructions</a> if you missed "
+"something. If you need help compiling KPhotoAlbum, feel free to ask on the "
+"<a href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum"
+"\">KPhotoAlbum mailing list</a> for help.</p><p>If you installed KPhotoAlbum "
+"from the package manager or an app store, you can file a bug report with the "
+"supplier of the package.</>"
 msgstr ""
-"<h1><a name=\"database\">SQLite-databasstöd</a></h1><p>Kfotoalbum låter dig "
-"söka med ett visst antal EXIF-taggar. För att det ska fungera behöver "
-"Kfotoalbum en SQLite-databas. Dessutom måste Qt-paketet för SQLite vara "
-"installerat (t.ex. qt-sql-sqlite).</p>"
 
-#: MainWindow/FeatureDialog.cpp:70
-#, kde-format
+#: MainWindow/FeatureDialog.cpp:79
+#, fuzzy, kde-format
+#| msgid ""
+#| "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports "
+#| "the <em>Purpose</em> plugin system.</p>"
 msgid ""
-"<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
+"<h2><a name=\"purpose\">Purpose plugin support</a></h2><p>KPhotoAlbum "
+"supports the <em>Purpose</em> plugin system which is part of KDE Frameworks."
+"</p>"
+msgstr ""
+"<h1><a name=\"purpose\">Stöd för insticksprogram</a></h1><p>Kfotoalbum "
+"stöder instickssystemet <em>Purpose</em>.</p>"
+
+#: MainWindow/FeatureDialog.cpp:83
+#, fuzzy, kde-format
+#| msgid ""
+#| "<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
+#| "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
+#| "images with GPS information on a map.</p>"
+msgid ""
+"<h2><a name=\"geomap\">Map view for geotagged images</a></h2><p>If "
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
@@ -3658,72 +3630,88 @@ msgstr ""
 "h1><p>Om Kfotoalbum har byggts med stöd för Marble, kan Kfotoalbum visa "
 "bilder med GPS-information på en karta.</p>"
 
-#: MainWindow/FeatureDialog.cpp:75
+#: MainWindow/FeatureDialog.cpp:88
 #, kde-format
 msgid ""
-"<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on phonon "
-"or VLC for displaying videos</p>"
+"<h1>Run time features</h1><p>Run time features are optional features that "
+"depend on another package or program being available during runtime. I.e. "
+"you can enable these features by installing the right package.</p>"
 msgstr ""
-"<h1><a name=\"video\">Stöd för video</a></h1><p>Kfotoalbum förlitar sig på "
-"phonon eller VLC för att visa videor.</p>"
 
-#: MainWindow/FeatureDialog.cpp:78
+#: MainWindow/FeatureDialog.cpp:94
+#, fuzzy, kde-format
+#| msgid ""
+#| "<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
+#| "allows you to search using a certain number of Exif tags. For this "
+#| "KPhotoAlbum needs an SQLite database. In addition the Qt package for "
+#| "SQLite (e.g. qt-sql-sqlite) must be installed.</p>"
+msgid ""
+"<h2><a name=\"database\">SQLite database support</a></h2><p>KPhotoAlbum "
+"allows you to search using a certain number of Exif tags.</p><p>This feature "
+"is only available if the Qt SQLite driver is installed. On Debian-based "
+"distributions this package is usually called libqt6sql6-sqlite.</p>"
+msgstr ""
+"<h1><a name=\"database\">SQLite-databasstöd</a></h1><p>Kfotoalbum låter dig "
+"söka med ett visst antal EXIF-taggar. För att det ska fungera behöver "
+"Kfotoalbum en SQLite-databas. Dessutom måste Qt-paketet för SQLite vara "
+"installerat (t.ex. qt-sql-sqlite).</p>"
+
+#: MainWindow/FeatureDialog.cpp:102
 #, kde-format
 msgid ""
-"<h1><a name=\"videoPreview\">Video thumbnail support</a></h1><p>KPhotoAlbum "
-"can use <tt>ffmpeg</tt> to extract thumbnails from videos. These thumbnails "
-"are used to preview videos in the thumbnail viewer.</p>"
+"<h2><a name=\"video\">Video support</a></h2><p>KPhotoAlbum relies on phonon "
+"or VLC for displaying videos</p><h2><a name=\"videoPreview\">Video thumbnail "
+"support</a></h2><p>KPhotoAlbum can use <tt>ffmpeg</tt> to extract thumbnails "
+"from videos. These thumbnails are used to preview videos in the thumbnail "
+"viewer.</p><p>This feature is only available if FFmpeg is installed.</"
+"p><h2><a name=\"videoInfo\">Video metadata support</a></h2><p>KPhotoAlbum "
+"can use <tt>ffprobe</tt> to extract length information from videos.Correct "
+"length information is necessary for correct rendering of video thumbnails.</"
+"p>This feature is only available if ffprobe is installed. Usually, ffprobe "
+"is also part of the FFmpeg package."
 msgstr ""
-"<h1><a name=\"videoPreview\">Stöd för videominiatyrbilder</a></"
-"h1><p>Kfotoalbum kan använda <tt>ffmpeg</tt> för att extrahera "
-"miniatyrbilder från videor. Dessa miniatyrbilder används för att "
-"förhandsgranska videor i miniatyrbildsvisningen.</p>"
 
-#: MainWindow/FeatureDialog.cpp:82
+#: MainWindow/FeatureDialog.cpp:135
 #, kde-format
-msgid ""
-"<h1><a name=\"videoInfo\">Video metadata support</a></h1><p>KPhotoAlbum can "
-"use <tt>ffprobe</tt> to extract length information from videos.</"
-"p><p>Correct length information is necessary for correct rendering of video "
-"thumbnails.</p>"
+msgctxt "This should match the heading in the text above"
+msgid "Purpose plugin support"
 msgstr ""
-"<h1><a name=\"videoInfo\">Stöd för videometadata</a></h1><p>Kfotoalbum kan "
-"använda <tt>ffprobe</tt> för att extrahera längdinformation från videor.</"
-"p><p>Riktig längdinformation är nödvändig för att återge "
-"viddeominiatyrbilder riktigt.</p>"
 
-#: MainWindow/FeatureDialog.cpp:172
-#, kde-format
-msgid "Plug-ins available"
-msgstr "Tillgängliga insticksprogram"
-
-#: MainWindow/FeatureDialog.cpp:173
-#, kde-format
-msgid "SQLite database support (used for Exif searches)"
-msgstr "Stöd för SQLite-databas (används för EXIF-sökningar)"
-
-#: MainWindow/FeatureDialog.cpp:174
-#, kde-format
+#: MainWindow/FeatureDialog.cpp:138
+#, fuzzy, kde-format
+#| msgid "Map view for geotagged images."
+msgctxt "This should match the heading in the text above"
 msgid "Map view for geotagged images."
 msgstr "Kartvy för bilder med geografisk information."
 
-#: MainWindow/FeatureDialog.cpp:175
-#, kde-format
+#: MainWindow/FeatureDialog.cpp:141
+#, fuzzy, kde-format
+#| msgid "SQL database support"
+msgctxt "This should match the heading in the text above"
+msgid "SQLite database support"
+msgstr "SQL-databasstöd"
+
+#: MainWindow/FeatureDialog.cpp:144
+#, fuzzy, kde-format
+#| msgid "Video thumbnail support"
+msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
 msgstr "Stöd för videominiatyrbilder"
 
-#: MainWindow/FeatureDialog.cpp:176
-#, kde-format
+#: MainWindow/FeatureDialog.cpp:147
+#, fuzzy, kde-format
+#| msgid "Video metadata support"
+msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
 msgstr "Stöd för videometadata"
 
-#: MainWindow/FeatureDialog.cpp:180
+#: MainWindow/FeatureDialog.cpp:154
 #, kde-format
 msgctxt "Feature available"
 msgid "Yes"
 msgstr "Ja"
 
-#: MainWindow/FeatureDialog.cpp:181
+#: MainWindow/FeatureDialog.cpp:155
 #, kde-format
 msgctxt "Feature not available"
 msgid "No"
@@ -7242,6 +7230,81 @@ msgstr "Visa bildstorlek"
 msgid "Show Rating"
 msgstr "Visa betyg"
 
+#~ msgid ""
+#~ "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
+#~ "features KPhotoAlbum has, and their status:</p>%1"
+#~ msgstr ""
+#~ "<h1>Översikt</h1><p>Nedan ser du listan över kompilerings- och "
+#~ "körfunktioner som Kfotoalbum har, och deras status:</p>%1"
+
+#~ msgid ""
+#~ "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
+#~ "yourself, then please review the sections below to learn what to install "
+#~ "to get the feature in question. If on the other hand you installed "
+#~ "KPhotoAlbum from a binary package, please tell whoever made the package "
+#~ "about this defect, eventually including the information from the section "
+#~ "below.</p><p>In case you are missing a feature and you did not compile "
+#~ "KPhotoAlbum yourself, please do consider doing so. It really is not that "
+#~ "hard. If you need help compiling KPhotoAlbum, feel free to ask on the <a "
+#~ "href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum"
+#~ "\">KPhotoAlbum mailing list</a></p><p>The steps to compile KPhotoAlbum "
+#~ "can be seen on <a href=\"https://community.kde.org/KPhotoAlbum/"
+#~ "build_instructions\">the KPhotoAlbum home page</a>. If you have never "
+#~ "compiled a KDE application, then please ensure that you have the "
+#~ "developer packages installed, in most distributions they go under names "
+#~ "like kdelibs<i>-devel</i></p>"
+#~ msgstr ""
+#~ "<h1>Vad kan man göra om en funktion saknas?</h1><p>Om du själv kompilerar "
+#~ "Kfotoalbum, se avsnitten nedan för att få reda på vad som ska installeras "
+#~ "för att få funktionen i fråga. Om du å andra sidan installerade "
+#~ "Kfotoalbum från ett binärpaket, tala gärna om felaktigheten för vem det "
+#~ "nu än är som skapat paketet, och infoga eventuellt informationen från "
+#~ "avsnittet nedan.</p><p>I fallet då du saknar en funktion och du inte "
+#~ "själv kompilerade Kfotoalbum, fundera på att göra det. Det är verkligen "
+#~ "inte så svårt. Om du behöver hjälp med att kompilera Kfotoalbum, fråga "
+#~ "gärna på <a href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/"
+#~ "kphotoalbum\">Kfotoalbums e-postlista</a></p><p>Stegen för att kompilera "
+#~ "Kfotoalbum kan ses på <a href=\"https://community.kde.org/KPhotoAlbum/"
+#~ "build_instructions\">Kfotoalbums hemsida</a>. Om du aldrig tidigare har "
+#~ "kompilerat ett KDE-program, försäkra dig om att du har installerat "
+#~ "utvecklingspaketen, som i de flesta distributioner har namn som liknar "
+#~ "kdelibs<i>-devel</i></p>"
+
+#~ msgid ""
+#~ "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on "
+#~ "phonon or VLC for displaying videos</p>"
+#~ msgstr ""
+#~ "<h1><a name=\"video\">Stöd för video</a></h1><p>Kfotoalbum förlitar sig "
+#~ "på phonon eller VLC för att visa videor.</p>"
+
+#~ msgid ""
+#~ "<h1><a name=\"videoPreview\">Video thumbnail support</a></"
+#~ "h1><p>KPhotoAlbum can use <tt>ffmpeg</tt> to extract thumbnails from "
+#~ "videos. These thumbnails are used to preview videos in the thumbnail "
+#~ "viewer.</p>"
+#~ msgstr ""
+#~ "<h1><a name=\"videoPreview\">Stöd för videominiatyrbilder</a></"
+#~ "h1><p>Kfotoalbum kan använda <tt>ffmpeg</tt> för att extrahera "
+#~ "miniatyrbilder från videor. Dessa miniatyrbilder används för att "
+#~ "förhandsgranska videor i miniatyrbildsvisningen.</p>"
+
+#~ msgid ""
+#~ "<h1><a name=\"videoInfo\">Video metadata support</a></h1><p>KPhotoAlbum "
+#~ "can use <tt>ffprobe</tt> to extract length information from videos.</"
+#~ "p><p>Correct length information is necessary for correct rendering of "
+#~ "video thumbnails.</p>"
+#~ msgstr ""
+#~ "<h1><a name=\"videoInfo\">Stöd för videometadata</a></h1><p>Kfotoalbum "
+#~ "kan använda <tt>ffprobe</tt> för att extrahera längdinformation från "
+#~ "videor.</p><p>Riktig längdinformation är nödvändig för att återge "
+#~ "viddeominiatyrbilder riktigt.</p>"
+
+#~ msgid "Plug-ins available"
+#~ msgstr "Tillgängliga insticksprogram"
+
+#~ msgid "SQLite database support (used for Exif searches)"
+#~ msgstr "Stöd för SQLite-databas (används för EXIF-sökningar)"
+
 #~ msgid "KPhotoAlbum only supports database files named 'index.xml'."
 #~ msgstr "Kfotoalbum stöder bara databasfiler med namnet 'index.xml'."
 
@@ -8578,9 +8641,6 @@ msgstr "Visa betyg"
 
 #~ msgid "Coordinates can be added to tags in this category"
 #~ msgstr "Koordinater kan läggas till för etiketter i den här kategorin"
-
-#~ msgid "SQL database support"
-#~ msgstr "SQL-databasstöd"
 
 #~ msgid "Subcategories"
 #~ msgstr "Delkategorier"

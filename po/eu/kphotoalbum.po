@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-01 00:42+0000\n"
+"POT-Creation-Date: 2025-03-23 00:40+0000\n"
 "PO-Revision-Date: 2025-01-10 20:51+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -3599,81 +3599,52 @@ msgstr "Komando-lerroa"
 msgid "Invoke External Program"
 msgstr "Deitu kanpoko programari"
 
-#: MainWindow/FeatureDialog.cpp:40
+#: MainWindow/FeatureDialog.cpp:55
 #, kde-format
 msgctxt "@title:window"
 msgid "Feature Status"
 msgstr "Eginbideen egoera"
 
-#: MainWindow/FeatureDialog.cpp:44
+#: MainWindow/FeatureDialog.cpp:59
 #, kde-format
-msgid ""
-"<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
-"features KPhotoAlbum has, and their status:</p>%1"
+msgid "<h1>Overview</h1><p>Optional features in KPhotoAlbum:</p>%1"
 msgstr ""
-"<h1>Gainbegiratu</h1><p>KPhotoAlbum-en konpilatutako eta exekuzio garaiko "
-"eginbideen zerrenda ikus dezakezu azpian, baita haien egoera ere:</p>%1"
-
-#: MainWindow/FeatureDialog.cpp:48
-#, kde-format
-msgid ""
-"<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
-"yourself, then please review the sections below to learn what to install to "
-"get the feature in question. If on the other hand you installed KPhotoAlbum "
-"from a binary package, please tell whoever made the package about this "
-"defect, eventually including the information from the section below.</"
-"p><p>In case you are missing a feature and you did not compile KPhotoAlbum "
-"yourself, please do consider doing so. It really is not that hard. If you "
-"need help compiling KPhotoAlbum, feel free to ask on the <a href=\"https://"
-"mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum\">KPhotoAlbum mailing "
-"list</a></p><p>The steps to compile KPhotoAlbum can be seen on <a href="
-"\"https://community.kde.org/KPhotoAlbum/build_instructions\">the KPhotoAlbum "
-"home page</a>. If you have never compiled a KDE application, then please "
-"ensure that you have the developer packages installed, in most distributions "
-"they go under names like kdelibs<i>-devel</i></p>"
-msgstr ""
-"<h1>Zer egin dezaket funtzio baten falta sumatzen badut?</h1> <p>KPhotoAlbum "
-"zuk zeuk konpilatu baduzu, berrikusi beheko atalak, funtzio hori lortzeko "
-"zer instalatu ikasteko. Aitzitik, KPhotoAlbum pakete bitar batetik instalatu "
-"baduzu, mesedez, esan paketea egin zuenari akats horri buruz, hala "
-"badagokio, hurrengo ataleko informazioa erantsita.</p><p>Funtzio baten falta "
-"sumatzen baduzu eta ez baduzu KPhotoAlbum zuk zeuk konpilatu, mesedez, "
-"pentsa ezazu hori egiteko aukeraz. Benetan ez da horren zaila. KPhotoAlbum "
-"konpilatzeko laguntza behar baduzu, lasai galdetu <a href=\"https://mail.kde."
-"org/cgi-bin/mailman/listinfo/kphotoalbum\">KPhotoAlbum-en posta-zerrendan</"
-"a>.</p><p>KPhotoAlbum konpilatzeko urratsak <a href=\"https://community.kde."
-"org/KPhotoAlbum/build_instructions\"> KPhotoAlbum-en atariko orrian</a> ikus "
-"daitezeke. KDE aplikazio bat inoiz konpilatu ez baduzu, mesedez, ziurtatu "
-"garatzailearen paketeak instalatuta dituzula, banaketa gehienetan kdelibs<i>-"
-"devel</i> bezalako izenak dituzte.</p>"
-
-#: MainWindow/FeatureDialog.cpp:62
-#, kde-format
-msgid ""
-"<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports the "
-"<em>Purpose</em> plugin system.</p>"
-msgstr ""
-"<h1><a name=\"purpose\">Plugin euskarria</a></h1><p>KPhotoAlbum-ek "
-"<em>Purpose</em> plugin sistema onartzen du.</p>"
 
 #: MainWindow/FeatureDialog.cpp:65
 #, kde-format
 msgid ""
-"<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
-"allows you to search using a certain number of Exif tags. For this "
-"KPhotoAlbum needs an SQLite database. In addition the Qt package for SQLite "
-"(e.g. qt-sql-sqlite) must be installed.</p>"
+"<h1>Build time features</h1><p>Build time features are optional features "
+"that need to be enabled when building KPhotoAlbum.</p><p>If you built "
+"KPhotoAlbum yourself, please check the <a href=\"https://community.kde.org/"
+"KPhotoAlbum/build_instructions\">build instructions</a> if you missed "
+"something. If you need help compiling KPhotoAlbum, feel free to ask on the "
+"<a href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum"
+"\">KPhotoAlbum mailing list</a> for help.</p><p>If you installed KPhotoAlbum "
+"from the package manager or an app store, you can file a bug report with the "
+"supplier of the package.</>"
 msgstr ""
-"<h1><a name=\"database\">SQLite datu-basearen euskarria</a></"
-"h1><p>KPhotoAlbum-ek EXIFen etiketa zehatz batzuk erabiliz bilaketak egitea "
-"baimentzen dizu. Horretarako, KPhotoAlbum-ek SQLite datu-basea behar du. "
-"Gainera, SQLite-ren Qt paketea (adib. qt-sql-sqlite) instalatuta egon behar "
-"da.</p>"
 
-#: MainWindow/FeatureDialog.cpp:70
-#, kde-format
+#: MainWindow/FeatureDialog.cpp:79
+#, fuzzy, kde-format
+#| msgid ""
+#| "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports "
+#| "the <em>Purpose</em> plugin system.</p>"
 msgid ""
-"<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
+"<h2><a name=\"purpose\">Purpose plugin support</a></h2><p>KPhotoAlbum "
+"supports the <em>Purpose</em> plugin system which is part of KDE Frameworks."
+"</p>"
+msgstr ""
+"<h1><a name=\"purpose\">Plugin euskarria</a></h1><p>KPhotoAlbum-ek "
+"<em>Purpose</em> plugin sistema onartzen du.</p>"
+
+#: MainWindow/FeatureDialog.cpp:83
+#, fuzzy, kde-format
+#| msgid ""
+#| "<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
+#| "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
+#| "images with GPS information on a map.</p>"
+msgid ""
+"<h2><a name=\"geomap\">Map view for geotagged images</a></h2><p>If "
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
@@ -3681,72 +3652,89 @@ msgstr ""
 "KPhotoAlbum Marble euskarriaz eraiki bada, KPhotoAlbum irudiak mapan "
 "erakutsi ditzake geokokapen informazioaz..</p>"
 
-#: MainWindow/FeatureDialog.cpp:75
+#: MainWindow/FeatureDialog.cpp:88
 #, kde-format
 msgid ""
-"<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on phonon "
-"or VLC for displaying videos</p>"
+"<h1>Run time features</h1><p>Run time features are optional features that "
+"depend on another package or program being available during runtime. I.e. "
+"you can enable these features by installing the right package.</p>"
 msgstr ""
-"<h1><a name=\"video\">Bideo-euskarria</a></h1><p>KPhotoAlbum-ek phonon edo "
-"VLC behar ditu bideoak azaltzeko</p>"
 
-#: MainWindow/FeatureDialog.cpp:78
+#: MainWindow/FeatureDialog.cpp:94
+#, fuzzy, kde-format
+#| msgid ""
+#| "<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
+#| "allows you to search using a certain number of Exif tags. For this "
+#| "KPhotoAlbum needs an SQLite database. In addition the Qt package for "
+#| "SQLite (e.g. qt-sql-sqlite) must be installed.</p>"
+msgid ""
+"<h2><a name=\"database\">SQLite database support</a></h2><p>KPhotoAlbum "
+"allows you to search using a certain number of Exif tags.</p><p>This feature "
+"is only available if the Qt SQLite driver is installed. On Debian-based "
+"distributions this package is usually called libqt6sql6-sqlite.</p>"
+msgstr ""
+"<h1><a name=\"database\">SQLite datu-basearen euskarria</a></"
+"h1><p>KPhotoAlbum-ek EXIFen etiketa zehatz batzuk erabiliz bilaketak egitea "
+"baimentzen dizu. Horretarako, KPhotoAlbum-ek SQLite datu-basea behar du. "
+"Gainera, SQLite-ren Qt paketea (adib. qt-sql-sqlite) instalatuta egon behar "
+"da.</p>"
+
+#: MainWindow/FeatureDialog.cpp:102
 #, kde-format
 msgid ""
-"<h1><a name=\"videoPreview\">Video thumbnail support</a></h1><p>KPhotoAlbum "
-"can use <tt>ffmpeg</tt> to extract thumbnails from videos. These thumbnails "
-"are used to preview videos in the thumbnail viewer.</p>"
+"<h2><a name=\"video\">Video support</a></h2><p>KPhotoAlbum relies on phonon "
+"or VLC for displaying videos</p><h2><a name=\"videoPreview\">Video thumbnail "
+"support</a></h2><p>KPhotoAlbum can use <tt>ffmpeg</tt> to extract thumbnails "
+"from videos. These thumbnails are used to preview videos in the thumbnail "
+"viewer.</p><p>This feature is only available if FFmpeg is installed.</"
+"p><h2><a name=\"videoInfo\">Video metadata support</a></h2><p>KPhotoAlbum "
+"can use <tt>ffprobe</tt> to extract length information from videos.Correct "
+"length information is necessary for correct rendering of video thumbnails.</"
+"p>This feature is only available if ffprobe is installed. Usually, ffprobe "
+"is also part of the FFmpeg package."
 msgstr ""
-"<h1><a name=\"videoPreview\">Bideo koadro txiki euskarria</a></"
-"h1><p>KPhotoAlbum  <tt>ffmpeg</tt> erabil dezake bideoetatik koadro-txikiak "
-"ateratzeko. Koadro-txiki hauek erabiltzen dira koadro-txiki erakuslean "
-"bideoak aurreikusteko.</p>"
 
-#: MainWindow/FeatureDialog.cpp:82
+#: MainWindow/FeatureDialog.cpp:135
 #, kde-format
-msgid ""
-"<h1><a name=\"videoInfo\">Video metadata support</a></h1><p>KPhotoAlbum can "
-"use <tt>ffprobe</tt> to extract length information from videos.</"
-"p><p>Correct length information is necessary for correct rendering of video "
-"thumbnails.</p>"
+msgctxt "This should match the heading in the text above"
+msgid "Purpose plugin support"
 msgstr ""
-"<h1><a name=\"videoInfo\">Bideo metadatu euskarria</a></h1><p>KPhotoAlbum  "
-"<tt>ffprobe</tt> erabili ahal du informazio ugari ateratzeko bideoetatik.</"
-"p><p>Correct length information is necessary for correct rendering of video "
-"thumbnails.</p>"
 
-#: MainWindow/FeatureDialog.cpp:172
-#, kde-format
-msgid "Plug-ins available"
-msgstr "Plugin erabilgarriak"
-
-#: MainWindow/FeatureDialog.cpp:173
-#, kde-format
-msgid "SQLite database support (used for Exif searches)"
-msgstr "SQLite datu-basearen euskarria (EXIF bilaketetan erabiltzen da)"
-
-#: MainWindow/FeatureDialog.cpp:174
-#, kde-format
+#: MainWindow/FeatureDialog.cpp:138
+#, fuzzy, kde-format
+#| msgid "Map view for geotagged images."
+msgctxt "This should match the heading in the text above"
 msgid "Map view for geotagged images."
 msgstr "Mapa ikuspegia geokokatutako irudietan"
 
-#: MainWindow/FeatureDialog.cpp:175
-#, kde-format
+#: MainWindow/FeatureDialog.cpp:141
+#, fuzzy, kde-format
+#| msgid "SQL Database Support"
+msgctxt "This should match the heading in the text above"
+msgid "SQLite database support"
+msgstr "SQL datu-basearen euskarria"
+
+#: MainWindow/FeatureDialog.cpp:144
+#, fuzzy, kde-format
+#| msgid "Video thumbnail support"
+msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
 msgstr "Bideoen koadro txikien euskarria"
 
-#: MainWindow/FeatureDialog.cpp:176
-#, kde-format
+#: MainWindow/FeatureDialog.cpp:147
+#, fuzzy, kde-format
+#| msgid "Video metadata support"
+msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
 msgstr "Bideoen matadatu euskarria"
 
-#: MainWindow/FeatureDialog.cpp:180
+#: MainWindow/FeatureDialog.cpp:154
 #, kde-format
 msgctxt "Feature available"
 msgid "Yes"
 msgstr "Bai"
 
-#: MainWindow/FeatureDialog.cpp:181
+#: MainWindow/FeatureDialog.cpp:155
 #, kde-format
 msgctxt "Feature not available"
 msgid "No"
@@ -7287,6 +7275,81 @@ msgstr "Erakutsi irudiaren tamaina"
 msgid "Show Rating"
 msgstr "Erakutsi puntuazioa"
 
+#~ msgid ""
+#~ "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
+#~ "features KPhotoAlbum has, and their status:</p>%1"
+#~ msgstr ""
+#~ "<h1>Gainbegiratu</h1><p>KPhotoAlbum-en konpilatutako eta exekuzio garaiko "
+#~ "eginbideen zerrenda ikus dezakezu azpian, baita haien egoera ere:</p>%1"
+
+#~ msgid ""
+#~ "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
+#~ "yourself, then please review the sections below to learn what to install "
+#~ "to get the feature in question. If on the other hand you installed "
+#~ "KPhotoAlbum from a binary package, please tell whoever made the package "
+#~ "about this defect, eventually including the information from the section "
+#~ "below.</p><p>In case you are missing a feature and you did not compile "
+#~ "KPhotoAlbum yourself, please do consider doing so. It really is not that "
+#~ "hard. If you need help compiling KPhotoAlbum, feel free to ask on the <a "
+#~ "href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum"
+#~ "\">KPhotoAlbum mailing list</a></p><p>The steps to compile KPhotoAlbum "
+#~ "can be seen on <a href=\"https://community.kde.org/KPhotoAlbum/"
+#~ "build_instructions\">the KPhotoAlbum home page</a>. If you have never "
+#~ "compiled a KDE application, then please ensure that you have the "
+#~ "developer packages installed, in most distributions they go under names "
+#~ "like kdelibs<i>-devel</i></p>"
+#~ msgstr ""
+#~ "<h1>Zer egin dezaket funtzio baten falta sumatzen badut?</h1> "
+#~ "<p>KPhotoAlbum zuk zeuk konpilatu baduzu, berrikusi beheko atalak, "
+#~ "funtzio hori lortzeko zer instalatu ikasteko. Aitzitik, KPhotoAlbum "
+#~ "pakete bitar batetik instalatu baduzu, mesedez, esan paketea egin zuenari "
+#~ "akats horri buruz, hala badagokio, hurrengo ataleko informazioa erantsita."
+#~ "</p><p>Funtzio baten falta sumatzen baduzu eta ez baduzu KPhotoAlbum zuk "
+#~ "zeuk konpilatu, mesedez, pentsa ezazu hori egiteko aukeraz. Benetan ez da "
+#~ "horren zaila. KPhotoAlbum konpilatzeko laguntza behar baduzu, lasai "
+#~ "galdetu <a href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/"
+#~ "kphotoalbum\">KPhotoAlbum-en posta-zerrendan</a>.</p><p>KPhotoAlbum "
+#~ "konpilatzeko urratsak <a href=\"https://community.kde.org/KPhotoAlbum/"
+#~ "build_instructions\"> KPhotoAlbum-en atariko orrian</a> ikus daitezeke. "
+#~ "KDE aplikazio bat inoiz konpilatu ez baduzu, mesedez, ziurtatu "
+#~ "garatzailearen paketeak instalatuta dituzula, banaketa gehienetan "
+#~ "kdelibs<i>-devel</i> bezalako izenak dituzte.</p>"
+
+#~ msgid ""
+#~ "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on "
+#~ "phonon or VLC for displaying videos</p>"
+#~ msgstr ""
+#~ "<h1><a name=\"video\">Bideo-euskarria</a></h1><p>KPhotoAlbum-ek phonon "
+#~ "edo VLC behar ditu bideoak azaltzeko</p>"
+
+#~ msgid ""
+#~ "<h1><a name=\"videoPreview\">Video thumbnail support</a></"
+#~ "h1><p>KPhotoAlbum can use <tt>ffmpeg</tt> to extract thumbnails from "
+#~ "videos. These thumbnails are used to preview videos in the thumbnail "
+#~ "viewer.</p>"
+#~ msgstr ""
+#~ "<h1><a name=\"videoPreview\">Bideo koadro txiki euskarria</a></"
+#~ "h1><p>KPhotoAlbum  <tt>ffmpeg</tt> erabil dezake bideoetatik koadro-"
+#~ "txikiak ateratzeko. Koadro-txiki hauek erabiltzen dira koadro-txiki "
+#~ "erakuslean bideoak aurreikusteko.</p>"
+
+#~ msgid ""
+#~ "<h1><a name=\"videoInfo\">Video metadata support</a></h1><p>KPhotoAlbum "
+#~ "can use <tt>ffprobe</tt> to extract length information from videos.</"
+#~ "p><p>Correct length information is necessary for correct rendering of "
+#~ "video thumbnails.</p>"
+#~ msgstr ""
+#~ "<h1><a name=\"videoInfo\">Bideo metadatu euskarria</a></"
+#~ "h1><p>KPhotoAlbum  <tt>ffprobe</tt> erabili ahal du informazio ugari "
+#~ "ateratzeko bideoetatik.</p><p>Correct length information is necessary for "
+#~ "correct rendering of video thumbnails.</p>"
+
+#~ msgid "Plug-ins available"
+#~ msgstr "Plugin erabilgarriak"
+
+#~ msgid "SQLite database support (used for Exif searches)"
+#~ msgstr "SQLite datu-basearen euskarria (EXIF bilaketetan erabiltzen da)"
+
 #~ msgid "KPhotoAlbum only supports database files named 'index.xml'."
 #~ msgstr ""
 #~ "KPhotoAlbum-ek 'index.xml' izeneko datu-base fitxategiak onartzen ditu "
@@ -8354,11 +8417,6 @@ msgstr "Erakutsi puntuazioa"
 #~| msgid "Really delete group %1?"
 #~ msgid "Really resize grid?"
 #~ msgstr "%1 taldea ezabatzea nahi duzu?"
-
-#, fuzzy
-#~| msgid "SQL Database Support"
-#~ msgid "SQL database support"
-#~ msgstr "SQL datu-basearen euskarria"
 
 #~ msgid "Subcategories"
 #~ msgstr "Azpikategoriak"

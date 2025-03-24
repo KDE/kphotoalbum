@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-23 00:40+0000\n"
-"PO-Revision-Date: 2025-03-01 17:55+0100\n"
+"POT-Creation-Date: 2025-03-24 00:40+0000\n"
+"PO-Revision-Date: 2025-03-23 07:29+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
 "Language: eo\n"
@@ -3565,7 +3565,7 @@ msgstr "Karakterizaĵa Statuso"
 #: MainWindow/FeatureDialog.cpp:59
 #, kde-format
 msgid "<h1>Overview</h1><p>Optional features in KPhotoAlbum:</p>%1"
-msgstr ""
+msgstr "<h1>Superrigardo</h1><p>Laŭvolaj kapabloj en KPhotoAlbum:</p>%1"
 
 #: MainWindow/FeatureDialog.cpp:65
 #, kde-format
@@ -3582,32 +3582,26 @@ msgid ""
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:79
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports "
-#| "the <em>Purpose</em> plugin system.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"purpose\">Purpose plugin support</a></h2><p>KPhotoAlbum "
 "supports the <em>Purpose</em> plugin system which is part of KDE Frameworks."
 "</p>"
 msgstr ""
-"<h1><a name=\"purpose\">Subteno de kromprogramoj</a></h1><p>KPhotoAlbum "
-"subtenas la sistemon de aldonaĵo <em>Celo</em>.</p>"
+"<h2><a name=\"purpose\">Subteno de Purpose-kromprogramoj</a></"
+"h2><p>KPhotoAlbum subtenas la kromprogramsistemon <em>Purpose</em> kiu estas "
+"parto de KDE Frameworks.</p>"
 
 #: MainWindow/FeatureDialog.cpp:83
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
-#| "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
-#| "images with GPS information on a map.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"geomap\">Map view for geotagged images</a></h2><p>If "
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
-"<h1><a name=\"geomap\">Mapa vido por geoetikeditaj bildoj</a></h1><p>Se "
-"KPhotoAlbum estis konstruita kun subteno por Marmoro, KPhotoAlbum povas "
-"montri bildojn kun GPSaj informoj sur mapo. </p>"
+"<h2><a name=\"geomap\">Mapa vido por geoetikeditaj bildoj</a></h2><p>Se "
+"KPhotoAlbum estis konstruita kun subteno por Marble, KPhotoAlbum povas "
+"montri bildojn kun GPS-aj informoj sur mapo.</p>"
 
 #: MainWindow/FeatureDialog.cpp:88
 #, kde-format
@@ -3616,24 +3610,22 @@ msgid ""
 "depend on another package or program being available during runtime. I.e. "
 "you can enable these features by installing the right package.</p>"
 msgstr ""
+"<h1>Rultempaj funkcioj</h1><p>Rultempaj funkcioj estas laŭvolaj kapabloj "
+"kiuj dependas de alia pakaĵo aŭ programo disponebla dum rultempo. T.s. vi "
+"povas ebligi ĉi tiujn kapablojn instalante la ĝustan pakaĵon.</p>"
 
 #: MainWindow/FeatureDialog.cpp:94
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
-#| "allows you to search using a certain number of Exif tags. For this "
-#| "KPhotoAlbum needs an SQLite database. In addition the Qt package for "
-#| "SQLite (e.g. qt-sql-sqlite) must be installed.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"database\">SQLite database support</a></h2><p>KPhotoAlbum "
 "allows you to search using a certain number of Exif tags.</p><p>This feature "
 "is only available if the Qt SQLite driver is installed. On Debian-based "
 "distributions this package is usually called libqt6sql6-sqlite.</p>"
 msgstr ""
-"<h1><a name=\"database\">subteno de SQLite-datumbazo</a></h1><p>KPhotoAlbum "
-"permesas serĉi uzante certan nombron da Exif-etikedoj. Por ĉi tiu "
-"KPhotoAlbum bezonas SQLite-datumbazon. Krome la pako Qt por SQLite (ekz. qt-"
-"sql-sqlite) devas esti instalita.</p>"
+"<h2><a name=\"database\">subteno de SQLite-datumbazo</a></h2><p>KPhotoAlbum "
+"permesas serĉi uzante certan nombron da Exif-etikedoj.</p><p>Ĉi tiu funkcio "
+"nur haveblas se la SQLite-pelilo de Qt estas instalita. En Debian-bazitaj "
+"distribuoj ĉi pako kutime estas nomita libqt6sql6-sqlite.</p>"
 
 #: MainWindow/FeatureDialog.cpp:102
 #, kde-format
@@ -3644,45 +3636,41 @@ msgid ""
 "from videos. These thumbnails are used to preview videos in the thumbnail "
 "viewer.</p><p>This feature is only available if FFmpeg is installed.</"
 "p><h2><a name=\"videoInfo\">Video metadata support</a></h2><p>KPhotoAlbum "
-"can use <tt>ffprobe</tt> to extract length information from videos.Correct "
+"can use <tt>ffprobe</tt> to extract length information from videos. Correct "
 "length information is necessary for correct rendering of video thumbnails.</"
-"p>This feature is only available if ffprobe is installed. Usually, ffprobe "
-"is also part of the FFmpeg package."
+"p><p>This feature is only available if ffprobe is installed. Usually, "
+"ffprobe is also part of the FFmpeg package.</p>"
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:135
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Purpose plugin support"
-msgstr ""
+msgstr "Subteno por kromprogramo Purpose"
 
 #: MainWindow/FeatureDialog.cpp:138
-#, fuzzy, kde-format
-#| msgid "Map view for geotagged images."
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Map view for geotagged images."
-msgstr "Mapo-vido por geoetikeditaj bildoj."
+msgstr "Mapvido por geoetikeditaj bildoj."
 
 #: MainWindow/FeatureDialog.cpp:141
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
-msgstr "Subteno de video metadatenoj"
+msgstr "Subteno por SQLite-datumbazo"
 
 #: MainWindow/FeatureDialog.cpp:144
-#, fuzzy, kde-format
-#| msgid "Video thumbnail support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
-msgstr "Subteno de bildetoj de video"
+msgstr "Subteno por video-bildetoj"
 
 #: MainWindow/FeatureDialog.cpp:147
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
-msgstr "Subteno de video metadatenoj"
+msgstr "Subteno por video-metadatenoj"
 
 #: MainWindow/FeatureDialog.cpp:154
 #, kde-format
@@ -7205,78 +7193,3 @@ msgstr "Montri Bildan Grandecon"
 #, kde-format
 msgid "Show Rating"
 msgstr "Montri Takson"
-
-#~ msgid ""
-#~ "<h1>Overview</h1><p>Below you may see the list of compile- and runtime "
-#~ "features KPhotoAlbum has, and their status:</p>%1"
-#~ msgstr ""
-#~ "<h1>Superrigardo</h1><p>Malsupre vi povas vidi la liston de kompil- kaj "
-#~ "rultempa funkcioj havas KPhotoAlbum, kaj ilian staton:</p>%1"
-
-#~ msgid ""
-#~ "<h1>What can I do if I miss a feature?</h1><p>If you compiled KPhotoAlbum "
-#~ "yourself, then please review the sections below to learn what to install "
-#~ "to get the feature in question. If on the other hand you installed "
-#~ "KPhotoAlbum from a binary package, please tell whoever made the package "
-#~ "about this defect, eventually including the information from the section "
-#~ "below.</p><p>In case you are missing a feature and you did not compile "
-#~ "KPhotoAlbum yourself, please do consider doing so. It really is not that "
-#~ "hard. If you need help compiling KPhotoAlbum, feel free to ask on the <a "
-#~ "href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum"
-#~ "\">KPhotoAlbum mailing list</a></p><p>The steps to compile KPhotoAlbum "
-#~ "can be seen on <a href=\"https://community.kde.org/KPhotoAlbum/"
-#~ "build_instructions\">the KPhotoAlbum home page</a>. If you have never "
-#~ "compiled a KDE application, then please ensure that you have the "
-#~ "developer packages installed, in most distributions they go under names "
-#~ "like kdelibs<i>-devel</i></p>"
-#~ msgstr ""
-#~ "<h1>Kion mi povas fari se mi maltrafas funkcion?</h1><p>Se vi mem "
-#~ "kompilis KPhotoAlbum, do bonvolu revizii la subajn sekciojn por lerni "
-#~ "kion instali por akiri la koncernan funkcion. Se aliflanke vi instalis "
-#~ "KPhotoAlbum el binara pakaĵo, bonvolu diri al kiu faris la pakaĵon pri ĉi "
-#~ "tiu difekto, eventuale inkludante la informojn el la suba sekcio.</"
-#~ "p><p>En la okazo ke vi mankas funkcion kaj vi ne faris. kompilu "
-#~ "KPhotoAlbum mem, bonvolu pripensi fari tion. Ĝi vere ne estas tiel "
-#~ "malfacila. Se vi bezonas helpon por kompili KPhotoAlbum, bonvolu demandi "
-#~ "en la <a href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum"
-#~ "\">Dissendolisto de KPhotoAlbum</a></p><p>La paŝoj por kompili "
-#~ "KPhotoAlbum videblas ĉe <a href=\"https://community.kde.org/KPhotoAlbum/"
-#~ "build_instructions\">la ĉefpaĝo de KPhotoAlbum</a>. Se vi neniam kompilis "
-#~ "KDE-aplikaĵon, do bonvolu certigi, ke vi havas instalitajn la "
-#~ "programpakaĵojn, en la plej multaj distribuoj ili troviĝas sub nomoj kiel "
-#~ "kdelibs<i>-devel</i></p>"
-
-#~ msgid ""
-#~ "<h1><a name=\"video\">Video support</a></h1><p>KPhotoAlbum relies on "
-#~ "phonon or VLC for displaying videos</p>"
-#~ msgstr ""
-#~ "<h1><a name=\"video\">Videosubteno</a></h1><p>KPhotoAlbum dependas de "
-#~ "phonon aŭ VLC por montri filmetojn</p>"
-
-#~ msgid ""
-#~ "<h1><a name=\"videoPreview\">Video thumbnail support</a></"
-#~ "h1><p>KPhotoAlbum can use <tt>ffmpeg</tt> to extract thumbnails from "
-#~ "videos. These thumbnails are used to preview videos in the thumbnail "
-#~ "viewer.</p>"
-#~ msgstr ""
-#~ "<h1><a name=\"videoPreview\">Subteno de bildetoj de video</a></"
-#~ "h1><p>KPhotoAlbum povas uzi <tt>ffmpeg</tt> por ĉerpi bildetojn el "
-#~ "videoj. Ĉi tiuj bildetoj estas uzataj por antaŭrigardi filmetojn en la "
-#~ "bildetspektilo.</p>"
-
-#~ msgid ""
-#~ "<h1><a name=\"videoInfo\">Video metadata support</a></h1><p>KPhotoAlbum "
-#~ "can use <tt>ffprobe</tt> to extract length information from videos.</"
-#~ "p><p>Correct length information is necessary for correct rendering of "
-#~ "video thumbnails.</p>"
-#~ msgstr ""
-#~ "<h1><a name=\"videoInfo\">Subteno pri metadatenoj de video</a></"
-#~ "h1><p>KPhotoAlbum povas uzi <tt>ffprobe</tt> por ĉerpi informojn pri "
-#~ "longeco el videoj.</p><p> p>Ĝusta longeca informo estas necesa por ĝusta "
-#~ "bildigo de videobildetoj.</p>"
-
-#~ msgid "Plug-ins available"
-#~ msgstr "Aldonaĵoj haveblaj"
-
-#~ msgid "SQLite database support (used for Exif searches)"
-#~ msgstr "SQLite-datumbaza subteno (uzita por Exif-serĉoj)"

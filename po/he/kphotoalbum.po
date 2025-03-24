@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-23 00:40+0000\n"
-"PO-Revision-Date: 2025-03-14 10:20+0200\n"
+"POT-Creation-Date: 2025-03-24 00:40+0000\n"
+"PO-Revision-Date: 2025-03-23 07:46+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -3534,30 +3534,23 @@ msgid ""
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:79
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports "
-#| "the <em>Purpose</em> plugin system.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"purpose\">Purpose plugin support</a></h2><p>KPhotoAlbum "
 "supports the <em>Purpose</em> plugin system which is part of KDE Frameworks."
 "</p>"
 msgstr ""
-"<h1><a name=\"purpose\">תמיכה בתוספים</a></h1><p>KPhotoAlbum תומך במערכת "
-"התוספים <em>Purpose</em>.</p>"
+"<h2><a name=\"purpose\">תמיכה בתוספי Purpose</a></h2><p>KPhotoAlbum תומך "
+"במערכת התוספים <em>Purpose</em> שהיא חלק מהתשתיות של KDE.</p>"
 
 #: MainWindow/FeatureDialog.cpp:83
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
-#| "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
-#| "images with GPS information on a map.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"geomap\">Map view for geotagged images</a></h2><p>If "
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
-"<h1><a name=\"geomap\">תצוגת מפה לתמונות עם תיוג גאוגרפי</a></h1><p>אם "
+"<h2><a name=\"geomap\">תצוגת מפה לתמונות עם תיוג גאוגרפי</a></h2><p>אם "
 "KPhotoAlbum נבנה עם תמיכה ב־Marble,‏ KPhotoAlbum יוכל להציג תמונות עם פרטי "
 "GPS (נווטן) במפה.</p>"
 
@@ -3570,22 +3563,17 @@ msgid ""
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:94
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
-#| "allows you to search using a certain number of Exif tags. For this "
-#| "KPhotoAlbum needs an SQLite database. In addition the Qt package for "
-#| "SQLite (e.g. qt-sql-sqlite) must be installed.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"database\">SQLite database support</a></h2><p>KPhotoAlbum "
 "allows you to search using a certain number of Exif tags.</p><p>This feature "
 "is only available if the Qt SQLite driver is installed. On Debian-based "
 "distributions this package is usually called libqt6sql6-sqlite.</p>"
 msgstr ""
-"<h1><a name=\"database\">תמיכה במסד נתונים מסוג SQLite</a></"
-"h1><p>KPhotoAlbum מאפשר לך לחפש בעזרת מספר מסוים של תגיות Exif. לשם כך "
-"KPhotoAlbum צריך מסד נתונים מסוג SQLite. בנוסף, חבילת ה־Qt ל־SQLite (כלומר: "
-"qt-sql-sqlite) חייבת להיות מותקנת.</p>"
+"<h2><a name=\"database\">תמיכה במסד נתונים מסוג SQLite</a></"
+"h2><p>KPhotoAlbum מאפשר לך לחפש בעזרת מספר מסוים של תגיות Exif. היכולת הזאת "
+"זמינה רק אם מנהל התקן SQLite של Qt מותקן. במערכות מבוססות דביאן החבילה הזאת "
+"בדרך כלל נקראת libqt6sql6-sqlite.</p>"
 
 #: MainWindow/FeatureDialog.cpp:102
 #, kde-format
@@ -3596,42 +3584,38 @@ msgid ""
 "from videos. These thumbnails are used to preview videos in the thumbnail "
 "viewer.</p><p>This feature is only available if FFmpeg is installed.</"
 "p><h2><a name=\"videoInfo\">Video metadata support</a></h2><p>KPhotoAlbum "
-"can use <tt>ffprobe</tt> to extract length information from videos.Correct "
+"can use <tt>ffprobe</tt> to extract length information from videos. Correct "
 "length information is necessary for correct rendering of video thumbnails.</"
-"p>This feature is only available if ffprobe is installed. Usually, ffprobe "
-"is also part of the FFmpeg package."
+"p><p>This feature is only available if ffprobe is installed. Usually, "
+"ffprobe is also part of the FFmpeg package.</p>"
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:135
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Purpose plugin support"
-msgstr ""
+msgstr "תמיכה בתוספי Purpose"
 
 #: MainWindow/FeatureDialog.cpp:138
-#, fuzzy, kde-format
-#| msgid "Map view for geotagged images."
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Map view for geotagged images."
-msgstr "תצוגת מפה לתמונות בתיוג גאוגרפי."
+msgstr "תצוגת מפה לתמונות עם תיוג גאוגרפי."
 
 #: MainWindow/FeatureDialog.cpp:141
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
-msgstr "תמיכה בנתוני על של וידאו"
+msgstr "תמיכה במסד נתונים מסוג SQLite"
 
 #: MainWindow/FeatureDialog.cpp:144
-#, fuzzy, kde-format
-#| msgid "Video thumbnail support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
 msgstr "תמיכה בתמונות ממוזערות של סרטונים"
 
 #: MainWindow/FeatureDialog.cpp:147
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
 msgstr "תמיכה בנתוני על של וידאו"

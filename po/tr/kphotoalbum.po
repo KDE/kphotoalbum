@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-23 00:40+0000\n"
-"PO-Revision-Date: 2025-03-13 15:54+0300\n"
+"POT-Creation-Date: 2025-03-24 00:40+0000\n"
+"PO-Revision-Date: 2025-03-23 18:03+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -3587,6 +3587,8 @@ msgstr "Özellik Durumu"
 #, kde-format
 msgid "<h1>Overview</h1><p>Optional features in KPhotoAlbum:</p>%1"
 msgstr ""
+"<h1>Genel Görünüm</h1><p>K Fotoğraf Albümü’ndeki isteğe bağlı özellikler:</p>"
+"%1"
 
 #: MainWindow/FeatureDialog.cpp:65
 #, kde-format
@@ -3601,33 +3603,37 @@ msgid ""
 "from the package manager or an app store, you can file a bug report with the "
 "supplier of the package.</>"
 msgstr ""
+"<h1>Yapı Zamanı Özellikleri</h1><p>Yapı zamanı özellikleri, K Fotoğraf "
+"Albümü yapılırken etkinleştirilmesi gereken isteğe bağlı özelliklerdir.</"
+"p><p>K Fotoğraf Albümü’nü kendiniz yapıyorsanız ve kaçırdığınız bir şey "
+"olursa lütfen <a href=\"https://community.kde.org/KPhotoAlbum/"
+"build_instructions\">yapım yönergelerine</a> bakın. K Fotoğraf Albümü’nü "
+"derleme konusunda yardıma gereksiniminiz varsa <a href=\"https://mail.kde."
+"org/cgi-bin/mailman/listinfo/kphotoalbum\">K Fotoğraf Albümü posta "
+"listesine</a> yazmaktan çekinmeyin.</p><p>K Fotoğraf Albümü’nü bir paket "
+"yöneticisi veya uygulama mağazası ile kurduysanız paketin sağlayıcısına bunu "
+"bildirebilirsiniz.</>"
 
 #: MainWindow/FeatureDialog.cpp:79
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports "
-#| "the <em>Purpose</em> plugin system.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"purpose\">Purpose plugin support</a></h2><p>KPhotoAlbum "
 "supports the <em>Purpose</em> plugin system which is part of KDE Frameworks."
 "</p>"
 msgstr ""
-"<h1><a name=\"purpose\">Eklenti desteği</a></h1><p>K Fotoğraf Albümü, "
-"<em>Purpose</em> eklenti sistemini destekler.</p>"
+"<h1><a name=\"purpose\">Purpose eklentisi desteği</a></h1><p>K Fotoğraf "
+"Albümü, KDE Frameworks kitaplıklarının bir parçası olan <em>Purpose</em> "
+"eklenti sistemini destekler.</p>"
 
 #: MainWindow/FeatureDialog.cpp:83
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
-#| "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
-#| "images with GPS information on a map.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"geomap\">Map view for geotagged images</a></h2><p>If "
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
-"<h1><a name=\"geomap\">Konum künyelenmiş görseller için harita görünümü</a></"
-"h1><p>K Fotoğraf Albümü, dahili Bilye desteği ile derlenmişse GPS bilgisi "
+"<h2><a name=\"geomap\">Konum künyelenmiş görseller için harita görünümü</a></"
+"h2><p>K Fotoğraf Albümü, dahili Bilye desteği ile derlenmişse GPS bilgisi "
 "içeren görselleri bir haritada gösterebilir.</p>"
 
 #: MainWindow/FeatureDialog.cpp:88
@@ -3637,27 +3643,39 @@ msgid ""
 "depend on another package or program being available during runtime. I.e. "
 "you can enable these features by installing the right package.</p>"
 msgstr ""
+"<h1>Çalışma Zamanı Özellikleri</h1><p>Çalışma zamanı özellikleri, çalışma "
+"zamanı sırasında başka bir paketin veya programın kullanılabilir olmasına "
+"bağlı olan isteğe bağlı özelliklerdir. Yani, doğru paketi kurarak bu "
+"özellikleri etkinleştirebilirsiniz.</p>"
 
 #: MainWindow/FeatureDialog.cpp:94
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
-#| "allows you to search using a certain number of Exif tags. For this "
-#| "KPhotoAlbum needs an SQLite database. In addition the Qt package for "
-#| "SQLite (e.g. qt-sql-sqlite) must be installed.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"database\">SQLite database support</a></h2><p>KPhotoAlbum "
 "allows you to search using a certain number of Exif tags.</p><p>This feature "
 "is only available if the Qt SQLite driver is installed. On Debian-based "
 "distributions this package is usually called libqt6sql6-sqlite.</p>"
 msgstr ""
-"<h1><a name=\"database\">SQLite veritabanı desteği</a></h1><p>K Fotoğraf "
-"Albümü, belirli sayıda Exif künyesini kullanarak arama yapmanıza izin verir. "
-"Bunun için K Fotoğraf Albümü, bir Sqlite veritabanına gerek duyar. Ek "
-"olarak, SQLite için Qt paketi (örn. qt-sql-sqlite) kurulu olmalıdır.</p>"
+"<h2><a name=\"database\">SQLite veritabanı desteği</a></h2><p>K Fotoğraf "
+"Albümü, belirli sayıda Exif künyesini kullanarak arama yapmanıza olanak "
+"tanır.</p><p>Bu özellik yalnızca Qt SQLite sürücüsü kuruluysa "
+"kullanılabilir. Debian tabanlı dağıtımlarda bu paket genellikle libqt6sql6-"
+"sqlite olarak adlandırılır.</p>"
 
 #: MainWindow/FeatureDialog.cpp:102
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "<h2><a name=\"video\">Video support</a></h2><p>KPhotoAlbum relies on "
+#| "phonon or VLC for displaying videos</p><h2><a name=\"videoPreview\">Video "
+#| "thumbnail support</a></h2><p>KPhotoAlbum can use <tt>ffmpeg</tt> to "
+#| "extract thumbnails from videos. These thumbnails are used to preview "
+#| "videos in the thumbnail viewer.</p><p>This feature is only available if "
+#| "FFmpeg is installed.</p><h2><a name=\"videoInfo\">Video metadata support</"
+#| "a></h2><p>KPhotoAlbum can use <tt>ffprobe</tt> to extract length "
+#| "information from videos.Correct length information is necessary for "
+#| "correct rendering of video thumbnails.</p>This feature is only available "
+#| "if ffprobe is installed. Usually, ffprobe is also part of the FFmpeg "
+#| "package."
 msgid ""
 "<h2><a name=\"video\">Video support</a></h2><p>KPhotoAlbum relies on phonon "
 "or VLC for displaying videos</p><h2><a name=\"videoPreview\">Video thumbnail "
@@ -3665,42 +3683,50 @@ msgid ""
 "from videos. These thumbnails are used to preview videos in the thumbnail "
 "viewer.</p><p>This feature is only available if FFmpeg is installed.</"
 "p><h2><a name=\"videoInfo\">Video metadata support</a></h2><p>KPhotoAlbum "
-"can use <tt>ffprobe</tt> to extract length information from videos.Correct "
+"can use <tt>ffprobe</tt> to extract length information from videos. Correct "
 "length information is necessary for correct rendering of video thumbnails.</"
-"p>This feature is only available if ffprobe is installed. Usually, ffprobe "
-"is also part of the FFmpeg package."
+"p><p>This feature is only available if ffprobe is installed. Usually, "
+"ffprobe is also part of the FFmpeg package.</p>"
 msgstr ""
+"<h2><a name=\"video\">Video desteği</a></h2><p>K Fotoğraf Albümü, videoları "
+"görüntülemek için VLC veya Phonon yazılımlarına gereksinim duyar.</p><h2><a "
+"name=\"videoPreview\">Video küçük görseli desteği</a></h2><p>K Fotoğraf "
+"Albümü, videolardan küçük görselleri çıkarmak için <tt>ffmpeg</tt> "
+"yazılımını kullanabilir. Bu küçük görseller, küçük görsel görüntüleyicisinde "
+"videoları önizlemek için kullanılır.</p><p>Bu özellik yalnızca FFmpeg "
+"kuruluysa kullanılabilir.</p><h2><a name=\"videoInfo\">Video üst verisi "
+"desteği</a></h2><p>K Fotoğraf Albümü, videolardan uzunluk verisini çıkarmak "
+"için <tt>ffprobe</tt> yazılımını kullanabilir. Video küçük görsellerinin "
+"düzgün sunulabilmesi için video uzunluk bilgisine gereksinim vardır.</p>Bu "
+"özellik yalnızca FFprobe kuruluysa kullanılabilir. FFprobe, FFmpeg paketinin "
+"içinde bulunur."
 
 #: MainWindow/FeatureDialog.cpp:135
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Purpose plugin support"
-msgstr ""
+msgstr "Purpose eklentisi desteği"
 
 #: MainWindow/FeatureDialog.cpp:138
-#, fuzzy, kde-format
-#| msgid "Map view for geotagged images."
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Map view for geotagged images."
 msgstr "Konum künyelenmiş görseller için harita görünümü."
 
 #: MainWindow/FeatureDialog.cpp:141
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
-msgstr "Video üst verisi desteği"
+msgstr "SQLite veritabanı desteği"
 
 #: MainWindow/FeatureDialog.cpp:144
-#, fuzzy, kde-format
-#| msgid "Video thumbnail support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
-msgstr "Videolar için küçük görsel desteği"
+msgstr "Video küçük görseli desteği"
 
 #: MainWindow/FeatureDialog.cpp:147
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
 msgstr "Video üst verisi desteği"

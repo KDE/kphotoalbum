@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-03-23 00:40+0000\n"
+"POT-Creation-Date: 2025-03-24 00:40+0000\n"
 "PO-Revision-Date: 2024-04-22 16:04\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -3348,10 +3348,10 @@ msgid ""
 "from videos. These thumbnails are used to preview videos in the thumbnail "
 "viewer.</p><p>This feature is only available if FFmpeg is installed.</"
 "p><h2><a name=\"videoInfo\">Video metadata support</a></h2><p>KPhotoAlbum "
-"can use <tt>ffprobe</tt> to extract length information from videos.Correct "
+"can use <tt>ffprobe</tt> to extract length information from videos. Correct "
 "length information is necessary for correct rendering of video thumbnails.</"
-"p>This feature is only available if ffprobe is installed. Usually, ffprobe "
-"is also part of the FFmpeg package."
+"p><p>This feature is only available if ffprobe is installed. Usually, "
+"ffprobe is also part of the FFmpeg package.</p>"
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:135
@@ -3373,11 +3373,10 @@ msgid "SQLite database support"
 msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:144
-#, fuzzy, kde-format
-#| msgid "Building thumbnails"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
-msgstr "建立缩略图"
+msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:147
 #, kde-format
@@ -6593,6 +6592,3 @@ msgstr "显示图像大小"
 #, kde-format
 msgid "Show Rating"
 msgstr ""
-
-#~ msgid "Plug-ins available"
-#~ msgstr "插件可用"

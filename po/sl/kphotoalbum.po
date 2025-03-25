@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 00:40+0000\n"
-"PO-Revision-Date: 2025-03-23 07:31+0100\n"
+"PO-Revision-Date: 2025-03-24 07:26+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -3704,19 +3704,7 @@ msgstr ""
 "libqt6sql6-sqlite.</p>"
 
 #: MainWindow/FeatureDialog.cpp:102
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h2><a name=\"video\">Video support</a></h2><p>KPhotoAlbum relies on "
-#| "phonon or VLC for displaying videos</p><h2><a name=\"videoPreview\">Video "
-#| "thumbnail support</a></h2><p>KPhotoAlbum can use <tt>ffmpeg</tt> to "
-#| "extract thumbnails from videos. These thumbnails are used to preview "
-#| "videos in the thumbnail viewer.</p><p>This feature is only available if "
-#| "FFmpeg is installed.</p><h2><a name=\"videoInfo\">Video metadata support</"
-#| "a></h2><p>KPhotoAlbum can use <tt>ffprobe</tt> to extract length "
-#| "information from videos.Correct length information is necessary for "
-#| "correct rendering of video thumbnails.</p>This feature is only available "
-#| "if ffprobe is installed. Usually, ffprobe is also part of the FFmpeg "
-#| "package."
+#, kde-format
 msgid ""
 "<h2><a name=\"video\">Video support</a></h2><p>KPhotoAlbum relies on phonon "
 "or VLC for displaying videos</p><h2><a name=\"videoPreview\">Video thumbnail "
@@ -3739,7 +3727,7 @@ msgstr ""
 "lahko uporablja <tt>ffprobe</tt> za pridobivanje informacij o dolžini iz "
 "videoposnetkov. Za pravilno upodabljanje sličic videoposnetkov so potrebne "
 "pravilne informacije o dolžini.</p>Ta funkcija je na voljo samo če je "
-"nameščen ffprobe. Običajno je ffprobe tudi del paketa FFmpeg."
+"nameščen ffprobe. Običajno je ffprobe tudi del paketa FFmpeg.</p>"
 
 #: MainWindow/FeatureDialog.cpp:135
 #, kde-format

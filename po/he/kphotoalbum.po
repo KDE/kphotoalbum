@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 00:40+0000\n"
-"PO-Revision-Date: 2025-03-23 07:46+0200\n"
+"PO-Revision-Date: 2025-03-25 08:26+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -954,6 +954,11 @@ msgid ""
 "b></li><li>Now choose the <b>Categories</b> icon</li><li>Now configure "
 "section <b>Untagged Images</b></li></ul></p>"
 msgstr ""
+"<p>עדיין לא הגדרת באיזו תגית להשתמש לציון תמונות שאינן מתויגות.</p><p>נא "
+"לבצע את הפעולות הבאות לשם כך:<ul><li>בסרגל התפריטיםלבחור ב<b>הגדרות</b></"
+"li><li>משם לבחור ב<b>הגדרת KPhotoAlbum</b></li><li>עכשיו לבחור בסמל "
+"<b>קטגוריות</b></li><li>ולהגדיר את הסעיף <b>תמונות בלתי מתויגות</b></li></"
+"ul></p>"
 
 #: Browser/OverviewPage.cpp:340 MainWindow/Window.cpp:1782
 #, kde-format
@@ -3561,6 +3566,9 @@ msgid ""
 "depend on another package or program being available during runtime. I.e. "
 "you can enable these features by installing the right package.</p>"
 msgstr ""
+"<h1>יכולות זמן ריצה</h1><p>יכולות זמן ריצה הן יכולות רשות שתלויות בחבילות או "
+"תוכניות אחרותשזמינות בזמן הריצה. כלומרשאפשר להפעיל את היכולות האלה על ידי "
+"התקנת החבילה הנכונה.</p>"
 
 #: MainWindow/FeatureDialog.cpp:94
 #, kde-format
@@ -3576,7 +3584,19 @@ msgstr ""
 "בדרך כלל נקראת libqt6sql6-sqlite.</p>"
 
 #: MainWindow/FeatureDialog.cpp:102
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "<h2><a name=\"video\">Video support</a></h2><p>KPhotoAlbum relies on "
+#| "phonon or VLC for displaying videos</p><h2><a name=\"videoPreview\">Video "
+#| "thumbnail support</a></h2><p>KPhotoAlbum can use <tt>ffmpeg</tt> to "
+#| "extract thumbnails from videos. These thumbnails are used to preview "
+#| "videos in the thumbnail viewer.</p><p>This feature is only available if "
+#| "FFmpeg is installed.</p><h2><a name=\"videoInfo\">Video metadata support</"
+#| "a></h2><p>KPhotoAlbum can use <tt>ffprobe</tt> to extract length "
+#| "information from videos.Correct length information is necessary for "
+#| "correct rendering of video thumbnails.</p>This feature is only available "
+#| "if ffprobe is installed. Usually, ffprobe is also part of the FFmpeg "
+#| "package."
 msgid ""
 "<h2><a name=\"video\">Video support</a></h2><p>KPhotoAlbum relies on phonon "
 "or VLC for displaying videos</p><h2><a name=\"videoPreview\">Video thumbnail "
@@ -3589,6 +3609,16 @@ msgid ""
 "p><p>This feature is only available if ffprobe is installed. Usually, "
 "ffprobe is also part of the FFmpeg package.</p>"
 msgstr ""
+"<h2><a name=\"video\">תמיכה בווידאו</a></h2><p>KPhotoAlbum מסתמך על phonon "
+"או על VLC להצגת סרטונים</p><h2><a name=\"videoPreview\">תמיכה בתמונות וידאו "
+"מוקטנות</a></h2><p>KPhotoAlbum יכול להשתמש ב־<tt>ffmpeg</tt> כדילחלץ תמונות "
+"מוקטנות מסרטונים. התמונות המוקטנות האלה משמשות לתצוגה מקדימהשל הסרטונים "
+"במציג התמונות המוקטנות.</p><p>היכולת הזאת זמינה רק אם FFmpeg מותקן.</"
+"p><h2><a name=\"videoInfo\">תמיכה בנתוני על של סרטונים</a></"
+"h2><p>KPhotoAlbum יכול להשתמש ב־<tt>ffprobe</tt> כדי לחלץ נתוני אורך "
+"מסרטונים. פרטי האורך הנכונים נחוצים כדי לעבד את התמונות המוקטנות של הסרטונים "
+"כראוי.</p>היכולת הזאת זמינה רק אם ffprobe מותקן. בדרך כלל, ffprobe הוא חלק "
+"מחבילת FFmpeg בנוסף."
 
 #: MainWindow/FeatureDialog.cpp:135
 #, kde-format

@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 00:40+0000\n"
-"PO-Revision-Date: 2025-03-03 09:57+0100\n"
+"PO-Revision-Date: 2025-03-25 10:45+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 24.12.2\n"
+"X-Generator: Lokalize 24.12.3\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -3656,6 +3656,7 @@ msgstr "État des fonctionnalités"
 #, kde-format
 msgid "<h1>Overview</h1><p>Optional features in KPhotoAlbum:</p>%1"
 msgstr ""
+"<h1>Aperçu</h1><p> Fonctionnalités optionnelles dans KPhotoAlbum : </p>%1"
 
 #: MainWindow/FeatureDialog.cpp:65
 #, kde-format
@@ -3670,34 +3671,39 @@ msgid ""
 "from the package manager or an app store, you can file a bug report with the "
 "supplier of the package.</>"
 msgstr ""
+"<h1>Les fonctionnalités relatives au temps de compilation</h1><p>Les "
+"fonctionnalités relatives au temps de compilation sont facultatives qui "
+"doivent être activées lors de la création de KPhotoAlbum.</p><p>Si vous avez "
+"compiléKPhotoAlbum vous-même, veuillez vérifier les <a href=\"https://"
+"community.kde.org/KPhotoAlbum/build_instructions\">instructions de "
+"compilation</a> si vous avez manqué quelque chose. Si vous avez besoin "
+"d’aide pour compiler KPhotoAlbum, n’hésitez pas à poser des questions sur la "
+"<a href=\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum\">liste "
+"de diffusion de KPhotoAlbum</a> pour de l'aide. </p><p>Si vous avez installé "
+"KPhotoAlbum à partir du gestionnaire de paquets ou d’une application, vous "
+"pouvez ouvrir un rapport de bogue à destination du fournisseur de paquet. </>"
 
 #: MainWindow/FeatureDialog.cpp:79
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports "
-#| "the <em>Purpose</em> plugin system.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"purpose\">Purpose plugin support</a></h2><p>KPhotoAlbum "
 "supports the <em>Purpose</em> plugin system which is part of KDE Frameworks."
 "</p>"
 msgstr ""
-"<h1><a name=\"purpose\">Prise en charge du module externe</a></"
-"h1><p>KPhotoAlbum prend en charge le système de modules externes<em>Purpose</"
-"em>.</p>"
+"<h2><a name=\"purpose\">Prise en charge du module externe « Purpose » </a></"
+"h2><p>KPhotoAlbum prend en charge le système des modules "
+"externes<em>Purpose</em>, faisant partie des environnements de développement "
+"de KDE.</p>"
 
 #: MainWindow/FeatureDialog.cpp:83
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
-#| "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
-#| "images with GPS information on a map.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"geomap\">Map view for geotagged images</a></h2><p>If "
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
-"<h1><a name=\"geomap\">Vue cartographique pour les images géolocalisées</a></"
-"h1><p>Si KPhotoAlbum a été compilé avec la prise en charge de Marble, "
+"<h2><a name=\"geomap\">Vue cartographique pour les images géolocalisées</a></"
+"h2><p>Si KPhotoAlbum a été compilé avec la prise en charge de Marble, "
 "KPhotoAlbum peut afficher les images contenant des informations GPS sur une "
 "carte.</p>"
 
@@ -3708,25 +3714,25 @@ msgid ""
 "depend on another package or program being available during runtime. I.e. "
 "you can enable these features by installing the right package.</p>"
 msgstr ""
+"<h1>Fonctionnalités de temps d'exécution</h1><p> Les fonctionnalités de "
+"temps d'exécution sont des fonctionnalités optionnelles dépendant de la "
+"disponibilité d'un autre paquet ou d'un autre programme durant l'exécution. "
+"C'est-à-dire que vous pouvez activer ces fonctionnalités en installant le "
+"paquet adéquat.</p>"
 
 #: MainWindow/FeatureDialog.cpp:94
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
-#| "allows you to search using a certain number of Exif tags. For this "
-#| "KPhotoAlbum needs an SQLite database. In addition the Qt package for "
-#| "SQLite (e.g. qt-sql-sqlite) must be installed.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"database\">SQLite database support</a></h2><p>KPhotoAlbum "
 "allows you to search using a certain number of Exif tags.</p><p>This feature "
 "is only available if the Qt SQLite driver is installed. On Debian-based "
 "distributions this package is usually called libqt6sql6-sqlite.</p>"
 msgstr ""
-"<h1><a name=\"database\">Prise en charge de base de données SQLite</a></"
-"h1><p>KPhotoAlbum vous permet de faire des recherches en utilisant certaines "
-"balises « EXIF ». Pour ceci, KPhotoAlbum a besoin d'une base de données "
-"SQLite. Par conséquent le paquet Qt de SQLite (par exemple, qt-sql-sqlite) "
-"doit être installé.</p>"
+"<h2><a name=\"database\">Prise en charge de base de données SQLite</a></"
+"h2><p>KPhotoAlbum vous permet de faire des recherches en utilisant certaines "
+"balises « EXIF ».</p><p>Cette fonctionnalité n'est disponible que si le "
+"pilote Qt pour  SQLite est installé. Pour les distributions construites à "
+"partir de Debian, ce paquet s'appelle en général « libqt6sql6-sqlite ».</p>"
 
 #: MainWindow/FeatureDialog.cpp:102
 #, kde-format
@@ -3742,37 +3748,46 @@ msgid ""
 "p><p>This feature is only available if ffprobe is installed. Usually, "
 "ffprobe is also part of the FFmpeg package.</p>"
 msgstr ""
+"<h2><a name=\"video\">Prise en charge des vidéos</a></h2><p>KPhotoAlbum "
+"repose sur le serveur Phonon ou sur VLC pour l’affichage des vidéos.</"
+"p><h2><a name=\"videoPreview\">Prise en charge des vignettes de vidéo</a></"
+"h2><p>KPhotoAlbum peut utiliser <tt>ffmpeg</tt> pour extraire des vignettes "
+"de vidéos. Ces vignettes sont utilisées pour afficher un aperçu de vidéos "
+"dans l'afficheur de vignettes. </p><p>Cette fonction n’est disponible que si "
+"le logiciel FFmpeg est installé. </p><h2><a name=\"videoInfo\">Prise en "
+"charge des métadonnées de vidéo</a></h2><p>KPhotoAlbum peut utiliser le "
+"logiciel <tt>ffprobe</tt> pour extraire les informations de longueur des "
+"vidéos. Une information correcte de longueur est nécessaire pour un rendu "
+"correct des vignettes de vidéos. </p><p>Cette fonction n’est disponible que "
+"si le logiciel ffprobe est installé. Habituellement, ce dernier fait aussi "
+"partie du paquet avec FFmpeg.</p>"
 
 #: MainWindow/FeatureDialog.cpp:135
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Purpose plugin support"
-msgstr ""
+msgstr "Prise en charge du module externe « Purpose »"
 
 #: MainWindow/FeatureDialog.cpp:138
-#, fuzzy, kde-format
-#| msgid "Map view for geotagged images."
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Map view for geotagged images."
-msgstr "Vue cartographique pour les images géolocalisées"
+msgstr "Vue cartographique pour les images géolocalisées."
 
 #: MainWindow/FeatureDialog.cpp:141
-#, fuzzy, kde-format
-#| msgid "SQL database support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
 msgstr "Prise en charge de base de données SQL"
 
 #: MainWindow/FeatureDialog.cpp:144
-#, fuzzy, kde-format
-#| msgid "Video thumbnail support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
-msgstr "Prise en charge des vignettes vidéo"
+msgstr "Prise en charge des vignettes de vidéos"
 
 #: MainWindow/FeatureDialog.cpp:147
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
 msgstr "Prise en charge des méta-données des vidéos"

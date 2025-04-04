@@ -471,6 +471,8 @@ set(libDB_SRCS
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/search/ValueCategoryMatcher.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/search/WildcardCategoryMatcher.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/search/WildcardCategoryMatcher.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/DB/XML/AttributeEscaping.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/DB/XML/AttributeEscaping.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/XML/CompressFileInfo.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/XML/CompressFileInfo.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/DB/XML/ElementWriter.cpp"

@@ -34,7 +34,6 @@ public:
     {
     }
     void read(const QString &configFile);
-    static QString unescape(const QString &, int fileVersion);
     DB::StackID nextStackId() const { return m_nextStackId; }
 
 protected:

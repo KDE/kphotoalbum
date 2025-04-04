@@ -24,6 +24,7 @@
 #include "TagInfo.h"
 
 #include <DB/GroupCounter.h>
+#include <DB/XML/AttributeEscaping.h>
 #include <DB/XML/FileReader.h>
 #include <DB/XML/FileWriter.h>
 #include <Utilities/FastDateTime.h>
@@ -347,7 +348,7 @@ void ImageDB::readOptions(ImageInfoPtr info, DB::ReaderPtr reader, const QMap<QS
     static QString _area_ = QString::fromUtf8("area");
 
     while (reader->readNextStartOrStopElement(_option_).isStartToken) {
-        QString name = DB::FileReader::unescape(reader->attribute(_name_), reader->fileVersion());
+        QString name = unescapeAttributeName(reader->attribute(_name_), reader->fileVersion());
         // If the silent update to db version 6 has been done, use the updated category names.
         if (newToOldCategory) {
             name = newToOldCategory->key(name, name);
@@ -957,7 +958,7 @@ void ImageDB::possibleLoadCompressedCategories(DB::ReaderPtr reader, ImageInfoPt
         } else {
             oldCategoryName = categoryName;
         }
-        QString str = reader->attribute(DB::FileWriter::escape(oldCategoryName, reader->fileVersion()));
+        QString str = reader->attribute(escapeAttributeName(oldCategoryName, reader->fileVersion()));
         if (!str.isEmpty()) {
             const QStringList list = str.split(QString::fromLatin1(","), Qt::SkipEmptyParts);
             for (const QString &tagString : list) {

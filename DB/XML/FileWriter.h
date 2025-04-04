@@ -31,14 +31,13 @@ public:
     {
     }
     void save(const QString &fileName, bool isAutoSave);
-    static QString escape(const QString &, int fileVersion);
 
 protected:
     void saveCategories(QXmlStreamWriter &);
     void saveImages(QXmlStreamWriter &);
     void saveBlockList(QXmlStreamWriter &);
     void saveMemberGroups(QXmlStreamWriter &);
-    void saveGlobalSortOrder(QXmlStreamWriter&);
+    void saveGlobalSortOrder(QXmlStreamWriter &);
     void save(QXmlStreamWriter &writer, const DB::ImageInfoPtr &info);
     void writeCategories(QXmlStreamWriter &, const DB::ImageInfoPtr &info);
     void writeCategoriesCompressed(QXmlStreamWriter &, const DB::ImageInfoPtr &info);

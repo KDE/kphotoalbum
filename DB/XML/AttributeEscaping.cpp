@@ -49,7 +49,7 @@ QString DB::unescapeAttributeName(const QString &str, int fileVersion)
             unEscaped.replace(QStringLiteral("_"), QStringLiteral(" "));
 
         } else {
-            QRegularExpression rx(QStringLiteral("(_.)([0-9A-F]{2})"));
+            static QRegularExpression rx(QStringLiteral("(_.)([0-9A-F]{2})"));
             int pos = 0;
 
             // FIXME: KF6 port: Please review if this still does the same as the QRegExp stuff did
@@ -149,7 +149,7 @@ QString DB::escapeAttributeName(const QString &str, int fileVersion)
                     const auto match = rx.match(tmp);
                     if (match.hasMatch()) {
                         escaped += tmp.left(match.capturedStart())
-                            + QString::asprintf("_.%0X", match.captured().data()->toLatin1());
+                            + QString::asprintf("_.%0X", match.captured().constData()->toLatin1());
                         tmp = tmp.mid(match.capturedStart() + match.capturedLength(), -1);
                     } else {
                         escaped += tmp;

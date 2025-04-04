@@ -361,14 +361,19 @@ void ImageDB::readOptions(ImageInfoPtr info, DB::ReaderPtr reader, const QMap<QS
 
                 if (reader->hasAttribute(_area_)) {
                     QStringList areaData = reader->attribute(_area_).split(QString::fromUtf8(" "));
-                    int x = areaData[0].toInt();
-                    int y = areaData[1].toInt();
-                    int w = areaData[2].toInt();
-                    int h = areaData[3].toInt();
-                    QRect area = QRect(QPoint(x, y), QPoint(x + w - 1, y + h - 1));
+                    if (areaData.size() == 4) {
+                        int x = areaData[0].toInt();
+                        int y = areaData[1].toInt();
+                        int w = areaData[2].toInt();
+                        int h = areaData[3].toInt();
+                        QRect area = QRect(QPoint(x, y), QPoint(x + w - 1, y + h - 1));
 
-                    if (!value.isNull()) {
-                        info->addCategoryInfo(name, value, area);
+                        if (!value.isNull()) {
+                            info->addCategoryInfo(name, value, area);
+                        }
+                    } else {
+                        qCWarning(DBLog) << "Area data has incorrect number of components in line" << reader->lineNumber()
+                                         << "-" << areaData;
                     }
                 } else {
                     if (!value.isNull()) {

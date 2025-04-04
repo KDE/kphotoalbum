@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 00:40+0000\n"
-"PO-Revision-Date: 2025-02-14 19:37+0200\n"
+"PO-Revision-Date: 2025-04-03 17:48+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -3224,16 +3224,13 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with folder info made available through the browser. (.) Patch "
-#| "for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
-"(.) Korjaus kansiotietoihin selaimen kautta. (.) Korjaus valintaruudun "
-"lisäämiseksi hakusivun ja/tai-hakuihin."
+"Paikkaus selaimen kautta saataviin kansiotietoihin.\n"
+"Paikkaus valintaruudun lisäämiseksi hakusivun ja/tai-hakuihin."
 
 #: main.cpp:122
 #, kde-format
@@ -3271,13 +3268,13 @@ msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
-msgstr "Useita korjauksia ja uusia ominaisuuksia"
+msgstr ""
+"Lukuisia korjauksia moniin ohjelmavirheisiin ja\n"
+"paikkauksia joihin uusiin ominaisuuksiin"
 
 #: main.cpp:143
 #, kde-format
@@ -3295,16 +3292,13 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:149
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "Exif images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
-"Paikkaus kuvien lajittelemiseksi pienoiskuvanäkymässä sekä olemassa olevien "
-"kuvien ajan lukemiseksi Exif-tiedoista"
+"Paikkaus pienoiskuvanäkymässä kuvien lajittelemiseksi sekä\n"
+"olemassa olevien kuvien ajan lukemiseksi Exif-tiedoista"
 
 #: main.cpp:154
 #, kde-format
@@ -3332,15 +3326,13 @@ msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
 #: main.cpp:165
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
+#, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
-"Pienoiskuvien latauksen nopeuttaminen ja esikatselukuva ominaisuus ikkunassa."
+"Paikkaus, joka nopeuttaa pienoiskuvien ja esikatselun\n"
+"latausta kuvan ominaisuusikkunassa."
 
 #: MainWindow/AutoStackImages.cpp:46
 #, kde-format

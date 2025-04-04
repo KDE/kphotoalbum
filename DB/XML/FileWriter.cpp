@@ -569,7 +569,9 @@ QString DB::FileWriter::escape(const QString &str, int fileVersion)
         const auto escaped = QString::fromUtf8(
             str.toUtf8().toPercentEncoding(QByteArray(), s_escapeIncludes, '_'));
         s_cache.insert(str, escaped);
-        return escaped;
+
+        // We always start with a ":", so that we can't collide with our internal attribute names
+        return QStringLiteral(":%1").arg(escaped);
     }
 }
 

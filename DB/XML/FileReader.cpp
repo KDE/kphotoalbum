@@ -675,7 +675,7 @@ QString DB::FileReader::unescape(const QString &str, int fileVersion)
     if (!useCompressedFileFormat()) {
         return str;
     } else {
-        auto unEscaped = str;
+        auto unEscaped = str.mid(1); // Here we strip the ":" we added in DB::FileWriter::escape
         unEscaped = QString::fromUtf8(QByteArray::fromPercentEncoding(unEscaped.toUtf8(), '_'));
         s_cache.insert(str, unEscaped);
         return unEscaped;

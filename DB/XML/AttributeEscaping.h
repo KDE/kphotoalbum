@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2025 Johannes Zarl-Zierl <johannes@zarl-zierl.at>
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
 #ifndef ATTRIBUTEESCAPING_H
 #define ATTRIBUTEESCAPING_H
 

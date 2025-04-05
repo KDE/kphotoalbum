@@ -3105,8 +3105,6 @@ msgstr "Christoph Moseler"
 
 #: main.cpp:138
 #, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
@@ -3161,9 +3159,6 @@ msgstr "Marcel Wiesweg"
 
 #: main.cpp:165
 #, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
@@ -3482,21 +3477,18 @@ msgstr ""
 
 #: MainWindow/FeatureDialog.cpp:141
 #, fuzzy, kde-format
-#| msgid "Video thumbnail support"
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
 msgstr "Støtte for video minibilde"
 
 #: MainWindow/FeatureDialog.cpp:144
 #, fuzzy, kde-format
-#| msgid "Video thumbnail support"
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
 msgstr "Støtte for video minibilde"
 
 #: MainWindow/FeatureDialog.cpp:147
 #, fuzzy, kde-format
-#| msgid "Video thumbnail support"
 msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
 msgstr "Støtte for video minibilde"
@@ -3604,7 +3596,6 @@ msgstr ""
 
 #: MainWindow/Options.cpp:32
 #, fuzzy, kde-format
-#| msgid "KPhotoAlbum"
 msgid "kphotoalbumrc"
 msgstr "KPhotoAlbum"
 

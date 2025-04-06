@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: kphotoalbum\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-03-24 00:40+0000\n"
-"PO-Revision-Date: 2025-01-11 15:37+0100\n"
+"PO-Revision-Date: 2025-04-05 22:14+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #, kde-format
@@ -82,10 +82,10 @@ msgid ""
 "KPhotoAlbum...|General</interface>, a description embedded in the image Exif "
 "information is imported to this field if available.</para>"
 msgstr ""
-"<para>En beskrivande text om bilden.</para><para>Om <emphasis>Använd EXIF-"
+"<para>En beskrivande text om bilden.</para><para>Om <emphasis>Använd Exif-"
 "beskrivning</emphasis> är aktiverad under <interface>Inställningar|Anpassa "
 "Kfotoalbum...|Allmänt</interface>, importeras en beskrivning inbäddad i "
-"bildens EXIF-information till fältet om tillgänglig.</para>"
+"bildens Exif-information till fältet om tillgänglig.</para>"
 
 #: AnnotationDialog/Dialog.cpp:169 DB/ImageDB.cpp:400
 #, kde-format
@@ -105,7 +105,7 @@ msgid ""
 "are found in the Exif information."
 msgstr ""
 "Kartkomponenten låter dig visa platsen för bilder om GPS-koordinater hittas "
-"i EXIF-informationen."
+"i Exif-informationen."
 
 #: AnnotationDialog/Dialog.cpp:230
 #, kde-format
@@ -848,7 +848,7 @@ msgstr ""
 "aktiva jobb</li><li><b>helgul</b>: Paus i jobbkön</li><li><b>blinkande gul</"
 "b>: Paus i jobbkön för bakgrundsjobb, men ett jobb körs i förgrunden (som "
 "att extrahera en miniatyrbild för en videofil som för närvarande visas i "
-"miniatyrbildsvyn)</li></ul></p>"
+"miniatyrbildsvisningen)</li></ul></p>"
 
 #: Browser/AbstractCategoryModel.cpp:42 Exif/SearchDialog.cpp:387
 #: lib/kpaexif/SearchInfo.cpp:191
@@ -913,7 +913,7 @@ msgstr "Geografisk position"
 #: Browser/OverviewPage.cpp:157
 #, kde-format
 msgid "Exif Info"
-msgstr "EXIF-information"
+msgstr "Exif-information"
 
 #: Browser/OverviewPage.cpp:169
 #, kde-format
@@ -944,7 +944,7 @@ msgstr "Tomt sökresultat"
 #: Browser/OverviewPage.cpp:277
 #, kde-format
 msgid "Exif Search"
-msgstr "EXIF-sökning"
+msgstr "Exif-sökning"
 
 #: Browser/OverviewPage.cpp:297
 #, kde-format
@@ -1464,7 +1464,7 @@ msgstr ""
 "bilder med ofullständiga datum</b> i menyn <b>Underhåll</b>, som du kan "
 "använda för att hitta bilder som saknar datuminformation.</p><p>Därefter kan "
 "du markera bilder som du har orsak att anta antingen har ett riktigt datum i "
-"EXIF-data eller i filen, och utföra <b>Underhåll -> Läs EXIF-information</b> "
+"Exif-data eller i filen, och utföra <b>Underhåll -> Läs Exif-information</b> "
 "för att läsa om informationen.</p><p>Till sist, när alla bilder har datum "
 "angivna, kan du utföra <b>Underhåll -> Sortera alla enligt datum och tid</b> "
 "för att sortera dem i databasen.</p>"
@@ -1756,7 +1756,7 @@ msgstr "Absolut sökväg:"
 #: Exif/MetaDataDisplay.cpp:42
 #, kde-format
 msgid "MIME type:"
-msgstr "Mime-typ:"
+msgstr "MIME-typ:"
 
 #: Exif/MetaDataDisplay.cpp:46 Settings/ViewerSizeConfig.cpp:26
 #, kde-format
@@ -1834,12 +1834,12 @@ msgstr "%1 (%2)"
 #, kde-format
 msgctxt "@title:window"
 msgid "Read Exif Info from Files"
-msgstr "Läs EXIF-information från filer"
+msgstr "Läs Exif-information från filer"
 
 #: Exif/ReReadDialog.cpp:35
 #, kde-format
 msgid "Update Exif search database"
-msgstr "Uppdatera EXIF-sökdatabas"
+msgstr "Uppdatera Exif-sökdatabas"
 
 #: Exif/ReReadDialog.cpp:41
 #, kde-format
@@ -1849,17 +1849,17 @@ msgstr "Uppdatera bilddatum"
 #: Exif/ReReadDialog.cpp:44
 #, kde-format
 msgid "Use modification date if Exif not found"
-msgstr "Använd ändringsdatum om EXIF inte hittas"
+msgstr "Använd ändringsdatum om Exif inte hittas"
 
 #: Exif/ReReadDialog.cpp:47
 #, kde-format
 msgid "Update image orientation from Exif information"
-msgstr "Uppdatera bildorientering från EXIF-information"
+msgstr "Uppdatera bildorientering från Exif-information"
 
 #: Exif/ReReadDialog.cpp:50
 #, kde-format
 msgid "Update image description from Exif information"
-msgstr "Uppdatera bildbeskrivning från EXIF-information"
+msgstr "Uppdatera bildbeskrivning från Exif-information"
 
 #: Exif/ReReadDialog.cpp:53
 #, kde-format
@@ -1872,7 +1872,7 @@ msgid ""
 "<p>Be aware that setting the data from Exif may <b>overwrite</b> data you "
 "have previously entered manually using the image configuration dialog.</p>"
 msgstr ""
-"<p>Var medveten om att inställning av data från EXIF kan <b>skriva över</b> "
+"<p>Var medveten om att inställning av data från Exif kan <b>skriva över</b> "
 "data du tidigare har skrivit in för hand med dialogrutan för bildinställning."
 "</p>"
 
@@ -1885,7 +1885,7 @@ msgstr "Överskrid bilddatum"
 #, kde-format
 msgctxt "@title:window"
 msgid "Exif Search"
-msgstr "EXIF-sökning"
+msgstr "Exif-sökning"
 
 #: Exif/SearchDialog.cpp:35
 #, kde-format
@@ -1996,7 +1996,7 @@ msgid ""
 "Not all images in the database have lens information. <note>Recreate the "
 "Exif search database to ensure lens data for all images.</note>"
 msgstr ""
-"Alla bilder i databasen har inte linsinformation.<note>Återskapa EXIF-"
+"Alla bilder i databasen har inte linsinformation.<note>Återskapa Exif-"
 "sökdatabasen för att säkerställa att alla bilder har linsdata.</note>"
 
 #: HTMLGenerator/Generator.cpp:54
@@ -3147,8 +3147,8 @@ msgid ""
 "is scanned in. So the question is, should KPhotoAlbum trust the time stamp "
 "on your images?"
 msgstr ""
-"När bildernas tidsinformation läses, används deras EXIF-information. Dock "
-"kanske inte EXIF-information stöds av installationen av Kfotoalbum, eller "
+"När bildernas tidsinformation läses, används deras Exif-information. Dock "
+"kanske inte Exif-information stöds av installationen av Kfotoalbum, eller "
 "finns inte någon giltig information i filen. Som reservalternativ kan "
 "Kfotoalbum använda bildens tidstämpel, men den kanske inte är giltig i "
 "fallet då bilden lästs in. Frågan är, ska Kfotoalbum lita på bildernas "
@@ -3168,15 +3168,15 @@ msgid ""
 "command that was attempted to be executed was:<br/>%1</p><p>The error "
 "message obtained was:<br/>%2</p>"
 msgstr ""
-"<p>Ett fel uppstod vid åtkomst av EXIF-sökdatabasen. Felet beror troligen på "
-"en skadad databasfil.</p><p>Kör Underhåll -> Skapa om EXIF-sökdatabas, för "
+"<p>Ett fel uppstod vid åtkomst av Exif-sökdatabasen. Felet beror troligen på "
+"en skadad databasfil.</p><p>Kör Underhåll -> Skapa om Exif-sökdatabas, för "
 "att rätta problemet.</p><hr/><p>För felsökning, kommandot som försökte köras "
 "är:<br/>%1</p><p>Felmeddelandet som erhölls är:<br/>%2</p>"
 
 #: lib/kpaexif/Database.cpp:188
 #, kde-format
 msgid "Error in Exif database"
-msgstr "Fel i EXIF-databas"
+msgstr "Fel i Exif-databas"
 
 #: lib/kpaexif/Database.cpp:209
 #, kde-format
@@ -3185,8 +3185,8 @@ msgid ""
 "this problem run Maintenance->Recreate Exif Search database.</p><hr/><p>The "
 "error message obtained was:<br/>%1</p>"
 msgstr ""
-"<p>Ett fel uppstod när EXIF-sökdatabasen skulle öppnas.</p><p>Kör Underhåll -"
-"> Skapa om EXIF-sökdatabas, för att rätta problemet.</p><hr/"
+"<p>Ett fel uppstod när Exif-sökdatabasen skulle öppnas.</p><p>Kör Underhåll -"
+"> Skapa om Exif-sökdatabas, för att rätta problemet.</p><hr/"
 "><p>Felmeddelandet som erhölls är:<br/>%1</p>"
 
 #: lib/kpaexif/Database.cpp:259
@@ -3195,8 +3195,8 @@ msgid ""
 "<p>The Exif search database is corrupted and has no data.</p> <p>To fix this "
 "problem run Maintenance->Recreate Exif Search database.</p>"
 msgstr ""
-"<p>EXIF-sökdatabasen är skadad och innehåller ingen data.</p><p>Kör "
-"Underhåll -> Skapa om EXIF-sökdatabas, för att rätta problemet.</p>"
+"<p>Exif-sökdatabasen är skadad och innehåller ingen data.</p><p>Kör "
+"Underhåll -> Skapa om Exif-sökdatabas, för att rätta problemet.</p>"
 
 #: main.cpp:84
 #, kde-format
@@ -3222,7 +3222,7 @@ msgstr "Marco Caldarelli"
 #, kde-format
 msgid "Patch for making it possible to reread Exif info using a nice dialog."
 msgstr ""
-"Programfix för att göra det möjligt att läsa om EXIF-information med en "
+"Programfix för att göra det möjligt att läsa om Exif-information med en "
 "trevlig dialogruta."
 
 #: main.cpp:116
@@ -3231,15 +3231,12 @@ msgid "Jean-Michel FAYARD"
 msgstr "Jean-Michel FAYARD"
 
 #: main.cpp:117
-#, fuzzy, kde-format
-#| msgid ""
-#| "(.) Patch with folder info made available through the browser. (.) Patch "
-#| "for adding a check box for \"and/or\" searches in the search page."
+#, kde-format
 msgid ""
 "Patch with folder info made available through the browser.\n"
 "Patch for adding a check box for \"and/or\" searches in the search page."
 msgstr ""
-"(.) Programfix för att göra kataloginformation tillgänglig vid bläddring (.) "
+"Programfix för att göra kataloginformation tillgänglig vid bläddring.\n"
 "Programfix för att lägga till en kryssruta för sökningar med \"och/eller\" "
 "på söksidan."
 
@@ -3279,15 +3276,13 @@ msgid "Christoph Moseler"
 msgstr "Christoph Moseler"
 
 #: main.cpp:138
-#, fuzzy, kde-format
-#| msgid ""
-#| "Numerous patches for lots of bugs plus patches for a few new features"
+#, kde-format
 msgid ""
 "Numerous patches for lots of bugs,\n"
 "patches for a few new features"
 msgstr ""
-"En mängd programfixar för många fel, samt programfixar för några nya "
-"funktioner"
+"En mängd programfixar för många fel,\n"
+"programfixar för några nya funktioner"
 
 #: main.cpp:143
 #, kde-format
@@ -3305,16 +3300,13 @@ msgid "Thomas Schwarzgruber"
 msgstr "Thomas Schwarzgruber"
 
 #: main.cpp:149
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch to sort images in the thumbnail view, plus reading time info out of "
-#| "Exif images for existing images"
+#, kde-format
 msgid ""
 "Patch to sort images in the thumbnail view,\n"
 "reading time info out of Exif images for existing images"
 msgstr ""
-"Programfix för att sortera bilder i miniatyrbildsvyn, samt utläsning av "
-"tidsinformation från EXIF-bilder för befintliga bilder"
+"Programfix för att sortera bilder i miniatyrbildsvyn,\n"
+"utläsning av tidsinformation från Exif-bilder för befintliga bilder"
 
 #: main.cpp:154
 #, kde-format
@@ -3342,15 +3334,12 @@ msgid "Marcel Wiesweg"
 msgstr "Marcel Wiesweg"
 
 #: main.cpp:165
-#, fuzzy, kde-format
-#| msgid ""
-#| "Patch which speed up loading of thumbnails plus preview in image property "
-#| "dialog."
+#, kde-format
 msgid ""
 "Patch which speeds up loading of thumbnails,\n"
 "preview in image property dialog."
 msgstr ""
-"Programfix som snabbar upp laddning av miniatyrbilder, samt "
+"Programfix som snabbar upp laddning av miniatyrbilder,\n"
 "förhandsgranskning i bildegenskapsdialogrutan."
 
 #: MainWindow/AutoStackImages.cpp:46
@@ -3586,7 +3575,7 @@ msgstr "Funktionsstatus"
 #: MainWindow/FeatureDialog.cpp:59
 #, kde-format
 msgid "<h1>Overview</h1><p>Optional features in KPhotoAlbum:</p>%1"
-msgstr ""
+msgstr "<h1>Översikt</h1><p>Valfria funktioner i Kfotoalbum:</p>%1"
 
 #: MainWindow/FeatureDialog.cpp:65
 #, kde-format
@@ -3601,33 +3590,36 @@ msgid ""
 "from the package manager or an app store, you can file a bug report with the "
 "supplier of the package.</>"
 msgstr ""
+"<h1>Byggtidsfunktioner</h1><p>Byggtidsfunktioner är valfria funktioner som "
+"måste aktiveras när Kfotoalbum byggs.</p><p>Om du bygger Kfotoalbum själv, "
+"kontrollera <a href=\"https://community.kde.org/KPhotoAlbum/"
+"build_instructions\">bygginstruktionerna</a> om du saknar någonting. Om du "
+"behöver hjälp med att kompilera Kfotoalbum, fråga gärna om hjälp på <a href="
+"\"https://mail.kde.org/cgi-bin/mailman/listinfo/kphotoalbum\">Kfotoalbums e-"
+"postlista</a>.</p><p>Om du installerade Kfotoalbum från pakethanteraren "
+"eller en programbutik, kan du skicka in en felrapport till paketets "
+"leverantör.</>"
 
 #: MainWindow/FeatureDialog.cpp:79
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"purpose\">Plugin support</a></h1><p>KPhotoAlbum supports "
-#| "the <em>Purpose</em> plugin system.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"purpose\">Purpose plugin support</a></h2><p>KPhotoAlbum "
 "supports the <em>Purpose</em> plugin system which is part of KDE Frameworks."
 "</p>"
 msgstr ""
-"<h1><a name=\"purpose\">Stöd för insticksprogram</a></h1><p>Kfotoalbum "
-"stöder instickssystemet <em>Purpose</em>.</p>"
+"<h1><a name=\"purpose\">Stöd för Purpose-insticksprogram</a></"
+"h1><p>Kfotoalbum stöder instickssystemet <em>Purpose</em>, som ingår i KDE:s "
+"Ramverk.</p>"
 
 #: MainWindow/FeatureDialog.cpp:83
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"geomap\">Map view for geotagged images</a></h1><p>If "
-#| "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
-#| "images with GPS information on a map.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"geomap\">Map view for geotagged images</a></h2><p>If "
 "KPhotoAlbum has been built with support for Marble, KPhotoAlbum can show "
 "images with GPS information on a map.</p>"
 msgstr ""
-"<h1><a name=\"geomap\">Kartvy för geografiskt lokaliserade bilder</a></"
-"h1><p>Om Kfotoalbum har byggts med stöd för Marble, kan Kfotoalbum visa "
+"<h2><a name=\"geomap\">Kartvy för geografiskt lokaliserade bilder</a></"
+"h2><p>Om Kfotoalbum har byggts med stöd för Marble, kan Kfotoalbum visa "
 "bilder med GPS-information på en karta.</p>"
 
 #: MainWindow/FeatureDialog.cpp:88
@@ -3637,22 +3629,20 @@ msgid ""
 "depend on another package or program being available during runtime. I.e. "
 "you can enable these features by installing the right package.</p>"
 msgstr ""
+"<h1>Körtidsfunktioner</h1><p>Körtidsfunktioner är valfria funktioner som "
+"beror på att ett annat paket eller program är tillgängligt vid körtid, dvs. "
+"det går att aktivera funktionerna genom att installera rätt paket.</p>"
 
 #: MainWindow/FeatureDialog.cpp:94
-#, fuzzy, kde-format
-#| msgid ""
-#| "<h1><a name=\"database\">SQLite database support</a></h1><p>KPhotoAlbum "
-#| "allows you to search using a certain number of Exif tags. For this "
-#| "KPhotoAlbum needs an SQLite database. In addition the Qt package for "
-#| "SQLite (e.g. qt-sql-sqlite) must be installed.</p>"
+#, kde-format
 msgid ""
 "<h2><a name=\"database\">SQLite database support</a></h2><p>KPhotoAlbum "
 "allows you to search using a certain number of Exif tags.</p><p>This feature "
 "is only available if the Qt SQLite driver is installed. On Debian-based "
 "distributions this package is usually called libqt6sql6-sqlite.</p>"
 msgstr ""
-"<h1><a name=\"database\">SQLite-databasstöd</a></h1><p>Kfotoalbum låter dig "
-"söka med ett visst antal EXIF-taggar. För att det ska fungera behöver "
+"<h2><a name=\"database\">Stöd för SQLite-databas</a></h2><p>Kfotoalbum låter "
+"dig söka med ett visst antal Exif-taggar. För att det ska fungera behöver "
 "Kfotoalbum en SQLite-databas. Dessutom måste Qt-paketet för SQLite vara "
 "installerat (t.ex. qt-sql-sqlite).</p>"
 
@@ -3670,37 +3660,44 @@ msgid ""
 "p><p>This feature is only available if ffprobe is installed. Usually, "
 "ffprobe is also part of the FFmpeg package.</p>"
 msgstr ""
+"<h2><a name=\"video\">Stöd för video</a></h2><p>Kfotoalbum förlitar sig på "
+"phonon eller VLC för att visa videor</p><h2><a name=\"videoPreview\">Stöd "
+"för videominiatyrbilder</a></h2><p>Kfotoalbum kan använda <tt>ffmpeg</tt> "
+"för att extrahera miniatyrbilder från videor. Miniatyrbilderna används för "
+"att förhandsgranska videor i miniatyrbildsvisningen.</p><p>Funktion är "
+"endast tillgänglig om FFmpeg är installerat.</p><h2><a name=\"videoInfo"
+"\">Stöd för videometadata</a></h2><p>Kfotoalbum kan använda <tt>ffprobe</tt> "
+"för att extrahera längdinformation från videor. Korrekt längdinformation är "
+"nödvändig för korrekt återgivning av videominiatyrbilder.</p><p>Funktionen "
+"är endast tillgänglig om ffprobe är installerat. Oftast ingår ffprobe också "
+"i FFmpeg-paketet.</p>"
 
 #: MainWindow/FeatureDialog.cpp:135
 #, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Purpose plugin support"
-msgstr ""
+msgstr "Stöd för Purpose-insticksprogram"
 
 #: MainWindow/FeatureDialog.cpp:138
-#, fuzzy, kde-format
-#| msgid "Map view for geotagged images."
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Map view for geotagged images."
 msgstr "Kartvy för bilder med geografisk information."
 
 #: MainWindow/FeatureDialog.cpp:141
-#, fuzzy, kde-format
-#| msgid "SQL database support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "SQLite database support"
-msgstr "SQL-databasstöd"
+msgstr "Stöd för SQL-databas"
 
 #: MainWindow/FeatureDialog.cpp:144
-#, fuzzy, kde-format
-#| msgid "Video thumbnail support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video thumbnail support"
 msgstr "Stöd för videominiatyrbilder"
 
 #: MainWindow/FeatureDialog.cpp:147
-#, fuzzy, kde-format
-#| msgid "Video metadata support"
+#, kde-format
 msgctxt "This should match the heading in the text above"
 msgid "Video metadata support"
 msgstr "Stöd för videometadata"
@@ -4429,12 +4426,12 @@ msgstr "Sök efter bilder och videor igen"
 #: MainWindow/Window.cpp:1002
 #, kde-format
 msgid "Recreate Exif Search Database"
-msgstr "Skapa om EXIF-sökdatabasen"
+msgstr "Skapa om Exif-sökdatabasen"
 
 #: MainWindow/Window.cpp:1005
 #, kde-format
 msgid "Read Exif Info from Files..."
-msgstr "Läs EXIF-information från filer..."
+msgstr "Läs Exif-information från filer..."
 
 #: MainWindow/Window.cpp:1008
 #, kde-format
@@ -4649,7 +4646,7 @@ msgstr "Inga träffar"
 #: MainWindow/Window.cpp:1799
 #, kde-format
 msgid "Rereading Exif information from all images"
-msgstr "Läser in EXIF-information från alla bilder igen"
+msgstr "Läser in Exif-information från alla bilder igen"
 
 #: MainWindow/Window.cpp:1826
 #, no-c-format, kde-format
@@ -5074,12 +5071,12 @@ msgstr ""
 #: Settings/ExifPage.cpp:37
 #, kde-format
 msgid "Exif/IPTC info to show in the viewer"
-msgstr "EXIF/IPTC-information att visa i visningen"
+msgstr "Exif- och IPTC-information att visa i visningen"
 
 #: Settings/ExifPage.cpp:40
 #, kde-format
 msgid "Exif/IPTC info to show in the Exif dialog"
-msgstr "EXIF/IPTC-information att visa i EXIF-dialogrutan"
+msgstr "Exif- och IPTC-information att visa i Exif-dialogrutan"
 
 #: Settings/ExifPage.cpp:43
 #, kde-format
@@ -5492,12 +5489,12 @@ msgstr "Aldrig"
 #: Settings/GeneralPage.cpp:48
 #, kde-format
 msgid "Use Exif orientation information"
-msgstr "Använd EXIF-orienteringsinformation"
+msgstr "Använd Exif-orienteringsinformation"
 
 #: Settings/GeneralPage.cpp:53
 #, kde-format
 msgid "Use Exif description"
-msgstr "Använd EXIF-beskrivning"
+msgstr "Använd Exif-beskrivning"
 
 #: Settings/GeneralPage.cpp:57
 #, kde-format
@@ -5558,7 +5555,7 @@ msgid ""
 "b>, otherwise reply <b>ask</b>. This will allow you to decide whether the "
 "images are from the scanner or the camera, from session to session.</p>"
 msgstr ""
-"<p>Kfotoalbum försöker läsa bildens datum från EXIF-information i bilden. Om "
+"<p>Kfotoalbum försöker läsa bildens datum från Exif-information i bilden. Om "
 "det misslyckas hämtas datum från filens tidsstämpel.</p><p>Denna information "
 "kommer dock vara felaktig om bilden har lästs in. Du vill ha datum då bilden "
 "togs, inte då den lästes in.</p><p>Om du bara läser in bilder, i motsats "
@@ -5647,7 +5644,7 @@ msgstr "Etikettgrupper"
 #: Settings/SettingsDialog.cpp:53
 #, kde-format
 msgid "Exif/IPTC Information"
-msgstr "EXIF/IPTC-information"
+msgstr "Exif- och IPTC-information"
 
 #: Settings/SettingsDialog.cpp:54
 #, kde-format
@@ -7218,7 +7215,7 @@ msgstr "Visa filnamn"
 #: Viewer/VisibleOptionsMenu.cpp:64
 #, kde-format
 msgid "Show Exif"
-msgstr "Visa EXIF"
+msgstr "Visa Exif"
 
 #: Viewer/VisibleOptionsMenu.cpp:69
 #, kde-format

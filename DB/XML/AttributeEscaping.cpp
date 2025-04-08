@@ -128,25 +128,31 @@ QString DB::escapeAttributeName(const QString &str, int fileVersion)
             return str;
 
         } else {
-            // If we use the "compressed" file format, we have to do some escaping, because the category
-            // names are used as XML attributes and we can't use all characters for them. Beginning from
-            // db v11, we use a modified percent encoding provided by QByteArray that will work for all
-            // input strings and covers the whole Unicode range:
-
+            // If we use the "compressed" file format, we have to do some escaping, because the
+            // category names are used as XML attributes and we can't use all characters for them.
+            // Beginning from db v11, we use a modified percent encoding provided by QByteArray that
+            // will work for all input strings and covers the whole Unicode range:
+            //
             // The first character of an XML attribute must be a NameStartChar. That is a-z,
             // A-Z, ":" or "_". From the second position on, also 0-9, "." and "-" are allowed
             // (cf. https://www.w3.org/TR/xml/ for the full specification).
             //
-            // To keep it simple, we escape everything that is not a small or capital letter, and use
-            // the underscore as our escaping char. This way, nothing can go wrong, no matter what the
-            // given string contains, and at which position.
+            // To be sure to not collide with internally used attribute names, we always prepend a
+            // "_", so we only have to care about any chars not being a-z, A-Z, 0-9, ":", "_", "."
+            // and "-".
 
-            // By default, QByteArray::toPercentEncoding encodes everything that is not a-z, A-Z, 0-9,
-            // "-", ".", "_" or "~". We thus have to add some more chars to include:
-            static const QByteArray s_escapeIncludes = QStringLiteral("-._~0123456789").toUtf8();
+            // By default, QByteArray::toPercentEncoding encodes everything that is not a-z, A-Z,
+            // 0-9, "-", ".", "_" or "~". "~" is not allowed, so we have to escape it, as well as
+            // "_", because we use it as our escaping character:
+            static const QByteArray s_escapeIncludes = QStringLiteral("~_").toUtf8();
+
+            // Per standard, ":" would be allowed everywhere, but Qt doesn't like it. We thus simply
+            // let QByteArray::toPercentEncoding escape it, as it does by default, and exclude
+            // nothing:
+            static const QByteArray s_escapeExcludes;
 
             auto escaped = QString::fromUtf8(
-                str.toUtf8().toPercentEncoding(QByteArray(), s_escapeIncludes, '_'));
+                str.toUtf8().toPercentEncoding(s_escapeExcludes, s_escapeIncludes, '_'));
 
             // We always start with a "_", so that we can't collide with our internal attribute
             // names. Per standard, a ":" would also be okay as a NameStartChar, but Qt's XML reader
